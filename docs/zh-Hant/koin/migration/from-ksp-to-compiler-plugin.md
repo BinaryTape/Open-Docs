@@ -10,7 +10,7 @@ title: 將 Koin 註解從 KSP 遷移至編譯器外掛程式
 **您的註解將保持完全相同。** 僅有組建組態與 Koin 啟動程式碼會發生變更。
 :::
 
-## 有何不同？
+## 有何不同？ {id="what-s-different"}
 
 | 面向 | KSP 處理 | 編譯器外掛程式 |
 |--------|----------------|-----------------|
@@ -21,14 +21,14 @@ title: 將 Koin 註解從 KSP 遷移至編譯器外掛程式
 | **Koin 啟動** | `modules(AppModule().module)` | `startKoin<MyApp>()` |
 | **未來支援** | 已棄用 | 積極開發中 |
 
-## 系統需求
+## 系統需求 {id="requirements"}
 
 - **Kotlin 2.3.20+** (需要 K2 編譯器)
 - **Gradle 8.x+**
 
-## 遷移步驟
+## 遷移步驟 {id="migration-steps"}
 
-### 步驟 1：更新 Kotlin 版本
+### 步驟 1：更新 Kotlin 版本 {id="step-1-update-kotlin-version"}
 
 編譯器外掛程式需要 Kotlin 2.3.20+：
 
@@ -39,7 +39,7 @@ plugins {
 }
 ```
 
-### 步驟 2：更新版本目錄 (Version Catalog)
+### 步驟 2：更新版本目錄 (Version Catalog) {id="step-2-update-version-catalog"}
 
 **遷移前 (KSP)：**
 ```toml
@@ -75,7 +75,7 @@ koin-compiler = { id = "io.insert-koin.compiler.plugin", version.ref = "koin-plu
 `koin-annotations` 現在是 Koin 主專案的一部分，並使用與 `koin-core` 相同的版本。
 :::
 
-### 步驟 3：更新組建組態
+### 步驟 3：更新組建組態 {id="step-3-update-build-configuration"}
 
 **遷移前 (KSP)：**
 ```kotlin
@@ -113,7 +113,7 @@ koinCompiler {
 }
 ```
 
-### 步驟 4：更新 Koin 啟動
+### 步驟 4：更新 Koin 啟動 {id="step-4-update-koin-startup"}
 
 這是主要的程式碼變更。KSP 方式使用產生的 `.module` 擴充套件，而編譯器外掛程式則使用具備 `@KoinApplication` 的具型別 API。
 
@@ -149,7 +149,7 @@ fun main() {
 }
 ```
 
-#### Android 範例
+#### Android 範例 {id="android-example"}
 
 **遷移前 (KSP)：**
 ```kotlin
@@ -181,7 +181,7 @@ class MyApplication : Application() {
 }
 ```
 
-### 步驟 5：清理
+### 步驟 5：清理 {id="step-5-clean-up"}
 
 移除 KSP 產生的檔案並重新組建：
 
@@ -190,7 +190,7 @@ rm -rf build/generated/ksp
 ./gradlew clean build
 ```
 
-## 註解保持不變
+## 註解保持不變 {id="annotations-stay-the-same"}
 
 所有加上註解的類別皆維持不變：
 
@@ -212,7 +212,7 @@ class AppModule
 
 所有註解的功能完全相同。請參閱 **[註解參考](/docs/reference/koin-annotations/definitions)** 以取得完整清單。
 
-### 匯入變更：`@KoinViewModel`
+### 匯入變更：`@KoinViewModel` {id="import-change-koinviewmodel"}
 
 `@KoinViewModel` 註解的套件已變更：
 
@@ -224,7 +224,7 @@ import org.koin.android.annotation.KoinViewModel
 import org.koin.core.annotation.KoinViewModel
 ```
 
-### 頂層函式定義 (新增)
+### 頂層函式定義 (新增) {id="top-level-function-definitions-new"}
 
 編譯器外掛程式支援在頂層函式上使用註解，並透過 `@ComponentScan` 進行偵測：
 
@@ -242,7 +242,7 @@ class AppModule
 
 函式傳回型別決定了繫結型別。函式參數將作為相依性注入。
 
-## DSL 語法變更
+## DSL 語法變更 {id="dsl-syntax-changes"}
 
 如果您在註解之外也使用 Koin DSL 模組，編譯器外掛程式引入了更簡潔的語法：
 
@@ -285,7 +285,7 @@ val dbModule = module {
 編譯器外掛程式 DSL 位於 **`org.koin.plugin.module.dsl`** 套件中。傳統 DSL 則保留在 `org.koin.dsl` 中。
 :::
 
-## 跨模組偵測
+## 跨模組偵測 {id="cross-module-discovery"}
 
 使用 `@Configuration` 在 Gradle 模組之間進行自動模組偵測：
 
@@ -303,7 +303,7 @@ object MyApp
 startKoin<MyApp>()  // FeatureModule 會自動被包含進來
 ```
 
-## KMP 遷移
+## KMP 遷移 {id="kmp-migration"}
 
 編譯器外掛程式大幅簡化了 KMP 設定。
 
@@ -351,32 +351,32 @@ kotlin {
 }
 ```
 
-## 具型別的啟動 API
+## 具型別的啟動 API {id="typed-startup-apis"}
 
 編譯器外掛程式提供了具型別 API：`startKoin<T>()`、`koinApplication<T>()`、`koinConfiguration<T>()`。
 
 詳情請參閱 **[從註解開始](/docs/reference/koin-annotations/start)**。
 
-## 配置標籤 (新增)
+## 配置標籤 (新增) {id="configuration-labels-new"}
 
 編譯器外掛程式新增了配置標籤，用於條件式模組載入。
 
 詳情請參閱 **[模組 - 配置](/docs/reference/koin-annotations/modules)**。
 
-## 編譯器外掛程式選項
+## 編譯器外掛程式選項 {id="compiler-plugin-options"}
 
 請參閱 **[編譯器外掛程式選項](/docs/reference/koin-annotations/options)** 以了解所有配置選項。
 
-## 疑難排解
+## 疑難排解 {id="troubleshooting"}
 
-### 移除 KSP 後組建失敗
+### 移除 KSP 後組建失敗 {id="build-fails-after-removing-ksp"}
 
 1. `./gradlew clean`
 2. `rm -rf build/generated/ksp`
 3. 失效 IDE 快取 (Invalidate IDE caches)
 4. 重新組建
 
-### 未偵測到註解
+### 未偵測到註解 {id="annotations-not-detected"}
 
 啟用記錄功能：
 ```kotlin
@@ -385,13 +385,13 @@ koinCompiler {
 }
 ```
 
-### 執行時缺少相依性
+### 執行時缺少相依性 {id="missing-dependencies-at-runtime"}
 
 1. 檢查 `@ComponentScan` 套件
 2. 驗證 `@KoinApplication(modules = [...])` 中的模組
 3. 對外部相依性使用 `@Provided`
 
-## 遷移檢查表
+## 遷移檢查表 {id="migration-checklist"}
 
 - [ ] 將 Kotlin 更新至 2.3.20+
 - [ ] 將 Koin 更新至 4.2.0+
@@ -406,7 +406,7 @@ koinCompiler {
 - [ ] 移除 `import org.koin.ksp.generated.*`
 - [ ] 清理並重新組建 (`rm -rf build/generated/ksp && ./gradlew clean build`)
 
-## 另請參閱
+## 另請參閱 {id="see-also"}
 
 - **[編譯器外掛程式設定](/docs/setup/compiler-plugin)** — 完整設定指南
 - **[註解參考](/docs/reference/koin-annotations/start)** — 所有註解

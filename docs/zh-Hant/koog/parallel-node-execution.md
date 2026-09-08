@@ -1,4 +1,4 @@
-## 概觀
+## 概觀 {id="overview"}
 
 並行節點執行（Parallel node execution）可讓您同時執行多個 AI agent 節點，提升效能並實現複雜的工作流程。當您需要執行以下操作時，此功能特別有用：
 
@@ -6,22 +6,22 @@
 - 並行執行多個獨立操作
 - 實作競爭性評估模式，即產生多個解決方案後進行比較
 
-## 關鍵組件
+## 關鍵組件 {id="key-components"}
 
 Koog 中的並行節點執行由下列方法與資料結構組成。
 
-### 方法
+### 方法 {id="methods"}
 
 - `parallel()`：並行執行多個節點並收集其結果。
 
-### 資料結構
+### 資料結構 {id="data-structures"}
 
 - `ParallelResult`：代表並行節點執行的完成結果。
 - `NodeExecutionResult`：包含節點執行的輸出與內容（context）。
 
-## 基本用法
+## 基本用法 {id="basic-usage"}
 
-### 並行執行節點
+### 並行執行節點 {id="running-nodes-in-parallel"}
 
 若要啟動節點的並行執行，請使用以下格式的 `parallel` 方法：
 
@@ -80,7 +80,7 @@ val calc by parallel<String, Int>(
 
 上述程式碼並行執行 `nodeCalcTokens`、`nodeCalcSymbols` 和 `nodeCalcWords` 節點，並回傳值最大的結果。
 
-### 合併策略
+### 合併策略 {id="merge-strategies"}
 
 並行執行節點後，您需要指定如何合併結果。Koog 提供下列合併策略：
 
@@ -89,7 +89,7 @@ val calc by parallel<String, Int>(
 - `selectByIndex()`：根據選擇函式回傳的索引選擇結果。
 - `fold()`：使用運算函式將結果摺疊為單一值。
 
-#### selectBy
+#### selectBy {id="selectby"}
 
 根據述詞函式選擇結果：
 
@@ -120,7 +120,7 @@ val nodeSelectJoke by parallel<String, String>(
 
 這會選擇第一個包含「programmer」單字的笑話。
 
-#### selectByMax
+#### selectByMax {id="selectbymax"}
 
 根據比較函式選擇具有最大值的結果：
 
@@ -151,7 +151,7 @@ val nodeLongestJoke by parallel<String, String>(
 
 這會選擇長度最長的笑話。
 
-#### selectByIndex
+#### selectByIndex {id="selectbyindex"}
 
 根據選擇函式回傳的索引選擇結果：
 
@@ -200,7 +200,7 @@ val nodeBestJoke by parallel<String, String>(
 
 這會使用另一個 LLM 呼叫來判定最佳笑話的索引。
 
-#### fold
+#### fold {id="fold"}
 
 使用運算函式將結果摺疊為單一值：
 
@@ -233,7 +233,7 @@ $joke" }
 
 這會將所有笑話結合成單一字串。
 
-## 範例：最佳笑話 Agent
+## 範例：最佳笑話 Agent {id="example-best-joke-agent"}
 
 這是一個完整範例，使用並行執行從不同的 LLM 模型產生笑話並選出最佳笑話：
 
@@ -333,7 +333,7 @@ $joke" }.joinToString("
 ```
 <!--- KNIT example-parallel-node-execution-07.kt -->
 
-## 最佳實務
+## 最佳實務 {id="best-practices"}
 
 1. **考量資源限制**：並行執行節點時，請留意資源使用情況，特別是同時進行多個 LLM API 呼叫時。
 
@@ -345,7 +345,7 @@ $joke" }.joinToString("
     - 對於基於條件的篩選，使用 `selectBy`
     - 對於聚合操作，使用 `fold` 將所有結果結合成複合輸出
 
-## 效能考量
+## 效能考量 {id="performance-considerations"}
 
 並行執行可顯著提升吞吐量，但也會帶來一些開銷：
 

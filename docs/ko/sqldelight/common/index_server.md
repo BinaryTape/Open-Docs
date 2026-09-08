@@ -2,13 +2,13 @@ SQLDelight은 데이터베이스의 스키마를 알아야 합니다. 일반적�
 
 SQLDelight에서 이러한 방식은 "[Fresh Schema](#fresh-schema)"를 위해 `.sq` 파일에 테이블 정의를 작성하거나, "[Migration Schema](#migration-schema)"를 위해 `.sqm` 파일에 마이그레이션 구문을 작성하는 방식으로 대응됩니다. 두 경우 모두 SQL *쿼리*는 ([여기에 표시된 대로](#typesafe-sql)) `.sq` 파일에 작성됩니다.
 
-## Fresh Schema
+## Fresh Schema {id="fresh-schema"}
 
 {% include 'common/index_schema_sq.md' %}
 
 동일한 `.sq` 파일에 [런타임](#typesafe-sql)에 실행할 SQL 구문을 배치할 수 있습니다.
 
-## Migration Schema
+## Migration Schema {id="migration-schema"}
 
 먼저, 마이그레이션을 사용하여 스키마를 구성하도록 Gradle을 설정합니다.
 
@@ -49,7 +49,7 @@ src
 
 SQLDelight은 `v1__backend.sqm`을 적용한 다음 `v2__backend.sqm`을 적용하여 스키마를 생성합니다. 이 파일들에 일반적인 SQL `CREATE`/`ALTER` 구문을 배치하세요. 만약 다른 서비스(예: Flyway)가 마이그레이션 파일을 읽는 경우, [마이그레이션](migrations) 관련 정보와 유효한 SQL을 출력하는 방법을 반드시 읽어보시기 바랍니다.
 
-## Typesafe SQL
+## Typesafe SQL {id="typesafe-sql"}
 
 런타임에 SQL 구문을 실행하려면 데이터베이스에 연결하기 위한 `SqlDriver`를 생성해야 합니다. 가장 쉬운 방법은 Hikari나 다른 커넥션 관리자로부터 얻은 `DataSource`를 사용하는 것입니다.
 

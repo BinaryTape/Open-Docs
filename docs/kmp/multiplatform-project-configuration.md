@@ -13,7 +13,7 @@
 
 回答这些问题将帮助您为项目选择最佳配置。
 
-## 将 Kotlin Multiplatform 模块连接到 iOS 应用
+## 将 Kotlin Multiplatform 模块连接到 iOS 应用 {id="connect-a-kotlin-multiplatform-module-to-an-ios-app"}
 
 要从 iOS 应用中使用 Kotlin Multiplatform 共享模块，您首先需要从该共享模块生成一个 [iOS 框架](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPFrameworks/Concepts/WhatAreFrameworks.html)。然后，您应该将其作为依赖项添加到 iOS 项目中。
 
@@ -24,11 +24,11 @@
 
 要查看所有可用的 iOS 集成选项，请参阅 [iOS 集成方法](multiplatform-ios-integration-overview.md)。
 
-## 模块配置
+## 模块配置 {id="module-configurations"}
 
 在 Kotlin Multiplatform 项目中，您可以使用两种模块配置选项：单个模块或多个共享模块。
 
-### 单个共享模块
+### 单个共享模块 {id="single-shared-module"}
 
 最简单的模块配置在项目中仅包含一个共享的 Kotlin Multiplatform 模块：
 
@@ -61,7 +61,7 @@ Android 应用可以像依赖常规 Kotlin 模块一样依赖 Kotlin Multiplatfo
 
 </table>
 
-### 多个共享模块
+### 多个共享模块 {id="several-shared-modules"}
 
 随着共享模块的增长，将其拆分为功能模块是一个好主意。这可以帮助您避免与仅拥有一个模块相关的可扩展性问题。
 
@@ -112,7 +112,7 @@ Umbrella 框架方法的一个已知约束是 iOS 应用不能仅使用部分功
 >
 {style="tip"}
 
-#### 为什么需要 umbrella 框架？ {initial-collapse-state="collapsed" collapsible="true"}
+#### 为什么需要 umbrella 框架？ {initial-collapse-state="collapsed" collapsible="true" id="why-do-you-need-an-umbrella-framework"}
 
 虽然可以在 iOS 应用中包含由不同 Kotlin Multiplatform 共享模块生成的多个框架，但我们不推荐这种方法。当 Kotlin Multiplatform 模块被编译成框架时，生成的框架包含其所有的依赖项。每当两个或更多模块使用相同的依赖项，并作为独立的框架暴露给 iOS 时，Kotlin/Native 编译器就会重复这些依赖项。
 
@@ -122,11 +122,11 @@ Kotlin 不会生成通用的框架依赖项，因为否则会出现重复，而�
 
 此问题的解决方案是使用 umbrella 框架。它可以防止 iOS 应用因重复依赖而膨胀，有助于优化生成的构件，并消除由依赖项之间的不兼容所引起的困扰。
 
-## 仓库配置
+## 仓库配置 {id="repository-configurations"}
 
 在新的和现有的 Kotlin Multiplatform 项目中，您可以使用多种仓库配置选项，包括使用单个仓库或多个仓库的组合。
 
-### 单仓库：所有内容都在一个仓库中
+### 单仓库：所有内容都在一个仓库中 {id="monorepo-everything-in-one-repository"}
 
 一种常见的仓库配置称为单仓库 (monorepo) 配置。这种方法被用于 Kotlin Multiplatform 示例和教程中。在这种情况下，仓库包含 Android 和 iOS 应用，以及共享模块或多个模块（包括 umbrella 模块）：
 
@@ -165,7 +165,7 @@ Kotlin 不会生成通用的框架依赖项，因为否则会出现重复，而�
 
 当现有的 Android 和 iOS 应用已经存储在不同的仓库中时，您可以将 Kotlin Multiplatform 部分添加到 Android 仓库或单独的仓库中，而不是合并它们。
 
-### 两个仓库：Android + 共享 | iOS
+### 两个仓库：Android + 共享 | iOS {id="two-repositories-android-shared-ios"}
 
 另一种项目配置是拥有两个仓库。在这种情况下，Kotlin Multiplatform 仓库包含 Android 应用和共享模块（包括 umbrella 模块），而 Xcode 项目包含 iOS 应用：
 
@@ -173,7 +173,7 @@ Kotlin 不会生成通用的框架依赖项，因为否则会出现重复，而�
 
 Android 和 iOS 应用可以分别进行版本控制，而共享模块随 Android 应用一起进行版本控制。
 
-### 三个仓库：Android | iOS | 共享
+### 三个仓库：Android | iOS | 共享 {id="three-repositories-android-ios-shared"}
 
 还有一个选项是为 Kotlin Multiplatform 模块建立一个单独的仓库。在这种情况下，Android 和 iOS 应用存储在独立的仓库中，项目的共享代码可以包含多个功能模块以及用于 iOS 的 umbrella 模块：
 
@@ -185,7 +185,7 @@ Android 和 iOS 应用可以分别进行版本控制，而共享模块随 Androi
 
 当 Android 和 iOS 团队都引用相同版本的构件时，他们在版本上保持同步。从团队的角度来看，这避免了共享的 Kotlin Multiplatform 代码由 Android 开发者“拥有”的印象。对于已经发布版本化的内部 Kotlin 和 Swift 软件包以进行功能开发的的大型项目，发布共享的 Kotlin 构件将成为现有工作流的一部分。
 
-### 多个仓库：Android | iOS | 多个库
+### 多个仓库：Android | iOS | 多个库 {id="many-repositories-android-ios-multiple-libraries"}
 
 当功能需要在多个平台上的多个应用之间共享时，您可能更倾向于拥有多个带有 Kotlin Multiplatform 代码的仓库。例如，您可以将整个产品通用的日志库存储在具有自己版本控制的独立仓库中。
 
@@ -195,11 +195,11 @@ Android 和 iOS 应用可以分别进行版本控制，而共享模块随 Androi
 
 在这里，每个库也必须针对 Android 或 JVM 平台进行版本控制和发布。应用和每个库都可以独立进行版本控制。
 
-## 代码共享工作流
+## 代码共享工作流 {id="code-sharing-workflow"}
 
 iOS 应用可以将由 Kotlin Multiplatform 共享模块生成的框架作为 _本地_ 或 _远程_ 依赖项引用。您可以通过在 iOS 构建中提供框架的本地路径来使用本地依赖项。在这种情况下，您不需要发布框架。或者，您可以将带有框架的构件发布到某处，并让 iOS 应用像引用任何其他第三方依赖项一样将其作为远程依赖项引用。
 
-### 本地：源码分发
+### 本地：源码分发 {id="local-source-distribution"}
 
 本地分发是指 iOS 应用引用 Kotlin Multiplatform 模块框架而无需发布。iOS 应用可以直接集成框架，也可以使用 CocoaPods 集成。
 
@@ -240,7 +240,7 @@ iOS 应用可以将由 Kotlin Multiplatform 共享模块生成的框架作为 _�
 
 </table>
 
-### 远程：构件分发
+### 远程：构件分发 {id="remote-artifact-distribution"}
 
 远程分发意味着框架构件使用 Swift 软件包管理器或作为 CocoaPod 发布，并由 iOS 应用引用。Android 应用可以本地或远程引用二进制依赖项。
 
@@ -273,7 +273,7 @@ iOS 应用可以将由 Kotlin Multiplatform 共享模块生成的框架作为 _�
 
 </table>
 
-#### 为本地开发设置本地依赖项
+#### 为本地开发设置本地依赖项 {id="setting-up-a-local-dependency-for-local-development"}
 
 许多团队在采用 Kotlin Multiplatform 技术时选择远程分发工作流，以保持 iOS 开发者的开发过程不变。然而，在这种工作流中，他们很难更改 Kotlin Multiplatform 代码。我们建议设置一个额外的“本地开发”工作流，本地依赖于从 Kotlin Multiplatform 模块生成的框架。
 

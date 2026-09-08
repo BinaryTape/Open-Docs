@@ -4,7 +4,7 @@
 在此頁面中，我們將介紹適用於所有 `MutableCollection` 實作的寫入操作。
 關於 `List` 與 `Map` 特有的操作，請分別參閱 [List 特有操作](list-operations.md) 與 [Map 特有操作](map-operations.md)。
 
-## 新增元素
+## 新增元素 {id="adding-elements"}
 
 若要向 list 或 set 新增單個元素，請使用 [`add()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/add.html) 函式。指定的物件會附加到集合的末尾。
 
@@ -59,7 +59,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 移除元素
+## 移除元素 {id="removing-elements"}
 
 若要從可變集合中移除一個元素，請使用 [`remove()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/remove.html) 函式。
 `remove()` 接受元素值並移除該值的一個執行個體。 
@@ -125,7 +125,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 更新元素
+## 更新元素 {id="updating-elements"}
 
 List 與 map 也提供了更新元素的操作。
 這些操作在 [List 特有操作](list-operations.md) 與 [Map 特有操作](map-operations.md) 中有詳細說明。

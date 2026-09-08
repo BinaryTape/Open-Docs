@@ -4,7 +4,7 @@ title: Koin DSL
 
 Koin DSLのクイックリファレンスです。詳細なガイドについては、**[Core - Definitions](/docs/reference/koin-core/definitions)** および **[Core - Modules](/docs/reference/koin-core/modules)** を参照してください。
 
-## DSL のアプローチ
+## DSL のアプローチ {id="dsl-approaches"}
 
 | アプローチ | 構文 | パッケージ |
 |----------|--------|---------|
@@ -16,11 +16,11 @@ Koin DSLのクイックリファレンスです。詳細なガイドについて
 **コンパイラプラグイン DSL** は、自動ワイヤリングとコンパイル時の安全性を提供します。[コンパイラプラグインのセットアップ](/docs/setup/compiler-plugin)を参照してください。
 :::
 
-## Application DSL
+## Application DSL {id="application-dsl"}
 
 `KoinApplication` インスタンスは、設定済みの Koin コンテナを表します。これにより、ロギングの設定、プロパティのロード、およびモジュールの登録が可能になります。
 
-### KoinApplication の作成
+### KoinApplication の作成 {id="creating-a-koinapplication"}
 
 2つのアプローチから選択できます：
 
@@ -40,7 +40,7 @@ startKoin {
 }
 ```
 
-### 設定関数
+### 設定関数 {id="configuration-functions"}
 
 `koinApplication` または `startKoin` 内では、以下の関数を使用できます：
 
@@ -52,7 +52,7 @@ startKoin {
 * `createEagerInstances()` - `createdAtStart` とマークされたすべての定義をインスタンス化します。
 * `allowOverride(Boolean)` - 定義の上書きの有効化/無効化を切り替えます（3.1.0 以降のデフォルトは `true`）。
 
-### グローバルコンテキスト vs ローカルコンテキスト
+### グローバルコンテキスト vs ローカルコンテキスト {id="global-vs-local-context"}
 
 `koinApplication` と `startKoin` の主な違いは以下の通りです：
 
@@ -81,7 +81,7 @@ val customKoin = koinApplication {
 val service = customKoin.get<Service>() // 特定のインスタンスを使用
 ```
 
-### Koin の開始
+### Koin の開始 {id="starting-koin"}
 
 Koin セットアップの完全な例：
 
@@ -106,14 +106,14 @@ startKoin {
 }
 ```
 
-## Module DSL
+## Module DSL {id="module-dsl"}
 
 モジュールと定義に関する包括的なドキュメントについては、以下を参照してください：
 - **[Definitions](/docs/reference/koin-core/definitions)** - DSL とアノテーションを使用したすべての定義タイプ
 - **[Modules](/docs/reference/koin-core/modules)** - モジュールの構成と合成
 - **[Definitions Reference](/docs/reference/koin-core/definitions)** - クイックルックアップテーブル
 
-### クイックリファレンス
+### クイックリファレンス {id="quick-reference"}
 
 | 定義 | クラシックラムダ | クラシックな自動ワイヤリング | コンパイラプラグイン |
 |------------|----------------|------------------|-----------------|
@@ -123,7 +123,7 @@ startKoin {
 | ViewModel | `viewModel { VM(get()) }` | `viewModelOf(::VM)` | `viewModel<VM>()` |
 | ファンクションビルダー (Function Builder) | `single { fn(get()) }` | — | `single { create(::fn) }` |
 
-### 基本的なモジュール
+### 基本的なモジュール {id="basic-module"}
 
 ```kotlin
 val myModule = module {
@@ -133,7 +133,7 @@ val myModule = module {
 }
 ```
 
-### モジュールの合成
+### モジュールの合成 {id="module-composition"}
 
 ```kotlin
 val appModule = module {

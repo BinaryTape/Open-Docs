@@ -6,7 +6,7 @@ title: 모듈
 
 Koin 모듈은 의존성 주입 설정을 구성하는 기본 단위입니다.
 
-## 모듈이란 무엇인가요?
+## 모듈이란 무엇인가요? {id="what-is-a-module"}
 
 모듈은 관련된 정의(definition)들을 그룹화하는 논리적인 컨테이너입니다:
 
@@ -24,9 +24,9 @@ val appModule = module {
 - 다양한 컨텍스트에서 설정을 **재사용**할 수 있습니다.
 - 모듈화된 프로젝트에서 **가시성(visibility)을 제어**할 수 있습니다.
 
-## 모듈 생성하기
+## 모듈 생성하기 {id="creating-modules"}
 
-### 컴파일러 플러그인 DSL 사용
+### 컴파일러 플러그인 DSL 사용 {id="with-compiler-plugin-dsl"}
 
 ```kotlin
 import org.koin.plugin.module.dsl.*
@@ -42,7 +42,7 @@ val databaseModule = module {
 }
 ```
 
-### 애노테이션 사용
+### 애노테이션 사용 {id="with-annotations"}
 
 ```kotlin
 @Module
@@ -54,7 +54,7 @@ class NetworkModule
 class DatabaseModule
 ```
 
-### 클래식 DSL 사용
+### 클래식 DSL 사용 {id="with-classic-dsl"}
 
 ```kotlin
 val networkModule = module {
@@ -63,7 +63,7 @@ val networkModule = module {
 }
 ```
 
-## 여러 모듈 사용하기
+## 여러 모듈 사용하기 {id="using-multiple-modules"}
 
 의존성은 다른 모듈에 있는 정의를 참조할 수 있습니다:
 
@@ -93,7 +93,7 @@ Koin은 로드된 모든 모듈에 걸쳐 의존성을 자동으로 해결(resol
 모듈을 직접 나열하는 방식도 작동하지만, 더 나은 구조와 최적화된 로딩을 위해 [`includes()`](#includes를-사용한-모듈-구성)를 사용하여 모듈을 계층 구조로 구성하는 것을 고려해 보세요.
 :::
 
-## `includes()`를 사용한 모듈 구성
+## `includes()`를 사용한 모듈 구성 {id="module-composition-with-includes"}
 
 `includes()` 함수는 모듈을 구성하는 **권장되는 방식**입니다. 다음과 같은 기능을 제공합니다:
 
@@ -132,7 +132,7 @@ startKoin {
 }
 ```
 
-### `includes()`의 로딩 최적화 방식
+### `includes()`의 로딩 최적화 방식 {id="how-includes-optimizes-loading"}
 
 모듈이 여러 번 포함되더라도 Koin은 이를 한 번만 로드합니다:
 
@@ -161,7 +161,7 @@ startKoin {
 }
 ```
 
-### 멀티 모듈 프로젝트
+### 멀티 모듈 프로젝트 {id="multi-module-projects"}
 
 가시성 수정자(visibility modifiers)를 사용하여 노출되는 내용을 제어하세요:
 
@@ -188,9 +188,9 @@ startKoin {
 }
 ```
 
-## 모듈 재정의 (Module Override)
+## 모듈 재정의 (Module Override) {id="module-override"}
 
-### 기본 동작
+### 기본 동작 {id="default-behavior"}
 
 기본적으로 **마지막에 로드된 정의가 우선**합니다:
 
@@ -208,7 +208,7 @@ startKoin {
 }
 ```
 
-### 엄격 모드 (Strict Mode)
+### 엄격 모드 (Strict Mode) {id="strict-mode"}
 
 프로덕션 환경에서는 재정의를 비활성화할 수 있습니다:
 
@@ -219,7 +219,7 @@ startKoin {
 }
 ```
 
-### 명시적 재정의
+### 명시적 재정의 {id="explicit-override"}
 
 엄격 모드에서도 특정 정의에 대해 재정의를 허용할 수 있습니다:
 
@@ -234,7 +234,7 @@ startKoin {
 }
 ```
 
-## 즉시 생성 모듈 (Eager Module Creation)
+## 즉시 생성 모듈 (Eager Module Creation) {id="eager-module-creation"}
 
 시작 시 싱글톤을 즉시 생성하도록 설정합니다:
 
@@ -245,7 +245,7 @@ val coreModule = module(createdAtStart = true) {
 }
 ```
 
-## 파라미터화된 모듈
+## 파라미터화된 모듈 {id="parameterized-modules"}
 
 동적으로 모듈을 생성할 수 있습니다:
 
@@ -261,7 +261,7 @@ startKoin {
 }
 ```
 
-## 전략 패턴 (Strategy Pattern)
+## 전략 패턴 (Strategy Pattern) {id="strategy-pattern"}
 
 모듈을 사용하여 구현체를 교체할 수 있습니다:
 
@@ -290,7 +290,7 @@ startKoin {
 }
 ```
 
-## 애노테이션 기반 모듈
+## 애노테이션 기반 모듈 {id="annotated-modules"}
 
 Koin은 DSL의 대안으로 애노테이션 기반 모듈 설정을 지원합니다.
 
@@ -318,9 +318,9 @@ class AppModule
 애노테이션 기반 모듈에 대한 자세한 문서는 [애노테이션 레퍼런스 - 모듈](/docs/reference/koin-annotations/modules)을 참조하세요.
 :::
 
-## 모범 사례 (Best Practices)
+## 모범 사례 (Best Practices) {id="best-practices"}
 
-### 조직화
+### 조직화 {id="organization"}
 
 1. **기능/계층별 그룹화**
    ```kotlin
@@ -348,7 +348,7 @@ class AppModule
 
 3. **모듈의 집중도 유지** - 모듈당 하나의 책임만 갖도록 합니다.
 
-### 명명 규칙
+### 명명 규칙 {id="naming"}
 
 - 서술적인 이름을 사용하세요: `networkModule`, `userFeatureModule`
 - 관련된 것끼리 그룹화하세요: `authDataModule`, `authDomainModule`
@@ -359,7 +359,7 @@ class AppModule
 2. **구현 모듈에는 `private` 또는 `internal`을 사용**하세요.
 3. **공유 모듈은 `:core`에 배치**합니다.
 
-## 다음 단계
+## 다음 단계 {id="next-steps"}
 
 - **[정의(Definitions)](/docs/reference/koin-core/definitions)** - 정의 생성하기
 - **[한정자(Qualifiers)](/docs/reference/koin-core/qualifiers)** - 이름 및 타입 한정자

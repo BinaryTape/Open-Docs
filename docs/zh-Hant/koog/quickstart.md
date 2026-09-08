@@ -2,11 +2,11 @@
 
 這份指南將協助您在專案中開始使用 Koog。
 
-## 先決條件
+## 先決條件 {id="prerequisites"}
 
 --8<-- "quickstart-snippets.md:prerequisites"
 
-## 安裝 Koog
+## 安裝 Koog {id="install-koog"}
 
 --8<-- "quickstart-snippets.md:dependencies"
 
@@ -28,7 +28,7 @@
     
     您可以在[這裡](https://packages.jetbrains.team/maven/p/grazi/grazie-platform-public/ai/koog/koog-agents/)瀏覽可用的 Nightly 版本。
 
-## 設定 API 金鑰
+## 設定 API 金鑰 {id="set-up-an-api-key"}
 
 Koog 需要來自[受支援的 LLM 提供者](llm-providers.md)的 API 金鑰，或是本機執行的 LLM。
 
@@ -153,7 +153,7 @@ Koog 需要來自[受支援的 LLM 提供者](llm-providers.md)的 API 金鑰，
 
     按照 [Ollama 文件](https://docs.ollama.com/quickstart)中的說明，在 Ollama 中執行本機 LLM。
 
-## 建立您的第一個 Koog Agent
+## 建立您的第一個 Koog Agent {id="create-your-first-koog-agent"}
 
 === "OpenAI"
 
@@ -779,6 +779,6 @@ Koog 需要來自[受支援的 LLM 提供者](llm-providers.md)的 API 金鑰，
     ```
     <!--- KNIT example-getting-started-09.txt -->
 
-## 後續步驟
+## 後續步驟 {id="next-steps"}
 
 - 進一步了解 [Agent 類型](agents/index.md)

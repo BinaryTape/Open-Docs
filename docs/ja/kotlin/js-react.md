@@ -16,7 +16,7 @@
 >
 {style="note"}
 
-## 始める前に
+## 始める前に {id="before-you-start"}
 
 1. 最新バージョンの [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) をダウンロードしてインストールします。
 2. [プロジェクトテンプレート](https://github.com/kotlin-hands-on/web-app-react-kotlin-js-gradle)をクローンし、IntelliJ IDEAで開きます。テンプレートには、必要なすべての構成と依存関係が含まれた基本的なKotlinマルチプラットフォームGradleプロジェクトが含まれています。
@@ -74,7 +74,7 @@
    }
    ```
 
-### 開発サーバーの実行
+### 開発サーバーの実行 {id="run-the-development-server"}
 
 デフォルトでは、KotlinマルチプラットフォームGradleプラグインには組み込みの `webpack-dev-server` のサポートが付属しており、サーバーを手動でセットアップすることなくIDEからアプリケーションを実行できます。
 
@@ -88,7 +88,7 @@
 
 ![空白の赤いページ](red-page.png){width=700}
 
-### ホットリロード / 継続モードを有効にする
+### ホットリロード / 継続モードを有効にする {id="enable-hot-reload-continuous-mode"}
 
 変更を加えるたびにプロジェクトを手動でコンパイルして実行する必要がないように、_[継続的コンパイル](dev-server-continuous-compilation.md)_モードを構成します。続行する前に、実行中のすべての開発サーバーインスタンスを必ず停止してください。
 
@@ -116,9 +116,9 @@
 >
 {style="note"}
 
-## Webアプリのドラフトを作成する
+## Webアプリのドラフトを作成する {id="create-a-web-app-draft"}
 
-### Reactを使用して最初の静的ページを追加する
+### Reactを使用して最初の静的ページを追加する {id="add-the-first-static-page-with-react"}
 
 アプリに簡単なメッセージを表示させるには、`Main.kt` ファイルのコードを以下に置き換えます。
 
@@ -155,7 +155,7 @@ fun main() {
 
 ![HTMLページの例](hello-react-js.png){width=700}
 
-### HTMLをKotlinの型安全なHTML DSLに変換する
+### HTMLをKotlinの型安全なHTML DSLに変換する {id="convert-html-to-kotlin-s-typesafe-html-dsl"}
 
 React用のKotlin[ラッパー](https://github.com/JetBrains/kotlin-wrappers/blob/master/kotlin-react/README.md)には、純粋なKotlinコードでHTMLを記述できるようにする[ドメイン固有言語 (DSL)](type-safe-builders.md)が付属しています。この点において、JavaScriptの[JSX](https://reactjs.org/docs/introducing-jsx.html)に似ています。しかし、このマークアップはKotlinであるため、オートコンプリートや型チェックなど、静的型付け言語のすべての利点を得ることができます。
 
@@ -226,7 +226,7 @@ Kotlinコードをコピーし、`main()` 関数内の `Fragment.create()` 関�
 
 ![Webアプリのドラフト](website-draft.png){width=700}
 
-### マークアップでKotlinの構文を使用してビデオを追加する
+### マークアップでKotlinの構文を使用してビデオを追加する {id="add-videos-using-kotlin-constructs-in-markup"}
 
 このDSLを使用してKotlinでHTMLを記述することには、いくつかの利点があります。ループ、条件、コレクション、文字列補完などの通常のKotlin構文を使用して、アプリを操作できます。
 
@@ -279,7 +279,7 @@ Kotlinコードをコピーし、`main()` 関数内の `Fragment.create()` 関�
 
 ブラウザがリロードされるのを待ちます。レイアウトは以前と同じままのはずです。リストにビデオをさらに追加して、ループが動作していることを確認できます。
 
-### 型安全なCSSでスタイルを追加する
+### 型安全なCSSでスタイルを追加する {id="add-styles-with-typesafe-css"}
 
 [Emotion](https://emotion.sh/docs/introduction)ライブラリ用の [kotlin-emotion](https://github.com/JetBrains/kotlin-wrappers/blob/master/kotlin-emotion/) ラッパーを使用すると、JavaScriptと並んでHTMLのすぐ隣でCSS属性（動的なものも含めて）を指定できます。概念的には、[CSS-in-JS](https://reactjs.org/docs/faq-styling.html#what-is-css-in-js)に似ています。しかし、このマークアップはKotlinであるため、オートコンプリートや型チェックなど、静的型付け言語のすべての利点を得ることができます。
 
@@ -316,7 +316,7 @@ div {
 
 他のスタイルも自由に試してみてください。たとえば、`fontFamily` を変更したり、UIに `color` を追加したりできます。
 
-## アプリコンポーネントの設計
+## アプリコンポーネントの設計 {id="design-app-components"}
 
 Reactにおける基本的な構成要素は、_[コンポーネント](https://reactjs.org/docs/components-and-props.html)_と呼ばれます。コンポーネント自体も、他のより小さなコンポーネントで構成できます。コンポーネントを組み合わせることで、アプリケーションを構築します。コンポーネントを汎用的で再利用可能になるように構造化すれば、コードやロジックを重複させることなく、アプリの複数の部分で使用できるようになります。
 
@@ -330,7 +330,7 @@ Reactにおける基本的な構成要素は、_[コンポーネント](https://
 
 コンポーネントは特定の機能をカプセル化します。コンポーネントを使用すると、ソースコードが短くなり、読みやすく理解しやすくなります。
 
-### メインコンポーネントを追加する
+### メインコンポーネントを追加する {id="add-the-main-component"}
 
 アプリケーションの構造の作成を開始するには、まず、`root` 要素にレンダリングするためのメインコンポーネントである `App` を明示的に指定します。
 
@@ -374,7 +374,7 @@ Reactにおける基本的な構成要素は、_[コンポーネント](https://
 
 Reactの概念の詳細については、[ドキュメントとガイド](https://reactjs.org/docs/hello-world.html#how-to-read-this-guide)を参照してください。
 
-### リストコンポーネントを抽出する
+### リストコンポーネントを抽出する {id="extract-a-list-component"}
 
 `watchedVideos` リストと `unwatchedVideos` リストはそれぞれビデオのリストを含んでいるため、単一の再利用可能なコンポーネントを作成し、リストに表示される内容のみを調整するのが合理的です。
 
@@ -419,7 +419,7 @@ Reactの概念の詳細については、[ドキュメントとガイド](https:
 
    現在のところ、`App` コンポーネントは `VideoList` コンポーネントによって表示されるコンテンツを制御できません。ハードコードされているため、同じリストが2回表示されます。
 
-### コンポーネント間でデータを渡すためのpropsを追加する
+### コンポーネント間でデータを渡すためのpropsを追加する {id="add-props-to-pass-data-between-components"}
 
 `VideoList` コンポーネントを再利用するためには、異なるコンテンツで埋めることができる必要があります。コンポーネントの属性としてアイテムのリストを渡す機能を追加できます。Reactでは、これらの属性は _props_ と呼ばれます。Reactでコンポーネントの props が変更されると、フレームワークは自動的にコンポーネントを再レンダリングします。
 
@@ -469,7 +469,7 @@ Reactの概念の詳細については、[ドキュメントとガイド](https:
 
 リロード後、ブラウザにはリストが正しくレンダリングされていることが表示されます。
 
-### リストをインタラクティブにする
+### リストをインタラクティブにする {id="make-the-list-interactive"}
 
 まず、ユーザーがリストエントリをクリックしたときに表示されるアラートメッセージを追加します。`VideoList.kt` で、現在のビデオのアラートをトリガーする `onClick` ハンドラー関数を追加します。
 
@@ -495,7 +495,7 @@ p {
 >
 {style="tip"}
 
-### 値を保持するためのstateを追加する
+### 値を保持するためのstateを追加する {id="add-state-to-keep-values"}
 
 単にユーザーにアラートを出す代わりに、選択されたビデオを ▶ の三角形で強調表示する機能を追加しましょう。これを行うには、このコンポーネントに固有の _state（状態）_ を導入します。
 
@@ -544,7 +544,7 @@ state管理の詳細については、[React FAQ](https://reactjs.org/docs/faq-s
 
 ブラウザを確認し、リスト内のアイテムをクリックして、すべてが正しく動作していることを確認してください。
 
-## コンポーネントを合成する
+## コンポーネントを合成する {id="compose-components"}
 
 現在、2つのビデオリストはそれぞれ独自に機能しています。つまり、各リストが選択されたビデオを個別に追跡しています。プレーヤーは1つしかないにもかかわらず、ユーザーは未視聴リストと視聴済みリストで2つのビデオを選択できてしまいます。
 
@@ -552,7 +552,7 @@ state管理の詳細については、[React FAQ](https://reactjs.org/docs/faq-s
 
 リストは、自分自身の内部と、兄弟リストの内部の両方でどのビデオが選択されているかを追跡することはできません。その理由は、選択されたビデオが _リスト_ のstateではなく、_アプリケーション_ のstateの一部だからです。これは、個々のコンポーネントからstateを _引き上げる（lift）_ 必要があることを意味します。
 
-### Stateの引き上げ
+### Stateの引き上げ {id="lift-state"}
 
 Reactでは、propsは親コンポーネントからその子コンポーネントへと一方向にしか渡せません。これにより、コンポーネント同士が密結合になるのを防ぎます。
 
@@ -590,7 +590,7 @@ stateをコンポーネントからその親に移行するプロセスは、_st
    }
    ```
 
-### ハンドラーを渡す
+### ハンドラーを渡す {id="pass-handlers"}
 
 現時点では、prop に値を代入する方法がないため、`onClick` 関数は現在の設定のままでは動作しません。親コンポーネントのstateを変更するには、ここでもstateを引き上げる必要があります。
 
@@ -632,9 +632,9 @@ Reactでは、stateは常に親から子へと流れます。そのため、子�
 
 ブラウザに戻り、ビデオを選択したときに、選択が重複することなく2つのリスト間をジャンプすることを確認してください。
 
-## コンポーネントをさらに追加する
+## コンポーネントをさらに追加する {id="add-more-components"}
 
-### ビデオプレーヤーコンポーネントを抽出する
+### ビデオプレーヤーコンポーネントを抽出する {id="extract-the-video-player-component"}
 
 現在プレースホルダー画像となっているビデオプレーヤーを、別の独立したコンポーネントとして作成できます。ビデオプレーヤーは、トークのタイトル、トークの著者、およびビデオへのリンクを知る必要があります。この情報は各 `Video` オブジェクトに既に含まれているため、それを prop として渡し、その属性にアクセスできます。
 
@@ -686,7 +686,7 @@ Reactでは、stateは常に親から子へと流れます。そのため、子�
 
 これで、リスト内のエントリをクリックするとビデオプレーヤーが表示され、クリックされたエントリの情報が入力されるようになります。
 
-### ボタンを追加して連携させる
+### ボタンを追加して連携させる {id="add-a-button-and-wire-it"}
 
 ユーザーがビデオを視聴済みまたは未視聴としてマークし、2つのリスト間で移動できるようにするために、`VideoPlayer` コンポーネントにボタンを追加します。
 
@@ -723,7 +723,7 @@ Reactでは、stateは常に親から子へと流れます。そのため、子�
 
    スタイルを動的に変更できる Kotlin CSS DSL の助けを借りて、基本的な Kotlin `if` 式を使用してボタンの色を変更できます。
 
-### ビデオリストをアプリケーションstateに移動する
+### ビデオリストをアプリケーションstateに移動する {id="move-video-lists-to-the-application-state"}
 
 次に、`App` コンポーネント内の `VideoPlayer` の使用箇所を調整します。ボタンがクリックされたときに、ビデオが未視聴リストから視聴済みリストへ、またはその逆へと移動される必要があります。これらのリストは実際に変更される可能性があるため、これらをアプリケーションstateに移動します。
 
@@ -766,13 +766,13 @@ Reactでは、stateは常に親から子へと流れます。そのため、子�
 
 ブラウザに戻り、ビデオを選択してボタンを数回押してみてください。ビデオが2つのリスト間をジャンプします。
 
-## npmのパッケージを使用する
+## npmのパッケージを使用する {id="use-packages-from-npm"}
 
 アプリを実用的にするために、実際にビデオを再生するビデオプレーヤーと、コンテンツの共有に役立つボタンが必要です。
 
 Reactには、これらの機能を自分で構築する代わりに使用できる、既製のコンポーネントが多数含まれた豊かなエコシステムがあります。
 
-### ビデオプレーヤーコンポーネントを追加する
+### ビデオプレーヤーコンポーネントを追加する {id="add-the-video-player-component"}
 
 プレースホルダーのビデオコンポーネントを実際のYouTubeプレーヤーに置き換えるには、npm の `react-player` パッケージを使用します。これはビデオを再生でき、プレーヤーの外観を制御することもできます。
 
@@ -839,7 +839,7 @@ Reactには、これらの機能を自分で構築する代わりに使用でき
    }
    ```
 
-### ソーシャルシェアボタンを追加する
+### ソーシャルシェアボタンを追加する {id="add-social-share-buttons"}
 
 アプリケーションのコンテンツを共有する簡単な方法は、メッセンジャーやメール用のソーシャルシェアボタンを用意することです。これにも既製のReactコンポーネント（例：[react-share](https://github.com/nygardk/react-share/blob/master/README.md)）を使用できます。
 
@@ -924,13 +924,13 @@ Reactには、これらの機能を自分で構築する代わりに使用でき
 
 [react-share](https://github.com/nygardk/react-share/blob/master/README.md#features) で利用可能な他のソーシャルネットワークのシェアボタンについても、この手順を自由に繰り返してみてください。
 
-## 外部REST APIを使用する
+## 外部REST APIを使用する {id="use-an-external-rest-api"}
 
 ハードコードされたデモデータを、アプリ内のREST APIからの実際のデータに置き換えることができます。
 
 このチュートリアルでは、[小さなAPI](https://my-json-server.typicode.com/kotlin-hands-on/kotlinconf-json/videos/1)を用意しています。これは `videos` という単一のエンドポイントのみを提供し、数値パラメータを受け取ってリストから要素にアクセスします。ブラウザでAPIにアクセスすると、APIから返されるオブジェクトが `Video` オブジェクトと同じ構造を持っていることがわかります。
 
-### KotlinからJSの機能を使用する
+### KotlinからJSの機能を使用する {id="use-js-functionality-from-kotlin"}
 
 ブラウザには、すでに多種多様な [Web API](https://developer.mozilla.org/en-US/docs/Web/API) が備わっています。Kotlin/JSにはこれらのAPI用のラッパーが標準で含まれているため、Kotlin/JSからこれらを使用することもできます。一例として、HTTPリクエストを作成するために使用される [fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) があります。
 
@@ -951,7 +951,7 @@ dependencies {
 }
 ```
 
-### シリアル化を追加する
+### シリアル化を追加する {id="add-serialization"}
 
 外部APIを呼び出すと、JSON形式のテキストが返されます。これを、操作可能なKotlinオブジェクトに変換する必要があります。
 
@@ -985,7 +985,7 @@ dependencies {
    )
    ```
 
-### ビデオを取得する
+### ビデオを取得する {id="fetch-videos"}
 
 APIからビデオを取得するには、`App.kt`（または新しいファイル）に次の関数を追加します。
 
@@ -1056,17 +1056,17 @@ suspend fun fetchVideo(id: Int): Video {
 
 コルーチンの仕組みについて深く理解したい場合は、この [コルーチンに関するチュートリアル](coroutines-and-channels.md) を確認してください。
 
-## 本番環境とクラウドへのデプロイ
+## 本番環境とクラウドへのデプロイ {id="deploy-to-production-and-the-cloud"}
 
 アプリケーションをクラウドに公開して、他の人がアクセスできるようにしましょう。
 
-### 本番ビルドのパッケージ化
+### 本番ビルドのパッケージ化 {id="package-a-production-build"}
 
 すべての資産を本番モードでパッケージ化するには、IntelliJ IDEAのツールウィンドウから、または `./gradlew build` を実行して、Gradleで `build` タスクを実行します。これにより、DCE（デッドコード削除）などのさまざまな改善が適用された、最適化されたプロジェクトビルドが生成されます。
 
 ビルドが完了すると、デプロイに必要なすべてのファイルが `/build/dist` に配置されます。これらには、JavaScriptファイル、HTMLファイル、およびアプリケーションの実行に必要なその他のリソースが含まれます。これらを静的HTTPサーバーに配置したり、GitHub Pagesを使用して提供したり、お好みのクラウドプロバイダーでホストしたりできます。
 
-### Herokuへのデプロイ
+### Herokuへのデプロイ {id="deploy-to-heroku"}
 
 Herokuを使用すると、独自のドメインでアクセス可能なアプリケーションを非常に簡単に立ち上げることができます。無料枠でも開発目的には十分なはずです。
 
@@ -1127,9 +1127,9 @@ Herokuを使用すると、独自のドメインでアクセス可能なアプ�
 >
 {style="note"}
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
-### さらに機能を追加する {initial-collapse-state="collapsed" collapsible="true"}
+### さらに機能を追加する {initial-collapse-state="collapsed" collapsible="true" id="add-more-features"}
 
 出来上がったアプリを出発点として、React、Kotlin/JSなどの分野におけるより高度なトピックを探索できます。
 
@@ -1137,18 +1137,18 @@ Herokuを使用すると、独自のドメインでアクセス可能なアプ�
 * **永続化**。現在、アプリケーションはページがリロードされるたびに視聴者の視聴リストを失います。Kotlinで利用可能なWebフレームワーク（[Ktor](https://ktor.io/) など）のいずれかを使用して、独自のバックエンドを構築することを検討してください。あるいは、[クライアントに情報を保存する](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)方法を調べてください。
 * **複雑なAPI**。多数のデータセットやAPIが利用可能です。あらゆる種類のデータをアプリケーションに取り込むことができます。たとえば、[猫の写真](https://thecatapi.com/)のビジュアライザーや、[著作権フリーのストックフォトAPI](https://unsplash.com/developers)を構築できます。
 
-### スタイルの改善：レスポンシブとグリッド {initial-collapse-state="collapsed" collapsible="true"}
+### スタイルの改善：レスポンシブとグリッド {initial-collapse-state="collapsed" collapsible="true" id="improve-the-style-responsiveness-and-grids"}
 
 アプリケーションのデザインはまだ非常にシンプルで、モバイルデバイスや狭いウィンドウではあまり良く見えません。アプリをよりアクセシブルにするために、CSS DSLをさらに探索してください。
 
-### コミュニティに参加して助けを得る {initial-collapse-state="collapsed" collapsible="true"}
+### コミュニティに参加して助けを得る {initial-collapse-state="collapsed" collapsible="true" id="join-the-community-and-get-help"}
 
 問題を報告したり助けを得たりするための最良の方法は、[kotlin-wrappersの問題トラッカー](https://github.com/JetBrains/kotlin-wrappers/issues)です。自分の問題に関するチケットが見つからない場合は、お気軽に新しいチケットを作成してください。公式の [Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) に参加することもできます。`#javascript` や `#react` のチャンネルがあります。
 
-### コルーチンについてもっと学ぶ {initial-collapse-state="collapsed" collapsible="true"}
+### コルーチンについてもっと学ぶ {initial-collapse-state="collapsed" collapsible="true" id="learn-more-about-coroutines"}
 
 並行コードの記述方法について詳しく知りたい場合は、[コルーチンに関するチュートリアル](coroutines-and-channels.md)を確認してください。
 
-### Reactについてもっと学ぶ {initial-collapse-state="collapsed" collapsible="true"}
+### Reactについてもっと学ぶ {initial-collapse-state="collapsed" collapsible="true" id="learn-more-about-react"}
 
 基本的なReactの概念と、それらがKotlinでどのように変換されるかを学んだので、[Reactのドキュメント](https://react.dev/learn)で概説されている他の概念をKotlinに変換してみることができます。

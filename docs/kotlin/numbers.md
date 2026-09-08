@@ -11,7 +11,7 @@ Kotlin 的数字类型表示：
 
 使用数字类型来存储和处理数值数据，例如在算术、计数器、测量和其他计算中。
 
-## 选择数字类型
+## 选择数字类型 {id="choose-a-number-type"}
 
 在大多数情况下，你可以参考以下规则来为你的任务确定正确的数字类型：
 
@@ -25,7 +25,7 @@ Kotlin 的数字类型表示：
 >
 {style="tip"}
 
-## 整数类型
+## 整数类型 {id="integer-types"}
 
 Kotlin 提供了四种具有不同大小和值范围的整数类型：
 
@@ -36,7 +36,7 @@ Kotlin 提供了四种具有不同大小和值范围的整数类型：
 | `Int`	   | 32          | -2,147,483,648 (-2<sup>31</sup>)             | 2,147,483,647 (2<sup>31</sup> - 1)             |
 | `Long`	  | 64          | -9,223,372,036,854,775,808 (-2<sup>63</sup>) | 9,223,372,036,854,775,807 (2<sup>63</sup> - 1) |
 
-### 声明整数值
+### 声明整数值 {id="declare-integer-values"}
 
 Kotlin 支持以下整数值的字面量形式：
 
@@ -91,7 +91,7 @@ val threeBillion = 3_000_000_000 // Long
 val maybeAbsent: Int? = null
 ```
 
-## 浮点类型
+## 浮点类型 {id="floating-point-types"}
 
 对于带有小数部分的数字，Kotlin 提供了 `Float` 和 `Double`。
 
@@ -105,7 +105,7 @@ val maybeAbsent: Int? = null
 | `Float`	 | 32          | 24               | 8             | 6-7            |
 | `Double` | 64          | 53               | 11            | 15-16          |    
 
-### 声明浮点值
+### 声明浮点值 {id="declare-floating-point-values"}
 
 要声明浮点字面量，请包含小数点 (`.`) 或使用指数表示法：
 
@@ -132,7 +132,7 @@ val eFloat = 2.7182817f // Float
 val maybeAbsent: Double? = null
 ```
 
-## 算术操作
+## 算术操作 {id="arithmetic-operations"}
 
 Kotlin 支持对数字的标准算术操作：`+`、`-`、`*`、`/` 和 `%`。
 
@@ -157,7 +157,7 @@ fun main() {
 >
 {style="tip"}
 
-### 整数除法
+### 整数除法 {id="integer-division"}
 
 整数值之间的除法始终返回整数结果。编译器会丢弃小数部分：
 
@@ -189,7 +189,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 类型转换
+## 类型转换 {id="type-conversion"}
 
 数值类型不是彼此的子类型。Kotlin 要求进行显式转换，以避免静默数据丢失和意外行为。
 
@@ -253,7 +253,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 混合数值表达式
+### 混合数值表达式 {id="mixed-numeric-expressions"}
 
 Kotlin 不支持赋值或函数实参的隐式转换。 
 但是，你可以在算术表达式中组合不同的数字类型。在这种情况下， 
@@ -275,7 +275,7 @@ val result: Int = intNumber + longNumber
 // 错误：初始值设定项类型不匹配
 ```
 
-### 整数字面量类型
+### 整数字面量类型 {id="integer-literal-types"}
 
 在类型推断期间，Kotlin 将不带后缀的整数字面量视为特殊的[整数字面量类型 (ILT)](https://kotlinlang.org/spec/type-system.html#integer-literal-types)，直到周围的上下文确定具体类型：
 
@@ -341,7 +341,7 @@ fun main() {
 > 
 {style="tip"}
 
-## 数据溢出
+## 数据溢出 {id="data-overflow"}
 
 数字类型只能表示其定义范围内的值。
 
@@ -351,7 +351,7 @@ fun main() {
 
 即使编译器接受了这种行为，它也可能影响你的代码结果。
 
-### 操作中的溢出
+### 操作中的溢出 {id="overflow-in-operations"}
 
 每种整数类型只能存储其定义范围内的值。当算术操作的结果超过该范围时， 
 会发生*数据溢出*：
@@ -373,7 +373,7 @@ fun main(){
 >
 {style="note"}
 
-### 取负中的溢出
+### 取负中的溢出 {id="overflow-in-negation"}
 
 在取负期间也可能发生溢出。 
 例如，你无法将 `Int.MIN_VALUE` 的正数对应值表示为 `Int`。
@@ -388,7 +388,7 @@ fun main(){
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 缩窄转换
+### 缩窄转换 {id="narrowing-conversions"}
 
 当你将一个值转换为较小的整数类型时， 
 结果可能无法保留原始数值：
@@ -416,7 +416,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 按位操作
+## 按位操作 {id="bitwise-operations"}
 
 Kotlin 为 `Int` 和 `Long` 提供了*按位操作*。这些操作由一组[中缀函数](functions.md#infix-notation)和 `inv()` 表示。
 
@@ -442,7 +442,7 @@ fun main() {
 * `xor()` – 按位**异或**
 * `inv()` – 按位取反
 
-## 浮点数比较
+## 浮点数比较 {id="floating-point-number-comparison"}
 
 在 Kotlin 中，浮点数比较取决于操作数的静态类型。
 
@@ -479,7 +479,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-numbers-floating-comp"}
 
-## JVM 上的数字装箱与缓存
+## JVM 上的数字装箱与缓存 {id="boxing-and-caching-numbers-on-the-jvm"}
 
 在 JVM 上，不可空数值通常使用基本类型存储，例如 `int`、`long` 或 `double`。 
 然而，当你使用[泛型](generics.md)或像 `Int?` 这样的可空数值类型时，该值会被装箱并表示为一个对象。

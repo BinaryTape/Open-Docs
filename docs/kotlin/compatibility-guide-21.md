@@ -4,7 +4,7 @@
 
 虽然大多数语言变更已经通过其他渠道（如更新日志或编译器警告）发布，但本文档对这些变更进行了汇总，为从 Kotlin 2.0 迁移到 Kotlin 2.1 提供完整的参考。
 
-## 基本术语
+## 基本术语 {id="basic-terms"}
 
 本文档中引入了几种兼容性类型：
 
@@ -14,9 +14,9 @@
 
 请记住，这些定义仅针对纯 Kotlin。从其他语言（例如 Java）的角度来看，Kotlin 代码的兼容性不在本文档的讨论范围内。
 
-## 语言
+## 语言 {id="language"}
 
-### 移除 1.4 和 1.5 版本的语言版本
+### 移除 1.4 和 1.5 版本的语言版本 {id="remove-language-versions-1-4-and-1-5"}
 
 > **问题**：[KT-60521](https://youtrack.jetbrains.com/issue/KT-60521)
 >
@@ -32,7 +32,7 @@
 > - 1.9.0：针对语言版本 1.5 报告警告
 > - 2.1.0：针对语言版本 1.6 和 1.7 报告警告；将语言版本 1.4 和 1.5 的警告提升为错误
 
-### 更改 Kotlin/Native 上 typeOf() 函数的行为
+### 更改 Kotlin/Native 上 typeOf() 函数的行为 {id="change-the-typeof-function-behavior-on-kotlin-native"}
 
 > **问题**：[KT-70754](https://youtrack.jetbrains.com/issue/KT-70754)
 >
@@ -46,7 +46,7 @@
 >
 > - 2.1.0：对齐 Kotlin/Native 上的 `typeOf()` 函数行为
 
-### 禁止通过类型形参的界限公开类型
+### 禁止通过类型形参的界限公开类型 {id="prohibit-exposing-types-through-type-parameters-bounds"}
 
 > **问题**：[KT-69653](https://youtrack.jetbrains.com/issue/KT-69653)
 >
@@ -62,7 +62,7 @@
 > - 2.1.0：针对通过具有较低可见性的类型形参界限公开类型的行为报告警告
 > - 2.2.0：将该警告提升为错误
 
-### 禁止继承同名的抽象 var 属性和 val 属性
+### 禁止继承同名的抽象 var 属性和 val 属性 {id="prohibit-inheriting-an-abstract-var-property-and-a-val-property-with-the-same-name"}
 
 > **问题**：[KT-58659](https://youtrack.jetbrains.com/issue/KT-58659)
 >
@@ -77,7 +77,7 @@
 > - 2.1.0：当一个类从接口继承抽象 `var` 属性并从超类继承同名 `val` 属性时，报告警告（或在渐进模式下报告错误）
 > - 2.2.0：将该警告提升为错误
 
-### 访问未初始化的枚举条目时报告错误
+### 访问未初始化的枚举条目时报告错误 {id="report-error-when-accessing-uninitialized-enum-entries"}
 
 > **问题**：[KT-68451](https://youtrack.jetbrains.com/issue/KT-68451)
 >
@@ -91,7 +91,7 @@
 >
 > - 2.1.0：访问未初始化的枚举条目时报告错误
 
-### K2 智能转换 (smart cast) 传递的变化
+### K2 智能转换 (smart cast) 传递的变化 {id="changes-in-k2-smart-cast-propagation"}
 
 > **问题**：[KTLC-34](https://youtrack.jetbrains.com/issue/KTLC-34)
 >
@@ -105,7 +105,7 @@
 >
 > - 2.1.0：启用新行为
 
-### 修正 Java 子类中成员扩展属性重写的处理
+### 修正 Java 子类中成员扩展属性重写的处理 {id="correct-the-handling-of-member-extension-property-overrides-in-java-subclasses"}
 
 > **问题**：[KTLC-35](https://youtrack.jetbrains.com/issue/KTLC-35)
 >
@@ -119,7 +119,7 @@
 >
 > - 2.1.0：启用新行为
 
-### 修正重写 protected val 的 var 属性的 getter 和 setter 的可见性对齐
+### 修正重写 protected val 的 var 属性的 getter 和 setter 的可见性对齐 {id="correct-visibility-alignment-for-getters-and-setters-of-var-properties-overriding-a-protected-val"}
 
 > **问题**：[KTLC-36](https://youtrack.jetbrains.com/issue/KTLC-36)
 >
@@ -133,7 +133,7 @@
 >
 > - 2.1.0：在 K2 中强制对 getter 和 setter 使用一致的可见性；K1 不受影响
 
-### 将 JSpecify 为 null 性不匹配诊断的严重级别提升为错误
+### 将 JSpecify 为 null 性不匹配诊断的严重级别提升为错误 {id="raise-severity-of-jspecify-nullability-mismatch-diagnostics-to-errors"}
 
 > **问题**：[KTLC-11](https://youtrack.jetbrains.com/issue/KTLC-11)
 >
@@ -150,7 +150,7 @@
 > - 2.0.0：增加对 `@NonNull` 注解的支持
 > - 2.1.0：将 JSpecify 注解的默认模式更改为 `strict`，将警告转换为错误；使用 `-Xnullability-annotations=@org.jspecify.annotations:warning` 或 `-Xnullability-annotations=@org.jspecify.annotations:ignore` 来覆盖默认行为
 
-### 更改重载解析，在歧义情况下优先选择扩展函数而非 invoke 调用
+### 更改重载解析，在歧义情况下优先选择扩展函数而非 invoke 调用 {id="change-overload-resolution-to-prioritize-extension-functions-over-invoke-calls-in-ambiguous-cases"}
 
 > **问题**：[KTLC-37](https://youtrack.jetbrains.com/issue/KTLC-37)
 >
@@ -164,7 +164,7 @@
 >
 > - 2.1.0：更改重载解析，对于签名匹配的扩展函数，一致地优先选择扩展函数而非 `invoke` 调用；此变更仅在重新编译后应用，不影响预编译的二进制文件
 
-### 禁止在 JDK 函数接口的 SAM 构造函数中从 lambda 返回可空值
+### 禁止在 JDK 函数接口的 SAM 构造函数中从 lambda 返回可空值 {id="prohibit-returning-nullable-values-from-lambdas-in-sam-constructors-of-jdk-function-interfaces"}
 
 > **问题**：[KTLC-42](https://youtrack.jetbrains.com/issue/KTLC-42)
 >
@@ -179,7 +179,7 @@
 > - 2.0.0：针对 JDK 函数接口的 SAM 构造函数中的可空返回值报告弃用警告
 > - 2.1.0：默认启用新行为
 
-### 修正 Kotlin/Native 中私有成员与公共成员冲突的处理
+### 修正 Kotlin/Native 中私有成员与公共成员冲突的处理 {id="correct-handling-of-private-members-conflicting-with-public-members-in-kotlin-native"}
 
 > **问题**：[KTLC-43](https://youtrack.jetbrains.com/issue/KTLC-43)
 >
@@ -193,7 +193,7 @@
 >
 > - 2.1.0：Kotlin/Native 中的私有函数和属性不再重写或影响超类中的公共成员，与 JVM 行为保持一致
 
-### 禁止在公共内联函数中访问私有运算符函数
+### 禁止在公共内联函数中访问私有运算符函数 {id="forbid-access-to-private-operator-functions-in-public-inline-functions"}
 
 > **问题**：[KTLC-71](https://youtrack.jetbrains.com/issue/KTLC-71)
 >
@@ -208,7 +208,7 @@
 > - 2.0.0：针对在公共内联函数中访问私有运算符函数报告弃用警告
 > - 2.1.0：将该警告提升为错误
 
-### 禁止向带有 @UnsafeVariance 注解的不变性参数传递无效实参
+### 禁止向带有 @UnsafeVariance 注解的不变性参数传递无效实参 {id="prohibit-passing-invalid-arguments-to-invariant-parameters-annotated-with-unsafevariance"}
 
 > **问题**：[KTLC-72](https://youtrack.jetbrains.com/issue/KTLC-72)
 >
@@ -222,7 +222,7 @@
 >
 > - 2.1.0：激活新行为
 
-### 为警告级别 Java 类型的错误级别可空实参报告为 null 性错误
+### 为警告级别 Java 类型的错误级别可空实参报告为 null 性错误 {id="report-nullability-errors-for-error-level-nullable-arguments-of-warning-level-java-types"}
 
 > **问题**：[KTLC-100](https://youtrack.jetbrains.com/issue/KTLC-100)
 >
@@ -237,7 +237,7 @@
 > - 2.0.0：针对具有更严格类型实参的 Java 方法中的为 null 性不匹配报告弃用警告
 > - 2.1.0：将该警告提升为错误
 
-### 报告对不可访问类型的隐式用法
+### 报告对不可访问类型的隐式用法 {id="report-implicit-usages-of-inaccessible-types"}
 
 > **问题**：[KTLC-3](https://youtrack.jetbrains.com/issue/KTLC-3)
 >
@@ -253,9 +253,9 @@
 > - 2.1.0：针对具有不可访问非泛型类型的形参和接收器的函数文字，将警告提升为错误
 > - 2.2.0：针对具有不可访问类型实参的类型，将警告提升为错误
 
-## 标准库
+## 标准库 {id="standard-library"}
 
-### 弃用针对 Char 和 String 的区域性敏感大小写转换函数
+### 弃用针对 Char 和 String 的区域性敏感大小写转换函数 {id="deprecate-locale-sensitive-case-conversion-functions-for-char-and-string"}
 
 > **问题**：[KT-43023](https://youtrack.jetbrains.com/issue/KT-43023)
 >
@@ -273,7 +273,7 @@
 > - 1.5.0：通过警告弃用区域性敏感的大小写转换函数
 > - 2.1.0：将该警告提升为错误
 
-### 移除 kotlin-stdlib-common JAR 构件
+### 移除 kotlin-stdlib-common JAR 构件 {id="remove-kotlin-stdlib-common-jar-artifact"}
 
 > **问题**：[KT-62159](https://youtrack.jetbrains.com/issue/KT-62159)
 >
@@ -287,7 +287,7 @@
 >
 > - 2.1.0：弃用并移除 `kotlin-stdlib-common.jar` 构件
 
-### 弃用 appendln()，改为使用 appendLine()
+### 弃用 appendln()，改为使用 appendLine() {id="deprecate-appendln-in-favor-of-appendline"}
 
 > **问题**：[KTLC-27](https://youtrack.jetbrains.com/issue/KTLC-27)
 >
@@ -302,7 +302,7 @@
 > - 1.4.0：`appendln()` 函数被弃用；使用时报告警告
 > - 2.1.0：将该警告提升为错误
 
-### 弃用 Kotlin/Native 中与冻结 (freezing) 相关的 API
+### 弃用 Kotlin/Native 中与冻结 (freezing) 相关的 API {id="deprecate-freezing-related-apis-in-kotlin-native"}
 
 > **问题**：[KT-69545](https://youtrack.jetbrains.com/issue/KT-69545)
 >
@@ -317,7 +317,7 @@
 > - 1.7.20：通过警告弃用冻结相关 API
 > - 2.1.0：将该警告提升为错误
 
-### 更改 Map.Entry 行为，在结构性修改时快速失败 (fail-fast)
+### 更改 Map.Entry 行为，在结构性修改时快速失败 (fail-fast) {id="change-map-entry-behavior-to-fail-fast-on-structural-modification"}
 
 > **问题**：[KTLC-23](https://youtrack.jetbrains.com/issue/KTLC-23)
 >
@@ -331,9 +331,9 @@
 >
 > - 2.1.0：当检测到 map 结构性修改时抛出异常
 
-## 工具
+## 工具 {id="tools"}
 
-### 弃用 KotlinCompilationOutput#resourcesDirProvider
+### 弃用 KotlinCompilationOutput#resourcesDirProvider {id="deprecate-kotlincompilationoutput-resourcesdirprovider"}
 
 > **问题**：[KT-69255](https://youtrack.jetbrains.com/issue/KT-69255)
 >
@@ -347,7 +347,7 @@
 >
 > - 2.1.0：`KotlinCompilationOutput#resourcesDirProvider` 已被弃用
 
-### 弃用 registerKotlinJvmCompileTask(taskName, moduleName) 函数
+### 弃用 registerKotlinJvmCompileTask(taskName, moduleName) 函数 {id="deprecate-registerkotlinjvmcompiletask-taskname-modulename-function"}
 
 > **问题**：[KT-69927](https://youtrack.jetbrains.com/issue/KT-69927)
 >
@@ -361,7 +361,7 @@
 >
 > - 2.1.0：`registerKotlinJvmCompileTask(taskName, moduleName)` 函数已被弃用
 
-### 弃用 registerKaptGenerateStubsTask(taskName) 函数
+### 弃用 registerKaptGenerateStubsTask(taskName) 函数 {id="deprecate-registerkaptgeneratestubstask-taskname-function"}
 
 > **问题**：[KT-70383](https://youtrack.jetbrains.com/issue/KT-70383)
 >
@@ -375,7 +375,7 @@
 >
 > - 2.1.0：`registerKaptGenerateStubsTask(taskName)` 函数已被弃用
 
-### 弃用 KotlinTopLevelExtension 和 KotlinTopLevelExtensionConfig 接口
+### 弃用 KotlinTopLevelExtension 和 KotlinTopLevelExtensionConfig 接口 {id="deprecate-kotlintoplevelextension-and-kotlintoplevelextensionconfig-interfaces"}
 
 > **问题**：[KT-71602](https://youtrack.jetbrains.com/issue/KT-71602)
 >
@@ -389,7 +389,7 @@
 >
 > - 2.1.0：`KotlinTopLevelExtension` 和 `KotlinTopLevelExtensionConfig` 接口已被弃用
 
-### 从构建运行时依赖项中移除 kotlin-compiler-embeddable
+### 从构建运行时依赖项中移除 kotlin-compiler-embeddable {id="remove-kotlin-compiler-embeddable-from-build-runtime-dependencies"}
 
 > **问题**：[KT-61706](https://youtrack.jetbrains.com/issue/KT-61706)
 >
@@ -404,7 +404,7 @@
 > - 2.1.0：针对使用 `kotlin-compiler-embeddable` 报告警告
 > - 2.2.0：将该警告提升为错误
 
-### 在 Kotlin Gradle 插件 API 中隐藏编译器符号
+### 在 Kotlin Gradle 插件 API 中隐藏编译器符号 {id="hide-compiler-symbols-from-the-kotlin-gradle-plugin-api"}
 
 > **问题**：[KT-70251](https://youtrack.jetbrains.com/issue/KT-70251)
 >
@@ -419,7 +419,7 @@
 > - 2.1.0：访问这些符号时报告警告
 > - 2.2.0：将该警告提升为错误
 
-### 增加对多个稳定性配置文件的支持
+### 增加对多个稳定性配置文件的支持 {id="add-support-for-multiple-stability-configuration-files"}
 
 > **问题**：[KT-68345](https://youtrack.jetbrains.com/issue/KT-68345)
 >
@@ -433,7 +433,7 @@
 >
 > - 2.1.0：`stabilityConfigurationFile` 属性已被弃用
 
-### 移除弃用的平台插件 ID
+### 移除弃用的平台插件 ID {id="remove-deprecated-platform-plugin-ids"}
 
 > **问题**：[KT-65565](https://youtrack.jetbrains.com/issue/KT-65565)
 >

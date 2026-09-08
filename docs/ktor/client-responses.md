@@ -47,7 +47,7 @@ if (httpResponse.status.value in 200..299) {
 * `setCookie()` 用于获取 `Set-Cookie` 标头值。
   > Ktor 还提供了 [`HttpCookies`](client-cookies.md) 插件，允许您在调用之间保持 Cookie。
 
-#### 拆分标头值
+#### 拆分标头值 {id="split-header-values"}
 
 如果标头可以包含多个以逗号或分号分隔的值，您可以使用 `.getSplitValues()` 函数从标头中检索所有拆分后的值：
 
@@ -149,7 +149,7 @@ multipart.forEachPart { part ->
 }
 ```
 
-#### 表单字段
+#### 表单字段 {id="form-fields"}
 
 `PartData.FormItem` 代表一个表单字段，其值可以通过 value 属性访问：
 
@@ -163,7 +163,7 @@ when (part) {
 }
 ```
 
-#### 文件上传
+#### 文件上传 {id="file-uploads"}
 
 `PartData.FileItem` 代表一个文件项。您可以将文件上传作为字节流处理：
 
@@ -178,7 +178,7 @@ when (part) {
 }
 ```
 
-#### 资源清理
+#### 资源清理 {id="resource-cleanup"}
 
 一旦表单处理完成，需要使用 `.dispose()` 函数销毁每个部分以释放资源。
 
@@ -192,7 +192,7 @@ part.dispose()
 
 Ktor 提供了几种使用 [`ByteReadChannel`](https://api.ktor.io/ktor-io/io.ktor.utils.io/-byte-read-channel/index.html) 和 I/O 实用程序来实现此目的的方法。
 
-#### 顺序分块处理
+#### 顺序分块处理 {id="sequential-chunk-processing"}
 
 要按顺序分块处理响应，请使用 `HttpStatement` 配合作用域内的 [`execute`](https://api.ktor.io/ktor-client-core/io.ktor.client.statement/-http-statement/execute.html) 块。
 
@@ -234,7 +234,7 @@ Ktor 提供了几种使用 [`ByteReadChannel`](https://api.ktor.io/ktor-io/io.kt
 
 > 有关完整的流式示例，请参阅 [client-download-streaming](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-download-streaming)。
 
-#### 直接将响应写入文件
+#### 直接将响应写入文件 {id="writing-the-response-directly-to-a-file"}
 
 对于不需要逐块处理的简单下载，您可以选择以下方法之一：
 

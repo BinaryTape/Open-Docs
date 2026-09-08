@@ -9,13 +9,13 @@ title: Kotlin 與註解
 更新 - 2024-11-12
 :::
 
-## 取得程式碼
+## 取得程式碼 {id="get-the-code"}
 
 :::info
 [原始碼可在 GitHub 上取得](https://github.com/InsertKoinIO/koin-getting-started/tree/main/kotlin-annotations)
 :::
 
-## 設定
+## 設定 {id="setup"}
 
 首先，請檢查 Koin 註解相依性是否已如下所示加入：
 
@@ -34,13 +34,13 @@ dependencies {
 }
 ```
 
-## 應用程式概覽
+## 應用程式概覽 {id="application-overview"}
 
 此應用程式的構思是管理使用者清單，並將其顯示在我們的 `UserApplication` 類別中：
 
 > Users -> UserRepository -> UserService -> UserApplication
 
-## 「User」資料
+## 「User」資料 {id="the-user-data"}
 
 我們將管理一個 User 集合。以下是資料類別：
 
@@ -75,7 +75,7 @@ class UserRepositoryImpl : UserRepository {
 此專案使用 Koin 的 `@Singleton` 註解（來自 `org.koin.core.annotation`）來宣告單例組件。
 :::
 
-## Koin 模組
+## Koin 模組 {id="the-koin-module"}
 
 使用 `@Module` 註解來宣告 Koin 模組：
 
@@ -99,7 +99,7 @@ class UserRepositoryImpl : UserRepository {
 }
 ```
 
-## UserService 組件
+## UserService 組件 {id="the-userservice-component"}
 
 讓我們編寫 `UserService` 組件來管理使用者作業：
 
@@ -135,7 +135,7 @@ class UserServiceImpl(
 
 我們使用 `@Singleton` 註解來宣告 `UserService`。
 
-## UserApplication
+## UserApplication {id="the-userapplication"}
 
 `UserApplication` 類別使用建構函式注入來接收 `UserService`：
 
@@ -161,7 +161,7 @@ class UserApplication(
 建構函式注入是注入相依性的首選方式。Koin 在建立 `UserApplication` 時會自動解析並注入 `UserService`。
 :::
 
-## Koin 應用程式物件
+## Koin 應用程式物件 {id="koin-application-object"}
 
 建立一個 `@KoinApplication` 物件，作為 Koin 基於註解配置的入口點：
 
@@ -172,7 +172,7 @@ object KoinUserApplication
 
 `@KoinApplication` 註解與 KSP 處理器搭配運作，為該物件產生 `startKoin()` 擴充方法。
 
-## 啟動 Koin
+## 啟動 Koin {id="start-koin"}
 
 我們需要隨應用程式啟動 Koin。只需在應用程式的主要入口點呼叫產生的 `startKoin()` 函式即可：
 
@@ -194,7 +194,7 @@ fun main() {
 模組上的 `@KoinApplication` 註解搭配 `@Configuration`，可透過 KSP 在編譯期自動發現並載入所有受註解的相依性。
 :::
 
-## 註解 vs 編譯器外掛程式 DSL
+## 註解 vs 編譯器外掛程式 DSL {id="annotations-vs-compiler-plugin-dsl"}
 
 以下是我們基於註解的配置與編譯器外掛程式 DSL 的比較：
 

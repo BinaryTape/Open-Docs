@@ -6,14 +6,14 @@ title: 隔離上下文
 
 `KoinIsolated` 外掛程式在隔離上下文中執行 Koin，與全域 Koin 執行個體分開。這對於測試、多租戶應用程式以及執行多個 Koin 執行個體非常有用。
 
-## 何時使用隔離上下文
+## 何時使用隔離上下文 {id="when-to-use-isolated-context"}
 
 - **測試** — 每個測試都獲得自己隔離的 Koin 執行個體
 - **多租戶應用程式** — 具有不同配置的不同租戶
 - **外掛程式/模組系統** — 具有其自身相依性的獨立模組
 - **嵌入式 Ktor 伺服器** — 在同一個 JVM 中執行多個 Ktor 執行個體
 
-## 基本設定
+## 基本設定 {id="basic-setup"}
 
 安裝 `KoinIsolated` 而非 `Koin`：
 
@@ -26,9 +26,9 @@ fun Application.main() {
 }
 ```
 
-## 全域與隔離上下文
+## 全域與隔離上下文 {id="global-vs-isolated-context"}
 
-### 全域上下文 (預設)
+### 全域上下文 (預設) {id="global-context-default"}
 
 ```kotlin
 // 使用 GlobalContext - 在應用程式中共享
@@ -40,7 +40,7 @@ install(Koin) {
 val service = GlobalContext.get().get<UserService>()
 ```
 
-### 隔離上下文
+### 隔離上下文 {id="isolated-context"}
 
 ```kotlin
 // 使用隔離上下文 - 無法透過 GlobalContext 存取
@@ -56,7 +56,7 @@ install(KoinIsolated) {
 使用 `KoinIsolated` 時，您無法透過 `GlobalContext` 存取 Koin。所有注入都必須在 Ktor 應用程式作用域內使用 `inject()` 或 `get()` 進行。
 :::
 
-## 完整範例
+## 完整範例 {id="complete-example"}
 
 ```kotlin
 val appModule = module {
@@ -92,7 +92,7 @@ fun Application.main() {
 }
 ```
 
-## 配合 DI 橋接
+## 配合 DI 橋接 {id="with-di-bridge"}
 
 隔離上下文也支援 Ktor DI 橋接：
 
@@ -127,7 +127,7 @@ val appModule = module {
 }
 ```
 
-## 使用隔離上下文進行測試
+## 使用隔離上下文進行測試 {id="testing-with-isolated-context"}
 
 隔離上下文對於測試特別有用：
 
@@ -155,7 +155,7 @@ val testModule = module {
 }
 ```
 
-### 並行測試執行
+### 並行測試執行 {id="parallel-test-execution"}
 
 使用隔離上下文，測試可以並行執行而不會互相干擾：
 
@@ -183,7 +183,7 @@ class ParallelTests {
 }
 ```
 
-## 多個 Ktor 伺服器
+## 多個 Ktor 伺服器 {id="multiple-ktor-servers"}
 
 執行具有獨立 Koin 執行個體的多個 Ktor 伺服器：
 
@@ -211,7 +211,7 @@ fun main() {
 }
 ```
 
-## 生命週期
+## 生命週期 {id="lifecycle"}
 
 隔離的 Koin 執行個體遵循 Ktor 應用程式的生命週期：
 
@@ -233,7 +233,7 @@ fun Application.main() {
 }
 ```
 
-## 存取隔離的 Koin 執行個體
+## 存取隔離的 Koin 執行個體 {id="accessing-the-isolated-koin-instance"}
 
 在 Ktor 應用程式中，您可以存取隔離的 Koin 執行個體：
 
@@ -251,20 +251,20 @@ fun Application.main() {
 }
 ```
 
-## 何時不要使用隔離上下文
+## 何時不要使用隔離上下文 {id="when-not-to-use-isolated-context"}
 
 - **單一 Ktor 應用程式** — 全域上下文更簡單
 - **跨模組共享相依性** — 全域上下文允許共享
 - **存取 Koin 的背景工作** — 它們需要 GlobalContext
 
-## 最佳實務
+## 最佳實務 {id="best-practices"}
 
 1. **用於測試** — 隔離上下文可防止測試干擾
 2. **用於多租戶** — 每個租戶可以有不同的配置
 3. **對於簡單應用程式，請避免使用** — 全域上下文對於大多數使用案例來說更簡單
 4. **記錄選擇原因** — 明確說明為什麼使用隔離上下文
 
-## 另請參閱
+## 另請參閱 {id="see-also"}
 
 - **[Ktor 整合](/docs/reference/koin-ktor/ktor)** — 主要 Ktor 文件
 - **[上下文隔離](/docs/reference/koin-core/context-isolation)** — 核心隔離概念

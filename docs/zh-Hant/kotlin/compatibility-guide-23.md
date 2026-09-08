@@ -4,7 +4,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 
 雖然大多數語言變更已透過其他管道宣布（如更新日誌或編譯器警告），但本文件總結了所有變更，為從 Kotlin 2.2 到 Kotlin 2.3 的遷移提供完整參考。本文件也包含工具相關變更的資訊。
 
-## 基本術語
+## 基本術語 {id="basic-terms"}
 
 在本文件中，我們介紹了幾種相容性：
 
@@ -14,9 +14,9 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 
 請注意，這些定義僅針對純 Kotlin。從其他語言（例如 Java）角度來看的 Kotlin 程式碼相容性不在本文件的討論範圍內。
 
-## 語言 (Language)
+## 語言 (Language) {id="language"}
 
-### `-language-version` 停止支援 1.8 和 1.9
+### `-language-version` 停止支援 1.8 和 1.9 {id="drop-support-in-language-version-for-1-8-and-1-9"}
 
 > **問題**：[KT-76343](https://youtrack.jetbrains.com/issue/KT-76343), [KT-76344](https://youtrack.jetbrains.com/issue/KT-76344)。
 >
@@ -32,7 +32,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 > - 2.2.0：使用版本 1.8 和 1.9 的 `-language-version` 時報告警告
 > - 2.3.0：在所有平台上對版本 1.8 的 `-language-version` 提升警告為錯誤，並在非 JVM 平台上對版本 1.9 提升警告為錯誤
 
-### 報告包含 typealias 之推論型別的上界約束違反錯誤
+### 報告包含 typealias 之推論型別的上界約束違反錯誤 {id="report-upper-bound-constraint-violation-errors-for-inferred-types-with-typealiases"}
 
 > **問題**：[KTLC-287](https://youtrack.jetbrains.com/issue/KTLC-287)
 >
@@ -47,7 +47,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 > - 2.2.20：針對隱式型別引數的界限違反報告棄用警告
 > - 2.3.0：對隱式型別引數的 `UPPER_BOUND_VIOLATED` 提升警告為錯誤
 
-### 禁止在 `inline` 和 `crossinline` Lambda 上使用 `@JvmSerializableLambda` 註解
+### 禁止在 `inline` 和 `crossinline` Lambda 上使用 `@JvmSerializableLambda` 註解 {id="prohibit-jvmserializablelambda-annotation-on-inline-and-crossinline-lambdas"}
 
 > **問題**：[KTLC-9](https://youtrack.jetbrains.com/issue/KTLC-9)
 >
@@ -63,7 +63,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 > - 2.1.20：當 `@JvmSerializableLambda` 套用於 `inline` 和 `crossinline` Lambda 時報告警告
 > - 2.3.0：將警告提升為錯誤；此變更可在漸進模式中啟用
 
-### 當泛型簽章不相符時，禁止將 Kotlin 介面委派給 Java 類別
+### 當泛型簽章不相符時，禁止將 Kotlin 介面委派給 Java 類別 {id="prohibit-delegating-a-kotlin-interface-to-a-java-class-when-the-generic-signatures-don-t-match"}
 
 > **問題**：[KTLC-267](https://youtrack.jetbrains.com/issue/KTLC-267)
 >
@@ -79,7 +79,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 > - 2.1.20：報告警告
 > - 2.3.0：將警告提升為錯誤
 
-### 棄用在未明確宣告回傳型別的運算式主體函式中使用 `return`
+### 棄用在未明確宣告回傳型別的運算式主體函式中使用 `return` {id="deprecate-use-of-return-in-expression-bodied-functions-without-explicit-return-type"}
 
 > **問題**：[KTLC-288](https://youtrack.jetbrains.com/issue/KTLC-288)
 >
@@ -94,7 +94,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 > - 2.3.0：報告警告
 > - 2.4.0：將警告提升為錯誤
 
-### 禁止繼承透過 typealias 引入的可為 null 超型別
+### 禁止繼承透過 typealias 引入的可為 null 超型別 {id="prohibit-inheritance-from-nullable-supertypes-introduced-via-typealias"}
 
 > **問題**：[KTLC-279](https://youtrack.jetbrains.com/issue/KTLC-279)
 >
@@ -109,7 +109,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 > - 2.2.0：報告警告
 > - 2.3.0：將警告提升為錯誤
 
-### 統一頂層 Lambda 和呼叫引數的泛型簽章產生
+### 統一頂層 Lambda 和呼叫引數的泛型簽章產生 {id="unify-generic-signature-generation-for-top-level-lambdas-and-call-arguments"}
 
 > **問題**：[KTLC-277](https://youtrack.jetbrains.com/issue/KTLC-277)
 >
@@ -123,7 +123,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 >
 > - 2.3.0：引入新行為；不適用於漸進模式
 
-### 禁止具現化型別參數被推論為交集型別
+### 禁止具現化型別參數被推論為交集型別 {id="prohibit-reified-type-parameters-from-being-inferred-as-intersection-types"}
 
 > **問題**：[KTLC-13](https://youtrack.jetbrains.com/issue/KTLC-13)
 >
@@ -138,7 +138,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 > - 2.1.0：當具現化型別參數被推論為交集型別時報告警告
 > - 2.3.0：將警告提升為錯誤
 
-### 禁止透過型別參數界限公開可見性較低的型別
+### 禁止透過型別參數界限公開可見性較低的型別 {id="prohibit-exposing-less-visible-types-through-type-parameter-bounds"}
 
 > **問題**：[KTLC-275](https://youtrack.jetbrains.com/issue/KTLC-275)
 >
@@ -153,9 +153,9 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 > - 2.1.0：在有問題的型別參數界限上報告警告
 > - 2.3.0：將警告提升為錯誤
 
-## 標準程式庫 (Standard library)
+## 標準程式庫 (Standard library) {id="standard-library"}
 
-### 棄用 Char 到數字的轉換，並引入明確的 digit 和 code API
+### 棄用 Char 到數字的轉換，並引入明確的 digit 和 code API {id="deprecate-char-to-number-conversions-and-introduce-explicit-digit-and-code-apis"}
 
 > **問題**：[KTLC-321](https://youtrack.jetbrains.com/issue/KTLC-321)
 >
@@ -171,7 +171,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 > - 1.5.0：將新函式提升為穩定；針對舊函式報告警告並提供替換建議
 > - 2.3.0：將警告提升為錯誤
 
-### 棄用 `Number.toChar()` 函式
+### 棄用 `Number.toChar()` 函式 {id="deprecate-number-tochar-function"}
 
 > **問題**：[KT-56822](https://youtrack.jetbrains.com/issue/KT-56822)
 >
@@ -186,7 +186,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 > - 1.9.0：使用 `Number.toChar()` 函式時報告警告
 > - 2.3.0：將警告提升為錯誤
 
-### 棄用 `String.subSequence(start, end)` 函式
+### 棄用 `String.subSequence(start, end)` 函式 {id="deprecate-string-subsequence-start-end-function"}
 
 > **問題**：[KTLC-282](https://youtrack.jetbrains.com/issue/KTLC-282)
 >
@@ -201,7 +201,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 > - 1.0：使用 `String.subSequence(start, end)` 時報告警告
 > - 2.3.0：將警告提升為錯誤
 
-### 棄用 `kotlin.io.createTempDirectory()` 和 `kotlin.io.createTempFile()` 函式
+### 棄用 `kotlin.io.createTempDirectory()` 和 `kotlin.io.createTempFile()` 函式 {id="deprecate-kotlin-io-createtempdirectory-and-kotlin-io-createtempfile-functions"}
 
 > **問題**：[KTLC-281](https://youtrack.jetbrains.com/issue/KTLC-281)
 >
@@ -217,7 +217,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 > - 1.4.20：使用 `kotlin.io.createTempDirectory()` 和 `kotlin.io.createTempFile()` 函式時報告警告
 > - 2.3.0：將警告提升為錯誤
 
-### 隱藏 `InputStream.readBytes(Int)` 函式
+### 隱藏 `InputStream.readBytes(Int)` 函式 {id="hide-inputstream-readbytes-int-function"}
 
 > **問題**：[KTLC-280](https://youtrack.jetbrains.com/issue/KTLC-280)
 >
@@ -233,7 +233,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 > - 1.5.0：將警告提升為錯誤
 > - 2.3.0：隱藏該函式
 
-### 統一 Kotlin/Native 與其他平台的堆疊追蹤列印
+### 統一 Kotlin/Native 與其他平台的堆疊追蹤列印 {id="unify-kotlin-native-stack-trace-printing-with-other-platforms"}
 
 > **問題**：[KT-81431](https://youtrack.jetbrains.com/issue/KT-81431)
 >
@@ -247,7 +247,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 >
 > - 2.3.20：統一 Kotlin/Native 與其他 Kotlin 平台的例外堆疊追蹤格式
 
-### 修正 `Iterable<T>.intersect()` 和 `Iterable<T>.subtract()` 的行為
+### 修正 `Iterable<T>.intersect()` 和 `Iterable<T>.subtract()` 的行為 {id="correct-iterable-t-intersect-and-iterable-t-subtract-behavior"}
 
 > **問題**：[KTLC-268](https://youtrack.jetbrains.com/issue/KTLC-268)
 >
@@ -261,9 +261,9 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 >
 > - 2.3.0：啟用新行為
 
-## 工具 (Tools)
+## 工具 (Tools) {id="tools"}
 
-### 同時使用 `kotlin-dsl` 和 `kotlin("jvm")` 外掛程式時的不支援 KGP 版本警告
+### 同時使用 `kotlin-dsl` 和 `kotlin("jvm")` 外掛程式時的不支援 KGP 版本警告 {id="unsupported-kgp-version-warning-when-using-kotlin-dsl-and-kotlin-jvm-plugins"}
 
 > **問題**：[KT-79851](https://youtrack.jetbrains.com/issue/KT-79851)
 >
@@ -294,7 +294,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 >
 > - 2.3.0：引入診斷功能，偵測何時將 `kotlin-dsl` 外掛程式與不相容的編譯器語言或 API 版本一起使用
 
-### 針對 AGP 9.0.0 及更高版本棄用 `kotlin-android` 外掛程式
+### 針對 AGP 9.0.0 及更高版本棄用 `kotlin-android` 外掛程式 {id="deprecate-kotlin-android-plugin-for-agp-versions-9-0-0-and-later"}
 
 > **問題**：[KT-81199](https://youtrack.jetbrains.com/issue/KT-81199)
 >
@@ -309,7 +309,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 >
 > - 2.3.0：當 `kotlin-android` 外掛程式與 AGP 9.0.0 或更高版本一起使用，且 `android.builtInKotlin` 和 `android.newDsl=false` Gradle 屬性都設置為 `false` 時報告警告
 
-### 棄用 `testApi` 配置
+### 棄用 `testApi` 配置 {id="deprecate-testapi-configuration"}
 
 > **問題**：[KT-63285](https://youtrack.jetbrains.com/issue/KT-63285)
 >
@@ -330,7 +330,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 >
 > - 2.3.0：報告警告
 
-### 棄用 `createTestExecutionSpec()` 函式
+### 棄用 `createTestExecutionSpec()` 函式 {id="deprecate-createtestexecutionspec-function"}
 
 > **問題**：[KT-75449](https://youtrack.jetbrains.com/issue/KT-75449)
 >
@@ -346,7 +346,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 > - 2.3.0：將警告提升為錯誤
 > - 2.4.0：移除該函式
 
-### 移除 `closureTo()`、`createResultSet()` 和 `KotlinToolingVersionOrNull()` 函式
+### 移除 `closureTo()`、`createResultSet()` 和 `KotlinToolingVersionOrNull()` 函式 {id="remove-closureto-createresultset-and-kotlintoolingversionornull-functions"}
 
 > **問題**：[KT-64273](https://youtrack.jetbrains.com/issue/KT-64273)
 >
@@ -361,7 +361,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 > - 1.7.20：報告錯誤
 > - 2.3.0：移除這些函式
 
-### 棄用 `ExtrasProperty` API
+### 棄用 `ExtrasProperty` API {id="deprecate-the-extrasproperty-api"}
 
 > **問題**：[KT-74915](https://youtrack.jetbrains.com/issue/KT-74915)
 >
@@ -378,7 +378,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 > - 2.1.0：將警告提升為錯誤
 > - 2.3.0：將 API 設為內部 (internal)
 
-### 棄用 `KotlinCompilation` 中的 `HasKotlinDependencies`
+### 棄用 `KotlinCompilation` 中的 `HasKotlinDependencies` {id="deprecate-haskotlindependencies-in-kotlincompilation"}
 
 > **問題**：[KT-67290](https://youtrack.jetbrains.com/issue/KT-67290)
 >
@@ -393,7 +393,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 >
 > - 2.3.0：報告警告
 
-### 棄用 npm 和 Yarn 封裝管理員內部函式與屬性
+### 棄用 npm 和 Yarn 封裝管理員內部函式與屬性 {id="deprecate-npm-and-yarn-package-manager-internal-functions-and-properties"}
 
 > **問題**：[KT-81009](https://youtrack.jetbrains.com/issue/KT-81009)
 >
@@ -419,7 +419,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 > - 2.3.0：將警告提升為錯誤
 > - 2.4.0：移除這些函式與屬性
 
-### 棄用對 PhantomJS 的支援
+### 棄用對 PhantomJS 的支援 {id="deprecate-support-for-phantomjs"}
 
 > **問題**：[KT-76019](https://youtrack.jetbrains.com/issue/KT-76019)
 >
@@ -433,7 +433,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 >
 > - 2.3.0：報告警告
 
-### 禁止子類別化用於設置測試執行或 JavaScript 執行階段的類別
+### 禁止子類別化用於設置測試執行或 JavaScript 執行階段的類別 {id="prohibit-subclassing-of-classes-that-set-up-test-runs-or-javascript-runtime"}
 
 > **問題**：[KT-75869](https://youtrack.jetbrains.com/issue/KT-75869), [KT-81007](https://youtrack.jetbrains.com/issue/KT-81007)
 >
@@ -463,7 +463,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 > - 2.3.0：將警告提升為錯誤
 > - 2.4.0：移除這些 API
 
-### 棄用 `ExperimentalWasmDsl` 註解類別
+### 棄用 `ExperimentalWasmDsl` 註解類別 {id="deprecate-experimentalwasmdsl-annotation-class"}
 
 > **問題**：[KT-81005](https://youtrack.jetbrains.com/issue/KT-81005)
 >
@@ -479,7 +479,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 > - 2.3.0：將警告提升為錯誤
 > - 2.4.0：移除該註解類別
 
-### 棄用 `ExperimentalDceDsl` 註解類別
+### 棄用 `ExperimentalDceDsl` 註解類別 {id="deprecate-experimentaldcedsl-annotation-class"}
 
 > **問題**：[KT-81008](https://youtrack.jetbrains.com/issue/KT-81008)
 >
@@ -495,7 +495,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 > - 2.3.0：將警告提升為錯誤
 > - 2.4.0：移除該註解類別
 
-### 棄用 JavaScript 工具程式
+### 棄用 JavaScript 工具程式 {id="deprecate-javascript-utilities"}
 
 > **問題**：[KT-81010](https://youtrack.jetbrains.com/issue/KT-81010)
 >
@@ -520,7 +520,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 > - 2.3.0：將警告提升為錯誤
 > - 2.4.0：移除這些 API
 
-### 棄用已遷移的 D8 和 Binaryen 屬性
+### 棄用已遷移的 D8 和 Binaryen 屬性 {id="deprecate-migrated-d8-and-binaryen-properties"}
 
 > **問題**：[KT-81006](https://youtrack.jetbrains.com/issue/KT-81006)
 >
@@ -545,7 +545,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 > - 2.3.0：將警告提升為錯誤
 > - 2.4.0：移除這些屬性
 
-### 棄用 `NodeJsExec` DSL 中的 `create()` 函式
+### 棄用 `NodeJsExec` DSL 中的 `create()` 函式 {id="deprecate-create-function-in-nodejsexec-dsl"}
 
 > **問題**：[KT-81004](https://youtrack.jetbrains.com/issue/KT-81004)
 >
@@ -561,7 +561,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 > - 2.3.0：將警告提升為錯誤
 > - 2.4.0：移除該函式
 
-### 棄用 `kotlinOptions` DSL 中的屬性
+### 棄用 `kotlinOptions` DSL 中的屬性 {id="deprecate-properties-in-kotlinoptions-dsl"}
 
 > **問題**：[KT-76720](https://youtrack.jetbrains.com/issue/KT-76720)
 >
@@ -579,7 +579,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 > - 2.2.0：將警告提升為錯誤，並棄用 `kotlinOptions` 中的所有屬性
 > - 2.3.0：對 `kotlinOptions` 中的所有屬性將警告提升為錯誤
 
-### 棄用 `kotlinArtifacts` API
+### 棄用 `kotlinArtifacts` API {id="deprecate-kotlinartifacts-api"}
 
 > **問題**：[KT-77066](https://youtrack.jetbrains.com/issue/KT-77066)
 >
@@ -596,7 +596,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 > - 2.3.0：將此警告提升為錯誤
 > - 2.4.0：移除該 API
 
-### 移除 `kotlin.mpp.resourcesResolutionStrategy` Gradle 屬性
+### 移除 `kotlin.mpp.resourcesResolutionStrategy` Gradle 屬性 {id="remove-kotlin-mpp-resourcesresolutionstrategy-gradle-property"}
 
 > **問題**：[KT-74955](https://youtrack.jetbrains.com/issue/KT-74955)
 >
@@ -611,7 +611,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 > - 2.2.0：報告配置階段診斷
 > - 2.3.0：移除該 Gradle 屬性
 
-### 棄用舊模式的多平台 IDE 匯入
+### 棄用舊模式的多平台 IDE 匯入 {id="deprecated-old-mode-of-multiplatform-ide-import"}
 
 > **問題**：[KT-61127](https://youtrack.jetbrains.com/issue/KT-61127)
 >
@@ -625,7 +625,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 >
 > - 2.3.0：使用 `kotlin.mpp.import.enableKgpDependencyResolution=false` Gradle 屬性時報告警告
 
-### 移除用於停用精確編譯備份的屬性
+### 移除用於停用精確編譯備份的屬性 {id="remove-properties-to-disable-precise-compilation-backup"}
 
 > **問題**：[KT-81038](https://youtrack.jetbrains.com/issue/KT-81038)
 >
@@ -640,7 +640,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 > - 2.1.20：報告警告
 > - 2.3.0：移除這些屬性
 
-### 棄用 `destinationDir` 在 `CInteropProcess` 中
+### 棄用 `destinationDir` 在 `CInteropProcess` 中 {id="deprecate-destinationdir-in-cinteropprocess"}
 
 > **問題**：[KT-74910](https://youtrack.jetbrains.com/issue/KT-74910)
 >
@@ -657,7 +657,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 > - 2.2.0：將此警告提升為錯誤
 > - 2.3.0：隱藏 `destinationDir` 屬性
 
-### 棄用 `konanVersion` 在 `CInteropProcess` 中
+### 棄用 `konanVersion` 在 `CInteropProcess` 中 {id="deprecate-konanversion-in-cinteropprocess"}
 
 > **問題**：[KT-74911](https://youtrack.jetbrains.com/issue/KT-74911)
 >
@@ -674,7 +674,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 > - 2.2.0：將此警告提升為錯誤
 > - 2.3.0：隱藏 `konanVersion` 屬性
 
-### 移除 `KotlinCompile.classpathSnapshotProperties` 屬性
+### 移除 `KotlinCompile.classpathSnapshotProperties` 屬性 {id="remove-kotlincompile-classpathsnapshotproperties-properties"}
 
 > **問題**：[KT-76177](https://youtrack.jetbrains.com/issue/KT-76177)
 >
@@ -693,7 +693,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 > - 2.2.0：移除 `kotlin.incremental.useClasspathSnapshot` 屬性
 > - 2.3.0：移除 `KotlinCompile.classpathSnapshotProperties.useClasspathSnapshot` 和 `KotlinCompile.classpathSnapshotProperties.classpath` 屬性
 
-### 棄用 `getPluginArtifactForNative()` 函式
+### 棄用 `getPluginArtifactForNative()` 函式 {id="deprecate-getpluginartifactfornative-function"}
 
 > **問題**：[KT-78870](https://youtrack.jetbrains.com/issue/KT-78870)
 >
@@ -710,7 +710,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 > - 2.3.0：將警告提升為錯誤
 > - 2.4.0：移除該函式
 
-### 變更註冊所有產生之原始碼的方法
+### 變更註冊所有產生之原始碼的方法 {id="change-the-approach-to-registering-all-generated-sources"}
 
 > **問題**：[KT-45161](https://youtrack.jetbrains.com/issue/KT-45161)
 >
@@ -724,7 +724,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 > * 要註冊產生的原始碼，請使用 [`generatedKotlin`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-source-set/generated-kotlin.html) 屬性。
 > * 要存取所有原始碼（包括非產生的原始碼），請使用 [`allKotlinSources`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-source-set/all-kotlin-sources.html) 屬性。
 
-### 棄用 `kotlin.publishJvmEnvironmentAttribute` 屬性
+### 棄用 `kotlin.publishJvmEnvironmentAttribute` 屬性 {id="deprecate-kotlin-publishjvmenvironmentattribute-property"}
 
 > **問題**：[KT-83678](https://youtrack.jetbrains.com/issue/KT-83678)
 >
@@ -741,7 +741,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 > - 2.3.20：報告警告
 > - 2.4.0：移除該屬性
 
-### 棄用 `CleanableStore` 介面和 `CleanDataTask` 類別
+### 棄用 `CleanableStore` 介面和 `CleanDataTask` 類別 {id="deprecate-cleanablestore-interface-and-cleandatatask-class"}
 
 > **問題**：[KT-78104](https://youtrack.jetbrains.com/issue/KT-78104)
 >
@@ -755,7 +755,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 >
 > - 2.3.20：報告警告
 
-### 棄用 `kotlin.kmp.isolated-projects.support` Gradle 屬性
+### 棄用 `kotlin.kmp.isolated-projects.support` Gradle 屬性 {id="deprecate-kotlin-kmp-isolated-projects-support-gradle-property"}
 
 > **問題**：[KT-79257](https://youtrack.jetbrains.com/issue/KT-79257)
 >
@@ -769,7 +769,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 >
 > - 2.3.20：報告警告
 
-### 棄用 `kotlin.mpp.enableKotlinToolingMetadataArtifact` Gradle 屬性
+### 棄用 `kotlin.mpp.enableKotlinToolingMetadataArtifact` Gradle 屬性 {id="deprecate-kotlin-mpp-enablekotlintoolingmetadataartifact-gradle-property"}
 
 > **問題**：[KT-79924](https://youtrack.jetbrains.com/issue/KT-79924)
 >
@@ -784,7 +784,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 > - 2.3.20：報告警告
 > - 2.4.0：停止支援
 
-### 棄用 `LanguageSettings.enableLanguageFeature` DSL
+### 棄用 `LanguageSettings.enableLanguageFeature` DSL {id="deprecate-languagesettings-enablelanguagefeature-dsl"}
 
 > **問題**：[KT-82323](https://youtrack.jetbrains.com/issue/KT-82323), [KT-82847](https://youtrack.jetbrains.com/issue/KT-82847)
 >
@@ -799,7 +799,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 > - 2.3.20：使用 `LanguageSettings.enableLanguageFeature` 時報告警告
 > - 2.4.0：將警告提升為錯誤
 
-### 棄用「進程外」(out of process) 編譯器執行策略
+### 棄用「進程外」(out of process) 編譯器執行策略 {id="deprecate-out-of-process-compiler-execution-strategy"}
 
 > **問題**：[KT-83125](https://youtrack.jetbrains.com/issue/KT-83125)
 >
@@ -814,9 +814,9 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適更新](kot
 > - 2.3.20：報告警告
 > - 2.4.0：移除「進程外」(out of process) 編譯器執行策略
 
-## 移除建置工具
+## 移除建置工具 {id="build-tool-removal"}
 
-### 移除對 Ant 的支援
+### 移除對 Ant 的支援 {id="remove-support-for-ant"}
 
 > **問題**：[KT-75875](https://youtrack.jetbrains.com/issue/KT-75875)
 >

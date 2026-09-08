@@ -1,10 +1,10 @@
 [//]: # (title: Kotlin/Native 程式庫)
 
-## 程式庫編譯
+## 程式庫編譯 {id="library-compilation"}
 
 你可以使用專案的組建檔案或 Kotlin/Native 編譯器來為你的程式庫產出 `*.klib` 構件。
 
-### 使用 Gradle 組建檔案
+### 使用 Gradle 組建檔案 {id="using-gradle-build-file"}
 
 你可以透過在 Gradle 組建檔案中指定 [Kotlin/Native 目標 (target)](native-target-support.md) 來編譯 `*.klib` 程式庫構件：
 
@@ -31,7 +31,7 @@
 
 Gradle 會自動編譯該目標的原始碼檔案，並在專案的 `build/libs` 目錄中產出 `.klib` 構件。
 
-### 使用 Kotlin/Native 編譯器
+### 使用 Kotlin/Native 編譯器 {id="using-kotlin-native-compiler"}
 
 若要使用 Kotlin/Native 編譯器產出程式庫：
 
@@ -52,7 +52,7 @@ Gradle 會自動編譯該目標的原始碼檔案，並在專案的 `build/libs`
    
    此指令會編譯 `qux.kt` 原始碼檔案與 `bar.klib` 程式庫的內容，並產出 `program.kexe` 最終可執行二進位檔案。
 
-## klib 工具
+## klib 工具 {id="klib-utility"}
 
 **klib** 程式庫管理工具允許你使用以下語法檢查程式庫：
 
@@ -80,7 +80,7 @@ klib dump-metadata-signatures mylib.klib -signature-version 1
 
 此外，`dump-metadata` 指令接受 `-print-signatures {true|false}` 引數，指示 klib 工具為輸出中的每個宣告列印 IR 簽章。
 
-## 建立與使用程式庫
+## 建立與使用程式庫 {id="creating-and-using-a-library"}
 
 1. 透過將原始碼放入 `kotlinizer.kt` 來建立程式庫：
 
@@ -133,7 +133,7 @@ klib dump-metadata-signatures mylib.klib -signature-version 1
 
 你應該會在輸出中看到 `Hello, Kotlin world!`。
 
-## 程式庫搜尋順序
+## 程式庫搜尋順序 {id="library-search-sequence"}
 
 > 程式庫搜尋機制即將變更。請期待本章節的更新，並避免依賴已棄用的旗標。
 > 
@@ -152,7 +152,7 @@ klib dump-metadata-signatures mylib.klib -signature-version 1
 
 3. 安裝在 `$installation/klib` 目錄中的程式庫。
 
-## 程式庫格式
+## 程式庫格式 {id="library-format"}
 
 Kotlin/Native 程式庫是包含預定義目錄結構的 zip 檔案，其佈局如下：
 
@@ -180,7 +180,7 @@ Kotlin/Native 程式庫是包含預定義目錄結構的 zip 檔案，其佈局�
 
 你可以在 Kotlin/Native 編譯器安裝目錄的 `klib/common/stdlib` 中找到範例佈局。
 
-## 在 klib 中使用相對路徑
+## 在 klib 中使用相對路徑 {id="using-relative-paths-in-klibs"}
 
 原始碼檔案的序列化 IR 表示是 `klib` 程式庫的 [一部分](#library-format)。它包含檔案路徑，用於產生正確的偵錯資訊。預設情況下，儲存的路徑是絕對路徑。
 
@@ -217,6 +217,6 @@ tasks.named('compileKotlin', KotlinCompilationTask) {
 </tab>
 </tabs>
 
-## 下一步？
+## 下一步？ {id="what-s-next"}
 
 [了解如何使用 cinterop 工具產出 `*.klib` 構件](native-definition-file.md)

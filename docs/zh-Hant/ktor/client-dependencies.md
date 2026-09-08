@@ -175,7 +175,7 @@ sourceSets {
 
 如需特定引擎所需相依性的完整列表，請參閱[新增引擎相依性](client-engines.md#dependencies)。
 
-### 記錄相依性
+### 記錄相依性 {id="logging-dependency"}
 
   <p>
     在 <a href="#jvm">JVM</a> 上，Ktor 使用 Simple Logging Facade for Java
@@ -210,7 +210,7 @@ Ktor 允許您使用預設情況下無法使用的額外用戶端功能（[外�
 
 > 對於多平台專案，外掛程式相依性應新增至 `commonMain` 原始碼集。請注意，某些外掛程式對於特定平台可能會有 [限制](client-engines.md#limitations)。
 
-## 確保 Ktor 版本一致性
+## 確保 Ktor 版本一致性 {id="ensure-ktor-version-consistency"}
 
 <chapter title="使用 Ktor BOM 相依性">
 

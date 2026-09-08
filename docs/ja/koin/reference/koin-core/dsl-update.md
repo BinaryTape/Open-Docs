@@ -8,7 +8,7 @@ Koinは、クラスのコンストラクタを直接ターゲットにし、依�
 **Koin Compiler Plugin**を使用している場合は、追加のコンパイル時の安全性を備えた同様の自動解決機能を提供する[Compiler Plugin DSL](/docs/setup/compiler-plugin)の使用を検討してください。
 :::
 
-## クラシック Autowire DSL
+## クラシック Autowire DSL {id="classic-autowire-dsl"}
 
 以下の依存関係を持つクラス `ClassA` がある場合：
 
@@ -40,7 +40,7 @@ module {
 コンストラクタは、必要なすべての依存関係で自動的に埋められます。Koinはすべてのパラメータを解決しようとするため、デフォルト値の使用は避けてください。
 :::
 
-## Compiler Plugin DSL との比較
+## Compiler Plugin DSL との比較 {id="comparison-with-compiler-plugin-dsl"}
 
 | クラシック Autowire | コンパイラプラグイン |
 |------------------|-----------------|
@@ -51,7 +51,7 @@ module {
 
 Compiler Plugin DSLは、同様の自動解決機能を提供し、さらにコンパイル時の検証を可能にします。
 
-## 利用可能なキーワード
+## 利用可能なキーワード {id="available-keywords"}
 
 コンストラクタから定義を構築するために、以下のAutowireキーワードが利用可能です：
 
@@ -63,7 +63,7 @@ Compiler Plugin DSLは、同様の自動解決機能を提供し、さらにコ�
 Koinはすべてのパラメータを依存関係で埋めようとするため、コンストラクタでデフォルト値を使用しないように注意してください。
 :::
 
-## DSL オプション
+## DSL オプション {id="dsl-options"}
 
 どのAutowire DSL定義でも、ラムダ内でオプションを設定できます：
 
@@ -94,7 +94,7 @@ module {
 }
 ```
 
-## 注入パラメータ (Injected Parameters)
+## 注入パラメータ (Injected Parameters) {id="injected-parameters"}
 
 Autowire DSLによる宣言でも、注入パラメータ（injected parameters）を引き続き使用できます。Koinは注入されたパラメータと現在の依存関係を調べて、コンストラクタへの注入を試みます。
 
@@ -119,7 +119,7 @@ val id = "a_factory_id"
 val factory = koin.get<MyFactory> { parametersOf(id)}
 ```
 
-## リフレクションベースのDSL（3.2以降非推奨）
+## リフレクションベースのDSL（3.2以降非推奨） {id="reflection-based-dsl-deprecated-since-3-2"}
 
 :::caution
 KoinリフレクションDSLは現在非推奨です。上記のKoin Autowire DSLを使用してください。

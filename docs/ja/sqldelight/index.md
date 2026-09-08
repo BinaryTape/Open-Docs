@@ -20,7 +20,7 @@ SQL 文やクエリを実行するためのタイプセーフなコードを生�
 
 ---
 
-## サポートされているダイアレクトとプラットフォーム
+## サポートされているダイアレクトとプラットフォーム {id="supported-dialects-and-platforms"}
 
 SQLDelight は、さまざまな SQL ダイアレクト（方言）とプラットフォームをサポートしています。
 
@@ -56,7 +56,7 @@ SQLDelight は、さまざまな SQL ダイアレクト（方言）とプラッ�
 </div>
 </div>
 
-### サードパーティのダイアレクト
+### サードパーティのダイアレクト {id="third-party-dialects"}
 
 <div class="cash-grid" markdown="1">
 <div class="cash-grid-item" markdown="1">
@@ -76,7 +76,7 @@ SQLDelight は、さまざまな SQL ダイアレクト（方言）とプラッ�
 </div>
 </div>
 
-## スナップショット
+## スナップショット {id="snapshots"}
 
 開発版のスナップショット（IDE プラグインの zip を含む）は、[Central Portal Snapshots リポジトリ](https://central.sonatype.com/repository/maven-snapshots)で入手可能です。2.0.0 以降のスナップショットでは、すべての座標（coordinates）が `com.squareup.sqldelight` ではなく `app.cash.sqldelight` になっていることに注意してください。
 

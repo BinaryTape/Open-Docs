@@ -5,7 +5,7 @@ Koog 提供了一种结构化的方式来创建提示词，并可控制消息类
 * 对于 **Kotlin** 用户，通过类型安全的 Kotlin DSL。
 * 对于 **Java** 用户，通过流畅的构建器 API。
 
-## 基本结构
+## 基本结构 {id="basic-structure"}
 
 Kotlin 中的 `prompt()` 函数或 Java 中的 `Prompt.builder()` 会创建一个包含唯一 ID 和消息列表的 Prompt 对象：
 
@@ -37,7 +37,7 @@ Kotlin 中的 `prompt()` 函数或 Java 中的 `Prompt.builder()` 会创建一�
     ```
     <!--- KNIT example-creating-prompts-java-01.java -->
 
-## 消息类型
+## 消息类型 {id="message-types"}
 
 Kotlin DSL 和 Java 构建器 API 支持以下类型的消息，每种消息对应对话中的一个特定角色：
 
@@ -84,7 +84,7 @@ Kotlin DSL 和 Java 构建器 API 支持以下类型的消息，每种消息对�
     ```
     <!--- KNIT example-creating-prompts-java-02.java -->
 
-### 系统消息
+### 系统消息 {id="system-message"}
 
 系统消息定义了 LLM 的行为，并为整个对话设置上下文。
 它可以指定模型的角色、语气，提供响应指南和约束，并提供响应示例。
@@ -119,7 +119,7 @@ Kotlin DSL 和 Java 构建器 API 支持以下类型的消息，每种消息对�
     ```
     <!--- KNIT example-creating-prompts-java-03.java -->
 
-### 用户消息
+### 用户消息 {id="user-messages"}
 
 用户消息代表来自用户的输入。
 要创建用户消息，请将字符串作为实参提供给 `user()` Kotlin 函数或 Java 方法：
@@ -157,7 +157,7 @@ Kotlin DSL 和 Java 构建器 API 支持以下类型的消息，每种消息对�
 大多数用户消息包含纯文本，但它们也可以包含多模态内容，例如图像、音频、视频和文档。
 详情和示例请参阅 [多模态内容](multimodal-content.md)。
 
-### 助手消息
+### 助手消息 {id="assistant-messages"}
 
 助手消息代表 LLM 响应，可用于未来类似交互中的少样本学习、继续对话或演示预期的输出结构。
 
@@ -221,7 +221,7 @@ Kotlin DSL 和 Java 构建器 API 支持以下类型的消息，每种消息对�
     ```
     <!--- KNIT example-creating-prompts-java-05.java -->
 
-### 工具消息
+### 工具消息 {id="tool-messages"}
 
 工具消息代表工具调用及其结果，可用于预填充工具调用的历史记录。
 
@@ -284,7 +284,7 @@ Kotlin DSL 和 Java 构建器 API 支持以下类型的消息，每种消息对�
     ```
     <!--- KNIT example-creating-prompts-java-06.java -->
 
-## 文本消息构建器
+## 文本消息构建器 {id="text-message-builders"}
 
 !!! warning "警告"
     文本消息构建器仅在 Kotlin 中可用。
@@ -358,7 +358,7 @@ Kotlin DSL 和 Java 构建器 API 支持以下类型的消息，每种消息对�
 !!! tip "提示"
     您可以将文本构建函数与 XML 和 Markdown 构建器混合使用。
 
-## Prompt 参数
+## Prompt 参数 {id="prompt-parameters"}
 
 可以通过配置控制 LLM 行为的参数来定制提示词。
 
@@ -427,7 +427,7 @@ Kotlin DSL 和 Java 构建器 API 支持以下类型的消息，每种消息对�
 
 要了解更多信息，请参阅 [LLM 参数](../../llm-parameters.md)。
 
-## 扩展现有提示词
+## 扩展现有提示词 {id="extending-existing-prompts"}
 
 可以通过调用 Kotlin 中的 `prompt()` 函数或 Java 中的 `Prompt.builder()` 并将现有提示词作为实参传入来扩展它：
 
@@ -473,7 +473,7 @@ Kotlin DSL 和 Java 构建器 API 支持以下类型的消息，每种消息对�
 
 这将创建一个新提示词，其中包含来自 `basePrompt` 的所有消息以及新的用户消息。
 
-## 后续步骤
+## 后续步骤 {id="next-steps"}
 
 - 了解如何处理 [多模态内容](multimodal-content.md)。
 - 如果您只与单个 LLM 提供商合作，请使用 [LLM 客户端](../llm-clients.md) 运行提示词。

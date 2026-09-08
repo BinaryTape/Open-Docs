@@ -4,7 +4,7 @@ title: 編譯器外掛程式選項
 
 Koin 編譯器外掛程式支援配置選項，以自訂其行為。
 
-## 配置
+## 配置 {id="configuration"}
 
 在您的 `build.gradle.kts` 中配置編譯器外掛程式：
 
@@ -19,9 +19,9 @@ koinCompiler {
 }
 ```
 
-## 可用選項
+## 可用選項 {id="available-options"}
 
-### userLogs
+### userLogs {id="userlogs"}
 
 - **類型**：布林值
 - **預設值**：`false`
@@ -34,7 +34,7 @@ koinCompiler {
 }
 ```
 
-### debugLogs
+### debugLogs {id="debuglogs"}
 
 - **類型**：布林值
 - **預設值**：`false`
@@ -47,7 +47,7 @@ koinCompiler {
 }
 ```
 
-### compileSafety
+### compileSafety {id="compilesafety"}
 
 - **類型**：布林值
 - **預設值**：`true`
@@ -62,7 +62,7 @@ koinCompiler {
 
 請參閱 [編譯期安全性 (Compile-Time Safety)](/docs/reference/koin-compiler/compile-safety) 以了解驗證內容的完整詳細資訊。
 
-### strictSafety
+### strictSafety {id="strictsafety"}
 
 - **類型**：布林值
 - **預設值**：自動偵測（在聚合器模組 (aggregator module) 上啟用 —— 即包含 `startKoin`、`koinApplication` 或 `@KoinApplication` 的模組）
@@ -81,7 +81,7 @@ koinCompiler {
 
 當 `compileSafety = false` 時無效。相關背景請參閱 [koin-compiler-plugin 問題 (issue) #32](https://github.com/InsertKoinIO/koin-compiler-plugin/issues/32)。
 
-### skipDefaultValues
+### skipDefaultValues {id="skipdefaultvalues"}
 
 - **類型**：布林值
 - **預設值**：`true`
@@ -94,7 +94,7 @@ koinCompiler {
 }
 ```
 
-### unsafeDslChecks
+### unsafeDslChecks {id="unsafedslchecks"}
 
 - **類型**：布林值
 - **預設值**：`true`
@@ -107,7 +107,7 @@ koinCompiler {
 }
 ```
 
-## 完整範例
+## 完整範例 {id="complete-example"}
 
 ```kotlin
 // build.gradle.kts
@@ -125,7 +125,7 @@ koinCompiler {
 }
 ```
 
-## 最佳實務
+## 最佳實務 {id="best-practices"}
 
 - **保持 `compileSafety` 啟用**（預設值），以進行編譯期相依性驗證
 - **將 `strictSafety` 保持在自動偵測** — 僅當偵測器漏掉了您的聚合器或在非聚合器檔案上誤判時才覆寫
@@ -134,7 +134,7 @@ koinCompiler {
 - **保持 `unsafeDslChecks` 啟用**（預設值），以確保更安全的 DSL 使用
 - **僅在對外掛程式問題進行疑難排解時使用 `debugLogs`**
 
-## 另請參閱
+## 另請參閱 {id="see-also"}
 
 - **[編譯期安全性 (Compile-Time Safety)](/docs/reference/koin-compiler/compile-safety)** – 驗證內容與方式
 - **[編譯器外掛程式設定](/docs/setup/compiler-plugin)** – 完整設定指南

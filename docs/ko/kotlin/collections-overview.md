@@ -21,7 +21,7 @@ Kotlin을 사용하면 컬렉션에 저장된 객체의 정확한 타입과 관�
 >
 {style="note"}
 
-## 컬렉션 타입
+## 컬렉션 타입 {id="collection-types"}
 
 Kotlin 표준 라이브러리는 기본적인 컬렉션 타입인 셋, 리스트, 맵에 대한 구현을 제공합니다.
 각 컬렉션 타입은 한 쌍의 인터페이스로 표현됩니다.
@@ -59,7 +59,7 @@ fun main() {
 
 <video src="https://www.youtube.com/v/F8jj7e-_jFA" title="Kotlin Collections Overview"/>
 
-### Collection
+### Collection {id="collection"}
 
 [`Collection<T>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-collection/index.html)은 컬렉션 계층 구조의 루트입니다. 이 인터페이스는 크기 조회, 멤버십 확인 등 읽기 전용 컬렉션의 공통적인 동작을 나타냅니다.
 `Collection`은 요소의 반복(iteration)을 위한 연산을 정의하는 `Iterable<T>` 인터페이스를 상속받습니다. 다양한 컬렉션 타입에 적용되는 함수의 파라미터로 `Collection`을 사용할 수 있습니다. 더 구체적인 경우에는 `Collection`의 상속자인 [`List`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)와 [`Set`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-set/index.html)을 사용하세요.
@@ -99,7 +99,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### List
+### List {id="list"}
 
 [`List<T>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)는 요소를 지정된 순서대로 저장하며 인덱스를 통한 접근을 제공합니다. 인덱스는 첫 번째 요소의 인덱스인 0부터 시작하여 `(list.size - 1)`인 `lastIndex`까지 이어집니다.
 
@@ -156,7 +156,7 @@ fun main() {
 
 Kotlin에서 `MutableList`의 기본 구현체는 크기 조정이 가능한 배열로 생각할 수 있는 [`ArrayList`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-list/index.html)입니다.
 
-### Set
+### Set {id="set"}
 
 [`Set<T>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-set/index.html)는 고유한 요소를 저장하며, 일반적으로 순서가 정의되지 않습니다. `null` 요소 또한 고유합니다. 즉, `Set`은 단 하나의 `null`만 포함할 수 있습니다.
 두 셋은 크기가 같고, 한 셋의 모든 요소에 대해 다른 셋에 그와 동일한 요소가 있는 경우 동일한 것으로 간주됩니다.
@@ -195,7 +195,7 @@ fun main() {
 
 또 다른 구현체인 [`HashSet`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-hash-set/index.html)은 요소의 순서에 대해 아무것도 보장하지 않으므로, 이러한 함수를 호출하면 예측할 수 없는 결과가 반환됩니다. 하지만 `HashSet`은 동일한 수의 요소를 저장하는 데 더 적은 메모리를 사용합니다.
 
-### Map
+### Map {id="map"}
 
 [`Map<K, V>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html)는 `Collection` 인터페이스의 상속자는 아니지만, 이 또한 Kotlin의 컬렉션 타입입니다.
 `Map`은 _키-값(key-value)_ 쌍(또는 _엔트리_)을 저장합니다. 키는 고유하지만, 서로 다른 키들이 동일한 값과 쌍을 이룰 수 있습니다. `Map` 인터페이스는 키를 통한 값 접근, 키 및 값 검색 등 특화된 함수를 제공합니다.
@@ -247,7 +247,7 @@ fun main() {
 `MutableMap`의 기본 구현체인 [`LinkedHashMap`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-linked-hash-map/index.html)은 맵을 반복할 때 요소가 삽입된 순서를 유지합니다.
 반면, 또 다른 구현체인 [`HashMap`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-hash-map/index.html)은 요소의 순서에 대해 아무것도 보장하지 않습니다.
 
-### ArrayDeque
+### ArrayDeque {id="arraydeque"}
 
 [`ArrayDeque<T>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-deque/)는 양방향 큐(double-ended queue)의 구현체로, 큐의 시작과 끝 모두에서 요소를 추가하거나 제거할 수 있습니다.
 따라서 `ArrayDeque`는 Kotlin에서 스택(Stack)과 큐(Queue) 데이터 구조의 역할을 모두 수행할 수 있습니다. 내부적으로 `ArrayDeque`는 필요할 때 자동으로 크기가 조정되는 가변 배열을 사용하여 구현됩니다.

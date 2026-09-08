@@ -22,7 +22,7 @@ Ktor는 [Logging](https://api.ktor.io/ktor-client-logging/io.ktor.client.plugins
 
 > 서버에서 Ktor는 애플리케이션 로깅을 위한 [Logging](server-logging.md) 플러그인과 클라이언트 요청 로깅을 위한 [CallLogging](server-call-logging.md) 플러그인을 제공합니다.
 
-## JVM
+## JVM {id="jvm"}
 
 <snippet id="jvm-logging">
   <p>
@@ -48,7 +48,7 @@ Ktor는 [Logging](https://api.ktor.io/ktor-client-logging/io.ktor.client.plugins
   </Tabs>
 </snippet>
 
-### Android
+### Android {id="android"}
 
 <p>
     Android에서는 SLF4J Android 라이브러리를 사용하는 것을 권장합니다:
@@ -65,11 +65,11 @@ Ktor는 [Logging](https://api.ktor.io/ktor-client-logging/io.ktor.client.plugins
     </TabItem>
 </Tabs>
 
-## Native
+## Native {id="native"}
 
 [Native 대상(targets)](client-engines.md#native)의 경우, `Logging` 플러그인은 모든 내용을 표준 출력 스트림(`STDOUT`)에 출력하는 로거를 제공합니다.
 
-## 멀티플랫폼(Multiplatform)
+## 멀티플랫폼(Multiplatform) {id="multiplatform"}
 
 [멀티플랫폼 프로젝트](client-create-multiplatform-application.md)에서는 [Napier](https://github.com/AAkira/Napier)와 같은 [사용자 정의 로거(custom logger)](#custom_logger)를 지정할 수 있습니다.
 

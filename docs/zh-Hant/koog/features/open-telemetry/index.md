@@ -2,7 +2,7 @@
 
 此頁面提供有關 Koog 代理架構對 OpenTelemetry 支援的詳細資訊，用於追蹤和監控您的 AI 代理。
 
-## 總覽
+## 總覽 {id="overview"}
 
 OpenTelemetry 是一個可觀測性架構，提供用於從您的應用程式產生、收集和匯出遙測資料（追蹤）的工具。Koog OpenTelemetry 特性允許您對 AI 代理進行檢測以收集遙測資料，這可以幫助您：
 
@@ -12,7 +12,7 @@ OpenTelemetry 是一個可觀測性架構，提供用於從您的應用程式產
 - 追蹤 LLM 呼叫和工具使用情況
 - 分析代理行為模式
 
-## OpenTelemetry 關鍵概念
+## OpenTelemetry 關鍵概念 {id="key-opentelemetry-concepts"}
 
 - **Span**：Span 代表分散式追蹤中的單個工作單元或操作。它們指出應用程式中特定活動的開始和結束，例如代理執行、函式呼叫、LLM 呼叫或工具呼叫。
 - **屬性 (Attribute)**：屬性提供有關遙測相關項目（如 Span）的元資料。屬性以鍵值對的形式表示。
@@ -29,7 +29,7 @@ Koog 中的 OpenTelemetry 特性會自動為各種代理事件建立 Span，包�
 - LLM 呼叫
 - 工具呼叫
 
-## 安裝
+## 安裝 {id="installation"}
 
 要在 Koog 中使用 OpenTelemetry，請將 OpenTelemetry 特性新增到您的代理中：
 
@@ -85,9 +85,9 @@ Koog 中的 OpenTelemetry 特性會自動為各種代理事件建立 Span，包�
     ```
     <!--- KNIT exampleOpentelemetrySupportJava01.java -->
 
-## 配置
+## 配置 {id="configuration"}
 
-### 基本配置
+### 基本配置 {id="basic-configuration"}
 
 以下是在代理中配置 OpenTelemetry 特性時設定的可用屬性完整清單：
 
@@ -170,7 +170,7 @@ Koog 中的 OpenTelemetry 特性會自動為各種代理事件建立 Span，包�
 
 有關可用方法的參考，請參閱以下章節。
 
-#### setServiceInfo
+#### setServiceInfo {id="setserviceinfo"}
 
 設定服務資訊，包括名稱和版本。接受以下引數：
 
@@ -179,7 +179,7 @@ Koog 中的 OpenTelemetry 特性會自動為各種代理事件建立 Span，包�
 | `serviceName`      | String    | 是      |               | 正在進行檢測的服務名稱。                 |
 | `serviceVersion`   | String    | 是      |               | 正在進行檢測的服務版本。              |
 
-#### addSpanExporter
+#### addSpanExporter {id="addspanexporter"}
 
 新增 Span 匯出器以將遙測資料發送到外部系統。接受以下引數：
 
@@ -191,7 +191,7 @@ Kotlin SDK (`io.opentelemetry.kotlin.tracing.export.SpanExporter`) 和 Java SDK 
 
 此匯出器註冊在 `batchSpanProcessor` 之後 — 這是 OpenTelemetry 針對生產環境建議的預設值：Span 會在背景工作執行緒上進行緩衝與排清，因此代理在 Span 結束時永遠不會因網路 I/O 而阻塞。如果您需要對處理器進行完整控制（自訂批次參數、用於測試的簡單處理器或複合處理器），請改用 [`addSpanProcessor`](#addspanprocessor)。
 
-#### addSpanProcessor
+#### addSpanProcessor {id="addspanprocessor"}
 
 直接註冊 `SpanProcessor`，繞過 [`addSpanExporter`](#addspanexporter) 所做的 `batchSpanProcessor` 封裝。該工廠在 SDK 的 `TraceExportConfigDsl` 作用域內執行，該作用域公開了 `batchSpanProcessor`、`simpleSpanProcessor` 和 `compositeSpanProcessor`。接受以下引數：
 
@@ -207,7 +207,7 @@ Kotlin SDK (`io.opentelemetry.kotlin.tracing.export.SpanExporter`) 和 Java SDK 
 
 對於 Java SDK 匯出器，請先使用相容套件中的 `toOtelKotlinSpanExporter()` 進行封裝。
 
-#### addResourceAttributes
+#### addResourceAttributes {id="addresourceattributes"}
 
 新增資源屬性以提供有關服務的額外上下文。接受以下引數：
 
@@ -215,7 +215,7 @@ Kotlin SDK (`io.opentelemetry.kotlin.tracing.export.SpanExporter`) 和 Java SDK 
 |--------------|--------------------|----------|---------------|------------------------------------------------------------------------|
 | `attributes` | `Map<String, Any>` | 是      |               | 提供有關服務額外詳細資訊的鍵值對。支援的值型別：`String`、`Long`、`Double`、`Boolean`。 |
 
-#### setVerbose
+#### setVerbose {id="setverbose"}
 
 啟用或停用詳細記錄。接受以下引數：
 
@@ -227,7 +227,7 @@ Kotlin SDK (`io.opentelemetry.kotlin.tracing.export.SpanExporter`) 和 Java SDK 
 
     出於安全原因，OpenTelemetry Span 的某些內容預設會被遮蔽。例如，LLM 訊息會被遮蔽為 `HIDDEN:non-empty` 而不是實際的訊息內容。要獲取內容，請將 `verbose` 引數的值設定為 `true`。
 
-#### addMetricExporter
+#### addMetricExporter {id="addmetricexporter"}
 
 新增指標匯出器以將指標資料發送到外部系統。接受以下引數：
 
@@ -238,7 +238,7 @@ Kotlin SDK (`io.opentelemetry.kotlin.tracing.export.SpanExporter`) 和 Java SDK 
 
 如果沒有註冊指標匯出器，則會停用指標。指標是僅限 JVM 的功能，由 Java OpenTelemetry SDK 支援；Kotlin Multiplatform SDK 0.2.0 尚未公開指標 API。
 
-#### addMetricFilter
+#### addMetricFilter {id="addmetricfilter"}
 
 限制為特定指標儀器報告的屬性鍵。這會安裝一個 OpenTelemetry `View`，該視圖會捨棄未列出的任何屬性。接受以下引數：
 
@@ -249,7 +249,7 @@ Kotlin SDK (`io.opentelemetry.kotlin.tracing.export.SpanExporter`) 和 Java SDK 
 
 使用此功能可防止高基數屬性（例如，請求識別碼）使您的指標後端膨脹，同時仍然能匯出指標本身。
 
-### 進階配置
+### 進階配置 {id="advanced-configuration"}
 
 對於更進階的配置，您還可以自訂資源屬性，以新增有關產生遙測資料之程序的更多資訊。
 
@@ -328,7 +328,7 @@ Kotlin SDK (`io.opentelemetry.kotlin.tracing.export.SpanExporter`) 和 Java SDK 
     ```
     <!--- KNIT exampleOpentelemetrySupportJava03.java -->
 
-#### 資源屬性
+#### 資源屬性 {id="resource-attributes"}
 
 資源屬性代表有關產生遙測資料之程序的額外資訊。Koog 包含一組預設設定的資源屬性：
 
@@ -402,7 +402,7 @@ Kotlin SDK (`io.opentelemetry.kotlin.tracing.export.SpanExporter`) 和 Java SDK 
     ```
     <!--- KNIT exampleOpentelemetrySupportJava04.java -->
 
-## 追蹤內容
+## 追蹤內容 {id="what-gets-traced"}
 
 OpenTelemetry 特性會擷取以下代理活動：
 
@@ -415,7 +415,7 @@ OpenTelemetry 特性會擷取以下代理活動：
 
 有關個別 Span 類型和屬性的詳細明細，請參閱 [Span 類型與屬性](#span-types-and-attributes)。
 
-## Span 類型與屬性
+## Span 類型與屬性 {id="span-types-and-attributes"}
 
 OpenTelemetry 特性會自動建立不同類型的 Span，以追蹤代理中的各種操作：
 
@@ -444,7 +444,7 @@ CreateAgentSpan
 ```
 <!--- KNIT example-opentelemetry-support-01.txt -->
 
-### Span 屬性
+### Span 屬性 {id="span-attributes"}
 
 Span 屬性提供與 Span 相關的元資料。每個 Span 都有其屬性集，而某些 Span 也可以重複屬性。
 
@@ -461,7 +461,7 @@ Koog 支援一組預定義屬性，這些屬性遵循 OpenTelemetry 的 [產生�
 - `koog.subgraph.output`：子圖完成後產生的輸出。當子圖成功完成時存在於 `SubgraphExecuteSpan` 上。
 - `koog.moderation.result`：當可用時，針對 LLM 呼叫的 JSON 編碼審核結果。僅當針對該呼叫執行了審核時，才存在於 `InferenceSpan` 上。OpenTelemetry 產生式 AI 語意規範未定義審核屬性，因此 Koog 在 `koog.` 命名空間下發佈此屬性。
 
-### 訊息內容
+### 訊息內容 {id="message-content"}
 
 根據 OpenTelemetry 產生式 AI 語意規範，訊息內容透過兩個 Span 屬性而非逐條訊息事件載入於 `InferenceSpan` 上：
 
@@ -470,7 +470,7 @@ Koog 支援一組預定義屬性，這些屬性遵循 OpenTelemetry 的 [產生�
 
 較早版本的 Koog 會發出逐條訊息的 OpenTelemetry 事件（`gen_ai.system.message`、`gen_ai.user.message`、`gen_ai.assistant.message`、`gen_ai.tool.message`、`gen_ai.choice`）以擷取訊息內容。這些事件已從 OpenTelemetry 產生式 AI 規範中移除，Koog 不再發出這些事件。對於仍期望索引形式 `gen_ai.prompt.{i}.*` / `gen_ai.completion.{i}.*` 的後端（Langfuse、Weave），會繼續透過相應的 Span 配接器接收該資料。
 
-## 指標
+## 指標 {id="metrics"}
 
 除了 Span 之外，OpenTelemetry 特性還會發出遵循 OpenTelemetry [產生式 AI 指標語意規範 (Semantic conventions for GenAI metrics)](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-metrics/) 的指標。指標透過經由 [addMetricExporter](#addmetricexporter) 配置的 meter provider 匯出；如果沒有註冊匯出器，預設會使用主控台 `LoggingMetricExporter`。
 
@@ -487,14 +487,14 @@ Koog 支援一組預定義屬性，這些屬性遵循 OpenTelemetry 的 [產生�
 - `gen_ai.client.token.usage`: `[1, 4, 16, 64, 256, 1024, 4096, 16384, 65536, 262144, 1048576, 4194304, 16777216, 67108864]`
 - `gen_ai.client.operation.duration`: `[0.01, 0.02, 0.04, 0.08, 0.16, 0.32, 0.64, 1.28, 2.56, 5.12, 10.24, 20.48, 40.96, 81.92]`
 
-### gen_ai.provider.name
+### gen_ai.provider.name {id="genai-provider-name"}
 
 每個資料點都帶有 `gen_ai.provider.name` 屬性：
 
 - 對於 `text_completion` 操作，其值為 LLM 提供者 ID（例如 `openai`、`anthropic`）。
 - 對於 `execute_tool` 操作，其值為 `koog`，因為工具執行是在程序內發生的，而不是針對第三方提供者。MCP 工具執行保留此值，並透過相應 Span 上的獨立 `mcp.*` 屬性呈現 MCP 特定詳細資訊，因此工具指標能保持低基數。
 
-### error.type
+### error.type {id="error-type"}
 
 根據產生式 AI 語意規範要求，僅在失敗的 `gen_ai.client.operation.duration` 資料點上設定 `error.type`。該值是導致失敗之錯誤的標準 Java 類別名稱，因此它受限於異常階層結構，可以安全地用作指標維度：
 
@@ -504,13 +504,13 @@ Koog 支援一組預定義屬性，這些屬性遵循 OpenTelemetry 的 [產生�
 
 成功操作不會設定此屬性。
 
-### restrictToolNameCardinality
+### restrictToolNameCardinality {id="restricttoolnamecardinality"}
 
 工具指標會標記 `gen_ai.tool.name`。如果您公開的工具名稱是動態或使用者產生的，則工具名稱基數可能會無限增長。使用 `restrictToolNameCardinality` 可將許可清單之外的任何名稱對應到單一備援值。
 
 對於適用於任何儀器和任何屬性鍵的特定指標屬性篩選，請使用 [addMetricFilter](#addmetricfilter)。
 
-## 匯出器
+## 匯出器 {id="exporters"}
 
 匯出器將收集到的遙測資料發送到 OpenTelemetry 收集器或其他類型的目的地或後端實作。要新增匯出器，請在安裝 OpenTelemetry 特性時使用 `addSpanExporter()` 方法。該方法接受以下引數：
 
@@ -523,7 +523,7 @@ Koog 支援一組預定義屬性，這些屬性遵循 OpenTelemetry 的 [產生�
 !!! note
     如果您不配置任何自訂匯出器，Koog 預設將使用主控台 stdout 匯出器。這有助於在本機開發和偵錯期間使用。
 
-### Logging 匯出器
+### Logging 匯出器 {id="logging-exporter"}
 
 將追蹤資訊輸出到主控台的記錄匯出器。`LoggingSpanExporter` (`io.opentelemetry.exporter.logging.LoggingSpanExporter`) 是 `opentelemetry-java` SDK 的一部分。
 
@@ -589,7 +589,7 @@ Koog 支援一組預定義屬性，這些屬性遵循 OpenTelemetry 的 [產生�
     ```
     <!--- KNIT exampleOpentelemetrySupportJava05.java -->
 
-### OpenTelemetry HTTP 匯出器
+### OpenTelemetry HTTP 匯出器 {id="opentelemetry-http-exporter"}
 
 OpenTelemetry HTTP 匯出器 (`OtlpHttpSpanExporter`) 是 `opentelemetry-java` SDK (`io.opentelemetry.exporter.otlp.http.trace.OtlpHttpSpanExporter`) 的一部分，它透過 HTTP 將 Span 資料發送到後端。
 
@@ -673,7 +673,7 @@ OpenTelemetry HTTP 匯出器 (`OtlpHttpSpanExporter`) 是 `opentelemetry-java` S
     ```
     <!--- KNIT exampleOpentelemetrySupportJava06.java -->
 
-### OpenTelemetry gRPC 匯出器
+### OpenTelemetry gRPC 匯出器 {id="opentelemetry-grpc-exporter"}
 
 OpenTelemetry gRPC 匯出器 (`OtlpGrpcSpanExporter`) 是 `opentelemetry-java` SDK (`io.opentelemetry.exporter.otlp.trace.OtlpGrpcSpanExporter`) 的一部分。它透過 gRPC 將遙測資料匯出到後端，並允許您定義接收資料的後端、收集器或端點的主機和連接埠。預設連接埠為 `4317`。
 
@@ -745,7 +745,7 @@ OpenTelemetry gRPC 匯出器 (`OtlpGrpcSpanExporter`) 是 `opentelemetry-java` S
     ```
     <!--- KNIT exampleOpentelemetrySupportJava07.java -->
 
-## 與 Langfuse 整合
+## 與 Langfuse 整合 {id="integration-with-langfuse"}
 
 Langfuse 為 LLM／代理工作負載提供追蹤視覺化和分析。
 
@@ -818,7 +818,7 @@ Langfuse 為 LLM／代理工作負載提供追蹤視覺化和分析。
 
 請閱讀有關與 Langfuse 整合的 [完整文件](opentelemetry-langfuse-exporter.md)。
 
-## 與 W&B Weave 整合
+## 與 W&B Weave 整合 {id="integration-with-w-b-weave"}
 
 W&B Weave 為 LLM／代理工作負載提供追蹤視覺化和分析。與 W&B Weave 的整合可以透過預定義的匯出器進行配置：
 
@@ -891,7 +891,7 @@ W&B Weave 為 LLM／代理工作負載提供追蹤視覺化和分析。與 W&B W
 
 請閱讀有關與 W&B Weave 整合的 [完整文件](opentelemetry-weave-exporter.md)。
 
-## 與 Datadog 整合
+## 與 Datadog 整合 {id="integration-with-datadog"}
 
 Datadog 為雲端規模的應用程式提供監控、可觀測性和分析。與 Datadog 的整合可以透過預定義的匯出器進行配置：
 
@@ -960,11 +960,11 @@ Datadog 為雲端規模的應用程式提供監控、可觀測性和分析。與
 
 請閱讀有關與 Datadog 整合的 [完整文件](opentelemetry-datadog-exporter.md)。
 
-## 與 Jaeger 整合
+## 與 Jaeger 整合 {id="integration-with-jaeger"}
 
 Jaeger 是一個受歡迎的分散式追蹤系統，可與 OpenTelemetry 搭配使用。Koog 存放庫中 `examples` 內的 `opentelemetry` 目錄包含了一個在 Jaeger 和 Koog 代理中使用 OpenTelemetry 的範例。
 
-### 必要條件
+### 必要條件 {id="prerequisites"}
 
 要使用 Koog 和 Jaeger 測試 OpenTelemetry，請使用提供的 `docker-compose.yaml` 檔案，透過執行以下指令來啟動 Jaeger OpenTelemetry all-in-one 程序：
 
@@ -991,7 +991,7 @@ services:
 
 要存取 Jaeger UI 並查看您的追蹤，請開啟 `http://localhost:16686`。
 
-### 範例
+### 範例 {id="example"}
 
 為了匯出供 Jaeger 使用的遙測資料，該範例使用了 `opentelemetry-java` SDK 中的 `LoggingSpanExporter` (`io.opentelemetry.exporter.logging.LoggingSpanExporter`) 和 `OtlpGrpcSpanExporter` (`io.opentelemetry.exporter.otlp.trace.OtlpGrpcSpanExporter`)。
 
@@ -1094,9 +1094,9 @@ services:
     ```
     <!--- KNIT exampleOpentelemetrySupportJava11.java -->
 
-## 疑難排解
+## 疑難排解 {id="troubleshooting"}
 
-### 常見問題
+### 常見問題 {id="common-issues"}
 
 1. **後端中沒有出現追蹤**
     - 確認所有必要的環境變數都已在您的 shell 中設定並匯出。
@@ -1121,7 +1121,7 @@ services:
 5. **Span 配接器互相覆蓋**
     - 目前，OpenTelemetry 代理特性不支援套用多個 Span 配接器 [KG-265](https://youtrack.jetbrains.com/issue/KG-265/Adding-Weave-exporter-breaks-Langfuse-exporter)。
 
-## MCP (Model Context Protocol) 遙測支援
+## MCP (Model Context Protocol) 遙測支援 {id="mcp-model-context-protocol-telemetry-support"}
 
 Koog 遵循 [官方 MCP 的 OpenTelemetry 語意規範](https://github.com/open-telemetry/semantic-conventions/pull/2083)，為 MCP 操作提供全面的 OpenTelemetry 檢測。
 
@@ -1133,7 +1133,7 @@ MCP 遙測支援包括：
 - 為 MCP 用戶端操作 (tools/call) 提供**用戶端檢測**
 - **完全符合語意規範**，包含所有必填、條件式必填和建議屬性
 
-### MCP 屬性
+### MCP 屬性 {id="mcp-attributes"}
 
 MCP 遙測遵循 OpenTelemetry 語意規範，並包含以下屬性組：
 
@@ -1152,20 +1152,20 @@ MCP 遙測遵循 OpenTelemetry 語意規範，並包含以下屬性組：
 - `network.transport`：傳輸類型（stdio 為 "pipe"，HTTP 為 "tcp"）
 - `server.address` 和 `server.port`：用於用戶端操作
 
-### Span 命名慣例
+### Span 命名慣例 {id="span-naming-convention"}
 
 MCP Span 遵循命名慣例：`{mcp.method.name} {target}`
 
 其中 `{target}` 在適用時為工具名稱或提示詞名稱。範例：
 - `"tools/call search"` - 呼叫名為 "search" 的工具
 
-### 最佳實務
+### 最佳實務 {id="best-practices"}
 
 - 在處理持久性 MCP 工作階段時，**務必設定工作階段 ID** 以啟用工作階段追蹤
 - **透傳來自 JSON-RPC 請求的請求 ID**，以實現完整的請求追蹤
 - **監控指標**以識別 MCP 操作中的效能瓶頸
 
-### 範例：帶有遙測功能的完整 MCP 用戶端
+### 範例：帶有遙測功能的完整 MCP 用戶端 {id="example-full-mcp-client-with-telemetry"}
 
 === "Kotlin"
 

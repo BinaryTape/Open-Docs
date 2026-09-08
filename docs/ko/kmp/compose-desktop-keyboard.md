@@ -7,7 +7,7 @@
 
 undefined
 
-## 포커스된 컴포넌트에서의 이벤트
+## 포커스된 컴포넌트에서의 이벤트 {id="events-in-a-focused-component"}
 
 이 방식은 키보드의 키를 누를 때 현재 포커스된 컴포넌트의 이벤트 핸들러가 트리거됨을 의미합니다.
 
@@ -69,7 +69,7 @@ fun main() = singleWindowApplication (title = "Key events") {
 
 <img src="compose-desktop-key-focus.animated.gif" alt="Keyboard events in a focused component" width="600" preview-src="compose-desktop-key-focus.png"/>
 
-## 윈도우 스코프에서의 이벤트
+## 윈도우 스코프에서의 이벤트 {id="events-in-a-window-scope"}
 
 현재 윈도우 내에서 항상 활성화되는 키보드 이벤트 핸들러를 정의하려면 `Window`, `singleWindowApplication` 및 `Dialog` 함수에서 사용할 수 있는 `onPreviewKeyEvent` 및 `onKeyEvent` 파라미터를 사용하세요. 이들은 이벤트가 소비되지 않았을 때 이벤트가 전달(dispatch)되는 방식에서 차이가 있습니다: `onPreviewKeyEvent`는 이벤트를 첫 번째 자식에게 전달하고, `onKeyEvent`는 이벤트를 컴포저블의 부모에게 전달합니다. 일반적으로 `onPreviewKeyEvent`는 화면 전체의 키보드 단축키까지 구현할 수 있어 이벤트를 가로채는 데 선호됩니다.
 
@@ -159,7 +159,7 @@ fun App() {
 
 <img src="compose-desktop-key-window.animated.gif" alt="Keyboard events in a window scope" width="600" preview-src="compose-desktop-key-window.png"/>
 
-## 다음 단계는 무엇인가요?
+## 다음 단계는 무엇인가요? {id="what-s-next"}
 
 * 자세한 내용은 [API reference](https://developer.android.com/reference/kotlin/androidx/compose/ui/input/key/package-summary#keyinputfilter)를 참조하세요.
 * [다른 데스크톱 컴포넌트](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop)에 대한 튜토리얼을 살펴보세요.

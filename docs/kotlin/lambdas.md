@@ -4,7 +4,7 @@ Kotlin 函数是[一等公民](https://en.wikipedia.org/wiki/First-class_functio
 
 为了实现这一点，作为一种静态类型编程语言，Kotlin 使用一系列[函数类型](#函数类型)来表示函数，并提供了一组专门的语言结构，例如 [lambda表达式](#lambda表达式与匿名函数)。
 
-## 高阶函数
+## 高阶函数 {id="higher-order-functions"}
 
 高阶函数是将函数作为参数或返回函数的函数。
 
@@ -55,7 +55,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-## 函数类型
+## 函数类型 {id="function-types"}
 
 Kotlin 使用函数类型（如 `(Int) -> String`）进行处理函数的声明：`val onClick: () -> Unit = ...`。
 
@@ -83,7 +83,7 @@ Kotlin 使用函数类型（如 `(Int) -> String`）进行处理函数的声明�
 typealias ClickHandler = (Button, ClickEvent) -> Unit
 ```
 
-### 实例化函数类型
+### 实例化函数类型 {id="instantiating-a-function-type"}
 
 有几种方法可以获取函数类型的实例：
 
@@ -138,7 +138,7 @@ fun main() {
 >
 {style="note"}
 
-### 调用函数类型实例
+### 调用函数类型实例 {id="invoking-a-function-type-instance"}
 
 函数类型的值可以通过使用其 [`invoke(...)` 运算符](operator-overloading.md#invoke-operator)来调用：`f.invoke(x)` 或简写为 `f(x)`。
 
@@ -163,11 +163,11 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-### 内联函数
+### 内联函数 {id="inline-functions"}
 
 有时，对于高阶函数，使用[内联函数](inline-functions.md)是有益的，它们可以提供灵活的控制流。
 
-## lambda表达式与匿名函数
+## lambda表达式与匿名函数 {id="lambda-expressions-and-anonymous-functions"}
 
 lambda表达式和匿名函数是*函数字面量*。函数字面量是未声明但立即作为表达式传递的函数。请看以下示例：
 
@@ -187,7 +187,7 @@ fun compare(a: String, b: String): Boolean = a.length < b.length
 val suspendingTask = suspend { doSuspendingWork() }
 ```
 
-### lambda表达式语法
+### lambda表达式语法 {id="lambda-expression-syntax"}
 
 lambda表达式的完整语法形式如下：
 
@@ -206,7 +206,7 @@ val sum: (Int, Int) -> Int = { x: Int, y: Int -> x + y }
 val sum = { x: Int, y: Int -> x + y }
 ```
 
-### 传递尾随 Lambda
+### 传递尾随 Lambda {id="passing-trailing-lambdas"}
 
 根据 Kotlin 约定，如果函数的最后一个参数是函数，那么作为相应实参传递的 lambda表达式可以放在圆括号之外：
 
@@ -222,7 +222,7 @@ val product = items.fold(1) { acc, e -> acc * e }
 run { println("...") }
 ```
 
-### it：单个参数的隐式名称
+### it：单个参数的隐式名称 {id="it-implicit-name-of-a-single-parameter"}
 
 lambda表达式只有一个参数是非常常见的情况。
 
@@ -232,7 +232,7 @@ lambda表达式只有一个参数是非常常见的情况。
 ints.filter { it > 0 } // 此字面量的类型为 '(it: Int) -> Boolean'
 ```
 
-### 从 lambda表达式返回值
+### 从 lambda表达式返回值 {id="returning-a-value-from-a-lambda-expression"}
 
 你可以使用[限定的 return](returns.md#return-to-labels) 语法显式地从 lambda 返回值。否则，将隐式返回最后一个表达式的值。
 
@@ -256,7 +256,7 @@ ints.filter {
 strings.filter { it.length == 5 }.sortedBy { it }.map { it.uppercase() }
 ```
 
-### 下划线用于未使用的变量
+### 下划线用于未使用的变量 {id="underscore-for-unused-variables"}
 
 如果 lambda 参数未使用，你可以放置下划线代替其名称：
 
@@ -264,11 +264,11 @@ strings.filter { it.length == 5 }.sortedBy { it }.map { it.uppercase() }
 map.forEach { (_, value) -> println("$value!") }
 ```
 
-### lambda 中的析构
+### lambda 中的析构 {id="destructuring-in-lambdas"}
 
 lambda 中的析构作为[析构声明](destructuring-declarations.md#lambda-中的析构)的一部分进行了描述。
 
-### 匿名函数
+### 匿名函数 {id="anonymous-functions"}
 
 上面的 lambda表达式语法缺少一件事——指定函数返回值类型的能力。在大多数情况下，这是不需要的，因为返回值类型可以自动推断。但是，如果你确实需要显式指定它，可以使用另一种语法：*匿名函数*。
 
@@ -298,7 +298,7 @@ ints.filter(fun(item) = item > 0)
 
 lambda表达式和匿名函数之间的另一个区别是[非局部返回](inline-functions.md#返回)的行为。不带标签的 `return` 语句总是从使用 `fun` 关键字声明的函数返回。这意味着 lambda表达式内部的 `return` 将从封闭函数返回，而匿名函数内部的 `return` 将从匿名函数本身返回。
 
-### 闭包
+### 闭包 {id="closures"}
 
 lambda表达式或匿名函数（以及[局部函数](functions.md#局部函数)和[对象表达式](object-declarations.md#对象表达式)）可以访问其*闭包*，其中包含在外部作用域中声明的变量。在闭包中捕获的变量可以在 lambda 中修改：
 
@@ -310,7 +310,7 @@ ints.filter { it > 0 }.forEach {
 print(sum)
 ```
 
-### 带接收者的函数字面量
+### 带接收者的函数字面量 {id="function-literals-with-receiver"}
 
 带有接收者的[函数类型](#函数类型)（如 `A.(B) -> C`）可以使用函数字面量的特殊形式——带接收者的函数字面量来实例化。
 

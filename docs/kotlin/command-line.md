@@ -11,9 +11,9 @@
 > 
 {style="note"}
 
-## 安装编译器
+## 安装编译器 {id="install-the-compiler"}
 
-### 手动安装
+### 手动安装 {id="manual-install"}
 
 要手动安装 Kotlin 编译器：
 
@@ -25,7 +25,7 @@
 > 
 {style="note"}
 
-### SDKMAN!
+### SDKMAN! {id="sdkman"}
 
 在基于 UNIX 的系统（如 macOS、Linux、Cygwin、FreeBSD 和 Solaris）上安装 Kotlin 的一种更简便的方法是 [SDKMAN!](https://sdkman.io)。它也适用于 Bash 和 ZSH shell。[了解如何安装 SDKMAN!](https://sdkman.io/install)。
 
@@ -35,7 +35,7 @@
 sdk install kotlin
 ```
 
-### Homebrew
+### Homebrew {id="homebrew"}
 
 或者，在 macOS 上，您可以通过 [Homebrew](https://brew.sh/) 安装编译器：
 
@@ -44,7 +44,7 @@ brew update
 brew install kotlin
 ```
 
-### Snap 软件包
+### Snap 软件包 {id="snap-package"}
 
 如果您在 Ubuntu 16.04 或更高版本上使用 [Snap](https://snapcraft.io/)，可以从命令行安装编译器：
 
@@ -52,7 +52,7 @@ brew install kotlin
 sudo snap install --classic kotlin
 ```
 
-## 创建并运行应用程序
+## 创建并运行应用程序 {id="create-and-run-an-application"}
 
 1. 在 Kotlin 中创建一个简单的控制台 JVM 应用程序，显示 `"Hello, World!"`。 
    在代码编辑器中，创建一个名为 `hello.kt` 的新文件，并包含以下代码：
@@ -88,7 +88,7 @@ sudo snap install --classic kotlin
 > 
 {style="note"}
 
-## 编译库
+## 编译库 {id="compile-a-library"}
 
 如果您正在开发供其他 Kotlin 应用程序使用的库，则可以在不包含 Kotlin 运行时的情况下构建 **.jar** 文件：
 
@@ -110,11 +110,11 @@ kotlin -classpath hello.jar HelloKt
 >
 {style="note"}
 
-## 运行 REPL
+## 运行 REPL {id="run-the-repl"}
 
 使用 [`-Xrepl` 编译器选项](compiler-reference.md#xrepl)运行编译器，以获得一个交互式 shell。在此 shell 中，您可以输入任何有效的 Kotlin 代码并查看结果。
 
-## 运行脚本
+## 运行脚本 {id="run-scripts"}
 
 您可以将 Kotlin 用作脚本语言。
 Kotlin 脚本是具有顶级可执行代码的 Kotlin 源文件 (`.kts`)。
@@ -149,6 +149,6 @@ kotlinc -script-templates org.example.CustomScriptDefinition -script custom.scri
 
 更多详情，请参阅 [KEEP-75](https://github.com/Kotlin/KEEP/blob/master/proposals/scripting-support.md)。
 
-## 下一步做什么？
+## 下一步做什么？ {id="what-s-next"}
 
 [创建一个基于 Kotlin/JVM 的控制台应用程序](jvm-get-started.md)。

@@ -6,11 +6,11 @@ Koin 컴파일러 플러그인은 컴파일 타임에 의존성 그래프를 검
 
 이는 `verify()` 및 `checkModules()`와 같은 런타임 검증 도구를 대체합니다. 컴파일이 된다면, 정상적으로 작동함을 의미합니다.
 
-## 작동 방식
+## 작동 방식 {id="how-it-works"}
 
 플러그인은 컴파일 중에 세 가지 수준에서 그래프를 검증합니다.
 
-### A2 — 모듈별 검증 (조기 피드백)
+### A2 — 모듈별 검증 (조기 피드백) {id="a2-per-module-early-feedback"}
 
 각 모듈의 정의는 해당 모듈에서 볼 수 있는 정의(자신의 정의, 명시적으로 포함된 모듈, `@Configuration` 형제 모듈)를 기준으로 체크됩니다.
 
@@ -49,7 +49,7 @@ class ServiceModule         // Service(repo: Repository) → 오류(ERROR)
 - `T`가 제공되지 않은 `Lazy<T>`
 - `@Provided`로 표시되지 않은 외부 의존성
 
-### A3 — 전체 그래프 (완전한 보장)
+### A3 — 전체 그래프 (완전한 보장) {id="a3-full-graph-complete-guarantee"}
 
 `startKoin<T>()` 호출 시, 모든 소스의 모든 모듈이 조립되어 전체 그래프가 검증됩니다. A2에서 볼 수 없었던 모듈 간 의존성, JAR의 정의 등이 여기서 체크됩니다.
 
@@ -63,7 +63,7 @@ startKoin<MyApp> { }
 
 A3는 DSL 정의(`single<T>()`, `factory<T>()` 등)가 그래프의 일부일 때 이들도 함께 검증합니다.
 
-### A4 — 호출 지점 검증 (Call-Site Validation)
+### A4 — 호출 지점 검증 (Call-Site Validation) {id="a4-call-site-validation"}
 
 코드베이스의 모든 `koinViewModel<T>()`, `get<T>()`, `inject<T>()` 호출을 가로챕니다. 플러그인은 대상 타입, 파일, 라인 및 컬럼 정보를 캡처한 다음, 조립된 그래프에 `T`가 존재하는지 확인합니다.
 
@@ -82,7 +82,7 @@ class MyFragment : Fragment() {
 
 **모듈 간 호출 지점:** 기능 모듈이 `koinViewModel<T>()`을 호출하지만 전체 그래프에 대한 가시성이 없는 경우, 플러그인은 호출 지점 힌트(call-site hint)를 생성합니다. 앱 모듈이 컴파일될 때 의존성 JAR에서 이러한 힌트들을 발견하고 전체 그래프를 기준으로 검증합니다.
 
-## 검증 대상
+## 검증 대상 {id="what-gets-validated"}
 
 | 시나리오 | 결과 |
 |----------|--------|
@@ -102,7 +102,7 @@ class MyFragment : Fragment() {
 | Android 프레임워크 타입 (예: `Context`) | OK — 하드코딩된 화이트리스트 |
 | 순환 의존성 (A → B → A) | **오류(ERROR)** — A2/A3 그래프 탐색 중에 감지됨 |
 
-## 애노테이션을 통한 안정성
+## 애노테이션을 통한 안정성 {id="safety-with-annotations"}
 
 클래스에 애노테이션을 달고 모듈로 구성하면 컴파일러가 모든 것을 검증합니다.
 
@@ -151,7 +151,7 @@ class CoreModule
 class FeatureModule  // CoreModule의 정의를 볼 수 있음
 ```
 
-## DSL을 통한 안정성
+## DSL을 통한 안정성 {id="safety-with-dsl"}
 
 컴파일러 플러그인은 DSL 정의도 검증합니다. `single<T>()`, `factory<T>()` 또는 `viewModel<T>()`를 작성하면 플러그인이 호출을 가로채서 생성자를 자동으로 연결(auto-wire)하고 모든 파라미터를 검증합니다.
 
@@ -179,7 +179,7 @@ val appModule = module {
 
 DSL 정의는 A3 검증(전체 그래프) 및 A4 검증(호출 지점)에 참여합니다. `startKoin { modules(appModule) }`을 사용하면 플러그인은 조립된 그래프를 기반으로 모든 DSL 정의를 검증합니다.
 
-## 두 스타일의 혼용
+## 두 스타일의 혼용 {id="both-styles-together"}
 
 한 프로젝트 내에서 애노테이션과 DSL을 혼합하여 사용할 수 있습니다. 둘 다 동일한 검증 그래프로 수집됩니다.
 
@@ -193,7 +193,7 @@ val featureModule = module {
 }
 ```
 
-## 오류 메시지
+## 오류 메시지 {id="error-messages"}
 
 오류는 누락된 타입, 해당 타입이 필요한 정의, 그리고 어떤 모듈에 있는지 보고합니다.
 
@@ -221,11 +221,11 @@ val featureModule = module {
   → file: UserScreen.kt, line: 12, column: 5
 ```
 
-## 금지된 정의
+## 금지된 정의 {id="forbidden-definitions"}
 
 일부 반환 타입은 Koin을 통해 의미 있게 해석될 수 없으며 컴파일 타임에 거부됩니다.
 
-### KOIN-D007: suspend `fun interface`를 반환하는 `@Factory`
+### KOIN-D007: suspend `fun interface`를 반환하는 `@Factory` {id="koin-d007-factory-returning-a-suspend-fun-interface"}
 
 suspend `fun interface`를 확장하는 타입을 반환하는 `@Factory`는 Koin의 동기식 `get<T>()` API를 통해 호출될 수 없습니다. 플러그인은 이를 컴파일 타임에 차단합니다.
 
@@ -239,7 +239,7 @@ fun provideTask(): AsyncTask = AsyncTask { ... }
 
 일반 인터페이스로 리팩터링하거나, suspend 메서드가 있는 클래스를 통해 suspend 작업을 노출하세요.
 
-## 제네릭 DSL 타입
+## 제네릭 DSL 타입 {id="generic-dsl-types"}
 
 런타임 Koin은 **소거된 로우 클래스(erased raw class)**를 기반으로 정의를 해석합니다. 즉, 타입 파라미터는 조회 키의 일부가 아닙니다. 컴파일 안정성도 이를 따릅니다. `get<Box<X>>()` 호출은 그래프 내의 모든 `Box<*>` 공급자를 대상으로 검증되며, `single<Box<A>>()`와 `single<Box<B>>()`라는 두 개의 선언은 충돌합니다(동일한 로우 클래스, 한정자 없음).
 
@@ -256,7 +256,7 @@ koin.get<Box<String>>() // → 동일한 등록을 반환 (타입 소거)
 
 로우 클래스에서 검증하면 DSL 정의에 치환되지 않은 타입 파라미터가 포함될 때 iOS 빌드에서 크래시를 일으키던 Kotlin/Native klib 시그니처 맹글링(mangling) 오류도 방지할 수 있습니다.
 
-### 제네릭 인스턴스 구별: 제네릭 파라미터의 타입 한정자 사용
+### 제네릭 인스턴스 구별: 제네릭 파라미터의 타입 한정자 사용 {id="discriminating-generic-instances-type-qualifier-on-the-generic-parameter"}
 
 동일한 제네릭 클래스의 여러 인스턴스가 공존해야 할 때 관용적인 패턴은 **구체적인 래퍼 타입**을 등록하고 **제네릭 파라미터에서 파생된 타입 한정자**(`named<T>()`)를 사용하는 것입니다. 이는 `koin-compose-navigation3`가 각 내비게이션 경로를 해당 경로 타입에 매핑하기 위해 내부적으로 사용하는 방식입니다.
 
@@ -287,7 +287,7 @@ koin.get<EntryProviderInstaller>(named<HomeRoute>())
 
 제네릭 인스턴스를 구분해야 할 때마다 `single<Box<X>>()`를 직접 사용하는 것보다 이 패턴을 권장합니다.
 
-## 스코프 파라미터 주입
+## 스코프 파라미터 주입 {id="scope-parameter-injection"}
 
 `org.koin.core.scope.Scope` 타입의 파라미터는 애노테이션 없이도 스코프 리시버와 함께 자동으로 주입됩니다. 스코프를 주입하면 동적 조회가 가능해지므로 검증은 생략됩니다.
 
@@ -299,7 +299,7 @@ class ScopedService(val scope: Scope) {
 // 생성됨: ScopedService(scope) — 스코프 리시버를 직접 전달함
 ```
 
-## 명명된 스코프 해석: `@ScopeId`
+## 명명된 스코프 해석: `@ScopeId` {id="named-scope-resolution-scopeid"}
 
 현재 스코프 대신 명명된 Koin 스코프에서 의존성을 해석하려면 `@ScopeId`를 사용하세요. 스코프는 런타임에 해석되므로 검증은 생략됩니다.
 
@@ -316,7 +316,7 @@ class ProfileService(@ScopeId(name = "user_session") val session: UserSession)
 | 문자열 이름 | `@ScopeId(name = "user_session")` | `"user_session"` |
 | 타입 참조 | `@ScopeId(UserSessionScope::class)` | FQ(전체 경로) 클래스 이름 |
 
-## 프로퍼티 검증
+## 프로퍼티 검증 {id="property-validation"}
 
 `@Property("key")` 파라미터는 Koin 프로퍼티(시작 시 `properties()`를 통해 설정됨)에서 해석됩니다. 플러그인은 `@PropertyValue("key")` 기본값이 존재하지 않을 때 컴파일 타임에 경고를 표시합니다.
 
@@ -334,7 +334,7 @@ class Other(@Property("missing.key") val value: String)
 // (여전히 컴파일됨 — 프로퍼티는 런타임에 제공될 수 있음)
 ```
 
-## 외부 타입: `@Provided`
+## 외부 타입: `@Provided` {id="external-types-provided"}
 
 일부 타입은 런타임에 플랫폼이나 외부 프레임워크에 의해 제공되며 Koin 정의로 선언되지 않습니다. 검증을 건너뛰려면 이들에 `@Provided` 표시를 하세요.
 
@@ -377,7 +377,7 @@ class PaymentProcessor(@Provided val paymentGateway: PaymentGateway)
 - `androidx.lifecycle.SavedStateHandle`
 - `androidx.work.WorkerParameters`
 
-## 기본값과 skipDefaultValues
+## 기본값과 skipDefaultValues {id="default-values-and-skipdefaultvalues"}
 
 `skipDefaultValues`가 활성화된 경우(기본값), Kotlin 기본값이 있는 파라미터는 DI 컨테이너에서 해석되는 대신 기본값을 사용합니다.
 
@@ -408,7 +408,7 @@ class ApiClient(
 
 Kotlin 기본값을 무시하고 항상 DI 컨테이너에서 모든 파라미터를 주입하려면 `skipDefaultValues = false`로 설정하세요.
 
-## 설정
+## 설정 {id="configuration"}
 
 컴파일 타임 안정성은 기본적으로 활성화되어 있습니다. 비활성화하려면 다음과 같이 설정합니다.
 
@@ -434,7 +434,7 @@ koinCompiler {
 전체 그래프 패스(A3)는 애그리게이터의 `compileKotlin`에서만 실행됩니다. K2 기반의 Kotlin 증분 컴파일은 `module { }` 람다 본문 내부의 DSL 변경 사항이나 `@ComponentScan` 패키지에 새로 추가된 클래스를 추적하지 않습니다. 따라서 그래프가 변경되었음에도 애그리게이터가 UP-TO-DATE로 표시될 수 있습니다. 플러그인은 감지된 애그리게이터 모듈에서 [`strictSafety`](/docs/reference/koin-annotations/options#strictsafety)를 자동으로 활성화하여 A3가 다시 실행되도록 강제합니다. 라이브러리 및 기능 모듈은 계속해서 완전한 증분 컴파일을 유지합니다.
 :::
 
-## verify() / checkModules()에서 마이그레이션하기
+## verify() / checkModules()에서 마이그레이션하기 {id="migrating-from-verify-checkmodules"}
 
 컴파일러 플러그인은 런타임 검증을 대체합니다. 기존 검증 테스트를 제거할 수 있습니다.
 
@@ -447,7 +447,7 @@ koinCompiler {
 
 컴파일러가 매 빌드 시 검증하므로 테스트 코드가 필요하지 않습니다.
 
-## 관련 내용
+## 관련 내용 {id="see-also"}
 
 - **[컴파일러 플러그인 옵션](/docs/reference/koin-annotations/options)** - 모든 구성 옵션
 - **[컴파일러 플러그인 설정](/docs/setup/compiler-plugin)** - 설치 가이드

@@ -15,7 +15,7 @@ java -cp <classpath> <mainclass> <options> <processor>
 | `<options>`   | KSP용 커맨드 라인 옵션.                          |
 | `<processor>` | 프로세서 JAR 경로.                               |
 
-## 클래스패스(Classpath)
+## 클래스패스(Classpath) {id="classpath"}
 
 Gradle 플러그인과 달리 `java` 명령어는 의존성을 자동으로 해결하지 않습니다. 클래스패스에 KSP 런타임 JAR와 그 의존성들을 직접 제공해야 합니다.
 
@@ -33,7 +33,7 @@ Gradle 플러그인과 달리 `java` 명령어는 의존성을 자동으로 해�
 
 * [`kotlinx-coroutines-core-jvm-%coroutinesVersion%.jar`](https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-core-jvm)
 
-## 메인 클래스(Main class)
+## 메인 클래스(Main class) {id="main-class"}
 
 KSP는 JVM 애플리케이션이므로 실행할 메인 클래스를 지정해야 합니다. KSP는 지원되는 각 플랫폼마다 서로 다른 엔트리 포인트를 제공합니다:
 
@@ -71,7 +71,7 @@ com.google.devtools.ksp.cmdline.KSPJvmMain \
 path/to/processor.jar
 ```
 
-## 옵션(Options)
+## 옵션(Options) {id="options"}
 
 커맨드 라인에서 실행할 때 KSP는 다음과 같은 옵션들을 필요로 합니다:
 
@@ -91,7 +91,7 @@ path/to/processor.jar
 | `-resource-output-dir=<path>` | 생성된 리소스용 디렉터리입니다.                                                                                                   |
 | `<processor>`                 | 프로세서 클래스패스입니다.                                                                                                        |
 
-### 기타 유용한 옵션들
+### 기타 유용한 옵션들 {id="other-useful-options"}
 
 * `-libraries=<path>`: 소스 파일에서 참조하는 의존성을 해결하는 데 사용되는 클래스패스입니다. 일반적으로 모듈의 컴파일 클래스패스입니다.
 

@@ -10,7 +10,7 @@
 - 內建前置處理器以限制歷程記錄大小並篩選訊息
 - 支援自訂前置處理器以進行任意訊息轉換
 
-## 新增相依性
+## 新增相依性 {id="add-dependencies"}
 
 對話記憶是一個選用的 [功能](../index.md)，在 Koog 中預設不提供。
 若要為您的 Koog 代理實作對話記憶，請新增 [`ai.koog:agents-features-memory`](https://mvnrepository.com/artifact/ai.koog/agents-features-memory) 的相依性：
@@ -42,7 +42,7 @@
 !!! note
     `ChatMemory` 功能自 Koog 版本 **0.7.0** 起提供。
 
-## 啟用對話記憶
+## 啟用對話記憶 {id="enable-chat-memory"}
 
 在建立代理時，使用 `install()` 方法安裝 `ChatMemory`：
 
@@ -98,7 +98,7 @@
         .build();
     ```
 
-## 工作階段 ID
+## 工作階段 ID {id="session-ids"}
 
 將工作階段 ID 作為 `agent.run()` 的第二個引數傳入。
 `ChatMemory` 使用此 ID 來儲存與載入對話：
@@ -113,7 +113,7 @@ agent.run("那麼德國呢？", "session-1")
 
 不同的工作階段 ID 會產生完全隔離的歷程記錄。
 
-## 歷程記錄提供者
+## 歷程記錄提供者 {id="history-providers"}
 
 預設的 `InMemoryChatHistoryProvider` 是執行緒安全的，但非持久性（重新啟動後歷程記錄會遺失）。
 對於生產環境，請實作您自己的 `ChatHistoryProvider` 來持久化儲存訊息。
@@ -130,19 +130,19 @@ class MyDatabaseChatHistoryProvider(private val db: Database) : ChatHistoryProvi
 }
 ```
 
-## 前置處理器
+## 前置處理器 {id="preprocessors"}
 
 前置處理器在載入時（在代理看到訊息之前）和儲存時（在儲存之前）轉換訊息清單。
 它們會按照您新增至 `ChatMemory` 功能配置中的順序依序執行。
 
-### 內建前置處理器
+### 內建前置處理器 {id="built-in-preprocessors"}
 
 | 配置方法 | 前置處理器類別 | 行為 |
 |--------------------------|------------------------------|---------------------------------------|
 | `windowSize(n)`          | `WindowSizePreProcessor`     | 僅保留最後 `n` 條訊息 |
 | `filterMessages { ... }` | `FilterMessagesPreProcessor` | 保留符合述句的訊息 |
 
-### 前置處理器的順序
+### 前置處理器的順序 {id="order-of-preprocessors"}
 
 前置處理器依序執行，每個處理器的輸出會成為下一個處理器的輸入。
 這意味著順序非常重要。
@@ -157,7 +157,7 @@ filterMessages { it.content.length <= 100 }
 windowSize(10)
 ```
 
-### 自訂前置處理器
+### 自訂前置處理器 {id="custom-preprocessors"}
 
 若要建立自訂前置處理器，請實作 `ChatMemoryPreProcessor` 介面：
 
@@ -181,7 +181,7 @@ install(ChatMemory) {
 }
 ```
 
-## 對話記憶 vs 代理持久化
+## 對話記憶 vs 代理持久化 {id="chat-memory-vs-agent-persistence"}
 
 `ChatMemory` 將每次 `agent.run()` 呼叫視為一個原子性的、自包含的迴圈。
 代理在執行前載入對話歷程記錄，並在成功執行後進行儲存。
@@ -218,14 +218,14 @@ val agent = AIAgent(
 }
 ```
 
-## 最佳實務
+## 最佳實務 {id="best-practices"}
 
 - **務必設定視窗大小**，以防止對話內容無限制增長。
 - **仔細安排前置處理器的順序**，因為在視窗化之前進行篩選，與在篩選之前進行視窗化，產生的結果會不同。
 - **使用具備意義的工作階段 ID** 以實現歷程記錄隔離：使用者 ID、對話串 ID 或 UUID 都是不錯的選擇。
 - **針對生產環境實作持久化提供者**，因為預設的 `InMemoryChatHistoryProvider` 在重新啟動時會遺失歷程記錄。
 
-## 後續步驟
+## 後續步驟 {id="next-steps"}
 
 - 了解如何 [建置具有記憶功能的簡單 CLI 對話迴圈](chat-agent-with-memory.md)
 - 查看 [具有記憶功能的對話端點](chat-backend-with-memory.md) 範例

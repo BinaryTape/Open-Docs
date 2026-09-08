@@ -174,7 +174,7 @@ sourceSets {
 
 특정 엔진에 필요한 전체 의존성 목록은 [엔진 의존성 추가하기](client-engines.md#dependencies)를 참조하세요.
 
-### 로깅 의존성
+### 로깅 의존성 {id="logging-dependency"}
 
   <p>
     <a href="#jvm">JVM</a>에서 Ktor는 로깅을 위한 추상화 계층으로 Simple Logging Facade for Java
@@ -212,7 +212,7 @@ Ktor를 사용하면 인증(authorization) 및 직렬화(serialization)와 같�
 
 > 멀티플랫폼 프로젝트의 경우, 플러그인 의존성은 `commonMain` 소스 세트에 추가되어야 합니다. 일부 플러그인은 특정 플랫폼에 대해 [제한 사항](client-engines.md#limitations)이 있을 수 있음에 유의하세요.
 
-## Ktor 버전 일관성 보장하기
+## Ktor 버전 일관성 보장하기 {id="ensure-ktor-version-consistency"}
 
 <chapter title="Ktor BOM 의존성 사용하기">
 

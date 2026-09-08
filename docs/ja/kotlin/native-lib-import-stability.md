@@ -3,7 +3,7 @@
 Kotlin/Native は、[C](native-c-interop.md) および [Objective-C](native-objc-interop.md) ライブラリをインポートする機能を提供しています。
 また、純粋な [Swift ライブラリ](#swift-library-import)を Kotlin/Native プロジェクトにインポートするための回避策を利用することも可能です。
 
-## C および Objective-C ライブラリインポートの安定性
+## C および Objective-C ライブラリインポートの安定性 {id="stability-of-c-and-objective-c-library-import"}
 <primary-label ref="beta"/>
 
 C および Objective-C ライブラリのインポートのサポートは、現在[ベータ版](components-stability.md#kotlin-native)です。
@@ -17,7 +17,7 @@ C および Objective-C ライブラリのインポートのサポートは、�
 
 これら 2 種類のネイティブライブラリには、それぞれ異なる互換性の詳細があります。
 
-### プラットフォームライブラリ
+### プラットフォームライブラリ {id="platform-libraries"}
 
 [プラットフォームライブラリ](native-platform-libs.md)は Kotlin/Native コンパイラに同梱されています。
 そのため、プロジェクトで異なるバージョンの Kotlin を使用すると、異なるバージョンのプラットフォームライブラリが使用されることになります。
@@ -41,7 +41,7 @@ JetBrains チームがプラットフォームライブラリの生成に使用�
 
 プラットフォームライブラリでの破壊的な変更のもう 1 つの潜在的な理由は、ネイティブ API を Kotlin に変換するアルゴリズムの変更です。JetBrains チームは、このような場合でも破壊的な変更を避けるために相応の努力を払っています。
 
-#### プラットフォームライブラリの新しい Objective-C クラスの使用
+#### プラットフォームライブラリの新しい Objective-C クラスの使用 {id="using-new-objective-c-classes-from-platform-libraries"}
 
 Kotlin コンパイラは、デプロイターゲットで利用できない Objective-C クラスの使用を禁止しません。
 
@@ -50,12 +50,12 @@ Kotlin コンパイラは、デプロイターゲットで利用できない Obj
 
 詳細は、[ストロングリンキング（Strong linking）](native-objc-interop.md#strong-linking)を参照してください。
 
-### サードパーティライブラリ
+### サードパーティライブラリ {id="third-party-libraries"}
 
 システムプラットフォームライブラリの他に、Kotlin/Native ではサードパーティのネイティブライブラリをインポートできます。
 たとえば、[CocoaPods 統合](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html)を使用したり、[cinterops 設定](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#cinterops)をセットアップしたりできます。
 
-#### Xcode バージョンが一致しないライブラリのインポート
+#### Xcode バージョンが一致しないライブラリのインポート {id="importing-libraries-with-mismatched-xcode-version"}
 
 サードパーティのネイティブライブラリをインポートすると、異なる Xcode バージョンとの互換性の問題が発生する可能性があります。
 
@@ -67,11 +67,11 @@ Kotlin コンパイラは、デプロイターゲットで利用できない Obj
 
 推奨より新しい、または古い Xcode バージョンを使用することは多くの場合可能ですが、特にサードパーティのネイティブライブラリのインポートに影響を与える問題が発生する可能性があります。
 
-##### Xcode バージョンが推奨よりも新しい場合
+##### Xcode バージョンが推奨よりも新しい場合 {id="xcode-version-is-newer-than-recommended"}
 
 推奨よりも新しい Xcode バージョンを使用すると、一部の Kotlin 機能が壊れる可能性があります。サードパーティのネイティブライブラリのインポートは、これによって最も影響を受けます。サポートされていないバージョンの Xcode では、まったく動作しないことがよくあります。
 
-##### Xcode バージョンが推奨よりも古い場合
+##### Xcode バージョンが推奨よりも古い場合 {id="xcode-version-is-older-than-recommended"}
 
 通常、Kotlin は古い Xcode バージョンでもうまく動作します。時折問題が発生することがあり、多くの場合、以下のような結果になります。
 
@@ -82,7 +82,7 @@ Kotlin コンパイラは、デプロイターゲットで利用できない Obj
 
 Kotlin ライブラリが古い Xcode バージョンで正常にコンパイルされる場合、[Kotlin ライブラリ API でサードパーティライブラリの型を使用している](#using-native-types-in-library-api)場合を除き、公開しても安全です。
 
-#### 推移的なサードパーティネイティブ依存関係の使用
+#### 推移的なサードパーティネイティブ依存関係の使用 {id="using-a-transitive-third-party-native-dependency"}
 
 プロジェクト内の Kotlin ライブラリが、その実装の一部としてサードパーティのネイティブライブラリをインポートしている場合、プロジェクトもそのネイティブライブラリにアクセスできるようになります。
 これは、Kotlin/Native が `api` と `implementation` の依存関係タイプを区別しないため、ネイティブライブラリが常に `api` 依存関係になるためです。
@@ -92,7 +92,7 @@ Kotlin ライブラリが古い Xcode バージョンで正常にコンパイル
 
 そのため、推移的な依存関係に頼るのではなく、同じネイティブライブラリとの相互運用を直接設定してください。その際、互換性の問題を回避するために、[カスタムパッケージ名を使用する](#use-custom-package-name)のと同様に、ネイティブライブラリに別のパッケージ名を使用してください。
 
-#### ライブラリ API でのネイティブ型の使用
+#### ライブラリ API でのネイティブ型の使用 {id="using-native-types-in-library-api"}
 
 Kotlin ライブラリを公開する場合、ライブラリ API 内のネイティブ型には注意してください。このような使用法は、将来、互換性やその他の問題を修正するために壊れることが予想され、ライブラリのユーザーに影響を与えます。
 
@@ -110,11 +110,11 @@ internal fun createUIViewController(): UIViewController
 public fun getDate(): String = NSDate().toString()
 ```
 
-#### サードパーティライブラリを使用するライブラリの公開
+#### サードパーティライブラリを使用するライブラリの公開 {id="publishing-a-library-that-uses-third-party-library"}
 
 サードパーティのネイティブライブラリを使用する Kotlin ライブラリを公開する場合、互換性の問題を回避するためにできることがいくつかあります。
 
-##### カスタムパッケージ名の使用
+##### カスタムパッケージ名の使用 {id="use-custom-package-name"}
 
 サードパーティのネイティブライブラリにカスタムパッケージ名を使用すると、互換性の問題を回避できる場合があります。
 
@@ -127,7 +127,7 @@ public fun getDate(): String = NSDate().toString()
 * CocoaPods 統合を介してネイティブライブラリをインポートする場合、Gradle ビルドスクリプトの `pod {}` ブロックで [`packageName`](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-dsl-reference.html#pod-function) プロパティを使用します。
 * `cinterops` 設定でネイティブライブラリをインポートする場合、設定ブロックで [`packageName`](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#cinterops) プロパティを使用します。
 
-##### 古い Kotlin バージョンとの互換性の確認
+##### 古い Kotlin バージョンとの互換性の確認 {id="check-compatibility-with-older-kotlin-versions"}
 
 Kotlin ライブラリを公開する場合、サードパーティのネイティブライブラリの使用は、他の Kotlin バージョンとのライブラリ互換性に影響を与える可能性があります。具体的には：
 
@@ -139,17 +139,17 @@ Kotlin ライブラリを公開する場合、サードパーティのネイテ�
 
   Kotlin ライブラリでネイティブライブラリを使用しても、通常はその後方互換性に影響しません。しかし、互換性に影響を与えるコンパイラのバグが発生する可能性が高まります。
 
-##### 静的ライブラリの埋め込みを避ける
+##### 静的ライブラリの埋め込みを避ける {id="avoid-embedding-static-libraries"}
 
 ネイティブライブラリをインポートするとき、`-staticLibrary` コンパイラオプションまたは `.def` ファイルの `staticLibraries` プロパティを使用して、関連する[静的ライブラリ](native-definition-file.md#include-a-static-library)（`.a` ファイル）を含めることが可能です。その場合、ライブラリユーザーはネイティブの依存関係やリンカーオプションを扱う必要がありません。
 
 しかし、含まれている静的ライブラリの使用方法を構成（除外や置換など）することは不可能です。そのため、ユーザーは、同じ静的ライブラリを含む他の Kotlin ライブラリとの潜在的な衝突を解決したり、そのバージョンを調整したりすることができなくなります。
 
-### ネイティブライブラリサポートの進化
+### ネイティブライブラリサポートの進化 {id="evolution-of-native-library-support"}
 
 現在、Kotlin プロジェクトで C および Objective-C を使用すると、互換性の問題が発生する可能性があります。その一部はこのガイドに記載されています。これらを修正するために、将来的にいくつかの破壊的な変更が必要になる可能性があり、それ自体が互換性の問題の一因となります。
 
-## Swift ライブラリのインポート
+## Swift ライブラリのインポート {id="swift-library-import"}
 
 Kotlin/Native は、純粋な Swift ライブラリの直接インポートをサポートしていません。しかし、それを回避するためのいくつかのオプションがあります。
 

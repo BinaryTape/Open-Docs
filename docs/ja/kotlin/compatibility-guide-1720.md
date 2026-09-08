@@ -6,7 +6,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 
 このドキュメントでは、Kotlin 1.7.0 および 1.7.10 から Kotlin 1.7.20 への移行に関するリファレンスとして、それらをまとめています。
 
-## 基本用語
+## 基本用語 {id="basic-terms"}
 
 このドキュメントでは、いくつかの種類の互換性について紹介します。
 
@@ -16,10 +16,10 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 
 これらの定義は、純粋な Kotlin に対してのみ与えられていることに注意してください。他の言語の観点（例：Java）からの Kotlin コードの互換性は、このドキュメントの範囲外です。
 
-## 言語
+## 言語 {id="language"}
 
 <!--
-### Title
+### Title {id="title"}
 
 > **Issue**: [KT-NNNNN](https://youtrack.jetbrains.com/issue/KT-NNNNN)
 >
@@ -35,7 +35,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 > - 1.7.0: report an error
 -->
 
-### 適切な制約処理を修正する試みのロールバック
+### 適切な制約処理を修正する試みのロールバック {id="rollback-attempt-to-fix-proper-constraints-processing"}
 
 > **Issue**: [KT-53813](https://youtrack.jetbrains.com/issue/KT-53813)
 >
@@ -49,7 +49,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 >
 > - 1.7.20: 1.7.0 の動作にロールバック
 
-### 問題のある複数のラムダおよび解決との相互作用を避けるため、一部のビルダー推論ケースを禁止
+### 問題のある複数のラムダおよび解決との相互作用を避けるため、一部のビルダー推論ケースを禁止 {id="forbid-some-builder-inference-cases-to-avoid-problematic-interaction-with-multiple-lambdas-and-resolution"}
 
 > **Issue**: [KT-53797](https://youtrack.jetbrains.com/issue/KT-53797)
 >

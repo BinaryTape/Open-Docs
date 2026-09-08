@@ -6,7 +6,7 @@ _[현대적인 언어 유지(Keeping the Language Modern)](kotlin-evolution-prin
 
 이 문서는 Kotlin 1.7.0 및 1.7.10에서 Kotlin 1.7.20으로 마이그레이션할 때 참고할 수 있도록 해당 내용을 요약합니다.
 
-## 기본 용어
+## 기본 용어 {id="basic-terms"}
 
 이 문서에서는 몇 가지 종류의 호환성을 소개합니다:
 
@@ -16,10 +16,10 @@ _[현대적인 언어 유지(Keeping the Language Modern)](kotlin-evolution-prin
 
 이러한 정의는 순수 Kotlin에 대해서만 적용된다는 점을 기억하십시오. 다른 언어 관점(예: Java)에서의 Kotlin 코드 호환성은 이 문서의 범위를 벗어납니다.
 
-## 언어 (Language)
+## 언어 (Language) {id="language"}
 
 <!--
-### Title
+### Title {id="title"}
 
 > **Issue**: [KT-NNNNN](https://youtrack.jetbrains.com/issue/KT-NNNNN)
 >
@@ -35,7 +35,7 @@ _[현대적인 언어 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.7.0: report an error
 -->
 
-### 올바른 제약 조건 처리를 위한 수정 시도 롤백
+### 올바른 제약 조건 처리를 위한 수정 시도 롤백 {id="rollback-attempt-to-fix-proper-constraints-processing"}
 
 > **이슈**: [KT-53813](https://youtrack.jetbrains.com/issue/KT-53813)
 >
@@ -49,7 +49,7 @@ _[현대적인 언어 유지(Keeping the Language Modern)](kotlin-evolution-prin
 >
 > - 1.7.20: 1.7.0 동작으로 롤백
 
-### 복합 람다 및 해석과의 충돌을 방지하기 위해 일부 빌더 추론 사례 금지
+### 복합 람다 및 해석과의 충돌을 방지하기 위해 일부 빌더 추론 사례 금지 {id="forbid-some-builder-inference-cases-to-avoid-problematic-interaction-with-multiple-lambdas-and-resolution"}
 
 > **이슈**: [KT-53797](https://youtrack.jetbrains.com/issue/KT-53797)
 >

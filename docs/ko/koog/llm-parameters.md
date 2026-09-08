@@ -2,7 +2,7 @@
 
 이 페이지는 Koog 에이전틱 프레임워크(agentic framework)의 LLM 파라미터에 대한 세부 정보를 제공합니다. LLM 파라미터를 사용하면 언어 모델의 동작을 제어하고 커스터마이징할 수 있습니다.
 
-## 개요
+## 개요 {id="overview"}
 
 LLM 파라미터는 언어 모델이 응답을 생성하는 방식을 미세 조정할 수 있는 구성 옵션입니다. 이러한 파라미터는 응답의 무작위성, 길이, 형식 및 도구 사용과 같은 측면을 제어합니다. 파라미터를 조정하여 창의적인 콘텐츠 생성부터 결정론적인(deterministic) 구조화된 출력(structured outputs)까지, 다양한 유스케이스에 맞춰 모델 동작을 최적화할 수 있습니다.
 
@@ -154,7 +154,7 @@ Koog에서 제공하는 기존 서브그래프 유형에 대한 자세한 내용
 
 세션에 대한 자세한 내용은 [LLM 세션 및 수동 히스토리 관리](sessions.md)를 참고하세요.
 
-## LLM 파라미터 레퍼런스
+## LLM 파라미터 레퍼런스 {id="llm-parameter-reference"}
 
 다음 표는 `LLMParams` 클래스에 포함되어 있으며 Koog에서 기본적으로 제공하는 모든 LLM 제공자가 지원하는 LLM 파라미터 레퍼런스를 제공합니다.
 특정 제공자 전용 파라미터 목록은 [제공자 전용 파라미터](#제공자-전용-파라미터)를 참고하세요.
@@ -182,12 +182,12 @@ Koog에서 제공하는 기존 서브그래프 유형에 대한 자세한 내용
 - Alibaba β ([DashScope](https://www.alibabacloud.com/help/en/model-studio/qwen-api-reference))
 - [Ollama](https://docs.ollama.com/api/openai-compatibility)
 
-## 스키마 (Schema)
+## 스키마 (Schema) {id="schema"}
 
 `Schema` 인터페이스는 모델의 응답 형식 구조를 정의합니다.
 Koog는 아래 섹션에 설명된 대로 JSON 스키마를 지원합니다.
 
-### JSON 스키마
+### JSON 스키마 {id="json-schemas"}
 
 JSON 스키마를 사용하면 언어 모델로부터 구조화된 JSON 데이터를 요청할 수 있습니다. Koog는 다음과 같은 두 가지 유형의 JSON 스키마를 지원합니다:
 
@@ -364,7 +364,7 @@ JSON 스키마를 사용하면 언어 모델로부터 구조화된 JSON 데이�
     ```
     <!--- KNIT example-llm-parameters-java-05.java -->
 
-## 도구 선택 (Tool choice)
+## 도구 선택 (Tool choice) {id="tool-choice"}
 
 `ToolChoice` 클래스는 언어 모델이 도구를 사용하는 방식을 제어합니다. 다음과 같은 옵션을 제공합니다:
 
@@ -410,7 +410,7 @@ JSON 스키마를 사용하면 언어 모델로부터 구조화된 JSON 데이�
     ```
     <!--- KNIT example-llm-parameters-java-06.java -->
 
-## 제공자 전용 파라미터
+## 제공자 전용 파라미터 {id="provider-specific-parameters"}
 
 Koog는 일부 LLM 제공자에 대해 제공자 전용 파라미터를 지원합니다. 이러한 파라미터는 기본 `LLMParams` 클래스를 확장하고 제공자 전용 기능을 추가합니다. 다음 클래스들은 각 제공자별로 특화된 파라미터를 포함합니다:
 
@@ -613,9 +613,9 @@ Koog의 제공자 전용 파라미터에 대한 전체 레퍼런스는 다음과
     ```
     <!--- KNIT example-llm-parameters-java-07.java -->
 
-## 사용 예시
+## 사용 예시 {id="usage-examples"}
 
-### 기본 사용법
+### 기본 사용법 {id="basic-usage"}
 
 === "Kotlin"
 
@@ -655,7 +655,7 @@ Koog의 제공자 전용 파라미터에 대한 전체 레퍼런스는 다음과
     ```
     <!--- KNIT example-llm-parameters-java-08.java -->
 
-### 추론(Reasoning) 제어
+### 추론(Reasoning) 제어 {id="reasoning-control"}
 
 모델의 추론을 제어하는 제공자 전용 파라미터를 통해 추론 제어를 구현합니다.
 OpenAI Chat API 및 추론을 지원하는 모델을 사용하는 경우, `reasoningEffort` 파라미터를 사용하여 모델이 응답을 제공하기 전에 생성할 추론 토큰의 양을 제어할 수 있습니다:
@@ -760,7 +760,7 @@ OpenAI Chat API 및 추론을 지원하는 모델을 사용하는 경우, `reaso
     ```
     <!--- KNIT example-llm-parameters-java-10.java -->
 
-### 커스텀 파라미터
+### 커스텀 파라미터 {id="custom-parameters"}
 
 제공자 전용이거나 Koog에서 기본적으로 지원하지 않는 커스텀 파라미터를 추가하려면 아래 예시와 같이 `additionalProperties` 속성을 사용하세요.
 
@@ -809,7 +809,7 @@ OpenAI Chat API 및 추론을 지원하는 모델을 사용하는 경우, `reaso
     ```
     <!--- KNIT example-llm-parameters-java-11.java -->
 
-### 파라미터 설정 및 재정의(Overriding)
+### 파라미터 설정 및 재정의(Overriding) {id="setting-and-overriding-parameters"}
 
 아래 코드 샘플은 주로 사용할 LLM 파라미터 세트를 정의한 후, 원래 세트의 값을 일부 재정의하고 새 값을 추가하여 다른 세트를 생성하는 방법을 보여줍니다.
 이를 통해 대부분의 요청에 공통적인 파라미터를 정의하고, 공통 파라미터를 반복할 필요 없이 더 구체적인 파라미터 조합을 추가할 수 있습니다.

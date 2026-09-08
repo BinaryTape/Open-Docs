@@ -24,7 +24,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false" id="kotlin-function-double"}
 
-## 函数用法
+## 函数用法 {id="function-usage"}
 
 调用函数使用标准方式：
 
@@ -39,7 +39,7 @@ val result = double(2)
 Stream().read()
 ```
 
-### 形参
+### 形参 {id="parameters"}
 
 使用 Pascal 表示法声明函数形参：`name: Type`。
 必须使用逗号分隔形参，并显式给出每个形参的类型：
@@ -149,7 +149,7 @@ class Rectangle : Shape() {
 }
 ```
 
-#### 非常量表达式作为默认值
+#### 非常量表达式作为默认值 {id="non-constant-expressions-as-default-values"}
 
 你可以为形参分配一个非常量的默认值。
 例如，默认值可以是函数调用的结果或使用其他实参值的计算结果，
@@ -214,7 +214,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="lambda-outside-parentheses"}
 
-### 命名实参
+### 命名实参 {id="named-arguments"}
 
 在调用函数时，你可以命名一个或多个其实参。
 当函数调用具有许多实参时，这会很有帮助。
@@ -278,7 +278,7 @@ mergeStrings(strings = arrayOf("a", "b", "c"))
 >
 {style="note"}
 
-### 返回值类型
+### 返回值类型 {id="return-types"}
 
 当你声明具有代码块体的函数时（通过将指令放在花括号 `{}` 中），
 必须始终显式指定返回值类型。
@@ -289,7 +289,7 @@ Kotlin 不会为具有代码块体的函数推断返回值类型。
 它们的控制流可能很复杂，这使得返回值类型对阅读者甚至对编译器都不清晰。
 但是，如果你不指定，Kotlin 可以为[单表达式函数](#single-expression-functions)推断返回值类型。
 
-### 单表达式函数
+### 单表达式函数 {id="single-expression-functions"}
 
 当函数体由单个表达式组成时，可以省略花括号并在 `=` 符号后指定主体：
 
@@ -321,7 +321,7 @@ fun getDisplayNameOrDefault(userId: String?): String =
     getDisplayName(userId ?: return "default")
 ```
 
-### 返回 Unit 的函数
+### 返回 Unit 的函数 {id="unit-returning-functions"}
 
 如果函数具有代码块体（花括号 `{}` 内的指令）并且不返回有用的值，
 编译器会假定其返回值类型为 `Unit`。
@@ -387,7 +387,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false" id="return-unit-explicit"}
 
-### 可变数量实参 (varargs)
+### 可变数量实参 (varargs) {id="variable-number-of-arguments-varargs"}
 
 要向函数传递可变数量的实参，你可以用 `vararg` 修饰符标记其形参之一
 （通常是最后一个）。
@@ -461,7 +461,7 @@ val a = intArrayOf(1, 2, 3)
 val list = asList(-1, 0, *a.toTypedArray(), 4)
 ```
 
-### 中缀表示法
+### 中缀表示法 {id="infix-notation"}
 
 你可以通过使用 `infix` 关键字声明无需圆括号或点号即可调用的函数。
 这有助于使代码中的简单函数调用更容易阅读。
@@ -529,12 +529,12 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="infix-notation-example"}
 
-## 函数作用域
+## 函数作用域 {id="function-scope"}
 
 你可以在文件的顶级声明 Kotlin 函数，这意味着你不需要创建一个类来持有函数。
 函数也可以在局部声明为*成员函数*或*扩展函数*。
 
-### 局部函数
+### 局部函数 {id="local-functions"}
 
 Kotlin 支持局部函数，即在其他函数内部声明的函数。
 例如，以下代码实现了给定图的深度优先搜索算法。
@@ -602,7 +602,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="local-functions-dfs-with-local-variable"}
 
-### 成员函数
+### 成员函数 {id="member-functions"}
 
 成员函数是在类或对象内部定义的函数：
 
@@ -621,7 +621,7 @@ Stream().read()
 
 有关类和重写成员的更多信息，请参阅[类](classes.md)和[继承](classes.md#inheritance)。
 
-## 泛型函数
+## 泛型函数 {id="generic-functions"}
 
 你可以通过在函数名称之前使用尖括号 `<>` 来为函数指定泛型参数：
 
@@ -631,7 +631,7 @@ fun <T> singletonList(item: T): List<T> { /*...*/ }
 
 有关泛型函数的更多信息，请参阅[泛型](generics.md)。
 
-## 尾递归函数
+## 尾递归函数 {id="tail-recursive-functions"}
 
 Kotlin 支持一种称为[尾递归](https://en.wikipedia.org/wiki/Tail_call)的函数式编程风格。
 对于某些通常会使用循环的算法，你可以改用递归函数，而没有栈溢出的风险。

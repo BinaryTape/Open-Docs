@@ -15,7 +15,7 @@ Kotlin 集合提供了一组用于从集合中获取单个元素的函数。
 在这种情况下，元素仍然以某种方式排序，因此依赖于元素位置的函数仍然会返回结果。
 但是，除非调用者了解所使用的 `Set` 的具体实现，否则这些结果对调用者来说是不可预测的。
 
-## 按位置获取
+## 按位置获取 {id="retrieve-by-position"}
 
 要获取特定位置的元素，可以使用 [`elementAt()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/element-at.html) 函数。
 调用它时传入一个整数作为实参，您将获得集合中该给定位置的元素。
@@ -69,7 +69,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 按条件获取
+## 按条件获取 {id="retrieve-by-condition"}
 
 函数 [`first()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/first.html) 和 [`last()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/last.html) 还允许您在集合中搜索匹配给定谓词的元素。当您使用测试集合元素的谓词调用 `first()` 时，您将获得谓词结果为 `true` 的第一个元素。反之，带谓词的 `last()` 返回匹配该谓词的最后一个元素。 
 
@@ -115,7 +115,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 使用选择器获取
+## 使用选择器获取 {id="retrieve-with-selector"}
 
 如果您需要在获取元素之前对集合进行映射，可以使用 [`firstNotNullOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/first-not-null-of.html) 函数。它结合了 2 个操作：
 - 使用选择器函数映射集合
@@ -135,7 +135,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.5"}
 
-## 随机元素
+## 随机元素 {id="random-element"}
 
 如果您需要获取集合中的任意元素，请调用 [`random()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/random.html) 函数。您可以不带实参调用它，也可以使用 [`Random`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.random/-random/index.html) 对象作为随机源。
 
@@ -152,7 +152,7 @@ fun main() {
 
 在空集合上，`random()` 会抛出异常。要改为接收 `null`，请使用 [`randomOrNull()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/random-or-null.html)
 
-## 检查元素是否存在
+## 检查元素是否存在 {id="check-element-existence"}
 
 要检查集合中是否存在某个元素，请使用 [`contains()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/contains.html) 函数。如果集合中存在与函数实参 `equals()` 的元素，它将返回 `true`。您可以使用 `in` 关键字以运算符形式调用 `contains()`。
 

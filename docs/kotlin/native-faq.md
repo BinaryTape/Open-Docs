@@ -1,17 +1,17 @@
 [//]: # (title: Kotlin/Native 常见问题解答)
 
-## 如何运行我的程序？
+## 如何运行我的程序？ {id="how-do-i-run-my-program"}
 
 定义一个顶层函数 `fun main(args: Array<String>)`，或者如果您对传入的实参不感兴趣，只需定义 `fun main()`，并请确保它不在软件包中。
 此外，编译器开关 `-entry` 可用于将任何接收 `Array<String>` 或不接收实参且返回 `Unit` 的函数作为入口点。
 
-## Kotlin/Native 的内存管理模型是什么？
+## Kotlin/Native 的内存管理模型是什么？ {id="what-is-kotlin-native-memory-management-model"}
 
 Kotlin/Native 使用一种自动内存管理方案，类似于 Java 或 Swift 提供的方案。
 
 [了解 Kotlin/Native 内存管理器](native-memory-manager.md)
 
-## 如何创建共享库？
+## 如何创建共享库？ {id="how-do-i-create-a-shared-library"}
 
 在您的 Gradle 构建文件中使用 `-produce dynamic` 编译器选项或 `binaries.sharedLib()`：
 
@@ -27,7 +27,7 @@ kotlin {
 
 [完成 Kotlin/Native 作为动态库教程](native-dynamic-libraries.md)
 
-## 如何创建静态库或对象文件？
+## 如何创建静态库或对象文件？ {id="how-do-i-create-a-static-library-or-an-object-file"}
 
 在您的 Gradle 构建文件中使用 `-produce static` 编译器选项或 `binaries.staticLib()`：
 
@@ -41,11 +41,11 @@ kotlin {
 
 它会生成一个特定于平台的静态对象（`.a` 库格式）以及一个 C 语言头文件，允许您从 C/C++ 代码中使用 Kotlin/Native 程序中所有可用的公开 API。
 
-## 如何在公司代理后运行 Kotlin/Native？
+## 如何在公司代理后运行 Kotlin/Native？ {id="how-do-i-run-kotlin-native-behind-a-corporate-proxy"}
 
 由于 Kotlin/Native 需要下载特定于平台的工具链，您需要指定 `-Dhttp.proxyHost=xxx -Dhttp.proxyPort=xxx` 作为编译器或 `gradlew` 的实参，或者通过 `JAVA_OPTS` 环境变量进行设置。
 
-## 如何为我的 Kotlin 框架指定自定义 Objective-C 前缀/名称？
+## 如何为我的 Kotlin 框架指定自定义 Objective-C 前缀/名称？ {id="how-do-i-specify-a-custom-objective-c-prefix-name-for-my-kotlin-framework"}
 
 使用 `-module-name` 编译器选项或匹配的 Gradle DSL 语句。
 
@@ -78,7 +78,7 @@ kotlin {
 </tab>
 </tabs>
 
-## 如何重命名 iOS 框架？
+## 如何重命名 iOS 框架？ {id="how-do-i-rename-the-ios-framework"}
 
 iOS 框架的默认名称为 `<项目名称>.framework`。
 要设置自定义名称，请使用 `baseName` 选项。这也会同时设置模块名称。
@@ -95,14 +95,14 @@ kotlin {
 }
 ```
 
-## 如何为我的 Kotlin 框架启用 bitcode？
+## 如何为我的 Kotlin 框架启用 bitcode？ {id="how-do-i-enable-bitcode-for-my-kotlin-framework"}
 
 Bitcode 嵌入在 Xcode 14 中被弃用，并在 Xcode 15 中针对所有 Apple 目标被移除。
 自 Kotlin 2.0.20 起，Kotlin/Native 编译器不再支持 bitcode 嵌入。
 
 如果您正在使用较早版本的 Xcode 但希望升级到 Kotlin 2.0.20 或更高版本，请在您的 Xcode 项目中禁用 bitcode 嵌入。
 
-## 如何在 iOS 上获取更好的崩溃报告？
+## 如何在 iOS 上获取更好的崩溃报告？ {id="how-do-i-get-better-crash-reports-for-ios"}
 
 当一个未处理的 Kotlin 异常到达 iOS 代码时，崩溃报告工具可能会显示一个模糊的报告，指出是 Kotlin/Native 内部问题，而不是抛出异常的实际代码行。发生这种情况是因为在记录崩溃时原始的 Kotlin 堆栈跟踪已经丢失。
 
@@ -111,7 +111,7 @@ Bitcode 嵌入在 Xcode 14 中被弃用，并在 Xcode 15 中针对所有 Apple 
 * [Bugsnag](https://github.com/rickclephas/NSExceptionKt/blob/master/NSExceptionKtBugsnag/README.md)
 * [Firebase Crashlytics](https://github.com/rickclephas/NSExceptionKt/blob/master/NSExceptionKtCrashlytics/README.md)
 
-## 如何从不同协程安全地引用对象？
+## 如何从不同协程安全地引用对象？ {id="how-do-i-reference-objects-safely-from-different-coroutines"}
 
 要在 Kotlin/Native 的多个协程之间安全地访问或更新对象，请考虑使用并发安全结构，例如 `@Volatile` 和 `AtomicReference`。
 
@@ -123,7 +123,7 @@ Kotlin 还为针对特定数据类型定制的原子操作提供了一系列类�
 
 有关访问共享可变状态的更多信息，请参阅[协程文档](shared-mutable-state-and-concurrency.md)。
 
-## 如何使用未发布版本的 Kotlin/Native 编译我的项目？
+## 如何使用未发布版本的 Kotlin/Native 编译我的项目？ {id="how-can-i-compile-my-project-with-unreleased-versions-of-kotlin-native"}
 
 首先，请考虑尝试[预览版本](eap.md)。
 

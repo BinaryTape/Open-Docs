@@ -9,13 +9,13 @@ title: Android & 어노테이션
 업데이트 - 2024-10-21
 :::
 
-## 코드 가져오기
+## 코드 가져오기 {id="get-the-code"}
 
 :::info
 [GitHub에서 소스 코드를 확인할 수 있습니다](https://github.com/InsertKoinIO/koin-getting-started/tree/main/android-annotations)
 :::
 
-## Gradle 설정
+## Gradle 설정 {id="gradle-setup"}
 
 다음과 같이 KSP 플러그인과 의존성을 설정합니다.
 
@@ -41,13 +41,13 @@ ksp {
 현재 버전은 `libs.versions.toml`을 참조하세요.
 :::
 
-## 애플리케이션 개요
+## 애플리케이션 개요 {id="application-overview"}
 
 이 애플리케이션의 아이디어는 사용자 목록을 관리하고, Presenter 또는 ViewModel을 사용하여 `MainActivity` 클래스에 표시하는 것입니다.
 
 > Users -> UserRepository -> UserService -> (Presenter 또는 ViewModel) -> MainActivity
 
-## "User" 데이터
+## "User" 데이터 {id="the-user-data"}
 
 사용자 컬렉션을 관리할 것입니다. 다음은 데이터 클래스입니다.
 
@@ -78,7 +78,7 @@ class UserRepositoryImpl : UserRepository {
 }
 ```
 
-## UserService 컴포넌트
+## UserService 컴포넌트 {id="the-userservice-component"}
 
 사용자 작업을 관리하기 위한 서비스 컴포넌트를 작성해 봅시다.
 
@@ -114,7 +114,7 @@ class UserServiceImpl(
 }
 ```
 
-## Koin 모듈
+## Koin 모듈 {id="the-koin-module"}
 
 아래와 같이 `AppModule` 모듈 클래스를 선언해 봅시다.
 
@@ -145,7 +145,7 @@ class UserServiceImpl(private val userRepository: UserRepository) : UserService 
 
 `@Singleton` 어노테이션은 이 클래스들을 Koin의 싱글톤으로 선언합니다.
 
-## Presenter로 사용자 표시하기
+## Presenter로 사용자 표시하기 {id="displaying-user-with-presenter"}
 
 사용자를 표시하기 위한 Presenter 컴포넌트를 작성해 봅시다.
 
@@ -172,7 +172,7 @@ class UserPresenter(private val userService: UserService) {
 }
 ```
 
-## Android에서 의존성 주입하기
+## Android에서 의존성 주입하기 {id="injecting-dependencies-in-android"}
 
 `UserPresenter` 컴포넌트가 생성될 때 `UserService` 인스턴스를 함께 해결(resolve)합니다. 이를 Activity에서 가져오기 위해 `by inject()` 위임 함수를 사용하여 주입해 봅시다.
 
@@ -195,7 +195,7 @@ class MainActivity : AppCompatActivity() {
 `by inject()` 함수를 사용하면 안드로이드 컴포넌트 런타임(Activity, fragment, Service 등)에서 Koin 인스턴스를 가져올 수 있습니다.
 :::
 
-## Koin 시작하기
+## Koin 시작하기 {id="start-koin"}
 
 안드로이드 애플리케이션에서 Koin을 시작해야 합니다. `@KoinApplication` 어노테이션을 사용하면 Koin은 `@Configuration`이 표시된 모든 모듈을 자동으로 검색하고 로드합니다.
 
@@ -227,7 +227,7 @@ class MainApplication : Application() {
 `@KoinApplication` 어노테이션은 모듈의 `@Configuration`과 함께 작동하여 KSP를 통해 컴파일 타임에 모든 의존성을 자동으로 검색하고 로드합니다.
 :::
 
-## ViewModel로 사용자 표시하기
+## ViewModel로 사용자 표시하기 {id="displaying-user-with-viewmodel"}
 
 사용자를 표시하기 위한 ViewModel 컴포넌트를 작성해 봅시다.
 
@@ -247,7 +247,7 @@ class UserViewModel(private val userService: UserService) : ViewModel() {
 
 `UserViewModel`에는 `@KoinViewModel` 어노테이션을 붙여 Koin ViewModel 정의로 선언합니다. 이는 적절한 생명주기 관리를 보장하고 메모리 누수를 방지합니다.
 
-## Android에서 ViewModel 주입하기
+## Android에서 ViewModel 주입하기 {id="injecting-viewmodel-in-android"}
 
 `UserViewModel` 컴포넌트가 생성될 때 `UserService` 인스턴스를 함께 해결합니다. 이를 Activity에서 가져오기 위해 `by viewModel()` 위임 함수를 사용하여 주입해 봅시다.
 
@@ -264,7 +264,7 @@ class MainActivity : AppCompatActivity() {
 }
 ```
 
-## 컴파일 타임 체크
+## 컴파일 타임 체크 {id="compile-time-checks"}
 
 Koin 어노테이션을 사용하면 컴파일 타임에 Koin 설정을 확인할 수 있습니다. 다음 Gradle 옵션을 사용하여 이 기능을 사용할 수 있습니다.
 

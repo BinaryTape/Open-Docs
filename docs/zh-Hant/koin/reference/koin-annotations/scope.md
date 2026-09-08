@@ -4,7 +4,7 @@ title: Koin Annotations 中的作用域
 
 在使用定義與模組時，您可能需要為特定的空間和時間解析定義作用域。
 
-## 使用 @Scope 定義作用域
+## 使用 @Scope 定義作用域 {id="defining-a-scope-with-scope"}
 
 Koin 允許使用作用域。請參閱 [Koin 作用域](/docs/reference/koin-core/scopes) 章節以了解更多基礎細節。
 
@@ -37,7 +37,7 @@ class MyScopeClass
 >}
 >```
 
-## 使用 @Scoped 在作用域中新增定義
+## 使用 @Scoped 在作用域中新增定義 {id="adding-a-definition-in-a-scope-with-scoped"}
 
 要在作用域內（無論是否使用註解定義）宣告定義，只需為類別加上 `@Scope` 和 `@Scoped` 註解：
 
@@ -59,7 +59,7 @@ scope<named("my_scope_name")> {
   您需要同時使用這兩個註解來指示所需的作用域空間（使用 `@Scope`）以及要定義的組建種類（使用 `@Scoped`）。
 :::
 
-## 從作用域進行相依性解析
+## 從作用域進行相依性解析 {id="dependency-resolution-from-a-scope"}
 
 從作用域定義中，您可以解析來自內部作用域以及父層作用域的任何定義。
 
@@ -86,7 +86,7 @@ class MyOtherScopedComponent(
 `MySingle` 組建在根部被定義為 `single` 定義。`MyScopedComponent` 與 `MyOtherScopedComponent` 被定義在作用域 "my_scope_name" 中。
 `MyScopedComponent` 的相依性解析正透過 `MySingle` 執行個體存取 Koin 根部，並從目前的 "my_scope_name" 作用域存取 `MyOtherScopedComponent` 的作用域執行個體。
 
-## 使用 @ScopeId 在作用域外進行解析（自 1.3.0 起）
+## 使用 @ScopeId 在作用域外進行解析（自 1.3.0 起） {id="resolving-outside-a-scope-with-scopeid-since-1-3-0"}
 
 您可能需要解析來自另一個無法直接存取之作用域的組建。為此，您需要為相依性加上 `@ScopeId` 註解，告訴 Koin 在給定作用域 ID 的作用域中尋找此相依性。
 
@@ -120,15 +120,15 @@ factory { Myfactory(getScope("my_scope_id").get()) }
   `MyScopedComponent` 組建需要在作用域區段中定義，且需要建立一個 ID 為 "my_scope_id" 的作用域執行個體。
 :::
 
-## 作用域原型註解 (Scope Archetype Annotations)
+## 作用域原型註解 (Scope Archetype Annotations) {id="scope-archetype-annotations"}
 
 Koin Annotations 為常見的作用域模式提供了預定義的作用域原型註解，無需手動宣告作用域型別。這些註解在單個註解中結合了作用域宣告與組建定義。
 
-### Android 作用域原型
+### Android 作用域原型 {id="android-scope-archetypes"}
 
 對於 Android 開發，您可以使用這些預定義的作用域註解：
 
-#### @ActivityScope
+#### @ActivityScope {id="activityscope"}
 
 在 Activity 作用域中宣告組建：
 
@@ -146,7 +146,7 @@ activityScope {
 
 **使用情況：** 被標記的類別旨在與 Activity 及 `activityScope` 函式搭配使用以啟動作用域。
 
-#### @ActivityRetainedScope
+#### @ActivityRetainedScope {id="activityretainedscope"}
 
 在 Activity Retained 作用域中宣告組建（在配置變更時保留）：
 
@@ -164,7 +164,7 @@ activityRetainedScope {
 
 **使用情況：** 被標記的類別旨在與 Activity 及 `activityRetainedScope` 函式搭配使用以啟動作用域。
 
-#### @FragmentScope
+#### @FragmentScope {id="fragmentscope"}
 
 在 Fragment 作用域中宣告組建：
 
@@ -182,9 +182,9 @@ fragmentScope {
 
 **使用情況：** 被標記的類別旨在與 Fragment 及 `fragmentScope` 函式搭配使用以啟動作用域。
 
-### 核心作用域原型
+### 核心作用域原型 {id="core-scope-archetypes"}
 
-#### @ViewModelScope
+#### @ViewModelScope {id="viewmodelscope"}
 
 在 ViewModel 作用域中宣告組建。此註解與 Kotlin 多平台 (KMP) 相容，可同時在 Android ViewModels 與 Compose Multiplatform ViewModels 運作：
 
@@ -211,7 +211,7 @@ viewModelScope {
 
 **KMP 支援：** 在所有使用 ViewModel 的 Kotlin 多平台目標（包括 Android、iOS、Desktop 與 Web 平台）上無縫運作。
 
-### 使用作用域原型
+### 使用作用域原型 {id="using-scope-archetypes"}
 
 作用域原型註解可以與常規的 Koin 作用域無縫協作：
 
@@ -231,7 +231,7 @@ class FragmentService(
 )
 ```
 
-### 與函式定義結合
+### 與函式定義結合 {id="combining-with-function-definitions"}
 
 作用域原型也可以用於模組內的函式：
 

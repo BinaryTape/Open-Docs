@@ -81,7 +81,7 @@
    ./gradlew desktopTest
    ```
    
-## 다음 단계는 무엇인가요?
+## 다음 단계는 무엇인가요? {id="what-s-next"}
 
 * [멀티플랫폼 테스트를 생성하고 실행하는 방법](multiplatform-run-tests.md)을 확인해 보세요.
 * Kotlin 프로젝트에서의 JUnit 기반 테스트에 대한 일반적인 개요는 [Test code using JUnit in JVM](https://kotlinlang.org/docs/jvm-test-using-junit.html) 튜토리얼을 참고하세요.

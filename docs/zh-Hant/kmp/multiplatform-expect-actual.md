@@ -7,7 +7,7 @@
 >
 {style="tip"}
 
-## expect 與 actual 宣告的規則
+## expect 與 actual 宣告的規則 {id="rules-for-expected-and-actual-declarations"}
 
 要定義 `expect` 與 `actual` 宣告，請遵循以下規則：
 
@@ -36,13 +36,13 @@ IDE 會協助處理常見問題，包括：
 
 ![從 expect 到 actual 宣告的 IDE 導覽](expect-actual-gutter.png){width=500}
 
-## 使用 expect 與 actual 宣告的不同方法
+## 使用 expect 與 actual 宣告的不同方法 {id="different-approaches-for-using-expected-and-actual-declarations"}
 
 讓我們探索使用 `expect`/`actual` 機制的不同選項，以解決存取平台 API 的問題，同時仍提供在通用程式碼中處理它們的方法。
 
 考慮一個 Kotlin Multiplatform 專案，您需要在其中實作 `Identity` 型別，該型別應包含使用者的登入名稱和目前的處理程序 ID。該專案具有 `commonMain`、`jvmMain` 和 `nativeMain` 原始碼集，以使應用程式在 JVM 和 iOS 等原生環境中運作。
 
-### expect 與 actual 函式
+### expect 與 actual 函式 {id="expected-and-actual-functions"}
 
 您可以定義一個 `Identity` 型別和一個工廠函式 `buildIdentity()`，該函式在 common 原始碼集中宣告，並在平台原始碼集中以不同方式實作：
 
@@ -91,7 +91,7 @@ IDE 會協助處理常見問題，包括：
 >
 {style="note"}
 
-### 具有 expect 與 actual 函式的介面
+### 具有 expect 與 actual 函式的介面 {id="interfaces-with-expected-and-actual-functions"}
 
 如果工廠函式變得太大，請考慮使用通用的 `Identity` 介面，並在不同平台上進行不同的實作。
 
@@ -133,7 +133,7 @@ IDE 會協助處理常見問題，包括：
 
 這些平台函式會傳回平台特定的 `Identity` 執行個體，這些執行個體實作為 `JVMIdentity` 和 `NativeIdentity` 平台型別。
 
-#### expect 與 actual 屬性
+#### expect 與 actual 屬性 {id="expected-and-actual-properties"}
 
 您可以修改前面的範例，並預期一個 `val` 屬性來儲存 `Identity`。
 
@@ -169,7 +169,7 @@ class NativeIdentity(
 ) : Identity
 ```
 
-#### expect 與 actual 物件
+#### expect 與 actual 物件 {id="expected-and-actual-objects"}
 
 當 `IdentityBuilder` 在每個平台上預期為單例（singleton）時，您可以將其定義為一個 `expect object`，並讓平台將其實例化：
 
@@ -205,7 +205,7 @@ actual object IdentityBuilder {
 }
 ```
 
-#### 相依注入建議
+#### 相依注入建議 {id="recommendations-on-dependency-injection"}
 
 為了建立鬆散耦合的架構，許多 Kotlin 專案採用相依注入（DI）架構。DI 架構允許根據目前環境將相依性注入到組件中。
 
@@ -217,7 +217,7 @@ actual object IdentityBuilder {
 
 透過這種方法，您只需使用介面和工廠函式即可採用 Kotlin Multiplatform。如果您已經在專案中使用 DI 架構來管理相依性，我們建議使用相同的方法來管理平台相依性。
 
-### expect 與 actual 類別
+### expect 與 actual 類別 {id="expected-and-actual-classes"}
 
 > `expect` 與 `actual` 類別目前處於 [Beta](supported-platforms.md#general-kotlin-stability-levels) 階段。它們幾乎已經穩定，但未來可能需要遷移步驟。我們將盡力減少您需要進行的任何進一步更改。
 >
@@ -266,7 +266,7 @@ kotlin {
 }
 ```
 
-#### 繼承自平台類別
+#### 繼承自平台類別 {id="inheritance-from-platform-classes"}
 
 在某些特殊情況下，對類別使用 `expect` 關鍵字可能是最佳方法。假設 `Identity` 型別在 JVM 上已經存在：
 
@@ -308,7 +308,7 @@ open class Identity {
 
 在這裡，`CommonIdentity` 型別與您自己的設計相容，同時利用了 JVM 上現有的型別。
 
-#### 在架構中的應用
+#### 在架構中的應用 {id="application-in-frameworks"}
 
 作為架構作者，您可能也會發現 `expect` 與 `actual` 宣告對您的架構很有用。
 
@@ -359,11 +359,11 @@ typically provides an expected `CommonViewModel` class whose actual Android coun
 from the Android framework. See [Use platform-specific APIs](multiplatform-connect-to-apis.md#adapting-to-an-existing-hierarchy-using-expected-actual-classes)
 for a detailed description of this example. -->
 
-## 進階使用案例
+## 進階使用案例 {id="advanced-use-cases"}
 
 關於 `expect` 與 `actual` 宣告有許多特殊情況。
 
-### 使用型別別名來滿足 actual 宣告
+### 使用型別別名來滿足 actual 宣告 {id="using-type-aliases-to-satisfy-actual-declarations"}
 
 `actual` 宣告的實作不需要從頭開始編寫。它可以是現有的型別，例如第三方程式庫提供的類別。
 
@@ -400,7 +400,7 @@ actual typealias MyDate = java.time.LocalDate
 <!-- See [Using platform-specific APIs](multiplatform-connect-to-apis.md#actualizing-an-interface-or-a-class-with-an-existing-platform-class-using-typealiases)
 for an Android-specific example of this pattern. -->
 
-### actual 宣告中擴展的可見性
+### actual 宣告中擴展的可見性 {id="expanded-visibility-in-actual-declarations"}
 
 您可以使 `actual` 實作比相應的 `expect` 宣告更具可見性。如果您不想對通用用戶端將 API 公開為 public，這將非常有用。
 
@@ -423,7 +423,7 @@ public actual typealias Messenger = MyMessenger
 
 在這裡，一個 internal 的 `expect` 類別具有一個使用型別別名的現有 public `MyMessenger` 的 `actual` 實作。
 
-### 實例化（Actualization）時額外的列舉項目
+### 實例化（Actualization）時額外的列舉項目 {id="additional-enumeration-entries-on-actualization"}
 
 當在 common 原始碼集中使用 `expect` 宣告列舉時，每個平台模組都應有一個相應的 `actual` 宣告。這些宣告必須包含相同的列舉常數，但它們也可以包含額外的常數。
 
@@ -464,7 +464,7 @@ fun matchOnDepartment(dept: Department) {
 
 <!-- If you'd like to forbid adding new constants in the actual enum, please vote for this issue [TODO]. -->
 
-### expect 註解類別
+### expect 註解類別 {id="expected-annotation-classes"}
 
 `expect` 與 `actual` 宣告可以與註解一起使用。例如，您可以宣告一個 `@XmlSerializable` 註解，該註解在每個平台原始碼集中必須有一個相應的 `actual` 宣告：
 
@@ -501,6 +501,6 @@ expect annotation class XmlSerializable()
 
 如果在不需要實際宣告的平台上缺少該宣告，編譯器不會產生錯誤。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 有關使用平台特定 API 的不同方式的一般建議，請參閱[使用平台特定 API](multiplatform-connect-to-apis.md)。

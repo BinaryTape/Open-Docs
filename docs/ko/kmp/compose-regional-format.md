@@ -4,7 +4,7 @@
 여기에는 숫자, 날짜, 시간 및 통화 서식이 포함됩니다.
 이러한 패턴은 시스템 로케일이나 애플리케이션 내에서 설정한 사용자 정의 로케일에 의해 결정되어, 여러 플랫폼에서 일관된 데이터 표시를 보장합니다.
 
-## 로케일 서식 패턴
+## 로케일 서식 패턴 {id="locale-formatting-patterns"}
 
 Compose Multiplatform의 서식 지정은 다음 항목에 대해 플랫폼별 로케일 관례를 준수합니다:
 
@@ -60,7 +60,7 @@ fun RegionalFormatExample() {
 }
 ```
 
-## 일관된 서식 보장하기
+## 일관된 서식 보장하기 {id="ensure-consistent-formatting"}
 
 통합된 멀티플랫폼 솔루션을 위한 공통 API는 없지만, 서식 지정 동작은 대부분의 경우 일관되게 유지됩니다.
 지원되는 모든 지역에서 서식이 올바르게 지정되었는지 확인하려면 다음을 수행하세요:
@@ -68,6 +68,6 @@ fun RegionalFormatExample() {
 * 큰 숫자, 음수 또는 0과 같은 에지 케이스(edge case)를 테스트하세요.
 * 모든 대상 플랫폼에서 지원되는 모든 로케일에 대한 서식을 확인하세요.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 앱 내 테마 및 언어와 같은 애플리케이션의 [리소스 환경(resource environment)](compose-resource-environment.md)을 관리하는 방법을 알아보세요.

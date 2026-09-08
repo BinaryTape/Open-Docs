@@ -2,7 +2,7 @@
 
 Kotlin標準ライブラリは、コレクションに対して操作を実行するための多種多様な関数を提供しています。これには、要素の取得や追加といった単純な操作から、検索、ソート、フィルタリング、変換などのより複雑な操作まで含まれます。
 
-## 拡張関数とメンバ関数
+## 拡張関数とメンバ関数 {id="extension-and-member-functions"}
 
 コレクション操作は、標準ライブラリにおいて2つの方法で宣言されています。コレクションインターフェースの[メンバ関数](classes.md)と[拡張関数](extensions.md#extension-functions)です。
 
@@ -12,7 +12,7 @@ Kotlin標準ライブラリは、コレクションに対して操作を実行�
 
 その他のコレクション操作は拡張関数として宣言されています。これらはフィルタリング、変換、順序付け、およびその他のコレクション処理関数です。
 
-## 共通の操作
+## 共通の操作 {id="common-operations"}
 
 共通の操作は、[読み取り専用コレクションとミュータブルコレクション](collections-overview.md#collection-types)の両方で利用可能です。共通の操作は以下のグループに分類されます：
 
@@ -76,7 +76,7 @@ fun main() {
 
 宛先を指定できる関数は、フィルタリング、関連付け（association）、グループ化、フラット化（flattening）、およびその他の操作で利用可能です。宛先操作の完全なリストについては、[Kotlin collections reference](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/index.html) を参照してください。
 
-## 書き込み操作
+## 書き込み操作 {id="write-operations"}
 
 ミュータブルなコレクションには、コレクションの状態を変更する*書き込み操作（write operations）*もあります。このような操作には、要素の追加、削除、および更新が含まれます。書き込み操作は、[書き込み操作](collection-write.md)のセクション、および[リスト固有の操作](list-operations.md#list-write-operations)と[マップ固有の操作](map-operations.md#map-write-operations)の対応するセクションに記載されています。
 

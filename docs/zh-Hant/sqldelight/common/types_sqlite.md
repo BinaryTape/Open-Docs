@@ -1,4 +1,4 @@
-## SQLite 型別
+## SQLite 型別 {id="sqlite-types"}
 
 SQLDelight 的欄位定義與一般的 SQLite 欄位定義相同，但支援一個[額外的欄位約束](#custom-column-types)，用來在產生的介面中指定該欄位的 Kotlin 型別。
 
@@ -11,7 +11,7 @@ CREATE TABLE some_types (
 );
 ```
 
-## 基本型別
+## 基本型別 {id="primitives"}
 
 一個為提供便利而轉換基本型別的同級模組。
 

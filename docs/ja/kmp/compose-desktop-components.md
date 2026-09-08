@@ -2,7 +2,7 @@
 
 Compose Multiplatform を使用して、macOS、Linux、Windows のデスクトップアプリケーションを作成できます。このページでは、デスクトップ固有のコンポーネントとイベントの概要を簡単に説明します。各セクションには、詳細なチュートリアルへのリンクが含まれています。
 
-## コンポーネント
+## コンポーネント {id="components"}
 
 * [画像とアプリのアイコン](compose-desktop-images.md)
 * [ウィンドウとダイアログ](compose-desktop-top-level-windows-management.md)
@@ -12,13 +12,13 @@ Compose Multiplatform を使用して、macOS、Linux、Windows のデスクト�
 * [スクロールバー](compose-desktop-scrollbars.md)
 * [ツールチップ](compose-desktop-tooltips.md)
 
-## イベント
+## イベント {id="events"}
 
 * [マウスイベント](compose-desktop-mouse-events.md)
 * [キーボードイベント](compose-desktop-keyboard.md)
 * [タブ移動によるナビゲーション](compose-desktop-tabbing.md)
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [Compose Multiplatform デスクトッププロジェクトのユニットテストを作成する方法](compose-desktop-ui-testing.md)を学ぶ。
 * [デスクトッププラットフォーム向けのネイティブ配布、インストーラー、パッケージを作成する方法](compose-native-distribution.md)を学ぶ。

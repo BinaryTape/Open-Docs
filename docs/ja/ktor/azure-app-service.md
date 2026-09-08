@@ -122,7 +122,7 @@ azurewebapp {
 
 ## アプリケーションのデプロイ {id="deploy-app"}
 
-### 新しい Web アプリへのデプロイ
+### 新しい Web アプリへのデプロイ {id="to-a-new-web-app"}
 
 Azure Web App Deploy プラグインで使用される認証方法には Azure CLI が使用されます。まだ行っていない場合は、`az login` で一度ログインし、指示に従ってください。
 
@@ -157,7 +157,7 @@ Application url: https://your-webapp-name.azurewebsites.net
 
 デプロイが完了すると、上記の URL で新しい Web アプリが実行されていることを確認できるはずです。
 
-### 既存の Web アプリへのデプロイ
+### 既存の Web アプリへのデプロイ {id="to-an-existing-web-app"}
 
 Azure App Service に既存の Java Web アプリがすでにある場合は、まず [Ktor プラグイン](#plugins)によって提供される `buildFatJar` タスクを実行して、ファット JAR をビルドします。
 

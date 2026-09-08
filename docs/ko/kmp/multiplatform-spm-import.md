@@ -25,7 +25,7 @@ SwiftPM 임포트 통합 기능이 포함된 Kotlin Gradle 플러그인을 사�
 1. [개발 환경 설정하기](#kotlin-multiplatform-gradle-플러그인-버전-설정하기)
 2. [KMP 모듈에 SwiftPM 의존성 추가 및 사용하기](#swiftpm-의존성-추가-및-사용)
 
-## Kotlin Multiplatform Gradle 플러그인 버전 설정하기
+## Kotlin Multiplatform Gradle 플러그인 버전 설정하기 {id="set-the-kotlin-multiplatform-gradle-plugin-version"}
 
 SwiftPM 임포트 기능을 사용해 보려면 **%kotlinEapVersion%** 버전의 Kotlin Multiplatform Gradle 플러그인을 사용하고 있는지 확인하세요.
 `gradle/libs.versions.toml` 파일 설정 예시는 다음과 같습니다:
@@ -38,7 +38,7 @@ kotlin = "%kotlinEapVersion%"
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 ```
 
-## SwiftPM 의존성 추가 및 사용
+## SwiftPM 의존성 추가 및 사용 {id="add-and-use-swiftpm-dependencies"}
 
 > 실제 작동하는 예제는 샘플 프로젝트를 참조하세요.
 > `master` 브랜치는 CocoaPods를 사용하여 설정되어 있고, `spm_import` 브랜치는 SwiftPM을 사용합니다:
@@ -48,7 +48,7 @@ kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref 
 >
 {type="tip"}
 
-### 빌드 파일 구성
+### 빌드 파일 구성 {id="configure-the-build"}
 
 Apple 타겟이 선언된 `build.gradle.kts` 파일의 `swiftPMDependencies {}` 블록에서 특정 SwiftPM 의존성을 추가할 수 있습니다.
 예를 들어 Firebase의 경우는 다음과 같습니다:
@@ -111,7 +111,7 @@ kotlin {
 }
 ```
 
-### 플랫폼 제약 조건 설정
+### 플랫폼 제약 조건 설정 {id="set-platform-constraints"}
 
 일부 SwiftPM 의존성은 빌드 스크립트의 모든 타겟에 대해 컴파일되지 않거나 유효한 API를 제공하지 않을 수 있습니다.
 예를 들어 Google Maps SDK는 현재 iOS 타겟만 지원합니다.
@@ -146,7 +146,7 @@ kotlin {
 }
 ```
 
-### SwiftPM 통합 태스크 실행
+### SwiftPM 통합 태스크 실행 {id="run-the-swiftpm-integration-task"}
 
 SwiftPM 임포트 도구는 현재 SwiftPM 의존성 목록을 추적하기 위해 중간 패키지(intermediary package)를 생성합니다.
 프로젝트에 처음으로 SwiftPM 의존성을 추가할 때는 생성된 패키지를 Xcode 프로젝트와 연결해야 합니다.
@@ -161,7 +161,7 @@ XCODEPROJ_PATH='/path/to/project/iosApp/iosApp.xcodeproj' ./gradlew :kotlin-libr
 
 초기 통합 이후에는 빌드 스크립트에서 SwiftPM 의존성 세트나 버전을 변경할 때마다 합성 패키지(synthetic package)가 자동으로 업데이트됩니다.
 
-### 임포트된 API 사용하기
+### 임포트된 API 사용하기 {id="use-imported-apis"}
 
 임포트된 Objective-C API는 `swiftPMImport` 접두사로 시작하고 프로젝트의 이름과 그룹의 Gradle 이름으로 끝나는 네임스페이스에 포함됩니다.
 
@@ -181,7 +181,7 @@ import swiftPMImport.groupName.subproject.FIRAnalytics
 import swiftPMImport.groupName.subproject.FIRApp
 ```
 
-## 생성된 `Package.resolved` 파일
+## 생성된 `Package.resolved` 파일 {id="generated-package-resolved-files"}
 
 Swift 패키지에 의존하는 빌드를 더 안정적으로 만들기 위해, SwiftPM 임포트 도구는 `Package.resolved` 파일을 이용한 잠금 메커니즘(locking mechanism)을 도입했습니다. 이 파일들은 초기 패키지 확인(resolution) 중에 각 서브프로젝트에 대해 생성됩니다.
 
@@ -191,7 +191,7 @@ Swift 패키지에 의존하는 빌드를 더 안정적으로 만들기 위해, 
 
 잠금 파일은 빌드 스크립트에서 SwiftPM 의존성 구성이나 버전을 변경할 때 자동으로 업데이트됩니다. [잠금 파일을 수동으로 강제 업데이트](#잠금-파일-강제-업데이트)할 수도 있습니다.
 
-### Swift 패키지 버전 집계 사용자 정의하기
+### Swift 패키지 버전 집계 사용자 정의하기 {id="customize-aggregation-of-swift-package-versions"}
 
 모든 서브프로젝트에 `default` 그룹을 사용하는 대신, 커스텀 그룹을 정의하여 각 그룹에 대해 별도의 `Package.resolved` 잠금 파일을 생성할 수 있습니다.
 
@@ -273,7 +273,7 @@ kotlin {
 
 기본 동기화와 마찬가지로, 사용자 정의된 서브프로젝트의 모든 `Package.resolved` 파일은 저장소에 커밋되어야 합니다.
 
-### 잠금 파일 강제 업데이트
+### 잠금 파일 강제 업데이트 {id="force-an-update-of-the-lock-file"}
 
 잠금 파일을 수동으로 강제 업데이트하려면 다음 단계를 따르세요:
 
@@ -284,9 +284,9 @@ kotlin {
    * `noSynchronization()`이 설정된 서브프로젝트의 경우, 서브프로젝트 디렉토리에서 `Package.resolved` 파일을 찾아 삭제합니다.
 3. 의존성 확인 태스크를 다시 실행합니다: `./gradlew :yourModuleName:fetchSyntheticImportProjectPackages`
 
-## 추가 임포트 옵션
+## 추가 임포트 옵션 {id="additional-import-options"}
 
-### 로컬 Swift 패키지 임포트하기
+### 로컬 Swift 패키지 임포트하기 {id="importing-local-swift-packages"}
 
 SwiftPM 임포트 메커니즘을 사용하면 로컬 파일 시스템에서 Swift 패키지를 임포트할 수도 있습니다.
 
@@ -338,7 +338,7 @@ fun useExamplePackage() {
 }
 ```
 
-### 특정 배포 버전
+### 특정 배포 버전 {id="specific-deployment-versions"}
 
 의존성이 더 높은 [배포 버전(deployment version)](https://developer.apple.com/documentation/packagedescription/supportedplatform)을 요구하는 경우, `*MinimumDeploymentTarget` 파라미터에 이를 지정하십시오. 예를 들어 iOS의 경우는 다음과 같습니다:
 
@@ -350,7 +350,7 @@ kotlin {
 }
 ```
 
-### Swift 패키지 위치 및 버전
+### Swift 패키지 위치 및 버전 {id="location-and-version-of-swift-packages"}
 
 `Package.swift` 매니페스트 파일과 유사하게, `swiftPackage()` 호출에서 Swift 패키지의 위치와 버전을 지정할 수 있습니다. 두 설정 모두 몇 가지 상호 배타적인 옵션이 있습니다.
 
@@ -388,7 +388,7 @@ swiftPackage(
 )
 ```
 
-## 동적 Kotlin/Native 프레임워크에서의 알려진 제한 사항
+## 동적 Kotlin/Native 프레임워크에서의 알려진 제한 사항 {id="known-limitations-with-dynamic-kotlin-native-frameworks"}
 
 현재 SwiftPM 임포트 통합은 동적 Kotlin/Native 프레임워크를 생성할 때 발생할 수 있는 모든 예외 케이스를 지원하지는 않습니다. Xcode 빌드 중에 문제가 발생하거나 런타임에 다음과 같은 경고가 표시될 수 있습니다:
 
@@ -417,6 +417,6 @@ kotlin {
 
 위의 문제 중 하나라도 발생했거나, `isStatic=false`를 유지해야 하거나, 이 속성을 변경해도 빌드 실패가 해결되지 않는 경우 Slack 채널을 통해 알려주세요. [초대](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)를 받고 [#kmp-swift-package-manager](https://kotlinlang.slack.com/archives/C09TW68099C) 채널에 참여하세요.
 
-## 다음 단계는?
+## 다음 단계는? {id="what-s-next"}
 
 [KMP 프로젝트에서 CocoaPods 의존성을 SwiftPM으로 전환하는 방법](multiplatform-cocoapods-spm-migration.md)에 대해 자세히 알아보세요.

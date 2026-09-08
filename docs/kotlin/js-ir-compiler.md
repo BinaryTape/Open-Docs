@@ -2,7 +2,7 @@
 
 Kotlin/JS 包含多项编译器功能，用于在性能、大小和开发速度方面优化代码。这是通过编译过程实现的，在生成 JavaScript 代码之前，该过程会将 Kotlin 代码转换为中间表示 (IR)。
 
-## 顶级属性的延迟初始化
+## 顶级属性的延迟初始化 {id="lazy-initialization-of-top-level-properties"}
 
 为了获得更好的应用启动性能，Kotlin/JS 编译器会延迟初始化顶级属性。这样，应用程序在加载时无需初始化代码中使用的所有顶级属性。它仅初始化启动时需要的属性；其他属性会在使用它们的代码实际运行时再接收其值。
 
@@ -16,7 +16,7 @@ val a = run {
 
 如果出于某种原因，您需要主动初始化属性（在应用启动时），请使用 [`@EagerInitialization`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.js/-eager-initialization/){nullable="true"} 注解对其进行标记。
 
-## 开发二进制文件的增量编译
+## 开发二进制文件的增量编译 {id="incremental-compilation-for-development-binaries"}
 
 Kotlin/JS 编译器提供了“开发二进制文件的增量编译模式”，以加快开发过程。在此模式下，编译器会在模块级别缓存 `compileDevelopmentExecutableKotlinJs` Gradle 任务的结果。在随后的编译中，它会对未更改的源文件使用缓存的编译结果，从而加快编译完成速度，尤其是在只有细微更改时。
 
@@ -30,7 +30,7 @@ kotlin.incremental.js.ir=false // 默认为 true
 >
 {style="note"}
 
-## 生产环境中的成员名称缩减
+## 生产环境中的成员名称缩减 {id="minification-of-member-names-in-production"}
 
 Kotlin/JS 编译器利用其关于 Kotlin 类和函数之间关系的内部信息来应用更高效的缩减 (minification)，缩短函数、属性和类的名称。这减小了最终捆绑的应用程序的大小。
 
@@ -48,7 +48,7 @@ kotlin {
 }
 ```
 
-## 无效代码消除
+## 无效代码消除 {id="dead-code-elimination"}
 
 [无效代码消除](https://wikipedia.org/wiki/Dead_code_elimination) (DCE) 通过移除未使用的属性、函数和类来减小生成的 JavaScript 代码的大小。
 

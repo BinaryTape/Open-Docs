@@ -21,7 +21,7 @@
 
 Ktor 提供了一个内置的 DI 插件，允许您仅注册一次服务和配置对象，并在整个应用程序中访问它们。您可以以一致且类型安全的方式将 [这些依赖项注入到模块](server-di-dependency-resolution.md#inject-into-modules)、插件、路由和其他 Ktor 组件中。该插件与 Ktor 应用程序生命周期集成，并支持作用域、结构化配置和 [自动资源管理](server-di-resource-lifecycle-management.md)，从而使组织和维护应用程序级服务变得更加容易。
 
-## 添加依赖项
+## 添加依赖项 {id="add-dependencies"}
 
 要使用 DI，请在构建脚本中包含 `%artifact_name%` 构件：
 
@@ -37,7 +37,7 @@ Ktor 提供了一个内置的 DI 插件，允许您仅注册一次服务和配�
     </TabItem>
 </Tabs>
 
-## 依赖注入在 Ktor 中的工作方式
+## 依赖注入在 Ktor 中的工作方式 {id="how-dependency-injection-works-in-ktor"}
 
 在 Ktor 中，依赖注入是一个单一的集成过程，由两个紧密相关的步骤组成：
 
@@ -48,7 +48,7 @@ Ktor 提供了一个内置的 DI 插件，允许您仅注册一次服务和配�
 
 要开始在您的应用程序中使用依赖注入，请先从 [注册依赖项](server-di-dependency-registration.md) 开始。一旦声明了依赖项，请继续进行 [解析依赖项](server-di-dependency-resolution.md)。
 
-## 支持的功能
+## 支持的功能 {id="supported-features"}
 
 DI 插件支持一系列旨在涵盖常见应用程序需求的功能：
 
@@ -58,7 +58,7 @@ DI 插件支持一系列旨在涵盖常见应用程序需求的功能：
 * [异步依赖项解析](server-di-dependency-resolution.md#async-dependency-resolution)。
 * [自动与自定义资源生命周期管理](server-di-resource-lifecycle-management.md)。
 
-## 配置与生命周期行为
+## 配置与生命周期行为 {id="configuration-and-lifecycle-behavior"}
 
 可以使用配置选项自定义 DI 容器的行为。这些选项控制依赖项键的匹配方式、冲突的处理方式以及在高级方案中解析的行为方式。
 
@@ -66,7 +66,7 @@ DI 插件支持一系列旨在涵盖常见应用程序需求的功能：
 
 有关资源清理和关闭行为，请参阅 [资源生命周期管理](server-di-resource-lifecycle-management.md)。
 
-## 使用依赖注入进行测试
+## 使用依赖注入进行测试 {id="testing-with-dependency-injection"}
 
 DI 插件与 Ktor 的测试实用程序集成，并支持在测试环境中重写依赖项、加载配置以及控制冲突行为。
 

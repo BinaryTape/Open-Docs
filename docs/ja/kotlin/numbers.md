@@ -7,7 +7,7 @@ Kotlinの数値型は以下を表現します：
 
 数値型は、算術演算、カウンタ、測定、その他の計算などの数値データの格納と処理に使用します。
 
-## 数値型の選択
+## 数値型の選択 {id="choose-a-number-type"}
 
 ほとんどの場合、タスクに適した数値型を決定するために、以下のルールを参考にできます：
 
@@ -21,7 +21,7 @@ Kotlinの数値型は以下を表現します：
 >
 {style="tip"}
 
-## 整数型
+## 整数型 {id="integer-types"}
 
 Kotlinは、サイズと値の範囲が異なる4つの整数型を提供しています：
 
@@ -32,7 +32,7 @@ Kotlinは、サイズと値の範囲が異なる4つの整数型を提供して�
 | `Int`    | 32          | -2,147,483,648 (-2<sup>31</sup>)             | 2,147,483,647 (2<sup>31</sup> - 1)             |
 | `Long`   | 64          | -9,223,372,036,854,775,808 (-2<sup>63</sup>) | 9,223,372,036,854,775,807 (2<sup>63</sup> - 1) |
 
-### 整数値の宣言
+### 整数値の宣言 {id="declare-integer-values"}
 
 Kotlinは整数値に対して以下のリテラル形式をサポートしています：
 
@@ -87,7 +87,7 @@ val threeBillion = 3_000_000_000 // Long
 val maybeAbsent: Int? = null
 ```
 
-## 浮動小数点型
+## 浮動小数点型 {id="floating-point-types"}
 
 小数部分を持つ数値のために、Kotlinは `Float` と `Double` を提供しています。
 
@@ -101,7 +101,7 @@ val maybeAbsent: Int? = null
 | `Float`  | 32          | 24               | 8             | 6-7            |
 | `Double` | 64          | 53               | 11            | 15-16          |    
 
-### 浮動小数点数値の宣言
+### 浮動小数点数値の宣言 {id="declare-floating-point-values"}
 
 浮動小数点リテラルを宣言するには、小数点 (`.`) を含めるか、指数表記を使用します：
 
@@ -128,7 +128,7 @@ val eFloat = 2.7182817f // Float
 val maybeAbsent: Double? = null
 ```
 
-## 算術演算
+## 算術演算 {id="arithmetic-operations"}
 
 Kotlinは数値に対する標準的な算術演算 `+`、`-`、`*`、`/`、`%` をサポートしています。
 
@@ -153,7 +153,7 @@ fun main() {
 >
 {style="tip"}
 
-### 整数の除算
+### 整数の除算 {id="integer-division"}
 
 整数値同士の除算は常に整数の結果を返します。コンパイラは小数部分を切り捨てます：
 
@@ -185,7 +185,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 型変換
+## 型変換 {id="type-conversion"}
 
 数値型は互いのサブタイプではありません。Kotlinは、暗黙的なデータ損失や予期しない動作を避けるために、明示的な変換を必要とします。
 
@@ -249,7 +249,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 混合数値式
+### 混合数値式 {id="mixed-numeric-expressions"}
 
 Kotlinは代入や関数の引数における暗黙的な変換をサポートしていません。 
 しかし、算術式の中で異なる数値型を組み合わせることはできます。その場合、 
@@ -271,7 +271,7 @@ val result: Int = intNumber + longNumber
 // エラー：初期化子の型不一致（Initializer type mismatch）
 ```
 
-### 整数リテラル型
+### 整数リテラル型 {id="integer-literal-types"}
 
 型推論の間、Kotlinはサフィックスのない整数リテラルを、周囲のコンテキストが特定の型を決定するまで、特別な「整数リテラル型（[Integer Literal Type: ILT](https://kotlinlang.org/spec/type-system.html#integer-literal-types)）」として扱います。
 
@@ -337,7 +337,7 @@ fun main() {
 > 
 {style="tip"}
 
-## データオーバーフロー
+## データオーバーフロー {id="data-overflow"}
 
 数値型は、定義された範囲内の値のみを表現できます。
 
@@ -346,7 +346,7 @@ fun main() {
 
 この動作は、コンパイラがそれを受け入れたとしても、コードの結果に影響を与える可能性があります。
 
-### 演算におけるオーバーフロー
+### 演算におけるオーバーフロー {id="overflow-in-operations"}
 
 各整数型は、定義された範囲内の値のみを格納できます。算術演算の結果がその範囲を超えると、「データオーバーフロー（data overflow）」が発生します：
 
@@ -367,7 +367,7 @@ fun main(){
 >
 {style="note"}
 
-### 符号反転におけるオーバーフロー
+### 符号反転におけるオーバーフロー {id="overflow-in-negation"}
 
 符号反転（否定）の間にもオーバーフローが発生する可能性があります。 
 例えば、`Int.MIN_VALUE` の正の対応する値を `Int` として表現することはできません。
@@ -382,7 +382,7 @@ fun main(){
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 縮小変換
+### 縮小変換 {id="narrowing-conversions"}
 
 値をより小さな整数型に変換すると、結果が元の数値を保持できない場合があります：
 
@@ -409,7 +409,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## ビット演算
+## ビット演算 {id="bitwise-operations"}
 
 Kotlinは `Int` と `Long` に対して「ビット演算」を提供しています。これらの演算は、一連の[中置関数（infix functions）](functions.md#infix-notation)および `inv()` で表されます。
 
@@ -435,7 +435,7 @@ fun main() {
 * `xor()` – ビット単位の XOR
 * `inv()` – ビット単位の反転
 
-## 浮動小数点数の比較
+## 浮動小数点数の比較 {id="floating-point-number-comparison"}
 
 Kotlinにおける浮動小数点数の比較は、オペランドの静的な型に依存します。
 
@@ -470,7 +470,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-numbers-floating-comp"}
 
-## JVMにおける数値のボックス化とキャッシュ
+## JVMにおける数値のボックス化とキャッシュ {id="boxing-and-caching-numbers-on-the-jvm"}
 
 JVMでは、Null 許容ではない数値は通常、`int`、`long`、`double` などのプリミティブ型を使用して格納されます。
 しかし、[ジェネリック型](generics.md)を使用する場合や、`Int?` のような Null 許容の数値型を使用する場合、値はボックス化され、オブジェクトとして表現されます。

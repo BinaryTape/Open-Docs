@@ -6,7 +6,7 @@
 
 하지만 컴파일러 배포판에 포함된 플랫폼 라이브러리는 네이티브 라이브러리에 대한 래퍼(wrapper) 및 바인딩(binding)일 뿐입니다. 즉, 로컬 머신에 실제 네이티브 라이브러리(`.so`, `.a`, `.dylib`, `.dll` 등)가 설치되어 있어야 합니다.
 
-## POSIX 바인딩
+## POSIX 바인딩 {id="posix-bindings"}
 
 Kotlin은 Android 및 iOS를 포함한 모든 UNIX 및 Windows 기반 타겟에 대해 POSIX 플랫폼 라이브러리를 제공합니다. 이러한 플랫폼 라이브러리에는 [POSIX 표준](https://en.wikipedia.org/wiki/POSIX)을 따르는 플랫폼의 구현체에 대한 바인딩이 포함되어 있습니다.
 
@@ -32,7 +32,7 @@ import platform.posix.*
 
 POSIX 플랫폼 라이브러리는 [WebAssembly](wasm-overview.md) 타겟에서는 사용할 수 없습니다.
 
-## 인기 있는 네이티브 라이브러리
+## 인기 있는 네이티브 라이브러리 {id="popular-native-libraries"}
 
 Kotlin/Native는 OpenGL, zlib, Foundation과 같이 여러 플랫폼에서 흔히 사용되는 다양한 네이티브 라이브러리에 대한 바인딩을 제공합니다.
 
@@ -75,6 +75,6 @@ Apple 플랫폼에서는 [Objective-C API와의 상호 운용성(interoperabilit
 > 
 {style="tip"}
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 [Swift/Objective-C와의 상호 운용성에 대해 더 알아보기](native-objc-interop.md)

@@ -24,7 +24,7 @@ fun main() {
 
 `Derived` 的超类型列表中的 `by` 子句表示 `b` 将被存储在 `Derived` 对象的内部，并且编译器将生成 `Base` 的所有方法并转发给 `b`。
 
-## 重写通过委托实现的接口成员
+## 重写通过委托实现的接口成员 {id="overriding-a-member-of-an-interface-implemented-by-delegation"}
 
 [重写](inheritance.md#overriding-methods)的工作方式与您预期的一致：编译器将使用您的 `override` 实现，而不是委托对象中的实现。如果您想向 `Derived` 添加 `override fun printMessage() { print("abc") }`，那么在调用 `printMessage` 时，程序将打印 *abc* 而不是 *10*：
 

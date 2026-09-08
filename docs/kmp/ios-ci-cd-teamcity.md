@@ -13,9 +13,9 @@
 *   为您的构建进行签名并将其发布到 [TestFlight](https://developer.apple.com/testflight/)。
 *   提供免费的入门层级，包含每月的构建分钟数和存储配额。
 
-## 创建 TeamCity 流水线
+## 创建 TeamCity 流水线 {id="create-the-teamcity-pipeline"}
 
-### 从 IDE 开始 CI 设置
+### 从 IDE 开始 CI 设置 {id="start-ci-setup-from-the-ide"}
 
 1.  提交并推送您的项目更改。如果尚未配置 CI，Kotlin Multiplatform IDE 插件将显示一个工具提示，提示您开始 CI 设置。
 2.  点击 **Configure CI**（配置 CI）。
@@ -34,7 +34,7 @@
     点击 **Continue**（继续），并在收到提示时允许 IDE 将生成的文件添加到 Git。
     这些文件将保持在本地，直到您将它们提交到仓库。
 
-### 创建或连接 TeamCity Cloud 工作区
+### 创建或连接 TeamCity Cloud 工作区 {id="create-or-connect-a-teamcity-cloud-workspace"}
 
 TeamCity 需要一个 Cloud 工作区才能在托管的 macOS 构建代理上运行构建。
 
@@ -53,7 +53,7 @@ TeamCity 需要一个 Cloud 工作区才能在托管的 macOS 构建代理上运
 TeamCity 会创建或连接到工作区并准备构建环境。
 这通常需要不到 30 秒的时间。
 
-## 构建 iOS 应用
+## 构建 iOS 应用 {id="build-the-ios-app"}
 
 当工作区准备就绪时，IDE 会自动打开 **TeamCity** 选项卡并启动您的首次构建。
 
@@ -65,11 +65,11 @@ TeamCity 会创建或连接到工作区并准备构建环境。
 
 当自动化构建成功时，点击 **Publish to TestFlight**（发布到 TestFlight）来配置签名和部署。
 
-## 配置 Apple 签名和 TestFlight
+## 配置 Apple 签名和 TestFlight {id="configure-apple-signing-and-testflight"}
 
 要将构建版本上传到 TestFlight，TeamCity 需要 App Store Connect 的凭据和 Apple 代码签名。
 
-### 创建 App Store Connect API 密钥
+### 创建 App Store Connect API 密钥 {id="create-an-app-store-connect-api-key"}
 
 1.  登录 [App Store Connect](https://appstoreconnect.apple.com/)。
 2.  转到 **Users and Access**（用户和访问）并选择 **Keys**（密钥）。
@@ -79,7 +79,7 @@ TeamCity 会创建或连接到工作区并准备构建环境。
 
 您只能下载一次 `.p8` 文件，请务必妥善保存。
 
-### 导出 Apple Distribution 证书
+### 导出 Apple Distribution 证书 {id="export-an-apple-distribution-certificate"}
 
 1.  在 Xcode 中，转到 **Settings**（设置）| **Accounts**（帐户），或打开 [Apple Developer Portal](https://developer.apple.com/account/)，
     然后创建或找到您的 Apple Distribution 证书。
@@ -94,7 +94,7 @@ TeamCity 会创建或连接到工作区并准备构建环境。
 >
 {style="note"}
 
-### 在 IDE 中添加 Apple 凭据
+### 在 IDE 中添加 Apple 凭据 {id="add-apple-credentials-in-the-ide"}
 
 返回 IDE 并完成 **Add Apple signing credentials**（添加 Apple 签名凭据）表单。
 TeamCity 将这些值存储为安全的部署凭据；它们不会被添加到您的项目源文件中。
@@ -110,7 +110,7 @@ TeamCity 将这些值存储为安全的部署凭据；它们不会被添加到�
 | **.p12 password** | 您在导出证书时指定的密码。                                                                  |
 {style="none"}
 
-### 将首次构建上传到 TestFlight
+### 将首次构建上传到 TestFlight {id="upload-the-first-build-to-testflight"}
 
 添加凭据后，流水线将包含签名和部署步骤。
 
@@ -118,9 +118,9 @@ TeamCity 将这些值存储为安全的部署凭据；它们不会被添加到�
     TeamCity 将重新运行流水线，创建一个经过签名的 iOS 构建版本，并将其上传到 App Store Connect。
 2.  打开 App Store Connect 或 TestFlight 并验证构建版本是否已出现。
 
-## 自动化构建与发布
+## 自动化构建与发布 {id="automate-builds-and-publishing"}
 
-### 连接仓库
+### 连接仓库 {id="connect-the-repository"}
 
 要实现此流程的自动化，请将您的 GitHub 仓库连接到 TeamCity，以便每次推送都能触发新的构建。
 
@@ -131,7 +131,7 @@ TeamCity 将这些值存储为安全的部署凭据；它们不会被添加到�
 
 现在，每当您向配置的分支推送更改时，TeamCity 都会触发流水线。
 
-### 验证流水线
+### 验证流水线 {id="verify-the-pipeline"}
 
 您的 iOS 交付流水线现已就绪！每次向配置的分支推送代码都会触发 TeamCity 执行以下操作：
 
@@ -147,7 +147,7 @@ TeamCity 将这些值存储为安全的部署凭据；它们不会被添加到�
 
 从现在起，只需推送代码，其余工作均由 TeamCity 处理。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 *   阅读更多关于 [TeamCity Cloud 流水线](https://www.jetbrains.com/help/teamcity/cloud/create-and-edit-pipelines.html) 的内容，以进一步自定义您的设置：创建更多项目、设置构建代理要求等。
 *   了解如何[发布多平台应用](multiplatform-publish-apps.md)。

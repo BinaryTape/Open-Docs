@@ -6,11 +6,11 @@ title: 의존성 주입(Dependency Injection)이란 무엇인가요?
 
 의존성 주입(Dependency Injection, DI)은 객체가 내부에서 의존성을 직접 생성하는 대신 외부에서 전달받는 디자인 패턴입니다. 이는 느슨한 결합(loose coupling)을 촉진하고, 테스트 가능성을 높이며, 더 깔끔한 코드 아키텍처를 가능하게 합니다.
 
-## 의존성이란 무엇인가요?
+## 의존성이란 무엇인가요? {id="what-is-a-dependency"}
 
 의존성(dependency)이란 한 객체가 작동하기 위해 필요한 다른 객체를 의미합니다. 예를 들어, `Car`가 주행하기 위해서는 `Engine`이 필요합니다.
 
-### 의존성 주입을 사용하지 않는 경우
+### 의존성 주입을 사용하지 않는 경우 {id="without-dependency-injection"}
 
 ```kotlin
 class Engine {
@@ -35,7 +35,7 @@ class Car {
 - 엔진 유형(전기, 디젤 등)을 교체하기 어렵습니다.
 - `Car`가 `Engine`의 생명주기(lifecycle)를 직접 제어해야 합니다.
 
-### 의존성 주입을 사용하는 경우
+### 의존성 주입을 사용하는 경우 {id="with-dependency-injection"}
 
 ```kotlin
 class Car(private val engine: Engine) {  // Engine을 주입받음
@@ -56,9 +56,9 @@ val electricCar = Car(ElectricEngine())
 - 유연함 - 구현체를 쉽게 교체할 수 있습니다.
 - 생성자에서 의존성이 명확하게 드러납니다.
 
-## 의존성을 제공하는 세 가지 방법
+## 의존성을 제공하는 세 가지 방법 {id="three-ways-to-provide-dependencies"}
 
-### 1. 생성자 주입 (권장 방식)
+### 1. 생성자 주입 (권장 방식) {id="1-constructor-injection-recommended"}
 
 생성자를 통해 의존성을 전달합니다:
 
@@ -93,7 +93,7 @@ val appModule = module {
 생성자 주입은 Koin에서 **선호되는 방식**입니다. 단위 테스트에서 Koin 없이도 코드를 테스트할 수 있게 해줍니다.
 :::
 
-### 2. 필드 주입 (Field Injection)
+### 2. 필드 주입 (Field Injection) {id="2-field-injection"}
 
 클래스의 프로퍼티에 의존성을 주입합니다:
 
@@ -123,7 +123,7 @@ val presenter: Presenter by inject()
 val presenter: Presenter = get()
 ```
 
-### 3. 메서드 주입 (Method Injection)
+### 3. 메서드 주입 (Method Injection) {id="3-method-injection"}
 
 메서드를 통해 의존성을 전달합니다 (자주 사용되지 않음):
 
@@ -140,9 +140,9 @@ class ReportGenerator {
 - 객체의 수명 동안 의존성이 변하는 경우
 - 콜백 패턴
 
-## 수동 의존성 주입 vs 자동 의존성 주입
+## 수동 의존성 주입 vs 자동 의존성 주입 {id="manual-vs-automated-dependency-injection"}
 
-### 수동 DI의 문제점
+### 수동 DI의 문제점 {id="the-problem-with-manual-di"}
 
 애플리케이션이 커짐에 따라 의존성을 수동으로 관리하는 일은 매우 복잡해집니다:
 
@@ -171,7 +171,7 @@ class MainActivity : AppCompatActivity() {
 - 생명주기(싱글톤, 스코프 객체 등) 관리의 어려움
 - 중앙화된 설정의 부재
 
-### 컨테이너 패턴 (수동 방식)
+### 컨테이너 패턴 (수동 방식) {id="the-container-pattern-manual-approach"}
 
 개발자들은 종종 객체 생성을 중앙화하기 위해 컨테이너를 만듭니다:
 
@@ -200,7 +200,7 @@ class MainActivity : AppCompatActivity() {
 - 전역 상태 (싱글톤 컨테이너)
 - 복잡한 그래프의 경우 여전히 반복 작업 발생
 
-### Koin이 해결하는 방법
+### Koin이 해결하는 방법 {id="how-koin-solves-this"}
 
 Koin은 **DSL 또는 어노테이션(Annotations)** 중 선택하여 의존성을 자동으로 해결해줍니다:
 
@@ -239,7 +239,7 @@ class MainActivity : AppCompatActivity() {
 - 타입 안전한 주입
 - 쉬운 테스트 및 모듈 교체
 
-## 자동 DI 솔루션
+## 자동 DI 솔루션 {id="automated-di-solutions"}
 
 자동 의존성 주입에는 여러 가지 접근 방식이 있습니다:
 
@@ -257,11 +257,11 @@ class MainActivity : AppCompatActivity() {
 - 리플렉션 없음, 가벼움
 - 팀에 적합한 스타일을 선택 가능
 
-## 서비스 로케이터 vs 의존성 주입
+## 서비스 로케이터 vs 의존성 주입 {id="service-locator-vs-dependency-injection"}
 
 이 둘의 차이를 이해하는 것이 중요합니다:
 
-### 서비스 로케이터(Service Locator) 패턴
+### 서비스 로케이터(Service Locator) 패턴 {id="service-locator-pattern"}
 
 컴포넌트가 레지스트리에서 직접 의존성을 요청합니다:
 
@@ -271,7 +271,7 @@ class UserService : KoinComponent {
 }
 ```
 
-### 의존성 주입(Dependency Injection) 패턴
+### 의존성 주입(Dependency Injection) 패턴 {id="dependency-injection-pattern"}
 
 의존성이 외부에서 제공됩니다:
 
@@ -281,7 +281,7 @@ class UserService(
 )
 ```
 
-### 비교
+### 비교 {id="comparison"}
 
 | 측면 | 서비스 로케이터 | 의존성 주입 |
 |--------|----------------|---------------------|
@@ -291,7 +291,7 @@ class UserService(
 | Koin에서의 사용 | `get()`, `by inject()` | Koin 모듈이 있는 생성자 |
 | 적합한 용도 | 안드로이드 프레임워크 클래스 | 비즈니스 로직, 서비스 |
 
-### Koin 사용 시 권장 사항 (Best Practices)
+### Koin 사용 시 권장 사항 (Best Practices) {id="best-practices-with-koin"}
 
 1. 비즈니스 로직에는 **생성자 주입을 선호**하세요:
 
@@ -325,9 +325,9 @@ class UserService : KoinComponent {
 class UserService(private val repository: UserRepository)
 ```
 
-## 의존성 주입의 이점
+## 의존성 주입의 이점 {id="benefits-of-dependency-injection"}
 
-### 1. 테스트 가능성 (Testability)
+### 1. 테스트 가능성 (Testability) {id="1-testability"}
 
 DI가 없으면 테스트가 어렵습니다:
 
@@ -352,7 +352,7 @@ fun testGetUser() {
 }
 ```
 
-### 2. 유연성 (Flexibility)
+### 2. 유연성 (Flexibility) {id="2-flexibility"}
 
 구현체를 쉽게 교체할 수 있습니다:
 
@@ -366,7 +366,7 @@ val testModule = module {
 }
 ```
 
-### 3. 코드 조직화 (Code Organization)
+### 3. 코드 조직화 (Code Organization) {id="3-code-organization"}
 
 중앙화된 의존성 설정:
 
@@ -390,7 +390,7 @@ startKoin {
 }
 ```
 
-### 4. 생명주기 관리 (Lifecycle Management)
+### 4. 생명주기 관리 (Lifecycle Management) {id="4-lifecycle-management"}
 
 Koin이 객체의 생명주기를 관리합니다:
 
@@ -402,7 +402,7 @@ val appModule = module {
 }
 ```
 
-## 요약
+## 요약 {id="summary"}
 
 의존성 주입은 다음과 같은 강력한 패턴입니다:
 - 컴포넌트와 그 의존성 사이의 **결합을 해제**합니다.
@@ -416,7 +416,7 @@ Koin은 다음과 같은 방법으로 Kotlin에서의 DI를 단순화합니다:
 - 컴파일러 플러그인을 통한 **컴파일 타임 안전성** 제공
 - **리플렉션 제로** - 순수 Kotlin 방식
 
-## 다음 단계
+## 다음 단계 {id="next-steps"}
 
 - **[Koin이란 무엇인가요?](/docs/intro/what-is-koin)** - Koin의 접근 방식에 대해 알아보기
 - **[Koin 컴파일러 플러그인](/docs/intro/koin-compiler-plugin)** - 권장되는 더 안전한 접근 방식

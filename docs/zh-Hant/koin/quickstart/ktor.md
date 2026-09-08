@@ -14,13 +14,13 @@ title: Ktor
 正在尋找此教學的 **註解版本 (annotations version)** 嗎？請查看 [Ktor & Annotations](./ktor-annotations.md)，它使用 Koin Annotations 搭配 Jakarta `@Singleton` 進行編譯期驗證。
 :::
 
-## 取得程式碼
+## 取得程式碼 {id="get-the-code"}
 
 :::info
 [原始碼已發佈於 GitHub](https://github.com/InsertKoinIO/koin-getting-started/tree/main/ktor)
 :::
 
-## Gradle 設定
+## Gradle 設定 {id="gradle-setup"}
 
 首先，如下所示加入 Koin 相依性：
 
@@ -32,13 +32,13 @@ dependencies {
 }
 ```
 
-## 應用程式概覽
+## 應用程式概覽 {id="application-overview"}
 
 此應用程式的想法是管理使用者列表，並在我們的 `UserApplication` 類別中顯示：
 
 > Users -> UserRepository -> UserService -> UserApplication
 
-## "User" 資料
+## "User" 資料 {id="the-user-data"}
 
 我們將管理一個使用者集合。這是其資料類別：
 
@@ -68,7 +68,7 @@ class UserRepositoryImpl : UserRepository {
 }
 ```
 
-## Koin 模組
+## Koin 模組 {id="the-koin-module"}
 
 使用 `module` 函式來宣告 Koin 模組。Koin 模組是我們定義所有要注入的組建的地方。
 
@@ -90,7 +90,7 @@ val appModule = module {
 本教學使用 **Koin 編譯器外掛程式 DSL** (`single<T>()`)，其提供編譯時的自動連結 (auto-wiring)。請參閱 [編譯器外掛程式設定](/docs/setup/compiler-plugin) 以進行配置。
 :::
 
-## UserService 組建
+## UserService 組建 {id="the-userservice-component"}
 
 讓我們撰寫 `UserService` 組建來管理使用者操作：
 
@@ -132,7 +132,7 @@ val appModule = module {
 }
 ```
 
-## HTTP 控制器
+## HTTP 控制器 {id="http-controller"}
 
 最後，我們需要一個 HTTP 控制器來建立 HTTP 路由。在 Ktor 中，這將透過 Ktor 擴充函式來表達：
 
@@ -161,7 +161,7 @@ fun Application.main() {
 - `http://localhost:8080/hello` - 向 Alice 打招呼（預設）
 - `http://localhost:8080/hello?name=Bob` - 向 Bob 打招呼
 
-## 宣告您的相依性
+## 宣告您的相依性 {id="declare-your-dependencies"}
 
 讓我們使用 Koin 模組來組合我們的組建：
 
@@ -172,7 +172,7 @@ val appModule = module {
 }
 ```
 
-## 啟動與注入
+## 啟動與注入 {id="start-and-inject"}
 
 最後，讓我們從 Ktor 啟動 Koin：
 

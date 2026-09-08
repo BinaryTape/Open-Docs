@@ -50,14 +50,14 @@ Kotlinは以下のフロータイプを提供します。
 > 
 {style="tip"}
 
-## コールドフロー
+## コールドフロー {id="cold-flows"}
 
 [Sequence（シーケンス）](sequences.md)と同様に、コールドフローは遅延（Lazy）評価されます。
 
 コールドフローのビルダーのコードブロックは、コレクターがそれをコレクトするまで実行されません。
 新しいコレクターが現れるたびに、フローの新しい実行が開始されます。
 
-### コールドフローの作成
+### コールドフローの作成 {id="create-a-cold-flow"}
 
 コールドフローを作成するには、[`flow()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/flow.html) ビルダー関数を使用します。
 そのブロック内で、[`emit()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-flow-collector/emit.html) 関数を使用してコレクターに値をエミットします。
@@ -105,7 +105,7 @@ fun main() {
 }
 ```
 
-### コールドフローのコレクト
+### コールドフローのコレクト {id="collect-a-cold-flow"}
 
 コールドフローをコレクトするには、[`collect()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/collect.html) 関数を使用します。これにより、アップストリームのフローからのエミッションがトリガーされます。
 `collect()` にラムダを渡すと、エミットされた各値を受け取ることができます。
@@ -185,7 +185,7 @@ suspend fun main() {
 この例では、[`CoroutineName`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-name/) を使用して各コルーチンに名前を付けています。
 `CoroutineName` は[デバッグ](coroutine-context-and-dispatchers.md#naming-coroutines-for-debugging)に使用できます。ここでは、どのコレクターが各コレクションを実行しているかを示すのに役立ちます。
 
-### 中間フロー演算子
+### 中間フロー演算子 {id="intermediate-flow-operators"}
 
 中間演算子はアップストリームのフローに演算を適用し、新しいダウンストリームのフローを返します。
 これらは「コールド」であるため、返されたフローは、アップストリームのフローがホットであったとしても、コレクトされるまで値の処理を開始しません。
@@ -219,7 +219,7 @@ suspend fun main() {
 ```
 {kotlin-runnable="true"}
 
-#### フロービルダー内でのサスペンド関数の呼び出し
+#### フロービルダー内でのサスペンド関数の呼び出し {id="call-suspending-functions-inside-a-flow-builder"}
 
 シーケンスとは異なり、`flow()` ビルダー関数内ではサスペンド関数を呼び出すことができます。
 
@@ -274,7 +274,7 @@ suspend fun main() {
 
 あるいは、[`channelFlow()`](#emit-values-concurrently-with-channelflow) を使用して、複数のコルーチンから値をエミットすることもできます。
 
-#### `.flowOn()` によるコールドフローのコルーチンコンテキストの変更
+#### `.flowOn()` によるコールドフローのコルーチンコンテキストの変更 {id="change-the-coroutine-context-of-a-cold-flow-with-flowon"}
 
 デフォルトでは、コールドフローはコレクターと同じコルーチンコンテキストで実行されます。
 
@@ -314,7 +314,7 @@ suspend fun main() {
 ```
 {kotlin-runnable="true"}
 
-### フローにおける例外処理
+### フローにおける例外処理 {id="handle-exceptions-in-flows"}
 
 エミッターとコレクターの両方が例外をスローする可能性があります。
 
@@ -363,7 +363,7 @@ suspend fun main() {
 フロービルダー関数内でコレクターによってスローされた例外をキャッチした場合は、それを再スローしてください。
 これにより、例外の透過性（Exception transparency）が維持され、`collect()` の呼び出し元が例外を処理できるようになります。
 
-#### アップストリームの例外を処理するための `.catch()` 演算子の使用
+#### アップストリームの例外を処理するための `.catch()` 演算子の使用 {id="use-the-catch-operator-to-handle-upstream-exceptions"}
 
 例外がコレクターに到達する前に処理するには、[`.catch()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/catch.html) 演算子を使用します。
 
@@ -523,7 +523,7 @@ suspend fun main() {
 
 この例では、`.onEach()` 演算子は `.catch()` よりもアップストリームで実行されるため、`require()` チェックが `'5'` で失敗したときに `.catch()` 演算子が例外を処理します。
 
-#### 例外後のアップストリームフローの再開
+#### 例外後のアップストリームフローの再開 {id="restart-the-upstream-flow-after-an-exception"}
 
 ネットワーク接続が切断されたリクエストなど、一部の操作は一時的に失敗することがあります。
 このような場合、[`.retry()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/retry.html) 演算子を使用して、例外の後にアップストリームのフローを再開できます。
@@ -590,7 +590,7 @@ suspend fun main() {
 ```
 {kotlin-runnable="true" validate="false"}
 
-### フローのキャンセル
+### フローのキャンセル {id="flow-cancellation"}
 
 フローのキャンセルは、リクエストがタイムアウトした場合など、結果が不要になったときにコレクションを停止します。
 
@@ -699,7 +699,7 @@ suspend fun main() {
 この例では、`.myTake()` 関数は要求されたすべての値がエミットされるまで、アップストリームのフローから値をエミットします。
 その後、アップストリームのフローをキャンセルするために `CancellationException` をスローします。
 
-### `channelFlow()` による並列な値のエミット
+### `channelFlow()` による並列な値のエミット {id="emit-values-concurrently-with-channelflow"}
 
 `flow()` ビルダー関数は、単一のコルーチンから値をエミットするフローに対してシンプルで効率的です。
 複数のコルーチンから同じフローに並列に値をエミットしたい場合は、[`channelFlow()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/channel-flow.html) ビルダー関数を使用します。
@@ -794,7 +794,7 @@ suspend fun main() {
 
 `.buffer(0)` では、各 `send()` 呼び出しはコレクターが値を受け取れるまで待機するため、`Sending` と `Processing` は最初から交互に行われます。
 
-## ホットフロー
+## ホットフロー {id="hot-flows"}
 
 ホットフローは、コレクターとは無関係に値をエミットする共有ストリームです。
 アクティブなコレクターがない場合でも値をエミットし続け、複数のコレクターが新しい実行を開始するのではなく、すでにアクティブなストリームから同じエミッションをコレクトできます。
@@ -808,7 +808,7 @@ Kotlinは2つのホットフロータイプを提供しています。
 * [`SharedFlow`](#create-a-sharedflow): 複数のサブスクライバーに値をブロードキャストします。メッセージや通知など、時間の経過とともに発生するイベントをブロードキャストする必要がある場合に使用します。
 * [`StateFlow`](#create-a-stateflow): 最新の状態値を常に保持する特別な `SharedFlow` です。UI状態など、時間の経過とともに変化する状態を表す必要がある場合に使用します。
 
-### `SharedFlow` の作成
+### `SharedFlow` の作成 {id="create-a-sharedflow"}
 
 [`SharedFlow`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-shared-flow/) は、時間の経過とともに発生するエミットされた値をサブスクライバーにブロードキャストするホットフローです。
 
@@ -951,7 +951,7 @@ suspend fun main() {
 
 これにより、各コルーチンが `collect()` に到達し、`messages` をサブスクライブし、`sendMessageToEveryone()` がメッセージをエミットする前にサスペンドされることが保証されます。これがないと、リプレイキャッシュが小さすぎる場合、コレクション用コルーチンの開始が遅れて初期のエミッションを逃す可能性があります。
 
-#### ホットフローを公開するための明示的なバッキングフィールドの使用
+#### ホットフローを公開するための明示的なバッキングフィールドの使用 {id="use-explicit-backing-fields-to-expose-hot-flows"}
 <primary-label ref="experimental-opt-in"/>
 
 [明示的なバッキングフィールド (Explicit backing fields)](whatsnew23.md#explicit-backing-fields) を使用して、クラス内にミュータブルなバッキングフィールドを維持しながら、読み取り専用の `SharedFlow` を公開することができます。
@@ -1027,7 +1027,7 @@ suspend fun main() {
 ```
 {kotlin-runnable="true"}
 
-### `StateFlow` の作成
+### `StateFlow` の作成 {id="create-a-stateflow"}
 
 [`StateFlow`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-state-flow/) は、単一の状態値を保持し、その値が新しいものに置き換わったときに更新をエミットするホットフローです。
 新しいサブスクライバーはコレクトを開始するとすぐに現在の値を受け取り、その後は状態が更新されるたびに新しい値を受け取ります。
@@ -1271,7 +1271,7 @@ suspend fun main() {
 この例では、`.update()` 関数がアトミックに「いいね」の数を増やします。
 これにより、複数のコルーチンが同時に `like()` 関数を呼び出したときの更新漏れを防ぎます。
 
-#### 蓄積された状態を `StateFlow` に保存する
+#### 蓄積された状態を `StateFlow` に保存する {id="store-accumulated-state-in-a-stateflow"}
 
 最新のエミットされた値だけでなく、過去のすべてのエミッションの結果をサブスクライバーに受け取ってほしい場合があります。
 
@@ -1360,7 +1360,7 @@ suspend fun main() {
 `messageHistory` は `StateFlow` であるため、サブスクライバーはコレクトを開始したときに現在のメッセージ履歴を受け取ります。
 その後、メッセージが送信されるたびにチャット履歴が変更され、新しいリストを受け取ります。
 
-### コールドフローをホットフローに変換する
+### コールドフローをホットフローに変換する {id="convert-cold-flows-to-hot-flows"}
 
 コールドフローは、コレクターごとに個別にアップストリームの操作を実行します。
 複数のサブスクライバーが同じアップストリームのコレクションからのエミッションを必要とする場合、コールドフローをホットフローに変換して、そのコレクションをサブスクライバー間で共有できます。
@@ -1527,7 +1527,7 @@ val lastUpdateFlow: StateFlow<Instant?> =
         )
 ```
 
-### ホットフローのキャンセル
+### ホットフローのキャンセル {id="cancel-hot-flows"}
 
 ホットフローは、サブスクライバーがキャンセルされても停止しません。
 
@@ -1619,7 +1619,7 @@ suspend fun main() {
 `sendMessageToEveryone()` 関数を呼び出したコルーチンはキャンセルされていないため、依然として `messageHistory` を更新します。
 その結果、`totalMessages.value` は最後にコレクトされたサイズを保持し、`chatroom.messageHistory.value.size` は実際のメッセージ数を表示します。
 
-### ホットフローにおける例外処理
+### ホットフローにおける例外処理 {id="handle-exceptions-in-hot-flows"}
 
 [コールドフロー](#handle-exceptions-in-flows)では、`.catch()` などの演算子を使用して最初に対処しない限り、アップストリームの例外は `collect()` の呼び出し元に伝播します。
 

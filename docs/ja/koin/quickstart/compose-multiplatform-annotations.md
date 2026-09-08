@@ -9,13 +9,13 @@ title: Compose Multiplatform と Annotations - UI の共有
 update - 2024-11-12
 :::
 
-## コードの取得
+## コードの取得 {id="get-the-code"}
 
 :::info
 [ソースコードは GitHub で公開されています](https://github.com/InsertKoinIO/koin-getting-started/tree/main/compose-annotations)
 :::
 
-## Gradle の設定
+## Gradle の設定 {id="gradle-setup"}
 
 まず、Koin Annotations の依存関係を追加します：
 
@@ -35,7 +35,7 @@ dependencies {
 }
 ```
 
-## アプリケーションの概要
+## アプリケーションの概要 {id="application-overview"}
 
 このアプリケーションは、リモート API から美術品オブジェクトを取得してリストに表示します。ユーザーはアイテムをタップして詳細情報を確認できます：
 
@@ -48,11 +48,11 @@ dependencies {
 - 非同期処理のための Kotlin Coroutines & Flow
 - ルーティングのための Navigation Compose
 
-## データレイヤー
+## データレイヤー {id="the-data-layer"}
 
 > 共通・共有コードはすべて `composeApp` Gradle プロジェクト内にあります。
 
-### MuseumObject モデル
+### MuseumObject モデル {id="museumobject-model"}
 
 美術品オブジェクトのデータクラス：
 
@@ -74,7 +74,7 @@ data class MuseumObject(
 )
 ```
 
-### MuseumApi - ネットワークレイヤー
+### MuseumApi - ネットワークレイヤー {id="museumapi-network-layer"}
 
 データを取得するための API インターフェースを作成します：
 
@@ -97,7 +97,7 @@ class KtorMuseumApi(private val client: HttpClient) : MuseumApi {
 }
 ```
 
-### MuseumStorage - ローカルキャッシュ
+### MuseumStorage - ローカルキャッシュ {id="museumstorage-local-caching"}
 
 ```kotlin
 interface MuseumStorage {
@@ -124,7 +124,7 @@ class InMemoryMuseumStorage : MuseumStorage {
 }
 ```
 
-### MuseumRepository
+### MuseumRepository {id="museumrepository"}
 
 リポジトリは API とストレージの間を調整します：
 
@@ -160,11 +160,11 @@ class MuseumRepository(
 `@Single(createdAtStart = true)` アノテーションは、Koin の起動時にリポジトリが作成されることを保証し、即座にデータ取得を開始させます。
 :::
 
-## Koin モジュール
+## Koin モジュール {id="the-koin-modules"}
 
 依存関係を個別のモジュールに整理します：
 
-### データモジュール
+### データモジュール {id="data-module"}
 
 ```kotlin
 @Module
@@ -185,7 +185,7 @@ class DataModule {
 
 `@ComponentScan` アノテーションは、このパッケージ内のすべての `@Single` アノテーション付きクラス（MuseumApi, MuseumStorage, MuseumRepository）を自動的に検出します。
 
-### ViewModel モジュール
+### ViewModel モジュール {id="viewmodel-module"}
 
 2つの画面用の ViewModel を作成しましょう：
 
@@ -218,7 +218,7 @@ class ViewModelModule
 
 `@KoinViewModel` アノテーションはこれらを ViewModel 定義として自動的に登録し、`@ComponentScan` がそれらを検出します。
 
-### プラットフォーム固有モジュール
+### プラットフォーム固有モジュール {id="platform-specific-module"}
 
 プラットフォーム固有のコンポーネント（Android vs iOS）用：
 
@@ -228,7 +228,7 @@ class ViewModelModule
 class PlatformComponentModule
 ```
 
-### メインアプリモジュール
+### メインアプリモジュール {id="main-app-module"}
 
 すべてのモジュールを結合します：
 
@@ -241,7 +241,7 @@ class AppModule
 * `@Configuration` - `@KoinApplication` による自動モジュール検出を有効にします。
 * `@Module(includes = [...])` - 含めるモジュールを宣言します。
 
-## Koin Application オブジェクト
+## Koin Application オブジェクト {id="koin-application-object"}
 
 `@KoinApplication` オブジェクトを作成します：
 
@@ -261,7 +261,7 @@ fun initKoin(configuration: KoinAppDeclaration? = null) {
 
 `@KoinApplication` アノテーションは、すべてのモジュールを自動的にロードする `startKoin()` 拡張関数を生成します。
 
-## Compose での ViewModel の注入
+## Compose での ViewModel の注入 {id="injecting-viewmodels-in-compose"}
 
 > 共通の Compose アプリコードはすべて `composeApp` Gradle モジュールの `commonMain` にあります。
 
@@ -300,9 +300,9 @@ fun App() {
 `koinViewModel()` 関数は、`@KoinViewModel` を通じて自動的に登録された ViewModel インスタンスを取得します。
 :::
 
-## Koin の起動
+## Koin の起動 {id="starting-koin"}
 
-### Android でのセットアップ
+### Android でのセットアップ {id="android-setup"}
 
 Android では、メインのエントリポイントから Koin を初期化します：
 
@@ -311,7 +311,7 @@ Android では、メインのエントリポイントから Koin を初期化し
 initKoin()
 ```
 
-### iOS でのセットアップ
+### iOS でのセットアップ {id="ios-setup"}
 
 > iOS アプリはすべて `iosApp` フォルダ内にあります。
 
@@ -338,7 +338,7 @@ Compose UI は以下のように起動されます：
 fun MainViewController() = ComposeUIViewController { App() }
 ```
 
-## Annotations vs Compiler Plugin DSL
+## Annotations vs Compiler Plugin DSL {id="annotations-vs-compiler-plugin-dsl"}
 
 アノテーションによるアプローチと Compiler Plugin DSL の比較は以下の通りです：
 

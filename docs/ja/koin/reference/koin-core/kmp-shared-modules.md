@@ -10,7 +10,7 @@ title: 共有パターン
 基本的な KMP のセットアップについては、[KMP セットアップ](/docs/reference/koin-core/kmp-setup) を参照してください。定義の種類については、[定義](/docs/reference/koin-core/definitions) を参照してください。
 :::
 
-## 共有モジュールパターン
+## 共有モジュールパターン {id="the-shared-module-pattern"}
 
 各プラットフォームによって拡張可能な、共通の初期化関数を作成します。
 
@@ -29,11 +29,11 @@ fun initKoin(config: KoinAppDeclaration? = null): KoinApplication {
 }
 ```
 
-## モジュールの構成
+## モジュールの構成 {id="module-organization"}
 
 例ではコンパイラプラグイン DSL を使用していますが、アノテーションやクラシック DSL も使用できます。
 
-### レイヤー別
+### レイヤー別 {id="by-layer"}
 
 ```kotlin
 // commonMain/kotlin/di/modules/
@@ -58,7 +58,7 @@ val sharedModule = module {
 }
 ```
 
-### 機能別
+### 機能別 {id="by-feature"}
 
 ```kotlin
 // ユーザー機能
@@ -83,11 +83,11 @@ val orderModule = module {
 }
 ```
 
-## プラットフォーム拡張
+## プラットフォーム拡張 {id="platform-extensions"}
 
 カスタムの構築ロジックが必要な場合、プラットフォームモジュールはラムダを伴うクラシック DSL を使用します。
 
-### Android 拡張
+### Android 拡張 {id="android-extension"}
 
 ```kotlin
 // androidMain/kotlin/di/KoinAndroid.kt
@@ -106,7 +106,7 @@ val androidModule = module {
 }
 ```
 
-### iOS 拡張
+### iOS 拡張 {id="ios-extension"}
 
 ```kotlin
 // iosMain/kotlin/di/KoinIos.kt
@@ -123,7 +123,7 @@ val iosModule = module {
 }
 ```
 
-### デスクトップ拡張
+### デスクトップ拡張 {id="desktop-extension"}
 
 ```kotlin
 // desktopMain/kotlin/di/KoinDesktop.kt
@@ -140,16 +140,16 @@ val desktopModule = module {
 }
 ```
 
-## Expect/Actual モジュールパターン
+## Expect/Actual モジュールパターン {id="expect-actual-module-pattern"}
 
-### 共通の定義
+### 共通の定義 {id="common-definition"}
 
 ```kotlin
 // commonMain/kotlin/di/PlatformModule.kt
 expect val platformModule: Module
 ```
 
-### プラットフォームごとの実装
+### プラットフォームごとの実装 {id="platform-implementations"}
 
 ```kotlin
 // androidMain
@@ -174,11 +174,11 @@ actual val platformModule = module {
 }
 ```
 
-## Compose Multiplatform
+## Compose Multiplatform {id="compose-multiplatform"}
 
 マルチプラットフォーム向けの ViewModel については、[ViewModel](/docs/reference/koin-core/viewmodel) を参照してください。
 
-### 共有 ViewModel
+### 共有 ViewModel {id="shared-viewmodel"}
 
 ```kotlin
 // commonMain
@@ -197,7 +197,7 @@ class UserViewModel(
 }
 ```
 
-### 共有 UI
+### 共有 UI {id="shared-ui"}
 
 ```kotlin
 // commonMain
@@ -215,11 +215,11 @@ fun UserScreen(
 }
 ```
 
-## テスト
+## テスト {id="testing"}
 
 KMP のテストパターンについては、[テスト](/docs/reference/koin-test/testing) を参照してください。
 
-## ベストプラクティス
+## ベストプラクティス {id="best-practices"}
 
 1. **単一の初期化関数** - `commonMain` に 1 つの `initKoin()` を配置する
 2. **config によるプラットフォーム拡張** - `includes(config)` パターンを使用する
@@ -228,7 +228,7 @@ KMP のテストパターンについては、[テスト](/docs/reference/koin-t
 5. **ファクトリに expect/actual を使用する** - プラットフォーム固有のインスタンス生成に利用する
 6. **commonTest でテストする** - ほとんどのテストは共有可能である
 
-## 次のステップ
+## 次のステップ {id="next-steps"}
 
 - **[KMP セットアップ](/docs/reference/koin-core/kmp-setup)** - 基本的な KMP 構成
 - **[ViewModel](/docs/reference/koin-core/viewmodel)** - マルチプラットフォーム ViewModel

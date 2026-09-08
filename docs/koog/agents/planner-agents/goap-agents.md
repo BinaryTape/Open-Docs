@@ -319,7 +319,7 @@ ${state.draft}")
     <!--- KNIT exampleGoapAgentsJava01.java -->
     
 
-## 自定义代价函数
+## 自定义代价函数 {id="custom-cost-functions"}
 
 由于 [A* 搜索] 使用代价作为寻找最优操作序列的一个因素，您可以为操作和目标定义自定义代价函数来引导规划器：
 
@@ -412,7 +412,7 @@ ${state.draft}")
     ```
     <!--- KNIT exampleGoapAgentsJava02.java -->
 
-## 状态信念与实际执行的比较
+## 状态信念与实际执行的比较 {id="state-beliefs-compared-to-actual-execution"}
 
 GOAP 区分了信念（乐观预测）和实际执行的概念：
 

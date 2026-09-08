@@ -21,7 +21,7 @@ CocoaPods 의존성이 있는 KMP 모듈이 있고, [SwiftPM import](multiplatfo
 >
 {style="note"}
 
-## 빌드 스크립트 업데이트
+## 빌드 스크립트 업데이트 {id="update-your-build-script"}
 
 빌드를 업데이트하려면 SwiftPM import 페이지의 지침을 따르세요:
 
@@ -71,7 +71,7 @@ CocoaPods 의존성이 있는 KMP 모듈이 있고, [SwiftPM import](multiplatfo
    <code-block lang="kotlin" code="   kotlin {&#10;       listOf(&#10;           iosArm64(),&#10;           iosSimulatorArm64(),&#10;       ).forEach { iosTarget -&gt;&#10;           iosTarget.binaries.framework {&#10;               baseName = &quot;Shared&quot;&#10;               isStatic = true&#10;           }&#10;       }&#10;   }"/>
    </compare>
 
-## Xcode 프로젝트 재구성
+## Xcode 프로젝트 재구성 {id="reconfigure-your-xcode-project"}
 
 CocoaPods Gradle 플러그인(`kotlin("native.cocoapods")`)을 사용 중인 경우, SwiftPM으로 전환하기 전에 Xcode 프로젝트가 [직접 통합(direct integration)](multiplatform-direct-integration.md)을 사용하도록 재구성해야 합니다. SwiftPM import 툴링은 `.xcodeproj` 파일에 필요한 변경 사항을 적용하기 위한 쉘 명령을 생성할 수 있습니다.
 
@@ -100,7 +100,7 @@ CocoaPods Gradle 플러그인(`kotlin("native.cocoapods")`)을 사용 중인 경
 
 이제 iOS 앱이 SwiftPM 의존성을 사용합니다. CocoaPods 플러그인을 비활성화하고 팟(pod) 통합을 해제할 수 있습니다.
 
-## CocoaPods KMP 통합 제거
+## CocoaPods KMP 통합 제거 {id="remove-the-cocoapods-kmp-integration"}
 
 모든 CocoaPods 의존성을 Swift 패키지로 교체했다면, 이제 `/path/to/project/iosApp` 디렉토리에서 다음 명령을 실행하여 팟 통합을 해제할 수 있습니다:
 

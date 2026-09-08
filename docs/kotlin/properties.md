@@ -9,7 +9,7 @@
 > 
 {style="tip"}
 
-## 声明属性
+## 声明属性 {id="declaring-properties"}
 
 属性可以是可变的 (`var`) 或只读的 (`val`)。
 您可以将它们作为顶层属性在 `.kt` 文件中声明。可以将顶层属性视为属于某个软件包的全局变量：
@@ -111,7 +111,7 @@ var allByDefault    // 错误：属性必须初始化
 ```
 {validate="false"}
 
-## 自定义 getter 和 setter
+## 自定义 getter 和 setter {id="custom-getters-and-setters"}
 
 默认情况下，Kotlin 会自动生成 getter 和 setter。当您需要额外的逻辑（例如验证、格式设置或基于其他属性的计算）时，可以定义自己的自定义访问器。
 
@@ -162,7 +162,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-custom-setter"}
 
-### 更改可见性或添加注解
+### 更改可见性或添加注解 {id="changing-visibility-or-adding-annotations"}
 
 在 Kotlin 中，您可以更改访问器的可见性或添加 [注解](annotations.md)，而无需替换默认实现。您不必在主体 `{}` 内进行这些更改。
 
@@ -229,7 +229,7 @@ fun main() {
 
 此示例使用 [反射](reflection.md) 来显示 getter 和 setter 上存在哪些注解。
 
-## 支持字段
+## 支持字段 {id="backing-fields"}
 
 当需要将值存储在内存中时，编译器会自动为属性生成支持字段。
 
@@ -270,7 +270,7 @@ val isEmpty: Boolean
     get() = this.size == 0
 ```
 
-### 显式支持字段
+### 显式支持字段 {id="explicit-backing-fields"}
 
 有时您可能需要更高的灵活性。例如，如果您有一个 API，希望能在内部修改属性但在外部不可修改。在这种情况下，您可以使用 *显式支持字段*。
 
@@ -317,7 +317,7 @@ val items: List<String>
 
 在 `ShoppingCart` 类的示例中，编译器将 `items` 属性智能转换为 `MutableList<String>` 类型，因此该类可以通过 `add()` 和 `remove()` 函数在购物车中添加和移除商品。在类外部，编译器使用公共属性类型 `List<String>`，因此 API 用户只能读取 `items` 列表中的内容。
 
-#### 限制
+#### 限制 {id="limitations"}
 
 要使用显式支持字段，其属性和支持字段本身必须遵循某些规则。属性仅在满足以下条件时才能拥有显式支持字段：
 
@@ -331,7 +331,7 @@ val items: List<String>
 
 如果显式支持字段不符合您的要求，您可以使用幕后属性作为替代方案。
 
-### 幕后属性
+### 幕后属性 {id="backing-properties"}
 
 如果显式支持字段不适合您的用例，您可以尝试使用一种称为 *幕后属性* 的编码模式。
 
@@ -369,7 +369,7 @@ fun main() {
 
 在此示例中，`UserDirectory` 类具有一个只读的 `users` 属性，用于列出目录中的每个用户。`_users` 变量是包含真实列表的私有幕后属性。公共 `users` 属性的 getter 在返回条目之前会对其进行排序。
 
-## 编译时常量
+## 编译时常量 {id="compile-time-constants"}
 
 如果只读属性的值在编译时就已知，请使用 `const` 修饰符将其标记为 *编译时常量*。编译时常量会在编译时内联，因此每个引用都会被替换为其具体值。访问它们更高效，因为不会调用 getter：
 
@@ -397,7 +397,7 @@ const val SUBSYSTEM_DEPRECATED: String = "This subsystem is deprecated"
 @Deprecated(SUBSYSTEM_DEPRECATED) fun processLegacyOrders() { ... }
 ```
 
-## 延迟初始化属性和变量
+## 延迟初始化属性和变量 {id="late-initialized-properties-and-variables"}
 
 通常，您必须在构造函数中初始化属性。然而，这并不总是很方便。例如，您可能通过依赖注入或在单元测试的设置方法中初始化属性。
 
@@ -481,11 +481,11 @@ fun main() {
 
 只有当您可以在代码中访问该属性时，才能对该属性使用 `isInitialized`。该属性必须在同一个类中、在外层类中或作为同一个文件中的顶层属性声明。
 
-## 重写属性
+## 重写属性 {id="overriding-properties"}
 
 请参阅 [重写属性](inheritance.md#overriding-properties)。
 
-## 委托属性
+## 委托属性 {id="delegated-properties"}
 
 为了重用逻辑并减少代码重复，您可以将获取和设置属性的职责委托给一个单独的对象。
 

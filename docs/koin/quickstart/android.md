@@ -9,13 +9,13 @@ title: Android
 更新 - 2024-10-21
 :::
 
-## 获取代码
+## 获取代码 {id="get-the-code"}
 
 :::info
 [源代码可在 Github 上获取](https://github.com/InsertKoinIO/koin-getting-started/tree/main/android)
 :::
 
-## Gradle 设置
+## Gradle 设置 {id="gradle-setup"}
 
 像下面这样添加 Koin Android 依赖项：
 
@@ -27,13 +27,13 @@ dependencies {
 }
 ```
 
-## 应用程序概览
+## 应用程序概览 {id="application-overview"}
 
 该应用程序的设计思路是管理一个用户列表，并使用 Presenter 或 ViewModel 在我们的 `MainActivity` 类中显示它：
 
 > Users -> UserRepository -> UserService -> (Presenter 或 ViewModel) -> MainActivity
 
-## “User” 数据
+## “User” 数据 {id="the-user-data"}
 
 我们将管理一个 User 集合。以下是数据类：
 
@@ -63,7 +63,7 @@ class UserRepositoryImpl : UserRepository {
 }
 ```
 
-## UserService 组件
+## UserService 组件 {id="the-userservice-component"}
 
 让我们编写一个服务组件来管理用户操作：
 
@@ -94,7 +94,7 @@ class UserServiceImpl(
 }
 ```
 
-## Koin 模块
+## Koin 模块 {id="the-koin-module"}
 
 使用 `module` 函数来声明 Koin 模块。Koin 模块是我们定义所有要注入的组件的地方。
 
@@ -117,7 +117,7 @@ val appModule = module {
 本教程使用 **Koin 编译器插件 DSL** (`single<T>()`、`factory<T>()`)，它在编译时提供自动装配。有关配置请参阅 [编译器插件设置](/docs/setup/compiler-plugin)。
 :::
 
-## 使用 Presenter 显示用户
+## 使用 Presenter 显示用户 {id="displaying-user-with-presenter"}
 
 让我们编写一个 Presenter 组件来显示用户：
 
@@ -144,7 +144,7 @@ val appModule = module {
 }
 ```
 
-## 在 Android 中注入依赖项
+## 在 Android 中注入依赖项 {id="injecting-dependencies-in-android"}
 
 `UserPresenter` 组件将被创建，并随之解析 `UserService` 实例。为了在 Activity 中获取它，让我们使用 `by inject()` 委托函数进行注入：
 
@@ -167,7 +167,7 @@ class MainActivity : AppCompatActivity() {
 `by inject()` 函数允许我们在 Android 组件运行时（Activity、fragment、Service...）检索 Koin 实例。
 :::
 
-## 启动 Koin
+## 启动 Koin {id="start-koin"}
 
 我们需要随 Android 应用程序一起启动 Koin。只需在应用程序的主入口点（即我们的 `MainApplication` 类）中调用 `startKoin()` 函数：
 
@@ -189,7 +189,7 @@ class MainApplication : Application(){
 `startKoin` 中的 `modules()` 函数会加载给定的模块列表。
 :::
 
-## Koin 模块：DSL 对比
+## Koin 模块：DSL 对比 {id="koin-module-dsl-comparison"}
 
 这是使用 **经典 DSL**（手动装配）的 Koin 模块声明：
 

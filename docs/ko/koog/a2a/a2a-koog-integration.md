@@ -8,11 +8,11 @@ status: beta
 
 Koog는 A2A 프로토콜과의 매끄러운 통합을 제공하여, Koog 에이전트를 A2A 서버로 노출하거나 Koog 에이전트를 다른 A2A 준수 에이전트에 연결할 수 있도록 합니다.
 
-## 의존성
+## 의존성 {id="dependencies"}
 
 A2A Koog 통합은 사용 사례에 따라 특정 기능 모듈이 필요합니다.
 
-### Koog 에이전트를 A2A 서버로 노출하는 경우
+### Koog 에이전트를 A2A 서버로 노출하는 경우 {id="for-exposing-koog-agents-as-a2a-servers"}
 
 `build.gradle.kts`에 다음 의존성을 추가하세요:
 
@@ -29,7 +29,7 @@ dependencies {
 }
 ```
 
-### Koog 에이전트를 A2A 에이전트에 연결하는 경우
+### Koog 에이전트를 A2A 에이전트에 연결하는 경우 {id="for-connecting-koog-agents-to-a2a-agents"}
 
 `build.gradle.kts`에 다음 의존성을 추가하세요:
 
@@ -46,16 +46,16 @@ dependencies {
 }
 ```
 
-## 개요
+## 개요 {id="overview"}
 
 이 통합은 두 가지 주요 패턴을 지원합니다:
 
 1. **Koog 에이전트를 A2A 서버로 노출** - Koog 에이전트를 A2A 프로토콜을 통해 검색 및 액세스 가능하게 만듭니다.
 2. **Koog 에이전트를 A2A 에이전트에 연결** - Koog 에이전트가 다른 A2A 준수 에이전트와 통신할 수 있도록 합니다.
 
-## Koog 에이전트를 A2A 서버로 노출하기
+## Koog 에이전트를 A2A 서버로 노출하기 {id="exposing-koog-agents-as-a2a-servers"}
 
-### A2A 기능이 포함된 Koog 에이전트 정의하기
+### A2A 기능이 포함된 Koog 에이전트 정의하기 {id="define-koog-agent-with-a2a-feature"}
 
 먼저 Koog 에이전트를 정의해 보겠습니다. 에이전트의 로직은 다양할 수 있지만, 여기서는 도구(tools)가 포함된 기본적인 단일 실행 에이전트의 예시를 보여줍니다.
 에이전트는 사용자로부터 메시지를 수신하고 이를 LLM에 전달합니다.
@@ -186,7 +186,7 @@ private suspend fun A2AAgentServer.sendTaskUpdate(
 }
 ```
 
-## A2AAgentServer 기능 메커니즘
+## A2AAgentServer 기능 메커니즘 {id="a2aagentserver-feature-mechanism"}
 
 `A2AAgentServer`는 Koog 에이전트와 A2A 프로토콜 간의 원활한 통합을 가능하게 하는 Koog 에이전트 기능입니다.
 `A2AAgentServer` 기능은 Koog 에이전트 내부에서 A2A 클라이언트와 통신하는 데 사용되는 `RequestContext` 및 `SessionEventProcessor` 엔티티에 대한 액세스를 제공합니다.
@@ -211,7 +211,7 @@ withA2AAgentServer {
 }
 ```
 
-### A2A 서버 시작하기
+### A2A 서버 시작하기 {id="start-a2a-server"}
 서버를 실행하면 Koog 에이전트는 A2A 프로토콜을 통해 검색 및 액세스가 가능해집니다.
 
 ```kotlin
@@ -240,9 +240,9 @@ val transport = HttpJSONRPCServerTransport(server)
 transport.start(engineFactory = Netty, port = 8080, path = "/chat", wait = true)
 ```
 
-## Koog 에이전트를 A2A 에이전트에 연결하기
+## Koog 에이전트를 A2A 에이전트에 연결하기 {id="connecting-koog-agents-to-a2a-agents"}
 
-### A2A 클라이언트 생성 및 A2A 서버에 연결하기
+### A2A 클라이언트 생성 및 A2A 서버에 연결하기 {id="create-a2a-client-and-connect-to-the-a2a-server"}
 
 ```kotlin
 val transport = HttpJSONRPCClientTransport(url = "http://localhost:9999/koog")
@@ -254,7 +254,7 @@ val agentId = "koog"
 client.connect()
 ```
 
-### Koog 에이전트 생성 및 A2AAgentClient 기능에 A2A 클라이언트 추가하기
+### Koog 에이전트 생성 및 A2AAgentClient 기능에 A2A 클라이언트 추가하기 {id="create-koog-agent-and-add-a2a-client-to-a2aagentclient-feature"}
 Koog 에이전트에서 A2A 에이전트에 연결하려면 A2A 에이전트 연결을 위한 클라이언트 API를 제공하는 `A2AAgentClient` 기능을 사용할 수 있습니다.
 클라이언트의 원칙은 서버와 동일합니다. 기능을 설치하고 `RequestContext` 및 `SessionEventProcessor`와 함께 `A2AAgentClient` 기능을 전달합니다.
 

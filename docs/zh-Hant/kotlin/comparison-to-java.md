@@ -1,6 +1,6 @@
 [//]: # (title: 與 Java 的比較)
 
-## Kotlin 解決的一些 Java 問題
+## Kotlin 解決的一些 Java 問題 {id="some-java-issues-addressed-in-kotlin"}
 
 Kotlin 修正了 Java 存在的一系列問題：
 
@@ -12,7 +12,7 @@ Kotlin 修正了 Java 存在的一系列問題：
 *   Kotlin 沒有受檢[例外](exceptions.md)
 *   [唯讀與可變集合具有獨立介面](collections-overview.md)
 
-## Java 擁有但 Kotlin 沒有的特性
+## Java 擁有但 Kotlin 沒有的特性 {id="what-java-has-that-kotlin-does-not"}
 
 *   [受檢例外](exceptions.md)
 *   並非類別的[原始型別](types-overview.md)。位元組碼會盡可能使用原始型別，但它們無法被明確地使用。
@@ -28,7 +28,7 @@ Kotlin 修正了 Java 存在的一系列問題：
 >
 {style="note"}
 
-## Kotlin 擁有但 Java 沒有的特性
+## Kotlin 擁有但 Java 沒有的特性 {id="what-kotlin-has-that-java-does-not"}
 
 *   [Lambda 運算式](lambdas.md) + [內嵌函式](inline-functions.md) = 高效能的自訂控制結構
 *   [擴充函式](extensions.md)
@@ -58,7 +58,7 @@ Kotlin 修正了 Java 存在的一系列問題：
 >
 {style="note"}
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 了解如何：
 *   在 [Java 與 Kotlin 中執行常見的字串任務](java-to-kotlin-idioms-strings.md)。

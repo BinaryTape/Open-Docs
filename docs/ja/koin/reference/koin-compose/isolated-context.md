@@ -6,16 +6,16 @@ title: 隔離されたコンテキスト
 
 Koinの隔離されたコンテキスト（isolated context）を使用すると、ホストアプリケーションのKoin設定に干渉することなく、別のKoinインスタンスを実行できます。これは、SDK、ライブラリ、およびホワイトラベルアプリケーションにとって不可欠です。
 
-## ユースケース
+## ユースケース {id="use-cases"}
 
 - **SDK開発** - ホストアプリに影響を与えずに、SDK独自の依存関係を持たせることができます。
 - **ホワイトラベルアプリ** - 構成の異なる複数のアプリバリアントを扱えます。
 - **テスト** - 隔離されたテスト設定を利用できます。
 - **機能モジュール** - 独自のDIを備えた自己完結型の機能モジュールを構築できます。
 
-## 隔離されたコンテキストの作成
+## 隔離されたコンテキストの作成 {id="creating-an-isolated-context"}
 
-### コンテキストホルダーの定義
+### コンテキストホルダーの定義 {id="define-the-context-holder"}
 
 隔離されたKoinインスタンスを保持するためのオブジェクトを作成します：
 
@@ -35,7 +35,7 @@ object MySDKKoinContext {
 }
 ```
 
-### SDKモジュールの例
+### SDKモジュールの例 {id="sdk-module-example"}
 
 ```kotlin
 val sdkCoreModule = module {
@@ -53,9 +53,9 @@ val sdkRepositoryModule = module {
 }
 ```
 
-## Composeでの使用
+## Composeでの使用 {id="using-with-compose"}
 
-### KoinIsolatedContext
+### KoinIsolatedContext {id="koinisolatedcontext"}
 
 SDKのCompose UIを `KoinIsolatedContext` でラップします：
 
@@ -81,7 +81,7 @@ private fun SDKContent() {
 }
 ```
 
-### ネストされたコンテキスト
+### ネストされたコンテキスト {id="nested-contexts"}
 
 隔離されたコンテキストを入れ子にすることができます：
 
@@ -105,9 +105,9 @@ fun HostApp() {
 }
 ```
 
-## ライフサイクル管理
+## ライフサイクル管理 {id="lifecycle-management"}
 
-### 手動初期化
+### 手動初期化 {id="manual-initialization"}
 
 必要に応じてSDKコンテキストを初期化します：
 
@@ -136,7 +136,7 @@ object MySDK {
 }
 ```
 
-### 手動ライフサイクルでの使用
+### 手動ライフサイクルでの使用 {id="usage-with-manual-lifecycle"}
 
 ```kotlin
 // ホストアプリがSDKを初期化
@@ -169,7 +169,7 @@ fun SDKFeature() {
 }
 ```
 
-## 両方のコンテキストへのアクセス
+## 両方のコンテキストへのアクセス {id="accessing-both-contexts"}
 
 ホストとSDKの両方の依存関係にアクセスする必要がある場合があります：
 
@@ -192,7 +192,7 @@ fun BridgeScreen() {
 }
 ```
 
-## SDKの完全な例
+## SDKの完全な例 {id="complete-sdk-example"}
 
 ```kotlin
 // SDKのパブリックAPI
@@ -274,7 +274,7 @@ fun CheckoutScreen() {
 }
 ```
 
-## ベストプラクティス
+## ベストプラクティス {id="best-practices"}
 
 1. **早期に初期化する** - Composeがレンダリングされる前に、隔離されたコンテキストをセットアップします。
 
@@ -286,7 +286,7 @@ fun CheckoutScreen() {
 
 5. **初期化をドキュメント化する** - ホストアプリの開発者に対して、SDKのセットアップ要件を明確にします。
 
-## 次のステップ
+## 次のステップ {id="next-steps"}
 
 - **[Composeの概要](/docs/reference/koin-compose/compose)** - 基本的なComposeのセットアップ
 - **[コンテキストの隔離](/docs/reference/koin-core/context-isolation)** - 隔離のコア概念

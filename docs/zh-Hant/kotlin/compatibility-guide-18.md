@@ -4,7 +4,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 
 雖然大多數語言變更已透過其他管道宣布（如更新日誌或編譯器警告），本文件對其進行了全面總結，為從 Kotlin 1.7 遷移到 Kotlin 1.8 提供完整的參考。
 
-## 基本術語
+## 基本術語 {id="basic-terms"}
 
 在本文件中，我們介紹了幾種相容性：
 
@@ -14,10 +14,10 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 
 請記住，這些定義僅針對純 Kotlin。從其他語言角度（例如 Java）看 Kotlin 程式碼的相容性不在本文件討論範圍內。
 
-## 語言
+## 語言 {id="language"}
 
 <!--
-### 標題
+### 標題 {id="title"}
 
 > **問題**: [KT-NNNNN](https://youtrack.jetbrains.com/issue/KT-NNNNN)
 >
@@ -33,7 +33,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - 1.8.0: 將警告升級為錯誤
 -->
 
-### 禁止將 super 呼叫委託給抽象父類別成員
+### 禁止將 super 呼叫委託給抽象父類別成員 {id="prohibit-the-delegation-of-super-calls-to-an-abstract-superclass-member"}
 
 > **問題**: [KT-45508](https://youtrack.jetbrains.com/issue/KT-45508), [KT-49017](https://youtrack.jetbrains.com/issue/KT-49017), [KT-38078](https://youtrack.jetbrains.com/issue/KT-38078)
 >
@@ -51,7 +51,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - 1.8.0: 在宣告包含來自父類別且未覆寫之抽象方法的具體類別，以及 `Any` 的方法在父類別中被覆寫為抽象且被 super 呼叫的情況下，報告錯誤。
 > - 1.9.0: 在所有受影響的情況下報告錯誤，包括對父類別抽象方法的明確 super 呼叫。
 
-### 棄用 when-with-subject 中令人困惑的語法
+### 棄用 when-with-subject 中令人困惑的語法 {id="deprecate-confusing-grammar-in-when-with-subject"}
 
 > **問題**: [KT-48385](https://youtrack.jetbrains.com/issue/KT-48385)
 >
@@ -67,7 +67,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - 1.8.0: 將此警告升級為錯誤，可以使用 `-XXLanguage:-ProhibitConfusingSyntaxInWhenBranches` 暫時恢復到 1.8 之前的行為。
 > - &gt;= 1.9: 將某些棄用的結構重新用於新的語言特性。
 
-### 防止不同數值型別之間的隱式強制轉換
+### 防止不同數值型別之間的隱式強制轉換 {id="prevent-implicit-coercions-between-different-numeric-types"}
 
 > **問題**: [KT-48645](https://youtrack.jetbrains.com/issue/KT-48645)
 >
@@ -83,7 +83,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - 1.5.30: 修正產生的屬性委託存取子中的向下轉型行為，可以使用 `-Xuse-old-backend` 暫時恢復到 1.5.30 修正之前的行為。
 > - &gt;= 1.9: 修正其他受影響情況下的向下轉型行為。
 
-### 使密封類別的私有建構函式真正私有
+### 使密封類別的私有建構函式真正私有 {id="make-private-constructors-of-sealed-classes-really-private"}
 
 > **問題**: [KT-44866](https://youtrack.jetbrains.com/issue/KT-44866)
 >
@@ -98,7 +98,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - 1.6.20: 在類別外部呼叫密封類別的私有建構函式時報告警告（或在漸進模式下報告錯誤）。
 > - 1.8.0: 對私有建構函式使用預設可見性規則（僅當呼叫位於對應類別內部時，才能解析對私有建構函式的呼叫），可以透過指定 `-XXLanguage:-UseConsistentRulesForPrivateConstructorsOfSealedClasses` 編譯器引數暫時恢復舊行為。
 
-### 禁止在產生器推論上下文中的不相容數值型別上使用運算子 ==
+### 禁止在產生器推論上下文中的不相容數值型別上使用運算子 == {id="prohibit-using-operator-on-incompatible-numeric-types-in-builder-inference-context"}
 
 > **問題**: [KT-45508](https://youtrack.jetbrains.com/issue/KT-45508)
 >
@@ -113,7 +113,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - 1.6.20: 當在不相容的數值型別上使用運算子 `==` 時報告警告（或在漸進模式下報告錯誤）。
 > - 1.8.0: 將警告升級為錯誤，可以使用 `-XXLanguage:-ProperEqualityChecksInBuilderInferenceCalls` 暫時恢復到 1.8 之前的行為。
 
-### 禁止在 Elvis 運算子右側使用沒有 else 的 if 以及非窮舉式的 when
+### 禁止在 Elvis 運算子右側使用沒有 else 的 if 以及非窮舉式的 when {id="prohibit-if-without-else-and-non-exhaustive-when-in-right-hand-side-of-elvis-operator"}
 
 > **問題**: [KT-44705](https://youtrack.jetbrains.com/issue/KT-44705)
 >
@@ -128,7 +128,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - 1.6.20: 對此類非窮舉式的 if 和 when 運算式報告警告（或在漸進模式下報告錯誤）。
 > - 1.8.0: 將此警告升級為錯誤，可以使用 `-XXLanguage:-ProhibitNonExhaustiveIfInRhsOfElvis` 暫時恢復到 1.8 之前的行為。
 
-### 禁止在泛型型別別名用法中違反上限（一個型別參數用於別名型別的多個型別引數）
+### 禁止在泛型型別別名用法中違反上限（一個型別參數用於別名型別的多個型別引數） {id="prohibit-upper-bound-violation-in-a-generic-type-alias-usage-one-type-parameter-used-in-several-type-arguments-of-the-aliased-type"}
 
 > **問題**: [KT-29168](https://youtrack.jetbrains.com/issue/KT-29168)
 >
@@ -143,7 +143,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - 1.7.0: 當型別別名的用法中，型別引數違反了別名型別對應型別參數的上限約束時，報告警告（或在漸進模式下報告錯誤）。
 > - 1.8.0: 將此警告升級為錯誤，可以使用 `-XXLanguage:-ReportMissingUpperBoundsViolatedErrorOnAbbreviationAtSupertypes` 暫時恢復到 1.8 之前的行為。
 
-### 禁止在泛型型別別名用法中違反上限（型別參數用於別名型別之型別引數的泛型型別引數）
+### 禁止在泛型型別別名用法中違反上限（型別參數用於別名型別之型別引數的泛型型別引數） {id="prohibit-upper-bound-violation-in-a-generic-type-alias-usage-a-type-parameter-used-in-a-generic-type-argument-of-a-type-argument-of-the-aliased-type"}
 
 > **問題**: [KT-54066](https://youtrack.jetbrains.com/issue/KT-54066)
 >
@@ -158,7 +158,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - 1.8.0: 當泛型型別別名用法中的型別引數違反了別名型別對應型別參數的上限約束時，報告警告。
 > - &gt;=1.10: 將警告升級為錯誤。
 
-### 禁止在委託內部使用為擴充屬性宣告的型別參數
+### 禁止在委託內部使用為擴充屬性宣告的型別參數 {id="prohibit-using-a-type-parameter-declared-for-an-extension-property-inside-delegate"}
 
 > **問題**: [KT-24643](https://youtrack.jetbrains.com/issue/KT-24643)
 >
@@ -173,7 +173,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - 1.6.0: 當將擴充屬性委託給以特定方式使用從委託屬性型別引數推斷出的型別參數的型別時，報告警告（或在漸進模式下報告錯誤）。
 > - 1.8.0: 將警告升級為錯誤，可以使用 `-XXLanguage:-ForbidUsingExtensionPropertyTypeParameterInDelegate` 暫時恢復到 1.8 之前的行為。
 
-### 禁止在 suspend 函式上使用 @Synchronized 註解
+### 禁止在 suspend 函式上使用 @Synchronized 註解 {id="forbid-synchronized-annotation-on-suspend-functions"}
 
 > **問題**: [KT-48516](https://youtrack.jetbrains.com/issue/KT-48516)
 >
@@ -188,7 +188,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - 1.6.0: 對標有 `@Synchronized` 註解的 suspend 函式報告警告，在漸進模式下該警告會被報告為錯誤。
 > - 1.8.0: 將警告升級為錯誤，可以使用 `-XXLanguage:-SynchronizedSuspendError` 暫時恢復到 1.8 之前的行為。
 
-### 禁止使用展開運算子將引數傳遞給非變數參數
+### 禁止使用展開運算子將引數傳遞給非變數參數 {id="prohibit-using-spread-operator-for-passing-arguments-to-non-vararg-parameters"}
 
 > **問題**: [KT-48162](https://youtrack.jetbrains.com/issue/KT-48162)
 >
@@ -203,7 +203,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - 1.6.0: 在預期為非變數陣列參數的地方使用展開運算子時報告警告（或在漸進模式下報告錯誤）。
 > - 1.8.0: 將警告升級為錯誤，可以使用 `-XXLanguage:-ReportNonVarargSpreadOnGenericCalls` 暫時恢復到 1.8 之前的行為。
 
-### 禁止在傳遞給按 Lambda 回傳型別多載之函式的 Lambda 中違反 null 安全性
+### 禁止在傳遞給按 Lambda 回傳型別多載之函式的 Lambda 中違反 null 安全性 {id="prohibit-null-safety-violation-in-lambdas-passed-to-functions-overloaded-by-lambda-return-type"}
 
 > **問題**: [KT-49658](https://youtrack.jetbrains.com/issue/KT-49658)
 >
@@ -218,7 +218,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - 1.6.20: 報告型別不相符警告（或在漸進模式下報告錯誤）。
 > - 1.8.0: 將警告升級為錯誤，可以使用 `-XXLanguage:-DontLoseDiagnosticsDuringOverloadResolutionByReturnType` 暫時恢復到 1.8 之前的行為。
 
-### 在公開簽章中近似區域型別時保持可 null 性
+### 在公開簽章中近似區域型別時保持可 null 性 {id="keep-nullability-when-approximating-local-types-in-public-signatures"}
 
 > **問題**: [KT-53982](https://youtrack.jetbrains.com/issue/KT-53982)
 >
@@ -234,7 +234,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - 1.8.0: 當宣告被推斷為應為可為 null 但卻為不可為 null 的型別時報告警告，提示使用者明確指定型別。
 > - 1.9.0: 使用可為 null 的父型別來近似可為 null 的型別，可以使用 `-XXLanguage:-KeepNullabilityWhenApproximatingLocalType` 暫時恢復到 1.9 之前的行為。
 
-### 不透過覆寫傳播棄用狀態
+### 不透過覆寫傳播棄用狀態 {id="do-not-propagate-deprecation-through-overrides"}
 
 > **問題**: [KT-47902](https://youtrack.jetbrains.com/issue/KT-47902)
 >
@@ -249,7 +249,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - 1.6.20: 報告警告，內容包含未來行為變更的訊息，並提示隱藏此警告或在覆寫已棄用成員時明確寫上 `@Deprecated` 註解。
 > - 1.9.0: 停止向覆寫成員傳播棄用狀態。此變更在漸進模式下也會立即生效。
 
-### 禁止在產生器推論上下文中將型別變數隱式推斷為上限
+### 禁止在產生器推論上下文中將型別變數隱式推斷為上限 {id="prohibit-implicit-inferring-a-type-variable-into-an-upper-bound-in-the-builder-inference-context"}
 
 > **問題**: [KT-47986](https://youtrack.jetbrains.com/issue/KT-47986)
 >
@@ -264,7 +264,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - 1.7.20: 在缺乏使用點型別資訊的情況下，當型別參數被推斷為宣告的上限時，報告警告（或在漸進模式下報告錯誤）。
 > - 1.9.0: 將警告升級為錯誤，可以使用 `-XXLanguage:-ForbidInferringPostponedTypeVariableIntoDeclaredUpperBound` 暫時恢復到 1.9 之前的行為。
 
-### 禁止在註解類別中除參數宣告以外的任何地方使用集合常值
+### 禁止在註解類別中除參數宣告以外的任何地方使用集合常值 {id="prohibit-using-collection-literals-in-annotation-classes-anywhere-except-their-parameters-declaration"}
 
 > **問題**: [KT-39041](https://youtrack.jetbrains.com/issue/KT-39041)
 >
@@ -279,7 +279,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - 1.7.0: 對註解類別巢狀物件中的陣列常值報告警告（或在漸進模式下報告錯誤）。
 > - 1.9.0: 將警告升級為錯誤。
 
-### 禁止在預設值運算式中前向引用具有預設值的參數
+### 禁止在預設值運算式中前向引用具有預設值的參數 {id="prohibit-forward-referencing-of-parameters-with-default-values-in-default-value-expressions"}
 
 > **問題**: [KT-25694](https://youtrack.jetbrains.com/issue/KT-25694)
 >
@@ -294,7 +294,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - 1.7.0: 當一個具有預設值的參數在另一個位於其之前的參數預設值中被引用時，報告警告（或在漸進模式下報告錯誤）。
 > - 1.9.0: 將警告升級為錯誤，可以使用 `-XXLanguage:-ProhibitIllegalValueParameterUsageInDefaultArguments` 暫時恢復到 1.9 之前的行為。
 
-### 禁止對內聯功能參數進行擴充呼叫
+### 禁止對內聯功能參數進行擴充呼叫 {id="prohibit-extension-calls-on-inline-functional-parameters"}
 
 > **問題**: [KT-52502](https://youtrack.jetbrains.com/issue/KT-52502)
 >
@@ -309,7 +309,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - 1.7.20: 對內聯功能參數上的內聯擴充呼叫報告警告（或在漸進模式下報告錯誤）。
 > - 1.9.0: 將警告升級為錯誤。
 
-### 禁止使用匿名函式引數呼叫名為 suspend 的中綴函式
+### 禁止使用匿名函式引數呼叫名為 suspend 的中綴函式 {id="prohibit-calls-to-infix-functions-named-suspend-with-an-anonymous-function-argument"}
 
 > **問題**: [KT-49264](https://youtrack.jetbrains.com/issue/KT-49264)
 >
@@ -325,7 +325,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - 1.9.0: 將警告升級為錯誤，可以使用 `-XXLanguage:-ModifierNonBuiltinSuspendFunError` 暫時恢復到 1.9 之前的行為。
 > - &gt;=1.10: 變更剖析器解釋 `suspend fun` 標記序列的方式。
 
-### 禁止在內部類別中違反型別參數差異性地使用擷取的型別參數
+### 禁止在內部類別中違反型別參數差異性地使用擷取的型別參數 {id="prohibit-using-captured-type-parameters-in-inner-classes-against-their-variance"}
 
 > **問題**: [KT-50947](https://youtrack.jetbrains.com/issue/KT-50947)
 >
@@ -340,7 +340,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - 1.7.0: 當外部類別型別參數的使用位置違反該參數的差異性規則時，報告警告（或在漸進模式下報告錯誤）。
 > - 1.9.0: 將警告升級為錯誤，可以使用 `-XXLanguage:-ReportTypeVarianceConflictOnQualifierArguments` 暫時恢復到 1.9 之前的行為。
 
-### 禁止在複合指派運算子中遞迴呼叫沒有明確回傳型別的函式
+### 禁止在複合指派運算子中遞迴呼叫沒有明確回傳型別的函式 {id="prohibit-recursive-call-of-a-function-without-explicit-return-type-in-compound-assignment-operators"}
 
 > **問題**: [KT-48546](https://youtrack.jetbrains.com/issue/KT-48546)
 >
@@ -355,7 +355,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - 1.7.0: 當沒有明確指定回傳型別的函式在該函式體的複合指派運算子引數中被遞迴呼叫時，報告警告（或在漸進模式下報告錯誤）。
 > - 1.9.0: 將警告升級為錯誤。
 
-### 禁止在預期為 @NotNull T 但給定具有可為 null 邊界的 Kotlin 泛型參數時進行不健全的呼叫
+### 禁止在預期為 @NotNull T 但給定具有可為 null 邊界的 Kotlin 泛型參數時進行不健全的呼叫 {id="prohibit-unsound-calls-with-expected-notnull-t-and-given-kotlin-generic-parameter-with-nullable-bound"}
 
 > **問題**: [KT-36770](https://youtrack.jetbrains.com/issue/KT-36770)
 >
@@ -370,7 +370,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - 1.5.20: 當在預期為不可為 null 型別的地方傳遞無約束的泛型型別參數時，報告警告。
 > - 1.9.0: 報告型別不相符錯誤而不是上述警告，可以使用 `-XXLanguage:-ProhibitUsingNullableTypeParameterAgainstNotNullAnnotated` 暫時恢復到 1.8 之前的行為。
 
-### 禁止從列舉項目初始設定式存取列舉類別之伴隨物件的成員
+### 禁止從列舉項目初始設定式存取列舉類別之伴隨物件的成員 {id="prohibit-access-to-members-of-a-companion-of-an-enum-class-from-entry-initializers-of-this-enum"}
 
 > **問題**: [KT-49110](https://youtrack.jetbrains.com/issue/KT-49110)
 >
@@ -385,7 +385,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - 1.6.20: 對此類伴隨成員存取報告警告（或在漸進模式下報告錯誤）。
 > - 1.9.0: 將警告升級為錯誤，可以使用 `-XXLanguage:-ProhibitAccessToEnumCompanionMembersInEnumConstructorCall` 暫時恢復到 1.8 之前的行為。
 
-### 棄用並移除 Enum.declaringClass 虛擬屬性
+### 棄用並移除 Enum.declaringClass 虛擬屬性 {id="deprecate-and-remove-enum-declaringclass-synthetic-property"}
 
 > **問題**: [KT-49653](https://youtrack.jetbrains.com/issue/KT-49653)
 >
@@ -401,7 +401,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - 1.9.0: 將警告升級為錯誤，可以使用 `-XXLanguage:-ProhibitEnumDeclaringClass` 暫時恢復到 1.9 之前的行為。
 > - &gt;=1.10: 移除 `declaringClass` 虛擬屬性。
 
-### 棄用編譯器選項 -Xjvm-default 的 enable 和 compatibility 模式
+### 棄用編譯器選項 -Xjvm-default 的 enable 和 compatibility 模式 {id="deprecate-the-enable-and-the-compatibility-modes-of-the-compiler-option-xjvm-default"}
 
 > **問題**: [KT-46329](https://youtrack.jetbrains.com/issue/KT-46329)
 >
@@ -416,9 +416,9 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - 1.6.20: 對 `-Xjvm-default` 編譯器選項的 `enable` 和 `compatibility` 模式引入警告。
 > - &gt;= 1.9: 將此警告升級為錯誤。
 
-## 標準函式庫
+## 標準函式庫 {id="standard-library"}
 
-### 當 Range/Progression 開始實作 Collection 時，警告潛在的多載解析變更
+### 當 Range/Progression 開始實作 Collection 時，警告潛在的多載解析變更 {id="warn-about-potential-overload-resolution-change-when-range-progression-starts-implementing-collection"}
 
 > **問題**: [KT-49276](https://youtrack.jetbrains.com/issue/KT-49276)
 >
@@ -434,7 +434,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - 1.8.0: 將此警告升級為錯誤。
 > - 1.9.0: 停止報告錯誤，在數列中實作 `Collection` 介面，從而變更受影響情況下的多載解析結果。
 
-### 將宣告從 kotlin.dom 和 kotlin.browser 封裝遷移到 kotlinx.*
+### 將宣告從 kotlin.dom 和 kotlin.browser 封裝遷移到 kotlinx.* {id="migrate-declarations-from-kotlin-dom-and-kotlin-browser-packages-to-kotlinx"}
 
 > **問題**: [KT-39330](https://youtrack.jetbrains.com/issue/KT-39330)
 >
@@ -452,7 +452,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - 1.8.20: 從 stdlib 的 JS-IR 目標中移除棄用的函式。
 > - &gt;= 1.9: 將 kotlinx.* 封裝中的 API 移至單獨的程式庫。
 
-### 棄用某些僅限 JS 的 API
+### 棄用某些僅限 JS 的 API {id="deprecate-some-js-only-api"}
 
 > **問題**: [KT-48587](https://youtrack.jetbrains.com/issue/KT-48587)
 >
@@ -468,9 +468,9 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - 1.9.0: 將棄用級別升級為錯誤。
 > - &gt;=1.10.0: 從公開 API 中移除棄用的函式。
 
-## 工具
+## 工具 {id="tools"}
 
-### 提高 KotlinCompile 任務之 classpath 屬性的棄用級別
+### 提高 KotlinCompile 任務之 classpath 屬性的棄用級別 {id="raise-deprecation-level-of-classpath-property-of-kotlincompile-task"}
 
 > **問題**: [KT-51679](https://youtrack.jetbrains.com/issue/KT-51679)
 >
@@ -486,7 +486,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - 1.8.0: 將棄用級別升級為錯誤。
 > - &gt;=1.9.0: 從公開 API 中移除棄用的函式。
 
-### 移除 kapt.use.worker.api Gradle 屬性
+### 移除 kapt.use.worker.api Gradle 屬性 {id="remove-kapt-use-worker-api-gradle-property"}
 
 > **問題**: [KT-48827](https://youtrack.jetbrains.com/issue/KT-48827)
 >
@@ -501,7 +501,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - 1.6.20: 將棄用級別升級為警告。
 > - 1.8.0: 移除此屬性。
 
-### 移除 kotlin.compiler.execution.strategy 系統屬性
+### 移除 kotlin.compiler.execution.strategy 系統屬性 {id="remove-kotlin-compiler-execution-strategy-system-property"}
 
 > **問題**: [KT-51831](https://youtrack.jetbrains.com/issue/KT-51831)
 >
@@ -516,7 +516,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - 1.7.0: 將棄用級別升級為警告。
 > - 1.8.0: 移除該屬性。
 
-### 編譯器選項變更
+### 編譯器選項變更 {id="changes-in-compiler-options"}
 
 > **問題**: [KT-27301](https://youtrack.jetbrains.com/issue/KT-27301), [KT-48532](https://youtrack.jetbrains.com/issue/KT-48532)
 >
@@ -530,7 +530,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 >
 > - 1.8.0: `KotlinNativeLink` 任務不再繼承 `AbstractKotlinNativeCompile`。`KotlinJsCompilerOptions.outputFile` 及相關的 `KotlinJsOptions.outputFile` 選項已棄用。允許使用舊 JVM 後端的 `useOldBackend` 屬性已被移除。
 
-### 棄用 kotlin.internal.single.build.metrics.file 屬性
+### 棄用 kotlin.internal.single.build.metrics.file 屬性 {id="deprecate-kotlin-internal-single-build-metrics-file-property"}
 
 > **問題**: [KT-53357](https://youtrack.jetbrains.com/issue/KT-53357)
 >

@@ -10,7 +10,7 @@ title: 수명 주기 및 상태(Lifecycle & State)
 이 가이드는 [Android의 공식 Compose 수명 주기 문서](https://developer.android.com/develop/ui/compose/lifecycle)와 내용을 같이 합니다.
 :::
 
-## Compose 수명 주기 개요
+## Compose 수명 주기 개요 {id="compose-lifecycle-overview"}
 
 컴포저블(Composable)은 세 가지 수명 주기 이벤트를 가집니다:
 
@@ -20,9 +20,9 @@ title: 수명 주기 및 상태(Lifecycle & State)
 
 Koin의 Compose API는 이러한 수명 주기와 효율적으로 작동하도록 설계되었습니다.
 
-## 주입 및 재구성(Recomposition)
+## 주입 및 재구성(Recomposition) {id="injection-and-recomposition"}
 
-### koinInject()의 작동 방식
+### koinInject()의 작동 방식 {id="how-koininject-works"}
 
 `koinInject()`는 Koin에서 인스턴스를 가져오고, 재구성 전반에 걸쳐 해당 인스턴스를 **기억(remember)**합니다.
 
@@ -37,7 +37,7 @@ fun MyScreen() {
 }
 ```
 
-### 주입 시점
+### 주입 시점 {id="injection-timing"}
 
 의존성은 콜백 내부가 아니라 **컴포저블 함수 수준**에서 주입하세요.
 
@@ -60,7 +60,7 @@ fun MyScreen() {
 }
 ```
 
-### 파라미터 사용 시 성능
+### 파라미터 사용 시 성능 {id="performance-with-parameters"}
 
 `koinInject`와 함께 파라미터를 사용할 때는 명시적 파라미터 형태를 권장합니다.
 
@@ -79,9 +79,9 @@ fun MyScreen(userId: String) {
 }
 ```
 
-## Koin을 이용한 상태 관리
+## Koin을 이용한 상태 관리 {id="state-management-with-koin"}
 
-### StateFlow 및 collectAsState
+### StateFlow 및 collectAsState {id="stateflow-and-collectasstate"}
 
 Koin을 사용하는 반응형 UI의 표준 패턴은 다음과 같습니다.
 
@@ -118,7 +118,7 @@ fun UserScreen(
 }
 ```
 
-### 저장소(Repository) 직접 주입
+### 저장소(Repository) 직접 주입 {id="direct-repository-injection"}
 
 더 간단한 경우에는 저장소를 직접 주입할 수 있습니다.
 
@@ -142,7 +142,7 @@ fun UserListScreen() {
 }
 ```
 
-### remember() vs koinInject()
+### remember() vs koinInject() {id="remember-vs-koininject"}
 
 각 작업에 적합한 도구를 사용하세요.
 
@@ -163,9 +163,9 @@ fun MyScreen() {
 }
 ```
 
-## Koin을 이용한 사이드 이펙트(Side Effects)
+## Koin을 이용한 사이드 이펙트(Side Effects) {id="side-effects-with-koin"}
 
-### LaunchedEffect
+### LaunchedEffect {id="launchedeffect"}
 
 컴포지션이 시작되거나 키가 변경될 때 중단(suspending) 코드를 실행합니다.
 
@@ -184,7 +184,7 @@ fun UserDetailScreen(userId: String) {
 }
 ```
 
-### DisposableEffect
+### DisposableEffect {id="disposableeffect"}
 
 컴포지션을 벗어날 때 리소스를 정리합니다.
 
@@ -205,7 +205,7 @@ fun EventScreen() {
 }
 ```
 
-### SideEffect
+### SideEffect {id="sideeffect"}
 
 성공적인 모든 재구성 후에 비중단(non-suspending) 사이드 이펙트를 실행합니다.
 
@@ -220,9 +220,9 @@ fun AnalyticsScreen(screenName: String) {
 }
 ```
 
-## 안정성(Stability) 및 건너뛰기(Skipping)
+## 안정성(Stability) 및 건너뛰기(Skipping) {id="stability-and-skipping"}
 
-### 안정적인 타입(Stable Types) 이해하기
+### 안정적인 타입(Stable Types) 이해하기 {id="understanding-stable-types"}
 
 Compose는 입력값이 변경되지 않았을 때 재구성을 건너뛸 수 있습니다. 이것이 작동하려면 파라미터 타입이 **안정적(stable)**이어야 합니다.
 
@@ -242,7 +242,7 @@ fun UserCard(
 )
 ```
 
-### Koin 주입 및 안정성
+### Koin 주입 및 안정성 {id="koin-injections-and-stability"}
 
 Koin 주입은 동일한 인스턴스를 반환(싱글톤의 경우)하거나 기억(remember)되기 때문에 안정적인 것으로 간주됩니다.
 
@@ -257,9 +257,9 @@ fun MyScreen() {
 }
 ```
 
-## 파라미터 전달 vs 주입
+## 파라미터 전달 vs 주입 {id="passing-parameters-vs-injection"}
 
-### 결정 가이드
+### 결정 가이드 {id="decision-guide"}
 
 | 파라미터로 전달 | Koin으로 주입 |
 |-------------------|------------------|
@@ -268,7 +268,7 @@ fun MyScreen() {
 | 내비게이션 인수 | 비즈니스 로직 (유스케이스) |
 | 부모가 제공하는 데이터 | ViewModel |
 
-### 예시 패턴
+### 예시 패턴 {id="example-pattern"}
 
 ```kotlin
 // userId는 변경됨 - 파라미터로 전달
@@ -297,9 +297,9 @@ fun ProfileContent(user: User) {
 }
 ```
 
-## 권장 사항(Best Practices)
+## 권장 사항(Best Practices) {id="best-practices"}
 
-### 1. 최상위 수준에서 주입하기
+### 1. 최상위 수준에서 주입하기 {id="1-inject-at-the-top-level"}
 
 ```kotlin
 @Composable
@@ -316,7 +316,7 @@ fun FeatureScreen() {
 }
 ```
 
-### 2. 하위 컴포저블을 순수하게 유지하기
+### 2. 하위 컴포저블을 순수하게 유지하기 {id="2-keep-child-composables-pure"}
 
 ```kotlin
 // 순수함 - 모든 데이터를 파라미터로 받음
@@ -330,7 +330,7 @@ fun UserCard(
 }
 ```
 
-### 3. 복잡한 상태에는 ViewModel 사용하기
+### 3. 복잡한 상태에는 ViewModel 사용하기 {id="3-use-viewmodel-for-complex-state"}
 
 ```kotlin
 // ViewModel에서의 복잡한 상태 관리
@@ -353,7 +353,7 @@ class SearchViewModel(
 }
 ```
 
-### 4. 루프 내부에서 주입 피하기
+### 4. 루프 내부에서 주입 피하기 {id="4-avoid-injection-in-loops"}
 
 ```kotlin
 @Composable
@@ -370,7 +370,7 @@ fun UserList(userIds: List<String>) {
 }
 ```
 
-## 다음 단계
+## 다음 단계 {id="next-steps"}
 
 - **[Compose에서의 ViewModel](/docs/reference/koin-compose/compose-viewmodel)** - ViewModel API
 - **[동적 모듈](/docs/reference/koin-compose/compose-modules)** - 모듈 로드/언로드

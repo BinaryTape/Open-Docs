@@ -6,11 +6,11 @@ Kotlinデーモンは、コンパイラとその環境をコンパイル可能�
 
 Kotlinデーモンにはユーザーが直接操作するインターフェースはありませんが、ビルドシステムや[build tools API](build-tools-api.md)を介して使用できます。
 
-## Kotlinデーモンの設定
+## Kotlinデーモンの設定 {id="kotlin-daemon-configuration"}
 
 GradleやMavenにおいて、Kotlinデーモンのいくつかの設定を構成する方法があります。
 
-### メモリ管理
+### メモリ管理 {id="memory-management"}
 
 Kotlinデーモンは、クライアントから分離された独自のメモリ空間を持つ独立したプロセスです。デフォルトでは、Kotlinデーモンは起動元のJVMプロセスのヒープサイズ（`-Xmx`）を継承しようとします。
 
@@ -35,7 +35,7 @@ kotlin.daemon.jvmargs=-Xmx1500m
 </tab>
 </tabs>
 
-### ライフタイム
+### ライフタイム {id="lifetime"}
 
 Kotlinデーモンには、主に2つのライフタイム戦略があります。
 

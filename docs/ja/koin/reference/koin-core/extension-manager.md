@@ -6,7 +6,7 @@ title: Extensionマネージャー
 
 Koinは、フレームワークに新機能を追加するためのエクステンションシステムを提供しています。これは、Koinを外部システムと統合したり、カスタム機能を追加したりする場合に便利です。
 
-## KoinExtension
+## KoinExtension {id="koinextension"}
 
 Koinエクステンションは、`KoinExtension`インターフェースを実装するクラスです。
 
@@ -24,7 +24,7 @@ interface KoinExtension {
 }
 ```
 
-### エクステンションの作成
+### エクステンションの作成 {id="creating-an-extension"}
 
 ```kotlin
 class MyCustomExtension : KoinExtension {
@@ -45,7 +45,7 @@ class MyCustomExtension : KoinExtension {
 }
 ```
 
-### エクステンションの登録
+### エクステンションの登録 {id="registering-an-extension"}
 
 エクステンションを登録するには、`ExtensionManager`を使用します。
 
@@ -61,7 +61,7 @@ fun KoinApplication.myExtension() {
 private const val EXTENSION_ID = "my-extension"
 ```
 
-### エクステンションへのアクセス
+### エクステンションへのアクセス {id="accessing-an-extension"}
 
 ```kotlin
 val Koin.myExtension: MyCustomExtension
@@ -72,7 +72,7 @@ val extension = getKoin().myExtension
 extension.doSomething()
 ```
 
-### Koinのセットアップでの使用
+### Koinのセットアップでの使用 {id="using-in-koin-setup"}
 
 ```kotlin
 startKoin {
@@ -85,7 +85,7 @@ startKoin {
 `ExtensionManager`は`@KoinInternalApi`としてマークされています。これは、バージョン間でAPIが変更される可能性があることを意味します。本番環境のコードでは注意して使用してください。
 :::
 
-## ResolutionExtension
+## ResolutionExtension {id="resolutionextension"}
 
 より高度なユースケースのために、Koinは依存関係の解決（resolution）プロセスにフックするための`ResolutionExtension`を提供しています。これにより、外部ソースからインスタンスを提供できるようになります。
 
@@ -106,14 +106,14 @@ interface ResolutionExtension {
 }
 ```
 
-### ユースケース
+### ユースケース {id="use-cases"}
 
 - 外部DIコンテナとの統合
 - キャッシュやプールからのインスタンス提供
 - 実行時の条件に基づいた動的なインスタンス解決
 - モックプロバイダーを使用したテスト
 
-### 例：外部インスタンスプロバイダー
+### 例：外部インスタンスプロバイダー {id="example-external-instance-provider"}
 
 ```kotlin
 class ExternalInstanceProvider : ResolutionExtension {
@@ -131,7 +131,7 @@ class ExternalInstanceProvider : ResolutionExtension {
 }
 ```
 
-### ResolutionExtensionの登録
+### ResolutionExtensionの登録 {id="registering-a-resolutionextension"}
 
 ```kotlin
 val externalProvider = ExternalInstanceProvider()
@@ -152,7 +152,7 @@ startKoin {
 `ResolutionExtension` APIは`@KoinExperimentalAPI`としてマークされています。このAPIは将来のバージョンで変更される可能性があります。
 :::
 
-### 完全な例
+### 完全な例 {id="complete-example"}
 
 ```kotlin
 @OptIn(KoinExperimentalAPI::class)
@@ -187,21 +187,21 @@ fun resolutionExtensionExample() {
 }
 ```
 
-## エクステンションの使用タイミング
+## エクステンションの使用タイミング {id="when-to-use-extensions"}
 
 | エクステンションの種類 | ユースケース |
 |---------------|----------|
 | `KoinExtension` | Koinへの機能追加（ロギング、モニタリング、カスタムスコープなど） |
 | `ResolutionExtension` | 解決プロセス中に外部ソースからインスタンスを提供する場合 |
 
-## ベストプラクティス
+## ベストプラクティス {id="best-practices"}
 
 1. **控えめに使用する** - エクステンションは複雑さを増大させます。可能な限り標準のKoin定義を優先してください。
 2. **エクステンションをドキュメント化する** - エクステンションが何を行うのか、どのように使用するのかを明確にしてください。
 3. **クリーンアップを処理する** - リソース漏洩を避けるため、常に`onClose()`を実装してください。
 4. **スレッドセーフを考慮する** - エクステンションは複数のスレッドから呼び出される可能性があります。
 
-## 次のステップ
+## 次のステップ {id="next-steps"}
 
 - **[スコープ (Scopes)](/docs/reference/koin-core/scopes)** - カスタムスコープ管理
 - **[モジュール (Modules)](/docs/reference/koin-core/modules)** - モジュールの構成

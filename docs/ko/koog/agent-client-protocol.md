@@ -11,7 +11,7 @@ Koog 에이전트에 ACP를 구현하면 IDE와 같은 ACP 준수(ACP-compliant)
 
 자세한 정보는 [Agent Client Protocol] 문서를 참조하세요.
 
-## Koog와 통합
+## Koog와 통합 {id="integration-with-koog"}
 
 Koog 프레임워크는 추가 API 확장과 함께 [ACP Kotlin SDK]를 사용하여 ACP와 통합됩니다.
 이 통합은 다음 기능을 제공합니다:
@@ -25,7 +25,7 @@ Koog 프레임워크는 추가 API 확장과 함께 [ACP Kotlin SDK]를 사용�
 
     [ACP Kotlin SDK]는 JVM 전용이므로, ACP 통합은 현재 JVM 플랫폼에서만 사용할 수 있습니다.
 
-### 의존성 추가
+### 의존성 추가 {id="add-dependencies"}
 
 ACP 지원은 기본적으로 Koog에서 제공되지 않는 선택적 [기능(feature)](features/index.md)입니다.
 Koog 에이전트에 ACP를 구현하려면 [ai.koog:agents-features-acp](https://mvnrepository.com/artifact/ai.koog/agents-features-acp)에 대한 의존성을 추가하세요. 이 모듈은 내부적으로 [com.agentclientprotocol:acp](https://mvnrepository.com/artifact/com.agentclientprotocol:acp)에 대한 의존성을 가집니다.
@@ -38,7 +38,7 @@ dependencies {
 }
 ```
 
-### Koog 에이전트에 ACP 활성화
+### Koog 에이전트에 ACP 활성화 {id="enable-acp-for-a-koog-agent"}
 
 Koog 에이전트의 내부 [이벤트 시스템](agent-events.md)을 ACP 프로토콜과 연결하려면 `ai.koog.agents.features.acp.AcpAgent` 기능을 설치하세요.
 설치되면 도구 호출이나 LLM 응답과 같은 수명 주기 이벤트를 수신 대기하고 이를 ACP 클라이언트로 전송합니다.
@@ -77,7 +77,7 @@ val agent = AIAgent(
 
 이 에이전트는 다음 장에서 설명하는 ACP 세션의 스코프 내에서 실행되어야 합니다.
 
-### ACP 지원 에이전트 구현
+### ACP 지원 에이전트 구현 {id="implement-an-acp-enabled-agent"}
 
 Koog 에이전트를 ACP 클라이언트에 연결하려면 [ACP Kotlin SDK](https://github.com/agentclientprotocol/kotlin-sdk)의 두 가지 핵심 인터페이스를 구현해야 합니다.
 
@@ -237,19 +237,19 @@ Koog 에이전트를 ACP 클라이언트에 연결하려면 [ACP Kotlin SDK](htt
     ```
     <!--- KNIT example-agent-client-protocol-03.kt -->
 
-## 이벤트 스트리밍
+## 이벤트 스트리밍 {id="event-streaming"}
 
 예제의 `AgentSession`은 이벤트의 `channelFlow`를 반환하는 `prompt()` 함수를 정의합니다.
 그런 다음 `this@channelFlow`를 `eventsProducer`로 사용하여 `AcpAgent` 기능을 설치합니다.
 이를 통해 서로 다른 코루틴에서 이벤트를 보낼 수 있습니다.
 
-## 실행 동기화
+## 실행 동기화 {id="execution-synchronization"}
 
 예제의 `AgentSession`은 뮤텍스(mutex)를 사용하여 에이전트 인스턴스에 대한 액세스를 동기화합니다. 이는 ACP가 이전 실행이 끝날 때까지 새로운 에이전트 실행을 트리거해서는 안 되기 때문입니다. 이를 위해 에이전트 생성 및 실행은 정의된 뮤텍스에 대한 `withLock` 스코프 내에서 이루어집니다.
 
 또한 에이전트가 중간에 조기 취소되지 않도록, `channelFlow` 스코프 내에서 `agentJob`이라는 지연된 작업(deferred job)으로 에이전트를 비동기적으로 실행합니다.
 
-## ACP 클라이언트 입력 처리
+## ACP 클라이언트 입력 처리 {id="handling-acp-client-input"}
 
 ACP 클라이언트는 사용자 입력을 [`ContentBlock`](https://agentclientprotocol.com/protocol/schema#contentblock) 객체 리스트로 보냅니다.
 이를 Koog에서 처리하려면 `List<ContentBlock>.toKoogMessage()` 확장 함수를 사용하여 ACP 콘텐츠 블록을 [`Message.User`](api:prompt-model::ai.koog.prompt.message.Message.User)로 변환하고 [에이전트의 프롬프트](prompts/index.md)에 추가합니다.
@@ -279,7 +279,7 @@ private fun Prompt.appendPrompt(content: List<ContentBlock>): Prompt {
 
 자세한 내용은 [메시지 변환](#converting-messages)을 참조하세요.
 
-## 메시지 변환
+## 메시지 변환 {id="converting-messages"}
 
 `agents-features-acp` 모듈은 Koog의 내부 메시지 유형과 [ACP 콘텐츠 블록](https://agentclientprotocol.com/protocol/content) 간을 원활하게 변환하는 확장 함수를 제공합니다.
 
@@ -293,7 +293,7 @@ Koog 메시지에서 ACP 이벤트나 콘텐츠 블록을 구성할 때 다음 �
 - `Message.Response.toAcpEvents()`: [`Message.Response`](api:prompt-model::ai.koog.prompt.message.Message.Response)를 ACP 세션 업데이트 이벤트 리스트로 변환합니다.
 - `ContentPart.toAcpContentBlock()`: [`ContentPart`](api:prompt-model::ai.koog.prompt.message.ContentPart)를 단일 ACP 콘텐츠 블록으로 변환합니다.
 
-## 에이전트 알림 처리
+## 에이전트 알림 처리 {id="handling-agent-notifications"}
 
 기본적으로 `setDefaultNotifications`는 `true`로 설정되어 있으며, ACP 지원 에이전트는 다음 알림을 자동으로 처리합니다.
 
@@ -322,7 +322,7 @@ Koog 메시지에서 ACP 이벤트나 콘텐츠 블록을 구성할 때 다음 �
 
 알림 처리를 커스텀하고 싶다면, `setDefaultNotifications = false`로 설정하고 사양에 따라 에이전트 이벤트를 직접 처리하세요.
 
-## 커스텀 이벤트 전송
+## 커스텀 이벤트 전송 {id="sending-custom-events"}
 
 자동 알림 외에도, 에이전트 실행 중 어느 시점에서든 `withAcpAgent` 블록 내의 `sendEvent`를 사용하여 ACP 클라이언트에 커스텀 이벤트를 보낼 수 있습니다. 이는 진행 상황 업데이트, 커스텀 상태 메시지 또는 계획 업데이트 등에 유용합니다.
 
@@ -379,11 +379,11 @@ val strategy = strategy<Unit, Unit>("my-strategy") {
 ```
 <!--- KNIT example-agent-client-protocol-06.kt -->
 
-## 예제
+## 예제 {id="examples"}
 
 Koog 저장소의 [/examples](https://github.com/JetBrains/koog/tree/develop/examples/) 아래에서 작동하는 Koog 에이전트 예제를 찾을 수 있습니다.
 
-### 콘솔 기반 ACP 클라이언트 실행하기
+### 콘솔 기반 ACP 클라이언트 실행하기 {id="running-a-console-based-acp-client"}
 
 이 예제는 단순한 Koog 에이전트와 상호작용하는 콘솔 기반 ACP 클라이언트를 실행합니다.
 
@@ -396,7 +396,7 @@ Koog 저장소의 [/examples](https://github.com/JetBrains/koog/tree/develop/exa
     ```
 5. 콘솔에서 Koog 이벤트가 ACP 이벤트로 변환되어 클라이언트로 전송되는 이벤트 추적을 확인합니다.
 
-### ACP 지원 Koog 에이전트를 JetBrains IDE에 연결하기
+### ACP 지원 Koog 에이전트를 JetBrains IDE에 연결하기 {id="connecting-an-acp-enabled-koog-agent-to-a-jetbrains-ide"}
 
 이 예제는 ACP 지원 에이전트를 생성하고 IntelliJ IDEA에 연결하는 방법을 보여줍니다.
 

@@ -6,9 +6,9 @@ title: 故障排除
 
 本指南涵盖了调试、常见错误以及应避免的反模式。
 
-## 循环依赖 (Circular Dependencies)
+## 循环依赖 (Circular Dependencies) {id="circular-dependencies"}
 
-### 问题
+### 问题 {id="problem"}
 
 ```kotlin
 // 循环依赖
@@ -25,7 +25,7 @@ module {
 [Koin 编译器插件](/docs/reference/koin-compiler/compile-safety) 会在编译期间（A2/A3 阶段）检测到循环依赖 —— 无需等待运行时。如果没有该插件，循环将在启动时因运行时错误而失败。
 :::
 
-### 解决方案 1：延迟注入 (Lazy Injection)
+### 解决方案 1：延迟注入 (Lazy Injection) {id="solution-1-lazy-injection"}
 
 通过延迟解析打破循环：
 
@@ -44,7 +44,7 @@ module {
 }
 ```
 
-### 解决方案 2：提取共享依赖项 (Extract Shared Dependency)
+### 解决方案 2：提取共享依赖项 (Extract Shared Dependency) {id="solution-2-extract-shared-dependency"}
 
 通过重构移除循环（推荐做法）：
 
@@ -60,7 +60,7 @@ class ServiceA(private val shared: SharedService)
 class ServiceB(private val shared: SharedService)
 ```
 
-### 解决方案 3：使用接口 (Interface)
+### 解决方案 3：使用接口 (Interface) {id="solution-3-use-an-interface"}
 
 ```kotlin
 interface ServiceBContract {
@@ -74,9 +74,9 @@ class ServiceA(private val serviceB: ServiceBContract)
 class ServiceB(private val serviceA: ServiceA) : ServiceBContract
 ```
 
-## 调试 (Debugging)
+## 调试 (Debugging) {id="debugging"}
 
-### 启用日志
+### 启用日志 {id="enable-logging"}
 
 ```kotlin
 startKoin {
@@ -87,7 +87,7 @@ startKoin {
 }
 ```
 
-### 使用 `verify()` 验证模块
+### 使用 `verify()` 验证模块 {id="verify-modules-with-verify"}
 
 验证所有定义是否都能被解析：
 
@@ -103,7 +103,7 @@ fun `verify all modules`() {
 Koin 编译器插件现在提供编译时依赖项验证，取代了对 `verify()` 和 `checkModules()` 的需求。请参阅 [编译时安全性](/docs/reference/koin-compiler/compile-safety)。
 :::
 
-## 常见错误
+## 常见错误 {id="common-errors"}
 
 **缺少定义 (Missing Definition)：**
 ```
@@ -129,9 +129,9 @@ Multiple definitions found for type 'ApiClient'
 ```
 修复方法：使用限定符 (qualifiers) 来区分不同的定义。
 
-## 常见反模式
+## 常见反模式 {id="common-anti-patterns"}
 
-### 1. 过度使用服务定位器 (Service Locator Overuse)
+### 1. 过度使用服务定位器 (Service Locator Overuse) {id="1-service-locator-overuse"}
 
 ```kotlin
 // 错误做法 - 服务定位器模式
@@ -152,7 +152,7 @@ class UserViewModel(
 }
 ```
 
-### 2. 万能模块 (God Modules)
+### 2. 万能模块 (God Modules) {id="2-god-modules"}
 
 ```kotlin
 // 错误做法 - 所有内容都在一个模块中
@@ -166,7 +166,7 @@ val networkModule = module { /* ... */ }
 val homeModule = module { /* ... */ }
 ```
 
-### 3. 过多使用限定符
+### 3. 过多使用限定符 {id="3-excessive-qualifiers"}
 
 ```kotlin
 // 错误做法 - 为不同类型使用限定符
@@ -182,7 +182,7 @@ module {
 }
 ```
 
-### 4. 混合关注点 (Mixing Concerns)
+### 4. 混合关注点 (Mixing Concerns) {id="4-mixing-concerns"}
 
 ```kotlin
 // 错误做法 - 模块中带有副作用
@@ -199,7 +199,7 @@ module {
 }
 ```
 
-### 5. 隐藏依赖项 (Hidden Dependencies)
+### 5. 隐藏依赖项 (Hidden Dependencies) {id="5-hidden-dependencies"}
 
 ```kotlin
 // 错误做法 - 内部隐藏依赖项
@@ -211,7 +211,7 @@ class UserService {
 class UserService(private val api: ApiClient)
 ```
 
-## 最佳做法总结
+## 最佳做法总结 {id="best-practices-summary"}
 
 1. **首选构造函数注入** - 避免在类内部调用 `get()`。
 2. **使用 Koin 编译器插件** - 在编译时捕获缺失的定义（或在测试中使用 `verify()`）。
@@ -219,7 +219,7 @@ class UserService(private val api: ApiClient)
 4. **避免循环依赖** - 进行重构或使用延迟注入。
 5. **谨慎使用限定符** - 仅当同一类型有多个实例时使用。
 
-## 后续步骤
+## 后续步骤 {id="next-steps"}
 
 - **[模块](/docs/reference/koin-core/modules)** - 模块组织
 - **[测试](/docs/reference/koin-test/testing)** - 使用 Koin 进行测试

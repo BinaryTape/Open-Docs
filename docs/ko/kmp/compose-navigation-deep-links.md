@@ -16,7 +16,7 @@ Compose Multiplatform에서 딥 링크를 구현하려면 다음 단계를 따�
 2. [내비게이션 그래프의 데스티네이션에 특정 딥 링크 할당](#assign-deep-links-to-destinations)
 3. [앱에서 수신한 딥 링크 처리](#handle-received-deep-links)
 
-## 설정 (Setup)
+## 설정 (Setup) {id="setup"}
 
 Compose Multiplatform에서 딥 링크를 사용하려면 다음과 같이 의존성을 설정하세요.
 
@@ -70,7 +70,7 @@ kotlin {
 }
 ```
 
-## 운영 체제에 딥 링크 스키마 등록
+## 운영 체제에 딥 링크 스키마 등록 {id="register-deep-links-schemas-in-the-operating-system"}
 
 각 운영 체제마다 딥 링크를 처리하는 고유한 방식이 있습니다. 특정 타겟 플랫폼의 문서를 참조하는 것이 가장 확실합니다:
 
@@ -87,13 +87,13 @@ kotlin {
     {style="tip"}
 * Linux의 경우, 배포판에 포함된 `.desktop` 파일에 딥 링크 스키마를 등록할 수 있습니다.
 
-## 데스티네이션에 딥 링크 할당
+## 데스티네이션에 딥 링크 할당 {id="assign-deep-links-to-destinations"}
 
 내비게이션 그래프의 일부로 선언된 데스티네이션은 선택적으로 `deepLinks` 매개변수를 가질 수 있으며, 여기에는 해당되는 `NavDeepLink` 객체 목록이 포함될 수 있습니다. 각 `NavDeepLink`는 데스티네이션과 일치해야 하는 URI 패턴을 기술합니다. 동일한 화면으로 연결되는 여러 URI 패턴을 정의할 수 있습니다.
 
 루트(route)에 대해 정의할 수 있는 딥 링크 수에는 제한이 없습니다.
 
-### 일반적인 딥 링크용 URI 패턴
+### 일반적인 딥 링크용 URI 패턴 {id="general-uri-patterns-for-deep-links"}
 
 일반적인 URI 패턴은 전체 URI와 일치해야 합니다. 플레이스홀더(placeholder)를 매개변수로 사용하여 데스티네이션 내에서 수신된 URI로부터 값을 추출할 수 있습니다.
 
@@ -107,7 +107,7 @@ kotlin {
     * 또한 `http://www.example.com/users/4?other=random`과도 일치합니다. 관련 없는 쿼리 매개변수는 매칭에 영향을 주지 않기 때문입니다.
 * 여러 컴포저블(composable)이 수신된 URI와 일치하는 `navDeepLink`를 가지고 있는 경우, 동작은 정해져 있지 않습니다. 딥 링크 패턴이 서로 겹치지 않도록 주의하세요. 여러 컴포저블이 동일한 딥 링크 패턴을 처리해야 하는 경우, 경로 또는 쿼리 매개변수를 추가하거나 중간 데스티네이션을 사용하여 사용자를 예측 가능하게 라우팅하는 것을 고려하세요.
 
-### 루트 타입에 대한 생성된 URI 패턴
+### 루트 타입에 대한 생성된 URI 패턴 {id="generated-uri-pattern-for-a-route-type"}
 
 URI 패턴을 완전히 직접 작성하는 것을 피할 수 있습니다. Navigation 라이브러리는 루트의 매개변수를 기반으로 URI 패턴을 자동으로 생성할 수 있습니다.
 
@@ -147,7 +147,7 @@ composable<PlantDetail>(
 <basePath>/{id}/{name}/?colors={color1}&colors={color2}&latinName={latinName}
 ```
 
-### 데스티네이션에 딥 링크를 추가하는 예제
+### 데스티네이션에 딥 링크를 추가하는 예제 {id="example-of-adding-deep-links-to-a-destination"}
 
 이 예제에서는 데스티네이션에 여러 딥 링크를 할당한 다음, 수신된 URI에서 매개변수 값을 추출합니다:
 
@@ -207,7 +207,7 @@ composable<DeepLinkScreen>(
 >
 {style="tip"}
 
-## 수신된 딥 링크 처리
+## 수신된 딥 링크 처리 {id="handle-received-deep-links"}
 
 Android에서 앱으로 전송된 딥 링크 URI는 딥 링크를 트리거한 `Intent`의 일부로 사용할 수 있습니다. 크로스 플랫폼 구현에서는 딥 링크를 수신 대기하는 범용적인 방법이 필요합니다.
 
@@ -217,7 +217,7 @@ Android에서 앱으로 전송된 딥 링크 URI는 딥 링크를 트리거한 `
 2. 필요한 경우 운영 체제로부터 수신한 URI를 전달하는 플랫폼별 호출을 구현합니다.
 3. 메인 컴포저블에서 새로운 딥 링크에 대한 리스너를 설정합니다.
 
-### URI 리스너를 포함한 싱글톤 선언
+### URI 리스너를 포함한 싱글톤 선언 {id="declare-a-singleton-with-a-uri-listener"}
 
 `commonMain`의 최상위 레벨에 싱글톤 객체를 선언합니다:
 
@@ -249,7 +249,7 @@ object ExternalUriHandler {
 }
 ```
 
-### 싱글톤에 대한 플랫폼별 호출 구현
+### 싱글톤에 대한 플랫폼별 호출 구현 {id="implement-platform-specific-calls-to-the-singleton"}
 
 데스크톱 JVM과 iOS 모두 시스템으로부터 수신된 URI를 명시적으로 전달해야 합니다.
 
@@ -296,7 +296,7 @@ func application(
 > 
 {style="tip"}
 
-### 리스너 설정
+### 리스너 설정 {id="set-up-the-listener"}
 
 `DisposableEffect(Unit)`을 사용하여 리스너를 설정하고 컴포저블이 더 이상 활성 상태가 아닐 때 리스너를 정리할 수 있습니다. 예를 들어:
 
@@ -335,14 +335,14 @@ internal fun App(navController: NavHostController = rememberNavController()) = A
 }
 ```
 
-## 결과
+## 결과 {id="result"}
 
 이제 전체 워크플로우를 확인할 수 있습니다:
 사용자가 `demo://` URI를 열면 운영 체제는 이를 등록된 스키마와 일치시킵니다. 그런 다음:
   * 딥 링크를 처리하는 앱이 닫혀 있는 경우, 싱글톤이 URI를 수신하고 캐싱합니다. 메인 컴포저블 함수가 시작되면 싱글톤을 호출하고 캐싱된 URI와 일치하는 딥 링크로 이동합니다.
   * 딥 링크를 처리하는 앱이 열려 있는 경우, 리스너가 이미 설정되어 있으므로 싱글톤이 URI를 수신할 때 앱이 즉시 해당 링크로 이동합니다.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 Compose Multiplatform 내비게이션 라이브러리가 실제로 작동하는 모습을 보여주는 다음 프로젝트들을 확인해 보세요:
 

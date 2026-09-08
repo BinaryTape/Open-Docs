@@ -17,9 +17,9 @@ fun addEntryToMap(baseMap: Map<String, Number>, additionalEntry: Pair<String, In
 
 여기서는 일반적인 방식으로는 타입 인자를 추론하기 위한 타입 정보가 충분하지 않지만, 빌더 추론은 람다 인자 내부의 호출들을 분석할 수 있습니다. `putAll()`과 `put()` 호출에 대한 타입 정보를 바탕으로, 컴파일러는 `buildMap()` 호출의 타입 인자를 `String`과 `Number`로 자동으로 추론할 수 있습니다. 빌더 추론을 사용하면 제네릭 빌더를 사용할 때 타입 인자를 생략할 수 있습니다.
 
-## 자신만의 빌더 작성하기
+## 자신만의 빌더 작성하기 {id="writing-your-own-builders"}
 
-### 빌더 추론 활성화를 위한 요구 사항
+### 빌더 추론 활성화를 위한 요구 사항 {id="requirements-for-enabling-builder-inference"}
 
 > 코틀린 1.7.0 이전에는 빌더 함수에 빌더 추론을 활성화하기 위해 `-Xenable-builder-inference` 컴파일러 옵션이 필요했습니다. 1.7.0부터는 이 옵션이 기본적으로 활성화됩니다.
 >
@@ -69,7 +69,7 @@ fun addEntryToMap(baseMap: Map<String, Number>, additionalEntry: Pair<String, In
    }
    ```
 
-### 지원되는 기능들
+### 지원되는 기능들 {id="supported-features"}
 
 빌더 추론은 다음 기능들을 지원합니다: 
 * 여러 개의 타입 인자 추론
@@ -117,9 +117,9 @@ fun addEntryToMap(baseMap: Map<String, Number>, additionalEntry: Pair<String, In
   }
   ```
 
-## 빌더 추론 작동 방식
+## 빌더 추론 작동 방식 {id="how-builder-inference-works"}
 
-### 지연된 타입 변수
+### 지연된 타입 변수 {id="postponed-type-variables"}
 
 빌더 추론은 _지연된 타입 변수_(postponed type variables)라는 개념으로 작동하며, 이는 빌더 추론 분석 중에 빌더 람다 내부에서 나타납니다. 지연된 타입 변수는 추론 과정에 있는 타입 인자의 타입입니다. 컴파일러는 이를 사용하여 타입 인자에 대한 타입 정보를 수집합니다.
 
@@ -146,7 +146,7 @@ val result = buildList {
 
 지연된 타입 변수를 수신 객체로 하여 `equals()`, `hashCode()`, `toString()` 함수를 언제든 호출할 수 있다는 점에 유의하세요.
 
-### 빌더 추론 결과에 기여하는 요소들
+### 빌더 추론 결과에 기여하는 요소들 {id="contributing-to-builder-inference-results"}
 
 빌더 추론은 분석 결과에 기여하는 다양한 형태의 타입 정보를 수집할 수 있습니다. 다음 사항들을 고려합니다:
 * 타입 파라미터의 타입을 사용하는 람다 수신 객체의 메서드 호출

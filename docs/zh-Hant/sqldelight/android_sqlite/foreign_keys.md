@@ -1,5 +1,5 @@
 {% if multiplatform %}
-## Android SQLite
+## Android SQLite {id="android-sqlite"}
 {% else %}
 # 外鍵
 {% endif %}

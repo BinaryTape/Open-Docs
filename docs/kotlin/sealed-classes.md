@@ -22,7 +22,7 @@
 >
 {style="tip"}
 
-## 声明密封类或接口
+## 声明密封类或接口 {id="declare-a-sealed-class-or-interface"}
 
 要声明密封类或接口，请使用 `sealed` 修饰符：
 
@@ -47,7 +47,7 @@ object RuntimeError : Error
 
 ![密封类与接口的层次结构插图](sealed-classes-interfaces.svg){width=700}
 
-### 构造函数
+### 构造函数 {id="constructors"}
 
 密封类本身始终是一个[抽象类](classes.md#abstract-classes)，因此不能直接实例化。但是，它可以包含或继承构造函数。这些构造函数不是为了创建密封类本身的实例，而是为了其子类。考虑以下示例，其中包含一个名为 `Error` 的密封类及其几个子类，我们对这些子类进行实例化：
 
@@ -98,7 +98,7 @@ sealed class IOError {
 }
 ```
 
-## 继承
+## 继承 {id="inheritance"}
 
 密封类和接口的直接子类必须在同一个软件包中声明。它们可以是顶层的，也可以嵌套在任何数量的其他命名类、命名接口或命名对象中。只要子类符合 Kotlin 中的常规继承规则（包括[重写属性](inheritance.md#overriding-properties)的规则），就可以具有任何[可见性](visibility-modifiers.md)。
 
@@ -131,7 +131,7 @@ sealed class IOError(): Error
 open class CustomError(): Error
 ```
 
-### 多平台项目中的继承
+### 多平台项目中的继承 {id="inheritance-in-multiplatform-projects"}
 
 在[多平台项目](https://kotlinlang.org/docs/multiplatform/get-started.html)中还有一个继承限制：密封类的直接子类必须位于同一个[源集](https://kotlinlang.org/docs/multiplatform/multiplatform-discover-project.html#source-sets)中。这适用于没有 [`expect` 和 `actual` 修饰符](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html)的密封类。
 
@@ -139,7 +139,7 @@ open class CustomError(): Error
 
 [详细了解多平台项目的分层结构](https://kotlinlang.org/docs/multiplatform/multiplatform-hierarchy.html)。
 
-## 将密封类与 when 表达式结合使用
+## 将密封类与 when 表达式结合使用 {id="use-sealed-classes-with-when-expression"}
 
 使用密封类的主要好处在于您在 [`when`](control-flow.md#when-expressions-and-statements) 表达式中使用它们时。
 与密封类配合使用的 `when` 表达式允许 Kotlin 编译器穷举检查是否覆盖了所有可能的情况。在这种情况下，您不需要添加 `else` 子句：
@@ -188,11 +188,11 @@ fun main() {
 >
 {style="note"}
 
-## 用例场景
+## 用例场景 {id="use-case-scenarios"}
 
 让我们探索一些密封类和接口特别有用的实际场景。
 
-### UI 应用程序中的状态 management
+### UI 应用程序中的状态 management {id="state-management-in-ui-applications"}
 
 您可以使用密封类来表示应用程序中不同的 UI 状态。这种方法允许结构化且安全地处理 UI 更改。此示例演示了如何管理各种 UI 状态：
 
@@ -212,7 +212,7 @@ fun updateUI(state: UIState) {
 }
 ```
 
-### 付款方式处理
+### 付款方式处理 {id="payment-method-handling"}
 
 在实际业务应用中，高效处理各种付款方式是一项常见要求。
 您可以使用密封类配合 `when` 表达式来实现此类业务逻辑。
@@ -239,7 +239,7 @@ fun processPayment(payment: Payment) {
 `processPayment()` 函数演示了如何处理不同的付款方式。
 这种方法确保考虑了所有可能的付款类型，并使系统能够灵活地在未来添加新的付款方式。
 
-### API 请求-响应处理
+### API 请求-响应处理 {id="api-request-response-handling"}
 
 您可以使用密封类和密封接口来实现一个处理 API 请求和响应的用户身份验证系统。
 该用户身份验证系统具有登录和注销功能。
@@ -324,6 +324,6 @@ fun main() {
 }
 ```
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 详细了解 [Kotlin 中的继承](inheritance.md)。

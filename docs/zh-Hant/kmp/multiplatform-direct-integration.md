@@ -23,11 +23,11 @@
 * 處理內嵌架構的程式碼簽署過程。
 * 確保 Kotlin 架構中的程式碼變更會反映在 Xcode 的 iOS 應用程式中。
 
-## 如何設定
+## 如何設定 {id="how-to-set-up"}
 
 如果您目前使用 CocoaPods 外掛程式來連接 Kotlin 架構，請先進行遷移。如果您的專案沒有 CocoaPods 相依性，請[跳過此步驟](#connect-the-framework-to-your-project)。
 
-### 從 CocoaPods 外掛程式遷移
+### 從 CocoaPods 外掛程式遷移 {id="migrate-from-the-cocoapods-plugin"}
 
 若要從 CocoaPods 外掛程式遷移：
 
@@ -99,6 +99,6 @@
 >
 {style="note"}
 
-## 接下來做什麼？
+## 接下來做什麼？ {id="what-s-next"}
 
 在搭配 Swift Package Manager 使用時，您也可以利用本機整合。[了解如何在本機套件中新增對 Kotlin 架構的相依性](multiplatform-spm-local-integration.md)。

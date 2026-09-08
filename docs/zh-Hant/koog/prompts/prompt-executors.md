@@ -4,7 +4,7 @@ Prompt 執行器提供更高層級的抽象，讓您可以管理一個或多個 
 您可以透過統一的介面與多個 LLM 提供者協作，將特定提供者的細節抽象化，
 並在它們之間進行動態切換與備援。
 
-## 執行器類型
+## 執行器類型 {id="executor-types"}
 
 Koog 提供三類實作了 [`PromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.model.PromptExecutor) 介面的主要 Prompt 執行器：
 
@@ -14,7 +14,7 @@ Koog 提供三類實作了 [`PromptExecutor`](api:prompt-executor-model::ai.koog
 | 多個提供者 | [`MultiLLMPromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.llms.MultiLLMPromptExecutor) | 封裝多個 LLM 用戶端，並根據 LLM 提供者路由呼叫。當請求的用戶端無法使用時，它可以選擇性地使用配置的備援提供者與 LLM。如果您的代理需要在不同提供者的 LLM 之間切換，請使用此執行器。 |
 | 路由 | [`RoutingLLMPromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.llms.RoutingLLMPromptExecutor) | 使用路由策略將對指定 LLM 模型的請求分發到多個用戶端執行個體。使用此執行器可避免速率限制、提高吞吐量，並實作具備負載平衡的容錯移轉策略。 |
 
-## 建立單一提供者執行器
+## 建立單一提供者執行器 {id="creating-a-single-provider-executor"}
 
 若要為特定的 LLM 提供者建立 Prompt 執行器，請執行以下操作：
 
@@ -50,7 +50,7 @@ Koog 提供三類實作了 [`PromptExecutor`](api:prompt-executor-model::ai.koog
     ```
     <!--- KNIT example-prompt-executors-java-01.java -->
 
-## 建立多個提供者執行器
+## 建立多個提供者執行器 {id="creating-a-multi-provider-executor"}
 
 若要建立可與多個 LLM 提供者協作的 Prompt 執行器，請執行以下操作：
 
@@ -93,7 +93,7 @@ Koog 提供三類實作了 [`PromptExecutor`](api:prompt-executor-model::ai.koog
     ```
     <!--- KNIT example-prompt-executors-java-02.java -->
 
-## 建立路由執行器
+## 建立路由執行器 {id="creating-a-routing-executor"}
 
 !!! warning "實驗性 API"
     路由功能為實驗性，且可能在未來的版本中變更。
@@ -156,7 +156,7 @@ Koog 提供三類實作了 [`PromptExecutor`](api:prompt-executor-model::ai.koog
 
 您也可以透過建立一個實作了 [`LLMClientRouter`](api:prompt-executor-model::ai.koog.prompt.executor.llms.LLMClientRouter) 介面的類別來實作自訂路由策略。
 
-## 預定義的 Prompt 執行器
+## 預定義的 Prompt 執行器 {id="pre-defined-prompt-executors"}
 
 為了更快速的設定，Koog 為 Kotlin 與 Java 的常見提供者提供了即開即用的執行器實作。
 
@@ -210,7 +210,7 @@ the predefined executors will return a PromptExecutor instance configured with a
     ```
     <!--- KNIT example-prompt-executors-java-04.java -->
 
-## 執行 Prompt
+## 執行 Prompt {id="running-a-prompt"}
 
 若要使用 Prompt 執行器執行 Prompt，請執行以下操作：
 
@@ -275,7 +275,7 @@ the predefined executors will return a PromptExecutor instance configured with a
     由於 Prompt 執行器封裝了 LLM 用戶端，因此每個執行器都支援對應用戶端的功能。
     如需詳細資訊，請參閱 [LLM 用戶端](llm-clients.md)。
 
-## 在提供者之間切換
+## 在提供者之間切換 {id="switching-between-providers"}
 
 當您使用 `MultiLLMPromptExecutor` 與多個 LLM 提供者協作時，您可以在它們之間切換。
 流程如下：
@@ -368,7 +368,7 @@ the predefined executors will return a PromptExecutor instance configured with a
 您可以選擇性地配置一個備援 LLM 提供者與模型，以便在請求的用戶端無法使用時使用。
 如需詳細資訊，請參閱 [配置備援](#configuring-fallbacks)。
 
-## 配置備援
+## 配置備援 {id="configuring-fallbacks"}
 
 多個提供者與路由 Prompt 執行器可以配置為在請求的 LLM 用戶端無法使用時使用備援 LLM 提供者與模型。
 

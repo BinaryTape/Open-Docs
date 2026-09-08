@@ -6,12 +6,12 @@
 - [チャットエージェント戦略](#chat-agent-strategy)
 - [ReAct戦略](#react-strategy)
 
-## チャットエージェント戦略（Chat agent strategy）
+## チャットエージェント戦略（Chat agent strategy） {id="chat-agent-strategy"}
 
 チャットエージェント戦略は、チャット形式のインタラクションプロセスを実行するために設計されています。
 異なるステージ、ノード、およびツールの間の相互作用をオーケストレートし、ユーザー入力の処理、ツールの実行、およびチャット形式でのレスポンス提供を行います。
 
-### 概要
+### 概要 {id="overview"}
 
 チャットエージェント戦略は、エージェントが以下を行うパターンを実装します。
 
@@ -23,7 +23,7 @@
 
 このアプローチにより、エージェントがツールを使用してユーザーのリクエストに応える対話型インターフェースが構築されます。
 
-### セットアップと依存関係
+### セットアップと依存関係 {id="setup-and-dependencies"}
 
 Koogにおけるチャットエージェント戦略の実装は `chatAgentStrategy` 関数を通じて行われます。エージェントのコードでこの関数を使用できるようにするには、以下の依存関係のインポートを追加してください。
 
@@ -85,7 +85,7 @@ ai.koog.agents.ext.agent.chatAgentStrategy
     ```
     <!--- KNIT examplePredefinedStrategiesJava01.java -->
 
-### チャットエージェント戦略を使用すべきケース
+### チャットエージェント戦略を使用すべきケース {id="when-to-use-the-chat-agent-strategy"}
 
 チャットエージェント戦略は、特に以下の場合に役立ちます。
 
@@ -94,7 +94,7 @@ ai.koog.agents.ext.agent.chatAgentStrategy
 - 外部システムやデータにアクセスする必要があるチャットボットを実装する場合
 - プレーンテキストによる回答ではなく、ツールの使用を強制したいシナリオ
 
-### 例
+### 例 {id="example"}
 
 以下は、事前定義されたチャットエージェント戦略（`chatAgentStrategy`）と、エージェントが使用するツールの実装例です。
 
@@ -186,7 +186,7 @@ ai.koog.agents.ext.agent.chatAgentStrategy
     ```
     <!--- KNIT examplePredefinedStrategiesJava02.java -->
 
-## ReAct戦略
+## ReAct戦略 {id="react-strategy"}
 
 ReAct（Reasoning and Acting：推論と実行）戦略は、推論ステージと実行ステージを交互に繰り返すことで、タスクを動的に処理し、大規模言語モデル（LLM）に出力を要求するAIエージェント戦略です。
 
@@ -201,7 +201,7 @@ ReAct戦略は、エージェントが以下を行うパターンを実装しま
 
 このアプローチは、推論（問題を段階的に考える）と実行（情報を収集したり操作を行ったりするためにツールを実行する）の長所を組み合わせています。
 
-### フロー図
+### フロー図 {id="flow-diagram"}
 
 ReAct戦略のフロー図は以下の通りです。
 
@@ -273,7 +273,7 @@ KoogにおけるReAct戦略の実装は `reActStrategy` 関数を通じて行わ
     ```
     
 
-### パラメータ
+### パラメータ {id="parameters"}
 
 `reActStrategy` 関数は以下のパラメータを受け取ります。
 
@@ -282,15 +282,15 @@ KoogにおけるReAct戦略の実装は `reActStrategy` 関数を通じて行わ
 | `reasoningInterval` | Int    | 1        | 推論ステップの間隔を指定します。0より大きい必要があります。 |
 | `name`              | String | `re_act` | 戦略の名前。 |
 
-### ユースケースの例
+### ユースケースの例 {id="example-use-case"}
 
 以下は、シンプルな銀行業務エージェントでのReAct戦略の仕組みの例です。
 
-#### 1. ユーザー入力
+#### 1. ユーザー入力 {id="1-user-input"}
 
 ユーザーが初期プロンプトを送信します。例えば、「先月はいくら使いましたか？」といった質問です。
 
-#### 2. 推論
+#### 2. 推論 {id="2-reasoning"}
 
 エージェントは、ユーザー入力と推論プロンプトを受け取り、初期推論を行います。推論は以下のようになります。
 
@@ -302,7 +302,7 @@ KoogにおけるReAct戦略の実装は `reActStrategy` 関数を通じて行わ
 ```
 <!--- KNIT example-predefined-strategies-02.txt -->
 
-#### 3. アクションと実行（フェーズ1）
+#### 3. アクションと実行（フェーズ1） {id="3-action-and-execution-phase-1"}
 
 前のステップで定義したアクション項目に基づき、エージェントはツールを実行して前月のすべての取引を取得します。
 
@@ -325,7 +325,7 @@ KoogにおけるReAct戦略の実装は `reActStrategy` 関数を通じて行わ
 ```
 <!--- KNIT example-predefined-strategies-04.txt -->
 
-#### 4. 推論
+#### 4. 推論 {id="4-reasoning"}
 
 ツールから返された結果を基に、エージェントはフローの次のステップを決定するために再び推論を行います。
 
@@ -336,7 +336,7 @@ KoogにおけるReAct戦略の実装は `reActStrategy` 関数を通じて行わ
 ```
 <!--- KNIT example-predefined-strategies-05.txt -->
 
-#### 5. アクションと実行（フェーズ2）
+#### 5. アクションと実行（フェーズ2） {id="5-action-and-execution-phase-2"}
 
 前の推論ステップに基づき、エージェントはツールの引数として提供された金額を合算する `calculate_sum` ツールを呼び出します。推論の結果、取引から正の金額を除外するというアクションポイントも生じたため、ツールの引数として提供される金額は負のものだけになります。
 
@@ -352,7 +352,7 @@ KoogにおけるReAct戦略の実装は `reActStrategy` 関数を通じて行わ
 ```
 <!--- KNIT example-predefined-strategies-07.txt -->
 
-#### 6. 最終レスポンス
+#### 6. 最終レスポンス {id="6-final-response"}
 
 エージェントは、計算された合計額を含む最終的なレスポンス（アシスタントメッセージ）を返します。
 
@@ -361,7 +361,7 @@ KoogにおけるReAct戦略の実装は `reActStrategy` 関数を通じて行わ
 ```
 <!--- KNIT example-predefined-strategies-08.txt -->
 
-### ReAct戦略を使用すべきケース
+### ReAct戦略を使用すべきケース {id="when-to-use-the-react-strategy"}
 
 ReAct戦略は、特に以下の場合に役立ちます。
 

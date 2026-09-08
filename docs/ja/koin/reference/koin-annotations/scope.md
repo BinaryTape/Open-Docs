@@ -4,7 +4,7 @@ title: Koin Annotationsにおけるスコープ
 
 定義やモジュールを使用する際、特定の空間や時間の解像度に対してスコープを定義する必要がある場合があります。
 
-## @Scopeによるスコープの定義
+## @Scopeによるスコープの定義 {id="defining-a-scope-with-scope"}
 
 Koinではスコープを使用することができます。基本の詳細については、[Koin Scopes](/docs/reference/koin-core/scopes) セクションを参照してください。
 
@@ -37,7 +37,7 @@ class MyScopeClass
 >}
 >```
 
-## @Scopedによるスコープ内での定義の追加
+## @Scopedによるスコープ内での定義の追加 {id="adding-a-definition-in-a-scope-with-scoped"}
 
 （アノテーションで定義されているかどうかにかかわらず）スコープ内に定義を宣言するには、クラスに `@Scope` と `@Scoped` アノテーションを付与します。
 
@@ -59,7 +59,7 @@ scope<named("my_scope_name")> {
   必要なスコープ空間（`@Scope`による）と、定義するコンポーネントの種類（`@Scoped`による）の両方を示すために、両方のアノテーションが必要です。
 :::
 
-## スコープからの依存関係の解決
+## スコープからの依存関係の解決 {id="dependency-resolution-from-a-scope"}
 
 スコープ内の定義からは、自身の内部スコープおよび親スコープからの定義を解決できます。
 
@@ -86,7 +86,7 @@ class MyOtherScopedComponent(
 `MySingle` コンポーネントは、ルートに `single` 定義として定義されています。`MyScopedComponent` と `MyOtherScopedComponent` は "my_scope_name" スコープ内に定義されています。
 `MyScopedComponent` からの依存関係解決では、`MySingle` インスタンスのためにKoinルートにアクセスし、現在の "my_scope_name" スコープから `MyOtherScopedComponent` のスコープインスタンスにアクセスします。
 
-## @ScopeIdを使用したスコープ外での解決 (1.3.0以降)
+## @ScopeIdを使用したスコープ外での解決 (1.3.0以降) {id="resolving-outside-a-scope-with-scopeid-since-1-3-0"}
 
 自分のスコープから直接アクセスできない別のスコープからコンポーネントを解決する必要がある場合があります。この場合、依存関係に `@ScopeId` アノテーションを付与して、指定されたスコープIDのスコープ内でこの依存関係を探すようKoinに指示します。
 
@@ -120,15 +120,15 @@ factory { Myfactory(getScope("my_scope_id").get()) }
   `MyScopedComponent` コンポーネントはスコープセクションで定義されている必要があり、スコープインスタンスは "my_scope_id" というIDで作成されている必要があります。 
 :::
 
-## スコープ・アーキタイプ・アノテーション
+## スコープ・アーキタイプ・アノテーション {id="scope-archetype-annotations"}
 
 Koin Annotationsは、一般的なスコープパターン向けに事前定義されたスコープ・アーキタイプ（archetype）アノテーションを提供しており、スコープ型を手動で宣言する必要をなくします。これらのアノテーションは、スコープの宣言とコンポーネントの定義を単一のアノテーションで組み合わせたものです。
 
-### Android スコープ・アーキタイプ
+### Android スコープ・アーキタイプ {id="android-scope-archetypes"}
 
 Android開発では、以下の事前定義されたスコープアノテーションを使用できます。
 
-#### @ActivityScope
+#### @ActivityScope {id="activityscope"}
 
 Activityスコープでコンポーネントを宣言します。
 
@@ -146,7 +146,7 @@ activityScope {
 
 **使用法:** アノテーションが付与されたクラスは、Activityおよび `activityScope` 関数と一緒に使用して、スコープを有効にすることを意図しています。
 
-#### @ActivityRetainedScope
+#### @ActivityRetainedScope {id="activityretainedscope"}
 
 Activity Retainedスコープ（構成の変更をまたいで存続するスコープ）でコンポーネントを宣言します。
 
@@ -164,7 +164,7 @@ activityRetainedScope {
 
 **使用法:** アノテーションが付与されたクラスは、Activityおよび `activityRetainedScope` 関数と一緒に使用して、スコープを有効にすることを意図しています。
 
-#### @FragmentScope
+#### @FragmentScope {id="fragmentscope"}
 
 Fragmentスコープでコンポーネントを宣言します。
 
@@ -182,9 +182,9 @@ fragmentScope {
 
 **使用法:** アノテーションが付与されたクラスは、Fragmentおよび `fragmentScope` 関数と一緒に使用して、スコープを有効にすることを意図しています。
 
-### Core スコープ・アーキタイプ
+### Core スコープ・アーキタイプ {id="core-scope-archetypes"}
 
-#### @ViewModelScope
+#### @ViewModelScope {id="viewmodelscope"}
 
 ViewModelスコープでコンポーネントを宣言します。このアノテーションは **Kotlin Multiplatform (KMP) 互換**であり、AndroidのViewModelとCompose MultiplatformのViewModelの両方で動作します。
 
@@ -211,7 +211,7 @@ viewModelScope {
 
 **KMPサポート:** Android、iOS、デスクトップ、およびViewModelが使用されるWebプラットフォームを含む、すべてのKotlin Multiplatformターゲットでシームレスに動作します。
 
-### スコープ・アーキタイプの使用
+### スコープ・アーキタイプの使用 {id="using-scope-archetypes"}
 
 スコープ・アーキタイプ・アノテーションは、通常のKoinスコープ機能とシームレスに連携します。
 
@@ -231,7 +231,7 @@ class FragmentService(
 )
 ```
 
-### 関数定義との組み合わせ
+### 関数定義との組み合わせ {id="combining-with-function-definitions"}
 
 スコープ・アーキタイプは、モジュール内の関数にも使用できます。
 

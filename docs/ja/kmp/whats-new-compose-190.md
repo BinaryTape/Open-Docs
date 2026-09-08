@@ -14,7 +14,7 @@
 
 このリリースの変更点の全リストについては、[GitHub](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.9.0) を参照してください。
 
-## 依存関係
+## 依存関係 {id="dependencies"}
 
 * Gradle プラグイン `org.jetbrains.compose`、バージョン 1.9.3。以下の Jetpack Compose ライブラリに基づいています：
    * [Runtime 1.9.4](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.9.4)
@@ -31,9 +31,9 @@
 * Savedstate ライブラリ `org.jetbrains.androidx.savedstate:savedstate:1.3.6`。 [Jetpack Savedstate 1.3.3](https://developer.android.com/jetpack/androidx/releases/savedstate#1.3.3) に基づいています。
 * WindowManager Core ライブラリ `org.jetbrains.androidx.window:window-core:1.4.0`。 [Jetpack WindowManager 1.4.0](https://developer.android.com/jetpack/androidx/releases/window#1.4.0) に基づいています。
 
-## マルチプラットフォーム共通
+## マルチプラットフォーム共通 {id="across-platforms"}
 
-### `@Preview` アノテーションのパラメータ
+### `@Preview` アノテーションのパラメータ {id="parameters-for-the-preview-annotation"}
 
 Compose Multiplatform の `@Preview` アノテーションに、デザインタイムプレビューで `@Composable` 関数をどのようにレンダリングするかを構成するための追加パラメータが含まれるようになりました。
 
@@ -47,7 +47,7 @@ Compose Multiplatform の `@Preview` アノテーションに、デザインタ�
 
 これらの新しいプレビューパラメータは、IntelliJ IDEA と Android Studio の両方で認識され、動作します。
 
-### カスタマイズ可能なシャドウ
+### カスタマイズ可能なシャドウ {id="customizable-shadows"}
 
 Compose Multiplatform 1.9.0 では、Jetpack Compose の新しいシャドウプリミティブと API を採用し、カスタマイズ可能なシャドウを導入しました。以前からサポートされていた `shadow` 修飾子に加えて、新しい API を使用して、より高度で柔軟なシャドウ効果を作成できるようになりました。
 
@@ -67,7 +67,7 @@ Compose Multiplatform 1.9.0 では、Jetpack Compose の新しいシャドウプ
 
 詳細は、[シャドウ API リファレンス](https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/shadow/package-summary.html)を参照してください。
 
-### 新しいコンテキストメニュー API
+### 新しいコンテキストメニュー API {id="new-context-menu-api"}
 
 `SelectionContainer` と `BasicTextField` におけるカスタムコンテキストメニューのための、Jetpack Compose の新しい API を採用しました。iOS と Web では実装が完了しており、デスクトップでは初期サポートが提供されています。
 
@@ -84,7 +84,7 @@ ComposeFoundationFlags.isNewContextMenuEnabled = true
 
 詳細は、[コンテキストメニュー API リファレンス](https://developer.android.com/reference/kotlin/androidx/compose/foundation/text/contextmenu/data/package-summary)を参照してください。
 
-### Material 3 Expressive テーマ
+### Material 3 Expressive テーマ {id="material-3-expressive-theme"}
 <primary-label ref="Experimental"/>
 
 Compose Multiplatform が、Material 3 ライブラリの実験的な [`MaterialExpressiveTheme`](https://developer.android.com/reference/kotlin/androidx/compose/material3/package-summary?hl=en#MaterialExpressiveTheme(androidx.compose.material3.ColorScheme,androidx.compose.material3.MotionScheme,androidx.compose.material3.Shapes,androidx.compose.material3.Typography,kotlin.Function0)) をサポートするようになりました。Expressive テーマを使用すると、Material Design アプリをカスタマイズして、よりパーソナライズされた体験を提供できます。
@@ -108,13 +108,13 @@ Expressive テーマを使用するには：
 
 <img src="compose_expressive_theme.animated.gif" alt="Material 3 Expressive" width="250" preview-src="compose_expressive_theme.png"/>
 
-### `androidx.compose.runtime:runtime` におけるマルチプラットフォームターゲット
+### `androidx.compose.runtime:runtime` におけるマルチプラットフォームターゲット {id="multiplatform-targets-in-androidx-compose-runtime-runtime"}
 
 Compose Multiplatform と Jetpack Compose との整合性を向上させるため、すべてのターゲットへのサポートを `androidx.compose.runtime:runtime` アーティファクトに直接追加しました。
 
 `org.jetbrains.compose.runtime:runtime` アーティファクトは引き続き完全な互換性を維持し、現在はエイリアスとして機能します。
 
-### `suspend` ラムダを伴う `runComposeUiTest()`
+### `suspend` ラムダを伴う `runComposeUiTest()` {id="runcomposeuitest-with-suspend-lambda"}
 
 `runComposeUiTest()` 関数が `suspend` ラムダを受け入れるようになり、`awaitIdle()` などのサスペンド関数を使用できるようになりました。
 
@@ -123,9 +123,9 @@ Compose Multiplatform と Jetpack Compose との整合性を向上させるた�
 * JVM および Native ターゲットの場合、`runComposeUiTest()` は `runBlocking()` と同様に動作しますが、ディレイをスキップします。
 * Web ターゲット (Wasm および JS) の場合、`Promise` を返し、ディレイをスキップしてテスト本体を実行します。
 
-## iOS
+## iOS {id="ios"}
 
-### フレームレート設定
+### フレームレート設定 {id="frame-rate-configuration"}
 
 Compose Multiplatform for iOS で、コンポーザブルをレンダリングするための優先フレームレートを構成できるようになりました。アニメーションがカクついている（スタッタリングが発生している）場合は、フレームレートを上げることができます。一方で、アニメーションが遅い場合や静止している場合は、消費電力を抑えるために低いフレームレートで実行することを選択できます。
 
@@ -143,7 +143,7 @@ Modifier.preferredFrameRate(30f)
 
 同じ `@Composable` ツリー内で `preferredFrameRate` が複数回適用された場合、指定された中で最も高い値が適用されます。ただし、デバイスのハードウェアによって、サポートされるフレームレート（通常は最大 120 Hz まで）に制限される場合があります。
 
-### IME オプション
+### IME オプション {id="ime-options"}
 
 Compose Multiplatform 1.9.0 では、テキスト入力コンポーネントにおける iOS 固有の IME カスタマイズのサポートが導入されました。`PlatformImeOptions` を使用して、キーボードタイプ、自動修正、Return キーの動作などのネイティブ UIKit テキスト入力特性を、テキストフィールドコンポーネント内で直接構成できるようになりました：
 
@@ -159,9 +159,9 @@ BasicTextField(
 )
 ```
 
-## Web
+## Web {id="web"}
 
-### Compose Multiplatform for web が Beta に
+### Compose Multiplatform for web が Beta に {id="compose-multiplatform-for-web-in-beta"}
 
 Compose Multiplatform for web が Beta になりました。ぜひお試しください。このマイルストーンに到達するまでの進捗については、[公式ブログ記事](https://blog.jetbrains.com/kotlin/2025/09/compose-multiplatform-1-9-0-compose-for-web-beta/)をご覧ください。
 
@@ -171,7 +171,7 @@ Compose Multiplatform for web が Beta になりました。ぜひお試しく�
 * アクセシビリティサポートの向上。
 * `TextField` コンポーネントに関連する問題への対応。
 
-### アクセシビリティサポート
+### アクセシビリティサポート {id="accessibility-support"}
 
 Compose Multiplatform で、Web ターゲットに対する初期のアクセシビリティサポートが提供されました。このバージョンでは、スクリーンリーダーが説明ラベルにアクセスできるようになり、ユーザーがアクセシブルなナビゲーションモードでボタンを移動したりクリックしたりできるようになります。
 
@@ -202,13 +202,13 @@ ComposeViewport(
 }
 ```
 
-### skiko.js は不要になりました
+### skiko.js は不要になりました {id="skiko-js-is-no-longer-needed"}
 
 Compose Multiplatform 1.7.0 以降、Kotlin/Wasm アプリケーションでは `skiko.js` が不要になっていました。本リリースより、Kotlin/JS でも同様となりました。Skiko の Web ランタイムが ES モジュールとして提供され、アプリのコンパイル済み JavaScript に直接バンドルされるようになったため、どちらの Web ターゲットでも個別の `skiko.js` スクリプトは不要になりました。
 
 `index.html` ファイルから `<script src="skiko.js">` タグを削除できます。
 
-### HTML コンテンツ埋め込み用の新しい API
+### HTML コンテンツ埋め込み用の新しい API {id="new-api-for-embedding-html-content"}
 
 新しい `WebElementView()` コンポーザブル関数を使用すると、Web アプリケーションに HTML 要素をシームレスに統合できます。
 
@@ -240,7 +240,7 @@ fun Map() {
 
 `CanvasBasedWindow` は非推奨となったため、この関数は `ComposeViewport` エントリーポイントでのみ使用できることに注意してください。
 
-### ナビゲーショングラフへのバインディング用 API の簡素化
+### ナビゲーショングラフへのバインディング用 API の簡素化 {id="simplified-api-for-binding-to-the-navigation-graph"}
 
 Compose Multiplatform では、ブラウザのナビゲーション状態を `NavController` にバインドするための新しい API が導入されました：
 
@@ -270,9 +270,9 @@ LaunchedEffect(Unit) {
 }
 ```
 
-## デスクトップ
+## デスクトップ {id="desktop"}
 
-### 表示前のウィンドウ構成
+### 表示前のウィンドウ構成 {id="configuring-windows-before-display"}
 
 Compose Multiplatform に、新しい `SwingFrame()` および `SwingDialog()` コンポーザブルが含まれるようになりました。これらは既存の `Window()` および `DialogWindow()` 関数に似ていますが、`init` ブロックが含まれています。
 
@@ -280,9 +280,9 @@ Compose Multiplatform に、新しい `SwingFrame()` および `SwingDialog()` �
 
 `init` ブロックは、ウィンドウやダイアログが表示された後では変更できないプロパティに対してのみ使用することをお勧めします。それ以外のすべての構成については、引き続き `LaunchedEffect(window)` パターンを使用して、コードの互換性を維持し、将来のアップデートでも正しく動作するようにしてください。
 
-## Gradle プラグイン
+## Gradle プラグイン {id="gradle-plugin"}
 
-### Material3 バージョンの分離
+### Material3 バージョンの分離 {id="decoupled-material3-versioning"}
 
 Material3 ライブラリと Compose Multiplatform Gradle プラグイン babysit のバージョンおよび安定レベルを一致させる必要がなくなりました。`compose.material3` DSL エイリアスは Jetpack Compose の安定版リリースからの Material3 1.9.0 を参照しますが、プロジェクトに合わせてプレリリースバージョンを選択することもできます。
 
@@ -292,11 +292,11 @@ Expressive デザインをサポートする Material3 バージョンを使用�
 implementation("org.jetbrains.compose.material3:material3:1.9.0-alpha04")
 ```
 
-### 統一された Web 配布
+### 統一された Web 配布 {id="unified-web-distribution"}
 
 新しい `composeCompatibilityBrowserDistribution` Gradle タスクは、Kotlin/JS と Kotlin/Wasm の配布物を単一のパッケージに統合します。これにより、モダンな Wasm 機能がブラウザでサポートされていない場合に、Wasm アプリケーションが JS ターゲットにフォールバックできるようになります。
 
-### AGP 9.0.0 のサポート
+### AGP 9.0.0 のサポート {id="support-for-agp-9-0-0"}
 
 Compose Multiplatform が Android Gradle プラグイン (AGP) のバージョン 9.0.0 のサポートを導入しました。新しい AGP バージョンとの互換性を確保するために、Compose Multiplatform 1.9.3 または 1.10.0 へのアップグレードを確認してください。
 

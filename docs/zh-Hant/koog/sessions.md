@@ -2,11 +2,11 @@
 
 本頁面提供了關於 LLM 工作階段的詳細資訊，包括如何使用讀取與寫入工作階段、管理對話歷程，以及向語言模型發送請求。
 
-## 簡介
+## 簡介 {id="introduction"}
 
 LLM 工作階段是一個核心概念，提供了一種與語言模型 (LLM) 互動的結構化方式。它們管理對話歷程、處理向 LLM 發送的請求，並為執行工具和處理回應提供一致的介面。
 
-## 了解 LLM 工作階段
+## 了解 LLM 工作階段 {id="understanding-llm-sessions"}
 
 一個 LLM 工作階段代表了與語言模型互動的上下文 (context)。它封裝了：
 
@@ -18,7 +18,7 @@ LLM 工作階段是一個核心概念，提供了一種與語言模型 (LLM) 互
 
 工作階段由 `AIAgentLLMContext` 類別管理，該類別提供了建立讀取和寫入工作階段的方法。
 
-### 工作階段類型
+### 工作階段類型 {id="session-types"}
 
 Koog 架構提供了兩種類型的工作階段：
 
@@ -28,7 +28,7 @@ Koog 架構提供了兩種類型的工作階段：
 
 關鍵區別在於寫入工作階段可以修改對話歷程，而讀取工作階段則不行。
 
-### 工作階段生命週期
+### 工作階段生命週期 {id="session-lifecycle"}
 
 工作階段具有明確的生命週期：
 
@@ -38,9 +38,9 @@ Koog 架構提供了兩種類型的工作階段：
 
 工作階段實作了 `AutoCloseable` 介面，確保即使發生例外狀況，它們也能被妥善清理。
 
-## 使用 LLM 工作階段
+## 使用 LLM 工作階段 {id="working-with-llm-sessions"}
 
-### 建立工作階段
+### 建立工作階段 {id="creating-sessions"}
 
 工作階段是使用 `AIAgentLLMContext` 類別的方法建立的：
 === "Kotlin"
@@ -104,7 +104,7 @@ Koog 架構提供了兩種類型的工作階段：
 
 這些函式接受一個在工作階段上下文中執行的 Lambda 區塊。當區塊完成時，工作階段會自動關閉。
 
-### 工作階段作用域與執行緒安全
+### 工作階段作用域與執行緒安全 {id="session-scope-and-thread-safety"}
 
 工作階段使用讀寫鎖來確保執行緒安全：
 
@@ -114,7 +114,7 @@ Koog 架構提供了兩種類型的工作階段：
 
 這確保了對話歷程不會因並行修改而損壞。
 
-### 存取工作階段屬性
+### 存取工作階段屬性 {id="accessing-session-properties"}
 
 在工作階段內，您可以存取提示詞與工具：
 
@@ -236,9 +236,9 @@ Koog 架構提供了兩種類型的工作階段：
 
 如需更多資訊，請參閱 [AIAgentLLMReadSession](api:agents-core::ai.koog.agents.core.agent.session.AIAgentLLMReadSession) 與 [AIAgentLLMWriteSession](api:agents-core::ai.koog.agents.core.agent.session.AIAgentLLMWriteSession) 的詳細 API 參考。
 
-## 發送 LLM 請求
+## 發送 LLM 請求 {id="making-llm-requests"}
 
-### 基本請求方法
+### 基本請求方法 {id="basic-request-methods"}
 
 發送 LLM 請求最常用的方法有：
 
@@ -308,7 +308,7 @@ Koog 架構提供了兩種類型的工作階段：
     ```
     <!--- KNIT exampleSessionsJava04.java -->
 
-### 請求運作方式
+### 請求運作方式 {id="how-requests-work"}
 
 只有當您明確呼叫其中一個請求方法時，才會發送 LLM 請求。需要理解的重點如下：
 
@@ -316,7 +316,7 @@ Koog 架構提供了兩種類型的工作階段：
 2. **立即執行**：當您呼叫請求方法時，請求會立即發送，且該方法會阻塞直到收到回應。
 3. **自動歷程更新**：在寫入工作階段中，回應會自動新增到對話歷程中。
 
-### 帶工具的請求方法
+### 帶工具的請求方法 {id="request-methods-with-tools"}
 
 在啟用工具的情況下發送請求時，LLM 可能會以工具呼叫 (tool call) 而非文字回應。請求方法會透明地處理此情況：
 
@@ -388,7 +388,7 @@ Koog 架構提供了兩種類型的工作階段：
 
 在實作中，您通常不需要手動檢查回應類型，因為代理圖 (agent graph) 會自動處理此路由。
 
-### 結構化與串流請求
+### 結構化與串流請求 {id="structured-and-streaming-requests"}
 
 對於更進階的使用案例，平台提供了結構化與串流請求的方法：
 
@@ -459,9 +459,9 @@ Koog 架構提供了兩種類型的工作階段：
     ```
     <!--- KNIT exampleSessionsJava06.java -->
 
-## 管理對話歷程
+## 管理對話歷程 {id="managing-conversation-history"}
 
-### 更新提示詞
+### 更新提示詞 {id="updating-the-prompt"}
 
 在寫入工作階段中，您可以使用 `appendPrompt` 方法將訊息新增至提示詞（對話歷程）：
 
@@ -602,7 +602,7 @@ Koog 架構提供了兩種類型的工作階段：
     ```
     <!--- KNIT exampleSessionsJava08.java -->
 
-### 回應時的自動歷程更新
+### 回應時的自動歷程更新 {id="automatic-history-update-on-response"}
 
 當您在寫入工作階段中發送 LLM 請求時，回應會自動新增到對話歷程中：
 
@@ -671,7 +671,7 @@ Koog 架構提供了兩種類型的工作階段：
 
 這種自動歷程更新是寫入工作階段的關鍵功能，確保對話流自然銜接。
 
-### 歷程壓縮
+### 歷程壓縮 {id="history-compression"}
 
 對於長期執行的對話，歷程記錄可能會變得很龐大並消耗大量權杖 (token)。平台提供了壓縮歷程記錄的方法：
 
@@ -718,9 +718,9 @@ Koog 架構提供了兩種類型的工作階段：
 
 如需更多關於歷程壓縮與壓縮策略的資訊，請參閱 [歷程壓縮](history-compression.md)。
 
-## 在工作階段中執行工具
+## 在工作階段中執行工具 {id="running-tools-in-sessions"}
 
-### 呼叫工具
+### 呼叫工具 {id="calling-tools"}
 
 寫入工作階段提供了多種呼叫工具的方法：
 
@@ -790,7 +790,7 @@ Koog 架構提供了兩種類型的工作階段：
     ```
     <!--- KNIT exampleSessionsJava11.java -->
 
-### 並行工具執行
+### 並行工具執行 {id="parallel-tool-runs"}
 
 為了並行執行多個工具，寫入工作階段在 `Flow` 上提供了擴充函式：
 
@@ -848,7 +848,7 @@ Koog 架構提供了兩種類型的工作階段：
 
 這對於高效處理大量資料非常有用。
 
-## 最佳實務
+## 最佳實務 {id="best-practices"}
 
 在使用 LLM 工作階段時，請遵循以下最佳實務：
 
@@ -868,13 +868,13 @@ Koog 架構提供了兩種類型的工作階段：
 
 8. **對長回應使用串流**：對於長回應，使用 `requestLLMStreaming` 以在回應到達時立即處理。
 
-## 疑難排解
+## 疑難排解 {id="troubleshooting"}
 
-### 工作階段已關閉
+### 工作階段已關閉 {id="session-already-closed"}
 
 如果您看到類似 `Cannot use session after it was closed` 的錯誤，表示您正嘗試在 Lambda 區塊完成後使用工作階段。請確保所有工作階段操作都在工作階段區塊內執行。
 
-### 歷程記錄過大
+### 歷程記錄過大 {id="history-too-large"}
 
 如果您的歷程記錄變得太大並消耗過多權杖，請使用歷程壓縮技術：
 
@@ -918,13 +918,13 @@ Koog 架構提供了兩種類型的工作階段：
 
 如需更多資訊，請參閱 [歷程壓縮](history-compression.md)
 
-### 找不到工具
+### 找不到工具 {id="tool-not-found"}
 
 如果您看到有關找不到工具的錯誤，請檢查：
 
 - 工具是否已在工具註冊表中正確註冊。
 - 您是否使用了正確的工具名稱或類別。
 
-## API 文件
+## API 文件 {id="api-documentation"}
 
 如需更多資訊，請參閱完整的 [AIAgentLLMSession](api:agents-core::ai.koog.agents.core.agent.session.AIAgentLLMSession) 與 [AIAgentLLMContext](api:agents-core::ai.koog.agents.core.agent.context.AIAgentLLMContext) 參考。

@@ -1,11 +1,11 @@
 # 其他資源
 
-## 指南
+## 指南 {id="guides"}
 
 - [SQLDelight 多平台持久化簡介](https://johnoreilly.dev/posts/sqldelight-multiplatform/)
 - [使用 SQLDelight 進行多平台持久化](https://gh.jdoneill.com/2020/06/29/sqldelight/)
 
-## 範例
+## 範例 {id="samples"}
 
 - [https://github.com/joreilly/PeopleInSpace](https://github.com/joreilly/PeopleInSpace) (Android/iOS/watchOS/macOS/Web)
 - [https://github.com/JakeWharton/SdkSearch](https://github.com/JakeWharton/SdkSearch) (Android/Web)

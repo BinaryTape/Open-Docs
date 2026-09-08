@@ -305,7 +305,7 @@ get("/logout") {
 
 전체 예제는 여기에서 확인할 수 있습니다: [session-cookie-client](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/session-cookie-client).
 
-## 세션 지연 조회(Deferred session retrieval)
+## 세션 지연 조회(Deferred session retrieval) {id="deferred-session-retrieval"}
 
 기본적으로 Ktor는 라우트에서 실제로 세션이 필요한지 여부와 관계없이 세션이 포함된 모든 요청에 대해 저장소에서 세션을 읽으려고 시도합니다. 이 동작은 특히 커스텀 세션 저장소를 사용하는 애플리케이션에서 불필요한 오버헤드를 발생시킬 수 있습니다.
 

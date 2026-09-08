@@ -11,16 +11,16 @@
 > 
 {style="tip"}
 
-## 在 IntelliJ IDEA 中创建应用程序
+## 在 IntelliJ IDEA 中创建应用程序 {id="create-your-application-in-intellij-idea"}
 
 要创建您的 Kotlin/JS Web 应用程序，您可以使用 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)。
 
-### 设置环境
+### 设置环境 {id="set-up-the-environment"}
 
 1. 下载并安装最新版本的 [IntelliJ IDEA](https://www.jetbrains.com/idea/)。
 2. 安装 [Kotlin Multiplatform IDE 插件](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)（不要将其与 Kotlin Multiplatform Gradle 插件混淆）。
 
-### 创建您的项目
+### 创建您的项目 {id="create-your-project"}
 
 1. 在 IntelliJ IDEA 中，选择 **File** | **New** | **Project from Version Control**。
 2. 输入 [Kotlin/JS 模板项目](https://github.com/Kotlin/kmp-js-wizard) 的 URL：
@@ -31,7 +31,7 @@
    
 3. 点击 **Clone**。
 
-### 配置您的项目
+### 配置您的项目 {id="configure-your-project"}
 
 1. 打开 `kmp-js-wizard/gradle/libs.versions.toml` 文件。它包含了项目依赖项的版本目录。 
 2. 确保 Kotlin 版本与 Kotlin Multiplatform Gradle 插件的版本相匹配，这是创建针对 Kotlin/JS 的 Web 应用程序所必需的：
@@ -52,7 +52,7 @@
 
 欲了解更多关于多平台项目 Gradle 配置的信息，请参阅 [Multiplatform Gradle DSL 参考](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html)。
 
-### 构建并运行应用程序
+### 构建并运行应用程序 {id="build-and-run-the-application"}
 
 1. 打开 `src/jsMain/kotlin/Main.kt` 文件。
 
@@ -84,7 +84,7 @@ Web 应用程序会自动在您的浏览器中打开。
 > 
 > {style="tip"}
 
-### 启用连续构建
+### 启用连续构建 {id="enable-continuous-build"}
 
 每当您进行更改时，Gradle 都可以自动重新构建您的项目：
 
@@ -100,11 +100,11 @@ Web 应用程序会自动在您的浏览器中打开。
 
 现在，当您运行应用程序并进行任何更改时，每当您保存 (<shortcut>Ctrl + S</shortcut>/<shortcut>Cmd + S</shortcut>) 或更改类文件时，Gradle 都会自动为项目执行增量构建并热重载浏览器。 
 
-### 修改应用程序
+### 修改应用程序 {id="modify-the-application"}
 
 修改应用程序以添加一个统计单词中字母数量的功能。
 
-#### 添加输入元素
+#### 添加输入元素 {id="add-an-input-element"}
 
 1. 在 `src/jsMain/kotlin/Main.kt` 文件中，通过 [扩展函数](extensions.md#extension-functions) 添加一个 [HTML 输入元素](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input) 以读取用户输入：
 
@@ -131,7 +131,7 @@ Web 应用程序会自动在您的浏览器中打开。
 
    ![包含输入元素的应用程序](js-added-input-element.png){width=600}
 
-#### 添加输入事件处理
+#### 添加输入事件处理 {id="add-an-input-event-handling"}
 
 1. 在 `appendInput()` 函数内部添加一个监听器，以读取输入值并对更改做出反应：
 
@@ -183,7 +183,7 @@ Web 应用程序会自动在您的浏览器中打开。
     }
    ```
    
-#### 处理输入以统计字母数量
+#### 处理输入以统计字母数量 {id="process-the-input-to-count-the-letters"}
 
 通过移除空格并显示带有字母数量的输出来处理输入。
 
@@ -211,7 +211,7 @@ fun main() {
 * [字符串模板](strings.md#string-templates) (`${it.length}`) 通过在变量名前加上美元符号 (`$`) 并将其包含在花括号 (`{}`) 中，将单词的长度插入到字符串中。
   而 `it` 是 [lambda 参数](coding-conventions.md#lambda-parameters) 的默认名称。
 
-#### 运行应用程序
+#### 运行应用程序 {id="run-the-application"}
 
 1. [运行应用程序](#构建并运行应用程序)。
 2. 输入您的名字。
@@ -221,7 +221,7 @@ fun main() {
 
 ![应用程序输出](js-output-gutter-2.png){width=600}
 
-#### 处理输入以统计不重复字母的数量
+#### 处理输入以统计不重复字母的数量 {id="process-the-input-to-count-unique-letters"}
 
 作为一项额外练习，让我们处理输入以计算并显示单词中不重复字母的数量：
 
@@ -262,13 +262,13 @@ fun main() {
 
 ![应用程序输出](js-output-gutter-3.png){width=600}
 
-## 使用 Gradle 创建应用程序
+## 使用 Gradle 创建应用程序 {id="create-your-application-using-gradle"}
 
 在本节中，您可以学习如何使用 [Gradle](https://gradle.org) 手动创建一个 Kotlin/JS 应用程序。
 
 Gradle 是 Kotlin/JS 和 Kotlin 多平台项目的默认构建系统。它也广泛应用于 Java、Android 和其他生态系统。
 
-### 创建项目文件
+### 创建项目文件 {id="create-project-files"}
 
 1. 确保您使用的 Gradle 版本与 Kotlin Gradle 插件 (KGP) 兼容。详情请参阅 [兼容性表](gradle-configure-project.md#apply-the-plugin)。
 2. 使用文件管理器、命令行或您喜欢的任何工具为项目创建一个空目录。 
@@ -366,7 +366,7 @@ Gradle 是 Kotlin/JS 和 Kotlin 多平台项目的默认构建系统。它也广
 
 3. 将 `<$NAME_OF_YOUR_PROJECT_DIRECTORY>` 占位符替换为您的项目目录名称。
 
-### 构建并运行项目
+### 构建并运行项目 {id="build-and-run-the-project"}
 
 要构建项目，请在项目根目录运行以下命令：
 
@@ -388,7 +388,7 @@ gradle jsNodeDevelopmentRun
 
 ![应用程序输出](js-output-gutter-5.png){width=500}
 
-### 在 IDE 中打开项目
+### 在 IDE 中打开项目 {id="open-the-project-in-an-ide"}
 
 您可以在任何支持 Gradle 的 IDE 中打开您的项目。 
 
@@ -400,7 +400,7 @@ gradle jsNodeDevelopmentRun
 
 IntelliJ IDEA 会自动检测这是否是一个 Kotlin/JS 项目。如果您在项目上遇到问题，IntelliJ IDEA 会在 **Build** 窗格中显示错误信息。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 <!-- * Complete the [Create a multiplatform app targeting Web](native-app-with-c-and-libcurl.md) tutorial that explains how
   to share your Kotlin code with a JavaScript/TypeScript application.]: -->

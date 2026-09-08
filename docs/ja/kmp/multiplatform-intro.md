@@ -4,7 +4,7 @@
 
 ![Kotlin Multiplatform](kotlin-multiplatform.svg){width=700}
 
-## 主要な概念を学ぶ
+## 主要な概念を学ぶ {id="learn-key-concepts"}
 
 Kotlin Multiplatform を使用すると、モバイル、Web、デスクトップを問わず、異なるプラットフォーム間でコードを共有できます。コードがコンパイルされるプラットフォームは、*ターゲット (targets)* のリストによって定義されます。
 
@@ -19,7 +19,7 @@ Kotlin Multiplatform を使用すると、モバイル、Web、デスクトッ�
 * [Kotlin Multiplatform プロジェクト構造の基本](multiplatform-discover-project.md)
 * [マルチプラットフォームプロジェクト構造の高度な概念](multiplatform-advanced-project-structure.md)
 
-## コード共有メカニズムを使用する
+## コード共有メカニズムを使用する {id="use-code-sharing-mechanisms"}
 
 類似したターゲットのサブセット間でコードを共有する方が便利な場合があります。Kotlin Multiplatform は、*デフォルトの階層テンプレート (default hierarchy template)* を使用して、これらの作成を簡素化する方法を提供します。これには、プロジェクトで指定したターゲットに基づいて作成される、事前に定義された中間ソースセットのリストが含まれています。
 
@@ -31,7 +31,7 @@ Kotlin Multiplatform を使用すると、モバイル、Web、デスクトッ�
 * [expect および actual 宣言](multiplatform-expect-actual.md)
 * [階層的なプロジェクト構造](multiplatform-hierarchy.md)
 
-## 依存関係を追加する
+## 依存関係を追加する {id="add-dependencies"}
 
 Kotlin Multiplatform プロジェクトは、外部ライブラリや他のマルチプラットフォームプロジェクトに依存できます。共通コードについては、`commonMain` ソースセットにマルチプラットフォームライブラリへの依存関係を追加できます。Kotlin は自動的に適切なプラットフォーム固有の部分を解決し、他のソースセットに追加します。プラットフォーム固有の API のみが必要な場合は、対応するソースセットに依存関係を追加します。
 
@@ -43,7 +43,7 @@ Kotlin Multiplatform プロジェクトに Android 固有の依存関係を追�
 * [Android ライブラリへの依存関係の追加](multiplatform-android-dependencies.md)
 * [iOS ライブラリへの依存関係の追加](multiplatform-ios-dependencies.md)
 
-## iOS との統合を設定する
+## iOS との統合を設定する {id="set-up-integration-with-ios"}
 
 マルチプラットフォームプロジェクトが iOS をターゲットにしている場合、Kotlin Multiplatform の共有モジュールと iOS アプリの統合を設定できます。
 
@@ -54,7 +54,7 @@ Kotlin Multiplatform プロジェクトに Android 固有の依存関係を追�
 
 このトピックの詳細については、[iOS 統合方法](multiplatform-ios-integration-overview.md)を参照してください。
 
-## コンパイルを構成する
+## コンパイルを構成する {id="configure-compilations"}
 
 すべてのターゲットは、通常は本番用またはテスト用など、異なる目的のために複数のコンパイルを持つことができますが、カスタムコンパイルを定義することもできます。
 
@@ -62,7 +62,7 @@ Kotlin Multiplatform では、プロジェクト内のすべてのコンパイ�
 
 このトピックの詳細については、[コンパイルの構成](multiplatform-configure-compilations.md)を参照してください。
 
-## 最終的なバイナリをビルドする
+## 最終的なバイナリをビルドする {id="build-final-binaries"}
 
 デフォルトでは、ターゲットは `.klib` アーティファクトにコンパイルされます。これは Kotlin/Native 自体から依存関係として利用できますが、実行したりネイティブライブラリとして使用したりすることはできません。しかし、Kotlin Multiplatform は最終的なネイティブバイナリをビルドするための追加のメカニズムを提供しています。
 
@@ -70,7 +70,7 @@ Kotlin Multiplatform では、プロジェクト内のすべてのコンパイ�
 
 このトピックの詳細については、[ネイティブバイナリのビルド](multiplatform-build-native-binaries.md)を参照してください。
 
-## マルチプラットフォームライブラリを作成する
+## マルチプラットフォームライブラリを作成する {id="create-multiplatform-libraries"}
 
 共通コードと、JVM、Web、ネイティブプラットフォーム用のプラットフォーム固有の実装を含むマルチプラットフォームライブラリを作成できます。
 
@@ -78,7 +78,7 @@ Kotlin Multiplatform ライブラリの公開には、Gradle ビルドスクリ�
 
 このトピックの詳細については、[マルチプラットフォームライブラリの公開](multiplatform-publish-lib-setup.md)を参照してください。
 
-## リファレンス
+## リファレンス {id="reference"}
 
 * [Kotlin Multiplatform Gradle プラグインの DSL リファレンス](multiplatform-dsl-reference.md)
 * [Kotlin Multiplatform の互換性ガイド](multiplatform-compatibility-guide.md)

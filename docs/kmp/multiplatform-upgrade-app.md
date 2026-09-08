@@ -25,7 +25,7 @@
 >
 {style="note"}
 
-## 添加更多依赖项
+## 添加更多依赖项 {id="add-more-dependencies"}
 
 您需要在项目中添加以下多平台库：
 
@@ -33,7 +33,7 @@
 * [`kotlinx.serialization`](https://github.com/Kotlin/kotlinx.serialization)：将 SpaceX API 的 JSON 响应反序列化为用于处理网络操作的实体类对象。
 * [Ktor](https://ktor.io/)：一个用于通过 HTTP 发送和检索数据的框架。
 
-### 更新 Gradle 版本编目
+### 更新 Gradle 版本编目 {id="update-the-gradle-version-catalog"}
 
 在 `gradle/libs.versions.toml` 中添加以下条目，然后同步 Gradle 文件，使这些引用在构建配置代码中可用：
 
@@ -56,7 +56,7 @@ ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "k
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ```
 
-### 将依赖项添加到对应的源集
+### 将依赖项添加到对应的源集 {id="add-dependencies-to-corresponding-source-sets"}
 
 在 `sharedLogic/build.gradle.kts` 文件中将库引用添加到对应的源集：
 
@@ -93,11 +93,11 @@ kotlin {
 
 点击 **Sync Gradle Changes** 按钮同步 Gradle 文件。
 
-## 设置 API 请求
+## 设置 API 请求 {id="set-up-api-requests"}
 
 您将使用 [Launch Library API](https://github.com/r-spacex/SpaceX-API/tree/master/docs#rspacex-api-docs) 获取数据，特别是从 **/2.3.0/launches** 端点获取所有发射的列表。
 
-### 创建数据模型
+### 创建数据模型 {id="create-a-data-model"}
 
 在 `sharedLogic/src/commonMain/.../greetingkmp` 目录中，创建一个新的 `RocketLaunch.kt` 文件，并添加一个存储来自 SpaceX API 数据的类：
 
@@ -135,7 +135,7 @@ data class LaunchListResponse(
 * `RocketLaunch` 类标记有 `@Serializable` 注解，以便 `kotlinx.serialization` 插件可以自动为其生成默认序列化程序。
 * `@SerialName` 注解允许您重新定义字段名称，从而可以使用更具可读性的名称在数据类中声明属性。
 
-### 连接 HTTP 客户端
+### 连接 HTTP 客户端 {id="connect-http-client"}
 
 1. 在 `sharedLogic/src/commonMain/.../greetingkmp` 目录中，创建一个新的 `RocketComponent` 类。
 2. 添加 `httpClient` 属性，以便通过 HTTP GET 请求检索火箭发射信息：
@@ -243,7 +243,7 @@ data class LaunchListResponse(
     }
     ```
 
-### 创建协程流
+### 创建协程流 {id="create-a-coroutine-flow"}
 
 如果您需要产生一系列值，可以使用[流 (Flow)](https://kotlinlang.org/docs/flow.html)，而不是简单地调用挂起函数。流可以在产生值时发出一系列值，而不是像挂起函数那样返回单个值。
 
@@ -283,11 +283,11 @@ data class LaunchListResponse(
 
 您已经通过将 `greet()` 函数的返回值类型更改为 `Flow` 更新了 shared 模块的 API。现在您需要更新项目的原生部分，以便它们可以正确处理调用 `greet()` 函数的结果。
 
-## 更新原生 Android UI
+## 更新原生 Android UI {id="update-native-android-ui"}
 
 由于 shared 模块和 Android 应用都是用 Kotlin 编写的，因此在 Android 中使用共享代码非常简单。
 
-### 引入 ViewModel
+### 引入 ViewModel {id="introduce-a-view-model"}
 
 ViewModel 是 Android 开发中一种热门的模式，有助于管理数据和其他应在 [Android Activity](https://developer.android.com/guide/components/activities/intro-activities) 生命周期中保持持久的应用组件。现在应用变得越来越复杂，是时候在我们的应用中也引入 ViewModel 了。它将存储从 SpaceX API 接收的数据并将其提供给 UI。
 
@@ -360,7 +360,7 @@ ViewModel 是 Android 开发中一种热门的模式，有助于管理数据和�
     }
     ```
 
-### 使用 ViewModel 的流
+### 使用 ViewModel 的流 {id="use-the-view-model-s-flow"}
 
 1. 在 `sharedUI/src/commonMain/.../greetingkmp` 中，打开 `App.kt` 文件并进行更新，替换之前的实现以使用新实现的 ViewModel：
 
@@ -393,7 +393,7 @@ ViewModel 是 Android 开发中一种热门的模式，有助于管理数据和�
    * `collectAsStateWithLifecycle()` 函数在 `greetingList` 上调用，以从 ViewModel 的流中收集值，并以生命周期感知的方式将其表示为组合状态。
    * 当创建新的流时，组合状态将发生变化并显示一个可滚动的 `Column`，其中欢迎短语垂直排列并由分隔线分隔。
 
-### 添加互联网访问权限
+### 添加互联网访问权限 {id="add-internet-access-permission"}
 
 要访问互联网，Android 应用需要适当的权限。由于所有网络请求都是从 shared 模块发出的，因此在其清单中添加互联网访问权限是有意义的。
 
@@ -407,19 +407,19 @@ ViewModel 是 Android 开发中一种热门的模式，有助于管理数据和�
 </manifest>
 ```
 
-### 运行应用
+### 运行应用 {id="run-the-app"}
 
 要查看最终结果，请重新运行您的 **androidApp** 运行配置：
 
 ![Android 的最终结果](multiplatform-mobile-upgrade-android.png){width=350}
 
-## 更新原生 iOS UI
+## 更新原生 iOS UI {id="update-native-ios-ui"}
 
 对于项目的 iOS 部分，您将利用 [Model–view–viewmodel (MVVM)](https://en.wikipedia.org/wiki/Model–view–viewmodel) 模式（就像您在 Android 应用中所做的那样）将 UI 连接到 `sharedLogic` 模块。
 
 该模块已经通过 `import SharedLogic` 声明导入到 `ContentView.swift` 文件中。
 
-### 引入 ViewModel
+### 引入 ViewModel {id="introducing-a-viewmodel"}
 
 在 `iosApp/ContentView.swift` 中，为 `ContentView` 创建一个 `ViewModel` 类，它将为其准备和管理数据。在 `task()` 调用中调用 `startObserving()` 函数以支持并发：
 
@@ -468,14 +468,14 @@ SwiftUI 将 ViewModel (`ContentView.ViewModel`) 与视图 (`ContentView`) 连接
 
 现在您需要实现 `startObserving()` 函数来消费流。
 
-### 选择一个在 iOS 中消费流的库
+### 选择一个在 iOS 中消费流的库 {id="choose-a-library-to-consume-flows-from-ios"}
 
 在本教程中，您可以使用 [SKIE](https://skie.touchlab.co/) 或 [KMP-NativeCoroutines](https://github.com/rickclephas/KMP-NativeCoroutines) 库来帮助您在 iOS 中处理流。两者都是开源解决方案，支持流的取消和泛型，而 Kotlin/Native 编译器目前默认尚未提供这些功能：
 
 * KMP-NativeCoroutines 库通过生成必要的包装器，帮助您从 iOS 消费挂起函数和流。KMP-NativeCoroutines 支持 Swift 的 `async`/`await` 功能以及 Combine 和 RxSwift。使用 KMP-NativeCoroutines 需要在 iOS 项目中添加 SwiftPM 或 CocoaPod 依赖项。
 * SKIE 库增强了由 Kotlin 编译器生成的 Objective-C API：SKIE 将流转换为等效的 Swift `AsyncSequence`。SKIE 直接支持 Swift 的 `async`/`await`，没有线程限制，并具有自动双向取消功能（Combine 和 RxSwift 需要适配器）。SKIE 提供了其他功能来从 Kotlin 生成 Swift 友好的 API，包括将各种 Kotlin 类型桥接到 Swift 等效类型。它也不需要在 iOS 项目中添加额外的依赖项。
 
-### 选项 1. 配置 KMP-NativeCoroutines {initial-collapse-state="collapsed" collapsible="true"}
+### 选项 1. 配置 KMP-NativeCoroutines {initial-collapse-state="collapsed" collapsible="true" id="option-1-configure-kmp-nativecoroutines"}
 
 > 我们建议使用该库的最新版本。请查看 [KMP-NativeCoroutines 仓库](https://github.com/rickclephas/KMP-NativeCoroutines/releases)以了解是否有更新版本的插件可用，以及它是否与您的 Kotlin 版本兼容。
 >
@@ -527,7 +527,7 @@ SwiftUI 将 ViewModel (`ContentView.ViewModel`) 与视图 (`ContentView`) 连接
 
 5. 点击 **Sync Gradle Changes** 按钮同步 Gradle 文件。
 
-#### 使用 KMP-NativeCoroutines 标记流
+#### 使用 KMP-NativeCoroutines 标记流 {id="mark-the-flow-with-kmp-nativecoroutines"}
 
 1. 打开 `sharedLogic/src/commonMain/kotlin` 目录中的 `Greeting.kt` 文件。
 2. 将 `@NativeCoroutines` 注解添加到 `greet()` 函数。这将确保插件生成正确的代码以支持在 iOS 上进行正确的流处理：
@@ -637,7 +637,7 @@ plugins {
 }
 ```
 
-#### 使用 SKIE 消费流
+#### 使用 SKIE 消费流 {id="consume-the-flow-using-skie"}
 
 您将使用循环和 `await` 机制来遍历 `Greeting().greet()` 流，并在流每次发出值时更新 `greetings` 属性。
 
@@ -663,7 +663,7 @@ extension ContentView {
 }
 ```
 
-### 消费 ViewModel 并运行 iOS 应用
+### 消费 ViewModel 并运行 iOS 应用 {id="consume-the-viewmodel-and-run-the-ios-app"}
 
 在 `iosApp/iOSApp.swift` 中，更新应用的入口点：
 
@@ -688,19 +688,19 @@ struct iOSApp: App {
 >
 {style="note"}
 
-## 下一步
+## 下一步 {id="next-step"}
 
 在教程的最后一部分，您将完成您的项目并了解接下来的步骤。
 
 **[继续下一部分](multiplatform-wrap-up.md)**
 
-### 另请参阅
+### 另请参阅 {id="see-also"}
 
 * 探索[组合挂起函数](https://kotlinlang.org/docs/composing-suspending-functions.html)的各种方法。
 * 详细了解[与 Objective-C 框架和库的互操作性](https://kotlinlang.org/docs/native-objc-interop.html)。
 * 完成关于[网络和数据存储](multiplatform-ktor-sqldelight.md)的教程。
 
-## 获取帮助
+## 获取帮助 {id="get-help"}
 
 * **Kotlin Slack**。获取[邀请](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)并加入 [#multiplatform](https://kotlinlang.slack.com/archives/C3PQML5NU) 频道。
 * **Kotlin 问题跟踪器**。[报告新问题](https://youtrack.jetbrains.com/newIssue?project=KT)。

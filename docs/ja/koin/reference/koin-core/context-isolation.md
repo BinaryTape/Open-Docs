@@ -8,13 +8,13 @@ title: コンテキストの分離
 標準的なKoinのセットアップについては、**[Koinの開始](/docs/reference/koin-core/starting-koin)**を参照してください。
 :::
 
-## いつコンテキストの分離を使用するか
+## いつコンテキストの分離を使用するか {id="when-to-use-context-isolation"}
 
 - **SDK/ライブラリ開発** - ライブラリ内部でKoinを使用する場合
 - **競合の回避** - ホストアプリもKoinを使用している可能性がある場合
 - **カプセル化** - DIコンテナをプライベートに保つ場合
 
-## 分離されたコンテキストの作成
+## 分離されたコンテキストの作成 {id="creating-an-isolated-context"}
 
 `GlobalContext` に登録を行う `startKoin` を使用する代わりに、 `koinApplication` を使用します：
 
@@ -35,7 +35,7 @@ val sdkModule = module {
 }
 ```
 
-## カスタムKoinComponent
+## カスタムKoinComponent {id="custom-koincomponent"}
 
 分離されたコンテキストを使用するカスタムの `KoinComponent` を作成します：
 
@@ -51,7 +51,7 @@ class MySdkClass : SdkKoinComponent {
 }
 ```
 
-## 分離されたコンテキストのテスト
+## 分離されたコンテキストのテスト {id="testing-isolated-context"}
 
 テストで分離されたコンテキストを使用するには、 `getKoin()` をオーバーライドします：
 
@@ -74,7 +74,7 @@ class SdkTest : KoinTest {
 }
 ```
 
-## 関連項目
+## 関連項目 {id="see-also"}
 
 - **[Koinの開始](/docs/reference/koin-core/starting-koin)** - 標準的なKoinのセットアップ
 - **[Composeの分離されたコンテキスト](/docs/reference/koin-compose/isolated-context)** - Composeアプリにおける分離

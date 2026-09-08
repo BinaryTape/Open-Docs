@@ -5,7 +5,7 @@ Compose Multiplatform 版本的发布与 Kotlin 和 Jetpack Compose 的版本发
 
 由于 Compose Multiplatform 构建在 Kotlin Multiplatform 之上，它也会受到 [Kotlin Multiplatform 兼容性指南](multiplatform-compatibility-guide.md)中列出的 Kotlin Multiplatform Gradle 插件、Gradle、Android Gradle Plugin 和 Xcode 版本兼容性的影响。
 
-## 支持的平台
+## 支持的平台 {id="supported-platforms"}
 
 Compose Multiplatform %org.jetbrains.compose% 支持以下平台：
 
@@ -22,7 +22,7 @@ Compose Multiplatform %org.jetbrains.compose% 支持以下平台：
 > 
 {style="note"}
 
-## Kotlin 兼容性
+## Kotlin 兼容性 {id="kotlin-compatibility"}
 
 最新版本的 Compose Multiplatform 始终与最新版本的 Kotlin 兼容。
 无需手动对齐它们的版本。
@@ -42,7 +42,7 @@ Compose Multiplatform 要求所应用的 Compose 编译器 Gradle 插件版本�
 您可以在 Gradle 构建文件中使用 [`disableNativeCache`](multiplatform-dsl-reference.md#binaries) DSL 来关闭 Gradle 缓存。
 这将确保与旧库的兼容性，但会增加编译时间。
 
-## Compose Multiplatform 桌面版发布的限制
+## Compose Multiplatform 桌面版发布的限制 {id="limitations-of-compose-multiplatform-for-desktop-releases"}
 
 由于 [Skia](https://skia.org/) 绑定中使用的内存管理方案，Compose Multiplatform 桌面版仅支持 JDK 11 或更高版本。
 
@@ -51,7 +51,7 @@ Compose Multiplatform 要求所应用的 Compose 编译器 Gradle 插件版本�
 * 在 macOS 上切换键盘布局时，OpenJDK 11.0.12 存在一个已知[问题](https://github.com/JetBrains/compose-multiplatform/issues/940)。
   此问题在 OpenJDK 11.0.15 中无法复现。
 
-## Jetpack Compose 与 Compose Multiplatform 的发布周期
+## Jetpack Compose 与 Compose Multiplatform 的发布周期 {id="jetpack-compose-and-compose-multiplatform-release-cycles"}
 
 Compose Multiplatform 与 Google 开发的 Android 框架 [Jetpack Compose](https://developer.android.com/jetpack/compose) 共享大量代码。我们将 Compose Multiplatform 的发布周期与 Jetpack Compose 的发布周期对齐，以便公共代码得到适当的测试和稳定化处理。
 
@@ -64,7 +64,7 @@ Compose Multiplatform 与 Google 开发的 Android 框架 [Jetpack Compose](http
 
 Compose Multiplatform 发布与 Jetpack Compose 发布之间的时间间隔通常为 1–3 个月。
 
-### Compose Multiplatform 的开发版本
+### Compose Multiplatform 的开发版本 {id="development-versions-of-compose-multiplatform"}
 
 Compose Multiplatform 编译器插件的开发版本（例如 `1.8.2+dev2544`）没有固定的构建计划，用于测试正式发布版本之间的更新。
 
@@ -75,7 +75,7 @@ Compose Multiplatform 编译器插件的开发版本（例如 `1.8.2+dev2544`）
 maven("https://redirector.kotlinlang.org/maven/compose-dev")
 ```
 
-### 使用的 Jetpack Compose 构件
+### 使用的 Jetpack Compose 构件 {id="jetpack-compose-artifacts-used"}
 
 当您为 Android 构建应用程序时，Compose Multiplatform 会使用 Google 发布的构件。
 

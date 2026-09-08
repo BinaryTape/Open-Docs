@@ -9,7 +9,7 @@ status: beta
 Koogは、Spring AIの抽象化とKoogエージェントフレームワークを橋渡しするSpring AI統合スターターを提供します。
 モデルアクセス、メモリ、またはベクトルストレージにすでにSpring AIを使用している場合、これらのスターターを使用することで、既存のSpring AI設定を置き換えることなく、その上にKoogを組み込むことができます。
 
-## `koog-spring-boot-starter` との違い
+## `koog-spring-boot-starter` との違い {id="how-it-differs-from-koog-spring-boot-starter"}
 
 | | `koog-spring-boot-starter` | `koog-spring-ai` スターター |
 |---|---|---|
@@ -20,7 +20,7 @@ Koogは、Spring AIの抽象化とKoogエージェントフレームワークを
 どちらのアプローチも独立しています。
 直接的なKoogスターターのアプローチについては、[Spring Boot統合](spring-boot.md)を参照してください。
 
-## 利用可能なスターター
+## 利用可能なスターター {id="available-starters"}
 
 | モジュール | 目的 |
 |---|---|
@@ -32,7 +32,7 @@ Koogは、Spring AIの抽象化とKoogエージェントフレームワークを
 各スターターは、独自の自動構成と設定プロパティを備えた独立したSpring Bootスターターです。
 1つのスターターのみを使用することも、同じアプリケーション内で複数のスターターを組み合わせることも可能です。
 
-## ディスパッチャーのタイプ (Dispatcher Types)
+## ディスパッチャーのタイプ (Dispatcher Types) {id="dispatcher-types"}
 
 4つのスターターすべてが、同じディスパッチャー構成パターンをサポートしています。
 
@@ -42,9 +42,9 @@ Koogは、Spring AIの抽象化とKoogエージェントフレームワークを
 
 通常、特にSpring Bootの仮想スレッド（Virtual threads）を使用している場合は、`AUTO` が最もシンプルな選択肢です。
 
-## チャットモデルスターター (Chat Model Starter)
+## チャットモデルスターター (Chat Model Starter) {id="chat-model-starter"}
 
-### 概要
+### 概要 {id="overview"}
 
 `koog-spring-ai-starter-model-chat` スターターは、Spring AIのチャットモデル抽象化とKoogエージェントフレームワークを橋渡しします。
 以下の内容を自動構成します：
@@ -54,7 +54,7 @@ Koogは、Spring AIの抽象化とKoogエージェントフレームワークを
 
 ツールは常にKoogエージェントフレームワークによって実行されます。Spring AIはツールの定義とスキーマのみを受け取ります。
 
-### 依存関係の追加
+### 依存関係の追加 {id="add-dependency"}
 
 任意のSpring AIチャットモデルスターターと一緒に依存関係を追加します：
 
@@ -89,12 +89,12 @@ Koogは、Spring AIの抽象化とKoogエージェントフレームワークを
     </dependencies>
     ```
 
-### 利用可能なプロバイダー
+### 利用可能なプロバイダー {id="available-providers"}
 
 このスターターは、Spring AIが `ChatModel` を作成するすべてのプロバイダーで動作します。これには以下が含まれます：
 Anthropic, Azure OpenAI, Bedrock Converse, DeepSeek, Google GenAI, HuggingFace, MiniMax, Mistral AI, OCI GenAI, Ollama, OpenAI, Vertex AI, ZhiPu AI。
 
-### 設定
+### 設定 {id="configure"}
 
 対応するSpring AIスターターを介してプロバイダーを構成し、必要に応じてKoogのプロパティを追加します：
 
@@ -110,7 +110,7 @@ koog.spring.ai.chat.dispatcher.type=AUTO
 単一の `ChatModel` Beanが存在する場合、すべてが自動的に動作します。
 アダプターがそれをKoogの `LLMClient` でラップし、すぐに使用可能な `PromptExecutor` を作成します。
 
-### 使用例
+### 使用例 {id="usage-example"}
 
 `PromptExecutor` をインジェクトし、それを使用してKoogエージェントを実行します：
 
@@ -167,7 +167,7 @@ koog.spring.ai.chat.dispatcher.type=AUTO
 
 または、独自の `PromptExecutor` Beanを提供して、自動構成されたものを完全に上書きすることもできます。
 
-### 設定プロパティ (`koog.spring.ai.chat`)
+### 設定プロパティ (`koog.spring.ai.chat`) {id="configuration-properties-koog-spring-ai-chat"}
 
 | プロパティ | 型 | デフォルト値 | 説明 |
 |---|---|---|---|
@@ -178,7 +178,7 @@ koog.spring.ai.chat.dispatcher.type=AUTO
 | `dispatcher.type` | `AUTO` / `IO` | `AUTO` | ブロッキングモデル呼び出し用のディスパッチャー |
 | `dispatcher.parallelism` | `Int` | `0` (= 無制限) | `IO` ディスパッチャーの最大並行数 |
 
-### マルチモデルコンテキスト
+### マルチモデルコンテキスト {id="multi-model-contexts"}
 
 複数の `ChatModel` または `ModerationModel` Beanが登録されている場合は、使用するものを指定します：
 
@@ -189,7 +189,7 @@ koog.spring.ai.chat.moderation-model-bean-name=openAiModerationModel
 
 セレクターがない場合、自動構成は候補が1つだけ存在する場合にのみ有効になります。
 
-### 拡張ポイント
+### 拡張ポイント {id="extension-points"}
 
 - **`ChatOptionsCustomizer`**: `ChatOptions` をカスタマイズするために、このインターフェースを実装したSpring Beanを登録します。
 
@@ -214,7 +214,7 @@ koog.spring.ai.chat.moderation-model-bean-name=openAiModerationModel
 - **カスタム `LLMClient`**: 独自の `LLMClient` Beanを登録します。`springAiChatModelLLMClient` という名前のBeanを置き換えない限り、自動構成されたアダプターと一緒に構成されます。
 - **カスタム `PromptExecutor`**: 独自の `PromptExecutor` Beanを登録して、自動構成された `MultiLLMPromptExecutor` を上書きします。
 
-## エンベディングモデルスターター (Embedding Model Starter)
+## エンベディングモデルスターター (Embedding Model Starter) {id="embedding-model-starter"}
 
 ### 概要
 
@@ -331,7 +331,7 @@ koog.spring.ai.embedding.dispatcher.type=AUTO
 
 または、独自の `LLMEmbeddingProvider` Beanを提供して、自動構成されたアダプターを完全に上書きすることもできます。
 
-### 設定プロパティ (`koog.spring.ai.embedding`)
+### 設定プロパティ (`koog.spring.ai.embedding`) {id="configuration-properties-koog-spring-ai-embedding"}
 
 | プロパティ | 型 | デフォルト値 | 説明 |
 |---|---|---|---|
@@ -354,7 +354,7 @@ koog.spring.ai.embedding.embedding-model-bean-name=openAiEmbeddingModel
 
 - **カスタム `LLMEmbeddingProvider`**: 独自のBeanを登録して、自動構成されたアダプターを完全に上書きします。
 
-## チャットメモリスターター (Chat Memory Starter)
+## チャットメモリスターター (Chat Memory Starter) {id="chat-memory-starter"}
 
 ### 概要
 
@@ -365,7 +365,7 @@ koog.spring.ai.embedding.embedding-model-bean-name=openAiEmbeddingModel
 
 このスターターは、Koogの完全な実行状態の永続化ではなく、テキストのみの会話の永続化を提供します。
 
-### テキストのみの制約
+### テキストのみの制約 {id="text-only-contract"}
 
 プレーンテキストの `System`、`User`、および `Assistant` メッセージのみが永続化されます。
 保存時に以下のメッセージは黙って破棄されます：
@@ -466,7 +466,7 @@ koog.spring.ai.chat-memory.dispatcher.type=AUTO
     }
     ```
 
-### 設定プロパティ (`koog.spring.ai.chat-memory`)
+### 設定プロパティ (`koog.spring.ai.chat-memory`) {id="configuration-properties-koog-spring-ai-chat-memory"}
 
 | プロパティ | 型 | デフォルト値 | 説明 |
 |---|---|---|---|
@@ -475,7 +475,7 @@ koog.spring.ai.chat-memory.dispatcher.type=AUTO
 | `dispatcher.type` | `AUTO` / `IO` | `AUTO` | ブロッキングリポジトリ呼び出し用のディスパッチャー |
 | `dispatcher.parallelism` | `Int` | `0` (= 無制限) | `IO` ディスパッチャーの最大並行数 |
 
-### マルチリポジトリコンテキスト
+### マルチリポジトリコンテキスト {id="multi-repository-contexts"}
 
 複数の `ChatMemoryRepository` Beanが登録されている場合は、使用するものを指定します：
 
@@ -485,14 +485,14 @@ koog.spring.ai.chat-memory.chat-memory-repository-bean-name=jdbcChatMemoryReposi
 
 セレクターがない場合、自動構成は候補が1つだけ存在する場合にのみ有効になります。
 
-### 現在の制限事項
+### 現在の制限事項 {id="current-limitations"}
 
 - テキストの会話履歴のみが永続化されます
 - ツール呼び出し、ツール結果、推論メッセージ、および添付ファイルは永続化されません
 - 読み込み時、Spring AIの `TOOL` メッセージはスキップされます
 - ラウンドトリップを通じてメッセージのメタデータは保持されません
 
-## ベクトルストアスターター (Vector Store Starter)
+## ベクトルストアスターター (Vector Store Starter) {id="vector-store-starter"}
 
 ### 概要
 
@@ -597,7 +597,7 @@ koog.spring.ai.vectorstore.dispatcher.type=AUTO
     }
     ```
 
-### 設定プロパティ (`koog.spring.ai.vectorstore`)
+### 設定プロパティ (`koog.spring.ai.vectorstore`) {id="configuration-properties-koog-spring-ai-vectorstore"}
 
 | プロパティ | 型 | デフォルト値 | 説明 |
 |---|---|---|---|
@@ -606,7 +606,7 @@ koog.spring.ai.vectorstore.dispatcher.type=AUTO
 | `dispatcher.type` | `AUTO` / `IO` | `AUTO` | ブロッキングベクトルストア呼び出し用のディスパッチャー |
 | `dispatcher.parallelism` | `Int` | `0` (= 無制限) | `IO` ディスパッチャーの最大並行数 |
 
-### マルチストアコンテキスト
+### マルチストアコンテキスト {id="multi-store-contexts"}
 
 複数の `VectorStore` Beanが登録されている場合は、使用するものを指定します：
 
@@ -626,7 +626,7 @@ koog.spring.ai.vectorstore.vector-store-bean-name=pgVectorStore
 - ネームスペースによるスコーピングは実装されていません
 - メタデータの値は `String`、`Number`、または `Boolean` などのプリミティブ値である必要があります
 
-## 次のステップ
+## 次のステップ {id="next-steps"}
 
 - 最小限のAIワークフローを構築するための[基本エージェント](agents/basic-agents.md)について学ぶ
 - 高度なユースケース向けの[グラフベースのエージェント](agents/graph-based-agents.md)を探索する

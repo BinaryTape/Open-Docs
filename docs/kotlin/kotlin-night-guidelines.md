@@ -6,7 +6,7 @@ Kotlin Night 是一种包含 3-4 场关于 Kotlin 或相关技术演讲的聚会
 > 
 {style="note"}
 
-## 活动指南
+## 活动指南 {id="event-guidelines"}
 
 * 请使用我们提供的[品牌材料](kotlin-brand-assets.md#kotlin-night-brand-assets)。让所有活动和材料保持相同的风格将有助于保持 Kotlin Night 体验的一致性。
 * Kotlin Night 应该是一项免费活动。可以收取极少量的费用以支付开销，但它应始终保持为非营利性质。
@@ -16,7 +16,7 @@ Kotlin Night 是一种包含 3-4 场关于 Kotlin 或相关技术演讲的聚会
 * 演讲应主要围绕 Kotlin，不应侧重于营销或销售。
 * 活动可以视情况提供食物和饮料。
 
-## 活动要求
+## 活动要求 {id="event-requirements"}
 
 JetBrains 非常乐意支持您的 Kotlin Night 活动。因为我们希望所有活动都能提供同样高质量的体验，我们要求组织者确保满足一些基本要求，以便活动获得 JetBrains 的支持。作为组织者，您负责活动的以下方面：
 
@@ -33,7 +33,7 @@ JetBrains 非常乐意支持您的 Kotlin Night 活动。因为我们希望所�
 4. 活动结束后向 JetBrains 提供活动材料
     * 我们很乐意在 [kotlinlang.org](https://kotlinlang.org/community/talks.html) 上宣布您的活动，如果您能为后续发布提供幻灯片和视频材料，我们将不胜感激。
 
-## JetBrains 支持
+## JetBrains 支持 {id="jetbrains-support"}
 
 JetBrains 提供以下支持：
 

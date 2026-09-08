@@ -6,7 +6,7 @@
 
 与 Kotlin 实际使用的模型相比，这里展示的模型经过了简化。不过，这个基础模型对于大多数情况来说已经足够。
 
-## 通用代码
+## 通用代码 {id="common-code"}
 
 “通用代码” (Common code) 是在不同平台之间共享的 Kotlin 代码。
 
@@ -36,7 +36,7 @@ Kotlin 编译器将源代码作为输入，并产生一组平台特定的二进�
 
 要探索可用的 Kotlin Multiplatform 库，请访问 [klibs.io](https://klibs.io)。
 
-## 目标
+## 目标 {id="targets"}
 
 目标 (Targets) 定义了 Kotlin 将通用代码编译到的平台。例如，这些平台可以是 JVM、JS、Android、iOS 或 Linux。前面的示例将通用代码编译到了 JVM 和原生目标。
 
@@ -76,7 +76,7 @@ kotlin {
 这就是 Kotlin 编译器处理编译到所有声明目标的通用代码的方式。
 请参阅[源集](#源集)以了解如何编写平台特定代码。
 
-## 源集
+## 源集 {id="source-sets"}
 
 “Kotlin 源集” (Kotlin source set) 是一组具有自己目标、依赖项和编译器选项的源文件。它是多平台项目中共享代码的主要方式。
 
@@ -112,7 +112,7 @@ kotlin {
 
 除了 `commonMain` 之外，其他源集可以是平台特定的，也可以是中间的。
 
-### 平台特定源集
+### 平台特定源集 {id="platform-specific-source-sets"}
 
 虽然仅拥有通用代码很方便，但并非总是可行。`commonMain` 中的代码会编译到所有声明的目标，而 Kotlin 不允许您在那里使用任何平台特定的 API。
 
@@ -136,7 +136,7 @@ fun jvmGreeting() {
 }
 ```
 
-### 编译到特定目标
+### 编译到特定目标 {id="compilation-to-a-specific-target"}
 
 编译到特定目标涉及多个源集。当 Kotlin 将多平台项目编译到特定目标时，它会收集所有标记有该目标的源集，并根据它们生成二进制文件。
 
@@ -160,7 +160,7 @@ fun jvmGreeting() {
 * 在平台特定源集中编写的代码可以访问通用源集中的声明。例如，`jvmMain` 中的代码可以使用 `commonMain` 中的代码。但是，反之则不然：`commonMain` 不能使用 `jvmMain` 中的代码。
 * 在平台特定源集中编写的代码可以使用相应的平台依赖项。例如，`jvmMain` 中的代码可以使用仅限 Java 的库，如 [Guava](https://github.com/google/guava) 或 [Spring](https://spring.io/)。
 
-### 中间源集
+### 中间源集 {id="intermediate-source-sets"}
 
 简单的多平台项目通常只有通用代码和平台特定代码。
 `commonMain` 源集代表在所有声明的目标之间共享的通用代码。平台特定源集（如 `jvmMain`）代表仅编译到相应目标的平台特定代码。
@@ -216,7 +216,7 @@ Kotlin 默认会创建 some 中间源集。在这种特定情况下，生成的�
 >
 {style="tip"}
 
-#### Apple 设备和模拟器目标 {initial-collapse-state="collapsed" collapsible="true"}
+#### Apple 设备和模拟器目标 {initial-collapse-state="collapsed" collapsible="true" id="apple-device-and-simulator-targets"}
 
 当您使用 Kotlin Multiplatform 开发 iOS 移动应用时，通常会使用 `iosMain` 源集。虽然您可能认为它是 `ios` 目标的平台特定源集，但实际上并没有单一的 `ios` 目标。大多数移动项目至少需要两个目标：
 
@@ -229,7 +229,7 @@ Kotlin 默认会创建 some 中间源集。在这种特定情况下，生成的�
 
 这同样适用于其他非 Mac 的 Apple 目标。例如，如果您有针对 Apple TV 的 `tvosArm64` 设备目标，以及针对 Apple 芯片设备上的 Apple TV 模拟器的 `tvosSimulatorArm64` 模拟器目标，您可以为所有这些目标使用 `tvosMain` 中间源集。
 
-## 集成测试
+## 集成测试 {id="integration-with-tests"}
 
 现实生活中的项目除了主要的生产代码外，还需要测试。这就是为什么默认创建的所有源集都有 `Main` 和 `Test` 后缀的原因。`Main` 包含生产代码，而 `Test` 包含针对该代码的测试。它们之间的连接是自动建立的，测试无需额外配置即可使用 `Main` 代码提供的 API。
 
@@ -241,7 +241,7 @@ Kotlin 默认会创建 some 中间源集。在这种特定情况下，生成的�
 
 在[测试您的多平台应用教程](multiplatform-run-tests.md)中了解如何创建和运行多平台测试。
 
-## 下一步是什么？
+## 下一步是什么？ {id="what-s-next"}
 
 * [详细了解如何在 Gradle 脚本中声明和使用预定义源集](multiplatform-hierarchy.md)
 * [探索多平台项目结构的高级概念](multiplatform-advanced-project-structure.md)

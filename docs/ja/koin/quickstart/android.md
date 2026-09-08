@@ -9,13 +9,13 @@ title: Android
 更新 - 2024-10-21
 :::
 
-## コードの取得
+## コードの取得 {id="get-the-code"}
 
 :::info
 [ソースコードはGitHubで公開されています](https://github.com/InsertKoinIO/koin-getting-started/tree/main/android)
 :::
 
-## Gradleの設定
+## Gradleの設定 {id="gradle-setup"}
 
 以下のように、Koin Androidの依存関係を追加します。
 
@@ -27,13 +27,13 @@ dependencies {
 }
 ```
 
-## アプリケーションの概要
+## アプリケーションの概要 {id="application-overview"}
 
 このアプリケーションの構想は、ユーザーのリストを管理し、それを Presenter または ViewModel を使用して `MainActivity` クラスに表示することです。
 
 > Users -> UserRepository -> UserService -> (Presenter または ViewModel) -> MainActivity
 
-## 「User」データ
+## 「User」データ {id="the-user-data"}
 
 ユーザーのコレクションを管理します。データクラスは以下の通りです。
 
@@ -63,7 +63,7 @@ class UserRepositoryImpl : UserRepository {
 }
 ```
 
-## UserService コンポーネント
+## UserService コンポーネント {id="the-userservice-component"}
 
 ユーザー操作を管理するためのサービスコンポーネントを記述しましょう。
 
@@ -94,7 +94,7 @@ class UserServiceImpl(
 }
 ```
 
-## Koinモジュール
+## Koinモジュール {id="the-koin-module"}
 
 Koinモジュールを宣言するには `module` 関数を使用します。Koinモジュールは、注入されるすべてのコンポーネントを定義する場所です。
 
@@ -117,7 +117,7 @@ val appModule = module {
 このチュートリアルでは、コンパイル時に自動配線（auto-wiring）を提供する **Koin Compiler Plugin DSL**（`single<T>()`、`factory<T>()`）を使用しています。設定については [Compiler Plugin Setup](/docs/setup/compiler-plugin) を参照してください。
 :::
 
-## Presenterを使用したユーザーの表示
+## Presenterを使用したユーザーの表示 {id="displaying-user-with-presenter"}
 
 ユーザーを表示するためのプレゼンターコンポーネントを記述しましょう。
 
@@ -144,7 +144,7 @@ val appModule = module {
 }
 ```
 
-## Androidでの依存関係の注入
+## Androidでの依存関係の注入 {id="injecting-dependencies-in-android"}
 
 `UserPresenter` コンポーネントが作成される際、併せて `UserService` インスタンスも解決されます。これをActivityで取得するために、`by inject()` デリゲート関数を使用して注入しましょう。
 
@@ -167,7 +167,7 @@ class MainActivity : AppCompatActivity() {
 `by inject()` 関数を使用すると、Androidコンポーネントのランタイム（Activity、Fragment、Serviceなど）でKoinインスタンスを取得できます。
 :::
 
-## Koinの開始
+## Koinの開始 {id="start-koin"}
 
 AndroidアプリケーションでKoinを開始する必要があります。アプリケーションのメインエントリーポイントである `MainApplication` クラスで `startKoin()` 関数を呼び出すだけです。
 
@@ -189,7 +189,7 @@ class MainApplication : Application(){
 `startKoin` 内の `modules()` 関数は、指定されたモジュールのリストをロードします。
 :::
 
-## Koinモジュール：DSLの比較
+## Koinモジュール：DSLの比較 {id="koin-module-dsl-comparison"}
 
 **Classic DSL**（手動配線）を使用したKoinモジュールの宣言は以下の通りです。
 

@@ -38,7 +38,7 @@ Kotlin Notebook의 자동 완성 기능을 사용하면 사용 가능한 라이�
 >
 {style="note"}
 
-## Kotlin Notebook에 Kotlin DataFrame 및 Kandy 라이브러리 추가하기
+## Kotlin Notebook에 Kotlin DataFrame 및 Kandy 라이브러리 추가하기 {id="add-kotlin-dataframe-and-kandy-libraries-to-your-kotlin-notebook"}
 
 Kotlin Notebook에 두 개의 인기 있는 Kotlin 라이브러리 종속성을 추가해 보겠습니다:
 * [Kotlin DataFrame 라이브러리](https://kotlin.github.io/dataframe/home.html)는 Kotlin 프로젝트에서 데이터를 조작할 수 있는 기능을 제공합니다. 이를 사용하여 [API](data-analysis-work-with-api.md), [SQL 데이터베이스](data-analysis-connect-to-db.md), CSV나 JSON과 같은 [다양한 파일 형식](data-analysis-work-with-data-sources.md)에서 데이터를 가져올 수 있습니다.
@@ -121,7 +121,7 @@ Kotlin Notebook에서 이러한 라이브러리들을 성공적으로 추가하�
   </li>
 </list>
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [Kotlin Notebook 공유 방법](kotlin-notebook-share.md) 알아보기
 * [Kotlin Notebook에 종속성 추가](https://www.jetbrains.com/help/idea/kotlin-notebook.html#add-dependencies)에 대한 자세한 내용 보기

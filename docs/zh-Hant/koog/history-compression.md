@@ -13,21 +13,21 @@ AI agent 會維護一個訊息歷程記錄，其中包含使用者訊息、助�
 - **增強準確性**。專注於相關資訊有助於 LLM 保持集中並完成任務，而不會受到干擾。
 - **降低成本**。減少無關訊息可降低 token 使用量，進而降低 API 呼叫的整體成本。
 
-## 何時壓縮歷程記錄
+## 何時壓縮歷程記錄 {id="when-to-compress-history"}
 
 歷程記錄壓縮會在 agent 工作流的特定步驟執行：
 
 - 在 agent 策略的邏輯步驟（子圖 subgraph）之間。
 - 當上下文變得過長時。
 
-## 歷程記錄壓縮實作
+## 歷程記錄壓縮實作 {id="history-compression-implementation"}
 
 在您的 agent 中實作歷程記錄壓縮有兩種主要方法：
 
 - 在策略圖 (strategy graph) 中
 - 在自訂節點 (custom node) 中
 
-### 策略圖中的歷程記錄壓縮
+### 策略圖中的歷程記錄壓縮 {id="history-compression-in-a-strategy-graph"}
 
 要在策略圖中壓縮歷程記錄，您需要使用預定義的節點，該節點會將目前的訊息歷程記錄壓縮成簡潔的摘要：
 
@@ -255,7 +255,7 @@ AI agent 會維護一個訊息歷程記錄，其中包含使用者訊息、助�
 
 在此範例中，歷程記錄會在完成資訊收集階段後，但在進行決策階段之前進行壓縮。
 
-### 自訂節點中的歷程記錄壓縮
+### 自訂節點中的歷程記錄壓縮 {id="history-compression-in-a-custom-node"}
 
 如果您正在實作自訂節點，您可以使用 `replaceHistoryWithTLDR()` 函式（Kotlin）壓縮歷程記錄，如下所示：
 
@@ -283,7 +283,7 @@ AI agent 會維護一個訊息歷程記錄，其中包含使用者訊息、助�
 
 若要了解更多關於自訂節點的資訊，請參閱 [自訂節點](custom-nodes.md)。
 
-## 歷程記錄壓縮策略
+## 歷程記錄壓縮策略 {id="history-compression-strategies"}
 
 您可以透過選用的 `strategy` 參數來自訂壓縮過程：
 
@@ -292,7 +292,7 @@ AI agent 會維護一個訊息歷程記錄，其中包含使用者訊息、助�
 
 該架構提供了幾種內建策略。
 
-### WholeHistory (預設)
+### WholeHistory (預設) {id="wholehistory-default"}
 
 這是預設策略，它將整個歷程記錄壓縮成一條 TLDR 訊息，摘要目前為止已完成的工作。
 此策略適用於大多數一般使用案例，即您希望在減少 token 使用量的同時，維持對整個對話上下文的覺察。
@@ -409,7 +409,7 @@ AI agent 會維護一個訊息歷程記錄，其中包含使用者訊息、助�
     ```
     <!--- KNIT exampleHistoryCompressionJava04.java -->
 
-### FromLastNMessages
+### FromLastNMessages {id="fromlastnmessages"}
 
 此策略僅將最後 `n` 條訊息壓縮成一條 TLDR 訊息，並完全捨棄較早的訊息。
 當只有 agent 的最新成就（或最新發現的事實、最新的上下文）與解決問題相關時，這非常有用。
@@ -527,7 +527,7 @@ AI agent 會維護一個訊息歷程記錄，其中包含使用者訊息、助�
     ```
     <!--- KNIT exampleHistoryCompressionJava06.java -->
 
-### Chunked
+### Chunked {id="chunked"}
 
 此策略將整個訊息歷程記錄分成固定大小的區塊，並將每個區塊獨立壓縮成一條 TLDR 訊息。
 當您不僅需要目前為止所做工作的簡潔 TLDR，還需要追蹤整體進度，且某些較舊的資訊也可能很重要時，這非常有用。
@@ -645,7 +645,7 @@ AI agent 會維護一個訊息歷程記錄，其中包含使用者訊息、助�
     ```
     <!--- KNIT exampleHistoryCompressionJava08.java -->
 
-### FactRetrievalHistoryCompressionStrategy
+### FactRetrievalHistoryCompressionStrategy {id="factretrievalhistorycompressionstrategy"}
 
 此策略在歷程記錄中搜尋與提供的概念 (concepts) 列表相關的特定事實並將其擷取。
 它將整個歷程記錄更改為僅包含這些事實，並將其作為未來 LLM 請求的上下文。
@@ -857,7 +857,7 @@ AI agent 會維護一個訊息歷程記錄，其中包含使用者訊息、助�
     ```
     <!--- KNIT exampleHistoryCompressionJava10.java -->
 
-## 自訂歷程記錄壓縮策略實作
+## 自訂歷程記錄壓縮策略實作 {id="custom-history-compression-strategy-implementation"}
 
 !!! warning
     自訂歷程記錄壓縮策略僅適用於 Kotlin。
@@ -961,7 +961,7 @@ AI agent 會維護一個訊息歷程記錄，其中包含使用者訊息、助�
     ```
     <!--- KNIT example-history-compression-14.kt -->
 
-## 壓縮期間的記憶保留
+## 壓縮期間的記憶保留 {id="memory-preservation-during-compression"}
 
 所有歷程記錄壓縮方法都支援記憶保留，這決定了在壓縮期間是否應保留與記憶相關的訊息。在 Kotlin 中，使用 `preserveMemory` 參數。在 Java 中，使用 `.preserveMemory()` builder 方法。
 這些訊息包含從記憶體中檢索到的事實，或表示記憶功能尚未啟用的訊息。

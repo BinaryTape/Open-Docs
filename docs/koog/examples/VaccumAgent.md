@@ -64,7 +64,7 @@ class VacuumEnv {
 - 智能体可以感知其当前位置以及该位置是否脏
 - 智能体可以执行操作：移动到特定位置或清理当前位置
 
-## 为吸尘器智能体创建工具
+## 为吸尘器智能体创建工具 {id="creating-tools-for-vacuum-agent"}
 现在，让我们定义 AI 智能体将用于与环境交互的工具：
 
 ```kotlin
@@ -107,7 +107,7 @@ class VacuumTools(private val env: VacuumEnv) : ToolSet {
 - 工具允许智能体感知其环境并执行操作
 - 每个方法都返回一个描述操作结果的字符串
 
-## 设置智能体
+## 设置智能体 {id="setting-up-the-agent"}
 接下来，我们将配置并创建 AI 智能体：
 
 ```kotlin
@@ -165,7 +165,7 @@ val agent = AIAgent(
 4. 我们定义一个系统提示词，赋予智能体目标和行为规则
 5. 我们使用带有聊天策略的 `AIAgent` 构造函数创建智能体
 
-## 运行智能体
+## 运行智能体 {id="running-the-agent"}
 
 最后，让我们运行智能体：
 

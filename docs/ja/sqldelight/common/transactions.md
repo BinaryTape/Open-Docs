@@ -1,4 +1,4 @@
-## API
+## API {id="api"}
 
 1つのトランザクション内で複数のステートメントを実行する場合は、`transaction` 関数を使用します。
 
@@ -22,7 +22,7 @@ val players: List<Player> = database.playerQueries.transactionWithResult {
 }
 ```
 
-## ロールバック
+## ロールバック {id="rollback"}
 
 トランザクション内で例外が発生すると、そのトランザクションはロールバックされます。トランザクション内の任意の場所で手動でロールバックすることも可能ですが、トランザクションが値を返す場合は、そのトランザクションが戻り値として返す値を指定する必要があります。
 
@@ -51,7 +51,7 @@ val numberInserted: Int = database.playerQueries.transactionWithResult {
 }
 ```
 
-## コールバック
+## コールバック {id="callbacks"}
 
 トランザクションが完了またはロールバックした後に実行されるコールバックを登録できます。
 

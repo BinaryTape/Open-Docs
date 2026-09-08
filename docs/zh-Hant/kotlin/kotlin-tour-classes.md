@@ -11,7 +11,7 @@ Kotlin 透過類別與物件支援物件導向程式設計。物件在程式中�
 class Customer
 ```
 
-## 屬性
+## 屬性 {id="properties"}
 
 類別物件的特性可以在屬性中宣告。您可以為類別宣告屬性：
 
@@ -43,7 +43,7 @@ class Contact(val id: Int, var email: String = "example@gmail.com") {
 }
 ```
 
-## 建立執行個體
+## 建立執行個體 {id="create-instance"}
 
 要從類別建立物件，您可以使用**建構函式**宣告類別**執行個體**。
 
@@ -68,7 +68,7 @@ fun main() {
 
 Kotlin 類別可以有多個建構函式，包括您自己定義的建構函式。若要進一步了解如何宣告多個建構函式，請參閱[建構函式](classes.md#constructors-and-initializer-blocks)。
 
-## 存取屬性
+## 存取屬性 {id="access-properties"}
 
 要存取執行個體的屬性，請在執行個體名稱後加上句點 `.`，然後寫上屬性名稱：
 
@@ -100,7 +100,7 @@ fun main() {
 >
 {style="tip"}
 
-## 成員函數
+## 成員函數 {id="member-functions"}
 
 除了將屬性宣告為物件特性的一部分外，您還可以使用成員函數定義物件的行為。
 
@@ -122,7 +122,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-member-function"}
 
-## 資料類別
+## 資料類別 {id="data-classes"}
 
 Kotlin 擁有**資料類別 (data class)**，這在儲存資料時特別有用。資料類別具有與類別相同的功能，但它們會自動配備額外的成員函數。這些成員函數可讓您輕鬆地將執行個體印出為可讀輸出、比較類別的執行個體、複製執行個體等。由於這些函數是自動可用的，您不必花時間為每個類別編寫相同的樣板程式碼。
 
@@ -148,7 +148,7 @@ Kotlin 編譯器在產生成員函數時，僅使用在[主建構函數](classes
 * [比較執行個體](#compare-instances)
 * [複製執行個體](#copy-instance)
 
-### 印出為字串
+### 印出為字串 {id="print-as-string"}
 
 要印出類別執行個體的可讀字串，您可以明確呼叫 `toString()` 函數，或使用印出函數 (`println()` 和 `print()`)，它們會自動為您呼叫 `toString()`：
 
@@ -169,7 +169,7 @@ fun main() {
 
 這在偵錯或建立記錄 (log) 時特別有用。
 
-### 比較執行個體
+### 比較執行個體 {id="compare-instances"}
 
 要比較資料類別執行個體，請使用相等運算子 `==`：
 
@@ -194,7 +194,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-data-classes-compare-instances"}
 
-### 複製執行個體
+### 複製執行個體 {id="copy-instance"}
 
 要建立資料類別執行個體的精確複本，請在執行個體上呼叫 `copy()` 函數。
 
@@ -231,9 +231,9 @@ fun main() {
 
 本導覽的最後一章是關於 Kotlin 的 [Null 安全](kotlin-tour-null-safety.md)。
 
-## 練習 {completion-point="true"}
+## 練習 {completion-point="true" id="practice"}
 
-### 習題 1 {initial-collapse-state="collapsed" collapsible="true"}
+### 習題 1 {initial-collapse-state="collapsed" collapsible="true" id="exercise-1"}
 
 定義一個資料類別 `Employee`，包含兩個屬性：一個用於名稱，另一個用於薪水。確保薪水屬性是可變的，否則您在年底就拿不到加薪了！`main` 函式示範了您如何使用此資料類別。
 
@@ -263,7 +263,7 @@ fun main() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="範例解答" id="kotlin-tour-classes-solution-1"}
 
-### 習題 2 {initial-collapse-state="collapsed" collapsible="true"}
+### 習題 2 {initial-collapse-state="collapsed" collapsible="true" id="exercise-2"}
 
 宣告使這段程式碼能成功編譯所需的額外資料類別。
 
@@ -300,7 +300,7 @@ fun main() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="範例解答" id="kotlin-tour-classes-solution-2"}
 
-### 習題 3 {initial-collapse-state="collapsed" collapsible="true"}
+### 習題 3 {initial-collapse-state="collapsed" collapsible="true" id="exercise-3"}
 
 為了測試您的程式碼，您需要一個可以建立隨機員工的產生器。定義一個 `RandomEmployeeGenerator` 類別，其內包含一個固定的潛在名稱清單（在類別主體內）。為該類別配置最低與最高薪水（在類別標頭內）。在類別主體內，定義 `generateEmployee()` 函式。同樣地，`main` 函式示範了您如何使用此類別。
 

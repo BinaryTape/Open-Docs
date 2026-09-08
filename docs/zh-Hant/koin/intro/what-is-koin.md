@@ -4,11 +4,11 @@ title: 什麼是 Koin？
 
 # 什麼是 Koin？
 
-### 務實的 Kotlin 相依注入架構 – 既簡單又強大
+### 務實的 Kotlin 相依注入架構 – 既簡單又強大 {id="the-pragmatic-kotlin-dependency-injection-framework-simple-and-powerful"}
 
 Koin 是一款專為 Kotlin 設計的輕量級相依注入架構。與依賴程式碼產生或反射的傳統 DI 架構不同，Koin 提供兩種同樣強大的方法：純淨的 **Kotlin DSL** 以及直覺的 **註解**。您可以根據團隊需求進行選擇——兩者都是一等公民。
 
-## Koin 的核心價值
+## Koin 的核心價值 {id="koin-s-core-values"}
 
 | 價值 | 意義 |
 |-------|---------------|
@@ -18,7 +18,7 @@ Koin 是一款專為 Kotlin 設計的輕量級相依注入架構。與依賴程�
 | **安全** | 透過 Koin Compiler Plugin 確保編譯期安全性 |
 | **動態** | 執行時彈性：動態載入模組、延遲載入、功能切換 (feature flags) |
 
-## 為什麼開發者喜愛 Koin
+## 為什麼開發者喜愛 Koin {id="why-developers-love-koin"}
 
 - **幾分鐘內上手** – 沒有概念複雜的概念，只有直覺的 DSL 與簡單的註解
 - **撰寫更少程式碼** – 無論是 DSL 或註解，Compiler Plugin 都會自動裝配相依項
@@ -29,11 +29,11 @@ Koin 是一款專為 Kotlin 設計的輕量級相依注入架構。與依賴程�
 - **保持彈性** – 基於執行時但效能優異。支援動態模組、延遲載入與功能切換
 - **IDE 支援** – 適用於 Android Studio 和 IntelliJ IDEA 的官方外掛程式 — 支援跳轉到定義、即時安全檢查與圖形化視覺化
 
-## 兩種風格，一個架構 – 兩者同樣強大
+## 兩種風格，一個架構 – 兩者同樣強大 {id="two-styles-one-framework-both-equally-powerful"}
 
 Koin 支援兩種定義相依項的風格。兩者都是一等公民，功能完全對等。請選擇最適合您團隊的一種：
 
-### DSL 風格
+### DSL 風格 {id="dsl-style"}
 
 使用 Kotlin DSL 語法定義相依項：
 
@@ -46,7 +46,7 @@ val appModule = module {
 }
 ```
 
-### 註解風格
+### 註解風格 {id="annotation-style"}
 
 使用註解定義相依項：
 
@@ -69,7 +69,7 @@ class UserViewModel(private val repository: UserRepository) : ViewModel()
 
 這兩種風格都由 **Koin Compiler Plugin** 處理，以確保編譯期安全性。
 
-## Koin 的註解更簡單
+## Koin 的註解更簡單 {id="koin-s-annotations-are-simpler"}
 
 如果您使用過 Hilt 或 Dagger，您會發現 Koin 註解所需的繁瑣手續較少：
 
@@ -105,7 +105,7 @@ abstract class AppModule {
 }
 ```
 
-## 由 Koin Compiler Plugin 提供支援
+## 由 Koin Compiler Plugin 提供支援 {id="powered-by-koin-compiler-plugin"}
 
 **Koin Compiler Plugin** 是所有新專案使用 Koin 的推薦方式：
 
@@ -115,7 +115,7 @@ abstract class AppModule {
 - **同時支援 DSL 與註解** – 任君選擇
 - **設定簡單** – 一個 Gradle 外掛程式
 
-### 使用 Compiler Plugin 獲得更簡潔的語法
+### 使用 Compiler Plugin 獲得更簡潔的語法 {id="cleaner-syntax-with-compiler-plugin"}
 
 | 經典 DSL | Compiler Plugin DSL |
 |-------------|---------------------|
@@ -126,7 +126,7 @@ abstract class AppModule {
 
 在 [Koin Compiler Plugin](/docs/intro/koin-compiler-plugin) 中了解更多資訊。
 
-## 經典 DSL（完全支援）
+## 經典 DSL（完全支援） {id="classic-dsl-fully-supported"}
 
 經典 DSL 在所有 Kotlin 版本中仍受到完全支援：
 
@@ -154,7 +154,7 @@ val appModule = module {
 經典 DSL 並未棄用。Koin 與其完美搭配。當您準備好遷移時，Compiler Plugin 會在此基礎上加入編譯期分析。
 :::
 
-## Koin Annotations 現在是 Koin 專案的一部分
+## Koin Annotations 現在是 Koin 專案的一部分 {id="koin-annotations-is-now-part-of-the-koin-project"}
 
 `koin-annotations` 程式庫 — 包括 `@Singleton`、`@Factory`、`@KoinViewModel`、`@Module`、`@ComponentScan` 等 — 隨主要 Koin 版本發行並受到完全支援。它**並未**被棄用。
 
@@ -168,7 +168,7 @@ dependencies {
 
 您的註解將由 **Koin Compiler Plugin** 處理 — 請參閱 [Koin Compiler Plugin](/docs/intro/koin-compiler-plugin) 和 [Annotations 參考](/docs/reference/koin-annotations/start)。
 
-## Koin KSP Compiler 已棄用，建議改用 Koin Compiler Plugin
+## Koin KSP Compiler 已棄用，建議改用 Koin Compiler Plugin {id="koin-ksp-compiler-is-deprecated-in-favor-of-koin-compiler-plugin"}
 
 :::info
 舊有的 KSP 處理器 `koin-ksp-compiler` 已**棄用**，並將在未來的 Koin 版本中移除。替代方案是 **Koin Compiler Plugin** — 原生 K2 編譯器整合、無產生檔案、更簡單的 KMP 設定。
@@ -182,7 +182,7 @@ dependencies {
 
 請參閱[從 KSP 遷移至 Compiler Plugin](/docs/migration/from-ksp-to-compiler-plugin)。
 
-## 執行時 + 編譯安全 = 兩全其美
+## 執行時 + 編譯安全 = 兩全其美 {id="runtime-compile-safe-best-of-both-worlds"}
 
 Koin 是**基於執行時，但具備高效能且編譯安全**。這種獨特的結合實現了：
 
@@ -208,7 +208,7 @@ if (featureEnabled) {
 unloadKoinModules(premiumFeatureModule)
 ```
 
-## Koin 適合誰？
+## Koin 適合誰？ {id="who-is-koin-for"}
 
 Koin 是以下對象的理想選擇：
 
@@ -218,7 +218,7 @@ Koin 是以下對象的理想選擇：
 - **需要擴大規模的企業專案**
 - **任何認為 DI 不應該複雜的人**
 
-## 後續步驟
+## 後續步驟 {id="next-steps"}
 
 - **[什麼是相依注入？](/docs/intro/what-is-dependency-injection)** – 學習 DI 基礎知識
 - **[Koin Compiler Plugin](/docs/intro/koin-compiler-plugin)** – 推薦的做法

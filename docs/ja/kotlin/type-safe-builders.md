@@ -208,7 +208,7 @@ fun html(init: HTML.() -> Unit): HTML {
 ```
 {collapsible="true" collapsed-title="実行結果の例"}
 
-## 仕組み
+## 仕組み {id="how-it-works"}
 
 Kotlinで型安全なビルダーを実装する必要があると仮定しましょう。
 まず最初に、構築したいモデルを定義します。この例では、HTMLタグをモデル化する必要があります。
@@ -328,7 +328,7 @@ operator fun String.unaryPlus() {
 これらすべては、上記のビルダーの例の冒頭でインポートされている `com.example.html` パッケージで定義されています。
 最後のセクションで、このパッケージの完全な定義を確認できます。
 
-## スコープ制御： @DslMarker
+## スコープ制御： @DslMarker {id="scope-control-dslmarker"}
 
 DSLを使用していると、そのコンテキスト内で呼び出せる関数が多すぎるという問題に遭遇することがあります。
 ラムダの内部では、利用可能なすべての[暗黙のレシーバ](lambdas.md#function-literals-with-receiver)のメソッドを呼び出すことができてしまうため、例えば `head` タグの中に別の `head` タグを入れてしまうといった、一貫性のない結果を招く可能性があります。
@@ -472,7 +472,7 @@ fun test(head: HtmlTag, extraInfo: HtmlTag) {
 }
 ```
 
-### com.example.html パッケージの完全な定義
+### com.example.html パッケージの完全な定義 {id="full-definition-of-the-com-example-html-package"}
 
 以下は、`com.example.html` パッケージの定義です（上記の例で使用されている要素のみ）。
 これは HTML ツリーを構築します。 [拡張関数](extensions.md) と [レシーバ付きラムダ](lambdas.md#function-literals-with-receiver) を多用しています。

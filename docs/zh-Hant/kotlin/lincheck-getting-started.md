@@ -13,11 +13,11 @@ description: 本快速入門指南將引導您完成 Lincheck 的設定、撰寫
 * 撰寫您的第一個並行測試並使用 Lincheck 執行。
 * 建立一個並行資料結構，並使用兩種測試策略透過 Lincheck 進行測試。
 
-## 建立專案
+## 建立專案 {id="create-a-project"}
 
 在 IntelliJ IDEA 中開啟現有的 Kotlin 專案或[建立新專案](https://kotlinlang.org/docs/jvm-get-started.html)。
 
-## 新增相依性
+## 新增相依性 {id="add-dependencies"}
 
 若要在專案中使用 Lincheck，請將相應的相依性新增至您的組建組態中：
 
@@ -77,7 +77,7 @@ dependencies {
 </tab>
 </tabs>
 
-## 撰寫您的第一個測試
+## 撰寫您的第一個測試 {id="write-your-first-test"}
 
 對於基本的並行測試，請建立一個測試函式，描述每個執行緒中應執行的操作以及預期的斷言。Lincheck 使用 [model checking](lincheck-testing-strategies.md#model-checking) 探索程式可能的執行緒交錯 (interleaving)，並在行為不正確時提供錯誤報告。
 
@@ -152,7 +152,7 @@ dependencies {
             </def>
     </deflist>
 
-## 為資料結構撰寫測試
+## 為資料結構撰寫測試 {id="write-a-test-for-a-data-structure"}
 
 除了基本的並行測試外，Lincheck 還支援以[宣告式方法](lincheck-how-to-test-data-structures.md)測試並行資料結構。
 
@@ -232,6 +232,6 @@ dependencies {
     | ------------------------ |
     ```
 
-## 後續步驟
+## 後續步驟 {id="what-s-next"}
 
 進一步了解 Lincheck 中[測試並行資料結構的宣告式方法](lincheck-how-to-test-data-structures.md)。

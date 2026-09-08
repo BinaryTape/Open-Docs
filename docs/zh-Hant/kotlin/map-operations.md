@@ -2,7 +2,7 @@
 
 在 [Map](collections-overview.md#map) 中，鍵（Key）與值（Value）的型別皆由使用者定義。以鍵為基礎的 Map 項目存取功能提供了多種 Map 專屬的處理能力，從透過鍵取得值，到對鍵與值進行分別過濾。在本頁中，我們將介紹標準程式庫中提供的 Map 處理函式。
 
-## 檢索鍵與值
+## 檢索鍵與值 {id="retrieve-keys-and-values"}
 
 若要從 Map 中檢索值，您必須提供其鍵作為 [`get()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/get.html) 函式的引數。此外也支援 `[key]` 這種簡寫語法。如果找不到指定的鍵，則會傳回 `null`。還有另一個函式 [`getValue()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/get-value.html)，其行為略有不同：如果 Map 中找不到該鍵，它會拋出例外。此外，您還有另外幾個處理鍵不存在的選項：
 
@@ -62,7 +62,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 過濾
+## 過濾 {id="filter"}
 
 您可以使用 [`filter()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/filter.html) 函式以及其他集合來[過濾](collection-filtering.md) Map。對 Map 呼叫 `filter()` 時，請傳遞一個以 `Pair` 為引數的述詞（Predicate）。這讓您可以在過濾述詞中同時使用鍵與值。
 
@@ -95,7 +95,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## plus 與 minus 運算子
+## plus 與 minus 運算子 {id="plus-and-minus-operators"}
 
 由於是透過鍵來存取元素，[`plus`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/plus.html) (`+`) 與 [`minus`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/minus.html) (`-`) 運算子在 Map 中的運作方式與其他集合不同。`plus` 會傳回一個 `Map`，其中包含其兩個運算元的元素：左側為 `Map`，右側為 `Pair` 或另一個 `Map`。當右側運算元包含左側 `Map` 中已存在的鍵時，結果 Map 會包含來自右側的項目。
 
@@ -128,7 +128,7 @@ fun main() {
 
 關於在可變 Map 上使用 [`plusAssign`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/plus-assign.html) (`+=`) 與 [`minusAssign`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/minus-assign.html) (`-=`) 運算子的詳細資訊，請參閱下方的 [Map 寫入操作](#map-write-operations)。
 
-## Map 寫入操作
+## Map 寫入操作 {id="map-write-operations"}
 
 [可變](collections-overview.md#collection-types) Map 提供專屬的寫入操作。這些操作讓您可以使用以鍵為基礎的存取方式來更改值，進而修改 Map 內容。
 
@@ -139,7 +139,7 @@ fun main() {
 
 以下是可變 Map 上可用的寫入操作標準程式庫函式之說明。
 
-### 新增與更新項目
+### 新增與更新項目 {id="add-and-update-entries"}
 
 若要將新的鍵值對新增至可變 Map，請使用 [`put()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-map/put.html)。當一個新項目被放入 `LinkedHashMap`（預設的 Map 實作）時，它會被新增到迭代 Map 時的最後位置。在排序後的 Map 中，新元素的位置是由其鍵的順序定義的。
 
@@ -204,7 +204,7 @@ fun main() {
 
 當呼叫時指定的鍵已存在於 Map 中，運算子會覆寫對應項目的值。
 
-#### 為缺失的項目新增預設值
+#### 為缺失的項目新增預設值 {id="add-default-values-for-missing-entries"}
 
 若要在值不存在時傳回現有值或新增預設值，請使用 [`.getOrPut()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/get-or-put.html) 擴充函式。如果鍵缺失或具有 `null` 值，`.getOrPut()` 會儲存預設值並將其傳回。
 
@@ -240,7 +240,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.4"}
 
-### 移除項目
+### 移除項目 {id="remove-entries"}
 
 若要從可變 Map 中移除項目，請使用 [`remove()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-map/remove.html) 函式。呼叫 `remove()` 時，您可以傳遞一個鍵或整個鍵值對。如果您同時指定鍵與值，則僅當該鍵的值與第二個引數相符時，該元素才會被移除。
 

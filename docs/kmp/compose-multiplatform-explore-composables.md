@@ -16,7 +16,7 @@
 
 让我们仔细研究一下 Kotlin Multiplatform 向导创建的示例可组合项。首先，有一个实现了通用 UI 并在所有平台上均可使用的可组合 `App()` 函数。其次，还有在每个平台上启动此 UI 的平台特定代码。
 
-## 实现可组合函数
+## 实现可组合函数 {id="implementing-composable-functions"}
 
 在 `shared/src/commonMain/kotlin/App.kt` 文件中，查看 `App()` 函数：
 
@@ -36,7 +36,7 @@ undefined
 
 修饰符 (Modifiers) 是 Jetpack Compose 和 Compose Multiplatform 的核心组件。它们提供了调整 UI 中可组合项外观或行为的主要机制。修饰符是使用 `Modifier` 类型的方法创建的。当你链式调用这些方法时，每次调用都会更改上一次调用返回的 `Modifier`，因此顺序非常重要。有关更多详细信息，请参阅 [Compose Multiplatform 修饰符简介](https://kotlinlang.org/docs/multiplatform/compose-layout-modifiers.html#built-in-modifiers)和详尽的 [Jetpack Compose 修饰符文档](https://developer.android.com/jetpack/compose/modifiers)。
 
-## 管理状态
+## 管理状态 {id="managing-the-state"}
 
 加载的图像具有持久性：除非用户点击按钮，否则它在重组 (recompositions) 过程中应始终保持显示或隐藏状态。
 `App()` 可组合项中的 `showContent` 属性是使用 `mutableStateOf()` 函数构建的，这意味着它是一个可以被观察的状态对象：
@@ -51,7 +51,7 @@ var showContent by remember { mutableStateOf(false) }
 
 唯一改变状态的地方是在 `Button()` 调用的 `onClick` 形参中。事件处理程序翻转 `showContent` 属性的值。结果，由于父级 `AnimatedVisibility()` 可组合项观察 `showContent`，图像会随着 `Greeting().greet()` 的调用而显示或隐藏。
 
-## 在不同平台上启动 UI
+## 在不同平台上启动 UI {id="launching-ui-on-different-platforms"}
 
 `App()` 函数在每个平台上的执行方式各不相同：
 
@@ -62,7 +62,7 @@ var showContent by remember { mutableStateOf(false) }
 
 让我们分别研究它们。
 
-### 在 Android 上
+### 在 Android 上 {id="on-android"}
 
 对于 Android，打开 `androidApp/src/main/kotlin` 中的 `MainActivity.kt` 文件：
 
@@ -81,7 +81,7 @@ class MainActivity : ComponentActivity() {
 
 这是一个名为 `MainActivity` 的 [Android activity](https://developer.android.com/guide/components/activities/intro-activities)，它调用了在通用代码中声明的 `App()` 可组合项。
 
-### 在 iOS 上
+### 在 iOS 上 {id="on-ios"}
 
 对于 iOS，打开 `shared/src/iosMain/kotlin` 中的 `MainViewController.kt` 文件：
 
@@ -91,7 +91,7 @@ fun MainViewController() = ComposeUIViewController { App() }
 
 这是一个 [view controller](https://developer.apple.com/documentation/uikit/view_controllers)，其作用与 Android 上的 activity 相同。请注意，iOS 和 Android 类型都只是简单地调用了通用代码中的 `App()` 可组合项。
 
-### 在桌面端
+### 在桌面端 {id="on-desktop"}
 
 对于桌面端，在 `desktopApp/src/main/kotlin` 中查找 `main.kt` 文件：
 
@@ -112,7 +112,7 @@ fun main() = application {
 
 在此示例中，`App()` 函数没有声明任何形参。在较大的应用程序中，你通常会将形参传递给平台特定的依赖项。这些依赖项可以手动编写，也可以使用依赖注入库传递。
 
-### 在 Web 上
+### 在 Web 上 {id="on-web"}
 
 在 `webApp/src/webMain/kotlin/` 目录下的 `main.kt` 文件中，查看 `main()` 函数：
 
@@ -130,13 +130,13 @@ fun main() {
 * Web 应用被插入到作为 `ComposeViewport` 函数参数指定的容器中。
 * `App()` 函数负责使用 Jetpack Compose 构建应用程序的 UI 组件。
 
-## 下一步
+## 下一步 {id="next-step"}
 
 在教程的下一部分中，你将向项目中添加依赖项并修改用户界面。
 
 **[继续进行下一部分](compose-multiplatform-modify-project.md)**
 
-## 获取帮助
+## 获取帮助 {id="get-help"}
 
 * **Kotlin Slack**。获取[邀请](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)并加入 [#multiplatform](https://kotlinlang.slack.com/archives/C3PQML5NU) 频道。
 * **Kotlin 问题跟踪器**。[报告新问题](https://youtrack.jetbrains.com/newIssue?project=KT)。

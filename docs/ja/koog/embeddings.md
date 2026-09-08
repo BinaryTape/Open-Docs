@@ -2,21 +2,21 @@
 
 `embeddings` モジュールは、テキストやコードのエンベデディング（埋め込み）を生成および比較する機能を提供します。エンベデディングは、意味的な内容を捉えたベクトル表現であり、効率的な類似性の比較を可能にします。
 
-## 概要
+## 概要 {id="overview"}
 
 このモジュールは、主に次の 2 つのコンポーネントで構成されています。
 
 1. **embeddings-base**: エンベデディングのためのコアインターフェースとデータ構造。
 2. **embeddings-llm**: ローカルでのエンベデディング生成のために Ollama を使用した実装。
 
-## はじめに
+## はじめに {id="getting-started"}
 
 以下のセクションでは、エンベデディングを使用する基本的な例を以下の方法で紹介します。
 
 - Ollama を介したローカルのエンベデディングモデル
 - OpenAI エンベデディングモデルの使用
 
-### ローカルエンベデディング
+### ローカルエンベデディング {id="local-embeddings"}
 
 ローカルモデルでエンベデディング機能を使用するには、システムに Ollama がインストールされ、実行されている必要があります。
 インストールと実行の手順については、[公式の Ollama GitHub リポジトリ](https://github.com/ollama/ollama)を参照してください。
@@ -54,7 +54,7 @@ Ollama のエンベデディングモデルを使用するには、以下の前�
 
     `<ollama-model-id>` は、特定のモデルの Ollama 識別子に置き換えてください。利用可能なエンベデディングモデルとその識別子の詳細については、[Ollama モデルの概要](#ollama-モデルの概要)を参照してください。
 
-### Ollama モデルの概要
+### Ollama モデルの概要 {id="ollama-models-overview"}
 
 以下の表は、利用可能な Ollama エンベデディングモデルの概要を示しています。
 
@@ -68,7 +68,7 @@ Ollama のエンベデディングモデルを使用するには、以下の前�
 
 これらのモデルの詳細については、Ollama の [Embedding Models](https://ollama.com/blog/embedding-models) ブログ記事を参照してください。
 
-### モデルの選択
+### モデルの選択 {id="choosing-a-model"}
 
 要件に応じて、どの Ollama エンベデディングモデルを選択すべきかについての一般的なヒントを以下に示します。
 
@@ -78,7 +78,7 @@ Ollama のエンベデディングモデルを使用するには、以下の前�
 - （多少の品質を犠牲にしても）最高の効率を求める場合は、`ALL_MINILM` を使用します。
 - 高次元エンベデディングが必要な場合は、`MXBAI_EMBED_LARGE` を使用します。
 
-## OpenAI エンベデディング
+## OpenAI エンベデディング {id="openai-embeddings"}
 
 OpenAI エンベデディングモデルを使用してエンベデディングを作成するには、以下の例に示すように `OpenAILLMClient` インスタンスの `embed` メソッドを使用します。
 
@@ -103,7 +103,7 @@ suspend fun openAIEmbed(text: String) {
 ```
 <!--- KNIT example-embeddings-02.kt -->
 
-## AWS Bedrock エンベデディング
+## AWS Bedrock エンベデディング {id="aws-bedrock-embeddings"}
 
 AWS Bedrock エンベデディングモデルを使用してエンベデディングを作成するには、`BedrockLLMClient` インスタンスと選択したモデルの `embed` メソッドを使用します。例：
 
@@ -140,7 +140,7 @@ suspend fun bedrockEmbed(text: String) {
 ```
 <!--- KNIT example-embeddings-03.kt -->
 
-### サポートされている AWS Bedrock エンベデディングモデル
+### サポートされている AWS Bedrock エンベデディングモデル {id="supported-aws-bedrock-embedding-models"}
 
 | プロバイダー | モデル名                   | モデル ID                       | 入力 | 出力    | 次元数 | コンテキスト長 | 備考                                                                                                 |
 |----------|------------------------------|--------------------------------|-------|-----------|------------|----------------|-------------------------------------------------------------------------------------------------------|
@@ -151,11 +151,11 @@ suspend fun bedrockEmbed(text: String) {
 
 > 最新のモデルサポートについては、[AWS Bedrock でサポートされているモデルのドキュメント](https://docs.aws.amazon.com/bedrock/latest/userguide/models-supported.html)を参照してください。
 
-## 例
+## 例 {id="examples"}
 
 以下の例は、エンベデディングを使用してコードをテキストや他のコードスニペットと比較する方法を示しています。
 
-### コードとテキストの比較
+### コードとテキストの比較 {id="code-to-text-comparison"}
 
 コードスニペットを自然言語の説明と比較して、意味的な一致を見つけます：
 
@@ -197,7 +197,7 @@ suspend fun compareCodeToText(embedder: Embedder) { // Embedder 型
 ```
 <!--- KNIT example-embeddings-04.kt -->
 
-### コード間の比較
+### コード間の比較 {id="code-to-code-comparison"}
 
 構文の違いに関係なく、コードスニペットを比較して意味的な類似性を見つけます：
 
@@ -259,7 +259,7 @@ suspend fun compareCodeToCode(embedder: Embedder) { // Embedder 型
 ```
 <!--- KNIT example-embeddings-05.kt -->
 
-## API ドキュメント
+## API ドキュメント {id="api-documentation"}
 
 エンベデディングに関連する完全な API リファレンスについては、以下のモジュールのリファレンスドキュメントを参照してください。
 

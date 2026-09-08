@@ -21,7 +21,7 @@
 
 Ktor는 서버와 클라이언트 컨텍스트 모두에서 통합을 간소화하는 공통 모듈 세트를 통해 HTMX에 대한 실험적인 일급(first-class) 지원을 제공합니다. 이러한 모듈은 HTMX 헤더 작업, Kotlin DSL을 사용한 HTML 속성 정의, 서버에서의 HTMX 전용 라우팅 로직 처리 등을 위한 도구를 제공합니다.
 
-## 모듈 개요
+## 모듈 개요 {id="modules-overview"}
 
 Ktor의 HTMX 지원은 세 가지 실험적 모듈을 통해 제공됩니다:
 
@@ -33,11 +33,11 @@ Ktor의 HTMX 지원은 세 가지 실험적 모듈을 통해 제공됩니다:
 
 모든 API는 `@ExperimentalKtorApi`로 표시되어 있으며, `@OptIn(ExperimentalKtorApi::class)`를 통한 사용 동의가 필요합니다.
 
-## HTMX 헤더
+## HTMX 헤더 {id="htmx-headers"}
 
 핵심 모듈인 `ktor-htmx`에서 제공하는 미리 정의된 상수를 사용하여 타입 안전한 방식으로 HTMX 헤더에 접근하거나 설정할 수 있습니다. 이러한 상수를 사용하면 트리거(trigger), 기록 복구(history restoration) 또는 콘텐츠 스왑(content swapping)과 같은 HTMX 동작을 감지할 때 매직 문자열(magic string) 사용을 피할 수 있습니다.
 
-### 요청 헤더(Request headers)
+### 요청 헤더(Request headers) {id="request-headers"}
 
 애플리케이션에서 HTMX 요청 헤더를 읽거나 일치시키려면 `HxRequestHeaders` 객체를 사용하십시오:
 
@@ -52,7 +52,7 @@ Ktor의 HTMX 지원은 세 가지 실험적 모듈을 통해 제공됩니다:
 <def title="HxRequestHeaders.Prompt">hx-prompt에 대한 사용자 응답입니다.</def>
 </deflist>
 
-### 응답 헤더(Response headers)
+### 응답 헤더(Response headers) {id="response-headers"}
 
 `HxResponseHeaders` 객체를 사용하여 HTMX 응답 헤더용 상수에 접근할 수 있습니다:
 
@@ -70,7 +70,7 @@ Ktor의 HTMX 지원은 세 가지 실험적 모듈을 통해 제공됩니다:
 <def title="HxResponseHeaders.TriggerAfterSwap">스왑(swap) 후 이벤트를 트리거합니다.</def>
 </deflist>
 
-## 스왑 모드(Swap modes)
+## 스왑 모드(Swap modes) {id="swap-modes"}
 
 `ktor-htmx` 핵심 모듈의 `HxSwap` 객체를 사용하여 다양한 HTMX 스왑 모드 상수에 접근할 수 있습니다.
 
@@ -86,7 +86,7 @@ Ktor의 HTMX 지원은 세 가지 실험적 모듈을 통해 제공됩니다:
 <def title="HxSwap.none">콘텐츠를 추가하지 않습니다.</def>
 </deflist>
 
-## HTML DSL 확장
+## HTML DSL 확장 {id="html-dsl-extensions"}
 
 `ktor-htmx-html` 모듈은 Kotlin의 HTML DSL에 확장 함수를 추가하여 HTML 요소에 HTMX 속성을 직접 추가할 수 있게 해줍니다:
 
@@ -113,7 +113,7 @@ html {
 <button hx-get="/api/data" hx-target="#result-div" hx-swap="outerHTML" hx-trigger="click">Load Data</button>
 ```
 
-## 서버 측 라우팅
+## 서버 측 라우팅 {id="server-side-routing"}
 
 `ktor-server-htmx` 모듈은 `hx` DSL 블록을 통해 HTMX를 인식하는 라우팅을 제공합니다:
 

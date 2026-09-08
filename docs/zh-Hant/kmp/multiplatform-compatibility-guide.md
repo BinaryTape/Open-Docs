@@ -13,7 +13,7 @@ Kotlin 目前的穩定版本為 %kotlinVersion%。請注意特定變更相對於
 * 從 Kotlin 1.7.0 升級到 Kotlin 1.9.0 時，請檢查在 [Kotlin 1.9.0](#kotlin-1-9-0-1-9-25) 和 [Kotlin 1.7.0−1.8.22](#kotlin-1-7-0-1-8-22) 中生效的不相容變更。
 * 從 Kotlin 1.9.0 升級到 Kotlin 2.0.0 時，請檢查在 [Kotlin 2.0.0](#kotlin-2-0-0-and-later) 和 [Kotlin 1.9.0−1.9.25](#kotlin-1-9-0-1-9-25) 中生效的不相容變更。 
 
-## 版本相容性
+## 版本相容性 {id="version-compatibility"}
 
 在配置專案時，請檢查特定版本的 Kotlin Multiplatform Gradle 外掛程式（與您專案中的 Kotlin 版本相同）與 Gradle、Xcode 以及 Android Gradle 外掛程式版本的相容性：
 
@@ -40,12 +40,12 @@ Kotlin 目前的穩定版本為 %kotlinVersion%。請注意特定變更相對於
 >
 {style="warning"}
 
-## Kotlin 2.0.0 及更高版本
+## Kotlin 2.0.0 及更高版本 {id="kotlin-2-0-0-and-later"}
 
 本節涵蓋在 Kotlin 2.0.0−%kotlinVersion% 中結束棄用週期並生效的不相容變更。
 
 undefined
-### 遷移至 Google 的 Android 目標外掛程式
+### 遷移至 Google 的 Android 目標外掛程式 {id="migrate-to-google-s-plugin-for-android-targets"}
 
 **發生了什麼變化？**
 
@@ -71,7 +71,7 @@ Kotlin 2.3.0 在 Kotlin Multiplatform 專案中使用 `androidTarget` 名稱時�
 * 2.3.0：新的 Android 外掛程式可用；在 Kotlin Multiplatform 專案中使用 `androidTarget` 名稱時引入棄用警告。
 * 2.3.10：還原在 Kotlin Multiplatform 專案中使用 `androidTarget` 名稱時的棄用警告。
 
-### 棄用 bitcode 內嵌
+### 棄用 bitcode 內嵌 {id="deprecated-bitcode-embedding"}
 
 **發生了什麼變化？**
 
@@ -91,7 +91,7 @@ Bitcode 內嵌已在 Xcode 14 中被棄用，並在 Xcode 15 中針對所有 App
 * 2.3.0：移除 `embedBitcode` DSL 
 
 undefined
-### 預設建立的 Java 原始碼集
+### 預設建立的 Java 原始碼集 {id="java-source-sets-created-by-default"}
 
 **發生了什麼變化？**
 
@@ -132,7 +132,7 @@ kotlin {
 * 2.1.20：在與任何版本的 Gradle 搭配使用 `withJava()` 函式時引入棄用警告。
 
 undefined
-### 宣告多個相似目標
+### 宣告多個相似目標 {id="declaring-several-similar-targets"}
 
 **發生了什麼變化？**
 
@@ -252,7 +252,7 @@ kotlin {
 * 2.1.0：在此類情況下報告錯誤，Kotlin/JS 目標除外；欲了解更多關於此例外的資訊，請參閱 [YouTrack 中的問題](https://youtrack.jetbrains.com/issue/KT-47038/KJS-MPP-Split-JS-target-into-JsBrowser-and-JsNode)
 
 undefined
-### 棄用支援以舊版模式發佈的多平台程式庫
+### 棄用支援以舊版模式發佈的多平台程式庫 {id="deprecated-support-of-multiplatform-libraries-published-in-legacy-mode"}
 
 **發生了什麼變化？**
 
@@ -283,7 +283,7 @@ Kotlin 團隊非常希望能協助生態系統遷移，因此如果您面臨任�
 * &gt;2.0.0：移除對舊版程式庫相依性的支援；使用此類相依性可能會導致組建失敗
 
 undefined
-### 棄用用於階層結構支援的 Gradle 屬性
+### 棄用用於階層結構支援的 Gradle 屬性 {id="deprecated-gradle-properties-for-hierarchical-structure-support"}
 
 **發生了什麼變化？**
 
@@ -322,7 +322,7 @@ undefined
 在極少數情況下，如果您在移除這些屬性後遇到問題，請在 [YouTrack 中建立問題](https://kotl.in/issue)。
 
 undefined
-### 棄用目標預設設定 API
+### 棄用目標預設設定 API {id="deprecated-target-presets-api"}
 
 **發生了什麼變化？**
 
@@ -366,7 +366,7 @@ undefined
 * 2.2.0：從 Kotlin Gradle 外掛程式的公開 API 中移除預設設定相關 API；仍在使用它的原始碼將因「無法解析的參照 (unresolved reference)」錯誤而失敗，且二進位檔案（例如 Gradle 外掛程式）除非針對最新版本的 Kotlin Gradle 外掛程式重新編譯，否則可能會發生連結錯誤
 
 undefined
-### 棄用 Apple 目標快速鍵
+### 棄用 Apple 目標快速鍵 {id="deprecated-apple-target-shortcuts"}
 
 **發生了什麼變化？**
 
@@ -392,7 +392,7 @@ Kotlin Gradle 外掛程式現在提供了一個內建的階層結構模板。自
 * 2.1.0：使用目標快速鍵時報告錯誤
 * 2.2.0：從 Kotlin Multiplatform Gradle 外掛程式中移除目標快速鍵 DSL
 
-### Kotlin 升級後 iOS 框架版本不正確
+### Kotlin 升級後 iOS 框架版本不正確 {id="incorrect-version-of-ios-framework-after-kotlin-upgrade"}
 
 **問題是什麼？**
 
@@ -417,12 +417,12 @@ Kotlin Gradle 外掛程式現在提供了一個內建的階層結構模板。自
 
 如需詳細資訊，請參閱 [YouTrack 中的對應問題](https://youtrack.jetbrains.com/issue/KT-68257)。
 
-## Kotlin 1.9.0−1.9.25
+## Kotlin 1.9.0−1.9.25 {id="kotlin-1-9-0-1-9-25"}
 
 本節涵蓋在 Kotlin 1.9.0−1.9.25 中結束棄用週期並生效的不相容變更。
 
 undefined
-### 移除了直接將 Kotlin 原始碼集加入 Kotlin 編譯的 API {initial-collapse-state="collapsed" collapsible="true"}
+### 移除了直接將 Kotlin 原始碼集加入 Kotlin 編譯的 API {initial-collapse-state="collapsed" collapsible="true" id="removed-api-for-adding-kotlin-source-sets-directly-to-the-kotlin-compilation"}
 
 **發生了什麼變化？**
 
@@ -492,7 +492,7 @@ kotlin {
 * 2.3.0：從 Kotlin Gradle 外掛程式中移除 `KotlinCompilation.source`，嘗試使用它將導致建置指令碼編譯期間出現「無法解析的參照」錯誤
 
 undefined
-### 從 `kotlin-js` Gradle 外掛程式遷移至 `kotlin-multiplatform` Gradle 外掛程式 {initial-collapse-state="collapsed" collapsible="true"}
+### 從 `kotlin-js` Gradle 外掛程式遷移至 `kotlin-multiplatform` Gradle 外掛程式 {initial-collapse-state="collapsed" collapsible="true" id="migration-from-kotlin-js-gradle-plugin-to-kotlin-multiplatform-gradle-plugin"}
 
 **發生了什麼變化？**
 
@@ -618,7 +618,7 @@ undefined
 * 2.4.0：[將此警告提升為錯誤](https://youtrack.jetbrains.com/issue/KT-59305)
 
 undefined
-### 棄用 `jvmWithJava` 預設設定 {initial-collapse-state="collapsed" collapsible="true"}
+### 棄用 `jvmWithJava` 預設設定 {initial-collapse-state="collapsed" collapsible="true" id="deprecated-jvmwithjava-preset"}
 
 **發生了什麼變化？**
 
@@ -648,7 +648,7 @@ undefined
 {style="note"}
 
 undefined
-### 棄用舊版 Android 原始碼集佈局 {initial-collapse-state="collapsed" collapsible="true"}
+### 棄用舊版 Android 原始碼集佈局 {initial-collapse-state="collapsed" collapsible="true" id="deprecated-legacy-android-source-set-layout"}
 
 **發生了什麼變化？**
 
@@ -663,7 +663,7 @@ undefined
 * 2.4.0：移除對舊版 Android 原始碼集佈局的支援，並[移除 `kotlin.mpp.androidSourceSetLayoutVersion=1` Gradle 屬性](https://youtrack.jetbrains.com/issue/KT-82265)
 
 undefined
-### 棄用帶有自訂 `dependsOn` 的 `commonMain` 和 `commonTest` {initial-collapse-state="collapsed" collapsible="true"}
+### 棄用帶有自訂 `dependsOn` 的 `commonMain` 和 `commonTest` {initial-collapse-state="collapsed" collapsible="true" id="deprecated-commonmain-and-commontest-with-custom-dependson"}
 
 **發生了什麼變化？**
 
@@ -692,7 +692,7 @@ undefined
 * 1.9.0：在 `commonMain` 中使用 `dependsOn` 時報告警告
 * &gt;=1.9.20：在 `commonMain` 或 `commonTest` 中使用 `dependsOn` 時報告錯誤
 
-### 前向宣告的新方法 {initial-collapse-state="collapsed" collapsible="true"}
+### 前向宣告的新方法 {initial-collapse-state="collapsed" collapsible="true" id="new-approach-to-forward-declarations"}
 
 **發生了什麼變化？**
 
@@ -750,12 +750,12 @@ JetBrains 團隊重新設計了 Kotlin 中前向宣告的方法，以使其行�
 
 從 Kotlin 1.9.20 開始，您需要明確在對應的 C 和 Objective-C 前向宣告之間進行轉型。此外，現在僅能透過使用特殊套件來匯入前向宣告。
 
-## Kotlin 1.7.0−1.8.22
+## Kotlin 1.7.0−1.8.22 {id="kotlin-1-7-0-1-8-22"}
 
 本節涵蓋在 Kotlin 1.7.0−1.8.22 中結束棄用週期並生效的不相容變更。
 
 undefined
-### Kotlin Multiplatform Gradle 外掛程式與 Gradle Java 外掛程式的相容性已被棄用 {initial-collapse-state="collapsed" collapsible="true"}
+### Kotlin Multiplatform Gradle 外掛程式與 Gradle Java 外掛程式的相容性已被棄用 {initial-collapse-state="collapsed" collapsible="true" id="deprecated-compatibility-with-kotlin-multiplatform-gradle-plugin-and-gradle-java-plugins"}
 
 **發生了什麼變化？**
 
@@ -851,7 +851,7 @@ dependencies {
 
 您的父專案現在已設定為可同時配合兩個外掛程式運作。
 
-### 自動產生目標的新方法 {initial-collapse-state="collapsed" collapsible="true"}
+### 自動產生目標的新方法 {initial-collapse-state="collapsed" collapsible="true" id="new-approach-to-auto-generated-targets"}
 
 **發生了什麼變化？**
 
@@ -886,7 +886,7 @@ dependencies {
 
 如需詳細資訊，請參閱 [YouTrack 中的對應問題](https://youtrack.jetbrains.com/issue/KT-47047)。
 
-### Gradle 輸入與輸出編譯任務的變更 {initial-collapse-state="collapsed" collapsible="true"}
+### Gradle 輸入與輸出編譯任務的變更 {initial-collapse-state="collapsed" collapsible="true" id="changes-in-gradle-input-and-output-compile-tasks"}
 
 **發生了什麼變化？**
 
@@ -909,7 +909,7 @@ Kotlin 編譯任務不再繼承具有 `sourceCompatibility` 和 `targetCompatibi
 
 如需詳細資訊，請參閱 [YouTrack 中的對應問題](https://youtrack.jetbrains.com/issue/KT-32805)。
 
-### 編譯相依性的新配置名稱 {initial-collapse-state="collapsed" collapsible="true"}
+### 編譯相依性的新配置名稱 {initial-collapse-state="collapsed" collapsible="true" id="new-configuration-names-for-dependencies-on-the-compilation"}
 
 **發生了什麼變化？**
 

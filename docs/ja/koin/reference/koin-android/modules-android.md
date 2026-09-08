@@ -8,9 +8,9 @@ title: Androidにおけるモジュールのロード
 コアモジュールの概念（宣言、包含、オーバーライド）については、[Modules](/docs/reference/koin-core/modules) を参照してください。遅延モジュールのロードについては、[Lazy Modules](/docs/reference/koin-core/lazy-modules) を参照してください。
 :::
 
-## AndroidでのKoinの起動
+## AndroidでのKoinの起動 {id="starting-koin-on-android"}
 
-### アノテーションを使用する場合
+### アノテーションを使用する場合 {id="with-annotations"}
 
 ```kotlin
 @KoinApplication
@@ -27,7 +27,7 @@ class MainApplication : Application() {
 }
 ```
 
-### DSLを使用する場合
+### DSLを使用する場合 {id="with-dsl"}
 
 ```kotlin
 class MainApplication : Application() {
@@ -51,7 +51,7 @@ class MainApplication : Application() {
 }
 ```
 
-## Android特有の関数
+## Android特有の関数 {id="android-specific-functions"}
 
 | 関数 | 説明 |
 |----------|-------------|
@@ -59,7 +59,7 @@ class MainApplication : Application() {
 | `androidApplication()` | 定義内で Application インスタンスを提供します |
 | `androidLogger()` | Koin 用の Android Logcat ロガー |
 
-### Androidコンテキストの使用
+### Androidコンテキストの使用 {id="using-android-context"}
 
 ```kotlin
 val androidModule = module {
@@ -69,7 +69,7 @@ val androidModule = module {
 }
 ```
 
-## 動的なモジュールのロード
+## 動的なモジュールのロード {id="dynamic-module-loading"}
 
 Activity のライフサイクルに基づいて、実行時にモジュールをロードまたはアンロードします：
 
@@ -90,7 +90,7 @@ class FeatureActivity : AppCompatActivity() {
 }
 ```
 
-### ユースケース
+### ユースケース {id="use-cases"}
 
 - **プレミアム機能** - ユーザーがサブスクリプションを持っている場合にのみロード
 - **デバッグツール** - デバッグビルドでのみロード
@@ -113,7 +113,7 @@ class PremiumActivity : AppCompatActivity() {
 }
 ```
 
-## Androidにおける遅延ロード（Lazy Loading）
+## Androidにおける遅延ロード（Lazy Loading） {id="lazy-loading-on-android"}
 
 バックグラウンドでのモジュールロードには、lazy モジュールを使用します：
 
@@ -140,7 +140,7 @@ class MainApplication : Application() {
 並列ロードを含む遅延モジュールの完全なドキュメントについては、[Lazy Modules](/docs/reference/koin-core/lazy-modules) を参照してください。
 :::
 
-## 次のステップ
+## 次のステップ {id="next-steps"}
 
 - **[Modules](/docs/reference/koin-core/modules)** - コアモジュールの概念
 - **[Lazy Modules](/docs/reference/koin-core/lazy-modules)** - バックグラウンドロード

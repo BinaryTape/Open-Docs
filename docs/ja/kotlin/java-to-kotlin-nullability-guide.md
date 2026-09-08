@@ -14,7 +14,7 @@ Null ポインター例外が発生する確率を最小限に抑えるために
 
 [Kotlin での Null 安全について詳しく知る](null-safety.md)。
 
-## Null 許容型のサポート
+## Null 許容型のサポート {id="support-for-nullable-types"}
 
 Kotlin と Java の型システムの最も重要な違いは、Kotlin が [Null 許容型（nullable types）](null-safety.md)を明示的にサポートしていることです。
 これは、どの変数が `null` 値を保持する可能性があるかを示す方法です。
@@ -89,7 +89,7 @@ fun stringLength(a: String?): Int = a?.length ?: 0
 ```
 {id="get-length-of-null-shorter-kotlin"}
 
-## プラットフォーム型
+## プラットフォーム型 {id="platform-types"}
 
 Java では、変数が `null` になるかどうかを示すアノテーションを使用できます。
 このようなアノテーションは標準ライブラリの一部ではありませんが、別途追加することができます。
@@ -105,7 +105,7 @@ Java コードにこれらのアノテーションがない場合、Kotlin は J
 
 [Null 安全とプラットフォーム型に関する、Kotlin からの Java 呼び出し](java-interop.md#null-safety-and-platform-types)について詳しくはこちら。
 
-## 確定的な非 Null 型のサポート
+## 確定的な非 Null 型のサポート {id="support-for-definitely-non-nullable-types"}
 
 Kotlin で、引数として `@NotNull` を含む Java メソッドをオーバーライドしたい場合、Kotlin の確定的な非 Null 型（definitely non-nullable types）が必要になります。
 
@@ -133,7 +133,7 @@ interface ArcadeGame<T1> : Game<T1> {
 
 [確定的な非 Null 型（definitely non-nullable types）](generics.md#definitely-non-nullable-types)であるジェネリック型について詳しくはこちら。
 
-## 関数呼び出しの結果のチェック
+## 関数呼び出しの結果のチェック {id="checking-the-result-of-a-function-call"}
 
 `null` のチェックが必要になる最も一般的な状況の 1 つは、関数呼び出しから結果を取得するときです。
 
@@ -199,7 +199,7 @@ findOrder()?.customer?.let(::processCustomer)
 ```
 {id="process-customer-with-let-short-kotlin"}
 
-## Null の代わりのデフォルト値
+## Null の代わりのデフォルト値 {id="default-values-instead-of-null"}
 
 `null` のチェックは、Null チェックが成功した場合の[デフォルト値の設定](functions.md#parameters-with-default-values)と組み合わせてよく使用されます。
 
@@ -222,7 +222,7 @@ val order = findOrder() ?: Order(Customer("Antonio"))
 ```
 {id="default-value-instead-of-null-kotlin"}
 
-## 値または Null を返す関数
+## 値または Null を返す関数 {id="functions-returning-a-value-or-null"}
 
 Java では、リストの要素を操作するときに注意が必要です。要素を使用しようとする前に、常にそのインデックスに要素が存在するかどうかを確認する必要があります。
 
@@ -257,7 +257,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="functions-returning-null-kotlin"}
 
-## 集計操作
+## 集計操作 {id="aggregate-operations"}
 
 最大の要素を取得したい場合や、要素がない場合に `null` を取得したい場合、Java では [Stream API](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/package-summary.html) を使用します。
 
@@ -280,7 +280,7 @@ println("Max: ${numbers.maxOrNull()}")
 
 [Java と Kotlin のコレクション](java-to-kotlin-collections-guide.md)について詳しくはこちら。
 
-## 安全な型キャスト
+## 安全な型キャスト {id="casting-types-safely"}
 
 型を安全にキャストする必要がある場合、Java では `instanceof` 演算子を使用し、その後でそれがうまく機能したかを確認します。
 
@@ -358,7 +358,7 @@ fun getUsername(profile: UserProfile?): String? =
 
 このバージョンでは、`if` 式を[安全呼び出し演算子](null-safety.md#safe-call-operator) `?.` に置き換えています。これにより、キャストを試みる前にデータプロパティに安全にアクセスできます。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * その他の [Kotlin の慣用句（イディオム）](idioms.md)をブラウズする。
 * [Java-to-Kotlin (J2K) コンバーター](mixing-java-kotlin-intellij.md#convert-java-files-to-kotlin)を使用して、既存の Java コードを Kotlin に変換する方法を学ぶ。

@@ -8,9 +8,9 @@ title: Android のベストプラクティス
 モジュールの一般的な概念については、**[Modules](/docs/reference/koin-core/modules)** を参照してください。スコープについては、**[Scopes](/docs/reference/koin-core/scopes)** および **[Android Scopes](/docs/reference/koin-android/scope)** を参照してください。
 :::
 
-## メモリ管理
+## メモリ管理 {id="memory-management"}
 
-### Activity/Fragment のリークを避ける
+### Activity/Fragment のリークを避ける {id="avoid-activity-fragment-leaks"}
 
 ```kotlin
 // ❌ 悪い例 - Activity のリーク
@@ -31,7 +31,7 @@ module {
 }
 ```
 
-### スコープを適切に閉じる
+### スコープを適切に閉じる {id="close-scopes-properly"}
 
 ```kotlin
 // ✅ 良い例 - 自動スコープ管理
@@ -62,7 +62,7 @@ class MyActivity : AppCompatActivity() {
 }
 ```
 
-### 長命なオブジェクト内の参照をクリアする
+### 長命なオブジェクト内の参照をクリアする {id="clear-references-in-long-lived-objects"}
 
 ```kotlin
 // ❌ 悪い例 - UI への参照を保持している
@@ -88,9 +88,9 @@ class UserRepository {
 }
 ```
 
-## Android でのデバッグ
+## Android でのデバッグ {id="android-debugging"}
 
-### Android ロガーを有効にする
+### Android ロガーを有効にする {id="enable-android-logger"}
 
 ```kotlin
 startKoin {
@@ -100,7 +100,7 @@ startKoin {
 }
 ```
 
-### デバッグビルドでモジュールを検証する
+### デバッグビルドでモジュールを検証する {id="verify-modules-in-debug-builds"}
 
 ```kotlin
 class MyApplication : Application() {
@@ -118,7 +118,7 @@ class MyApplication : Application() {
 }
 ```
 
-### デバッグ用のスコープコールバック
+### デバッグ用のスコープコールバック {id="scope-callbacks-for-debugging"}
 
 ```kotlin
 class DebugActivity : ScopeActivity() {
@@ -134,9 +134,9 @@ class DebugActivity : ScopeActivity() {
 }
 ```
 
-## セキュリティのベストプラクティス
+## セキュリティのベストプラクティス {id="security-best-practices"}
 
-### モジュール内にシークレットを保存しない
+### モジュール内にシークレットを保存しない {id="don-t-store-secrets-in-modules"}
 
 ```kotlin
 // ❌ 悪い例 - ハードコードされたシークレット
@@ -165,13 +165,13 @@ module {
 }
 ```
 
-## Dagger/Hilt からの移行
+## Dagger/Hilt からの移行 {id="migration-from-dagger-hilt"}
 
 :::info
 Koin は `jakarta.inject` の JSR-330 アノテーション（`@Singleton`、`@Inject`、`@Named`）をサポートしています。使い慣れたアノテーションをそのまま使用し続けることができます。[JSR-330 Compatibility](/docs/reference/koin-android/jsr330) を参照してください。
 :::
 
-### アノテーションのマッピング
+### アノテーションのマッピング {id="annotation-mapping"}
 
 | Hilt | Koin アノテーション |
 |------|------------------|
@@ -183,7 +183,7 @@ Koin は `jakarta.inject` の JSR-330 アノテーション（`@Singleton`、`@I
 | `@InstallIn(SingletonComponent)` | `@Module` + `@ComponentScan` |
 | `@InstallIn(ActivityComponent)` | `@Scope(ActivityScope::class)` |
 
-### 移行の例
+### 移行の例 {id="example-migration"}
 
 ```kotlin
 // 移行前 (Hilt)
@@ -209,7 +209,7 @@ class UserRepositoryImpl(
 ) : UserRepository
 ```
 
-### モジュールの移行
+### モジュールの移行 {id="module-migration"}
 
 ```kotlin
 // 移行前 (Hilt)
@@ -229,7 +229,7 @@ class NetworkModule {
 }
 ```
 
-### 段階的な移行
+### 段階的な移行 {id="gradual-migration"}
 
 ```kotlin
 // ステップ 1: 新機能のために Hilt と並行して Koin を追加
@@ -248,7 +248,7 @@ class MigratedRepository(private val api: ApiService) : UserRepository
 // ステップ 3: 移行完了後に Hilt を削除
 ```
 
-## 関連項目
+## 関連項目 {id="see-also"}
 
 - **[Scopes](/docs/reference/koin-core/scopes)** - コアとなるスコープの概念
 - **[Android Scopes](/docs/reference/koin-android/scope)** - Android ライフサイクルスコープ

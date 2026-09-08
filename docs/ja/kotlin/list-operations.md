@@ -2,7 +2,7 @@
 
 [`List`](collections-overview.md#list) は、Kotlin の組み込みコレクションの中で最も人気のある型です。リストの要素に対するインデックス・アクセスは、リストのための強力な操作セットを提供します。
 
-## インデックスによる要素の取得
+## インデックスによる要素の取得 {id="retrieve-elements-by-index"}
 
 リストは、[単一要素の取得](collection-elements.md)にリストされている `elementAt()`、`first()`、`last()` などの共通の要素取得操作をすべてサポートしています。
 リストに特有なのはインデックスによる要素へのアクセスであり、要素を読み取る最も簡単な方法はインデックスによって取得することです。
@@ -29,7 +29,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## リストの一部の取得
+## リストの一部の取得 {id="retrieve-list-parts"}
 
 [コレクションの一部の取得](collection-parts.md)に関する一般的な操作に加えて、リストは [`subList()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/sub-list.html) 関数を提供しており、これは指定された要素範囲のリストとしてのビュー（view）を返します。
 したがって、元のコレクションの要素が変更されると、以前に作成されたサブリスト内でも変更され、その逆も同様です。
@@ -45,9 +45,9 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 要素の位置の検索
+## 要素の位置の検索 {id="find-element-positions"}
 
-### 線形探索
+### 線形探索 {id="linear-search"}
 
 どのリストでも、[`indexOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/index-of.html) および [`lastIndexOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/last-index-of.html) 関数を使用して要素の位置を見つけることができます。
 これらは、リスト内で指定された引数と等しい要素の最初と最後の位置を返します。
@@ -82,7 +82,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### ソート済みリストでの二分探索
+### ソート済みリストでの二分探索 {id="binary-search-in-sorted-lists"}
 
 リスト内の要素を検索するもう 1 つの方法として、[二分探索（binary search）](https://ja.wikipedia.org/wiki/二分探索)があります。
 これは他の組み込み検索関数よりも大幅に高速に動作しますが、リストがある特定の順序（自然順序、または関数のパラメータで提供される別の順序）に従って昇順に[ソートされている](collection-ordering.md)必要があります。
@@ -109,7 +109,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-#### Comparator を使用した二分探索
+#### Comparator を使用した二分探索 {id="comparator-binary-search"}
 
 リストの要素が `Comparable` でない場合は、二分探索で使用する [`Comparator`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-comparator/) を提供する必要があります。
 リストはこの `Comparator` に従って昇順にソートされている必要があります。例を見てみましょう：
@@ -148,7 +148,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-#### 比較関数を使用した二分探索
+#### 比較関数を使用した二分探索 {id="comparison-binary-search"}
 
 *比較（comparison）* 関数を用いた二分探索では、明示的な検索値を指定せずに要素を見つけることができます。
 代わりに、要素を `Int` 値にマッピングする比較関数を受け取り、関数が 0 を返す要素を検索します。
@@ -177,12 +177,12 @@ fun main() {
 
 コンパレータ比較および比較関数を用いた二分探索は、リストの範囲に対しても実行できます。
 
-## リストの書き込み操作
+## リストの書き込み操作 {id="list-write-operations"}
 
 [コレクションの書き込み操作](collection-write.md)で説明されているコレクション変更操作に加えて、[ミュータブル（mutable）](collections-overview.md#collection-types)なリストは特定の書き込み操作をサポートしています。
 このような操作では、インデックスを使用して要素にアクセスし、リストの変更機能を拡張します。
 
-### 追加
+### 追加 {id="add"}
 
 リストの特定の位置に要素を追加するには、[`add()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/add.html) および [`addAll()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/add-all.html) を使用し、要素を挿入する位置を追加の引数として指定します。
 挿入位置の後にあるすべての要素は右側にシフトされます。
@@ -200,7 +200,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 更新
+### 更新 {id="update"}
 
 リストは、指定された位置の要素を置き換える関数 [`set()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/set.html) と、その演算子形式である `[]` も提供しています。`set()` は他の要素のインデックスを変更しません。
 
@@ -230,7 +230,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 削除
+### 削除 {id="remove"}
 
 リストから特定の位置の要素を削除するには、[`removeAt()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/remove-at.html) 関数を使用し、位置を引数として指定します。
 削除される要素の後にあるすべての要素のインデックスは 1 つ減少します。
@@ -247,7 +247,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### ソート
+### ソート {id="sort"}
 
 [コレクションの順序付け](collection-ordering.md)では、コレクションの要素を特定の順序で取得する操作について説明しました。
 ミュータブルなリストに対して、標準ライブラリは同様の拡張関数を提供しており、これらは同じ順序付け操作をその場（インプレース）で行います。

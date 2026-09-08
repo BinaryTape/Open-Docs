@@ -11,7 +11,7 @@ KSP 旨在简化轻量级编译器插件的创建。其定义良好的 API 隐�
 
 要了解如何创建你的第一个基于 KSP 的处理器，请参阅 [KSP 快速入门](ksp-quickstart.md)。
 
-## 概述
+## 概述 {id="overview"}
 
 KSP API 以符合 Kotlin 习惯的方式处理 Kotlin 程序。KSP 能够理解 Kotlin 特有的功能，例如扩展函数、声明处型变（variance）和局部函数。它还对类型进行了显式建模，并提供基本的类型检查，例如等价性和赋值兼容性。
 
@@ -31,7 +31,7 @@ KSP API 以符合 Kotlin 习惯的方式处理 Kotlin 程序。KSP 能够理解 
 
 <video src="https://www.youtube.com/v/bv-VyGM3HCY" title="Kotlin Symbol Processing (KSP)"/>
 
-## KSP 如何看待源文件
+## KSP 如何看待源文件 {id="how-ksp-looks-at-source-files"}
 
 大多数处理器会遍历输入源代码的各种程序结构。在深入了解 API 的用法之前，让我们看看从 KSP 的角度来看，一个文件可能是怎样的：
 
@@ -80,7 +80,7 @@ KSFile
 
 此视图列出了文件中声明的常见内容：类、函数、属性等等。
 
-## SymbolProcessorProvider：入口点
+## SymbolProcessorProvider：入口点 {id="symbolprocessorprovider-the-entry-point"}
 
 KSP 需要 `SymbolProcessorProvider` 接口的一个实现来实例化 `SymbolProcessor`：
 
@@ -133,7 +133,7 @@ class HelloFunctionFinderProcessor : SymbolProcessor() {
 }
 ```
 
-## 资源
+## 资源 {id="resources"}
 
 * [快速入门](ksp-quickstart.md)
 * [示例](ksp-examples.md)
@@ -145,7 +145,7 @@ class HelloFunctionFinderProcessor : SymbolProcessor() {
 * [从命令行运行 KSP](ksp-command-line.md)
 * [常见问题解答](ksp-faq.md)
 
-## 支持的库
+## 支持的库 {id="supported-libraries"}
 
 下表列出了 Android 上的流行库及其对 KSP 的各种支持阶段：
 

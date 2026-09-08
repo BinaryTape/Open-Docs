@@ -7,7 +7,7 @@ Modifier(수정자)를 사용하면 컴포저블(composable)을 꾸미거나 기
 * 사용자 입력 처리.
 * 요소를 클릭 가능, 스크롤 가능, 드래그 가능 또는 확대 가능하게 만드는 것과 같은 상위 수준의 상호작용 추가.
 
-## Modifier 체이닝
+## Modifier 체이닝 {id="chaining-modifiers"}
 
 여러 효과를 적용하기 위해 Modifier를 함께 연결(chain)할 수 있습니다.
 
@@ -30,11 +30,11 @@ private fun Greeting(name: String) {
 
 **Modifier 체인에서 함수 호출 순서는 매우 중요합니다.** 각 함수는 이전 함수가 반환한 `Modifier`를 변경하므로, 호출 순서가 컴포저블의 최종 동작과 모양에 직접적인 영향을 미칩니다.
 
-## 기본 제공 Modifier
+## 기본 제공 Modifier {id="built-in-modifiers"}
 
 Compose Multiplatform은 일반적인 레이아웃 및 배치 작업을 처리하기 위해 `size`, `padding`, `offset`과 같은 기본 제공 Modifier를 제공합니다.
 
-### 크기 Modifier
+### 크기 Modifier {id="size-modifiers"}
 
 고정된 크기를 설정하려면 `size` Modifier를 사용하세요. 제약 조건(constraints)을 무시해야 하는 경우에는 `requiredSize` Modifier를 사용하세요.
 
@@ -55,7 +55,7 @@ fun Card() {
 }
 ```
 
-### 패딩 Modifier
+### 패딩 Modifier {id="padding-modifiers"}
 
 `padding` Modifier로 요소 주위에 여백을 추가하세요. `paddingFromBaseline`을 사용하여 기준선(baseline)을 기준으로 동적으로 패딩을 적용할 수도 있습니다.
 
@@ -76,7 +76,7 @@ fun Card() {
 }
 ```
 
-### 오프셋 Modifier
+### 오프셋 Modifier {id="offset-modifiers"}
 
 레이아웃의 위치를 원래 위치에서 조정하려면 `offset` Modifier를 사용하세요. X축과 Y축의 오프셋을 지정합니다.
 
@@ -99,7 +99,7 @@ fun Card() {
 }
 ```
 
-## 스코프 지정 Modifier
+## 스코프 지정 Modifier {id="scoped-modifiers"}
 
 상위 데이터 Modifier(parent data modifiers)라고도 불리는 스코프 지정(Scoped) Modifier는 자식 요소에 대한 특정 요구 사항을 부모 레이아웃에 알립니다. 예를 들어, 부모 `Box`의 크기에 맞추려면 `matchParentSize` Modifier를 사용합니다.
 
@@ -144,7 +144,7 @@ fun Card() {
 }
 ```
 
-## Modifier 추출 및 재사용
+## Modifier 추출 및 재사용 {id="extracting-and-reusing-modifiers"}
 
 Modifier를 체이닝할 때, 재사용을 위해 체인을 변수나 함수로 추출할 수 있습니다. 이는 코드 가독성을 향상시키고 Modifier 인스턴스를 재사용함으로써 성능을 높일 수 있습니다.
 
@@ -169,7 +169,7 @@ fun Example() {
 }
 ```
 
-## 커스텀 Modifier
+## 커스텀 Modifier {id="custom-modifiers"}
 
 Compose Multiplatform은 일반적인 사용 사례를 위해 다양한 기본 제공 Modifier를 제공하지만, 직접 커스텀 Modifier를 만들 수도 있습니다.
 
@@ -179,6 +179,6 @@ Compose Multiplatform은 일반적인 사용 사례를 위해 다양한 기본 �
 * [컴포저블 Modifier 팩토리 사용](https://developer.android.com/develop/ui/compose/custom-modifiers#create_a_custom_modifier_using_a_composable_modifier_factory)
 * [저수준 `Modifier.Node` API 사용](https://developer.android.com/develop/ui/compose/custom-modifiers#implement-custom)
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 [Jetpack Compose 문서](https://developer.android.com/develop/ui/compose/modifiers)에서 Modifier에 대해 자세히 알아보세요.

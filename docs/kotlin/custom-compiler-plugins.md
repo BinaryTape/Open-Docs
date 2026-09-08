@@ -12,7 +12,7 @@
 
 如果您*仍然*找不到所需的内容，可以创建一个自定义编译器插件。请注意，Kotlin 编译器插件 API 是**不稳定**的。由于每个新编译器版本都会引入破坏性变更，因此您需要投入大量的持续精力来进行维护。
 
-### Kotlin 编译器与编译器插件
+### Kotlin 编译器与编译器插件 {id="the-kotlin-compiler-and-compiler-plugins"}
 
 <p></p> <!-- workaround for MRK057: Paragraph can only contain inline elements-->
 <list columns="2">
@@ -43,7 +43,7 @@
 
 [Kotlin 序列化插件](https://github.com/Kotlin/kotlinx.serialization)是一个很好的例子。该插件的前端部分添加了一个伴生对象和一个序列化器函数，并进行检查以防止名称冲突。后端部分则通过 `KSerializer` 对象实现所需的序列化行为。
 
-### Kotlin 编译器插件模板
+### Kotlin 编译器插件模板 {id="kotlin-compiler-plugin-template"}
 
 要开始编写自定义编译器插件，您可以使用 [Kotlin 编译器插件模板](https://github.com/Kotlin/compiler-plugin-template)。然后，您可以注册来自前端和后端插件 API 的扩展点。
 
@@ -51,7 +51,7 @@
 > 
 {style="note"}
 
-### 前端插件 API
+### 前端插件 API {id="frontend-plugin-api"}
 
 前端插件 API（也称为 FIR）具有以下专门的扩展点来自定义解析：
 
@@ -66,7 +66,7 @@
 | [`FirSupertypeGenerationExtension`](https://github.com/JetBrains/kotlin/blob/master/compiler/fir/resolve/src/org/jetbrains/kotlin/fir/extensions/FirSupertypeGenerationExtension.kt)         | 向现有类添加新的超类型。                                             |
 | [`FirTypeAttributeExtension`]( https://github.com/JetBrains/kotlin/blob/master/compiler/fir/tree/src/org/jetbrains/kotlin/fir/extensions/FirTypeAttributeExtension.kt)                       | 根据某些类型的类型注解向其添加特殊属性。                                     |
 
-#### IDE 集成
+#### IDE 集成 {id="ide-integration"}
 
 解析变更会影响 IDE 行为，如代码高亮显示和建议，因此确保您的插件与 IDE 兼容非常重要。每个版本的 IntelliJ IDEA 和 Android Studio 都包含一个开发版本的 Kotlin 编译器。此版本特定于 IDE，且与发布的 Kotlin 编译器二进制不兼容。因此，当您更新 IDE 时，还需要更新编译器插件以保持其正常运行。由于这个原因，默认情况下不加载社区插件。
 
@@ -74,7 +74,7 @@
 
 如果有了适用于 Kotlin 编译器插件的 Devkit，支持多个 IDE 版本可能会变得更容易。如果您对该功能感兴趣，请在我们的[问题跟踪器](https://youtrack.jetbrains.com/issue/KT-82617)中分享您的反馈。
 
-### 后端插件 API
+### 后端插件 API {id="backend-plugin-api"}
 
 > 后端插件开发在不降低 IDE 或调试器性能的情况下很难正确完成，因此请谨慎且保守地进行更改。
 > 
@@ -84,11 +84,11 @@
 
 通过此扩展点进行的更改**不会**由编译器检查。您必须确保您的更改在此阶段不会破坏编译器的预期。例如，您可能会意外引入无效类型、错误的函数引用或超出正确作用域的引用。
 
-#### 探索后端插件代码
+#### 探索后端插件代码 {id="explore-backend-plugin-code"}
 
 您可以探索 Kotlin 序列化插件的代码，以查看后端插件编译器代码在实践中是什么样的。例如，[`SerializableCompanionIrGenerator.kt`](https://github.com/JetBrains/kotlin/blob/master/plugins/kotlinx-serialization/kotlinx-serialization.backend/src/org/jetbrains/kotlinx/serialization/compiler/backend/ir/SerializerIrGenerator.kt) 填充了关键序列化器成员缺失的主体。一个例子是 [`generateChildSerializersGetter()`](https://github.com/JetBrains/kotlin/blob/9cfa558902abc13d245c825717026af63ef82dd2/plugins/kotlinx-serialization/kotlinx-serialization.backend/src/org/jetbrains/kotlinx/serialization/compiler/backend/ir/SerializerIrGenerator.kt#L242) 函数，它收集 `KSerializer` 表达式列表并将其在数组中返回。
 
-#### 检查后端插件代码的问题
+#### 检查后端插件代码的问题 {id="check-your-backend-plugin-code-for-problems"}
 
 您可以通过三种方式检查后端插件代码中的问题：
 
@@ -104,7 +104,7 @@
 
     在 `convertToIr.kt` 文件中，在 `convertToIrAndActualize()` 函数中添加断点，并以调试模式运行编译器，以便在编译过程中获取更详细的信息。
 
-### 测试您的插件
+### 测试您的插件 {id="test-your-plugin"}
 
 实现插件后，请对其进行彻底测试。[Kotlin 编译器插件模板](https://github.com/Kotlin/compiler-plugin-template)已配置为使用 [Kotlin 编译器测试框架](https://github.com/JetBrains/kotlin/blob/master/compiler/test-infrastructure/ReadMe.md)。您可以在以下目录中添加测试：
 
@@ -121,6 +121,6 @@
 
 您可以使用这些文件来检查生成的差异中是否存在非预期的更改。如果没有问题，新的转储文件将成为您最新的“黄金文件 (golden files)”：这是一个经过批准且可信的源，您可以将未来的更改与其进行比较。
 
-### 获取帮助
+### 获取帮助 {id="get-help"}
 
 如果您在开发自定义编译器插件时遇到问题，请在 [Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) 的 [#compiler](https://slack-chats.kotlinlang.org/c/compiler) 频道寻求帮助。我们无法承诺提供解决方案，但如果可以的话，我们会尽力提供帮助。

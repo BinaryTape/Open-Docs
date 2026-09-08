@@ -5,7 +5,7 @@ Kotlin 為強大且靈活的資料視覺化提供了一站式解決方案，在�
 
 本教學示範如何使用 IntelliJ IDEA 配合 [Kandy](https://kotlin.github.io/kandy/welcome.html) 和 [Kotlin DataFrame](https://kotlin.github.io/dataframe/home.html) 程式庫來建立不同的圖表類型。
 
-## 開始之前
+## 開始之前 {id="before-you-start"}
 
 > 從 IntelliJ IDEA 2026.2 開始，Kotlin Notebook 將不再隨 IDE 內建，JetBrains 也不再官方支援。
 > 原始碼將繼續保留在 [GitHub](https://github.com/Kotlin/kotlin-notebook) 上。
@@ -28,7 +28,7 @@ Kotlin 為強大且靈活的資料視覺化提供了一站式解決方案，在�
 
 若要按照本教學操作，您也可以將 DataFrame 作為 [Gradle](https://kotlin.github.io/dataframe/setupgradle.html) 或 [Maven](https://kotlin.github.io/dataframe/setupmaven.html) 相依性使用。
 
-## 建立 DataFrame
+## 建立 DataFrame {id="create-a-dataframe"}
 
 首先，讓我們建立一個包含要視覺化資料的 DataFrame。此 DataFrame 儲存了柏林、馬德里和卡拉卡斯三個城市模擬的每月平均氣溫：
 
@@ -75,7 +75,7 @@ df.head(4) // 傳回前四列
 >
 {style="tip"}
 
-## 建立折線圖
+## 建立折線圖 {id="create-a-line-chart"}
 
 讓我們使用上一節中的 `df` DataFrame 建立折線圖：
 
@@ -109,7 +109,7 @@ df.plot {
 
 ![折線圖](visualization-line-chart.svg){width=600}
 
-## 建立點狀圖
+## 建立點狀圖 {id="create-a-points-chart"}
 
 現在，讓我們在點狀（散佈）圖中視覺化 `df` DataFrame：
 
@@ -148,7 +148,7 @@ df.plot {
 
 ![點狀圖](visualization-points-chart.svg){width=600}
 
-## 建立長條圖
+## 建立長條圖 {id="create-a-bar-chart"}
 
 最後，讓我們為每個城市建立一個長條圖：
 
@@ -181,7 +181,7 @@ df.groupBy { City }.plot {
 
 ![長條圖](visualization-bar-chart.svg){width=600}
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * 在 [Kandy 程式庫文件](https://kotlin.github.io/kandy/examples.html)中探索更多圖表範例
 * 在 [Lets-Plot 程式庫文件](lets-plot.md)中探索更多進階繪圖選項

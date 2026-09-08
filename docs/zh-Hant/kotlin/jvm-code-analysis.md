@@ -4,7 +4,7 @@
 
 程式碼品質工具可協助您強制執行編碼標準、及早發現錯誤、測量測試涵蓋率，並在您的 Kotlin 專案中維護程式碼品質。本指南介紹如何將 [ktlint](https://ktlint.github.io/ktlint/latest/)、[detekt](https://detekt.dev/)、[SonarQube](https://www.sonarsource.com/products/sonarqube/)、[SonarCloud](https://www.sonarsource.com/products/sonarcloud/) 和 [Kover](https://kotlin.github.io/kotlinx-kover/) 等熱門工具整合到適用於 Maven 或 Gradle 的後端專案中。
 
-## 使用 ktlint 進行程式碼格式化
+## 使用 ktlint 進行程式碼格式化 {id="code-formatting-with-ktlint"}
 
 [ktlint](https://github.com/ktlint/ktlint) 是一個 Kotlin linter 與格式化程序，無需額外配置即可強制執行官方 Kotlin [慣例 (coding conventions)](coding-conventions.md)。
 
@@ -103,7 +103,7 @@ ktlint 會檢查縮排、運算子周圍的空格、匯入順序和尾隨逗號�
 
 有關可用功能和規則的更多資訊，請參閱 [ktlint 文件](https://github.com/ktlint/ktlint/tree/master/documentation)。
 
-## 使用 detekt 進行程式碼分析
+## 使用 detekt 進行程式碼分析 {id="code-analysis-with-detekt"}
 
 [detekt](https://github.com/detekt/detekt) 是一個適用於 Kotlin 的靜態程式碼分析工具，可偵測程式碼異味 (code smells)、複雜度問題和潛在錯誤。
 
@@ -241,7 +241,7 @@ detekt 會產生一份報告，列出所有違反規則的情況及其嚴重程�
 
 有關更多資訊，請參閱適用於 [Gradle](https://detekt.dev/docs/intro) 和 [Maven](https://github.com/Ozsie/detekt-maven-plugin) 的 detekt 文件。
 
-## 使用 SonarSource 提升程式碼品質
+## 使用 SonarSource 提升程式碼品質 {id="code-quality-with-sonarsource"}
 
 SonarSource 的 [SonarQube](https://github.com/SonarSource/sonarqube) 和 [SonarCloud](https://github.com/marketplace/sonarcloud) 為 Kotlin 專案提供深度靜態分析，包括透過 Web 儀表板進行錯誤偵測、弱點掃描和程式碼涵蓋率追蹤。
 
@@ -364,7 +364,7 @@ SonarSource 的 [SonarQube](https://github.com/SonarSource/sonarqube) 和 [Sonar
 
 有關更多資訊，請參閱 [SonarSource 文件](https://docs.sonarsource.com/)。
 
-## 使用 Kover 進行程式碼涵蓋率分析
+## 使用 Kover 進行程式碼涵蓋率分析 {id="code-coverage-with-kover"}
 
 [Kover](https://github.com/Kotlin/kotlinx-kover) 是官方的 JetBrains Kotlin 程式碼涵蓋率工具。它會測量您的程式碼中哪些行和分支已被測試涵蓋，並產生人類可讀的報告。
 
@@ -498,7 +498,7 @@ SonarSource 的 [SonarQube](https://github.com/SonarSource/sonarqube) 和 [Sonar
 
 有關配置驗證規則的更多資訊，請參閱適用於 [Maven](https://kotlin.github.io/kotlinx-kover/maven-plugin/) 和 [Gradle](https://kotlin.github.io/kotlinx-kover/gradle-plugin/) 的 Kover 文件。
 
-## 其他工具
+## 其他工具 {id="other-tools"}
 
 除了 ktlint、detekt、SonarQube、SonarCloud 和 Kover 之外，還可以嘗試其他工具來提升 Kotlin 程式碼品質：
 
@@ -508,7 +508,7 @@ SonarSource 的 [SonarQube](https://github.com/SonarSource/sonarqube) 和 [Sonar
 | [Semgrep](https://semgrep.dev/docs/) | 快速、輕量級的靜態分析工具，支援自訂規則。可用於在 Kotlin 程式碼中強制執行特定模式或偵測反模式。 |
 | [PMD](https://docs.pmd-code.org/latest/) | 支援 Kotlin（透過其 CPD 複製貼上偵測器）的原始碼分析器，可偵測常見的程式設計瑕疵和重複程式碼。 |
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * [在 Maven 專案中執行測試](jvm-test-maven.md)
 * [使用 Maven 配置 Kotlin 專案](maven-configure-project.md)

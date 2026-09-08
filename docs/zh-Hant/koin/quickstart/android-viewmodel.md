@@ -9,13 +9,13 @@ title: Android - ViewModel
 更新 - 2024-10-21
 :::
 
-## 取得程式碼
+## 取得程式碼 {id="get-the-code"}
 
 :::info
 [原始碼可在 Github 上取得](https://github.com/InsertKoinIO/koin-getting-started/tree/main/android)
 :::
 
-## Gradle 設定
+## Gradle 設定 {id="gradle-setup"}
 
 如下所示新增 Koin Android 相依性：
 
@@ -27,13 +27,13 @@ dependencies {
 }
 ```
 
-## 應用程式概觀
+## 應用程式概觀 {id="application-overview"}
 
 此應用程式的構想是管理使用者列表，並透過 Presenter 或 ViewModel 在我們的 `MainActivity` 類別中顯示：
 
 > Users -> UserRepository -> UserService -> (Presenter 或 ViewModel) -> MainActivity
 
-## "User" 資料
+## "User" 資料 {id="the-user-data"}
 
 我們將管理一個 User 的集合。以下是資料類別：
 
@@ -63,7 +63,7 @@ class UserRepositoryImpl : UserRepository {
 }
 ```
 
-## UserService 組建
+## UserService 組建 {id="the-userservice-component"}
 
 讓我們撰寫一個服務組建來管理使用者操作：
 
@@ -94,7 +94,7 @@ class UserServiceImpl(
 }
 ```
 
-## Koin 模組
+## Koin 模組 {id="the-koin-module"}
 
 使用 `module` 函式來宣告 Koin 模組。Koin 模組是我們定義所有要注入之組建的地方。
 
@@ -117,7 +117,7 @@ val appModule = module {
 本教學使用 **Koin 編譯器外掛程式 DSL** (`single<T>()`, `viewModel<T>()`)，它在編譯時提供自動裝配。請參閱 [編譯器外掛程式配置](/docs/setup/compiler-plugin) 以了解設定方式。
 :::
 
-## 使用 ViewModel 顯示使用者
+## 使用 ViewModel 顯示使用者 {id="displaying-user-with-viewmodel"}
 
 讓我們撰寫一個 ViewModel 組建來顯示使用者：
 
@@ -144,7 +144,7 @@ val appModule = module {
 }
 ```
 
-## 在 Android 中注入 ViewModel
+## 在 Android 中注入 ViewModel {id="injecting-viewmodel-in-android"}
 
 `UserViewModel` 組建將被建立，並隨之解析 `UserService` 執行個體。為了將其獲取到我們的 Activity 中，讓我們使用 `by viewModel()` 委託函式進行注入：
 
@@ -167,7 +167,7 @@ class MainActivity : AppCompatActivity() {
 `by viewModel()` 函式允許我們獲取 ViewModel 執行個體，為您建立關聯的 ViewModel Factory 並將其綁定到生命週期。
 :::
 
-## 啟動 Koin
+## 啟動 Koin {id="start-koin"}
 
 我們需要在 Android 應用程式中啟動 Koin。只需在應用程式的主要入口點（即我們的 `MainApplication` 類別）中呼叫 `startKoin()` 函式：
 
@@ -189,7 +189,7 @@ class MainApplication : Application(){
 `startKoin` 中的 `modules()` 函式會載入指定的模組列表。
 :::
 
-## Koin 模組：DSL 比較
+## Koin 模組：DSL 比較 {id="koin-module-dsl-comparison"}
 
 以下是使用 **傳統 DSL**（手動裝配）的 Koin 模組宣告：
 

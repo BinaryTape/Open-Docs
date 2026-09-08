@@ -13,13 +13,13 @@ Koog는 다양한 LLM 제공자의 대규모 언어 모델(LLM)을 제공자 독
 
 이는 다양한 LLM 제공자와 통일된 방식으로 상호작용하기 위한 기초 역할을 하며, 애플리케이션이 제공자별 세부 사항을 추상화하면서 다양한 모델과 작업할 수 있도록 합니다.
 
-## LLM 기능 (LLM capabilities)
+## LLM 기능 (LLM capabilities) {id="llm-capabilities"}
 
 LLM 기능은 대규모 언어 모델이 지원할 수 있는 특정 기능이나 특징을 나타냅니다. Koog 프레임워크에서 기능은 특정 모델이 무엇을 할 수 있고 어떻게 구성될 수 있는지 정의하는 데 사용됩니다. 각 기능은 `LLMCapability` 클래스의 서브클래스 또는 데이터 객체로 표현됩니다.
 
 애플리케이션에서 사용할 LLM을 구성할 때, `LLModel` 인스턴스를 생성할 때 `capabilities` 리스트에 추가하여 해당 모델이 지원하는 기능을 지정합니다. 이를 통해 프레임워크는 모델과 적절하게 상호작용하고 해당 기능을 적절하게 사용할 수 있습니다.
 
-### 핵심 기능 (Core capabilities)
+### 핵심 기능 (Core capabilities) {id="core-capabilities"}
 
 아래 목록에는 Koog 프레임워크의 모델에서 사용할 수 있는 핵심 LLM 전용 기능이 포함되어 있습니다:
 
@@ -37,7 +37,7 @@ LLM 기능은 대규모 언어 모델이 지원할 수 있는 특정 기능이�
 
 - **다중 선택** (`LLMCapability.MultipleChoices`): 모델이 단일 프롬프트에 대해 여러 개의 독립적인 응답 선택지를 생성하도록 합니다.
 
-### 미디어 처리 기능 (Media processing capabilities)
+### 미디어 처리 기능 (Media processing capabilities) {id="media-processing-capabilities"}
 
 다음 목록은 이미지나 오디오와 같은 미디어 콘텐츠를 처리하기 위한 기능 세트를 나타냅니다:
 
@@ -50,7 +50,7 @@ LLM 기능은 대규모 언어 모델이 지원할 수 있는 특정 기능이�
 
 - **문서** (`LLMCapability.Document`): 문서 기반 입력 및 출력의 처리 및 핸들링을 가능하게 합니다.
 
-### 텍스트 처리 기능 (Text processing capabilities)
+### 텍스트 처리 기능 (Text processing capabilities) {id="text-processing-capabilities"}
 
 다음 기능 목록은 텍스트 생성 및 처리 기능을 나타냅니다:
 
@@ -62,7 +62,7 @@ LLM 기능은 대규모 언어 모델이 지원할 수 있는 특정 기능이�
 
 - **모더레이션** (`LLMCapability.Moderation`): 모델이 잠재적으로 유해한 콘텐츠에 대해 텍스트를 분석하고 괴롭힘, 혐오 표현, 자해, 성적 콘텐츠, 폭력 등과 같은 다양한 카테고리에 따라 분류할 수 있도록 합니다.
 
-### 스키마 기능 (Schema capabilities)
+### 스키마 기능 (Schema capabilities) {id="schema-capabilities"}
 
 아래 목록은 구조화된 데이터 처리와 관련된 기능을 나타냅니다:
 
@@ -72,7 +72,7 @@ LLM 기능은 대규모 언어 모델이 지원할 수 있는 특정 기능이�
         - **기본** (`LLMCapability.Schema.JSON.Basic`): 경량화되거나 기본적인 JSON 처리 기능을 제공합니다.
         - **표준** (`LLMCapability.Schema.JSON.Standard`): 복잡한 데이터 구조에 대한 포괄적인 JSON 스키마 지원을 제공합니다.
 
-## 모델(LLModel) 구성 생성하기
+## 모델(LLModel) 구성 생성하기 {id="creating-a-model-llmodel-configuration"}
 
 범용적이고 제공자 독립적인 방식으로 모델을 정의하려면, 다음 파라미터를 사용하여 `LLModel` 클래스의 인스턴스로 모델 구성을 생성하십시오:
 
@@ -84,7 +84,7 @@ LLM 기능은 대규모 언어 모델이 지원할 수 있는 특정 기능이�
 | `contextLength`   | Long                      | 예 |         | LLM의 컨텍스트 길이입니다. 이는 LLM이 처리할 수 있는 최대 토큰 수입니다. |
 | `maxOutputTokens` | Long                      | 아니요 | `null`  | 해당 LLM에 대해 제공자가 생성할 수 있는 최대 토큰 수입니다. |
 
-### 예제
+### 예제 {id="examples"}
 
 이 섹션에서는 다양한 기능을 가진 `LLModel` 인스턴스를 생성하는 자세한 예제를 제공합니다.
 
@@ -327,7 +327,7 @@ LLM 기능은 대규모 언어 모델이 지원할 수 있는 특정 기능이�
     -->
     <!--- KNIT example-model-capabilities-java-05.java -->
 
-### 모델별 LLM 기능
+### 모델별 LLM 기능 {id="llm-capabilities-by-model"}
 
 이 참조표는 각 제공자의 모델별로 어떤 LLM 기능이 지원되는지 보여줍니다.
 

@@ -204,7 +204,7 @@ staticResources("/", "static"){
 
 이 예제에서 `/index`가 요청되면 Ktor는 `/index.html`을 검색하고 찾은 콘텐츠를 서빙합니다.
 
-### 사용자 정의 폴백 (Custom fallback)
+### 사용자 정의 폴백 (Custom fallback) {id="custom-fallback"}
 
 요청된 정적 리소스를 찾을 수 없을 때 사용자 정의 폴백 동작을 구성하려면 `fallback()` 함수를 사용하세요.
 `fallback()`을 사용하면 요청된 경로를 검사하고 응답 방법을 결정할 수 있습니다. 예를 들어 다른 리소스로 리다이렉트하거나, 특정 HTTP 상태를 반환하거나, 대체 파일을 서빙할 수 있습니다.

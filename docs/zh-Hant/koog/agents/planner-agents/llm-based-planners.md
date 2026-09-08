@@ -120,6 +120,6 @@ Koog 提供兩種簡單的規劃器：
     ```
      <!--- KNIT exampleLLMBasedPlannerJava01.java -->
 
-## 下一步
+## 下一步 {id="next-steps"}
 
 - 了解 [GOAP 代理](goap-agents.md)

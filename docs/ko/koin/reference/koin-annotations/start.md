@@ -10,11 +10,11 @@ title: Koin 어노테이션 시작하기
 
 Koin 어노테이션을 사용하면 클래스에 어노테이션을 추가하여 정의(definitions)를 선언할 수 있습니다. Koin 컴파일러 플러그인은 이러한 어노테이션을 처리하고 컴파일 시점에 모든 기반 Koin DSL을 자동으로 생성합니다.
 
-## 시작하기
+## 시작하기 {id="getting-started"}
 
 Koin이 처음이신가요? 먼저 [Koin 시작하기](https://insert-koin.io/docs/quickstart/kotlin/)를 살펴보세요.
 
-### 설정
+### 설정 {id="setup"}
 
 프로젝트에 Koin 컴파일러 플러그인을 추가하세요. 자세한 지침은 [컴파일러 플러그인 설정](/docs/setup/compiler-plugin)을 참조하세요.
 
@@ -30,7 +30,7 @@ dependencies {
 }
 ```
 
-### 컴포넌트에 어노테이션 추가하기
+### 컴포넌트에 어노테이션 추가하기 {id="annotating-components"}
 
 컴포넌트에 정의 어노테이션을 추가하세요:
 
@@ -45,7 +45,7 @@ class MyService(val repository: MyRepository)
 class MyUseCase(val service: MyService)
 ```
 
-### 모듈 선언하기
+### 모듈 선언하기 {id="declaring-modules"}
 
 정의를 정리하기 위한 모듈을 생성합니다:
 
@@ -55,7 +55,7 @@ class MyUseCase(val service: MyService)
 class AppModule
 ```
 
-### Koin 시작하기
+### Koin 시작하기 {id="starting-koin"}
 
 타입화된 시작 API(typed startup API)와 함께 `@KoinApplication`을 사용하세요:
 
@@ -73,7 +73,7 @@ fun main() {
 }
 ```
 
-## 구성 레이블 (Configuration Labels)
+## 구성 레이블 (Configuration Labels) {id="configuration-labels"}
 
 레이블에 따라 로드되는 모듈을 생성하려면 `@Configuration`을 사용하세요:
 
@@ -105,7 +105,7 @@ fun main() {
 }
 ```
 
-## 타입화된 시작 API (Typed Startup APIs)
+## 타입화된 시작 API (Typed Startup APIs) {id="typed-startup-apis"}
 
 컴파일러 플러그인은 Koin을 시작하기 위한 타입화된 API를 제공합니다:
 
@@ -120,7 +120,7 @@ fun main() {
 
 여기서 `T`는 `@KoinApplication`(시작 API용) 또는 `@Module`(모듈 로드 API용) 어노테이션이 지정된 클래스입니다.
 
-### 개별 모듈 로드하기
+### 개별 모듈 로드하기 {id="loading-individual-modules"}
 
 `@KoinApplication` 없이 `@Module` 클래스를 직접 로드할 수 있습니다:
 
@@ -140,11 +140,11 @@ val koinTestRule = KoinTestRule.create {
 }
 ```
 
-## 컴파일 시점 안전성 (Compile-Time Safety)
+## 컴파일 시점 안전성 (Compile-Time Safety) {id="compile-time-safety"}
 
 컴파일러 플러그인은 컴파일 시점에 Koin 구성을 검증하여 모든 의존성이 선언되었고 접근 가능한지 확인합니다.
 
-### @Provided를 사용한 우회
+### @Provided를 사용한 우회 {id="bypass-with-provided"}
 
 의존성이 외부에서 제공됨을 나타내려면 `@Provided`를 사용하세요:
 
@@ -155,11 +155,11 @@ class ExternalComponent  // 다른 곳에서 선언됨
 class MyPresenter(@Provided val external: ExternalComponent)
 ```
 
-## 컴파일러 플러그인 옵션
+## 컴파일러 플러그인 옵션 {id="compiler-plugin-options"}
 
 모든 구성 옵션은 **[컴파일러 플러그인 옵션](/docs/reference/koin-annotations/options)**을 참조하세요.
 
-## ProGuard 규칙 (ProGuard Rules)
+## ProGuard 규칙 (ProGuard Rules) {id="proguard-rules"}
 
 ProGuard/R8를 사용하는 SDK 개발의 경우:
 
@@ -171,7 +171,7 @@ ProGuard/R8를 사용하는 SDK 개발의 경우:
 -keep @org.koin.core.annotation.* class * { *; }
 ```
 
-## 참고 항목
+## 참고 항목 {id="see-also"}
 
 - **[컴파일러 플러그인 설정](/docs/setup/compiler-plugin)** - 전체 설정 가이드
 - **[정의 (Definitions)](/docs/reference/koin-annotations/definitions)** - 모든 정의 어노테이션

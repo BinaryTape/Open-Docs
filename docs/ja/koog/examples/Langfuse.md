@@ -9,13 +9,13 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Lang
 
 このノートブックでは、OpenTelemetry を使用して Koog エージェントのトレースを Langfuse インスタンスにエクスポートする方法について説明します。環境変数を設定し、シンプルなエージェントを実行して、Langfuse でスパンやトレースを確認します。
 
-## 学習内容
+## 学習内容 {id="what-you-ll-learn"}
 
 - Koog が OpenTelemetry と連携してトレースを出力する方法
 - 環境変数を使用して Langfuse エクスポーターを構成する方法
 - エージェントを実行し、Langfuse でそのトレースを表示する方法
 
-## 前提条件
+## 前提条件 {id="prerequisites"}
 
 - Langfuse プロジェクト（ホスト URL、パブリックキー、シークレットキー）
 - LLM エグゼキューター用の OpenAI API キー
@@ -63,7 +63,7 @@ val agent = AIAgent(
 }
 ```
 
-## エージェントと Langfuse エクスポーターの構成
+## エージェントと Langfuse エクスポーターの構成 {id="configure-the-agent-and-langfuse-exporter"}
 
 次のセルでは、以下のことを行います：
 
@@ -86,11 +86,11 @@ See traces on the Langfuse instance"
 
 ```
 
-## エージェントの実行とトレースの表示
+## エージェントの実行とトレースの表示 {id="run-the-agent-and-view-traces"}
 
 次のセルを実行して、シンプルなプロンプトをトリガーします。これにより、Langfuse プロジェクトにエクスポートされるスパンが生成されます。
 
-### Langfuse での確認場所
+### Langfuse での確認場所 {id="where-to-look-in-langfuse"}
 
 1. Langfuse ダッシュボードを開き、プロジェクトを選択します
 2. **Traces/Spans** ビューに移動します
@@ -100,7 +100,7 @@ See traces on the Langfuse instance"
    - LLM のリクエスト/レスポンスのメタデータ
    - エラー（ある場合）
 
-### トラブルシューティング
+### トラブルシューティング {id="troubleshooting"}
 
 - トレースが表示されない場合
   - `LANGFUSE_HOST`、`LANGFUSE_PUBLIC_KEY`、`LANGFUSE_SECRET_KEY` を再確認してください

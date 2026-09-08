@@ -32,7 +32,7 @@ Kotlin Notebookは、当社の[Jupyter Notebook向けKotlinカーネル（Kotlin
 
 これらの機能により、単純なコードの実験から包括的なデータプロジェクトまで、幅広いタスクに取り組むことができます。
 
-## データ分析と視覚化
+## データ分析と視覚化 {id="data-analytics-and-visualization"}
 
 予備的なデータ探索を行っている場合でも、エンドツーエンドのデータ分析プロジェクトを完了させる場合でも、Kotlin Notebookには最適なツールが揃っています。
 
@@ -48,7 +48,7 @@ KandyのKotlinらしい慣用的な（idiomatic）記述、読みやすさ、そ
 
 ![data-analytics-and-visualization](data-analysis-kandy-example.png){width=700}
 
-## プロトタイピング
+## プロトタイピング {id="prototyping"}
 
 Kotlin Notebookは、コードを小さな断片（チャンク）で実行し、その結果をリアルタイムで確認できるインタラクティブな環境を提供します。
 この実践的なアプローチにより、プロトタイピング（試作）段階での迅速な実験と反復が可能になります。
@@ -57,14 +57,14 @@ Kotlin Notebookを活用することで、構想段階の早い時期にソリ�
 
 ![kotlin-notebook-prototyping](kotlin-notebook-prototyping.png){width=700}
 
-## バックエンド開発
+## バックエンド開発 {id="backend-development"}
 
 Kotlin Notebookでは、セル内でAPIを呼び出したり、OpenAPIのようなプロトコルを扱ったりすることができます。
 外部サービスやAPIとのやり取りが可能であるため、ノートブック環境内で直接情報を取得したりJSONファイルを読み取ったりするなど、特定のバックエンド開発シナリオにおいて有用です。
 
 ![kotlin-notebook-backend-development](kotlin-notebook-backend-development.png){width=700}
 
-## コードのドキュメント化
+## コードのドキュメント化 {id="code-documentation"}
 
 Kotlin Notebookでは、コードセル内にインラインコメントやテキストアノテーションを含めることで、コードスニペットに関連する追加のコンテキスト、説明、指示を提供できます。
 
@@ -73,7 +73,7 @@ Markdownセルをレンダリングしてフォーマットされたテキスト
 
 ![kotlin-notebook-documenting](kotlin-notebook-documentation.png){width=700}
 
-## コードと出力の共有
+## コードと出力の共有 {id="sharing-code-and-outputs"}
 
 Kotlin Notebookは汎用的なJupyter形式に準拠しているため、異なるノートブック間でコードや出力を共有することが可能です。
 [Jupyter Notebook](https://jupyter.org/)や[Jupyter Lab](https://jupyterlab.readthedocs.io/en/latest/)などの任意のJupyterクライアントで、Kotlin Notebookを開き、編集し、実行できます。
@@ -91,7 +91,7 @@ IntelliJ IDEAは、お客様のGitHubアカウントのGistにノートブック
 
 Gistは、ノートブックのすべてのコード、出力、MarkdownをJSON形式で保存し、GitHubはこれをプレビュー用にレンダリングできます。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [Kotlin Notebookの使用方法と主要な機能について学ぶ。](https://www.jetbrains.com/help/idea/kotlin-notebook.html)
 * [Kotlin Notebookを試してみる。](get-started-with-kotlin-notebooks.md)

@@ -8,7 +8,7 @@ Maven 기반 프로젝트의 문서를 생성하려면 Dokka용 Maven 플러그�
 
 Dokka를 사용해 보고 Maven 프로젝트에서 어떻게 설정하는지 확인하려면 [Maven 예제](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/examples/maven) 프로젝트를 방문해 보세요.
 
-## Dokka 적용
+## Dokka 적용 {id="apply-dokka"}
 
 Dokka를 적용하려면 POM 파일의 `plugins` 섹션에 `dokka-maven-plugin`을 추가해야 합니다.
 
@@ -32,7 +32,7 @@ Dokka를 적용하려면 POM 파일의 `plugins` 섹션에 `dokka-maven-plugin`�
 </build>
 ```
 
-## 문서 생성
+## 문서 생성 {id="generate-documentation"}
 
 Maven 플러그인은 다음과 같은 골(goal)을 제공합니다.
 
@@ -40,14 +40,14 @@ Maven 플러그인은 다음과 같은 골(goal)을 제공합니다.
 |---------------|----------------------------------------------------------------------------------------|
 | `dokka:dokka` | Dokka 플러그인이 적용된 문서를 생성합니다. 기본값은 [HTML](dokka-html.md) 형식입니다. |
 
-### 실험적 기능(Experimental)
+### 실험적 기능(Experimental) {id="experimental"}
 
 | **골(Goal)**           | **설명**                                                                             |
 |--------------------|---------------------------------------------------------------------------------------------|
 | `dokka:javadoc`    | [Javadoc](dokka-javadoc.md) 형식으로 문서를 생성합니다.                                    |
 | `dokka:javadocJar` | [Javadoc](dokka-javadoc.md) 형식의 문서가 포함된 `javadoc.jar` 파일을 생성합니다. |
 
-### 기타 출력 형식
+### 기타 출력 형식 {id="other-output-formats"}
 
 기본적으로 Dokka용 Maven 플러그인은 [HTML](dokka-html.md) 출력 형식으로 문서를 빌드합니다.
 
@@ -76,7 +76,7 @@ Maven 플러그인은 다음과 같은 골(goal)을 제공합니다.
 
 Dokka 플러그인에 대해 더 자세히 알아보려면 [Dokka 플러그인](dokka-plugins.md)을 참조하세요.
 
-## javadoc.jar 빌드
+## javadoc.jar 빌드 {id="build-javadoc-jar"}
 
 라이브러리를 저장소에 배포하려는 경우, 라이브러리의 API 레퍼런스 문서가 포함된 `javadoc.jar` 파일을 제공해야 할 수도 있습니다.
 
@@ -123,7 +123,7 @@ mvn dokka:dokka jar:jar@dokka-jar
 >
 {style="tip"}
 
-## 설정 예제
+## 설정 예제 {id="configuration-example"}
 
 Maven의 플러그인 설정 블록을 사용하여 Dokka를 구성할 수 있습니다.
 
@@ -140,13 +140,13 @@ Maven의 플러그인 설정 블록을 사용하여 Dokka를 구성할 수 있�
 </plugin>
 ```
 
-## 설정 옵션
+## 설정 옵션 {id="configuration-options"}
 
 Dokka에는 사용자와 독자의 경험을 맞춤화할 수 있는 다양한 설정 옵션이 있습니다.
 
 아래는 각 설정 섹션에 대한 예제와 상세 설명입니다. 페이지 하단에서 [모든 설정 옵션](#complete-configuration)이 적용된 예제도 확인할 수 있습니다.
 
-### 일반 설정(General configuration)
+### 일반 설정(General configuration) {id="general-configuration"}
 
 ```xml
 <plugin>
@@ -373,7 +373,7 @@ Dokka에는 사용자와 독자의 경험을 맞춤화할 수 있는 다양한 �
     </def>
 </deflist>
 
-### 소스 링크 설정(Source link configuration)
+### 소스 링크 설정(Source link configuration) {id="source-link-configuration"}
 
 `sourceLinks` 설정 블록을 사용하면 각 시그니처에 특정 라인 번호가 포함된 `url`로 연결되는 `source` 링크를 추가할 수 있습니다. (라인 번호는 `lineSuffix`를 설정하여 구성할 수 있습니다.)
 
@@ -432,7 +432,7 @@ Dokka에는 사용자와 독자의 경험을 맞춤화할 수 있는 다양한 �
     </def>
 </deflist>
 
-### 외부 문서 링크 설정(External documentation links configuration)
+### 외부 문서 링크 설정(External documentation links configuration) {id="external-documentation-links-configuration"}
 
 `externalDocumentationLinks` 블록을 사용하면 의존하고 있는 외부 호스팅 문서로 연결되는 링크를 생성할 수 있습니다.
 
@@ -478,7 +478,7 @@ Dokka에는 사용자와 독자의 경험을 맞춤화할 수 있는 다양한 �
     </def>
 </deflist>
 
-### 패키지 옵션(Package options)
+### 패키지 옵션(Package options) {id="package-options"}
 
 `perPackageOptions` 설정 블록을 사용하면 `matchingRegex`와 일치하는 특정 패키지에 대해 일부 옵션을 설정할 수 있습니다.
 
@@ -538,7 +538,7 @@ Dokka에는 사용자와 독자의 경험을 맞춤화할 수 있는 다양한 �
     </def>
 </deflist>
 
-### 전체 설정 예시
+### 전체 설정 예시 {id="complete-configuration"}
 
 아래에서 가능한 모든 설정 옵션이 동시에 적용된 모습을 볼 수 있습니다.
 

@@ -12,11 +12,11 @@
    <img src="icon-4.svg" width="20" alt="ステップ4"/> <a href="jvm-spring-boot-using-crudrepository.md">データベースアクセスのためのSpring Data CrudRepositoryの使用</a><br/>
 </p>
 
-## 次のステップ
+## 次のステップ {id="next-step"}
 
 <a href="jvm-create-project-with-spring-boot.md" as="button" mode="classic" icon="arrow-right" icon-position="right">開始</a>
 
-### 関連項目
+### 関連項目 {id="see-also"}
 
 AIエージェントを活用したい場合は、[Spring BootとClaudeでタスク管理アプリケーションを作成する](spring-boot-claude.md)チュートリアルを試してみてください。
 

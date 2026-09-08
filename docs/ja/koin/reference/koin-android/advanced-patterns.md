@@ -8,9 +8,9 @@ title: Androidの高度なパターン
 プラットフォームに依存しないパターン（コレクション、デコレータ、ジェネリック型、循環依存関係）については、[定義](/docs/reference/koin-core/definitions) および [モジュール](/docs/reference/koin-core/modules) を参照してください。
 :::
 
-## シングルトンにおけるAndroidコンテキスト
+## シングルトンにおけるAndroidコンテキスト {id="android-context-in-singletons"}
 
-### Activityリークの回避
+### Activityリークの回避 {id="avoiding-activity-leaks"}
 
 ```kotlin
 // ❌ 悪い例 - シングルトンを通じてActivityがリークする
@@ -31,7 +31,7 @@ module {
 }
 ```
 
-### コンテキストの種類
+### コンテキストの種類 {id="context-types"}
 
 ```kotlin
 module {
@@ -43,9 +43,9 @@ module {
 }
 ```
 
-## BuildConfigによる条件付きバインディング
+## BuildConfigによる条件付きバインディング {id="conditional-bindings-with-buildconfig"}
 
-### ビルドバリアント
+### ビルドバリアント {id="build-variant"}
 
 ```kotlin
 fun createLogger(): Logger =
@@ -67,7 +67,7 @@ class LoggingModule {
 }
 ```
 
-### アナリティクスの切り替え
+### アナリティクスの切り替え {id="analytics-toggle"}
 
 ```kotlin
 fun createAnalyticsService(): AnalyticsService =
@@ -78,7 +78,7 @@ val analyticsModule = module {
 }
 ```
 
-### フィーチャーフラグ
+### フィーチャーフラグ {id="feature-flags"}
 
 ```kotlin
 @Singleton
@@ -97,7 +97,7 @@ class PaymentProcessor(
 }
 ```
 
-## Androidダイアログプロバイダー
+## Androidダイアログプロバイダー {id="android-dialog-provider"}
 
 Android UIコンポーネント用のファクトリを作成します。
 
@@ -128,7 +128,7 @@ class MainActivity : AppCompatActivity() {
 }
 ```
 
-## 階層型スコープ
+## 階層型スコープ {id="hierarchical-scopes"}
 
 共有アクセスのためにAndroidのスコープをリンクします。
 
@@ -154,7 +154,7 @@ shoppingScope.linkTo(sessionScope)
 val cart = shoppingScope.get<ShoppingCart>()
 ```
 
-## 動的機能レジストリ
+## 動的機能レジストリ {id="dynamic-feature-registry"}
 
 設定に基づいてコレクションを構築します。
 
@@ -170,9 +170,9 @@ class FeatureRegistry(private val config: AppConfig) : KoinComponent {
 }
 ```
 
-## Androidにおける一般的な落とし穴
+## Androidにおける一般的な落とし穴 {id="common-android-pitfalls"}
 
-### 隠れた循環呼び出し
+### 隠れた循環呼び出し {id="hidden-circular-calls"}
 
 ```kotlin
 // ⚠️ Lazyは循環を隠しますが、実行時に無限ループが発生します
@@ -187,7 +187,7 @@ class ServiceB : KoinComponent {
 }
 ```
 
-### ViewModelスコープの混同
+### ViewModelスコープの混同 {id="viewmodel-scope-confusion"}
 
 ```kotlin
 // ❌ 悪い例 - activityScope内のViewModelは画面回転時に状態を失います
@@ -203,7 +203,7 @@ module {
 }
 ```
 
-### シングルトンへのActivity注入
+### シングルトンへのActivity注入 {id="injecting-activity-in-singleton"}
 
 ```kotlin
 // ❌ メモリリーク - シングルトン内にActivityの参照がある
@@ -215,7 +215,7 @@ class ImageLoader(private val activity: Activity)
 class ImageLoader(private val context: Context)  // androidContext() 経由のApplicationコンテキスト
 ```
 
-## 次のステップ
+## 次のステップ {id="next-steps"}
 
 - **[Androidスコープ](/docs/reference/koin-android/scope)** - ライフサイクルを考慮したスコープ管理
 - **[マルチモジュールアプリ](/docs/reference/koin-android/multi-module)** - Androidモジュールの整理

@@ -11,7 +11,7 @@ Ktor 3.3.0 在伺服器、用戶端及工具方面帶來了新功能。以下是
 * [HTTP/2 明文 (h2c) 支援](#http2-h2c-support)
 * [實驗性 WebRTC 用戶端](#webrtc-client)
 
-## Ktor Server
+## Ktor Server {id="ktor-server"}
 
 ### 靜態資源的自訂備援 {id="custom-fallback"}
 
@@ -34,7 +34,7 @@ staticFiles("/files", File("textFiles")) {
 }
 ```
 
-### 靜態內容的 LastModified 與 Etag 標頭
+### 靜態內容的 LastModified 與 Etag 標頭 {id="lastmodified-and-etag-headers-for-static-content"}
 
 Ktor 3.3.0 引入了對靜態資源的 `ETag` 與 `LastModified` 標頭的支援。當安裝了 [`ConditionalHeaders`](server-conditional-headers.md) 外掛程式時，您可以處理條件式標頭，以避免在內容自上次請求後未變更的情況下發送內容主體：
 
@@ -55,7 +55,7 @@ staticFiles("/filesWithStrongGeneratedEtag", File("files")) {
 }
 ```
 
-### 開發模式自動重新載入限制
+### 開發模式自動重新載入限制 {id="development-mode-auto-reload-limitations"}
 
 在 Ktor 3.2.0 中，引入的 [suspend 模組函式支援](whats-new-320.md#suspendable-module-functions) 導致了一個回歸問題，即在使用阻塞模組參照的應用程式中，自動重新載入停止運作。
 
@@ -85,9 +85,9 @@ Ktor 3.3.0 為 Netty 引擎引入了 HTTP/2 明文 (h2c) 支援，這允許在�
 若要啟用 h2c，請在引擎配置中將 `enableH2c` 標記設為 true。
 如需更多資訊，請參閱 [不含 TLS 的 HTTP/2](server-http2.md#http-2-without-tls)。
 
-## Ktor Client
+## Ktor Client {id="ktor-client"}
 
-### SSE 回應主體緩衝區
+### SSE 回應主體緩衝區 {id="sse-response-body-buffer"}
 
 到目前為止，在 SSE 錯誤發生後嘗試呼叫 `response.bodyAsText()` 會因為重複消耗問題而失敗。
 
@@ -183,16 +183,16 @@ val answer = channel.receiveText()
 
 如需有關用法和限制的更多詳細資訊，請參閱 [WebRTC 用戶端](client-webrtc.md)文件。
 
-### 更新的 OkHttp 版本
+### 更新的 OkHttp 版本 {id="updated-okhttp-version"}
 
 在 Ktor 3.3.0 中，Ktor 用戶端的 `OkHttp` 引擎已升級為使用 OkHttp 5.1.0（先前為 4.12.0）。此次主要版本提升可能會為直接與 OkHttp 互動的專案引入 API 變更。此類專案應驗證相容性。
 
-### 統一的 OkHttp SSE 工作階段
+### 統一的 OkHttp SSE 工作階段 {id="unified-okhttp-sse-session"}
 
 OkHttp 引擎現在使用標準的 Server-Sent Events (SSE) API，取代了先前引入的 `OkHttpSSESession`。
 此變更統一了所有用戶端引擎的 SSE 處理，並解決了 OkHttp 特定實作的限制。
 
-## Gradle 外掛程式
+## Gradle 外掛程式 {id="gradle-plugin"}
 
 ### OpenAPI 規格產生 {id="openapi-spec-gen"}
 <primary-label ref="experimental"/>
@@ -207,7 +207,7 @@ Ktor 3.3.0 透過 Gradle 外掛程式和編譯器外掛程式引入了實驗性�
     - 安全性、描述、棄用和外部文件連結
 - 從 `call.receive()` 和 `call.respond()` 推斷請求和回應主體。
 
-#### 產生 OpenAPI 規格
+#### 產生 OpenAPI 規格 {id="generate-the-openapi-specification"}
 
 若要從您的 Ktor 路由和 KDoc 註解產生 OpenAPI 規格檔案，請使用以下指令：
 
@@ -215,7 +215,7 @@ Ktor 3.3.0 透過 Gradle 外掛程式和編譯器外掛程式引入了實驗性�
 ./gradlew buildOpenApi
 ```
 
-#### 提供規格服務
+#### 提供規格服務 {id="serve-the-specification"}
 
 若要在執行時提供產生的規格，您可以使用 [OpenAPI](server-openapi.md) 或 [SwaggerUI](server-swagger-ui.md) 外掛程式。
 
@@ -229,9 +229,9 @@ routing {
 
 如需有關此功能的更多詳細資訊，請參閱 [OpenAPI 規格產生](openapi-spec-generation.md)。
 
-## 共用
+## 共用 {id="shared"}
 
-### 更新的 Jetty 版本
+### 更新的 Jetty 版本 {id="updated-jetty-version"}
 
 Jetty 伺服器和用戶端引擎已升級為使用 Jetty 12。對於大多數應用程式，此升級完全向下相容，但用戶端和伺服器程式碼現在在內部利用更新的 Jetty API。
 

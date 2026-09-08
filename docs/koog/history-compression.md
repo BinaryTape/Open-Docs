@@ -13,21 +13,21 @@ AI 代理维护着一个消息历史记录，其中包括用户消息、助手�
 - **提高准确性**：专注于相关信息有助于 LLM 保持专注并完成任务，而不受干扰。
 - **降低成本**：减少无关消息可以降低 token 使用量，从而降低 API 调用的总成本。
 
-## 何时压缩历史记录
+## 何时压缩历史记录 {id="when-to-compress-history"}
 
 历史压缩在代理工作流的特定步骤中执行：
 
 - 在代理策略的逻辑步骤（子图）之间。
 - 当上下文变得过长时。
 
-## 历史压缩实现
+## 历史压缩实现 {id="history-compression-implementation"}
 
 在代理中实现历史压缩有两种主要方法：
 
 - 在策略图中实现
 - 在自定义节点中实现
 
-### 策略图中的历史压缩
+### 策略图中的历史压缩 {id="history-compression-in-a-strategy-graph"}
 
 要在策略图中压缩历史记录，你需要使用预定义节点，该节点可以将当前消息历史记录压缩为简明摘要：
 
@@ -255,7 +255,7 @@ AI 代理维护着一个消息历史记录，其中包括用户消息、助手�
 
 在此示例中，历史记录在完成信息收集阶段之后、但在继续决策阶段之前被压缩。
 
-### 自定义节点中的历史压缩
+### 自定义节点中的历史压缩 {id="history-compression-in-a-custom-node"}
 
 如果你正在实现自定义节点，可以使用 `replaceHistoryWithTLDR()` 函数 (Kotlin) 压缩历史记录，如下所示：
 
@@ -283,7 +283,7 @@ AI 代理维护着一个消息历史记录，其中包括用户消息、助手�
 
 要了解有关自定义节点的更多信息，请参阅[自定义节点](custom-nodes.md)。
 
-## 历史压缩策略
+## 历史压缩策略 {id="history-compression-strategies"}
 
 你可以使用可选的 `strategy` 参数自定义压缩过程：
 
@@ -292,7 +292,7 @@ AI 代理维护着一个消息历史记录，其中包括用户消息、助手�
 
 该框架提供了几种内置策略。
 
-### WholeHistory（默认）
+### WholeHistory（默认） {id="wholehistory-default"}
 
 默认策略，它将整个历史记录压缩为一条 TLDR 消息，总结了目前已取得的成就。
 该策略适用于大多数通用用例，即你希望在减少 token 使用量的同时保持对整个对话上下文的感知。
@@ -409,7 +409,7 @@ AI 代理维护着一个消息历史记录，其中包括用户消息、助手�
     ```
     <!--- KNIT exampleHistoryCompressionJava04.java -->
 
-### FromLastNMessages
+### FromLastNMessages {id="fromlastnmessages"}
 
 该策略仅将最后 `n` 条消息压缩为一条 TLDR 消息，并完全丢弃较早的消息。
 当只有代理最新的成就（或最新发现的事实、最新的上下文）与解决问题相关时，这非常有用。
@@ -527,7 +527,7 @@ AI 代理维护着一个消息历史记录，其中包括用户消息、助手�
     ```
     <!--- KNIT exampleHistoryCompressionJava06.java -->
 
-### Chunked
+### Chunked {id="chunked"}
 
 该策略将整个消息历史记录拆分为固定大小的块，并将每个块独立地压缩为一条 TLDR 消息。
 当你不仅需要到目前为止所做工作的简明 TLDR，还希望跟踪整体进度，并且某些较旧的信息也可能很重要时，这非常有用。
@@ -645,7 +645,7 @@ AI 代理维护着一个消息历史记录，其中包括用户消息、助手�
     ```
     <!--- KNIT exampleHistoryCompressionJava08.java -->
 
-### FactRetrievalHistoryCompressionStrategy
+### FactRetrievalHistoryCompressionStrategy {id="factretrievalhistorycompressionstrategy"}
 
 该策略在历史记录中搜索与提供的概念列表相关的特定事实并检索它们。
 它将整个历史记录更改为仅包含这些事实，并将它们作为未来 LLM 请求的上下文。
@@ -857,7 +857,7 @@ AI 代理维护着一个消息历史记录，其中包括用户消息、助手�
     ```
     <!--- KNIT exampleHistoryCompressionJava10.java -->
 
-## 自定义历史压缩策略实现
+## 自定义历史压缩策略实现 {id="custom-history-compression-strategy-implementation"}
 
 !!! warning
     自定义历史压缩策略仅限 Kotlin。
@@ -960,7 +960,7 @@ AI 代理维护着一个消息历史记录，其中包括用户消息、助手�
     ```
     <!--- KNIT example-history-compression-14.kt -->
 
-## 压缩期间的记忆保留
+## 压缩期间的记忆保留 {id="memory-preservation-during-compression"}
 
 所有历史压缩方法都支持记忆保留，这决定了在压缩期间是否应保留与记忆相关的消息。在 Kotlin 中，使用 `preserveMemory` 参数。在 Java 中，使用 `.preserveMemory()` 构建器方法。
 这些消息包含从记忆中检索到的事实或指示未启用记忆功能的说明。

@@ -73,7 +73,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-ranges-step"}
 
-## 進行（Progression）
+## 進行（Progression） {id="progressions"}
 
 `Int`、`Long`、`Char`などの整数型の範囲は、[等差数列（arithmetic progressions）](https://en.wikipedia.org/wiki/Arithmetic_progression)として扱うことができます。
 Kotlinでは、これらの進行は特別な型、すなわち[`IntProgression`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.ranges/-int-progression/index.html)、[`LongProgression`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.ranges/-long-progression/index.html)、および[`CharProgression`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.ranges/-char-progression/index.html)によって定義されます。

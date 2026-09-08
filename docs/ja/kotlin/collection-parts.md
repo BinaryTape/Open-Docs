@@ -3,7 +3,7 @@
 Kotlin標準ライブラリには、コレクションの一部を取得するための拡張関数が含まれています。
 これらの関数は、位置を明示的に指定したり、結果のサイズを指定したりするなど、結果となるコレクションの要素を選択するためのさまざまな方法を提供します。
 
-## Slice（スライス）
+## Slice（スライス） {id="slice"}
 
 [`slice()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/slice.html) は、指定されたインデックスを持つコレクション要素のリストを返します。インデックスは、[範囲（range）](ranges.md) または整数のコレクションとして渡すことができます。
 
@@ -20,7 +20,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## Take と drop
+## Take と drop {id="take-and-drop"}
 
 最初から指定された数の要素を取得するには、[`take()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/take.html) 関数を使用します。
 最後の要素を取得するには、[`takeLast()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/take-last.html) を使用します。
@@ -64,7 +64,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## Chunked（チャンク化）
+## Chunked（チャンク化） {id="chunked"}
 
 コレクションを指定されたサイズの部分に分割するには、[`chunked()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/chunked.html) 関数を使用します。
 `chunked()` は引数を1つ（チャンクのサイズ）受け取り、そのサイズの `List` の `List` を返します。
@@ -96,7 +96,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## Windowed（ウィンドウ化）
+## Windowed（ウィンドウ化） {id="windowed"}
 
 指定されたサイズのコレクション要素の、可能なすべての範囲を取得できます。
 それらを取得するための関数は [`windowed()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/windowed.html) と呼ばれます。

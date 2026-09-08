@@ -6,7 +6,7 @@
 
 有關如何在 IntelliJ IDEA 中建立 Kotlin 專案的更多資訊，請參閱[建立主控台應用程式](jvm-get-started.md)教學。在競賽程式設計中，通常會建立一個專案，並將每個問題的解法寫在單個原始碼檔案中。
 
-## 簡單範例：Reachable Numbers 問題
+## 簡單範例：Reachable Numbers 問題 {id="simple-example-reachable-numbers-problem"}
 
 讓我們來看一個具體的例子。
 
@@ -99,7 +99,7 @@ private fun readInt() = readStr().toInt() // 單個整數
 
 請注意這裡 `private` [存取修飾詞](visibility-modifiers.md) 的使用。雖然可見性修飾詞的概念在競賽程式設計中完全不重要，但它允許你在同一個套件中放置多個基於相同範本的解法檔案，而不會因為公共宣告衝突而產生錯誤。
 
-## 函式式運算子範例：Long Number 問題
+## 函式式運算子範例：Long Number 問題 {id="functional-operators-example-long-number-problem"}
 
 對於更複雜的問題，Kotlin 豐富的集合函式式操作程式庫就派上了用場，它可以最大限度地減少樣板程式碼，並將程式碼轉變為線性的、由上而下且由左至右的流暢資料轉換管線。例如，[Problem B: Long Number](https://codeforces.com/contest/1157/problem/B) 問題需要實作一個簡單的貪婪演算法，而使用這種風格編寫時，甚至不需要單個可變變數：
 
@@ -194,7 +194,7 @@ val fl = readInts()
 
 請注意，在競賽程式設計中，通常會給變數起比工業級程式設計實務中更短的名稱，因為程式碼只需編寫一次，之後不再維護。然而，這些名稱通常仍具備助記性——`a` 用於陣列，`i`、`j` 等用於索引，`r` 和 `c` 用於表格中的行號和列號，`x` 和 `y` 用於座標，依此類推。保持與問題敘述中給出的輸入資料相同的名稱會更容易。然而，更複雜的問題需要更多的程式碼，這會導致使用更長且能自我解釋的變數和函式名稱。
 
-## 更多技巧與提示
+## 更多技巧與提示 {id="more-tips-and-tricks"}
 
 競賽程式設計問題通常有如下輸入：
 
@@ -216,7 +216,7 @@ println(a.joinToString("
 ")) // 將陣列/列表的每個元素列印在單獨的一行
 ```
 
-## 學習 Kotlin
+## 學習 Kotlin {id="learning-kotlin"}
 
 Kotlin 很容易學習，特別是對於那些已經了解 Java 的人來說。針對軟體開發者的 Kotlin 基本語法簡短介紹可以直接在網站的參考章節中找到，從 [基本語法](basic-syntax.md) 開始。
 

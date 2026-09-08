@@ -4,7 +4,7 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 
 ほとんどの言語の変更は、アップデートの変更ログやコンパイラの警告などの他のチャネルを通じてすでに発表されていますが、このドキュメントではそれらをすべてまとめ、Kotlin 2.1 から Kotlin 2.2 への移行のための完全なリファレンスを提供します。
 
-## 基本用語
+## 基本用語 {id="basic-terms"}
 
 このドキュメントでは、数種類の互換性について紹介します。
 
@@ -14,9 +14,9 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 
 これらの定義は、純粋な Kotlin に対してのみ与えられていることに注意してください。他の言語の観点（例：Java）からの Kotlin コードの互換性は、このドキュメントの範囲外です。
 
-## 言語
+## 言語 {id="language"}
 
-### `-language-version` における 1.6 および 1.7 のサポート廃止
+### `-language-version` における 1.6 および 1.7 のサポート廃止 {id="drop-support-in-language-version-for-1-6-and-1-7"}
 
 > **課題**: [KT-71793](https://youtrack.jetbrains.com/issue/KT-71793)
 >
@@ -32,7 +32,7 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 > - 2.1.0: `-language-version` で 1.6 および 1.7 を使用したときに警告を報告
 > - 2.2.0: `-language-version` で 1.8 および 1.9 を使用したときに警告を報告。1.6 および 1.7 については警告をエラーに引き上げ
 
-### アノテーション付きラムダでの invokedynamic をデフォルトで有効化
+### アノテーション付きラムダでの invokedynamic をデフォルトで有効化 {id="enable-invokedynamic-for-annotated-lambdas-by-default"}
 
 > **課題**: [KTLC-278](https://youtrack.jetbrains.com/issue/KTLC-278)
 >
@@ -48,7 +48,7 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 >
 > - 2.2.0: アノテーション付きラムダでの `invokedynamic` をデフォルトで有効化
 
-### K2 において、展開後の型にバリアンスを持つ型エイリアスでのコンストラクタ呼び出しと継承を禁止
+### K2 において、展開後の型にバリアンスを持つ型エイリアスでのコンストラクタ呼び出しと継承を禁止 {id="prohibit-constructor-call-and-inheritance-on-type-aliases-with-variance-in-expanded-types-in-k2"}
 
 > **課題**: [KTLC-4](https://youtrack.jetbrains.com/issue/KTLC-4)
 >
@@ -65,7 +65,7 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 > - 2.0.0: バリアンス修飾子を持つ型に展開される型エイリアスでのコンストラクタ呼び出しまたはスーパータイプとしての使用に対して警告を報告
 > - 2.2.0: 警告をエラーに引き上げ
 
-### Kotlin のゲッターからの合成プロパティを禁止
+### Kotlin のゲッターからの合成プロパティを禁止 {id="prohibit-synthetic-properties-from-kotlin-getters"}
 
 > **課題**: [KTLC-272](https://youtrack.jetbrains.com/issue/KTLC-272)
 >
@@ -82,7 +82,7 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 > - 2.0.0: Kotlin のゲッターから作成された合成プロパティへのアクセスに対して警告を報告
 > - 2.2.0: 警告をエラーに引き上げ
 
-### JVM におけるインターフェース関数のデフォルトメソッド生成の変更
+### JVM におけるインターフェース関数のデフォルトメソッド生成の変更 {id="change-default-method-generation-for-interface-functions-on-jvm"}
 
 > **課題**: [KTLC-269](https://youtrack.jetbrains.com/issue/KTLC-269)
 >
@@ -99,7 +99,7 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 >
 > - 2.2.0: `-jvm-default` コンパイラオプションのデフォルト値が `enable` に設定
 
-### アノテーションプロパティにおけるフィールドターゲットのアノテーションを禁止
+### アノテーションプロパティにおけるフィールドターゲットのアノテーションを禁止 {id="forbid-field-targeted-annotations-on-annotation-properties"}
 
 > **課題**: [KTLC-7](https://youtrack.jetbrains.com/issue/KTLC-7)
 >
@@ -117,7 +117,7 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 > - 2.1.20: アノテーションプロパティにおけるすべてのフィールドターゲットのアノテーションに対して警告を報告
 > - 2.2.0: 警告をエラーに引き上げ
 
-### 型エイリアスにおける reified 型パラメータを禁止
+### 型エイリアスにおける reified 型パラメータを禁止 {id="forbid-reified-type-parameters-in-type-aliases"}
 
 > **課題**: [KTLC-5](https://youtrack.jetbrains.com/issue/KTLC-5)
 >
@@ -134,7 +134,7 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 > - 2.1.0: 型エイリアスにおける reified 型パラメータに対して警告を報告
 > - 2.2.0: 警告をエラーに引き上げ
 
-### Number および Comparable に対するインライン値クラスの型チェックを修正
+### Number および Comparable に対するインライン値クラスの型チェックを修正 {id="correct-type-checks-on-inline-value-classes-for-number-and-comparable"}
 
 > **課題**: [KTLC-21](https://youtrack.jetbrains.com/issue/KTLC-21)
 >
@@ -150,7 +150,7 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 >
 > - 2.2.0: 新しい動作を有効化
 
-### 間接的な依存関係からのアクセス不能なジェネリック型を禁止
+### 間接的な依存関係からのアクセス不能なジェネリック型を禁止 {id="prohibit-inaccessible-generic-types-from-indirect-dependencies"}
 
 > **課題**: [KTLC-3](https://youtrack.jetbrains.com/issue/KTLC-3)
 >
@@ -167,7 +167,7 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 > - 2.1.0: ラムダ内のアクセス不能な非ジェネリック型に対する警告をエラーに引き上げ
 > - 2.2.0: 式内の型引数におけるアクセス不能な型引数に対する警告をエラーに引き上げ
 
-### 型パラメータの境界に対する可視性チェックを強制
+### 型パラメータの境界に対する可視性チェックを強制 {id="enforce-visibility-checks-on-type-parameter-bounds"}
 
 > **課題**: [KTLC-274](https://youtrack.jetbrains.com/issue/KTLC-274)
 >
@@ -183,7 +183,7 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 > - 2.1.0: 型パラメータに、宣言の可視性スコープから見えない境界がある場合に警告を報告
 > - 2.2.0: 警告をエラーに引き上げ
 
-### 非 private なインライン関数で private な型を公開している場合にエラーを報告
+### 非 private なインライン関数で private な型を公開している場合にエラーを報告 {id="report-errors-when-exposing-private-types-in-non-private-inline-functions"}
 
 > **課題**: [KT-70916](https://youtrack.jetbrains.com/issue/KT-70916)
 >
@@ -199,7 +199,7 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 >
 > - 2.2.0: 非 private なインライン関数から private な型またはメンバーにアクセスしている場合にエラーを報告
 
-### パラメータのデフォルト値として使用されるラムダ内での非ローカルリターンを禁止
+### パラメータのデフォルト値として使用されるラムダ内での非ローカルリターンを禁止 {id="forbid-non-local-returns-in-lambdas-used-as-parameter-s-default-value"}
 
 > **課題**: [KTLC-286](https://youtrack.jetbrains.com/issue/KTLC-286)
 >
@@ -214,9 +214,9 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 >
 > - 2.2.0: パラメータのデフォルト値として使用されるラムダ内の非ローカルリターンに対してエラーを報告
 
-## 標準ライブラリ
+## 標準ライブラリ {id="standard-library"}
 
-### `kotlin.native.Throws` の非推奨化
+### `kotlin.native.Throws` の非推奨化 {id="deprecate-kotlin-native-throws"}
 
 > **課題**: [KT-72137](https://youtrack.jetbrains.com/issue/KT-72137)
 >
@@ -231,7 +231,7 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 > - 1.9.0: `kotlin.native.Throws` を使用したときに警告を報告
 > - 2.2.0: 警告をエラーに引き上げ
 
-### `AbstractDoubleTimeSource` の非推奨化
+### `AbstractDoubleTimeSource` の非推奨化 {id="deprecate-abstractdoubletimesource"}
 
 > **課題**: [KT-72137](https://youtrack.jetbrains.com/issue/KT-72137)
 >
@@ -246,9 +246,9 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 > - 1.8.20: `AbstractDoubleTimeSource` を使用したときに警告を報告
 > - 2.2.0: 警告をエラーに引き上げ
 
-## ツール
+## ツール {id="tools"}
 
-### ソースを置換するように `KotlinCompileTool` の `setSource()` 関数を修正
+### ソースを置換するように `KotlinCompileTool` の `setSource()` 関数を修正 {id="correct-setsource-function-in-kotlincompiletool-to-replace-sources"}
 
 > **課題**: [KT-59632](https://youtrack.jetbrains.com/issue/KT-59632)
 >
@@ -263,7 +263,7 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 >
 > - 2.2.0: 新しい動作を有効化
 
-### `KotlinCompilationOutput#resourcesDirProvider` プロパティの非推奨化
+### `KotlinCompilationOutput#resourcesDirProvider` プロパティの非推奨化 {id="deprecate-kotlincompilationoutput-resourcesdirprovider-property"}
 
 > **課題**: [KT-70620](https://youtrack.jetbrains.com/issue/KT-70620)
 >
@@ -279,7 +279,7 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 > - 2.1.0: `KotlinCompilationOutput#resourcesDirProvider` が警告付きで非推奨
 > - 2.2.0: 警告をエラーに引き上げ
 
-### `BaseKapt.annotationProcessorOptionProviders` プロパティの非推奨化
+### `BaseKapt.annotationProcessorOptionProviders` プロパティの非推奨化 {id="deprecate-basekapt-annotationprocessoroptionproviders-property"}
 
 > **課題**: [KT-58009](https://youtrack.jetbrains.com/issue/KT-58009)
 >
@@ -295,7 +295,7 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 >
 > - 2.2.0: API で新しい型を強制
 
-### `kotlin-android-extensions` プラグインの非推奨化
+### `kotlin-android-extensions` プラグインの非推奨化 {id="deprecate-kotlin-android-extensions-plugin"}
 
 > **課題**: [KT-72341](https://youtrack.jetbrains.com/issue/KT-72341/)
 >
@@ -312,7 +312,7 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 > - 2.2.0: プラグインのコードが削除されました
 > - 2.4.0: プラグイン ID を削除
 
-### `kotlinOptions` DSL の非推奨化
+### `kotlinOptions` DSL の非推奨化 {id="deprecate-kotlinoptions-dsl"}
 
 > **課題**: [KT-54110](https://youtrack.jetbrains.com/issue/KT-54110)
 >
@@ -329,7 +329,7 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 > - 2.0.0: `kotlinOptions` DSL に対して警告を報告
 > - 2.2.0: 警告をエラーに引き上げ、`kotlinOptions` 内のすべてのプロパティを非推奨化
 
-### `kotlin.incremental.useClasspathSnapshot` プロパティの削除
+### `kotlin.incremental.useClasspathSnapshot` プロパティの削除 {id="remove-kotlin-incremental-useclasspathsnapshot-property"}
 
 > **課題**: [KT-62963](https://youtrack.jetbrains.com/issue/KT-62963)
 >
@@ -345,7 +345,7 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 > - 2.0.20: `kotlin.incremental.useClasspathSnapshot` プロパティを警告付きで非推奨化
 > - 2.2.0: プロパティを削除
 
-### Kotlin スクリプトに関する非推奨化
+### Kotlin スクリプトに関する非推奨化 {id="deprecations-to-kotlin-scripting"}
 
 > **課題**: [KT-71685](https://youtrack.jetbrains.com/issue/KT-71685), [KT-75632](https://youtrack.jetbrains.com/issue/KT-75632/), [KT-76196](https://youtrack.jetbrains.com/issue/KT-76196/).
 >
@@ -366,7 +366,7 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 > - 2.2.0: `kotlinc` を介して REPL を使用するには、`-Xrepl` コンパイラオプションでオプトインが必要。JSR-223 を非推奨化（言語バージョン 1.9 に切り替えることでサポートを復元可能）。`KotlinScriptMojo` Maven プラグインを非推奨化
 > - 2.4.0: `KotlinScriptMojo` Maven プラグインによる Kotlin スクリプト実行の削除
 
-### 曖昧さ回避分類器プロパティの非推奨化
+### 曖昧さ回避分類器プロパティの非推奨化 {id="deprecate-disambiguation-classifier-properties"}
 
 > **課題**: [KT-58231](https://youtrack.jetbrains.com/issue/KT-58231)
 >
@@ -385,7 +385,7 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 > - 2.1.0: 警告をエラーに引き上げ
 > - 2.2.0: Gradle プロパティを削除
 
-### コモナイゼーションパラメータの非推奨化
+### コモナイゼーションパラメータの非推奨化 {id="deprecate-commonization-parameters"}
 
 > **課題**: [KT-75161](https://youtrack.jetbrains.com/issue/KT-75161)
 >
@@ -414,7 +414,7 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 > - 2.2.0: コモナイゼーションパラメータをエラー付きで非推奨化
 > - 2.2.20: コモナイゼーションパラメータを削除
 
-### レガシーなメタデータコンパイルのサポートを非推奨化
+### レガシーなメタデータコンパイルのサポートを非推奨化 {id="deprecate-support-for-legacy-metadata-compilation"}
 
 > **課題**: [KT-61817](https://youtrack.jetbrains.com/issue/KT-61817)
 >
@@ -433,7 +433,7 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 >
 > - 2.2.0: Kotlin Gradle プラグインからコンパイラオプションを削除
 
-### `KotlinCompilation.source` API の非推奨化
+### `KotlinCompilation.source` API の非推奨化 {id="deprecate-kotlincompilation-source-api"}
 
 > **課題**: [KT-64991](https://youtrack.jetbrains.com/issue/KT-64991)
 >
@@ -449,7 +449,7 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 > - 1.9.20: 警告をエラーに引き上げ
 > - 2.2.0: Kotlin Gradle プラグインから `KotlinCompilation.source` を削除。これを使用しようとすると、ビルドスクリプトのコンパイル中に "unresolved reference" エラーが発生します。
 
-### ターゲットプリセット API の非推奨化
+### ターゲットプリセット API の非推奨化 {id="deprecate-target-presets-apis"}
 
 > **課題**: [KT-71698](https://youtrack.jetbrains.com/issue/KT-71698)
 >
@@ -469,7 +469,7 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 > - 2.0.0: 警告をエラーに引き上げ
 > - 2.2.0: Kotlin Gradle プラグインの公開 API からプリセット関連 API を削除。これらを使用しているソースは "unresolved reference" エラーで失敗し、バイナリ（例：Gradle プラグイン）は、最新バージョンの Kotlin Gradle プラグインに対して再コンパイルされない限り、リンクエラーで失敗する可能性があります。
 
-### Apple ターゲットのショートカットを非推奨化
+### Apple ターゲットのショートカットを非推奨化 {id="deprecate-apple-target-shortcuts"}
 
 > **課題**: [KT-70615](https://youtrack.jetbrains.com/issue/KT-70615)
 >
@@ -486,7 +486,7 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 > - 2.1.0: ターゲットショートカットが使用されたときにエラーを報告
 > - 2.2.0: Kotlin Multiplatform Gradle プラグインからターゲットショートカット DSL を削除
 
-### `publishAllLibraryVariants()` 関数の非推奨化
+### `publishAllLibraryVariants()` 関数の非推奨化 {id="deprecate-publishalllibraryvariants-function"}
 
 > **課題**: [KT-60623](https://youtrack.jetbrains.com/issue/KT-60623)
 >
@@ -500,7 +500,7 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 >
 > - 2.2.0: `publishAllLibraryVariants()` を非推奨化
 
-### `android` ターゲットの非推奨化
+### `android` ターゲットの非推奨化 {id="deprecate-android-target"}
 
 > **課題**: [KT-71608](https://youtrack.jetbrains.com/issue/KT-71608)
 >
@@ -516,7 +516,7 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 > - 2.1.0: 警告をエラーに引き上げ
 > - 2.2.0: Kotlin Multiplatform Gradle プラグインから `android` ターゲット DSL を削除
 
-### `CInteropProcess` における `konanVersion` の非推奨化
+### `CInteropProcess` における `konanVersion` の非推奨化 {id="deprecate-konanversion-in-cinteropprocess"}
 
 > **課題**: [KT-71069](https://youtrack.jetbrains.com/issue/KT-71069)
 >
@@ -533,7 +533,7 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 > - 2.2.0: 警告をエラーに引き上げ
 > - 2.3.0: Kotlin Gradle プラグインから `konanVersion` プロパティを削除
 
-### `CInteropProcess` における `destinationDir` の非推奨化
+### `CInteropProcess` における `destinationDir` の非推奨化 {id="deprecate-destinationdir-in-cinteropprocess"}
 
 > **課題**: [KT-71068](https://youtrack.jetbrains.com/issue/KT-71068)
 >
@@ -550,7 +550,7 @@ _[「言語をモダンに保つ」](kotlin-evolution-principles.md)_ および 
 > - 2.2.0: 警告をエラーに引き上げ
 > - 2.3.0: Kotlin Gradle プラグインから `destinationDir` プロパティを削除
 
-### `kotlinArtifacts` API の非推奨化
+### `kotlinArtifacts` API の非推奨化 {id="deprecate-kotlinartifacts-api"}
 
 > **課題**: [KT-74953](https://youtrack.jetbrains.com/issue/KT-74953)
 >

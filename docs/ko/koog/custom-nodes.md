@@ -5,17 +5,17 @@
 
 그래프 노드가 무엇인지, 그 사용법 및 기존 기본 노드에 대해 자세히 알아보려면 [그래프 노드](nodes-and-components.md)를 참조하세요.
 
-## 노드 아키텍처 개요
+## 노드 아키텍처 개요 {id="node-architecture-overview"}
 
 구현 세부 사항을 살펴보기 전에 Koog 프레임워크의 노드 아키텍처를 이해하는 것이 중요합니다. 노드는 에이전트 워크플로의 기본 빌딩 블록이며, 각 노드는 워크플로 내의 특정 작업 또는 변환을 나타냅니다. 노드 간의 실행 흐름을 정의하는 에지(edge)를 사용하여 노드들을 연결합니다.
 
 각 노드는 입력을 받아 출력을 생성하는 `execute` 메서드를 가지며, 생성된 출력은 워크플로의 다음 노드로 전달됩니다.
 
-## 커스텀 노드 구현하기
+## 커스텀 노드 구현하기 {id="implementing-a-custom-node"}
 
 커스텀 노드 구현은 입력 데이터에 대해 기본적인 로직을 수행하고 출력을 반환하는 단순한 구현부터, 파라미터를 허용하고 실행 간에 상태를 유지하는 더 복잡한 노드 구현까지 다양합니다.
 
-### 기본 노드 구현
+### 기본 노드 구현 {id="basic-node-implementation"}
 
 그래프에서 커스텀 노드를 구현하고 자신만의 커스텀 로직을 정의하는 가장 간단한 방법은 다음 패턴을 사용하는 것입니다.
 
@@ -164,7 +164,7 @@
 
 이 방식은 커스텀 로직을 수행하지만 수정 없이 입력을 출력으로 반환하는 패스스루(pass-through) 노드를 생성합니다.
 
-### 추가 인자가 있는 노드
+### 추가 인자가 있는 노드 {id="nodes-with-additional-arguments"}
 
 동작을 커스터마이징하기 위해 인자(arguments)를 받는 노드를 생성할 수 있습니다.
 
@@ -222,7 +222,7 @@
     ```
     <!--- KNIT exampleCustomNodesJava04.java -->
 
-### 파라미터화된 노드
+### 파라미터화된 노드 {id="parameterized-nodes"}
 
 제네릭 입력 및 출력 타입 파라미터를 가진 노드를 정의할 수 있습니다. Kotlin에서는 `reified` 타입 파라미터를 가진 `inline` 함수를 사용합니다. Java에서는 노드를 빌드할 때 타입을 명시적으로 지정합니다.
 
@@ -274,7 +274,7 @@
     ```
     <!--- KNIT exampleCustomNodesJava05.java -->
 
-### 상태 유지 노드
+### 상태 유지 노드 {id="stateful-nodes"}
 
 노드가 실행 간에 상태를 유지해야 하는 경우, 클로저 변수(closure variables)를 사용할 수 있습니다. Kotlin에서는 감싸는 함수(enclosing function)에 변수를 선언합니다. Java에서는 람다 캡처 대상이 사실상 final(effectively final)이어야 하므로 `AtomicInteger`와 같은 스레드 안전한 래퍼를 사용합니다.
 
@@ -330,7 +330,7 @@
     ```
     <!--- KNIT exampleCustomNodesJava06.java -->
 
-## 노드 입력 및 출력 타입
+## 노드 입력 및 출력 타입 {id="node-input-and-output-types"}
 
 노드는 서로 다른 입력 및 출력 타입을 가질 수 있습니다. Kotlin과 Java 모두에서 이는 제네릭 타입 파라미터로 지정됩니다.
 
@@ -378,7 +378,7 @@
 !!! note
     입력 및 출력 타입은 워크플로에서 노드가 다른 노드와 연결되는 방식을 결정합니다. 소스 노드의 출력 타입이 대상 노드의 입력 타입과 호환되는 경우에만 노드를 연결할 수 있습니다.
 
-## 권장 사항
+## 권장 사항 {id="best-practices"}
 
 커스텀 노드를 구현할 때는 다음 권장 사항을 따르세요.
 
@@ -390,11 +390,11 @@
 6. **타입 파라미터 활용**: 노드를 더 유연하게 만들기 위해 적절한 경우 제네릭 타입 파라미터를 사용하세요.
 7. **기본값 제공**: 가능한 경우 파라미터에 대해 합리적인 기본값을 제공하세요.
 
-## 일반적인 패턴
+## 일반적인 패턴 {id="common-patterns"}
 
 다음 섹션에서는 커스텀 노드를 구현하기 위한 몇 가지 일반적인 패턴을 제공합니다.
 
-### 패스스루 노드 (Pass-through nodes)
+### 패스스루 노드 (Pass-through nodes) {id="pass-through-nodes"}
 
 작업을 수행하지만 입력을 그대로 출력으로 반환하는 노드입니다.
 
@@ -439,7 +439,7 @@
     ```
     <!--- KNIT exampleCustomNodesJava08.java -->
 
-### 변환 노드 (Transformation nodes)
+### 변환 노드 (Transformation nodes) {id="transformation-nodes"}
 
 입력 데이터를 변환하여 수정된 출력을 생성하는 노드입니다.
 
@@ -484,7 +484,7 @@
     ```
     <!--- KNIT exampleCustomNodesJava09.java -->
 
-### LLM 상호작용 노드 (LLM interaction nodes)
+### LLM 상호작용 노드 (LLM interaction nodes) {id="llm-interaction-nodes"}
 
 LLM과 상호작용하는 노드입니다. Kotlin에서는 LLM 세션에 대해 미세한 제어가 가능합니다. Java에서는 일반적으로 프롬프트 구성을 자동으로 처리하는 `AIAgentNode.llmRequest()`와 같은 미리 빌드된 팩토리 메서드를 사용합니다.
 
@@ -550,7 +550,7 @@ LLM과 상호작용하는 노드입니다. Kotlin에서는 LLM 세션에 대해 
 !!! note
     위 Kotlin 예제는 LLM 세션에 대한 미세한 제어(커스텀 프롬프트 구성, 명시적 `requestLLMWithoutTools` 호출)를 보여줍니다. Java API는 프롬프트 구성을 자동으로 처리하는 `AIAgentNode.llmRequest()`와 같은 고수준 팩토리 메서드를 제공하며, 여기서는 입력 문자열이 사용자 메시지가 됩니다. 고급 프롬프트 커스터마이징이 필요한 경우 여러 노드를 구성하거나 커스텀 서브그래프를 사용하세요.
 
-### 도구 실행 노드 (Tool run node)
+### 도구 실행 노드 (Tool run node) {id="tool-run-node"}
 
 도구를 실행하는 커스텀 노드입니다. Kotlin에서는 도구 호출을 수동으로 구성하고 실행할 수 있습니다. Java에서는 일반적으로 도구 조율을 LLM에 위임하는 서브그래프를 사용합니다.
 

@@ -27,7 +27,7 @@ _密封 (Sealed)_ 類別與介面為您的類別階層結構提供受控的繼�
 >
 {style="tip"}
 
-## 宣告密封類別或介面
+## 宣告密封類別或介面 {id="declare-a-sealed-class-or-interface"}
 
 要宣告密封類別或介面，請使用 `sealed` 修飾符：
 
@@ -57,7 +57,7 @@ object RuntimeError : Error
 
 ![密封類別與介面的階層結構圖示](sealed-classes-interfaces.svg){width=700}
 
-### 建構函式
+### 建構函式 {id="constructors"}
 
 密封類別本身始終是一個[抽象類別](classes.md#abstract-classes)，因此無法直接具現化。
 不過，它可以包含或繼承建構函式。這些建構函式不是為了建立密封類別本身的執行個體，
@@ -115,7 +115,7 @@ sealed class IOError {
 }
 ```
 
-## 繼承
+## 繼承 {id="inheritance"}
 
 密封類別與介面的直接子類別必須宣告在同一個套件中。它們可以是頂層宣告，也可以巢狀
 於任意數量的其他具名類別、具名介面或具名物件中。只要符合 Kotlin 的一般繼承規則，
@@ -151,7 +151,7 @@ sealed class IOError(): Error
 open class CustomError(): Error
 ```
 
-### 多平台專案中的繼承
+### 多平台專案中的繼承 {id="inheritance-in-multiplatform-projects"}
 
 在[多平台專案](https://kotlinlang.org/docs/multiplatform/get-started.html)中還有一個繼承限制：密封類別的直接子類別必須
 位於同一個[原始碼集](https://kotlinlang.org/docs/multiplatform/multiplatform-discover-project.html#source-sets)。這適用於不帶 [expect 與 actual 修飾符](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html)的密封類別。
@@ -162,7 +162,7 @@ open class CustomError(): Error
 
 [進一步了解多平台專案的階層結構](https://kotlinlang.org/docs/multiplatform/multiplatform-hierarchy.html)。 
 
-## 將密封類別與 when 運算式搭配使用
+## 將密封類別與 when 運算式搭配使用 {id="use-sealed-classes-with-when-expression"}
 
 使用密封類別的主要好處在於將其應用於 [`when`](control-flow.md#when-expressions-and-statements)
 運算式時。
@@ -216,11 +216,11 @@ fun main() {
 >
 {style="note"}
 
-## 使用案例情境
+## 使用案例情境 {id="use-case-scenarios"}
 
 讓我們探索密封類別與介面特別有用的一些實際案例。
 
-### UI 應用程式中的狀態管理
+### UI 應用程式中的狀態管理 {id="state-management-in-ui-applications"}
 
 您可以使用密封類別來表示應用程式中不同的 UI 狀態。 
 這種方法允許對 UI 變更進行結構化且安全的處理。 
@@ -242,7 +242,7 @@ fun updateUI(state: UIState) {
 }
 ```
 
-### 付款方式處理
+### 付款方式處理 {id="payment-method-handling"}
 
 在實際的商業應用程式中，有效處理各種付款方式是常見的需求。
 您可以將密封類別與 `when` 運算式搭配使用來實作此類商業邏輯。
@@ -273,7 +273,7 @@ fun processPayment(payment: Payment) {
 這種方法確保考慮了所有可能的付款型別，並且系統對於未來新增付款
 方式保持彈性。
 
-### API 請求與回應處理
+### API 請求與回應處理 {id="api-request-response-handling"}
 
 您可以使用密封類別與密封介面來實作一個處理 API 請求與回應的使用者驗證系統。 
 該使用者驗證系統具有登入與登出功能。 
@@ -360,6 +360,6 @@ fun main() {
 }
 ```
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 進一步了解 [Kotlin 中的繼承](inheritance.md)。

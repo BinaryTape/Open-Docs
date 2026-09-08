@@ -27,7 +27,7 @@ class OuterClass {
 }
 ```
 
-## 内部类
+## 内部类 {id="inner-classes"}
 
 标记为 `inner` 的嵌套类可以访问其外部类的成员。内部类持有对外部类对象的引用：
 
@@ -44,7 +44,7 @@ val demo = Outer().Inner().foo() // == 1
 
 请参阅[限定的 `this` 表达式](this-expressions.md)以了解如何消除内部类中 `this` 的歧义。
 
-## 匿名内部类
+## 匿名内部类 {id="anonymous-inner-classes"}
 
 匿名内部类实例是使用[对象表达式](object-declarations.md#object-expressions)创建的：
 

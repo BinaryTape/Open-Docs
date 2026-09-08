@@ -6,7 +6,7 @@ title: Koin の開始
 
 このガイドでは、Koin コンテナを初期化し、アプリケーション用に設定する方法について説明します。
 
-## `startKoin` 関数
+## `startKoin` 関数 {id="the-startkoin-function"}
 
 `startKoin` は Koin を起動するためのメインのエントリポイントです。これはコンテナを `GlobalContext` に登録し、アプリケーション全体からアクセス可能にします。
 
@@ -18,7 +18,7 @@ startKoin {
 
 一度起動すると、`get()` や `by inject()` を通じて依存関係を解決（resolution）できるようになります。
 
-### 設定オプション
+### 設定オプション {id="configuration-options"}
 
 ```kotlin
 startKoin {
@@ -63,7 +63,7 @@ startKoin {
 `startKoin` は **1回** しか呼び出すことができません。後で追加のモジュールをロードするには、`loadKoinModules()` を使用してください。
 :::
 
-## Koin コンテナの起動
+## Koin コンテナの起動 {id="starting-the-koin-container"}
 
 | メソッド | ユースケース |
 |--------|----------|
@@ -75,7 +75,7 @@ startKoin {
 **Koin Compiler Plugin** を使用すると、`startKoin<T>()`、`koinApplication<T>()`、`koinConfiguration<T>()` といった型指定されたバリアントが利用可能です。詳細は以下の [Compiler Plugin を使用した Koin の開始](#compiler-plugin-を使用した-koin-の開始) を参照してください。
 :::
 
-### `startKoin` - グローバルインスタンス
+### `startKoin` - グローバルインスタンス {id="startkoin-global-instance"}
 
 最も一般的なアプローチで、Koin をグローバルに開始します。
 
@@ -90,7 +90,7 @@ fun main() {
 }
 ```
 
-### `koinApplication` - 隔離されたインスタンス
+### `koinApplication` - 隔離されたインスタンス {id="koinapplication-isolated-instance"}
 
 （GlobalContext ではない）隔離された Koin インスタンスを作成します。
 
@@ -108,7 +108,7 @@ val service: MyService = myKoin.get()
 - SDK 開発（ホストアプリへの影響を避けるため）
 - 複数の Koin インスタンスの保持
 
-### `koinConfiguration` - 設定ホルダー
+### `koinConfiguration` - 設定ホルダー {id="koinconfiguration-configuration-holder"}
 
 専用の API（Compose の `KoinApplication`、Ktor プラグインなど）で使用される設定を作成します。
 
@@ -120,7 +120,7 @@ val config = koinConfiguration {
 // Compose の KoinApplication や Ktor などで使用される
 ```
 
-## Compiler Plugin を使用した Koin の開始
+## Compiler Plugin を使用した Koin の開始 {id="starting-koin-with-compiler-plugin"}
 
 アノテーションと共に **Koin Compiler Plugin** を使用すると、生成されたコードを意識することなく、**型指定された API** を使用して Koin を開始できます。
 
@@ -128,7 +128,7 @@ val config = koinConfiguration {
 これには [Koin Compiler Plugin](/docs/setup/compiler-plugin) が必要です。アプリケーションクラスに `@KoinApplication` アノテーションを付与する必要があります。
 :::
 
-### アプリケーションの定義
+### アプリケーションの定義 {id="define-your-application"}
 
 ```kotlin
 @Module
@@ -140,7 +140,7 @@ class MyModule
 class MyApp
 ```
 
-### 型指定された起動 API
+### 型指定された起動 API {id="typed-startup-apis"}
 
 | API | 説明 |
 |-----|-------------|
@@ -151,7 +151,7 @@ class MyApp
 
 ここで `T` は `@KoinApplication` が付与されたクラスです。
 
-### 例
+### 例 {id="examples"}
 
 ```kotlin
 // シンプルな起動
@@ -169,7 +169,7 @@ val myKoin = koinApplication<MyApp>().koin
 val config = koinConfiguration<MyApp>()
 ```
 
-### マルチモジュールプロジェクト
+### マルチモジュールプロジェクト {id="multi-module-projects"}
 
 ```kotlin
 // feature/src/main/kotlin/FeatureModule.kt
@@ -186,9 +186,9 @@ class MyApp
 startKoin<MyApp>()
 ```
 
-## プラットフォーム統合
+## プラットフォーム統合 {id="platform-integrations"}
 
-### Android
+### Android {id="android"}
 
 ```kotlin
 class MainApplication : Application() {
@@ -222,7 +222,7 @@ class MainApplication : Application() {
 }
 ```
 
-### Compose
+### Compose {id="compose"}
 
 `koinConfiguration` と共に `KoinApplication` Composable を使用します。
 
@@ -253,7 +253,7 @@ fun App() {
 }
 ```
 
-### Ktor
+### Ktor {id="ktor"}
 
 ```kotlin
 fun Application.module() {
@@ -282,7 +282,7 @@ fun Application.module() {
 詳細は [Ktor Integration](/docs/reference/koin-ktor/ktor) を参照してください。
 :::
 
-### Kotlin Multiplatform
+### Kotlin Multiplatform {id="kotlin-multiplatform"}
 
 プラットフォーム間で設定を共有します。
 
@@ -310,9 +310,9 @@ class MainApplication : Application() {
 fun initKoinIos() = initKoin()
 ```
 
-## 動的なモジュール管理
+## 動的なモジュール管理 {id="dynamic-module-management"}
 
-### 起動後のモジュールのロード
+### 起動後のモジュールのロード {id="loading-modules-after-startup"}
 
 ```kotlin
 // 最初の起動
@@ -324,13 +324,13 @@ startKoin {
 loadKoinModules(featureModule)
 ```
 
-### モジュールのアンロード
+### モジュールのアンロード {id="unloading-modules"}
 
 ```kotlin
 unloadKoinModules(featureModule)
 ```
 
-### 機能トグル (Feature Toggle) の例
+### 機能トグル (Feature Toggle) の例 {id="feature-toggle-example"}
 
 ```kotlin
 if (isFeatureEnabled) {
@@ -341,7 +341,7 @@ if (isFeatureEnabled) {
 unloadKoinModules(premiumFeatureModule)
 ```
 
-## Koin の停止
+## Koin の停止 {id="stopping-koin"}
 
 コンテナを閉じ、リソースを解放します。
 
@@ -356,9 +356,9 @@ val koinApp = koinApplication { modules(myModule) }
 koinApp.close()
 ```
 
-## ロギング
+## ロギング {id="logging"}
 
-### ロギングの有効化
+### ロギングの有効化 {id="enable-logging"}
 
 ```kotlin
 startKoin {
@@ -366,7 +366,7 @@ startKoin {
 }
 ```
 
-### 利用可能なロガー
+### 利用可能なロガー {id="available-loggers"}
 
 | ロガー | プラットフォーム | 説明 |
 |--------|----------|-------------|
@@ -375,7 +375,7 @@ startKoin {
 | `AndroidLogger` | Android | Android Logcat |
 | `SLF4JLogger` | JVM | SLF4J 統合 |
 
-### プラットフォーム固有のロガー
+### プラットフォーム固有のロガー {id="platform-specific-loggers"}
 
 ```kotlin
 // Android
@@ -389,9 +389,9 @@ install(Koin) {
 }
 ```
 
-## プロパティ
+## プロパティ {id="properties"}
 
-### プロパティのロード
+### プロパティのロード {id="loading-properties"}
 
 ```kotlin
 startKoin {
@@ -409,7 +409,7 @@ startKoin {
 }
 ```
 
-### プロパティの使用
+### プロパティの使用 {id="using-properties"}
 
 ```kotlin
 val appModule = module {
@@ -422,7 +422,7 @@ val appModule = module {
 }
 ```
 
-## ベストプラクティス
+## ベストプラクティス {id="best-practices"}
 
 1. **`startKoin` は一度だけ呼び出す** - アプリケーションのエントリポイントで行います。
 2. **重要なモジュールは即座にロードする** - `modules()` を使用します。
@@ -431,7 +431,7 @@ val appModule = module {
 5. **本番環境では strict モードを使用する** - `allowOverride(false)` を設定します。
 6. **テスト間では Koin を停止する** - 状態をリセットするために `stopKoin()` を呼び出します。
 
-## 次のステップ
+## 次のステップ {id="next-steps"}
 
 - **[モジュール](/docs/reference/koin-core/modules)** - 定義を整理する
 - **[定義](/docs/reference/koin-core/definitions)** - DSL またはアノテーションで定義を作成する

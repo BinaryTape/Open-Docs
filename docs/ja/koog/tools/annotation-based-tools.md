@@ -8,7 +8,7 @@
 !!! note
     アノテーションベースのツールはJVM専用であり、他のプラットフォームでは利用できません。マルチプラットフォームのサポートが必要な場合は、[クラスベースのツールAPI](class-based-tools.md)を使用してください。
 
-## 主要なアノテーション
+## 主要なアノテーション {id="key-annotations"}
 
 プロジェクトでアノテーションベースのツールを使い始めるには、以下の主要なアノテーションを理解する必要があります。
 
@@ -17,12 +17,12 @@
 | `@Tool`           | LLMにツールとして公開すべき関数をマークします。                              |
 | `@LLMDescription` | ツールとそのコンポーネントに関する説明情報を提供します。                      |
 
-## @Tool アノテーション
+## @Tool アノテーション {id="tool-annotation"}
 
 `@Tool` アノテーションは、LLMにツールとして公開すべき関数（Kotlin）またはメソッド（Java）をマークするために使用されます。
 `@Tool` でアノテーションされた関数やメソッドは、`ToolSet` インターフェースを実装するオブジェクトからリフレクション（reflection）によって収集されます。詳細は、[ToolSetインターフェースを実装する](#1-implement-the-toolset-interface)を参照してください。
 
-### 定義
+### 定義 {id="definition"}
 
 ```kotlin
 @Target(AnnotationTarget.FUNCTION)
@@ -30,13 +30,13 @@ public annotation class Tool(val customName: String = "")
 ```
 <!--- KNIT example-annotation-based-tools-01.txt -->
 
-### パラメータ
+### パラメータ {id="parameters"}
 
 | <div style="width:100px">名前</div> | 必須 | 説明                                                                              |
 |-------------------------------------|----------|------------------------------------------------------------------------------------------|
 | `customName`                        | いいえ       | ツールのカスタム名を指定します。指定しない場合、関数名が使用されます。 |
 
-### 使用方法
+### 使用方法 {id="usage"}
 
 関数やメソッドをツールとしてマークするには、`ToolSet` インターフェースを実装するクラス内で、その関数やメソッドに `@Tool` アノテーションを適用します。
 
@@ -88,7 +88,7 @@ public annotation class Tool(val customName: String = "")
     ```
     <!--- KNIT example-annotation-based-tools-java-01.java -->
 
-## @LLMDescription アノテーション
+## @LLMDescription アノテーション {id="llmdescription-annotation"}
 
 `@LLMDescription` アノテーションは、コード要素（クラス、関数、メソッド、パラメータなど）に関する説明情報をLLMに提供します。
 これにより、LLMがこれらの要素の目的と使用方法を理解するのに役立ちます。
@@ -199,9 +199,9 @@ public annotation class LLMDescription(val description: String)
     ```
     <!--- KNIT example-annotation-based-tools-java-03.java -->
 
-## ツールの作成
+## ツールの作成 {id="creating-a-tool"}
 
-### 1. ToolSet インターフェースを実装する
+### 1. ToolSet インターフェースを実装する {id="1-implement-the-toolset-interface"}
 
 [`ToolSet`](api:agents-tools::ai.koog.agents.core.tools.reflect.ToolSet) インターフェースを実装するクラスを作成します。
 このインターフェースは、そのクラスがツールのコンテナであることを示します。
@@ -233,7 +233,7 @@ public annotation class LLMDescription(val description: String)
     ```
     <!--- KNIT example-annotation-based-tools-java-04.java -->
 
-### 2. ツール関数を追加する
+### 2. ツール関数を追加する {id="2-add-tool-functions"}
 
 クラスに関数またはメソッドを追加し、それらをツールとして公開するために `@Tool` でアノテーションを付けます。
 
@@ -273,7 +273,7 @@ public annotation class LLMDescription(val description: String)
     ```
     <!--- KNIT example-annotation-based-tools-java-05.java -->
 
-### 3. 説明を追加する
+### 3. 説明を追加する {id="3-add-descriptions"}
 
 LLMにコンテキストを提供するために `@LLMDescription` アノテーションを追加します。
 
@@ -323,7 +323,7 @@ LLMにコンテキストを提供するために `@LLMDescription` アノテー�
     ```
     <!--- KNIT example-annotation-based-tools-java-06.java -->
 
-### 4. エージェントでツールを使用する
+### 4. エージェントでツールを使用する {id="4-use-your-tools-with-an-agent"}
 
 これで、作成したツールをエージェントで使用できるようになります。
 
@@ -394,11 +394,11 @@ LLMにコンテキストを提供するために `@LLMDescription` アノテー�
     ```
     <!--- KNIT example-annotation-based-tools-java-07.java -->
 
-## 使用例
+## 使用例 {id="usage-examples"}
 
 以下は、ツールアノテーションの実践的な例です。
 
-### 基本的な例：スイッチコントローラー
+### 基本的な例：スイッチコントローラー {id="basic-example-switch-controller"}
 
 この例では、スイッチを制御するためのシンプルなツールセットを示します。
 
@@ -498,7 +498,7 @@ LLMがスイッチを制御する必要がある場合、提供された説明�
 - 各パラメータに許容される値。
 - 実行時に期待される戻り値。
 
-### 高度な例：診断ツール
+### 高度な例：診断ツール {id="advanced-example-diagnostic-tools"}
 
 この例では、デバイス診断のためのより複雑なツールセットを示します。
 
@@ -576,7 +576,7 @@ LLMがスイッチを制御する必要がある場合、提供された説明�
     ```
     <!--- KNIT example-annotation-based-tools-java-09.java -->
 
-## ベストプラクティス
+## ベストプラクティス {id="best-practices"}
 
 * **明確な説明を提供する**: ツール、パラメータ、戻り値の目的と動作を説明する、明確で簡潔な説明を記述してください。
 * **すべてのパラメータを説明する**: 各パラメータの用途をLLMが理解できるように、すべてのパラメータに `@LLMDescription` を追加してください。
@@ -587,11 +587,11 @@ LLMがスイッチを制御する必要がある場合、提供された説明�
 * **デフォルト値を文書化する**: パラメータにデフォルト値がある場合（Kotlin）やオーバーロードがある場合（Java）、それを説明文に記載してください。
 * **ツールの焦点を絞る**: 各ツールは、あまりに多くのことをしようとするのではなく、特定の適切に定義されたタスクを実行するようにすべきです。
 
-## 一般的な問題のトラブルシューティング
+## 一般的な問題のトラブルシューティング {id="troubleshooting-common-issues"}
 
 ツールアノテーションを使用する際、いくつかの一般的な問題に遭遇することがあります。
 
-### ツールが認識されない
+### ツールが認識されない {id="tools-not-being-recognized"}
 
 エージェントがツールを認識しない場合は、以下を確認してください。
 
@@ -600,7 +600,7 @@ LLMがスイッチを制御する必要がある場合、提供された説明�
 - ツール関数またはメソッドが適切な戻り値の型を持っているか（シンプルにするために `String` が推奨されます）。
 - ツールがエージェントに正しく登録されているか。
 
-### ツール説明が不明確
+### ツール説明が不明確 {id="unclear-tool-descriptions"}
 
 LLMがツールを正しく使用しない、またはその目的を誤解している場合は、以下を試してください。
 
@@ -610,7 +610,7 @@ LLMがツールを正しく使用しない、またはその目的を誤解し�
 - パラメータの説明に有効な入力の例を含める。
 - Javaはデフォルトパラメータをサポートしていないことに注意してください。代わりにメソッドのオーバーロードを使用してください。
 
-### パラメータ型の問題
+### パラメータ型の問題 {id="parameter-type-issues"}
 
 LLMが誤ったパラメータ型を提供した場合は、以下を試してください。
 
@@ -619,7 +619,7 @@ LLMが誤ったパラメータ型を提供した場合は、以下を試して�
 - 複雑な型の場合は、特定の形式の `String` パラメータを使用することを検討し、ツール内でそれらをパースする。
 - パラメータの説明に有効な入力の例を含める。
 
-### パフォーマンスの問題
+### パフォーマンスの問題 {id="performance-issues"}
 
 ツールがパフォーマンスの問題を引き起こす場合は、以下を試してください。
 

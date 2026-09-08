@@ -23,7 +23,7 @@ Kotlin 1.7.20이 출시되었습니다! 이번 릴리스의 주요 하이라이�
 >
 {style="tip"}
 
-## Kotlin K2 컴파일러 플러그인 지원
+## Kotlin K2 컴파일러 플러그인 지원 {id="support-for-kotlin-k2-compiler-plugins"}
 
 Kotlin 팀은 K2 컴파일러를 계속 안정화하고 있습니다.
 K2는 여전히 **Alpha** 단계이지만([Kotlin 1.7.0 릴리스](whatsnew17.md#new-kotlin-k2-compiler-for-the-jvm-in-alpha)에서 발표된 바와 같이),
@@ -47,7 +47,7 @@ K2는 여전히 **Alpha** 단계이지만([Kotlin 1.7.0 릴리스](whatsnew17.md
 * [The Road to the New Kotlin Compiler](https://www.youtube.com/watch?v=iTdJJq_LyoY)
 * [K2 Compiler: a Top-Down View](https://www.youtube.com/watch?v=db19VFLZqJM)
 
-### Kotlin K2 컴파일러 활성화 방법
+### Kotlin K2 컴파일러 활성화 방법 {id="how-to-enable-the-kotlin-k2-compiler"}
 
 Kotlin K2 컴파일러를 활성화하고 테스트하려면 다음 컴파일러 옵션을 사용하세요:
 
@@ -79,14 +79,14 @@ compileKotlin {
 
 JVM 프로젝트에서 성능 향상을 확인하고 이전 컴파일러의 결과와 비교해 보세요.
 
-### 새로운 K2 컴파일러에 대한 의견을 남겨주세요
+### 새로운 K2 컴파일러에 대한 의견을 남겨주세요 {id="leave-your-feedback-on-the-new-k2-compiler"}
 
 어떤 형태의 피드백이든 환영합니다:
 * Kotlin Slack에서 K2 개발자들에게 직접 피드백을 제공하세요: [초대받기](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up?_gl=1*ju6cbn*_ga*MTA3MTk5NDkzMC4xNjQ2MDY3MDU4*_ga_9J976DJZ68*MTY1ODMzNzA3OS4xMDAuMS4xNjU4MzQwODEwLjYw) 및 [#k2-early-adopters](https://kotlinlang.slack.com/archives/C03PK0PE257) 채널 참여.
 * 새로운 K2 컴파일러에서 직면한 모든 문제를 [이슈 트래커](https://kotl.in/issue)에 보고하세요.
 * [**Send usage statistics** 옵션을 활성화](https://www.jetbrains.com/help/idea/settings-usage-statistics.html)하여 JetBrains가 K2 사용에 관한 익명 데이터를 수집할 수 있도록 허용해 주세요.
 
-## 언어 (Language)
+## 언어 (Language) {id="language"}
 
 Kotlin 1.7.20은 새로운 언어 기능에 대한 프리뷰 버전을 도입하고, 빌더 타입 추론(builder type inference)에 제한을 둡니다:
 
@@ -94,7 +94,7 @@ Kotlin 1.7.20은 새로운 언어 기능에 대한 프리뷰 버전을 도입하
 * [새로운 데이터 객체(data object) 선언](#improved-string-representations-for-singletons-and-sealed-class-hierarchies-with-data-objects)
 * [빌더 타입 추론 제한](#new-builder-type-inference-restrictions)
 
-### 끝이 열린 범위를 생성하기 위한 ..< 연산자 프리뷰
+### 끝이 열린 범위를 생성하기 위한 ..< 연산자 프리뷰 {id="preview-of-the-operator-for-creating-open-ended-ranges"}
 
 > 새로운 연산자는 [실험적(Experimental)](components-stability.md#stability-levels-explained)이며, IDE에서 제한적으로 지원됩니다.
 >
@@ -118,11 +118,11 @@ when (value) {
 ```
 {validate="false"}
 
-#### 표준 라이브러리 API 변경 사항
+#### 표준 라이브러리 API 변경 사항 {id="standard-library-api-changes"}
 
 공통 Kotlin 표준 라이브러리의 `kotlin.ranges` 패키지에 다음과 같은 새로운 타입과 연산이 도입될 예정입니다:
 
-##### 새로운 OpenEndRange&lt;T&gt; 인터페이스
+##### 새로운 OpenEndRange&lt;T&gt; 인터페이스 {id="new-openendrange-lt-t-gt-interface"}
 
 끝이 열린 범위를 나타내는 새로운 인터페이스는 기존 `ClosedRange<T>` 인터페이스와 매우 유사합니다:
 
@@ -138,7 +138,7 @@ interface OpenEndRange<T : Comparable<T>> {
 ```
 {validate="false"}
 
-##### 기존 반복 가능한 범위(iterable ranges)에서의 OpenEndRange 구현
+##### 기존 반복 가능한 범위(iterable ranges)에서의 OpenEndRange 구현 {id="implementing-openendrange-in-the-existing-iterable-ranges"}
 
 개발자가 상한값이 제외된 범위가 필요할 때, 현재는 동일한 값을 가진 닫힌 반복 가능 범위를 효과적으로 생성하기 위해 `until` 함수를 사용합니다. 이러한 범위를 `OpenEndRange<T>`를 받는 새로운 API에서 사용할 수 있도록 하기 위해, 기존의 반복 가능한 범위인 `IntRange`, `LongRange`, `CharRange`, `UIntRange`, `ULongRange`에서 해당 인터페이스를 구현하고자 합니다. 따라서 이들은 `ClosedRange<T>`와 `OpenEndRange<T>` 인터페이스를 동시에 구현하게 됩니다.
 
@@ -151,11 +151,11 @@ class IntRange : IntProgression(...), ClosedRange<Int>, OpenEndRange<Int> {
 ```
 {validate="false"}
 
-##### 표준 타입을 위한 rangeUntil 연산자
+##### 표준 타입을 위한 rangeUntil 연산자 {id="rangeuntil-operators-for-the-standard-types"}
 
 `rangeUntil` 연산자는 현재 `rangeTo` 연산자가 정의된 것과 동일한 타입 및 조합에 대해 제공될 것입니다. 프로토타입 목적으로는 확장 함수로 제공되지만, 일관성을 위해 나중에 끝이 열린 범위 API를 안정화하기 전에 멤버 함수로 만들 계획입니다.
 
-#### ..&lt; 연산자 활성화 방법
+#### ..&lt; 연산자 활성화 방법 {id="how-to-enable-the-lt-operator"}
 
 `..<` 연산자를 사용하거나 고유한 타입에 대해 해당 연산자 관례를 구현하려면 `-language-version 1.8` 컴파일러 옵션을 활성화하세요.
 
@@ -163,7 +163,7 @@ class IntRange : IntProgression(...), ClosedRange<Int>, OpenEndRange<Int> {
 
 [이 KEEP 문서에서 새로운 연산자에 대해 자세히 알아보세요](https://github.com/kotlin/KEEP/blob/open-ended-ranges/proposals/open-ended-ranges.md).
 
-### 데이터 객체를 통한 싱글톤 및 봉인된 클래스 계층 구조의 문자열 표현 개선
+### 데이터 객체를 통한 싱글톤 및 봉인된 클래스 계층 구조의 문자열 표현 개선 {id="improved-string-representations-for-singletons-and-sealed-class-hierarchies-with-data-objects"}
 
 > 데이터 객체(Data objects)는 [실험적(Experimental)](components-stability.md#stability-levels-explained)이며, 현재 IDE에서 제한적으로 지원됩니다.
 >
@@ -200,7 +200,7 @@ fun main() {
 }
 ```
 
-#### 데이터 객체 활성화 방법
+#### 데이터 객체 활성화 방법 {id="how-to-enable-data-objects"}
 
 코드에서 데이터 객체 선언을 사용하려면 `-language-version 1.9` 컴파일러 옵션을 활성화하세요. Gradle 프로젝트에서는 `build.gradle(.kts)`에 다음을 추가하여 활성화할 수 있습니다:
 
@@ -228,7 +228,7 @@ compileKotlin {
 
 데이터 객체에 대해 더 자세히 알아보고, [관련 KEEP 문서](https://github.com/Kotlin/KEEP/pull/316)에서 구현에 대한 의견을 공유해 주세요.
 
-### 새로운 빌더 타입 추론 제한
+### 새로운 빌더 타입 추론 제한 {id="new-builder-type-inference-restrictions"}
 
 Kotlin 1.7.20은 코드에 영향을 줄 수 있는 [빌더 타입 추론 사용](using-builders-with-builder-inference.md)에 몇 가지 주요 제한 사항을 적용합니다. 이러한 제한 사항은 빌더 람다 함수를 포함하는 코드 중, 람다 자체를 분석하지 않고는 파라미터를 도출할 수 없는 경우에 적용됩니다. 파라미터가 인자로 사용될 때, 이제 컴파일러는 항상 그러한 코드에 대해 오류를 표시하고 타입을 명시적으로 지정하도록 요구합니다.
 
@@ -320,7 +320,7 @@ Kotlin 1.7.20은 코드에 영향을 줄 수 있는 [빌더 타입 추론 사용
 
 이 빌더 추론 업데이트에 대한 자세한 정보는 [YouTrack 이슈](https://youtrack.jetbrains.com/issue/KT-53797)를 참조하세요.
 
-## Kotlin/JVM
+## Kotlin/JVM {id="kotlin-jvm"}
 
 Kotlin 1.7.20은 제네릭 인라인 클래스를 도입하고, 위임된 속성에 대한 바이트코드 최적화를 추가하며, kapt 스텁 생성 작업에서 IR을 지원하여 최신 Kotlin 기능을 kapt와 함께 사용할 수 있도록 합니다:
 
@@ -328,7 +328,7 @@ Kotlin 1.7.20은 제네릭 인라인 클래스를 도입하고, 위임된 속성
 * [더 많은 위임된 속성 최적화 사례](#more-optimized-cases-of-delegated-properties)
 * [kapt 스텁 생성 작업에서 JVM IR 백엔드 지원](#support-for-the-jvm-ir-backend-in-kapt-stub-generating-task)
 
-### 제네릭 인라인 클래스
+### 제네릭 인라인 클래스 {id="generic-inline-classes"}
 
 > 제네릭 인라인 클래스는 [실험적(Experimental)](components-stability.md#stability-levels-explained) 기능입니다.
 > 언제든지 삭제되거나 변경될 수 있습니다. 명시적 동의(Opt-in)가 필요하며(아래 세부 정보 참조), 평가 목적으로만 사용해야 합니다.
@@ -355,7 +355,7 @@ fun compute(s: UserId<String>) {} // 컴파일러는 fun compute-<hashcode>(s: A
 
 [YouTrack](https://youtrack.jetbrains.com/issue/KT-52994)에서 이 기능에 대한 피드백을 주시면 감사하겠습니다.
 
-### 더 많은 위임된 속성 최적화 사례
+### 더 많은 위임된 속성 최적화 사례 {id="more-optimized-cases-of-delegated-properties"}
 
 Kotlin 1.6.0에서는 `$delegate` 필드를 생략하고 [참조된 속성에 즉시 액세스하도록 생성](whatsnew16.md#optimize-delegated-properties-which-call-get-set-on-the-given-kproperty-instance)함으로써 속성에 위임하는 사례를 최적화했습니다. 1.7.20에서는 더 많은 사례에 대해 이 최적화를 구현했습니다. 위임이 다음과 같은 경우 이제 `$delegate` 필드가 생략됩니다:
 
@@ -396,7 +396,7 @@ Kotlin 1.6.0에서는 `$delegate` 필드를 생략하고 [참조된 속성에 �
 
 [YouTrack](https://youtrack.jetbrains.com/issue/KT-23397)에서 이 기능에 대한 피드백을 주시면 감사하겠습니다.
 
-### kapt 스텁 생성 작업에서 JVM IR 백엔드 지원
+### kapt 스텁 생성 작업에서 JVM IR 백엔드 지원 {id="support-for-the-jvm-ir-backend-in-kapt-stub-generating-task"}
 
 > kapt 스텁 생성 작업에서의 JVM IR 백엔드 지원은 [실험적(Experimental)](components-stability.md) 기능입니다.
 > 언제든지 변경될 수 있습니다. 명시적 동의(Opt-in)가 필요하며(아래 세부 정보 참조), 평가 목적으로만 사용해야 합니다.
@@ -413,14 +413,14 @@ kapt.use.jvm.ir=true
 
 [YouTrack](https://youtrack.jetbrains.com/issue/KT-49682)에서 이 기능에 대한 피드백을 주시면 감사하겠습니다.
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 Kotlin 1.7.20은 새로운 Kotlin/Native 메모리 관리자가 기본적으로 활성화되어 제공되며 `Info.plist` 파일을 맞춤 설정할 수 있는 옵션을 제공합니다:
 
 * [새로운 기본 메모리 관리자](#the-new-kotlin-native-memory-manager-enabled-by-default)
 * [Info.plist 파일 맞춤 설정](#customizing-the-info-plist-file)
 
-### 새로운 Kotlin/Native 메모리 관리자 기본 활성화
+### 새로운 Kotlin/Native 메모리 관리자 기본 활성화 {id="the-new-kotlin-native-memory-manager-enabled-by-default"}
 
 이번 릴리스는 새로운 메모리 관리자에 대한 추가적인 안정성 및 성능 향상을 가져왔으며, 이를 통해 새로운 메모리 관리자를 [Beta](components-stability.md) 단계로 격상했습니다.
 
@@ -428,7 +428,7 @@ Kotlin 1.7.20은 새로운 Kotlin/Native 메모리 관리자가 기본적으로 
 
 새로운 메모리 관리자는 컴파일 시간을 이전 릴리스와 비슷하게 만들어주는 컴파일러 캐시도 지원합니다. 새로운 메모리 관리자의 이점에 대한 자세한 내용은 프리뷰 버전에 대한 원본 [블로그 포스트](https://blog.jetbrains.com/kotlin/2021/08/try-the-new-kotlin-native-memory-manager-development-preview/)를 참조하세요. 더 자세한 기술적 내용은 [문서](native-memory-manager.md)에서 확인할 수 있습니다.
 
-#### 구성 및 설정
+#### 구성 및 설정 {id="configuration-and-setup"}
 
 Kotlin 1.7.20부터 새로운 메모리 관리자가 기본값입니다. 추가적인 설정은 거의 필요하지 않습니다.
 
@@ -436,7 +436,7 @@ Kotlin 1.7.20부터 새로운 메모리 관리자가 기본값입니다. 추가�
 
 필요한 경우 `gradle.properties`의 `kotlin.native.binary.memoryModel=strict` 옵션을 사용하여 레거시 메모리 관리자로 다시 전환할 수 있습니다. 그러나 레거시 메모리 관리자에서는 더 이상 컴파일러 캐시 지원을 사용할 수 없으므로 컴파일 시간이 악화될 수 있습니다.
 
-#### 동결 (Freezing)
+#### 동결 (Freezing) {id="freezing"}
 
 새로운 메모리 관리자에서 동결(freezing)은 더 이상 사용되지 않습니다(deprecated). 레거시 관리자와 작동해야 하는 코드가 아니라면(거기서는 여전히 동결이 필요함) 사용하지 마세요. 이는 레거시 메모리 관리자에 대한 지원을 유지해야 하는 라이브러리 작성자나 새로운 메모리 관리자에서 문제가 발생할 경우 대비책을 마련하려는 개발자에게 유용할 수 있습니다.
 
@@ -446,7 +446,7 @@ Kotlin 1.7.20부터 새로운 메모리 관리자가 기본값입니다. 추가�
 * Gradle의 모든 Kotlin 소스 세트에 `languageSettings.optIn("kotlin.native.FreezingIsDeprecated")`를 적용합니다.
 * 컴파일러 플래그 `-opt-in=kotlin.native.FreezingIsDeprecated`를 전달합니다.
 
-#### Swift/Objective-C에서 Kotlin 일시 중단(suspending) 함수 호출
+#### Swift/Objective-C에서 Kotlin 일시 중단(suspending) 함수 호출 {id="calling-kotlin-suspending-functions-from-swift-objective-c"}
 
 새로운 메모리 관리자는 여전히 Swift 및 Objective-C에서 메인 스레드가 아닌 다른 스레드로부터 Kotlin `suspend` 함수를 호출하는 것을 제한하지만, 새로운 Gradle 옵션으로 이를 해제할 수 있습니다.
 
@@ -464,13 +464,13 @@ kotlin.native.binary.objcExportSuspendFunctionLaunchThreadRestriction=none
 
 Kotlin 팀은 이 옵션을 구현해 주신 [Ahmed El-Helw](https://github.com/ahmedre) 님께 매우 감사드립니다.
 
-#### 의견을 남겨주세요
+#### 의견을 남겨주세요 {id="leave-your-feedback"}
 
 이것은 생태계의 중요한 변화입니다. 이를 더욱 개선할 수 있도록 여러분의 피드백을 기다립니다.
 
 프로젝트에서 새로운 메모리 관리자를 사용해 보고 [이슈 트래커인 YouTrack에 피드백을 공유](https://youtrack.jetbrains.com/issue/KT-48525)해 주세요.
 
-### Info.plist 파일 맞춤 설정
+### Info.plist 파일 맞춤 설정 {id="customizing-the-info-plist-file"}
 
 프레임워크를 생성할 때 Kotlin/Native 컴파일러는 정보 속성 리스트 파일인 `Info.plist`를 생성합니다. 이전에는 그 내용을 맞춤 설정하는 것이 번거로웠습니다. Kotlin 1.7.20을 사용하면 다음 속성을 직접 설정할 수 있습니다:
 
@@ -484,7 +484,7 @@ Kotlin 팀은 이 옵션을 구현해 주신 [Ahmed El-Helw](https://github.com/
 
 Kotlin 팀은 이 기능을 구현해 주신 Mads Ager 님께 매우 감사드립니다.
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
 Kotlin/JS는 개발자 경험을 개선하고 성능을 높이는 몇 가지 향상된 기능을 받았습니다:
 
@@ -492,7 +492,7 @@ Kotlin/JS는 개발자 경험을 개선하고 성능을 높이는 몇 가지 향
 * [개발용 바이너리를 위한 증분 컴파일](js-ir-compiler.md#incremental-compilation-for-development-binaries)이 재작업되어 클린 빌드 시나리오에서의 주요 개선, 더 빠른 증분 빌드 및 안정성 수정이 이루어졌습니다.
 * 중첩된 객체, 봉인된 클래스 및 생성자의 기본값을 가진 파라미터에 대한 `.d.ts` 생성을 개선했습니다.
 
-## Gradle
+## Gradle {id="gradle"}
 
 Kotlin Gradle 플러그인 업데이트는 새로운 Gradle 기능 및 최신 Gradle 버전과의 호환성에 중점을 두었습니다.
 
@@ -500,7 +500,7 @@ Kotlin 1.7.20은 Gradle 7.1을 지원하기 위한 변경 사항을 포함하고
 
 그러나 주의가 필요할 수 있는 몇 가지 잠재적인 변경 사항이 있습니다:
 
-### 타겟 구성
+### 타겟 구성 {id="target-configuration"}
 
 * `org.jetbrains.kotlin.gradle.dsl.SingleTargetExtension`은 이제 제네릭 파라미터 `SingleTargetExtension<T : KotlinTarget>`을 갖습니다.
 * `kotlin.targets.fromPreset()` 관례는 지원이 중단되었습니다. 대신 여전히 `kotlin.targets { fromPreset() }`을 사용할 수 있지만, [타겟을 명시적으로 설정](https://kotlinlang.org/docs/multiplatform/multiplatform-discover-project.html#targets)하는 것을 권장합니다.
@@ -508,7 +508,7 @@ Kotlin 1.7.20은 Gradle 7.1을 지원하기 위한 변경 사항을 포함하고
 
   이러한 접근자는 `kotlin.targets`의 경우(예: `kotlin.targets.linuxX64`) 여전히 사용할 수 있습니다.
 
-### 소스 디렉토리 구성
+### 소스 디렉토리 구성 {id="source-directories-configuration"}
 
 Kotlin Gradle 플러그인은 이제 Kotlin `SourceDirectorySet`을 Java의 `SourceSet` 그룹에 `kotlin` 확장으로 추가합니다. 이를 통해 [Java, Groovy, Scala](https://docs.gradle.org/7.1/release-notes.html#easier-source-set-configuration-in-kotlin-dsl)에서 구성하는 방식과 유사하게 `build.gradle.kts` 파일에서 소스 디렉토리를 구성할 수 있습니다:
 
@@ -537,7 +537,7 @@ kotlin {
 }
 ```
 
-### JVM 툴체인 구성을 위한 새로운 메서드
+### JVM 툴체인 구성을 위한 새로운 메서드 {id="new-method-for-jvm-toolchain-configuration"}
 
 이번 릴리스는 [JVM 툴체인 기능](gradle-configure-project.md#gradle-java-toolchains-support)을 활성화하기 위한 새로운 `jvmToolchain()` 메서드를 제공합니다. `implementation`이나 `vendor`와 같은 추가적인 [구성 필드](https://docs.gradle.org/current/javadoc/org/gradle/jvm/toolchain/JavaToolchainSpec.html)가 필요하지 않은 경우 Kotlin 확장에서 이 메서드를 사용할 수 있습니다:
 
@@ -557,7 +557,7 @@ kotlin {
 }
 ```
 
-## 표준 라이브러리 (Standard library)
+## 표준 라이브러리 (Standard library) {id="standard-library"}
 
 Kotlin 1.7.20은 파일 트리를 탐색할 수 있는 `java.nio.file.Path` 클래스용 새로운 [확장 함수](extensions.md#extension-functions)를 제공합니다:
 
@@ -668,32 +668,32 @@ Kotlin 1.7.20은 파일 트리를 탐색할 수 있는 `java.nio.file.Path` 클�
 
 YouTrack에서 [`walk()` 함수](https://youtrack.jetbrains.com/issue/KT-52909)와 [visit 확장 함수](https://youtrack.jetbrains.com/issue/KT-52910)에 대한 피드백을 주시면 감사하겠습니다.
 
-## 문서 업데이트
+## 문서 업데이트 {id="documentation-updates"}
 
 이전 릴리스 이후 Kotlin 문서에 몇 가지 주목할 만한 변경 사항이 있었습니다:
 
-### 개편 및 개선된 페이지
+### 개편 및 개선된 페이지 {id="revamped-and-improved-pages"}
 
 * [기본 타입 개요(Basic types overview)](types-overview.md) – Kotlin에서 사용되는 기본 타입인 숫자, 불리언, 문자, 문자열, 배열 및 부호 없는 정수에 대해 알아보세요.
 * [Kotlin 개발을 위한 IDE(IDEs for Kotlin development)](kotlin-ide.md) – 공식 Kotlin 지원이 있는 IDE 및 커뮤니티 지원 플러그인이 있는 도구 목록을 확인하세요.
 
-### Kotlin 멀티플랫폼 저널의 새로운 기사
+### Kotlin 멀티플랫폼 저널의 새로운 기사 {id="new-articles-in-the-kotlin-multiplatform-journal"}
 
 * [네이티브 및 크로스 플랫폼 앱 개발: 선택 방법(Native and cross-platform app development: how to choose?)](https://kotlinlang.org/docs/multiplatform/native-and-cross-platform.html) – 크로스 플랫폼 앱 개발과 네이티브 방식의 장단점 및 개요를 확인하세요.
 * [6가지 최고의 크로스 플랫폼 앱 개발 프레임워크(The six best cross-platform app development frameworks)](https://kotlinlang.org/docs/multiplatform/cross-platform-frameworks.html) – 크로스 플랫폼 프로젝트에 적합한 프레임워크를 선택하는 데 도움이 되는 주요 측면을 읽어보세요.
 
-### 새로운 자습서 및 업데이트된 자습서
+### 새로운 자습서 및 업데이트된 자습서 {id="new-and-updated-tutorials"}
 
 * [Kotlin 멀티플랫폼 시작하기(Get started with Kotlin Multiplatform)](https://kotlinlang.org/docs/multiplatform/multiplatform-create-first-app.html) – Kotlin을 사용한 크로스 플랫폼 모바일 개발에 대해 배우고 Android와 iOS 모두에서 작동하는 앱을 만들어 보세요.
 * [React 및 Kotlin/JS를 사용하여 웹 애플리케이션 빌드(Build a web application with React and Kotlin/JS)](js-react.md) – Kotlin의 DSL 및 일반적인 React 프로그램의 기능을 탐색하는 브라우저 앱을 만들어 보세요.
 
-### 릴리스 문서의 변경 사항
+### 릴리스 문서의 변경 사항 {id="changes-in-release-documentation"}
 
 더 이상 각 릴리스마다 권장되는 kotlinx 라이브러리 목록을 제공하지 않습니다. 이 목록에는 Kotlin 자체와 함께 권장되고 테스트된 버전만 포함되었습니다. 일부 라이브러리가 서로 의존하고 권장 Kotlin 버전과 다를 수 있는 특정 kotlinx 버전이 필요하다는 점을 고려하지 않았습니다.
 
 저희는 라이브러리들이 어떻게 서로 연관되고 의존하는지에 대한 정보를 제공할 방법을 찾고 있습니다. 이를 통해 프로젝트에서 Kotlin 버전을 업그레이드할 때 어떤 kotlinx 라이브러리 버전을 사용해야 하는지 명확하게 알 수 있도록 할 예정입니다.
 
-## Kotlin 1.7.20 설치
+## Kotlin 1.7.20 설치 {id="install-kotlin-1-7-20"}
 
 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 2021.3, 2022.1, 2022.2는 자동으로 Kotlin 플러그인을 1.7.20으로 업데이트하도록 제안합니다.
 
@@ -703,7 +703,7 @@ YouTrack에서 [`walk()` 함수](https://youtrack.jetbrains.com/issue/KT-52909)�
 
 새로운 명령줄 컴파일러는 [GitHub 릴리스 페이지](https://github.com/JetBrains/kotlin/releases/tag/v1.7.20)에서 다운로드할 수 있습니다.
 
-### Kotlin 1.7.20 호환성 가이드
+### Kotlin 1.7.20 호환성 가이드 {id="compatibility-guide-for-kotlin-1-7-20"}
 
 Kotlin 1.7.20은 증분 릴리스(incremental release)임에도 불구하고, Kotlin 1.7.0에서 도입된 문제의 확산을 제한하기 위해 호환되지 않는 변경 사항을 일부 적용해야 했습니다.
 

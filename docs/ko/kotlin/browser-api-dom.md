@@ -56,7 +56,7 @@ kotlin {
 </tab>
 </tabs>
 
-## DOM과의 상호작용
+## DOM과의 상호작용 {id="interaction-with-the-dom"}
 
 문서 객체 모델(DOM)과 상호작용하려면 `document` 변수를 사용할 수 있습니다. 예를 들어, 이 객체를 통해 웹사이트의 배경색을 설정할 수 있습니다.
 
@@ -87,6 +87,6 @@ email.value = "hadi@jetbrains.com"
 
 이 `input` 요소를 참조하는 것과 마찬가지로, 페이지의 다른 요소에 접근하여 적절한 타입으로 캐스팅할 수 있습니다.
 
-## 다음 단계는 무엇인가요?
+## 다음 단계는 무엇인가요? {id="what-s-next"}
 
 DOM 요소를 간결하게 생성하고 구조화하는 방법을 알아보려면 [타입 안전 HTML DSL](typesafe-html-dsl.md)을 확인해 보세요.

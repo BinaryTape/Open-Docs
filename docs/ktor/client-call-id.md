@@ -76,7 +76,7 @@
 
 %plugin_name% 插件配置由 [CallIdConfig](https://api.ktor.io/ktor-client-call-id/io.ktor.client.plugins.callid/-call-id-config/index.html) 类提供，允许您生成调用 ID 并将其添加到调用上下文中。
 
-### 生成调用 ID
+### 生成调用 ID {id="generate-a-call-id"}
 
 通过以下方式之一为特定请求生成调用 ID：
 
@@ -100,7 +100,7 @@
 
 您可以使用多种方法生成调用 ID。在这种情况下，将应用第一个非 null 的值。
 
-### 添加调用 ID
+### 添加调用 ID {id="add-a-call-id"}
 
 检索到调用 ID 后，您可以使用以下选项将其添加到请求中：
 
@@ -122,7 +122,7 @@
  }
  ```
 
-## 示例
+## 示例 {id="example"}
 
 在以下示例中，Ktor 客户端的 `%plugin_name%` 插件被配置为生成一个新的调用 ID 并将其添加到标头：
 

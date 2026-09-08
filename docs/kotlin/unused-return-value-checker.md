@@ -39,7 +39,7 @@ fun formatGreeting(name: String): String {
 }
 ```
 
-## 配置未使用的返回值检查器
+## 配置未使用的返回值检查器 {id="configure-the-unused-return-value-checker"}
 
 你可以通过 `-Xreturn-value-checker` 编译器选项来控制编译器如何报告被忽略的结果。
 
@@ -86,7 +86,7 @@ kotlin {
 </tab>
 </tabs>
 
-## 标记要检查被忽略结果的函数
+## 标记要检查被忽略结果的函数 {id="mark-functions-to-check-ignored-results"}
 
 当你将 [-Xreturn-value-checker 编译器选项](#配置未使用的返回值检查器) 设置为 `check` 时，
 检查器仅报告来自已标记表达式（例如 Kotlin 标准库中的大多数函数）中被忽略的结果。
@@ -123,7 +123,7 @@ fun someFunction(): Int = ...
 >
 {style="note"}
 
-## 抑制被忽略结果的报告
+## 抑制被忽略结果的报告 {id="suppress-reports-for-ignored-results"}
 
 你可以通过在特定函数上添加 [`@IgnorableReturnValue`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-ignorable-return-value/) 注解来抑制对其报告。
 为那些通常且预期会忽略结果的函数添加注解，例如 `MutableList.add`：
@@ -152,7 +152,7 @@ fun main() {
 }
 ```
 
-### 函数重写中被忽略的结果
+### 函数重写中被忽略的结果 {id="ignored-results-in-function-overrides"}
 
 当你重写函数时，重写后的函数会继承基类声明中注解所定义的报告规则。
 这也适用于基类声明属于 Kotlin 标准库或其他库依赖项的情况，因此检查器会针对 `Any.hashCode()` 等函数的重写报告被忽略的结果。
@@ -180,7 +180,7 @@ fun check(g: Greeter) {
 }
 ```
 
-## 在高阶函数中检查未使用的结果
+## 在高阶函数中检查未使用的结果 {id="check-for-unused-results-in-higher-order-functions"}
 
 一些高阶函数，例如 `let` 作用域函数，会返回 lambda 的结果。
 要检查高阶函数中未使用的 lambda 结果，请将 [实验性](components-stability.md#stability-levels-explained) 的 `returnsResultOf()` 契约添加到该函数的契约中。
@@ -257,7 +257,7 @@ kotlin {
 </tab> 
 </tabs>
 
-## 与 Java 注解的互操作性
+## 与 Java 注解的互操作性 {id="interoperability-with-java-annotations"}
 
 一些 Java 库使用类似的机制但采用不同的注解。 
 未使用的返回值检查器将以下注解视为等同于使用 `@MustUseReturnValues`：

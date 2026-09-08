@@ -8,11 +8,11 @@
 
 Koog는 **Anthropic** 및 **Amazon Bedrock**에 대한 프롬프트 캐싱 제어를 지원합니다.
 
-## Anthropic
+## Anthropic {id="anthropic"}
 
 Anthropic은 프롬프트 캐싱에 대해 두 가지 보완적인 접근 방식을 지원합니다.
 
-### 자동 캐싱 (요청 수준)
+### 자동 캐싱 (요청 수준) {id="automatic-caching-request-level"}
 
 [`AnthropicParams`](../../llm-parameters.md)에서 `cacheControl` 속성을 설정하고 이를 프롬프트에 전달합니다.
 Anthropic은 개별 메시지에 주석을 달지 않아도 요청의 마지막 캐싱 가능한 블록에 자동으로 캐시 중단점(cache breakpoint)을 배치합니다.
@@ -73,11 +73,11 @@ Anthropic은 개별 메시지에 주석을 달지 않아도 요청의 마지막 
     ```
     <!--- KNIT example-cache-control-java-01.java -->
 
-### 수동 캐싱 (블록 수준)
+### 수동 캐싱 (블록 수준) {id="manual-caching-block-level"}
 
 개별 메시지나 도구 정의에 `cacheControl` 인자를 추가하여 특정 위치에 캐시 중단점을 배치합니다. 주석이 달린 블록을 포함하여 그 앞의 모든 내용이 캐싱 대상이 됩니다.
 
-#### 시스템 메시지
+#### 시스템 메시지 {id="system-messages"}
 
 === "Kotlin"
 
@@ -124,7 +124,7 @@ Anthropic은 개별 메시지에 주석을 달지 않아도 요청의 마지막 
     ```
     <!--- KNIT example-cache-control-java-02.java -->
 
-#### 사용자 및 어시스턴트 메시지
+#### 사용자 및 어시스턴트 메시지 {id="user-and-assistant-messages"}
 
 === "Kotlin"
 
@@ -176,7 +176,7 @@ Anthropic은 개별 메시지에 주석을 달지 않아도 요청의 마지막 
     ```
     <!--- KNIT example-cache-control-java-03.java -->
 
-#### 도구 정의
+#### 도구 정의 {id="tool-definitions"}
 
 도구 목록이 여러 요청에 걸쳐 고정되어 있는 경우, 마지막 도구 정의를 캐싱하면 모든 도구 스키마가 함께 캐싱됩니다.
 
@@ -224,7 +224,7 @@ Anthropic은 개별 메시지에 주석을 달지 않아도 요청의 마지막 
     ```
     <!--- KNIT example-cache-control-java-04.java -->
 
-### 캐시 TTL 옵션
+### 캐시 TTL 옵션 {id="cache-ttl-options"}
 
 | 옵션 | TTL | 가격 배수 |
 |-------------------------------|----------|-------------------------|
@@ -234,7 +234,7 @@ Anthropic은 개별 메시지에 주석을 달지 않아도 요청의 마지막 
 캐시 쓰기는 일반 입력 토큰보다 높은 요율로 청구되지만, 캐시 읽기는 더 저렴합니다.
 현재 가격은 [Anthropic 프롬프트 캐싱 문서](https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching)를 참조하세요.
 
-### 캐시 사용량 모니터링
+### 캐시 사용량 모니터링 {id="monitoring-cache-usage"}
 
 Anthropic은 응답 사용량(usage)에 캐시 통계를 보고합니다. 이는 원본 API 응답을 통해 액세스할 수 있으며 트레이싱 또는 로깅 기능을 통해 관찰할 수 있습니다.
 
@@ -243,7 +243,7 @@ Anthropic은 응답 사용량(usage)에 캐시 통계를 보고합니다. 이는
 | `cacheReadInputTokens`      | 기존 캐시 항목에서 읽은 토큰 수 |
 | `cacheCreationInputTokens`  | 새 캐시 항목에 기록된 토큰 수 |
 
-### 자동 및 블록 수준 캐싱 결합
+### 자동 및 블록 수준 캐싱 결합 {id="combining-automatic-and-block-level-caching"}
 
 두 모드를 동시에 사용할 수 있습니다. 블록 수준 `cacheControl` 마커는 중단점 위치에 대한 세밀한 제어를 제공하며, `AnthropicParams`의 요청 수준 `cacheControl`은 대화의 나머지 뒷부분을 자동으로 처리합니다.
 
@@ -292,7 +292,7 @@ Anthropic은 응답 사용량(usage)에 캐시 통계를 보고합니다. 이는
 
 ---
 
-## Amazon Bedrock
+## Amazon Bedrock {id="amazon-bedrock"}
 
 Amazon Bedrock은 Converse API를 통해 블록 수준 캐싱 모델을 사용합니다.
 메시지나 도구에 `cacheControl`이 설정되면, Bedrock은 해당 요소 바로 뒤에 `CachePoint` 블록을 삽입합니다.
@@ -469,7 +469,7 @@ Amazon Bedrock은 Converse API를 통해 블록 수준 캐싱 모델을 사용�
 
 ---
 
-## 캐싱 전략 선택하기
+## 캐싱 전략 선택하기 {id="choosing-a-caching-strategy"}
 
 | 상황 | 권장 접근 방식 |
 |---------------------------------------------------|-------------------------------------------------------------|

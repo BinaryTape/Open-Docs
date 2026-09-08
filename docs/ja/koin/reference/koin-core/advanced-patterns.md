@@ -6,7 +6,7 @@ title: 高度なパターン
 
 このガイドでは、複雑なシナリオ向けの高度な依存関係注入（Dependency Injection）パターンについて説明します。
 
-## 外部ライブラリのバインディング
+## 外部ライブラリのバインディング {id="external-library-binding"}
 
 アノテーションを追加できないサードパーティライブラリの場合、`create()` を使用したビルダー関数を使用します：
 
@@ -52,9 +52,9 @@ class NetworkModule {
 }
 ```
 
-## 依存関係のコレクション
+## 依存関係のコレクション {id="collections-of-dependencies"}
 
-### 複数の実装
+### 複数の実装 {id="multiple-implementations"}
 
 Qualifier（限定子）を使用して、インターフェースの複数の実装を集約します：
 
@@ -69,7 +69,7 @@ class PayPalProcessor : PaymentProcessor { ... }
 class CryptoProcessor : PaymentProcessor { ... }
 ```
 
-#### コンパイラプラグイン DSL
+#### コンパイラプラグイン DSL {id="compiler-plugin-dsl"}
 
 クラスに `@Named` 限定子アノテーションを使用します：
 
@@ -101,7 +101,7 @@ val paymentModule = module {
 }
 ```
 
-#### アノテーション
+#### アノテーション {id="annotations"}
 
 ```kotlin
 @Module
@@ -127,7 +127,7 @@ class PaymentModule {
 }
 ```
 
-#### クラシック DSL
+#### クラシック DSL {id="classic-dsl"}
 
 ```kotlin
 val paymentModule = module {
@@ -147,7 +147,7 @@ val paymentModule = module {
 }
 ```
 
-## ジェネリック型
+## ジェネリック型 {id="generic-types"}
 
 Koin はジェネリック型の情報を保持します：
 
@@ -176,7 +176,7 @@ val userRepo: Repository<User> = get()
 val productRepo: Repository<Product> = get()
 ```
 
-## プロバイダーパターン
+## プロバイダーパターン {id="provider-pattern"}
 
 実行時パラメータを使用してオブジェクトを作成する必要がある場合は、実行時インスタンス用のファクトリを作成します：
 
@@ -204,7 +204,7 @@ class MyScreen(private val dialogFactory: DialogFactory) {
 }
 ```
 
-## デコレータパターン
+## デコレータパターン {id="decorator-pattern"}
 
 デリゲーション（委譲）を使用して振る舞いを積み重ねます：
 
@@ -261,7 +261,7 @@ val notificationModule = module {
 }
 ```
 
-## 次のステップ
+## 次のステップ {id="next-steps"}
 
 - **[定義](/docs/reference/koin-core/definitions)** - 基本的な定義タイプ
 - **[限定子](/docs/reference/koin-core/qualifiers)** - 名前付きおよび型付きの限定子（Qualifiers）

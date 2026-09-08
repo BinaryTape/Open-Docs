@@ -41,7 +41,7 @@ val client = HttpClient(CIO) {
 }
 ```
 
-### 載入權杖
+### 載入權杖 {id="load-tokens"}
 
 使用 `loadTokens {}` 回呼提供初始存取與重新整理權杖。通常，此回呼會從本機儲存空間載入快取的權杖，並將其作為 `BearerTokens` 執行個體傳回。
 
@@ -63,7 +63,7 @@ GET http://localhost:8080/
 Authorization: Bearer abc123
 ```
 
-### 重新整理權杖
+### 重新整理權杖 {id="refresh-tokens"}
 
 使用 `refreshTokens {}` 回呼來定義當目前的存取權杖變為無效時，用戶端如何獲取新權杖：
 
@@ -93,7 +93,7 @@ install(Auth) {
 >
 {style="tip"}
 
-### 無需等待 401 即可傳送憑據
+### 無需等待 401 即可傳送憑據 {id="send-credentials-without-waiting-for-401"}
 
 預設情況下，用戶端僅在收到 `401 Unauthorized` 回應後才傳送憑據。
 
@@ -112,7 +112,7 @@ install(Auth) {
 }
 ```
 
-### 快取權杖
+### 快取權杖 {id="cache-tokens"}
 
 使用 `cacheTokens` 屬性來控制是否在請求之間快取 Bearer 權杖。
 

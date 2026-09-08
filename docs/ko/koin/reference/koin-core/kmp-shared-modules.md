@@ -10,7 +10,7 @@ title: 공유 패턴
 기본적인 KMP 설정은 [KMP 설정](/docs/reference/koin-core/kmp-setup)을 참고하세요. 정의 타입에 대해서는 [정의(Definitions)](/docs/reference/koin-core/definitions)를 참고하세요.
 :::
 
-## 공유 모듈 패턴 (The Shared Module Pattern)
+## 공유 모듈 패턴 (The Shared Module Pattern) {id="the-shared-module-pattern"}
 
 각 플랫폼에서 확장할 수 있는 공통 초기화 함수를 생성합니다:
 
@@ -29,11 +29,11 @@ fun initKoin(config: KoinAppDeclaration? = null): KoinApplication {
 }
 ```
 
-## 모듈 구성 (Module Organization)
+## 모듈 구성 (Module Organization) {id="module-organization"}
 
 예제에서는 컴파일러 플러그인(Compiler Plugin) DSL을 사용합니다. 어노테이션(Annotations)이나 클래식 DSL을 사용할 수도 있습니다.
 
-### 레이어별 구성 (By Layer)
+### 레이어별 구성 (By Layer) {id="by-layer"}
 
 ```kotlin
 // commonMain/kotlin/di/modules/
@@ -58,7 +58,7 @@ val sharedModule = module {
 }
 ```
 
-### 기능별 구성 (By Feature)
+### 기능별 구성 (By Feature) {id="by-feature"}
 
 ```kotlin
 // 사용자 기능
@@ -83,11 +83,11 @@ val orderModule = module {
 }
 ```
 
-## 플랫폼 확장 (Platform Extensions)
+## 플랫폼 확장 (Platform Extensions) {id="platform-extensions"}
 
 커스텀 생성 로직이 필요한 경우, 플랫폼 모듈은 람다와 함께 클래식 DSL을 사용합니다.
 
-### Android 확장
+### Android 확장 {id="android-extension"}
 
 ```kotlin
 // androidMain/kotlin/di/KoinAndroid.kt
@@ -106,7 +106,7 @@ val androidModule = module {
 }
 ```
 
-### iOS 확장
+### iOS 확장 {id="ios-extension"}
 
 ```kotlin
 // iosMain/kotlin/di/KoinIos.kt
@@ -123,7 +123,7 @@ val iosModule = module {
 }
 ```
 
-### Desktop 확장
+### Desktop 확장 {id="desktop-extension"}
 
 ```kotlin
 // desktopMain/kotlin/di/KoinDesktop.kt
@@ -140,16 +140,16 @@ val desktopModule = module {
 }
 ```
 
-## Expect/Actual 모듈 패턴
+## Expect/Actual 모듈 패턴 {id="expect-actual-module-pattern"}
 
-### 공통 정의 (Common Definition)
+### 공통 정의 (Common Definition) {id="common-definition"}
 
 ```kotlin
 // commonMain/kotlin/di/PlatformModule.kt
 expect val platformModule: Module
 ```
 
-### 플랫폼 구현체 (Platform Implementations)
+### 플랫폼 구현체 (Platform Implementations) {id="platform-implementations"}
 
 ```kotlin
 // androidMain
@@ -174,11 +174,11 @@ actual val platformModule = module {
 }
 ```
 
-## Compose Multiplatform
+## Compose Multiplatform {id="compose-multiplatform"}
 
 멀티플랫폼 ViewModel에 대해서는 [ViewModel](/docs/reference/koin-core/viewmodel)을 참고하세요.
 
-### 공유 ViewModel
+### 공유 ViewModel {id="shared-viewmodel"}
 
 ```kotlin
 // commonMain
@@ -197,7 +197,7 @@ class UserViewModel(
 }
 ```
 
-### 공유 UI
+### 공유 UI {id="shared-ui"}
 
 ```kotlin
 // commonMain
@@ -215,11 +215,11 @@ fun UserScreen(
 }
 ```
 
-## 테스트 (Testing)
+## 테스트 (Testing) {id="testing"}
 
 KMP 테스트 패턴에 대해서는 [테스트(Testing)](/docs/reference/koin-test/testing)를 참고하세요.
 
-## 권장 사항 (Best Practices)
+## 권장 사항 (Best Practices) {id="best-practices"}
 
 1. **단일 초기화 함수** - `commonMain`에 하나의 `initKoin()`을 둡니다.
 2. **설정을 통한 플랫폼 확장** - `includes(config)` 패턴을 사용합니다.
@@ -228,7 +228,7 @@ KMP 테스트 패턴에 대해서는 [테스트(Testing)](/docs/reference/koin-t
 5. **팩토리에 expect/actual 사용** - 플랫폼별 인스턴스 생성 시 활용합니다.
 6. **commonTest에서 테스트** - 대부분의 테스트는 공유가 가능합니다.
 
-## 다음 단계
+## 다음 단계 {id="next-steps"}
 
 - **[KMP 설정](/docs/reference/koin-core/kmp-setup)** - 기본적인 KMP 구성
 - **[ViewModel](/docs/reference/koin-core/viewmodel)** - 멀티플랫폼 ViewModel

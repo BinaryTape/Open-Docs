@@ -63,7 +63,7 @@ val client = HttpClient(CIO) {
 
 ## `ContentEncoding` 구성 {id="configure_plugin"}
 
-### 인코더 활성화
+### 인코더 활성화 {id="enable-encoders"}
 
 어떤 인코더를 지원할지 구성하고 (`Accept-Encoding` 헤더에 사용되는) 품질 값을 지정할 수 있습니다.
 
@@ -80,7 +80,7 @@ val client = HttpClient(CIO) {
 
 필요한 경우, [`ContentEncoder`](https://api.ktor.io/ktor-utils/io.ktor.util/-content-encoder/index.html) 인터페이스를 구현하여 사용자 정의 인코더를 만들고 `customEncoder()` 함수를 사용하여 등록할 수 있습니다.
 
-### `mode` 속성 설정
+### `mode` 속성 설정 {id="set-the-mode-property"}
 
 기본적으로 `ContentEncoding`은 응답 압축 해제(decompression)만 처리합니다. `mode` 속성을 사용하여 플러그인이 작동하는 방식을 정의할 수 있습니다.
 

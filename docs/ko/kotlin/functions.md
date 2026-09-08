@@ -24,7 +24,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false" id="kotlin-function-double"}
 
-## 함수 사용법
+## 함수 사용법 {id="function-usage"}
 
 함수는 표준 방식으로 호출합니다:
 
@@ -39,7 +39,7 @@ val result = double(2)
 Stream().read()
 ```
 
-### 파라미터
+### 파라미터 {id="parameters"}
 
 함수 파라미터는 파스칼 표기법(Pascal notation)인 `name: Type` 형식을 사용하여 선언합니다.
 파라미터는 쉼표로 구분해야 하며, 각 파라미터에 명시적으로 타입을 지정해야 합니다:
@@ -147,7 +147,7 @@ class Rectangle : Shape() {
 }
 ```
 
-#### 기본값으로 사용되는 비상수 표현식
+#### 기본값으로 사용되는 비상수 표현식 {id="non-constant-expressions-as-default-values"}
 
 파라미터에 상수가 아닌 기본값을 할당할 수 있습니다.
 예를 들어, 기본값은 아래 예제의 `len` 파라미터처럼 함수 호출 결과나 다른 인자의 값을 사용하는 계산 결과가 될 수 있습니다:
@@ -209,7 +209,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="lambda-outside-parentheses"}
 
-### 이름 붙은 인자
+### 이름 붙은 인자 {id="named-arguments"}
 
 함수를 호출할 때 하나 이상의 함수 인자에 이름을 붙일 수 있습니다.
 이는 함수 호출에 인자가 많을 때 유용할 수 있습니다. 특히 값이 `null`이거나 불리언 값인 경우 값을 인자와 연관 짓기 어렵기 때문에 이런 상황에서 도움이 됩니다.
@@ -271,7 +271,7 @@ mergeStrings(strings = arrayOf("a", "b", "c"))
 >
 {style="note"}
 
-### 반환 타입
+### 반환 타입 {id="return-types"}
 
 중괄호 `{}` 안에 명령문을 넣는 블록 본문을 사용하여 함수를 선언할 때는 항상 반환 타입을 명시적으로 지정해야 합니다.
 단, `Unit`을 반환하는 경우에는 [반환 타입 지정이 선택 사항입니다](#unit-returning-functions).
@@ -279,7 +279,7 @@ mergeStrings(strings = arrayOf("a", "b", "c"))
 Kotlin은 블록 본문을 가진 함수의 반환 타입을 추론하지 않습니다. 블록 본문은 제어 흐름이 복잡할 수 있어 읽는 사람이나 때로는 컴파일러에게도 반환 타입이 명확하지 않을 수 있기 때문입니다.
 하지만 [단일 표현식 함수](#single-expression-functions)의 경우 반환 타입을 명시하지 않아도 Kotlin이 반환 타입을 추론할 수 있습니다.
 
-### 단일 표현식 함수
+### 단일 표현식 함수 {id="single-expression-functions"}
 
 함수 본문이 단일 표현식으로 구성된 경우, 중괄호를 생략하고 `=` 기호 뒤에 본문을 지정할 수 있습니다:
 
@@ -308,7 +308,7 @@ fun getDisplayNameOrDefault(userId: String?): String =
     getDisplayName(userId ?: return "default")
 ```
 
-### Unit을 반환하는 함수
+### Unit을 반환하는 함수 {id="unit-returning-functions"}
 
 함수가 블록 본문(중괄호 `{}` 안의 명령문)을 가지고 있고 유용한 값을 반환하지 않는 경우, 컴파일러는 반환 타입을 `Unit`으로 간주합니다.
 `Unit`은 `Unit`이라는 하나의 값만 가지는 타입입니다.
@@ -373,7 +373,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false" id="return-unit-explicit"}
 
-### 가변 인자 (varargs)
+### 가변 인자 (varargs) {id="variable-number-of-arguments-varargs"}
 
 함수에 가변 개수의 인자를 전달하려면 파라미터(보통 마지막 파라미터) 중 하나에 `vararg` 수정자를 표시할 수 있습니다.
 함수 내부에서 `T` 타입의 `vararg` 파라미터는 `T`의 배열로 사용할 수 있습니다:
@@ -444,7 +444,7 @@ val a = intArrayOf(1, 2, 3)
 val list = asList(-1, 0, *a.toTypedArray(), 4)
 ```
 
-### 중위 표기법 (Infix notation)
+### 중위 표기법 (Infix notation) {id="infix-notation"}
 
 `infix` 키워드를 사용하여 괄호나 점(.) 없이 호출할 수 있는 함수를 선언할 수 있습니다.
 이를 통해 코드에서 간단한 함수 호출을 더 읽기 쉽게 만들 수 있습니다.
@@ -511,12 +511,12 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="infix-notation-example"}
 
-## 함수 범위
+## 함수 범위 {id="function-scope"}
 
 Kotlin 함수는 파일의 최상위 레벨에서 선언할 수 있습니다. 즉, 함수를 담기 위해 클래스를 만들 필요가 없습니다.
 함수는 _멤버 함수_ 또는 _확장 함수_로서 로컬로 선언될 수도 있습니다.
 
-### 로컬 함수
+### 로컬 함수 {id="local-functions"}
 
 Kotlin은 다른 함수 안에 선언된 함수인 로컬 함수를 지원합니다.
 예를 들어, 다음 코드는 주어진 그래프에 대한 깊이 우선 탐색(DFS) 알고리즘을 구현합니다.
@@ -584,7 +584,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="local-functions-dfs-with-local-variable"}
 
-### 멤버 함수
+### 멤버 함수 {id="member-functions"}
 
 멤버 함수는 클래스나 객체 내부에서 정의된 함수입니다:
 
@@ -603,7 +603,7 @@ Stream().read()
 
 클래스 및 멤버 오버라이딩에 대한 자세한 정보는 [클래스](classes.md) 및 [상속](classes.md#inheritance)을 참조하세요.
 
-## 제네릭 함수
+## 제네릭 함수 {id="generic-functions"}
 
 함수 이름 앞에 꺾쇠괄호 `<>`를 사용하여 함수의 제네릭 파라미터를 지정할 수 있습니다:
 
@@ -613,7 +613,7 @@ fun <T> singletonList(item: T): List<T> { /*...*/ }
 
 제네릭 함수에 대한 자세한 내용은 [제네릭(Generics)](generics.md)을 참조하세요.
 
-## 꼬리 재귀 함수
+## 꼬리 재귀 함수 {id="tail-recursive-functions"}
 
 Kotlin은 [꼬리 재귀(tail recursion)](https://en.wikipedia.org/wiki/Tail_call)라고 알려진 함수형 프로그래밍 스타일을 지원합니다.
 보통 루프를 사용하는 일부 알고리즘의 경우, 스택 오버플로의 위험 없이 재귀 함수를 대신 사용할 수 있습니다.

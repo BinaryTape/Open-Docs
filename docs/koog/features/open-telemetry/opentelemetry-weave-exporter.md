@@ -7,7 +7,7 @@ Koog 使用 [OpenTelemetry](https://opentelemetry.io/) 发送智能体跟踪，�
 
 ---
 
-## 设置说明
+## 设置说明 {id="setup-instructions"}
 
 1. 在 [https://wandb.ai](https://wandb.ai) 创建一个 W&B 帐号。
 2. 从 [https://wandb.ai/authorize](https://wandb.ai/authorize) 获取您的 API 密钥。
@@ -22,11 +22,11 @@ export WEAVE_PROJECT_NAME="koog-tracing"
 ```
 <!--- KNIT example-weave-exporter-01.txt -->
 
-## 配置
+## 配置 {id="configuration"}
 
 安装 **OpenTelemetry 功能**并调用 [`addWeaveExporter()`](api:agents-features-opentelemetry::ai.koog.agents.features.opentelemetry.integration.weave.addWeaveExporter) 以启用 Weave 导出。
 
-### 基本示例
+### 基本示例 {id="basic-example"}
 
 === "Kotlin"
 
@@ -116,7 +116,7 @@ See traces on https://wandb.ai/" + entity + "/" + projectName + "/weave/traces")
     ```
     <!--- KNIT exampleWeaveExporterJava01.java -->
 
-## 跟踪的内容
+## 跟踪的内容 {id="what-gets-traced"}
 
 Weave 导出器捕获的内容与 Koog 的通用 OpenTelemetry 集成相同。
 有关捕获的 span 的完整列表以及如何包含 LLM 提示词和响应内容，请参阅[跟踪的内容](index.md#what-gets-traced)。
@@ -129,7 +129,7 @@ Weave 导出器捕获的内容与 Koog 的通用 OpenTelemetry 集成相同。
 
 ---
 
-## 故障排除
+## 故障排除 {id="troubleshooting"}
 
 - **没有跟踪**：确认设置了 `WEAVE_API_KEY`、`WEAVE_ENTITY` 和 `WEAVE_PROJECT_NAME`，并且您的 W&B 帐号具有访问指定实体和项目的权限。
 - **身份验证错误**：验证 `WEAVE_API_KEY` 是否有效，并具有所选实体的写入权限。

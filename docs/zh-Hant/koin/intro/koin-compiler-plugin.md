@@ -6,7 +6,7 @@ title: Koin 編譯器外掛程式
 
 **Koin 編譯器外掛程式**是所有新 Kotlin 2.x 專案的推薦做法。它是一個原生的 Kotlin 編譯器外掛程式，為 **DSL 與註解**提供支援，具備自動裝配（auto-wiring）、編譯期安全性以及更簡潔的語法。
 
-## 什麼是編譯器外掛程式？
+## 什麼是編譯器外掛程式？ {id="what-is-the-compiler-plugin"}
 
 Koin 編譯器外掛程式是一個**原生的 Kotlin 編譯器外掛程式 (K2)** — 而非 KSP 或註解處理。它直接與 Kotlin 編譯器整合，以達成：
 
@@ -15,9 +15,9 @@ Koin 編譯器外掛程式是一個**原生的 Kotlin 編譯器外掛程式 (K2)
 - **同時支援 DSL 與註解** — 由您選擇風格
 - **不產生可見檔案** — 保持專案結構簡潔
 
-## 為什麼要使用編譯器外掛程式？
+## 為什麼要使用編譯器外掛程式？ {id="why-use-the-compiler-plugin"}
 
-### 1. 更安全的程式碼
+### 1. 更安全的程式碼 {id="1-safer-code"}
 
 此外掛程式會自動偵測建構函式相依性，減少手動連線錯誤：
 
@@ -33,7 +33,7 @@ val appModule = module {
 }
 ```
 
-### 2. 更簡潔的語法
+### 2. 更簡潔的語法 {id="2-cleaner-syntax"}
 
 更少的樣板程式碼，更高的可讀性：
 
@@ -46,7 +46,7 @@ val appModule = module {
 | `scopedOf(::MyPresenter)` | `scoped<MyPresenter>()` |
 | `workerOf(::MyWorker)` | `worker<MyWorker>()` |
 
-### 3. 編譯期安全性
+### 3. 編譯期安全性 {id="3-compile-time-safety"}
 
 Koin 編譯器外掛程式為 DSL 與註解提供**編譯期相依性驗證**：
 
@@ -58,7 +58,7 @@ Koin 編譯器外掛程式為 DSL 與註解提供**編譯期相依性驗證**：
 
 請參閱[編譯期安全性](/docs/reference/koin-compiler/compile-safety)了解完整詳細資訊。
 
-### 4. DSL 與註解 — 兩者同樣強大
+### 4. DSL 與註解 — 兩者同樣強大 {id="4-dsl-annotations-both-equally-powerful"}
 
 使用您偏好的風格 — 同一個外掛程式為兩者提供相同的功能：
 
@@ -101,9 +101,9 @@ class UserRepository(private val database: Database)
 class UserViewModel(private val repository: UserRepository) : ViewModel()
 ```
 
-## 快速入門
+## 快速入門 {id="getting-started"}
 
-### 設定
+### 設定 {id="setup"}
 
 將編譯器外掛程式新增至您的專案。
 
@@ -111,7 +111,7 @@ class UserViewModel(private val repository: UserRepository) : ViewModel()
     請參閱 **[編譯器外掛程式設定指南](/docs/setup/compiler-plugin)** 了解詳細指示。
 :::
 
-### 使用編譯器外掛程式 DSL
+### 使用編譯器外掛程式 DSL {id="using-the-compiler-plugin-dsl"}
 
 從編譯器外掛程式封裝匯入：
 
@@ -131,7 +131,7 @@ val appModule = module {
 編譯器外掛程式 DSL 位於 `org.koin.plugin.module.dsl` 中。經典 DSL 仍保留在 `org.koin.dsl` 中。
 :::
 
-### 使用註解
+### 使用註解 {id="using-annotations"}
 
 註解的使用方式與之前相同：
 
@@ -156,18 +156,18 @@ class UserViewModel(private val repository: UserRepository) : ViewModel()
 class AppModule
 ```
 
-## 運作原理
+## 運作原理 {id="how-it-works"}
 
 編譯器外掛程式分為兩個階段運作：
 
-### 1. FIR 階段（分析）
+### 1. FIR 階段（分析） {id="1-fir-phase-analysis"}
 
 在前端中間表示（Frontend Intermediate Representation）階段，外掛程式會：
 - 分析您的模組定義
 - 偵測建構函式參數
 - 驗證相依性宣告
 
-### 2. IR 階段（轉換）
+### 2. IR 階段（轉換） {id="2-ir-phase-transformation"}
 
 在中間表示（Intermediate Representation）階段，外掛程式會：
 - 為每個參數產生正確的 `get()` 呼叫
@@ -175,7 +175,7 @@ class AppModule
 - 處理注入參數 (`@InjectedParam`)
 - 處理可 null 與 Lazy 類型
 
-### 產生的內容
+### 產生的內容 {id="what-gets-generated"}
 
 當您撰寫：
 
@@ -210,9 +210,9 @@ class MyService(
 - 延遲 (Lazy)：`inject()`
 - 注入參數 (InjectedParam)：`params.get()`
 
-## 編譯器外掛程式 DSL 參考
+## 編譯器外掛程式 DSL 參考 {id="compiler-plugin-dsl-reference"}
 
-### 定義類型
+### 定義類型 {id="definition-types"}
 
 ```kotlin
 import org.koin.plugin.module.dsl.*
@@ -237,7 +237,7 @@ val appModule = module {
 }
 ```
 
-### 使用 `create()` 安全地建立執行個體
+### 使用 `create()` 安全地建立執行個體 {id="safe-instance-creation-with-create"}
 
 在定義 lambda 內部使用 `create(::T)`，以透過自動解析的建構函式相依性安全地建置執行個體：
 
@@ -249,7 +249,7 @@ val appModule = module {
 
 編譯器外掛程式會將 `create(::MyService)` 轉換為 `MyService(get(), get(), ...)`，自動裝配所有建構函式參數。
 
-### 使用限定符
+### 使用限定符 {id="with-qualifiers"}
 
 在您的類別上使用 `@Named` 來定義限定符，並在參數上指定要注入哪個相依性：
 
@@ -296,7 +296,7 @@ class SyncService(
 )
 ```
 
-### 使用參數
+### 使用參數 {id="with-parameters"}
 
 在您的類別上使用 `@InjectedParam` 來標記在注入時傳遞的參數：
 
@@ -316,7 +316,7 @@ val appModule = module {
 val presenter: UserPresenter = get { parametersOf("user123") }
 ```
 
-### 介面繫結
+### 介面繫結 {id="interface-binding"}
 
 ```kotlin
 val appModule = module {
@@ -330,9 +330,9 @@ val appModule = module {
 }
 ```
 
-## 註解參考
+## 註解參考 {id="annotations-reference"}
 
-### 定義註解
+### 定義註解 {id="definition-annotations"}
 
 | 註解 | 描述 |
 |------------|-------------|
@@ -342,7 +342,7 @@ val appModule = module {
 | `@KoinViewModel` | Android ViewModel |
 | `@KoinWorker` | Android WorkManager Worker |
 
-### 參數註解
+### 參數註解 {id="parameter-annotations"}
 
 | 註解 | 描述 |
 |------------|-------------|
@@ -351,7 +351,7 @@ val appModule = module {
 | `@Property("key")` | Koin 屬性值 |
 | `@Provided` | 外部相依性（跳過驗證） |
 
-### 模組註解
+### 模組註解 {id="module-annotations"}
 
 | 註解 | 描述 |
 |------------|-------------|
@@ -359,7 +359,7 @@ val appModule = module {
 | `@ComponentScan("package")` | 掃描套件中的註解類別 |
 | `@Configuration` | 自動發現的模組 |
 
-## 方式比較
+## 方式比較 {id="comparison-approaches"}
 
 | 方式 | 狀態 | 封裝 | 語法 |
 |----------|--------|---------|--------|
@@ -368,34 +368,34 @@ val appModule = module {
 | **經典 DSL** | 完全支援 | `org.koin.dsl` | `singleOf(::MyService)`, `single { MyService(get()) }`, `viewModelOf(::MyVM)` |
 | **KSP 處理器** | 已棄用 | `koin-ksp-compiler` | Koin 註解的舊版處理器 — 相同的註解，**請遷移至編譯器外掛程式 ⚠️** |
 
-### 編譯器外掛程式 DSL（推薦）
+### 編譯器外掛程式 DSL（推薦） {id="compiler-plugin-dsl-recommended"}
 
 - 自動偵測相依性
 - 編譯期分析
 - 最簡潔的語法
 
-### 編譯器外掛程式 註解（推薦）
+### 編譯器外掛程式 註解（推薦） {id="compiler-plugin-annotations-recommended"}
 
 - 自動偵測相依性
 - 編譯期分析
 - 熟悉的註解風格
 
-### 經典 DSL（完全支援）
+### 經典 DSL（完全支援） {id="classic-dsl-fully-supported"}
 
 - 適用於任何 Kotlin 版本
 - 完全控制裝配過程
 - 準備就緒時可遷移至外掛程式 DSL
 
-### KSP 處理器 `koin-ksp-compiler`（已棄用）
+### KSP 處理器 `koin-ksp-compiler`（已棄用） {id="ksp-processor-koin-ksp-compiler-deprecated"}
 
 - `koin-annotations` 程式庫**並未棄用** — 它現在是 Koin 專案的一部分
 - 僅棄用舊版的基於 KSP 的處理器 (`koin-ksp-compiler`)
 - 請遷移至 Koin 編譯器外掛程式 — 您的註解保持不變
 - `koin-ksp-compiler` 將在未來的 Koin 版本中移除
 
-## 遷移
+## 遷移 {id="migration"}
 
-### 從經典 DSL 遷移
+### 從經典 DSL 遷移 {id="from-classic-dsl"}
 
 如果您正在使用經典 DSL，遷移是選用的，但建議進行：
 
@@ -406,7 +406,7 @@ val appModule = module {
 
 請參閱[編譯器外掛程式 DSL 參考](/docs/setup/compiler-plugin#dsl-style)以了解編譯期安全的語法。
 
-### 從 KSP 處理器 (`koin-ksp-compiler`) 遷移
+### 從 KSP 處理器 (`koin-ksp-compiler`) 遷移 {id="from-the-ksp-processor-koin-ksp-compiler"}
 
 如果您正在使用帶有舊版 KSP 處理器的 Koin 註解，建議現在進行遷移：
 
@@ -417,12 +417,12 @@ val appModule = module {
 
 請參閱[從 KSP 遷移至編譯器外掛程式](/docs/migration/from-ksp-to-compiler-plugin)。
 
-## 需求
+## 需求 {id="requirements"}
 
 - **Kotlin 2.x** (K2 編譯器)
 - Gradle 8.x+
 
-## 組態選項
+## 組態選項 {id="configuration-options"}
 
 ```kotlin
 // build.gradle.kts
@@ -431,7 +431,7 @@ koinCompiler {
 }
 ```
 
-## 經典 DSL：仍完全支援
+## 經典 DSL：仍完全支援 {id="classic-dsl-still-fully-supported"}
 
 編譯器外掛程式並非取代經典 DSL — 它是在其之上增加了分析與產生功能。經典 DSL 仍完全支援：
 
@@ -451,7 +451,7 @@ val appModule = module {
 - 條件式具現化
 - 與 Kotlin 1.x 的回溯相容性
 
-## 後續步驟
+## 後續步驟 {id="next-steps"}
 
 - **[設定指南](/docs/setup/compiler-plugin)** — 詳細設定說明
 - **[DSL 參考](/docs/reference/dsl-reference)** — 完整的 DSL 文件

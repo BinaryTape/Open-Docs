@@ -2,7 +2,7 @@
 
 智能体使用工具执行特定任务或访问外部系统。
 
-## 工具工作流
+## 工具工作流 {id="tool-workflow"}
 
 Koog 框架为在 Kotlin 和 Java 中使用工具提供了以下工作流：
 
@@ -11,7 +11,7 @@ Koog 框架为在 Kotlin 和 Java 中使用工具提供了以下工作流：
 3. 将工具注册表传递给智能体。
 4. 在智能体中使用工具。
 
-### 可用工具类型
+### 可用工具类型 {id="available-tool-types"}
 
 Koog 框架中有三种类型的工具：
 
@@ -19,7 +19,7 @@ Koog 框架中有三种类型的工具：
 - 基于注解的自定义工具：允许您将函数作为工具暴露给 LLM。详情请参阅 [基于注解的工具](annotation-based-tools.md)。
 - 自定义工具：允许您控制工具参数、元数据、执行逻辑，以及其注册和调用方式。详情请参阅 [基于类的工具](class-based-tools.md)。
 
-### 工具注册表
+### 工具注册表 {id="tool-registry"}
 
 在智能体中使用工具之前，必须将其添加到工具注册表中。
 工具注册表管理智能体可用的所有工具。
@@ -139,7 +139,7 @@ Koog 框架中有三种类型的工具：
     ```
     <!--- KNIT example-tools-overview-java-02.java -->
 
-### 将工具传递给智能体
+### 将工具传递给智能体 {id="passing-tools-to-an-agent"}
 
 要使智能体能够使用工具，您需要在创建智能体时提供一个包含该工具的工具注册表作为参数：
 
@@ -184,7 +184,7 @@ Koog 框架中有三种类型的工具：
     ```
     <!--- KNIT example-tools-overview-java-03.java -->
 
-### 调用工具
+### 调用工具 {id="calling-tools"}
 
 在智能体代码中调用工具的方法有多种。推荐的方法是使用智能体上下文中提供的方法，而不是直接调用工具，因为这可以确保在智能体环境中正确处理工具操作。
 
@@ -201,7 +201,7 @@ Koog 框架中有三种类型的工具：
 
 有关更多详细信息，请参阅 [AIAgentLLMWriteSession](api:agents-core::ai.koog.agents.core.agent.session.AIAgentLLMWriteSession) 的 API 参考。
 
-#### 并行工具调用
+#### 并行工具调用 {id="parallel-tool-calls"}
 
 您还可以使用 `toParallelToolCallsRaw` 扩展并行调用工具。例如：
 
@@ -268,7 +268,7 @@ Koog 框架中有三种类型的工具：
     ```
     <!--- KNIT example-tools-overview-java-04.java -->
 
-#### 从节点调用工具
+#### 从节点调用工具 {id="calling-tools-from-nodes"}
 
 在使用节点构建智能体工作流时，可以使用特殊节点来调用工具：
 
@@ -282,11 +282,11 @@ Koog 框架中有三种类型的工具：
 
 * **nodeLLMSendMultipleToolResults**：将多个工具结果发送给 LLM。详情请参阅 [API 参考](api:agents-core::ai.koog.agents.core.dsl.extension.nodeLLMSendMultipleToolResults)。
 
-## 将智能体用作工具
+## 将智能体用作工具 {id="using-agents-as-tools"}
 
 该框架提供了将任何 AI 智能体转换为可供其他智能体使用的工具的能力。这项强大的功能使您能够创建分层智能体架构，其中专业智能体可以作为工具被更高级别的编排智能体调用。
 
-### 将智能体转换为工具
+### 将智能体转换为工具 {id="converting-agents-to-tools"}
 
 要将智能体转换为工具，请使用 `AIAgentService` 和 `createAgentTool()` 扩展函数：
 
@@ -336,7 +336,7 @@ Koog 框架中有三种类型的工具：
     ```
     <!--- KNIT example-tools-overview-java-05.java -->
 
-### 在其他智能体中使用智能体工具
+### 在其他智能体中使用智能体工具 {id="using-agent-tools-in-other-agents"}
 
 转换为工具后，您可以将智能体工具添加到另一个智能体的工具注册表中：
 
@@ -376,7 +376,7 @@ Koog 框架中有三种类型的工具：
     ```
     <!--- KNIT example-tools-overview-java-06.java -->
 
-### 智能体工具执行
+### 智能体工具执行 {id="agent-tool-execution"}
 
 当调用智能体工具时：
 
@@ -384,7 +384,7 @@ Koog 框架中有三种类型的工具：
 2. 包装的智能体使用反序列化的输入执行。
 3. 智能体的输出被序列化并作为工具结果返回。
 
-### 智能体用作工具的优势
+### 智能体用作工具的优势 {id="benefits-of-agents-as-tools"}
 
 - **模块化**：将复杂的工作流分解为专门的智能体。
 - **可重用性**：在多个协调智能体中重复使用相同的专业智能体。

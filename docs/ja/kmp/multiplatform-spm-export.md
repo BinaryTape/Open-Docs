@@ -16,14 +16,14 @@ iOS ターゲットを持つ Kotlin Multiplatform プロジェクトを想定し
 
 このチュートリアルでは、Kotlin Gradle プラグインを使用して [XCFrameworks](multiplatform-build-native-binaries.md#build-xcframeworks) を構築することで、これを実現する方法を説明します。
 
-## リモート統合のセットアップ
+## リモート統合のセットアップ {id="set-up-remote-integration"}
 
 フレームワークを利用可能にするには、次の 2 つのファイルをアップロードする必要があります：
 
 * XCFramework を含む ZIP アーカイブ。これを、直接アクセス可能な便利なファイルストレージ（例えば、アーカイブを添付した GitHub リリースの作成、Amazon S3、または Maven など）にアップロードする必要があります。ワークフローに最も統合しやすいオプションを選択してください。
 * パッケージを記述する `Package.swift` ファイル。これを別の Git リポジトリにプッシュする必要があります。
 
-#### プロジェクト構成のオプション {initial-collapse-state="collapsed" collapsible="true"}
+#### プロジェクト構成のオプション {initial-collapse-state="collapsed" collapsible="true" id="project-configuration-options"}
 
 このチュートリアルでは、XCFramework をバイナリとして任意のファイルストレージに保存し、`Package.swift` ファイルを別の Git リポジトリに保存します。
 
@@ -36,7 +36,7 @@ iOS ターゲットを持つ Kotlin Multiplatform プロジェクトを想定し
   * マルチパッケージプロジェクトでは、プロジェクト内での依存関係の競合を避けるために、1 つのコンシューマーパッケージのみが外部モジュールに依存できます。そのため、Kotlin Multiplatform モジュールに依存するすべてのロジックは、特定のコンシューマーパッケージにカプセル化される必要があります。
   * 自動化された CI プロセスを使用して Kotlin Multiplatform プロジェクトを公開する場合、このプロセスには更新された `Package.swift` ファイルを利用側のリポジトリに公開する工程を含める必要があります。これにより、利用側リポジトリでの更新の競合が発生する可能性があり、CI におけるそのようなフェーズの維持が困難になる場合があります。
 
-### マルチプラットフォームプロジェクトの設定
+### マルチプラットフォームプロジェクトの設定 {id="configure-your-multiplatform-project"}
 
 以下の例では、Kotlin Multiplatform プロジェクトの共通コードがローカルの `shared` モジュールに保存されています。プロジェクトの構造が異なる場合は、コードやパスの例にある "shared" を実際のモジュール名に置き換えてください。
 
@@ -86,7 +86,7 @@ XCFramework の公開を設定するには：
 
 3. エクスポートしたい共有コードを持つモジュールが複数ある場合（例：共有ロジックモジュールと共有 UI モジュール）、それらを[単一の新しいモジュールに統合](#複数のモジュールを-xcframework-としてエクスポートする)し、代わりにこのアンブレラ (umbrella) モジュールを配布してください。
 
-### XCFramework と Swift パッケージマニフェストの準備
+### XCFramework と Swift パッケージマニフェストの準備 {id="prepare-the-xcframework-and-the-swift-package-manifest"}
 
 1. `Shared.xcframework` フォルダを ZIP ファイルに圧縮し、生成されたアーカイブのチェックサムを計算します。例：
    
@@ -159,7 +159,7 @@ XCFramework の公開を設定するには：
 
 7. `Package.swift` ファイルをリモートリポジトリにプッシュします。パッケージのセマンティックバージョンを含む Git タグを作成してプッシュしてください。
 
-### パッケージ依存関係の追加
+### パッケージ依存関係の追加 {id="add-the-package-dependency"}
 
 両方のファイルにアクセスできるようになったので、既存のクライアント iOS プロジェクトに作成したパッケージへの依存関係を追加するか、新しいプロジェクトを作成できます。パッケージ依存関係を追加するには：
 
@@ -174,7 +174,7 @@ XCFramework の公開を設定するには：
    >
    {style="tip"}
 
-### セットアップの確認
+### セットアップの確認 {id="check-your-setup"}
 
 すべてが正しく設定されているかを確認するために、Xcode でインポートをテストします：
 
@@ -206,7 +206,7 @@ XCFramework の公開を設定するには：
 
 3. プレビューが新しいテキストで更新されることを確認します。
 
-## 複数のモジュールを XCFramework としてエクスポートする
+## 複数のモジュールを XCFramework としてエクスポートする {id="exporting-multiple-modules-as-an-xcframework"}
 
 複数の Kotlin Multiplatform モジュールのコードを iOS バイナリとして利用可能にするには、これらのモジュールを単一のアンブレラ (umbrella) モジュールに統合します。その後、そのアンブレラモジュールの XCFramework をビルドしてエクスポートします。
 

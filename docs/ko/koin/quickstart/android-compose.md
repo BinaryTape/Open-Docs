@@ -9,13 +9,13 @@ title: Android - Jetpack Compose
 업데이트 - 2024-11-28
 :::
 
-## 코드 가져오기
+## 코드 가져오기 {id="get-the-code"}
 
 :::info
 [GitHub에서 소스 코드를 확인할 수 있습니다](https://github.com/InsertKoinIO/koin-getting-started/tree/main/android-compose)
 :::
 
-## Gradle 설정
+## Gradle 설정 {id="gradle-setup"}
 
 다음과 같이 Koin Android 및 Koin Compose 의존성을 추가합니다:
 
@@ -29,13 +29,13 @@ dependencies {
 }
 ```
 
-## 애플리케이션 개요
+## 애플리케이션 개요 {id="application-overview"}
 
 이 애플리케이션의 아이디어는 사용자 목록을 관리하고, ViewModel 및 Jetpack Compose UI를 사용하여 `MainActivity` 클래스에 표시하는 것입니다.
 
 > Users -> UserRepository -> UserService -> UserViewModel -> MainActivity (Compose UI)
 
-## "User" 데이터
+## "User" 데이터 {id="the-user-data"}
 
 사용자 컬렉션을 관리할 것입니다. 다음은 데이터 클래스입니다:
 
@@ -65,7 +65,7 @@ class UserRepositoryImpl : UserRepository {
 }
 ```
 
-## UserService 컴포넌트
+## UserService 컴포넌트 {id="the-userservice-component"}
 
 사용자 작업을 관리하기 위한 서비스 컴포넌트를 작성해 보겠습니다:
 
@@ -96,7 +96,7 @@ class UserServiceImpl(
 }
 ```
 
-## Koin 모듈
+## Koin 모듈 {id="the-koin-module"}
 
 Koin 모듈을 선언하려면 `module` 함수를 사용합니다. Koin 모듈은 주입될 모든 컴포넌트를 정의하는 공간입니다.
 
@@ -119,7 +119,7 @@ val appModule = module {
 이 튜토리얼은 컴파일 시점에 자동 연결(auto-wiring)을 제공하는 **Koin Compiler Plugin DSL**(`single<T>()`, `viewModel<T>()`)을 사용합니다. 구성 방법은 [컴파일러 플러그인 설정](/docs/setup/compiler-plugin)을 참조하세요.
 :::
 
-## ViewModel로 사용자 표시하기
+## ViewModel로 사용자 표시하기 {id="displaying-user-with-viewmodel"}
 
 사용자를 표시하기 위한 ViewModel 컴포넌트를 작성해 보겠습니다:
 
@@ -146,7 +146,7 @@ val appModule = module {
 }
 ```
 
-## Jetpack Compose에서 ViewModel 주입하기
+## Jetpack Compose에서 ViewModel 주입하기 {id="injecting-viewmodel-in-jetpack-compose"}
 
 Jetpack Compose에서는 `AppCompatActivity` 대신 `ComponentActivity`를 사용하며, XML 레이아웃 대신 Composable 함수를 사용하여 UI를 빌드합니다.
 
@@ -224,7 +224,7 @@ fun MainScreen(
 `koinViewModel()` 함수는 Koin에서 ViewModel 인스턴스를 가져오고 이를 Compose 생명주기(lifecycle)에 자동으로 바인딩합니다. 이는 기존 Android View에서 사용하던 `by viewModel()` 대리자(delegate)를 대체하는 Compose 전용 주입 방식입니다.
 :::
 
-### 주요 Compose 개념
+### 주요 Compose 개념 {id="key-compose-concepts"}
 
 - **ComponentActivity**: Compose 앱을 위한 기본 클래스 (`AppCompatActivity` 대신 사용)
 - **setContent**: Composable 콘텐츠를 Activity의 UI로 설정
@@ -232,7 +232,7 @@ fun MainScreen(
 - **remember & mutableStateOf**: 반응형 UI 업데이트를 위한 Compose 상태 관리
 - **koinViewModel()**: ViewModel 주입을 위한 Koin의 Compose 통합 기능
 
-## Koin 시작하기
+## Koin 시작하기 {id="start-koin"}
 
 Android 애플리케이션에서 Koin을 시작해야 합니다. 애플리케이션의 메인 진입점인 `MainApplication` 클래스에서 `startKoin()` 함수를 호출하기만 하면 됩니다:
 
@@ -254,7 +254,7 @@ class MainApplication : Application(){
 `startKoin` 내부의 `modules()` 함수는 주어진 모듈 리스트를 로드합니다.
 :::
 
-## Koin 모듈: DSL 비교
+## Koin 모듈: DSL 비교 {id="koin-module-dsl-comparison"}
 
 다음은 **기본 DSL**(수동 연결)을 사용한 Koin 모듈 선언입니다:
 
@@ -280,7 +280,7 @@ val appModule = module {
 컴파일러 플러그인 DSL을 사용하려면 [Koin 컴파일러 플러그인](/docs/setup/compiler-plugin)이 필요합니다. 이는 컴파일 시점의 의존성 해결과 더 깔끔한 문법을 제공합니다.
 :::
 
-## Compose vs XML View
+## Compose vs XML View {id="compose-vs-xml-views"}
 
 이 튜토리얼은 [Android ViewModel 튜토리얼](./android-viewmodel.md)과 동일한 기능을 보여주지만, XML 레이아웃 대신 Jetpack Compose를 사용합니다:
 

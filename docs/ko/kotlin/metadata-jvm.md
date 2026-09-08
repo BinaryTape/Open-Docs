@@ -12,7 +12,7 @@
 
 Kotlin Metadata JVM 라이브러리를 사용하여 가시성(visibility)이나 모달리티(modality)와 같은 다양한 선언 속성을 검사하거나, 메타데이터를 생성하여 `.class` 파일에 포함시킬 수도 있습니다.
 
-## 프로젝트에 라이브러리 추가하기
+## 프로젝트에 라이브러리 추가하기 {id="add-the-library-to-your-project"}
 
 프로젝트에 Kotlin Metadata JVM 라이브러리를 포함하려면 빌드 도구에 따라 해당하는 의존성 설정을 추가하세요.
 
@@ -21,7 +21,7 @@ Kotlin Metadata JVM 라이브러리를 사용하여 가시성(visibility)이나 
 > 
 {style="note"}
 
-### Gradle
+### Gradle {id="gradle"}
 
 `build.gradle(.kts)` 파일에 다음 의존성을 추가하세요.
 
@@ -55,7 +55,7 @@ dependencies {
 </tab>
 </tabs>
 
-### Maven
+### Maven {id="maven"}
 
 `pom.xml` 파일에 다음 의존성을 추가하세요.
 
@@ -72,7 +72,7 @@ dependencies {
 </project>
 ```
 
-## 메타데이터 읽기 및 파싱
+## 메타데이터 읽기 및 파싱 {id="read-and-parse-metadata"}
 
 `kotlin-metadata-jvm` 라이브러리는 컴파일된 Kotlin `.class` 파일에서 클래스 이름, 가시성, 시그니처와 같은 구조화된 정보를 추출합니다.
 컴파일된 Kotlin 선언을 분석해야 하는 프로젝트에서 이 라이브러리를 사용할 수 있습니다.
@@ -172,7 +172,7 @@ fun main() {
 }
 ```
 
-### 메타데이터의 어노테이션 쓰기 및 읽기
+### 메타데이터의 어노테이션 쓰기 및 읽기 {id="write-and-read-annotations-in-metadata"}
 
 Kotlin은 바이트코드와 Kotlin 메타데이터 양쪽에 어노테이션을 저장합니다. `kotlin-metadata-jvm` 라이브러리를 사용하여 어노테이션을 읽거나 쓸 때는 어노테이션의 메타데이터 표현을 다루게 됩니다.
 
@@ -215,7 +215,7 @@ fun main() {
 }
 ```
 
-### 바이트코드에서 메타데이터 추출하기
+### 바이트코드에서 메타데이터 추출하기 {id="extract-metadata-from-bytecode"}
 
 리플렉션을 사용하여 메타데이터를 가져올 수도 있지만, [ASM](https://asm.ow2.io/)과 같은 바이트코드 조작 프레임워크를 사용하여 바이트코드에서 직접 추출하는 방법도 있습니다.
 
@@ -307,7 +307,7 @@ fun main() {
 }
 ```
 
-## 메타데이터 수정하기
+## 메타데이터 수정하기 {id="modify-metadata"}
 
 바이트코드를 축소하고 최적화하기 위해 [ProGuard](https://github.com/Guardsquare/proguard)와 같은 도구를 사용할 때, 일부 선언이 `.class` 파일에서 제거될 수 있습니다.
 ProGuard는 수정된 바이트코드와 일관성을 유지하기 위해 메타데이터를 자동으로 업데이트합니다.
@@ -376,7 +376,7 @@ fun main() {
 > 
 {style="tip"}
 
-## 메타데이터 처음부터 생성하기
+## 메타데이터 처음부터 생성하기 {id="create-metadata-from-scratch"}
 
 Kotlin Metadata JVM 라이브러리를 사용하여 Kotlin 클래스 파일용 메타데이터를 처음부터 생성하려면 다음 단계를 따르세요.
 
@@ -453,7 +453,7 @@ fun main() {
 > 
 {style="tip"}
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [Kotlin Metadata JVM 라이브러리 API 레퍼런스 보기](https://kotlinlang.org/api/kotlinx-metadata-jvm/)
 * [Kotlin Metadata JVM GitHub 리포지토리 확인하기](https://github.com/JetBrains/kotlin/tree/master/libraries/kotlinx-metadata/jvm)

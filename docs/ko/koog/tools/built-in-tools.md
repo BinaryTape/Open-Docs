@@ -14,7 +14,7 @@ Koog는 Kotlin 및 Java용 내장 도구(built-in tools)를 제공하여 에이�
 | ListDirectoryTool | `__list_directory__`                | 디렉터리 콘텐츠를 계층적 트리 구조로 나열합니다. 선택적으로 깊이 제어 및 glob 필터링을 사용할 수 있습니다.                          |
 | WriteFileTool     | `__write_file__`                    | 텍스트 콘텐츠를 파일에 씁니다(필요한 경우 부모 디렉터리를 생성합니다).                                                   |
 
-## 내장 도구 등록하기
+## 내장 도구 등록하기 {id="registering-built-in-tools"}
 
 다른 도구와 마찬가지로, 내장 도구도 에이전트가 사용할 수 있도록 도구 레지스트리(tool registry)에 추가되어야 합니다. 다음은 예시입니다:
 

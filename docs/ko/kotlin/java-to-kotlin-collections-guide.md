@@ -16,11 +16,11 @@
 >
 {style="note"}
 
-## Java와 Kotlin에서 동일한 연산
+## Java와 Kotlin에서 동일한 연산 {id="operations-that-are-the-same-in-java-and-kotlin"}
 
 Kotlin에는 Java의 대응되는 기능과 정확히 동일하게 보이는 컬렉션 연산이 많이 있습니다.
 
-### 리스트, 세트, 큐, 데크에 대한 연산
+### 리스트, 세트, 큐, 데크에 대한 연산 {id="operations-on-lists-sets-queues-and-deques"}
 
 | 설명 | 공통 연산 | 기타 Kotlin 대안 |
 |-------------|-----------|---------------------|
@@ -33,7 +33,7 @@ Kotlin에는 Java의 대응되는 기능과 정확히 동일하게 보이는 컬
 | 컬렉션에서 스트림을 가져옵니다. | `stream()` | Kotlin은 스트림을 처리하는 자체적인 방식인 [시퀀스(sequences)](#sequences)와 [`map()`](collection-filtering.md) 및 [`filter()`](#filter-elements) 같은 메서드를 제공합니다. |
 | 컬렉션에서 반복자(iterator)를 가져옵니다. | `iterator()` | |
 
-### 맵에 대한 연산
+### 맵에 대한 연산 {id="operations-on-maps"}
 
 | 설명 | 공통 연산 | 기타 Kotlin 대안 |
 |-------------|-----------|---------------------|
@@ -46,7 +46,7 @@ Kotlin에는 Java의 대응되는 기능과 정확히 동일하게 보이는 컬
 | 맵에서 모든 요소를 제거합니다. | `clear()` | |
 | 맵에서 스트림을 가져옵니다. | 엔트리(entries), 키(keys), 값(values)에 대한 `stream()` | |
 
-### 리스트에만 존재하는 연산
+### 리스트에만 존재하는 연산 {id="operations-that-exist-only-for-lists"}
 
 | 설명 | 공통 연산 | 기타 Kotlin 대안 |
 |-------------|-----------|---------------------|
@@ -56,9 +56,9 @@ Kotlin에는 Java의 대응되는 기능과 정확히 동일하게 보이는 컬
 | 하위 리스트(sublist)를 가져옵니다. | `subList()` | |
 | 요소 또는 요소들을 교체합니다. | `set()`,  `replaceAll()` | `set()` 대신 인덱싱 연산자 `list[index] = value`를 사용하세요. |
 
-## 약간 다른 연산들
+## 약간 다른 연산들 {id="operations-that-differ-a-bit"}
 
-### 모든 컬렉션 타입에 대한 연산
+### 모든 컬렉션 타입에 대한 연산 {id="operations-on-any-collection-type"}
 
 | 설명 | Java | Kotlin |
 |-------------|------|--------|
@@ -78,7 +78,7 @@ Kotlin에는 Java의 대응되는 기능과 정확히 동일하게 보이는 컬
 
 맵에서 위에 나열된 모든 연산을 수행하려면 먼저 맵의 `entrySet`을 가져와야 합니다.
 
-### 리스트에 대한 연산
+### 리스트에 대한 연산 {id="operations-on-lists"}
 
 | 설명 | Java | Kotlin |
 |-------------|------|--------|
@@ -88,7 +88,7 @@ Kotlin에는 Java의 대응되는 기능과 정확히 동일하게 보이는 컬
 | 리스트의 모든 요소를 특정 값으로 채웁니다. | `Collections.fill()` | [`fill()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/fill.html) |
 | 리스트에서 중복되지 않는 고유한 요소를 가져옵니다. | `stream().distinct().toList()` | [`distinct()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/distinct.html) |
 
-## Java 표준 라이브러리에 없는 연산
+## Java 표준 라이브러리에 없는 연산 {id="operations-that-don-t-exist-in-java-s-standard-library"}
 
 * [`zip()`, `unzip()`](collection-transformations.md) – 컬렉션을 변환합니다.
 * [`aggregate()`](collection-grouping.md) – 조건에 따라 그룹화합니다.
@@ -100,7 +100,7 @@ Kotlin에는 Java의 대응되는 기능과 정확히 동일하게 보이는 컬
 
 <video src="https://www.youtube.com/v/N4CpLxGJlq0" title="고급 컬렉션 연산"/>
 
-## 가변성(Mutability)
+## 가변성(Mutability) {id="mutability"}
 
 Java에는 가변 컬렉션이 있습니다.
 
@@ -146,7 +146,7 @@ val immutableNumbers = listOf("one", "two")
 
 불변성에 대한 자세한 내용은 [Kotlin 코딩 컨벤션](coding-conventions.md#immutability) 페이지를 참조하세요.
 
-## 공변성(Covariance)
+## 공변성(Covariance) {id="covariance"}
 
 Java에서는 자손 타입의 컬렉션을 조상 타입의 컬렉션을 받는 함수에 전달할 수 없습니다. 예를 들어 `Rectangle`이 `Shape`를 상속하는 경우, `Rectangle` 요소의 컬렉션을 `Shape` 요소의 컬렉션을 받는 함수에 전달할 수 없습니다. 코드를 컴파일 가능하게 하려면 `? extends Shape` 타입을 사용하여 함수가 `Shape`의 모든 상속자를 갖는 컬렉션을 받을 수 있게 해야 합니다.
 
@@ -189,7 +189,7 @@ fun main() {
 
 [컬렉션 타입](collections-overview.md#collection-types)에 대한 자세한 내용은 여기를 참조하세요.
 
-## 범위(Ranges) 및 프로그레션(Progressions)
+## 범위(Ranges) 및 프로그레션(Progressions) {id="ranges-and-progressions"}
 
 Kotlin에서는 [범위(ranges)](ranges.md)를 사용하여 구간을 만들 수 있습니다. 예를 들어 `Version(1, 11)..Version(1, 30)`은 `1.11`부터 `1.30`까지의 모든 버전을 포함합니다. `in` 연산자를 사용하여 해당 버전이 범위 내에 있는지 확인할 수 있습니다: `Version(0, 9) in versionRange`.
 
@@ -258,7 +258,7 @@ fun main() {
 
 버전이 최소 버전보다 크거나 같고(`>=`) 최대 버전보다 작은지(`<`) 확인하는 경우와 같이 경계 중 하나를 제외해야 할 때는 이러한 포함 범위(inclusive ranges)가 도움이 되지 않습니다.
 
-## 여러 기준으로 비교
+## 여러 기준으로 비교 {id="comparison-by-several-criteria"}
 
 Java에서 여러 기준으로 객체를 비교하려면 [`Comparator`](https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html) 인터페이스의 [`comparing()`](https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#comparing-java.util.function.Function-) 및 [`thenComparingX()`](https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#thenComparing-java.util.Comparator-) 함수를 사용할 수 있습니다. 예를 들어 사람들을 이름과 나이로 비교하는 경우입니다.
 
@@ -312,7 +312,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="comparison-kotlin"}
 
-## 시퀀스(Sequences)
+## 시퀀스(Sequences) {id="sequences"}
 
 Java에서는 다음과 같은 방식으로 숫자 시퀀스를 생성할 수 있습니다.
 
@@ -341,7 +341,7 @@ fun main() {
 
 시퀀스는 일부 필터링 연산을 수행하는 데 필요한 단계 수를 줄일 수 있습니다. `Iterable`과 `Sequence`의 차이점을 보여주는 [시퀀스 처리 예제](sequences.md#sequence-processing-example)를 참조하세요.
 
-## 리스트에서 요소 제거
+## 리스트에서 요소 제거 {id="removal-of-elements-from-a-list"}
 
 Java에서 [`remove()`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html#remove(int)) 함수는 제거할 요소의 인덱스를 인자로 받습니다.
 
@@ -379,7 +379,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="remove-elements-kotlin"}
 
-## 맵 탐색
+## 맵 탐색 {id="traverse-a-map"}
 
 Java에서는 [`forEach`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html#forEach(java.util.function.BiConsumer))를 통해 맵을 탐색할 수 있습니다.
 
@@ -401,7 +401,7 @@ numbers.forEach { (k, v) -> println("Key = $k, Value = $v") }
 ```
 {id="traverse-map-kotlin"}
 
-## 비어 있을 수 있는 컬렉션에서 첫 번째와 마지막 항목 가져오기
+## 비어 있을 수 있는 컬렉션에서 첫 번째와 마지막 항목 가져오기 {id="get-the-first-and-the-last-items-of-a-possibly-empty-collection"}
 
 Java에서는 컬렉션의 크기를 확인하고 인덱스를 사용하여 첫 번째와 마지막 항목을 안전하게 가져올 수 있습니다.
 
@@ -439,7 +439,7 @@ val theFreshestEmail = emails.lastOrNull() ?: ""
 ```
 {id="get-first-last-kotlin"}
 
-## 리스트로부터 세트 생성
+## 리스트로부터 세트 생성 {id="create-a-set-from-a-list"}
 
 Java에서 [`List`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html)로부터 [`Set`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html)을 생성하려면 [`Set.copyOf`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html#copyOf(java.util.Collection)) 함수를 사용할 수 있습니다.
 
@@ -467,7 +467,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="list-to-set-kotlin"}
 
-## 요소 그룹화
+## 요소 그룹화 {id="group-elements"}
 
 Java에서는 [Collectors](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/Collectors.html)의 `groupingBy()` 함수로 요소를 그룹화할 수 있습니다.
 
@@ -508,7 +508,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="group-elements-kotlin"}
 
-## 요소 필터링
+## 요소 필터링 {id="filter-elements"}
 
 Java에서 컬렉션의 요소를 필터링하려면 [Stream API](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/package-summary.html)를 사용해야 합니다. Stream API에는 `intermediate`(중간) 및 `terminal`(최종) 연산이 있습니다. `filter()`는 스트림을 반환하는 중간 연산입니다. 출력으로 컬렉션을 받으려면 `collect()`와 같은 최종 연산을 사용해야 합니다. 예를 들어 키가 `1`로 끝나고 값이 `10`보다 큰 쌍만 남기는 경우입니다.
 
@@ -540,7 +540,7 @@ fun main() {
 
 [맵 필터링](map-operations.md#filter)에 대한 자세한 내용은 여기를 참조하세요.
 
-### 타입별 요소 필터링
+### 타입별 요소 필터링 {id="filter-elements-by-type"}
 
 Java에서 타입별로 요소를 필터링하고 작업을 수행하려면 [`instanceof`](https://docs.oracle.com/en/java/javase/17/language/pattern-matching-instanceof-operator.html) 연산자로 타입을 확인한 다음 타입 캐스팅을 수행해야 합니다.
 
@@ -577,7 +577,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="filter-by-type-kotlin"}
 
-### 서술어 테스트(Test predicates)
+### 서술어 테스트(Test predicates) {id="test-predicates"}
 
 일부 작업에서는 모든 요소, 어떤 요소도 없음, 또는 일부 요소가 조건을 만족하는지 확인해야 합니다.
 Java에서는 [Stream API](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/package-summary.html) 함수인 [`allMatch()`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/Stream.html#allMatch(java.util.function.Predicate)), [`noneMatch()`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/Stream.html#noneMatch(java.util.function.Predicate)), [`anyMatch()`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/Stream.html#anyMatch(java.util.function.Predicate))를 통해 이러한 모든 확인을 수행할 수 있습니다.
@@ -610,9 +610,9 @@ fun main() {
 
 [서술어 테스트](collection-filtering.md#test-predicates)에 대해 자세히 알아보세요.
 
-## 컬렉션 변환 연산
+## 컬렉션 변환 연산 {id="collection-transformation-operations"}
 
-### 요소 Zip 처리
+### 요소 Zip 처리 {id="zip-elements"}
 
 Java에서 두 컬렉션을 동시에 반복하여 동일한 위치의 요소들로 쌍을 만들 수 있습니다.
 
@@ -655,7 +655,7 @@ fun main() {
 >
 {style="note"}
 
-### 요소 연관(Associate) 처리
+### 요소 연관(Associate) 처리 {id="associate-elements"}
 
 Java에서는 [Stream API](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/package-summary.html)를 사용하여 요소를 특성과 연관시킬 수 있습니다.
 
@@ -683,7 +683,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="associate-elements-kotlin"}
 
-## 다음 단계는?
+## 다음 단계는? {id="what-s-next"}
 
 * [Kotlin Koans](koans.md)를 방문하세요 – Kotlin 구문을 배우기 위한 연습 문제를 완료하세요. 각 연습 문제는 실패하는 단위 테스트로 만들어져 있으며, 여러분의 역할은 이를 통과하게 만드는 것입니다.
 * 다른 [Kotlin 관용구(idioms)](idioms.md)를 살펴보세요.

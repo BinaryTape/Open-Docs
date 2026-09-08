@@ -17,7 +17,7 @@ HTML 出力形式の例については、以下のドキュメントを確認し
 * [OkHttp](https://square.github.io/okhttp/5.x/okhttp/okhttp3/)
 * [Gradle](https://docs.gradle.org/current/kotlin-dsl/index.html)
 
-## HTML ドキュメントの生成
+## HTML ドキュメントの生成 {id="generate-html-documentation"}
 
 出力形式としての HTML は、すべてのランナーでサポートされています。HTML ドキュメントを生成するには、ビルドツールまたはランナーに応じて以下の手順に従ってください：
 
@@ -43,7 +43,7 @@ HTML 出力形式の例については、以下のドキュメントを確認し
 >
 {style="note"}
 
-## 設定
+## 設定 {id="configuration"}
 
 HTML 形式は Dokka の基本形式です。以下のオプションを使用して設定できます：
 
@@ -144,7 +144,7 @@ java -jar dokka-cli-%dokkaVersion%.jar \
 </tab>
 </tabs>
 
-### 設定オプション
+### 設定オプション {id="configuration-options"}
 
 以下の表は、利用可能なすべての設定オプションとその目的をまとめたものです：
 
@@ -159,11 +159,11 @@ java -jar dokka-cli-%dokkaVersion%.jar \
 
 Dokka プラグインの設定に関する詳細は、[Dokka プラグインの設定](dokka-plugins.md#configure-dokka-plugins)を参照してください。
 
-## カスタマイズ
+## カスタマイズ {id="customization"}
 
 ドキュメントに独自のルックアンドフィールを追加できるように、HTML 形式ではいくつかのカスタマイズオプションをサポートしています。
 
-### スタイルのカスタマイズ
+### スタイルのカスタマイズ {id="customize-styles"}
 
 `customStyleSheets` [設定オプション](#configuration)を使用して、独自のスタイルシートを使用できます。これらはすべてのページに適用されます。
 
@@ -177,7 +177,7 @@ Dokka プラグインの設定に関する詳細は、[Dokka プラグインの�
 
 Dokka のすべてのスタイルシートのソースコードは [GitHub で入手可能](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/dokka-subprojects/plugin-base/src/main/resources/dokka/styles)です。
 
-### アセットのカスタマイズ
+### アセットのカスタマイズ {id="customize-assets"}
 
 `customAssets` [設定オプション](#configuration)を使用して、ドキュメントに同梱する独自の画像を提供できます。
 
@@ -193,7 +193,7 @@ customAssets.from("example.png", "example2.png")
 
 Dokka で使用されているすべての画像は [GitHub](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/dokka-subprojects/plugin-base/src/main/resources/dokka/images) で確認できます。
 
-### ロゴの変更
+### ロゴの変更 {id="change-the-logo"}
 
 ロゴをカスタマイズするには、まず `logo-icon.svg` 用に[独自のアセットを提供](#customize-assets)することから始めます。
 
@@ -203,11 +203,11 @@ Dokka で使用されているすべての画像は [GitHub](https://github.com/
 
 サポートされているロゴの最大寸法は、幅 120 ピクセル、高さ 36 ピクセルです。これより大きい画像を使用すると、自動的にリサイズされます。
 
-### フッターの変更
+### フッターの変更 {id="modify-the-footer"}
 
 `footerMessage` [設定オプション](#configuration)を使用して、フッターのテキストを変更できます。
 
-### テンプレート
+### テンプレート {id="templates"}
 
 Dokka では、ドキュメントページの生成に使用される [FreeMarker](https://freemarker.apache.org/) テンプレートを修正することができます。
 
@@ -228,7 +228,7 @@ Dokka のすべてのテンプレートのソースコードは [GitHub](https:/
 
 `templatesDir` [設定オプション](#configuration)を使用して、任意のテンプレートを上書きできます。Dokka は指定されたディレクトリ内で正確なテンプレート名を検索します。ユーザー定義のテンプレートが見つからない場合は、デフォルトのテンプレートが使用されます。
 
-#### 変数
+#### 変数 {id="variables"}
 
 すべてのテンプレート内で以下の変数を使用できます：
 
@@ -248,7 +248,7 @@ Dokka のすべてのテンプレートのソースコードは [GitHub](https:/
 </@template_cmd>
 ```
 
-#### ディレクティブ
+#### ディレクティブ {id="directives"}
 
 Dokka が定義した以下の [ディレクティブ](https://freemarker.apache.org/docs/ref_directive_userDefined.html) も使用できます：
 

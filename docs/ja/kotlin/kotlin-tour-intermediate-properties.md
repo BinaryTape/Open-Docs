@@ -4,7 +4,7 @@
 
 初心者向けツアーでは、クラスのインスタンスの特性を宣言するためにプロパティがどのように使用されるか、またそれらにアクセスする方法を学びました。この章では、Kotlinにおけるプロパティの仕組みをさらに深く掘り下げ、コードでプロパティを活用する他の方法について探ります。
 
-## バッキングフィールド（Backing fields）
+## バッキングフィールド（Backing fields） {id="backing-fields"}
 
 Kotlinでは、プロパティにはデフォルトで `get()` および `set()` 関数があり、これらはプロパティアクセサ（property accessors）として知られています。これらは値の取得と変更を処理します。これらのデフォルト関数はコード上には明示的に現れませんが、コンパイラはバックグラウンドでプロパティへのアクセスを管理するためにそれらを自動生成します。これらのアクセサは、実際のプロパティの値を保存するために**バッキングフィールド（backing field）**を使用します。
 
@@ -94,7 +94,7 @@ fun main() {
 
 詳細については、[バッキングフィールド](properties.md#backing-fields)を参照してください。
 
-## 拡張プロパティ（Extension properties）
+## 拡張プロパティ（Extension properties） {id="extension-properties"}
 
 拡張関数と同じように、拡張プロパティも存在します。拡張プロパティを使用すると、既存のクラスのソースコードを変更することなく、そのクラスに新しいプロパティを追加できます。ただし、Kotlinの拡張プロパティにはバッキングフィールドが**ありません**。つまり、`get()` 関数（および必要に応じて `set()` 関数）を自分で記述する必要があります。また、バッキングフィールドがないということは、状態を保持できないことを意味します。
 
@@ -139,7 +139,7 @@ fun main() {
 
 拡張関数と同様に、Kotlin標準ライブラリでは拡張プロパティが広く使用されています。例えば、`CharSequence` の [`lastIndex` プロパティ](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/last-index.html) などがあります。
 
-## 委譲プロパティ（Delegated properties）
+## 委譲プロパティ（Delegated properties） {id="delegated-properties"}
 
 [クラスとインターフェース](kotlin-tour-intermediate-classes-interfaces.md#delegation)の章ですでに委譲について学びました。プロパティでも委譲を使用して、プロパティアクセサを別のオブジェクトに委譲することができます。これは、単純なバッキングフィールドでは処理できない、複雑なプロパティ保存要件（データベーステーブル、ブラウザセッション、マップへの値の保存など）がある場合に便利です。また、委譲プロパティを使用すると、プロパティの取得と設定のロジックが委譲先のオブジェクトにのみ集約されるため、ボイラープレートコードが削減されます。
 
@@ -248,11 +248,11 @@ fun main() {
 
 `getValue()` 関数において、`thisRef` パラメータの型が `Any?` からオブジェクト型である `User` に限定されていることに注目してください。これにより、コンパイラは `User` クラスの `firstName` および `lastName` プロパティにアクセスできるようになります。
 
-### 標準の委譲（Standard delegates）
+### 標準の委譲（Standard delegates） {id="standard-delegates"}
 
 Kotlin標準ライブラリは便利な委譲をいくつか提供しているため、常にゼロから作成する必要はありません。これらの委譲のいずれかを使用する場合、標準ライブラリが自動的に提供するため、`getValue()` および `setValue()` 関数を定義する必要はありません。
 
-#### 遅延プロパティ（Lazy properties）
+#### 遅延プロパティ（Lazy properties） {id="lazy-properties"}
 
 プロパティを最初にアクセスしたときにのみ初期化するには、遅延プロパティを使用します。標準ライブラリは委譲のために `Lazy` インターフェースを提供しています。
 
@@ -314,7 +314,7 @@ fun main() {
 
 詳細については、[遅延プロパティ](delegated-properties.md#lazy-properties)を参照してください。
 
-#### Observable プロパティ（Observable properties）
+#### Observable プロパティ（Observable properties） {id="observable-properties"}
 
 プロパティの値が変更されたかどうかを監視するには、Observable プロパティを使用します。Observable プロパティは、プロパティ値の変化を検出し、その知識を利用して反応をトリガーしたい場合に役立ちます。標準ライブラリは委譲のために `Delegates` オブジェクトを提供しています。
 
@@ -365,7 +365,7 @@ Observable プロパティはログ記録やデバッグ目的だけでなく、
 
 詳細については、[Observable プロパティ](delegated-properties.md#observable-properties)を参照してください。
 
-## 練習問題 {completion-point="true"}
+## 練習問題 {completion-point="true" id="practice"}
 
 ### 練習問題 1 {initial-collapse-state="collapsed" collapsible="true" id="properties-exercise-1"}
 

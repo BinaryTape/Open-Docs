@@ -22,7 +22,7 @@ Lincheck은 다른 모든 스레드가 일시 중지되었을 때 스레드가 �
 
 특정 함수가 의도적으로 블로킹되는 경우, 오탐을 방지하기 위해 [`@Operation(blocking = true)`](lincheck-operation-execution-options.md#blocking-operations)로 표시할 수 있습니다.
 
-## 예제: `ConcurrentHashMap`의 방해 자유 테스트
+## 예제: `ConcurrentHashMap`의 방해 자유 테스트 {id="example-test-concurrenthashmap-for-obstruction-freedom"}
 
 이 예제에서는 `ConcurrentHashMap` 구조의 `put()` 함수를 테스트합니다.
 
@@ -89,7 +89,7 @@ Lincheck은 다른 모든 스레드가 일시 중지되었을 때 스레드가 �
 
 6. 테스트를 다시 실행합니다. 성공적으로 통과해야 합니다.
 
-## 예제: `ConcurrentSkipListMap`의 방해 자유 테스트
+## 예제: `ConcurrentSkipListMap`의 방해 자유 테스트 {id="example-test-concurrentskiplistmap-for-obstruction-freedom"}
 
 이 예제에서는 논블로킹 `ConcurrentSkipListMap` 구조의 `put()` 함수를 테스트합니다.
 
@@ -116,7 +116,7 @@ Lincheck은 다른 모든 스레드가 일시 중지되었을 때 스레드가 �
 
 4. 테스트를 실행합니다. 성공적으로 통과해야 합니다.
 
-## 참고 항목
+## 참고 항목 {id="see-also"}
 
 * [인자 생성 제약 조건 설정](lincheck-argument-generation-constraints.md)
 * [연산 실행 설정](lincheck-operation-execution-options.md)

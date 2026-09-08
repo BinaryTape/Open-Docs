@@ -5,7 +5,7 @@
 
 undefined
 
-## 기본 탭 내비게이션
+## 기본 탭 내비게이션 {id="default-tab-navigation"}
 
 기본적으로 탭 내비게이션을 사용하면 사용자가 포커스 가능한 컴포넌트가 나타나는 순서대로 이동할 수 있습니다. 이 기능은 기본적으로 활성화되어 있으며 추가 코드가 필요하지 않습니다.
 
@@ -58,7 +58,7 @@ fun main() = application {
 
 <img src="compose-desktop-tab-navigation-default.animated.gif" alt="Default tab order" width="450" preview-src="compose-desktop-tab-navigation-default.png"/>
 
-## 커스텀 포커스 가능 컴포넌트
+## 커스텀 포커스 가능 컴포넌트 {id="custom-focusable-components"}
 
 기본적으로 포커스할 수 없는 컴포넌트를 탭 순서에 포함하려면 `focusable()` 수정자를 적용하세요.
 
@@ -178,7 +178,7 @@ fun FocusableBox(
 
 <img src="compose-desktop-tab-navigation-custom-focusable.animated.gif" alt="A custom focusable component" width="450" preview-src="compose-desktop-tab-navigation-custom-focusable.png"/>
 
-## 커스텀 탭 순서
+## 커스텀 탭 순서 {id="custom-tab-order"}
 
 나타나는 순서가 아닌 다른 순서로 포커스를 이동하려면 두 가지 수정자를 조합합니다.
 
@@ -244,7 +244,7 @@ fun main() = application {
 
 <img src="compose-desktop-tab-navigation-custom-order.animated.gif" alt="Custom tab order" width="450" preview-src="compose-desktop-tab-navigation-custom-order.png"/>
 
-## 코드에서 포커스 이동하기
+## 코드에서 포커스 이동하기 {id="moving-focus-from-code"}
 
 사용자 상호작용 없이 컴포넌트에 포커스를 주려면, `focusRequester()` 수정자를 사용하여 포커스 가능한 컴포넌트에 `FocusRequester`를 연결하고 `FocusRequester.requestFocus()`를 호출하세요. 컴포넌트가 [기본적으로 포커스 가능하지 않은 경우](#커스텀-포커스-가능-컴포넌트), `focusable()` 수정자는 `focusRequester()` *뒤에* 적용되어야 합니다.
 
@@ -321,7 +321,7 @@ fun main() = application {
 
 <img src="compose-desktop-tab-navigation-move-focus-from-code.animated.gif" alt="Moving focus from code" width="450" preview-src="compose-desktop-tab-navigation-move-focus-from-code.png"/>
 
-### 컴포넌트가 나타날 때 포커스 주기
+### 컴포넌트가 나타날 때 포커스 주기 {id="focusing-a-component-when-it-appears"}
 
 폼(form)이나 다이얼로그에서는 사용자가 마우스를 잡지 않고도 바로 타이핑을 시작할 수 있도록 첫 번째 입력창에 즉시 포커스를 주는 경우가 많습니다. 이 경우, 컴포넌트가 컴포지션(composition)에 들어온 후 한 번 실행되는 `LaunchedEffect(Unit)` 블록에서 포커스를 요청하세요.
 
@@ -383,7 +383,7 @@ fun main() = application {
 
 <img src="compose-desktop-tab-navigation-focus-on-appearance.animated.gif" alt="Focus text field on appearance" width="450" preview-src="compose-desktop-tab-navigation-focus-on-appearance.png"/>
 
-## 다중 라인 텍스트 필드에서 포커스 이동하기
+## 다중 라인 텍스트 필드에서 포커스 이동하기 {id="moving-focus-from-multiline-text-fields"}
 
 다중 라인(multiline) 텍스트 필드에서는 <shortcut>Tab</shortcut>을 누르면 다음 컴포넌트로 포커스를 이동하는 대신 탭 문자가 삽입됩니다.
 
@@ -450,7 +450,7 @@ fun Modifier.moveFocusOnTab(): Modifier {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="fun Modifier.moveFocusOnTab() { focusManager.moveFocus("}
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [키보드 이벤트](compose-desktop-keyboard.md) 처리에 대해 자세히 알아보세요.
 * [다양한 플랫폼의 접근성 지원](compose-desktop-accessibility.md)에 대해 알아보세요.

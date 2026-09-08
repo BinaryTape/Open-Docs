@@ -4,7 +4,7 @@ title: 编译器插件选项
 
 Koin 编译器插件支持配置选项，用于自定义其行为。
 
-## 配置
+## 配置 {id="configuration"}
 
 在您的 `build.gradle.kts` 中配置编译器插件：
 
@@ -19,9 +19,9 @@ koinCompiler {
 }
 ```
 
-## 可用选项
+## 可用选项 {id="available-options"}
 
-### userLogs
+### userLogs {id="userlogs"}
 
 - **类型**：Boolean
 - **默认值**：`false`
@@ -34,7 +34,7 @@ koinCompiler {
 }
 ```
 
-### debugLogs
+### debugLogs {id="debuglogs"}
 
 - **类型**：Boolean
 - **默认值**：`false`
@@ -47,7 +47,7 @@ koinCompiler {
 }
 ```
 
-### compileSafety
+### compileSafety {id="compilesafety"}
 
 - **类型**：Boolean
 - **默认值**：`true`
@@ -62,7 +62,7 @@ koinCompiler {
 
 有关验证内容的完整详细信息，请参阅[编译时安全](/docs/reference/koin-compiler/compile-safety)。
 
-### strictSafety
+### strictSafety {id="strictsafety"}
 
 - **类型**：Boolean
 - **默认值**：自动检测（在聚合模块上启用——即包含 `startKoin`、`koinApplication` 或 `@KoinApplication` 的模块）
@@ -81,7 +81,7 @@ koinCompiler {
 
 当 `compileSafety = false` 时无效。背景请参阅 [koin-compiler-plugin 问题 #32](https://github.com/InsertKoinIO/koin-compiler-plugin/issues/32)。
 
-### skipDefaultValues
+### skipDefaultValues {id="skipdefaultvalues"}
 
 - **类型**：Boolean
 - **默认值**：`true`
@@ -94,7 +94,7 @@ koinCompiler {
 }
 ```
 
-### unsafeDslChecks
+### unsafeDslChecks {id="unsafedslchecks"}
 
 - **类型**：Boolean
 - **默认值**：`true`
@@ -107,7 +107,7 @@ koinCompiler {
 }
 ```
 
-## 完整示例
+## 完整示例 {id="complete-example"}
 
 ```kotlin
 // build.gradle.kts
@@ -125,7 +125,7 @@ koinCompiler {
 }
 ```
 
-## 最佳做法
+## 最佳做法 {id="best-practices"}
 
 - **保持 `compileSafety` 处于启用状态**（默认），以进行编译时依赖项验证
 - **让 `strictSafety` 保持自动检测**——仅在检测器漏掉聚合器或在非聚合器文件上误报时才进行覆盖
@@ -134,7 +134,7 @@ koinCompiler {
 - **保持 `unsafeDslChecks` 处于启用状态**（默认），以获得更安全的 DSL 用法
 - **仅在对插件问题进行故障排除时使用 `debugLogs`**
 
-## 另请参阅
+## 另请参阅 {id="see-also"}
 
 - **[编译时安全](/docs/reference/koin-compiler/compile-safety)** - 验证内容及方式
 - **[编译器插件设置](/docs/setup/compiler-plugin)** - 完整设置指南

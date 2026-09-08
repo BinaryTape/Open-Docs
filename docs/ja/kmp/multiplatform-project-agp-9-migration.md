@@ -14,13 +14,13 @@ Android Gradle プラグイン (AGP) 9.0 以降を使用する場合、Kotlin �
 > 
 {style="note"}
 
-## Android-KMP ライブラリプラグインへの移行
+## Android-KMP ライブラリプラグインへの移行 {id="migration-to-the-android-kmp-library-plugin"}
 
 以前は、マルチプラットフォームモジュールで Android ターゲットを構成するために、KMP プラグイン (`org.jetbrains.kotlin.multiplatform`) を、Android アプリケーションプラグイン (`com.android.application`) または Android ライブラリプラグイン (`com.android.library`) のいずれかと組み合わせて使用する必要がありました。
 
 AGP 9.0 では、これらのプラグインは KMP との互換性がなくなるため、KMP 専用に構築された新しい Android-KMP ライブラリプラグインに移行する必要があります。
 
-### 移行方法
+### 移行方法 {id="how-to-migrate"}
 
 ライブラリの移行手順については、[Android ドキュメントのガイド](https://developer.android.com/kotlin/multiplatform/plugin#migrate) を参照してください。
 
@@ -34,7 +34,7 @@ Android アプリプロジェクトを移行するには、Android のエント�
 >
 {style="note"}
 
-### AGP 10 までのレガシー API の有効化
+### AGP 10 までのレガシー API の有効化 {id="enabling-the-legacy-apis-until-agp-10"}
 
 短期的には、プロジェクトを AGP 9.0 で動作させるために、非推奨の API を手動で有効にすることができます。
 これを行うには、プロジェクトの `gradle.properties` ファイルに次のプロパティを追加します。
@@ -43,7 +43,7 @@ Android アプリプロジェクトを移行するには、Android のエント�
 レガシー API は [AGP 10 で完全に削除される](https://developer.android.com/build/releases/gradle-plugin-roadmap#agp-10) 予定であり、これは 2026 年後半にリリースされる見込みです。
 それまでに移行を完了させるようにしてください。
 
-## サンプルアプリの移行
+## サンプルアプリの移行 {id="migration-of-a-sample-app"}
 
 移行の準備に使用するサンプルプロジェクトは、[独自のアプリケーションを作成する](compose-multiplatform-new-project.md) チュートリアルの結果である Compose Multiplatform アプリです。
 * アップデートが必要なアプリの例を含むサンプルは、サンプルリポジトリの [main](https://github.com/kotlin-hands-on/get-started-with-cm/tree/main) ブランチにあります。
@@ -61,7 +61,7 @@ AGP 9.0 への移行を準備するために、以下の作業を行います。
 
 ### Android アプリのエントリーポイント用モジュール {id="android-app"}
 
-#### Android アプリモジュールの作成と構成
+#### Android アプリモジュールの作成と構成 {id="create-and-configure-the-android-app-module"}
 
 Android アプリモジュール (`androidApp`) を作成するには：
 
@@ -74,7 +74,7 @@ Android アプリモジュール (`androidApp`) を作成するには：
     ```
 4. メインメニューで **Build | Sync Project with Gradle Files** を選択するか、エディタで Gradle のリフレッシュボタンをクリックします。
 
-#### Android アプリのビルドスクリプトの構成
+#### Android アプリのビルドスクリプトの構成 {id="configure-the-build-script-for-the-android-app"}
 
 新しいモジュールの Gradle ビルドスクリプトを構成します。
 
@@ -156,7 +156,7 @@ Android アプリモジュール (`androidApp`) を作成するには：
    
 8. メインメニューで **Build | Sync Project with Gradle Files** を選択するか、エディタで Gradle のリフレッシュボタンをクリックします。
 
-#### コードの移動と Android アプリの実行
+#### コードの移動と Android アプリの実行 {id="move-the-code-and-run-the-android-app"}
 
 1. `composeApp/src/androidMain` ディレクトリを `androidApp/src/` ディレクトリに移動します。ただし、クロスプラットフォームとして残すべきコードに注意してください。
    
@@ -177,7 +177,7 @@ Android アプリモジュール (`androidApp`) を作成するには：
 これで Android のエントリーポイントを別のモジュールに抽出できました。
 次に、共通コードモジュールをアップデートして、新しい Android-KMP ライブラリプラグインを使用するようにします。
 
-### 共有モジュールで Android-KMP ライブラリプラグインを使用するように構成する
+### 共有モジュールで Android-KMP ライブラリプラグインを使用するように構成する {id="configure-the-shared-module-to-use-the-android-kmp-library-plugin"}
 
 単に Android エントリーポイントを抽出するために、共有 `composeApp` モジュールに `com.android.library` プラグインを適用しました。
 次に、新しいマルチプラットフォームライブラリプラグインに移行します。
@@ -221,7 +221,7 @@ Android アプリモジュール (`androidApp`) を作成するには：
 7. メインメニューで **Build | Sync Project with Gradle Files** を選択するか、エディタで Gradle のリフレッシュボタンをクリックします。
 8. Android アプリが期待どおりに動作していることを確認します。
 
-### Android Gradle プラグインのバージョンの更新
+### Android Gradle プラグインのバージョンの更新 {id="update-the-android-gradle-plugin-version"}
 
 すべてのコードが新しい構成で動作するようになったら、以下の手順を行います。
 
@@ -260,6 +260,6 @@ Android アプリモジュール (`androidApp`) を作成するには：
 
 おめでとうございます！プロジェクトを AGP 9.0 と互換性のあるものにアップグレードできました。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 すべてのアプリターゲットでエントリーポイントを分離するロジックに従った、[推奨されるプロジェクト構造](multiplatform-project-recommended-structure.md) を確認してください。

@@ -12,7 +12,7 @@ Kotlin 1.6.0은 새로운 언어 기능, 기존 기능의 최적화 및 개선, 
 >
 {style="tip"}
 
-## 언어
+## 언어 {id="language"}
 
 Kotlin 1.6.0은 이전 1.5.30 릴리스에서 미리보기로 도입된 몇 가지 언어 기능을 안정화했습니다.
 * [enum, sealed 및 Boolean 대상을 위한 안정적인 철저한(exhaustive) when 문](#stable-exhaustive-when-statements-for-enum-sealed-and-boolean-subjects)
@@ -25,7 +25,7 @@ Kotlin 1.6.0은 이전 1.5.30 릴리스에서 미리보기로 도입된 몇 가�
 * [빌더 추론(builder inference) 변경 사항](#changes-to-builder-inference)
 * [클래스 타입 파라미터에 대한 애노테이션 지원](#support-for-annotations-on-class-type-parameters)
 
-### enum, sealed 및 Boolean 대상을 위한 안정적인 철저한 when 문
+### enum, sealed 및 Boolean 대상을 위한 안정적인 철저한 when 문 {id="stable-exhaustive-when-statements-for-enum-sealed-and-boolean-subjects"}
 
 _철저한(exhaustive)_ [`when`](control-flow.md#when-expressions-and-statements) 문은 대상의 가능한 모든 타입이나 값에 대한 브랜치를 포함하거나, 일부 타입과 `else` 브랜치를 포함합니다. 이는 가능한 모든 경우를 다루어 코드를 더 안전하게 만듭니다.
 
@@ -60,7 +60,7 @@ fun sendMessage(contact: Contact, message: String) {
 
 이 변경 사항과 그 영향에 대한 자세한 설명은 [이 YouTrack 티켓](https://youtrack.jetbrains.com/issue/KT-47709)을 참조하세요.
 
-### 안정적인 상위 타입으로서의 일시 중단 함수
+### 안정적인 상위 타입으로서의 일시 중단 함수 {id="stable-suspending-functions-as-supertypes"}
 
 일시 중단 함수 타입(suspending functional types)의 구현이 Kotlin 1.6.0에서 [안정화(Stable)](components-stability.md)되었습니다. 미리보기는 [1.5.30](whatsnew1530.md#suspending-functions-as-supertypes)에서 제공되었습니다.
 
@@ -80,7 +80,7 @@ fun launchOnClick(action: suspend () -> Unit) {}
 * 상위 타입 목록에서 일반 함수 타입과 일시 중단 함수 타입을 혼합해서 사용할 수 없습니다.
 * 여러 개의 일시 중단 함수 상위 타입을 사용할 수 없습니다.
 
-### 안정적인 일시 중단 변환
+### 안정적인 일시 중단 변환 {id="stable-suspend-conversions"}
 
 Kotlin 1.6.0은 일반 함수 타입에서 일시 중단 함수 타입으로의 [안정적인(Stable)](components-stability.md) 변환을 도입합니다. 1.4.0 버전부터 이 기능은 함수 리터럴과 호출 가능 참조를 지원해 왔습니다. 1.6.0부터는 모든 형태의 표현식에서 작동합니다. 이제 일시 중단이 기대되는 호출 인자로 적절한 일반 함수 타입의 모든 표현식을 전달할 수 있습니다. 컴파일러가 암시적 변환을 자동으로 수행합니다.
 
@@ -96,13 +96,13 @@ fun test(regular: () -> Unit) {
 }
 ```
 
-### 안정적인 애노테이션 클래스 인스턴스화
+### 안정적인 애노테이션 클래스 인스턴스화 {id="stable-instantiation-of-annotation-classes"}
 
 Kotlin 1.5.30은 JVM 플랫폼에서 애노테이션 클래스의 인스턴스화에 대한 실험적 지원을 [도입](whatsnew1530.md#instantiation-of-annotation-classes)했습니다. 1.6.0부터 이 기능은 Kotlin/JVM과 Kotlin/JS 모두에서 기본적으로 사용 가능합니다.
 
 애노테이션 클래스 인스턴스화에 대한 자세한 내용은 [이 KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/annotation-instantiation.md)에서 확인할 수 있습니다.
 
-### 재귀적 제네릭 타입에 대한 개선된 타입 추론
+### 재귀적 제네릭 타입에 대한 개선된 타입 추론 {id="improved-type-inference-for-recursive-generic-types"}
 
 Kotlin 1.5.30은 재귀적 제네릭 타입에 대한 타입 추론 개선 사항을 도입하여, 해당 타입 파라미터의 상한(upper bounds)만을 기반으로 타입 인자를 추론할 수 있게 했습니다. 이 개선 사항은 컴파일러 옵션으로 사용 가능했습니다. 1.6.0 버전 이후부터는 기본적으로 활성화됩니다.
 
@@ -123,7 +123,7 @@ val containerB = PostgreSQLContainer(DockerImageName.parse("postgres:13-alpine")
   .withInitScript("sql/schema.sql")
 ```
 
-### 빌더 추론 변경 사항
+### 빌더 추론 변경 사항 {id="changes-to-builder-inference"}
 
 빌더 추론(Builder inference)은 제네릭 빌더 함수를 호출할 때 유용한 타입 추론의 한 종류입니다. 람다 인자 내부의 호출에서 얻은 타입 정보를 활용해 호출의 타입 인자를 추론할 수 있습니다.
 
@@ -139,7 +139,7 @@ val containerB = PostgreSQLContainer(DockerImageName.parse("postgres:13-alpine")
 
 [커스텀 제네릭 빌더를 작성하는 방법](using-builders-with-builder-inference.md)을 알아보세요.
 
-### 클래스 타입 파라미터에 대한 애노테이션 지원
+### 클래스 타입 파라미터에 대한 애노테이션 지원 {id="support-for-annotations-on-class-type-parameters"}
 
 클래스 타입 파라미터에 대한 애노테이션 지원은 다음과 같습니다.
 
@@ -156,17 +156,17 @@ class Box<@BoxContent T> {}
 
 [애노테이션](annotations.md)에 대해 더 자세히 알아보세요.
 
-## 이전 API 버전을 더 오래 지원
+## 이전 API 버전을 더 오래 지원 {id="supporting-previous-api-versions-for-a-longer-period"}
 
 Kotlin 1.6.0부터는 현재 안정 버전을 포함하여 기존 2개가 아닌 3개의 이전 API 버전에 대한 개발을 지원합니다. 현재는 1.3, 1.4, 1.5, 1.6 버전을 지원합니다.
 
-## Kotlin/JVM
+## Kotlin/JVM {id="kotlin-jvm"}
 
 Kotlin/JVM의 경우 1.6.0부터 컴파일러가 JVM 17에 해당하는 바이트코드 버전을 가진 클래스를 생성할 수 있습니다. 새로운 언어 버전에는 로드맵에 있었던 최적화된 위임된 프로퍼티(delegated properties)와 반복 가능한 애노테이션도 포함됩니다.
 * [1.8 JVM 타겟을 위한 런타임 유지를 지원하는 반복 가능한 애노테이션](#repeatable-annotations-with-runtime-retention-for-1-8-jvm-target)
 * [지정된 KProperty 인스턴스에서 get/set을 호출하는 위임된 프로퍼티 최적화](#optimize-delegated-properties-which-call-get-set-on-the-given-kproperty-instance)
 
-### 1.8 JVM 타겟을 위한 런타임 유지를 지원하는 반복 가능한 애노테이션
+### 1.8 JVM 타겟을 위한 런타임 유지를 지원하는 반복 가능한 애노테이션 {id="repeatable-annotations-with-runtime-retention-for-1-8-jvm-target"}
 
 Java 8은 단일 코드 요소에 여러 번 적용할 수 있는 [반복 가능한(repeatable) 애노테이션](https://docs.oracle.com/javase/tutorial/java/annotations/repeating.html)을 도입했습니다.
 이 기능을 사용하려면 Java 코드에 두 개의 선언이 있어야 합니다. [`@java.lang.annotation.Repeatable`](https://docs.oracle.com/javase/8/docs/api/java/lang/annotation/Repeatable.html)로 표시된 반복 가능한 애노테이션 자체와 그 값을 담는 컨테이너 애노테이션입니다.
@@ -198,7 +198,7 @@ Kotlin 1.6.0은 이러한 제한을 제거합니다. `@kotlin.annotation.Repeata
 
 Kotlin 반복 가능한 애노테이션에 대한 자세한 내용은 [이 KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/repeatable-annotations.md)에서 확인할 수 있습니다.
 
-### 지정된 KProperty 인스턴스에서 get/set을 호출하는 위임된 프로퍼티 최적화
+### 지정된 KProperty 인스턴스에서 get/set을 호출하는 위임된 프로퍼티 최적화 {id="optimize-delegated-properties-which-call-get-set-on-the-given-kproperty-instance"}
 
 `$delegate` 필드를 생략하고 참조된 프로퍼티에 즉시 액세스하도록 생성하여 생성된 JVM 바이트코드를 최적화했습니다.
 
@@ -219,7 +219,7 @@ Kotlin은 더 이상 `content$delegate` 필드를 생성하지 않습니다.
 
 [위임된 프로퍼티](delegated-properties.md)에 대해 더 자세히 알아보세요.
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 Kotlin/Native는 몇 가지 개선 사항과 컴포넌트 업데이트를 받고 있으며, 그중 일부는 미리보기 상태입니다.
 * [새로운 메모리 매니저 미리보기](#preview-of-the-new-memory-manager)
@@ -231,7 +231,7 @@ Kotlin/Native는 몇 가지 개선 사항과 컴포넌트 업데이트를 받고
 * [klib 링킹 실패에 대한 상세한 에러 메시지](#detailed-error-messages-for-klib-linkage-failures)
 * [재설계된 처리되지 않은 예외 처리 API](#reworked-unhandled-exception-handling-api)
 
-### 새로운 메모리 매니저 미리보기
+### 새로운 메모리 매니저 미리보기 {id="preview-of-the-new-memory-manager"}
 
 > 새로운 Kotlin/Native 메모리 매니저는 [실험적(Experimental)](components-stability.md)입니다.
 > 언제든지 중단되거나 변경될 수 있습니다. 옵트인(Opt-in)이 필요하며(아래 세부 정보 참조), 평가 목적으로만 사용해야 합니다.
@@ -249,7 +249,7 @@ Kotlin 1.6.0을 사용하면 새로운 Kotlin/Native 메모리 매니저의 개�
 포스트를 읽고 새로운 메모리 매니저의 현재 상태와 데모 프로젝트를 확인하거나, [마이그레이션 가이드](https://github.com/JetBrains/kotlin/blob/master/kotlin-native/NEW_MM.md)로 바로 이동하여 직접 시도해 보세요.
 프로젝트에서 새로운 메모리 매니저가 어떻게 작동하는지 확인하고 이슈 트래커인 [YouTrack](https://youtrack.jetbrains.com/issue/KT-48525)에 피드백을 공유해 주세요.
 
-### Xcode 13 지원
+### Xcode 13 지원 {id="support-for-xcode-13"}
 
 Kotlin/Native 1.6.0은 최신 버전의 Xcode인 Xcode 13을 지원합니다. 자유롭게 Xcode를 업데이트하고 Apple 운영 체제용 Kotlin 프로젝트 작업을 계속하세요.
 
@@ -257,11 +257,11 @@ Kotlin/Native 1.6.0은 최신 버전의 Xcode인 Xcode 13을 지원합니다. �
 >
 {style="note"}
 
-### 모든 호스트에서 Windows 타겟 컴파일 가능
+### 모든 호스트에서 Windows 타겟 컴파일 가능 {id="compilation-of-windows-targets-on-any-host"}
 
 1.6.0부터 Windows 타겟인 `mingwX64` 및 `mingwX86`을 컴파일하기 위해 Windows 호스트가 필요하지 않습니다. 이들은 Kotlin/Native를 지원하는 모든 호스트에서 컴파일할 수 있습니다.
 
-### LLVM 및 링커 업데이트
+### LLVM 및 링커 업데이트 {id="llvm-and-linker-updates"}
 
 Kotlin/Native가 내부적으로 사용하는 LLVM 의존성을 재설계했습니다. 이를 통해 다음과 같은 다양한 이점을 얻었습니다.
 * LLVM 버전을 11.1.0으로 업데이트했습니다.
@@ -273,7 +273,7 @@ LLVM 업데이트 외에도, Kotlin/Native는 이제 MingGW 타겟을 위해 [LL
 LLD는 [DLL 링킹을 위해 임포트 라이브러리가 필요함](whatsnew1530.md#deprecation-of-linkage-against-dlls-without-import-libraries-for-mingw-targets)에 유의하세요.
 자세한 내용은 [이 Stack Overflow 스레드](https://stackoverflow.com/questions/3573475/how-does-the-import-library-work-details/3573527/#3573527)에서 확인할 수 있습니다.
 
-### 성능 개선
+### 성능 개선 {id="performance-improvements"}
 
 Kotlin/Native 1.6.0은 다음과 같은 성능 개선 사항을 제공합니다.
 
@@ -282,7 +282,7 @@ Kotlin/Native 1.6.0은 다음과 같은 성능 개선 사항을 제공합니다.
 컴파일러 캐시는 Kotlin 1.5.0부터 [추가 Gradle 속성](whatsnew15.md#performance-improvements)으로 사용할 수 있었으나 이제는 제거해도 됩니다.
 * 런타임: 생성된 LLVM 코드의 최적화 덕분에 `for` 루프를 통한 배열 이터레이션 속도가 최대 12% 빨라졌습니다.
 
-### JVM 및 JS IR 백엔드와 통합된 컴파일러 플러그인 ABI
+### JVM 및 JS IR 백엔드와 통합된 컴파일러 플러그인 ABI {id="unified-compiler-plugin-abi-with-jvm-and-js-ir-backends"}
 
 > Kotlin/Native를 위한 공통 IR 컴파일러 플러그인 ABI 사용 옵션은 [실험적(Experimental)](components-stability.md)입니다.
 > 언제든지 중단되거나 변경될 수 있습니다. 옵트인이 필요하며(아래 세부 정보 참조), 평가 목적으로만 사용해야 합니다.
@@ -303,7 +303,7 @@ Kotlin/Native용 일반 컴파일러 플러그인 아티팩트를 사용하려�
 컴파일러 플러그인 제작자라면 이 모드를 시도해보고 플러그인에서 잘 작동하는지 확인해 주세요.
 플러그인의 구조에 따라 마이그레이션 단계가 필요할 수 있습니다. 마이그레이션 지침은 [이 YouTrack 이슈](https://youtrack.jetbrains.com/issue/KT-48595)를 참조하고 댓글로 피드백을 남겨주세요.
 
-### klib 링킹 실패에 대한 상세한 에러 메시지
+### klib 링킹 실패에 대한 상세한 에러 메시지 {id="detailed-error-messages-for-klib-linkage-failures"}
 
 Kotlin/Native 컴파일러는 이제 klib 링킹(linkage) 에러에 대해 상세한 에러 메시지를 제공합니다.
 메시지에는 명확한 에러 설명과 함께 가능한 원인 및 해결 방법이 포함됩니다.
@@ -332,7 +332,7 @@ Kotlin/Native 컴파일러는 이제 klib 링킹(linkage) 에러에 대해 상�
     <dependencies tree>
     ```
 
-### 재설계된 처리되지 않은 예외 처리 API
+### 재설계된 처리되지 않은 예외 처리 API {id="reworked-unhandled-exception-handling-api"}
 
 Kotlin/Native 런타임 전반에서 처리되지 않은 예외(unhandled exception)의 처리를 통합했으며, 기본 처리를 `processUnhandledException(throwable: Throwable)` 함수로 노출하여 `kotlinx.coroutines`와 같은 커스텀 실행 환경에서 사용할 수 있도록 했습니다.
 이 처리는 `Worker.executeAfter()`에서 연산을 벗어나는 예외에도 적용되지만, 새로운 [메모리 매니저](#preview-of-the-new-memory-manager)에서만 해당됩니다.
@@ -342,12 +342,12 @@ API 개선 사항은 `setUnhandledExceptionHook()`으로 설정된 후크(hook)�
 이렇게 하면 예외를 서드파티 크래시 리포팅 서비스(예: Firebase Crashlytics)로 보내고 나서 프로그램을 종료할 수 있습니다.
 `main()`에서 벗어나는 예외와 상호운용성(interop) 경계를 넘는 예외는 후크가 `terminateWithUnhandledException()`을 호출하지 않더라도 항상 프로그램을 종료시킵니다.
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
 Kotlin/JS 컴파일러의 IR 백엔드를 안정화하기 위한 작업을 계속하고 있습니다.
 Kotlin/JS에는 이제 [Node.js 및 Yarn 다운로드를 비활성화하는 옵션](#option-to-use-pre-installed-node-js-and-yarn)이 추가되었습니다.
 
-### 사전 설치된 Node.js 및 Yarn 사용 옵션
+### 사전 설치된 Node.js 및 Yarn 사용 옵션 {id="option-to-use-pre-installed-node-js-and-yarn"}
 
 이제 Kotlin/JS 프로젝트를 빌드할 때 Node.js 및 Yarn 다운로드를 비활성화하고 호스트에 이미 설치된 인스턴스를 사용할 수 있습니다.
 이는 CI 서버와 같이 인터넷 연결이 없는 서버에서 빌드할 때 유용합니다.
@@ -401,7 +401,7 @@ Kotlin/JS에는 이제 [Node.js 및 Yarn 다운로드를 비활성화하는 옵�
     </tab>
     </tabs>
 
-## Kotlin Gradle 플러그인
+## Kotlin Gradle 플러그인 {id="kotlin-gradle-plugin"}
 
 Kotlin 1.6.0에서 `KotlinGradleSubplugin` 클래스의 지원 중단 수준을 'ERROR'로 변경했습니다.
 이 클래스는 컴파일러 플러그인을 작성하는 데 사용되었습니다. 향후 릴리스에서는 이 클래스를 제거할 예정입니다. 대신 `KotlinCompilerPluginSupportPlugin` 클래스를 사용하세요.
@@ -411,7 +411,7 @@ Kotlin 1.6.0에서 `KotlinGradleSubplugin` 클래스의 지원 중단 수준을 
 
 Kotlin Gradle 플러그인에서 [현재 지원되는 컴파일러 옵션](gradle-compiler-options.md)에 대해 더 자세히 알아보세요.
 
-## 표준 라이브러리
+## 표준 라이브러리 {id="standard-library"}
 
 표준 라이브러리의 새로운 1.6.0 버전은 실험적 기능을 안정화하고, 새로운 기능을 도입하며, 플랫폼 전반의 동작을 통합합니다.
 
@@ -425,7 +425,7 @@ Kotlin Gradle 플러그인에서 [현재 지원되는 컴파일러 옵션](gradl
 * [기존 API 개선 사항](#improvements-to-the-existing-api)
 * [지원 중단 사항(Deprecations)](#deprecations)
 
-### 새로운 readline 함수
+### 새로운 readline 함수 {id="new-readline-functions"}
 
 Kotlin 1.6.0은 표준 입력을 처리하기 위한 새로운 함수인 [`readln()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io/readln.html)과 [`readlnOrNull()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io/readln-or-null.html)을 제공합니다.
 
@@ -468,7 +468,7 @@ IDE 검사는 레거시 `readLine()` 대신 새로운 함수를 사용하도록 
 
 향후 릴리스에서 `readLine()` 함수를 점진적으로 지원 중단할 계획입니다.
 
-### 안정적인 typeOf()
+### 안정적인 typeOf() {id="stable-typeof"}
 
 1.6.0 버전은 [안정적인(Stable)](components-stability.md) [`typeOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/type-of.html) 함수를 도입하여 [주요 로드맵 항목](https://youtrack.jetbrains.com/issue/KT-45396) 중 하나를 완료했습니다.
 
@@ -487,7 +487,7 @@ fun main() {
 }
 ```
 
-### 안정적인 컬렉션 빌더
+### 안정적인 컬렉션 빌더 {id="stable-collection-builders"}
 
 Kotlin 1.6.0에서 컬렉션 빌더 함수가 [안정(Stable)](components-stability.md) 상태로 승격되었습니다. 컬렉션 빌더가 반환하는 컬렉션은 이제 읽기 전용 상태에서 직렬화가 가능합니다.
 
@@ -508,7 +508,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.5" validate="false"}
 
-### 안정적인 Duration API
+### 안정적인 Duration API {id="stable-duration-api"}
 
 서로 다른 시간 단위로 기간을 나타내는 [Duration](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-duration/) 클래스가 [안정(Stable)](components-stability.md) 상태로 승격되었습니다. 1.6.0에서 Duration API는 다음과 같은 변경 사항이 있었습니다.
 
@@ -541,7 +541,7 @@ fun main() {
   >
   {style="note"}
 
-### Regex를 시퀀스로 분할
+### Regex를 시퀀스로 분할 {id="splitting-regex-into-a-sequence"}
 
 `Regex.splitToSequence(CharSequence)` 및 `CharSequence.splitToSequence(Regex)` 함수가 [안정(Stable)](components-stability.md) 상태로 승격되었습니다.
 이 함수들은 주어진 정규식 일치 항목을 기준으로 문자열을 분할하지만, 결과를 [시퀀스(Sequence)](sequences.md)로 반환하여 결과에 대한 모든 연산이 지연 실행되도록 합니다.
@@ -562,7 +562,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.5" validate="false"}
 
-### 정수에 대한 비트 회전 연산
+### 정수에 대한 비트 회전 연산 {id="bit-rotation-operations-on-integers"}
 
 Kotlin 1.6.0에서 비트 조작을 위한 `rotateLeft()` 및 `rotateRight()` 함수가 [안정(Stable)](components-stability.md) 상태가 되었습니다.
 이 함수들은 숫자의 이진 표현을 지정된 비트 수만큼 왼쪽이나 오른쪽으로 회전합니다.
@@ -582,7 +582,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.6"}
 
-### JS의 replace() 및 replaceFirst() 변경 사항
+### JS의 replace() 및 replaceFirst() 변경 사항 {id="changes-for-replace-and-replacefirst-in-js"}
 
 Kotlin 1.6.0 이전에는 치환 문자열에 그룹 참조가 포함된 경우 [`replace()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/replace.html) 및 [`replaceFirst()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/replace-first.html) Regex 함수가 Java와 JS에서 다르게 동작했습니다. 모든 타겟 플랫폼에서 동작을 일관되게 맞추기 위해 JS의 구현을 변경했습니다.
 
@@ -608,7 +608,7 @@ Kotlin 1.6.0 이전에는 치환 문자열에 그룹 참조가 포함된 경우 
 
     치환 문자열을 리터럴 문자열로 처리해야 하는 경우 [`Regex.escapeReplacement()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/escape-replacement.html)를 사용할 수 있습니다.
 
-### 기존 API 개선 사항
+### 기존 API 개선 사항 {id="improvements-to-the-existing-api"}
 
 * 1.6.0 버전은 `Comparable.compareTo()`에 대한 infix 확장 함수를 추가했습니다. 이제 두 객체의 순서를 비교할 때 infix 형태를 사용할 수 있습니다.
 
@@ -622,25 +622,25 @@ Kotlin 1.6.0 이전에는 치환 문자열에 그룹 참조가 포함된 경우 
 * JS의 `Regex.replace()`도 이제 인라인(inline)이 아니게 되어 모든 플랫폼에서 구현이 통일되었습니다.
 * `compareTo()` 및 `equals()` String 함수와 `isBlank()` CharSequence 함수는 이제 JS에서 JVM과 똑같이 동작합니다. 이전에는 비 ASCII 문자와 관련하여 차이가 있었습니다.
 
-### 지원 중단 사항
+### 지원 중단 사항 {id="deprecations"}
 
 Kotlin 1.6.0에서는 일부 JS 전용 stdlib API에 대해 경고와 함께 지원 중단 주기를 시작합니다.
 
-#### concat(), match(), matches() 문자열 함수
+#### concat(), match(), matches() 문자열 함수 {id="concat-match-and-matches-string-functions"}
 
 * 문자열을 주어진 다른 객체의 문자열 표현과 결합하려면 `concat()` 대신 `plus()`를 사용하세요.
 * 입력 내에서 정규식의 모든 일치 항목을 찾으려면 `String.match(regex: String)` 대신 Regex 클래스의 `findAll()`을 사용하세요.
 * 정규식이 전체 입력과 일치하는지 확인하려면 `String.matches(regex: String)` 대신 Regex 클래스의 `matches()`를 사용하세요.
 
-#### 비교 함수를 받는 배열의 sort()
+#### 비교 함수를 받는 배열의 sort() {id="sort-on-arrays-taking-comparison-functions"}
 
 비교 함수에 의해 전달된 순서에 따라 배열을 정렬하는 `Array<out T>.sort()` 함수와 인라인 함수 `ByteArray.sort()`, `ShortArray.sort()`, `IntArray.sort()`, `LongArray.sort()`, `FloatArray.sort()`, `DoubleArray.sort()`, `CharArray.sort()`를 지원 중단했습니다. 배열 정렬에는 다른 표준 라이브러리 함수를 사용하세요.
 
 참고를 위해 [컬렉션 정렬](collection-ordering.md) 섹션을 확인하세요.
 
-## 도구
+## 도구 {id="tools"}
 
-### Kover – Kotlin용 코드 커버리지 도구
+### Kover – Kotlin용 코드 커버리지 도구 {id="kover-a-code-coverage-tool-for-kotlin"}
 
 > Kover Gradle 플러그인은 실험적입니다. [GitHub](https://github.com/Kotlin/kotlinx-kover/issues)에서 이에 대한 피드백을 주시면 감사하겠습니다.
 >
@@ -653,7 +653,7 @@ Kover에 대해 더 자세히 알아보려면 [GitHub 저장소](https://github.
 
 <video src="https://www.youtube.com/v/jNu5LY9HIbw" title="Kover – 코드 커버리지 플러그인"/>
 
-## Coroutines 1.6.0-RC
+## Coroutines 1.6.0-RC {id="coroutines-1-6-0-rc"}
 
 `kotlinx.coroutines` [1.6.0-RC](https://github.com/Kotlin/kotlinx.coroutines/releases/tag/1.6.0-RC)가 여러 기능과 개선 사항과 함께 출시되었습니다.
 
@@ -665,7 +665,7 @@ Kover에 대해 더 자세히 알아보려면 [GitHub 저장소](https://github.
 
 [변경 로그](https://github.com/Kotlin/kotlinx.coroutines/releases/tag/1.6.0-RC)에서 더 자세히 알아보세요.
 
-## Kotlin 1.6.0으로 마이그레이션
+## Kotlin 1.6.0으로 마이그레이션 {id="migrating-to-kotlin-1-6-0"}
 
 IntelliJ IDEA 및 Android Studio는 Kotlin 플러그인이 출시되면 1.6.0으로 업데이트하도록 제안할 것입니다.
 

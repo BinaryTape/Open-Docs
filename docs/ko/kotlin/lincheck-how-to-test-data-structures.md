@@ -63,7 +63,7 @@ class Counter {
     | -------------------- |
     ```
 
-## 테스트 프로세스
+## 테스트 프로세스 {id="the-testing-process"}
 
 데이터 구조를 테스트할 때, Lincheck은 실행 시나리오 목록을 생성하고 실행한 뒤 결과를 분석합니다.
 
@@ -89,7 +89,7 @@ class Counter {
 
    이 단계에서 [검증 함수](lincheck-results-validation.md)가 제공된 경우 Lincheck은 구조를 검증할 수도 있습니다.
 
-## 예시: 트라이버 스택 구조 구현 테스트
+## 예시: 트라이버 스택 구조 구현 테스트 {id="example-test-an-implementation-of-a-treiber-stack-structure"}
 
 [트라이버 스택(Treiber Stack)](https://en.wikipedia.org/wiki/Treiber_stack)의 _올바르지 않은_ 구현 예시를 살펴보겠습니다:
 
@@ -212,11 +212,11 @@ class TreiberStack<E> {
    }
    ```
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 Lincheck에서 사용 가능한 [테스트 전략](lincheck-testing-strategies.md)에 대해 알아보세요.
 
-## 관련 정보
+## 관련 정보 {id="see-also"}
 
 * [연산 인자 생성](lincheck-argument-generation-constraints.md)
 * [연산 실행 옵션 설정](lincheck-operation-execution-options.md)

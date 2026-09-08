@@ -20,7 +20,7 @@ LLMクライアントは、LLMプロバイダーと直接やり取りするた�
 | [Alibaba](https://www.alibabacloud.com/en?_p_lc=1) β | [DashScopeLLMClient](api:prompt-executor-dashscope-client::ai.koog.prompt.executor.clients.dashscope.DashscopeLLMClient)    | ✓                | ✓         | ✓                    | -          | -          | ✓                                               | プロバイダー固有のパラメータ（`enableSearch`、`parallelToolCalls`、`enableThinking`）を公開するOpenAI互換のクライアント。 |
 | [Ollama](https://ollama.com/)                       | [OllamaClient](api:prompt-executor-ollama-client::ai.koog.prompt.executor.ollama.client.OllamaClient)                            | ✓                | ✓         | -                    | ✓          | ✓          | -                                               | モデル管理APIを備えたローカルサーバークライアント。 |
 
-## プロンプトの実行
+## プロンプトの実行 {id="running-a-prompt"}
 
 LLMクライアントを使用してプロンプトを実行するには、以下の手順を行います。
 
@@ -105,7 +105,7 @@ LLMクライアントを使用してプロンプトを実行するには、以�
     ```
     <!--- KNIT example-llm-clients-java-01.java -->
 
-## レスポンスのストリーミング
+## レスポンスのストリーミング {id="streaming-responses"}
 
 !!! note
     すべてのLLMクライアントで使用可能です。
@@ -215,7 +215,7 @@ Tool call: " + toolCall.getName());
     ```
     <!--- KNIT example-llm-clients-java-02.java -->
 
-## 複数回答
+## 複数回答 {id="multiple-choices"}
 
 !!! note
     `GoogleLLMClient`、`BedrockLLMClient`、`OllamaClient`を除くすべてのLLMクライアントで使用可能です。
@@ -301,7 +301,7 @@ Tool call: " + toolCall.getName());
     ```
     <!--- KNIT example-llm-clients-java-03.java -->
 
-## 利用可能なモデルの一覧取得
+## 利用可能なモデルの一覧取得 {id="listing-available-models"}
 
 !!! note
     `AnthropicLLMClient`、`BedrockLLMClient`、`OllamaClient`を除くすべてのLLMクライアントで使用可能です。
@@ -347,7 +347,7 @@ LLMクライアントがサポートする利用可能なモデルIDの一覧を
     ```
     <!--- KNIT example-llm-clients-java-04.java -->
 
-## エンベディング
+## エンベディング {id="embeddings"}
 
 !!! note
     `OpenAILLMClient`、`GoogleLLMClient`、`BedrockLLMClient`、`MistralAILLMClient`、`OllamaClient`で使用可能です。
@@ -376,7 +376,7 @@ fun main() = runBlocking {
 ```
 <!--- KNIT example-llm-clients-05.kt -->
 
-## モデレーション
+## モデレーション {id="moderation"}
 
 !!! note
     以下のLLMクライアントで使用可能です：`OpenAILLMClient`、`BedrockLLMClient`、`MistralAILLMClient`、`OllamaClient`。
@@ -429,7 +429,7 @@ fun main() = runBlocking {
     ```
     <!--- KNIT example-llm-clients-java-05.java -->
 
-## プロンプトエグゼキューターとの統合
+## プロンプトエグゼキューターとの統合 {id="integration-with-prompt-executors"}
 
 [プロンプトエグゼキューター](prompt-executors.md)はLLMクライアントをラップし、ルーティング、フォールバック、プロバイダー間での統一された利用などの追加機能を提供します。
 これらは複数のプロバイダーを扱う際に柔軟性を提供するため、本環境での使用が推奨されます。

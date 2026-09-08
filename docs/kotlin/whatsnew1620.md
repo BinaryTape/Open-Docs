@@ -14,14 +14,14 @@ Kotlin 1.6.20 展示了未来语言功能的预览，将分层结构设为多平
 >
 {style="tip"}
 
-## 语言
+## 语言 {id="language"}
 
 在 Kotlin 1.6.20 中，您可以试用两个新的语言功能：
 
 * [Kotlin/JVM 的上下文接收器（context receivers）原型](#prototype-of-context-receivers-for-kotlin-jvm)
 * [绝对不可为 null 的类型](#definitely-non-nullable-types)
 
-### Kotlin/JVM 的上下文接收器原型
+### Kotlin/JVM 的上下文接收器原型 {id="prototype-of-context-receivers-for-kotlin-jvm"}
 
 > 该功能仅作为 Kotlin/JVM 的原型提供。启用 `-Xcontext-receivers` 后，编译器将生成预发布版本的二进制文件，这些文件不能用于生产代码。请仅在您的练手项目中使用上下文接收器。我们欢迎您在 [YouTrack](https://youtrack.jetbrains.com/issues/KT) 中提供反馈。
 >
@@ -61,7 +61,7 @@ fun test(loggingContext: LoggingContext) {
 
 请在您的练手项目中试用此功能，并在 [此 YouTrack 问题](https://youtrack.jetbrains.com/issue/KT-42435) 中分享您的想法和经验。如果您遇到任何问题，请[提交新问题](https://kotl.in/issue)。
 
-### 绝对不可为 null 的类型
+### 绝对不可为 null 的类型 {id="definitely-non-nullable-types"}
 
 > 绝对不可为 null 的类型目前处于 [Beta](components-stability.md) 阶段。它们已经基本稳定，但未来可能需要迁移步骤。我们会尽力减少您需要进行的更改。
 >
@@ -120,7 +120,7 @@ kotlin {
 
 在 [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/definitely-non-nullable-types.md) 中详细了解绝对不可为 null 的类型。
 
-## Kotlin/JVM
+## Kotlin/JVM {id="kotlin-jvm"}
 
 Kotlin 1.6.20 引入了：
 
@@ -128,7 +128,7 @@ Kotlin 1.6.20 引入了：
 * [支持在 JVM 后端对单个模块进行并行编译](#support-for-parallel-compilation-of-a-single-module-in-the-jvm-backend)
 * [支持对函数式接口构造函数的可调用引用](#support-for-callable-references-to-functional-interface-constructors)
 
-### 为接口新增 @JvmDefaultWithCompatibility 注解
+### 为接口新增 @JvmDefaultWithCompatibility 注解 {id="new-jvmdefaultwithcompatibility-annotation-for-interfaces"}
 
 Kotlin 1.6.20 引入了新注解 [`@JvmDefaultWithCompatibility`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-default-with-compatibility/)：将其与 `-Xjvm-default=all` 编译器选项配合使用，可为任何 Kotlin 接口中的任何非抽象成员[在 JVM 接口中创建默认方法](java-to-kotlin-interop.md#default-methods-in-interfaces)。
 
@@ -144,7 +144,7 @@ Kotlin 1.6.20 引入了新注解 [`@JvmDefaultWithCompatibility`](https://kotlin
 
 请在 [此 YouTrack 工单](https://youtrack.jetbrains.com/issue/KT-48217) 中留下您对该新注解的反馈。
 
-### -Xjvm-default 模式的兼容性更改
+### -Xjvm-default 模式的兼容性更改 {id="compatibility-changes-in-the-xjvm-default-modes"}
 
 Kotlin 1.6.20 增加了对使用默认模式（`-Xjvm-default=disable` 编译器选项）编译的模块与使用 `-Xjvm-default=all` 或 `-Xjvm-default=all-compatibility` 模式编译的模块进行编译的支持。
 和以前一样，如果所有模块都使用 `-Xjvm-default=all` 或 `-Xjvm-default=all-compatibility` 模式，编译也会成功。
@@ -155,7 +155,7 @@ Kotlin 1.6.20 弃用了编译器选项 `-Xjvm-default` 的 `compatibility` 和 `
 
 有关 Java 互操作中默认方法的更多信息，请参阅[互操作文档](java-to-kotlin-interop.md#default-methods-in-interfaces)以及[这篇博文](https://blog.jetbrains.com/kotlin/2020/07/kotlin-1-4-m3-generating-default-methods-in-interfaces/)。
 
-### 支持在 JVM 后端对单个模块进行并行编译
+### 支持在 JVM 后端对单个模块进行并行编译 {id="support-for-parallel-compilation-of-a-single-module-in-the-jvm-backend"}
 
 > 支持在 JVM 后端对单个模块进行并行编译目前处于 [实验性](components-stability.md) 阶段。它可能随时被删除或更改。需要启用该功能（详见下文），且您应仅将其用于评估目的。我们欢迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-46085) 上提供反馈。
 >
@@ -179,7 +179,7 @@ Kotlin 1.6.20 弃用了编译器选项 `-Xjvm-default` 的 `compatibility` 和 `
 >
 {style="note"}
 
-### 支持对函数式接口构造函数的可调用引用
+### 支持对函数式接口构造函数的可调用引用 {id="support-for-callable-references-to-functional-interface-constructors"}
 
 > 支持对函数式接口构造函数的可调用引用目前处于 [实验性](components-stability.md) 阶段。它可能随时被删除或更改。需要启用该功能（详见下文），且您应仅将其用于评估目的。我们欢迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-47939) 上提供反馈。
 >
@@ -222,7 +222,7 @@ fun Printer(...) {...}
 
 使用编译器选项 `-XXLanguage:+KotlinFunInterfaceConstructorReference` 来启用此功能。
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 Kotlin/Native 1.6.20 标志着其新组件的持续开发。我们在提供跨平台一致的 Kotlin 体验方面又迈出了一步：
 
@@ -236,7 +236,7 @@ Kotlin/Native 1.6.20 标志着其新组件的持续开发。我们在提供跨�
 * [改进了 cinterop 模块导入期间的错误处理](#improved-error-handling-during-cinterop-modules-import)
 * [支持 Xcode 13 库](#support-for-xcode-13-libraries)
 
-### 新内存管理器的更新 
+### 新内存管理器的更新 {id="an-update-on-the-new-memory-manager"}
 
 > 新的 Kotlin/Native 内存管理器处于 [Alpha](components-stability.md) 阶段。它未来可能会发生不兼容的更改，并需要手动迁移。我们欢迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-48525) 上提供反馈。
 >
@@ -251,7 +251,7 @@ Kotlin/Native 1.6.20 标志着其新组件的持续开发。我们在提供跨�
 
 尝试在您的项目中使用新内存管理器以了解其运行情况，并在我们的问题跟踪器 [YouTrack](https://youtrack.jetbrains.com/issue/KT-48525) 中分享反馈。
 
-### 新内存管理器中清除阶段的并发实现
+### 新内存管理器中清除阶段的并发实现 {id="concurrent-implementation-for-the-sweep-phase-in-new-memory-manager"}
 
 如果您已经切换到了我们在 [Kotlin 1.6 中宣布](whatsnew16.md#preview-of-the-new-memory-manager)的新内存管理器，您可能会注意到执行时间的大幅改进：我们的基准测试显示平均性能提升了 35%。
 从 1.6.20 开始，新内存管理器还提供了清除阶段的并发实现。这应该会进一步提高性能并缩短垃圾回收器的暂停时长。
@@ -264,13 +264,13 @@ Kotlin/Native 1.6.20 标志着其新组件的持续开发。我们在提供跨�
 
 欢迎在 [此 YouTrack 问题](https://youtrack.jetbrains.com/issue/KT-48526) 中分享您对新内存管理器性能的反馈。
 
-### 注解类实例化
+### 注解类实例化 {id="instantiation-of-annotation-classes"}
 
 在 Kotlin 1.6.0 中，注解类的实例化在 Kotlin/JVM 和 Kotlin/JS 上已达到 [稳定](components-stability.md) 状态。1.6.20 版本则交付了对 Kotlin/Native 的支持。
 
 了解有关 [注解类实例化](annotations.md#instantiation) 的更多信息。
 
-### 与 Swift async/await 的互操作：返回 Void 而非 KotlinUnit
+### 与 Swift async/await 的互操作：返回 Void 而非 KotlinUnit {id="interop-with-swift-async-await-returning-void-instead-of-kotlinunit"}
 
 > 与 Swift async/await 的并发互操作性处于 [实验性](components-stability.md) 阶段。它可能随时被删除或更改。您应仅将其用于评估目的。我们欢迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-47610) 上提供反馈。
 >
@@ -289,7 +289,7 @@ kotlin.native.binary.unitSuspendFunctionObjCExport=proper
 
 我们计划在未来的 Kotlin 版本中将此行为设为默认。
 
-### 通过 libbacktrace 获得更好的堆栈跟踪
+### 通过 libbacktrace 获得更好的堆栈跟踪 {id="better-stack-traces-with-libbacktrace"}
 
 > 使用 libbacktrace 来解析源代码位置处于 [实验性](components-stability.md) 阶段。它可能随时被删除或更改。您应仅将其用于评估目的。我们欢迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-48424) 上提供反馈。
 >
@@ -376,7 +376,7 @@ kotlin.native.binary.sourceInfoType=libbacktrace
 
 请在 [此 YouTrack 问题](https://youtrack.jetbrains.com/issue/KT-48424) 中告诉我们使用 libbacktrace 调试 Kotlin/Native 的体验如何。
 
-### 支持独立的 Android 可执行文件
+### 支持独立的 Android 可执行文件 {id="support-for-standalone-android-executables"}
 
 以前，Kotlin/Native 中的 Android Native 可执行文件实际上并不是真正的可执行文件，而是可以作为 NativeActivity 使用的共享库。现在增加了一个选项，可以为 Android Native 目标生成标准的可执行文件。
 
@@ -402,7 +402,7 @@ binaryOptions["androidProgramType"] = "nativeActivity"
 
 感谢 Mattia Iavarone 的 [实现](https://github.com/jetbrains/kotlin/pull/4624)！
 
-### 性能改进
+### 性能改进 {id="performance-improvements"}
 
 我们正致力于 Kotlin/Native 以[加速编译过程](https://youtrack.jetbrains.com/issue/KT-42294)并提升您的开发体验。
 
@@ -416,22 +416,22 @@ Kotlin 1.6.20 带来了一些性能更新和错误修复，这些更新会影响
 
 为了实现这一目标，我们为某些编译器生成的合成对象实现了静态初始化，改进了每个函数的 LLVM IR 结构化方式，并优化了编译器缓存。
 
-### 改进了 cinterop 模块导入期间的错误处理
+### 改进了 cinterop 模块导入期间的错误处理 {id="improved-error-handling-during-cinterop-modules-import"}
 
 此版本针对使用 `cinterop` 工具导入 Objective-C 模块的情况（通常用于 CocoaPods pods）改进了错误处理。此前，如果您在尝试使用 Objective-C 模块时遇到错误（例如，在处理头文件中的编译错误时），您会收到一个毫无意义的错误消息，例如 `fatal error: could not build module $name`。我们对 `cinterop` 工具的这部分进行了扩展，因此您现在将收到带有详细说明的错误消息。
 
-### 支持 Xcode 13 库
+### 支持 Xcode 13 库 {id="support-for-xcode-13-libraries"}
 
 从本版本开始，完全支持随 Xcode 13 交付的库。您可以随时从 Kotlin 代码的任何地方访问它们。
 
-## Kotlin Multiplatform
+## Kotlin Multiplatform {id="kotlin-multiplatform"}
 
 1.6.20 为 Kotlin Multiplatform 带来了以下显著更新：
 
 * [现在所有新多平台项目默认启用分层结构支持](#hierarchical-structure-support-for-multiplatform-projects)
 * [Kotlin CocoaPods Gradle 插件增加了几个用于 CocoaPods 集成的有用功能](#kotlin-cocoapods-gradle-plugin)
 
-### 分层结构支持多平台项目
+### 分层结构支持多平台项目 {id="hierarchical-structure-support-for-multiplatform-projects"}
 
 Kotlin 1.6.20 默认启用了分层结构支持。自 [Kotlin 1.4.0 引入此功能](whatsnew14.md#sharing-code-in-several-targets-with-the-hierarchical-project-structure)以来，我们显著改进了前端并使 IDE 导入变得稳定。
 
@@ -443,7 +443,7 @@ Kotlin 1.6.20 默认启用了分层结构支持。自 [Kotlin 1.4.0 引入此功
 
 默认情况下，使用分层项目结构发布的库仅与分层结构项目兼容。
 
-#### 更好地共享项目中的代码
+#### 更好地共享项目中的代码 {id="better-code-sharing-in-your-project"}
 
 如果没有分层结构支持，就无法直接在 _部分_ 但不是 _全部_ [Kotlin 目标](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#targets)之间共享代码。一个典型的例子是在所有 iOS 目标之间共享代码，并访问 iOS 特有的[依赖项](https://kotlinlang.org/docs/multiplatform/multiplatform-share-on-platforms.html#connect-platform-specific-libraries)（如 Foundation）。
 
@@ -455,11 +455,11 @@ Kotlin 1.6.20 默认启用了分层结构支持。自 [Kotlin 1.4.0 引入此功
 
 Kotlin 工具链提供了正确的默认依赖项，如 Kotlin/Native 标准库或原生库。此外，Kotlin 工具链会尽力找到共享代码中可用的确切 API 范围。这可以防止出现诸如在为 Windows 共享的代码中使用特定于 macOS 的函数之类的情况。
 
-#### 库作者的更多机会
+#### 库作者的更多机会 {id="more-opportunities-for-library-authors"}
 
 当发布多平台库时，其中间源集的 API 现在会随之正确发布，供使用者使用。同样，Kotlin 工具链将自动计算使用者源集中可用的 API，同时仔细留意不安全的使用情况，例如在 JS 代码中使用专为 JVM 设计的 API。了解有关 [在库中共享代码](https://kotlinlang.org/docs/multiplatform/multiplatform-share-on-platforms.html#share-code-in-libraries) 的更多信息。
 
-#### 配置与设置
+#### 配置与设置 {id="configuration-and-setup"}
 
 从 Kotlin 1.6.20 开始，所有新创建的多平台项目都将具有分层项目结构。无需额外设置。
 
@@ -480,13 +480,13 @@ Kotlin 工具链提供了正确的默认依赖项，如 Kotlin/Native 标准库�
   kotlin.mpp.hierarchicalStructureSupport=false
   ```
 
-#### 留下您的反馈
+#### 留下您的反馈 {id="leave-your-feedback"}
 
 这是对整个生态系统的一次重大改变。我们欢迎您的反馈，以帮助我们做得更好。
 
 现在就尝试，并将您遇到的任何困难报告给 [我们的问题跟踪器](https://kotl.in/issue)。
 
-### Kotlin CocoaPods Gradle 插件
+### Kotlin CocoaPods Gradle 插件 {id="kotlin-cocoapods-gradle-plugin"}
 
 为了简化 CocoaPods 集成，Kotlin 1.6.20 交付了以下功能：
 
@@ -518,7 +518,7 @@ kotlin {
 
 查看完整的 Kotlin CocoaPods Gradle 插件 [DSL 参考](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-dsl-reference.html)。
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
 Kotlin/JS 在 1.6.20 中的改进主要影响 IR 编译器：
 
@@ -529,7 +529,7 @@ Kotlin/JS 在 1.6.20 中的改进主要影响 IR 编译器：
 * [导出机制改进（包括 IR 和旧版后端）](#improvements-to-export-and-typescript-declaration-generation)
 * [异步测试的 @AfterTest 保证](#aftertest-guarantees-for-asynchronous-tests)
 
-### 开发版二进制文件的增量编译（使用 IR 编译器）
+### 开发版二进制文件的增量编译（使用 IR 编译器） {id="incremental-compilation-for-development-binaries-with-ir-compiler"}
 
 为了提高使用 IR 编译器进行 Kotlin/JS 开发的效率，我们引入了一种新的“增量编译”模式。
 
@@ -546,7 +546,7 @@ kotlin.incremental.js.ir=true // 默认为 false
 
 请在 [此 YouTrack 问题](https://youtrack.jetbrains.com/issue/KT-50203) 中告诉我们您对在 Kotlin/JS 项目中使用增量编译的看法。
 
-### 默认对顶层属性进行延迟初始化（使用 IR 编译器）
+### 默认对顶层属性进行延迟初始化（使用 IR 编译器） {id="lazy-initialization-of-top-level-properties-by-default-with-ir-compiler"}
 
 在 Kotlin 1.4.30 中，我们在 JS IR 编译器中展示了[顶层属性延迟初始化](whatsnew1430.md#lazy-initialization-of-top-level-properties)的原型。通过消除应用程序启动时初始化所有属性的需求，延迟初始化缩短了启动时间。我们的测量结果显示，在真实的 Kotlin/JS 应用程序中速度提升了约 10%。
 
@@ -563,7 +563,7 @@ val a = run {
 
 如果由于某种原因您需要立即（在应用程序启动时）初始化属性，请标记 [`@EagerInitialization`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.native/-eager-initialization/) 注解。
 
-### 默认按项目模块生成单独的 JS 文件（使用 IR 编译器）
+### 默认按项目模块生成单独的 JS 文件（使用 IR 编译器） {id="separate-js-files-for-project-modules-by-default-with-ir-compiler"}
 
 此前，JS IR 编译器提供了[为项目模块生成单独 `.js` 文件]( https://youtrack.jetbrains.com/issue/KT-44319)的能力。这是默认选项——整个项目生成单个 `.js` 文件——之外的一种替代方案。单个文件可能会太大且不便使用，因为每当您想使用项目中的一个函数时，都必须包含整个 JS 文件作为依赖项。拆分成多个文件增加了灵活性并减少了此类依赖项的大小。该功能可通过 `-Xir-per-module` 编译器选项使用。
 
@@ -578,13 +578,13 @@ kotlin.js.ir.output.granularity=whole-program // 默认为 `per-module`
 
 在以前的发行版中，实验性的按模块模式（通过 `-Xir-per-module=true` 标志启用）会在每个模块中调用 `main()` 函数。这与常规的单个 `.js` 模式不一致。从 1.6.20 开始，在这两种情况下，`main()` 函数都将仅在主模块中被调用。如果您确实需要在加载模块时运行某些代码，可以使用带有 `@EagerInitialization` 注解的顶层属性。参见 [默认对顶层属性进行延迟初始化 (IR)](#lazy-initialization-of-top-level-properties-by-default-with-ir-compiler)。
 
-### Char 类优化
+### Char 类优化 {id="char-class-optimization"}
 
 现在，Kotlin/JS 编译器处理 `Char` 类时无需引入装箱（类似于 [内联类](inline-classes.md)）。这加快了 Kotlin/JS 代码中字符操作的速度。
 
 除了性能提升外，这还改变了 `Char` 导出到 JavaScript 的方式：它现在被翻译为 `Number`。
 
-### 导出机制和 TypeScript 声明生成的改进
+### 导出机制和 TypeScript 声明生成的改进 {id="improvements-to-export-and-typescript-declaration-generation"}
 
 Kotlin 1.6.20 为导出机制（[`@JsExport`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.js/-js-export/) 注解）带来了多项修复和改进，包括 [TypeScript 声明 (`.d.ts`) 的生成](js-project-setup.md#generation-of-typescript-declaration-files-d-ts)。
 我们增加了导出接口和枚举的功能，并修复了之前向我们报告的一些边缘情况下的导出行为。
@@ -592,11 +592,11 @@ Kotlin 1.6.20 为导出机制（[`@JsExport`](https://kotlinlang.org/api/latest/
 
 了解有关 [从 JavaScript 使用 Kotlin 代码](js-to-kotlin-interop.md) 的更多信息。
 
-### 异步测试的 @AfterTest 保证
+### 异步测试的 @AfterTest 保证 {id="aftertest-guarantees-for-asynchronous-tests"}
 
 Kotlin 1.6.20 使 [`@AfterTest`](https://kotlinlang.org/api/latest/kotlin.test/kotlin.test/-after-test/) 函数能与 Kotlin/JS 上的异步测试正常协作。如果测试函数的返回类型被静态解析为 [`Promise`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.js/-promise/)，编译器现在会调度 `@AfterTest` 函数在相应的 [`then()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.js/-promise/then.html) 回调中执行。
 
-## 安全性
+## 安全性 {id="security"}
 
 Kotlin 1.6.20 引入了几项功能来提高代码的安全性：
 
@@ -604,7 +604,7 @@ Kotlin 1.6.20 引入了几项功能来提高代码的安全性：
 * [为 Kotlin/JS Gradle 项目持久化 yarn.lock](#persisting-yarn-lock-for-kotlin-js-gradle-projects)
 * [默认通过 `--ignore-scripts` 安装 npm 依赖项](#installation-of-npm-dependencies-with-ignore-scripts-by-default)
 
-### 在 klib 中使用相对路径
+### 在 klib 中使用相对路径 {id="using-relative-paths-in-klibs"}
 
 `klib` 格式的库[包含](native-libraries.md#library-format)源文件的序列化 IR 表示，其中还包括用于生成正确调试信息的路径。在 Kotlin 1.6.20 之前，存储的文件路径是绝对路径。由于库作者可能不想分享绝对路径，1.6.20 版本提供了一个替代选项。
 
@@ -635,7 +635,7 @@ tasks.withType(org.jetbrains.kotlin.gradle.dsl.KotlinCompile).configureEach {
 </tab>
 </tabs>
 
-### 为 Kotlin/JS Gradle 项目持久化 yarn.lock
+### 为 Kotlin/JS Gradle 项目持久化 yarn.lock {id="persisting-yarn-lock-for-kotlin-js-gradle-projects"}
 
 > 该功能已反向移植到 Kotlin 1.6.10。
 >
@@ -678,7 +678,7 @@ rootProject.plugins.withType(org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlu
 > 
 {style="warning"}
 
-### 默认通过 --ignore-scripts 安装 npm 依赖项
+### 默认通过 --ignore-scripts 安装 npm 依赖项 {id="installation-of-npm-dependencies-with-ignore-scripts-by-default"}
 
 > 该功能已反向移植到 Kotlin 1.6.10。
 >
@@ -711,7 +711,7 @@ rootProject.plugins.withType(org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlu
 
 了解更多关于 [Kotlin/JS Gradle 项目的 npm 依赖项](js-project-setup.md#npm-dependencies)。
 
-## Gradle
+## Gradle {id="gradle"}
 
 Kotlin 1.6.20 为 Kotlin Gradle 插件带来了以下变化：
 
@@ -719,7 +719,7 @@ Kotlin 1.6.20 为 Kotlin Gradle 插件带来了以下变化：
 * [弃用了 `kapt.use.worker.api`、`kotlin.experimental.coroutines` 和 `kotlin.coroutines` 选项](#deprecation-of-build-options-for-kapt-and-coroutines)
 * [删除了 `kotlin.parallel.tasks.in.project` 构建选项](#removal-of-the-kotlin-parallel-tasks-in-project-build-option)
 
-### 用于定义 Kotlin 编译器执行策略的属性
+### 用于定义 Kotlin 编译器执行策略的属性 {id="properties-for-defining-kotlin-compiler-execution-strategy"}
 
 在 Kotlin 1.6.20 之前，您使用系统属性 `-Dkotlin.compiler.execution.strategy` 来定义 Kotlin 编译器执行策略。该属性在某些情况下可能不太方便。
 Kotlin 1.6.20 引入了一个同名的 Gradle 属性 `kotlin.compiler.execution.strategy` 以及编译任务属性 `compilerExecutionStrategy`。
@@ -772,7 +772,7 @@ tasks.withType<KotlinCompile>().configureEach {
 
 请在 [此 YouTrack 任务](https://youtrack.jetbrains.com/issue/KT-49299) 中留下您的反馈。
 
-### 弃用 kapt 和协程的构建选项
+### 弃用 kapt 和协程的构建选项 {id="deprecation-of-build-options-for-kapt-and-coroutines"}
 
 在 Kotlin 1.6.20 中，我们更改了以下属性的弃用级别：
 
@@ -784,7 +784,7 @@ tasks.withType<KotlinCompile>().configureEach {
   
   在 [协程指南](coroutines-guide.md) 中了解有关协程的更多信息。
 
-### 删除了 kotlin.parallel.tasks.in.project 构建选项
+### 删除了 kotlin.parallel.tasks.in.project 构建选项 {id="removal-of-the-kotlin-parallel-tasks-in-project-build-option"}
 
 在 Kotlin 1.5.20 中，我们宣布了[构建选项 `kotlin.parallel.tasks.in.project` 的弃用](whatsnew1520.md#deprecation-of-the-kotlin-parallel-tasks-in-project-build-property)。该选项已在 Kotlin 1.6.20 中被删除。
 

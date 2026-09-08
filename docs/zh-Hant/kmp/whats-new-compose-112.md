@@ -9,9 +9,9 @@
 您可以在 [GitHub](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.12.0) 上找到此版本的完整變更清單。
 有關特定組件版本的詳細資訊，請參閱 [相依性](#dependencies) 章節。
 
-## 跨平台
+## 跨平台 {id="across-platforms"}
 
-### Skia 更新至 Milestone 150
+### Skia 更新至 Milestone 150 {id="skia-updated-to-milestone-150"}
 
 透過 Skiko，Compose Multiplatform 使用的 Skia 版本已更新至 Milestone 150。
 
@@ -20,16 +20,16 @@ Compose Multiplatform 1.11 使用的前一個版本為 Milestone 144。
 
 此更新還解決了 iOS 上已封裝其專屬 Skia 程式庫的應用程式（例如基於 Chromium 的應用程式）之重複符號衝突。
 
-## iOS
+## iOS {id="ios"}
 
-### 改進延遲佈局的捲動效能
+### 改進延遲佈局的捲動效能 {id="improved-lazy-layout-scrolling-performance"}
 
 iOS 版 Compose Multiplatform 現在為延遲佈局提供了改進的捲動效能。
 清單項目的停用操作是在繪製階段之外執行的，這使得繪製階段能夠更快完成，進而實現更平滑的捲動。
 
-## Web
+## Web {id="web"}
 
-### 自動字型回退
+### 自動字型回退 {id="automatic-font-fallback"}
 <primary-label ref="Experimental"/>
 
 以前，應用程式載入的字型未涵蓋的字元會顯示為替換字元（□，稱為「tofu」）。
@@ -38,9 +38,9 @@ Web 版 Compose Multiplatform 現在會在轉譯過程中遇到未解決的字�
 字型下載後，Compose 會重組受影響的文字。
 請注意，在取得所需的字型之前，tofu 可能會短暫出現。
 
-## Desktop
+## Desktop {id="desktop"}
 
-### Compose Hot Reload 中適用於 AI 代理的 MCP 伺服器
+### Compose Hot Reload 中適用於 AI 代理的 MCP 伺服器 {id="mcp-server-for-ai-agents-in-compose-hot-reload"}
 <primary-label ref="Experimental"/>
 
 Compose Hot Reload 現在附帶一個實驗性的 [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) 伺服器，可讓 AI 編碼代理直接與執行中的 Compose 應用程式互動。
@@ -49,7 +49,7 @@ Compose Hot Reload 現在附帶一個實驗性的 [Model Context Protocol (MCP)]
 
 有關 AI 代理可用的 MCP 工具完整清單以及如何連接，請參閱 [適用於 AI 代理的 MCP 伺服器](compose-hot-reload.md#mcp-server-for-ai-agents)。
 
-### Window 與對話方塊 API v2
+### Window 與對話方塊 API v2 {id="window-and-dialog-api-v2"}
 <primary-label ref="Experimental"/>
 
 我們為 Desktop 版的 `WindowState` 與 `DialogState` 推出了新的實驗性 v2 API，解決了現有 API 的多項限制。
@@ -99,7 +99,7 @@ fun main() = application {
 v2 API 還解鎖了以前無法實現的場景，例如根據內容大小調整視窗尺寸，同時在視窗較大時仍允許內容擴展（透過 `fillMaxSize()` 等修飾符）。
 詳情請參閱 [Window 與對話方塊 API v2](compose-desktop-top-level-windows-management.md#window-and-dialog-api-v2) 文件頁面。
 
-## 相依性
+## 相依性 {id="dependencies"}
 
 | 程式庫 | Maven 座標 | 基於 Jetpack 版本 |
 |--------------------|------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|

@@ -23,7 +23,7 @@ Gradle을 사용한 Kotlin/Native 및 [Kotlin 멀티플랫폼](gradle-configure-
 >
 {style="note"}
 
-## Kotlin 라이브러리 생성하기
+## Kotlin 라이브러리 생성하기 {id="create-a-kotlin-library"}
 
 Kotlin/Native 컴파일러는 Kotlin 코드에서 동적 라이브러리를 생성할 수 있습니다. 동적 라이브러리는 대개 C에서 컴파일된 코드를 호출하는 데 사용하는 `.h` 헤더 파일과 함께 제공됩니다.
 
@@ -156,7 +156,7 @@ Kotlin 라이브러리를 생성하고 C 프로그램에서 사용해 보겠습�
 
 Kotlin/Native 컴파일러는 모든 플랫폼에 대해 동일한 규칙을 사용하여 `.h` 파일을 생성합니다. Kotlin 라이브러리의 C API를 살펴보겠습니다.
 
-## 생성된 헤더 파일
+## 생성된 헤더 파일 {id="generated-header-file"}
 
 Kotlin/Native 선언이 C 함수에 어떻게 매핑되는지 살펴보겠습니다.
 
@@ -248,7 +248,7 @@ C에서 `typedef struct { ... } TYPE_NAME` 구문은 구조체를 선언합니�
 
 C는 네임스페이스를 지원하지 않으므로, Kotlin/Native 컴파일러는 기존 네이티브 프로젝트의 다른 심볼과 충돌할 가능성을 피하기 위해 긴 이름을 생성합니다.
 
-### 서비스 런타임 함수
+### 서비스 런타임 함수 {id="service-runtime-functions"}
 
 `libnative_ExportedSymbols` 구조체는 Kotlin/Native와 해당 라이브러리에서 제공하는 모든 함수를 정의합니다. 패키지를 모방하기 위해 중첩된 익명 구조체를 많이 사용합니다. `libnative_` 접두사는 라이브러리 이름에서 유래되었습니다.
 
@@ -301,7 +301,7 @@ libnative_KULong (*getNonNullValueOfULong)(libnative_kref_kotlin_ULong);
 >
 {style="tip"}
 
-### 라이브러리 함수
+### 라이브러리 함수 {id="your-library-functions"}
 
 라이브러리에서 사용되는 개별 구조체 선언을 살펴보겠습니다. `libnative_kref_example` 필드는 `libnative_kref.` 접두사를 사용하여 Kotlin 코드의 패키지 구조를 모방합니다.
 
@@ -345,7 +345,7 @@ Kotlin의 `object Object`는 `libnative_kref_example_Object`로 액세스할 수
 
 전역 함수인 `forFloats`, `forIntegers`, `strings`는 `libnative_kref_example` 익명 구조체 내의 함수 포인터로 변환됩니다.
 
-### 진입점 (Entry point)
+### 진입점 (Entry point) {id="entry-point"}
 
 이제 API가 어떻게 생성되는지 알았으므로, `libnative_ExportedSymbols` 구조체의 초기화가 시작점이 됩니다. 이제 `libnative_api.h`의 마지막 부분을 살펴보겠습니다.
 
@@ -359,7 +359,7 @@ extern libnative_ExportedSymbols* libnative_symbols(void);
 >
 {style="note"}
 
-## C에서 생성된 헤더 사용하기
+## C에서 생성된 헤더 사용하기 {id="use-generated-headers-from-c"}
 
 C에서 생성된 헤더를 사용하는 방법은 간단합니다. 라이브러리 디렉터리에 다음 코드를 포함하는 `main.c` 파일을 생성합니다.
 
@@ -394,9 +394,9 @@ out:%s
 }
 ```
 
-## 프로젝트 컴파일 및 실행하기
+## 프로젝트 컴파일 및 실행하기 {id="compile-and-run-the-project"}
 
-### macOS에서
+### macOS에서 {id="on-macos"}
 
 C 코드를 컴파일하고 동적 라이브러리와 링크하려면, 라이브러리 디렉터리에서 다음 명령을 실행합니다.
 
@@ -406,7 +406,7 @@ clang main.c libnative.dylib
 
 컴파일러는 `a.out`이라는 실행 파일을 생성합니다. 이를 실행하여 C 라이브러리에서 Kotlin 코드를 실행합니다.
 
-### Linux에서
+### Linux에서 {id="on-linux"}
 
 C 코드를 컴파일하고 동적 라이브러리와 링크하려면, 라이브러리 디렉터리에서 다음 명령을 실행합니다.
 
@@ -416,7 +416,7 @@ gcc main.c libnative.so
 
 컴파일러는 `a.out`이라는 실행 파일을 생성합니다. 이를 실행하여 C 라이브러리에서 Kotlin 코드를 실행합니다. Linux에서는 애플리케이션이 현재 폴더에서 `libnative.so` 라이브러리를 로드하도록 하려면 `LD_LIBRARY_PATH`에 `.`을 포함해야 합니다.
 
-### Windows에서
+### Windows에서 {id="on-windows"}
 
 먼저 x64_64 타겟을 지원하는 Microsoft Visual C++ 컴파일러를 설치해야 합니다.
 
@@ -440,7 +440,7 @@ Windows에서는 정적 라이브러리 래퍼를 생성하거나 [LoadLibrary](
 
    이 명령은 실행 가능한 `main.exe` 파일을 생성합니다.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [Swift/Objective-C와의 상호 운용성에 대해 더 알아보기](native-objc-interop.md)
 * [Apple 프레임워크로서의 Kotlin/Native 튜토리얼 확인하기](apple-framework.md)

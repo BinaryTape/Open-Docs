@@ -2,7 +2,7 @@
 
 代理使用工具來執行特定任務或存取外部系統。
 
-## 工具工作流
+## 工具工作流 {id="tool-workflow"}
 
 Koog 框架為在 Kotlin 和 Java 中使用工具提供了以下工作流：
 
@@ -11,7 +11,7 @@ Koog 框架為在 Kotlin 和 Java 中使用工具提供了以下工作流：
 3. 將工具註冊表傳遞給代理。
 4. 在代理中使用該工具。
 
-### 可用的工具類型
+### 可用的工具類型 {id="available-tool-types"}
 
 Koog 框架中有三種類型的工具：
 
@@ -19,7 +19,7 @@ Koog 框架中有三種類型的工具：
 - 基於註解的自訂工具，讓您可以將函式作為工具公開給 LLM。詳情請參閱 [基於註解的工具](annotation-based-tools.md)。
 - 自訂工具，讓您可以控制工具參數、元資料、執行邏輯，以及其註冊與叫用方式。詳情請參閱 [基於類別的工具](class-based-tools.md)。
 
-### 工具註冊表
+### 工具註冊表 {id="tool-registry"}
 
 在代理中使用工具之前，必須先將其新增至工具註冊表。工具註冊表管理代理可用的所有工具。
 
@@ -138,7 +138,7 @@ Koog 框架中有三種類型的工具：
     ```
     <!--- KNIT example-tools-overview-java-02.java -->
 
-### 將工具傳遞給代理
+### 將工具傳遞給代理 {id="passing-tools-to-an-agent"}
 
 為了讓代理能夠使用工具，您需要在建立代理時提供包含該工具的工具註冊表作為引數：
 
@@ -183,7 +183,7 @@ Koog 框架中有三種類型的工具：
     ```
     <!--- KNIT example-tools-overview-java-03.java -->
 
-### 叫用工具
+### 叫用工具 {id="calling-tools"}
 
 在代理程式碼中有幾種叫用工具的方法。建議的方法是使用代理內容中提供的方法，而不是直接叫用工具，因為這可以確保代理環境中工具操作的正確處理。
 
@@ -200,7 +200,7 @@ Koog 框架中有三種類型的工具：
 
 如需更多詳細資訊，請參閱 [AIAgentLLMWriteSession](api:agents-core::ai.koog.agents.core.agent.session.AIAgentLLMWriteSession) 的 API 參考。
 
-#### 並行工具叫用
+#### 並行工具叫用 {id="parallel-tool-calls"}
 
 您也可以使用 `toParallelToolCallsRaw` 擴充來並行叫用工具。例如：
 
@@ -267,7 +267,7 @@ Koog 框架中有三種類型的工具：
     ```
     <!--- KNIT example-tools-overview-java-04.java -->
 
-#### 從節點叫用工具
+#### 從節點叫用工具 {id="calling-tools-from-nodes"}
 
 在使用節點建置代理工作流時，您可以使用特殊的節點來叫用工具：
 
@@ -281,11 +281,11 @@ Koog 框架中有三種類型的工具：
 
 * **nodeLLMSendMultipleToolResults**：將多個工具結果傳送到 LLM。詳情請參閱 [API 參考](api:agents-core::ai.koog.agents.core.dsl.extension.nodeLLMSendMultipleToolResults)。
 
-## 將代理用作工具
+## 將代理用作工具 {id="using-agents-as-tools"}
 
 框架提供了將任何 AI 代理轉換為可供其他代理使用的工具的功能。這項強大的特性讓您可以建立階層式代理架構，其中專用的代理可以被高層級的編排代理作為工具叫用。
 
-### 將代理轉換為工具
+### 將代理轉換為工具 {id="converting-agents-to-tools"}
 
 若要將代理轉換為工具，請使用 `AIAgentService` 和 `createAgentTool()` 擴充函式：
 
@@ -335,7 +335,7 @@ Koog 框架中有三種類型的工具：
     ```
     <!--- KNIT example-tools-overview-java-05.java -->
 
-### 在其他代理中使用代理工具
+### 在其他代理中使用代理工具 {id="using-agent-tools-in-other-agents"}
 
 轉換為工具後，您可以將該代理工具新增至另一個代理的工具註冊表：
 
@@ -375,7 +375,7 @@ Koog 框架中有三種類型的工具：
     ```
     <!--- KNIT example-tools-overview-java-06.java -->
 
-### 代理工具執行
+### 代理工具執行 {id="agent-tool-execution"}
 
 當代理工具被叫用時：
 
@@ -383,7 +383,7 @@ Koog 框架中有三種類型的工具：
 2. 包裝好的代理會使用還原序列化後的輸入來執行。
 3. 代理的輸出會被序列化並作為工具結果傳回。
 
-### 將代理用作工具的優點
+### 將代理用作工具的優點 {id="benefits-of-agents-as-tools"}
 
 - **模組化**：將複雜的工作流拆分為專門的代理。
 - **重用性**：在多個協調代理中使用同一個專門代理。

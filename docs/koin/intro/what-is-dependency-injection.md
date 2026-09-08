@@ -6,11 +6,11 @@ title: 什么是依赖注入？
 
 依赖注入 (Dependency Injection，简称 DI) 是一种设计模式，在这种模式下，对象从外部源接收其依赖项，而不是在内部创建它们。这促进了松耦合、更好的可测试性以及更整洁的代码架构。
 
-## 什么是依赖项？
+## 什么是依赖项？ {id="what-is-a-dependency"}
 
 依赖项是另一个对象正常运行所需的任何对象。例如，`Car`（汽车）依赖于 `Engine`（发动机）才能行驶。
 
-### 不使用依赖注入
+### 不使用依赖注入 {id="without-dependency-injection"}
 
 ```kotlin
 class Engine {
@@ -35,7 +35,7 @@ class Car {
 - 难以更换发动机类型（电动、柴油等）。
 - `Car` 控制着 `Engine` 的生命周期。
 
-### 使用依赖注入
+### 使用依赖注入 {id="with-dependency-injection"}
 
 ```kotlin
 class Car(private val engine: Engine) {  // Engine 被注入
@@ -56,9 +56,9 @@ val electricCar = Car(ElectricEngine())
 - 灵活——可以更换实现。
 - 构造函数中可见清晰的依赖项。
 
-## 提供依赖项的三种方式
+## 提供依赖项的三种方式 {id="three-ways-to-provide-dependencies"}
 
-### 1. 构造函数注入（推荐）
+### 1. 构造函数注入（推荐） {id="1-constructor-injection-recommended"}
 
 依赖项通过构造函数传递：
 
@@ -93,7 +93,7 @@ val appModule = module {
 构造函数注入是 Koin 中**首选的方法**。它使您的代码具有可测试性，且在单元测试中无需使用 Koin。
 :::
 
-### 2. 字段注入
+### 2. 字段注入 {id="2-field-injection"}
 
 依赖项被注入到类属性中：
 
@@ -123,7 +123,7 @@ val presenter: Presenter by inject()
 val presenter: Presenter = get()
 ```
 
-### 3. 方法注入
+### 3. 方法注入 {id="3-method-injection"}
 
 依赖项通过方法传递（较不常见）：
 
@@ -140,9 +140,9 @@ class ReportGenerator {
 - 在对象生命周期内会发生变化的依赖项。
 - 回调模式。
 
-## 手动 vs 自动依赖注入
+## 手动 vs 自动依赖注入 {id="manual-vs-automated-dependency-injection"}
 
-### 手动 DI 的问题
+### 手动 DI 的问题 {id="the-problem-with-manual-di"}
 
 随着应用程序的增长，手动管理依赖项变得非常复杂：
 
@@ -171,7 +171,7 @@ class MainActivity : AppCompatActivity() {
 - 难以管理生命周期（单例、作用域对象）。
 - 缺乏集中式配置。
 
-### 容器模式（手动方法）
+### 容器模式（手动方法） {id="the-container-pattern-manual-approach"}
 
 开发者通常会创建一个容器来集中处理对象的创建：
 
@@ -200,7 +200,7 @@ class MainActivity : AppCompatActivity() {
 - 全局状态（单例容器）。
 - 对于复杂的依赖图仍然存在重复操作。
 
-### Koin 如何解决这一问题
+### Koin 如何解决这一问题 {id="how-koin-solves-this"}
 
 Koin 提供自动依赖解析，您可以选择使用 **DSL 或注解**：
 
@@ -239,7 +239,7 @@ class MainActivity : AppCompatActivity() {
 - 类型安全的注入。
 - 易于测试和模块替换。
 
-## 自动 DI 解决方案
+## 自动 DI 解决方案 {id="automated-di-solutions"}
 
 自动依赖注入有不同的实现方法：
 
@@ -257,11 +257,11 @@ class MainActivity : AppCompatActivity() {
 - 无反射，轻量级。
 - 选择适合您团队的风格。
 
-## 服务定位器 vs 依赖注入
+## 服务定位器 vs 依赖注入 {id="service-locator-vs-dependency-injection"}
 
 了解两者之间的区别非常重要：
 
-### 服务定位器模式
+### 服务定位器模式 {id="service-locator-pattern"}
 
 组件主动从注册表中请求依赖项：
 
@@ -271,7 +271,7 @@ class UserService : KoinComponent {
 }
 ```
 
-### 依赖注入模式
+### 依赖注入模式 {id="dependency-injection-pattern"}
 
 依赖项从外部提供：
 
@@ -281,7 +281,7 @@ class UserService(
 )
 ```
 
-### 比较
+### 比较 {id="comparison"}
 
 | 维度 | 服务定位器 | 依赖注入 |
 |--------|----------------|---------------------|
@@ -291,7 +291,7 @@ class UserService(
 | 在 Koin 中的用法 | `get()`, `by inject()` | 在 Koin 模块中使用构造函数 |
 | 最佳适用场景 | Android 框架类 | 业务逻辑、服务 |
 
-### Koin 最佳实践
+### Koin 最佳实践 {id="best-practices-with-koin"}
 
 1. 对于业务逻辑，**优先使用构造函数注入**：
 
@@ -325,9 +325,9 @@ class UserService : KoinComponent {
 class UserService(private val repository: UserRepository)
 ```
 
-## 依赖注入的好处
+## 依赖注入的好处 {id="benefits-of-dependency-injection"}
 
-### 1. 可测试性
+### 1. 可测试性 {id="1-testability"}
 
 如果没有 DI，测试会非常困难：
 
@@ -352,7 +352,7 @@ fun testGetUser() {
 }
 ```
 
-### 2. 灵活性
+### 2. 灵活性 {id="2-flexibility"}
 
 轻松更换实现：
 
@@ -366,7 +366,7 @@ val testModule = module {
 }
 ```
 
-### 3. 代码组织
+### 3. 代码组织 {id="3-code-organization"}
 
 集中式的依赖配置：
 
@@ -390,7 +390,7 @@ startKoin {
 }
 ```
 
-### 4. 生命周期管理
+### 4. 生命周期管理 {id="4-lifecycle-management"}
 
 Koin 处理对象的生命周期：
 
@@ -402,7 +402,7 @@ val appModule = module {
 }
 ```
 
-## 总结
+## 总结 {id="summary"}
 
 依赖注入是一种强大的模式，它能够：
 - 将组件与其依赖项**解耦**。
@@ -416,7 +416,7 @@ Koin 通过以下方式简化了 Kotlin 中的 DI：
 - 通过编译器插件提供**编译时安全性**。
 - **无需反射** - 纯 Kotlin 实现。
 
-## 下一步
+## 下一步 {id="next-steps"}
 
 - **[什么是 Koin？](/docs/intro/what-is-koin)** - 了解 Koin 的方法。
 - **[Koin 编译器插件](/docs/intro/koin-compiler-plugin)** - 推荐的更安全的方法。

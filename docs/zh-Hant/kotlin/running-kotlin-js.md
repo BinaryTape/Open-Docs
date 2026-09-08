@@ -10,7 +10,7 @@ fun main() {
 
 根據目標平台的不同，第一次執行程式碼時可能需要一些平台特定的額外設定。
 
-## 執行 Node.js 目標
+## 執行 Node.js 目標 {id="run-the-node-js-target"}
 
 當使用 Kotlin/JS 以 Node.js 為目標時，您只需執行 `jsNodeDevelopmentRun` Gradle 任務。例如，可以透過命令列使用 Gradle wrapper 來完成：
 
@@ -26,7 +26,7 @@ fun main() {
 
 ![在 IntelliJ IDEA 的 Kotlin Multiplatform 專案中執行 JS 目標](cli-output.png){width=700}
 
-## 執行瀏覽器目標
+## 執行瀏覽器目標 {id="run-the-browser-target"}
 
 以瀏覽器為目標時，您的專案必須有一個 HTML 頁面。在您開發應用程式時，此頁面將由開發伺服器提供，並且應該嵌入您編譯好的 Kotlin/JS 檔案。建立並填寫一個 HTML 檔案 `/src/jsMain/resources/index.html`：
 

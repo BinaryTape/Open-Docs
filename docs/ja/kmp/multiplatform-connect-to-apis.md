@@ -4,14 +4,14 @@
 
 <video src="https://www.youtube.com/v/bSNumV04y_w" title="Using Platform-Specific APIs in KMP Apps"/>
 
-## Kotlin マルチプラットフォームライブラリ
+## Kotlin マルチプラットフォームライブラリ {id="kotlin-multiplatform-libraries"}
 
 プラットフォーム固有の API を使用するコードを書く前に、代わりにマルチプラットフォームライブラリを使用できるかどうかを確認してください。
 このタイプのライブラリは、プラットフォームごとに異なる実装を持つ共通の Kotlin API を提供します。
 
 ネットワーク、ロギング、アナリティクスの実装や、デバイス機能へのアクセスなどに使用できるライブラリがすでに多数存在します。Kotlin Multiplatform ライブラリの検索プラットフォームである [klibs.io](https://klibs.io) でライブラリを探してみてください。
 
-## expect と actual による関数とプロパティ
+## expect と actual による関数とプロパティ {id="expected-and-actual-functions-and-properties"}
 
 Kotlin は、共通ロジックを開発しながらプラットフォーム固有の API にアクセスするための言語メカニズムとして、[expect および actual 宣言](multiplatform-expect-actual.md)を提供しています。
 
@@ -23,7 +23,7 @@ Kotlin は、共通ロジックを開発しながらプラットフォーム固�
 
 この例では、共通ソースセットで期待される `platform()` 関数を定義し、プラットフォームソースセットで実際の（actual）実装を提供します。特定のプラットフォーム向けにコードを生成する際、Kotlin コンパイラは `expect` 宣言と `actual` 宣言をマージします。これにより、実際の実装を持つ 1 つの `platform()` 関数が生成されます。`expect` 宣言と `actual` 宣言は同じパッケージ内に定義される必要があり、最終的なプラットフォームコードでは _1 つの宣言_ にマージされます。生成されたプラットフォームコード内で `expect` 宣言された `platform()` 関数を呼び出すと、対応する正しい `actual` 実装が呼び出されます。
 
-### 例: UUID の生成
+### 例: UUID の生成 {id="example-generate-a-uuid"}
 
 Kotlin Multiplatform を使用して iOS および Android アプリケーションを開発しており、汎用一意識別子（UUID）を生成したいと仮定しましょう。
 
@@ -62,7 +62,7 @@ Android 用の最終的なプラットフォームコードを生成する際、
 
 `expect`/`actual` 関数と同様に、`expect`/`actual` プロパティを使用すると、プラットフォームごとに異なる値を使用できます。`expect`/`actual` の関数とプロパティは、単純なケースで最も役立ちます。
 
-## 共通コード内でのインターフェース
+## 共通コード内でのインターフェース {id="interfaces-in-common-code"}
 
 プラットフォーム固有のロジックが非常に大きく複雑な場合は、共通コードでそれを表すインターフェースを定義し、プラットフォームソースセットで異なる実装を提供することで、コードを簡素化できます。
 
@@ -101,7 +101,7 @@ class IOSPlatform : Platform {
 * [異なるエントリポイントを介して実装を提供する](#different-entry-points)
 * [依存性注入（DI）フレームワークを使用する](#dependency-injection-framework)
 
-### expect と actual による関数
+### expect と actual による関数 {id="expected-and-actual-functions"}
 
 このインターフェースの値を返す `expect` 関数を定義し、次にそのサブクラスを返す `actual` 関数を定義します。
 
@@ -130,7 +130,7 @@ actual fun platform() = IOSPlatform()
 この共通コードを Android で実行すると、`platform()` の呼び出しは `AndroidPlatform` クラスのインスタンスを返します。
 iOS で実行すると、`platform()` は `IOSPlatform` クラスのインスタンスを返します。
 
-### 異なるエントリポイント
+### 異なるエントリポイント {id="different-entry-points"}
 
 エントリポイントを制御できる場合は、`expect`/`actual` 宣言を使用せずに各プラットフォームアーティファクトの実装を構築できます。これを行うには、共有の Kotlin Multiplatform モジュールでプラットフォームの実装を定義し、プラットフォームモジュール側でそれらをインスタンス化します。
 
@@ -183,7 +183,7 @@ Android では、`AndroidPlatform` のインスタンスを作成して `applica
 
 `expect`/`actual` 関数を使用したり、エントリポイントを通じて直接提供したりして適切な実装を提供する方法は、単純なシナリオではうまく機能します。ただし、プロジェクトで依存性注入（DI）フレームワークを使用している場合は、一貫性を確保するために、単純なケースであっても DI フレームワークを使用することをお勧めします。
 
-### 依存性注入（DI）フレームワーク
+### 依存性注入（DI）フレームワーク {id="dependency-injection-framework"}
 
 現代的なアプリケーションでは、通常、疎結合なアーキテクチャを作成するために依存性注入（DI）フレームワークを使用します。DI フレームワークを使用すると、現在の環境に基づいてコンポーネントに依存関係を注入できます。
 
@@ -232,6 +232,6 @@ DI フレームワークを使用する場合、すべての依存関係をそ�
 
 <!-- If you're interested in having this functionality expanded to a shared module, please vote for this issue in Youtrack and describe your use case. -->
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 `expect`/`actual` メカニズムの例と詳細については、[expect および actual 宣言](multiplatform-expect-actual.md)を参照してください。

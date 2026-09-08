@@ -3,7 +3,7 @@
 要设计一个稳健且用户友好的 Kotlin 库，必须预见常见的用例、允许扩展并强制执行正确的用法。
 遵循默认设置、错误处理和状态管理的最佳做法，可以确保用户获得无缝体验，同时维护库的完整性和质量。
 
-## 默认执行正确操作
+## 默认执行正确操作 {id="do-the-right-thing-by-default"}
 
 你的库应该预见每个用例的“正常路径 (happy path)”，并据此提供默认设置。
 用户不应该需要提供默认值即可让库正常工作。
@@ -20,7 +20,7 @@ val response: HttpResponse = client.get("https://ktor.io/")
 
 如果某个用例没有明显的“正常路径”，或者某个形参应该有默认值但没有无争议的选项，这可能表明需求分析存在缺陷。
 
-## 提供扩展机会
+## 提供扩展机会 {id="allow-opportunities-for-extension"}
 
 当无法预见正确的选择时，应允许用户指定他们偏好的方式。
 你的库还应该让用户能够提供自己的方案或使用第三方扩展。
@@ -43,7 +43,7 @@ val client = HttpClient(CIO) {
 此外，用户可以为库中的类型定义扩展函数和属性。
 作为库作者，你可以通过[在设计时考虑扩展](api-guidelines-readability.md#use-extension-functions-and-properties)并确保库的类型具有清晰的核心概念来简化这一过程。
 
-## 防止无用和无效的扩展
+## 防止无用和无效的扩展 {id="prevent-unwanted-and-invalid-extensions"}
 
 用户不应能够以违反原始设计或在问题域规则内不可能实现的方式扩展你的库。
 
@@ -66,7 +66,7 @@ object JsonNull : JsonElement
 
 密封类型还使编译器能够确保你的 `when` 表达式是穷举的，而无需 `else` 语句，从而提高可读性和一致性。
 
-## 避免暴露可变状态
+## 避免暴露可变状态 {id="avoid-exposing-mutable-state"}
 
 在管理多个值时，你的 API 应尽可能接受和/或返回只读集合。
 可变集合不是线程安全的，会给你的库引入复杂性和不可预测性。
@@ -99,7 +99,7 @@ fun main() {
 }
 ```
 
-## 验证输入和状态
+## 验证输入和状态 {id="validate-inputs-and-state"}
 
 在执行实现之前，通过验证输入和现有状态来确保你的库被正确使用。
 使用 [`require`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/require.html) 函数验证输入，使用 [`check`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/check.html) 函数验证现有状态。
@@ -145,7 +145,7 @@ class ShoppingCart {
 }
 ```
 
-## 下一步
+## 下一步 {id="next-step"}
 
 在指南的下一部分中，你将学习调试性。
 

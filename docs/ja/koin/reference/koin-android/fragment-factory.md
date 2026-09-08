@@ -8,15 +8,15 @@ Koinは、Fragmentでのコンストラクタインジェクションを可能�
 Fragment FactoryはDSLのみを使用します。アノテーション（Annotation）およびコンパイラプラグイン（Compiler Plugin）のDSLサポートは、現在まだ利用できません。
 :::
 
-## セットアップ
+## セットアップ {id="setup"}
 
-### 依存関係の追加
+### 依存関係の追加 {id="add-dependency"}
 
 ```groovy
 implementation "io.insert-koin:koin-android:$koin_version"
 ```
 
-### Fragment Factory の構成
+### Fragment Factory の構成 {id="configure-fragment-factory"}
 
 Koinの設定で、Fragment Factoryを有効にします。
 
@@ -28,7 +28,7 @@ startKoin {
 }
 ```
 
-## Fragment の宣言
+## Fragment の宣言 {id="declaring-fragments"}
 
 コンストラクタインジェクションとともに `fragment` DSLキーワードを使用します。
 
@@ -43,9 +43,9 @@ val appModule = module {
 }
 ```
 
-## Fragment の使用
+## Fragment の使用 {id="using-fragments"}
 
-### Activity でのセットアップ
+### Activity でのセットアップ {id="setup-in-activity"}
 
 `super.onCreate()` の**前に** `setupKoinFragmentFactory()` を呼び出します。
 
@@ -62,7 +62,7 @@ class MyActivity : AppCompatActivity() {
 }
 ```
 
-### Fragment の追加
+### Fragment の追加 {id="add-fragment"}
 
 具象化（reified）された拡張関数を使用します。
 
@@ -84,7 +84,7 @@ supportFragmentManager.beginTransaction()
     .commit()
 ```
 
-## Fragment Factory とスコープ
+## Fragment Factory とスコープ {id="fragment-factory-with-scopes"}
 
 Fragmentで Activity スコープの依存関係を使用する場合：
 
@@ -113,7 +113,7 @@ class MyActivity : AppCompatActivity(), AndroidScopeComponent {
 }
 ```
 
-## クイックリファレンス
+## クイックリファレンス {id="quick-reference"}
 
 | アクション | コード |
 |--------|------|
@@ -122,7 +122,7 @@ class MyActivity : AppCompatActivity(), AndroidScopeComponent {
 | スコープを使用したセットアップ | `setupKoinFragmentFactory(scope)` |
 | Fragment の追加 | `.replace<MyFragment>(R.id.container)` |
 
-## 次のステップ
+## 次のステップ {id="next-steps"}
 
 - **[AndroidX Fragment](https://developer.android.com/guide/fragments)** - 公式 Fragment ドキュメント
 - **[Scopes](/docs/reference/koin-android/scope)** - Android スコープ

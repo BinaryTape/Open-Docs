@@ -8,7 +8,7 @@ Lombok 编译器插件不能替代 [Lombok](https://projectlombok.org/)，但它
 因此，在使用此插件时，你仍需按照常规方式配置 Lombok。
 详细了解 [如何配置 Lombok 编译器插件](#using-the-lombok-configuration-file)。
 
-## 支持的注解
+## 支持的注解 {id="supported-annotations"}
 
 该插件支持以下注解：
 * `@Getter`、`@Setter`
@@ -26,7 +26,7 @@ Lombok 编译器插件不能替代 [Lombok](https://projectlombok.org/)，但它
 >
 {style="note"}
 
-## Gradle
+## Gradle {id="gradle"}
 
 在 `build.gradle(.kts)` 文件中应用 `kotlin-plugin-lombok` Gradle 插件：
 
@@ -55,7 +55,7 @@ plugins {
 
 请参阅此[包含 Lombok 编译器插件使用示例的测试项目](https://github.com/kotlin-hands-on/kotlin-lombok-examples/tree/master/kotlin_lombok_gradle/nokapt)。
 
-### 使用 Lombok 配置文件
+### 使用 Lombok 配置文件 {id="using-the-lombok-configuration-file"}
 
 如果你使用 [Lombok 配置文件](https://projectlombok.org/features/configuration) `lombok.config`，你需要设置文件路径以便插件能够找到它。
 该路径必须相对于模块目录。
@@ -84,7 +84,7 @@ kotlinLombok {
 
 请参阅此[包含 Lombok 编译器插件和 `lombok.config` 使用示例的测试项目](https://github.com/kotlin-hands-on/kotlin-lombok-examples/tree/master/kotlin_lombok_gradle/withconfig)。
 
-## Maven
+## Maven {id="maven"}
 
 要使用 Lombok 编译器插件，请将插件 `lombok` 添加到 `compilerPlugins` 部分，并将依赖项 `kotlin-maven-lombok` 添加到 `dependencies` 部分。
 如果你使用 [Lombok 配置文件](https://projectlombok.org/features/configuration) `lombok.config`，请在 `pluginOptions` 中为插件提供其路径。将以下几行添加到 `pom.xml` 文件中：
@@ -120,7 +120,7 @@ kotlinLombok {
 
 请参阅此[包含 Lombok 编译器插件和 `lombok.config` 使用示例的测试项目](https://github.com/kotlin-hands-on/kotlin-lombok-examples/tree/master/kotlin_lombok_maven/nokapt)。
 
-## 配合 kapt 使用
+## 配合 kapt 使用 {id="using-with-kapt"}
 
 默认情况下，[kapt](kapt.md) 编译器插件会运行所有注解处理器并禁用 javac 的注解处理。
 要让 [Lombok](https://projectlombok.org/) 与 kapt 配合运行，请设置 kapt 以保持 javac 的注解处理器正常工作。
@@ -160,7 +160,7 @@ kapt {
 * 使用 [Gradle](https://github.com/JetBrains/kotlin/tree/master/libraries/tools/kotlin-gradle-plugin-integration-tests/src/test/resources/testProject/lombokProject/yeskapt)。
 * 使用 [Maven](https://github.com/kotlin-hands-on/kotlin-lombok-examples/tree/master/kotlin_lombok_maven/yeskapt)
 
-## 命令行编译器
+## 命令行编译器 {id="command-line-compiler"}
 
 Kotlin 编译器的二进制发行版中提供了 Lombok 编译器插件 JAR。你可以通过使用 `Xplugin` kotlinc 选项并提供其 JAR 文件路径来挂载该插件：
 

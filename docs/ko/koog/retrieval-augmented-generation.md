@@ -10,14 +10,14 @@ Koog는 검색 증강 생성 (Retrieval-augmented generation, RAG)을 위한 빌
 
 이 페이지에서는 현재 `rag` 모듈에서 사용할 수 있는 기능과 사용법을 중점적으로 다룹니다.
 
-## Koog가 현재 제공하는 것
+## Koog가 현재 제공하는 것 {id="what-koog-provides-today"}
 
 현재 RAG 지원은 두 개의 모듈로 나뉩니다:
 
 - `rag-base`: 검색, 저장, 검색 요청, 필터링, 파일/문서 제공자를 위한 공통 추상화
 - `rag-vector`: 문서 임베딩과 벡터 저장소를 결합한 로컬 구현체
 
-## EmbeddingStorage를 사용한 문서 임베딩 및 검색
+## EmbeddingStorage를 사용한 문서 임베딩 및 검색 {id="embedding-and-retrieving-documents-with-embeddingstorage"}
 
 `rag-vector` 모듈의 `EmbeddingStorage`를 사용하면 즉시 사용 가능한 가장 완전한 RAG 플로우를 구축할 수 있습니다. 이는 `DocumentEmbedder`(문서를 벡터로 변환)와 `VectorStorageBackend`(벡터를 영구 저장)를 결합합니다.
 
@@ -101,7 +101,7 @@ Koog는 검색 증강 생성 (Retrieval-augmented generation, RAG)을 위한 빌
     ```
     <!--- KNIT example-retrieval-augmented-generation-java-01.java -->
 
-## 에이전트 도구로 관련성 검색 제공하기 (에이전트 기반 RAG)
+## 에이전트 도구로 관련성 검색 제공하기 (에이전트 기반 RAG) {id="providing-relevance-search-as-an-agent-tool-in-agentic-rag"}
 
 검색된 모든 문서를 미리 프롬프트에 주입하는 대신, RAG 저장소를 에이전트가 필요할 때 호출하는 도구로 노출할 수 있습니다. 이를 통해 에이전트는 언제 무엇을 검색할지 스스로 제어할 수 있습니다.
 
@@ -207,20 +207,20 @@ Koog는 검색 증강 생성 (Retrieval-augmented generation, RAG)을 위한 빌
 
 이러한 방식을 통해 에이전트는 사용자의 쿼리에 따라 검색 도구를 호출할 시점을 스스로 결정합니다. 이는 에이전트가 다양한 요청을 처리하며 그중 일부만 지식 베이스 조회가 필요한 경우에 유용합니다.
 
-## 사용 가능한 구현체
+## 사용 가능한 구현체 {id="available-implementations"}
 
-### 벡터 저장소 백엔드 (Vector storage backends)
+### 벡터 저장소 백엔드 (Vector storage backends) {id="vector-storage-backends"}
 
 - `InMemoryVectorStorageBackend`: 벡터를 메모리에 저장합니다. 테스트 및 프로토타입에 적합합니다.
 - `FileVectorStorageBackend`: 재시작 후에도 유지되도록 벡터를 디스크에 저장합니다.
 - `JVMFileVectorStorageBackend`: `java.nio.file.Path`를 사용하는 JVM 전용 파일 기반 백엔드입니다.
 
-### 문서 임베더 (Document embedders)
+### 문서 임베더 (Document embedders) {id="document-embedders"}
 
 - `TextDocumentEmbedder`: 문서 및 경로 유형에 따라 매개변수화된 일반적인 문서-텍스트 임베더입니다.
 - `JVMTextDocumentEmbedder`: `java.nio.file.Path`에서 파일을 읽는 JVM 전용 임베더입니다.
 
-### 결합된 저장소 구현체 (Combined storage implementations)
+### 결합된 저장소 구현체 (Combined storage implementations) {id="combined-storage-implementations"}
 
 - `EmbeddingStorage`: 임의의 `DocumentEmbedder`와 임의의 `VectorStorageBackend`를 결합합니다.
 - `InMemoryDocumentEmbeddingStorage`: `EmbeddingStorage` + `InMemoryVectorStorageBackend`를 위한 편의용 구현체입니다.
@@ -229,7 +229,7 @@ Koog는 검색 증강 생성 (Retrieval-augmented generation, RAG)을 위한 빌
 - `TextFileDocumentEmbeddingStorage`: 텍스트 문서용 파일 기반 저장소입니다.
 - `JVMFileEmbeddingStorage`: 텍스트 문서용 JVM 파일 기반 저장소입니다.
 
-## 현재 제한 사항
+## 현재 제한 사항 {id="current-limitations"}
 
 내장된 플로우는 로컬 및 참조 구현에는 유용하지만, 아직 완전한 프로덕션용 RAG 플랫폼은 아닙니다.
 
@@ -242,7 +242,7 @@ Koog는 검색 증강 생성 (Retrieval-augmented generation, RAG)을 위한 빌
 
 사용자 정의 백엔드를 구축하려는 경우, `rag-base` 추상화에서 시작하여 자체 저장소 어댑터를 구현하세요.
 
-## 시작하기 위한 선택 가이드
+## 시작하기 위한 선택 가이드 {id="choosing-where-to-start"}
 
 다음의 경우 `rag-vector`를 사용하세요:
 
@@ -256,6 +256,6 @@ Koog는 검색 증강 생성 (Retrieval-augmented generation, RAG)을 위한 빌
 - 외부 벡터 데이터베이스를 연동하려는 경우
 - 다른 Koog 모듈에서 추상화를 재사용하려는 경우
 
-## 참고 항목
+## 참고 항목 {id="see-also"}
 
 - [임베딩(Embeddings)](embeddings.md)

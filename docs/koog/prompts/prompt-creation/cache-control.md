@@ -8,11 +8,11 @@ Prompt 缓存控制允许您指示受支持的 LLM 提供者在服务器端存�
 
 Koog 支持 **Anthropic** 和 **Amazon Bedrock** 的 prompt 缓存控制。
 
-## Anthropic
+## Anthropic {id="anthropic"}
 
 Anthropic 支持两种互补的 prompt 缓存方法。
 
-### 自动缓存（请求级）
+### 自动缓存（请求级） {id="automatic-caching-request-level"}
 
 在 [`AnthropicParams`](../../llm-parameters.md) 上设置 `cacheControl` 属性并将其传递给您的 prompt。
 Anthropic 将自动在请求中最后一个可缓存块处放置缓存断点，而无需您手动为单个消息添加注解。
@@ -73,11 +73,11 @@ Anthropic 将自动在请求中最后一个可缓存块处放置缓存断点，�
     ```
     <!--- KNIT example-cache-control-java-01.java -->
 
-### 手动缓存（块级）
+### 手动缓存（块级） {id="manual-caching-block-level"}
 
 为单个消息或工具定义附加 `cacheControl` 实参，以便在特定位置放置缓存断点。到被注解块（含该块）为止的所有内容都符合缓存条件。
 
-#### 系统消息
+#### 系统消息 {id="system-messages"}
 
 === "Kotlin"
 
@@ -124,7 +124,7 @@ Anthropic 将自动在请求中最后一个可缓存块处放置缓存断点，�
     ```
     <!--- KNIT example-cache-control-java-02.java -->
 
-#### 用户和助手消息
+#### 用户和助手消息 {id="user-and-assistant-messages"}
 
 === "Kotlin"
 
@@ -176,7 +176,7 @@ Anthropic 将自动在请求中最后一个可缓存块处放置缓存断点，�
     ```
     <!--- KNIT example-cache-control-java-03.java -->
 
-#### 工具定义
+#### 工具定义 {id="tool-definitions"}
 
 当工具列表在许多请求中固定不变时，缓存最后一个工具定义意味着所有工具架构都会被一起缓存。
 
@@ -224,7 +224,7 @@ Anthropic 将自动在请求中最后一个可缓存块处放置缓存断点，�
     ```
     <!--- KNIT example-cache-control-java-04.java -->
 
-### 缓存 TTL 选项
+### 缓存 TTL 选项 {id="cache-ttl-options"}
 
 | 选项 | TTL | 价格乘数 |
 |-------------------------------|----------|-------------------------|
@@ -233,7 +233,7 @@ Anthropic 将自动在请求中最后一个可缓存块处放置缓存断点，�
 
 缓存写入的费用高于常规输入 token，但缓存读取的费用更低。有关当前定价，请参阅 [Anthropic prompt 缓存文档](https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching)。
 
-### 监控缓存用量
+### 监控缓存用量 {id="monitoring-cache-usage"}
 
 Anthropic 在响应用量中报告缓存统计数据。这些数据可通过原始 API 响应访问，并可通过跟踪或日志记录功能进行观察。
 
@@ -242,7 +242,7 @@ Anthropic 在响应用量中报告缓存统计数据。这些数据可通过原�
 | `cacheReadInputTokens` | 从现有缓存条目中读取的 token 数 |
 | `cacheCreationInputTokens` | 写入新缓存条目的 token 数 |
 
-### 结合自动缓存与块级缓存
+### 结合自动缓存与块级缓存 {id="combining-automatic-and-block-level-caching"}
 
 两种模式可以同时使用。块级 `cacheControl` 标记可让您对断点位置进行细粒度控制，而 `AnthropicParams` 中的请求级 `cacheControl` 则自动处理对话的尾部。
 
@@ -291,7 +291,7 @@ Anthropic 在响应用量中报告缓存统计数据。这些数据可通过原�
 
 ---
 
-## Amazon Bedrock
+## Amazon Bedrock {id="amazon-bedrock"}
 
 Amazon Bedrock 通过 Converse API 使用块级缓存模型。当在消息或工具上设置 `cacheControl` 时，Bedrock 会在被注解的元素之后立即插入一个 `CachePoint` 块。
 
@@ -467,7 +467,7 @@ Amazon Bedrock 通过 Converse API 使用块级缓存模型。当在消息或工
 
 ---
 
-## 选择缓存策略
+## 选择缓存策略 {id="choosing-a-caching-strategy"}
 
 | 情况 | 推荐方法 |
 |---------------------------------------------------|-------------------------------------------------------------|

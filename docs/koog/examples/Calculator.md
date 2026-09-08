@@ -16,7 +16,7 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Calc
 
 我们将保持 API 整洁且符合 Kotlin 惯例，返回可预测的结果并优雅地处理边缘情况（如除以零）。
 
-## 设置
+## 设置 {id="setup"}
 
 我们假设你处于已安装 Koog 的 Kotlin Notebook 环境中。
 提供一个 LLM 执行器。
@@ -31,7 +31,7 @@ val OPENAI_API_KEY = System.getenv("OPENAI_API_KEY")
 val executor = simpleOpenAIExecutor(OPENAI_API_KEY)
 ```
 
-## 计算器工具
+## 计算器工具 {id="calculator-tools"}
 
 工具是具有清晰契约的小巧、纯净的函数。
 我们将使用 `Double` 以获得更好的精度，并保持输出格式的一致性。
@@ -80,7 +80,7 @@ class CalculatorTools : ToolSet {
 }
 ```
 
-## 工具注册表
+## 工具注册表 {id="tool-registry"}
 
 公开我们的工具（以及两个用于交互/日志记录的内置工具）。
 
@@ -92,7 +92,7 @@ val toolRegistry = ToolRegistry {
 }
 ```
 
-## 策略：多工具调用（可选压缩）
+## 策略：多工具调用（可选压缩） {id="strategy-multiple-tool-calls-with-optional-compression"}
 
 此策略允许 LLM **同时提出多个工具调用**（例如 `plus`、`minus`、`multiply`、`divide`），然后将结果发回。
 如果 token 使用量增长过大，我们会在继续之前**压缩**工具结果的历史记录。
@@ -139,7 +139,7 @@ object CalculatorStrategy {
 }
 ```
 
-## 智能体配置
+## 智能体配置 {id="agent-configuration"}
 
 以工具为导向的简洁提示词效果很好。保持较低的 temperature 以获得确定性的数学运算结果。
 
@@ -176,7 +176,7 @@ val agent = AIAgent(
 }
 ```
 
-## 试一试
+## 试一试 {id="try-it"}
 
 智能体应该将表达式分解为并行的工具调用，并返回格式整齐的结果。
 
@@ -199,7 +199,7 @@ runBlocking {
 
     表达式 \((10 + 20) * (5 + 5) / (2 - 11)\) 的结果大约是 \(-33.33\)。
 
-## 尝试强制并行调用
+## 尝试强制并行调用 {id="try-forcing-parallel-calls"}
 
 要求模型一次性调用所有需要的工具。
 你仍然应该看到正确的方案和稳定的执行。
@@ -219,7 +219,7 @@ runBlocking {
 
     \((10 + 20) * (5 + 5) / (2 - 11)\) 的结果大约是 \(-3.33\)。
 
-## 使用 Ollama 运行
+## 使用 Ollama 运行 {id="running-with-ollama"}
 
 如果你更喜欢本地推理，请更换执行器和模型。
 

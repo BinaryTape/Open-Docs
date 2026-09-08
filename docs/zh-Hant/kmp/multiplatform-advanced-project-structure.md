@@ -20,7 +20,7 @@ title: 多平台專案結構的進階概念
 >
 {style="tip"}
 
-## dependsOn 與原始碼集階層結構
+## dependsOn 與原始碼集階層結構 {id="dependson-and-source-set-hierarchies"}
 
 通常情況下，您會處理「相依性」（dependencies）而非「`dependsOn`」關係。然而，檢查 `dependsOn` 對於理解 Kotlin Multiplatform 專案的底層運作原理至關重要。
 
@@ -60,7 +60,7 @@ kotlin {
 您不能使用 `dependsOn` 來宣告對已發佈程式庫或另一個 Gradle 專案的常規相依性。
 例如，您不能將 `commonMain` 設定為依賴 `kotlinx-coroutines-core` 程式庫的 `commonMain`，也不能呼叫 `commonTest.dependsOn(commonMain)`。
 
-### 宣告自訂原始碼集
+### 宣告自訂原始碼集 {id="declaring-custom-source-sets"}
 
 在某些情況下，您可能需要在專案中建立自訂的中間原始碼集。
 假設一個專案編譯至 JVM、JS 和 Linux，而您只想在 JVM 和 JS 之間共用某些原始碼。
@@ -123,7 +123,7 @@ kotlin {
 >
 {style="note"}
 
-## 對其他程式庫或專案的相依性
+## 對其他程式庫或專案的相依性 {id="dependencies-on-other-libraries-or-projects"}
 
 在多平台專案中，您可以對已發佈的程式庫或另一個 Gradle 專案設定常規相依性。
 
@@ -202,7 +202,7 @@ kotlin {
 
    ![通用程式碼中 JVM 特定 API 的錯誤](dependency-resolution-error.png){width=700}
 
-### 跨原始碼集對齊通用相依性的版本
+### 跨原始碼集對齊通用相依性的版本 {id="aligning-versions-of-common-dependencies-across-source-sets"}
 
 在 Kotlin Multiplatform 專案中，通用原始碼集會被編譯多次以產出 klib，並作為每個配置的[編譯](multiplatform-configure-compilations.md)的一部分。為了產出一致的二進位檔案，通用程式碼每次都應針對相同版本的多平台相依性進行編譯。
 Kotlin Gradle 外掛程式有助於對齊這些相依性，確保每個原始碼集的有效相依性版本相同。
@@ -224,7 +224,7 @@ Kotlin Gradle 外掛程式有助於對齊這些相依性，確保每個原始碼
 
 ![測試原始碼集與主原始碼集分開解析相依性](test-main-source-set-dependency-alignment.svg)
 
-## 編譯
+## 編譯 {id="compilations"}
 
 與單平台專案不同，Kotlin Multiplatform 專案需要多次啟動編譯器才能建置所有產物。
 每次啟動編譯器都是一次 *Kotlin 編譯*。

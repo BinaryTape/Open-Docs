@@ -2,7 +2,7 @@
 
 本頁面提供有關 Koog 代理框架中 LLM 參數的詳細資訊。LLM 參數讓您可以控制並自訂語言模型的行為。
 
-## 總覽
+## 總覽 {id="overview"}
 
 LLM 參數是用於微調語言模型產生回應方式的配置選項。這些參數控制回應的隨機性、長度、格式和工具使用等面向。透過調整參數，您可以針對不同的使用案例優化模型行為，從創意內容生成到確定性的結構化輸出。
 
@@ -154,7 +154,7 @@ LLM 參數是用於微調語言模型產生回應方式的配置選項。這些�
 
 如需更多關於工作階段的資訊，請參閱 [LLM 工作階段與手動歷程記錄管理](sessions.md)。
 
-## LLM 參數參考
+## LLM 參數參考 {id="llm-parameter-reference"}
 
 下表提供了 `LLMParams` 類別中包含的 LLM 參數參考，這些參數受 Koog 開箱即用的所有 LLM 提供者支援。
 如需特定提供者專用參數的清單，請參閱 [提供者專用參數](#provider-specific-parameters)。
@@ -182,12 +182,12 @@ LLM 參數是用於微調語言模型產生回應方式的配置選項。這些�
 - 阿里巴巴 β ([DashScope](https://www.alibabacloud.com/help/en/model-studio/qwen-api-reference))
 - [Ollama](https://docs.ollama.com/api/openai-compatibility)
 
-## 架構 (Schema)
+## 架構 (Schema) {id="schema"}
 
 `Schema` 介面定義了模型回應格式的結構。
 Koog 支援 JSON 架構，如下面各節所述。
 
-### JSON 架構
+### JSON 架構 {id="json-schemas"}
 
 JSON 架構讓您可以向語言模型要求結構化的 JSON 資料。Koog 支援以下兩種類型的 JSON 架構：
 
@@ -364,7 +364,7 @@ JSON 架構讓您可以向語言模型要求結構化的 JSON 資料。Koog 支�
     ```
     <!--- KNIT example-llm-parameters-java-05.java -->
 
-## 工具選擇 (Tool choice)
+## 工具選擇 (Tool choice) {id="tool-choice"}
 
 `ToolChoice` 類別控制語言模型如何使用工具。它提供以下選項：
 
@@ -410,7 +410,7 @@ JSON 架構讓您可以向語言模型要求結構化的 JSON 資料。Koog 支�
     ```
     <!--- KNIT example-llm-parameters-java-06.java -->
 
-## 提供者專用參數
+## 提供者專用參數 {id="provider-specific-parameters"}
 
 Koog 支援部分 LLM 提供者的專用參數。這些參數擴充了基礎的 `LLMParams` 類別並加入特定提供者的功能。以下類別包含各個提供者的專用參數：
 
@@ -613,9 +613,9 @@ Koog 支援部分 LLM 提供者的專用參數。這些參數擴充了基礎的 
     ```
     <!--- KNIT example-llm-parameters-java-07.java -->
 
-## 使用範例
+## 使用範例 {id="usage-examples"}
 
-### 基礎用法
+### 基礎用法 {id="basic-usage"}
 
 === "Kotlin"
 
@@ -655,7 +655,7 @@ Koog 支援部分 LLM 提供者的專用參數。這些參數擴充了基礎的 
     ```
     <!--- KNIT example-llm-parameters-java-08.java -->
 
-### 推理控制 (Reasoning control)
+### 推理控制 (Reasoning control) {id="reasoning-control"}
 
 您可以透過控制模型推理的提供者專用參數來實作推理控制。
 當使用 OpenAI Chat API 且模型支援推理時，請使用 `reasoningEffort` 參數來控制模型在提供回應前產生多少推理 token：
@@ -760,7 +760,7 @@ Koog 支援部分 LLM 提供者的專用參數。這些參數擴充了基礎的 
     ```
     <!--- KNIT example-llm-parameters-java-10.java -->
 
-### 自訂參數
+### 自訂參數 {id="custom-parameters"}
 
 若要新增特定提供者專用且 Koog 未原生支援的自訂參數，請使用 `additionalProperties` 屬性，如下例所示。
 
@@ -809,7 +809,7 @@ Koog 支援部分 LLM 提供者的專用參數。這些參數擴充了基礎的 
     ```
     <!--- KNIT example-llm-parameters-java-11.java -->
 
-### 設定與覆寫參數
+### 設定與覆寫參數 {id="setting-and-overriding-parameters"}
 
 下方的程式碼範例顯示如何定義一組您可能主要使用的 LLM 參數，然後透過部分覆寫原始組合中的值並新增新值來建立另一組參數。
 這讓您可以定義大多數請求通用的參數，同時加入更具體的參數組合，而無需重複通用參數。

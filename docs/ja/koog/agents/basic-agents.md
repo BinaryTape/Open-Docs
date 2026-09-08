@@ -19,7 +19,7 @@ LLMは、提供されたツールを呼び出すかどうかを決定します�
 
     このページの例では、`OPENAI_API_KEY` 環境変数が設定されていることを前提としています。
 
-## 最小限のエージェントを作成する
+## 最小限のエージェントを作成する {id="create-a-minimal-agent"}
 
 最も基本的なエージェントを作成するには、[`AIAgent`](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.agent/-a-i-agent/index.html) をインスタンス化し、[言語モデル](../model-capabilities.md#creating-a-model-llmodel-configuration)を備えた [プロンプトエグゼキューター](../prompts/prompt-executors.md) を提供します。
 
@@ -95,7 +95,7 @@ What's on your mind? Do you have a specific question, topic, or task you'd like 
 ```
 <!--- KNIT example-basic-01.txt -->
 
-## システムプロンプトを追加する
+## システムプロンプトを追加する {id="add-a-system-prompt"}
 
 [システムメッセージ](../prompts/prompt-creation/index.md#system-message)を提供して、エージェントの役割、およびタスクに関連する目的、コンテキスト、指示を定義します。
 
@@ -146,7 +146,7 @@ What's on your mind? Are you trying to understand a specific meme, need help fin
 ```
 <!--- KNIT example-basic-02.txt -->
 
-## LLM出力を構成する
+## LLM出力を構成する {id="configure-llm-output"}
 
 エージェントのコンストラクタ（Kotlin）に直接、またはビルダーメソッド（Java）を介していくつかの [LLMパラメータ](../llm-parameters.md#llm-parameter-reference) を提供して、LLMの動作をカスタマイズできます。
 例えば、生成されるレスポンスのランダム性を調整するには `temperature` パラメータを使用します。
@@ -220,7 +220,7 @@ What's on your mind? Are you trying to understand a specific meme, need help fin
     ```
     <!--- KNIT example-basic-05.txt -->
 
-## ツールを追加する
+## ツールを追加する {id="add-tools"}
 
 エージェントは [ツール](../tools/index.md) を使用して特定のタスクを実行できます。
 
@@ -350,7 +350,7 @@ The meme is known for its lighthearted and playful tone, and is often used to ex
 ```
 <!--- KNIT example-basic-06.txt -->
 
-## エージェントのイテレーションを調整する
+## エージェントのイテレーションを調整する {id="adjust-agent-iterations"}
 
 無限ループを避けるため、Koogは任意のエージェントが実行できるステップ数を制限しています（デフォルトは50回）。
 エージェントがより多くのステップ（ツールの呼び出しやLLMのリクエストなど）を必要とすることが予想される場合は `maxIterations` パラメータを使用してこの制限を増やすか、数ステップしか必要としないエージェントの場合は減らします。
@@ -445,7 +445,7 @@ The meme is known for its lighthearted and playful tone, and is often used to ex
     モデル、温度、最大イテレーション、その他のパラメータを Kotlin のコンストラクタや Java のビルダーに直接渡す代わりに、それらを別の構成オブジェクトとして定義して渡すこともできます。
     詳細については、[エージェントの構成](index.md#agent-configuration)を参照してください。
 
-## エージェントの実行中にイベントを処理する
+## エージェントの実行中にイベントを処理する {id="handle-events-during-agent-runtime"}
 
 テストやデバッグの支援、およびチェーンされたエージェントのやり取りのためのフックを作成するために、Koogは [EventHandler](https://api.koog.ai/agents/agents-features/agents-features-event-handler/ai.koog.agents.features.eventHandler.feature/-event-handler/index.html) 機能を提供しています。
 
@@ -560,6 +560,6 @@ Tool called: askUser with args {"question":"Which meme would you like me to expl
 
 Koog エージェントの機能の詳細については、[機能](../features/index.md) を参照してください。
 
-## 次のステップ
+## 次のステップ {id="next-steps"}
 
 - [グラフベースのエージェント](graph-based-agents.md) や [関数型エージェント](functional-agents.md) の構築について詳しく学ぶ

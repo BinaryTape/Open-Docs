@@ -9,13 +9,13 @@ title: Android とアノテーション
 更新 - 2024-10-21
 :::
 
-## コードの取得
+## コードの取得 {id="get-the-code"}
 
 :::info
 [ソースコードは GitHub で公開されています](https://github.com/InsertKoinIO/koin-getting-started/tree/main/android-annotations)
 :::
 
-## Gradle の設定
+## Gradle の設定 {id="gradle-setup"}
 
 KSP プラグインと以下の依存関係を次のように設定しましょう。
 
@@ -41,13 +41,13 @@ ksp {
 現在のバージョンについては `libs.versions.toml` を参照してください。
 :::
 
-## アプリケーションの概要
+## アプリケーションの概要 {id="application-overview"}
 
 このアプリケーションの構成は、ユーザーのリストを管理し、Presenter または ViewModel を使用して `MainActivity` クラスに表示するというものです。
 
 > Users -> UserRepository -> UserService -> (Presenter または ViewModel) -> MainActivity
 
-## 「User」データ
+## 「User」データ {id="the-user-data"}
 
 ユーザーのコレクションを管理します。データクラスは以下の通りです。
 
@@ -78,7 +78,7 @@ class UserRepositoryImpl : UserRepository {
 }
 ```
 
-## UserService コンポーネント
+## UserService コンポーネント {id="the-userservice-component"}
 
 ユーザー操作を管理するためのサービスコンポーネントを作成しましょう。
 
@@ -114,7 +114,7 @@ class UserServiceImpl(
 }
 ```
 
-## Koin モジュール
+## Koin モジュール {id="the-koin-module"}
 
 以下のように `AppModule` モジュールクラスを宣言しましょう。
 
@@ -145,7 +145,7 @@ class UserServiceImpl(private val userRepository: UserRepository) : UserService 
 
 `@Singleton` アノテーションは、これらのクラスを Koin のシングルトンとして宣言します。
 
-## Presenter によるユーザーの表示
+## Presenter によるユーザーの表示 {id="displaying-user-with-presenter"}
 
 ユーザーを表示するための Presenter コンポーネントを作成しましょう。
 
@@ -172,7 +172,7 @@ class UserPresenter(private val userService: UserService) {
 }
 ```
 
-## Android での依存性の注入
+## Android での依存性の注入 {id="injecting-dependencies-in-android"}
 
 `UserPresenter` コンポーネントが作成され、その際に `UserService` インスタンスが解決されます。これを Activity で取得するには、`by inject()` デリゲート関数を使用して注入します。
 
@@ -195,7 +195,7 @@ class MainActivity : AppCompatActivity() {
 `by inject()` 関数を使用すると、Android コンポーネントの実行時（Activity、Fragment、Service など）に Koin インスタンスを取得できます。
 :::
 
-## Koin の開始
+## Koin の開始 {id="start-koin"}
 
 Android アプリケーションで Koin を開始する必要があります。`@KoinApplication` アノテーションを使用すると、Koin は `@Configuration` が付与されたすべてのモジュールを自動的に検出し、ロードします。
 
@@ -227,7 +227,7 @@ class MainApplication : Application() {
 `@KoinApplication` アノテーションはモジュールの `@Configuration` と連携し、KSP を通じてコンパイル時にすべての依存関係を自動的に検出し、ロードします。
 :::
 
-## ViewModel によるユーザーの表示
+## ViewModel によるユーザーの表示 {id="displaying-user-with-viewmodel"}
 
 ユーザーを表示するための ViewModel コンポーネントを作成しましょう。
 
@@ -247,7 +247,7 @@ class UserViewModel(private val userService: UserService) : ViewModel() {
 
 `UserViewModel` は、`@KoinViewModel` アノテーションでタグ付けされ、Koin の ViewModel 定義として宣言されます。これにより、適切なライフサイクル管理が行われ、メモリリークが回避されます。
 
-## Android での ViewModel の注入
+## Android での ViewModel の注入 {id="injecting-viewmodel-in-android"}
 
 `UserViewModel` コンポーネントが作成され、その際に `UserService` インスタンスが解決されます。これを Activity で取得するには、`by viewModel()` デリゲート関数を使用して注入します。
 
@@ -264,7 +264,7 @@ class MainActivity : AppCompatActivity() {
 }
 ```
 
-## コンパイル時のチェック
+## コンパイル時のチェック {id="compile-time-checks"}
 
 Koin Annotations を使用すると、コンパイル時に Koin の設定をチェックできます。これは、以下の Gradle オプションを使用することで利用可能です。
 

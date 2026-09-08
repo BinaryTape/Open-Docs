@@ -6,7 +6,7 @@ title: 动态模块
 
 Koin 提供了 API 来动态加载和卸载与 Composable 生命周期绑定的模块。这对于功能模块、延迟加载和按需依赖项非常有用。
 
-## rememberKoinModules
+## rememberKoinModules {id="rememberkoinmodules"}
 
 在 Composable 进入组合 (composition) 时加载 Koin 模块：
 
@@ -25,7 +25,7 @@ fun FeatureScreen() {
 }
 ```
 
-### 多个模块
+### 多个模块 {id="multiple-modules"}
 
 ```kotlin
 @Composable
@@ -38,7 +38,7 @@ fun FeatureScreen() {
 }
 ```
 
-### 卸载模块
+### 卸载模块 {id="unloading-modules"}
 
 控制模块卸载的时机：
 
@@ -58,9 +58,9 @@ fun FeatureScreen() {
 | `unloadOnForgotten` | Composable 从组合中移除 |
 | `unloadOnAbandoned` | 组合失败或被放弃 |
 
-## 用例
+## 用例 {id="use-cases"}
 
-### 功能模块
+### 功能模块 {id="feature-modules"}
 
 按需加载特定功能的依赖项：
 
@@ -81,7 +81,7 @@ fun CheckoutScreen() {
 }
 ```
 
-### 延迟功能加载
+### 延迟功能加载 {id="lazy-feature-loading"}
 
 结合导航进行延迟功能加载：
 
@@ -103,7 +103,7 @@ NavHost(navController, startDestination = "home") {
 }
 ```
 
-### 调试/预览模块
+### 调试/预览模块 {id="debug-preview-modules"}
 
 为预览交换实现：
 
@@ -120,7 +120,7 @@ fun FeatureScreenPreview() {
 }
 ```
 
-### 条件模块
+### 条件模块 {id="conditional-modules"}
 
 根据条件加载模块：
 
@@ -135,7 +135,7 @@ fun App(isDebug: Boolean) {
 }
 ```
 
-## 结合延迟模块 (Lazy Modules)
+## 结合延迟模块 (Lazy Modules) {id="with-lazy-modules"}
 
 结合 Koin 的延迟模块加载以获得更好的性能：
 
@@ -154,7 +154,7 @@ fun FeatureScreen() {
 }
 ```
 
-## 最佳做法
+## 最佳做法 {id="best-practices"}
 
 1. **使用 `unloadOnForgotten = true`** - 防止内存泄漏
    ```kotlin
@@ -172,7 +172,7 @@ fun FeatureScreen() {
 
 5. **避免循环依赖** - 功能模块不应相互依赖
 
-## 后续步骤
+## 后续步骤 {id="next-steps"}
 
 - **[Compose 中的作用域](/docs/reference/koin-compose/compose-scopes)** - Scope API
 - **[Compose 概览](/docs/reference/koin-compose/compose)** - 设置与基础注入

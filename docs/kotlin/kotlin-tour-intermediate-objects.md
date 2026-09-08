@@ -4,7 +4,7 @@
 
 在本章节中，你将通过探索对象声明来扩展你对类的理解。这些知识将帮助你在项目中高效地管理行为。
 
-## 对象声明
+## 对象声明 {id="object-declarations"}
 
 在 Kotlin 中，你可以使用**对象声明**来声明一个具有单个实例的类。从某种意义上说，你在声明类的同时创建了该类的唯一实例。当你想要创建一个类作为程序的单一引用点，或者用于协调系统内的行为时，对象声明非常有用。
 
@@ -61,7 +61,7 @@ fun main(){
 >
 {style="note"}
 
-#### 数据对象
+#### 数据对象 {id="data-objects"}
 
 为了更方便地打印对象声明的内容，Kotlin 提供了**数据**对象。类似于你在初级教程中学到的数据类，数据对象会自动带有额外的成员函数：`toString()` 和 `equals()`。
 
@@ -95,7 +95,7 @@ fun main() {
 
 有关数据对象的更多信息，请参阅 [](object-declarations.md#data-objects)。
 
-#### 伴生对象
+#### 伴生对象 {id="companion-objects"}
 
 在 Kotlin 中，类可以拥有一个对象：**伴生**对象。每个类只能拥有**一个**伴生对象。伴生对象仅在首次引用其所属类时才会被创建。
 
@@ -136,7 +136,7 @@ fun main() {
 
 欲了解更多信息，请参阅 [](object-declarations.md#companion-objects)。
 
-## 练习 {completion-point="true"}
+## 练习 {completion-point="true" id="practice"}
 
 ### 习题 1 {initial-collapse-state="collapsed" collapsible="true" id="objects-exercise-1"}
 

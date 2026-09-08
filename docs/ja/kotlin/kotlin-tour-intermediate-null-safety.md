@@ -4,11 +4,11 @@
 
 初級編のツアーでは、コード内で `null` 値を扱う方法を学びました。この章では、Null安全機能の一般的なユースケースと、それらを最大限に活用する方法について説明します。
 
-## スマートキャストと安全なキャスト
+## スマートキャストと安全なキャスト {id="smart-casts-and-safe-casts"}
 
 Kotlinでは、明示的な宣言がなくても型を推論できる場合があります。変数やオブジェクトを特定の型に属しているかのように扱うようKotlinに指示するプロセスは、**キャスト**（casting）と呼ばれます。型が自動的にキャストされる場合（推論される場合など）、それは**スマートキャスト**（smart casting）と呼ばれます。
 
-### is および !is 演算子
+### is および !is 演算子 {id="is-and-is-operators"}
 
 キャストの仕組みを詳しく見る前に、オブジェクトが特定の型であるかどうかを確認する方法を見てみましょう。これには、`when` や `if` の条件式で `is` および `!is` 演算子を使用します。
 
@@ -50,7 +50,7 @@ fun main() {
 > 
 {style="tip"}
 
-### as および as? 演算子
+### as および as? 演算子 {id="as-and-as-operators"}
 
 オブジェクトを他の型に明示的に*キャスト*するには、`as` 演算子を使用します。これには、Null許容型からそれに対応する非Null型へのキャストも含まれます。キャストが不可能な場合、プログラムは**実行時に**クラッシュします。そのため、これは**安全ではない（unsafe）**キャスト演算子と呼ばれます。
 
@@ -124,7 +124,7 @@ fun calculateTotalStringLength(items: List<Any>): Int {
 * 安全な呼び出し `?.` を使用して、呼び出しが `null` を返さない場合に `length` プロパティにアクセスします。
 * エルビス演算子 `?:` を使用して、安全な呼び出しが `null` を返した場合には `0` を返します。
 
-## Null 値とコレクション
+## Null 値とコレクション {id="null-values-and-collections"}
 
 Kotlinにおいて、コレクションの操作には `null` 値の処理や不要な要素のフィルタリングが含まれることがよくあります。Kotlinには、リスト、セット、マップ、その他の種類のコレクションを扱う際に、クリーンで効率的、かつNull安全なコードを書くために役立つ関数が用意されています。
 
@@ -273,7 +273,7 @@ fun main() {
 
 コードをより安全にするために使用できるその他の関数については、Kotlinの [標準ライブラリ](https://kotlinlang.org/api/core/kotlin-stdlib/) を探索してください。
 
-## 早期リターンとエルビス演算子
+## 早期リターンとエルビス演算子 {id="early-returns-and-the-elvis-operator"}
 
 初級編のツアーでは、関数の処理を特定の地点で停止させるために [早期リターン](kotlin-tour-functions.md#early-returns-in-functions) を使用する方法を学びました。エルビス演算子 `?:` を早期リターンと組み合わせて使用することで、関数内の事前条件をチェックできます。このアプローチは、ネストされたチェックを使用する必要がないため、コードを簡潔に保つのに最適です。コードの複雑さが軽減されるため、メンテナンスも容易になります。例：
 
@@ -341,7 +341,7 @@ fun getNumberOfFriends(users: Map<Int, User>, userId: Int): Int {
 
 コードで `return` を使用する方法の詳細については、[リターンとジャンプ](returns.md) を参照してください。
 
-## 練習問題 {completion-point="true"}
+## 練習問題 {completion-point="true" id="practice"}
 
 ### 練習問題 1 {initial-collapse-state="collapsed" collapsible="true" id="null-safety-exercise-1"}
 

@@ -9,7 +9,7 @@
 >
 {style="note"}
 
-## 型別與解析
+## 型別與解析 {id="type-and-resolution"}
 
 解析佔據了底層 API 實作的大部分開銷。因此，型別參考被設計為由處理器明確解析（少數例外除外）。當參照一個 _型別_（例如 `KSFunctionDeclaration.returnType` 或 `KSAnnotation.annotationType`）時，它始終是一個 `KSTypeReference`，這是一個帶有註解和修飾詞的 `KSReferenceElement`。
 

@@ -7,7 +7,7 @@
 >
 {style="note"}
 
-## KDoc 語法
+## KDoc 語法 {id="kdoc-syntax"}
 
 就像 Javadoc 一樣，KDoc 註解以 `/**` 開頭並以 `*/` 結尾。註解的每一行都可以以星號開頭，這不會被視為註解內容的一部分。
 
@@ -36,11 +36,11 @@ class Group<T>(val name: String) {
 }
 ```
 
-### 區塊標籤
+### 區塊標籤 {id="block-tags"}
 
 KDoc 目前支援以下區塊標籤：
 
-### @param _name_
+### @param _name_ {id="param-name"}
 
 記載函式的數值參數或類別、屬性、函式的型別參數。為了更好地將參數名稱與描述分隔，如果您偏好，可以將參數名稱包裹在方括號中。因此，以下兩種語法是等效的：
 
@@ -49,43 +49,43 @@ KDoc 目前支援以下區塊標籤：
 @param[name] description.
 ```
 
-### @return
+### @return {id="return"}
 
 記載函式的傳回值。
 
-### @constructor
+### @constructor {id="constructor"}
 
 記載類別的主建構函數。
 
-### @receiver
+### @receiver {id="receiver"}
 
 記載擴充函式的接收者。
 
-### @property _name_
+### @property _name_ {id="property-name"}
 
 記載具有指定名稱的類別屬性。此標籤可用於記載在主建構函數中宣告的屬性，因為在這種情況下，直接在屬性定義前放置文件註解會顯得很彆扭。
 
-### @throws _class_, @exception _class_
+### @throws _class_, @exception _class_ {id="throws-class-exception-class"}
 
 記載方法可能拋出的例外。由於 Kotlin 沒有受檢例外，因此也不要求記載所有可能的例外，但當它能為類別的使用者提供有用資訊時，您仍然可以使用此標籤。
 
-### @sample _identifier_
+### @sample _identifier_ {id="sample-identifier"}
 
 將具有指定合格名稱的函式主體嵌入到目前元素的文件中，以展示該元素的使用範例。
 
-### @see _identifier_
+### @see _identifier_ {id="see-identifier"}
 
 在文件的 **See also** 區塊中加入指向指定類別或方法的連結。
 
-### @author
+### @author {id="author"}
 
 指定所記載元素的作者。
 
-### @since
+### @since {id="since"}
 
 指定引入所記載元素的軟體版本。
 
-### @suppress
+### @suppress {id="suppress"}
 
 從產生的文件中排除該元素。可用於那些不屬於模組官方 API 但仍必須對外可見的元素。
 
@@ -93,11 +93,11 @@ KDoc 目前支援以下區塊標籤：
 >
 {style="note"}
 
-## 內嵌標記
+## 內嵌標記 {id="inline-markup"}
 
 對於內嵌標記，KDoc 使用一般的 [Markdown](https://daringfireball.net/projects/markdown/syntax) 語法，並經過擴充以支援連結到程式碼中其他元素的簡寫語法。
 
-### 連結到元素
+### 連結到元素 {id="links-to-elements"}
 
 要連結到另一個元素（類別、方法、屬性或參數），只需將其名稱放在方括號中：
 
@@ -121,7 +121,7 @@ Use [kotlin.reflect.KClass.properties] to enumerate the properties of the class.
 
 請注意，KDoc 沒有任何用於在連結中解析多載成員的語法。由於 Kotlin 的文件產生工具會將函式所有多載的文件放在同一個頁面上，因此連結不需要識別特定的多載函式即可運作。
 
-### 外部連結
+### 外部連結 {id="external-links"}
 
 要加入外部連結，請使用典型的 Markdown 語法：
 
@@ -129,6 +129,6 @@ Use [kotlin.reflect.KClass.properties] to enumerate the properties of the class.
 For more information about KDoc syntax, see [KDoc](<example-URL>).
 ```
 
-## 後續步驟
+## 後續步驟 {id="what-s-next"}
 
 了解如何使用 Kotlin 的文件產生工具：[Dokka](dokka-introduction.md)。

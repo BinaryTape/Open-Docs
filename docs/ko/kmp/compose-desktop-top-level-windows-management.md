@@ -6,7 +6,7 @@
 
 새로운 실험적 [창 및 대화 상자 API v2](#창-및-대화-상자-api-v2)도 참조하세요.
 
-## 창 열기 및 닫기
+## 창 열기 및 닫기 {id="open-and-close-windows"}
 
 `Window()` 함수를 사용하여 일반적인 창을 만들 수 있습니다. 이를 컴포저블 스코프에 넣으려면 `application` 진입점(entry point) 내에서 `Window()`를 사용하세요.
 
@@ -48,7 +48,7 @@ fun main() = application {
 
 <img src="compose-window-properties.animated.gif" alt="창 속성: 제목 변경" preview-src="compose-window-properties.png" width="600"/>
 
-### 조건 추가하기
+### 조건 추가하기 {id="add-conditions"}
 
 단순한 `if` 조건을 사용하여 창을 열고 닫을 수도 있습니다. 다음 코드 샘플에서는 작업을 완료한 후 애플리케이션 창이 자동으로 닫힙니다.
 
@@ -93,7 +93,7 @@ fun main() = application {
 
 <img src="compose-window-condition.animated.gif" alt="조건부가 있는 창" preview-src="compose-window-condition.png" width="600"/>
 
-### 닫을 때 확인 요청하기
+### 닫을 때 확인 요청하기 {id="ask-for-confirmation-on-close"}
 
 대화 상자를 표시하는 것과 같이 애플리케이션 종료 시 커스텀 로직을 사용하려는 경우, `onCloseRequest` 콜백을 사용하여 닫기 동작을 오버라이드할 수 있습니다.
 다음 코드 샘플에서는 명령형 방식(`window.close()`) 대신 선언적 방식을 사용하며, 상태 변경(`isOpen = false`)에 반응하여 창을 닫습니다.
@@ -138,7 +138,7 @@ fun main() = application {
 
 <img src="compose-window-ask-to-close.animated.gif" alt="확인 후 닫기" preview-src="compose-window-ask-to-close.png" width="600"/>
 
-## 단일 창 애플리케이션 만들기
+## 단일 창 애플리케이션 만들기 {id="create-a-single-window-application"}
 
 하나의 최상위 창만 있는 간단한 애플리케이션의 경우, `Window()` 컴포저블이 포함된 전체 `application` 진입점이 필요하지 않습니다. `singleWindowApplication()` 함수가 이 두 가지를 하나의 호출로 래핑해 줍니다.
 
@@ -152,7 +152,7 @@ fun main() = singleWindowApplication {
 
 두 개 이상의 최상위 창이 필요하거나, 커스텀 닫기 로직을 사용하거나, 런타임에 창 속성을 변경해야 하는 경우에는 `application` 진입점에서 [`Window()` 컴포저블](#창-열기-및-닫기)을 사용하세요.
 
-## 창 상태 관리하기
+## 창 상태 관리하기 {id="manage-window-state"}
 
 `WindowState` 클래스는 창 배치(placement), 현재 위치 및 크기를 관리합니다. 배치 속성을 사용하면 창이 화면에 배치되는 방식(플로팅, 최대화/최소화 또는 전체 화면)을 지정할 수 있습니다.
 상태가 변경되면 자동으로 리컴포지션(recomposition)이 트리거됩니다. 창 상태를 변경하려면 콜백을 사용하거나 컴포저블에서 이를 관찰하세요.
@@ -234,7 +234,7 @@ fun main() = application {
 
 <img src="compose-window-minimize.animated.gif" alt="상태 변경하기" preview-src="compose-window-minimize.png" width="600"/>
 
-### 콘텐츠에 맞게 창 크기 조정하기
+### 콘텐츠에 맞게 창 크기 조정하기 {id="adapt-window-size-to-its-content"}
 
 미리 치수를 지정하지 않고 콘텐츠에 따라 창 크기를 조정하려면 창의 한쪽 또는 양쪽 치수를 `Dp.Unspecified`로 설정하세요. Compose Multiplatform은 콘텐츠에 맞게 창의 초기 크기를 자동으로 조정합니다.
 
@@ -274,7 +274,7 @@ fun main() = application {
 
 <img src="compose-window-adaptive-size.png" alt="적응형 창 크기" width="451"/>
 
-### 상태 변경 관찰하기
+### 상태 변경 관찰하기 {id="listen-to-state-changes"}
 
 상태 변경에 반응하여 그 값을 애플리케이션의 비컴포저블(non-composable) 부분으로 전달해야 하는 경우(예: 데이터베이스에 기록), `snapshotFlow()` 함수를 사용할 수 있습니다. 이 함수는 컴포저블 상태의 현재 값을 캡처합니다.
 
@@ -317,7 +317,7 @@ private fun onWindowRelocate(position: WindowPosition) {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="LaunchedEffect(state) { snapshotFlow { state.size } .onEach(::onWindowResize)"}
 
-## 다중 창 관리하기
+## 다중 창 관리하기 {id="manage-multiple-windows"}
 
 여러 개의 창을 관리하려면 애플리케이션 상태를 위한 별도의 클래스를 만들고 `mutableStateListOf`의 변경에 반응하여 창을 열거나 닫을 수 있습니다.
 
@@ -392,7 +392,7 @@ private class MyWindowState(
 
 더 복잡한 예제는 [Code Viewer](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/codeviewer) 샘플을 참조하세요.
 
-## 대화 상자 표시하기
+## 대화 상자 표시하기 {id="show-dialogs"}
 
 `DialogWindow()` 컴포저블을 사용하여 자체 타이틀 바를 가진 별도의 OS 레벨 창을 표시할 수 있습니다. 이는 확인 요청, 파일 선택기 또는 사용자가 계속하기 전에 완료해야 하는 상호작용에 유용합니다.
 
@@ -457,7 +457,7 @@ fun main() = application {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="if (isDialogOpen) { DialogWindow( ... ) }"}
 
-## 시스템 트레이로 창 숨기기
+## 시스템 트레이로 창 숨기기 {id="hide-windows-to-the-system-tray"}
 
 기본적으로 창을 닫으면 애플리케이션이 종료됩니다. 창을 닫는 대신 시스템 트레이나 메뉴 바에 숨기려면, `onCloseRequest`를 가로채서 창의 가시성(visibility) 상태를 변경할 수 있습니다.
 
@@ -522,7 +522,7 @@ object TrayIcon : Painter() {
 
 <img src="compose-window-hide-tray.animated.gif" alt="닫는 대신 숨기기" preview-src="compose-window-hide-tray.png" width="600"/>
 
-## 창 영역을 드래그 가능하게 만들기
+## 창 영역을 드래그 가능하게 만들기 {id="make-window-areas-draggable"}
 
 장식되지 않은 창(undecorated window)에 커스텀 드래그 가능 타이틀 바를 추가하거나 창 전체를 드래그 가능하게 만들려면 `WindowDraggableArea()` 컴포저블을 사용할 수 있습니다.
 
@@ -579,7 +579,7 @@ private fun WindowScope.AppWindowTitleBar() = WindowDraggableArea {
 
 <img src="compose-window-draggable-area.animated.gif" alt="드래그 가능한 영역" preview-src="compose-window-draggable-area.png" width="600"/>
 
-## 투명 창 만들기
+## 투명 창 만들기 {id="create-transparent-windows"}
 
 투명한 창을 만들려면 `Window()` 함수에 `transparent=true`와 `undecorated=true`라는 두 개의 파라미터를 전달하세요. 투명한 창은 장식(decorate)할 수 없으므로 반드시 장식되지 않아야(undecorated) 합니다.
 
@@ -625,7 +625,7 @@ fun main() = application {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="Modifier.fillMaxSize().padding(5.dp).shadow(3.dp, RoundedCornerShape(20.dp))"}
 
-## Swing 컴포넌트 사용하기
+## Swing 컴포넌트 사용하기 {id="use-swing-components"}
 
 데스크톱용 Compose Multiplatform은 내부적으로 Swing을 사용하므로, Swing을 직접 사용하여 창을 만들 수 있습니다.
 
@@ -721,7 +721,7 @@ private fun FileDialog(
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="@Composable private fun FileDialog( parent: Frame? = null, "}
 
-## 창 및 대화 상자 API v2
+## 창 및 대화 상자 API v2 {id="window-and-dialog-api-v2"}
 <primary-label ref="Experimental"/>
 
 Compose Multiplatform 1.12.0부터 새롭게 설계된 `WindowState` 및 `DialogState` 클래스를 `androidx.compose.ui.window.v2` 하위 패키지에서 사용할 수 있습니다.
@@ -730,7 +730,7 @@ v2 창 및 대화 상자 API는 상태 요청(requesting)과 창 관리자에 �
 
 v2 API는 이 페이지의 나머지 부분에서 설명한 기존 API와 함께 사용할 수 있으므로, 각 창을 원하는 속도에 맞춰 마이그레이션할 수 있습니다.
 
-### 상태 지정 및 관찰
+### 상태 지정 및 관찰 {id="specify-and-observe-state"}
 
 v2 API는 원하는 상태를 지정하는 것과 실제 상태를 관찰하는 것을 명확하게 분리합니다.
 
@@ -798,7 +798,7 @@ if (windowState.isInitialized) {
 
 동일한 비동기 모델을 `DialogState` 및 `rememberDialogState()`를 통해 대화 상자에서도 사용할 수 있습니다.
 
-### 화면 선택
+### 화면 선택 {id="choose-a-screen"}
 
 `rememberWindowState()`에 `initialScreenProvider`를 전달하거나 나중에 `WindowState.requestScreen()`을 호출하여 창이 나타날 화면을 요청할 수 있습니다. 창이 실제로 배치된 화면은 `WindowState.screenId`를 통해 관찰 가능합니다.
 
@@ -811,7 +811,7 @@ windowState.requestScreen {
 }
 ```
 
-### 위치 지정
+### 위치 지정 {id="specify-position"}
 
 창 위치를 변경하려면 `rememberWindowState()`에 `initialBoundsProvider`를 전달하거나 나중에 `WindowState.requestBounds()`를 호출하세요. 창의 실제 경계(bounds)는 `WindowState.bounds`를 통해 관찰 가능합니다.
 
@@ -844,7 +844,7 @@ v2 API는 `WindowPositionProvider`를 사용하여 화면 및 부모 창의 지�
     )
     ```
 
-### 크기 지정
+### 크기 지정 {id="specify-size"}
 
 크기 조정 또한 창 경계(bounds)의 일부이므로 동일한 `initialBoundsProvider`/`WindowState.requestBounds()` 메커니즘을 통해 구성됩니다.
 
@@ -883,6 +883,6 @@ DialogWindow(
 }
 ```
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 [기타 데스크톱 컴포넌트](compose-desktop-components.md)에 관한 튜토리얼을 살펴보세요.

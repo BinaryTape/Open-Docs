@@ -44,7 +44,7 @@ import io.opentelemetry.exporter.otlp.trace.OtlpGrpcSpanExporter
 
 ```
 
-## OpenTelemetry エクスポーターの設定
+## OpenTelemetry エクスポーターの設定 {id="configure-opentelemetry-exporters"}
 
 次のセルでは、以下の操作を行います：
 - Koog の `AIAgent` を作成する
@@ -75,7 +75,7 @@ val agent = AIAgent(
 }
 ```
 
-## エージェントの実行と Jaeger でのトレース表示
+## エージェントの実行と Jaeger でのトレース表示 {id="run-the-agent-and-view-traces-in-jaeger"}
 
 次のセルを実行して、シンプルなプロンプトをトリガーします。以下が表示されるはずです：
 - `LoggingSpanExporter` によるコンソールのスパンログ
@@ -99,7 +99,7 @@ Check Jaeger UI at http://localhost:16686 to view traces"
 }
 ```
 
-## クリーンアップとトラブルシューティング
+## クリーンアップとトラブルシューティング {id="cleanup-and-troubleshooting"}
 
 終了時：
 

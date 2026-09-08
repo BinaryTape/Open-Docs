@@ -16,7 +16,7 @@ Compose Multiplatform は当初、カスタムライブラリとして限定的�
 * 追加のパラメータを使用して [プレビューを使用およびカスタマイズする方法](#use-previews)
 * Compose Multiplatform、AGP、およびアノテーションの [サポートされている組み合わせの概要](#supported-configurations)
 
-## プレビューの設定
+## プレビューの設定 {id="preview-setup"}
 
 ゼロから始める場合は、IDE ウィザードを使用して、あらかじめ設定された **新規プロジェクト** を作成できます。
 
@@ -67,7 +67,7 @@ kotlin {
     }
     ```
 
-## プレビューの使用
+## プレビューの使用 {id="use-previews"}
 
 Compose Multiplatform では、Android のツール機能によって提供される完全なプレビュー機能を使用できます。
 プレビューをインタラクティブにしたり、プレビューを画像としてコピーしたり、同じ `@Preview` composable の複数のバージョンを異なるパラメータで表示したりできます。
@@ -86,7 +86,7 @@ Compose Multiplatform は、`@Preview` アノテーションに対して以下�
 * `showBackground`: プレビューにデフォルトの背景色を適用するかどうかを決定するフラグ。
 * `backgroundColor`: プレビューの背景色を定義する 32 ビット ARGB カラー整数。
 
-## サポートされている構成
+## サポートされている構成 {id="supported-configurations"}
 
 依存関係のバージョンやプロジェクトの構成スタイルに応じて、Compose プレビューを有効にするために使用できるサポート済みの組み合わせがいくつかあります。
 
@@ -100,7 +100,7 @@ Compose Multiplatform は、`@Preview` アノテーションに対して以下�
 >
 {style="note"}
 
-### 利用可能なアノテーション
+### 利用可能なアノテーション {id="available-annotations"}
 
 Compose Multiplatform では、2 つの `@Preview` アノテーションが利用可能です。
 
@@ -115,7 +115,7 @@ Compose Multiplatform では、2 つの `@Preview` アノテーションが利�
 
 共有コードでこれらのアノテーションのいずれかを使用するには、[上記のように](#preview-setup) `commonMain` ソースセットに適切なランタイム依存関係を追加してください。
 
-### Android ターゲット構成
+### Android ターゲット構成 {id="android-target-configurations"}
 
 プロジェクトで Android Gradle プラグイン (AGP) 8.x を使用している場合、プロジェクトの Kotlin Multiplatform 部分では、Android アプリケーション (`com.android.application`) または Android ライブラリ (`com.android.library`) プラグインのいずれかを使用する必要があり、Android 構成は `build.gradle.kts` ファイルの `androidTarget {}` ブロックに含まれます。
 

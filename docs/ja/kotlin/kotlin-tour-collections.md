@@ -14,7 +14,7 @@ Kotlinには、項目をグループ化するための以下のコレクショ�
 
 各コレクション型には、可変（mutable）または読み取り専用（read only）があります。
 
-## リスト (List)
+## リスト (List) {id="list"}
 
 リストは、追加された順序で項目を保存し、重複する項目を許可します。
 
@@ -136,7 +136,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-list-add-remove"}
 
-## セット (Set)
+## セット (Set) {id="set"}
 
 リストが順序付けられ、重複した項目を許可するのに対し、セットは**順序がなく**、**一意（ユニーク）な**項目のみを保存します。
 
@@ -222,7 +222,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-set-add-remove"}
 
-## マップ (Map)
+## マップ (Map) {id="map"}
 
 マップは項目をキーと値のペア（key-value pairs）として保存します。キーを参照することで値にアクセスします。マップは食べ物のメニューのようなものだと想像してください。食べたい料理（キー）を見つけることで、その価格（値）を知ることができます。マップは、リストのように番号付きのインデックスを使用せずに、特定の値を検索したい場合に便利です。
 
@@ -404,9 +404,9 @@ fun main() {
 
 基本型とコレクションの管理方法について学んだので、次はプログラムで使用できる [制御フロー](kotlin-tour-control-flow.md) について見ていきましょう。
 
-## 練習問題 {completion-point="true"}
+## 練習問題 {completion-point="true" id="practice"}
 
-### 演習 1 {initial-collapse-state="collapsed" collapsible="true"}
+### 演習 1 {initial-collapse-state="collapsed" collapsible="true" id="exercise-1"}
 
 「緑」の番号のリストと「赤」の番号のリストがあります。合計でいくつの番号があるかを出力するようにコードを完成させてください。
 
@@ -431,7 +431,7 @@ fun main() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="解答例" id="kotlin-tour-collections-solution-1"}
 
-### 演習 2 {initial-collapse-state="collapsed" collapsible="true"}
+### 演習 2 {initial-collapse-state="collapsed" collapsible="true" id="exercise-2"}
 
 サーバーでサポートされているプロトコルのセットがあります。ユーザーが特定のプロトコルの使用をリクエストします。リクエストされたプロトコルがサポートされているかどうかを確認するプログラムを完成させてください（`isSupported` は Boolean 値である必要があります）。
 
@@ -464,7 +464,7 @@ fun main() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="解答例" id="kotlin-tour-collections-solution-2"}
 
-### 演習 3 {initial-collapse-state="collapsed" collapsible="true"}
+### 演習 3 {initial-collapse-state="collapsed" collapsible="true" id="exercise-3"}
 
 1から3までの整数を、対応する英語の綴りに関連付けるマップを定義してください。このマップを使用して、与えられた数値を綴ってください。
 

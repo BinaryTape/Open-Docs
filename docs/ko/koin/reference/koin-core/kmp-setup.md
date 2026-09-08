@@ -10,7 +10,7 @@ Koin은 Kotlin Multiplatform (KMP) 프로젝트를 위한 퍼스트 클래스(fi
 정의 유형(Single, Factory, ViewModel) 및 세 가지 선언 방식(컴파일러 플러그인 DSL, 애노테이션, 클래식 DSL)에 대해서는 [정의](/docs/reference/koin-core/definitions)를 참조하세요.
 :::
 
-## 지원 플랫폼
+## 지원 플랫폼 {id="supported-platforms"}
 
 | 플랫폼 | 상태 |
 |----------|--------|
@@ -23,9 +23,9 @@ Koin은 Kotlin Multiplatform (KMP) 프로젝트를 위한 퍼스트 클래스(fi
 | Linux | ✅ 전체 지원 |
 | Windows | ✅ 전체 지원 |
 
-## 의존성 설정
+## 의존성 설정 {id="dependencies-setup"}
 
-### shared/build.gradle.kts
+### shared/build.gradle.kts {id="shared-build-gradle-kts"}
 
 ```kotlin
 plugins {
@@ -58,7 +58,7 @@ kotlin {
 }
 ```
 
-### Compose Multiplatform과 함께 사용 시
+### Compose Multiplatform과 함께 사용 시 {id="with-compose-multiplatform"}
 
 ```kotlin
 kotlin {
@@ -73,7 +73,7 @@ kotlin {
 }
 ```
 
-## 프로젝트 구조
+## 프로젝트 구조 {id="project-structure"}
 
 ```
 project/
@@ -101,9 +101,9 @@ project/
     └── iOSApp.swift
 ```
 
-## 공통 모듈 정의
+## 공통 모듈 정의 {id="common-module-definition"}
 
-### commonMain/kotlin/di/KoinModules.kt
+### commonMain/kotlin/di/KoinModules.kt {id="commonmain-kotlin-di-koinmodules-kt"}
 
 ```kotlin
 import org.koin.dsl.module
@@ -123,11 +123,11 @@ expect val platformModule: Module
 공유 모듈에는 컴파일러 플러그인 DSL(`single<Type>()`)을 사용하는 것이 권장됩니다. 컴파일러 플러그인이 필요하지만, 플랫폼별 KSP 설정 없이 가장 깔끔한 구문을 제공합니다.
 :::
 
-## 플랫폼별 모듈
+## 플랫폼별 모듈 {id="platform-specific-modules"}
 
 플랫폼 모듈은 어떤 방식이든 사용할 수 있습니다. 여기서는 커스텀 생성 로직이 필요한 경우를 위해 람다를 사용하는 클래식 DSL을 예로 들어 보여줍니다.
 
-### androidMain/kotlin/di/PlatformModule.android.kt
+### androidMain/kotlin/di/PlatformModule.android.kt {id="androidmain-kotlin-di-platformmodule-android-kt"}
 
 ```kotlin
 import org.koin.dsl.module
@@ -139,7 +139,7 @@ actual val platformModule = module {
 }
 ```
 
-### iosMain/kotlin/di/PlatformModule.ios.kt
+### iosMain/kotlin/di/PlatformModule.ios.kt {id="iosmain-kotlin-di-platformmodule-ios-kt"}
 
 ```kotlin
 import org.koin.dsl.module
@@ -151,9 +151,9 @@ actual val platformModule = module {
 }
 ```
 
-## 공유 초기화
+## 공유 초기화 {id="shared-initialization"}
 
-### commonMain/kotlin/di/KoinInit.kt
+### commonMain/kotlin/di/KoinInit.kt {id="commonmain-kotlin-di-koininit-kt"}
 
 ```kotlin
 import org.koin.core.context.startKoin
@@ -170,9 +170,9 @@ fun initKoin(config: KoinAppDeclaration? = null): KoinApplication {
 }
 ```
 
-## 플랫폼 진입점
+## 플랫폼 진입점 {id="platform-entry-points"}
 
-### Android
+### Android {id="android"}
 
 ```kotlin
 // androidApp/src/main/kotlin/MainApplication.kt
@@ -188,7 +188,7 @@ class MainApplication : Application() {
 }
 ```
 
-### iOS
+### iOS {id="ios"}
 
 ```kotlin
 // shared/src/iosMain/kotlin/di/KoinInitIos.kt
@@ -215,7 +215,7 @@ struct iOSApp: App {
 }
 ```
 
-### JVM
+### JVM {id="jvm"}
 
 ```kotlin
 fun main() {
@@ -227,7 +227,7 @@ fun main() {
 }
 ```
 
-## KMP에서의 DSL 방식
+## KMP에서의 DSL 방식 {id="dsl-approaches-in-kmp"}
 
 | 방식 | 사용 시기 |
 |----------|-------------|
@@ -239,14 +239,14 @@ fun main() {
 **컴파일러 플러그인 DSL**과 **애노테이션**은 모든 환경에서 작동합니다. 커스텀 생성 로직이 필요한 경우에만 **람다 기반 클래식 DSL**을 사용하세요. 자세한 내용은 [컴파일러 플러그인 설정](/docs/setup/compiler-plugin)을 참조하세요.
 :::
 
-## 권장 사항
+## 권장 사항 {id="best-practices"}
 
 1. **공유 코드를 commonMain에 배치하세요** - 비즈니스 로직, 리포지토리, 유스케이스 등
 2. **플랫폼별 사양에는 expect/actual을 사용하세요** - 파일 시스템, 장치 API, 플랫폼 라이브러리 등
 3. **플랫폼별로 Koin을 초기화하세요** - 각 플랫폼에는 고유한 진입점이 있습니다.
 4. **플랫폼 모듈을 최소한으로 유지하세요** - 진정으로 플랫폼에 특화된 내용만 포함하세요.
 
-## 다음 단계
+## 다음 단계 {id="next-steps"}
 
 - **[공유 패턴](/docs/reference/koin-core/kmp-shared-modules)** - 모듈 구성, expect/actual 패턴
 - **[ViewModel](/docs/reference/koin-core/viewmodel)** - 멀티플랫폼 ViewModel

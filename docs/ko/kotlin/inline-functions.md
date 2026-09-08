@@ -29,7 +29,7 @@ inline fun <T> lock(lock: Lock, body: () -> T): T { ... }
 
 인라이닝으로 인해 생성된 코드가 늘어날 수 있습니다. 하지만 합리적인 방식(큰 함수를 인라이닝하는 것을 피함)으로 사용한다면, 특히 루프 내부의 "메가모픽(megamorphic)" 호출 지점에서 성능상 이득을 얻을 수 있습니다.
 
-## noinline
+## noinline {id="noinline"}
 
 인라인 함수에 전달된 모든 람다가 인라인되는 것을 원하지 않는 경우, 일부 함수 파라미터에 `noinline` 수식어를 표시할 수 있습니다.
 
@@ -43,9 +43,9 @@ inline fun foo(inlined: () -> Unit, noinline notInlined: () -> Unit) { ... }
 >
 {style="note"}
 
-## 비로컬(Non-local) 점프 표현식
+## 비로컬(Non-local) 점프 표현식 {id="non-local-jump-expressions"}
 
-### Returns
+### Returns {id="returns"}
 
 Kotlin에서는 이름이 있는 함수나 익명 함수를 종료하기 위해 한정되지 않은(unqualified) 일반 `return`만 사용할 수 있습니다. 람다를 종료하려면 [레이블(label)](returns.md#return-to-labels)을 사용해야 합니다. 람다 내부에서는 일반 `return`을 사용하는 것이 금지되어 있는데, 이는 람다가 자신을 둘러싼 함수를 반환(`return`)시킬 수 없기 때문입니다.
 
@@ -107,7 +107,7 @@ inline fun f(crossinline body: () -> Unit) {
 }
 ```
 
-### Break 및 continue
+### Break 및 continue {id="break-and-continue"}
 
 비로컬 `return`과 유사하게, 루프를 감싸는 인라인 함수에 인자로 전달된 람다 내에서 `break`와 `continue` [점프 표현식](returns.md)을 사용할 수 있습니다.
 
@@ -124,7 +124,7 @@ fun processList(elements: List<Int>): Boolean {
 }
 ```
 
-## 실체화된 타입 파라미터 (Reified type parameters)
+## 실체화된 타입 파라미터 (Reified type parameters) {id="reified-type-parameters"}
 
 가끔 파라미터로 전달된 타입에 접근해야 할 때가 있습니다.
 
@@ -178,7 +178,7 @@ fun main(s: Array<String>) {
 
 일반 함수(inline으로 표시되지 않은 함수)는 실체화된 파라미터를 가질 수 없습니다. 런타임 표현이 없는 타입(예: 실체화되지 않은 타입 파라미터나 `Nothing`과 같은 가상 타입)은 실체화된 타입 파라미터의 인자로 사용될 수 없습니다.
 
-## 인라인 프로퍼티
+## 인라인 프로퍼티 {id="inline-properties"}
 
 `inline` 수식어는 [뒷받침하는 필드(backing fields)](properties.md#backing-fields)가 없는 프로퍼티의 접근자(accessor)에 사용할 수 있습니다. 개별 프로퍼티 접근자에 어노테이션을 달 수 있습니다.
 
@@ -201,7 +201,7 @@ inline var bar: Bar
 
 호출 지점에서 인라인 접근자는 일반 인라인 함수와 동일하게 인라인됩니다.
 
-## 공개 API 인라인 함수에 대한 제한 사항
+## 공개 API 인라인 함수에 대한 제한 사항 {id="restrictions-for-public-api-inline-functions"}
 
 인라인 함수가 `public` 또는 `protected`이지만 `private` 또는 `internal` 선언의 일부가 아닌 경우, 이는 [모듈](visibility-modifiers.md#modules)의 공개 API로 간주됩니다. 이는 다른 모듈에서 호출될 수 있으며 해당 호출 지점에서도 인라인됩니다.
 

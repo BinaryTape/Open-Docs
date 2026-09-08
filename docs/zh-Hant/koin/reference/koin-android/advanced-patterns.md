@@ -8,9 +8,9 @@ title: 進階 Android 模式
 關於與平台無關的模式（集合、decorator、泛型型別、循環相依），請參閱 [Definitions](/docs/reference/koin-core/definitions) 與 [Modules](/docs/reference/koin-core/modules)。
 :::
 
-## Singleton 中的 Android Context
+## Singleton 中的 Android Context {id="android-context-in-singletons"}
 
-### 避免 Activity 洩漏
+### 避免 Activity 洩漏 {id="avoiding-activity-leaks"}
 
 ```kotlin
 // ❌ 錯誤 - Activity 透過 singleton 洩漏
@@ -31,7 +31,7 @@ module {
 }
 ```
 
-### Context 型別
+### Context 型別 {id="context-types"}
 
 ```kotlin
 module {
@@ -43,9 +43,9 @@ module {
 }
 ```
 
-## 使用 BuildConfig 的條件綁定
+## 使用 BuildConfig 的條件綁定 {id="conditional-bindings-with-buildconfig"}
 
-### 組建變體
+### 組建變體 {id="build-variant"}
 
 ```kotlin
 fun createLogger(): Logger =
@@ -67,7 +67,7 @@ class LoggingModule {
 }
 ```
 
-### 分析切換
+### 分析切換 {id="analytics-toggle"}
 
 ```kotlin
 fun createAnalyticsService(): AnalyticsService =
@@ -78,7 +78,7 @@ val analyticsModule = module {
 }
 ```
 
-### 功能旗標
+### 功能旗標 {id="feature-flags"}
 
 ```kotlin
 @Singleton
@@ -97,7 +97,7 @@ class PaymentProcessor(
 }
 ```
 
-## Android Dialog 提供者
+## Android Dialog 提供者 {id="android-dialog-provider"}
 
 為 Android UI 元件建立工廠：
 
@@ -128,7 +128,7 @@ class MainActivity : AppCompatActivity() {
 }
 ```
 
-## 階層式作用域
+## 階層式作用域 {id="hierarchical-scopes"}
 
 連結 Android 作用域以進行共用存取：
 
@@ -154,7 +154,7 @@ shoppingScope.linkTo(sessionScope)
 val cart = shoppingScope.get<ShoppingCart>()
 ```
 
-## 動態功能註冊表
+## 動態功能註冊表 {id="dynamic-feature-registry"}
 
 根據配置建立集合：
 
@@ -170,9 +170,9 @@ class FeatureRegistry(private val config: AppConfig) : KoinComponent {
 }
 ```
 
-## 常見的 Android 陷阱
+## 常見的 Android 陷阱 {id="common-android-pitfalls"}
 
-### 隱藏的循環呼叫
+### 隱藏的循環呼叫 {id="hidden-circular-calls"}
 
 ```kotlin
 // ⚠️ Lazy 隱藏了循環，但在執行時會發生無限迴圈
@@ -187,7 +187,7 @@ class ServiceB : KoinComponent {
 }
 ```
 
-### ViewModel 作用域混淆
+### ViewModel 作用域混淆 {id="viewmodel-scope-confusion"}
 
 ```kotlin
 // ❌ 錯誤 - activity 作用域中的 ViewModel 會在旋轉時遺失狀態
@@ -203,7 +203,7 @@ module {
 }
 ```
 
-### 在 Singleton 中注入 Activity
+### 在 Singleton 中注入 Activity {id="injecting-activity-in-singleton"}
 
 ```kotlin
 // ❌ 記憶體洩漏 - singleton 中的 Activity 參照
@@ -215,7 +215,7 @@ class ImageLoader(private val activity: Activity)
 class ImageLoader(private val context: Context)  // 透過 androidContext() 取得 Application context
 ```
 
-## 下一步
+## 下一步 {id="next-steps"}
 
 - **[Android 作用域](/docs/reference/koin-android/scope)** - 生命週期感知的範圍限制
 - **[多模組應用程式](/docs/reference/koin-android/multi-module)** - 組織 Android 模組

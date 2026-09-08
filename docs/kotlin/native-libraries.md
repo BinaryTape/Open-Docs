@@ -1,10 +1,10 @@
 [//]: # (title: Kotlin/Native 库)
 
-## 库编译
+## 库编译 {id="library-compilation"}
 
 您可以使用项目的构建文件或 Kotlin/Native 编译器为您的库生成 `*.klib` 构件。
 
-### 使用 Gradle 构建文件
+### 使用 Gradle 构建文件 {id="using-gradle-build-file"}
 
 您可以通过在 Gradle 构建文件中指定 [Kotlin/Native 目标](native-target-support.md)来编译 `*.klib` 库构件：
 
@@ -31,7 +31,7 @@
 
 Gradle 会自动为该目标编译源代码文件，并在项目的 `build/libs` 目录中生成 `.klib` 构件。
 
-### 使用 Kotlin/Native 编译器
+### 使用 Kotlin/Native 编译器 {id="using-kotlin-native-compiler"}
 
 要使用 Kotlin/Native 编译器生成库：
 
@@ -52,7 +52,7 @@ Gradle 会自动为该目标编译源代码文件，并在项目的 `build/libs`
    
    此命令会编译 `qux.kt` 源代码文件和 `bar.klib` 库的内容，并生成 `program.kexe` 最终可执行二进制文件。
 
-## klib 工具
+## klib 工具 {id="klib-utility"}
 
 **klib** 库管理工具允许您使用以下语法检查库：
 
@@ -80,7 +80,7 @@ klib dump-metadata-signatures mylib.klib -signature-version 1
 
 此外，`dump-metadata` 命令接受 `-print-signatures {true|false}` 参数，指示 klib 工具在输出中打印每个声明的 IR 签名。
 
-## 创建并使用库
+## 创建并使用库 {id="creating-and-using-a-library"}
 
 1. 通过将源代码放入 `kotlinizer.kt` 来创建一个库：
 
@@ -133,7 +133,7 @@ klib dump-metadata-signatures mylib.klib -signature-version 1
 
 您应该会在输出中看到 `Hello, Kotlin world!`。
 
-## 库搜索序列
+## 库搜索序列 {id="library-search-sequence"}
 
 > 库搜索机制即将更改。请关注此部分的更新，并避免依赖已弃用的标记。
 > 
@@ -152,7 +152,7 @@ klib dump-metadata-signatures mylib.klib -signature-version 1
 
 3. 安装在 `$installation/klib` 目录中的库。
 
-## 库格式
+## 库格式 {id="library-format"}
 
 Kotlin/Native 库是包含预定义目录结构的 zip 文件，布局如下：
 
@@ -180,7 +180,7 @@ Kotlin/Native 库是包含预定义目录结构的 zip 文件，布局如下：
 
 您可以在 Kotlin/Native 编译器安装目录的 `klib/common/stdlib` 目录中找到布局示例。
 
-## 在 klib 中使用相对路径
+## 在 klib 中使用相对路径 {id="using-relative-paths-in-klibs"}
 
 源代码文件的序列化 IR 表示是 `klib` 库的[一部分](#library-format)。它包括用于生成正确调试信息的文件路径。默认情况下，存储的路径是绝对路径。
 
@@ -217,6 +217,6 @@ tasks.named('compileKotlin', KotlinCompilationTask) {
 </tab>
 </tabs>
 
-## 下一步？
+## 下一步？ {id="what-s-next"}
 
 [了解如何使用 cinterop 工具生成 `*.klib` 构件](native-definition-file.md)

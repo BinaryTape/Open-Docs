@@ -5,7 +5,7 @@
 
 `String` 타입은 불변(immutable)입니다. `String` 객체를 생성한 후에는 해당 객체의 수명 동안 내용이 그대로 유지됩니다. 문자열을 수정하는 것처럼 보이는 모든 연산은 실제로는 새로운 문자열을 생성합니다.
 
-## 문자열 선언 (Declare strings)
+## 문자열 선언 (Declare strings) {id="declare-strings"}
 
 `String` 리터럴을 선언하려면 값을 큰따옴표(`""`)로 감쌉니다. `String` 타입을 명시적으로 지정하거나 Kotlin이 값으로부터 타입을 추론하도록 할 수 있습니다.
 
@@ -23,7 +23,7 @@ world!"
 val quote = "Kotlin says, \"Hi\"."
 ```
 
-### 여러 줄 문자열 (Multiline strings)
+### 여러 줄 문자열 (Multiline strings) {id="multiline-strings"}
 
 여러 줄로 구성된 텍스트를 저장하거나 이스케이프하고 싶지 않은 따옴표가 포함된 경우, 삼중 따옴표(`""" """`)로 둘러싸인 여러 줄 문자열을 사용하세요.
 
@@ -91,7 +91,7 @@ fun main() {
 >
 {style="note"}
 
-## 문자열 템플릿 (String templates)
+## 문자열 템플릿 (String templates) {id="string-templates"}
 
 문자열 템플릿을 사용하면 `String` 리터럴 내부에 직접 변수와 표현식을 포함할 수 있습니다. 이 과정을 _보간(interpolation)_이라고 합니다. 문자열 템플릿은 일반 문자열과 여러 줄 문자열 모두에서 사용할 수 있습니다.
 
@@ -141,7 +141,7 @@ Result: ${"OK".lowercase()}
 """
 ```
 
-### 문자열 템플릿의 Null 가능 값
+### 문자열 템플릿의 Null 가능 값 {id="nullable-values-in-string-templates"}
 
 보간된 표현식이나 변수가 `null`로 평가되면, Kotlin 컴파일러는 결과 문자열에 `null`이라는 텍스트를 삽입합니다. `null`을 다른 값으로 대체하려면 [엘비스 연산자(Elvis operator)](null-safety.md#elvis-operator) (`?:`)를 사용하세요.
 
@@ -160,7 +160,7 @@ fun main(){
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 멀티 달러 문자열 보간 (Multi-dollar string interpolation)
+### 멀티 달러 문자열 보간 (Multi-dollar string interpolation) {id="multi-dollar-string-interpolation"}
 
 일반적인 문자열 템플릿에서는 단일 달러 기호(`$`)가 보간을 시작합니다. 문자열에 리터럴 달러 기호를 포함해야 하는 경우, **멀티 달러 문자열 보간**을 사용하세요.
 
@@ -185,7 +185,7 @@ val KClass<*>.jsonSchema : String
 >
 {style="tip"}
 
-## 기본 문자열 연산 (Basic string operations)
+## 기본 문자열 연산 (Basic string operations) {id="basic-string-operations"}
 
 Kotlin은 문자열 작업을 위한 다양한 연산을 제공합니다. 이 섹션에서는 가장 일반적으로 사용되는 몇 가지 연산을 소개합니다.
 
@@ -193,7 +193,7 @@ Kotlin은 문자열 작업을 위한 다양한 연산을 제공합니다. 이 �
 >
 {style="tip"}
 
-### 문자열 길이 확인
+### 문자열 길이 확인 {id="get-string-length"}
 
 문자열의 문자 수를 얻으려면 [`length`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/length.html) 프로퍼티를 사용하세요.
 
@@ -208,7 +208,7 @@ fun main (){
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 개별 문자 접근
+### 개별 문자 접근 {id="access-characters"}
 
 인덱싱 연산자(`[]`)를 사용하여 문자열의 개별 문자에 접근할 수 있습니다.
 
@@ -244,7 +244,7 @@ fun main(){
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 문자열 일부 추출
+### 문자열 일부 추출 {id="extract-parts-of-a-string"}
 
 문자열의 일부를 추출하려면 다음 함수 중 하나를 사용하세요.
 
@@ -270,7 +270,7 @@ fun main() {
 
 `String` 타입은 불변이므로, 이러한 함수들은 원래 문자열을 수정하지 않습니다.
 
-### 문자열 비교
+### 문자열 비교 {id="compare-strings"}
 
 두 문자열의 내용이 동일한지 확인하려면 `==` 연산자를 사용하세요.
 
@@ -310,7 +310,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 문자열 내용 작업
+### 문자열 내용 작업 {id="work-with-string-content"}
 
 문자열의 내용을 변경하고 싶다면, [`.trim()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/trim.html), [`.replace()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/replace.html), [`.uppercase()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/uppercase.html), [`.lowercase()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/lowercase.html)와 같은 함수를 사용하여 수정된 복사본을 만드세요.
 
@@ -358,7 +358,7 @@ fun main() {
  ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 문자열 분리
+### 문자열 분리 {id="split-strings"}
 
 [`split()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/split.html) 함수를 사용하여 구분자를 기준으로 문자열을 여러 부분으로 나눌 수 있습니다.
 
@@ -388,7 +388,7 @@ three"
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 문자열 구축 및 포매팅
+### 문자열 구축 및 포매팅 {id="build-and-format-strings"}
 
 > Kotlin에서 대부분의 포매팅 작업에는 [문자열 템플릿](#문자열-템플릿-string-templates)을 사용하세요.
 >
@@ -458,7 +458,7 @@ val text = String.format("Hello, %s", "Kotlin")
 >
 {style="note"}
 
-## 문자열 변환 (String conversion)
+## 문자열 변환 (String conversion) {id="string-conversion"}
 
 종종 숫자, `Boolean` 값 또는 입력받은 식별자와 같은 다른 타입의 값을 표현하기 위해 문자열을 사용할 수 있습니다. Kotlin은 값을 문자열로 변환하고 문자열을 다른 타입으로 파싱하는 함수를 제공합니다.
 

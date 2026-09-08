@@ -19,7 +19,7 @@ title: 物件宣告與運算式
 * **暫時修改現有類別行為：** 您想要修改現有類別的行為，而不需要建立新的子類別。例如，為特定操作向物件添加臨時功能。
 * **需要型別安全設計：** 您需要使用物件運算式來實作介面或[抽象類別 (abstract classes)](classes.md#abstract-classes) 的一次性實作。這對於按鈕點擊處理常式等情境非常有用。
 
-## 物件宣告
+## 物件宣告 {id="object-declarations"}
 {id="object-declarations-overview"}
 
 您可以使用物件宣告在 Kotlin 中建立物件的單一執行個體，其在 `object` 關鍵字後一律帶有名稱。
@@ -100,7 +100,7 @@ val myObject = object MySingleton {
 物件宣告不能是區域的 (local)，這意味著它們不能直接巢狀於函式內部。
 但是，它們可以巢狀於其他物件宣告或非內部類別中。
 
-### 資料物件 (Data objects)
+### 資料物件 (Data objects) {id="data-objects"}
 
 在 Kotlin 中列印一般的物件宣告時，字串表示形式包含其名稱與該 `object` 的雜湊值：
 
@@ -181,14 +181,14 @@ fun createInstanceViaReflection(): MySingleton {
 
 產生的 `hashCode()` 函式的行為與 `equals()` 函式一致，因此 `data object` 的所有執行時期執行個體都具有相同的雜湊碼。
 
-#### 資料物件與 data class 的差異
+#### 資料物件與 data class 的差異 {id="differences-between-data-objects-and-data-classes"}
 
 雖然 `data object` 與 `data class` 宣告經常一起使用且具有一些相似之處，但有些函式不會為 `data object` 產生：
 
 * 沒有 `copy()` 函式。因為 `data object` 宣告旨在用作 singleton，所以不會產生 `copy()` 函式。singleton 將類別的具現化限制為單一執行個體，若允許建立執行個體的副本將違反此原則。
 * 沒有 `componentN()` 函式。與 `data class` 不同，`data object` 沒有任何資料屬性。由於嘗試解構這種沒有資料屬性的物件沒有意義，因此不會產生 `componentN()` 函式。
 
-#### 在密封階層中使用資料物件
+#### 在密封階層中使用資料物件 {id="use-data-objects-with-sealed-hierarchies"}
 
 資料物件宣告對於[密封類別或密封介面 (sealed classes or sealed interfaces)](sealed-classes.md) 等密封階層特別有用。
 它們允許您與可能在物件旁定義的任何 data class 保持對稱。
@@ -211,7 +211,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="data-objects-sealed-hierarchies"}
 
-### 伴隨物件 (Companion objects)
+### 伴隨物件 (Companion objects) {id="companion-objects"}
 
 「伴隨物件 (Companion objects)」允許您定義類別層級的函式與屬性。
 這使得建立工廠方法、保留常數以及存取共用公用程式變得容易。
@@ -340,13 +340,13 @@ fun main() {
 
 然而，在 JVM 上，如果您使用 `@JvmStatic` 註解，可以將伴隨物件的成員產生為真正的 static 方法和欄位。詳情請參閱 [Java 互通性](java-to-kotlin-interop.md#static-fields)章節。
 
-## 物件運算式
+## 物件運算式 {id="object-expressions"}
 
 物件運算式宣告一個類別並建立該類別的執行個體，但不為兩者命名。
 這些類別對於一次性使用非常有用。它們可以從頭開始建立、繼承自現有類別，
 或實作介面。這些類別的執行個體也稱為「匿名物件 (anonymous objects)」，因為它們是由運算式定義的，而不是名稱。
 
-### 從頭開始建立匿名物件
+### 從頭開始建立匿名物件 {id="create-anonymous-objects-from-scratch"}
 
 物件運算式以 `object` 關鍵字開始。
 
@@ -370,7 +370,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="object-expression-object"}
 
-### 繼承自基底型別的匿名物件
+### 繼承自基底型別的匿名物件 {id="inherit-anonymous-objects-from-supertypes"}
 
 要建立繼承自某個型別（或多個型別）的匿名物件，請在 `object` 和冒號 `:` 之後指定該型別。
 然後實作或覆寫該類別的成員，就像您正在[繼承](inheritance.md)它一樣：
@@ -425,7 +425,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="object-expression-anonymous-object"}
 
-### 將匿名物件用作回傳與值型別
+### 將匿名物件用作回傳與值型別 {id="use-anonymous-objects-as-return-and-value-types"}
 
 當您從區域或 [`private`](visibility-modifiers.md#packages) 函式或屬性回傳匿名物件時，
 該匿名物件的所有成員都可以透過該函式或屬性存取：
@@ -521,7 +521,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="object-expression-object-override"}
 
-### 從匿名物件存取變數
+### 從匿名物件存取變數 {id="access-variables-from-anonymous-objects"}
 
 物件運算式主體內的程式碼可以存取來自封閉作用域的變數：
 
@@ -548,7 +548,7 @@ fun countClicks(window: JComponent) {
 }
 ```
 
-## 物件宣告與運算式之間的行為差異
+## 物件宣告與運算式之間的行為差異 {id="behavior-difference-between-object-declarations-and-expressions"}
 
 物件宣告與物件運算式在初始化行為上存在差異：
 

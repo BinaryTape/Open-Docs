@@ -8,11 +8,11 @@ title: Android 入口点
 本页面重点介绍在**何处**进行注入（入口点）。无论您如何声明定义，注入 API（`by inject()`、`get()`、`by viewModel()`）的工作方式都是相同的。有关声明定义的信息，请参阅 [定义](/docs/reference/koin-core/definitions)。
 :::
 
-## 概览
+## 概览 {id="overview"}
 
 Android 应用程序由各种组件类型组成，每种组件都有自己的生命周期和初始化模式。Koin 提供了灵活的方式向所有这些组件注入依赖项。
 
-### 快速参考
+### 快速参考 {id="quick-reference"}
 
 | 组件 | 注入方法 | 内置支持 | 备注 |
 |-----------|-----------------|------------------|-------|
@@ -25,7 +25,7 @@ Android 应用程序由各种组件类型组成，每种组件都有自己的生
 | **ContentProvider** | `KoinComponent` + `get()` | ⚠️ 手动 | 特殊的时机考虑 |
 | **自定义 View** | 构造函数或 `KoinComponent` | ⚠️ 手动 | 考虑避免使用依赖注入 |
 
-## Application 类
+## Application 类 {id="application-class"}
 
 Application 类是您初始化 Koin 的地方。这是应用中所有依赖注入的基础。
 
@@ -47,11 +47,11 @@ class MyApplication : Application() {
 有关完整的 Application 设置说明，请参阅 [在 Android 上启动 Koin](/docs/reference/koin-android/start)。
 :::
 
-## Activity 注入
+## Activity 注入 {id="activity-injection"}
 
 Activity 通过扩展函数获得了内置的 Koin 支持。
 
-### 使用 by inject()
+### 使用 by inject() {id="using-by-inject"}
 
 ```kotlin
 class UserActivity : AppCompatActivity() {
@@ -67,7 +67,7 @@ class UserActivity : AppCompatActivity() {
 }
 ```
 
-### 使用 get()
+### 使用 get() {id="using-get"}
 
 ```kotlin
 class UserActivity : AppCompatActivity() {
@@ -82,7 +82,7 @@ class UserActivity : AppCompatActivity() {
 }
 ```
 
-### 带有参数
+### 带有参数 {id="with-parameters"}
 
 ```kotlin
 class UserDetailActivity : AppCompatActivity() {
@@ -104,7 +104,7 @@ class UserDetailActivity : AppCompatActivity() {
 有关更多 Activity 注入模式，请参阅 [在 Android 中注入](/docs/reference/koin-android/get-instances)。
 :::
 
-## Fragment 注入
+## Fragment 注入 {id="fragment-injection"}
 
 Fragment 的工作方式与 Activity 相同，均使用 Koin 扩展。
 
@@ -127,7 +127,7 @@ class UserListFragment : Fragment() {
 }
 ```
 
-### 共享 ViewModel
+### 共享 ViewModel {id="shared-viewmodels"}
 
 在 Activity 和 Fragment 之间共享 ViewModel：
 
@@ -147,7 +147,7 @@ class UserDetailFragment : Fragment() {
 - [Android ViewModel](/docs/reference/koin-android/viewmodel)
 :::
 
-## Service 注入
+## Service 注入 {id="service-injection"}
 
 Service 与 Activity 和 Fragment 一样，通过扩展函数获得了内置的 Koin 支持。
 
@@ -194,13 +194,13 @@ class DownloadService : Service() {
 }
 ```
 
-### 生命周期考虑因素
+### 生命周期考虑因素 {id="lifecycle-considerations"}
 
 - **Service 是长生命周期的**：对昂贵的资源使用 `single`。
 - **清理工作至关重要**：在 `onDestroy()` 中释放资源。
 - **后台线程**：考虑妥善限定后台工作的范围。
 
-### 最佳做法
+### 最佳做法 {id="best-practices"}
 
 ```kotlin
 class DownloadService : Service() {
@@ -226,11 +226,11 @@ class DownloadService : Service() {
 **替代方案：** 对于 `WorkManager` 后台任务，请使用 Koin 内置的 `WorkManager` 支持来代替 Service。请参阅 [WorkManager 集成](/docs/reference/koin-android/workmanager)。
 :::
 
-## BroadcastReceiver 注入
+## BroadcastReceiver 注入 {id="broadcastreceiver-injection"}
 
 BroadcastReceiver 也需要使用 `KoinComponent` 来进行依赖注入。
 
-### 动态注册的 Receiver
+### 动态注册的 Receiver {id="dynamically-registered-receiver"}
 
 ```kotlin
 class NetworkChangeReceiver : BroadcastReceiver(), KoinComponent {
@@ -263,7 +263,7 @@ class MainActivity : AppCompatActivity() {
 }
 ```
 
-### 静态注册的 Receiver（清单文件）
+### 静态注册的 Receiver（清单文件） {id="statically-registered-receiver-manifest"}
 
 ```kotlin
 class BootReceiver : BroadcastReceiver(), KoinComponent {
@@ -290,7 +290,7 @@ class BootReceiver : BroadcastReceiver(), KoinComponent {
 </receiver>
 ```
 
-### 重要考虑因素
+### 重要考虑因素 {id="important-considerations"}
 
 **生命周期：**
 - Receiver 的**生命周期极短**（通常 < 10 秒）。
@@ -323,11 +323,11 @@ class AlarmReceiver : BroadcastReceiver(), KoinComponent {
 BroadcastReceiver 有严格的时间限制（约 10 秒）。对于任何重要的工作，请改用 `Service`、`WorkManager` 或 `JobScheduler`。
 :::
 
-## ContentProvider 注入
+## ContentProvider 注入 {id="contentprovider-injection"}
 
 ContentProvider 具有特殊的初始化时机考虑，因为它们在 `Application.onCreate()` **之前**创建。
 
-### 挑战
+### 挑战 {id="the-challenge"}
 
 ```kotlin
 // ❌ 问题：这行不通！
@@ -342,7 +342,7 @@ class MyContentProvider : ContentProvider(), KoinComponent {
 }
 ```
 
-### 解决方案 1：延迟初始化
+### 解决方案 1：延迟初始化 {id="solution-1-lazy-initialization"}
 
 ```kotlin
 class UserContentProvider : ContentProvider(), KoinComponent {
@@ -370,7 +370,7 @@ class UserContentProvider : ContentProvider(), KoinComponent {
 }
 ```
 
-### 解决方案 2：手动 Koin 初始化
+### 解决方案 2：手动 Koin 初始化 {id="solution-2-manual-koin-initialization"}
 
 ```kotlin
 class UserContentProvider : ContentProvider(), KoinComponent {
@@ -432,11 +432,11 @@ class DataContentProvider : ContentProvider(), KoinComponent {
 **关键点：** ContentProvider 在 `Application.onCreate()` **之前**创建。注入依赖项之前，请务必使用延迟初始化或检查 Koin 是否已初始化。
 :::
 
-## 自定义 View 注入
+## 自定义 View 注入 {id="custom-view-injection"}
 
 自定义 View 可以使用依赖注入，但应谨慎对待。
 
-### 选项 1：构造函数注入（推荐用于业务逻辑）
+### 选项 1：构造函数注入（推荐用于业务逻辑） {id="option-1-constructor-injection-recommended-for-business-logic"}
 
 ```kotlin
 // 领域/ViewModel 层 - 使用构造函数注入
@@ -478,7 +478,7 @@ class ChartActivity : AppCompatActivity() {
 }
 ```
 
-### 选项 2：KoinComponent（当 View 具有复杂逻辑时）
+### 选项 2：KoinComponent（当 View 具有复杂逻辑时） {id="option-2-koincomponent-when-view-has-complex-logic"}
 
 ```kotlin
 class SmartChartView @JvmOverloads constructor(
@@ -498,7 +498,7 @@ class SmartChartView @JvmOverloads constructor(
 }
 ```
 
-### 何时应避免在 View 中使用依赖注入
+### 何时应避免在 View 中使用依赖注入 {id="when-to-avoid-di-in-views"}
 
 ❌ **在以下情况避免在 View 中注入：**
 - View 纯粹是展示性的（仅绘制数据）。
@@ -511,7 +511,7 @@ class SmartChartView @JvmOverloads constructor(
 - View 需要根据构建变体而更改的配置。
 - View 管理重要的状态或业务逻辑（但请考虑移动到 ViewModel）。
 
-### 最佳做法：保持 View 简单
+### 最佳做法：保持 View 简单 {id="best-practice-keep-views-simple"}
 
 ```kotlin
 // ❌ View 中逻辑过多
@@ -549,9 +549,9 @@ class UserCardView(context: Context) : FrameLayout(context) {
 **建议：** 倾向于保持 View 为“哑”展示组件。将业务逻辑移动到 ViewModel 或 Presenter 中，那里的构造函数注入更整洁且更易于测试。
 :::
 
-## 总结
+## 总结 {id="summary"}
 
-### 选择正确的注入方式
+### 选择正确的注入方式 {id="choosing-the-right-injection-approach"}
 
 | 组件 | 推荐方式 | 原理 |
 |-----------|---------------------|-----------|
@@ -563,7 +563,7 @@ class UserCardView(context: Context) : FrameLayout(context) {
 | **ContentProvider** | `KoinComponent` + `lazy { get() }` | 初始化时机问题，使用延迟初始化 |
 | **自定义 View** | 避免依赖注入，通过方法传递数据 | 保持 View 简单，将逻辑移至 ViewModel |
 
-### 通用最佳做法
+### 通用最佳做法 {id="general-best-practices"}
 
 1. **优先对业务逻辑类使用构造函数注入**（Repository、UseCase、ViewModel）。
 2. **对 Android 框架类使用字段注入** (`by inject()`)（Activity、Fragment、Service）。
@@ -572,7 +572,7 @@ class UserCardView(context: Context) : FrameLayout(context) {
 5. **保持 View 简单** - 尽可能避免在 View 中注入。
 6. **关注生命周期时机** - ContentProvider 需要特殊处理。
 
-## 后续步骤
+## 后续步骤 {id="next-steps"}
 
 - **[定义](/docs/reference/koin-core/definitions)** - 声明依赖项
 - **[在 Android 中注入](/docs/reference/koin-android/get-instances)** - 详细的 Activity/Fragment 注入

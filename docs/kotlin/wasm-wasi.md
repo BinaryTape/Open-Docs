@@ -15,7 +15,7 @@
 >
 {style="tip"}
 
-## 开始之前
+## 开始之前 {id="before-you-start"}
 
 1. 下载并安装最新版本的 [IntelliJ IDEA](https://www.jetbrains.com/idea/)。
 
@@ -27,7 +27,7 @@
    git clone git@github.com:Kotlin/kotlin-wasm-wasi-template.git
    ```
 
-## 运行应用程序
+## 运行应用程序 {id="run-the-application"}
 
 1. 通过选择 **View** | **Tool Windows** | **Gradle** 打开 **Gradle** 工具窗口。 
    
@@ -73,7 +73,7 @@
 
 ![Kotlin/Wasm 和 WASI 应用](wasm-wasi-app-terminal.png){width=600}
 
-## 测试应用程序
+## 测试应用程序 {id="test-the-application"}
 
 你还可以测试 Kotlin/Wasm 应用程序在各种虚拟机上是否能正常运行。
 
@@ -109,7 +109,7 @@
 
 ![Kotlin/Wasm 和 WASI 测试](wasm-wasi-tests-results.png){width=600}
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 加入 Kotlin Slack 中的 Kotlin/Wasm 社区：
 

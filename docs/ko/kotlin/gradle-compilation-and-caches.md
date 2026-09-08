@@ -11,7 +11,7 @@
 * [최신 언어 버전 시도하기](#trying-the-latest-language-version)
 * [빌드 보고서](#build-reports)
 
-## 증분 컴파일
+## 증분 컴파일 {id="incremental-compilation"}
 
 Kotlin Gradle 플러그인은 증분 컴파일을 지원하며, 이는 Kotlin/JVM 및 Kotlin/JS 프로젝트에서 기본적으로 활성화되어 있습니다.
 증분 컴파일은 빌드 간의 클래스패스(classpath) 파일 변경 사항을 추적하여 이러한 변경 사항의 영향을 받는 파일만 컴파일합니다.
@@ -48,20 +48,20 @@ ABI의 일부가 변경되면, Kotlin 컴파일러는 변경된 클래스에 의
 
 현재 증분 컴파일 방식이 어떻게 작동하며 이전 방식과 어떻게 비교되는지 자세히 알아보려면 [블로그 포스트](https://blog.jetbrains.com/kotlin/2022/07/a-new-approach-to-incremental-compilation-in-kotlin/)를 참조하세요.
 
-## Gradle 빌드 캐시 지원
+## Gradle 빌드 캐시 지원 {id="gradle-build-cache-support"}
 
 Kotlin 플러그인은 향후 빌드에서 재사용하기 위해 빌드 출력을 저장하는 [Gradle 빌드 캐시](https://docs.gradle.org/current/userguide/build_cache.html)를 사용합니다.
 
 모든 Kotlin 태스크에 대해 캐싱을 비활성화하려면 시스템 프로퍼티 `kotlin.caching.enabled`를 `false`로 설정합니다(빌드 실행 시 `-Dkotlin.caching.enabled=false` 인자 추가).
 
-## Gradle 구성 캐시 지원
+## Gradle 구성 캐시 지원 {id="gradle-configuration-cache-support"}
 
 Kotlin 플러그인은 [Gradle 구성(Configuration) 캐시](https://docs.gradle.org/current/userguide/configuration_cache.html)를 사용합니다.
 이는 후속 빌드에서 구성 단계의 결과를 재사용하여 빌드 프로세스 속도를 높입니다.
 
 구성 캐시를 활성화하는 방법은 [Gradle 문서](https://docs.gradle.org/current/userguide/configuration_cache.html#config_cache:usage)를 참조하세요. 이 기능을 활성화하면 Kotlin Gradle 플러그인이 자동으로 이를 사용하기 시작합니다.
 
-## Kotlin 데몬 및 Gradle에서의 사용 방법
+## Kotlin 데몬 및 Gradle에서의 사용 방법 {id="the-kotlin-daemon-and-how-to-use-it-with-gradle"}
 
 [Kotlin 데몬](kotlin-daemon.md):
 * 프로젝트를 컴파일하기 위해 Gradle 데몬과 함께 실행됩니다.
@@ -72,7 +72,7 @@ Kotlin 데몬은 Gradle 데몬과 함께 종료되거나, Kotlin 컴파일 없�
 
 Kotlin 데몬은 Gradle 데몬과 동일한 JDK를 사용합니다.
 
-### Kotlin 데몬의 JVM 인자 설정하기
+### Kotlin 데몬의 JVM 인자 설정하기 {id="setting-kotlin-daemon-s-jvm-arguments"}
 
 인자를 설정하는 다음 각 방법은 이전에 설정된 내용을 덮어씁니다:
 * [Gradle 데몬 인자 상속](#gradle-daemon-arguments-inheritance)
@@ -81,7 +81,7 @@ Kotlin 데몬은 Gradle 데몬과 동일한 JDK를 사용합니다.
 * [`kotlin` 확장(extension)](#kotlin-extension)
 * [특정 태스크 정의](#specific-task-definition)
 
-#### Gradle 데몬 인자 상속
+#### Gradle 데몬 인자 상속 {id="gradle-daemon-arguments-inheritance"}
 
 기본적으로 Kotlin 데몬은 Gradle 데몬으로부터 특정 인자 세트를 상속받지만, Kotlin 데몬에 직접 지정된 JVM 인자가 있으면 이를 덮어씁니다. 예를 들어, `gradle.properties` 파일에 다음과 같은 JVM 인자를 추가한 경우:
 
@@ -99,7 +99,7 @@ org.gradle.jvmargs=-Xmx1500m -Xms500m -XX:MaxMetaspaceSize=1g
 >
 {style="note"}
 
-#### kotlin.daemon.jvm.options 시스템 프로퍼티
+#### kotlin.daemon.jvm.options 시스템 프로퍼티 {id="kotlin-daemon-jvm-options-system-property"}
 
 Gradle 데몬의 JVM 인자에 `kotlin.daemon.jvm.options` 시스템 프로퍼티가 있는 경우, `gradle.properties` 파일에서 이를 사용하세요:
 
@@ -121,7 +121,7 @@ org.gradle.jvmargs=-Dkotlin.daemon.jvm.options=-Xmx1500m,Xms500m
 >
 {style="warning"}
 
-#### kotlin.daemon.jvmargs 프로퍼티
+#### kotlin.daemon.jvmargs 프로퍼티 {id="kotlin-daemon-jvmargs-property"}
 
 `gradle.properties` 파일에 `kotlin.daemon.jvmargs` 프로퍼티를 추가할 수 있습니다:
 
@@ -135,7 +135,7 @@ kotlin.daemon.jvmargs=-Xmx1500m -Xms500m
 -Xmx1500m -XX:ReservedCodeCacheSize=320m -Xms500m
 ```
 
-#### kotlin 확장
+#### kotlin 확장 {id="kotlin-extension"}
 
 `kotlin` 확장(extension)에서 인자를 지정할 수 있습니다:
 
@@ -160,7 +160,7 @@ kotlin {
 </tab>
 </tabs>
 
-#### 특정 태스크 정의
+#### 특정 태스크 정의 {id="specific-task-definition"}
 
 특정 태스크에 대해 인자를 지정할 수 있습니다:
 
@@ -189,7 +189,7 @@ tasks.withType(CompileUsingKotlinDaemon).configureEach { task ->
 >
 {style="note"}
 
-### JVM 인자에 따른 Kotlin 데몬의 동작
+### JVM 인자에 따른 Kotlin 데몬의 동작 {id="kotlin-daemon-s-behavior-with-jvm-arguments"}
 
 Kotlin 데몬의 JVM 인자를 구성할 때 다음 사항에 유의하세요:
 
@@ -219,7 +219,7 @@ Kotlin 데몬은 다음과 같은 기본 JVM 인자를 가집니다:
 >
 {style="note"}
 
-## 이전 컴파일러로 되돌리기
+## 이전 컴파일러로 되돌리기 {id="rolling-back-to-the-previous-compiler"}
 
 Kotlin 2.0.0부터 K2 컴파일러가 기본으로 사용됩니다.
 
@@ -232,7 +232,7 @@ Kotlin 2.0.0 이상에서 이전 컴파일러를 사용하려면 다음 중 하�
 
 K2 컴파일러의 이점에 대해 자세히 알아보려면 [K2 컴파일러 마이그레이션 가이드](k2-compiler-migration-guide.md)를 참조하세요.
 
-## 최신 언어 버전 시도하기
+## 최신 언어 버전 시도하기 {id="trying-the-latest-language-version"}
 
 Kotlin 2.0.0부터 최신 언어 버전을 시도해 보려면 `gradle.properties` 파일에 `kotlin.experimental.tryNext` 프로퍼티를 설정하세요. 이 프로퍼티를 사용하면 Kotlin Gradle 플러그인이 언어 버전을 현재 Kotlin 버전의 기본값보다 하나 높은 버전으로 올립니다. 예를 들어 Kotlin 2.0.0에서 기본 언어 버전은 2.0이므로, 이 프로퍼티는 언어 버전을 2.1로 구성합니다.
 
@@ -244,7 +244,7 @@ Kotlin 2.0.0부터 최신 언어 버전을 시도해 보려면 `gradle.propertie
 
 [빌드 보고서](#build-reports)에서 각 태스크를 컴파일하는 데 사용된 언어 버전을 확인할 수 있습니다.
 
-## 빌드 보고서
+## 빌드 보고서 {id="build-reports"}
 
 빌드 보고서에는 다양한 컴파일 단계의 소요 시간과 컴파일이 증분 방식으로 이루어지지 못한 이유가 포함됩니다.
 컴파일 시간이 너무 길거나 동일한 프로젝트임에도 시간이 다를 때 성능 문제를 조사하기 위해 빌드 보고서를 사용하세요.
@@ -259,7 +259,7 @@ Kotlin 빌드 보고서는 단일 Gradle 태스크를 세분화 단위로 하는
 
 [빌드 보고서를 읽는 방법](https://blog.jetbrains.com/kotlin/2022/06/introducing-kotlin-build-reports/#how_to_read_build_reports)과 [JetBrains가 빌드 보고서를 사용하는 방법](https://blog.jetbrains.com/kotlin/2022/06/introducing-kotlin-build-reports/#how_we_use_build_reports_in_jetbrains)에 대해 알아보세요.
 
-### 빌드 보고서 활성화하기
+### 빌드 보고서 활성화하기 {id="enabling-build-reports"}
 
 빌드 보고서를 활성화하려면 `gradle.properties`에 빌드 보고서 출력을 저장할 위치를 선언하세요:
 
@@ -315,7 +315,7 @@ kotlin.build.report.http.include_git_branch.name=true|false
 kotlin.build.report.include_compiler_arguments=true|false
 ```
 
-### 커스텀 값 제한
+### 커스텀 값 제한 {id="limit-of-custom-values"}
 
 빌드 스캔 통계를 수집하기 위해 Kotlin 빌드 보고서는 [Gradle의 커스텀 값(custom values)](https://docs.gradle.org/enterprise/tutorials/extending-build-scans/)을 사용합니다. 
 사용자와 다양한 Gradle 플러그인 모두 커스텀 값에 데이터를 기록할 수 있습니다. 커스텀 값의 수에는 제한이 있습니다.
@@ -333,7 +333,7 @@ Kotlin 플러그인이 생성하는 커스텀 값의 수를 줄이려면 `gradle
 kotlin.build.report.build_scan.custom_values_limit=500
 ```
 
-### 프로젝트 및 시스템 프로퍼티 수집 중단하기
+### 프로젝트 및 시스템 프로퍼티 수집 중단하기 {id="switching-off-collecting-project-and-system-properties"}
 
 HTTP 빌드 통계 로그에는 일부 프로젝트 및 시스템 프로퍼티가 포함될 수 있습니다. 이러한 프로퍼티는 빌드 동작을 변경할 수 있으므로 빌드 통계에 기록하는 것이 유용합니다. 
 그러나 이러한 프로퍼티에는 비밀번호나 프로젝트의 전체 경로와 같은 민감한 데이터가 포함될 수 있습니다.
@@ -344,7 +344,7 @@ HTTP 빌드 통계 로그에는 일부 프로젝트 및 시스템 프로퍼티�
 > 
 {style="note"}
 
-## 다음 단계는?
+## 다음 단계는? {id="what-s-next"}
 
 다음에 대해 자세히 알아보세요:
 * [Gradle 기본 사항 및 세부 사항](https://docs.gradle.org/current/userguide/userguide.html).

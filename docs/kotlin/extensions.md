@@ -6,7 +6,7 @@ Kotlin 的 *扩展* 允许你在不使用 继承 或 *装饰器 (Decorator)* 之
 
 重要的是，扩展并不会修改它们所扩展的类或接口。当你定义一个扩展时，你并没有添加新的成员。你只是让新的函数可以被调用，或者让新的属性可以使用相同的语法进行访问。
 
-## 接收器
+## 接收器 {id="receivers"}
 
 扩展总是在接收器上调用的。接收器的类型必须与被扩展的类或接口的类型相同。要使用扩展，请先写出接收器，后跟一个 `.`，再接上函数名或属性名。
 
@@ -30,7 +30,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-extension-function-stringbuilder"}
 
-## 扩展函数
+## 扩展函数 {id="extension-functions"}
 
 在创建你自己的扩展函数之前，请查看你所需的功能是否已经在 Kotlin [标准库](https://kotlinlang.org/api/core/kotlin-stdlib/) 中提供。标准库为以下操作提供了许多有用的扩展函数：
 
@@ -104,7 +104,7 @@ fun main() {
 
 `.mostVoted()` 函数遍历调用它的 map 的键值对，并使用 [`maxByOrNull()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/max-by-or-null.html) 函数返回包含最大值的键值对的键。如果 map 为空，`maxByOrNull()` 函数将返回 `null`。`mostVoted()` 函数使用安全调用 `?.`，以便仅在 `maxByOrNull()` 函数返回非 null 值时才访问 `key` 属性。
 
-### 泛型扩展函数
+### 泛型扩展函数 {id="generic-extension-functions"}
 
 要创建泛型扩展函数，请在函数名之前声明泛型类型形参，以便在接收器类型表达式中使用它。在这个例子中，`.endpoints()` 函数扩展了 `List<T>`，其中 `T` 可以是任何类型：
 
@@ -132,7 +132,7 @@ fun main() {
 
 有关泛型的更多信息，请参阅 [泛型函数](generics.md)。
 
-### 可空接收器
+### 可空接收器 {id="nullable-receivers"}
 
 你可以定义具有可空接收器类型的扩展函数，这允许你在变量上调用它们，即使其值为 null。当接收器为 `null` 时，`this` 也是 `null`。请确保在函数内部正确处理为 null 性。例如，在函数体内使用 `this == null` 检查、[安全调用 `?.`](null-safety.md#safe-call-operator) 或 [Elvis 运算符 `?:`](null-safety.md#elvis-operator)。
 
@@ -161,7 +161,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-extension-function-nullable-receiver"}
 
-### 扩展函数还是成员函数？
+### 扩展函数还是成员函数？ {id="extension-or-member-functions"}
 
 由于扩展函数和成员函数的调用具有相同的表示法，编译器如何知道使用哪一个？扩展函数是 *静态地* 分发的，这意味着编译器在编译时根据接收器类型决定调用哪个函数。例如：
 
@@ -228,7 +228,7 @@ fun main() {
 
 在这个例子中，由于向 `.printFunctionType()` 函数传递了一个 `Int`，编译器选择了扩展函数，因为它与签名匹配。编译器忽略了不带实参的成员函数。
 
-### 匿名扩展函数
+### 匿名扩展函数 {id="anonymous-extension-functions"}
 
 你可以定义不带名称的扩展函数。当你想要避免污染全局命名空间，或者当你需要将某些扩展行为作为参数传递时，这非常有用。
 
@@ -268,7 +268,7 @@ lambda 体 `{ min, max -> this in min..max }` 检查调用该函数的 `Int` 值
 
 欲了解更多信息，请参阅 [Lambda表达式与匿名函数](lambdas.md)。
 
-## 扩展属性
+## 扩展属性 {id="extension-properties"}
 
 Kotlin 支持扩展属性，这对于执行数据转换或创建 UI 显示辅助程序非常有用，且不会污染你正在处理的类。
 
@@ -329,7 +329,7 @@ fun main() {
 
 在这个例子中，getter 使用 [Elvis 运算符](null-safety.md#elvis-operator) 返回 `houseNumbers` map 中存在的门牌号，否则返回 `1`。要详细了解如何编写 getter 和 setter，请参阅 [自定义 getter 与 setter](properties.md#custom-getters-and-setters)。
 
-## 伴生对象扩展
+## 伴生对象扩展 {id="companion-object-extensions"}
 
 如果一个类定义了一个 [伴生对象](object-declarations.md#companion-objects)，你也可以为该伴生对象定义扩展函数和属性。就像伴生对象的常规成员一样，你可以仅使用类名作为限定符来调用它们。编译器默认将伴生对象命名为 `Companion`：
 
@@ -349,7 +349,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-extension-function-companion-object"}
 
-## 将扩展声明为成员
+## 将扩展声明为成员 {id="declaring-extensions-as-members"}
 
 你可以在另一个类内部为一个类声明扩展。像这样的扩展拥有多个 *隐式接收器*。隐式接收器是指一个对象，你无需使用 [`this`](this-expressions.md#qualified-this) 进行限定即可访问其成员：
 
@@ -409,7 +409,7 @@ class Connection {
 }
 ```
 
-### 重写成员扩展
+### 重写成员扩展 {id="overriding-member-extensions"}
 
 你可以将成员扩展声明为 `open` 并在子类中重写它们，这在你想要为每个子类自定义扩展行为时非常有用。编译器对每种接收器类型的处理方式不同：
 
@@ -474,7 +474,7 @@ fun main() {
 
 分发接收器在运行时使用虚分发解析，这使得 `main()` 函数中的行为更容易理解。可能让你感到惊讶的是，当你对一个 `Admin` 实例调用 `notify()` 函数时，编译器会根据声明的类型（`user: User`）选择扩展，因为它对扩展接收器进行静态解析。
 
-## 扩展与可见性修饰符
+## 扩展与可见性修饰符 {id="extensions-and-visibility-modifiers"}
 
 扩展使用与在相同作用域内声明的常规函数相同的 [可见性修饰符](visibility-modifiers.md)，包括作为其他类成员声明的扩展。
 
@@ -539,7 +539,7 @@ internal fun String.parseJson(): Map<String, Any> {
 }
 ```
 
-## 扩展的作用域
+## 扩展的作用域 {id="scope-of-extensions"}
 
 在大多数情况下，你会直接在软件包下的顶层定义扩展：
 

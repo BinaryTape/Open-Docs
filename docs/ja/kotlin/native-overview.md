@@ -3,7 +3,7 @@
 Kotlin/Nativeは、仮想マシンなしで実行可能なネイティブバイナリにKotlinコードをコンパイルするためのテクノロジーです。
 Kotlin/Nativeには、[LLVM](https://llvm.org/)ベースのKotlinコンパイラ用バックエンドと、Kotlin標準ライブラリのネイティブ実装が含まれています。
 
-## なぜKotlin/Nativeなのか？
+## なぜKotlin/Nativeなのか？ {id="why-kotlin-native"}
 
 Kotlin/Nativeは、主に、組み込みデバイスやiOSのように、仮想マシン（_virtual machines_）が望ましくない、あるいは不可能なプラットフォーム向けにコンパイルできるように設計されています。追加のランタイムや仮想マシンを必要としない、自己完結型（self-contained）のプログラムを作成する必要がある状況に最適です。
 
@@ -11,7 +11,7 @@ Kotlin/Nativeは、主に、組み込みデバイスやiOSのように、仮想�
 
 <a href="native-get-started.md" as="button" mode="rock" icon="arrow-right" icon-position="right">Kotlin/Nativeを始める</a>
 
-## ターゲットプラットフォーム
+## ターゲットプラットフォーム {id="target-platforms"}
 
 Kotlin/Nativeは以下のプラットフォームをサポートしています：
 
@@ -26,11 +26,11 @@ Kotlin/Nativeは以下のプラットフォームをサポートしています�
 
 [サポートされているターゲットとホストの全リストを表示する](native-target-support.md)。
 
-## 相互運用性（Interoperability）
+## 相互運用性（Interoperability） {id="interoperability"}
 
 Kotlin/Nativeは、さまざまなオペレーティングシステムのネイティブプログラミング言語との双方向の相互運用性をサポートしています。コンパイラは、多くのプラットフォーム向けの実行ファイル、静的または動的Cライブラリ、およびSwift/Objective-Cフレームワークを作成できます。
 
-### Cとの相互運用性
+### Cとの相互運用性 {id="interoperability-with-c"}
 
 Kotlin/Nativeは[Cとの相互運用性](native-c-interop.md)を提供します。既存のCライブラリをKotlinコードから直接使用できます。
 
@@ -40,19 +40,19 @@ Kotlin/Nativeは[Cとの相互運用性](native-c-interop.md)を提供します�
 * [Cの型がKotlinにどのようにマッピングされるかを学ぶ](mapping-primitive-data-types-from-c.md)
 * [C相互運用とlibcurlを使用してネイティブHTTPクライアントを作成する](native-app-with-c-and-libcurl.md)
 
-### Swift/Objective-Cとの相互運用性
+### Swift/Objective-Cとの相互運用性 {id="interoperability-with-swift-objective-c"}
 
 Kotlin/Nativeは、[Objective-Cを介したSwiftとの相互運用性](native-objc-interop.md)を提供します。macOSおよびiOS上のSwift/Objective-CアプリケーションからKotlinコードを直接使用できます。
 
 詳細については、[AppleフレームワークとしてのKotlin/Native](apple-framework.md)チュートリアルを完了してください。
 
-## プラットフォーム間でのコード共有
+## プラットフォーム間でのコード共有 {id="sharing-code-between-platforms"}
 
 Kotlin/Nativeには、プロジェクト間でKotlinコードを共有するのに役立つ、ビルド済みの[プラットフォームライブラリ](native-platform-libs.md)のセットが含まれています。POSIX、gzip、OpenGL、Metal、Foundation、およびその他多くの一般的なライブラリやAppleフレームワークが事前にインポートされ、Kotlin/Nativeライブラリとしてコンパイラパッケージに含まれています。
 
 Kotlin/Nativeは、Android、iOS、JVM、Web、およびネイティブを含む複数のプラットフォーム間で共通コードを共有するのに役立つ[Kotlinマルチプラットフォーム](https://kotlinlang.org/docs/multiplatform/get-started.html)テクノロジーの一部です。マルチプラットフォームライブラリは、共通のKotlinコードに必要なAPIを提供し、プロジェクトの共有部分をすべて1か所でKotlinを使って記述することを可能にします。
 
-## メモリマネージャ
+## メモリマネージャ {id="memory-manager"}
 
 Kotlin/Nativeは、JVMやGoに似た自動[メモリマネージャ](native-memory-manager.md)を使用しています。独自のトレーシングガベージコレクタを備えており、これはSwift/Objective-CのARCとも統合されています。
 

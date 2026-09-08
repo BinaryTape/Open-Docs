@@ -2,21 +2,21 @@
 
 `embeddings` 模組提供了用於產生和比較文字與程式碼 Embeddings 的功能性。Embeddings 是捕捉語義的向量表示，可實現高效的相似度比較。
 
-## 總覽
+## 總覽 {id="overview"}
 
 此模組由兩個主要元件組成：
 
 1. **embeddings-base**：Embeddings 的核心介面與資料結構。
 2. **embeddings-llm**：使用 Ollama 進行本機 Embedding 產生的實作。
 
-## 快速入門
+## 快速入門 {id="getting-started"}
 
 以下章節包含如何透過以下方式使用 Embeddings 的基本範例：
 
 - 透過 Ollama 使用本機 Embedding 模型
 - 使用 OpenAI Embedding 模型
 
-### 本機 Embeddings
+### 本機 Embeddings {id="local-embeddings"}
 
 若要搭配本機模型使用 Embedding 功能性，您的系統需要安裝並執行 Ollama。
 有關安裝與執行指示，請參閱 [官方 Ollama GitHub 存儲庫](https://github.com/ollama/ollama)。
@@ -54,7 +54,7 @@ fun main() {
 
     將 `<ollama-model-id>` 替換為特定模型的 Ollama 識別碼。有關可用 Embedding 模型及其識別碼的更多資訊，請參閱 [Ollama 模型總覽](#ollama-models-overview)。
 
-### Ollama 模型總覽
+### Ollama 模型總覽 {id="ollama-models-overview"}
 
 下表提供了可用 Ollama Embedding 模型的總覽。
 
@@ -68,7 +68,7 @@ fun main() {
 
 有關這些模型的更多資訊，請參閱 Ollama 的 [Embedding Models](https://ollama.com/blog/embedding-models) 部落格文章。
 
-### 選擇模型
+### 選擇模型 {id="choosing-a-model"}
 
 根據您的需求，以下是選擇 Ollama Embedding 模型的一些一般建議：
 
@@ -78,7 +78,7 @@ fun main() {
 - 追求最高效率（以部分品質為代價），請使用 `ALL_MINILM`。
 - 對於高維度 Embeddings，請使用 `MXBAI_EMBED_LARGE`。
 
-## OpenAI embeddings
+## OpenAI embeddings {id="openai-embeddings"}
 
 若要使用 OpenAI Embedding 模型建立 Embeddings，請使用 `OpenAILLMClient` 執行個體的 `embed` 方法，如下例所示。
 
@@ -103,7 +103,7 @@ suspend fun openAIEmbed(text: String) {
 ```
 <!--- KNIT example-embeddings-02.kt -->
 
-## AWS Bedrock embeddings
+## AWS Bedrock embeddings {id="aws-bedrock-embeddings"}
 
 若要使用 AWS Bedrock Embedding 模型建立 Embeddings，請使用 `BedrockLLMClient` 執行個體的 `embed` 方法以及您選擇的模型。範例：
 
@@ -140,7 +140,7 @@ suspend fun bedrockEmbed(text: String) {
 ```
 <!--- KNIT example-embeddings-03.kt -->
 
-### 支援的 AWS Bedrock Embedding 模型
+### 支援的 AWS Bedrock Embedding 模型 {id="supported-aws-bedrock-embedding-models"}
 
 | 供應商 | 模型名稱 | 模型 ID | 輸入 | 輸出 | 維度 | 上下文長度 | 備註 |
 |----------|------------------------------|--------------------------------|-------|-----------|------------|----------------|-------------------------------------------------------------------------------------------------------|
@@ -151,11 +151,11 @@ suspend fun bedrockEmbed(text: String) {
 
 > 如需最新的模型支援資訊，請參閱 [AWS Bedrock 支援的模型文件](https://docs.aws.amazon.com/bedrock/latest/userguide/models-supported.html)。
 
-## 範例
+## 範例 {id="examples"}
 
 以下範例展示了如何使用 Embeddings 來比較程式碼與文字或其他程式碼片段。
 
-### 程式碼與文字比較
+### 程式碼與文字比較 {id="code-to-text-comparison"}
 
 將程式碼片段與自然語言描述進行比較，以尋找語義匹配：
 
@@ -197,7 +197,7 @@ suspend fun compareCodeToText(embedder: Embedder) { // Embedder 型別
 ```
 <!--- KNIT example-embeddings-04.kt -->
 
-### 程式碼與程式碼比較
+### 程式碼與程式碼比較 {id="code-to-code-comparison"}
 
 比較程式碼片段，以尋找語義相似度，而不受語法差異影響：
 
@@ -259,7 +259,7 @@ suspend fun compareCodeToCode(embedder: Embedder) { // Embedder 型別
 ```
 <!--- KNIT example-embeddings-05.kt -->
 
-## API 文件
+## API 文件 {id="api-documentation"}
 
 有關 Embeddings 的完整 API 參考，請參閱以下模組的參考文件：
 

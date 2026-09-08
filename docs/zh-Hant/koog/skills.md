@@ -8,7 +8,7 @@ Koog 技能讓代理可以從檔案系統中探索可重複使用的功能套件
 2.  從探索到的元資料產生技能提示詞區塊。
 3.  將產生的區塊新增至代理的 `system` 提示詞中，並提供代理可用來檢查檔案和執行技能指令碼的工具。
 
-## 範例：將技能新增至系統提示詞
+## 範例：將技能新增至系統提示詞 {id="example-adding-skills-to-system-prompt"}
 
 ```kotlin
 
@@ -54,7 +54,7 @@ fun main() = runBlocking {
 ```
 <!--- KNIT example-skills-usage-01.kt -->
 
-## 必要組件
+## 必要組件 {id="required-pieces"}
 
 - `discoverSkills(...)` 掃描設定的目錄並回傳探索到的技能描述符。
 - `generateSkillsPrompt(...)` 將探索到的技能轉換為提示詞文字（`SkillsPromptFormat.XML` 是常見的選擇）。
@@ -63,7 +63,7 @@ fun main() = runBlocking {
   - 檔案探索/讀取工具（用於透明的技能揭露），
   - 一個或多個用於執行技能指令碼的執行工具。
 
-## 行為預期
+## 行為預期 {id="behavior-expectations"}
 
 當技能提示詞存在且註冊了符合的工具時，代理可以：
 
@@ -73,7 +73,7 @@ fun main() = runBlocking {
 
 詳情請參閱 [Agent Skills](https://agentskills.io/home) 文件。
 
-## 實用技巧
+## 實用技巧 {id="practical-tips"}
 
 - 將技能保存在專用目錄中，並在相對根路徑可能變動的執行環境中傳遞絕對路徑。
 - 當技能是靜態時，使用唯讀檔案提供者進行探索（例如 `JVMFileSystemProvider.ReadOnly`）。

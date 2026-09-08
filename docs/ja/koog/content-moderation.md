@@ -26,7 +26,7 @@ AIアプリケーションにおいて、コンテンツモデレーションは
     - AIのレスポンスが組織の価値観や基準に沿っていることを確認する
     - 安全で適切なコンテンツを一貫して提供することで、ユーザーの信頼を築く
 
-## モデレートされるコンテンツの種類
+## モデレートされるコンテンツの種類 {id="types-of-moderated-content"}
 
 Koogのモデレーションシステムは、さまざまな種類のコンテンツを分析できます：
 
@@ -42,11 +42,11 @@ Koogのモデレーションシステムは、さまざまな種類のコンテ�
     - AIシステムと統合されたツールによって生成、またはツールに渡されたコンテンツ
     - ツールの入力と出力がコンテンツの安全性基準を維持していることを確認します
 
-## サポートされているプロバイダーとモデル
+## サポートされているプロバイダーとモデル {id="supported-providers-and-models"}
 
 Koogは、複数のプロバイダーとモデルを通じてコンテンツモデレーションをサポートしています：
 
-### OpenAI
+### OpenAI {id="openai"}
 
 OpenAIは、2つのモデレーションモデルを提供しています：
 
@@ -62,7 +62,7 @@ OpenAIは、2つのモデレーションモデルを提供しています：
     - テキストと画像の両方で有害なコンテンツを特定可能
     - Textモデルよりも包括的
 
-### Ollama
+### Ollama {id="ollama"}
 
 Ollamaは、以下のモデルを通じてモデレーションをサポートしています：
 
@@ -72,11 +72,11 @@ Ollamaは、以下のモデルを通じてモデレーションをサポート�
     - コンテンツモデレーションタスクに特化している
     - Ollamaを通じてローカルで動作する
 
-## LLMクライアントでのモデレーションの使用
+## LLMクライアントでのモデレーションの使用 {id="using-moderation-with-llm-clients"}
 
 Koogは、コンテンツモデレーションに対して2つの主なアプローチを提供しています。`LLMClient` インスタンスでの直接的なモデレーション、または `PromptExecutor` の `moderate` メソッドの使用です。
 
-### LLMClientによる直接モデレーション
+### LLMClientによる直接モデレーション {id="direct-moderation-with-llmclient"}
 
 `LLMClient` インスタンスの `moderate` メソッドを直接使用できます：
 
@@ -231,7 +231,7 @@ Koogは、コンテンツモデレーションに対して2つの主なアプロ
     ```
     <!--- KNIT example-content-moderation-java-02.java -->
 
-### PromptExecutorによるモデレーション
+### PromptExecutorによるモデレーション {id="moderation-with-promptexecutor"}
 
 `PromptExecutor` の `moderate` メソッドを使用することもできます。これにより、モデルのプロバイダーに基づいて適切な `LLMClient` が使用されます：
 
@@ -333,7 +333,7 @@ Koogは、コンテンツモデレーションに対して2つの主なアプロ
 
 このメソッドは [ModerationResult](#moderationresult-structure) を返します。
 
-## ModerationResult の構造
+## ModerationResult の構造 {id="moderationresult-structure"}
 
 モデレーションプロセスは、以下の構造を持つ `ModerationResult` オブジェクトを返します：
 
@@ -413,9 +413,9 @@ Koogは、コンテンツモデレーションに対して2つの主なアプロ
 | `categories`     | Map&lt;ModerationCategory, ModerationCategoryResult&gt; | はい      |            | モデレーションカテゴリと、どのカテゴリにフラグが立てられたかを示す詳細な結果のマップ。 |
 | `violatedCategories` | List&lt;ModerationCategory&gt;                       | いいえ       |            | モデレーション結果で検出されたとしてフラグが立てられたモデレーションカテゴリのリスト。 |
 
-## モデレーションカテゴリ
+## モデレーションカテゴリ {id="moderation-categories"}
 
-### Koog モデレーションカテゴリ
+### Koog モデレーションカテゴリ {id="koog-moderation-categories"}
 
 Koog フレームワークが提供する（基盤となるLLMおよびLLMプロバイダーに関係なく）利用可能なモデレーションカテゴリは以下の通りです：
 
@@ -441,7 +441,7 @@ Koog フレームワークが提供する（基盤となるLLMおよびLLMプロ
 !!! note
     これらのカテゴリは、新しいモデレーションカテゴリが追加されたり、既存のカテゴリが時間の経過とともに進化したりするため、変更される可能性があります。
 
-#### OpenAI モデレーションカテゴリ
+#### OpenAI モデレーションカテゴリ {id="openai-moderation-categories"}
 
 OpenAIのモデレーションAPIは、以下のカテゴリを提供しています：
 
@@ -459,7 +459,7 @@ OpenAIのモデレーションAPIは、以下のカテゴリを提供してい�
 - **Violence**: 死、暴力、または身体的損傷を描写するコンテンツ。
 - **Violence/graphic**: 死、暴力、または身体的損傷を生々しく描写するコンテンツ。
 
-#### Ollama ハザードカテゴリ
+#### Ollama ハザードカテゴリ {id="ollama-hazard-categories"}
 
 OllamaのLlama Guardモデルは、以下のハザードカテゴリを使用します：
 
@@ -509,7 +509,7 @@ OllamaのLlama Guardモデルは、以下のハザードカテゴリを使用し
 
 - **S13 - Elections**: 市民選挙における投票の時間、場所、方法など、選挙制度やプロセスに関する事実誤認を含むレスポンス。
 
-#### プロバイダー間のカテゴリマッピング
+#### プロバイダー間のカテゴリマッピング {id="category-mapping-between-providers"}
 
 次の表は、OllamaとOpenAIのモデレーションカテゴリ間のマッピングを示しています：
 
@@ -529,9 +529,9 @@ OllamaのLlama Guardモデルは、以下のハザードカテゴリを使用し
 | **S12 – Sexual content** (エロティカ)                                                        | `sexual`                                                                              | 通常の成人向けエロティカ（未成年の場合は `sexual/minors` に移行）。                            |
 | **S13 – Elections misinformation**                                                        | **UNIQUE**                                                                            | 選挙プロセスの誤情報は、OpenAIのカテゴリでは特定されていません。                 |
 
-## モデレーション結果の例
+## モデレーション結果の例 {id="examples-of-moderation-results"}
 
-### OpenAI モデレーションの例（有害なコンテンツ）
+### OpenAI モデレーションの例（有害なコンテンツ） {id="openai-moderation-example-harmful-content"}
 
 OpenAIは、以下のJSON形式でレスポンスを返す特定の `/moderations` APIを提供しています：
 
@@ -647,7 +647,7 @@ Koogでは、上記のレスポンス構造は以下のレスポンスにマッ�
     ```
     <!--- KNIT example-content-moderation-java-05.java -->
 
-### OpenAI モデレーションの例（安全なコンテンツ）
+### OpenAI モデレーションの例（安全なコンテンツ） {id="openai-moderation-example-safe-content"}
 
 ```json
 {
@@ -756,7 +756,7 @@ Koogでは、上記のOpenAIレスポンスは次のように提示されます�
     ```
     <!--- KNIT example-content-moderation-java-06.java -->
 
-### Ollama モデレーションの例（有害なコンテンツ）
+### Ollama モデレーションの例（有害なコンテンツ） {id="ollama-moderation-example-harmful-content"}
 
 Ollamaのモデレーション形式へのアプローチは、OpenAIのアプローチとは大きく異なります。
 Ollamaには、モデレーションに関連する特定のAPIエンドポイントはありません。代わりに、Ollamaは一般的なチャットAPIを使用します。
@@ -840,7 +840,7 @@ S1,S10
     ```
     <!--- KNIT example-content-moderation-java-07.java -->
 
-### Ollama モデレーションの例（安全なコンテンツ）
+### Ollama モデレーションの例（安全なコンテンツ） {id="ollama-moderation-example-safe-content"}
 
 以下は、コンテンツを安全としてマークするOllamaのレスポンス例です：
 

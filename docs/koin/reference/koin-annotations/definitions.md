@@ -20,7 +20,7 @@ Koin Annotations 保持与 Koin DSL 相同的语义。您可以使用以下定�
 
 关于作用域，请查看 [声明作用域](/docs/reference/koin-core/scopes) 部分。
 
-## 顶层函数注解
+## 顶层函数注解 {id="annotated-top-level-functions"}
 
 注解不仅适用于类，还适用于 **顶层函数**。这对于提供来自外部库或构建器模式的实例非常有用。与类一样，顶层函数也会被 `@ComponentScan` 发现：
 
@@ -46,7 +46,7 @@ fun provideHttpClient(json: Json): HttpClient = HttpClient { install(ContentNego
 
 形参会从 DI 容器中自动解析。限定符（`@Named`，自定义 `@Qualifier`）既可以作用于函数，也可以作用于其形参。
 
-## 模块函数（提供者函数）
+## 模块函数（提供者函数） {id="module-functions-provider-functions"}
 
 在 `@Module` 类中，带有 `@Singleton`、`@Factory` 等注解的函数充当提供者函数 —— 类似于 Dagger/Hilt 中的 `@Provides`：
 
@@ -75,7 +75,7 @@ class DaosModule {
 
 这是包装您不拥有且无法直接添加注解的外部库（如 Room、Retrofit、OkHttp 等）的常用模式。
 
-## 自定义限定符注解
+## 自定义限定符注解 {id="custom-qualifier-annotations"}
 
 除了 `@Named`，您还可以使用 `@Qualifier` 创建带有参数的自定义限定符注解：
 
@@ -117,7 +117,7 @@ class DispatchersModule {
 
 自定义限定符在编译时进行验证 —— 提供者与注入点之间的限定符不匹配将产生构建错误。
 
-### 用于 Kotlin Multiplatform 的 ViewModel
+### 用于 Kotlin Multiplatform 的 ViewModel {id="viewmodel-for-kotlin-multiplatform"}
 
 `@KoinViewModel` 注解使用统一的 `koin-core-viewmodel` API 生成 ViewModel，从而提供 Kotlin Multiplatform 兼容性。
 
@@ -128,7 +128,7 @@ class UserViewModel(val repository: UserRepository) : ViewModel()
 
 这将生成与 Android 和 Compose Multiplatform 兼容的 `viewModel` 定义。
 
-## 自动或特定绑定
+## 自动或特定绑定 {id="automatic-or-specific-binding"}
 
 声明组件时，所有检测到的“绑定”（关联的超类型）都将为您准备就绪。例如，对于以下定义：
 
@@ -145,7 +145,7 @@ Koin 会声明您的 `MyComponent` 组件也绑定到 `MyInterface`。等效的 
 @Single(binds = [MyBoundType::class])
 ```
 
-## 可为 null 的依赖项
+## 可为 null 的依赖项 {id="nullable-dependencies"}
 
 如果您的组件使用可为 null 的依赖项，请不用担心，它将为您自动处理。继续使用您的定义注解，Koin 会推断如何处理：
 
@@ -158,7 +158,7 @@ class MyComponent(val myDependency : MyDependency?)
 
 > 请注意，这也适用于注入的参数和属性
 
-## 带有 @Named 的限定符
+## 带有 @Named 的限定符 {id="qualifier-with-named"}
 
 您可以为定义添加“名称”（也称为限定符），以使用 `@Named` 注解区分相同类型的多个定义：
 
@@ -200,7 +200,7 @@ class LoggerLocalDataSource(private val logDao: LogDao) : LoggerDataSource
 val logger: LoggerDataSource by inject(named<InMemoryLogger>())
 ```
 
-## 带有 @InjectedParam 的注入参数
+## 带有 @InjectedParam 的注入参数 {id="injected-parameters-with-injectedparam"}
 
 您可以将构造函数成员标记为“注入参数”，这意味着在调用解析时，该依赖项将传递到图中。
 
@@ -221,7 +221,7 @@ koin.get<MyComponent> { parametersOf(m) }
 
 生成的等效 DSL 将为 `single { params -> MyComponent(params.get()) }`
 
-## 注入 Lazy 依赖项 - `Lazy<T>`
+## 注入 Lazy 依赖项 - `Lazy<T>` {id="injecting-a-lazy-dependency-lazy-t"}
 
 Koin 可以自动检测并解析 Lazy 依赖项。例如，在这里我们想要延迟解析 `LoggerDataSource` 定义。您只需按照如下方式使用 `Lazy` Kotlin 类型：
 
@@ -239,7 +239,7 @@ class LoggerAggregator(val lazyLogger : Lazy<LoggerDataSource>)
 single { LoggerAggregator(inject()) }
 ```
 
-## 注入依赖项列表 - `List<T>`
+## 注入依赖项列表 - `List<T>` {id="injecting-a-list-of-dependencies-list-t"}
 
 Koin 可以自动检测并解析依赖项列表。例如，在这里我们想要解析所有的 `LoggerDataSource` 定义。您只需按照如下方式使用 `List` Kotlin 类型：
 
@@ -262,7 +262,7 @@ class LoggerAggregator(val datasource : List<LoggerDataSource>)
 single { LoggerAggregator(getAll()) }
 ```
 
-## 带有 @Property 的属性
+## 带有 @Property 的属性 {id="properties-with-property"}
 
 要在定义中解析 Koin 属性，只需使用 `@Property` 标记构造函数成员。这将通过传递给注解的值来解析 Koin 属性：
 
@@ -275,7 +275,7 @@ public class ComponentWithProps(
 
 生成的等效 DSL 将为 `factory { ComponentWithProps(getProperty("id")) }`
 
-### @PropertyValue - 带有默认值的属性（自 1.4 起）
+### @PropertyValue - 带有默认值的属性（自 1.4 起） {id="propertyvalue-property-with-default-value-since-1-4"}
 
 Koin Annotations 让您能够直接在代码中使用 `@PropertyValue` 注解为属性定义默认值。
 让我们参考示例：
@@ -294,11 +294,11 @@ public class ComponentWithProps(
 
 生成的等效 DSL 将为 `factory { ComponentWithProps(getProperty("id", ComponentWithProps.DEFAULT_ID)) }`
 
-## JSR-330 兼容性注解
+## JSR-330 兼容性注解 {id="jsr-330-compatibility-annotations"}
 
 Koin Annotations 通过 `koin-jsr330` 模块提供与 JSR-330 (Jakarta Inject) 兼容的注解。这些注解对于从 Hilt、Dagger 或 Guice 等其他兼容 JSR-330 的框架迁移的开发者特别有用。
 
-### 设置
+### 设置 {id="setup"}
 
 将 `koin-jsr330` 依赖项添加到您的项目中：
 
@@ -308,9 +308,9 @@ dependencies {
 }
 ```
 
-### 可用的 JSR-330 注解
+### 可用的 JSR-330 注解 {id="available-jsr-330-annotations"}
 
-#### @Singleton (jakarta.inject.Singleton)
+#### @Singleton (jakarta.inject.Singleton) {id="singleton-jakarta-inject-singleton"}
 
 JSR-330 标准单例注解，等效于 Koin 的 `@Single`：
 
@@ -323,7 +323,7 @@ class DatabaseService
 
 这将生成与 `@Single` 相同的结果 —— Koin 中的单例实例。
 
-#### @Named (jakarta.inject.Named)
+#### @Named (jakarta.inject.Named) {id="named-jakarta-inject-named"}
 
 用于基于字符串的限定符的 JSR-330 标准限定符注解：
 
@@ -340,7 +340,7 @@ class InMemoryCache : Cache
 class RedisCache : Cache
 ```
 
-#### @Inject (jakarta.inject.Inject)
+#### @Inject (jakarta.inject.Inject) {id="inject-jakarta-inject-inject"}
 
 JSR-330 标准注入注解。虽然 Koin Annotations 不要求显式标记构造函数，但为了实现 JSR-330 兼容性，可以使用 `@Inject`：
 
@@ -354,7 +354,7 @@ class UserService @Inject constructor(
 )
 ```
 
-#### @Qualifier (jakarta.inject.Qualifier)
+#### @Qualifier (jakarta.inject.Qualifier) {id="qualifier-jakarta-inject-qualifier"}
 
 用于创建自定义限定符注解的元注解：
 
@@ -376,7 +376,7 @@ class DatabaseConfig
 class CacheConfig
 ```
 
-#### @Scope (jakarta.inject.Scope)
+#### @Scope (jakarta.inject.Scope) {id="scope-jakarta-inject-scope"}
 
 用于创建自定义作用域注解的元注解：
 
@@ -392,7 +392,7 @@ annotation class RequestScoped
 class RequestProcessor
 ```
 
-### 混合使用
+### 混合使用 {id="mixed-usage"}
 
 您可以在同一个项目中自由混合使用 JSR-330 注解和 Koin 注解：
 
@@ -415,7 +415,7 @@ class DatabaseManager @Inject constructor(
 )
 ```
 
-### 框架迁移优势
+### 框架迁移优势 {id="framework-migration-benefits"}
 
 使用 JSR-330 注解为框架迁移提供了多项优势：
 

@@ -4,7 +4,7 @@ title: Koin DSL
 
 Koin DSL에 대한 빠른 참조 가이드입니다. 자세한 가이드는 **[Core - 정의(Definitions)](/docs/reference/koin-core/definitions)** 및 **[Core - 모듈(Modules)](/docs/reference/koin-core/modules)**을 참조하세요.
 
-## DSL 방식 (DSL Approaches)
+## DSL 방식 (DSL Approaches) {id="dsl-approaches"}
 
 | 방식 | 구문(Syntax) | 패키지 |
 |----------|--------|---------|
@@ -16,11 +16,11 @@ Koin DSL에 대한 빠른 참조 가이드입니다. 자세한 가이드는 **[C
 **컴파일러 플러그인 DSL**은 자동 와이어링(auto-wiring)과 컴파일 타임 안전성을 제공합니다. [컴파일러 플러그인 설정](/docs/setup/compiler-plugin)을 확인하세요.
 :::
 
-## Application DSL
+## Application DSL {id="application-dsl"}
 
 `KoinApplication` 인스턴스는 설정된 Koin 컨테이너를 나타냅니다. 이를 통해 로깅 설정, 프로퍼티 로딩 및 모듈 등록을 할 수 있습니다.
 
-### KoinApplication 생성하기
+### KoinApplication 생성하기 {id="creating-a-koinapplication"}
 
 두 가지 방식 중 하나를 선택하세요:
 
@@ -40,7 +40,7 @@ startKoin {
 }
 ```
 
-### 설정 함수 (Configuration Functions)
+### 설정 함수 (Configuration Functions) {id="configuration-functions"}
 
 `koinApplication` 또는 `startKoin` 내부에서 다음 함수들을 사용할 수 있습니다:
 
@@ -52,7 +52,7 @@ startKoin {
 * `createEagerInstances()` - `createdAtStart`로 표시된 모든 정의의 인스턴스를 생성합니다.
 * `allowOverride(Boolean)` - 정의 오버라이딩 활성화/비활성화 여부를 설정합니다 (3.1.0 버전부터 기본값은 true).
 
-### Global vs Local 컨텍스트
+### Global vs Local 컨텍스트 {id="global-vs-local-context"}
 
 `koinApplication`과 `startKoin`의 핵심적인 차이점은 다음과 같습니다:
 
@@ -81,7 +81,7 @@ val customKoin = koinApplication {
 val service = customKoin.get<Service>() // 특정 인스턴스를 사용함
 ```
 
-### Koin 시작하기
+### Koin 시작하기 {id="starting-koin"}
 
 전체적인 Koin 설정 예시입니다:
 
@@ -106,14 +106,14 @@ startKoin {
 }
 ```
 
-## Module DSL
+## Module DSL {id="module-dsl"}
 
 모듈 및 정의에 대한 종합적인 문서는 다음을 참조하세요:
 - **[정의(Definitions)](/docs/reference/koin-core/definitions)** - DSL 및 어노테이션을 사용한 모든 정의 타입
 - **[모듈(Modules)](/docs/reference/koin-core/modules)** - 모듈 조직화 및 구성
 - **[정의 참조(Definitions Reference)](/docs/reference/koin-core/definitions)** - 빠른 조회를 위한 테이블
 
-### 빠른 참조 (Quick Reference)
+### 빠른 참조 (Quick Reference) {id="quick-reference"}
 
 | 정의 | 클래식 람다 | 클래식 오토와이어 | 컴파일러 플러그인 |
 |------------|----------------|------------------|-----------------|
@@ -123,7 +123,7 @@ startKoin {
 | 뷰모델 (ViewModel) | `viewModel { VM(get()) }` | `viewModelOf(::VM)` | `viewModel<VM>()` |
 | 함수 빌더 (Function Builder) | `single { fn(get()) }` | — | `single { create(::fn) }` |
 
-### 기본 모듈
+### 기본 모듈 {id="basic-module"}
 
 ```kotlin
 val myModule = module {
@@ -133,7 +133,7 @@ val myModule = module {
 }
 ```
 
-### 모듈 구성 (Module Composition)
+### 모듈 구성 (Module Composition) {id="module-composition"}
 
 ```kotlin
 val appModule = module {

@@ -13,7 +13,7 @@
 與所有 AI 工具一樣，Junie 可能會出錯。
 如果您偏好手動遷移，請參閱[將 Kotlin 多平台專案從 CocoaPods 切換至 SwiftPM 相依性](multiplatform-cocoapods-spm-migration.md)。
 
-## 設定 Junie CLI
+## 設定 Junie CLI {id="set-up-junie-cli"}
 
 在終端中，安裝 Junie CLI：
 
@@ -32,7 +32,7 @@ junie
 
 參閱 Junie 文件以進一步了解 [認證選項](https://junie.jetbrains.com/docs/junie-cli.html#step-3-authenticate)。
 
-## 安裝 AI 技能
+## 安裝 AI 技能 {id="install-the-ai-skill"}
 
 在終端中，導覽至您的專案目錄並安裝相對應的 Kotlin AI 技能：
 <!-- Stable Junie CLI will support extensions soon https://junie.jetbrains.com/docs/junie-cli-extensions.html -->
@@ -48,7 +48,7 @@ npx skills add Kotlin/kotlin-agent-skills
 在對話方塊中，選擇 `kotlin-tooling-cocoapods-spm-migration` 技能，並選擇 Junie 作為安裝該技能的代理 (agent)。
 當系統詢問作用域時，選擇 `Project` 以將技能的作用域限制在您目前的專案中。
 
-## 開始遷移
+## 開始遷移 {id="start-the-migration"}
 
 在開始之前，請確保您的專案正在使用 VCS，例如 Git。
 這非常重要，以便您可以檢查從初始狀態開始以及每次迭代後的變更。
@@ -68,7 +68,7 @@ npx skills add Kotlin/kotlin-agent-skills
    
 Junie 會識別出您安裝的技能適用於該任務，並開始遷移流程。
 
-## 檢查並測試變更
+## 檢查並測試變更 {id="review-and-test-the-changes"}
 
 在專案 Git 記錄中檢查 Junie 所做的所有變更。
 使用您的 Git 用戶端的 side-by-side diff 檢視器來輕鬆檢查所做的變更。
@@ -89,7 +89,7 @@ Junie 會識別出您安裝的技能適用於該任務，並開始遷移流程�
 > 
 {style="tip"}
 
-## 接下來
+## 接下來 {id="what-s-next"}
 
 * 查看這些範例專案，它們在 `main` 分支中使用 CocoaPods，而在 `spm-import` 分支中使用 SwiftPM：
     * [Firebase 範例](https://github.com/Kotlin/kmp-with-cocoapods-firebase-sample/)

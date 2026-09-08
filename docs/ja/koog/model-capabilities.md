@@ -13,13 +13,13 @@ Koogは、さまざまなLLMプロバイダーのLarge Language Models（LLM）�
 
 これは、統一された方法で異なるLLMプロバイダーと対話するための基盤として機能し、プロバイダー固有の詳細を抽象化しながら、アプリケーションがさまざまなモデルで動作できるようにします。
 
-## LLMの機能 (LLM capabilities)
+## LLMの機能 (LLM capabilities) {id="llm-capabilities"}
 
 LLMの機能は、Large Language Modelがサポートできる特定の機能や特性を表します。Koogフレームワークでは、機能を使用して特定のモデルができることや、その設定方法を定義します。各機能は、`LLMCapability`クラスのサブクラスまたはデータオブジェクトとして表されます。
 
 アプリケーションで使用するためにLLMを設定する際、`LLModel`インスタンスを作成する時に`capabilities`リストに機能を追加することで、そのモデルがサポートする機能を指定します。これにより、フレームワークはモデルと適切に対話し、その機能を適切に使用できるようになります。
 
-### コア機能
+### コア機能 {id="core-capabilities"}
 
 以下のリストには、Koogフレームワークのモデルで利用可能な、コアとなるLLM固有の機能が含まれています。
 
@@ -37,7 +37,7 @@ LLMの機能は、Large Language Modelがサポートできる特定の機能や
 
 - **複数の選択肢** (`LLMCapability.MultipleChoices`): 単一のプロンプトに対して、モデルが複数の独立した返答の選択肢を生成できるようにします。
 
-### メディア処理機能
+### メディア処理機能 {id="media-processing-capabilities"}
 
 以下のリストは、画像や音声などのメディアコンテンツを処理するための機能のセットを表しています。
 
@@ -50,7 +50,7 @@ LLMの機能は、Large Language Modelがサポートできる特定の機能や
 
 - **ドキュメント** (`LLMCapability.Document`): ドキュメントベースの入力および出力の処理を可能にします。
 
-### テキスト処理機能
+### テキスト処理機能 {id="text-processing-capabilities"}
 
 以下の機能リストは、テキスト生成および処理機能を表しています。
 
@@ -62,7 +62,7 @@ LLMの機能は、Large Language Modelがサポートできる特定の機能や
 
 - **モデレーション** (`LLMCapability.Moderation`): モデルがテキストを有害な可能性のあるコンテンツについて分析し、ハラスメント、ヘイトスピーチ、自傷行為、性的コンテンツ、暴力などのさまざまなカテゴリに従って分類できるようにします。
 
-### スキーマ機能
+### スキーマ機能 {id="schema-capabilities"}
 
 以下のリストは、構造化データの処理に関連する機能を示しています。
 
@@ -72,7 +72,7 @@ LLMの機能は、Large Language Modelがサポートできる特定の機能や
         - **Basic** (`LLMCapability.Schema.JSON.Basic`): 軽量または基本的なJSON処理機能を提供します。
         - **Standard** (`LLMCapability.Schema.JSON.Standard`): 複雑なデータ構造に対する包括的なJSONスキーマサポートを提供します。
 
-## モデル（LLModel）設定の作成
+## モデル（LLModel）設定の作成 {id="creating-a-model-llmodel-configuration"}
 
 汎用的でプロバイダーに依存しない方法でモデルを定義するには、以下のパラメータを使用して`LLModel`クラスのインスタンスとしてモデル設定を作成します。
 
@@ -84,7 +84,7 @@ LLMの機能は、Large Language Modelがサポートできる特定の機能や
 | `contextLength` | Long | はい | | LLMのコンテキスト長。これはLLMが処理できる最大トークン数です。 |
 | `maxOutputTokens` | Long | いいえ | `null` | プロバイダーによって生成可能なLLMの最大トークン数。 |
 
-### 例
+### 例 {id="examples"}
 
 このセクションでは、異なる機能を備えた`LLModel`インスタンスを作成する詳細な例を紹介します。
 
@@ -327,7 +327,7 @@ LLMの機能は、Large Language Modelがサポートできる特定の機能や
     -->
     <!--- KNIT example-model-capabilities-java-05.java -->
 
-### モデル別LLM機能
+### モデル別LLM機能 {id="llm-capabilities-by-model"}
 
 このリファレンスは、各プロバイダーのモデルごとにどのLLM機能がサポートされているかを示しています。
 

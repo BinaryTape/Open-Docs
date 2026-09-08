@@ -1,4 +1,4 @@
-## MySQL 类型
+## MySQL 类型 {id="mysql-types"}
 
 SQLDelight 列定义与常规 H2 列定义相同，但支持一个[额外列约束](#custom-column-types)，用于在生成的接口中指定该列的 Kotlin 类型。
 

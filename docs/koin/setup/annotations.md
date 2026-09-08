@@ -4,7 +4,7 @@ title: Koin 注解
 
 为您的项目设置 Koin 注解
 
-## 当前版本
+## 当前版本 {id="current-versions"}
 
 您可以在 [Maven Central](https://search.maven.org/search?q=io.insert-koin) 上找到所有 Koin 软件包。
 
@@ -13,7 +13,7 @@ title: Koin 注解
 - **稳定版**：[![Maven Central](https://img.shields.io/maven-central/v/io.insert-koin/koin-annotations?label=stable)](https://mvnrepository.com/artifact/io.insert-koin/koin-annotations) - 用于生产环境应用程序
 - **最新版**：[![Maven Central](https://img.shields.io/maven-central/v/io.insert-koin/koin-annotations)](https://mvnrepository.com/artifact/io.insert-koin/koin-annotations) - 即将推出的功能预览
 
-## KSP 插件
+## KSP 插件 {id="ksp-plugin"}
 
 我们需要 [Google KSP](https://github.com/google/ksp) 才能工作。请遵循官方的 [KSP 设置文档](https://kotlinlang.org/docs/ksp-quickstart.html)。
 
@@ -30,7 +30,7 @@ plugins {
 **KSP 版本控制变更**：从 KSP 2.x 开始，版本编号现在独立于 Kotlin 版本。对于 Koin 注解 2.3.1，请使用 KSP 2.3.2。
 :::
 
-## 使用版本目录 (推荐)
+## 使用版本目录 (推荐) {id="using-version-catalogs-recommended"}
 
 在您的 `gradle/libs.versions.toml` 中：
 
@@ -47,7 +47,7 @@ koin-ksp-compiler = { module = "io.insert-koin:koin-ksp-compiler", version.ref =
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 ```
 
-## Android 和 Ktor 应用 KSP 设置
+## Android 和 Ktor 应用 KSP 设置 {id="android-ktor-app-ksp-setup"}
 
 - 使用 KSP Gradle 插件
 - 添加 Koin 注解和 Koin KSP 编译器的依赖项
@@ -85,7 +85,7 @@ dependencies {
 }
 ```
 
-## Kotlin Multiplatform 设置
+## Kotlin Multiplatform 设置 {id="kotlin-multiplatform-setup"}
 
 在标准的 Kotlin/Kotlin Multiplatform 项目中，您需要按如下方式设置 KSP：
 
@@ -138,7 +138,7 @@ tasks.matching { it.name.startsWith("ksp") && it.name != "kspCommonMainKotlinMet
 有关完整的 KMP 设置和架构模式，请参阅 [Koin 注解 KMP](/docs/reference/koin-annotations/kmp)。
 :::
 
-## 后续步骤
+## 后续步骤 {id="next-steps"}
 
 设置完成！请继续阅读：
 

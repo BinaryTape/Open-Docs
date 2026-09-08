@@ -8,7 +8,7 @@
 
 在本指南中，您可以通过多个示例学习如何获取、精炼和处理数据。
 
-## 开始之前
+## 开始之前 {id="before-you-start"}
 
 > 从 IntelliJ IDEA 2026.2 开始，Kotlin Notebook 将不再与 IDE 捆绑，也不再由 JetBrains 官方支持。
 > 源代码仍可在 [GitHub](https://github.com/Kotlin/kotlin-notebook) 上获得。
@@ -30,7 +30,7 @@
 
 要按照教程操作，您还可以将 DataFrame 作为 [Gradle](https://kotlin.github.io/dataframe/setupgradle.html) 或 [Maven](https://kotlin.github.io/dataframe/setupmaven.html) 依赖项使用。
 
-## 获取数据
+## 获取数据 {id="retrieve-data"}
 
 要从文件获取数据，请使用 `DataFrame.read()` 函数：
 
@@ -50,7 +50,7 @@ val movies = DataFrame.read("movies.csv", delimiter = ';')
 > 
 {style="tip"}
 
-## 显示数据
+## 显示数据 {id="display-data"}
 
 一旦拥有数据，您就可以将其显示出来。最简单的方法是将数据存储在变量中，然后将其返回：
 
@@ -65,7 +65,7 @@ jsonDf
 
 您可以使用此视图来检查值、查看列名，并轻松了解数据集的状态。
 
-## 检查数据结构
+## 检查数据结构 {id="inspect-data-structure"}
 
 要深入了解数据的结构或架构，请对 DataFrame 变量调用 [`.schema()`](https://kotlin.github.io/dataframe/schema.html) 函数。
 
@@ -77,7 +77,7 @@ jsonDf
 
 ![可用属性](auto-completion-data-analysis.png){width=700}
 
-## 精炼数据
+## 精炼数据 {id="refine-data"}
 
 Kotlin DataFrame 提供了用于精炼数据集的各种操作。例如，[分组](https://kotlin.github.io/dataframe/group.html)、[筛选](https://kotlin.github.io/dataframe/filter.html)、[更新](https://kotlin.github.io/dataframe/update.html)或[添加新列](https://kotlin.github.io/dataframe/add.html)。这些函数对于数据分析至关重要，让您可以有效地组织、清洗和转换数据。
 
@@ -160,7 +160,7 @@ Kotlin DataFrame 提供了用于精炼数据集的各种操作。例如，[分�
 > 
 {style="tip"}
 
-## 导出数据
+## 导出数据 {id="export-data"}
 
 在精炼数据后，您可以轻松导出处理后的数据。
 
@@ -194,7 +194,7 @@ refinedMoviesDf
     .openInBrowser()
 ```
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * 探索使用 [Kandy 库](https://kotlin.github.io/kandy/examples.html)进行数据可视化
 * 在[在 Kotlin Notebook 中使用 Kandy 进行数据可视化](data-analysis-visualization.md)中查找有关数据可视化的更多信息

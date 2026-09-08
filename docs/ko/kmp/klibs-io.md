@@ -8,7 +8,7 @@
 
 <a as="button" href="https://klibs.io" mode="classic" icon="arrow-right" icon-position="right">멀티플랫폼 라이브러리 찾아보기</a>
 
-## AI 워크플로에서의 klibs.io
+## AI 워크플로에서의 klibs.io {id="klibs-io-in-your-ai-workflow"}
 
 제공된 MCP(Model Context Protocol) 인터페이스와 바로 사용 가능한 에이전트 지침을 사용하여 klibs.io를 AI 워크플로에 통합하세요.
 
@@ -33,7 +33,7 @@
     * comparable alternatives.
     ```
   
-## 참고 항목
+## 참고 항목 {id="see-also"}
 
 자세한 내용은 [klibs.io FAQ](https://klibs.io/faq)를 참조하세요.
 * 라이브러리가 인덱싱 및 순위 지정되는 방식

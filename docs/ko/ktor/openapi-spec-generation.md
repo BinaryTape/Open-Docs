@@ -33,7 +33,7 @@ Ktor는 하나 이상의 문서 소스로부터 런타임에 OpenAPI 명세를 �
 >
 {style="note"}
 
-## 의존성 추가
+## 의존성 추가 {id="add-dependencies"}
 
 * OpenAPI 메타데이터 생성을 활성화하려면 프로젝트에 Ktor 컴파일러 플러그인을 적용하십시오.
 
@@ -199,7 +199,7 @@ ktor {
 }
 ```
 
-### 설정 옵션
+### 설정 옵션 {id="configuration-options"}
 
 <deflist>
 <def>
@@ -218,7 +218,7 @@ OpenAPI 라우트 어노테이션 코드 생성을 활성화하거나 비활성�
 </def>
 </deflist>
 
-### 라우팅 구조 분석
+### 라우팅 구조 분석 {id="routing-structure-analysis"}
 
 Ktor 컴파일러 플러그인은 서버 라우팅 DSL을 분석하여 API의 구조적 형태를 결정합니다. 이 분석은 오로지 라우트 선언만을 기반으로 하며 라우트 핸들러의 내용은 검사하지 않습니다.
 
@@ -239,7 +239,7 @@ routing {
 
 요청 파라미터, 본문 및 응답은 라우트 람다 내부에서 처리되기 때문에 컴파일러는 라우팅 구조만으로는 완전한 OpenAPI 설명을 추론할 수 없습니다. 생성된 메타데이터를 풍부하게 하기 위해 Ktor는 일반적인 요청 처리 패턴을 기반으로 한 [어노테이션](#annotate-routes) 및 [자동 추론](#code-inference)을 지원합니다.
 
-### 코드 추론
+### 코드 추론 {id="code-inference"}
 
 코드 추론이 활성화되면, 컴파일러 플러그인은 일반적인 Ktor 사용 패턴을 인식하고 이에 해당하는 런타임 어노테이션을 자동으로 생성합니다.
 
@@ -257,7 +257,7 @@ routing {
 
 추론은 가능한 경우 추출된 함수를 따라가며 일반적인 요청 및 응답 흐름에 대해 일관된 문서를 생성하려고 시도합니다.
 
-#### 특정 엔드포인트에 대한 추론 비활성화
+#### 특정 엔드포인트에 대한 추론 비활성화 {id="disable-inference-for-an-endpoint"}
 
 특정 엔드포인트에 대해 추론이 잘못된 메타데이터를 생성하는 경우, `ignore` 마커를 추가하여 제외할 수 있습니다:
 
@@ -305,7 +305,7 @@ get("/{id}") {
 }
 ```
 
-#### 형식 규칙
+#### 형식 규칙 {id="formatting-rules"}
 
 - 키워드는 반드시 줄 시작 부분에 나타나야 합니다.
 - 콜론(`:`)은 키워드와 값을 구분합니다.
@@ -327,7 +327,7 @@ get("/{id}") {
  */
 ```
 
-#### 지원되는 주석 필드
+#### 지원되는 주석 필드 {id="supported-comment-fields"}
 
 | 태그            | 형식                                            | 설명                             |
 |----------------|-------------------------------------------------|----------------------------------|
@@ -394,7 +394,7 @@ get("/{id}") {
 
 런타임 어노테이션은 컴파일러가 생성한 메타데이터 및 주석 기반 메타데이터와 병합됩니다. 동일한 OpenAPI 필드가 여러 소스에 의해 정의된 경우, 런타임 어노테이션에 의해 제공된 값이 [우선순위](#metadata-precedence)를 갖습니다.
 
-## OpenAPI 명세에서 라우트 숨기기
+## OpenAPI 명세에서 라우트 숨기기 {id="hide-routes-from-the-openapi-specification"}
 
 생성된 OpenAPI 문서에서 특정 라우트와 그 자식 라우트를 제외하려면 `Route.hide()` 함수를 사용하십시오:
 
@@ -409,11 +409,11 @@ get("/routes") {
 
 OpenAPI 및 Swagger UI 플러그인은 `.hide()`를 자동으로 호출하므로 해당 라우트들은 결과 문서에서 제외됩니다.
 
-## 스키마 추론
+## 스키마 추론 {id="schema-inference"}
 
 Ktor는 OpenAPI 명세를 빌드할 때 요청 및 응답 타입에 대한 JSON 스키마를 자동으로 생성합니다. 기본적으로 스키마는 데이터 클래스의 `kotlinx-serialization` 디스크립터를 사용하는 타입 참조로부터 추론됩니다. 이를 통해 추가적인 노력 없이 대부분의 일반적인 데이터 모델을 문서화할 수 있습니다.
 
-### 어노테이션을 사용한 스키마 커스터마이징
+### 어노테이션을 사용한 스키마 커스터마이징 {id="customize-schemas-with-annotations"}
 
 데이터 클래스에 [`@JsonSchema`](https://api.ktor.io/ktor-openapi-schema/io.ktor.openapi/-json-schema/index.html) 어노테이션을 추가하여 자동으로 생성된 JSON 스키마 필드를 오버라이드할 수 있습니다. 이를 통해 설명을 추가하거나 필드를 필수(required)로 표시하는 등의 작업이 가능합니다:
 
@@ -425,7 +425,7 @@ data class Article(
 )
 ```
 
-### 리플렉션 기반 스키마 추론 사용
+### 리플렉션 기반 스키마 추론 사용 {id="use-reflection-based-schema-inference"}
 
 `kotlinx-serialization` 대신 Jackson 또는 Gson을 사용하는 프로젝트의 경우, 리플렉션 기반 스키마 추론을 사용할 수 있습니다. 이를 위해 OpenAPI 또는 SwaggerUI 플러그인의 `Routing` 소스에서 `schemaInference` 필드를 설정하십시오:
 
@@ -440,7 +440,7 @@ openAPI("docs") {
 }
 ```
 
-### 리플렉션 동작 커스터마이징
+### 리플렉션 동작 커스터마이징 {id="customize-reflection-behavior"}
 
 직접적으로 지원되지 않는 어노테이션이나 명명 규칙을 처리하기 위해 커스텀 `SchemaReflectionAdapter`를 제공할 수 있습니다.
 
@@ -466,7 +466,7 @@ ReflectionJsonSchemaInference(object : SchemaReflectionAdapter {
 
 사용 가능한 프로퍼티의 전체 목록은 [`JsonSchema` API 문서](https://api.ktor.io/ktor-openapi-schema/io.ktor.openapi/-json-schema/index.html)를 참조하십시오.
 
-## 명세 생성 및 제공
+## 명세 생성 및 제공 {id="generate-and-serve-the-specification"}
 
 OpenAPI 명세는 런타임에 라우트 어노테이션과 컴파일러 플러그인에서 생성된 메타데이터를 조합하여 런타임에 구성됩니다.
 
@@ -475,7 +475,7 @@ OpenAPI 명세는 런타임에 라우트 어노테이션과 컴파일러 플러�
 - [OpenAPI 문서를 수동으로 구성하고 제공](#assemble-and-serve-the-specification).
 - [OpenAPI](server-openapi.md) 또는 [SwaggerUI](server-swagger-ui.md) 플러그인을 사용하여 명세 및 인터랙티브 문서를 제공.
 
-### 명세 구성 및 제공
+### 명세 구성 및 제공 {id="assemble-and-serve-the-specification"}
 
 런타임에 완전한 OpenAPI 문서를 구성하려면 `OpenApiDoc` 인스턴스를 생성하고 명세에 포함될 라우트를 제공하십시오.
 
@@ -505,7 +505,7 @@ OpenAPI 명세는 런타임에 라우트 어노테이션과 컴파일러 플러�
 >
 {style="note"}
 
-### 인터랙티브 문서 제공
+### 인터랙티브 문서 제공 {id="serve-interactive-documentation"}
 
 인터랙티브 UI를 통해 OpenAPI 명세를 노출하려면 [OpenAPI](server-openapi.md) 및 [Swagger UI](server-swagger-ui.md) 플러그인을 사용하십시오.
 
@@ -526,7 +526,7 @@ swaggerUI("/swaggerUI") {
 }
 ```
 
-### 메타데이터 우선순위
+### 메타데이터 우선순위 {id="metadata-precedence"}
 
 최종 OpenAPI 명세는 여러 소스에서 기여된 메타데이터를 병합하여 런타임에 구성됩니다.
 

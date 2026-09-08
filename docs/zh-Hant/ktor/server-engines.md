@@ -88,7 +88,7 @@ fun main(args: Array<String>) {
 * `io.ktor.server.tomcat.jakarta.EngineMain`
 * `io.ktor.server.cio.EngineMain`
 
-#### 建立並啟動伺服器
+#### 建立並啟動伺服器 {id="creating-and-starting-the-server"}
 
 `EngineMain.main()` 函式用於啟動具有所選引擎的伺服器，並載入外部[設定檔](server-configuration-file.topic)中指定的[應用程式模組](server-modules.md)。在下面的範例中，應用程式的 `main` 函式啟動了一台伺服器：
 

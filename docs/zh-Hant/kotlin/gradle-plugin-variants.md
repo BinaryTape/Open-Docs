@@ -29,7 +29,7 @@ Gradle 7.0 為 Gradle 外掛程式作者引入了一項新功能
 要檢查您的組建使用哪個變體，請啟用
 [`--info` 記錄等級](https://docs.gradle.org/current/userguide/logging.html#sec:choosing_a_log_level) 並在輸出中尋找以 `Using Kotlin Gradle plugin` 開頭的字串，例如 `Using Kotlin Gradle plugin main variant`。
 
-## 疑難排解
+## 疑難排解 {id="troubleshooting"}
 
 > 以下是 Gradle 變體選擇中一些已知問題的解決方法：
 > * [ResolutionStrategy 在 pluginManagement 中對於具有多變體的外掛程式不起作用](https://github.com/gradle/gradle/issues/20545)
@@ -37,7 +37,7 @@ Gradle 7.0 為 Gradle 外掛程式作者引入了一項新功能
 >
 {style="note"}
 
-### Gradle 無法在自訂配置中選擇 KGP 變體
+### Gradle 無法在自訂配置中選擇 KGP 變體 {id="gradle-can-t-select-a-kgp-variant-in-a-custom-configuration"}
 
 這是在使用自訂 Gradle 配置時，Gradle 無法選擇 KGP 變體的預期情況。
 如果您使用自訂 Gradle 配置：
@@ -156,6 +156,6 @@ configurations {
                  - Unmatched attributes:
 ```
 
-## 下一步？
+## 下一步？ {id="what-s-next"}
 
 進一步了解 [Gradle 基礎知識與細節](https://docs.gradle.org/current/userguide/userguide.html)。

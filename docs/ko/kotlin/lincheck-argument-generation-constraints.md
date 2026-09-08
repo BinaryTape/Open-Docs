@@ -47,7 +47,7 @@ Lincheck에서 생성되는 인자 값의 범위를 제한하려면 다음 단�
 | ---------------------------------- |
 ```
 
-## 생성기 유형
+## 생성기 유형 {id="generator-types"}
 
 Lincheck은 다음과 같은 인자 생성기 유형을 제공합니다:
 
@@ -147,11 +147,11 @@ Lincheck은 다음과 같은 인자 생성기 유형을 제공합니다:
     </tr>
 </table>
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 Lincheck에서 [특정 연산을 단일 스레드로 제한하는 방법](lincheck-operation-execution-options.md)을 알아보세요.
 
-## 참고 항목
+## 참고 항목 {id="see-also"}
 
 * [논블로킹 진행 보장 확인](lincheck-progress-guarantees.md)
 * [알고리즘의 순차 명세 정의](lincheck-results-validation.md)

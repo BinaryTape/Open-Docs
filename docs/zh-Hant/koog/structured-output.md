@@ -1,13 +1,13 @@
 # 結構化輸出
 
-## 簡介
+## 簡介 {id="introduction"}
 
 結構化輸出 API 提供了一種方式，確保來自大型語言模型 (LLM) 的回應符合特定的資料結構。
 這對於建立可靠的 AI 應用程式至關重要，因為你需要可預測且格式良好的資料，而非自由格式的文本。
 
 本頁面說明如何使用此 API 來定義資料結構、產生架構 (schema)，以及向 LLM 請求結構化回應。
 
-## 關鍵組件與概念
+## 關鍵組件與概念 {id="key-components-and-concepts"}
 
 結構化輸出 API 由幾個關鍵組件組成：
 
@@ -16,11 +16,11 @@
 3. **結構化 LLM 請求**：向 LLM 請求符合定義結構之回應的方法。
 4. **回應處理**：處理並驗證結構化回應。
 
-## 定義資料結構
+## 定義資料結構 {id="defining-data-structures"}
 
 使用結構化輸出 API 的第一步是使用 Kotlin 資料類別定義你的資料結構。
 
-### 基本結構
+### 基本結構 {id="basic-structure"}
 
 <!--- INCLUDE
 import ai.koog.agents.core.tools.annotations.LLMDescription
@@ -42,17 +42,17 @@ data class WeatherForecast(
 ```
 <!--- KNIT example-structured-data-01.kt -->
 
-### 關鍵註解
+### 關鍵註解 {id="key-annotations"}
 
 - `@Serializable`：`kotlinx.serialization` 處理該類別所必需。
 - `@SerialName`：指定序列化期間使用的名稱。
 - `@LLMDescription`：為 LLM 提供類別的描述。對於欄位註解，請使用 `@property:LLMDescription`。
 
-### 支援的特性
+### 支援的特性 {id="supported-features"}
 
 此 API 支援廣泛的資料結構特性：
 
-#### 巢狀類別 (Nested classes)
+#### 巢狀類別 (Nested classes) {id="nested-classes"}
 
 <!--- INCLUDE
 import ai.koog.agents.core.tools.annotations.LLMDescription
@@ -79,7 +79,7 @@ data class WeatherForecast(
 ```
 <!--- KNIT example-structured-data-02.kt -->
 
-#### 集合 (清單與映射)
+#### 集合 (清單與映射) {id="collections-lists-and-maps"}
 
 <!--- INCLUDE
 import ai.koog.agents.core.tools.annotations.LLMDescription
@@ -106,7 +106,7 @@ data class WeatherForecast(
 ```
 <!--- KNIT example-structured-data-03.kt -->
 
-#### 列舉 (Enums)
+#### 列舉 (Enums) {id="enums"}
 
 <!--- INCLUDE
 import kotlinx.serialization.SerialName
@@ -119,7 +119,7 @@ enum class Pollution { Low, Medium, High }
 ```
 <!--- KNIT example-structured-data-04.kt -->
 
-#### 使用密封類別的多型 (Polymorphism)
+#### 使用密封類別的多型 (Polymorphism) {id="polymorphism-with-sealed-classes"}
 
 <!--- INCLUDE
 import ai.koog.agents.core.tools.annotations.LLMDescription
@@ -158,7 +158,7 @@ sealed class WeatherAlert {
 ```
 <!--- KNIT example-structured-data-05.kt -->
 
-### 提供範例
+### 提供範例 {id="providing-examples"}
 
 你可以提供範例來幫助 LLM 理解預期的格式：
 
@@ -190,7 +190,7 @@ val exampleForecasts = listOf(
 ```
 <!--- KNIT example-structured-data-06.kt -->
 
-## 請求結構化回應
+## 請求結構化回應 {id="requesting-structured-responses"}
 
 在 Koog 中，你可以在三個主要層級使用結構化輸出：
 
@@ -198,7 +198,7 @@ val exampleForecasts = listOf(
 2. **Agent LLM 上下文層**：在 agent 工作階段 (session) 內用於對話上下文
 3. **Node 層**：建立具有結構化輸出能力的可重複使用 agent 節點
 
-### 層級 1：Prompt executor
+### 層級 1：Prompt executor {id="layer-1-prompt-executor"}
 
 Prompt executor 層提供了進行結構化 LLM 呼叫最直接的方式。對於單個、獨立的請求，請使用 `executeStructured` 方法：
 
@@ -270,7 +270,7 @@ val structuredResponse = promptExecutor.executeStructured<WeatherForecast>(
 
 此方法會傳回一個 `Result<StructuredResponse<T>>`，其中包含成功剖析的結構化資料或錯誤。
 
-### 層級 2：Agent LLM 上下文
+### 層級 2：Agent LLM 上下文 {id="layer-2-agent-llm-context"}
 
 Agent LLM 上下文層允許你在 agent 工作階段中請求結構化回應。這對於在對話流程中的特定點需要結構化資料的對話型 agent 來說非常有用。
 
@@ -313,7 +313,7 @@ val structuredResponse = llm.writeSession {
 
 修復過程會反覆將剖析錯誤傳遞給輔助模型，輔助模型會嘗試修正 JSON，同時保留原始資料並進行最小程度的更改。
 
-#### 與 agent 策略整合
+#### 與 agent 策略整合 {id="integrating-with-agent-strategies"}
 
 你可以將結構化資料處理整合到你的 agent 策略中：
 
@@ -353,7 +353,7 @@ val agentStrategy = strategy<String, String>("weather-forecast") {
 ```
 <!--- KNIT example-structured-data-09.kt -->
 
-### 層級 3：Node 層
+### 層級 3：Node 層 {id="layer-3-node-layer"}
 
 Node 層為 agent 工作流程中的結構化輸出提供了最高層級的抽象。使用 `nodeLLMRequestStructured` 來建立處理結構化資料的可重複使用 agent 節點。
 
@@ -363,7 +363,7 @@ Node 層為 agent 工作流程中的結構化輸出提供了最高層級的抽�
 - 向 LLM 請求結構化輸出
 - 傳回 `Result<StructuredResponse<MyStruct>>`
 
-#### Node 層範例
+#### Node 層範例 {id="node-layer-example"}
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
@@ -413,7 +413,7 @@ val agentStrategy = strategy<Unit, String>("weather-forecast") {
 ```
 <!--- KNIT example-structured-data-10.kt -->
 
-#### 完整程式碼範例
+#### 完整程式碼範例 {id="full-code-sample"}
 
 以下是使用結構化輸出 API 的完整範例：
 
@@ -518,12 +518,12 @@ fun main(): Unit = runBlocking {
 ```
 <!--- KNIT example-structured-data-11.kt -->
 
-## 進階用法
+## 進階用法 {id="advanced-usage"}
 
 上述範例展示了簡易版 API，它會根據模型能力自動選擇最佳的結構化輸出方法。
 若要對結構化輸出過程進行更多控制，你可以使用進階 API，手動建立架構並進行特定提供者的配置。
 
-### 手動架構建立與配置
+### 手動架構建立與配置 {id="manual-schema-creation-and-configuration"}
 
 與其依賴自動架構產生，你可以使用 `JsonStructure.create` 明確建立架構，並透過 `StructuredOutput` 類別手動配置結構化輸出行為。
 
@@ -600,7 +600,7 @@ val structuredResponse = promptExecutor.executeStructured(
 ```
 <!--- KNIT example-structured-data-12.kt -->
 
-### 架構產生器 (Schema generators)
+### 架構產生器 (Schema generators) {id="schema-generators"}
 
 根據你的需求，可以使用不同的架構產生器：
 
@@ -608,7 +608,7 @@ val structuredResponse = promptExecutor.executeStructured(
 - **BasicJsonSchemaGenerator**：簡化的架構，不支援多型，與更多模型相容
 - **Provider-specific generators**：針對特定 LLM 提供者（OpenAI、Anthropic、Google 等）最佳化的架構
 
-### 跨所有層級的使用
+### 跨所有層級的使用 {id="usage-across-all-layers"}
 
 進階配置在 API 的所有三個層級中運作方式一致。方法名稱保持不變，僅參數從簡單引數變更為更進階的 `StructuredRequestConfig`：
 
@@ -618,7 +618,7 @@ val structuredResponse = promptExecutor.executeStructured(
 
 對於大多數使用案例，建議使用簡易 API（僅使用 `examples` 和 `fixingParser` 參數），而進階 API 則在需要時提供額外的控制。
 
-## 最佳實務
+## 最佳實務 {id="best-practices"}
 
 1. **使用清晰的描述**：使用 `@LLMDescription` 註解提供清晰詳盡的描述，以幫助 LLM 理解預期的資料。
 

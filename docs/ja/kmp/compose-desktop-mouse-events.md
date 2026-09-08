@@ -4,7 +4,7 @@
 
 undefined
 
-## クリックリスナー
+## クリックリスナー {id="click-listeners"}
 
 クリックリスナーは Compose Multiplatform for Android と Compose Multiplatform for desktop の両方で使用できるため、コードは両方のプラットフォームで動作します。
 例えば、`onClick`、`onDoubleClick`、`onLongClick` モディファイアを使用して、シンプルなクリックリスナーをセットアップする方法は以下の通りです:
@@ -62,7 +62,7 @@ fun main() = singleWindowApplication(title = "Mouse clicks") {
 
 `combinedClickable` モディファイアは、プライマリボタン（マウスの左ボタン）とタッチイベントのみをサポートします。ボタンを個別に処理する必要がある場合は、[`Modifier.onClick`](#onclick-handlers) セクションを参照してください。
 
-## 移動リスナー
+## 移動リスナー {id="move-listeners"}
 
 > `onPointerEvent` モディファイアは[試験的（Experimental）](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels)です。オプトインが必要であり（詳細は以下を参照）、評価目的でのみ使用してください。
 > [安定版（Stable）](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) API については、[`Modifier.pointerInput`](#listening-for-raw-events-in-common-code-via-pointerinput) を参照してください。
@@ -106,7 +106,7 @@ fun main() = singleWindowApplication(title = "Mouse move listeners") {
 
 <img src="compose-mouse-move-listeners.animated.gif" alt="Mouse move listeners" width="600" preview-src="compose-mouse-move-listeners.png"/>
 
-## 入場（Enter）リスナー
+## 入場（Enter）リスナー {id="enter-listeners"}
 
 > `onPointerEvent` モディファイアは[試験的（Experimental）](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels)です。オプトインが必要であり（詳細は以下を参照）、評価目的でのみ使用してください。
 > [安定版（Stable）](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) API については、[`Modifier.pointerInput`](#listening-for-raw-events-in-common-code-via-pointerinput) を参照してください。
@@ -162,7 +162,7 @@ fun main() = singleWindowApplication(title = "Mouse enter listeners") {
 
 <img src="compose-mouse-enter-listeners.animated.gif" alt="Mouse enter listeners" width="600" preview-src="compose-mouse-enter-listeners.png"/>
 
-## スクロールリスナー
+## スクロールリスナー {id="scroll-listeners"}
 
 > `onPointerEvent` モディファイアは[試験的（Experimental）](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels)です。オプトインが必要であり（詳細は以下を参照）、評価目的でのみ使用してください。
 > [安定版（Stable）](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) API については、[`Modifier.pointerInput`](#listening-for-raw-events-in-common-code-via-pointerinput) を参照してください。
@@ -325,7 +325,7 @@ RMB + Alt") }
 
 <img src="compose-onclick-modifier.animated.gif" alt="Modifier.onClick" width="600" preview-src="compose-onclick-modifier.png"/>
 
-## 試験的な onDrag モディファイア
+## 試験的な onDrag モディファイア {id="experimental-ondrag-modifier"}
 
 > `onDrag` モディファイアは[試験的（Experimental）](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels)であり、デスクトッププロジェクトでのみサポートされています。オプトインが必要であり（詳細は以下を参照）、評価目的でのみ使用してください。
 >
@@ -466,7 +466,7 @@ fun main() = singleWindowApplication(title = "Drag") {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="Modifier.pointerInput(Unit) { detectDragGestures(matcher = PointerMatcher.Primary)"}
 
-## Swing 相互運用による生の AWT イベントへのアクセス
+## Swing 相互運用による生の AWT イベントへのアクセス {id="accessing-raw-awt-events-with-swing-interoperability"}
 
 > `onPointerEvent` モディファイアは[試験的（Experimental）](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels)です。オプトインが必要であり（詳細は以下を参照）、評価目的でのみ使用してください。
 > [安定版（Stable）](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) API については、[`Modifier.pointerInput`](#listening-for-raw-events-in-common-code-via-pointerinput) を参照してください。
@@ -511,7 +511,7 @@ fun main() = singleWindowApplication(title = "Raw AWT events") {
 
 <img src="compose-raw-awt-events.animated.gif" alt="Swing interoperability" width="600" preview-src="compose-raw-awt-events.png"/>
 
-## pointerInput を介した共通コードでの生のイベントのリッスン
+## pointerInput を介した共通コードでの生のイベントのリッスン {id="listening-for-raw-events-in-common-code-via-pointerinput"}
 
 上記のスニペットでは、ポインタイベントのタイプをサブスクライブするヘルパー関数である `Modifier.onPointerEvent` 関数を使用しています。これは `Modifier.pointerInput` 関数の新しい短縮版です。 
 これは現在試験的（Experimental）かつデスクトップ専用であるため、共通コード（common code）では使用できません。
@@ -559,6 +559,6 @@ fun main() = singleWindowApplication(title = "Raw events via Modifier.pointerInp
 
 <img src="compose-raw-events.animated.gif" alt="Raw events via Modifier.pointerInput" width="600" preview-src="compose-raw-events.png"/>
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 [他のデスクトップコンポーネント](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop)に関するチュートリアルを確認してください。

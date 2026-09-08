@@ -23,7 +23,7 @@ Kotlin 1.8.20 版本已发布，以下是其一些重磅亮点：
 >
 {style="tip"}
 
-## IDE 支持
+## IDE 支持 {id="ide-support"}
 
 支持 1.8.20 的 Kotlin 插件适用于：
 
@@ -36,7 +36,7 @@ Kotlin 1.8.20 版本已发布，以下是其一些重磅亮点：
 >
 {style="warning"}
 
-## 新的 Kotlin K2 编译器更新
+## 新的 Kotlin K2 编译器更新 {id="new-kotlin-k2-compiler-updates"}
 
 Kotlin 团队继续稳定 K2 编译器。正如在 [Kotlin 1.7.0 发布公告](whatsnew17.md#new-kotlin-k2-compiler-for-the-jvm-in-alpha)中提到的，它目前仍处于 **Alpha** 阶段。此版本在通往 [K2 Beta](https://youtrack.jetbrains.com/issue/KT-52604) 的道路上引入了进一步的改进。
 
@@ -51,7 +51,7 @@ Kotlin 团队继续稳定 K2 编译器。正如在 [Kotlin 1.7.0 发布公告](w
 * [每个人都必须了解的关于新 Kotlin K2 编译器的信息](https://www.youtube.com/watch?v=iTdJJq_LyoY)
 * [新 Kotlin K2 编译器：专家评论](https://www.youtube.com/watch?v=db19VFLZqJM)
 
-### 如何启用 Kotlin K2 编译器
+### 如何启用 Kotlin K2 编译器 {id="how-to-enable-the-kotlin-k2-compiler"}
 
 要启用并测试 Kotlin K2 编译器，请使用以下编译器选项指定新的语言版本：
 
@@ -77,7 +77,7 @@ kotlin {
 >
 {style="warning"}
 
-### 留下您对新 K2 编译器的反馈
+### 留下您对新 K2 编译器的反馈 {id="leave-your-feedback-on-the-new-k2-compiler"}
 
 我们非常感谢您的任何反馈！
 
@@ -85,7 +85,7 @@ kotlin {
 * 在[我们的问题跟踪器](https://kotl.in/issue)上报告您在使用新 K2 编译器时遇到的任何问题。
 * [启用 **发送使用情况统计信息** 选项](https://www.jetbrains.com/help/idea/settings-usage-statistics.html)，允许 JetBrains 收集有关 K2 使用情况的匿名数据。
 
-## 语言
+## 语言 {id="language"}
 
 随着 Kotlin 的不断发展，我们在 1.8.20 中为新的语言功能引入了预览版本：
 
@@ -93,7 +93,7 @@ kotlin {
 * [与数据类对称的数据对象](#preview-of-data-objects-for-symmetry-with-data-classes)
 * [取消对内联类中带主体的次构造函数的限制](#preview-of-lifting-restriction-on-secondary-constructors-with-bodies-in-inline-classes)
 
-### 枚举类 values 函数的一种现代且高效的替代方案
+### 枚举类 values 函数的一种现代且高效的替代方案 {id="a-modern-and-performant-replacement-of-the-enum-class-values-function"}
 
 > 此功能是[实验性的](components-stability.md#stability-levels-explained)。它可能随时被删除或更改。需要启用 (Opt-in)（详情见下文）。仅用于评估目的。我们感谢您在 [YouTrack](https://kotl.in/issue) 上提供的反馈。
 >
@@ -117,7 +117,7 @@ fun findByRgb(rgb: String): Color? = Color.entries.find { it.rgb == rgb }
 ```
 {validate="false"}
 
-#### 如何启用 entries 属性
+#### 如何启用 entries 属性 {id="how-to-enable-the-entries-property"}
 
 要尝试此功能，请通过 `@OptIn(ExperimentalStdlibApi)` 进行启用，并启用 `-language-version 1.9` 编译器选项。在 Gradle 项目中，您可以通过在 `build.gradle(.kts)` 文件中添加以下内容来实现：
 
@@ -157,7 +157,7 @@ tasks
 
 有关该提案的更多信息，请参阅 [KEEP 说明](https://github.com/Kotlin/KEEP/blob/master/proposals/enum-entries.md)。
 
-### 与数据类对称的数据对象预览
+### 与数据类对称的数据对象预览 {id="preview-of-data-objects-for-symmetry-with-data-classes"}
 
 数据对象允许您声明具有单例语义和整洁 `toString()` 表示的对象。在此代码片段中，您可以看到将 `data` 关键字添加到对象声明中如何提高其 `toString()` 输出的可读性：
 
@@ -186,11 +186,11 @@ fun main() {
 }
 ```
 
-#### 数据对象的语义
+#### 数据对象的语义 {id="semantics-of-data-objects"}
 
 自其在 [Kotlin 1.7.20](whatsnew1720.md#improved-string-representations-for-singletons-and-sealed-class-hierarchies-with-data-objects) 中的第一个预览版以来，数据对象的语义已经过改进。编译器现在会自动为它们生成一系列便捷函数：
 
-##### toString
+##### toString {id="tostring"}
 
 数据对象的 `toString()` 函数返回该对象的简单名称：
 
@@ -204,7 +204,7 @@ fun main() {
 }
 ```
 
-##### equals 和 hashCode
+##### equals 和 hashCode {id="equals-and-hashcode"}
 
 `data object` 的 `equals()` 函数确保所有具有该 `data object` 类型的对象都被视为相等。在大多数情况下，您在运行时只会拥有数据对象的一个实例（毕竟 `data object` 声明的是一个单例）。然而，在运行时生成了另一个相同类型对象的边缘情况下（例如，通过 `java.lang.reflect` 使用平台反射，或者使用在底层调用此 API 的 JVM 序列化库），这可以确保这些对象被视为相等。
 
@@ -238,7 +238,7 @@ fun createInstanceViaReflection(): MySingleton {
 
 生成的 `hashCode()` 函数的行为与 `equals()` 函数保持一致，因此 `data object` 的所有运行时实例都具有相同的哈希码。
 
-##### 数据对象不提供 copy 和 componentN 函数
+##### 数据对象不提供 copy 和 componentN 函数 {id="no-copy-and-componentn-functions-for-data-objects"}
 
 虽然 `data object` 和 `data class` 声明经常一起使用且具有一些相似之处，但有些函数不会为 `data object` 生成：
 
@@ -248,7 +248,7 @@ fun createInstanceViaReflection(): MySingleton {
 
 我们感谢您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-4107) 上对该功能的反馈。
 
-#### 如何启用数据对象预览
+#### 如何启用数据对象预览 {id="how-to-enable-the-data-objects-preview"}
 
 要尝试此功能，请启用 `-language-version 1.9` 编译器选项。在 Gradle 项目中，您可以通过在 `build.gradle(.kts)` 文件中添加以下内容来实现：
 
@@ -282,7 +282,7 @@ tasks
 </tab>
 </tabs>
 
-### 取消对内联类中带主体的次构造函数的限制预览
+### 取消对内联类中带主体的次构造函数的限制预览 {id="preview-of-lifting-restriction-on-secondary-constructors-with-bodies-in-inline-classes"}
 
 > 此功能是[实验性的](components-stability.md#stability-levels-explained)。它可能随时被删除或更改。需要启用 (Opt-in)（详情见下文）。仅用于评估目的。我们感谢您在 [YouTrack](https://kotl.in/issue) 上提供的反馈。
 >
@@ -313,7 +313,7 @@ value class Person(private val fullName: String) {
 }
 ```
 
-#### 如何启用带主体的次构造函数
+#### 如何启用带主体的次构造函数 {id="how-to-enable-secondary-constructors-with-bodies"}
 
 要尝试此功能，请启用 `-language-version 1.9` 编译器选项。在 Gradle 项目中，您可以通过在 `build.gradle(.kts)` 中添加以下内容来实现：
 
@@ -351,7 +351,7 @@ tasks
 
 在[此 KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/inline-classes.md) 中详细了解 Kotlin 内联类的发展。
 
-## 新的 Kotlin/Wasm 目标
+## 新的 Kotlin/Wasm 目标 {id="new-kotlin-wasm-target"}
 
 Kotlin/Wasm (Kotlin WebAssembly) 在此版本中进入[实验性 (Experimental)](components-stability.md#stability-levels-explained) 阶段。Kotlin 团队认为 [WebAssembly](https://webassembly.org/) 是一项非常有前途的技术，并希望为您找到更好的使用方式，以获得 Kotlin 的所有优势。
 
@@ -368,7 +368,7 @@ WebAssembly 二进制格式与平台无关，因为它运行在自己的虚拟�
 
 [在 YouTube 视频中了解更多关于 Kotlin/Wasm 的信息](https://www.youtube.com/watch?v=-pqz9sKXatw)。
 
-### 如何启用 Kotlin/Wasm
+### 如何启用 Kotlin/Wasm {id="how-to-enable-kotlin-wasm"}
 
 要启用并测试 Kotlin/Wasm，请更新您的 `build.gradle.kts` 文件：
 
@@ -434,18 +434,18 @@ kotlin {
 </tab>
 </tabs>
 
-### 留下您对 Kotlin/Wasm 的反馈
+### 留下您对 Kotlin/Wasm 的反馈 {id="leave-your-feedback-on-kotlin-wasm"}
 
 我们非常感谢您的任何反馈！
 
 * 在 Kotlin Slack 上直接向开发者提供反馈——[获取邀请](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up?_gl=1*ju6cbn*_ga*MTA3MTk5NDkzMC4xNjQ2MDY3MDU4*_ga_9J976DJZ68*MTY1ODMzNzA3OS4xMDAuMS4xNjU4MzQwODEwLjYw)并加入 [#webassembly](https://kotlinlang.slack.com/archives/CDFP59223) 频道。
 * 在[此 YouTrack 问题](https://youtrack.jetbrains.com/issue/KT-56492)中报告您在使用 Kotlin/Wasm 时遇到的任何问题。
 
-## Kotlin/JVM
+## Kotlin/JVM {id="kotlin-jvm"}
 
 Kotlin 1.8.20 引入了 [Java 合成属性引用的预览](#preview-of-java-synthetic-property-references)，并[默认在 kapt 存根生成任务中支持 JVM IR 后端](#support-for-the-jvm-ir-backend-in-kapt-stub-generating-task-by-default)。
 
-### Java 合成属性引用预览
+### Java 合成属性引用预览 {id="preview-of-java-synthetic-property-references"}
 
 > 此功能是[实验性的](components-stability.md#stability-levels-explained)。它可能随时被删除或更改。仅用于评估目的。我们感谢您在 [YouTrack](https://kotl.in/issue) 上提供的反馈。
 >
@@ -485,7 +485,7 @@ val persons = listOf(Person("Jack", 11), Person("Sofie", 12), Person("Peter", 11
 ```
 {validate="false"}
 
-#### 如何启用 Java 合成属性引用
+#### 如何启用 Java 合成属性引用 {id="how-to-enable-java-synthetic-property-references"}
 
 要尝试此功能，请启用 `-language-version 1.9` 编译器选项。在 Gradle 项目中，您可以通过在 `build.gradle(.kts)` 中添加以下内容来实现：
 
@@ -519,11 +519,11 @@ tasks
 </tab>
 </tabs>
 
-### kapt 存根生成任务默认支持 JVM IR 后端
+### kapt 存根生成任务默认支持 JVM IR 后端 {id="support-for-the-jvm-ir-backend-in-kapt-stub-generating-task-by-default"}
 
 在 Kotlin 1.7.20 中，我们引入了[在 kapt 存根生成任务中对 JVM IR 后端的支持](whatsnew1720.md#support-for-the-jvm-ir-backend-in-kapt-stub-generating-task)。从该版本开始，此支持默认生效。您不再需要在 `gradle.properties` 中指定 `kapt.use.jvm.ir=true` 来启用它。我们感谢您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-49682) 上对该功能的反馈。
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 Kotlin 1.8.20 包含对受支持的 Kotlin/Native 目标的更改、与 Objective-C 的互操作性以及 CocoaPods Gradle 插件的改进等更新：
 
@@ -535,7 +535,7 @@ Kotlin 1.8.20 包含对受支持的 Kotlin/Native 目标的更改、与 Objectiv
 * [在编译器中重新实现编译器缓存管理](#reimplementation-of-compiler-cache-management-in-the-compiler)
 * [在 Cocoapods Gradle 插件中弃用 `useLibraries()`](#deprecation-of-uselibraries-in-cocoapods-gradle-plugin)
   
-### Kotlin/Native 目标更新
+### Kotlin/Native 目标更新 {id="update-for-kotlin-native-targets"}
   
 Kotlin 团队决定重新审视 Kotlin/Native 支持的目标列表，将其分为不同的层级 (tiers)，并从 Kotlin 1.8.20 开始弃用其中一些。有关受支持和已弃用目标的完整列表，请参阅 [Kotlin/Native 目标支持](native-target-support.md)部分。
 
@@ -555,7 +555,7 @@ Kotlin 团队决定重新审视 Kotlin/Native 支持的目标列表，将其分�
 
 查看我们的[博客文章](https://blog.jetbrains.com/kotlin/2023/02/update-regarding-kotlin-native-targets/)，了解有关这些更改原因的更多信息。
 
-### 弃用旧版内存管理器
+### 弃用旧版内存管理器 {id="deprecation-of-the-legacy-memory-manager"}
 
 从 1.8.20 开始，旧版内存管理器已被弃用，并将于 1.9.20 中移除。[新内存管理器](native-memory-manager.md)在 1.7.20 中已默认启用，并一直在接受进一步的稳定性更新和性能改进。
 
@@ -563,7 +563,7 @@ Kotlin 团队决定重新审视 Kotlin/Native 支持的目标列表，将其分�
 
 新内存管理器不支持 `wasm32` 目标。该目标也从[此版本开始被弃用](#update-for-kotlin-native-targets)，并将于 1.9.20 中移除。
 
-### 支持带有 @import 指令的 Objective-C 头文件
+### 支持带有 @import 指令的 Objective-C 头文件 {id="support-for-objective-c-headers-with-import-directives"}
 
 > 此功能是[实验性的](components-stability.md#stability-levels-explained)。它可能随时被删除或更改。需要启用 (Opt-in)（详情见下文）。仅用于评估目的。我们感谢您在 [YouTrack](https://kotl.in/issue) 上提供的反馈。
 >
@@ -594,7 +594,7 @@ kotlin {
 
 这是一个[备受期待的功能](https://youtrack.jetbrains.com/issue/KT-39120)，我们欢迎您在 [YouTrack](https://kotl.in/issue) 中提供关于它的反馈，以帮助我们使其在未来版本中成为默认行为。
 
-### Cocoapods Gradle 插件支持仅链接模式
+### Cocoapods Gradle 插件支持仅链接模式 {id="support-for-the-link-only-mode-in-cocoapods-gradle-plugin"}
 
 在 Kotlin 1.8.20 中，您可以将具有动态框架的 Pod 依赖项仅用于链接，而无需生成 cinterop 绑定。当 cinterop 绑定已经生成时，这可能会派上用场。
 
@@ -617,7 +617,7 @@ cocoapods {
 >
 {style="note"}
 
-### 在 UIKit 中将 Objective-C 扩展导入为类成员
+### 在 UIKit 中将 Objective-C 扩展导入为类成员 {id="import-objective-c-extensions-as-class-members-in-uikit"}
 
 自 Xcode 14.1 起，Objective-C 类中的一些方法已移至分类 (category) 成员。这导致生成了不同的 Kotlin API，这些方法被导入为 Kotlin 扩展而不是方法。
 
@@ -627,7 +627,7 @@ cocoapods {
 
 如果一切顺利，我们计划为所有 Objective-C 类默认启用此行为。
 
-### 在编译器中重新实现编译器缓存管理
+### 在编译器中重新实现编译器缓存管理 {id="reimplementation-of-compiler-cache-management-in-the-compiler"}
 
 为了加快编译器缓存的发展，我们将编译器缓存管理从 Kotlin Gradle 插件移动到了 Kotlin/Native 编译器中。这为几项重要改进扫清了障碍，包括编译时间和编译器缓存灵活性的改进。
 
@@ -635,7 +635,7 @@ cocoapods {
 
 我们感谢您在 [YouTrack](https://kotl.in/issue) 上对此提供的反馈。
 
-### 在 Cocoapods Gradle 插件中弃用 useLibraries()
+### 在 Cocoapods Gradle 插件中弃用 useLibraries() {id="deprecation-of-uselibraries-in-cocoapods-gradle-plugin"}
 
 Kotlin 1.8.20 开始了在 [CocoaPods 集成](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html)中用于静态库的 `useLibraries()` 函数的弃用周期。
 
@@ -645,7 +645,7 @@ Kotlin 1.8.20 开始了在 [CocoaPods 集成](https://kotlinlang.org/docs/multip
 
 有关框架和 XCFramework 的更多信息，请参阅[构建最终原生二进制文件](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html)。
 
-## Kotlin 多平台
+## Kotlin 多平台 {id="kotlin-multiplatform"}
 
 Kotlin 1.8.20 致力于通过 Kotlin 多平台的以下更新来改善开发者体验：
 
@@ -653,7 +653,7 @@ Kotlin 1.8.20 致力于通过 Kotlin 多平台的以下更新来改善开发者�
 * [Kotlin 多平台中 Gradle 复合构建支持的预览](#preview-of-gradle-composite-builds-support-in-kotlin-multiplatform)
 * [改进了 Xcode 中的 Gradle 错误输出](#improved-output-for-gradle-errors-in-xcode)
 
-### 设置源集层次结构的新方式
+### 设置源集层次结构的新方式 {id="new-approach-to-source-set-hierarchy"}
 
 > 设置源集层次结构的新方式是[实验性的](components-stability.md#stability-levels-explained)。它可能会在未来的 Kotlin 版本中发生更改，恕不另行通知。需要启用 (Opt-in)（详情见下文）。我们感谢您在 [YouTrack](https://kotl.in/issue) 上提供的反馈。
 >
@@ -663,7 +663,7 @@ Kotlin 1.8.20 为您的多平台项目提供了一种设置源集层次结构的
 
 默认目标层次结构背后的理念很简单：您显式声明项目编译到的所有目标，Kotlin Gradle 插件将根据指定的目标自动创建共享源集。
 
-#### 设置您的项目
+#### 设置您的项目 {id="set-up-your-project"}
 
 考虑这个简单的多平台移动应用的例子：
 
@@ -693,7 +693,7 @@ kotlin {
 >
 {style="note"}
 
-#### 为什么要替换快捷方式 {initial-collapse-state="collapsed" collapsible="true"}
+#### 为什么要替换快捷方式 {initial-collapse-state="collapsed" collapsible="true" id="why-replace-shortcuts"}
 
 创建源集层次结构可能很冗长、容易出错且对初学者不友好。我们之前的解决方案是引入像 `ios` 这样的快捷方式，为您创建部分层次结构。然而，使用快捷方式证明了它们有一个很大的设计缺陷：难以更改。
 
@@ -707,17 +707,17 @@ kotlin {
 
 默认目标层次结构乍一看可能与快捷方式相似，但它们有一个关键区别：**用户必须显式指定目标集**。此集合定义了项目的编译、发布方式以及参与依赖项解析的方式。由于此集合是固定的，来自 Kotlin Gradle 插件的默认配置更改对生态系统造成的困扰应该会显著减少，并且提供工具辅助的迁移也会容易得多。
 
-#### 如何启用默认层次结构
+#### 如何启用默认层次结构 {id="how-to-enable-the-default-hierarchy"}
 
 这项新功能是[实验性的](components-stability.md#stability-levels-explained)。对于 Kotlin Gradle 构建脚本，您需要通过 `@OptIn(ExperimentalKotlinGradlePluginApi::class)` 进行启用。
 
 更多信息请参阅[层次化项目结构](https://kotlinlang.org/docs/multiplatform/multiplatform-hierarchy.html#default-hierarchy-template)。
 
-#### 留下反馈
+#### 留下反馈 {id="leave-feedback"}
 
 这是对多平台项目的一次重大更改。我们感谢您的[反馈](https://kotl.in/issue)，以帮助我们做得更好。
 
-### Kotlin 多平台中 Gradle 复合构建支持预览
+### Kotlin 多平台中 Gradle 复合构建支持预览 {id="preview-of-gradle-composite-builds-support-in-kotlin-multiplatform"}
 
 > 自 Kotlin Gradle 插件 1.8.20 起，Gradle 构建已支持此功能。如需 IDE 支持，请使用 IntelliJ IDEA 2023.1 Beta 2 (231.8109.2) 或更高版本，以及带有任何 Kotlin IDE 插件的 Kotlin Gradle 插件 1.8.20。
 >
@@ -733,7 +733,7 @@ kotlin.mpp.import.enableKgpDependencyResolution=true
 
 此选项启用了新导入模式的预览。除了对复合构建的支持外，它还在多平台项目中提供了更流畅的导入体验，因为我们包含了重大的错误修复和改进，使导入更加稳定。
 
-#### 已知问题
+#### 已知问题 {id="known-issues"}
 
 它仍是一个预览版本，需要进一步稳定，您在过程中可能会遇到一些导入问题。以下是我们计划在 Kotlin 1.8.20 最终发布之前修复的一些已知问题：
 
@@ -742,7 +742,7 @@ kotlin.mpp.import.enableKgpDependencyResolution=true
 
 我们鼓励您尝试并向 [YouTrack](https://kotl.in/issue) 提交所有报告，以帮助我们使其在 Kotlin 1.9.0 中成为默认行为。
 
-### 改进了 Xcode 中的 Gradle 错误输出
+### 改进了 Xcode 中的 Gradle 错误输出 {id="improved-output-for-gradle-errors-in-xcode"}
 
 如果您在 Xcode 中构建多平台项目时遇到问题，可能会遇到 "Command PhaseScriptExecution failed with a nonzero exit code" 错误。这条消息表明 Gradle 调用失败，但在尝试检测问题时并没有太大帮助。
 
@@ -752,7 +752,7 @@ kotlin.mpp.import.enableKgpDependencyResolution=true
 
 对于标准的 Xcode 集成 Gradle 任务，新行为默认启用，例如 `embedAndSignAppleFrameworkForXcode`，它可以将多平台项目中的 iOS 框架连接到 Xcode 中的 iOS 应用程序。它也可以通过 `kotlin.native.useXcodeMessageStyle` Gradle 属性来启用（或禁用）。
 
-## Kotlin/JavaScript
+## Kotlin/JavaScript {id="kotlin-javascript"}
 
 Kotlin 1.8.20 更改了 TypeScript 定义的生成方式。它还包含了一项旨在改善调试体验的更改：
 
@@ -760,7 +760,7 @@ Kotlin 1.8.20 更改了 TypeScript 定义的生成方式。它还包含了一项
 * [源代码映射中的 Kotlin 变量和函数名](#kotlin-variable-and-function-names-in-source-maps)
 * [选择启用生成 TypeScript 定义文件](#opt-in-for-generation-of-typescript-definition-files)
 
-### 从 Gradle 插件中移除 Dukat 集成
+### 从 Gradle 插件中移除 Dukat 集成 {id="removal-of-dukat-integration-from-gradle-plugin"}
 
 在 Kotlin 1.8.20 中，我们从 Kotlin/JavaScript Gradle 插件中移除了我们的[实验性](components-stability.md#stability-levels-explained) Dukat 集成。Dukat 集成支持将 TypeScript 声明文件 (`.d.ts`) 自动转换为 Kotlin 外部声明。
 
@@ -770,7 +770,7 @@ Kotlin 1.8.20 更改了 TypeScript 定义的生成方式。它还包含了一项
 >
 {style="warning"}
 
-### 源代码映射中的 Kotlin 变量和函数名
+### 源代码映射中的 Kotlin 变量和函数名 {id="kotlin-variable-and-function-names-in-source-maps"}
 
 为了辅助调试，我们引入了将您在 Kotlin 代码中为变量和函数声明的名称添加到源代码映射中的功能。在 1.8.20 之前，这些在源代码映射中不可用，因此在调试器中，您始终只能看到生成的 JavaScript 的变量和函数名。
 
@@ -797,7 +797,7 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.Kotlin2JsCompile>().configureEa
 >
 {style="warning"}
 
-### 选择启用生成 TypeScript 定义文件
+### 选择启用生成 TypeScript 定义文件 {id="opt-in-for-generation-of-typescript-definition-files"}
 
 以前，如果您有一个产生可执行文件的项目 (`binaries.executable()`)，Kotlin/JS IR 编译器会收集任何标有 `@JsExport` 的顶层声明，并在 `.d.ts` 文件中自动生成 TypeScript 定义。
 
@@ -819,7 +819,7 @@ kotlin {
 >
 {style="warning"}
 
-## Gradle
+## Gradle {id="gradle"}
 
 Kotlin 1.8.20 与 Gradle 6.8 至 7.6 完全兼容，但[多平台插件中的一些特殊情况](https://youtrack.jetbrains.com/issue/KT-55751)除外。您也可以使用截至最新 Gradle 版本的 Gradle 版本，但如果这样做，请记住您可能会遇到弃用警告，或者某些新的 Gradle 功能可能无法正常工作。
 
@@ -832,19 +832,19 @@ Kotlin 1.8.20 与 Gradle 6.8 至 7.6 完全兼容，但[多平台插件中的一
 * [编译任务 destinationDirectory 的非默认位置](#non-default-location-of-compile-tasks-destinationdirectory)
 * [能够选择不向 HTTP 统计服务报告编译器参数](#ability-to-opt-out-from-reporting-compiler-arguments-to-an-http-statistics-service)
 
-### 新的 Gradle 插件版本对齐
+### 新的 Gradle 插件版本对齐 {id="new-gradle-plugins-versions-alignment"}
 
 Gradle 提供了一种方式来确保必须协同工作的依赖项始终在[版本上保持对齐](https://docs.gradle.org/current/userguide/dependency_version_alignment.html#aligning_versions_natively_with_gradle)。Kotlin 1.8.20 也采用了这种方法。它默认生效，因此您无需更改或更新配置来启用它。此外，您不再需要诉诸于[此解决方法来解析 Kotlin Gradle 插件的传递依赖项](whatsnew18.md#resolution-of-kotlin-gradle-plugins-transitive-dependencies)。
 
 我们感谢您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-54691) 上对该功能的反馈。
 
-### Gradle 中默认启用新的 JVM 增量编译
+### Gradle 中默认启用新的 JVM 增量编译 {id="new-jvm-incremental-compilation-by-default-in-gradle"}
 
 [自 Kotlin 1.7.0 起可用](whatsnew17.md#a-new-approach-to-incremental-compilation)的新增量编译方法现在默认生效。您不再需要在 `gradle.properties` 中指定 `kotlin.incremental.useClasspathSnapshot=true` 来启用它。
 
 我们感谢您对此提供的反馈。您可以在 YouTrack 中[提交问题](https://kotl.in/issue)。
 
-### 编译任务输出的精确备份
+### 编译任务输出的精确备份 {id="precise-backup-of-compilation-tasks-outputs"}
 
 > 编译任务输出的精确备份是[实验性的](components-stability.md#stability-levels-explained)。要使用它，请将 `kotlin.compiler.preciseCompilationResultsBackup=true` 添加到 `gradle.properties`。我们感谢您在 [YouTrack](https://kotl.in/issue/experimental-ic-optimizations) 上提供的反馈。
 >
@@ -858,7 +858,7 @@ Gradle 提供了一种方式来确保必须协同工作的依赖项始终在[版
 kotlin.compiler.preciseCompilationResultsBackup=true
 ```
 
-#### JetBrains 中使用精确备份的示例 {initial-collapse-state="collapsed" collapsible="true"}
+#### JetBrains 中使用精确备份的示例 {initial-collapse-state="collapsed" collapsible="true" id="example-of-precise-backup-usage-in-jetbrains"}
 
 在以下图表中，您可以看到使用精确备份与全量备份的对比示例：
 
@@ -879,7 +879,7 @@ kotlin.compiler.preciseCompilationResultsBackup=true
 * 哪些模块受更改影响以及这些模块的大小。
 * 更改是 ABI 还是非 ABI 更改。
 
-#### 通过构建报告评估优化效果 {initial-collapse-state="collapsed" collapsible="true"}
+#### 通过构建报告评估优化效果 {initial-collapse-state="collapsed" collapsible="true" id="evaluating-optimizations-with-build-reports"}
 
 要评估优化对您的计算机、项目和场景的影响，您可以使用 [Kotlin 构建报告](gradle-compilation-and-caches.md#build-reports)。通过将以下属性添加到您的 `gradle.properties` 文件中，启用文本文件格式的报告：
 
@@ -915,11 +915,11 @@ Time metrics:
 <...>
 ```
 
-### 所有 Gradle 版本的延迟 Kotlin/JVM 任务创建
+### 所有 Gradle 版本的延迟 Kotlin/JVM 任务创建 {id="lazy-kotlin-jvm-tasks-creation-for-all-gradle-versions"}
 
 对于在 Gradle 7.3+ 上使用 `org.jetbrains.kotlin.gradle.jvm` 插件的项目，Kotlin Gradle 插件不再预先创建和配置 `compileKotlin` 任务。在较低的 Gradle 版本上，它只是注册所有任务，并且不会在干跑 (dry run) 时配置它们。现在在运行 Gradle 7.3+ 时也采用同样的行为。
 
-### 编译任务 destinationDirectory 的非默认位置
+### 编译任务 destinationDirectory 的非默认位置 {id="non-default-location-of-compile-tasks-destinationdirectory"}
 
 如果您执行以下操作之一，请使用一些额外代码更新您的构建脚本：
 
@@ -935,13 +935,13 @@ tasks.jar(type: Jar) {
 }
 ```
 
-### 能够选择不向 HTTP 统计服务报告编译器参数
+### 能够选择不向 HTTP 统计服务报告编译器参数 {id="ability-to-opt-out-from-reporting-compiler-arguments-to-an-http-statistics-service"}
 
 您现在可以控制 Kotlin Gradle 插件是否应在 HTTP [构建报告](gradle-compilation-and-caches.md#build-reports)中包含编译器参数。有时，您可能不需要插件报告这些参数。如果一个项目包含许多模块，其报告中的编译器参数可能会非常沉重且用处不大。现在有一种方法可以禁用它，从而节省内存。在您的 `gradle.properties` 或 `local.properties` 中，使用 `kotlin.build.report.include_compiler_arguments=(true|false)` 属性。
 
 我们感谢您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-55323/) 上对此功能的反馈。
 
-## 标准库
+## 标准库 {id="standard-library"}
 
 Kotlin 1.8.20 添加了多种新功能，其中一些对 Kotlin/Native 开发特别有用：
 
@@ -950,7 +950,7 @@ Kotlin 1.8.20 添加了多种新功能，其中一些对 Kotlin/Native 开发特
 * [Kotlin/Native 中支持 @Volatile](#support-for-volatile-in-kotlin-native)
 * [修复了 Kotlin/Native 中使用正则表达式时的栈溢出错误](#bug-fix-for-stack-overflow-when-using-regex-in-kotlin-native)
 
-### 支持 AutoCloseable 接口
+### 支持 AutoCloseable 接口 {id="support-for-the-autocloseable-interface"}
 
 > 新的 `AutoCloseable` 接口是[实验性的](components-stability.md#stability-levels-explained)，要使用它，您需要通过 `@OptIn(ExperimentalStdlibApi::class)` 或编译器参数 `-opt-in=kotlin.ExperimentalStdlibApi` 进行启用。
 >
@@ -997,7 +997,7 @@ fun writeBooksTo(writer: XMLWriter) {
 ```
 {validate="false"}
 
-### 支持 Base64 编码
+### 支持 Base64 编码 {id="support-for-base64-encoding"}
 
 > 新的编码和解码功能是[实验性的](components-stability.md#stability-levels-explained)，要使用它，您需要通过 `@OptIn(ExperimentalEncodingApi::class)` 或编译器参数 `-opt-in=kotlin.io.encoding.ExperimentalEncodingApi` 进行启用。
 >
@@ -1034,7 +1034,7 @@ Base64.UrlSafe.decode("Zm9vYmFy") // foobarBytes
 
 在 Kotlin/JVM 中，我们还添加了扩展函数 `encodingWith()` 和 `decodingWith()`，使您能够通过输入和输出流执行 Base64 编码和解码。
 
-### Kotlin/Native 中支持 @Volatile
+### Kotlin/Native 中支持 @Volatile {id="support-for-volatile-in-kotlin-native"}
 
 > Kotlin/Native 中的 `@Volatile` 是[实验性的](components-stability.md#stability-levels-explained)。它可能随时被删除或更改。需要启用 (Opt-in)（详情见下文）。仅用于评估目的。我们感谢您在 [YouTrack](https://kotl.in/issue) 上提供的反馈。
 >
@@ -1046,7 +1046,7 @@ Base64.UrlSafe.decode("Zm9vYmFy") // foobarBytes
 
 在 1.8.20 中，我们引入了一个通用注解 `kotlin.concurrent.Volatile`，您可以在 JVM 和 Kotlin/Native 中同时使用它。
 
-#### 如何启用
+#### 如何启用 {id="how-to-enable"}
 
 要尝试此功能，请通过 `@OptIn(ExperimentalStdlibApi)` 进行启用，并启用 `-language-version 1.9` 编译器选项。在 Gradle 项目中，您可以通过在 `build.gradle(.kts)` 文件中添加以下内容来实现：
 
@@ -1080,15 +1080,15 @@ tasks
 </tab>
 </tabs>
 
-### 修复了 Kotlin/Native 中使用正则表达式时的栈溢出错误
+### 修复了 Kotlin/Native 中使用正则表达式时的栈溢出错误 {id="bug-fix-for-stack-overflow-when-using-regex-in-kotlin-native"}
 
 在之前的 Kotlin 版本中，如果您的正则输入包含大量字符，即使正则表达式模式非常简单，也可能发生崩溃。在 1.8.20 中，此问题已得到解决。有关更多信息，请参阅 [KT-46211](https://youtrack.jetbrains.com/issue/KT-46211)。
 
-## 序列化更新
+## 序列化更新 {id="serialization-updates"}
 
 Kotlin 1.8.20 带来了[对 Kotlin K2 编译器的 Alpha 支持](#prototype-serialization-compiler-plugin-for-kotlin-k2-compiler)，并[禁止通过伴生对象自定义序列化器](#prohibit-implicit-serializer-customization-via-companion-object)。
 
-### 针对 Kotlin K2 编译器的原型序列化编译器插件
+### 针对 Kotlin K2 编译器的原型序列化编译器插件 {id="prototype-serialization-compiler-plugin-for-kotlin-k2-compiler"}
 
 > 对 K2 序列化编译器插件的支持处于 [Alpha](components-stability.md#stability-levels-explained) 阶段。要使用它，请[启用 Kotlin K2 编译器](#how-to-enable-the-kotlin-k2-compiler)。
 >
@@ -1096,7 +1096,7 @@ Kotlin 1.8.20 带来了[对 Kotlin K2 编译器的 Alpha 支持](#prototype-seri
 
 从 1.8.20 开始，序列化编译器插件可与 Kotlin K2 编译器协同工作。请试用并[向我们分享您的反馈](#leave-your-feedback-on-the-new-k2-compiler)！
 
-### 禁止通过伴生对象隐式自定义序列化器
+### 禁止通过伴生对象隐式自定义序列化器 {id="prohibit-implicit-serializer-customization-via-companion-object"}
 
 目前，可以使用 `@Serializable` 注解将一个类声明为可序列化的，同时在其伴生对象上使用 `@Serializer` 注解声明一个自定义序列化器。
 
@@ -1138,7 +1138,7 @@ class Foo(val a: Int) {
 >
 {style="tip"}
 
-## 文档更新
+## 文档更新 {id="documentation-updates"}
 
 Kotlin 文档进行了一些显著更改：
 
@@ -1146,9 +1146,9 @@ Kotlin 文档进行了一些显著更改：
 * [作用域函数](scope-functions.md)——了解如何使用标准库中有用的作用域函数来简化您的代码。
 * [CocoaPods 集成](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html)——设置使用 CocoaPods 的环境。
 
-## 安装 Kotlin 1.8.20
+## 安装 Kotlin 1.8.20 {id="install-kotlin-1-8-20"}
 
-### 检查 IDE 版本
+### 检查 IDE 版本 {id="check-the-ide-version"}
 
 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 2022.2 和 2022.3 会自动建议将 Kotlin 插件更新到 1.8.20 版本。IntelliJ IDEA 2023.1 内置了 Kotlin 插件 1.8.20。
 
@@ -1156,7 +1156,7 @@ Android Studio Flamingo (222) 和 Giraffe (223) 将在后续版本中支持 Kotl
 
 新的命令行编译器可在 [GitHub 发布页面](https://github.com/JetBrains/kotlin/releases/tag/v1.8.20)下载。
 
-### 配置 Gradle 设置
+### 配置 Gradle 设置 {id="configure-gradle-settings"}
 
 为了正确下载 Kotlin 构件和依赖项，请更新您的 `settings.gradle(.kts)` 文件以使用 Maven Central 仓库：
 

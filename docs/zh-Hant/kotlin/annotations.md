@@ -8,7 +8,7 @@
 >
 {style="tip"}
 
-## 宣告
+## 宣告 {id="declaration"}
 
 註解是一種特殊的類別。要宣告註解，請在類別宣告前使用 `annotation` 關鍵字：
 
@@ -32,7 +32,7 @@ annotation class Fancy
 annotation class Fancy
 ```
 
-## 用法
+## 用法 {id="usage"}
 
 ```kotlin
 @Fancy class Foo {
@@ -57,7 +57,7 @@ class Foo {
 }
 ```
 
-## 建構函式
+## 建構函式 {id="constructors"}
 
 註解可以擁有帶有參數的建構函式。
 
@@ -101,7 +101,7 @@ annotation class Ann(val arg1: KClass<*>, val arg2: KClass<out Any>)
 @Ann(String::class, Int::class) class MyClass
 ```
 
-## 具現化
+## 具現化 {id="instantiation"}
 
 在 Java 中，註解型別是介面的一種形式，因此您可以實作它並使用執行個體。作為此機制的替代方案，Kotlin 允許您在任意程式碼中呼叫註解類別的建構函式，並以類似方式使用產生的執行個體。
 
@@ -120,7 +120,7 @@ fun main(args: Array<String>) {
 
 在 [此 KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/annotation-instantiation.md) 中進一步了解註解類別的具現化。
 
-## Lambda
+## Lambda {id="lambdas"}
 
 註解也可以用於 Lambda。它們將套用至產生 Lambda 主體的 `invoke()` 方法。這對於像 [Quasar](https://docs.paralleluniverse.co/quasar/) 這樣的架構非常有用，該架構使用註解進行並行控制。
 
@@ -130,7 +130,7 @@ annotation class Suspendable
 val f = @Suspendable { Fiber.sleep(10) }
 ```
 
-## 註解使用點目標
+## 註解使用點目標 {id="annotation-use-site-targets"}
 
 當您為屬性或主建構函數參數加上註解時，會從對應的 Kotlin 元素產生多個 Java 元素，因此在產生的 Java 位元組碼中註解有多個可能的位置。若要指定註解應如何產生，請使用以下語法：
 
@@ -177,7 +177,7 @@ class Example {
   * `setparam`（屬性 setter 參數）
   * `delegate`（儲存委派屬性之委派執行個體的欄位）
 
-### 未指定使用點目標時的預設值
+### 未指定使用點目標時的預設值 {id="defaults-when-no-use-site-targets-are-specified"}
 
 如果您未指定使用點目標，編譯器會根據所使用註解的 `@Target` 註解來選擇目標。如果有多個適用的目標，編譯器會按以下順序選擇一個或多個：
 
@@ -215,7 +215,7 @@ data class User(val username: String,
 * 不在主建構函數中宣告。
 * 沒有自訂的 getter 或 setter，因此編譯器會產生一個支援欄位。
 
-### `all` 元目標
+### `all` 元目標 {id="all-meta-target"}
 
 `all` 目標可以更輕鬆地將相同的註解不僅套用至參數、屬性或欄位，還套用至對應的 getter 與 setter。
 
@@ -252,7 +252,7 @@ data class User(
 
 您可以將 `all` 元目標與任何屬性一起使用，無論是在主建構函數之內或之外。
 
-#### 限制
+#### 限制 {id="limitations"}
 
 `all` 目標具有一些限制：
 
@@ -264,7 +264,7 @@ data class User(
     ```
 * 它不能與 [委派屬性](delegated-properties.md) 一起使用。
 
-## Java 註解
+## Java 註解 {id="java-annotations"}
 
 Java 註解與 Kotlin 100% 相容：
 
@@ -314,7 +314,7 @@ public @interface AnnWithValue {
 @AnnWithValue("abc") class C
 ```
 
-### 陣列作為註解參數
+### 陣列作為註解參數 {id="arrays-as-annotation-parameters"}
 
 如果 Java 中的 `value` 引數具有陣列型別，它在 Kotlin 中會變成 `vararg` 參數：
 
@@ -344,7 +344,7 @@ public @interface AnnWithArrayMethod {
 class C
 ```
 
-### 存取註解執行個體的屬性
+### 存取註解執行個體的屬性 {id="accessing-properties-of-an-annotation-instance"}
 
 註解執行個體的值會作為屬性揭露給 Kotlin 程式碼：
 
@@ -362,13 +362,13 @@ fun foo(ann: Ann) {
 }
 ```
 
-### 不產生 JVM 1.8+ 註解目標的能力
+### 不產生 JVM 1.8+ 註解目標的能力 {id="ability-to-not-generate-jvm-1-8-annotation-targets"}
 
 如果一個 Kotlin 註解的 Kotlin 目標中包含 `TYPE`，則該註解在其 Java 註解目標清單中會映射到 `java.lang.annotation.ElementType.TYPE_USE`。這就像 `TYPE_PARAMETER` Kotlin 目標如何映射到 `java.lang.annotation.ElementType.TYPE_PARAMETER` Java 目標一樣。對於 API 層級低於 26 的 Android 用戶端來說，這是一個問題，因為它們在 API 中沒有這些目標。
 
 要避免產生 `TYPE_USE` 與 `TYPE_PARAMETER` 註解目標，請使用新的編譯器引數 `-Xno-new-java-annotation-targets`。
 
-## 可重複註解
+## 可重複註解 {id="repeatable-annotations"}
 
 就像 [在 Java 中](https://docs.oracle.com/javase/tutorial/java/annotations/repeating.html) 一樣，Kotlin 擁有可重複註解，可以對單個程式碼元素多次套用。要使您的註解成為可重複註解，請使用 [`@kotlin.annotation.Repeatable`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.annotation/-repeatable/) 元註解來標記其宣告。這將使其在 Kotlin 與 Java 中皆為可重複。Kotlin 端也支援 Java 可重複註解。
 

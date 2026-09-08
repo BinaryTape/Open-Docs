@@ -1,4 +1,4 @@
-## 型安全なクエリの定義
+## 型安全なクエリの定義 {id="defining-typesafe-queries"}
 
 SQLDelightは、`.sq` ファイル内のラベル付きSQLステートメントに対して、型安全な関数を生成します。
 

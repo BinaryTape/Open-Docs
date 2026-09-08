@@ -19,7 +19,7 @@ override fun process(resolver: Resolver): List<KSAnnotated> {
 
 當一整輪處理未產生任何新檔案時，多輪處理即告終止。如果仍存在未處理的延遲符號，KSP 會為每個擁有剩餘延遲符號的處理器記錄一條錯誤訊息。
 
-## 將符號延遲至下一輪
+## 將符號延遲至下一輪 {id="deferring-symbols-to-the-next-round"}
 
 當需要來自其他處理器的額外資訊時，處理器可以將符號延遲到後續輪次。處理器可以根據需要持續延遲該符號多個輪次，直到所需資訊可用為止。一旦資訊可用，處理器便可處理該符號。
 
@@ -35,7 +35,7 @@ override fun process(resolver: Resolver): List<KSAnnotated> {
 
 例如，為一個被註解的類別產生 builder 的處理器，可能要求其建構函式的所有參數型別都能解析為具體型別。在第一輪中，其中一個參數型別可能無法解析。在後續輪次中，由於在此期間產生的檔案，該型別可能會變得可以解析。接著處理器便可處理該類別。
 
-## 驗證符號
+## 驗證符號 {id="validating-symbols"}
 
 驗證是判斷是否將符號延遲到後續輪次的一種便捷方法。處理器應定義正確處理符號所需的資訊。
 
@@ -47,7 +47,7 @@ override fun process(resolver: Resolver): List<KSAnnotated> {
 
 在實作自訂驗證時，請使用 `KSType.isError` 判斷型別是否有效。若 `isError` 為 `true`，則表示 KSP 無法解析該型別。請利用此資訊決定是否將處理延遲到後續輪次。
 
-## 存取檔案與符號
+## 存取檔案與符號 {id="accessing-files-and-symbols"}
 
 新產生的檔案與現有檔案均可透過 `Resolver` 存取。
 
@@ -61,7 +61,7 @@ KSP 提供了兩個用於存取檔案的 API：
 
 在每一輪中，`Resolver.getSymbolsWithAnnotation()` 僅傳回來自新產生檔案的符號，以及來自上一輪的延遲符號。這有助於避免不必要的重複處理。
 
-## 處理器具現化
+## 處理器具現化 {id="processor-instantiation"}
 
 KSP 僅會建立一次處理器執行個體。您可以在處理器執行個體中儲存資訊，並在多個輪次之間重複使用。
 
@@ -71,9 +71,9 @@ KSP 僅會建立一次處理器執行個體。您可以在處理器執行個體�
 > 
 {style="note"}
 
-## 錯誤與例外處理
+## 錯誤與例外處理 {id="error-and-exception-handling"}
 
-### 錯誤
+### 錯誤 {id="errors"}
 
 處理器透過呼叫 `KSPLogger.error()` 來回報錯誤。
 
@@ -81,7 +81,7 @@ KSP 僅會建立一次處理器執行個體。您可以在處理器執行個體�
 
 其他處理器在該輪次中仍會繼續正常處理。KSP 僅在所有處理器完成當前輪次後才處理錯誤。
 
-### 例外
+### 例外 {id="exceptions"}
 
 KSP 會區分來自 KSP 的例外與來自處理器的例外。這兩種類型都會立即終止處理，並透過 `KSPLogger` 記錄為錯誤。
 

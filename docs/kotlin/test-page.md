@@ -13,7 +13,7 @@
     </p>
 </tldr>
 
-## 同步标签页
+## 同步标签页 {id="synchronized-tabs"}
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -57,9 +57,9 @@ plugins {
 </tab>
 </tabs>
 
-## 章节
+## 章节 {id="sections"}
 
-### 折叠章节 {initial-collapse-state="collapsed" collapsible="true"}
+### 折叠章节 {initial-collapse-state="collapsed" collapsible="true" id="collapsed-section"}
 
 这里有一些文本和一个代码块：
 
@@ -69,7 +69,7 @@ plugins {
 }
 ```
 
-## 代码块
+## 代码块 {id="codeblocks"}
 
 只是一个代码块：
 
@@ -91,7 +91,7 @@ class MessageService(val db: MessageRepository) {
 }
 ```
 
-### 可展开的代码块
+### 可展开的代码块 {id="expandable-codeblock"}
 
 ```kotlin
 package com.example.demo
@@ -117,7 +117,7 @@ class MessageController {
 ```
 {initial-collapse-state="collapsed" collapsible="true"}
 
-### 可运行的代码块
+### 可运行的代码块 {id="runnable-codeblock"}
 
 ```kotlin
 data class User(val name: String, val id: Int)
@@ -134,9 +134,9 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 表格
+## 表格 {id="tables"}
 
-### Markdown 表格
+### Markdown 表格 {id="markdown-table"}
 
 | 原生类型数组                                                                                | Java 中的对应类型 |
 |---------------------------------------------------------------------------------------|--------------------|
@@ -149,7 +149,7 @@ fun main() {
 | [`LongArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long-array/)       | `long[]`           |
 | [`ShortArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-short-array/)     | `short[]`          |
 
-### XML 表格
+### XML 表格 {id="xml-table"}
 
 <table>
     <tr>
@@ -162,7 +162,7 @@ fun main() {
     </tr>
 </table>
 
-### 内含代码块的 XML 表格
+### 内含代码块的 XML 表格 {id="xml-table-with-codeblocks-inside"}
 
 简单表格：
 
@@ -287,9 +287,9 @@ jvmTest<Scope>
     </tr>
 </table>
 
-## 列表
+## 列表 {id="lists"}
 
-### 有序列表
+### 有序列表 {id="ordered-list"}
 
 1. 一
 2. 二
@@ -304,7 +304,7 @@ jvmTest<Scope>
    jvmTest<Scope>
    ```
 
-### 无序列表
+### 无序列表 {id="non-ordered-list"}
 
 * 第一项
 * 第二项
@@ -318,7 +318,7 @@ jvmTest<Scope>
    jvmTest<Scope>
    ```
 
-### 定义列表
+### 定义列表 {id="definition-list"}
 
 <deflist collapsible="true">
    <def title="可折叠项 #1">
@@ -332,7 +332,7 @@ jvmTest<Scope>
    </def>
 </deflist>
 
-## 文本元素
+## 文本元素 {id="text-elements"}
 
 * **粗体文本**
 * _斜体文本_
@@ -342,16 +342,16 @@ jvmTest<Scope>
 * [外部链接](https://jetbrains.com)
 * 表情符号 ❌✅🆕
 
-## 变量
+## 变量 {id="variables"}
 * 变量使用：最新的 Kotlin 版本是 %kotlinVersion%
 
-## 嵌入元素
+## 嵌入元素 {id="embedded-elements"}
 
-### 来自 YouTube 的视频
+### 来自 YouTube 的视频 {id="video-from-youtube"}
 
 <video src="https://www.youtube.com/v/Ol_96CHKqg8" title="Kotlin 1.9.20 最新变化"/>
 
-### 图片
+### 图片 {id="pictures"}
 
 常规 (Markdown)：
 
@@ -375,7 +375,7 @@ jvmTest<Scope>
    <img src="multiplatform-create-project-button.png" alt="创建项目" style="block"/>
 </a>
 
-## 备注
+## 备注 {id="notes"}
 
 警告：
 

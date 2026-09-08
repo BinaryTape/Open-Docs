@@ -17,7 +17,7 @@ Kotlin 1.8.0 がリリースされました。主なハイライトは以下の�
 >
 {style="tip"}
 
-## IDE サポート
+## IDE サポート {id="ide-support"}
 
 1.8.0 をサポートする Kotlin プラグインは、以下の IDE で利用可能です。
 
@@ -32,7 +32,7 @@ Kotlin 1.8.0 がリリースされました。主なハイライトは以下の�
 >
 {style="note"}
 
-## Kotlin/JVM
+## Kotlin/JVM {id="kotlin-jvm"}
 
 バージョン 1.8.0 以降、コンパイラは JVM 19 に対応するバイトコードバージョンのクラスを生成できるようになりました。
 新しい言語バージョンには以下も含まれています。
@@ -42,13 +42,13 @@ Kotlin 1.8.0 がリリースされました。主なハイライトは以下の�
 * [古いバックエンドの削除](#removal-of-the-old-backend)
 * [Lombok の @Builder アノテーションのサポート](#support-for-lombok-s-builder-annotation)
 
-### TYPE_USE および TYPE_PARAMETER アノテーションターゲットを生成しない機能
+### TYPE_USE および TYPE_PARAMETER アノテーションターゲットを生成しない機能 {id="ability-to-not-generate-typeuse-and-typeparameter-annotation-targets"}
 
 Kotlin アノテーションのターゲットに `TYPE` が含まれている場合、そのアノテーションは Java アノテーションターゲットのリストにおいて `java.lang.annotation.ElementType.TYPE_USE` にマップされます。これは、Kotlin の `TYPE_PARAMETER` ターゲットが Java の `java.lang.annotation.ElementType.TYPE_PARAMETER` ターゲットにマップされるのと同様です。これは、これらのターゲットが API に存在しない API レベル 26 未満の Android クライアントにとって問題となります。
 
 Kotlin 1.8.0 以降では、新しいコンパイラオプション `-Xno-new-java-annotation-targets` を使用して、`TYPE_USE` および `TYPE_PARAMETER` アノテーションターゲットの生成を回避できます。
 
-### 最適化を無効にする新しいコンパイラオプション
+### 最適化を無効にする新しいコンパイラオプション {id="a-new-compiler-option-for-disabling-optimizations"}
 
 Kotlin 1.8.0 では、より良いデバッグ体験のために最適化を無効にする新しい `-Xdebug` コンパイラオプションが追加されました。
 現時点では、このオプションはコルーチンの「was optimized out（最適化により削除されました）」機能を無効にします。将来、さらに最適化が追加された際にも、このオプションでそれらを無効にできるようになる予定です。
@@ -59,13 +59,13 @@ Kotlin 1.8.0 では、より良いデバッグ体験のために最適化を無�
 >
 {style="warning"}
 
-### 古いバックエンドの削除
+### 古いバックエンドの削除 {id="removal-of-the-old-backend"}
 
 Kotlin 1.5.0 において、IR ベースのバックエンドが [安定版（Stable）](components-stability.md) になったことを [発表](whatsnew15.md#stable-jvm-ir-backend) しました。
 これは、Kotlin 1.4.* までの古いバックエンドが非推奨になったことを意味していました。Kotlin 1.8.0 では、古いバックエンドを完全に削除しました。
 それに伴い、コンパイラオプション `-Xuse-old-backend` および Gradle の `useOldBackend` オプションも削除されました。
 
-### Lombok の @Builder アノテーションのサポート
+### Lombok の @Builder アノテーションのサポート {id="support-for-lombok-s-builder-annotation"}
 
 YouTrack の課題 [Kotlin Lombok: Support generated builders (@Builder)](https://youtrack.jetbrains.com/issue/KT-46959) にコミュニティから非常に多くの投票が寄せられたため、[@Builder アノテーション](https://projectlombok.org/features/Builder) をサポートすることにしました。
 
@@ -73,7 +73,7 @@ YouTrack の課題 [Kotlin Lombok: Support generated builders (@Builder)](https:
 
 [Lombok コンパイラプラグインの設定方法を確認する](lombok.md#gradle)。
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 Kotlin 1.8.0 には、Objective-C および Swift との相互運用性の変更、Xcode 14.1 のサポート、および CocoaPods Gradle プラグインの改善が含まれています。
 
@@ -81,7 +81,7 @@ Kotlin 1.8.0 には、Objective-C および Swift との相互運用性の変更
 * [Objective-C/Swift 相互運用性の向上](#improved-objective-c-swift-interoperability)
 * [CocoaPods Gradle プラグインで動的フレームワークがデフォルトに](#dynamic-frameworks-by-default-in-the-cocoapods-gradle-plugin)
 
-### Xcode 14.1 のサポート
+### Xcode 14.1 のサポート {id="support-for-xcode-14-1"}
 
 Kotlin/Native コンパイラは、最新の安定版 Xcode バージョン 14.1 をサポートするようになりました。互換性の向上には以下の変更が含まれます。
 
@@ -89,7 +89,7 @@ Kotlin/Native コンパイラは、最新の安定版 Xcode バージョン 14.1
 * Kotlin CocoaPods Gradle プラグインは、Apple フレームワークのビットコード埋め込みをデフォルトで行わなくなりました。
 * Apple ターゲット向けの Objective-C フレームワークの変更を反映して、プラットフォームライブラリが更新されました。
 
-### Objective-C/Swift 相互運用性の向上
+### Objective-C/Swift 相互運用性の向上 {id="improved-objective-c-swift-interoperability"}
 
 Kotlin と Objective-C および Swift との相互運用性を高めるため、3 つの新しいアノテーションが追加されました。
 
@@ -127,7 +127,7 @@ Kotlin と Objective-C および Swift との相互運用性を高めるため�
 
 Kotlin チームは、これらのアノテーションを実装してくれた [Rick Clephas](https://github.com/rickclephas) 氏に深く感謝します。
 
-### CocoaPods Gradle プラグインで動的フレームワークがデフォルトに
+### CocoaPods Gradle プラグインで動的フレームワークがデフォルトに {id="dynamic-frameworks-by-default-in-the-cocoapods-gradle-plugin"}
 
 Kotlin 1.8.0 以降、CocoaPods Gradle プラグインによって登録される Kotlin フレームワークは、デフォルトで動的にリンクされるようになりました。以前の静的な実装は、Kotlin Gradle プラグインの動作と一貫性がありませんでした。
 
@@ -146,7 +146,7 @@ kotlin {
 
 詳細については、[CocoaPods Gradle プラグインの DSL リファレンス](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-dsl-reference.html) を参照してください。
 
-## Kotlin Multiplatform: 新しい Android ソースセットレイアウト
+## Kotlin Multiplatform: 新しい Android ソースセットレイアウト {id="kotlin-multiplatform-a-new-android-source-set-layout"}
 
 Kotlin 1.8.0 では、ディレクトリの命名規則が紛らわしかった以前のスキーマに代わる、新しい Android ソースセットレイアウトが導入されました。
 
@@ -159,7 +159,7 @@ Kotlin 1.8.0 では、ディレクトリの命名規則が紛らわしかった�
 これらおよびその他の既存の問題に対処するため、新しい Android ソースセットレイアウトを導入しました。
 主な違いは以下の通りです。
 
-#### KotlinSourceSet 命名スキーマ
+#### KotlinSourceSet 命名スキーマ {id="kotlinsourceset-naming-schema"}
 
 | 現在のソースセットレイアウト              | 新しいソースセットレイアウト               |
 |----------------------------------------|-------------------------------------|
@@ -173,7 +173,7 @@ Kotlin 1.8.0 では、ディレクトリの命名規則が紛らわしかった�
 | test        | androidTest               | android<b>Unit</b>Test         |
 | androidTest | android<b>Android</b>Test | android<b>Instrumented</b>Test |
 
-#### SourceDirectories
+#### SourceDirectories {id="sourcedirectories"}
 
 | 現在のソースセットレイアウト                               | 新しいソースセットレイアウト                                                     |
 |---------------------------------------------------------|---------------------------------------------------------------------------|
@@ -187,7 +187,7 @@ Kotlin 1.8.0 では、ディレクトリの命名規則が紛らわしかった�
 | test        | src/androidTest/kotlin, src/test/kotlin, src/test/java     | src/android<b>Unit</b>Test/kotlin, src/test/kotlin, src/test/java                              |
 | androidTest | src/android<b>Android</b>Test/kotlin, src/androidTest/java | src/android<b>Instrumented</b>Test/kotlin, src/androidTest/java, <b>src/androidTest/kotlin</b> |
 
-#### AndroidManifest.xml ファイルの場所
+#### AndroidManifest.xml ファイルの場所 {id="the-location-of-the-androidmanifest-xml-file"}
 
 | 現在のソースセットレイアウト                              | 新しいソースセットレイアウト                                 |
 |--------------------------------------------------------|-------------------------------------------------------|
@@ -200,7 +200,7 @@ Kotlin 1.8.0 では、ディレクトリの命名規則が紛らわしかった�
 | main  | src/main/AndroidManifest.xml  | src/<b>android</b>Main/AndroidManifest.xml  |
 | debug | src/debug/AndroidManifest.xml | src/<b>android</b>Debug/AndroidManifest.xml |
 
-#### Android テストと common テストの関係
+#### Android テストと common テストの関係 {id="the-relation-between-android-and-common-tests"}
 
 新しい Android ソースセットレイアウトでは、Android インストルメンテーションテスト（新レイアウトでは `androidInstrumentedTest` に改名）と common テストの関係が変更されます。
 
@@ -224,7 +224,7 @@ kotlin {
 }
 ```
 
-#### Android フレーバーのサポート
+#### Android フレーバーのサポート {id="support-for-android-flavors"}
 
 以前の Kotlin Gradle プラグインは、`debug` や `release` ビルドタイプ、または `demo` や `full` といったカスタムフレーバーに対応するソースセットを先行して（eagerly）作成していました。
 これにより、`val androidDebug by getting { ... }` のような構成でアクセス可能でした。
@@ -242,7 +242,7 @@ kotlin {
 }
 ```
 
-### 設定とセットアップ
+### 設定とセットアップ {id="configuration-and-setup"}
 
 新しいレイアウトは、将来のリリースでデフォルトになります。今すぐ有効にするには、以下の Gradle オプションを使用します。
 
@@ -260,7 +260,7 @@ kotlin.mpp.androidSourceSetLayoutVersion=2
 kotlin.mpp.androidSourceSetLayoutVersion1.nowarn=true
 ```
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
 Kotlin 1.8.0 では JS IR コンパイラバックエンドが安定化し、JavaScript 関連の Gradle ビルドスクリプトに新機能が追加されました。
 * [JS IR コンパイラバックエンドが安定版に](#stable-js-ir-compiler-backend)
@@ -268,7 +268,7 @@ Kotlin 1.8.0 では JS IR コンパイラバックエンドが安定化し、Jav
 * [Gradle プロパティ経由でブラウザのテストターゲットを追加](#add-test-targets-for-browsers-via-gradle-properties)
 * [プロジェクトに CSS サポートを追加する新しいアプローチ](#new-approach-to-adding-css-support-to-your-project)
 
-### JS IR コンパイラバックエンドが安定版に
+### JS IR コンパイラバックエンドが安定版に {id="stable-js-ir-compiler-backend"}
 
 本リリースより、[Kotlin/JS 中間表現（IR ベース）コンパイラ](js-ir-compiler.md) バックエンドが安定版（Stable）になりました。3 つのバックエンドすべてのインフラストラクチャを統合するのに時間がかかりましたが、現在はすべて Kotlin コードに対して同じ IR を使用して動作します。
 
@@ -278,7 +278,7 @@ JS IR コンパイラバックエンドが安定した結果、以前のバッ�
 
 まだ古いコンパイラを使用している場合は、プロジェクトを新しいバックエンドに切り替えてください。
 
-### yarn.lock が更新されたことを報告する新しい設定
+### yarn.lock が更新されたことを報告する新しい設定 {id="new-settings-for-reporting-that-yarn-lock-has-been-updated"}
 
 `yarn` パッケージマネージャーを使用している場合、`yarn.lock` ファイルが更新されたときに通知する 3 つの新しい特別な Gradle 設定があります。CI ビルドプロセス中に `yarn.lock` が暗黙のうちに変更されたかどうかを確認したい場合に、これらの設定を使用できます。
 
@@ -305,7 +305,7 @@ rootProject.plugins.withType(org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlu
 }
 ```
 
-### Gradle プロパティ経由でブラウザのテストターゲットを追加
+### Gradle プロパティ経由でブラウザのテストターゲットを追加 {id="add-test-targets-for-browsers-via-gradle-properties"}
 
 Kotlin 1.8.0 以降、Gradle プロパティファイルで直接、さまざまなブラウザのテストターゲットを設定できるようになりました。これにより、`build.gradle.kts` にすべてのターゲットを記述する必要がなくなり、ビルドスクリプトファイルのサイズを縮小できます。
 
@@ -321,7 +321,7 @@ kotlin.js.browser.karma.browsers=firefox,safari
 
 Kotlin チームは、この機能を実装してくれた [Martynas Petuška](https://github.com/mpetuska) 氏に深く感謝します。
 
-### プロジェクトに CSS サポートを追加する新しいアプローチ
+### プロジェクトに CSS サポートを追加する新しいアプローチ {id="new-approach-to-adding-css-support-to-your-project"}
 
 本リリースでは、プロジェクトに CSS サポートを追加する新しい approach が提供されます。これは多くのプロジェクトに影響を与えると予想されるため、Gradle ビルドスクリプトファイルを以下のように更新してください。
 
@@ -347,7 +347,7 @@ browser {
 }
 ```
 
-## Gradle
+## Gradle {id="gradle"}
 
 Kotlin 1.8.0 は、Gradle バージョン 7.2 および 7.3 を **完全（fully）** にサポートしています。最新の Gradle リリースまでのバージョンも使用できますが、その場合は非推奨の警告が表示されたり、一部の新しい Gradle 機能が動作しなかったりする可能性があることに注意してください。
 
@@ -360,7 +360,7 @@ Kotlin 1.8.0 は、Gradle バージョン 7.2 および 7.3 を **完全（fully
 * [Kotlin Gradle プラグインの推移的依存関係の解決](#resolution-of-kotlin-gradle-plugins-transitive-dependencies)
 * [非推奨および削除](#deprecations-and-removals)
 
-### Kotlin コンパイラオプションを Gradle の Lazy プロパティとして公開
+### Kotlin コンパイラオプションを Gradle の Lazy プロパティとして公開 {id="exposing-kotlin-compiler-options-as-gradle-lazy-properties"}
 
 利用可能な Kotlin コンパイラオプションを [Gradle の Lazy プロパティ](https://docs.gradle.org/current/userguide/lazy_configuration.html) として公開し、それらを Kotlin タスクにより良く統合するために、多くの変更を加えました。
 
@@ -406,7 +406,7 @@ Kotlin 1.8.0 は、Gradle バージョン 7.2 および 7.3 を **完全（fully
 >
 {style="note"}
 
-#### 制限事項
+#### 制限事項 {id="limitations"}
 
 > `kotlinOptions` タスク入力および `kotlinOptions{...}` タスク DSL はサポートモードにあり、今後のリリースで非推奨になる予定です。改善は `compilerOptions` および `toolOptions` に対してのみ行われます。
 >
@@ -419,19 +419,19 @@ Kotlin 1.8.0 は、Gradle バージョン 7.2 および 7.3 を **完全（fully
 
 `kotlin-dsl` プラグインや [Jetpack Compose](https://developer.android.com/jetpack/compose) が有効な Android Gradle プラグイン (AGP) を含むいくつかのプラグインは、タスク実行フェーズで `freeCompilerArgs` 属性を変更しようとします。Kotlin 1.8.0 では、これらに対する回避策を追加しました。この回避策により、任意のビルドスクリプトやプラグインが実行フェーズで `kotlinOptions.freeCompilerArgs` を変更できるようになりますが、ビルドログに警告が出力されます。この警告を無効にするには、新しい Gradle プロパティ `kotlin.options.suppressFreeCompilerArgsModificationWarning=true` を使用してください。Gradle は [`kotlin-dsl` プラグイン](https://github.com/gradle/gradle/issues/22091) および [Jetpack Compose が有効な AGP](https://issuetracker.google.com/u/1/issues/247544167) への修正を追加する予定です。
 
-### 最小サポートバージョンの引き上げ
+### 最小サポートバージョンの引き上げ {id="bumping-the-minimum-supported-versions"}
 
 Kotlin 1.8.0 以降、サポートされる最小の Gradle バージョンは 6.8.3、サポートされる最小の Android Gradle プラグインバージョンは 4.1.3 となりました。
 
 ドキュメントの [利用可能な Gradle バージョンとの Kotlin Gradle プラグインの互換性](gradle-configure-project.md#apply-the-plugin) を参照してください。
 
-### Kotlin デーモンのフォールバック戦略を無効にする機能
+### Kotlin デーモンのフォールバック戦略を無効にする機能 {id="ability-to-disable-the-kotlin-daemon-fallback-strategy"}
 
 新しい Gradle プロパティ `kotlin.daemon.useFallbackStrategy` が追加されました。デフォルト値は `true` です。値を `false` に設定すると、デーモンの起動や通信に問題が発生した際にビルドが失敗します。また、Kotlin コンパイルタスクには新しい `useDaemonFallbackStrategy` プロパティもあり、両方を使用する場合はこちらが Gradle プロパティよりも優先されます。コンパイルを実行するのに十分なメモリがない場合、ログにその旨のメッセージが表示されます。
 
 Kotlin コンパイラのフォールバック戦略とは、デーモンが何らかの理由で失敗した場合に、Kotlin デーモン以外でコンパイルを実行することです。Gradle デーモンがオンの場合、コンパイラは「In process（プロセス内）」戦略を使用します。Gradle デーモンがオフの場合、コンパイラは「Out of process（プロセス外）」戦略を使用します。これらの [実行戦略についての詳細はドキュメント](compiler-execution-strategy.md) を参照してください。別の戦略へのサイレントなフォールバックは、多くのシステムリソースを消費したり、非決定的なビルドにつながったりする可能性があることに注意してください。詳細は [YouTrack の課題](https://youtrack.jetbrains.com/issue/KT-48843/Add-ability-to-disable-Kotlin-daemon-fallback-strategy) を参照してください。
 
-### 推移的依存関係における最新の kotlin-stdlib バージョンの使用
+### 推移的依存関係における最新の kotlin-stdlib バージョンの使用 {id="usage-of-the-latest-kotlin-stdlib-version-in-transitive-dependencies"}
 
 依存関係に Kotlin バージョン 1.8.0 以降を明示的に記述した場合（例: `implementation("org.jetbrains.kotlin:kotlin-stdlib:1.8.0")`）、Kotlin Gradle プラグインは推移的な `kotlin-stdlib-jdk7` および `kotlin-stdlib-jdk8` 依存関係に対してその Kotlin バージョンを使用します。これは、異なる stdlib バージョンによるクラスの重複を避けるために行われます（[`kotlin-stdlib-jdk7` と `kotlin-stdlib-jdk8` の `kotlin-stdlib` へのマージ](#updated-jvm-compilation-target) についての詳細を確認してください）。この動作は、`kotlin.stdlib.jdk.variants.version.alignment` Gradle プロパティを使用して無効にできます。
 
@@ -447,7 +447,7 @@ implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
 
 その他のケースや推奨される解決策については、[ドキュメント](gradle-configure-project.md#other-ways-to-align-versions) を参照してください。
 
-### 関連する Kotlin および Java コンパイルタスクの JVM ターゲット互換性チェックを義務化
+### 関連する Kotlin および Java コンパイルタスクの JVM ターゲット互換性チェックを義務化 {id="obligatory-check-for-jvm-targets-of-related-kotlin-and-java-compile-tasks"}
 
 > このセクションは、ソースファイルが Kotlin のみで Java を使用していない JVM プロジェクトにも適用されます。
 >
@@ -459,7 +459,7 @@ implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
 
 [ターゲットの互換性をチェックしない場合に何が起こり得るか](gradle-configure-project.md#what-can-go-wrong-if-targets-are-incompatible) についての詳細を確認してください。
 
-### Kotlin Gradle プラグインの推移的依存関係の解決
+### Kotlin Gradle プラグインの推移的依存関係の解決 {id="resolution-of-kotlin-gradle-plugins-transitive-dependencies"}
 
 Kotlin 1.7.0 では、[Gradle プラグインバリアントのサポート](whatsnew17.md#support-for-gradle-plugin-variants) を導入しました。これらのプラグインバリアントにより、ビルドクラスパスに、依存関係（通常は `kotlin-gradle-plugin-api`）の異なるバージョンに依存する異なるバージョンの [Kotlin Gradle プラグイン](https://plugins.gradle.org/u/kotlin) が存在する可能性があります。これにより解決の問題が発生する可能性があるため、`kotlin-dsl` プラグインを例として以下の回避策を提案します。
 
@@ -475,7 +475,7 @@ dependencies {
 
 この制約により、ビルドクラスパスの推移的依存関係に `org.jetbrains.kotlin:kotlin-sam-with-receiver:1.8.0` バージョンが強制的に使用されます。Gradle の課題トラッカーにある [同様のケース](https://github.com/gradle/gradle/issues/22510#issuecomment-1292259298) についての詳細を確認してください。
 
-### 非推奨および削除
+### 非推奨および削除 {id="deprecations-and-removals"}
 
 Kotlin 1.8.0 では、以下のプロパティおよびメソッドの非推奨サイクルが継続されます。
 
@@ -483,7 +483,7 @@ Kotlin 1.8.0 では、以下のプロパティおよびメソッドの非推奨�
 * Gradle Workers API を介して [kapt](kapt.md) を実行できるようにしていた `kapt.use.worker.api` プロパティを削除しました。Kotlin 1.3.70 以降、[kapt はデフォルトで Gradle ワーカを使用](kapt.md#run-kapt-tasks-in-parallel) しており、この方法を継続することをお勧めします。
 * Kotlin 1.7.0 で、[`kotlin.compiler.execution.strategy` プロパティの非推奨サイクルの開始を発表](whatsnew17.md#deprecation-of-the-kotlin-compiler-execution-strategy-system-property) しました。本リリースでは、このプロパティを削除しました。[Kotlin コンパイラの実行戦略を定義する](compiler-execution-strategy.md) 他の方法を確認してください。
 
-## 標準ライブラリ
+## 標準ライブラリ {id="standard-library"}
 
 Kotlin 1.8.0:
 * [JVM コンパイルターゲット](#updated-jvm-compilation-target) を更新。
@@ -492,7 +492,7 @@ Kotlin 1.8.0:
 * [`java.nio.file.path` 用の実験的な拡張関数](#recursive-copying-or-deletion-of-directories) を含む。
 * [kotlin-reflect のパフォーマンス向上](#improved-kotlin-reflect-performance) を提供。
 
-### JVM コンパイルターゲットの更新
+### JVM コンパイルターゲットの更新 {id="updated-jvm-compilation-target"}
 
 Kotlin 1.8.0 では、標準ライブラリ（`kotlin-stdlib`、`kotlin-reflect`、および `kotlin-script-*`）が JVM ターゲット 1.8 でコンパイルされるようになりました。以前は JVM ターゲット 1.6 でコンパイルされていました。
 
@@ -504,7 +504,7 @@ Kotlin 1.8.0 は JVM ターゲット 1.6 および 1.7 をサポートしなく�
 
 異なるバージョンの stdlib アーティチャクトを混在させると、クラスの重複やクラスの欠落につながる可能性があることに注意してください。これを避けるために、Kotlin Gradle プラグインが [stdlib バージョンのアライメント](#usage-of-the-latest-kotlin-stdlib-version-in-transitive-dependencies) を支援します。
 
-### cbrt()
+### cbrt() {id="cbrt"}
 
 `double` または `float` の実数立方根を計算できる `cbrt()` 関数が安定版（Stable）になりました。
 
@@ -523,7 +523,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.8"}
 
-### Java と Kotlin 間の TimeUnit 変換
+### Java と Kotlin 間の TimeUnit 変換 {id="timeunit-conversion-between-java-and-kotlin"}
 
 `kotlin.time` の `toTimeUnit()` および `toDurationUnit()` 関数が安定版（Stable）になりました。Kotlin 1.6.0 で実験的機能として導入されたこれらの関数は、Kotlin と Java 間の相互運用性を向上させます。Java の `java.util.concurrent.TimeUnit` と Kotlin の `kotlin.time.DurationUnit` を簡単に変換できるようになりました。これらの関数は JVM でのみサポートされています。
 
@@ -537,7 +537,7 @@ fun wait(timeout: Long, unit: TimeUnit) {
 }
 ```
 
-### 比較および減算可能な TimeMarks
+### 比較および減算可能な TimeMarks {id="comparable-and-subtractable-timemarks"}
 
 > `TimeMarks` の新しい機能は [実験的（Experimental）](components-stability.md#stability-levels-explained) であり、使用するには `@OptIn(ExperimentalTime::class)` または `@ExperimentalTime` を使用してオプトインする必要があります。
 >
@@ -589,7 +589,7 @@ fun main() {
 
 この新機能は、異なるフレームを表す複数の `TimeMarks` 間の差を計算したり比較したりするアニメーションの計算などで特に役立ちます。
 
-### ディレクトリの再帰的なコピーまたは削除
+### ディレクトリの再帰的なコピーまたは削除 {id="recursive-copying-or-deletion-of-directories"}
 
 > `java.nio.file.path` 用のこれらの新しい関数は [実験的（Experimental）](components-stability.md#stability-levels-explained) です。
 > 使用するには、`@OptIn(kotlin.io.path.ExperimentalPathApi::class)` または `@kotlin.io.path.ExperimentalPathApi` でオプトインする必要があります。
@@ -604,7 +604,7 @@ fun main() {
 
 これらの関数は、バックアッププロセスの一部として非常に役立ちます。
 
-#### エラー処理
+#### エラー処理 {id="error-handling"}
 
 `copyToRecursively()` を使用する場合、`onError` ラムダ関数をオーバーロードすることで、コピー中に例外が発生したときに何が起こるべきかを定義できます。
 
@@ -619,7 +619,7 @@ sourceRoot.copyToRecursively(destinationRoot, followLinks = false,
 
 `deleteRecursively()` を使用する場合、ファイルやフォルダの削除中に例外が発生すると、そのファイルやフォルダはスキップされます。削除が完了すると、`deleteRecursively()` は発生したすべての例外を抑制された例外（suppressed exceptions）として含む `IOException` をスローします。
 
-#### ファイルの上書き
+#### ファイルの上書き {id="file-overwrite"}
 
 `copyToRecursively()` が宛先ディレクトリにファイルが既に存在することを発見した場合、例外が発生します。代わりにファイルを上書きしたい場合は、`overwrite` を引数に持つオーバーロードを使用し、それを `true` に設定します。
 
@@ -634,7 +634,7 @@ fun setUpEnvironment(projectDirectory: Path, fixtureName: String) {
 ```
 {validate="false"}
 
-#### カスタムコピーアクション
+#### カスタムコピーアクション {id="custom-copying-action"}
 
 コピーのための独自のカスタムロジックを定義するには、追加の引数として `copyAction` を持つオーバーロードを使用します。`copyAction` を使用することで、たとえば優先するアクションを含むラムダ関数を提供できます。
 
@@ -652,31 +652,31 @@ sourceRoot.copyToRecursively(destinationRoot, followLinks = false) { source, tar
 
 これらの拡張関数の詳細については、[API リファレンス](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io.path/java.nio.file.-path/copy-to-recursively.html) を参照してください。
 
-### Java Optionals 拡張関数
+### Java Optionals 拡張関数 {id="java-optionals-extension-functions"}
 
 [Kotlin 1.7.0](whatsnew17.md#new-experimental-extension-functions-for-java-optionals) で導入された拡張関数が安定版（Stable）になりました。これらの関数は、Java の Optional クラスの扱いを簡素化します。これらを使用して、JVM 上で `Optional` オブジェクトをアンラップおよび変換したり、Java API の操作をより簡潔にしたりできます。詳細については、[Kotlin 1.7.0 の新機能](whatsnew17.md#new-experimental-extension-functions-for-java-optionals) を参照してください。
 
-### kotlin-reflect のパフォーマンス向上
+### kotlin-reflect のパフォーマンス向上 {id="improved-kotlin-reflect-performance"}
 
 `kotlin-reflect` が JVM ターゲット 1.8 でコンパイルされるようになったことを活かし、内部のキャッシュメカニズムを Java の `ClassValue` に移行しました。以前は `KClass` のみをキャッシュしていましたが、現在は `KType` と `KDeclarationContainer` もキャッシュするようになりました。これらの変更により、`typeOf()` を呼び出す際のパフォーマンスが大幅に向上しました。
 
-## ドキュメントの更新
+## ドキュメントの更新 {id="documentation-updates"}
 
 Kotlin のドキュメントにいくつかの注目べき変更がありました。
 
-### 刷新および追加されたページ
+### 刷新および追加されたページ {id="revamped-and-new-pages"}
 
 * [Gradle の概要](gradle.md) – Gradle ビルドシステムを使用した Kotlin プロジェクトの構成とビルド方法、利用可能なコンパイラオプション、コンパイル、および Kotlin Gradle プラグインのキャッシュについて学びます。
 * [Java と Kotlin における Null 許容性（Nullability）](java-to-kotlin-nullability-guide.md) – Null 許容の可能性がある変数の扱いに対する Java と Kotlin のアプローチの違いを確認します。
 * [Lincheck ガイド](lincheck-guide.md) – JVM 上で並行アルゴリズムをテストするための Lincheck フレームワークのセットアップと使用方法を学びます。
 
-### 新規および更新されたチュートリアル
+### 新規および更新されたチュートリアル {id="new-and-updated-tutorials"}
 
 * [Gradle と Kotlin/JVM を使い始める](get-started-with-jvm-gradle-project.md) – IntelliJ IDEA と Gradle を使用してコンソールアプリケーションを作成します。
 * [Ktor と SQLDelight を使用してマルチプラットフォームアプリを作成する](https://kotlinlang.org/docs/multiplatform/multiplatform-ktor-sqldelight.html) – Kotlin Multiplatform Mobile を使用して iOS および Android 向けのモバイルアプリケーションを作成します。
 * [Kotlin Multiplatform を使い始める](https://kotlinlang.org/docs/multiplatform/multiplatform-create-first-app.html) – Kotlin によるクロスプラットフォームモバイル開発について学び、Android と iOS の両方で動作するアプリを作成します。
 
-## Kotlin 1.8.0 のインストール
+## Kotlin 1.8.0 のインストール {id="install-kotlin-1-8-0"}
 
 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 2021.3、2022.1、および 2022.2 は、Kotlin プラグインをバージョン 1.8.0 に更新することを自動的に提案します。IntelliJ IDEA 2022.3 では、今後のマイナーアップデートで Kotlin プラグインのバージョン 1.8.0 がバンドルされる予定です。
 
@@ -686,6 +686,6 @@ Kotlin のドキュメントにいくつかの注目べき変更がありまし�
 
 Android Studio Electric Eel (221) および Flamingo (222) の場合、Kotlin プラグインのバージョン 1.8.0 は、今後の Android Studio のアップデートとともに提供されます。新しいコマンドラインコンパイラは、[GitHub のリリースページ](https://github.com/JetBrains/kotlin/releases/tag/v1.8.0) からダウンロード可能です。
 
-## Kotlin 1.8.0 互換性ガイド
+## Kotlin 1.8.0 互換性ガイド {id="compatibility-guide-for-kotlin-1-8-0"}
 
 Kotlin 1.8.0 は [フィーチャーリリース](kotlin-evolution-principles.md#language-and-tooling-releases) であるため、以前のバージョンの言語で書かれたコードと互換性のない変更が行われる可能性があります。これらの変更の詳細なリストについては、[Kotlin 1.8.0 互換性ガイド](compatibility-guide-18.md) を参照してください。

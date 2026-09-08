@@ -2,7 +2,7 @@
 
 整个子项目以及该子项目中软件包的文档可以作为单独的 Markdown 文件提供。
 
-## 文件格式
+## 文件格式 {id="file-format"}
 
 在 Markdown 文件中，整个子项目和各个软件包的文档由相应的一级标题引入。标题文本对于子项目**必须**为 **Module `<module name>`**，对于软件包**必须**为 **Package `<package qualified name>`**。
 
@@ -44,7 +44,7 @@
 
 要探索使用 Gradle 的示例项目，请参阅 [Dokka Gradle 示例](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/examples/gradle/dokka-gradle-example)。
 
-## 将文件传递给 Dokka
+## 将文件传递给 Dokka {id="pass-files-to-dokka"}
 
 要将这些文件传递给 Dokka，您需要为 Gradle、Maven 或命令行使用相关的 **includes** 选项：
 

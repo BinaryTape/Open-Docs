@@ -13,7 +13,7 @@ Kotlin에서 어떤 C 함수 포인터를 볼 수 있는지 알아보고, Kotlin
 * [Kotlin 함수를 C 함수 포인터로 전달하는 방법 배우기](#pass-kotlin-function-as-a-c-function-pointer)
 * [Kotlin에서 C 함수 포인터 사용하기](#use-the-c-function-pointer-from-kotlin)
 
-## C의 함수 포인터 타입 매핑
+## C의 함수 포인터 타입 매핑 {id="mapping-function-pointer-types-from-c"}
 
 Kotlin과 C 간의 매핑을 이해하기 위해, 함수 포인터를 매개변수로 받는 함수와 함수 포인터를 반환하는 함수 두 개를 선언해 보겠습니다.
 
@@ -40,7 +40,7 @@ MyFun supply_fun() {
 
 `interop.def` 파일은 애플리케이션을 컴파일, 실행하거나 IDE에서 여는 데 필요한 모든 것을 제공합니다.
 
-## C 라이브러리에 대해 생성된 Kotlin API 확인
+## C 라이브러리에 대해 생성된 Kotlin API 확인 {id="inspect-generated-kotlin-apis-for-a-c-library"}
 
 C 함수 포인터가 Kotlin/Native로 어떻게 매핑되는지 확인하고 프로젝트를 업데이트해 보겠습니다:
 
@@ -71,7 +71,7 @@ C 함수 포인터가 Kotlin/Native로 어떻게 매핑되는지 확인하고 �
 
 `CFunction<(Int) -> Int>`는 함수 시그니처를 나타내며, `CPointer<CFunction<...>>?`는 null 허용(nullable) 함수 포인터를 나타냅니다. 모든 `CPointer<CFunction<...>>` 타입에 대해 사용 가능한 [`.invoke()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/invoke.html) 연산자 확장 함수가 있어, 함수 포인터를 일반 Kotlin 함수처럼 호출할 수 있습니다.
 
-## Kotlin 함수를 C 함수 포인터로 전달
+## Kotlin 함수를 C 함수 포인터로 전달 {id="pass-kotlin-function-as-a-c-function-pointer"}
 
 이제 Kotlin 코드에서 C 함수를 사용해 볼 차례입니다. `accept_fun()` 함수를 호출하고 C 함수 포인터를 Kotlin 람다로 전달하세요:
 
@@ -90,7 +90,7 @@ fun myFun() {
 
 함수에서 예외가 발생하지 않도록 주의하세요. `staticCFunction {}`에서 예외를 던지면 예측 불가능한 부작용(non-deterministic side effects)이 발생합니다.
 
-## Kotlin에서 C 함수 포인터 사용
+## Kotlin에서 C 함수 포인터 사용 {id="use-the-c-function-pointer-from-kotlin"}
 
 다음 단계는 `supply_fun()` 호출에서 반환된 C 함수 포인터를 호출하는 것입니다:
 
@@ -109,7 +109,7 @@ fun myFun2() {
 
 Kotlin은 함수 포인터 반환 타입을 null 허용 `CPointer<CFunction<>` 객체로 변환합니다. 먼저 명시적으로 `null` 여부를 확인해야 하므로 위 코드에서 [엘비스 연산자(Elvis operator)](null-safety.md)를 사용했습니다. cinterop 도구를 사용하면 C 함수 포인터를 일반적인 Kotlin 함수 호출처럼 `functionFromC(42)`와 같이 호출할 수 있습니다.
 
-## Kotlin 코드 업데이트
+## Kotlin 코드 업데이트 {id="update-kotlin-code"}
 
 이제 모든 정의를 살펴보았으니, 프로젝트에서 이를 사용해 보세요. `hello.kt` 파일의 코드는 다음과 같을 것입니다:
 
@@ -137,7 +137,7 @@ fun main() {
 ./gradlew runDebugExecutableMacosArm64
 ```
 
-## 다음 단계
+## 다음 단계 {id="next-step"}
 
 시리즈의 다음 파트에서는 Kotlin과 C 간에 문자열이 어떻게 매핑되는지 알아봅니다:
 
@@ -150,6 +150,6 @@ fun main() {
   </li>
 </list>
 
-### 참고 항목
+### 참고 항목 {id="see-also"}
 
 더 고급 시나리오를 다루는 [C와의 상호운용성(Interoperability with C)](native-c-interop.md) 문서에서 더 자세한 내용을 확인하세요.

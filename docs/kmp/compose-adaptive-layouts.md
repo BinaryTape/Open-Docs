@@ -2,7 +2,7 @@
 
 为了在所有类型的设备上提供一致的用户体验，请针对不同的显示尺寸、屏幕方向和输入模式来适配应用的 UI。
 
-## 设计自适应布局
+## 设计自适应布局 {id="designing-adaptive-layouts"}
 
 在设计自适应布局时，请遵循以下关键准则：
 
@@ -11,7 +11,7 @@
 *   将复杂的布局分解为可重用的可组合项 (composables) ，以提高灵活性和模块化程度。
 *   针对屏幕密度和方向进行调整。
 
-## 使用窗口大小类别
+## 使用窗口大小类别 {id="using-window-size-classes"}
 
 窗口大小类别 (Window size classes) 是预定义的阈值，也称为断点，用于对不同的屏幕尺寸进行分类，以帮助你设计、开发和测试自适应布局。
 
@@ -48,7 +48,7 @@ fun MyApp(
 ```
 
 <!--- 正在等待关于 @Preview 和热重载的页面
-## 预览布局
+## 预览布局 {id="previewing-layouts"}
 
 我们有三种不同的 @Preview：
 
@@ -57,6 +57,6 @@ fun MyApp(
 * 通用注解，Android Studio 也支持，仅适用于 Android，但来自通用代码。
 -->
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 在 [Jetpack Compose 文档](https://developer.android.com/develop/ui/compose/layouts/adaptive)中详细了解自适应布局。

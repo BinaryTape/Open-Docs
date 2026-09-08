@@ -1,6 +1,6 @@
 SQLDelight 提供兩種資料分頁方法 — 基於位移的分頁（offset based paging）與鍵集分頁（keyset paging）。
 
-## 基於位移的分頁 (Offset Based Paging)
+## 基於位移的分頁 (Offset Based Paging) {id="offset-based-paging"}
 
 位移分頁使用 `OFFSET` 與 `LIMIT` 子句來達成分頁結果。建立一個執行位移分頁的 `PagingSource` 需要一個計數查詢以及分頁查詢。
 
@@ -27,7 +27,7 @@ val pagingSource: PagingSource = QueryPagingSource(
 
 若未指定 context，預設會在 `Dispatchers.IO` 上執行查詢。預期使用 RxJava 的 `Scheduler` 來執行查詢的使用者，應使用 [`Scheduler.asCoroutineDispatcher`](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-rx2/kotlinx.coroutines.rx2/io.reactivex.-scheduler/as-coroutine-dispatcher.html) 擴充方法。
 
-## 鍵集分頁 (Keyset Paging)
+## 鍵集分頁 (Keyset Paging) {id="keyset-paging"}
 
 位移分頁簡單且易於維護。遺憾的是，它在大型資料集上的效能表現不佳。SQL 陳述式的 `OFFSET` 子句實際上只是丟棄 SQL 查詢中已經執行的列。因此，隨著 `OFFSET` 數量的增加，執行查詢所需的時間也會隨之增加。為了解決這個問題，SQLDelight 提供了 `PagingSource` 的「鍵集分頁」實作。鍵集分頁並非查詢整個資料集並低效率地丟棄前 `OFFSET` 個元素，而是利用唯一欄位來限制查詢範圍。這能提供更好的效能，但代價是開發人員需要負擔更高的維護成本。
 

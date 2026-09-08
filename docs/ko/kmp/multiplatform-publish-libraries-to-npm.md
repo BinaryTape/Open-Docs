@@ -13,26 +13,26 @@
 
 이 튜토리얼에서는 프로젝트를 호스팅하고 GitHub Actions를 통해 CI를 실행하기 위해 GitHub를 사용합니다.
 
-## 샘플 라이브러리
+## 샘플 라이브러리 {id="sample-library"}
 
 [샘플 라이브러리 프로젝트](https://github.com/Kotlin/kotlin-multiplatform-web-library)를 활용해 
 내용을 따라 하며 작동하는 설정을 확인할 수 있습니다.
 
 코드를 재사용하는 경우, **모든 예시 값**을 프로젝트에 해당하는 값으로 교체해야 합니다.
 
-## 계정 및 자격 증명 준비
+## 계정 및 자격 증명 준비 {id="prepare-accounts-and-credentials"}
 
 npm에 배포하려면 [npm 포털에 로그인](https://www.npmjs.com/login)되어 있어야 합니다.
 
 이 튜토리얼에서는 수동 배포를 설정하기 위해 조직(organization)과 액세스 토큰이 필요합니다.
 
-### 간단한 조직 생성
+### 간단한 조직 생성 {id="create-a-simple-organization"}
 
 이 튜토리얼에서는 이름 충돌을 방지하기 위해 npm 조직 아래에 라이브러리를 배포합니다.
 
 새 조직을 만들려면 [npm 문서](https://docs.npmjs.com/creating-an-organization)를 따르세요.
 
-### 액세스 토큰 생성
+### 액세스 토큰 생성 {id="generate-an-access-token"}
 
 npm에 수동으로 배포하려면 새로 생성한 조직 아래에 패키지를 배포할 수 있는 액세스 토큰이 필요합니다.
 토큰을 생성하려면 [npm 가이드](https://docs.npmjs.com/creating-and-viewing-access-tokens)를 따르세요.
@@ -41,7 +41,7 @@ npm에 수동으로 배포하려면 새로 생성한 조직 아래에 패키지�
 * **Bypass two-factor authentication (2FA)** 옵션을 활성화합니다.
 * 토큰의 일반 권한(general permissions)과 조직 권한(organization permissions)을 모두 **Read and write**로 설정합니다.
 
-## 라이브러리 프로젝트 설정
+## 라이브러리 프로젝트 설정 {id="configure-the-library-project"}
 
 [샘플 프로젝트](https://github.com/Kotlin/kotlin-multiplatform-web-library)를 사용하는 경우,
 배포하기 전에 기본 이름들을 업데이트하세요.
@@ -52,7 +52,7 @@ npm에 수동으로 배포하려면 새로 생성한 조직 아래에 패키지�
 
 이름 설정이 완료되면 다음 단계에 따라 배포를 설정하세요.
 
-### 배포 플러그인 설정
+### 배포 플러그인 설정 {id="set-up-the-publishing-plugin"}
 
 이 튜토리얼에서는 npm 배포를 돕기 위해 공식 [npm-publish 플러그인](https://github.com/Kotlin/npm-publish)을 사용합니다.
 플러그인 및 사용 가능한 설정 옵션에 대해 자세히 알아보려면 [플러그인 문서](https://npm-publish.petuska.dev)를 참조하세요.
@@ -138,7 +138,7 @@ Kotlin Multiplatform 프로젝트에 플러그인을 추가합니다:
   * `packageName` 파라미터를 생략하면 모듈의 이름이 기본값으로 사용됩니다.
 * `packageJson {}` 블록은 다양한 메타데이터를 담습니다.
 
-## 수동 배포
+## 수동 배포 {id="publish-manually"}
 
 수동 배포는 프로젝트 구조를 실험 중이거나 배포 자동화를 직접 구현하려는 경우 유용할 수 있습니다.
 
@@ -154,7 +154,7 @@ npm 조직 페이지를 열고 **Packages** 탭을 확인하세요(개인 **Pack
 
 ![npm에 배포된 라이브러리](published-on-npm.png){width=700}
 
-### 문제 해결
+### 문제 해결 {id="troubleshooting"}
 
 수동 배포 시 자주 발생할 수 있는 몇 가지 문제입니다:
 
@@ -163,14 +163,14 @@ npm 조직 페이지를 열고 **Packages** 탭을 확인하세요(개인 **Pack
 * 조직 범위(organization-scoped) 패키지용 토큰을 생성할 때,
   일반 권한 **및** 조직 권한을 모두 설정했는지 확인하세요.
 
-## 지속적 통합(CI)을 사용하여 배포
+## 지속적 통합(CI)을 사용하여 배포 {id="publish-using-continuous-integration-ci"}
 
 npm의 신뢰할 수 있는 배포자(Trusted Publishers) 메커니즘을 사용하면 OpenID Connect를 통해 CI를 빠르게 설정할 수 있습니다.
 이 방식은 토큰을 생성하고 유지 관리할 필요가 없습니다.
 
 이 예제에서는 [GitHub Actions](https://docs.github.com/en/actions)를 사용하여 워크플로를 설정합니다.
 
-### GitHub Actions 워크플로 파일 생성
+### GitHub Actions 워크플로 파일 생성 {id="create-a-github-actions-workflow-file"}
 
 GitHub 액션을 구성하는 `.github/workflows/publish.yml` 파일을 생성합니다:
 
@@ -216,7 +216,7 @@ jobs:
 > 
 {style="tip"}
 
-### GitHub Actions를 신뢰할 수 있는 배포자로 설정
+### GitHub Actions를 신뢰할 수 있는 배포자로 설정 {id="set-up-github-actions-as-your-trusted-publisher"}
 
 워크플로가 공개되었으므로, 이제 GitHub Action을 npm 패키지의 [신뢰할 수 있는 배포자(Trusted Publisher)](https://docs.npmjs.com/trusted-publishers)로 추가할 수 있습니다:
 
@@ -238,7 +238,7 @@ jobs:
 
 생성된 연결은 패키지 설정의 **Trusted Publishers** 섹션에 나열되며, 이는 지정된 좌표의 워크플로가 이제 npm에 배포할 권한을 가졌음을 의미합니다.
 
-### GitHub에서 릴리스 생성
+### GitHub에서 릴리스 생성 {id="create-a-release-on-github"}
 
 워크플로와 신뢰할 수 있는 배포자 연결이 설정되었으므로, 이제 [GitHub 릴리스 생성](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository#creating-a-release)을 통해 배포를 트리거할 준비가 되었습니다:
 
@@ -268,7 +268,7 @@ Action이 트리거되었는지 확인하려면 GitHub 저장소 페이지 상�
 
 ![CI/CD를 통해 npm에 배포된 라이브러리](published-second-version-on-npm.png){width=700}
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [README에 shield.io 배지 추가](https://shields.io/badges/npm-version)
 * [Dokka로 API 문서 생성](https://kotl.in/dokka)

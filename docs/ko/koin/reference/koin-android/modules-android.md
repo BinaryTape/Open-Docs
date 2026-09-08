@@ -8,9 +8,9 @@ title: Android 모듈 로딩
 핵심 모듈 개념(선언, 포함, 재정의)에 대해서는 [Modules](/docs/reference/koin-core/modules)를 참조하세요. 지연 모듈 로딩(lazy module loading)에 대해서는 [Lazy Modules](/docs/reference/koin-core/lazy-modules)를 참조하세요.
 :::
 
-## Android에서 Koin 시작하기
+## Android에서 Koin 시작하기 {id="starting-koin-on-android"}
 
-### 애노테이션(Annotations) 사용
+### 애노테이션(Annotations) 사용 {id="with-annotations"}
 
 ```kotlin
 @KoinApplication
@@ -27,7 +27,7 @@ class MainApplication : Application() {
 }
 ```
 
-### DSL 사용
+### DSL 사용 {id="with-dsl"}
 
 ```kotlin
 class MainApplication : Application() {
@@ -51,7 +51,7 @@ class MainApplication : Application() {
 }
 ```
 
-## Android 전용 함수
+## Android 전용 함수 {id="android-specific-functions"}
 
 | 함수 | 설명 |
 |----------|-------------|
@@ -59,7 +59,7 @@ class MainApplication : Application() {
 | `androidApplication()` | 정의 내에서 Application 인스턴스를 제공합니다. |
 | `androidLogger()` | Koin을 위한 Android Logcat 로거입니다. |
 
-### Android 컨텍스트 사용하기
+### Android 컨텍스트 사용하기 {id="using-android-context"}
 
 ```kotlin
 val androidModule = module {
@@ -69,7 +69,7 @@ val androidModule = module {
 }
 ```
 
-## 동적 모듈 로딩
+## 동적 모듈 로딩 {id="dynamic-module-loading"}
 
 Activity 생명주기에 따라 런타임에 모듈을 로드하거나 언로드할 수 있습니다:
 
@@ -90,7 +90,7 @@ class FeatureActivity : AppCompatActivity() {
 }
 ```
 
-### 사용 사례
+### 사용 사례 {id="use-cases"}
 
 - **프리미엄 기능** - 사용자가 구독 중일 때만 로드
 - **디버그 도구** - 디버그 빌드에서만 로드
@@ -113,7 +113,7 @@ class PremiumActivity : AppCompatActivity() {
 }
 ```
 
-## Android에서의 지연 로딩(Lazy Loading)
+## Android에서의 지연 로딩(Lazy Loading) {id="lazy-loading-on-android"}
 
 백그라운드 모듈 로딩을 위해 지연 모듈(lazy modules)을 사용하세요:
 
@@ -140,7 +140,7 @@ class MainApplication : Application() {
 병렬 로딩을 포함한 지연 모듈에 대한 전체 문서는 [Lazy Modules](/docs/reference/koin-core/lazy-modules)를 참조하세요.
 :::
 
-## 다음 단계
+## 다음 단계 {id="next-steps"}
 
 - **[Modules](/docs/reference/koin-core/modules)** - 핵심 모듈 개념
 - **[Lazy Modules](/docs/reference/koin-core/lazy-modules)** - 백그라운드 로딩

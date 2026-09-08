@@ -47,9 +47,9 @@ DISPLAY(plot {
 
 ![高斯分布的不同输出](gaussian-distribution-output.png){width=700}
 
-## 文本
+## 文本 {id="texts"}
 
-### 纯文本
+### 纯文本 {id="plain-text"}
 
 最简单的输出类型是纯文本。它用于打印语句、变量值或代码中任何基于文本的输出：
 
@@ -66,7 +66,7 @@ var a3: Int? = a1 + a2
 * 如果单元格的结果无法被[渲染](https://github.com/Kotlin/kotlin-jupyter?tab=readme-ov-file#rendering)并显示为任何输出类型，它将使用 `toString()` 函数以纯文本形式打印。
 * 如果你的代码包含错误，Kotlin Notebook 会显示错误消息和堆栈跟踪，为调试提供见解。
 
-### 富文本
+### 富文本 {id="rich-text"}
 
 选择 Markdown 类型的单元格以使用富文本。通过这种方式，你可以使用列表、表格、字体样式、代码块等 Markdown 和 HTML 标记来格式化内容。HTML 可以包含 CSS 样式和 JavaScript。
 
@@ -88,7 +88,7 @@ var a3: Int? = a1 + a2
 
 ![Markdown 单元格中的富文本](markdown-cells-output.png){width=700}
 
-## HTML
+## HTML {id="html"}
 
 Kotlin Notebook 可以直接渲染 HTML、执行脚本甚至嵌入网站：
 
@@ -110,11 +110,11 @@ HTML("""
 >
 {style="note"}
 
-## 图像
+## 图像 {id="images"}
 
 通过 Kotlin Notebook，你可以显示来自文件的图像、生成的图形或任何其他视觉媒体。静态图像可以以 `.png`、`jpeg` 和 `.svg` 等格式显示。
 
-### 缓冲图像
+### 缓冲图像 {id="buffered-images"}
 
 默认情况下，你可以使用 `BufferedImage` 类来显示图像：
 
@@ -141,7 +141,7 @@ graphics.dispose()
 
 ![使用默认 BufferedImage 显示图像](bufferedimage-output.png){width=400}
 
-### 加载的图像
+### 加载的图像 {id="loaded-images"}
 
 借助 `lib-ext` 库，你可以扩展标准 Jupyter 功能并显示从网络加载的图像：
 
@@ -155,7 +155,7 @@ Image("https://kotlinlang.org/docs/images/kotlin-logo.png", embed = false).withW
 
 ![使用外部图像链接](external-images-output.png){width=400}
 
-### 嵌入式图像
+### 嵌入式图像 {id="embedded-images"}
 
 从网络加载图像的一个缺点是，如果链接断开或失去网络连接，图像就会消失。为了解决这个问题，可以使用嵌入式图像，例如：
 
@@ -166,7 +166,7 @@ kotlinMascot
 
 ![使用嵌入式图像](embedded-images-output.png){width=400}
 
-## 数学公式和方程
+## 数学公式和方程 {id="math-formulas-and-equations"}
 
 你可以使用 LaTeX 格式渲染数学公式和方程，这是一种在学术界广泛使用的排版系统：
 
@@ -184,7 +184,7 @@ kotlinMascot
 
    ![使用 LaTeX 渲染数学公式](latex-output.png){width=300}
 
-## 数据帧
+## 数据帧 {id="data-frames"}
 
 通过 Kotlin Notebook，你可以使用数据帧对结构化数据进行可视化：
 
@@ -235,7 +235,7 @@ kotlinMascot
    dfSales.writeCSV("sales-stats.csv")
    ```
 
-## 图表
+## 图表 {id="charts"}
 
 你可以直接在 Kotlin Notebook 中创建各种图表，以实现数据的可视化：
 
@@ -280,7 +280,7 @@ kotlinMascot
    salesPlot.save("sales-chart.svg")
    ```
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * [使用 DataFrame 和 Kandy 库进行数据可视化](data-analysis-visualization.md)
 * [详细了解 Kotlin Notebook 中的渲染和显示富输出](https://www.jetbrains.com/help/idea/kotlin-notebook.html#render-rich-output)

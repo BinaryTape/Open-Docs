@@ -8,7 +8,7 @@
 
 Kotlin Multiplatform Gradle プラグインの情報については、[DSL リファレンス](multiplatform-dsl-reference.md)および[互換性ガイド](multiplatform-compatibility-guide.md)を参照してください。
 
-## 最新リリースへのアップデート
+## 最新リリースへのアップデート {id="update-to-the-latest-release"}
 
 IDE は、新しい Kotlin Multiplatform プラグインのリリースが利用可能になると、すぐにアップデートを提案します。提案を承認すると、プラグインは最新バージョンにアップデートされます。プラグインのインストールを完了するには、IDE を再起動してください。
 
@@ -20,7 +20,7 @@ IDE は、新しい Kotlin Multiplatform プラグインのリリースが利用
 >
 {style="note"}
 
-## リリース詳細
+## リリース詳細 {id="release-details"}
 
 以下の表は、Kotlin Multiplatform IDE プラグインのリリース一覧です。
 

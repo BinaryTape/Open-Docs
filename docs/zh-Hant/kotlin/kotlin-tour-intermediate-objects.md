@@ -4,7 +4,7 @@
 
 在本章節中，您將透過探索物件宣告來擴展對類別的理解。這些知識將幫助您在專案中高效地管理行為。
 
-## 物件宣告
+## 物件宣告 {id="object-declarations"}
 
 在 Kotlin 中，您可以使用 **物件宣告 (object declarations)** 來宣告一個具有單一執行個體的類別。從某種意義上說，您在宣告類別的「同時」也建立了該單一執行個體。當您想要建立一個類別來作為程式的單一參考點，或是在系統中協調行為時，物件宣告非常有用。
 
@@ -61,7 +61,7 @@ fun main(){
 >
 {style="note"}
 
-#### 資料物件
+#### 資料物件 {id="data-objects"}
 
 為了更輕鬆地列印物件宣告的內容，Kotlin 提供了 **資料 (data)** 物件。與您在初級入門指南中學過的資料類別相似，資料物件會自動附帶額外的成員函數：`toString()` 和 `equals()`。
 
@@ -95,7 +95,7 @@ fun main() {
 
 有關資料物件的更多資訊，請參閱 [](object-declarations.md#data-objects)。
 
-#### 伴隨物件
+#### 伴隨物件 {id="companion-objects"}
 
 在 Kotlin 中，類別可以包含一個物件：**伴隨 (companion)** 物件。每個類別只能有一個伴隨物件。伴隨物件僅在其所屬類別第一次被參照時才會被建立。
 
@@ -136,7 +136,7 @@ fun main() {
 
 欲了解更多資訊，請參閱 [](object-declarations.md#companion-objects)。
 
-## 練習 {completion-point="true"}
+## 練習 {completion-point="true" id="practice"}
 
 ### 練習 1 {initial-collapse-state="collapsed" collapsible="true" id="objects-exercise-1"}
 

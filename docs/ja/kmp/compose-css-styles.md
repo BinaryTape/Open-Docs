@@ -34,7 +34,7 @@ fun main() {
 > スタンドアロンアプリにとってはより単純でしたが、このアプローチでは既存のWebレイアウトにComposeを埋め込むことが困難でした。
 > `ComposeViewport` は、標準的なCSSベースのレイアウト管理に依存する、より柔軟なアプローチです。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [Web固有のリソースの処理方法](compose-web-resources.md)について学ぶ。
 * [Kotlin/Wasm と Compose Multiplatform](https://kotlinlang.org/docs/wasm-get-started.html) について詳しく読む。

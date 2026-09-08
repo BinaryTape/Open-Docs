@@ -60,7 +60,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.4"}
 
-## Fold 与 reduce
+## Fold 与 reduce {id="fold-and-reduce"}
 
 对于更特殊的情况，可以使用函数[`reduce()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/reduce.html) 和 [`fold()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/fold.html)，它们按顺序将提供的操作应用于集合元素并返回累加结果。该操作接受两个参数：先前累加的值和集合元素。
 

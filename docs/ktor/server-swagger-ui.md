@@ -73,7 +73,7 @@ routing {
 
 该插件首先在应用程序资源中查找规范。如果未找到，它会尝试使用 `java.io.File` 从文件系统加载。
 
-## 在运行时生成 OpenAPI 元数据
+## 在运行时生成 OpenAPI 元数据 {id="generate-runtime-openapi-metadata"}
 
 除了依赖静态文件外，您还可以使用 OpenAPI 编译器插件生成的元数据和路由注解在运行时生成 OpenAPI 规范：
 
@@ -92,7 +92,7 @@ swaggerUI("/swaggerUI") {
 >
 {style="tip"}
 
-## 配置 Swagger UI
+## 配置 Swagger UI {id="configure-swagger-ui"}
 
 您可以在 `swaggerUI {}` 代码块中自定义 Swagger UI，例如通过指定自定义的 Swagger UI 版本：
 

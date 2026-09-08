@@ -4,7 +4,7 @@
 
 ほとんどの言語変更は、アップデートの変更ログやコンパイラの警告などの他のチャネルを通じて既に発表されていますが、このドキュメントではそれらすべてを要約し、Kotlin 1.7 から Kotlin 1.8 への移行のための完全なリファレンスを提供します。
 
-## 基本用語
+## 基本用語 {id="basic-terms"}
 
 このドキュメントでは、いくつかの種類の互換性を紹介します：
 
@@ -14,10 +14,10 @@
 
 これらの定義は純粋な Kotlin に対してのみ与えられていることに注意してください。他の言語（例：Java）の観点からの Kotlin コードの互換性は、このドキュメントの範囲外です。
 
-## 言語（Language）
+## 言語（Language） {id="language"}
 
 <!--
-### Title
+### Title {id="title"}
 
 > **Issue**: [KT-NNNNN](https://youtrack.jetbrains.com/issue/KT-NNNNN)
 >
@@ -33,7 +33,7 @@
 > - 1.8.0: raise the warning to an error
 -->
 
-### 抽象スーパークラスのメンバに対する super 呼び出しの委譲を禁止
+### 抽象スーパークラスのメンバに対する super 呼び出しの委譲を禁止 {id="prohibit-the-delegation-of-super-calls-to-an-abstract-superclass-member"}
 
 > **Issues**: [KT-45508](https://youtrack.jetbrains.com/issue/KT-45508), [KT-49017](https://youtrack.jetbrains.com/issue/KT-49017), [KT-38078](https://youtrack.jetbrains.com/issue/KT-38078)
 >
@@ -51,7 +51,7 @@
 > - 1.8.0: スーパークラスのオーバーライドされていない抽象メソッドを持つ具象クラスの宣言、および `Any` メソッドの super 呼び出しがスーパークラスで抽象としてオーバーライドされている場合にエラーを報告
 > - 1.9.0: スーパークラスの抽象メソッドに対する明示的な super 呼び出しを含む、影響を受けるすべてのケースでエラーを報告
 
-### when-with-subject における紛らわしい文法を非推奨化
+### when-with-subject における紛らわしい文法を非推奨化 {id="deprecate-confusing-grammar-in-when-with-subject"}
 
 > **Issue**: [KT-48385](https://youtrack.jetbrains.com/issue/KT-48385)
 >
@@ -67,7 +67,7 @@
 > - 1.8.0: この警告をエラーに引き上げ。`-XXLanguage:-ProhibitConfusingSyntaxInWhenBranches` を使用して一時的に 1.8 以前の動作に戻すことが可能
 > - &gt;= 1.9: 非推奨となったいくつかの構造を新しい言語機能のために別の目的に転換
 
-### 異なる数値型間の暗黙的な強制型変換を防止
+### 異なる数値型間の暗黙的な強制型変換を防止 {id="prevent-implicit-coercions-between-different-numeric-types"}
 
 > **Issue**: [KT-48645](https://youtrack.jetbrains.com/issue/KT-48645)
 >
@@ -83,7 +83,7 @@
 > - 1.5.30: 生成されたプロパティデリゲートアクセサにおけるダウンキャストの動作を修正。`-Xuse-old-backend` を使用して一時的に 1.5.30 修正前の動作に戻すことが可能
 > - &gt;= 1.9: 他の影響を受けるケースにおけるダウンキャストの動作を修正
 
-### シールドクラスの private コンストラクタを真に private に変更
+### シールドクラスの private コンストラクタを真に private に変更 {id="make-private-constructors-of-sealed-classes-really-private"}
 
 > **Issue**: [KT-44866](https://youtrack.jetbrains.com/issue/KT-44866)
 >
@@ -98,7 +98,7 @@
 > - 1.6.20: シールドクラスの private コンストラクタがそのクラスの外で呼び出された場合に警告（またはプログレッシブモードではエラー）を報告
 > - 1.8.0: private コンストラクタにデフォルトの可視性ルールを適用（private コンストラクタへの呼び出しは、その呼び出しが対応するクラス内にある場合にのみ解決可能）。`-XXLanguage:-UseConsistentRulesForPrivateConstructorsOfSealedClasses` コンパイラ引数を指定することで、一時的に古い動作に戻すことが可能
 
-### ビルダー推論コンテキストにおいて互換性のない数値型に対する operator == の使用を禁止
+### ビルダー推論コンテキストにおいて互換性のない数値型に対する operator == の使用を禁止 {id="prohibit-using-operator-on-incompatible-numeric-types-in-builder-inference-context"}
 
 > **Issue**: [KT-45508](https://youtrack.jetbrains.com/issue/KT-45508)
 >
@@ -113,7 +113,7 @@
 > - 1.6.20: 互換性のない数値型に対して演算子 `==` が使用された場合に警告（またはプログレッシブモードではエラー）を報告
 > - 1.8.0: 警告をエラーに引き上げ。`-XXLanguage:-ProperEqualityChecksInBuilderInferenceCalls` を使用して一時的に 1.8 以前の動作に戻すことが可能
 
-### エルビス演算子の右辺における else なしの if および網羅的でない when の使用を禁止
+### エルビス演算子の右辺における else なしの if および網羅的でない when の使用を禁止 {id="prohibit-if-without-else-and-non-exhaustive-when-in-right-hand-side-of-elvis-operator"}
 
 > **Issue**: [KT-44705](https://youtrack.jetbrains.com/issue/KT-44705)
 >
@@ -128,7 +128,7 @@
 > - 1.6.20: そのような網羅的でない if および when 式に対して警告（またはプログレッシブモードではエラー）を報告
 > - 1.8.0: 警告をエラーに引き上げ。`-XXLanguage:-ProhibitNonExhaustiveIfInRhsOfElvis` を使用して一時的に 1.8 以前の動作に戻すことが可能
 
-### ジェネリック型エイリアスの使用における上限境界違反を禁止（1 つの型パラメータがエイリアスされた型の複数の型引数に使用されている場合）
+### ジェネリック型エイリアスの使用における上限境界違反を禁止（1 つの型パラメータがエイリアスされた型の複数の型引数に使用されている場合） {id="prohibit-upper-bound-violation-in-a-generic-type-alias-usage-one-type-parameter-used-in-several-type-arguments-of-the-aliased-type"}
 
 > **Issues**: [KT-29168](https://youtrack.jetbrains.com/issue/KT-29168)
 >
@@ -143,7 +143,7 @@
 > - 1.7.0: エイリアスされた型の対応する型パラメータの上限境界制約に違反する型引数を持つ型エイリアスの使用に対して警告（またはプログレッシブモードではエラー）を報告
 > - 1.8.0: 警告をエラーに引き上げ。`-XXLanguage:-ReportMissingUpperBoundsViolatedErrorOnAbbreviationAtSupertypes` を使用して一時的に 1.8 以前の動作に戻すことが可能
 
-### ジェネリック型エイリアスの使用における上限境界違反を禁止（型パラメータがエイリアスされた型の型引数のジェネリック型引数として使用されている場合）
+### ジェネリック型エイリアスの使用における上限境界違反を禁止（型パラメータがエイリアスされた型の型引数のジェネリック型引数として使用されている場合） {id="prohibit-upper-bound-violation-in-a-generic-type-alias-usage-a-type-parameter-used-in-a-generic-type-argument-of-a-type-argument-of-the-aliased-type"}
 
 > **Issue**: [KT-54066](https://youtrack.jetbrains.com/issue/KT-54066)
 >
@@ -158,7 +158,7 @@
 > - 1.8.0: ジェネリック型エイリアスの使用において、エイリアスされた型の対応する型パラメータの上限境界制約に違反する型引数がある場合に警告を報告
 > - &gt;=1.10: 警告をエラーに引き上げ
 
-### デリゲート内で拡張プロパティに宣言された型パラメータの使用を禁止
+### デリゲート内で拡張プロパティに宣言された型パラメータの使用を禁止 {id="prohibit-using-a-type-parameter-declared-for-an-extension-property-inside-delegate"}
 
 > **Issue**: [KT-24643](https://youtrack.jetbrains.com/issue/KT-24643)
 >
@@ -173,7 +173,7 @@
 > - 1.6.0: 委譲されたプロパティの型引数から特定の方法で推論された型パラメータを使用する型に、拡張プロパティを委譲する場合に警告（またはプログレッシブモードではエラー）を報告
 > - 1.8.0: 警告をエラーに引き上げ。`-XXLanguage:-ForbidUsingExtensionPropertyTypeParameterInDelegate` を使用して一時的に 1.8 以前の動作に戻すことが可能
 
-### suspend 関数に対する @Synchronized アノテーションを禁止
+### suspend 関数に対する @Synchronized アノテーションを禁止 {id="forbid-synchronized-annotation-on-suspend-functions"}
 
 > **Issue**: [KT-48516](https://youtrack.jetbrains.com/issue/KT-48516)
 >
@@ -188,7 +188,7 @@
 > - 1.6.0: `@Synchronized` アノテーションが付加された suspend 関数に対して警告を報告。プログレッシブモードでは警告はエラーとして報告される
 > - 1.8.0: 警告をエラーに引き上げ。`-XXLanguage:-SynchronizedSuspendError` を使用して一時的に 1.8 以前の動作に戻すことが可能
 
-### 可変引数（vararg）でないパラメータへの引数渡しにスプレッド演算子を使用することを禁止
+### 可変引数（vararg）でないパラメータへの引数渡しにスプレッド演算子を使用することを禁止 {id="prohibit-using-spread-operator-for-passing-arguments-to-non-vararg-parameters"}
 
 > **Issue**: [KT-48162](https://youtrack.jetbrains.com/issue/KT-48162)
 >
@@ -203,7 +203,7 @@
 > - 1.6.0: 可変引数でない配列パラメータが期待される場所でスプレッド演算子が使用された場合に警告（またはプログレッシブモードではエラー）を報告
 > - 1.8.0: 警告をエラーに引き上げ。`-XXLanguage:-ReportNonVarargSpreadOnGenericCalls` を使用して一時的に 1.8 以前の動作に戻すことが可能
 
-### ラムダの戻り値の型によってオーバーロードされた関数に渡されるラムダ内での null 安全性違反を禁止
+### ラムダの戻り値の型によってオーバーロードされた関数に渡されるラムダ内での null 安全性違反を禁止 {id="prohibit-null-safety-violation-in-lambdas-passed-to-functions-overloaded-by-lambda-return-type"}
 
 > **Issue**: [KT-49658](https://youtrack.jetbrains.com/issue/KT-49658)
 >
@@ -218,7 +218,7 @@
 > - 1.6.20: 型不一致の警告を報告（またはプログレッシブモードではエラー）
 > - 1.8.0: 警告をエラーに引き上げ。`-XXLanguage:-DontLoseDiagnosticsDuringOverloadResolutionByReturnType` を使用して一時的に 1.8 以前の動作に戻すことが可能
 
-### 公開シグネチャでローカル型を近似する際の null 許容性を維持
+### 公開シグネチャでローカル型を近似する際の null 許容性を維持 {id="keep-nullability-when-approximating-local-types-in-public-signatures"}
 
 > **Issue**: [KT-53982](https://youtrack.jetbrains.com/issue/KT-53982)
 >
@@ -234,7 +234,7 @@
 > - 1.8.0: 本来 null 許容であるべき宣言が null 非許容型として推論される場合に警告を報告し、型を明示的に指定するようユーザーに促す
 > - 1.9.0: null 許容型を null 許容スーパータイプで近似。`-XXLanguage:-KeepNullabilityWhenApproximatingLocalType` を使用して一時的に 1.9 以前の動作に戻すことが可能
 
-### 非推奨化（deprecation）をオーバーライドを通じて伝播させない
+### 非推奨化（deprecation）をオーバーライドを通じて伝播させない {id="do-not-propagate-deprecation-through-overrides"}
 
 > **Issue**: [KT-47902](https://youtrack.jetbrains.com/issue/KT-47902)
 >
@@ -249,7 +249,7 @@
 > - 1.6.20: 将来の動作変更のメッセージと、この警告を抑制するか、非推奨メンバのオーバーライドに明示的に `@Deprecated` アノテーションを記述するよう促す警告を報告
 > - 1.9.0: オーバーライドされたメンバへの非推奨ステータスの伝播を停止。この変更はプログレッシブモードでも即座に有効になる
 
-### ビルダー推論コンテキストにおいて型変数を上限境界に暗黙的に推論することを禁止
+### ビルダー推論コンテキストにおいて型変数を上限境界に暗黙的に推論することを禁止 {id="prohibit-implicit-inferring-a-type-variable-into-an-upper-bound-in-the-builder-inference-context"}
 
 > **Issue**: [KT-47986](https://youtrack.jetbrains.com/issue/KT-47986)
 >
@@ -264,7 +264,7 @@
 > - 1.7.20: 使用側の型情報がない場合に型パラメータが宣言された上限境界に推論される場合に警告（またはプログレッシブモードではエラー）を報告
 > - 1.9.0: 警告をエラーに引き上げ。`-XXLanguage:-ForbidInferringPostponedTypeVariableIntoDeclaredUpperBound` を使用して一時的に 1.9 以前の動作に戻すことが可能
 
-### アノテーションクラスのパラメータ宣言以外でのコレクションリテラルの使用を禁止
+### アノテーションクラスのパラメータ宣言以外でのコレクションリテラルの使用を禁止 {id="prohibit-using-collection-literals-in-annotation-classes-anywhere-except-their-parameters-declaration"}
 
 > **Issue**: [KT-39041](https://youtrack.jetbrains.com/issue/KT-39041)
 >
@@ -279,7 +279,7 @@
 > - 1.7.0: アノテーションクラス内のネストされたオブジェクトにおける配列リテラルに対して警告（またはプログレッシブモードではエラー）を報告
 > - 1.9.0: 警告をエラーに引き上げ
 
-### デフォルト値の式におけるデフォルト値を持つパラメータの前方参照を禁止
+### デフォルト値の式におけるデフォルト値を持つパラメータの前方参照を禁止 {id="prohibit-forward-referencing-of-parameters-with-default-values-in-default-value-expressions"}
 
 > **Issue**: [KT-25694](https://youtrack.jetbrains.com/issue/KT-25694)
 >
@@ -294,7 +294,7 @@
 > - 1.7.0: デフォルト値を持つパラメータが、自身より前に記述されている別のパラメータのデフォルト値の中で参照されている場合に警告（またはプログレッシブモードではエラー）を報告
 > - 1.9.0: 警告をエラーに引き上げ。`-XXLanguage:-ProhibitIllegalValueParameterUsageInDefaultArguments` を使用して一時的に 1.9 以前の動作に戻すことが可能
 
-### インライン関数パラメータに対する拡張呼び出しを禁止
+### インライン関数パラメータに対する拡張呼び出しを禁止 {id="prohibit-extension-calls-on-inline-functional-parameters"}
 
 > **Issue**: [KT-52502](https://youtrack.jetbrains.com/issue/KT-52502)
 >
@@ -309,7 +309,7 @@
 > - 1.7.20: インライン関数パラメータに対するインライン拡張呼び出しに対して警告（またはプログレッシブモードではエラー）を報告
 > - 1.9.0: 警告をエラーに引き上げ
 
-### 匿名関数引数を持つ suspend という名前の中置関数の呼び出しを禁止
+### 匿名関数引数を持つ suspend という名前の中置関数の呼び出しを禁止 {id="prohibit-calls-to-infix-functions-named-suspend-with-an-anonymous-function-argument"}
 
 > **Issue**: [KT-49264](https://youtrack.jetbrains.com/issue/KT-49264)
 >
@@ -325,7 +325,7 @@
 > - 1.9.0: 警告をエラーに引き上げ。`-XXLanguage:-ModifierNonBuiltinSuspendFunError` を使用して一時的に 1.9 以前の動作に戻すことが可能
 > - &gt;=1.10: パーサーによる `suspend fun` トークンシーケンスの解釈方法を変更
 
-### 内部クラスにおいてキャプチャされた型パラメータをそのバリアンスに反して使用することを禁止
+### 内部クラスにおいてキャプチャされた型パラメータをそのバリアンスに反して使用することを禁止 {id="prohibit-using-captured-type-parameters-in-inner-classes-against-their-variance"}
 
 > **Issue**: [KT-50947](https://youtrack.jetbrains.com/issue/KT-50947)
 >
@@ -340,7 +340,7 @@
 > - 1.7.0: 外部クラスの型パラメータの使用位置がそのパラメータのバリアンスルールに違反している場合に警告（またはプログレッシブモードではエラー）を報告
 > - 1.9.0: 警告をエラーに引き上げ。`-XXLanguage:-ReportTypeVarianceConflictOnQualifierArguments` を使用して一時的に 1.9 以前の動作に戻すことが可能
 
-### 複合代入演算子内での明示的な戻り値の型を持たない関数の再帰呼び出しを禁止
+### 複合代入演算子内での明示的な戻り値の型を持たない関数の再帰呼び出しを禁止 {id="prohibit-recursive-call-of-a-function-without-explicit-return-type-in-compound-assignment-operators"}
 
 > **Issue**: [KT-48546](https://youtrack.jetbrains.com/issue/KT-48546)
 >
@@ -355,7 +355,7 @@
 > - 1.7.0: 明示的に戻り値の型が指定されていない関数が、その関数の本体内の複合代入演算子の引数で再帰的に呼び出された場合に警告（またはプログレッシブモードではエラー）を報告
 > - 1.9.0: 警告をエラーに引き上げ
 
-### @NotNull T が期待される場所に null 許容な境界を持つ Kotlin ジェネリックパラメータを渡す安全でない呼び出しを禁止
+### @NotNull T が期待される場所に null 許容な境界を持つ Kotlin ジェネリックパラメータを渡す安全でない呼び出しを禁止 {id="prohibit-unsound-calls-with-expected-notnull-t-and-given-kotlin-generic-parameter-with-nullable-bound"}
 
 > **Issue**: [KT-36770](https://youtrack.jetbrains.com/issue/KT-36770)
 >
@@ -370,7 +370,7 @@
 > - 1.5.20: null 非許容型が期待される場所に、制約のないジェネリック型パラメータが渡された場合に警告を報告
 > - 1.9.0: 上記の警告の代わりに型不一致エラーを報告。`-XXLanguage:-ProhibitUsingNullableTypeParameterAgainstNotNullAnnotated` を使用して一時的に 1.8 以前の動作に戻すことが可能
 
-### 列挙型の初期化子からその列挙型のコンパニオンのメンバへのアクセスを禁止
+### 列挙型の初期化子からその列挙型のコンパニオンのメンバへのアクセスを禁止 {id="prohibit-access-to-members-of-a-companion-of-an-enum-class-from-entry-initializers-of-this-enum"}
 
 > **Issue**: [KT-49110](https://youtrack.jetbrains.com/issue/KT-49110)
 >
@@ -385,7 +385,7 @@
 > - 1.6.20: そのようなコンパニオンメンバへのアクセスに対して警告（またはプログレッシブモードではエラー）を報告
 > - 1.9.0: 警告をエラーに引き上げ。`-XXLanguage:-ProhibitAccessToEnumCompanionMembersInEnumConstructorCall` を使用して一時的に 1.8 以前の動作に戻すことが可能
 
-### Enum.declaringClass シンセティックプロパティを非推奨化および削除
+### Enum.declaringClass シンセティックプロパティを非推奨化および削除 {id="deprecate-and-remove-enum-declaringclass-synthetic-property"}
 
 > **Issue**: [KT-49653](https://youtrack.jetbrains.com/issue/KT-49653)
 >
@@ -401,7 +401,7 @@
 > - 1.9.0: 警告をエラーに引き上げ。`-XXLanguage:-ProhibitEnumDeclaringClass` を使用して一時的に 1.9 以前の動作に戻すことが可能
 > - &gt;=1.10: `declaringClass` シンセティックプロパティを削除
 
-### コンパイラオプション -Xjvm-default の enable および compatibility モードを非推奨化
+### コンパイラオプション -Xjvm-default の enable および compatibility モードを非推奨化 {id="deprecate-the-enable-and-the-compatibility-modes-of-the-compiler-option-xjvm-default"}
 
 > **Issue**: [KT-46329](https://youtrack.jetbrains.com/issue/KT-46329)
 >
@@ -416,9 +416,9 @@
 > - 1.6.20: `-Xjvm-default` コンパイラオプションの `enable` および `compatibility` モードに対して警告を導入
 > - &gt;= 1.9: この警告をエラーに引き上げ
 
-## 標準ライブラリ（Standard library）
+## 標準ライブラリ（Standard library） {id="standard-library"}
 
-### Range/Progression が Collection を実装することによる潜在的なオーバーロード解決の変更について警告
+### Range/Progression が Collection を実装することによる潜在的なオーバーロード解決の変更について警告 {id="warn-about-potential-overload-resolution-change-when-range-progression-starts-implementing-collection"}
 
 > **Issue**: [KT-49276](https://youtrack.jetbrains.com/issue/KT-49276)
 >
@@ -434,7 +434,7 @@
 > - 1.8.0: この警告をエラーに引き上げ
 > - 1.9.0: エラーの報告を停止し、progression に `Collection` インターフェースを実装することで、影響を受けるケースにおいてオーバーロード解決の結果を変更
 
-### kotlin.dom および kotlin.browser パッケージの宣言を kotlinx.* へ移行
+### kotlin.dom および kotlin.browser パッケージの宣言を kotlinx.* へ移行 {id="migrate-declarations-from-kotlin-dom-and-kotlin-browser-packages-to-kotlinx"}
 
 > **Issue**: [KT-39330](https://youtrack.jetbrains.com/issue/KT-39330)
 >
@@ -452,7 +452,7 @@
 > - 1.8.20: JS-IR ターゲットにおいて非推奨の関数を stdlib から削除
 > - &gt;= 1.9: kotlinx.* パッケージの API を別個のライブラリに移動
 
-### 一部の JS 専用 API を非推奨化
+### 一部の JS 専用 API を非推奨化 {id="deprecate-some-js-only-api"}
 
 > **Issue**: [KT-48587](https://youtrack.jetbrains.com/issue/KT-48587)
 >
@@ -468,9 +468,9 @@
 > - 1.9.0: 非推奨レベルをエラーに引き上げ
 > - &gt;=1.10.0: 公開 API から非推奨の関数を削除
 
-## ツール（Tools）
+## ツール（Tools） {id="tools"}
 
-### KotlinCompile タスクの classpath プロパティの非推奨レベルを引き上げ
+### KotlinCompile タスクの classpath プロパティの非推奨レベルを引き上げ {id="raise-deprecation-level-of-classpath-property-of-kotlincompile-task"}
 
 > **Issue**: [KT-51679](https://youtrack.jetbrains.com/issue/KT-51679)
 >
@@ -486,7 +486,7 @@
 > - 1.8.0: 非推奨レベルをエラーに引き上げ
 > - &gt;=1.9.0: 公開 API から非推奨の関数を削除
 
-### kapt.use.worker.api Gradle プロパティを削除
+### kapt.use.worker.api Gradle プロパティを削除 {id="remove-kapt-use-worker-api-gradle-property"}
 
 > **Issue**: [KT-48827](https://youtrack.jetbrains.com/issue/KT-48827)
 >
@@ -501,7 +501,7 @@
 > - 1.6.20: 非推奨レベルを警告に引き上げ
 > - 1.8.0: このプロパティを削除
 
-### kotlin.compiler.execution.strategy システムプロパティを削除
+### kotlin.compiler.execution.strategy システムプロパティを削除 {id="remove-kotlin-compiler-execution-strategy-system-property"}
 
 > **Issue**: [KT-51831](https://youtrack.jetbrains.com/issue/KT-51831)
 >
@@ -516,7 +516,7 @@
 > - 1.7.0: 非推奨レベルを警告に引き上げ
 > - 1.8.0: プロパティを削除
 
-### コンパイラオプションの変更
+### コンパイラオプションの変更 {id="changes-in-compiler-options"}
 
 > **Issues**: [KT-27301](https://youtrack.jetbrains.com/issue/KT-27301), [KT-48532](https://youtrack.jetbrains.com/issue/KT-48532)
 >
@@ -530,7 +530,7 @@
 >
 > - 1.8.0: `KotlinNativeLink` タスクが `AbstractKotlinNativeCompile` を継承しなくなりました。`KotlinJsCompilerOptions.outputFile` および関連する `KotlinJsOptions.outputFile` オプションが非推奨となりました。古い JVM バックエンドの使用を許可していた `useOldBackend` プロパティが削除されました。
 
-### kotlin.internal.single.build.metrics.file プロパティを非推奨化
+### kotlin.internal.single.build.metrics.file プロパティを非推奨化 {id="deprecate-kotlin-internal-single-build-metrics-file-property"}
 
 > **Issue**: [KT-53357](https://youtrack.jetbrains.com/issue/KT-53357)
 >

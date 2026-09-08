@@ -4,7 +4,7 @@ title: Android에서 주입하기
 
 모듈을 선언하고 Koin을 시작한 후, Android의 Activity, Fragment 또는 Service에서 인스턴스를 어떻게 가져올 수 있을까요?
 
-## Android 클래스를 위한 준비
+## Android 클래스를 위한 준비 {id="ready-for-android-classes"}
 
 `Activity`, `Fragment`, `Service`는 Koin 확장 기능으로 확장되었습니다. 모든 `ComponentCallbacks` 클래스에서 다음 기능을 사용할 수 있습니다:
 
@@ -13,9 +13,9 @@ title: Android에서 주입하기
 * `by viewModel()` - 지연 주입되는 ViewModel 인스턴스
 * `getViewModel()` - 즉시 주입되는 ViewModel 인스턴스
 
-## 의존성 정의하기
+## 의존성 정의하기 {id="defining-dependencies"}
 
-### 컴파일러 플러그인 DSL
+### 컴파일러 플러그인 DSL {id="compiler-plugin-dsl"}
 
 ```kotlin
 val appModule = module {
@@ -24,7 +24,7 @@ val appModule = module {
 }
 ```
 
-### 어노테이션
+### 어노테이션 {id="annotations"}
 
 ```kotlin
 @Factory
@@ -34,7 +34,7 @@ class Presenter(private val repository: UserRepository)
 class UserViewModel(private val repository: UserRepository) : ViewModel()
 ```
 
-### 클래식 DSL
+### 클래식 DSL {id="classic-dsl"}
 
 ```kotlin
 val appModule = module {
@@ -43,7 +43,7 @@ val appModule = module {
 }
 ```
 
-## Activity에서 주입하기
+## Activity에서 주입하기 {id="injecting-in-activity"}
 
 ```kotlin
 class DetailActivity : AppCompatActivity() {
@@ -61,7 +61,7 @@ class DetailActivity : AppCompatActivity() {
 }
 ```
 
-## Fragment에서 주입하기
+## Fragment에서 주입하기 {id="injecting-in-fragment"}
 
 ```kotlin
 class UserFragment : Fragment() {
@@ -77,7 +77,7 @@ class UserFragment : Fragment() {
 }
 ```
 
-## Service에서 주입하기
+## Service에서 주입하기 {id="injecting-in-service"}
 
 ```kotlin
 class MyService : Service() {
@@ -91,7 +91,7 @@ class MyService : Service() {
 }
 ```
 
-## 즉시 주입(Eager) vs 지연 주입(Lazy)
+## 즉시 주입(Eager) vs 지연 주입(Lazy) {id="eager-vs-lazy-injection"}
 
 ```kotlin
 class DetailActivity : AppCompatActivity() {
@@ -120,7 +120,7 @@ class DetailActivity : AppCompatActivity() {
 클래스에 Koin 확장 기능이 없는 경우, `KoinComponent` 인터페이스를 구현하여 `inject()` 또는 `get()`에 접근하세요.
 :::
 
-## 파라미터를 사용한 주입
+## 파라미터를 사용한 주입 {id="injection-with-parameters"}
 
 주입 시점에 파라미터를 전달할 수 있습니다:
 
@@ -139,7 +139,7 @@ class UserActivity : AppCompatActivity() {
 }
 ```
 
-## 한정자(Qualifiers)를 사용한 주입
+## 한정자(Qualifiers)를 사용한 주입 {id="injection-with-qualifiers"}
 
 동일한 타입에 대해 여러 정의가 있는 경우:
 
@@ -158,7 +158,7 @@ class MyActivity : AppCompatActivity() {
 }
 ```
 
-## 정의부에서 Android Context 사용하기
+## 정의부에서 Android Context 사용하기 {id="using-android-context-in-definitions"}
 
 `Application` 클래스에서 `androidContext`를 사용하여 Koin을 설정하고 나면, 정의부에서 이를 해석(resolve)할 수 있습니다.
 
@@ -174,7 +174,7 @@ class MyPresenter(private val context: Context)
 class MyRepository(private val application: Application)
 ```
 
-### DSL
+### DSL {id="dsl"}
 
 모듈에서 `androidContext()` 또는 `androidApplication()` 함수를 사용하세요:
 
@@ -189,7 +189,7 @@ val appModule = module {
 }
 ```
 
-## Android 스코프 및 Context 해석(resolution)
+## Android 스코프 및 Context 해석(resolution) {id="android-scope-context-resolution"}
 
 `Context` 타입을 바인딩하는 스코프(scope)가 있는 경우, 서로 다른 레벨의 `Context`를 해석(resolve)해야 할 때가 있습니다:
 

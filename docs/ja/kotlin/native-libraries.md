@@ -1,10 +1,10 @@
 [//]: # (title: Kotlin/Native ライブラリ)
 
-## ライブラリのコンパイル
+## ライブラリのコンパイル {id="library-compilation"}
 
 プロジェクトのビルドファイルまたは Kotlin/Native コンパイラを使用して、ライブラリの `*.klib` アーティファクトを生成できます。
 
-### Gradle ビルドファイルの使用
+### Gradle ビルドファイルの使用 {id="using-gradle-build-file"}
 
 Gradle ビルドファイルで [Kotlin/Native ターゲット](native-target-support.md)を指定することで、`*.klib` ライブラリ アーティファクトをコンパイルできます。
 
@@ -31,7 +31,7 @@ Gradle ビルドファイルで [Kotlin/Native ターゲット](native-target-su
 
 Gradle は自動的にそのターゲットのソースファイルをコンパイルし、プロジェクトの `build/libs` ディレクトリに `.klib` アーティファクトを生成します。
 
-### Kotlin/Native コンパイラの使用
+### Kotlin/Native コンパイラの使用 {id="using-kotlin-native-compiler"}
 
 Kotlin/Native コンパイラを使用してライブラリを生成するには：
 
@@ -52,7 +52,7 @@ Kotlin/Native コンパイラを使用してライブラリを生成するには
    
    このコマンドは、`qux.kt` ソースファイルと `bar.klib` ライブラリをコンパイルし、最終的な実行可能バイナリ `program.kexe` を生成します。
 
-## klib ユーティリティ
+## klib ユーティリティ {id="klib-utility"}
 
 **klib** ライブラリ管理ユーティリティを使用すると、次の構文でライブラリを検査できます：
 
@@ -80,7 +80,7 @@ klib dump-metadata-signatures mylib.klib -signature-version 1
 
 さらに、`dump-metadata` コマンドは `-print-signatures {true|false}` 引数を受け取ります。これは、出力内のすべての宣言に対して IR シグネチャを出力するように klib ユーティリティに指示します。
 
-## ライブラリの作成と使用
+## ライブラリの作成と使用 {id="creating-and-using-a-library"}
 
 1. ソースコードを `kotlinizer.kt` に配置してライブラリを作成します：
 
@@ -133,7 +133,7 @@ klib dump-metadata-signatures mylib.klib -signature-version 1
 
 出力に `Hello, Kotlin world!` と表示されるはずです。
 
-## ライブラリの検索順序
+## ライブラリの検索順序 {id="library-search-sequence"}
 
 > ライブラリの検索メカニズムは間もなく変更される予定です。このセクションの更新を待ち、非推奨のフラグに依存しないようにしてください。
 > 
@@ -152,7 +152,7 @@ klib dump-metadata-signatures mylib.klib -signature-version 1
 
 3. `$installation/klib` ディレクトリにインストールされたライブラリ。
 
-## ライブラリ形式
+## ライブラリ形式 {id="library-format"}
 
 Kotlin/Native ライブラリは、事前定義されたディレクトリ構造を持つ zip ファイルであり、次のようなレイアウトになっています：
 
@@ -180,7 +180,7 @@ Kotlin/Native ライブラリは、事前定義されたディレクトリ構造
 
 Kotlin/Native コンパイラをインストールしたディレクトリの `klib/common/stdlib` に、レイアウトの例があります。
 
-## klib での相対パスの使用
+## klib での相対パスの使用 {id="using-relative-paths-in-klibs"}
 
 ソースファイルのシリアル化された IR 表現は、`klib` ライブラリの[一部](#library-format)です。これには、適切なデバッグ情報を生成するためのファイルのパスが含まれています。デフォルトでは、保存されるパスは絶対パスです。
 
@@ -217,6 +217,6 @@ tasks.named('compileKotlin', KotlinCompilationTask) {
 </tab>
 </tabs>
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 [cinterop ツールを使用して `*.klib` アーティファクトを生成する方法を学ぶ](native-definition-file.md)

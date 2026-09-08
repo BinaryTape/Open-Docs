@@ -16,7 +16,7 @@ Kotlin Multiplatform Gradle 外掛程式將不再相容於 `com.android.applicat
 > 
 {style="note"}
 
-## 遷移至 Android-KMP 程式庫外掛程式
+## 遷移至 Android-KMP 程式庫外掛程式 {id="migration-to-the-android-kmp-library-plugin"}
 
 先前，在多平台模組中配置 Android 目標時，您需要同時使用 
 KMP 外掛程式 (`org.jetbrains.kotlin.multiplatform`) 
@@ -26,7 +26,7 @@ Android 應用程式 (`com.android.application`) 或 Android 程式庫 (`com.and
 在 AGP 9.0 中，這些外掛程式不再與 KMP 相容，
 因此您需要遷移至專為 KMP 建置的新 Android-KMP 程式庫外掛程式。
 
-### 如何遷移
+### 如何遷移 {id="how-to-migrate"}
 
 有關程式庫的遷移步驟，請參閱 [Android 文件中的指南](https://developer.android.com/kotlin/multiplatform/plugin#migrate)。
 
@@ -40,7 +40,7 @@ Android 應用程式 (`com.android.application`) 或 Android 程式庫 (`com.and
 >
 {style="note"}
 
-### 在 AGP 10 之前啟用舊版 API
+### 在 AGP 10 之前啟用舊版 API {id="enabling-the-legacy-apis-until-agp-10"}
 
 為了讓您的專案在短期內能與 AGP 9.0 搭配運作，您可以手動啟用已棄用的 API。
 為此，請在專案的 `gradle.properties` 檔案中加入以下屬性：
@@ -50,7 +50,7 @@ Android 應用程式 (`com.android.application`) 或 Android 程式庫 (`com.and
 該版本很可能在 2026 年下半年發布。
 請確保在此之前完成遷移。
 
-## 範例應用程式的遷移
+## 範例應用程式的遷移 {id="migration-of-a-sample-app"}
 
 您將為遷移準備的範例專案是一個 Compose Multiplatform 應用程式，該應用程式是 
 [建立您自己的應用程式](compose-multiplatform-new-project.md) 
@@ -74,7 +74,7 @@ Android 應用程式 (`com.android.application`) 或 Android 程式庫 (`com.and
 
 ### Android 應用程式入口點模組 {id="android-app"}
 
-#### 建立並配置 Android 應用程式模組
+#### 建立並配置 Android 應用程式模組 {id="create-and-configure-the-android-app-module"}
 
 若要建立 Android 應用程式模組 (`androidApp`)：
 
@@ -87,7 +87,7 @@ Android 應用程式 (`com.android.application`) 或 Android 程式庫 (`com.and
     ```
 4. 在主功能表中選擇 **Build | Sync Project with Gradle Files**，或點擊編輯器中的 Gradle 重新整理按鈕。
 
-#### 配置 Android 應用程式的建置指令碼
+#### 配置 Android 應用程式的建置指令碼 {id="configure-the-build-script-for-the-android-app"}
 
 為新模組配置 Gradle 建置指令碼：
 
@@ -173,7 +173,7 @@ Android 應用程式 (`com.android.application`) 或 Android 程式庫 (`com.and
    
 8. 在主功能表中選擇 **Build | Sync Project with Gradle Files**，或點擊編輯器中的 Gradle 重新整理按鈕。
 
-#### 移動程式碼並執行 Android 應用程式
+#### 移動程式碼並執行 Android 應用程式 {id="move-the-code-and-run-the-android-app"}
 
 1. 將 `composeApp/src/androidMain` 目錄移動到 `androidApp/src/` 目錄中，
    但請記住應保持跨平台的程式碼：
@@ -196,7 +196,7 @@ Android 應用程式 (`com.android.application`) 或 Android 程式庫 (`com.and
 您已將 Android 入口點提取到獨立模組。
 現在請更新共用程式碼模組以使用新的 Android-KMP 程式庫外掛程式。 
 
-### 配置共用模組以使用 Android-KMP 程式庫外掛程式
+### 配置共用模組以使用 Android-KMP 程式庫外掛程式 {id="configure-the-shared-module-to-use-the-android-kmp-library-plugin"}
 
 為了簡單提取 Android 入口點，您在共用 `composeApp` 模組中套用了 `com.android.library` 外掛程式。
 現在請遷移至新的多平台程式庫外掛程式：
@@ -242,7 +242,7 @@ Android 應用程式 (`com.android.application`) 或 Android 程式庫 (`com.and
 7. 在主功能表中選擇 **Build | Sync Project with Gradle Files**，或點擊編輯器中的 Gradle 重新整理按鈕。
 8. 檢查 Android 應用程式是否如預期執行。
 
-### 更新 Android Gradle 外掛程式版本
+### 更新 Android Gradle 外掛程式版本 {id="update-the-android-gradle-plugin-version"}
 
 當您所有的程式碼都能在新的配置下運作時：
 
@@ -283,7 +283,7 @@ Android 應用程式 (`com.android.application`) 或 Android 程式庫 (`com.and
 
 恭喜！您已成功升級專案以相容於 AGP 9.0。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 請參閱[推薦的專案結構](multiplatform-project-recommended-structure.md)，
 該結構遵循了為任何應用程式目標分離入口點的邏輯。

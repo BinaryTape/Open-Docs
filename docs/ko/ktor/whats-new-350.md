@@ -11,7 +11,7 @@ Ktor 3.5.0은 서버와 클라이언트 전반에 걸쳐 다양한 개선 사항
 * [변경된 경우에만 세션 쿠키 전송](#session-cookies)
 * [OkHttp 및 Apache5 클라이언트 엔진의 커스텀 DNS 리졸버(DNS resolver)](#custom-dns-resolvers)
 
-## Ktor 서버
+## Ktor 서버 {id="ktor-server"}
 
 ### RFC 7616 다이제스트 인증 지원 {id="rfc-7616-digest-auth"}
 
@@ -67,7 +67,7 @@ install(Authentication) {
 
 전체 가이드는 [Ktor 서버의 다이제스트 인증](server-digest-auth.md)을 참조하십시오.
 
-### 커스텀 프로바이더의 중단 가능한(suspending) .authenticate() 오버로드
+### 커스텀 프로바이더의 중단 가능한(suspending) .authenticate() 오버로드 {id="suspending-authenticate-overload-in-custom-providers"}
 
 [커스텀 인증 프로바이더](server-auth.md#custom-auth-provider)는 이제 `DynamicProviderConfig.authenticate()` 함수의 중단(suspending) 버전을 구현할 수 있습니다. `.authenticate()` 함수는 중단 람다를 허용하므로 인증 내부에서 직접 코루틴 API를 호출할 수 있습니다:
 
@@ -108,7 +108,7 @@ val config = ApplicationConfig("application.yaml").getAs<Config>()
 
 </compare>
 
-### 필수 요청 파라미터 헬퍼 함수
+### 필수 요청 파라미터 헬퍼 함수 {id="require-request-parameters-helper-functions"}
 
 Ktor 3.5.0은 `ApplicationCall`에서 필수 요청 데이터에 더 쉽게 액세스할 수 있는 새로운 확장 함수 세트를 도입했습니다.
 
@@ -152,7 +152,7 @@ post("/checkout") {
 
 </compare>
 
-### ktor-network의 ES 모듈 호환성
+### ktor-network의 ES 모듈 호환성 {id="es-modules-compatibility-for-ktor-network"}
 
 ES 모듈이 활성화되었을 때 `ktor-network` 및 모든 종속 모듈을 사용할 수 없게 만들었던 문제를 해결했습니다.
 
@@ -164,7 +164,7 @@ ES 모듈이 활성화되었을 때 `ktor-network` 및 모든 종속 모듈을 �
 >
 {style="tip"}
 
-### Sessions 플러그인의 세션 관리 개선
+### Sessions 플러그인의 세션 관리 개선 {id="improved-session-management-in-the-sessions-plugin"}
 
 Ktor 3.5.0은 세션 생명 주기, 식별자(identity) 생성 및 네트워크 동작을 더 세밀하게 제어할 수 있는 새로운 구성 옵션을 통해 [Sessions](server-sessions.md) 플러그인의 세션 처리 방식을 개선했습니다.
 
@@ -182,7 +182,7 @@ install(Sessions) {
 }
 ```
 
-#### 요청 데이터로부터 세션 ID 생성
+#### 요청 데이터로부터 세션 ID 생성 {id="generate-session-ids-from-request-data"}
 
 `CookieIdSessionBuilder.identity()` 함수는 이제 `ApplicationCall`을 인자로 받을 수 있어, 현재 애플리케이션 호출로부터 세션 ID를 유도할 수 있습니다. 이를 통해 세션을 인증된 사용자나 요청 메타데이터에 바인딩하는 등의 유스케이스가 가능해집니다.
 
@@ -198,7 +198,7 @@ install(Sessions) {
 
 기존의 `identity()` 함수는 call을 인식하는(call-aware) 새로운 오버로드로 대체되어 더 이상 권장되지 않습니다(deprecated).
 
-#### ID로 세션 삭제
+#### ID로 세션 삭제 {id="clear-sessions-by-id"}
 
 이제 `call.sessions.clear<UserSession>()` 및 `CurrentSession.clear()` 편의 함수를 사용하여 활성 호출 없이도 저장소 ID(storage ID)를 통해 세션을 무효화할 수 있습니다. 두 함수 모두 `SessionTrackerById.clearById()`에 작업을 위임합니다.
 
@@ -212,7 +212,7 @@ post("/logout/{sessionId}") {
 
 이 기능은 사용자의 모든 기기에서 로그아웃하거나 백그라운드 작업에서 세션을 만료시키는 등의 시나리오에서 유용합니다.
 
-### 커스텀 SSE 하트비트(heartbeat) 이벤트
+### 커스텀 SSE 하트비트(heartbeat) 이벤트 {id="custom-sse-heartbeat-events"}
 
 이번 릴리스에서는 이벤트 프로바이더 함수를 사용하여 하트비트 이벤트를 완전히 커스터마이징할 수 있는 Ktor 서버 측 SSE 지원을 위한 새로운 옵션을 도입했습니다:
 
@@ -225,7 +225,7 @@ heartbeat {
 
 이를 통해 타임스탬프 및 상태 정보와 같은 커스텀 하트비트 페이로드를 일정한 간격으로 전송할 수 있습니다.
 
-### Jetty 엔진의 SNI 검증 구성
+### Jetty 엔진의 SNI 검증 구성 {id="sni-validation-configuration-in-the-jetty-engine"}
 
 이번 릴리스에서는 Jetty 엔진에 새로운 `secureRequestCustomizer` 구성 옵션을 추가하여, Jetty의 `SecureRequestCustomizer` 인스턴스에 직접 액세스할 수 있도록 했습니다.
 
@@ -243,7 +243,7 @@ embeddedServer(
 )
 ```
 
-## Ktor 클라이언트
+## Ktor 클라이언트 {id="ktor-client"}
 
 ### OkHttp 및 Apache5 엔진의 커스텀 DNS 리졸버 {id="custom-dns-resolvers"}
 
@@ -251,7 +251,7 @@ Ktor 3.5.0은 OkHttp 및 Apache5 클라이언트 엔진에서 커스텀 DNS 리�
 
 이전에는 OkHttp의 `config {}` 또는 Apache5의 `configureConnectionManager { setDnsResolver(...) }`와 같이 엔진 고유의 내부 요소에 액세스하여 커스텀 DNS 해소를 구성했습니다. 이제 Ktor는 일관되고 타입 안전한(type-safe) API를 제공하기 위해 각 엔진에 전용 구성 속성을 노출합니다.
 
-#### OkHttp
+#### OkHttp {id="okhttp"}
 
 이제 `OkHttpConfig.dns` 속성을 사용하여 OkHttp에서 커스텀 DNS 리졸버를 구성할 수 있습니다:
 
@@ -265,7 +265,7 @@ HttpClient(OkHttp) {
 
 `dns` 속성을 구성하지 않으면 OkHttp 엔진은 OkHttp의 기본 `Dns.SYSTEM` 리졸버를 계속 사용합니다.
 
-#### Apache5
+#### Apache5 {id="apache5"}
 
 이제 `Apache5EngineConfig.dnsResolver` 속성을 사용하여 Apache5에서 커스텀 DNS 리졸버를 구성할 수 있습니다:
 

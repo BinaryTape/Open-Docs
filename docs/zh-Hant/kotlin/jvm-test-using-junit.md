@@ -17,7 +17,7 @@ Kotlin 與 Java 完全互通，這意指您可以使用 Kotlin 為 Java 程式�
 >
 {style="note"}
 
-## 配置專案
+## 配置專案 {id="configure-the-project"}
 
 1. 在您的 IDE 中，從版本控制系統複製範例專案：
 
@@ -128,7 +128,7 @@ Kotlin 與 Java 完全互通，這意指您可以使用 Kotlin 為 Java 程式�
 
 如需有關建置檔案設定的更多詳細說明，請參閱 [專案配置](mixing-java-kotlin-intellij.md#project-configuration)。
 
-## 新增您的第一個 Kotlin 測試
+## 新增您的第一個 Kotlin 測試 {id="add-your-first-kotlin-test"}
 
 位於 `initial/src/test/java` 中的 `TodoItemTest.java` 測試已經驗證了應用程式的基本功能：項目建立、預設值、唯一 ID 以及狀態變更。
 
@@ -252,7 +252,7 @@ Kotlin 與 Java 完全互通，這意指您可以使用 Kotlin 為 Java 程式�
 >
 {style="tip"}
 
-## 執行測試
+## 執行測試 {id="run-tests"}
 
 同時執行 Java 和 Kotlin 測試，以驗證您的專案運作符合預期：
 
@@ -300,6 +300,6 @@ Kotlin 與 Java 完全互通，這意指您可以使用 Kotlin 為 Java 程式�
 >
 {style="tip"}
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 進一步了解 [使用 Maven 測試 Kotlin 專案](jvm-test-maven.md)。

@@ -7,9 +7,9 @@ Agentの永続化 (Agent Persistence) は、Koogフレームワークにおけ�
 - 以前の状態へのロールバック
 - セッションをまたいだエージェント状態の保持
 
-## 主要な概念 (Key concepts)
+## 主要な概念 (Key concepts) {id="key-concepts"}
 
-### チェックポイント (Checkpoints)
+### チェックポイント (Checkpoints) {id="checkpoints"}
 
 チェックポイントは、実行中の特定のポイントにおけるエージェントの完全な状態をキャプチャします。これには以下が含まれます。
 
@@ -24,7 +24,7 @@ Agentの永続化 (Agent Persistence) は、Koogフレームワークにおけ�
 
 チェックポイントは一意のIDによって識別され、特定のエージェントに関連付けられます。
 
-### `AIAgentStorage` の永続化
+### `AIAgentStorage` の永続化 {id="aiagentstorage-persistence"}
 
 チェックポイントが作成される際、フレームワークは現在 `AIAgentStorage` に保持されているすべての値をシリアライズし、チェックポイントに含めます。
 復元時には、それらの値はデシリアライズされ、チェックポイント作成時とまったく同じ状態で再開されたエージェントから利用可能になります。
@@ -38,7 +38,7 @@ Agentの永続化 (Agent Persistence) は、Koogフレームワークにおけ�
 
 詳細については、[シリアライズ (Serialization)](../serialization.md) を参照してください。
 
-## インストール
+## インストール {id="installation"}
 
 Agentの永続化機能を使用するには、エージェントの設定に追加します。
 
@@ -88,7 +88,7 @@ Agentの永続化機能を使用するには、エージェントの設定に追
     ```
     <!--- KNIT example-agent-persistence-java-01.java -->
 
-## 設定オプション
+## 設定オプション {id="configuration-options"}
 
 Agentの永続化機能には、主に3つの設定オプションがあります。
 
@@ -96,7 +96,7 @@ Agentの永続化機能には、主に3つの設定オプションがありま�
 - **継続的な永続化 (Continuous persistence)**: 各ノードの実行後にチェックポイントを自動的に作成する機能。
 - **ロールバック戦略 (Rollback strategy)**: チェックポイントにロールバックする際に、どの状態を復元するかを決定します。
 
-### ストレージプロバイダー
+### ストレージプロバイダー {id="storage-provider"}
 
 チェックポイントの保存と取得に使用されるストレージプロバイダーを設定します。
 
@@ -152,7 +152,7 @@ Agentの永続化機能には、主に3つの設定オプションがありま�
 また、`PersistenceStorageProvider` インターフェースを実装することで、カスタムストレージプロバイダーを作成することも可能です。
 詳細については、[カスタムストレージプロバイダー](#カスタムストレージプロバイダー)を参照してください。
 
-### 継続的な永続化 (Continuous persistence)
+### 継続的な永続化 (Continuous persistence) {id="continuous-persistence"}
 
 継続的な永続化とは、各ノードが実行されるたびにチェックポイントが自動的に作成されることを意味します。
 継続的な永続化を無効にするには、以下のコードを使用します。
@@ -203,9 +203,9 @@ Agentの永続化機能には、主に3つの設定オプションがありま�
 
 継続的な永続化が無効になっている場合でも、手動でチェックポイントを作成することができます。
 
-## 基本的な使い方
+## 基本的な使い方 {id="basic-usage"}
 
-### チェックポイントの作成
+### チェックポイントの作成 {id="creating-a-checkpoint"}
 
 エージェントの実行中の特定のポイントでチェックポイントを作成する方法については、以下のコードサンプルを参照してください。
 
@@ -263,7 +263,7 @@ Agentの永続化機能には、主に3つの設定オプションがありま�
     ```
     <!--- KNIT example-agent-persistence-java-04.java -->
 
-### チェックポイントからの復元
+### チェックポイントからの復元 {id="restoring-from-a-checkpoint"}
 
 特定のチェックポイントからエージェントの状態を復元するには、以下のコードサンプルに従ってください。
 
@@ -303,7 +303,7 @@ Agentの永続化機能には、主に3つの設定オプションがありま�
     ```
     <!--- KNIT example-agent-persistence-java-05.java -->
 
-#### ツールによって生成されるすべての副作用のロールバック
+#### ツールによって生成されるすべての副作用のロールバック {id="rolling-back-all-side-effects-produced-by-tools"}
 
 一部のツールが副作用（side-effects）を生成することは非常に一般的です。特に、バックエンドでエージェントを実行している場合、一部のツールはデータベーストランザクションなどを実行する可能性があります。これにより、エージェントが過去の時点に戻ることが非常に困難になります。
 
@@ -385,7 +385,7 @@ Koog Persistenceでは、`Persistence` 機能の設定に `RollbackToolRegistry`
     ```
     <!--- KNIT example-agent-persistence-java-06.java -->
 
-### 拡張関数の使用
+### 拡張関数の使用 {id="using-extension-functions"}
 
 Agentの永続化機能は、チェックポイントを操作するための便利な拡張関数を提供します。
 
@@ -443,9 +443,9 @@ Agentの永続化機能は、チェックポイントを操作するための便
     ```
     <!--- KNIT example-agent-persistence-java-07.java -->
 
-## 高度な使い方
+## 高度な使い方 {id="advanced-usage"}
 
-### カスタムストレージプロバイダー
+### カスタムストレージプロバイダー {id="custom-storage-providers"}
 
 `PersistenceStorageProvider` インターフェースを実装することで、カスタムストレージプロバイダーを実装できます。
 
@@ -565,7 +565,7 @@ Agentの永続化機能は、チェックポイントを操作するための便
     ```
     <!--- KNIT example-agent-persistence-java-09.java -->
 
-### 実行ポイントの設定
+### 実行ポイントの設定 {id="setting-execution-points"}
 
 高度な制御のために、エージェントの実行ポイント（execution point）を直接設定できます。
 

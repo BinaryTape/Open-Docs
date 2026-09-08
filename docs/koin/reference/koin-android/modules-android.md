@@ -8,9 +8,9 @@ title: Android 模块加载
 有关核心模块概念（声明、包含、重写），请参阅 [Modules](/docs/reference/koin-core/modules)。有关延迟模块加载，请参阅 [Lazy Modules](/docs/reference/koin-core/lazy-modules)。
 :::
 
-## 在 Android 上启动 Koin
+## 在 Android 上启动 Koin {id="starting-koin-on-android"}
 
-### 使用注解
+### 使用注解 {id="with-annotations"}
 
 ```kotlin
 @KoinApplication
@@ -27,7 +27,7 @@ class MainApplication : Application() {
 }
 ```
 
-### 使用 DSL
+### 使用 DSL {id="with-dsl"}
 
 ```kotlin
 class MainApplication : Application() {
@@ -51,7 +51,7 @@ class MainApplication : Application() {
 }
 ```
 
-## Android 特定函数
+## Android 特定函数 {id="android-specific-functions"}
 
 | 函数 | 描述 |
 |----------|-------------|
@@ -59,7 +59,7 @@ class MainApplication : Application() {
 | `androidApplication()` | 在定义中提供 Application 实例 |
 | `androidLogger()` | 适用于 Koin 的 Android Logcat 日志记录器 |
 
-### 使用 Android 上下文
+### 使用 Android 上下文 {id="using-android-context"}
 
 ```kotlin
 val androidModule = module {
@@ -69,7 +69,7 @@ val androidModule = module {
 }
 ```
 
-## 动态模块加载
+## 动态模块加载 {id="dynamic-module-loading"}
 
 根据 Activity 生命周期在运行时加载或卸载模块：
 
@@ -90,7 +90,7 @@ class FeatureActivity : AppCompatActivity() {
 }
 ```
 
-### 用例
+### 用例 {id="use-cases"}
 
 - **高级功能** - 仅在用户拥有订阅时加载
 - **调试工具** - 仅在调试构建中加载
@@ -113,7 +113,7 @@ class PremiumActivity : AppCompatActivity() {
 }
 ```
 
-## 在 Android 上延迟加载
+## 在 Android 上延迟加载 {id="lazy-loading-on-android"}
 
 对于后台模块加载，请使用延迟模块：
 
@@ -140,7 +140,7 @@ class MainApplication : Application() {
 有关包含并行加载在内的完整延迟模块文档，请参阅 [Lazy Modules](/docs/reference/koin-core/lazy-modules)。
 :::
 
-## 下一步
+## 下一步 {id="next-steps"}
 
 - **[Modules](/docs/reference/koin-core/modules)** - 核心模块概念
 - **[Lazy Modules](/docs/reference/koin-core/lazy-modules)** - 后台加载

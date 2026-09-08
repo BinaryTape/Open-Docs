@@ -3,7 +3,7 @@
 `kotlin-maven-plugin` を使用すると、Maven プロジェクトの Kotlin コンパイラを設定できます。
 コンパイラオプションの指定、実行戦略の選択、および増分コンパイルの有効化が可能です。
 
-## コンパイラオプションの指定
+## コンパイラオプションの指定 {id="specify-compiler-options"}
 
 Kotlin Maven プラグインノードの `<configuration>` セクションの要素として、コンパイラの追加オプションや引数を指定できます。
 
@@ -36,7 +36,7 @@ Kotlin Maven プラグインノードの `<configuration>` セクションの要
 
 以下の属性がサポートされています：
 
-### JVM 固有の属性
+### JVM 固有の属性 {id="attributes-specific-to-jvm"}
 
 | 名前 | プロパティ名 | 説明 | 設定可能な値 | デフォルト値 |
 |-------------------|-----------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------|-----------------------------|
@@ -52,7 +52,7 @@ Kotlin Maven プラグインノードの `<configuration>` セクションの要
 | `jdkHome`         | `kotlin.compiler.jdkHome`         | デフォルトの `JAVA_HOME` の代わりに、指定された場所にあるカスタム JDK をクラスパスに含める |                                                         |                             |
 | `jdkToolchain`    | `kotlin.compiler.jdkToolchain`    | ツールチェーンから使用する JDK バージョンを設定します。Kotlin コンパイルにのみ影響します。 |                                                         |                             |
 
-## 実行戦略の選択
+## 実行戦略の選択 {id="choose-execution-strategy"}
 
 <snippet id="maven-configure-execution-strategy">
 
@@ -68,7 +68,7 @@ Kotlin Maven プラグインノードの `<configuration>` セクションの要
 
 さまざまな戦略の詳細については、[コンパイラ実行戦略](compiler-execution-strategy.md)を参照してください。
 
-## 増分コンパイルの有効化
+## 増分コンパイルの有効化 {id="enable-incremental-compilation"}
 
 ビルドを高速化するために、`kotlin.compiler.incremental` プロパティを追加して増分コンパイルを有効にできます。
 
@@ -80,6 +80,6 @@ Kotlin Maven プラグインノードの `<configuration>` セクションの要
 
 または、`-Dkotlin.compiler.incremental=true` オプションを付けてビルドを実行します。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 [プロジェクトをパッケージ化する](maven-compile-package.md)

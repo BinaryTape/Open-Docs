@@ -2,7 +2,7 @@
 
 このドキュメントは、すべての Koin アノテーション、そのパラメータ、動作、および使用例の包括的な一覧を提供します。
 
-## 目次
+## 目次 {id="table-of-contents"}
 
 - [定義アノテーション](#definition-annotations)
   - [@Single](#single)
@@ -42,9 +42,9 @@
 
 ---
 
-## 定義アノテーション
+## 定義アノテーション {id="definition-annotations"}
 
-### @Single / @Singleton
+### @Single / @Singleton {id="single-singleton"}
 
 **パッケージ:** `org.koin.core.annotation`
 
@@ -84,7 +84,7 @@ class MyClass(val d : MyDependency)
 
 ---
 
-### @Factory
+### @Factory {id="factory"}
 
 **パッケージ:** `org.koin.core.annotation`
 
@@ -111,7 +111,7 @@ factory { MyClass(get()) }
 
 ---
 
-### @Scoped
+### @Scoped {id="scoped"}
 
 **パッケージ:** `org.koin.core.annotation`
 
@@ -136,9 +136,9 @@ class MyClass(val d : MyDependency)
 
 ---
 
-## スコープアノテーション
+## スコープアノテーション {id="scope-annotations"}
 
-### @Scope
+### @Scope {id="scope"}
 
 **パッケージ:** `org.koin.core.annotation`
 
@@ -174,7 +174,7 @@ class MyClass(val d : MyDependency)
 
 ---
 
-### @ViewModelScope
+### @ViewModelScope {id="viewmodelscope"}
 
 **パッケージ:** `org.koin.core.annotation`
 
@@ -205,7 +205,7 @@ viewModelScope {
 
 ---
 
-### @ActivityScope
+### @ActivityScope {id="activityscope"}
 
 **パッケージ:** `org.koin.android.annotation`
 
@@ -236,7 +236,7 @@ activityScope {
 
 ---
 
-### @ActivityRetainedScope
+### @ActivityRetainedScope {id="activityretainedscope"}
 
 **パッケージ:** `org.koin.android.annotation`
 
@@ -267,7 +267,7 @@ activityRetainedScope {
 
 ---
 
-### @FragmentScope
+### @FragmentScope {id="fragmentscope"}
 
 **パッケージ:** `org.koin.android.annotation`
 
@@ -298,7 +298,7 @@ fragmentScope {
 
 ---
 
-### @ScopeId
+### @ScopeId {id="scopeid"}
 
 **パッケージ:** `org.koin.core.annotation`
 
@@ -332,9 +332,9 @@ class MyClass(@ScopeId(MyScope::class) val d : MyDependency)
 
 ---
 
-## ViewModel および Android 固有のアノテーション
+## ViewModel および Android 固有のアノテーション {id="viewmodel-android-specific-annotations"}
 
-### @KoinViewModel
+### @KoinViewModel {id="koinviewmodel"}
 
 **パッケージ:** `org.koin.android.annotation`
 
@@ -375,7 +375,7 @@ viewModel { MyViewModel(get()) }
 
 ---
 
-### @KoinWorker
+### @KoinWorker {id="koinworker"}
 
 **パッケージ:** `org.koin.android.annotation`
 
@@ -397,9 +397,9 @@ class MyWorker() : Worker()
 
 ---
 
-## クオリファイア（Qualifier）アノテーション
+## クオリファイア（Qualifier）アノテーション {id="qualifier-annotations"}
 
-### @Named
+### @Named {id="named"}
 
 **パッケージ:** `org.koin.core.annotation`
 
@@ -436,7 +436,7 @@ class MyClass(val d : MyDependency)
 
 ---
 
-### @Qualifier
+### @Qualifier {id="qualifier"}
 
 **パッケージ:** `org.koin.core.annotation`
 
@@ -460,9 +460,9 @@ class MyClass(val d : MyDependency)
 
 ---
 
-## パラメータアノテーション
+## パラメータアノテーション {id="parameter-annotations"}
 
-### @InjectedParam
+### @InjectedParam {id="injectedparam"}
 
 **パッケージ:** `org.koin.core.annotation`
 
@@ -493,7 +493,7 @@ val instance = koin.get<MyClass> { parametersOf(42) }
 
 ---
 
-### @Property
+### @Property {id="property"}
 
 **パッケージ:** `org.koin.core.annotation`
 
@@ -534,7 +534,7 @@ factory { MyClass(getProperty("name", defaultName)) }
 
 ---
 
-### @PropertyValue
+### @PropertyValue {id="propertyvalue"}
 
 **パッケージ:** `org.koin.core.annotation`
 
@@ -564,9 +564,9 @@ factory { MyClass(getProperty("name", defaultName)) }
 
 ---
 
-## 安全性アノテーション
+## 安全性アノテーション {id="safety-annotations"}
 
-### @Provided
+### @Provided {id="provided"}
 
 **パッケージ:** `org.koin.core.annotation`
 
@@ -604,9 +604,9 @@ class PaymentProcessor(@Provided val gateway: PaymentGateway)
 
 ---
 
-## モジュールおよびアプリケーションアノテーション
+## モジュールおよびアプリケーションアノテーション {id="module-application-annotations"}
 
-### @Module
+### @Module {id="module"}
 
 **パッケージ:** `org.koin.core.annotation`
 
@@ -648,7 +648,7 @@ class MyModule {
 
 ---
 
-### @ComponentScan
+### @ComponentScan {id="componentscan"}
 
 **パッケージ:** `org.koin.core.annotation`
 
@@ -700,7 +700,7 @@ class MyApp
 
 ---
 
-### @Configuration
+### @Configuration {id="configuration"}
 
 **パッケージ:** `org.koin.core.annotation`
 
@@ -742,7 +742,7 @@ default と test の構成で使用可能です。
 
 ---
 
-### @KoinApplication
+### @KoinApplication {id="koinapplication"}
 
 **パッケージ:** `org.koin.core.annotation`
 
@@ -794,9 +794,9 @@ MyApp.startKoin {
 
 ---
 
-## モニタリングアノテーション
+## モニタリングアノテーション {id="monitoring-annotations"}
 
-### @Monitor
+### @Monitor {id="monitor"}
 
 **パッケージ:** `org.koin.core.annotation`
 
@@ -833,11 +833,11 @@ class UserService(private val userRepository: UserRepository) {
 
 ---
 
-## メタアノテーション（内部用）
+## メタアノテーション（内部用） {id="meta-annotations-internal"}
 
 これらのアノテーションは、Koin コンパイラおよびコード生成による内部使用のみを目的としています。
 
-### @ExternalDefinition
+### @ExternalDefinition {id="externaldefinition"}
 
 **パッケージ:** `org.koin.meta.annotations`
 
@@ -850,7 +850,7 @@ class UserService(private val userRepository: UserRepository) {
 
 ---
 
-### @MetaDefinition
+### @MetaDefinition {id="metadefinition"}
 
 **パッケージ:** `org.koin.meta.annotations`
 
@@ -868,7 +868,7 @@ class UserService(private val userRepository: UserRepository) {
 
 ---
 
-### @MetaModule
+### @MetaModule {id="metamodule"}
 
 **パッケージ:** `org.koin.meta.annotations`
 
@@ -885,7 +885,7 @@ class UserService(private val userRepository: UserRepository) {
 
 ---
 
-### @MetaApplication
+### @MetaApplication {id="metaapplication"}
 
 **パッケージ:** `org.koin.meta.annotations`
 
@@ -900,7 +900,7 @@ class UserService(private val userRepository: UserRepository) {
 
 ---
 
-## 要約テーブル
+## 要約テーブル {id="summary-table"}
 
 | アノテーション | パッケージ | 目的 | 一般的なユースケース |
 |------------|---------|---------|-----------------|

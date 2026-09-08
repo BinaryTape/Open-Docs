@@ -9,7 +9,7 @@
 * [](#advent-of-code-2021)
 * [](#advent-of-code-2020)
 
-## Advent of Code の準備をする
+## Advent of Code の準備をする {id="get-ready-for-advent-of-code"}
 
 Kotlin を使用して Advent of Code の課題を解き始めるための、基本的なヒントを紹介します。
 
@@ -18,9 +18,9 @@ Kotlin を使用して Advent of Code の課題を解き始めるための、基
 
 <video width="560" height="315" src="https://www.youtube.com/v/6-XSehwRgSY" title="Get Ready for Advent of Code 2021"/>
 
-## Advent of Code 2022
+## Advent of Code 2022 {id="advent-of-code-2022"}
 
-### Day 1: Calorie counting（カロリー計算）
+### Day 1: Calorie counting（カロリー計算） {id="day-1-calorie-counting"}
 
 [Kotlin Advent of Code テンプレート](https://github.com/kotlin-hands-on/advent-of-code-kotlin-template)や、[`maxOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/max-of.html) や [`sumOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/sum-of.html) といった、Kotlin で文字列やコレクションを扱うための便利な関数について学びます。拡張関数がソリューションを綺麗に構造化するのにどのように役立つかを見ていきましょう。
 
@@ -29,7 +29,7 @@ Kotlin を使用して Advent of Code の課題を解き始めるための、基
 
 ![YouTube](youtube.svg){width=25}{type="joined"} [Advent of Code 2022 Day 1 | Kotlin](https://www.youtube.com/watch?v=ntbsbqLCKDs)
 
-### Day 2: Rock paper scissors（じゃんけん）
+### Day 2: Rock paper scissors（じゃんけん） {id="day-2-rock-paper-scissors"}
 
 Kotlin における `Char` 型の操作を理解し、`Pair` 型と `to` コンストラクタがパターンマッチングとどのようにうまく機能するかを確認します。[`compareTo()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-comparable/compare-to.html) 関数を使用して、独自のオブジェクトを順序付けする方法を理解しましょう。
 
@@ -38,7 +38,7 @@ Kotlin における `Char` 型の操作を理解し、`Pair` 型と `to` コン�
 
 ![YouTube](youtube.svg){width=25}{type="joined"} [Advent of Code 2022 Day 2 | Kotlin](https://www.youtube.com/watch?v=Fn0SY2yGDSA)
 
-### Day 3: Rucksack reorganization（リュックサックの再整理）
+### Day 3: Rucksack reorganization（リュックサックの再整理） {id="day-3-rucksack-reorganization"}
 
 [kotlinx.benchmark](https://github.com/Kotlin/kotlinx-benchmark) ライブラリが、コードのパフォーマンス特性を理解するのにどのように役立つかを学びます。`intersect` のような集合演算が重複するデータの選択にどのように役立つかを確認し、同じソリューションの異なる実装間でのパフォーマンス比較を見ていきましょう。
 
@@ -47,7 +47,7 @@ Kotlin における `Char` 型の操作を理解し、`Pair` 型と `to` コン�
 
 ![YouTube](youtube.svg){width=25}{type="joined"} [Advent of Code 2022 Day 3 | Kotlin](https://www.youtube.com/watch?v=IPLfo4zXNjk)
 
-### Day 4: Camp cleanup（キャンプの片付け）
+### Day 4: Camp cleanup（キャンプの片付け） {id="day-4-camp-cleanup"}
 
 `infix` 関数や `operator` 関数がコードをより表現豊かにする方法、また `String` 型や `IntRange` 型の拡張関数によって入力のパースがいかに容易になるかを確認します。
 
@@ -56,7 +56,7 @@ Kotlin における `Char` 型の操作を理解し、`Pair` 型と `to` コン�
 
 ![YouTube](youtube.svg){width=25}{type="joined"} [Advent of Code 2022 Day 4 | Kotlin](https://www.youtube.com/watch?v=dBIbr55YS0A)
 
-### Day 5: Supply stacks（サプライスタック）
+### Day 5: Supply stacks（サプライスタック） {id="day-5-supply-stacks"}
 
 ファクトリ関数を使用したより複雑なオブジェクトの構築方法、正規表現の使用方法、および両端キューである [`ArrayDeque`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-deque/) 型について学びます。
 
@@ -65,7 +65,7 @@ Kotlin における `Char` 型の操作を理解し、`Pair` 型と `to` コン�
 
 ![YouTube](youtube.svg){width=25}{type="joined"} [Advent of Code 2022 Day 5 | Kotlin](https://www.youtube.com/watch?v=lKq6r5Nt8Yo)
 
-### Day 6: Tuning trouble（チューニングのトラブル）
+### Day 6: Tuning trouble（チューニングのトラブル） {id="day-6-tuning-trouble"}
 
 [kotlinx.benchmark](https://github.com/Kotlin/kotlinx-benchmark) ライブラリを使用して、同じソリューションの 16 種類のバリエーションの特性を比較し、より詳細なパフォーマンス調査を行います。
 
@@ -74,7 +74,7 @@ Kotlin における `Char` 型の操作を理解し、`Pair` 型と `to` コン�
 
 ![YouTube](youtube.svg){width=25}{type="joined"} [Advent of Code 2022 Day 6 | Kotlin](https://www.youtube.com/watch?v=VbBhaQhW0zk)
 
-### Day 7: No space left on device（デバイスに空き容量がありません）
+### Day 7: No space left on device（デバイスに空き容量がありません） {id="day-7-no-space-left-on-device"}
 
 木構造をモデリングする方法を学び、プログラムによって Kotlin コードを生成するデモをご覧ください。
 
@@ -83,7 +83,7 @@ Kotlin における `Char` 型の操作を理解し、`Pair` 型と `to` コン�
 
 ![YouTube](youtube.svg){width=25}{type="joined"} [Advent of Code 2022 Day 7 | Kotlin](https://www.youtube.com/watch?v=Q819VW8yxFo)
 
-### Day 8: Treetop tree house（木の上のツリーハウス）
+### Day 8: Treetop tree house（木の上のツリーハウス） {id="day-8-treetop-tree-house"}
 
 `sequence` ビルダーの動作を確認します。また、プログラムの最初の草案と、慣用的な Kotlin のソリューションがいかに異なるかを見ていきましょう（特別ゲスト Roman Elizarov 氏が登場します！）。
 
@@ -92,7 +92,7 @@ Kotlin における `Char` 型の操作を理解し、`Pair` 型と `to` コン�
 
 ![YouTube](youtube.svg){width=25}{type="joined"} [Advent of Code 2022 Day 8 | Kotlin](https://www.youtube.com/watch?v=6d6FXFh-UdA)
 
-### Day 9: Rope bridge（ロープの橋）
+### Day 9: Rope bridge（ロープの橋） {id="day-9-rope-bridge"}
 
 `run` 関数、ラベル付きリターン、そして `coerceIn` や `zipWithNext` といった便利な標準ライブラリ関数を確認します。`List` および `MutableList` コンストラクタを使用して指定されたサイズのリストを構築する方法を学び、Kotlin ベースの問題設定の可視化を覗いてみましょう。
 
@@ -101,7 +101,7 @@ Kotlin における `Char` 型の操作を理解し、`Pair` 型と `to` コン�
 
 ![YouTube](youtube.svg){width=25}{type="joined"} [Advent of Code 2022 Day 9 | Kotlin](https://www.youtube.com/watch?v=ShU9dNUa_3g)
 
-### Day 10: Cathode-ray tube（ブラウン管）
+### Day 10: Cathode-ray tube（ブラウン管） {id="day-10-cathode-ray-tube"}
 
 レンジ（範囲）と `in` 演算子によって範囲チェックがいかに自然になるか、関数のパラメータをどのようにレシーバーに変換できるかを学び、`tailrec` 修飾子について簡単に探索します。
 
@@ -110,7 +110,7 @@ Kotlin における `Char` 型の操作を理解し、`Pair` 型と `to` コン�
 
 ![YouTube](youtube.svg){width=25}{type="joined"} [Advent of Code 2022 Day 10 | Kotlin](https://www.youtube.com/watch?v=KVyeNmFHoL4)
 
-### Day 11: Monkey in the middle（真ん中のモンキー）
+### Day 11: Monkey in the middle（真ん中のモンキー） {id="day-11-monkey-in-the-middle"}
 
 ミュータブルで命令的なコードから、不変で読み取り専用のデータ構造を活用する、より関数的なアプローチへと移行する方法を確認します。コンテキストレシーバーについて学び、ゲストが Advent of Code のためだけに独自の可視化ライブラリをどのように構築したかを紹介します。
 
@@ -119,7 +119,7 @@ Kotlin における `Char` 型の操作を理解し、`Pair` 型と `to` コン�
 
 ![YouTube](youtube.svg){width=25}{type="joined"} [Advent of Code 2022 Day 11 | Kotlin](https://www.youtube.com/watch?v=1eBSyPe_9j0)
 
-### Day 12: Hill Climbing algorithm（登山アルゴリズム）
+### Day 12: Hill Climbing algorithm（登山アルゴリズム） {id="day-12-hill-climbing-algorithm"}
 
 キュー、`ArrayDeque`、関数参照、および `tailrec` 修飾子を使用して、Kotlin で経路探索問題を解決します。
 
@@ -128,13 +128,13 @@ Kotlin における `Char` 型の操作を理解し、`Pair` 型と `to` コン�
 
 ![YouTube](youtube.svg){width=25}{type="joined"} [Advent of Code 2022 Day 12 | Kotlin](https://www.youtube.com/watch?v=tJ74hi_3sk8)
 
-## Advent of Code 2021
+## Advent of Code 2021 {id="advent-of-code-2021"}
 
 > [Advent of Code 2021 に関するブログ記事](https://blog.jetbrains.com/kotlin/2021/11/advent-of-code-2021-in-kotlin/)（英語）をお読みください。
 > 
 {style="tip"}
 
-### Day 1: Sonar sweep（ソナー調査）
+### Day 1: Sonar sweep（ソナー調査） {id="day-1-sonar-sweep"}
 
 windowed 関数と count 関数を適用して、整数のペアやトリプレットを処理します。
 
@@ -143,7 +143,7 @@ windowed 関数と count 関数を適用して、整数のペアやトリプレ�
 
 ![YouTube](youtube.svg){width=25}{type="joined"} [Advent of Code 2021 in Kotlin, Day 1: Sonar Sweep](https://www.youtube.com/watch?v=76IzmtOyiHw)
 
-### Day 2: Dive!（潜水！）
+### Day 2: Dive!（潜水！） {id="day-2-dive"}
 
 分解宣言（destructuring declarations）と `when` 式について学びます。
 
@@ -152,7 +152,7 @@ windowed 関数と count 関数を適用して、整数のペアやトリプレ�
 
 ![YouTube](youtube.svg){width=25}{type="joined"} [Advent of Code 2021 in Kotlin, Day 2: Dive!](https://www.youtube.com/watch?v=4A2WwniJdNc)
 
-### Day 3: Binary diagnostic（バイナリ診断）
+### Day 3: Binary diagnostic（バイナリ診断） {id="day-3-binary-diagnostic"}
 
 バイナリ（2 進数）を扱うさまざまな方法を探索します。
 
@@ -161,7 +161,7 @@ windowed 関数と count 関数を適用して、整数のペアやトリプレ�
 
 ![YouTube](youtube.svg){width=25}{type="joined"} [Advent of Code 2021 in Kotlin, Day 3: Binary Diagnostic](https://www.youtube.com/watch?v=mF2PTnnOi8w)
 
-### Day 4: Giant squid（巨大なイカ）
+### Day 4: Giant squid（巨大なイカ） {id="day-4-giant-squid"}
 
 入力をパースする方法を学び、より便利な処理のためにいくつかのドメインクラスを導入します。
 
@@ -170,13 +170,13 @@ windowed 関数と count 関数を適用して、整数のペアやトリプレ�
 
 ![YouTube](youtube.svg){width=25}{type="joined"} [Advent of Code 2021 in Kotlin, Day 4: Giant Squid](https://www.youtube.com/watch?v=wL6sEoLezPQ)
 
-## Advent of Code 2020
+## Advent of Code 2020 {id="advent-of-code-2020"}
 
 > Advent of Code 2020 パズルのすべてのソリューションは、[GitHub リポジトリ](https://github.com/kotlin-hands-on/advent-of-code-2020/)で見つけることができます。
 >
 {style="tip"}
 
-### Day 1: Report repair（レポートの修復）
+### Day 1: Report repair（レポートの修復） {id="day-1-report-repair"}
 
 入力処理、リストの反復処理、マップを構築するさまざまな方法、およびコードを簡素化するための [`let`](scope-functions.md#let) 関数の使用方法を探索します。
 
@@ -185,7 +185,7 @@ windowed 関数と count 関数を適用して、整数のペアやトリプレ�
 
 ![YouTube](youtube.svg){width=25}{type="joined"} [Learn Kotlin With the Kotlin Team: Advent of Code 2020 #1](https://www.youtube.com/watch?v=o4emra1xm88)
 
-### Day 2: Password philosophy（パスワードの哲学）
+### Day 2: Password philosophy（パスワードの哲学） {id="day-2-password-philosophy"}
 
 文字列ユーティリティ関数、正規表現、コレクションの操作、および式の変換に [`let`](scope-functions.md#let) 関数がどのように役立つかを探索します。
 
@@ -194,7 +194,7 @@ windowed 関数と count 関数を適用して、整数のペアやトリプレ�
 
 ![YouTube](youtube.svg){width=25}{type="joined"} [Learn Kotlin with The Kotlin Team: Advent of Code 2020 #2](https://www.youtube.com/watch?v=MyvJ7G6aErQ)
 
-### Day 3: Toboggan trajectory（トボガンの軌道）
+### Day 3: Toboggan trajectory（トボガンの軌道） {id="day-3-toboggan-trajectory"}
 
 命令的なコードスタイルとより関数的なコードスタイルを比較し、ペアと [`reduce()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/reduce.html) 関数の使い方、列選択モードでのコード編集、および整数のオーバーフローの修正について学びます。
 
@@ -203,7 +203,7 @@ windowed 関数と count 関数を適用して、整数のペアやトリプレ�
 
 ![YouTube](youtube.svg){width=25}{type="joined"} [Learn Kotlin with the Kotlin Team: Advent of Code 2020 #3](https://www.youtube.com/watch?v=ounCIclwOAw)
 
-### Day 4: Passport processing（パスポートの処理）
+### Day 4: Passport processing（パスポートの処理） {id="day-4-passport-processing"}
 
 [`when`](control-flow.md#when-expressions-and-statements) 式を適用し、入力を検証するさまざまな方法を探索します（ユーティリティ関数、範囲の使用、セットのメンバーシップ確認、特定の正規表現とのマッチングなど）。
 
@@ -212,7 +212,7 @@ windowed 関数と count 関数を適用して、整数のペアやトリプレ�
 
 ![YouTube](youtube.svg){width=25}{type="joined"} [Learn Kotlin with the Kotlin Team: Advent of Code 2020 #4](https://www.youtube.com/watch?v=-kltG4Ztv1s)
 
-### Day 5: Binary boarding（バイナリ搭乗券）
+### Day 5: Binary boarding（バイナリ搭乗券） {id="day-5-binary-boarding"}
 
 Kotlin 標準ライブラリ関数（`replace()`、`toInt()`、`find()`）を使用して数値のバイナリ表現を処理し、強力なローカル関数を探索し、Kotlin 1.5 で `max()` 関数を使用する方法を学びます。
 
@@ -221,7 +221,7 @@ Kotlin 標準ライブラリ関数（`replace()`、`toInt()`、`find()`）を使
 
 ![YouTube](youtube.svg){width=25}{type="joined"} [Learn Kotlin with the Kotlin Team: Advent of Code 2020 #5](https://www.youtube.com/watch?v=XEFna3xyxeY)
 
-### Day 6: Custom customs（カスタム税関）
+### Day 6: Custom customs（カスタム税関） {id="day-6-custom-customs"}
 
 標準ライブラリ関数（`map()`、`reduce()`、`sumOf()`、`intersect()`、`union()`）を使用して、文字列やコレクション内の文字をグループ化しカウントする方法を学びます。
 
@@ -230,7 +230,7 @@ Kotlin 標準ライブラリ関数（`replace()`、`toInt()`、`find()`）を使
 
 ![YouTube](youtube.svg){width=25}{type="joined"} [Learn Kotlin with the Kotlin Team: Advent of Code 2020 #6](https://www.youtube.com/watch?v=QLAB0kZ-Tqc)
 
-### Day 7: Handy haversacks（便利な手提げ袋）
+### Day 7: Handy haversacks（便利な手提げ袋） {id="day-7-handy-haversacks"}
 
 正規表現の使用、Kotlin から HashMap の Java `compute()` メソッドを使用してマップ内の値を動的に計算する方法、`forEachLine()` 関数を使用したファイルの読み込み、および深さ優先探索と幅優先探索の 2 種類の探索アルゴリズムの比較を学びます。
 
@@ -239,7 +239,7 @@ Kotlin 標準ライブラリ関数（`replace()`、`toInt()`、`find()`）を使
 
 ![YouTube](youtube.svg){width=25}{type="joined"} [Learn Kotlin with the Kotlin Team: Advent of Code 2020 #7](https://www.youtube.com/watch?v=KyZiveDXWHw)
 
-### Day 8: Handheld halting（携帯端末の停止）
+### Day 8: Handheld halting（携帯端末の停止） {id="day-8-handheld-halting"}
 
 命令を表すためにシールドクラスとラムダ式を適用し、プログラム実行中のループを発見するために Kotlin のセット（set）を適用し、シーケンスと `sequence { }` ビルダー関数を使用して遅延コレクションを構築し、パフォーマンスメトリクスを確認するために実験的な `measureTimedValue()` 関数を試します。
 
@@ -248,7 +248,7 @@ Kotlin 標準ライブラリ関数（`replace()`、`toInt()`、`find()`）を使
 
 ![YouTube](youtube.svg){width=25}{type="joined"} [Learn Kotlin with the Kotlin Team: Advent of Code 2020 #8](https://www.youtube.com/watch?v=0GWTTSMatO8)
 
-### Day 9: Encoding error（エンコーディングエラー）
+### Day 9: Encoding error（エンコーディングエラー） {id="day-9-encoding-error"}
 
 慣用的な Kotlin スタイルの例として、`any()`、`firstOrNull()`、`firstNotNullOfOrNull()`、`windowed()`、`takeIf()`、および `scan()` 関数を使用して、Kotlin でリストを操作するさまざまな方法を探索します。
 
@@ -257,7 +257,7 @@ Kotlin 標準ライブラリ関数（`replace()`、`toInt()`、`find()`）を使
 
 ![YouTube](youtube.svg){width=25}{type="joined"} [Learn Kotlin with the Kotlin Team: Advent of Code 2020 #9](https://www.youtube.com/watch?v=vj3J9MuF1mI)
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [Kotlin Koans](koans.md) でさらに多くの課題に挑戦しましょう。
 * JetBrains Academy による無料の [Kotlin Core トラック](https://hyperskill.org/tracks?category=4&utm_source=jbkotlin_hs&utm_medium=referral&utm_campaign=kotlinlang-docs&utm_content=button_1&utm_term=22.03.23) で、実際に動作するアプリケーションを作成しましょう。

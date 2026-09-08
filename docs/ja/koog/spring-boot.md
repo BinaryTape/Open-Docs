@@ -8,7 +8,7 @@ status: beta
 
 Koogは、オートコンフィグレーション（自動設定）スターターを通じてシームレスなSpring Boot統合を提供します。これにより、最小限のセットアップでSpring BootアプリケーションにAIエージェントを簡単に組み込むことができます。
 
-## 概要
+## 概要 {id="overview"}
 
 `koog-spring-boot-starter` は、アプリケーションのプロパティに基づいてLLMクライアントを自動的に構成し、依存性注入（Dependency Injection）ですぐに使用できるBeanを提供します。以下を含むすべての主要なLLMプロバイダーをサポートしています。
 
@@ -20,9 +20,9 @@ Koogは、オートコンフィグレーション（自動設定）スタータ�
 - Mistral
 - Ollama
 
-## はじめに
+## はじめに {id="getting-started"}
 
-### 1. 依存関係の追加
+### 1. 依存関係の追加 {id="1-add-dependency"}
 
 Gradleのビルド設定に Koog Spring Boot スターターを追加します。
 
@@ -48,7 +48,7 @@ Kotlin または Java プロジェクトが以下の条件を満たしている�
 - Kotlin バージョン 2.3.10+
 - kotlinx-serialization バージョン 1.10.0（具体的には `kotlinx-serialization-core-jvm` および `kotlinx-serialization-json-jvm`）
 
-### 2. プロバイダーの設定
+### 2. プロバイダーの設定 {id="2-configure-providers"}
 
 `application.properties` で利用したいLLMプロバイダーを設定します。
 
@@ -141,7 +141,7 @@ OllamaのようにAPIキーをサポートしていないプロバイダーの�
 | DeepSeek     | `DEEPSEEK_API_KEY`    |
 | Mistral      | `MISTRALAI_API_KEY`   |
 
-### 3. プロジェクトでの使用
+### 3. プロジェクトでの使用 {id="3-use-in-your-project"}
 
 以下は、Spring MVCの `RestController` で自動構成されたエグゼキューターを使用する例です。これには以下のものが必要です。
 - `spring-boot-starter-web` 依存関係
@@ -237,8 +237,8 @@ OllamaのようにAPIキーをサポートしていないプロバイダーの�
 
 Spring Framework は Bean 名（`anthropicExecutor`）によって Anthropic のエグゼキューターを注入しましたが、`@Qualifier` アノテーションを使用して複数の `PromptExecutor` Bean を注入することも可能です（下記の「複数の Bean エラー」を参照）。
 
-## 高度な使い方
-### LLM プロバイダーのフォールバック
+## 高度な使い方 {id="advanced-usage"}
+### LLM プロバイダーのフォールバック {id="llm-provider-fallback"}
 
 複数の LLM プロバイダーを設定した後、`MultiLLMPromptExecutor` を介して複数の LLM にリクエストを送信できます。
 
@@ -335,9 +335,9 @@ Spring Framework は Bean 名（`anthropicExecutor`）によって Anthropic の
 
 独自の `MultiLLMPromptExecutor` Bean を登録し、それに `FallbackPromptExecutorSettings` を渡すこともできます。オートコンフィグレーションを独自の Bean で上書きするには、`@Primary` アノテーションを使用できます。
 
-## 設定リファレンス
+## 設定リファレンス {id="configuration-reference"}
 
-### 利用可能なプロパティ
+### 利用可能なプロパティ {id="available-properties"}
 
 | プロパティ | 説明 | Bean の条件 | デフォルト値 |
 |-------------------------------|---------------------|----------------------------------------|---------------------------------------------|
@@ -355,7 +355,7 @@ Spring Framework は Bean 名（`anthropicExecutor`）によって Anthropic の
 | `ai.koog.mistral.base-url`    | Mistral ベース URL    | オプション                             | `https://api.mistral.ai`                    |
 | `ai.koog.ollama.base-url`     | Ollama ベース URL    | オプション                             | `http://127.0.0.1:11434`                    |
 
-### Bean 名
+### Bean 名 {id="bean-names"}
 
 自動構成により、（設定されている場合）以下の Bean が作成されます。
 
@@ -368,9 +368,9 @@ Spring Framework は Bean 名（`anthropicExecutor`）によって Anthropic の
 - `ollamaExecutor` - Ollama エグゼキューター (`ai.koog.ollama.enabled=true` が必要)
 - `multiLLMPromptExecutor` - MultiLLMPromptExecutor
 
-## トラブルシューティング
+## トラブルシューティング {id="troubleshooting"}
 
-### よくある問題
+### よくある問題 {id="common-issues"}
 
 **エラー: No qualifying bean of type 'PromptExecutor' available**
 
@@ -415,7 +415,7 @@ Spring Framework は Bean 名（`anthropicExecutor`）によって Anthropic の
 
 **解決策:** 環境変数が正しく設定され、Spring Boot アプリケーションからアクセス可能であることを確認してください。
 
-## ベストプラクティス
+## ベストプラクティス {id="best-practices"}
 
 1. **環境変数**: API キーには常に環境変数を使用してください。
 2. **Nullable な注入**: プロバイダーが設定されていないケースを処理するために、Nullable 型を使用してください。
@@ -424,7 +424,7 @@ Spring Framework は Bean 名（`anthropicExecutor`）によって Anthropic の
 5. **テスト**: 実際の API 呼び出しを避けるため、テストではモックを使用してください。
 6. **設定の検証**: 使用する前にエグゼキューターが利用可能かどうかを確認してください。
 
-## 次のステップ
+## 次のステップ {id="next-steps"}
 
 - [基本的なエージェント](agents/basic-agents.md) について学び、最小限の AI ワークフローを構築する
 - 高度なユースケースのために [グラフベースのエージェント](agents/graph-based-agents.md) を探索する

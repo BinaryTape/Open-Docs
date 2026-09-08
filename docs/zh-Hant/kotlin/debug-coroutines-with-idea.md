@@ -6,7 +6,7 @@
 
 本教學假設您已具備[協同程式](coroutines-guide.md)概念的背景知識。
 
-## 建立協同程式
+## 建立協同程式 {id="create-coroutines"}
 
 1. 在 IntelliJ IDEA 中開啟一個 Kotlin 專案。如果您沒有專案，請[建立一個](jvm-get-started.md#create-a-project)。
 2. 若要在 Gradle 專案中使用 `kotlinx.coroutines` 程式庫，請將以下相依性新增至 `build.gradle(.kts)`：
@@ -65,7 +65,7 @@
 
     ![組建應用程式](flow-build-project.png)
 
-## 偵錯協同程式
+## 偵錯協同程式 {id="debug-coroutines"}
 
 1. 在呼叫 `println()` 函式的行設置中斷點：
 
@@ -103,7 +103,7 @@
 
 使用 IntelliJ IDEA 偵錯工具，您可以深入探索每個協同程式以偵錯您的程式碼。
 
-### 被優化掉的變數
+### 被優化掉的變數 {id="optimized-out-variables"}
 
 如果您使用 `suspend` 函式，在偵錯工具中，您可能會在變數名稱旁邊看到 "was optimized out" 文字：
 

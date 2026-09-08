@@ -35,7 +35,7 @@
 결과물인 앱은 안드로이드, iOS 및 데스크톱에서 실행됩니다.
 데스크톱 앱은 UI 동작을 빠르게 반복 수정할 수 있는 방법인 [Compose Hot Reload](compose-hot-reload.md) 예제로도 활용됩니다.
 
-## Kotlin Multiplatform 마이그레이션 체크리스트
+## Kotlin Multiplatform 마이그레이션 체크리스트 {id="checklist-for-a-potential-kotlin-multiplatform-migration"}
 
 KMP 마이그레이션의 주요 장애물은 Java와 Android View입니다.
 프로젝트가 이미 Kotlin으로 작성되어 있고 UI에 Jetpack Compose를 사용하고 있다면 마이그레이션 복잡성이 상당히 낮아집니다.
@@ -47,7 +47,7 @@ KMP 마이그레이션의 주요 장애물은 Java와 Android View입니다.
 3. [모듈화 기술 부채 해결](#catch-up-with-modularization-technical-debt)
 4. [Compose로 마이그레이션](#migrate-from-views-to-jetpack-compose)
 
-### Java 코드 변환 또는 격리
+### Java 코드 변환 또는 격리 {id="convert-or-isolate-java-code"}
 
 원래의 안드로이드 Jetcaster 예제에는 `Objects.hash()` 및 `Uri.encode()`와 같은 Java 전용 호출과 `java.time` 패키지의 광범위한 사용이 포함되어 있습니다.
 
@@ -60,7 +60,7 @@ Kotlin에서 Java를 호출하거나 그 반대로 호출할 수 있지만, Kotl
 
 [Java에서 Kotlin으로 마이그레이션하기 위한 가이드](https://kotlinlang.org/docs/java-to-kotlin-idioms-strings.html)와 Java 코드를 자동으로 변환하여 프로세스를 간소화할 수 있는 [IntelliJ IDEA의 헬퍼](https://www.jetbrains.com/help/idea/get-started-with-kotlin.html#convert-java-to-kotlin)가 마련되어 있습니다.
 
-### Android/JVM 전용 의존성 확인
+### Android/JVM 전용 의존성 확인 {id="check-your-android-jvm-only-dependencies"}
 
 많은 프로젝트, 특히 최신 프로젝트는 Java 코드를 많이 포함하지 않을 수 있지만, 안드로이드 전용 의존성을 가지고 있는 경우가 많습니다.
 Jetcaster의 경우, 대안을 찾고 마이그레이션하는 것이 작업의 대부분을 차지했습니다.
@@ -86,7 +86,7 @@ Jetcaster의 경우, 해당 라이브러리 목록은 다음과 같았습니다.
 이러한 모든 사례를 사전에 식별하기는 어려우므로, 마이그레이션 과정에서 교체 대상을 찾거나 코드를 다시 작성할 준비를 해야 합니다.
 이것이 바로 우리가 가능한 한 작은 단계로 하나의 작동 상태에서 다음 상태로 이동하는 방법을 보여주는 이유입니다. 그렇게 하면 많은 부분이 동시에 변경될 때 단일 이슈로 인해 전체 진행이 중단되지 않습니다.
 
-### 모듈화 기술 부채 해결
+### 모듈화 기술 부채 해결 {id="catch-up-with-modularization-technical-debt"}
 
 KMP를 사용하면 모듈별, 화면별로 선택적으로 멀티플랫폼 상태로 마이그레이션할 수 있습니다.
 하지만 이 과정이 순조롭게 진행되려면 모듈 구조가 명확하고 조작하기 쉬워야 합니다.
@@ -100,7 +100,7 @@ KMP를 사용하면 모듈별, 화면별로 선택적으로 멀티플랫폼 상�
 
 구조가 명확한다면 프로젝트에 모듈이 많더라도 개별적으로 KMP로 마이그레이션할 수 있습니다. 이 방식이 전체를 한꺼번에 다시 작성하는 것보다 훨씬 원활합니다.
 
-### Migrate from Views to Jetpack Compose
+### Migrate from Views to Jetpack Compose {id="migrate-from-views-to-jetpack-compose"}
 
 Kotlin Multiplatform은 크로스 플랫폼 UI 코드를 생성하는 방법으로 Compose Multiplatform을 제공합니다.
 Compose Multiplatform으로 원활하게 전환하려면 UI 코드가 이미 Compose로 작성되어 있어야 합니다. 현재 View를 사용하고 있다면, 새로운 패러다임과 프레임워크를 사용하여 해당 코드를 다시 작성해야 합니다.
@@ -109,7 +109,7 @@ Compose Multiplatform으로 원활하게 전환하려면 UI 코드가 이미 Com
 구글은 오랫동안 Compose를 발전시키고 풍부하게 만들어 왔습니다. 가장 일반적인 시나리오에 대한 도움을 얻으려면 [Jetpack Compose 마이그레이션 가이드](https://developer.android.com/develop/ui/compose/migrate)를 확인하거나 [AI를 활용한 마이그레이션 에이전트 스킬](https://github.com/android/skills/blob/main/jetpack-compose/migration/migrate-xml-views-to-jetpack-compose/SKILL.md)을 사용해 보세요.
 View-Compose 상호 운용성을 사용할 수도 있지만, Java 코드와 마찬가지로 이 코드는 `androidMain` 소스 세트에 격리되어야 합니다.
 
-## 앱을 멀티플랫폼으로 만드는 단계
+## 앱을 멀티플랫폼으로 만드는 단계 {id="steps-to-make-an-app-multiplatform"}
 
 초기 준비 및 평가가 완료된 후의 일반적인 프로세스는 다음과 같습니다.
 
@@ -132,7 +132,7 @@ View-Compose 상호 운용성을 사용할 수도 있지만, Java 코드와 마�
 > 
 {style="tip"}
 
-### 환경 준비 {collapsible="true"}
+### 환경 준비 {collapsible="true" id="prepare-the-environment"}
 
 마이그레이션 단계를 따라하거나 제공된 샘플을 로컬 머신에서 실행하려면 환경을 준비해야 합니다.
 
@@ -149,7 +149,7 @@ View-Compose 상호 운용성을 사용할 수도 있지만, Java 코드와 마�
    git@github.com:kotlin-hands-on/jetcaster-kmp-migration.git
    ```
 
-## 멀티플랫폼 라이브러리로 마이그레이션
+## 멀티플랫폼 라이브러리로 마이그레이션 {id="migrate-to-multiplatform-libraries"}
 
 앱 기능의 대부분이 의존하는 몇 가지 라이브러리가 있습니다.
 멀티플랫폼 지원을 위해 모듈을 구성하기 전에 이러한 라이브러리 사용을 KMP 호환 방식으로 전환할 수 있습니다.
@@ -173,7 +173,7 @@ View-Compose 상호 운용성을 사용할 수도 있지만, Java 코드와 마�
 
   > [결과 커밋](https://github.com/kotlin-hands-on/jetcaster-kmp-migration/commit/82109598dbfeda9dceecc10b40487f80639c5db4)을 확인하세요.
 
-### Java 의존적인 코드를 Kotlin으로 재작성
+### Java 의존적인 코드를 Kotlin으로 재작성 {id="rewrite-java-dependent-code-into-kotlin"}
 
 이제 주요 라이브러리가 모두 멀티플랫폼화되었으므로 Java 전용 의존성을 제거해야 합니다.
 
@@ -185,7 +185,7 @@ Java 전용 호출의 간단한 예는 `Objects.hash()`이며, 이를 Kotlin으�
 
 시간과 관련된 모든 재작성 작업은 [이 커밋](https://github.com/kotlin-hands-on/jetcaster-kmp-migration/commit/0cb5b31964991fdfaed7615523bb734b22f9c755)에 모여 있습니다.
 
-## 비즈니스 로직 마이그레이션
+## 비즈니스 로직 마이그레이션 {id="migrating-the-business-logic"}
 
 주요 의존성이 멀티플랫폼화되면 마이그레이션을 시작할 모듈을 선택할 수 있습니다.
 프로젝트 모듈의 의존성 그래프를 그려보는 것이 유용할 수 있습니다.
@@ -235,9 +235,9 @@ flowchart TB
 4. `:core:domain-testing`
 5. `:core:designsystem` — 이 모듈은 모듈 의존성이 없지만 UI 헬퍼 모듈이므로, UI 코드를 공유 모듈로 옮길 준비가 되었을 때 다룹니다.
 
-### :core:data 마이그레이션
+### :core:data 마이그레이션 {id="migrate-core-data"}
 
-#### :core:data 구성 및 데이터베이스 코드 마이그레이션
+#### :core:data 구성 및 데이터베이스 코드 마이그레이션 {id="configure-core-data-and-migrate-database-code"}
 
 Jetcaster는 데이터베이스 라이브러리로 [Room](https://developer.android.com/training/data-storage/room)을 사용합니다.
 Room은 버전 2.7.0부터 멀티플랫폼을 지원하므로, 플랫폼 간에 작동하도록 코드만 업데이트하면 됩니다.
@@ -256,7 +256,7 @@ Room의 멀티플랫폼 버전으로 전환하기 위해 안드로이드의 [일
 [결과 커밋](https://github.com/kotlin-hands-on/jetcaster-kmp-migration/commit/098a72a25f07958b90ae8778081ab1c7f2988543)을 확인하세요.
 Gradle 구성을 업데이트하고 소스 세트 폴더 구조로 이동하기만 하면 됩니다.
 
-#### :core:domain 구성 및 마이그레이션
+#### :core:domain 구성 및 마이그레이션 {id="configure-and-migrate-core-domain"}
 
 모든 의존성이 이미 고려되고 멀티플랫폼으로 마이그레이션되었다면, 코드를 이동하고 모듈을 재구성하기만 하면 됩니다.
 
@@ -266,14 +266,14 @@ Gradle 구성을 업데이트하고 소스 세트 폴더 구조로 이동하기�
 
 > [결과 커밋](https://github.com/kotlin-hands-on/jetcaster-kmp-migration/commit/a46f0a98b8d95656e664dca0d95da196034f2ec3)을 확인하세요.
 
-#### :core:designsystem 구성 및 마이그레이션
+#### :core:designsystem 구성 및 마이그레이션 {id="configure-and-migrate-core-designsystem"}
 
 UI 코드만 마이그레이션하면 되는 상황에서, 글꼴 리소스와 타이포그래피가 포함된 `:core:designsystem` 모듈의 전환을 시작합니다.
 KMP 모듈 구성 및 `commonMain` 소스 세트 생성 외에도, `MaterialExpressiveTheme`의 `JetcasterTypography` 인수를 컴포저블로 만들어 멀티플랫폼 글꼴에 대한 호출을 캡슐화했습니다.
 
 > [결과 커밋](https://github.com/kotlin-hands-on/jetcaster-kmp-migration/commit/4aa92e3f38d06aa64444163d865753e47e9b2a97)을 확인하세요.
 
-## UI 코드를 멀티플랫폼으로 마이그레이션
+## UI 코드를 멀티플랫폼으로 마이그레이션 {id="migrating-to-multiplatform-ui"}
 
 모든 `:core` 로직이 멀티플랫폼화되면 UI도 공통 코드로 옮기기 시작할 수 있습니다.
 다시 말하지만, 완전한 마이그레이션을 목표로 하므로 아직 iOS 타겟을 추가하지는 않고, 안드로이드 앱이 공통 코드에 배치된 Compose 부분과 잘 작동하는지만 확인합니다.
@@ -373,7 +373,7 @@ UI를 점진적으로 마이그레이션하는 것을 보여주기 위해 화면
 
 이제 모든 UI 코드가 공통화되었으므로, 이를 사용하여 다른 플랫폼용 앱을 빠르게 만들 수 있습니다.
 
-## 선택 사항: JVM 진입점 추가
+## 선택 사항: JVM 진입점 추가 {id="optional-add-a-jvm-entry-point"}
 
 이 선택적 단계는 다음을 돕습니다.
 * 완전히 멀티플랫폼화된 안드로이드 앱에서 데스크톱 앱을 만드는 데 얼마나 적은 노력이 드는지 보여줍니다.
@@ -383,7 +383,7 @@ UI를 점진적으로 마이그레이션하는 것을 보여주기 위해 화면
 
 > [결과 커밋](https://github.com/kotlin-hands-on/jetcaster-kmp-migration/commit/af033dbf39188ef3991466727d155b988c30f1d3)을 확인하세요.
 
-## iOS 진입점 추가
+## iOS 진입점 추가 {id="add-an-ios-entry-point"}
 
 iOS 진입점에는 KMP 코드와 연결된 iOS 프로젝트가 필요합니다.
 
@@ -398,13 +398,13 @@ iOS 앱에 `JetcasterApp` 컴포저블이 포함된 `UIViewController`를 반환
 
 > 추가된 iOS 프로젝트와 그에 따른 코드 업데이트를 [결과 커밋](https://github.com/kotlin-hands-on/jetcaster-kmp-migration/commit/2b2c412596e199b140089efc73de03e46f5c1d77)에서 확인하세요.
 
-## 앱 실행
+## 앱 실행 {id="run-the-app"}
 
 마이그레이션된 앱의 최종 상태에는 초기 안드로이드 모듈(`mobile`)과 새로운 iOS 앱에 대한 실행 구성이 있습니다.
 데스크톱 앱은 해당 `main.kt` 파일에서 실행할 수 있습니다.
 모두 실행하여 공유 UI가 모든 플랫폼에서 어떻게 작동하는지 확인해 보세요!
 
-## 최종 요약
+## 최종 요약 {id="final-summary"}
 
 이 마이그레이션에서는 순수 안드로이드 앱을 Kotlin Multiplatform 앱으로 전환하기 위한 일반적인 단계를 따랐습니다.
 

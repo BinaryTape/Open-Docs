@@ -47,7 +47,7 @@ Koog의 **스트리밍 API(Streaming API)**를 사용하면 Kotlin에서는 `Flo
 
 일반 텍스트를 추출하거나, 프레임을 `Message.Response` 객체로 변환하고, **청크된(chunked) 도구 호출을 안전하게 결합**할 수 있는 헬퍼 함수들이 제공됩니다.
 
-## API 개요 (API overview)
+## API 개요 (API overview) {id="api-overview"}
 
 스트리밍을 통해 다음을 수행할 수 있습니다:
 
@@ -59,7 +59,7 @@ Koog의 **스트리밍 API(Streaming API)**를 사용하면 Kotlin에서는 `Flo
 
 **프레임** 자체를 직접 조작하거나, 프레임에서 파생된 **일반 텍스트(plain text)**를 조작할 수 있습니다.
 
-### 델타 프레임 vs 컴플리트 프레임 (Delta vs Complete Frames)
+### 델타 프레임 vs 컴플리트 프레임 (Delta vs Complete Frames) {id="delta-vs-complete-frames"}
 
 스트리밍 API는 두 종류의 프레임을 구분합니다:
 
@@ -70,9 +70,9 @@ Koog의 **스트리밍 API(Streaming API)**를 사용하면 Kotlin에서는 `Flo
 일반적으로 UI 업데이트에는 델타 프레임을 사용하고, 최종 구조화된 데이터를 추출할 때는 컴플리트 프레임을 사용합니다.
 
 ---
-## 사용법 (Usage)
+## 사용법 (Usage) {id="usage"}
 
-### 프레임 직접 다루기 (Working with frames directly)
+### 프레임 직접 다루기 (Working with frames directly) {id="working-with-frames-directly"}
 
 가장 일반적인 접근 방식은 각 프레임 종류에 따라 반응하는 것입니다.
 
@@ -278,7 +278,7 @@ Tool call: " + toolCall.getName()
     ```
     <!--- KNIT exampleStreamingApiJava02.java -->
 
-### 추론 프레임 다루기 (Working with reasoning frames)
+### 추론 프레임 다루기 (Working with reasoning frames) {id="working-with-reasoning-frames"}
 
 추론을 지원하는 모델(예: Claude Sonnet 4.5 또는 GPT-o1)은 스트리밍 중에 추론 프레임을 내보냅니다. 추론 과정과 그 요약에 모두 액세스할 수 있습니다:
 
@@ -411,7 +411,7 @@ Complete reasoning: "
     ```
     <!--- KNIT exampleStreamingApiReasoningJava01.java -->
 
-### 파생된 원시 텍스트 스트림 다루기 (Working with a raw text stream (derived))
+### 파생된 원시 텍스트 스트림 다루기 (Working with a raw text stream (derived)) {id="working-with-a-raw-text-stream-derived"}
 
 `Flow<String>`을 기대하는 기존 스트리밍 파서가 있는 경우, `filterTextOnly()`를 통해 텍스트 청크를 파생시키거나 `collectText()`를 사용해 수집하십시오.
 
@@ -502,7 +502,7 @@ $fullText")
     ```
     <!--- KNIT exampleStreamingApiJava03.java -->
 
-### 이벤트 핸들러에서 스트림 이벤트 리스닝하기 (Listening to stream events in event handlers)
+### 이벤트 핸들러에서 스트림 이벤트 리스닝하기 (Listening to stream events in event handlers) {id="listening-to-stream-events-in-event-handlers"}
 
 [에이전트 이벤트 핸들러](features/agent-event-handlers.md)에서 스트림 이벤트를 리스닝할 수 있습니다.
 
@@ -593,7 +593,7 @@ Using " + ctx.getToolName() + " with " + ctx.getToolArgs() + "... ");
     ```
     <!--- KNIT exampleStreamingApiJava04.java -->
 
-### 프레임을 `Message.Response`로 변환하기 (Converting frames to `Message.Response`)
+### 프레임을 `Message.Response`로 변환하기 (Converting frames to `Message.Response`) {id="converting-frames-to-message-response"}
 
 수집된 프레임 리스트를 표준 메시지 객체로 변환할 수 있습니다:
 
@@ -602,9 +602,9 @@ Using " + ctx.getToolName() + " with " + ctx.getToolArgs() + "... ");
 - `toToolCallMessages()` — 도구 호출 프레임에서 `MessagePart.Tool.Call`을 추출합니다.
 - `toMessageResponses()` — 모든 컴플리트 프레임을 해당 `Message.Response` 객체로 변환합니다.
 
-## 예제 (Examples)
+## 예제 (Examples) {id="examples"}
 
-### 스트리밍 중 구조화된 데이터 처리 (마크다운 예시) (Structured data while streaming (Markdown example))
+### 스트리밍 중 구조화된 데이터 처리 (마크다운 예시) (Structured data while streaming (Markdown example)) {id="structured-data-while-streaming-markdown-example"}
 
 원시 문자열 스트림을 직접 다루는 것도 가능하지만, [구조화된 데이터](structured-output.md)를 사용하는 것이 더 편리할 때가 많습니다.
 
@@ -615,7 +615,7 @@ Using " + ctx.getToolName() + " with " + ctx.getToolArgs() + "... ");
 
 아래 섹션에서는 구조화된 데이터 스트림을 처리하는 것과 관련된 단계별 지침과 코드 샘플을 제공합니다. 
 
-#### 1. 데이터 구조 정의하기 (Define your data structure)
+#### 1. 데이터 구조 정의하기 (Define your data structure) {id="1-define-your-data-structure"}
 
 먼저, 구조화된 데이터를 나타낼 데이터 클래스를 정의합니다:
 
@@ -649,7 +649,7 @@ Using " + ctx.getToolName() + " with " + ctx.getToolArgs() + "... ");
     ```
     <!--- KNIT exampleStreamingApiJava05.java -->
 
-#### 2. 마크다운 구조 정의하기 (Define the Markdown structure)
+#### 2. 마크다운 구조 정의하기 (Define the Markdown structure) {id="2-define-the-markdown-structure"}
 
 `MarkdownStructureDefinition` 클래스를 사용하여 마크다운에서 데이터가 어떻게 구조화되어야 하는지 명시하는 정의를 생성합니다:
 
@@ -697,7 +697,7 @@ Using " + ctx.getToolName() + " with " + ctx.getToolArgs() + "... ");
     ```
     <!--- KNIT exampleStreamingApiJava06.java -->
 
-#### 3. 데이터 구조를 위한 파서 생성하기 (Create a parser for your data structure)
+#### 3. 데이터 구조를 위한 파서 생성하기 (Create a parser for your data structure) {id="3-create-a-parser-for-your-data-structure"}
 
 `markdownStreamingParser`는 다양한 마크다운 요소에 대한 여러 핸들러를 제공합니다:
 
@@ -813,7 +813,7 @@ Using " + ctx.getToolName() + " with " + ctx.getToolArgs() + "... ");
     ```
     <!--- KNIT exampleStreamingApiJava08.java -->
 
-#### 4. 에이전트 전략에서 파서 사용하기 (Use the parser in your agent strategy)
+#### 4. 에이전트 전략에서 파서 사용하기 (Use the parser in your agent strategy) {id="4-use-the-parser-in-your-agent-strategy"}
 
 === "Kotlin"
 
@@ -866,12 +866,12 @@ Using " + ctx.getToolName() + " with " + ctx.getToolArgs() + "... ");
     ```
     <!--- KNIT exampleStreamingApiJava09.java -->
 
-### 고급 사용법: 도구를 사용한 스트리밍 (Advanced usage: Streaming with tools)
+### 고급 사용법: 도구를 사용한 스트리밍 (Advanced usage: Streaming with tools) {id="advanced-usage-streaming-with-tools"}
 
 스트리밍 API를 도구와 함께 사용하여 데이터가 도착하는 대로 처리할 수도 있습니다. 
 다음 섹션에서는 도구를 정의하고 스트리밍 데이터와 함께 사용하는 방법에 대한 간단한 단계별 가이드를 제공합니다.
 
-### 1. 데이터 구조를 위한 도구 정의하기 (Define a tool for your data structure)
+### 1. 데이터 구조를 위한 도구 정의하기 (Define a tool for your data structure) {id="1-define-a-tool-for-your-data-structure"}
 
 === "Kotlin"
 
@@ -931,7 +931,7 @@ Using " + ctx.getToolName() + " with " + ctx.getToolArgs() + "... ");
     ```
     <!--- KNIT exampleStreamingApiJava10.java -->
 
-### 2. 스트리밍 데이터와 함께 도구 사용하기 (Use the tool with streaming data)
+### 2. 스트리밍 데이터와 함께 도구 사용하기 (Use the tool with streaming data) {id="2-use-the-tool-with-streaming-data"}
 
 === "Kotlin"
 
@@ -1043,7 +1043,7 @@ Using " + ctx.getToolName() + " with " + ctx.getToolArgs() + "... ");
     ```
     <!--- KNIT exampleStreamingApiJava11.java -->
 
-### 3. 에이전트 구성에 도구 등록하기 (Register the tool in your agent configuration)
+### 3. 에이전트 구성에 도구 등록하기 (Register the tool in your agent configuration) {id="3-register-the-tool-in-your-agent-configuration"}
 
 === "Kotlin"
 
@@ -1103,7 +1103,7 @@ Using " + ctx.getToolName() + " with " + ctx.getToolArgs() + "... ");
     ```
     <!--- KNIT exampleStreamingApiJava12.java -->
 
-## 권장 사항 (Best practices)
+## 권장 사항 (Best practices) {id="best-practices"}
 
 1. **명확한 구조 정의**: 데이터에 대해 명확하고 모호하지 않은 마크다운 구조를 생성합니다.
 

@@ -10,7 +10,7 @@ Agent Client Protocol (ACP) 是一种开源的标准化协议，使客户端应�
 
 要了解更多信息，请参阅 [Agent Client Protocol] 文档。
 
-## 与 Koog 集成
+## 与 Koog 集成 {id="integration-with-koog"}
 
 Koog 框架使用 [ACP Kotlin SDK] 以及额外的 API 扩展来实现与 ACP 的集成。此集成提供：
 
@@ -23,7 +23,7 @@ Koog 框架使用 [ACP Kotlin SDK] 以及额外的 API 扩展来实现与 ACP �
 
     由于 [ACP Kotlin SDK] 是 JVM 特定的，因此 ACP 集成目前仅在 JVM 平台上可用。
 
-### 添加依赖项
+### 添加依赖项 {id="add-dependencies"}
 
 ACP 支持是一项可选[功能](features/index.md)，默认情况下在 Koog 中不可用。要在您的 Koog 智能体中实现 ACP，请添加 [ai.koog:agents-features-acp](https://mvnrepository.com/artifact/ai.koog/agents-features-acp) 依赖项，该依赖项本身依赖于 [com.agentclientprotocol:acp](https://mvnrepository.com/artifact/com.agentclientprotocol:acp)。
 
@@ -35,7 +35,7 @@ dependencies {
 }
 ```
 
-### 为 Koog 智能体启用 ACP
+### 为 Koog 智能体启用 ACP {id="enable-acp-for-a-koog-agent"}
 
 要将 Koog 智能体的内部[事件系统](agent-events.md)与 ACP 协议桥接，请安装 `ai.koog.agents.features.acp.AcpAgent` 功能。安装后，它会侦听生命周期事件（如工具调用或 LLM 响应）并将它们发送到 ACP 客户端。
 
@@ -71,7 +71,7 @@ val agent = AIAgent(
 
 如后续章节所述，此智能体必须在 ACP 会话的作用域内运行。
 
-### 实现支持 ACP 的智能体
+### 实现支持 ACP 的智能体 {id="implement-an-acp-enabled-agent"}
 
 要将您的 Koog 智能体连接到 ACP 客户端，请实现来自 [ACP Kotlin SDK](https://github.com/agentclientprotocol/kotlin-sdk) 的两个核心接口：
 
@@ -229,17 +229,17 @@ val agent = AIAgent(
     ```
     <!--- KNIT example-agent-client-protocol-03.kt -->
 
-## 事件流
+## 事件流 {id="event-streaming"}
 
 示例中的 `AgentSession` 定义了一个 `prompt()` 函数，该函数返回一个事件 `channelFlow`。然后，您安装 `AcpAgent` 功能，并将 `this@channelFlow` 作为 `eventsProducer`。这允许从不同的协程发送事件。
 
-## 执行同步
+## 执行同步 {id="execution-synchronization"}
 
 示例中的 `AgentSession` 使用互斥锁 (mutex) 来同步对智能体实例的访问，因为在之前的执行完成之前，ACP 不应触发新的智能体执行。为此，创建和运行智能体发生在为定义的互斥锁指定的 `withLock` 作用域内。
 
 您还在 `channelFlow` 作用域内以延迟作业 `agentJob` 的形式异步运行智能体，以确保智能体不会被过早取消。
 
-## 处理 ACP 客户端输入
+## 处理 ACP 客户端输入 {id="handling-acp-client-input"}
 
 ACP 客户端将用户输入作为 [`ContentBlock`](https://agentclientprotocol.com/protocol/schema#contentblock) 对象列表发送。要在 Koog 中处理这些内容，请使用 `List<ContentBlock>.toKoogMessage()` 扩展函数将 ACP 内容块转换为 [`Message.User`](api:prompt-model::ai.koog.prompt.message.Message.User)，并将其附加到您的[智能体提示词](prompts/index.md)中。
 
@@ -268,7 +268,7 @@ private fun Prompt.appendPrompt(content: List<ContentBlock>): Prompt {
 
 有关更多信息，请参阅[转换消息](#converting-messages)。
 
-## 转换消息
+## 转换消息 {id="converting-messages"}
 
 `agents-features-acp` 模块提供了扩展函数，可在 Koog 的内部消息类型与 [ACP 内容块](https://agentclientprotocol.com/protocol/content)之间进行无缝转换。
 
@@ -282,7 +282,7 @@ private fun Prompt.appendPrompt(content: List<ContentBlock>): Prompt {
 - `Message.Response.toAcpEvents()` 将 [`Message.Response`](api:prompt-model::ai.koog.prompt.message.Message.Response) 转换为 ACP 会话更新事件列表
 - `ContentPart.toAcpContentBlock()` 将 [`ContentPart`](api:prompt-model::ai.koog.prompt.message.ContentPart) 转换为单个 ACP 内容块
 
-## 处理智能体通知
+## 处理智能体通知 {id="handling-agent-notifications"}
 
 默认情况下，`setDefaultNotifications` 设置为 `true`，启用 ACP 的智能体会自动处理以下通知：
 
@@ -311,7 +311,7 @@ private fun Prompt.appendPrompt(content: List<ContentBlock>): Prompt {
 
 如果您想自定义通知处理，请将 `setDefaultNotifications = false` 并根据规范处理智能体事件。
 
-## 发送自定义事件
+## 发送自定义事件 {id="sending-custom-events"}
 
 除了自动通知外，您还可以在智能体执行期间的任何时间点使用 `sendEvent` 在 `withAcpAgent` 块内向 ACP 客户端发送自定义事件。这对于进度更新、自定义状态消息或计划更新非常有用。
 
@@ -368,11 +368,11 @@ val strategy = strategy<Unit, Unit>("my-strategy") {
 ```
 <!--- KNIT example-agent-client-protocol-06.kt -->
 
-## 示例
+## 示例 {id="examples"}
 
 您可以在 Koog 仓库的 [/examples](https://github.com/JetBrains/koog/tree/develop/examples/) 目录下找到 Koog 智能体的运行示例。
 
-### 运行基于控制台的 ACP 客户端
+### 运行基于控制台的 ACP 客户端 {id="running-a-console-based-acp-client"}
 
 此示例运行一个基于控制台的 ACP 客户端，该客户端与一个简单的 Koog 智能体进行交互。
 
@@ -385,7 +385,7 @@ val strategy = strategy<Unit, Unit>("my-strategy") {
     ```
 5. 观察控制台中的事件跟踪，了解 Koog 事件如何转换为 ACP 事件并发送到客户端。
 
-### 将支持 ACP 的 Koog 智能体连接到 JetBrains IDE
+### 将支持 ACP 的 Koog 智能体连接到 JetBrains IDE {id="connecting-an-acp-enabled-koog-agent-to-a-jetbrains-ide"}
 
 此示例演示如何创建一个支持 ACP 的智能体并连接到 IntelliJ IDEA。
 

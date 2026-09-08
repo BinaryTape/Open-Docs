@@ -10,7 +10,7 @@
 
 有关协程与线程之间区别的更多信息，请参阅[比较协程与 JVM 线程](#comparing-coroutines-and-jvm-threads)。
 
-## 挂起函数
+## 挂起函数 {id="suspending-functions"}
 
 协程最基本的构建块是**挂起函数**。它允许正在运行的操作暂停并在稍后恢复，而不会影响代码的结构。
 
@@ -45,7 +45,7 @@ suspend fun greet() {
 
 虽然 `suspend` 关键字是 Kotlin 核心语言的一部分，但大多数协程功能都是通过 [`kotlinx.coroutines`](https://github.com/Kotlin/kotlinx.coroutines) 库提供的。
 
-## 在项目中添加 kotlinx.coroutines 库
+## 在项目中添加 kotlinx.coroutines 库 {id="add-the-kotlinx-coroutines-library-to-your-project"}
 
 要在项目中包含 `kotlinx.coroutines` 库，请根据你的构建工具添加相应的依赖项配置：
 
@@ -97,7 +97,7 @@ dependencies {
 </tab>
 </tabs>
 
-## 创建你的第一个协程
+## 创建你的第一个协程 {id="create-your-first-coroutines"}
 
 > 此页面上的示例在协程构建器函数 `CoroutineScope.launch()` 和 `CoroutineScope.async()` 中使用了显式的 `this` 表达式。这些协程构建器是 `CoroutineScope` 上的[扩展函数](extensions.md)，`this` 表达式引用当前的 `CoroutineScope` 作为接收者。
 >
@@ -273,7 +273,7 @@ suspend fun main() {
 
 由于本示例中未指定[调度器](#coroutine-dispatchers)，`coroutineScope()` 块中的 `CoroutineScope.launch()` 构建器函数会继承当前上下文。如果该上下文没有指定的调度器，`CoroutineScope.launch()` 将使用在共享线程池上运行的 `Dispatchers.Default`。
 
-### 从协程作用域中提取协程构建器
+### 从协程作用域中提取协程构建器 {id="extract-coroutine-builders-from-the-coroutine-scope"}
 
 在某些情况下，你可能希望将协程构建器调用（如 [`CoroutineScope.launch()`](#coroutinescope-launch)）提取到单独的函数中。
 
@@ -327,7 +327,7 @@ fun launchAll() {
 
 在此示例中，`launchAll()` 函数不需要 `suspend` 关键字，因为它仅在当前 `CoroutineScope` 中启动协程，然后立即返回。仅当函数在返回前需要暂停和恢复时，才应将其标记为 `suspend`。
 
-## 协程构建器函数
+## 协程构建器函数 {id="coroutine-builder-functions"}
 
 协程构建器函数是一种接受 `suspend` [lambda](lambdas.md) 并定义要运行的协程的函数。以下是一些示例：
 
@@ -339,7 +339,7 @@ fun launchAll() {
 
 协程构建器函数需要在一个 `CoroutineScope` 中运行。这可以是一个现有的作用域，或者是你使用诸如 `coroutineScope()`、[`runBlocking()`](#runblocking) 或 [`withContext()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/with-context.html#) 等辅助函数创建的作用域。每个构建器都定义了协程如何启动以及你如何与其结果进行交互。
 
-### `CoroutineScope.launch()`
+### `CoroutineScope.launch()` {id="coroutinescope-launch"}
 
 [`CoroutineScope.launch()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/launch.html#) 协程构建器函数是 `CoroutineScope` 上的扩展函数。它在一个现有的[协程作用域](#coroutine-scope-and-structured-concurrency)内部启动一个新协程，而不会阻塞该作用域的其余部分。
 
@@ -379,7 +379,7 @@ suspend fun performBackgroundWork() = coroutineScope { // this: CoroutineScope
 > 
 {style="tip"}
 
-### `CoroutineScope.async()`
+### `CoroutineScope.async()` {id="coroutinescope-async"}
 
 [`CoroutineScope.async()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/async.html) 协程构建器函数是 `CoroutineScope` 上的扩展函数。它在现有的[协程作用域](#coroutine-scope-and-structured-concurrency)内启动一个并发计算，并返回一个表示最终结果的 [`Deferred`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-deferred/) 句柄。使用 `.await()` 函数可以挂起代码，直到结果准备就绪：
 
@@ -411,7 +411,7 @@ suspend fun main() = withContext(Dispatchers.Default) { // this: CoroutineScope
 ```
 {kotlin-runnable="true"}
 
-### `runBlocking()`
+### `runBlocking()` {id="runblocking"}
 
 [`runBlocking()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/run-blocking.html) 协程构建器函数会创建一个协程作用域，并阻塞当前[线程](#comparing-coroutines-and-jvm-threads)，直到在该作用域内启动的协程完成。
 
@@ -441,7 +441,7 @@ suspend fun myReadItem(): Int {
 }
 ```
 
-## 协程调度器
+## 协程调度器 {id="coroutine-dispatchers"}
 
 [**协程调度器**](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-dispatchers/#)控制协程在执行时使用哪个线程或线程池。协程并不总是绑定到单个线程。根据调度器的不同，它们可以在一个线程上暂停并在另一个线程上恢复。这允许你在不为每个协程分配单独线程的情况下同时运行许多协程。
 
@@ -505,7 +505,7 @@ suspend fun main() = withContext(Dispatchers.Default) { // this: CoroutineScope
 
 要详细了解协程调度器及其用途，包括 [`Dispatchers.IO`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-dispatchers/-i-o.html) 和 [`Dispatchers.Main`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-dispatchers/-main.html) 等其他调度器，请参阅[协程上下文与调度器](coroutine-context-and-dispatchers.md)。
 
-## 比较协程与 JVM 线程
+## 比较协程与 JVM 线程 {id="comparing-coroutines-and-jvm-threads"}
 
 虽然协程是可挂起的计算，可以像 JVM 上的线程一样并发运行代码，但它们在底层的运作方式不同。
 
@@ -562,7 +562,7 @@ fun main() {
 
 根据你的操作系统、JDK 版本和设置，JVM 线程版本可能会抛出内存不足错误，或者为了避免同时运行过多线程而降低线程创建速度。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * 在[组合挂起函数](composing-suspending-functions.md)中了解更多关于组合挂起函数的内容。
 * 在[取消与超时](coroutines-cancellation.md)中学习如何取消协程以及处理超时。

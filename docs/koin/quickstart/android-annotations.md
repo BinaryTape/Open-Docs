@@ -9,13 +9,13 @@ title: Android 与注解
 更新 - 2024-10-21
 :::
 
-## 获取代码
+## 获取代码 {id="get-the-code"}
 
 :::info
 [源代码可在 GitHub 上获取](https://github.com/InsertKoinIO/koin-getting-started/tree/main/android-annotations)
 :::
 
-## Gradle 设置
+## Gradle 设置 {id="gradle-setup"}
 
 让我们像这样配置 KSP 插件以及以下依赖项：
 
@@ -41,13 +41,13 @@ ksp {
 有关当前版本，请参阅 `libs.versions.toml`
 :::
 
-## 应用程序概览
+## 应用程序概览 {id="application-overview"}
 
 该应用程序的想法是管理一个用户列表，并使用 Presenter 或 ViewModel 在我们的 `MainActivity` 类中显示它：
 
 > Users -> UserRepository -> UserService -> (Presenter 或 ViewModel) -> MainActivity
 
-## “User”数据
+## “User”数据 {id="the-user-data"}
 
 我们将管理一个 User 集合。这是数据类：
 
@@ -78,7 +78,7 @@ class UserRepositoryImpl : UserRepository {
 }
 ```
 
-## UserService 组件
+## UserService 组件 {id="the-userservice-component"}
 
 让我们编写一个服务组件来管理用户操作：
 
@@ -114,7 +114,7 @@ class UserServiceImpl(
 }
 ```
 
-## Koin 模块
+## Koin 模块 {id="the-koin-module"}
 
 让我们声明一个如下所示的 `AppModule` 模块类：
 
@@ -145,7 +145,7 @@ class UserServiceImpl(private val userRepository: UserRepository) : UserService 
 
 `@Singleton` 注解将这些类声明为 Koin 中的单例。
 
-## 使用 Presenter 显示用户
+## 使用 Presenter 显示用户 {id="displaying-user-with-presenter"}
 
 让我们编写一个 Presenter 组件来显示用户：
 
@@ -172,7 +172,7 @@ class UserPresenter(private val userService: UserService) {
 }
 ```
 
-## 在 Android 中注入依赖项
+## 在 Android 中注入依赖项 {id="injecting-dependencies-in-android"}
 
 `UserPresenter` 组件将被创建，并随之解析 `UserService` 实例。为了将其获取到我们的 Activity 中，让我们使用 `by inject()` 委托函数进行注入：
 
@@ -195,7 +195,7 @@ class MainActivity : AppCompatActivity() {
 `by inject()` 函数允许我们在 Android 组件运行时（Activity、Fragment、Service...）检索 Koin 实例
 :::
 
-## 启动 Koin
+## 启动 Koin {id="start-koin"}
 
 我们需要在 Android 应用程序中启动 Koin。通过使用 `@KoinApplication` 注解，Koin 会自动发现并加载所有标记为 `@Configuration` 的模块：
 
@@ -227,7 +227,7 @@ class MainApplication : Application() {
 `@KoinApplication` 注解与模块上的 `@Configuration` 配合使用，通过 KSP 在编译时自动发现并加载所有依赖项。
 :::
 
-## 使用 ViewModel 显示用户
+## 使用 ViewModel 显示用户 {id="displaying-user-with-viewmodel"}
 
 让我们编写一个 ViewModel 组件来显示用户：
 
@@ -247,7 +247,7 @@ class UserViewModel(private val userService: UserService) : ViewModel() {
 
 `UserViewModel` 被标记为 `@KoinViewModel` 注解以声明 Koin ViewModel 定义。这确保了正确的生命周期管理并避免内存泄漏。
 
-## 在 Android 中注入 ViewModel
+## 在 Android 中注入 ViewModel {id="injecting-viewmodel-in-android"}
 
 `UserViewModel` 组件将被创建，并随之解析 `UserService` 实例。为了将其获取到我们的 Activity 中，让我们使用 `by viewModel()` 委托函数进行注入：
 
@@ -264,7 +264,7 @@ class MainActivity : AppCompatActivity() {
 }
 ```
 
-## 编译时检查
+## 编译时检查 {id="compile-time-checks"}
 
 Koin 注解允许在编译时检查您的 Koin 配置。这可以通过使用以下 Gradle 选项来实现：
 

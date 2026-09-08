@@ -17,7 +17,7 @@ KotlinはJavaと完全に相互運用可能です。つまり、Kotlinを使用�
 >
 {style="note"}
 
-## プロジェクトの構成
+## プロジェクトの構成 {id="configure-the-project"}
 
 1. IDEで、バージョン管理からサンプルプロジェクトをクローンします：
 
@@ -128,7 +128,7 @@ KotlinはJavaと完全に相互運用可能です。つまり、Kotlinを使用�
 
 ビルドファイルの設定に関する詳細な手順については、[プロジェクトの構成](mixing-java-kotlin-intellij.md#project-configuration) を参照してください。
 
-## 最初のKotlinテストを追加する
+## 最初のKotlinテストを追加する {id="add-your-first-kotlin-test"}
 
 `initial/src/test/java` にある `TodoItemTest.java` テストは、アイテムの作成、デフォルト値、一意のID、状態の変化といったアプリの基本をすでに検証しています。
 
@@ -253,7 +253,7 @@ KotlinはJavaと完全に相互運用可能です。つまり、Kotlinを使用�
 >
 {style="tip"}
 
-## テストの実行
+## テストの実行 {id="run-tests"}
 
 JavaとKotlinの両方のテストを実行して、プロジェクトが期待通りに動作することを確認します：
 
@@ -303,6 +303,6 @@ JavaとKotlinの両方のテストを実行して、プロジェクトが期待�
 >
 {style="tip"}
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 [Mavenを使用してKotlinプロジェクトをテストする](jvm-test-maven.md) 方法についての詳細を確認してください。

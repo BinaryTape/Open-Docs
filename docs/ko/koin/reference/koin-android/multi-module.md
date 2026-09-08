@@ -8,9 +8,9 @@ title: 멀티 모듈 안드로이드 앱
 핵심 모듈 개념(`includes()`, 구성, 오버라이드)에 대해서는 [모듈(Modules)](/docs/reference/koin-core/modules)을 참조하세요.
 :::
 
-## 안드로이드 애플리케이션 설정
+## 안드로이드 애플리케이션 설정 {id="android-application-setup"}
 
-### 어노테이션(Annotations) 사용 시
+### 어노테이션(Annotations) 사용 시 {id="with-annotations"}
 
 ```kotlin
 @KoinApplication(AppModule::class)
@@ -30,7 +30,7 @@ class MyApplication : Application() {
 class AppModule
 ```
 
-### DSL 사용 시
+### DSL 사용 시 {id="with-dsl"}
 
 ```kotlin
 class MyApplication : Application() {
@@ -55,7 +55,7 @@ val appModule = module {
 }
 ```
 
-## 기능 모듈(Feature Module) 예시
+## 기능 모듈(Feature Module) 예시 {id="feature-module-example"}
 
 ```kotlin
 // :feature:login 모듈
@@ -82,7 +82,7 @@ val loginModule = module {
 }
 ```
 
-## 동적 기능 로딩 (Dynamic Feature Loading)
+## 동적 기능 로딩 (Dynamic Feature Loading) {id="dynamic-feature-loading"}
 
 Activity 생명주기에 따라 필요할 때 기능 모듈을 로드합니다:
 
@@ -101,7 +101,7 @@ class FeatureActivity : AppCompatActivity() {
 }
 ```
 
-## Koin vs Hilt 비교
+## Koin vs Hilt 비교 {id="koin-vs-hilt-comparison"}
 
 | Hilt | Koin |
 |------|------|
@@ -115,9 +115,9 @@ class FeatureActivity : AppCompatActivity() {
 **Koin의 장점:** `@EntryPoint` 인터페이스가 필요하지 않습니다. 모든 모듈이 로드되어 있는 한 의존성은 모듈 간에 자동으로 해결됩니다.
 :::
 
-## 안드로이드 테스트
+## 안드로이드 테스트 {id="android-testing"}
 
-### 격리된 환경에서 모듈 테스트
+### 격리된 환경에서 모듈 테스트 {id="test-module-in-isolation"}
 
 ```kotlin
 class LoginViewModelTest : KoinTest {
@@ -142,7 +142,7 @@ class LoginViewModelTest : KoinTest {
 }
 ```
 
-### 모든 모듈 검증
+### 모든 모듈 검증 {id="verify-all-modules"}
 
 :::tip
 이제 Koin 컴파일러 플러그인이 컴파일 시간에 전체 의존성 그래프를 검증하여 런타임 검증의 필요성을 대체합니다. [컴파일 타임 안전성(Compile-Time Safety)](/docs/reference/koin-compiler/compile-safety)을 참조하세요.
@@ -160,7 +160,7 @@ class ModuleCheckTest : KoinTest {
 }
 ```
 
-## 참고 항목
+## 참고 항목 {id="see-also"}
 
 - **[모듈(Modules)](/docs/reference/koin-core/modules)** - `includes()`를 사용한 핵심 모듈 개념
 - **[안드로이드 모듈 로딩(Android Module Loading)](/docs/reference/koin-android/modules-android)** - 동적 모듈 로딩

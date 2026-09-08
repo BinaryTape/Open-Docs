@@ -3,7 +3,7 @@
 
 ここでは、Kotlin Multiplatform プロジェクトで Kotlin Symbol Processing (KSP) を使用する方法について説明します。クイックスタートについては、[ソースリポジトリ](https://github.com/google/ksp/tree/main/examples/multiplatform)にある KSP を使用した複数のターゲットを持つマルチプラットフォームプロジェクトのサンプルを参照してください。この例のプロセッサーは、プロジェクトで使用される `Foo` クラスを生成します。
 
-## マルチプラットフォームプロジェクトへの KSP の追加
+## マルチプラットフォームプロジェクトへの KSP の追加 {id="add-ksp-to-a-multiplatform-project"}
 
 クライアントモジュール（プロセッサーを使用するモジュール）の `build.gradle.kts` ファイルで、シンボル処理が必要な各ターゲットに対して適切な KSP プロセッサー의 依存関係を追加します。
 
@@ -37,7 +37,7 @@ dependencies {
 >
 {style="warning"}
 
-### 単一のターゲットで複数のプロセッサーを使用する
+### 単一のターゲットで複数のプロセッサーを使用する {id="use-multiple-processors-in-a-single-target"}
 
 1 つのターゲットに複数のプロセッサーを追加できます：
 
@@ -60,7 +60,7 @@ add('kspAndroid', 'androidx.room:room-compiler:2.6.1')
 </tab>
 </tabs> 
 
-### 複数のターゲットで同じプロセッサーを使用する
+### 複数のターゲットで同じプロセッサーを使用する {id="use-the-same-processor-in-multiple-targets"}
 
 同じプロセッサーを複数のターゲットに追加できます：
 
@@ -114,7 +114,7 @@ kotlin.targets.filter { it.name.startsWith("ios") }.forEach { target ->
 </tab>
 </tabs>
 
-### テストコンパイル用の KSP 設定
+### テストコンパイル用の KSP 設定 {id="configure-ksp-for-test-compilations"}
 
 テストコンパイル中に KSP を実行するには、対応するテスト設定にプロセッサーを追加します：
 
@@ -160,7 +160,7 @@ add('kspAndroidDeviceTest', project(':test-processor'))
 </tab>
 </tabs>
 
-## KSP 設定名の確認
+## KSP 設定名の確認 {id="find-ksp-configuration-names"}
 
 KSP は Kotlin Multiplatform のソースセットから設定名を導き出します。モジュールの KSP 設定の完全なリストを表示するには、以下を実行してください：
 
@@ -170,7 +170,7 @@ KSP は Kotlin Multiplatform のソースセットから設定名を導き出し
 
 ターゲットのソースセットに対応する設定名を探してください。
 
-## コンパイルと処理
+## コンパイルと処理 {id="compilation-and-processing"}
 
 マルチプラットフォームプロジェクトでは、Kotlin は `main` や `test` など、ターゲットおよびソースセットごとに個別の [コンパイル (compilation)](https://kotlinlang.org/docs/multiplatform/multiplatform-advanced-project-structure.html#compilations) を作成します。1 つ以上の KSP プロセッサーが設定されている各 Kotlin コンパイルタスクに対して、KSP は対応するシンボル処理（symbol processing）タスクを作成します。
 

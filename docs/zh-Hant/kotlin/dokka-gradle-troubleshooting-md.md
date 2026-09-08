@@ -4,7 +4,7 @@
 
 如果您的問題未列於此，請在我們的 [問題追蹤器](https://kotl.in/dokka-issues) 中回報意見回饋或問題，或在官方 [Kotlin Slack](https://kotlinlang.slack.com/) 與 Dokka 社群交流。請點擊 [此處](https://kotl.in/slack) 獲取 Slack 邀請。
 
-## 記憶體問題
+## 記憶體問題 {id="memory-issues"}
 
 在大型專案中，Dokka 可能會消耗大量記憶體來產生文件。這可能會超過 Gradle 的記憶體限制，尤其是在處理大量資料時。
 
@@ -17,7 +17,7 @@
 * [增加堆積空間](#increase-heap-space)
 * [在 Gradle 程序中執行 Dokka](#run-dokka-within-the-gradle-process)
 
-### 增加堆積空間
+### 增加堆積空間 {id="increase-heap-space"}
 
 解決記憶體問題的一種方法是增加 Dokka 產生程序的 Java 堆積記憶體量。在 `build.gradle.kts` 檔案中，調整以下配置選項：
 
@@ -39,7 +39,7 @@
 >
 {style="note"}
 
-### 在 Gradle 程序中執行 Dokka
+### 在 Gradle 程序中執行 Dokka {id="run-dokka-within-the-gradle-process"}
 
 當 Gradle 組建和 Dokka 產生都需要大量記憶體時，它們可能會以個別程序的形式執行，進而在單一電腦上消耗大量記憶體。
 

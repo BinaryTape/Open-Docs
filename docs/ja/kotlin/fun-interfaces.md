@@ -10,7 +10,7 @@ fun interface KRunnable {
 }
 ```
 
-## SAM変換
+## SAM変換 {id="sam-conversions"}
 
 関数型インターフェースでは、[ラムダ式](lambdas.md#lambda-expressions-and-anonymous-functions)を使用することで、コードをより簡潔で読みやすくできるSAM変換を利用できます。
 
@@ -59,7 +59,7 @@ fun main() {
 
 [Javaインターフェースに対してもSAM変換](java-interop.md#sam-conversions)を使用できます。
 
-## コンストラクタ関数を持つインターフェースから関数型インターフェースへの移行
+## コンストラクタ関数を持つインターフェースから関数型インターフェースへの移行 {id="migration-from-an-interface-with-constructor-function-to-a-functional-interface"}
 
 1.6.20から、Kotlinは関数型インターフェースのコンストラクタへの[呼び出し可能参照](reflection.md#callable-references)をサポートしています。これにより、コンストラクタ関数を持つインターフェースから関数型インターフェースへ、ソース互換性を保ったまま移行する方法が追加されました。
 次のコードを考えてみましょう。
@@ -95,7 +95,7 @@ documentsStorage.addPrinter(::Printer)
 fun Printer(...) {...}
 ```
 
-## 関数型インターフェースと型エイリアスの比較
+## 関数型インターフェースと型エイリアスの比較 {id="functional-interfaces-vs-type-aliases"}
 
 上記の内容は、関数型に対する[型エイリアス](type-aliases.md)を使っても簡単に書き換えることができます。
 

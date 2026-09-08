@@ -118,7 +118,7 @@ install(Auth) {
 
 在這種情況下，用戶端會根據包含 realm 的 `WWW-Authenticate` 回應標頭來選擇必要的提供者。
 
-## 提供者選擇
+## 提供者選擇 {id="provider-selection"}
 
 當伺服器傳回 `401 Unauthorized` 時，用戶端會根據 `WWW-Authenticate` 回應標頭來選擇驗證提供者。此標頭指定了伺服器接受哪些驗證配置。
 
@@ -130,7 +130,7 @@ install(Auth) {
 
 [Basic](client-basic-auth.md) 與 [Bearer](client-bearer-auth.md) 驗證提供者維護著內部的憑據或權杖快取。此快取允許用戶端重複使用先前載入的驗證資料，而不是為每個請求重新載入，從而在憑據變更時仍能保持完全控制的同時提高效能。
 
-### 存取驗證提供者
+### 存取驗證提供者 {id="accessing-authentication-providers"}
 
 當驗證狀態需要在用戶端工作階段期間動態更新時，您可以使用 `authProvider` 擴充來存取特定的提供者：
 
@@ -146,7 +146,7 @@ val providers = client.authProviders
 
 這些公用程式允許您以程式化方式檢查提供者或清除快取的權杖。
 
-### 清除快取的權杖
+### 清除快取的權杖 {id="clearing-cached-tokens"}
 
 若要清除單一提供者的快取憑據，請使用 `.clearToken()` 函式：
 
@@ -176,7 +176,7 @@ fun logout() {
 }
 ```
 
-### 控制快取行為
+### 控制快取行為 {id="controlling-caching-behavior"}
 
 Basic 與 Bearer 驗證提供者都允許您使用 `cacheTokens` 選項來控制是否在請求之間快取權杖或憑據。
 

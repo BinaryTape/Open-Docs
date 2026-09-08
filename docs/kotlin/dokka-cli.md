@@ -4,7 +4,7 @@
 
 相比之下，它具有与 Dokka 的 Gradle 插件相同（甚至更多）的功能。虽然由于没有自动配置，它的设置要困难得多，特别是在多平台和多模块环境中。
 
-## 开始使用
+## 开始使用 {id="get-started"}
 
 CLI 运行器作为一个独立的、可运行的构件发布到 Maven Central。
 
@@ -22,9 +22,9 @@ java -jar dokka-cli-%dokkaVersion%.jar -help
 java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
 ```
 
-## 生成文档
+## 生成文档 {id="generate-documentation"}
 
-### 前提条件
+### 前提条件 {id="prerequisites"}
 
 由于没有构建工具来管理依赖项，你必须自行提供依赖项的 `.jar` 文件。
 
@@ -42,7 +42,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
 | `org.jetbrains.kotlinx` | `kotlinx-html-jvm` | 0.8.0    | [下载](https://repo1.maven.org/maven2/org/jetbrains/kotlinx/kotlinx-html-jvm/0.8.0/kotlinx-html-jvm-0.8.0.jar) |
 | `org.freemarker`        | `freemarker`       | 2.3.31   | [下载](https://repo1.maven.org/maven2/org/freemarker/freemarker/2.3.31/freemarker-2.3.31.jar)                  |
 
-### 使用命令行选项运行
+### 使用命令行选项运行 {id="run-with-command-line-options"}
 
 你可以传递命令行选项来配置 CLI 运行器。
 
@@ -63,7 +63,7 @@ java -jar dokka-cli-%dokkaVersion%.jar \
 
 有关更多配置详细信息，请参阅[命令行选项](#命令行选项)。
 
-### 使用 JSON 配置运行
+### 使用 JSON 配置运行 {id="run-with-json-configuration"}
 
 可以使用 JSON 配置 CLI 运行器。在这种情况下，你需要提供指向 JSON 配置文件的绝对/相对路径作为第一个也是唯一的实参。所有其他配置选项都将从中解析。
 
@@ -98,7 +98,7 @@ java -jar dokka-cli-%dokkaVersion%.jar dokka-configuration.json
 
 有关更多详细信息，请参阅 [JSON 配置选项](#json-配置)。
 
-### 其他输出格式
+### 其他输出格式 {id="other-output-formats"}
 
 默认情况下，`dokka-base` 构件仅包含 [HTML](dokka-html.md) 输出格式。
 
@@ -132,7 +132,7 @@ java -jar dokka-cli-%dokkaVersion%.jar \
 
 有关更多信息，请参阅 [GFM](https://github.com/Kotlin/dokka/blob/8e5c63d035ef44a269b8c43430f43f5c8eebfb63/dokka-subprojects/plugin-gfm/README.md) 和 [Javadoc](dokka-javadoc.md#生成-javadoc-文档) 页面。
 
-## 命令行选项
+## 命令行选项 {id="command-line-options"}
 
 要查看所有可能的命令行选项及其详细描述的列表，请运行：
 
@@ -163,7 +163,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -help
 | `loggingLevel`               | 日志级别，可能的值：`DEBUG, PROGRESS, INFO, WARN, ERROR`。                                                                                                                                     |
 | `help, h`                    | 用法信息。                                                                                                                                                                                     |
 
-#### 源集选项
+#### 源集选项 {id="source-set-options"}
 
 要查看嵌套 `-sourceSet` 配置的命令行选项列表，请运行：
 
@@ -198,11 +198,11 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
 | `externalDocumentationLinks` | 外部文档链接，格式为 `{url}^{packageListUrl}`。接受由 `^^` 分隔的多个值。                                                                                                       |
 | `srcLink`                    | 源目录与用于浏览代码的 Web 服务之间的映射。接受由分号分隔的多个路径。                                                                                                           |
 
-## JSON 配置
+## JSON 配置 {id="json-configuration"}
 
 下面是每个配置部分的示例和详细描述。你还可以在页面底部找到应用了[所有配置选项](#完整配置)的示例。
 
-### 通用配置
+### 通用配置 {id="general-configuration"}
 
 ```json
 {
@@ -333,7 +333,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
     </def>
 </deflist>
 
-### 源集配置
+### 源集配置 {id="source-set-configuration"}
 
 如何配置 Kotlin
 [源集](https://kotlinlang.org/docs/multiplatform-discover-project.html#source-sets)：
@@ -541,7 +541,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
     </def>
 </deflist>
 
-### 源码链接配置
+### 源码链接配置 {id="source-link-configuration"}
 
 `sourceLinks` 配置块允许你为每个签名添加一个 `source` 链接，该链接指向带有特定行号的 `remoteUrl`。（行号可通过设置 `remoteLineSuffix` 进行配置）。
 
@@ -597,7 +597,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
     </def>
 </deflist>
 
-### 按软件包配置
+### 按软件包配置 {id="per-package-configuration"}
 
 `perPackageOptions` 配置块允许为通过 `matchingRegex` 匹配的特定软件包设置某些选项。
 
@@ -650,7 +650,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
     </def>
 </deflist>
 
-### 外部文档链接配置
+### 外部文档链接配置 {id="external-documentation-links-configuration"}
 
 `externalDocumentationLinks` 块允许创建指向依赖项的外部托管文档的链接。
 
@@ -694,7 +694,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
     </def>
 </deflist>
 
-### 完整配置
+### 完整配置 {id="complete-configuration"}
 
 下面你可以看到同时应用的所有可能配置选项。
 

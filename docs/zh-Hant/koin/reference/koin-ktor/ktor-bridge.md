@@ -10,7 +10,7 @@ Koin 4.2+ 透過可配置的橋接器 (bridge)，與 **Ktor 3.4+** 內建的相�
 Ktor DI 橋接器是一項實驗功能，可在 Koin 與 Ktor DI 之間實現雙向的相依性解析。
 :::
 
-## 橋接器配置
+## 橋接器配置 {id="bridge-configuration"}
 
 使用 `bridge { }` DSL 來啟用雙向相依性解析：
 
@@ -34,14 +34,14 @@ fun Application.module() {
 }
 ```
 
-## 橋接器選項
+## 橋接器選項 {id="bridge-options"}
 
 | 選項 | 說明 |
 |--------|-------------|
 | `ktorToKoin()` | 允許 Ktor 的 `by dependencies` 委託從 Koin 進行解析 |
 | `koinToKtor()` | 允許 Koin 的 `inject()` 與 `get()` 從 Ktor DI 進行解析 |
 
-## 使用 ktorToKoin()
+## 使用 ktorToKoin() {id="using-ktortokoin"}
 
 使用 Ktor 的 `by dependencies` 委託來解析 Koin 相依性：
 
@@ -66,7 +66,7 @@ fun Application.module() {
 }
 ```
 
-## 使用 koinToKtor()
+## 使用 koinToKtor() {id="using-kointoktor"}
 
 使用 Koin 的 `inject()` 來解析 Ktor DI 相依性：
 
@@ -94,7 +94,7 @@ fun Application.module() {
 }
 ```
 
-## 全雙向範例
+## 全雙向範例 {id="full-bidirectional-example"}
 
 同時啟用兩個方向以獲得最大的靈活性：
 
@@ -135,7 +135,7 @@ fun Application.module() {
 }
 ```
 
-## 架構模式
+## 架構模式 {id="architecture-pattern"}
 
 將基礎結構與應用程式邏輯分離：
 
@@ -172,14 +172,14 @@ val appModule = module {
 }
 ```
 
-## 最佳實務
+## 最佳實務 {id="best-practices"}
 
 1. **Ktor DI 中的基礎結構** - 資料庫連線、配置、外部用戶端
 2. **Koin 中的商業邏輯** - 存儲庫、服務、使用案例
 3. **僅啟用所需的方向** - 除非必要，否則僅使用 `koinToKtor()`，不要同時使用兩者
 4. **記錄邊界** - 明確標註哪個系統擁有哪些相依性
 
-## 配合隔離上下文
+## 配合隔離上下文 {id="with-isolated-context"}
 
 此橋接器也適用於 `KoinIsolated`：
 
@@ -201,7 +201,7 @@ fun Application.module() {
 }
 ```
 
-## 另請參閱
+## 另請參閱 {id="see-also"}
 
 - **[Koin for Ktor](/docs/reference/koin-ktor/ktor)** - 主要的 Ktor 文件
 - **[隔離上下文](/docs/reference/koin-ktor/ktor-isolated)** - 隔離的 Koin 執行個體

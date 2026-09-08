@@ -4,7 +4,7 @@
 
 戦略グラフを作成することで、単純なチャットボットから複雑なデータ処理パイプラインまで、特定のニーズに合わせてエージェントの動作をカスタマイズできます。
 
-## 戦略グラフのアーキテクチャ
+## 戦略グラフのアーキテクチャ {id="strategy-graph-architecture"}
 
 ハイレベルでは、戦略グラフは以下のコンポーネントで構成されます。
 
@@ -16,9 +16,9 @@
 戦略グラフは `nodeStart` と呼ばれる特殊なノードで始まり、`nodeFinish` で終わります。
 これらのノード間のパスは、グラフで指定されたエッジと条件によって決定されます。
 
-## 戦略グラフのコンポーネント
+## 戦略グラフのコンポーネント {id="strategy-graph-components"}
 
-### ノード
+### ノード {id="nodes"}
 
 ノードは戦略グラフの構成要素です。各ノードは特定の操作を表します。
 
@@ -26,7 +26,7 @@ Koog フレームワークは定義済みのノードを提供しており、`no
 
 詳細については、「[定義済みのノードとコンポーネント](nodes-and-components.md)」および「[カスタムノード](custom-nodes.md)」を参照してください。
 
-### エッジ
+### エッジ {id="edges"}
 
 エッジはノードを接続し、戦略グラフにおける操作のフローを定義します。
 エッジは、`edge` 関数と `forwardTo` 中置関数（infix function）を使用して作成されます。
@@ -80,7 +80,7 @@ Koog フレームワークは定義済みのノードを提供しており、`no
     ```
     <!--- KNIT exampleCustomStrategyGraphsJava01.java -->
 
-#### 条件
+#### 条件 {id="conditions"}
 
 条件は、戦略グラフにおいて特定のエッジをいつたどるかを決定します。いくつかのタイプの条件があり、一般的なものを以下に示します。
 
@@ -151,7 +151,7 @@ Koog フレームワークは定義済みのノードを提供しており、`no
     ```
     <!--- KNIT exampleCustomStrategyGraphsJava02.java -->
 
-### サブグラフ
+### サブグラフ {id="subgraphs"}
 
 サブグラフは、独自のツールセットとコンテキストで動作する戦略グラフのセクションです。
 戦略グラフには複数のサブグラフを含めることができます。各サブグラフは `subgraph` 関数を使用して定義されます。
@@ -273,7 +273,7 @@ Koog フレームワークは定義済みのノードを提供しており、`no
     ```
     <!--- KNIT exampleCustomStrategyGraphsJava04.java -->
 
-## 基本的な戦略グラフの作成
+## 基本的な戦略グラフの作成 {id="basic-strategy-graph-creation"}
 
 基本的な戦略グラフは次のように動作します。
 
@@ -377,7 +377,7 @@ Koog フレームワークは定義済みのノードを提供しており、`no
     ```
     <!--- KNIT exampleCustomStrategyGraphsJava05.java -->
 
-## 戦略グラフの可視化
+## 戦略グラフの可視化 {id="visualizing-strategy-graph"}
 
 JVM では、戦略グラフの [Mermaid 状態遷移図 (state diagram)](https://mermaid.js.org/syntax/stateDiagram.html) を生成できます。
 
@@ -461,13 +461,13 @@ stateDiagram
 ```
 <!--- KNIT example-custom-strategy-graphs-01.txt -->
 
-## 高度な戦略テクニック
+## 高度な戦略テクニック {id="advanced-strategy-techniques"}
 
-### 履歴の圧縮
+### 履歴の圧縮 {id="history-compression"}
 
 長期間の会話では、履歴が肥大化し、大量のトークンを消費する可能性があります。履歴を圧縮する方法については、「[履歴の圧縮](history-compression.md)」を参照してください。
 
-### ツールの並列実行
+### ツールの並列実行 {id="parallel-tool-execution"}
 
 複数のツールを並列に実行する必要があるワークフローでは、`nodeExecuteTools` ノードで `parallel = true` を使用できます。
 
@@ -510,7 +510,7 @@ parseMarkdownStreamToBooks(markdownStream).toParallelToolCallsRaw(BookTool::clas
 
 詳細については、「[ツール](tools/index.md#parallel-tool-calls)」を参照してください。
 
-### ノードの並列実行
+### ノードの並列実行 {id="parallel-node-execution"}
 
 ノードの並列実行により、複数のノードを同時に実行できるため、パフォーマンスが向上し、複雑なワークフローが可能になります。
 
@@ -544,7 +544,7 @@ val calc by parallel<String, Int>(
 
 ノードの並列実行に関する詳細情報と詳細なリファレンスについては、「[ノードの並列実行](parallel-node-execution.md)」を参照してください。
 
-### 条件分岐
+### 条件分岐 {id="conditional-branching"}
 
 特定の条件に基づいて異なるパスを必要とする複雑なワークフローでは、条件分岐を使用できます。
 
@@ -582,7 +582,7 @@ edge(
 ```
 <!--- KNIT example-custom-strategy-graphs-10.kt -->
 
-## ベストプラクティス
+## ベストプラクティス {id="best-practices"}
 
 カスタム戦略グラフを作成する際は、以下のベストプラクティスに従ってください。
 
@@ -595,9 +595,9 @@ edge(
 - 長期間の会話では、履歴の圧縮を使用してトークンの使用量を削減します。
 - サブグラフを使用してグラフを整理し、ツールへのアクセスを管理します。
 
-## 使用例
+## 使用例 {id="usage-examples"}
 
-### トーン分析戦略
+### トーン分析戦略 {id="tone-analysis-strategy"}
 
 トーン分析戦略は、履歴の圧縮を含むツールベースの戦略の良い例です。
 
@@ -679,11 +679,11 @@ fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentGraphStrategy
 6. LLM が別のツールを呼び出した場合、戦略はそれを実行します。
 7. LLM がメッセージで応答した場合、戦略はプロセスを終了します。
 
-## トラブルシューティング
+## トラブルシューティング {id="troubleshooting"}
 
 カスタム戦略グラフを作成する際に、いくつかの一般的な問題に遭遇することがあります。トラブルシューティングのヒントを以下に示します。
 
-### グラフが終了ノードに到達しない
+### グラフが終了ノードに到達しない {id="graph-fails-to-reach-the-finish-node"}
 
 グラフが終了ノードに到達しない場合は、以下を確認してください。
 
@@ -691,14 +691,14 @@ fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentGraphStrategy
 - 条件が厳しすぎて、エッジをたどることができなくなっていないか。
 - 終了条件のないサイクルがグラフ内に存在しないか。
 
-### ツール呼び出しが実行されない
+### ツール呼び出しが実行されない {id="tool-calls-are-not-running"}
 
 ツール呼び出しが実行されない場合は、以下を確認してください。
 
 - ツールがツールレジストリに適切に登録されているか。
 - LLM ノードからツール実行ノードへのエッジに、正しい条件 (`onToolCall { true }`) が設定されているか。
 
-### 履歴が大きくなりすぎる
+### 履歴が大きくなりすぎる {id="history-gets-too-large"}
 
 履歴が大きくなりすぎてトークンを過剰に消費する場合は、以下を検討してください。
 
@@ -706,7 +706,7 @@ fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentGraphStrategy
 - 条件を使用して履歴のサイズを確認し、大きくなりすぎたときに圧縮する。
 - より積極的な圧縮戦略（例：より小さい N 値を指定した `FromLastNMessages`）を使用する。
 
-### グラフが予期しない動作をする
+### グラフが予期しない動作をする {id="graph-behaves-unexpectedly"}
 
 グラフが予期しない分岐に進む場合は、以下を確認してください。
 
@@ -714,7 +714,7 @@ fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentGraphStrategy
 - 条件が期待通りの順序で評価されているか（エッジは定義された順序でチェックされます）。
 - より一般的な条件で誤って条件を上書きしていないか。
 
-### パフォーマンスの問題が発生する
+### パフォーマンスの問題が発生する {id="performance-issues-occur"}
 
 グラフにパフォーマンスの問題がある場合は、以下を検討してください。
 

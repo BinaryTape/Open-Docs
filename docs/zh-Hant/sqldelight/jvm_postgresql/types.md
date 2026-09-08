@@ -1,4 +1,4 @@
-## PostgreSQL 型別
+## PostgreSQL 型別 {id="postgresql-types"}
 
 SQLDelight 的欄位定義與常規 PostgreSQL 欄位定義相同，但支援一個[額外欄位約束](#custom-column-types)，用來指定產生的介面中欄位的 Kotlin 型別。
 

@@ -17,14 +17,14 @@ Kotlin 的 EAP 版本可能無法與先前發佈版本的程式庫搭配運作�
 * [在 Gradle 中設定](#configure-in-gradle)
 * [在 Maven 中設定](#configure-in-maven)
 
-## 在 Gradle 中設定 
+## 在 Gradle 中設定 {id="configure-in-gradle"}
 
 此章節說明您可以如何：
 
 * [調整 Kotlin 版本](#adjust-the-kotlin-version)
 * [調整相依性中的版本](#adjust-versions-in-dependencies)
 
-### 調整 Kotlin 版本
+### 調整 Kotlin 版本 {id="adjust-the-kotlin-version"}
 
 在 `build.gradle(.kts)` 內的 `plugins` 區塊中，將 `KOTLIN-EAP-VERSION` 變更為實際的 EAP 版本，例如 `%kotlinEapVersion%`。[此處列出了可用的 EAP 版本](eap.md#build-details)。
 
@@ -63,7 +63,7 @@ repositories {
 </tab>
 </tabs>
 
-### 調整相依性中的版本
+### 調整相依性中的版本 {id="adjust-versions-in-dependencies"}
 
 如果您在專案中使用 kotlinx 程式庫，您的程式庫版本可能與 Kotlin 的 EAP 版本不相容。
 
@@ -100,7 +100,7 @@ dependencies {
 </tab>
 </tabs>
 
-## 在 Maven 中設定
+## 在 Maven 中設定 {id="configure-in-maven"}
 
 在 Maven 專案定義範例中，將 `KOTLIN-EAP-VERSION` 替換為實際版本，例如 `%kotlinEapVersion%`。[此處列出了可用的 EAP 版本](eap.md#build-details)。
 
@@ -145,7 +145,7 @@ dependencies {
 </project>
 ```
 
-## 如果您遇到任何問題
+## 如果您遇到任何問題 {id="if-you-run-into-any-problems"}
 
 * 將問題回報至 [我們的問題追蹤器 YouTrack](https://kotl.in/issue)。
 * 在 [Kotlin Slack 的 #eap 頻道](https://app.slack.com/client/T09229ZC6/C0KLZSCHF)尋求協助（[取得邀請](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)）。

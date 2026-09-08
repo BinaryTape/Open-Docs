@@ -4,6 +4,7 @@ import { GoogleGenAI } from "@google/genai";
 import { fileURLToPath } from "url";
 import pLimit from "p-limit";
 import { toContentRelPath } from "../../shared/content-paths.ts";
+import { applySourceAnchors } from "./utils/heading-anchors.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -526,6 +527,16 @@ async function translateFile(filePath) {
 
           // Clean up extra content in translation result
           translatedContent = cleanupTranslation(translatedContent);
+
+          // Translating a heading changes the anchor generated from it, which
+          // would break every upstream `page.md#anchor` link pointing at it.
+          const anchored = applySourceAnchors(translatedContent, content);
+          if (anchored.skipped) {
+            console.warn(
+              `⚠️ Keeping upstream anchors out of ${targetPath}: ${anchored.skipped}`
+            );
+          }
+          translatedContent = anchored.content;
         } else {
           console.error(`File content is empty: ${filePath}`);
           continue;

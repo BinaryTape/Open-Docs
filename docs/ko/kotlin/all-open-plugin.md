@@ -10,7 +10,7 @@
 >
 {style="note"}
 
-## Gradle
+## Gradle {id="gradle"}
 
 `build.gradle(.kts)` 파일에 플러그인을 추가합니다:
 
@@ -74,7 +74,7 @@ class MyClass // all-open이 됩니다
 
 `MyFrameworkAnnotation`은 all-open 메타 어노테이션인 `com.my.Annotation`으로 어노테이션되어 있으므로, 이 또한 all-open 어노테이션이 됩니다.
 
-## Maven
+## Maven {id="maven"}
 
 `pom.xml` 파일에 플러그인을 추가합니다:
 
@@ -109,7 +109,7 @@ class MyClass // all-open이 됩니다
 
 all-open 어노테이션이 작동하는 방식에 대한 자세한 정보는 [Gradle 섹션](#gradle)을 참조하십시오.
 
-## Spring 지원
+## Spring 지원 {id="spring-support"}
 
 Spring을 사용하는 경우 Spring 어노테이션을 수동으로 지정하는 대신 `kotlin-spring` 컴파일러 플러그인을 활성화할 수 있습니다. `kotlin-spring`은 `all-open` 위에 구축된 래퍼(wrapper)이며, 정확히 동일하게 작동합니다.
 
@@ -172,7 +172,7 @@ Maven에서 `spring` 플러그인은 `kotlin-maven-allopen` 플러그인 의존�
 >
 {style="note"}
 
-## 명령줄 컴파일러
+## 명령줄 컴파일러 {id="command-line-compiler"}
 
 All-open 컴파일러 플러그인 JAR은 코틀린 컴파일러의 바이너리 배포판에 포함되어 있습니다. `kotlinc` 옵션인 `-Xplugin`을 사용하여 JAR 파일 경로를 제공함으로써 플러그인을 연결할 수 있습니다:
 

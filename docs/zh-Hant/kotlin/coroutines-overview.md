@@ -22,11 +22,11 @@
 > 
 {style="tip"}
 
-## 協同程式概念
+## 協同程式概念 {id="coroutine-concepts"}
 
 `kotlinx.coroutines` 程式庫提供了執行並行任務、結構化協同程式執行以及管理共用狀態的核心建構區塊。
 
-### 暫停函式與協同程式建立器
+### 暫停函式與協同程式建立器 {id="suspending-functions-and-coroutine-builders"}
 
 Kotlin 中的協同程式是建立在暫停函式之上的，暫停函式允許程式碼暫停與恢復執行而不阻塞執行緒。
 `suspend` 關鍵字用於標記可以非同步執行長時間操作的函式。
@@ -37,7 +37,7 @@ Kotlin 中的協同程式是建立在暫停函式之上的，暫停函式允許�
 
 您可以在 [協同程式基礎](coroutines-basics.md) 和 [組合暫停函式](coroutines-and-channels.md) 中了解更多關於這些建立器的資訊。
 
-### 協同程式上下文與行為
+### 協同程式上下文與行為 {id="coroutine-context-and-behavior"}
 
 從 `CoroutineScope` 啟動協同程式會建立一個控管其執行的上下文。
 像是 `.launch()` 和 `.async()` 的建立器函式會自動建立一組定義協同程式行為的元素：
@@ -49,7 +49,7 @@ Kotlin 中的協同程式是建立在暫停函式之上的，暫停函式允許�
 這些元素與其他可能的元素共同構成了 [_協同程式上下文_](coroutine-context-and-dispatchers.md)，該上下文預設從協同程式的父級繼承。
 此上下文形成了一個支援結構化並行的階層結構，相關的協同程式可以被整合地[取消](coroutines-cancellation.md)或成組地[處理例外](exception-handling.md)。
 
-### 非同步流與共用可變狀態
+### 非同步流與共用可變狀態 {id="asynchronous-flow-and-shared-mutable-state"}
 
 Kotlin 提供了多種讓協同程式進行通訊的方式。
 根據您想要在協同程式之間共用值的方式，選擇以下選項之一：
@@ -66,7 +66,7 @@ Kotlin 提供了多種讓協同程式進行通訊的方式。
 
 如需更多資訊，請參閱 [非同步流](coroutines-flow.md)、[通道 (Channels)](channels.md) 以及 [協同程式與通道教學](coroutines-and-channels.md)。
 
-## 後續步驟
+## 後續步驟 {id="what-s-next"}
 
 * 在 [協同程式基礎指南](coroutines-basics.md) 中學習協同程式、暫停函式和建立器的基本原理。
 * 在 [組合暫停函式](coroutine-context-and-dispatchers.md) 中探索如何結合暫停函式並建構協同程式管線。

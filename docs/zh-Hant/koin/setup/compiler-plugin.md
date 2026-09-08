@@ -6,7 +6,7 @@ title: 編譯器外掛程式設定
 
 對於所有新的 Kotlin 2.x 專案，建議使用 **Koin 編譯器外掛程式 (Koin Compiler Plugin)**。它提供了自動裝配 (auto-wiring)、編譯時期安全性以及更簡潔的 DSL 語法。
 
-## 什麼是編譯器外掛程式？
+## 什麼是編譯器外掛程式？ {id="what-is-the-compiler-plugin"}
 
 Koin 編譯器外掛程式是一個**原生 Kotlin 編譯器外掛程式 (K2)**，它具備以下功能：
 
@@ -21,14 +21,14 @@ Koin 編譯器外掛程式是一個**原生 Kotlin 編譯器外掛程式 (K2)**�
 安裝適用於 Android Studio 和 IntelliJ IDEA 的 **[Koin IDE 外掛程式](https://plugins.jetbrains.com/plugin/26131-koin-dependency-injection-official-)** — 支援定義與注入點之間的程式碼導覽、即時安全性檢查以及相依圖視覺化。
 :::
 
-## 系統需求
+## 系統需求 {id="requirements"}
 
 - **Kotlin 2.3.20+** (K2 編譯器)
 - **Gradle 8.x+**
 
-## 設定
+## 設定 {id="setup"}
 
-### 步驟 1：將 Koin 新增至版本目錄
+### 步驟 1：將 Koin 新增至版本目錄 {id="step-1-add-koin-to-version-catalog"}
 
 首先，檢查最新版本：
 - Koin：[![Maven Central](https://img.shields.io/maven-central/v/io.insert-koin/koin-core?label=latest)](https://mvnrepository.com/artifact/io.insert-koin/koin-core)
@@ -49,7 +49,7 @@ koin-annotations = { module = "io.insert-koin:koin-annotations", version.ref = "
 koin-compiler = { id = "io.insert-koin.compiler.plugin", version.ref = "koin-plugin" }
 ```
 
-### 步驟 2：配置設定
+### 步驟 2：配置設定 {id="step-2-configure-settings"}
 
 在您的 `settings.gradle.kts` 中：
 
@@ -62,7 +62,7 @@ pluginManagement {
 }
 ```
 
-### 步驟 3：套用外掛程式
+### 步驟 3：套用外掛程式 {id="step-3-apply-the-plugin"}
 
 在您模組的 `build.gradle.kts` 中：
 
@@ -86,9 +86,9 @@ dependencies {
 如果您在未加入執行時程式庫的情況下新增註解，編譯器將會失敗並顯示明確的錯誤，指出缺失的構件 (artifact) — 啟動時不再出現無聲的 `NoDefinitionFoundException`。
 :::
 
-## 完整範例
+## 完整範例 {id="complete-example"}
 
-### gradle/libs.versions.toml
+### gradle/libs.versions.toml {id="gradle-libs-versions-toml"}
 
 ```toml
 [versions]
@@ -103,7 +103,7 @@ koin-annotations = { module = "io.insert-koin:koin-annotations", version.ref = "
 koin-compiler = { id = "io.insert-koin.compiler.plugin", version.ref = "koin-plugin" }
 ```
 
-### settings.gradle.kts
+### settings.gradle.kts {id="settings-gradle-kts"}
 
 ```kotlin
 pluginManagement {
@@ -114,7 +114,7 @@ pluginManagement {
 }
 ```
 
-### build.gradle.kts
+### build.gradle.kts {id="build-gradle-kts"}
 
 ```kotlin
 plugins {
@@ -127,9 +127,9 @@ dependencies {
 }
 ```
 
-## 使用編譯器外掛程式
+## 使用編譯器外掛程式 {id="using-the-compiler-plugin"}
 
-### DSL 風格
+### DSL 風格 {id="dsl-style"}
 
 從編譯器外掛程式套件匯入：
 
@@ -149,7 +149,7 @@ val appModule = module {
 編譯器外掛程式 DSL 位於套件 **`org.koin.plugin.module.dsl`** 中。傳統 DSL 仍保留在 `org.koin.dsl`。
 :::
 
-### 註解風格
+### 註解風格 {id="annotation-style"}
 
 在您的類別上使用註解：
 
@@ -174,7 +174,7 @@ class UserViewModel(private val repository: UserRepository) : ViewModel()
 class AppModule
 ```
 
-### 使用註解啟動 Koin
+### 使用註解啟動 Koin {id="starting-koin-with-annotations"}
 
 搭配編譯器外掛程式，使用強型別 API 來啟動 Koin — **無需產生任何程式碼**：
 
@@ -230,7 +230,7 @@ val koinTestRule = KoinTestRule.create {
 }
 ```
 
-## 配置選項
+## 配置選項 {id="configuration-options"}
 
 在您的 `build.gradle.kts` 中配置編譯器外掛程式：
 
@@ -242,7 +242,7 @@ koinCompiler {
 }
 ```
 
-### 可用選項
+### 可用選項 {id="available-options"}
 
 | 選項 | 說明 | 預設值 |
 |--------|-------------|---------|
@@ -257,7 +257,7 @@ koinCompiler {
 在開發期間將 `userLogs = true` 設定為啟用，以查看外掛程式偵測並處理了哪些元件。
 :::
 
-## 編譯時期安全性
+## 編譯時期安全性 {id="compile-time-safety"}
 
 Koin 編譯器外掛程式提供了**編譯時期相依性驗證** — 在建置時期驗證所有相依性是否可以解析，而不是在執行時期才失敗。此功能預設為啟用。
 
@@ -270,11 +270,11 @@ koinCompiler {
 
 該外掛程式會在三個層級驗證您的圖譜：單一模組 (A2)、`startKoin<T>()` 時的完整圖譜 (A3)，以及每個呼叫點 (A4)。詳細資訊請參閱 [編譯時期安全性](/docs/reference/koin-compiler/compile-safety)。
 
-## 多模組專案
+## 多模組專案 {id="multi-module-projects"}
 
 對於具有多個 Gradle 模組的專案：
 
-### 程式庫模組
+### 程式庫模組 {id="library-module"}
 
 ```kotlin
 // feature/build.gradle.kts
@@ -295,7 +295,7 @@ dependencies {
 class FeatureModule
 ```
 
-### 應用程式模組
+### 應用程式模組 {id="app-module"}
 
 ```kotlin
 // app/build.gradle.kts
@@ -330,7 +330,7 @@ class MainApplication : Application() {
 
 為主應用程式類別使用 `@KoinApplication` 並搭配強型別啟動 API。
 
-## Kotlin 多平台
+## Kotlin 多平台 {id="kotlin-multiplatform"}
 
 編譯器外掛程式支援 KMP 專案：
 
@@ -351,9 +351,9 @@ kotlin {
 }
 ```
 
-## 疑難排解
+## 疑難排解 {id="troubleshooting"}
 
-### 找不到外掛程式
+### 找不到外掛程式 {id="plugin-not-found"}
 
 請確保外掛程式已包含在您的外掛程式儲存庫中：
 
@@ -367,7 +367,7 @@ pluginManagement {
 }
 ```
 
-### Kotlin 版本不符
+### Kotlin 版本不符 {id="kotlin-version-mismatch"}
 
 編譯器外掛程式需要 Kotlin 2.3.20+。請檢查您的 Kotlin 版本：
 
@@ -378,7 +378,7 @@ plugins {
 }
 ```
 
-### 匯入錯誤
+### 匯入錯誤 {id="import-errors"}
 
 請確保您從正確的套件匯入：
 
@@ -390,7 +390,7 @@ import org.koin.plugin.module.dsl.*
 import org.koin.dsl.*
 ```
 
-### 增量編譯與快取問題
+### 增量編譯與快取問題 {id="incremental-compilation-cache-issues"}
 
 與其他 Kotlin 編譯器外掛程式 (如 Compose Compiler、Metro) 類似，Koin 編譯器外掛程式在 IR 層級運作。Kotlin 的增量編譯有時可能會在某些變更後產生**陳舊或不一致的結果**：
 
@@ -419,7 +419,7 @@ import org.koin.dsl.*
 對於圖譜層級的變更 (`module { }` Lambda 內部的 DSL 定義、新增至 `@ComponentScan` 套件的類別)，外掛程式的 `strictSafety` 選項會在聚合器模組上自動啟用，以強制在每次建置時重新執行全圖譜安全性檢查。詳細資訊請參閱 [`strictSafety`](/docs/reference/koin-annotations/options#strictsafety)。
 :::
 
-### 多模組專案中的編譯安全性誤報
+### 多模組專案中的編譯安全性誤報 {id="compile-safety-false-positives-in-multi-module-projects"}
 
 如果外掛程式回報了實際上存在於程式庫模組中的缺失相依性，請確保：
 
@@ -427,9 +427,9 @@ import org.koin.dsl.*
 2. **程式庫在取用模組之前完成建置** — Gradle 通常透過 `implementation(project(":lib"))` 處理此問題，但仍請檢查您的任務相依性
 3. **在首次將外掛程式新增至程式庫模組後執行一次乾淨建置**
 
-## 遷移
+## 遷移 {id="migration"}
 
-### 從傳統 DSL 遷移
+### 從傳統 DSL 遷移 {id="from-classic-dsl"}
 
 1. 新增編譯器外掛程式
 2. 將匯入更新為 `org.koin.plugin.module.dsl.*`
@@ -437,7 +437,7 @@ import org.koin.dsl.*
 
 編譯時期安全語法請參考上方的 [DSL 風格](#dsl-風格)。
 
-### 從 KSP 處理器 (koin-ksp-compiler) 遷移
+### 從 KSP 處理器 (koin-ksp-compiler) 遷移 {id="from-the-ksp-processor-koin-ksp-compiler"}
 
 1. 移除 KSP 外掛程式與 `koin-ksp-compiler` 相依性
 2. 新增 Koin 編譯器外掛程式
@@ -446,7 +446,7 @@ import org.koin.dsl.*
 
 完整指南請參閱 **[從 KSP 遷移至編譯器外掛程式](/docs/migration/from-ksp-to-compiler-plugin)**。
 
-## 下一步
+## 下一步 {id="next-steps"}
 
 - **[DSL 參考](/docs/reference/dsl-reference)** — 完整的 DSL 文件
 - **[註解參考](/docs/reference/annotations-reference)** — 完整的註解文件

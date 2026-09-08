@@ -1,6 +1,6 @@
 [//]: # (title: Kotlin 브랜드 자산)
 
-## Kotlin 로고
+## Kotlin 로고 {id="kotlin-logo"}
 
 저희 로고는 마크와 서체로 구성됩니다. 
 풀컬러 버전이 기본이며, 대부분의 경우에 이 버전을 사용해야 합니다.
@@ -23,7 +23,7 @@
 
 [Kotlin 브랜드 사용 가이드라인 읽어보기](https://kotlinfoundation.org/guidelines/).
 
-## Kotlin 생태계 로고
+## Kotlin 생태계 로고 {id="kotlin-ecosystem-logos"}
 
 Kotlin 브랜드 패키지에는 여러 공식 Kotlin 생태계 프로젝트, 라이브러리, 프레임워크 및 기술에 대한 로고도 포함되어 있습니다.
 이러한 자산은 Kotlin 로고와 동일한 시각적 원칙을 따르며 생태계 전반에서 일관된 표현을 보장하도록 돕습니다.
@@ -42,7 +42,7 @@ Kotlin 브랜드 패키지에는 여러 공식 Kotlin 생태계 프로젝트, �
 
 [모든 버전 다운로드](https://resources.jetbrains.com/storage/products/kotlin/docs/kotlin_logos.zip){:.typo-float-right.kto-button.kto-button_size_m.kto-button_mode_outline}
 
-## Kotlin 마스코트
+## Kotlin 마스코트 {id="kotlin-mascot"}
 
 Kotlin의 마스코트이자 창의성을 북돋아 주고 영감을 주는 친근한 동반자인 Kodee를 만나보세요.
 사용 시 [간단한 가이드라인](https://resources.jetbrains.com/storage/products/kotlin/docs/Kotlin_Mascot_Guidelines.pdf)을 준수해 주시기 바랍니다.
@@ -56,7 +56,7 @@ Kotlin 마스코트 자산을 준비했습니다.
 
 ![Kotlin mascot Kodee in action](mascot-in-action.png){width=700}
 
-## Kotlin 사용자 그룹 브랜드 자산
+## Kotlin 사용자 그룹 브랜드 자산 {id="kotlin-user-group-brand-assets"}
 
 Kotlin 사용자 그룹이 쉽게 인식되고 Kotlin과의 연관성을 전달할 수 있도록 특별히 설계된 로고를 제공합니다.
 
@@ -67,7 +67,7 @@ Kotlin 사용자 그룹이 쉽게 인식되고 Kotlin과의 연관성을 전달�
 
 [모든 자산 다운로드](https://drive.google.com/drive/folders/0B3Zi34svOj1RZ2sxZExhblRJc1k){:.typo-float-right.kto-button.kto-button_size_m.kto-button_mode_outline}
 
-### 사용자 그룹 스타일
+### 사용자 그룹 스타일 {id="style-for-user-groups"}
 
 2017년 초 Kotlin 커뮤니티 지원 프로그램이 시작된 이후 사용자 그룹의 수가 급증하여 
 매달 약 2~4개의 새로운 사용자 그룹이 합류하고 있습니다. 여러분의 지역에 있는 그룹을 찾으려면 
@@ -84,7 +84,7 @@ Kotlin 사용자 그룹이 쉽게 인식되고 Kotlin과의 연관성을 전달�
 * 둘째, 어떤 Kotlin 관련 자료가 공식 팀의 것인지, 어떤 것이 커뮤니티에서 제작된 것인지 명확히 구분할 수 있도록 
    사용자 그룹 및 커뮤니티 콘텐츠에 별도의 스타일을 제공하고자 했습니다.
 
-### 사용자 그룹 로고 만들기
+### 사용자 그룹 로고 만들기 {id="create-the-logo-of-your-user-group"}
 
 사용자 그룹 로고를 만들려면:
 1. Kotlin 사용자 그룹 [로고 파일](https://docs.google.com/drawings/d/1IcJp8Z2jAwEliXrHB-l9RNK_2LrqGTkNuPPtjrW1iIU/edit)을 본인의 Google 드라이브로 복사합니다(Google 계정에 로그인되어 있어야 합니다).
@@ -97,14 +97,14 @@ Kotlin 사용자 그룹이 쉽게 인식되고 Kotlin과의 연관성을 전달�
 
 벡터 그래픽과 소셜 네트워크용 커버 사진 샘플이 포함된 [그래픽 세트](https://drive.google.com/drive/folders/0B3Zi34svOj1RZ2sxZExhblRJc1k)를 다운로드할 수 있습니다.
 
-### 다양한 플랫폼용 그룹 프로필 사진 만들기
+### 다양한 플랫폼용 그룹 프로필 사진 만들기 {id="create-your-group-s-profile-picture-for-different-platforms"}
 
 그룹의 프로필 사진을 만들려면:
 1. Kotlin 사용자 그룹 프로필 [사진 파일](https://docs.google.com/drawings/d/1buhwccmllb7wFS0OIAub0WC4DIuSHRiDpjEQhB4tkPs/edit)의 사본을 본인의 Google 드라이브에 만듭니다(Google 계정에 로그인되어 있어야 합니다).
 2. 사용자 그룹 위치의 약칭을 추가합니다(기본 샘플에 따라 최대 4개의 대문자 사용).
 3. 사진을 다운로드하여 Facebook, Twitter 또는 기타 플랫폼의 프로필에 사용합니다.
 
-### meetup.com 커버 사진 만들기
+### meetup.com 커버 사진 만들기 {id="create-meetup-com-cover-photo"}
 
 meetup.com용 그룹 로고가 포함된 커버 사진을 만들려면:
 1. [사진 파일](https://drive.google.com/file/d/1g_0Plf_do6vrXvy1R-Hx430vfV2CPVKN/view)의 사본을 본인의 Google 
@@ -116,7 +116,7 @@ meetup.com용 그룹 로고가 포함된 커버 사진을 만들려면:
 
 ![User Group examples](kotlin-user-group.png){width=700}
 
-## Kotlin Night 브랜드 자산
+## Kotlin Night 브랜드 자산 {id="kotlin-night-brand-assets"}
 
 JetBrains는 Kotlin Night 이벤트를 위한 브랜딩 및 자료를 제공합니다. 
 저희 팀은 이벤트 홍보를 위한 디지털 자산을 준비하고 스티커와 티셔츠가 포함된 굿즈 패키지를 배송해 드립니다. 
@@ -124,7 +124,7 @@ Kotlin Night을 즐겁게 만들기 위해 무엇이 준비되어 있는지 확�
 
 [모든 자산 다운로드](https://drive.google.com/drive/folders/1wTJ-PiO6VvbY6XdACGLsWZ_N8KHI0Nvr){:.typo-float-right.kto-button.kto-button_size_m.kto-button_mode_outline}
 
-### 소셜 미디어
+### 소셜 미디어 {id="social-media"}
 
 스티커는 Kotlin Night에 필요한 모든 미디어를 브랜딩하는 데 사용할 수 있습니다. 손에 닿는 곳 어디든 붙여보세요. 
 재미있을 거예요!
@@ -133,7 +133,7 @@ Kotlin Night을 즐겁게 만들기 위해 무엇이 준비되어 있는지 확�
 
 ![Cover Social](kotlin-night-fb.svg){width=700}
 
-### 브랜딩 스티커
+### 브랜딩 스티커 {id="branding-stickers"}
 
 스티커는 Kotlin Night용 자산을 브랜딩하는 데 사용할 수 있습니다. 손에 닿는 곳 어디든 붙여보세요. 
 정말 재미있습니다!
@@ -142,23 +142,23 @@ Kotlin Night을 즐겁게 만들기 위해 무엇이 준비되어 있는지 확�
 
 <!-- ![Stickers usage](kotlin-night-stickers-usage.svg){width=700} -->
 
-### 프레스 월(Press-wall)
+### 프레스 월(Press-wall) {id="press-wall"}
 
 잊지 못할 이벤트 사진을 위해 프레스 월을 스티커로 장식할 수 있습니다.
 
 ![Press Wall](kotlin-night-press-wall.svg){width=700}
 
-### 스티커 이름표(Sticky badges)
+### 스티커 이름표(Sticky badges) {id="sticky-badges"}
 
 스티커를 참석자용 이름표로 사용하여 이벤트에서의 네트워킹을 활성화해 보세요!
 
-### 스티커 게시판
+### 스티커 게시판 {id="board-for-stickers"}
 
 또는 게스트가 소감, 피드백, 바람 등을 담은 스티커를 붙일 수 있는 게시판을 마련할 수도 있습니다.
 
 ![board pack](kotlin-night-board.svg){width=700}
 
-### 티셔츠
+### 티셔츠 {id="t-shirts"}
 
 이벤트 게스트는 모임에 대한 소감을 담은 스티커를 게시판에 붙일 수 있습니다. 
 이것이 여러분에게 어떤 의미가 있을까요?

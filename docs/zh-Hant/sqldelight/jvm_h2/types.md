@@ -1,4 +1,4 @@
-## MySQL 型別
+## MySQL 型別 {id="mysql-types"}
 
 SQLDelight 的欄位定義與一般的 H2 欄位定義相同，但支援一個[額外欄位約束](#custom-column-types)，該約束指定了產生的介面中該欄位的 Kotlin 型別。
 

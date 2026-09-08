@@ -4,7 +4,7 @@
 
 この章では、オブジェクト宣言について学習し、クラスへの理解を深めます。この知識は、プロジェクト全体で振る舞いを効率的に管理するのに役立ちます。
 
-## オブジェクト宣言
+## オブジェクト宣言 {id="object-declarations"}
 
 Kotlinでは、**オブジェクト宣言（object declarations）**を使用して、単一のインスタンスを持つクラスを宣言できます。ある意味で、クラスを宣言すると同時に、その単一のインスタンスを生成していることになります。オブジェクト宣言は、プログラム全体で単一の参照ポイントとして使用するクラスを作成したり、システム全体の動作を調整したりする場合に役立ちます。
 
@@ -61,7 +61,7 @@ fun main(){
 >
 {style="note"}
 
-#### データオブジェクト
+#### データオブジェクト {id="data-objects"}
 
 オブジェクト宣言の内容を簡単に表示（print）できるように、Kotlinには**データオブジェクト（data objects）**があります。初級ツアーで学んだデータクラスと同様に、データオブジェクトには `toString()` と `equals()` という追加のメンバー関数が自動的に付属します。
 
@@ -95,7 +95,7 @@ fun main() {
 
 データオブジェクトの詳細については、[](object-declarations.md#data-objects) を参照してください。
 
-#### コンパニオンオブジェクト
+#### コンパニオンオブジェクト {id="companion-objects"}
 
 Kotlinでは、クラスの中にオブジェクト、すなわち**コンパニオンオブジェクト（companion object）**を持たせることができます。コンパニオンオブジェクトは、1つのクラスにつき**1つ**だけ持つことができます。コンパニオンオブジェクトは、そのクラスが初めて参照されたときにのみ作成されます。
 
@@ -136,7 +136,7 @@ fun main() {
 
 詳細については、[](object-declarations.md#companion-objects) を参照してください。
 
-## 練習問題 {completion-point="true"}
+## 練習問題 {completion-point="true" id="practice"}
 
 ### 練習問題 1 {initial-collapse-state="collapsed" collapsible="true" id="objects-exercise-1"}
 

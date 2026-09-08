@@ -8,7 +8,7 @@
 !!! note
     어노테이션 기반 도구는 JVM 전용이며 다른 플랫폼에서는 사용할 수 없습니다. 멀티플랫폼 지원이 필요한 경우 [클래스 기반 도구 API](class-based-tools.md)를 사용하세요.
 
-## 주요 어노테이션
+## 주요 어노테이션 {id="key-annotations"}
 
 프로젝트에서 어노테이션 기반 도구를 사용하려면 다음 주요 어노테이션을 이해해야 합니다.
 
@@ -17,12 +17,12 @@
 | `@Tool`           | LLM에 도구로 노출되어야 하는 함수를 표시합니다. |
 | `@LLMDescription` | 도구 및 해당 구성 요소에 대한 설명 정보를 제공합니다. |
 
-## @Tool 어노테이션
+## @Tool 어노테이션 {id="tool-annotation"}
 
 `@Tool` 어노테이션은 LLM에 도구로 노출되어야 하는 함수(Kotlin) 또는 메서드(Java)를 표시하는 데 사용됩니다.
 `@Tool`로 어노테이션이 지정된 함수와 메서드는 `ToolSet` 인터페이스를 구현하는 객체에서 리플렉션을 통해 수집됩니다. 자세한 내용은 [ToolSet 인터페이스 구현](#1-toolset-인터페이스-구현)을 참조하세요.
 
-### 정의
+### 정의 {id="definition"}
 
 ```kotlin
 @Target(AnnotationTarget.FUNCTION)
@@ -30,13 +30,13 @@ public annotation class Tool(val customName: String = "")
 ```
 <!--- KNIT example-annotation-based-tools-01.txt -->
 
-### 파라미터
+### 파라미터 {id="parameters"}
 
 | <div style="width:100px">이름</div> | 필수 여부 | 설명 |
 |-------------------------------------|----------|------------------------------------------------------------------------------------------|
 | `customName`                        | 아니요 | 도구의 사용자 정의 이름을 지정합니다. 제공되지 않으면 함수의 이름이 사용됩니다. |
 
-### 사용법
+### 사용법 {id="usage"}
 
 함수나 메서드를 도구로 표시하려면 `ToolSet` 인터페이스를 구현하는 클래스 내의 해당 함수나 메서드에 `@Tool` 어노테이션을 적용하세요.
 
@@ -88,7 +88,7 @@ public annotation class Tool(val customName: String = "")
     ```
     <!--- KNIT example-annotation-based-tools-java-01.java -->
 
-## @LLMDescription 어노테이션
+## @LLMDescription 어노테이션 {id="llmdescription-annotation"}
 
 `@LLMDescription` 어노테이션은 코드 요소(클래스, 함수, 메서드, 파라미터 등)에 대한 설명 정보를 LLM에 제공합니다.
 이를 통해 LLM이 이러한 요소의 목적과 사용법을 이해하도록 돕습니다.
@@ -199,9 +199,9 @@ public annotation class LLMDescription(val description: String)
     ```
     <!--- KNIT example-annotation-based-tools-java-03.java -->
 
-## 도구 생성하기
+## 도구 생성하기 {id="creating-a-tool"}
 
-### 1. ToolSet 인터페이스 구현
+### 1. ToolSet 인터페이스 구현 {id="1-implement-the-toolset-interface"}
 
 [`ToolSet`](api:agents-tools::ai.koog.agents.core.tools.reflect.ToolSet) 인터페이스를 구현하는 클래스를 생성합니다.
 이 인터페이스는 클래스를 도구의 컨테이너로 표시합니다.
@@ -233,7 +233,7 @@ public annotation class LLMDescription(val description: String)
     ```
     <!--- KNIT example-annotation-based-tools-java-04.java -->
 
-### 2. 도구 함수 추가
+### 2. 도구 함수 추가 {id="2-add-tool-functions"}
 
 클래스에 함수나 메서드를 추가하고 `@Tool` 어노테이션을 지정하여 도구로 노출합니다.
 
@@ -273,7 +273,7 @@ public annotation class LLMDescription(val description: String)
     ```
     <!--- KNIT example-annotation-based-tools-java-05.java -->
 
-### 3. 설명 추가
+### 3. 설명 추가 {id="3-add-descriptions"}
 
 LLM에 컨텍스트를 제공하기 위해 `@LLMDescription` 어노테이션을 추가합니다.
 
@@ -323,7 +323,7 @@ LLM에 컨텍스트를 제공하기 위해 `@LLMDescription` 어노테이션을 
     ```
     <!--- KNIT example-annotation-based-tools-java-06.java -->
 
-### 4. 에이전트와 함께 도구 사용하기
+### 4. 에이전트와 함께 도구 사용하기 {id="4-use-your-tools-with-an-agent"}
 
 이제 에이전트와 함께 도구를 사용할 수 있습니다.
 
@@ -394,11 +394,11 @@ LLM에 컨텍스트를 제공하기 위해 `@LLMDescription` 어노테이션을 
     ```
     <!--- KNIT example-annotation-based-tools-java-07.java -->
 
-## 사용 예제
+## 사용 예제 {id="usage-examples"}
 
 다음은 도구 어노테이션의 실제 사례입니다.
 
-### 기본 예제: 스위치 컨트롤러
+### 기본 예제: 스위치 컨트롤러 {id="basic-example-switch-controller"}
 
 이 예제는 스위치를 제어하기 위한 간단한 도구 세트를 보여줍니다.
 
@@ -498,7 +498,7 @@ LLM이 스위치를 제어해야 할 때, 제공된 설명을 통해 다음 정�
 - 각 파라미터에 허용되는 값.
 - 실행 시 기대되는 반환 값.
 
-### 고급 예제: 진단 도구
+### 고급 예제: 진단 도구 {id="advanced-example-diagnostic-tools"}
 
 이 예제는 장치 진단을 위한 보다 복잡한 도구 세트를 보여줍니다.
 
@@ -576,7 +576,7 @@ LLM이 스위치를 제어해야 할 때, 제공된 설명을 통해 다음 정�
     ```
     <!--- KNIT example-annotation-based-tools-java-09.java -->
 
-## 권장 사항 (Best practices)
+## 권장 사항 (Best practices) {id="best-practices"}
 
 * **명확한 설명 제공**: 도구, 파라미터 및 반환 값의 목적과 동작을 설명하는 명확하고 간결한 설명을 작성하세요.
 * **모든 파라미터 설명**: 모든 파라미터에 `@LLMDescription`을 추가하여 LLM이 각 파라미터의 용도를 이해하도록 돕습니다.
@@ -587,11 +587,11 @@ LLM이 스위치를 제어해야 할 때, 제공된 설명을 통해 다음 정�
 * **기본값 문서화**: 파라미터에 기본값이 있거나(Kotlin) 오버로드가 있는 경우(Java), 이를 설명에 문서화하세요.
 * **도구의 집중도 유지**: 각 도구는 너무 많은 일을 하려 하기보다 구체적이고 잘 정의된 하나의 작업을 수행해야 합니다.
 
-## 일반적인 문제 해결
+## 일반적인 문제 해결 {id="troubleshooting-common-issues"}
 
 어노테이션 기반 도구로 작업할 때 몇 가지 일반적인 문제에 직면할 수 있습니다.
 
-### 도구가 인식되지 않음
+### 도구가 인식되지 않음 {id="tools-not-being-recognized"}
 
 에이전트가 도구를 인식하지 못하는 경우 다음 사항을 확인하세요.
 
@@ -600,7 +600,7 @@ LLM이 스위치를 제어해야 할 때, 제공된 설명을 통해 다음 정�
 - 도구 함수 또는 메서드가 적절한 반환 타입을 가지고 있는지 확인합니다 (단순성을 위해 `String`을 권장합니다).
 - 도구가 에이전트에 올바르게 등록되었는지 확인합니다.
 
-### 명확하지 않은 도구 설명
+### 명확하지 않은 도구 설명 {id="unclear-tool-descriptions"}
 
 LLM이 도구를 올바르게 사용하지 못하거나 목적을 오해하는 경우 다음을 시도해 보세요.
 
@@ -610,7 +610,7 @@ LLM이 도구를 올바르게 사용하지 못하거나 목적을 오해하는 �
 - 파라미터 설명에 유효한 입력의 예시를 포함하세요.
 - Java는 기본 파라미터를 지원하지 않으므로 메서드 오버로딩을 대신 사용하세요.
 
-### 파라미터 타입 문제
+### 파라미터 타입 문제 {id="parameter-type-issues"}
 
 LLM이 잘못된 파라미터 타입을 제공하는 경우 다음을 시도해 보세요.
 
@@ -619,7 +619,7 @@ LLM이 잘못된 파라미터 타입을 제공하는 경우 다음을 시도해 
 - 복잡한 타입의 경우, 특정 형식을 가진 `String` 파라미터를 사용하고 도구 내부에서 이를 파싱하는 것을 고려하세요.
 - 파라미터 설명에 유효한 입력의 예시를 포함하세요.
 
-### 성능 문제
+### 성능 문제 {id="performance-issues"}
 
 도구로 인해 성능 문제가 발생하는 경우 다음을 시도해 보세요.
 

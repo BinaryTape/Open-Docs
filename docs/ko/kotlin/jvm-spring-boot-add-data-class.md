@@ -5,7 +5,7 @@
 이 튜토리얼의 이번 파트에서는 애플리케이션에 기능을 더 추가하고 데이터 클래스와 같은 Kotlin 언어 기능을 더 알아봅니다.
 `MessageController` 클래스가 직렬화된 객체 컬렉션을 포함하는 JSON 문서로 응답하도록 수정해야 합니다.
 
-## 애플리케이션 업데이트
+## 애플리케이션 업데이트 {id="update-your-application"}
 
 1. 동일한 패키지 내의 `DemoApplication.kt` 파일 옆에 `Message.kt` 파일을 생성합니다.
 2. `Message.kt` 파일에 `id`와 `text`라는 두 개의 프로퍼티를 가진 데이터 클래스를 생성합니다:
@@ -150,7 +150,7 @@ data class Message(val id: String?, val text: String)
 ```
 {initial-collapse-state="collapsed" collapsible="true"}
 
-## 애플리케이션 실행
+## 애플리케이션 실행 {id="run-the-application"}
 
 Spring 애플리케이션을 실행할 준비가 되었습니다:
 
@@ -166,7 +166,7 @@ Spring 애플리케이션을 실행할 준비가 되었습니다:
 
     ![애플리케이션 실행](messages-in-json-format.png){width=700}
 
-## 다음 단계
+## 다음 단계 {id="next-step"}
 
 튜토리얼의 다음 파트에서는 프로젝트에 데이터베이스를 추가 및 설정하고 HTTP 요청을 만들어 보겠습니다.
 

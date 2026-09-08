@@ -6,7 +6,7 @@ Apple SDK 相依性（例如 Foundation 或 Core Bluetooth）在 Kotlin Multipla
 
 若要處理 Kotlin Multiplatform 專案中的 iOS 相依性，你可以使用 [cinterop 工具](#with-cinterop)進行管理，或使用 [CocoaPods 相依管理器](#with-cocoapods)（不支援純 Swift pods）。
 
-### 使用 cinterop
+### 使用 cinterop {id="with-cinterop"}
 
 你可以使用 cinterop 工具為 Objective-C 或 Swift 宣告建立 Kotlin 繫結。這將允許你從 Kotlin 程式碼中呼叫它們。
 
@@ -17,7 +17,7 @@ Apple SDK 相依性（例如 Foundation 或 Core Bluetooth）在 Kotlin Multipla
 3. 建立一個特殊的 `.def` [定義檔](https://kotlinlang.org/docs/native-definition-file.html)，向 cinterop 描述此相依性。
 4. 調整你的建置指令碼，以便在建置期間產生繫結。
 
-#### 新增程式庫
+#### 新增程式庫 {id="add-a-library"}
 
 1. 下載程式庫原始碼，並將其放置在可以從專案中參照的位置。
 2. 建置程式庫（程式庫作者通常會提供如何操作的指南）並取得二進位檔的路徑。
@@ -108,7 +108,7 @@ import DateTools.*
 >
 {style="tip"}
 
-#### 新增架構
+#### 新增架構 {id="add-a-framework"}
 
 1. 下載架構原始碼，並將其放置在可以從專案中參照的位置。
 2. 建置架構（架構作者通常會提供如何操作的指南）並取得二進位檔的路徑。
@@ -194,7 +194,7 @@ import MyFramework.*
 
 進一步了解 [Swift/Objective-C 互通性](https://kotlinlang.org/docs/native-objc-interop.html)以及[從 Gradle 設定 cinterop](multiplatform-dsl-reference.md#cinterops)。
 
-### 使用 CocoaPods
+### 使用 CocoaPods {id="with-cocoapods"}
 
 1. 執行[初始 CocoaPods 整合設定](multiplatform-cocoapods-overview.md#set-up-an-environment-to-work-with-cocoapods)。
 2. 透過在專案的 `build.gradle(.kts)` 中包含 `pod()` 函式呼叫，新增來自 CocoaPods 儲存庫中你想要使用的 Pod 程式庫相依性。
@@ -253,7 +253,7 @@ import cocoapods.SDWebImage.*
 > 
 {style="tip"}
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 查看關於在多平台專案中新增相依性的其他資源，並進一步了解：
 

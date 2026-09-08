@@ -6,7 +6,7 @@ title: Gradle 설정
 
 이 가이드는 Gradle 프로젝트에 Koin 의존성을 추가하는 방법을 다룹니다.
 
-## Koin BOM (권장)
+## Koin BOM (권장) {id="koin-bom-recommended"}
 
 **Bill of Materials (BOM)**는 Koin 의존성을 관리하는 데 권장되는 방식입니다. 이는 모든 Koin 라이브러리가 호환되는 버전을 사용하도록 보장합니다.
 
@@ -14,7 +14,7 @@ title: Gradle 설정
 **권장 사항(Best Practice)**: Koin 라이브러리 간의 버전 충돌을 피하기 위해 항상 Koin BOM을 사용하세요.
 :::
 
-### 버전 카탈로그 사용 (권장)
+### 버전 카탈로그 사용 (권장) {id="using-version-catalogs-recommended"}
 
 `gradle/libs.versions.toml` 파일에서:
 
@@ -41,7 +41,7 @@ dependencies {
 }
 ```
 
-### BOM 직접 사용
+### BOM 직접 사용 {id="using-bom-directly"}
 
 ```kotlin
 dependencies {
@@ -53,7 +53,7 @@ dependencies {
 }
 ```
 
-## 플랫폼별 설정
+## 플랫폼별 설정 {id="platform-specific-setup"}
 
 ### Kotlin/JVM {#kotlin}
 
@@ -222,7 +222,7 @@ fun Application.module() {
 }
 ```
 
-## 사용 가능한 모든 패키지
+## 사용 가능한 모든 패키지 {id="all-available-packages"}
 
 현재 최신 버전: [![Maven Central](https://img.shields.io/maven-central/v/io.insert-koin/koin-core?label=latest)](https://mvnrepository.com/artifact/io.insert-koin/koin-core)
 
@@ -248,7 +248,7 @@ fun Application.module() {
 | `koin-test-junit5` | JUnit 5 지원 |
 | `koin-android-test` | Android 계측 테스트(Instrumented testing) |
 
-## 직접 버전 지정
+## 직접 버전 지정 {id="direct-version-specification"}
 
 BOM을 사용하지 않으려는 경우:
 
@@ -263,7 +263,7 @@ dependencies {
 이 방식은 모든 의존성을 수동으로 동기화해야 합니다. **BOM 사용을 강력히 권장합니다.**
 :::
 
-## 다음 단계
+## 다음 단계 {id="next-steps"}
 
 - **[컴파일러 플러그인 설정](/docs/setup/compiler-plugin)** - 컴파일 타임 안정성 추가
 - **[Koin 시작하기](/docs/reference/koin-core/starting-koin)** - 애플리케이션 설정

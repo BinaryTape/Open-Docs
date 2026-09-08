@@ -6,7 +6,7 @@
 在 JVM 应用程序中，您可以使用 JDBC 与数据库进行交互。
 为了方便起见，Spring 框架提供了 `JdbcTemplate` 类，它可以简化 JDBC 的使用并有助于避免常见错误。
 
-## 添加数据库支持
+## 添加数据库支持 {id="add-database-support"}
 
 在基于 Spring 框架的应用程序中，通用的做法是在所谓的 *service*（服务）层中实现数据库访问逻辑——这就是业务逻辑所在的地方。
 在 Spring 中，您应该使用 `@Service` 注解标记类，以暗示该类属于应用程序的服务层。
@@ -72,7 +72,7 @@ class MessageService(private val db: JdbcTemplate) {
    </def>
 </deflist>
 
-## 更新 MessageController 类
+## 更新 MessageController 类 {id="update-the-messagecontroller-class"}
 
 更新 `MessageController.kt` 以使用新的 `MessageService` 类：
 
@@ -112,7 +112,7 @@ class MessageController(private val service: MessageService) {
    </def>
 </deflist>
 
-## 更新 MessageService 类
+## 更新 MessageService 类 {id="update-the-messageservice-class"}
 
 `Message` 类的 `id` 被声明为可为 null 的字符串：
 
@@ -157,7 +157,7 @@ class MessageService(private val db: JdbcTemplate) {
 
 应用程序代码已准备好与数据库配合工作。现在需要配置数据源。
 
-## 配置数据库
+## 配置数据库 {id="configure-the-database"}
 
 在应用程序中配置数据库：
 
@@ -192,7 +192,7 @@ class MessageService(private val db: JdbcTemplate) {
    这些设置将为 Spring Boot 应用程序启用数据库。  
    请在 [Spring 文档](https://docs.spring.io/spring-boot/appendix/application-properties/index.html)中查看常用应用程序属性的完整列表。
 
-## 通过 HTTP 请求向数据库添加消息
+## 通过 HTTP 请求向数据库添加消息 {id="add-messages-to-database-via-http-request"}
 
 您应该使用 HTTP 客户端来操作之前创建的端点。在 IntelliJ IDEA 中，使用内置的 HTTP 客户端：
 
@@ -240,7 +240,7 @@ class MessageService(private val db: JdbcTemplate) {
 
    ![执行 GET 请求](execute-get-requests.png){width=700}
 
-### 执行请求的其他方式 {initial-collapse-state="collapsed" collapsible="true"}
+### 执行请求的其他方式 {initial-collapse-state="collapsed" collapsible="true" id="alternative-way-to-execute-requests"}
 
 您也可以使用任何其他 HTTP 客户端或 cURL 命令行工具。例如，在终端中运行以下命令以获得相同的结果：
 
@@ -254,7 +254,7 @@ curl -X POST --location "http://localhost:8080" -H "Content-Type: application/js
 curl -X GET --location "http://localhost:8080"
 ```
 
-## 通过 id 检索消息
+## 通过 id 检索消息 {id="retrieve-messages-by-id"}
 
 扩展应用程序的功能，以通过 id 检索单个消息。
 
@@ -454,7 +454,7 @@ class MessageController(private val service: MessageService) {
 ```
 {initial-collapse-state="collapsed" collapsible="true"}
 
-## 运行应用程序
+## 运行应用程序 {id="run-the-application"}
 
 Spring 应用程序已准备好运行：
 
@@ -484,7 +484,7 @@ Spring 应用程序已准备好运行：
 
     ![通过 id 检索消息](retrieve-message-by-its-id.png){width=700}
 
-## 下一步
+## 下一步 {id="next-step"}
 
 最后一步将向您展示如何使用 Spring Data 以更流行的方式连接到数据库。 
 

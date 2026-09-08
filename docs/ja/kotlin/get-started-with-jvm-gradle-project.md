@@ -4,7 +4,7 @@
 
 始めるには、まず最新バージョンの [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) をダウンロードしてインストールしてください。
 
-## プロジェクトの作成
+## プロジェクトの作成 {id="create-a-project"}
 
 1. IntelliJ IDEA で、**File** | **New** | **Project** を選択します。
 2. 左側のパネルで **Kotlin** を選択します。
@@ -32,7 +32,7 @@
 
 これで、Gradle を使用したプロジェクトの作成に成功しました！
 
-#### プロジェクトの Gradle バージョンを指定する {initial-collapse-state="collapsed" collapsible="true"}
+#### プロジェクトの Gradle バージョンを指定する {initial-collapse-state="collapsed" collapsible="true" id="specify-a-gradle-version-for-your-project"}
 
 **Advanced Settings** セクションで、Gradle Wrapper またはローカルにインストールされた Gradle を使用して、プロジェクトの Gradle バージョンを明示的に指定できます。
 
@@ -46,7 +46,7 @@
 
    ![詳細設定](jvm-new-gradle-project-advanced.png){width=700}
 
-## ビルドスクリプトを確認する
+## ビルドスクリプトを確認する {id="explore-the-build-script"}
 
 `build.gradle.kts` ファイルを開きます。これは Gradle の Kotlin ビルドスクリプトであり、Kotlin 関連のアーティファクトやアプリケーションに必要なその他の要素が含まれています。
 
@@ -85,7 +85,7 @@ tasks.test { // 4️⃣ を参照
 2. `dependencies {}` ブロックには `testImplementation(kotlin("test"))` があります。 
    [テストライブラリへの依存関係の設定](gradle-configure-project.md#set-dependencies-on-test-libraries)の詳細については、こちらをご覧ください。
 
-## アプリケーションを実行する
+## アプリケーションを実行する {id="run-the-application"}
 
 1. **View** | **Tool Windows** | **Gradle** を選択して、Gradle ウィンドウを開きます。
 
@@ -108,7 +108,7 @@ tasks.test { // 4️⃣ を参照
 
 おめでとうございます！初めての Kotlin アプリケーションを実行できました。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 以下の詳細について学びましょう：
 * [Gradle ビルドファイルのプロパティ](https://docs.gradle.org/current/dsl/org.gradle.api.Project.html#N14E9A)

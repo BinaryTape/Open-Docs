@@ -9,9 +9,9 @@
 您可以在 [GitHub](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.12.0) 上找到此版本的完整变更列表。
 有关特定组件版本的详细信息，请参阅[依赖项](#dependencies)部分。
 
-## 跨平台
+## 跨平台 {id="across-platforms"}
 
-### Skia 已更新至 Milestone 150
+### Skia 已更新至 Milestone 150 {id="skia-updated-to-milestone-150"}
 
 Compose Multiplatform 通过 Skiko 使用的 Skia 版本已更新至 Milestone 150。
 
@@ -20,16 +20,16 @@ Compose Multiplatform 通过 Skiko 使用的 Skia 版本已更新至 Milestone 1
 
 此更新还解决了 iOS 上已经捆绑了自有 Skia 库的应用（例如基于 Chromium 的应用）的重复符号冲突。
 
-## iOS
+## iOS {id="ios"}
 
-### 改进了延迟布局的滚动性能
+### 改进了延迟布局的滚动性能 {id="improved-lazy-layout-scrolling-performance"}
 
 适用于 iOS 的 Compose Multiplatform 现在为延迟布局提供了更佳的滚动性能。
 列表项停用在绘制阶段之外执行，使绘制阶段能够更快完成，从而实现更平滑的滚动。
 
-## Web
+## Web {id="web"}
 
-### 自动字体回退
+### 自动字体回退 {id="automatic-font-fallback"}
 <primary-label ref="Experimental"/>
 
 此前，应用加载的字体未涵盖的字符会被显示为替换字形（□，即“豆腐块”/“tofu”）。
@@ -38,9 +38,9 @@ Compose Multiplatform 通过 Skiko 使用的 Skia 版本已更新至 Milestone 1
 下载字体后，Compose 会对受影响的文本进行重组。
 请注意，在获取到所需的字体之前，“豆腐块”可能会短暂出现。
 
-## 桌面端
+## 桌面端 {id="desktop"}
 
-### Compose Hot Reload 中适用于 AI 代理的 MCP 服务器
+### Compose Hot Reload 中适用于 AI 代理的 MCP 服务器 {id="mcp-server-for-ai-agents-in-compose-hot-reload"}
 <primary-label ref="Experimental"/>
 
 Compose Hot Reload 现在附带了一个实验性的 [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) 服务器，允许 AI 编码代理直接与运行中的 Compose 应用程序进行交互。
@@ -49,7 +49,7 @@ Compose Hot Reload 现在附带了一个实验性的 [Model Context Protocol (MC
 
 有关 AI 代理可用的 MCP 工具完整列表以及如何连接它的信息，请参阅 [AI 代理的 MCP 服务器](compose-hot-reload.md#mcp-server-for-ai-agents)。
 
-### 窗口和对话框 API v2
+### 窗口和对话框 API v2 {id="window-and-dialog-api-v2"}
 <primary-label ref="Experimental"/>
 
 我们为桌面端的 `WindowState` 和 `DialogState` 引入了全新的实验性 v2 API，旨在解决现有 API 的诸多限制。
@@ -99,7 +99,7 @@ fun main() = application {
 v2 API 还解锁了以前无法实现的场景，例如根据内容大小调整窗口大小，同时在窗口变大时仍允许内容通过 `fillMaxSize()` 等修饰符进行扩展。
 详情请参阅 [窗口和对话框 API v2](compose-desktop-top-level-windows-management.md#window-and-dialog-api-v2) 文档页面。
 
-## 依赖项
+## 依赖项 {id="dependencies"}
 
 | 库 | Maven 坐标 | 基于 Jetpack 版本 |
 |--------------------|------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|

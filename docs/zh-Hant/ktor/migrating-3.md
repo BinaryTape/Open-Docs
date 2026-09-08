@@ -6,7 +6,7 @@
 
 ## Ktor Server {id="server"}
 
-### `ApplicationEngine`、`ApplicationEnvironment` 與 `Application`
+### `ApplicationEngine`、`ApplicationEnvironment` 與 `Application` {id="applicationengine-applicationenvironment-and-application"}
 
 我們引入了多項設計變更，以改進可設定性，並在 `ApplicationEngine`、`ApplicationEnvironment` 與 `Application` 執行個體之間提供更明確的分隔。
 
@@ -180,9 +180,9 @@ fun main(args: Array<String>) {
 
 如需更多關於模型變更的詳細資訊，請參閱 [YouTrack 上的問題 KTOR-3857](https://youtrack.jetbrains.com/issue/KTOR-3857/Environment-Engine-Application-Design)。
 
-### 測試
+### 測試 {id="testing"}
 
-##### `withTestApplication` 與 `withApplication` 已移除
+##### `withTestApplication` 與 `withApplication` 已移除 {id="withtestapplication-and-withapplication-have-been-removed"}
 
 `withTestApplication` 與 `withApplication` 函式（[先前已在 `2.0.0` 版本中棄用](migration-to-20x.md#testing-api)）現在已從 `ktor-server-test-host` 套件中移除。
 
@@ -289,7 +289,7 @@ fun testHello() = testApplication {
 
 如需更多關於設定測試應用程式的資訊，請參閱 [Ktor Server 中的測試](server-testing.md) 章節。
 
-### `CallLogging` 外掛程式套件已重新命名
+### `CallLogging` 外掛程式套件已重新命名 {id="calllogging-plugin-package-has-been-renamed"}
 
 由於拼字錯誤，[`CallLogging`](https://api.ktor.io/ktor-server-call-logging/io.ktor.server.plugins.calllogging/index.html) 外掛程式套件已重新命名。
 
@@ -297,13 +297,13 @@ fun testHello() = testApplication {
 |-------------------------------------|--------------------------------------|
 | `io.ktor.server.plugins.callloging` | `io.ktor.server.plugins.calllogging` |
 
-### `ktor-server-host-common` 模組已移除
+### `ktor-server-host-common` 模組已移除 {id="ktor-server-host-common-module-has-been-removed"}
 
 由於 `Application` 需要了解 `ApplicationEngine`，`ktor-server-host-common` 模組的內容已併入 `ktor-server-core`，即 [`io.ktor.server.engine`](https://api.ktor.io/ktor-server-core/io.ktor.server.engine/index.html) 套件。
 
 請確保您的相依性已相應更新。在大多數情況下，您只需移除 `ktor-server-host-common` 相依性即可。
 
-### `Locations` 外掛程式已移除
+### `Locations` 外掛程式已移除 {id="locations-plugin-has-been-removed"}
 
 Ktor 伺服器的 `Locations` 外掛程式已移除。若要建立型別安全的路由，請改用 [Resources 外掛程式](server-resources.md)。這需要以下變更：
 
@@ -358,7 +358,7 @@ fun Application.module() {
 
 如需更多關於使用 `Resources` 的資訊，請參閱[型別安全路由](server-resources.md)。
 
-### WebSockets 組態中 `java.time` 的替換
+### WebSockets 組態中 `java.time` 的替換 {id="replacement-of-java-time-in-websockets-configuration"}
 
 [WebSockets](server-websockets.md) 外掛程式組態已更新，改用 Kotlin 的 [Duration](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-duration/) 來設定 `pingPeriod` 與 `timeout` 屬性。這取代了先前使用的 `java.time.Duration`，以提供更符合 Kotlin 習慣的體驗。
 
@@ -390,7 +390,7 @@ install(WebSockets) {
 
 您可以根據需要對其他時間長度組態使用類似的 Kotlin 時間擴充屬性（`minutes`、`hours` 等）。如需更多資訊，請參閱 [Duration](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-duration/) 文件。
 
-### 伺服器通訊端 `.bind()` 現在為掛起函式
+### 伺服器通訊端 `.bind()` 現在為掛起函式 {id="server-socket-bind-is-now-suspending"}
 
 為了支援 JS 與 WasmJS 環境中的非同步操作，[`TCPSocketBuilder`](https://api.ktor.io/ktor-network/io.ktor.network.sockets/-tcp-socket-builder/index.html) 與 [`UDPSocketBuilder`](https://api.ktor.io/ktor-network/io.ktor.network.sockets/-u-d-p-socket-builder/index.html) 中伺服器通訊端的 `.bind()` 函式已更新為掛起函式 (suspending function)。這意味著現在必須在協同程式內呼叫 `.bind()`。
 
@@ -406,13 +406,13 @@ install(WebSockets) {
 
 如需更多關於使用通訊端的資訊，請參閱 [Sockets 文件](server-sockets.md)。
 
-## 多部分表單資料 (Multipart form data)
+## 多部分表單資料 (Multipart form data) {id="multipart-form-data"}
 
-### 二進位與檔案項目的新預設限制
+### 二進位與檔案項目的新預設限制 {id="new-default-limit-for-binary-and-file-items"}
 
 在 Ktor 3.0.0 中，使用 [`ApplicationCall.receiveMultipart()`](https://api.ktor.io/3.0.x/ktor-server-core/io.ktor.server.request/receive-multipart.html) 接收二進位與檔案項目時引入了 50 MB 的預設限制。如果接收到的檔案或二進位項目超過 50 MB 的限制，則會擲回 `IOException`。
 
-#### 覆寫預設限制
+#### 覆寫預設限制 {id="override-the-default-limit"}
 
 如果您的應用程式先前依賴於處理大於 50 MB 的檔案且未進行明確組態，您將需要更新程式碼以避免非預期的行為。
 
@@ -422,7 +422,7 @@ install(WebSockets) {
 val multipartData = call.receiveMultipart(formFieldLimit = 1024 * 1024 * 100)
 ```
 
-### `PartData.FileItem.streamProvider()` 已棄用
+### `PartData.FileItem.streamProvider()` 已棄用 {id="partdata-fileitem-streamprovider-is-deprecated"}
 
 在先前的 Ktor 版本中，`PartData.FileItem` 中的 `.streamProvider()` 函式用於將檔案項目的內容作為 `InputStream` 存取。從 Ktor 3.0.0 開始，此函式已棄用。
 
@@ -473,7 +473,7 @@ fun Application.main() {
 
 如需完整範例以及更多關於處理多部分表單資料的資訊，請參閱[多部分表單資料的請求處理](server-requests.md#form_data)。
 
-### 工作階段加密方法更新
+### 工作階段加密方法更新 {id="session-encryption-method-update"}
 
 `Sessions` 外掛程式提供的加密方法已更新以增強安全性。
 
@@ -498,13 +498,13 @@ install(Sessions) {
 
 如需更多關於 Ktor 中工作階段加密的資訊，請參閱[簽署並加密工作階段資料](server-sessions.md#sign_encrypt_session)。
 
-## Ktor Client
+## Ktor Client {id="ktor-client"}
 
-### `HttpResponse` 的 `content` 屬性重新命名
+### `HttpResponse` 的 `content` 屬性重新命名 {id="renaming-of-httpresponse-s-content-property"}
 
 在 Ktor 3.0.0 之前，[`HttpResponse`](https://api.ktor.io/ktor-client-core/io.ktor.client.statement/-http-response/index.html) 的 `content` 屬性提供了一個原始的 `ByteReadChannel`，用於讀取來自網路的回應內容。從 Ktor 3.0.0 開始，`content` 屬性已重新命名為 `rawContent`，以更精確地反映其用途。
 
-### `SocketTimeoutException` 現在是一個型別別名
+### `SocketTimeoutException` 現在是一個型別別名 {id="sockettimeoutexception-is-now-a-typealias"}
 
 來自 `io.ktor.client.network.sockets` 套件的 [`SocketTimeoutException`](https://api.ktor.io/3.0.x/ktor-client-core/io.ktor.client.network.sockets/-socket-timeout-exception/index.html) 已從 Kotlin 類別轉換為 Java 類別的別名。此變更在某些情況下可能會導致 `NoClassDefFoundError`，並可能需要更新現有程式碼。
 
@@ -515,9 +515,9 @@ install(Sessions) {
     <code-block lang="kotlin" code="    if (exception is java.net.SocketTimeoutException) { ... }"/>
 </compare>
 
-## 共用模組 (Shared modules)
+## 共用模組 (Shared modules) {id="shared-modules"}
 
-### 遷移至 `kotlinx-io`
+### 遷移至 `kotlinx-io` {id="migration-to-kotlinx-io"}
 
 隨著 3.0.0 版本的發布，Ktor 已轉向使用 `kotlinx-io` 程式庫，該程式庫在 Kotlin 各個程式庫之間提供了標準化且高效的 I/O API。此變更提高了效能、減少了記憶體分配，並簡化了 I/O 處理。如果您的專案與 Ktor 的底層 I/O API 互動，您可能需要更新程式碼以確保相容性。
 
@@ -536,7 +536,7 @@ install(Sessions) {
 
 棄用的 API 將被支援至 Ktor 4.0，但我們建議您儘早進行遷移。若要遷移您的應用程式，請更新您的程式碼以使用來自 `kotlinx-io` 的對應方法。
 
-#### 範例：串流 I/O
+#### 範例：串流 I/O {id="example-streaming-i-o"}
 
 如果您正在處理大型檔案下載並需要高效的串流解決方案，您可以將手動位元組陣列處理替換為 `kotlinx-io` 優化的串流 API。
 
@@ -598,7 +598,7 @@ runBlocking {
 
 > 如需更多關於 API 替換的詳細資訊，請參閱 [`kotlinx-io` 文件](https://kotlinlang.org/api/kotlinx-io/)。
 
-### 屬性金鑰現在需要精確的型別比對
+### 屬性金鑰現在需要精確的型別比對 {id="attribute-keys-now-require-exact-type-matching"}
 
 在 Ktor 3.0.0 中，[`AttributeKey`](https://api.ktor.io/3.0.x/ktor-utils/io.ktor.util/-attribute-key.html) 執行個體現在透過識別 (identity) 進行比較，且在儲存與檢索值時需要精確的型別比對。這確保了型別安全性並防止因型別不符而導致的非預期行為。
 
@@ -613,7 +613,7 @@ attrs.put(AttributeKey<Boolean>("key"), true)
 attrs.getOrNull<Boolean>("key")
 ```
 
-### 移除空白構件
+### 移除空白構件 {id="removal-of-empty-artifact"}
 
 自 Ktor 1.0.0 以來，空白構件 `io.ktor:ktor` 曾被誤發布至 [Maven](https://repo1.maven.org/maven2/io/ktor/ktor/)。從 Ktor 3.0.0 開始，該構件已被移除。
 

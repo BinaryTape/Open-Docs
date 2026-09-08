@@ -14,11 +14,11 @@ Kotlin/Native を使用すると、Linux、macOS、Windows を含む[さまざ�
 >
 {style="note"}
 
-## IDE で作成する
+## IDE で作成する {id="in-ide"}
 
 このセクションでは、IntelliJ IDEA を使用して Kotlin/Native アプリケーションを作成する方法を学びます。
 
-### プロジェクトの作成
+### プロジェクトの作成 {id="create-the-project"}
 
 1. 最新バージョンの [IntelliJ IDEA](https://www.jetbrains.com/idea/) をダウンロードしてインストールします。
 2. IntelliJ IDEA で **File** | **New** | **Project from Version Control** を選択し、以下の URL を使用して [プロジェクトテンプレート](https://github.com/Kotlin/kmp-native-wizard) をクローンします。
@@ -40,7 +40,7 @@ Kotlin/Native を使用すると、Linux、macOS、Windows を含む[さまざ�
 
 これらの設定に関する詳細は、[マルチプラットフォーム Gradle DSL リファレンス](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html)を参照してください。
 
-### アプリケーションのビルドと実行
+### アプリケーションのビルドと実行 {id="build-and-run-the-application"}
 
 `src/nativeMain/kotlin/` ディレクトリにある `Main.kt` ファイルを開きます。
 
@@ -69,7 +69,7 @@ IntelliJ IDEA は Gradle タスクを使用してコードを実行し、その�
 
 これで、クラスファイルを変更したりファイルを保存（<shortcut>Ctrl + S</shortcut>/<shortcut>Cmd + S</shortcut>）したりすると、IntelliJ IDEA は自動的にプロジェクトの増分ビルドを実行します。
 
-### アプリケーションの更新
+### アプリケーションの更新 {id="update-the-application"}
 
 アプリケーションに、名前の文字数をカウントする機能を追加してみましょう。
 
@@ -160,7 +160,7 @@ IntelliJ IDEA は Gradle タスクを使用してコードを実行し、その�
 
    ![アプリケーション의 出力](native-output-gutter-3.png){width=500}
 
-## Gradle を使用する
+## Gradle を使用する {id="using-gradle"}
 
 このセクションでは、[Gradle](https://gradle.org) を使用して手動で Kotlin/Native アプリケーションを作成する方法を学びます。Gradle は Kotlin/Native および Kotlin マルチプラットフォームプロジェクトのデフォルトのビルドシステムであり、Java、Android、その他のエコシステムでも一般的に使用されています。
 
@@ -171,7 +171,7 @@ Kotlin/Native プロジェクトをビルドする際、Kotlin Gradle プラグ�
 
 メインバンドルのダウンロードソースは、Gradle ビルドスクリプトの `repositories {}` ブロックで変更できます。
 
-### プロジェクトファイルの作成
+### プロジェクトファイルの作成 {id="create-project-files"}
 
 1. まず、互換性のあるバージョンの [Gradle](https://gradle.org/install/) をインストールします。利用可能な Gradle バージョンと Kotlin Gradle プラグイン (KGP) の互換性を確認するには、[互換性表](gradle-configure-project.md#apply-the-plugin)を参照してください。
 2. 空のプロジェクトディレクトリを作成します。その中に、以下の内容で `build.gradle(.kts)` ファイルを作成します。
@@ -263,7 +263,7 @@ Kotlin/Native プロジェクトをビルドする際、Kotlin Gradle プラグ�
 
 慣例により、すべてのソースは `src/<platform name>[Main|Test]/kotlin` ディレクトリに配置されます。ここで `Main` はソースコード用、`Test` はテスト用です。この場合、`<platform name>` は `native` です。
 
-### プロジェクトのビルドと実行
+### プロジェクトのビルドと実行 {id="build-and-run-the-project"}
 
 1. プロジェクトのルートディレクトリから、使用するターゲットの `<yourTargetName>Binaries` ビルドコマンドを実行します。例えば：
 
@@ -283,7 +283,7 @@ Kotlin/Native プロジェクトをビルドする際、Kotlin Gradle プラグ�
 
 ターミナルに "Hello, Kotlin/Native!" と表示されます。
 
-### IDE でプロジェクトを開く
+### IDE でプロジェクトを開く {id="open-the-project-in-ide"}
 
 これで、Gradle をサポートする任意の IDE でプロジェクトを開くことができます。IntelliJ IDEA を使用する場合：
 
@@ -293,11 +293,11 @@ Kotlin/Native プロジェクトをビルドする際、Kotlin Gradle プラグ�
 
 プロジェクトに問題が発生した場合、IntelliJ IDEA は **Build** タブにエラーメッセージを表示します。
 
-## コマンドラインコンパイラを使用する
+## コマンドラインコンパイラを使用する {id="using-the-command-line-compiler"}
 
 このセクションでは、コマンドラインツールの Kotlin コンパイラを使用して Kotlin/Native アプリケーションを作成する方法を学びます。
 
-### コンパイラのダウンロードとインストール
+### コンパイラのダウンロードとインストール {id="download-and-install-the-compiler"}
 
 コンパイラをインストールするには：
 
@@ -314,7 +314,7 @@ Kotlin/Native プロジェクトをビルドする際、Kotlin Gradle プラグ�
 >
 {style="note"}
 
-### プログラムの作成
+### プログラムの作成 {id="create-the-program"}
 
 作業ディレクトリを選択し、`hello.kt` という名前のファイルを作成します。以下のコードで更新してください。
 
@@ -324,7 +324,7 @@ fun main() {
 }
 ```
 
-### コンソールからのコードのコンパイル
+### コンソールからのコードのコンパイル {id="compile-the-code-from-the-console"}
 
 アプリケーションをコンパイルするには、ダウンロードしたコンパイラを使用して次のコマンドを実行します。
 
@@ -336,7 +336,7 @@ kotlinc-native hello.kt -o hello
 
 利用可能なオプションの全リストについては、[Kotlin コンパイラオプション](compiler-reference.md)を参照してください。
 
-### プログラムの実行
+### プログラムの実行 {id="run-the-program"}
 
 プログラムを実行するには、コマンドラインツールでバイナリファイルが含まれているディレクトリに移動し、次のコマンドを実行します。
 
@@ -359,7 +359,7 @@ kotlinc-native hello.kt -o hello
 
 アプリケーションが標準出力に "Hello, Kotlin/Native" を出力します。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * ネイティブ HTTP クライアントを作成し C ライブラリと相互運用する方法を説明した [C 相互運用と libcurl を使用したアプリの作成](native-app-with-c-and-libcurl.md) チュートリアルを完了してください。
 * [実際の Kotlin/Native プロジェクト向けに Gradle ビルドスクリプトを作成する方法](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html)について学んでください。

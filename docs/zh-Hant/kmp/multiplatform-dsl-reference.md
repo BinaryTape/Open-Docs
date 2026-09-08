@@ -3,7 +3,7 @@
 Kotlin 多平台 Gradle 外掛程式是用於建立 Kotlin 多平台專案的工具。
 我們在此提供其內容的參考；在為 Kotlin 多平台專案撰寫 Gradle 建置指令碼時，可將其作為提醒。進一步了解 [Kotlin 多平台專案的概念、如何建立與配置它們](multiplatform-discover-project.md)。
 
-## ID 與版本
+## ID 與版本 {id="id-and-version"}
 
 Kotlin 多平台 Gradle 外掛程式的完全限定名稱為 `org.jetbrains.kotlin.multiplatform`。
 如果您使用 Kotlin Gradle DSL，可以使用 `kotlin("multiplatform")` 套用該外掛程式。
@@ -30,7 +30,7 @@ plugins {
 </TabItem>
 </Tabs>
 
-## 最上層區塊
+## 最上層區塊 {id="top-level-blocks"}
 
 `kotlin {}` 是 Gradle 建置指令碼中用於多平台專案配置的最上層區塊。
 在 `kotlin {}` 內部，您可以撰寫以下區塊：
@@ -43,7 +43,7 @@ plugins {
 | `compilerOptions`    | 指定共用的延伸層級 [編譯器選項](#compiler-options)，這些選項將作為所有目標和共用原始碼集的預設值。       |
 | `dependencies`       | 配置 [共用相依性](#configure-dependencies-at-the-top-level)。（實驗性）                                  |
 
-## 目標
+## 目標 {id="targets"}
 
 「目標」（target）是組建中負責編譯、測試和封裝針對其中一個受支援平台的軟體部分。Kotlin 為每個平台提供目標，因此您可以指示 Kotlin 為該特定目標編譯程式碼。進一步了解 [設定目標](multiplatform-discover-project.md#targets)。
 
@@ -135,7 +135,7 @@ kotlin {
 
 每個目標可以有一個或多個 [編譯](#compilations)。
 
-### 共用目標配置
+### 共用目標配置 {id="common-target-configuration"}
 
 在任何目標區塊中，您可以使用以下宣告：
 
@@ -146,7 +146,7 @@ kotlin {
 | `components`        | 用於設定 Gradle 發佈的元件。                                                                                                                     |
 | `compilerOptions`   | 用於該目標的 [編譯器選項](#compiler-options)。此宣告會覆寫在 [最上層](multiplatform-dsl-reference.md#top-level-blocks) 配置的任何 `compilerOptions {}`。 |
 
-### Web 目標
+### Web 目標 {id="web-targets"}
 
 `js {}` 區塊描述了 Kotlin/JS 目標的配置，而 `wasmJs {}` 區塊描述了與 JavaScript 互通的 Kotlin/Wasm 目標的配置。根據目標執行環境的不同，它們可以包含以下兩個區塊之一：
 
@@ -170,7 +170,7 @@ kotlin {
 
 所有的 Web 目標（`js`、`wasmJs` 和 `wasmWasi`）也支援 `binaries.executable()` 呼叫。它明確指示 Kotlin 編譯器發出可執行檔。如需更多資訊，請參閱 Kotlin/JS 文件中的 [執行環境](https://kotlinlang.org/docs/js-project-setup.html#execution-environments)。
 
-#### 瀏覽器 (Browser)
+#### 瀏覽器 (Browser) {id="browser"}
 
 `browser {}` 可以包含以下配置區塊：
 
@@ -193,7 +193,7 @@ kotlin {
 }
 ```
 
-#### Node.js
+#### Node.js {id="node-js"}
 
 `nodejs {}` 可以包含測試和執行任務的配置：
 
@@ -211,7 +211,7 @@ kotlin {
 }
 ```
 
-### 原生目標 (Native targets)
+### 原生目標 (Native targets) {id="native-targets"}
 
 對於原生目標，提供以下特定區塊：
 
@@ -220,7 +220,7 @@ kotlin {
 | `binaries`  | 要產生的 [二進位檔](#binaries) 配置。                    |
 | `cinterops` | 與 [C 程式庫互通性](#cinterops) 的配置。                |
 
-#### 二進位檔 (Binaries)
+#### 二進位檔 (Binaries) {id="binaries"}
 
 有以下幾種二進位檔：
 
@@ -349,7 +349,7 @@ binaries {
 
 進一步了解 [建置原生二進位檔](multiplatform-build-native-binaries.md)。
 
-#### Cinterops
+#### Cinterops {id="cinterops"}
 
 `cinterops` 是與原生程式庫互通的說明集合。
 要提供與程式庫的互通性，請在 `cinterops` 中加入一個項目並定義其參數：
@@ -440,7 +440,7 @@ kotlin {
 
 如需更多 cinterop 屬性，請參閱 [定義檔案](https://kotlinlang.org/docs/native-definition-file.html#properties)。
 
-### Android 目標
+### Android 目標 {id="android-targets"}
 
 Kotlin 多平台 Gradle 外掛程式具有特定函式，可協助您為 Android 目標配置 [建置變體](https://developer.android.com/studio/build/build-variants)：
 
@@ -463,13 +463,13 @@ kotlin {
 >
 {style="note"}
 
-## 原始碼集 (Source sets)
+## 原始碼集 (Source sets) {id="source-sets"}
 
 `sourceSets {}` 區塊描述了專案的原始碼集。一個原始碼集包含一起參與編譯的 Kotlin 原始碼檔案，以及它們的資源和相依性。
 
 多平台專案包含其目標的 [預定義](#predefined-source-sets) 原始碼集；開發人員也可以根據需要建立 [自訂](#custom-source-sets) 原始碼集。
 
-### 預定義原始碼集
+### 預定義原始碼集 {id="predefined-source-sets"}
 
 預定義原始碼集在建立多平台專案時會自動設定。
 可用的預定義原始碼集如下：
@@ -509,7 +509,7 @@ kotlin {
 
 進一步了解 [原始碼集](multiplatform-discover-project.md#source-sets)。
 
-### 自訂原始碼集
+### 自訂原始碼集 {id="custom-source-sets"}
 
 自訂原始碼集由專案開發人員手動建立。
 要建立自訂原始碼集，請在 `sourceSets` 區塊內加入一個帶有其名稱的區段。
@@ -544,7 +544,7 @@ kotlin {
 
 請注意，新建立的原始碼集未與其他原始碼集連接。要在專案的編譯中使用它，請將其 [與其他原始碼集連接](multiplatform-hierarchy.md#manual-configuration)。
 
-### 原始碼集參數
+### 原始碼集參數 {id="source-set-parameters"}
 
 原始碼集的配置存儲在 `sourceSets {}` 的相應區塊內。一個原始碼集具有以下參數：
 
@@ -597,7 +597,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-## 編譯 (Compilations)
+## 編譯 (Compilations) {id="compilations"}
 
 一個目標可以有一個 or 多個編譯，例如用於生產或測試。有一些 [預定義編譯](#predefined-compilations) 會在目標建立時自動加入。您還可以額外建立 [自訂編譯](#custom-compilations)。
 
@@ -606,7 +606,7 @@ kotlin {
 
 進一步了解 [配置編譯](multiplatform-configure-compilations.md)。
 
-### 預定義編譯
+### 預定義編譯 {id="predefined-compilations"}
 
 預定義編譯會為專案的每個目標（Android 目標除外）自動建立。
 可用的預定義編譯如下：
@@ -646,7 +646,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-### 自訂編譯
+### 自訂編譯 {id="custom-compilations"}
 
 除了預定義編譯外，您還可以建立自己的自訂編譯。
 為此，請在新的編譯與 `main` 編譯之間設定 [`associateWith`](https://kotlinlang.org/docs/gradle-configure-project.html#associate-compiler-tasks) 關係。如果您使用的是 Kotlin Gradle DSL，請將自訂編譯標記為 `by creating`：
@@ -714,7 +714,7 @@ kotlin {
 
 進一步了解建立 [自訂編譯](multiplatform-configure-compilations.md#create-a-custom-compilation)。
 
-### 編譯參數
+### 編譯參數 {id="compilation-parameters"}
 
 編譯具有以下參數：
 
@@ -789,7 +789,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-## 編譯器選項
+## 編譯器選項 {id="compiler-options"}
 
 您可以在專案的三個不同層級配置編譯器選項：
 
@@ -811,7 +811,7 @@ kotlin {
 
 如需可能的編譯器選項清單，請參閱 [所有編譯器選項](https://kotlinlang.org/docs/gradle-compiler-options.html#all-compiler-options)。
 
-### 延伸層級
+### 延伸層級 {id="extension-level"}
 
 要為專案中的所有目標配置編譯器選項，請在最上層使用 `compilerOptions {}` 區塊：
 
@@ -842,7 +842,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-### 目標層級
+### 目標層級 {id="target-level"}
 
 要為專案中的特定目標配置編譯器選項，請在目標區塊內部使用 `compilerOptions {}` 區塊：
 
@@ -877,7 +877,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-### 編譯單元層級
+### 編譯單元層級 {id="compilation-unit-level"}
 
 要為特定任務配置編譯器選項，請在任務內部使用 `compilerOptions {}` 區塊：
 
@@ -947,11 +947,11 @@ kotlin {
 </TabItem>
 </Tabs>
 
-### 從 `kotlinOptions {}` 遷移至 `compilerOptions {}` {collapsible="true"}
+### 從 `kotlinOptions {}` 遷移至 `compilerOptions {}` {collapsible="true" id="migrate-from-kotlinoptions-to-compileroptions"}
 
 在 Kotlin 2.2.0 之前，您可以使用 `kotlinOptions {}` 區塊配置編譯器選項。由於 `kotlinOptions {}` 區塊在 Kotlin 2.2.0 中已被棄用，您需要在建置指令碼中改用 `compilerOptions {}` 區塊。如需更多資訊，請參閱 [從 `kotlinOptions{}` 遷移至 `compilerOptions{}`](https://kotlinlang.org/docs/gradle-compiler-options.html#migrate-from-kotlinoptions-to-compileroptions)。
 
-## 相依性 (Dependencies)
+## 相依性 (Dependencies) {id="dependencies"}
 
 原始碼集宣告的 `dependencies {}` 區塊包含該原始碼集的相依性。
 
@@ -1014,7 +1014,7 @@ kotlin {
 此外，原始碼集可以相互依賴並形成階層。
 在這種情況下，會使用 [`dependsOn()`](#source-set-parameters) 關係。
 
-### 在最上層配置相依性
+### 在最上層配置相依性 {id="configure-dependencies-at-the-top-level"}
 <primary-label ref="Experimental"/>
 
 您可以使用最上層的 `dependencies {}` 區塊配置共用相依性。在此處宣告的相依性，其行為就像被加入到 `commonMain` 或 `commonTest` 原始碼集中一樣。
@@ -1051,7 +1051,7 @@ kotlin {
 
 您可以在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-76446) 上分享對此功能的意見回饋。
 
-## 語言設定 (Language settings)
+## 語言設定 (Language settings) {id="language-settings"}
 
 原始碼集中的 `languageSettings {}` 區塊定義了專案分析和編譯的某些方面。僅當要配置專門應用於共用原始碼集的設定時，才使用 `languageSettings {}` 區塊。對於所有其他情況，請使用 `compilerOptions {}` 區塊在延伸或目標層級 [配置編譯器選項](#compiler-options)。
 

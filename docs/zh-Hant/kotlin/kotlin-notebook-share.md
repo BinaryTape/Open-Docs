@@ -18,7 +18,7 @@
   範例請參閱 [Kotlin DataFrame GitHub 範例存儲庫](https://github.com/Kotlin/dataframe/blob/master/examples/notebooks/titanic/Titanic.ipynb)。
   ![GitHub Notebook 範例](github-notebook.png){width=700}
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * 使用 [Kandy 程式庫](data-analysis-visualization.md) 探索資料視覺化
 * 在 [處理資料來源](data-analysis-work-with-data-sources.md) 中了解如何從檔案、網路來源或資料庫擷取資料

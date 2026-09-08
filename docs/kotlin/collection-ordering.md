@@ -101,7 +101,7 @@ fun main() {
 
 Kotlin 集合软件包提供了按自然、自定义甚至随机顺序对集合进行排序的函数。在此页面上，我们将介绍适用于 [只读](collections-overview.md#collection-types) 集合的排序函数。这些函数将其结果作为包含原始集合元素的新集合返回，并按要求的顺序排列。要了解有关对 [可变](collections-overview.md#collection-types) 集合进行原地排序的函数，请参阅 [List 特有操作](list-operations.md#sort)。
 
-## 自然顺序
+## 自然顺序 {id="natural-order"}
 
 基础函数 [`.sorted()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/sorted.html) 和 [`.sortedDescending()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/sorted-descending.html) 返回按其自然顺序升序和降序排列的集合元素。这些函数适用于 `Comparable` 元素的集合。
 
@@ -117,7 +117,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 自定义顺序
+## 自定义顺序 {id="custom-orders"}
  
 对于按自定义顺序排序或对不可比较对象进行排序，可以使用函数 [`.sortedBy()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/sorted-by.html) 和 [`.sortedByDescending()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/sorted-by-descending.html)。它们接受一个选择器函数，该函数将集合元素映射到 `Comparable` 值，并按这些值的自然顺序对集合进行排序。
 
@@ -147,7 +147,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 检查排序顺序
+## 检查排序顺序 {id="check-sorted-order"}
 
 您可以使用以下扩展函数来检查元素是否已遵循指定的顺序：
 
@@ -197,7 +197,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.4"}
 
-## 反转顺序
+## 反转顺序 {id="reverse-order"}
 
 您可以使用 [`.reversed()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/reversed.html) 函数以反转顺序获取集合。 
 
@@ -243,7 +243,7 @@ fun main() {
 
 然而，如果列表的可变性未知或者源代码根本不是列表，则 `.reversed()` 更为合适，因为其结果是一个在未来不会改变的副本。
 
-## 随机顺序
+## 随机顺序 {id="random-order"}
 
 最后，还有一个函数可以返回一个包含按随机顺序排列的集合元素的新 `List` —— [`.shuffled()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/shuffled.html)。您可以不带参数调用它，也可以传入一个 [`Random`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.random/-random/index.html) 对象。
 

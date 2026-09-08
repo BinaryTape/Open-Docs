@@ -2,7 +2,7 @@
 
 ここでは、ブラウザ機能や `preload` API を使用したリソースのプリロード、Web リソースのキャッシュ、およびフォントの自動フォールバックに関する情報について説明します。
   
-## Web ターゲット向けリソースのプリロード
+## Web ターゲット向けリソースのプリロード {id="preloading-of-resources-for-web-targets"}
 
 フォントや画像などの Web リソースは、[Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) を使用して非同期に読み込まれます。
 初回の読み込み時やネットワーク接続が遅い場合、リソースの取得によって [FOUT](https://fonts.google.com/knowledge/glossary/fout)（読み込み前の代替フォントによるちらつき）が発生したり、画像の代わりにプレースホルダーが表示されたりするなど、視覚的な不具合が生じることがあります。
@@ -11,7 +11,7 @@
 
 視覚的な不具合を防ぐために、ブラウザに組み込まれたリソースのプリロード機能、Compose Multiplatform のプリロード API、またはその両方の組み合わせを使用できます。
 
-### ブラウザ機能を使用したリソースのプリロード
+### ブラウザ機能を使用したリソースのプリロード {id="preload-resources-using-browser-features"}
 
 モダンなブラウザでは、`<link>` タグに [`rel="preload"` 属性](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel/preload) を指定することでリソースをプリロードできます。
 この属性は、アプリケーションが開始される前にフォントや画像などのリソースのダウンロードとキャッシュを優先的に行うようブラウザに指示し、これらのリソースを早期に利用可能にします。
@@ -32,7 +32,7 @@
 <link rel="preload" href="./composeResources/username.shared.generated.resources/font/FiraMono-Regular.ttf" as="fetch" type="font/ttf" crossorigin/>
 ```
 
-### Compose Multiplatform プリロード API を使用したリソースのプリロード
+### Compose Multiplatform プリロード API を使用したリソースのプリロード {id="preload-resources-using-the-compose-multiplatform-preload-api"}
 <primary-label ref="Experimental"/>
 
 ブラウザでリソースをプリロードした場合でも、それらは生のバイトデータとしてキャッシュされており、`FontResource` や `DrawableResource` などのレンダリングに適した形式に変換する必要があります。アプリケーションが初めてリソースを要求したときにこの変換が非同期で行われるため、再びちらつきが発生する可能性があります。ユーザー体験をさらに最適化するために、Compose Multiplatform リソースには、より高レベルな表現のリソースのための独自の内部キャッシュがあり、これもプリロードすることが可能です。
@@ -69,7 +69,7 @@ fun MainScreen() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="val icon by preloadImageVector(Res.drawable.heavy_vector_icon)"}
 
-## フォントの自動フォールバック
+## フォントの自動フォールバック {id="automatic-font-fallback"}
 <primary-label ref="Experimental"/>
 
 デフォルトでは、アプリケーションに読み込まれたフォントでカバーされていない文字は、代替グリフ（□、通称「[豆腐](https://fonts.google.com/knowledge/glossary/tofu)」）として表示されます。
@@ -81,7 +81,7 @@ fun MainScreen() {
 
 CJK（中国語、日本語、韓国語）文字については、ブラウザの言語設定に基づいて、適切なフォントバリアントが自動的に選択されます。
 
-## Web リソースのキャッシュ
+## Web リソースのキャッシュ {id="caching-web-resources"}
 <primary-label ref="Experimental"/>
 
 Compose Multiplatform は [Web Cache API](https://developer.mozilla.org/en-US/docs/Web/API/Cache) を使用して、成功したレスポンスをキャッシュし、ブラウザのデフォルトのキャッシュメカニズムによって通常実行される冗長な HTTP 再検証を回避します。
@@ -94,7 +94,7 @@ Compose Multiplatform は [Web Cache API](https://developer.mozilla.org/en-US/do
 各リクエストはリソースごとのミューテックス（mutex）によって保護されており、異なるリソースへの並列リクエストを許可しつつ、同じパスへの重複リクエストをシリアル化します。
 この設計により、不要なネットワークトラフィックが最小限に抑えられ、キャッシュへの格納中のレースコンディションが排除されます。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [リソースのセットアップ](compose-multiplatform-resources-setup.md)および[アプリでの使用方法](compose-multiplatform-resources-usage.md)について詳しく読む。
 * アプリ内のテーマや言語などのアプリケーションの[リソース環境](compose-resource-environment.md)を管理する方法を学ぶ。

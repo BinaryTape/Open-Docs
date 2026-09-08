@@ -4,14 +4,14 @@
 
 <video src="https://www.youtube.com/v/bSNumV04y_w" title="Using Platform-Specific APIs in KMP Apps"/>
 
-## 코틀린 멀티플랫폼 라이브러리
+## 코틀린 멀티플랫폼 라이브러리 {id="kotlin-multiplatform-libraries"}
 
 플랫폼별 API를 사용하는 코드를 작성하기 전에, 대신 사용할 수 있는 멀티플랫폼 라이브러리가 있는지 확인해 보세요.
 이러한 유형의 라이브러리는 플랫폼마다 구현이 다르더라도 공통된 코틀린 API를 제공합니다.
 
 네트워킹, 로깅, 분석뿐만 아니라 기기 기능 액세스 등을 구현하는 데 사용할 수 있는 많은 라이브러리가 이미 존재합니다. 코틀린 멀티플랫폼 라이브러리 검색 플랫폼인 [klibs.io](https://klibs.io)에서 라이브러리를 찾아보세요.
 
-## expect 및 actual 함수와 프로퍼티
+## expect 및 actual 함수와 프로퍼티 {id="expected-and-actual-functions-and-properties"}
 
 코틀린은 공통 로직을 개발하면서 플랫폼별 API에 액세스할 수 있는 언어 메커니즘인 [expect 및 actual 선언(expected and actual declarations)](multiplatform-expect-actual.md)을 제공합니다.
 
@@ -23,7 +23,7 @@
 
 이 예제에서는 공통 소스 세트에 예상되는 `platform()` 함수를 정의하고, 플랫폼 소스 세트에서 실제 구현을 제공합니다. 특정 플랫폼을 위한 코드를 생성하는 동안, 코틀린 컴파일러는 예상 선언과 실제 선언을 병합합니다. 컴파일러는 실제 구현을 가진 하나의 `platform()` 함수를 생성합니다. 예상 선언과 실제 선언은 동일한 패키지에 정의되어야 하며, 결과 플랫폼 코드에서는 *하나의 선언*으로 병합됩니다. 생성된 플랫폼 코드에서 예상되는 `platform()` 함수를 호출하면 올바른 실제 구현이 호출됩니다.
 
-### 예제: UUID 생성하기
+### 예제: UUID 생성하기 {id="example-generate-a-uuid"}
 
 코틀린 멀티플랫폼을 사용하여 iOS 및 Android 애플리케이션을 개발하고 있으며, 범용 고유 식별자(UUID)를 생성하고 싶다고 가정해 보겠습니다.
 
@@ -62,7 +62,7 @@ Android용 결과 플랫폼 코드를 생성하는 동안 코틀린 컴파일러
 
 `expect` 및 `actual` 함수와 마찬가지로, `expect` 및 `actual` 프로퍼티를 사용하면 플랫폼마다 서로 다른 값을 사용할 수 있습니다. `expect` 및 `actual` 함수와 프로퍼티는 간단한 경우에 가장 유용합니다.
 
-## 공통 코드의 인터페이스
+## 공통 코드의 인터페이스 {id="interfaces-in-common-code"}
 
 플랫폼별 로직이 너무 크고 복잡하다면, 공통 코드에서 이를 나타내는 인터페이스를 정의한 다음 플랫폼 소스 세트에서 서로 다른 구현을 제공하여 코드를 간소화할 수 있습니다.
 
@@ -101,7 +101,7 @@ class IOSPlatform : Platform {
 * [서로 다른 진입점을 통한 구현 제공](#서로-다른-진입점)
 * [의존성 주입 프레임워크 사용](#의존성-주입-프레임워크)
 
-### expect 및 actual 함수
+### expect 및 actual 함수 {id="expected-and-actual-functions"}
 
 이 인터페이스의 값을 반환하는 예상 함수를 정의한 다음, 해당 서브클래스를 반환하는 실제 함수를 정의합니다.
 
@@ -128,7 +128,7 @@ actual fun platform() = IOSPlatform()
 
 공통 코드에서 `platform()` 함수를 호출하면 `Platform` 타입의 객체로 작업할 수 있습니다. 이 공통 코드를 Android에서 실행하면 `platform()` 호출은 `AndroidPlatform` 클래스의 인스턴스를 반환합니다. iOS에서 실행하면 `platform()`은 `IOSPlatform` 클래스의 인스턴스를 반환합니다.
 
-### 서로 다른 진입점
+### 서로 다른 진입점 {id="different-entry-points"}
 
 진입점(entry points)을 제어할 수 있는 경우 `expect` 및 `actual` 선언을 사용하지 않고 각 플랫폼 아티팩트의 구현을 구성할 수 있습니다. 이를 위해 공유 코틀린 멀티플랫폼 모듈에 플랫폼 구현을 정의하되, 플랫폼 모듈에서 인스턴스화합니다.
 
@@ -181,7 +181,7 @@ Android에서는 `AndroidPlatform`의 인스턴스를 생성하여 `application(
 
 `expect` 및 `actual` 함수를 사용하거나 진입점을 통해 직접 적절한 구현을 제공하는 방식은 간단한 시나리오에서 잘 작동합니다. 하지만 프로젝트에서 의존성 주입(DI) 프레임워크를 사용하고 있다면, 일관성을 위해 간단한 경우에도 DI 프레임워크를 사용하는 것을 권장합니다.
 
-### 의존성 주입 프레임워크
+### 의존성 주입 프레임워크 {id="dependency-injection-framework"}
 
 현대적인 애플리케이션은 일반적으로 느슨하게 결합된 아키텍처(loosely coupled architecture)를 만들기 위해 의존성 주입(DI) 프레임워크를 사용합니다. DI 프레임워크를 사용하면 현재 환경에 따라 컴포넌트에 의존성을 주입할 수 있습니다.
 
@@ -230,6 +230,6 @@ DI 프레임워크를 사용할 때는 이 프레임워크를 통해 모든 의�
 
 <!-- 이 기능이 공유 모듈로 확장되는 데 관심이 있다면 YouTrack의 이 이슈에 투표하고 사용 사례를 설명해 주세요. -->
 
-## 다음 단계는 무엇인가요?
+## 다음 단계는 무엇인가요? {id="what-s-next"}
 
 expect/actual 메커니즘에 대한 더 많은 예제와 정보는 [expect 및 actual 선언(Expected and actual declarations)](multiplatform-expect-actual.md)을 참고하세요.

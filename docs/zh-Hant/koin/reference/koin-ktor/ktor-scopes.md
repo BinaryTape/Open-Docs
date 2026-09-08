@@ -6,7 +6,7 @@ title: Request Scopes
 
 Request scopes 會在單次 HTTP 請求期間建立執行個體，這非常適合處理特定請求的資料與程序。
 
-## 宣告 Request-Scoped 組件
+## 宣告 Request-Scoped 組件 {id="declaring-request-scoped-components"}
 
 使用 `requestScope` 來宣告繫結至請求生命週期的組件：
 
@@ -24,7 +24,7 @@ val appModule = module {
 }
 ```
 
-## 存取 Request-Scoped 組件
+## 存取 Request-Scoped 組件 {id="accessing-request-scoped-components"}
 
 使用 `call.scope.get()` 來解析 request-scoped 相依性：
 
@@ -49,7 +49,7 @@ routing {
 }
 ```
 
-## 注入 ApplicationCall
+## 注入 ApplicationCall {id="injecting-applicationcall"}
 
 Request-scoped 組件可以自動注入 `ApplicationCall`：
 
@@ -73,7 +73,7 @@ class UserSessionHandler(private val call: ApplicationCall) {
 }
 ```
 
-## Scope 生命周期回呼
+## Scope 生命周期回呼 {id="scope-lifecycle-callbacks"}
 
 將 `onClose` 回呼附加至 `scoped` 定義，以便在 request scope 關閉時執行清理作業。`onClose` 是該定義上的中置函式（infix function）（而非 `requestScope { }` 內部的區塊），且其執行個體參數為可 null (`T?`)：
 
@@ -106,11 +106,11 @@ Koin 的 scope DSL 為每個定義公開了 `onClose`；但沒有 `onCreate` 回
 Request scopes 會為 **每個 HTTP 請求建立並銷毀**。執行個體不會在請求之間共用，以確保執行緒安全並防止狀態洩漏。
 :::
 
-## 在 Ktor 中宣告模組
+## 在 Ktor 中宣告模組 {id="declaring-modules-in-ktor"}
 
 Koin 提供了便利的函式，可以直接在您的 Ktor 應用程式中宣告模組。
 
-### 使用 koinModule
+### 使用 koinModule {id="using-koinmodule"}
 
 內嵌宣告模組：
 
@@ -127,7 +127,7 @@ fun Application.configureRouting() {
 }
 ```
 
-### 使用 koinModules
+### 使用 koinModules {id="using-koinmodules"}
 
 載入多個現有的模組：
 
@@ -145,7 +145,7 @@ fun Application.configureCustomerFeature() {
 }
 ```
 
-## 模組化應用程式結構
+## 模組化應用程式結構 {id="modular-application-structure"}
 
 依功能組織您的 Ktor 應用程式：
 
@@ -190,7 +190,7 @@ fun Application.module() {
 }
 ```
 
-## 配合註解使用 Request Scope
+## 配合註解使用 Request Scope {id="request-scope-with-annotations"}
 
 對 request-scoped 組件使用註解：
 
@@ -203,7 +203,7 @@ class RequestLogger(private val call: ApplicationCall) {
 }
 ```
 
-## 完整範例
+## 完整範例 {id="complete-example"}
 
 ```kotlin
 val appModule = module {
@@ -238,7 +238,7 @@ fun Application.module() {
 }
 ```
 
-## API 參考
+## API 參考 {id="api-reference"}
 
 | 函式 | 描述 |
 |----------|-------------|
@@ -248,7 +248,7 @@ fun Application.module() {
 | `koinModule { }` | 宣告內嵌模組 |
 | `koinModules(...)` | 載入現有模組 |
 
-## 另請參閱
+## 另請參閱 {id="see-also"}
 
 - **[Koin for Ktor](/docs/reference/koin-ktor/ktor)** – 主要 Ktor 文件
 - **[Scopes](/docs/reference/koin-core/scopes)** – 核心 Scope 概念

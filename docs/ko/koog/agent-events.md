@@ -11,7 +11,7 @@
 
 참고: 기능(Feature) 이벤트는 `agents-core` 모듈에 정의되어 있으며 `ai.koog.agents.core.feature.model.events` 패키지 아래에 위치합니다. `agents-features-trace` 및 `agents-features-event-handler`와 같은 기능은 이러한 이벤트를 소비하여 에이전트 실행 중에 생성된 메시지를 처리하고 전달합니다.
 
-## 사전 정의된 이벤트 유형
+## 사전 정의된 이벤트 유형 {id="predefined-event-types"}
 
 Koog는 커스텀 메시지 프로세서에서 사용할 수 있는 사전 정의된 이벤트 유형을 제공합니다. 사전 정의된 이벤트는 관련 엔티티에 따라 여러 카테고리로 분류할 수 있습니다:
 
@@ -23,9 +23,9 @@ Koog는 커스텀 메시지 프로세서에서 사용할 수 있는 사전 정�
 - [LLM 스트리밍 이벤트](#llm-streaming-events)
 - [도구 실행 이벤트](#tool-execution-events)
 
-### 에이전트 이벤트
+### 에이전트 이벤트 {id="agent-events"}
 
-#### AgentStartingEvent
+#### AgentStartingEvent {id="agentstartingevent"}
 
 에이전트 실행의 시작을 나타냅니다. 다음 필드를 포함합니다:
 
@@ -36,7 +36,7 @@ Koog는 커스텀 메시지 프로세서에서 사용할 수 있는 사전 정�
 | `agentId`       | String              | 예      |         | AI 에이전트의 고유 식별자입니다. |
 | `runId`         | String              | 예      |         | AI 에이전트 실행(run)의 고유 식별자입니다. |
 
-#### AgentCompletedEvent
+#### AgentCompletedEvent {id="agentcompletedevent"}
 
 에이전트 실행의 종료를 나타냅니다. 다음 필드를 포함합니다:
 
@@ -48,7 +48,7 @@ Koog는 커스텀 메시지 프로세서에서 사용할 수 있는 사전 정�
 | `runId`         | String              | 예      |         | AI 에이전트 실행(run)의 고유 식별자입니다. |
 | `result`        | String              | 예      |         | 에이전트 실행 결과입니다. 결과가 없는 경우 `null`일 수 있습니다. |
 
-#### AgentExecutionFailedEvent
+#### AgentExecutionFailedEvent {id="agentexecutionfailedevent"}
 
 에이전트 실행 중 오류 발생을 나타냅니다. 다음 필드를 포함합니다:
 
@@ -60,7 +60,7 @@ Koog는 커스텀 메시지 프로세서에서 사용할 수 있는 사전 정�
 | `runId`         | String              | 예      |         | AI 에이전트 실행(run)의 고유 식별자입니다. |
 | `error`         | AIAgentError        | 예      |         | 에이전트 실행 중 발생한 구체적인 오류입니다. 자세한 내용은 [AIAgentError](#aiagenterror)를 참조하세요. |
 
-#### AgentClosingEvent
+#### AgentClosingEvent {id="agentclosingevent"}
 
 에이전트의 종료 또는 해제를 나타냅니다. 다음 필드를 포함합니다:
 
@@ -87,9 +87,9 @@ Koog는 커스텀 메시지 프로세서에서 사용할 수 있는 사전 정�
 | `parent`   | AgentExecutionInfo  | 아니요   | null    | 부모 실행 컨텍스트에 대한 참조입니다. null인 경우 루트 실행 레벨을 나타냅니다. |
 | `partName` | String              | 예      |         | 실행의 현재 파트 또는 세그먼트 이름을 나타내는 문자열입니다. |
 
-### 전략 이벤트
+### 전략 이벤트 {id="strategy-events"}
 
-#### GraphStrategyStartingEvent
+#### GraphStrategyStartingEvent {id="graphstrategystartingevent"}
 
 그래프 기반 전략 실행의 시작을 나타냅니다. 다음 필드를 포함합니다:
 
@@ -101,7 +101,7 @@ Koog는 커스텀 메시지 프로세서에서 사용할 수 있는 사전 정�
 | `strategyName`  | String                 | 예      |         | 전략의 이름입니다. |
 | `graph`         | StrategyEventGraph     | 예      |         | 전략 워크플로를 나타내는 그래프 구조입니다. |
 
-#### FunctionalStrategyStartingEvent
+#### FunctionalStrategyStartingEvent {id="functionalstrategystartingevent"}
 
 함수형 전략 실행의 시작을 나타냅니다. 다음 필드를 포함합니다:
 
@@ -112,7 +112,7 @@ Koog는 커스텀 메시지 프로세서에서 사용할 수 있는 사전 정�
 | `runId`         | String              | 예      |         | 전략 실행의 고유 식별자입니다. |
 | `strategyName`  | String              | 예      |         | 전략의 이름입니다. |
 
-#### StrategyCompletedEvent
+#### StrategyCompletedEvent {id="strategycompletedevent"}
 
 전략 실행의 종료를 나타냅니다. 다음 필드를 포함합니다:
 
@@ -124,9 +124,9 @@ Koog는 커스텀 메시지 프로세서에서 사용할 수 있는 사전 정�
 | `strategyName`  | String              | 예      |         | 전략의 이름입니다. |
 | `result`        | String              | 예      |         | 실행 결과입니다. 결과가 없는 경우 `null`일 수 있습니다. |
 
-### 노드 이벤트
+### 노드 이벤트 {id="node-events"}
 
-#### NodeExecutionStartingEvent
+#### NodeExecutionStartingEvent {id="nodeexecutionstartingevent"}
 
 노드 실행의 시작을 나타냅니다. 다음 필드를 포함합니다:
 
@@ -138,7 +138,7 @@ Koog는 커스텀 메시지 프로세서에서 사용할 수 있는 사전 정�
 | `nodeName`      | String              | 예      |         | 실행이 시작된 노드의 이름입니다. |
 | `input`         | JsonElement         | 아니요   | null    | 노드에 대한 입력값입니다. |
 
-#### NodeExecutionCompletedEvent
+#### NodeExecutionCompletedEvent {id="nodeexecutioncompletedevent"}
 
 노드 실행의 종료를 나타냅니다. 다음 필드를 포함합니다:
 
@@ -151,7 +151,7 @@ Koog는 커스텀 메시지 프로세서에서 사용할 수 있는 사전 정�
 | `input`         | JsonElement         | 아니요   | null    | 노드에 대한 입력값입니다. |
 | `output`        | JsonElement         | 아니요   | null    | 노드에서 생성된 출력값입니다. |
 
-#### NodeExecutionFailedEvent
+#### NodeExecutionFailedEvent {id="nodeexecutionfailedevent"}
 
 노드 실행 중 발생한 오류를 나타냅니다. 다음 필드를 포함합니다:
 
@@ -164,9 +164,9 @@ Koog는 커스텀 메시지 프로세서에서 사용할 수 있는 사전 정�
 | `input`         | JsonElement         | 아니요   | null    | 노드에 제공된 입력 데이터입니다. |
 | `error`         | AIAgentError        | 예      |         | 노드 실행 중 발생한 구체적인 오류입니다. 자세한 내용은 [AIAgentError](#aiagenterror)를 참조하세요. |
 
-### 서브그래프 이벤트
+### 서브그래프 이벤트 {id="subgraph-events"}
 
-#### SubgraphExecutionStartingEvent
+#### SubgraphExecutionStartingEvent {id="subgraphexecutionstartingevent"}
 
 서브그래프 실행의 시작을 나타냅니다. 다음 필드를 포함합니다:
 
@@ -178,7 +178,7 @@ Koog는 커스텀 메시지 프로세서에서 사용할 수 있는 사전 정�
 | `subgraphName`  | String              | 예      |         | 실행이 시작된 서브그래프의 이름입니다. |
 | `input`         | JsonElement         | 아니요   | null    | 서브그래프에 대한 입력값입니다. |
 
-#### SubgraphExecutionCompletedEvent
+#### SubgraphExecutionCompletedEvent {id="subgraphexecutioncompletedevent"}
 
 서브그래프 실행의 종료를 나타냅니다. 다음 필드를 포함합니다:
 
@@ -191,7 +191,7 @@ Koog는 커스텀 메시지 프로세서에서 사용할 수 있는 사전 정�
 | `input`         | JsonElement         | 아니요   | null    | 서브그래프에 대한 입력값입니다. |
 | `output`        | JsonElement         | 아니요   | null    | 서브그래프에서 생성된 출력값입니다. |
 
-#### SubgraphExecutionFailedEvent
+#### SubgraphExecutionFailedEvent {id="subgraphexecutionfailedevent"}
 
 서브그래프 실행 중 발생한 오류를 나타냅니다. 다음 필드를 포함합니다:
 
@@ -204,9 +204,9 @@ Koog는 커스텀 메시지 프로세서에서 사용할 수 있는 사전 정�
 | `input`         | JsonElement         | 아니요   | null    | 서브그래프에 제공된 입력 데이터입니다. |
 | `error`         | AIAgentError        | 예      |         | 서브그래프 실행 중 발생한 구체적인 오류입니다. 자세한 내용은 [AIAgentError](#aiagenterror)를 참조하세요. |
 
-### LLM 호출 이벤트
+### LLM 호출 이벤트 {id="llm-call-events"}
 
-#### LLMCallStartingEvent
+#### LLMCallStartingEvent {id="llmcallstartingevent"}
 
 LLM 호출의 시작을 나타냅니다. 다음 필드를 포함합니다:
 
@@ -239,7 +239,7 @@ LLM 호출의 시작을 나타냅니다. 다음 필드를 포함합니다:
 | `contextLength`   | Long      | 아니요   | null    | 모델이 처리할 수 있는 최대 토큰 수입니다. |
 | `maxOutputTokens` | Long      | 아니요   | null    | 모델이 생성할 수 있는 최대 토큰 수입니다. |
 
-#### LLMCallCompletedEvent
+#### LLMCallCompletedEvent {id="llmcallcompletedevent"}
 
 LLM 호출의 종료를 나타냅니다. 다음 필드를 포함합니다:
 
@@ -253,7 +253,7 @@ LLM 호출의 종료를 나타냅니다. 다음 필드를 포함합니다:
 | `responses`          | `List<Message.Response>` | 예      |         | 모델에서 반환된 하나 이상의 응답입니다. |
 | `moderationResponse` | ModerationResult       | 아니요   | null    | 모더레이션(moderation) 응답이 있는 경우의 응답입니다. |
 
-#### LLMCallFailedEvent
+#### LLMCallFailedEvent {id="llmcallfailedevent"}
 
 LLM 호출 중 오류 발생을 나타냅니다. 다음 필드를 포함합니다:
 
@@ -267,9 +267,9 @@ LLM 호출 중 오류 발생을 나타냅니다. 다음 필드를 포함합니�
 | `tools`         | `List<String>`        | 예      |         | 모델이 호출할 수 있는 도구 목록입니다. |
 | `error`         | AIAgentError        | 예      |         | 호출 중 발생한 구체적인 오류입니다. 자세한 내용은 [AIAgentError](#aiagenterror)를 참조하세요. |
 
-### LLM 스트리밍 이벤트
+### LLM 스트리밍 이벤트 {id="llm-streaming-events"}
 
-#### LLMStreamingStartingEvent
+#### LLMStreamingStartingEvent {id="llmstreamingstartingevent"}
 
 LLM 스트리밍 호출의 시작을 나타냅니다. 다음 필드를 포함합니다:
 
@@ -282,7 +282,7 @@ LLM 스트리밍 호출의 시작을 나타냅니다. 다음 필드를 포함합
 | `model`         | ModelInfo           | 예      |         | 모델 정보입니다. [ModelInfo](#modelinfo)를 참조하세요. |
 | `tools`         | `List<String>`        | 예      |         | 모델이 호출할 수 있는 도구 목록입니다. |
 
-#### LLMStreamingFrameReceivedEvent
+#### LLMStreamingFrameReceivedEvent {id="llmstreamingframereceivedevent"}
 
 LLM으로부터 수신된 스트리밍 프레임을 나타냅니다. 다음 필드를 포함합니다:
 
@@ -295,7 +295,7 @@ LLM으로부터 수신된 스트리밍 프레임을 나타냅니다. 다음 필�
 | `model`         | ModelInfo           | 예      |         | 모델 정보입니다. [ModelInfo](#modelinfo)를 참조하세요. |
 | `frame`         | StreamFrame         | 예      |         | 스트림에서 수신된 프레임입니다. |
 
-#### LLMStreamingFailedEvent
+#### LLMStreamingFailedEvent {id="llmstreamingfailedevent"}
 
 LLM 스트리밍 호출 중 오류 발생을 나타냅니다. 다음 필드를 포함합니다:
 
@@ -308,7 +308,7 @@ LLM 스트리밍 호출 중 오류 발생을 나타냅니다. 다음 필드를 �
 | `model`         | ModelInfo           | 예      |         | 모델 정보입니다. [ModelInfo](#modelinfo)를 참조하세요. |
 | `error`         | AIAgentError        | 예      |         | 스트리밍 중 발생한 구체적인 오류입니다. 자세한 내용은 [AIAgentError](#aiagenterror)를 참조하세요. |
 
-#### LLMStreamingCompletedEvent
+#### LLMStreamingCompletedEvent {id="llmstreamingcompletedevent"}
 
 LLM 스트리밍 호출의 종료를 나타냅니다. 다음 필드를 포함합니다:
 
@@ -321,9 +321,9 @@ LLM 스트리밍 호출의 종료를 나타냅니다. 다음 필드를 포함합
 | `model`         | ModelInfo           | 예      |         | 모델 정보입니다. [ModelInfo](#modelinfo)를 참조하세요. |
 | `tools`         | `List<String>`        | 예      |         | 모델이 호출할 수 있는 도구 목록입니다. |
 
-### 도구 실행 이벤트
+### 도구 실행 이벤트 {id="tool-execution-events"}
 
-#### ToolCallStartingEvent
+#### ToolCallStartingEvent {id="toolcallstartingevent"}
 
 모델이 도구를 호출하는 이벤트를 나타냅니다. 다음 필드를 포함합니다:
 
@@ -336,7 +336,7 @@ LLM 스트리밍 호출의 종료를 나타냅니다. 다음 필드를 포함합
 | `toolName`      | String              | 예      |         | 도구의 이름입니다. |
 | `toolArgs`      | JsonObject          | 예      |         | 도구에 제공된 인자입니다. |
 
-#### ToolValidationFailedEvent
+#### ToolValidationFailedEvent {id="toolvalidationfailedevent"}
 
 도구 호출 중 검증 오류 발생을 나타냅니다. 다음 필드를 포함합니다:
 
@@ -352,7 +352,7 @@ LLM 스트리밍 호출의 종료를 나타냅니다. 다음 필드를 포함합
 | `message`         | String              | 아니요   | null    | 검증 오류를 설명하는 메시지입니다. |
 | `error`           | AIAgentError        | 예      |         | 발생한 구체적인 오류입니다. 자세한 내용은 [AIAgentError](#aiagenterror)를 참조하세요. |
 
-#### ToolCallFailedEvent
+#### ToolCallFailedEvent {id="toolcallfailedevent"}
 
 도구 실행 실패를 나타냅니다. 다음 필드를 포함합니다:
 
@@ -367,7 +367,7 @@ LLM 스트리밍 호출의 종료를 나타냅니다. 다음 필드를 포함합
 | `toolDescription` | String              | 아니요   | null    | 실패한 도구에 대한 설명입니다. |
 | `error`           | AIAgentError        | 예      |         | 도구 호출 시도 중 발생한 구체적인 오류입니다. 자세한 내용은 [AIAgentError](#aiagenterror)를 참조하세요. |
 
-#### ToolCallCompletedEvent
+#### ToolCallCompletedEvent {id="toolcallcompletedevent"}
 
 결과 반환과 함께 성공적인 도구 호출을 나타냅니다. 다음 필드를 포함합니다:
 
@@ -382,11 +382,11 @@ LLM 스트리밍 호출의 종료를 나타냅니다. 다음 필드를 포함합
 | `toolDescription` | String              | 아니요   | null    | 실행된 도구에 대한 설명입니다. |
 | `result`          | JsonElement         | 아니요   | null    | 도구 호출의 결과입니다. |
 
-## FAQ 및 트러블슈팅
+## FAQ 및 트러블슈팅 {id="faq-and-troubleshooting"}
 
 다음 섹션에는 트레이싱(Tracing) 기능과 관련된 자주 묻는 질문과 답변이 포함되어 있습니다.
 
-### 에이전트 실행의 특정 부분만 트레이싱하려면 어떻게 해야 하나요?
+### 에이전트 실행의 특정 부분만 트레이싱하려면 어떻게 해야 하나요? {id="how-do-i-trace-only-specific-parts-of-my-agent-s-execution"}
 
 `messageFilter` 속성을 사용하여 이벤트를 필터링하세요. 예를 들어, 노드 실행만 트레이싱하려면 다음과 같이 합니다:
 
@@ -466,7 +466,7 @@ LLM 스트리밍 호출의 종료를 나타냅니다. 다음 필드를 포함합
     ```
     <!--- KNIT exampleEventsJava01.java -->
 
-### 여러 개의 메시지 프로세서를 사용할 수 있나요?
+### 여러 개의 메시지 프로세서를 사용할 수 있나요? {id="can-i-use-multiple-message-processors"}
 
 네, 여러 메시지 프로세서를 추가하여 여러 대상에 동시에 트레이싱할 수 있습니다:
 
@@ -547,7 +547,7 @@ LLM 스트리밍 호출의 종료를 나타냅니다. 다음 필드를 포함합
     ```
     <!--- KNIT exampleEventsJava02.java -->
 
-### 커스텀 메시지 프로세서는 어떻게 만드나요?
+### 커스텀 메시지 프로세서는 어떻게 만드나요? {id="how-can-i-create-a-custom-message-processor"}
 
 `FeatureMessageProcessor` 인터페이스를 구현하세요:
 

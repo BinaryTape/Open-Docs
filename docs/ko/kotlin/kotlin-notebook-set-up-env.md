@@ -9,7 +9,7 @@
 
 첫 번째 [Kotlin Notebook](kotlin-notebook-overview.md)을 만들기 전에 환경을 설정해야 합니다.
 
-## 환경 설정
+## 환경 설정 {id="set-up-the-environment"}
 
 Kotlin Notebook은 [Kotlin Notebook 플러그인](https://plugins.jetbrains.com/plugin/16340-kotlin-notebook)을 기반으로 동작합니다.
 
@@ -24,7 +24,7 @@ Kotlin Notebook 기능을 사용할 수 없는 경우, 플러그인이 활성화
 
 3. **OK**를 클릭하여 변경 사항을 적용하고, 필요한 경우 IDE를 다시 시작합니다.
 
-## 다음 단계
+## 다음 단계 {id="next-step"}
 
 튜토리얼의 다음 파트에서는 Kotlin Notebook을 만드는 방법에 대해 알아봅니다.
 

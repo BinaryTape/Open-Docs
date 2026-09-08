@@ -6,7 +6,7 @@ title: 作用域
 
 作用域控制依赖项的生命周期。本指南介绍如何定义、创建和管理作用域。
 
-## 理解作用域
+## 理解作用域 {id="understanding-scopes"}
 
 | 作用域类型 | 生命周期 | 示例 |
 |------------|-----------|---------|
@@ -14,16 +14,16 @@ title: 作用域
 | **Factory** | 每次请求 | Presenter、用例 |
 | **Scoped** | 每个作用域 | Activity 绑定、会话绑定 |
 
-## 何时使用作用域
+## 何时使用作用域 {id="when-to-use-scopes"}
 
 在以下情况下请使用作用域：
 - 实例的存续时间比 `factory` 长，但比单例短
 - 在特定上下文（Activity、Fragment、会话）中共享状态
 - 在上下文结束时自动进行清理
 
-## 定义作用域定义
+## 定义作用域定义 {id="defining-scoped-definitions"}
 
-### DSL
+### DSL {id="dsl"}
 
 ```kotlin
 val appModule = module {
@@ -41,7 +41,7 @@ val appModule = module {
 }
 ```
 
-### 注解
+### 注解 {id="annotations"}
 
 | 注解 | DSL 等效项 | 用途 |
 |------------|----------------|---------|
@@ -79,9 +79,9 @@ class RetainedPresenter
 class FragmentPresenter
 ```
 
-## 创建和使用作用域
+## 创建和使用作用域 {id="creating-and-using-scopes"}
 
-### 手动作用域管理
+### 手动作用域管理 {id="manual-scope-management"}
 
 ```kotlin
 // 创建一个作用域
@@ -95,7 +95,7 @@ val prefs: UserPreferences = myScope.get()
 myScope.close()
 ```
 
-### Android Activity 作用域
+### Android Activity 作用域 {id="android-activity-scope"}
 
 ```kotlin
 class MyActivity : AppCompatActivity(), AndroidScopeComponent {
@@ -112,7 +112,7 @@ class MyActivity : AppCompatActivity(), AndroidScopeComponent {
 }
 ```
 
-### Android Fragment 作用域
+### Android Fragment 作用域 {id="android-fragment-scope"}
 
 ```kotlin
 class MyFragment : Fragment(), AndroidScopeComponent {
@@ -123,9 +123,9 @@ class MyFragment : Fragment(), AndroidScopeComponent {
 }
 ```
 
-## 作用域类型
+## 作用域类型 {id="scope-types"}
 
-### 基于类型的作用域
+### 基于类型的作用域 {id="type-based-scope"}
 
 ```kotlin
 scope<MyActivity> {
@@ -135,7 +135,7 @@ scope<MyActivity> {
 
 该作用域由类型 `MyActivity` 标识。此作用域仅由 `MyActivity` 触发，而 `activityScope` 是通用的。
 
-### 命名作用域
+### 命名作用域 {id="named-scope"}
 
 ```kotlin
 scope(named("user_session")) {
@@ -145,7 +145,7 @@ scope(named("user_session")) {
 
 当作用域未绑定到特定类型时使用。
 
-### 基于限定符的作用域
+### 基于限定符的作用域 {id="qualifier-based-scope"}
 
 ```kotlin
 scope(named<MyQualifier>()) {
@@ -153,11 +153,11 @@ scope(named<MyQualifier>()) {
 }
 ```
 
-## 作用域原型
+## 作用域原型 {id="scope-archetypes"}
 
 Koin 为通用的 Android 作用域模式提供了专用的 DSL。这些原型简化了 ViewModel、Activity 和 Fragment 的作用域定义。
 
-### ViewModel 作用域
+### ViewModel 作用域 {id="viewmodel-scope"}
 
 定义绑定到 ViewModel 生命周期的依赖项：
 
@@ -180,7 +180,7 @@ class UserViewModel(
 ) : ViewModel()
 ```
 
-### Activity 作用域
+### Activity 作用域 {id="activity-scope"}
 
 定义绑定到 Activity 生命周期的依赖项：
 
@@ -193,7 +193,7 @@ val appModule = module {
 }
 ```
 
-### Fragment 作用域
+### Fragment 作用域 {id="fragment-scope"}
 
 定义绑定到 Fragment 生命周期的依赖项：
 
@@ -205,7 +205,7 @@ val appModule = module {
 }
 ```
 
-### 对比
+### 对比 {id="comparison"}
 
 | 原型 | DSL | 注解 | 生命周期 |
 |-----------|-----|------------|-----------|
@@ -218,7 +218,7 @@ val appModule = module {
 作用域原型在 Koin 4.0+ 中可用。相比于为通用的 Android 组件手动定义 `scope<T> { }`，它们提供了更整洁的语法。
 :::
 
-## 作用域链接
+## 作用域链接 {id="scope-linking"}
 
 链接作用域以访问父作用域定义：
 
@@ -253,7 +253,7 @@ class UserFragment : Fragment(), AndroidScopeComponent {
 }
 ```
 
-## 作用域源
+## 作用域源 {id="scope-source"}
 
 注入感知其所属作用域的依赖项：
 
@@ -271,7 +271,7 @@ scope<MyActivity> {
 }
 ```
 
-## 作用域实例 ID
+## 作用域实例 ID {id="scope-instance-id"}
 
 每个作用域实例都有一个唯一的 ID：
 
@@ -284,9 +284,9 @@ val scope2 = getKoin().createScope("scope_2", named("session"))
 scope1.get<SessionData>() !== scope2.get<SessionData>()
 ```
 
-## 访问作用域实例
+## 访问作用域实例 {id="accessing-scoped-instances"}
 
-### 从作用域内部
+### 从作用域内部 {id="from-within-scope"}
 
 ```kotlin
 class MyActivity : AppCompatActivity(), AndroidScopeComponent {
@@ -297,7 +297,7 @@ class MyActivity : AppCompatActivity(), AndroidScopeComponent {
 }
 ```
 
-### 从作用域外部
+### 从作用域外部 {id="from-outside-scope"}
 
 ```kotlin
 // 获取或创建作用域
@@ -307,7 +307,7 @@ val myScope = getKoin().getOrCreateScope("my_id", named("session"))
 val session: SessionData = myScope.get()
 ```
 
-### 在 Compose 中
+### 在 Compose 中 {id="in-compose"}
 
 ```kotlin
 @Composable
@@ -320,9 +320,9 @@ fun MyScreen() {
 }
 ```
 
-## 作用域生命周期
+## 作用域生命周期 {id="scope-lifecycle"}
 
-### 关闭作用域
+### 关闭作用域 {id="closing-scopes"}
 
 当作用域关闭时：
 1. 所有作用域实例都会被释放
@@ -342,7 +342,7 @@ scope.close()  // SessionData 实例已释放
 // scope.get<SessionData>()  // 错误：作用域已关闭
 ```
 
-### onClose 回调
+### onClose 回调 {id="onclose-callback"}
 
 ```kotlin
 scope(named("session")) {
@@ -354,9 +354,9 @@ scope(named("session")) {
 }
 ```
 
-## 常见模式
+## 常见模式 {id="common-patterns"}
 
-### 会话作用域
+### 会话作用域 {id="session-scope"}
 
 ```kotlin
 val appModule = module {
@@ -380,7 +380,7 @@ fun onLogout(userId: String) {
 }
 ```
 
-### 功能作用域
+### 功能作用域 {id="feature-scope"}
 
 ```kotlin
 val appModule = module {
@@ -402,7 +402,7 @@ class CheckoutActivity : AppCompatActivity(), AndroidScopeComponent {
 }
 ```
 
-## 最佳做法
+## 最佳做法 {id="best-practices"}
 
 1. **谨慎使用单例** - 仅用于真正应用级的依赖项
 2. **对共享状态进行作用域限定** - 当多个组件需要同一个实例时
@@ -410,7 +410,7 @@ class CheckoutActivity : AppCompatActivity(), AndroidScopeComponent {
 4. **保持作用域职责专注** - 不要把所有内容都放入一个作用域
 5. **使用 Android 作用域组件** - 以实现自动生命周期管理
 
-## 后续步骤
+## 后续步骤 {id="next-steps"}
 
 - **[Android 版 Koin](/docs/integrations/android/android-scopes)** - Android 特定作用域
 - **[Compose 版 Koin](/docs/integrations/compose/compose-modules)** - Compose 中的作用域

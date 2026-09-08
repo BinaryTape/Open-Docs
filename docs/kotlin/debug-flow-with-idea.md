@@ -6,7 +6,7 @@
 
 本教程假设你已具备 [协程](coroutines-basics.md) 和 [Flow](coroutines-flow.md) 概念的先验知识。
 
-## 创建 Kotlin Flow
+## 创建 Kotlin Flow {id="create-a-kotlin-flow"}
 
 创建一个带有慢速发射器和慢速收集器的 Kotlin [Flow](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/flow.html)：
 
@@ -79,7 +79,7 @@
 
     ![构建应用程序](flow-build-project.png)
 
-## 调试协程
+## 调试协程 {id="debug-the-coroutine"}
 
 1. 在调用 `emit()` 函数的行设置断点：
 
@@ -104,7 +104,7 @@
 
     ![调试协程](flow-debug-2.png)
 
-### 已优化的变量
+### 已优化的变量 {id="optimized-out-variables"}
 
 如果你使用 `suspend` 函数，在调试器中，你可能会在变量名旁边看到 “was optimized out” 文本：
 
@@ -118,7 +118,7 @@
 >
 {style="warning"}
 
-## 添加并发运行的协程
+## 添加并发运行的协程 {id="add-a-concurrently-running-coroutine"}
 
 1. 打开 `src/main/kotlin` 中的 `Main.kt` 文件。
 
@@ -139,7 +139,7 @@
 
 3. 点击 **Build Project** 构建代码。
 
-## 调试带有两个协程的 Kotlin Flow
+## 调试带有两个协程的 Kotlin Flow {id="debug-a-kotlin-flow-with-two-coroutines"}
 
 1. 在 `println(value)` 处设置新断点。
 

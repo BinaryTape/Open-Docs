@@ -18,7 +18,7 @@
 
 本頁面說明如何實作功能型策略，以為您的代理快速製作某些自訂邏輯的原型。
 
-## 建立最小化功能型代理
+## 建立最小化功能型代理 {id="create-a-minimal-functional-agent"}
 
 若要建立最小化功能型代理，請使用與 [基本代理](basic-agents.md) 相同的 [`AIAgent`](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.agent/-a-i-agent/index.html) 介面，並將 [`AIAgentFunctionalStrategy`](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.agent/-a-i-agent-functional-strategy/index.html) 的執行個體傳遞給它。
 您可以定義一個功能型策略，該策略預期一個輸入並傳回一個輸出，進行一次 LLM 呼叫，然後從回應中傳回助理訊息的內容。
@@ -88,7 +88,7 @@ The answer to 12 × 9 is 108.
 ```
 <!--- KNIT example-functional-agent-01.txt -->
 
-## 進行循序的 LLM 呼叫
+## 進行循序的 LLM 呼叫 {id="make-sequential-llm-calls"}
 
 您可以擴充之前的策略以進行多次循序的 LLM 呼叫：
 
@@ -163,7 +163,7 @@ To calculate the product of 12 and 9, we multiply these two numbers together.
 ```
 <!--- KNIT example-functional-agent-02.txt -->
 
-## 加入工具
+## 加入工具 {id="add-tools"}
 
 在許多情況下，功能型代理需要完成特定任務，例如讀取和寫入資料、呼叫 API 或執行其他確定性操作。在 Koog 中，您可以將這些功能公開為 [工具](../tools/index.md) 並讓 LLM 決定何時呼叫它們。
 
@@ -304,6 +304,6 @@ The result of multiplying 3 by 4 is 12. Multiplying 12 by 5 gives us a final ans
 ```
 <!--- KNIT example-functional-agent-03.txt -->
 
-## 後續步驟
+## 後續步驟 {id="next-steps"}
 
 - 了解如何建立 [圖形化代理 (graph-based agents)](graph-based-agents.md)

@@ -14,9 +14,9 @@
 * 為您的組建簽名並將其發佈到 [TestFlight](https://developer.apple.com/testflight/)。
 * 提供免費起始方案，每月包含一定的組建分鐘數和存儲空間。
 
-## 建立 TeamCity 管線
+## 建立 TeamCity 管線 {id="create-the-teamcity-pipeline"}
 
-### 從 IDE 開始 CI 設定
+### 從 IDE 開始 CI 設定 {id="start-ci-setup-from-the-ide"}
 
 1. 提交並推送您的專案變更。如果尚未配置 CI，
    Kotlin Multiplatform IDE 外掛程式會顯示一個工具提示，提示您開始 CI 設定。
@@ -36,7 +36,7 @@
    點擊 **Continue**，並在提示時允許 IDE 將產生的檔案新增到 Git。
    在您將這些檔案提交到存儲庫之前，它們仍保留在本機。
 
-### 建立或連接 TeamCity Cloud 工作區
+### 建立或連接 TeamCity Cloud 工作區 {id="create-or-connect-a-teamcity-cloud-workspace"}
 
 TeamCity 需要 Cloud 工作區才能在代管的 macOS 建置代理上執行組建。
 
@@ -55,7 +55,7 @@ TeamCity 需要 Cloud 工作區才能在代管的 macOS 建置代理上執行組
 TeamCity 會建立或連接到工作區並準備建置環境。
 這通常需要不到 30 秒的時間。
 
-## 建置 iOS 應用程式
+## 建置 iOS 應用程式 {id="build-the-ios-app"}
 
 當工作區就緒時，IDE 會自動開啟 **TeamCity** 分頁並開始您的第一次組建。
 
@@ -67,11 +67,11 @@ TeamCity 會建立或連接到工作區並準備建置環境。
 
 當自動化組建成功後，點擊 **Publish to TestFlight** 以配置簽名和部署。
 
-## 配置 Apple 簽名和 TestFlight
+## 配置 Apple 簽名和 TestFlight {id="configure-apple-signing-and-testflight"}
 
 要將組建上傳到 TestFlight，TeamCity 需要 App Store Connect 和 Apple 程式碼簽名的憑據。
 
-### 建立 App Store Connect API 金鑰
+### 建立 App Store Connect API 金鑰 {id="create-an-app-store-connect-api-key"}
 
 1. 登入 [App Store Connect](https://appstoreconnect.apple.com/)。
 2. 前往 **Users and Access** 並選擇 **Keys**。
@@ -81,7 +81,7 @@ TeamCity 會建立或連接到工作區並準備建置環境。
 
 您只能下載一次 `.p8` 檔案，因此請妥善儲存。
 
-### 匯出 Apple Distribution 憑證
+### 匯出 Apple Distribution 憑證 {id="export-an-apple-distribution-certificate"}
 
 1. 在 Xcode 中，前往 **Settings** | **Accounts**，或開啟 [Apple Developer Portal](https://developer.apple.com/account/)，
    然後建立或找到您的 Apple Distribution 憑證。
@@ -96,7 +96,7 @@ TeamCity 會建立或連接到工作區並準備建置環境。
 >
 {style="note"}
 
-### 在 IDE 中新增 Apple 憑據
+### 在 IDE 中新增 Apple 憑據 {id="add-apple-credentials-in-the-ide"}
 
 返回 IDE 並填寫 **Add Apple signing credentials** 表單。
 TeamCity 將這些值儲存為安全的部署憑據；它們不會被新增到您的專案原始碼檔案中。
@@ -111,7 +111,7 @@ TeamCity 將這些值儲存為安全的部署憑據；它們不會被新增到�
 | **.p12 password** | 您在匯出憑證時指定的密碼。                                                                                                        |
 {style="none"}
 
-### 將第一次組建上傳到 TestFlight
+### 將第一次組建上傳到 TestFlight {id="upload-the-first-build-to-testflight"}
 
 新增憑據後，管線將包含簽名和部署步驟。
 
@@ -119,9 +119,9 @@ TeamCity 將這些值儲存為安全的部署憑據；它們不會被新增到�
     TeamCity 會重新執行管線、建立已簽名的 iOS 組建，並將其上傳到 App Store Connect。
 2. 開啟 App Store Connect 或 TestFlight 並驗證組建是否出現。
 
-## 自動化組建與發佈
+## 自動化組建與發佈 {id="automate-builds-and-publishing"}
 
-### 連接存儲庫
+### 連接存儲庫 {id="connect-the-repository"}
 
 要自動化此流程，請將您的 GitHub 存儲庫連接到 TeamCity，以便每次推送都觸發新的組建。
 
@@ -132,7 +132,7 @@ TeamCity 將這些值儲存為安全的部署憑據；它們不會被新增到�
 
 現在，每當您向配置的分支推送變更時，TeamCity 都會觸發管線。
 
-### 驗證管線
+### 驗證管線 {id="verify-the-pipeline"}
 
 您的 iOS 交付管線現在已就緒！每次向配置的分支推送都會觸發 TeamCity 執行以下操作：
 
@@ -148,7 +148,7 @@ TeamCity 將這些值儲存為安全的部署憑據；它們不會被新增到�
 
 從現在起，只需推送您的程式碼，其餘部分由 TeamCity 處理。
 
-## 接續步驟
+## 接續步驟 {id="what-s-next"}
 
 * 進一步了解 [TeamCity Cloud 管線](https://www.jetbrains.com/help/teamcity/cloud/create-and-edit-pipelines.html) 
   以進一步自訂您的設定：建立更多專案、設定建置代理需求等。

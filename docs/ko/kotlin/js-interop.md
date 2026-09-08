@@ -4,7 +4,7 @@ Kotlin은 처음에 Java 플랫폼과의 쉬운 상호 운용성을 위해 설�
 
 하지만 JavaScript는 동적 타입 언어이므로 컴파일 시점에 타입을 확인하지 않습니다. Kotlin에서는 [dynamic](dynamic-type.md) 타입을 통해 JavaScript와 자유롭게 통신할 수 있습니다. Kotlin 타입 시스템의 기능을 온전히 활용하려면, Kotlin 컴파일러와 주변 도구들이 이해할 수 있도록 JavaScript 라이브러리에 대한 외부 선언(external declarations)을 생성할 수 있습니다.
 
-## 인라인 JavaScript
+## 인라인 JavaScript {id="inline-javascript"}
 
 [`js()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.js/js.html) 함수를 사용하여 JavaScript 코드를 Kotlin 코드에 인라인으로 삽입할 수 있습니다.
 
@@ -47,7 +47,7 @@ fun runSumExample() {
 >
 {style="note"}
 
-## `external` 한정자 (modifier)
+## `external` 한정자 (modifier) {id="external-modifier"}
 
 특정 선언이 순수 JavaScript로 작성되었음을 Kotlin에 알리려면 `external` 한정자를 사용해야 합니다. 컴파일러가 이러한 선언을 보면 해당 클래스, 함수 또는 프로퍼티에 대한 구현이 외부(개발자 또는 [npm 의존성](js-project-setup.md#npm-dependencies)을 통해)에서 제공된다고 가정하므로, 해당 선언으로부터 JavaScript 코드를 생성하려고 시도하지 않습니다. 이것이 바로 `external` 선언이 몸체(body)를 가질 수 없는 이유입니다. 예를 들어:
 
@@ -71,7 +71,7 @@ external val window: Window
 
 `external` 한정자는 패키지 레벨 선언에만 허용됩니다. `external`이 아닌 클래스 내부에서 `external` 멤버를 선언할 수는 없습니다.
 
-### 클래스의 (정적) 멤버 선언
+### 클래스의 (정적) 멤버 선언 {id="declare-static-members-of-a-class"}
 
 JavaScript에서는 프로토타입이나 클래스 자체에 멤버를 정의할 수 있습니다.
 
@@ -93,7 +93,7 @@ external class MyClass {
 }
 ```
 
-### 기본값이 있는 매개변수 선언
+### 기본값이 있는 매개변수 선언 {id="declare-parameters-with-default-values"}
 
 기본값이 있는 매개변수를 가진 JavaScript 함수에 대한 외부 선언을 작성하는 경우, `definedExternally`를 사용하세요. 이는 기본값 생성을 JavaScript 함수 자체에 위임합니다.
 
@@ -107,7 +107,7 @@ external fun myFunWithOptionalArgs(
 
 이 외부 선언을 사용하면, 하나의 필수 인자와 두 개의 선택적 인자로 `myFunWithOptionalArgs`를 호출할 수 있으며, 이때 기본값은 `myFunWithOptionalArgs`의 JavaScript 구현에 의해 계산됩니다.
 
-### JavaScript 클래스 확장
+### JavaScript 클래스 확장 {id="extend-javascript-classes"}
 
 JavaScript 클래스를 마치 Kotlin 클래스인 것처럼 쉽게 확장할 수 있습니다. `external open` 클래스를 정의하고 이를 `external`이 아닌 클래스에서 상속받으면 됩니다. 예를 들어:
 
@@ -134,7 +134,7 @@ class Bar : Foo() {
 - 기본값이 있는 매개변수를 포함한 함수는 오버라이드할 수 없습니다.
 - 외부 클래스가 `external`이 아닌 클래스를 확장할 수 없습니다.
 
-### external 인터페이스
+### external 인터페이스 {id="external-interfaces"}
 
 JavaScript에는 인터페이스라는 개념이 없습니다. 함수가 매개변수로 `foo`와 `bar`라는 두 개의 메서드를 지원하기를 기대할 때, 실제로 이 메서드들을 가진 객체를 전달하기만 하면 됩니다.
 
@@ -190,7 +190,7 @@ fun sendQuery() {
 
     IntelliJ IDEA는 `@Suppress` 어노테이션을 자동으로 생성할 수도 있습니다. 전구 아이콘이나 Alt-Enter를 통해 인텐션 메뉴를 열고, "Unchecked cast to external interface" 검사 옆의 작은 화살표를 클릭하세요. 여기서 억제 범위를 선택하면 IDE가 해당 파일에 어노테이션을 적절히 추가해 줍니다.
 
-### 캐스트 (Casts)
+### 캐스트 (Casts) {id="casts"}
 
 캐스팅이 불가능할 경우 `ClassCastException`을 던지는 ["안전하지 않은" 캐스트 연산자](typecasts.md#unsafe-cast-operator) `as` 외에도, Kotlin/JS는 [`unsafeCast<T>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.js/unsafe-cast.html)를 제공합니다. `unsafeCast`를 사용하면 런타임에 _타입 검사가 전혀 수행되지 않습니다_. 예를 들어, 다음 두 메서드를 살펴보세요.
 
@@ -212,7 +212,7 @@ function usingAsOperator(s) {
 }
 ```
 
-## 동등성 (Equality)
+## 동등성 (Equality) {id="equality"}
 
 Kotlin/JS는 다른 플랫폼과 비교하여 동등성 검사에 대해 특정한 시맨틱(semantics)을 가집니다.
 

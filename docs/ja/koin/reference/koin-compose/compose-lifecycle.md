@@ -10,7 +10,7 @@ title: ライフサイクルと状態
 このガイドは、[Android公式のComposeライフサイクルドキュメント](https://developer.android.com/develop/ui/compose/lifecycle)に基づいています。
 :::
 
-## Composeライフサイクルの概要
+## Composeライフサイクルの概要 {id="compose-lifecycle-overview"}
 
 Composableには3つのライフサイクルイベントがあります。
 
@@ -20,9 +20,9 @@ Composableには3つのライフサイクルイベントがあります。
 
 KoinのCompose APIは、このライフサイクルで効率的に動作するように設計されています。
 
-## 注入と再コンポジション
+## 注入と再コンポジション {id="injection-and-recomposition"}
 
-### koinInject() の仕組み
+### koinInject() の仕組み {id="how-koininject-works"}
 
 `koinInject()` はKoinからインスタンスを取得し、再コンポジションを跨いでそれらを**記憶 (remember)** します。
 
@@ -37,7 +37,7 @@ fun MyScreen() {
 }
 ```
 
-### 注入のタイミング
+### 注入のタイミング {id="injection-timing"}
 
 依存関係の注入はコールバック内ではなく、**Composable関数のレベル**で行ってください。
 
@@ -60,7 +60,7 @@ fun MyScreen() {
 }
 ```
 
-### パラメータ使用時のパフォーマンス
+### パラメータ使用時のパフォーマンス {id="performance-with-parameters"}
 
 `koinInject` でパラメータを使用する場合は、明示的なパラメータ形式を推奨します。
 
@@ -79,9 +79,9 @@ fun MyScreen(userId: String) {
 }
 ```
 
-## Koinによる状態管理
+## Koinによる状態管理 {id="state-management-with-koin"}
 
-### StateFlow と collectAsState
+### StateFlow と collectAsState {id="stateflow-and-collectasstate"}
 
 Koinを使用したリアクティブUIの標準的なパターンです。
 
@@ -118,7 +118,7 @@ fun UserScreen(
 }
 ```
 
-### 直接のリポジトリ注入
+### 直接のリポジトリ注入 {id="direct-repository-injection"}
 
 よりシンプルなケースでは、リポジトリを直接注入します。
 
@@ -142,7 +142,7 @@ fun UserListScreen() {
 }
 ```
 
-### remember() vs koinInject()
+### remember() vs koinInject() {id="remember-vs-koininject"}
 
 用途に応じて適切なツールを使用してください。
 
@@ -163,9 +163,9 @@ fun MyScreen() {
 }
 ```
 
-## Koinによるサイドエフェクト
+## Koinによるサイドエフェクト {id="side-effects-with-koin"}
 
-### LaunchedEffect
+### LaunchedEffect {id="launchedeffect"}
 
 コンポジションが開始されたとき、またはキーが変更されたときに、サスペンドコードを実行します。
 
@@ -184,7 +184,7 @@ fun UserDetailScreen(userId: String) {
 }
 ```
 
-### DisposableEffect
+### DisposableEffect {id="disposableeffect"}
 
 コンポジションを終了するときにリソースをクリーンアップします。
 
@@ -205,7 +205,7 @@ fun EventScreen() {
 }
 ```
 
-### SideEffect
+### SideEffect {id="sideeffect"}
 
 再コンポジションが成功するたびに、非サスペンドのサイドエフェクトを実行します。
 
@@ -220,9 +220,9 @@ fun AnalyticsScreen(screenName: String) {
 }
 ```
 
-## 安定性とスキップ
+## 安定性とスキップ {id="stability-and-skipping"}
 
-### 安定した型 (Stable Types) の理解
+### 安定した型 (Stable Types) の理解 {id="understanding-stable-types"}
 
 Composeは、入力が変更されていない場合に再コンポジションをスキップできます。これが機能するためには、パラメータの型が**安定 (stable)** している必要があります。
 
@@ -242,7 +242,7 @@ fun UserCard(
 )
 ```
 
-### Koinの注入と安定性
+### Koinの注入と安定性 {id="koin-injections-and-stability"}
 
 Koinの注入は、同じインスタンスを返す（シングルトンの場合）か、記憶（remember）されるため、安定していると見なされます。
 
@@ -257,9 +257,9 @@ fun MyScreen() {
 }
 ```
 
-## パラメータ渡し vs 注入
+## パラメータ渡し vs 注入 {id="passing-parameters-vs-injection"}
 
-### 判断ガイド
+### 判断ガイド {id="decision-guide"}
 
 | パラメータとして渡す | Koinで注入する |
 |-------------------|------------------|
@@ -268,7 +268,7 @@ fun MyScreen() {
 | ナビゲーション引数 | ビジネスロジック (use cases) |
 | 親から提供されるデータ | ViewModels |
 
-### パターンの例
+### パターンの例 {id="example-pattern"}
 
 ```kotlin
 // userIdは変わるため、パラメータとして渡す
@@ -297,9 +297,9 @@ fun ProfileContent(user: User) {
 }
 ```
 
-## ベストプラクティス
+## ベストプラクティス {id="best-practices"}
 
-### 1. トップレベルで注入する
+### 1. トップレベルで注入する {id="1-inject-at-the-top-level"}
 
 ```kotlin
 @Composable
@@ -316,7 +316,7 @@ fun FeatureScreen() {
 }
 ```
 
-### 2. 子のComposableを純粋に保つ
+### 2. 子のComposableを純粋に保つ {id="2-keep-child-composables-pure"}
 
 ```kotlin
 // 純粋 - すべてのデータをパラメータとして受け取る
@@ -330,7 +330,7 @@ fun UserCard(
 }
 ```
 
-### 3. 複雑な状態にはViewModelを使用する
+### 3. 複雑な状態にはViewModelを使用する {id="3-use-viewmodel-for-complex-state"}
 
 ```kotlin
 // ViewModelでの複雑な状態管理
@@ -353,7 +353,7 @@ class SearchViewModel(
 }
 ```
 
-### 4. ループ内での注入を避ける
+### 4. ループ内での注入を避ける {id="4-avoid-injection-in-loops"}
 
 ```kotlin
 @Composable
@@ -370,7 +370,7 @@ fun UserList(userIds: List<String>) {
 }
 ```
 
-## 次のステップ
+## 次のステップ {id="next-steps"}
 
 - **[ComposeにおけるViewModel](/docs/reference/koin-compose/compose-viewmodel)** - ViewModel API
 - **[動的モジュール](/docs/reference/koin-compose/compose-modules)** - モジュールのロード/アンロード

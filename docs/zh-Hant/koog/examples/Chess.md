@@ -9,7 +9,7 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Ches
 
 本教學示範如何使用 Koog 架構建置一個智慧西洋棋下棋代理程式。我們將探索關鍵概念，包括工具整合、代理程式策略、記憶體優化以及互動式 AI 決策。
 
-## 你將學到什麼
+## 你將學到什麼 {id="what-you-ll-learn"}
 
 - 如何為複雜遊戲建立領域特定的資料結構模型
 - 建立自訂工具，讓代理程式可用於與環境互動
@@ -17,7 +17,7 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Ches
 - 打造具備選項選取功能的互動式 AI 系統
 - 針對回合制遊戲優化代理程式效能
 
-## 設定
+## 設定 {id="setup"}
 
 首先，讓我們匯入 Koog 架構並設定開發環境：
 
@@ -26,11 +26,11 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Ches
 %use koog
 ```
 
-## 西洋棋領域建模
+## 西洋棋領域建模 {id="modeling-the-chess-domain"}
 
 為任何遊戲 AI 建立健全的領域模型都至關重要。在西洋棋中，我們需要表示玩家、棋子及其關係。讓我們從定義核心資料結構開始：
 
-### 核心列舉與型別
+### 核心列舉與型別 {id="core-enums-and-types"}
 
 ```kotlin
 enum class Player {
@@ -65,7 +65,7 @@ enum class Side {
 
 `Side` 列舉有助於區分王翼入堡 (kingside castling) 與后翼入堡 (queenside castling) 移動。
 
-### 棋子與位置建模
+### 棋子與位置建模 {id="piece-and-position-modeling"}
 
 ```kotlin
 data class Piece(val pieceType: PieceType, val player: Player) {
@@ -135,9 +135,9 @@ class ChessBoard {
 
 `Piece` 資料類別將棋子型別與其擁有者結合，在視覺表示中使用大寫字母代表白棋，小寫字母代表黑棋。`Position` 類別封裝了西洋棋座標（例如 「e4」）並內建驗證。
 
-## 遊戲狀態管理
+## 遊戲狀態管理 {id="game-state-management"}
 
-### ChessBoard 實作
+### ChessBoard 實作 {id="chessboard-implementation"}
 
 `ChessBoard` 類別管理 8×8 網格與棋子位置。關鍵設計決策包括：
 
@@ -145,7 +145,7 @@ class ChessBoard {
 - **視覺化顯示**：`toString()` 方法提供清晰的 ASCII 表示法，包含列數 (rank numbers) 與行字母 (file letters)
 - **位置對應**：在西洋棋表示法 (a1-h8) 與內部陣列索引之間進行轉換
 
-### ChessGame 邏輯
+### ChessGame 邏輯 {id="chessgame-logic"}
 
 ```kotlin
 /**
@@ -238,9 +238,9 @@ class ChessGame {
 
 `moveNotation` 字串為 AI 代理程式提供了關於可接受移動格式的清晰文件。
 
-## 與 Koog 架構整合
+## 與 Koog 架構整合 {id="integrating-with-koog-framework"}
 
-### 建立自訂工具
+### 建立自訂工具 {id="creating-custom-tools"}
 
 ```kotlin
 import kotlinx.serialization.Serializable
@@ -287,9 +287,9 @@ ${game.getBoard()}
 - **回饋迴圈**：傳回目前的棋盤狀態並提示下一位玩家，維持對話流
 - **錯誤處理**：依賴遊戲類別進行移動驗證與錯誤回報
 
-## 代理程式策略設計
+## 代理程式策略設計 {id="agent-strategy-design"}
 
-### 記憶體優化技術
+### 記憶體優化技術 {id="memory-optimization-technique"}
 
 ```kotlin
 import ai.koog.agents.core.environment.ReceivedToolResult
@@ -354,7 +354,7 @@ val strategy = strategy<String, String>("chess_strategy") {
 
 此策略確保了高效、具備狀態的遊戲過程，同時維持對話連貫性。
 
-### 設定 AI 代理程式
+### 設定 AI 代理程式 {id="setting-up-the-ai-agent"}
 
 ```kotlin
 val baseExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY"))
@@ -367,7 +367,7 @@ val baseExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY"))
 - 執行器會自動處理驗證與 API 通訊
 - 可針對不同的 LLM 提供者使用不同的執行器型別
 
-### 代理程式組合
+### 代理程式組合 {id="agent-assembly"}
 
 ```kotlin
 val game = ChessGame()
@@ -408,7 +408,7 @@ val agent = AIAgent(
 - 將傳訊限制在僅限認輸或宣告將死
 - 建立專注於遊戲的行為
 
-### 執行基本代理程式
+### 執行基本代理程式 {id="running-the-basic-agent"}
 
 ```kotlin
 import kotlinx.coroutines.runBlocking
@@ -478,11 +478,11 @@ runBlocking {
 
 這個基本代理程式會自主運作，自動進行移動。遊戲輸出顯示了 AI 自我對弈時的一系列移動與棋盤狀態。
 
-## 進階功能：互動式選項選取
+## 進階功能：互動式選項選取 {id="advanced-feature-interactive-choice-selection"}
 
 接下來的章節展示了一種更複雜的方法，使用者可以透過從多個 AI 產生的移動中進行選擇，參與 AI 的決策過程。
 
-### 自訂選項選取策略
+### 自訂選項選取策略 {id="custom-choice-selection-strategy"}
 
 ```kotlin
 import ai.koog.agents.core.feature.choice.ChoiceSelectionStrategy
@@ -542,7 +542,7 @@ class AskUserChoiceSelectionStrategy(
 - 訓練與偵錯情境
 - 教學示範
 
-### 具備選項選取的增強型策略
+### 具備選項選取的增強型策略 {id="enhanced-strategy-with-choice-selection"}
 
 ```kotlin
 inline fun <reified T> AIAgentSubgraphBuilderBase<*, *>.nodeTrimHistory(
@@ -595,7 +595,7 @@ val promptExecutor = PromptExecutorWithChoiceSelection(baseExecutor, askChoiceSt
 - **背景感知顯示**：顯示最後一個工具呼叫內容而非完整提示
 - **較高溫度 (Temperature)**：增加至 1.0 以獲得更多樣化的移動選項
 
-### 進階策略：手動選項選取
+### 進階策略：手動選項選取 {id="advanced-strategy-manual-choice-selection"}
 
 ```kotlin
 val game = ChessGame()
@@ -636,7 +636,7 @@ val agent = AIAgent(
 - **靈活性**：可與其他代理程式特性結合
 - **透明度**：使用者能確切看到 AI 正在考慮的內容
 
-### 執行互動式代理程式
+### 執行互動式代理程式 {id="running-interactive-agents"}
 
 ```kotlin
 println("Chess Game started!")
@@ -837,11 +837,11 @@ runBlocking {
 2. **使用者選取**：使用者輸入數字 1-3 以選擇其偏好的移動
 3. **遊戲繼續**：選定的移動被執行，遊戲繼續進行
 
-## 結論
+## 結論 {id="conclusion"}
 
 本教學示範了使用 Koog 架構建置智慧代理程式的幾個關鍵面向：
 
-### 關鍵要點
+### 關鍵要點 {id="key-takeaways"}
 
 1. **領域建模**：結構良好的資料模型對於複雜應用程式至關重要
 2. **工具整合**：自訂工具讓代理程式能有效地與外部系統互動
@@ -849,7 +849,7 @@ runBlocking {
 4. **策略圖**：Koog 以圖為基礎的方法提供了靈活的控制流程
 5. **互動式 AI**：選項選取支援人機協作與透明度
 
-### 已探索的架構特性
+### 已探索的架構特性 {id="framework-features-explored"}
 
 - ✅ 自訂工具建立與整合
 - ✅ 代理程式策略設計與以圖為基礎的控制流程

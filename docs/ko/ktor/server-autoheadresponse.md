@@ -43,7 +43,7 @@
     </TabItem>
 </Tabs>
 
-## 사용법
+## 사용법 {id="usage"}
 이 기능을 활용하려면 애플리케이션에 `AutoHeadResponse` 플러그인을 설치해야 합니다.
 
 ```kotlin
@@ -66,5 +66,5 @@ fun Application.main() {
 
 이 플러그인을 사용하는 경우, 동일한 `GET` 라우트에 대한 커스텀 `HEAD` 정의는 무시된다는 점에 유의해야 합니다.
 
-## 옵션
+## 옵션 {id="options"}
 `%plugin_name%`는 추가적인 구성 옵션을 제공하지 않습니다.

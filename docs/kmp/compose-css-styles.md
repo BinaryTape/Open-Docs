@@ -34,7 +34,7 @@ fun main() {
 > 虽然对于独立应用来说更简单，但这种方法使得将 Compose 嵌入现有 Web 布局变得困难。 
 > `ComposeViewport` 是一种更灵活的方法，它依赖于标准的基于 CSS 的布局管理。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * 了解如何[处理 Web 特定资源](compose-web-resources.md)。
 * 详细了解 [Kotlin/Wasm 与 Compose Multiplatform](https://kotlinlang.org/docs/wasm-get-started.html)。

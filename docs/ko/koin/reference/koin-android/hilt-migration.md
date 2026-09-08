@@ -8,7 +8,7 @@ title: Hilt에서 Koin으로 마이그레이션하기
 실제 사례를 확인하려면 [Now in Android 마이그레이션](https://blog.insert-koin.io/migrating-now-in-android-to-koin-annotations-2-3-67d252dbb97d)을 참고하세요. 이 글에서는 30개의 Gradle 모듈로 구성된 Google의 프로덕션 레벨 뉴스 앱이 어떻게 Hilt에서 Koin Annotations로 마이그레이션되었는지 보여줍니다.
 :::
 
-## 왜 Koin으로 마이그레이션해야 하나요?
+## 왜 Koin으로 마이그레이션해야 하나요? {id="why-migrate-to-koin"}
 
 **Koin의 주요 장점:**
 
@@ -19,9 +19,9 @@ title: Hilt에서 Koin으로 마이그레이션하기
 - **멀티 모듈 친화적** - `@EntryPoint` 인터페이스가 필요하지 않습니다.
 - **JSR-330 지원** - 기존의 `@Inject` 생성자를 수정 없이 그대로 사용할 수 있습니다.
 
-## 빠른 참조: Hilt vs Koin
+## 빠른 참조: Hilt vs Koin {id="quick-reference-hilt-vs-koin"}
 
-### 어노테이션 매핑
+### 어노테이션 매핑 {id="annotation-mappings"}
 
 | Hilt | Koin DSL                                 | Koin Annotations                                                                                    |
 |------|------------------------------------------|-----------------------------------------------------------------------------------------------------|
@@ -37,7 +37,7 @@ title: Hilt에서 Koin으로 마이그레이션하기
 | `@ApplicationContext` | 자동 Context 주입              | 자동 Context 주입                                                                         |
 | `@EntryPoint` | 필요 없음                               | 필요 없음                                                                                          |
 
-### 스코프 매핑
+### 스코프 매핑 {id="scope-mappings"}
 
 | Hilt 스코프 | Koin DSL | Koin Annotations | 비고 |
 |------------|----------|------------------|-------|
@@ -46,9 +46,9 @@ title: Hilt에서 Koin으로 마이그레이션하기
 | `@ViewModelScoped` | `viewModelScope { scoped { } }` | `@ViewModelScope` | ViewModel 수명 주기에 바인딩됨 |
 | `@ActivityRetainedScoped` | `activityRetainedScope { scoped { } }` | `@ActivityRetainedScope` | 구성 변경(Configuration changes) 시에도 유지됨 |
 
-## 마이그레이션 단계
+## 마이그레이션 단계 {id="migration-steps"}
 
-### 1단계: 의존성 업데이트
+### 1단계: 의존성 업데이트 {id="step-1-update-dependencies"}
 
 **Hilt 의존성 제거:**
 
@@ -80,7 +80,7 @@ dependencies {
 }
 ```
 
-### 2단계: Application 설정
+### 2단계: Application 설정 {id="step-2-application-setup"}
 
 **Hilt:**
 
@@ -125,7 +125,7 @@ class MyApplication : Application() {
 `@KoinApplication`을 사용하면 `@Configuration` 태그가 지정된 모듈이 자동으로 감지됩니다. `modules` 속성을 사용하여 모듈을 명시적으로 포함할 수도 있습니다: `@KoinApplication(modules = [AppModule::class])`.
 :::
 
-### 3단계: 모듈 마이그레이션
+### 3단계: 모듈 마이그레이션 {id="step-3-migrate-modules"}
 
 **Hilt:**
 
@@ -211,7 +211,7 @@ class NetworkModule {
 }
 ```
 
-### 4단계: ViewModel 마이그레이션
+### 4단계: ViewModel 마이그레이션 {id="step-4-migrate-viewmodels"}
 
 **Hilt:**
 
@@ -274,7 +274,7 @@ fun MyScreen() {
 `viewModelOf` DSL 함수는 생성자 파라미터 자동 연결(autowiring)을 사용합니다. `SavedStateHandle`은 Koin에서 자동으로 제공하므로 명시적으로 전달할 필요가 없습니다. 이는 ViewModel 정의를 단순화하는 Koin의 autowire DSL의 일부입니다.
 :::
 
-### 5단계: Activity 및 Fragment 마이그레이션
+### 5단계: Activity 및 Fragment 마이그레이션 {id="step-5-migrate-activities-and-fragments"}
 
 **Hilt:**
 
@@ -311,7 +311,7 @@ class MainActivity : ComponentActivity() {
 Koin을 사용하면 `@AndroidEntryPoint`가 필요하지 않습니다. 단순히 `by inject()` 또는 `by viewModel()` 속성 위임을 사용하면 됩니다.
 :::
 
-### 6단계: 인터페이스 바인딩 마이그레이션
+### 6단계: 인터페이스 바인딩 마이그레이션 {id="step-6-migrate-interface-bindings"}
 
 **Hilt:**
 
@@ -373,7 +373,7 @@ class MyRepositoryImpl(
 Koin Annotations는 클래스가 인터페이스를 구현할 때 인터페이스 바인딩을 자동으로 감지합니다. 여러 인터페이스를 명시적으로 지정하거나 바인딩 동작을 제어해야 하는 경우 `binds` 속성을 사용하세요.
 :::
 
-### 7단계: Qualifier 마이그레이션
+### 7단계: Qualifier 마이그레이션 {id="step-7-migrate-qualifiers"}
 
 **Hilt:**
 
@@ -474,7 +474,7 @@ class MyRepository @Inject constructor(
 Koin Annotations는 JSR-330 `@Qualifier` 어노테이션을 완벽하게 지원합니다! 이는 표준 Java/Kotlin DI 어노테이션(Hilt 전용이 아님)이므로, 마이그레이션 중에 기존 qualifier 어노테이션을 변경하지 않고 그대로 유지할 수 있습니다. DSL 또한 문자열 기반의 `named("string")` 대신 `named<T>()`를 사용하여 타입 세이프한 qualifier를 지원합니다.
 :::
 
-### 8단계: Compose 통합 마이그레이션
+### 8단계: Compose 통합 마이그레이션 {id="step-8-migrate-compose-integration"}
 
 **Hilt:**
 
@@ -501,7 +501,7 @@ fun MyScreen(
 }
 ```
 
-### 9단계: 테스트 마이그레이션
+### 9단계: 테스트 마이그레이션 {id="step-9-migrate-testing"}
 
 **Hilt:**
 
@@ -553,16 +553,16 @@ class MyTest : KoinTest {
 }
 ```
 
-## 멀티 모듈 프로젝트
+## 멀티 모듈 프로젝트 {id="multi-module-projects"}
 
-### Hilt 접근 방식
+### Hilt 접근 방식 {id="hilt-approach"}
 
 Hilt에서는 다음이 필요합니다:
 - 컴포넌트 계층 구조를 지정하기 위한 `@InstallIn`
 - 모듈 간 액세스를 위한 `@EntryPoint` 인터페이스
 - 복잡한 컴포넌트 의존성
 
-### Koin 접근 방식
+### Koin 접근 방식 {id="koin-approach"}
 
 Koin에서는:
 - 각 모듈이 자체 Koin 모듈을 선언합니다.
@@ -599,9 +599,9 @@ class MyApplication : Application() {
 
 자세한 내용은 [멀티 모듈 아키텍처](/docs/reference/koin-android/multi-module)를 참조하세요.
 
-## 공통 패턴
+## 공통 패턴 {id="common-patterns"}
 
-### 생성자 주입 (JSR-330)
+### 생성자 주입 (JSR-330) {id="constructor-injection-jsr-330"}
 
 가장 큰 장점 중 하나는 **기존의 `@Inject` 생성자가 Koin Annotations와 함께 작동한다**는 점입니다!
 
@@ -627,7 +627,7 @@ class MyRepository @Inject constructor(
 }
 ```
 
-### AssistedInject
+### AssistedInject {id="assistedinject"}
 
 **Hilt:**
 
@@ -660,7 +660,7 @@ val appModule = module {
 val viewModel: MyViewModel by viewModel { parametersOf("user123") }
 ```
 
-### 지연 주입 (Lazy Injection)
+### 지연 주입 (Lazy Injection) {id="lazy-injection"}
 
 **Hilt:**
 
@@ -679,7 +679,7 @@ private val heavyService: HeavyService by inject()
 private val heavyService: Lazy<HeavyService> by lazy { get() }
 ```
 
-## 마이그레이션 체크리스트
+## 마이그레이션 체크리스트 {id="migration-checklist"}
 
 마이그레이션 진행 상황을 추적하려면 이 체크리스트를 사용하세요:
 
@@ -720,9 +720,9 @@ private val heavyService: Lazy<HeavyService> by lazy { get() }
   - [ ] 앱 내 의존성 주입 테스트
   - [ ] 런타임 크래시 여부 확인
 
-## 문제 해결
+## 문제 해결 {id="troubleshooting"}
 
-### "No definition found for X"
+### "No definition found for X" {id="no-definition-found-for-x"}
 
 **문제**: Koin이 특정 타입의 정의를 찾을 수 없습니다.
 
@@ -731,7 +731,7 @@ private val heavyService: Lazy<HeavyService> by lazy { get() }
 - 정의가 존재하는지 확인하세요 (`single { }` 또는 `factory { }` 사용).
 - 올바른 타입이 지정되었는지 확인하세요.
 
-### "DefinitionOverrideException"
+### "DefinitionOverrideException" {id="definitionoverrideexception"}
 
 **문제**: 동일한 타입에 대해 여러 정의가 존재합니다.
 
@@ -739,7 +739,7 @@ private val heavyService: Lazy<HeavyService> by lazy { get() }
 - Qualifier를 사용하세요: `single(named("qualifier")) { }`
 - 오버라이드 활성화: `startKoin { allowOverride(true) }`
 
-### 순환 의존성 (Circular Dependencies)
+### 순환 의존성 (Circular Dependencies) {id="circular-dependencies"}
 
 **문제**: 두 클래스가 서로를 참조하고 있습니다.
 
@@ -748,13 +748,13 @@ private val heavyService: Lazy<HeavyService> by lazy { get() }
 - 순환 의존성을 제거하도록 리팩토링
 - 스코프(Scope)를 사용하여 사이클 끊기
 
-## 추가 리소스
+## 추가 리소스 {id="additional-resources"}
 
 - **실제 사례 마이그레이션**: [Now in Android를 Koin으로 마이그레이션하기](https://blog.insert-koin.io/migrating-now-in-android-to-koin-annotations-2-3-67d252dbb97d)
 - **Koin 문서**: [시작하기](/docs/setup/koin)
 - **Koin Annotations**: [Android Annotations 가이드](/docs/quickstart/android-annotations)
 
-## 도움이 필요하신가요?
+## 도움이 필요하신가요? {id="need-help"}
 
 - **GitHub Discussions**: [Koin 저장소](https://github.com/InsertKoinIO/koin/discussions)에서 질문하세요.
 - **Slack**: Slack의 Koin 커뮤니티에 참여하세요.

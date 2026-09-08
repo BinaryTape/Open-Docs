@@ -13,7 +13,7 @@ Kotlin CocoaPods Gradle プラグインは、Podspec ファイルを作成する
 
 この DSL リファレンスでは、CocoaPods の統合をセットアップする際に使用できる Kotlin CocoaPods Gradle プラグインの主なブロック、関数、プロパティをリストしています。
 
-## プラグインを有効にする
+## プラグインを有効にする {id="enable-the-plugin"}
 
 CocoaPods プラグインを適用するには、`build.gradle(.kts)` ファイルに以下の行を追加します。
 
@@ -26,7 +26,7 @@ plugins {
 
 プラグインのバージョンは [Kotlin のリリースバージョン](https://kotlinlang.org/docs/releases.html) と一致します。最新の安定版は %kotlinVersion% です。
 
-## `cocoapods {}` ブロック
+## `cocoapods {}` ブロック {id="cocoapods-block"}
 
 `cocoapods {}` ブロックは、CocoaPods 設定のトップレベルブロックです。これには、Pod のバージョン、サマリー、ホームページなどの必須情報や、オプション機能を含む Pod の全般的な情報が含まれます。
 
@@ -51,7 +51,7 @@ plugins {
 | `pod()` | このプロジェクトからビルドされる Pod に CocoaPods 依存関係を追加します。 |
 | `specRepos` | `url()` を使用して仕様リポジトリ（specification repository）を追加します。これは、プライベートな Pod を依存関係として使用する場合に必要です。詳細は [CocoaPods のドキュメント](https://guides.cocoapods.org/making/private-cocoapods.html) を参照してください。 |
 
-### ターゲット
+### ターゲット {id="targets"}
 
 | iOS | macOS | tvOS | watchOS |
 |---------------------|--------------|----------------------|-------------------------|
@@ -89,7 +89,7 @@ kotlin {
 }
 ```
 
-### `framework {}` ブロック
+### `framework {}` ブロック {id="framework-block"}
 
 `framework {}` ブロックは `cocoapods` 内にネストされ、プロジェクトからビルドされる Pod のフレームワークプロパティを設定します。
 
@@ -117,7 +117,7 @@ kotlin {
 }
 ```
 
-## `pod()` 関数
+## `pod()` 関数 {id="pod-function"}
 
 `pod()` 関数の呼び出しは、このプロジェクトからビルドされる Pod に CocoaPods 依存関係を追加します。依存関係ごとに個別の関数呼び出しが必要です。
 
@@ -153,7 +153,7 @@ kotlin {
 }
 ```
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [Kotlin Gradle プラグインのリポジトリで Kotlin DSL の完全な構文を確認する](https://github.com/JetBrains/kotlin/blob/master/libraries/tools/kotlin-gradle-plugin/src/common/kotlin/org/jetbrains/kotlin/gradle/targets/native/cocoapods/CocoapodsExtension.kt)
 * [Kotlin プロジェクトに Pod ライブラリへの依存関係を追加する](multiplatform-cocoapods-libraries.md)

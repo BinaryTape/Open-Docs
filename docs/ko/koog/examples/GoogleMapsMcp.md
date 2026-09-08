@@ -17,7 +17,7 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Goog
 
 ```
 
-## 사전 준비 사항
+## 사전 준비 사항 {id="prerequisites"}
 아래 셀을 실행하기 전에 다음 사항을 확인하세요.
 
 - Docker가 설치되어 실행 중이어야 합니다.
@@ -38,7 +38,7 @@ val openAIApiToken = System.getenv("OPENAI_API_KEY") ?: error("OPENAI_API_KEY �
 
 ```
 
-## Google Maps MCP 서버 시작 (Docker)
+## Google Maps MCP 서버 시작 (Docker) {id="start-the-google-maps-mcp-server-docker"}
 공식 `mcp/google-maps` 이미지를 사용합니다. 이 컨테이너는 MCP를 통해 `maps_geocode` 및 `maps_elevation`과 같은 도구를 노출합니다. 환경 변수를 통해 API 키를 전달하고, Notebook이 표준 입출력(stdio)을 통해 통신할 수 있도록 프로세스를 실행합니다.
 
 ```kotlin
@@ -54,7 +54,7 @@ val process = ProcessBuilder(
 
 ```
 
-## McpToolRegistry를 통한 도구 탐색
+## McpToolRegistry를 통한 도구 탐색 {id="discover-tools-via-mcptoolregistry"}
 Koog는 stdio를 통해 MCP 서버에 연결할 수 있습니다. 여기서는 실행 중인 프로세스로부터 도구 레지스트리(Tool Registry)를 생성하고, 탐색된 도구들과 해당 디스크립터(Descriptor)를 출력합니다.
 
 ```kotlin
@@ -68,7 +68,7 @@ toolRegistry.tools.forEach {
 
 ```
 
-## OpenAI를 이용한 AI 에이전트 구축
+## OpenAI를 이용한 AI 에이전트 구축 {id="build-an-ai-agent-with-openai"}
 다음으로 OpenAI 실행기(Executor)와 모델을 기반으로 하는 간단한 에이전트를 구성합니다. 이 에이전트는 방금 생성한 레지스트리를 통해 MCP 서버가 노출한 도구들을 호출할 수 있습니다.
 
 ```kotlin
@@ -80,7 +80,7 @@ val agent = AIAgent(
 
 ```
 
-## 고도 요청: 지오코딩 후 고도 측정
+## 고도 요청: 지오코딩 후 고도 측정 {id="ask-for-elevation-geocode-first-then-elevation"}
 에이전트에게 독일 뮌헨에 있는 JetBrains 사무실의 고도를 찾으라고 요청합니다. 지침을 통해 에이전트가 사용 가능한 도구만 사용하도록 하고, 해당 작업에 어떤 도구를 선호해야 하는지 명시적으로 알려줍니다.
 
 ```kotlin
@@ -96,7 +96,7 @@ runBlocking {
 
 ```
 
-## 정리
+## 정리 {id="clean-up"}
 작업이 끝나면 백그라운드에서 실행 중인 항목이 남지 않도록 Docker 프로세스를 중지합니다.
 
 ```kotlin
@@ -104,7 +104,7 @@ process.destroy()
 
 ```
 
-## 문제 해결 및 다음 단계
+## 문제 해결 및 다음 단계 {id="troubleshooting-and-next-steps"}
 - 컨테이너 시작에 실패하면 Docker가 실행 중인지, `GOOGLE_MAPS_API_KEY`가 유효한지 확인하세요.
 - 에이전트가 도구를 호출할 수 없는 경우, 도구 탐색 셀을 다시 실행하여 도구 레지스트리가 채워졌는지 확인하세요.
 - 사용 가능한 Google Maps 도구를 사용하여 경로 계획이나 장소 검색과 같은 다른 프롬프트를 시도해 보세요.

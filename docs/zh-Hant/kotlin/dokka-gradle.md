@@ -15,7 +15,7 @@ Dokka Gradle 外掛程式 (DGP) 附帶專案的基本自動組態，
 您可以在我們的 [Gradle 範例專案](https://github.com/Kotlin/dokka/tree/2.0.0/examples/gradle-v2)中
 嘗試使用 Dokka 並探索如何為各種專案進行配置。
 
-## 支援的版本
+## 支援的版本 {id="supported-versions"}
 
 確保您的專案符合最低版本需求：
 
@@ -25,7 +25,7 @@ Dokka Gradle 外掛程式 (DGP) 附帶專案的基本自動組態，
 | [Android Gradle 外掛程式](https://developer.android.com/build/agp-upgrade-assistant) | 7.0 或更高     |
 | [Kotlin Gradle 外掛程式](https://kotlinlang.org/docs/gradle-configure-project.html) | 1.9 或更高     |
 
-## 套用 Dokka
+## 套用 Dokka {id="apply-dokka"}
 
 套用 Dokka 的 Gradle 外掛程式的建議方式是使用 
 [plugins 區塊](https://docs.gradle.org/current/userguide/plugins.html#sec:plugins_block)。
@@ -68,14 +68,14 @@ plugins {
 >
 {style="tip"}
 
-## 啟用組建快取和組態快取
+## 啟用組建快取和組態快取 {id="enable-build-cache-and-configuration-cache"}
 
 DGP 支援 Gradle 組建快取和組態快取，可提高組建效能。
 
 * 若要啟用組建快取，請遵循 [Gradle 組建快取文件](https://docs.gradle.org/current/userguide/build_cache.html#sec:build_cache_enable)中的說明。
 * 若要啟用組態快取，請遵循 [Gradle 組態快取文件](https://docs.gradle.org/current/userguide/configuration_cache.html#config_cache:usage:enable)中的說明。
 
-## 產生文件
+## 產生文件 {id="generate-documentation"}
 
 Dokka Gradle 外掛程式內建了 [HTML](dokka-html.md) 和 [Javadoc](dokka-javadoc.md) 輸出格式。
 
@@ -95,7 +95,7 @@ Dokka Gradle 外掛程式內建了 [HTML](dokka-html.md) 和 [Javadoc](dokka-jav
   目錄中。
   您可以[更改位置 (`outputDirectory`)](dokka-gradle-configuration-options.md#general-configuration)。
 
-### 配置文件輸出格式
+### 配置文件輸出格式 {id="configure-documentation-output-format"}
 
 > Javadoc 輸出格式目前處於 [Alpha](https://kotlinlang.org/docs/components-stability.html#stability-levels-explained) 階段。
 > 使用時可能會遇到錯誤和遷移問題。
@@ -140,7 +140,7 @@ Dokka Gradle 外掛程式內建了 [HTML](dokka-html.md) 和 [Javadoc](dokka-jav
 如果您使用 IntelliJ IDEA，可能會看到 `dokkaGenerateHtml` Gradle 任務。
 此任務僅是 `dokkaGeneratePublicationHtml` 的別名。這兩個任務執行的操作完全相同。
 
-### 彙總多專案組建的文件輸出
+### 彙總多專案組建的文件輸出 {id="aggregate-documentation-output-in-multi-project-builds"}
 
 Dokka 可以將多個子專案的文件彙總到單一輸出或發布中。
 
@@ -176,7 +176,7 @@ dependencies {
 
 如需詳細資訊，請參閱我們的[多專案範例](https://github.com/Kotlin/dokka/tree/2.0.0/examples/gradle-v2/multimodule-example)。
 
-#### 彙總文件的目錄
+#### 彙總文件的目錄 {id="directory-of-aggregated-documentation"}
 
 當 DGP 彙總子專案時，每個子專案在彙總文件中都有其專屬的子目錄。
 DGP 透過保留完整的專案結構來確保每個子專案都有唯一的目錄。
@@ -207,7 +207,7 @@ dokka {
 此配置會將 `:turbo-lib:maths` 模組產生的文件更改為 
 產生至 `turbo-lib/build/dokka/html/maths/`。
 
-## 組建 javadoc.jar
+## 組建 javadoc.jar {id="build-javadoc-jar"}
 
 如果您想將程式庫發布到儲存庫，您可能需要提供一個包含 
 程式庫 API 參考文件的 `javadoc.jar` 檔案。
@@ -266,7 +266,7 @@ tasks.register('dokkaJavadocJar', Jar) {
 >
 {style="tip"}
 
-## 組態範例
+## 組態範例 {id="configuration-examples"}
 
 根據您專案的類型，套用和配置 Dokka 的方式會略有不同。然而，
 不論您的專案類型為何，[組態選項](dokka-gradle-configuration-options.md)本身都是相同的。
@@ -277,7 +277,7 @@ tasks.register('dokkaJavadocJar', Jar) {
 對於具有子專案和多個巢狀 `build.gradle.kts` 或 `build.gradle` 檔案的更複雜組建，
 請參閱[多專案組態](#多專案組態)。
 
-### 單一專案組態
+### 單一專案組態 {id="single-project-configuration"}
 
 單一專案組建通常在專案根目錄中只有一個 `build.gradle.kts` 
 或 `build.gradle` 檔案。
@@ -415,7 +415,7 @@ dokka {
 或外掛程式配置來進一步擴充它。
 如需詳細資訊，請參閱[組態選項](dokka-gradle-configuration-options.md)。
 
-### 多專案組態
+### 多專案組態 {id="multi-project-configuration"}
 
 [多專案組建](https://docs.gradle.org/current/userguide/multi_project_builds.html) 
 通常包含數個 
@@ -485,11 +485,11 @@ dokka {
 >
 {style="tip"}
 
-#### 透過慣例外掛程式共用組態
+#### 透過慣例外掛程式共用組態 {id="shared-configuration-via-a-convention-plugin"}
 
 遵循下列步驟來設定慣例外掛程式並將其套用到您的子專案。
 
-##### 設定 buildSrc 目錄
+##### 設定 buildSrc 目錄 {id="set-up-the-buildsrc-directory"}
 
 1. 在專案根目錄中，建立一個包含兩個檔案的 `buildSrc` 目錄：
 
@@ -519,7 +519,7 @@ dokka {
     }   
     ```
 
-##### 設定 Dokka 慣例外掛程式
+##### 設定 Dokka 慣例外掛程式 {id="set-up-the-dokka-convention-plugin"}
 
 設定 `buildSrc` 目錄後，設定 Dokka 慣例外掛程式：
 
@@ -541,7 +541,7 @@ dokka {
    此外，您不需要指定 Dokka 版本。
    版本已在 `buildSrc/build.gradle.kts` 檔案中設定。
 
-##### 將慣例外掛程式套用到您的子專案
+##### 將慣例外掛程式套用到您的子專案 {id="apply-the-convention-plugin-to-your-subprojects"}
 
 透過將 Dokka 慣例外掛程式新增到每個子專案的 `build.gradle.kts` 
 檔案中，來將其套用到您的子專案：
@@ -552,7 +552,7 @@ plugins {
 }
 ```
 
-#### 手動配置
+#### 手動配置 {id="manual-configuration"}
 
 如果您的專案不使用慣例外掛程式，您可以透過手動 
 將相同的 `dokka {}` 區塊複製到每個子專案中來重複使用相同的 Dokka 配置模式：
@@ -568,7 +568,7 @@ plugins {
 2. 在每個子專案的 `dokka {}` 區塊中宣告共用組態。因為沒有集中配置的慣例外掛程式，所以您需要跨子專案重複任何您想要的配置。如需詳細資訊，
    請參閱[組態選項](dokka-gradle-configuration-options.md)。
 
-#### 根專案組態
+#### 根專案組態 {id="parent-project-configuration"}
 
 在多專案組建中，您可以在根專案中配置適用於整份文件的設定。
 這可以包括定義輸出格式、輸出目錄、文件子專案名稱、 

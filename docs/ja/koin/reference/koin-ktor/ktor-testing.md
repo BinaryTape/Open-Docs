@@ -6,9 +6,9 @@ title: テスト
 
 依存関係注入に Koin を使用する Ktor アプリケーションをテストするためのベストプラクティスを紹介します。
 
-## テスト設定
+## テスト設定 {id="test-configuration"}
 
-### 基本的なテストのセットアップ
+### 基本的なテストのセットアップ {id="basic-test-setup"}
 
 ```kotlin
 class UserServiceTest : KoinTest {
@@ -33,7 +33,7 @@ val testModule = module {
 }
 ```
 
-## Ktor の testApplication を使用したテスト
+## Ktor の testApplication を使用したテスト {id="testing-with-ktor-testapplication"}
 
 ```kotlin
 class ApplicationTest {
@@ -54,7 +54,7 @@ class ApplicationTest {
 }
 ```
 
-## テストでの Isolated Context の使用
+## テストでの Isolated Context の使用 {id="using-isolated-context-for-tests"}
 
 各テストは、それぞれ独自の分離された Koin インスタンス（Isolated Context）を取得します。
 
@@ -76,7 +76,7 @@ class UserRoutesTest {
 }
 ```
 
-### テストの並列実行
+### テストの並列実行 {id="parallel-test-execution"}
 
 Isolated Context を使用すると、テストは互いに干渉することなく並列で実行できます。
 
@@ -104,7 +104,7 @@ class ParallelTests {
 }
 ```
 
-## モジュールの検証
+## モジュールの検証 {id="module-verification"}
 
 アノテーションを使用してコンパイル時に、またはテスト時にモジュールを検証します。
 
@@ -117,7 +117,7 @@ class ModuleVerificationTest : KoinTest {
 }
 ```
 
-### 追加の型を使用する場合
+### 追加の型を使用する場合 {id="with-extra-types"}
 
 ```kotlin
 @Test
@@ -131,9 +131,9 @@ fun `verify modules with extra types`() {
 }
 ```
 
-## 依存関係のモック
+## 依存関係のモック {id="mocking-dependencies"}
 
-### テスト用モジュールの使用
+### テスト用モジュールの使用 {id="using-test-modules"}
 
 ```kotlin
 val productionModule = module {
@@ -147,7 +147,7 @@ val testModule = module {
 }
 ```
 
-### Mockk の使用
+### Mockk の使用 {id="using-mockk"}
 
 ```kotlin
 class UserServiceTest : KoinTest {
@@ -175,7 +175,7 @@ class UserServiceTest : KoinTest {
 }
 ```
 
-## リクエストスコープのテスト
+## リクエストスコープのテスト {id="testing-request-scopes"}
 
 ```kotlin
 class RequestScopeTest {
@@ -207,7 +207,7 @@ class RequestScopeTest {
 }
 ```
 
-## DI Bridge を使用したテスト
+## DI Bridge を使用したテスト {id="testing-with-di-bridge"}
 
 ```kotlin
 class BridgeTest {
@@ -235,7 +235,7 @@ class BridgeTest {
 }
 ```
 
-## 完全なテスト例
+## 完全なテスト例 {id="complete-test-example"}
 
 ```kotlin
 class UserApiTest : KoinTest {
@@ -305,7 +305,7 @@ val testModule = module {
 }
 ```
 
-## ベストプラクティス
+## ベストプラクティス {id="best-practices"}
 
 1. **Isolated Context を使用する** - テスト間の干渉を防ぎます。
 2. **テスト用モジュールを作成する** - 本番環境の依存関係をモックでオーバーライドします。
@@ -313,7 +313,7 @@ val testModule = module {
 4. **クリーンアップを行う** - グローバルコンテキストを使用するテストは、終了後に Koin を停止させる必要があります。
 5. **並列実行の安全性** - 並列テスト実行には `KoinIsolated` を使用します。
 
-## 関連項目
+## 関連項目 {id="see-also"}
 
 - **[Koin for Ktor](/docs/reference/koin-ktor/ktor)** - 主要な Ktor ドキュメント
 - **[Isolated Context](/docs/reference/koin-ktor/ktor-isolated)** - 分離された Koin インスタンス

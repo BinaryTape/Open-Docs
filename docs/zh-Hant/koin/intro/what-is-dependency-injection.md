@@ -6,11 +6,11 @@ title: 什麼是相依注入？
 
 相依注入 (Dependency Injection, DI) 是一種設計模式，物件從外部來源接收其相依項，而不是在內部建立它們。這促進了鬆散耦合、更好的測試性以及更整潔的程式碼架構。
 
-## 什麼是相依項？
+## 什麼是相依項？ {id="what-is-a-dependency"}
 
 相依項是另一個物件運作所需的任何物件。例如，`Car` 需要 `Engine` 才能行駛。
 
-### 未使用相依注入
+### 未使用相依注入 {id="without-dependency-injection"}
 
 ```kotlin
 class Engine {
@@ -35,7 +35,7 @@ class Car {
 - 難以更換引擎類型（電動、柴油等）
 - `Car` 控制 `Engine` 的生命週期
 
-### 使用相依注入
+### 使用相依注入 {id="with-dependency-injection"}
 
 ```kotlin
 class Car(private val engine: Engine) {  // Engine 已注入
@@ -56,9 +56,9 @@ val electricCar = Car(ElectricEngine())
 - 靈活 - 可以更換實作
 - 在建構函式中可以清楚看到相依項
 
-## 提供相依項的三種方式
+## 提供相依項的三種方式 {id="three-ways-to-provide-dependencies"}
 
-### 1. 建構函式注入 (推薦)
+### 1. 建構函式注入 (推薦) {id="1-constructor-injection-recommended"}
 
 相依項透過建構函式傳遞：
 
@@ -93,7 +93,7 @@ val appModule = module {
 建構函式注入是 Koin 中 **首選的方法**。它使您的程式碼具備測試性，且在單元測試中不需要 Koin。
 :::
 
-### 2. 欄位注入
+### 2. 欄位注入 {id="2-field-injection"}
 
 相依項被注入到類別屬性中：
 
@@ -123,7 +123,7 @@ val presenter: Presenter by inject()
 val presenter: Presenter = get()
 ```
 
-### 3. 方法注入
+### 3. 方法注入 {id="3-method-injection"}
 
 相依項透過方法傳遞（較不常見）：
 
@@ -140,9 +140,9 @@ class ReportGenerator {
 - 在物件生命週期內會變動的相依項
 - 回呼 (callback) 模式
 
-## 手動 vs 自動化相依注入
+## 手動 vs 自動化相依注入 {id="manual-vs-automated-dependency-injection"}
 
-### 手動 DI 的問題
+### 手動 DI 的問題 {id="the-problem-with-manual-di"}
 
 隨著應用程式成長，手動管理相依項會變得複雜：
 
@@ -171,7 +171,7 @@ class MainActivity : AppCompatActivity() {
 - 難以管理生命週期（單例 (singleton)、作用域物件）
 - 沒有集中化的配置
 
-### 容器模式 (手動方法)
+### 容器模式 (手動方法) {id="the-container-pattern-manual-approach"}
 
 開發人員通常會建立一個容器來集中管理物件建立：
 
@@ -200,7 +200,7 @@ class MainActivity : AppCompatActivity() {
 - 全域狀態（單例容器）
 - 對於複雜的圖結構仍然需要重複操作
 
-### Koin 如何解決此問題
+### Koin 如何解決此問題 {id="how-koin-solves-this"}
 
 Koin 提供自動化的相依解析，您可以選擇使用 **DSL 或註解**：
 
@@ -239,7 +239,7 @@ class MainActivity : AppCompatActivity() {
 - 型別安全的注入
 - 易於測試和模組替換
 
-## 自動化 DI 解決方案
+## 自動化 DI 解決方案 {id="automated-di-solutions"}
 
 自動化相依注入有不同的方法：
 
@@ -257,11 +257,11 @@ class MainActivity : AppCompatActivity() {
 - 無反射，輕量級
 - 選擇適合您團隊的風格
 
-## 服務定位器 vs 相依注入
+## 服務定位器 vs 相依注入 {id="service-locator-vs-dependency-injection"}
 
 了解兩者的區別非常重要：
 
-### 服務定位器模式 (Service Locator Pattern)
+### 服務定位器模式 (Service Locator Pattern) {id="service-locator-pattern"}
 
 組件主動從註冊表中請求相依項：
 
@@ -271,7 +271,7 @@ class UserService : KoinComponent {
 }
 ```
 
-### 相依注入模式 (Dependency Injection Pattern)
+### 相依注入模式 (Dependency Injection Pattern) {id="dependency-injection-pattern"}
 
 相依項從外部提供：
 
@@ -281,7 +281,7 @@ class UserService(
 )
 ```
 
-### 比較
+### 比較 {id="comparison"}
 
 | 面向 | 服務定位器 | 相依注入 |
 |--------|----------------|---------------------|
@@ -291,7 +291,7 @@ class UserService(
 | 在 Koin 中的用法 | `get()`, `by inject()` | 配合 Koin 模組使用建構函式 |
 | 最佳用途 | Android 架構類別 | 商業邏輯、服務 |
 
-### 使用 Koin 的最佳實務
+### 使用 Koin 的最佳實務 {id="best-practices-with-koin"}
 
 1. **商業邏輯偏好使用建構函式注入**：
 
@@ -325,9 +325,9 @@ class UserService : KoinComponent {
 class UserService(private val repository: UserRepository)
 ```
 
-## 相依注入的優點
+## 相依注入的優點 {id="benefits-of-dependency-injection"}
 
-### 1. 測試性
+### 1. 測試性 {id="1-testability"}
 
 沒有 DI，測試會很困難：
 
@@ -352,7 +352,7 @@ fun testGetUser() {
 }
 ```
 
-### 2. 靈活性
+### 2. 靈活性 {id="2-flexibility"}
 
 輕鬆更換實作：
 
@@ -366,7 +366,7 @@ val testModule = module {
 }
 ```
 
-### 3. 程式碼組織
+### 3. 程式碼組織 {id="3-code-organization"}
 
 集中化的相依配置：
 
@@ -390,7 +390,7 @@ startKoin {
 }
 ```
 
-### 4. 生命週期管理
+### 4. 生命週期管理 {id="4-lifecycle-management"}
 
 Koin 處理物件生命週期：
 
@@ -402,7 +402,7 @@ val appModule = module {
 }
 ```
 
-## 總結
+## 總結 {id="summary"}
 
 相依注入是一種強大的模式，它可以：
 - 將組件與其相依項 **解耦**
@@ -416,7 +416,7 @@ Koin 透過以下方式簡化了 Kotlin 中的 DI：
 - 透過編譯器外掛程式提供 **編譯期安全性**
 - 需要 **零反射** - 純 Kotlin 實作
 
-## 下一步
+## 下一步 {id="next-steps"}
 
 - **[什麼是 Koin？](/docs/intro/what-is-koin)** - 了解 Koin 的方法
 - **[Koin 編譯器外掛程式](/docs/intro/koin-compiler-plugin)** - 推薦且更安全的方法

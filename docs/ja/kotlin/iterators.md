@@ -65,7 +65,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## リストイテレーター
+## リストイテレーター {id="list-iterators"}
 
 リストには、特別なイテレーターの実装である [`ListIterator`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list-iterator/index.html) があります。これは、順方向と逆方向の両方の反復処理をサポートしています。
 
@@ -96,7 +96,7 @@ fun main() {
 
 両方向への反復が可能であるため、`ListIterator` は最後の要素に到達した後でも引き続き使用できます。
 
-## ミュータブルイテレーター
+## ミュータブルイテレーター {id="mutable-iterators"}
 
 ミュータブル（可変）なコレクションを反復処理するために、`Iterator` を拡張して要素削除関数 [`remove()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-iterator/remove.html) を追加した [`MutableIterator`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-iterator/index.html) があります。これにより、反復処理中にコレクションから要素を削除できます。
 

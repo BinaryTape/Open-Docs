@@ -11,7 +11,7 @@ Dokka 插件的应用范围非常广泛，从支持其他编程语言源码到�
 
 如果您想了解如何创建 Dokka 插件，请参阅 [开发者指南](https://kotlin.github.io/dokka/%dokkaVersion%/developer_guide/introduction/)。
 
-## 应用 Dokka 插件
+## 应用 Dokka 插件 {id="apply-dokka-plugins"}
 
 Dokka 插件作为独立的构件发布，因此要应用 Dokka 插件，您只需将其添加为依赖项。随后，插件会自行扩展 Dokka —— 无需进一步操作。
 
@@ -107,7 +107,7 @@ java -jar dokka-cli-%dokkaVersion%.jar \
 </tab>
 </tabs>
 
-## 配置 Dokka 插件
+## 配置 Dokka 插件 {id="configure-dokka-plugins"}
 
 Dokka 插件也可以拥有自己的配置选项。要查看哪些选项可用，请参考您正在使用的插件的文档。
 
@@ -204,7 +204,7 @@ java -jar dokka-cli-%dokkaVersion%.jar \
 </tab>
 </tabs>
 
-## 值得关注的插件
+## 值得关注的插件 {id="notable-plugins"}
 
 以下是一些您可能会发现有用的值得关注的 Dokka 插件：
 

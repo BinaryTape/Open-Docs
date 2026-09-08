@@ -13,7 +13,7 @@ description: "Kotlin DataFrame을 사용하여 CSV, JSON, SQL, Excel, Apache Arr
 
 이 가이드에서는 여러 예제를 통해 데이터를 가져오고, 정제하고, 처리하는 방법을 배울 수 있습니다.
 
-## 시작하기 전에
+## 시작하기 전에 {id="before-you-start"}
 
 > IntelliJ IDEA 2026.2부터 Kotlin Notebook은 더 이상 IDE에 내장되지 않으며 JetBrains에서 공식적으로 지원하지 않습니다.
 > 소스 코드는 [GitHub](https://github.com/Kotlin/kotlin-notebook)에서 계속 이용할 수 있습니다.
@@ -35,7 +35,7 @@ description: "Kotlin DataFrame을 사용하여 CSV, JSON, SQL, Excel, Apache Arr
 
 튜토리얼을 따라 하려면 DataFrame을 [Gradle](https://kotlin.github.io/dataframe/setupgradle.html) 또는 [Maven](https://kotlin.github.io/dataframe/setupmaven.html) 의존성으로 사용할 수도 있습니다.
 
-## 데이터 가져오기
+## 데이터 가져오기 {id="retrieve-data"}
 
 파일에서 데이터를 가져오려면 `DataFrame.read()` 함수를 사용하세요:
 
@@ -57,7 +57,7 @@ val movies = DataFrame.read("movies.csv", delimiter = ';')
 > 
 {style="tip"}
 
-## 데이터 표시하기
+## 데이터 표시하기 {id="display-data"}
 
 데이터를 가져온 후에는 이를 표시할 수 있습니다. 가장 쉬운 방법은 
 데이터를 변수에 저장한 다음 해당 변수를 반환하는 것입니다:
@@ -73,7 +73,7 @@ jsonDf
 
 이 뷰를 사용하여 값을 검사하고, 컬럼 이름을 확인하며, 데이터셋의 상태를 쉽게 이해할 수 있습니다.
 
-## 데이터 구조 검사하기
+## 데이터 구조 검사하기 {id="inspect-data-structure"}
 
 데이터의 구조나 스키마(schema)에 대한 통찰력을 얻으려면 DataFrame 변수에 
 [`.schema()`](https://kotlin.github.io/dataframe/schema.html) 함수를 사용하세요. 
@@ -86,7 +86,7 @@ Kotlin Notebook에서는 자동 완성 기능도 사용할 수 있습니다. 이
 
 ![사용 가능한 속성](auto-completion-data-analysis.png){width=700}
 
-## 데이터 정제하기
+## 데이터 정제하기 {id="refine-data"}
 
 Kotlin DataFrame은 데이터셋 정제를 위한 다양한 연산을 제공합니다. 
 예를 들어 [그룹화(grouping)](https://kotlin.github.io/dataframe/group.html),
@@ -172,7 +172,7 @@ Kotlin DataFrame은 데이터셋 정제를 위한 다양한 연산을 제공합�
 > 
 {style="tip"}
 
-## 데이터 내보내기
+## 데이터 내보내기 {id="export-data"}
 
 Kotlin Notebook에서 데이터를 정제한 후, 처리된 데이터를 쉽게 내보낼 수 있습니다. 
 
@@ -208,7 +208,7 @@ refinedMoviesDf
     .openInBrowser()
 ```
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [Kandy 라이브러리](https://kotlin.github.io/kandy/examples.html)를 사용하여 데이터 시각화 살펴보기
 * [Kandy를 사용한 Kotlin Notebook의 데이터 시각화](data-analysis-visualization.md)에서 데이터 시각화에 대한 추가 정보 찾기

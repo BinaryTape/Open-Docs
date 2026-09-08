@@ -22,9 +22,9 @@
 >
 {style="tip"}
 
-## 간단한 멀티플랫폼 프로젝트 테스트
+## 간단한 멀티플랫폼 프로젝트 테스트 {id="test-a-simple-multiplatform-project"}
 
-### 프로젝트 생성
+### 프로젝트 생성 {id="create-a-project"}
 
 1. [빠른 시작(quickstart)](quickstart.md)에서 [Kotlin Multiplatform 개발 환경 설정](quickstart.md#set-up-the-environment) 안내를 완료하세요.
 2. IntelliJ IDEA에서 **File | New | Project**를 선택합니다.
@@ -40,7 +40,7 @@
 
    ![간단한 멀티플랫폼 프로젝트 생성](create-test-multiplatform-project.png){width=800}
 
-### 코드 작성
+### 코드 작성 {id="write-code"}
 
 `sharedLogic/src/commonMain/kotlin` 디렉터리에 `common.example.search` 패키지를 새로 만듭니다.
 이 패키지에 다음 함수가 포함된 Kotlin 파일 `Grep.kt`를 생성합니다:
@@ -55,7 +55,7 @@ fun grep(lines: List<String>, pattern: String, action: (String) -> Unit) {
 
 이 함수는 [UNIX `grep` 명령](https://en.wikipedia.org/wiki/Grep)과 유사하게 설계되었습니다. 여기서 함수는 텍스트 줄(lines), 정규식으로 사용될 패턴(pattern), 그리고 줄이 패턴과 일치할 때마다 호출될 함수(action)를 인자로 받습니다.
 
-### 테스트 추가
+### 테스트 추가 {id="add-tests"}
 
 이제 공통 코드를 테스트해 보겠습니다. 핵심적인 부분은 [`kotlin.test`](https://kotlinlang.org/api/latest/kotlin.test/) API 라이브러리를 의존성으로 갖는 공통 테스트용 소스 세트입니다.
 
@@ -218,7 +218,7 @@ expect fun determineCurrentRuntime(): CurrentRuntime
 
 이 함수는 지원되는 각 플랫폼에 대해 별도의 구현을 가져야 합니다. 그렇지 않으면 빌드가 실패합니다. 각 플랫폼에서 이 함수를 구현하는 것뿐만 아니라 테스트도 제공해야 합니다. Android와 iOS용으로 만들어 보겠습니다.
 
-#### Android의 경우
+#### Android의 경우 {id="for-android"}
 
 1. `androidMain/kotlin` 디렉터리에 `org.kmp.testing` 패키지를 새로 만듭니다.
 2. 이 패키지에 `AndroidRuntime.kt` 파일을 생성하고 기대되는(expected) `determineCurrentRuntime()` 함수의 실제(actual) 구현으로 업데이트합니다:
@@ -262,7 +262,7 @@ Android 전용 테스트가 로컬 JVM에서 실행되는 것이 이상하게 �
 
 프로젝트에 다른 유형의 테스트를 추가할 수 있습니다. 인스트루먼티드 테스트에 대해 알아보려면 [Touchlab 가이드](https://touchlab.co/understanding-and-configuring-your-kmm-test-suite/)를 참조하세요.
 
-#### iOS의 경우
+#### iOS의 경우 {id="for-ios"}
 
 1. `iosMain/kotlin` 디렉터리에 `org.kmp.testing` 디렉터리를 새로 만듭니다.
 2. 이 디렉터리에 `IOSRuntime.kt` 파일을 생성하고 기대되는 `determineCurrentRuntime()` 함수의 실제 구현으로 업데이트합니다:
@@ -300,7 +300,7 @@ Android 전용 테스트가 로컬 JVM에서 실행되는 것이 이상하게 �
     }
     ```
 
-### 여러 테스트 실행 및 보고서 분석
+### 여러 테스트 실행 및 보고서 분석 {id="run-multiple-tests-and-analyze-reports"}
 
 이 단계에서는 공통, Android 및 iOS 구현을 위한 코드와 해당 테스트가 모두 준비되었습니다. 프로젝트의 디렉터리 구조는 다음과 같아야 합니다:
 
@@ -321,7 +321,7 @@ Android 전용 테스트가 로컬 JVM에서 실행되는 것이 이상하게 �
 
 ![멀티플랫폼 테스트용 HTML 보고서](multiplatform-test-report.png){width=700}
 
-## 멀티플랫폼 프로젝트 테스트 사용 규칙
+## 멀티플랫폼 프로젝트 테스트 사용 규칙 {id="rules-for-using-tests-in-multiplatform-projects"}
 
 이제 Kotlin Multiplatform 애플리케이션에서 테스트를 생성, 구성 및 실행해 보았습니다. 향후 프로젝트에서 테스트 작업을 할 때 다음 사항을 기억하세요:
 
@@ -334,7 +334,7 @@ Android 전용 테스트가 로컬 JVM에서 실행되는 것이 이상하게 �
 * IDE와 Gradle 태스크를 모두 사용하여 테스트를 실행할 수 있습니다.
 * 테스트를 실행하면 HTML 테스트 보고서가 자동으로 생성됩니다.
 
-## 다음 단계는?
+## 다음 단계는? {id="what-s-next"}
 
 * [멀티플랫폼 프로젝트 구조 이해하기](multiplatform-discover-project.md)에서 멀티플랫폼 프로젝트의 레이아웃을 살펴보세요.
 * Kotlin 에코시스템에서 제공하는 또 다른 멀티플랫폼 테스팅 프레임워크인 [Kotest](https://kotest.io/)를 확인해 보세요. Kotest를 사용하면 다양한 스타일로 테스트를 작성할 수 있으며, 일반적인 테스트를 보완하는 접근 방식을 지원합니다. 여기에는 [데이터 기반(data-driven)](https://kotest.io/docs/framework/datatesting/data-driven-testing.html) 및 [속성 기반(property-based)](https://kotest.io/docs/proptest/property-based-testing.html) 테스팅이 포함됩니다.

@@ -7,11 +7,11 @@
 
 您將學習如何為發佈準備 Kotlin Multiplatform 應用程式，我們也將強調此過程中值得特別注意的部分。
 
-## Android 應用程式
+## Android 應用程式 {id="android-app"}
 
 由於 [Kotlin 是 Android 開發的主要語言](https://developer.android.com/kotlin)，Kotlin Multiplatform 對專案編譯和 Android 應用程式的組建沒有明顯影響。從共用模組產生的 Android 程式庫和 Android 應用程式本身都是典型的 Android Gradle 模組；它們與其他 Android 程式庫和應用程式沒有區別。因此，從 Kotlin Multiplatform 專案發佈 Android 應用程式與 [Android 開發人員文件](https://developer.android.com/studio/publish)中描述的一般流程沒有區別。
 
-## iOS 應用程式
+## iOS 應用程式 {id="ios-app"}
 
 Kotlin Multiplatform 專案中的 iOS 應用程式是從典型的 Xcode 專案建置的，因此發佈涉及的主要階段與 [iOS 開發人員文件](https://developer.apple.com/ios/submit/)中所述相同。
 
@@ -37,15 +37,15 @@ Kotlin Multiplatform 專案的特殊之處在於將共用的 Kotlin 模組編譯
   Kotlin Multiplatform 精靈或 Kotlin Multiplatform IDE 外掛程式通常會處理此配置。
   請參閱[將架構連接到您的 iOS 專案](multiplatform-integrate-in-existing-app.md#configure-the-ios-project-to-use-a-kmp-framework)以了解如何在 Xcode 中直接加入架構。
 
-### 配置您的 iOS 應用程式
+### 配置您的 iOS 應用程式 {id="configure-your-ios-application"}
 
 您可以在不使用 Xcode 的情況下配置影響最終應用程式的基本屬性。
 
-#### Bundle ID
+#### Bundle ID {id="bundle-id"}
 
 [bundle ID](https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleidentifier#discussion) 在作業系統中唯一識別您的應用程式。要更改它，請在 Android Studio 中開啟 `iosApp/Configuration/Config.xcconfig` 檔案並更新 `BUNDLE_ID`。
 
-#### 應用程式名稱
+#### 應用程式名稱 {id="app-name"}
 
 應用程式名稱設定目標可執行檔和應用程式 bundle 名稱。要更改您的應用程式名稱：
 
@@ -58,7 +58,7 @@ Kotlin Multiplatform 專案的特殊之處在於將共用的 Kotlin 模組編譯
 
 如果您需要配置其他設定，請使用 Xcode：在 Android Studio 中開啟專案後，在 Xcode 中開啟 `iosApp/iosApp.xcworkspace` 檔案並在該處進行更改。
 
-### 符號化損毀報告
+### 符號化損毀報告 {id="symbolicating-crash-reports"}
 
 為了幫助開發人員改進他們的應用程式，iOS 提供了分析應用程式損毀的方法。為了進行詳細的損毀分析，它使用特殊的偵錯符號 (`.dSYM`) 檔案，將損毀報告中的記憶體位址與原始碼中的位置（例如函式或行號）進行比對。
 
@@ -66,17 +66,17 @@ Kotlin Multiplatform 專案的特殊之處在於將共用的 Kotlin 模組編譯
 
 有關損毀報告符號化的更多資訊，請參閱 [Kotlin/Native 文件](https://kotlinlang.org/docs/native-debugging.html#debug-ios-applications)。
 
-### 自動化發佈到 TestFlight
+### 自動化發佈到 TestFlight {id="automate-publishing-to-testflight"}
 
 您可以自動化整個發佈流程，而不需要手動透過 Xcode 進行組建、簽章和上傳應用程式。
 
 若要了解如何設定 TeamCity Cloud 管線，以直接從您的 IDE 自動組建 iOS 應用程式並將其部署到 TestFlight，請參閱[配置 iOS 交付管線](ios-ci-cd-teamcity.md)。
 
-## Web 應用程式
+## Web 應用程式 {id="web-app"}
 
 要發佈您的 Web 應用程式，請建立包含組成應用程式的編譯檔案和資源的構件。這些構件是將您的應用程式部署到 GitHub Pages 等 Web 代管平台所必需的。
 
-### 產生構件
+### 產生構件 {id="generate-artifacts"}
 
 建立一個用於執行 **wasmJsBrowserDistribution** 任務的執行配置：
 
@@ -98,7 +98,7 @@ Kotlin Multiplatform 專案的特殊之處在於將共用的 Kotlin 模組編譯
 
 ![構件目錄](compose-web-artifacts.png){width=400}
 
-### 在 GitHub Pages 上發佈您的應用程式
+### 在 GitHub Pages 上發佈您的應用程式 {id="publish-your-application-on-github-pages"}
 
 準備好構件後，您可以將應用程式部署到 Web 代管平台：
 
@@ -115,6 +115,6 @@ Kotlin Multiplatform 專案的特殊之處在於將共用的 Kotlin 模組編譯
 
    恭喜！您已在 GitHub Pages 上發佈了您的構件。
 
-### 偵錯您的 Web 應用程式
+### 偵錯您的 Web 應用程式 {id="debug-your-web-application"}
 
 您可以直接在瀏覽器中對 Web 應用程式進行偵錯，開箱即用且無需額外配置。要了解如何在瀏覽器中偵錯，請參閱 Kotlin 文件中的[在瀏覽器中偵錯](https://kotlinlang.org/docs/wasm-debugging.html#debug-in-your-browser)指南。

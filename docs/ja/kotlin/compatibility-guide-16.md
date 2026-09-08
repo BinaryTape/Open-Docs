@@ -4,7 +4,7 @@
 
 ほとんどの言語変更は、アップデートの変更履歴やコンパイラの警告など、他のチャネルを通じてすでに発表されていますが、このドキュメントではそれらすべてをまとめ、Kotlin 1.5 から Kotlin 1.6 への移行のための完全なリファレンスを提供します。
 
-## 基本用語
+## 基本用語 {id="basic-terms"}
 
 このドキュメントでは、数種類の互換性について紹介します。
 
@@ -14,9 +14,9 @@
 
 これらの定義は純粋な Kotlin に対してのみ与えられていることに注意してください。他の言語の観点（例：Java）からの Kotlin コードの互換性は、このドキュメントの範囲外です。
 
-## 言語（Language）
+## 言語（Language） {id="language"}
 
-### enum、sealed、Boolean を対象とする when 式をデフォルトで網羅的にする
+### enum、sealed、Boolean を対象とする when 式をデフォルトで網羅的にする {id="make-when-statements-with-enum-sealed-and-boolean-subjects-exhaustive-by-default"}
 
 > **Issue**: [KT-47709](https://youtrack.jetbrains.com/issue/KT-47709)
 >
@@ -31,7 +31,7 @@
 > - 1.6.0: `enum`、`sealed`、または `Boolean` を対象とする `when` 式が網羅的でない場合に警告を導入（プログレッシブモードではエラー）
 > - 1.7.0: この警告をエラーに格上げ
 
-### when の条件式における紛らわしい文法の非推奨化
+### when の条件式における紛らわしい文法の非推奨化 {id="deprecate-confusing-grammar-in-when-with-subject"}
 
 > **Issue**: [KT-48385](https://youtrack.jetbrains.com/issue/KT-48385)
 >
@@ -47,7 +47,7 @@
 > - 1.8.0: この警告をエラーに格上げ
 > - >= 1.8: 非推奨となった一部の構成を、新しい言語機能のために再利用
 
-### コンパニオンオブジェクトおよびネストされたオブジェクトの super コンストラクタ呼び出しにおけるクラスメンバへのアクセス禁止
+### コンパニオンオブジェクトおよびネストされたオブジェクトの super コンストラクタ呼び出しにおけるクラスメンバへのアクセス禁止 {id="prohibit-access-to-class-members-in-the-super-constructor-call-of-its-companion-and-nested-objects"}
 
 > **Issue**: [KT-25289](https://youtrack.jetbrains.com/issue/KT-25289)
 >
@@ -62,7 +62,7 @@
 > - 1.5.20: 問題のある引数に対して警告を導入
 > - 1.6.0: この警告をエラーに格上げ。`-XXLanguage:-ProhibitSelfCallsInNestedObjects` を使用して、一時的に 1.6 以前の動作に戻すことが可能
 
-### 型の Null 許容性の強化に関する改善
+### 型の Null 許容性の強化に関する改善 {id="type-nullability-enhancement-improvements"}
 
 > **Issue**: [KT-48623](https://youtrack.jetbrains.com/issue/KT-48623)
 >
@@ -77,7 +77,7 @@
 > - 1.4.30: より正確な型の Null 許容性がエラーにつながる可能性があるケースに対して警告を導入
 > - 1.7.0: Java 型のより正確な Null 許容性を推論。`-XXLanguage:-TypeEnhancementImprovementsInStrictMode` を使用して、一時的に 1.7 以前の動作に戻すことが可能
 
-### 異なる数値型間での暗黙的な型変換の防止
+### 異なる数値型間での暗黙的な型変換の防止 {id="prevent-implicit-coercions-between-different-numeric-types"}
 
 > **Issue**: [KT-48645](https://youtrack.jetbrains.com/issue/KT-48645)
 >
@@ -93,7 +93,7 @@
 > - 1.5.30: 生成されたプロパティデリゲートアクセサにおけるダウンキャスト動作を修正。`-Xuse-old-backend` を使用して、一時的に 1.5.30 の修正前の動作に戻すことが可能
 > - >= 1.6.20: 他の影響を受けるケースにおけるダウンキャスト動作を修正
 
-### JLS に違反するコンテナアノテーションを持つ繰り返し可能なアノテーションクラスの宣言禁止
+### JLS に違反するコンテナアノテーションを持つ繰り返し可能なアノテーションクラスの宣言禁止 {id="prohibit-declarations-of-repeatable-annotation-classes-whose-container-annotation-violates-jls"}
 
 > **Issue**: [KT-47928](https://youtrack.jetbrains.com/issue/KT-47928)
 >
@@ -108,7 +108,7 @@
 > - 1.5.30: JLS 要件に違反する繰り返し可能なコンテナアノテーションの宣言に対して警告を導入（プログレッシブモードではエラー）
 > - 1.6.0: この警告をエラーに格上げ。`-XXLanguage:-RepeatableAnnotationContainerConstraints` を使用して、一時的にエラー報告を無効化することが可能
 
-### 繰り返し可能なアノテーションクラス内での Container という名前のネストされたクラスの宣言禁止
+### 繰り返し可能なアノテーションクラス内での Container という名前のネストされたクラスの宣言禁止 {id="prohibit-declaring-a-nested-class-named-container-in-a-repeatable-annotation-class"}
 
 > **Issue**: [KT-47971](https://youtrack.jetbrains.com/issue/KT-47971)
 >
@@ -123,7 +123,7 @@
 > - 1.5.30: Kotlin の繰り返し可能なアノテーションクラス内の `Container` という名前のネストされたクラスに対して警告を導入（プログレッシブモードではエラー）
 > - 1.6.0: この警告をエラーに格上げ。`-XXLanguage:-RepeatableAnnotationContainerConstraints` を使用して、一時的にエラー報告を無効化することが可能
 
-### インターフェースのプロパティをオーバーライドするプライマリコンストラクタのプロパティに対する @JvmField の禁止
+### インターフェースのプロパティをオーバーライドするプライマリコンストラクタのプロパティに対する @JvmField の禁止 {id="prohibit-jvmfield-on-a-property-in-the-primary-constructor-that-overrides-an-interface-property"}
 
 > **Issue**: [KT-32753](https://youtrack.jetbrains.com/issue/KT-32753)
 >
@@ -138,7 +138,7 @@
 > - 1.5.20: プライマリコンストラクタ内のそのようなプロパティに対する `@JvmField` アノテーションに警告を導入
 > - 1.6.0: この警告をエラーに格上げ。`-XXLanguage:-ProhibitJvmFieldOnOverrideFromInterfaceInPrimaryConstructor` を使用して、一時的にエラー報告を無効化することが可能
 
-### コンパイラオプション -Xjvm-default の enable モードおよび compatibility モードの非推奨化
+### コンパイラオプション -Xjvm-default の enable モードおよび compatibility モードの非推奨化 {id="deprecate-the-enable-and-the-compatibility-modes-of-the-compiler-option-xjvm-default"}
 
 > **Issue**: [KT-46329](https://youtrack.jetbrains.com/issue/KT-46329)
 >
@@ -153,7 +153,7 @@
 > - 1.6.20: `-Xjvm-default` コンパイラオプションの `enable` モードおよび `compatibility` モードに対して警告を導入
 > - >= 1.8.0: この警告をエラーに格上げ
 
-### 公開 ABI インライン関数からの super 呼び出しの禁止
+### 公開 ABI インライン関数からの super 呼び出しの禁止 {id="prohibit-super-calls-from-public-abi-inline-functions"}
 
 > **Issue**: [KT-45379](https://youtrack.jetbrains.com/issue/KT-45379)
 >
@@ -168,7 +168,7 @@
 > - 1.5.0: 公開または保護されたインライン関数あるいはプロパティアクセサからの `super` 呼び出しに対して警告を導入
 > - 1.6.0: この警告をエラーに格上げ。`-XXLanguage:-ProhibitSuperCallsFromPublicInline` を使用して、一時的にエラー報告を無効化することが可能
 
-### 公開インライン関数からの protected コンストラクタ呼び出しの禁止
+### 公開インライン関数からの protected コンストラクタ呼び出しの禁止 {id="prohibit-protected-constructor-calls-from-public-inline-functions"}
 
 > **Issue**: [KT-48860](https://youtrack.jetbrains.com/issue/KT-48860)
 >
@@ -183,7 +183,7 @@
 > - 1.4.30: 公開または保護されたインライン関数あるいはプロパティアクセサからの保護されたコンストラクタ呼び出しに対して警告を導入
 > - 1.6.0: この警告をエラーに格上げ。`-XXLanguage:-ProhibitProtectedConstructorCallFromPublicInline` を使用して、一時的にエラー報告を無効化することが可能
 
-### private-in-file 型からの非公開なネストされた型の公開禁止
+### private-in-file 型からの非公開なネストされた型の公開禁止 {id="prohibit-exposing-private-nested-types-from-private-in-file-types"}
 
 > **Issue**: [KT-20094](https://youtrack.jetbrains.com/issue/KT-20094)
 >
@@ -198,7 +198,7 @@
 > - 1.5.0: `private-in-file` 型から公開されている非公開型に対して警告を導入
 > - 1.6.0: この警告をエラーに格上げ。`-XXLanguage:-PrivateInFileEffectiveVisibility` を使用して、一時的にエラー報告を無効化することが可能
 
-### 型に対するアノテーションにおいてアノテーションターゲットが解析されないケースの修正
+### 型に対するアノテーションにおいてアノテーションターゲットが解析されないケースの修正 {id="annotation-target-is-not-analyzed-in-several-cases-for-annotations-on-a-type"}
 
 > **Issue**: [KT-28449](https://youtrack.jetbrains.com/issue/KT-28449)
 >
@@ -213,7 +213,7 @@
 > - 1.5.20: プログレッシブモードでエラーを導入
 > - 1.6.0: エラーを導入。`-XXLanguage:-ProperCheckAnnotationsTargetInTypeUsePositions` を使用して、一時的にエラー報告を無効化することが可能
 
-### 末尾のラムダを伴う suspend という名前の関数の呼び出し禁止
+### 末尾のラムダを伴う suspend という名前の関数の呼び出し禁止 {id="prohibit-calls-to-functions-named-suspend-with-a-trailing-lambda"}
 
 > **Issue**: [KT-22562](https://youtrack.jetbrains.com/issue/KT-22562)
 >
@@ -229,9 +229,9 @@
 > - 1.6.0: この警告をエラーに格上げ
 > - >= 1.7.0: 言語文法に変更を導入し、`{` の前の `suspend` がキーワードとして解析されるように変更
 
-## 標準ライブラリ（Standard library）
+## 標準ライブラリ（Standard library） {id="standard-library"}
 
-### minus/removeAll/retainAll における不安定な contains 最適化の削除
+### minus/removeAll/retainAll における不安定な contains 最適化の削除 {id="remove-brittle-contains-optimization-in-minus-removeall-retainall"}
 
 > **Issue**: [KT-45438](https://youtrack.jetbrains.com/issue/KT-45438)
 >
@@ -247,7 +247,7 @@
 > - 1.6.0: 関数の引数がコレクションの場合、`Set` には変換されなくなります。コレクションでない場合は、代わりに `List` に変換される可能性があります。JVM では、システムプロパティ `kotlin.collections.convert_arg_to_set_in_removeAll=true` を設定することで、以前の動作を一時的にオンにすることができます。
 > - >= 1.7: 上記のシステムプロパティは効果がなくなります。
 
-### Random.nextLong における値生成アルゴリズムの変更
+### Random.nextLong における値生成アルゴリズムの変更 {id="change-value-generation-algorithm-in-random-nextlong"}
 
 > **Issue**: [KT-47304](https://youtrack.jetbrains.com/issue/KT-47304)
 >
@@ -261,7 +261,7 @@
 >
 > - 1.6.0: 直ちに動作を修正
 
-### コレクションの min および max 関数の戻り値の型を非 null に段階的に変更
+### コレクションの min および max 関数の戻り値の型を非 null に段階的に変更 {id="gradually-change-the-return-type-of-collection-min-and-max-functions-to-non-nullable"}
 
 > **Issue**: [KT-38854](https://youtrack.jetbrains.com/issue/KT-38854)
 >
@@ -278,7 +278,7 @@
 > - 1.6.0: 非推奨の関数を公開 API から隠蔽
 > - >= 1.7: 影響を受ける API を、非 null の戻り値の型で再導入
 
-### 浮動小数点配列関数 contains、indexOf、lastIndexOf の非推奨化
+### 浮動小数点配列関数 contains、indexOf、lastIndexOf の非推奨化 {id="deprecate-floating-point-array-functions-contains-indexof-lastindexof"}
 
 > **Issue**: [KT-28753](https://youtrack.jetbrains.com/issue/KT-28753)
 >
@@ -294,7 +294,7 @@
 > - 1.6.0: 非推奨レベルをエラーに格上げ
 > - >= 1.7: 非推奨の関数を公開 API から隠蔽
 
-### kotlin.dom および kotlin.browser パッケージからの宣言を kotlinx.* へ移行
+### kotlin.dom および kotlin.browser パッケージからの宣言を kotlinx.* へ移行 {id="migrate-declarations-from-kotlin-dom-and-kotlin-browser-packages-to-kotlinx"}
 
 > **Issue**: [KT-39330](https://youtrack.jetbrains.com/issue/KT-39330)
 >
@@ -312,7 +312,7 @@
 > - >= 1.7: 非推奨の関数を stdlib から削除
 > - >= 1.7: kotlinx.* パッケージの API を別個のライブラリに移動
 
-### Kotlin/JS において Regex.replace 関数を非インライン化
+### Kotlin/JS において Regex.replace 関数を非インライン化 {id="make-regex-replace-function-not-inline-in-kotlin-js"}
 
 > **Issue**: [KT-27738](https://youtrack.jetbrains.com/issue/KT-27738)
 >
@@ -326,7 +326,7 @@
 >
 > - 1.6.0: 該当する関数から `inline` 修飾子を削除
 
-### 置換文字列にグループ参照が含まれる場合の JVM と JS での Regex.replace 関数の動作の違い
+### 置換文字列にグループ参照が含まれる場合の JVM と JS での Regex.replace 関数の動作の違い {id="different-behavior-of-the-regex-replace-function-in-jvm-and-js-when-replacement-string-contains-group-reference"}
 
 > **Issue**: [KT-28378](https://youtrack.jetbrains.com/issue/KT-28378)
 >
@@ -340,7 +340,7 @@
 >
 > - 1.6.0: Kotlin/JS stdlib の `Regex.replace` における置換パターンの処理を変更
 
-### JS の Regex における Unicode ケースフォールディングの使用
+### JS の Regex における Unicode ケースフォールディングの使用 {id="use-the-unicode-case-folding-in-js-regex"}
 
 > **Issue**: [KT-45928](https://youtrack.jetbrains.com/issue/KT-45928)
 >
@@ -356,7 +356,7 @@
 > - 1.5.0: JS の `Regex` クラスのほとんどの関数で Unicode ケースフォールディングを有効化
 > - 1.6.0: `Regex.replaceFirst` 関数で Unicode ケースフォールディングを有効化
 
-### 一部の JS 専用 API の非推奨化
+### 一部の JS 専用 API の非推奨化 {id="deprecate-some-js-only-api"}
 
 > **Issue**: [KT-48587](https://youtrack.jetbrains.com/issue/KT-48587)
 >
@@ -372,7 +372,7 @@
 > - 1.7.0: 非推奨レベルをエラーに格上げ
 > - 1.8.0: 非推奨の関数を公開 API から削除
 
-### Kotlin/JS のクラスの公開 API から実装および相互運用固有の関数を隠蔽
+### Kotlin/JS のクラスの公開 API から実装および相互運用固有の関数を隠蔽 {id="hide-implementation-and-interop-specific-functions-from-the-public-api-of-classes-in-kotlin-js"}
 
 > **Issue**: [KT-48587](https://youtrack.jetbrains.com/issue/KT-48587)
 >
@@ -386,9 +386,9 @@
 >
 > - 1.6.0: 関数を `internal` にし、公開 API から削除
 
-## ツール（Tools）
+## ツール（Tools） {id="tools"}
 
-### KotlinGradleSubplugin クラスの非推奨化
+### KotlinGradleSubplugin クラスの非推奨化 {id="deprecate-kotlingradlesubplugin-class"}
 
 > **Issue**: [KT-48830](https://youtrack.jetbrains.com/issue/KT-48830)
 >
@@ -403,7 +403,7 @@
 > - 1.6.0: 非推奨レベルをエラーに格上げ
 > - >= 1.7.0: 非推奨のクラスを削除
 
-### kotlin.useFallbackCompilerSearch ビルドオプションの削除
+### kotlin.useFallbackCompilerSearch ビルドオプションの削除 {id="remove-kotlin-usefallbackcompilersearch-build-option"}
 
 > **Issue**: [KT-46719](https://youtrack.jetbrains.com/issue/KT-46719)
 >
@@ -418,7 +418,7 @@
 > - 1.5.0: 非推奨レベルを警告に格上げ
 > - 1.6.0: 非推奨のオプションを削除
 
-### いくつかのコンパイラオプションの削除
+### いくつかのコンパイラオプションの削除 {id="remove-several-compiler-options"}
 
 > **Issue**: [KT-48847](https://youtrack.jetbrains.com/issue/KT-48847)
 >
@@ -433,7 +433,7 @@
 > - 1.5.0: 非推奨レベルをエラーに格上げ
 > - 1.6.0: 非推奨のオプションを削除
 
-### useIR コンパイラオプションの非推奨化
+### useIR コンパイラオプションの非推奨化 {id="deprecate-useir-compiler-option"}
 
 > **Issue**: [KT-48847](https://youtrack.jetbrains.com/issue/KT-48847)
 >
@@ -449,7 +449,7 @@
 > - 1.6.0: オプションを隠蔽
 > - >= 1.7.0: 非推奨のオプションを削除
 
-### kapt.use.worker.api Gradle プロパティの非推奨化
+### kapt.use.worker.api Gradle プロパティの非推奨化 {id="deprecate-kapt-use-worker-api-gradle-property"}
 
 > **Issue**: [KT-48826](https://youtrack.jetbrains.com/issue/KT-48826)
 >
@@ -464,7 +464,7 @@
 > - 1.6.20: 非推奨レベルを警告に格上げ
 > - >= 1.8.0: このプロパティを削除
 
-### kotlin.parallel.tasks.in.project Gradle プロパティの削除
+### kotlin.parallel.tasks.in.project Gradle プロパティの削除 {id="remove-kotlin-parallel-tasks-in-project-gradle-property"}
 
 > **Issue**: [KT-46406](https://youtrack.jetbrains.com/issue/KT-46406)
 >
@@ -479,7 +479,7 @@
 > - 1.5.20: 非推奨レベルを警告に格上げ
 > - 1.6.20: このプロパティを削除
 
-### kotlin.experimental.coroutines Gradle DSL オプションおよび kotlin.coroutines Gradle プロパティの非推奨化
+### kotlin.experimental.coroutines Gradle DSL オプションおよび kotlin.coroutines Gradle プロパティの非推奨化 {id="deprecate-kotlin-experimental-coroutines-gradle-dsl-option-and-kotlin-coroutines-gradle-property"}
 
 > **Issue**: [KT-50369](https://youtrack.jetbrains.com/issue/KT-50369)
 >

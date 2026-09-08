@@ -21,7 +21,7 @@
 
 Ktor 提供了一個內建的 DI 外掛程式，讓您能註冊一次服務和配置物件，並在整個應用程式中存取它們。您可以用一致且型別安全的方式將這些相依性[注入到模組中](server-di-dependency-resolution.md#inject-into-modules)、外掛程式、路由以及其他 Ktor 組件。該外掛程式與 Ktor 應用程式生命週期整合，並支援作用域、結構化配置以及[自動資源管理](server-di-resource-lifecycle-management.md)，這使得組織和維護應用程式層級的服務變得更加輕鬆。
 
-## 新增相依性
+## 新增相依性 {id="add-dependencies"}
 
 若要使用 DI，請在建置指令碼中包含 `%artifact_name%` 構件：
 
@@ -37,7 +37,7 @@ Ktor 提供了一個內建的 DI 外掛程式，讓您能註冊一次服務和�
     </TabItem>
 </Tabs>
 
-## 相依注入在 Ktor 中如何運作
+## 相依注入在 Ktor 中如何運作 {id="how-dependency-injection-works-in-ktor"}
 
 在 Ktor 中，相依注入是一個單一且整合的程序，由兩個密切相關的步驟組成：
 
@@ -48,7 +48,7 @@ Ktor 提供了一個內建的 DI 外掛程式，讓您能註冊一次服務和�
 
 若要開始在應用程式中使用相依注入，請先從[註冊相依性](server-di-dependency-registration.md)開始。一旦宣告了相依性，即可繼續進行[解析相依性](server-di-dependency-resolution.md)。
 
-## 支援的功能
+## 支援的功能 {id="supported-features"}
 
 DI 外掛程式支援一系列旨在涵蓋常見應用程式需求的功能：
 
@@ -58,7 +58,7 @@ DI 外掛程式支援一系列旨在涵蓋常見應用程式需求的功能：
 * [非同步相依性解析](server-di-dependency-resolution.md#async-dependency-resolution)。
 * [自動與自訂資源生命週期管理](server-di-resource-lifecycle-management.md)。
 
-## 配置與生命週期行為
+## 配置與生命週期行為 {id="configuration-and-lifecycle-behavior"}
 
 DI 容器的行為可以使用配置選項進行自訂。這些選項控制相依性金鑰的配對方式、衝突的處理方式，以及在進階情境中解析行為的表現。
 
@@ -66,7 +66,7 @@ DI 容器的行為可以使用配置選項進行自訂。這些選項控制相�
 
 有關資源清理與關閉行為，請參閱[資源生命週期管理](server-di-resource-lifecycle-management.md)。
 
-## 使用相依注入進行測試
+## 使用相依注入進行測試 {id="testing-with-dependency-injection"}
 
 DI 外掛程式與 Ktor 的測試公用程式整合，並支援覆寫相依性、載入配置以及在測試環境中控制衝突行為。
 

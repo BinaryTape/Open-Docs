@@ -8,7 +8,7 @@
 2. 各リソースの種類に必要なディレクトリを作成します。
 3. 修飾されたリソース（qualified resources）用の追加ディレクトリを作成します（例：ダーク UI テーマ用の異なる画像やローカライズされた文字列など）。
 
-## ビルドスクリプトとディレクトリのセットアップ
+## ビルドスクリプトとディレクトリのセットアップ {id="build-script-and-directory-setup"}
 
 マルチプラットフォームプロジェクトでリソースにアクセスするには、ライブラリの依存関係を追加し、プロジェクトディレクトリ内のファイルを整理します。
 
@@ -39,7 +39,7 @@
    * 文字列は `values` ディレクトリに配置する必要があります。
    * その他のファイルは `files` ディレクトリに配置し、必要に応じて任意のフォルダ階層を作成できます。
 
-### カスタムリソースディレクトリ
+### カスタムリソースディレクトリ {id="custom-resource-directories"}
 
 `build.gradle.kts` ファイルの `compose.resources {}` ブロックで、各ソースセットに対してカスタムリソースディレクトリを指定できます。
 これらの各カスタムディレクトリも、デフォルトの `composeResources` と同じように、画像用の `drawable` サブディレクトリ、フォント用の `font` サブディレクトリなどを含める必要があります。
@@ -78,7 +78,7 @@ compose.resources {
 
 リソースへのアクセスのカスタマイズについての詳細は、[アクセスと使用法](compose-multiplatform-resources-usage.md#customizing-accessor-class-generation)を参照してください。
 
-### カスタム Web リソースパス
+### カスタム Web リソースパス {id="custom-web-resource-paths"}
 
 `configureWebResources()` 関数を使用して、Web リソースのパスと URL を指定できます。
 
@@ -97,7 +97,7 @@ configureWebResources {
 }
 ```
 
-### `androidLibrary` ターゲットでのリソース
+### `androidLibrary` ターゲットでのリソース {id="resources-in-the-androidlibrary-target"}
 <primary-label ref="Experimental"/>
 
 Android Gradle プラグインのバージョン 8.8.0 以降、`androidLibrary` ターゲットで生成された `Res` クラスとリソースアクセサを使用できるようになりました。
@@ -111,7 +111,7 @@ kotlin {
 }
 ```
 
-## 修飾子（Qualifiers）
+## 修飾子（Qualifiers） {id="qualifiers"}
 
 ロケール、画面密度、インターフェーステーマなど、環境に応じて同じリソースを異なる方法で表示する必要がある場合があります。例えば、言語ごとにテキストをローカライズしたり、ダークテーマに合わせて画像を調整したりする必要があるかもしれません。そのために、ライブラリは特別な修飾子（qualifiers）を提供しています。
 
@@ -128,7 +128,7 @@ kotlin {
 * 異なる種類の修飾子を組み合わせて適用できます。例えば、"drawable-en-rUS-mdpi-dark" は、米国地域の英語で、ダークテーマの 160 DPI 画面に適した画像です。
 * 要求された修飾子を持つリソースにアクセスできない場合は、代わりにデフォルトのリソース（修飾子なし）が使用されます。
 
-### 言語および地域の修飾子
+### 言語および地域の修飾子 {id="language-and-regional-qualifiers"}
 
 言語と地域の修飾子を組み合わせることができます。
 
@@ -141,7 +141,7 @@ kotlin {
 
 地域固有の形式の処理に関する詳細は、[ローカライゼーション](compose-regional-format.md)を参照してください。
 
-#### 複数のスクリプトを持つ言語のフォールバック
+#### 複数のスクリプトを持つ言語のフォールバック {id="fallback-for-languages-with-multiple-scripts"}
 
 Android やデスクトップでは、システムがスクリプトなしのロケール（例：特定の `zh-Hans` や `zh-Hant` ではなく、スクリプトが空の `zh`）をリクエストする場合があります。
 スクリプト固有のリソースのみを提供している場合、それらすべてがそのようなスクリプトなしのリクエストに一致してしまい、リソースを解決できず、アプリが例外をスローします。
@@ -157,11 +157,11 @@ commonMain/composeResources/
 
 同じことが、セルビア語（`sr-Cyrl`、`sr-Latn`）やウズベク語（`uz-Cyrl`、`uz-Latn`）など、複数のスクリプトを持つすべての言語に当てはまります。
 
-### テーマ修飾子
+### テーマ修飾子 {id="theme-qualifier"}
 
 "light" または "dark" 修飾子を追加できます。Compose Multiplatform は、現在のシステムテーマに応じて必要なリソースを選択します。
 
-### 密度修飾子
+### 密度修飾子 {id="density-qualifier"}
 
 以下の密度修飾子を使用できます。
 
@@ -174,13 +174,13 @@ commonMain/composeResources/
 
 リソースは、システムで定義された画面密度に応じて選択されます。
 
-## パブリケーション
+## パブリケーション {id="publication"}
 
 Compose Multiplatform 1.6.10 以降、必要なすべてのリソースがパブリケーションの Maven アーティファクトに含まれるようになりました。
 
 この機能を有効にするには、プロジェクトで Kotlin 2.0.0 以降および Gradle 7.6 以降を使用する必要があります。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * 設定したリソースにアクセスする方法や、デフォルトで生成されるアクセサをカスタマイズする方法については、[アプリでのマルチプラットフォームリソースの使用](compose-multiplatform-resources-usage.md) ページで確認してください。
 * iOS、Android、デスクトップをターゲットとする Compose Multiplatform プロジェクトでのリソースの処理方法を示す公式の[デモプロジェクト](https://github.com/JetBrains/compose-multiplatform/tree/master/components/resources/demo)をチェックしてください。

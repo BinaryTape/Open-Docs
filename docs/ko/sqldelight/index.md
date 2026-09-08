@@ -20,7 +20,7 @@ CREATE TABLE hockey_player (
 
 ---
 
-## 지원되는 방언(Dialects) 및 플랫폼
+## 지원되는 방언(Dialects) 및 플랫폼 {id="supported-dialects-and-platforms"}
 
 SQLDelight는 다양한 SQL 방언과 플랫폼을 지원합니다.
 
@@ -56,7 +56,7 @@ SQLDelight는 다양한 SQL 방언과 플랫폼을 지원합니다.
 </div>
 </div>
 
-### 제3자(Third party) 방언
+### 제3자(Third party) 방언 {id="third-party-dialects"}
 
 <div class="cash-grid" markdown="1">
 <div class="cash-grid-item" markdown="1">
@@ -76,7 +76,7 @@ SQLDelight는 다양한 SQL 방언과 플랫폼을 지원합니다.
 </div>
 </div>
 
-## 스냅샷(Snapshots)
+## 스냅샷(Snapshots) {id="snapshots"}
 
 개발 버전의 스냅샷(IDE 플러그인 zip 포함)은 [Central Portal Snapshots 저장소](https://central.sonatype.com/repository/maven-snapshots)에서 확인할 수 있습니다. 2.0.0+ 스냅샷의 경우 모든 좌표(coordinates)가 `com.squareup.sqldelight` 대신 `app.cash.sqldelight`를 사용함에 유의하세요.
 

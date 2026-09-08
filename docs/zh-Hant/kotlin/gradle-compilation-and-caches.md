@@ -11,7 +11,7 @@
 * [嘗試最新的語言版本](#trying-the-latest-language-version)
 * [組建報告](#build-reports)
 
-## 增量編譯
+## 增量編譯 {id="incremental-compilation"}
 
 Kotlin Gradle 外掛程式支援增量編譯，這在 Kotlin/JVM 和 Kotlin/JS 專案中是預設啟用的。
 增量編譯會追蹤 classpath 中檔案在兩次組建之間的變更，以便僅編譯受這些變更影響的檔案。
@@ -47,19 +47,19 @@ Kotlin Gradle 外掛程式支援增量編譯，這在 Kotlin/JVM 和 Kotlin/JS �
 
 若要進一步了解我們目前的增量編譯方法及其與先前方法的比較，請參閱我們的 [部落格文章](https://blog.jetbrains.com/kotlin/2022/07/a-new-approach-to-incremental-compilation-in-kotlin/)。
 
-## Gradle 組建快取支援
+## Gradle 組建快取支援 {id="gradle-build-cache-support"}
 
 Kotlin 外掛程式使用 [Gradle 組建快取](https://docs.gradle.org/current/userguide/build_cache.html)，它會儲存組建輸出，以便在未來的組建中重複使用。
 
 若要停用所有 Kotlin 任務的快取，請將系統屬性 `kotlin.caching.enabled` 設定為 `false`（執行組建時帶上引數 `-Dkotlin.caching.enabled=false`）。
 
-## Gradle 組態快取支援
+## Gradle 組態快取支援 {id="gradle-configuration-cache-support"}
 
 Kotlin 外掛程式使用 [Gradle 組態快取](https://docs.gradle.org/current/userguide/configuration_cache.html)，透過重複使用組態階段的結果來加速後續組建的過程。
 
 請參閱 [Gradle 文件](https://docs.gradle.org/current/userguide/configuration_cache.html#config_cache:usage) 以了解如何啟用組態快取。在您啟用此功能後，Kotlin Gradle 外掛程式會自動開始使用它。
 
-## Kotlin daemon 以及如何在 Gradle 中使用它
+## Kotlin daemon 以及如何在 Gradle 中使用它 {id="the-kotlin-daemon-and-how-to-use-it-with-gradle"}
 
 [Kotlin daemon](kotlin-daemon.md)：
 * 與 Gradle daemon 一起執行以編譯專案。
@@ -70,7 +70,7 @@ Kotlin daemon 會隨 Gradle daemon 一起停止，或在連續兩小時沒有 Ko
 
 Kotlin daemon 使用與 Gradle daemon 相同的 JDK。
 
-### 設定 Kotlin daemon 的 JVM 引數
+### 設定 Kotlin daemon 的 JVM 引數 {id="setting-kotlin-daemon-s-jvm-arguments"}
 
 以下每種設定引數的方式都會覆蓋其之前的設定：
 * [Gradle daemon 引數繼承](#gradle-daemon-arguments-inheritance)
@@ -79,7 +79,7 @@ Kotlin daemon 使用與 Gradle daemon 相同的 JDK。
 * [`kotlin` 擴充套件](#kotlin-extension)
 * [特定任務定義](#specific-task-definition)
 
-#### Gradle daemon 引數繼承
+#### Gradle daemon 引數繼承 {id="gradle-daemon-arguments-inheritance"}
 
 預設情況下，Kotlin daemon 會從 Gradle daemon 繼承一組特定的引數，但會使用直接為 Kotlin daemon 指定的任何 JVM 引數將其覆寫。例如，如果您在 `gradle.properties` 檔案中新增以下 JVM 引數：
 
@@ -97,7 +97,7 @@ org.gradle.jvmargs=-Xmx1500m -Xms500m -XX:MaxMetaspaceSize=1g
 >
 {style="note"}
 
-#### kotlin.daemon.jvm.options 系統屬性
+#### kotlin.daemon.jvm.options 系統屬性 {id="kotlin-daemon-jvm-options-system-property"}
 
 如果 Gradle daemon 的 JVM 引數具有 `kotlin.daemon.jvm.options` 系統屬性 – 請在 `gradle.properties` 檔案中使用它：
 
@@ -119,7 +119,7 @@ org.gradle.jvmargs=-Dkotlin.daemon.jvm.options=-Xmx1500m,Xms500m
 >
 {style="warning"}
 
-#### kotlin.daemon.jvmargs 屬性
+#### kotlin.daemon.jvmargs 屬性 {id="kotlin-daemon-jvmargs-property"}
 
 您可以在 `gradle.properties` 檔案中新增 `kotlin.daemon.jvmargs` 屬性：
 
@@ -133,7 +133,7 @@ kotlin.daemon.jvmargs=-Xmx1500m -Xms500m
 -Xmx1500m -XX:ReservedCodeCacheSize=320m -Xms500m
 ```
 
-#### kotlin 擴充套件
+#### kotlin 擴充套件 {id="kotlin-extension"}
 
 您可以在 `kotlin` 擴充套件中指定引數：
 
@@ -158,7 +158,7 @@ kotlin {
 </tab>
 </tabs>
 
-#### 特定任務定義
+#### 特定任務定義 {id="specific-task-definition"}
 
 您可以為特定任務指定引數：
 
@@ -187,7 +187,7 @@ tasks.withType(CompileUsingKotlinDaemon).configureEach { task ->
 >
 {style="note"}
 
-### Kotlin daemon 處理 JVM 引數的行為
+### Kotlin daemon 處理 JVM 引數的行為 {id="kotlin-daemon-s-behavior-with-jvm-arguments"}
 
 設定 Kotlin daemon 的 JVM 引數時，請注意：
 
@@ -217,7 +217,7 @@ Kotlin daemon 具有以下預設 JVM 引數：
 >
 {style="note"}
 
-## 回退至先前的編譯器
+## 回退至先前的編譯器 {id="rolling-back-to-the-previous-compiler"}
 
 從 Kotlin 2.0.0 開始，預設使用 K2 編譯器。
 
@@ -230,7 +230,7 @@ Kotlin daemon 具有以下預設 JVM 引數：
 
 若要進一步了解 K2 編譯器的優點，請參閱 [K2 編譯器遷移指南](k2-compiler-migration-guide.md)。
 
-## 嘗試最新的語言版本
+## 嘗試最新的語言版本 {id="trying-the-latest-language-version"}
 
 從 Kotlin 2.0.0 開始，若要嘗試最新的語言版本，請在 `gradle.properties` 檔案中設定 `kotlin.experimental.tryNext` 屬性。
 當您使用此屬性時，Kotlin Gradle 外掛程式會將語言版本增加到比您 Kotlin 版本預設值高一級的版本。
@@ -244,7 +244,7 @@ Kotlin daemon 具有以下預設 JVM 引數：
 
 在 [組建報告](#build-reports) 中，您可以找到用於編譯每個任務的語言版本。
 
-## 組建報告
+## 組建報告 {id="build-reports"}
 
 組建報告包含不同編譯階段的持續時間，以及編譯無法進行增量編譯的任何原因。
 當編譯時間太長或同一個專案的編譯時間出現差異時，請使用組建報告來調查效能問題。
@@ -259,7 +259,7 @@ Kotlin 組建報告比 [Gradle build scans](https://scans.gradle.com/) 能更有
 
 了解 [如何閱讀組建報告](https://blog.jetbrains.com/kotlin/2022/06/introducing-kotlin-build-reports/#how_to_read_build_reports) 以及 [JetBrains 如何使用組建報告](https://blog.jetbrains.com/kotlin/2022/06/introducing-kotlin-build-reports/#how_we_use_build_reports_in_jetbrains)。
 
-### 啟用組建報告
+### 啟用組建報告 {id="enabling-build-reports"}
 
 若要啟用組建報告，請在 `gradle.properties` 中宣告組建報告輸出的儲存位置：
 
@@ -315,7 +315,7 @@ kotlin.build.report.http.include_git_branch.name=true|false
 kotlin.build.report.include_compiler_arguments=true|false
 ```
 
-### 自訂值限制
+### 自訂值限制 {id="limit-of-custom-values"}
 
 為了收集組建掃描的統計數據，Kotlin 組建報告使用 [Gradle 的自訂值 (custom values)](https://docs.gradle.org/enterprise/tutorials/extending-build-scans/)。
 您和不同的 Gradle 外掛程式都可以將資料寫入自訂值。自訂值的數量有限制。
@@ -333,7 +333,7 @@ Maximum number of custom values (1,000) exceeded
 kotlin.build.report.build_scan.custom_values_limit=500
 ```
 
-### 關閉專案與系統屬性的收集
+### 關閉專案與系統屬性的收集 {id="switching-off-collecting-project-and-system-properties"}
 
 HTTP 組建統計日誌可能包含某些專案與系統屬性。這些屬性會改變組建的行為，因此在組建統計中記錄它們很有用。
 但這些屬性可能儲存敏感資料，例如密碼或專案的完整路徑。
@@ -344,7 +344,7 @@ HTTP 組建統計日誌可能包含某些專案與系統屬性。這些屬性會
 > 
 {style="note"}
 
-## 下一步？
+## 下一步？ {id="what-s-next"}
 
 進一步了解：
 * [Gradle 基礎與細節](https://docs.gradle.org/current/userguide/userguide.html)。

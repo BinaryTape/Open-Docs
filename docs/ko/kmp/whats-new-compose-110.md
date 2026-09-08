@@ -9,9 +9,9 @@
 이번 릴리스의 전체 변경 사항 목록은 [GitHub](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.10.0)에서 확인할 수 있습니다.
 구체적인 컴포넌트 버전에 대한 자세한 내용은 [의존성](#dependencies) 섹션을 참조하세요.
 
-## 파괴적 변경 사항 및 지원 중단
+## 파괴적 변경 사항 및 지원 중단 {id="breaking-changes-and-deprecations"}
 
-### 지원 중단된 의존성 별칭
+### 지원 중단된 의존성 별칭 {id="deprecated-dependency-aliases"}
 
 Compose Multiplatform Gradle 플러그인에서 지원하던 의존성 별칭(`compose.ui` 등)이 1.10.0-beta01 릴리스부터 지원 중단(deprecated)되었습니다.
 버전 카탈로그(version catalogs)에 직접 라이브러리 참조를 추가하는 것을 권장합니다.
@@ -20,7 +20,7 @@ Compose Multiplatform Gradle 플러그인에서 지원하던 의존성 별칭(`c
 이 변경을 통해 Compose Multiplatform 라이브러리의 의존성 관리가 좀 더 투명해질 것입니다.
 향후에는 호환되는 버전을 더 쉽게 설정할 수 있도록 Compose Multiplatform용 BOM을 제공할 예정입니다.
 
-### 지원 중단된 `PredictiveBackHandler()`
+### 지원 중단된 `PredictiveBackHandler()` {id="deprecated-predictivebackhandler"}
 
 Compose Multiplatform에서 네이티브 안드로이드의 뒤로 가기 탐색 제스처를 다른 플랫폼에 도입하기 위해 `PredictiveBackHandler()` 함수가 도입되었습니다.
 Navigation 3 릴리스와 함께, 이전 구현은 새로운 [Navigation Event](https://developer.android.com/jetpack/androidx/releases/navigationevent) 라이브러리 및 해당 API를 위해 지원 중단되었습니다.
@@ -42,20 +42,20 @@ Navigation 3 릴리스와 함께, 이전 구현은 새로운 [Navigation Event](
 
 구현에 대한 자세한 내용은 [Navigation Event API 참조의 NavigationEventHandler 페이지](https://developer.android.com/reference/kotlin/androidx/navigationevent/NavigationEventHandler)를 확인하세요.
 
-### 최소 Kotlin 버전 상향
+### 최소 Kotlin 버전 상향 {id="minimum-kotlin-version-increased"}
 
 프로젝트에 네이티브 또는 웹 타겟이 포함된 경우, 최신 기능을 사용하려면 Kotlin 2.2.20으로 업그레이드해야 합니다.
 
-## 플랫폼 공통
+## 플랫폼 공통 {id="across-platforms"}
 
-### 통합된 `@Preview` 어노테이션
+### 통합된 `@Preview` 어노테이션 {id="unified-preview-annotation"}
 
 플랫폼 전반에 걸쳐 프리뷰에 대한 접근 방식을 통합했습니다.
 이제 `commonMain` 소스 세트에서 `androidx.compose.ui.tooling.preview.Preview` 어노테이션을 사용할 수 있습니다.
 
 `org.jetbrains.compose.ui.tooling.preview.Preview` 및 데스크톱 전용 `androidx.compose.desktop.ui.tooling.preview.Preview`와 같은 다른 모든 어노테이션은 지원 중단되었습니다.
 
-### 상호운용 뷰 자동 크기 조정
+### 상호운용 뷰 자동 크기 조정 {id="autosizing-interop-views"}
 
 이제 Compose Multiplatform은 데스크톱과 iOS 모두에서 네이티브 상호운용(interop) 요소의 자동 크기 조정을 지원합니다.
 이러한 요소들은 이제 콘텐츠에 맞춰 레이아웃을 조정할 수 있어, 수동으로 정확한 크기를 계산하거나 고정된 치수를 미리 지정할 필요가 없습니다.
@@ -64,7 +64,7 @@ Navigation 3 릴리스와 함께, 이전 구현은 새로운 [Navigation Event](
 * iOS에서 UIKit 상호운용 뷰는 이제 뷰의 피팅 크기(intrinsic content size, 고유 콘텐츠 크기)에 따른 크기 조정을 지원합니다.
   이를 통해 SwiftUI 뷰(`UIHostingController`를 통해) 및 `NSLayoutConstraints`에 의존하지 않는 기본 `UIView` 서브클래스를 적절하게 래핑할 수 있습니다.
 
-### 안정화된 `Popup` 및 `Dialog` 속성
+### 안정화된 `Popup` 및 `Dialog` 속성 {id="stable-popup-and-dialog-properties"}
 
 `DialogProperties`의 다음 속성들이 안정(stable) 버전으로 승격되었으며 더 이상 실험적이지 않습니다: 
 `usePlatformInsets`, `useSoftwareKeyboardInset`, `scrimColor`.
@@ -73,14 +73,14 @@ Navigation 3 릴리스와 함께, 이전 구현은 새로운 [Navigation Event](
 
 업데이트된 API 사용을 강제하기 위해 `PopupProperties` 매개변수가 없는 `Popup` 오버로드의 지원 중단 수준이 `ERROR`로 변경되었습니다.
 
-### Skia 버전 138(Milestone 138)로 업데이트
+### Skia 버전 138(Milestone 138)로 업데이트 {id="skia-updated-to-milestone-138"}
 
 Skiko를 통해 Compose Multiplatform에서 사용하는 Skia 버전이 Milestone 138로 업데이트되었습니다.
 
 이전에 사용된 Skia 버전은 Milestone 132였습니다.
 해당 버전들 사이의 변경 사항은 [릴리스 노트](https://skia.googlesource.com/skia/+/refs/heads/chrome/m138/RELEASE_NOTES.md)에서 확인할 수 있습니다.
 
-### Navigation 3 지원
+### Navigation 3 지원 {id="support-for-navigation-3"}
 <primary-label ref="Experimental"/>
 
 Navigation 3는 Compose와 함께 작동하도록 설계된 새로운 탐색 라이브러리입니다.
@@ -104,9 +104,9 @@ Compose Multiplatform 1.10.0-beta01은 안드로이드 이외의 타겟에서 �
 * [브라우저 기록 탐색](compose-navigation-routing.md#support-for-browser-navigation-in-web-apps) 및 주소창의 목적지 사용 지원은 Compose Multiplatform 1.10의 Navigation 3로 확장되지 않습니다.
   이는 멀티플랫폼 라이브러리의 이후 버전으로 연기되었습니다.
 
-## iOS
+## iOS {id="ios"}
 
-### 윈도우 인셋(Window insets)
+### 윈도우 인셋(Window insets) {id="window-insets"}
 
 Compose Multiplatform은 이제 상태 표시줄, 내비게이션 바 또는 화면 키보드와 같은 윈도우 인셋을 기반으로 UI 요소의 위치와 크기를 조정하는 기능을 제공하는 `WindowInsetsRulers`를 지원합니다.
 
@@ -118,7 +118,7 @@ Compose Multiplatform은 이제 상태 표시줄, 내비게이션 바 또는 화
 >
 {style="note"}
 
-### IME 설정 개선
+### IME 설정 개선 {id="improved-ime-configuration"}
 
 1.9.0에서 도입된 [iOS 전용 IME 커스터마이징](whats-new-compose-190.md#ime-options)에 이어, 이번 릴리스에서는 `PlatformImeOptions`를 사용하여 텍스트 입력 뷰를 설정하는 새로운 API가 추가되었습니다.
 
@@ -127,7 +127,7 @@ Compose Multiplatform은 이제 상태 표시줄, 내비게이션 바 또는 화
  * `UIResponder.inputView`는 기본 시스템 키보드를 대체할 사용자 정의 입력 뷰를 지정합니다.
  * `UIResponder.inputAccessoryView`는 IME 활성화 시 시스템 키보드 또는 사용자 정의 `inputView`에 부착되는 사용자 정의 액세서리 뷰를 정의합니다.
 
-### 상호운용 뷰의 오버레이 배치
+### 상호운용 뷰의 오버레이 배치 {id="overlay-placement-for-interop-views"}
 <primary-label ref="Experimental"/>
 
 이제 실험적인 `placedAsOverlay` 플래그를 사용하여 Compose UI 위에 `UIKitView` 및 `UIKitViewController` 뷰를 배치할 수 있습니다.
@@ -146,9 +146,9 @@ UIKitViewController(
 
 이 설정은 뷰를 Compose UI 레이어 위에 렌더링하므로, 결과적으로 동일한 영역에 있는 다른 컴포저블을 시각적으로 가리게 된다는 점에 유의하세요.
 
-## 웹
+## 웹 {id="web"}
 
-### 리소스 캐싱
+### 리소스 캐싱 {id="resource-caching"}
 <primary-label ref="Experimental"/>
 
 Compose Multiplatform은 이제 [Web Cache API](https://developer.mozilla.org/en-US/docs/Web/API/Cache)를 사용하여 정적 에셋 및 문자열 리소스에 대한 성공적인 응답을 캐싱합니다.
@@ -157,9 +157,9 @@ Compose Multiplatform은 이제 [Web Cache API](https://developer.mozilla.org/en
 
 자세한 내용은 [풀 리퀘스트(pull request)](https://github.com/JetBrains/compose-multiplatform/pull/5379) 및 [웹 리소스 캐싱](compose-web-resources.md#caching-web-resources) 문서를 참조하세요.
 
-## 데스크톱
+## 데스크톱 {id="desktop"}
 
-### Compose Hot Reload 통합
+### Compose Hot Reload 통합 {id="compose-hot-reload-integration"}
 
 이제 Compose Hot Reload 플러그인이 Compose Multiplatform Gradle 플러그인에 번들로 제공됩니다.
 데스크톱을 타겟으로 하는 Compose Multiplatform 프로젝트의 경우 기본적으로 활성화되므로 더 이상 Hot Reload 플러그인을 별도로 설정할 필요가 없습니다.
@@ -172,16 +172,16 @@ Compose Hot Reload 플러그인을 명시적으로 선언하던 프로젝트의 
 번들된 Compose Hot Reload Gradle 플러그인의 최소 Kotlin 버전은 2.1.20입니다.
 이전 버전의 Kotlin이 감지되면 Hot Reload 기능이 비활성화됩니다.
 
-## Gradle
+## Gradle {id="gradle"}
 
-### AGP 9.0.0 지원
+### AGP 9.0.0 지원 {id="support-for-agp-9-0-0"}
 
 Compose Multiplatform은 Android Gradle Plugin(AGP) 버전 9.0.0 지원을 도입합니다.
 새로운 AGP 버전과의 호환성을 위해 Compose Multiplatform 1.9.3 또는 1.10.0으로 업그레이드했는지 확인하세요.
 
 장기적으로 업데이트 프로세스를 원활하게 하기 위해, 프로젝트 구조를 전용 Android 애플리케이션 모듈을 사용하도록 변경하는 것을 권장합니다.
 
-## 의존성
+## 의존성 {id="dependencies"}
 
 | 라이브러리 | Maven 좌표 | 기반 Jetpack 버전 |
 |--------------------|------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|

@@ -22,7 +22,7 @@ Kotlin は、アノテーションプロセッサを操作する 2 つの方法�
 
   現在、KSP は Gradle のみを公式にサポートしています。独自のプロセッサを作成する場合や、[Dagger](https://dagger.dev/) のような KSP 対応ライブラリを使用する場合に推奨されます。
 
-## Java アノテーションプロセッサで kapt を使用する
+## Java アノテーションプロセッサで kapt を使用する {id="use-kapt-with-java-annotation-processors"}
 
 [kapt](kapt.md) を使用すると、プロセッサ自体に変更を加えることなく、既存の Java アノテーションプロセッサを Kotlin プロジェクトで使用できます。
 
@@ -142,11 +142,11 @@ Kotlin は、アノテーションプロセッサを操作する 2 つの方法�
    }
    ```
 
-## Gradle プロジェクトで KSP を使用する
+## Gradle プロジェクトで KSP を使用する {id="use-ksp-in-gradle-projects"}
 
 [KSP](ksp-overview.md) を使用すると、Gradle プロジェクトで既存のアノテーションプロセッサを使用したり、ソースコード内のアノテーションに基づいてコードを生成する独自のプロセッサを作成したりできます。
 
-### Java アノテーションプロセッサで KSP を使用する
+### Java アノテーションプロセッサで KSP を使用する {id="use-ksp-with-java-annotation-processors"}
 
 Gradle プロジェクトでは、互換性のあるアノテーションプロセッサで KSP を使用してください。KSP は kapt よりも高速で、Kotlin 特有の機能をネイティブに理解できます。[すでに KSP をサポートしているライブラリ](ksp-overview.md#supported-libraries)のリストを参照してください。
 
@@ -237,7 +237,7 @@ Gradle プロジェクトでは、互換性のあるアノテーションプロ�
 
 Dagger の KSP サポートに関する詳細は、その[ドキュメント](https://dagger.dev/dev-guide/ksp.html)を参照してください。
 
-### 独自のアノテーションプロセッサを作成する
+### 独自のアノテーションプロセッサを作成する {id="create-your-own-annotation-processor"}
 
 KSP API を使用して、コンパイル時にコードを生成する独自のアノテーションプロセッサを作成できます。
 新しいプロセッサには 3 つのモジュールが必要です。
@@ -248,7 +248,7 @@ KSP API を使用して、コンパイル時にコードを生成する独自の
 
 完全なステップバイステップの手順については、[KSP クイックスタート](ksp-quickstart.md#create-your-own-processor)を参照してください。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [kapt の設定について詳しく学ぶ](kapt.md)
 * [KSP を使い始める](ksp-quickstart.md)

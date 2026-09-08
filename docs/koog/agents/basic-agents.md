@@ -19,7 +19,7 @@ Agent 然后输出该响应。
 
     本页示例假设你已设置 `OPENAI_API_KEY` 环境变量。
 
-## 创建最小化 Agent
+## 创建最小化 Agent {id="create-a-minimal-agent"}
 
 要创建最基础的 Agent，请实例化 [`AIAgent`](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.agent/-a-i-agent/index.html)，并为[提示词执行器](../prompts/prompt-executors.md)提供一个[语言模型](../model-capabilities.md#creating-a-model-llmodel-configuration)：
 
@@ -95,7 +95,7 @@ What's on your mind? Do you have a specific question, topic, or task you'd like 
 ```
 <!--- KNIT example-basic-01.txt -->
 
-## 添加系统提示词
+## 添加系统提示词 {id="add-a-system-prompt"}
 
 提供[系统消息](../prompts/prompt-creation/index.md#system-message)以定义 Agent 的角色，以及与任务相关的目的、上下文和指令。
 
@@ -146,7 +146,7 @@ What's on your mind? Are you trying to understand a specific meme, need help fin
 ```
 <!--- KNIT example-basic-02.txt -->
 
-## 配置 LLM 输出
+## 配置 LLM 输出 {id="configure-llm-output"}
 
 你可以直接在 Agent 构造函数 (Kotlin) 或通过 builder 方法 (Java) 提供一些 [LLM 参数](../llm-parameters.md#llm-parameter-reference)，以自定义 LLM 的行为。
 例如，使用 `temperature` 参数来调整生成的响应的随机性：
@@ -220,7 +220,7 @@ What's on your mind? Are you trying to understand a specific meme, need help fin
     ```
     <!--- KNIT example-basic-05.txt -->
 
-## 添加工具
+## 添加工具 {id="add-tools"}
 
 Agent 可以使用[工具](../tools/index.md)来执行特定任务。
 
@@ -350,7 +350,7 @@ The meme is known for its lighthearted and playful tone, and is often used to ex
 ```
 <!--- KNIT example-basic-06.txt -->
 
-## 调整 Agent 迭代次数
+## 调整 Agent 迭代次数 {id="adjust-agent-iterations"}
 
 为了避免无限循环，Koog 允许任何 Agent 执行有限数量的步骤（默认为 50 次）。
 如果你预计 Agent 需要更多步骤（例如工具调用和 LLM 请求），请使用 `maxIterations` 参数来增加此限制，或者对于只需要几个步骤的 Agent 减小该限制。
@@ -445,7 +445,7 @@ The meme is known for its lighthearted and playful tone, and is often used to ex
     你可以定义这些参数并将其作为单独的配置对象进行传递，而不是将模型、温度、最大迭代次数和其他参数直接传递给 Kotlin 构造函数或 Java builder。
     有关更多信息，请参阅 [Agent 配置](index.md#agent-configuration)。
 
-## 处理 Agent 运行时的事件
+## 处理 Agent 运行时的事件 {id="handle-events-during-agent-runtime"}
 
 为了辅助测试和调试，以及为链式 Agent 交互创建钩子，Koog 提供了 [EventHandler](https://api.koog.ai/agents/agents-features/agents-features-event-handler/ai.koog.agents.features.eventHandler.feature/-event-handler/index.html) 功能。
 
@@ -560,6 +560,6 @@ Tool called: askUser with args {"question":"Which meme would you like me to expl
 
 有关 Koog Agent 功能的更多信息，请参阅[功能](../features/index.md)。
 
-## 后续步骤
+## 后续步骤 {id="next-steps"}
 
 - 详细了解如何构建[基于图的 Agent](graph-based-agents.md)和[函数式 Agent](functional-agents.md)

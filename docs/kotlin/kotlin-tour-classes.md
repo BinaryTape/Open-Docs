@@ -11,7 +11,7 @@ Kotlin 支持使用类和对象进行面向对象编程。对象对于在程序�
 class Customer
 ```
 
-## 属性
+## 属性 {id="properties"}
 
 类对象的特征可以在属性中声明。您可以为类声明属性：
 
@@ -43,7 +43,7 @@ class Contact(val id: Int, var email: String = "example@gmail.com") {
 }
 ```
 
-## 创建实例
+## 创建实例 {id="create-instance"}
 
 要从类创建对象，您需要使用**构造函数**声明类**实例**。
 
@@ -68,7 +68,7 @@ fun main() {
 
 Kotlin 类可以有多个构造函数，包括您自己定义的构造函数。要了解有关如何声明多个构造函数的更多信息，请参阅 [构造函数](classes.md#constructors-and-initializer-blocks)。
 
-## 访问属性
+## 访问属性 {id="access-properties"}
 
 要访问实例的属性，请在实例名称后加上句点 `.`，然后写上属性名称：
 
@@ -100,7 +100,7 @@ fun main() {
 >
 {style="tip"}
 
-## 成员函数
+## 成员函数 {id="member-functions"}
 
 除了将属性声明为对象特征的一部分外，您还可以通过成员函数定义对象的行为。
 
@@ -122,7 +122,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-member-function"}
 
-## 数据类
+## 数据类 {id="data-classes"}
 
 Kotlin 拥有**数据类**，这在存储数据时特别有用。数据类具有与普通类相同的功能，但它们会自动带有额外的成员函数。这些成员函数允许您轻松地将实例打印为可读输出、比较类的实例、复制实例等。由于这些函数是自动可用的，您不必为每个类编写相同的模板代码。
 
@@ -148,7 +148,7 @@ Kotlin 编译器在生成成员函数时，仅使用在 [主构造函数](classe
 * [比较实例](#compare-instances)
 * [复制实例](#copy-instance)
 
-### 打印为字符串
+### 打印为字符串 {id="print-as-string"}
 
 要打印类实例的可读字符串，您可以显式调用 `toString()` 函数，或使用自动为您调用 `toString()` 的打印函数（`println()` 和 `print()`）：
 
@@ -169,7 +169,7 @@ fun main() {
 
 这在调试或创建日志时特别有用。
 
-### 比较实例
+### 比较实例 {id="compare-instances"}
 
 要比较数据类实例，请使用相等运算符 `==`：
 
@@ -194,7 +194,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-data-classes-compare-instances"}
 
-### 复制实例
+### 复制实例 {id="copy-instance"}
 
 要创建数据类实例的精确副本，请在实例上调用 `copy()` 函数。
 
@@ -231,9 +231,9 @@ fun main() {
 
 本教程的最后一章关于 Kotlin 的 [null 安全](kotlin-tour-null-safety.md)。
 
-## 练习 {completion-point="true"}
+## 练习 {completion-point="true" id="practice"}
 
-### 练习 1 {initial-collapse-state="collapsed" collapsible="true"}
+### 练习 1 {initial-collapse-state="collapsed" collapsible="true" id="exercise-1"}
 
 定义一个带有两个属性的数据类 `Employee`：一个是姓名，另一个是薪水。确保薪水属性是可变的，否则在年底你将无法获得加薪！`main` 函数演示了如何使用这个数据类。
 
@@ -263,7 +263,7 @@ fun main() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="示例解法" id="kotlin-tour-classes-solution-1"}
 
-### 练习 2 {initial-collapse-state="collapsed" collapsible="true"}
+### 练习 2 {initial-collapse-state="collapsed" collapsible="true" id="exercise-2"}
 
 声明使此代码编译所需的额外数据类。
 
@@ -300,7 +300,7 @@ fun main() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="示例解法" id="kotlin-tour-classes-solution-2"}
 
-### 练习 3 {initial-collapse-state="collapsed" collapsible="true"}
+### 练习 3 {initial-collapse-state="collapsed" collapsible="true" id="exercise-3"}
 
 为了测试你的代码，你需要一个可以创建随机员工的生成器。定义一个 `RandomEmployeeGenerator` 类，并在类体内包含一个固定的潜在姓名列表。在类头中为该类配置最小和最大薪水。在类体内，定义 `generateEmployee()` 函数。再次强调，`main` 函数演示了如何使用这个类。
 

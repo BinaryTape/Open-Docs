@@ -9,7 +9,7 @@
 >
 {style="note"}
 
-## 套用外掛程式
+## 套用外掛程式 {id="apply-the-plugin"}
 
 若要套用 Kotlin Gradle 外掛程式，請使用 Gradle 外掛程式 DSL 中的 [`plugins{}` 區塊](https://docs.gradle.org/current/userguide/plugins.html#sec:plugins_block)：
 
@@ -74,7 +74,7 @@ plugins {
 
 同樣地，完全支援的最大版本為 %maxGradleVersion%。它沒有棄用的 Gradle 方法和屬性，並支援所有目前的 Gradle 特性。
 
-### 較早期的 KGP 版本 {initial-collapse-state="collapsed" collapsible="true"}
+### 較早期的 KGP 版本 {initial-collapse-state="collapsed" collapsible="true" id="earlier-kgp-versions"}
 
 | KGP 版本       | Gradle 最小與最大版本                 | AGP 最小與最大版本                                  |
 |---------------|---------------------------------------|-----------------------------------------------------|
@@ -85,7 +85,7 @@ plugins {
 | 1.7.0–1.7.10  | 6.7.1–7.0.2                           | 3.4.3–7.0.2                                         |
 | 1.6.20–1.6.21 | 6.1.1–7.0.2                           | 3.4.3–7.0.2                                         |
 
-### 專案中的 Kotlin Gradle 外掛程式資料
+### 專案中的 Kotlin Gradle 外掛程式資料 {id="kotlin-gradle-plugin-data-in-a-project"}
 
 預設情況下，Kotlin Gradle 外掛程式會將持久性的專案特定資料儲存在專案根目錄的 `.kotlin` 目錄中。
 
@@ -101,7 +101,7 @@ plugins {
 | `kotlin.project.persistent.dir`                     | 配置儲存專案層級資料的位置。預設值：`<project-root-directory>/.kotlin`                                      |
 | `kotlin.project.persistent.dir.gradle.disableWrite` | 控制是否停用將 Kotlin 資料寫入 `.gradle` 目錄（為了與舊版 IDEA 版本向後相容）。預設值：false |
 
-## 以 JVM 為目標
+## 以 JVM 為目標 {id="targeting-the-jvm"}
 
 若要以 JVM 為目標，請套用 Kotlin JVM 外掛程式。
 
@@ -128,7 +128,7 @@ plugins {
 
 在此區塊中 `version` 應為常值，且不能從另一個組建指令碼套用。
 
-### Kotlin 與 Java 原始碼
+### Kotlin 與 Java 原始碼 {id="kotlin-and-java-sources"}
 
 Kotlin 原始碼和 Java 原始碼可以儲存在同一個目錄中，也可以放置在不同的目錄中。
 
@@ -174,7 +174,7 @@ sourceSets {
 
 <!-- The following header is used in the Mari link service. If you wish to change it here, change the link there too -->
 
-### 檢查相關編譯任務的 JVM 目標相容性
+### 檢查相關編譯任務的 JVM 目標相容性 {id="check-for-jvm-target-compatibility-of-related-compile-tasks"}
 
 在組建模組中，您可能擁有相關的編譯任務，例如：
 * `compileKotlin` 和 `compileJava`
@@ -219,7 +219,7 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile.class).configu
 
 若要避免 JVM 目標不相容，請 [配置工具鏈](#gradle-java-toolchains-support) 或手動對齊 JVM 版本。
 
-#### 如果目標不相容會發生什麼問題 {initial-collapse-state="collapsed" collapsible="true"}
+#### 如果目標不相容會發生什麼問題 {initial-collapse-state="collapsed" collapsible="true" id="what-can-go-wrong-if-targets-are-incompatible"}
 
 有兩種手動設定 Kotlin 和 Java 原始碼集 JVM 目標的方法：
 * 透過 [設定 Java 工具鏈](#gradle-java-toolchains-support) 的隱式方式。
@@ -254,7 +254,7 @@ plugins {
 
 當組建指令碼中沒有關於 `jvmTarget` 值的明確資訊時，其預設值為 `null`，編編譯器將其轉換為預設值 `1.8`。`targetCompatibility` 等於目前 Gradle 的 JDK 版本，這等於您的 JDK 版本（除非您使用 [Java 工具鏈方法](gradle-configure-project.md#gradle-java-toolchains-support)）。假設您的 JDK 版本為 `%jvmLTSVersionSupportedByKotlin%`，您發佈的程式庫構件將 [宣告其與 JDK %jvmLTSVersionSupportedByKotlin%+ 相容](https://docs.gradle.org/current/userguide/publishing_gradle_module_metadata.html)：`org.gradle.jvm.version=%jvmLTSVersionSupportedByKotlin%`，這是錯誤的。在這種情況下，您必須在主專案中使用 Java %jvmLTSVersionSupportedByKotlin% 才能新增此程式庫，即使位元組碼的版本是 `1.8`。請 [配置工具鏈](gradle-configure-project.md#gradle-java-toolchains-support) 來解決此問題。
 
-### Gradle Java 工具鏈支援
+### Gradle Java 工具鏈支援 {id="gradle-java-toolchains-support"}
 
 > 給 Android 使用者的警告。若要使用 Gradle 工具鏈支援，請使用 Android Gradle 外掛程式 (AGP) 8.1.0-alpha09 或更高版本。
 > 
@@ -391,7 +391,7 @@ plugins {
 
 進一步了解 [Kotlin 外掛程式中的 Gradle JVM 工具鏈支援](https://blog.jetbrains.com/kotlin/2021/11/gradle-jvm-toolchain-support-in-the-kotlin-plugin/)。
 
-### 使用任務 DSL 設定 JDK 版本
+### 使用任務 DSL 設定 JDK 版本 {id="set-jdk-version-with-the-task-dsl"}
 
 任務 DSL 允許為任何實作了 `UsesKotlinJavaToolchain` 介面的任務設定任何 JDK 版本。
 目前，這些任務是 `KotlinCompile` 和 `KaptTask`。
@@ -437,7 +437,7 @@ tasks.withType<UsesKotlinJavaToolchain>().configureEach {
 }
 ```
 
-### 關聯編譯任務
+### 關聯編譯任務 {id="associate-compiler-tasks"}
 
 您可以透過在編譯之間建立關係來 _關聯_ 編譯，使得一個編譯使用另一個編譯的編譯輸出。關聯編譯會在它們之間建立 `internal` 可見性。
 
@@ -471,7 +471,7 @@ integrationTestCompilation {
 
 在這裡，`integrationTest` 編譯與 `main` 編譯相關聯，這使得功能測試可以存取來自 `main` 的 `internal` 物件。
 
-### 在啟用 Java 模組 (JPMS) 的情況下配置
+### 在啟用 Java 模組 (JPMS) 的情況下配置 {id="configure-with-java-modules-jpms-enabled"}
 
 若要讓 Kotlin Gradle 外掛程式與 [Java 模組](https://dev.java/learn/modules/) 搭配運作，
 請將以下幾行新增至您的組建指令碼，並將 `YOUR_MODULE_NAME` 替換為您的 JPMS 模組參考，例如 `org.company.module`：
@@ -519,9 +519,9 @@ tasks.named("compileJava", JavaCompile.class) {
 * [使用 Java 模組系統建置應用程式](https://docs.gradle.org/current/userguide/application_plugin.html#sec:application_modular)
 * [Kotlin 中「模組」的含義](visibility-modifiers.md#modules)
 
-### 其他細節
+### 其他細節 {id="other-details"}
 
-#### 在編譯任務中停用產物的使用
+#### 在編譯任務中停用產物的使用 {id="disable-use-of-artifact-in-compilation-task"}
 
 在某些罕見的情況下，您可能會遇到由循環相依錯誤引起的組建失敗。例如，當您有多個編譯，其中一個編譯可以看到另一個編譯的所有內部宣告，且產生的產物依賴於兩個編譯任務的輸出時：
 
@@ -548,11 +548,11 @@ Circular dependency between the following tasks:
 kotlin.build.archivesTaskOutputAsFriendModule=false
 ```
 
-#### 延遲 Kotlin/JVM 任務建立
+#### 延遲 Kotlin/JVM 任務建立 {id="lazy-kotlin-jvm-task-creation"}
 
 從 Kotlin 1.8.20 開始，Kotlin Gradle 外掛程式會註冊所有任務，且不會在模擬執行 (dry run) 時配置它們。
 
-#### 編譯任務 destinationDirectory 的非預設位置
+#### 編譯任務 destinationDirectory 的非預設位置 {id="non-default-location-of-compile-tasks-destinationdirectory"}
 
 如果您覆寫了 Kotlin/JVM `KotlinJvmCompile`/`KotlinCompile` 任務的 `destinationDirectory` 位置，請更新您的組建指令碼。您需要在 JAR 檔案中顯式將 `sourceSets.main.kotlin.classesDirectories` 新增到 `sourceSets.main.outputs`：
 
@@ -563,7 +563,7 @@ tasks.jar(type: Jar) {
 }
 ```
 
-## 以多平台為目標
+## 以多平台為目標 {id="targeting-multiple-platforms"}
 
 針對 [多個平台](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#targets) 的專案（稱為 [多平台專案](https://kotlinlang.org/docs/multiplatform/get-started.html)）需要 `kotlin-multiplatform` 外掛程式。
 
@@ -594,11 +594,11 @@ plugins {
 
 進一步了解 [適用於不同平台的 Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform/get-started.html) 以及 [適用於 iOS 和 Android 的 Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform/multiplatform-getting-started.html)。
 
-## 以 Android 為目標
+## 以 Android 為目標 {id="targeting-android"}
 
 建議使用 Android Studio 建立 Android 應用程式。[了解如何使用 Android Gradle 外掛程式](https://developer.android.com/studio/releases/gradle-plugin)。
 
-## 以 Web 為目標
+## 以 Web 為目標 {id="targeting-the-web"}
 
 Kotlin 透過 Kotlin Multiplatform 為 Web 開發提供了兩種方法：
 
@@ -608,7 +608,7 @@ Kotlin 透過 Kotlin Multiplatform 為 Web 開發提供了兩種方法：
 這兩種方法都使用 Kotlin Multiplatform 外掛程式，但支援不同的使用案例。
 以下章節說明如何在您的 Gradle 組建中配置每個目標，以及何時使用它們。
 
-### 以 JavaScript 為目標
+### 以 JavaScript 為目標 {id="targeting-javascript"}
 
 如果您的目標是執行以下操作，請使用 Kotlin/JS：
 
@@ -654,7 +654,7 @@ kotlin {
 >
 {style="note"}
 
-### 以 WebAssembly 為目標
+### 以 WebAssembly 為目標 {id="targeting-webassembly"}
 
 如果您想在多個平台之間共用邏輯和 UI，請使用 Kotlin/Wasm。如需更多資訊，
 請參閱 [Web 開發](web-overview.md#kotlin-wasm)。
@@ -715,7 +715,7 @@ kotlin {
 >
 {style="note"}
 
-### Web 目標的 Kotlin 與 Java 原始碼
+### Web 目標的 Kotlin 與 Java 原始碼 {id="kotlin-and-java-sources-for-the-web-target"}
 
 KGP 僅適用於 Kotlin 檔案，因此建議您將 Kotlin 和 Java 檔案分開存放（如果專案包含 Java 檔案）。如果您不分開存放，請在 `sourceSets{}` 區塊中指定原始碼資料夾：
 
@@ -744,7 +744,7 @@ kotlin {
 </tab>
 </tabs>
 
-## 使用 KotlinBasePlugin 介面觸發配置操作
+## 使用 KotlinBasePlugin 介面觸發配置操作 {id="triggering-configuration-actions-with-the-kotlinbaseplugin-interface"}
 
 若要在套用任何 Kotlin Gradle 外掛程式（JVM、JS、Multiplatform、Native 等）時觸發某些配置操作，請使用所有 Kotlin 外掛程式都繼承自的 `KotlinBasePlugin` 介面：
 
@@ -777,7 +777,7 @@ project.plugins.withType(KotlinBasePlugin.class) {
 </tab>
 </tabs>
 
-## 配置相依性
+## 配置相依性 {id="configure-dependencies"}
 
 若要新增對程式庫的相依性，請在原始碼集 DSL 的 `dependencies{}` 區塊中設定所需 [類型](#dependency-types) 的相依性（例如 `implementation`）。
 
@@ -812,7 +812,7 @@ kotlin {
 </tab>
 </tabs>
 
-### 在頂層配置相依性
+### 在頂層配置相依性 {id="configure-dependencies-at-the-top-level"}
 <primary-label ref="experimental-opt-in"/>
 
 您可以使用頂層 `dependencies {}` 區塊在多平台專案中配置通用相依性。
@@ -850,7 +850,7 @@ kotlin {
 
 您可以在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-76446) 分享您對此功能的意見回饋。
 
-### 相依性類型
+### 相依性類型 {id="dependency-types"}
 
 根據您的需求選擇相依性類型。
 
@@ -886,7 +886,7 @@ kotlin {
     </tr>
 </table>
 
-### 對標準程式庫的相依性
+### 對標準程式庫的相依性 {id="dependency-on-the-standard-library"}
 
 對標準程式庫 (`stdlib`) 的相依性會自動新增到每個原始碼集。所使用的標準程式庫版本與 Kotlin Gradle 外掛程式的版本相同。
 
@@ -900,7 +900,7 @@ kotlin {
 kotlin.stdlib.default.dependency=false
 ```
 
-#### 傳遞性相依性的版本對齊
+#### 傳遞性相依性的版本對齊 {id="versions-alignment-of-transitive-dependencies"}
 
 從 Kotlin 標準程式庫 1.9.20 版本開始，Gradle 會使用標準程式庫中包含的元資料來自動對齊傳遞性的 `kotlin-stdlib-jdk7` 和 `kotlin-stdlib-jdk8` 相依性。
 
@@ -911,7 +911,7 @@ kotlin.stdlib.default.dependency=false
 kotlin.stdlib.jdk.variants.version.alignment=false
 ```
 
-##### 對齊版本的其他方式 {initial-collapse-state="collapsed" collapsible="true"}
+##### 對齊版本的其他方式 {initial-collapse-state="collapsed" collapsible="true" id="other-ways-to-align-versions"}
 
 * 如果您在版本對齊方面遇到問題，可以透過 Kotlin [BOM](https://docs.gradle.org/current/userguide/platforms.html#sub:bom_import) 對齊所有版本。 在您的組建指令碼中宣告對 `kotlin-bom` 的平台相依性：
 
@@ -1031,7 +1031,7 @@ kotlin.stdlib.jdk.variants.version.alignment=false
   </tab>
   </tabs>
 
-### 設定測試程式庫的相依性
+### 設定測試程式庫的相依性 {id="set-dependencies-on-test-libraries"}
 
 [`kotlin.test`](https://kotlinlang.org/api/latest/kotlin.test/) API 可用於在所有受支援平台上測試 Kotlin 專案。
 將 `kotlin-test` 相依性新增到 `commonTest` 原始碼集，以便 Gradle 外掛程式可以推論每個測試原始碼集的對應測試相依性。
@@ -1075,7 +1075,7 @@ kotlin {
 
 您也可以在任何共用或平台特定的原始碼集中使用 `kotlin-test` 相依性。
 
-#### kotlin-test 的 JVM 變體
+#### kotlin-test 的 JVM 變體 {id="jvm-variants-of-kotlin-test"}
 
 對於 Kotlin/JVM，Gradle 預設使用 JUnit 4。因此，`kotlin("test")` 相依性會解析為 JUnit 4 的變體，即 `kotlin-test-junit`。
 
@@ -1167,7 +1167,7 @@ kotlin.test.infer.jvm.variant=false
 如果您在組建指令碼中顯式使用了 `kotlin("test")` 的變體，且您的專案組建因相容性衝突而停止運作，
 請參閱 [相容性指南中的此問題](compatibility-guide-15.md#do-not-mix-several-jvm-variants-of-kotlin-test-in-a-single-project)。
 
-### 設定對 kotlinx 程式庫的相依性
+### 設定對 kotlinx 程式庫的相依性 {id="set-a-dependency-on-a-kotlinx-library"}
 
 如果您使用多平台程式庫且需要依賴共用程式碼，請在共用原始碼集中僅設定一次相依性。使用程式庫的基礎構件名稱，例如 `kotlinx-coroutines-core` 或 `ktor-client-core`：
 
@@ -1235,7 +1235,7 @@ kotlin {
 </tab>
 </tabs>
 
-## 宣告存儲庫
+## 宣告存儲庫 {id="declare-repositories"}
 
 您可以宣告公開可用的存儲庫來使用其開源相依性。在 `repositories{}` 區塊中設定存儲庫的名稱：
 
@@ -1291,7 +1291,7 @@ dependencyResolutionManagement {
 
 子專案中任何宣告的存儲庫都會覆蓋集中宣告的存儲庫。有關如何控制此行為以及有哪些可用選項的更多資訊，請參閱 [Gradle 的文件](https://docs.gradle.org/current/userguide/declaring_repositories.html#sub:centralized-repository-declaration)。
 
-## 註冊產生的原始碼
+## 註冊產生的原始碼 {id="register-generated-sources"}
 <primary-label ref="experimental-general"/>
 
 註冊產生的原始碼以幫助 IDE、第三方外掛程式和其他工具區分產生的程式碼和常規原始碼檔案。
@@ -1323,7 +1323,7 @@ kotlin.sourceSets.getByName("main").generatedKotlin.srcDir(generatorTask)
 
 如果您正在開發 Gradle 外掛程式，您可以使用 [`allKotlinSources`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-source-set/all-kotlin-sources.html) 屬性來存取在 [`KotlinSourceSet.kotlin`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-source-set/kotlin.html) 和 `KotlinSourceSet.generatedKotlin` 屬性中註冊的所有原始碼。
 
-## 下一步是什麼？
+## 下一步是什麼？ {id="what-s-next"}
 
 進一步了解：
 * [編譯器選項以及如何傳遞它們](gradle-compiler-options.md)。

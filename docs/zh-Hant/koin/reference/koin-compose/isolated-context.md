@@ -6,16 +6,16 @@ title: 隔離上下文
 
 Koin 的隔離上下文 (Isolated Context) 允許您執行一個獨立的 Koin 執行個體，該執行個體不會干擾宿主應用程式 (host application) 的 Koin 配置。這對於 SDK、程式庫和白牌 (white-label) 應用程式至關重要。
 
-## 使用案例
+## 使用案例 {id="use-cases"}
 
 - **SDK 開發**：您的 SDK 擁有自己的相依性，且不會影響到宿主應用程式。
 - **白牌應用程式**：具有不同配置的多個應用程式變體。
 - **測試**：隔離的測試配置。
 - **功能模組**：帶有自有 DI 的自包含功能模組。
 
-## 建立隔離上下文
+## 建立隔離上下文 {id="creating-an-isolated-context"}
 
-### 定義上下文持有者
+### 定義上下文持有者 {id="define-the-context-holder"}
 
 建立一個物件來持有您的隔離 Koin 執行個體：
 
@@ -35,7 +35,7 @@ object MySDKKoinContext {
 }
 ```
 
-### SDK 模組範例
+### SDK 模組範例 {id="sdk-module-example"}
 
 ```kotlin
 val sdkCoreModule = module {
@@ -53,9 +53,9 @@ val sdkRepositoryModule = module {
 }
 ```
 
-## 在 Compose 中使用
+## 在 Compose 中使用 {id="using-with-compose"}
 
-### KoinIsolatedContext
+### KoinIsolatedContext {id="koinisolatedcontext"}
 
 使用 `KoinIsolatedContext` 包裝您 SDK 的 Compose UI：
 
@@ -81,7 +81,7 @@ private fun SDKContent() {
 }
 ```
 
-### 巢狀上下文
+### 巢狀上下文 {id="nested-contexts"}
 
 您可以巢狀隔離上下文：
 
@@ -105,9 +105,9 @@ fun HostApp() {
 }
 ```
 
-## 生命週期管理
+## 生命週期管理 {id="lifecycle-management"}
 
-### 手動初始化
+### 手動初始化 {id="manual-initialization"}
 
 在需要時初始化您的 SDK 上下文：
 
@@ -136,7 +136,7 @@ object MySDK {
 }
 ```
 
-### 搭配手動生命週期使用
+### 搭配手動生命週期使用 {id="usage-with-manual-lifecycle"}
 
 ```kotlin
 // 宿主應用程式初始化 SDK
@@ -169,7 +169,7 @@ fun SDKFeature() {
 }
 ```
 
-## 存取兩個上下文
+## 存取兩個上下文 {id="accessing-both-contexts"}
 
 有時您需要同時存取宿主和 SDK 的相依性：
 
@@ -192,7 +192,7 @@ fun BridgeScreen() {
 }
 ```
 
-## 完整的 SDK 範例
+## 完整的 SDK 範例 {id="complete-sdk-example"}
 
 ```kotlin
 // SDK 公開 API
@@ -274,7 +274,7 @@ fun CheckoutScreen() {
 }
 ```
 
-## 最佳實務
+## 最佳實務 {id="best-practices"}
 
 1.  **提早初始化**：在 Compose 渲染之前設定好隔離上下文。
 2.  **清理資源**：完成後在 `KoinApplication` 上呼叫 `close()`。
@@ -282,7 +282,7 @@ fun CheckoutScreen() {
 4.  **使用介面邊界**：透過回呼 (callback) 或介面進行通訊，而非共用 Koin 執行個體。
 5.  **記錄初始化文件**：向宿主應用程式開發人員清楚說明 SDK 的設定需求。
 
-## 下一步
+## 下一步 {id="next-steps"}
 
 - **[Compose 概覽](/docs/reference/koin-compose/compose)** – 基本 Compose 設定
 - **[上下文隔離](/docs/reference/koin-core/context-isolation)** – 核心隔離概念

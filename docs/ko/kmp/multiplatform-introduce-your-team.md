@@ -11,7 +11,7 @@
 * [팀의 멀티플랫폼 개발 관련 질문에 대비하기](#prepare-for-questions-about-multiplatform-development-from-your-team)
 * [적응 기간 동안 팀 지원하기](#support-your-team-during-the-adaptation-period)
 
-## 공감으로 시작하기
+## 공감으로 시작하기 {id="start-with-empathy"}
 
 소프트웨어 개발은 팀 게임이며, 모든 중요한 결정에는 팀 구성원 전체의 동의가 필요합니다. 크로스 플랫폼(cross-platform) 기술을 통합하는 것은 모바일 애플리케이션의 개발 프로세스에 큰 영향을 미칩니다. 따라서 프로젝트에 Kotlin Multiplatform을 통합하기 전에, 팀에 기술을 소개하고 도입할 가치가 있다는 것을 부드럽게 안내해야 합니다.
 
@@ -19,7 +19,7 @@
 
 이 모든 상황을 고려할 때, Kotlin Multiplatform으로의 전환을 주장할 때 많은 편견에 부딪히고 수많은 질문에 답할 준비가 되어 있어야 합니다. 이때 팀이 무엇을 필요로 하는지 절대로 놓치지 마세요. 아래의 조언들이 제안을 준비하는 데 도움이 될 것입니다.
 
-## Kotlin Multiplatform의 작동 방식 설명하기
+## Kotlin Multiplatform의 작동 방식 설명하기 {id="explain-how-kotlin-multiplatform-works"}
 
 이 단계에서는 Kotlin Multiplatform을 사용하는 것이 프로젝트에 가치를 더할 수 있다는 점을 보여주고, 팀이 가질 수 있는 크로스 플랫폼 모바일 애플리케이션에 대한 편견과 의심을 제거해야 합니다.
 
@@ -31,7 +31,7 @@ KMP는 Alpha 출시 이후 프로덕션 환경에서 널리 사용되어 왔습�
 
 기술이 *어떻게* 작동하는지 설명할 수 있는 능력은 매우 중요합니다. 논의가 마치 마법에 의존하는 것처럼 보이는 것을 좋아하는 사람은 아무도 없기 때문입니다. 명확하지 않은 부분이 있으면 사람들은 최악의 상황을 가정할 수 있으므로, 어떤 내용이 너무 당연해서 설명할 필요가 없다고 생각하는 실수를 범하지 않도록 주의하세요. 대신, 다음 단계로 넘어가기 전에 모든 기본 개념을 설명하려고 노력하세요. [멀티플랫폼 프로그래밍](get-started.topic)에 관한 이 문서는 지식을 체계화하여 준비하는 데 도움이 될 것입니다.
 
-## 사례 연구를 통해 멀티플랫폼 개발의 가치 입증하기
+## 사례 연구를 통해 멀티플랫폼 개발의 가치 입증하기 {id="use-case-studies-to-demonstrate-the-value-of-multiplatform-development"}
 
 멀티플랫폼 기술의 작동 방식을 이해하는 것도 필요하지만, 그것만으로는 충분하지 않습니다. 팀은 이를 사용함으로써 얻는 이득을 확인해야 하며, 이러한 이득을 제시하는 방식은 제품과 관련이 있어야 합니다.
 
@@ -46,7 +46,7 @@ KMP는 Alpha 출시 이후 프로덕션 환경에서 널리 사용되어 왔습�
 
 [![Kotlin Multiplatform 성공 사례로부터 배우기](kmp-success-stories.svg){width="700"}](https://www.jetbrains.com/help/kotlin-multiplatform-dev/case-studies.html)
 
-## 샘플 프로젝트를 만들어 증거 제시하기
+## 샘플 프로젝트를 만들어 증거 제시하기 {id="offer-proof-by-creating-a-sample-project"}
 
 이론도 좋지만, 결국 이를 실행에 옮기는 것이 가장 중요합니다. 주장에 설득력을 더하고 멀티플랫폼 모바일 앱 개발의 잠재력을 보여주기 위한 한 가지 방법으로, 시간을 할애하여 Kotlin Multiplatform으로 무언가를 만든 다음 그 결과를 팀원들과 논의하는 자리를 마련할 수 있습니다. 프로토타입(prototype)은 애플리케이션에 필요한 기능을 시연하는, 처음부터 직접 작성한 일종의 테스트 프로젝트가 될 수 있습니다. 
 [Ktor 및 SQLDelight를 사용한 멀티플랫폼 앱 만들기 – 튜토리얼](multiplatform-ktor-sqldelight.md)이 이 과정을 잘 안내해 줄 것입니다. 
@@ -57,11 +57,11 @@ Kotlin으로 구현된 기존 기능 하나를 골라 크로스 플랫폼으로 
 백로그(backlog) 하단에 있는 우선순위가 낮은 기능을 골라 공유 모듈에서 구현해 볼 수도 있습니다. 
 [Android 애플리케이션을 iOS에서 작동하게 만들기 – 튜토리얼](multiplatform-integrate-in-existing-app.md)에서 샘플 프로젝트를 기반으로 한 단계별 가이드를 제공합니다.
 
-## 팀의 멀티플랫폼 개발 관련 질문에 대비하기
+## 팀의 멀티플랫폼 개발 관련 질문에 대비하기 {id="prepare-for-questions-about-multiplatform-development-from-your-team"}
 
 제안이 아무리 상세하더라도 팀원들은 많은 질문을 던질 것입니다. 주의 깊게 듣고 인내심을 가지고 모든 질문에 답해 보세요. 질문의 대부분은 일상적인 개발 루틴에서 Kotlin을 보는 데 익숙하지 않은 iOS 팀원들로부터 나올 수 있습니다. 다음은 가장 일반적인 질문 목록으로, 답변 준비에 도움이 될 것입니다.
 
-### Q: 크로스 플랫폼 기술 기반의 애플리케이션은 App Store에서 거부될 수 있다고 들었습니다. 이런 위험을 감수할 가치가 있나요?
+### Q: 크로스 플랫폼 기술 기반의 애플리케이션은 App Store에서 거부될 수 있다고 들었습니다. 이런 위험을 감수할 가치가 있나요? {id="q-i-heard-applications-based-on-cross-platform-technologies-can-be-rejected-from-the-app-store-is-taking-this-risk-worth-it"}
 
 A: Apple Store에는 앱 게시를 위한 엄격한 가이드라인이 있습니다. 제한 사항 중 하나는 앱의 기능이나 특징을 도입하거나 변경하는 코드를 앱이 다운로드, 설치 또는 실행할 수 없다는 것입니다([App Store Review Guideline 2.5.2](https://developer.apple.com/app-store/review/guidelines/#software-requirements)). 이는 일부 크로스 플랫폼 기술에는 해당될 수 있지만, Kotlin Multiplatform에는 해당되지 않습니다. 공유된 Kotlin 코드는 Kotlin/Native를 통해 네이티브 바이너리로 컴파일되어 일반적인 iOS 프레임워크로 앱에 포함되며, 동적인 코드 실행 기능을 제공하지 않습니다.
 
@@ -73,7 +73,7 @@ Android 팀원들만 공유 코드를 다룰 때는 iOS 개발자들이 Kotlin�
 
 2023년 말, JetBrains는 사용성, 온보딩 및 IDE 지원에 중점을 둔 새로운 실험적 프로젝트 구성 도구인 [Amper](https://blog.jetbrains.com/blog/2023/11/09/amper-improving-the-build-tooling-user-experience/)를 도입했습니다. Amper의 기능에 대해 더 자세히 알아보려면 [튜토리얼](kotlin-toolchain.md)을 참고하세요.
 
-### Q: Kotlin Multiplatform은 프로덕션에서 사용할 준비가 되었나요?
+### Q: Kotlin Multiplatform은 프로덕션에서 사용할 준비가 되었나요? {id="q-is-kotlin-multiplatform-production-ready"}
 
 A: 2023년 11월, Kotlin Multiplatform이 이제 [Stable(안정화)](https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/) 단계에 접어들었음을 발표했습니다. 이는 이제 프로덕션 환경에서 안심하고 사용할 수 있음을 의미합니다.
 
@@ -87,7 +87,7 @@ A: Kotlin Multiplatform 생태계는 번창하고 있으며 전 세계의 많은
 
 팀이 멀티플랫폼 모바일 개발을 더 깊이 파고들수록 질문은 더 흥미롭고 복잡해질 것입니다. 답을 모른다고 걱정하지 마세요. Kotlin Slack에는 대규모의 지원적인 Kotlin Multiplatform 커뮤니티가 있으며, 이미 이를 사용 중인 많은 개발자가 도움을 줄 수 있는 [#multiplatform](https://slack-chats.kotlinlang.org/c/multiplatform) 채널이 마련되어 있습니다. 팀에서 가장 많이 나온 질문들을 [저희와 공유](mailto:kotlin.multiplatform.feedback@kotlinlang.org)해 주시면 매우 감사하겠습니다. 이 정보는 문서에서 어떤 주제를 다루어야 할지 이해하는 데 도움이 됩니다. 
 
-## 적응 기간 동안 팀 지원하기
+## 적응 기간 동안 팀 지원하기 {id="support-your-team-during-the-adaptation-period"}
 
 Kotlin Multiplatform을 사용하기로 결정한 후에는 팀이 기술을 실험하는 적응 기간이 이어집니다. 그리고 여러분의 임무는 아직 끝나지 않았습니다! 팀원들에게 지속적인 지원을 제공함으로써 팀이 기술에 몰입하고 첫 성과를 거두는 데 걸리는 시간을 단축할 수 있습니다.
 

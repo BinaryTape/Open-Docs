@@ -7,7 +7,7 @@
 > 
 {style="warning"}
 
-## 特定平台的資料處理
+## 特定平台的資料處理 {id="platform-specific-data-handling"}
 
 雖然 `dragAndDropSource` 與 `dragAndDropTarget` 修飾符是通用 API 的一部分，但您需要將傳輸的資料包裝在特定平台的型別中：
 
@@ -47,7 +47,7 @@
     }
     ```
 
-## 建立拖曳來源
+## 建立拖曳來源 {id="creating-a-drag-source"}
 
 若要將 composable 準備為拖曳來源：
 
@@ -107,7 +107,7 @@ Box(Modifier
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="Box(Modifier.dragAndDropSource"}
 
-## 建立放置目標
+## 建立放置目標 {id="creating-a-drop-target"}
 
 若要將 composable 準備為放置目標：
 
@@ -189,6 +189,6 @@ Row(
 }
 ```
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 如需更多關於實作與常見使用案例的細節，請參閱 Jetpack Compose 文件中關於對應修飾符的 [拖放](https://developer.android.com/develop/ui/compose/touch-input/user-interactions/drag-and-drop) 文章。

@@ -6,11 +6,11 @@ Kotlin 데몬(Kotlin daemon)은 컴파일러와 그 환경을 준비된 상태�
 
 Kotlin 데몬은 사용자에게 직접 노출되는 인터페이스는 없지만, 빌드 시스템이나 [빌드 도구 API(build tools API)](build-tools-api.md)를 통해 사용할 수 있습니다.
 
-## Kotlin 데몬 설정
+## Kotlin 데몬 설정 {id="kotlin-daemon-configuration"}
 
 Gradle 또는 Maven에서 Kotlin 데몬의 일부 설정을 구성하는 방법이 있습니다.
 
-### 메모리 관리
+### 메모리 관리 {id="memory-management"}
 
 Kotlin 데몬은 클라이언트와 격리된 자체 메모리 공간을 가진 별도의 프로세스입니다. 기본적으로 Kotlin 데몬은 이를 실행한 JVM 프로세스의 힙 크기(`-Xmx`)를 상속받으려고 시도합니다.
 
@@ -35,7 +35,7 @@ kotlin.daemon.jvmargs=-Xmx1500m
 </tab>
 </tabs>
 
-### 수명 주기(Lifetime)
+### 수명 주기(Lifetime) {id="lifetime"}
 
 Kotlin 데몬에는 두 가지 일반적인 수명 주기 전략이 있습니다.
 

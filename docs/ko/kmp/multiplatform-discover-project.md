@@ -6,7 +6,7 @@
 
 여기에서 제시하는 모델은 코틀린에서 실제로 사용되는 모델보다 단순화된 것입니다. 하지만 이 기본 모델만으로도 대부분의 경우 충분할 것입니다.
 
-## 공통 코드 (Common code)
+## 공통 코드 (Common code) {id="common-code"}
 
 _공통 코드(Common code)_는 서로 다른 플랫폼 간에 공유되는 코틀린 코드입니다.
 
@@ -36,7 +36,7 @@ fun greeting() {
 
 사용 가능한 코틀린 멀티플랫폼 라이브러리를 탐색하려면 [klibs.io](https://klibs.io)를 확인하세요.
 
-## 타겟 (Targets)
+## 타겟 (Targets) {id="targets"}
 
 타겟(Targets)은 코틀린이 공통 코드를 컴파일할 플랫폼을 정의합니다. 예를 들어 JVM, JS, Android, iOS, Linux 등이 타겟이 될 수 있습니다. 이전 예제에서는 공통 코드를 JVM과 네이티브 타겟으로 컴파일했습니다.
 
@@ -75,7 +75,7 @@ kotlin {
 
 이것이 코틀린 컴파일러가 선언된 모든 타겟으로 컴파일되는 공통 코드를 처리하는 방식입니다. 플랫폼별 코드를 작성하는 방법은 [소스 세트](#source-sets)를 참조하세요.
 
-## 소스 세트 (Source sets)
+## 소스 세트 (Source sets) {id="source-sets"}
 
 _코틀린 소스 세트(Kotlin source set)_는 자체 타겟, 종속성 및 컴파일러 옵션을 가진 소스 파일의 집합입니다. 이는 멀티플랫폼 프로젝트에서 코드를 공유하는 주요 방법입니다.
 
@@ -111,7 +111,7 @@ kotlin {
 
 `commonMain` 외에 다른 소스 세트는 플랫폼별(platform-specific)이거나 중간(intermediate) 소스 세트일 수 있습니다.
 
-### 플랫폼별 소스 세트 (Platform-specific source sets)
+### 플랫폼별 소스 세트 (Platform-specific source sets) {id="platform-specific-source-sets"}
 
 공통 코드만 갖는 것이 편리하긴 하지만 항상 가능한 것은 아닙니다. `commonMain`의 코드는 선언된 모든 타겟으로 컴파일되므로, 코틀린은 그곳에서 플랫폼별 API를 사용하는 것을 허용하지 않습니다.
 
@@ -135,7 +135,7 @@ fun jvmGreeting() {
 }
 ```
 
-### 특정 타겟으로의 컴파일
+### 특정 타겟으로의 컴파일 {id="compilation-to-a-specific-target"}
 
 특정 타겟으로의 컴파일은 여러 소스 세트와 함께 작동합니다. 코틀린이 멀티플랫폼 프로젝트를 특정 타겟으로 컴파일할 때, 해당 타겟으로 레이블이 지정된 모든 소스 세트를 수집하여 바이너리를 생성합니다.
 
@@ -158,7 +158,7 @@ JVM으로 컴파일하는 동안 코틀린은 "JVM" 레이블이 지정된 모�
 * 플랫폼별 소스 세트에 작성된 코드는 공통 소스 세트의 선언에 접근할 수 있습니다. 예를 들어, `jvmMain`의 코드는 `commonMain`의 코드를 사용할 수 있습니다. 하지만 그 반대는 불가능합니다. `commonMain`은 `jvmMain`의 코드를 사용할 수 없습니다.
 * 플랫폼별 소스 세트에 작성된 코드는 해당 플랫폼의 종속성을 사용할 수 있습니다. 예를 들어, `jvmMain`의 코드는 [Guava](https://github.com/google/guava)나 [Spring](https://spring.io/)과 같은 Java 전용 라이브러리를 사용할 수 있습니다.
 
-### 중간 소스 세트 (Intermediate source sets)
+### 중간 소스 세트 (Intermediate source sets) {id="intermediate-source-sets"}
 
 단순한 멀티플랫폼 프로젝트는 대개 공통 코드와 플랫폼별 코드만 가집니다.
 `commonMain` 소스 세트는 선언된 모든 타겟 간에 공유되는 공통 코드를 나타냅니다. `jvmMain`과 같은 플랫폼별 소스 세트는 해당 타겟으로만 컴파일되는 플랫폼별 코드를 나타냅니다.
@@ -214,7 +214,7 @@ fun randomUuidString(): String {
 >
 {style="tip"}
 
-#### Apple 기기 및 시뮬레이터 타겟 {initial-collapse-state="collapsed" collapsible="true"}
+#### Apple 기기 및 시뮬레이터 타겟 {initial-collapse-state="collapsed" collapsible="true" id="apple-device-and-simulator-targets"}
 
 코틀린 멀티플랫폼을 사용하여 iOS 모바일 애플리케이션을 개발할 때는 보통 `iosMain` 소스 세트를 사용합니다. 이것이 `ios` 타겟을 위한 플랫폼별 소스 세트라고 생각할 수 있지만, 단일 `ios` 타겟이라는 것은 존재하지 않습니다. 대부분의 모바일 프로젝트에는 최소 두 개의 타겟이 필요합니다.
 
@@ -227,7 +227,7 @@ fun randomUuidString(): String {
 
 이는 Mac이 아닌 다른 Apple 타겟에도 동일하게 적용됩니다. 예를 들어, Apple TV용 `tvosArm64` 기기 타겟과 Apple 실리콘 기기의 Apple TV 시뮬레이터용 `tvosSimulatorArm64` 시뮬레이터 타겟이 있는 경우, 이들 모두에 대해 `tvosMain` 중간 소스 세트를 사용할 수 있습니다.
 
-## 테스트 통합 (Integration with tests)
+## 테스트 통합 (Integration with tests) {id="integration-with-tests"}
 
 실제 프로젝트에서는 기본 프로덕션 코드와 함께 테스트도 필요합니다. 이것이 기본적으로 생성된 모든 소스 세트에 `Main` 및 `Test` 접미사가 붙는 이유입니다. `Main`은 프로덕션 코드를 포함하고, `Test`는 해당 코드에 대한 테스트를 포함합니다. 이들 사이의 연결은 자동으로 설정되며, 테스트는 추가 구성 없이 `Main` 코드에서 제공하는 API를 사용할 수 있습니다.
 
@@ -239,7 +239,7 @@ fun randomUuidString(): String {
 
 멀티플랫폼 테스트를 만들고 실행하는 방법은 [멀티플랫폼 앱 테스트 튜토리얼](multiplatform-run-tests.md)에서 배워보세요.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [Gradle 스크립트에서 미리 정의된 소스 세트를 선언하고 사용하는 방법 자세히 알아보기](multiplatform-hierarchy.md)
 * [멀티플랫폼 프로젝트 구조의 심화 개념 탐구하기](multiplatform-advanced-project-structure.md)

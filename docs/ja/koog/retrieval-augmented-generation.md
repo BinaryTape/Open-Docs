@@ -10,14 +10,14 @@ Koogは、検索拡張生成（RAG）のためのビルディングブロック�
 
 このページでは、現在の `rag` モジュールで利用可能な機能とその使用方法について説明します。
 
-## Koogが現在提供しているもの
+## Koogが現在提供しているもの {id="what-koog-provides-today"}
 
 現在のRAGサポートは、2つのモジュールに分かれています。
 
 - `rag-base`: 検索、ストレージ、検索リクエスト、フィルタリング、およびファイル/ドキュメントプロバイダーのための共通の抽象化
 - `rag-vector`: ドキュメントの埋め込みとベクトルストレージを組み合わせたローカル実装
 
-## EmbeddingStorageを使用したドキュメントの埋め込みと検索
+## EmbeddingStorageを使用したドキュメントの埋め込みと検索 {id="embedding-and-retrieving-documents-with-embeddingstorage"}
 
 最も完成された標準的なRAGフローは、`rag-vector` モジュールの `EmbeddingStorage` を使用します。これは、`DocumentEmbedder`（ドキュメントをベクトルに変換）と `VectorStorageBackend`（ベクトルを永続化）を組み合わせたものです。
 
@@ -101,7 +101,7 @@ Koogは、検索拡張生成（RAG）のためのビルディングブロック�
     ```
     <!--- KNIT example-retrieval-augmented-generation-java-01.java -->
 
-## エージェントツールとしての関連性検索の提供（エージェント型RAG）
+## エージェントツールとしての関連性検索の提供（エージェント型RAG） {id="providing-relevance-search-as-an-agent-tool-in-agentic-rag"}
 
 取得したすべてのドキュメントを事前にプロンプトに注入する代わりに、RAGストレージをツールとして公開し、エージェントが必要に応じて呼び出すようにすることができます。これにより、エージェントは「いつ」「何を」検索するかを制御できるようになります。
 
@@ -207,20 +207,20 @@ Koogは、検索拡張生成（RAG）のためのビルディングブロック�
 
 このアプローチにより、エージェントはユーザーのクエリに基づいて検索ツールを呼び出すタイミングを決定します。これは、エージェントが多様なリクエストを処理し、その一部のみがナレッジベースの検索を必要とする場合に便利です。
 
-## 利用可能な実装
+## 利用可能な実装 {id="available-implementations"}
 
-### ベクトルストレージバックエンド
+### ベクトルストレージバックエンド {id="vector-storage-backends"}
 
 - `InMemoryVectorStorageBackend`: ベクトルをメモリ内に保存します。テストやプロトタイプに適しています。
 - `FileVectorStorageBackend`: 再起動後も維持されるよう、ベクトルをディスクに永続化します。
 - `JVMFileVectorStorageBackend`: `java.nio.file.Path` を使用するJVM固有のファイルベースのバックエンドです。
 
-### ドキュメント埋め込み器（Document embedders）
+### ドキュメント埋め込み器（Document embedders） {id="document-embedders"}
 
 - `TextDocumentEmbedder`: ドキュメントとパスの型によってパラメータ化された、汎用的なドキュメント・ツー・テキスト埋め込み器です。
 - `JVMTextDocumentEmbedder`: `java.nio.file.Path` からファイルを読み取るJVM固有の埋め込み器です。
 
-### 統合ストレージ実装
+### 統合ストレージ実装 {id="combined-storage-implementations"}
 
 - `EmbeddingStorage`: 任意の `DocumentEmbedder` と `VectorStorageBackend` を組み合わせます。
 - `InMemoryDocumentEmbeddingStorage`: `EmbeddingStorage` + `InMemoryVectorStorageBackend` の便利なショートカットです。
@@ -229,7 +229,7 @@ Koogは、検索拡張生成（RAG）のためのビルディングブロック�
 - `TextFileDocumentEmbeddingStorage`: テキストドキュメント用のファイルベースのストレージです。
 - `JVMFileEmbeddingStorage`: テキストドキュメント用のJVMファイルベースのストレージです。
 
-## 現在の制限事項
+## 現在の制限事項 {id="current-limitations"}
 
 組み込みのフローはローカル実装やリファレンス実装には役立ちますが、まだ完全な本番環境用RAGプラットフォームではありません。
 
@@ -242,7 +242,7 @@ Koogは、検索拡張生成（RAG）のためのビルディングブロック�
 
 カスタムバックエンドを構築する場合は、`rag-base` の抽象化から開始し、独自のストレージアダプターを実装してください。
 
-## 開始地点の選択
+## 開始地点の選択 {id="choosing-where-to-start"}
 
 以下の場合は `rag-vector` を使用してください：
 
@@ -256,6 +256,6 @@ Koogは、検索拡張生成（RAG）のためのビルディングブロック�
 - 外部のベクトルデータベースを統合する場合
 - 他のKoogモジュールで抽象化を再利用したい場合
 
-## 関連項目
+## 関連項目 {id="see-also"}
 
 - [埋め込み（Embeddings）](embeddings.md)

@@ -12,11 +12,11 @@
    <img src="icon-4.svg" width="20" alt="Fourth step"/> <a href="jvm-spring-boot-using-crudrepository.md">使用 Spring Data CrudRepository 進行資料庫存取</a><br/>
 </p>
 
-## 下一步
+## 下一步 {id="next-step"}
 
 <a href="jvm-create-project-with-spring-boot.md" as="button" mode="classic" icon="arrow-right" icon-position="right">開始</a>
 
-### 另請參閱
+### 另請參閱 {id="see-also"}
 
 如果您喜歡與 AI 代理程式協作，請嘗試我們的 [使用 Spring Boot 與 Claude 建立任務管理器應用程式](spring-boot-claude.md) 教學。
 

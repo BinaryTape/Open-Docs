@@ -11,7 +11,7 @@
 
 在 [GitHub](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.8.0) 上查看此版本的完整更改列表。
 
-## 依赖项
+## 依赖项 {id="dependencies"}
 
 * Gradle 插件 `org.jetbrains.compose` 1.8.2 版。基于 Jetpack Compose 库：
     * [Runtime 1.8.2](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.8.2)
@@ -25,9 +25,9 @@
 * Savedstate 库 `org.jetbrains.androidx.savedstate:savedstate:1.3.1`。基于 [Jetpack Savedstate 1.3.0](https://developer.android.com/jetpack/androidx/releases/savedstate#1.3.0)
 * WindowManager Core 库 `org.jetbrains.androidx.window:window-core:1.4.0-alpha07`。基于 [Jetpack WindowManager 1.4.0-alpha04](https://developer.android.com/jetpack/androidx/releases/window#1.4.0-alpha04)
 
-## 破坏性变更
+## 破坏性变更 {id="breaking-changes"}
 
-### Compose Multiplatform 全面迁移到 K2 编译器
+### Compose Multiplatform 全面迁移到 K2 编译器 {id="full-migration-of-compose-multiplatform-to-the-k2-compiler"}
 
 在此版本中，Compose Multiplatform 代码库已全面迁移到 K2 编译器。
 从 1.8.0 开始，
@@ -46,7 +46,7 @@
 如果您在升级到 Compose Multiplatform 1.8.0 时遇到任何兼容性问题，
 请通过在 [YouTrack](https://youtrack.jetbrains.com/newIssue?project=CMP) 中提交问题告知我们。
 
-### 删除了对 `material-icons-core` 的隐式依赖
+### 删除了对 `material-icons-core` 的隐式依赖 {id="implicit-dependency-on-material-icons-core-removed"}
 
 Compose Multiplatform 1.8.2 包含了一项 [Material 中的更改](https://android.googlesource.com/platform/frameworks/support/+/1d1abef790da93325a83fe19b50ccdec06be6956)：
 不再存在对 `material-icons-core` 的传递依赖。
@@ -61,7 +61,7 @@ implementation("org.jetbrains.compose.material:material-icons-core:1.7.3")
 
 您还可以使用 Material Symbols 库中的 [Android XML 矢量图标](compose-multiplatform-resources-usage.md#icons)。
 
-### Navigation 中从 Bundle 迁移到 SavedState
+### Navigation 中从 Bundle 迁移到 SavedState {id="migration-from-bundle-to-savedstate-in-navigation"}
 
 Compose Multiplatform 1.8.2 中的 Navigation
 正与 Android Navigation 组件一起过渡到使用 `SavedState` 类来存储 UI 状态。
@@ -99,7 +99,7 @@ composable(Destinations.Followers.route) { navBackStackEntry ->
 }
 ```
 
-### iOS 上弃用的 `ComposeUIViewControllerDelegate`
+### iOS 上弃用的 `ComposeUIViewControllerDelegate` {id="deprecated-composeuiviewcontrollerdelegate-on-ios"}
 
 `ComposeUIViewControllerDelegate` API 已被弃用，取而代之的是父视图控制器。
 如果您在 Compose Multiplatform 1.8.2 中使用已弃用的 API，您将遇到一个弃用错误，提示 
@@ -107,7 +107,7 @@ composable(Destinations.Followers.route) { navBackStackEntry ->
 
 在 Apple 的开发者[文档](https://developer.apple.com/documentation/uikit/uiviewcontroller)中了解更多关于子父视图控制器关系的信息。
 
-### 删除了 iOS 上已过时的 `platformLayers` 选项
+### 删除了 iOS 上已过时的 `platformLayers` 选项 {id="removed-obsolete-platformlayers-option-on-ios"}
 
 `platformLayers`
 实验性选项[是在 1.6.0 中引入的](whats-new-compose-160.md#separate-platform-views-for-popups-dialogs-and-dropdowns-ios-desktop)，
@@ -115,9 +115,9 @@ composable(Destinations.Followers.route) { navBackStackEntry ->
 
 此模式现在是 iOS 上的默认行为，启用它的选项因已过时而被删除。
 
-### 测试中的破坏性变更
+### 测试中的破坏性变更 {id="breaking-changes-in-tests"}
 
-#### 测试中协程延迟的新处理方式
+#### 测试中协程延迟的新处理方式 {id="new-handling-of-coroutine-delays-in-tests"}
 
 以前，Compose Multiplatform 测试不会将带有 `delay()` 调用的副作用视为为空闲。
 因此，例如以下测试将无限期挂起：
@@ -165,7 +165,7 @@ assertEquals("1", text)
 
 已经使用 `mainClock.advanceTimeBy()` 调用来推进测试时钟的测试，在重新组合、布局、绘制和效应方面的行为可能会有所不同。
 
-#### 与 Android 保持一致的 `runOnIdle()` 实现
+#### 与 Android 保持一致的 `runOnIdle()` 实现 {id="implementation-of-runonidle-aligned-with-android"}
 
 为了使 Compose Multiplatform 的 `runOnIdle()` 测试函数实现与 Android 的行为一致，
 我们引入了以下更改：
@@ -176,16 +176,16 @@ assertEquals("1", text)
 如果您的测试依赖于 `runOnIdle()` 操作之后额外的 `waitForIdle()` 调用，
 请在为 Compose Multiplatform 1.8.2 更新测试时，根据需要添加该调用。
 
-#### 测试中的时间推进与渲染解耦
+#### 测试中的时间推进与渲染解耦 {id="advancing-time-in-tests-is-decoupled-from-rendering"}
 
 在 Compose Multiplatform 1.8.2 中，如果时间未推进超过下一帧渲染点（虚拟测试帧每 16 ms 渲染一次），`mainClock.advanceTimeBy()` 函数将不再引起重新组合、布局或绘制。
 
 这可能会破坏依赖于每次 `mainClock.advanceTimeBy()` 调用都会触发渲染的测试。
 有关详细信息，请参阅 [PR 说明](https://github.com/JetBrains/compose-multiplatform-core/pull/1618)。
 
-## 跨平台
+## 跨平台 {id="across-platforms"}
 
-### 可变字体
+### 可变字体 {id="variable-fonts"}
 
 Compose Multiplatform 1.8.2 在所有平台上都支持可变字体。
 通过可变字体，您可以保留一个包含所有样式偏好的字体文件，例如粗细、
@@ -195,13 +195,13 @@ Compose Multiplatform 1.8.2 在所有平台上都支持可变字体。
 有关详细信息，
 请参阅 [Jetpack Compose 文档](https://developer.android.com/develop/ui/compose/text/fonts#variable-fonts)。
 
-### Skia 已更新至 Milestone 132
+### Skia 已更新至 Milestone 132 {id="skia-updated-to-milestone-132"}
 
 Compose Multiplatform 通过 Skiko 使用的 Skia 版本已更新至 Milestone 132。
 
 之前使用的 Skia 版本是 Milestone 126。您可以在 [版本说明](https://skia.googlesource.com/skia/+/main/RELEASE_NOTES.md#milestone-132)中查看这些版本之间的更改。
 
-### 新的 Clipboard 接口
+### 新的 Clipboard 接口 {id="new-clipboard-interface"}
 
 Compose Multiplatform 采用了 Jetpack Compose 的新 `Clipboard` 接口。
 
@@ -211,7 +211,7 @@ Compose Multiplatform 采用了 Jetpack Compose 的新 `Clipboard` 接口。
 目前，公共代码中的剪贴板交互受到 API 设计的限制。
 有关更多详细信息，请参阅 [CMP-7624](https://youtrack.jetbrains.com/issue/CMP-7624)。
 
-### 行高对齐
+### 行高对齐 {id="line-height-alignment"}
 
 行高对齐的公共 API 
 以前仅在 Android 上的 Compose Multiplatform 中受支持，现在在所有平台上都受支持。
@@ -224,9 +224,9 @@ Compose Multiplatform 采用了 Jetpack Compose 的新 `Clipboard` 接口。
 请注意，在 Material3 中，行高对齐的默认值为 `Center`，
 这意味着在所有平台上的 Material3 组件中，除非另有说明，否则带有 `lineHeight` 的文本将应用居中对齐。
 
-## iOS
+## iOS {id="ios"}
 
-### 深层链接
+### 深层链接 {id="deep-linking"}
 
 通过结合使用 Compose Multiplatform 1.8.2 和 [org.jetbrains.androidx.navigation.navigation-compose](compose-navigation-routing.md)
 %org.jetbrains.androidx.navigation%，
@@ -235,23 +235,23 @@ Compose Multiplatform 采用了 Jetpack Compose 的新 `Clipboard` 接口。
 
 有关在公共代码中引入深层链接的指南，请参阅[深层链接](compose-navigation-deep-links.md)。
 
-### XCFrameworks 中的 Compose 资源
+### XCFrameworks 中的 Compose 资源 {id="compose-resources-in-xcframeworks"}
 
 Compose Multiplatform 现在直接在生成的 XCFrameworks 中嵌入资源。
 您可以将带有资源的 Compose 库作为标准的 XCFrameworks 进行构建和使用。
 
 此功能需要 Kotlin Gradle 插件 2.2 或更高版本。
 
-### 辅助功能支持改进
+### 辅助功能支持改进 {id="accessibility-support-improvements"}
 
-#### 支持从右到左的语言
+#### 支持从右到左的语言 {id="support-for-right-to-left-languages"}
 
 Compose Multiplatform 1.8.2 引入了对从右到左语言的辅助功能支持，
 包括对手势的正确文本方向处理。
 
 要了解有关 RTL 支持的更多信息，请参阅[从右到左的语言](compose-rtl.md)。
 
-#### 可滚动列表的辅助功能
+#### 可滚动列表的辅助功能 {id="accessibility-for-scrollable-lists"}
 
 此版本提高了滚动边界和元素位置计算的性能和准确性。
 通过考虑安全区域（如刘海屏和屏幕边缘），
@@ -268,7 +268,7 @@ Compose Multiplatform 1.8.2 引入了对从右到左语言的辅助功能支持�
 
 还提供了这些播报的本地化版本，允许 VoiceOver 以您选择的语言读取它们。
 
-#### 容器视图的辅助功能
+#### 容器视图的辅助功能 {id="accessibility-for-container-views"}
 
 从 Compose Multiplatform 1.8.2 开始，
 您可以为容器定义遍历语义属性，
@@ -280,7 +280,7 @@ Compose Multiplatform 1.8.2 引入了对从右到左语言的辅助功能支持�
 
 在[辅助功能](compose-accessibility.md#traversal-order)部分了解更多关于遍历语义属性的信息。
 
-#### 可访问的文本输入
+#### 可访问的文本输入 {id="accessible-text-input"}
 
 在 Compose Multiplatform 1.8.2 中，我们引入了对文本字段辅助功能特性的支持。
 当文本输入框获得焦点时，它现在会被标记为可编辑，
@@ -288,7 +288,7 @@ Compose Multiplatform 1.8.2 引入了对从右到左语言的辅助功能支持�
 
 您现在还可以在 UI 测试中使用可访问的文本输入。
 
-#### 支持通过触控板和键盘进行控制
+#### 支持通过触控板和键盘进行控制 {id="support-for-control-via-trackpad-and-keyboard"}
 
 iOS 版 Compose Multiplatform 现在支持两种额外的输入方式来控制您的设备。除了依赖触摸屏外， 
 您还可以启用辅助触控以使用鼠标或触控板，或者启用全键盘控制以使用键盘：
@@ -299,7 +299,7 @@ iOS 版 Compose Multiplatform 现在支持两种额外的输入方式来控制�
 * 全键盘控制（**设置** | **辅助功能** | **键盘** | **全键盘控制**）支持使用连接的键盘控制设备。 
  您可以使用 **Tab** 等键进行导航，并使用 **空格键** 激活项目。
 
-#### 按需加载辅助功能树
+#### 按需加载辅助功能树 {id="loading-accessibility-tree-on-demand"}
 
 现在，您可以依靠 Compose Multiplatform 延迟处理该过程，
 而无需设置 Compose 语义树与 iOS 辅助功能树同步的特定模式。
@@ -311,7 +311,7 @@ iOS 版 Compose Multiplatform 现在支持两种额外的输入方式来控制�
 
 `AccessibilitySyncOptions` 类（曾用于[配置辅助功能树同步](compose-ios-accessibility.md#choose-the-tree-synchronization-option)）已被删除，因为不再需要。
 
-#### 提高了辅助功能属性计算的准确性
+#### 提高了辅助功能属性计算的准确性 {id="improved-accuracy-of-accessibility-property-calculations"}
 
 我们更新了 Compose Multiplatform 组件的辅助功能属性， 
 以匹配 UIKit 组件的预期行为。
@@ -323,13 +323,13 @@ UI 元素现在提供广泛的辅助功能数据，
 例如 `DropDown` 元素缺少点击区域、
 可见文本与辅助功能标签不匹配，以及错误的单选按钮状态。
 
-### 稳定的 iOS 日志记录 API
+### 稳定的 iOS 日志记录 API {id="stable-api-for-ios-logging"}
 
 在 iOS 上启用操作系统日志记录的 API 现已稳定。`enableTraceOSLog()` 函数不再需要 
 实验性选择开启，现在与 Android 风格的日志记录保持一致。此类日志记录提供的跟踪信息可以使用 
 Xcode Instruments 进行分析，以进行调试和性能分析。
 
-### 拖放
+### 拖放 {id="drag-and-drop"}
 <primary-label ref="Experimental"/>
 
 iOS 版 Compose Multiplatform 引入了对拖放功能的支持，
@@ -346,7 +346,7 @@ iOS 版 Compose Multiplatform 引入了对拖放功能的支持，
 有关常见用例，
 请参阅 Jetpack Compose 文档中的[专题文章](https://developer.android.com/develop/ui/compose/touch-input/user-interactions/drag-and-drop)。
 
-### 改进了滚动互操作视图的触摸处理
+### 改进了滚动互操作视图的触摸处理 {id="improved-touch-handling-for-scrolling-interop-views"}
 
 在此版本中：
 
@@ -355,7 +355,7 @@ iOS 版 Compose Multiplatform 引入了对拖放功能的支持，
   当在可滚动的 Compose 视图中滚动原生内容，或在可滚动的原生视图中滚动 Compose 内容时，
   UI 会紧密遵循 iOS 逻辑来解决模糊的触摸序列。
 
-### 选择性开启并发渲染
+### 选择性开启并发渲染 {id="opt-in-concurrent-rendering"}
 <primary-label ref="Experimental"/>
 
 iOS 版 Compose Multiplatform 现在支持将渲染任务卸载到专用的渲染线程。
@@ -376,9 +376,9 @@ fun main(vararg args: String) {
 }
 ```
 
-## Web
+## Web {id="web"}
 
-### Navigation 库中支持的浏览器控件
+### Navigation 库中支持的浏览器控件 {id="browser-controls-supported-in-the-navigation-library"}
 
 在由 Compose Multiplatform 构建的 Kotlin/Wasm 和 Kotlin/JS 应用程序中，
 导航现在可以正确配合基本的浏览器控件工作。
@@ -392,7 +392,7 @@ Web 应用还将操作浏览器地址栏以反映当前的目的地路由，
 `window.bindToNavigation()` 方法具有可选的 `getBackStackEntryPath` 参数，
 允许您自定义将路由字符串转换为 URL 片段的过程。
 
-### 设置浏览器光标
+### 设置浏览器光标 {id="setting-the-browser-cursor"}
 <primary-label ref="Experimental"/>
 
 我们引入了实验性的 `PointerIcon.Companion.fromKeyword()` 函数，用于管理可在浏览器页面上作为鼠标 
@@ -401,7 +401,7 @@ Web 应用还将操作浏览器地址栏以反映当前的目的地路由，
 
 查看可用[关键字](https://developer.mozilla.org/en-US/docs/Web/CSS/cursor)的完整列表。
 
-### 资源预加载
+### 资源预加载 {id="preloading-of-resources"}
 <primary-label ref="Experimental"/>
 
 Compose Multiplatform 1.8.2 引入了新的实验性 API，
@@ -417,9 +417,9 @@ Compose Multiplatform 1.8.2 引入了新的实验性 API，
 
 有关详细信息，请参阅[文档](compose-web-resources.md#preload-resources-using-the-compose-multiplatform-preload-api)。
 
-## Desktop
+## Desktop {id="desktop"}
 
-### Windows 上的软件渲染改进
+### Windows 上的软件渲染改进 {id="software-rendering-improvement-on-windows"}
 
 在 Windows 上为 Skia 切换到推荐的 clang 编译器加快了依赖 CPU 的渲染速度。
 这主要影响纯软件渲染，因为渲染通常依赖于 GPU，只有部分计算在 CPU 上完成。
@@ -428,14 +428,14 @@ Compose Multiplatform 1.8.2 引入了新的实验性 API，
 
 除了对 Windows for ARM64 的支持外，这项改进还使得 macOS 下虚拟 Windows 系统上的 Compose Multiplatform UI 性能显著提高。
 
-### 支持 Windows for ARM64
+### 支持 Windows for ARM64 {id="support-for-windows-for-arm64"}
 
 Compose Multiplatform 1.8.2 引入了对 JVM 上 Windows for ARM64 的支持，
 提高了在基于 ARM 的 Windows 设备上构建和运行应用程序的整体体验。
 
-## Gradle 插件
+## Gradle 插件 {id="gradle-plugin"}
 
-### 更改生成的 Res 类名的选项
+### 更改生成的 Res 类名的选项 {id="option-to-change-the-generated-res-class-name"}
 
 您现在可以自定义生成的资源类的名称，该类提供了对应用中资源的访问。
 自定义命名对于区分多模块项目中的资源特别有用，
@@ -451,7 +451,7 @@ compose.resources {
 
 有关更多详细信息，请参阅 [拉取请求](https://github.com/JetBrains/compose-multiplatform/pull/5296)。
 
-### androidLibrary 目标中对多平台资源的支持
+### androidLibrary 目标中对多平台资源的支持 {id="support-for-multiplatform-resources-in-the-androidlibrary-target"}
 <primary-label ref="Experimental"/>
 
 从 Android Gradle 插件 8.8.0 版开始，您可以在新的 `androidLibrary` 目标中使用生成的资产。 

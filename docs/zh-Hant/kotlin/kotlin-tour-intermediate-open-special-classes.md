@@ -4,7 +4,7 @@
 
 在本章中，您將了解 open 類別、它們如何與介面搭配運作，以及 Kotlin 中提供的其他特殊類別型別。
 
-## Open 類別
+## Open 類別 {id="open-classes"}
 
 如果您無法使用介面或抽象類別，可以透過將類別宣告為 **open**，明確地使其可被繼承。
 若要執行此操作，請在類別宣告前使用 `open` 關鍵字：
@@ -33,13 +33,13 @@ fun main() {
 
 就像建立一般的類別執行個體一樣，如果您的類別繼承自父類別，則它必須初始化父類別標頭中宣告的所有參數。因此在範例中，`Car` 類別的 `car` 執行個體初始化了父類別的參數：`make` 與 `model`。
 
-### 覆寫繼承的行為
+### 覆寫繼承的行為 {id="overriding-inherited-behavior"}
 
 如果您想繼承一個類別但更改某些行為，可以覆寫繼承的行為。
 
 根據預設，無法覆寫父類別的成員函數或屬性。就像抽象類別一樣，您需要加入特殊的關鍵字。
 
-#### 成員函數
+#### 成員函數 {id="member-functions"}
 
 若要允許父類別中的函式被覆寫，請在父類別的宣告前使用 `open` 關鍵字：
 
@@ -89,7 +89,7 @@ fun main() {
 * 覆寫 `Car` 類別中的 `displayInfo()` 函式，使其同時列印車門數量。
 * 在 `car1` 與 `car2` 執行個體上呼叫覆寫後的 `displayInfo()` 函式。
 
-#### 屬性
+#### 屬性 {id="properties"}
 
 在 Kotlin 中，使用 `open` 關鍵字並在之後覆寫屬性使其可繼承並非通用做法。大多數時候，您會使用屬性預設為可繼承的抽象類別或介面。
 
@@ -119,7 +119,7 @@ class Car(make: String, model: String, val numberOfDoors: Int) : Vehicle(make, m
 
 如需更多關於類別繼承和覆寫類別行為的資訊，請參閱[繼承](inheritance.md)。
 
-### Open 類別與介面
+### Open 類別與介面 {id="open-classes-and-interfaces"}
 
 您可以建立一個繼承自某個類別**且**實作多個介面的類別。在這種情況下，您必須在冒號後先宣告父類別，然後才列出介面：
 
@@ -152,11 +152,11 @@ class ElectricCar(
 }
 ```
 
-## 特殊類別
+## 特殊類別 {id="special-classes"}
 
 除了抽象類別、open 類別和資料類別外，Kotlin 還有專為各種目的設計的特殊類別型別，例如限制特定行為或減少建立小物件對效能的影響。
 
-### 密封類別
+### 密封類別 {id="sealed-classes"}
 
 有時您可能想要限制繼承。您可以使用密封類別（sealed classes）來達成此目的。密封類別是一種特殊型別的[抽象類別](kotlin-tour-intermediate-classes-interfaces.md#abstract-classes)。一旦您宣告類別為 sealed，您只能在同一個套件中建立其子類別。在該範圍之外繼承密封類別是不可能的。
 
@@ -207,7 +207,7 @@ fun main() {
 
 如需更多關於密封類別及其建議使用案例的資訊，請參閱[密封類別與介面](sealed-classes.md)。
 
-### 列舉類別
+### 列舉類別 {id="enum-classes"}
 
 當您想在類別中表示有限的唯一值集合時，列舉類別（enum classes）非常有用。列舉類別包含列舉常數，這些常數本身就是列舉類別的執行個體。
 
@@ -303,7 +303,7 @@ fun main() {
 
 如需更多資訊，請參閱[列舉類別](enum-classes.md)。
 
-### 內嵌值類別
+### 內嵌值類別 {id="inline-value-classes"}
 
 有時在程式碼中，您可能想從類別建立小物件並僅簡短地使用它們。這種方法可能會對效能產生影響。內嵌值類別（inline value classes）是一種特殊的類別，可以避免這種效能影響。然而，它們只能包含值。
 
@@ -351,7 +351,7 @@ fun main() {
 
 如需更多關於內嵌值類別的資訊，請參閱[內嵌值類別](inline-classes.md)。
 
-## 練習 {completion-point="true"}
+## 練習 {completion-point="true" id="practice"}
 
 ### 練習 1 {initial-collapse-state="collapsed" collapsible="true" id="special-classes-exercise-1"}
 

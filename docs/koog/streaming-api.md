@@ -47,7 +47,7 @@ Koog 的**流式传输 API** 允许您以 Kotlin 中的 `Flow<StreamFrame>` 或 
 
 本库还提供了辅助程序来提取纯文本、将帧转换为 `Message.Response` 对象，以及安全地**合并分块的工具调用**。
 
-## API 概览
+## API 概览 {id="api-overview"}
 
 通过流式传输，您可以：
 
@@ -59,7 +59,7 @@ Koog 的**流式传输 API** 允许您以 Kotlin 中的 `Flow<StreamFrame>` 或 
 
 您可以直接操作**帧**，也可以操作从帧派生的**纯文本**。
 
-### 增量帧 vs 完整帧
+### 增量帧 vs 完整帧 {id="delta-vs-complete-frames"}
 
 流式传输 API 区分两种类型的帧：
 
@@ -70,9 +70,9 @@ Koog 的**流式传输 API** 允许您以 Kotlin 中的 `Flow<StreamFrame>` 或 
 通常，您会使用增量帧进行 UI 更新，使用完整帧来提取最终的结构化数据。
 
 ---
-## 用法
+## 用法 {id="usage"}
 
-### 直接操作帧
+### 直接操作帧 {id="working-with-frames-directly"}
 
 这是最通用的方法：针对每种帧类型做出反应。
 
@@ -278,7 +278,7 @@ Koog 的**流式传输 API** 允许您以 Kotlin 中的 `Flow<StreamFrame>` 或 
     ```
     <!--- KNIT exampleStreamingApiJava02.java -->
 
-### 操作推理帧
+### 操作推理帧 {id="working-with-reasoning-frames"}
 
 支持推理的模型（如 Claude Sonnet 4.5 或 GPT-o1）在流式传输期间会发送推理帧。您可以访问推理过程及其摘要：
 
@@ -411,7 +411,7 @@ Koog 的**流式传输 API** 允许您以 Kotlin 中的 `Flow<StreamFrame>` 或 
     ```
     <!--- KNIT exampleStreamingApiReasoningJava01.java -->
 
-### 操作原始文本流（派生）
+### 操作原始文本流（派生） {id="working-with-a-raw-text-stream-derived"}
 
 如果您已有期望 `Flow<String>` 的流式解析器，
 可以通过 `filterTextOnly()` 派生文本块，或使用 `collectText()` 收集它们。
@@ -503,7 +503,7 @@ $fullText")
     ```
     <!--- KNIT exampleStreamingApiJava03.java -->
 
-### 在事件处理程序中侦听流事件
+### 在事件处理程序中侦听流事件 {id="listening-to-stream-events-in-event-handlers"}
 
 您可以在[智能体事件处理程序](features/agent-event-handlers.md)中侦听流事件。
 
@@ -594,7 +594,7 @@ $fullText")
     ```
     <!--- KNIT exampleStreamingApiJava04.java -->
 
-### 将帧转换为 `Message.Response`
+### 将帧转换为 `Message.Response` {id="converting-frames-to-message-response"}
 
 您可以将收集到的帧列表转换为标准消息对象：
 
@@ -603,9 +603,9 @@ $fullText")
 - `toToolCallMessages()` — 从工具调用帧中提取 `MessagePart.Tool.Call`
 - `toMessageResponses()` — 将所有完整帧转换为其对应的 `Message.Response` 对象
 
-## 示例
+## 示例 {id="examples"}
 
-### 流式传输时的结构化数据（Markdown 示例）
+### 流式传输时的结构化数据（Markdown 示例） {id="structured-data-while-streaming-markdown-example"}
 
 虽然可以操作原始字符串流，但通常操作[结构化数据](structured-output.md)会更方便。
 
@@ -616,7 +616,7 @@ $fullText")
 
 以下各节提供了与处理结构化数据流相关的分步说明和代码示例。
 
-#### 1. 定义数据结构
+#### 1. 定义数据结构 {id="1-define-your-data-structure"}
 
 首先，定义一个数据类来表示您的结构化数据：
 
@@ -650,7 +650,7 @@ $fullText")
     ```
     <!--- KNIT exampleStreamingApiJava05.java -->
 
-#### 2. 定义 Markdown 结构
+#### 2. 定义 Markdown 结构 {id="2-define-the-markdown-structure"}
 
 使用 `MarkdownStructureDefinition` 类创建一个定义，指定数据在 Markdown 中的结构：
 
@@ -698,7 +698,7 @@ $fullText")
     ```
     <!--- KNIT exampleStreamingApiJava06.java -->
 
-#### 3. 为数据结构创建解析器
+#### 3. 为数据结构创建解析器 {id="3-create-a-parser-for-your-data-structure"}
 
 `markdownStreamingParser` 为不同的 Markdown 元素提供了多个处理程序：
 
@@ -814,7 +814,7 @@ $fullText")
     ```
     <!--- KNIT exampleStreamingApiJava08.java -->
 
-#### 4. 在智能体策略中使用解析器
+#### 4. 在智能体策略中使用解析器 {id="4-use-the-parser-in-your-agent-strategy"}
 
 === "Kotlin"
 
@@ -867,12 +867,12 @@ $fullText")
     ```
     <!--- KNIT exampleStreamingApiJava09.java -->
 
-### 高级用法：配合工具进行流式传输
+### 高级用法：配合工具进行流式传输 {id="advanced-usage-streaming-with-tools"}
 
 您还可以将流式传输 API 与工具结合使用，在数据到达时对其进行处理。
 以下各节提供了有关如何定义工具并在流式传输数据中使用它的简要分步指南。
 
-### 1. 为您的数据结构定义工具
+### 1. 为您的数据结构定义工具 {id="1-define-a-tool-for-your-data-structure"}
 
 === "Kotlin"
 
@@ -932,7 +932,7 @@ $fullText")
     ```
     <!--- KNIT exampleStreamingApiJava10.java -->
 
-### 2. 在流式传输数据中使用该工具
+### 2. 在流式传输数据中使用该工具 {id="2-use-the-tool-with-streaming-data"}
 
 === "Kotlin"
 
@@ -1044,7 +1044,7 @@ $fullText")
     ```
     <!--- KNIT exampleStreamingApiJava11.java -->
 
-### 3. 在智能体配置中注册工具
+### 3. 在智能体配置中注册工具 {id="3-register-the-tool-in-your-agent-configuration"}
 
 === "Kotlin"
 
@@ -1104,7 +1104,7 @@ $fullText")
     ```
     <!--- KNIT exampleStreamingApiJava12.java -->
 
-## 最佳做法
+## 最佳做法 {id="best-practices"}
 
 1. **定义清晰的结构**：为您的数据创建清晰且无歧义的 Markdown 结构。
 

@@ -5,7 +5,7 @@ Koog는 메시지 타입, 순서 및 내용을 제어하여 프롬프트를 생�
 * **Kotlin** 사용자의 경우, 타입 안전(type-safe) Kotlin DSL을 사용합니다.
 * **Java** 사용자의 경우, 플루언트 빌더(fluent builder) API를 사용합니다.
 
-## 기본 구조
+## 기본 구조 {id="basic-structure"}
 
 Kotlin의 `prompt()` 함수 또는 Java의 `Prompt.builder()`는 고유 ID와 메시지 목록을 가진 Prompt 객체를 생성합니다:
 
@@ -37,7 +37,7 @@ Kotlin의 `prompt()` 함수 또는 Java의 `Prompt.builder()`는 고유 ID와 �
     ```
     <!--- KNIT example-creating-prompts-java-01.java -->
 
-## 메시지 타입
+## 메시지 타입 {id="message-types"}
 
 Kotlin DSL과 Java 빌더 API는 대화에서 각각의 특정 역할에 해당하는 다음과 같은 타입의 메시지를 지원합니다:
 
@@ -84,7 +84,7 @@ Kotlin DSL과 Java 빌더 API는 대화에서 각각의 특정 역할에 해당�
     ```
     <!--- KNIT example-creating-prompts-java-02.java -->
 
-### 시스템 메시지
+### 시스템 메시지 {id="system-message"}
 
 시스템 메시지는 LLM의 동작을 정의하고 전체 대화의 컨텍스트를 설정합니다.
 모델의 역할, 어조를 지정할 수 있으며, 응답에 대한 가이드라인과 제약 조건, 응답 예시 등을 제공할 수 있습니다.
@@ -119,7 +119,7 @@ Kotlin DSL과 Java 빌더 API는 대화에서 각각의 특정 역할에 해당�
     ```
     <!--- KNIT example-creating-prompts-java-03.java -->
 
-### 사용자 메시지
+### 사용자 메시지 {id="user-messages"}
 
 사용자 메시지는 사용자의 입력을 나타냅니다.
 사용자 메시지를 생성하려면 Kotlin의 `user()` 함수 또는 Java 메서드에 인자로 문자열을 전달합니다:
@@ -157,7 +157,7 @@ Kotlin DSL과 Java 빌더 API는 대화에서 각각의 특정 역할에 해당�
 대부분의 사용자 메시지는 일반 텍스트를 포함하지만, 이미지, 오디오, 비디오 및 문서와 같은 멀티모달(multimodal) 콘텐츠를 포함할 수도 있습니다.
 자세한 내용과 예시는 [Multimodal content](multimodal-content.md)를 참고하세요.
 
-### 어시스턴트 메시지
+### 어시스턴트 메시지 {id="assistant-messages"}
 
 어시스턴트 메시지는 LLM의 응답을 나타내며, 향후 유사한 상호작용을 위한 퓨샷 러닝, 대화 지속 또는 예상되는 출력 구조를 보여주는 데 사용될 수 있습니다.
 
@@ -221,7 +221,7 @@ Kotlin DSL과 Java 빌더 API는 대화에서 각각의 특정 역할에 해당�
     ```
     <!--- KNIT example-creating-prompts-java-05.java -->
 
-### 도구 메시지
+### 도구 메시지 {id="tool-messages"}
 
 도구 메시지는 도구 호출과 그 결과를 나타내며, 도구 호출 이력을 미리 채워 넣는 데 사용될 수 있습니다.
 
@@ -284,7 +284,7 @@ Kotlin DSL과 Java 빌더 API는 대화에서 각각의 특정 역할에 해당�
     ```
     <!--- KNIT example-creating-prompts-java-06.java -->
 
-## 텍스트 메시지 빌더
+## 텍스트 메시지 빌더 {id="text-message-builders"}
 
 !!! warning
     텍스트 메시지 빌더는 Kotlin에서만 사용할 수 있습니다.
@@ -358,7 +358,7 @@ Kotlin DSL과 Java 빌더 API는 대화에서 각각의 특정 역할에 해당�
 !!! tip
     텍스트 빌딩 함수를 XML 및 Markdown 빌더와 혼합하여 사용할 수 있습니다.
 
-## 프롬프트 파라미터
+## 프롬프트 파라미터 {id="prompt-parameters"}
 
 LLM의 동작을 제어하는 파라미터를 설정하여 프롬프트를 커스터마이징할 수 있습니다.
 
@@ -427,7 +427,7 @@ LLM의 동작을 제어하는 파라미터를 설정하여 프롬프트를 커�
 
 자세한 내용은 [LLM parameters](../../llm-parameters.md)를 참고하세요.
 
-## 기존 프롬프트 확장하기
+## 기존 프롬프트 확장하기 {id="extending-existing-prompts"}
 
 기존 프롬프트를 인자로 하여 Kotlin의 `prompt()` 함수 또는 Java의 `Prompt.builder()`를 호출함으로써 기존 프롬프트를 확장할 수 있습니다:
 
@@ -473,7 +473,7 @@ LLM의 동작을 제어하는 파라미터를 설정하여 프롬프트를 커�
 
 이렇게 하면 `basePrompt`의 모든 메시지와 새로운 사용자 메시지를 포함하는 새 프롬프트가 생성됩니다.
 
-## 다음 단계
+## 다음 단계 {id="next-steps"}
 
 - [멀티모달 콘텐츠](multimodal-content.md) 작업 방법을 알아보세요.
 - 단일 LLM 제공업체를 사용하는 경우 [LLM 클라이언트](../llm-clients.md)로 프롬프트를 실행해 보세요.

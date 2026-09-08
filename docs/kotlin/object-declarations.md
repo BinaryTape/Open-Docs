@@ -15,7 +15,7 @@
 * **临时修改现有类的行为：** 你希望修改现有类的行为而不需要创建一个新的子类。例如，为特定操作向对象添加临时功能。
 * **需要类型安全设计：** 你需要使用对象表达式对接口或[抽象类](classes.md#abstract-classes)进行一次性实现。这对于按钮点击处理程序之类的场景非常有用。
 
-## 对象声明
+## 对象声明 {id="object-declarations"}
 {id="object-declarations-overview"}
 
 你可以使用对象声明在 Kotlin 中创建对象的单个实例，对象声明在 `object` 关键字之后始终有一个名称。
@@ -96,7 +96,7 @@ val myObject = object MySingleton {
 对象声明不能是局部的，这意味着它们不能直接嵌套在函数内部。
 但是，它们可以嵌套在其他对象声明或非内部类中。
 
-### 数据对象
+### 数据对象 {id="data-objects"}
 
 在 Kotlin 中打印普通对象声明时，其字符串表示形式包含其名称和 `object` 的哈希值：
 
@@ -177,14 +177,14 @@ fun createInstanceViaReflection(): MySingleton {
 
 生成的 `hashCode()` 函数的行为与 `equals()` 函数一致，因此 `data object` 的所有运行时实例都具有相同的哈希码。
 
-#### 数据对象与数据类之间的区别
+#### 数据对象与数据类之间的区别 {id="differences-between-data-objects-and-data-classes"}
 
 虽然 `data object` 和 `data class` 声明经常一起使用并且具有一些相似之处，但有些函数不会为 `data object` 生成：
 
 * 没有 `copy()` 函数。因为 `data object` 声明旨在用作单例，所以不会生成 `copy()` 函数。单例将类的实例化限制为单个实例，如果允许创建该实例的副本，则会违反这一原则。
 * 没有 `componentN()` 函数。与 `data class` 不同，`data object` 没有任何数据属性。由于尝试在没有数据属性的情况下析构此类对象没有意义，因此不会生成 `componentN()` 函数。
 
-#### 将数据对象用于密封层次结构
+#### 将数据对象用于密封层次结构 {id="use-data-objects-with-sealed-hierarchies"}
 
 数据对象声明对于像[密封类或密封接口](sealed-classes.md)之类的密封层次结构特别有用。
 它们允许你保持与你可能在对象旁边定义的任何数据类的对称性。
@@ -207,7 +207,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="data-objects-sealed-hierarchies"}
 
-### 伴生对象
+### 伴生对象 {id="companion-objects"}
 
 *伴生对象* (companion objects) 允许你定义类级函数和属性。
 这使得创建工厂方法、保存常量和访问共享工具变得容易。
@@ -337,13 +337,13 @@ fun main() {
 但是，在 JVM 上，如果你使用 `@JvmStatic` 注解，可以将伴生对象的成员生成为真正的静态方法和字段。
 有关更多详细信息，请参见 [Java 互操作性](java-to-kotlin-interop.md#static-fields)部分。
 
-## 对象表达式
+## 对象表达式 {id="object-expressions"}
 
 对象表达式声明一个类并创建该类的实例，但不对两者进行命名。
 这些类对于一次性使用非常有用。它们既可以从头开始创建，也可以继承自现有类，
 或实现接口。这些类的实例也称为*匿名对象* (anonymous objects)，因为它们是由表达式定义的，而不是由名称定义的。
 
-### 从头开始创建匿名对象
+### 从头开始创建匿名对象 {id="create-anonymous-objects-from-scratch"}
 
 对象表达式以 `object` 关键字开头。
 
@@ -367,7 +367,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="object-expression-object"}
 
-### 从超类型继承匿名对象
+### 从超类型继承匿名对象 {id="inherit-anonymous-objects-from-supertypes"}
 
 要创建一个继承自某些类型（或多个类型）的匿名对象，请在 `object` 和冒号 `:` 之后指定该类型。
 然后实现或重写该类的成员，就像你正在[继承](inheritance.md)它一样：
@@ -422,7 +422,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="object-expression-anonymous-object"}
 
-### 将匿名对象用作返回值和值类型
+### 将匿名对象用作返回值和值类型 {id="use-anonymous-objects-as-return-and-value-types"}
 
 当你从局部或 [`private`](visibility-modifiers.md#packages) 函数或属性返回匿名对象时，
 该匿名对象的所有成员都可以通过该函数或属性访问：
@@ -518,7 +518,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="object-expression-object-override"}
 
-### 从匿名对象访问变量
+### 从匿名对象访问变量 {id="access-variables-from-anonymous-objects"}
 
 对象表达式主体内的代码可以访问来自封闭作用域的变量：
 
@@ -545,7 +545,7 @@ fun countClicks(window: JComponent) {
 }
 ```
 
-## 对象声明与表达式之间的行为差异
+## 对象声明与表达式之间的行为差异 {id="behavior-difference-between-object-declarations-and-expressions"}
 
 对象声明和对象表达式在初始化行为方面存在差异：
 

@@ -122,7 +122,7 @@ dependencies {
 `tc.native.classifier` 应为以下之一：`linux-x86_64`、`osx-x86_64` 或 `windows-x86_64`。
 [http2-netty](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/http2-netty) 可运行示例演示了如何为 Netty 启用 HTTP/2 支持。
 
-#### 不带 TLS 的 HTTP/2
+#### 不带 TLS 的 HTTP/2 {id="http-2-without-tls"}
 
 Netty 引擎还支持 [明文 HTTP/2 (h2c)](https://httpwg.org/specs/rfc7540.html#discover-http)。
 这允许在不使用 TLS 的情况下进行 HTTP/2 通信，通常用于不需要加密的私有网络中。

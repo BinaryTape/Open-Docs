@@ -2,7 +2,7 @@
 
 Kotlin でよく使われる慣用句（イディオム）のコレクションです。お気に入りのイディオムがあれば、プルリクエストを送って貢献してください。
 
-## DTO (POJO/POCO) の作成
+## DTO (POJO/POCO) の作成 {id="create-dtos-pojos-pocos"}
 
 ```kotlin
 data class Customer(val name: String, val email: String)
@@ -17,13 +17,13 @@ data class Customer(val name: String, val email: String)
 * `copy()`
 * すべてのプロパティに対応する `component1()`, `component2()`, ..., （[データクラス](data-classes.md)を参照）
 
-## 関数の引数のデフォルト値
+## 関数の引数のデフォルト値 {id="default-values-for-function-parameters"}
 
 ```kotlin
 fun foo(a: Int = 0, b: String = "") { ... }
 ```
 
-## リストのフィルタリング
+## リストのフィルタリング {id="filter-a-list"}
 
 ```kotlin
 val positives = list.filter { x -> x > 0 }
@@ -37,7 +37,7 @@ val positives = list.filter { it > 0 }
 
 [Java と Kotlin でのフィルタリングの違い](java-to-kotlin-collections-guide.md#filter-elements)を学びましょう。
 
-## コレクション内に要素が存在するかどうかの確認
+## コレクション内に要素が存在するかどうかの確認 {id="check-the-presence-of-an-element-in-a-collection"}
 
 ```kotlin
 if ("john@example.com" in emailsList) { ... }
@@ -45,7 +45,7 @@ if ("john@example.com" in emailsList) { ... }
 if ("jane@example.com" !in emailsList) { ... }
 ```
 
-## 文字列の補完 (String interpolation)
+## 文字列の補完 (String interpolation) {id="string-interpolation"}
 
 ```kotlin
 println("Name $name")
@@ -53,7 +53,7 @@ println("Name $name")
 
 [Java と Kotlin での文字列結合の違い](java-to-kotlin-idioms-strings.md#concatenate-strings)を学びましょう。
 
-## 標準入力を安全に読み込む
+## 標準入力を安全に読み込む {id="read-standard-input-safely"}
 
 ```kotlin
 // 文字列を読み込み、整数に変換できない場合は null を返します。例: Hi there!
@@ -69,7 +69,7 @@ println(correctInt)
 
 詳細については、[標準入力の読み込み](read-standard-input.md)を参照してください。
 
-## インスタンスのチェック
+## インスタンスのチェック {id="instance-checks"}
 
 ```kotlin
 when (x) {
@@ -79,25 +79,25 @@ when (x) {
 }
 ```
 
-## 読み取り専用リスト
+## 読み取り専用リスト {id="read-only-list"}
 
 ```kotlin
 val list = listOf("a", "b", "c")
 ```
-## 読み取り専用マップ
+## 読み取り専用マップ {id="read-only-map"}
 
 ```kotlin
 val map = mapOf("a" to 1, "b" to 2, "c" to 3)
 ```
 
-## マップのエントリへのアクセス
+## マップのエントリへのアクセス {id="access-a-map-entry"}
 
 ```kotlin
 println(map["key"])
 map["key"] = value
 ```
 
-## マップまたはペアのリストの反復処理
+## マップまたはペアのリストの反復処理 {id="traverse-a-map-or-a-list-of-pairs"}
 
 ```kotlin
 for ((k, v) in map) {
@@ -107,7 +107,7 @@ for ((k, v) in map) {
 
 `k` と `v` は、`name` と `age` のように、使いやすい任意の名前を使用できます。
 
-## 範囲（Range）の反復処理
+## 範囲（Range）の反復処理 {id="iterate-over-a-range"}
 
 ```kotlin
 for (i in 1..100) { ... }  // 閉区間（closed-ended range）: 100を含む
@@ -117,7 +117,7 @@ for (x in 10 downTo 1) { ... }
 (1..10).forEach { ... }
 ```
 
-## 遅延プロパティ (Lazy property)
+## 遅延プロパティ (Lazy property) {id="lazy-property"}
 
 ```kotlin
 val p: String by lazy { // 値は最初のアクセス時にのみ計算されます
@@ -125,7 +125,7 @@ val p: String by lazy { // 値は最初のアクセス時にのみ計算され�
 }
 ```
 
-## 拡張関数
+## 拡張関数 {id="extension-functions"}
 
 ```kotlin
 fun String.spaceToCamelCase() { ... }
@@ -133,7 +133,7 @@ fun String.spaceToCamelCase() { ... }
 "Convert this to camelcase".spaceToCamelCase()
 ```
 
-## シングルトンの作成
+## シングルトンの作成 {id="create-a-singleton"}
 
 ```kotlin
 object Resource {
@@ -141,7 +141,7 @@ object Resource {
 }
 ```
 
-## 型安全な値のためのインライン値クラスの使用
+## 型安全な値のためのインライン値クラスの使用 {id="use-inline-value-classes-for-type-safe-values"}
 
 ```kotlin
 @JvmInline
@@ -157,7 +157,7 @@ value class CustomerId(private val id: String)
 >
 {style="note"}
 
-## 抽象クラスのインスタンス化
+## 抽象クラスのインスタンス化 {id="instantiate-an-abstract-class"}
 
 ```kotlin
 abstract class MyAbstractClass {
@@ -178,7 +178,7 @@ fun main() {
 }
 ```
 
-## if-not-null の短縮表記
+## if-not-null の短縮表記 {id="if-not-null-shorthand"}
 
 ```kotlin
 val files = File("Test").listFiles()
@@ -186,7 +186,7 @@ val files = File("Test").listFiles()
 println(files?.size) // files が null でない場合に size が出力されます
 ```
 
-## if-not-null-else の短縮表記
+## if-not-null-else の短縮表記 {id="if-not-null-else-shorthand"}
 
 ```kotlin
 val files = File("Test").listFiles()
@@ -202,14 +202,14 @@ val filesSize = files?.size ?: run {
 println(filesSize)
 ```
 
-## null の場合に式を実行する
+## null の場合に式を実行する {id="execute-an-expression-if-null"}
 
 ```kotlin
 val values = ...
 val email = values["email"] ?: throw IllegalStateException("Email is missing!")
 ```
 
-## 空である可能性があるコレクションから最初の要素を取得する
+## 空である可能性があるコレクションから最初の要素を取得する {id="get-first-item-of-a-possibly-empty-collection"}
 
 ```kotlin
 val emails = ... // 空の可能性があります
@@ -218,7 +218,7 @@ val mainEmail = emails.firstOrNull() ?: ""
 
 [Java と Kotlin での最初の要素の取得の違い](java-to-kotlin-collections-guide.md#get-the-first-and-the-last-items-of-a-possibly-empty-collection)を学びましょう。
 
-## null でない場合に実行する
+## null でない場合に実行する {id="execute-if-not-null"}
 
 ```kotlin
 val value = ...
@@ -228,7 +228,7 @@ value?.let {
 }
 ```
 
-## nullable な値を null でない場合にマップする
+## nullable な値を null でない場合にマップする {id="map-nullable-value-if-not-null"}
 
 ```kotlin
 val value = ...
@@ -237,7 +237,7 @@ val mapped = value?.let { transformValue(it) } ?: defaultValue
 // 値または変換結果が null の場合、defaultValue が返されます。
 ```
 
-## when 文の結果を返す
+## when 文の結果を返す {id="return-on-when-statement"}
 
 ```kotlin
 fun transform(color: String): Int {
@@ -250,7 +250,7 @@ fun transform(color: String): Int {
 }
 ```
 
-## try-catch 式
+## try-catch 式 {id="try-catch-expression"}
 
 ```kotlin
 fun test() {
@@ -264,7 +264,7 @@ fun test() {
 }
 ```
 
-## if 式
+## if 式 {id="if-expression"}
 
 ```kotlin
 val y = if (x == 1) {
@@ -276,7 +276,7 @@ val y = if (x == 1) {
 }
 ```
 
-## Unit を返すメソッドのビルダー形式での使用
+## Unit を返すメソッドのビルダー形式での使用 {id="builder-style-usage-of-methods-that-return-unit"}
 
 ```kotlin
 fun arrayOfMinusOnes(size: Int): IntArray {
@@ -284,7 +284,7 @@ fun arrayOfMinusOnes(size: Int): IntArray {
 }
 ```
 
-## 単一式関数 (Single-expression functions)
+## 単一式関数 (Single-expression functions) {id="single-expression-functions"}
 
 ```kotlin
 fun theAnswer() = 42
@@ -309,7 +309,7 @@ fun transform(color: String): Int = when (color) {
 }
 ```
 
-## オブジェクトインスタンスの複数のメソッドを呼び出す (with)
+## オブジェクトインスタンスの複数のメソッドを呼び出す (with) {id="call-multiple-methods-on-an-object-instance-with"}
 
 ```kotlin
 class Turtle {
@@ -330,7 +330,7 @@ with(myTurtle) { // 100ピクセルの正方形を描く
 }
 ```
 
-## オブジェクトのプロパティを構成する (apply)
+## オブジェクトのプロパティを構成する (apply) {id="configure-properties-of-an-object-apply"}
 
 ```kotlin
 val myRectangle = Rectangle().apply {
@@ -342,7 +342,7 @@ val myRectangle = Rectangle().apply {
 
 これは、オブジェクトのコンストラクタに含まれていないプロパティを構成するのに便利です。
 
-## Java 7 の try-with-resources
+## Java 7 の try-with-resources {id="java-7-s-try-with-resources"}
 
 ```kotlin
 val stream = Files.newInputStream(Paths.get("/some/file.txt"))
@@ -351,7 +351,7 @@ stream.buffered().reader().use { reader ->
 }
 ```
 
-## ジェネリック型情報を必要とするジェネリック関数
+## ジェネリック型情報を必要とするジェネリック関数 {id="generic-function-that-requires-the-generic-type-information"}
 
 ```kotlin
 //  public final class Gson {
@@ -362,7 +362,7 @@ stream.buffered().reader().use { reader ->
 inline fun <reified T: Any> Gson.fromJson(json: JsonElement): T = this.fromJson(json, T::class.java)
 ```
 
-## 2つの変数の入れ替え
+## 2つの変数の入れ替え {id="swap-two-variables"}
 
 ```kotlin
 var a = 1
@@ -370,7 +370,7 @@ var b = 2
 a = b.also { b = a }
 ```
 
-## コードを未完了としてマークする (TODO)
+## コードを未完了としてマークする (TODO) {id="mark-code-as-incomplete-todo"}
  
 Kotlin の標準ライブラリには、常に `NotImplementedError` をスローする `TODO()` 関数があります。
 その戻り値の型は `Nothing` であるため、期待される型に関係なく使用できます。
@@ -382,7 +382,7 @@ fun calcTaxes(): BigDecimal = TODO("Waiting for feedback from accounting")
 
 IntelliJ IDEA の Kotlin プラグインは `TODO()` のセマンティクスを理解し、TODO ツールウィンドウに自動的にコードポインタを追加します。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * イディオムに従った Kotlin スタイルを使用して [Advent of Code のパズル](advent-of-code.md)を解く。
 * [Java と Kotlin での文字列に関する一般的なタスク](java-to-kotlin-idioms-strings.md)の実行方法を学ぶ。

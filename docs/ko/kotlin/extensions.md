@@ -6,7 +6,7 @@ Kotlin의 _확장(extensions)_을 사용하면 상속이나 데코레이터(Deco
 
 중요한 점은 확장이 확장하려는 클래스나 인터페이스를 실제로 수정하지 않는다는 것입니다. 확장을 정의할 때 새로운 멤버를 추가하는 것이 아니라, 동일한 구문을 사용하여 호출할 수 있는 새로운 함수나 액세스 가능한 새로운 프로퍼티를 만드는 것입니다.
 
-## 수신 객체(Receivers)
+## 수신 객체(Receivers) {id="receivers"}
 
 확장은 항상 수신 객체(receiver)에서 호출됩니다. 수신 객체는 확장되는 클래스나 인터페이스와 동일한 타입이어야 합니다. 확장을 사용하려면 수신 객체 뒤에 `.`과 함수 또는 프로퍼티 이름을 붙입니다.
 
@@ -30,7 +30,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-extension-function-stringbuilder"}
 
-## 확장 함수(Extension functions)
+## 확장 함수(Extension functions) {id="extension-functions"}
 
 자신만의 확장 함수를 만들기 전에, 원하는 기능이 이미 Kotlin [표준 라이브러리](https://kotlinlang.org/api/core/kotlin-stdlib/)에 있는지 확인해 보세요. 표준 라이브러리는 다음과 같은 작업에 유용한 많은 확장 함수를 제공합니다.
 
@@ -104,7 +104,7 @@ fun main() {
 
 `.mostVoted()` 함수는 호출된 맵의 키-값 쌍을 반복하고 [`maxByOrNull()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/max-by-or-null.html) 함수를 사용하여 가장 높은 값을 가진 쌍의 키를 반환합니다. 맵이 비어 있으면 `maxByOrNull()` 함수는 `null`을 반환합니다. `mostVoted()` 함수는 안전한 호출(safe call) `?.`을 사용하여 `maxByOrNull()` 함수가 null이 아닌 값을 반환할 때만 `key` 프로퍼티에 액세스합니다.
 
-### 제네릭 확장 함수(Generic extension functions)
+### 제네릭 확장 함수(Generic extension functions) {id="generic-extension-functions"}
 
 제네릭 확장 함수를 만들려면 함수 이름 앞에 제네릭 타입 파라미터를 선언하여 수신 객체 타입 표현식에서 사용할 수 있게 합니다. 이 예제에서 `.endpoints()` 함수는 `T`가 어떤 타입이든 될 수 있는 `List<T>`를 확장합니다.
 
@@ -132,7 +132,7 @@ fun main() {
 
 제네릭에 대한 자세한 내용은 [제네릭 함수](generics.md)를 참조하세요.
 
-### Nullable 수신 객체(Nullable receivers)
+### Nullable 수신 객체(Nullable receivers) {id="nullable-receivers"}
 
 Nullable 수신 객체 타입으로 확장 함수를 정의할 수 있으며, 이를 통해 변수의 값이 null인 경우에도 해당 함수를 호출할 수 있습니다. 수신 객체가 `null`인 경우 `this`도 `null`이 됩니다. 함수 내부에서 null 가능성을 올바르게 처리해야 합니다. 예를 들어, 함수 본문 내에서 `this == null` 체크, [안전한 호출 `?.`](null-safety.md#safe-call-operator) 또는 [엘비스 연산자 `?:`](null-safety.md#elvis-operator)를 사용하세요.
 
@@ -161,7 +161,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-extension-function-nullable-receiver"}
 
-### 확장 함수인가 멤버 함수인가?
+### 확장 함수인가 멤버 함수인가? {id="extension-or-member-functions"}
 
 확장 함수와 멤버 함수 호출은 동일한 표기법을 사용하는데, 컴파일러는 어느 것을 사용할지 어떻게 알까요?
 확장 함수는 _정적으로(statically)_ 디스패치됩니다. 즉, 컴파일러가 컴파일 타임에 수신 객체 타입을 기반으로 어떤 함수를 호출할지 결정합니다. 예를 들어:
@@ -229,7 +229,7 @@ fun main() {
 
 이 예제에서는 `.printFunctionType()` 함수에 `Int`가 전달되므로, 컴파일러는 시그니처가 일치하는 확장 함수를 선택합니다. 컴파일러는 인자를 받지 않는 멤버 함수를 무시합니다.
 
-### 익명 확장 함수(Anonymous extension functions)
+### 익명 확장 함수(Anonymous extension functions) {id="anonymous-extension-functions"}
 
 확장 함수에 이름을 붙이지 않고 정의할 수 있습니다. 이는 글로벌 네임스페이스를 어지럽히고 싶지 않거나 확장 동작을 파라미터로 전달해야 할 때 유용합니다.
 
@@ -269,7 +269,7 @@ fun main() {
 
 자세한 내용은 [람다 식 및 익명 함수](lambdas.md)를 참조하세요.
 
-## 확장 프로퍼티(Extension properties)
+## 확장 프로퍼티(Extension properties) {id="extension-properties"}
 
 Kotlin은 확장 프로퍼티를 지원하며, 이는 작업 중인 클래스를 어지럽히지 않고 데이터 변환을 수행하거나 UI 디스플레이 헬퍼를 만드는 데 유용합니다.
 
@@ -330,7 +330,7 @@ fun main() {
 
 이 예제에서 게터는 [엘비스 연산자](null-safety.md#elvis-operator)를 사용하여 `houseNumbers` 맵에 집 번호가 있으면 이를 반환하고, 없으면 `1`을 반환합니다. 게터와 세터를 작성하는 방법에 대한 자세한 내용은 [커스텀 게터와 세터](properties.md#custom-getters-and-setters)를 참조하세요.
 
-## 컴패니언 객체 확장(Companion object extensions)
+## 컴패니언 객체 확장(Companion object extensions) {id="companion-object-extensions"}
 
 클래스에 [컴패니언 객체(companion object)](object-declarations.md#companion-objects)가 정의되어 있다면, 컴패니언 객체에 대한 확장 함수와 프로퍼티도 정의할 수 있습니다. 컴패니언 객체의 일반 멤버와 마찬가지로 클래스 이름만 수식어로 사용하여 호출할 수 있습니다. 컴파일러는 컴패니언 객체의 이름을 기본적으로 `Companion`으로 지정합니다.
 
@@ -350,7 +350,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-extension-function-companion-object"}
 
-## 확장을 멤버로 선언하기
+## 확장을 멤버로 선언하기 {id="declaring-extensions-as-members"}
 
 한 클래스 안에 다른 클래스에 대한 확장을 선언할 수 있습니다. 이러한 확장은 여러 개의 _암시적 수신 객체(implicit receivers)_를 가집니다. 암시적 수신 객체란 [`this`](this-expressions.md#qualified-this)를 붙여 수식하지 않고도 멤버에 액세스할 수 있는 객체입니다.
 
@@ -410,7 +410,7 @@ class Connection {
 }
 ```
 
-### 멤버 확장 오버라이딩(Overriding member extensions)
+### 멤버 확장 오버라이딩(Overriding member extensions) {id="overriding-member-extensions"}
 
 멤버 확장을 `open`으로 선언하고 서브클래스에서 오버라이드할 수 있습니다. 이는 각 서브클래스에 대해 확장의 동작을 커스텀하고 싶을 때 유용합니다. 컴파일러는 각 수신 객체 타입을 다르게 처리합니다.
 
@@ -475,7 +475,7 @@ fun main() {
 
 디스패치 수신 객체는 가상 디스패치를 사용하여 런타임에 결정되므로 `main()` 함수의 동작을 이해하기 쉽습니다. 놀라운 점은 `Admin` 인스턴스에서 `notify()` 함수를 호출할 때, 컴파일러가 확장 수신 객체를 정적으로 결정하기 때문에 선언된 타입인 `user: User`를 기반으로 확장을 선택한다는 것입니다.
 
-## 확장과 가시성 수정자(Extensions and visibility modifiers)
+## 확장과 가시성 수정자(Extensions and visibility modifiers) {id="extensions-and-visibility-modifiers"}
 
 확장은 동일한 스코프에 선언된 일반 함수와 동일한 [가시성 수정자(visibility modifiers)](visibility-modifiers.md)를 사용합니다. 이는 다른 클래스의 멤버로 선언된 확장에도 적용됩니다.
 
@@ -540,7 +540,7 @@ internal fun String.parseJson(): Map<String, Any> {
 }
 ```
 
-## 확장의 범위(Scope of extensions)
+## 확장의 범위(Scope of extensions) {id="scope-of-extensions"}
 
 대부분의 경우 확장은 패키지 바로 아래의 최상위 레벨에서 정의합니다.
 

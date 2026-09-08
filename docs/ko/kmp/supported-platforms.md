@@ -4,7 +4,7 @@
 
 이 페이지는 프로젝트의 요구 사항에 맞는 플랫폼을 식별하는 데 도움이 되는 정보와 해당 플랫폼의 안정성 단계에 대한 세부 정보를 제공합니다.
 
-## 코틀린의 일반적인 안정성 단계
+## 코틀린의 일반적인 안정성 단계 {id="general-kotlin-stability-levels"}
 
 다음은 코틀린의 안정성 단계와 그 의미에 대한 빠른 가이드입니다.
 
@@ -28,7 +28,7 @@
 
 * 완성이 완료되었습니다. 코틀린의 엄격한 [하위 호환성 규칙(backward compatibility rules)](https://kotlinfoundation.org/language-committee-guidelines/)에 따라 발전시켜 나갈 것입니다.
 
-### 핵심 코틀린 멀티플랫폼 기술의 현재 플랫폼 안정성 단계
+### 핵심 코틀린 멀티플랫폼 기술의 현재 플랫폼 안정성 단계 {id="current-platform-stability-levels-for-the-core-kotlin-multiplatform-technology"}
 
 다음은 핵심 코틀린 멀티플랫폼 기술의 현재 플랫폼별 안정성 단계입니다.
 
@@ -46,7 +46,7 @@
 * 코틀린 멀티플랫폼은 여기에 나열된 것보다 더 많은 네이티브 플랫폼을 지원합니다. 각 플랫폼에 대한 지원 수준을 이해하려면 [Kotlin/Native 대상 지원](https://kotlinlang.org/docs/native-target-support.html)을 참조하세요.
 * 코틀린 멀티플랫폼과 같은 코틀린 구성 요소의 안정성 단계에 대한 자세한 정보는 [코틀린 구성 요소의 현재 안정성](https://kotlinlang.org/docs/components-stability.html#current-stability-of-kotlin-components)을 참조하세요.
 
-## 컴포즈 멀티플랫폼 UI 프레임워크 안정성 단계
+## 컴포즈 멀티플랫폼 UI 프레임워크 안정성 단계 {id="compose-multiplatform-ui-framework-stability-levels"}
 
 다음은 컴포즈 멀티플랫폼 UI 프레임워크의 플랫폼 안정성 단계와 그 의미에 대한 빠른 가이드입니다.
 
@@ -71,7 +71,7 @@
 * 프레임워크 자체의 성능 문제나 다른 이슈 없이 아름답고 출시 가능한(production-ready) 애플리케이션을 작성할 수 있는 포괄적인 API 노출 범위(API surface)를 제공합니다.
 * API의 파괴적 변경은 공식 지원 중단 발표 후 2개 버전이 지난 후에만 가능합니다.
 
-### 컴포즈 멀티플랫폼 UI 프레임워크의 현재 플랫폼 안정성 단계
+### 컴포즈 멀티플랫폼 UI 프레임워크의 현재 플랫폼 안정성 단계 {id="current-platform-stability-levels-for-compose-multiplatform-ui-framework"}
 
 | 플랫폼 | 안정성 단계 |
 |--------------------------|-----------------|
@@ -80,6 +80,6 @@
 | Desktop (JVM)            | Stable          |
 | Web based on Kotlin/Wasm | Beta            |
 
-## 다음 단계는?
+## 다음 단계는? {id="what-s-next"}
 
 다양한 플랫폼 조합에서 코드 공유 시나리오에 더 적합한 IDE가 무엇인지 알아보려면 [권장 IDE(Recommended IDEs)](recommended-ides.md)를 참조하세요.

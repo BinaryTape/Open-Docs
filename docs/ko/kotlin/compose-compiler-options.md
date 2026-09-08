@@ -28,7 +28,7 @@ composeCompiler {
 >
 {style="warning"}
 
-## 기능 플래그의 목적 및 사용
+## 기능 플래그의 목적 및 사용 {id="purpose-and-use-of-feature-flags"}
 
 기능 플래그는 새로운 플래그가 계속 출시되고 지원 중단(deprecated)됨에 따라 최상위 속성(top-level properties)에 대한 변경을 최소화하기 위해 별도의 옵션 세트로 구성됩니다.
 

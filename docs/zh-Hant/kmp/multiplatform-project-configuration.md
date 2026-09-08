@@ -13,7 +13,7 @@
 
 回答這些問題將幫助您為專案挑選最佳配置。
 
-## 將 Kotlin Multiplatform 模組連接至 iOS 應用程式
+## 將 Kotlin Multiplatform 模組連接至 iOS 應用程式 {id="connect-a-kotlin-multiplatform-module-to-an-ios-app"}
 
 要從 iOS 應用程式使用 Kotlin Multiplatform 共享模組，您首先需要從該共享模組產生一個 [iOS 架構](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPFrameworks/Concepts/WhatAreFrameworks.html)。然後，您應該將其作為相依性新增到 iOS 專案中。
 
@@ -24,11 +24,11 @@
 
 要查看 iOS 整合的所有可用選項，請參閱 [iOS 整合方法](multiplatform-ios-integration-overview.md)。
 
-## 模組配置
+## 模組配置 {id="module-configurations"}
 
 您可以在 Kotlin Multiplatform 專案中使用兩種模組配置選項：單一模組或多個共享模組。
 
-### 單一共享模組
+### 單一共享模組 {id="single-shared-module"}
 
 最簡單的模組配置在專案中僅包含一個單一的共享 Kotlin Multiplatform 模組：
 
@@ -61,7 +61,7 @@ Android 應用程式可以像依賴一般 Kotlin 模組一樣依賴 Kotlin Multi
 
 </table>
 
-### 多個共享模組
+### 多個共享模組 {id="several-shared-modules"}
 
 隨著共享模組的增長，將其拆分為功能模組是一個好主意。這可以幫助您避免因僅有一個模組而導致的擴展性問題。
 
@@ -112,7 +112,7 @@ Android 應用程式可以為了保持一致性而依賴於傘型模組，也可
 >
 {style="tip"}
 
-#### 為什麼需要傘型架構？ {initial-collapse-state="collapsed" collapsible="true"}
+#### 為什麼需要傘型架構？ {initial-collapse-state="collapsed" collapsible="true" id="why-do-you-need-an-umbrella-framework"}
 
 雖然可以在 iOS 應用程式中包含多個從不同 Kotlin Multiplatform 共享模組產生的架構，但我們不建議這樣做。當 Kotlin Multiplatform 模組被編譯為架構時，產生的架構會包含其所有的相依性。每當兩個或多個模組使用相同的相依性，並作為獨立的架構暴露給 iOS 時，Kotlin/Native 編譯器就會重複這些相依性。
 
@@ -122,11 +122,11 @@ Kotlin 不會產生通用的架構相依性，否則會產生重複，且您新�
 
 此問題的解決方案是使用傘型架構。它可以防止 iOS 應用程式因重複相依性而膨脹，有助於最佳化產生的構件，並消除由相依性之間不相容所引起的困擾。
 
-## 儲存庫配置
+## 儲存庫配置 {id="repository-configurations"}
 
 您可以在新的和現有的 Kotlin Multiplatform 專案中使用多種儲存庫配置選項，可以使用單一儲存庫或多個儲存庫的組合。
 
-### Monorepo：所有內容都在一個儲存庫中
+### Monorepo：所有內容都在一個儲存庫中 {id="monorepo-everything-in-one-repository"}
 
 一種常見的儲存庫配置稱為 Monorepo 配置。這種方法用於 Kotlin Multiplatform 範例和教學。在這種情況下，儲存庫包含 Android 和 iOS 應用程式，以及共享模組或多個模組，包括傘型模組：
 
@@ -165,7 +165,7 @@ Kotlin 不會產生通用的架構相依性，否則會產生重複，且您新�
 
 當現有的 Android 和 iOS 應用程式已儲存在不同儲存庫時，您可以將 Kotlin Multiplatform 部分新增到 Android 儲存庫或獨立的儲存庫中，而不是將它們合併。
 
-### 兩個儲存庫：Android + 共享 | iOS
+### 兩個儲存庫：Android + 共享 | iOS {id="two-repositories-android-shared-ios"}
 
 另一種專案配置是擁有兩個儲存庫。在這種情況下，Kotlin Multiplatform 儲存庫包含 Android 應用程式和共享模組（包括傘型模組），而 Xcode 專案包含 iOS 應用程式：
 
@@ -173,7 +173,7 @@ Kotlin 不會產生通用的架構相依性，否則會產生重複，且您新�
 
 Android 和 iOS 應用程式可以分別進行版本管理，而共享模組則隨 Android 應用程式一起進行版本管理。
 
-### 三個儲存庫：Android | iOS | 共享
+### 三個儲存庫：Android | iOS | 共享 {id="three-repositories-android-ios-shared"}
 
 另一個選項是為 Kotlin Multiplatform 模組建立一個獨立的儲存庫。在這種情況下，Android 和 iOS 應用程式儲存在獨立的儲存庫中，而專案的共享程式碼可以包含多個功能模組和用於 iOS 的傘型模組：
 
@@ -185,7 +185,7 @@ Android 和 iOS 應用程式可以分別進行版本管理，而共享模組則�
 
 當 Android 和 iOS 團隊都取用相同版本的構件時，他們以版本一致性運行。從團隊的角度來看，這避免了共享的 Kotlin Multiplatform 程式碼被 Android 開發人員「擁有」的印象。對於已經為功能開發發佈受版本管理的內部 Kotlin 和 Swift 套件的大型專案來說，發佈共享的 Kotlin 構件將成為現有工作流程的一部分。
 
-### 多個儲存庫：Android | iOS | 多個程式庫
+### 多個儲存庫：Android | iOS | 多個程式庫 {id="many-repositories-android-ios-multiple-libraries"}
 
 當功能需要在多個平台上的多個應用程式之間共享時，您可能更傾向於擁有許多包含 Kotlin Multiplatform 程式碼的儲存庫。例如，您可以將整個產品通用的記錄程式庫儲存在具有自己版本管理的獨立儲存庫中。
 
@@ -195,11 +195,11 @@ Android 和 iOS 應用程式可以分別進行版本管理，而共享模組則�
 
 在這裡，每個程式庫也必須針對 Android 或 JVM 平台進行版本管理和發佈。應用程式和每個程式庫都可以分別進行版本管理。
 
-## 程式碼共享工作流程
+## 程式碼共享工作流程 {id="code-sharing-workflow"}
 
 iOS 應用程式可以將從 Kotlin Multiplatform 共享模組產生的架構作為「本機」或「遠端」相依性來取用。您可以透過在 iOS 組建中提供架構的本機路徑來使用本機相依性。在這種情況下，您不需要發佈架構。或者，您可以將帶有架構的構件發佈到某處，並讓 iOS 應用程式像取用任何其他第三方相依性一樣將其作為遠端相依性取用。
 
-### 本機：原始碼發佈
+### 本機：原始碼發佈 {id="local-source-distribution"}
 
 本機發佈是指 iOS 應用程式取用 Kotlin Multiplatform 模組架構而無需發佈。iOS 應用程式可以直接整合架構或透過使用 CocoaPods 整合。
 
@@ -240,7 +240,7 @@ iOS 應用程式可以將從 Kotlin Multiplatform 共享模組產生的架構作
 
 </table>
 
-### 遠端：構件發佈
+### 遠端：構件發佈 {id="remote-artifact-distribution"}
 
 遠端發佈意味著架構構件是使用 Swift Package Manager 或作為 CocoaPod 發佈的，並由 iOS 應用程式取用。Android 應用程式可以本機或遠端取用二進位相依性。
 
@@ -273,7 +273,7 @@ iOS 應用程式可以將從 Kotlin Multiplatform 共享模組產生的架構作
 
 </table>
 
-#### 為本機開發設定本機相依性
+#### 為本機開發設定本機相依性 {id="setting-up-a-local-dependency-for-local-development"}
 
 許多團隊在採用 Kotlin Multiplatform 技術時選擇遠端發佈工作流程，以保持 iOS 開發人員的開發流程不變。然而，在此工作流程中，他們很難更改 Kotlin Multiplatform 程式碼。我們建議透過對 Kotlin Multiplatform 模組產生的架構建立本機相依性，來設定額外的「本機開發」工作流程。
 

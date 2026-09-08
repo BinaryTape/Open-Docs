@@ -8,7 +8,7 @@
 !!! note
     基於註解的工具僅限 JVM 使用，不適用於其他平台。如需多平台支援，請使用 [基於類別的工具 API](class-based-tools.md)。
 
-## 核心註解
+## 核心註解 {id="key-annotations"}
 
 若要開始在專案中使用基於註解的工具，您需要了解以下核心註解：
 
@@ -17,12 +17,12 @@
 | `@Tool`           | 將函式標記為應公開給 LLM 的工具。 |
 | `@LLMDescription` | 提供有關工具及其元件的描述性資訊。 |
 
-## @Tool 註解
+## @Tool 註解 {id="tool-annotation"}
 
 `@Tool` 註解用於標記應公開給 LLM 的函式 (Kotlin) 或方法 (Java)。
 標記為 `@Tool` 的函式與方法是透過反射從實作 `ToolSet` 介面的物件中收集的。詳細資訊請參閱 [實作 ToolSet 介面](#1-實作-toolset-介面)。
 
-### 定義
+### 定義 {id="definition"}
 
 ```kotlin
 @Target(AnnotationTarget.FUNCTION)
@@ -30,13 +30,13 @@ public annotation class Tool(val customName: String = "")
 ```
 <!--- KNIT example-annotation-based-tools-01.txt -->
 
-### 參數
+### 參數 {id="parameters"}
 
 | <div style="width:100px">名稱</div> | 必填 | 描述 |
 |-------------------------------------|----------|------------------------------------------------------------------------------------------|
 | `customName`                        | 否 | 為工具指定自訂名稱。如果未提供，則使用函式的名稱。 |
 
-### 用法
+### 用法 {id="usage"}
 
 若要將函式或方法標記為工具，請在實作 `ToolSet` 介面的類別中對該函式或方法套用 `@Tool` 註解：
 
@@ -88,7 +88,7 @@ public annotation class Tool(val customName: String = "")
     ```
     <!--- KNIT example-annotation-based-tools-java-01.java -->
 
-## @LLMDescription 註解
+## @LLMDescription 註解 {id="llmdescription-annotation"}
 
 `@LLMDescription` 註解向 LLM 提供有關程式碼元素（類別、函式、方法、參數等）的描述性資訊。
 這有助於 LLM 理解這些元素的用途和用法。
@@ -199,9 +199,9 @@ public annotation class LLMDescription(val description: String)
     ```
     <!--- KNIT example-annotation-based-tools-java-03.java -->
 
-## 建立工具
+## 建立工具 {id="creating-a-tool"}
 
-### 1. 實作 ToolSet 介面
+### 1. 實作 ToolSet 介面 {id="1-implement-the-toolset-interface"}
 
 建立一個實作 [`ToolSet`](api:agents-tools::ai.koog.agents.core.tools.reflect.ToolSet) 介面的類別。
 此介面將您的類別標記為工具的容器。
@@ -233,7 +233,7 @@ public annotation class LLMDescription(val description: String)
     ```
     <!--- KNIT example-annotation-based-tools-java-04.java -->
 
-### 2. 新增工具函式
+### 2. 新增工具函式 {id="2-add-tool-functions"}
 
 在您的類別中新增函式或方法，並使用 `@Tool` 標註，以便將其公開為工具：
 
@@ -273,7 +273,7 @@ public annotation class LLMDescription(val description: String)
     ```
     <!--- KNIT example-annotation-based-tools-java-05.java -->
 
-### 3. 新增描述
+### 3. 新增描述 {id="3-add-descriptions"}
 
 新增 `@LLMDescription` 註解以提供 LLM 背景資訊：
 
@@ -323,7 +323,7 @@ public annotation class LLMDescription(val description: String)
     ```
     <!--- KNIT example-annotation-based-tools-java-06.java -->
 
-### 4. 搭配代理使用您的工具
+### 4. 搭配代理使用您的工具 {id="4-use-your-tools-with-an-agent"}
 
 現在您可以在代理中使用您的工具：
 
@@ -394,11 +394,11 @@ public annotation class LLMDescription(val description: String)
     ```
     <!--- KNIT example-annotation-based-tools-java-07.java -->
 
-## 用法範例
+## 用法範例 {id="usage-examples"}
 
 以下是一些工具註解的實際範例。
 
-### 基礎範例：開關控制器
+### 基礎範例：開關控制器 {id="basic-example-switch-controller"}
 
 此範例顯示了一個用於控制開關的簡單工具集：
 
@@ -498,7 +498,7 @@ public annotation class LLMDescription(val description: String)
 - 每個參數可接受的值。
 - 執行後預期的傳回值。
 
-### 進階範例：診斷工具
+### 進階範例：診斷工具 {id="advanced-example-diagnostic-tools"}
 
 此範例顯示了一個更複雜的裝置診斷工具集：
 
@@ -576,7 +576,7 @@ public annotation class LLMDescription(val description: String)
     ```
     <!--- KNIT example-annotation-based-tools-java-09.java -->
 
-## 最佳實務
+## 最佳實務 {id="best-practices"}
 
 * **提供清晰的描述**：編寫清晰、簡潔的描述，解釋工具、參數和傳回值的用途與行為。
 * **描述所有參數**：為所有參數新增 `@LLMDescription`，以協助 LLM 理解每個參數的作用。
@@ -587,11 +587,11 @@ public annotation class LLMDescription(val description: String)
 * **記載預設值**：當參數有預設值 (Kotlin) 或多載 (Java) 時，請在描述中記載這一點。
 * **保持工具功能單一**：每個工具應執行特定的、定義明確的任務，而不是試圖做太多的事情。
 
-## 常見問題疑難排解
+## 常見問題疑難排解 {id="troubleshooting-common-issues"}
 
 使用工具註解時，您可能會遇到一些常見問題。
 
-### 工具未被辨識
+### 工具未被辨識 {id="tools-not-being-recognized"}
 
 如果代理未辨識出您的工具，請檢查以下事項：
 
@@ -600,7 +600,7 @@ public annotation class LLMDescription(val description: String)
 - 工具函式或方法具有適當的傳回型別（為求簡單，建議使用 `String`）。
 - 您的工具已在代理中正確註冊。
 
-### 工具描述不明確
+### 工具描述不明確 {id="unclear-tool-descriptions"}
 
 如果 LLM 未能正確使用您的工具或誤解了它們的用途，請嘗試以下方法：
 
@@ -610,7 +610,7 @@ public annotation class LLMDescription(val description: String)
 - 在參數描述中包含有效輸入的範例。
 - 請注意，Java 不支援預設參數。請改用方法多載。
 
-### 參數型別問題
+### 參數型別問題 {id="parameter-type-issues"}
 
 如果 LLM 提供了錯誤的參數型別，請嘗試以下方法：
 
@@ -619,7 +619,7 @@ public annotation class LLMDescription(val description: String)
 - 對於複雜型別，考慮使用具有特定格式的 `String` 參數，並在工具中進行剖析。
 - 在參數描述中包含有效輸入的範例。
 
-### 效能問題
+### 效能問題 {id="performance-issues"}
 
 如果您的工具導致效能問題，請嘗試以下方法：
 

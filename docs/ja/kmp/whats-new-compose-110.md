@@ -9,9 +9,9 @@
 このリリースの変更点の完全なリストは、[GitHub](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.10.0) で確認できます。
 特定のコンポーネントバージョンの詳細については、[依存関係](#dependencies) セクションを参照してください。
 
-## 破壊的変更と非推奨
+## 破壊的変更と非推奨 {id="breaking-changes-and-deprecations"}
 
-### 非推奨となった依存関係エイリアス
+### 非推奨となった依存関係エイリアス {id="deprecated-dependency-aliases"}
 
 Compose Multiplatform Gradle プラグインでサポートされていた依存関係エイリアス（`compose.ui` など）は、1.10.0-beta01 リリースで非推奨となりました。
 バージョンカタログに直接ライブラリ参照を追加することをお勧めします。
@@ -20,7 +20,7 @@ Compose Multiplatform Gradle プラグインでサポートされていた依存
 この変更により、Compose Multiplatform ライブラリの依存関係管理がより透明（明確）になるはずです。
 将来的には、互換性のあるバージョンのセットアップを簡素化するために、Compose Multiplatform 用の BOM を提供したいと考えています。
 
-### 非推奨となった `PredictiveBackHandler()`
+### 非推奨となった `PredictiveBackHandler()` {id="deprecated-predictivebackhandler"}
 
 `PredictiveBackHandler()` 関数は、Android ネイティブの戻るナビゲーションジェスチャー（Predictive Back）を他のプラットフォームに導入するために Compose Multiplatform で導入されました。
 Navigation 3 のリリースに伴い、古い実装は新しい [Navigation Event](https://developer.android.com/jetpack/androidx/releases/navigationevent) ライブラリとその API に置き換わる形で非推奨となりました。
@@ -42,20 +42,20 @@ Navigation 3 のリリースに伴い、古い実装は新しい [Navigation Eve
 
 実装の詳細については、[Navigation Event API リファレンスの NavigationEventHandler ページ](https://developer.android.com/reference/kotlin/androidx/navigationevent/NavigationEventHandler)を参照してください。
 
-### Kotlin の最小バージョンが引き上げられました
+### Kotlin の最小バージョンが引き上げられました {id="minimum-kotlin-version-increased"}
 
 プロジェクトに native または web ターゲットが含まれている場合、最新の機能を利用するには Kotlin 2.2.20 へのアップグレードが必要です。
 
-## プラットフォーム共通
+## プラットフォーム共通 {id="across-platforms"}
 
-### 統合された `@Preview` アノテーション
+### 統合された `@Preview` アノテーション {id="unified-preview-annotation"}
 
 プラットフォーム間でのプレビューのアプローチを統一しました。
 `commonMain` ソースセットで `androidx.compose.ui.tooling.preview.Preview` アノテーションを使用できるようになりました。
 
 `org.jetbrains.compose.ui.tooling.preview.Preview` やデスクトップ専用の `androidx.compose.desktop.ui.tooling.preview.Preview` など、他のすべてのアノテーションは非推奨となりました。
 
-### interop ビューの自動リサイズ
+### interop ビューの自動リサイズ {id="autosizing-interop-views"}
 
 Compose Multiplatform は、デスクトップと iOS の両方で、ネイティブの interop（相互運用）要素の自動リサイズをサポートしました。
 これらの要素は、コンテンツに合わせてレイアウトを適応させることができるようになり、
@@ -65,7 +65,7 @@ Compose Multiplatform は、デスクトップと iOS の両方で、ネイテ�
 * iOS では、UIKit interop ビューがビューの fitting size（固有のコンテンツサイズ / intrinsic content size）に応じたサイジングをサポートするようになりました。
   これにより、`UIHostingController` を介した SwiftUI ビューや、`NSLayoutConstraints` に依存しない基本的な `UIView` サブクラスを適切にラッピングできるようになります。
 
-### `Popup` および `Dialog` プロパティの安定化
+### `Popup` および `Dialog` プロパティの安定化 {id="stable-popup-and-dialog-properties"}
 
 `DialogProperties` の以下のプロパティが安定版（stable）に昇格し、実験的（experimental）ではなくなりました：
 `usePlatformInsets`、`useSoftwareKeyboardInset`、および `scrimColor`。
@@ -74,14 +74,14 @@ Compose Multiplatform は、デスクトップと iOS の両方で、ネイテ�
 
 `PopupProperties` パラメーターを持たない `Popup` オーバーロードの非推奨レベルが `ERROR` に変更され、更新された API の使用が強制されるようになりました。
 
-### Skia が Milestone 138 に更新されました
+### Skia が Milestone 138 に更新されました {id="skia-updated-to-milestone-138"}
 
 Skiko を通じて Compose Multiplatform で使用されている Skia のバージョンが、Milestone 138 に更新されました。
 
 以前に使用されていた Skia のバージョンは Milestone 132 でした。
 これらのバージョン間で行われた変更については、[リリースノート](https://skia.googlesource.com/skia/+/refs/heads/chrome/m138/RELEASE_NOTES.md)で確認できます。
 
-### Navigation 3 のサポート
+### Navigation 3 のサポート {id="support-for-navigation-3"}
 <primary-label ref="Experimental"/>
 
 Navigation 3 は、Compose で動作するように設計された新しいナビゲーションライブラリです。
@@ -106,9 +106,9 @@ Compose Multiplatform 1.10.0-beta01 は、Android 以外のターゲットで新
 * [ブラウザの履歴ナビゲーション](compose-navigation-routing.md#support-for-browser-navigation-in-web-apps)のサポートとアドレスバーでのデスティネーションの使用については、Compose Multiplatform 1.10 の Navigation 3 では拡張されません。
   これはマルチプラットフォームライブラリの将来のバージョンまで延期されました。
 
-## iOS
+## iOS {id="ios"}
 
-### ウィンドウインセット（Window insets）
+### ウィンドウインセット（Window insets） {id="window-insets"}
 
 Compose Multiplatform は `WindowInsetsRulers` をサポートしました。
 これにより、ステータスバー、ナビゲーションバー、またはオンスクリーンキーボードなどのウィンドウインセットに基づいて UI 要素を配置し、サイズを調整する機能が提供されます。
@@ -121,7 +121,7 @@ Compose Multiplatform は `WindowInsetsRulers` をサポートしました。
 > 
 {style="note"}
 
-### IME 設定の改善
+### IME 設定の改善 {id="improved-ime-configuration"}
 
 [1.9.0 で導入された](whats-new-compose-190.md#ime-options) iOS 固有の IME カスタマイズに続き、このリリースでは `PlatformImeOptions` を使用してテキスト入力ビューを構成するための新しい API が追加されました。
 
@@ -130,7 +130,7 @@ Compose Multiplatform は `WindowInsetsRulers` をサポートしました。
  * `UIResponder.inputView` は、デフォルトのシステムキーボードを置き換えるカスタム入力ビューを指定します。
  * `UIResponder.inputAccessoryView` は、IME アクティブ化時にシステムキーボードまたはカスタム `inputView` にアタッチされるカスタムアクセサリビューを定義します。
 
-### interop ビューのオーバーレイ配置
+### interop ビューのオーバーレイ配置 {id="overlay-placement-for-interop-views"}
 <primary-label ref="Experimental"/>
 
 実験的な `placedAsOverlay` フラグを使用して、`UIKitView` および `UIKitViewController` ビューを Compose UI の上に配置できるようになりました。
@@ -150,9 +150,9 @@ UIKitViewController(
 この構成では、ビューが Compose UI レイヤーの最前面にレンダリングされることに注意してください。
 その結果、同じエリアにある他のコンポーザブル（composable）は視覚的に覆い隠されます。
 
-## Web
+## Web {id="web"}
 
-### リソースのキャッシュ
+### リソースのキャッシュ {id="resource-caching"}
 <primary-label ref="Experimental"/>
 
 Compose Multiplatform は [Web Cache API](https://developer.mozilla.org/ja/docs/Web/API/Cache) を使用して、静的アセットや文字列リソースの成功したレスポンスをキャッシュするようになりました。
@@ -161,9 +161,9 @@ Compose Multiplatform は [Web Cache API](https://developer.mozilla.org/ja/docs/
 
 詳細については、[プルリクエスト](https://github.com/JetBrains/compose-multiplatform/pull/5379)および [Web リソースのキャッシュ](compose-web-resources.md#caching-web-resources)のドキュメントを参照してください。
 
-## デスクトップ
+## デスクトップ {id="desktop"}
 
-### Compose Hot Reload の統合
+### Compose Hot Reload の統合 {id="compose-hot-reload-integration"}
 
 Compose Hot Reload プラグインが Compose Multiplatform Gradle プラグインに同梱されるようになりました。
 デスクトップをターゲットとする Compose Multiplatform プロジェクトではデフォルトで有効になっているため、Hot Reload プラグインを個別に構成する必要はもうありません。
@@ -176,16 +176,16 @@ Compose Hot Reload プラグインを明示的に宣言しているプロジェ�
 同梱されている Compose Hot Reload Gradle プラグインの最小 Kotlin バージョンは 2.1.20 です。
 古いバージョンの Kotlin が検出された場合、ホットリロード機能は無効になります。
 
-## Gradle
+## Gradle {id="gradle"}
 
-### AGP 9.0.0 のサポート
+### AGP 9.0.0 のサポート {id="support-for-agp-9-0-0"}
 
 Compose Multiplatform は、Android Gradle Plugin (AGP) のバージョン 9.0.0 のサポートを導入しました。
 新しい AGP バージョンとの互換性のために、Compose Multiplatform 1.9.3 または 1.10.0 へのアップグレードを確認してください。
 
 長期的にアップデートプロセスをよりスムーズにするために、プロジェクト構造を変更して専用の Android アプリケーションモジュールを使用することをお勧めします。
 
-## 依存関係
+## 依存関係 {id="dependencies"}
 
 | ライブラリ | Maven 座標 | ベースとなる Jetpack バージョン |
 |--------------------|------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|

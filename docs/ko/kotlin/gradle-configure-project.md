@@ -9,7 +9,7 @@
 >
 {style="note"}
 
-## 플러그인 적용하기
+## 플러그인 적용하기 {id="apply-the-plugin"}
 
 Kotlin Gradle 플러그인을 적용하려면 Gradle 플러그인 DSL의 [`plugins{}` 블록](https://docs.gradle.org/current/userguide/plugins.html#sec:plugins_block)을 사용하세요:
 
@@ -73,7 +73,7 @@ plugins {
 
 마찬가지로, 전체 지원되는 최대 버전은 %maxGradleVersion%입니다. 이 버전은 지원 중단된 Gradle 메서드 및 프로퍼티가 없으며 모든 최신 Gradle 기능을 지원합니다.
 
-### 이전 KGP 버전 {initial-collapse-state="collapsed" collapsible="true"}
+### 이전 KGP 버전 {initial-collapse-state="collapsed" collapsible="true" id="earlier-kgp-versions"}
 
 | KGP 버전      | Gradle 최소 및 최대 버전               | AGP 최소 및 최대 버전                               |
 |---------------|---------------------------------------|-----------------------------------------------------|
@@ -84,7 +84,7 @@ plugins {
 | 1.7.0–1.7.10  | 6.7.1–7.0.2                           | 3.4.3–7.0.2                                         |
 | 1.6.20–1.6.21 | 6.1.1–7.0.2                           | 3.4.3–7.0.2                                         |
 
-### 프로젝트 내 Kotlin Gradle 플러그인 데이터
+### 프로젝트 내 Kotlin Gradle 플러그인 데이터 {id="kotlin-gradle-plugin-data-in-a-project"}
 
 기본적으로 Kotlin Gradle 플러그인은 프로젝트별 영구 데이터를 프로젝트 루트의 `.kotlin` 디렉토리에 저장합니다.
 
@@ -100,7 +100,7 @@ plugins {
 | `kotlin.project.persistent.dir`                     | 프로젝트 수준 데이터가 저장되는 위치를 구성합니다. 기본값: `<project-root-directory>/.kotlin`                                      |
 | `kotlin.project.persistent.dir.gradle.disableWrite` | `.gradle` 디렉토리에 Kotlin 데이터를 쓰는 것을 비활성화할지 여부를 제어합니다(이전 IDEA 버전과의 하위 호환성을 위해). 기본값: false |
 
-## JVM 타겟팅
+## JVM 타겟팅 {id="targeting-the-jvm"}
 
 JVM을 타겟으로 하려면 Kotlin JVM 플러그인을 적용하세요.
 
@@ -127,7 +127,7 @@ plugins {
 
 이 블록에서 `version`은 리터럴(literal)이어야 하며, 다른 빌드 스크립트에서 적용할 수 없습니다.
 
-### Kotlin 및 Java 소스
+### Kotlin 및 Java 소스 {id="kotlin-and-java-sources"}
 
 Kotlin 소스와 Java 소스는 동일한 디렉토리에 저장하거나 서로 다른 디렉토리에 배치할 수 있습니다.
 
@@ -173,7 +173,7 @@ sourceSets {
 
 <!-- The following header is used in the Mari link service. If you wish to change it here, change the link there too -->
 
-### 관련 컴파일 태스크의 JVM 타겟 호환성 확인
+### 관련 컴파일 태스크의 JVM 타겟 호환성 확인 {id="check-for-jvm-target-compatibility-of-related-compile-tasks"}
 
 빌드 모듈에는 다음과 같이 관련된 컴파일 태스크가 있을 수 있습니다:
 * `compileKotlin` 및 `compileJava`
@@ -218,7 +218,7 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile.class).configu
 
 JVM 타겟 비호환성을 피하려면 [툴체인을 구성](#gradle-java-툴체인-지원)하거나 JVM 버전을 수동으로 맞추세요.
 
-#### 타겟이 호환되지 않을 때 발생할 수 있는 문제 {initial-collapse-state="collapsed" collapsible="true"}
+#### 타겟이 호환되지 않을 때 발생할 수 있는 문제 {initial-collapse-state="collapsed" collapsible="true" id="what-can-go-wrong-if-targets-are-incompatible"}
 
 Kotlin 및 Java 소스 세트에 대해 JVM 타겟을 수동으로 설정하는 방법은 두 가지가 있습니다:
 * [Java 툴체인 설정](#gradle-java-툴체인-지원)을 통한 암시적 방법.
@@ -253,7 +253,7 @@ plugins {
 
 빌드 스크립트에 `jvmTarget` 값에 대한 명시적인 정보가 없으면 기본값은 `null`이며, 컴파일러는 이를 기본값인 `1.8`로 해석합니다. `targetCompatibility`는 현재 Gradle의 JDK 버전과 같으며, 이는 사용자의 JDK 버전과 같습니다([Java 툴체인 방식](gradle-configure-project.md#gradle-java-toolchains-support)을 사용하지 않는 경우). 사용자의 JDK 버전이 `%jvmLTSVersionSupportedByKotlin%`이라고 가정하면, 게시된 라이브러리 아티팩트는 JDK %jvmLTSVersionSupportedByKotlin% 이상과 [호환된다고 선언](https://docs.gradle.org/current/userguide/publishing_gradle_module_metadata.html)하게 됩니다(`org.gradle.jvm.version=%jvmLTSVersionSupportedByKotlin%`). 이는 잘못된 것입니다. 이 경우 바이트코드 버전이 `1.8`이더라도 메인 프로젝트에서 이 라이브러리를 추가하려면 Java %jvmLTSVersionSupportedByKotlin%를 사용해야 합니다. 이 문제를 해결하려면 [툴체인을 구성](gradle-configure-project.md#gradle-java-toolchains-support)하세요.
 
-### Gradle Java 툴체인 지원
+### Gradle Java 툴체인 지원 {id="gradle-java-toolchains-support"}
 
 > Android 사용자를 위한 주의 사항: Gradle 툴체인 지원을 사용하려면 Android Gradle 플러그인(AGP) 버전 8.1.0-alpha09 이상을 사용하세요. 
 > 
@@ -389,7 +389,7 @@ plugins {
 
 [Kotlin 플러그인의 Gradle JVM 툴체인 지원](https://blog.jetbrains.com/kotlin/2021/11/gradle-jvm-toolchain-support-in-the-kotlin-plugin/)에 대해 자세히 알아보세요.
 
-### 태스크 DSL로 JDK 버전 설정하기
+### 태스크 DSL로 JDK 버전 설정하기 {id="set-jdk-version-with-the-task-dsl"}
 
 태스크 DSL을 사용하면 `UsesKotlinJavaToolchain` 인터페이스를 구현하는 모든 태스크에 대해 JDK 버전을 설정할 수 있습니다.
 현재 이러한 태스크는 `KotlinCompile` 및 `KaptTask`입니다.
@@ -435,7 +435,7 @@ tasks.withType<UsesKotlinJavaToolchain>().configureEach {
 }
 ```
 
-### 컴파일 태스크 연결(Associate)하기
+### 컴파일 태스크 연결(Associate)하기 {id="associate-compiler-tasks"}
 
 컴파일 간에 한 컴파일이 다른 컴파일의 컴파일된 출력을 사용하도록 하는 관계를 설정하여 컴파일을 _연결(associate)_할 수 있습니다. 컴파일을 연결하면 그들 사이에 `internal` 가시성이 생성됩니다.
 
@@ -469,7 +469,7 @@ integrationTestCompilation {
 
 여기서 `integrationTest` 컴파일은 기능 테스트(functional test)에서 `internal` 객체에 접근할 수 있도록 `main` 컴파일과 연결됩니다.
 
-### Java 모듈(JPMS)이 활성화된 상태로 구성하기
+### Java 모듈(JPMS)이 활성화된 상태로 구성하기 {id="configure-with-java-modules-jpms-enabled"}
 
 Kotlin Gradle 플러그인을 [Java 모듈](https://www.oracle.com/corporate/features/understanding-java-9-modules.html)과 함께 작동하게 하려면 빌드 스크립트에 다음 줄을 추가하고 `YOUR_MODULE_NAME`을 JPMS 모듈 참조(예: `org.company.module`)로 교체하세요:
 
@@ -516,9 +516,9 @@ tasks.named("compileJava", JavaCompile.class) {
 * [Java 모듈 시스템을 사용한 애플리케이션 빌드](https://docs.gradle.org/current/userguide/application_plugin.html#sec:application_modular)
 * [Kotlin에서 "모듈"이 의미하는 것](visibility-modifiers.md#modules)
 
-### 기타 상세 사항
+### 기타 상세 사항 {id="other-details"}
 
-#### 컴파일 태스크에서 아티팩트 사용 비활성화
+#### 컴파일 태스크에서 아티팩트 사용 비활성화 {id="disable-use-of-artifact-in-compilation-task"}
 
 드문 경우지만 순환 의존성 오류로 인해 빌드 실패가 발생할 수 있습니다. 예를 들어, 한 컴파일이 다른 컴파일의 모든 내부 선언을 볼 수 있는 여러 컴파일이 있고 생성된 아티팩트가 두 컴파일 태스크의 출력에 모두 의존하는 경우입니다:
 
@@ -544,11 +544,11 @@ Circular dependency between the following tasks:
 kotlin.build.archivesTaskOutputAsFriendModule=false
 ```
 
-#### 지연된(Lazy) Kotlin/JVM 태스크 생성
+#### 지연된(Lazy) Kotlin/JVM 태스크 생성 {id="lazy-kotlin-jvm-task-creation"}
 
 Kotlin 1.8.20부터 Kotlin Gradle 플러그인은 모든 태스크를 등록(register)하며 드라이 런(dry run) 시에는 태스크를 구성하지 않습니다.
 
-#### 컴파일 태스크 destinationDirectory의 기본값이 아닌 위치
+#### 컴파일 태스크 destinationDirectory의 기본값이 아닌 위치 {id="non-default-location-of-compile-tasks-destinationdirectory"}
 
 Kotlin/JVM `KotlinJvmCompile`/`KotlinCompile` 태스크의 `destinationDirectory` 위치를 오버라이드하는 경우 빌드 스크립트를 업데이트해야 합니다. JAR 파일에서 `sourceSets.main.outputs`에 `sourceSets.main.kotlin.classesDirectories`를 명시적으로 추가해야 합니다:
 
@@ -559,7 +559,7 @@ tasks.jar(type: Jar) {
 }
 ```
 
-## 멀티플랫폼 타겟팅
+## 멀티플랫폼 타겟팅 {id="targeting-multiple-platforms"}
 
 [멀티플랫폼 프로젝트](https://kotlinlang.org/docs/multiplatform/get-started.html)라고 불리는 [여러 플랫폼](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#targets)을 타겟으로 하는 프로젝트에는 `kotlin-multiplatform` 플러그인이 필요합니다.
 
@@ -590,11 +590,11 @@ plugins {
 
 [다양한 플랫폼을 위한 Kotlin 멀티플랫폼](https://kotlinlang.org/docs/multiplatform/get-started.html) 및 [iOS와 Android를 위한 Kotlin 멀티플랫폼](https://kotlinlang.org/docs/multiplatform/multiplatform-getting-started.html)에 대해 자세히 알아보세요.
 
-## Android 타겟팅
+## Android 타겟팅 {id="targeting-android"}
 
 Android 애플리케이션 제작에는 Android Studio 사용을 권장합니다. [Android Gradle 플러그인 사용 방법](https://developer.android.com/studio/releases/gradle-plugin)을 알아보세요.
 
-## 웹 타겟팅
+## 웹 타겟팅 {id="targeting-the-web"}
 
 Kotlin은 Kotlin 멀티플랫폼을 통해 웹 개발을 위한 두 가지 접근 방식을 제공합니다:
 
@@ -604,7 +604,7 @@ Kotlin은 Kotlin 멀티플랫폼을 통해 웹 개발을 위한 두 가지 접�
 두 방식 모두 Kotlin 멀티플랫폼 플러그인을 사용하지만 서로 다른 사용 사례를 지원합니다.
 아래 섹션에서는 Gradle 빌드에서 각 타겟을 구성하는 방법과 사용 시기를 설명합니다.
 
-### JavaScript 타겟팅
+### JavaScript 타겟팅 {id="targeting-javascript"}
 
 다음이 목표인 경우 Kotlin/JS를 사용하세요:
 
@@ -650,7 +650,7 @@ kotlin {
 >
 {style="note"}
 
-### WebAssembly 타겟팅
+### WebAssembly 타겟팅 {id="targeting-webassembly"}
 
 여러 플랫폼에서 로직과 UI를 모두 공유하려면 Kotlin/Wasm을 사용하세요. 자세한 내용은 [웹 개발](web-overview.md#kotlin-wasm)을 참조하세요.
 
@@ -710,7 +710,7 @@ kotlin {
 >
 {style="note"}
 
-### 웹 타겟을 위한 Kotlin 및 Java 소스
+### 웹 타겟을 위한 Kotlin 및 Java 소스 {id="kotlin-and-java-sources-for-the-web-target"}
 
 KGP는 Kotlin 파일에서만 작동하므로, Kotlin 파일과 Java 파일을 별도로 분리하여 보관하는 것이 좋습니다(프로젝트에 Java 파일이 포함된 경우). 별도로 저장하지 않는 경우 `sourceSets{}` 블록에서 소스 폴더를 지정하세요:
 
@@ -739,7 +739,7 @@ kotlin {
 </tab>
 </tabs>
 
-## KotlinBasePlugin 인터페이스를 사용한 구성 작업 트리거
+## KotlinBasePlugin 인터페이스를 사용한 구성 작업 트리거 {id="triggering-configuration-actions-with-the-kotlinbaseplugin-interface"}
 
 모든 Kotlin Gradle 플러그인(JVM, JS, 멀티플랫폼, Native 등)이 적용될 때마다 구성을 수행하려면 모든 Kotlin 플러그인이 상속받는 `KotlinBasePlugin` 인터페이스를 사용하세요:
 
@@ -772,7 +772,7 @@ project.plugins.withType(KotlinBasePlugin.class) {
 </tab>
 </tabs>
 
-## 의존성 구성하기
+## 의존성 구성하기 {id="configure-dependencies"}
 
 라이브러리에 대한 의존성을 추가하려면 소스 세트 DSL의 `dependencies{}` 블록에서 필요한 [의존성 유형](#의존성-유형)(예: `implementation`)을 설정하세요.
 
@@ -807,7 +807,7 @@ kotlin {
 </tab>
 </tabs>
 
-### 최상위 레벨에서 의존성 구성하기
+### 최상위 레벨에서 의존성 구성하기 {id="configure-dependencies-at-the-top-level"}
 <primary-label ref="experimental-opt-in"/>
 
 최상위 `dependencies {}` 블록을 사용하여 멀티플랫폼 프로젝트의 공통 의존성을 구성할 수 있습니다. 여기에 선언된 의존성은 `commonMain` 또는 `commonTest` 소스 세트에 추가된 것처럼 작동합니다.
@@ -844,7 +844,7 @@ kotlin {
 
 이 기능에 대한 피드백은 [YouTrack](https://youtrack.jetbrains.com/issue/KT-76446)에서 공유할 수 있습니다.
 
-### 의존성 유형
+### 의존성 유형 {id="dependency-types"}
 
 요구 사항에 따라 의존성 유형을 선택하세요.
 
@@ -880,7 +880,7 @@ kotlin {
     </tr>
 </table>
 
-### 표준 라이브러리 의존성
+### 표준 라이브러리 의존성 {id="dependency-on-the-standard-library"}
 
 표준 라이브러리(`stdlib`)에 대한 의존성은 각 소스 세트에 자동으로 추가됩니다. 사용되는 표준 라이브러리의 버전은 Kotlin Gradle 플러그인의 버전과 동일합니다.
 
@@ -894,7 +894,7 @@ kotlin {
 kotlin.stdlib.default.dependency=false
 ```
 
-#### 전이적 의존성의 버전 정렬(Alignment)
+#### 전이적 의존성의 버전 정렬(Alignment) {id="versions-alignment-of-transitive-dependencies"}
 
 Kotlin 표준 라이브러리 버전 1.9.20부터 Gradle은 표준 라이브러리에 포함된 메타데이터를 사용하여 전이적(transitive) `kotlin-stdlib-jdk7` 및 `kotlin-stdlib-jdk8` 의존성을 자동으로 정렬합니다.
 
@@ -904,7 +904,7 @@ Kotlin 표준 라이브러리 버전 1.9.20부터 Gradle은 표준 라이브러�
 kotlin.stdlib.jdk.variants.version.alignment=false
 ```
 
-##### 버전을 정렬하는 다른 방법 {initial-collapse-state="collapsed" collapsible="true"}
+##### 버전을 정렬하는 다른 방법 {initial-collapse-state="collapsed" collapsible="true" id="other-ways-to-align-versions"}
 
 * 버전 정렬에 문제가 있는 경우 Kotlin [BOM](https://docs.gradle.org/current/userguide/platforms.html#sub:bom_import)을 통해 모든 버전을 정렬할 수 있습니다. 빌드 스크립트에서 `kotlin-bom`에 대한 플랫폼 의존성을 선언하세요:
 
@@ -1023,7 +1023,7 @@ kotlin.stdlib.jdk.variants.version.alignment=false
   </tab>
   </tabs>
 
-### 테스트 라이브러리 의존성 설정
+### 테스트 라이브러리 의존성 설정 {id="set-dependencies-on-test-libraries"}
 
 [`kotlin.test`](https://kotlinlang.org/api/latest/kotlin.test/) API는 지원되는 모든 플랫폼에서 Kotlin 프로젝트를 테스트하는 데 사용할 수 있습니다.
 Gradle 플러그인이 각 테스트 소스 세트에 해당하는 테스트 의존성을 유추할 수 있도록 `commonTest` 소스 세트에 `kotlin-test` 의존성을 추가하세요.
@@ -1067,7 +1067,7 @@ kotlin {
 
 공유 소스 세트나 플랫폼별 소스 세트에서도 `kotlin-test` 의존성을 사용할 수 있습니다.
 
-#### kotlin-test의 JVM 변형
+#### kotlin-test의 JVM 변형 {id="jvm-variants-of-kotlin-test"}
 
 Kotlin/JVM의 경우 Gradle은 기본적으로 JUnit 4를 사용합니다. 따라서 `kotlin("test")` 의존성은 JUnit 4용 변형인 `kotlin-test-junit`으로 해석됩니다.
 
@@ -1158,7 +1158,7 @@ kotlin.test.infer.jvm.variant=false
 
 빌드 스크립트에서 `kotlin("test")` 변형을 명시적으로 사용했는데 호환성 충돌로 프로젝트 빌드가 중단된 경우, [호환성 가이드의 이 이슈](compatibility-guide-15.md#do-not-mix-several-jvm-variants-of-kotlin-test-in-a-single-project)를 참조하세요.
 
-### kotlinx 라이브러리에 대한 의존성 설정
+### kotlinx 라이브러리에 대한 의존성 설정 {id="set-a-dependency-on-a-kotlinx-library"}
 
 멀티플랫폼 라이브러리를 사용하고 공유 코드에 의존해야 하는 경우, 공유 소스 세트에서 의존성을 한 번만 설정하세요. `kotlinx-coroutines-core` 또는 `ktor-client-core`와 같은 라이브러리의 기본 아티팩트 이름을 사용하세요:
 
@@ -1226,7 +1226,7 @@ kotlin {
 </tab>
 </tabs>
 
-## 레포지토리 선언
+## 레포지토리 선언 {id="declare-repositories"}
 
 공개적으로 사용 가능한 레포지토리를 선언하여 해당 오픈 소스 의존성을 사용할 수 있습니다. `repositories{}` 블록에서 레포지토리 이름을 설정하세요:
 
@@ -1282,7 +1282,7 @@ dependencyResolutionManagement {
 
 서브프로젝트에 선언된 레포지토리는 중앙에서 선언된 레포지토리를 오버라이드합니다. 이 동작을 제어하는 방법과 사용 가능한 옵션에 대한 자세한 내용은 [Gradle 문서](https://docs.gradle.org/current/userguide/declaring_repositories.html#sub:centralized-repository-declaration)를 참조하세요.
 
-## 생성된 소스 등록하기
+## 생성된 소스 등록하기 {id="register-generated-sources"}
 <primary-label ref="experimental-general"/>
 
 IDE, 서브파티 플러그인 및 기타 도구가 생성된 코드와 일반 소스 파일을 구별할 수 있도록 생성된 소스를 등록하세요. 이는 IDE와 같은 도구가 UI에서 생성된 코드를 다르게 강조 표시하고 프로젝트를 가져올 때 생성 태스크를 트리거하는 데 도움이 됩니다. 생성된 소스를 등록하려면 [`KotlinSourceSet`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-source-set/) 인터페이스를 사용하세요.
@@ -1312,7 +1312,7 @@ kotlin.sourceSets.getByName("main").generatedKotlin.srcDir(generatorTask)
 
 Gradle 플러그인을 개발하는 경우, [`allKotlinSources`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-source-set/all-kotlin-sources.html) 프로퍼티를 사용하여 [`KotlinSourceSet.kotlin`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-source-set/kotlin.html) 및 `KotlinSourceSet.generatedKotlin` 프로퍼티에 등록된 모든 소스에 액세스할 수 있습니다.
 
-## 다음 단계는?
+## 다음 단계는? {id="what-s-next"}
 
 다음에 대해 자세히 알아보세요:
 * [컴파일러 옵션 및 전달 방법](gradle-compiler-options.md).

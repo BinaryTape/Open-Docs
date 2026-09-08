@@ -27,7 +27,7 @@ RSA 암호화 알고리즘의 일부인 RS256은 해싱을 위해 SHA-256을 사
 </p>
 </warning>
 
-## RSA 개인 키 생성
+## RSA 개인 키 생성 {id="generating-an-rsa-private-key"}
 
 개인 키를 생성하려면 OpenSSL, `ssh-keygen` 또는 인증 키 쌍 생성을 위한 다른 도구를 사용할 수 있습니다. 여기서는 시연을 위해 OpenSSL을 사용합니다.
 
@@ -61,7 +61,7 @@ OpenSSL을 사용하여 이 작업을 수행하려면 다음 명령을 실행하
 
 공개 키가 준비되면 이제 해당 키의 지수(exponent) 및 모듈러스(modulus) 값을 파생시킬 수 있습니다.
 
-## 모듈러스 및 지수 속성 추출
+## 모듈러스 및 지수 속성 추출 {id="extracting-the-modulus-exponent-attributes"}
 
 이제 키 쌍이 준비되었으므로, `jwks.json` 파일에서 사용하기 위해 공개 키의 `e`(지수) 및 `n`(모듈러스) 속성을 추출해야 합니다. 여기에는 다음 단계가 필요합니다.
 
@@ -98,11 +98,11 @@ Exponent: 65537 (0x10001)
 </p>
 </warning>
 
-## 모듈러스 및 지수 속성 변환 및 인코딩
+## 모듈러스 및 지수 속성 변환 및 인코딩 {id="converting-and-encoding-the-modulus-and-exponent-attributes"}
 
 이전 단계에서 `jwks.json` 파일에 필요한 `n` 및 `e` 속성을 추출했습니다. 그러나 이들은 16진수(hexadecimal) 형식입니다. 이제 지수와 모듈러스의 16진수 표현을 각각의 [Base64URL](https://en.wikipedia.org/wiki/Base64#URL_applications) 인코딩으로 변환해야 합니다.
 
-### 지수 (Exponent)
+### 지수 (Exponent) {id="exponent"}
 
 지수 속성의 16진수 값은 `0x10001`입니다. 이 값을 Base64URL로 변환하려면 다음 명령을 사용하십시오.
 
@@ -128,7 +128,7 @@ AQAB
 
 지수의 Base64URL 인코딩 값은 `AQAB`이며 이 경우에는 추가 처리가 필요하지 않습니다. 다른 경우에는 다음 단계에서 보여주는 것처럼 `tr` 명령을 사용해야 할 수도 있습니다.
 
-### 모듈러스 (Modulus)
+### 모듈러스 (Modulus) {id="modulus"}
 
 `n` 속성의 경우, `tr` 유틸리티를 사용하여 모듈러스의 16진수 표현을 추가로 처리합니다.
 
@@ -167,7 +167,7 @@ tfJaLrzXILUg1U3N1KV8yJr92GHn5OtYZR7qWk1Mc4cy4JGjklYup7weMjBD9f3bBVoIsiUVX6xNcYIr
 
 `tr` 명령을 적절히 활용하여 모듈러스 필드가 `jwks.json` 파일에서 사용할 수 있는 Base64URL 문자열로 인코딩되었습니다.
 
-## jwks.json 파일 채우기
+## jwks.json 파일 채우기 {id="populating-the-jwks-json-file"}
 
 이전 단계에서 다음의 필요한 정보를 수집했습니다.
 
@@ -196,7 +196,7 @@ tfJaLrzXILUg1U3N1KV8yJr92GHn5OtYZR7qWk1Mc4cy4JGjklYup7weMjBD9f3bBVoIsiUVX6xNcYIr
 
 남은 마지막 단계는 Ktor 프로젝트에서 인증에 사용할 수 있도록 개인 키를 지정하는 것입니다.
 
-## 개인 키 정의
+## 개인 키 정의 {id="defining-the-private-key"}
 
 공개 키 정보 설정이 완료되었으므로, 마지막 단계는 Ktor 프로젝트에서 개인 키에 접근할 수 있도록 하는 것입니다.
 

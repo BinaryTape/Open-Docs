@@ -19,7 +19,7 @@ Kotlin 2.0.20 がリリースされました！このバージョンには、Kot
 >
 {style="tip"}
 
-## IDE サポート
+## IDE サポート {id="ide-support"}
 
 2.0.20 をサポートする Kotlin プラグインは、最新の IntelliJ IDEA および Android Studio に同梱されています。
 IDE で Kotlin プラグインを更新する必要はありません。
@@ -27,11 +27,11 @@ IDE で Kotlin プラグインを更新する必要はありません。
 
 詳細は [新しいリリースへのアップデート](releases.md#update-to-a-new-kotlin-version) を参照してください。
 
-## 言語 (Language)
+## 言語 (Language) {id="language"}
 
 Kotlin 2.0.20 では、データクラス（data class）の一貫性を向上させる変更と、実験的なコンテキストレシーバー（context receivers）機能を置き換えるための変更が導入され始めています。
 
-### data class の copy 関数の可視性をコンストラクタと同じにする
+### data class の copy 関数の可視性をコンストラクタと同じにする {id="data-class-copy-function-to-have-the-same-visibility-as-constructor"}
 
 現在、`private` なコンストラクタを使用してデータクラスを作成しても、自動生成される `copy()` 関数は同じ可視性を持ちません。これは、後でコード内で問題を引き起こす可能性があります。将来の Kotlin リリースでは、`copy()` 関数のデフォルトの可視性をコンストラクタと同じにする挙動を導入します。この変更は、コードの移行を可能な限りスムーズに行えるよう、段階的に導入されます。
 
@@ -65,7 +65,7 @@ fun main() {
 個別のクラスではなく、モジュール全体で 2.0.20 から新しい挙動をオプトインしたい場合は、`-Xconsistent-data-class-copy-visibility` コンパイラオプションを使用できます。
 このオプションは、モジュール内のすべてのデータクラスに `@ConsistentCopyVisibility` アノテーションを追加するのと同じ効果があります。
 
-### コンテキストレシーバーをコンテキストパラメータで段階的に置き換える
+### コンテキストレシーバーをコンテキストパラメータで段階的に置き換える {id="phased-replacement-of-context-receivers-with-context-parameters"}
 
 Kotlin 1.6.20 では、[コンテキストレシーバー (context receivers)](whatsnew1620.md#prototype-of-context-receivers-for-kotlin-jvm) を [Experimental (実験的)](components-stability.md#stability-levels-explained) な機能として導入しました。コミュニティからのフィードバックを検討した結果、このアプローチを継続せず、別の方向性を採用することに決定しました。
 
@@ -158,11 +158,11 @@ fun someFunction() {
 
 あるいは、コンパイラでコンテキストパラメータがサポートされる Kotlin リリースまで待つこともできます。なお、コンテキストパラメータは当初、実験的な機能として導入される予定です。
 
-## Kotlin Multiplatform
+## Kotlin Multiplatform {id="kotlin-multiplatform"}
 
 Kotlin 2.0.20 では、マルチプラットフォームプロジェクトにおけるソースセット管理の改善が行われたほか、Gradle の最近の変更に伴い、一部の Gradle Java プラグインとの互換性が非推奨となりました。
 
-### デフォルトのターゲット階層からのソースセットに対する静的アクセサ
+### デフォルトのターゲット階層からのソースセットに対する静的アクセサ {id="static-accessors-for-source-sets-from-the-default-target-hierarchy"}
 
 Kotlin 1.9.20 以降、[デフォルトの階層テンプレート](https://kotlinlang.org/docs/multiplatform/multiplatform-hierarchy.html#default-hierarchy-template) がすべての Kotlin Multiplatform プロジェクトに自動的に適用されるようになりました。
 また、デフォルトの階層テンプレートからのすべてのソースセットに対して、Kotlin Gradle プラグインが型安全なアクセサを提供しました。
@@ -198,7 +198,7 @@ kotlin {
 
 [Kotlin Multiplatform における階層的なプロジェクト構造](https://kotlinlang.org/docs/multiplatform/multiplatform-hierarchy.html)についての詳細はこちらをご覧ください。
 
-### Kotlin Multiplatform Gradle プラグインと Gradle Java プラグインの互換性の非推奨化
+### Kotlin Multiplatform Gradle プラグインと Gradle Java プラグインの互換性の非推奨化 {id="deprecated-compatibility-with-kotlin-multiplatform-gradle-plugin-and-gradle-java-plugins"}
 
 Kotlin 2.0.20 では、同じプロジェクトに Kotlin Multiplatform Gradle プラグインと、以下の Gradle Java プラグインのいずれかを適用した場合に非推奨警告が導入されます：[Java](https://docs.gradle.org/current/userguide/java_plugin.html)、[Java Library](https://docs.gradle.org/current/userguide/java_library_plugin.html)、[Application](https://docs.gradle.org/current/userguide/application_plugin.html)。
 この警告は、マルチプラットフォームプロジェクト内の別の Gradle プラグインが Gradle Java プラグインを適用している場合にも表示されます。
@@ -293,11 +293,11 @@ dependencies {
 
 これで、親プロジェクトが両方のプラグインと連携できるように設定されました。
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 Kotlin/Native では、ガベージコレクタの改善と、Swift/Objective-C からの Kotlin の suspend 関数の呼び出しに関する改善が行われました。
 
-### ガベージコレクタでのコンカレントマーキング
+### ガベージコレクタでのコンカレントマーキング {id="concurrent-marking-in-garbage-collector"}
 
 Kotlin 2.0.20 では、JetBrains チームは Kotlin/Native のランタイムパフォーマンス向上のために新たな一歩を踏み出しました。
 ガベージコレクタ (GC) におけるコンカレントマーキング（並行マーキング）の実験的サポートを追加しました。
@@ -307,7 +307,7 @@ Kotlin 2.0.20 では、JetBrains チームは Kotlin/Native のランタイム�
 今回、ガベージコレクションのマーキングフェーズをアプリケーションスレッドと同時に実行できるようになりました。
 これにより GC ポーズタイムが大幅に短縮され、アプリの応答性が向上することが期待されます。
 
-#### 有効化する方法
+#### 有効化する方法 {id="how-to-enable"}
 
 この機能は現在 [Experimental (実験的)](components-stability.md#stability-levels-explained) です。
 有効にするには、`gradle.properties` ファイルに以下のオプションを設定してください。
@@ -318,7 +318,7 @@ kotlin.native.binary.gc=cms
 
 問題が発生した場合は、イシュートラッカー [YouTrack](https://kotl.in/issue) に報告してください。
 
-### ビットコード埋め込みサポートの削除
+### ビットコード埋め込みサポートの削除 {id="support-for-bitcode-embedding-removed"}
 
 Kotlin 2.0.20 以降、Kotlin/Native コンパイラはビットコード埋め込み（bitcode embedding）をサポートしなくなりました。
 ビットコード埋め込みは Xcode 14 で非推奨となり、Xcode 15 ではすべての Apple ターゲットから削除されました。
@@ -327,7 +327,7 @@ Kotlin 2.0.20 以降、Kotlin/Native コンパイラはビットコード埋め�
 
 依然として以前のバージョンの Xcode を使用しているものの、Kotlin 2.0.20 にアップグレードしたい場合は、Xcode プロジェクトでビットコード埋め込みを無効にしてください。
 
-### signposts による GC パフォーマンス監視の変更
+### signposts による GC パフォーマンス監視の変更 {id="changes-to-gc-performance-monitoring-with-signposts"}
 
 Kotlin 2.0.0 では、Xcode Instruments を通じて Kotlin/Native のガベージコレクタ (GC) のパフォーマンスを監視できるようになりました。Instruments には signposts ツールが含まれており、GC による停止をイベントとして表示できます。これは、iOS アプリで GC 関連のフリーズを確認する際に役立ちます。
 
@@ -340,17 +340,17 @@ Kotlin 2.0.20 以降、この機能を使用するには、以下のコンパイ
 
 GC パフォーマンス分析の詳細は [ドキュメント](native-memory-manager.md#monitor-gc-performance) を参照してください。
 
-### メインスレッド以外から Swift/Objective-C で Kotlin suspend 関数を呼び出す機能
+### メインスレッド以外から Swift/Objective-C で Kotlin suspend 関数を呼び出す機能 {id="ability-to-call-kotlin-suspending-functions-from-swift-objective-c-on-non-main-threads"}
 
 これまで、Kotlin/Native ではデフォルトの制限により、Swift および Objective-C から Kotlin の suspend 関数を呼び出せるのはメインスレッドのみに制限されていました。Kotlin 2.0.20 ではこの制限が解除され、任意のスレッドから Swift/Objective-C で Kotlin の `suspend` 関数を実行できるようになりました。
 
 以前にバイナリオプション `kotlin.native.binary.objcExportSuspendFunctionLaunchThreadRestriction=none` でメインスレッド以外のデフォルトの挙動を切り替えていた場合は、`gradle.properties` ファイルからその設定を削除できるようになります。
 
-## Kotlin/Wasm
+## Kotlin/Wasm {id="kotlin-wasm"}
 
 Kotlin 2.0.20 では、Kotlin/Wasm は名前付きエクスポート (named exports) への移行を継続し、`@ExperimentalWasmDsl` アノテーションの場所を変更しました。
 
-### デフォルトエクスポート使用時のエラー
+### デフォルトエクスポート使用時のエラー {id="error-in-default-export-usage"}
 
 名前付きエクスポートへの移行の一環として、JavaScript で Kotlin/Wasm のエクスポートに対してデフォルトインポートを使用した場合に、警告メッセージが以前はコンソールに出力されていました。
 
@@ -366,7 +366,7 @@ Do not use default import. Use the corresponding named import instead.
 * **バージョン 2.0.20**: 対応する名前付きインポートの使用を求めるエラーが発生します。
 * **バージョン 2.1.0**: デフォルトインポートの使用が完全に削除されます。
 
-### ExperimentalWasmDsl アノテーションの新しい場所
+### ExperimentalWasmDsl アノテーションの新しい場所 {id="new-location-of-experimentalwasmdsl-annotation"}
 
 以前は、WebAssembly (Wasm) 機能用の `@ExperimentalWasmDsl` アノテーションは、Kotlin Gradle プラグイン内の以下の場所にありました。
 
@@ -394,11 +394,11 @@ import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.targets.js.dsl.*
 ```
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
 Kotlin/JS では、JavaScript での静的メンバーのサポートや JavaScript からの Kotlin コレクションの作成をサポートするための、いくつかの実験的な機能が導入されています。
 
-### JavaScript での Kotlin 静的メンバーの使用サポート
+### JavaScript での Kotlin 静的メンバーの使用サポート {id="support-for-using-kotlin-static-members-in-javascript"}
 
 > この機能は [Experimental (実験的)](components-stability.md#stability-levels-explained) です。いつでも削除または変更される可能性があります。
 > 評価目的でのみ使用してください。[YouTrack](https://youtrack.jetbrains.com/issue/KT-18891/JS-provide-a-way-to-declare-static-members-JsStatic) でのフィードバックをお待ちしております。
@@ -430,7 +430,7 @@ C.Companion.callNonStatic(); // 唯一の動作方法
 
 また、オブジェクトやコンパニオンオブジェクトのプロパティに `@JsStatic` アノテーションを適用することも可能です。これにより、その getter と setter メソッドが、そのオブジェクトやコンパニオンオブジェクトを含むクラスの静的メンバーになります。
 
-### JavaScript から Kotlin コレクションを作成する機能
+### JavaScript から Kotlin コレクションを作成する機能 {id="ability-to-create-kotlin-collections-from-javascript"}
 
 > この機能は [Experimental (実験的)](components-stability.md#stability-levels-explained) です。いつでも削除または変更される可能性があります。
 > 評価目的でのみ使用してください。[YouTrack](https://youtrack.jetbrains.com/issue/KT-69133/Kotlin-JS-Add-support-for-collection-instantiation-in-JavaScript) でのフィードバックをお待ちしております。
@@ -463,7 +463,7 @@ consumeMutableMap(
 
 この機能は、`Set`、`Map`、`List` の Kotlin コレクション型と、それらの Mutable（可変）な対応物で利用可能です。
 
-## Gradle
+## Gradle {id="gradle"}
 
 Kotlin 2.0.20 は、Gradle 6.8.3 から 8.6 までと完全に互換性があります。Gradle 8.7 および 8.8 もサポートされていますが、1 つだけ例外があります。Kotlin Multiplatform Gradle プラグインを使用している場合、JVM ターゲットで `withJava()` 関数を呼び出しているマルチプラットフォームプロジェクトで非推奨警告が表示されることがあります。この問題については、できるだけ早く修正する予定です。
 
@@ -473,7 +473,7 @@ Kotlin 2.0.20 は、Gradle 6.8.3 から 8.6 までと完全に互換性があり
 
 このバージョンでは、JVM ヒストリファイルに基づく古いインクリメンタルコンパイルアプローチの非推奨化プロセスの開始や、プロジェクト間で JVM アーティファクトを共有する新しい方法などの変更が行われています。
 
-### JVM ヒストリファイルに基づくインクリメンタルコンパイルの非推奨化
+### JVM ヒストリファイルに基づくインクリメンタルコンパイルの非推奨化 {id="deprecated-incremental-compilation-based-on-jvm-history-files"}
 
 Kotlin 2.0.20 では、JVM ヒストリファイルに基づくインクリメンタルコンパイルアプローチが、Kotlin 1.8.20 以降デフォルトで有効になっている新しいインクリメンタルコンパイルアプローチに代わって非推奨となりました。
 
@@ -483,7 +483,7 @@ JVM ヒストリファイルに基づくインクリメンタルコンパイル�
 新しいインクリメンタルコンパイルアプローチが過去 2 回の Kotlin のメジャーリリースでデフォルトで使用されていることを踏まえ、Kotlin 2.0.20 では `kotlin.incremental.useClasspathSnapshot` Gradle プロパティが非推奨となりました。
 そのため、これを使用してオプトアウトしている場合は、非推奨警告が表示されます。
 
-### プロジェクト間で JVM アーティファクトをクラスファイルとして共有するオプション
+### プロジェクト間で JVM アーティファクトをクラスファイルとして共有するオプション {id="option-to-share-jvm-artifacts-between-projects-as-class-files"}
 
 > この機能は [Experimental (実験的)](components-stability.md#stability-levels-explained) です。
 > いつでも削除または変更される可能性があります。評価目的でのみ使用してください。
@@ -518,7 +518,7 @@ kotlin.jvm.addClassesVariant=true
 この新しいアプローチに関するフィードバックをお待ちしております。使用中にパフォーマンスの向上に気づきましたか？
 [YouTrack](https://youtrack.jetbrains.com/issue/KT-61861/Gradle-Kotlin-compilations-depend-on-packed-artifacts) にコメントを追加してお知らせください。
 
-### Kotlin Gradle プラグインと java-test-fixtures プラグインの依存関係の挙動を調整
+### Kotlin Gradle プラグインと java-test-fixtures プラグインの依存関係の挙動を調整 {id="aligned-dependency-behavior-of-kotlin-gradle-plugin-with-java-test-fixtures-plugin"}
 
 Kotlin 2.0.20 より前は、プロジェクトで [`java-test-fixtures` プラグイン](https://docs.gradle.org/current/userguide/java_testing.html#sec:java_test_fixtures) を使用していた場合、依存関係がどのように伝播されるかについて Gradle と Kotlin Gradle プラグインの間で違いがありました。
 
@@ -536,7 +536,7 @@ Kotlin 2.0.20 以降、Kotlin Gradle プラグインの挙動は Gradle の `jav
 この変更の結果、`test` および `testFixtures` ソースセット内の一部の依存関係にアクセスできなくなる可能性があります。
 その場合は、依存関係の宣言タイプを `implementation` から `api` に変更するか、影響を受けるソースセットに新しい依存関係宣言を追加してください。
 
-### コンパイルタスクにアーティファクトへのタスク依存関係が欠落している稀なケースのためのタスク依存関係の追加
+### コンパイルタスクにアーティファクトへのタスク依存関係が欠落している稀なケースのためのタスク依存関係の追加 {id="added-task-dependency-for-rare-cases-when-the-compile-task-lacks-one-on-an-artifact"}
 
 2.0.20 より前において、コンパイルタスクがそのアーティファクト入力の 1 つに対してタスク依存関係を欠いているシナリオがあることが判明しました。これは、アーティファクトが時間内に生成されることもあれば、生成されないこともあるため、依存するコンパイルタスクの結果が不安定であることを意味していました。
 
@@ -566,18 +566,18 @@ kotlin.build.archivesTaskOutputAsFriendModule=false
 
 詳細については、[YouTrack のイシュー](https://youtrack.jetbrains.com/issue/KT-69330)を参照してください。
 
-## Compose コンパイラ
+## Compose コンパイラ {id="compose-compiler"}
 
 Kotlin 2.0.20 では、Compose コンパイラにいくつかの改善が行われました。
 
-### 2.0.0 で導入された不要な再コンポジション問題の修正
+### 2.0.0 で導入された不要な再コンポジション問題の修正 {id="fix-for-the-unnecessary-recompositions-issue-introduced-in-2-0-0"}
 
 Compose コンパイラ 2.0.0 には、非 JVM ターゲットを持つマルチプラットフォームプロジェクトにおいて、型の安定性を誤って推論する場合があるという問題があります。これにより、不要な（あるいは無限の）再コンポジション（recompositions）が発生する可能性があります。Kotlin 2.0.0 用に作成された Compose アプリは、バージョン 2.0.10 以降に更新することを強くお勧めします。
 
 アプリが Compose コンパイラ 2.0.10 以降でビルドされていても、バージョン 2.0.0 でビルドされた依存関係を使用している場合、それらの古い依存関係が依然として再コンポジションの問題を引き起こす可能性があります。
 これを防ぐには、依存関係をアプリと同じ Compose コンパイラでビルドされたバージョンに更新してください。
 
-### コンパイラオプションの新しい設定方法
+### コンパイラオプションの新しい設定方法 {id="new-way-to-configure-compiler-options"}
 
 トップレベルパラメータの頻繁な変更を避けるために、新しいオプション設定メカニズムを導入しました。
 Compose コンパイラチームにとって、`composeCompiler {}` ブロックにトップレベルのエントリを作成したり削除したりしてテストを行うのは困難です。
@@ -606,7 +606,7 @@ Compose コンパイラを直接設定している場合は、以下の構文を
 
 この新しいアプローチに関するフィードバックについては、[YouTrack](https://youtrack.jetbrains.com/issue/KT-68651/Compose-provide-a-single-place-in-extension-to-configure-all-compose-flags) でお待ちしております。
 
-### 強力なスキップモードがデフォルトで有効に
+### 強力なスキップモードがデフォルトで有効に {id="strong-skipping-mode-enabled-by-default"}
 
 Compose コンパイラの強力なスキップモード (Strong skipping mode) がデフォルトで有効になりました。
 
@@ -615,18 +615,18 @@ Compose コンパイラの強力なスキップモード (Strong skipping mode) 
 
 詳細については、[強力なスキップモードのドキュメント](https://developer.android.com/develop/ui/compose/performance/stability/strongskipping)を参照してください。
 
-### コンポジション・トレース・マーカーがデフォルトで有効に
+### コンポジション・トレース・マーカーがデフォルトで有効に {id="composition-trace-markers-enabled-by-default"}
 
 コンパイラプラグインのデフォルト値に合わせるため、Compose コンパイラ Gradle プラグインで `includeTraceMarkers` オプションがデフォルトで `true` に設定されました。これにより、Android Studio のシステムトレースプロファイラでコンポーザブル関数を確認できるようになります。コンポジショントレーシングの詳細は、この [Android Developers のブログ記事](https://medium.com/androiddevelopers/jetpack-compose-composition-tracing-9ec2b3aea535)を参照してください。
 
-### 非スキップグループの最適化
+### 非スキップグループの最適化 {id="non-skipping-group-optimizations"}
 
 このリリースには、新しいコンパイラオプションが含まれています。これを有効にすると、スキップ不可および再実行不可のコンポーザブル関数は、コンポーザブルのボディの周囲にグループを生成しなくなります。これにより割り当てが減少し、パフォーマンスが向上します。
 このオプションは実験的でデフォルトでは無効になっていますが、[上記](#new-way-to-configure-compiler-options)に示すように機能フラグ `OptimizeNonSkippingGroups` で有効にできます。
 
 この機能フラグは、より広範なテストの準備が整いました。この機能を有効にした際に見つかった問題は、[Google のイシュートラッカー](https://goo.gle/compose-feedback)に報告してください。
 
-### 抽象コンポーザブル関数でのデフォルトパラメータのサポート
+### 抽象コンポーザブル関数でのデフォルトパラメータのサポート {id="support-for-default-parameters-in-abstract-composable-functions"}
 
 抽象コンポーザブル関数にデフォルトパラメータを追加できるようになりました。
 
@@ -642,11 +642,11 @@ abstract class Composables {
 
 open なコンポーザブル関数のデフォルトパラメータについては、2.0.20 でも引き続き制限されています。この制限は将来のリリースで対処される予定です。
 
-## 標準ライブラリ (Standard library)
+## 標準ライブラリ (Standard library) {id="standard-library"}
 
 標準ライブラリは、実験的機能として UUID（Universally Unique Identifier）をサポートするようになり、Base64 デコードに関するいくつかの変更が含まれています。
 
-### 共通の Kotlin 標準ライブラリにおける UUID のサポート
+### 共通の Kotlin 標準ライブラリにおける UUID のサポート {id="support-for-uuids-in-the-common-kotlin-standard-library"}
 
 > この機能は [Experimental (実験的)](components-stability.md#stability-levels-explained) です。
 > オプトインするには、`@ExperimentalUuidApi` アノテーションを使用するか、コンパイラオプション `-opt-in=kotlin.uuid.ExperimentalUuidApi` を使用してください。
@@ -716,7 +716,7 @@ UUID を含むユースケースの例には以下があります。
 * Web セッション識別子の生成
 * 一意の識別や追跡を必要とするあらゆるシナリオ
 
-### HexFormat における minLength のサポート
+### HexFormat における minLength のサポート {id="support-for-minlength-in-hexformat"}
 
 > [`HexFormat`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-hex-format/) クラスとそのプロパティは [Experimental (実験的)](components-stability.md#stability-levels-explained) です。
 > オプトインするには、`@OptIn(ExperimentalStdlibApi::class)` アノテーションを使用するか、コンパイラオプション `-opt-in=kotlin.ExperimentalStdlibApi` を使用してください。
@@ -739,7 +739,7 @@ fun main() {
 
 `minLength` プロパティはパースには影響しません。ただし、パースの際、余分な先頭の桁がゼロであれば、型の幅よりも多くの桁を持つ 16 進文字列が許可されるようになりました。
 
-### Base64 デコーダの挙動の変更
+### Base64 デコーダの挙動の変更 {id="changes-to-the-base64-s-decoder-behavior"}
 
 > [`Base64` クラス](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io.encoding/-base64/) とその関連機能は [Experimental (実験的)](components-stability.md#stability-levels-explained) です。
 > オプトインするには、`@OptIn(ExperimentalEncodingApi::class)` アノテーションを使用するか、コンパイラオプション `-opt-in=kotlin.io.encoding.ExperimentalEncodingApi` を使用してください。
@@ -751,11 +751,11 @@ Kotlin 2.0.20 において、Base64 デコーダの挙動に 2 つの変更が�
 * [Base64 デコーダでパディングが必須に](#the-base64-decoder-now-requires-padding)
 * [パディング設定のための `withPadding` 関数を追加](#withpadding-function-for-padding-configuration)
 
-#### Base64 デコーダでパディングが必須に
+#### Base64 デコーダでパディングが必須に {id="the-base64-decoder-now-requires-padding"}
 
 Base64 エンコーダはデフォルトでパディングを追加するようになり、デコーダはパディングを必須とし、デコード時に非ゼロのパッドビットを禁止するようになりました。
 
-#### パディング設定のための withPadding 関数
+#### パディング設定のための withPadding 関数 {id="withpadding-function-for-padding-configuration"}
 
 ユーザーが Base64 のエンコードおよびデコードのパディング挙動を制御できるように、新しい `.withPadding()` 関数が導入されました。
 
@@ -807,7 +807,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-2-0-20-base64-decoder" validate="false"}
 
-## ドキュメントの更新
+## ドキュメントの更新 {id="documentation-updates"}
 
 Kotlin ドキュメントにいくつかの注目すべき変更が行われました。
 
@@ -818,7 +818,7 @@ Kotlin ドキュメントにいくつかの注目すべき変更が行われま�
 * [Swift/Objective-C との相互運用性ページ](native-objc-interop.md) の改善 - Swift/Objective-C コードで Kotlin 宣言を使用する方法、および Kotlin コードで Objective-C 宣言を使用する方法を学びましょう。
 * [Swift パッケージのエクスポート設定ページ](https://kotlinlang.org/docs/multiplatform/multiplatform-spm-export.html) の改善 - Swift Package Manager 依存関係として利用可能な Kotlin/Native 出力を設定する方法について学びましょう。
 
-## Kotlin 2.0.20 のインストール
+## Kotlin 2.0.20 のインストール {id="install-kotlin-2-0-20"}
 
 IntelliJ IDEA 2023.3 および Android Studio Iguana (2023.2.1) Canary 15 以降、Kotlin プラグインは IDE に含まれるバンドルプラグインとして配布されています。これは、JetBrains Marketplace からプラグインをインストールできなくなったことを意味します。
 

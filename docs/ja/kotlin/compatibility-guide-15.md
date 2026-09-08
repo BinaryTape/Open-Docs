@@ -4,7 +4,7 @@
 
 ほとんどの言語の変更は、アップデートの変更履歴やコンパイラの警告など、他のチャネルを通じてすでに発表されていますが、このドキュメントではそれらをすべてまとめ、Kotlin 1.4 から Kotlin 1.5 への移行のための完全なリファレンスを提供します。
 
-## 基本用語
+## 基本用語 {id="basic-terms"}
 
 このドキュメントでは、いくつかの種類の互換性を紹介します。
 
@@ -14,9 +14,9 @@
 
 これらの定義は、純粋な Kotlin に対してのみ与えられていることに注意してください。他の言語（例：Java）の観点からの Kotlin コードの互換性は、このドキュメントの範囲外です。
 
-## 言語および標準ライブラリ（stdlib）
+## 言語および標準ライブラリ（stdlib） {id="language-and-stdlib"}
 
-### シグネチャポリモーフィックな呼び出しにおけるスプレッド演算子の禁止
+### シグネチャポリモーフィックな呼び出しにおけるスプレッド演算子の禁止 {id="forbid-spread-operator-in-signature-polymorphic-calls"}
 
 > **課題**: [KT-35226](https://youtrack.jetbrains.com/issue/KT-35226)
 >
@@ -32,7 +32,7 @@
 > - 1.5 以上: この警告をエラーに引き上げ。
 >  `-XXLanguage:-ProhibitSpreadOnSignaturePolymorphicCall` を使用して、一時的に 1.5 未満の動作に戻すことが可能。
 
-### そのクラスから見えない抽象メンバー（internal/package-private）を含む非抽象クラスの禁止
+### そのクラスから見えない抽象メンバー（internal/package-private）を含む非抽象クラスの禁止 {id="forbid-non-abstract-classes-containing-abstract-members-invisible-from-that-classes-internal-package-private"}
 
 > **課題**: [KT-27825](https://youtrack.jetbrains.com/issue/KT-27825)
 >
@@ -48,7 +48,7 @@
 > - 1.5 以上: この警告をエラーに引き上げ。
 >  `-XXLanguage:-ProhibitInvisibleAbstractMethodsInSuperclasses` を使用して、一時的に 1.5 未満の動作に戻すことが可能。
 
-### JVM 上で、非 reified 型パラメータに基づく配列を reified 型引数として使用することを禁止
+### JVM 上で、非 reified 型パラメータに基づく配列を reified 型引数として使用することを禁止 {id="forbid-using-array-based-on-non-reified-type-parameters-as-reified-type-arguments-on-jvm"}
 
 > **課題**: [KT-31227](https://youtrack.jetbrains.com/issue/KT-31227)
 >
@@ -64,7 +64,7 @@
 > - 1.5 以上: この警告をエラーに引き上げ。
 >  `-XXLanguage:-ProhibitNonReifiedArraysAsReifiedTypeArguments` を使用して、一時的に 1.5 未満の動作に戻すことが可能。
 
-### プライマリコンストラクタに委譲しない enum クラスのセカンダリコンストラクタを禁止
+### プライマリコンストラクタに委譲しない enum クラスのセカンダリコンストラクタを禁止 {id="forbid-secondary-enum-class-constructors-which-do-not-delegate-to-the-primary-constructor"}
 
 > **課題**: [KT-35870](https://youtrack.jetbrains.com/issue/KT-35870)
 >
@@ -80,7 +80,7 @@
 > - 1.5 以上: この警告をエラーに引き上げ。
 >  `-XXLanguage:-RequiredPrimaryConstructorDelegationCallInEnums` を使用して、一時的に 1.5 未満の動作に戻すことが可能。
 
-### private な inline 関数からの匿名型の露出を禁止
+### private な inline 関数からの匿名型の露出を禁止 {id="forbid-exposing-anonymous-types-from-private-inline-functions"}
 
 > **課題**: [KT-33917](https://youtrack.jetbrains.com/issue/KT-33917)
 >
@@ -96,7 +96,7 @@
 > - 1.5 以上: この警告をエラーに引き上げ。
 >  `-XXLanguage:-ApproximateAnonymousReturnTypesInPrivateInlineFunctions` を使用して、一時的に 1.5 未満の動作に戻すことが可能。
 
-### SAM 変換を伴う引数の後に非スプレッド配列を渡すことを禁止
+### SAM 変換を伴う引数の後に非スプレッド配列を渡すことを禁止 {id="forbid-passing-non-spread-arrays-after-arguments-with-sam-conversion"}
 
 > **課題**: [KT-35224](https://youtrack.jetbrains.com/issue/KT-35224)
 >
@@ -112,7 +112,7 @@
 > - 1.5 以上: この警告をエラーに引き上げ。
 >  `-XXLanguage:-ProhibitVarargAsArrayAfterSamArgument` を使用して、一時的に 1.5 未満の動作に戻すことが可能。
 
-### アンダースコア名の catch ブロックパラメータに対する特別なセマンティクスのサポート
+### アンダースコア名の catch ブロックパラメータに対する特別なセマンティクスのサポート {id="support-special-semantics-for-underscore-named-catch-block-parameters"}
 
 > **課題**: [KT-31567](https://youtrack.jetbrains.com/issue/KT-31567)
 >
@@ -128,7 +128,7 @@
 > - 1.5 以上: この警告をエラーに引き上げ。
 >  `-XXLanguage:-ForbidReferencingToUnderscoreNamedParameterOfCatchBlock` を使用して、一時的に 1.5 未満の動作に戻すことが可能。
 
-### SAM 変換の実装戦略を匿名クラスベースから invokedynamic に変更
+### SAM 変換の実装戦略を匿名クラスベースから invokedynamic に変更 {id="change-implementation-strategy-of-sam-conversion-from-anonymous-class-based-to-invokedynamic"}
 
 > **課題**: [KT-44912](https://youtrack.jetbrains.com/issue/KT-44912)
 >
@@ -143,7 +143,7 @@
 > - 1.5: SAM 変換の実装戦略を変更。
 >  `-Xsam-conversions=class` を使用して、以前の実装方式に戻すことが可能。
 
-### JVM IR ベースのバックエンドにおけるパフォーマンスの問題
+### JVM IR ベースのバックエンドにおけるパフォーマンスの問題 {id="performance-issues-with-the-jvm-ir-based-backend"}
 
 > **課題**: [KT-48233](https://youtrack.jetbrains.com/issue/KT-48233)
 >
@@ -190,7 +190,7 @@
 >
 > このフラグのサポートは、将来のリリースで削除される予定です。
 
-### JVM IR ベースのバックエンドにおける新しいフィールドのソート順
+### JVM IR ベースのバックエンドにおける新しいフィールドのソート順 {id="new-field-sorting-in-the-jvm-ir-based-backend"}
 
 > **課題**: [KT-46378](https://youtrack.jetbrains.com/issue/KT-46378)
 >
@@ -235,7 +235,7 @@
 >
 > このフラグのサポートは、将来のリリースで削除される予定です。
 
-### 委譲式にジェネリックな呼び出しを含む委譲プロパティに対する null 許容性の assertion の生成
+### 委譲式にジェネリックな呼び出しを含む委譲プロパティに対する null 許容性の assertion の生成 {id="generate-nullability-assertion-for-delegated-properties-with-a-generic-call-in-the-delegate-expression"}
 
 > **課題**: [KT-44304](https://youtrack.jetbrains.com/issue/KT-44304)
 >
@@ -250,7 +250,7 @@
 > - 1.5: 委譲プロパティに対して null 許容性の assertion を出力（詳細は課題を参照）。
 >  `-Xuse-old-backend` または `-language-version 1.4` を使用して、一時的に 1.5 未満の動作に戻すことが可能。
 
-### @OnlyInputTypes でアノテーションされた型パラメータを持つ呼び出しの警告をエラーに変更
+### @OnlyInputTypes でアノテーションされた型パラメータを持つ呼び出しの警告をエラーに変更 {id="turn-warnings-into-errors-for-calls-with-type-parameters-annotated-by-onlyinputtypes"}
 
 > **課題**: [KT-45861](https://youtrack.jetbrains.com/issue/KT-45861)
 >
@@ -266,7 +266,7 @@
 > - 1.5 以上: この警告をエラーに引き上げ。
 >  `-XXLanguage:-StrictOnlyInputTypesChecks` を使用して、一時的に 1.5 未満の動作に戻すことが可能。
 
-### 名前付き vararg を伴う呼び出しにおける正しい引数実行順序の使用
+### 名前付き vararg を伴う呼び出しにおける正しい引数実行順序の使用 {id="use-the-correct-order-of-arguments-execution-in-calls-with-named-vararg"}
 
 > **課題**: [KT-17691](https://youtrack.jetbrains.com/issue/KT-17691)
 >
@@ -282,7 +282,7 @@
 > - 1.5 以上: この警告をエラーに引き上げ。
 >  `-XXLanguage:-UseCorrectExecutionOrderForVarargArguments` を使用して、一時的に 1.5 未満の動作に戻すことが可能。
 
-### 演算子の関数呼び出しにおけるパラメータのデフォルト値の使用
+### 演算子の関数呼び出しにおけるパラメータのデフォルト値の使用 {id="use-default-value-of-the-parameter-in-operator-functional-calls"}
 
 > **課題**: [KT-42064](https://youtrack.jetbrains.com/issue/KT-42064)
 >
@@ -298,7 +298,7 @@
 > - 1.5 以上: 動作が変更。
 >  `-XXLanguage:-JvmIrEnabledByDefault` を使用して、一時的に 1.5 未満の動作に戻すことが可能。
 
-### 通常のプログレッションが空の場合、for ループ内で空の逆プログレッションを生成
+### 通常のプログレッションが空の場合、for ループ内で空の逆プログレッションを生成 {id="produce-empty-reversed-progressions-in-for-loops-if-regular-progression-is-also-empty"}
 
 > **課題**: [KT-42533](https://youtrack.jetbrains.com/issue/KT-42533)
 >
@@ -314,7 +314,7 @@
 > - 1.5 以上: 動作が変更。
 >  `-XXLanguage:-JvmIrEnabledByDefault` を使用して、一時的に 1.5 未満の動作に戻すことが可能。
 
-### Char からコード、および Char から数字への変換の整理
+### Char からコード、および Char から数字への変換の整理 {id="straighten-char-to-code-and-char-to-digit-conversions-out"}
 
 > **課題**: [KT-23451](https://youtrack.jetbrains.com/issue/KT-23451)
 >
@@ -328,7 +328,7 @@
 >
 > - 1.5: `Char.toInt()/toShort()/toLong()/toByte()/toDouble()/toFloat()` および `Long.toChar()` のような逆変換関数を非推奨にし、代替案を提示。
 
-### kotlin.text 関数における文字の大文字小文字を区別しない比較の不整合
+### kotlin.text 関数における文字の大文字小文字を区別しない比較の不整合 {id="inconsistent-case-insensitive-comparison-of-characters-in-kotlin-text-functions"}
 
 > **課題**: [KT-45496](https://youtrack.jetbrains.com/issue/KT-45496)
 >
@@ -343,7 +343,7 @@
 > - 1.5 未満: 古い動作（詳細は課題を参照）
 > - 1.5: `Char.equals` 関数の動作を変更。
 
-### デフォルトのロケールに依存する大文字小文字変換 API の削除
+### デフォルトのロケールに依存する大文字小文字変換 API の削除 {id="remove-default-locale-sensitive-case-conversion-api"}
 
 > **課題**: [KT-43023](https://youtrack.jetbrains.com/issue/KT-43023)
 >
@@ -357,7 +357,7 @@
 >
 > - 1.5: デフォルトのロケールを使用する大文字小文字変換関数を非推奨にし（詳細は課題を参照）、代替案を提示。
 
-### コレクションの min および max 関数の戻り値の型を段階的に非 null に変更
+### コレクションの min および max 関数の戻り値の型を段階的に非 null に変更 {id="gradually-change-the-return-type-of-collection-min-and-max-functions-to-non-nullable"}
 
 > **課題**: [KT-38854](https://youtrack.jetbrains.com/issue/KT-38854)
 >
@@ -373,7 +373,7 @@
 > - 1.5.0: 影響を受ける API の非推奨レベルをエラーに引き上げ。
 > - 1.6 以上: 影響を受ける API を再導入するが、戻り値の型を非 null に変更。
 
-### 浮動小数点型から Short および Byte への変換の非推奨レベルの引き上げ
+### 浮動小数点型から Short および Byte への変換の非推奨レベルの引き上げ {id="raise-the-deprecation-level-of-conversions-of-floating-point-types-to-short-and-byte"}
 
 > **課題**: [KT-30360](https://youtrack.jetbrains.com/issue/KT-30360)
 >
@@ -388,9 +388,9 @@
 > - 1.4: `Double.toShort()/toByte()` および `Float.toShort()/toByte()` を非推奨にし、代替案を提示。
 > - 1.5.0: 非推奨レベルをエラーに引き上げ。
 
-## ツール
+## ツール {id="tools"}
 
-### 単一のプロジェクト内で複数の kotlin-test の JVM バリアントを混在させない
+### 単一のプロジェクト内で複数の kotlin-test の JVM バリアントを混在させない {id="do-not-mix-several-jvm-variants-of-kotlin-test-in-a-single-project"}
 
 > **課題**: [KT-40225](https://youtrack.jetbrains.com/issue/KT-40225)
 >

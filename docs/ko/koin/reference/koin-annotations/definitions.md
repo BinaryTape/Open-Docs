@@ -20,7 +20,7 @@ Koin 어노테이션은 Koin DSL과 동일한 시맨틱(semantics)을 유지합�
 
 스코프(Scope)에 대해서는 [스코프 선언하기](/docs/reference/koin-core/scopes) 섹션을 확인하세요.
 
-## 최상위 함수 어노테이션(Annotated Top-Level Functions)
+## 최상위 함수 어노테이션(Annotated Top-Level Functions) {id="annotated-top-level-functions"}
 
 어노테이션은 클래스뿐만 아니라 **최상위 함수(top-level functions)**에서도 작동합니다. 이는 외부 라이브러리나 빌더 패턴에서 인스턴스를 제공할 때 유용합니다. 최상위 함수는 클래스와 마찬가지로 `@ComponentScan`에 의해 감지됩니다:
 
@@ -46,7 +46,7 @@ fun provideHttpClient(json: Json): HttpClient = HttpClient { install(ContentNego
 
 파라미터는 DI 컨테이너에서 자동으로 해결(resolve)됩니다. 한정자(Qualifier, `@Named`, 커스텀 `@Qualifier`)는 함수와 파라미터 모두에 적용할 수 있습니다.
 
-## 모듈 함수 (제공자 함수)
+## 모듈 함수 (제공자 함수) {id="module-functions-provider-functions"}
 
 `@Module` 클래스 내부에서 `@Singleton`, `@Factory` 등의 어노테이션이 붙은 함수는 Dagger/Hilt의 `@Provides`와 유사한 제공자 함수(provider functions) 역할을 합니다:
 
@@ -75,7 +75,7 @@ class DaosModule {
 
 이는 직접 어노테이션을 추가할 수 없는 외부 라이브러리(Room, Retrofit, OkHttp 등)를 래핑할 때 사용하는 패턴입니다.
 
-## 커스텀 한정자 어노테이션 (Custom Qualifier Annotations)
+## 커스텀 한정자 어노테이션 (Custom Qualifier Annotations) {id="custom-qualifier-annotations"}
 
 `@Named` 외에도 `@Qualifier`를 사용하여 파라미터가 있는 커스텀 한정자 어노테이션을 만들 수 있습니다:
 
@@ -117,7 +117,7 @@ class DispatchersModule {
 
 커스텀 한정자는 컴파일 타임에 검증됩니다. 제공자의 한정자와 주입 지점의 한정자가 일치하지 않으면 빌드 에러가 발생합니다.
 
-### Kotlin 멀티플랫폼을 위한 ViewModel
+### Kotlin 멀티플랫폼을 위한 ViewModel {id="viewmodel-for-kotlin-multiplatform"}
 
 `@KoinViewModel` 어노테이션은 통합된 `koin-core-viewmodel` API를 사용하여 ViewModel을 생성하며, Kotlin 멀티플랫폼 호환성을 제공합니다.
 
@@ -128,7 +128,7 @@ class UserViewModel(val repository: UserRepository) : ViewModel()
 
 이는 안드로이드와 Compose 멀티플랫폼 모두와 호환되는 `viewModel` 정의를 생성합니다.
 
-## 자동 또는 특정 바인딩
+## 자동 또는 특정 바인딩 {id="automatic-or-specific-binding"}
 
 컴포넌트를 선언할 때, 감지된 모든 "바인딩"(연관된 상위 타입)이 이미 준비됩니다. 예를 들어, 다음과 같은 정의가 있다면:
 
@@ -145,7 +145,7 @@ Koin이 자동으로 감지하도록 하는 대신, `binds` 어노테이션 파�
 @Single(binds = [MyBoundType::class])
 ```
 
-## Nullable 의존성
+## Nullable 의존성 {id="nullable-dependencies"}
 
 컴포넌트가 nullable 의존성을 사용하더라도 자동으로 처리되니 걱정하지 마세요. 정의 어노테이션을 그대로 사용하면 Koin이 어떻게 처리할지 판단합니다:
 
@@ -158,7 +158,7 @@ class MyComponent(val myDependency : MyDependency?)
 
 > 참고: 이는 주입된 파라미터(injected Parameters)와 프로퍼티(properties)에도 적용됩니다.
 
-## @Named를 사용한 한정자(Qualifier)
+## @Named를 사용한 한정자(Qualifier) {id="qualifier-with-named"}
 
 동일한 타입에 대한 여러 정의를 구분하기 위해 `@Named` 어노테이션을 사용하여 정의에 "이름"(한정자라고도 함)을 추가할 수 있습니다:
 
@@ -200,7 +200,7 @@ class LoggerLocalDataSource(private val logDao: LogDao) : LoggerDataSource
 val logger: LoggerDataSource by inject(named<InMemoryLogger>())
 ```
 
-## @InjectedParam을 사용한 주입된 파라미터
+## @InjectedParam을 사용한 주입된 파라미터 {id="injected-parameters-with-injectedparam"}
 
 생성자 멤버를 "주입된 파라미터(injected parameter)"로 태깅할 수 있습니다. 이는 의존성 해결을 요청할 때 해당 의존성이 그래프에 전달됨을 의미합니다.
 
@@ -221,7 +221,7 @@ koin.get<MyComponent> { parametersOf(m) }
 
 생성된 DSL은 `single { params -> MyComponent(params.get()) }`과 동일합니다.
 
-## 지연 의존성 주입 - `Lazy<T>`
+## 지연 의존성 주입 - `Lazy<T>` {id="injecting-a-lazy-dependency-lazy-t"}
 
 Koin은 지연 의존성을 자동으로 감지하고 해결할 수 있습니다. 예를 들어, 여기서는 `LoggerDataSource` 정의를 지연해서 해결하고자 합니다. 다음과 같이 Kotlin의 `Lazy` 타입을 사용하기만 하면 됩니다:
 
@@ -239,7 +239,7 @@ class LoggerAggregator(val lazyLogger : Lazy<LoggerDataSource>)
 single { LoggerAggregator(inject()) }
 ```
 
-## 의존성 리스트 주입 - `List<T>`
+## 의존성 리스트 주입 - `List<T>` {id="injecting-a-list-of-dependencies-list-t"}
 
 Koin은 의존성 리스트를 자동으로 감지하고 해결할 수 있습니다. 예를 들어, 여기서는 모든 `LoggerDataSource` 정의를 해결하고자 합니다. 다음과 같이 `List` Kotlin 타입을 사용하기만 하면 됩니다:
 
@@ -262,7 +262,7 @@ class LoggerAggregator(val datasource : List<LoggerDataSource>)
 single { LoggerAggregator(getAll()) }
 ```
 
-## @Property를 사용한 프로퍼티
+## @Property를 사용한 프로퍼티 {id="properties-with-property"}
 
 정의에서 Koin 프로퍼티를 해결하려면 생성자 멤버에 `@Property`를 태깅하면 됩니다. 어노테이션에 전달된 값을 통해 Koin 프로퍼티를 해결하게 됩니다:
 
@@ -275,7 +275,7 @@ public class ComponentWithProps(
 
 생성된 DSL은 `factory { ComponentWithProps(getProperty("id")) }`와 동일합니다.
 
-### @PropertyValue - 기본값이 있는 프로퍼티 (1.4부터)
+### @PropertyValue - 기본값이 있는 프로퍼티 (1.4부터) {id="propertyvalue-property-with-default-value-since-1-4"}
 
 Koin 어노테이션은 `@PropertyValue` 어노테이션을 통해 코드에서 직접 프로퍼티의 기본값을 정의할 수 있는 기능을 제공합니다.
 예제를 살펴보겠습니다:
@@ -294,11 +294,11 @@ public class ComponentWithProps(
 
 생성된 DSL은 `factory { ComponentWithProps(getProperty("id", ComponentWithProps.DEFAULT_ID)) }`와 동일합니다.
 
-## JSR-330 호환 어노테이션
+## JSR-330 호환 어노테이션 {id="jsr-330-compatibility-annotations"}
 
 Koin 어노테이션은 `koin-jsr330` 모듈을 통해 JSR-330(Jakarta Inject) 호환 어노테이션을 제공합니다. 이 어노테이션들은 Hilt, Dagger 또는 Guice와 같은 다른 JSR-330 호환 프레임워크에서 마이그레이션하는 개발자들에게 특히 유용합니다.
 
-### 설정
+### 설정 {id="setup"}
 
 프로젝트에 `koin-jsr330` 의존성을 추가하세요:
 
@@ -308,9 +308,9 @@ dependencies {
 }
 ```
 
-### 사용 가능한 JSR-330 어노테이션
+### 사용 가능한 JSR-330 어노테이션 {id="available-jsr-330-annotations"}
 
-#### @Singleton (jakarta.inject.Singleton)
+#### @Singleton (jakarta.inject.Singleton) {id="singleton-jakarta-inject-singleton"}
 
 JSR-330 표준 싱글톤 어노테이션으로, Koin의 `@Single`과 동일합니다:
 
@@ -323,7 +323,7 @@ class DatabaseService
 
 이는 Koin에서 싱글톤 인스턴스라는 `@Single`과 동일한 결과를 생성합니다.
 
-#### @Named (jakarta.inject.Named)
+#### @Named (jakarta.inject.Named) {id="named-jakarta-inject-named"}
 
 문자열 기반 한정자를 위한 JSR-330 표준 한정자 어노테이션입니다:
 
@@ -340,7 +340,7 @@ class InMemoryCache : Cache
 class RedisCache : Cache
 ```
 
-#### @Inject (jakarta.inject.Inject)
+#### @Inject (jakarta.inject.Inject) {id="inject-jakarta-inject-inject"}
 
 JSR-330 표준 주입 어노테이션입니다. Koin 어노테이션은 명시적인 생성자 마킹이 필요하지 않지만, JSR-330 호환성을 위해 `@Inject`를 사용할 수 있습니다:
 
@@ -354,7 +354,7 @@ class UserService @Inject constructor(
 )
 ```
 
-#### @Qualifier (jakarta.inject.Qualifier)
+#### @Qualifier (jakarta.inject.Qualifier) {id="qualifier-jakarta-inject-qualifier"}
 
 커스텀 한정자 어노테이션을 만들기 위한 메타 어노테이션입니다:
 
@@ -376,7 +376,7 @@ class DatabaseConfig
 class CacheConfig
 ```
 
-#### @Scope (jakarta.inject.Scope)
+#### @Scope (jakarta.inject.Scope) {id="scope-jakarta-inject-scope"}
 
 커스텀 스코프 어노테이션을 만들기 위한 메타 어노테이션입니다:
 
@@ -392,7 +392,7 @@ annotation class RequestScoped
 class RequestProcessor
 ```
 
-### 혼합 사용
+### 혼합 사용 {id="mixed-usage"}
 
 동일한 프로젝트에서 JSR-330 어노테이션과 Koin 어노테이션을 자유롭게 혼합하여 사용할 수 있습니다:
 
@@ -415,7 +415,7 @@ class DatabaseManager @Inject constructor(
 )
 ```
 
-### 프레임워크 마이그레이션의 이점
+### 프레임워크 마이그레이션의 이점 {id="framework-migration-benefits"}
 
 JSR-330 어노테이션을 사용하면 프레임워크 마이그레이션 시 다음과 같은 몇 가지 장점이 있습니다:
 

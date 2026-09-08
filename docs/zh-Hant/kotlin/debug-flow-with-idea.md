@@ -6,7 +6,7 @@
 
 本教學假設您已具備[協同程式](coroutines-basics.md)和 [flow](coroutines-flow.md) 概念的先驗知識。
 
-## 建立 Kotlin flow
+## 建立 Kotlin flow {id="create-a-kotlin-flow"}
 
 建立一個具有慢速發射器（emitter）和慢速收集器（collector）的 Kotlin [flow](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/flow.html)：
 
@@ -79,7 +79,7 @@
 
     ![組建應用程式](flow-build-project.png)
 
-## 偵錯協同程式
+## 偵錯協同程式 {id="debug-the-coroutine"}
 
 1. 在呼叫 `emit()` 函式的行設置一個中斷點：
 
@@ -104,7 +104,7 @@
 
     ![偵錯協同程式](flow-debug-2.png)
 
-### 優化掉的變數
+### 優化掉的變數 {id="optimized-out-variables"}
 
 如果您使用 `suspend` 函式，在偵錯工具中，您可能會在變數名稱旁邊看到 "was optimized out" 文字：
 
@@ -118,7 +118,7 @@
 >
 {style="warning"}
 
-## 新增並行執行的協同程式
+## 新增並行執行的協同程式 {id="add-a-concurrently-running-coroutine"}
 
 1. 開啟 `src/main/kotlin` 中的 `Main.kt` 檔案。
 
@@ -139,7 +139,7 @@
 
 3. 點擊 **Build Project** 來組建程式碼。
 
-## 偵錯具有兩個協同程式的 Kotlin flow
+## 偵錯具有兩個協同程式的 Kotlin flow {id="debug-a-kotlin-flow-with-two-coroutines"}
 
 1. 在 `println(value)` 處設置一個新的中斷點。
 

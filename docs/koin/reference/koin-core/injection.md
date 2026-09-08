@@ -6,7 +6,7 @@ title: 检索依赖项
 
 本指南介绍如何在不同上下文中从 Koin 检索依赖项。
 
-## 方案
+## 方案 {id="approaches"}
 
 | 方案 | 何时使用 | 示例 |
 |----------|-------------|---------|
@@ -18,7 +18,7 @@ title: 检索依赖项
 **最佳做法：** 为了获得更好的可测试性，优先选择构造函数或函数注入。仅在无法控制类构建（如 Activity、Fragment 等）时才使用字段注入。
 :::
 
-## 构造函数注入（推荐）
+## 构造函数注入（推荐） {id="constructor-injection-recommended"}
 
 在构造函数中声明依赖项并由 Koin 解析：
 
@@ -44,11 +44,11 @@ val appModule = module {
 
 Koin 会自动解析所有构造函数形参。
 
-## 函数注入
+## 函数注入 {id="function-injection"}
 
 当需要自定义创建逻辑时，使用函数创建实例：
 
-### 编译器插件 DSL
+### 编译器插件 DSL {id="compiler-plugin-dsl"}
 
 ```kotlin
 fun createHttpClient(dataSource: DataSource): HttpClient {
@@ -64,7 +64,7 @@ val appModule = module {
 }
 ```
 
-### 注解
+### 注解 {id="annotations"}
 
 ```kotlin
 @Module
@@ -85,9 +85,9 @@ class NetworkModule {
 - 需要复杂的初始化逻辑
 - 需要配置构建器或 DSL
 
-## 字段注入
+## 字段注入 {id="field-injection"}
 
-### 通过 `by inject()` 进行延迟注入
+### 通过 `by inject()` 进行延迟注入 {id="lazy-injection-with-by-inject"}
 
 在首次访问时创建实例：
 
@@ -99,7 +99,7 @@ class MyActivity : AppCompatActivity() {
 }
 ```
 
-### 通过 `get()` 进行立即注入
+### 通过 `get()` 进行立即注入 {id="eager-injection-with-get"}
 
 立即创建实例：
 
@@ -110,14 +110,14 @@ class MyActivity : AppCompatActivity() {
 }
 ```
 
-### 对比
+### 对比 {id="comparison"}
 
 | 方法 | 创建时机 | 线程安全 |
 |--------|--------------|---------------|
 | `by inject()` | 首次访问时 | 线程安全延迟加载 |
 | `get()` | 立即 | 直接调用 |
 
-## KoinComponent
+## KoinComponent {id="koincomponent"}
 
 对于需要注入依赖项但不是 Android 组件的类：
 
@@ -136,9 +136,9 @@ class MyHelper : KoinComponent {
 避免在业务逻辑类中使用 `KoinComponent`。它会产生与 Koin 的紧耦合。请改为优先使用构造函数注入。
 :::
 
-## 平台特定的注入
+## 平台特定的注入 {id="platform-specific-injection"}
 
-### Android
+### Android {id="android"}
 
 Activity 和 Fragment 具有内置支持：
 
@@ -160,7 +160,7 @@ class UserFragment : Fragment() {
 }
 ```
 
-### Compose
+### Compose {id="compose"}
 
 ```kotlin
 @Composable
@@ -176,7 +176,7 @@ fun UserScreen() {
 }
 ```
 
-### Ktor
+### Ktor {id="ktor"}
 
 ```kotlin
 fun Route.userRoutes() {
@@ -188,11 +188,11 @@ fun Route.userRoutes() {
 }
 ```
 
-## 使用限定符进行注入
+## 使用限定符进行注入 {id="injection-with-qualifiers"}
 
 当同一类型有多个定义时，使用限定符进行区分。
 
-### 字符串限定符
+### 字符串限定符 {id="string-qualifier"}
 
 | DSL | 注解 |
 |-----|------------|
@@ -221,7 +221,7 @@ class LocalDatabase : Database
 class RemoteDatabase : Database
 ```
 
-### 类型限定符
+### 类型限定符 {id="type-qualifier"}
 
 使用类型（类、对象或枚举）作为限定符，以实现编译时安全：
 
@@ -256,7 +256,7 @@ class LocalDatabase : Database
 class RemoteDatabase : Database
 ```
 
-### 在 Compose 中
+### 在 Compose 中 {id="in-compose"}
 
 ```kotlin
 @Composable
@@ -269,11 +269,11 @@ fun MyScreen() {
 }
 ```
 
-## 通过形参注入
+## 通过形参注入 {id="injection-with-parameters"}
 
 在注入时传递实参：
 
-### 定义
+### 定义 {id="definition"}
 
 ```kotlin
 @Factory
@@ -286,7 +286,7 @@ class UserPresenter(
 factory<UserPresenter>()
 ```
 
-### 注入
+### 注入 {id="injection"}
 
 ```kotlin
 // by inject()
@@ -305,7 +305,7 @@ fun UserScreen(userId: String) {
 }
 ```
 
-### 多个实参
+### 多个实参 {id="multiple-parameters"}
 
 ```kotlin
 @Factory
@@ -318,7 +318,7 @@ class OrderPresenter(
 val presenter = get<OrderPresenter> { parametersOf("user123", "order456") }
 ```
 
-## 直接访问 Koin
+## 直接访问 Koin {id="direct-koin-access"}
 
 需要时直接访问 Koin 实例：
 
@@ -335,7 +335,7 @@ class MyClass : KoinComponent {
 }
 ```
 
-## 可为空注入
+## 可为空注入 {id="nullable-injection"}
 
 对于可选依赖项：
 
@@ -349,9 +349,9 @@ class MyClass : KoinComponent {
 }
 ```
 
-## 在不同上下文中注入
+## 在不同上下文中注入 {id="injection-in-different-contexts"}
 
-### 在 ViewModel 中
+### 在 ViewModel 中 {id="in-viewmodel"}
 
 ```kotlin
 class UserViewModel(
@@ -362,7 +362,7 @@ class UserViewModel(
 }
 ```
 
-### 在 Service 中
+### 在 Service 中 {id="in-service"}
 
 ```kotlin
 class MyService : Service() {
@@ -375,7 +375,7 @@ class MyService : Service() {
 }
 ```
 
-### 在 BroadcastReceiver 中
+### 在 BroadcastReceiver 中 {id="in-broadcastreceiver"}
 
 ```kotlin
 class MyReceiver : BroadcastReceiver(), KoinComponent {
@@ -387,7 +387,7 @@ class MyReceiver : BroadcastReceiver(), KoinComponent {
 }
 ```
 
-### 在 WorkManager Worker 中
+### 在 WorkManager Worker 中 {id="in-workmanager-worker"}
 
 ```kotlin
 class MyWorker(
@@ -408,9 +408,9 @@ val workerModule = module {
 }
 ```
 
-## 最佳做法
+## 最佳做法 {id="best-practices"}
 
-### 推荐：对业务逻辑使用构造函数注入
+### 推荐：对业务逻辑使用构造函数注入 {id="do-constructor-injection-for-business-logic"}
 
 ```kotlin
 // 好 - 无需 Koin 即可测试
@@ -433,7 +433,7 @@ fun testCreateUser() {
 }
 ```
 
-### 推荐：对框架类使用字段注入
+### 推荐：对框架类使用字段注入 {id="do-field-injection-for-framework-classes"}
 
 ```kotlin
 // 好 - Activity 的构建由 Android 控制
@@ -442,7 +442,7 @@ class MainActivity : AppCompatActivity() {
 }
 ```
 
-### 不推荐：在业务逻辑中使用 KoinComponent
+### 不推荐：在业务逻辑中使用 KoinComponent {id="don-t-koincomponent-in-business-logic"}
 
 ```kotlin
 // 不好 - 与 Koin 紧耦合
@@ -454,7 +454,7 @@ class UserService : KoinComponent {
 class UserService(private val repository: UserRepository)
 ```
 
-### 不推荐：在构造函数中使用 get()
+### 不推荐：在构造函数中使用 get() {id="don-t-get-in-constructors"}
 
 ```kotlin
 // 不好 - 构造函数中的副作用
@@ -466,7 +466,7 @@ class MyService(
 class MyService(private val repo: UserRepository)
 ```
 
-## 下一步
+## 下一步 {id="next-steps"}
 
 - **[作用域](/docs/reference/koin-core/scopes)** - 管理依赖项生命周期
 - **[Android 版 Koin](/docs/integrations/android/index)** - Android 特定的注入

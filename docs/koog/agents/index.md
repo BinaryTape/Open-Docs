@@ -15,7 +15,7 @@ Koog Agent 基于以下核心概念构建：
 
     有关创建和运行最小化 Agent 的信息，请参阅[快速入门](../quickstart.md)。
 
-## Agent 类型
+## Agent 类型 {id="agent-types"}
 
 根据您需要执行的任务，Koog 提供了几种 Agent 类型：
 
@@ -24,7 +24,7 @@ Koog Agent 基于以下核心概念构建：
 - [函数式 Agent](functional-agents.md) 使您能够快速将自定义逻辑原型化为一个可以访问 Agent 上下文的函数。
 - [规划器 Agent](planner-agents/index.md) 可以通过迭代循环自主规划并执行多步任务，直到达到所需的最终状态。
 
-## Agent 配置
+## Agent 配置 {id="agent-configuration"}
 
 Agent 配置定义了 Agent 的执行参数，包括初始 prompt、语言模型和迭代限制。
 

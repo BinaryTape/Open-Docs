@@ -69,13 +69,13 @@ val response: HttpResponse = client.get("https://ktor.io/docs/welcome.html")
 
 Ktor 客户端允许你通过多种方式配置请求 URL：
 
-### 传递整个 URL 字符串
+### 传递整个 URL 字符串 {id="pass-the-entire-url-string"}
 
 ```kotlin
 val response: HttpResponse = client.get("https://ktor.io/docs/welcome.html")
 ```
 
-### 分别配置 URL 组件
+### 分别配置 URL 组件 {id="configure-url-components-separately"}
 
 ```kotlin
 client.get {
@@ -135,7 +135,7 @@ client.get("https://ktor.io") {
 
 默认情况下，`fragment` 会对 URL 片段进行[编码][percent_encoding]。要禁用编码，请改用 `encodedFragment()`。
 
-## 指定 Unix 域套接字
+## 指定 Unix 域套接字 {id="specify-a-unix-domain-socket"}
 
 > Unix 域套接字仅在 CIO 引擎中受支持。要在 Ktor 服务器中使用 Unix 套接字，请相应地[配置服务器](server-configuration-code.topic#cio-code)。
 >
@@ -161,7 +161,7 @@ val response: HttpResponse = client.get("/") {
 
 你可以通过几种方式向请求添加标头：
 
-#### 添加多个标头
+#### 添加多个标头 {id="add-multiple-headers"}
 
 [`headers`](https://api.ktor.io/ktor-client-core/io.ktor.client.request/headers.html) 函数允许你一次添加多个标头：
 
@@ -196,11 +196,11 @@ client.get("https://ktor.io") {
         }
 ```
 
-#### 添加单个标头
+#### 添加单个标头 {id="add-a-single-header"}
 
 [`header`](https://api.ktor.io/ktor-client-core/io.ktor.client.request/header.html) 函数允许你追加单个标头。
 
-#### 使用 `basicAuth` 或 `bearerAuth` 进行身份验证
+#### 使用 `basicAuth` 或 `bearerAuth` 进行身份验证 {id="use-basicauth-or-bearerauth-for-authorization"}
 
 `basicAuth` 和 `bearerAuth` 函数会添加带有相应 HTTP 方案的 `Authorization` 标头。
 
@@ -289,7 +289,7 @@ val response: HttpResponse = client.submitForm(
 
 对于这两种方法，你都需要使用 [`formData {}`](https://api.ktor.io/ktor-client-core/io.ktor.client.request.forms/form-data.html) 函数构建表单数据。
 
-#### 使用 `.submitFormWithBinaryData()`
+#### 使用 `.submitFormWithBinaryData()` {id="using-submitformwithbinarydata"}
 
 `.submitFormWithBinaryData()` 函数会自动生成边界，适用于文件内容足够小、可以安全地使用 `.readBytes()` 读取到内存中的简单场景。
 
@@ -310,7 +310,7 @@ val response: HttpResponse = client.submitForm(
 
 有关完整示例，请参阅 [client-upload](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-upload)。
 
-#### 使用 `MultiPartFormDataContent`
+#### 使用 `MultiPartFormDataContent` {id="using-multipartformdatacontent"}
 
 为了高效地流式传输大型或动态内容，你可以将 `MultiPartFormDataContent` 与 `InputProvider` 结合使用。`InputProvider` 允许你以缓冲流的形式提供文件数据，而不是将其全部加载到内存中，这非常适合大文件。使用 `MultiPartFormDataContent`，你还可以使用 `onUpload` 回调监控上传进度。
 

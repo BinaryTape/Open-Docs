@@ -6,7 +6,7 @@ title: コンパイラプラグインのセットアップ
 
 **Koinコンパイラプラグイン**は、すべての新しいKotlin 2.xプロジェクトにおいて推奨されるアプローチです。オートワイヤリング（auto-wiring）、コンパイル時の安全性、そしてよりクリーンなDSL構文を提供します。
 
-## コンパイラプラグインとは？
+## コンパイラプラグインとは？ {id="what-is-the-compiler-plugin"}
 
 Koinコンパイラプラグインは、以下の特徴を持つ**ネイティブなKotlinコンパイラプラグイン（K2）**です：
 
@@ -21,14 +21,14 @@ Koinコンパイラプラグインは、以下の特徴を持つ**ネイティ�
 Android StudioおよびIntelliJ IDEA用の**[Koin IDEプラグイン](https://plugins.jetbrains.com/plugin/26131-koin-dependency-injection-official-)**をインストールしてください。定義と注入ポイント（injection points）間のコードナビゲーション、ライブセーフティチェック、依存関係グラフの可視化機能が提供されます。
 :::
 
-## 要件
+## 要件 {id="requirements"}
 
 - **Kotlin 2.3.20+** (K2コンパイラ)
 - **Gradle 8.x+**
 
-## セットアップ
+## セットアップ {id="setup"}
 
-### ステップ 1: バージョンカタログへのKoinの追加
+### ステップ 1: バージョンカタログへのKoinの追加 {id="step-1-add-koin-to-version-catalog"}
 
 まず、最新バージョンを確認してください：
 - Koin: [![Maven Central](https://img.shields.io/maven-central/v/io.insert-koin/koin-core?label=latest)](https://mvnrepository.com/artifact/io.insert-koin/koin-core)
@@ -49,7 +49,7 @@ koin-annotations = { module = "io.insert-koin:koin-annotations", version.ref = "
 koin-compiler = { id = "io.insert-koin.compiler.plugin", version.ref = "koin-plugin" }
 ```
 
-### ステップ 2: 設定の構成
+### ステップ 2: 設定の構成 {id="step-2-configure-settings"}
 
 `settings.gradle.kts`にて：
 
@@ -62,7 +62,7 @@ pluginManagement {
 }
 ```
 
-### ステップ 3: プラグインの適用
+### ステップ 3: プラグインの適用 {id="step-3-apply-the-plugin"}
 
 モジュールの `build.gradle.kts`にて：
 
@@ -86,9 +86,9 @@ dependencies {
 ランタイムを追加せずにアノテーションを使用すると、コンパイラが不足しているアーティファクト名を明示したエラーを表示してビルドに失敗します。これにより、起動時に発生していた原因不明の `NoDefinitionFoundException` を防ぐことができます。
 :::
 
-## 完全な例
+## 完全な例 {id="complete-example"}
 
-### gradle/libs.versions.toml
+### gradle/libs.versions.toml {id="gradle-libs-versions-toml"}
 
 ```toml
 [versions]
@@ -103,7 +103,7 @@ koin-annotations = { module = "io.insert-koin:koin-annotations", version.ref = "
 koin-compiler = { id = "io.insert-koin.compiler.plugin", version.ref = "koin-plugin" }
 ```
 
-### settings.gradle.kts
+### settings.gradle.kts {id="settings-gradle-kts"}
 
 ```kotlin
 pluginManagement {
@@ -114,7 +114,7 @@ pluginManagement {
 }
 ```
 
-### build.gradle.kts
+### build.gradle.kts {id="build-gradle-kts"}
 
 ```kotlin
 plugins {
@@ -127,9 +127,9 @@ dependencies {
 }
 ```
 
-## コンパイラプラグインの使用
+## コンパイラプラグインの使用 {id="using-the-compiler-plugin"}
 
-### DSLスタイル
+### DSLスタイル {id="dsl-style"}
 
 コンパイラプラグインのパッケージからインポートします：
 
@@ -149,7 +149,7 @@ val appModule = module {
 コンパイラプラグインのDSLは、パッケージ **`org.koin.plugin.module.dsl`** にあります。従来のDSLは `org.koin.dsl` に残っています。
 :::
 
-### アノテーションスタイル
+### アノテーションスタイル {id="annotation-style"}
 
 クラスにアノテーションを使用します：
 
@@ -174,7 +174,7 @@ class UserViewModel(private val repository: UserRepository) : ViewModel()
 class AppModule
 ```
 
-### アノテーションによるKoinの開始
+### アノテーションによるKoinの開始 {id="starting-koin-with-annotations"}
 
 コンパイラプラグインを使用すると、型指定されたAPIを使用してKoinを開始できます。**コード生成は不要です**：
 
@@ -230,7 +230,7 @@ val koinTestRule = KoinTestRule.create {
 }
 ```
 
-## 設定オプション
+## 設定オプション {id="configuration-options"}
 
 `build.gradle.kts` でコンパイラプラグインの設定を行えます：
 
@@ -242,7 +242,7 @@ koinCompiler {
 }
 ```
 
-### 利用可能なオプション
+### 利用可能なオプション {id="available-options"}
 
 | オプション | 説明 | デフォルト値 |
 |--------|-------------|---------|
@@ -257,7 +257,7 @@ koinCompiler {
 開発中は `userLogs = true` に設定して、どのコンポーネントがプラグインによって検出・処理されているかを確認することをお勧めします。
 :::
 
-## コンパイル時の安全性
+## コンパイル時の安全性 {id="compile-time-safety"}
 
 Koinコンパイラプラグインは、**コンパイル時の依存関係検証**を提供します。これにより、実行時に失敗するのではなく、ビルド時にすべての依存関係が解決可能であることを検証できます。これはデフォルトで有効になっています。
 
@@ -270,11 +270,11 @@ koinCompiler {
 
 プラグインは、モジュール単位（A2）、`startKoin<T>()` 時のグラフ全体（A3）、および各呼び出し箇所（A4）の3つのレベルでグラフを検証します。詳細は [コンパイル時の安全性](/docs/reference/koin-compiler/compile-safety) を参照してください。
 
-## マルチモジュールプロジェクト
+## マルチモジュールプロジェクト {id="multi-module-projects"}
 
 複数のGradleモジュールを持つプロジェクトの場合：
 
-### ライブラリモジュール
+### ライブラリモジュール {id="library-module"}
 
 ```kotlin
 // feature/build.gradle.kts
@@ -295,7 +295,7 @@ dependencies {
 class FeatureModule
 ```
 
-### アプリモジュール
+### アプリモジュール {id="app-module"}
 
 ```kotlin
 // app/build.gradle.kts
@@ -330,7 +330,7 @@ class MainApplication : Application() {
 
 メインのアプリケーションクラスに `@KoinApplication` を使用し、型指定されたスタートアップAPIを使用してください。
 
-## Kotlin Multiplatform
+## Kotlin Multiplatform {id="kotlin-multiplatform"}
 
 コンパイラプラグインはKMPプロジェクトでも動作します：
 
@@ -351,9 +351,9 @@ kotlin {
 }
 ```
 
-## トラブルシューティング
+## トラブルシューティング {id="troubleshooting"}
 
-### プラグインが見つからない
+### プラグインが見つからない {id="plugin-not-found"}
 
 プラグインがプラグインリポジトリに含まれていることを確認してください：
 
@@ -367,7 +367,7 @@ pluginManagement {
 }
 ```
 
-### Kotlinバージョンの不一致
+### Kotlinバージョンの不一致 {id="kotlin-version-mismatch"}
 
 コンパイラプラグインにはKotlin 2.3.20+が必要です。Kotlinのバージョンを確認してください：
 
@@ -378,7 +378,7 @@ plugins {
 }
 ```
 
-### インポートエラー
+### インポートエラー {id="import-errors"}
 
 正しいパッケージからインポートしていることを確認してください：
 
@@ -390,7 +390,7 @@ import org.koin.plugin.module.dsl.*
 import org.koin.dsl.*
 ```
 
-### インクリメンタルコンパイルとキャッシュの問題
+### インクリメンタルコンパイルとキャッシュの問題 {id="incremental-compilation-cache-issues"}
 
 他のKotlinコンパイラプラグイン（Compose CompilerやMetroなど）と同様に、KoinコンパイラプラグインはIRレベルで動作します。Kotlinのインクリメンタルコンパイル（増分コンパイル）により、特定の変更後に**古い結果や不整合な結果**が生じることがあります。
 
@@ -419,7 +419,7 @@ import org.koin.dsl.*
 グラフレベルの変更（`module { }` ラムダ内のDSL定義、`@ComponentScan` パッケージへのクラス追加）については、プラグインの `strictSafety` オプションがアグリゲーターモジュールで自動的に有効になり、ビルドごとにフルグラフのセーフティパスを強制的に再実行します。詳細は [`strictSafety`](/docs/reference/koin-annotations/options#strictsafety) を参照してください。
 :::
 
-### マルチモジュールプロジェクトでのコンパイル安全性の偽陽性
+### マルチモジュールプロジェクトでのコンパイル安全性の偽陽性 {id="compile-safety-false-positives-in-multi-module-projects"}
 
 ライブラリモジュールに存在する依存関係が不足していると報告される場合は、以下を確認してください：
 
@@ -427,9 +427,9 @@ import org.koin.dsl.*
 2. **ライブラリが利用側モジュールの前にビルドされていること** — 通常、Gradleは `implementation(project(":lib"))` を通じてこれを処理しますが、タスクの依存関係を確認してください。
 3. ライブラリモジュールに初めてプラグインを追加した後は、**クリーンビルドを実行**してください。
 
-## 移行
+## 移行 {id="migration"}
 
-### 従来のDSLからの移行
+### 従来のDSLからの移行 {id="from-classic-dsl"}
 
 1. コンパイラプラグインを追加する
 2. インポートを `org.koin.plugin.module.dsl.*` に更新する
@@ -437,7 +437,7 @@ import org.koin.dsl.*
 
 コンパイル時に安全な構文については、上記の [DSLスタイル](#dsl-style) リファレンスを参照してください。
 
-### KSPプロセッサ (`koin-ksp-compiler`) からの移行
+### KSPプロセッサ (`koin-ksp-compiler`) からの移行 {id="from-the-ksp-processor-koin-ksp-compiler"}
 
 1. KSPプラグインと `koin-ksp-compiler` の依存関係を削除する
 2. Koinコンパイラプラグインを追加する
@@ -446,7 +446,7 @@ import org.koin.dsl.*
 
 完全なガイドについては、**[KSPからコンパイラプラグインへの移行](/docs/migration/from-ksp-to-compiler-plugin)** を参照してください。
 
-## 次のステップ
+## 次のステップ {id="next-steps"}
 
 - **[DSLリファレンス](/docs/reference/dsl-reference)** - DSLの詳細ドキュメント
 - **[アノテーションリファレンス](/docs/reference/annotations-reference)** - アノテーションの詳細ドキュメント

@@ -1,6 +1,6 @@
 [//]: # (title: 关键字与运算符)
 
-## 硬关键字
+## 硬关键字 {id="hard-keywords"}
 
 以下标记始终会被解释为关键字，不能用作标识符：
 
@@ -52,7 +52,7 @@
  * `when` 开始一个 [when 表达式](control-flow.md#when-expressions-and-statements)（执行给定分支之一）。
  * `while` 开始一个 [while 循环](control-flow.md#while-loops)（带前置条件的循环）。
 
-## 软关键字
+## 软关键字 {id="soft-keywords"}
 
 以下标记在适用的上下文中充当关键字，在其他上下文中可用作标识符：
 
@@ -83,7 +83,7 @@
 * `value` 与 `class` 关键字一起声明一个[内联类](inline-classes.md)。
 * `where` 指定[泛型类型形参的约束](generics.md#upper-bounds)。
 
-## 修饰符关键字
+## 修饰符关键字 {id="modifier-keywords"}
 
 以下标记在声明的修饰符列表中充当关键字，在其他上下文中可用作标识符：
 
@@ -117,14 +117,14 @@
  * `tailrec` 将函数标记为[尾递归](functions.md#tail-recursive-functions)（允许编译器用迭代代替递归）。
  * `vararg` 允许[为形参传递可变数量的实参](functions.md#variable-number-of-arguments-varargs)。
 
-## 特殊标识符
+## 特殊标识符 {id="special-identifiers"}
 
 以下标识符由编译器在特定上下文中定义，在其他上下文中可用作常规标识符：
 
  * `field` 在属性访问器内部用于引用[属性的支持字段](properties.md#backing-fields)。
  * `it` 在 lambda 表达式内部用于[隐式引用其形参](lambdas.md#it-implicit-name-of-a-single-parameter)。
 
-## 运算符与特殊符号
+## 运算符与特殊符号 {id="operators-and-special-symbols"}
 
 Kotlin 支持以下运算符和特殊符号：
 

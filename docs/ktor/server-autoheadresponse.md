@@ -43,7 +43,7 @@
     </TabItem>
 </Tabs>
 
-## 用法
+## 用法 {id="usage"}
 为了利用此功能，我们需要在应用程序中安装 `AutoHeadResponse` 插件。
 
 ```kotlin
@@ -66,5 +66,5 @@ fun Application.main() {
 
 需要注意的是，如果我们使用此插件，同一 `GET` 路由的自定义 `HEAD` 定义将被忽略。
 
-## 选项
+## 选项 {id="options"}
 `%plugin_name%` 不提供任何额外的配置选项。

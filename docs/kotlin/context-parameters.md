@@ -67,7 +67,7 @@ fun logWelcome() {
 }
 ```
 
-## 上下文参数解析
+## 上下文参数解析 {id="context-parameters-resolution"}
 
 Kotlin 在调用站点通过在当前作用域中搜索匹配的上下文值来解析上下文参数。Kotlin 通过类型来匹配它们。
 如果同一作用域级别存在多个兼容的值，编译器将报告歧义：
@@ -103,7 +103,7 @@ fun main() {
 }
 ```
 
-### 显式传递上下文实参
+### 显式传递上下文实参 {id="pass-context-arguments-explicitly"}
 <primary-label ref="experimental-opt-in"/>
 
 当重载仅因上下文参数而异时，如果存在多个匹配的上下文值，则调用可能会产生歧义。
@@ -174,7 +174,7 @@ kotlin {
 </tab>
 </tabs>
 
-## 限制
+## 限制 {id="restrictions"}
 
 上下文参数正在持续改进中，目前的一些限制包括：
 

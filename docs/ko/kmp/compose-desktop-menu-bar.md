@@ -104,7 +104,7 @@ object AboutIcon : Painter() {
 
 Windows와 Linux에서 메뉴 바는 윈도우의 일부로 표시됩니다. macOS에서는 윈도우가 활성화되어 있을 때 화면 상단의 시스템 메뉴 바에 표시됩니다.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [시스템 트레이](compose-desktop-tray.md)에 애플리케이션 아이콘과 메뉴를 추가하는 방법을 알아보세요.
 * [다른 데스크톱 컴포넌트](compose-desktop-components.md)에 관한 튜토리얼을 살펴보세요.

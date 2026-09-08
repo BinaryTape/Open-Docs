@@ -35,7 +35,7 @@ graph TB
     agent --"エージェントのレスポンス"--> print --> read
 ```
 
-## コード
+## コード {id="code"}
 
 ??? note "前提条件"
 
@@ -153,7 +153,7 @@ graph TB
     }
     ```
 
-## 実装の詳細
+## 実装の詳細 {id="implementation-details"}
 
 `agent.run()` の 2 番目の引数は、進行中の会話を識別し区別するために使用される [セッション ID](index.md#session-ids) です。
 この例では、一度に 1 つの会話しか行われないため、これは定数になっています。
@@ -166,7 +166,7 @@ graph TB
 `windowSize(20)` [プリプロセッサ (preprocessor)](index.md#preprocessors) は、コンテキストサイズを制限することを保証します。エージェントは最新の 20 メッセージのみを保存します。
 これがないと、プロンプトのサイズがコンテキスト制限を超えて増大する可能性があります。
 
-## セッションの例
+## セッションの例 {id="example-session"}
 
 ```
 You: My name is Alice.

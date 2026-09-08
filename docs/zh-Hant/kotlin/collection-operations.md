@@ -2,7 +2,7 @@
 
 Kotlin 標準函式庫提供了多種用於對集合執行操作的函式。這包括簡單的操作，例如獲取或新增元素，以及更複雜的操作，包括搜尋、排序、篩選、轉換等。
 
-## 成員函數與擴充方法
+## 成員函數與擴充方法 {id="extension-and-member-functions"}
 
 集合操作在標準函式庫中透過兩種方式宣告：集合介面的[成員函數](classes.md)與[擴充方法](extensions.md#extension-functions)。
 
@@ -12,7 +12,7 @@ Kotlin 標準函式庫提供了多種用於對集合執行操作的函式。這�
 
 其他集合操作則宣告為擴充方法。這些包括篩選、轉換、排序以及其他集合處理函式。
 
-## 通用操作
+## 通用操作 {id="common-operations"}
 
 通用操作可用於[唯讀與可變集合](collections-overview.md#collection-types)。通用操作分為以下幾組：
 
@@ -76,7 +76,7 @@ fun main() {
 
 帶有目標的函式可用於篩選、關聯、分組、扁平化和其他操作。有關目標操作的完整列表，請參閱 [Kotlin 集合參考文件](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/index.html)。
 
-## 寫入操作
+## 寫入操作 {id="write-operations"}
 
 對於可變集合，還有會更改集合狀態的「寫入操作」。此類操作包括新增、移除和更新元素。寫入操作列在[寫入操作](collection-write.md)以及[清單特定操作](list-operations.md#list-write-operations)和[映射特定操作](map-operations.md#map-write-operations)的對應章節中。
 

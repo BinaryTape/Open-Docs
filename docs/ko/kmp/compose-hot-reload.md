@@ -14,7 +14,7 @@ IntelliJ IDEA 버전 2025.2.2 이상 및 Android Studio Otter 2025.2.1 이상에
 
 <img src="KotlinConf-hot-reload.animated.gif" alt="Compose Hot Reload" width="600" preview-src="KotlinConf-hot-reload.png"/>
 
-## 프로젝트에 Compose Hot Reload 추가하기
+## 프로젝트에 Compose Hot Reload 추가하기 {id="add-compose-hot-reload-to-your-project"}
 
 Compose Hot Reload는 다음 두 가지 방법으로 추가할 수 있습니다:
 
@@ -44,7 +44,7 @@ Compose Multiplatform 버전을 1.10.0 이상으로 업그레이드하여 별도
 기본적으로 활성화되어 있지만, 
 특정 이전 버전을 사용하기 위해 Compose Hot Reload 플러그인을 명시적으로 선언할 수도 있습니다.
 
-#### 이전 버전의 Compose Multiplatform {initial-collapse-state="collapsed" collapsible="true"}
+#### 이전 버전의 Compose Multiplatform {initial-collapse-state="collapsed" collapsible="true" id="earlier-versions-of-compose-multiplatform"}
 
 1.10.0 이전 버전의 Compose Multiplatform을 사용하는 멀티플랫폼 프로젝트의 경우,
 데스크톱 타겟이 구성되어 있어야 하며 Compose Hot Reload 플러그인을 명시적으로 추가해야 합니다.
@@ -97,7 +97,7 @@ Compose Multiplatform 버전을 1.10.0 이상으로 업그레이드하여 별도
 
 6. **Sync Gradle Changes** 버튼을 클릭하여 Gradle 파일을 동기화합니다: ![Synchronize Gradle files](gradle-sync.png){width=50}
 
-## Compose Hot Reload 사용하기
+## Compose Hot Reload 사용하기 {id="use-compose-hot-reload"}
 
 1. `desktopApp` 소스 세트에서 `main.kt` 파일을 열고 `main()` 함수를 업데이트합니다:
    ```kotlin
@@ -146,7 +146,7 @@ Compose Multiplatform 버전을 1.10.0 이상으로 업그레이드하여 별도
 
 축하합니다! Compose Hot Reload가 실제로 작동하는 것을 확인했습니다. 이제 매번 데스크톱 실행 구성을 다시 시작할 필요 없이 텍스트, 이미지, 서식, UI 구조 등을 변경하며 자유롭게 실험해 볼 수 있습니다.
 
-## AI 에이전트를 위한 MCP 서버
+## AI 에이전트를 위한 MCP 서버 {id="mcp-server-for-ai-agents"}
 <primary-label ref="Experimental"/>
 
 Compose Multiplatform 1.12.0부터 Compose Hot Reload는 내장된 [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) 서버를 포함합니다. 
@@ -156,7 +156,7 @@ MCP 서버를 통해 AI 코딩 에이전트는 실행 중인 Compose 애플리�
 이 기능은 Compose 코드를 편집할 때 AI 에이전트의 피드백 루프를 완성합니다. 
 에이전트가 매번 편집 후 결과를 수동으로 확인해 주기를 기다리는 대신, 코드를 자율적으로 반복 수정하고 각 변경 사항을 직접 검증할 수 있습니다.
 
-### AI 에이전트 연결하기
+### AI 에이전트 연결하기 {id="connect-an-ai-agent"}
 
 AI 에이전트를 연결하려면 에이전트의 MCP 클라이언트 설정이 `hotMcpServer` Gradle 태스크를 가리키도록 하세요. 예를 들어, `.mcp.json` 파일의 설정은 다음과 같습니다:
 
@@ -176,7 +176,7 @@ AI 에이전트를 연결하려면 에이전트의 MCP 클라이언트 설정이
 }
 ```
 
-### 사용 가능한 MCP 도구
+### 사용 가능한 MCP 도구 {id="available-mcp-tools"}
 
 MCP 서버는 에이전트가 호출할 수 있는 다음과 같은 다양한 도구를 제공합니다:
 
@@ -188,6 +188,6 @@ MCP 서버는 에이전트가 호출할 수 있는 다음과 같은 다양한 �
 
 전체 MCP 도구 목록과 해당 파라미터에 대한 자세한 내용은 [Compose Hot Reload README](https://github.com/JetBrains/compose-hot-reload#mcp-server-for-ai-agents)를 참조하세요.
 
-## 도움 받기
+## 도움 받기 {id="get-help"}
 
 Compose Hot Reload 사용 중 문제 발생 시, [GitHub 이슈 생성](https://github.com/JetBrains/compose-hot-reload/issues)을 통해 알려주세요.

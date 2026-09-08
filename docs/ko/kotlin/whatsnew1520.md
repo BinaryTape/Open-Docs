@@ -14,14 +14,14 @@ Kotlin 1.5.20은 1.5.0의 새로운 기능에서 발견된 문제들에 대한 �
 >
 {style="tip"}
 
-## Kotlin/JVM
+## Kotlin/JVM {id="kotlin-jvm"}
 
 Kotlin 1.5.20에서는 JVM 플랫폼에 다음과 같은 업데이트가 적용되었습니다: 
 * [invokedynamic을 통한 문자열 연결](#string-concatenation-via-invokedynamic)
 * [JSpecify 널 허용성(nullness) 어노테이션 지원](#support-for-jspecify-nullness-annotations)
 * [Kotlin과 Java 코드가 혼용된 모듈 내에서 Java의 Lombok 생성 메서드 호출 지원](#support-for-calling-java-s-lombok-generated-methods-within-modules-that-have-kotlin-and-java-code)
 
-### invokedynamic을 통한 문자열 연결
+### invokedynamic을 통한 문자열 연결 {id="string-concatenation-via-invokedynamic"}
 
 Kotlin 1.5.20은 JVM 9+ 타겟에서 문자열 연결(string concatenation)을 [동적 호출](https://docs.oracle.com/javase/7/docs/technotes/guides/vm/multiple-language-support.html#invokedynamic)(`invokedynamic`)로 컴파일하여 최신 Java 버전의 보조를 맞춥니다.
 더 정확하게는, 문자열 연결에 [`StringConcatFactory.makeConcatWithConstants()`](https://docs.oracle.com/javase/9/docs/api/java/lang/invoke/StringConcatFactory.html#makeConcatWithConstants-java.lang.invoke.MethodHandles.Lookup-java.lang.String-java.lang.invoke.MethodType-java.lang.String-java.lang.Object...-)를 사용합니다.
@@ -30,7 +30,7 @@ Kotlin 1.5.20은 JVM 9+ 타겟에서 문자열 연결(string concatenation)을 [
 
 [Gradle](gradle-compiler-options.md), [Maven](maven-kotlin-compiler.md#specify-compiler-options), [커맨드 라인 컴파일러](compiler-reference.md#compiler-options)에서 컴파일러 옵션을 추가하는 방법을 알아볼 수 있습니다.
 
-### JSpecify 널 허용성 어노테이션 지원
+### JSpecify 널 허용성 어노테이션 지원 {id="support-for-jspecify-nullness-annotations"}
 
 Kotlin 컴파일러는 Java에서 Kotlin으로 널 허용성 정보를 전달하기 위해 다양한 유형의 [널 허용성 어노테이션](java-interop.md#nullability-annotations)을 읽을 수 있습니다. 버전 1.5.20에는 표준화된 Java 널 허용성 어노테이션 세트를 포함하는 [JSpecify 프로젝트](https://jspecify.dev/)에 대한 지원이 도입되었습니다.
 
@@ -63,7 +63,7 @@ JSpecify 프로젝트는 현재 활발히 개발 중임을 유의하시기 바�
 
 [널 안전성 및 플랫폼 타입에 대해 더 알아보기](java-interop.md#null-safety-and-platform-types).
 
-### Kotlin과 Java 코드가 혼용된 모듈 내에서 Java의 Lombok 생성 메서드 호출 지원
+### Kotlin과 Java 코드가 혼용된 모듈 내에서 Java의 Lombok 생성 메서드 호출 지원 {id="support-for-calling-java-s-lombok-generated-methods-within-modules-that-have-kotlin-and-java-code"}
 
 > Lombok 컴파일러 플러그인은 [실험적(Experimental)](components-stability.md) 단계입니다.
 > 언제든지 삭제되거나 변경될 수 있습니다. 평가 목적으로만 사용하세요.
@@ -86,7 +86,7 @@ Kotlin 1.5.20은 실험적인 [Lombok 컴파일러 플러그인](lombok.md)을 �
 
 [Lombok 컴파일러 플러그인 설정 방법 알아보기](lombok.md#gradle).
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 Kotlin/Native 1.5.20은 새로운 기능의 프리뷰와 도구 개선 사항을 제공합니다:
 
@@ -94,7 +94,7 @@ Kotlin/Native 1.5.20은 새로운 기능의 프리뷰와 도구 개선 사항을
 * [컴파일러 버그 수정](#compiler-bug-fixes)
 * [단일 배열 내에서 Array.copyInto() 성능 향상](#improved-performance-of-array-copyinto-inside-one-array)
 
-### 생성된 Objective-C 헤더로 KDoc 주석 내보내기 선택 가능
+### 생성된 Objective-C 헤더로 KDoc 주석 내보내기 선택 가능 {id="opt-in-export-of-kdoc-comments-to-generated-objective-c-headers"}
 
 > 생성된 Objective-C 헤더로 KDoc 주석을 내보내는 기능은 [실험적(Experimental)](components-stability.md) 단계입니다.
 > 언제든지 삭제되거나 변경될 수 있습니다.
@@ -156,33 +156,33 @@ kotlin {
 
 이 [YouTrack 티켓](https://youtrack.jetbrains.com/issue/KT-38600)을 통해 피드백을 공유해 주시면 대단히 감사하겠습니다.
 
-### 컴파일러 버그 수정
+### 컴파일러 버그 수정 {id="compiler-bug-fixes"}
 
 Kotlin/Native 컴파일러는 1.5.20에서 여러 버그 수정을 거쳤습니다. 전체 목록은 [변경 로그](https://github.com/JetBrains/kotlin/releases/tag/v1.5.20)에서 확인할 수 있습니다.
 
 호환성에 영향을 미치는 중요한 버그 수정이 있습니다: 이전 버전에서는 잘못된 UTF [서로게이트 쌍(surrogate pairs)](https://en.wikipedia.org/wiki/Universal_Character_Set_characters#Surrogates)을 포함하는 문자열 상수가 컴파일 중에 해당 값을 잃어버리는 문제가 있었습니다. 이제는 그러한 값이 보존됩니다. 애플리케이션 개발자는 1.5.20으로 안전하게 업데이트할 수 있으며 아무것도 망가지지 않을 것입니다. 하지만 1.5.20으로 컴파일된 라이브러리는 이전 컴파일러 버전과 호환되지 않습니다.
 자세한 내용은 [이 YouTrack 이슈](https://youtrack.jetbrains.com/issue/KT-33175)를 참조하세요.
 
-### 단일 배열 내에서 Array.copyInto() 성능 향상
+### 단일 배열 내에서 Array.copyInto() 성능 향상 {id="improved-performance-of-array-copyinto-inside-one-array"}
 
 원본과 대상이 동일한 배열일 때 `Array.copyInto()`가 작동하는 방식을 개선했습니다. 이제 이러한 작업은 이 유스케이스에 대한 메모리 관리 최적화 덕분에 (복사되는 객체 수에 따라) 최대 20배 더 빠르게 완료됩니다.
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
 1.5.20과 함께, 프로젝트를 Kotlin/JS의 새로운 [IR 기반 백엔드](js-ir-compiler.md)로 마이그레이션하는 데 도움이 되는 가이드를 게시합니다.
 
-### JS IR 백엔드용 마이그레이션 가이드
+### JS IR 백엔드용 마이그레이션 가이드 {id="migration-guide-for-the-js-ir-backend"}
 
 JS IR 백엔드를 위한 새로운 마이그레이션 가이드는 마이그레이션 중 발생할 수 있는 문제들을 식별하고 해결 방법을 제공합니다. 가이드에서 다루지 않는 문제가 발견되면 [이슈 트래커](http://kotl.in/issue)에 보고해 주세요.
 
-## Gradle
+## Gradle {id="gradle"}
 
 Kotlin 1.5.20은 Gradle 사용 경험을 개선할 수 있는 다음과 같은 기능들을 도입했습니다:
 
 * [kapt의 어노테이션 프로세서 클래스로더 캐싱](#caching-for-annotation-processors-classloaders-in-kapt)
 * [`kotlin.parallel.tasks.in.project` 빌드 속성 사용 중단(Deprecation)](#deprecation-of-the-kotlin-parallel-tasks-in-project-build-property)
 
-### kapt의 어노테이션 프로세서 클래스로더 캐싱
+### kapt의 어노테이션 프로세서 클래스로더 캐싱 {id="caching-for-annotation-processors-classloaders-in-kapt"}
 
 > kapt의 어노테이션 프로세서 클래스로더 캐싱은 [실험적(Experimental)](components-stability.md) 단계입니다.
 > 언제든지 삭제되거나 변경될 수 있습니다. 평가 목적으로만 사용하세요.
@@ -205,19 +205,19 @@ kapt.include.compile.classpath=false
 
 [kapt](kapt.md)에 대해 더 알아보기.
 
-### kotlin.parallel.tasks.in.project 빌드 속성 사용 중단
+### kotlin.parallel.tasks.in.project 빌드 속성 사용 중단 {id="deprecation-of-the-kotlin-parallel-tasks-in-project-build-property"}
 
 이번 릴리스부터 Kotlin 병렬 컴파일은 [Gradle 병렬 실행 플래그 `--parallel`](https://docs.gradle.org/current/userguide/performance.html#parallel_execution)에 의해 제어됩니다. 이 플래그를 사용하면 Gradle이 태스크를 동시에 실행하여 컴파일 태스크 속도를 높이고 리소스를 더 효율적으로 활용합니다.
 
 더 이상 `kotlin.parallel.tasks.in.project` 속성을 사용할 필요가 없습니다. 이 속성은 사용 중단(Deprecated)되었으며 다음 메이저 릴리스에서 삭제될 예정입니다.
 
-## 표준 라이브러리
+## 표준 라이브러리 {id="standard-library"}
 
 Kotlin 1.5.20은 문자를 다루기 위한 여러 함수의 플랫폼별 구현을 변경하여 플랫폼 간 통일성을 제공합니다:
 * [Kotlin/Native 및 Kotlin/JS의 Char.digitToInt()에서 모든 유니코드 숫자 지원](#support-for-all-unicode-digits-in-char-digittoint-in-kotlin-native-and-kotlin-js).
 * [플랫폼 간 Char.isLowerCase()/isUpperCase() 구현 통합](#unification-of-char-islowercase-isuppercase-implementations-across-platforms).
 
-### Kotlin/Native 및 Kotlin/JS의 Char.digitToInt()에서 모든 유니코드 숫자 지원
+### Kotlin/Native 및 Kotlin/JS의 Char.digitToInt()에서 모든 유니코드 숫자 지원 {id="support-for-all-unicode-digits-in-char-digittoint-in-kotlin-native-and-kotlin-js"}
 
 [`Char.digitToInt()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/digit-to-int.html)는 문자가 나타내는 10진수 숫자의 수치 값을 반환합니다. 1.5.20 이전에는 이 함수가 Kotlin/JVM에서만 모든 유니코드 숫자 문자를 지원했으며, Native 및 JS 플랫폼의 구현에서는 ASCII 숫자만 지원했습니다.
 
@@ -233,7 +233,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.5"}
 
-### 플랫폼 간 Char.isLowerCase()/isUpperCase() 구현 통합
+### 플랫폼 간 Char.isLowerCase()/isUpperCase() 구현 통합 {id="unification-of-char-islowercase-isuppercase-implementations-across-platforms"}
 
 [`Char.isUpperCase()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/is-upper-case.html) 및 [`Char.isLowerCase()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/is-lower-case.html) 함수는 문자의 대소문자 여부에 따라 불리언 값을 반환합니다. Kotlin/JVM의 경우, 구현 시 `General_Category`와 `Other_Uppercase`/`Other_Lowercase` [유니코드 속성](https://en.wikipedia.org/wiki/Unicode_character_property)을 모두 확인합니다.
 

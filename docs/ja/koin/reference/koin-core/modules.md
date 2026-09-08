@@ -6,7 +6,7 @@ title: モジュール
 
 Koin モジュールは、依存性注入（DI）の設定を整理するための構成要素です。
 
-## モジュールとは何か？
+## モジュールとは何か？ {id="what-is-a-module"}
 
 モジュールは、関連する定義をグループ化するための論理的なコンテナです。
 
@@ -24,9 +24,9 @@ val appModule = module {
 - コンテキスト間で設定を**再利用する**
 - モジュール化されたプロジェクトで**可視性を制御する**
 
-## モジュールの作成
+## モジュールの作成 {id="creating-modules"}
 
-### コンパイラプラグイン DSL を使用する場合
+### コンパイラプラグイン DSL を使用する場合 {id="with-compiler-plugin-dsl"}
 
 ```kotlin
 import org.koin.plugin.module.dsl.*
@@ -42,7 +42,7 @@ val databaseModule = module {
 }
 ```
 
-### アノテーションを使用する場合
+### アノテーションを使用する場合 {id="with-annotations"}
 
 ```kotlin
 @Module
@@ -54,7 +54,7 @@ class NetworkModule
 class DatabaseModule
 ```
 
-### クラシック DSL を使用する場合
+### クラシック DSL を使用する場合 {id="with-classic-dsl"}
 
 ```kotlin
 val networkModule = module {
@@ -63,7 +63,7 @@ val networkModule = module {
 }
 ```
 
-## 複数のモジュールの使用
+## 複数のモジュールの使用 {id="using-multiple-modules"}
 
 依存関係は、他のモジュールで宣言された定義を参照できます：
 
@@ -93,7 +93,7 @@ Koin は、ロードされたすべてのモジュール間で依存関係を自
 モジュールを直接リストアップすることも可能ですが、構造を改善しロードを最適化するために、[`includes()`](#includes-によるモジュールの構成) を使用してモジュールを階層構造に整理することを検討してください。
 :::
 
-## `includes()` によるモジュールの構成
+## `includes()` によるモジュールの構成 {id="module-composition-with-includes"}
 
 `includes()` 関数は、モジュールを整理するための**推奨される方法**です。以下の利点があります：
 
@@ -132,7 +132,7 @@ startKoin {
 }
 ```
 
-### `includes()` によるロードの最適化
+### `includes()` によるロードの最適化 {id="how-includes-optimizes-loading"}
 
 モジュールが複数回インクルードされた場合でも、Koin はそれらを一度だけロードします：
 
@@ -161,7 +161,7 @@ startKoin {
 }
 ```
 
-### マルチモジュールプロジェクト
+### マルチモジュールプロジェクト {id="multi-module-projects"}
 
 可視性修飾子を使用して、公開する内容を制御します：
 
@@ -188,9 +188,9 @@ startKoin {
 }
 ```
 
-## モジュールのオーバーライド
+## モジュールのオーバーライド {id="module-override"}
 
-### デフォルトの挙動
+### デフォルトの挙動 {id="default-behavior"}
 
 デフォルトでは、**最後にロードされた定義が優先**されます：
 
@@ -208,7 +208,7 @@ startKoin {
 }
 ```
 
-### ストリクト（厳格）モード
+### ストリクト（厳格）モード {id="strict-mode"}
 
 プロダクション環境でオーバーライドを無効にする：
 
@@ -219,7 +219,7 @@ startKoin {
 }
 ```
 
-### 明示的なオーバーライド
+### 明示的なオーバーライド {id="explicit-override"}
 
 ストリクトモードで特定のオーバーライドを許可する：
 
@@ -234,7 +234,7 @@ startKoin {
 }
 ```
 
-## モジュールの先行作成 (Eager Module Creation)
+## モジュールの先行作成 (Eager Module Creation) {id="eager-module-creation"}
 
 起動時にシングルトンを即座に作成します：
 
@@ -245,7 +245,7 @@ val coreModule = module(createdAtStart = true) {
 }
 ```
 
-## パラメータ化されたモジュール
+## パラメータ化されたモジュール {id="parameterized-modules"}
 
 動的にモジュールを作成します：
 
@@ -261,7 +261,7 @@ startKoin {
 }
 ```
 
-## ストラテジーパターン
+## ストラテジーパターン {id="strategy-pattern"}
 
 モジュールを使用して実装を切り替えます：
 
@@ -290,7 +290,7 @@ startKoin {
 }
 ```
 
-## アノテーション付きモジュール
+## アノテーション付きモジュール {id="annotated-modules"}
 
 Koin は、DSL の代替としてアノテーションベースのモジュール構成をサポートしています。
 
@@ -318,9 +318,9 @@ class AppModule
 アノテーション付きモジュールの詳細なドキュメントについては、[アノテーションリファレンス - モジュール](/docs/reference/koin-annotations/modules) を参照してください。
 :::
 
-## ベストプラクティス
+## ベストプラクティス {id="best-practices"}
 
-### 整理
+### 整理 {id="organization"}
 
 1. **機能/レイヤーごとにグループ化する**
    ```kotlin
@@ -348,7 +348,7 @@ class AppModule
 
 3. **モジュールの責務を絞る** - 1 つのモジュールにつき 1 つの責務を持たせる。
 
-### 命名
+### 命名 {id="naming"}
 
 - わかりやすい名前を使用する： `networkModule`, `userFeatureModule`
 - 関連するものをグループ化する： `authDataModule`, `authDomainModule`
@@ -359,7 +359,7 @@ class AppModule
 2. **実装モジュールには `private`/`internal` を使用する**
 3. **共有モジュールは `:core` に配置する**
 
-## 次のステップ
+## 次のステップ {id="next-steps"}
 
 - **[定義](/docs/reference/koin-core/definitions)** - 定義を作成する
 - **[クオリファイア](/docs/reference/koin-core/qualifiers)** - 名前付きおよび型付きのクオリファイア

@@ -11,7 +11,7 @@ Agent 事件是在 Agent 工作流中发生的操作或交互。它们包括：
 
 注意：特性（Feature）事件在 `agents-core` 模块中定义，位于包 `ai.koog.agents.core.feature.model.events` 下。`agents-features-trace` 和 `agents-features-event-handler` 等特性会使用这些事件来处理和转发 Agent 执行期间创建的消息。
 
-## 预定义事件类型
+## 预定义事件类型 {id="predefined-event-types"}
 
 Koog 提供了可在自定义消息处理器中使用的预定义事件类型。根据它们所关联的实体，预定义事件可以分为以下几类：
 
@@ -23,9 +23,9 @@ Koog 提供了可在自定义消息处理器中使用的预定义事件类型。
 - [LLM 流式传输事件](#llm-streaming-events)
 - [工具执行事件](#tool-execution-events)
 
-### Agent 事件
+### Agent 事件 {id="agent-events"}
 
-#### AgentStartingEvent
+#### AgentStartingEvent {id="agentstartingevent"}
 
 表示 Agent 运行的开始。包含以下字段：
 
@@ -36,7 +36,7 @@ Koog 提供了可在自定义消息处理器中使用的预定义事件类型。
 | `agentId`       | String              | 是      |         | AI Agent 的唯一标识符。 |
 | `runId`         | String              | 是      |         | AI Agent 运行的唯一标识符。 |
 
-#### AgentCompletedEvent
+#### AgentCompletedEvent {id="agentcompletedevent"}
 
 表示 Agent 运行的结束。包含以下字段：
 
@@ -48,7 +48,7 @@ Koog 提供了可在自定义消息处理器中使用的预定义事件类型。
 | `runId`         | String              | 是      |         | AI Agent 运行的唯一标识符。 |
 | `result`        | String              | 是      |         | Agent 运行的结果。如果没有结果，可以为 `null`。 |
 
-#### AgentExecutionFailedEvent
+#### AgentExecutionFailedEvent {id="agentexecutionfailedevent"}
 
 表示 Agent 运行期间发生的错误。包含以下字段：
 
@@ -60,7 +60,7 @@ Koog 提供了可在自定义消息处理器中使用的预定义事件类型。
 | `runId`         | String              | 是      |         | AI Agent 运行的唯一标识符。 |
 | `error`         | AIAgentError        | 是      |         | Agent 运行期间发生的特定错误。有关更多信息，请参阅 [AIAgentError](#aiagenterror)。 |
 
-#### AgentClosingEvent
+#### AgentClosingEvent {id="agentclosingevent"}
 
 表示 Agent 的关闭或终止。包含以下字段：
 
@@ -87,9 +87,9 @@ Koog 提供了可在自定义消息处理器中使用的预定义事件类型。
 | `parent`   | AgentExecutionInfo  | 否       | null    | 对父级执行上下文的引用。如果为 null，则表示根执行级别。 |
 | `partName` | String              | 是      |         | 表示当前执行部分或片段名称的字符串。 |
 
-### 策略事件
+### 策略事件 {id="strategy-events"}
 
-#### GraphStrategyStartingEvent
+#### GraphStrategyStartingEvent {id="graphstrategystartingevent"}
 
 表示基于图的策略运行的开始。包含以下字段：
 
@@ -101,7 +101,7 @@ Koog 提供了可在自定义消息处理器中使用的预定义事件类型。
 | `strategyName`  | String                 | 是      |         | 策略的名称。 |
 | `graph`         | StrategyEventGraph     | 是      |         | 表示策略工作流的图结构。 |
 
-#### FunctionalStrategyStartingEvent
+#### FunctionalStrategyStartingEvent {id="functionalstrategystartingevent"}
 
 表示函数式策略运行的开始。包含以下字段：
 
@@ -112,7 +112,7 @@ Koog 提供了可在自定义消息处理器中使用的预定义事件类型。
 | `runId`         | String              | 是      |         | 策略运行的唯一标识符。 |
 | `strategyName`  | String              | 是      |         | 策略的名称。 |
 
-#### StrategyCompletedEvent
+#### StrategyCompletedEvent {id="strategycompletedevent"}
 
 表示策略运行的结束。包含以下字段：
 
@@ -124,9 +124,9 @@ Koog 提供了可在自定义消息处理器中使用的预定义事件类型。
 | `strategyName`  | String              | 是      |         | 策略的名称。 |
 | `result`        | String              | 是      |         | 策略运行的结果。如果没有结果，可以为 `null`。 |
 
-### 节点事件
+### 节点事件 {id="node-events"}
 
-#### NodeExecutionStartingEvent
+#### NodeExecutionStartingEvent {id="nodeexecutionstartingevent"}
 
 表示节点运行的开始。包含以下字段：
 
@@ -138,7 +138,7 @@ Koog 提供了可在自定义消息处理器中使用的预定义事件类型。
 | `nodeName`      | String              | 是      |         | 开始运行的节点名称。 |
 | `input`         | JsonElement         | 否       | null    | 节点的输入值。 |
 
-#### NodeExecutionCompletedEvent
+#### NodeExecutionCompletedEvent {id="nodeexecutioncompletedevent"}
 
 表示节点运行的结束。包含以下字段：
 
@@ -151,7 +151,7 @@ Koog 提供了可在自定义消息处理器中使用的预定义事件类型。
 | `input`         | JsonElement         | 否       | null    | 节点的输入值。 |
 | `output`        | JsonElement         | 否       | null    | 节点产生的输出值。 |
 
-#### NodeExecutionFailedEvent
+#### NodeExecutionFailedEvent {id="nodeexecutionfailedevent"}
 
 表示节点运行期间发生的错误。包含以下字段：
 
@@ -164,9 +164,9 @@ Koog 提供了可在自定义消息处理器中使用的预定义事件类型。
 | `input`         | JsonElement         | 否       | null    | 提供给节点的输入数据。 |
 | `error`         | AIAgentError        | 是      |         | 节点运行期间发生的特定错误。有关更多信息，请参阅 [AIAgentError](#aiagenterror)。 |
 
-### 子图事件
+### 子图事件 {id="subgraph-events"}
 
-#### SubgraphExecutionStartingEvent
+#### SubgraphExecutionStartingEvent {id="subgraphexecutionstartingevent"}
 
 表示子图运行的开始。包含以下字段：
 
@@ -178,7 +178,7 @@ Koog 提供了可在自定义消息处理器中使用的预定义事件类型。
 | `subgraphName`  | String              | 是      |         | 开始运行的子图名称。 |
 | `input`         | JsonElement         | 否       | null    | 子图的输入值。 |
 
-#### SubgraphExecutionCompletedEvent
+#### SubgraphExecutionCompletedEvent {id="subgraphexecutioncompletedevent"}
 
 表示子图运行的结束。包含以下字段：
 
@@ -191,7 +191,7 @@ Koog 提供了可在自定义消息处理器中使用的预定义事件类型。
 | `input`         | JsonElement         | 否       | null    | 子图的输入值。 |
 | `output`        | JsonElement         | 否       | null    | 子图产生的输出值。 |
 
-#### SubgraphExecutionFailedEvent
+#### SubgraphExecutionFailedEvent {id="subgraphexecutionfailedevent"}
 
 表示子图运行期间发生的错误。包含以下字段：
 
@@ -204,9 +204,9 @@ Koog 提供了可在自定义消息处理器中使用的预定义事件类型。
 | `input`         | JsonElement         | 否       | null    | 提供给子图的输入数据。 |
 | `error`         | AIAgentError        | 是      |         | 子图运行期间发生的特定错误。有关更多信息，请参阅 [AIAgentError](#aiagenterror)。 |
 
-### LLM 调用事件
+### LLM 调用事件 {id="llm-call-events"}
 
-#### LLMCallStartingEvent
+#### LLMCallStartingEvent {id="llmcallstartingevent"}
 
 表示 LLM 调用的开始。包含以下字段：
 
@@ -239,7 +239,7 @@ Koog 提供了可在自定义消息处理器中使用的预定义事件类型。
 | `contextLength`   | Long      | 否       | null    | 模型可以处理的最大 Token 数量。 |
 | `maxOutputTokens` | Long      | 否       | null    | 模型可以生成的最大 Token 数量。 |
 
-#### LLMCallCompletedEvent
+#### LLMCallCompletedEvent {id="llmcallcompletedevent"}
 
 表示 LLM 调用的结束。包含以下字段：
 
@@ -253,7 +253,7 @@ Koog 提供了可在自定义消息处理器中使用的预定义事件类型。
 | `responses`          | `List<Message.Response>` | 是      |         | 模型返回的一个或多个响应。 |
 | `moderationResponse` | ModerationResult       | 否       | null    | 审核响应（如果有）。 |
 
-#### LLMCallFailedEvent
+#### LLMCallFailedEvent {id="llmcallfailedevent"}
 
 表示 LLM 调用期间发生的错误。包含以下字段：
 
@@ -267,9 +267,9 @@ Koog 提供了可在自定义消息处理器中使用的预定义事件类型。
 | `tools`         | `List<String>`        | 是      |         | 模型可以调用的工具列表。 |
 | `error`         | AIAgentError        | 是      |         | 调用期间发生的特定错误。有关更多信息，请参阅 [AIAgentError](#aiagenterror)。 |
 
-### LLM 流式传输事件
+### LLM 流式传输事件 {id="llm-streaming-events"}
 
-#### LLMStreamingStartingEvent
+#### LLMStreamingStartingEvent {id="llmstreamingstartingevent"}
 
 表示 LLM 流式调用开始。包含以下字段：
 
@@ -282,7 +282,7 @@ Koog 提供了可在自定义消息处理器中使用的预定义事件类型。
 | `model`         | ModelInfo           | 是      |         | 模型信息。请参阅 [ModelInfo](#modelinfo)。 |
 | `tools`         | `List<String>`        | 是      |         | 模型可以调用的工具列表。 |
 
-#### LLMStreamingFrameReceivedEvent
+#### LLMStreamingFrameReceivedEvent {id="llmstreamingframereceivedevent"}
 
 表示从 LLM 接收到的流式帧。包含以下字段：
 
@@ -295,7 +295,7 @@ Koog 提供了可在自定义消息处理器中使用的预定义事件类型。
 | `model`         | ModelInfo           | 是      |         | 模型信息。请参阅 [ModelInfo](#modelinfo)。 |
 | `frame`         | StreamFrame         | 是      |         | 从流中接收到的帧。 |
 
-#### LLMStreamingFailedEvent
+#### LLMStreamingFailedEvent {id="llmstreamingfailedevent"}
 
 表示 LLM 流式调用期间发生的错误。包含以下字段：
 
@@ -308,7 +308,7 @@ Koog 提供了可在自定义消息处理器中使用的预定义事件类型。
 | `model`         | ModelInfo           | 是      |         | 模型信息。请参阅 [ModelInfo](#modelinfo)。 |
 | `error`         | AIAgentError        | 是      |         | 流式传输期间发生的特定错误。有关更多信息，请参阅 [AIAgentError](#aiagenterror)。 |
 
-#### LLMStreamingCompletedEvent
+#### LLMStreamingCompletedEvent {id="llmstreamingcompletedevent"}
 
 表示 LLM 流式调用的结束。包含以下字段：
 
@@ -321,9 +321,9 @@ Koog 提供了可在自定义消息处理器中使用的预定义事件类型。
 | `model`         | ModelInfo           | 是      |         | 模型信息。请参阅 [ModelInfo](#modelinfo)。 |
 | `tools`         | `List<String>`        | 是      |         | 模型可以调用的工具列表。 |
 
-### 工具执行事件
+### 工具执行事件 {id="tool-execution-events"}
 
-#### ToolCallStartingEvent
+#### ToolCallStartingEvent {id="toolcallstartingevent"}
 
 表示模型调用工具的事件。包含以下字段：
 
@@ -336,7 +336,7 @@ Koog 提供了可在自定义消息处理器中使用的预定义事件类型。
 | `toolName`      | String              | 是      |         | 工具的名称。 |
 | `toolArgs`      | JsonObject          | 是      |         | 提供给工具的实参。 |
 
-#### ToolValidationFailedEvent
+#### ToolValidationFailedEvent {id="toolvalidationfailedevent"}
 
 表示在工具调用期间发生的验证错误。包含以下字段：
 
@@ -352,7 +352,7 @@ Koog 提供了可在自定义消息处理器中使用的预定义事件类型。
 | `message`         | String              | 否       | null    | 描述验证错误的消息。 |
 | `error`           | AIAgentError        | 是      |         | 发生的特定错误。有关更多信息，请参阅 [AIAgentError](#aiagenterror)。 |
 
-#### ToolCallFailedEvent
+#### ToolCallFailedEvent {id="toolcallfailedevent"}
 
 表示执行工具失败。包含以下字段：
 
@@ -367,7 +367,7 @@ Koog 提供了可在自定义消息处理器中使用的预定义事件类型。
 | `toolDescription` | String              | 否       | null    | 失败工具的描述。 |
 | `error`           | AIAgentError        | 是      |         | 尝试调用工具时发生的特定错误。有关更多信息，请参阅 [AIAgentError](#aiagenterror)。 |
 
-#### ToolCallCompletedEvent
+#### ToolCallCompletedEvent {id="toolcallcompletedevent"}
 
 表示成功调用工具并返回结果。包含以下字段：
 
@@ -382,11 +382,11 @@ Koog 提供了可在自定义消息处理器中使用的预定义事件类型。
 | `toolDescription` | String              | 否       | null    | 已执行工具的描述。 |
 | `result`          | JsonElement         | 否       | null    | 工具调用的结果。 |
 
-## 常见问题与故障排除
+## 常见问题与故障排除 {id="faq-and-troubleshooting"}
 
 以下部分包含了与跟踪（Tracing）特性相关的常见问题及解答。
 
-### 我该如何仅跟踪 Agent 执行的特定部分？
+### 我该如何仅跟踪 Agent 执行的特定部分？ {id="how-do-i-trace-only-specific-parts-of-my-agent-s-execution"}
 
 使用 `messageFilter` 属性来过滤事件。例如，要仅跟踪节点执行：
 
@@ -466,7 +466,7 @@ Koog 提供了可在自定义消息处理器中使用的预定义事件类型。
     ```
     <!--- KNIT exampleEventsJava01.java -->
 
-### 我可以使用多个消息处理器吗？
+### 我可以使用多个消息处理器吗？ {id="can-i-use-multiple-message-processors"}
 
 是的，您可以添加多个消息处理器以同时跟踪到不同的目的地：
 
@@ -547,7 +547,7 @@ Koog 提供了可在自定义消息处理器中使用的预定义事件类型。
     ```
     <!--- KNIT exampleEventsJava02.java -->
 
-### 我该如何创建自定义消息处理器？
+### 我该如何创建自定义消息处理器？ {id="how-can-i-create-a-custom-message-processor"}
 
 实现 `FeatureMessageProcessor` 接口：
 

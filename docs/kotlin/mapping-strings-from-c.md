@@ -14,7 +14,7 @@
 * [在 Kotlin 中读取 C 字符串](#read-c-strings-in-kotlin)
 * [从 Kotlin 接收 C 字符串字节到 Kotlin 字符串中](#receive-c-string-bytes-from-kotlin)
 
-## 处理 C 字符串
+## 处理 C 字符串 {id="working-with-c-strings"}
 
 C 没有专门的字符串类型。方法签名或文档可以帮助您识别在特定上下文中给定的 `char *` 是否表示 C 字符串。
 
@@ -62,7 +62,7 @@ C 语言中的字符串是以 null 结尾的，因此在字节序列的末尾会
 
 `interop.def` 文件提供了编译、运行或在 IDE 中打开应用程序所需的一切。
 
-## 检查为 C 库生成的 Kotlin API
+## 检查为 C 库生成的 Kotlin API {id="inspect-generated-kotlin-apis-for-a-c-library"}
 
 让我们看看 C 字符串声明如何映射到 Kotlin/Native：
 
@@ -94,7 +94,7 @@ C 语言中的字符串是以 null 结尾的，因此在字节序列的末尾会
 
 在生成的 Kotlin 声明中，`str` 被定义为 `CValuesRef<ByteVarOf<Byte>>?`。由于该类型是可为 null 的，因此您可以传递 `null` 作为实参值。 
 
-## 将 Kotlin 字符串传递给 C
+## 将 Kotlin 字符串传递给 C {id="pass-kotlin-strings-to-c"}
 
 让我们尝试在 Kotlin 中使用该 API。首先调用 `pass_string()` 函数：
 
@@ -112,7 +112,7 @@ fun passStringToC() {
 
 得益于 `String.cstr` [扩展属性](extensions.md#extension-properties)，将 Kotlin 字符串传递给 C 非常简单。对于涉及 UTF-16 字符的情况，还有 `String.wcstr` 属性。
 
-## 在 Kotlin 中读取 C 字符串
+## 在 Kotlin 中读取 C 字符串 {id="read-c-strings-in-kotlin"}
 
 现在从 `return_string()` 函数中获取返回的 `char *` 并将其转换为 Kotlin 字符串：
 
@@ -140,7 +140,7 @@ fun CPointer<ShortVarOf<Short>>.toKStringFromUtf16(): String // 转换 UTF-16 �
 fun CPointer<IntVarOf<Int>>.toKStringFromUtf32(): String // 转换 UTF-32 编码的字符串
 ```
 
-## 从 Kotlin 接收 C 字符串字节
+## 从 Kotlin 接收 C 字符串字节 {id="receive-c-string-bytes-from-kotlin"}
 
 这一次，使用 `copy_string()` C 函数将 C 字符串写入给定的缓冲区。它接受两个实参：指向应写入字符串的内存位置的指针以及允许的缓冲区大小。
 
@@ -168,7 +168,7 @@ fun sendString() {
 
 这里，首先将一个原生指针传递给 C 函数。[`.usePinned()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/use-pinned.html) 扩展函数会暂时固定字节数组的原生内存地址。C 函数用数据填充字节数组。另一个扩展函数 `ByteArray.decodeToString()` 将字节数组转换为 Kotlin 字符串（假设为 UTF-8 编码）。 
 
-## 更新 Kotlin 代码
+## 更新 Kotlin 代码 {id="update-kotlin-code"}
 
 既然您已经学会了如何在 Kotlin 代码中使用 C 声明，请尝试在您的项目中使用它们。最终 `hello.kt` 文件中的代码可能如下所示：
  
@@ -208,6 +208,6 @@ fun main() {
   </li>
 </list>
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 在 [与 C 互操作](native-c-interop.md) 文档中了解更多信息，该文档涵盖了更多高级场景。

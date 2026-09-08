@@ -8,7 +8,7 @@ KSP 支持增量处理：仅当一个或多个依赖项发生更改时，KSP 才
 ksp.incremental=false
 ```
 
-## Dirty 文件
+## Dirty 文件 {id="dirty-files"}
 
 如果一个文件是由开发者直接修改的，或者受其他 dirty 文件的更改间接影响的，则该文件被视为 *dirty*（需要重新处理）。
 
@@ -31,7 +31,7 @@ KSP 只需要一小组最小的根源文件。处理程序将这些源作为导�
 >
 {style="tip"}
 
-### 聚合和隔离输出
+### 聚合和隔离输出 {id="aggregating-and-isolating-outputs"}
 
 KSP 将生成的输出分为两种类型：聚合 (aggregating) 和隔离 (isolating)。
 
@@ -60,7 +60,7 @@ KSP 将生成的输出分为两种类型：聚合 (aggregating) 和隔离 (isola
 </def>
 </deflist>
 
-### Dirty 状态传播
+### Dirty 状态传播 {id="dirtiness-propagation"}
 
 KSP 通过以下方式传播 dirty 状态：
 
@@ -72,7 +72,7 @@ KSP 通过以下方式传播 dirty 状态：
 >
 {style="tip"}
 
-## 实现原理
+## 实现原理 {id="implementation"}
 
 依赖项由输入和输出文件之间的多对多关系决定。
 
@@ -126,7 +126,7 @@ KSP 通过以下方式传播 dirty 状态：
 
 如果删除了 `sourceA` 或 `sourceB` 中的任何一个，KSP 不需要重新处理任何文件。
 
-## 处理程序示例
+## 处理程序示例 {id="example-processor"}
 
 以下项目包含类 `A` 和 `B`，其中 `A` 继承自 `B`：
 
@@ -165,7 +165,7 @@ class Example1Processor : SymbolProcessor {
 
 KSP 通过解析跟踪来跟踪此关系，并自动将 `B` 记录为 `A` 的依赖项。因此，您不需要显式地将 `B.kt` 声明为 `outputForA` 的依赖项。
 
-## 报告错误
+## 报告错误 {id="reporting-bugs"}
 
 如果您遇到仅在启用增量处理时才会发生的任何错误，请在 [GitHub 仓库](https://github.com/google/ksp/issues)中创建一个问题并附上相关的日志文件。
 
@@ -186,7 +186,7 @@ KSP 通过解析跟踪来跟踪此关系，并自动将 `B` 记录为 `A` 的依
 
 5. 将成功构建和复现该问题的构建中的日志文件都作为附件添加到 GitHub 问题中。
 
-### 可视化符号依赖图
+### 可视化符号依赖图 {id="visualizing-the-symbol-dependency-graph"}
 
 为了帮助调试增量处理，KSP 可以生成一个 Graphviz DOT 文件，用于可视化从指定符号开始的符号依赖图。
 

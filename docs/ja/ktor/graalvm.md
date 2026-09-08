@@ -19,22 +19,22 @@ Ktor Serverアプリケーションは、さまざまなプラットフォーム
 
 現在、GraalVMを活用したいKtor Serverアプリケーションは、[アプリケーションエンジン](server-engines.md)としてCIOを使用する必要があります。
 
-## GraalVMの準備
+## GraalVMの準備 {id="prepare-for-graalvm"}
 
 GraalVMをインストールし、インストールディレクトリをシステムパスに追加することに加え、すべての依存関係がバンドルされるようにアプリケーションを準備する必要があります。つまり、fat jarを作成する必要があります。
 
-### リフレクションの設定
+### リフレクションの設定 {id="reflection-configuration"}
 
 GraalVMには、Ktorのようにリフレクションを使用するアプリケーションに関する[いくつかの要件](https://www.graalvm.org/22.1/reference-manual/native-image/Reflection/)があります。これには、特定の型情報を含む[JSONファイル](https://github.com/ktorio/ktor-samples/blob/main/graalvm/src/main/resources/META-INF/native-image/reflect-config.json)を提供する必要があります。この設定ファイルは、`native-image`ツールの引数として渡されます。
 
-## `native-image`ツールの実行
+## `native-image`ツールの実行 {id="execute-the-native-image-tool"}
 
 fat jarの準備ができたら、残りのステップは`native-image` CLIツールを使用してネイティブイメージを作成することだけです。
 これは[Gradleプラグイン](https://graalvm.github.io/native-build-tools/0.9.8/gradle-plugin.html)でも実行できます。
 `build.gradle.kts`ファイルの例は[こちら](https://github.com/ktorio/ktor-samples/blob/main/graalvm/build.gradle.kts)で確認できます。
 ただし、使用されている依存関係やプロジェクトのパッケージ名などによって、一部のオプションが異なる場合があることに注意してください。
 
-## 生成されたバイナリの実行
+## 生成されたバイナリの実行 {id="run-the-resulting-binary"}
 
 シェルスクリプトがエラーなしで実行されると、ネイティブアプリケーションが得られます。サンプルの場合は`graal-server`という名前です。これを実行するとKtor Serverが起動し、`https://0.0.0.0:8080`で応答します。
 

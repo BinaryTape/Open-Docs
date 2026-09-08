@@ -10,7 +10,7 @@ Koog는 Ktor 서버에 자연스럽게 통합되어, 양측 모두에서 관용�
 
 Koog 플러그인을 한 번 설치하고, `application.conf`/`YAML` 또는 코드에서 LLM 제공자(provider)를 설정한 다음 라우트(route)에서 바로 에이전트를 호출하세요. 더 이상 모듈 간에 LLM 클라이언트를 복잡하게 연결할 필요가 없습니다. 라우트에서 에이전트를 요청하기만 하면 바로 사용할 준비가 됩니다.
 
-## 개요
+## 개요 {id="overview"}
 
 `koog-ktor` 모듈은 서버 사이드 에이전트(agentic) 개발을 위한 관용적인 Kotlin/Ktor 통합 기능을 제공합니다.
 
@@ -21,7 +21,7 @@ Koog 플러그인을 한 번 설치하고, `application.conf`/`YAML` 또는 코�
 - 직접적인 LLM 사용 (`execute`, `executeStreaming`, `moderate`)
 - JVM 전용 MCP(Model Context Protocol) 도구 통합
 
-## 의존성 추가
+## 의존성 추가 {id="add-dependency"}
 
 ```kotlin
 dependencies {
@@ -29,7 +29,7 @@ dependencies {
 }
 ```
 
-## 빠른 시작
+## 빠른 시작 {id="quick-start"}
 
 1) 제공자 설정 (`application.yaml` 또는 `application.conf`)
 
@@ -100,7 +100,7 @@ fun Application.module() {
 - `aiAgent`는 구체적인 모델(`LLModel`)이 필요합니다. 라우트별 또는 용도별로 선택하세요.
 - 더 낮은 수준의 LLM 액세스가 필요한 경우, `llm()`(`PromptExecutor`)을 직접 사용하세요.
 
-## 라우트에서 직접 LLM 사용
+## 라우트에서 직접 LLM 사용 {id="direct-llm-usage-from-routes"}
 
 ```kotlin
 post("/llm-chat") {
@@ -162,7 +162,7 @@ post("/moderated-chat") {
 }
 ```
 
-## 프로그래밍 방식 설정 (코드 내)
+## 프로그래밍 방식 설정 (코드 내) {id="programmatic-configuration-in-code"}
 
 모든 제공자와 에이전트 동작은 `install(Koog) {}`를 통해 설정할 수 있습니다.
 
@@ -210,7 +210,7 @@ install(Koog) {
 }
 ```
 
-## 설정 내 모델 식별자 (폴백)
+## 설정 내 모델 식별자 (폴백) {id="model-identifiers-in-config-fallback"}
 
 YAML/CONF에서 `llm.fallback`을 설정할 때 다음 식별자 형식을 사용하세요.
 
@@ -226,7 +226,7 @@ YAML/CONF에서 `llm.fallback`을 설정할 때 다음 식별자 형식을 사�
 - OpenAI의 경우 반드시 카테고리(`chat`, `reasoning`, `costoptimized`, `audio`, `embeddings`, `moderation`)를 포함해야 합니다.
 - Ollama의 경우 `ollama.model` 및 `ollama.<maker>.<model>` 형식을 모두 지원합니다.
 
-## MCP 도구 (JVM 전용)
+## MCP 도구 (JVM 전용) {id="mcp-tools-jvm-only"}
 
 JVM에서는 MCP 서버의 도구를 에이전트 도구 레지스트리에 추가할 수 있습니다.
 
@@ -246,7 +246,7 @@ install(Koog) {
     }
 }
 ```
-## 왜 Koog + Ktor인가요?
+## 왜 Koog + Ktor인가요? {id="why-koog-ktor"}
 
 - 서버에서 에이전트를 개발하기 위한 Kotlin 우선의 타입 안전한 환경
 - 깔끔하고 테스트 가능한 라우트 코드와 중앙 집중식 설정

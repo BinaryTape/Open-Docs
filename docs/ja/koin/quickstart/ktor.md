@@ -14,13 +14,13 @@ title: Ktor
 このチュートリアルの**アノテーション版**をお探しですか？コンパイル時の検証のために Jakarta `@Singleton` を伴う Koin Annotations を使用している [Ktor & Annotations](./ktor-annotations.md) を確認してください。
 :::
 
-## コードを取得する
+## コードを取得する {id="get-the-code"}
 
 :::info
 [ソースコードはGitHubで入手可能です](https://github.com/InsertKoinIO/koin-getting-started/tree/main/ktor)
 :::
 
-## Gradleの設定
+## Gradleの設定 {id="gradle-setup"}
 
 まず、以下のようにKoinの依存関係を追加します：
 
@@ -32,13 +32,13 @@ dependencies {
 }
 ```
 
-## アプリケーションの概要
+## アプリケーションの概要 {id="application-overview"}
 
 このアプリケーションの目的は、ユーザーのリストを管理し、それを `UserApplication` クラスで表示することです：
 
 > Users -> UserRepository -> UserService -> UserApplication
 
-## 「User」データ
+## 「User」データ {id="the-user-data"}
 
 ユーザーのコレクションを管理します。データクラスは以下の通りです：
 
@@ -68,7 +68,7 @@ class UserRepositoryImpl : UserRepository {
 }
 ```
 
-## Koinモジュール
+## Koinモジュール {id="the-koin-module"}
 
 `module` 関数を使用してKoinモジュールを宣言します。Koinモジュールは、注入されるすべてのコンポーネントを定義する場所です。
 
@@ -90,7 +90,7 @@ val appModule = module {
 このチュートリアルでは、コンパイル時にオートワイヤリング（auto-wiring）を提供する **Koin Compiler Plugin DSL** (`single<T>()`) を使用しています。設定については [Compiler Plugin Setup](/docs/setup/compiler-plugin) を参照してください。
 :::
 
-## UserServiceコンポーネント
+## UserServiceコンポーネント {id="the-userservice-component"}
 
 ユーザー操作を管理するための `UserService` コンポーネントを作成しましょう：
 
@@ -132,7 +132,7 @@ val appModule = module {
 }
 ```
 
-## HTTPコントローラー
+## HTTPコントローラー {id="http-controller"}
 
 最後に、HTTPルートを作成するためのHTTPコントローラーが必要です。Ktorでは、これはKtor拡張関数（extension function）を通じて表現されます：
 
@@ -161,7 +161,7 @@ fun Application.main() {
 - `http://localhost:8080/hello` - Aliceに挨拶（デフォルト）
 - `http://localhost:8080/hello?name=Bob` - Bobに挨拶
 
-## 依存関係を宣言する
+## 依存関係を宣言する {id="declare-your-dependencies"}
 
 コンポーネントをKoinモジュールで組み立てましょう：
 
@@ -172,7 +172,7 @@ val appModule = module {
 }
 ```
 
-## 開始と注入
+## 開始と注入 {id="start-and-inject"}
 
 最後に、KtorからKoinを開始しましょう：
 

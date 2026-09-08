@@ -27,7 +27,7 @@ Koog 是一個專為 JVM 生態系統設計，用於建置 AI agent 的開源 Je
 
 </div>
 
-## Agent
+## Agent {id="agents"}
 
 進一步了解 [agent 概覽](agents/index.md) 以及如何使用 Koog 建立不同類型的 agent：
 
@@ -59,7 +59,7 @@ Koog 是一個專為 JVM 生態系統設計，用於建置 AI agent 的開源 Je
 
 </div>
 
-## 核心元件
+## 核心元件 {id="core-components"}
 
 詳細了解 Koog agent 的核心元件：
 
@@ -91,7 +91,7 @@ Koog 是一個專為 JVM 生態系統設計，用於建置 AI agent 的開源 Je
 
 </div>
 
-## 進階用法
+## 進階用法 {id="advanced-usage"}
 
 <div class="grid cards" markdown>
 
@@ -140,7 +140,7 @@ Koog 是一個專為 JVM 生態系統設計，用於建置 AI agent 的開源 Je
 
 </div>
 
-## 整合
+## 整合 {id="integrations"}
 
 <div class="grid cards" markdown>
 

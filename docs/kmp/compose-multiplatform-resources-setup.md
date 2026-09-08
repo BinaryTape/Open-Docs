@@ -8,7 +8,7 @@
 2. 为每种资源创建必要的目录。
 3. 为限定资源创建额外目录（例如，用于深色 UI 主题的不同图像或本地化字符串）。
 
-## 构建脚本与目录设置
+## 构建脚本与目录设置 {id="build-script-and-directory-setup"}
 
 要在多平台项目中访问资源，请添加库依赖项并整理项目目录中的文件：
 
@@ -39,7 +39,7 @@
    * 字符串应放在 `values` 目录中。
    * 其他文件应放在 `files` 目录中，可以使用您认为合适的任何文件夹层次结构。
 
-### 自定义资源目录
+### 自定义资源目录 {id="custom-resource-directories"}
 
 在 `build.gradle.kts` 文件的 `compose.resources {}` 块中，您可以为每个源集指定自定义资源目录。每个自定义目录也应以与默认 `composeResources` 相同的方式包含文件：使用 `drawable` 子目录存放图像，使用 `font` 子目录存放字体，依此类推。
 
@@ -77,7 +77,7 @@ compose.resources {
 
 在 [访问与用法](compose-multiplatform-resources-usage.md#customizing-accessor-class-generation) 中详细了解如何自定义资源访问。
 
-### 自定义 Web 资源路径
+### 自定义 Web 资源路径 {id="custom-web-resource-paths"}
 
 您可以使用 `configureWebResources()` 函数为您的 Web 资源指定路径和 URL：
 
@@ -96,7 +96,7 @@ configureWebResources {
 }
 ```
 
-### 在 `androidLibrary` 目标中使用资源
+### 在 `androidLibrary` 目标中使用资源 {id="resources-in-the-androidlibrary-target"}
 <primary-label ref="Experimental"/>
 
 从 Android Gradle 插件版本 8.8.0 开始，您可以在 `androidLibrary` 目标中使用生成的 `Res` 类和资源访问器。要在 `androidLibrary` 中启用对多平台资源的支持，请按如下方式更新您的配置：
@@ -109,7 +109,7 @@ kotlin {
 }
 ```
 
-## 限定符
+## 限定符 {id="qualifiers"}
 
 有时，同一资源应根据环境（如语言区域、屏幕密度或界面主题）以不同方式呈现。例如，您可能需要为不同语言本地化文本，或针对深色主题调整图像。为此，该库提供了特殊的限定符。
 
@@ -126,7 +126,7 @@ kotlin {
 * 可以同时应用不同类型的限定符。例如，"drawable-en-rUS-mdpi-dark" 是针对美国地区英语语言的图像，适用于深色主题下的 160 DPI 屏幕。
 * 如果请求的限定符对应的资源不可访问，则改用默认资源（不带限定符）。
 
-### 语言和区域限定符
+### 语言和区域限定符 {id="language-and-regional-qualifiers"}
 
 您可以结合使用语言和区域限定符：
 
@@ -139,7 +139,7 @@ kotlin {
 
 在 [本地化](compose-regional-format.md) 中详细了解如何使用特定于区域的格式。
 
-#### 具有多种脚本的语言的回退机制
+#### 具有多种脚本的语言的回退机制 {id="fallback-for-languages-with-multiple-scripts"}
 
 在 Android 和桌面端，系统可能会请求脚本为空的语言区域，例如，请求脚本为空的 `zh` 而非具体的 `zh-Hans` 或 `zh-Hant`。如果您仅提供特定脚本的资源，则所有这些资源都会匹配此类不含脚本的请求，导致资源无法解析，从而使应用抛出异常。为避免歧义，请为每种包含特定脚本资源的语言添加一个不含脚本的目录：
 
@@ -153,11 +153,11 @@ commonMain/composeResources/
 
 这同样适用于所有具有多种脚本的语言，例如塞尔维亚语 (`sr-Cyrl`、`sr-Latn`) 或乌兹别克语 (`uz-Cyrl`、`uz-Latn`)。
 
-### 主题限定符
+### 主题限定符 {id="theme-qualifier"}
 
 您可以添加 "light" 或 "dark" 限定符。Compose Multiplatform 会根据当前系统主题选择必要的资源。
 
-### 密度限定符
+### 密度限定符 {id="density-qualifier"}
 
 您可以使用以下密度限定符：
 
@@ -170,13 +170,13 @@ commonMain/composeResources/
 
 系统会根据定义的屏幕密度选择资源。
 
-## 发布
+## 发布 {id="publication"}
 
 从 Compose Multiplatform 1.6.10 开始，所有必要的资源都包含在发布的 Maven 构件中。
 
 要启用此功能，您的项目需要使用 Kotlin 2.0.0 或更新版本，以及 Gradle 7.6 或更新版本。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * 在 [在您的应用中使用多平台资源](compose-multiplatform-resources-usage.md) 页面上了解如何访问已设置的资源，以及如何自定义默认生成的访问器。
 * 查看官方 [演示项目](https://github.com/JetBrains/compose-multiplatform/tree/master/components/resources/demo)，该项目展示了如何在针对 iOS、Android 和桌面端的 Compose Multiplatform 项目中处理资源。

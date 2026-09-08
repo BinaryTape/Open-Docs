@@ -10,7 +10,7 @@ Koog は Ktor サーバーに自然に適合し、両側からイディオマテ
 
 Koog プラグインを一度インストールし、`application.conf`/YAML またはコード内で LLM プロバイダーを設定すれば、ルートから直接エージェントを呼び出すことができます。モジュール間で LLM クライアントを接続する手間はもうありません。ルートでエージェントをリクエストするだけで、すぐに準備が整います。
 
-## 概要
+## 概要 {id="overview"}
 
 `koog-ktor` モジュールは、サーバーサイドのエージェント開発に向けた、イディオマティックな Kotlin/Ktor 統合を提供します。
 
@@ -21,7 +21,7 @@ Koog プラグインを一度インストールし、`application.conf`/YAML ま
 - 直接的な LLM の使用 (execute、executeStreaming、moderate)
 - JVM 限定の Model Context Protocol (MCP) ツール統合
 
-## 依存関係の追加
+## 依存関係の追加 {id="add-dependency"}
 
 ```kotlin
 dependencies {
@@ -29,7 +29,7 @@ dependencies {
 }
 ```
 
-## クイックスタート
+## クイックスタート {id="quick-start"}
 
 1) プロバイダーの設定 (`application.yaml` または `application.conf`)
 
@@ -100,7 +100,7 @@ fun Application.module() {
 - `aiAgent` には具体的なモデル (`LLModel`) が必要です。ルートごと、または使用ごとに選択してください。
 - より低レベルな LLM アクセスには、`llm()` (`PromptExecutor`) を直接使用してください。
 
-## ルートからの直接的な LLM の使用
+## ルートからの直接的な LLM の使用 {id="direct-llm-usage-from-routes"}
 
 ```kotlin
 post("/llm-chat") {
@@ -162,7 +162,7 @@ post("/moderated-chat") {
 }
 ```
 
-## プログラムによる設定 (コード内)
+## プログラムによる設定 (コード内) {id="programmatic-configuration-in-code"}
 
 すべてのプロバイダーとエージェントの動作は `install(Koog) {}` を通じて設定できます。
 
@@ -210,7 +210,7 @@ install(Koog) {
 }
 ```
 
-## 設定におけるモデル識別子 (フォールバック)
+## 設定におけるモデル識別子 (フォールバック) {id="model-identifiers-in-config-fallback"}
 
 YAML/CONF で `llm.fallback` を設定する際は、以下の識別子形式を使用してください。
 
@@ -226,7 +226,7 @@ YAML/CONF で `llm.fallback` を設定する際は、以下の識別子形式を
 - OpenAI の場合、カテゴリ（chat, reasoning, costoptimized, audio, embeddings, moderation）を含める必要があります。
 - Ollama の場合、`ollama.model` と `ollama.<maker>.<model>` の両方がサポートされています。
 
-## MCP ツール (JVM 限定)
+## MCP ツール (JVM 限定) {id="mcp-tools-jvm-only"}
 
 JVM では、MCP サーバーのツールをエージェントのツールレジストリに追加できます。
 
@@ -246,7 +246,7 @@ install(Koog) {
     }
 }
 ```
-## なぜ Koog + Ktor なのか？
+## なぜ Koog + Ktor なのか？ {id="why-koog-ktor"}
 
 - サーバーでの Kotlin ファーストかつ型安全なエージェント開発
 - クリーンでテスト可能なルートコードによる集中管理された設定

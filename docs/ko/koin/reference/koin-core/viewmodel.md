@@ -4,7 +4,7 @@ title: ViewModel
 
 Koin은 `koin-core-viewmodel` 모듈을 통해 멀티플랫폼 ViewModel 지원을 제공합니다. 이를 통해 모든 Kotlin Multiplatform 타겟에서 [AndroidX ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) 인스턴스를 선언하고 주입할 수 있습니다.
 
-## 설정 (Setup)
+## 설정 (Setup) {id="setup"}
 
 핵심 ViewModel 의존성을 추가하세요:
 
@@ -23,9 +23,9 @@ implementation("io.insert-koin:koin-android:$koin_version")
 implementation("io.insert-koin:koin-compose-viewmodel:$koin_version")
 ```
 
-## ViewModel 선언하기
+## ViewModel 선언하기 {id="declaring-viewmodels"}
 
-### 컴파일러 플러그인 DSL (Compiler Plugin DSL)
+### 컴파일러 플러그인 DSL (Compiler Plugin DSL) {id="compiler-plugin-dsl"}
 
 ```kotlin
 class UserViewModel(
@@ -37,7 +37,7 @@ val appModule = module {
 }
 ```
 
-### 어노테이션 (Annotations)
+### 어노테이션 (Annotations) {id="annotations"}
 
 ```kotlin
 @KoinViewModel
@@ -46,7 +46,7 @@ class UserViewModel(
 ) : ViewModel()
 ```
 
-### 클래식 DSL (Classic DSL)
+### 클래식 DSL (Classic DSL) {id="classic-dsl"}
 
 ```kotlin
 val appModule = module {
@@ -58,7 +58,7 @@ val appModule = module {
 }
 ```
 
-## 파라미터가 있는 ViewModel
+## 파라미터가 있는 ViewModel {id="viewmodel-with-parameters"}
 
 `@InjectedParam`을 사용하여 주입 시점에 파라미터를 전달하세요:
 
@@ -98,7 +98,7 @@ val appModule = module {
 }
 ```
 
-## ViewModel 스코프 (ViewModel Scope)
+## ViewModel 스코프 (ViewModel Scope) {id="viewmodel-scope"}
 
 자신만의 스코프 의존성이 필요한 ViewModel은 `viewModelScope` 아키타입(archetype)을 사용합니다. `viewModelScope` 내부에 선언된 의존성은 ViewModel의 생명주기(lifecycle)에 묶입니다.
 
@@ -165,9 +165,9 @@ No definition found for type 'MyViewModel' on scope '['_root_']'
 그 이유는 ViewModel이 ViewModel 스코프 아키타입으로 등록되었으며, 해당 스코프는 이 옵션이 활성화되었을 때만 생성되기 때문입니다. (이는 직접 자신의 스코프를 생성하며 해당 옵션이 필요하지 않은 수동 `ScopeViewModel` 패턴과는 별개입니다.)
 :::
 
-## ViewModel 주입하기
+## ViewModel 주입하기 {id="injecting-viewmodels"}
 
-### Compose (멀티플랫폼)에서
+### Compose (멀티플랫폼)에서 {id="in-compose-multiplatform"}
 
 Composable 함수에서 `koinViewModel()`을 사용하세요:
 
@@ -180,7 +180,7 @@ fun UserScreen() {
 }
 ```
 
-### Android에서
+### Android에서 {id="in-android"}
 
 Activity 또는 Fragment에서 `by viewModel()` 델리게이트를 사용하세요:
 
@@ -193,7 +193,7 @@ class UserActivity : AppCompatActivity() {
 }
 ```
 
-## SavedStateHandle
+## SavedStateHandle {id="savedstatehandle"}
 
 ViewModel 생성자에 `SavedStateHandle`을 추가하면 Koin이 이를 자동으로 주입합니다:
 
@@ -216,7 +216,7 @@ val appModule = module {
 }
 ```
 
-## 빠른 참조 (Quick Reference)
+## 빠른 참조 (Quick Reference) {id="quick-reference"}
 
 | 방식 | 모듈 선언 | 스코프 선언 |
 |----------|-------------------|-------------------|
@@ -229,12 +229,12 @@ val appModule = module {
 | Compose | `koinViewModel<MyVM>()` |
 | Android | `by viewModel()` |
 
-## 플랫폼별 기능
+## 플랫폼별 기능 {id="platform-specific-features"}
 
 - **Android**: Activity/Fragment 공유, Navigation Graph 스코핑 등에 대해서는 [Android ViewModel](/docs/reference/koin-android/viewmodel)을 참조하세요.
 - **Compose**: Compose 전용 API에 대해서는 [Compose ViewModel](/docs/reference/koin-compose/compose#viewmodel-for-composable)을 참조하세요.
 
-## 다음 단계
+## 다음 단계 {id="next-steps"}
 
 - **[스코프 (Scopes)](/docs/reference/koin-core/scopes)** - 핵심 스코프 개념
 - **[Android ViewModel](/docs/reference/koin-android/viewmodel)** - Android 전용 기능

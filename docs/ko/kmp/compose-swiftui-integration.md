@@ -9,7 +9,7 @@ SwiftUI 애플리케이션 내에 Compose Multiplatform을 임베드할 수 있�
 >
 {style="tip"}
 
-## SwiftUI 애플리케이션 내에서 Compose Multiplatform 사용하기
+## SwiftUI 애플리케이션 내에서 Compose Multiplatform 사용하기 {id="use-compose-multiplatform-inside-a-swiftui-application"}
 
 SwiftUI 애플리케이션 내에서 Compose Multiplatform을 사용하려면, UIKit의 [`UIViewController`](https://developer.apple.com/documentation/uikit/uiviewcontroller/)를 반환하고 Compose Multiplatform 코드를 포함하는 Kotlin 함수 `MainViewController()`를 생성합니다:
 
@@ -57,7 +57,7 @@ struct ComposeViewController: UIViewControllerRepresentable {
 기존 애플리케이션에 Compose Multiplatform을 임베드하려는 경우, SwiftUI가 사용되는 곳 어디에서나 `ComposeView` 구조체를 사용하세요.
 예제는 [샘플 프로젝트](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/interop/ios-compose-in-swiftui)를 참조하세요.
 
-## Compose Multiplatform 내에서 SwiftUI 사용하기
+## Compose Multiplatform 내에서 SwiftUI 사용하기 {id="use-swiftui-inside-compose-multiplatform"}
 
 Compose Multiplatform 내에서 SwiftUI를 사용하려면, 중간 단계의 [`UIViewController`](https://developer.apple.com/documentation/uikit/uiviewcontroller/)에 Swift 코드를 추가하세요.
 현재는 Kotlin에서 SwiftUI 구조체를 직접 작성할 수 없습니다. 대신 Swift에서 작성하여 Kotlin 함수로 전달해야 합니다.
@@ -103,7 +103,7 @@ Main_iosKt.ComposeEntryPointWithUIViewController(createUIViewController: { () ->
 
 이 예제에 대한 코드는 [샘플 프로젝트](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/interop/ios-swiftui-in-compose)에서 확인해 보세요.
 
-### 지도 뷰 (Map view)
+### 지도 뷰 (Map view) {id="map-view"}
 
 SwiftUI의 [`Map`](https://developer.apple.com/documentation/mapkit/map) 컴포넌트를 사용하여 Compose Multiplatform에서 지도 뷰를 구현할 수 있습니다. 이를 통해 애플리케이션에서 상호 작용이 완벽하게 가능한 SwiftUI 지도를 표시할 수 있습니다.
 
@@ -174,7 +174,7 @@ Main_iosKt.ComposeEntryPointWithUIViewController(createUIViewController: {
 * `annotationItems`를 사용하여 지도 위에 커스텀 마커를 선언적으로 배치합니다.
 * SwiftUI 컴포넌트를 `UIHostingController` 내부에 래핑하여 Compose Multiplatform에 `UIViewController`로 전달합니다.
 
-### 카메라 뷰 (Camera view)
+### 카메라 뷰 (Camera view) {id="camera-view"}
 
 SwiftUI 및 UIKit의 [`UIImagePickerController`](https://developer.apple.com/documentation/uikit/uiimagepickercontroller)를 SwiftUI 호환 컴포넌트로 래핑하여 Compose Multiplatform에서 카메라 뷰를 구현할 수 있습니다. 이를 통해 애플리케이션에서 시스템 카메라를 실행하고 사진을 촬영할 수 있습니다.
 
@@ -288,7 +288,7 @@ struct CameraPreview: View {
 >
 {style="note"}
 
-### 웹 뷰 (Web view)
+### 웹 뷰 (Web view) {id="web-view"}
 
 UIKit의 [`WKWebView`](https://developer.apple.com/documentation/webkit/wkwebview) 컴포넌트를 `UIViewRepresentable`로 래핑하여 Compose Multiplatform에서 웹 뷰를 구현할 수 있습니다. 이를 통해 네이티브 렌더링으로 임베드된 웹 콘텐츠를 표시할 수 있습니다.
 
@@ -390,7 +390,7 @@ struct WebViewContainer: View {
 * `Text` 컴포넌트를 사용하여 뷰 상단에 현재 URL을 표시합니다.
 * `UIHostingController` 사용하여 이 컴포넌트를 Compose UI에 통합합니다.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * Compose가 화면 콘텐츠를 렌더링하는 동안 시스템에서 렌더링되는 Liquid Glass 효과를 위해 [네이티브 SwiftUI 내비게이션을 사용하는 방법](ios-liquid-glass.md)을 알아보세요.
 * Compose Multiplatform이 [UIKit 프레임워크와 통합](compose-uikit-integration.md)되는 방식에 대해서도 알아보세요.

@@ -8,13 +8,13 @@ title: JUnit 测试
 更新 - 2025-01-28
 :::
 
-## 获取代码
+## 获取代码 {id="get-the-code"}
 
 :::info
 [源代码可在 GitHub 上获得](https://github.com/InsertKoinIO/koin-getting-started/tree/main/kotlin)
 :::
 
-## Gradle 设置
+## Gradle 设置 {id="gradle-setup"}
 
 首先，如下添加 Koin 依赖项：
 
@@ -27,7 +27,7 @@ dependencies {
 }
 ```
 
-## 声明依赖项
+## 声明依赖项 {id="declared-dependencies"}
 
 我们重复使用 `koin-core` 快速入门项目，以使用 koin 模块：
 
@@ -39,7 +39,7 @@ val appModule = module {
 }
 ```
 
-## 验证您的模块
+## 验证您的模块 {id="verifying-your-modules"}
 
 :::tip
 Koin 编译器插件现在提供编译时依赖项验证，可以在构建时捕获缺失的依赖项，而无需编写测试代码。请参阅[编译时安全](/docs/reference/koin-compiler/compile-safety)。
@@ -59,7 +59,7 @@ class ModuleVerificationTest : AutoCloseKoinTest() {
 
 如果任何依赖项定义无效或缺少任何必需的依赖项，此测试将失败。
 
-## 编写使用 KoinTestRule 的测试
+## 编写使用 KoinTestRule 的测试 {id="writing-tests-with-kointestrule"}
 
 要编写注入依赖项的测试，请扩展 `KoinTest` 并使用 `KoinTestRule`：
 
@@ -90,7 +90,7 @@ class UserAppTest : KoinTest {
 
 > 我们使用 `KoinTestRule` 为每个测试启动/停止 Koin 上下文
 
-## 模拟依赖项
+## 模拟依赖项 {id="mocking-dependencies"}
 
 您可以使用 `declareMock` 在测试中模拟依赖项。这会用 mock 替换真实的实现：
 
@@ -128,7 +128,7 @@ class UserMockTest : KoinTest {
 
 `MockProviderRule` 将 Mockito 配置为模拟框架，而 `declareMock` 则将真实的 `UserRepository` 替换为返回受控数据的 mock。
 
-## 关键测试概念
+## 关键测试概念 {id="key-testing-concepts"}
 
 | 概念 | 描述 |
 |---------|-------------|
@@ -140,7 +140,7 @@ class UserMockTest : KoinTest {
 | `declareMock<T>()` | 使用 mock 替换定义 |
 | `by inject<T>()` | 在测试中延迟注入依赖项 |
 
-## 另请参阅
+## 另请参阅 {id="see-also"}
 
 - **[测试参考](/docs/reference/koin-test/testing)** - 完整的测试文档
 - **[模块验证](/docs/reference/koin-test/verify)** - verify() 和 checkModules() 详情

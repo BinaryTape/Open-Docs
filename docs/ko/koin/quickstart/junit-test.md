@@ -8,13 +8,13 @@ title: JUnit 테스트
 업데이트 - 2025-01-28
 :::
 
-## 코드 가져오기
+## 코드 가져오기 {id="get-the-code"}
 
 :::info
 [소스 코드는 GitHub에서 확인할 수 있습니다](https://github.com/InsertKoinIO/koin-getting-started/tree/main/kotlin)
 :::
 
-## Gradle 설정
+## Gradle 설정 {id="gradle-setup"}
 
 먼저, 아래와 같이 Koin 의존성을 추가합니다:
 
@@ -27,7 +27,7 @@ dependencies {
 }
 ```
 
-## 의존성 선언
+## 의존성 선언 {id="declared-dependencies"}
 
 `koin-core` 시작하기 프로젝트를 재사용하여 koin 모듈을 사용합니다:
 
@@ -39,7 +39,7 @@ val appModule = module {
 }
 ```
 
-## 모듈 검증하기
+## 모듈 검증하기 {id="verifying-your-modules"}
 
 :::tip
 Koin 컴파일러 플러그인은 이제 컴파일 타임 의존성 검증을 제공하여, 테스트 코드를 작성하지 않고도 빌드 타임에 누락된 의존성을 찾아냅니다. [컴파일 타임 안전성(Compile-Time Safety)](/docs/reference/koin-compiler/compile-safety)을 참조하세요.
@@ -59,7 +59,7 @@ class ModuleVerificationTest : AutoCloseKoinTest() {
 
 이 테스트는 의존성 정의가 유효하지 않거나 필요한 의존성이 누락된 경우 실패합니다.
 
-## KoinTestRule로 테스트 작성하기
+## KoinTestRule로 테스트 작성하기 {id="writing-tests-with-kointestrule"}
 
 의존성을 주입하는 테스트를 작성하려면, `KoinTest`를 상속받고 `KoinTestRule`을 사용하세요:
 
@@ -90,7 +90,7 @@ class UserAppTest : KoinTest {
 
 > KoinTestRule을 사용하여 각 테스트에 대해 Koin 컨텍스트를 시작하고 중지합니다.
 
-## 의존성 모킹(Mocking)
+## 의존성 모킹(Mocking) {id="mocking-dependencies"}
 
 `declareMock`을 사용하여 테스트에서 의존성을 모킹할 수 있습니다. 이는 실제 구현을 모의 객체(mock)로 대체합니다:
 
@@ -128,7 +128,7 @@ class UserMockTest : KoinTest {
 
 `MockProviderRule`은 Mockito를 모킹 프레임워크로 설정하며, `declareMock`은 실제 `UserRepository`를 제어된 데이터를 반환하는 모의 객체로 대체합니다.
 
-## 주요 테스트 개념
+## 주요 테스트 개념 {id="key-testing-concepts"}
 
 | 개념 | 설명 |
 |---------|-------------|
@@ -140,7 +140,7 @@ class UserMockTest : KoinTest {
 | `declareMock<T>()` | 정의를 모의 객체로 대체 |
 | `by inject<T>()` | 테스트에서 의존성을 지연 주입(lazy inject) |
 
-## 참고 항목
+## 참고 항목 {id="see-also"}
 
 - **[테스트 레퍼런스](/docs/reference/koin-test/testing)** - 전체 테스트 문서
 - **[모듈 검증](/docs/reference/koin-test/verify)** - verify() 및 checkModules() 상세 내용

@@ -38,7 +38,7 @@
 >
 {style="note"}
 
-## 向您的 Kotlin Notebook 添加 Kotlin DataFrame 和 Kandy 库
+## 向您的 Kotlin Notebook 添加 Kotlin DataFrame 和 Kandy 库 {id="add-kotlin-dataframe-and-kandy-libraries-to-your-kotlin-notebook"}
 
 让我们向您的 Kotlin Notebook 添加两个流行的 Kotlin 库依赖项：
 * [Kotlin DataFrame 库](https://kotlin.github.io/dataframe/home.html) 让您能够在 Kotlin 项目中强大地操作数据帧。
@@ -123,7 +123,7 @@
   </li>
 </list>
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * 了解如何[共享您的 Kotlin Notebook](kotlin-notebook-share.md)
 * 查看关于[向您的 Kotlin Notebook 添加依赖项](https://www.jetbrains.com/help/idea/kotlin-notebook.html#add-dependencies)的更多详情

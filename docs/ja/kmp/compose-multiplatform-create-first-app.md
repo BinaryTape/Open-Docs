@@ -25,7 +25,7 @@
 * このチュートリアルを完了するには、IntelliJ IDEA のみが必要です。これにより、Android とデスクトップでのマルチプラットフォーム開発を試すことができます。iOS については、Xcode がインストールされた macOS マシンが必要です。これは iOS 開発における一般的な制限です。
 * 必要に応じて、興味のある特定のプラットフォームのみを選択し、それ以外を省略することも可能です。
 
-## プロジェクトの作成
+## プロジェクトの作成 {id="create-a-project"}
 
 1. [クイックスタート](quickstart.md)に従って、[Kotlin Multiplatform 開発のための環境構築](quickstart.md#set-up-the-environment)を完了させてください。
 2. IntelliJ IDEA で、**File** | **New** | **Project** を選択します。
@@ -46,7 +46,7 @@
 
    ![Compose Multiplatform プロジェクトの作成](create-compose-multiplatform-project.png){width=800}
 
-## プロジェクト構造の確認
+## プロジェクト構造の確認 {id="examine-the-project-structure"}
 
 IntelliJ IDEA で `ComposeDemo` フォルダに移動します。
 ウィザードで iOS を選択しなかった場合、名前が "ios" または "apple" で始まるフォルダは作成されません。
@@ -121,7 +121,7 @@ fun App() {
 
 それでは、サポートされているすべてのプラットフォームでアプリケーションを実行してみましょう。
 
-## アプリケーションの実行
+## アプリケーションの実行 {id="run-your-application"}
 
 Android、iOS、デスクトップ、および Web でアプリケーションを実行できます。実行する順序に決まりはありませんので、最も慣れているプラットフォームから始めてください。
 
@@ -130,7 +130,7 @@ Android、iOS、デスクトップ、および Web でアプリケーション�
 >
 {style="tip"}
 
-### Android でアプリケーションを実行する
+### Android でアプリケーションを実行する {id="run-your-application-on-android"}
 
 1. 実行構成のリストで **androidApp** を選択します。
 2. Android 仮想デバイスを選択し、**Run** をクリックします。IDE が、選択した仮想デバイス（電源がオフの場合は起動してから）でアプリを実行します。
@@ -141,17 +141,17 @@ Android、iOS、デスクトップ、および Web でアプリケーション�
 
 <snippet id="run_android_other_devices">
 
-#### 別の Android シミュレートデバイスで実行する {initial-collapse-state="collapsed" collapsible="true"}
+#### 別の Android シミュレートデバイスで実行する {initial-collapse-state="collapsed" collapsible="true" id="run-on-a-different-android-simulated-device"}
 
 [Android Emulator を構成し、別のシミュレートデバイスでアプリケーションを実行する](https://developer.android.com/studio/run/emulator#runningapp)方法については、こちらをご覧ください。
 
-#### 実機の Android デバイスで実行する {initial-collapse-state="collapsed" collapsible="true"}
+#### 実機の Android デバイスで実行する {initial-collapse-state="collapsed" collapsible="true" id="run-on-a-real-android-device"}
 
 [ハードウェアデバイスを構成して接続し、そのデバイスでアプリケーションを実行する](https://developer.android.com/studio/run/device)方法については、こちらをご覧ください。
 
 </snippet>
 
-### iOS でアプリケーションを実行する
+### iOS でアプリケーションを実行する {id="run-your-application-on-ios"}
 
 初期セットアップの一環として Xcode を起動していない場合は、iOS アプリを実行する前に起動してください。
 
@@ -163,11 +163,11 @@ IntelliJ IDEA で実行構成のリストから **iosApp** を選択し、実行
 
 <snippet id="run_ios_other_devices">
 
-#### 実機の iOS デバイスで実行する {initial-collapse-state="collapsed" collapsible="true"}
+#### 実機の iOS デバイスで実行する {initial-collapse-state="collapsed" collapsible="true" id="run-on-a-real-ios-device"}
 
 実機の iOS デバイスでマルチプラットフォームアプリケーションを実行できます。開始する前に、[Apple ID](https://support.apple.com/en-us/HT204316) に関連付けられたチーム ID を設定する必要があります。
 
-##### チーム ID を設定する
+##### チーム ID を設定する {id="set-your-team-id"}
 
 プロジェクトで初めてチーム ID を設定するには、Xcode でプロジェクトを開きます（**File | Open Project in Xcode**）：
 
@@ -187,7 +187,7 @@ Xcode でチームを設定した後は、IntelliJ IDEA でチームを設定ま
 
 2. **Options** タブに切り替え、**Development team** ドロップダウンで必要な変更を行い、**OK** をクリックします。
 
-##### アプリを実行する
+##### アプリを実行する {id="run-the-app"}
 
 iPhone をケーブルで接続します。すでにデバイスを Xcode に登録している場合、IntelliJ IDEA の実行構成リストに表示されるはずです。対応する `iosApp` 構成を実行します。
 
@@ -204,7 +204,7 @@ Xcode に iPhone を登録したら、IntelliJ IDEA で **iosApp** 実行構成�
 
 </snippet>
 
-### デスクトップでアプリケーションを実行する
+### デスクトップでアプリケーションを実行する {id="run-your-application-on-desktop"}
 
 実行構成のリストで **desktopApp [hot] 🔥** を選択し、**Run** をクリックします。
 デフォルトでは、実行構成は [Compose Hot Reload](compose-hot-reload.md) が動作した状態で、独自の OS ウィンドウでデスクトップアプリを起動します：
@@ -213,7 +213,7 @@ Xcode に iPhone を登録したら、IntelliJ IDEA で **iosApp** 実行構成�
 
 ![デスクトップでの最初の Compose Multiplatform アプリ](first-compose-project-on-desktop-1.png){width=500}
 
-### Web アプリケーションを実行する
+### Web アプリケーションを実行する {id="run-your-web-application"}
 
 1. 実行構成のリストで以下を選択します：
 
@@ -231,7 +231,7 @@ Web アプリケーションがデフォルトのブラウザで自動的に開�
 
 ![Compose Web アプリケーション](first-compose-project-on-web.png){width=600}
 
-#### Web ターゲットの互換モード
+#### Web ターゲットの互換モード {id="compatibility-mode-for-web-targets"}
 
 Web アプリケーションに対して互換モードを有効にすることで、すべてのブラウザですぐに動作するようにできます。
 このモードでは、モダンなブラウザは Wasm バージョンを使用し、古いブラウザは JS バージョンにフォールバックします。
@@ -257,13 +257,13 @@ Web アプリケーションの互換モードを有効にするには：
 Gradle タスクが完了すると、互換性のあるアーティファクトが `composeApp/build/dist/composeWebCompatibility/productionExecutable` ディレクトリに生成されます。
 これらのアーティファクトを使用して、`js` と `wasmJs` の両方のターゲットで動作する[アプリケーションを公開](https://kotlinlang.org/docs/wasm-get-started.html#publish-the-application)できます。
 
-## 次のステップ
+## 次のステップ {id="next-step"}
 
 チュートリアルの次のパートでは、コンポーザブル関数を実装し、各プラットフォームでアプリケーションを起動する方法を学びます。
 
 **[次のパートへ進む](compose-multiplatform-explore-composables.md)**
 
-## ヘルプを得る
+## ヘルプを得る {id="get-help"}
 
 * **Kotlin Slack**: [招待](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)を受けて、[#multiplatform](https://kotlinlang.slack.com/archives/C3PQML5NU) チャンネルに参加してください。
 * **Kotlin 課題トラッカー**: [新しい課題を報告](https://youtrack.jetbrains.com/newIssue?project=KT)してください。

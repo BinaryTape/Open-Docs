@@ -7,7 +7,7 @@ Compose Multiplatform アプリで、他のアプリケーションからドラ�
 > 
 {style="warning"}
 
-## プラットフォーム固有のデータ処理
+## プラットフォーム固有のデータ処理 {id="platform-specific-data-handling"}
 
 `dragAndDropSource` および `dragAndDropTarget` モディファイアは共通 API の一部ですが、転送されるデータはプラットフォーム固有の型でラップします：
 
@@ -47,7 +47,7 @@ Compose Multiplatform アプリで、他のアプリケーションからドラ�
     }
     ```
 
-## ドラッグソースの作成
+## ドラッグソースの作成 {id="creating-a-drag-source"}
 
 コンポーザブルをドラッグソースとして準備するには、以下の手順を行います。
 
@@ -107,7 +107,7 @@ Box(Modifier
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="Box(Modifier.dragAndDropSource"}
 
-## ドロップターゲットの作成
+## ドロップターゲットの作成 {id="creating-a-drop-target"}
 
 コンポーザブルをドロップターゲットとして準備するには、以下の手順を行います。
 
@@ -188,6 +188,6 @@ Row(
 }
 ```
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 実装の詳細や一般的なユースケースについては、Jetpack Compose ドキュメントの対応するモディファイアに関する記事「[Drag and drop](https://developer.android.com/develop/ui/compose/touch-input/user-interactions/drag-and-drop)」（英語）を参照してください。

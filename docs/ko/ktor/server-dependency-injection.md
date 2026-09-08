@@ -21,7 +21,7 @@
 
 Ktor는 서비스와 구성 객체를 한 번 등록한 후 애플리케이션 전반에서 액세스할 수 있는 내장 DI 플러그인을 제공합니다. 이러한 의존성을 [모듈](server-di-dependency-resolution.md#inject-into-modules), 플러그인, 라우트 및 기타 Ktor 컴포넌트에 일관되고 타입 안전한(type-safe) 방식으로 주입할 수 있습니다. 이 플러그인은 Ktor 애플리케이션 수명 주기와 통합되며 스코핑, 구조화된 구성 및 [자동 리소스 관리](server-di-resource-lifecycle-management.md)를 지원하여 애플리케이션 수준의 서비스를 더 쉽게 구성하고 유지 관리할 수 있게 해줍니다.
 
-## 의존성 추가
+## 의존성 추가 {id="add-dependencies"}
 
 DI를 사용하려면 빌드 스크립트에 `%artifact_name%` 아티팩트를 포함하세요:
 
@@ -37,7 +37,7 @@ DI를 사용하려면 빌드 스크립트에 `%artifact_name%` 아티팩트를 �
     </TabItem>
 </Tabs>
 
-## Ktor에서 의존성 주입이 작동하는 방식
+## Ktor에서 의존성 주입이 작동하는 방식 {id="how-dependency-injection-works-in-ktor"}
 
 Ktor에서 의존성 주입은 서로 밀접하게 관련된 두 단계로 구성된 단일 통합 프로세스입니다:
 
@@ -48,7 +48,7 @@ Ktor에서 의존성 주입은 서로 밀접하게 관련된 두 단계로 구�
 
 애플리케이션에서 의존성 주입을 사용하려면 먼저 [의존성 등록](server-di-dependency-registration.md)부터 시작하세요. 의존성이 선언되면 [의존성 해결](server-di-dependency-resolution.md)을 진행할 수 있습니다.
 
-## 지원되는 기능
+## 지원되는 기능 {id="supported-features"}
 
 DI 플러그인은 일반적인 애플리케이션 요구 사항을 충족하기 위한 다양한 기능을 지원합니다:
 
@@ -58,7 +58,7 @@ DI 플러그인은 일반적인 애플리케이션 요구 사항을 충족하기
 * [비동기 의존성 해결](server-di-dependency-resolution.md#async-dependency-resolution).
 * [자동 및 커스텀 리소스 수명 주기 관리](server-di-resource-lifecycle-management.md).
 
-## 구성 및 수명 주기 동작
+## 구성 및 수명 주기 동작 {id="configuration-and-lifecycle-behavior"}
 
 DI 컨테이너의 동작은 구성 옵션을 사용하여 커스텀할 수 있습니다. 이 옵션들은 의존성 키 매칭 방식, 충돌 처리 방식, 고급 시나리오에서의 해결 동작 등을 제어합니다.
 
@@ -66,7 +66,7 @@ DI 컨테이너의 동작은 구성 옵션을 사용하여 커스텀할 수 있�
 
 리소스 정리 및 종료 동작에 대해서는 [리소스 수명 주기 관리](server-di-resource-lifecycle-management.md)를 참조하세요.
 
-## 의존성 주입을 사용한 테스트
+## 의존성 주입을 사용한 테스트 {id="testing-with-dependency-injection"}
 
 DI 플러그인은 Ktor의 테스트 유틸리티와 통합되어 테스트 환경에서 의존성 재정의, 구성 로드 및 충돌 동작 제어를 지원합니다.
 

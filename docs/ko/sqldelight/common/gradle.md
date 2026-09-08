@@ -2,9 +2,9 @@
 
 더 세부적인 커스터마이징을 위해 Gradle DSL을 사용하여 데이터베이스를 명시적으로 선언할 수 있습니다.
 
-## SQLDelight 설정
+## SQLDelight 설정 {id="sqldelight-configuration"}
 
-### `databases`
+### `databases` {id="databases"}
 
 데이터베이스를 위한 컨테이너입니다. 지정된 이름으로 각 데이터베이스를 생성하도록 SQLDelight를 설정합니다.
 
@@ -31,7 +31,7 @@
 
 ----
 
-### `linkSqlite`
+### `linkSqlite` {id="linksqlite"}
 
 타입: `Property<Boolean>`
 
@@ -54,9 +54,9 @@
     linkSqlite = true
     ```
 
-## 데이터베이스 설정
+## 데이터베이스 설정 {id="database-configuration"}
 
-### `packageName`
+### `packageName` {id="packagename"}
 
 타입: `Property<String>`
 
@@ -73,7 +73,7 @@
 
 ----
 
-### `srcDirs`
+### `srcDirs` {id="srcdirs"}
 
 타입: `ConfigurableFileCollection`
 
@@ -90,7 +90,7 @@
     srcDirs = ['src/main/sqldelight']
     ```
 
-#### `srcDirs(vararg objects: Any)`
+#### `srcDirs(vararg objects: Any)` {id="srcdirs-vararg-objects-any"}
 
 플러그인이 `.sq` 및 `.sqm` 파일을 찾을 객체 컬렉션입니다.
 
@@ -105,7 +105,7 @@
 
 ----
 
-### `schemaOutputDirectory`
+### `schemaOutputDirectory` {id="schemaoutputdirectory"}
 
 타입: `DirectoryProperty`
 
@@ -126,7 +126,7 @@
 
 ----
 
-### `dependency`
+### `dependency` {id="dependency"}
 
 타입: `Project`
 
@@ -143,7 +143,7 @@
 
 ----
 
-### `dialect`
+### `dialect` {id="dialect"}
 
 타입: `String` 또는 `Provider<MinimalExternalModuleDependency>`
 
@@ -180,7 +180,7 @@ Android 프로젝트의 경우, SQLite 버전은 `minSdk`를 기반으로 자동
 
 ----
 
-### `verifyMigrations`
+### `verifyMigrations` {id="verifymigrations"}
 
 타입: `Property<Boolean>`
 
@@ -199,7 +199,7 @@ true로 설정하면 마이그레이션 파일에 오류가 있을 경우 빌드
 
 ----
 
-### `treatNullAsUnknownForEquality`
+### `treatNullAsUnknownForEquality` {id="treatnullasunknownforequality"}
 
 타입: `Property<Boolean>`
 
@@ -218,7 +218,7 @@ true로 설정하면 SQLDelight는 `IS`를 사용할 때 nullable 타입 값에 
 
 ----
 
-### `generateAsync`
+### `generateAsync` {id="generateasync"}
 
 타입: `Property<Boolean>`
 
@@ -237,7 +237,7 @@ true로 설정하면 SQLDelight는 비동기 드라이버와 함께 사용할 �
 
 ----
 
-### `deriveSchemaFromMigrations`
+### `deriveSchemaFromMigrations` {id="deriveschemafrommigrations"}
 
 타입: `Property<Boolean>`
 
@@ -257,7 +257,7 @@ false인 경우, 스키마는 `.sq` 파일에 정의됩니다.
 
 ----
 
-### `expandSelectStar`
+### `expandSelectStar` {id="expandselectstar"}
 
 타입: `Property<Boolean>`
 
@@ -289,7 +289,7 @@ SELECT * FROM hockey_player;
 
 ----
 
-### `codegenExcludedColumns`
+### `codegenExcludedColumns` {id="codegenexcludedcolumns"}
 
 타입: `SetProperty<String>`
 

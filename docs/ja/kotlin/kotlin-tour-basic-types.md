@@ -84,9 +84,9 @@ fun main() {
 
 基本型の宣言方法がわかったところで、次は[コレクション](kotlin-tour-collections.md)について学びましょう。
 
-## 練習問題 {completion-point="true"}
+## 練習問題 {completion-point="true" id="practice"}
 
-### エクササイズ {initial-collapse-state="collapsed" collapsible="true"}
+### エクササイズ {initial-collapse-state="collapsed" collapsible="true" id="exercise"}
 
 各変数の正しい型を明示的に宣言してください。
 

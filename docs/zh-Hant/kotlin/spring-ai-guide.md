@@ -13,7 +13,7 @@
 * [Docker](https://www.docker.com/) 用於在本機執行 Qdrant。
 * [OpenAI](https://platform.openai.com) 作為 LLM 提供者。
 
-## 在你開始之前
+## 在你開始之前 {id="before-you-start"}
 
 1. 下載並安裝最新版本的 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 並使用旗艦版 (Ultimate) 訂閱。
 
@@ -29,7 +29,7 @@
     docker run -p 6333:6333 -p 6334:6334 qdrant/qdrant
     ```
 
-## 建立專案
+## 建立專案 {id="create-the-project"}
 
 > 你也可以使用 [Spring Boot 網頁版專案產生器](https://start.spring.io/) 作為產生專案的替代方案。
 >
@@ -91,7 +91,7 @@
 * `main/kotlin` 資料夾下有用於應用程式的套件與類別。
 * 應用程式的進入點是 `SpringAiDemoApplication.kt` 檔案中的 `main()` 方法。
 
-## 更新專案配置
+## 更新專案配置 {id="update-the-project-configuration"}
 
 1. 使用以下內容更新你的 `build.gradle.kts` Gradle 建置檔案：
 
@@ -133,7 +133,7 @@
 
    ![Qdrant 集合](qdrant-collections.png){width=700}
 
-## 建立一個控制器來載入與搜尋文件
+## 建立一個控制器來載入與搜尋文件 {id="create-a-controller-to-load-and-search-documents"}
 
 建立一個 Spring `@RestController` 來搜尋文件並將其儲存在 Qdrant 集合中：
 
@@ -251,7 +251,7 @@
 >
 {style="tip"}
 
-## 實作 AI 聊天端點
+## 實作 AI 聊天端點 {id="implement-an-ai-chat-endpoint"}
 
 文件載入後，最後一步是加入一個端點，透過 Spring AI 的檢索增強生成 (Retrieval-Augmented Generation, RAG) 支援，使用 Qdrant 中的文件來回答問題：
 
@@ -346,7 +346,7 @@
 
 你可以在 [Spring AI demo GitHub 存儲庫](https://github.com/Kotlin/Kotlin-AI-Examples/tree/master/projects/spring-ai/springAI-demo)中查看完成的專案。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * 在 [Kotlin AI Examples](https://github.com/Kotlin/Kotlin-AI-Examples/tree/master) 中探索其他 Spring AI 範例
 * [使用 Spring Boot 與 Claude 建立一個任務管理器應用程式](spring-boot-claude.md)

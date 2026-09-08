@@ -2,7 +2,7 @@
 
 デスクトップ用 Compose Multiplatform は、テキストコンテキストメニューを標準でサポートしており、項目の追加、テーマの設定、テキストのカスタマイズによって、あらゆるコンテキストメニューを便利に調整できます。
 
-## カスタム領域のコンテキストメニュー
+## カスタム領域のコンテキストメニュー {id="context-menu-in-a-custom-area"}
 
 アプリケーションの任意の領域に対してコンテキストメニューを作成できます。`ContextMenuArea` を使用して、マウスの右クリックによってコンテキストメニューが表示されるコンテナを定義します。
 
@@ -38,7 +38,7 @@ fun main() = singleWindowApplication(title = "Context menu") {
 
 <img src="compose-desktop-context-menu-custom-area.png" alt="Context menu: ContextMenuArea" width="500"/>
 
-## テーマの設定
+## テーマの設定 {id="set-up-theming"}
 
 システム設定に合わせたレスポンシブな UI を作成し、アプリケーション間の切り替え時に激しいコントラストの変化を避けるために、コンテキストメニューの色をカスタマイズできます。デフォルトのライトテーマとダークテーマ向けに、`LightDefaultContextMenuRepresentation` と `DarkDefaultContextMenuRepresentation` という 2 つの組み込み実装が用意されています。これらはコンテキストメニューの色に自動的には適用されないため、`LocalContextMenuRepresentation` を介して適切なテーマを設定する必要があります。
 
@@ -86,7 +86,7 @@ fun main() = singleWindowApplication(title = "Dark theme") {
 
 <img src="compose-desktop-context-menu-dark-mode.png" alt="Context menu: Dark theme" width="500"/>
 
-## メニュー項目のローカライズ
+## メニュー項目のローカライズ {id="localize-menu-items"}
 
 デフォルトでは、コンテキストメニューはシステム設定で優先されている言語で表示されます。
 
@@ -98,9 +98,9 @@ fun main() = singleWindowApplication(title = "Dark theme") {
 java.util.Locale.setDefault(java.util.Locale("en"))
 ```
 
-## テキストコンテキストメニュー
+## テキストコンテキストメニュー {id="text-context-menu"}
 
-### デフォルトのテキストコンテキストメニュー
+### デフォルトのテキストコンテキストメニュー {id="default-text-context-menu"}
 
 デスクトップ用 Compose Multiplatform は、`TextField` および選択可能な `Text` 用の組み込みコンテキストメニューを提供します。
 
@@ -145,7 +145,7 @@ fun main() = singleWindowApplication(title = "Context menu") {
 
 <img src="compose-desktop-context-menu-text.png" alt="Default context menu for Text" width="500"/>
 
-### カスタム項目の追加
+### カスタム項目の追加 {id="add-custom-items"}
 
 `TextField` および `Text` コンポーネントにカスタムのコンテキストメニューアクションを追加するには、`ContextMenuItem` を介して新しい項目を指定し、`ContextMenuDataProvider` を介してそれらをコンテキストメニュー項目の階層に追加します。たとえば、以下のコードサンプルは、テキストフィールドと単純な選択可能テキスト要素のデフォルトコンテキストメニューに、2 つの新しいカスタムアクションを追加する方法を示しています。
 
@@ -198,7 +198,7 @@ fun main() = singleWindowApplication(title = "Context menu") {
 
 <img src="compose-desktop-context-menu-custom-actions.png" alt="Context menu with custom actions" width="500"/>
 
-### デフォルトのテキストコンテキストメニューのオーバーライド
+### デフォルトのテキストコンテキストメニューのオーバーライド {id="override-default-text-context-menu"}
 
 テキストフィールドおよび選択可能テキスト要素のデフォルトコンテキストメニューをオーバーライドするには、`TextContextMenu` インターフェースをオーバーライドします。以下のコードサンプルでは、元の `TextContextMenu` を再利用しつつ、リストの最後に 1 つの項目を追加しています。この新しい項目は、テキストの選択状態に応じて調整されます。
 
@@ -276,7 +276,7 @@ private fun AnnotatedString.crop() = if (length <= 5) toString() else "${take(5)
 
 <img src="compose-desktop-context-menu-custom-text.png" alt="Context menu: LocalTextContextMenu" width="500"/>
 
-### Swing との相互運用性
+### Swing との相互運用性 {id="swing-interoperability"}
 
 Compose のコードを既存の Swing アプリケーションに埋め込んでおり、コンテキストメニューをアプリケーションの他の部分の外観や動作に合わせる必要がある場合は、`JPopupTextMenu` クラスを使用できます。このクラスでは、`LocalTextContextMenu` は Compose コンポーネント内のコンテキストメニューに Swing の `JPopupMenu` を使用します。
 
@@ -406,6 +406,6 @@ private fun circleIcon(color: Color) = object : Icon {
 
 <img src="compose-desktop-context-menu-swing.png" alt="Context menu: Swing interoperability" width="500"/>
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 [他のデスクトップコンポーネント](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop)に関するチュートリアルをご覧ください。

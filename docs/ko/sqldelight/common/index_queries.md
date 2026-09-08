@@ -1,4 +1,4 @@
-## 타입 세이프(Typesafe) 쿼리 정의하기
+## 타입 세이프(Typesafe) 쿼리 정의하기 {id="defining-typesafe-queries"}
 
 SQLDelight는 `.sq` 파일에 레이블(labeled)이 지정된 모든 SQL 문에 대해 타입 세이프 함수를 생성합니다.
 

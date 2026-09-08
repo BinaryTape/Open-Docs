@@ -3,7 +3,7 @@
 ナビゲーションは、ユーザーがアプリケーションの異なる画面間を移動できるようにする、UIアプリケーションの主要な部分です。
 Compose Multiplatformは、[Jetpack Composeのナビゲーション手法](https://developer.android.com/guide/navigation/design#frameworks)を採用しています。
 
-## セットアップ
+## セットアップ {id="setup"}
 
 Navigationライブラリを使用するには、`commonMain`ソースセットに以下の依存関係を追加します。
 
@@ -22,7 +22,7 @@ kotlin {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="org.jetbrains.androidx.navigation:navigation-compose:%org.jetbrains.androidx.navigation%"}
 
-## サンプルプロジェクト
+## サンプルプロジェクト {id="sample-project"}
 
 Compose Multiplatformのナビゲーションライブラリが実際に動作している様子を確認するには、[nav_cupcakeプロジェクト](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/nav_cupcake)をチェックしてください。
 これは、Androidのコードラボ「[Navigate between screens with Compose](https://developer.android.com/codelabs/basic-android-kotlin-compose-navigation#0)」から変換されたものです。
@@ -40,7 +40,7 @@ Jetpack Composeと同様に、ナビゲーションを実装するには以下�
 `RESUMED`は「settled（確定）」とも表現されます。新しい画面が準備されアクティブになった時点で、ナビゲーションは完了したと見なされます。
 現在のCompose Multiplatformにおける実装の詳細については、[Lifecycle](compose-lifecycle.md)のページを参照してください。
 
-## Webアプリにおけるブラウザナビゲーションのサポート
+## Webアプリにおけるブラウザナビゲーションのサポート {id="support-for-browser-navigation-in-web-apps"}
 <primary-label ref="Experimental"/>
 
 Compose Multiplatform for webは、共通のNavigationライブラリAPIを完全にサポートしており、ブラウザからのナビゲーション入力をアプリで受け取ることができます。
@@ -100,7 +100,7 @@ fun main() {
 `<app package>.<serializable type>/<argument1>/<argument2>`。
 例えば、`example.org#org.example.app.StartScreen/123/Alice%2520Smith`のようになります。
 
-### ルートからURLへの変換（およびその逆）のカスタマイズ
+### ルートからURLへの変換（およびその逆）のカスタマイズ {id="customize-translating-routes-into-urls-and-back"}
 
 Compose Multiplatformアプリはシングルページアプリ（SPA）であるため、フレームワークはアドレスバーを操作して通常のWebナビゲーションを模倣します。
 URLをより読みやすくし、実装をURLパターンから分離したい場合は、画面に直接名前を割り当てるか、目的地のルートに対して完全にカスタムな処理を開発できます。
@@ -114,7 +114,7 @@ URLをより読みやすくし、実装をURLパターンから分離したい�
     ```
 * すべてのURLを完全に構築するには、オプションの`getBackStackEntryRoute`ラムダを使用できます。
 
-#### URLの完全なカスタマイズ
+#### URLの完全なカスタマイズ {id="full-url-customization"}
 
 完全にカスタムなルートからURLへの変換を実装するには：
 

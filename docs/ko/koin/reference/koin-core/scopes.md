@@ -6,7 +6,7 @@ title: 스코프 (Scopes)
 
 스코프는 의존성의 수명(lifecycle)을 제어합니다. 이 가이드에서는 스코프를 정의하고 생성하며 관리하는 방법을 다룹니다.
 
-## 스코프 이해하기
+## 스코프 이해하기 {id="understanding-scopes"}
 
 | 스코프 종류 | 수명 (Lifecycle) | 예시 |
 |------------|-----------|---------|
@@ -14,16 +14,16 @@ title: 스코프 (Scopes)
 | **Factory** | 요청 시마다 생성 | Presenters, Use Cases |
 | **Scoped** | 스코프 수명 동안 유지 | Activity 바인딩, Session 바인딩 |
 
-## 스코프를 사용하는 경우
+## 스코프를 사용하는 경우 {id="when-to-use-scopes"}
 
 다음과 같은 경우에 스코프를 사용하세요:
 - 팩토리보다는 길고 싱글톤보다는 짧은 수명을 가진 인스턴스가 필요할 때
 - 특정 컨텍스트(Activity, Fragment, Session) 내에서 상태를 공유해야 할 때
 - 컨텍스트가 종료될 때 자동으로 리소스를 정리해야 할 때
 
-## 스코프 정의 (Defining Scoped Definitions)
+## 스코프 정의 (Defining Scoped Definitions) {id="defining-scoped-definitions"}
 
-### DSL
+### DSL {id="dsl"}
 
 ```kotlin
 val appModule = module {
@@ -41,7 +41,7 @@ val appModule = module {
 }
 ```
 
-### 어노테이션 (Annotations)
+### 어노테이션 (Annotations) {id="annotations"}
 
 | 어노테이션 | DSL 대응 문구 | 용도 |
 |------------|----------------|---------|
@@ -79,9 +79,9 @@ class RetainedPresenter
 class FragmentPresenter
 ```
 
-## 스코프 생성 및 사용
+## 스코프 생성 및 사용 {id="creating-and-using-scopes"}
 
-### 수동 스코프 관리
+### 수동 스코프 관리 {id="manual-scope-management"}
 
 ```kotlin
 // 스코프 생성
@@ -95,7 +95,7 @@ val prefs: UserPreferences = myScope.get()
 myScope.close()
 ```
 
-### Android Activity 스코프
+### Android Activity 스코프 {id="android-activity-scope"}
 
 ```kotlin
 class MyActivity : AppCompatActivity(), AndroidScopeComponent {
@@ -112,7 +112,7 @@ class MyActivity : AppCompatActivity(), AndroidScopeComponent {
 }
 ```
 
-### Android Fragment 스코프
+### Android Fragment 스코프 {id="android-fragment-scope"}
 
 ```kotlin
 class MyFragment : Fragment(), AndroidScopeComponent {
@@ -123,9 +123,9 @@ class MyFragment : Fragment(), AndroidScopeComponent {
 }
 ```
 
-## 스코프 유형 (Scope Types)
+## 스코프 유형 (Scope Types) {id="scope-types"}
 
-### 타입 기반 스코프 (Type-Based Scope)
+### 타입 기반 스코프 (Type-Based Scope) {id="type-based-scope"}
 
 ```kotlin
 scope<MyActivity> {
@@ -135,7 +135,7 @@ scope<MyActivity> {
 
 스코프는 `MyActivity` 타입으로 식별됩니다. 이 스코프는 `MyActivity`에 의해서만 트리거되는 반면, `activityScope`는 범용적인 스코프입니다.
 
-### 이름 지정 스코프 (Named Scope)
+### 이름 지정 스코프 (Named Scope) {id="named-scope"}
 
 ```kotlin
 scope(named("user_session")) {
@@ -145,7 +145,7 @@ scope(named("user_session")) {
 
 스코프가 특정 타입에 묶여 있지 않을 때 사용합니다.
 
-### 한정자 기반 스코프 (Qualifier-Based Scope)
+### 한정자 기반 스코프 (Qualifier-Based Scope) {id="qualifier-based-scope"}
 
 ```kotlin
 scope(named<MyQualifier>()) {
@@ -153,11 +153,11 @@ scope(named<MyQualifier>()) {
 }
 ```
 
-## 스코프 아키타입 (Scope Archetypes)
+## 스코프 아키타입 (Scope Archetypes) {id="scope-archetypes"}
 
 Koin은 일반적인 Android 스코프 패턴을 위한 전용 DSL을 제공합니다. 이러한 아키타입은 ViewModel, Activity, Fragment에 대한 스코프 정의를 간소화합니다.
 
-### ViewModel 스코프
+### ViewModel 스코프 {id="viewmodel-scope"}
 
 ViewModel의 수명 주기에 바인딩된 의존성을 정의합니다:
 
@@ -180,7 +180,7 @@ class UserViewModel(
 ) : ViewModel()
 ```
 
-### Activity 스코프
+### Activity 스코프 {id="activity-scope"}
 
 Activity의 수명 주기에 바인딩된 의존성을 정의합니다:
 
@@ -193,7 +193,7 @@ val appModule = module {
 }
 ```
 
-### Fragment 스코프
+### Fragment 스코프 {id="fragment-scope"}
 
 Fragment의 수명 주기에 바인딩된 의존성을 정의합니다:
 
@@ -205,7 +205,7 @@ val appModule = module {
 }
 ```
 
-### 비교
+### 비교 {id="comparison"}
 
 | 아키타입 | DSL | 어노테이션 | 수명 (Lifecycle) |
 |-----------|-----|------------|-----------|
@@ -218,7 +218,7 @@ val appModule = module {
 스코프 아키타입은 Koin 4.0 이상에서 사용할 수 있습니다. 일반적인 Android 컴포넌트에 대해 `scope<T> { }`를 수동으로 정의하는 것보다 더 깔끔한 문법을 제공합니다.
 :::
 
-## 스코프 연결 (Scope Linking)
+## 스코프 연결 (Scope Linking) {id="scope-linking"}
 
 부모 스코프 정의에 접근하기 위해 스코프를 연결합니다:
 
@@ -253,7 +253,7 @@ class UserFragment : Fragment(), AndroidScopeComponent {
 }
 ```
 
-## 스코프 소스 (Scope Source)
+## 스코프 소스 (Scope Source) {id="scope-source"}
 
 자신이 속한 스코프를 인지하는 의존성을 주입합니다:
 
@@ -271,7 +271,7 @@ scope<MyActivity> {
 }
 ```
 
-## 스코프 인스턴스 ID (Scope Instance ID)
+## 스코프 인스턴스 ID (Scope Instance ID) {id="scope-instance-id"}
 
 각 스코프 인스턴스는 고유한 ID를 가집니다:
 
@@ -284,9 +284,9 @@ val scope2 = getKoin().createScope("scope_2", named("session"))
 scope1.get<SessionData>() !== scope2.get<SessionData>()
 ```
 
-## 스코프 인스턴스 접근하기
+## 스코프 인스턴스 접근하기 {id="accessing-scoped-instances"}
 
-### 스코프 내부에서
+### 스코프 내부에서 {id="from-within-scope"}
 
 ```kotlin
 class MyActivity : AppCompatActivity(), AndroidScopeComponent {
@@ -297,7 +297,7 @@ class MyActivity : AppCompatActivity(), AndroidScopeComponent {
 }
 ```
 
-### 스코프 외부에서
+### 스코프 외부에서 {id="from-outside-scope"}
 
 ```kotlin
 // 스코프를 가져오거나 생성
@@ -307,7 +307,7 @@ val myScope = getKoin().getOrCreateScope("my_id", named("session"))
 val session: SessionData = myScope.get()
 ```
 
-### Compose에서
+### Compose에서 {id="in-compose"}
 
 ```kotlin
 @Composable
@@ -320,9 +320,9 @@ fun MyScreen() {
 }
 ```
 
-## 스코프 수명 주기 (Scope Lifecycle)
+## 스코프 수명 주기 (Scope Lifecycle) {id="scope-lifecycle"}
 
-### 스코프 닫기
+### 스코프 닫기 {id="closing-scopes"}
 
 스코프가 닫히면:
 1. 모든 스코프 인스턴스가 해제됩니다.
@@ -342,7 +342,7 @@ scope.close()  // SessionData 인스턴스가 해제됨
 // scope.get<SessionData>()  // 오류: 스코프가 닫혔습니다.
 ```
 
-### onClose 콜백
+### onClose 콜백 {id="onclose-callback"}
 
 ```kotlin
 scope(named("session")) {
@@ -354,9 +354,9 @@ scope(named("session")) {
 }
 ```
 
-## 공통 패턴
+## 공통 패턴 {id="common-patterns"}
 
-### 세션 스코프 (Session Scope)
+### 세션 스코프 (Session Scope) {id="session-scope"}
 
 ```kotlin
 val appModule = module {
@@ -380,7 +380,7 @@ fun onLogout(userId: String) {
 }
 ```
 
-### 기능 스코프 (Feature Scope)
+### 기능 스코프 (Feature Scope) {id="feature-scope"}
 
 ```kotlin
 val appModule = module {
@@ -402,7 +402,7 @@ class CheckoutActivity : AppCompatActivity(), AndroidScopeComponent {
 }
 ```
 
-## 권장 사항 (Best Practices)
+## 권장 사항 (Best Practices) {id="best-practices"}
 
 1. **싱글톤은 신중하게 사용하세요** - 진정으로 앱 전역에서 사용되는 의존성에만 사용하세요.
 2. **공유 상태를 스코프에 넣으세요** - 여러 컴포넌트가 동일한 인스턴스를 필요로 할 때 사용하세요.
@@ -410,7 +410,7 @@ class CheckoutActivity : AppCompatActivity(), AndroidScopeComponent {
 4. **스코프를 집중된 상태로 유지하세요** - 모든 것을 하나의 스코프에 넣지 마세요.
 5. **Android 스코프 컴포넌트를 사용하세요** - 자동 수명 주기 관리를 위해 활용하세요.
 
-## 다음 단계
+## 다음 단계 {id="next-steps"}
 
 - **[Android용 Koin](/docs/integrations/android/android-scopes)** - Android 전용 스코프
 - **[Compose용 Koin](/docs/integrations/compose/compose-modules)** - Compose에서의 스코프

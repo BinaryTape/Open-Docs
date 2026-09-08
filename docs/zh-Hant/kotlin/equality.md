@@ -5,7 +5,7 @@
 * 結構化相等 (`==`) - 檢查 `equals()` 函式
 * 參照相等 (`===`) - 檢查兩個參照是否指向同一個物件
 
-## 結構化相等
+## 結構化相等 {id="structural-equality"}
 
 結構化相等驗證兩個物件是否具有相同的內容或結構。結構化相等透過 `==` 操作及其否定對應項 `!=` 進行檢查。
 按照慣例，像 `a == b` 這樣的運算式會被轉換為：
@@ -67,7 +67,7 @@ class Point(val x: Int, val y: Int) {
 
 結構化相等與 `Comparable<...>` 介面定義的比較無關，因此只有自訂的 `equals(Any?)` 實作可能會影響該運算子的行為。 
 
-## 參照相等
+## 參照相等 {id="referential-equality"}
 
 參照相等會驗證兩個物件的記憶體位址，以判斷它們是否為同一個執行個體。
 
@@ -97,7 +97,7 @@ fun main() {
 >
 {style="tip"}
 
-## 浮點數相等
+## 浮點數相等 {id="floating-point-numbers-equality"}
 
 當相等檢查的運算元在靜態上已知為 `Float` 或 `Double`（無論是否可為 null）時，該檢查遵循 [IEEE 754 浮點數算術標準](https://en.wikipedia.org/wiki/IEEE_754)。
 
@@ -109,7 +109,7 @@ fun main() {
 
 如需更多資訊，請參閱[浮點數比較](numbers.md#floating-point-number-comparison)。
 
-## 陣列相等
+## 陣列相等 {id="array-equality"}
 
 若要比較兩個陣列是否在相同順序下擁有相同的元素，請使用 [`contentEquals()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/content-equals.html)。
 

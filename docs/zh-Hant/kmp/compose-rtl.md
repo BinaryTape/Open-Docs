@@ -3,7 +3,7 @@
 Compose Multiplatform 支援從右到左 (Right-to-Left, RTL) 的語言，例如阿拉伯語、希伯來語和波斯語。
 該架構會在使用 RTL 語言時，根據系統的區域設定 (locale) 自動處理大多數 RTL 需求，並調整配置 (layout)、對齊方式和文字輸入行為。
 
-## 配置鏡像
+## 配置鏡像 {id="layout-mirroring"}
 
 當系統區域設定為 RTL 語言時，Compose Multiplatform 會自動鏡像大多數 UI 組建 (component)。
 調整內容包括邊距 (padding)、邊界 (margin)、對齊方式和組建位置的變更：
@@ -22,7 +22,7 @@ Compose Multiplatform 支援從右到左 (Right-to-Left, RTL) 的語言，例如
 * **按鈕定位**  
    常見的 UI 模式（例如**取消**與**確認**按鈕的位置）會根據 RTL 的預期進行調整。
 
-## 強制配置方向
+## 強制配置方向 {id="forcing-layout-direction"}
 
 無論配置方向為何，你可能需要保留某些 UI 元素（例如標誌 logo 或圖示）的原始方向。
 你可以明確設定整個應用程式或單個組建的配置方向，從而覆寫系統預設基於區域設定的配置行為。
@@ -41,20 +41,20 @@ Hello world")
 }
 ```
 
-## 在 RTL 配置中處理文字輸入
+## 在 RTL 配置中處理文字輸入 {id="handling-text-input-in-rtl-layouts"}
 
 Compose Multiplatform 支援 RTL 配置中的各種文字輸入情境，包括混合方向內容、特殊字元、數字和表情符號。
 
 當你設計支援 RTL 配置的應用程式時，請考慮以下方面。測試這些內容可以協助你識別潛在的在地化問題。
 
-### 游標行為
+### 游標行為 {id="cursor-behavior"}
 
 在 RTL 配置中，游標 (cursor) 的行為應符合直覺，並與字元的邏輯方向一致。例如：
 
 * 輸入阿拉伯語時，游標向左移動，但插入 LTR 內容時則遵循從左到右的行為。
 * 文字選取、刪除和插入等操作會遵循文字的自然方向流。
 
-### 雙向文字 (BiDi)
+### 雙向文字 (BiDi) {id="bidi-text"}
 
 Compose Multiplatform 使用 [Unicode 雙向演算法 (Unicode Bidirectional Algorithm)](https://www.w3.org/International/articles/inline-bidi-markup/uba-basics) 來管理和渲染雙向 (BiDi) 文字，使標點符號和數字對齊。
 
@@ -145,7 +145,7 @@ internal fun TextField(
 
 Compose Multiplatform 還能確保在複雜的 BiDi 情況下（包括多行換行和 BiDi 內容的巢狀結構）具有正確的對齊和間距。
 
-### 數字與表情符號
+### 數字與表情符號 {id="numbers-and-emojis"}
 
 數字應根據周圍文字的方向一致地顯示。東阿拉伯數字在 RTL 文字中自然對齊，而西阿拉伯數字則遵循典型的 LTR 行為。
 
@@ -233,7 +233,7 @@ internal fun TextField(
 
 <img src="compose-rtl-emoji.png" alt="Numbers and emojis" width="600"/>
 
-## Web 目標的字體
+## Web 目標的字體 {id="fonts-for-web-targets"}
 
 Web 目標缺少用於渲染某些區域（例如阿拉伯語和中文）字元的內建字體。
 為了解決這個問題，你需要將自訂備援字體新增至資源中並預先載入它們，因為它們不會自動啟用。
@@ -258,11 +258,11 @@ LaunchedEffect(Unit) {
 
 有關預先載入 Web 目標資源的詳細資訊，請參閱 [preload API](compose-web-resources.md#preload-resources-using-the-compose-multiplatform-preload-api) 章節。
 
-## RTL 配置中的無障礙功能
+## RTL 配置中的無障礙功能 {id="accessibility-in-rtl-layouts"}
 
 Compose Multiplatform 支援 RTL 配置的無障礙功能，包括為螢幕閱讀器提供正確的文字方向和順序，以及處理手勢。
 
-### 螢幕閱讀器
+### 螢幕閱讀器 {id="screen-readers"}
 
 螢幕閱讀器會自動適應 RTL 配置，為使用者保持邏輯閱讀順序：
 
@@ -271,7 +271,7 @@ Compose Multiplatform 支援 RTL 配置的無障礙功能，包括為螢幕閱�
 
 在複雜的配置中，有必要定義遍歷語意 (traversal semantics) 以確保螢幕閱讀器具有正確的閱讀順序。
 
-### 基於焦點的導覽
+### 基於焦點的導覽 {id="focus-based-navigation"}
 
 RTL 配置中的焦點導覽遵循配置的鏡像結構：
 
@@ -282,7 +282,7 @@ RTL 配置中的焦點導覽遵循配置的鏡像結構：
 
 有關如何定義遍歷語意和設定遍歷索引的詳細資訊，請參閱 [無障礙功能](compose-accessibility.md#traversal-order) 章節。
 
-## 已知問題
+## 已知問題 {id="known-issues"}
 
 我們持續改進對 RTL 語言的支援，並計劃解決以下已知問題：
 

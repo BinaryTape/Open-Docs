@@ -565,7 +565,7 @@ CIO エンジンは、JVM、Android、Native、JavaScript、および WebAssembl
 
 ## 制限事項 {id="limitations"}
 
-### HTTP/2 および WebSockets
+### HTTP/2 および WebSockets {id="http-2-and-websockets"}
 
 すべてのエンジンが HTTP/2 プロトコルをサポートしているわけではありません。エンジンが HTTP/2 をサポートしている場合は、エンジンの設定で有効にできます。例えば、[Java](#java) エンジンなどです。
 
@@ -584,19 +584,19 @@ CIO エンジンは、JVM、Android、Native、JavaScript、および WebAssembl
 | `WinHttp` | ✅      | ✅          |
 | `Curl`    | ✅      | ✅          |
 
-### セキュリティ
+### セキュリティ {id="security"}
 
 [SSL](client-ssl.md) はエンジンごとに設定する必要があります。各エンジンは独自の SSL 設定オプションを提供しています。
 
-### プロキシのサポート
+### プロキシのサポート {id="proxy-support"}
 
 一部のエンジンはプロキシをサポートしていません。完全なリストについては、[プロキシのドキュメント](client-proxy.md#supported_engines)を参照してください。
 
-### ロギング
+### ロギング {id="logging"}
 
 [Logging](client-logging.md) プラグインは、ターゲットプラットフォームに応じてさまざまなロガータイプを提供します。
 
-### タイムアウト
+### タイムアウト {id="timeout"}
 
 [HttpTimeout](client-timeout.md) プラグインには、特定のエンジンでいくつかの制限があります。完全なリストについては、[タイムアウトの制限事項](client-timeout.md#limitations)を参照してください。
 

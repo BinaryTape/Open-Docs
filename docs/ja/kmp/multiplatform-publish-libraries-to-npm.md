@@ -13,26 +13,26 @@
 
 このチュートリアルでは、プロジェクトのホストにGitHubを使用し、GitHub Actions経由でCIを実行します。
 
-## サンプルライブラリ
+## サンプルライブラリ {id="sample-library"}
 
 [サンプルライブラリプロジェクト](https://github.com/Kotlin/kotlin-multiplatform-web-library)を使用して、
 実際に動作する設定を確認しながら進めることができます。
 
 コードを再利用する場合は、必ず**すべての例の値を、ご自身のプロジェクト固有の値に置き換えてください**。
 
-## アカウントと認証情報の準備
+## アカウントと認証情報の準備 {id="prepare-accounts-and-credentials"}
 
 npmに公開するには、[npmポータルにサインイン](https://www.npmjs.com/login)している必要があります。
 
 このチュートリアルでは、手動公開の設定を行うために「組織（Organization）」と「アクセストークン」が必要になります。
 
-### シンプルな組織の作成
+### シンプルな組織の作成 {id="create-a-simple-organization"}
 
 このチュートリアルでは、名前の競合を避けるために、npmの組織（Organization）の下でライブラリを公開します。
 
 新しい組織を作成するには、[npmのドキュメント](https://docs.npmjs.com/creating-an-organization)に従ってください。
 
-### アクセストークンの生成
+### アクセストークンの生成 {id="generate-an-access-token"}
 
 手動でnpmに公開するには、新しく作成した組織の下でパッケージを公開することを許可するアクセストークンが必要です。
 トークンを生成するには、[npmのガイド](https://docs.npmjs.com/creating-and-viewing-access-tokens)に従ってください。
@@ -41,7 +41,7 @@ npmに公開するには、[npmポータルにサインイン](https://www.npmjs
 * **Bypass two-factor authentication (2FA)** オプションを有効にします。
 * トークンの一般権限と組織権限の両方を **Read and write** に設定します。
 
-## ライブラリプロジェクトの設定
+## ライブラリプロジェクトの設定 {id="configure-the-library-project"}
 
 [サンプルプロジェクト](https://github.com/Kotlin/kotlin-multiplatform-web-library)を使用する場合は、
 公開前にデフォルトの名前を更新してください。
@@ -52,7 +52,7 @@ npmに公開するには、[npmポータルにサインイン](https://www.npmjs
 
 名前の設定が完了したら、次の手順に従って公開の設定を行います。
 
-### 公開用プラグインのセットアップ
+### 公開用プラグインのセットアップ {id="set-up-the-publishing-plugin"}
 
 このチュートリアルでは、npmへの公開を支援する公式の [npm-publish プラグイン](https://github.com/Kotlin/npm-publish) を使用します。
 プラグインの詳細や利用可能な設定オプションについては、[プラグインのドキュメント](https://npm-publish.petuska.dev)を参照してください。
@@ -138,7 +138,7 @@ Kotlinマルチプラットフォームプロジェクトにプラグインを�
   * `packageName` パラメータを省略すると、モジュールの名前がデフォルト値として使用されます。
 * `packageJson {}` ブロックは様々なメタデータを保持します。
 
-## 手動で公開する
+## 手動で公開する {id="publish-manually"}
 
 手動での公開は、プロジェクトの構造をまだ試行錯誤している段階や、
 公開の自動化を独自に実装したい場合に役立ちます。
@@ -156,7 +156,7 @@ npmの組織ページを開き、**Packages** タブを確認してください
 
 ![npmに公開されたライブラリ](published-on-npm.png){width=700}
 
-### トラブルシューティング
+### トラブルシューティング {id="troubleshooting"}
 
 手動公開でよく起こる問題がいくつかあります：
 
@@ -165,14 +165,14 @@ npmの組織ページを開き、**Packages** タブを確認してください
 * 組織スコープのパッケージ用にトークンを生成する際は、
   必ず一般権限（general permissions）**および**組織権限（organization permissions）の両方を設定してください。
 
-## 継続的インテグレーション（CI）を使用して公開する
+## 継続的インテグレーション（CI）を使用して公開する {id="publish-using-continuous-integration-ci"}
 
 npmの信頼されたパブリッシャー（Trusted Publishers）という仕組みを利用すると、OpenID Connectを使用してCIを迅速にセットアップできます。
 この方法では、トークンの生成や管理を一切行う必要がありません。
 
 この例では、[GitHub Actions](https://docs.github.com/en/actions) を使用したワークフローをセットアップします。
 
-### GitHub Actions ワークフローファイルの作成
+### GitHub Actions ワークフローファイルの作成 {id="create-a-github-actions-workflow-file"}
 
 GitHub Actionを設定する `.github/workflows/publish.yml` ファイルを作成します：
 
@@ -218,7 +218,7 @@ jobs:
 > 
 {style="tip"}
 
-### GitHub Actionsを信頼されたパブリッシャーとして設定する
+### GitHub Actionsを信頼されたパブリッシャーとして設定する {id="set-up-github-actions-as-your-trusted-publisher"}
 
 ワークフローを公開したら、GitHub Actionを使用してnpmパッケージに[信頼されたパブリッシャー（Trusted Publisher）](https://docs.npmjs.com/trusted-publishers)を追加できます：
 
@@ -241,7 +241,7 @@ jobs:
 作成された接続はパッケージ設定の **Trusted Publishers** セクションに表示されます。
 これは、指定された座標を持つワークフローがnpmへの公開を許可されたことを意味します。
 
-### GitHubでリリースを作成する
+### GitHubでリリースを作成する {id="create-a-release-on-github"}
 
 ワークフローと信頼されたパブリッシャーの接続が設定されたので、[GitHubリリースを作成](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository#creating-a-release)することで公開をトリガーする準備が整いました：
 
@@ -271,7 +271,7 @@ Actionがトリガーされたかどうかを確認するには、GitHubリポ�
 
 ![CI/CDからnpmに公開されたライブラリの2番目のバージョン](published-second-version-on-npm.png){width=700}
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [READMEにshields.ioバッジを追加する](https://shields.io/badges/npm-version)
 * [Dokkaを使用してAPIドキュメントを生成する](https://kotl.in/dokka)

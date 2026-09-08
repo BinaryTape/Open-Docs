@@ -8,7 +8,7 @@
 > 
 {style="note"}
 
-## 시작하기 전에
+## 시작하기 전에 {id="before-you-start"}
 
 최신 버전의 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)를 다운로드하고 설치한 후 Ultimate 구독을 사용하세요.
 
@@ -16,7 +16,7 @@
 > 
 {style="tip"}
 
-## Spring Boot 프로젝트 생성하기
+## Spring Boot 프로젝트 생성하기 {id="create-a-spring-boot-project"}
 
 IntelliJ IDEA의 프로젝트 위저드를 사용하여 Kotlin으로 새로운 Spring Boot 프로젝트를 생성하세요:
 
@@ -72,7 +72,7 @@ IntelliJ IDEA의 프로젝트 위저드를 사용하여 Kotlin으로 새로운 S
    * `main/kotlin` 폴더 아래에는 애플리케이션에 속하는 패키지와 클래스들이 있습니다.
    * 애플리케이션의 진입점(entry point)은 `DemoApplication.kt` 파일의 `main()` 메서드입니다.
 
-## 프로젝트 Gradle 빌드 파일 살펴보기 {initial-collapse-state="collapsed" collapsible="true"}
+## 프로젝트 Gradle 빌드 파일 살펴보기 {initial-collapse-state="collapsed" collapsible="true" id="explore-the-project-gradle-build-file"}
 
 `build.gradle.kts` 파일을 엽니다. 이 파일은 Gradle Kotlin 빌드 스크립트로, 애플리케이션에 필요한 의존성 목록이 포함되어 있습니다.
 
@@ -143,7 +143,7 @@ tasks.withType<Test> {
 
 Kotlin 컴파일러 옵션에 대한 자세한 내용은 [](gradle-compiler-options.md)에서 확인할 수 있습니다.
 
-## 생성된 Spring Boot 애플리케이션 살펴보기
+## 생성된 Spring Boot 애플리케이션 살펴보기 {id="explore-the-generated-spring-boot-application"}
 
 `DemoApplication.kt` 파일을 엽니다:
 
@@ -188,7 +188,7 @@ fun main(args: Array<String>) {
    </def>
 </deflist>
 
-## 컨트롤러 생성하기
+## 컨트롤러 생성하기 {id="create-a-controller"}
 
 애플리케이션을 실행할 준비가 되었지만, 먼저 로직을 업데이트해 보겠습니다.
 
@@ -241,7 +241,7 @@ class MessageController {
    </def>
 </deflist>
 
-## 애플리케이션 실행하기
+## 애플리케이션 실행하기 {id="run-the-application"}
 
 이제 Spring 애플리케이션을 실행할 준비가 되었습니다:
 
@@ -265,7 +265,7 @@ class MessageController {
 
     ![Spring 애플리케이션 응답](spring-application-response.png){width=700}
 
-## 다음 단계
+## 다음 단계 {id="next-step"}
 
 튜토리얼의 다음 부분에서는 Kotlin 데이터 클래스와 이를 애플리케이션에서 사용하는 방법에 대해 알아봅니다.
 

@@ -178,11 +178,11 @@ ktor:
 
 您可以在此处找到完整示例：[engine-main-modules](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/engine-main-modules)。
 
-## 模块依赖项
+## 模块依赖项 {id="module-dependencies"}
 
 模块通常需要共享公共服务、仓库或配置。注入依赖项而不是在模块内部创建它们，可以提高可测试性和灵活性。根据项目的复杂程度，Ktor 提供了几种方法。
 
-### 通过形参传递依赖项
+### 通过形参传递依赖项 {id="passing-dependencies-through-parameters"}
 
 传递依赖项最简单的方法是将它们声明为模块函数的形参：
 
@@ -200,7 +200,7 @@ fun main() {
 
 这对于中小型应用程序非常有效，并能保持依赖关系清晰。然而，模块在编译时会变得紧耦合，且无法在运行时轻松更换。
 
-### 使用应用程序特性
+### 使用应用程序特性 {id="using-application-attributes"}
 
 您可以使用 `Application.attributes` —— 一个对所有模块都可用的类型安全映射：
 
@@ -238,7 +238,7 @@ suspend fun Application.installEvents() {
 您还可以独立启动所有应用程序模块，这样当一个模块挂起时，其他模块不会被阻塞。
 这允许依赖注入进行非顺序加载，并在某些情况下加快加载速度。
 
-### 配置选项
+### 配置选项 {id="configuration-options"}
 
 以下配置属性可用：
 
@@ -247,7 +247,7 @@ suspend fun Application.installEvents() {
 | `ktor.application.startup`              | `sequential` / `concurrent` | 定义应用程序模块的加载方式 | `sequential` |
 | `ktor.application.startupTimeoutMillis` | `Long`                      | 应用程序模块加载的超时时间（以毫秒为单位） | `10000`      |
 
-### 启用并发模块加载
+### 启用并发模块加载 {id="enable-concurrent-module-loading"}
 
 要选择启用并发模块加载，请在服务器配置文件中添加以下内容：
 

@@ -22,7 +22,7 @@
 >
 {style="tip"}
 
-## 設定專案
+## 設定專案 {id="set-up-the-project"}
 
 此功能從 Kotlin 2.0.0 開始提供。
 
@@ -34,14 +34,14 @@
 
 本教學假設您的專案在專案的組建階段中使用帶有 `embedAndSignAppleFrameworkForXcode` 任務的[直接整合](multiplatform-direct-integration.md)方法。如果您是透過 CocoaPods 外掛程式或透過帶有 `binaryTarget` 的 Swift 軟件包連接 Kotlin 架構，請先進行遷移。
 
-### 從 SwiftPM binaryTarget 整合遷移 {initial-collapse-state="collapsed" collapsible="true"}
+### 從 SwiftPM binaryTarget 整合遷移 {initial-collapse-state="collapsed" collapsible="true" id="migrate-from-swiftpm-binarytarget-integration"}
 
 要從使用 `binaryTarget` 的 SwiftPM 整合遷移：
 
 1. 在 Xcode 中，使用 **Product** | **Clean Build Folder** 或使用 <shortcut>Cmd + Shift + K</shortcut> 快速鍵清理組建目錄。
 2. 在每個 `Package.swift` 檔案中，移除對包含 Kotlin 架構的軟件包的相依性，以及對產品的目標相依性。
 
-### 從 CocoaPods 外掛程式遷移 {initial-collapse-state="collapsed" collapsible="true"}
+### 從 CocoaPods 外掛程式遷移 {initial-collapse-state="collapsed" collapsible="true" id="migrate-from-the-cocoapods-plugin"}
 
 > 如果您在 `cocoapods {}` 區塊中對其他 Pod 有相依性，則必須採用 CocoaPods 整合方法。目前，在多模組 SwiftPM 專案中不可能同時擁有對 Pod 和對 Kotlin 架構的相依性。
 >
@@ -133,7 +133,7 @@
 * 如果您有不同於預設 `Debug` 或 `Release` 的自訂組建組態，請在 **Build Settings** 分頁的 **User-Defined** 下新增 `KOTLIN_FRAMEWORK_BUILD_TYPE` 設定，並將其設定為 `Debug` 或 `Release`。
 * 如果您遇到指令碼沙盒化錯誤，請透過按兩下專案名稱開啟 iOS 專案設定，然後在 **Build Settings** 分頁中，停用 **Build Options** 下的 **User Script Sandboxing**。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * [選擇您的整合方法](multiplatform-ios-integration-overview.md)
 * [進一步了解如何設定 Swift 軟件包匯出](multiplatform-spm-export.md)

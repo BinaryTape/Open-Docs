@@ -2,7 +2,7 @@
 
 Glide または Picasso の呼び出しを Coil の呼び出しに移行する方法の例をいくつか紹介します。
 
-### 基本的な使い方
+### 基本的な使い方 {id="basic-usage"}
 
 ```kotlin
 // Glide
@@ -19,7 +19,7 @@ Picasso.get()
 imageView.load(url)
 ```
 
-### カスタムリクエスト
+### カスタムリクエスト {id="custom-requests"}
 
 ```kotlin
 imageView.scaleType = ImageView.ScaleType.FIT_CENTER
@@ -44,7 +44,7 @@ imageView.load(url) {
 }
 ```
 
-### View 以外のターゲット
+### View 以外のターゲット {id="non-view-targets"}
 
 ```kotlin
 // Glide (start と error のオプションのコールバックがあります)
@@ -95,7 +95,7 @@ val request = ImageRequest.Builder(context)
 context.imageLoader.enqueue(request)
 ```
 
-### バックグラウンドスレッド
+### バックグラウンドスレッド {id="background-thread"}
 
 ```kotlin
 // Glide (現在のスレッドをブロックします。メインスレッドから呼び出さないでください)

@@ -11,7 +11,7 @@ Kotlin 的數字型別代表：
 
 使用數字型別來儲存和處理數值資料，例如算術、計數器、測量以及其他計算。
 
-## 選擇數字型別
+## 選擇數字型別 {id="choose-a-number-type"}
 
 在大多數情況下，你可以參考以下規則來決定適合你任務的數字型別：
 
@@ -25,7 +25,7 @@ Kotlin 的數字型別代表：
 >
 {style="tip"}
 
-## 整數型別
+## 整數型別 {id="integer-types"}
 
 Kotlin 提供四種具有不同大小和值範圍的整數型別：
 
@@ -36,7 +36,7 @@ Kotlin 提供四種具有不同大小和值範圍的整數型別：
 | `Int` | 32 | -2,147,483,648 (-2<sup>31</sup>) | 2,147,483,647 (2<sup>31</sup> - 1) |
 | `Long` | 64 | -9,223,372,036,854,775,808 (-2<sup>63</sup>) | 9,223,372,036,854,775,807 (2<sup>63</sup> - 1) |
 
-### 宣告整數值
+### 宣告整數值 {id="declare-integer-values"}
 
 Kotlin 支援以下整數值的常值形式：
 
@@ -91,7 +91,7 @@ val threeBillion = 3_000_000_000 // Long
 val maybeAbsent: Int? = null
 ```
 
-## 浮點型別
+## 浮點型別 {id="floating-point-types"}
 
 對於帶有小數部分的數字，Kotlin 提供 `Float` 和 `Double`。
 
@@ -105,7 +105,7 @@ val maybeAbsent: Int? = null
 | `Float` | 32 | 24 | 8 | 6-7 |
 | `Double` | 64 | 53 | 11 | 15-16 |    
 
-### 宣告浮點值
+### 宣告浮點值 {id="declare-floating-point-values"}
 
 若要宣告浮點常值，請包含小數點 (`.`) 或使用指數標記法：
 
@@ -132,7 +132,7 @@ val eFloat = 2.7182817f // Float
 val maybeAbsent: Double? = null
 ```
 
-## 算術運算
+## 算術運算 {id="arithmetic-operations"}
 
 Kotlin 支援對數字進行標準的算術運算：`+`、`-`、`*`、`/` 和 `%`。
 
@@ -157,7 +157,7 @@ fun main() {
 >
 {style="tip"}
 
-### 整數除法
+### 整數除法 {id="integer-division"}
 
 整數值之間的除法總是傳回整數結果。編譯器會捨棄小數部分：
 
@@ -189,7 +189,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 型別轉換
+## 型別轉換 {id="type-conversion"}
 
 數值型別彼此並非子型別。Kotlin 需要明確轉換，以避免無聲的資料遺失和非預期的行為。
 
@@ -253,7 +253,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 混合數值運算式
+### 混合數值運算式 {id="mixed-numeric-expressions"}
 
 Kotlin 不支援指派或函式引數的隱含轉換。 
 然而，你可以在算術運算式中組合不同的數值型別。在這種情況下， 
@@ -275,7 +275,7 @@ val result: Int = intNumber + longNumber
 // 錯誤：初始設定式型別不符 (Initializer type mismatch)
 ```
 
-### 整數常值型別
+### 整數常值型別 {id="integer-literal-types"}
 
 在型別推論過程中，Kotlin 會將不具後綴的整數常值視為一種特殊的 [整數常值型別 (Integer Literal Type, ILT)](https://kotlinlang.org/spec/type-system.html#integer-literal-types)，直到周圍的上下文確定了具體型別為止：
 
@@ -341,7 +341,7 @@ fun main() {
 > 
 {style="tip"}
 
-## 資料溢位
+## 資料溢位 {id="data-overflow"}
 
 數值型別只能代表其定義範圍內的值。
 
@@ -351,7 +351,7 @@ fun main() {
 
 即使編譯器接受，這種行為也可能影響你程式碼的結果。
 
-### 運算中的溢位
+### 運算中的溢位 {id="overflow-in-operations"}
 
 每個整數型別只能儲存其定義範圍內的值。當算術運算的結果
 超過該範圍時，就會發生*資料溢位*：
@@ -373,7 +373,7 @@ fun main(){
 >
 {style="note"}
 
-### 負號運算中的溢位
+### 負號運算中的溢位 {id="overflow-in-negation"}
 
 溢位也可能發生在負號運算期間。 
 例如，你無法將 `Int.MIN_VALUE` 的正值對應項表示為 `Int`。
@@ -388,7 +388,7 @@ fun main(){
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 縮窄轉換
+### 縮窄轉換 {id="narrowing-conversions"}
 
 當你將一個值轉換為較小的整數型別時， 
 結果可能無法保留原始的數值：
@@ -417,7 +417,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 位元運算
+## 位元運算 {id="bitwise-operations"}
 
 Kotlin 為 `Int` 和 `Long` 提供*位元運算*。這些運算由
 一組 [中綴函式](functions.md#infix-notation) 和 `inv()` 表示。
@@ -444,7 +444,7 @@ fun main() {
 * `xor()` – 位元 XOR
 * `inv()` – 位元反轉
 
-## 浮點數比較
+## 浮點數比較 {id="floating-point-number-comparison"}
 
 在 Kotlin 中，浮點數比較取決於運算元的靜態型別。
 
@@ -484,7 +484,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-numbers-floating-comp"}
 
-## JVM 上的數字裝箱與快取
+## JVM 上的數字裝箱與快取 {id="boxing-and-caching-numbers-on-the-jvm"}
 
 在 JVM 上，不可為 null 的數值通常使用原始型別（例如 `int`、`long` 或 `double`）儲存。
 然而，當你使用 [泛型](generics.md) 或 `Int?` 等可為 null 的數字型別時，數值會被裝箱並

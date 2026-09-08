@@ -2,11 +2,11 @@
 
 本页列出了有助于配置 Kotlin/Native [最终二进制文件](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html)的 Kotlin/Native 二进制选项，以及在项目中设置二进制选项的方法。
 
-## 如何启用
+## 如何启用 {id="how-to-enable"}
 
 您可以在 `gradle.properties` 文件、构建文件中启用二进制选项，或者将它们作为编译器参数传递。
 
-### 在 Gradle 属性中
+### 在 Gradle 属性中 {id="in-gradle-properties"}
 
 您可以使用 `kotlin.native.binary` 属性在项目的 `gradle.properties` 文件中设置二进制选项。例如：
 
@@ -14,7 +14,7 @@
 kotlin.native.binary.latin1Strings=true
 ```
 
-### 在构建文件中
+### 在构建文件中 {id="in-your-build-file"}
 
 您可以在 `build.gradle.kts` 文件中为项目设置二进制选项：
 
@@ -46,7 +46,7 @@ kotlin.native.binary.latin1Strings=true
   }
   ```
 
-### 在命令行编译器中
+### 在命令行编译器中 {id="in-the-command-line-compiler"}
 
 在执行 [Kotlin/Native 编译器](native-get-started.md#using-the-command-line-compiler)时，您可以直接在命令行中以 `-Xbinary=$option=$value` 形式传递二进制选项。
 例如：
@@ -55,7 +55,7 @@ kotlin.native.binary.latin1Strings=true
 kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
 ```
 
-## 二进制选项
+## 二进制选项 {id="binary-options"}
 
 > 此表并非所有现有选项的详尽列表，仅列出了最值得注意的选项。
 >
@@ -331,6 +331,6 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
 > 
 {style="tip"}
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 了解如何[构建最终原生二进制文件](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html)。

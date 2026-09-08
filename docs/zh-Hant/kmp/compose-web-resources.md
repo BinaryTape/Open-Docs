@@ -2,7 +2,7 @@
 
 在這裡，您可以找到有關使用瀏覽器特性和 `preload` API 預載資源、快取 Web 資源以及自動字型備援的資訊。
   
-## Web 目標的資源預載
+## Web 目標的資源預載 {id="preloading-of-resources-for-web-targets"}
 
 字型和圖片等 Web 資源是使用 [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) 非同步載入的。在初始載入期間或網路連線較慢時，資源擷取可能會導致視覺瑕疵，例如 [FOUT](https://fonts.google.com/knowledge/glossary/fout) 或顯示預留位置而非圖片。
 
@@ -10,7 +10,7 @@
 
 為了防止視覺瑕疵，您可以使用內建的瀏覽器特性來預載資源、使用 Compose Multiplatform 預載 API，或是結合兩者。
 
-### 使用瀏覽器特性預載資源
+### 使用瀏覽器特性預載資源 {id="preload-resources-using-browser-features"}
 
 在現代瀏覽器中，您可以使用帶有 [`rel="preload"` 屬性](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel/preload) 的 `<link>` 標籤來預載資源。此屬性會指示瀏覽器在應用程式啟動前優先下載並快取字型和圖片等資源，確保這些資源能及早可用。
 
@@ -30,7 +30,7 @@
 <link rel="preload" href="./composeResources/username.shared.generated.resources/font/FiraMono-Regular.ttf" as="fetch" type="font/ttf" crossorigin/>
 ```
 
-### 使用 Compose Multiplatform 預載 API
+### 使用 Compose Multiplatform 預載 API {id="preload-resources-using-the-compose-multiplatform-preload-api"}
 <primary-label ref="Experimental"/>
 
 即使您已在瀏覽器中預載資源，它們仍是以原始位元組的形式快取，仍需要轉換為適合渲染的格式，例如 `FontResource` 和 `DrawableResource`。當應用程式首次請求資源時，轉換是非同步進行的，這可能再次導致閃爍。為了進一步優化體驗，Compose Multiplatform 資源針對高階資源表示形式擁有自己的內部快取，這些資源也可以被預載。
@@ -66,7 +66,7 @@ fun MainScreen() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="val icon by preloadImageVector(Res.drawable.heavy_vector_icon)"}
 
-## 自動字型備援
+## 自動字型備援 {id="automatic-font-fallback"}
 <primary-label ref="Experimental"/>
 
 預設情況下，應用程式已載入字型未涵蓋的字元會顯示為替代字符 (□，即所謂的「[tofu](https://fonts.google.com/knowledge/glossary/tofu)」)。
@@ -77,7 +77,7 @@ fun MainScreen() {
 
 對於 CJK（中文、日文和韓文）字元，系統會根據瀏覽器的語言設定自動選擇正確的字型變體。
 
-## 快取 Web 資源
+## 快取 Web 資源 {id="caching-web-resources"}
 <primary-label ref="Experimental"/>
 
 Compose Multiplatform 使用 [Web Cache API](https://developer.mozilla.org/en-US/docs/Web/API/Cache) 來快取成功的回應，並避免瀏覽器預設快取機制通常會執行的冗餘 HTTP 重新驗證。
@@ -86,7 +86,7 @@ Compose Multiplatform 使用 [Web Cache API](https://developer.mozilla.org/en-US
 
 為了防止對同一資源進行冗餘的並行擷取，實作中使用了資源特定鎖定。每個請求都由每個資源的互斥鎖 (mutex) 保護，在允許對不同資源進行平行請求的同時，對相同路徑的重複請求進行序列化處理。這種設計最小化了不必要的網路流量，並消除了快取填充期間的競爭條件 (race conditions)。
 
-## 接續步驟
+## 接續步驟 {id="what-s-next"}
 
 * 閱讀更多關於 [設定資源](compose-multiplatform-resources-setup.md) 以及 [在應用程式中使用資源](compose-multiplatform-resources-usage.md) 的資訊。
 * 了解如何管理應用程式的 [資源環境](compose-resource-environment.md)，例如應用程式內的主題和語言。

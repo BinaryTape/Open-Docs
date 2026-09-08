@@ -4,7 +4,7 @@ Kotlin 函式是一等公民 (first-class)，這意味著它們可以存儲在�
 
 為了實現這一點，Kotlin 作為一種靜態型別程式語言，使用一系列的[函式型別](#function-types)來表示函式，並提供了一組專門的語言結構，例如 [Lambda 運算式](#lambda-expressions-and-anonymous-functions)。
 
-## 高階函數
+## 高階函數 {id="higher-order-functions"}
 
 高階函數是指將函式作為參數或傳回函式的函式。
 
@@ -55,7 +55,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-## 函式型別
+## 函式型別 {id="function-types"}
 
 Kotlin 使用函式型別（例如 `(Int) -> String`）來進行與函式相關的宣告：`val onClick: () -> Unit = ...`。
 
@@ -83,7 +83,7 @@ Kotlin 使用函式型別（例如 `(Int) -> String`）來進行與函式相關�
 typealias ClickHandler = (Button, ClickEvent) -> Unit
 ```
 
-### 具現化函式型別
+### 具現化函式型別 {id="instantiating-a-function-type"}
 
 有幾種方法可以取得函式型別的執行個體：
 
@@ -139,7 +139,7 @@ fun main() {
 >
 {style="note"}
 
-### 呼叫函式型別執行個體
+### 呼叫函式型別執行個體 {id="invoking-a-function-type-instance"}
 
 函式型別的值可以透過使用其 [`invoke(...)` 運算子](operator-overloading.md#invoke-operator)來呼叫：`f.invoke(x)` 或簡寫為 `f(x)`。
 
@@ -164,11 +164,11 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-### 內嵌函式
+### 內嵌函式 {id="inline-functions"}
 
 有時對高階函數使用[內嵌函式](inline-functions.md)是有益的，這可以提供靈活的控制流。
 
-## Lambda 運算式與匿名函式
+## Lambda 運算式與匿名函式 {id="lambda-expressions-and-anonymous-functions"}
 
 Lambda 運算式和匿名函式是 *函式常值*。函式常值是未宣告但立即作為運算式傳遞的函式。請考慮以下範例：
 
@@ -188,7 +188,7 @@ fun compare(a: String, b: String): Boolean = a.length < b.length
 val suspendingTask = suspend { doSuspendingWork() }
 ```
 
-### Lambda 運算式語法
+### Lambda 運算式語法 {id="lambda-expression-syntax"}
 
 Lambda 運算式的完整語法形式如下：
 
@@ -207,7 +207,7 @@ val sum: (Int, Int) -> Int = { x: Int, y: Int -> x + y }
 val sum = { x: Int, y: Int -> x + y }
 ```
 
-### 傳遞尾隨 Lambda
+### 傳遞尾隨 Lambda {id="passing-trailing-lambdas"}
 
 根據 Kotlin 慣例，如果函式的最後一個參數是函式，則作為相應引數傳遞的 Lambda 運算式可以放置在圓括號外：
 
@@ -223,7 +223,7 @@ val product = items.fold(1) { acc, e -> acc * e }
 run { println("...") }
 ```
 
-### it：單個參數的隱含名稱
+### it：單個參數的隱含名稱 {id="it-implicit-name-of-a-single-parameter"}
 
 Lambda 運算式只有一個參數是很常見的。
 
@@ -233,7 +233,7 @@ Lambda 運算式只有一個參數是很常見的。
 ints.filter { it > 0 } // 此常值的型別為 '(it: Int) -> Boolean'
 ```
 
-### 從 Lambda 運算式傳回值
+### 從 Lambda 運算式傳回值 {id="returning-a-value-from-a-lambda-expression"}
 
 您可以使用[限定 return](returns.md#return-to-labels) 語法從 Lambda 明確傳回一個值。否則，最後一個運算式的值將被隱含傳回。
 
@@ -257,7 +257,7 @@ ints.filter {
 strings.filter { it.length == 5 }.sortedBy { it }.map { it.uppercase() }
 ```
 
-### 未使用變數的底線
+### 未使用變數的底線 {id="underscore-for-unused-variables"}
 
 如果 Lambda 參數未使用，您可以用底線代替其名稱：
 
@@ -265,11 +265,11 @@ strings.filter { it.length == 5 }.sortedBy { it }.map { it.uppercase() }
 map.forEach { (_, value) -> println("$value!") }
 ```
 
-### Lambda 中的解構
+### Lambda 中的解構 {id="destructuring-in-lambdas"}
 
 Lambda 中的解構作為[解構宣告](destructuring-declarations.md#destructuring-in-lambdas)的一部分進行了描述。
 
-### 匿名函式
+### 匿名函式 {id="anonymous-functions"}
 
 上面的 Lambda 運算式語法缺少一件事——指定函式傳回型別的能力。在大多數情況下，這是不必要的，因為傳回型別可以自動推論。但是，如果您確實需要明確指定它，可以使用另一種語法：*匿名函式*。
 
@@ -299,7 +299,7 @@ ints.filter(fun(item) = item > 0)
 
 Lambda 運算式與匿名函式之間的另一個區別是[非區域傳回](inline-functions.md#returns)的行為。不帶標籤的 `return` 陳述式始終從使用 `fun` 關鍵字宣告的函式中傳回。這意味著 Lambda 運算式內部的 `return` 將從外圍函式傳回，而匿名函式內部的 `return` 將從匿名函式本身傳回。
 
-### 閉包
+### 閉包 {id="closures"}
 
 Lambda 運算式或匿名函式（以及[區域函式](functions.md#local-functions)和[物件運算式](object-declarations.md#object-expressions)）可以存取其 *閉包 (closure)*，其中包括在外層作用域中宣告的變數。在閉包中捕獲的變數可以在 Lambda 中修改：
 
@@ -311,7 +311,7 @@ ints.filter { it > 0 }.forEach {
 print(sum)
 ```
 
-### 帶有接收者的函式常值
+### 帶有接收者的函式常值 {id="function-literals-with-receiver"}
 
 帶有接收者的[函式型別](#function-types)（例如 `A.(B) -> C`）可以使用特殊形式的函式常值——帶有接收者的函式常值來具現化。
 

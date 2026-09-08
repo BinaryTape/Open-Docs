@@ -6,16 +6,16 @@ title: 격리된 컨텍스트(Isolated Context)
 
 Koin의 격리된 컨텍스트(isolated context)를 사용하면 호스트 애플리케이션의 Koin 구성과 간섭하지 않는 별도의 Koin 인스턴스를 실행할 수 있습니다. 이는 SDK, 라이브러리 및 화이트 라벨(white-label) 애플리케이션 개발에 필수적입니다.
 
-## 사용 사례
+## 사용 사례 {id="use-cases"}
 
 - **SDK 개발** - 호스트 앱에 영향을 주지 않고 SDK 자체의 의존성을 가짐
 - **화이트 라벨(White-Label) 앱** - 구성이 서로 다른 여러 앱 변형(variant) 처리
 - **테스트** - 격리된 테스트 구성
 - **기능 모듈(Feature Modules)** - 자체 DI를 가진 독립적인 기능 모듈
 
-## 격리된 컨텍스트 만들기
+## 격리된 컨텍스트 만들기 {id="creating-an-isolated-context"}
 
-### 컨텍스트 홀더 정의하기
+### 컨텍스트 홀더 정의하기 {id="define-the-context-holder"}
 
 격리된 Koin 인스턴스를 유지할 객체를 생성합니다.
 
@@ -35,7 +35,7 @@ object MySDKKoinContext {
 }
 ```
 
-### SDK 모듈 예시
+### SDK 모듈 예시 {id="sdk-module-example"}
 
 ```kotlin
 val sdkCoreModule = module {
@@ -53,9 +53,9 @@ val sdkRepositoryModule = module {
 }
 ```
 
-## Compose에서 사용하기
+## Compose에서 사용하기 {id="using-with-compose"}
 
-### KoinIsolatedContext
+### KoinIsolatedContext {id="koinisolatedcontext"}
 
 SDK의 Compose UI를 `KoinIsolatedContext`로 감쌉니다.
 
@@ -81,7 +81,7 @@ private fun SDKContent() {
 }
 ```
 
-### 중첩된 컨텍스트 (Nested Contexts)
+### 중첩된 컨텍스트 (Nested Contexts) {id="nested-contexts"}
 
 격리된 컨텍스트를 중첩하여 사용할 수 있습니다.
 
@@ -105,9 +105,9 @@ fun HostApp() {
 }
 ```
 
-## 생명주기 관리 (Lifecycle Management)
+## 생명주기 관리 (Lifecycle Management) {id="lifecycle-management"}
 
-### 수동 초기화
+### 수동 초기화 {id="manual-initialization"}
 
 필요할 때 SDK 컨텍스트를 초기화합니다.
 
@@ -136,7 +136,7 @@ object MySDK {
 }
 ```
 
-### 수동 생명주기와 함께 사용하기
+### 수동 생명주기와 함께 사용하기 {id="usage-with-manual-lifecycle"}
 
 ```kotlin
 // 호스트 앱에서 SDK 초기화
@@ -169,7 +169,7 @@ fun SDKFeature() {
 }
 ```
 
-## 두 컨텍스트에 모두 접근하기
+## 두 컨텍스트에 모두 접근하기 {id="accessing-both-contexts"}
 
 때로는 호스트와 SDK의 의존성 모두에 접근해야 할 때가 있습니다.
 
@@ -192,7 +192,7 @@ fun BridgeScreen() {
 }
 ```
 
-## 전체 SDK 예시
+## 전체 SDK 예시 {id="complete-sdk-example"}
 
 ```kotlin
 // SDK 공개 API
@@ -274,7 +274,7 @@ fun CheckoutScreen() {
 }
 ```
 
-## 모범 사례 (Best Practices)
+## 모범 사례 (Best Practices) {id="best-practices"}
 
 1. **조기 초기화** - Compose가 렌더링되기 전에 격리된 컨텍스트를 설정하십시오.
 
@@ -286,7 +286,7 @@ fun CheckoutScreen() {
 
 5. **초기화 문서화** - 호스트 앱 개발자가 SDK 설정 요구 사항을 명확히 알 수 있도록 하십시오.
 
-## 다음 단계
+## 다음 단계 {id="next-steps"}
 
 - **[Compose 개요](/docs/reference/koin-compose/compose)** - 기본 Compose 설정
 - **[컨텍스트 격리](/docs/reference/koin-core/context-isolation)** - 핵심 격리 개념

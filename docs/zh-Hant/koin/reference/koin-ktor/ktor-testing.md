@@ -6,9 +6,9 @@ title: 測試
 
 針對使用 Koin 進行相依注入的 Ktor 應用程式，進行測試的最佳實務。
 
-## 測試配置
+## 測試配置 {id="test-configuration"}
 
-### 基本測試設定
+### 基本測試設定 {id="basic-test-setup"}
 
 ```kotlin
 class UserServiceTest : KoinTest {
@@ -33,7 +33,7 @@ val testModule = module {
 }
 ```
 
-## 使用 Ktor testApplication 進行測試
+## 使用 Ktor testApplication 進行測試 {id="testing-with-ktor-testapplication"}
 
 ```kotlin
 class ApplicationTest {
@@ -54,7 +54,7 @@ class ApplicationTest {
 }
 ```
 
-## 在測試中使用隔離上下文 (Isolated Context)
+## 在測試中使用隔離上下文 (Isolated Context) {id="using-isolated-context-for-tests"}
 
 每個測試都會獲得自己的隔離 Koin 執行個體：
 
@@ -76,7 +76,7 @@ class UserRoutesTest {
 }
 ```
 
-### 並行測試執行
+### 並行測試執行 {id="parallel-test-execution"}
 
 透過隔離上下文，測試可以並行執行而不會互相干擾：
 
@@ -104,7 +104,7 @@ class ParallelTests {
 }
 ```
 
-## 模組驗證
+## 模組驗證 {id="module-verification"}
 
 在編譯期使用註解或在測試期驗證模組：
 
@@ -117,7 +117,7 @@ class ModuleVerificationTest : KoinTest {
 }
 ```
 
-### 包含額外型別
+### 包含額外型別 {id="with-extra-types"}
 
 ```kotlin
 @Test
@@ -131,9 +131,9 @@ fun `verify modules with extra types`() {
 }
 ```
 
-## 模擬相依性 (Mocking Dependencies)
+## 模擬相依性 (Mocking Dependencies) {id="mocking-dependencies"}
 
-### 使用測試模組
+### 使用測試模組 {id="using-test-modules"}
 
 ```kotlin
 val productionModule = module {
@@ -147,7 +147,7 @@ val testModule = module {
 }
 ```
 
-### 使用 Mockk
+### 使用 Mockk {id="using-mockk"}
 
 ```kotlin
 class UserServiceTest : KoinTest {
@@ -175,7 +175,7 @@ class UserServiceTest : KoinTest {
 }
 ```
 
-## 測試請求作用域 (Request Scopes)
+## 測試請求作用域 (Request Scopes) {id="testing-request-scopes"}
 
 ```kotlin
 class RequestScopeTest {
@@ -207,7 +207,7 @@ class RequestScopeTest {
 }
 ```
 
-## 使用 DI 橋接器 (Bridge) 進行測試
+## 使用 DI 橋接器 (Bridge) 進行測試 {id="testing-with-di-bridge"}
 
 ```kotlin
 class BridgeTest {
@@ -235,7 +235,7 @@ class BridgeTest {
 }
 ```
 
-## 完整測試範例
+## 完整測試範例 {id="complete-test-example"}
 
 ```kotlin
 class UserApiTest : KoinTest {
@@ -305,7 +305,7 @@ val testModule = module {
 }
 ```
 
-## 最佳實務
+## 最佳實務 {id="best-practices"}
 
 1. **使用隔離上下文** — 防止測試干擾。
 2. **建立測試模組** — 使用模擬物件覆寫生產環境的相依性。
@@ -313,7 +313,7 @@ val testModule = module {
 4. **清理** — 使用全域上下文的測試應在結束後停止 Koin。
 5. **並行安全** — 使用 `KoinIsolated` 進行並行測試執行。
 
-## 延伸閱讀
+## 延伸閱讀 {id="see-also"}
 
 - **[Ktor 的 Koin](/docs/reference/koin-ktor/ktor)** — Ktor 主要文件
 - **[隔離上下文](/docs/reference/koin-ktor/ktor-isolated)** — 隔離的 Koin 執行個體

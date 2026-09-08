@@ -13,7 +13,7 @@ Kotlin 当前的稳定版本为 %kotlinVersion%。请注意特定变更相对于
 * 从 Kotlin 1.7.0 升级到 Kotlin 1.9.0 时，请检查 [Kotlin 1.9.0](#kotlin-1-9-0-1-9-25) 和 [Kotlin 1.7.0−1.8.22](#kotlin-1-7-0-1-8-22) 中生效的不兼容变更。
 * 从 Kotlin 1.9.0 升级到 Kotlin 2.0.0 时，请检查 [Kotlin 2.0.0](#kotlin-2-0-0-and-later) 和 [Kotlin 1.9.0−1.9.25](#kotlin-1-9-0-1-9-25) 中生效的不兼容变更。 
 
-## 版本兼容性
+## 版本兼容性 {id="version-compatibility"}
 
 在配置项目时，请检查特定版本的 Kotlin Multiplatform Gradle 插件（与项目中的 Kotlin 版本相同）与 Gradle、Xcode 和 Android Gradle 插件版本的兼容性：
 
@@ -40,11 +40,11 @@ Kotlin 当前的稳定版本为 %kotlinVersion%。请注意特定变更相对于
 >
 {style="warning"}
 
-## Kotlin 2.0.0 及更高版本
+## Kotlin 2.0.0 及更高版本 {id="kotlin-2-0-0-and-later"}
 
 本节涵盖了结束弃用周期并在 Kotlin 2.0.0−%kotlinVersion% 中生效的不兼容变更。
 
-### 迁移到 Google 适用于 Android 目标的插件
+### 迁移到 Google 适用于 Android 目标的插件 {id="migrate-to-google-s-plugin-for-android-targets"}
 
 **发生了什么变化？**
 
@@ -70,7 +70,7 @@ Kotlin 2.3.0 在 Kotlin Multiplatform 项目中使用 `androidTarget` 名称时�
 * 2.3.0：新的 Android 插件可用；在 Kotlin Multiplatform 项目中使用 `androidTarget` 名称时引入弃用警告。
 * 2.3.10：还原在 Kotlin Multiplatform 项目中使用 `androidTarget` 名称时的弃用警告。
 
-### 弃用 Bitcode 嵌入
+### 弃用 Bitcode 嵌入 {id="deprecated-bitcode-embedding"}
 
 **发生了什么变化？**
 
@@ -89,7 +89,7 @@ Bitcode 嵌入在 Xcode 14 中被弃用，并在 Xcode 15 中针对所有 Apple 
 * 2.2.0：警告提升为错误
 * 2.3.0：移除 `embedBitcode` DSL 
 
-### 默认创建的 Java 源集
+### 默认创建的 Java 源集 {id="java-source-sets-created-by-default"}
 
 **发生了什么变化？**
 
@@ -129,7 +129,7 @@ kotlin {
 * Gradle 9.0：将此警告提升为错误。
 * 2.1.20：在搭配任何版本的 Gradle 使用 `withJava()` 函数时引入弃用警告。
 
-### 声明多个相似的目标
+### 声明多个相似的目标 {id="declaring-several-similar-targets"}
 
 **发生了什么变化？**
 
@@ -248,7 +248,7 @@ kotlin {
 * 1.9.20：在 Kotlin Multiplatform 项目中使用多个相似目标时引入弃用警告
 * 2.1.0：在此类情况下报告错误，Kotlin/JS 目标除外；要了解有关此例外的更多信息，请参阅 [YouTrack 中的问题](https://youtrack.jetbrains.com/issue/KT-47038/KJS-MPP-Split-JS-target-into-JsBrowser-and-JsNode)
 
-### 弃用对以旧版模式发布的多平台库的支持
+### 弃用对以旧版模式发布的多平台库的支持 {id="deprecated-support-of-multiplatform-libraries-published-in-legacy-mode"}
 
 **发生了什么变化？**
 
@@ -278,7 +278,7 @@ Kotlin 团队非常乐意帮助生态系统进行迁移，因此如果您遇到�
 * 2.0.0：将对旧版库依赖的警告提升为错误
 * &gt;2.0.0：移除对旧版库依赖的支持；使用此类依赖可能会导致构建失败
 
-### 弃用用于支持层次结构的 Gradle 属性
+### 弃用用于支持层次结构的 Gradle 属性 {id="deprecated-gradle-properties-for-hierarchical-structure-support"}
 
 **发生了什么变化？**
 
@@ -316,7 +316,7 @@ Kotlin 团队非常乐意帮助生态系统进行迁移，因此如果您遇到�
 
 如果您在移除这些属性后遇到问题（虽然可能性很小），请在 [YouTrack 中创建问题](https://kotl.in/issue)。
 
-### 弃用 target 预设 API
+### 弃用 target 预设 API {id="deprecated-target-presets-api"}
 
 **发生了什么变化？**
 
@@ -359,7 +359,7 @@ Kotlin 团队非常乐意帮助生态系统进行迁移，因此如果您遇到�
 * 2.0.0：将此警告提升为错误
 * 2.2.0：从 Kotlin Multiplatform Gradle 插件的公共 API 中移除预设相关 API；仍在使用它的源代码将失败并提示“未解析的引用 (unresolved reference)”错误，二进制文件（例如 Gradle 插件）除非针对最新版本的 Kotlin Gradle 插件重新编译，否则可能会因链接错误而失败
 
-### 弃用 Apple 目标快捷方式
+### 弃用 Apple 目标快捷方式 {id="deprecated-apple-target-shortcuts"}
 
 **发生了什么变化？**
 
@@ -386,7 +386,7 @@ Kotlin Gradle 插件现在提供了一个内置的层次结构模板。自 Kotli
 * 2.1.0：使用目标快捷方式时报告错误
 * 2.2.0：从 Kotlin Multiplatform Gradle 插件中移除目标快捷方式 DSL
 
-### Kotlin 升级后 iOS 框架版本不正确
+### Kotlin 升级后 iOS 框架版本不正确 {id="incorrect-version-of-ios-framework-after-kotlin-upgrade"}
 
 **问题是什么？**
 
@@ -411,11 +411,11 @@ Kotlin Gradle 插件现在提供了一个内置的层次结构模板。自 Kotli
 
 有关更多信息，请参阅 [YouTrack 中的对应问题](https://youtrack.jetbrains.com/issue/KT-68257)。
 
-## Kotlin 1.9.0−1.9.25
+## Kotlin 1.9.0−1.9.25 {id="kotlin-1-9-0-1-9-25"}
 
 本节涵盖了结束弃用周期并在 Kotlin 1.9.0−1.9.25 中生效的不兼容变更。
 
-### 移除了直接向 Kotlin 编译添加 Kotlin 源集的 API {initial-collapse-state="collapsed" collapsible="true"}
+### 移除了直接向 Kotlin 编译添加 Kotlin 源集的 API {initial-collapse-state="collapsed" collapsible="true" id="removed-api-for-adding-kotlin-source-sets-directly-to-the-kotlin-compilation"}
 
 **发生了什么变化？**
 
@@ -486,7 +486,7 @@ kotlin {
 * 1.9.20：将此警告提升为错误
 * 2.3.0：从 Kotlin Gradle 插件中移除 `KotlinCompilation.source`，尝试使用它会导致在构建脚本编译期间出现“未解析的引用 (unresolved reference)”错误
 
-### 从 `kotlin-js` Gradle 插件迁移到 `kotlin-multiplatform` Gradle 插件 {initial-collapse-state="collapsed" collapsible="true"}
+### 从 `kotlin-js` Gradle 插件迁移到 `kotlin-multiplatform` Gradle 插件 {initial-collapse-state="collapsed" collapsible="true" id="migration-from-kotlin-js-gradle-plugin-to-kotlin-multiplatform-gradle-plugin"}
 
 **发生了什么变化？**
 
@@ -611,7 +611,7 @@ kotlin {
 * 1.9.0：使用 `kotlin-js` 插件时产生弃用警告
 * 2.4.0：[将此警告提升为错误](https://youtrack.jetbrains.com/issue/KT-59305)
 
-### 弃用 `jvmWithJava` 预设 {initial-collapse-state="collapsed" collapsible="true"}
+### 弃用 `jvmWithJava` 预设 {initial-collapse-state="collapsed" collapsible="true" id="deprecated-jvmwithjava-preset"}
 
 **发生了什么变化？**
 
@@ -640,7 +640,7 @@ kotlin {
 >
 {style="note"}
 
-### 弃用旧版 Android 源集布局 {initial-collapse-state="collapsed" collapsible="true"}
+### 弃用旧版 Android 源集布局 {initial-collapse-state="collapsed" collapsible="true" id="deprecated-legacy-android-source-set-layout"}
 
 **发生了什么变化？**
 
@@ -654,7 +654,7 @@ kotlin {
 * 1.9.20：将此警告提升为错误；该错误**无法**被抑制
 * 2.4.0：移除对旧版 Android 源集布局的支持并 [移除 `kotlin.mpp.androidSourceSetLayoutVersion=1` Gradle 属性](https://youtrack.jetbrains.com/issue/KT-82265)
 
-### 弃用带有自定义 `dependsOn` 的 `commonMain` 和 `commonTest` {initial-collapse-state="collapsed" collapsible="true"}
+### 弃用带有自定义 `dependsOn` 的 `commonMain` 和 `commonTest` {initial-collapse-state="collapsed" collapsible="true" id="deprecated-commonmain-and-commontest-with-custom-dependson"}
 
 **发生了什么变化？**
 
@@ -683,7 +683,7 @@ kotlin {
 * 1.9.0：在 `commonMain` 中使用 `dependsOn` 时报告警告
 * &gt;=1.9.20：在 `commonMain` 或 `commonTest` 中使用 `dependsOn` 时报告错误
 
-### 前向声明的新方法 {initial-collapse-state="collapsed" collapsible="true"}
+### 前向声明的新方法 {initial-collapse-state="collapsed" collapsible="true" id="new-approach-to-forward-declarations"}
 
 **发生了什么变化？**
 
@@ -741,11 +741,11 @@ JetBrains 团队改进了 Kotlin 中前向声明的处理方式，使其行为�
 
 从 Kotlin 1.9.20 开始，您需要显式地在相应的 C 和 Objective-C 前向声明之间进行转换。此外，现在只能通过使用特殊软件包来导入前向声明。
 
-## Kotlin 1.7.0−1.8.22
+## Kotlin 1.7.0−1.8.22 {id="kotlin-1-7-0-1-8-22"}
 
 本节涵盖了结束弃用周期并在 Kotlin 1.7.0−1.8.22 中生效的不兼容变更。
 
-### 弃用 Kotlin Multiplatform Gradle 插件与 Gradle Java 插件的兼容性 {initial-collapse-state="collapsed" collapsible="true"}
+### 弃用 Kotlin Multiplatform Gradle 插件与 Gradle Java 插件的兼容性 {initial-collapse-state="collapsed" collapsible="true" id="deprecated-compatibility-with-kotlin-multiplatform-gradle-plugin-and-gradle-java-plugins"}
 
 **发生了什么变化？**
 
@@ -841,7 +841,7 @@ dependencies {
 
 您的父项目现在已设置为可同时使用这两个插件。
 
-### 自动生成的目标的新方法 {initial-collapse-state="collapsed" collapsible="true"}
+### 自动生成的目标的新方法 {initial-collapse-state="collapsed" collapsible="true" id="new-approach-to-auto-generated-targets"}
 
 **发生了什么变化？**
 
@@ -876,7 +876,7 @@ dependencies {
 
 有关更多信息，请参阅 [YouTrack 中的对应问题](https://youtrack.jetbrains.com/issue/KT-47047)。
 
-### Gradle 编译任务的输入与输出变化 {initial-collapse-state="collapsed" collapsible="true"}
+### Gradle 编译任务的输入与输出变化 {initial-collapse-state="collapsed" collapsible="true" id="changes-in-gradle-input-and-output-compile-tasks"}
 
 **发生了什么变化？**
 
@@ -899,7 +899,7 @@ Kotlin 编译任务不再继承具有 `sourceCompatibility` 和 `targetCompatibi
 
 有关更多信息，请参阅 [YouTrack 中的对应问题](https://youtrack.jetbrains.com/issue/KT-32805)。
 
-### 编译依赖项的新配置名称 {initial-collapse-state="collapsed" collapsible="true"}
+### 编译依赖项的新配置名称 {initial-collapse-state="collapsed" collapsible="true" id="new-configuration-names-for-dependencies-on-the-compilation"}
 
 **发生了什么变化？**
 

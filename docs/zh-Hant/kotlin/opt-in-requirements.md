@@ -6,13 +6,13 @@ Kotlin 標準函式庫提供了一種機制，要求在使用某些 API 元素�
 
 為了保護使用者，編譯器會針對這些條件發出警告，並要求在使用 API 之前先進行 Opt-in。
 
-## 對 API 進行 Opt-in
+## 對 API 進行 Opt-in {id="opt-in-to-api"}
 
 如果程式庫作者將其程式庫 API 中的宣告標記為 **[需要 Opt-in](#require-opt-in-to-use-api)**，
 您必須在程式碼中使用它之前給予明確同意。
 有幾種 Opt-in 的方法。我們建議選擇最適合您情況的方式。
 
-### 在本機 Opt-in
+### 在本機 Opt-in {id="opt-in-locally"}
 
 要在程式碼中使用特定的 API 元素時對其進行 Opt-in，請使用 [`@OptIn`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-opt-in/)
 註解，並參照實驗性 API 的標記。例如，假設您想要使用需要 Opt-in 的 `DateProvider` 類別：
@@ -65,7 +65,7 @@ fun displayDate() {
 Opt-in 需求不會傳播，這意味著其他人可能會在不知情的情況下使用實驗性 API。為了避免這種情況，
 傳播 Opt-in 需求會更安全。
 
-#### 傳播 Opt-in 需求
+#### 傳播 Opt-in 需求 {id="propagate-opt-in-requirements"}
 
 當您在旨在供第三方使用的程式碼（例如在程式庫中）中使用 API 時，您也可以將其 Opt-in 需求
 傳播到您的 API。要執行此操作，請使用與該程式庫相同的 **[Opt-in 需求註解](#create-opt-in-requirement-annotations)** 
@@ -148,7 +148,7 @@ fun displayDate() {
 }
 ```
 
-#### 對多個 API 進行 Opt-in
+#### 對多個 API 進行 Opt-in {id="opt-in-to-multiple-apis"}
 
 要對多個 API 進行 Opt-in，請使用所有它們的 Opt-in 需求註解標記該宣告。例如：
 
@@ -163,7 +163,7 @@ fun displayDate() {
 @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
 ```
 
-### 對檔案進行 Opt-in
+### 對檔案進行 Opt-in {id="opt-in-a-file"}
 
 若要對檔案中的所有函式和類別使用需要 Opt-in 的 API，請在檔案頂部、
 套件規格和匯入之前加上檔案層級的註解 `@file:OptIn`。
@@ -173,7 +173,7 @@ fun displayDate() {
  @file:OptIn(MyDateTime::class)
  ```
 
-### 對模組進行 Opt-in
+### 對模組進行 Opt-in {id="opt-in-a-module"}
 
 > `-opt-in` 編譯器選項自 Kotlin 1.6.0 起可用。對於較早的 Kotlin 版本，請使用 `-Xopt-in`。
 >
@@ -264,7 +264,7 @@ kotlin {
 
 要在模組層級對多個 API 進行 Opt-in，請為模組中使用的每個 Opt-in 需求標記加入一個上述引數。
 
-### 透過繼承類別或介面進行 Opt-in
+### 透過繼承類別或介面進行 Opt-in {id="opt-in-to-inherit-from-a-class-or-interface"}
 
 有時，程式庫作者提供了一個 API，但希望要求使用者在擴充它之前必須先明確 Opt-in。
 例如，該程式庫 API 在使用上可能是穩定的，但在繼承上則不然，因為未來可能會擴充
@@ -333,12 +333,12 @@ interface SomeImplementation : CoreLibraryApi
 interface SomeImplementation : CoreLibraryApi
 ```
 
-## 要求 Opt-in 才能使用 API
+## 要求 Opt-in 才能使用 API {id="require-opt-in-to-use-api"}
 
 您可以要求程式庫的使用者在能夠使用您的 API 之前先進行 Opt-in。此外，您可以告知使用者
 在使用您的 API 時的任何特殊條件，直到您決定移除 Opt-in 需求為止。
 
-### 建立 Opt-in 需求註解
+### 建立 Opt-in 需求註解 {id="create-opt-in-requirement-annotations"}
 
 要要求 Opt-in 才能使用您模組的 API，請建立一個註解類別作為 **Opt-in 需求註解**。
 此類別必須使用 [`@RequiresOptIn`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-requires-opt-in/) 進行註解：
@@ -376,7 +376,7 @@ annotation class ExperimentalDateTime
 這對您的客戶來說更安全，因為他們可以只使用他們明確接受的功能。
 這也意味著您可以獨立地從功能中移除 Opt-in 需求，這使您的 API 更易於維護。
 
-### 標記 API 元素
+### 標記 API 元素 {id="mark-api-elements"}
 
 要要求 Opt-in 才能使用某個 API 元素，請使用 Opt-in 需求註解來標記其宣告：
 
@@ -393,7 +393,7 @@ fun getTime(): Time {}
 * 您不能標記屬性的支援欄位或 getter，只能標記屬性本身。
 * 您不能標記區域變數或值參數。
 
-## 要求 Opt-in 才能擴充 API
+## 要求 Opt-in 才能擴充 API {id="require-opt-in-to-extend-api"}
 
 有時您可能想要更細緻地控制 API 的哪些特定部分可以被使用和
 擴充。例如，當您有一些使用上穩定但具有以下特性的 API 時：
@@ -425,7 +425,7 @@ interface CoreLibraryApi
 
 有關如何在您的 API 中使用 `@SubclassOptInRequired` 註解的實際範例，請查看 `kotlinx.coroutines` 程式庫中的 [`SharedFlow`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-shared-flow/) 介面。
 
-## 預先穩定 (Pre-stable) API 的 Opt-in 需求
+## 預先穩定 (Pre-stable) API 的 Opt-in 需求 {id="opt-in-requirements-for-pre-stable-apis"}
 
 如果您對尚未穩定的功能使用 Opt-in 需求，請謹慎處理 API 晉進，以避免
 破壞用戶端程式碼。

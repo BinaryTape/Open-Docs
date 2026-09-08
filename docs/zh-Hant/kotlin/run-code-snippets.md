@@ -20,13 +20,13 @@ _暫存檔_ (或簡稱為 _scratch_) 讓您可以在與專案相同的 IDE 視�
 
 ![執行暫存檔](scratch-run.png){width=700}
 
-### 互動模式
+### 互動模式 {id="interactive-mode"}
 
 IDE 可以自動執行暫存檔中的程式碼。要在停止輸入後立即獲得執行結果，請開啟 **Interactive mode** (互動模式)。
 
 ![暫存檔互動模式](scratch-interactive.png){width=700}
 
-### 使用模組
+### 使用模組 {id="use-modules"}
 
 您可以在暫存檔中使用 Kotlin 專案中的類別或函式。
 
@@ -36,11 +36,11 @@ IDE 可以自動執行暫存檔中的程式碼。要在停止輸入後立即獲�
 
 ![暫存檔選擇模組](scratch-select-module.png){width=700}
 
-## 瀏覽器：Kotlin Playground
+## 瀏覽器：Kotlin Playground {id="browser-kotlin-playground"}
 
 [Kotlin Playground](https://play.kotlinlang.org/) 是一款線上應用程式，用於在瀏覽器中編寫、執行和分享 Kotlin 程式碼。
 
-### 編寫與編輯程式碼
+### 編寫與編輯程式碼 {id="write-and-edit-code"}
 
 在 Playground 的編輯器區域中，您可以像在原始碼檔案中一樣編寫程式碼：
 * 以任意順序新增您自己的類別、函式和頂層宣告。
@@ -52,7 +52,7 @@ IDE 可以自動執行暫存檔中的程式碼。要在停止輸入後立即獲�
 
 Playground 會在您輸入時醒目提示程式碼並顯示程式碼補全選項。它會自動從標準庫和 [`kotlinx.coroutines`](coroutines-overview.md) 匯入宣告。
 
-### 選擇執行環境
+### 選擇執行環境 {id="choose-execution-environment"}
 
 Playground 提供了自訂執行環境的方法：
 * 多個 Kotlin 版本，包括可用的 [未來版本預覽](eap.md)。
@@ -64,7 +64,7 @@ Playground 提供了自訂執行環境的方法：
 
 ![Playground：產生的 JS](playground-generated-js.png){width=700}
 
-### 線上分享程式碼
+### 線上分享程式碼 {id="share-code-online"}
 
 使用 Playground 與他人分享您的程式碼 —— 點擊 **Copy link** 並將其傳送給任何您想展示程式碼的人。
 
@@ -72,7 +72,7 @@ Playground 提供了自訂執行環境的方法：
 
 ![Playground：分享程式碼](playground-share.png){width=700}
 
-## 命令列：ki shell
+## 命令列：ki shell {id="command-line-ki-shell"}
 
 [ki shell](https://github.com/Kotlin/kotlin-interactive-shell) (_Kotlin Interactive Shell_) 是一款用於在終端 (terminal) 執行 Kotlin 程式碼的命令列工具。它適用於 Linux、macOS 和 Windows。
 
@@ -85,7 +85,7 @@ ki shell 提供基礎的程式碼求值能力，以及以下進階特性：
 
 欲了解更多詳細資訊，請參閱 [ki shell GitHub 存儲庫](https://github.com/Kotlin/kotlin-interactive-shell)。
 
-### 安裝並執行 ki shell
+### 安裝並執行 ki shell {id="install-and-run-ki-shell"}
 
 要安裝 ki shell，請從 [GitHub](https://github.com/Kotlin/kotlin-interactive-shell) 下載最新版本，並在您選擇的目錄中解壓縮。
 
@@ -99,7 +99,7 @@ brew install ki
 
 shell 執行後，您可以立即在終端中開始編寫 Kotlin 程式碼。輸入 `:help` (或 `:h`) 即可查看 ki shell 中可用的指令。
 
-### 程式碼補全與醒目提示
+### 程式碼補全與醒目提示 {id="code-completion-and-highlighting"}
 
 當您按下 **Tab** 鍵時，ki shell 會顯示程式碼補全選項。它還會在您輸入時提供語法高亮顯示。您可以透過輸入 `:syntax off` 停用此功能。
 
@@ -109,13 +109,13 @@ shell 執行後，您可以立即在終端中開始編寫 Kotlin 程式碼。輸
 
 ![ki shell 結果](ki-shell-results.png){width=700}
 
-### 檢查運算式的型別
+### 檢查運算式的型別 {id="check-an-expression-s-type"}
 
 對於複雜的運算式或您不熟悉的 API，ki shell 提供了 `:type` (或 `:t`) 指令，用於顯示運算式的型別：
 
 ![ki shell 型別](ki-shell-type.png){width=700}
 
-### 載入程式碼
+### 載入程式碼 {id="load-code"}
 
 如果您需要的程式碼儲存在其他地方，有兩種方法可以將其載入並在 ki shell 中使用：
 * 使用 `:load` (或 `:l`) 指令載入原始碼檔案。
@@ -125,7 +125,7 @@ shell 執行後，您可以立即在終端中開始編寫 Kotlin 程式碼。輸
 
 `ls` 指令會顯示可用的符號 (symbol) (變數和函式)。
 
-### 新增外部相依性
+### 新增外部相依性 {id="add-external-dependencies"}
 
 除了標準庫，ki shell 還支援外部相依性 (dependency)。這讓您無需建立整個專案即可在其中嘗試第三方程式庫。
 

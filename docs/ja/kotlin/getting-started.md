@@ -10,12 +10,12 @@ Kotlinが初めてですか？ブラウザ上で直接基本を学べるツア�
 
 <a href="kotlin-tour-welcome.md" as="button" mode="classic" icon="arrow-right" icon-position="right">Kotlinツアーを開始する</a>
 
-## Kotlinのインストール
+## Kotlinのインストール {id="install-kotlin"}
 
 Kotlinは、各[IntelliJ IDEA](https://www.jetbrains.com/idea/download/)および[Android Studio](https://developer.android.com/studio)のリリースに含まれています。
 Kotlinを使い始めるには、これらのIDEのいずれかをダウンロードしてインストールしてください。
 
-## Kotlinのユースケースを選択する
+## Kotlinのユースケースを選択する {id="choose-your-kotlin-use-case"}
  
 <tabs>
 
@@ -84,7 +84,7 @@ Android開発でKotlinを使い始めるには、Googleの[AndroidでのKotlin�
 
 </tabs>
 
-## サポートを受ける
+## サポートを受ける {id="get-support"}
 
 困ったことや問題が発生した場合は、![Slack](slack.svg){width=25}{type="joined"} Slackで助けを求めるか（[招待を受ける](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)）、[課題トラッカー](https://youtrack.jetbrains.com/issues/KT)で問題を報告してください。
 

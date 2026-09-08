@@ -11,7 +11,7 @@ Dokka Gradle 插件 (DGP) 为您的项目提供基本的自动配置，包含用
 
 您可以在我们的 [Gradle 示例项目](https://github.com/Kotlin/dokka/tree/2.0.0/examples/gradle-v2) 中尝试使用 Dokka 并探索如何为各种项目进行配置。
 
-## 支持的版本
+## 支持的版本 {id="supported-versions"}
 
 确保您的项目符合最低版本要求：
 
@@ -21,7 +21,7 @@ Dokka Gradle 插件 (DGP) 为您的项目提供基本的自动配置，包含用
 | [Android Gradle 插件](https://developer.android.com/build/agp-upgrade-assistant) | 7.0 或更高版本     |
 | [Kotlin Gradle 插件](https://kotlinlang.org/docs/gradle-configure-project.html) | 1.9 或更高版本     |
 
-## 应用 Dokka
+## 应用 Dokka {id="apply-dokka"}
 
 推荐应用 Dokka Gradle 插件的方式是使用 [plugins 块](https://docs.gradle.org/current/userguide/plugins.html#sec:plugins_block)。将其添加到项目 `build.gradle.kts` 文件的 `plugins {}` 块中：
 
@@ -54,14 +54,14 @@ plugins {
 >
 {style="tip"}
 
-## 启用构建缓存和配置缓存
+## 启用构建缓存和配置缓存 {id="enable-build-cache-and-configuration-cache"}
 
 DGP 支持 Gradle 构建缓存和配置缓存，可提高构建性能。
 
 * 要启用构建缓存，请按照 [Gradle 构建缓存文档](https://docs.gradle.org/current/userguide/build_cache.html#sec:build_cache_enable) 中的说明进行操作。
 * 要启用配置缓存，请按照 [Gradle 配置缓存文档](https://docs.gradle.org/current/userguide/configuration_cache.html#config_cache:usage:enable) 中的说明进行操作。
 
-## 生成文档
+## 生成文档 {id="generate-documentation"}
 
 Dokka Gradle 插件内置了 [HTML](dokka-html.md) 和 [Javadoc](dokka-javadoc.md) 输出格式。
 
@@ -77,7 +77,7 @@ Dokka Gradle 插件内置了 [HTML](dokka-html.md) 和 [Javadoc](dokka-javadoc.m
 * 默认情况下，文档输出格式为 HTML。您还可以通过 [添加相应的插件](#configure-documentation-output-format) 来生成 Javadoc 格式，或者同时生成 HTML 和 Javadoc 格式。
 * 对于单项目和多项目构建，生成的文档都会自动放置在 `build/dokka/html` 目录中。您可以 [更改位置 (`outputDirectory`)](dokka-gradle-configuration-options.md#general-configuration)。
 
-### 配置文档输出格式
+### 配置文档输出格式 {id="configure-documentation-output-format"}
 
 > Javadoc 输出格式处于 [Alpha](https://kotlinlang.org/docs/components-stability.html#stability-levels-explained) 阶段。在使用时，您可能会遇到错误和迁移问题。不保证能够成功集成到接受 Javadoc 作为输入的工具中。风险自担。
 >
@@ -114,7 +114,7 @@ Dokka Gradle 插件内置了 [HTML](dokka-html.md) 和 [Javadoc](dokka-javadoc.m
 
 如果您使用的是 IntelliJ IDEA，您可能会看到 `dokkaGenerateHtml` Gradle 任务。此任务只是 `dokkaGeneratePublicationHtml` 的别名。两个任务执行的操作完全相同。
 
-### 在多项目构建中聚合文档输出
+### 在多项目构建中聚合文档输出 {id="aggregate-documentation-output-in-multi-project-builds"}
 
 Dokka 可以将来自多个子项目的文档聚合到一个输出或发布中。
 
@@ -148,7 +148,7 @@ dependencies {
 
 有关更多详细信息，请参阅我们的 [多项目示例](https://github.com/Kotlin/dokka/tree/2.0.0/examples/gradle-v2/multimodule-example)。
 
-#### 聚合文档的目录
+#### 聚合文档的目录 {id="directory-of-aggregated-documentation"}
 
 当 DGP 聚合子项目时，每个子项目在聚合文档中都有自己的子目录。DGP 通过保留完整的项目结构来确保每个子项目都有一个唯一的目录。
 
@@ -175,7 +175,7 @@ dokka {
 
 此配置将 `:turbo-lib:maths` 模块生成的文档更改为生成到 `turbo-lib/build/dokka/html/maths/` 中。
 
-## 构建 javadoc.jar
+## 构建 javadoc.jar {id="build-javadoc-jar"}
 
 如果您想将库发布到仓库，您可能需要提供一个包含库 API 参考文档的 `javadoc.jar` 文件。
 
@@ -228,7 +228,7 @@ tasks.register('dokkaJavadocJar', Jar) {
 >
 {style="tip"}
 
-## 配置示例
+## 配置示例 {id="configuration-examples"}
 
 根据您拥有的项目类型，应用和配置 Dokka 的方式略有不同。但是，无论项目类型如何，[配置选项](dokka-gradle-configuration-options.md) 本身都是相同的。
 
@@ -236,7 +236,7 @@ tasks.register('dokkaJavadocJar', Jar) {
 
 对于具有子项目和多个嵌套 `build.gradle.kts` 或 `build.gradle` 文件的更复杂构建，请参阅 [多项目配置](#multi-project-configuration)。
 
-### 单项目配置
+### 单项目配置 {id="single-project-configuration"}
 
 单项目构建通常在项目根目录中只有一个 `build.gradle.kts` 或 `build.gradle` 文件。它们可以是单平台或多平台的，通常具有以下结构：
 
@@ -368,7 +368,7 @@ dokka {
 
 此配置将 Dokka 应用于您的项目，设置文档输出目录，并定义主源集。您可以通过在同一个 `dokka {}` 块中添加自定义资源、可见性过滤器或插件配置来进一步扩展它。有关更多信息，请参阅 [配置选项](dokka-gradle-configuration-options.md)。
 
-### 多项目配置
+### 多项目配置 {id="multi-project-configuration"}
 
 [多项目构建](https://docs.gradle.org/current/userguide/multi_project_builds.html) 通常包含几个嵌套的 `build.gradle.kts` 文件，其结构类似于以下形式：
 
@@ -431,11 +431,11 @@ dokka {
 >
 {style="tip"}
 
-#### 通过约定插件共享配置
+#### 通过约定插件共享配置 {id="shared-configuration-via-a-convention-plugin"}
 
 按照以下步骤设置约定插件并将其应用到您的子项目。
 
-##### 设置 buildSrc 目录
+##### 设置 buildSrc 目录 {id="set-up-the-buildsrc-directory"}
 
 1. 在项目根目录中，创建一个包含两个文件的 `buildSrc` 目录：
 
@@ -465,7 +465,7 @@ dokka {
     }   
     ```
 
-##### 设置 Dokka 约定插件
+##### 设置 Dokka 约定插件 {id="set-up-the-dokka-convention-plugin"}
 
 设置好 `buildSrc` 目录后，设置 Dokka 约定插件：
 
@@ -484,7 +484,7 @@ dokka {
 
    您需要在 `dokka {}` 块中添加所有子项目共有的共享 Dokka [配置](dokka-gradle-configuration-options.md)。此外，您无需指定 Dokka 版本。版本已在 `buildSrc/build.gradle.kts` 文件中设置。
 
-##### 将约定插件应用到您的子项目
+##### 将约定插件应用到您的子项目 {id="apply-the-convention-plugin-to-your-subprojects"}
 
 通过将 Dokka 约定插件添加到每个子项目的 `build.gradle.kts` 文件中，将其应用到您的子项目：
 
@@ -494,7 +494,7 @@ plugins {
 }
 ```
 
-#### 手动配置
+#### 手动配置 {id="manual-configuration"}
 
 如果您的项目不使用约定插件，您可以通过手动将相同的 `dokka {}` 块复制到每个子项目中来重复使用相同的 Dokka 配置模式：
 
@@ -508,7 +508,7 @@ plugins {
 
 2. 在每个子项目的 `dokka {}` 块中声明共享配置。由于没有集中配置的约定插件，您需要在各个子项目中重复所需的任何配置。有关更多信息，请参阅 [配置选项](dokka-gradle-configuration-options.md)。
 
-#### 父项目配置
+#### 父项目配置 {id="parent-project-configuration"}
 
 在多项目构建中，您可以在根项目中配置适用于整个文档的设置。这可以包括定义输出格式、输出目录、文档子项目名称、从所有子项目聚合文档以及其他 [配置选项](dokka-gradle-configuration-options.md)：
 

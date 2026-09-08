@@ -19,7 +19,7 @@
 ビルドシステムを使用すると、Kotlin/Nativeコンパイラのバイナリや推移的依存関係（transitive dependencies）を持つライブラリのダウンロードとキャッシュ、およびコンパイラとテストの実行が簡素化されます。
 Kotlin/Nativeは、[Kotlinマルチプラットフォームプラグイン](gradle-configure-project.md#targeting-multiple-platforms)を通じて [Gradle](https://gradle.org) ビルドシステムを使用できます。
 
-## C言語の型
+## C言語の型 {id="types-in-c-language"}
 
 Cプログラミング言語には、以下の[データ型](https://en.wikipedia.org/wiki/C_data_types)があります：
 
@@ -38,7 +38,7 @@ Cプログラミング言語には、以下の[データ型](https://en.wikipedi
 
 これらのCデータ型がKotlinでどのように見えるかを見ていきましょう。
 
-## Cライブラリの作成
+## Cライブラリの作成 {id="create-a-c-library"}
 
 このチュートリアルでは、`lib.c` ソースファイルは作成しません。これはCライブラリをコンパイルして実行する場合にのみ必要です。今回のセットアップでは、[cinteropツール](native-c-interop.md)を実行するために必要な `.h` ヘッダーファイルのみが必要です。
 
@@ -83,7 +83,7 @@ Cライブラリを作成するには：
 
 `interop.def` ファイルは、アプリケーションをIDEでコンパイル、実行、または開くために必要なすべてを提供します。
 
-## Kotlin/Nativeプロジェクトの作成
+## Kotlin/Nativeプロジェクトの作成 {id="create-a-kotlin-native-project"}
 
 > 初めてのステップの詳細や、新しいKotlin/Nativeプロジェクトを作成してIntelliJ IDEAで開く方法については、[Kotlin/Nativeを始める](native-get-started.md#using-gradle) チュートリアルを参照してください。
 >
@@ -195,7 +195,7 @@ Cライブラリを作成するには：
 
 Cのプリミティブ型の宣言がKotlin側からどのように見えるかを学習した後、コードを完成させます。
 
-## Cライブラリに対して生成されたKotlin APIを検査する
+## Cライブラリに対して生成されたKotlin APIを検査する {id="inspect-generated-kotlin-apis-for-a-c-library"}
 
 Cのプリミティブ型がKotlin/Nativeにどのようにマッピングされるかを確認し、それに応じてサンプルプロジェクトを更新しましょう。
 
@@ -222,7 +222,7 @@ Cの型は直接マッピングされますが、`char` 型だけは例外です
 | float              | kotlin.Float  |
 | double             | kotlin.Double |
 
-## Kotlinコードの更新
+## Kotlinコードの更新 {id="update-kotlin-code"}
 
 Cの定義を確認したので、Kotlinコードを更新できます。`hello.kt` ファイルの最終的なコードは以下のようになります：
 
@@ -246,7 +246,7 @@ fun main() {
 ./gradlew runDebugExecutableMacosArm64
 ```
 
-## 次のステップ
+## 次のステップ {id="next-step"}
 
 シリーズの次のパートでは、構造体（struct）型と共用体（union）型がKotlinとCの間でどのようにマッピングされるかを学びます：
 
@@ -256,6 +256,6 @@ fun main() {
   </li>
 </list>
 
-### 関連項目
+### 関連項目 {id="see-also"}
 
 より高度なシナリオをカバーしている [Cとの相互運用性](native-c-interop.md) ドキュメントで詳細を確認してください。

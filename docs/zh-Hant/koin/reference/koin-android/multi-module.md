@@ -8,9 +8,9 @@ title: 多模組 Android 應用程式
 關於核心模組概念（`includes()`、組織、覆寫），請參閱 [Modules](/docs/reference/koin-core/modules)。
 :::
 
-## Android 應用程式設定
+## Android 應用程式設定 {id="android-application-setup"}
 
-### 使用註解
+### 使用註解 {id="with-annotations"}
 
 ```kotlin
 @KoinApplication(AppModule::class)
@@ -30,7 +30,7 @@ class MyApplication : Application() {
 class AppModule
 ```
 
-### 使用 DSL
+### 使用 DSL {id="with-dsl"}
 
 ```kotlin
 class MyApplication : Application() {
@@ -55,7 +55,7 @@ val appModule = module {
 }
 ```
 
-## 功能模組範例
+## 功能模組範例 {id="feature-module-example"}
 
 ```kotlin
 // :feature:login 模組
@@ -82,7 +82,7 @@ val loginModule = module {
 }
 ```
 
-## 動態功能載入
+## 動態功能載入 {id="dynamic-feature-loading"}
 
 透過 Activity 生命週期按需求載入功能模組：
 
@@ -101,7 +101,7 @@ class FeatureActivity : AppCompatActivity() {
 }
 ```
 
-## Koin 與 Hilt 比較
+## Koin 與 Hilt 比較 {id="koin-vs-hilt-comparison"}
 
 | Hilt | Koin |
 |------|------|
@@ -115,9 +115,9 @@ class FeatureActivity : AppCompatActivity() {
 **Koin 優勢：** 不需要 `@EntryPoint` 介面。只要所有模組皆已載入，相依性會自動在模組間解析。
 :::
 
-## Android 測試
+## Android 測試 {id="android-testing"}
 
-### 隔離測試模組
+### 隔離測試模組 {id="test-module-in-isolation"}
 
 ```kotlin
 class LoginViewModelTest : KoinTest {
@@ -142,7 +142,7 @@ class LoginViewModelTest : KoinTest {
 }
 ```
 
-### 驗證所有模組
+### 驗證所有模組 {id="verify-all-modules"}
 
 :::tip
 Koin 編譯器外掛程式現在會在編譯時驗證您的完整相依圖，取代了對執行階段驗證的需求。請參閱 [Compile-Time Safety](/docs/reference/koin-compiler/compile-safety)。
@@ -160,7 +160,7 @@ class ModuleCheckTest : KoinTest {
 }
 ```
 
-## 延伸閱讀
+## 延伸閱讀 {id="see-also"}
 
 - **[Modules](/docs/reference/koin-core/modules)** - 包含 `includes()` 的核心模組概念
 - **[Android Module Loading](/docs/reference/koin-android/modules-android)** - 動態模組載入

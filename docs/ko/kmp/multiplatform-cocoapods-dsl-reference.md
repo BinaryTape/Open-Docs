@@ -13,7 +13,7 @@ Kotlin CocoaPods Gradle 플러그인은 Podspec 파일을 생성하기 위한 �
 
 이 DSL 레퍼런스에서는 CocoaPods 통합을 설정할 때 사용할 수 있는 Kotlin CocoaPods Gradle 플러그인의 주요 블록, 함수 및 프로퍼티를 나열합니다.
 
-## 플러그인 활성화
+## 플러그인 활성화 {id="enable-the-plugin"}
 
 CocoaPods 플러그인을 적용하려면 `build.gradle(.kts)` 파일에 다음 라인을 추가하세요.
 
@@ -26,7 +26,7 @@ plugins {
 
 플러그인 버전은 [Kotlin 릴리스 버전](https://kotlinlang.org/docs/releases.html)과 일치합니다. 최신 안정화 버전은 %kotlinVersion%입니다.
 
-## `cocoapods {}` 블록
+## `cocoapods {}` 블록 {id="cocoapods-block"}
 
 `cocoapods {}` 블록은 CocoaPods 설정을 위한 최상위 블록입니다. 여기에는 Pod 버전, 요약(summary), 홈페이지와 같은 필수 정보뿐만 아니라 선택적 기능 등 Pod에 대한 일반적인 정보가 포함됩니다.
 
@@ -51,7 +51,7 @@ plugins {
 | `pod()`                               | 이 프로젝트에서 빌드된 Pod에 CocoaPods 의존성을 추가합니다.                                                                                                                                                                  |
 | `specRepos`                           | `url()`을 사용하여 사양 저장소(specification repository)를 추가합니다. 이는 비공개 Pod을 의존성으로 사용할 때 필요합니다. 자세한 내용은 [CocoaPods 문서](https://guides.cocoapods.org/making/private-cocoapods.html)를 참조하세요. |
 
-### 타겟
+### 타겟 {id="targets"}
 
 | iOS                 | macOS        | tvOS                 | watchOS                 |
 |---------------------|--------------|----------------------|-------------------------|
@@ -89,7 +89,7 @@ kotlin {
 }
 ```
 
-### `framework {}` 블록
+### `framework {}` 블록 {id="framework-block"}
 
 `framework {}` 블록은 `cocoapods` 내부에 중첩되며, 프로젝트에서 빌드된 Pod의 프레임워크 속성을 설정합니다.
 
@@ -117,7 +117,7 @@ kotlin {
 }
 ```
 
-## `pod()` 함수
+## `pod()` 함수 {id="pod-function"}
 
 `pod()` 함수 호출은 프로젝트에서 빌드된 Pod에 CocoaPods 의존성을 추가합니다. 각 의존성마다 별도의 함수 호출이 필요합니다.
 
@@ -153,7 +153,7 @@ kotlin {
 }
 ```
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [Kotlin Gradle 플러그인 저장소에서 Kotlin DSL의 전체 구문 확인하기](https://github.com/JetBrains/kotlin/blob/master/libraries/tools/kotlin-gradle-plugin/src/common/kotlin/org/jetbrains/kotlin/gradle/targets/native/cocoapods/CocoapodsExtension.kt)
 * [Kotlin 프로젝트에 Pod 라이브러리 의존성 추가하기](multiplatform-cocoapods-libraries.md)

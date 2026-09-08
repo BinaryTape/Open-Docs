@@ -2,7 +2,7 @@
 title: 應用程式、配置與模組 
 ---
 
-## 使用 @KoinApplication 進行應用程式引導
+## 使用 @KoinApplication 進行應用程式引導 {id="application-bootstrap-with-koinapplication"}
 
 使用 `@KoinApplication` 來定義您的應用程式入口點：
 
@@ -24,7 +24,7 @@ fun main() {
 }
 ```
 
-### 可用的強型別 API
+### 可用的強型別 API {id="available-typed-apis"}
 
 | API | 描述 |
 |-----|-------------|
@@ -35,7 +35,7 @@ fun main() {
 | `module<T>()` | 載入單一 `@Module` 類別 |
 | `modules(A::class, B::class)` | 載入多個 `@Module` 類別 |
 
-### 載入個別模組
+### 載入個別模組 {id="loading-individual-modules"}
 
 使用 `module<T>()` 或 `modules(vararg KClass)` 直接載入 `@Module` 類別，無需使用 `@KoinApplication`：
 
@@ -60,7 +60,7 @@ val koinTestRule = KoinTestRule.create {
 `module<T>()` 與 `modules(vararg KClass)` 是虛設常式函式，編譯器外掛程式會攔截並在編譯時進行轉換。它們需要套用 Koin 編譯器外掛程式。
 :::
 
-### @KoinApplication 參數
+### @KoinApplication 參數 {id="koinapplication-parameters"}
 
 - `modules`：要包含的模組類別陣列
 - `configurations`：要載入的配置標籤陣列
@@ -77,7 +77,7 @@ class ProdApp
 當未指定任何配置時，標記為 `@Configuration`（預設標籤）的模組將自動載入。
 :::
 
-### 模組載入順序與覆寫
+### 模組載入順序與覆寫 {id="module-load-order-and-overrides"}
 
 Koin 在執行期採用 **後者勝出 (last-wins)** 原則：當兩個模組定義了相同的型別時，最後載入的模組具有優先權。編譯器外掛程式會按以下順序從 `@KoinApplication` 組合模組清單：
 
@@ -113,11 +113,11 @@ class MyApp
 如果您需要在多個 `@Configuration` 模組之間指定特定的載入順序（而非類別路徑掃描順序），請在 `@KoinApplication(modules = [Core::class, Feature::class, App::class])` 中明確列出它們 — 明確清單會遵循宣告順序。
 :::
 
-## 使用 @Configuration 進行配置管理
+## 使用 @Configuration 進行配置管理 {id="configuration-management-with-configuration"}
 
 `@Configuration` 註解允許您將模組組織到不同的配置（環境、變體等）中。這對於按部署環境或功能集組織模組非常有用。
 
-### 基本配置用法
+### 基本配置用法 {id="basic-configuration-usage"}
 
 ```kotlin
 // 將模組放入預設配置中
@@ -148,7 +148,7 @@ class ModuleB
 object MyApp
 ```
 
-### 多重配置支援
+### 多重配置支援 {id="multiple-configuration-support"}
 
 一個模組可以與多個配置相關聯：
 
@@ -170,7 +170,7 @@ class LoggingModule {
 }
 ```
 
-### 環境特定的配置
+### 環境特定的配置 {id="environment-specific-configurations"}
 
 ```kotlin
 // 僅限開發環境的配置
@@ -198,7 +198,7 @@ class CoreModule {
 }
 ```
 
-### 在 @KoinApplication 中使用配置
+### 在 @KoinApplication 中使用配置 {id="using-configurations-with-koinapplication"}
 
 預設情況下，`@KoinApplication` 會載入所有預設配置（標記有 `@Configuration` 的模組）。
 
@@ -222,11 +222,11 @@ class SimpleApp
 - 模組可以透過在註解中列出多個配置來屬於多個配置
 :::
 
-## 使用模組進行組織
+## 使用模組進行組織 {id="organizing-with-modules"}
 
 請務必使用 `@Module` 將您的定義組織在明確的模組中：
 
-## 使用 @Module 的類別模組
+## 使用 @Module 的類別模組 {id="class-module-with-module"}
 
 若要宣告模組，請使用 `@Module` 註解標記類別：
 
@@ -246,7 +246,7 @@ fun main() {
 }
 ```
 
-## 使用 @ComponentScan 掃描組建
+## 使用 @ComponentScan 掃描組建 {id="components-scan-with-componentscan"}
 
 使用 `@ComponentScan` 自動探索帶有註解的組建：
 
@@ -268,7 +268,7 @@ class FeatureModule
 `@ComponentScan` 會針對相同的套件跨所有 Gradle 模組進行遍歷。
 :::
 
-## 類別模組中的定義
+## 類別模組中的定義 {id="definitions-in-class-modules"}
 
 若要直接在程式碼中定義定義，您可以使用定義註解來標註函式：
 
@@ -286,7 +286,7 @@ class MyModule {
 
 > **注意**：`@InjectedParam`（用於來自 `startKoin` 的注入參數）和 `@Property`（用於屬性注入）也可用於函式成員。請參閱定義文件以了解有關這些註解的更多詳細資訊。
 
-## 包含模組
+## 包含模組 {id="including-modules"}
 
 使用 `includes` 屬性來組合模組：
 

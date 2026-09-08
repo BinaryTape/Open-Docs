@@ -32,7 +32,7 @@ Kotlin Notebook 基於我們的 [Kotlin Kernel for Jupyter Notebooks](https://gi
 
 憑藉這些功能，您可以執行各種任務，從簡單的程式碼實驗到全面的數據專案。
 
-## 資料分析與視覺化
+## 資料分析與視覺化 {id="data-analytics-and-visualization"}
 
 無論您是進行初步資料探索還是完成端到端資料分析專案，Kotlin Notebook 都有適合您的工具。
 
@@ -48,7 +48,7 @@ Kandy 的慣用法、易讀且型別安全的特性讓您可以有效地視覺�
 
 ![data-analytics-and-visualization](data-analysis-kandy-example.png){width=700}
 
-## 原型設計
+## 原型設計 {id="prototyping"}
 
 Kotlin Notebook 提供了一個互動式環境，可以用小區塊執行程式碼並即時查看結果。 
 這種動手操作的方法能夠在原型設計階段進行快速的實驗和迭代。
@@ -57,13 +57,13 @@ Kotlin Notebook 提供了一個互動式環境，可以用小區塊執行程式�
 
 ![kotlin-notebook-prototyping](kotlin-notebook-prototyping.png){width=700}
 
-## 後端開發
+## 後端開發 {id="backend-development"}
 
 Kotlin Notebook 提供了在程式碼資料格中呼叫 API 以及使用 OpenAPI 等協定的能力。它與外部服務和 API 互動的能力，使其在某些後端開發情境中非常有用，例如直接在您的 notebook 環境中擷取資訊和讀取 JSON 檔案。
 
 ![kotlin-notebook-backend-development](kotlin-notebook-backend-development.png){width=700}
 
-## 程式碼文件
+## 程式碼文件 {id="code-documentation"}
 
 在 Kotlin Notebook 中，您可以在程式碼資料格中包含內嵌註解和文字註解，以提供與程式碼片段相關的額外上下文、說明和指示。
 
@@ -72,7 +72,7 @@ Kotlin Notebook 提供了在程式碼資料格中呼叫 API 以及使用 OpenAPI
 
 ![kotlin-notebook-documenting](kotlin-notebook-documentation.png){width=700}
 
-## 分享程式碼與輸出
+## 分享程式碼與輸出 {id="sharing-code-and-outputs"}
 
 鑑於 Kotlin Notebook 遵循通用的 Jupyter 格式，您可以在不同的 notebook 之間分享程式碼和輸出。
 您可以使用任何 Jupyter 用戶端（如 [Jupyter Notebook](https://jupyter.org/) 或 [Jupyter Lab](https://jupyterlab.readthedocs.io/en/latest/)）開啟、編輯和執行您的 Kotlin Notebook。 
@@ -90,7 +90,7 @@ IntelliJ IDEA 會將您的 notebook 匯出到您的 GitHub 帳戶中的 Gist，�
 
 Gist 以 JSON 格式保留 notebook 中的所有程式碼、輸出和 Markdown，GitHub 可以對其進行預覽渲染。 
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * [瞭解 Kotlin Notebook 的用法與主要功能。](https://www.jetbrains.com/help/idea/kotlin-notebook.html)
 * [嘗試使用 Kotlin Notebook。](get-started-with-kotlin-notebooks.md)

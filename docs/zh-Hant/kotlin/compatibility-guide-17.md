@@ -4,7 +4,7 @@
 
 雖然大多數語言變更已透過其他管道宣布（如更新日誌或編譯器警告），本文件彙總了所有變更，為從 Kotlin 1.6 遷移到 Kotlin 1.7 提供完整的參考。
 
-## 基本術語
+## 基本術語 {id="basic-terms"}
 
 在本文件中，我們介紹了幾種相容性：
 
@@ -14,10 +14,10 @@
 
 請記住，這些定義僅適用於純 Kotlin。從其他語言角度（例如 Java）看 Kotlin 程式碼的相容性不在本文件的討論範圍內。
 
-## 語言
+## 語言 {id="language"}
 
 <!--
-### 標題
+### 標題 {id="title"}
 
 > **問題**: [KT-NNNNN](https://youtrack.jetbrains.com/issue/KT-NNNNN)
 >
@@ -33,7 +33,7 @@
 > - 1.7.0: 回報錯誤
 -->
 
-### 將安全呼叫結果始終視為可為 null
+### 將安全呼叫結果始終視為可為 null {id="make-safe-call-result-always-nullable"}
 
 > **問題**: [KT-46860](https://youtrack.jetbrains.com/issue/KT-46860)
 >
@@ -50,7 +50,7 @@
 > - 1.7.0: 將安全呼叫結果的型別變更為可為 null。  
 > 可以使用 `-XXLanguage:-SafeCallsAreAlwaysNullable` 暫時恢復到 1.7 之前的行為。
 
-### 禁止將 super 呼叫委派給抽象超類別成員
+### 禁止將 super 呼叫委派給抽象超類別成員 {id="prohibit-the-delegation-of-super-calls-to-an-abstract-superclass-member"}
 
 > **問題**: [KT-45508](https://youtrack.jetbrains.com/issue/KT-45508), [KT-49017](https://youtrack.jetbrains.com/issue/KT-49017), [KT-38078](https://youtrack.jetbrains.com/issue/KT-38078)
 >
@@ -67,7 +67,7 @@
 > - 1.7.0: 如果啟用了 `-Xjvm-default=all` 或 `-Xjvm-default=all-compatibility` 相容模式，則回報錯誤；在漸進模式 (progressive mode) 下回報錯誤。
 > - &gt;=1.8.0: 在所有情況下均回報錯誤。
 
-### 禁止透過在非公開主建構函式中宣告的公開屬性公開非公開型別
+### 禁止透過在非公開主建構函式中宣告的公開屬性公開非公開型別 {id="prohibit-exposing-non-public-types-through-public-properties-declared-in-a-non-public-primary-constructor"}
 
 > **問題**: [KT-28078](https://youtrack.jetbrains.com/issue/KT-28078)
 >
@@ -83,7 +83,7 @@
 > - 1.6.20: 在漸進模式下將此警告提升為錯誤。
 > - 1.7.0: 將此警告提升為錯誤。
 
-### 禁止存取以列舉名稱限定的未初始化列舉項目
+### 禁止存取以列舉名稱限定的未初始化列舉項目 {id="prohibit-access-to-uninitialized-enum-entries-qualified-with-the-enum-name"}
 
 > **問題**: [KT-41124](https://youtrack.jetbrains.com/issue/KT-41124)
 >
@@ -97,7 +97,7 @@
 >
 > - 1.7.0: 當從列舉靜態初始化區塊存取未初始化的列舉項目時回報錯誤。
 
-### 禁止在 when 條件分支和迴圈條件中計算複雜布林運算式的常數值
+### 禁止在 when 條件分支和迴圈條件中計算複雜布林運算式的常數值 {id="prohibit-computing-constant-values-of-complex-boolean-expressions-in-when-condition-branches-and-conditions-of-loops"}
 
 > **問題**: [KT-39883](https://youtrack.jetbrains.com/issue/KT-39883)
 >
@@ -112,7 +112,7 @@
 > - 1.5.30: 當根據 `when` 分支或迴圈條件中的複雜常數布林運算式判斷 `when` 的窮舉性或控制流可達性時，回報警告。
 > - 1.7.0: 將此警告提升為錯誤。
 
-### 讓以列舉、密封類別及布林為對象的 when 陳述式預設為窮舉性
+### 讓以列舉、密封類別及布林為對象的 when 陳述式預設為窮舉性 {id="make-when-statements-with-enum-sealed-and-boolean-subjects-exhaustive-by-default"}
 
 > **問題**: [KT-47709](https://youtrack.jetbrains.com/issue/KT-47709)
 >
@@ -127,7 +127,7 @@
 > - 1.6.0: 當以列舉、密封類別或布林為對象的 `when` 陳述式非窮舉時引入警告（在漸進模式下為錯誤）。
 > - 1.7.0: 將此警告提升為錯誤。
 
-### 棄用 when-with-subject 中令人困惑的語法
+### 棄用 when-with-subject 中令人困惑的語法 {id="deprecate-confusing-grammar-in-when-with-subject"}
 
 > **問題**: [KT-48385](https://youtrack.jetbrains.com/issue/KT-48385)
 >
@@ -143,7 +143,7 @@
 > - 1.8.0: 將此警告提升為錯誤。
 > - &gt;= 1.8: 將某些棄用的結構重新用於新的語言特性。
 
-### 型別可 null 性增強改進
+### 型別可 null 性增強改進 {id="type-nullability-enhancement-improvements"}
 
 > **問題**: [KT-48623](https://youtrack.jetbrains.com/issue/KT-48623)
 >
@@ -159,7 +159,7 @@
 > - 1.7.0: 推論出更精確的 Java 型別可 null 性。  
 > 可以使用 `-XXLanguage:-TypeEnhancementImprovementsInStrictMode` 暫時恢復到 1.7 之前的行為。
 
-### 防止不同數值型別之間的隱式強制轉換
+### 防止不同數值型別之間的隱式強制轉換 {id="prevent-implicit-coercions-between-different-numeric-types"}
 
 > **問題**: [KT-48645](https://youtrack.jetbrains.com/issue/KT-48645)
 >
@@ -176,7 +176,7 @@
 > 可以使用 `-Xuse-old-backend` 暫時恢復到 1.5.30 修正之前的行為。
 > - &gt;= 1.7.20: 修正其他受影響案例中的向下轉換行為。
 
-### 棄用編譯器選項 -Xjvm-default 的 enable 和 compatibility 模式
+### 棄用編譯器選項 -Xjvm-default 的 enable 和 compatibility 模式 {id="deprecate-the-enable-and-the-compatibility-modes-of-the-compiler-option-xjvm-default"}
 
 > **問題**: [KT-46329](https://youtrack.jetbrains.com/issue/KT-46329)
 >
@@ -191,7 +191,7 @@
 > - 1.6.20: 對 `-Xjvm-default` 編譯器選項的 `enable` 和 `compatibility` 模式引入警告。
 > - &gt;= 1.8.0: 將此警告提升為錯誤。
 
-### 禁止呼叫名為 suspend 且帶有尾隨 Lambda 的函式
+### 禁止呼叫名為 suspend 且帶有尾隨 Lambda 的函式 {id="prohibit-calls-to-functions-named-suspend-with-a-trailing-lambda"}
 
 > **問題**: [KT-22562](https://youtrack.jetbrains.com/issue/KT-22562)
 >
@@ -207,7 +207,7 @@
 > - 1.6.0: 將此警告提升為錯誤。
 > - 1.7.0: 對語言語法進行更改，使 `{` 之前的 `suspend` 被解析為關鍵字。
 
-### 如果基底類別來自另一個模組，則禁止對該基底類別屬性進行智慧轉換
+### 如果基底類別來自另一個模組，則禁止對該基底類別屬性進行智慧轉換 {id="prohibit-smart-cast-on-a-base-class-property-if-the-base-class-is-from-another-module"}
 
 > **問題**: [KT-52629](https://youtrack.jetbrains.com/issue/KT-52629)
 >
@@ -223,7 +223,7 @@
 > - 1.7.0: 將此警告提升為錯誤。  
 > 可以使用 `-XXLanguage:-ProhibitSmartcastsOnPropertyFromAlienBaseClass` 暫時恢復到 1.7 之前的行為。
 
-### 在型別推論期間不忽視有意義的約束
+### 在型別推論期間不忽視有意義的約束 {id="do-not-neglect-meaningful-constraints-during-type-inference"}
 
 > **問題**: [KT-52668](https://youtrack.jetbrains.com/issue/KT-52668)
 >
@@ -239,9 +239,9 @@
 > - 1.7.0: 考慮所有約束，從而將此警告提升為錯誤。  
 > 可以使用 `-XXLanguage:-ProperTypeInferenceConstraintsProcessing` 暫時恢復到 1.7 之前的行為。
 
-## 標準函式庫
+## 標準函式庫 {id="standard-library"}
 
-### 逐步將集合 min 和 max 函式的傳回型別變更為非 null
+### 逐步將集合 min 和 max 函式的傳回型別變更為非 null {id="gradually-change-the-return-type-of-collection-min-and-max-functions-to-non-nullable"}
 
 > **問題**: [KT-38854](https://youtrack.jetbrains.com/issue/KT-38854)
 >
@@ -258,7 +258,7 @@
 > - 1.6.0: 從公開 API 中隱藏棄用的函式。
 > - 1.7.0: 重新引入受影響的 API，但傳回型別為非 null。
 
-### 棄用浮點數陣列函式：contains, indexOf, lastIndexOf
+### 棄用浮點數陣列函式：contains, indexOf, lastIndexOf {id="deprecate-floating-point-array-functions-contains-indexof-lastindexof"}
 
 > **問題**: [KT-28753](https://youtrack.jetbrains.com/issue/KT-28753)
 >
@@ -274,7 +274,7 @@
 > - 1.6.0: 將棄用層級提升為錯誤。
 > - 1.7.0: 從公開 API 中隱藏棄用的函式。
 
-### 將宣告從 kotlin.dom 和 kotlin.browser 套件遷移到 kotlinx.*
+### 將宣告從 kotlin.dom 和 kotlin.browser 套件遷移到 kotlinx.* {id="migrate-declarations-from-kotlin-dom-and-kotlin-browser-packages-to-kotlinx"}
 
 > **問題**: [KT-39330](https://youtrack.jetbrains.com/issue/KT-39330)
 >
@@ -292,7 +292,7 @@
 > - &gt;= 1.8: 從 stdlib 中移除棄用的函式。
 > - &gt;= 1.8: 將 kotlinx.* 套件中的 API 移至獨立的程式庫。
 
-### 棄用某些僅限 JS 的 API
+### 棄用某些僅限 JS 的 API {id="deprecate-some-js-only-api"}
 
 > **問題**: [KT-48587](https://youtrack.jetbrains.com/issue/KT-48587)
 >
@@ -308,9 +308,9 @@
 > - 1.8.0: 將棄用層級提升為錯誤。
 > - 1.9.0: 從公開 API 中移除棄用的函式。
 
-## 工具
+## 工具 {id="tools"}
 
-### 移除 KotlinGradleSubplugin 類別
+### 移除 KotlinGradleSubplugin 類別 {id="remove-kotlingradlesubplugin-class"}
 
 > **問題**: [KT-48831](https://youtrack.jetbrains.com/issue/KT-48831)
 >
@@ -325,7 +325,7 @@
 > - 1.6.0: 將棄用層級提升為錯誤。
 > - 1.7.0: 移除棄用的類別。
 
-### 移除 useIR 編譯器選項
+### 移除 useIR 編譯器選項 {id="remove-useir-compiler-option"}
 
 > **問題**: [KT-48847](https://youtrack.jetbrains.com/issue/KT-48847)
 >
@@ -341,7 +341,7 @@
 > - 1.6.0: 隱藏該選項。
 > - 1.7.0: 移除棄用的選項。
 
-### 棄用 kapt.use.worker.api Gradle 屬性
+### 棄用 kapt.use.worker.api Gradle 屬性 {id="deprecate-kapt-use-worker-api-gradle-property"}
 
 > **問題**: [KT-48826](https://youtrack.jetbrains.com/issue/KT-48826)
 >
@@ -356,7 +356,7 @@
 > - 1.6.20: 將棄用層級提升為警告。
 > - &gt;= 1.8.0: 移除此屬性。
 
-### 移除 kotlin.experimental.coroutines Gradle DSL 選項和 kotlin.coroutines Gradle 屬性
+### 移除 kotlin.experimental.coroutines Gradle DSL 選項和 kotlin.coroutines Gradle 屬性 {id="remove-kotlin-experimental-coroutines-gradle-dsl-option-and-kotlin-coroutines-gradle-property"}
 
 > **問題**: [KT-50494](https://youtrack.jetbrains.com/issue/KT-50494)
 >
@@ -371,7 +371,7 @@
 > - 1.6.20: 將棄用層級提升為警告。
 > - 1.7.0: 移除 DSL 選項、其所屬的 `experimental` 區塊以及該屬性。
 
-### 棄用 useExperimentalAnnotation 編譯器選項
+### 棄用 useExperimentalAnnotation 編譯器選項 {id="deprecate-useexperimentalannotation-compiler-option"}
 
 > **問題**: [KT-47763](https://youtrack.jetbrains.com/issue/KT-47763)
 >
@@ -386,7 +386,7 @@
 > - 1.6.0: 隱藏棄用選項。
 > - 1.7.0: 移除棄用的選項。
 
-### 棄用 kotlin.compiler.execution.strategy 系統屬性
+### 棄用 kotlin.compiler.execution.strategy 系統屬性 {id="deprecate-kotlin-compiler-execution-strategy-system-property"}
 
 > **問題**: [KT-51830](https://youtrack.jetbrains.com/issue/KT-51830)
 >
@@ -401,7 +401,7 @@
 > - 1.7.0: 將棄用層級提升為警告。
 > - &gt; 1.7.0: 移除該屬性。
 
-### 移除 kotlinOptions.jdkHome 編譯器選項
+### 移除 kotlinOptions.jdkHome 編譯器選項 {id="remove-kotlinoptions-jdkhome-compiler-option"}
 
 > **問題**: [KT-46541](https://youtrack.jetbrains.com/issue/KT-46541)
 >
@@ -416,7 +416,7 @@
 > - 1.5.30: 將棄用層級提升為警告。
 > - &gt; 1.7.0: 移除該選項。
 
-### 移除 noStdlib 編譯器選項
+### 移除 noStdlib 編譯器選項 {id="remove-nostdlib-compiler-option"}
 
 > **問題**: [KT-49011](https://youtrack.jetbrains.com/issue/KT-49011)
 >
@@ -431,7 +431,7 @@
 > - 1.5.0: 將棄用層級提升為警告。
 > - 1.7.0: 移除該選項。
 
-### 移除 kotlin2js 和 kotlin-dce-plugin 外掛程式
+### 移除 kotlin2js 和 kotlin-dce-plugin 外掛程式 {id="remove-kotlin2js-and-kotlin-dce-plugin-plugins"}
 
 > **問題**: [KT-48276](https://youtrack.jetbrains.com/issue/KT-48276)
 >
@@ -446,7 +446,7 @@
 > - 1.4.0: 將棄用層級提升為警告。
 > - 1.7.0: 移除這些外掛程式。
 
-### 編譯任務的變更
+### 編譯任務的變更 {id="changes-in-compile-tasks"}
 
 > **問題**: [KT-32805](https://youtrack.jetbrains.com/issue/KT-32805)
 >

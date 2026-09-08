@@ -6,17 +6,17 @@ Kotlin 与 Maven 生态系统无缝集成，允许您使用行业标准工具验
 > 
 {style="tip"}
 
-## 使用 JUnit 创建测试
+## 使用 JUnit 创建测试 {id="create-tests-with-junit"}
 
 [JUnit](https://junit.org/) 是 Kotlin 后端开发的标准测试框架。虽然 Kotlin 支持多个 JUnit 版本，但大多数现代项目应使用 JUnit 6。
 
 要使用 JUnit 在 Kotlin 中创建测试，请使用来自 `kotlin.test` 或 JUnit 软件包的 `@Test` 注解。
 
-### 添加依赖项
+### 添加依赖项 {id="add-dependency"}
 
 使用 `kotlin-test` 库是最简单的入门方式。它提供了一组通用的断言，并会自动拉取必要的 JUnit 构件。
 
-#### JUnit 5 及更高版本
+#### JUnit 5 及更高版本 {id="junit-5-and-later"}
 
 对于所有新项目，请使用 `kotlin-test-junit5` 构件。它为 JUnit 提供完整支持，包括嵌套测试和并行执行等功能。Kotlin/JVM 支持最新的稳定 JUnit 版本，即 JUnit 6。
 
@@ -37,7 +37,7 @@ Kotlin 与 Maven 生态系统无缝集成，允许您使用行业标准工具验
 >
 {style="note"}
 
-#### JUnit 4
+#### JUnit 4 {id="junit-4"}
 
 如果您想使用较早版本的 JUnit（例如用于旧版项目），请使用利用 JUnit 4 的 `kotlin-test-junit` 构件：
 
@@ -57,7 +57,7 @@ Kotlin 与 Maven 生态系统无缝集成，允许您使用行业标准工具验
 >
 {style="tip"}
 
-### 编写单元测试
+### 编写单元测试 {id="write-unit-tests"}
 
 单元测试验证代码的隔离部分，例如单个函数或类。
 按照约定，单元测试以 `*Test` 后缀命名。例如：
@@ -76,7 +76,7 @@ class OrderServiceTest {
 }
 ```
 
-### 编写集成测试
+### 编写集成测试 {id="write-integration-tests"}
 
 集成测试验证组件之间的交互，例如服务与数据库。
 按照约定，集成测试以 `*IT` 后缀命名。例如：
@@ -98,11 +98,11 @@ class UserRepositoryIT {
 }
 ```
 
-## 运行测试
+## 运行测试 {id="run-tests"}
 
 在 Maven 项目中，测试执行通常分配给两个插件：Surefire 和 Failsafe，以确保整洁的构建生命周期。
 
-### 使用 Surefire 插件
+### 使用 Surefire 插件 {id="with-surefire-plugin"}
 
 [Surefire 插件](https://maven.apache.org/surefire/maven-surefire-plugin/)处理 _单元测试_。
 它运行所有遵循 `*Test` 命名模式的 Kotlin 和 Java 测试。
@@ -123,7 +123,7 @@ class UserRepositoryIT {
 mvn test
 ```
 
-### 使用 Failsafe 插件
+### 使用 Failsafe 插件 {id="with-failsafe-plugin"}
 
 [Failsafe 插件](https://maven.apache.org/surefire/maven-failsafe-plugin/)处理 _集成测试_。
 它运行所有遵循 `*IT` 命名模式的 Kotlin 和 Java 测试。
@@ -153,7 +153,7 @@ mvn test
 mvn verify
 ```
 
-## 获取详细的失败消息
+## 获取详细的失败消息 {id="get-detailed-failure-messages"}
 
 Kotlin [Power-assert 编译器插件](power-assert.md)生成详细的失败消息，显示断言中的中间值，在控制台输出中为您提供完整的图表。
 
@@ -267,7 +267,7 @@ assertEquals(expectedRecord, actualRecord, "Profile configurations out of sync")
              UserProfile(id=451, email=admin-dev@company.internal)
 ```
 
-## 探索其他测试框架
+## 探索其他测试框架 {id="explore-other-testing-frameworks"}
 
 除 JUnit 外，您还可以使用其他流行框架使 Kotlin 测试更加惯用且易读：
 
@@ -279,7 +279,7 @@ assertEquals(expectedRecord, actualRecord, "Profile configurations out of sync")
 | [Kotest](https://github.com/kotest/kotest)                  | Kotlin 断言库，提供多种断言样式和广泛的匹配器支持。 |
 | [Strikt](https://github.com/robfletcher/strikt)             | Kotlin 断言库，具有类型安全断言并支持数据类。 |
 
-## 后续步骤
+## 后续步骤 {id="what-s-next"}
 
 * 探索 [`kotlin.test` 库](https://kotlinlang.org/api/latest/kotlin.test/kotlin.test/)的功能。
 * 详细了解 [Power-assert 编译器插件](power-assert.md)。

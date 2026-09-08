@@ -14,7 +14,7 @@
 
 请在 [GitHub](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.9.0) 上查看此版本的完整更改列表。
 
-## 依赖项
+## 依赖项 {id="dependencies"}
 
 * Gradle 插件 `org.jetbrains.compose` 版本为 1.9.3。基于 Jetpack Compose 库：
    * [Runtime 1.9.4](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.9.4)
@@ -31,9 +31,9 @@
 * Savedstate 库 `org.jetbrains.androidx.savedstate:savedstate:1.3.6`。基于 [Jetpack Savedstate 1.3.3](https://developer.android.com/jetpack/androidx/releases/savedstate#1.3.3)
 * WindowManager Core 库 `org.jetbrains.androidx.window:window-core:1.4.0`。基于 [Jetpack WindowManager 1.4.0](https://developer.android.com/jetpack/androidx/releases/window#1.4.0)
 
-## 跨平台
+## 跨平台 {id="across-platforms"}
 
-### @Preview 注解的参数
+### @Preview 注解的参数 {id="parameters-for-the-preview-annotation"}
 
 Compose Multiplatform 中的 `@Preview` 注解现在包含额外的参数，用于配置 `@Composable` 函数在设计时预览中的呈现方式：
 
@@ -47,7 +47,7 @@ Compose Multiplatform 中的 `@Preview` 注解现在包含额外的参数，用�
 
 这些新的预览参数在 IntelliJ IDEA 和 Android Studio 中均可被识别并正常工作。
 
-### 可自定义的阴影
+### 可自定义的阴影 {id="customizable-shadows"}
 
 在 Compose Multiplatform 1.9.0 中，我们引入了可自定义的阴影，采用了 Jetpack Compose 的新阴影基元和 API。除了之前支持的 `shadow` 修饰符外，您现在可以使用新的 API 创建更高级且更灵活的阴影效果。
 
@@ -67,7 +67,7 @@ Compose Multiplatform 中的 `@Preview` 注解现在包含额外的参数，用�
 
 有关详情，请参阅[阴影 API 参考](https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/shadow/package-summary.html)。
 
-### 新的上下文菜单 API
+### 新的上下文菜单 API {id="new-context-menu-api"}
 
 我们采用了 Jetpack Compose 的新 API，用于在 `SelectionContainer` 和 `BasicTextField` 中自定义上下文菜单。iOS 和 web 的实现已完成，而 desktop 端已提供初步支持。
 
@@ -84,7 +84,7 @@ ComposeFoundationFlags.isNewContextMenuEnabled = true
 
 有关详情，请参阅[上下文菜单 API 参考](https://developer.android.com/reference/kotlin/androidx/compose/foundation/text/contextmenu/data/package-summary)。
 
-### Material 3 Expressive 主题
+### Material 3 Expressive 主题 {id="material-3-expressive-theme"}
 <primary-label ref="Experimental"/>
 
 Compose Multiplatform 现在支持 Material 3 库中实验性的 [`MaterialExpressiveTheme`](https://developer.android.com/reference/kotlin/androidx/compose/material3/package-summary?hl=en#MaterialExpressiveTheme(androidx.compose.material3.ColorScheme,androidx.compose.material3.MotionScheme,androidx.compose.material3.Shapes,androidx.compose.material3.Typography,kotlin.Function0))。Expressive 主题设置允许您自定义 Material Design 应用，以获得更具个性化的体验。
@@ -113,13 +113,13 @@ Compose Multiplatform 现在支持 Material 3 库中实验性的 [`MaterialExpre
 
 <img src="compose_expressive_theme.animated.gif" alt="Material 3 Expressive" width="250" preview-src="compose_expressive_theme.png"/>
 
-### `androidx.compose.runtime:runtime` 中的多平台目标
+### `androidx.compose.runtime:runtime` 中的多平台目标 {id="multiplatform-targets-in-androidx-compose-runtime-runtime"}
 
 为了提升 Compose Multiplatform 与 Jetpack Compose 的一致性，我们已在 `androidx.compose.runtime:runtime` 构件中直接添加了对所有目标的支持。
 
 `org.jetbrains.compose.runtime:runtime` 构件保持完全兼容，现在充当别名。
 
-### 带有 `suspend` lambda 的 `runComposeUiTest()`
+### 带有 `suspend` lambda 的 `runComposeUiTest()` {id="runcomposeuitest-with-suspend-lambda"}
 
 `runComposeUiTest()` 函数现在接受 `suspend` lambda，允许您使用诸如 `awaitIdle()` 之类的挂起函数。
 
@@ -128,9 +128,9 @@ Compose Multiplatform 现在支持 Material 3 库中实验性的 [`MaterialExpre
 * 对于 JVM 和原生目标，`runComposeUiTest()` 的功能类似于 `runBlocking()`，但会跳过延迟。
 * 对于 web 目标 (Wasm 和 JS)，它返回一个 `Promise` 并在跳过延迟的情况下执行测试体。
 
-## iOS
+## iOS {id="ios"}
 
-### 帧率配置
+### 帧率配置 {id="frame-rate-configuration"}
 
 Compose Multiplatform for iOS 现在支持配置渲染可组合项的首选帧率。如果动画出现卡顿，您可能希望提高帧率。另一方面，如果动画缓慢或静态，您可能更倾向于以较低的帧率运行它以降低功耗。
 
@@ -149,7 +149,7 @@ Modifier.preferredFrameRate(30f)
 如果您在同一个 `@Composable` 树中多次应用 `preferredFrameRate`，将应用指定的最高值。
 然而，设备的硬件可能会限制支持的帧率，通常最高为 120 Hz。
 
-### IME 选项
+### IME 选项 {id="ime-options"}
 
 Compose Multiplatform 1.9.0 引入了对文本输入组件的 iOS 特定 IME 自定义支持。您现在可以使用 `PlatformImeOptions` 直接在文本字段组件中配置原生 UIKit 文本输入特性，例如键盘类型、自动更正和 return 键行为：
 
@@ -165,9 +165,9 @@ BasicTextField(
 )
 ```
 
-## Web
+## Web {id="web"}
 
-### Compose Multiplatform for web 进入 Beta 阶段
+### Compose Multiplatform for web 进入 Beta 阶段 {id="compose-multiplatform-for-web-in-beta"}
 
 Compose Multiplatform for web 现已进入 Beta 阶段，这是尝试它的绝佳时机。请查看[我们的博客文章](https://blog.jetbrains.com/kotlin/2025/09/compose-multiplatform-1-9-0-compose-for-web-beta/)以了解达成此里程碑所取得的进展。
 
@@ -177,7 +177,7 @@ Compose Multiplatform for web 现已进入 Beta 阶段，这是尝试它的绝�
 * 改进无障碍支持。
 * 解决与 `TextField` 组件相关的问题。
 
-### 无障碍支持
+### 无障碍支持 {id="accessibility-support"}
 
 Compose Multiplatform 现在为 web 目标提供初步的无障碍支持。此版本使屏幕阅读器能够访问描述标签，并允许用户在无障碍导航模式下导航和点击按钮。
 
@@ -208,13 +208,13 @@ ComposeViewport(
 }
 ```
 
-### 不再需要 skiko.js
+### 不再需要 skiko.js {id="skiko-js-is-no-longer-needed"}
 
 自 Compose Multiplatform 1.7.0 以来，`skiko.js` 对于 Kotlin/Wasm 应用程序已是冗余的。从该版本开始，对于 Kotlin/JS 也是如此：Skiko 的 web 运行时现在作为 ES 模块发布，并直接捆绑到应用编译后的 JavaScript 中，因此这两个 web 目标都不再需要单独的 `skiko.js` 脚本。
 
 您可以从 `index.html` 文件中移除 `<script src="skiko.js">` 标签。
 
-### 用于嵌入 HTML 内容的新 API
+### 用于嵌入 HTML 内容的新 API {id="new-api-for-embedding-html-content"}
 
 通过新的 `WebElementView()` 可组合函数，您可以将 HTML 元素无缝集成到您的 web 应用程序中。
 
@@ -246,7 +246,7 @@ fun Map() {
 
 请注意，您只能在 `ComposeViewport` 入口点使用此函数，因为 `CanvasBasedWindow` 已被弃用。
 
-### 用于绑定到导航图的简化 API
+### 用于绑定到导航图的简化 API {id="simplified-api-for-binding-to-the-navigation-graph"}
 
 Compose Multiplatform 引入了一个新 API，用于将浏览器的导航状态绑定到 `NavController`：
 
@@ -276,9 +276,9 @@ LaunchedEffect(Unit) {
 }
 ```
 
-## Desktop
+## Desktop {id="desktop"}
 
-### 在显示前配置窗口
+### 在显示前配置窗口 {id="configuring-windows-before-display"}
 
 Compose Multiplatform 现在包含新的 `SwingFrame()` 和 `SwingDialog()` 可组合项。它们与现有的 `Window()` 和 `DialogWindow()` 函数类似，但包含一个 `init` 代码块。
 
@@ -286,9 +286,9 @@ Compose Multiplatform 现在包含新的 `SwingFrame()` 和 `SwingDialog()` 可�
 
 我们建议仅对窗口或对话框可见后无法更改的属性使用 `init` 代码块。对于所有其他配置，请继续使用 `LaunchedEffect(window)` 模式，以确保您的代码保持兼容并能在未来的更新中正确运行。
 
-## Gradle 插件
+## Gradle 插件 {id="gradle-plugin"}
 
-### 解耦的 Material3 版本控制
+### 解耦的 Material3 版本控制 {id="decoupled-material3-versioning"}
 
 Material3 库的版本和稳定级别不再需要与 Compose Multiplatform Gradle 插件保持一致。`compose.material3` DSL 别名引用了 Jetpack Compose 稳定版本中的 Material3 1.9.0，但您可以为项目选择预发布版本。
 
@@ -298,11 +298,11 @@ Material3 库的版本和稳定级别不再需要与 Compose Multiplatform Gradl
 implementation("org.jetbrains.compose.material3:material3:1.9.0-alpha04")
 ```
 
-### 统一的 Web 分发
+### 统一的 Web 分发 {id="unified-web-distribution"}
 
 新的 `composeCompatibilityBrowserDistribution` Gradle 任务将 Kotlin/JS 和 Kotlin/Wasm 分发包合并为一个包。这允许 Wasm 应用程序在浏览器不支持现代 Wasm 功能时回退到 JS 目标。
 
-### 支持 AGP 9.0.0
+### 支持 AGP 9.0.0 {id="support-for-agp-9-0-0"}
 
 Compose Multiplatform 引入了对 Android Gradle 插件 (AGP) 9.0.0 版本的支持。为了兼容新的 AGP 版本，请确保您升级到 Compose Multiplatform 1.9.3 或 1.10.0。
 

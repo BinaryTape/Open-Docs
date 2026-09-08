@@ -6,12 +6,12 @@
 - [Chat agent 策略](#chat-agent-strategy)
 - [ReAct 策略](#react-strategy)
 
-## Chat agent 策略
+## Chat agent 策略 {id="chat-agent-strategy"}
 
 Chat agent 策略專為執行對話互動程序而設計。
 它協調不同階段、節點與工具之間的互動，以對話方式處理使用者輸入、執行工具並提供回應。
 
-### 概覽
+### 概覽 {id="overview"}
 
 Chat agent 策略實作了一套模式，其中 agent 會：
 
@@ -23,7 +23,7 @@ Chat agent 策略實作了一套模式，其中 agent 會：
 
 這種方法建立了一個對話式介面，讓 agent 可以使用工具來完成使用者要求。
 
-### 設定與相依性
+### 設定與相依性 {id="setup-and-dependencies"}
 
 Koog 中的 Chat agent 策略是透過 `chatAgentStrategy` 函式實作的。若要在您的 agent 程式碼中使用該函式，請新增以下相依性匯入：
 
@@ -85,7 +85,7 @@ ai.koog.agents.ext.agent.chatAgentStrategy
     ```
     <!--- KNIT examplePredefinedStrategiesJava01.java -->
 
-### 何時使用 Chat agent 策略
+### 何時使用 Chat agent 策略 {id="when-to-use-the-chat-agent-strategy"}
 
 Chat agent 策略特別適用於：
 
@@ -94,7 +94,7 @@ Chat agent 策略特別適用於：
 - 實作需要存取外部系統或資料的聊天機器人
 - 想要強制執行工具使用而非純文字回應的場景
 
-### 範例
+### 範例 {id="example"}
 
 以下是實作預定義 Chat agent 策略 (`chatAgentStrategy`) 的 AI agent 以及 agent 可能使用的工具之程式碼範例：
 
@@ -186,7 +186,7 @@ Chat agent 策略特別適用於：
     ```
     <!--- KNIT examplePredefinedStrategiesJava02.java -->
 
-## ReAct 策略
+## ReAct 策略 {id="react-strategy"}
 
 ReAct (Reasoning and Acting，推理與行動) 策略是一種 AI agent 策略，它在推理與執行階段之間交替進行，以動態處理任務並要求大型語言模型 (LLM) 輸出。
 
@@ -201,7 +201,7 @@ ReAct 策略實作了一套模式，其中 agent 會：
 
 這種方法結合了推理（逐步思考問題）與行動（執行工具以收集資訊或執行操作）的優勢。
 
-### 流程圖
+### 流程圖 {id="flow-diagram"}
 
 這是 ReAct 策略的流程圖：
 
@@ -273,7 +273,7 @@ Koog 中的 ReAct 策略是透過 `reActStrategy` 函式實作的。
     ```
     
 
-### 參數
+### 參數 {id="parameters"}
 
 `reActStrategy` 函式接受以下參數：
 
@@ -282,15 +282,15 @@ Koog 中的 ReAct 策略是透過 `reActStrategy` 函式實作的。
 | `reasoningInterval` | Int | 1 | 指定推理步驟的間隔。必須大於 0。 |
 | `name` | String | `re_act` | 策略的名稱。 |
 
-### 範例使用案例
+### 範例使用案例 {id="example-use-case"}
 
 以下是 ReAct 策略如何與簡單的銀行 agent 協作的範例：
 
-#### 1. 使用者輸入
+#### 1. 使用者輸入 {id="1-user-input"}
 
 使用者發送初始提示詞。例如，這可以是一個問題，像是 `How much did I spend last month?`。
 
-#### 2. 推理
+#### 2. 推理 {id="2-reasoning"}
 
 agent 結合使用者輸入與推理提示詞進行初始推理。推理過程如下所示：
 
@@ -302,7 +302,7 @@ I need to follow these steps:
 ```
 <!--- KNIT example-predefined-strategies-02.txt -->
 
-#### 3. 行動與執行，第一階段
+#### 3. 行動與執行，第一階段 {id="3-action-and-execution-phase-1"}
 
 根據 agent 在上一步定義的行動項目，它會執行工具以獲取上個月的所有交易。
 
@@ -325,7 +325,7 @@ I need to follow these steps:
 ```
 <!--- KNIT example-predefined-strategies-04.txt -->
 
-#### 4. 推理
+#### 4. 推理 {id="4-reasoning"}
 
 有了工具傳回的結果，agent 會再次進行推理以確定其流程中的後續步驟：
 
@@ -336,7 +336,7 @@ I have the transactions. Now I need to:
 ```
 <!--- KNIT example-predefined-strategies-05.txt -->
 
-#### 5. 行動與執行，第二階段
+#### 5. 行動與執行，第二階段 {id="5-action-and-execution-phase-2"}
 
 根據之前的推理步驟，agent 呼叫 `calculate_sum` 工具，對作為工具引數提供的金額進行加總。由於推理結果也包含移除交易中正值金額的行動點，因此作為工具引數提供的金額僅包含負值的金額：
 
@@ -352,7 +352,7 @@ I have the transactions. Now I need to:
 ```
 <!--- KNIT example-predefined-strategies-07.txt -->
 
-#### 6. 最終回應
+#### 6. 最終回應 {id="6-final-response"}
 
 agent 傳回包含計算總和的最終回應（助理訊息）：
 
@@ -361,7 +361,7 @@ You spent $800.00 last month on groceries, rent, and utilities.
 ```
 <!--- KNIT example-predefined-strategies-08.txt -->
 
-### 何時使用 ReAct 策略
+### 何時使用 ReAct 策略 {id="when-to-use-the-react-strategy"}
 
 ReAct 策略特別適用於：
 

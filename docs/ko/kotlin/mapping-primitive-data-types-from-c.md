@@ -16,7 +16,7 @@
 
 명령줄을 사용하여 직접 또는 스크립트 파일(`.sh` 또는 `.bat` 파일)을 통해 Kotlin 라이브러리를 생성할 수 있습니다. 하지만 이 방식은 수백 개의 파일과 라이브러리가 있는 대규모 프로젝트에는 적합하지 않습니다. 빌드 시스템을 사용하면 전이 의존성(transitive dependencies)이 포함된 Kotlin/Native 컴파일러 바이너리와 라이브러리를 다운로드하고 캐싱하며, 컴파일러와 테스트를 실행하는 과정을 간소화할 수 있습니다. Kotlin/Native는 [Kotlin 멀티플랫폼 플러그인](gradle-configure-project.md#targeting-multiple-platforms)을 통해 [Gradle](https://gradle.org) 빌드 시스템을 사용할 수 있습니다.
 
-## C 언어의 타입
+## C 언어의 타입 {id="types-in-c-language"}
 
 C 프로그래밍 언어에는 다음과 같은 [데이터 타입](https://en.wikipedia.org/wiki/C_data_types)이 있습니다:
 
@@ -35,7 +35,7 @@ C 언어에는 `const`, `volatile`, `restrict`, `atomic`과 같은 타입 한정
 
 이제 어떤 C 데이터 타입들이 Kotlin에서 어떻게 보이는지 살펴보겠습니다.
 
-## C 라이브러리 생성
+## C 라이브러리 생성 {id="create-a-c-library"}
 
 이 튜토리얼에서는 C 라이브러리를 컴파일하고 실행하려는 경우에만 필요한 `lib.c` 소스 파일은 만들지 않습니다. 이번 설정에서는 [cinterop 도구](native-c-interop.md)를 실행하는 데 필요한 `.h` 헤더 파일만 있으면 됩니다.
 
@@ -80,7 +80,7 @@ C 라이브러리를 생성하려면:
 
 `interop.def` 파일은 애플리케이션을 컴파일, 실행하거나 IDE에서 여는 데 필요한 모든 것을 제공합니다.
 
-## Kotlin/Native 프로젝트 생성
+## Kotlin/Native 프로젝트 생성 {id="create-a-kotlin-native-project"}
 
 > 첫 단계에 대한 자세한 내용과 새로운 Kotlin/Native 프로젝트를 만들고 IntelliJ IDEA에서 여는 방법은 [Kotlin/Native 시작하기](native-get-started.md#using-gradle) 튜토리얼을 참조하세요.
 >
@@ -191,7 +191,7 @@ C 라이브러리를 생성하려면:
 
 C 기본 타입 선언이 Kotlin 측에서 어떻게 보이는지 학습한 후에 코드를 완성할 것입니다.
 
-## C 라이브러리에 대해 생성된 Kotlin API 검사
+## C 라이브러리에 대해 생성된 Kotlin API 검사 {id="inspect-generated-kotlin-apis-for-a-c-library"}
 
 C 기본 타입이 Kotlin/Native로 어떻게 매핑되는지 살펴보고 그에 따라 예제 프로젝트를 업데이트해 보겠습니다.
 
@@ -218,7 +218,7 @@ C 타입은 직접 매핑되지만, `char` 타입은 보통 8비트 부호 있�
 | float              | kotlin.Float  |
 | double             | kotlin.Double |
 
-## Kotlin 코드 업데이트
+## Kotlin 코드 업데이트 {id="update-kotlin-code"}
 
 이제 C 정의를 확인했으므로 Kotlin 코드를 업데이트할 수 있습니다. `hello.kt` 파일의 최종 코드는 다음과 같습니다:
 
@@ -242,7 +242,7 @@ fun main() {
 ./gradlew runDebugExecutableMacosArm64
 ```
 
-## 다음 단계
+## 다음 단계 {id="next-step"}
 
 시리즈의 다음 파트에서는 구조체와 공용체 타입이 Kotlin과 C 사이에 어떻게 매핑되는지 학습합니다:
 
@@ -252,6 +252,6 @@ fun main() {
   </li>
 </list>
 
-### 참고 항목
+### 참고 항목 {id="see-also"}
 
 더 복잡한 시나리오를 다루는 [C와의 상호 운용성](native-c-interop.md) 문서에서 더 자세한 내용을 확인할 수 있습니다.

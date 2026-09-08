@@ -4,7 +4,7 @@ title: Koin 컴포넌트
 
 `KoinComponent`는 모듈 정의 외부의 Koin 컨테이너에서 인스턴스를 가져올 수 있는 API를 제공합니다. 이는 안드로이드 액티비티(Activities)나 프레임워크 클래스와 같이 생성자 주입(constructor injection)을 사용할 수 없는 클래스에서 유용합니다.
 
-## KoinComponent란 무엇인가요?
+## KoinComponent란 무엇인가요? {id="what-is-koincomponent"}
 
 `KoinComponent`는 모든 클래스가 Koin 컨테이너 API에 접근할 수 있도록 해주는 인터페이스입니다. 생성자 주입 없이도 인스턴스를 가져올 수 있는 함수들을 제공합니다.
 
@@ -12,9 +12,9 @@ title: Koin 컴포넌트
 **가능하면 생성자 주입을 우선시하세요.** 모듈에 선언할 수 없는 클래스(프레임워크 클래스, UI 컴포넌트 등)에만 `KoinComponent`를 사용하십시오. 생성자 주입이 더 명확하고 테스트하기 쉬우며, 코드가 Koin에 결합되지 않습니다.
 :::
 
-## 기본 사용법
+## 기본 사용법 {id="basic-usage"}
 
-### Koin 컴포넌트 생성하기
+### Koin 컴포넌트 생성하기 {id="creating-a-koin-component"}
 
 클래스를 `KoinComponent` 인터페이스로 태깅(Tag)하십시오.
 
@@ -50,7 +50,7 @@ class MyComponent : KoinComponent {
 }
 ```
 
-### 사용 가능한 함수들
+### 사용 가능한 함수들 {id="available-functions"}
 
 `KoinComponent`를 구현하면 다음 함수들에 접근할 수 있습니다.
 
@@ -62,9 +62,9 @@ class MyComponent : KoinComponent {
 | `setProperty()` | 설정 프로퍼티 설정하기 |
 | `getKoin()` | Koin 인스턴스에 접근 |
 
-## 인스턴스 가져오기
+## 인스턴스 가져오기 {id="retrieving-instances"}
 
-### 즉시 가져오기 vs 지연 가져오기
+### 즉시 가져오기 vs 지연 가져오기 {id="eager-vs-lazy-retrieval"}
 
 **`get()`을 사용한 즉시(Eager) 가져오기:**
 ```kotlin
@@ -94,7 +94,7 @@ class MyComponent : KoinComponent {
 항상 필요하지 않을 수 있는 프로퍼티에는 `by inject()`를 사용하세요. 이는 처음 접근할 때까지 인스턴스 생성을 늦춥니다.
 :::
 
-### 각각의 사용 시기
+### 각각의 사용 시기 {id="when-to-use-each"}
 
 | `get()` 사용 시기 | `by inject()` 사용 시기 |
 |-------------|-------------------|
@@ -102,7 +102,7 @@ class MyComponent : KoinComponent {
 | 단순하고 직접적인 접근 | 지연 초기화(lazy initialization)를 원하는 경우 |
 | 함수 내부에서 객체를 빌드할 때 | 클래스 프로퍼티를 선언할 때 |
 
-## 한정자 (Qualifiers)
+## 한정자 (Qualifiers) {id="qualifiers"}
 
 한정자를 사용하여 이름이 지정된 정의를 가져옵니다.
 
@@ -123,7 +123,7 @@ class DataManager : KoinComponent {
 }
 ```
 
-### 한정자 타입
+### 한정자 타입 {id="qualifier-types"}
 
 **문자열 한정자:**
 ```kotlin
@@ -142,7 +142,7 @@ enum class Environment { DEV, PROD }
 val service = get<ApiService>(named(Environment.PROD))
 ```
 
-## 주입 파라미터
+## 주입 파라미터 {id="injection-parameters"}
 
 인스턴스를 가져올 때 런타임 파라미터를 전달할 수 있습니다.
 
@@ -173,11 +173,11 @@ class ProfileScreen : KoinComponent {
 }
 ```
 
-## 프로퍼티 (Properties)
+## 프로퍼티 (Properties) {id="properties"}
 
 컴포넌트에서 Koin 프로퍼티에 접근하고 수정할 수 있습니다.
 
-### 프로퍼티 가져오기
+### 프로퍼티 가져오기 {id="get-properties"}
 
 ```kotlin
 class ApiClientFactory : KoinComponent {
@@ -187,7 +187,7 @@ class ApiClientFactory : KoinComponent {
 }
 ```
 
-### 프로퍼티 설정하기
+### 프로퍼티 설정하기 {id="set-properties"}
 
 ```kotlin
 class ConfigManager : KoinComponent {
@@ -201,14 +201,14 @@ class ConfigManager : KoinComponent {
 }
 ```
 
-### 프로퍼티 생명주기
+### 프로퍼티 생명주기 {id="property-lifecycle"}
 
 `setProperty()`로 설정된 프로퍼티는 다음과 같습니다:
 - 모든 컴포넌트에서 사용 가능합니다.
 - Koin 인스턴스 생명주기 동안 유지됩니다.
 - `stopKoin()`이 호출되면 초기화됩니다.
 
-## Koin 인스턴스 접근하기
+## Koin 인스턴스 접근하기 {id="accessing-the-koin-instance"}
 
 `Koin` 컨테이너에 직접 접근할 수 있습니다.
 
@@ -229,9 +229,9 @@ class AdvancedComponent : KoinComponent {
 }
 ```
 
-## 실제 활용 사례
+## 실제 활용 사례 {id="real-world-examples"}
 
-### 안드로이드 액티비티 (권장 방식)
+### 안드로이드 액티비티 (권장 방식) {id="android-activity-recommended-approach"}
 
 :::info
 안드로이드 액티비티는 **KoinComponent가 필요하지 않습니다.** Koin 안드로이드 확장 기능을 사용하세요.
@@ -261,7 +261,7 @@ class MainActivity : AppCompatActivity(), KoinComponent {
 }
 ```
 
-### 안드로이드 프래그먼트 (권장 방식)
+### 안드로이드 프래그먼트 (권장 방식) {id="android-fragment-recommended-approach"}
 
 ```kotlin
 // ✅ 권장 - KoinComponent가 필요 없음
@@ -276,7 +276,7 @@ class UserFragment : Fragment() {
 }
 ```
 
-### 커스텀 안드로이드 뷰 (KoinComponent 필요)
+### 커스텀 안드로이드 뷰 (KoinComponent 필요) {id="custom-android-view-koincomponent-needed"}
 
 ```kotlin
 // ✅ 여기서는 KoinComponent가 적절합니다
@@ -296,7 +296,7 @@ class CustomChartView @JvmOverloads constructor(
 }
 ```
 
-### 콘솔 애플리케이션
+### 콘솔 애플리케이션 {id="console-application"}
 
 ```kotlin
 class ConsoleApp : KoinComponent {
@@ -321,7 +321,7 @@ fun main() {
 }
 ```
 
-### 코틀린 멀티플랫폼 공통 코드
+### 코틀린 멀티플랫폼 공통 코드 {id="kotlin-multiplatform-common-code"}
 
 ```kotlin
 // 플랫폼 간에 작동하는 공통 코드
@@ -335,9 +335,9 @@ class FeatureManager : KoinComponent {
 }
 ```
 
-## KoinComponent를 사용해야 하는 경우
+## KoinComponent를 사용해야 하는 경우 {id="when-to-use-koincomponent"}
 
-### 적합한 사용 사례
+### 적합한 사용 사례 {id="good-use-cases"}
 
 다음과 같은 경우 `KoinComponent`를 사용하세요:
 
@@ -351,7 +351,7 @@ class FeatureManager : KoinComponent {
 **안드로이드 개발자 참고 사항:** 액티비티, 프래그먼트, 서비스는 전용 Koin 확장 기능이 있으므로 **KoinComponent가 필요하지 않습니다.** 인터페이스를 구현하지 않고 `by inject()`와 `by viewModel()`을 직접 사용하세요. 자세한 내용은 [Android 주입](/docs/reference/koin-android/get-instances)을 참조하십시오.
 :::
 
-### 사용을 피해야 하는 경우
+### 사용을 피해야 하는 경우 {id="avoid-using-for"}
 
 다음과 같은 경우 `KoinComponent`를 사용하지 마세요:
 
@@ -361,9 +361,9 @@ class FeatureManager : KoinComponent {
 - **도메인 레이어** - 유스케이스(Use cases), 도메인 모델
 - **새로운 코드** - 생성자 주입을 사용하여 모듈에 선언하는 방식을 선호하세요.
 
-## 권장 사항 (Best Practices)
+## 권장 사항 (Best Practices) {id="best-practices"}
 
-### 생성자 주입 우선
+### 생성자 주입 우선 {id="prefer-constructor-injection"}
 
 ```kotlin
 // ❌ 피하세요 - 비즈니스 로직에 KoinComponent 사용
@@ -390,7 +390,7 @@ module {
 }
 ```
 
-### 선택적 의존성에는 지연 주입 사용
+### 선택적 의존성에는 지연 주입 사용 {id="use-lazy-injection-for-optional-dependencies"}
 
 ```kotlin
 class FeatureController : KoinComponent {
@@ -408,7 +408,7 @@ class FeatureController : KoinComponent {
 }
 ```
 
-### KoinComponent 범위 제한
+### KoinComponent 범위 제한 {id="limit-koincomponent-scope"}
 
 ```kotlin
 // ❌ 나쁨 - Koin을 직접 사용하는 컴포넌트가 너무 많음
@@ -436,7 +436,7 @@ class RepositoryA(private val db: Database)
 class RepositoryB(private val db: Database)
 ```
 
-### getProperty 과용 금지
+### getProperty 과용 금지 {id="don-t-overuse-getproperty"}
 
 ```kotlin
 // ❌ 피하세요 - 모든 곳에서 프로퍼티 가져오기
@@ -468,7 +468,7 @@ module {
 }
 ```
 
-## 테스트
+## 테스트 {id="testing"}
 
 컴포넌트를 테스트할 때 Koin 설정을 오버라이드(override)할 수 있습니다.
 
@@ -498,7 +498,7 @@ fun testComponent() {
 }
 ```
 
-## 함께 보기
+## 함께 보기 {id="see-also"}
 
 - [Koin 시작하기](/docs/reference/koin-core/start-koin) - Koin 초기화
 - [정의](/docs/reference/koin-core/definitions) - 정의 생성하기

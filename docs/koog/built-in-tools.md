@@ -14,7 +14,7 @@ Koog 框架为 Kotlin 和 Java 提供了内置工具，用于处理智能体与�
 | ListDirectoryTool | `__list_directory__` | 以层次结构树的形式列出目录内容，支持可选的深度控制和通配符 (glob) 过滤。 |
 | WriteFileTool | `__write_file__` | 将文本内容写入文件（如果需要，会创建父目录）。 |
 
-## 注册内置工具
+## 注册内置工具 {id="registering-built-in-tools"}
 
 与任何其他工具一样，内置工具必须添加到工具注册表才能供智能体使用。 示例如下：
 

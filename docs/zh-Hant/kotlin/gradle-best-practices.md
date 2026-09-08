@@ -4,11 +4,11 @@
 
 充分發揮 Gradle 的優勢至關重要，這能幫助您減少管理和等待組建的時間，並將更多時間投入到編碼中。在此，我們提供了一套最佳實務，分為兩個關鍵領域：**組織**與**優化**您的專案。
 
-## 組織
+## 組織 {id="organize"}
 
 本節重點在於建構您的 Gradle 專案，以提高清晰度、可維護性和擴充性。
 
-### 使用 Kotlin DSL
+### 使用 Kotlin DSL {id="use-kotlin-dsl"}
 
 使用 Kotlin DSL 而不是傳統的 Groovy DSL。您可以避免學習另一門語言，並獲得強型別的好處。強型別讓 IDE 能為重構與自動補全提供更好的支援，使開發更有效率。
 
@@ -16,7 +16,7 @@
 
 閱讀 Gradle 關於 Kotlin DSL 成為 Gradle 組建預設選項的[部落格文章](https://blog.gradle.org/kotlin-dsl-is-now-the-default-for-new-gradle-builds)。
 
-### 使用版本目錄
+### 使用版本目錄 {id="use-a-version-catalog"}
 
 在 `libs.versions.toml` 檔案中使用版本目錄 (version catalog) 來集中管理相依性。這讓您能夠在多個專案中一致地定義和重用版本、程式庫和外掛程式。
 
@@ -38,7 +38,7 @@ dependencies {
 
 在 Gradle 關於[相依性管理基礎](https://docs.gradle.org/current/userguide/dependency_management_basics.html#version_catalog)的文件中了解更多資訊。
 
-### 使用慣例外掛程式
+### 使用慣例外掛程式 {id="use-convention-plugins"}
 
 <primary-label ref="advanced"/>
 
@@ -48,17 +48,17 @@ dependencies {
 
 在 Gradle 關於[慣例外掛程式](https://docs.gradle.org/current/userguide/custom_plugins.html#sec:convention_plugins)的文件中了解更多資訊。
 
-## 優化
+## 優化 {id="optimize"}
 
 本節提供了增強 Gradle 組建效能與效率的策略。
 
-### 使用本機組建快取
+### 使用本機組建快取 {id="use-local-build-cache"}
 
 使用本機組建快取，透過重用其他組建產生的輸出來節省時間。組建快取可以檢索您之前已建立的任何早期組建的輸出。
 
 在 Gradle 關於[組建快取](https://docs.gradle.org/current/userguide/build_cache.html)的文件中了解更多資訊。
 
-### 使用配置快取
+### 使用配置快取 {id="use-configuration-cache"}
 
 > 配置快取尚未支援所有核心 Gradle 外掛程式。如需最新資訊，請參閱 Gradle 的[支援外掛程式列表](https://docs.gradle.org/current/userguide/configuration_cache_status.html#config_cache:plugins:core)。
 >
@@ -70,7 +70,7 @@ dependencies {
 
 在 [Gradle 文件](https://docs.gradle.org/current/userguide/configuration_cache.html)中進一步了解配置快取。
 
-### 改善多目標的組建時間
+### 改善多目標的組建時間 {id="improve-build-times-for-multiple-targets"}
 
 當您的多平台專案包含多個目標時，像是 `build` 和 `assemble` 等任務可能會針對每個目標多次編譯相同的程式碼，導致編譯時間變長。
 
@@ -78,13 +78,13 @@ dependencies {
 
 如需更多資訊，請參閱[改善編譯時間的提示](native-improving-compilation-time.md#gradle-configuration)。
 
-### 從 kapt 遷移至 KSP
+### 從 kapt 遷移至 KSP {id="migrate-from-kapt-to-ksp"}
 
 如果您使用的程式庫依賴於 [kapt](kapt.md) 編譯器外掛程式，請檢查是否可以改為使用 [Kotlin Symbol Processing (KSP) API](ksp-overview.md)。KSP API 透過減少註解處理時間來提高組建效能。KSP 比 kapt 更快且更有效率，因為它直接處理原始碼，而不需要產生中間的 Java 虛設常式。
 
 如需遷移步驟的指導，請參閱[遷移指南](ksp-kapt-migration.md)。
 
-### 使用模組化
+### 使用模組化 {id="use-modularization"}
 
 <primary-label ref="advanced"/>
 
@@ -106,14 +106,14 @@ dependencies {
 
 在 Gradle 關於[使用 Gradle 建構專案結構](https://docs.gradle.org/current/userguide/multi_project_builds.html)的文件中了解更多資訊。
 
-### 設定 CI/CD
+### 設定 CI/CD {id="set-up-ci-cd"}
 <primary-label ref="advanced"/>
 
 藉由使用增量組建和快取相依性，設定 CI/CD 流程可以顯著減少組建時間。加入持久化存儲或使用遠端組建快取來獲得這些好處。這個過程不一定很耗時，因為某些供應商（如 [GitHub](https://github.com/features/actions)）幾乎提供了開箱即用的服務。
 
 探索 Gradle 的社群指南：[在持續整合系統中使用 Gradle](https://cookbook.gradle.org/ci/)。
 
-### 使用遠端組建快取
+### 使用遠端組建快取 {id="use-remote-build-cache"}
 <primary-label ref="advanced"/>
 
 與[本機組建快取](#use-local-build-cache)類似，遠端組建快取透過重用其他組建的輸出來幫助您節省時間。它可以檢索任何人已經執行過的任何早期組建的任務輸出，而不僅僅是最後一次。

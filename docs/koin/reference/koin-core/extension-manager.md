@@ -6,7 +6,7 @@ title: 扩展管理器
 
 Koin 提供了一个扩展系统，允许您向框架添加新功能。这对于将 Koin 与外部系统集成或添加自定义功能非常有用。
 
-## KoinExtension
+## KoinExtension {id="koinextension"}
 
 Koin 扩展是一个实现 `KoinExtension` 接口的类：
 
@@ -24,7 +24,7 @@ interface KoinExtension {
 }
 ```
 
-### 创建扩展
+### 创建扩展 {id="creating-an-extension"}
 
 ```kotlin
 class MyCustomExtension : KoinExtension {
@@ -45,7 +45,7 @@ class MyCustomExtension : KoinExtension {
 }
 ```
 
-### 注册扩展
+### 注册扩展 {id="registering-an-extension"}
 
 使用 `ExtensionManager` 来注册扩展：
 
@@ -61,7 +61,7 @@ fun KoinApplication.myExtension() {
 private const val EXTENSION_ID = "my-extension"
 ```
 
-### 访问扩展
+### 访问扩展 {id="accessing-an-extension"}
 
 ```kotlin
 val Koin.myExtension: MyCustomExtension
@@ -72,7 +72,7 @@ val extension = getKoin().myExtension
 extension.doSomething()
 ```
 
-### 在 Koin 设置中使用
+### 在 Koin 设置中使用 {id="using-in-koin-setup"}
 
 ```kotlin
 startKoin {
@@ -85,7 +85,7 @@ startKoin {
 `ExtensionManager` 被标记为 `@KoinInternalApi`。这意味着 API 可能会在版本之间发生变化。在生产代码中请谨慎使用。
 :::
 
-## ResolutionExtension
+## ResolutionExtension {id="resolutionextension"}
 
 对于更高级的用例，Koin 提供了 `ResolutionExtension` 来挂钩到依赖解析过程。这允许您提供来自外部源的实例。
 
@@ -106,14 +106,14 @@ interface ResolutionExtension {
 }
 ```
 
-### 用例
+### 用例 {id="use-cases"}
 
 - 与外部 DI 容器集成
 - 从缓存或池中提供实例
 - 根据运行时条件进行动态实例解析
 - 使用模拟提供者进行测试
 
-### 示例：外部实例提供者
+### 示例：外部实例提供者 {id="example-external-instance-provider"}
 
 ```kotlin
 class ExternalInstanceProvider : ResolutionExtension {
@@ -131,7 +131,7 @@ class ExternalInstanceProvider : ResolutionExtension {
 }
 ```
 
-### 注册 ResolutionExtension
+### 注册 ResolutionExtension {id="registering-a-resolutionextension"}
 
 ```kotlin
 val externalProvider = ExternalInstanceProvider()
@@ -152,7 +152,7 @@ startKoin {
 `ResolutionExtension` API 被标记为 `@KoinExperimentalAPI`。该 API 可能会在未来的版本中发生变化。
 :::
 
-### 完整示例
+### 完整示例 {id="complete-example"}
 
 ```kotlin
 @OptIn(KoinExperimentalAPI::class)
@@ -187,21 +187,21 @@ fun resolutionExtensionExample() {
 }
 ```
 
-## 何时使用扩展
+## 何时使用扩展 {id="when-to-use-extensions"}
 
 | 扩展类型 | 用例 |
 |---------------|----------|
 | `KoinExtension` | 向 Koin 添加功能（日志记录、监控、自定义作用域） |
 | `ResolutionExtension` | 在解析期间从外部源提供实例 |
 
-## 最佳做法
+## 最佳做法 {id="best-practices"}
 
 1. **谨慎使用** - 扩展会增加复杂性；尽可能首选标准 Koin 定义。
 2. **为您的扩展编写文档** - 明确说明扩展的作用以及如何使用它。
 3. **处理清理** - 始终实现 `onClose()` 以避免资源泄漏。
 4. **考虑线程安全性** - 扩展可能会从多个线程调用。
 
-## 后续步骤
+## 后续步骤 {id="next-steps"}
 
 - **[作用域](/docs/reference/koin-core/scopes)** - 自定义作用域管理
 - **[模块](/docs/reference/koin-core/modules)** - 模块组织

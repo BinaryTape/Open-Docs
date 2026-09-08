@@ -8,7 +8,7 @@ Koog 技能允许智能体从文件系统中搜索 (discover) 可重用的功能
 2. 从搜索到的元数据生成技能提示词块。
 3. 将生成的提示词块添加到智能体的 `system` 提示词中，并提供智能体可用于检查文件和执行技能脚本的工具。
 
-## 示例：将技能添加到 system 提示词
+## 示例：将技能添加到 system 提示词 {id="example-adding-skills-to-system-prompt"}
 
 ```kotlin
 
@@ -54,7 +54,7 @@ fun main() = runBlocking {
 ```
 <!--- KNIT example-skills-usage-01.kt -->
 
-## 核心组件
+## 核心组件 {id="required-pieces"}
 
 - `discoverSkills(...)` 扫描配置的目录并返回搜索到的技能描述符。
 - `generateSkillsPrompt(...)` 将搜索到的技能转换为提示词文本（`SkillsPromptFormat.XML` 是常用选择）。
@@ -63,7 +63,7 @@ fun main() = runBlocking {
   - 文件搜索/读取工具（用于技能信息的透明公开），
   - 一个或多个用于执行技能脚本的执行工具。
 
-## 行为预期
+## 行为预期 {id="behavior-expectations"}
 
 当提示词中包含技能且注册了匹配的工具时，智能体可以：
 
@@ -73,7 +73,7 @@ fun main() = runBlocking {
 
 详情请参阅 [Agent Skills](https://agentskills.io/home) 文档。
 
-## 实用技巧
+## 实用技巧 {id="practical-tips"}
 
 - 将技能保存在专用目录中，并在相对路径根目录可能发生变化的运行时环境中传递绝对路径。
 - 当技能是静态的时，使用只读文件提供程序进行搜索（例如 `JVMFileSystemProvider.ReadOnly`）。

@@ -322,7 +322,7 @@ ${state.draft}")
     <!--- KNIT exampleGoapAgentsJava01.java -->
     
 
-## 사용자 정의 비용 함수
+## 사용자 정의 비용 함수 {id="custom-cost-functions"}
 
 [A* 탐색][A* search]은 최적의 액션 시퀀스를 찾을 때 비용(cost)을 요소로 사용하므로, 플래너를 안내하기 위해 액션과 목표에 대한 사용자 정의 비용 함수를 정의할 수 있습니다:
 
@@ -415,7 +415,7 @@ ${state.draft}")
     ```
     <!--- KNIT exampleGoapAgentsJava02.java -->
 
-## 실제 실행과 상태 믿음의 비교
+## 실제 실행과 상태 믿음의 비교 {id="state-beliefs-compared-to-actual-execution"}
 
 GOAP는 믿음(낙관적 예측)과 실제 실행의 개념을 구분합니다:
 

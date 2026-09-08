@@ -93,7 +93,7 @@ routing {
 
 플러그인은 먼저 애플리케이션 리소스(resources)에서 사양을 찾습니다. 찾지 못하면 `java.io.File`을 사용하여 파일 시스템에서 로드하려고 시도합니다.
 
-## 런타임 OpenAPI 메타데이터 생성
+## 런타임 OpenAPI 메타데이터 생성 {id="generate-runtime-openapi-metadata"}
 
 정적 파일에 의존하는 대신, OpenAPI 컴파일러 플러그인과 라우트 어노테이션(route annotations)으로 생성된 메타데이터를 사용하여 런타임에 OpenAPI 사양을 생성할 수 있습니다.
 

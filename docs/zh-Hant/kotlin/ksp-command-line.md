@@ -15,7 +15,7 @@ java -cp <classpath> <mainclass> <options> <processor>
 | `<options>`   | KSP 的命令列選項。                                   |
 | `<processor>` | 處理器 JAR 檔案的路徑。                              |
 
-## Classpath
+## Classpath {id="classpath"}
 
 與 Gradle 外掛程式不同，`java` 指令不會自動解析相依性。您必須在 classpath 中提供 KSP 執行時 JAR 檔案及其相依性。
 
@@ -33,7 +33,7 @@ java -cp <classpath> <mainclass> <options> <processor>
 
 * [`kotlinx-coroutines-core-jvm-%coroutinesVersion%.jar`](https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-core-jvm)
 
-## Main class
+## Main class {id="main-class"}
 
 因為 KSP 是 JVM 應用程式，所以您必須指定要啟動的 main class。KSP 為每個受支援的平台提供不同的入口點：
 
@@ -71,7 +71,7 @@ com.google.devtools.ksp.cmdline.KSPJvmMain \
 path/to/processor.jar
 ```
 
-## 選項
+## 選項 {id="options"}
 
 從命令列執行時，KSP 需要以下選項：
 
@@ -91,7 +91,7 @@ path/to/processor.jar
 | `-resource-output-dir=<path>` | 產生的資源目錄。                                                                                                                        |
 | `<processor>`                 | 處理器 classpath。                                                                                                                   |
 
-### 其他有用選項
+### 其他有用選項 {id="other-useful-options"}
 
 * `-libraries=<path>`：用於解析原始碼檔案所引用之相依性的 classpath。通常是模組的編譯 classpath。
 

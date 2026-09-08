@@ -22,7 +22,7 @@
 >
 {style="tip"}
 
-## プロジェクトのセットアップ
+## プロジェクトのセットアップ {id="set-up-the-project"}
 
 この機能は Kotlin 2.0.0 以降で使用可能です。
 
@@ -34,14 +34,14 @@
 
 このチュートリアルでは、プロジェクトがプロジェクトのビルドフェーズで `embedAndSignAppleFrameworkForXcode` タスクを使用する[直接統合](multiplatform-direct-integration.md)アプローチを使用していることを前提としています。CocoaPods プラグインまたは `binaryTarget` を使用した Swift パッケージを通じて Kotlin フレームワークを接続している場合は、先に移行を行ってください。
 
-### SPM の binaryTarget 統合からの移行 {initial-collapse-state="collapsed" collapsible="true"}
+### SPM の binaryTarget 統合からの移行 {initial-collapse-state="collapsed" collapsible="true" id="migrate-from-swiftpm-binarytarget-integration"}
 
 `binaryTarget` を使用した SwiftPM 統合から移行するには：
 
 1. Xcode で、**Product** | **Clean Build Folder** を使用するか、<shortcut>Cmd + Shift + K</shortcut> ショートカットを使用してビルドディレクトリをクリーンアップします。
 2. すべての `Package.swift` ファイルから、Kotlin フレームワークを含むパッケージへの依存関係と、プロダクトへのターゲット依存関係の両方を削除します。
 
-### CocoaPods プラグインからの移行 {initial-collapse-state="collapsed" collapsible="true"}
+### CocoaPods プラグインからの移行 {initial-collapse-state="collapsed" collapsible="true" id="migrate-from-the-cocoapods-plugin"}
 
 > `cocoapods {}` ブロック内に他の Pod への依存関係がある場合は、CocoaPods 統合アプローチを継続する必要があります。現在、マルチモードの SwiftPM プロジェクトにおいて、Pod への依存関係と Kotlin フレームワークへの依存関係を両立させることはできません。
 >
@@ -133,7 +133,7 @@ CocoaPods プラグインから移行するには：
 * デフォルトの `Debug` または `Release` とは異なるカスタムビルド構成を使用している場合は、**Build Settings** タブの **User-Defined** で `KOTLIN_FRAMEWORK_BUILD_TYPE` 設定を追加し、`Debug` または `Release` に設定してください。
 * スクリプトのサンドボックス化（script sandboxing）に関するエラーが発生した場合は、プロジェクト名をダブルクリックして iOS プロジェクト設定を開き、**Build Settings** タブの **Build Options** にある **User Script Sandboxing** を無効にしてください。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [統合方法を選択する](multiplatform-ios-integration-overview.md)
 * [Swift パッケージのエクスポートをセットアップする方法を学ぶ](multiplatform-spm-export.md)

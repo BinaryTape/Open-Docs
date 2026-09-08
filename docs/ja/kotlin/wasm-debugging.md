@@ -4,7 +4,7 @@
 
 このチュートリアルでは、Kotlin/Wasm を使用して構築された [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) アプリケーションを、IntelliJ IDEA とブラウザを使用してデバッグする方法を説明します。
 
-## 始める前に
+## 始める前に {id="before-you-start"}
 
 1. [Kotlin マルチプラットフォーム開発のための環境を構築します](https://kotlinlang.org/docs/multiplatform/quickstart.html#set-up-the-environment)。
 2. 指示に従って、[Kotlin/Wasm をターゲットとする Kotlin マルチプラットフォームプロジェクトを作成します](wasm-get-started.md#create-a-project)。
@@ -14,7 +14,7 @@
 >
 {style="note"}
 
-## IntelliJ IDEA でのデバッグ
+## IntelliJ IDEA でのデバッグ {id="debug-in-intellij-idea"}
 
 作成した Kotlin マルチプラットフォームプロジェクトには、Kotlin/Wasm で動作する Compose Multiplatform アプリケーションが含まれています。特別な設定を行うことなく、このアプリケーションを IntelliJ IDEA でデバッグできます。
 
@@ -39,7 +39,7 @@
 
    ![Compose アプリのデバッガー](wasm-debug-pane.png){width=600}
 
-### アプリケーションの検査
+### アプリケーションの検査 {id="inspect-your-application"}
 
 > [ブラウザでデバッグ](#debug-in-your-browser)している場合も、アプリケーションの検査には同じ手順を使用できます。
 >
@@ -59,7 +59,7 @@
 4. コードに変更を加え、アプリケーションを再度実行して、動作を確認します。
 5. デバッグが完了したら、ブレークポイントのある行番号をクリックして、ブレークポイントを削除します。
 
-## ブラウザでのデバッグ
+## ブラウザでのデバッグ {id="debug-in-your-browser"}
 
 特別な設定なしで、ブラウザ内でこの Compose Multiplatform アプリケーションをデバッグすることもできます。
 
@@ -87,7 +87,7 @@ Kotlin/Wasm プロジェクトのソースをブラウザに提供するため�
 
    ![コールスタックの確認](wasm-debug-scope.png){width=450}
 
-### カスタムフォーマッターの使用
+### カスタムフォーマッターの使用 {id="use-custom-formatters"}
 
 カスタムフォーマッターを使用すると、ブラウザで Kotlin/Wasm コードをデバッグする際に、変数の値をよりユーザーフレンドリーで分かりやすい方法で表示・特定できます。
 
@@ -118,14 +118,14 @@ kotlin {
 }
 ```
 
-## フィードバックの提供
+## フィードバックの提供 {id="leave-feedback"}
 
 デバッグ体験に関するフィードバックをお待ちしております！
 
 * ![Slack](slack.svg){width=25}{type="joined"} Slack: [Slack の招待を受け取り](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)、[#webassembly](https://kotlinlang.slack.com/archives/CDFP59223) チャンネルで開発者に直接フィードバックを提供してください。
 * [YouTrack](https://youtrack.jetbrains.com/issue/KT-56492) でフィードバックを提供してください。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * Kotlin/Wasm デバッグの実演については、こちらの [YouTube ビデオ](https://www.youtube.com/watch?v=t3FUWfJWrjU&t=2703s)（英語）をご覧ください。
 * その他の Kotlin/Wasm の例を試してみてください：

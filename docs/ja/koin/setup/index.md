@@ -6,7 +6,7 @@ title: セットアップとバージョン
 
 このガイドでは、プロジェクトに Koin を追加するために必要なすべての事項について説明します。
 
-## クイックセットアップ
+## クイックセットアップ {id="quick-setup"}
 
 開始するには、プラットフォームを選択してください：
 
@@ -19,7 +19,7 @@ title: セットアップとバージョン
 | **Kotlin Multiplatform** | `koin-core` | [Gradle のセットアップ](/docs/setup/gradle#kotlin-multiplatform) |
 | **Ktor** | `koin-ktor` | [Gradle のセットアップ](/docs/setup/gradle#ktor) |
 
-## 推奨セットアップ: BOM + コンパイラプラグイン
+## 推奨セットアップ: BOM + コンパイラプラグイン {id="recommended-setup-bom-compiler-plugin"}
 
 最良のエクスペリエンスを得るために、以下を推奨します：
 
@@ -28,9 +28,9 @@ title: セットアップとバージョン
 
 詳細な手順については、**[コンパイラプラグインのセットアップガイド](/docs/setup/compiler-plugin)**を参照してください。
 
-## セットアップガイド
+## セットアップガイド {id="setup-guides"}
 
-### [Gradle のセットアップ](/docs/setup/gradle)
+### [Gradle のセットアップ](/docs/setup/gradle) {id="gradle-setup"}
 
 すべてのプラットフォーム向けの完全な依存関係設定：
 - Koin BOM (推奨)
@@ -38,7 +38,7 @@ title: セットアップとバージョン
 - プラットフォーム固有のパッケージ
 - テスト用の依存関係
 
-### [コンパイラプラグインのセットアップ](/docs/setup/compiler-plugin)
+### [コンパイラプラグインのセットアップ](/docs/setup/compiler-plugin) {id="compiler-plugin-setup"}
 
 Koin コンパイラプラグインの詳細ガイド：
 - Gradle プラグインの設定
@@ -46,14 +46,14 @@ Koin コンパイラプラグインの詳細ガイド：
 - Kotlin バージョンの要件
 - トラブルシューティング
 
-### [KSP プロセッサのセットアップ](/docs/setup/annotations-ksp) (非推奨)
+### [KSP プロセッサのセットアップ](/docs/setup/annotations-ksp) (非推奨) {id="ksp-processor-setup-deprecated"}
 
 Koin Annotations 向けの KSP ベースのプロセッサである `koin-ksp-compiler` のレガシーなセットアップ：
 - ⚠️ `koin-ksp-compiler` は非推奨です — Koin コンパイラプラグインへ移行してください
 - Koin Annotations 自体は非推奨ではありません。`koin-annotations` は現在、メインの Koin プロジェクトの一部となっています
 - 移行ガイドが含まれています
 
-## バージョンの互換性
+## バージョンの互換性 {id="version-compatibility"}
 
 | Koin バージョン | Kotlin バージョン | Koin コンパイラプラグイン |
 |--------------|----------------|----------------------|
@@ -62,14 +62,14 @@ Koin Annotations 向けの KSP ベースのプロセッサである `koin-ksp-co
 | 4.0.x | 1.9/2.0+ | ⚠️ KSP プロセッサのみ |
 | 3.5.x | 1.8+ | ❌ 利用不可 |
 
-## 現在のバージョン
+## 現在のバージョン {id="current-version"}
 
 - **Koin**: [![Maven Central](https://img.shields.io/maven-central/v/io.insert-koin/koin-core?label=latest)](https://mvnrepository.com/artifact/io.insert-koin/koin-core)
 - **Koin コンパイラプラグイン**: [![Maven Central](https://img.shields.io/maven-central/v/io.insert-koin/koin-compiler-plugin?label=latest)](https://mvnrepository.com/artifact/io.insert-koin/koin-compiler-plugin)
 
 [Maven Central](https://central.sonatype.com/search?q=io.insert-koin+koin-core&sort=name) ですべての Koin パッケージを確認できます。
 
-## 次のステップ
+## 次のステップ {id="next-steps"}
 
 セットアップの後に：
 - **[コアコンセプト](/docs/reference/koin-core/starting-koin)** - Koin の使い方を学ぶ

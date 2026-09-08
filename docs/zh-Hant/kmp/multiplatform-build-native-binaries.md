@@ -10,7 +10,7 @@
 
 Kotlin/Native 編譯器產生的二進位檔可能包含第三方程式碼、資料或衍生著作。這意味著如果您散佈 Kotlin/Native 編譯的最終二進位檔，應始終在您的二進位檔散佈套件中包含必要的[授權檔案](https://kotlinlang.org/docs/native-binary-licenses.html)。
 
-## 宣告二進位檔
+## 宣告二進位檔 {id="declare-binaries"}
 
 使用以下工廠方法來宣告 `binaries` 集合的元素。
 
@@ -117,7 +117,7 @@ binaries {
 
 第一個引數設定名稱字首，這是二進位檔的預設名稱。例如，對於 Windows，程式碼會產生 `foo.exe` 與 `bar.exe` 檔案。您也可以使用名稱字首來[在組建指令碼中存取二進位檔](#access-binaries)。
 
-## 存取二進位檔
+## 存取二進位檔 {id="access-binaries"}
 
 您可以存取二進位檔以[配置它們](multiplatform-dsl-reference.md#native-targets)或獲取其屬性（例如輸出檔案的路徑）。
 
@@ -198,7 +198,7 @@ binaries.findExecutable('foo', DEBUG)
 </TabItem>
 </Tabs>
 
-## 匯出相依性至二進位檔
+## 匯出相依性至二進位檔 {id="export-dependencies-to-binaries"}
 
 組建 Objective-C 架構或原生程式庫（共享或靜態）時，您可能不僅需要封裝當前專案的類別，還需要封裝其相依性的類別。使用 `export` 方法指定要匯出至二進位檔的相依性。
 
@@ -308,7 +308,7 @@ binaries {
 </TabItem>
 </Tabs>
 
-## 組建通用架構
+## 組建通用架構 {id="build-universal-frameworks"}
 
 預設情況下，Kotlin/Native 產生的 Objective-C 架構僅支援一個平台。然而，您可以使用 [`lipo` 工具](https://llvm.org/docs/CommandGuide/llvm-lipo.html)將此類架構合併為單一通用 (fat) 二進位檔。此操作對於 32 位元與 64 位元 iOS 架構特別有意義。在這種情況下，您可以在 32 位元與 64 位元裝置上同時使用產生的通用架構。
 
@@ -381,7 +381,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-## 組建 XCFrameworks
+## 組建 XCFrameworks {id="build-xcframeworks"}
 
 所有 Kotlin 多平台專案都可以使用 XCFrameworks 作為輸出，將所有目標平台與架構的邏輯收集到單一套件 (bundle) 中。與[通用 (fat) 架構](#build-universal-frameworks)不同，在將應用程式發佈到 App Store 之前，您不需要移除所有不必要的架構。
 
@@ -454,7 +454,7 @@ undefined
 >
 {style="warning"}
 
-## 自訂 Info.plist 檔案
+## 自訂 Info.plist 檔案 {id="customize-the-info-plist-file"}
 
 產生架構時，Kotlin/Native 編譯器會產生資訊屬性清單檔案 `Info.plist`。您可以使用對應的二進位檔選項自訂其屬性：
 

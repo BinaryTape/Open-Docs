@@ -14,7 +14,7 @@
 >
 {style="tip"}
 
-## 設定你的專案
+## 設定你的專案 {id="setting-up-your-project"}
 
 以下是處理需要取用 C 程式庫的專案時的一般流程：
 
@@ -28,9 +28,9 @@
 
 在許多情況下，不需要配置自訂的 C 程式庫互通功能。相反地，你可以使用平台上已標準化繫結的可用 API，稱為[平台程式庫](native-platform-libs.md)。例如，Linux/macOS 平台上的 POSIX、Windows 平台上的 Win32，或是 macOS/iOS 上的 Apple 框架都可以透過這種方式使用。
 
-## 繫結
+## 繫結 {id="bindings"}
 
-### 基本互通型別
+### 基本互通型別 {id="basic-interop-types"}
 
 所有支援的 C 型別在 Kotlin 中都有對應的表示方式：
 
@@ -44,7 +44,7 @@
 
 對於同時具有兩種表示方式的型別，具有左值的型別有一個可變的 `.value` 屬性用於存取該值。
 
-#### 指標型別
+#### 指標型別 {id="pointer-types"}
 
 `CPointer<T>` 的型別引數 `T` 必須是上述左值型別之一。例如，C 型別 `struct S*` 會對應到 `CPointer<S>`，`int8_t*` 對應到 `CPointer<int_8tVar>`，而 `char**` 則對應到 `CPointer<CPointerVar<ByteVar>>`。
 
@@ -102,7 +102,7 @@ val originalPtr = longValue.toCPointer<T>()
 > 
 {style="tip"}
 
-### 記憶體分配
+### 記憶體分配 {id="memory-allocation"}
 
 可以使用 `NativePlacement` 介面來分配原生記憶體，例如：
 
@@ -146,7 +146,7 @@ val fileSize = memScoped {
 }
 ```
 
-### 將指標傳遞給繫結
+### 將指標傳遞給繫結 {id="pass-pointers-to-bindings"}
 
 雖然 C 指標對應到 `CPointer<T>` 型別，但 C 函式的指標型別參數會對應到 `CValuesRef<T>`。當傳遞 `CPointer<T>` 作為此類參數的值時，它會原樣傳遞給 C 函式。然而，可以傳遞一系列值來代替指標。在這種情況下，該序列會「按值」傳遞，也就是說，C 函式會接收到該序列臨時副本的指標，該指標僅在函式回傳前有效。
 
@@ -172,7 +172,7 @@ foo(elements, 3);
 foo(cValuesOf(1, 2, 3), 3)
 ```
 
-### 字串
+### 字串 {id="strings"}
 
 與其他指標不同，`const char*` 型別的參數被表示為 Kotlin `String`。因此，可以將任何 Kotlin 字串傳遞給預期 C 字串的繫結。
 
@@ -207,7 +207,7 @@ memScoped {
 }
 ```
 
-### 作用域局部指標
+### 作用域局部指標 {id="scope-local-pointers"}
 
 可以使用在 `memScoped {}` 下可用的 `CValues<T>.ptr` 擴充屬性，為 `CValues<T>` 執行個體建立 C 表示形式的作用域穩定指標。它允許使用需要 C 指標且生命週期綁定到特定 `MemScope` 的 API。例如：
 
@@ -225,7 +225,7 @@ memScoped {
 
 在此範例中，傳遞給 C API `new_menu()` 的所有值，其生命週期都屬於它所屬的最內層 `memScope`。一旦控制流程離開 `memScoped` 作用域，C 指標就會失效。
 
-### 按值傳遞和接收結構
+### 按值傳遞和接收結構 {id="pass-and-receive-structs-by-value"}
 
 當 C 函式按值接受或回傳結構/聯合 `T` 時，相應的引數型別或回傳型別會表示為 `CValue<T>`。
 
@@ -247,11 +247,11 @@ memScoped {
 * [`fun CValues<T>.placeTo(scope: AutofreeScope): CPointer<T>`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/place-to.html)
   將 `CValues<T>` 放入 `AutofreeScope` 中，回傳指向已分配記憶體的指標。當 `AutofreeScope` 被處置時，分配的記憶體會自動釋放。
 
-### 回呼
+### 回呼 {id="callbacks"}
 
 若要將 Kotlin 函式轉換為指向 C 函式的指標，可以使用 `staticCFunction(::kotlinFunction)`。也可以提供 lambda 而不是函式參照。該函式或 lambda 不得擷取任何值。
 
-#### 將使用者資料傳遞給回呼
+#### 將使用者資料傳遞給回呼 {id="pass-user-data-to-callbacks"}
 
 C API 通常允許將某些使用者資料傳遞給回呼。此類資料通常由使用者在配置回呼時提供。例如，它會以 `void*` 的形式傳遞給某些 C 函式（或寫入結構）。然而，Kotlin 物件的參照不能直接傳遞給 C。因此，它們需要在配置回呼之前進行包裝，然後在回呼本身中進行解包，以便安全地從 Kotlin 經過 C 世界再回到 Kotlin。這種包裝可以透過 `StableRef` 類別實現。
 
@@ -285,7 +285,7 @@ stableRef.dispose()
 
 處置後它將失效，因此 `voidPtr` 無法再被解包。
 
-### 巨集
+### 巨集 {id="macros"}
 
 每個擴展為常數的 C 巨集都表示為 Kotlin 屬性。
 
@@ -310,7 +310,7 @@ static inline int foo(int arg) {
 }
 ```
 
-### 移植性
+### 移植性 {id="portability"}
 
 有時 C 程式庫的函式參數或結構欄位具有平台相依型別，例如 `long` 或 `size_t`。Kotlin 本身不提供隱式整數轉型或 C 風格整數轉型（例如 `(size_t) intValue`），因此為了讓編寫這類情況下的可移植程式碼更容易，提供了 `convert` 方法：
 
@@ -336,7 +336,7 @@ fun zeroMemory(buffer: COpaquePointer, size: Int) {
 
 此外，型別參數可以自動推論，因此在某些情況下可以省略。
 
-### 物件固定
+### 物件固定 {id="object-pinning"}
 
 Kotlin 物件可以被固定（pinned），即保證它們在記憶體中的位置在取消固定之前是穩定的，並且指向這些物件內部資料的指標可以傳遞給 C 函式。
 
@@ -387,7 +387,7 @@ Kotlin 物件可以被固定（pinned），即保證它們在記憶體中的位�
 
   這裡，`buffer.refTo(0)` 具有 `CValuesRef` 型別，它在進入 `recv()` 函式之前固定陣列，將其第零個元素的位址傳遞給函式，並在離開後取消固定陣列。
 
-### 前向宣告
+### 前向宣告 {id="forward-declarations"}
 
 若要匯入前向宣告（forward declarations），請使用 `cnames` 套件。例如，若要匯入在具有 `library.package` 的 C 程式庫中宣告的 `cstructName` 前向宣告，請使用特殊的前向宣告套件：`import cnames.structs.cstructName`。
 
@@ -431,7 +431,7 @@ fun test() {
 }
 ```
 
-## 接下來的步驟
+## 接下來的步驟 {id="what-s-next"}
 
 透過完成以下教學，了解型別、函式和字串如何在 Kotlin 和 C 之間對應：
 

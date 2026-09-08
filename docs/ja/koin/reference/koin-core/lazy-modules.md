@@ -8,7 +8,7 @@ title: レイジーモジュールとバックグラウンドロード
 このページでは **Koin Compiler Plugin DSL** (`single<T>()`) を使用しています。設定については [Compiler Plugin Setup](/docs/setup/compiler-plugin) を参照してください。
 :::
 
-## レイジーモジュールとは？
+## レイジーモジュールとは？ {id="what-are-lazy-modules"}
 
 レイジーモジュールは、明示的にロードされるまでモジュールの登録とインスタンスの作成を遅延させます。これらは特に以下のようなケースで役立ちます：
 
@@ -17,7 +17,7 @@ title: レイジーモジュールとバックグラウンドロード
 - **条件付き機能** - 必要な時だけモジュールをロードする
 - **バックグラウンド初期化** - クリティカル（重要）ではないモジュールを非同期でロードする
 
-## レイジーモジュールの定義
+## レイジーモジュールの定義 {id="defining-lazy-modules"}
 
 `lazyModule` 関数を使用してレイジーモジュールを作成します：
 
@@ -34,7 +34,7 @@ val databaseModule = lazyModule {
 }
 ```
 
-### レイジーモジュールの構成
+### レイジーモジュールの構成 {id="composing-lazy-modules"}
 
 レイジーモジュールは、通常のモジュールと同様に `includes()` をサポートしています：
 
@@ -53,11 +53,11 @@ val featureModule = lazyModule {
 レイジーモジュールは、`lazyModules()` 関数を介してロードされるまで、いかなるリソースも割り当てません。
 :::
 
-## レイジーモジュールのロード
+## レイジーモジュールのロード {id="loading-lazy-modules"}
 
 Koinの設定内で `lazyModules()` を使用してレイジーモジュールをロードします。
 
-### 基本的なロード方法
+### 基本的なロード方法 {id="basic-loading"}
 
 ```kotlin
 val analyticsModule = lazyModule {
@@ -77,7 +77,7 @@ startKoin {
 }
 ```
 
-### 並列ロード (4.2.0+)
+### 並列ロード (4.2.0+) {id="parallel-loading-4-2-0"}
 
 バージョン 4.2.0 以降、複数のレイジーモジュールは、各モジュールが独自のコルーチン内で**並列**にロードされるようになりました：
 
@@ -100,9 +100,9 @@ startKoin {
 | 3 モジュール @ 各 100ms | 300ms | ~100ms |
 | 10 モジュール @ 各 100ms | 1000ms | ~100ms |
 
-### ロード完了の待機
+### ロード完了の待機 {id="waiting-for-completion"}
 
-#### 全プラットフォーム共通: `waitAllStartJobs()`
+#### 全プラットフォーム共通: `waitAllStartJobs()` {id="all-platforms-waitallstartjobs"}
 
 ```kotlin
 startKoin {
@@ -122,7 +122,7 @@ val service = koin.get<AnalyticsService>()
 - **JVM/Native**: `runBlocking` による真のブロッキング
 - **JS**: `GlobalScope.promise` を使用（真のブロッキングではなく、警告をログ出力します）
 
-#### JVM 限定: `runOnKoinStarted()`
+#### JVM 限定: `runOnKoinStarted()` {id="jvm-only-runonkoinstarted"}
 
 ```kotlin
 startKoin {
@@ -136,7 +136,7 @@ KoinPlatform.getKoin().runOnKoinStarted { koin ->
 }
 ```
 
-#### サスペンドによる代替手段: `awaitAllStartJobs()`
+#### サスペンドによる代替手段: `awaitAllStartJobs()` {id="suspending-alternative-awaitallstartjobs"}
 
 コルーチンコンテキストや、ブロッキングをサポートしていないプラットフォームの場合：
 
@@ -154,7 +154,7 @@ suspend fun initializeApp() {
 }
 ```
 
-## カスタムディスパッチャ (Custom Dispatchers)
+## カスタムディスパッチャ (Custom Dispatchers) {id="custom-dispatchers"}
 
 レイジーモジュールのロードを実行するディスパッチャを制御できます：
 
@@ -180,7 +180,7 @@ startKoin {
 指定しない場合、デフォルトのディスパッチャは `Dispatchers.Default` です。
 :::
 
-## 実践的な例
+## 実践的な例 {id="real-world-example"}
 
 ```kotlin
 // コアモジュール - 即座にロード
@@ -235,9 +235,9 @@ class MyApp : Application() {
 }
 ```
 
-## 重要な制限事項
+## 重要な制限事項 {id="important-limitations"}
 
-### 相互依存の回避
+### 相互依存の回避 {id="avoid-cross-dependencies"}
 
 レイジーモジュールと通常のモジュールは、互いに独立している必要があります。通常のモジュールからレイジーモジュールへの依存関係を作成しないでください：
 
@@ -277,15 +277,15 @@ startKoin {
 Koinは現在、通常のモジュールとレイジーモジュール間の依存関係を検証しません。通常のモジュールがレイジーモジュールの定義に依存しないように注意してください。
 :::
 
-### ベストプラクティス: ロード順序
+### ベストプラクティス: ロード順序 {id="best-practice-load-order"}
 
 1. **即時モジュール (Immediate modules)** - 起動時に必要なクリティカルなサービス
 2. **レイジーモジュール (Lazy modules)** - クリティカルではない、遅延可能なサービス
 3. **必要に応じて待機** - レイジーな定義にアクセスする前に `waitAllStartJobs()` を使用する
 
-## レイジーモジュールを使用すべきタイミング
+## レイジーモジュールを使用すべきタイミング {id="when-to-use-lazy-modules"}
 
-### 適したユースケース
+### 適したユースケース {id="good-use-cases"}
 
 - **アナリティクス/トラッキング** - コア機能には不要
 - **クラッシュレポート** - バックグラウンドで初期化可能
@@ -293,13 +293,13 @@ Koinは現在、通常のモジュールとレイジーモジュール間の依�
 - **データベース/ネットワーク** - 遅延可能な重い初期化処理
 - **大規模アプリ** - 起動時の負荷をスレッド間に分散させる
 
-### 推奨されないケース
+### 推奨されないケース {id="not-recommended"}
 
 - **コアサービス** - 即座に必要となるクリティカルな依存関係
 - **小規模なアプリ** - オーバーヘッドがメリットを上回る可能性がある
 - **密結合なモジュール** - モジュール間に多くの相互依存関係がある場合
 
-## API リファレンス
+## API リファレンス {id="api-reference"}
 
 | 関数 | プラットフォーム | 説明 |
 |----------|----------|-------------|
@@ -308,7 +308,7 @@ Koinは現在、通常のモジュールとレイジーモジュール間の依�
 | `awaitAllStartJobs()` | すべて | すべてのレイジーモジュールがロードされるまでサスペンドする |
 | `runOnKoinStarted()` | JVM のみ | ロード完了後のコールバック |
 
-## 関連項目
+## 関連項目 {id="see-also"}
 
 - **[Modules](/docs/reference/koin-core/modules)** - `includes()` によるモジュールの構成
 - **[Definitions](/docs/reference/koin-core/definitions)** - Eager（先行） vs Lazy（遅延）シングルトン

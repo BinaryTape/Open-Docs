@@ -16,7 +16,7 @@
 2. [在導覽圖中將特定的深層連結指派給目的地](#assign-deep-links-to-destinations)
 3. [處理應用程式接收到的深層連結](#handle-received-deep-links)
 
-## 設定
+## 設定 {id="setup"}
 
 要在 Compose Multiplatform 中使用深層連結，請按照以下方式設定相依性。
 
@@ -70,7 +70,7 @@ kotlin {
 }
 ```
 
-## 在作業系統中註冊深層連結架構
+## 在作業系統中註冊深層連結架構 {id="register-deep-links-schemas-in-the-operating-system"}
 
 每個作業系統都有自己處理深層連結的方式。參考特定目標平台的文件會更可靠：
 
@@ -87,13 +87,13 @@ kotlin {
     {style="tip"}
 * 對於 Linux，深層連結架構可以註冊在發行版隨附的 `.desktop` 檔案中。
 
-## 將深層連結指派給目的地
+## 將深層連結指派給目的地 {id="assign-deep-links-to-destinations"}
 
 宣告為導覽圖一部分的目的地具有一個選用的 `deepLinks` 參數，該參數可以保存對應的 `NavDeepLink` 物件列表。每個 `NavDeepLink` 都描述了一個應與目的地比對的 URI 模式——您可以定義多個應導向至同一螢幕的 URI 模式。
 
 您可以為一條路由定義的深層連結數量沒有限制。
 
-### 深層連結的通用 URI 模式
+### 深層連結的通用 URI 模式 {id="general-uri-patterns-for-deep-links"}
 
 通用的 URI 模式應與整個 URI 比對。您可以使用參數的占位符號，以便從接收到的 URI 中提取目的地內的參數。
 
@@ -107,7 +107,7 @@ kotlin {
     * 也比對 `http://www.example.com/users/4?other=random`，因為無關的查詢參數不影響比對。
 * 如果有多個 composable 具有與接收到的 URI 比對的 `navDeepLink`，則行為是不確定的。請確保您的深層連結模式並不重疊。如果您需要多個 composable 處理相同的深層連結模式，請考慮新增路徑或查詢參數，或使用中間目的地來可預測地引導使用者。
 
-### 為路由型別產生的 URI 模式
+### 為路由型別產生的 URI 模式 {id="generated-uri-pattern-for-a-route-type"}
 
 您可以避免完整寫出 URI 模式：導覽程式庫可以根據路由的參數自動產生 URI 模式。
 
@@ -147,7 +147,7 @@ URI 模式的其餘部分將產生如下：
 <basePath>/{id}/{name}/?colors={color1}&colors={color2}&latinName={latinName}
 ```
 
-### 為目的地新增深層連結的範例
+### 為目的地新增深層連結的範例 {id="example-of-adding-deep-links-to-a-destination"}
 
 在此範例中，我們將多個深層連結指派給一個目的地，然後從接收到的 URI 中提取參數值：
 
@@ -208,7 +208,7 @@ composable<DeepLinkScreen>(
 >
 {style="tip"}
 
-## 處理接收到的深層連結
+## 處理接收到的深層連結 {id="handle-received-deep-links"}
 
 在 Android 上，傳送至應用程式的深層連結 URI 可作為觸發深層連結的 `Intent` 的一部分取得。跨平台實作需要一種通用的方式來接聽深層連結。
 
@@ -218,7 +218,7 @@ composable<DeepLinkScreen>(
 2. 在必要之處，實作平台特定的呼叫，傳送從作業系統接收到的 URI。
 3. 在主 composable 中為新的深層連結設定接聽程式。
 
-### 宣告具有 URI 接聽程式的單例
+### 宣告具有 URI 接聽程式的單例 {id="declare-a-singleton-with-a-uri-listener"}
 
 在 `commonMain` 中，於頂層宣告單例物件：
 
@@ -250,7 +250,7 @@ object ExternalUriHandler {
 }
 ```
 
-### 實作對單例的平台特定呼叫
+### 實作對單例的平台特定呼叫 {id="implement-platform-specific-calls-to-the-singleton"}
 
 對於桌面版 JVM 和 iOS，您都需要明確傳遞從系統接收到的 URI。
 
@@ -297,7 +297,7 @@ func application(
 > 
 {style="tip"}
 
-### 設定接聽程式
+### 設定接聽程式 {id="set-up-the-listener"}
 
 您可以使用 `DisposableEffect(Unit)` 來設定接聽程式，並在 composable 不再處於作用狀態後對其進行清理。例如：
 
@@ -336,7 +336,7 @@ internal fun App(navController: NavHostController = rememberNavController()) = A
 }
 ```
 
-## 結果
+## 結果 {id="result"}
 
 現在您可以看到完整的流程：
 當使用者開啟 `demo://` URI 時，作業系統會將其與註冊的架構進行比對。
@@ -344,7 +344,7 @@ internal fun App(navController: NavHostController = rememberNavController()) = A
   * 如果處理深層連結的應用程式已關閉，單例會接收該 URI 並將其快取。當主 composable 函式啟動時，它會呼叫單例並導覽至與快取 URI 相符的深層連結。
   * 如果處理深層連結的應用程式已開啟，接聽程式已經設定好，因此當單例接收到 URI 時，應用程式會立即導覽至該處。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 查看展示 Compose Multiplatform 導覽程式庫實際運作的專案：
 

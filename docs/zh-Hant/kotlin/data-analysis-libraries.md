@@ -4,7 +4,7 @@
 
 除了自身的程式庫外，Kotlin 與 Java 100% 互通。這種互通性有助於利用整個經受過考驗且效能優異的 Java 程式庫生態系統。有了這項優勢，您在進行 [Kotlin 資料專案](data-analysis-overview.md) 時，可以輕鬆地使用 Kotlin 或 Java 程式庫。
 
-## Kotlin 程式庫
+## Kotlin 程式庫 {id="kotlin-libraries"}
 
 <table>
   <tr>
@@ -162,7 +162,7 @@
   </tr>
 </table>
 
-## Java 程式庫
+## Java 程式庫 {id="java-libraries"}
 
 由於 Kotlin 提供了一流的 Java 互通性，您可以在 Kotlin 程式碼中使用 Java 程式庫來執行資料任務。以下是此類程式庫的一些範例：
 

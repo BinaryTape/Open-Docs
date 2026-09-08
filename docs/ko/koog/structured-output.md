@@ -1,13 +1,13 @@
 # 구조화된 출력 (Structured output)
 
-## 소개 (Introduction)
+## 소개 (Introduction) {id="introduction"}
 
 Structured Output API는 대규모 언어 모델(LLM)의 응답이 특정 데이터 구조를 따르도록 보장하는 방법을 제공합니다.
 이는 자유 형식의 텍스트가 아닌 예측 가능하고 형식이 잘 갖춰진 데이터가 필요한 신뢰할 수 있는 AI 애플리케이션을 구축하는 데 매우 중요합니다.
 
 이 페이지에서는 이 API를 사용하여 데이터 구조를 정의하고, 스키마를 생성하고, LLM에 구조화된 응답을 요청하는 방법을 설명합니다.
 
-## 핵심 구성 요소 및 개념 (Key components and concepts)
+## 핵심 구성 요소 및 개념 (Key components and concepts) {id="key-components-and-concepts"}
 
 Structured Output API는 다음과 같은 몇 가지 핵심 구성 요소로 이루어져 있습니다:
 
@@ -16,11 +16,11 @@ Structured Output API는 다음과 같은 몇 가지 핵심 구성 요소로 이
 3. **구조화된 LLM 요청 (Structured LLM requests)**: 정의된 구조를 따르는 응답을 LLM에 요청하는 메서드입니다.
 4. **응답 처리 (Response handling)**: 구조화된 응답을 처리하고 검증합니다.
 
-## 데이터 구조 정의하기 (Defining data structures)
+## 데이터 구조 정의하기 (Defining data structures) {id="defining-data-structures"}
 
 Structured Output API를 사용하는 첫 번째 단계는 Kotlin 데이터 클래스를 사용하여 데이터 구조를 정의하는 것입니다.
 
-### 기본 구조 (Basic structure)
+### 기본 구조 (Basic structure) {id="basic-structure"}
 
 <!--- INCLUDE
 import ai.koog.agents.core.tools.annotations.LLMDescription
@@ -42,17 +42,17 @@ data class WeatherForecast(
 ```
 <!--- KNIT example-structured-data-01.kt -->
 
-### 주요 어노테이션 (Key annotations)
+### 주요 어노테이션 (Key annotations) {id="key-annotations"}
 
 - `@Serializable`: kotlinx.serialization이 클래스와 함께 작동하는 데 필요합니다.
 - `@SerialName`: 직렬화 중에 사용할 이름을 지정합니다.
 - `@LLMDescription`: LLM을 위한 클래스 설명을 제공합니다. 필드 어노테이션에는 `@property:LLMDescription`을 사용하세요.
 
-### 지원되는 기능 (Supported features)
+### 지원되는 기능 (Supported features) {id="supported-features"}
 
 이 API는 광범위한 데이터 구조 기능을 지원합니다:
 
-#### 중첩 클래스 (Nested classes)
+#### 중첩 클래스 (Nested classes) {id="nested-classes"}
 
 <!--- INCLUDE
 import ai.koog.agents.core.tools.annotations.LLMDescription
@@ -79,7 +79,7 @@ data class WeatherForecast(
 ```
 <!--- KNIT example-structured-data-02.kt -->
 
-#### 컬렉션 (리스트 및 맵) (Collections (lists and maps))
+#### 컬렉션 (리스트 및 맵) (Collections (lists and maps)) {id="collections-lists-and-maps"}
 
 <!--- INCLUDE
 import ai.koog.agents.core.tools.annotations.LLMDescription
@@ -106,7 +106,7 @@ data class WeatherForecast(
 ```
 <!--- KNIT example-structured-data-03.kt -->
 
-#### 열거형 (Enums)
+#### 열거형 (Enums) {id="enums"}
 
 <!--- INCLUDE
 import kotlinx.serialization.SerialName
@@ -119,7 +119,7 @@ enum class Pollution { Low, Medium, High }
 ```
 <!--- KNIT example-structured-data-04.kt -->
 
-#### 봉인된 클래스를 사용한 다형성 (Polymorphism with sealed classes)
+#### 봉인된 클래스를 사용한 다형성 (Polymorphism with sealed classes) {id="polymorphism-with-sealed-classes"}
 
 <!--- INCLUDE
 import ai.koog.agents.core.tools.annotations.LLMDescription
@@ -158,7 +158,7 @@ sealed class WeatherAlert {
 ```
 <!--- KNIT example-structured-data-05.kt -->
 
-### 예시 제공하기 (Providing examples)
+### 예시 제공하기 (Providing examples) {id="providing-examples"}
 
 LLM이 기대되는 형식을 이해하는 데 도움이 되도록 예시를 제공할 수 있습니다:
 
@@ -190,7 +190,7 @@ val exampleForecasts = listOf(
 ```
 <!--- KNIT example-structured-data-06.kt -->
 
-## 구조화된 응답 요청하기 (Requesting structured responses)
+## 구조화된 응답 요청하기 (Requesting structured responses) {id="requesting-structured-responses"}
 
 Koog에서 구조화된 출력을 사용할 수 있는 세 가지 주요 계층이 있습니다:
 
@@ -198,7 +198,7 @@ Koog에서 구조화된 출력을 사용할 수 있는 세 가지 주요 계층�
 2. **에이전트 LLM 컨텍스트 계층 (Agent LLM context layer)**: 대화형 컨텍스트를 위해 에이전트 세션 내에서 사용합니다.
 3. **노드 계층 (Node layer)**: 구조화된 출력 기능을 갖춘 재사용 가능한 에이전트 노드를 생성합니다.
 
-### 계층 1: 프롬프트 실행기 (Prompt executor)
+### 계층 1: 프롬프트 실행기 (Prompt executor) {id="layer-1-prompt-executor"}
 
 프롬프트 실행기 계층은 구조화된 LLM 호출을 수행하는 가장 직접적인 방법을 제공합니다. 단일 독립형 요청에는 `executeStructured` 메서드를 사용하세요:
 
@@ -270,7 +270,7 @@ val structuredResponse = promptExecutor.executeStructured<WeatherForecast>(
 
 이 메서드는 성공적으로 파싱된 구조화된 데이터 또는 오류를 포함하는 `Result<StructuredResponse<T>>`를 반환합니다.
 
-### 계층 2: 에이전트 LLM 컨텍스트 (Agent LLM context)
+### 계층 2: 에이전트 LLM 컨텍스트 (Agent LLM context) {id="layer-2-agent-llm-context"}
 
 에이전트 LLM 컨텍스트 계층을 사용하면 에이전트 세션 내에서 구조화된 응답을 요청할 수 있습니다. 이는 흐름의 특정 지점에서 구조화된 데이터가 필요한 대화형 에이전트를 빌드할 때 유용합니다.
 
@@ -313,7 +313,7 @@ val structuredResponse = llm.writeSession {
 
 수정 프로세스는 파싱 오류를 보조 모델에 반복적으로 전달하며, 보조 모델은 원본 데이터를 보존하고 변경을 최소화하면서 JSON을 수정하려고 시도합니다.
 
-#### 에이전트 전략과 통합하기 (Integrating with agent strategies)
+#### 에이전트 전략과 통합하기 (Integrating with agent strategies) {id="integrating-with-agent-strategies"}
 
 구조화된 데이터 처리를 에이전트 전략에 통합할 수 있습니다:
 
@@ -353,7 +353,7 @@ val agentStrategy = strategy<String, String>("weather-forecast") {
 ```
 <!--- KNIT example-structured-data-09.kt -->
 
-### 계층 3: 노드 계층 (Node layer)
+### 계층 3: 노드 계층 (Node layer) {id="layer-3-node-layer"}
 
 노드 계층은 에이전트 워크플로에서 구조화된 출력을 위한 최고 수준의 추상화를 제공합니다. 구조화된 데이터를 처리하는 재사용 가능한 에이전트 노드를 생성하려면 `nodeLLMRequestStructured`를 사용하세요.
 
@@ -363,7 +363,7 @@ val agentStrategy = strategy<String, String>("weather-forecast") {
 - LLM에 구조화된 출력 요청
 - `Result<StructuredResponse<MyStruct>>` 반환
 
-#### 노드 계층 예시 (Node layer example)
+#### 노드 계층 예시 (Node layer example) {id="node-layer-example"}
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
@@ -413,7 +413,7 @@ val agentStrategy = strategy<Unit, String>("weather-forecast") {
 ```
 <!--- KNIT example-structured-data-10.kt -->
 
-#### 전체 코드 샘플 (Full code sample)
+#### 전체 코드 샘플 (Full code sample) {id="full-code-sample"}
 
 다음은 Structured Output API를 사용하는 전체 예시입니다:
 
@@ -518,12 +518,12 @@ fun main(): Unit = runBlocking {
 ```
 <!--- KNIT example-structured-data-11.kt -->
 
-## 고급 사용법 (Advanced usage)
+## 고급 사용법 (Advanced usage) {id="advanced-usage"}
 
 위의 예시는 모델 역량에 따라 최상의 구조화된 출력 방식을 자동으로 선택하는 단순화된 API를 보여줍니다.
 구조화된 출력 프로세스를 더 자세히 제어하려면 수동 스키마 생성 및 제공자별 구성을 사용하는 고급 API를 사용할 수 있습니다.
 
-### 수동 스키마 생성 및 구성 (Manual schema creation and configuration)
+### 수동 스키마 생성 및 구성 (Manual schema creation and configuration) {id="manual-schema-creation-and-configuration"}
 
 자동 스키마 생성에 의존하는 대신 `JsonStructure.create`를 사용하여 스키마를 명시적으로 생성하고 `StructuredOutput` 클래스를 통해 구조화된 출력 동작을 수동으로 구성할 수 있습니다.
 
@@ -600,7 +600,7 @@ val structuredResponse = promptExecutor.executeStructured(
 ```
 <!--- KNIT example-structured-data-12.kt -->
 
-### 스키마 생성기 (Schema generators)
+### 스키마 생성기 (Schema generators) {id="schema-generators"}
 
 필요에 따라 다양한 스키마 생성기를 사용할 수 있습니다:
 
@@ -608,7 +608,7 @@ val structuredResponse = promptExecutor.executeStructured(
 - **BasicJsonSchemaGenerator**: 다형성을 지원하지 않는 단순화된 스키마로, 더 많은 모델과 호환됩니다.
 - **제공자별 생성기 (Provider-specific generators)**: 특정 LLM 제공자(OpenAI, Anthropic, Google 등)에 최적화된 스키마입니다.
 
-### 모든 계층에서의 사용 (Usage across all layers)
+### 모든 계층에서의 사용 (Usage across all layers) {id="usage-across-all-layers"}
 
 고급 구성은 API의 세 가지 계층 모두에서 일관되게 작동합니다. 메서드 이름은 동일하게 유지되며, 매개변수만 단순한 인수에서 더 고급인 `StructuredRequestConfig`로 변경됩니다:
 
@@ -618,7 +618,7 @@ val structuredResponse = promptExecutor.executeStructured(
 
 대부분의 사용 사례에는 단순화된 API(`examples` 및 `fixingParser` 매개변수만 사용)가 권장되지만, 추가적인 제어가 필요한 경우에는 고급 API가 유용합니다.
 
-## 권장 사항 (Best practices)
+## 권장 사항 (Best practices) {id="best-practices"}
 
 1. **명확한 설명 사용**: LLM이 기대되는 데이터를 이해할 수 있도록 `@LLMDescription` 어노테이션을 사용하여 명확하고 상세한 설명을 제공하세요.
 

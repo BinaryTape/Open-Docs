@@ -1,8 +1,8 @@
-## 서브그래프 생성 및 구성
+## 서브그래프 생성 및 구성 {id="creating-and-configuring-subgraphs"}
 
 다음 섹션에서는 에이전트 워크플로(agentic workflows)를 위한 서브그래프 생성 시 사용할 수 있는 코드 템플릿과 일반적인 패턴을 제공합니다.
 
-### 기본 서브그래프 생성
+### 기본 서브그래프 생성 {id="basic-subgraph-creation"}
 
 커스텀 서브그래프는 일반적으로 다음과 같은 패턴을 사용하여 생성됩니다:
 
@@ -242,7 +242,7 @@
     ```
     <!--- KNIT exampleCustomSubgraphsJava03.java -->
 
-### 서브그래프 내 도구 구성
+### 서브그래프 내 도구 구성 {id="configuring-tools-in-a-subgraph"}
 
 서브그래프에 도구를 구성하는 방법에는 여러 가지가 있습니다:
 
@@ -398,9 +398,9 @@
     ```
     <!--- KNIT exampleCustomSubgraphsJava06.java -->
 
-## 고급 서브그래프 기법
+## 고급 서브그래프 기법 {id="advanced-subgraph-techniques"}
 
-### 멀티 파트 전략(Multi-part strategies)
+### 멀티 파트 전략(Multi-part strategies) {id="multi-part-strategies"}
 
 복잡한 워크플로는 각 프로세스의 특정 부분을 처리하는 여러 서브그래프로 나눌 수 있습니다:
 
@@ -515,7 +515,7 @@
     ```
     <!--- KNIT exampleCustomSubgraphsJava07.java -->
 
-## 베스트 프랙티스
+## 베스트 프랙티스 {id="best-practices"}
 
 서브그래프를 작업할 때 다음 베스트 프랙티스를 따르세요:
 
@@ -529,15 +529,15 @@
 
 5. **토큰 사용량 고려**: 특히 서브그래프 간에 대량의 히스토리를 전달할 때 토큰 사용량에 주의하세요.
 
-## 트러블슈팅
+## 트러블슈팅 {id="troubleshooting"}
 
-### 도구를 사용할 수 없는 경우
+### 도구를 사용할 수 없는 경우 {id="tools-not-available"}
 
 서브그래프에서 도구를 사용할 수 없는 경우:
 
 - 도구가 도구 레지스트리에 올바르게 등록되었는지 확인하세요.
 
-### 서브그래프가 정의된 예상 순서대로 실행되지 않는 경우
+### 서브그래프가 정의된 예상 순서대로 실행되지 않는 경우 {id="subgraphs-not-running-in-the-defined-and-expected-order"}
 
 서브그래프가 정의된 순서대로 실행되지 않는 경우:
 
@@ -545,7 +545,7 @@
 - 각 서브그래프가 출력을 다음 서브그래프로 올바르게 전달하고 있는지 확인하세요.
 - 서브그래프가 나머지 서브그래프와 연결되어 있으며 시작(nodeStart) 및 종료(nodeFinish) 지점에서 도달 가능한지 확인하세요. 조건부 에지(conditional edges)를 사용할 때는 모든 가능한 조건을 충족하여 서브그래프나 노드에서 멈추지 않고 순서대로 진행될 수 있도록 주의하세요.
 
-## 예제
+## 예제 {id="examples"}
 
 다음 예제는 실제 시나리오에서 에이전트 전략을 생성하기 위해 서브그래프가 어떻게 사용되는지 보여줍니다.
 이 코드 예제에는 `researchSubgraph`, `planSubgraph`, `executeSubgraph`라는 세 가지 서브그래프가 정의되어 있으며, 각 서브그래프는 어시스턴트 흐름 내에서 명확하고 구별되는 목적을 가집니다.

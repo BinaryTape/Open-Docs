@@ -6,7 +6,7 @@
 > 本文专门讨论 Kotlin Multiplatform (KMP) 项目。
 > 关于模块化决策的一般性理解，请参阅 [Android 模块化简介](https://developer.android.com/topic/modularization)。
 
-## 最佳模块结构
+## 最佳模块结构 {id="optimal-module-structure"}
 
 最佳模块结构可能会根据你的目标和必要的平台目标而有所不同。
 你可以分析具有不同配置和目标集的 KMP IDE 插件向导的输出，以查看我们默认如何组织项目。
@@ -29,7 +29,7 @@
 > 
 {style="note"}
 
-## 为应用入口点创建独立模块
+## 为应用入口点创建独立模块 {id="creating-separate-modules-for-app-entry-points"}
 
 我们将用来演示向推荐结构过渡的示例项目是一个旧的 Compose Multiplatform 示例，可以在示例仓库的 [old-project-structure](https://github.com/kotlin-hands-on/get-started-with-cm/tree/old-project-structure) 分支中找到。
 
@@ -39,9 +39,9 @@
 
 undefined
 
-### 桌面 JVM 应用
+### 桌面 JVM 应用 {id="desktop-jvm-app"}
 
-#### 创建并配置桌面应用模块
+#### 创建并配置桌面应用模块 {id="create-and-configure-the-desktop-app-module"}
 
 要创建桌面应用模块 (`desktopApp`)：
 
@@ -53,7 +53,7 @@ undefined
     include(":desktopApp")
     ```
 
-#### 为桌面应用配置构建脚本
+#### 为桌面应用配置构建脚本 {id="configure-the-build-script-for-the-desktop-app"}
 
 要使桌面应用构建脚本生效：
 
@@ -115,7 +115,7 @@ undefined
     ```
 6. 在主菜单中选择 **Build | Sync Project with Gradle Files**，或点击编辑器中的 Gradle 刷新按钮。
 
-#### 移动代码并运行桌面应用
+#### 移动代码并运行桌面应用 {id="move-the-code-and-run-the-desktop-app"}
 
 配置完成后，将桌面应用的代码移动到新目录：
 
@@ -135,9 +135,9 @@ undefined
        * Kotlin `sourceSets {}` 块内部的 `jvmMain.dependencies {}` 块，
        * `kotlin {}` 块内部的 `jvm()` 目标声明。
 
-### Web 应用
+### Web 应用 {id="web-app"}
 
-#### 创建并配置 Web 应用模块
+#### 创建并配置 Web 应用模块 {id="create-and-configure-the-web-app-module"}
 
 要创建 Web 应用模块 (`webApp`)：
 
@@ -149,7 +149,7 @@ undefined
     include(":webApp")
     ```
 
-#### 为 Web 应用配置构建脚本
+#### 为 Web 应用配置构建脚本 {id="configure-the-build-script-for-the-web-app"}
 
 要使 Web 应用构建脚本生效：
 
@@ -207,7 +207,7 @@ undefined
 
 5. 在主菜单中选择 **Build | Sync Project with Gradle Files**，或点击编辑器中的 Gradle 刷新按钮。
 
-#### 移动代码并运行 Web 应用
+#### 移动代码并运行 Web 应用 {id="move-the-code-and-run-the-web-app"}
 
 配置完成后，将 Web 应用的代码移动到新目录：
 
@@ -226,7 +226,7 @@ undefined
         * Kotlin `sourceSets {}` 块内部的 `webMain.dependencies {}` 块，
         * `kotlin {}` 块内部的 `js {}` 和 `wasmJs {}` 目标声明。
 
-### 配置共享模块
+### 配置共享模块 {id="configure-the-shared-module"}
 
 在示例应用中，UI 和业务逻辑代码都是共享的，因此它只需要一个共享模块来保存所有通用代码：你可以直接将 `composeApp` 改用作通用代码模块。
 
@@ -280,13 +280,13 @@ undefined
    删除 `kotlin.sourceSets.androidMain.dependencies {}` 块。
 7. 检查 Android 应用是否按预期运行。
 
-### (可选) 分离共享逻辑和共享 UI {collapsible="true"}
+### (可选) 分离共享逻辑和共享 UI {collapsible="true" id="optional-separate-shared-logic-and-shared-ui"}
 
 如果项目中的某些目标实现了原生 UI，那么将通用代码分离到 `sharedLogic` 和 `sharedUI` 模块可能是个好主意，这样具有原生 UI 的应用模块就不需要依赖 Compose Multiplatform 即可使用共享代码。
 
 下面是一个基于相同示例应用的实现方法示例。
 
-#### 创建共享逻辑模块
+#### 创建共享逻辑模块 {id="create-a-shared-logic-module"}
 
 在实际创建模块之前，你需要决定什么是业务逻辑，即哪些代码是 UI 无关且平台无关的。
 在这个例子中，唯一的候选者是 `currentTimeAt()` 函数，它返回特定位置和时区的准确时间。
@@ -404,7 +404,7 @@ undefined
 你已成功将共享逻辑隔离到独立模块中并实现了跨平台使用。
 下一步：创建共享 UI 模块。
 
-#### 创建共享 UI 模块
+#### 创建共享 UI 模块 {id="create-a-shared-ui-module"}
 
 在 `sharedUI` 模块中提取实现通用 UI 元素的共享代码：
 
@@ -551,7 +551,7 @@ undefined
 
 你已成功将跨平台 UI 代码移动到专用模块中。
 
-### 更新 iOS 集成
+### 更新 iOS 集成 {id="update-the-ios-integration"}
 
 由于 iOS 应用入口点不是作为独立的 Gradle 模块构建的，因此你可以将源代码嵌入到任何模块中。
 在此示例中，你可以将其留在 `shared` 内部：

@@ -10,7 +10,7 @@ Kotlinは、GradleとMavenの両方で、完全なIDE統合を備えた`all-open
 >
 {style="note"}
 
-## Gradle
+## Gradle {id="gradle"}
 
 `build.gradle(.kts)`ファイルにプラグインを追加します。
 
@@ -74,7 +74,7 @@ class MyClass // all-openになります
 
 `MyFrameworkAnnotation`はall-openメタアノテーションである`com.my.Annotation`でアノテートされているため、これもall-openアノテーションになります。
 
-## Maven
+## Maven {id="maven"}
 
 `pom.xml`ファイルにプラグインを追加します。
 
@@ -109,7 +109,7 @@ class MyClass // all-openになります
 
 all-openアノテーションの仕組みに関する詳細については、[Gradleセクション](#gradle)を参照してください。
 
-## Springサポート
+## Springサポート {id="spring-support"}
 
 Springを使用している場合は、Springのアノテーションを手動で指定する代わりに、`kotlin-spring`コンパイラプラグインを有効にできます。`kotlin-spring`は`all-open`の上に構築されたラッパー（wrapper）であり、全く同じように動作します。
 
@@ -167,7 +167,7 @@ Mavenでは、`spring`プラグインは`kotlin-maven-allopen`プラグインの
 >
 {style="note"}
 
-## コマンドラインコンパイラ
+## コマンドラインコンパイラ {id="command-line-compiler"}
 
 All-openコンパイラプラグインのJARは、Kotlinコンパイラのバイナリ配布物に含まれています。`kotlinc`の`-Xplugin`オプションを使用して、JARファイルへのパスを指定することでプラグインを適用できます。
 

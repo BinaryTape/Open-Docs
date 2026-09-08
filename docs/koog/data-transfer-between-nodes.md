@@ -1,14 +1,14 @@
-## 概览
+## 概览 {id="overview"}
 
 Koog 提供了一种使用 `AIAgentStorage` 存储和传递数据的方式。这是一个键值存储系统，旨在作为一种类型安全的方式在不同节点甚至子图之间传递数据。
 
 可通过代理节点中的 `storage` 属性（`storage: AIAgentStorage`）访问该存储，从而在 AI 代理系统的不同组件之间实现无缝的数据共享。
 
-## 键值结构
+## 键值结构 {id="key-and-value-structure"}
 
 键值数据存储结构依赖于 `AIAgentStorageKey` 数据类。有关 `AIAgentStorageKey` 的更多信息，请参阅以下部分。
 
-### AIAgentStorageKey
+### AIAgentStorageKey {id="aiagentstoragekey"}
 
 该存储使用类型化的键系统，以在存储和检索数据时提供类型安全性。
 
@@ -20,11 +20,11 @@ Koog 提供了一种使用 `AIAgentStorage` 存储和传递数据的方式。这
 
 - 每个键实例都是唯一的。`name` 不用于确定唯一性，因此可以拥有多个具有相同名称的键。这允许重复使用现有的策略组件，而不会面临意外覆盖存储中数据的风险。
 
-## 使用示例
+## 使用示例 {id="usage-examples"}
 
 以下部分提供了创建存储键并使用它来存储和检索数据的实际示例。
 
-### 定义代表数据的类
+### 定义代表数据的类 {id="defining-a-class-that-represents-your-data"}
 
 存储想要传递的数据的第一步是创建一个代表该数据的类。下面是一个包含基本用户数据的简单类示例：
 
@@ -50,7 +50,7 @@ Koog 提供了一种使用 `AIAgentStorage` 存储和传递数据的方式。这
 
 定义完成后，请按照下文所述使用该类创建存储键。
 
-### 创建存储键
+### 创建存储键 {id="creating-a-storage-key"}
 
 为定义的数据结构创建一个类型化的存储键：
 
@@ -92,7 +92,7 @@ Koog 提供了一种使用 `AIAgentStorage` 存储和传递数据的方式。这
 
 `createStorageKey` 函数接受一个用于标识和调试目的的字符串参数，以及一个代表值类型的 `TypeToken`（在 Java 中；Kotlin 会自动使用内联具体化泛型）。
 
-### 存储数据
+### 存储数据 {id="storing-data"}
 
 要使用创建的存储键保存数据，请在节点中使用 `storage.set(key: AIAgentStorageKey<T>, value: T)` 方法：
 
@@ -146,7 +146,7 @@ Koog 提供了一种使用 `AIAgentStorage` 存储和传递数据的方式。这
     ```
     <!--- KNIT exampleDataTransferBetweenNodesJava03.java -->
 
-### 检索数据
+### 检索数据 {id="retrieving-data"}
 
 要检索数据，请在节点中使用 `storage.get` 方法：
 
@@ -209,7 +209,7 @@ Koog 提供了一种使用 `AIAgentStorage` 存储和传递数据的方式。这
     ```
     <!--- KNIT exampleDataTransferBetweenNodesJava04.java -->
 
-## API 文档
+## API 文档 {id="api-documentation"}
 
 有关 `AIAgentStorage` 类的完整参考，请参阅 [AIAgentStorage](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentStorage)。
 
@@ -223,7 +223,7 @@ Koog 提供了一种使用 `AIAgentStorage` 存储和传递数据的方式。这
 - [set](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentStorage.set)
 - [toMap](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentStorage.toMap)
 
-## 附加信息
+## 附加信息 {id="additional-information"}
 
 - `AIAgentStorage` 是线程安全的，使用 Mutex 确保正确处理并发访问。
 - 检索值时，类型转换会自动处理，从而确保整个应用程序的类型安全性。

@@ -5,7 +5,7 @@ Lincheckは、特定の操作を単一のスレッドで実行する、操作を
 
 この記事では、さまざまな実行オプションとその設定方法について学びます。
 
-## 単一スレッド操作グループ
+## 単一スレッド操作グループ {id="single-thread-operation-groups"}
 
 シングルプロデューサー・シングルコンシューマーキューの操作など、特定の操作は決して並行に実行されないことが求められます。
 
@@ -39,7 +39,7 @@ Lincheckは、非並列グループ（non-parallel group）に属する操作が
 | --------------------- |
 ```
 
-## 一度だけ実行される操作
+## 一度だけ実行される操作 {id="single-use-operations"}
 
 `runOnce` オプションを使用すると、テストの呼び出しごとに操作を一度だけ実行するように設定できます。
 
@@ -62,7 +62,7 @@ fun buzz() = struct.buzz()
 | ------------------- |
 ```
 
-## ブロッキング操作
+## ブロッキング操作 {id="blocking-operations"}
 
 操作が実行をブロックすることを意図している場合は、`blocking` オプションを使用します。テストで[ノンブロッキングの保証](lincheck-progress-guarantees.md)をチェックしている場合、Lincheckは `blocking` オプションでマークされた操作で実行が停滞（stall）しても、テストを失敗させません。
 
@@ -71,7 +71,7 @@ fun buzz() = struct.buzz()
 fun foo(): Int = struct.foo()
 ```
 
-## キャンセル可能な操作
+## キャンセル可能な操作 {id="cancelable-operations"}
 
 操作が[中断時にキャンセル](https://kotlinlang.org/docs/cancellation-and-timeouts.html#suspension-points-and-cancellation)できる場合は、`cancellableOnSuspension` オプションを使用します。
 
@@ -136,7 +136,7 @@ class ChannelCancellableTest {
 </tr>
 </table>
 
-### 即時キャンセル
+### 即時キャンセル {id="prompt-cancellation"}
 
 `cancellableOnSuspension` が有効で、かつその操作が[即時キャンセル (prompt cancellation)](https://kotlinlang.org/docs/cancellation-and-timeouts.html#handle-values-safely-when-canceling-coroutines)をサポートする必要がある場合は、`promptCancellation` を `true` に設定することもできます。
 
@@ -200,7 +200,7 @@ class PromptCancellationTest {
 </tr>
 </table>
 
-## 関連項目
+## 関連項目 {id="see-also"}
 
 * [ノンブロッキング進行保証のチェック](lincheck-progress-guarantees.md)
 * [アルゴリズムの逐次仕様の定義](lincheck-results-validation.md)

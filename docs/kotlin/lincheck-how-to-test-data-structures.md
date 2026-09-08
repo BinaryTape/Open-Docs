@@ -62,7 +62,7 @@ class Counter {
     | -------------------- |
     ```
 
-## 测试过程
+## 测试过程 {id="the-testing-process"}
 
 在测试数据结构时，Lincheck 会生成一份执行方案列表，运行这些方案并分析结果。
 
@@ -88,7 +88,7 @@ class Counter {
 
    在此步骤中，如果提供了[验证函数](lincheck-results-validation.md)，Lincheck 还可以对结构进行验证。
 
-## 示例：测试 Treiber 栈结构的实现
+## 示例：测试 Treiber 栈结构的实现 {id="example-test-an-implementation-of-a-treiber-stack-structure"}
 
 考虑这个 *错误* 的 [Treiber Stack](https://en.wikipedia.org/wiki/Treiber_stack) 实现：
 
@@ -211,11 +211,11 @@ class TreiberStack<E> {
    }
    ```
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 了解 Lincheck 中可用的[测试策略](lincheck-testing-strategies.md)。
 
-## 相关内容
+## 相关内容 {id="see-also"}
 
 * [生成操作参数](lincheck-argument-generation-constraints.md)
 * [配置操作执行选项](lincheck-operation-execution-options.md)

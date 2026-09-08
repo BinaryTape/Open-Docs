@@ -8,7 +8,7 @@ LPK는 [Kotlin/JS](js-overview.md), [JVM의 Swing](https://docs.oracle.com/javas
 
 이 튜토리얼에서는 IntelliJ IDEA에서 LPK와 [Kotlin DataFrame](https://kotlin.github.io/dataframe/home.html) 라이브러리를 사용하여 다양한 유형의 플롯을 생성하는 방법을 보여줍니다.
 
-## 시작하기 전에
+## 시작하기 전에 {id="before-you-start"}
 
 > IntelliJ IDEA 2026.2부터 Kotlin Notebook은 더 이상 IDE에 기본 포함되지 않으며 JetBrains에서 공식적으로 지원하지 않습니다.
 > 소스 코드는 [GitHub](https://github.com/Kotlin/kotlin-notebook)에서 계속 확인할 수 있습니다.
@@ -29,7 +29,7 @@ Lets-Plot을 사용하기 위해 새 Kotlin Notebook을 생성합니다.
 
 이 튜토리얼을 따라 하려면 DataFrame을 [Gradle](https://kotlin.github.io/dataframe/setupgradle.html) 또는 [Maven](https://kotlin.github.io/dataframe/setupmaven.html) 의존성으로 사용할 수도 있습니다.
 
-## 데이터 준비하기
+## 데이터 준비하기 {id="prepare-the-data"}
 
 베를린, 마드리드, 카라카스 세 도시의 월평균 기온 시뮬레이션 데이터를 저장하는 데이터프레임(DataFrame)을 만들어 보겠습니다.
 
@@ -71,7 +71,7 @@ LPK 라이브러리를 사용하여 플롯을 생성하려면 데이터(`df`)를
 val data = df.toMap()
 ```
 
-## 산점도 생성하기
+## 산점도 생성하기 {id="create-a-scatter-plot"}
 
 LPK 라이브러리로 산점도(Scatter plot)를 만들어 보겠습니다.
 
@@ -89,7 +89,7 @@ scatterPlot
 
 ![산점도](lets-plot-scatter.svg){width=600}
 
-## 박스 플롯 생성하기
+## 박스 플롯 생성하기 {id="create-a-box-plot"}
 
 [데이터](#데이터-준비하기)를 박스 플롯(Box plot)으로 시각화해 보겠습니다. LPK 라이브러리의 [`geomBoxplot()`](https://lets-plot.org/kotlin/api-reference/-lets--plot--kotlin/org.jetbrains.letsPlot.geom/geom-boxplot.html) 함수를 사용하여 플롯을 생성하고, [`scaleFillManual()`](https://lets-plot.org/kotlin/api-reference/-lets--plot--kotlin/org.jetbrains.letsPlot.scale/scale-fill-manual.html) 함수로 색상을 [사용자 정의](https://lets-plot.org/kotlin/aesthetics.html#point-shapes)합니다.
 
@@ -105,11 +105,11 @@ boxPlot
 
 ![박스 플롯](box-plot.svg){width=600}
 
-## 2D 밀도 플롯 생성하기
+## 2D 밀도 플롯 생성하기 {id="create-a-2d-density-plot"}
 
 이제 임의 데이터의 분포와 집중도를 시각화하기 위해 2D 밀도 플롯(2D density plot)을 만들어 보겠습니다.
 
-### 2D 밀도 플롯을 위한 데이터 준비
+### 2D 밀도 플롯을 위한 데이터 준비 {id="prepare-the-data-for-the-2d-density-plot"}
 
 1. 데이터를 처리하고 플롯을 생성하기 위한 의존성을 가져옵니다.
 
@@ -164,7 +164,7 @@ boxPlot
    )
    ```
 
-### 2D 밀도 플롯 생성
+### 2D 밀도 플롯 생성 {id="generate-the-2d-density-plot"}
 
 이전 단계의 `Map`을 사용하여 2D 밀도 플롯(`geomDensity2D`)을 생성합니다. 배경에 산점도(`geomPoint`)를 함께 그려 데이터 포인트와 이상치(outliers)를 더 잘 시각화할 수 있습니다. [`scaleColorGradient()`](https://lets-plot.org/kotlin/api-reference/-lets--plot--kotlin/org.jetbrains.letsPlot.scale/scale-color-gradient.html) 함수를 사용하여 색상 스케일을 사용자 정의할 수 있습니다.
 
@@ -182,7 +182,7 @@ densityPlot
 
 ![2D 밀도 플롯](2d-density-plot.svg){width=600}
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [Lets-Plot for Kotlin 문서](https://lets-plot.org/kotlin/charts.html)에서 더 많은 플롯 예제를 살펴보세요.
 * Lets-Plot for Kotlin의 [API 레퍼런스](https://lets-plot.org/kotlin/api-reference/)를 확인하세요.

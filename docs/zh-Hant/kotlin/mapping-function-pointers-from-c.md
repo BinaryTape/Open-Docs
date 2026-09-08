@@ -13,7 +13,7 @@
 * [了解如何將 Kotlin 函式作為 C 函式指標傳遞](#pass-kotlin-function-as-a-c-function-pointer)
 * [在 Kotlin 中使用 C 函式指標](#use-the-c-function-pointer-from-kotlin)
 
-## 對應來自 C 的函式指標型別
+## 對應來自 C 的函式指標型別 {id="mapping-function-pointer-types-from-c"}
 
 為了理解 Kotlin 與 C 之間的對應關係，讓我們宣告兩個函式：一個接受函式指標作為參數，另一個則回傳函式指標。
 
@@ -40,7 +40,7 @@ MyFun supply_fun() {
 
 `interop.def` 檔案提供了在 IDE 中編譯、執行或開啟應用程式所需的一切。
 
-## 檢查為 C 程式庫產生的 Kotlin API
+## 檢查為 C 程式庫產生的 Kotlin API {id="inspect-generated-kotlin-apis-for-a-c-library"}
 
 讓我們看看 C 函式指標如何對應到 Kotlin/Native 並更新你的專案：
 
@@ -71,7 +71,7 @@ MyFun supply_fun() {
 
 `CFunction<(Int) -> Int>` 代表函式簽章，而 `CPointer<CFunction<...>>?` 代表一個可為 null 的函式指標。所有 `CPointer<CFunction<...>>` 型別都有一個可用的 [`.invoke()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/invoke.html) 運算子擴充方法，讓你可以像呼叫一般 Kotlin 函式一樣呼叫函式指標。
 
-## 將 Kotlin 函式作為 C 函式指標傳遞
+## 將 Kotlin 函式作為 C 函式指標傳遞 {id="pass-kotlin-function-as-a-c-function-pointer"}
 
 現在來嘗試在 Kotlin 程式碼中使用 C 函式。呼叫 `accept_fun()` 函式並將 C 函式指標傳遞給 Kotlin Lambda：
 
@@ -90,7 +90,7 @@ fun myFun() {
 
 請確保該函式不會拋出任何例外。從 `staticCFunction {}` 中拋出例外會導致非確定性的副作用。
 
-## 在 Kotlin 中使用 C 函式指標
+## 在 Kotlin 中使用 C 函式指標 {id="use-the-c-function-pointer-from-kotlin"}
 
 下一步是呼叫從 `supply_fun()` 呼叫中回傳的 C 函式指標：
 
@@ -109,7 +109,7 @@ fun myFun2() {
 
 Kotlin 會將函式指標回傳型別轉換為可為 null 的 `CPointer<CFunction<>>` 物件。你必須先明確檢查 `null`，這就是為什麼在上面的程式碼中使用了 [Elvis 運算子](null-safety.md)。cinterop 工具允許你像一般的 Kotlin 函式呼叫一樣呼叫 C 函式指標：`functionFromC(42)`。
 
-## 更新 Kotlin 程式碼
+## 更新 Kotlin 程式碼 {id="update-kotlin-code"}
 
 現在你已經看過所有的定義，請嘗試在你的專案中使用它們。`hello.kt` 檔案中的程式碼可能如下所示：
 
@@ -137,7 +137,7 @@ fun main() {
 ./gradlew runDebugExecutableMacosArm64
 ```
 
-## 下一步
+## 下一步 {id="next-step"}
 
 在本系列的下一部分中，你將學習如何在 Kotlin 和 C 之間對應字串：
 
@@ -150,6 +150,6 @@ fun main() {
   </li>
 </list>
 
-### 延伸閱讀
+### 延伸閱讀 {id="see-also"}
 
 在 [與 C 互通](native-c-interop.md) 文件中了解更多資訊，該文件涵蓋了更進階的情境。

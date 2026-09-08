@@ -8,11 +8,11 @@ title: 안드로이드 진입점
 이 페이지는 **어디에** 주입할 것인지(진입점)에 초점을 맞춥니다. 주입 API(`by inject()`, `get()`, `by viewModel()`)는 정의를 어떻게 선언하느냐와 상관없이 동일하게 작동합니다. 정의 선언에 대해서는 [정의 (Definitions)](/docs/reference/koin-core/definitions)를 참조하세요.
 :::
 
-## 개요 (Overview)
+## 개요 (Overview) {id="overview"}
 
 안드로이드 애플리케이션은 다양한 컴포넌트 유형으로 구성되며, 각 컴포넌트는 고유한 생명주기와 초기화 패턴을 가집니다. Koin은 이 모든 컴포넌트에 의존성을 주입할 수 있는 유연한 방법을 제공합니다.
 
-### 빠른 참조 (Quick Reference)
+### 빠른 참조 (Quick Reference) {id="quick-reference"}
 
 | 컴포넌트 | 주입 방법 | 내장 지원 | 참고 사항 |
 |-----------|-----------------|------------------|-------|
@@ -25,7 +25,7 @@ title: 안드로이드 진입점
 | **ContentProvider** | `KoinComponent` + `get()` | ⚠️ 수동 | 특별한 타이밍 고려 사항 있음 |
 | **Custom View** | 생성자 또는 `KoinComponent` | ⚠️ 수동 | DI 사용 지양 권장 |
 
-## Application 클래스
+## Application 클래스 {id="application-class"}
 
 Application 클래스는 Koin을 초기화하는 곳입니다. 이는 앱의 모든 의존성 주입을 위한 기반이 됩니다.
 
@@ -47,11 +47,11 @@ class MyApplication : Application() {
 전체 Application 설정 지침은 [안드로이드에서 Koin 시작하기](/docs/reference/koin-android/start)를 참조하세요.
 :::
 
-## Activity 주입
+## Activity 주입 {id="activity-injection"}
 
 Activity는 확장 함수를 통해 Koin 내장 지원을 제공받습니다.
 
-### by inject() 사용하기
+### by inject() 사용하기 {id="using-by-inject"}
 
 ```kotlin
 class UserActivity : AppCompatActivity() {
@@ -67,7 +67,7 @@ class UserActivity : AppCompatActivity() {
 }
 ```
 
-### get() 사용하기
+### get() 사용하기 {id="using-get"}
 
 ```kotlin
 class UserActivity : AppCompatActivity() {
@@ -82,7 +82,7 @@ class UserActivity : AppCompatActivity() {
 }
 ```
 
-### 파라미터와 함께 사용하기
+### 파라미터와 함께 사용하기 {id="with-parameters"}
 
 ```kotlin
 class UserDetailActivity : AppCompatActivity() {
@@ -104,7 +104,7 @@ class UserDetailActivity : AppCompatActivity() {
 더 많은 Activity 주입 패턴은 [안드로이드에서 주입하기](/docs/reference/koin-android/get-instances)를 참조하세요.
 :::
 
-## Fragment 주입
+## Fragment 주입 {id="fragment-injection"}
 
 Fragment는 Koin 확장 기능을 통해 Activity와 동일하게 작동합니다.
 
@@ -127,7 +127,7 @@ class UserListFragment : Fragment() {
 }
 ```
 
-### 공유 ViewModel (Shared ViewModels)
+### 공유 ViewModel (Shared ViewModels) {id="shared-viewmodels"}
 
 Activity와 Fragment 간에 ViewModel을 공유합니다.
 
@@ -147,7 +147,7 @@ Fragment 및 ViewModel 주입에 대한 자세한 내용은 다음을 참조하�
 - [안드로이드 ViewModel](/docs/reference/koin-android/viewmodel)
 :::
 
-## Service 주입
+## Service 주입 {id="service-injection"}
 
 Service는 Activity나 Fragment와 마찬가지로 확장 함수를 통해 Koin 내장 지원을 제공받습니다.
 
@@ -194,13 +194,13 @@ class DownloadService : Service() {
 }
 ```
 
-### 생명주기 고려 사항
+### 생명주기 고려 사항 {id="lifecycle-considerations"}
 
 - **Service는 수명이 깁니다**: 비용이 많이 드는 리소스에는 `single`을 사용하세요.
 - **정리는 필수입니다**: `onDestroy()`에서 리소스를 해제하세요.
 - **백그라운드 스레드**: 백그라운드 작업의 스코프를 적절히 지정하는 것을 고려하세요.
 
-### 권장 사항 (Best Practices)
+### 권장 사항 (Best Practices) {id="best-practices"}
 
 ```kotlin
 class DownloadService : Service() {
@@ -226,11 +226,11 @@ class DownloadService : Service() {
 **대안:** `WorkManager` 백그라운드 작업의 경우, Service 대신 Koin의 내장 `WorkManager` 지원을 사용하세요. [WorkManager 통합](/docs/reference/koin-android/workmanager)을 참조하세요.
 :::
 
-## BroadcastReceiver 주입
+## BroadcastReceiver 주입 {id="broadcastreceiver-injection"}
 
 BroadcastReceiver에서도 의존성 주입을 위해 `KoinComponent`가 필요합니다.
 
-### 동적으로 등록된 Receiver
+### 동적으로 등록된 Receiver {id="dynamically-registered-receiver"}
 
 ```kotlin
 class NetworkChangeReceiver : BroadcastReceiver(), KoinComponent {
@@ -263,7 +263,7 @@ class MainActivity : AppCompatActivity() {
 }
 ```
 
-### 정적으로 등록된 Receiver (Manifest)
+### 정적으로 등록된 Receiver (Manifest) {id="statically-registered-receiver-manifest"}
 
 ```kotlin
 class BootReceiver : BroadcastReceiver(), KoinComponent {
@@ -290,7 +290,7 @@ class BootReceiver : BroadcastReceiver(), KoinComponent {
 </receiver>
 ```
 
-### 중요한 고려 사항
+### 중요한 고려 사항 {id="important-considerations"}
 
 **생명주기:**
 - Receiver는 **매우 짧은 수명**을 가집니다 (일반적으로 10초 미만).
@@ -323,11 +323,11 @@ class AlarmReceiver : BroadcastReceiver(), KoinComponent {
 BroadcastReceiver에는 엄격한 시간 제한(~10초)이 있습니다. 중요한 작업의 경우 `Service`, `WorkManager` 또는 `JobScheduler`를 대신 사용하세요.
 :::
 
-## ContentProvider 주입
+## ContentProvider 주입 {id="contentprovider-injection"}
 
 ContentProvider는 `Application.onCreate()` **이전**에 생성되기 때문에 특별한 타이밍 고려 사항이 있습니다.
 
-### 문제 상황 (The Challenge)
+### 문제 상황 (The Challenge) {id="the-challenge"}
 
 ```kotlin
 // ❌ 문제: 작동하지 않습니다!
@@ -342,7 +342,7 @@ class MyContentProvider : ContentProvider(), KoinComponent {
 }
 ```
 
-### 해결책 1: 지연 초기화 (Lazy Initialization)
+### 해결책 1: 지연 초기화 (Lazy Initialization) {id="solution-1-lazy-initialization"}
 
 ```kotlin
 class UserContentProvider : ContentProvider(), KoinComponent {
@@ -370,7 +370,7 @@ class UserContentProvider : ContentProvider(), KoinComponent {
 }
 ```
 
-### 해결책 2: 수동 Koin 초기화
+### 해결책 2: 수동 Koin 초기화 {id="solution-2-manual-koin-initialization"}
 
 ```kotlin
 class UserContentProvider : ContentProvider(), KoinComponent {
@@ -432,11 +432,11 @@ class DataContentProvider : ContentProvider(), KoinComponent {
 **중요:** ContentProvider는 `Application.onCreate()` **이전**에 생성됩니다. 항상 지연 초기화를 사용하거나 의존성을 주입하기 전에 Koin이 초기화되었는지 확인하세요.
 :::
 
-## 커스텀 뷰(Custom View) 주입
+## 커스텀 뷰(Custom View) 주입 {id="custom-view-injection"}
 
 커스텀 뷰에서도 의존성 주입을 사용할 수 있지만, 신중하게 접근해야 합니다.
 
-### 옵션 1: 생성자 주입 (비즈니스 로직에 권장)
+### 옵션 1: 생성자 주입 (비즈니스 로직에 권장) {id="option-1-constructor-injection-recommended-for-business-logic"}
 
 ```kotlin
 // 도메인/ViewModel 레이어 - 생성자 주입 사용
@@ -478,7 +478,7 @@ class ChartActivity : AppCompatActivity() {
 }
 ```
 
-### 옵션 2: KoinComponent (뷰에 복잡한 로직이 있는 경우)
+### 옵션 2: KoinComponent (뷰에 복잡한 로직이 있는 경우) {id="option-2-koincomponent-when-view-has-complex-logic"}
 
 ```kotlin
 class SmartChartView @JvmOverloads constructor(
@@ -498,7 +498,7 @@ class SmartChartView @JvmOverloads constructor(
 }
 ```
 
-### 뷰에서 DI를 피해야 할 때
+### 뷰에서 DI를 피해야 할 때 {id="when-to-avoid-di-in-views"}
 
 ❌ **다음과 같은 경우 뷰에서 주입을 피하세요:**
 - 뷰가 단순히 데이터를 보여주기만 하는 경우 (프레젠테이션 전용)
@@ -511,7 +511,7 @@ class SmartChartView @JvmOverloads constructor(
 - 빌드 변리에 따라 달라지는 설정이 뷰에 필요한 경우
 - 뷰가 상당한 상태나 비즈니스 로직을 관리하는 경우 (단, ViewModel로 옮기는 것을 먼저 고려하세요)
 
-### 권장 사항: 뷰를 단순하게 유지하기
+### 권장 사항: 뷰를 단순하게 유지하기 {id="best-practice-keep-views-simple"}
 
 ```kotlin
 // ❌ 뷰에 로직이 너무 많음
@@ -549,9 +549,9 @@ class UserCardView(context: Context) : FrameLayout(context) {
 **권장 사항:** 뷰는 가능한 데이터를 표시만 하는 "단순한(dumb)" 프레젠테이션 컴포넌트로 유지하는 것이 좋습니다. 비즈니스 로직은 생성자 주입이 더 깔끔하고 테스트하기 쉬운 ViewModel이나 Presenter로 옮기세요.
 :::
 
-## 요약 (Summary)
+## 요약 (Summary) {id="summary"}
 
-### 적절한 주입 방식 선택하기
+### 적절한 주입 방식 선택하기 {id="choosing-the-right-injection-approach"}
 
 | 컴포넌트 | 권장 방식 | 이유 |
 |-----------|---------------------|-----------|
@@ -563,7 +563,7 @@ class UserCardView(context: Context) : FrameLayout(context) {
 | **ContentProvider** | `KoinComponent` + `lazy { get() }` | 타이밍 문제, 지연 초기화 사용 |
 | **Custom View** | DI 지양, 메서드를 통해 데이터 전달 | 뷰를 단순하게 유지, 로직은 ViewModel로 이동 |
 
-### 일반적인 권장 사항
+### 일반적인 권장 사항 {id="general-best-practices"}
 
 1. 비즈니스 로직 클래스(Repository, UseCase, ViewModel)에는 **생성자 주입을 선호**하세요.
 2. 안드로이드 프레임워크 클래스(Activity, Fragment, Service)에는 **필드 주입**(`by inject()`)을 사용하세요.
@@ -572,7 +572,7 @@ class UserCardView(context: Context) : FrameLayout(context) {
 5. **뷰를 단순하게 유지**하세요. 가능한 한 뷰에 주입하는 것을 피하세요.
 6. **생명주기 타이밍을 주의**하세요. ContentProvider는 특별한 처리가 필요합니다.
 
-## 다음 단계
+## 다음 단계 {id="next-steps"}
 
 - **[정의 (Definitions)](/docs/reference/koin-core/definitions)** - 의존성 선언하기
 - **[안드로이드에서 주입하기](/docs/reference/koin-android/get-instances)** - 상세한 Activity/Fragment 주입

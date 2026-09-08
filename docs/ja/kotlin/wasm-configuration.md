@@ -4,13 +4,13 @@
 
 このページでは、[WebAssembly プロポーザル (WebAssembly proposals)](https://webassembly.org/roadmap/)、サポートされているブラウザ、および Kotlin/Wasm を使用して効率的に開発を行うための構成に関する推奨事項について詳しく説明します。
 
-## ブラウザのバージョン
+## ブラウザのバージョン {id="browser-versions"}
 
 Kotlin/Wasm は、WebAssembly 内での改善や新機能の導入のために、[ガーベッジコレクション (WasmGC)](#garbage-collection-proposal) や [例外処理](#exception-handling-proposal) といった最新の WebAssembly プロポーザルに依存しています。
 
 これらの機能が正しく動作するように、最新のプロポーザルをサポートする環境を用意してください。お使いのブラウザのバージョンがデフォルトで新しい WasmGC をサポートしているか、あるいは環境に変更を加える必要があるかを確認してください。
 
-### Chrome 
+### Chrome {id="chrome"}
 
 * **バージョン 119 以降の場合:**
 
@@ -26,7 +26,7 @@ Kotlin/Wasm は、WebAssembly 内での改善や新機能の導入のために�
   2. **WebAssembly Garbage Collection** を有効にします。
   3. ブラウザを再起動します。
 
-### Chromium ベースのブラウザ
+### Chromium ベースのブラウザ {id="chromium-based"}
 
 Edge、Brave、Opera、Samsung Internet などの Chromium ベースのブラウザを含みます。
 
@@ -42,7 +42,7 @@ Edge、Brave、Opera、Samsung Internet などの Chromium ベースのブラウ
 
   `--js-flags=--experimental-wasm-gc` コマンドライン引数を指定してアプリケーションを実行してください。
 
-### Firefox
+### Firefox {id="firefox"}
 
 * **バージョン 120 以降の場合:**
 
@@ -54,7 +54,7 @@ Edge、Brave、Opera、Samsung Internet などの Chromium ベースのブラウ
   2. `javascript.options.wasm_gc` オプションを有効にします。
   3. ページをリフレッシュします。
 
-### Safari/WebKit
+### Safari/WebKit {id="safari-webkit"}
 
 * **バージョン 18.2 以降の場合:**
 
@@ -71,17 +71,17 @@ Edge、Brave、Opera、Samsung Internet などの Chromium ベースのブラウ
 >
 {style="note"}
 
-## Wasm プロポーザルのサポート
+## Wasm プロポーザルのサポート {id="wasm-proposals-support"}
 
 Kotlin/Wasm の改善は [WebAssembly プロポーザル](https://webassembly.org/roadmap/) に基づいています。ここでは、WebAssembly のガーベッジコレクションおよび (レガシーな) 例外処理プロポーザルのサポート状況について説明します。
 
-### ガーベッジコレクション・プロポーザル
+### ガーベッジコレクション・プロポーザル {id="garbage-collection-proposal"}
 
 Kotlin 1.9.20 以降、Kotlin ツールチェーンは最新バージョンの [Wasm ガーベッジコレクション (WasmGC)](https://github.com/WebAssembly/gc) プロポーザルを使用しています。
 
 このため、Wasm プロジェクトを最新バージョンの Kotlin にアップデートすることを強くお勧めします。また、Wasm 環境を備えた最新バージョンのブラウザを使用することもお勧めします。
 
-### 例外処理プロポーザル
+### 例外処理プロポーザル {id="exception-handling-proposal"}
 
 Kotlin ツールチェーンは、例外処理プロポーザルの [レガシー](https://github.com/WebAssembly/exception-handling/blob/master/proposals/exception-handling/legacy/Exceptions.md) バージョンと [新しい](https://github.com/WebAssembly/exception-handling/blob/main/proposals/exception-handling/Exceptions.md) バージョンの両方をサポートしています。これにより、Kotlin で生成された Wasm バイナリをより幅広い環境で実行できるようになります。
 
@@ -95,7 +95,7 @@ Kotlin ツールチェーンは、例外処理プロポーザルの [レガシ�
 >
 {style="tip"}
 
-## デフォルトインポートの使用
+## デフォルトインポートの使用 {id="use-default-import"}
 
 [Kotlin/Wasm コードの JavaScript へのインポート](wasm-js-interop.md) は、デフォルトエクスポート (default exports) から名前付きエクスポート (named exports) に移行しました。
 
@@ -112,7 +112,7 @@ export { moduleExports as default };
 
 また、`.mjs` ファイルをカスタムの場所に配置することもできます。その場合は、手動でメインの `.mjs` ファイルの隣に移動するか、インポートステートメントのパスをその場所に合わせて調整する必要があります。
 
-## Kotlin/Wasm のインクリメンタルコンパイル
+## Kotlin/Wasm のインクリメンタルコンパイル {id="kotlin-wasm-incremental-compilation"}
 
 Kotlin/Wasm ターゲットはインクリメンタルコンパイル (incremental compilation) をサポートしています。これにより、コンパイラは前回のコンパイルからの変更に関連するファイルのみを再コンパイルできるようになり、コンパイル時間の短縮に役立ちます。
 
@@ -122,7 +122,7 @@ Wasm ターゲットのインクリメンタルコンパイルはデフォルト
 kotlin.incremental.wasm=false
 ```
 
-## 完全修飾クラス名に関する診断
+## 完全修飾クラス名に関する診断 {id="diagnostics-in-fully-qualified-class-names"}
 
 Kotlin/Wasm では、アプリケーションのサイズが増大するのを避けるため、コンパイラはデフォルトで生成されたバイナリにクラスの完全修飾名 (fully qualified names, FQN) を保存しません。
 
@@ -144,13 +144,13 @@ kotlin {
 
 このオプションを有効にすると、アプリケーションのサイズが大きくなることに注意してください。
 
-### 完全修飾名
+### 完全修飾名 {id="fully-qualified-names"}
 
 Kotlin/Wasm ターゲットでは、追加の構成なしで実行時に完全修飾名 (FQN) を利用できます。つまり、`KClass.qualifiedName` プロパティはデフォルトで有効になっています。
 
 FQN を使用すると、JVM から Wasm ターゲットへのコードのポータビリティが向上し、完全修飾名が表示されることで実行時エラーの情報量が増えます。
 
-## 配列の範囲外アクセスとトラップ
+## 配列の範囲外アクセスとトラップ {id="array-out-of-bounds-access-and-traps"}
 
 Kotlin/Wasm では、配列の境界外のインデックスで配列にアクセスすると、通常の Kotlin の例外ではなく WebAssembly のトラップ (trap) が発生します。トラップは現在の実行スタックを即座に停止させます。
 
@@ -177,7 +177,7 @@ kotlin {
 
 詳細の確認およびフィードバックの共有は、こちらの [YouTrack イシュー](https://youtrack.jetbrains.com/issue/KT-73452/K-Wasm-turning-on-range-checks-by-default) で行ってください。
 
-## 実験的アノテーション
+## 実験的アノテーション {id="experimental-annotations"}
 
 Kotlin/Wasm は、一般的な WebAssembly 相互運用性のためのいくつかの実験的アノテーションを提供しています。
 
@@ -185,7 +185,7 @@ Kotlin/Wasm は、一般的な WebAssembly 相互運用性のためのいくつ�
 
 これらのメカニズムはまだ進化の過程にあるため、すべてのアノテーションは実験的 (experimental) としてマークされています。これらを使用するには明示的に [オプトイン](opt-in-requirements.md) する必要があり、将来の Kotlin バージョンで設計や動作が変更される可能性があります。
 
-## デバッグ中のリロード
+## デバッグ中のリロード {id="reloads-during-debugging"}
 
 [最新のブラウザ](#browser-versions) でのアプリケーションの [デバッグ](wasm-debugging.md) は、特に追加の設定なしで動作します。開発用の Gradle タスク (`*DevRun`) を実行すると、Kotlin は自動的にソースファイルをブラウザに提供します。
 

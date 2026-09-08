@@ -19,7 +19,7 @@
 使用建構系統可以簡化程序，它會下載並快取 Kotlin/Native 編譯器二進位檔以及具有傳遞相依性的程式庫，並執行編譯器和測試。
 Kotlin/Native 可以透過 [Kotlin 多平台外掛程式](gradle-configure-project.md#targeting-multiple-platforms) 使用 [Gradle](https://gradle.org) 建構系統。
 
-## C 語言中的型別
+## C 語言中的型別 {id="types-in-c-language"}
 
 C 程式語言具有以下 [資料型別](https://en.wikipedia.org/wiki/C_data_types)：
 
@@ -38,7 +38,7 @@ C 語言中還有以下型別限定詞：`const`、`volatile`、`restrict`、`at
 
 讓我們看看哪些 C 資料型別在 Kotlin 中是可見的。
 
-## 建立一個 C 程式庫
+## 建立一個 C 程式庫 {id="create-a-c-library"}
 
 在本教學中，你不需要建立 `lib.c` 原始碼檔案，只有在你想編譯並執行 C 程式庫時才需要它。對於此設定，你只需要一個執行 [cinterop 工具](native-c-interop.md) 所需的 `.h` 標頭檔。
 
@@ -83,7 +83,7 @@ cinterop 工具會為每一組 `.h` 檔案產生一個 Kotlin/Native 程式庫�
 
 `interop.def` 檔案提供了在 IDE 中編譯、執行或開啟應用程式所需的一切。
 
-## 建立一個 Kotlin/Native 專案
+## 建立一個 Kotlin/Native 專案 {id="create-a-kotlin-native-project"}
 
 > 有關詳細的初步步驟以及如何建立新的 Kotlin/Native 專案並在 IntelliJ IDEA 中開啟它的指示，請參閱 [Kotlin/Native 入門](native-get-started.md#using-gradle) 教學。
 >
@@ -195,7 +195,7 @@ cinterop 工具會為每一組 `.h` 檔案產生一個 Kotlin/Native 程式庫�
 
 稍後當你了解 C 基本型別宣告在 Kotlin 端的外觀時，你將完成程式碼。
 
-## 檢查從 C 程式庫產生的 Kotlin API
+## 檢查從 C 程式庫產生的 Kotlin API {id="inspect-generated-kotlin-apis-for-a-c-library"}
 
 讓我們看看 C 基本型別如何對應到 Kotlin/Native，並據此更新範例專案。
 
@@ -222,7 +222,7 @@ C 型別是直接對應的，除了 `char` 型別，它被對應到 `kotlin.Byte
 | float              | kotlin.Float  |
 | double             | kotlin.Double |
 
-## 更新 Kotlin 程式碼
+## 更新 Kotlin 程式碼 {id="update-kotlin-code"}
 
 既然你已經看過 C 的定義，就可以更新你的 Kotlin 程式碼。`hello.kt` 檔案中的最終程式碼可能如下所示：
 
@@ -246,7 +246,7 @@ fun main() {
 ./gradlew runDebugExecutableMacosArm64
 ```
 
-## 下一步
+## 下一步 {id="next-step"}
 
 在本系列的下一部分中，你將學習如何在 Kotlin 和 C 之間對應結構與等位型別：
 
@@ -256,6 +256,6 @@ fun main() {
   </li>
 </list>
 
-### 另請參閱
+### 另請參閱 {id="see-also"}
 
 在 [與 C 互通性](native-c-interop.md) 文件中了解更多資訊，其中涵蓋了更進階的情境。

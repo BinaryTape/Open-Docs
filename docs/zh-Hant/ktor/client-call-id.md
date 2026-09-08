@@ -76,7 +76,7 @@
 
 由 [CallIdConfig](https://api.ktor.io/ktor-client-call-id/io.ktor.client.plugins.callid/-call-id-config/index.html) 類別提供的 %plugin_name% 外掛程式配置，允許您產生呼叫 ID 並將其新增至呼叫上下文中。
 
-### 產生呼叫 ID
+### 產生呼叫 ID {id="generate-a-call-id"}
 
 透過以下任一方式為特定請求產生呼叫 ID：
 
@@ -100,7 +100,7 @@
 
 您可以使用多種方法來產生呼叫 ID。在這種情況下，將套用第一個非 null 的值。
 
-### 新增呼叫 ID
+### 新增呼叫 ID {id="add-a-call-id"}
 
 檢索到呼叫 ID 後，您可以使用以下選項將其新增至請求中：
 
@@ -122,7 +122,7 @@
  }
  ```
 
-## 範例
+## 範例 {id="example"}
 
 在以下範例中，Ktor 用戶端的 `%plugin_name%` 外掛程式被配置為產生新的呼叫 ID 並將其新增至標頭：
 

@@ -1,6 +1,6 @@
 [//]: # (title: 建構集合)
 
-## 從元素建構
+## 從元素建構 {id="construct-from-elements"}
 
 建立集合最常用的方式是使用標準程式庫函式 [`listOf<T>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/list-of.html)、
 [`setOf<T>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/set-of.html)、
@@ -27,7 +27,7 @@ val numbersMap = mapOf("key1" to 1, "key2" to 2, "key3" to 3, "key4" to 1)
 val numbersMap = mutableMapOf<String, String>().apply { this["one"] = "1"; this["two"] = "2" }
 ```
 
-## 使用集合建構器函式建立
+## 使用集合建構器函式建立 {id="create-with-collection-builder-functions"}
 
 建立集合的另一種方式是呼叫建構器函式 ——
 [`buildList()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/build-list.html)、[`buildSet()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/build-set.html)
@@ -43,7 +43,7 @@ val map = buildMap { // 這是 MutableMap<String, Int>，鍵與值的型別會�
 println(map) // {a=1, b=0, c=4}
 ```
 
-## 空集合
+## 空集合 {id="empty-collections"}
 
 還有一些用於建立不含任何元素之集合的函式：[`emptyList()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/empty-list.html)、
 [`emptySet()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/empty-set.html) 和
@@ -54,7 +54,7 @@ println(map) // {a=1, b=0, c=4}
 val empty = emptyList<String>()
 ```
 
-## List 的初始設定式函式
+## List 的初始設定式函式 {id="initializer-functions-for-lists"}
 
 對於 List，有一個類似建構函式的函式，它接收 List 大小以及根據索引定義元素值的初始設定式函式。
 
@@ -68,7 +68,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 具體型別的建構函式
+## 具體型別的建構函式 {id="concrete-type-constructors"}
 
 要建立具體型別的集合（例如 `ArrayList` 或 `LinkedList`），您可以使用這些型別提供的建構函式。`Set` 和 `Map` 的實作也有類似的建構函式。
 
@@ -77,7 +77,7 @@ val linkedList = LinkedList<String>(listOf("one", "two", "three"))
 val presizedSet = HashSet<Int>(32)
 ```
 
-## 複製
+## 複製 {id="copy"}
 
 若要建立一個與現有集合具有相同元素的集合，可以使用複製函式。標準程式庫中的集合複製函式會建立「淺拷貝」（shallow copy）集合，其中包含對相同元素的參照。因此，對集合元素的變更會反映在其所有複本中。
 
@@ -145,7 +145,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 對其他集合呼叫函式
+## 對其他集合呼叫函式 {id="invoke-functions-on-other-collections"}
 
 集合可以作為對其他集合進行各種操作的結果而建立。例如，[篩選](collection-filtering.md)一個 List 會建立一個由符合篩選條件的元素組成的新 List：
 

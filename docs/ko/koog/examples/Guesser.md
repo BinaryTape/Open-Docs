@@ -11,7 +11,7 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Gues
 
 코드는 최소한으로 유지하고 흐름은 투명하게 구성하겠습니다. 몇 개의 작은 도구와 간결한 프롬프트, 그리고 대화형 CLI 루프를 사용합니다.
 
-## 설정
+## 설정 {id="setup"}
 
 이 노트북은 다음을 가정합니다:
 - Koog를 사용할 수 있는 코틀린 노트북 환경에서 실행 중입니다.
@@ -24,7 +24,7 @@ Koog 커널을 로드합니다:
 %use koog
 ```
 
-## 도구: 타겟 질문 던지기
+## 도구: 타겟 질문 던지기 {id="tools-asking-targeted-questions"}
 
 도구는 LLM이 호출할 수 있는 설명이 잘 된 작은 함수들입니다. 여기서는 다음 세 가지를 제공합니다:
 - `lessThan(value)`: "당신의 숫자가 value보다 작습니까?"
@@ -73,7 +73,7 @@ class GuesserTool : ToolSet {
 }
 ```
 
-## 도구 레지스트리 (Tool Registry)
+## 도구 레지스트리 (Tool Registry) {id="tool-registry"}
 
 도구를 에이전트에게 노출합니다. 에이전트가 사용자에게 메시지를 직접 표시할 수 있도록 내장 도구인 `SayToUser`도 추가합니다.
 
@@ -84,7 +84,7 @@ val toolRegistry = ToolRegistry {
 }
 ```
 
-## 에이전트 설정
+## 에이전트 설정 {id="agent-configuration"}
 
 도구 중심의 짧은 시스템 프롬프트만 있으면 충분합니다. 이진 탐색 전략을 제안하고, 안정적이고 결정론적인 동작을 위해 `temperature = 0.0`으로 설정합니다. 여기서는 명확한 계획 수립을 위해 OpenAI의 추론 모델인 `GPT4oMini`를 사용합니다.
 
@@ -109,7 +109,7 @@ val agent = AIAgent(
 )
 ```
 
-## 실행하기
+## 실행하기 {id="run-it"}
 
 - 1에서 100 사이의 숫자를 생각하세요.
 - `start`를 입력하여 시작합니다.
@@ -128,21 +128,21 @@ runBlocking {
 }
 ```
 
-## 작동 원리
+## 작동 원리 {id="how-it-works"}
 
 - 에이전트는 시스템 프롬프트를 읽고 이진 탐색을 계획합니다.
 - 각 반복 단계에서 `lessThan`, `greaterThan` 또는 (확신이 들 때) `proposeNumber` 중 하나의 도구를 호출합니다.
 - 헬퍼 함수 `ask`는 사용자의 Y/n 입력을 수집하여 모델에 깨끗한 "YES"/"NO" 신호를 반환합니다.
 - 확인을 받으면 `SayToUser`를 통해 축하 메시지를 보냅니다.
 
-## 확장하기
+## 확장하기 {id="extend-it"}
 
 - 시스템 프롬프트를 수정하여 범위를 변경해 보세요 (예: 1..1000).
 - 호출 횟수를 더 줄이기 위해 `between(low, high)` 도구를 추가해 보세요.
 - 동일한 도구를 유지하면서 모델이나 실행기(executor)를 교체해 보세요 (예: Ollama 실행기와 로컬 모델 사용).
 - 분석을 위해 추측 내용이나 결과를 저장소에 유지해 보세요.
 
-## 문제 해결
+## 문제 해결 {id="troubleshooting"}
 
 - 키 누락: 환경 변수에 `OPENAI_API_KEY`가 설정되어 있는지 확인하세요.
 - 커널을 찾을 수 없음: `%useLatestDescriptors`와 `%use koog`가 성공적으로 실행되었는지 확인하세요.

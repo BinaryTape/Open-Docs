@@ -319,7 +319,7 @@ ${state.draft}")
     <!--- KNIT exampleGoapAgentsJava01.java -->
     
 
-## 自訂成本函式
+## 自訂成本函式 {id="custom-cost-functions"}
 
 由於 [A* 搜尋][A* search] 使用成本作為尋找最佳操作序列的一個因素，您可以為操作和目標定義自訂成本函式來引導規劃器：
 
@@ -412,7 +412,7 @@ ${state.draft}")
     ```
     <!--- KNIT exampleGoapAgentsJava02.java -->
 
-## 狀態信念與實際執行的比較
+## 狀態信念與實際執行的比較 {id="state-beliefs-compared-to-actual-execution"}
 
 GOAP 區分了信念（樂觀預測）和實際執行的概念：
 

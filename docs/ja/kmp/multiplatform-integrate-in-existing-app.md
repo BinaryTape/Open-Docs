@@ -12,7 +12,7 @@
 >
 {style="tip"}
 
-## 開発環境の準備
+## 開発環境の準備 {id="prepare-an-environment-for-development"}
 
 1. クイックスタートの指示に従い、[Kotlinマルチプラットフォーム開発のための環境構築](quickstart.md#set-up-the-environment)を完了させてください。
 
@@ -32,7 +32,7 @@
 
    ![Project view](switch-to-project.png){width="513"}
 
-## コードをクロスプラットフォーム化する
+## コードをクロスプラットフォーム化する {id="make-your-code-cross-platform"}
 
 コードをクロスプラットフォーム化するために、以下の手順に従います：
 
@@ -43,7 +43,7 @@
 5. [ビジネスロジックをクロスプラットフォーム化する](#make-the-business-logic-cross-platform)
 6. [Androidでクロスプラットフォームアプリケーションを実行する](#run-your-cross-platform-application-on-android)
 
-### どのコードをクロスプラットフォーム化するか決定する
+### どのコードをクロスプラットフォーム化するか決定する {id="decide-what-code-to-make-cross-platform"}
 
 AndroidアプリケーションのどのコードをiOSと共有し、どのコードをネイティブのままにするかを決定します。シンプルなルールは、できるだけ再利用したいものを共有することです。ビジネスロジックはAndroidとiOSの両方で同じであることが多いため、再利用の絶好の候補です。
 
@@ -51,7 +51,7 @@ AndroidアプリケーションのどのコードをiOSと共有し、どのコ�
 
 ![Business logic to share](business-logic-to-share.png){width=366}
 
-### クロスプラットフォームコード用の共有モジュールを作成する
+### クロスプラットフォームコード用の共有モジュールを作成する {id="create-a-shared-module-for-cross-platform-code"}
 
 iOSとAndroidの両方で使用されるクロスプラットフォームコードは、共有（shared）モジュールに保存されます。Android StudioとIntelliJ IDEAはどちらも、Kotlinマルチプラットフォーム用の共有モジュールを作成するためのウィザードを提供しています。
 
@@ -103,7 +103,7 @@ iOSとAndroidの両方で使用されるクロスプラットフォームコー�
     }
     ```
    
-### 共有モジュールにコードを追加する
+### 共有モジュールにコードを追加する {id="add-code-to-the-shared-module"}
 
 共有モジュールが作成されたので、`shared/src/commonMain/kotlin/com.jetbrains.simplelogin.shared` ディレクトリに共有される共通コードを追加します：
 
@@ -164,7 +164,7 @@ iOSとAndroidの両方で使用されるクロスプラットフォームコー�
 
 これで、プラットフォーム名をプロパティとして持つプラットフォーム固有のオブジェクトを返す共通の `getPlatform()` 関数が作成されました。
 
-### Androidアプリケーションに共有モジュールへの依存関係を追加する
+### Androidアプリケーションに共有モジュールへの依存関係を追加する {id="add-a-dependency-on-the-shared-module-to-your-android-application"}
 
 Androidアプリケーションでクロスプラットフォームコードを使用するには、共有モジュールをアプリケーションに接続し、ビジネスロジックコードをそこに移動して、そのコードをクロスプラットフォーム化します。
 
@@ -200,7 +200,7 @@ Androidアプリケーションでクロスプラットフォームコードを�
 
    ![Greeting from the shared module](shared-module-greeting.png){width="700"}
 
-### ビジネスロジックをクロスプラットフォーム化する
+### ビジネスロジックをクロスプラットフォーム化する {id="make-the-business-logic-cross-platform"}
 
 これで、ビジネスロジックコードをKotlinマルチプラットフォームの共有モジュールの `commonMain` ソースセットに抽出できます。これにより、AndroidとiOSの両方でコードを使用できるようになります。
 
@@ -218,7 +218,7 @@ Androidアプリケーションでクロスプラットフォームコードを�
 
 4. Android固有のコードをクロスプラットフォームのKotlinコードに置き換えるか、[期待される宣言と実際の宣言（expected and actual declarations）](multiplatform-connect-to-apis.md)を使用してAndroid固有のAPIに接続することで、Android固有のコードを削除します。詳細は以下のセクションを参照してください：
 
-   #### Android固有のコードをクロスプラットフォームコードに置き換える {initial-collapse-state="collapsed" collapsible="true"}
+   #### Android固有のコードをクロスプラットフォームコードに置き換える {initial-collapse-state="collapsed" collapsible="true" id="replace-android-specific-code-with-cross-platform-code"}
    
    AndroidとiOSの両方でコードが適切に動作するように、移動した `data` ディレクトリ内の可能な限りすべての場所で、JVMの依存関係をKotlinの依存関係に置き換えます。
 
@@ -269,7 +269,7 @@ Androidアプリケーションでクロスプラットフォームコードを�
        import java.io.IOException
        ```
 
-   #### プラットフォーム固有のUUID生成の実装 {initial-collapse-state="collapsed" collapsible="true"}
+   #### プラットフォーム固有のUUID生成の実装 {initial-collapse-state="collapsed" collapsible="true" id="implement-platform-specific-uuid-generation"}
    
    `LoginDataSource` クラスでは、`fakeUser` 用の汎用一意識別子（UUID）が `java.util.UUID` クラスを使用して生成されていますが、これはiOSでは利用できません。
    
@@ -323,13 +323,13 @@ Androidアプリケーションでクロスプラットフォームコードを�
    
 これで、KotlinはAndroidとiOSでそれぞれのプラットフォーム固有のUUID実装を使用するようになります。
 
-### Androidでクロスプラットフォームアプリケーションを実行する
+### Androidでクロスプラットフォームアプリケーションを実行する {id="run-your-cross-platform-application-on-android"}
 
 `app` 実行構成を実行し、Androidアプリが以前と同じように動作することを確認します。
 
 ![Android login application](android-login.png){width=300}
 
-## クロスプラットフォームアプリケーションをiOSで動作させる
+## クロスプラットフォームアプリケーションをiOSで動作させる {id="make-your-cross-platform-application-work-on-ios"}
 
 Androidアプリケーションをクロスプラットフォーム化したら、iOSアプリケーションを作成し、その中で共有ビジネスロジックを再利用できます。
 
@@ -338,7 +338,7 @@ Androidアプリケーションをクロスプラットフォーム化したら�
 3. [Android StudioでiOSの実行構成をセットアップする](#set-up-an-ios-run-configuration-in-android-studio)
 4. [iOSプロジェクトで共有モジュールを使用する](#use-the-shared-module-in-the-ios-project)
 
-### XcodeでiOSプロジェクトを作成する
+### XcodeでiOSプロジェクトを作成する {id="create-an-ios-project-in-xcode"}
 
 1. Xcodeで、**File** | **New** | **Project** をクリックします。
 2. ダイアログで **iOS** タブに切り替えます：
@@ -365,7 +365,7 @@ Androidアプリケーションをクロスプラットフォーム化したら�
 
    ![Renamed iOS project directory in Android Studio](ios-directory-renamed-in-as.png){width=194}
 
-### KMPフレームワークを使用するようにiOSプロジェクトを設定する
+### KMPフレームワークを使用するようにiOSプロジェクトを設定する {id="configure-the-ios-project-to-use-a-kmp-framework"}
 
 iOSアプリとKotlinマルチプラットフォームによってビルドされたフレームワーク間の統合を直接セットアップできます。
 
@@ -428,7 +428,7 @@ iOSアプリとKotlinマルチプラットフォームによってビルドさ�
     > 
     {style="note"}
 
-### Android StudioでiOSの実行構成をセットアップする
+### Android StudioでiOSの実行構成をセットアップする {id="set-up-an-ios-run-configuration-in-android-studio"}
 
 Xcodeが正しくセットアップされたことを確認したら、Android Studioに戻ります：
 
@@ -441,7 +441,7 @@ Xcodeが正しくセットアップされたことを確認したら、Android S
 
    ![The iOS run configuration in the list of run configurations](ios-run-configuration-simplelogin.png)
 
-### iOSプロジェクトで共有モジュールを使用する
+### iOSプロジェクトで共有モジュールを使用する {id="use-the-shared-module-in-the-ios-project"}
 
 `shared/build.gradle.kts` ファイルは、各iOSターゲットの `binaries.framework.baseName` プロパティを `sharedKit` として定義しています。
 これが、iOSアプリが利用するためにKotlinマルチプラットフォームがビルドするフレームワークの名前です。
@@ -497,7 +497,7 @@ Xcodeが正しくセットアップされたことを確認したら、Android S
 
    ![Simple login application](xcode-iphone-login.png){width=300}
 
-## 結果を楽しむ – ロジックの更新は一度だけ
+## 結果を楽しむ – ロジックの更新は一度だけ {id="enjoy-the-results-update-the-logic-only-once"}
 
 これで、アプリケーションはクロスプラットフォームになりました。`shared` モジュールでビジネスロジックを更新すると、AndroidとiOSの両方で結果を確認できます。
 
@@ -528,12 +528,12 @@ Xcodeが正しくセットアップされたことを確認したら、Android S
 
 このチュートリアルの[最終的なコード](https://github.com/Kotlin/kmp-integration-sample/tree/final)を確認できます。
 
-## 他に何を共有できるか？
+## 他に何を共有できるか？ {id="what-else-to-share"}
 
 アプリケーションのビジネスロジックを共有しましたが、アプリケーションの他のレイヤーを共有することも決定できます。
 たとえば、`ViewModel` クラスのコードは [Android](https://github.com/Kotlin/kmp-integration-sample/blob/final/app/src/main/java/com/jetbrains/simplelogin/androidapp/ui/login/LoginViewModel.kt) と [iOSアプリケーション](https://github.com/Kotlin/kmp-integration-sample/blob/final/iosApp/SimpleLoginIOS/ContentView.swift#L84) でほぼ同じであり、モバイルアプリケーションが同じプレゼンテーションレイヤーを持つ必要がある場合は、それを共有できます。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 Androidアプリケーションをクロスプラットフォーム化した後は、以下に進むことができます：
 

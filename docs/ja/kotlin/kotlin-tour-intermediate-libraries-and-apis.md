@@ -10,7 +10,7 @@ Kotlinを最大限に活用するには、既存のライブラリやAPIを使�
 
 Kotlinで何ができるか見ていきましょう。
 
-## 標準ライブラリ
+## 標準ライブラリ {id="the-standard-library"}
 
 Kotlinには、コードを簡潔で表現豊かにするための必須の型、関数、コレクション、ユーティリティを提供する標準ライブラリがあります。標準ライブラリの大部分（[`kotlin` パッケージ](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/)内のすべて）は、明示的にインポートすることなく、どのKotlinファイルでもすぐに利用できます。
 
@@ -62,7 +62,7 @@ fun main() {
 * `hours` プロパティを使用して、`0.5` を30分の `Duration` に変換しています。
 * 両方の期間が等しいかどうかを確認し、結果を出力しています。
 
-### 作る前に探す
+### 作る前に探す {id="search-before-you-build"}
 
 独自のコードを書くと決める前に、探しているものがすでに存在するかどうかを標準ライブラリで確認してください。以下は、標準ライブラリがすでに多数のクラス、関数、プロパティを提供している分野のリストです。
 
@@ -73,7 +73,7 @@ fun main() {
 
 標準ライブラリに他に何があるか詳しく知るには、[APIリファレンス](https://kotlinlang.org/api/core/kotlin-stdlib/)を探索してください。
 
-## Kotlinライブラリ
+## Kotlinライブラリ {id="kotlin-libraries"}
 
 標準ライブラリは多くの一般的なユースケースをカバーしていますが、対応していないものもあります。幸いなことに、Kotlinチームやコミュニティは標準ライブラリを補完するために幅広いライブラリを開発しています。例えば、[`kotlinx-datetime`](https://kotlinlang.org/api/kotlinx-datetime/) は、異なるプラットフォーム間で時間を管理するのに役立ちます。
 
@@ -109,7 +109,7 @@ fun main() {
 >
 {style="tip"}
 
-## APIへのオプトイン
+## APIへのオプトイン {id="opt-in-to-apis"}
 
 ライブラリの作者は、特定のAPIをコードで使用する前にオプトイン（承認）が必要であるとマークする場合があります。これは通常、APIがまだ開発中であり、将来変更される可能性がある場合に行われます。オプトインしない場合、以下のような警告やエラーが表示されます。
 
@@ -150,7 +150,7 @@ fun main() {
 
 これはオプトインの最も簡単な方法ですが、他にも方法はあります。詳細については、[オプトイン要件](opt-in-requirements.md)を参照してください。
 
-## 練習問題 {completion-point="true"}
+## 練習問題 {completion-point="true" id="practice"}
 
 ### 演習 1 {initial-collapse-state="collapsed" collapsible="true" id="libraries-exercise-1"}
 
@@ -268,7 +268,7 @@ fun main() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="解答例" id="kotlin-tour-libraries-solution-3"}
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 おめでとうございます！中級編のツアーを完了しました。今回の体験について[フィードバックを共有](https://surveys.hotjar.com/bf4ce865-99ce-4fc1-b107-e9b16bc31592)していただけませんか？ 
 

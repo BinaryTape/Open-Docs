@@ -2,7 +2,7 @@
 
 一致性在 API 設計中至關重要，可確保易用性。透過保持一致的參數順序、命名慣例和錯誤處理機制，您的程式庫對使用者來說將更加直覺且可靠。遵循這些最佳實務有助於避免混淆與誤用，進而提供更好的開發者體驗並建構更穩健的應用程式。
 
-## 保持參數順序、命名與用法
+## 保持參數順序、命名與用法 {id="preserve-parameter-order-naming-and-usage"}
 
 在設計程式庫時，請在引數排序、命名方案以及多載的使用上保持一致性。例如，若現有的方法使用了 `offset` 和 `length` 參數，除非有極佳的理由，否則新方法不應切換到 `startIndex` 和 `endIndex` 等替代方案。
 
@@ -34,13 +34,13 @@ fun findStaffByAge(
 
 這組 API 將極難正確使用。多個型別相同的參數以不一致的順序呈現，並以不一致的方式使用。您程式庫的使用者很可能會根據對現有函式的經驗，對新函式做出錯誤的假設。
 
-## 對資料與狀態使用物件導向設計
+## 對資料與狀態使用物件導向設計 {id="use-object-oriented-design-for-data-and-state"}
 
 Kotlin 同時支援物件導向與函數式程式設計風格。在 API 中使用類別來表示資料和狀態。當資料與狀態具有階層關係時，請考慮使用繼承。
 
 如果所需的所有狀態都可以作為參數傳遞，請優先使用頂層函式。當這些函式的呼叫將鏈接在一起時，請考慮將其編寫為擴充函式以提高可讀性。
 
-## 選擇適當的錯誤處理機制
+## 選擇適當的錯誤處理機制 {id="choose-the-appropriate-error-handling-mechanism"}
 
 Kotlin 提供多種錯誤處理機制。您的 API 可以拋出例外、傳回 `null` 值、使用自訂結果型別，或使用內建的 [`Result`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/) 型別。請確保您的程式庫一致且適當地使用這些選項。
 
@@ -50,7 +50,7 @@ Kotlin 提供多種錯誤處理機制。您的 API 可以拋出例外、傳回 `
 
 避免在正常控制流中使用例外。設計您的 API，以便在嘗試操作之前進行條件檢查，從而防止不必要的錯誤處理。「[命令與查詢分離 (Command / Query Separation)](https://martinfowler.com/bliki/CommandQuerySeparation.html)」是一個可以在此應用的實用模式。
 
-## 保持慣例與品質
+## 保持慣例與品質 {id="maintain-conventions-and-quality"}
 
 一致性的最後一個面向與程式庫本身的設計無關，而是與維持高品質有關。
 
@@ -60,7 +60,7 @@ Kotlin 程式庫還應提供一組單元測試與整合測試，涵蓋所有 API
 
 在開發過程中使用這組測試來驗證變更不會破壞現有行為。在每次發佈時，將執行這些測試作為標準化組建與發佈管線的一部分。像 [Kover](https://github.com/Kotlin/kotlinx-kover) 這樣的工具可以整合到您的組建程序中，以測量涵蓋率並產生報告。
 
-## 下一步
+## 下一步 {id="next-step"}
 
 在指南的下一部分中，您將了解可預測性。
 

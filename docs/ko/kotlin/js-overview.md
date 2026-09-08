@@ -10,7 +10,7 @@ Kotlin Multiplatform Gradle 플러그인을 사용하면 애플리케이션의 �
 >
 {style="tip"}
 
-## Kotlin/JS 활용 사례
+## Kotlin/JS 활용 사례 {id="use-cases-for-kotlin-js"}
 
 다음은 Kotlin/JS를 사용하는 몇 가지 일반적인 방법입니다:
 
@@ -47,13 +47,13 @@ Kotlin Multiplatform Gradle 플러그인을 사용하면 애플리케이션의 �
 
 Kotlin/JS는 [ESM](https://tc39.es/ecma262/#sec-modules), [CommonJS](https://nodejs.org/api/modules.html#modules-commonjs-modules), [UMD](https://github.com/umdjs/umd), [AMD](https://github.com/amdjs/amdjs-api)와 같은 가장 일반적인 모듈 시스템과도 호환됩니다. 이를 통해 [모듈을 생성하고 소비](js-modules.md)할 수 있으며 구조화된 방식으로 자바스크립트 생태계와 통합할 수 있습니다.
 
-### 여러분의 사용 사례를 공유해 주세요
+### 여러분의 사용 사례를 공유해 주세요 {id="share-your-use-cases"}
 
 [Kotlin/JS 활용 사례](#use-cases-for-kotlin-js)의 목록이 모든 것을 담고 있지는 않습니다. 다양한 접근 방식을 시도해 보고 여러분의 프로젝트에 가장 적합한 방식을 찾아보세요.
 
 [Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)의 [#javascript](https://kotlinlang.slack.com/archives/C0B8L3U69) 채널에서 Kotlin/JS 커뮤니티와 여러분의 사용 사례, 경험 및 질문을 공유해 주세요.
 
-## Kotlin/JS 시작하기
+## Kotlin/JS 시작하기 {id="get-started-with-kotlin-js"}
 
 Kotlin/JS 작업을 시작하기 위한 기본 개념과 초기 단계를 살펴보세요:
 
@@ -65,7 +65,7 @@ Kotlin/JS를 직접 시도해 보시겠습니까?
 
 <a href="js-get-started.md" as="button" mode="rock" icon="arrow-right" icon-position="right">Kotlin/JS 시작하기</a>
 
-## Kotlin/JS 샘플 프로젝트
+## Kotlin/JS 샘플 프로젝트 {id="sample-projects-for-kotlin-js"}
 
 다음 표는 다양한 Kotlin/JS 사용 사례, 아키텍처 및 코드 공유 전략을 보여주는 샘플 프로젝트 목록입니다.
 
@@ -77,17 +77,17 @@ Kotlin/JS를 직접 시도해 보시겠습니까?
 | [Android, iOS 및 웹 간의 간단한 로직 공유](https://github.com/Kotlin/kmp-logic-sharing-simple-example/#readme) | 코틀린으로 공통 로직을 작성하고 Android([Jetpack Compose](https://developer.android.com/compose)), iOS([SwiftUI](https://developer.apple.com/tutorials/swiftui/)), 웹([React](https://react.dev/))의 플랫폼 네이티브 UI 애플리케이션에서 이를 사용하는 프로젝트 템플릿을 포함합니다. |
 | [풀스택 협업 할 일 목록](https://github.com/kotlin-hands-on/jvm-js-fullstack/#readme) | JS 및 JVM 타겟과 함께 Kotlin Multiplatform을 사용하여 협업용 할 일 목록 애플리케이션을 만드는 방법을 보여줍니다. 백엔드에는 [Ktor](https://ktor.io/)를, 프론트엔드에는 React와 함께 Kotlin/JS를 사용합니다. |
 
-## Kotlin/JS 프레임워크
+## Kotlin/JS 프레임워크 {id="kotlin-js-frameworks"}
 
 Kotlin/JS 프레임워크는 현대적인 웹 애플리케이션 구축을 위해 바로 사용할 수 있는 컴포넌트, 라우팅, 상태 관리 및 기타 도구를 제공하여 웹 개발을 단순화합니다.
 
 [다양한 작성자가 만든 Kotlin/JS용 프레임워크를 확인해 보세요](js-frameworks.md).
 
-## Kotlin/JS 커뮤니티 참여하기
+## Kotlin/JS 커뮤니티 참여하기 {id="join-the-kotlin-js-community"}
 
 공식 [Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)의 [#javascript](https://kotlinlang.slack.com/archives/C0B8L3U69) 채널에 가입하여 커뮤니티 및 Kotlin/JS 팀과 대화할 수 있습니다.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [Kotlin/JS 프로젝트 설정](js-project-setup.md)
 * [Kotlin/JS 프로젝트 실행](running-kotlin-js.md)

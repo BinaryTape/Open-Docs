@@ -9,7 +9,7 @@
 
 以下章节提供了帮助您有效构建 Kotlin Multiplatform 库的指南。
 
-## 扩大覆盖范围
+## 扩大覆盖范围 {id="maximize-your-reach"}
 
 为了让您的库作为依赖项可供尽可能多的项目使用，请力求支持尽可能多的 Kotlin Multiplatform [目标平台](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#targets)。
 
@@ -21,7 +21,7 @@
 >
 {style="note"}
 
-## 为公共代码设计 API
+## 为公共代码设计 API {id="design-apis-for-use-from-common-code"}
 
 在创建库时，请将 API 设计为可从公共 Kotlin 代码中使用，而不是编写特定于平台的实现。
 
@@ -37,7 +37,7 @@
 >
 {style="tip"}
 
-## 确保跨平台行为一致
+## 确保跨平台行为一致 {id="ensure-consistent-behavior-across-platforms"}
 
 为了确保您的库在所有支持的平台上表现一致，多平台库中的 API 在所有平台上应接受相同范围的有效输入、执行相同的操作并返回相同的结果。同样，库应统一处理无效输入，并在所有平台上一致地报告错误或抛出异常。
 
@@ -51,7 +51,7 @@
 >
 > {style="note"}
 
-## 在所有平台上进行测试
+## 在所有平台上进行测试 {id="test-on-all-platforms"}
 
 多平台库可以在公共代码中编写[多平台测试](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-run-tests.html)，并在所有平台上运行。在支持的平台上定期执行此公共测试套件可以确保库的行为正确且一致。
 
@@ -59,13 +59,13 @@
 
 使用 [`kotlin-test`](https://kotlinlang.org/api/latest/kotlin.test/) 库在公共代码中编写测试，并使用特定于平台的测试运行程序执行它们。
 
-## 考虑非 Kotlin 用户
+## 考虑非 Kotlin 用户 {id="consider-non-kotlin-users"}
 
 Kotlin Multiplatform 在其支持的目标平台上提供与原生 API 和语言的互操作性。在创建 Kotlin Multiplatform 库时，请考虑用户是否可能需要从 Kotlin 以外的语言使用库的类型和声明。
 
 例如，如果库中的某些类型将通过互操作性暴露给 Swift 代码，请将这些类型设计为易于从 Swift 访问。[Kotlin-Swift interopedia](https://github.com/kotlin-hands-on/kotlin-swift-interopedia) 提供了有关从 Swift 调用 Kotlin API 时 API 外观的有用见解。
 
-## 推广您的库
+## 推广您的库 {id="promote-your-library"}
 
 您的库可以在 [klibs.io](https://klibs.io/) 上展示，这是一个让开发者发现和评估 Kotlin Multiplatform 库的搜索平台。
 

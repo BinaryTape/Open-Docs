@@ -17,7 +17,7 @@ Kotlin 默认将所有异常视为**不受检的** (unchecked)。
 
 异常由 [`Exception`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-exception/) 类的子类表示，而该类又是 [`Throwable`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/) 类的子类。有关层次结构的更多信息，请参阅 [异常层次结构](#exception-hierarchy) 部分。由于 `Exception` 是一个 [`open class`](inheritance.md)，你可以创建 [自定义异常](#create-custom-exceptions) 来满足应用程序的特定需求。
 
-## 抛出异常
+## 抛出异常 {id="throw-exceptions"}
 
 你可以使用 `throw` 关键字手动抛出异常。
 抛出异常表示代码中发生了非预期的运行时错误。
@@ -44,7 +44,7 @@ if (userInput < 0) {
 在此示例中，当用户输入负值时会抛出 `IllegalArgumentException`。
 你可以创建自定义错误消息并保留异常的原始原因 (`cause`)，该原因将包含在 [堆栈跟踪](#stack-trace) 中。
 
-### 使用前置条件函数抛出异常
+### 使用前置条件函数抛出异常 {id="throw-exceptions-with-precondition-functions"}
 
 Kotlin 提供了使用前置条件函数自动抛出异常的其他方式。前置条件函数包括：
 
@@ -57,7 +57,7 @@ Kotlin 提供了使用前置条件函数自动抛出异常的其他方式。前�
 这些函数适用于如果未满足特定条件则程序流无法继续的情况。
 这可以简化你的代码并使这些检查的处理更加高效。
 
-#### require() 函数
+#### require() 函数 {id="require-function"}
 
 当输入实参对于函数的运行至关重要，且如果这些实参无效则函数无法继续执行时，请使用 [`require()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/require.html) 函数来验证输入实参。
 
@@ -96,7 +96,7 @@ fun main() {
 >
 {style="note"}
 
-#### check() 函数
+#### check() 函数 {id="check-function"}
 
 使用 [`check()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/check.html) 函数验证对象或变量的状态。
 如果检查失败，则表示存在需要解决的逻辑错误。
@@ -144,7 +144,7 @@ fun main() {
 >
 {style="note"}
 
-#### error() 函数
+#### error() 函数 {id="error-function"}
 
 [`error()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/error.html) 函数用于在代码中发出逻辑上不应发生的非法状态或条件的信号。
 它适用于你想在代码中有意抛出异常的场景，例如当代码遇到意外状态时。
@@ -178,7 +178,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-## 使用 try-catch 块处理异常
+## 使用 try-catch 块处理异常 {id="handle-exceptions-using-try-catch-blocks"}
 
 当异常被抛出时，它会中断程序的正常执行。
 你可以使用 `try` 和 `catch` 关键字优雅地处理异常，以保持程序的稳定性。
@@ -292,7 +292,7 @@ fun main() {
 
 处理 `WithdrawalException` 的通用 catch 块会捕获其类型的所有异常，包括像 `InsufficientFundsException` 这样的特定异常，除非它们之前已被更具体的 catch 块捕获。
 
-### finally 块
+### finally 块 {id="the-finally-block"}
 
 `finally` 块包含无论 `try` 块是成功完成还是抛出异常都始终执行的代码。
 使用 `finally` 块，你可以在 `try` 和 `catch` 块执行后清理代码。
@@ -404,7 +404,7 @@ fun main() {
 
 在 Kotlin 中，你可以根据具体需求灵活地仅使用 `catch` 块、仅使用 `finally` 块，或者两者都用，但 `try` 块必须始终伴随至少一个 `catch` 块或一个 `finally` 块。
 
-## 创建自定义异常
+## 创建自定义异常 {id="create-custom-exceptions"}
 
 在 Kotlin 中，你可以通过创建继承自内置 `Exception` 类的类来定义自定义异常。 
 这允许你创建针对应用程序需求量身定制的更具体的错误类型。
@@ -510,7 +510,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-## Nothing 类型
+## Nothing 类型 {id="the-nothing-type"}
 
 在 Kotlin 中，每个表达式都有一个类型。
 表达式 `throw IllegalArgumentException()` 的类型是 [`Nothing`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-nothing.html)，这是一个内置类型，它是所有其他类型的子类型，也称为 [底层类型 (bottom type)](https://en.wikipedia.org/wiki/Bottom_type)。 
@@ -563,7 +563,7 @@ fun main() {
 
 如你所见，`TODO()` 函数始终抛出 [`NotImplementedError`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-not-implemented-error/) 异常。
 
-## 异常类
+## 异常类 {id="exception-classes"}
 
 让我们探索 Kotlin 中一些常见的异常类型，它们都是 [`RuntimeException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-runtime-exception/) 类的子类：
 
@@ -636,7 +636,7 @@ fun main() {
 
 虽然 Kotlin 中的所有异常都是不受检的，且你不必显式捕获它们，但如果需要，你仍然可以灵活地捕获它们。
 
-### 异常层次结构
+### 异常层次结构 {id="exception-hierarchy"}
 
 Kotlin 异常层次结构的根是 [`Throwable`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/) 类。
 它有两个直接子类，[`Error`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-error/) 和 [`Exception`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-exception/)：
@@ -652,7 +652,7 @@ Kotlin 有助于防止常见的 `RuntimeException`（如 `NullPointerException`�
 
 ![RuntimeException 层次结构](runtime-exception.svg){width=700}
 
-## 堆栈跟踪
+## 堆栈跟踪 {id="stack-trace"}
 
 **堆栈跟踪** (stack trace) 是由运行时环境生成的报告，用于调试。
 它显示了导致程序中特定点（尤其是发生错误或异常的地方）的函数调用序列。
@@ -687,7 +687,7 @@ Exception in thread "main" java.lang.ArithmeticException: This is an arithmetic 
 * `at MainKt.main (Main.kt:3)`：这显示了方法名称 (`MainKt.main`) 以及调用该方法的源文件和行号 (`Main.kt:3`)。
 * `at MainKt.main (Main.kt)`：这显示异常发生在 `Main.kt` 文件的 `main()` 函数中。
 
-## 与 Java、Swift 和 Objective-C 的异常互操作性
+## 与 Java、Swift 和 Objective-C 的异常互操作性 {id="exception-interoperability-with-java-swift-and-objective-c"}
 
 由于 Kotlin 将所有异常都视为不受检的，因此当这些异常从区分受检和不受检异常的语言中调用时，可能会导致复杂情况。
 为了解决 Kotlin 与 Java、Swift 和 Objective-C 等语言在异常处理上的这种差异，

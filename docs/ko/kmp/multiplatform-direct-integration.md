@@ -23,11 +23,11 @@
 * 임베디드 프레임워크의 코드 서명(code signing) 프로세스를 처리합니다.
 * Kotlin 프레임워크의 코드 변경 사항이 Xcode의 iOS 앱에 반영되도록 보장합니다.
 
-## 설정 방법
+## 설정 방법 {id="how-to-set-up"}
 
 현재 Kotlin 프레임워크를 연결하기 위해 CocoaPods 플러그인을 사용 중이라면, 먼저 마이그레이션하세요. 프로젝트에 CocoaPods 의존성이 없다면 [이 단계를 건너뛰세요](#connect-the-framework-to-your-project).
 
-### CocoaPods 플러그인에서 마이그레이션
+### CocoaPods 플러그인에서 마이그레이션 {id="migrate-from-the-cocoapods-plugin"}
 
 CocoaPods 플러그인에서 마이그레이션하려면 다음을 수행하세요:
 
@@ -99,6 +99,6 @@ CocoaPods 플러그인에서 마이그레이션하려면 다음을 수행하세�
 >
 {style="note"}
 
-## 다음 단계는?
+## 다음 단계는? {id="what-s-next"}
 
 Swift 패키지 매니저(Swift Package Manager)를 사용할 때도 로컬 통합의 이점을 활용할 수 있습니다. [로컬 패키지에서 Kotlin 프레임워크에 대한 의존성을 추가하는 방법을 알아보세요](multiplatform-spm-local-integration.md).

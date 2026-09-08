@@ -8,7 +8,7 @@
 >
 {style="note"}
 
-## 类型与解析
+## 类型与解析 {id="type-and-resolution"}
 
 解析占据了底层 API 实现的大部分开销。因此，类型引用被设计为由处理器显式解析（少数情况除外）。当一个类型（例如 `KSFunctionDeclaration.returnType` 或 `KSAnnotation.annotationType`）被引用时，它始终是一个 `KSTypeReference`，这是一个带有注解和修饰符的 `KSReferenceElement`。
 

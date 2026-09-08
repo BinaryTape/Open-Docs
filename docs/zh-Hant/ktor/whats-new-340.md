@@ -11,9 +11,9 @@ Ktor 3.4.0 在伺服器、用戶端及工具方面提供廣泛的增強功能。
 * [執行時 OpenAPI 路由註解](#runtime-openapi-route-annotations)
 * [OkHttp 的全雙工串流](#duplex-streaming-for-okhttp)
 
-## Ktor 伺服器
+## Ktor 伺服器 {id="ktor-server"}
 
-### OAuth 錯誤處理的備援機制
+### OAuth 錯誤處理的備援機制 {id="oauth-fallback-for-error-handling"}
 
 Ktor 3.4.0 為 [OAuth](server-oauth.md) 驗證提供者引入了新的 [`fallback()`](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-o-auth-authentication-provider/-config/fallback.html) 函式。
 當 OAuth 流程因 `AuthenticationFailedCause.Error`（例如權杖交換失敗、網路問題或回應剖析錯誤）而失敗時，會呼叫該備援函式。
@@ -41,13 +41,13 @@ install(Authentication) {
 }
 ```
 
-### 靜態 OAuth 提供者設定
+### 靜態 OAuth 提供者設定 {id="static-oauth-provider-settings"}
 
 Ktor 3.4.0 為 [OAuth](server-oauth.md) 驗證提供者引入了 `settings` 屬性。使用它直接在 `oauth` 區塊中配置靜態 OAuth 提供者設定。對於靜態提供者配置，建議優先使用 `settings` 而非 `providerLookup`，因為這允許 Ktor 為產生的 [OpenAPI 規格](openapi-spec-generation.md)推論中繼資料。
 
 `providerLookup` 屬性仍可用於為特定呼叫動態解析 OAuth 設定。
 
-### Zstd 壓縮支援
+### Zstd 壓縮支援 {id="zstd-compression-support"}
 
 [Compression](server-compression.md) 外掛程式現在支援 [Zstd](https://github.com/facebook/zstd) 壓縮。
 
@@ -69,7 +69,7 @@ install(Compression) {
 }
 ```
 
-### 配置檔案中的 SSL 信任存放區設定
+### 配置檔案中的 SSL 信任存放區設定 {id="ssl-trust-store-settings-in-a-configuration-file"}
 
 Ktor 現在允許您使用應用程式配置檔案為伺服器配置額外的 [SSL 設定](server-ssl.md#config-file)。您可以直接在配置中指定信任存放區（Trust Store）、其對應的密碼以及啟用的 TLS 協定清單。
 
@@ -94,7 +94,7 @@ ktor {
 - `trustStorePassword` – 信任存放區的密碼。
 - `enabledProtocols` – 允許的 TLS 協定清單。
 
-### 用於部分回應的 HTML 片段
+### 用於部分回應的 HTML 片段 {id="html-fragments-for-partial-responses"}
 
 Ktor 現在提供一個新的 [`.respondHtmlFragment()`](https://api.ktor.io/ktor-server-html-builder/io.ktor.server.html/respond-html-fragment.html) 函式，用於傳送部分 HTML 回應。當產生的標記不需要完整的 `<html>` 文件時（例如使用 HTMX 等工具進行動態 UI 更新），這非常有用。
 
@@ -112,7 +112,7 @@ get("/books.html") {
 }
 ```
 
-### HTTP 請求生命週期
+### HTTP 請求生命週期 {id="http-request-lifecycle"}
 
 新的 [`HttpRequestLifecycle` 外掛程式](server-http-request-lifecycle.md)允許您在用戶端中斷連線時取消正在進行的 HTTP 請求。當您需要在用戶端斷開連線時，取消耗時較長或資源密集型請求的在途 HTTP 請求時，這非常有用。 
 
@@ -141,7 +141,7 @@ routing {
 當用戶端中斷連線時，處理該請求的協同程式會被取消，且結構化並行（Structured Concurrency）會處理所有資源的清理。由該請求啟動的任何 `launch` 或 `async` 協同程式也會被取消。
 目前僅 `Netty` 和 `CIO` 引擎支援此功能。
 
-### 回應資源的新方法
+### 回應資源的新方法 {id="new-method-to-respond-with-a-resource"}
 
 新的 [`call.respondResource()`](server-responses.md#resource) 方法與 [`call.respondFile()`](server-responses.md#file) 類似，但它接受資源而非檔案作為回應內容。
 
@@ -155,7 +155,7 @@ routing {
 }
 ```
 
-### 執行時 OpenAPI 路由註解
+### 執行時 OpenAPI 路由註解 {id="runtime-openapi-route-annotations"}
 
 <primary-label ref="experimental"/>
 
@@ -203,7 +203,7 @@ get("/messages") {
 
 如需更多細節和範例，請參閱[執行時路由註解](openapi-spec-generation.md#runtime-route-annotations)。
 
-### API Key 驗證
+### API Key 驗證 {id="api-key-authentication"}
 
 新的 [API Key 驗證外掛程式](server-api-key-auth.md)允許您使用隨每個請求傳送的共用金鑰（通常位於 HTTP 標頭中）來保護伺服器路由。
 
@@ -235,9 +235,9 @@ API Key 驗證可用於服務對服務（Service-to-service）通訊以及其他
 
 如需更多細節和配置選項，請參閱 [API Key 驗證](server-api-key-auth.md)。
 
-## 核心
+## 核心 {id="core"}
 
-### 多標頭剖析
+### 多標頭剖析 {id="multiple-header-parsing"}
 
 新的 [`Headers.getSplitValues()`](https://api.ktor.io/ktor-http/io.ktor.http/get-split-values.html) 函式簡化了處理在單行中包含多個值的標頭。
 
@@ -263,15 +263,15 @@ val forceSplit = headers.getSplitValues("X-Quoted", splitInsideQuotes = true)
 // ["a", "\"b", "c\"", "d"]
 ```
 
-## Ktor 用戶端
+## Ktor 用戶端 {id="ktor-client"}
 
-### 驗證權杖快取控制
+### 驗證權杖快取控制 {id="authentication-token-cache-control"}
 
 在 Ktor 3.4.0 之前，使用 [Basic](client-basic-auth.md) 和 [Bearer 驗證](client-bearer-auth.md)提供者的應用程式，在使用者登出或更新其驗證資料後，可能會繼續傳送過時的權杖或憑據。這是因為每個提供者都會透過負責儲存已載入驗證權杖的內部組件，在內部快取 `loadTokens()` 函式的結果，而此快取會保持有效直到手動清除。
 
 Ktor 3.4.0 引入了新的函式 and 配置選項，讓您可以對權杖快取行為進行明確且便利的控制。
 
-#### 存取並清除驗證權杖
+#### 存取並清除驗證權杖 {id="accessing-and-clearing-authentication-tokens"}
 
 您現在可以直接從用戶端存取驗證提供者，並在需要時清除其快取的權杖。
 
@@ -304,7 +304,7 @@ fun updateCredentials(new: Credentials) {
 }
 ```
 
-#### 配置權杖快取行為
+#### 配置權杖快取行為 {id="configuring-token-cache-behavior"}
 
 Basic 和 Bearer 驗證提供者均新增了 `cacheTokens` 配置選項。這允許您控制是否應在請求之間快取權杖或憑據。
 
@@ -321,7 +321,7 @@ basic {
 
 當驗證資料頻繁變動或必須始終反映最新狀態時，停用快取特別有用。
 
-### OkHttp 的全雙工串流
+### OkHttp 的全雙工串流 {id="duplex-streaming-for-okhttp"}
 
 OkHttp 用戶端引擎現在支援全雙工串流，讓用戶端能夠同時傳送請求主體資料並接收回應資料。
 
@@ -340,7 +340,7 @@ val client = HttpClient(OkHttp) {
 }
 ```
 
-### Apache5 連線管理器配置
+### Apache5 連線管理器配置 {id="apache5-connection-manager-configuration"}
 
 Apache5 引擎現在支援使用新的 [`configureConnectionManager {}`](https://api.ktor.io/ktor-client-apache5/io.ktor.client.engine.apache5/-apache5-engine-config/configure-connection-manager.html) 函式直接配置連線管理器。
 
@@ -378,7 +378,7 @@ val client = HttpClient(Apache5) {
 
 新的 `configureConnectionManager {}` 函式讓 Ktor 保持控制，同時允許您調整參數，例如每個路由的最大連線數（`maxConnPerRoute`） and 總最大連線數（`maxConnTotal`）。
 
-### 原生用戶端引擎的 Dispatcher 配置
+### 原生用戶端引擎的 Dispatcher 配置 {id="dispatcher-configuration-for-native-client-engines"}
 
 原生 HTTP 用戶端引擎（`Curl`、`Darwin` 和 `WinHttp`）現在會遵循配置的引擎 Dispatcher，並預設使用 `Dispatchers.IO`。
 
@@ -427,11 +427,11 @@ client.prepareGet("https://httpbin.org/bytes/$fileSize").execute { httpResponse 
 ```
 </compare>
 
-### 外掛程式與預設請求配置替換
+### 外掛程式與預設請求配置替換 {id="plugin-and-default-request-configuration-replacement"}
 
 Ktor 用戶端配置現在為執行時替換現有設定提供了更多控制權。
 
-#### 替換外掛程式配置
+#### 替換外掛程式配置 {id="replace-plugin-configuration"}
 
 新的 [`installOrReplace()`](https://api.ktor.io/ktor-client-core/io.ktor.client/-http-client-config/install-or-replace.html) 函式會安裝用戶端外掛程式，或者如果該外掛程式已安裝，則替換其現有配置。當您需要重新配置外掛程式而不想先手動移除它時，這非常有用。
 
@@ -445,7 +445,7 @@ val client = HttpClient {
 
 在上面的範例中，如果已安裝 `ContentNegotiation`，其配置將被區塊中提供的新配置取代。
 
-#### 替換預設請求配置
+#### 替換預設請求配置 {id="replace-default-request-configuration"}
 
 [`defaultRequest()`](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins/default-request.html) 函式現在接受一個選用的 `replace` 參數（預設為 `false`）。當設為 `true` 時，新配置將取代之前定義的任何預設請求設定，而不是與之合併。
 
@@ -459,7 +459,7 @@ val client = HttpClient {
 
 這允許您在組合或重複使用用戶端設定時，明確覆蓋早前的預設請求配置。
 
-### `js` 與 `wasmJs` 目標的共用來源集支援
+### `js` 與 `wasmJs` 目標的共用來源集支援 {id="shared-source-set-support-for-js-and-wasmjs-targets"}
 
 Ktor 現在支援多平台專案中的 [Kotlin 共用 `web` 來源集](https://kotlinlang.org/docs/whatsnew2220.html#shared-source-set-for-js-and-wasmjs-targets)，允許您在 `js` 與 `wasmJs` 目標之間共用 Ktor 相依性。這使得在 JavaScript 和 Wasm/JS 之間共用 Web 特定的用戶端程式碼（例如 HTTP 用戶端和引擎）變得更加容易。
 
@@ -485,9 +485,9 @@ kotlin {
 actual fun createClient(): HttpClient = HttpClient(Js)
 ```
 
-## I/O
+## I/O {id="i-o"}
 
-### 從 `ByteReadChannel` 將位元組串流至 `RawSink`
+### 從 `ByteReadChannel` 將位元組串流至 `RawSink` {id="stream-bytes-from-a-bytereadchannel-to-a-rawsink"}
 
 您現在可以使用新的 [`ByteReadChannel.readTo()`](https://api.ktor.io/ktor-io/io.ktor.utils.io/read-to.html) 函式從通道讀取位元組並將其直接寫入指定的 `RawSink`。此函式簡化了大型回應或檔案下載的處理，無需中間緩衝區或手動複製。
 
@@ -510,15 +510,15 @@ println("A file saved to ${file.path}")
 
 ```
 
-## Gradle 外掛程式
+## Gradle 外掛程式 {id="gradle-plugin"}
 
-### OpenAPI 編譯器擴充
+### OpenAPI 編譯器擴充 {id="openapi-compiler-extension"}
 
 在此之前，OpenAPI 編譯器外掛程式在組建時會產生完整的靜態 OpenAPI 文件。在 Ktor 3.4.0 中，它改為產生在執行時提供 OpenAPI 中繼資料的程式碼，這些中繼資料在提供規格時由 [OpenAPI](server-openapi.md) 和 [Swagger UI](server-swagger-ui.md) 外掛程式使用。
 
 專用的 `buildOpenApi` Gradle 任務已被移除。編譯器外掛程式現在會在一般組建期間自動套用，對路由或註解的變更會反映在執行中的伺服器中，無需任何額外的產生步驟。
 
-#### 配置
+#### 配置 {id="configuration"}
 
 配置仍透過 `openApi {}` 區塊內部的 `ktor` Gradle 擴充完成。然而，用於定義全域 OpenAPI 中繼資料的屬性（例如 `title`、`version`、`description` 和 `target`）已被棄用且會被忽略。
 

@@ -23,7 +23,7 @@ Kotlin 1.8.20이 출시되었습니다. 주요 하이라이트는 다음과 같�
 >
 {style="tip"}
 
-## IDE 지원
+## IDE 지원 {id="ide-support"}
 
 1.8.20을 지원하는 Kotlin 플러그인은 다음 버전에서 사용할 수 있습니다:
 
@@ -36,7 +36,7 @@ Kotlin 1.8.20이 출시되었습니다. 주요 하이라이트는 다음과 같�
 >
 {style="warning"}
 
-## 새로운 Kotlin K2 컴파일러 업데이트
+## 새로운 Kotlin K2 컴파일러 업데이트 {id="new-kotlin-k2-compiler-updates"}
 
 Kotlin 팀은 K2 컴파일러를 안정화하기 위해 계속 노력하고 있습니다. [Kotlin 1.7.0 발표](whatsnew17.md#new-kotlin-k2-compiler-for-the-jvm-in-alpha)에서 언급했듯이, K2 컴파일러는 여전히 **Alpha** 상태입니다. 이번 릴리스에서는 [K2 Beta](https://youtrack.jetbrains.com/issue/KT-52604)를 향한 추가적인 개선 사항이 도입되었습니다.
 
@@ -51,7 +51,7 @@ Kotlin 팀은 K2 컴파일러를 안정화하기 위해 계속 노력하고 있�
 * [What Everyone Must Know About The NEW Kotlin K2 Compiler](https://www.youtube.com/watch?v=iTdJJq_LyoY)
 * [The New Kotlin K2 Compiler: Expert Review](https://www.youtube.com/watch?v=db19VFLZqJM)
 
-### Kotlin K2 컴파일러 활성화 방법
+### Kotlin K2 컴파일러 활성화 방법 {id="how-to-enable-the-kotlin-k2-compiler"}
 
 Kotlin K2 컴파일러를 활성화하고 테스트하려면, 다음 컴파일러 옵션과 함께 새로운 언어 버전을 사용하세요:
 
@@ -77,7 +77,7 @@ kotlin {
 >
 {style="warning"}
 
-### 새로운 K2 컴파일러에 대한 의견을 남겨주세요
+### 새로운 K2 컴파일러에 대한 의견을 남겨주세요 {id="leave-your-feedback-on-the-new-k2-compiler"}
 
 여러분의 피드백은 언제나 환영입니다!
 
@@ -85,7 +85,7 @@ kotlin {
 * 새로운 K2 컴파일러를 사용하면서 겪은 문제는 [이슈 트래커](https://kotl.in/issue)에 보고해 주세요.
 * JetBrains가 K2 사용에 대한 익명 데이터를 수집할 수 있도록 [**사용 통계 보내기(Send usage statistics)** 옵션을 활성화](https://www.jetbrains.com/help/idea/settings-usage-statistics.html)해 주세요.
 
-## 언어 (Language)
+## 언어 (Language) {id="language"}
 
 Kotlin이 계속 발전함에 따라 1.8.20에서 새로운 언어 기능의 미리보기 버전을 도입합니다:
 
@@ -93,7 +93,7 @@ Kotlin이 계속 발전함에 따라 1.8.20에서 새로운 언어 기능의 미
 * [data 클래스와의 대칭성을 위한 data object](#preview-of-data-objects-for-symmetry-with-data-classes)
 * [인라인 클래스에서 본문이 있는 보조 생성자(secondary constructor)에 대한 제한 해제](#preview-of-lifting-restriction-on-secondary-constructors-with-bodies-in-inline-classes)
 
-### Enum 클래스의 values 함수를 대체하는 현대적이고 성능이 뛰어난 방식
+### Enum 클래스의 values 함수를 대체하는 현대적이고 성능이 뛰어난 방식 {id="a-modern-and-performant-replacement-of-the-enum-class-values-function"}
 
 > 이 기능은 [실험적(Experimental)](components-stability.md#stability-levels-explained)입니다. 언제든지 변경되거나 삭제될 수 있습니다. 사용하려면 명시적인 동의(Opt-in)가 필요합니다(아래 세부 정보 참조). 평가 목적으로만 사용하세요. [YouTrack](https://kotl.in/issue)을 통해 피드백을 보내주시면 감사하겠습니다.
 >
@@ -117,7 +117,7 @@ fun findByRgb(rgb: String): Color? = Color.entries.find { it.rgb == rgb }
 ```
 {validate="false"}
 
-#### entries 프로퍼티 활성화 방법
+#### entries 프로퍼티 활성화 방법 {id="how-to-enable-the-entries-property"}
 
 이 기능을 사용해 보려면 `@OptIn(ExperimentalStdlibApi)`로 동의하고 `-language-version 1.9` 컴파일러 옵션을 활성화하세요. Gradle 프로젝트의 경우 `build.gradle(.kts)` 파일에 다음을 추가하여 활성화할 수 있습니다:
 
@@ -157,7 +157,7 @@ tasks
 
 이 제안에 대한 자세한 정보는 [KEEP 노트](https://github.com/Kotlin/KEEP/blob/master/proposals/enum-entries.md)를 참조하세요.
 
-### data 클래스와의 대칭성을 위한 data object
+### data 클래스와의 대칭성을 위한 data object {id="preview-of-data-objects-for-symmetry-with-data-classes"}
 
 Data object를 사용하면 싱글톤(singleton) 의미론을 가지면서도 깔끔한 `toString()` 표현을 제공하는 객체를 선언할 수 있습니다. 다음 코드 스니펫에서 객체 선언에 `data` 키워드를 추가하면 `toString()` 출력의 가독성이 어떻게 향상되는지 확인할 수 있습니다:
 
@@ -186,11 +186,11 @@ fun main() {
 }
 ```
 
-#### data object의 의미론 (Semantics)
+#### data object의 의미론 (Semantics) {id="semantics-of-data-objects"}
 
 [Kotlin 1.7.20](whatsnew1720.md#improved-string-representations-for-singletons-and-sealed-class-hierarchies-with-data-objects)에서 첫 미리보기 버전이 출시된 이후, data object의 의미론이 더욱 정교해졌습니다. 이제 컴파일러는 data object를 위해 여러 편의 함수를 자동으로 생성합니다:
 
-##### toString
+##### toString {id="tostring"}
 
 data object의 `toString()` 함수는 객체의 단순 이름(simple name)을 반환합니다:
 
@@ -204,7 +204,7 @@ fun main() {
 }
 ```
 
-##### equals 및 hashCode
+##### equals 및 hashCode {id="equals-and-hashcode"}
 
 `data object`의 `equals()` 함수는 해당 `data object` 타입을 가진 모든 객체가 동일한 것으로 간주되도록 보장합니다. 대부분의 경우 런타임에 data object의 인스턴스는 하나만 존재합니다(결국 `data object`는 싱글톤을 선언하는 것이니까요). 그러나 런타임에 동일한 타입의 다른 객체가 생성되는 특수한 경우(예: `java.lang.reflect`를 통한 플랫폼 리플렉션 사용 또는 내부적으로 이 API를 사용하는 JVM 직렬화 라이브러리 사용 시)에도 이 함수는 객체들이 동일하게 취급되도록 보장합니다.
 
@@ -238,7 +238,7 @@ fun createInstanceViaReflection(): MySingleton {
 
 생성된 `hashCode()` 함수의 동작은 `equals()` 함수와 일관성을 유지하므로, 런타임에 존재하는 `data object`의 모든 인스턴스는 동일한 해시 코드를 갖습니다.
 
-##### data object를 위한 copy 및 componentN 함수 미제공
+##### data object를 위한 copy 및 componentN 함수 미제공 {id="no-copy-and-componentn-functions-for-data-objects"}
 
 `data object`와 `data class` 선언은 자주 함께 사용되며 유사점이 있지만, `data object`에 대해서는 생성되지 않는 함수들이 있습니다:
 
@@ -248,7 +248,7 @@ fun createInstanceViaReflection(): MySingleton {
 
 이 기능에 대한 의견은 [YouTrack](https://youtrack.jetbrains.com/issue/KT-4107)에 남겨주세요.
 
-#### data object 미리보기 활성화 방법
+#### data object 미리보기 활성화 방법 {id="how-to-enable-the-data-objects-preview"}
 
 이 기능을 사용해 보려면 `-language-version 1.9` 컴파일러 옵션을 활성화하세요. Gradle 프로젝트의 경우 `build.gradle(.kts)` 파일에 다음을 추가하여 활성화할 수 있습니다:
 
@@ -282,7 +282,7 @@ tasks
 </tab>
 </tabs>
 
-### 인라인 클래스에서 본문이 있는 보조 생성자에 대한 제한 해제
+### 인라인 클래스에서 본문이 있는 보조 생성자에 대한 제한 해제 {id="preview-of-lifting-restriction-on-secondary-constructors-with-bodies-in-inline-classes"}
 
 > 이 기능은 [실험적(Experimental)](components-stability.md#stability-levels-explained)입니다. 언제든지 변경되거나 삭제될 수 있습니다. 사용하려면 명시적인 동의(Opt-in)가 필요합니다(아래 세부 정보 참조). 평가 목적으로만 사용하세요. [YouTrack](https://kotl.in/issue)을 통해 피드백을 보내주시면 감사하겠습니다.
 >
@@ -313,7 +313,7 @@ value class Person(private val fullName: String) {
 }
 ```
 
-#### 본문이 있는 보조 생성자 활성화 방법
+#### 본문이 있는 보조 생성자 활성화 방법 {id="how-to-enable-secondary-constructors-with-bodies"}
 
 이 기능을 사용해 보려면 `-language-version 1.9` 컴파일러 옵션을 활성화하세요. Gradle 프로젝트의 경우 `build.gradle(.kts)`에 다음을 추가하여 활성화할 수 있습니다:
 
@@ -351,7 +351,7 @@ tasks
 
 Kotlin 인라인 클래스 개발에 대한 자세한 내용은 [이 KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/inline-classes.md)에서 확인할 수 있습니다.
 
-## 새로운 Kotlin/Wasm 타겟
+## 새로운 Kotlin/Wasm 타겟 {id="new-kotlin-wasm-target"}
 
 이 릴리스에서 Kotlin/Wasm(Kotlin WebAssembly)이 [실험적(Experimental)](components-stability.md#stability-levels-explained) 단계로 진입했습니다. Kotlin 팀은 [WebAssembly](https://webassembly.org/)를 유망한 기술로 보고 있으며, 여러분이 WebAssembly를 더 잘 활용하고 Kotlin의 모든 이점을 누릴 수 있는 방법을 찾고자 합니다.
 
@@ -368,7 +368,7 @@ WebAssembly 이진 형식은 자체 가상 머신을 사용하여 실행되므�
 
 [이 YouTube 비디오에서 Kotlin/Wasm에 대해 자세히 알아보세요](https://www.youtube.com/watch?v=-pqz9sKXatw).
 
-### Kotlin/Wasm 활성화 방법
+### Kotlin/Wasm 활성화 방법 {id="how-to-enable-kotlin-wasm"}
 
 Kotlin/Wasm을 활성화하고 테스트하려면 `build.gradle.kts` 파일을 업데이트하세요:
 
@@ -434,18 +434,18 @@ Kotlin/Wasm 프로젝트를 실행하려면 타겟 환경의 설정을 업데이
 </tab>
 </tabs>
 
-### Kotlin/Wasm에 대한 의견을 남겨주세요
+### Kotlin/Wasm에 대한 의견을 남겨주세요 {id="leave-your-feedback-on-kotlin-wasm"}
 
 여러분의 피드백은 큰 도움이 됩니다!
 
 * Kotlin Slack에서 개발자에게 직접 피드백을 보내주세요. [초대장 받기](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up?_gl=1*ju6cbn*_ga*MTA3MTk5NDkzMC4xNjQ2MDY3MDU4*_ga_9J976DJZ68*MTY1ODMzNzA3OS4xMDAuMS4xNjU4MzQwODEwLjYw) 후 [#webassembly](https://kotlinlang.slack.com/archives/CDFP59223) 채널에 참여하세요.
 * Kotlin/Wasm을 사용하면서 겪은 문제는 [이 YouTrack 이슈](https://youtrack.jetbrains.com/issue/KT-56492)에 보고해 주세요.
 
-## Kotlin/JVM
+## Kotlin/JVM {id="kotlin-jvm"}
 
 Kotlin 1.8.20은 [Java 합성 프로퍼티 참조 미리보기](#preview-of-java-synthetic-property-references)와 [kapt stub 생성 태스크에서 JVM IR 백엔드 기본 지원](#support-for-the-jvm-ir-backend-in-kapt-stub-generating-task-by-default)을 도입합니다.
 
-### Java 합성 프로퍼티 참조 미리보기
+### Java 합성 프로퍼티 참조 미리보기 {id="preview-of-java-synthetic-property-references"}
 
 > 이 기능은 [실험적(Experimental)](components-stability.md#stability-levels-explained)입니다. 언제든지 변경되거나 삭제될 수 있습니다. 평가 목적으로만 사용하세요. [YouTrack](https://kotl.in/issue)을 통해 피드백을 보내주시면 감사하겠습니다.
 >
@@ -485,7 +485,7 @@ val persons = listOf(Person("Jack", 11), Person("Sofie", 12), Person("Peter", 11
 ```
 {validate="false"}
 
-#### Java 합성 프로퍼티 참조 활성화 방법
+#### Java 합성 프로퍼티 참조 활성화 방법 {id="how-to-enable-java-synthetic-property-references"}
 
 이 기능을 사용해 보려면 `-language-version 1.9` 컴파일러 옵션을 활성화하세요. Gradle 프로젝트의 경우 `build.gradle(.kts)`에 다음을 추가하여 활성화할 수 있습니다:
 
@@ -519,11 +519,11 @@ tasks
 </tab>
 </tabs>
 
-### kapt stub 생성 태스크에서 JVM IR 백엔드 기본 지원
+### kapt stub 생성 태스크에서 JVM IR 백엔드 기본 지원 {id="support-for-the-jvm-ir-backend-in-kapt-stub-generating-task-by-default"}
 
 Kotlin 1.7.20에서 [kapt stub 생성 태스크의 JVM IR 백엔드 지원](whatsnew1720.md#support-for-the-jvm-ir-backend-in-kapt-stub-generating-task)을 도입했습니다. 이번 릴리스부터 이 기능이 기본적으로 작동합니다. 더 이상 활성화를 위해 `gradle.properties`에 `kapt.use.jvm.ir=true`를 지정할 필요가 없습니다. 이 기능에 대한 의견은 [YouTrack](https://youtrack.jetbrains.com/issue/KT-49682)에 남겨주세요.
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 Kotlin 1.8.20에는 지원되는 Kotlin/Native 타겟의 변경 사항, Objective-C와의 상호 운용성, CocoaPods Gradle 플러그인 개선 사항 등이 포함되어 있습니다:
 
@@ -535,7 +535,7 @@ Kotlin 1.8.20에는 지원되는 Kotlin/Native 타겟의 변경 사항, Objectiv
 * [컴파일러 내부의 컴파일러 캐시 관리 재구현](#reimplementation-of-compiler-cache-management-in-the-compiler)
 * [Cocoapods Gradle 플러그인의 `useLibraries()` 중단](#deprecation-of-uselibraries-in-cocoapods-gradle-plugin)
   
-### Kotlin/Native 타겟 업데이트
+### Kotlin/Native 타겟 업데이트 {id="update-for-kotlin-native-targets"}
   
 Kotlin 팀은 Kotlin/Native에서 지원하는 타겟 목록을 재검토하여 계층(tiers)으로 나누고, Kotlin 1.8.20부터 일부 타겟을 중단(deprecate)하기로 결정했습니다. 지원되는 타겟 및 중단된 타겟의 전체 목록은 [Kotlin/Native 타겟 지원](native-target-support.md) 섹션을 참조하세요.
 
@@ -555,7 +555,7 @@ Kotlin 팀은 Kotlin/Native에서 지원하는 타겟 목록을 재검토하여 
 
 이러한 변경의 배경에 대해 자세히 알아보려면 [블로그 포스트](https://blog.jetbrains.com/kotlin/2023/02/update-regarding-kotlin-native-targets/)를 확인하세요.
 
-### 레거시 메모리 매니저 중단
+### 레거시 메모리 매니저 중단 {id="deprecation-of-the-legacy-memory-manager"}
 
 1.8.20부터 레거시 메모리 매니저는 중단되었으며 1.9.20에서 제거될 예정입니다. [새로운 메모리 매니저(new memory manager)](native-memory-manager.md)는 1.7.20에서 기본적으로 활성화되었으며, 이후 안정성 업데이트와 성능 개선이 계속 이루어지고 있습니다.
 
@@ -563,7 +563,7 @@ Kotlin 팀은 Kotlin/Native에서 지원하는 타겟 목록을 재검토하여 
 
 새로운 메모리 매니저는 `wasm32` 타겟을 지원하지 않습니다. 이 타겟 또한 [이번 릴리스부터 중단](#update-for-kotlin-native-targets)되었으며 1.9.20에서 제거될 예정입니다.
 
-### @import 지시문이 있는 Objective-C 헤더 지원
+### @import 지시문이 있는 Objective-C 헤더 지원 {id="support-for-objective-c-headers-with-import-directives"}
 
 > 이 기능은 [실험적(Experimental)](components-stability.md#stability-levels-explained)입니다. 언제든지 변경되거나 삭제될 수 있습니다. 사용하려면 명시적인 동의(Opt-in)가 필요합니다(아래 세부 정보 참조). 평가 목적으로만 사용하세요. [YouTrack](https://kotl.in/issue)을 통해 피드백을 보내주시면 감사하겠습니다.
 >
@@ -594,7 +594,7 @@ kotlin {
 
 이 기능은 [많은 분이 기다려온 기능](https://youtrack.jetbrains.com/issue/KT-39120)이며, 향후 릴리스에서 기본 기능으로 포함될 수 있도록 [YouTrack](https://kotl.in/issue)에 피드백을 남겨주시면 감사하겠습니다.
 
-### Cocoapods Gradle 플러그인의 link-only 모드 지원
+### Cocoapods Gradle 플러그인의 link-only 모드 지원 {id="support-for-the-link-only-mode-in-cocoapods-gradle-plugin"}
 
 Kotlin 1.8.20부터는 동적 프레임워크가 포함된 Pod 의존성을 cinterop 바인딩 생성 없이 링크 용도로만 사용할 수 있습니다. 이는 cinterop 바인딩이 이미 생성되어 있는 경우 유용할 수 있습니다.
 
@@ -617,7 +617,7 @@ cocoapods {
 >
 {style="note"}
 
-### UIKit에서 Objective-C 확장을 클래스 멤버로 가져오기
+### UIKit에서 Objective-C 확장을 클래스 멤버로 가져오기 {id="import-objective-c-extensions-as-class-members-in-uikit"}
 
 Xcode 14.1부터 Objective-C 클래스의 일부 메서드가 카테고리 멤버로 이동되었습니다. 이로 인해 서로 다른 Kotlin API가 생성되었고, 이러한 메서드들이 메서드가 아닌 Kotlin 확장 함수로 가져오게 되었습니다.
 
@@ -627,7 +627,7 @@ Xcode 14.1부터 Objective-C 클래스의 일부 메서드가 카테고리 멤�
 
 문제가 없다면 모든 Objective-C 클래스에 대해 이 동작을 기본으로 활성화할 계획입니다.
 
-### 컴파일러 내부의 컴파일러 캐시 관리 재구현
+### 컴파일러 내부의 컴파일러 캐시 관리 재구현 {id="reimplementation-of-compiler-cache-management-in-the-compiler"}
 
 컴파일러 캐시의 발전을 가속화하기 위해 컴파일러 캐시 관리를 Kotlin Gradle 플러그인에서 Kotlin/Native 컴파일러 내부로 이동했습니다. 이를 통해 컴파일 시간 개선 및 컴파일러 캐시 유연성 확보 등 여러 중요한 개선 작업을 진행할 수 있게 되었습니다.
 
@@ -635,7 +635,7 @@ Xcode 14.1부터 Objective-C 클래스의 일부 메서드가 카테고리 멤�
 
 이에 대한 피드백은 [YouTrack](https://kotl.in/issue)에 남겨주세요.
 
-### Cocoapods Gradle 플러그인의 useLibraries() 중단
+### Cocoapods Gradle 플러그인의 useLibraries() 중단 {id="deprecation-of-uselibraries-in-cocoapods-gradle-plugin"}
 
 Kotlin 1.8.20은 정적 라이브러리를 위한 [CocoaPods 통합](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html)에서 사용되는 `useLibraries()` 함수의 중단 주기를 시작합니다.
 
@@ -645,7 +645,7 @@ Kotlin 1.8.20은 정적 라이브러리를 위한 [CocoaPods 통합](https://kot
 
 프레임워크 및 XCFramework에 대한 자세한 내용은 [최종 네이티브 바이너리 빌드](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html)를 참조하세요.
 
-## Kotlin Multiplatform
+## Kotlin Multiplatform {id="kotlin-multiplatform"}
 
 Kotlin 1.8.20은 Kotlin Multiplatform의 개발자 경험을 개선하기 위해 다음과 같은 업데이트를 제공합니다:
 
@@ -653,7 +653,7 @@ Kotlin 1.8.20은 Kotlin Multiplatform의 개발자 경험을 개선하기 위해
 * [Kotlin Multiplatform에서 Gradle 복합 빌드 지원 미리보기](#preview-of-gradle-composite-builds-support-in-kotlin-multiplatform)
 * [Xcode에서 Gradle 오류 출력 개선](#improved-output-for-gradle-errors-in-xcode)
 
-### 소스 세트 계층 구조 설정을 위한 새로운 방식
+### 소스 세트 계층 구조 설정을 위한 새로운 방식 {id="new-approach-to-source-set-hierarchy"}
 
 > 소스 세트 계층 구조에 대한 새로운 방식은 [실험적(Experimental)](components-stability.md#stability-levels-explained)입니다. 향후 Kotlin 릴리스에서 예고 없이 변경될 수 있습니다. 사용하려면 동의(Opt-in)가 필요합니다(아래 세부 정보 참조). [YouTrack](https://kotl.in/issue)을 통해 피드백을 보내주시면 감사하겠습니다.
 >
@@ -663,7 +663,7 @@ Kotlin 1.8.20은 멀티플랫폼 프로젝트에서 소스 세트 계층 구조�
 
 기본 타겟 계층 구조의 아이디어는 간단합니다. 프로젝트가 컴파일되는 모든 타겟을 명시적으로 선언하면, Kotlin Gradle 플러그인이 지정된 타겟을 기반으로 공유 소스 세트를 자동으로 생성합니다.
 
-#### 프로젝트 설정
+#### 프로젝트 설정 {id="set-up-your-project"}
 
 간단한 멀티플랫폼 모바일 앱의 예를 들어 보겠습니다:
 
@@ -693,7 +693,7 @@ kotlin {
 >
 {style="note"}
 
-#### 왜 단축키(shortcut)를 대체하나요? {initial-collapse-state="collapsed" collapsible="true"}
+#### 왜 단축키(shortcut)를 대체하나요? {initial-collapse-state="collapsed" collapsible="true" id="why-replace-shortcuts"}
 
 소스 세트 계층 구조를 직접 만드는 것은 번거롭고 오류가 발생하기 쉬우며 초보자에게 불친절할 수 있습니다. 이전의 해결책은 계층 구조의 일부를 대신 만들어주는 `ios`와 같은 단축키를 도입하는 것이었습니다. 하지만 단축키를 사용해 본 결과, 변경하기 어렵다는 큰 설계적 결함이 발견되었습니다.
 
@@ -707,17 +707,17 @@ kotlin {
 
 기본 타겟 계층 구조는 언뜻 단축키와 비슷해 보일 수 있지만, 결정적인 차이점이 있습니다. 바로 **사용자가 타겟 세트를 명시적으로 지정해야 한다는 점**입니다. 이 세트가 프로젝트의 컴파일, 게시 방식 및 의존성 해결 참여 방식을 정의합니다. 이 세트가 고정되어 있으므로 Kotlin Gradle 플러그인의 기본 구성이 변경되더라도 생태계에 주는 혼란은 현저히 적을 것이며, 툴링을 통한 마이그레이션 지원도 훨씬 쉬워질 것입니다.
 
-#### 기본 계층 구조 활성화 방법
+#### 기본 계층 구조 활성화 방법 {id="how-to-enable-the-default-hierarchy"}
 
 이 새로운 기능은 [실험적(Experimental)](components-stability.md#stability-levels-explained)입니다. Kotlin Gradle 빌드 스크립트에서 사용하려면 `@OptIn(ExperimentalKotlinGradlePluginApi::class)`를 통해 동의해야 합니다.
 
 자세한 내용은 [계층적 프로젝트 구조(Hierarchical project structure)](https://kotlinlang.org/docs/multiplatform/multiplatform-hierarchy.html#default-hierarchy-template)를 참조하세요.
 
-#### 피드백 남기기
+#### 피드백 남기기 {id="leave-feedback"}
 
 이는 멀티플랫폼 프로젝트에 있어 중대한 변화입니다. 더 나은 기능을 만들 수 있도록 여러분의 [피드백](https://kotl.in/issue)을 기다립니다.
 
-### Kotlin Multiplatform에서 Gradle 복합 빌드 지원 미리보기
+### Kotlin Multiplatform에서 Gradle 복합 빌드 지원 미리보기 {id="preview-of-gradle-composite-builds-support-in-kotlin-multiplatform"}
 
 > 이 기능은 Kotlin Gradle Plugin 1.8.20부터 Gradle 빌드에서 지원됩니다. IDE 지원을 위해서는 IntelliJ IDEA 2023.1 Beta 2 (231.8109.2) 이상 버전과 모든 Kotlin IDE 플러그인에서 Kotlin Gradle 플러그인 1.8.20을 사용하세요.
 >
@@ -733,7 +733,7 @@ kotlin.mpp.import.enableKgpDependencyResolution=true
 
 이 옵션은 새로운 가져오기(import) 모드의 미리보기를 활성화합니다. 복합 빌드 지원 외에도, 주요 버그 수정과 안정성 개선이 포함되어 멀티플랫폼 프로젝트에서 더욱 원활한 가져오기 경험을 제공합니다.
 
-#### 알려진 문제점
+#### 알려진 문제점 {id="known-issues"}
 
 아직 미리보기 버전이므로 추가적인 안정화가 필요하며, 사용 중에 가져오기 관련 이슈를 만날 수 있습니다. Kotlin 1.8.20 최종 릴리스 전까지 해결할 계획인 알려진 문제는 다음과 같습니다:
 
@@ -742,7 +742,7 @@ kotlin.mpp.import.enableKgpDependencyResolution=true
 
 직접 사용해 보시고 [YouTrack](https://kotl.in/issue)에 보고해 주세요. Kotlin 1.9.0에서 기본 기능으로 포함될 수 있도록 여러분의 도움이 필요합니다.
 
-### Xcode에서 Gradle 오류 출력 개선
+### Xcode에서 Gradle 오류 출력 개선 {id="improved-output-for-gradle-errors-in-xcode"}
 
 Xcode에서 멀티플랫폼 프로젝트를 빌드할 때 "Command PhaseScriptExecution failed with a nonzero exit code" 오류가 발생하는 경우가 있습니다. 이 메시지는 Gradle 호출이 실패했음을 나타내지만, 문제를 파악하는 데는 큰 도움이 되지 않습니다.
 
@@ -752,7 +752,7 @@ Kotlin 1.8.20부터 Xcode는 Kotlin/Native 컴파일러의 출력을 파싱할 �
 
 새로운 동작은 멀티플랫폼 프로젝트의 iOS 프레임워크를 Xcode의 iOS 애플리케이션에 연결하는 `embedAndSignAppleFrameworkForXcode`와 같은 Xcode 통합용 표준 Gradle 태스크에서 기본적으로 활성화됩니다. 또한 `kotlin.native.useXcodeMessageStyle` Gradle 프로퍼티를 사용하여 활성화하거나 비활성화할 수 있습니다.
 
-## Kotlin/JavaScript
+## Kotlin/JavaScript {id="kotlin-javascript"}
 
 Kotlin 1.8.20은 TypeScript 정의를 생성하는 방식을 변경합니다. 또한 디버깅 경험을 개선하기 위한 변경 사항도 포함되어 있습니다:
 
@@ -760,7 +760,7 @@ Kotlin 1.8.20은 TypeScript 정의를 생성하는 방식을 변경합니다. �
 * [소스 맵(source maps)에 Kotlin 변수 및 함수 이름 포함](#kotlin-variable-and-function-names-in-source-maps)
 * [TypeScript 정의 파일 생성 명시적 동의(Opt-in)](#opt-in-for-generation-of-typescript-definition-files)
 
-### Gradle 플러그인에서 Dukat 통합 제거
+### Gradle 플러그인에서 Dukat 통합 제거 {id="removal-of-dukat-integration-from-gradle-plugin"}
 
 Kotlin 1.8.20에서는 Kotlin/JavaScript Gradle 플러그인에서 [실험적(Experimental)](components-stability.md#stability-levels-explained) Dukat 통합을 제거했습니다. Dukat 통합은 TypeScript 선언 파일(`.d.ts`)을 Kotlin 외부 선언으로 자동 변환하는 기능을 제공했습니다.
 
@@ -770,7 +770,7 @@ Kotlin 1.8.20에서는 Kotlin/JavaScript Gradle 플러그인에서 [실험적(Ex
 >
 {style="warning"}
 
-### 소스 맵에 Kotlin 변수 및 함수 이름 포함
+### 소스 맵에 Kotlin 변수 및 함수 이름 포함 {id="kotlin-variable-and-function-names-in-source-maps"}
 
 디버깅을 돕기 위해 소스 맵에 Kotlin 코드에서 선언한 변수 및 함수 이름을 추가할 수 있는 기능을 도입했습니다. 1.8.20 이전에는 소스 맵에서 이러한 정보를 얻을 수 없었기 때문에, 디버거에서 생성된 JavaScript의 변수 및 함수 이름만 볼 수 있었습니다.
 
@@ -797,7 +797,7 @@ Chromium 기반 브라우저에서 제공하는 디버깅 도구는 소스 맵�
 >
 {style="warning"}
 
-### TypeScript 정의 파일 생성 명시적 동의(Opt-in)
+### TypeScript 정의 파일 생성 명시적 동의(Opt-in) {id="opt-in-for-generation-of-typescript-definition-files"}
 
 이전에는 실행 파일(`binaries.executable()`)을 생성하는 프로젝트의 경우, Kotlin/JS IR 컴파일러가 `@JsExport`로 표시된 모든 최상위 선언을 수집하여 `.d.ts` 파일에 TypeScript 정의를 자동으로 생성했습니다.
 
@@ -819,7 +819,7 @@ kotlin {
 >
 {style="warning"}
 
-## Gradle
+## Gradle {id="gradle"}
 
 Kotlin 1.8.20은 [멀티플랫폼 플러그인의 일부 특수한 경우](https://youtrack.jetbrains.com/issue/KT-55751)를 제외하고 Gradle 6.8에서 7.6 버전과 완전히 호환됩니다. 최신 Gradle 릴리스 버전도 사용할 수 있으나, 이 경우 중단(deprecation) 경고가 발생하거나 일부 새로운 Gradle 기능이 작동하지 않을 수 있음을 유의하세요.
 
@@ -832,19 +832,19 @@ Kotlin 1.8.20은 [멀티플랫폼 플러그인의 일부 특수한 경우](https
 * [컴파일 태스크 destinationDirectory의 기본값 외 위치 설정](#non-default-location-of-compile-tasks-destinationdirectory)
 * [HTTP 통계 서비스에 컴파일러 인자 보고 비활성화 기능](#ability-to-opt-out-from-reporting-compiler-arguments-to-an-http-statistics-service)
 
-### 새로운 Gradle 플러그인 버전 정렬
+### 새로운 Gradle 플러그인 버전 정렬 {id="new-gradle-plugins-versions-alignment"}
 
 Gradle은 함께 작동해야 하는 의존성들의 [버전을 항상 일치시키는 방식](https://docs.gradle.org/current/userguide/dependency_version_alignment.html#aligning_versions_natively_with_gradle)을 제공합니다. Kotlin 1.8.20도 이 방식을 도입했습니다. 이는 기본적으로 작동하므로 활성화를 위해 구성을 변경하거나 업데이트할 필요가 없습니다. 또한 [Kotlin Gradle 플러그인의 전이적 의존성 해결을 위한 이전의 해결 방법](whatsnew18.md#resolution-of-kotlin-gradle-plugins-transitive-dependencies)을 더 이상 사용할 필요가 없습니다.
 
 이 기능에 대한 피드백은 [YouTrack](https://youtrack.jetbrains.com/issue/KT-54691)에 남겨주세요.
 
-### Gradle에서 JVM 증분 컴파일 기본 활성화
+### Gradle에서 JVM 증분 컴파일 기본 활성화 {id="new-jvm-incremental-compilation-by-default-in-gradle"}
 
 [Kotlin 1.7.0부터 사용 가능했던](whatsnew17.md#a-new-approach-to-incremental-compilation) 새로운 증분 컴파일 방식이 이제 기본적으로 작동합니다. 더 이상 활성화를 위해 `gradle.properties`에 `kotlin.incremental.useClasspathSnapshot=true`를 지정할 필요가 없습니다.
 
 이에 대한 피드백이 있다면 [YouTrack에 이슈를 등록](https://kotl.in/issue)해 주세요.
 
-### 컴파일 태스크 출력의 정밀한 백업
+### 컴파일 태스크 출력의 정밀한 백업 {id="precise-backup-of-compilation-tasks-outputs"}
 
 > 컴파일 태스크 출력의 정밀한 백업(Precise backup)은 [실험적(Experimental)](components-stability.md#stability-levels-explained)입니다. 사용하려면 `gradle.properties`에 `kotlin.compiler.preciseCompilationResultsBackup=true`를 추가하세요. 이에 대한 의견은 [YouTrack](https://kotl.in/issue/experimental-ic-optimizations)에 남겨주세요.
 >
@@ -858,7 +858,7 @@ Kotlin 1.8.20부터는 [증분 컴파일](gradle-compilation-and-caches.md#incre
 kotlin.compiler.preciseCompilationResultsBackup=true
 ```
 
-#### JetBrains에서의 정밀한 백업 사용 사례 {initial-collapse-state="collapsed" collapsible="true"}
+#### JetBrains에서의 정밀한 백업 사용 사례 {initial-collapse-state="collapsed" collapsible="true" id="example-of-precise-backup-usage-in-jetbrains"}
 
 다음 차트에서 전체 백업 대비 정밀한 백업 사용 사례를 볼 수 있습니다:
 
@@ -879,7 +879,7 @@ kotlin.compiler.preciseCompilationResultsBackup=true
 * 변경의 영향을 받는 모듈과 해당 모듈의 크기.
 * 변경 사항이 ABI인지 비-ABI인지 여부.
 
-#### 빌드 보고서를 통한 최적화 평가 {initial-collapse-state="collapsed" collapsible="true"}
+#### 빌드 보고서를 통한 최적화 평가 {initial-collapse-state="collapsed" collapsible="true" id="evaluating-optimizations-with-build-reports"}
 
 프로젝트 및 시나리오에 대해 이 최적화가 미치는 영향을 추정하려면 [Kotlin 빌드 보고서](gradle-compilation-and-caches.md#build-reports)를 사용하면 됩니다. `gradle.properties` 파일에 다음 프로퍼티를 추가하여 텍스트 파일 형식의 보고서를 활성화하세요:
 
@@ -915,11 +915,11 @@ Time metrics:
 <...>
 ```
 
-### 모든 Gradle 버전에서 Kotlin/JVM 태스크의 지연 생성
+### 모든 Gradle 버전에서 Kotlin/JVM 태스크의 지연 생성 {id="lazy-kotlin-jvm-tasks-creation-for-all-gradle-versions"}
 
 Gradle 7.3 이상 버전에서 `org.jetbrains.kotlin.gradle.jvm` 플러그인을 사용하는 프로젝트의 경우, Kotlin Gradle 플러그인이 더 이상 `compileKotlin` 태스크를 즉시(eagerly) 생성하고 구성하지 않습니다. 낮은 버전의 Gradle에서는 모든 태스크를 등록만 하고 드라이 런(dry run) 시에는 구성하지 않습니다. 이제 Gradle 7.3 이상을 사용할 때도 동일한 동작이 적용됩니다.
 
-### 컴파일 태스크 destinationDirectory의 기본값 외 위치 설정
+### 컴파일 태스크 destinationDirectory의 기본값 외 위치 설정 {id="non-default-location-of-compile-tasks-destinationdirectory"}
 
 다음 중 하나를 수행하는 경우 빌드 스크립트에 코드를 추가하여 업데이트해야 합니다:
 
@@ -935,13 +935,13 @@ tasks.jar(type: Jar) {
 }
 ```
 
-### HTTP 통계 서비스에 컴파일러 인자 보고 비활성화 기능
+### HTTP 통계 서비스에 컴파일러 인자 보고 비활성화 기능 {id="ability-to-opt-out-from-reporting-compiler-arguments-to-an-http-statistics-service"}
 
 이제 Kotlin Gradle 플러그인이 HTTP [빌드 보고서](gradle-compilation-and-caches.md#build-reports)에 컴파일러 인자를 포함할지 여부를 제어할 수 있습니다. 때로는 이러한 인자를 보고할 필요가 없을 수도 있습니다. 프로젝트에 모듈이 많은 경우 보고서의 컴파일러 인자가 너무 무거워지고 도움이 되지 않을 수 있습니다. 이제 이를 비활성화하여 메모리를 절약할 수 있습니다. `gradle.properties` 또는 `local.properties`에서 `kotlin.build.report.include_compiler_arguments=(true|false)` 프로퍼티를 사용하세요.
 
 이 기능에 대한 피드백은 [YouTrack](https://youtrack.jetbrains.com/issue/KT-55323/)에 남겨주세요.
 
-## 표준 라이브러리 (Standard library)
+## 표준 라이브러리 (Standard library) {id="standard-library"}
 
 Kotlin 1.8.20에는 특히 Kotlin/Native 개발에 유용한 다양한 새 기능이 추가되었습니다:
 
@@ -950,7 +950,7 @@ Kotlin 1.8.20에는 특히 Kotlin/Native 개발에 유용한 다양한 새 기�
 * [Kotlin/Native에서 @Volatile 지원](#support-for-volatile-in-kotlin-native)
 * [Kotlin/Native에서 정규식 사용 시 스택 오버플로 버그 수정](#bug-fix-for-stack-overflow-when-using-regex-in-kotlin-native)
 
-### AutoCloseable 인터페이스 지원
+### AutoCloseable 인터페이스 지원 {id="support-for-the-autocloseable-interface"}
 
 > 새로운 `AutoCloseable` 인터페이스는 [실험적(Experimental)](components-stability.md#stability-levels-explained)입니다. 사용하려면 `@OptIn(ExperimentalStdlibApi::class)`를 사용하거나 컴파일러 인자 `-opt-in=kotlin.ExperimentalStdlibApi`를 통해 동의해야 합니다.
 >
@@ -997,7 +997,7 @@ fun writeBooksTo(writer: XMLWriter) {
 ```
 {validate="false"}
 
-### Base64 인코딩 지원
+### Base64 인코딩 지원 {id="support-for-base64-encoding"}
 
 > 새로운 인코딩 및 디코딩 기능은 [실험적(Experimental)](components-stability.md#stability-levels-explained)입니다. 사용하려면 `@OptIn(ExperimentalEncodingApi::class)`를 사용하거나 컴파일러 인자 `-opt-in=kotlin.io.encoding.ExperimentalEncodingApi`를 통해 동의해야 합니다.
 >
@@ -1034,7 +1034,7 @@ Base64.UrlSafe.decode("Zm9vYmFy") // foobarBytes
 
 Kotlin/JVM에서는 입력 및 출력 스트림을 사용하여 Base64 인코딩 및 디코딩을 수행할 수 있도록 `encodingWith()` 및 `decodingWith()` 확장 함수도 추가했습니다.
 
-### Kotlin/Native에서 @Volatile 지원
+### Kotlin/Native에서 @Volatile 지원 {id="support-for-volatile-in-kotlin-native"}
 
 > Kotlin/Native에서의 `@Volatile`은 [실험적(Experimental)](components-stability.md#stability-levels-explained)입니다. 언제든지 변경되거나 제거될 수 있습니다. 사용하려면 동의(Opt-in)가 필요합니다(아래 세부 정보 참조). 평가 목적으로만 사용하세요. [YouTrack](https://kotl.in/issue)을 통해 피드백을 보내주시면 감사하겠습니다.
 >
@@ -1046,7 +1046,7 @@ Kotlin/JVM에서는 입력 및 출력 스트림을 사용하여 Base64 인코딩
 
 1.8.20에서는 JVM과 Kotlin/Native 모두에서 사용할 수 있는 공통 어노테이션인 `kotlin.concurrent.Volatile`을 도입했습니다.
 
-#### 활성화 방법
+#### 활성화 방법 {id="how-to-enable"}
 
 이 기능을 사용해 보려면 `@OptIn(ExperimentalStdlibApi)`로 동의하고 `-language-version 1.9` 컴파일러 옵션을 활성화하세요. Gradle 프로젝트의 경우 `build.gradle(.kts)` 파일에 다음을 추가하여 활성화할 수 있습니다:
 
@@ -1080,15 +1080,15 @@ tasks
 </tab>
 </tabs>
 
-### Kotlin/Native에서 정규식 사용 시 스택 오버플로 버그 수정
+### Kotlin/Native에서 정규식 사용 시 스택 오버플로 버그 수정 {id="bug-fix-for-stack-overflow-when-using-regex-in-kotlin-native"}
 
 이전 버전의 Kotlin에서는 정규식 패턴이 매우 단순하더라도 입력값에 문자가 아주 많으면 크래시가 발생할 수 있었습니다. 1.8.20에서 이 문제가 해결되었습니다. 자세한 정보는 [KT-46211](https://youtrack.jetbrains.com/issue/KT-46211)을 참조하세요.
 
-## Serialization 업데이트
+## Serialization 업데이트 {id="serialization-updates"}
 
 Kotlin 1.8.20은 [Kotlin K2 컴파일러에 대한 Alpha 지원](#prototype-serialization-compiler-plugin-for-kotlin-k2-compiler)을 포함하며 [동반 객체를 통한 serializer 커스터마이징을 금지](#prohibit-implicit-serializer-customization-via-companion-object)합니다.
 
-### Kotlin K2 컴파일러를 위한 프로토타입 serialization 컴파일러 플러그인
+### Kotlin K2 컴파일러를 위한 프로토타입 serialization 컴파일러 플러그인 {id="prototype-serialization-compiler-plugin-for-kotlin-k2-compiler"}
 
 > K2용 serialization 컴파일러 플러그인 지원은 [Alpha](components-stability.md#stability-levels-explained) 단계입니다. 이를 사용하려면 [Kotlin K2 컴파일러를 활성화](#how-to-enable-the-kotlin-k2-compiler)하세요.
 >
@@ -1096,7 +1096,7 @@ Kotlin 1.8.20은 [Kotlin K2 컴파일러에 대한 Alpha 지원](#prototype-seri
 
 1.8.20부터 serialization 컴파일러 플러그인이 Kotlin K2 컴파일러와 함께 작동합니다. 직접 사용해 보시고 [저희에게 의견을 공유해 주세요](#leave-your-feedback-on-the-new-k2-compiler)!
 
-### 동반 객체를 통한 암시적 serializer 커스터마이징 금지
+### 동반 객체를 통한 암시적 serializer 커스터마이징 금지 {id="prohibit-implicit-serializer-customization-via-companion-object"}
 
 현재는 `@Serializable` 어노테이션으로 클래스를 직렬화 가능하게 선언함과 동시에, 해당 클래스의 동반 객체(companion object)에 `@Serializer` 어노테이션을 사용하여 커스텀 serializer를 선언하는 것이 가능합니다.
 
@@ -1138,7 +1138,7 @@ class Foo(val a: Int) {
 >
 {style="tip"}
 
-## 문서 업데이트
+## 문서 업데이트 {id="documentation-updates"}
 
 Kotlin 문서에 몇 가지 주목할 만한 변경 사항이 있었습니다:
 
@@ -1146,9 +1146,9 @@ Kotlin 문서에 몇 가지 주목할 만한 변경 사항이 있었습니다:
 * [범위 지정 함수(Scope functions)](scope-functions.md) – 표준 라이브러리의 유용한 범위 지정 함수를 사용하여 코드를 단순화하는 방법을 배웁니다.
 * [CocoaPods 통합](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html) – CocoaPods 작업을 위한 환경을 설정합니다.
 
-## Kotlin 1.8.20 설치하기
+## Kotlin 1.8.20 설치하기 {id="install-kotlin-1-8-20"}
 
-### IDE 버전 확인
+### IDE 버전 확인 {id="check-the-ide-version"}
 
 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 2022.2 및 2022.3은 자동으로 Kotlin 플러그인을 1.8.20 버전으로 업데이트하도록 제안합니다. IntelliJ IDEA 2023.1에는 Kotlin 플러그인 1.8.20이 내장되어 있습니다.
 
@@ -1156,7 +1156,7 @@ Android Studio Flamingo (222) 및 Giraffe (223)는 다음 릴리스에서 Kotlin
 
 새로운 명령줄 컴파일러는 [GitHub 릴리스 페이지](https://github.com/JetBrains/kotlin/releases/tag/v1.8.20)에서 다운로드할 수 있습니다.
 
-### Gradle 설정 구성
+### Gradle 설정 구성 {id="configure-gradle-settings"}
 
 Kotlin 아티팩트와 의존성을 올바르게 다운로드하려면 Maven Central 저장소를 사용하도록 `settings.gradle(.kts)` 파일을 업데이트하세요:
 

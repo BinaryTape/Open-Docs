@@ -1,10 +1,10 @@
 # 測試
 
-## 概覽
+## 概覽 {id="overview"}
 
 測試功能為 Koog 架構中的 AI 代理管線、子圖及工具互動提供了一個全面的測試架構。它讓開發人員能夠使用模擬的 LLM（大型語言模型）執行器、工具註冊表和代理環境來建立受控的測試環境。
 
-### 目的
+### 目的 {id="purpose"}
 
 此功能的首要目的是透過以下方式促進代理型 AI 功能的測試：
 
@@ -14,9 +14,9 @@
 - 驗證資料在代理節點間的正確流動
 - 為預期行為提供斷言（assertions）
 
-## 設定與初始化
+## 設定與初始化 {id="configuration-and-initialization"}
 
-### 設定測試相依性
+### 設定測試相依性 {id="setting-up-test-dependencies"}
 
 在設定測試環境之前，請確保您已新增以下相依性：
 
@@ -35,7 +35,7 @@ dependencies {
 ```
 <!--- KNIT example-testing-01.kt -->
 
-### 模擬 LLM 回應
+### 模擬 LLM 回應 {id="mocking-llm-responses"}
 
 測試的基本形式涉及模擬 LLM 回應以確保確定性行為。您可以使用 `MockLLMBuilder` 和相關公用程式來執行此操作。
 
@@ -83,7 +83,7 @@ dependencies {
     ```
     <!--- KNIT example-testing-java-01.java -->
 
-### 模擬工具呼叫
+### 模擬工具呼叫 {id="mocking-tool-calls"}
 
 您可以根據輸入模式模擬 LLM 呼叫特定工具：
 
@@ -203,7 +203,7 @@ dependencies {
 3. `returns...onArguments`：針對精確的引數配對回傳特定結果。
 4. `returns...onArgumentsMatching`：根據自訂引數條件回傳結果。
 
-### 啟用測試模式
+### 啟用測試模式 {id="enabling-testing-mode"}
 
 若要在代理上啟用測試模式，請在 `AIAgent` 建構函式區塊中使用 `withTesting()` 函式：
 
@@ -247,15 +247,15 @@ dependencies {
     ```
     <!--- KNIT example-testing-java-03.java -->
 
-## 進階測試
+## 進階測試 {id="advanced-testing"}
 
-### 測試圖形結構
+### 測試圖形結構 {id="testing-the-graph-structure"}
 
 在測試詳細的節點行為和邊連線之前，驗證代理圖形的整體結構非常重要。這包括檢查所有必要的節點是否存在，並且在預期的子圖中正確連接。
 
 測試功能提供了一種全面的方式來測試代理的圖形結構。這種方法對於具有多個子圖和互連節點的複雜代理特別有價值。
 
-#### 基礎結構測試
+#### 基礎結構測試 {id="basic-structure-testing"}
 
 首先驗證代理圖形的基礎結構：
 
@@ -324,11 +324,11 @@ dependencies {
     ```
     <!--- KNIT example-testing-java-04.java -->
 
-### 測試節點行為
+### 測試節點行為 {id="testing-node-behavior"}
 
 節點行為測試可讓您驗證代理圖形中的節點是否針對指定輸入產生預期輸出。這對於確保您的代理邏輯在不同場景下正確運作至關重要。
 
-#### 基礎節點測試
+#### 基礎節點測試 {id="basic-node-testing"}
 
 從單個節點的簡單輸入和輸出驗證開始：
 
@@ -392,7 +392,7 @@ dependencies {
 1. 當 LLM 節點接收到 `Hello` 作為輸入時，它會回應一則簡單的文字訊息。
 2. 當它接收到 `Solve task` 時，它會回應一個工具呼叫。
 
-#### 測試工具執行節點
+#### 測試工具執行節點 {id="testing-tool-run-nodes"}
 
 您也可以測試執行工具的節點：
 
@@ -473,7 +473,7 @@ dependencies {
 
 這驗證了當工具執行節點接收到特定的工具呼叫簽章時，它會產生預期的工具結果。
 
-#### 進階節點測試
+#### 進階節點測試 {id="advanced-node-testing"}
 
 對於更複雜的場景，您可以測試具有結構化輸入和輸出的節點：
 
@@ -644,11 +644,11 @@ dependencies {
 
 這些進階測試有助於確保您的節點能夠正確處理複雜的資料結構，這對於複雜的代理行為至關重要。
 
-### 測試邊連線
+### 測試邊連線 {id="testing-edge-connections"}
 
 邊連線測試可讓您驗證代理圖形是否能將輸出從一個節點正確路由到適當的下一個節點。這可確保您的代理根據不同的輸出遵循預期的工作流路徑。
 
-#### 基礎邊測試
+#### 基礎邊測試 {id="basic-edge-testing"}
 
 從簡單的邊連線測試開始：
 
@@ -717,7 +717,7 @@ dependencies {
 1. 當 LLM 節點輸出一則簡單的文字訊息時，流程會被導向 `giveFeedback` 節點。
 2. 當它輸出一個工具呼叫時，流程會被導向 `callTool` 節點。
 
-#### 測試條件路由
+#### 測試條件路由 {id="testing-conditional-routing"}
 
 您可以根據輸出內容測試更複雜的路由邏輯：
 
@@ -773,7 +773,7 @@ dependencies {
     ```
     <!--- KNIT example-testing-java-10.java -->
 
-#### 進階邊測試
+#### 進階邊測試 {id="advanced-edge-testing"}
 
 對於複雜的代理，您可以測試基於工具結果中結構化資料的條件路由：
 
@@ -900,7 +900,7 @@ dependencies {
 
 這些進階邊測試有助於確保您的代理根據節點輸出的內容和結構做出正確決策，這對於建立智慧、具備內容感知能力的工作流至關重要。
 
-## 完整測試範例
+## 完整測試範例 {id="complete-testing-example"}
 
 以下是一個展示完整測試場景的使用者故事：
 
@@ -1174,13 +1174,13 @@ ${it.stackTraceToString()}")
     ```
     <!--- KNIT example-testing-java-14.java -->
 
-## API 參考
+## API 參考 {id="api-reference"}
 
 有關測試功能的完整 API 參考，請參閱 [agents-test](api:agents-test::) 模組的參考文件。
 
-## 常見問題與疑難排解
+## 常見問題與疑難排解 {id="faq-and-troubleshooting"}
 
-#### 如何模擬特定的工具回應？
+#### 如何模擬特定的工具回應？ {id="how-do-i-mock-a-specific-tool-response"}
 
 在 `MockLLMBuilder` 中使用 `mockTool` 方法：
 
@@ -1210,7 +1210,7 @@ ${it.stackTraceToString()}")
     ```
     <!--- KNIT example-testing-java-15.java -->
 
-#### 如何測試複雜的圖形結構？
+#### 如何測試複雜的圖形結構？ {id="how-can-i-test-complex-graph-structures"}
 
 使用子圖斷言、`verifySubgraph` 以及節點參考：
 
@@ -1268,7 +1268,7 @@ ${it.stackTraceToString()}")
     ```
     <!--- KNIT example-testing-java-16.java -->
 
-#### 如何根據輸入模擬不同的 LLM 回應？
+#### 如何根據輸入模擬不同的 LLM 回應？ {id="how-do-i-simulate-different-llm-responses-based-on-input"}
 
 使用模式配對方法：
 
@@ -1309,13 +1309,13 @@ ${it.stackTraceToString()}")
     ```
     <!--- KNIT example-testing-java-17.java -->
 
-### 疑難排解
+### 疑難排解 {id="troubleshooting"}
 
-#### 模擬執行器總是回傳預設回應
+#### 模擬執行器總是回傳預設回應 {id="mock-executor-always-returns-the-default-response"}
 
 請檢查您的模式配對是否正確。模式區分大小寫，且必須與指定的內容完全符合。
 
-#### 工具呼叫未被攔截
+#### 工具呼叫未被攔截 {id="tool-calls-are-not-being-intercepted"}
 
 請確保：
 
@@ -1323,7 +1323,7 @@ ${it.stackTraceToString()}")
 2. 工具名稱完全一致。
 3. 工具操作已正確配置。
 
-#### 圖形斷言失敗
+#### 圖形斷言失敗 {id="graph-assertions-are-failing"}
 
 1. 驗證節點名稱是否正確。
 2. 檢查圖形結構是否符合您的預期。

@@ -23,7 +23,7 @@ Kotlin 2.3.20 正式发布！以下是主要亮点：
 >
 {style="tip"}
 
-## 更新至 Kotlin 2.3.20
+## 更新至 Kotlin 2.3.20 {id="update-to-kotlin-2-3-20"}
 
 最新版本的 Kotlin 已包含在最新版本的 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Android Studio](https://developer.android.com/studio) 中。
 
@@ -330,12 +330,12 @@ fun main() {
 
 </snippet>
 
-## 语言
+## 语言 {id="language"}
 
 Kotlin 2.3.20 增加了基于名称的析构声明，它将变量与属性名称匹配，而不是依赖于位置。
 它还引入了对具有上下文参数的声明的重载解析更改。
 
-### 上下文参数重载解析的更改
+### 上下文参数重载解析的更改 {id="changes-to-overload-resolution-for-context-parameters"}
 <secondary-label ref="language"/>
 
 Kotlin 2.3.20 引入了对具有上下文参数的声明的重载解析更改。
@@ -380,7 +380,7 @@ fun main() {
 <var name="id5" value="language-name-based-destructuring-how-to-enable"/>
 </include>
 
-## 标准库
+## 标准库 {id="standard-library"}
 
 Kotlin 2.3.20 包含了一个标准库的新实验性功能。
 
@@ -388,11 +388,11 @@ Kotlin 2.3.20 包含了一个标准库的新实验性功能。
 <var name="id6" value="standard-library-new-api-for-creating-immutable-copies-of-map-entry"/>
 </include>
 
-## Kotlin 编译器插件
+## Kotlin 编译器插件 {id="kotlin-compiler-plugins"}
 
 Kotlin 2.3.20 为 Lombok 和 `kotlin.plugin.jpa` 编译器插件带来了重要更新。
 
-### 在 `kotlin.plugin.jpa` 插件中改进了 JPA 支持
+### 在 `kotlin.plugin.jpa` 插件中改进了 JPA 支持 {id="improved-jpa-support-in-the-kotlin-plugin-jpa-plugin"}
 <secondary-label ref="compiler"/>
 
 `kotlin.plugin.jpa` 插件现在会自动应用 [`all-open`](all-open-plugin.md) 编译器插件及其新增的内置 JPA 预设，
@@ -430,12 +430,12 @@ Kotlin 2.3.20 为 Lombok 和 `kotlin.plugin.jpa` 编译器插件带来了重要�
 <var name="id3" value="compiler-lombok-is-now-alpha"/>
 </include>
 
-## Kotlin/JVM
+## Kotlin/JVM {id="kotlin-jvm"}
 
 Kotlin 2.3.20 引入了多项 Java 互操作性改进。编译器现在可以识别 Vert.x 的 `@Nullable` 注解进行为 null 性检查。
 此版本还增加了对 Java `@Unmodifiable` 和 `@UnmodifiableView` 注解的支持，以便在 Kotlin 中将标注的集合视为只读。
 
-### 支持 Vert.x 的 `@Nullable` 注解
+### 支持 Vert.x 的 `@Nullable` 注解 {id="support-for-vert-x-nullable-annotation"}
 <secondary-label ref="jvm"/>
 
 Kotlin 2.3.20 增加了对 [`io.vertx.codegen.annotations.Nullable`](https://www.javadoc.io/doc/io.vertx/vertx-codegen/3.5.0/io/vertx/codegen/annotations/Nullable.html) 注解的支持。
@@ -476,7 +476,7 @@ kotlin {
 </tab>
 </tabs>
 
-### 支持 Java 不可变集合注解
+### 支持 Java 不可变集合注解 {id="support-for-java-unmodifiable-collection-annotations"}
 <secondary-label ref="jvm"/>
 
 Kotlin 2.3.20 增加了对 [`org.jetbrains.annotations.Unmodifiable`](https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/Unmodifiable.html) 和 [`org.jetbrains.annotations.UnmodifiableView`](https://javadoc.io/doc/org.jetbrains/annotations/24.0.1/org/jetbrains/annotations/UnmodifiableView.html) Java 注解的支持。
@@ -508,11 +508,11 @@ fun main() {
 }
 ```
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 Kotlin 2.3.20 引入了针对 C 和 Objective-C 库的新实验性互操作模式、交叉编译检查器，以及用于在 Kotlin/Native 项目中禁用编译缓存的新 DSL。
 
-### 交叉编译检查器
+### 交叉编译检查器 {id="cross-compilation-checker"}
 <secondary-label ref="native"/>
 
 Kotlin 2.3.20 引入了一种确定给定目标是否支持交叉编译的方法。
@@ -526,7 +526,7 @@ Kotlin 2.3.20 引入了一种确定给定目标是否支持交叉编译的方法
 
 有关支持的目标和主机的更多信息，请参阅 [Kotlin/Native 文档](native-target-support.md)。
 
-### 用于禁用编译缓存的新 DSL
+### 用于禁用编译缓存的新 DSL {id="new-dsl-for-disabling-compilation-cache"}
 <secondary-label ref="native"/>
 
 Kotlin 2.3.20 配备了用于在 Kotlin/Native 项目中禁用编译缓存的新 DSL。
@@ -574,12 +574,12 @@ kotlin {
 <var name="id9" value="native-new-interoperability-mode-for-c-or-objective-c-libraries-report-your-results"/>
 </include>
 
-## Kotlin/Wasm
+## Kotlin/Wasm {id="kotlin-wasm"}
 
 Kotlin 2.3.20 提升了字符串操作的性能、编译时间及内存使用。
 它还增加了对实验性 `@nativeInvoke` 注解的支持，该注解允许您像调用 JavaScript 函数一样调用 Kotlin 对象或类。
 
-### 改进字符串性能
+### 改进字符串性能 {id="improved-string-performance"}
 <secondary-label ref="wasm"/>
 
 Kotlin/Wasm 现在对 `kotlin.String` 值使用 JS 字符串内建函数 (JS String builtins)。
@@ -593,7 +593,7 @@ Kotlin/Wasm 现在对 `kotlin.String` 值使用 JS 字符串内建函数 (JS Str
 * 在所有 Wasm 基准测试中，中位数提升了约 1 %。
 * 在追加密集型工作负载中，`StringBuilder.append()` 和 `kotlin.String` 实例的拼接速度至少提升了 20 %。
 
-### 改进编译时间并优化内存
+### 改进编译时间并优化内存 {id="improved-compilation-time-and-memory-optimizations"}
 <secondary-label ref="wasm"/>
 
 Kotlin 2.3.20 增加了编译器优化，显著减少了编译期间的内存消耗，尤其是在大型项目中。
@@ -601,7 +601,7 @@ Kotlin 2.3.20 增加了编译器优化，显著减少了编译期间的内存消
 
 在我们的测试中，我们观察到全量构建时间缩短了 65 %，增量构建时间缩短了 21 %。
 
-### 支持 `@nativeInvoke` 注解
+### 支持 `@nativeInvoke` 注解 {id="support-for-nativeinvoke-annotation"}
 <primary-label ref="experimental-opt-in"/>
 <secondary-label ref="wasm"/>
 
@@ -631,11 +631,11 @@ fun main() {
 
 有关 Kotlin/Wasm 与 JavaScript 互操作性的更多信息，请参阅[与 JavaScript 互操作](wasm-js-interop.md)。
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
 Kotlin 2.3.20 使得从 TypeScript 实现 Kotlin 接口成为可能，并引入了对 SWC 编译平台的实验性支持。
 
-### 从 JavaScript/TypeScript 实现 Kotlin 接口
+### 从 JavaScript/TypeScript 实现 Kotlin 接口 {id="implementing-kotlin-interfaces-from-javascript-typescript"}
 <primary-label ref="experimental-opt-in"/>
 <secondary-label ref="js"/>
 
@@ -720,7 +720,7 @@ kotlin {
 
 有关更多信息，请参阅 [`@JsExport` 注解](js-to-kotlin-interop.md#jsexport-annotation)。
 
-### 支持 SWC 编译平台
+### 支持 SWC 编译平台 {id="support-for-swc-compilation-platform"}
 <primary-label ref="experimental-opt-in"/>
 <secondary-label ref="js"/>
 
@@ -751,17 +751,17 @@ kotlin.js.delegated.transpilation=true
 
 有关 SWC 平台的更多信息，请参阅官方[文档](https://swc.rs/docs/getting-started)。
 
-## Gradle
+## Gradle {id="gradle"}
 
 Kotlin 2.3.20 与新版本的 Gradle 兼容，并包含对 Kotlin Gradle 插件中 Kotlin/JVM 编译的更改。
 
-### 兼容 Gradle 9.3.0
+### 兼容 Gradle 9.3.0 {id="compatibility-with-gradle-9-3-0"}
 <secondary-label ref="gradle"/>
 
 Kotlin 2.3.20 与 Gradle 7.6.3 至 9.3.0 完全兼容。您也可以使用截至最新发布的 Gradle 版本。
 但请注意，这样做可能会导致弃用警告，且某些新的 Gradle 功能可能无法工作。
 
-### 改进 KGP 中的二进制兼容性验证
+### 改进 KGP 中的二进制兼容性验证 {id="improvements-to-binary-compatibility-validation-in-kgp"}
 <secondary-label ref="gradle"/>
 
 Kotlin 2.2.0 首次带来了对 [Kotlin Gradle 插件中的二进制兼容性验证](gradle-binary-compatibility-validation.md)的支持。Kotlin 2.3.20 增加了两项改进。
@@ -781,7 +781,7 @@ Kotlin 2.2.0 首次带来了对 [Kotlin Gradle 插件中的二进制兼容性验
 以前，尽管 `check` 任务理应运行所有验证任务，但 Gradle 并不运行 `checkKotlinAbi` 任务。
 这导致了 Gradle 项目中的行为不一致。
 
-### Kotlin/JVM 编译默认使用构建工具 API
+### Kotlin/JVM 编译默认使用构建工具 API {id="kotlin-jvm-compilation-uses-build-tools-api-by-default"}
 <primary-label ref="experimental-general"/>
 <secondary-label ref="gradle"/>
 
@@ -790,7 +790,7 @@ Kotlin 2.2.0 首次带来了对 [Kotlin Gradle 插件中的二进制兼容性验
 
 如果您发现任何问题，请在我们的[问题跟踪器](https://youtrack.jetbrains.com/newIssue?project=KT&summary=Kotlin+Gradle+plugin+BTA+migration+issue&description=Describe+the+problem+you+encountered+here.&c=tag+kgp-bta-migration)中分享您的反馈。
 
-## Maven
+## Maven {id="maven"}
 
 Kotlin 2.3.20 带来了一项重要更改，使设置您的 Maven 项目变得更加容易。
 
@@ -799,11 +799,11 @@ Kotlin 2.3.20 带来了一项重要更改，使设置您的 Maven 项目变得�
 <var name="id2" value="maven-simplified-setup-for-kotlin-projects-how-to-enable"/>
 </include>
 
-## 构建工具 API
+## 构建工具 API {id="build-tools-api"}
 
 Kotlin 2.3.20 为希望使用构建工具 API (BTA) 将其构建系统与 Kotlin 编译器集成的开发者引入了更多更改。
 
-### 构建操作的改进
+### 构建操作的改进 {id="improvements-to-build-operations"}
 <secondary-label ref="bta"/>
 
 在此版本中， BTA 改进了构建工具管理构建操作的方式。
@@ -853,7 +853,7 @@ fun prepareBuildOperation(toolchains: KotlinToolchains, sources: List<Path>, des
 }
 ```
 
-### 构建工具之间一致的指标收集
+### 构建工具之间一致的指标收集 {id="consistent-metric-collection-across-build-tools"}
 <secondary-label ref="bta"/>
 
 在 Kotlin 2.3.20 之前，构建指标基础设施以 Gradle 为中心，这影响了部分基础设施，如指标名称。
@@ -880,7 +880,7 @@ operation[BuildOperation.METRICS_COLLECTOR] = object : BuildMetricsCollector {
 }
 ```
 
-### 构建工具更容易配置编译器插件
+### 构建工具更容易配置编译器插件 {id="easier-configuration-of-compiler-plugins-by-build-tools"}
 <secondary-label ref="bta"/>
 
 在 Kotlin 2.3.20 中， BTA 提供了一种新的且更简单的方法供构建工具配置编译器插件。
@@ -917,7 +917,7 @@ operation.compilerArguments[COMPILER_PLUGINS] = listOf(
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="示例代码"}
 
-## 重大更改和弃用
+## 重大更改和弃用 {id="breaking-changes-and-deprecations"}
 
 本节重点介绍重要的重大更改和弃用。有关 Kotlin 2.3.0 和 2.3.20 中弃用的更多信息，请参阅[兼容性指南](compatibility-guide-23.md)。
 
@@ -931,7 +931,7 @@ operation.compilerArguments[COMPILER_PLUGINS] = listOf(
   由于许多第三方库仍依赖于 `iosX64` 目标，我们目前将其保留在支持层级 3。这意味着我们不保证 CI 测试，并且可能无法在不同的编译器版本之间提供源码和二进制兼容性。有关支持层级的更多信息，请参阅 [Kotlin/Native 目标支持](native-target-support.md)。
 * 在 Kotlin 2.3.20 中， Kotlin Multiplatform 中更严格的依赖匹配可能会在 common 和平台源集之间的依赖解析不同时导致元数据编译失败。有关详细信息和解决方法，请参阅 [YouTrack](https://youtrack.jetbrains.com/issue/KT-84533#tldr-workaround) 中的问题。
 
-## 文档更新
+## 文档更新 {id="documentation-updates"}
 
 我们在 Kotlin 生态系统中进行了以下文档更改：
 

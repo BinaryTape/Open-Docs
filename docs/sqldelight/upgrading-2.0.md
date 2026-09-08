@@ -5,7 +5,7 @@ SQLDelight 2.0 对 Gradle 插件和运行时 API 进行了一些破坏性变更�
 本页列出了这些破坏性变更及其在 2.0 中的新替代方案。
 有关新功能和其他变更的完整列表，请参阅 [变更日志](../changelog)。
 
-## 新软件包名称与构件组
+## 新软件包名称与构件组 {id="new-package-name-and-artifact-group"}
 
 所有 `com.squareup.sqldelight` 实例都需要替换为 `app.cash.sqldelight`。
 
@@ -34,7 +34,7 @@ dependencies {
 +import app.cash.sqldelight.db.SqlDriver
 ```
 
-## Gradle 配置变更
+## Gradle 配置变更 {id="gradle-configuration-changes"}
 
 * SQLDelight 2.0 构建时需要 Java 11，运行时需要 Java 8。
 * SQLDelight 配置 API 现在对数据库使用托管属性和 `DomainObjectCollection`。
@@ -123,7 +123,7 @@ dependencies {
 
     目前支持的方言包括 `mysql-dialect`、`postgresql-dialect`、`hsql-dialect`、`sqlite-3-18-dialect`、`sqlite-3-24-dialect`、`sqlite-3-25-dialect`、`sqlite-3-30-dialect`、`sqlite-3-35-dialect` 和 `sqlite-3-38-dialect`
 
-## 运行时变更
+## 运行时变更 {id="runtime-changes"}
 
 * 现在必须将基元类型导入到 `.sq` 和 `.sqm` 文件中。
 

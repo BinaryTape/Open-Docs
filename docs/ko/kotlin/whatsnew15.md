@@ -12,7 +12,7 @@ Kotlin 1.5.0에서는 새로운 언어 기능, 안정화된 IR 기반 JVM 컴파
 >
 {style="tip"}
 
-## 언어 기능 (Language features)
+## 언어 기능 (Language features) {id="language-features"}
 
 Kotlin 1.5.0은 [1.4.30에서 미리보기](whatsnew1430.md#language-features)로 선보였던 새로운 언어 기능들의 안정 버전을 제공합니다.
 * [JVM 레코드 지원](#jvm-records-support)
@@ -21,7 +21,7 @@ Kotlin 1.5.0은 [1.4.30에서 미리보기](whatsnew1430.md#language-features)�
 
 이러한 기능들에 대한 자세한 설명은 [이 블로그 포스트](https://blog.jetbrains.com/kotlin/2021/02/new-language-features-preview-in-kotlin-1-4-30/)와 Kotlin 문서의 해당 페이지에서 확인할 수 있습니다.
 
-### JVM 레코드 지원
+### JVM 레코드 지원 {id="jvm-records-support"}
 
 Java는 빠르게 진화하고 있으며, Kotlin이 Java와 상호 운용성을 유지할 수 있도록 최신 기능 중 하나인 [레코드 클래스(record classes)](https://openjdk.java.net/jeps/395)에 대한 지원을 도입했습니다.
 
@@ -38,7 +38,7 @@ data class User(val name: String, val age: Int)
 
 <video src="https://www.youtube.com/v/iyEWXyuuseU" title="Support for JVM Records in Kotlin 1.5.0"/>
 
-### 봉인된 인터페이스 (Sealed interfaces)
+### 봉인된 인터페이스 (Sealed interfaces) {id="sealed-interfaces"}
 
 이제 Kotlin 인터페이스에 `sealed` 수정자를 사용할 수 있습니다. 이는 클래스에서 작동하는 방식과 동일하게 인터페이스에서도 작동합니다. 즉, 봉인된 인터페이스의 모든 구현체는 컴파일 타임에 알 수 있습니다.
 
@@ -67,7 +67,7 @@ class FilledRectangle: Polygon, Fillable
 
 <video src="https://www.youtube.com/v/d_Mor21W_60" title="Sealed Interfaces and Sealed Classes Improvements"/>
 
-### 패키지 범위의 봉인된 클래스 계층 구조
+### 패키지 범위의 봉인된 클래스 계층 구조 {id="package-wide-sealed-class-hierarchies"}
 
 이제 동일한 컴파일 단위 및 동일한 패키지의 모든 파일에서 봉인된 클래스의 서브클래스를 가질 수 있습니다. 이전에는 모든 서브클래스가 동일한 파일에 있어야 했습니다.
 
@@ -77,7 +77,7 @@ class FilledRectangle: Polygon, Fillable
 
 [봉인된 클래스 계층 구조에 대해 더 알아보기](sealed-classes.md#inheritance).
 
-### 인라인 클래스 (Inline classes)
+### 인라인 클래스 (Inline classes) {id="inline-classes"}
 
 인라인 클래스는 값을 하나만 보유하는 [값 기반(value-based)](https://github.com/Kotlin/KEEP/blob/master/notes/value-classes.md) 클래스의 하위 집합입니다. 메모리 할당으로 인한 추가 오버헤드 없이 특정 타입의 값에 대한 래퍼(wrapper)로 사용할 수 있습니다.
 
@@ -100,7 +100,7 @@ value class Password(val s: String)
 
 <video src="https://www.youtube.com/v/LpqvtgibbsQ" title="From Inline to Value Classes"/>
 
-## Kotlin/JVM
+## Kotlin/JVM {id="kotlin-jvm"}
 
 Kotlin/JVM에는 내부적인 개선 사항과 사용자 대면 개선 사항이 모두 포함되었습니다. 가장 주목할 만한 사항은 다음과 같습니다.
 
@@ -111,7 +111,7 @@ Kotlin/JVM에는 내부적인 개선 사항과 사용자 대면 개선 사항이
 * [@JvmDefault 및 이전 Xjvm-default 모드 지원 중단](#deprecation-of-jvmdefault-and-old-xjvm-default-modes)
 * [널 허용 여부(nullability) 어노테이션 처리 개선](#improvements-to-handling-nullability-annotations)
 
-### 안정적인 JVM IR 백엔드
+### 안정적인 JVM IR 백엔드 {id="stable-jvm-ir-backend"}
 
 Kotlin/JVM 컴파일러를 위한 [IR 기반 백엔드](whatsnew14.md#new-jvm-ir-backend)가 이제 [안정화(Stable)](components-stability.md)되었으며 기본적으로 활성화됩니다.
 
@@ -154,7 +154,7 @@ Kotlin 1.5.0에서 이전 백엔드를 사용해야 하는 경우, 프로젝트 
  </configuration>
  ```
 
-### 새로운 기본 JVM 타겟: 1.8
+### 새로운 기본 JVM 타겟: 1.8 {id="new-default-jvm-target-1-8"}
 
 Kotlin/JVM 컴파일의 기본 타겟 버전이 이제 `1.8`이 되었습니다. `1.6` 타겟은 지원 중단되었습니다.
 
@@ -164,7 +164,7 @@ JVM 1.6용 빌드가 필요한 경우 여전히 이 타겟으로 전환할 수 �
 * [Maven에서](maven-kotlin-compiler.md#attributes-specific-to-jvm)
 * [명령줄 컴파일러에서](compiler-reference.md#jvm-target-version)
 
-### invokedynamic을 통한 SAM 어댑터
+### invokedynamic을 통한 SAM 어댑터 {id="sam-adapters-via-invokedynamic"}
 
 Kotlin 1.5.0은 이제 SAM(Single Abstract Method) 변환을 컴파일할 때 동적 호출(`invokedynamic`)을 사용합니다.
 * SAM 타입이 [Java 인터페이스](java-interop.md#sam-conversions)인 경우 모든 표현식에 대해 적용됩니다.
@@ -176,7 +176,7 @@ Kotlin 1.5.0은 이제 SAM(Single Abstract Method) 변환을 컴파일할 때 �
 
 [Gradle](gradle-compiler-options.md), [Maven](maven-kotlin-compiler.md#specify-compiler-options), [명령줄 컴파일러](compiler-reference.md#compiler-options)에서 컴파일러 옵션을 추가하는 방법을 알아보세요.
 
-### invokedynamic을 통한 람다
+### invokedynamic을 통한 람다 {id="lambdas-via-invokedynamic"}
 
 > 일반 Kotlin 람다를 `invokedynamic`으로 컴파일하는 기능은 [실험적(Experimental)](components-stability.md)입니다. 이는 언제든지 삭제되거나 변경될 수 있습니다.
 > 옵트인(Opt-in)이 필요하며(아래 상세 내용 참조), 평가 목적으로만 사용해야 합니다. [YouTrack](https://youtrack.jetbrains.com/issue/KT-45375)을 통해 이에 대한 의견을 보내주시면 감사하겠습니다.
@@ -193,7 +193,7 @@ Kotlin 1.5.0은 일반 Kotlin 람다(함수형 인터페이스의 인스턴스�
 
 [Gradle](gradle-compiler-options.md), [Maven](maven-kotlin-compiler.md#specify-compiler-options), [명령줄 컴파일러](compiler-reference.md#compiler-options)에서 컴파일러 옵션을 추가하는 방법을 알아보세요.
 
-### @JvmDefault 및 이전 Xjvm-default 모드 지원 중단
+### @JvmDefault 및 이전 Xjvm-default 모드 지원 중단 {id="deprecation-of-jvmdefault-and-old-xjvm-default-modes"}
 
 Kotlin 1.4.0 이전에는 `-Xjvm-default=enable` 및 `-Xjvm-default=compatibility` 모드와 함께 `@JvmDefault` 어노테이션이 있었습니다. 이들은 Kotlin 인터페이스의 특정 비추상 멤버에 대해 JVM 기본 메서드(default method)를 만드는 데 사용되었습니다.
 
@@ -203,7 +203,7 @@ Kotlin 1.5.0에서는 `@JvmDefault`와 이전 Xjvm-default 모드인 `-Xjvm-defa
 
 [Java 상호 운용성에서의 기본 메서드에 대해 더 알아보기](java-to-kotlin-interop.md#default-methods-in-interfaces).
 
-### 널 허용 여부(nullability) 어노테이션 처리 개선
+### 널 허용 여부(nullability) 어노테이션 처리 개선 {id="improvements-to-handling-nullability-annotations"}
 
 Kotlin은 [널 허용 여부 어노테이션](java-interop.md#nullability-annotations)을 통해 Java의 타입 널 허용 여부 정보 처리를 지원합니다. Kotlin 1.5.0에서는 이 기능에 대한 여러 개선 사항이 도입되었습니다.
 
@@ -220,13 +220,13 @@ Kotlin은 [널 허용 여부 어노테이션](java-interop.md#nullability-annota
 
 [널 안전성 및 플랫폼 타입에 대해 더 알아보기](java-interop.md#null-safety-and-platform-types).
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 Kotlin/Native는 이제 성능과 안정성이 더욱 향상되었습니다. 주목할 만한 변경 사항은 다음과 같습니다.
 * [성능 향상](#performance-improvements)
 * [메모리 누수 검사기 비활성화](#deactivation-of-the-memory-leak-checker)
 
-### 성능 향상
+### 성능 향상 {id="performance-improvements"}
 
 1.5.0에서 Kotlin/Native는 컴파일과 실행 속도를 모두 높이는 일련의 성능 개선 사항을 적용받았습니다.
 
@@ -242,7 +242,7 @@ Kotlin/Native는 이제 성능과 안정성이 더욱 향상되었습니다. 주
 * 사소한 속성 접근자(trivial property accessors)가 인라인화됩니다.
 * 문자열 리터럴의 `trimIndent()`가 컴파일 중에 평가됩니다.
 
-### 메모리 누수 검사기 비활성화
+### 메모리 누수 검사기 비활성화 {id="deactivation-of-the-memory-leak-checker"}
 
 내장된 Kotlin/Native 메모리 누수 검사기가 기본적으로 비활성화되었습니다.
 
@@ -256,20 +256,20 @@ Platform.isMemoryLeakCheckerActive = true
 
 애플리케이션 런타임에 대해 검사기를 활성화하는 것은 권장되지 않습니다.
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
 Kotlin/JS는 1.5.0에서 점진적인 변화를 맞이하고 있습니다. [JS IR 컴파일러 백엔드](js-ir-compiler.md)를 안정화 단계로 옮기기 위한 작업을 계속하고 있으며 다른 업데이트들도 배포하고 있습니다.
 
 * [webpack 5 버전으로 업그레이드](#upgrade-to-webpack-5)
 * [IR 컴파일러용 프레임워크 및 라이브러리](#frameworks-and-libraries-for-the-ir-compiler)
 
-### webpack 5로 업그레이드
+### webpack 5로 업그레이드 {id="upgrade-to-webpack-5"}
 
 이제 Kotlin/JS Gradle 플러그인은 브라우저 타겟에 대해 webpack 4 대신 webpack 5를 사용합니다. 이는 호환되지 않는 변경 사항을 포함하는 주요 webpack 업그레이드입니다. 사용자 정의 webpack 설정을 사용 중이라면 [webpack 5 출시 노트](https://webpack.js.org/blog/2020-10-10-webpack-5-release/)를 반드시 확인하세요.
 
 [webpack을 사용한 Kotlin/JS 프로젝트 번들링에 대해 더 알아보기](js-project-setup.md#webpack-bundling).
 
-### IR 컴파일러용 프레임워크 및 라이브러리
+### IR 컴파일러용 프레임워크 및 라이브러리 {id="frameworks-and-libraries-for-the-ir-compiler"}
 
 > Kotlin/JS IR 컴파일러는 [알파(Alpha)](components-stability.md) 단계에 있습니다. 향후 호환되지 않는 변경이 발생할 수 있으며 수동 마이그레이션이 필요할 수 있습니다. [YouTrack](https://youtrack.jetbrains.com/issues/KT)을 통해 의견을 보내주시면 감사하겠습니다.
 >
@@ -281,13 +281,13 @@ Kotlin/JS 컴파일러용 IR 기반 백엔드 작업과 함께, 라이브러리 
 
 직접 라이브러리를 작성하고 있다면 'both' 모드로 컴파일하여 사용자가 새 컴파일러에서도 해당 라이브러리를 사용할 수 있도록 하세요.
 
-## Kotlin 멀티플랫폼
+## Kotlin 멀티플랫폼 {id="kotlin-multiplatform"}
 
 Kotlin 1.5.0에서는 [각 플랫폼에 대한 테스트 종속성 선택이 단순화](#simplified-test-dependencies-usage-in-multiplatform-projects)되었으며, 이제 Gradle 플러그인에 의해 자동으로 수행됩니다.
 
 새로운 [문자 카테고리를 가져오기 위한 API가 이제 멀티플랫폼 프로젝트에서 사용 가능합니다](#new-api-for-getting-a-char-category-now-available-in-multiplatform-code).
 
-## 표준 라이브러리 (Standard library)
+## 표준 라이브러리 (Standard library) {id="standard-library"}
 
 표준 라이브러리는 실험적 기능의 안정화부터 새로운 기능 추가에 이르기까지 다양한 변경과 개선이 이루어졌습니다.
 
@@ -305,13 +305,13 @@ Kotlin 1.5.0에서는 [각 플랫폼에 대한 테스트 종속성 선택이 단
 
 <video src="https://www.youtube.com/v/MyTkiT2I6-8" title="New Standard Library Features"/>
 
-### 안정적인 부호 없는 정수 타입
+### 안정적인 부호 없는 정수 타입 {id="stable-unsigned-integer-types"}
 
 `UInt`, `ULong`, `UByte`, `UShort` 부호 없는 정수 타입이 이제 [안정화(Stable)](components-stability.md)되었습니다. 이러한 타입에 대한 연산, 범위(ranges), 진행(progressions)도 마찬가지입니다. 부호 없는 배열 및 그 연산은 베타 단계로 유지됩니다.
 
 [부호 없는 정수 타입에 대해 더 알아보기](unsigned-integer-types.md).
 
-### 대소문자 변환을 위한 안정적인 로케일 중립적 API
+### 대소문자 변환을 위한 안정적인 로케일 중립적 API {id="stable-locale-agnostic-api-for-upper-lowercasing-text"}
 
 이번 릴리스에서는 대소문자 텍스트 변환을 위한 로케일에 무관한(locale-agnostic) 새로운 API를 도입했습니다. 이는 로케일에 민감한 `toLowerCase()`, `toUpperCase()`, `capitalize()`, `decapitalize()` API 함수에 대한 대안을 제공합니다. 새로운 API를 사용하면 서로 다른 로케일 설정으로 인한 오류를 피할 수 있습니다.
 
@@ -342,7 +342,7 @@ Kotlin 1.5.0은 다음과 같이 완전히 [안정적인(Stable)](components-sta
 
 텍스트 처리 함수의 전체 변경 목록은 [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/stdlib/locale-agnostic-case-conversions.md)에서 확인하세요.
 
-### 안정적인 Char-to-integer 변환 API
+### 안정적인 Char-to-integer 변환 API {id="stable-char-to-integer-conversion-api"}
 
 Kotlin 1.5.0부터 새로운 char-to-code 및 char-to-digit 변환 함수가 [안정화](components-stability.md)되었습니다. 이 함수들은 종종 유사한 string-to-Int 변환과 혼동되었던 기존 API 함수들을 대체합니다.
 
@@ -375,7 +375,7 @@ Kotlin 1.5.0부터 새로운 char-to-code 및 char-to-digit 변환 함수가 [�
 
 [KEEP에서 char-to-integer 변환 API에 대해 더 알아보기](https://github.com/Kotlin/KEEP/blob/master/proposals/stdlib/char-int-conversions.md).
 
-### 안정적인 Path API
+### 안정적인 Path API {id="stable-path-api"}
 
 `java.nio.file.Path`에 대한 확장 기능을 포함한 [실험적인 Path API](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io.path/java.nio.file.-path/)가 이제 [안정화](components-stability.md)되었습니다.
 
@@ -390,7 +390,7 @@ val kotlinFiles: List<Path> = Path("/home/user").listDirectoryEntries("*.kt")
 
 [Path API에 대해 더 알아보기](whatsnew1420.md#extensions-for-java-nio-file-path).
 
-### 내림 나눗셈(Floored division) 및 mod 연산자
+### 내림 나눗셈(Floored division) 및 mod 연산자 {id="floored-division-and-the-mod-operator"}
 
 모듈러 산술(modular arithmetics)을 위한 새로운 연산이 표준 라이브러리에 추가되었습니다.
 * `floorDiv()`는 [내림 나눗셈(floored division)](https://en.wikipedia.org/wiki/Floor_and_ceiling_functions)의 결과를 반환합니다. 정수 타입에 대해 사용할 수 있습니다.
@@ -413,7 +413,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.5"}
 
-### Duration API 변경 사항
+### Duration API 변경 사항 {id="duration-api-changes"}
 
 > Duration API는 [실험적(Experimental)](components-stability.md)입니다. 이는 언제든지 삭제되거나 변경될 수 있습니다.
 > 평가 목적으로만 사용하세요. [YouTrack](https://youtrack.jetbrains.com/issues/KT)을 통해 이에 대한 의견을 보내주시면 감사하겠습니다.
@@ -440,7 +440,7 @@ fun main() {
 ```
 {validate="false"}
 
-### 멀티플랫폼 코드에서 문자 카테고리를 가져오기 위한 새로운 API 사용 가능
+### 멀티플랫폼 코드에서 문자 카테고리를 가져오기 위한 새로운 API 사용 가능 {id="new-api-for-getting-a-char-category-now-available-in-multiplatform-code"}
 
 Kotlin 1.5.0은 멀티플랫폼 프로젝트에서 Unicode에 따른 문자의 카테고리를 가져오기 위한 새로운 API를 도입했습니다. 이제 여러 함수를 모든 플랫폼과 공통 코드에서 사용할 수 있습니다.
 
@@ -486,7 +486,7 @@ Unicode에 따른 문자의 일반 카테고리를 나타내는 [`Char.category`
 
 [문자에 대해 더 알아보기](characters.md).
 
-### 새로운 컬렉션 함수 firstNotNullOf()
+### 새로운 컬렉션 함수 firstNotNullOf() {id="new-collections-function-firstnotnullof"}
 
 새로운 [`firstNotNullOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/first-not-null-of.html) 및 [`firstNotNullOfOrNull()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/first-not-null-of-or-null.html) 함수는 [`mapNotNull()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/map-not-null.html)을 [`first()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/first.html) 또는 [`firstOrNull()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/first-or-null.html)과 결합한 것입니다. 이 함수들은 사용자 정의 선택자 함수를 사용하여 원본 컬렉션을 매핑하고 null이 아닌 첫 번째 값을 반환합니다. 만약 그러한 값이 없으면 `firstNotNullOf()`는 예외를 던지고, `firstNotNullOfOrNull()`은 null을 반환합니다.
 
@@ -501,7 +501,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.5"}
 
-### String?.toBoolean()의 엄격한 버전
+### String?.toBoolean()의 엄격한 버전 {id="strict-version-of-string-toboolean"}
 
 기존의 [String?.toBoolean()](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/to-boolean.html)에 대한 대소문자를 구분하는 엄격한 버전인 두 가지 새로운 함수가 도입되었습니다.
 * [`String.toBooleanStrict()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/to-boolean-strict.html)는 리터럴 `true` 및 `false`를 제외한 모든 입력에 대해 예외를 던집니다.
@@ -518,13 +518,13 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.5"}
 
-## kotlin-test 라이브러리
+## kotlin-test 라이브러리 {id="kotlin-test-library"}
 [kotlin-test](https://kotlinlang.org/api/latest/kotlin.test/) 라이브러리에 몇 가지 새로운 기능이 도입되었습니다.
 * [멀티플랫폼 프로젝트에서 테스트 종속성 사용 간소화](#simplified-test-dependencies-usage-in-multiplatform-projects)
 * [Kotlin/JVM 소스 세트에 대한 테스트 프레임워크 자동 선택](#automatic-selection-of-a-testing-framework-for-kotlin-jvm-source-sets)
 * [단언문(Assertion) 함수 업데이트](#assertion-function-updates)
 
-### 멀티플랫폼 프로젝트에서 테스트 종속성 사용 간소화
+### 멀티플랫폼 프로젝트에서 테스트 종속성 사용 간소화 {id="simplified-test-dependencies-usage-in-multiplatform-projects"}
 
 이제 `commonTest` 소스 세트에서 테스트를 위한 종속성을 추가할 때 `kotlin-test` 종속성을 사용할 수 있으며, Gradle 플러그인이 각 테스트 소스 세트에 해당하는 플랫폼 종속성을 추론합니다.
 * JVM 소스 세트의 경우 `kotlin-test-junit`. [Kotlin/JVM 소스 세트에 대한 테스트 프레임워크 자동 선택](#automatic-selection-of-a-testing-framework-for-kotlin-jvm-source-sets)을 참조하세요.
@@ -538,7 +538,7 @@ fun main() {
 
 [테스트 라이브러리에 대한 종속성 설정](gradle-configure-project.md#set-dependencies-on-test-libraries)에 대해 더 알아보세요.
 
-### Kotlin/JVM 소스 세트에 대한 테스트 프레임워크 자동 선택
+### Kotlin/JVM 소스 세트에 대한 테스트 프레임워크 자동 선택 {id="automatic-selection-of-a-testing-framework-for-kotlin-jvm-source-sets"}
 
 이제 Gradle 플러그인이 테스트 프레임워크에 대한 종속성을 자동으로 선택하고 추가합니다. 공통 소스 세트에 `kotlin-test` 종속성만 추가하면 됩니다.
 
@@ -597,7 +597,7 @@ tasks {
 
 [테스트 라이브러리에 대한 종속성 설정](gradle-configure-project.md#set-dependencies-on-test-libraries)에 대해 더 알아보세요.
 
-### 단언문(Assertion) 함수 업데이트
+### 단언문(Assertion) 함수 업데이트 {id="assertion-function-updates"}
 
 이번 릴리스에서는 새로운 단언문 함수들이 추가되고 기존 함수들이 개선되었습니다.
 
@@ -676,14 +676,14 @@ tasks {
   }
   ```
 
-## kotlinx 라이브러리
+## kotlinx 라이브러리 {id="kotlinx-libraries"}
 
 Kotlin 1.5.0과 함께 kotlinx 라이브러리의 새로운 버전들도 출시되었습니다.
 * `kotlinx.coroutines` [1.5.0-RC](#coroutines-1-5-0-rc)
 * `kotlinx.serialization` [1.2.1](#serialization-1-2-1)
 * `kotlinx-datetime` [0.2.0](#datetime-0-2-0)
 
-### Coroutines 1.5.0-RC
+### Coroutines 1.5.0-RC {id="coroutines-1-5-0-rc"}
 
 `kotlinx.coroutines` [1.5.0-RC](https://github.com/Kotlin/kotlinx.coroutines/releases/tag/1.5.0-RC)의 주요 변경 사항은 다음과 같습니다.
 * [새로운 Channels API](channels.md)
@@ -696,7 +696,7 @@ Kotlin 1.5.0부터 [실험적 코루틴(experimental coroutines)](whatsnew14.md#
 
 <video src="https://www.youtube.com/v/EVLnWOcR0is" title="kotlinx.coroutines 1.5.0"/>
 
-### Serialization 1.2.1
+### Serialization 1.2.1 {id="serialization-1-2-1"}
 
 `kotlinx.serialization` [1.2.1](https://github.com/Kotlin/kotlinx.serialization/releases/tag/v1.2.1)의 주요 변경 사항은 다음과 같습니다.
 * JSON 직렬화 성능 개선
@@ -708,7 +708,7 @@ Kotlin 1.5.0부터 [실험적 코루틴(experimental coroutines)](whatsnew14.md#
 
 <video src="https://www.youtube.com/v/698I_AH8h6s" title="kotlinx.serialization 1.2.1"/>
 
-### dateTime 0.2.0
+### dateTime 0.2.0 {id="datetime-0-2-0"}
 
 `kotlinx-datetime` [0.2.0](https://github.com/Kotlin/kotlinx-datetime/releases/tag/v0.2.0)의 주요 변경 사항은 다음과 같습니다.
 * `@Serializable` 적용이 가능한 Datetime 객체
@@ -717,7 +717,7 @@ Kotlin 1.5.0부터 [실험적 코루틴(experimental coroutines)](whatsnew14.md#
 
 자세한 내용은 [변경 로그](https://github.com/Kotlin/kotlinx-datetime/releases/tag/v0.2.0)와 [`kotlinx-datetime` 0.2.0 출시 블로그 포스트](https://blog.jetbrains.com/kotlin/2021/05/kotlinx-datetime-0-2-0-is-out/)에서 확인하세요.
 
-## Kotlin 1.5.0으로 마이그레이션
+## Kotlin 1.5.0으로 마이그레이션 {id="migrating-to-kotlin-1-5-0"}
 
 IntelliJ IDEA와 Android Studio는 Kotlin 1.5.0 플러그인이 사용 가능해지면 업데이트를 제안할 것입니다.
 

@@ -7,7 +7,7 @@
 
 シンプルかつ再現可能な構成を維持しつつ、独自のウェブスクレイピング・ニーズに合わせてカスタマイズできる、最小限ながらも現実的なエージェントとツールのセットアップに焦点を当てます。
 
-## 前提条件
+## 前提条件 {id="prerequisites"}
 
 - 環境変数としてエクスポートされたOpenAI APIキー: `OPENAI_API_KEY`
 - 環境変数としてエクスポートされたBright Data APIトークン: `BRIGHT_DATA_API_TOKEN`
@@ -16,7 +16,7 @@
 
 **ヒント**: Bright Data MCPサーバーは、複雑なウェブサイト、CAPTCHA、アンチボット対策を処理できるエンタープライズ級のウェブスクレイピング・ツールへのアクセスを提供します。
 
-## 1) API認証情報のセットアップ
+## 1) API認証情報のセットアップ {id="1-set-up-your-api-credentials"}
 
 機密情報を保護しコードから分離するため、両方のAPIキーを環境変数から読み込みます。
 
@@ -28,7 +28,7 @@ val brightDataToken = System.getenv("BRIGHT_DATA_API_TOKEN")
     ?: error("BRIGHT_DATA_API_TOKEN environment variable is not set")
 ```
 
-## 2) Bright DataによるThe Web MCPサーバーの起動
+## 2) Bright DataによるThe Web MCPサーバーの起動 {id="2-start-the-web-mcp-server-by-bright-data"}
 
 `npx`を使用してBright DataのMCPサーバーを起動し、APIトークンを設定します。このサーバーは、Model Context Protocolを介してウェブスクレイピング機能を公開します。
 
@@ -49,7 +49,7 @@ val process = processBuilder.start()
 Thread.sleep(2000)
 ```
 
-## 3) Koogからの接続とエージェントの作成
+## 3) Koogからの接続とエージェントの作成 {id="3-connect-from-koog-and-create-the-agent"}
 
 OpenAIエグゼキューター（executor）を使用してKoogの`AIAgent`を構築し、STDIOトランスポートを介してそのツールレジストリをBright Data MCPサーバーに接続します。その後、利用可能なツールを確認し、ウェブスクレイピング・タスクを実行します。
 
@@ -99,7 +99,7 @@ Agent response:")
 }
 ```
 
-## 4) 完全なコード例
+## 4) 完全なコード例 {id="4-complete-code-example"}
 
 以下は、Bright DataによるThe Web MCPを使用したウェブスクレイピングの実演を行う、完全に動作するコード例です。
 
@@ -198,14 +198,14 @@ Agent response:")
 }
 ```
 
-## トラブルシューティング
+## トラブルシューティング {id="troubleshooting"}
 
 - **接続の問題**: エージェントがMCPサーバーに接続できない場合は、`npx @brightdata/mcp`を介してBright Data MCPパッケージが正しくインストールされているか確認してください。
 - **APIトークンのエラー**: `BRIGHT_DATA_API_TOKEN`が有効であり、ウェブスクレイピングに必要な権限を持っているか再確認してください。
 - **OpenAI認証**: `OPENAI_API_KEY`環境変数が正しく設定されており、APIキーが有効であることを確認してください。
 - **プロセスタイムアウト**: サーバーの起動に時間がかかる場合は、`Thread.sleep(2000)`の時間を増やしてください。
 
-## 次のステップ
+## 次のステップ {id="next-steps"}
 
 - **異なるクエリの探索**: さまざまなウェブサイトをスクレイピングしたり、多様なトピックを検索したりしてみてください。
 - **カスタムツールの統合**: Bright Dataのウェブスクレイピング機能と並行して、独自のツールを追加してください。
@@ -213,7 +213,7 @@ Agent response:")
 - **データ処理**: スクレイピングしたデータを他のKoogエージェントと組み合わせて、分析や洞察を得るために利用してください。
 - **本番環境へのデプロイ**: このパターンをアプリケーションに統合し、自動化されたウェブデータ収集を実現してください。
 
-## 学んだこと
+## 学んだこと {id="what-you-ve-learned"}
 
 このチュートリアルでは、以下の方法を学びました：
 - Bright DataによるThe Web MCPのセットアップと構成

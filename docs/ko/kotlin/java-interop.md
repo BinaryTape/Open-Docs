@@ -21,7 +21,7 @@ fun demo(source: List<Int>) {
 }
 ```
 
-## 게터(Getter)와 세터(Setter)
+## 게터(Getter)와 세터(Setter) {id="getters-and-setters"}
 
 게터와 세터에 대한 Java 관례(이름이 `get`으로 시작하고 인자가 없는 메서드, 이름이 `set`으로 시작하고 단일 인자를 받는 메서드)를 따르는 메서드는 Kotlin에서 프로퍼티로 나타납니다. 이러한 프로퍼티를 _신세틱 프로퍼티(synthetic properties)_라고도 부릅니다.
 `Boolean` 접근자 메서드(게터 이름이 `is`로 시작하고 세터 이름이 `set`으로 시작하는 경우)는 게터 메서드와 동일한 이름을 가진 프로퍼티로 나타납니다.
@@ -44,7 +44,7 @@ fun calendarDemo() {
 
 Java 클래스에 세터만 있는 경우, Kotlin은 쓰기 전용(set-only) 프로퍼티를 지원하지 않으므로 Kotlin에서 프로퍼티로 보이지 않는다는 점에 유의하세요.
 
-## Java 신세틱 프로퍼티 참조
+## Java 신세틱 프로퍼티 참조 {id="java-synthetic-property-references"}
 
 > 이 기능은 [실험적(Experimental)](components-stability.md#stability-levels-explained) 단계입니다. 언제든지 삭제되거나 변경될 수 있습니다.
 > 평가 목적으로만 사용하시기를 권장합니다.
@@ -84,7 +84,7 @@ val persons = listOf(Person("Jack", 11), Person("Sofie", 12), Person("Peter", 11
         .forEach { person -> println(person.name) }
 ```
 
-### Java 신세틱 프로퍼티 참조를 활성화하는 방법 {initial-collapse-state="collapsed" collapsible="true"}
+### Java 신세틱 프로퍼티 참조를 활성화하는 방법 {initial-collapse-state="collapsed" collapsible="true" id="how-to-enable-java-synthetic-property-references"}
 
 이 기능을 활성화하려면 `-language-version 2.1` 컴파일러 옵션을 설정하세요. Gradle 프로젝트에서는 `build.gradle(.kts)`에 다음을 추가하여 설정할 수 있습니다.
 
@@ -122,12 +122,12 @@ tasks
 > 
 {style="note"}
 
-## void를 반환하는 메서드
+## void를 반환하는 메서드 {id="methods-returning-void"}
 
 Java 메서드가 `void`를 반환하면 Kotlin에서 호출할 때 `Unit`을 반환합니다.
 만약 누군가 그 반환 값을 사용한다면, 값 자체가 미리 알려져 있으므로(`Unit`이므로) Kotlin 컴파일러에 의해 호출 지점에서 할당됩니다.
 
-## Kotlin의 키워드인 Java 식별자 이스케이프 처리
+## Kotlin의 키워드인 Java 식별자 이스케이프 처리 {id="escaping-for-java-identifiers-that-are-keywords-in-kotlin"}
 
 `in`, `object`, `is` 등 일부 Kotlin 키워드는 Java에서 유효한 식별자입니다.
 Java 라이브러리가 메서드 이름으로 Kotlin 키워드를 사용하는 경우, 백틱(`) 문자로 감싸서 해당 메서드를 호출할 수 있습니다.
@@ -136,7 +136,7 @@ Java 라이브러리가 메서드 이름으로 Kotlin 키워드를 사용하는 
 foo.`is`(bar)
 ```
 
-## Null 안정성 및 플랫폼 타입
+## Null 안정성 및 플랫폼 타입 {id="null-safety-and-platform-types"}
 
 Java의 모든 참조는 `null`이 될 수 있으므로, Java에서 오는 객체에 대해 Kotlin의 엄격한 null 안정성(null-safety) 요구 사항을 적용하는 것은 실용적이지 않습니다.
 Java 선언의 타입은 Kotlin에서 [플랫폼 타입(platform types)](https://kotlinlang.org/spec/type-system.html#platform-types)이라고 불리며, 이는 명시적으로 표기할 수 없는(non-denotable) 타입으로 처리됩니다.
@@ -171,7 +171,7 @@ val notNull: String = item // 허용되지만 실행 시점에 실패할 수 있
 만약 non-nullable 타입을 선택하면 컴파일러는 할당 시점에 어설션을 생성합니다. 이는 Kotlin의 non-nullable 변수가 null을 보유하는 것을 방지합니다. 어설션은 플랫폼 값을 non-null 값을 기대하는 Kotlin 함수에 전달할 때나 다른 경우에도 생성됩니다.
 전반적으로 컴파일러는 null이 프로그램 전체로 널리 퍼지는 것을 방지하기 위해 최선을 다하지만, 제네릭(generics)으로 인해 이를 완전히 제거하는 것이 불가능할 때도 있습니다.
 
-### 플랫폼 타입 표기법
+### 플랫폼 타입 표기법 {id="notation-for-platform-types"}
 
 이전 섹션에서 언급했듯이 플랫폼 타입은 프로그램에서 명시적으로 언급할 수 없으므로 언어상에 구문이 존재하지 않습니다.
 그럼에도 불구하고 컴파일러와 IDE는 때때로 이를 표시해야 할 필요가 있으므로(예: 에러 메시지나 파라미터 정보), 이를 위한 기억하기 쉬운 표기법이 있습니다.
@@ -182,7 +182,7 @@ val notNull: String = item // 허용되지만 실행 시점에 실패할 수 있
 
 에러 메시지나 IDE 툴팁에서 이 표기법을 본다면, Kotlin 변수에 명시적인 타입 어노테이션을 추가하여 null 안정성 체크를 복구하거나, 소스에서 null 허용 여부 어노테이션을 사용하여 플랫폼 타입을 제거하세요.
 
-### Null 허용 여부 어노테이션(Nullability annotations)
+### Null 허용 여부 어노테이션(Nullability annotations) {id="nullability-annotations"}
 
 null 허용 여부 어노테이션이 있는 Java 타입은 플랫폼 타입이 아니라 실제 nullable 또는 non-nullable Kotlin 타입으로 표현됩니다. 컴파일러는 다음과 같은 여러 종류의 null 허용 여부 어노테이션을 지원합니다.
 
@@ -216,7 +216,7 @@ null 허용 여부 어노테이션이 있는 Java 타입은 플랫폼 타입이 
 
 지원되는 null 허용 여부 어노테이션의 전체 목록은 [Kotlin 컴파일러 소스 코드](https://github.com/JetBrains/kotlin/blob/master/core/compiler.common.jvm/src/org/jetbrains/kotlin/load/java/JvmAnnotationNames.kt)에서 확인할 수 있습니다.
 
-### 가변성 어노테이션(Mutability annotations)
+### 가변성 어노테이션(Mutability annotations) {id="mutability-annotations"}
 
 Java 선언에 가변성 어노테이션을 달아 반환된 컬렉션이 Kotlin에서 읽기 전용인지 가변인지 지정할 수 있습니다.
 가변성이 다른 컬렉션 타입에 값을 할당하면 컴파일러가 타입 불일치를 보고합니다.
@@ -231,7 +231,7 @@ Java 선언에 가변성 어노테이션을 달아 반환된 컬렉션이 Kotlin
 
 지원되는 가변성 어노테이션의 전체 목록은 [Kotlin 컴파일러 소스 코드](https://github.com/JetBrains/kotlin/blob/master/core/compiler.common.jvm/src/org/jetbrains/kotlin/load/java/JvmAnnotationNames.kt)에서 확인할 수 있습니다.
 
-### 타입 인자와 타입 파라미터에 어노테이션 달기
+### 타입 인자와 타입 파라미터에 어노테이션 달기 {id="annotating-type-arguments-and-type-parameters"}
 
 제네릭 타입의 타입 인자와 타입 파라미터에도 어노테이션을 달아 null 허용 여부 정보를 제공할 수 있습니다.
 
@@ -239,7 +239,7 @@ Java 선언에 가변성 어노테이션을 달아 반환된 컬렉션이 Kotlin
 >
 {style="note"}
 
-#### 타입 인자
+#### 타입 인자 {id="type-arguments"}
 
 Java 선언에서 다음과 같은 어노테이션을 고려해 보세요.
 
@@ -284,7 +284,7 @@ fun main() {
 
 [Kotlin에서의 Java 제네릭](#kotlin에서의-java-제네릭)에 대해 자세히 알아보세요.
 
-#### 타입 파라미터
+#### 타입 파라미터 {id="type-parameters"}
 
 기본적으로 Kotlin과 Java 모두에서 일반 타입 파라미터의 null 허용 여부는 정의되지 않습니다. Java에서는 null 허용 여부 어노테이션을 사용하여 이를 지정할 수 있습니다. `Base` 클래스의 타입 파라미터에 어노테이션을 달아보겠습니다.
 
@@ -320,7 +320,7 @@ class BaseWithBound<T : Number> {}
 >
 {style="note"}
 
-### JSpecify 지원
+### JSpecify 지원 {id="jspecify-support"}
 
 Kotlin은 Java null 허용 여부를 위한 통합된 어노테이션 세트를 제공하는 [JSpecify](https://jspecify.dev/) 어노테이션을 지원합니다. JSpecify를 사용하면 Java 선언에 대해 상세한 null 허용 여부 정보를 제공할 수 있어, Kotlin이 Java 코드와 작업할 때 null 안정성을 유지하는 데 도움이 됩니다.
 
@@ -375,7 +375,7 @@ fun test(inventory: InventoryService) {
 > 
 {type="tip"}
 
-### JSR-305 지원
+### JSR-305 지원 {id="jsr-305-support"}
 
 [JSR-305](https://jcp.org/en/jsr/detail?id=305)에 정의된 [`@Nonnull`](https://www.javadoc.io/doc/com.google.code.findbugs/jsr305/latest/javax/annotation/Nonnull.html) 어노테이션은 Java 타입의 null 허용 여부를 나타내는 데 지원됩니다.
 
@@ -385,7 +385,7 @@ fun test(inventory: InventoryService) {
 
 [사용자 정의 null 허용 여부 한정자 (KEEP-79)](https://github.com/Kotlin/KEEP/blob/master/proposals/jsr-305-custom-nullability-qualifiers.md)도 지원됩니다(아래 참조).
 
-#### 타입 한정자 별칭(Type qualifier nicknames)
+#### 타입 한정자 별칭(Type qualifier nicknames) {id="type-qualifier-nicknames"}
 
 어노테이션 타입에 [`@TypeQualifierNickname`](https://www.javadoc.io/doc/com.google.code.findbugs/jsr305/latest/javax/annotation/meta/TypeQualifierNickname.html)과 JSR-305 `@Nonnull`(또는 `@CheckForNull`과 같은 다른 별칭)이 모두 있는 경우, 해당 어노테이션 타입 자체는 정밀한 null 허용 여부를 검색하는 데 사용되며 해당 null 허용 여부 어노테이션과 동일한 의미를 갖습니다.
 
@@ -411,7 +411,7 @@ interface A {
 }
 ```
 
-#### 타입 한정자 기본값(Type qualifier defaults)
+#### 타입 한정자 기본값(Type qualifier defaults) {id="type-qualifier-defaults"}
 
 [`@TypeQualifierDefault`](https://www.javadoc.io/doc/com.google.code.findbugs/jsr305/latest/javax/annotation/meta/TypeQualifierDefault.html)를 사용하면 적용 시 어노테이션이 달린 요소의 스코프 내에서 기본 null 허용 여부를 정의하는 어노테이션을 도입할 수 있습니다.
 
@@ -465,7 +465,7 @@ interface A {
 package test;
 ```
 
-#### @UnderMigration 어노테이션
+#### @UnderMigration 어노테이션 {id="undermigration-annotation"}
 
 라이브러리 유지 관리자는 `@UnderMigration` 어노테이션(`kotlin-annotations-jvm` 아티팩트로 별도 제공)을 사용하여 null 허용 여부 타입 한정자의 마이그레이션 상태를 정의할 수 있습니다.
 
@@ -496,7 +496,7 @@ public class Test {}
 
 기본 타입 한정자가 타입 한정자 별칭을 사용하고 둘 다 `@UnderMigration`인 경우, 기본 타입 한정자의 상태가 사용됩니다.
 
-#### 컴파일러 설정
+#### 컴파일러 설정 {id="compiler-configuration"}
 
 JSR-305 체크는 다음 옵션(및 그 조합)과 함께 `-Xjsr305` 컴파일러 플래그를 추가하여 구성할 수 있습니다.
 
@@ -516,7 +516,7 @@ JSR-305 체크는 다음 옵션(및 그 조합)과 함께 `-Xjsr305` 컴파일�
 
 기본 동작은 `-Xjsr305=warn`과 동일합니다. `strict` 값은 실험적인 것으로 간주해야 합니다(향후 더 많은 체크가 추가될 수 있음).
 
-## 매핑된 타입(Mapped types)
+## 매핑된 타입(Mapped types) {id="mapped-types"}
 
 Kotlin은 일부 Java 타입을 특별하게 취급합니다. 이러한 타입들은 Java에서 있는 그대로 로드되지 않고, 대응하는 Kotlin 타입으로 _매핑_됩니다. 매핑은 컴파일 타임에만 중요하며, 런타임 표현은 변경되지 않은 상태로 유지됩니다.
 Java의 기본형(primitive types)은 대응하는 Kotlin 타입으로 매핑됩니다([플랫폼 타입](#null-안정성-및-플랫폼-타입)을 염두에 두세요).
@@ -585,7 +585,7 @@ Java의 배열은 [아래](#java-배열)에서 언급한 대로 매핑됩니다.
 >
 {style="note"}
 
-## Kotlin에서의 Java 제네릭
+## Kotlin에서의 Java 제네릭 {id="java-generics-in-kotlin"}
 
 Kotlin의 제네릭은 Java의 것과 약간 다릅니다([제네릭](generics.md) 참조).
 Java 타입을 Kotlin으로 가져올 때 다음과 같은 변환이 이루어집니다.
@@ -607,7 +607,7 @@ if (a is List<Int>) // 에러: 실제로 Int의 List인지 확인할 수 없음
 if (a is List<*>) // OK: 리스트 내용에 대한 보장은 없음
 ```
 
-## Java 배열
+## Java 배열 {id="java-arrays"}
 
 Kotlin의 배열은 Java와 달리 불변(invariant)입니다. 즉, Kotlin은 `Array<String>`을 `Array<Any>`에 할당하는 것을 허용하지 않으며, 이는 발생 가능한 런타임 실패를 방지합니다. 하위 클래스의 배열을 상위 클래스의 배열로서 Kotlin 메서드에 전달하는 것도 금지되지만, Java 메서드의 경우 `Array<(out) String>!` 형식의 [플랫폼 타입](#null-안정성-및-플랫폼-타입)을 통해 허용됩니다.
 
@@ -657,7 +657,7 @@ if (i in array.indices) { // (i >= 0 && i < array.size)와 동일함
 }
 ```
 
-## Java 가변 인자(varargs)
+## Java 가변 인자(varargs) {id="java-varargs"}
 
 Java 클래스는 때때로 가변 인자(varargs)를 사용하는 메서드 선언을 사용합니다.
 
@@ -678,12 +678,12 @@ val array = intArrayOf(0, 1, 2, 3)
 javaObj.removeIndicesVarArg(*array)
 ```
 
-## 연산자
+## 연산자 {id="operators"}
 
 Java에는 연산자 구문을 사용하기에 적합한 메서드를 표시하는 방법이 없으므로, Kotlin은 올바른 이름과 시그니처를 가진 모든 Java 메서드를 연산자 오버로딩 및 기타 관례(`invoke()` 등)로 사용할 수 있도록 허용합니다.
 중위 호출(infix call) 구문을 사용하여 Java 메서드를 호출하는 것은 허용되지 않습니다.
 
-## 체크 예외(Checked exceptions)
+## 체크 예외(Checked exceptions) {id="checked-exceptions"}
 
 Kotlin에서 모든 [예외는 언체크 예외(unchecked)](exceptions.md)입니다. 즉, 컴파일러가 어떤 예외도 잡도록 강제하지 않습니다.
 따라서 체크 예외를 선언하는 Java 메서드를 호출할 때 Kotlin은 사용자에게 아무것도 강제하지 않습니다.
@@ -696,12 +696,12 @@ fun render(list: List<*>, to: Appendable) {
 }
 ```
 
-## Object 메서드
+## Object 메서드 {id="object-methods"}
 
 Java 타입이 Kotlin으로 임포트될 때 `java.lang.Object` 타입의 모든 참조는 `Any`로 바뀝니다.
 `Any`는 플랫폼에 구속되지 않으므로 멤버로 `toString()`, `hashCode()`, `equals()`만 선언하고 있습니다. 따라서 `java.lang.Object`의 다른 멤버를 사용할 수 있도록 Kotlin은 [확장 함수(extension functions)](extensions.md)를 사용합니다.
 
-### `wait()` 및 `notify()`
+### `wait()` 및 `notify()` {id="wait-and-notify"}
 
 `wait()` 및 `notify()` 메서드는 `Any` 타입의 참조에서 사용할 수 없습니다. 일반적으로 `java.util.concurrent`를 대신 사용하는 것이 권장됩니다.
 
@@ -752,7 +752,7 @@ class SimpleBlockingQueue<T>(private val capacity: Int) {
 (foo as java.lang.Object).wait()
 ```
 
-### `getClass()`
+### `getClass()` {id="getclass"}
 
 객체의 Java 클래스를 검색하려면 [클래스 참조(class reference)](reflection.md#class-references)에서 `java` 확장 프로퍼티를 사용하세요.
 
@@ -766,7 +766,7 @@ val fooClass = foo::class.java
 val fooClass = foo.javaClass
 ```
 
-### `clone()`
+### `clone()` {id="clone"}
 
 `clone()`을 오버라이드하려면 클래스가 `kotlin.Cloneable`을 상속받아야 합니다.
 
@@ -778,7 +778,7 @@ class Example : Cloneable {
 
 [Effective Java, 3rd Edition](https://www.oracle.com/technetwork/java/effectivejava-136174.html)의 Item 13: *clone 재정의는 신중히 하라*를 잊지 마세요.
 
-### `finalize()`
+### `finalize()` {id="finalize"}
 
 `finalize()`를 오버라이드하려면 `override` 키워드를 사용하지 않고 단순히 선언하기만 하면 됩니다.
 
@@ -792,11 +792,11 @@ class C {
 
 Java의 규칙에 따라 `finalize()`는 `private`이어서는 안 됩니다.
 
-## Java 클래스 상속
+## Java 클래스 상속 {id="inheritance-from-java-classes"}
 
 Kotlin의 클래스는 최대 하나의 Java 클래스(및 원하는 만큼의 Java 인터페이스)를 상위 타입으로 가질 수 있습니다.
 
-## 정적 멤버 접근
+## 정적 멤버 접근 {id="accessing-static-members"}
 
 Java 클래스의 정적 멤버는 해당 클래스의 "동반 객체(companion objects)"를 형성합니다. 이러한 "동반 객체"를 값처럼 전달할 수는 없지만 멤버에 명시적으로 접근할 수는 있습니다. 예를 들면 다음과 같습니다.
 
@@ -806,7 +806,7 @@ if (Character.isLetter(a)) { ... }
 
 Kotlin 타입으로 [매핑된](#매핑된-타입) Java 타입의 정적 멤버에 접근하려면 Java 타입의 정규화된 이름을 사용하세요: `java.lang.Integer.bitCount(foo)`.
 
-## Java 리플렉션
+## Java 리플렉션 {id="java-reflection"}
 
 Java 리플렉션은 Kotlin 클래스에서 작동하며 그 반대도 마찬가지입니다. 위에서 언급했듯이 `instance::class.java`, `ClassName::class.java` 또는 `instance.javaClass`를 사용하여 `java.lang.Class`를 통해 Java 리플렉션으로 들어갈 수 있습니다.
 이 목적으로 `ClassName.javaClass`를 사용하지 마세요. 이는 `ClassName::class.java`가 아니라 `ClassName.Companion::class.java`와 동일한 `ClassName`의 동반 객체 클래스를 참조하기 때문입니다.
@@ -815,7 +815,7 @@ Java 리플렉션은 Kotlin 클래스에서 작동하며 그 반대도 마찬가
 
 다른 지원 사례로는 Kotlin 프로퍼티에 대한 Java 게터/세터 메서드 또는 배킹 필드(backing field) 획득, Java 필드에 대한 `KProperty` 획득, `KFunction`에 대한 Java 메서드 또는 생성자 획득 및 그 반대의 경우가 포함됩니다.
 
-## SAM 변환
+## SAM 변환 {id="sam-conversions"}
 
 Kotlin은 Java와 [Kotlin 인터페이스](fun-interfaces.md) 모두에 대해 SAM 변환을 지원합니다. 
 Java에 대한 이 지원은 인터페이스 메서드의 파라미터 타입이 Kotlin 함수의 파라미터 타입과 일치하는 한, 단일 비디폴트 메서드(single non-default method)가 있는 Java 인터페이스의 구현으로 Kotlin 함수 리터럴이 자동으로 변환될 수 있음을 의미합니다.
@@ -844,7 +844,7 @@ executor.execute(Runnable { println("This runs in a thread pool") })
 >
 {style="note"}
 
-## Kotlin에서 JNI 사용하기
+## Kotlin에서 JNI 사용하기 {id="using-jni-with-kotlin"}
 
 네이티브(C 또는 C++) 코드로 구현된 함수를 선언하려면 `external` 한정자를 붙여야 합니다.
 
@@ -864,7 +864,7 @@ var myProperty: String
 
 내부적으로 이는 각각 `external`로 표시된 `getMyProperty`와 `setMyProperty`라는 두 개의 함수를 생성합니다.
 
-## Kotlin에서 Lombok 생성 선언 사용하기
+## Kotlin에서 Lombok 생성 선언 사용하기 {id="using-lombok-generated-declarations-in-kotlin"}
 
 Kotlin 코드에서 Java의 Lombok 생성 선언을 사용할 수 있습니다.
 동일한 혼합 Java/Kotlin 모듈에서 이러한 선언을 생성하고 사용해야 하는 경우, [Lombok 컴파일러 플러그인 페이지](lombok.md)에서 그 방법을 알아볼 수 있습니다.

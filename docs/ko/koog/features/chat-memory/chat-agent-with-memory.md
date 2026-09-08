@@ -35,7 +35,7 @@ graph TB
     agent --"에이전트 응답"--> print --> read
 ```
 
-## 코드
+## 코드 {id="code"}
 
 ??? note "사전 요구 사항"
 
@@ -153,7 +153,7 @@ graph TB
     }
     ```
 
-## 구현 세부 사항
+## 구현 세부 사항 {id="implementation-details"}
 
 `agent.run()`의 두 번째 인자는 진행 중인 대화를 식별하고 구분하는 데 사용되는 [세션 ID(session ID)](index.md#session-ids)입니다.
 이 예제에서는 한 번에 하나의 대화만 진행되므로 상수로 처리되었습니다.
@@ -167,7 +167,7 @@ graph TB
 에이전트는 최대 20개의 최신 메시지만 저장합니다.
 이것이 없으면 프롬프트 크기가 컨텍스트 제한을 초과하여 커질 수 있습니다.
 
-## 예제 세션
+## 예제 세션 {id="example-session"}
 
 ```
 You: My name is Alice.

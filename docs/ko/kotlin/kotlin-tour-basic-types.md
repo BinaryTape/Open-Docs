@@ -84,9 +84,9 @@ fun main() {
 
 이제 기본 타입을 선언하는 방법을 알았으니, [컬렉션(collections)](kotlin-tour-collections.md)에 대해 알아볼 차례입니다.
 
-## 연습 문제 {completion-point="true"}
+## 연습 문제 {completion-point="true" id="practice"}
 
-### 연습 문제 {initial-collapse-state="collapsed" collapsible="true"}
+### 연습 문제 {initial-collapse-state="collapsed" collapsible="true" id="exercise"}
 
 각 변수에 대해 올바른 타입을 명시적으로 선언하세요.
 

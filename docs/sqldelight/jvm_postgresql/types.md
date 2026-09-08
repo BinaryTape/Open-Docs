@@ -1,4 +1,4 @@
-## PostgreSQL 类型
+## PostgreSQL 类型 {id="postgresql-types"}
 
 SQLDelight 列定义与常规 PostgreSQL 列定义相同，但支持[额外列约束](#custom-column-types)，用于在生成的接口中指定该列的 Kotlin 类型。
 

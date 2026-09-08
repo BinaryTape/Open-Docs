@@ -13,7 +13,7 @@
 
 Kotlin 로드맵에 오신 것을 환영합니다! JetBrains 팀이 집중하고 있는 우선순위를 미리 확인해 보세요.
 
-## 주요 우선순위
+## 주요 우선순위 {id="key-priorities"}
 
 이 로드맵의 목표는 여러분에게 전체적인 그림을 보여드리는 것입니다.
 다음은 저희가 제공하고자 하는 가장 중요한 방향성인 핵심 집중 분야 목록입니다:
@@ -23,7 +23,7 @@ Kotlin 로드맵에 오신 것을 환영합니다! JetBrains 팀이 집중하고
 * **도구 독립성 유지(Staying agnostic)**: 개발자가 어떤 도구나 타겟을 사용하든 상관없이 지원합니다.
 * **생태계 지원(Ecosystem support)**: Kotlin 라이브러리, 도구 및 프레임워크 제작자를 위해 개발 및 배포 프로세스를 간소화합니다.
 
-## 하위 시스템별 Kotlin 로드맵
+## 하위 시스템별 Kotlin 로드맵 {id="kotlin-roadmap-by-subsystem"}
 
 <!-- 현재 진행 중인 가장 큰 프로젝트를 보려면 [로드맵 상세](#roadmap-details) 표를 참조하세요. -->
 
@@ -129,9 +129,9 @@ Kotlin 로드맵에 오신 것을 환영합니다! JetBrains 팀이 집중하고
 > 
 {style="note"}
 
-## 2026년 2월 이후 변경 사항
+## 2026년 2월 이후 변경 사항 {id="what-s-changed-since-february-2026"}
 
-### 완료된 항목
+### 완료된 항목 {id="completed-items"}
 
 이전 로드맵에서 다음 항목들을 **완료**했습니다:
 
@@ -147,7 +147,7 @@ Kotlin 로드맵에 오신 것을 환영합니다! JetBrains 팀이 집중하고
 * ✅ Ecosystem: [표준 라이브러리의 보안 수정 사항에 대한 18개월 지원 기간 도입](https://youtrack.jetbrains.com/issue/KT-83525)
 * ✅ Ecosystem: [Exposed를 위한 마이그레이션 Gradle 플러그인 제작](https://youtrack.jetbrains.com/issue/EXPOSED-755)
 
-### 새로운 항목
+### 새로운 항목 {id="new-items"}
 
 로드맵에 다음 항목들을 **추가**했습니다:
 
@@ -163,7 +163,7 @@ Kotlin 로드맵에 오신 것을 환영합니다! JetBrains 팀이 집중하고
 * 🆕 Tooling: [Kotlin 툴체인(Toolchain): Kotlin으로 진입하는 단일 창구](https://youtrack.jetbrains.com/issue/KTC-5718)
 * 🆕 Ecosystem: [Kotlin 표준 라이브러리 타입에 대해 수준 높은(first-class) JPA/Hibernate 지원 구현](https://youtrack.jetbrains.com/issue/KT-88665)
 
-### 삭제된 항목
+### 삭제된 항목 {id="removed-items"}
 
 로드맵에서 다음 항목을 **삭제**했습니다:
 

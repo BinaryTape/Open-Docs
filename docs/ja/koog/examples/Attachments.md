@@ -7,7 +7,7 @@ https://github.com/JetBrains/koog/blob/develop/examples/notebooks/Attachments.ip
 https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Attachments.ipynb
 ){ .md-button }
 
-## 環境のセットアップ
+## 環境のセットアップ {id="setting-up-the-environment"}
 
 コードの実装に入る前に、Kotlin Notebook の準備ができているか確認します。
 ここでは最新の記述子（descriptors）を読み込み、**Koog** ライブラリを有効にします。
@@ -20,7 +20,7 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Atta
 %use koog
 ```
 
-## API キーの設定
+## API キーの設定 {id="configuring-api-keys"}
 
 API キーを環境変数から読み込みます。これにより、シークレット（秘密情報）をノートブックファイルに含めずに済み、プロバイダーを簡単に切り替えることができます。`OPENAI_API_KEY`、`ANTHROPIC_API_KEY`、または `GEMINI_API_KEY` を設定できます。
 
@@ -28,7 +28,7 @@ API キーを環境変数から読み込みます。これにより、シーク�
 val apiKey = System.getenv("OPENAI_API_KEY") // または ANTHROPIC_API_KEY、あるいは GEMINI_API_KEY
 ```
 
-## シンプルな OpenAI エグゼキューターの作成
+## シンプルな OpenAI エグゼキューターの作成 {id="creating-a-simple-openai-executor"}
 
 エグゼキューター（executor）は、認証、ベース URL、および適切なデフォルト設定をカプセル化します。ここではシンプルな OpenAI エグゼキューターを使用しますが、他のコードを変更することなく Anthropic や Gemini 用に差し替えることが可能です。
 
@@ -75,7 +75,7 @@ val prompt = prompt("images-prompt") {
 }
 ```
 
-## 実行とレスポンスの確認
+## 実行とレスポンスの確認 {id="execute-and-inspect-the-response"}
 
 プロンプトを `gpt-4.1` に対して実行し、最初のメッセージを取得してその内容を出力します。
 ストリーミングが必要な場合は Koog のストリーミング API に変更してください。ツールの使用（tool use）については、`emptyList()` の代わりにツールリストを渡します。

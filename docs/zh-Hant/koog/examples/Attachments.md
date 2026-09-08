@@ -7,7 +7,7 @@ https://github.com/JetBrains/koog/blob/develop/examples/notebooks/Attachments.ip
 https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Attachments.ipynb
 ){ .md-button }
 
-## 設定環境
+## 設定環境 {id="setting-up-the-environment"}
 
 在深入研究程式碼之前，我們確保 Kotlin Notebook 已經準備就緒。
 在這裡，我們會載入最新的描述符並啟用 **Koog** 程式庫，
@@ -20,7 +20,7 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Atta
 %use koog
 ```
 
-## 設定 API 金鑰
+## 設定 API 金鑰 {id="configuring-api-keys"}
 
 我們從環境變數中讀取 API 金鑰。這可以避免在筆記本檔案中洩露敏感資訊，並讓您
 切換提供者。您可以設定 `OPENAI_API_KEY`、`ANTHROPIC_API_KEY` 或 `GEMINI_API_KEY`。
@@ -29,7 +29,7 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Atta
 val apiKey = System.getenv("OPENAI_API_KEY") // 或 ANTHROPIC_API_KEY，或 GEMINI_API_KEY
 ```
 
-## 建立簡單的 OpenAI 執行器
+## 建立簡單的 OpenAI 執行器 {id="creating-a-simple-openai-executor"}
 
 執行器封裝了身分驗證、基本 URL 以及正確的預設值。在這裡，我們使用一個簡單的 OpenAI 執行器，
 但您可以將其更換為 Anthropic 或 Gemini，而無需更改其餘程式碼。
@@ -78,7 +78,7 @@ val prompt = prompt("images-prompt") {
 }
 ```
 
-## 執行並檢查回應
+## 執行並檢查回應 {id="execute-and-inspect-the-response"}
 
 我們針對 `gpt-4.1` 執行提示詞，收集第一條訊息並列印其內容。
 如果您想要進行串流，請切換到 Koog 中的串流 API；若要使用工具，請傳遞您的工具清單而不是 `emptyList()`。

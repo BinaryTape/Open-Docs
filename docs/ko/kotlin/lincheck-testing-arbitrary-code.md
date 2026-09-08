@@ -51,7 +51,7 @@ Lincheck으로 동시성 코드를 테스트하려면 다음 단계를 따르세
   | ------------------------------------------------------------------------------- |
   ```
 
-## 예제: `ConcurrentHashMap` 함수 테스트
+## 예제: `ConcurrentHashMap` 함수 테스트 {id="example-test-concurrenthashmap-functions"}
 
 `ConcurrentHashMap` 함수에 대한 다음 테스트를 살펴보겠습니다:
 
@@ -99,12 +99,12 @@ Lincheck이 데드락으로 이어지는 실행 스케줄을 발견했기 때문
 
 ![실패한 테스트에 대한 Lincheck 보고서 스크린샷.](concurrenthashmapdeadlock.png){thumbnail="true" width=700}
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 [Lincheck을 사용하여 데이터 구조를 테스트하는 방법](lincheck-how-to-test-data-structures.md)을 알아보세요.
 
 <!-- TODO: uncomment after the articles are published
-## 관련 항목
+## 관련 항목 {id="see-also"}
 
 * [Lincheck의 모델 검사](lincheck-model-checking.md)
 * [Kotlin 멀티플랫폼 프로젝트에서의 Lincheck](lincheck-kmp.md)

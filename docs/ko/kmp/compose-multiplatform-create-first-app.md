@@ -25,7 +25,7 @@
 * 이 튜토리얼을 완료하려면 IntelliJ IDEA만 있으면 됩니다. 이를 통해 Android 및 데스크톱용 멀티플랫폼 개발을 시도해 볼 수 있습니다. iOS의 경우 Xcode가 설치된 macOS 기기가 필요합니다. 이는 iOS 개발의 일반적인 제한 사항입니다.
 * 원하는 경우 관심 있는 특정 플랫폼으로 선택을 제한하고 나머지는 생략할 수 있습니다.
 
-## 프로젝트 생성
+## 프로젝트 생성 {id="create-a-project"}
 
 1. [빠른 시작](quickstart.md)에서 [Kotlin Multiplatform 개발 환경 설정](quickstart.md#set-up-the-environment) 안내를 완료하세요.
 2. IntelliJ IDEA에서 **File** | **New** | **Project**를 선택합니다.
@@ -46,7 +46,7 @@
 
    ![Compose Multiplatform 프로젝트 생성](create-compose-multiplatform-project.png){width=800}
 
-## 프로젝트 구조 살펴보기
+## 프로젝트 구조 살펴보기 {id="examine-the-project-structure"}
 
 IntelliJ IDEA에서 `ComposeDemo` 폴더로 이동합니다.
 마법사에서 iOS를 선택하지 않았다면 "ios" 또는 "apple"로 시작하는 폴더가 없을 것입니다.
@@ -120,7 +120,7 @@ fun App() {
 
 이제 지원되는 모든 플랫폼에서 애플리케이션을 실행해 보겠습니다.
 
-## 애플리케이션 실행하기
+## 애플리케이션 실행하기 {id="run-your-application"}
 
 Android, iOS, 데스크톱 및 웹에서 애플리케이션을 실행할 수 있습니다. 특정 순서대로 실행할 필요는 없으므로 가장 익숙한 플랫폼부터 시작하세요.
 
@@ -128,7 +128,7 @@ Android, iOS, 데스크톱 및 웹에서 애플리케이션을 실행할 수 있
 >
 {style="tip"}
 
-### Android에서 애플리케이션 실행하기
+### Android에서 애플리케이션 실행하기 {id="run-your-application-on-android"}
 
 1. 실행 구성 목록에서 **androidApp**을 선택합니다.
 2. Android 가상 기기를 선택한 다음 **Run**을 클릭합니다. 선택한 가상 기기가 꺼져 있으면 IDE가 이를 시작하고 앱을 실행합니다.
@@ -139,17 +139,17 @@ Android, iOS, 데스크톱 및 웹에서 애플리케이션을 실행할 수 있
 
 <snippet id="run_android_other_devices">
 
-#### 다른 Android 시뮬레이션 기기에서 실행하기 {initial-collapse-state="collapsed" collapsible="true"}
+#### 다른 Android 시뮬레이션 기기에서 실행하기 {initial-collapse-state="collapsed" collapsible="true" id="run-on-a-different-android-simulated-device"}
 
 [Android 에뮬레이터를 구성하고 다른 시뮬레이션 기기에서 애플리케이션을 실행하는 방법](https://developer.android.com/studio/run/emulator#runningapp)을 알아보세요.
 
-#### 실제 Android 기기에서 실행하기 {initial-collapse-state="collapsed" collapsible="true"}
+#### 실제 Android 기기에서 실행하기 {initial-collapse-state="collapsed" collapsible="true" id="run-on-a-real-android-device"}
 
 [하드웨어 기기를 구성 및 연결하고 애플리케이션을 실행하는 방법](https://developer.android.com/studio/run/device)을 알아보세요.
 
 </snippet>
 
-### iOS에서 애플리케이션 실행하기
+### iOS에서 애플리케이션 실행하기 {id="run-your-application-on-ios"}
 
 초기 설정 단계에서 Xcode를 실행하지 않았다면 iOS 앱을 실행하기 전에 실행하세요.
 
@@ -161,11 +161,11 @@ IntelliJ IDEA에서 실행 구성 목록의 **iosApp**을 선택하고, 실행 �
 
 <snippet id="run_ios_other_devices">
 
-#### 실제 iOS 기기에서 실행하기 {initial-collapse-state="collapsed" collapsible="true"}
+#### 실제 iOS 기기에서 실행하기 {initial-collapse-state="collapsed" collapsible="true" id="run-on-a-real-ios-device"}
 
 실제 iOS 기기에서 멀티플랫폼 애플리케이션을 실행할 수 있습니다. 시작하기 전에 [Apple ID](https://support.apple.com/en-us/HT204316)와 연결된 Team ID를 설정해야 합니다.
 
-##### Team ID 설정하기
+##### Team ID 설정하기 {id="set-your-team-id"}
 
 프로젝트에서 처음으로 새로운 Team ID를 설정하려면 Xcode에서 프로젝트를 엽니다(**File | Open Project in Xcode**):
 
@@ -185,7 +185,7 @@ Xcode에서 팀을 설정한 후에는 IntelliJ IDEA에서 팀을 설정하거�
 
 2. **Options** 탭으로 전환하여 **Development team** 드롭다운에서 필요한 변경을 수행한 다음 **OK**를 클릭합니다.
 
-##### 앱 실행하기
+##### 앱 실행하기 {id="run-the-app"}
 
 iPhone을 케이블로 연결합니다. 이미 Xcode에 기기가 등록되어 있다면 IntelliJ IDEA의 실행 구성 목록에 해당 기기가 표시됩니다. 해당 `iosApp` 구성을 실행합니다.
 
@@ -201,7 +201,7 @@ Xcode에 iPhone을 등록했다면 **iosApp** 실행 구성을 선택할 때 Int
 
 </snippet>
 
-### 데스크톱에서 애플리케이션 실행하기
+### 데스크톱에서 애플리케이션 실행하기 {id="run-your-application-on-desktop"}
 
 실행 구성 목록에서 **desktopApp [hot] 🔥**을 선택하고 **Run**을 클릭합니다.
 기본적으로 이 실행 구성은 [Compose Hot Reload](compose-hot-reload.md)가 실행되는 자체 OS 창에서 데스크톱 앱을 시작합니다:
@@ -210,7 +210,7 @@ Xcode에 iPhone을 등록했다면 **iosApp** 실행 구성을 선택할 때 Int
 
 ![데스크톱에서의 첫 번째 Compose Multiplatform 앱](first-compose-project-on-desktop-1.png){width=500}
 
-### 웹 애플리케이션 실행하기
+### 웹 애플리케이션 실행하기 {id="run-your-web-application"}
 
 1. 실행 구성 목록에서 다음 중 하나를 선택합니다:
 
@@ -228,7 +228,7 @@ Xcode에 iPhone을 등록했다면 **iosApp** 실행 구성을 선택할 때 Int
 
 ![Compose 웹 애플리케이션](first-compose-project-on-web.png){width=600}
 
-#### 웹 타겟을 위한 호환 모드
+#### 웹 타겟을 위한 호환 모드 {id="compatibility-mode-for-web-targets"}
 
 웹 애플리케이션에 호환 모드를 활성화하여 모든 브라우저에서 즉시 작동하도록 할 수 있습니다. 이 모드에서 최신 브라우저는 Wasm 버전을 사용하고, 오래된 브라우저는 JS 버전으로 폴백(fall back)합니다. 이 모드는 `js` 및 `wasmJs` 타겟 모두에 대한 교차 컴파일을 통해 구현됩니다.
 
@@ -251,13 +251,13 @@ Xcode에 iPhone을 등록했다면 **iosApp** 실행 구성을 선택할 때 Int
 
 Gradle 태스크가 완료되면, 호환 가능한 아티팩트가 `composeApp/build/dist/composeWebCompatibility/productionExecutable` 디렉토리에 생성됩니다. 이 아티팩트들을 사용하여 `js` 및 `wasmJs` 타겟 모두에서 작동하도록 [애플리케이션을 게시](https://kotlinlang.org/docs/wasm-get-started.html#publish-the-application)할 수 있습니다.
 
-## 다음 단계
+## 다음 단계 {id="next-step"}
 
 튜토리얼의 다음 파트에서는 composable 함수를 구현하고 각 플랫폼에서 애플리케이션을 실행하는 방법을 배웁니다.
 
 **[다음 파트로 진행하기](compose-multiplatform-explore-composables.md)**
 
-## 도움받기
+## 도움받기 {id="get-help"}
 
 * **Kotlin Slack**. [초대](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)를 받고 [#multiplatform](https://kotlinlang.slack.com/archives/C3PQML5NU) 채널에 참여하세요.
 * **Kotlin 이슈 트래커**. [새로운 이슈를 보고](https://youtrack.jetbrains.com/newIssue?project=KT)하세요.

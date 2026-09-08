@@ -14,7 +14,7 @@
 
 到最后，您将能够将自由格式的用户请求路由到正确的工具，并生成有用且可审计的响应。
 
-## 设置与依赖项
+## 设置与依赖项 {id="setup-dependencies"}
 
 我们将使用 Kotlin Notebook 内核。请确保您的 Koog 构件可从 Maven 中央仓库解析，并且已通过 `OPENAI_API_KEY` 提供您的 LLM 提供商密钥。
 
@@ -33,7 +33,7 @@ val apiKey = System.getenv("OPENAI_API_KEY") ?: error("请设置 OPENAI_API_KEY 
 val openAIExecutor = simpleOpenAIExecutor(apiKey)
 ```
 
-## 定义系统提示词
+## 定义系统提示词 {id="defining-the-system-prompt"}
 
 精心设计的系统提示词有助于 AI 理解其角色和约束。此提示词将引导我们所有智能体的行为。
 
@@ -48,7 +48,7 @@ val bankingAssistantSystemPrompt = """
 """.trimMargin()
 ```
 
-## 领域模型与示例数据
+## 领域模型与示例数据 {id="domain-model-sample-data"}
 
 首先，让我们定义领域模型和示例数据。我们将使用支持序列化的 Kotlin 数据类。
 
@@ -74,7 +74,7 @@ val contactList = listOf(
 val contactById = contactList.associateBy(Contact::id)
 ```
 
-## 工具：资金转账
+## 工具：资金转账 {id="tools-money-transfer"}
 
 工具应当是**纯粹**且可预测的。
 
@@ -182,7 +182,7 @@ class MoneyTransferTools : ToolSet {
 }
 ```
 
-## 创建您的第一个智能体
+## 创建您的第一个智能体 {id="creating-your-first-agent"}
 现在，让我们创建一个使用资金转账工具的智能体。
 智能体将 LLM 与工具结合起来以完成任务。
 
@@ -229,7 +229,7 @@ runBlocking {
 
     任务成功完成。
 
-## 添加交易分析
+## 添加交易分析 {id="adding-transaction-analytics"}
 让我们通过交易分析工具扩展助手的功能。
 首先，我们将定义交易领域模型。
 
@@ -263,7 +263,7 @@ data class Transaction(
 )
 ```
 
-### 示例交易数据
+### 示例交易数据 {id="sample-transaction-data"}
 
 ```kotlin
 val transactionAnalysisPrompt = """
@@ -328,7 +328,7 @@ val sampleTransactions = listOf(
 )
 ```
 
-## 交易分析工具
+## 交易分析工具 {id="transaction-analysis-tools"}
 
 ```kotlin
 @LLMDescription("用于分析交易历史记录的工具")
@@ -447,10 +447,10 @@ runBlocking {
     
     任务成功完成。
 
-## 使用图 (Graph) 构建智能体
+## 使用图 (Graph) 构建智能体 {id="building-an-agent-with-graph"}
 现在，让我们将专门的智能体组合成一个图智能体，它可以将请求路由到适当的处理程序。
 
-### 请求分类
+### 请求分类 {id="request-classification"}
 首先，我们需要一种分类传入请求的方法：
 
 ```kotlin
@@ -475,7 +475,7 @@ data class ClassifiedBankRequest(
 
 ```
 
-### 共享工具注册表
+### 共享工具注册表 {id="shared-tool-registry"}
 
 ```kotlin
 // 为多智能体系统创建一个全面的工具注册表
@@ -486,7 +486,7 @@ val toolRegistry = ToolRegistry {
 }
 ```
 
-## 智能体策略
+## 智能体策略 {id="agent-strategy"}
 
 现在我们将创建一个编排多个节点的策略：
 
@@ -609,7 +609,7 @@ val agent = AIAgent<String, String>(
 )
 ```
 
-## 运行图智能体
+## 运行图智能体 {id="run-graph-agent"}
 
 ```kotlin
 println("银行助手已启动")
@@ -642,7 +642,7 @@ runBlocking {
 
     结果：任务成功完成。
 
-## 智能体组合 —— 将智能体作为工具使用
+## 智能体组合 —— 将智能体作为工具使用 {id="agent-composition-using-agents-as-tools"}
 
 Koog 允许您将智能体作为工具在其他智能体中使用，从而实现强大的组合模式。
 
@@ -687,7 +687,7 @@ $transactionAnalysisPrompt"
 )
 ```
 
-## 运行组合智能体
+## 运行组合智能体 {id="run-composed-agent"}
 
 ```kotlin
 println("银行助手已启动")
@@ -707,7 +707,7 @@ runBlocking {
 
     结果：无法执行任务。
 
-## 总结
+## 总结 {id="summary"}
 在本教程中，您学习了如何：
 
 1. 创建带有清晰描述的 LLM 驱动工具，帮助 AI 理解何时以及如何使用它们
@@ -716,7 +716,7 @@ runBlocking {
 4. 通过将智能体作为其他智能体中的工具使用来实现组合
 5. 处理用户交互，包括确认和消除歧义
 
-## 最佳实践
+## 最佳实践 {id="best-practices"}
 
 1. 清晰的工具描述：编写详细的 `LLMDescription` 注解，帮助 AI 理解工具用法
 2. 惯用的 Kotlin：利用 Kotlin 特性，如数据类、扩展函数和作用域函数

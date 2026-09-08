@@ -76,7 +76,7 @@
 
 [CallIdConfig](https://api.ktor.io/ktor-client-call-id/io.ktor.client.plugins.callid/-call-id-config/index.html) 클래스에서 제공하는 %plugin_name% 플러그인 설정을 사용하면 호출 ID를 생성하고 호출 컨텍스트에 추가할 수 있습니다.
 
-### 호출 ID 생성
+### 호출 ID 생성 {id="generate-a-call-id"}
 
 다음 중 한 가지 방법을 사용하여 특정 요청에 대한 호출 ID를 생성합니다:
 
@@ -100,7 +100,7 @@
 
 여러 가지 방법을 사용하여 호출 ID를 생성할 수 있습니다. 이 경우, `null`이 아닌 첫 번째 값이 적용됩니다.
 
-### 호출 ID 추가
+### 호출 ID 추가 {id="add-a-call-id"}
 
 호출 ID를 가져온 후, 이를 요청에 추가하기 위해 다음과 같은 옵션을 사용할 수 있습니다.
 
@@ -122,7 +122,7 @@
  }
  ```
 
-## 예제
+## 예제 {id="example"}
 
 다음 예제에서 Ktor 클라이언트용 `%plugin_name%` 플러그인은 새 호출 ID를 생성하고 이를 헤더에 추가하도록 설정되었습니다.
 

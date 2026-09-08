@@ -17,9 +17,9 @@ fun addEntryToMap(baseMap: Map<String, Number>, additionalEntry: Pair<String, In
 
 ここでは、通常のやり方で型引数を推論するには型情報が不足していますが、ビルダー推論はラムダ引数内の呼び出しを分析できます。`putAll()` および `put()` 呼び出しの型情報に基づき、コンパイラは `buildMap()` 呼び出しの型引数が `String` と `Number` であると自動的に推論できます。ビルダー推論により、ジェネリックなビルダーを使用する際に型引数を省略できるようになります。
 
-## 独自のビルダーを作成する
+## 独自のビルダーを作成する {id="writing-your-own-builders"}
 
-### ビルダー推論を有効にするための要件
+### ビルダー推論を有効にするための要件 {id="requirements-for-enabling-builder-inference"}
 
 > Kotlin 1.7.0より前は、ビルダー関数でビルダー推論を有効にするには、`-Xenable-builder-inference` コンパイラオプションが必要でした。1.7.0からは、このオプションはデフォルトで有効になっています。
 >
@@ -70,7 +70,7 @@ fun addEntryToMap(baseMap: Map<String, Number>, additionalEntry: Pair<String, In
    }
    ```
 
-### サポートされている機能
+### サポートされている機能 {id="supported-features"}
 
 ビルダー推論は以下の機能をサポートしています： 
 * 複数の型引数の推論
@@ -118,9 +118,9 @@ fun addEntryToMap(baseMap: Map<String, Number>, additionalEntry: Pair<String, In
   }
   ```
 
-## ビルダー推論の仕組み
+## ビルダー推論の仕組み {id="how-builder-inference-works"}
 
-### 遅延型変数（Postponed type variables）
+### 遅延型変数（Postponed type variables） {id="postponed-type-variables"}
 
 ビルダー推論は、ビルダー推論の分析中にビルダーラムダ内に現れる「遅延型変数（postponed type variables）」に基づいて動作します。遅延型変数とは、推論の過程にある型引数の型のことです。コンパイラはこれを使用して、型引数に関する型情報を収集します。
 
@@ -147,7 +147,7 @@ val result = buildList {
 
 遅延型変数をレシーバーとして、常に `equals()`、`hashCode()`、および `toString()` 関数を呼び出すことができる点に注意してください。
 
-### ビルダー推論の結果への寄与
+### ビルダー推論の結果への寄与 {id="contributing-to-builder-inference-results"}
 
 ビルダー推論は、分析結果に寄与するさまざまな種類の型情報を収集できます。以下を考慮します：
 * ラムダのレシーバーに対して、型パラメータ의型を使用するメソッドを呼び出す

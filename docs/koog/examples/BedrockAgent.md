@@ -9,14 +9,14 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Bedr
 
 欢迎阅读这份关于使用集成 AWS Bedrock 的 Koog 框架创建智能 AI 代理的全面指南。在本笔记本中，我们将逐步构建一个功能齐全的代理，它可以通过自然语言命令控制一个简单的开关设备。
 
-## 你将学到什么
+## 你将学到什么 {id="what-you-ll-learn"}
 
 - 如何使用 Kotlin 注解为 AI 代理定义自定义工具
 - 为基于大语言模型 (LLM) 的代理设置 AWS Bedrock 集成
 - 创建工具注册表并将其连接到代理
 - 构建可以理解并执行命令的交互式代理
 
-## 前提条件
+## 前提条件 {id="prerequisites"}
 
 - 具有相应权限的 AWS Bedrock 访问权限
 - 已配置 AWS 凭据（访问密钥和私钥）
@@ -203,7 +203,7 @@ runBlocking {
 
     执行被中断
 
-## 刚才发生了什么？ 🎯
+## 刚才发生了什么？ 🎯 {id="what-just-happened"}
 
 当你运行代理时，后台发生了以下奇妙的过程：
 
@@ -215,11 +215,11 @@ runBlocking {
 
 这展示了 Koog 框架的核心优势——自然语言理解与程序化操作之间的无缝集成。
 
-## 下一步和扩展
+## 下一步和扩展 {id="next-steps-extensions"}
 
 准备好深入探索了吗？这里有一些可以尝试的想法：
 
-### 🔧 增强型工具
+### 🔧 增强型工具 {id="enhanced-tools"}
 ```kotlin
 @Tool
 @LLMDescription("Sets a timer to automatically turn off the switch after specified seconds")
@@ -230,7 +230,7 @@ fun setAutoOffTimer(seconds: Int): String
 fun getUsageStats(): String
 ```
 
-### 🌐 多个设备
+### 🌐 多个设备 {id="multiple-devices"}
 ```kotlin
 class HomeAutomationTools : ToolSet {
     @Tool fun controlLight(room: String, on: Boolean): String
@@ -239,7 +239,7 @@ class HomeAutomationTools : ToolSet {
 }
 ```
 
-### 🧠 内存与上下文
+### 🧠 内存与上下文 {id="memory-context"}
 ```kotlin
 val agent = AIAgent(
     executor = executor,
@@ -251,7 +251,7 @@ val agent = AIAgent(
 )
 ```
 
-### 🔄 高级工作流
+### 🔄 高级工作流 {id="advanced-workflows"}
 ```kotlin
 // 带有条件逻辑的多步骤工作流
 @Tool
@@ -259,7 +259,7 @@ val agent = AIAgent(
 fun eveningRoutine(): String
 ```
 
-## 关键要点
+## 关键要点 {id="key-takeaways"}
 
 ✅ **工具即函数**：任何 Kotlin 函数都可以成为代理的一项功能
 ✅ **注解驱动行为**：@Tool 和 @LLMDescription 使函数可被发现
@@ -271,7 +271,7 @@ Koog 框架使得构建能够理解自然语言并采取现实世界操作的复
 
 **祝你代理构建愉快！** 🚀
 
-## 测试代理
+## 测试代理 {id="testing-the-agent"}
 
 是时候看看我们的代理在行动了！现在，代理可以理解自然语言请求，并使用我们提供的工具来控制开关。
 

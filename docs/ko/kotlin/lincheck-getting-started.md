@@ -8,12 +8,12 @@
 * 첫 번째 동시성 테스트(concurrent test)를 작성하고 Lincheck으로 실행합니다.
 * 동시성 자료 구조를 생성하고 두 가지 테스트 전략을 사용하여 Lincheck으로 테스트합니다.
 
-## 프로젝트 생성
+## 프로젝트 생성 {id="create-a-project"}
 
 IntelliJ IDEA에서 기존 Kotlin 프로젝트를 열거나
 [새 프로젝트를 생성](https://kotlinlang.org/docs/jvm-get-started.html)하세요.
 
-## 의존성 추가
+## 의존성 추가 {id="add-dependencies"}
 
 프로젝트에서 Lincheck을 사용하려면 빌드 구성에 해당하는 의존성을 추가하세요:
 
@@ -73,7 +73,7 @@ dependencies {
 </tab>
 </tabs>
 
-## 첫 번째 테스트 작성하기
+## 첫 번째 테스트 작성하기 {id="write-your-first-test"}
 
 기본적인 동시성 테스트를 위해, 각 스레드에서 실행되어야 할 연산과 기대되는 단언(assertion)을 설명하는 테스트 함수를 만듭니다. Lincheck은 [모델 검사(model checking)](lincheck-testing-strategies.md#model-checking)를 사용하여 프로그램의 가능한 스레드 인터리빙(thread interleavings)을 탐색하고, 잘못된 동작이 발생할 경우 오류 보고서를 제공합니다.
 
@@ -148,7 +148,7 @@ dependencies {
             </def>
     </deflist>
 
-## 자료 구조 테스트 작성하기
+## 자료 구조 테스트 작성하기 {id="write-a-test-for-a-data-structure"}
 
 기본적인 동시성 테스트 외에도, Lincheck은 동시성 자료 구조를 테스트하기 위한 [선언적 접근 방식(declarative approach)](lincheck-how-to-test-data-structures.md)을 지원합니다.
 
@@ -228,6 +228,6 @@ Lincheck에서 자료 구조를 테스트하려면 구조의 동시성 메서드
     | ------------------------ |
     ```
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 Lincheck에서 [동시성 자료 구조를 테스트하기 위한 선언적 접근 방식](lincheck-how-to-test-data-structures.md)에 대해 알아보세요.

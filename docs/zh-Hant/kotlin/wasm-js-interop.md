@@ -10,15 +10,15 @@ Kotlin/Wasm 允許你在 Kotlin 中使用 JavaScript 程式碼，以及在 JavaS
 >
 {style="note"}
 
-## 在 Kotlin 中使用 JavaScript 程式碼
+## 在 Kotlin 中使用 JavaScript 程式碼 {id="use-javascript-code-in-kotlin"}
 
 學習如何透過 `external` 宣告、包含 JavaScript 程式碼片段的函式，以及 `@JsModule` 註解在 Kotlin 中使用 JavaScript 程式碼。
 
-### 外部宣告 (External declarations)
+### 外部宣告 (External declarations) {id="external-declarations"}
 
 預設情況下，外部 JavaScript 程式碼在 Kotlin 中是不可見的。要在 Kotlin 中使用 JavaScript 程式碼，你可以透過 `external` 宣告來描述其 API。
 
-#### JavaScript 函式
+#### JavaScript 函式 {id="javascript-functions"}
 
 考慮此 JavaScript 函式： 
 
@@ -42,7 +42,7 @@ fun main() {
 }
 ```
 
-#### JavaScript 屬性
+#### JavaScript 屬性 {id="javascript-properties"}
 
 考慮此全域 JavaScript 變數：
 
@@ -58,7 +58,7 @@ external var globalCounter: Int
 
 這些屬性是在外部初始化的。在 Kotlin 程式碼中，這些屬性不能包含 `= value` 初始化運算式。
 
-#### JavaScript 類別
+#### JavaScript 類別 {id="javascript-classes"}
 
 考慮此 JavaScript 類別：
 
@@ -87,7 +87,7 @@ external class Rectangle(height: Double, width: Double) : JsAny {
 
 `external` 類別內的所有宣告都會被隱含地視為外部宣告。
 
-#### 外部介面 (External interfaces)
+#### 外部介面 (External interfaces) {id="external-interfaces"}
 
 你可以在 Kotlin 中描述 JavaScript 物件的形狀 (shape)。考慮此 JavaScript 函式及其傳回內容：
 
@@ -114,7 +114,7 @@ external fun createUser(name: String, age: Int): User
 * 你不能將它們作為 reified 型別引數傳遞。
 * 使用 `as` 轉換至外部介面一律會成功。
 
-#### 外部物件 (External objects)
+#### 外部物件 (External objects) {id="external-objects"}
 
 考慮這些持有物件的 JavaScript 變數：
 
@@ -138,11 +138,11 @@ external object Counter : JsAny {
 }
 ```
 
-#### 外部型別階層結構
+#### 外部型別階層結構 {id="external-type-hierarchy"}
 
 與一般類別和介面類似，你可以宣告外部宣告來擴充其他外部類別並實作外部介面。然而，你不能在同一個型別階層結構中混合使用外部與非外部宣告。
 
-#### 透過 `@nativeInvoke` 呼叫 JavaScript 物件
+#### 透過 `@nativeInvoke` 呼叫 JavaScript 物件 {id="callable-javascript-objects-with-nativeinvoke"}
 <primary-label ref="experimental-opt-in"/>
 
 你可以在 `external` 宣告（類別或介面）的 Kotlin 成員函式上使用 `@nativeInvoke` 註解，使其可以像 JavaScript 函式一樣被呼叫。
@@ -168,7 +168,7 @@ fun main() {
 >
 {style="note"}
 
-### 包含 JavaScript 程式碼的 Kotlin 函式
+### 包含 JavaScript 程式碼的 Kotlin 函式 {id="kotlin-functions-with-javascript-code"}
 
 你可以藉由定義一個包含 `= js("code")` 主體的函式，將 JavaScript 片段加入 Kotlin/Wasm 程式碼中：
 
@@ -207,7 +207,7 @@ Kotlin 編譯器會將程式碼字串放入產生的 JavaScript 檔案中的一�
 >
 {style="note"}
 
-### JavaScript 模組
+### JavaScript 模組 {id="javascript-modules"}
 
 預設情況下，外部宣告對應於 JavaScript 全域作用域。如果你使用 [`@JsModule` 註解](js-modules.md#jsmodule-annotation)來標註 Kotlin 檔案，則該檔案中所有的外部宣告都會從指定的模組中匯入。
 
@@ -239,7 +239,7 @@ external class User : JsAny {
 }
 ```
 
-### 陣列互通性
+### 陣列互通性 {id="array-interoperability"}
 
 你可以將 JavaScript 的 `JsArray<T>` 複製到 Kotlin 原生的 `Array` 或 `List` 型別中；同樣地，你也可以將這些 Kotlin 型別複製到 `JsArray<T>`。
 
@@ -277,11 +277,11 @@ import org.khronos.webgl.*
     val kotlinIntArray: IntArray = jsInt32Array.toIntArray()
 ```
 
-## 在 JavaScript 中使用 Kotlin 程式碼
+## 在 JavaScript 中使用 Kotlin 程式碼 {id="use-kotlin-code-in-javascript"}
 
 學習如何藉由使用 `@JsExport` 註解在 JavaScript 中使用你的 Kotlin 程式碼。
 
-### 帶有 @JsExport 註解的函式
+### 帶有 @JsExport 註解的函式 {id="functions-with-the-jsexport-annotation"}
 
 要使 Kotlin/Wasm 函式可用於 JavaScript 程式碼，請使用 `@JsExport` 註解：
 
@@ -323,7 +323,7 @@ kotlin {
 >
 {style="warning"}
 
-## 型別對應
+## 型別對應 {id="type-correspondence"}
 
 Kotlin/Wasm 在 JavaScript 互通宣告的簽章中僅允許特定型別。這些限制統一適用於帶有 `external`、`= js("code")` 或 `@JsExport` 的宣告。
 
@@ -344,7 +344,7 @@ Kotlin/Wasm 在 JavaScript 互通宣告的簽章中僅允許特定型別。這�
 
 你也可以使用這些型別的可為 null 版本。
 
-### JsAny 型別
+### JsAny 型別 {id="jsany-type"}
 
 JavaScript 值在 Kotlin 中使用 `JsAny` 型別及其子型別表示。
 
@@ -357,7 +357,7 @@ Kotlin/Wasm 標準函式庫提供了其中一些型別的表示方式：
 
 你也可以透過宣告 `external` 介面或類別來建立自訂的 `JsAny` 子型別。
 
-### JsReference 型別
+### JsReference 型別 {id="jsreference-type"}
 
 Kotlin 值可以使用 `JsReference` 型別作為不透明參考傳遞給 JavaScript。
 
@@ -394,7 +394,7 @@ let user = UserLib.createUser("Bob");
 UserLib.setUserName(user, "Alice");
 ```
 
-### 型別參數
+### 型別參數 {id="type-parameters"}
 
 如果 JavaScript 互通宣告具有 `JsAny` 或其子型別的上界 (upper bound)，則可以擁有型別參數。例如：
 
@@ -402,7 +402,7 @@ UserLib.setUserName(user, "Alice");
 external fun <T : JsAny> processData(data: JsArray<T>): T
 ```
 
-## 例外處理
+## 例外處理 {id="exception-handling"}
 
 你可以使用 Kotlin 的 `try-catch` 運算式在 Kotlin/Wasm 程式碼中捕捉 JavaScript 例外。例外處理的運作方式如下：
 
@@ -442,7 +442,7 @@ fun main() {
 * Firefox 129+
 * Safari 18.4+
 
-## Kotlin/Wasm 與 Kotlin/JS 互通性的差異
+## Kotlin/Wasm 與 Kotlin/JS 互通性的差異 {id="kotlin-wasm-and-kotlin-js-interoperability-differences"}
 
 雖然 Kotlin/Wasm 的互通性與 Kotlin/JS 的互通性有相似之處，但仍有以下關鍵差異需要考慮：
 
@@ -483,7 +483,7 @@ fun main() {
 >
 {style="note"}
 
-## 與 Web 相關的瀏覽器 API
+## 與 Web 相關的瀏覽器 API {id="web-related-browser-apis"}
 
 [`kotlinx-browser` 程式庫](https://github.com/kotlin/kotlinx-browser) 是一個獨立的程式庫，提供了 JavaScript 瀏覽器 API，包括：
 * 套件 `org.khronos.webgl`:

@@ -4,7 +4,7 @@ title: Koin DSL
 
 Koin DSL 快速参考。有关详细指南，请参阅 **[核心 - 定义](/docs/reference/koin-core/definitions)** 和 **[核心 - 模块](/docs/reference/koin-core/modules)**。
 
-## DSL 方案
+## DSL 方案 {id="dsl-approaches"}
 
 | 方案 | 语法 | 软件包 |
 |----------|--------|---------|
@@ -16,11 +16,11 @@ Koin DSL 快速参考。有关详细指南，请参阅 **[核心 - 定义](/docs
 **编译器插件 DSL** 提供自动装配和编译时安全性。请参阅 [编译器插件设置](/docs/setup/compiler-plugin)。
 :::
 
-## Application DSL
+## Application DSL {id="application-dsl"}
 
 一个 `KoinApplication` 实例代表您配置好的 Koin 容器。这让您可以设置日志记录、加载属性并注册模块。
 
-### 创建 KoinApplication
+### 创建 KoinApplication {id="creating-a-koinapplication"}
 
 在两种方案之间进行选择：
 
@@ -40,7 +40,7 @@ startKoin {
 }
 ```
 
-### 配置函数
+### 配置函数 {id="configuration-functions"}
 
 在 `koinApplication` 或 `startKoin` 中，您可以使用：
 
@@ -52,7 +52,7 @@ startKoin {
 * `createEagerInstances()` - 实例化所有标记为 `createdAtStart` 的定义
 * `allowOverride(Boolean)` - 启用/禁用定义重写（自 3.1.0 起默认为 true）
 
-### 全局 vs 本地上下文
+### 全局 vs 本地上下文 {id="global-vs-local-context"}
 
 `startKoin` 和 `koinApplication` 之间的主要区别：
 
@@ -81,7 +81,7 @@ val customKoin = koinApplication {
 val service = customKoin.get<Service>() // 使用特定实例
 ```
 
-### 启动 Koin
+### 启动 Koin {id="starting-koin"}
 
 一个完整的 Koin 设置示例：
 
@@ -106,14 +106,14 @@ startKoin {
 }
 ```
 
-## Module DSL
+## Module DSL {id="module-dsl"}
 
 有关全面的模块和定义文档，请参阅：
 - **[定义](/docs/reference/koin-core/definitions)** - 带有 DSL 和注解的所有定义类型
 - **[模块](/docs/reference/koin-core/modules)** - 模块组织和组合
 - **[定义参考](/docs/reference/koin-core/definitions)** - 快速查询表
 
-### 快速参考
+### 快速参考 {id="quick-reference"}
 
 | 定义 | 经典 Lambda | 经典自动装配 | 编译器插件 |
 |------------|----------------|------------------|-----------------|
@@ -123,7 +123,7 @@ startKoin {
 | ViewModel | `viewModel { VM(get()) }` | `viewModelOf(::VM)` | `viewModel<VM>()` |
 | 函数构建器 | `single { fn(get()) }` | — | `single { create(::fn) }` |
 
-### 基础模块
+### 基础模块 {id="basic-module"}
 
 ```kotlin
 val myModule = module {
@@ -133,7 +133,7 @@ val myModule = module {
 }
 ```
 
-### 模块组合
+### 模块组合 {id="module-composition"}
 
 ```kotlin
 val appModule = module {

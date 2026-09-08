@@ -27,7 +27,7 @@
 
 为了简单起见，我们将迁移该应用的两个选项卡版本（**Schedule** 和 **Info**），但同样的模式可以扩展到任意数量的选项卡。
 
-## 迁移计划
+## 迁移计划 {id="migration-plan"}
 
 在完全共享 UI 代码的 Compose Multiplatform 设置中，单个 `ComposeUIViewController` 负责整个 iOS UI：选项卡、导航堆栈、返回手势和页面内容。
 Compose Multiplatform 在 iOS 上的导航过渡旨在提供原生感，但某些平台级功能（例如 iOS 26 的 Liquid Glass 选项卡栏样式）仅通过原生 iOS 组件提供。
@@ -78,7 +78,7 @@ ContentView
 
 * [构建 SwiftUI 导航层](#build-the-swiftui-navigation-layer)，使用原生的 `TabView` 和 `NavigationStack` 视图，以及嵌入 Compose 页面的桥接。
 
-## 为路由添加标题元数据
+## 为路由添加标题元数据 {id="add-title-metadata-to-routes"}
 
 在 iOS 上，每个目的地都有一个显示在导航栏中的标题，以及长按返回按钮时显示的回退堆栈中的标题。
 我们将标题直接存储在路由对象上，这样每个路由都是自描述的，Swift 可以在不往返调用 Kotlin 的情况下读取标题。
@@ -124,7 +124,7 @@ ContentView
     }
     ```
 
-## 为 iOS 入口点添加导航回调
+## 为 iOS 入口点添加导航回调 {id="add-navigation-callbacks-to-the-ios-entry-point"}
 
 `App()` 是 iOS 调用的 Kotlin 入口点。为了让 Swift 驱动导航，它需要一种方式来完成三件事：
 
@@ -155,7 +155,7 @@ fun App(
 
 有关完整实现，请参阅 [`App.kt`](https://github.com/JetBrains/kotlinconf-app/blob/3982334f1c3712fb959f0d20b563d6c8b81e9bbd/app/shared/src/commonMain/kotlin/org/jetbrains/kotlinconf/App.kt)。
 
-## 在 Compose 层级拦截导航
+## 在 Compose 层级拦截导航 {id="intercept-navigation-at-the-compose-level"}
 
 现在 `App()` 暴露了导航回调，`NavHost` 需要使用它们。每当详情路由出现在 Compose 的回退堆栈上时，将其移交给 Swift 并立即将其从 Compose 中移除。这样，Compose 仅在从 Swift 调用时才渲染详情页面。
 
@@ -205,11 +205,11 @@ internal fun NavHost(
 
 有关完整文件，请参阅 [`NavHost.kt`](https://github.com/JetBrains/kotlinconf-app/blob/3982334f1c3712fb959f0d20b563d6c8b81e9bbd/app/shared/src/commonMain/kotlin/org/jetbrains/kotlinconf/navigation/NavHost.kt)。
 
-## 为 iOS 构建独立的页面渲染器
+## 为 iOS 构建独立的页面渲染器 {id="build-a-standalone-screen-renderer-for-ios"}
 
 当 SwiftUI 拥有 `NavigationStack` 时，Compose 只需要渲染每个页面的内容。`NavHost` 专为管理回退堆栈、过渡和生命周期而设计，因此我们需要一个更简单的入口点来渲染单个路由。
 
-### 添加扁平的页面渲染器
+### 添加扁平的页面渲染器 {id="add-a-flat-screen-renderer"}
 
 `ScreenContent` 就是那个更简单的入口点：一个扁平的 `when` 表达式，它将单个详情路由映射到其 Composable，自身不具有导航状态。选项卡根路由仍然由完整的 `App()` / `NavHost` 处理。SwiftUI 为每个目的地创建一个单独的视图控制器，每个控制器托管一个 `ScreenContent` 调用。
 
@@ -251,7 +251,7 @@ fun ScreenContent(
 
 标题不会出现在此函数中：它们在[为路由添加标题元数据](#add-title-metadata-to-routes)步骤中已附加到路由对象，因此 Swift 端在配置其导航栏时可以直接从每个路由中读取它们。
 
-### 向 Compose 发出信号，表明 SwiftUI 拥有导航
+### 向 Compose 发出信号，表明 SwiftUI 拥有导航 {id="signal-to-compose-that-swiftui-owns-navigation"}
 
 `ScreenContent` 运行在 SwiftUI 渲染导航栏和返回按钮的上下文中。绘制自己标题栏或返回按钮的 Compose 页面必须跳过它们。
 
@@ -263,7 +263,7 @@ fun ScreenContent(
 val LocalUseNativeNavigation = staticCompositionLocalOf { false }
 ```
 
-### 为 iOS 包装渲染器
+### 为 iOS 包装渲染器 {id="wrap-the-renderer-for-ios"}
 
 `ScreenContent` 渲染一个路由，但它需要一个包装器来设置相同的主题、依赖注入和应用级 `CompositionLocal` 值，而这些通常由 `App()` 设置。
 
@@ -297,7 +297,7 @@ internal fun SingleScreenApp(
 }
 ```
 
-### 将标志应用于选项卡根路由
+### 将标志应用于选项卡根路由 {id="apply-the-flag-to-tab-roots"}
 
 选项卡根路由仍然通过常规的 `NavHost` 进行，因此它们也需要遵循 `LocalUseNativeNavigation` 的值。根据原生导航回调是否处于活动状态来提供它。当它们处于活动状态时，直接渲染导航内容并跳过 `NavScaffold`（Compose 底部栏）：
 
@@ -331,7 +331,7 @@ CompositionLocalProvider(LocalUseNativeNavigation provides useNativeNavigation) 
 有关完整实现，请参阅 [`NavHost.kt`](https://github.com/JetBrains/kotlinconf-app/blob/3982334f1c3712fb959f0d20b563d6c8b81e9bbd/app/shared/src/commonMain/kotlin/org/jetbrains/kotlinconf/navigation/NavHost.kt)
 和 [`SingleScreenApp.kt`](https://github.com/JetBrains/kotlinconf-app/blob/3982334f1c3712fb959f0d20b563d6c8b81e9bbd/app/shared/src/iosMain/kotlin/org/jetbrains/kotlinconf/SingleScreenApp.kt)。
 
-## 隐藏 Compose 内置的导航 UI
+## 隐藏 Compose 内置的导航 UI {id="hide-compose-s-built-in-navigation-ui"}
 
 在 SwiftUI 渲染导航 UI 的任何地方设置了 `LocalUseNativeNavigation` 之后，各个页面现在需要读取它并隐藏自己的标题栏和返回按钮。否则，用户会看到两个标题栏堆叠在一起，以及两个竞争的返回按钮。
 
@@ -350,7 +350,7 @@ if (!useNativeNavigation) {
 
 有关完整实现，请参阅 [`BaseScreens.kt`](https://github.com/JetBrains/kotlinconf-app/blob/3982334f1c3712fb959f0d20b563d6c8b81e9bbd/app/shared/src/commonMain/kotlin/org/jetbrains/kotlinconf/BaseScreens.kt)。
 
-## 暴露新的 iOS 入口点
+## 暴露新的 iOS 入口点 {id="expose-new-ios-entry-points"}
 
 为了从 SwiftUI 构建新的导航结构，暴露三个 Kotlin 入口点：`MainViewController` 的两个重载和一个 `ScreenViewController`。在 `iosMain/main.ios.kt` 中，添加这三个函数：
 
@@ -404,7 +404,7 @@ if (!useNativeNavigation) {
 
 有关完整实现，请参阅 [`main.ios.kt`](https://github.com/JetBrains/kotlinconf-app/blob/3982334f1c3712fb959f0d20b563d6c8b81e9bbd/app/shared/src/iosMain/kotlin/org/jetbrains/kotlinconf/main.ios.kt)。
 
-### 替代方案：跳过 SwiftUI 并从 Kotlin 驱动 UIKit {collapsible="true"}
+### 替代方案：跳过 SwiftUI 并从 Kotlin 驱动 UIKit {collapsible="true" id="alternative-skip-swiftui-and-drive-uikit-from-kotlin"}
 
 上述入口点是为 SwiftUI 的 `TabView` 和 `NavigationStack` 设计的。在底层，SwiftUI 使用 `UITabBarController` 和 `UINavigationController` 来实现这些视图，而 iOS 26 上的 Liquid Glass 会应用于原生的选项卡栏和导航栏，无论您是在 SwiftUI 中声明它们还是在 UIKit 中配置它们。
 
@@ -451,7 +451,7 @@ expect class ScheduleCoordinator() {
 
 有关在 `UITabBarController` 中使用 Compose 的详细信息，请参阅[与 UIKit 框架集成](compose-uikit-integration.md)。
 
-## 构建 SwiftUI 导航层
+## 构建 SwiftUI 导航层 {id="build-the-swiftui-navigation-layer"}
 
 这是迁移的 iOS 端。前面步骤中的所有 Kotlin 更改都为这里发生的事情做好了准备：一个带有每个选项卡 `NavigationStack` 的 SwiftUI `TabView`，这些堆栈将 Compose 视图托管为目的地。要构建它，请完成以下操作：
 
@@ -464,7 +464,7 @@ expect class ScheduleCoordinator() {
 
 请注意，本节中的代码均未直接应用 Liquid Glass 效果。iOS 26 会自动为原生的 `TabView` 和 `NavigationStack` 视图渲染 Liquid Glass，因此使用它们就足以启用它。
 
-### 使 Kotlin 路由在 `NavigationStack` 中可用
+### 使 Kotlin 路由在 `NavigationStack` 中可用 {id="make-kotlin-routes-usable-in-navigationstack"}
 
 `NavigationStack` 要求其路径元素遵循 `Hashable` 和 `Identifiable` 协议。为了让 Kotlin 密封接口满足这一要求，请将 `AppRoute` 包装在 Swift `struct` 中。将以下内容添加到 `ContentView.swift` 文件：
 
@@ -486,7 +486,7 @@ struct RouteWrapper: Hashable, Identifiable {
 
 两次推送相同的路由必须创建两个不同的堆栈条目，以匹配预期的导航行为。为了实现这一点，标识是基于 UUID 而不是路由的值。
 
-### 跟踪选项卡和导航状态
+### 跟踪选项卡和导航状态 {id="track-tab-and-navigation-state"}
 
 每个选项卡都有自己的导航堆栈，应用会跟踪当前选定的选项卡。添加两个 `@Observable` 类来处理此问题：
 
@@ -538,7 +538,7 @@ class AppNavigationCoordinator {
 
 本教程中使用的两选项卡版本的 `AppNavigationCoordinator` 经过了简化。有关完整版本，请参阅 [`ContentView.swift`](https://github.com/JetBrains/kotlinconf-app/blob/b451d80301c50097d4cf5050d865829b49d07c8e/app/iosApp/iosApp/ContentView.swift)。
 
-### 将 Compose 页面嵌入为 SwiftUI 视图
+### 将 Compose 页面嵌入为 SwiftUI 视图 {id="embed-compose-screens-as-swiftui-views"}
 
 两个 `UIViewControllerRepresentable` 类型将[暴露新的 iOS 入口点](#expose-new-ios-entry-points)步骤中的 Kotlin 入口点连接到 SwiftUI：一个用于选项卡根路由，一个用于详情页面。
 
@@ -604,7 +604,7 @@ struct DetailComposeView: UIViewControllerRepresentable {
 }
 ```
 
-### 在每个选项卡中设置导航
+### 在每个选项卡中设置导航 {id="set-up-navigation-within-each-tab"}
 
 在选项卡层级，`NavigationStack` 使用 Compose 选项卡内容作为其根视图，并将详情页面渲染为目的地。
 
@@ -647,7 +647,7 @@ struct TabContentView: View {
 }
 ```
 
-### 构建选项卡栏
+### 构建选项卡栏 {id="build-the-tab-bar"}
 
 顶级容器是一个 `TabView`，每个顶级路由对应一个 `Tab`。`.tabBarMinimizeBehavior(.automatic)` 修饰符使选项卡栏悬浮并在滚动时最小化。如果没有它，选项卡栏将固定在底部。`.tint(Color(.accent))` 修饰符将应用的强调色应用于选定的选项卡。
 
@@ -688,7 +688,7 @@ struct NativeNavContentView: View {
 
 半透明效果、深度感和悬浮选项卡栏均由 iOS 26 应用 —— 无需额外的样式代码。
 
-### 在旧版 iOS 版本上回退
+### 在旧版 iOS 版本上回退 {id="fall-back-on-older-ios-versions"}
 
 Liquid Glass 和新的 `TabView` API 仅支持 iOS 26。在旧版本上，应用会回退到之前的 Compose 驱动设置。`ComposeView` 是围绕无回调 `MainViewController` 重载的 SwiftUI 包装器：
 
@@ -707,7 +707,7 @@ struct ContentView: View {
 
 查看完整文件：[`ContentView.swift`](https://github.com/JetBrains/kotlinconf-app/blob/3982334f1c3712fb959f0d20b563d6c8b81e9bbd/app/iosApp/iosApp/ContentView.swift)。
 
-## 替代方案
+## 替代方案 {id="alternative-approaches"}
 
 本教程中的迁移偏向于使用原生 SwiftUI 导航，这可以让您开箱即用地获得 Liquid Glass 和其他系统行为。如果这种方法不适合您的项目，请考虑以下替代方案之一：
 
@@ -716,7 +716,7 @@ struct ContentView: View {
 * **带有第三方自适应 UI 解决方案的 Compose 驱动导航**。使用像 [Calf](https://klibs.io/project/MohamedRejeb/Calf) 这样的库来渲染原生于应用运行平台的自适应 UI 组件。这种方法降低了自行处理平台差异的复杂性，并提供了开箱即用的 iOS 原生行为（如 Liquid Glass）。
 * **带有模拟 Liquid Glass 效果的纯 Compose 导航**。在 Compose 中渲染所有内容并视觉上模拟 Liquid Glass，例如使用 [AndroidLiquidGlass](https://klibs.io/project/Kyant0/AndroidLiquidGlass) 或 [Liquid](https://klibs.io/project/FletchMcKee/liquid) 等库。这种方法将所有 UI 保留在 Compose 侧，效果在视觉上相似，但与系统 Liquid Glass 不完全相同。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * 查看应用了 Liquid Glass 效果的[官方 KotlinConf 应用程序](https://github.com/JetBrains/kotlinconf-app/tree/lg-nav)。
 * 参阅 [Adopting Liquid Glass](https://developer.apple.com/documentation/TechnologyOverviews/adopting-liquid-glass)，Apple 对新材质的概述和采用核对清单。

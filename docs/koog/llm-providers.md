@@ -38,7 +38,7 @@ Koog 支持主要的 LLM 提供商，并支持使用 [Ollama](https://ollama.com
     各提供商的 LLM 可能具有 Koog 目前尚不支持的其他特性。
     要了解更多信息，请参阅[模型功能](model-capabilities.md)。
 
-## 使用提供商
+## 使用提供商 {id="working-with-providers"}
 
 Koog 允许您在两个层面上使用 LLM 提供商：
 
@@ -59,7 +59,7 @@ Koog 允许您在两个层面上使用 LLM 提供商：
 在多提供商设置中，它可以根据需要在提供商之间路由请求，并可以选择在核心请求需要时回退到指定的客户端。
 您可以创建自己的执行器，也可以使用预定义的执行器——单提供商和多提供商选项均可用。
 
-## 下一步
+## 下一步 {id="next-steps"}
 
 - 使用特定的 LLM 提供商[创建并运行代理](quickstart.md)。
 - 详细了解[提示词](prompts/index.md)。

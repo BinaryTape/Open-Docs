@@ -3,7 +3,7 @@
 내비게이션은 사용자가 애플리케이션의 서로 다른 화면 사이를 이동할 수 있게 해주는 UI 애플리케이션의 핵심 부분입니다.
 Compose Multiplatform은 [Jetpack Compose의 내비게이션 방식](https://developer.android.com/guide/navigation/design#frameworks)을 채택하고 있습니다.
 
-## 설정
+## 설정 {id="setup"}
 
 내비게이션 라이브러리를 사용하려면 `commonMain` 소스 세트에 다음 종속성을 추가하세요:
 
@@ -22,7 +22,7 @@ kotlin {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="org.jetbrains.androidx.navigation:navigation-compose:%org.jetbrains.androidx.navigation%"}
 
-## 샘플 프로젝트
+## 샘플 프로젝트 {id="sample-project"}
 
 Compose Multiplatform 내비게이션 라이브러리가 작동하는 모습을 확인하려면 [nav_cupcake 프로젝트](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/nav_cupcake)를 살펴보세요. 이 프로젝트는 [Compose를 사용한 화면 간 이동](https://developer.android.com/codelabs/basic-android-kotlin-compose-navigation#0) Android 코드랩에서 변환되었습니다. 더 복잡한 예시는 공식 [KotlinConf](https://github.com/JetBrains/kotlinconf-app) 애플리케이션을 참고하세요.
 
@@ -38,7 +38,7 @@ Jetpack Compose와 마찬가지로, 내비게이션을 구현하려면 다음을
 `RESUMED`는 "정착됨(settled)"으로도 설명됩니다. 내비게이션은 새 화면이 준비되고 활성화되었을 때 완료된 것으로 간주됩니다.
 현재 Compose Multiplatform에서의 구현 세부 사항은 [수명 주기(Lifecycle)](compose-lifecycle.md) 페이지를 참조하세요.
 
-## 웹 앱에서의 브라우저 내비게이션 지원
+## 웹 앱에서의 브라우저 내비게이션 지원 {id="support-for-browser-navigation-in-web-apps"}
 <primary-label ref="Experimental"/>
 
 웹용 Compose Multiplatform은 일반적인 내비게이션 라이브러리 API를 완벽하게 지원하며, 앱이 브라우저로부터 내비게이션 입력을 받을 수 있도록 합니다.
@@ -98,7 +98,7 @@ fun main() {
 `<app package>.<serializable type>/<argument1>/<argument2>`.
 예를 들어, `example.org#org.example.app.StartScreen/123/Alice%2520Smith`와 같습니다.
 
-### 경로와 URL 간의 변환 커스터마이징
+### 경로와 URL 간의 변환 커스터마이징 {id="customize-translating-routes-into-urls-and-back"}
 
 Compose Multiplatform 앱은 싱글 페이지 앱(SPA)이므로, 프레임워크는 일반적인 웹 내비게이션을 모방하기 위해 주소 표시줄을 조작합니다.
 URL을 더 읽기 쉽게 만들고 URL 패턴에서 구현을 격리하려면, 화면에 직접 이름을 할당하거나 목적지 경로에 대한 완전히 커스텀된 프로세스를 개발할 수 있습니다:
@@ -112,7 +112,7 @@ URL을 더 읽기 쉽게 만들고 URL 패턴에서 구현을 격리하려면, �
     ```
 * 모든 URL을 완전히 구성하려면, 선택 사항인 `getBackStackEntryRoute` 람다를 사용할 수 있습니다.
 
-#### 전체 URL 커스터마이징
+#### 전체 URL 커스터마이징 {id="full-url-customization"}
 
 완전히 커스텀된 경로-URL 변환을 구현하려면: 
 

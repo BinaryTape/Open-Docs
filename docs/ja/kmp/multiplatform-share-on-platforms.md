@@ -7,7 +7,7 @@ Kotlin Multiplatformを使用すると、Kotlinが提供するメカニズムを
 
 共有コードからプラットフォーム固有のAPIにアクセスする必要がある場合は、Kotlinの[期待宣言と実体宣言（expected and actual declarations）](multiplatform-expect-actual.md)のメカニズムを使用してください。
 
-## すべてのプラットフォームでのコード共有
+## すべてのプラットフォームでのコード共有 {id="share-code-on-all-platforms"}
 
 すべてのプラットフォームに共通するビジネスロジックがある場合、プラットフォームごとに同じコードを記述する必要はありません。共通ソースセット（common source set）で共有するだけです。
 
@@ -19,7 +19,7 @@ Kotlin Multiplatformを使用すると、Kotlinが提供するメカニズムを
 
 共有コードからプラットフォーム固有のAPIにアクセスする必要がある場合は、Kotlinの[期待宣言と実体宣言（expected and actual declarations）](multiplatform-expect-actual.md)のメカニズムを使用してください。
 
-## 類似したプラットフォームでのコード共有
+## 類似したプラットフォームでのコード共有 {id="share-code-on-similar-platforms"}
 
 多くの場合、共通のロジックやサードパーティAPIを大量に再利用できる可能性のある、複数のネイティブターゲットを作成する必要があります。
 
@@ -34,7 +34,7 @@ Kotlin Multiplatformを使用すると、Kotlinが提供するメカニズムを
 
 [ライブラリでのコード共有](#share-code-in-libraries)および[プラットフォーム固有ライブラリの接続](#connect-platform-specific-libraries)についての詳細をご覧ください。
 
-## ライブラリでのコード共有
+## ライブラリでのコード共有 {id="share-code-in-libraries"}
 
 階層的なプロジェクト構造のおかげで、ライブラリもターゲットのサブセットに対して共通のAPIを提供できます。[ライブラリが公開（publish）](multiplatform-publish-lib-setup.md)されると、その中間ソースセット（intermediate source sets）のAPIは、プロジェクト構造に関する情報とともにライブラリアーティファクトに埋め込まれます。このライブラリを使用すると、プロジェクトの中間ソースセットは、各ソースセットのターゲットが利用可能なライブラリのAPIにのみアクセスします。
 
@@ -44,13 +44,13 @@ Kotlin Multiplatformを使用すると、Kotlinが提供するメカニズムを
 
 `concurrent` ソースセットは `runBlocking` 関数を宣言し、JVMとネイティブターゲット向けにコンパイルされます。`kotlinx.coroutines` ライブラリが階層的なプロジェクト構造で更新および公開されると、ライブラリの `concurrent` ソースセットの「ターゲットシグネチャ（targets signature）」と一致するため、JVMとネイティブターゲット間で共有されているソースセットからそれに依存して `runBlocking` を呼び出すことができます。
 
-## プラットフォーム固有ライブラリの接続
+## プラットフォーム固有ライブラリの接続 {id="connect-platform-specific-libraries"}
 
 プラットフォーム固有の依存関係に制限されることなく、より多くのネイティブコードを共有するには、Foundation、UIKit、POSIXなどの[プラットフォームライブラリ（platform libraries）](https://kotlinlang.org/docs/native-platform-libs.html)を使用します。これらのライブラリはKotlin/Nativeに同梱されており、デフォルトで共有ソースセットで利用可能です。
 
 さらに、プロジェクトで [Kotlin CocoaPods Gradle](multiplatform-cocoapods-overview.md) プラグインを使用している場合は、[`cinterop` メカニズム](https://kotlinlang.org/docs/native-c-interop.html)を使用して取り込まれたサードパーティのネイティブライブラリを扱うことができます。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [Kotlinの期待宣言と実体宣言のメカニズムについて読む](multiplatform-expect-actual.md)
 * [階層的なプロジェクト構造について詳しく学ぶ](multiplatform-hierarchy.md)

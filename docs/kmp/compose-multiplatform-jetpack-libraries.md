@@ -25,7 +25,7 @@ Compose Multiplatform Gradle 插件处理平台特定构件到分发版本的映
 通过这种方法，使用该依赖项的 Kotlin Multiplatform (KMP) 项目生成的 Android 应用会使用原始的 Android Navigation 库。
 而 iOS 应用则使用由 JetBrains 构建的相应 iOS 库。
 
-## 适用于多平台项目的 Compose 软件包
+## 适用于多平台项目的 Compose 软件包 {id="compose-packages-available-for-multiplatform-projects"}
 
 在基础 Compose 库中，最核心的 `androidx.compose.runtime` 是完全多平台的。
   （[此前使用的](whats-new-compose-190.md#multiplatform-targets-in-androidx-compose-runtime-runtime) `org.jetbrains.compose.runtime` 构件现在充当别名。）
@@ -36,7 +36,7 @@ Compose Multiplatform Gradle 插件处理平台特定构件到分发版本的映
      因此，您可以提供直接依赖项，而不是使用 `material3` 别名。例如，您可能会使用 EAP 版本。
    * 作为独立构件的 Material 3 adaptive 库 (`org.jetbrains.compose.material3.adaptive:adaptive*`)
 
-## 其他多平台库
+## 其他多平台库 {id="additional-multiplatform-libraries"}
 
 构建 Compose 应用所需的某些功能超出了 AndroidX 的范围，因此 JetBrains 将其实现为随 Compose Multiplatform 捆绑的多平台库，例如：
 

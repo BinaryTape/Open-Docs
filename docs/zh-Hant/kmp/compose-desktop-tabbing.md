@@ -5,7 +5,7 @@
 
 undefined
 
-## 預設 Tab 導覽
+## 預設 Tab 導覽 {id="default-tab-navigation"}
 
 預設情況下，Tab 導覽允許使用者按照可聚焦組件出現的順序在它們之間移動。此功能預設啟用，不需要任何額外的程式碼。
 
@@ -58,7 +58,7 @@ fun main() = application {
 
 <img src="compose-desktop-tab-navigation-default.animated.gif" alt="預設 Tab 順序" width="450" preview-src="compose-desktop-tab-navigation-default.png"/>
 
-## 自訂可聚焦組件
+## 自訂可聚焦組件 {id="custom-focusable-components"}
 
 若要將預設不可聚焦的組件納入 Tab 順序，請套用`focusable()`修飾符。
 
@@ -178,7 +178,7 @@ fun FocusableBox(
 
 <img src="compose-desktop-tab-navigation-custom-focusable.animated.gif" alt="自訂可聚焦組件" width="450" preview-src="compose-desktop-tab-navigation-custom-focusable.png"/>
 
-## 自訂 Tab 順序
+## 自訂 Tab 順序 {id="custom-tab-order"}
 
 若要以出現順序以外的順序移動焦點，請結合兩個修飾符：
 
@@ -244,7 +244,7 @@ fun main() = application {
 
 <img src="compose-desktop-tab-navigation-custom-order.animated.gif" alt="自訂 Tab 順序" width="450" preview-src="compose-desktop-tab-navigation-custom-order.png"/>
 
-## 從程式碼移動焦點
+## 從程式碼移動焦點 {id="moving-focus-from-code"}
 
 若要在無須使用者互動的情況下讓組件獲得焦點，請使用 `focusRequester()` 修飾符將 `FocusRequester` 附加到可聚焦組件，並呼叫 `FocusRequester.requestFocus()`。如果組件[預設不可聚焦](#自訂可聚焦組件)，則應在 `focusRequester()` *之後* 套用 `focusable()` 修飾符。
 
@@ -321,7 +321,7 @@ fun main() = application {
 
 <img src="compose-desktop-tab-navigation-move-focus-from-code.animated.gif" alt="從程式碼移動焦點" width="450" preview-src="compose-desktop-tab-navigation-move-focus-from-code.png"/>
 
-### 組件出現時聚焦
+### 組件出現時聚焦 {id="focusing-a-component-when-it-appears"}
 
 表單和對話方塊通常會立即聚焦於第一個輸入項，以便使用者無需動用滑鼠即可開始輸入。在此使用案例中，請從 `LaunchedEffect(Unit)` 區塊請求焦點，該區塊在組件進入組成後執行一次。
 
@@ -383,7 +383,7 @@ fun main() = application {
 
 <img src="compose-desktop-tab-navigation-focus-on-appearance.animated.gif" alt="出現時聚焦文字欄位" width="450" preview-src="compose-desktop-tab-navigation-focus-on-appearance.png"/>
 
-## 從多行文字欄位移動焦點
+## 從多行文字欄位移動焦點 {id="moving-focus-from-multiline-text-fields"}
 
 在多行文字欄位中，按下 <shortcut>Tab</shortcut> 鍵會插入一個 tab 字元，而不是將焦點移至下一個組件：
 
@@ -450,7 +450,7 @@ fun Modifier.moveFocusOnTab(): Modifier {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="fun Modifier.moveFocusOnTab() { focusManager.moveFocus("}
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * 進一步了解如何處理[鍵盤事件](compose-desktop-keyboard.md)。
 * 了解[不同平台上的輔助功能支援](compose-desktop-accessibility.md)。

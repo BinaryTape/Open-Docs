@@ -3,7 +3,7 @@
 
 在這裡，你將學習如何在 Kotlin 多平台專案中使用 Kotlin 符號處理 (KSP)。若要快速入門，請參閱 [存儲庫](https://github.com/google/ksp/tree/main/examples/multiplatform) 中一個包含多個目標並使用 KSP 的多平台專案範例。該範例中的處理器會產生一個由專案使用的 `Foo` 類別。
 
-## 將 KSP 新增至多平台專案
+## 將 KSP 新增至多平台專案 {id="add-ksp-to-a-multiplatform-project"}
 
 在用戶端模組（使用處理器的模組）的 `build.gradle.kts` 檔案中，為每個需要符號處理的目標新增適當的 KSP 處理器相依性：
 
@@ -38,7 +38,7 @@ dependencies {
 >
 {style="warning"}
 
-### 在單一目標中使用多個處理器
+### 在單一目標中使用多個處理器 {id="use-multiple-processors-in-a-single-target"}
 
 你可以為一個目標新增多個處理器：
 
@@ -61,7 +61,7 @@ add('kspAndroid', 'androidx.room:room-compiler:2.6.1')
 </tab>
 </tabs> 
 
-### 在多個目標中使用相同的處理器
+### 在多個目標中使用相同的處理器 {id="use-the-same-processor-in-multiple-targets"}
 
 你可以將相同的處理器新增至多個目標：
 
@@ -115,7 +115,7 @@ kotlin.targets.filter { it.name.startsWith("ios") }.forEach { target ->
 </tab>
 </tabs>
 
-### 為測試編譯配置 KSP
+### 為測試編譯配置 KSP {id="configure-ksp-for-test-compilations"}
 
 若要在測試編譯期間執行 KSP，請將處理器新增至對應的測試配置：
 
@@ -161,7 +161,7 @@ add('kspAndroidDeviceTest', project(':test-processor'))
 </tab>
 </tabs>
 
-## 尋找 KSP 配置名稱
+## 尋找 KSP 配置名稱 {id="find-ksp-configuration-names"}
 
 KSP 從 Kotlin 多平台原始碼集衍生配置名稱。若要查看模組的完整 KSP 配置清單，請執行：
 
@@ -171,7 +171,7 @@ KSP 從 Kotlin 多平台原始碼集衍生配置名稱。若要查看模組的�
 
 尋找與你的目標原始碼集相對應的配置名稱。
 
-## 編譯與處理
+## 編譯與處理 {id="compilation-and-processing"}
 
 在多平台專案中，Kotlin 會為每個目標和原始碼集（例如 `main` 和 `test`）建立獨立的 [編譯](https://kotlinlang.org/docs/multiplatform/multiplatform-advanced-project-structure.html#compilations)。對於每個配置了一個或多個 KSP 處理器的 Kotlin 編譯任務，KSP 會建立一個對應的符號處理任務。
 

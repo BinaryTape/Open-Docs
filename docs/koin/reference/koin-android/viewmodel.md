@@ -4,11 +4,11 @@ title: Android ViewModel
 
 本页涵盖了 Android 特定的 ViewModel 功能。有关核心 ViewModel DSL 和多平台支持，请参阅 [ViewModel](/docs/reference/koin-core/viewmodel)。
 
-## 概述
+## 概述 {id="overview"}
 
 [ViewModels](https://developer.android.com/topic/libraries/architecture/viewmodel) 是旨在在配置更改后继续存在并管理 UI 相关数据的架构组件。Koin 为 ViewModel 提供特殊支持，支持生命周期感知的注入。
 
-### 核心概念
+### 核心概念 {id="key-concepts"}
 
 - **在配置更改后继续存在** - ViewModel 在旋转和主题更改时持久存在
 - **作用域限定到生命周期** - 与 Activity、Fragment 或导航图生命周期绑定
@@ -19,7 +19,7 @@ title: Android ViewModel
 **多平台 ViewModel** - Koin ViewModel DSL 通过 `koin-core-viewmodel` 完全支持多平台。对于 Compose Multiplatform，请参阅 [Compose ViewModel](/docs/reference/koin-compose/compose#viewmodel-for-composable)。
 :::
 
-### ViewModel 作用域限制
+### ViewModel 作用域限制 {id="viewmodel-scope-limitations"}
 
 :::warning
 **重要提示：** ViewModel 是针对根 Koin 作用域创建的，**无法访问** Activity 或 Fragment 作用域限定的依赖项。这可以防止内存泄漏，因为 ViewModel 的生命周期超过了 Activity 和 Fragment。
@@ -27,9 +27,9 @@ title: Android ViewModel
 **需要在 ViewModel 中使用作用域限定的依赖项？** 使用 [ViewModel 作用域](/docs/reference/koin-core/scopes#viewmodel-scope)创建一个绑定到 ViewModel 生命周期的专用作用域。
 :::
 
-## 声明 ViewModel
+## 声明 ViewModel {id="declaring-viewmodels"}
 
-### 编译器插件 DSL
+### 编译器插件 DSL {id="compiler-plugin-dsl"}
 
 ```kotlin
 val appModule = module {
@@ -38,7 +38,7 @@ val appModule = module {
 }
 ```
 
-### 注解
+### 注解 {id="annotations"}
 
 ```kotlin
 @KoinViewModel
@@ -52,7 +52,7 @@ class UserViewModel(
 ) : ViewModel()
 ```
 
-### 经典 DSL
+### 经典 DSL {id="classic-dsl"}
 
 ```kotlin
 val appModule = module {
@@ -64,7 +64,7 @@ val appModule = module {
 }
 ```
 
-## 注入 ViewModel
+## 注入 ViewModel {id="injecting-viewmodels"}
 
 在 `Activity`、`Fragment` 或 `Service` 中，使用：
 
@@ -82,7 +82,7 @@ class DetailActivity : AppCompatActivity() {
 }
 ```
 
-## 共享 ViewModel (Activity)
+## 共享 ViewModel (Activity) {id="shared-viewmodel-activity"}
 
 在 Fragment 及其宿主 Activity 之间共享 ViewModel：
 
@@ -105,7 +105,7 @@ class WeatherListFragment : Fragment() {
 }
 ```
 
-## 传递参数
+## 传递参数 {id="passing-parameters"}
 
 ### 编译器插件 DSL
 
@@ -143,7 +143,7 @@ val appModule = module {
 }
 ```
 
-### 注入站点
+### 注入站点 {id="injection-site"}
 
 ```kotlin
 class DetailActivity : AppCompatActivity() {
@@ -155,7 +155,7 @@ class DetailActivity : AppCompatActivity() {
 }
 ```
 
-## SavedStateHandle
+## SavedStateHandle {id="savedstatehandle"}
 
 在你的 ViewModel 构造函数中添加 `SavedStateHandle` - Koin 会自动注入它：
 
@@ -169,7 +169,7 @@ class MyStateViewModel(
 ) : ViewModel()
 ```
 
-### DSL
+### DSL {id="dsl"}
 
 ```kotlin
 class MyStateViewModel(
@@ -184,7 +184,7 @@ val appModule = module {
 }
 ```
 
-### 用法
+### 用法 {id="usage"}
 
 ```kotlin
 class DetailActivity : AppCompatActivity() {
@@ -197,7 +197,7 @@ class DetailActivity : AppCompatActivity() {
 所有的 `stateViewModel` 函数均已弃用。请使用常规的 `viewModel` 函数 - `SavedStateHandle` 会自动注入。
 :::
 
-## 导航图 ViewModel
+## 导航图 ViewModel {id="navigation-graph-viewmodel"}
 
 将 ViewModel 的作用域限定到导航图：
 
@@ -214,7 +214,7 @@ class NavFragment : Fragment() {
 - 在导航图中的所有 Fragment 之间共享
 - 在导航图被弹出（popped）时销毁
 
-## 带有作用域限定依赖项的 ViewModel
+## 带有作用域限定依赖项的 ViewModel {id="viewmodel-with-scoped-dependencies"}
 
 如果你的 ViewModel 需要自己的作用域限定依赖项，请使用 [ViewModel 作用域](/docs/reference/koin-core/scopes#viewmodel-scope)：
 
@@ -242,7 +242,7 @@ class UserViewModel(
 ) : ViewModel()
 ```
 
-## ViewModel 泛型 API
+## ViewModel 泛型 API {id="viewmodel-generic-api"}
 
 对于高级用例，Koin 提供了底层 API：
 
@@ -257,7 +257,7 @@ val viewModel = viewModelForClass(
 )
 ```
 
-## Java 兼容性
+## Java 兼容性 {id="java-compatibility"}
 
 添加兼容性依赖项：
 
@@ -271,7 +271,7 @@ implementation "io.insert-koin:koin-android-compat:$koin_version"
 MyViewModel viewModel = ViewModelCompat.getViewModel(this, MyViewModel.class);
 ```
 
-## 快速参考
+## 快速参考 {id="quick-reference"}
 
 | 操作 | 代码 |
 |--------|------|
@@ -282,7 +282,7 @@ MyViewModel viewModel = ViewModelCompat.getViewModel(this, MyViewModel.class);
 | 导航图作用域 | `by koinNavGraphViewModel(R.id.graph)` |
 | 配合 SavedStateHandle | 只需添加到构造函数即可 |
 
-## 下一步
+## 下一步 {id="next-steps"}
 
 - **[核心 ViewModel](/docs/reference/koin-core/viewmodel)** - 多平台 ViewModel DSL
 - **[作用域](/docs/reference/koin-core/scopes#viewmodel-scope)** - 用于作用域限定依赖项的 ViewModel 作用域

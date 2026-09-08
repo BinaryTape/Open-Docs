@@ -9,9 +9,9 @@
 이번 릴리스의 전체 변경 사항 목록은 [GitHub](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.12.0)에서 확인할 수 있습니다.
 특정 컴포넌트 버전에 대한 자세한 내용은 [의존성](#dependencies) 섹션을 참고하세요.
 
-## 플랫폼 공통
+## 플랫폼 공통 {id="across-platforms"}
 
-### Skia Milestone 150으로 업데이트
+### Skia Milestone 150으로 업데이트 {id="skia-updated-to-milestone-150"}
 
 Skiko를 통해 Compose Multiplatform에서 사용하는 Skia 버전이 Milestone 150으로 업데이트되었습니다.
 
@@ -20,16 +20,16 @@ Compose Multiplatform 1.11에서 사용된 이전 버전은 Milestone 144였습�
 
 또한 이번 업데이트는 (예를 들어 Chromium 기반 앱처럼) 이미 자체 Skia 라이브러리를 번들로 포함하고 있는 앱들이 iOS에서 겪던 중복 심볼(duplicate symbol) 충돌 문제도 해결합니다.
 
-## iOS
+## iOS {id="ios"}
 
-### 지연 레이아웃(lazy layout) 스크롤 성능 개선
+### 지연 레이아웃(lazy layout) 스크롤 성능 개선 {id="improved-lazy-layout-scrolling-performance"}
 
 Compose Multiplatform for iOS에서 지연 레이아웃의 스크롤 성능이 개선되었습니다. 
 리스트 아이템 비활성화(deactivation)가 드로잉 단계(drawing phase) 밖에서 실행되므로, 드로잉 단계가 더 빠르게 완료되어 더욱 부드러운 스크롤이 가능해집니다.
 
-## 웹(Web)
+## 웹(Web) {id="web"}
 
-### 자동 폰트 폴백(font fallback)
+### 자동 폰트 폴백(font fallback) {id="automatic-font-fallback"}
 <primary-label ref="Experimental"/>
 
 이전에는 애플리케이션에 로드된 폰트에 포함되지 않은 문자는 대체 글리프(□, 일명 "tofu")로 표시되었습니다.
@@ -38,9 +38,9 @@ Compose Multiplatform for Web은 이제 렌더링 중에 해결되지 않은 문
 폰트 다운로드가 완료되면 Compose는 해당 텍스트를 재구성(recompose)합니다. 
 필요한 폰트를 가져오기 전까지는 일시적으로 tofu가 나타날 수 있습니다.
 
-## 데스크톱(Desktop)
+## 데스크톱(Desktop) {id="desktop"}
 
-### Compose Hot Reload의 AI 에이전트를 위한 MCP 서버
+### Compose Hot Reload의 AI 에이전트를 위한 MCP 서버 {id="mcp-server-for-ai-agents-in-compose-hot-reload"}
 <primary-label ref="Experimental"/>
 
 Compose Hot Reload에 이제 AI 코딩 에이전트가 실행 중인 Compose 애플리케이션과 직접 상호작용할 수 있게 해주는 실험적인 [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) 서버가 포함됩니다.
@@ -49,7 +49,7 @@ Compose Hot Reload에 이제 AI 코딩 에이전트가 실행 중인 Compose 애
 
 AI 에이전트가 사용할 수 있는 MCP 도구의 전체 목록과 연결 방법은 [AI 에이전트를 위한 MCP 서버](compose-hot-reload.md#mcp-server-for-ai-agents)를 참고하세요.
 
-### Window 및 Dialog API v2
+### Window 및 Dialog API v2 {id="window-and-dialog-api-v2"}
 <primary-label ref="Experimental"/>
 
 기존 API의 여러 제약 사항을 해결하는 데스크톱용 `WindowState` 및 `DialogState`에 대한 새로운 실험적 v2 API를 도입했습니다.
@@ -99,7 +99,7 @@ fun main() = application {
 v2 API는 이전에는 불가능했던 시나리오도 가능하게 합니다. 예를 들어, 창이 더 커질 때 콘텐츠가 확장되도록(`fillMaxSize()`와 같은 수정자 사용) 허용하면서도, 창의 크기를 콘텐츠 크기에 맞게 조정하는 것이 가능합니다.
 자세한 내용은 [Window 및 Dialog API v2](compose-desktop-top-level-windows-management.md#window-and-dialog-api-v2) 문서 페이지를 참고하세요.
 
-## 의존성
+## 의존성 {id="dependencies"}
 
 | 라이브러리 | Maven 좌표 | Jetpack 버전 기반 |
 |--------------------|------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|

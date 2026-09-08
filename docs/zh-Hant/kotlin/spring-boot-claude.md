@@ -11,7 +11,7 @@
 > 
 {style="note"}
 
-## 設定環境
+## 設定環境 {id="set-up-the-environment"}
 
 > 本教學透過 JetBrains AI Assistant 使用 Claude，但您也可以在終端中使用 Claude Code 來完成教學步驟。
 >
@@ -24,7 +24,7 @@
    * [使用 API 金鑰](https://www.jetbrains.com/help/ai-assistant/activate-agents.html#activate-claude-agent-with-api-key)
    * [使用 Anthropic 控制台](https://www.jetbrains.com/help/ai-assistant/activate-agents.html#activate-agent-with-provider-specific-method)
 
-## 建立專案
+## 建立專案 {id="create-a-project"}
 
 > 您也可以使用 [Spring 的網頁版專案產生器](https://start.spring.io/#!language=kotlin&type=gradle-project-kotlin)來建立 Spring Boot 專案。
 >
@@ -64,7 +64,7 @@
 
    IDE 會產生並開啟新專案。下載與匯入專案相依性可能需要一些時間。
 
-## 建立開發計畫
+## 建立開發計畫 {id="create-a-development-plan"}
 
 在您的專案中：
 
@@ -107,7 +107,7 @@
 
 6. Claude 會退出 **Plan Mode** 並開始工作。等待工作完成。
 
-## 審查提交
+## 審查提交 {id="review-the-commits"}
 
 在執行應用程式之前，請仔細審查產生的變更：
 
@@ -116,7 +116,7 @@
 
 ![並排檢視器](side-by-side-viewer.png){width=800}
 
-## 執行應用程式
+## 執行應用程式 {id="run-the-app"}
 
 一旦您對變更感到滿意，即可執行應用程式：
 
@@ -140,11 +140,11 @@
    >
    {style="tip"}
 
-## 測試應用程式
+## 測試應用程式 {id="test-the-app"}
 
 現在是您測試應用程式的時候了。
 
-### 手動測試 UI
+### 手動測試 UI {id="test-the-ui-manually"}
 
 從測試 UI 功能開始。嘗試一些簡單的操作：
 
@@ -156,7 +156,7 @@
 
 如果任何操作無法正常運作，請向 Claude 發送新的提示詞，要求其調查並修復問題。
 
-### 執行單元測試
+### 執行單元測試 {id="run-unit-tests"}
 
 Claude 也會自動建立一些測試。透過執行以下指令檢查所有測試是否通過：
 
@@ -168,7 +168,7 @@ Claude 也會自動建立一些測試。透過執行以下指令檢查所有測�
 
 如果任何測試失敗，請向 Claude 發送新的提示詞，要求其調查並修復問題。
 
-## 進行改進
+## 進行改進 {id="make-refinements"}
 
 現在初始任務已完成，您可以進行改進。例如，讓我們改善 UI，使使用者可以直接在清單中編輯任務。
 
@@ -187,7 +187,7 @@ Claude 也會自動建立一些測試。透過執行以下指令檢查所有測�
 
 恭喜！您已成功使用 Claude 直接在 IntelliJ IDEA 中規劃、建置、測試並改進了一個 Kotlin Spring Boot 應用程式。
 
-## 下一步？
+## 下一步？ {id="what-s-next"}
 
 * 了解 [](kotlin-ai-skills.md)
 * 查看我們關於使用 [Junie 搭配 Kotlin AI 技能](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-spm-migration-ai.html)的教學

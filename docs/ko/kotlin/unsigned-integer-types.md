@@ -15,7 +15,7 @@
 >
 {style="note"}
 
-## 부호 없는 배열 및 범위
+## 부호 없는 배열 및 범위 {id="unsigned-arrays-and-ranges"}
 
 > 부호 없는 배열 및 그 연산은 [Beta](components-stability.md) 상태입니다. 언제든지 호환되지 않게 변경될 수 있습니다. 명시적 동의(Opt-in)가 필요합니다 (자세한 내용은 아래 참조).
 >
@@ -34,7 +34,7 @@
 
 [범위(Ranges) 및 진행(progressions)](ranges.md)은 `UIntRange`, `UIntProgression`, `ULongRange`, `ULongProgression` 클래스를 통해 `UInt` 및 `ULong`에 대해 지원됩니다. 이 클래스들은 부호 없는 정수 자료형과 함께 안정(stable) 상태입니다.
 
-## 부호 없는 정수 리터럴
+## 부호 없는 정수 리터럴 {id="unsigned-integers-literals"}
 
 부호 없는 정수를 더 쉽게 사용할 수 있도록, 정수 리터럴에 특정 부호 없는 자료형을 나타내는 접미사를 붙일 수 있습니다 (`Float`의 `F`나 `Long`의 `L`과 유사함):
 
@@ -55,7 +55,7 @@
     val a = 1UL // ULong, 기대되는 자료형이 제공되지 않고 상수가 UInt에 적합하더라도
     ```
 
-## 사용 사례
+## 사용 사례 {id="use-cases"}
 
 부호 없는 숫자의 주요 사용 사례는 정수의 전체 비트 범위를 활용하여 양수 값을 표현하는 것입니다. 예를 들어, 32비트 `AARRGGBB` 형식의 색상과 같이 부호 있는 자료형에 맞지 않는 16진수 상수를 표현할 때입니다:
 
@@ -73,7 +73,7 @@ val byteOrderMarkUtf8 = ubyteArrayOf(0xEFu, 0xBBu, 0xBFu)
 
 또 다른 사용 사례는 네이티브 API와의 상호운용성입니다. 코틀린은 시그니처에 부호 없는 자료형이 포함된 네이티브 선언을 표현할 수 있게 해줍니다. 이 매핑은 부호 없는 정수를 부호 있는 정수로 대체하지 않고 의미 체계(semantics)를 그대로 유지합니다.
 
-### 비목표 (Non-goals)
+### 비목표 (Non-goals) {id="non-goals"}
 
 부호 없는 정수는 양수와 0만 표현할 수 있지만, 애플리케이션 도메인에서 비음수(non-negative) 정수가 필요한 곳에 이들을 사용하는 것은 목표가 아닙니다. 예를 들어, 컬렉션 크기나 컬렉션 인덱스 값의 자료형으로 사용하는 경우입니다.
 

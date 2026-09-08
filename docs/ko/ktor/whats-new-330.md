@@ -11,7 +11,7 @@ Ktor 3.3.0은 서버, 클라이언트 및 툴링 전반에 걸쳐 새로운 기�
 * [HTTP/2 클리어텍스트(h2c) 지원](#http2-h2c-support)
 * [실험적 WebRTC 클라이언트](#webrtc-client)
 
-## Ktor Server
+## Ktor Server {id="ktor-server"}
 
 ### 정적 리소스를 위한 커스텀 폴백 {id="custom-fallback"}
 
@@ -34,7 +34,7 @@ staticFiles("/files", File("textFiles")) {
 }
 ```
 
-### 정적 콘텐츠를 위한 LastModified 및 Etag 헤더
+### 정적 콘텐츠를 위한 LastModified 및 Etag 헤더 {id="lastmodified-and-etag-headers-for-static-content"}
 
 Ktor 3.3.0은 정적 리소스에 대한 `ETag` 및 `LastModified` 헤더 지원을 도입했습니다. [`ConditionalHeaders`](server-conditional-headers.md) 플러그인이 설치되어 있으면, 조건부 헤더를 처리하여 마지막 요청 이후 콘텐츠가 변경되지 않은 경우 본문 전송을 피할 수 있습니다.
 
@@ -55,7 +55,7 @@ staticFiles("/filesWithStrongGeneratedEtag", File("files")) {
 }
 ```
 
-### 개발 모드 자동 리로드(auto-reload) 제한 사항
+### 개발 모드 자동 리로드(auto-reload) 제한 사항 {id="development-mode-auto-reload-limitations"}
 
 Ktor 3.2.0에서 도입된 [중단 모듈 함수(suspend module functions) 지원](whats-new-320.md#suspendable-module-functions)으로 인해, 블로킹(blocking) 모듈 참조를 사용하는 애플리케이션에서 자동 리로드가 작동하지 않는 회귀(regression) 문제가 발생했습니다.
 
@@ -83,9 +83,9 @@ Ktor 3.3.0은 Netty 엔진에 대해 HTTP/2 클리어텍스트(h2c) 지원을 �
 
 h2c를 활성화하려면 엔진 설정에서 `enableH2c` 플래그를 true로 설정하세요. 자세한 내용은 [TLS 없는 HTTP/2](server-http2.md#http-2-without-tls)를 참조하세요.
 
-## Ktor Client
+## Ktor Client {id="ktor-client"}
 
-### SSE 응답 바디 버퍼
+### SSE 응답 바디 버퍼 {id="sse-response-body-buffer"}
 
 지금까지는 SSE 오류 발생 후 `response.bodyAsText()`를 호출하려고 하면 이중 소비(double-consume) 문제로 인해 실패했습니다.
 
@@ -181,15 +181,15 @@ val answer = channel.receiveText()
 
 사용법 및 제한 사항에 대한 자세한 내용은 [WebRTC 클라이언트](client-webrtc.md) 문서를 참조하세요.
 
-### OkHttp 버전 업데이트
+### OkHttp 버전 업데이트 {id="updated-okhttp-version"}
 
 Ktor 3.3.0에서 Ktor 클라이언트의 `OkHttp` 엔진이 OkHttp 5.1.0(기존 4.12.0)을 사용하도록 업그레이드되었습니다. 이 메이저 버전 업데이트는 OkHttp와 직접 상호작용하는 프로젝트에 API 변경 사항을 발생시킬 수 있습니다. 이러한 프로젝트는 호환성을 확인해야 합니다.
 
-### 통합된 OkHttp SSE 세션
+### 통합된 OkHttp SSE 세션 {id="unified-okhttp-sse-session"}
 
 OkHttp 엔진은 이제 이전에 도입된 `OkHttpSSESession` 대신 Server-Sent Events(SSE)용 표준 API를 사용합니다. 이 변경은 모든 클라이언트 엔진에서 SSE 처리를 통일하고 OkHttp 전용 구현의 제한 사항을 해결합니다.
 
-## Gradle 플러그인
+## Gradle 플러그인 {id="gradle-plugin"}
 
 ### OpenAPI 사양 생성 {id="openapi-spec-gen"}
 <primary-label ref="experimental"/>
@@ -204,7 +204,7 @@ Ktor 3.3.0은 Gradle 플러그인 및 컴파일러 플러그인을 통해 실험
     - 보안, 설명, 지원 중단(deprecation) 및 외부 문서 링크
 - `call.receive()` 및 `call.respond()`에서 요청 및 응답 바디를 유추합니다.
 
-#### OpenAPI 사양 생성하기
+#### OpenAPI 사양 생성하기 {id="generate-the-openapi-specification"}
 
 Ktor 경로와 KDoc 어노테이션에서 OpenAPI 사양 파일을 생성하려면 다음 명령을 사용하세요.
 
@@ -212,7 +212,7 @@ Ktor 경로와 KDoc 어노테이션에서 OpenAPI 사양 파일을 생성하려�
 ./gradlew buildOpenApi
 ```
 
-#### 사양 제공하기
+#### 사양 제공하기 {id="serve-the-specification"}
 
 생성된 사양을 런타임에 사용할 수 있게 하려면, [OpenAPI](server-openapi.md) 또는 [SwaggerUI](server-swagger-ui.md) 플러그인을 사용할 수 있습니다.
 
@@ -226,9 +226,9 @@ routing {
 
 이 기능에 대한 자세한 내용은 [OpenAPI 사양 생성](openapi-spec-generation.md)을 참조하세요.
 
-## Shared
+## Shared {id="shared"}
 
-### Jetty 버전 업데이트
+### Jetty 버전 업데이트 {id="updated-jetty-version"}
 
 Jetty 서버 및 클라이언트 엔진이 Jetty 12를 사용하도록 업그레이드되었습니다. 대부분의 애플리케이션에서 이 업그레이드는 완전히 하위 호환되지만, 클라이언트 및 서버 코드는 이제 내부적으로 업데이트된 Jetty API를 활용합니다.
 

@@ -6,7 +6,7 @@ title: 익스텐션 매니저 (Extension Manager)
 
 Koin은 프레임워크에 새로운 기능을 추가할 수 있는 익스텐션 시스템을 제공합니다. 이는 Koin을 외부 시스템과 통합하거나 커스텀 기능을 추가할 때 유용합니다.
 
-## KoinExtension
+## KoinExtension {id="koinextension"}
 
 Koin 익스텐션은 `KoinExtension` 인터페이스를 구현하는 클래스입니다:
 
@@ -24,7 +24,7 @@ interface KoinExtension {
 }
 ```
 
-### 익스텐션 만들기
+### 익스텐션 만들기 {id="creating-an-extension"}
 
 ```kotlin
 class MyCustomExtension : KoinExtension {
@@ -45,7 +45,7 @@ class MyCustomExtension : KoinExtension {
 }
 ```
 
-### 익스텐션 등록하기
+### 익스텐션 등록하기 {id="registering-an-extension"}
 
 익스텐션을 등록하려면 `ExtensionManager`를 사용하세요:
 
@@ -61,7 +61,7 @@ fun KoinApplication.myExtension() {
 private const val EXTENSION_ID = "my-extension"
 ```
 
-### 익스텐션에 접근하기
+### 익스텐션에 접근하기 {id="accessing-an-extension"}
 
 ```kotlin
 val Koin.myExtension: MyCustomExtension
@@ -72,7 +72,7 @@ val extension = getKoin().myExtension
 extension.doSomething()
 ```
 
-### Koin 설정에서 사용하기
+### Koin 설정에서 사용하기 {id="using-in-koin-setup"}
 
 ```kotlin
 startKoin {
@@ -85,7 +85,7 @@ startKoin {
 `ExtensionManager`는 `@KoinInternalApi`로 표시되어 있습니다. 이는 버전 간에 API가 변경될 수 있음을 의미합니다. 프로덕션 코드에서는 주의해서 사용하세요.
 :::
 
-## ResolutionExtension (리졸루션 익스텐션)
+## ResolutionExtension (리졸루션 익스텐션) {id="resolutionextension"}
 
 더 고급 사용 사례를 위해, Koin은 의존성 해결(dependency resolution) 프로세스에 관여할 수 있는 `ResolutionExtension`을 제공합니다. 이를 통해 외부 소스에서 인스턴스를 제공할 수 있습니다.
 
@@ -106,14 +106,14 @@ interface ResolutionExtension {
 }
 ```
 
-### 사용 사례
+### 사용 사례 {id="use-cases"}
 
 - 외부 DI 컨테이너와 통합
 - 캐시 또는 풀(pool)에서 인스턴스 제공
 - 런타임 조건에 따른 동적 인스턴스 해결
 - 모의(mock) 제공자를 사용한 테스트
 
-### 예시: 외부 인스턴스 제공자(External Instance Provider)
+### 예시: 외부 인스턴스 제공자(External Instance Provider) {id="example-external-instance-provider"}
 
 ```kotlin
 class ExternalInstanceProvider : ResolutionExtension {
@@ -131,7 +131,7 @@ class ExternalInstanceProvider : ResolutionExtension {
 }
 ```
 
-### ResolutionExtension 등록하기
+### ResolutionExtension 등록하기 {id="registering-a-resolutionextension"}
 
 ```kotlin
 val externalProvider = ExternalInstanceProvider()
@@ -152,7 +152,7 @@ startKoin {
 `ResolutionExtension` API는 `@KoinExperimentalAPI`로 표시되어 있습니다. 이 API는 향후 버전에서 변경될 수 있습니다.
 :::
 
-### 전체 예시
+### 전체 예시 {id="complete-example"}
 
 ```kotlin
 @OptIn(KoinExperimentalAPI::class)
@@ -187,21 +187,21 @@ fun resolutionExtensionExample() {
 }
 ```
 
-## 익스텐션 사용 시기
+## 익스텐션 사용 시기 {id="when-to-use-extensions"}
 
 | 익스텐션 유형 | 사용 사례 |
 |---------------|----------|
 | `KoinExtension` | Koin에 기능 추가 (로깅, 모니터링, 커스텀 스코프 등) |
 | `ResolutionExtension` | 리졸루션 과정에서 외부 소스의 인스턴스 제공 |
 
-## 권장 사항
+## 권장 사항 {id="best-practices"}
 
 1. **제한적 사용** - 익스텐션은 복잡성을 증가시킵니다. 가능한 경우 표준 Koin 정의를 우선적으로 사용하세요.
 2. **익스텐션 문서화** - 익스텐션이 무엇을 하는지, 어떻게 사용하는지 명확하게 작성하세요.
 3. **정리 작업 처리** - 리소스 누수를 방지하기 위해 항상 `onClose()`를 구현하세요.
 4. **스레드 안전성 고려** - 익스텐션은 여러 스레드에서 호출될 수 있습니다.
 
-## 다음 단계
+## 다음 단계 {id="next-steps"}
 
 - **[스코프 (Scopes)](/docs/reference/koin-core/scopes)** - 커스텀 스코프 관리
 - **[모듈 (Modules)](/docs/reference/koin-core/modules)** - 모듈 구성

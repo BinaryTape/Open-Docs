@@ -30,7 +30,7 @@
 >
 {style="note"}
 
-## 프로젝트 생성하기
+## 프로젝트 생성하기 {id="create-a-project"}
 
 1. [빠른 시작(quickstart)](quickstart.md)의 안내에 따라 [Kotlin 멀티플랫폼 개발을 위한 환경 설정](quickstart.md#set-up-the-environment)을 완료하세요.
 2. IntelliJ IDEA에서 **File** | **New** | **Project**를 선택합니다.
@@ -46,7 +46,7 @@
 
    ![Ktor 및 SQLDelight 멀티플랫폼 프로젝트 생성](create-ktor-sqldelight-multiplatform-project.png){width=800}
 
-## Gradle 의존성 추가하기
+## Gradle 의존성 추가하기 {id="add-gradle-dependencies"}
 
 공유 모듈에 멀티플랫폼 라이브러리를 추가하려면 공유 모듈의 `build.gradle.kts` 파일 내 관련 소스 세트(source sets)의 `dependencies {}` 블록에 의존성 지침(`implementation`)을 추가해야 합니다.
 
@@ -150,7 +150,7 @@ Gradle 동기화가 끝나면 프로젝트 구성이 완료되어 코드 작성�
 >
 {style="tip"}
 
-## 애플리케이션 데이터 모델 생성하기
+## 애플리케이션 데이터 모델 생성하기 {id="create-an-application-data-model"}
 
 튜토리얼 앱에는 네트워킹 및 캐시 서비스에 대한 퍼사드(facade)로 공용 `SpaceSDK` 클래스가 포함됩니다.
 애플리케이션 데이터 모델은 다음을 포함하는 세 개의 엔티티 클래스를 갖습니다:
@@ -178,11 +178,11 @@ Gradle 동기화가 끝나면 프로젝트 구성이 완료되어 코드 작성�
 
 `@SerialName` 어노테이션을 사용하면 필드 이름을 재정의할 수 있으며, 이는 데이터 클래스에서 더 읽기 쉬운 식별자를 사용하여 속성에 액세스하는 데 도움이 됩니다.
 
-## SQLDelight 구성 및 캐시 로직 구현
+## SQLDelight 구성 및 캐시 로직 구현 {id="configure-sqldelight-and-implement-cache-logic"}
 
 SQLDelight 라이브러리를 사용하면 SQL 쿼리에서 타입 안정성(type-safe)이 보장되는 Kotlin 데이터베이스 API를 생성할 수 있습니다. 컴파일 중에 생성기(generator)는 SQL 쿼리를 검증하고 이를 공유 모듈에서 사용할 수 있는 Kotlin 코드로 변환합니다.
 
-### SQLDelight 구성
+### SQLDelight 구성 {id="configure-sqldelight"}
 
 SQLDelight 의존성은 이미 프로젝트에 포함되어 있습니다.
 라이브러리를 구성하려면 `sharedLogic/build.gradle.kts` 파일을 열고 끝에 `sqldelight {}` 블록을 추가합니다.
@@ -206,7 +206,7 @@ sqldelight {
 >
 {style="tip"}
 
-### 데이터베이스 API 생성
+### 데이터베이스 API 생성 {id="generate-the-database-api"}
 
 먼저 필요한 모든 SQL 쿼리가 포함된 `.sq` 파일을 만듭니다. 기본적으로 SQLDelight 플러그인은 소스 세트의 `sqldelight` 폴더에서 `.sq` 파일을 찾습니다:
 
@@ -252,7 +252,7 @@ sqldelight {
 
    생성된 Kotlin 코드는 `sharedLogic/build/generated/sqldelight` 디렉토리에 저장됩니다.
 
-### 플랫폼별 데이터베이스 드라이버용 팩토리 생성
+### 플랫폼별 데이터베이스 드라이버용 팩토리 생성 {id="create-factories-for-platform-specific-database-drivers"}
 
 `AppDatabase` 인터페이스를 초기화하려면 `SqlDriver` 인스턴스를 전달해야 합니다.
 SQLDelight는 SQLite 드라이버의 여러 플랫폼별 구현을 제공하므로, 각 플랫폼에 대해 이러한 인스턴스를 별도로 생성해야 합니다.
@@ -307,7 +307,7 @@ SQLDelight는 SQLite 드라이버의 여러 플랫폼별 구현을 제공하므�
 
 나중에 프로젝트의 플랫폼별 코드에서 이러한 팩토리를 사용할 것입니다.
 
-### 캐시 구현
+### 캐시 구현 {id="implement-cache"}
 
 지금까지 플랫폼 데이터베이스 드라이버용 팩토리와 데이터베이스 작업을 수행하기 위한 `AppDatabase` 인터페이스를 추가했습니다.
 이제 `AppDatabase` 인터페이스를 래핑하고 캐싱 로직을 포함할 `Database` 클래스를 생성합니다.
@@ -399,7 +399,7 @@ SQLDelight는 SQLite 드라이버의 여러 플랫폼별 구현을 제공하므�
     }
     ```
 
-## API 서비스 구현
+## API 서비스 구현 {id="implement-the-api-service"}
 
 인터넷에서 데이터를 가져오기 위해 [Launch Library 공용 API](https://lldev.thespacedevs.com/docs)를 사용하고, `/2.3.0/launches` 엔드포인트에서 모든 발사 목록을 가져오는 단일 메서드를 사용합니다.
 
@@ -455,7 +455,7 @@ SQLDelight는 SQLite 드라이버의 여러 플랫폼별 구현을 제공하므�
 
 GET 요청을 보내기 위한 URL은 `get()` 함수의 인자로 전달됩니다.
 
-## SDK 구축하기
+## SDK 구축하기 {id="build-an-sdk"}
 
 iOS 및 Android 애플리케이션은 공유 모듈을 통해 우주 API와 통신하며, 공유 모듈은 공용 클래스인 `SpaceSDK`를 제공합니다.
 
@@ -506,13 +506,13 @@ SDK 클라이언트는 발사에 대한 최신 정보를 로드하기 위해 `fo
 
 모든 Kotlin 예외는 언체크 예외(unchecked)인 반면, Swift에는 체크 예외(checked error)만 있습니다(자세한 내용은 [Swift/Objective-C와의 상호 운용성](https://kotlinlang.org/docs/native-objc-interop.html#errors-and-exceptions)을 참조하세요). 따라서 Swift 코드에서 예상되는 예외를 인식할 수 있도록 Swift에서 호출되는 Kotlin 함수에는 잠재적인 예외 클래스 목록을 지정하는 `@Throws` 어노테이션을 표시해야 합니다.
 
-## Android 애플리케이션 생성하기
+## Android 애플리케이션 생성하기 {id="create-the-android-application"}
 
 IntelliJ IDEA가 초기 Gradle 구성을 처리해 주므로, `sharedUI` 및 `sharedLogic` 모듈은 이미 Android 애플리케이션(`androidApp`)에 연결되어 있습니다.
 
 메시지가 표시되면 Gradle 프로젝트 파일을 동기화하거나, <shortcut>Shift</shortcut>를 두 번 누르고 **Sync All Gradle, Swift Package Manager projects**를 검색합니다.
 
-### `androidApp`에 인터넷 액세스 권한 추가
+### `androidApp`에 인터넷 액세스 권한 추가 {id="add-internet-access-permission-for-androidapp"}
 
 인터넷에 액세스하려면 Android 애플리케이션에 적절한 권한이 필요합니다.
 `androidApp/src/main/AndroidManifest.xml` 파일에 `<uses-permission>` 태그를 추가합니다:
@@ -525,7 +525,7 @@ IntelliJ IDEA가 초기 Gradle 구성을 처리해 주므로, `sharedUI` 및 `sh
 </manifest>
 ```
 
-### 의존성 주입 코드 추가
+### 의존성 주입 코드 추가 {id="add-dependency-injection-code"}
 
 Koin 의존성 주입을 사용하면 다양한 컨텍스트에서 사용할 수 있는 모듈(컴포넌트 세트)을 선언할 수 있습니다.
 이 프로젝트에서는 Android 애플리케이션용과 iOS 앱용으로 두 개의 모듈을 생성합니다.
@@ -624,7 +624,7 @@ Android 앱용 컴포넌트를 포함할 Koin 모듈을 선언합니다:
 
 이제 플랫폼별 데이터베이스 드라이버가 제공하는 정보를 사용하는 UI를 구현할 준비가 되었습니다.
 
-### 발사 목록을 포함하는 뷰 모델 준비
+### 발사 목록을 포함하는 뷰 모델 준비 {id="prepare-the-view-model-with-the-list-of-launches"}
 
 Jetpack Compose 및 Material 3를 사용하여 Android UI를 구현합니다. 먼저 SDK를 사용하여 발사 목록을 가져오는 뷰 모델(view model)을 만듭니다. 그런 다음 Material 테마를 설정하고 마지막으로 모든 것을 하나로 묶는 컴포저블(composable) 함수를 작성합니다.
 
@@ -698,7 +698,7 @@ Jetpack Compose 및 Material 3를 사용하여 Android UI를 구현합니다. �
     }
     ```
 
-### Material Theme 구축
+### Material Theme 구축 {id="build-the-material-theme"}
 
 Material 테마에서 제공하는 `AppTheme` 함수를 중심으로 메인 `App()` 컴포저블을 구축합니다:
 
@@ -722,7 +722,7 @@ Material 테마에서 제공하는 `AppTheme` 함수를 중심으로 메인 `App
     val app_theme_unsuccessful = Color(0xffFC100D)
     ```
 
-### 프레젠테이션 로직 구현
+### 프레젠테이션 로직 구현 {id="implement-the-presentation-logic"}
 
 애플리케이션을 위한 메인 `App()` 컴포저블을 만들고 `ComponentActivity` 클래스에서 호출합니다:
 
@@ -886,13 +886,13 @@ Material 테마에서 제공하는 `AppTheme` 함수를 중심으로 메인 `App
 
 방금 비즈니스 로직은 Kotlin 멀티플랫폼 모듈에 구현되고 UI는 네이티브 Jetpack Compose를 사용하여 만든 Android 애플리케이션을 생성했습니다.
 
-## iOS 애플리케이션 생성하기
+## iOS 애플리케이션 생성하기 {id="create-the-ios-application"}
 
 프로젝트의 iOS 부분에서는 [SwiftUI](https://developer.apple.com/xcode/swiftui/)를 사용하여 사용자 인터페이스를 빌드하고 [Model View View-Model(MVVM)](https://en.wikipedia.org/wiki/Model–view–viewmodel) 패턴을 사용합니다.
 
 IntelliJ IDEA는 이미 공유 모듈에 연결된 iOS 프로젝트를 생성합니다. Kotlin 모듈은 `sharedLogic/build.gradle.kts` 파일에 지정된 이름(`baseName = "SharedLogic"`)으로 내보내지며, 일반적인 `import` 문인 `import SharedLogic`을 사용하여 가져옵니다.
 
-### SQLDelight용 동적 연결 플래그 추가
+### SQLDelight용 동적 연결 플래그 추가 {id="add-the-dynamic-linking-flag-for-sqldelight"}
 
 기본적으로 IntelliJ IDEA는 iOS 프레임워크의 정적 연결(static linking)로 설정된 프로젝트를 생성합니다.
 
@@ -907,7 +907,7 @@ iOS에서 네이티브 SQLDelight 드라이버를 사용하려면 Xcode 도구�
    ![Xcode 프로젝트에 링커 플래그를 올바르게 추가한 결과](xcode-other-linker-flags.png){width="434"}
 6. IntelliJ IDEA로 돌아옵니다.
 
-### iOS 의존성 주입을 위한 Koin 클래스 준비
+### iOS 의존성 주입을 위한 Koin 클래스 준비 {id="prepare-a-koin-class-for-ios-dependency-injection"}
 
 Swift 코드에서 Koin 클래스와 함수를 사용하려면 특별한 `KoinComponent` 클래스를 만들고 iOS용 Koin 모듈을 선언합니다.
 
@@ -954,7 +954,7 @@ Swift 코드에서 Koin 클래스와 함수를 사용하려면 특별한 `KoinCo
 
 이제 iOS 앱에서 Koin 모듈을 시작하여 공통 `SpaceSDK` 클래스와 함께 네이티브 데이터베이스 드라이버를 사용할 수 있습니다.
 
-### UI 구현
+### UI 구현 {id="implement-the-ui"}
 
 먼저 목록의 항목을 표시하기 위한 `RocketLaunchRow` SwiftUI 뷰를 만듭니다. 이는 `HStack` 및 `VStack` 뷰를 기반으로 합니다. `RocketLaunchRow` 구조체에는 데이터를 표시하는 데 유용한 헬퍼가 포함된 익스텐션(extension)이 있습니다.
 
@@ -1065,7 +1065,7 @@ Swift 코드에서 Koin 클래스와 함수를 사용하려면 특별한 `KoinCo
     extension RocketLaunch: Identifiable { }
     ```
 
-### 데이터 로드
+### 데이터 로드 {id="load-the-data"}
 
 뷰 모델에서 로켓 발사 데이터를 가져오려면 멀티플랫폼 라이브러리의 `KoinHelper` 클래스 인스턴스가 필요합니다.
 이를 통해 올바른 데이터베이스 드라이버를 사용하여 SDK 함수를 호출할 수 있습니다.
@@ -1138,7 +1138,7 @@ Swift 코드에서 Koin 클래스와 함수를 사용하려면 특별한 `KoinCo
 >
 {style="note"}
 
-## 다음 단계는?
+## 다음 단계는? {id="what-s-next"}
 
 이 튜토리얼에서는 메인 스레드에서 JSON을 파싱하고 데이터베이스에 요청을 수행하는 것과 같이 잠재적으로 자원을 많이 소모하는 작업이 포함되어 있습니다. 동시성 코드를 작성하고 앱을 최적화하는 방법에 대해 알아보려면 [코루틴 가이드](https://kotlinlang.org/docs/coroutines-guide.html)를 참조하세요.
 

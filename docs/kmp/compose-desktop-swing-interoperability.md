@@ -10,9 +10,9 @@ Compose Multiplatform 和 Swing 之间的互操作性旨在帮助您：
 
 undefined
 
-## Swing 互操作用例与限制
+## Swing 互操作用例与限制 {id="swing-interop-use-cases-and-limitations"}
 
-### Swing 应用中的 Compose Multiplatform 组件
+### Swing 应用中的 Compose Multiplatform 组件 {id="compose-multiplatform-component-in-a-swing-app"}
 
 第一个用例涉及将 Compose Multiplatform 组件添加到 Swing 应用程序中。您可以通过使用 `ComposePanel` Swing 组件来渲染应用程序的 Compose Multiplatform 部分。从 Swing 的角度来看，`ComposePanel` 是另一个 Swing 组件，并会对其进行相应处理。
 
@@ -30,7 +30,7 @@ undefined
 * 在应用程序中集成复杂的渲染区域（甚至可能是动画效果），使用 Compose Multiplatform 会更简单。
 * 替换基于 Swing 应用程序中复杂的界面部分，因为 Compose Multiplatform 提供了一个方便的组件布局系统，以及广泛的内置组件和用于快速创建自定义组件的选项。
 
-### Compose Multiplatform 应用中的 Swing 组件
+### Compose Multiplatform 应用中的 Swing 组件 {id="swing-component-in-a-compose-multiplatform-app"}
 
 另一个用例是当您需要使用 Swing 中存在但 Compose Multiplatform 中没有类似物的组件时。如果从头开始创建新实现太耗时，请尝试使用 `SwingPanel`。`SwingPanel` 函数作为一个包装器，管理放置在 Compose Multiplatform 组件顶部的 Swing 组件的大小、位置和渲染。
 
@@ -42,7 +42,7 @@ undefined
   
 Compose Multiplatform 和 Swing 可以以两种方式结合，从而实现灵活的 UI 设计。您可以将 `SwingPanel` 放置在 `ComposePanel` 内部，而 `ComposePanel` 也可以在另一个 `SwingPanel` 内部。但在使用这种嵌套组合之前，请考虑潜在的渲染故障。有关代码示例，请参阅 [带有嵌套 SwingPanel 和 ComposePanel 的布局](#layout-with-nested-swing-and-compose-multiplatform-components)。
 
-## 在 Swing 应用程序中使用 Compose Multiplatform
+## 在 Swing 应用程序中使用 Compose Multiplatform {id="use-compose-multiplatform-in-a-swing-application"}
 
 `ComposePanel` 允许您在基于 Swing 的应用程序中使用 Compose Multiplatform 创建 UI。将 `ComposePanel` 实例添加到 Swing 布局中，并在 `setContent` 中定义组合：
 
@@ -167,7 +167,7 @@ fun Counter(text: String, counter: MutableState<Int>) {
 
 <img src="compose-desktop-swing-composepanel.animated.gif" alt="IntegrationWithSwing" preview-src="compose-desktop-swing-composepanel.png" width="799"/>
 
-### 实验性离屏渲染
+### 实验性离屏渲染 {id="experimental-off-screen-rendering"}
 
 一种实验性模式允许直接在 Swing 组件上渲染 `ComposePanel`。这可以防止在显示、隐藏或调整 `ComposePanel` 大小时出现过渡渲染问题。它还可以在组合 Swing 组件和 Compose 面板时实现正确的层级：Swing 组件可以显示在 `ComposePanel` 之上或之下。然而，与默认的 Skia 渲染相比，这可能会导致性能损失，且损失随着面板尺寸的增加而增加。
 
@@ -199,7 +199,7 @@ val composePanel = ComposePanel(renderSettings = RenderSettings.SwingGraphics)
     }
     ```
 
-### 实验性弹出窗口独立视图
+### 实验性弹出窗口独立视图 {id="experimental-separate-views-for-popups"}
 
 弹出元素（如工具提示和下拉菜单）不受初始可组合画布或应用窗口的限制，这一点可能非常重要。例如，当可组合视图未占据全屏但需要生成警告对话框时。
 
@@ -269,7 +269,7 @@ fun ComposeContent() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="@OptIn(ExperimentalComposeUiApi::class) fun main()"}
 
-## 在 Compose Multiplatform 应用程序中使用 Swing
+## 在 Compose Multiplatform 应用程序中使用 Swing {id="use-swing-in-a-compose-multiplatform-application"}
 
 `SwingPanel` 允许您在 Compose Multiplatform 应用程序中使用 Swing 创建 UI。使用 `SwingPanel` 的 `factory` 参数来创建 Swing `JPanel`：
 
@@ -365,7 +365,7 @@ fun actionButton(
 
 <img src="compose-desktop-swingpanel.animated.gif" alt="SwingPanel" preview-src="compose-desktop-swingpanel.png" width="600"/>
 
-### 当 Compose 状态更改时更新 Swing 组件
+### 当 Compose 状态更改时更新 Swing 组件 {id="update-swing-components-when-compose-state-changes"}
 
 为了使 Swing 组件保持最新状态，请提供一个 `update: (T) -> Unit` 回调，每当可组合状态更改或布局加载时，该回调都会被调用。以下代码示例演示了每当可组合状态更改时，如何更新 `SwingPanel` 中的 Swing 组件：
 
@@ -438,7 +438,7 @@ fun main() = application {
 
 <img src="compose-desktop-swinglabel.animated.gif" alt="SwingLabel" preview-src="compose-desktop-swinglabel.png" width="600"/>
 
-### 实验性互操作混合
+### 实验性互操作混合 {id="experimental-interop-blending"}
 
 默认情况下，使用 `SwingPanel` 包装器实现的互操作视图是矩形的，并位于前景，在任何 Compose Multiplatform 组件之上。为了使弹出元素更易于使用，我们引入了对互操作混合的实验性支持。
 
@@ -462,7 +462,7 @@ fun main() {
 
 有关详情和已知限制，请参阅 [GitHub 上的说明](https://github.com/JetBrains/compose-multiplatform-core/pull/915)。
 
-## 带有嵌套 Swing 和 Compose Multiplatform 组件的布局
+## 带有嵌套 Swing 和 Compose Multiplatform 组件的布局 {id="layout-with-nested-swing-and-compose-multiplatform-components"}
 
 通过互操作性，您可以以两种方式结合 Swing 和 Compose Multiplatform：将 Swing 组件添加到 Compose Multiplatform 应用程序中，以及将 Compose Multiplatform 组件添加到 Swing 应用程序中。如果您想嵌套多个组件并自由结合这些方法，此场景也是受支持的。
 
@@ -643,6 +643,6 @@ fun SelectableItem(
 
 <img src="compose-desktop-swing-layout.animated.gif" alt="Swing layout" preview-src="compose-desktop-swing-layout.png" width="600"/>
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 探索有关 [其他桌面特定组件](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop) 的教程。

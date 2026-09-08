@@ -18,7 +18,7 @@
 您已經建立並調整了第一個 Kotlin Multiplatform 專案！
 現在讓我們學習如何新增對第三方程式庫的相依性，這對於建置成功的跨平台應用程式至關重要。
 
-## 相依性類型
+## 相依性類型 {id="dependency-types"}
 
 在 Kotlin Multiplatform 專案中，您可以使用兩種類型的相依性：
 
@@ -34,7 +34,7 @@
 
 對於這兩種類型的相依性，您都可以使用本機和外部儲存庫。
 
-## 新增多平台相依性
+## 新增多平台相依性 {id="add-a-multiplatform-dependency"}
 
 > 如果您有開發 Android 應用程式的經驗，新增多平台相依性與在一般 Android 專案中新增 Gradle 相依性非常相似。
 > 唯一的區別在於您需要將其新增至特定的原始碼集，而不是整個模組。
@@ -68,7 +68,7 @@
 
 3. 選取 **Build | Sync Project with Gradle Files** 功能表項目，或點擊建置指令碼編輯器中的 **Sync Gradle Changes** 按鈕以同步 Gradle 檔案： ![同步 Gradle 檔案](gradle-sync.png){width=50}
 
-## 呼叫 kotlinx-datetime API
+## 呼叫 kotlinx-datetime API {id="call-a-kotlinx-datetime-api"}
 
 新增相依性後，您可以在共通程式碼中加入日期和時間計算：
 
@@ -104,19 +104,19 @@
 
 ![已更新且包含外部相依性的行動多平台應用程式](first-multiplatform-project-3.png){width=600}
 
-## 下一步
+## 下一步 {id="next-step"}
 
 在教學的下一部分中，您將在專案中新增更多相依性和更複雜的邏輯。
 
 **[繼續前往下一部分](multiplatform-upgrade-app.md)**
 
-### 延伸閱讀
+### 延伸閱讀 {id="see-also"}
 
 * 了解如何處理各種類型的多平台相依性：[Kotlin 程式庫、Kotlin Multiplatform 程式庫和其他多平台專案](multiplatform-add-dependencies.md)。
 * 了解如何[新增 Android 相依性](multiplatform-android-dependencies.md)以及[使用或不使用 CocoaPods 新增 iOS 相依性](multiplatform-ios-dependencies.md)，以便在平台專用的原始碼集中使用。
 * 查看範例專案中[如何使用 Android 和 iOS 程式庫](multiplatform-samples.md)的範例。
 
-## 獲取協助
+## 獲取協助 {id="get-help"}
 
 * **Kotlin Slack**。獲取[邀請](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)並加入 [#multiplatform](https://kotlinlang.slack.com/archives/C3PQML5NU) 頻道。
 * **Kotlin 問題追蹤器**。[回報新問題](https://youtrack.jetbrains.com/newIssue?project=KT)。

@@ -11,7 +11,7 @@
 以下に、デモアプリケーションに既に存在するデータオブジェクトに基づいた、コレクション操作のための便利なレシピをいくつか紹介します。
 すべての例において、`service.findMessages()` 関数を呼び出してデータベースに保存されているすべてのメッセージを取得し、その後、メッセージのリストに対してフィルタリング、ソート、グループ化、変換などのさまざまな操作を実行することを想定しています。
 
-## 要素の取得
+## 要素の取得 {id="retrieving-elements"}
 
 Kotlinのコレクションは、コレクションから単一の要素を取得するための一連の関数を提供しています。
 位置、または一致する条件によって、コレクションから単一の要素を取得することが可能です。
@@ -57,7 +57,7 @@ fun firstMessageOrNull(): Message {
 
 ```
 
-## 要素のフィルタリング
+## 要素のフィルタリング {id="filtering-elements"}
 
 「フィルタリング」は、コレクション処理において最も一般的なタスクの1つです。
 標準ライブラリには、1回の呼び出しでコレクションをフィルタリングできる拡張関数のグループが含まれています。
@@ -74,7 +74,7 @@ fun filterMessagesLongerThan10(): List<Message> {
 このコードは、テキストの長さが10を超える単一の要素を見つけるために `first()` 関数を使用した例と非常によく似ています。
 違いは、`filter()` が条件に一致する要素のリストを返す点です。
 
-## 要素のソート
+## 要素のソート {id="sorting-elements"}
 
 要素の順序は、特定のコレクション型において重要な側面です。
 Kotlinの標準ライブラリは、自然順、カスタム順、逆順、ランダム順など、さまざまな方法でソートするための多数の関数を提供しています。
@@ -91,7 +91,7 @@ fun sortByLastLetter(): List<Message> {
 }
 ```
 
-## 要素のグループ化
+## 要素のグループ化 {id="grouping-elements"}
 
 グループ化には、要素をどのようにグループ化すべきかについて、非常に複雑なロジックの実装が必要になる場合があります。
 [`groupBy()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/group-by.html) 関数はラムダを受け取り、 `Map` を返します。
@@ -116,7 +116,7 @@ fun groups(): Map<String, List<Message>> {
 }
 ```
 
-## 変換操作
+## 変換操作 {id="transformation-operations"}
 
 コレクションにおける一般的なタスクは、コレクションの要素をある型から別の型に変換することです。
 もちろん、Kotlin標準ライブラリにはそのようなタスクのための多数の[変換関数](collection-transformations.md)が用意されています。
@@ -132,7 +132,7 @@ fun transformMessagesToListOfStrings(): List<String> {
 }
 ```
 
-## 集計操作
+## 集計操作 {id="aggregate-operations"}
 
 集計操作は、値のコレクションから単一の値を計算します。
 集計操作の例としては、すべてのメッセージの長さの平均を計算することが挙げられます。
@@ -164,6 +164,6 @@ fun reduce(): Message {
 }
 ```
 
-## 次のステップ
+## 次のステップ {id="next-step"}
 
 [次のセクション](jvm-spring-boot-using-crudrepository.md)に進んでください。

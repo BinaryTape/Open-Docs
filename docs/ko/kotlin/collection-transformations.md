@@ -4,7 +4,7 @@ Kotlin 표준 라이브러리는 컬렉션 _변환(transformations)_을 위한 �
 이 함수들은 제공된 변환 규칙에 따라 기존 컬렉션으로부터 새로운 컬렉션을 빌드합니다.
 이 페이지에서는 사용 가능한 컬렉션 변환 함수에 대해 개괄적으로 설명합니다.
 
-## 매핑 (Map)
+## 매핑 (Map) {id="map"}
 
 _매핑(mapping)_ 변환은 다른 컬렉션의 요소에 함수를 적용한 결과로 컬렉션을 생성합니다.
 기본적인 매핑 함수는 [`map()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/map.html)입니다.
@@ -54,7 +54,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 지핑 (Zip)
+## 지핑 (Zip) {id="zip"}
 
 _지핑(Zipping)_ 변환은 두 컬렉션에서 같은 위치에 있는 요소들로 쌍(pair)을 만드는 것입니다.
 Kotlin 표준 라이브러리에서는 [`zip()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/zip.html) 확장 함수를 통해 이를 수행합니다.
@@ -113,7 +113,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 연관 (Associate)
+## 연관 (Associate) {id="associate"}
 
 _연관(Association)_ 변환을 사용하면 컬렉션 요소와 그에 연관된 특정 값으로 맵을 빌드할 수 있습니다.
 다양한 연관 유형에서 요소는 연관 맵의 키가 될 수도 있고 값이 될 수도 있습니다.
@@ -176,7 +176,7 @@ fun parseFullName(fullName: String): FullName {
 
 여기서는 먼저 요소에 대해 변환 함수를 호출한 다음, 해당 함수 결과의 속성들로 쌍을 빌드합니다.
 
-## 평탄화 (Flatten)
+## 평탄화 (Flatten) {id="flatten"}
 
 중첩된 컬렉션을 다루는 경우, 중첩된 컬렉션 요소에 대해 평탄한 접근을 제공하는 표준 라이브러리 함수가 유용할 수 있습니다.
 
@@ -215,7 +215,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 문자열 표현
+## 문자열 표현 {id="string-representation"}
 
 컬렉션 내용을 읽기 좋은 형식으로 가져와야 한다면, 컬렉션을 문자열로 변환하는 함수인 [`joinToString()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/join-to-string.html)과 [`joinTo()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/join-to.html)를 사용하세요.
 

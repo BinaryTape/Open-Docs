@@ -18,7 +18,7 @@
 最初の Kotlin マルチプラットフォーム プロジェクトを作成し、微調整を行いました！
 次は、成功するクロスプラットフォーム アプリケーションを構築するために不可欠な、サードパーティ ライブラリへの依存関係を追加する方法を学びましょう。
 
-## 依存関係の種類
+## 依存関係の種類 {id="dependency-types"}
 
 Kotlin マルチプラットフォーム プロジェクトで使用できる依存関係には 2 つの種類があります。
 
@@ -33,7 +33,7 @@ Kotlin マルチプラットフォーム プロジェクトで使用できる依
 
 どちらのタイプの依存関係についても、ローカルおよび外部のリポジトリを使用できます。
 
-## マルチプラットフォーム依存関係の追加
+## マルチプラットフォーム依存関係の追加 {id="add-a-multiplatform-dependency"}
 
 > Android アプリの開発経験がある場合、マルチプラットフォーム依存関係の追加は、通常の Android プロジェクトで Gradle 依存関係を追加するのと似ています。唯一の違いは、特定のソースセットに追加する必要がある点です。
 >
@@ -66,7 +66,7 @@ OS のバージョンに加えて、元旦までの残り日数を表示する�
 
 3. **Build | Sync Project with Gradle Files** メニュー項目を選択するか、ビルドスクリプトエディターの **Sync Gradle Changes** ボタンをクリックして Gradle ファイルを同期します： ![Gradle ファイルを同期する](gradle-sync.png){width=50}
 
-## kotlinx-datetime API の呼び出し
+## kotlinx-datetime API の呼び出し {id="call-a-kotlinx-datetime-api"}
 
 依存関係が追加されたので、共通コードに日付と時刻の計算を追加できます。
 
@@ -102,19 +102,19 @@ OS のバージョンに加えて、元旦までの残り日数を表示する�
 
 ![外部依存関係を追加して更新されたモバイル マルチプラットフォーム アプリ](first-multiplatform-project-3.png){width=600}
 
-## 次のステップ
+## 次のステップ {id="next-step"}
 
 チュートリアルの次のパートでは、さらに多くの依存関係と、より複雑なロジックをプロジェクトに追加します。
 
 **[次のパートに進む](multiplatform-upgrade-app.md)**
 
-### 関連項目
+### 関連項目 {id="see-also"}
 
 * あらゆる種類のマルチプラットフォーム依存関係を扱う方法を確認してください：[Kotlin ライブラリ、Kotlin マルチプラットフォーム ライブラリ、およびその他のマルチプラットフォーム プロジェクト](multiplatform-add-dependencies.md)
 * プラットフォーム固有のソースセットで使用するための [Android 依存関係の追加](multiplatform-android-dependencies.md) および [CocoaPods を使用する/使用しない iOS 依存関係の追加](multiplatform-ios-dependencies.md) について学びます。
 * サンプルプロジェクトで [Android および iOS ライブラリを使用する方法](multiplatform-samples.md) の例を確認してください。
 
-## ヘルプの利用
+## ヘルプの利用 {id="get-help"}
 
 * **Kotlin Slack**: [招待](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)を受け取り、[#multiplatform](https://kotlinlang.slack.com/archives/C3PQML5NU) チャンネルに参加してください。
 * **Kotlin 課題トラッカー**: [新しい課題を報告](https://youtrack.jetbrains.com/newIssue?project=KT)してください。

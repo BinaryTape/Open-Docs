@@ -69,13 +69,13 @@ val response: HttpResponse = client.get("https://ktor.io/docs/welcome.html")
 
 Ktor 用戶端允許您以多種方式配置請求 URL：
 
-### 傳遞完整的 URL 字串
+### 傳遞完整的 URL 字串 {id="pass-the-entire-url-string"}
 
 ```kotlin
 val response: HttpResponse = client.get("https://ktor.io/docs/welcome.html")
 ```
 
-### 分別配置 URL 組件
+### 分別配置 URL 組件 {id="configure-url-components-separately"}
 
 ```kotlin
 client.get {
@@ -135,7 +135,7 @@ client.get("https://ktor.io") {
 
 預設情況下，`fragment` 會對 URL 片段進行 [編碼][percent_encoding]。若要停用編碼，請改用 `encodedFragment()`。
 
-## 指定 Unix 網域通訊端
+## 指定 Unix 網域通訊端 {id="specify-a-unix-domain-socket"}
 
 > Unix 網域通訊端（Unix domain sockets）僅在 CIO 引擎中支援。要將 Unix 通訊端與 Ktor 伺服器配合使用，請相應地[配置伺服器](server-configuration-code.topic#cio-code)。
 >
@@ -161,7 +161,7 @@ val response: HttpResponse = client.get("/") {
 
 您可以透過幾種方式將標頭新增至請求：
 
-#### 新增多個標頭
+#### 新增多個標頭 {id="add-multiple-headers"}
 
 [`headers`](https://api.ktor.io/ktor-client-core/io.ktor.client.request/headers.html) 函式允許您一次新增多個標頭：
 
@@ -196,11 +196,11 @@ client.get("https://ktor.io") {
         }
 ```
 
-#### 新增單一標頭
+#### 新增單一標頭 {id="add-a-single-header"}
 
 [`header`](https://api.ktor.io/ktor-client-core/io.ktor.client.request/header.html) 函式允許您附加單一標頭。
 
-#### 使用 `basicAuth` 或 `bearerAuth` 進行授權
+#### 使用 `basicAuth` 或 `bearerAuth` 進行授權 {id="use-basicauth-or-bearerauth-for-authorization"}
 
 `basicAuth` 和 `bearerAuth` 函式會新增帶有對應 HTTP 配置的 `Authorization` 標頭。
 
@@ -289,7 +289,7 @@ val response: HttpResponse = client.submitForm(
 
 對於這兩種方法，您都需要使用 [`formData {}`](https://api.ktor.io/ktor-client-core/io.ktor.client.request.forms/form-data.html) 函式來建置表單資料。
 
-#### 使用 `.submitFormWithBinaryData()`
+#### 使用 `.submitFormWithBinaryData()` {id="using-submitformwithbinarydata"}
 
 `.submitFormWithBinaryData()` 函式會自動產生邊界，適用於檔案內容足夠小，可以安全地使用 `.readBytes()` 讀入記憶體的簡單使用案例。
 
@@ -310,7 +310,7 @@ val response: HttpResponse = client.submitForm(
 
 有關完整範例，請參閱 [client-upload](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-upload)。
 
-#### 使用 `MultiPartFormDataContent`
+#### 使用 `MultiPartFormDataContent` {id="using-multipartformdatacontent"}
 
 要有效地串流大型或動態內容，您可以將 `MultiPartFormDataContent` 與 `InputProvider` 配合使用。`InputProvider` 允許您以緩衝串流的形式提供檔案資料，而不是將其完整載入記憶體，因此非常適合大型檔案。使用 `MultiPartFormDataContent`，您還可以使用 `onUpload` 回調來監控上傳進度。
 

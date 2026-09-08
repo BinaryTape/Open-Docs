@@ -4,7 +4,7 @@
 
 초급 투어에서는 클래스 인스턴스의 특성을 선언하기 위해 프로퍼티가 어떻게 사용되는지, 그리고 프로퍼티에 어떻게 접근하는지 배웠습니다. 이 장에서는 Kotlin에서 프로퍼티가 작동하는 방식을 더 깊이 살펴보고, 코드에서 프로퍼티를 활용할 수 있는 다른 방법들을 탐구합니다.
 
-## 뒷받침하는 필드(Backing fields)
+## 뒷받침하는 필드(Backing fields) {id="backing-fields"}
 
 Kotlin에서 프로퍼티는 값을 검색하고 수정하는 것을 처리하는 기본 `get()` 및 `set()` 함수(프로퍼티 접근자라고 함)를 가집니다. 이러한 기본 함수는 코드에서 명시적으로 보이지는 않지만, 컴파일러가 배후에서 프로퍼티 접근을 관리하기 위해 자동으로 생성합니다. 이러한 접근자들은 실제 프로퍼티 값을 저장하기 위해 **뒷받침하는 필드(backing field)**를 사용합니다.
 
@@ -94,7 +94,7 @@ fun main() {
 
 자세한 내용은 [뒷받침하는 필드](properties.md#backing-fields)를 참조하세요.
 
-## 확장 프로퍼티(Extension properties)
+## 확장 프로퍼티(Extension properties) {id="extension-properties"}
 
 확장 함수와 마찬가지로 확장 프로퍼티도 존재합니다. 확장 프로퍼티를 사용하면 소스 코드를 수정하지 않고도 기존 클래스에 새로운 프로퍼티를 추가할 수 있습니다. 그러나 Kotlin의 확장 프로퍼티는 뒷받침하는 필드를 가질 수 **없습니다**. 즉, `get()` 및 `set()` 함수를 직접 작성해야 함을 의미합니다. 또한 뒷받침하는 필드가 없다는 것은 어떠한 상태도 보유할 수 없음을 의미합니다.
 
@@ -139,7 +139,7 @@ fun main() {
 
 확장 함수와 마찬가지로 Kotlin 표준 라이브러리에서도 확장 프로퍼티를 널리 사용합니다. 예를 들어 `CharSequence`의 [`lastIndex` 프로퍼티](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/last-index.html)를 확인해 보세요.
 
-## 위임된 프로퍼티(Delegated properties)
+## 위임된 프로퍼티(Delegated properties) {id="delegated-properties"}
 
 [클래스 및 인터페이스](kotlin-tour-intermediate-classes-interfaces.md#delegation) 장에서 위임에 대해 이미 배웠습니다. 프로퍼티에도 위임을 사용하여 프로퍼티 접근자를 다른 객체로 위임할 수 있습니다. 이는 단순한 뒷받침하는 필드로 처리할 수 없는 복잡한 요구사항(예: 데이터베이스 테이블, 브라우저 세션 또는 맵에 값을 저장하는 경우)이 있을 때 유용합니다. 위임된 프로퍼티를 사용하면 프로퍼티를 읽고 쓰는 로직이 위임된 객체에만 포함되므로 상용구 코드(boilerplate code)도 줄어듭니다.
 
@@ -248,11 +248,11 @@ fun main() {
 
 `getValue()` 함수에서 `thisRef` 매개변수의 타입이 `Any?`에서 객체 타입인 `User`로 좁혀진 것을 확인하세요. 이는 컴파일러가 `User` 클래스의 `firstName` 및 `lastName` 프로퍼티에 접근할 수 있도록 하기 위함입니다.
 
-### 표준 위임(Standard delegates)
+### 표준 위임(Standard delegates) {id="standard-delegates"}
 
 Kotlin 표준 라이브러리는 항상 처음부터 직접 만들 필요가 없도록 몇 가지 유용한 위임 객체를 제공합니다. 이러한 표준 위임 중 하나를 사용하면 표준 라이브러리가 자동으로 제공하므로 `getValue()` 및 `setValue()` 함수를 정의할 필요가 없습니다.
 
-#### 지연 프로퍼티(Lazy properties)
+#### 지연 프로퍼티(Lazy properties) {id="lazy-properties"}
 
 프로퍼티에 처음 접근할 때만 초기화하려면 지연 프로퍼티를 사용하세요. 표준 라이브러리는 위임을 위한 `Lazy` 인터페이스를 제공합니다. 
 
@@ -314,7 +314,7 @@ fun main() {
 
 자세한 내용은 [지연 프로퍼티](delegated-properties.md#lazy-properties)를 참조하세요.
 
-#### 관찰 가능한 프로퍼티(Observable properties)
+#### 관찰 가능한 프로퍼티(Observable properties) {id="observable-properties"}
 
 프로퍼티 값이 변경되는지 모니터링하려면 관찰 가능한 프로퍼티를 사용하세요. 관찰 가능한 프로퍼티는 프로퍼티 값의 변화를 감지하고 이를 트리거로 반응을 일으키고 싶을 때 유용합니다. 표준 라이브러리는 위임을 위한 `Delegates` 객체를 제공합니다.
 
@@ -365,7 +365,7 @@ fun main() {
 
 자세한 내용은 [관찰 가능한 프로퍼티](delegated-properties.md#observable-properties)를 참조하세요.
 
-## 연습 문제 {completion-point="true"}
+## 연습 문제 {completion-point="true" id="practice"}
 
 ### 연습 문제 1 {initial-collapse-state="collapsed" collapsible="true" id="properties-exercise-1"}
 

@@ -9,13 +9,13 @@ title: Android - ViewModel
 更新日 - 2024-10-21
 :::
 
-## コードの取得
+## コードの取得 {id="get-the-code"}
 
 :::info
 [ソースコードはGitHubで公開されています](https://github.com/InsertKoinIO/koin-getting-started/tree/main/android)
 :::
 
-## Gradleの設定
+## Gradleの設定 {id="gradle-setup"}
 
 以下のようにKoin Androidの依存関係を追加します。
 
@@ -27,13 +27,13 @@ dependencies {
 }
 ```
 
-## アプリケーションの概要
+## アプリケーションの概要 {id="application-overview"}
 
 このアプリケーションの目的は、ユーザーのリストを管理し、PresenterまたはViewModelを使用して `MainActivity` クラスに表示することです。
 
 > Users -> UserRepository -> UserService -> (Presenter or ViewModel) -> MainActivity
 
-## 「User」データ
+## 「User」データ {id="the-user-data"}
 
 ユーザーのコレクションを管理します。データクラスは以下の通りです。
 
@@ -63,7 +63,7 @@ class UserRepositoryImpl : UserRepository {
 }
 ```
 
-## UserServiceコンポーネント
+## UserServiceコンポーネント {id="the-userservice-component"}
 
 ユーザー操作を管理するためのサービスコンポーネントを記述しましょう。
 
@@ -94,7 +94,7 @@ class UserServiceImpl(
 }
 ```
 
-## Koinモジュール
+## Koinモジュール {id="the-koin-module"}
 
 Koinモジュールを宣言するには `module` 関数を使用します。Koinモジュールは、注入するすべてのコンポーネントを定義する場所です。
 
@@ -117,7 +117,7 @@ val appModule = module {
 このチュートリアルでは、コンパイル時に自動配線（auto-wiring）を提供する **Koin Compiler Plugin DSL** (`single<T>()`, `viewModel<T>()`) を使用しています。設定については [Compiler Plugin Setup](/docs/setup/compiler-plugin) を参照してください。
 :::
 
-## ViewModelを使用したユーザーの表示
+## ViewModelを使用したユーザーの表示 {id="displaying-user-with-viewmodel"}
 
 ユーザーを表示するためのViewModelコンポーネントを記述しましょう。
 
@@ -144,7 +144,7 @@ val appModule = module {
 }
 ```
 
-## AndroidでのViewModelの注入
+## AndroidでのViewModelの注入 {id="injecting-viewmodel-in-android"}
 
 `UserViewModel` コンポーネントが作成され、その際に `UserService` インスタンスが解決（注入）されます。これをActivityで取得するには、`by viewModel()` デリゲート関数を使用して注入します。
 
@@ -167,7 +167,7 @@ class MainActivity : AppCompatActivity() {
 `by viewModel()` 関数を使用すると、ViewModelのインスタンスを取得し、適切なViewModel Factoryを自動的に作成してライフサイクルにバインドします。
 :::
 
-## Koinの開始
+## Koinの開始 {id="start-koin"}
 
 AndroidアプリケーションでKoinを開始する必要があります。アプリケーションのメインエントリーポイントである `MainApplication` クラスで `startKoin()` 関数を呼び出します。
 
@@ -189,7 +189,7 @@ class MainApplication : Application(){
 `startKoin` 内の `modules()` 関数は、指定されたモジュールのリストをロードします。
 :::
 
-## Koinモジュール：DSLの比較
+## Koinモジュール：DSLの比較 {id="koin-module-dsl-comparison"}
 
 **従来のDSL**（手動配線）を使用したKoinモジュールの宣言は以下の通りです。
 

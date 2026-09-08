@@ -23,7 +23,7 @@ K2コンパイラの登場により、Kotlinのフロントエンドは完全に
 >
 {style="note"}
 
-## パフォーマンスの向上
+## パフォーマンスの向上 {id="performance-improvements"}
 
 K2コンパイラのパフォーマンスを評価するために、2つのオープンソースプロジェクト [Anki-Android](https://github.com/ankidroid/Anki-Android) と [Exposed](https://github.com/JetBrains/Exposed) でパフォーマンス・テストを実施しました。その結果、以下のような主要なパフォーマンス向上が確認されました。
 
@@ -33,11 +33,11 @@ K2コンパイラのパフォーマンスを評価するために、2つのオ�
 
 これらの改善の詳細や、K2コンパイラのパフォーマンスをどのように分析したかについては、[ブログ記事](https://blog.jetbrains.com/kotlin/2024/04/k2-compiler-performance-benchmarks-and-how-to-measure-them-on-your-projects/)を参照してください。
 
-## 言語機能の改善
+## 言語機能の改善 {id="language-feature-improvements"}
 
 Kotlin K2コンパイラは、[スマートキャスト](#スマートキャスト)および[Kotlinマルチプラットフォーム](#kotlinマルチプラットフォーム)に関連する言語機能を改善しています。
 
-### スマートキャスト
+### スマートキャスト {id="smart-casts"}
 
 Kotlinコンパイラは、特定の場合にオブジェクトを型に自動的にキャストできるため、明示的に指定する手間を省くことができます。これは[スマートキャスト](typecasts.md#smart-casts)と呼ばれます。Kotlin K2コンパイラは、以前よりもさらに多くのシナリオでスマートキャストを実行できるようになりました。
 
@@ -50,7 +50,7 @@ Kotlin 2.0.0では、以下の領域でスマートキャストに関する改�
 * [例外処理](#例外処理)
 * [インクリメントおよびデクリメント演算子](#インクリメントおよびデクリメント演算子)
 
-#### ローカル変数と以降のスコープ
+#### ローカル変数と以降のスコープ {id="local-variables-and-further-scopes"}
 
 以前は、変数が `if` 条件内で `null` でないと評価された場合、その変数はスマートキャストされていました。この変数に関する情報は、`if` ブロックのスコープ内でさらに共有されていました。
 
@@ -88,7 +88,7 @@ fun main(){
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-smart-casts-k2-local-variables" validate="false"}
 
-#### 論理or演算子を使用した型チェック
+#### 論理or演算子を使用した型チェック {id="type-checks-with-the-logical-or-operator"}
 
 Kotlin 2.0.0では、オブジェクトの型チェックを `or` 演算子（`||`）で組み合わせた場合、それらの最も近い共通のスーパータイプ（Closest common supertype）にスマートキャストされます。この変更以前は、常に `Any` 型にスマートキャストされていました。
 
@@ -122,7 +122,7 @@ fun signalCheck(signalStatus: Any) {
 >
 {style="note"}
 
-#### インライン関数
+#### インライン関数 {id="inline-functions"}
 
 Kotlin 2.0.0では、K2コンパイラはインライン関数を異なった方法で処理し、他のコンパイラ分析と組み合わせて、スマートキャストが安全かどうかを判断できるようになりました。
 
@@ -164,7 +164,7 @@ fun runProcessor(): Processor? {
 }
 ```
 
-#### 関数型を持つプロパティ
+#### 関数型を持つプロパティ {id="properties-with-function-types"}
 
 以前のバージョンのKotlinには、関数型を持つクラスプロパティがスマートキャストされないというバグがありました。Kotlin 2.0.0とK2コンパイラではこの動作を修正しました。例：
 
@@ -205,7 +205,7 @@ class Holder(val provider: Provider?, val processor: Processor?) {
 }
 ```
 
-#### 例外処理
+#### 例外処理 {id="exception-handling"}
 
 Kotlin 2.0.0では、スマートキャスト情報を `catch` および `finally` ブロックに渡すことができるよう例外処理を改善しました。この変更により、コンパイラがオブジェクトが null 許容型であるかどうかを追跡するため、コードがより安全になります。例：
 
@@ -244,7 +244,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-smart-casts-k2-exception-handling"}
 
-#### インクリメントおよびデクリメント演算子
+#### インクリメントおよびデクリメント演算子 {id="increment-and-decrement-operators"}
 
 Kotlin 2.0.0より前、コンパイラはインクリメントまたはデクリメント演算子を使用した後にオブジェクトの型が変わる可能性があることを理解していませんでした。コンパイラがオブジェクト의型を正確に追跡できなかったため、コードで未解決の参照エラーが発生することがありました。Kotlin 2.0.0では、これが修正されました。
 
@@ -295,14 +295,14 @@ fun main(input: Rho) {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-smart-casts-k2-increment-decrement-operators" validate="false"}
 
-### Kotlinマルチプラットフォーム
+### Kotlinマルチプラットフォーム {id="kotlin-multiplatform"}
 
 K2コンパイラには、以下の領域でKotlinマルチプラットフォームに関連する改善があります。
 
 * [コンパイル中の共通ソースとプラットフォームソースの分離](#コンパイル中の共通ソースとプラットフォームソースの分離)
 * [expected宣言とactual宣言の異なる可視性レベル](#expected宣言とactual宣言の異なる可視性レベル)
 
-#### コンパイル中の共通ソースとプラットフォームソースの分離
+#### コンパイル中の共通ソースとプラットフォームソースの分離 {id="separation-of-common-and-platform-sources-during-compilation"}
 
 以前は、Kotlinコンパイラの設計上、コンパイル時に共通（common）ソースセットとプラットフォーム（platform）ソースセットを分離しておくことができませんでした。その結果、共通コードがプラットフォームコードにアクセスできてしまい、プラットフォーム間で異なる動作が発生することがありました。さらに、共通コードからのいくつかのコンパイラ設定や依存関係がプラットフォームコードに漏れ出すこともありました。
 
@@ -387,7 +387,7 @@ actual class Identity {
 Expected class 'expect class Identity : Any' does not have default constructor
 ```
 
-##### 解決動作が変わらない場合
+##### 解決動作が変わらない場合 {id="when-resolution-behavior-doesn-t-change"}
 
 新しいコンパイルスキームへの移行はまだ進行中であるため、同じソースセット内にない関数を呼び出す場合の解決動作は以前と同じです。この違いは、主に共通コードでマルチプラットフォームライブラリのオーバーロードを使用する場合に気づくでしょう。
 
@@ -436,7 +436,7 @@ fun whichFun(x: Int) = println("platform function")
 
 将来的に、これらの残りのケースも新しいコンパイルスキームとより一貫したものになる予定です。
 
-#### expected宣言とactual宣言の異なる可視性レベル
+#### expected宣言とactual宣言の異なる可視性レベル {id="different-visibility-levels-of-expected-and-actual-declarations"}
 
 Kotlin 2.0.0より前は、Kotlinマルチプラットフォームプロジェクトで[expected宣言とactual宣言](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html)を使用する場合、それらは同じ[可視性レベル](visibility-modifiers.md)である必要がありました。Kotlin 2.0.0では、actual宣言がexpected宣言よりも**寛容（より公開されている）**である場合に限り、異なる可視性レベルもサポートされるようになりました。例：
 
@@ -456,17 +456,17 @@ class Expanded                                  // 可視性はデフォルト�
                                                 // これはより寛容です
 ```
 
-## Kotlin K2コンパイラを有効にする方法
+## Kotlin K2コンパイラを有効にする方法 {id="how-to-enable-the-kotlin-k2-compiler"}
 
 Kotlin 2.0.0以降、Kotlin K2コンパイラはデフォルトで有効になっています。
 
 Kotlinのバージョンをアップグレードするには、[Gradle](gradle-configure-project.md#apply-the-plugin) または [Maven](maven-configure-project.md) のビルドスクリプトでバージョンを2.0.0以降のリリースに変更してください。
 
-### GradleでKotlinビルドレポートを使用する
+### GradleでKotlinビルドレポートを使用する {id="use-kotlin-build-reports-with-gradle"}
 
 Kotlin[ビルドレポート](gradle-compilation-and-caches.md#build-reports)は、Kotlinコンパイラタスクの異なるコンパイルフェーズに費やされた時間、使用されたコンパイラとKotlinのバージョン、およびコンパイルが増分であったかどうかに関する情報を提供します。これらのビルドレポートは、ビルドパフォーマンスの評価に役立ちます。これらはすべてのGradleタスクのパフォーマンスの概要を提供するため、[Gradleビルドスキャン](https://scans.gradle.com/)よりもKotlinコンパイルパイプラインに関するより多くの洞察を提供します。
 
-#### ビルドレポートを有効にする方法
+#### ビルドレポートを有効にする方法 {id="how-to-enable-build-reports"}
 
 ビルドレポートを有効にするには、`gradle.properties` ファイルにビルドレポートの出力保存先を宣言します。
 
@@ -486,15 +486,15 @@ kotlin.build.report.output=file
 
 ビルドレポートで可能なことの詳細については、[ビルドレポート](gradle-compilation-and-caches.md#build-reports)を参照してください。
 
-## IDEでのサポート
+## IDEでのサポート {id="support-in-ides"}
 
 IntelliJ IDEAとAndroid StudioはどちらもK2コンパイラを完全にサポートしており、デフォルトでこれを使用してコード解析、コード補完、およびハイライトを改善します。何も設定する必要はありません。最新バージョンにアップデートして、その利点を確認してください。
 
-## Kotlin PlaygroundでKotlin K2コンパイラを試す
+## Kotlin PlaygroundでKotlin K2コンパイラを試す {id="try-the-kotlin-k2-compiler-in-the-kotlin-playground"}
 
 Kotlin PlaygroundはKotlin 2.0.0以降のリリースをサポートしています。[ぜひチェックしてみてください！](https://pl.kotl.in/czuoQprce)
 
-## 以前のコンパイラにロールバックする方法
+## 以前のコンパイラにロールバックする方法 {id="how-to-roll-back-to-the-previous-compiler"}
 
 Kotlin 2.0.0–2.3.21で以前のコンパイラを使用するには、以下のいずれかを行います。
 
@@ -505,7 +505,7 @@ Kotlin 2.0.0–2.3.21で以前のコンパイラを使用するには、以下�
 
 Kotlin 2.4.0以降は、以前のコンパイラにロールバックすることはできません。
 
-## 変更点
+## 変更点 {id="changes"}
 
 新しいフロントエンドの導入により、Kotlinコンパイラはいくつかの変更を受けました。まず、コードに影響を与える最も重要な修正点を挙げ、何が変わったのか、そして今後のベストプラクティスについて説明します。さらに詳しく知りたい場合は、読み進めやすいようにこれらの変更を[分野別](#分野別)にまとめています。
 
@@ -518,7 +518,7 @@ Kotlin 2.4.0以降は、以前のコンパイラにロールバックするこ�
 * [Javaプリミティブ配列の null 安全性の向上](#javaプリミティブ配列の-null-安全性の向上)
 * [expectedクラス内の抽象メンバに対するより厳格なルール](#expectedクラス内の抽象メンバに対するより厳格なルール)
 
-### バッキングフィールドを持つopenプロパティの即時初期化
+### バッキングフィールドを持つopenプロパティの即時初期化 {id="immediate-initialization-of-open-properties-with-backing-fields"}
 
 **何が変わったのか？**
 
@@ -558,7 +558,7 @@ class Derived : Base() {
 
 詳細については、[YouTrackの対応する課題](https://youtrack.jetbrains.com/issue/KT-57555)を参照してください。
 
-### 投影されたレシーバーでの合成セッターの非推奨化
+### 投影されたレシーバーでの合成セッターの非推奨化 {id="deprecated-synthetics-setter-on-a-projected-receiver"}
 
 **何が変わったのか？**
 
@@ -601,7 +601,7 @@ fun exampleFunction(starProjected: Container<*>, inProjected: Container<in Numbe
 
 詳細については、[YouTrackの対応する課題](https://youtrack.jetbrains.com/issue/KT-54309)を参照してください。
 
-### アクセス不能なジェネリック型の使用禁止
+### アクセス不能なジェネリック型の使用禁止 {id="forbidden-use-of-inaccessible-generic-types"}
 
 **何が変わったのか？**
 
@@ -752,7 +752,7 @@ fun test() {
 
 詳細については、[YouTrackの対応する課題](https://youtrack.jetbrains.com/issue/KT-64474)を参照してください。
 
-### 同じ名前のKotlinプロパティとJavaフィールドの一貫した解決順序
+### 同じ名前のKotlinプロパティとJavaフィールドの一貫した解決順序 {id="consistent-resolution-order-of-kotlin-properties-and-java-fields-with-the-same-name"}
 
 **何が変わったのか？**
 
@@ -848,7 +848,7 @@ fun main() {
 
 詳細については、[YouTrackの対応する課題](https://youtrack.jetbrains.com/issue/KT-55017)を参照してください。
 
-### Javaプリミティブ配列の null 安全性の向上
+### Javaプリミティブ配列の null 安全性の向上 {id="improved-null-safety-for-java-primitive-arrays"}
 
 **何が変わったのか？**
 
@@ -892,7 +892,7 @@ Kotlin 2.0.0では、Javaプリミティブ配列の null 安全性がKotlinの�
 
 詳細については、[YouTrack의対応する課題](https://youtrack.jetbrains.com/issue/KT-54521)を参照してください。
 
-### expectedクラス内の抽象メンバに対するより厳格なルール
+### expectedクラス内の抽象メンバに対するより厳格なルール {id="stricter-rules-for-abstract-members-in-expected-classes"}
 
 > expectedクラスおよびactualクラスは[ベータ版](components-stability.md#stability-levels-explained)です。これらはほぼ安定していますが、将来的に移行手順を実行する必要があるかもしれません。弊社では、お客様が行う必要のあるさらなる変更を最小限に抑えるよう最善を尽くします。
 >
@@ -948,11 +948,11 @@ expectedの非抽象クラスで抽象関数を継承している場合は、非
 
 詳細については、[YouTrackの対応する課題](https://youtrack.jetbrains.com/issue/KT-59739/K2-MPP-reports-ABSTRACTMEMBERNOTIMPLEMENTED-for-inheritor-in-common-code-when-the-implementation-is-located-in-the-actual) を参照してください。
 
-### 分野別
+### 分野別 {id="per-subject-area"}
 
 これらの分野別リストには、コードに影響を与える可能性は低いものの、詳細を確認するための関連するYouTrack課題へのリンクが含まれています。課題IDの隣にアスタリスク（*）が付いている変更は、セクションの冒頭で説明されています。
 
-#### 型推論 {initial-collapse-state="collapsed" collapsible="true"}
+#### 型推論 {initial-collapse-state="collapsed" collapsible="true" id="type-inference"}
 
 | 課題 ID | タイトル |
 |-----------------------------------------------------------|------------------------------------------------------------------------------------------------------------|
@@ -973,7 +973,7 @@ expectedの非抽象クラスで抽象関数を継承している場合は、非
 | [KT-65750](https://youtrack.jetbrains.com/issue/KT-65750) | 戻り値の型を変更するインクリメントおよびプラス演算子がスマートキャストに影響を与える必要がある |
 | [KT-65349](https://youtrack.jetbrains.com/issue/KT-65349) | [LC] K2: 変数型を明示的に指定すると、K1 で動作していたいくつかのケースで束縛スマートキャストが壊れる |
 
-#### ジェネリクス {initial-collapse-state="collapsed" collapsible="true"}
+#### ジェネリクス {initial-collapse-state="collapsed" collapsible="true" id="generics"}
 
 | 課題 ID | タイトル |
 |------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -991,7 +991,7 @@ expectedの非抽象クラスで抽象関数を継承している場合は、非
 | [KT-64966](https://youtrack.jetbrains.com/issue/KT-64966) | ジェネリックパラメータに対して誤った型を持つジェネリック委譲コンストラクタ呼び出しを禁止 |
 | [KT-65712](https://youtrack.jetbrains.com/issue/KT-65712) | 上限がキャプチャ型である場合の欠落した上限違反を報告 |
 
-#### 解決（Resolution） {initial-collapse-state="collapsed" collapsible="true"}
+#### 解決（Resolution） {initial-collapse-state="collapsed" collapsible="true" id="resolution"}
 
 | 課題 ID | タイトル |
 |------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -1007,7 +1007,7 @@ expectedの非抽象クラスで抽象関数を継承している場合は、非
 | [KT-64431](https://youtrack.jetbrains.com/issue/KT-64431) | K2: インポートにおける修飾子として型エイリアスを使用することを禁止 |
 | [KT-56520](https://youtrack.jetbrains.com/issue/KT-56520) | K1/K2: 低いレベルで曖昧さがある型参照に対する解決タワーの誤った動作 |
 
-#### 可視性 {initial-collapse-state="collapsed" collapsible="true"}
+#### 可視性 {initial-collapse-state="collapsed" collapsible="true" id="visibility"}
 
 | 課題 ID | タイトル |
 |-------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
@@ -1022,7 +1022,7 @@ expectedの非抽象クラスで抽象関数を継承している場合は、非
 | [KT-65004](https://youtrack.jetbrains.com/issue/KT-65004) | K1: protected val をオーバーライドする var のセッターが public として生成される |
 | [KT-64972](https://youtrack.jetbrains.com/issue/KT-64972) | Kotlin/Native のリンク時においてプライベートメンバによるオーバーライドを禁止 |
 
-#### アノテーション {initial-collapse-state="collapsed" collapsible="true"}
+#### アノテーション {initial-collapse-state="collapsed" collapsible="true" id="annotations"}
 
 | 課題 ID | タイトル |
 |-----------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
@@ -1036,7 +1036,7 @@ expectedの非抽象クラスで抽象関数を継承している場合は、非
 | [KT-63389](https://youtrack.jetbrains.com/issue/KT-63389) | K2: \`()?\` でラップされた型に対する互換性のないアノテーションに対して \`WRONG_ANNOTATION_TARGET\` が報告される |
 | [KT-63388](https://youtrack.jetbrains.com/issue/KT-63388) | K2: \`WRONG_ANNOTATION_TARGET\` が報告される catch パラメータ型の型アノテーションに対して |
 
-#### null 安全性 {initial-collapse-state="collapsed" collapsible="true"}
+#### null 安全性 {initial-collapse-state="collapsed" collapsible="true" id="null-safety"}
 
 | 課題 ID | タイトル |
 |------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
@@ -1047,7 +1047,7 @@ expectedの非抽象クラスで抽象関数を継承している場合は、非
 | [KT-62998](https://youtrack.jetbrains.com/issue/KT-62998) | 安全でない代入のセレクタとして、null 許容型を null 非許容の Java フィールドに代入することを禁止 |
 | [KT-63209](https://youtrack.jetbrains.com/issue/KT-63209) | 警告レベルの Java 型に対するエラーレベルの null 許容引数の欠落したエラーを報告 |
 
-#### Java 相互運用性 {initial-collapse-state="collapsed" collapsible="true"}
+#### Java 相互運用性 {initial-collapse-state="collapsed" collapsible="true" id="java-interoperability"}
 
 | 課題 ID | タイトル |
 |-----------------------------------------------------------|------------------------------------------------------------------------------------------------------------|
@@ -1057,7 +1057,7 @@ expectedの非抽象クラスで抽象関数を継承している場合は、非
 | [KT-66220](https://youtrack.jetbrains.com/issue/KT-66220) | Java の可変長引数メソッドをインライン関数に渡すと、実行時にただの配列ではなく配列の配列になる |
 | [KT-66204](https://youtrack.jetbrains.com/issue/KT-66204) | K-J-K 階層における internal メンバのオーバーライドを許可 |
 
-#### プロパティ {initial-collapse-state="collapsed" collapsible="true"}
+#### プロパティ {initial-collapse-state="collapsed" collapsible="true" id="properties"}
 
 | 課題 ID | タイトル |
 |------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
@@ -1067,7 +1067,7 @@ expectedの非抽象クラスで抽象関数を継承している場合は、非
 | [KT-57290](https://youtrack.jetbrains.com/issue/KT-57290) | ベースクラスが別のモジュールにある場合、不可視の派生クラスからのベースクラスプロパティに対するスマートキャストを非推奨化 |
 | [KT-62661](https://youtrack.jetbrains.com/issue/KT-62661) | K2: データクラスのプロパティに対する OPT_IN_USAGE_ERROR の漏れ |
 
-#### 制御フロー {initial-collapse-state="collapsed" collapsible="true"}
+#### 制御フロー {initial-collapse-state="collapsed" collapsible="true" id="control-flow"}
 
 | 課題 ID | タイトル |
 |-----------------------------------------------------------|--------------------------------------------------------------------------------------------|
@@ -1076,7 +1076,7 @@ expectedの非抽象クラスで抽象関数を継承している場合は、非
 | [KT-42995](https://youtrack.jetbrains.com/issue/KT-42995) | スコープ関数内での初期化を伴う try/catch ブロックにおける偽陰性 "VAL_REASSIGNMENT" |
 | [KT-65724](https://youtrack.jetbrains.com/issue/KT-65724) | try ブロックから catch および finally ブロックへのデータフロー情報の伝播 |
 
-#### 列挙型クラス {initial-collapse-state="collapsed" collapsible="true"}
+#### 列挙型クラス {initial-collapse-state="collapsed" collapsible="true" id="enum-classes"}
 
 | 課題 ID | タイトル |
 |-----------------------------------------------------------|----------------------------------------------------------------------------------------------|
@@ -1085,7 +1085,7 @@ expectedの非抽象クラスで抽象関数を継承している場合は、非
 | [KT-52802](https://youtrack.jetbrains.com/issue/KT-52802) | プロパティ/フィールドと列挙型エントリの間の解決の曖昧さを報告 |
 | [KT-47310](https://youtrack.jetbrains.com/issue/KT-47310) | コンパニオンプロパティが列挙型エントリよりも優先される場合の修飾子解決の動作を変更 |
 
-#### 関数型（SAM）インターフェース {initial-collapse-state="collapsed" collapsible="true"}
+#### 関数型（SAM）インターフェース {initial-collapse-state="collapsed" collapsible="true" id="functional-sam-interfaces"}
 
 | 課題 ID | タイトル |
 |-----------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
@@ -1093,14 +1093,14 @@ expectedの非抽象クラスで抽象関数を継承している場合は、非
 | [KT-57014](https://youtrack.jetbrains.com/issue/KT-57014) | JDK 関数インターフェースの SAM コンストラクタに対して、ラムダから誤った null 許容性を持つ値を返すことを禁止 |
 | [KT-64342](https://youtrack.jetbrains.com/issue/KT-64342) | 呼び出し可能参照のパラメータ型の SAM 変換が CCE（ClassCastException）を引き起こす |
 
-#### コンパニオンオブジェクト {initial-collapse-state="collapsed" collapsible="true"}
+#### コンパニオンオブジェクト {initial-collapse-state="collapsed" collapsible="true" id="companion-object"}
 
 | 課題 ID | タイトル |
 |-----------------------------------------------------------|--------------------------------------------------------------------------|
 | [KT-54316](https://youtrack.jetbrains.com/issue/KT-54316) | コンパニオンオブジェクトのメンバへの呼び出し外の参照が、無効なシグネチャを持つ |
 | [KT-47313](https://youtrack.jetbrains.com/issue/KT-47313) | V がコンパニオンを持つ場合の (V)::foo 参照解決の変更 |
 
-#### その他 {initial-collapse-state="collapsed" collapsible="true"}
+#### その他 {initial-collapse-state="collapsed" collapsible="true" id="miscellaneous"}
 
 | 課題 ID | タイトル |
 |------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
@@ -1115,7 +1115,7 @@ expectedの非抽象クラスで抽象関数を継承している場合は、非
 | [KT-65682](https://youtrack.jetbrains.com/issue/KT-65682) | [LC] \`header\`/\`impl\` キーワードを非推奨化 |
 | [KT-45375](https://youtrack.jetbrains.com/issue/KT-45375) | デフォルトですべての Kotlin ラムダを invokedynamic + LambdaMetafactory を介して生成 |
 
-## Kotlin リリースとの互換性
+## Kotlin リリースとの互換性 {id="compatibility-with-kotlin-releases"}
 
 以下の Kotlin リリースは、新しい K2 コンパイラをサポートしています。
 
@@ -1126,13 +1126,13 @@ expectedの非抽象クラスで抽象関数を継承している場合は、非
 | 1.9.0–1.9.10 | JVM はベータ版 |
 | 1.7.0–1.8.22 | アルファ版（Alpha） |
 
-## Kotlin ライブラリとの互換性
+## Kotlin ライブラリとの互換性 {id="compatibility-with-kotlin-libraries"}
 
 Kotlin/JVM を使用している場合、K2 コンパイラは任意のバージョンの Kotlin でコンパイルされたライブラリと動作します。
 
 Kotlin マルチプラットフォームを使用している場合、K2 コンパイラは Kotlin バージョン 1.9.20 以降でコンパイルされたライブラリと動作することが保証されています。
 
-## コンパイラプラグインのサポート
+## コンパイラプラグインのサポート {id="compiler-plugins-support"}
 
 現在、Kotlin K2 コンパイラは以下の Kotlin コンパイラプラグインをサポートしています。
 
@@ -1157,7 +1157,7 @@ Kotlin マルチプラットフォームを使用している場合、K2 コン�
 >
 {style="tip"}
 
-### カスタムコンパイラプラグインのアップグレード
+### カスタムコンパイラプラグインのアップグレード {id="upgrade-your-custom-compiler-plugins"}
 
 > カスタムコンパイラプラグインは、[試験的（Experimental）](components-stability.md#stability-levels-explained) なプラグイン API を使用しています。そのため、API はいつでも変更される可能性があり、後方互換性は保証されません。
 >
@@ -1165,11 +1165,11 @@ Kotlin マルチプラットフォームを使用している場合、K2 コン�
 
 アップグレードプロセスは、お使いのカスタムプラグインのタイプに応じて 2 つのパスがあります。
 
-#### バックエンド限定のコンパイラプラグイン
+#### バックエンド限定のコンパイラプラグイン {id="backend-only-compiler-plugins"}
 
 プラグインが `IrGenerationExtension` 拡張ポイントのみを実装している場合、プロセスは他の新しいコンパイラリリースの場合と同じです。使用している API に変更がないか確認し、必要に応じて変更を加えてください。
 
-#### バックエンドおよびフロントエンドのコンパイラプラグイン
+#### バックエンドおよびフロントエンドのコンパイラプラグイン {id="backend-and-frontend-compiler-plugins"}
 
 プラグインがフロントエンド関連の拡張ポイントを使用している場合は、新しい K2 コンパイラ API を使用してプラグインを書き直す必要があります。新しい API の概要については、[FIR Plugin API](https://github.com/JetBrains/kotlin/blob/master/docs/fir/fir-plugins.md) を参照してください。
 
@@ -1177,7 +1177,7 @@ Kotlin マルチプラットフォームを使用している場合、K2 コン�
 >
 {style="note"}
 
-## 新しい K2 コンパイラに関するフィードバックをお寄せください
+## 新しい K2 コンパイラに関するフィードバックをお寄せください {id="share-your-feedback-on-the-new-k2-compiler"}
 
 皆様からのフィードバックをお待ちしております！
 

@@ -17,7 +17,7 @@
 
 [依存性注入（DI）プラグイン](server-dependency-injection.md)は、アプリケーションのシャットダウン時に、ライフサイクルとクリーンアップを自動的に処理します。
 
-### AutoCloseableのサポート
+### AutoCloseableのサポート {id="autocloseable-support"}
 
 デフォルトでは、`AutoCloseable`を実装している依存関係は、アプリケーションの停止時に自動的にクローズされます。
 
@@ -33,7 +33,7 @@ dependencies {
 }
 ```
 
-### カスタムクリーンアップロジック
+### カスタムクリーンアップロジック {id="custom-cleanup-logic"}
 
 `cleanup`関数を指定することで、カスタムのクリーンアップロジックを定義できます。
 
@@ -45,7 +45,7 @@ dependencies {
 }
 ```
 
-### キーによるスコープ指定されたクリーンアップ
+### キーによるスコープ指定されたクリーンアップ {id="scoped-cleanup-with-key"}
 
 名前付きリソースとそのクリーンアップを管理するには、`key`を使用します。
 

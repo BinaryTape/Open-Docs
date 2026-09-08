@@ -10,17 +10,17 @@ title: KMP 高级模式
 有关基础设置，请参阅 [KMP 设置](/docs/reference/koin-core/kmp-setup)。有关模块组织，请参阅 [共享模式](/docs/reference/koin-core/kmp-shared-modules)。有关 ViewModel，请参阅 [ViewModel](/docs/reference/koin-core/viewmodel)。
 :::
 
-## 源码项目
+## 源码项目 {id="source-project"}
 
 :::info
 您可以在这里找到 Kotlin Multiplatform 项目：https://github.com/InsertKoinIO/hello-kmp
 :::
 
-## 高级 expect/actual 模式
+## 高级 expect/actual 模式 {id="advanced-expect-actual-patterns"}
 
 除了基础的 `expect val platformModule: Module` 模式之外，以下是处理平台特定代码的高级方法。
 
-### 模式 1：expect/actual 类
+### 模式 1：expect/actual 类 {id="pattern-1-expect-actual-classes"}
 
 当您需要平台特定 API（如 Android Context、iOS UIDevice 等）时使用：
 
@@ -45,7 +45,7 @@ actual fun createPlatformModule() = module {
 }
 ```
 
-### 模式 2：接口 + 平台实现
+### 模式 2：接口 + 平台实现 {id="pattern-2-interface-platform-implementations"}
 
 当您想为每个平台注入不同的实现时使用：
 
@@ -78,7 +78,7 @@ val iosModule = module {
 }
 ```
 
-### 模式 3：带注解的 expect 模块
+### 模式 3：带注解的 expect 模块 {id="pattern-3-expect-module-with-annotations"}
 
 将 expect/actual 与注解结合使用，使代码更整洁：
 
@@ -108,11 +108,11 @@ actual val platformModule = IosPlatformModule().module
 - **expect 模块**：适用于复杂的平台特定依赖关系图。
 :::
 
-## 共享代码中的 Android Context
+## 共享代码中的 Android Context {id="android-context-in-shared-code"}
 
 在共享代码中访问 Android `Context` 是一个常见的需求。以下是推荐的模式：
 
-### ContextWrapper 模式
+### ContextWrapper 模式 {id="contextwrapper-pattern"}
 
 ```kotlin
 // commonMain - 包装器接口
@@ -160,9 +160,9 @@ val sharedModule = module {
 对于纯共享逻辑，首选将平台操作抽象为接口，而不是使用 `when` 语句。
 :::
 
-## 架构模式
+## 架构模式 {id="architecture-patterns"}
 
-### 结合 Ktor 的仓库模式
+### 结合 Ktor 的仓库模式 {id="repository-pattern-with-ktor"}
 
 ```kotlin
 // commonMain
@@ -195,7 +195,7 @@ val dataModule = module {
 }
 ```
 
-### 网络层 (Ktor + Koin)
+### 网络层 (Ktor + Koin) {id="network-layer-ktor-koin"}
 
 ```kotlin
 // commonMain
@@ -218,7 +218,7 @@ val networkModule = module {
 }
 ```
 
-### 数据库层 (SqlDelight)
+### 数据库层 (SqlDelight) {id="database-layer-sqldelight"}
 
 ```kotlin
 // commonMain
@@ -247,9 +247,9 @@ actual class DriverFactory {
 }
 ```
 
-## 测试 KMP 模块
+## 测试 KMP 模块 {id="testing-kmp-modules"}
 
-### 单元测试共享模块
+### 单元测试共享模块 {id="unit-testing-shared-modules"}
 
 ```kotlin
 // commonTest
@@ -275,7 +275,7 @@ class UserRepositoryTest : KoinTest {
 }
 ```
 
-### 测试平台特定依赖项
+### 测试平台特定依赖项 {id="testing-with-platform-specific-dependencies"}
 
 ```kotlin
 // commonTest
@@ -312,9 +312,9 @@ class PlatformDependentTest : KoinTest {
 }
 ```
 
-## 常见陷阱
+## 常见陷阱 {id="common-pitfalls"}
 
-### 推荐 (DO)：为可测试的共享代码使用接口
+### 推荐 (DO)：为可测试的共享代码使用接口 {id="do-use-interfaces-for-testable-shared-code"}
 
 ```kotlin
 // 推荐 - 可测试
@@ -327,7 +327,7 @@ val sharedModule = module {
 }
 ```
 
-### 避免 (DON'T)：为业务逻辑使用 expect 类
+### 避免 (DON'T)：为业务逻辑使用 expect 类 {id="don-t-use-expect-classes-for-business-logic"}
 
 ```kotlin
 // 避免 - 难以测试，与平台耦合紧密
@@ -336,7 +336,7 @@ expect class Logger {
 }
 ```
 
-### 推荐 (DO)：保持平台模块独立
+### 推荐 (DO)：保持平台模块独立 {id="do-keep-platform-modules-separate"}
 
 ```kotlin
 // 推荐 - 职责分离清晰
@@ -347,7 +347,7 @@ fun initKoin() {
 }
 ```
 
-### 避免 (DON'T)：在共享模块中混入平台特定代码
+### 避免 (DON'T)：在共享模块中混入平台特定代码 {id="don-t-mix-platform-specific-code-in-shared-modules"}
 
 ```kotlin
 // 避免 - 在 commonMain 中包含平台特定代码
@@ -358,7 +358,7 @@ val sharedModule = module {
 }
 ```
 
-### 推荐 (DO)：大型应用使用延迟加载模块
+### 推荐 (DO)：大型应用使用延迟加载模块 {id="do-use-lazy-modules-for-large-apps"}
 
 ```kotlin
 // 推荐 - 优化启动速度
@@ -372,7 +372,7 @@ startKoin {
 }
 ```
 
-### 避免 (DON'T)：忘记关闭作用域
+### 避免 (DON'T)：忘记关闭作用域 {id="don-t-forget-to-close-scopes"}
 
 ```kotlin
 // 避免 - 内存泄漏
@@ -391,7 +391,7 @@ class FeatureScreen : KoinComponent {
 }
 ```
 
-## 桌面平台集成
+## 桌面平台集成 {id="desktop-platform-integration"}
 
 对于 JVM 桌面应用 (Compose Desktop)：
 
@@ -416,7 +416,7 @@ val desktopModule = module {
 }
 ```
 
-## Web 平台集成（实验性）
+## Web 平台集成（实验性） {id="web-platform-integration-experimental"}
 
 对于 Kotlin/JS 和 Kotlin/WASM：
 
@@ -442,9 +442,9 @@ val webModule = module {
 WASM 支持处于实验阶段。某些功能可能无法按预期工作。
 :::
 
-## iOS Swift 互操作
+## iOS Swift 互操作 {id="ios-swift-interop"}
 
-### 适用于 Swift 的 KoinComponent
+### 适用于 Swift 的 KoinComponent {id="koincomponent-for-swift"}
 
 ```kotlin
 // shared/src/iosMain/kotlin/Helper.kt
@@ -466,7 +466,7 @@ struct ContentView: View {
 }
 ```
 
-### 从 Swift 声明依赖项
+### 从 Swift 声明依赖项 {id="declaring-dependencies-from-swift"}
 
 在某些情况下，您可能需要直接从 Swift 声明依赖项 — 例如，当一个仅限 Swift 的类需要注册到 Koin 时。您可以使用 `declare` 函数结合 Kotlin/Native 互操作将 Objective-C 类型解析为 Kotlin `KClass`。
 
@@ -513,7 +513,7 @@ koin.declareFromSwift(
 最初由 [@SarahDelCastillo](https://github.com/InsertKoinIO/koin/issues/1108#issuecomment-3645990426) 提议。
 :::
 
-### 线程注意事项
+### 线程注意事项 {id="threading-considerations"}
 
 在 iOS 和其他 Native 目标上，Koin 实例可以与新的内存模型无缝协作：
 
@@ -525,7 +525,7 @@ koin.declareFromSwift(
 新的 Kotlin/Native 内存模型（在 Kotlin 1.7.20+ 中为默认）使 Koin 的使用变得简单得多。
 :::
 
-## 后续步骤
+## 后续步骤 {id="next-steps"}
 
 - **[KMP 设置](/docs/reference/koin-core/kmp-setup)** - 基础 KMP 配置
 - **[共享模式](/docs/reference/koin-core/kmp-shared-modules)** - 模块组织

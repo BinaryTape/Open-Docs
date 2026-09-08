@@ -2,7 +2,7 @@
 
 子專案整體的說明文件以及該子專案中的套件，可以透過獨立的 Markdown 檔案來提供。
 
-## 檔案格式
+## 檔案格式 {id="file-format"}
 
 在 Markdown 檔案中，子專案整體和各個套件的說明文件是由對應的第一級標題引導。標題的文字對於子專案**必須**是 **Module `<module name>`**，對於套件則**必須**是 **Package `<package qualified name>`**。 
 
@@ -44,7 +44,7 @@ Content after this heading is also part of documentation for `org.jetbrains.kotl
 
 若要探索使用 Gradle 的範例專案，請參閱 [Dokka gradle 範例](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/examples/gradle/dokka-gradle-example)。
 
-## 將檔案傳遞給 Dokka
+## 將檔案傳遞給 Dokka {id="pass-files-to-dokka"}
 
 要將這些檔案傳遞給 Dokka，您需要針對 Gradle、Maven 或 CLI 使用相關的 **includes** 選項：
 

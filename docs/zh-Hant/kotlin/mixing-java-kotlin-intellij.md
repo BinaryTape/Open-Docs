@@ -16,13 +16,13 @@ Kotlin 與 Java 完全互通，因此您可以逐步將其引入現有的 Java �
 >
 {style="tip"}
 
-## 專案組態
+## 專案組態 {id="project-configuration"}
 
 要將 Kotlin 新增至 Java 專案，您需要根據所使用的建置工具，將專案配置為同時使用 Kotlin 和 Java。
 
 專案組態可確保 Kotlin 和 Java 程式碼都能正確編譯，並能無縫地相互引用。
 
-### Maven
+### Maven {id="maven"}
 
 > 從 **IntelliJ IDEA 2025.3** 開始，當您將第一個 Kotlin 檔案新增至以 Maven 為基礎的 Java 專案時，IDE 會自動更新您的 `pom.xml` 檔案以包含 Kotlin Maven 外掛程式與標準相依性。如果您想自訂版本或建置階段，仍可手動進行配置。
 >
@@ -64,7 +64,7 @@ Kotlin 與 Java 完全互通，因此您可以逐步將其引入現有的 Java �
     ./mvnw clean test
     ```
 
-### Gradle
+### Gradle {id="gradle"}
 
 要在 Gradle 專案中同時使用 Kotlin 和 Java，請套用 Kotlin JVM 外掛程式並在您的 `build.gradle.kts` 檔案中新增 Kotlin 相依性：
 
@@ -105,7 +105,7 @@ Kotlin 與 Java 完全互通，因此您可以逐步將其引入現有的 Java �
     ./gradlew clean test
     ```
 
-## 專案結構
+## 專案結構 {id="project-structure"}
 
 透過此配置，您可以在相同的原始碼目錄中混合使用 Java 和 Kotlin 檔案：
 
@@ -123,7 +123,7 @@ src/
 
 Kotlin 外掛程式會自動辨識 `src/main/java` 和 `src/test/java` 目錄，因此您可以將 `.kt` 和 `.java` 檔案放在同一個目錄中。
 
-## 將 Java 檔案轉換為 Kotlin
+## 將 Java 檔案轉換為 Kotlin {id="convert-java-files-to-kotlin"}
 
 Kotlin 外掛程式還隨附了一個 Java 轉 Kotlin 轉換器（_J2K_），可自動將 Java 檔案轉換為 Kotlin。要對檔案使用 J2K，請在其操作功能表或 IntelliJ IDEA 的 **Code** 功能表中點擊 **Convert Java File to Kotlin File**。
 
@@ -131,7 +131,7 @@ Kotlin 外掛程式還隨附了一個 Java 轉 Kotlin 轉換器（_J2K_），可
 
 雖然轉換器並非萬無一失，但在將大多數 Java 樣板程式碼轉換為 Kotlin 方面做得相當出色。然而，有時仍需要一些手動調整。
 
-## 探索編譯器外掛程式 {initial-collapse-state="collapsed" collapsible="true"}
+## 探索編譯器外掛程式 {initial-collapse-state="collapsed" collapsible="true" id="explore-compiler-plugins"}
 
 如果您有更複雜的專案，使用了 [Spring](https://spring.io/) 或 Java Persistence API (JPA)，您可以使用 Kotlin 編譯器外掛程式，這些外掛程式會自動調整 Kotlin 的語言特性以符合架構預期，從而減少樣板程式碼：
 
@@ -143,13 +143,13 @@ Kotlin 外掛程式還隨附了一個 Java 轉 Kotlin 轉換器（_J2K_），可
   您也可以使用 [`kotlin-jpa`](no-arg-plugin.md#jpa-support) 外掛程式，它是 `no-arg` 之上的包裝函式，會自動指定 no-arg 註解。
 * **[`power-assert`](power-assert.md)** 外掛程式透過為斷言提供包含上下文資訊的詳細失敗訊息，來改善偵錯體驗。它會顯示中間值，幫助您了解測試失敗的原因。
 
-## 下一步
+## 下一步 {id="next-step"}
 
 在 Java 專案中開始使用 Kotlin 的最簡單方法是先新增 Kotlin 測試：
 
 [將您的第一個 Kotlin 測試新增至 Java 專案](jvm-test-using-junit.md)
 
-### 延伸閱讀
+### 延伸閱讀 {id="see-also"}
 
 * [Kotlin 與 Java 互通性詳細資訊](java-to-kotlin-interop.md)
 * [Maven 組建組態參考](maven.md)

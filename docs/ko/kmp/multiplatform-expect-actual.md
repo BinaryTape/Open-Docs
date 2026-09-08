@@ -7,7 +7,7 @@ expect 및 actual 선언을 사용하면 Kotlin 멀티플랫폼 모듈에서 플
 >
 {style="tip"}
 
-## expect 및 actual 선언의 규칙
+## expect 및 actual 선언의 규칙 {id="rules-for-expected-and-actual-declarations"}
 
 expect 및 actual 선언을 정의하려면 다음 규칙을 따르세요.
 
@@ -36,13 +36,13 @@ IDE를 사용하여 expect 선언에서 actual 선언으로 이동할 수도 있
 
 ![expect 선언에서 actual 선언으로의 IDE 탐색](expect-actual-gutter.png){width=500}
 
-## expect 및 actual 선언을 사용하는 다양한 접근 방식
+## expect 및 actual 선언을 사용하는 다양한 접근 방식 {id="different-approaches-for-using-expected-and-actual-declarations"}
 
 공통 코드에서 플랫폼 API를 다루는 방법을 제공하면서 플랫폼 API에 액세스하는 문제를 해결하기 위해 expect/actual 메커니즘을 사용하는 다양한 옵션을 살펴보겠습니다.
 
 사용자의 로그인 이름과 현재 프로세스 ID를 포함해야 하는 `Identity` 타입을 구현해야 하는 Kotlin 멀티플랫폼 프로젝트를 가정해 보겠습니다. 프로젝트에는 애플리케이션이 JVM과 iOS 같은 네이티브 환경에서 작동하도록 `commonMain`, `jvmMain`, `nativeMain` 소스 세트가 있습니다.
 
-### expect 및 actual 함수
+### expect 및 actual 함수 {id="expected-and-actual-functions"}
 
 `Identity` 타입과 팩토리 함수 `buildIdentity()`를 정의할 수 있습니다. 이 함수는 공통 소스 세트에서 선언되고 플랫폼 소스 세트에서 다르게 구현됩니다.
 
@@ -91,7 +91,7 @@ IDE를 사용하여 expect 선언에서 actual 선언으로 이동할 수도 있
 >
 {style="note"}
 
-### 인터페이스와 expect/actual 함수
+### 인터페이스와 expect/actual 함수 {id="interfaces-with-expected-and-actual-functions"}
 
 팩토리 함수가 너무 커지면 공통 `Identity` 인터페이스를 사용하고 플랫폼마다 다르게 구현하는 것을 고려해 보세요.
 
@@ -133,7 +133,7 @@ IDE를 사용하여 expect 선언에서 actual 선언으로 이동할 수도 있
 
 이러한 플랫폼 함수는 `JVMIdentity` 및 `NativeIdentity` 플랫폼 타입으로 구현된 플랫폼별 `Identity` 인스턴스를 반환합니다.
 
-#### expect 및 actual 프로퍼티
+#### expect 및 actual 프로퍼티 {id="expected-and-actual-properties"}
 
 이전 예제를 수정하여 `Identity`를 저장하기 위한 `val` 프로퍼티를 expect로 선언할 수 있습니다.
 
@@ -169,7 +169,7 @@ class NativeIdentity(
 ) : Identity
 ```
 
-#### expect 및 actual 객체
+#### expect 및 actual 객체 {id="expected-and-actual-objects"}
 
 `IdentityBuilder`가 각 플랫폼에서 싱글톤이어야 하는 경우, 이를 expect 객체로 정의하고 플랫폼에서 실제화하도록 할 수 있습니다.
 
@@ -205,7 +205,7 @@ actual object IdentityBuilder {
 }
 ```
 
-#### 의존성 주입(Dependency Injection)에 대한 권장 사항
+#### 의존성 주입(Dependency Injection)에 대한 권장 사항 {id="recommendations-on-dependency-injection"}
 
 느슨하게 결합된(loosely coupled) 아키텍처를 만들기 위해 많은 Kotlin 프로젝트가 의존성 주입(DI) 프레임워크를 채택합니다. DI 프레임워크를 사용하면 현재 환경에 따라 컴포넌트에 의존성을 주입할 수 있습니다.
 
@@ -217,7 +217,7 @@ actual object IdentityBuilder {
 
 이 접근 방식을 사용하면 단순히 인터페이스와 팩토리 함수를 사용하여 Kotlin 멀티플랫폼을 채택할 수 있습니다. 프로젝트에서 이미 DI 프레임워크를 사용하여 의존성을 관리하고 있다면 플랫폼 의존성 관리에도 동일한 접근 방식을 사용하는 것이 좋습니다.
 
-### expect 및 actual 클래스
+### expect 및 actual 클래스 {id="expected-and-actual-classes"}
 
 > expect 및 actual 클래스는 [베타(Beta)](supported-platforms.md#general-kotlin-stability-levels) 상태입니다.
 > 거의 안정적이지만 향후 마이그레이션 단계가 필요할 수 있습니다.
@@ -268,7 +268,7 @@ kotlin {
 }
 ```
 
-#### 플랫폼 클래스로부터의 상속
+#### 플랫폼 클래스로부터의 상속 {id="inheritance-from-platform-classes"}
 
 클래스에 `expect` 키워드를 사용하는 것이 가장 좋은 접근 방식인 특별한 경우가 있습니다. JVM에 `Identity` 타입이 이미 존재한다고 가정해 보겠습니다.
 
@@ -310,7 +310,7 @@ open class Identity {
 
 여기서 `CommonIdentity` 타입은 고유한 설계와 호환되면서도 JVM의 기존 타입의 이점을 누릴 수 있습니다.
 
-#### 프레임워크에서의 응용
+#### 프레임워크에서의 응용 {id="application-in-frameworks"}
 
 프레임워크 제작자로서 expect 및 actual 선언이 프레임워크에 유용하다는 것을 알 수 있습니다.
 
@@ -361,11 +361,11 @@ typically provides an expected `CommonViewModel` class whose actual Android coun
 from the Android framework. See [Use platform-specific APIs](multiplatform-connect-to-apis.md#adapting-to-an-existing-hierarchy-using-expected-actual-classes)
 for a detailed description of this example. -->
 
-## 고급 사용 사례
+## 고급 사용 사례 {id="advanced-use-cases"}
 
 expect 및 actual 선언과 관련된 몇 가지 특별한 경우가 있습니다.
 
-### actual 선언을 충족하기 위해 타입 별칭(typealias) 사용
+### actual 선언을 충족하기 위해 타입 별칭(typealias) 사용 {id="using-type-aliases-to-satisfy-actual-declarations"}
 
 actual 선언의 구현을 처음부터 작성할 필요는 없습니다. 타사 라이브러리에서 제공하는 클래스와 같은 기존 타입이 될 수도 있습니다.
 
@@ -402,7 +402,7 @@ actual typealias MyDate = java.time.LocalDate
 <!-- See [Using platform-specific APIs](multiplatform-connect-to-apis.md#actualizing-an-interface-or-a-class-with-an-existing-platform-class-using-typealiases)
 for an Android-specific example of this pattern. -->
 
-### actual 선언에서 확장된 가시성
+### actual 선언에서 확장된 가시성 {id="expanded-visibility-in-actual-declarations"}
 
 actual 구현을 해당 expect 선언보다 더 가시적으로 만들 수 있습니다. 이는 공통 클라이언트에게 API를 공개하고 싶지 않을 때 유용합니다.
 
@@ -425,7 +425,7 @@ public actual typealias Messenger = MyMessenger
 
 여기서 internal expect 클래스는 타입 별칭을 사용하여 기존의 public `MyMessenger`와 함께 actual 구현을 가집니다.
 
-### 실제화 시 추가 열거형 항목
+### 실제화 시 추가 열거형 항목 {id="additional-enumeration-entries-on-actualization"}
 
 공통 소스 세트에서 열거형이 `expect`로 선언되면 각 플랫폼 모듈에는 해당 `actual` 선언이 있어야 합니다. 이러한 선언은 동일한 열거형 상수를 포함해야 하지만, 추가 상수를 가질 수도 있습니다.
 
@@ -466,7 +466,7 @@ fun matchOnDepartment(dept: Department) {
 
 <!-- If you'd like to forbid adding new constants in the actual enum, please vote for this issue [TODO]. -->
 
-### expect 어노테이션 클래스
+### expect 어노테이션 클래스 {id="expected-annotation-classes"}
 
 expect 및 actual 선언은 어노테이션과 함께 사용할 수 있습니다. 예를 들어 `@XmlSerializable` 어노테이션을 선언할 수 있으며, 이는 각 플랫폼 소스 세트에서 해당 actual 선언을 가져야 합니다.
 
@@ -503,6 +503,6 @@ expect annotation class XmlSerializable()
 
 필요하지 않은 플랫폼에서 actual 선언이 누락되어도 컴파일러는 오류를 발생시키지 않습니다.
 
-## 다음 단계는?
+## 다음 단계는? {id="what-s-next"}
 
 플랫폼별 API를 사용하는 다양한 방법에 대한 일반적인 권장 사항은 [플랫폼별 API 사용](multiplatform-connect-to-apis.md)을 참조하세요.

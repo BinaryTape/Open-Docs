@@ -12,7 +12,7 @@
 
 コマンドラインを使用して、直接またはスクリプトファイル（`.sh` や `.bat` ファイルなど）を使用して Kotlin ライブラリを生成することもできます。しかし、この方法は数百のファイルやライブラリを持つ大規模なプロジェクトには向きません。ビルドシステムを使用すると、Kotlin/Native コンパイラのバイナリや推移的依存関係を持つライブラリのダウンロードとキャッシュ、およびコンパイラやテストの実行が簡素化されます。Kotlin/Native は、[Kotlin マルチプラットフォームプラグイン](gradle-configure-project.md#targeting-multiple-platforms)を通じて [Gradle](https://gradle.org) ビルドシステムを使用できます。
 
-## 始める前に
+## 始める前に {id="before-you-start"}
 
 1. 最新バージョンの [IntelliJ IDEA](https://www.jetbrains.com/idea/) をダウンロードしてインストールします。
 2. IntelliJ IDEA で **File** | **New** | **Project from Version Control** を選択し、以下の URL を使用して[プロジェクトテンプレート](https://github.com/Kotlin/kmp-native-wizard)をクローンします：
@@ -52,7 +52,7 @@
    * `binaries {}` ブロックは、バイナリの生成方法とアプリケーションのエントリポイントを定義します。これらはデフォルト値のままで構いません。
    * C インターオペラビリティ（C interop）は、ビルドの追加ステップとして構成されます。デフォルトでは、C からのすべてのシンボルは `interop` パッケージにインポートされます。`.kt` ファイル内でパッケージ全体をインポートすることもできます。詳細な[構成方法](gradle-configure-project.md#targeting-multiple-platforms)についてはこちらをご覧ください。
 
-## 定義ファイルの作成
+## 定義ファイルの作成 {id="create-a-definition-file"}
 
 ネイティブアプリケーションを作成する際、HTTP リクエストの送信やディスクへの読み書きなど、[Kotlin 標準ライブラリ](https://kotlinlang.org/api/latest/jvm/stdlib/)に含まれていない特定の機能へのアクセスが必要になることがよくあります。
 
@@ -91,7 +91,7 @@ Kotlin/Native は標準の C ライブラリの利用をサポートしており
 >
 {style="note"}
 
-## ビルドプロセスへのインターオペラビリティの追加
+## ビルドプロセスへのインターオペラビリティの追加 {id="add-interoperability-to-the-build-process"}
 
 ヘッダーファイルを使用するには、それらがビルドプロセスの一部として生成されるようにする必要があります。このために、以下の `compilations {}` ブロックを `build.gradle.kts` ファイルに追加します：
 
@@ -123,7 +123,7 @@ cinterops {
 }
 ```
 
-## アプリケーションコードの記述
+## アプリケーションコードの記述 {id="write-the-application-code"}
 
 ライブラリと対応する Kotlin スタブが用意できたので、アプリケーションからそれらを使用できます。このチュートリアルでは、[simple.c](https://curl.se/libcurl/c/simple.html) の例を Kotlin に変換します。
 
@@ -154,7 +154,7 @@ fun main(args: Array<String>) {
 >
 {style="tip"}
 
-## アプリケーションのコンパイルと実行
+## アプリケーションのコンパイルと実行 {id="compile-and-run-the-application"}
 
 1. アプリケーションをコンパイルするには、タスクリストから `runDebugExecutable<YourTargetName>` Gradle タスクを実行するか、ターミナルでコンソールコマンドを使用します。例：
  
@@ -176,6 +176,6 @@ fun main(args: Array<String>) {
 >
 {style="note"}
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 [C とのインターオペラビリティ](native-c-interop.md)についてさらに詳しく学びましょう。

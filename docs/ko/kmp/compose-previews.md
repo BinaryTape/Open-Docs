@@ -16,7 +16,7 @@ Compose 멀티플랫폼은 처음에 제한적인 `@Preview` 어노테이션을 
 * 추가 파라미터를 사용하여 [프리뷰를 사용하고 커스텀하는 방법](#use-previews)
 * Compose 멀티플랫폼, AGP 및 어노테이션의 [지원되는 조합 개요](#supported-configurations)
 
-## 프리뷰 설정
+## 프리뷰 설정 {id="preview-setup"}
 
 처음부터 시작하는 경우, 미리 구성되어 제공되는 IDE 마법사를 사용하여 **새 프로젝트**를 생성할 수 있습니다.
 
@@ -67,7 +67,7 @@ kotlin {
     }
     ```
 
-## 프리뷰 사용
+## 프리뷰 사용 {id="use-previews"}
 
 Compose 멀티플랫폼은 Android 툴링에서 제공하는 전체 프리뷰 기능을 사용할 수 있게 해줍니다.
 프리뷰를 대화형(interactive)으로 만들거나, 프리뷰를 이미지로 복사하거나, 동일한 `@Preview` 컴포저블을 서로 다른 파라미터로 여러 버전을 표시할 수 있습니다.
@@ -85,7 +85,7 @@ Compose 멀티플랫폼은 Android 툴링에서 제공하는 전체 프리뷰 �
 * `showBackground`: 프리뷰에 기본 배경색을 적용할지 여부를 결정하는 플래그입니다.
 * `backgroundColor`: 프리뷰의 배경색을 정의하는 32비트 ARGB 색상 정수입니다.
 
-## 지원되는 구성
+## 지원되는 구성 {id="supported-configurations"}
 
 의존성 버전과 프로젝트 구성 스타일에 따라 Compose 프리뷰를 활성화하는 데 사용할 수 있는 몇 가지 지원 조합이 있습니다:
 
@@ -99,7 +99,7 @@ Compose 멀티플랫폼은 Android 툴링에서 제공하는 전체 프리뷰 �
 >
 {style="note"}
 
-### 사용 가능한 어노테이션
+### 사용 가능한 어노테이션 {id="available-annotations"}
 
 Compose 멀티플랫폼에서는 두 가지 `@Preview` 어노테이션을 사용할 수 있습니다:
 
@@ -114,7 +114,7 @@ Compose 멀티플랫폼에서는 두 가지 `@Preview` 어노테이션을 사용
 
 공유 코드에서 이러한 어노테이션 중 하나를 사용하려면 [위에서 설명한 대로](#preview-setup) `commonMain` 소스 세트에 적절한 런타임 의존성을 추가하세요.
 
-### Android 타겟 구성
+### Android 타겟 구성 {id="android-target-configurations"}
 
 프로젝트에서 Android Gradle 플러그인 8.x를 사용하는 경우, 프로젝트의 Kotlin 멀티플랫폼 파트는 Android 애플리케이션(`com.android.application`) 또는 Android 라이브러리(`com.android.library`) 플러그인을 사용해야 하며, Android 구성은 `build.gradle.kts` 파일의 `androidTarget {}` 블록에 포함됩니다.
 

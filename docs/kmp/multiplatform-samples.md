@@ -16,7 +16,7 @@
 您可以通过 [kotlin-multiplatform-sample](https://github.com/topics/kotlin-multiplatform-sample) 话题在 GitHub 上找到更多示例项目。
 要探索整个生态系统，请查看 [kotlin-multiplatform](https://github.com/topics/kotlin-multiplatform) 话题。
 
-### JetBrains 官方示例
+### JetBrains 官方示例 {id="jetbrains-official-samples"}
 
 <table>
     
@@ -212,7 +212,7 @@
 
 </table>
 
-### 推荐示例
+### 推荐示例 {id="recommended-samples"}
 
 <table>
     
@@ -369,7 +369,7 @@
 
 </table>
 
-### 其他社区示例
+### 其他社区示例 {id="other-community-samples"}
 
 <table>
     

@@ -14,7 +14,7 @@
 >
 {style="tip"}
 
-## 设置你的项目
+## 设置你的项目 {id="setting-up-your-project"}
 
 以下是使用需要使用 C 库的项目时的通用工作流程：
 
@@ -28,9 +28,9 @@
 
 在许多情况下，无需配置自定义的 C 库互操作性。相反，你可以使用平台上可用的 API，这些 API 已包含在被称为[平台库](native-platform-libs.md)的标准绑定中。例如，Linux/macOS 平台上的 POSIX、Windows 平台上的 Win32 或 macOS/iOS 上的 Apple 框架都可以通过这种方式使用。
 
-## 绑定
+## 绑定 {id="bindings"}
 
-### 基础互操作类型
+### 基础互操作类型 {id="basic-interop-types"}
 
 所有受支持的 C 类型在 Kotlin 中都有相应的表示：
 
@@ -44,7 +44,7 @@
 
 对于同时具有两种表示形式的类型，具有左值的类型有一个可变的 `.value` 属性用于访问该值。
 
-#### 指针类型
+#### 指针类型 {id="pointer-types"}
 
 `CPointer<T>` 的类型参数 `T` 必须是上述左值类型之一。例如，C 类型 `struct S*` 映射到 `CPointer<S>`，`int8_t*` 映射到 `CPointer<int_8tVar>`，而 `char**` 映射到 `CPointer<CPointerVar<ByteVar>>`。
 
@@ -102,7 +102,7 @@ val originalPtr = longValue.toCPointer<T>()
 > 
 {style="tip"}
 
-### 内存分配
+### 内存分配 {id="memory-allocation"}
 
 可以使用 `NativePlacement` 接口分配原生内存，例如：
 
@@ -146,7 +146,7 @@ val fileSize = memScoped {
 }
 ```
 
-### 向绑定传递指针
+### 向绑定传递指针 {id="pass-pointers-to-bindings"}
 
 虽然 C 指针被映射到 `CPointer<T>` 类型，但 C 函数指针类型的参数映射到 `CValuesRef<T>`。当传递一个 `CPointer<T>` 作为此类参数的值时，它会原样传递给 C 函数。然而，也可以传递一系列值来代替指针。在这种情况下，序列是“按值”传递的，即 C 函数接收到指向该序列临时副本的指针，该副本仅在函数返回之前有效。
 
@@ -172,7 +172,7 @@ foo(elements, 3);
 foo(cValuesOf(1, 2, 3), 3)
 ```
 
-### 字符串
+### 字符串 {id="strings"}
 
 与其他指针不同，类型为 `const char*` 的参数被表示为 Kotlin `String`。因此，可以将任何 Kotlin 字符串传递给期望 C 字符串的绑定。
 
@@ -207,7 +207,7 @@ memScoped {
 }
 ```
 
-### 作用域局部指针
+### 作用域局部指针 {id="scope-local-pointers"}
 
 可以使用在 `memScoped {}` 下可用的 `CValues<T>.ptr` 扩展属性，为 `CValues<T>` 实例创建一个 C 表示形式的作用域稳定指针。它允许使用需要 C 指针且生命周期绑定到特定 `MemScope` 的 API。例如：
 
@@ -225,7 +225,7 @@ memScoped {
 
 在此示例中，传递给 C API `new_menu()` 的所有值都具有其所属的最内层 `memScope` 的生命周期。一旦控制流离开 `memScoped` 作用域， C 指针就会失效。
 
-### 按值传递和接收结构体
+### 按值传递和接收结构体 {id="pass-and-receive-structs-by-value"}
 
 当 C 函数按值接受或返回结构体/联合体 `T` 时，相应的参数类型或返回类型表示为 `CValue<T>`。
 
@@ -247,11 +247,11 @@ memScoped {
 * [`fun CValues<T>.placeTo(scope: AutofreeScope): CPointer<T>`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/place-to.html)
   将 `CValues<T>` 放置在 `AutofreeScope` 中，返回指向分配内存的指针。当 `AutofreeScope` 被释放时，分配的内存将自动释放。
 
-### 回调
+### 回调 {id="callbacks"}
 
 要将 Kotlin 函数转换为指向 C 函数的指针，可以使用 `staticCFunction(::kotlinFunction)`。也可以提供 lambda 而不是函数引用。该函数或 lambda 不得捕获任何值。
 
-#### 向回调传递用户数据
+#### 向回调传递用户数据 {id="pass-user-data-to-callbacks"}
 
 C API 通常允许向回调传递一些用户数据。此类数据通常由用户在配置回调时提供。例如，它以 `void*` 的形式传递给某些 C 函数（或写入结构体）。然而，Kotlin 对象的引用不能直接传递给 C。因此，在配置回调之前需要对它们进行包装，然后在回调本身中进行解包，以便安全地从 Kotlin 世界通过 C 世界游回 Kotlin。这种包装可以使用 `StableRef` 类来实现。
 
@@ -285,7 +285,7 @@ stableRef.dispose()
 
 在此之后，它将失效，因此 `voidPtr` 无法再被解包。
 
-### 宏
+### 宏 {id="macros"}
 
 每个扩展为常量的 C 宏都表示为一个 Kotlin 属性。
 
@@ -310,7 +310,7 @@ static inline int foo(int arg) {
 }
 ```
 
-### 移植性
+### 移植性 {id="portability"}
 
 有时 C 库具有平台相关类型的函数参数或结构体字段，例如 `long` 或 `size_t`。Kotlin 本身既不提供隐式整数转换，也不提供 C 风格的整数转换（例如 `(size_t) intValue`），因此为了在此类情况下更轻松地编写可移植代码，提供了 `convert` 方法：
 
@@ -336,7 +336,7 @@ fun zeroMemory(buffer: COpaquePointer, size: Int) {
 
 此外，类型参数可以自动推断，因此在某些情况下可以省略。
 
-### 对象固定
+### 对象固定 {id="object-pinning"}
 
 Kotlin 对象可以被固定 (pinning)，即保证它们在内存中的位置在解除固定之前保持稳定，并且可以将指向此类对象内部数据的指针传递给 C 函数。
 
@@ -387,7 +387,7 @@ Kotlin 对象可以被固定 (pinning)，即保证它们在内存中的位置在
 
   在这里，`buffer.refTo(0)` 具有 `CValuesRef` 类型，它在进入 `recv()` 函数之前固定数组，将第零个元素的地址传递给该函数，并在退出后解除数组的固定。
 
-### 前向声明
+### 前向声明 {id="forward-declarations"}
 
 要导入前向声明，请使用 `cnames` 软件包。例如，要导入在具有 `library.package` 的 C 库中声明的 `cstructName` 前向声明，请使用特殊的前向声明软件包：`import cnames.structs.cstructName`。
 
@@ -431,7 +431,7 @@ fun test() {
 }
 ```
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 通过完成以下教程，了解类型、函数和字符串如何在 Kotlin 和 C 之间进行映射：
 

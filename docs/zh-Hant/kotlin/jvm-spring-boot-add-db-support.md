@@ -6,7 +6,7 @@
 在 JVM 應用程式中，你會使用 JDBC 與資料庫進行互動。
 為了方便起見，Spring Framework 提供了 `JdbcTemplate` 類別，可簡化 JDBC 的使用並協助避免常見錯誤。
 
-## 新增資料庫支援
+## 新增資料庫支援 {id="add-database-support"}
 
 在基於 Spring Framework 的應用程式中，常見的做法是在所謂的 _服務 (service)_ 層中實作資料庫存取邏輯 —— 這是商業邏輯所在之處。
 在 Spring 中，你應該使用 `@Service` 註解標記類別，以表示該類別屬於應用程式的服務層。
@@ -72,7 +72,7 @@ class MessageService(private val db: JdbcTemplate) {
    </def>
 </deflist>
 
-## 更新 MessageController 類別
+## 更新 MessageController 類別 {id="update-the-messagecontroller-class"}
 
 更新 `MessageController.kt` 以使用新的 `MessageService` 類別：
 
@@ -112,7 +112,7 @@ class MessageController(private val service: MessageService) {
    </def>
 </deflist>
 
-## 更新 MessageService 類別
+## 更新 MessageService 類別 {id="update-the-messageservice-class"}
 
 `Message` 類別的 `id` 被宣告為可 null 的 String：
 
@@ -157,7 +157,7 @@ class MessageService(private val db: JdbcTemplate) {
 
 應用程式程式碼已準備好與資料庫配合使用。現在需要配置資料來源。
 
-## 配置資料庫
+## 配置資料庫 {id="configure-the-database"}
 
 在應用程式中配置資料庫：
 
@@ -192,7 +192,7 @@ class MessageService(private val db: JdbcTemplate) {
    這些設定為 Spring Boot 應用程式啟用了資料庫。
    請參閱 [Spring 文件](https://docs.spring.io/spring-boot/appendix/application-properties/index.html) 以取得常用應用程式屬性的完整清單。
 
-## 透過 HTTP 請求將訊息新增至資料庫
+## 透過 HTTP 請求將訊息新增至資料庫 {id="add-messages-to-database-via-http-request"}
 
 你應該使用 HTTP 用戶端來操作先前建立的端點。在 IntelliJ IDEA 中，使用內建的 HTTP 用戶端：
 
@@ -240,7 +240,7 @@ class MessageService(private val db: JdbcTemplate) {
 
    ![執行 GET 請求](execute-get-requests.png){width=700}
 
-### 執行請求的替代方式 {initial-collapse-state="collapsed" collapsible="true"}
+### 執行請求的替代方式 {initial-collapse-state="collapsed" collapsible="true" id="alternative-way-to-execute-requests"}
 
 你也可以使用任何其他 HTTP 用戶端或 cURL 命令列工具。例如，在終端中執行以下指令以獲得相同的結果：
 
@@ -254,7 +254,7 @@ curl -X POST --location "http://localhost:8080" -H "Content-Type: application/js
 curl -X GET --location "http://localhost:8080"
 ```
 
-## 依識別碼檢索訊息
+## 依識別碼檢索訊息 {id="retrieve-messages-by-id"}
 
 擴充應用程式的功能，以便依 id 檢索個別訊息。
 
@@ -454,7 +454,7 @@ class MessageController(private val service: MessageService) {
 ```
 {initial-collapse-state="collapsed" collapsible="true"}
 
-## 執行應用程式
+## 執行應用程式 {id="run-the-application"}
 
 Spring 應用程式已準備好執行：
 
@@ -484,7 +484,7 @@ Spring 應用程式已準備好執行：
 
     ![依識別碼檢索訊息](retrieve-message-by-its-id.png){width=700}
 
-## 下一步
+## 下一步 {id="next-step"}
 
 最後一個步驟將向你展示如何使用 Spring Data 與資料庫進行更常見的連線。 
 

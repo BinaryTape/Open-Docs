@@ -3,7 +3,7 @@
 Kotlin/JS에는 성능, 크기 및 개발 속도를 위해 코드를 최적화하는 컴파일러 기능이 포함되어 있습니다.
 이 기능은 Kotlin 코드를 JavaScript 코드로 생성하기 전 중간 표현(IR)으로 변환하는 컴파일 과정을 통해 작동합니다.
 
-## 최상위 프로퍼티의 지연 초기화
+## 최상위 프로퍼티의 지연 초기화 {id="lazy-initialization-of-top-level-properties"}
 
 애플리케이션 시작 성능을 높이기 위해 Kotlin/JS 컴파일러는 최상위 프로퍼티(top-level properties)를 지연 초기화(lazy initialization)합니다. 이 방식을 통해 애플리케이션은 코드에 사용된 모든 최상위 프로퍼티를 초기화하지 않고도 로드될 수 있습니다. 시작 시점에 필요한 프로퍼티만 초기화하며, 다른 프로퍼티는 해당 프로퍼티를 사용하는 코드가 실제로 실행될 때 값을 할당받습니다.
 
@@ -17,7 +17,7 @@ val a = run {
 
 어떤 이유로든 프로퍼티를 즉시(애플리케이션 시작 시) 초기화해야 하는 경우, 해당 프로퍼티에 [`@EagerInitialization`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.js/-eager-initialization/){nullable="true"} 어노테이션을 표시하세요.
 
-## 개발용 바이너리를 위한 증분 컴파일
+## 개발용 바이너리를 위한 증분 컴파일 {id="incremental-compilation-for-development-binaries"}
 
 Kotlin/JS 컴파일러는 개발 프로세스 속도를 높여주는 _개발용 바이너리 증분 컴파일(incremental compilation) 모드_를 제공합니다.
 이 모드에서 컴파일러는 모듈 레벨에서 `compileDevelopmentExecutableKotlinJs` Gradle 태스크의 결과를 캐시합니다.
@@ -33,7 +33,7 @@ kotlin.incremental.js.ir=false // 기본값은 true
 >
 {style="note"}
 
-## 프로덕션 환경에서의 멤버 이름 축소
+## 프로덕션 환경에서의 멤버 이름 축소 {id="minification-of-member-names-in-production"}
 
 Kotlin/JS 컴파일러는 Kotlin 클래스와 함수 간의 관계에 대한 내부 정보를 사용하여 함수, 프로퍼티 및 클래스의 이름을 단축하는 보다 효율적인 축소(Minification)를 적용합니다. 이는 결과물인 번들 애플리케이션의 크기를 줄여줍니다.
 
@@ -51,7 +51,7 @@ kotlin {
 }
 ```
 
-## 데드 코드 제거
+## 데드 코드 제거 {id="dead-code-elimination"}
 
 [데드 코드 제거](https://wikipedia.org/wiki/Dead_code_elimination)(Dead code elimination, DCE)는 사용되지 않는 프로퍼티, 함수 및 클래스를 제거하여 생성된 JavaScript 코드의 크기를 줄입니다.
 

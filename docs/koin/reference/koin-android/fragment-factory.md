@@ -8,15 +8,15 @@ Koin 与 [AndroidX FragmentFactory](https://developer.android.com/reference/kotl
 Fragment Factory 仅支持 DSL。目前尚不支持注解和编译器插件 DSL。
 :::
 
-## 设置
+## 设置 {id="setup"}
 
-### 添加依赖项
+### 添加依赖项 {id="add-dependency"}
 
 ```groovy
 implementation "io.insert-koin:koin-android:$koin_version"
 ```
 
-### 配置 Fragment Factory
+### 配置 Fragment Factory {id="configure-fragment-factory"}
 
 在 Koin 配置中，启用 Fragment Factory：
 
@@ -28,7 +28,7 @@ startKoin {
 }
 ```
 
-## 声明 Fragment
+## 声明 Fragment {id="declaring-fragments"}
 
 使用 `fragment` DSL 关键字配合构造函数注入：
 
@@ -43,9 +43,9 @@ val appModule = module {
 }
 ```
 
-## 使用 Fragment
+## 使用 Fragment {id="using-fragments"}
 
-### 在 Activity 中设置
+### 在 Activity 中设置 {id="setup-in-activity"}
 
 在 `super.onCreate()` **之前**调用 `setupKoinFragmentFactory()`：
 
@@ -62,7 +62,7 @@ class MyActivity : AppCompatActivity() {
 }
 ```
 
-### 添加 Fragment
+### 添加 Fragment {id="add-fragment"}
 
 使用具体化扩展函数：
 
@@ -84,7 +84,7 @@ supportFragmentManager.beginTransaction()
     .commit()
 ```
 
-## 带有作用域的 Fragment Factory
+## 带有作用域的 Fragment Factory {id="fragment-factory-with-scopes"}
 
 要在 Fragment 中使用 Activity 作用域的依赖项：
 
@@ -113,7 +113,7 @@ class MyActivity : AppCompatActivity(), AndroidScopeComponent {
 }
 ```
 
-## 快速参考
+## 快速参考 {id="quick-reference"}
 
 | 操作 | 代码 |
 |--------|------|
@@ -122,7 +122,7 @@ class MyActivity : AppCompatActivity(), AndroidScopeComponent {
 | 设置作用域 | `setupKoinFragmentFactory(scope)` |
 | 添加 Fragment | `.replace<MyFragment>(R.id.container)` |
 
-## 下一步
+## 下一步 {id="next-steps"}
 
 - **[AndroidX Fragment](https://developer.android.com/guide/fragments)** - 官方 Fragment 文档
 - **[作用域](/docs/reference/koin-android/scope)** - Android 作用域

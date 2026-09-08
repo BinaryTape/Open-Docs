@@ -10,7 +10,7 @@
 
 讓我們來探索 Kotlin 可以實現的功能。
 
-## 標準函式庫
+## 標準函式庫 {id="the-standard-library"}
 
 Kotlin 擁有標準函式庫 (standard library)，提供必要的型別、函式、集合與工具，讓您的程式碼更加簡潔且具表現力。標準函式庫的大部分內容（[`kotlin` 套件](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/)中的所有內容）在任何 Kotlin 檔案中都是隨插即用的，無需明確匯入：
 
@@ -61,7 +61,7 @@ fun main() {
 * 使用 `hours` 屬性將 `0.5` 轉換為 30 分鐘的 `Duration`。
 * 檢查兩個持續時間是否相等並列印結果。
 
-### 在開發前先搜尋
+### 在開發前先搜尋 {id="search-before-you-build"}
 
 在您決定編寫自己的程式碼之前，請先查看標準函式庫，看看您要找的功能是否已經存在。以下是標準函式庫已經為您提供多種類別、函式與屬性的領域清單：
 
@@ -72,7 +72,7 @@ fun main() {
 
 若要進一步了解標準函式庫中的其他內容，請瀏覽其 [API 參考文件](https://kotlinlang.org/api/core/kotlin-stdlib/)。
 
-## Kotlin 程式庫
+## Kotlin 程式庫 {id="kotlin-libraries"}
 
 標準函式庫涵蓋了許多常見的使用案例，但仍有一些情況未涉及。幸運的是， Kotlin 團隊和社群其他成員開發了各式各樣的程式庫來補充標準函式庫。例如，[`kotlinx-datetime`](https://kotlinlang.org/api/kotlinx-datetime/) 能協助您在不同平台間管理時間。
 
@@ -108,7 +108,7 @@ fun main() {
 >
 {style="tip"}
 
-## 選擇性加入 API
+## 選擇性加入 API {id="opt-in-to-apis"}
 
 程式庫作者可能會將某些 API 標記為需要選擇性加入 (opt-in)，然後您才能在程式碼中使用它們。他們通常會在 API 仍在開發中且未來可能會變更時執行此操作。如果您沒有選擇性加入，您會看到如下的警告或錯誤：
 
@@ -149,7 +149,7 @@ fun main() {
 
 這是最簡單的選擇性加入方式，但還有其他方法。若要了解更多，請參閱[選擇性加入需求](opt-in-requirements.md)。
 
-## 練習 {completion-point="true"}
+## 練習 {completion-point="true" id="practice"}
 
 ### 練習 1 {initial-collapse-state="collapsed" collapsible="true" id="libraries-exercise-1"}
 
@@ -267,7 +267,7 @@ fun main() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="範例解答" id="kotlin-tour-libraries-solution-3"}
 
-## 下一步？
+## 下一步？ {id="what-s-next"}
 
 恭喜！您已完成中階導覽！您願意[分享您的意見回饋](https://surveys.hotjar.com/bf4ce865-99ce-4fc1-b107-e9b16bc31592)嗎？
 

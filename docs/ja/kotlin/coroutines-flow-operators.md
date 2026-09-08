@@ -14,7 +14,7 @@ Kotlinは、主に2種類のFlowオペレーターを提供しています：
 >
 {style="tip"}
 
-## 中間オペレーター
+## 中間オペレーター {id="intermediate-operators"}
 
 中間オペレーターは、上流のFlowからの値を消費する新しい下流のFlowを返します。
 最終的な結果を収集する前に、いくつかの中間オペレーターを連鎖させてFlowパイプラインを構築できます。
@@ -27,7 +27,7 @@ Kotlinは、主に2種類のFlowオペレーターを提供しています：
 * [**合成オペレーター**](#combining-operators)（Combining operators）：複数の上流のFlowから値を収集し、1つの下流のFlowに放出します。
 * [**ライフサイクルオペレーター**](#lifecycle-operators)（Lifecycle operators）：収集の開始時や上流のFlowの完了時など、Flow収集中の特定のイベントに応じてアクションを実行します。
 
-### 変換オペレーター
+### 変換オペレーター {id="transforming-operators"}
 
 変換オペレーターは、上流のFlowから放出された値を変換します。
 値を別の型に変換したり、値をスキップしたり、追加の値を下流に放出したりするために使用できます。
@@ -155,7 +155,7 @@ suspend fun main() = withContext(Dispatchers.Default) {
 ```
 {kotlin-runnable="true"}
 
-### フィルタリングおよびサイズ制限オペレーター
+### フィルタリングおよびサイズ制限オペレーター {id="filtering-and-size-limiting-operators"}
 
 フィルタリングおよびサイズ制限オペレーターは、Flowからどの値が下流に継続するかを制御します。
 連続した重複値の削除、Flowの開始部分の値をスキップ、または指定した数の値の後に収集をキャンセルするために使用できます。
@@ -266,7 +266,7 @@ suspend fun main() = withContext(Dispatchers.Default) {
 ```
 {kotlin-runnable="true"}
 
-### 並行処理オペレーター
+### 並行処理オペレーター {id="concurrent-processing-operators"}
 
 デフォルトでは、Flowパイプラインは値を逐次的に処理します。
 上流のFlowが値を放出し、収集側（collector）がそれを処理してから、次の値が放出されます。
@@ -446,7 +446,7 @@ suspend fun main() = withContext(Dispatchers.Default) {
 ```
 {kotlin-runnable="true"}
 
-### 合成オペレーター
+### 合成オペレーター {id="combining-operators"}
 
 合成オペレーターは、複数の上流のFlowから値を消費し、単一の下流のFlowを返します。
 収集側が複数のFlowからの値を必要とする場合に使用します。
@@ -595,7 +595,7 @@ suspend fun main() {
 ```
 {kotlin-runnable="true"}
 
-### ライフサイクルオペレーター
+### ライフサイクルオペレーター {id="lifecycle-operators"}
 
 ライフサイクルオペレーターは、Flowの収集中の特定の時点で実行される中断ラムダを受け取ります。
 Flowが収集される前、各値が放出される前、収集が完了した後、またはFlowが値を放出せずに完了したときにロジックを配置するために使用できます。
@@ -716,7 +716,7 @@ suspend fun main() {
 ```
 {kotlin-runnable="true"}
 
-## 終端オペレーター
+## 終端オペレーター {id="terminal-operators"}
 
 終端オペレーターはFlowを収集します。
 放出された値を消費したり、収集された値に基づいて結果を返したり、[特定の `CoroutineScope` でFlowを収集](#特定の-coroutinescope-でflowを起動する)したりするために使用できます。
@@ -877,7 +877,7 @@ suspend fun main() {
 ```
 {kotlin-runnable="true"}
 
-### 特定の `CoroutineScope` でFlowを起動する
+### 特定の `CoroutineScope` でFlowを起動する {id="collect-a-flow-in-a-specific-coroutinescope"}
 
 画面や他の長寿命オブジェクトがFlowからの値を必要とする場合は、そのオブジェクトの `CoroutineScope` で収集側を開始します。
 これにより、オブジェクトが破棄されたときにオブジェクトの `CoroutineScope` をキャンセルすることで、収集も確実にキャンセルされるようになります。

@@ -2,9 +2,9 @@
 
 より高度なカスタマイズを行うには、Gradle DSLを使用してデータベースを明示的に宣言できます。
 
-## SQLDelightの設定
+## SQLDelightの設定 {id="sqldelight-configuration"}
 
-### `databases`
+### `databases` {id="databases"}
 
 データベースのコンテナです。指定された名前で各データベースを作成するようにSQLDelightを設定します。
 
@@ -31,7 +31,7 @@
 
 ----
 
-### `linkSqlite`
+### `linkSqlite` {id="linksqlite"}
 
 型: `Property<Boolean>`
 
@@ -54,9 +54,9 @@ Nativeターゲット用。sqliteを自動的にリンクするかどうかを�
     linkSqlite = true
     ```
 
-## データベースの設定
+## データベースの設定 {id="database-configuration"}
 
-### `packageName`
+### `packageName` {id="packagename"}
 
 型: `Property<String>`
 
@@ -73,7 +73,7 @@ Nativeターゲット用。sqliteを自動的にリンクするかどうかを�
 
 ----
 
-### `srcDirs`
+### `srcDirs` {id="srcdirs"}
 
 型: `ConfigurableFileCollection`
 
@@ -90,7 +90,7 @@ Nativeターゲット用。sqliteを自動的にリンクするかどうかを�
     srcDirs = ['src/main/sqldelight']
     ```
 
-#### `srcDirs(vararg objects: Any)`
+#### `srcDirs(vararg objects: Any)` {id="srcdirs-vararg-objects-any"}
 
 プラグインが `.sq` および `.sqm` ファイルを検索するオブジェクトのコレクション。
 
@@ -105,7 +105,7 @@ Nativeターゲット用。sqliteを自動的にリンクするかどうかを�
 
 ----
 
-### `schemaOutputDirectory`
+### `schemaOutputDirectory` {id="schemaoutputdirectory"}
 
 型: `DirectoryProperty`
 
@@ -126,7 +126,7 @@ Nativeターゲット用。sqliteを自動的にリンクするかどうかを�
 
 ----
 
-### `dependency`
+### `dependency` {id="dependency"}
 
 型: `Project`
 
@@ -143,7 +143,7 @@ Nativeターゲット用。sqliteを自動的にリンクするかどうかを�
 
 ----
 
-### `dialect`
+### `dialect` {id="dialect"}
 
 型: `String` または `Provider<MinimalExternalModuleDependency>`
 
@@ -181,7 +181,7 @@ Androidプロジェクトの場合、SQLiteのバージョンは `minSdk` に基
 
 ----
 
-### `verifyMigrations`
+### `verifyMigrations` {id="verifymigrations"}
 
 型: `Property<Boolean>`
 
@@ -200,7 +200,7 @@ trueに設定すると、マイグレーションファイルにエラーがあ�
 
 ----
 
-### `treatNullAsUnknownForEquality`
+### `treatNullAsUnknownForEquality` {id="treatnullasunknownforequality"}
 
 型: `Property<Boolean>`
 
@@ -219,7 +219,7 @@ trueに設定すると、SQLDelightは `IS` を使用した際のNULL許容型�
 
 ----
 
-### `generateAsync`
+### `generateAsync` {id="generateasync"}
 
 型: `Property<Boolean>`
 
@@ -238,7 +238,7 @@ trueに設定すると、SQLDelightは非同期ドライバで使用するため
 
 ----
 
-### `deriveSchemaFromMigrations`
+### `deriveSchemaFromMigrations` {id="deriveschemafrommigrations"}
 
 型: `Property<Boolean>`
 
@@ -258,7 +258,7 @@ falseの場合、スキーマは `.sq` ファイルで定義されます。
 
 ----
 
-### `expandSelectStar`
+### `expandSelectStar` {id="expandselectstar"}
 
 型: `Property<Boolean>`
 
@@ -290,7 +290,7 @@ SELECT * FROM hockey_player;
 
 ----
 
-### `codegenExcludedColumns`
+### `codegenExcludedColumns` {id="codegenexcludedcolumns"}
 
 型: `SetProperty<String>`
 

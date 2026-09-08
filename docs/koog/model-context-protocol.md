@@ -14,7 +14,7 @@ Koog 框架提供了与 MCP 服务器的集成，使您能够将 MCP 工具合�
 
 要了解有关该协议的更多信息，请参阅 [Model Context Protocol](https://modelcontextprotocol.io) 文档。
 
-## MCP 服务器
+## MCP 服务器 {id="mcp-servers"}
 
 MCP 服务器实现了 Model Context Protocol，并为 AI 代理与工具和服务进行交互提供了一种标准化的方式。
 
@@ -25,7 +25,7 @@ MCP 服务器支持以下传输协议与代理通信：
 * 标准输入/输出 (stdio) 传输协议：用于与作为独立进程运行的 MCP 服务器进行通信。例如，Docker 容器或 CLI 工具。
 * 服务器发送事件 (SSE) 传输协议（可选）：用于通过 HTTP 与 MCP 服务器进行通信。
 
-## 与 Koog 集成
+## 与 Koog 集成 {id="integration-with-koog"}
 
 Koog 框架使用 [MCP SDK](https://github.com/modelcontextprotocol/kotlin-sdk) 与 MCP 集成，并在 `agent-mcp` 模块中提供了额外的 API 扩展。
 
@@ -37,7 +37,7 @@ Koog 框架使用 [MCP SDK](https://github.com/modelcontextprotocol/kotlin-sdk) 
 * 在工具注册表中注册转换后的工具。
 * 使用 LLM 提供的实参调用 MCP 工具。
 
-### 核心组件
+### 核心组件 {id="key-components"}
 
 以下是 Koog 中 MCP 集成的主要组件：
 
@@ -47,9 +47,9 @@ Koog 框架使用 [MCP SDK](https://github.com/modelcontextprotocol/kotlin-sdk) 
 | [`McpToolDescriptorParser`](api:agents-mcp::ai.koog.agents.mcp.McpToolDescriptorParser)                                        | 将 MCP 工具定义解析为 Koog 工具描述符格式。                                          |
 | [`McpToolRegistryProvider`](api:agents-mcp::ai.koog.agents.mcp.McpToolRegistryProvider) | 创建工具注册表，通过各种传输机制（stdio、SSE）连接到 MCP 服务器。 |
 
-## 快速入门
+## 快速入门 {id="getting-started"}
 
-### 1. 设置 MCP 连接
+### 1. 设置 MCP 连接 {id="1-set-up-an-mcp-connection"}
 
 要在 Koog 中使用 MCP，您需要设置一个连接：
 
@@ -58,7 +58,7 @@ Koog 框架使用 [MCP SDK](https://github.com/modelcontextprotocol/kotlin-sdk) 
 
 MCP 服务器支持 stdio 和 SSE 传输机制与代理通信，因此您可以使用其中之一进行连接。
 
-#### 通过 stdio 连接
+#### 通过 stdio 连接 {id="connect-with-stdio"}
 
 当 MCP 服务器作为独立进程运行时使用此协议。以下是使用 stdio 传输设置 MCP 连接的示例：
 
@@ -75,7 +75,7 @@ val transport = McpToolRegistryProvider.defaultStdioTransport(process)
 ```
 <!--- KNIT example-model-context-protocol-01.kt -->
 
-#### 通过 SSE 连接
+#### 通过 SSE 连接 {id="connect-with-sse"}
 
 当 MCP 服务器作为 Web 服务运行时使用此协议。以下是使用 SSE 传输设置 MCP 连接的示例：
 
@@ -88,7 +88,7 @@ val transport = McpToolRegistryProvider.defaultSseTransport("http://localhost:89
 ```
 <!--- KNIT example-model-context-protocol-02.kt -->
 
-### 2. 创建工具注册表
+### 2. 创建工具注册表 {id="2-create-a-tool-registry"}
 
 建立 MCP 连接后，您可以通过以下方式之一使用来自 MCP 服务器的工具创建工具注册表：
 
@@ -144,7 +144,7 @@ val toolRegistry = McpToolRegistryProvider.fromClient(
 ```
 <!--- KNIT example-model-context-protocol-04.kt -->
 
-### 3. 与您的代理集成
+### 3. 与您的代理集成 {id="3-integrate-with-your-agent"}
 
 要在 Koog 代理中使用 MCP 工具，您需要在代理中注册该工具注册表：
 <!--- INCLUDE
@@ -294,9 +294,9 @@ val result = agent.run("Use the MCP tool to perform a task")
 
 [//]: # (<!--- KNIT example-model-context-protocol-07.kt -->)
 
-## 使用示例
+## 使用示例 {id="usage-examples"}
 
-### Google Maps MCP 集成
+### Google Maps MCP 集成 {id="google-maps-mcp-integration"}
 
 此示例演示如何使用 MCP 连接到 [Google Maps](https://mcp.so/server/google-maps/modelcontextprotocol) 服务器以获取地理数据：
 
@@ -338,7 +338,7 @@ agent.run("Get elevation of the Jetbrains Office in Munich, Germany?")
 ```
 <!--- KNIT example-model-context-protocol-06.kt -->
 
-### Playwright MCP 集成
+### Playwright MCP 集成 {id="playwright-mcp-integration"}
 
 此示例演示如何使用 MCP 连接到 [Playwright](https://mcp.so/server/playwright-mcp/microsoft) 服务器进行 Web 自动化：
 

@@ -6,7 +6,7 @@
 
 Kotlinは [`Array<T>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/) クラスと [プリミティブ型配列](#primitive-type-arrays) を提供しています。
 
-## 配列を使用する場合
+## 配列を使用する場合 {id="when-to-use-arrays"}
 
 Java APIとの相互運用性や低レベルの要件がある場合に配列を使用してください。例えば、一般的なアプリケーションで必要とされる以上のパフォーマンス要件がある場合や、カスタムデータ構造を構築する必要がある場合などです。
 
@@ -24,7 +24,7 @@ Java APIとの相互運用性や低レベルの要件がある場合に配列を
 
 [配列をコレクションに変換する](#コレクションへの変換)方法についてはこちらをご覧ください。
 
-## 配列の作成
+## 配列の作成 {id="create-arrays"}
 
 配列を作成するには、以下を使用できます：
 
@@ -37,7 +37,7 @@ Java APIとの相互運用性や低レベルの要件がある場合に配列を
 > 
 {style="note"}
 
-### 値を持つ配列
+### 値を持つ配列 {id="array-with-values"}
 
 既知の値のセットから型指定された配列を作成するには、[`arrayOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/array-of.html) 関数を使用します。
 Kotlinは型を自動的に推論します：
@@ -53,7 +53,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="arrays-simple-array-kotlin"}
 
-### 空の配列
+### 空の配列 {id="empty-array"}
 
 要素のない配列を作成するには、[`emptyArray()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/empty-array.html) 関数を使用します。
 代入の左側または右側で要素の型を指定できます：
@@ -65,7 +65,7 @@ val emptyArrayLeft: Array<String> = emptyArray()
 
 配列に[要素を追加する方法](#要素の追加と削除)についてはこちらをご覧ください。
 
-### nullを含む配列
+### nullを含む配列 {id="array-with-nulls"}
 
 指定されたサイズで `null` 要素が入力された配列を作成するには、[`arrayOfNulls()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/array-of-nulls.html#kotlin$arrayOfNulls(kotlin.Int)) 関数を使用します：
 
@@ -80,7 +80,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="arrays-null-array-kotlin"}
 
-### Arrayコンストラクタ
+### Arrayコンストラクタ {id="array-constructor"}
 
 `Array` コンストラクタは、配列のサイズと、配列要素の値を返す関数を引数に取ります：
 
@@ -99,7 +99,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="arrays-array-constructor-kotlin"}
 
-### ネストされた配列
+### ネストされた配列 {id="nested-arrays"}
 
 ネストされた配列や多次元配列を作成するには、配列の配列を使用します。
 ネストされた配列は、同じ型や同じサイズである必要はありません。
@@ -121,7 +121,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="arrays-multidimensional-array-kotlin"}
 
-### プリミティブ型配列
+### プリミティブ型配列 {id="primitive-type-arrays"}
 
 プリミティブ値で `Array` クラスを使用すると、コンパイラはこれらの値をオブジェクトにボックス化します。
 ボックス化のオーバーヘッドを避けるために、専用のプリミティブ型配列を使用できます。
@@ -193,7 +193,7 @@ fun main() {
 >
 {style="note"}
 
-## 配列の操作
+## 配列の操作 {id="work-with-arrays"}
 
 配列は、反復、検索、ソート、変換など、コレクションと同じ操作の多くをサポートしています。
 Kotlinでは、配列を使用して関数に可変長引数を渡したり、配列自体に対して操作を実行したりできます。
@@ -214,7 +214,7 @@ Kotlinでは、配列を使用して関数に可変長引数を渡したり、�
 
 このセクションでは、最も頻繁に使用される操作のいくつかを紹介します。
 
-### 要素のアクセスと変更
+### 要素のアクセスと変更 {id="access-and-modify-elements"}
 
 配列の要素にアクセスして変更するには、[インデックスアクセス演算子](operator-overloading.md#indexed-access-operator) (`[]`) を使用します：
 
@@ -279,7 +279,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 要素の追加と削除
+### 要素の追加と削除 {id="add-and-remove-elements"}
 
 配列はサイズが固定されているため、`.add()` および `.remove()` 関数をサポートしていません。これらの操作を実行するには、新しい配列を作成する必要があります。そのために、次のいずれかのオプションを使用できます：
 
@@ -325,7 +325,7 @@ fun main() {
 >
 {style="tip"}
 
-### 配列の比較
+### 配列の比較 {id="compare-arrays"}
 
 2つの配列が同じ要素を同じ順序で持っているかどうかを比較するには、[`.contentEquals()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/content-equals.html) および [`.contentDeepEquals()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/content-deep-equals.html) 関数を使用します：
 
@@ -354,12 +354,12 @@ fun main() {
 >
 {style="warning"}
 
-### 配列の変換
+### 配列の変換 {id="transform-arrays"}
 
 Kotlinには配列を変換するための便利な関数が数多くあります。このセクションではその一部を紹介します。
 完全なリストについては、[APIリファレンス](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/)を参照してください。
 
-#### 合計 (Sum)
+#### 合計 (Sum) {id="sum"}
 
 配列内のすべての要素の合計を返すには、[`.sum()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/sum.html) 関数を使用します：
 
@@ -378,7 +378,7 @@ fun main() {
 >
 {style="note"}
 
-#### ソートとシャッフル
+#### ソートとシャッフル {id="sort-and-shuffle"}
 
 [`.sort()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/sort.html) 関数を使用して配列内の要素を自然な順序でソートしたり、[`.shuffle()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/shuffle.html) 関数を使用してランダムにシャッフルしたりできます。
 
@@ -402,7 +402,7 @@ fun main() {
 
 元の配列を変更せずに新しいソート済み配列を取得するには、代わりに [`.sortedArray()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/sorted-array.html) 関数を使用します。
 
-### 関数への可変長引数の受け渡し
+### 関数への可変長引数の受け渡し {id="pass-variable-number-of-arguments-to-a-function"}
 
 Kotlinでは、[`vararg`](functions.md#variable-number-of-arguments-varargs) パラメータを介して関数に可変長引数を渡すことができます。これは、メッセージのフォーマットやSQLクエリの作成時のように、引数の数が事前にわからない場合に便利です。
 
@@ -425,12 +425,12 @@ fun printAllStrings(vararg strings: String) {
 
 詳細については、[可変長引数 (varargs)](functions.md#variable-number-of-arguments-varargs) を参照してください。
 
-## コレクションへの変換
+## コレクションへの変換 {id="convert-to-collections"}
 
 配列を使用するものとコレクションを使用するものが混在する異なる API を使用する場合、配列をコレクションに、またはその逆に変換できます。そのために、[`.toList()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-list.html)、[`.toSet()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-set.html)、および [`.toMap()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-map.html) 関数を使用します。
 これらの関数は、配列の内容を独立したコピーにコピーします。これらは配列へのその後の変更を反映しません。
 
-### List または Set への変換
+### List または Set への変換 {id="convert-to-list-or-set"}
 
 配列を `List` または `Set` に変換するには、[`.toList()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-list.html) および [`.toSet()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-set.html) 関数を使用します：
 
@@ -467,7 +467,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### Map への変換
+### Map への変換 {id="convert-to-map"}
 
 配列を `Map` に変換するには、[`.toMap()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-map.html) 関数を使用します。
 
@@ -492,7 +492,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="arrays-convert-map-kotlin"}
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * ほとんどのユースケースでコレクションの使用を推奨する理由の詳細については、[コレクションの概要](collections-overview.md) をお読みください。
 * 他の [基本型](types-overview.md) について学びます。

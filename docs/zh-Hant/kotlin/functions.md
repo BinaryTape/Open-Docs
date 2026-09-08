@@ -24,7 +24,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false" id="kotlin-function-double"}
 
-## 函式用法
+## 函式用法 {id="function-usage"}
 
 使用標準方式呼叫函式：
 
@@ -39,7 +39,7 @@ val result = double(2)
 Stream().read()
 ```
 
-### 參數
+### 參數 {id="parameters"}
 
 使用 Pascal 表示法宣告函式參數：`name: Type`。
 您必須使用逗號分隔參數，並明確給予每個參數一個型別：
@@ -150,7 +150,7 @@ class Rectangle : Shape() {
 }
 ```
 
-#### 以非常數運算式作為預設值
+#### 以非常數運算式作為預設值 {id="non-constant-expressions-as-default-values"}
 
 您可以為參數指派非常數的預設值。
 例如，預設值可以是函式呼叫的結果，或者是使用其他引數值的計算結果，
@@ -215,7 +215,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="lambda-outside-parentheses"}
 
-### 具名引數
+### 具名引數 {id="named-arguments"}
 
 在呼叫函式時，您可以為一個或多個引數命名。
 當函式呼叫具有許多引數時，這會很有幫助。
@@ -279,7 +279,7 @@ mergeStrings(strings = arrayOf("a", "b", "c"))
 >
 {style="note"}
 
-### 傳回型別
+### 傳回型別 {id="return-types"}
 
 當您宣告具有區塊主體的函式時（透過將指令放在花括號 `{}` 內），
 必須一律明確指定傳回型別。
@@ -290,7 +290,7 @@ Kotlin 不會為具有區塊主體的函式推論傳回型別。
 這些函式的控制流程可能很複雜，這會使傳回型別對於讀者甚至是編譯器都不夠清晰。
 然而，如果您不指定，Kotlin 可以為 [單一運算式函式](#single-expression-functions) 推論傳回型別。
 
-### 單一運算式函式
+### 單一運算式函式 {id="single-expression-functions"}
 
 當函式主體由單一運算式組成時，您可以省略花括號，並在 `=` 符號後指定主體：
 
@@ -322,7 +322,7 @@ fun getDisplayNameOrDefault(userId: String?): String =
     getDisplayName(userId ?: return "default")
 ```
 
-### 傳回 Unit 的函式
+### 傳回 Unit 的函式 {id="unit-returning-functions"}
 
 如果函式具有區塊主體（花括號 `{}` 內的指令）且不傳回有用的值，
 編譯器會假設其傳回型別為 `Unit`。
@@ -389,7 +389,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false" id="return-unit-explicit"}
 
-### 可變參數 (varargs)
+### 可變參數 (varargs) {id="variable-number-of-arguments-varargs"}
 
 要將可變數量的引數傳遞給函式，您可以使用 `vararg` 修飾詞標記其參數之一
 （通常是最後一個）。
@@ -463,7 +463,7 @@ val a = intArrayOf(1, 2, 3)
 val list = asList(-1, 0, *a.toTypedArray(), 4)
 ```
 
-### Infix 表示法
+### Infix 表示法 {id="infix-notation"}
 
 您可以使用 `infix` 關鍵字宣告可以不使用圓括號或點號進行呼叫的函式。
 這有助於使程式碼中的簡單函式呼叫更易於閱讀。
@@ -531,12 +531,12 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="infix-notation-example"}
 
-## 函式作用域
+## 函式作用域 {id="function-scope"}
 
 您可以在檔案的頂層宣告 Kotlin 函式，這表示您不需要建立類別來持有函式。
 函式也可以在局部宣告為「成員函數」或「擴充方法」。
 
-### 區域函式
+### 區域函式 {id="local-functions"}
 
 Kotlin 支援區域函式，即在其他函式內部宣告的函式。
 例如，以下程式碼實作了給定圖形的深度優先搜尋 (DFS) 演算法。
@@ -604,7 +604,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="local-functions-dfs-with-local-variable"}
 
-### 成員函數
+### 成員函數 {id="member-functions"}
 
 成員函數是定義在類別或物件內部的函式：
 
@@ -623,7 +623,7 @@ Stream().read()
 
 有關類別與覆寫成員的更多資訊，請參閱 [類別](classes.md) 與 [繼承](classes.md#inheritance)。
 
-## 泛型函式
+## 泛型函式 {id="generic-functions"}
 
 您可以透過在函式名稱前使用尖括號 `<>` 來指定函式的泛型參數：
 
@@ -633,7 +633,7 @@ fun <T> singletonList(item: T): List<T> { /*...*/ }
 
 有關泛型函式的更多資訊，請參閱 [泛型](generics.md)。
 
-## 尾端遞迴函式
+## 尾端遞迴函式 {id="tail-recursive-functions"}
 
 Kotlin 支援一種稱為 [尾端遞迴](https://en.wikipedia.org/wiki/Tail_call) 的函式語言程式設計風格。
 對於某些通常會使用迴圈的演算法，您可以使用遞迴函式來代替，而沒有堆疊溢位的風險。

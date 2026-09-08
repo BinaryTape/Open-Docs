@@ -36,7 +36,7 @@ for ((a, b) in collection) { ... }
 
 変数 `a` と `b` には、コレクションの要素に対して呼び出された `component1()` と `component2()` が返す値が代入されます。
 
-## 例：関数から2つの値を返す
+## 例：関数から2つの値を返す {id="example-returning-two-values-from-a-function"}
  
 関数から2つのもの（例えば、結果オブジェクトと何らかのステータス）を返す必要があるとします。
 Kotlinでこれを簡潔に行う方法は、[データクラス](data-classes.md)を宣言してそのインスタンスを返すことです：
@@ -59,7 +59,7 @@ val (result, status) = function(...)
 >
 {style="note"}
 
-## 例：分解宣言とマップ
+## 例：分解宣言とマップ {id="example-destructuring-declarations-and-maps"}
 
 マップを反復処理する際、おそらく最も洗練された方法がこちらです：
 
@@ -84,7 +84,7 @@ operator fun <K, V> Map.Entry<K, V>.component2() = getValue()
 
 そのため、マップ（およびデータクラスのインスタンスのコレクションなど）に対して、`for` ループ内で自由に分解宣言を使用できます。
 
-## 未使用の変数に対するアンダースコア
+## 未使用の変数に対するアンダースコア {id="underscore-for-unused-variables"}
 
 分解宣言で変数が必要ない場合は、名前の代わりにアンダースコアを置くことができます：
 
@@ -94,7 +94,7 @@ val (_, status) = getResult()
 
 このようにスキップされたコンポーネントについては、`componentN()` オペレーター関数は呼び出されません。
 
-## ラムダでの分解
+## ラムダでの分解 {id="destructuring-in-lambdas"}
 
 ラムダのパラメータに対して分解宣言の構文を使用できます。
 ラムダが `Pair` 型（または `Map.Entry` や、適切な `componentN` 関数を持つその他の型）のパラメータを持つ場合、それらを括弧で囲むことで、1つのパラメータの代わりに複数の新しいパラメータを導入できます：
@@ -127,7 +127,7 @@ map.mapValues { (_, value): Map.Entry<Int, String> -> "$value!" }
 map.mapValues { (_, value: String) -> "$value!" }
 ```
 
-## 名前ベースの分解宣言
+## 名前ベースの分解宣言 {id="name-based-destructuring"}
 <primary-label ref="experimental-opt-in"/>
 
 Kotlinは*名前ベースの分解宣言 (name-based destructuring declarations)* をサポートしています。

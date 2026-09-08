@@ -8,7 +8,7 @@
 
 若要在 Compose Multiplatform 中在地化字串，您需要為應用程式支援的所有語言提供使用者介面元素的翻譯文本。Compose Multiplatform 藉由提供通用的資源管理程式庫和程式碼產生功能，讓您能輕鬆存取翻譯，進而簡化此過程。
 
-## 設定翻譯目錄
+## 設定翻譯目錄 {id="set-up-translation-directories"}
 
 將所有字串資源儲存在共通原始碼集中專用的 `composeResources` 目錄。
 將預設文字放在 `values` 目錄，並為每種語言建立對應的目錄。
@@ -48,7 +48,7 @@ commonMain/composeResources/
 </resources>
 ```
 
-## 產生靜態存取類別
+## 產生靜態存取類別 {id="generate-class-for-static-access"}
 
 新增所有翻譯後，組建專案以產生一個提供資源存取功能的特殊類別。
 Compose Multiplatform 會處理 `composeResources` 中的 `strings.xml` 資源檔，並為每個字串資源建立靜態存取子屬性。
@@ -71,7 +71,7 @@ fun MyApp() {
 在上述範例中，`welcome_message` 字串包含一個動態值的占位符號 (`%s`)。
 產生的存取子和 `stringResource()` 函式都支援傳遞此類參數。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * [了解如何管理地區格式](compose-regional-format.md)
 * [閱讀關於處理由右至左語言的資訊](compose-rtl.md)

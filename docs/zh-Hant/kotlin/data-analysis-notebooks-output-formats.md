@@ -47,9 +47,9 @@ DISPLAY(plot {
 
 ![高斯分佈的不同輸出](gaussian-distribution-output.png){width=700}
 
-## 文字 (Texts)
+## 文字 (Texts) {id="texts"}
 
-### 純文字 (Plain text)
+### 純文字 (Plain text) {id="plain-text"}
 
 最簡單的輸出類型是純文字。它用於列印陳述式、變數值或程式碼中任何基於文字的輸出：
 
@@ -66,7 +66,7 @@ var a3: Int? = a1 + a2
 * 如果資料格的結果無法被 [渲染](https://github.com/Kotlin/kotlin-jupyter?tab=readme-ov-file#rendering) 並顯示為任何輸出類型，它將使用 `toString()` 函式列印為純文字。
 * 如果您的程式碼包含錯誤，Kotlin Notebook 會顯示錯誤訊息和回溯 (traceback)，為偵錯提供分析。
 
-### 豐富文字 (Rich text)
+### 豐富文字 (Rich text) {id="rich-text"}
 
 選擇 Markdown 類型的資料格以使用豐富文字。這樣，您就可以使用 Markdown 和 HTML 標記來格式化內容，使用清單、表格、字型樣式、程式碼區塊等。HTML 可以包含 CSS 樣式和 JavaScript。
 
@@ -88,7 +88,7 @@ var a3: Int? = a1 + a2
 
 ![Markdown 資料格中的豐富文字](markdown-cells-output.png){width=700}
 
-## HTML
+## HTML {id="html"}
 
 Kotlin Notebook 可以直接渲染 HTML，執行指令碼甚至嵌入網站：
 
@@ -110,11 +110,11 @@ HTML("""
 >
 {style="note"}
 
-## 影像 (Images)
+## 影像 (Images) {id="images"}
 
 藉助 Kotlin Notebook，您可以顯示來自檔案的影像、產生的圖形或任何其他視覺媒體。靜態影像可以按 `.png`、`jpeg` 和 `.svg` 等格式顯示。
 
-### 緩衝影像 (Buffered images)
+### 緩衝影像 (Buffered images) {id="buffered-images"}
 
 預設情況下，您可以使用 `BufferedImage` 類別來顯示影像：
 
@@ -141,7 +141,7 @@ graphics.dispose()
 
 ![使用預設 BufferedImage 顯示影像](bufferedimage-output.png){width=400}
 
-### 已載入影像 (Loaded images)
+### 已載入影像 (Loaded images) {id="loaded-images"}
 
 藉助 `lib-ext` 程式庫，您可以擴充標準的 Jupyter 功能並顯示從網路載入的影像：
 
@@ -155,7 +155,7 @@ Image("https://kotlinlang.org/docs/images/kotlin-logo.png", embed = false).withW
 
 ![使用外部影像連結](external-images-output.png){width=400}
 
-### 嵌入影像 (Embedded images)
+### 嵌入影像 (Embedded images) {id="embedded-images"}
 
 從網路載入影像的一個缺點是，如果連結失效或失去網路連線，影像就會消失。為了避免這種情況，請使用嵌入影像，例如：
 
@@ -166,7 +166,7 @@ kotlinMascot
 
 ![使用嵌入影像](embedded-images-output.png){width=400}
 
-## 數學公式與方程式 (Math formulas and equations)
+## 數學公式與方程式 (Math formulas and equations) {id="math-formulas-and-equations"}
 
 您可以利用 LaTeX 格式渲染數學公式和方程式，這是一種在學術界廣泛使用的排版系統：
 
@@ -184,7 +184,7 @@ kotlinMascot
 
    ![使用 LaTeX 渲染數學公式](latex-output.png){width=300}
 
-## 資料框 (Data frames)
+## 資料框 (Data frames) {id="data-frames"}
 
 藉助 Kotlin Notebook，您可以使用資料框 (data frame) 將結構化資料視覺化：
 
@@ -235,7 +235,7 @@ kotlinMascot
    dfSales.writeCSV("sales-stats.csv")
    ```
 
-## 圖表 (Charts)
+## 圖表 (Charts) {id="charts"}
 
 您可以直接在 Kotlin Notebook 中建立各種圖表，將資料視覺化：
 
@@ -280,7 +280,7 @@ kotlinMascot
    salesPlot.save("sales-chart.svg")
    ```
 
-## 接下來的內容
+## 接下來的內容 {id="what-s-next"}
 
 * [使用 DataFrame 和 Kandy 程式庫將資料視覺化](data-analysis-visualization.md)
 * [進一步了解在 Kotlin Notebook 中渲染和顯示豐富輸出](https://www.jetbrains.com/help/idea/kotlin-notebook.html#render-rich-output)

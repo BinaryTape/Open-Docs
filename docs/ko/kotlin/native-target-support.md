@@ -6,7 +6,7 @@
 >
 {style="tip"}
 
-## 타겟 티어
+## 타겟 티어 {id="target-tiers"}
 
 Kotlin/Native 컴파일러는 다양한 타겟을 지원하지만, 지원 수준은 각기 다릅니다. 이러한 수준을 명확히 하기 위해 컴파일러의 지원 정도에 따라 타겟을 여러 티어로 나누었습니다.
 
@@ -18,7 +18,7 @@ Kotlin/Native 컴파일러는 다양한 타겟을 지원하지만, 지원 수준
   
   이는 특정 타겟에 대한 네이티브 호스트에서만 가능합니다. 예를 들어, `macosArm64` 및 `iosArm64` 테스트는 macOS ARM64 호스트에서만 실행할 수 있습니다.
 
-### 티어 1
+### 티어 1 {id="tier-1"}
 
 * 타겟이 컴파일 및 실행 가능한지 CI에서 정기적으로 테스트됩니다.
 * 컴파일러 릴리스 간에 소스 및 [바이너리 호환성](https://youtrack.jetbrains.com/issue/KT-42293)을 제공합니다.
@@ -30,7 +30,7 @@ Kotlin/Native 컴파일러는 다양한 타겟을 지원하지만, 지원 수준
 | `iosSimulatorArm64`     | `aarch64-apple-ios-simulator` | ✅             | Apple Silicon 플랫폼의 Apple iOS 시뮬레이터 15.0 이상 |
 | `iosArm64`              | `aarch64-apple-ios`           |               | ARM64 플랫폼의 Apple iOS 및 iPadOS 15.0 이상 |
 
-### 티어 2
+### 티어 2 {id="tier-2"}
 
 * 타겟이 컴파일 가능한지 CI에서 정기적으로 테스트되지만, 실행 가능 여부는 자동으로 테스트되지 않을 수 있습니다.
 * 컴파일러 릴리스 간의 소스 및 [바이너리 호환성](https://youtrack.jetbrains.com/issue/KT-42293)을 제공하기 위해 최선을 다하고 있습니다.
@@ -46,7 +46,7 @@ Kotlin/Native 컴파일러는 다양한 타겟을 지원하지만, 지원 수준
 | `tvosSimulatorArm64`    | `aarch64-apple-tvos-simulator`    | ✅             | Apple Silicon 플랫폼의 Apple tvOS 시뮬레이터 15.0 이상 |
 | `tvosArm64`             | `aarch64-apple-tvos`              |               | ARM64 플랫폼의 Apple tvOS 15.0 이상 |
 
-### 티어 3
+### 티어 3 {id="tier-3"}
 
 * 타겟이 CI에서 테스트되는 것을 보장하지 않습니다.
 * 서로 다른 컴파일러 릴리스 간의 소스 및 바이너리 호환성을 약속할 수 없지만, 이러한 타겟에 대한 변경 사항은 매우 드뭅니다.
@@ -70,7 +70,7 @@ Kotlin/Native 컴파일러는 다양한 타겟을 지원하지만, 지원 수준
 > 
 {style="note"}
 
-### 더 이상 사용되지 않는 타겟(Deprecated targets)
+### 더 이상 사용되지 않는 타겟(Deprecated targets) {id="deprecated-targets"}
 
 Kotlin 2.3.20부터 다음 타겟은 더 이상 사용되지 않습니다:
 
@@ -78,7 +78,7 @@ Kotlin 2.3.20부터 다음 타겟은 더 이상 사용되지 않습니다:
 * `watchosX64` (x86_64 플랫폼의 Apple watchOS 64비트 시뮬레이터)
 * `tvosX64` (x86_64 플랫폼의 Apple tvOS 시뮬레이터)
 
-### 더 낮은 버전의 Apple 타겟 지원
+### 더 낮은 버전의 Apple 타겟 지원 {id="supporting-lower-apple-target-versions"}
 
 현재 기본적으로 지원되는 Apple 타겟의 최소 버전은 다음과 같습니다:
 
@@ -101,7 +101,7 @@ kotlin {
 }
 ```
 
-### 라이브러리 작성자 가이드
+### 라이브러리 작성자 가이드 {id="for-library-authors"}
 
 라이브러리 작성자가 Kotlin/Native 컴파일러보다 더 많은 타겟을 테스트하거나 더 엄격한 보장을 제공하는 것은 권장하지 않습니다. 네이티브 타겟 지원을 고려할 때 다음 접근 방식을 사용할 수 있습니다:
 
@@ -110,7 +110,7 @@ kotlin {
 
 Kotlin 팀은 [kotlinx.coroutines](coroutines-guide.md) 및 [kotlinx.serialization](serialization.md)과 같은 공식 Kotlin 라이브러리에서 이 접근 방식을 사용합니다.
 
-## 호스트
+## 호스트 {id="hosts"}
 
 Kotlin/Native 컴파일러는 다음 호스트를 지원합니다:
 
@@ -121,13 +121,13 @@ Kotlin/Native 컴파일러는 다음 호스트를 지원합니다:
 | x86_64 아키텍처 기반 Linux | Apple 타겟을 제외한 모든 지원되는 타겟 | 모든 지원되는 타겟, Apple 타겟은 cinterop 의존성이 없는 경우만 |
 | x86_64 아키텍처 기반 Windows (MinGW 툴체인) | Apple 타겟을 제외한 모든 지원되는 타겟 | 모든 지원되는 타겟, Apple 타겟은 cinterop 의존성이 없는 경우만 |
 
-### 최종 바이너리 빌드
+### 최종 바이너리 빌드 {id="building-final-binaries"}
 
 최종 바이너리를 생성하려면 *지원되는 호스트*에서만 [지원되는 타겟](#target-tiers)에 대해 컴파일할 수 있습니다. 예를 들어, FreeBSD나 ARM64 아키텍처에서 실행되는 Linux 머신에서는 이 작업을 수행할 수 없습니다.
 
 Linux 및 Windows에서 Apple 타겟용 최종 바이너리를 빌드하는 것도 불가능합니다.
 
-### `.klib` 아티팩트 생성
+### `.klib` 아티팩트 생성 {id="producing-klib-artifacts"}
 
 일반적으로 Kotlin/Native는 *지원되는 모든 호스트*에서 지원되는 타겟을 위한 `.klib` 아티팩트를 생성할 수 있도록 허용합니다.
 
@@ -135,7 +135,7 @@ Linux 및 Windows에서 Apple 타겟용 최종 바이너리를 빌드하는 것�
 
 예를 들어, x86_64 아키텍처에서 실행되는 Windows 머신에서 `macosArm64` 타겟용 `.klib`를 생성하려면 cinterop 의존성이 없어야 합니다.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [최종 네이티브 바이너리 빌드](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html)
 * [Apple 타겟용 컴파일](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-lib-setup.html#compilation-for-apple-targets)

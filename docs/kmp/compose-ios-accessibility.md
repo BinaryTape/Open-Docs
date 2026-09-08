@@ -9,7 +9,7 @@ Compose Multiplatform 辅助功能支持允许残障人士像使用原生 iOS UI
 
 您也可以在测试和其他自动化中使用这些语义数据：`testTag` 等属性将正确映射到原生辅助功能属性，例如 `accessibilityIdentifier`。这使得来自 Compose Multiplatform 的语义数据可供辅助功能服务和 XCTest 框架使用。
 
-## 高对比度主题
+## 高对比度主题 {id="high-contrast-theme"}
 
 Compose Multiplatform 使用来自 Material3 库的 [`ColorScheme`](https://kotlinlang.org/api/compose-multiplatform/material3/androidx.compose.material3/-color-scheme/) 类，该类目前缺乏对高对比度色彩的开箱即用支持。对于 iOS 上的高对比度主题，您需要向应用程序调色盘添加一组额外的颜色。对于每种自定义颜色，应手动指定其高对比度版本。
 
@@ -113,7 +113,7 @@ val DarkHighContrastPalette =
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="val LightHighContrastPalette = HighContrastColors( primary = RoyalBlue,"}
 
-## 通过触控板和键盘进行控制
+## 通过触控板和键盘进行控制 {id="control-via-trackpad-and-keyboard"}
 
 iOS 版 Compose Multiplatform 支持额外的输入方式来控制您的设备。除了依赖触摸屏外，您还可以启用 AssistiveTouch 以使用鼠标或触控板，或者启用全键盘控制以使用键盘：
 
@@ -122,7 +122,7 @@ iOS 版 Compose Multiplatform 支持额外的输入方式来控制您的设备�
   在 iPad 上，连接鼠标或触控板对于基本用法是开箱即用的。但是，如果您想调整指针大小、更改跟踪速度或为按钮分配特定操作，仍需启用 AssistiveTouch。
 * 全键盘控制（**设置** | **辅助功能** | **键盘** | **全键盘控制**）支持通过连接的键盘控制设备。您可以使用 **Tab** 等按键进行导航，并使用 **空格键** 激活项目。
 
-## 使用 XCTest 框架测试辅助功能
+## 使用 XCTest 框架测试辅助功能 {id="test-accessibility-with-xctest-framework"}
 
 您可以在测试和其他自动化中使用语义辅助功能数据。`testTag` 等属性会正确映射到原生辅助功能属性，例如 `accessibilityIdentifier`。这使得来自 Compose Multiplatform 的语义数据可供辅助功能服务和 XCTest 框架使用。
 
@@ -138,7 +138,7 @@ func testAccessibilityTabView() throws {
 }
 ```
 
-## 自定义辅助功能树的同步
+## 自定义辅助功能树的同步 {id="customize-synchronization-of-the-accessibility-tree"}
 
 使用默认设置时：
 * 仅当辅助功能服务运行时，iOS 辅助功能树才会与 UI 同步。
@@ -146,7 +146,7 @@ func testAccessibilityTabView() throws {
 
 您可以使用新的 Compose Multiplatform API 自定义这些设置。
 
-### 选择树同步选项
+### 选择树同步选项 {id="choose-the-tree-synchronization-option"}
 
 > 在 Compose Multiplatform 1.8.0 中，[该选项已被移除](whats-new-compose-180.md#loading-accessibility-tree-on-demand)，因为辅助功能树采用延迟同步方式，不再需要额外配置。
 >
@@ -193,7 +193,7 @@ sealed class AccessibilitySyncOptions {
 }
 ```
 
-### 实现日志记录接口
+### 实现日志记录接口 {id="implement-the-logging-interface"}
 
 您可以实现 `AccessibilityDebugLogger` 接口，将自定义消息写入您选择的输出：
 
@@ -213,7 +213,7 @@ ComposeUIViewController(configure = {
 }
 ```
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * 在 [Apple 辅助功能](https://developer.apple.com/accessibility/) 指南中了解更多信息。
 * 在您常用的 iOS 辅助功能工作流中，尝试由 [Kotlin Multiplatform 向导](https://kmp.jetbrains.com/) 生成的项目。

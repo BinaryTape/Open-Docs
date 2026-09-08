@@ -7,7 +7,7 @@ description: 了解如何在 Kotlin 中处理字符串，包括字符串字面�
 
 `String` 类型是不可变的。在创建一个 `String` 对象后，其内容在其余下的生命周期中保持不变。任何看起来像修改字符串的操作实际上都是创建了一个新字符串。
 
-## 声明字符串
+## 声明字符串 {id="declare-strings"}
 
 要声明 `String` 字面量，请将值括在双引号 (`""`) 中。你可以显式指定 `String` 类型，或者让 Kotlin 从值中推断它：
 
@@ -25,7 +25,7 @@ world!"
 val quote = "Kotlin says, \"Hi\"."
 ```
 
-### 多行字符串
+### 多行字符串 {id="multiline-strings"}
 
 要存储由多行组成或包含不想转义的引号的文本，请使用括在三引号 (`""" """`) 中的多行字符串：
 
@@ -93,7 +93,7 @@ fun main() {
 >
 {style="note"}
 
-## 字符串模板
+## 字符串模板 {id="string-templates"}
 
 字符串模板允许你直接在 `String` 字面量中嵌入变量和表达式。这个过程被称为*插值 (interpolation)*。你可以在普通字符串和多行字符串中使用字符串模板。
 
@@ -143,7 +143,7 @@ Result: ${"OK".lowercase()}
 """
 ```
 
-### 字符串模板中的可空值
+### 字符串模板中的可空值 {id="nullable-values-in-string-templates"}
 
 如果插值表达式或变量的求值结果为 `null`，Kotlin 编译器会在结果字符串中插入文本 `"null"`。要将 `null` 替换为另一个值，请使用[空合并运算符](null-safety.md#elvis-operator) (`?:`)：
 
@@ -162,7 +162,7 @@ fun main(){
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 多美元字符串插值
+### 多美元字符串插值 {id="multi-dollar-string-interpolation"}
 
 在普通字符串模板中，单个美元符号 (`$`) 即可开始插值。如果你需要在字符串中包含美元符号字面量，请使用**多美元字符串插值 (multi-dollar string interpolation)**。
 
@@ -187,7 +187,7 @@ val KClass<*>.jsonSchema : String
 >
 {style="tip"}
 
-## 基础字符串操作
+## 基础字符串操作 {id="basic-string-operations"}
 
 Kotlin 提供了一系列用于处理字符串的操作。本节介绍一些最常用的操作。
 
@@ -195,7 +195,7 @@ Kotlin 提供了一系列用于处理字符串的操作。本节介绍一些最�
 >
 {style="tip"}
 
-### 获取字符串长度
+### 获取字符串长度 {id="get-string-length"}
 
 要获取字符串中的字符数，请使用 [`length`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/length.html) 属性：
 
@@ -210,7 +210,7 @@ fun main (){
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 访问字符
+### 访问字符 {id="access-characters"}
 
 你可以通过索引操作符 (`[]`) 访问字符串中的单个字符：
 
@@ -245,7 +245,7 @@ fun main(){
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 提取字符串的部分内容
+### 提取字符串的部分内容 {id="extract-parts-of-a-string"}
 
 要提取字符串的部分内容，请使用以下函数之一：
 
@@ -271,7 +271,7 @@ fun main() {
 
 由于 `String` 类型是不可变的，这些函数不会修改原始字符串。
 
-### 比较字符串
+### 比较字符串 {id="compare-strings"}
 
 你可以使用 `==` 运算符检查两个字符串的内容是否相同：
 
@@ -311,7 +311,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 处理字符串内容
+### 处理字符串内容 {id="work-with-string-content"}
 
 如果你想更改字符串的内容，请使用 [`.trim()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/trim.html)、[`.replace()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/replace.html)、[`.uppercase()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/uppercase.html) 和 [`.lowercase()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/lowercase.html) 等函数创建一个修改后的副本：
 
@@ -359,7 +359,7 @@ fun main() {
  ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 分割字符串
+### 分割字符串 {id="split-strings"}
 
 你可以使用 [`split()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/split.html) 函数根据分隔符将字符串分割成多个部分：
 
@@ -389,7 +389,7 @@ three"
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 构建与格式化字符串
+### 构建与格式化字符串 {id="build-and-format-strings"}
 
 > 对于 Kotlin 中的大多数格式化任务，请使用[字符串模板](#字符串模板)。
 >
@@ -459,7 +459,7 @@ val text = String.format("Hello, %s", "Kotlin")
 >
 {style="note"}
 
-## 字符串转换
+## 字符串转换 {id="string-conversion"}
 
 你经常可能使用字符串来表示其他类型的值，例如数字、`Boolean` 值或来自输入的标识符。Kotlin 提供了将值转换为字符串以及将字符串解析为其他类型的函数。
 

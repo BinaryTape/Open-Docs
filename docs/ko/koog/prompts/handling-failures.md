@@ -2,12 +2,12 @@
 
 이 페이지에서는 기본 제공되는 재시도(retry) 및 타임아웃(timeout) 메커니즘을 사용하여 LLM 클라이언트와 프롬프트 실행기(prompt executor)의 실패를 처리하는 방법을 설명합니다.
 
-## 재시도 기능
+## 재시도 기능 {id="retry-functionality"}
 
 LLM 제공업체를 이용할 때 레이트 리밋(rate limit)이나 일시적인 서비스 중단과 같은 일시적인 오류(transient errors)가 발생할 수 있습니다.
 `RetryingLLMClient` 데코레이터는 Kotlin과 Java 모두에서 모든 LLM 클라이언트에 자동 재시도 로직을 추가합니다.
 
-### 기본 사용법
+### 기본 사용법 {id="basic-usage"}
 
 기존 클라이언트를 재시도 기능으로 감쌉니다.
 
@@ -57,7 +57,7 @@ LLM 제공업체를 이용할 때 레이트 리밋(rate limit)이나 일시적�
     ```
     <!--- KNIT example-handling-failures-java-01.java -->
 
-### 재시도 동작 설정
+### 재시도 동작 설정 {id="configuring-retry-behavior"}
 
 기본적으로 `RetryingLLMClient`는 최대 3회의 재시도 횟수, 1초의 초기 지연 시간, 30초의 최대 지연 시간으로 LLM 클라이언트를 설정합니다.
 `RetryingLLMClient`에 전달되는 `RetryConfig`를 사용하여 다른 재시도 설정을 지정할 수 있습니다.
@@ -134,7 +134,7 @@ val customClient = RetryingLLMClient(
 ```
 <!--- KNIT example-handling-failures-03.kt -->
 
-### 재시도 오류 패턴
+### 재시도 오류 패턴 {id="retry-error-patterns"}
 
 기본적으로 `RetryingLLMClient`는 일반적인 일시적 오류를 인식합니다.
 이 동작은 [`RetryConfig.retryablePatterns`](api:prompt-executor-clients::ai.koog.prompt.executor.clients.retry.RetryConfig.retryablePatterns) 패턴에 의해 제어됩니다.
@@ -142,7 +142,7 @@ val customClient = RetryingLLMClient(
 
 Koog는 지원되는 모든 LLM 제공업체에서 작동하는 미리 정의된 재시도 설정과 패턴을 제공합니다. 기본값을 그대로 유지하거나 특정 요구 사항에 맞게 사용자 정의할 수 있습니다.
 
-#### 패턴 유형
+#### 패턴 유형 {id="pattern-types"}
 
 다음과 같은 패턴 유형을 사용하고 원하는 만큼 조합할 수 있습니다.
 
@@ -153,7 +153,7 @@ Koog는 지원되는 모든 LLM 제공업체에서 작동하는 미리 정의된
 
 어떤 패턴이라도 `true`를 반환하면 해당 오류는 재시도 가능한 것으로 간주되어 LLM 클라이언트가 요청을 재시도합니다.
 
-#### 기본 패턴
+#### 기본 패턴 {id="default-patterns"}
 
 재시도 설정을 사용자 정의하지 않으면 기본적으로 다음 패턴이 사용됩니다.
 
@@ -179,7 +179,7 @@ Koog는 지원되는 모든 LLM 제공업체에서 작동하는 미리 정의된
 
 이러한 기본 패턴은 Koog에서 [`RetryConfig.DEFAULT_PATTERNS`](api:prompt-executor-clients::ai.koog.prompt.executor.clients.retry.RetryConfig.Companion.DEFAULT_PATTERNS)로 정의되어 있습니다.
 
-#### 사용자 정의 패턴
+#### 사용자 정의 패턴 {id="custom-patterns"}
 
 특정 요구 사항에 맞게 사용자 정의 패턴을 정의할 수 있습니다.
 
@@ -216,7 +216,7 @@ val config = RetryConfig(
 ```
 <!--- KNIT example-handling-failures-05.kt -->
 
-### 재시도를 포함한 스트리밍
+### 재시도를 포함한 스트리밍 {id="streaming-with-retry"}
 
 스트리밍 작업에서도 선택적으로 재시도를 할 수 있습니다. 이 기능은 기본적으로 비활성화되어 있습니다.
 
@@ -253,7 +253,7 @@ val stream = client.executeStreaming(prompt, OpenAIModels.Chat.GPT4o)
     스트리밍이 시작되면 재시도 로직이 비활성화됩니다.
     스트리밍 도중 오류가 발생하면 작업이 종료됩니다.
 
-### 프롬프트 실행기와 함께 재시도 사용
+### 프롬프트 실행기와 함께 재시도 사용 {id="retry-with-prompt-executors"}
 
 프롬프트 실행기를 사용할 때, Kotlin과 Java 모두에서 실행기를 생성하기 전에 기본 LLM 클라이언트를 재시도 메커니즘으로 감쌀 수 있습니다.
 프롬프트 실행기에 대한 자세한 내용은 [프롬프트 실행기](prompt-executors.md)를 참조하세요.
@@ -337,7 +337,7 @@ val stream = client.executeStreaming(prompt, OpenAIModels.Chat.GPT4o)
     ```
     <!--- KNIT example-handling-failures-java-03.java -->
 
-## 타임아웃 설정
+## 타임아웃 설정 {id="timeout-configuration"}
 
 모든 LLM 클라이언트는 요청이 중단되는 것을 방지하기 위해 Kotlin과 Java 모두에서 타임아웃 설정을 지원합니다.
 클라이언트를 생성할 때 [`ConnectionTimeoutConfig`](api:prompt-executor-clients::ai.koog.prompt.executor.clients.ConnectionTimeoutConfig) 클래스를 사용하여 네트워크 연결에 대한 타임아웃 값을 지정할 수 있습니다.
@@ -405,7 +405,7 @@ val stream = client.executeStreaming(prompt, OpenAIModels.Chat.GPT4o)
 !!! tip
     오래 걸리는 호출이나 스트리밍 호출의 경우, `requestTimeoutMillis`와 `socketTimeoutMillis`에 더 높은 값을 설정하세요.
 
-## 오류 처리
+## 오류 처리 {id="error-handling"}
 
 운영 환경에서 LLM을 사용할 때는 다음과 같은 오류 처리를 구현해야 합니다.
 

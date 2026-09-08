@@ -17,14 +17,14 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Play
 
 ```
 
-## 사전 요구 사항
+## 사전 요구 사항 {id="prerequisites"}
 - 환경 변수로 설정된 OpenAI API 키: `OPENAI_API_KEY`
 - PATH에서 사용 가능한 Node.js 및 npx
 - `%use koog`를 통해 Koog를 사용할 수 있는 Kotlin Jupyter 노트북 환경
 
 팁: 브라우저가 자동화 단계를 수행하는 모습을 확인하려면 Playwright MCP 서버를 헤드풀(headful) 모드로 실행하세요.
 
-## 1) OpenAI API 키 제공
+## 1) OpenAI API 키 제공 {id="1-provide-your-openai-api-key"}
 `OPENAI_API_KEY` 환경 변수에서 API 키를 읽어옵니다. 이를 통해 노트북에 보안 비밀(secrets)이 노출되지 않도록 유지합니다.
 
 ```kotlin
@@ -33,7 +33,7 @@ val openAIApiToken = System.getenv("OPENAI_API_KEY") ?: error("OPENAI_API_KEY en
 
 ```
 
-## 2) Start the Playwright MCP server
+## 2) Start the Playwright MCP server {id="2-start-the-playwright-mcp-server"}
 `npx`를 사용하여 로컬에서 Playwright MCP 서버를 실행합니다. 기본적으로 Koog에서 연결할 수 있는 SSE 엔드포인트가 노출됩니다.
 
 ```kotlin
@@ -47,7 +47,7 @@ val process = ProcessBuilder(
 
 ```
 
-## 3) Koog에서 연결 및 에이전트 실행
+## 3) Koog에서 연결 및 에이전트 실행 {id="3-connect-from-koog-and-run-the-agent"}
 OpenAI 실행기(executor)를 사용하는 최소한의 Koog `AIAgent`를 구축하고, 도구 레지스트리(tool registry)가 SSE를 통해 MCP 서버를 가리키도록 설정합니다. 그런 다음 오직 도구만을 사용하여 브라우저 작업을 완료하도록 요청합니다.
 
 ```kotlin
@@ -78,7 +78,7 @@ runBlocking {
 
 ```
 
-## 4) MCP 프로세스 종료
+## 4) MCP 프로세스 종료 {id="4-shut-down-the-mcp-process"}
 실행이 끝나면 항상 외부 프로세스를 정리하세요.
 
 ```kotlin
@@ -88,12 +88,12 @@ process.destroy()
 
 ```
 
-## 문제 해결
+## 문제 해결 {id="troubleshooting"}
 - 에이전트가 연결되지 않는 경우, MCP 서버가 `http://localhost:8931`에서 실행 중인지 확인하세요.
 - 브라우저가 보이지 않는 경우, 시스템에 Playwright가 설치되어 있고 브라우저를 실행할 수 있는 상태인지 확인하세요.
 - OpenAI에서 인증 오류가 발생하는 경우, `OPENAI_API_KEY` 환경 변수를 다시 확인하세요.
 
-## 다음 단계
+## 다음 단계 {id="next-steps"}
 - 다른 웹사이트나 워크플로우를 시도해 보세요. MCP 서버는 풍부한 Playwright 도구 세트를 제공합니다.
 - LLM 모델을 교체하거나 Koog 에이전트에 더 많은 도구를 추가해 보세요.
 - 이 흐름을 앱에 통합하거나, 노트북을 문서로 게시해 보세요.

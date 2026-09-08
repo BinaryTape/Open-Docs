@@ -21,11 +21,11 @@
 > 
 {style="tip"}
 
-## 协程概念
+## 协程概念 {id="coroutine-concepts"}
 
 `kotlinx.coroutines` 库提供了用于并发运行任务、组织协程执行以及管理共享状态的核心构建块。
 
-### 挂起函数与协程构建器
+### 挂起函数与协程构建器 {id="suspending-functions-and-coroutine-builders"}
 
 Kotlin 中的协程构建在挂起函数之上，挂起函数允许代码在不阻塞线程的情况下暂停和恢复。
 `suspend` 关键字用于标记可以异步执行长时间运行操作的函数。
@@ -35,7 +35,7 @@ Kotlin 中的协程构建在挂起函数之上，挂起函数允许代码在不�
 
 你可以在 [协程基础](coroutines-basics.md) 和 [组合挂起函数](coroutines-and-channels.md) 中了解更多关于这些构建器的信息。
 
-### 协程上下文与行为
+### 协程上下文与行为 {id="coroutine-context-and-behavior"}
 
 从 `CoroutineScope` 启动协程会创建一个控制其执行的上下文。
 像 `.launch()` 和 `.async()` 这样的构建器函数会自动创建一组定义协程行为的元素：
@@ -47,7 +47,7 @@ Kotlin 中的协程构建在挂起函数之上，挂起函数允许代码在不�
 这些元素连同其他可能的元素构成了 [_协程上下文_](coroutine-context-and-dispatchers.md)，默认情况下它从协程的父级继承。
 此上下文形成了一个支持结构化并发的层次结构，在其中相关的协程可以被一起 [取消](coroutines-cancellation.md) 或作为一个组进行 [异常处理](exception-handling.md)。
 
-### 异步流与共享可变状态
+### 异步流与共享可变状态 {id="asynchronous-flow-and-shared-mutable-state"}
 
 Kotlin 提供了几种协程通信的方式。
 根据你希望如何在协程之间共享值，选择以下选项之一：
@@ -64,7 +64,7 @@ Kotlin 提供了几种协程通信的方式。
 
 更多信息请参阅 [流](coroutines-flow.md)、[通道](channels.md) 以及 [协程与通道教程](coroutines-and-channels.md)。
 
-## 后续步骤
+## 后续步骤 {id="what-s-next"}
 
 * 在 [协程基础指南](coroutines-basics.md) 中学习协程、挂起函数和构建器的基础知识。
 * 在 [组合挂起函数](coroutine-context-and-dispatchers.md) 中探索如何组合挂起函数和构建协程流水线。

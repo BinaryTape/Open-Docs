@@ -178,11 +178,11 @@ ktor:
 
 完全な例はこちらで確認できます: [engine-main-modules](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/engine-main-modules)。
 
-## モジュールの依存関係
+## モジュールの依存関係 {id="module-dependencies"}
 
 モジュールは、共通のサービス、リポジトリ、または設定を共有する必要があることがよくあります。依存関係をモジュール内で作成するのではなく注入することで、テスト容易性と柔軟性が向上します。Ktorは、プロジェクトの複雑さに応じていくつかのアプローチを提供しています。
 
-### パラメータによる依存関係の受け渡し
+### パラメータによる依存関係の受け渡し {id="passing-dependencies-through-parameters"}
 
 依存関係を渡す最も簡単な方法は、モジュール関数のパラメータとして宣言することです。
 
@@ -200,7 +200,7 @@ fun main() {
 
 これは小規模または中規模のアプリケーションに適しており、依存関係が明確になります。ただし、モジュールはコンパイル時に密結合になり、実行時に簡単に交換することはできません。
 
-### アプリケーション属性の使用
+### アプリケーション属性の使用 {id="using-application-attributes"}
 
 すべてのモジュールで利用可能な型安全なマップである `Application.attributes` を使用できます。
 
@@ -237,7 +237,7 @@ suspend fun Application.installEvents() {
 
 また、すべてのアプリケーションモジュールを個別に起動できるため、1つのモジュールが中断（suspend）されても、他のモジュールがブロックされることはありません。これにより、依存関係注入の非順次的な読み込みが可能になり、場合によっては読み込みが高速化されます。
 
-### 設定オプション
+### 設定オプション {id="configuration-options"}
 
 以下の設定プロパティが利用可能です。
 
@@ -246,7 +246,7 @@ suspend fun Application.installEvents() {
 | `ktor.application.startup`              | `sequential` / `concurrent` | アプリケーションモジュールの読み込み方法を定義します                         | `sequential` |
 | `ktor.application.startupTimeoutMillis` | `Long`                     | アプリケーションモジュールの読み込みタイムアウト（ミリ秒単位）                    | `10000`      |
 
-### モジュールの同時読み込みを有効にする
+### モジュールの同時読み込みを有効にする {id="enable-concurrent-module-loading"}
 
 同時読み込み（concurrent loading）を有効にするには、サーバー設定ファイルに以下を追加します。
 

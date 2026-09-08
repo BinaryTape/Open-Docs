@@ -122,7 +122,7 @@ azurewebapp {
 
 ## 애플리케이션 배포 {id="deploy-app"}
 
-### 새로운 웹 앱으로 배포하기
+### 새로운 웹 앱으로 배포하기 {id="to-a-new-web-app"}
 
 Azure Web App Deploy 플러그인에서 사용하는 인증 방식은 Azure CLI를 사용합니다. 아직 로그인하지 않았다면 `az login`을 한 번 실행하고 지침을 따르세요.
 
@@ -157,7 +157,7 @@ Application url: https://your-webapp-name.azurewebsites.net
 
 배포가 완료되면 위에 표시된 URL에서 새 웹 앱이 실행되는 것을 확인할 수 있습니다.
 
-### 기존 웹 앱으로 배포하기
+### 기존 웹 앱으로 배포하기 {id="to-an-existing-web-app"}
 
 Azure App Service에 기존 Java 웹 앱이 이미 있는 경우, 먼저 [Ktor 플러그인](#plugins)에서 제공하는 `buildFatJar` 태스크를 실행하여 Fat JAR를 빌드합니다:
 

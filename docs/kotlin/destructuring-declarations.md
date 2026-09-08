@@ -36,7 +36,7 @@ for ((a, b) in collection) { ... }
 
 变量 `a` 和 `b` 会获取在集合元素上调用 `component1()` 和 `component2()` 返回的值。 
 
-## 示例：从函数返回两个值
+## 示例：从函数返回两个值 {id="example-returning-two-values-from-a-function"}
  
 假设你需要从一个函数返回两个内容——例如，一个结果对象和某种状态。
 在 Kotlin 中实现这一点的紧凑方法是声明一个[数据类](data-classes.md)并返回其实例：
@@ -60,7 +60,7 @@ val (result, status) = function(...)
 >
 {style="note"}
 
-## 示例：析构声明与映射 (Map)
+## 示例：析构声明与映射 (Map) {id="example-destructuring-declarations-and-maps"}
 
 遍历映射最优雅的方式可能就是这样：
 
@@ -85,7 +85,7 @@ operator fun <K, V> Map.Entry<K, V>.component2() = getValue()
 
 因此，你可以在带有映射的 `for` 循环中自由使用析构声明（以及数据类实例的集合或类似结构）。
 
-## 用于未使用变量的下划线
+## 用于未使用变量的下划线 {id="underscore-for-unused-variables"}
 
 如果在析构声明中不需要某个变量，可以使用下划线代替其名称：
 
@@ -95,7 +95,7 @@ val (_, status) = getResult()
 
 对于以这种方式跳过的组件，不会调用相应的 `componentN()` 运算符函数。
 
-## 在 lambda表达式 中析构
+## 在 lambda表达式 中析构 {id="destructuring-in-lambdas"}
 
 你可以对 lambda表达式 的形参使用析构声明语法。
 如果一个 lambda表达式 具有 `Pair` 类型（或 `Map.Entry`，或任何其他具有相应 `componentN` 函数的类型）的形参，你可以通过将它们放入圆括号中来引入多个新形参以代替单个形参：   
@@ -128,7 +128,7 @@ map.mapValues { (_, value): Map.Entry<Int, String> -> "$value!" }
 map.mapValues { (_, value: String) -> "$value!" }
 ```
 
-## 基于名称的析构
+## 基于名称的析构 {id="name-based-destructuring"}
 <primary-label ref="experimental-opt-in"/>
 
 Kotlin 支持*基于名称的析构声明*，

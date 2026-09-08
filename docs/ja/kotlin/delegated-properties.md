@@ -62,11 +62,11 @@ NEW has been assigned to 'p' in Example@33a17727.
 委譲プロパティは関数内やコードブロック内で宣言することもできます。必ずしもクラスのメンバである必要はありません。
 [例](#local-delegated-properties)は以下にあります。
 
-## 標準の委譲
+## 標準の委譲 {id="standard-delegates"}
 
 Kotlin 標準ライブラリは、いくつかの便利な種類の委譲のためのファクトリメソッドを提供しています。
 
-### 遅延プロパティ
+### 遅延プロパティ {id="lazy-properties"}
 
 [`lazy()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/lazy.html) はラムダを受け取り、遅延プロパティを実装するための委譲として機能する `Lazy<T>` のインスタンスを返す関数です。
 `get()` の最初の呼び出しで `lazy()` に渡されたラムダが実行され、その結果が記憶されます。
@@ -89,7 +89,7 @@ fun main() {
 
 初期化が常にプロパティを使用するのと同じスレッドで行われることが確実な場合は、`LazyThreadSafetyMode.NONE` を使用できます。これは、スレッドセーフの保証やそれに関連するオーバーヘッドを一切伴いません。
 
-### 観察可能プロパティ
+### 観察可能プロパティ {id="observable-properties"}
 
 [`Delegates.observable()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.properties/-delegates/observable.html)
 は、初期値と変更時のハンドラの2つの引数を取ります。
@@ -117,7 +117,7 @@ fun main() {
 代入をインターセプトして**拒否（veto）**したい場合は、`observable()` の代わりに [`vetoable()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.properties/-delegates/vetoable.html) を使用してください。
 `vetoable` に渡されたハンドラは、新しいプロパティ値の代入が実行される**前**に呼び出されます。
 
-## 別のプロパティへの委譲
+## 別のプロパティへの委譲 {id="delegating-to-another-property"}
 
 プロパティは、そのゲッターとセッターを別のプロパティに委譲できます。このような委譲は、トップレベルおよびクラスのプロパティ（メンバおよび拡張）の両方で利用可能です。委譲先のプロパティは以下のいずれかになります：
 * トップレベルプロパティ
@@ -157,7 +157,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.4"}
 
-## マップへのプロパティ保存
+## マップへのプロパティ保存 {id="storing-properties-in-a-map"}
 
 一般的なユースケースの一つは、プロパティの値をマップに保存することです。
 これは、JSON のパースやその他の動的なタスクを行うアプリケーションでよく発生します。
@@ -209,7 +209,7 @@ class MutableUser(val map: MutableMap<String, Any?>) {
 }
 ```
 
-## ローカル委譲プロパティ
+## ローカル委譲プロパティ {id="local-delegated-properties"}
 
 ローカル変数を委譲プロパティとして宣言できます。
 例えば、ローカル変数を遅延初期化（lazy）にすることができます：
@@ -227,7 +227,7 @@ fun example(computeFoo: () -> Foo) {
 `memoizedFoo` 変数は、最初のアクセス時にのみ計算されます。
 `someCondition` が false の場合、この変数は一切計算されません。
 
-## プロパティ委譲の要件
+## プロパティ委譲の要件 {id="property-delegate-requirements"}
 
 **読み取り専用**プロパティ（`val`）の場合、委譲は以下のパラメータを持つ演算子関数 `getValue()` を提供する必要があります：
 
@@ -296,7 +296,7 @@ val readOnlyResource: Resource by resourceDelegate()  // ReadWriteProperty を v
 var readWriteResource: Resource by resourceDelegate()
 ```
 
-## 委譲プロパティの変換ルール
+## 委譲プロパティの変換ルール {id="translation-rules-for-delegated-properties"}
 
 内部的には、Kotlin コンパイラは特定の種類の委譲プロパティに対して補助プロパティを生成し、そこに委譲します。
 
@@ -323,7 +323,7 @@ class C {
 
 Kotlin コンパイラは、引数に `prop` に関する必要なすべての情報を提供します。第1引数の `this` は外側のクラス `C` のインスタンスを指し、`this::prop` は `prop` 自体を記述する `KProperty` 型のリフレクションオブジェクトです。
 
-### 委譲プロパティの最適化されたケース
+### 委譲プロパティの最適化されたケース {id="optimized-cases-for-delegated-properties"}
 
 委譲先が以下の場合、`$delegate` フィールドは省略されます：
 * 参照されたプロパティ：
@@ -365,7 +365,7 @@ Kotlin コンパイラは、引数に `prop` に関する必要なすべての�
   }
   ```
 
-### 別のプロパティに委譲する場合の変換ルール
+### 別のプロパティに委譲する場合の変換ルール {id="translation-rules-when-delegating-to-another-property"}
 
 別のプロパティに委譲する場合、Kotlin コンパイラは参照されたプロパティへの直接アクセスを生成します。
 これは、コンパイラが `prop$delegate` フィールドを生成しないことを意味します。この最適化により、メモリを節約できます。
@@ -397,7 +397,7 @@ class C<Type> {
 }
 ```
 
-## 委譲の提供
+## 委譲の提供 {id="providing-a-delegate"}
 
 `provideDelegate` 演算子を定義することで、プロパティの実装が委譲されるオブジェクトを作成するためのロジックを拡張できます。`by` の右側で使用されるオブジェクトがメンバ関数または拡張関数として `provideDelegate` を定義している場合、その関数が呼び出されてプロパティ委譲インスタンスが作成されます。
 

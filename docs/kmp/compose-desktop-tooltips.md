@@ -76,6 +76,6 @@ fun main() = singleWindowApplication(
 
 <img src="compose-desktop-tooltips.animated.gif" alt="Tooltips" width="288" preview-src="compose-desktop-tooltips.png"/>
 
-## 后续步骤
+## 后续步骤 {id="what-s-next"}
 
 探索有关[其他桌面组件](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop)的教程。

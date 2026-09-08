@@ -12,14 +12,14 @@ Kotlin Slack 旨在成为一个具有包容性的空间，致力于为所有人�
 * [版主](#moderators)
 * [版权](#copyright)
 
-## 行为准则
+## 行为准则 {id="how-to-behave"}
 
 * 以真实、积极的方式参与。通过这样做，您在为这个社区的健康与长寿做出贡献。
 * 在言行中体现出体贴、尊重和共情。请记住，我们在采用技术时都经历过不同的学习阶段。
 * 避免贬低、歧视或骚扰性的行为与言论。
 * 对事物的分歧是可以接受的，但好斗的行为或恶意挑衅（trolling）是不被允许的。
 
-## 行为禁忌
+## 行为禁忌 {id="how-not-to-behave"}
 
 * 请*勿*对他人的进行暴力威胁或使用针对他人的暴力语言。
 * 请*勿*开具有性别歧视、种族歧视、同性恋恐惧、跨性别恐惧、残疾歧视或其他歧视性质的玩笑，或使用此类语言。
@@ -29,11 +29,11 @@ Kotlin Slack 旨在成为一个具有包容性的空间，致力于为所有人�
 * 请*勿*进行性关注行为。这包括性暗示言论、玩笑以及性骚扰。
 * 请*勿*拥护或鼓励上述任何行为。
 
-## 如何报告问题
+## 如何报告问题 {id="how-to-report-issues"}
 
 如果有人表现不当，或以任何形式违反了本行为准则，且他们不接受您的反馈，或者您不愿与他们对质，请联系管理员。主要的管理员是 Ilya Ryzhenkov (@orangy) 和 Hadi Hariri (@hhariri)。
 
-## 基本使用指南
+## 基本使用指南 {id="basic-usage-guidelines"}
 
 在 Kotlin Slack 上，有超过 50 000 位处于不同时区的用户，且这一数字正在迅速增长。每天涌入的信息和众多的频道可能导致大量噪音，从长远来看价值较低。如果我们都能遵循一套指南，将有助于让每个人都觉得这里更实用、更舒适。
 
@@ -56,11 +56,11 @@ Kotlin Slack 旨在成为一个具有包容性的空间，致力于为所有人�
 * @channel、@here 和其他形式的通知已被禁用，即使您是频道所有者也是如此（遗憾的是，Slack 不允许进行细粒度的权限控制）。
 * 如果您不确定如何操作，请使用 #meta 频道。
 
-## 版主
+## 版主 {id="moderators"}
 
 版主是 Kotlin Slack 社区的成员，他们自愿维护 kotlinlang Slack，使其成为其他成员安全且受欢迎的场所。版主由 kotlinlang Slack 管理员批准。其职责和遵循的指南说明如下。
 
-### 职责
+### 职责 {id="responsibilities"}
 
 * 监控 Slack 频道以确保遵守行为准则。
 * 帮助社区成员遵守规则。
@@ -68,12 +68,12 @@ Kotlin Slack 旨在成为一个具有包容性的空间，致力于为所有人�
 * 监控 #reports 和 #meta 频道。
 * 参与私密的 #moderators 频道。
 
-### 指南
+### 指南 {id="guidelines"}
 
 * 版主应以友好的方式交流，并尽力帮助其他社区成员。
 * 版主建议的任何更改在生效前都应由所有版主和管理员共同讨论。
 
-### 流程
+### 流程 {id="process"}
 
 * 每位版主至少监督一个频道，如果可能的话可以更多。
 * 当版主注意到不当行为时，他们会向成员解释规则和指南，并协助找出纠正不良行为的方法。如果不良行为持续存在，版主会将情况报告给管理员以采取进一步行动。对于明显和/或特别严重的违规行为，可以立即举报违规成员。
@@ -81,7 +81,7 @@ Kotlin Slack 旨在成为一个具有包容性的空间，致力于为所有人�
 * 关于版主工作的沟通在私密的 #moderators 频道中进行。
 * 如果社区成员注意到版主忽视了其职责（或有任何不良行为），可以提醒管理员。
 
-### 版主身份的获取与撤销流程
+### 版主身份的获取与撤销流程 {id="moderator-status-acquisition-and-revocation-process"}
 
 * 任何加入 Slack 社区超过 6 个月的成员都欢迎申请成为版主。
 * 版主身份根据管理员的决定授予。
@@ -89,7 +89,7 @@ Kotlin Slack 旨在成为一个具有包容性的空间，致力于为所有人�
   * 版主忽视其职责，导致频道出现问题。
   * 版主违反了这些指南。
 
-### 版主列表 {initial-collapse-state="collapsed" collapsible="true"}
+### 版主列表 {initial-collapse-state="collapsed" collapsible="true" id="the-list-of-moderators"}
 
 目前我们有 17 位已确认的版主，他们将负责观察总共 64 个频道。对于所有其他频道，如果出现任何问题，成员可以直接 Ping 任何版主或管理员，或者在 #meta 中发布消息。
 
@@ -110,6 +110,6 @@ Kotlin Slack 旨在成为一个具有包容性的空间，致力于为所有人�
 * Youssef Shoaib	(@Youssef Shoaib)  – #getting-started, #feed, #language-evolution, #language-proposals
 * Zach Klippenstein	(@Zach Klippenstein) – #coroutines, #compose, #compose-desktop, #compose-web, #squarelibraries, #library-development
 
-## 版权
+## 版权 {id="copyright"}
 
 本行为准则依据 [知识共享 署名-相同方式共享许可协议 (Creative Commons Attribution-ShareAlike license)](http://creativecommons.org/licenses/by-sa/3.0/) 进行分发。部分文本衍生自 [公民行为准则 (Citizen Code of Conduct)](http://citizencodeofconduct.org/)。

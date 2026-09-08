@@ -3,18 +3,18 @@
 通俗易懂且易于遵守的编码规范对于任何编程语言都至关重要。
 在此，我们为使用 Kotlin 的项目提供有关代码样式和代码组织的准则。
 
-## 在 IDE 中配置样式
+## 在 IDE 中配置样式 {id="configure-style-in-ide"}
 
 Kotlin 最受支持的两款 IDE —— [IntelliJ IDEA](https://www.jetbrains.com/idea/) 和 [Android Studio](https://developer.android.com/studio/) ——
 为代码样式提供了强大的支持。你可以配置它们自动格式化你的代码，使其与给定的代码样式保持一致。
 
-### 应用样式指南
+### 应用样式指南 {id="apply-the-style-guide"}
 
 1. 转到 **Settings/Preferences | Editor | Code Style | Kotlin**（**设置/偏好设置 | 编辑器 | 代码样式 | Kotlin**）。
 2. 点击 **Set from...**（**从……设置**）。
 3. 选择 **Kotlin style guide**（**Kotlin 编码规范**）。
 
-### 验证代码是否符合样式指南
+### 验证代码是否符合样式指南 {id="verify-that-your-code-follows-the-style-guide"}
 
 1. 转到 **Settings/Preferences | Editor | Inspections | General**（**设置/偏好设置 | 编辑器 | 检查 | 常规**）。
 2. 开启 **Incorrect formatting**（**不正确的格式设置**）检查。
@@ -24,9 +24,9 @@ Kotlin 最受支持的两款 IDE —— [IntelliJ IDEA](https://www.jetbrains.co
 
 有关更多信息，请参阅 [使用 IntelliJ IDEA 迁移到 Kotlin 代码样式](code-style-migration-guide.md) 指南。
 
-## 源代码组织
+## 源代码组织 {id="source-code-organization"}
 
-### 目录结构
+### 目录结构 {id="directory-structure"}
 
 在纯 Kotlin 项目中，建议的目录结构遵循软件包结构并省略公用根软件包。例如，如果项目中的所有代码都在 `org.example.kotlin` 软件包及其子软件包中，那么 `org.example.kotlin` 软件包中的文件应直接放置在源根目录下，而 `org.example.kotlin.network.socket` 中的文件应放置在源根目录的 `network/socket` 子目录下。
 
@@ -34,7 +34,7 @@ Kotlin 最受支持的两款 IDE —— [IntelliJ IDEA](https://www.jetbrains.co
 >
 {style="note"}
 
-### 源文件名称
+### 源文件名称 {id="source-file-names"}
 
 如果 Kotlin 文件包含单个类或接口（可能还包含相关的顶层声明），则其名称应与类名相同，并附加 `.kt` 扩展名。这适用于所有类型的类和接口。
 如果文件包含多个类或仅包含顶层声明，请选择一个描述文件内容的名称，并相应地命名文件。
@@ -43,7 +43,7 @@ Kotlin 最受支持的两款 IDE —— [IntelliJ IDEA](https://www.jetbrains.co
 
 文件的名称应描述文件中代码的作用。因此，应避免在文件名中使用 `Util` 等无意义的词。
 
-#### 多平台项目
+#### 多平台项目 {id="multiplatform-projects"}
 
 在多平台项目中，平台特定源集中包含顶层声明的文件应具有与源集名称相关的后缀。例如：
 
@@ -53,7 +53,7 @@ Kotlin 最受支持的两款 IDE —— [IntelliJ IDEA](https://www.jetbrains.co
 
 对于公共 (common) 源集，包含顶层声明的文件不应有后缀。例如：`commonMain/kotlin/Platform.kt`。
 
-##### 技术细节 {initial-collapse-state="collapsed" collapsible="true"}
+##### 技术细节 {initial-collapse-state="collapsed" collapsible="true" id="technical-details"}
 
 由于 JVM 的限制，我们建议在多平台项目中遵循此文件命名方案：JVM 不允许顶层成员（函数、属性）。
 
@@ -80,13 +80,13 @@ root
 > 
 {style="tip"}
 
-### 源文件组织
+### 源文件组织 {id="source-file-organization"}
 
 鼓励将多个声明（类、顶层函数或属性）放在同一个 Kotlin 源文件中，只要这些声明在语义上彼此紧密相关，且文件大小保持在合理范围内（不超过几百行）。
 
 特别是，在为类定义对该类的所有客户端都相关的扩展函数时，请将它们与类本身放在同一个文件中。在定义仅对特定客户端有意义的扩展函数时，请将它们放在该客户端的代码旁边。避免仅为了存放某个类的所有扩展而创建文件。
 
-### 类布局
+### 类布局 {id="class-layout"}
 
 类的内容应按以下顺序排列：
 
@@ -99,15 +99,15 @@ root
 
 将嵌套类放在使用这些类的代码旁边。如果这些类打算在外部使用且在类内部没有引用，请将它们放在最后，位于伴生对象之后。
 
-### 接口实现布局
+### 接口实现布局 {id="interface-implementation-layout"}
 
 实现接口时，保持实现成员的顺序与接口成员的顺序一致（如有必要，可以在其中插入用于实现的额外私有方法）。
 
-### 重载布局
+### 重载布局 {id="overload-layout"}
 
 在类中始终将重载放在一起。
 
-## 命名规则
+## 命名规则 {id="naming-rules"}
 
 Kotlin 中的软件包和类命名规则非常简单：
 
@@ -121,7 +121,7 @@ open class DeclarationProcessor { /*...*/ }
 object EmptyDeclarationProcessor : DeclarationProcessor() { /*...*/ }
 ```
 
-### 函数名称
+### 函数名称 {id="function-names"}
  
 函数、属性和局部变量的名称以小写字母开头，并使用骆驼拼写法且不带下划线：
 
@@ -130,7 +130,7 @@ fun processDeclarations() { /*...*/ }
 var declarationCount = 1
 ```
 
-### 类式函数的名称
+### 类式函数的名称 {id="names-for-class-like-functions"}
 
 在两种例外情况下，函数名称应遵循类命名约定。这类函数通常定义在顶层。
 
@@ -150,7 +150,7 @@ var declarationCount = 1
    @Composable fun TabHeader { /*...*/ }
    ```
 
-### 测试方法的名称
+### 测试方法的名称 {id="names-for-test-methods"}
 
 在测试中（且**仅**在测试中），你可以使用包含在反引号中的带空格的方法名。请注意，此类方法名仅从 API 级别 30 开始由 Android 运行时支持。测试代码中也允许在方法名中使用下划线。
 
@@ -162,7 +162,7 @@ class MyTestCase {
 }
 ```
 
-### 属性名称
+### 属性名称 {id="property-names"}
 
 常量名称（标有 `const` 的属性，或者不带自定义 `get` 函数且保存深度不可变数据的顶层或对象 `val` 属性）应使用全部大写、下划线分隔的名称，遵循 [screaming snake case](https://en.wikipedia.org/wiki/Snake_case) 约定：
 
@@ -185,7 +185,7 @@ val PersonComparator: Comparator<Person> = /*...*/
 
 对于枚举常量，根据用法，可以使用全部大写、下划线分隔的名称 ([screaming snake case](https://en.wikipedia.org/wiki/Snake_case))（`enum class Color { RED, GREEN }`）或大驼峰式命名法名称。
    
-### 支持属性的名称
+### 支持属性的名称 {id="names-for-backing-properties"}
 
 如果一个类有两个在概念上相同但一个是公共 API 的一部分而另一个是实现细节的属性，请使用下划线作为私有属性名称的前缀：
 
@@ -198,7 +198,7 @@ class C {
 }
 ```
 
-### 选择好的名称
+### 选择好的名称 {id="choose-good-names"}
 
 类的名称通常是名词或名词短语，解释类是*什么*：`List`、`PersonReader`。
 
@@ -212,9 +212,9 @@ class C {
 * 对于双字母缩写词，两个字母均使用大写。例如：`IOStream`。
 * 对于超过两个字母的缩写词，仅首字母大写。例如：`XmlFormatter` 或 `HttpInputStream`。
 
-## 格式设置
+## 格式设置 {id="formatting"}
 
-### 缩进
+### 缩进 {id="indentation"}
 
 使用四个空格进行缩进。不要使用制表符（tab）。
 
@@ -232,7 +232,7 @@ if (elements != null) {
 >
 {style="note"}
 
-### 水平空格
+### 水平空格 {id="horizontal-whitespace"}
 
 * 在二元运算符周围放置空格（`a + b`）。例外：不要在“range to”运算符周围放置空格（`0..i`）。
 * 不要在一元运算符周围放置空格（`a++`）。
@@ -258,7 +258,7 @@ fun bar() {
 
 作为一般规则，避免任何形式的水平对齐。将标识符重命名为长度不同的名称不应影响声明或任何用法的格式设置。
 
-### 冒号
+### 冒号 {id="colon"}
 
 在以下场景中，在 `:` 之前放置一个空格：
 
@@ -282,7 +282,7 @@ class FooImpl : Foo() {
 }
 ```
 
-### 类头
+### 类头 {id="class-headers"}
 
 具有少量主构造函数参数的类可以写在一行中：
 
@@ -338,7 +338,7 @@ class MyFavouriteVeryLongClassHolder :
 
 对构造函数参数使用常规缩进（四个空格）。这可以确保在主构造函数中声明的属性与在类体中声明的属性具有相同的缩进。
 
-### 修饰符顺序
+### 修饰符顺序 {id="modifiers-order"}
 
 如果一个声明有多个修饰符，请始终按以下顺序排列：
 
@@ -370,7 +370,7 @@ private val foo: Foo
 
 除非你正在编写库，否则请省略冗余修饰符（例如 `public`）。
 
-### 注解
+### 注解 {id="annotations"}
 
 将注解放在它们所附加的声明之前的单独行中，并使用相同的缩进：
 
@@ -392,7 +392,7 @@ var x: String
 @Test fun foo() { /*...*/ }
 ```
 
-### 文件注解
+### 文件注解 {id="file-annotations"}
 
 文件注解位于文件注释（如果有）之后、`package` 语句之前，并用空行与 `package` 分隔（以强调它们针对的是文件而不是软件包）。
 
@@ -403,7 +403,7 @@ var x: String
 package foo.bar
 ```
 
-### 函数
+### 函数 {id="functions"}
 
 如果函数签名不适合单行，请使用以下语法：
 
@@ -428,7 +428,7 @@ fun foo(): Int {     // 差
 fun foo() = 1        // 好
 ```
 
-### 表达式体
+### 表达式体 {id="expression-bodies"}
 
 如果函数的表达式体第一行与声明不在同一行，请将 `=` 号放在第一行，并将表达式体缩进四个空格。
 
@@ -437,7 +437,7 @@ fun f(x: String, y: String, z: String) =
     veryLongFunctionCallWithManyWords(andLongParametersToo(), x, y, z)
 ```
 
-### 属性
+### 属性 {id="properties"}
 
 对于非常简单的只读属性，考虑单行格式设置：
 
@@ -459,7 +459,7 @@ private val defaultCharset: Charset? =
     EncodingRegistry.getInstance().getDefaultCharsetForPropertiesFiles(file)
 ```
 
-### 控制流语句
+### 控制流语句 {id="control-flow-statements"}
 
 如果 `if` 或 `when` 语句的条件是多行的，请务必在语句体周围使用花括号。将条件的后续每一行相对于语句开始处缩进四个空格。将条件的右圆括号与左花括号一起放在单独的一行：
 
@@ -512,7 +512,7 @@ when (foo) {
 }
 ```
 
-### 方法调用
+### 方法调用 {id="method-calls"}
 
 在长参数列表中，在左圆括号后换行。将参数缩进四个空格。将多个紧密相关的参数组合在同一行。
 
@@ -526,7 +526,7 @@ drawSquare(
 
 在分隔参数名称和值的 `=` 号周围放置空格。
 
-### 换行链式调用
+### 换行链式调用 {id="wrap-chained-calls"}
 
 在对链式调用进行换行时，将 `.` 字符或 `?.` 运算符放在下一行，并使用单级缩进：
 
@@ -539,7 +539,7 @@ val anchor = owner
 
 链中的第一个调用通常应在其之前换行，但如果代码以这种方式更有意义，也可以省略。
 
-### Lambda表达式
+### Lambda表达式 {id="lambdas"}
 
 在 lambda 表达式中，应在花括号周围以及分隔参数与主体的箭头周围使用空格。如果一个调用接受单个 lambda，请尽可能将其传递到圆括号外。
 
@@ -576,7 +576,7 @@ foo {
 }
 ```
 
-### 尾随逗号
+### 尾随逗号 {id="trailing-commas"}
 
 尾随逗号是一系列元素中最后一个项之后的逗号符号：
 
@@ -598,7 +598,7 @@ class Person(
 
 要在 IntelliJ IDEA 格式化程序中启用尾随逗号，请转到 **Settings/Preferences | Editor | Code Style | Kotlin**，打开 **Other** 选项卡并选择 **Use trailing comma**（**使用尾随逗号**）选项。
 
-#### 枚举 {initial-collapse-state="collapsed" collapsible="true"}
+#### 枚举 {initial-collapse-state="collapsed" collapsible="true" id="enumerations"}
 
 ```kotlin
 enum class Direction {
@@ -609,7 +609,7 @@ enum class Direction {
 }
 ```
 
-#### 实参 {initial-collapse-state="collapsed" collapsible="true"}
+#### 实参 {initial-collapse-state="collapsed" collapsible="true" id="value-arguments"}
 
 ```kotlin
 fun shift(x: Int, y: Int) { /*...*/ }
@@ -624,7 +624,7 @@ val colors = listOf(
 )
 ```
 
-#### 类属性和形参 {initial-collapse-state="collapsed" collapsible="true"}
+#### 类属性和形参 {initial-collapse-state="collapsed" collapsible="true" id="class-properties-and-parameters"}
 
 ```kotlin
 class Customer(
@@ -637,7 +637,7 @@ class Customer(
 )
 ```
 
-#### 函数值形参 {initial-collapse-state="collapsed" collapsible="true"}
+#### 函数值形参 {initial-collapse-state="collapsed" collapsible="true" id="function-value-parameters"}
 
 ```kotlin
 fun powerOf(
@@ -654,7 +654,7 @@ fun print(
 ) {}
 ```
 
-#### 具有可选类型的形参（包括 setter） {initial-collapse-state="collapsed" collapsible="true"}
+#### 具有可选类型的形参（包括 setter） {initial-collapse-state="collapsed" collapsible="true" id="parameters-with-optional-type-including-setters"}
 
 ```kotlin
 val sum: (Int, Int, Int) -> Int = fun(
@@ -667,7 +667,7 @@ val sum: (Int, Int, Int) -> Int = fun(
 println(sum(8, 8, 8))
 ```
 
-#### 索引后缀 {initial-collapse-state="collapsed" collapsible="true"}
+#### 索引后缀 {initial-collapse-state="collapsed" collapsible="true" id="indexing-suffix"}
 
 ```kotlin
 class Surface {
@@ -680,7 +680,7 @@ fun getZValue(mySurface: Surface, xValue: Int, yValue: Int) =
     ]
 ```
 
-#### Lambda 中的形参 {initial-collapse-state="collapsed" collapsible="true"}
+#### Lambda 中的形参 {initial-collapse-state="collapsed" collapsible="true" id="parameters-in-lambdas"}
 
 ```kotlin
 fun main() {
@@ -694,7 +694,7 @@ fun main() {
 }
 ```
 
-#### when 入口 {initial-collapse-state="collapsed" collapsible="true"}
+#### when 入口 {initial-collapse-state="collapsed" collapsible="true" id="when-entry"}
 
 ```kotlin
 fun isReferenceApplicable(myReference: KClass<*>) = when (myReference) {
@@ -706,7 +706,7 @@ fun isReferenceApplicable(myReference: KClass<*>) = when (myReference) {
 }
 ```
 
-#### 集合字面量（在注解中） {initial-collapse-state="collapsed" collapsible="true"}
+#### 集合字面量（在注解中） {initial-collapse-state="collapsed" collapsible="true" id="collection-literals-in-annotations"}
 
 ```kotlin
 annotation class ApplicableFor(val services: Array<String>)
@@ -719,7 +719,7 @@ annotation class ApplicableFor(val services: Array<String>)
 fun run() {}
 ```
 
-#### 类型实参 {initial-collapse-state="collapsed" collapsible="true"}
+#### 类型实参 {initial-collapse-state="collapsed" collapsible="true" id="type-arguments"}
 
 ```kotlin
 fun <T1, T2> foo() {}
@@ -731,7 +731,7 @@ fun main() {
 }
 ```
 
-#### 类型形参 {initial-collapse-state="collapsed" collapsible="true"}
+#### 类型形参 {initial-collapse-state="collapsed" collapsible="true" id="type-parameters"}
 
 ```kotlin
 class MyMap<
@@ -740,7 +740,7 @@ class MyMap<
         > {}
 ```
 
-#### 析构声明 {initial-collapse-state="collapsed" collapsible="true"}
+#### 析构声明 {initial-collapse-state="collapsed" collapsible="true" id="destructuring-declarations"}
 
 ```kotlin
 data class Car(val manufacturer: String, val model: String, val year: Int)
@@ -765,7 +765,7 @@ fun printMeanValue() {
 printMeanValue()
 ```
 
-## 文档注释
+## 文档注释 {id="documentation-comments"}
 
 对于较长的文档注释，请将开头的 `/**` 放在单独的一行，并以星号开始后续的每一行：
 
@@ -802,11 +802,11 @@ fun abs(number: Int): Int { /*...*/ }
 fun abs(number: Int): Int { /*...*/ }
 ```
 
-## 避免冗余构造
+## 避免冗余构造 {id="avoid-redundant-constructs"}
 
 通常，如果 Kotlin 中的某个语法构造是可选的，并且被 IDE 突出显示为冗余，你应该在代码中将其省略。不要仅“为了清晰起见”而在代码中留下不必要的语法元素。
 
-### Unit 返回类型
+### Unit 返回类型 {id="unit-return-type"}
 
 如果函数返回 `Unit`，则应省略返回类型：
 
@@ -816,11 +816,11 @@ fun foo() { // 此处省略了 ": Unit"
 }
 ```
 
-### 分号
+### 分号 {id="semicolons"}
 
 尽可能省略分号。
 
-### 字符串模板
+### 字符串模板 {id="string-templates"}
 
 将简单变量插入字符串模板时不要使用花括号。仅对较长的表达式使用花括号：
 
@@ -843,9 +843,9 @@ val KClass<*>.jsonSchema : String
         """
 ```
 
-## 语言功能的惯用用法
+## 语言功能的惯用用法 {id="idiomatic-use-of-language-features"}
 
-### 不可变性
+### 不可变性 {id="immutability"}
 
 优先使用不可变数据而非可变数据。如果局部变量和属性在初始化后未被修改，请始终将其声明为 `val` 而不是 `var`。
 
@@ -865,7 +865,7 @@ val allowedValues = arrayListOf("a", "b", "c")
 val allowedValues = listOf("a", "b", "c")
 ```
 
-### 默认参数值
+### 默认参数值 {id="default-parameter-values"}
 
 优先声明带有默认参数值的函数，而不是声明重载函数。
 
@@ -878,7 +878,7 @@ fun foo(a: String) { /*...*/ }
 fun foo(a: String = "a") { /*...*/ }
 ```
 
-### 类型别名
+### 类型别名 {id="type-aliases"}
 
 如果你有一个函数式类型或带有类型参数的类型在代码库中被多次使用，请优先为其定义类型别名：
 
@@ -888,17 +888,17 @@ typealias PersonIndex = Map<String, Person>
 ```
 如果你为了避免名称冲突而使用私有或内部类型别名，请优先使用 [Packages and Imports](packages.md) 中提到的 `import ... as ...`。
 
-### Lambda 参数
+### Lambda 参数 {id="lambda-parameters"}
 
 在简短且不嵌套的 lambda 表达式中，建议使用 `it` 约定，而不是显式声明参数。在带有参数的嵌套 lambda 表达式中，始终显式声明参数。
 
-### Lambda 中的返回
+### Lambda 中的返回 {id="returns-in-a-lambda"}
 
 避免在 lambda 表达式中使用多个带标签的返回。考虑重构 lambda 表达式，使其具有单一退出点。如果这不可能或不够清晰，请考虑将 lambda 表达式转换为匿名函数。
 
 不要在 lambda 表达式的最后一条语句中使用带标签的返回。
 
-### 具名实参
+### 具名实参 {id="named-arguments"}
 
 当方法接受多个相同基元类型的参数时，或者对于 `Boolean` 类型的参数，请使用具名实参语法，除非所有参数的含义在上下文中绝对清晰。
 
@@ -906,7 +906,7 @@ typealias PersonIndex = Map<String, Person>
 drawSquare(x = 10, y = 10, width = 100, height = 100, fill = true)
 ```
 
-### 条件语句
+### 条件语句 {id="conditional-statements"}
 
 优先使用 `try`、`if` 和 `when` 的表达式形式。
 
@@ -937,7 +937,7 @@ when(x) {
 }
 ```
 
-### if 对比 when
+### if 对比 when {id="if-versus-when"}
 
 对于二元条件，优先使用 `if` 而不是 `when`。
 例如，使用 `if` 语法：
@@ -957,7 +957,7 @@ when (x) {
 
 当有三个或更多选项时，优先使用 `when`。
 
-### when 表达式中的守卫条件
+### when 表达式中的守卫条件 {id="guard-conditions-in-when-expression"}
 
 在具有[守卫条件](control-flow.md#guard-conditions-in-when-expressions)的 `when` 表达式或语句中组合多个布尔表达式时，请使用圆括号：
 
@@ -975,17 +975,17 @@ when (status) {
 }
 ```
 
-### 条件中的可空布尔值
+### 条件中的可空布尔值 {id="nullable-boolean-values-in-conditions"}
 
 如果你需要在条件语句中使用可空的 `Boolean`，请使用 `if (value == true)` 或 `if (value == false)` 检查。
 
-### 循环
+### 循环 {id="loops"}
 
 优先使用高阶函数（`filter`、`map` 等）而不是循环。例外：`forEach`（除非 `forEach` 的接收者是可空的，或者 `forEach` 作为较长调用链的一部分使用，否则优先使用常规 `for` 循环）。
 
 在包含多个高阶函数的复杂表达式和循环之间进行选择时，请了解每种情况下执行的操作成本，并牢记性能考量。
 
-### 区间循环
+### 区间循环 {id="loops-on-ranges"}
 
 使用 `..<` 运算符在开区间上进行循环：
 
@@ -994,7 +994,7 @@ for (i in 0..n - 1) { /*...*/ }  // 差
 for (i in 0..<n) { /*...*/ }  // 好
 ```
 
-### 字符串
+### 字符串 {id="strings"}
 
 优先使用字符串模板而不是字符串串联。
 
@@ -1034,7 +1034,7 @@ fun main() {
 
 了解 [Java 和 Kotlin 多行字符串](java-to-kotlin-idioms-strings.md#use-multiline-strings)之间的区别。
 
-### 函数 vs 属性
+### 函数 vs 属性 {id="functions-vs-properties"}
 
 在某些场景中，无参数函数可能与只读属性互换。虽然语义相似，但在何时选择其中一个而非另一个方面，存在一些样式约定。
 
@@ -1044,18 +1044,18 @@ fun main() {
 * 计算开销小（或在第一次运行时缓存）。
 * 如果对象状态未更改，则在多次调用中返回相同的结果。
 
-### 扩展函数
+### 扩展函数 {id="extension-functions"}
 
 大胆使用扩展函数。每当你有一个主要处理某个对象的函数时，请考虑将其设为接受该对象作为接收者的扩展函数。为了最大限度地减少 API 污染，请在合理的范围内限制扩展函数的可见性。根据需要，使用局部扩展函数、成员扩展函数或具有私有可见性的顶层扩展函数。
 
-### 中缀函数
+### 中缀函数 {id="infix-functions"}
 
 仅当函数处理两个扮演相似角色的对象时，才将函数声明为 `infix`。好的例子：`and`、`to`、`zip`。
 坏的例子：`add`。
 
 如果方法修改了接收者对象，请不要将其声明为 `infix`。
 
-### 工厂函数
+### 工厂函数 {id="factory-functions"}
 
 如果你为一个类声明工厂函数，请避免给它与类本身相同的名称。优先使用独特的名称，说明为什么该工厂函数的行为是特殊的。只有在确实没有特殊语义的情况下，你才可以使用与类相同的名称。
 
@@ -1069,7 +1069,7 @@ class Point(val x: Double, val y: Double) {
 
 如果你有一个具有多个重载构造函数的对象，这些构造函数不调用不同的超类构造函数，且无法简化为包含默认参数值的单个构造函数，请优先将重载构造函数替换为工厂函数。
 
-### 平台类型
+### 平台类型 {id="platform-types"}
 
 返回平台类型表达式的公共函数/方法必须显式声明其 Kotlin 类型：
 
@@ -1094,11 +1094,11 @@ fun main() {
 }
 ```
 
-### 作用域函数 apply/with/run/also/let
+### 作用域函数 apply/with/run/also/let {id="scope-functions-apply-with-run-also-let"}
 
 Kotlin 提供了一组函数，用于在给定对象的上下文中执行代码块：`let`、`run`、`with`、`apply` 和 `also`。有关为你的情况选择正确作用域函数的指导，请参阅[作用域函数](scope-functions.md)。
 
-## 库的编码规范
+## 库的编码规范 {id="coding-conventions-for-libraries"}
 
 在编写库时，建议遵循一组额外的规则以确保 API 稳定性：
 

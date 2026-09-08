@@ -1,4 +1,4 @@
-## PostgreSQL 타입
+## PostgreSQL 타입 {id="postgresql-types"}
 
 SQLDelight 컬럼 정의는 일반적인 PostgreSQL 컬럼 정의와 동일하지만, 생성된 인터페이스에서 컬럼의 코틀린 타입을 지정하는 [추가 컬럼 제약 조건](#custom-column-types)을 지원합니다.
 

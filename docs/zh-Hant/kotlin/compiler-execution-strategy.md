@@ -10,14 +10,14 @@ _Kotlin 編譯器執行策略_定義了 Kotlin 編譯器執行的位置。
 | [Kotlin daemon](kotlin-daemon.md) | 在其自身的 daemon 處理序內 | 這是 Gradle 與 Maven 中*預設且最快的策略*。此 daemon 處理序可以在不同的建置系統處理序以及多個平行編譯之間共享。 |
 | In process | 在建置工具的處理序內 | 從記憶體管理的角度來看，這是最簡單的策略，但它與在同一處理序中執行的其他邏輯的隔離性較低，因為它會共享狀態，例如 JVM 系統屬性。 |
 
-## 在 Gradle 中配置
+## 在 Gradle 中配置 {id="configure-in-gradle"}
 
 您可以使用以下其中一個屬性來定義 Kotlin 編譯器執行策略：
 
 * `kotlin.compiler.execution.strategy` Gradle 屬性。
 * `compilerExecutionStrategy` 編譯任務屬性。
 
-### 使用 Gradle 屬性
+### 使用 Gradle 屬性 {id="use-the-gradle-property"}
 
 `kotlin.compiler.execution.strategy` 屬性的可能值為：
 
@@ -30,7 +30,7 @@ _Kotlin 編譯器執行策略_定義了 Kotlin 編譯器執行的位置。
 kotlin.compiler.execution.strategy=in-process
 ```
 
-### 使用編譯任務屬性
+### 使用編譯任務屬性 {id="use-the-compile-task-property"}
 
 `compilerExecutionStrategy` 任務屬性的優先級高於 `kotlin.compiler.execution.strategy` Gradle 屬性。
 
@@ -73,7 +73,7 @@ tasks.withType(CompileUsingKotlinDaemon)
 </tab>
 </tabs>
 
-### 備援策略
+### 備援策略 {id="fallback-strategy"}
 
 如果與 Kotlin daemon 的通訊失敗，編譯器將備援至「In process」策略。
 
@@ -127,6 +127,6 @@ tasks.named("compileKotlin").configure {
 
 如果沒有足夠的記憶體來執行編譯，記錄中會顯示相關訊息。
 
-## 在 Maven 中配置
+## 在 Maven 中配置 {id="configure-in-maven"}
 
 <include from ="maven-kotlin-compiler.md" element-id="maven-configure-execution-strategy"/>

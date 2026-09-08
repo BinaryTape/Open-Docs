@@ -1,6 +1,6 @@
 [//]: # (title: 권장 IDE 및 코드 에디터)
 
-## IntelliJ IDEA 및 Android Studio
+## IntelliJ IDEA 및 Android Studio {id="intellij-idea-and-android-studio"}
 
 [IntelliJ IDEA](https://www.jetbrains.com/idea/)는 Kotlin Multiplatform에 대한 완전한 지원을 제공합니다.
 [Android Studio](https://developer.android.com/studio)는 Kotlin Multiplatform을 위한 또 다른 안정적인 솔루션입니다.
@@ -15,12 +15,12 @@ IntelliJ IDEA 2025.2.2 또는 Android Studio Otter 2025.2.1부터, iOS 앱을 �
 * 공통(common) Compose 코드에서 작동하는 `@Preview` 어노테이션 지원.
 * 핫 리로드(hot reload) 실행 구성 자동 감지, 로그 및 설정과의 IDE 통합, 그리고 전반적인 경험을 더욱 원활하게 해주는 맞춤형 IDE 액션 및 툴바를 포함한 [Compose Hot Reload](compose-hot-reload.md) 지원.
 
-## Xcode
+## Xcode {id="xcode"}
 
 Kotlin Multiplatform 프로젝트에서 iOS를 타겟팅하는 경우, iOS 전용 코드를 작성하고 iOS 애플리케이션을 실행하려면 머신에 [Xcode](https://developer.apple.com/xcode/)가 설치되어 있어야 합니다.
 
 App Store Connect에 앱을 업로드하려면 Xcode 16 이상 버전으로 빌드하세요.
 
-## 기타 IDE 및 코드 에디터
+## 기타 IDE 및 코드 에디터 {id="other-ides-and-code-editors"}
 
 기본적인 Kotlin Multiplatform 지원만으로 충분하다면, Kotlin을 지원하는 모든 IDE를 사용할 수 있습니다.

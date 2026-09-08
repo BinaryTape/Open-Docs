@@ -8,7 +8,7 @@ Kotlinは、Kotlin Multiplatformを通じて、ウェブ開発のための2つ�
 どちらのアプローチでもウェブアプリ内でコードを共有できますが、それぞれ異なるユースケースをサポートしています。 
 また、ターゲットブラウザのサポートなど、技術的な側面でも異なります。
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
 [Kotlin/JS](js-overview.md)は、コード、標準ライブラリ、およびサポートされているすべての依存関係をJSにトランスパイルすることで、JavaScript（JS）環境でKotlinアプリを実行できるようにします。
 
@@ -18,14 +18,14 @@ Kotlin/JSで開発する場合、ブラウザまたはNode.js環境のいずれ�
 >
 {style="tip"}
 
-### Kotlin/JSのユースケース
+### Kotlin/JSのユースケース {id="kotlin-js-use-cases"}
 
 Kotlin/JSは、以下を目的とする場合に適しています：
 
 * [JavaScript/TypeScriptのコードベースとビジネスロジックを共有する](#share-business-logic-with-a-javascript-typescript-codebase)。
 * [Kotlinで共有しないウェブアプリを構築する](#build-web-apps-with-kotlin-without-sharing-the-code)。
 
-#### JavaScript/TypeScriptのコードベースとビジネスロジックを共有する
+#### JavaScript/TypeScriptのコードベースとビジネスロジックを共有する {id="share-business-logic-with-a-javascript-typescript-codebase"}
 
 Kotlinコード（ドメインロジックやデータロジックなど）をネイティブのJavaScript/TypeScriptアプリと共有する必要がある場合、Kotlin/JSターゲットは以下を提供します：
 
@@ -33,7 +33,7 @@ Kotlinコード（ドメインロジックやデータロジックなど）を�
 * 相互運用における最小限のオーバーヘッド（例：不要なデータコピーの回避）。
   これにより、共有コードをJSベースのワークフローにスムーズに統合できます。
 
-#### コードを共有せずにKotlinでウェブアプリを構築する
+#### コードを共有せずにKotlinでウェブアプリを構築する {id="build-web-apps-with-kotlin-without-sharing-the-code"}
 
 ウェブアプリが完全にKotlinで実装され、他のプラットフォーム（iOS、Android、またはデスクトップ）と共有しないプロジェクトの場合、HTMLベースのソリューションの方がより優れた制御を提供できます。
 
@@ -45,7 +45,7 @@ HTMLベースのソリューションにおいて、Kotlin/JSは複数のアプ�
 * [Kobweb](https://kobweb.varabyte.com/)や[Kilua](https://kilua.dev/)などのCompose HTMLベースのフレームワークを使用して、ComposeスタイルのアーキテクチャでUIを構築する。
 * Kotlinラッパーを備えたReactベースのソリューションを使用して、[KotlinでReactコンポーネント](https://kotlinlang.org/docs/js-react.html)を実装する。
 
-## Kotlin/Wasm
+## Kotlin/Wasm {id="kotlin-wasm"}
 <primary-label ref="beta"/> 
 
 [Kotlin/Wasm](wasm-overview.md)は、KotlinコードをWebAssembly (Wasm)にコンパイルし、Kotlinの要件を満たしながら、Wasmをサポートする環境やデバイス間でアプリを実行できるようにします。
@@ -62,11 +62,11 @@ Kotlin/Wasmで開発する場合、以下のターゲットを指定できます
 >
 {style="tip"}
 
-### Kotlin/Wasmのユースケース
+### Kotlin/Wasmのユースケース {id="kotlin-wasm-use-cases"}
 
 ロジックとUIの両方を複数のプラットフォーム間で共有したい場合は、Kotlin/Wasmを使用してください。
 
-#### Compose Multiplatformでクロスプラットフォームアプリを構築する
+#### Compose Multiplatformでクロスプラットフォームアプリを構築する {id="build-cross-platform-apps-with-compose-multiplatform"}
 
 ウェブを含む複数のプラットフォーム間でロジックとUIの両方を共有したい場合、[Compose Multiplatform](https://kotlinlang.org/compose-multiplatform/)を備えたKotlin/Wasmは共有UIレイヤーを提供します：
 
@@ -74,7 +74,7 @@ Kotlin/Wasmで開発する場合、以下のターゲットを指定できます
 * レンダリングの向上と、レスポンシブなアニメーションなどのよりスムーズなUI更新のためにWasmを使用します。
 * 最新バージョンの[WebAssembly Garbage Collection (WasmGC)](https://developer.chrome.com/blog/wasmgc)プロポーザルをサポートしており、これによりKotlin/Wasmはすべての主要なモダンブラウザで動作します。
 
-## ウェブアプローチの選択
+## ウェブアプローチの選択 {id="choose-your-web-approach"}
 
 以下の表は、ユースケースに基づいた推奨ターゲットをまとめたものです：
 
@@ -89,7 +89,7 @@ Kotlin/Wasmで開発する場合、以下のターゲットを指定できます
 >
 {style="note"}
 
-## ウェブターゲットの互換モード
+## ウェブターゲットの互換モード {id="compatibility-mode-for-web-targets"}
 
 ウェブアプリの互換モードを有効にすると、すべてのブラウザでそのまま動作するようにできます。
 このモードでは、モダンブラウザ向けにはWasmでUIを構築し、古いブラウザではJSにフォールバックさせることができます。 

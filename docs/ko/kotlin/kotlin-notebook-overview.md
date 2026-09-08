@@ -32,7 +32,7 @@ Kotlin 노트북은 [Jupyter 노트북용 Kotlin 커널(Kotlin Kernel for Jupyte
 
 이러한 기능을 통해 간단한 코드 실험부터 포괄적인 데이터 프로젝트에 이르기까지 폭넓은 작업을 시작할 수 있습니다. 
 
-## 데이터 분석 및 시각화
+## 데이터 분석 및 시각화 {id="data-analytics-and-visualization"}
 
 예비 데이터 탐색을 수행하든, 엔드 투 엔드(end-to-end) 데이터 분석 프로젝트를 완료하든, Kotlin 노트북은 여러분에게 적합한 도구를 갖추고 있습니다.
 
@@ -48,7 +48,7 @@ Kandy의 관용적(idiomatic)이고 가독성이 높으며 타입 안정성(type
 
 ![data-analytics-and-visualization](data-analysis-kandy-example.png){width=700}
 
-## 프로토타이핑
+## 프로토타이핑 {id="prototyping"}
 
 Kotlin 노트북은 코드를 작은 단위로 실행하고 결과를 실시간으로 확인할 수 있는 대화형 환경을 제공합니다. 
 이러한 실무적인 접근 방식은 프로토타이핑 단계에서 빠른 실험과 반복을 가능하게 합니다.
@@ -57,14 +57,14 @@ Kotlin 노트북의 도움을 받아 아이디어 구상 초기 단계에서 솔
 
 ![kotlin-notebook-prototyping](kotlin-notebook-prototyping.png){width=700}
 
-## 백엔드 개발
+## 백엔드 개발 {id="backend-development"}
 
 Kotlin 노트북은 셀 내에서 API를 호출하고 OpenAPI와 같은 프로토콜을 사용하는 기능을 제공합니다. 
 외부 서비스 및 API와 상호작용하는 이러한 기능은 노트북 환경 내에서 직접 정보를 검색하고 JSON 파일을 읽는 것과 같은 특정 백엔드 개발 시나리오에서 유용하게 활용될 수 있습니다.
 
 ![kotlin-notebook-backend-development](kotlin-notebook-backend-development.png){width=700}
 
-## 코드 문서화
+## 코드 문서화 {id="code-documentation"}
 
 Kotlin 노트북에서는 코드 셀 내에 인라인 주석과 텍스트 애노테이션을 포함하여 코드 스니펫과 관련된 추가 컨텍스트, 설명 및 지침을 제공할 수 있습니다.
 
@@ -73,7 +73,7 @@ Kotlin 노트북에서는 코드 셀 내에 인라인 주석과 텍스트 애노
 
 ![kotlin-notebook-documenting](kotlin-notebook-documentation.png){width=700}
 
-## 코드 및 출력 공유
+## 코드 및 출력 공유 {id="sharing-code-and-outputs"}
 
 Kotlin 노트북은 보편적인 Jupyter 형식을 따르므로, 서로 다른 노트북 간에 코드와 출력을 공유할 수 있습니다. 
 [Jupyter Notebook](https://jupyter.org/) 또는 [Jupyter Lab](https://jupyterlab.readthedocs.io/en/latest/)과 같은 모든 Jupyter 클라이언트에서 Kotlin 노트북을 열고 편집하고 실행할 수 있습니다.
@@ -92,7 +92,7 @@ IntelliJ IDEA는 노트북을 사용자의 GitHub 계정에 Gist로 내보내고
 
 Gist는 노트북의 모든 코드, 출력 및 마크다운을 JSON 형식으로 보존하며, GitHub은 이를 미리 보기로 렌더링할 수 있습니다. 
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [Kotlin 노트북의 사용법과 주요 기능에 대해 알아보세요.](https://www.jetbrains.com/help/idea/kotlin-notebook.html)
 * [Kotlin 노트북을 직접 시도해 보세요.](get-started-with-kotlin-notebooks.md)

@@ -7,7 +7,7 @@ Koog 使用 [OpenTelemetry](https://opentelemetry.io/) 发送 agent 跟踪，Ope
 
 ---
 
-## 设置说明
+## 设置说明 {id="setup-instructions"}
 
 1. 使用 [设置指南](https://langfuse.com/docs/get-started#create-new-project-in-langfuse) 创建 Langfuse 项目。
 2. 从 [Organization Settings > API Keys](https://langfuse.com/faq/all/where-are-langfuse-api-keys) 获取您的 `public key`（公钥）和 `secret key`（密钥）。
@@ -20,11 +20,11 @@ Koog 使用 [OpenTelemetry](https://opentelemetry.io/) 发送 agent 跟踪，Ope
 ```
 <!--- KNIT example-langfuse-exporter-01.txt -->
 
-## 配置
+## 配置 {id="configuration"}
 
 安装 **OpenTelemetry 功能**并调用 [`addLangfuseExporter()`](api:agents-features-opentelemetry::ai.koog.agents.features.opentelemetry.integration.langfuse.addLangfuseExporter) 来启用 Langfuse 导出。
 
-### 基础示例
+### 基础示例 {id="basic-example"}
 
 === "Kotlin"
 
@@ -94,7 +94,7 @@ See traces on the Langfuse instance");
     ```
     <!--- KNIT exampleLangfuseExporterJava01.java -->
 
-## 跟踪属性
+## 跟踪属性 {id="trace-attributes"}
 
 当 Koog 将 agent 活动发送到 Langfuse 时，它会以一系列 *span* 的形式发送 —— 即单个工作记录，例如 LLM 调用或工具执行。相关的 span 会被分到同一个 *跟踪* (trace) 中，这代表了从开始到结束的完整 agent 运行。
 
@@ -108,7 +108,7 @@ See traces on the Langfuse instance");
 - **环境 (Environment)** (`langfuse.environment`)：将生产环境跟踪与开发和暂存环境隔离。
 - **标签 (Tags)** (`langfuse.trace.tags`)：使用功能名称、实验 ID 或客户细分标记跟踪（字符串数组）。
 
-### 包含会话和标签的示例
+### 包含会话和标签的示例 {id="example-with-session-and-tags"}
 
 === "Kotlin"
 
@@ -156,7 +156,7 @@ See traces on the Langfuse instance");
     !!! note
         目前不支持从 Java 设置 `traceAttributes`，因为底层的 Kotlin 函数携带了一个 [`kotlin.time.Duration`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-duration/) 参数（一个值类），这会导致包括其后参数在内的所有重载出现 JVM 名称修饰（mangling）问题。需要 `traceAttributes` 时，请使用上面的 Kotlin 示例。
 
-## 跟踪的内容
+## 跟踪的内容 {id="what-gets-traced"}
 
 Langfuse 导出器捕获的内容与 Koog 的常规 OpenTelemetry 集成相同。
 它还会捕获 Langfuse 显示 [Agent 图表](https://langfuse.com/docs/observability/features/agent-graphs) 所需的 span 属性。
@@ -172,7 +172,7 @@ Langfuse 导出器捕获的内容与 Koog 的常规 OpenTelemetry 集成相同�
 
 ---
 
-## 故障排除
+## 故障排除 {id="troubleshooting"}
 
 - **没有跟踪出现**：确认已设置 `LANGFUSE_HOST`、`LANGFUSE_PUBLIC_KEY` 和 `LANGFUSE_SECRET_KEY`，且密钥对属于正确的项目。
 - **连接问题**：如果运行的是私有化部署的 Langfuse，请确认您的环境可以访问 `LANGFUSE_HOST`。

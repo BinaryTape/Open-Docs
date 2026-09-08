@@ -5,7 +5,7 @@
 
 Kotlin 提供了 [`Array<T>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/) 类以及[原生类型数组](#原生类型数组)。
 
-## 何时使用数组
+## 何时使用数组 {id="when-to-use-arrays"}
 
 在与 Java API 互操作或有底层需求时使用数组。例如，如果你对性能的要求超出了常规应用的需求，或者需要构建自定义数据结构。
 
@@ -23,7 +23,7 @@ Kotlin 提供了 [`Array<T>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotli
 
 了解如何[将数组转换为集合](#将数组转换为集合)。
 
-## 创建数组
+## 创建数组 {id="create-arrays"}
 
 要创建数组，你可以使用：
 
@@ -36,7 +36,7 @@ Kotlin 提供了 [`Array<T>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotli
 > 
 {style="note"}
 
-### 带有值的数组
+### 带有值的数组 {id="array-with-values"}
 
 要从一组已知值创建类型化数组，请使用 [`arrayOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/array-of.html) 函数。Kotlin 会自动推断类型：
 
@@ -51,7 +51,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="arrays-simple-array-kotlin"}
 
-### 空数组
+### 空数组 {id="empty-array"}
 
 要创建一个不含元素的数组，请使用 [`emptyArray()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/empty-array.html) 函数。你可以在赋值语句的左侧或右侧指定元素的类型：
 
@@ -62,7 +62,7 @@ val emptyArrayLeft: Array<String> = emptyArray()
 
 了解[如何向数组添加元素](#添加和移除元素)。
 
-### 带有 null 的数组
+### 带有 null 的数组 {id="array-with-nulls"}
 
 要创建一个填充了 `null` 元素且给定大小的数组，请使用 [`arrayOfNulls()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/array-of-nulls.html#kotlin$arrayOfNulls(kotlin.Int)) 函数：
 
@@ -77,7 +77,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="arrays-null-array-kotlin"}
 
-### Array 构造函数
+### Array 构造函数 {id="array-constructor"}
 
 `Array` 构造函数接收数组大小以及一个返回数组元素值的函数：
 
@@ -96,7 +96,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="arrays-array-constructor-kotlin"}
 
-### 嵌套数组
+### 嵌套数组 {id="nested-arrays"}
 
 要创建嵌套数组或多维数组，请使用数组的数组。嵌套数组不需要具有相同的类型或相同的大小。
 
@@ -117,7 +117,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="arrays-multidimensional-array-kotlin"}
 
-### 原生类型数组
+### 原生类型数组 {id="primitive-type-arrays"}
 
 如果在 `Array` 类中使用原生类型值，编译器会将这些值装箱为对象。为了避免装箱开销，你可以使用专门的原生类型数组。它们不是 [`Array<T>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/) 类的子类，但提供了类似的函数和属性集。
 
@@ -187,7 +187,7 @@ fun main() {
 >
 {style="note"}
 
-## 处理数组
+## 处理数组 {id="work-with-arrays"}
 
 数组支持许多与集合相同的操作，包括迭代、搜索、排序和转换。在 Kotlin 中，你可以通过使用数组向函数传递可变数量的参数，或对数组本身执行操作来处理数组。下表列出了最常用的属性和函数：
 
@@ -206,7 +206,7 @@ fun main() {
 
 本节介绍一些最常用的操作。
 
-### 访问和修改元素
+### 访问和修改元素 {id="access-and-modify-elements"}
 
 要访问和修改数组中的元素，请使用[索引访问运算符](operator-overloading.md#indexed-access-operator) (`[]`)：
 
@@ -271,7 +271,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 添加和移除元素
+### 添加和移除元素 {id="add-and-remove-elements"}
 
 由于数组具有固定大小，因此不支持 `.add()` 和 `.remove()` 函数。要执行这些操作，你需要创建一个新数组。为此，你可以使用以下选项之一：
 
@@ -317,7 +317,7 @@ fun main() {
 >
 {style="tip"}
 
-### 比较数组
+### 比较数组 {id="compare-arrays"}
 
 要比较两个数组是否以相同的顺序包含相同的元素，请使用 [`.contentEquals()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/content-equals.html) 和 [`.contentDeepEquals()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/content-deep-equals.html) 函数：
 
@@ -346,11 +346,11 @@ fun main() {
 >
 {style="warning"}
 
-### 转换数组
+### 转换数组 {id="transform-arrays"}
 
 Kotlin 拥有许多用于转换数组的有用函数。本节重点介绍其中几个。请在我们的 [API 参考](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/)中查看完整列表。
 
-#### 求和
+#### 求和 {id="sum"}
 
 要返回数组中所有元素的总和，请使用 [`.sum()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/sum.html) 函数：
 
@@ -369,7 +369,7 @@ fun main() {
 >
 {style="note"}
 
-#### 排序与乱序
+#### 排序与乱序 {id="sort-and-shuffle"}
 
 你可以使用 [`.sort()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/sort.html) 函数根据自然顺序对数组中的元素进行排序，或者使用 [`.shuffle()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/shuffle.html) 函数随机打乱它们：
 
@@ -393,7 +393,7 @@ fun main() {
 
 若要获取新的排序数组而不修改原数组，请改用 [`.sortedArray()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/sorted-array.html) 函数。
 
-### 向函数传递可变数量的参数
+### 向函数传递可变数量的参数 {id="pass-variable-number-of-arguments-to-a-function"}
 
 在 Kotlin 中，你可以通过 [`vararg`](functions.md#variable-number-of-arguments-varargs) 形参向函数传递可变实参数量。这在你预先不知道参数数量时非常有用，例如在格式化消息或创建 SQL 查询时。
 
@@ -416,11 +416,11 @@ fun printAllStrings(vararg strings: String) {
 
 有关更多信息，请参阅[可变实参数量 (varargs)](functions.md#variable-number-of-arguments-varargs)。
 
-## 将数组转换为集合
+## 将数组转换为集合 {id="convert-to-collections"}
 
 如果你使用的不同 API 中有的使用数组，有的使用集合，那么你可以将数组转换为集合，反之亦然。为此，请使用 [`.toList()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-list.html)、[`.toSet()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-set.html) 和 [`.toMap()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-map.html) 函数。这些函数会将数组中的内容复制到独立的副本中。它们不会反映随后对数组所做的更改。
 
-### 转换为 List 或 Set
+### 转换为 List 或 Set {id="convert-to-list-or-set"}
 
 要将数组转换为 `List` 或 `Set`，请使用 [`.toList()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-list.html) 和 [`.toSet()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-set.html) 函数：
 
@@ -457,7 +457,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 转换为 Map
+### 转换为 Map {id="convert-to-map"}
 
 要将数组转换为 `Map`，请使用 [`.toMap()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-map.html) 函数。
 
@@ -480,7 +480,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="arrays-convert-map-kotlin"}
 
-## 下一步？
+## 下一步？ {id="what-s-next"}
 
 * 在[集合概览](collections-overview.md)中详细了解为什么我们建议在大多数用例中使用集合。
 * 了解其他[基本类型](types-overview.md)。

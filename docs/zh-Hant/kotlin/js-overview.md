@@ -10,7 +10,7 @@ Kotlin Multiplatform Gradle 外掛程式讓您可以存取各種功能，例如�
 >
 {style="tip"}
 
-## Kotlin/JS 的使用案例
+## Kotlin/JS 的使用案例 {id="use-cases-for-kotlin-js"}
 
 以下是使用 Kotlin/JS 的一些常見方式：
 
@@ -47,13 +47,13 @@ Kotlin Multiplatform Gradle 外掛程式讓您可以存取各種功能，例如�
 
 Kotlin/JS 也與最常見的模組系統相容：[ESM](https://tc39.es/ecma262/#sec-modules)、[CommonJS](https://nodejs.org/api/modules.html#modules-commonjs-modules)、[UMD](https://github.com/umdjs/umd) 與 [AMD](https://github.com/amdjs/amdjs-api)。這讓您可以[產生與取用模組](js-modules.md)，並以結構化的方式與 JavaScript 生態系統整合。
 
-### 分享您的使用案例
+### 分享您的使用案例 {id="share-your-use-cases"}
 
 [Kotlin/JS 的使用案例](#use-cases-for-kotlin-js)中的列表並未窮舉。歡迎嘗試不同的方法，並找到最適合您專案的方式。
 
 歡迎在 [Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) 的 [#javascript](https://kotlinlang.slack.com/archives/C0B8L3U69) 頻道中，與 Kotlin/JS 社群分享您的使用案例、經驗與問題。
 
-## 開始使用 Kotlin/JS
+## 開始使用 Kotlin/JS {id="get-started-with-kotlin-js"}
 
 探索開始使用 Kotlin/JS 的基礎知識與初始步驟：
 
@@ -65,7 +65,7 @@ Kotlin/JS 也與最常見的模組系統相容：[ESM](https://tc39.es/ecma262/#
 
 <a href="js-get-started.md" as="button" mode="rock" icon="arrow-right" icon-position="right">開始使用 Kotlin/JS</a>
 
-## Kotlin/JS 範例專案
+## Kotlin/JS 範例專案 {id="sample-projects-for-kotlin-js"}
 
 下表列出了一組範例專案，展示了各種 Kotlin/JS 使用案例、架構與程式碼共享策略：
 
@@ -77,17 +77,17 @@ Kotlin/JS 也與最常見的模組系統相容：[ESM](https://tc39.es/ecma262/#
 | [Android、iOS 與 Web 之間的簡單邏輯共享](https://github.com/Kotlin/kmp-logic-sharing-simple-example/#readme)          | 包含一個使用 Kotlin 建構具有通用邏輯專案的範本，這些邏輯被取用於 Android ([Jetpack Compose](https://developer.android.com/compose))、iOS ([SwiftUI](https://developer.apple.com/tutorials/swiftui/)) 與 Web ([React](https://react.dev/)) 的平台原生 UI 應用程式中。                      |
 | [全端協作待辦事項清單](https://github.com/kotlin-hands-on/jvm-js-fullstack/#readme)                                | 展示如何使用針對 JS 與 JVM 目標的 Kotlin Multiplatform 建立協作工作的待辦事項清單應用程式。後端使用 [Ktor](https://ktor.io/)，前端使用 Kotlin/JS 搭配 React。                                                                                                             |
 
-## Kotlin/JS 架構
+## Kotlin/JS 架構 {id="kotlin-js-frameworks"}
 
 Kotlin/JS 架構透過提供立即可用的元件、路由、狀態管理以及其他工具來建構現代 Web 應用程式，從而簡化 Web 開發。
 
 [查看由不同作者編寫的可用 Kotlin/JS 架構](js-frameworks.md)。
 
-## 加入 Kotlin/JS 社群
+## 加入 Kotlin/JS 社群 {id="join-the-kotlin-js-community"}
 
 您可以加入官方 [Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) 中的 [#javascript](https://kotlinlang.slack.com/archives/C0B8L3U69) 頻道，與社群及 Kotlin/JS 團隊聊天。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * [設定 Kotlin/JS 專案](js-project-setup.md)
 * [執行 Kotlin/JS 專案](running-kotlin-js.md)

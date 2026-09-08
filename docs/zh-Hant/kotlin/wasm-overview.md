@@ -15,7 +15,7 @@ Wasm 是一種用於堆疊式虛擬機的二進位指令格式。由於它在自
 
 [//]: # (TODO KT-85415: 關於相容 Kotlin/Wasm 的獨立執行時，請參閱獨立執行時 (Standalone runtimes))。
 
-## Kotlin/Wasm 與 Compose Multiplatform
+## Kotlin/Wasm 與 Compose Multiplatform {id="kotlin-wasm-and-compose-multiplatform"}
 
 透過 Kotlin，您有能力經由 Compose Multiplatform 與 Kotlin/Wasm，在 Web 專案中建置應用程式並重複使用行動裝置與桌面端的使用者介面 (UI)。
 
@@ -29,7 +29,7 @@ Wasm 是一種用於堆疊式虛擬機的二進位指令格式。由於它在自
 
 <a href="wasm-get-started.md" as="button" mode="rock" icon="arrow-right" icon-position="right">開始使用 Kotlin/Wasm</a>
 
-## Kotlin/Wasm 與 WASI
+## Kotlin/Wasm 與 WASI {id="kotlin-wasm-and-wasi"}
 
 Kotlin/Wasm 將 [WebAssembly System Interface (WASI)](https://wasi.dev/) 用於後端應用程式。
 使用 Kotlin/Wasm 和 WASI 建置的應用程式使用 Wasm-WASI 目標，允許您呼叫 WASI API 並在瀏覽器環境之外執行應用程式。
@@ -42,7 +42,7 @@ WASI 提供了安全、標準化的介面，用於在不同環境中執行編譯
 >
 {style="tip"}
 
-### WebAssembly 元件模型
+### WebAssembly 元件模型 {id="webassembly-component-model"}
 <primary-label ref="experimental-general"/>
 
 WASI 0.2 建基於 [WebAssembly 元件模型 (WebAssembly Component Model)](https://github.com/WebAssembly/component-model) 之上，該模型定義了使用標準化介面與型別從 Wasm 模組建置元件的方法。此模型允許您在應用程式或程式庫中定義與語言無關的元件。您還可以將 Wasm 模組和現有元件組合成新的元件。
@@ -51,7 +51,7 @@ WASI 0.2 建基於 [WebAssembly 元件模型 (WebAssembly Component Model)](http
 
 <img src="kotlin-wasm-wasi-http.gif" alt="使用 WebAssembly 元件模型的 Kotlin/Wasm" width="600"/>
 
-## Kotlin/Wasm 效能
+## Kotlin/Wasm 效能 {id="kotlin-wasm-performance"}
 
 雖然 Kotlin/Wasm 仍處於 Beta 階段，但在 Kotlin/Wasm 上執行的 Compose Multiplatform 已經展現出令人鼓舞的效能特性。您可以看到其執行速度超越了 JavaScript，並接近 JVM 的水準：
 
@@ -59,7 +59,7 @@ WASI 0.2 建基於 [WebAssembly 元件模型 (WebAssembly Component Model)](http
 
 我們定期在 Kotlin/Wasm 上執行效能基準測試 (benchmarks)，這些結果來自我們在最近版本的 Google Chrome 中進行的測試。
 
-## 瀏覽器 API 支援
+## 瀏覽器 API 支援 {id="browser-api-support"}
 
 Kotlin/Wasm 標準函式庫提供了瀏覽器 API 的宣告，包括 DOM API。
 透過這些宣告，您可以直接使用 Kotlin API 來存替並利用各種瀏覽器功能。 
@@ -68,19 +68,19 @@ Kotlin/Wasm 標準函式庫提供了瀏覽器 API 的宣告，包括 DOM API。
 瀏覽器 API 支援的宣告是使用 JavaScript [互通性功能 (interoperability)](wasm-js-interop.md) 定義的。 
 您可以使用相同的功能來定義您自己的宣告。此外，Kotlin/Wasm 與 JavaScript 的互通性允許您從 JavaScript 中使用 Kotlin 程式碼。如需更多資訊，請參閱 [在 JavaScript 中使用 Kotlin 程式碼](wasm-js-interop.md#use-kotlin-code-in-javascript)。
 
-## 留下回饋
+## 留下回饋 {id="leave-feedback"}
 
-### Kotlin/Wasm 回饋
+### Kotlin/Wasm 回饋 {id="kotlin-wasm-feedback"}
 
 * ![Slack](slack.svg){width=25}{type="joined"} Slack：[取得 Slack 邀請](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) 並在我們的 [#webassembly](https://kotlinlang.slack.com/archives/CDFP59223) 頻道中直接向開發者提供您的回饋。
 * 在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-56492) 中回報任何問題。
 
-### Compose Multiplatform 回饋
+### Compose Multiplatform 回饋 {id="compose-multiplatform-feedback"}
 
 * ![Slack](slack.svg){width=25}{type="joined"} Slack：在 [#compose-web](https://slack-chats.kotlinlang.org/c/compose-web) 公開頻道中提供您的回饋。
 * [在 GitHub 中回報任何問題](https://github.com/JetBrains/compose-multiplatform/issues)。
 
-## 了解更多
+## 了解更多 {id="learn-more"}
 
 * 在此 [YouTube 播放清單](https://kotl.in/wasm-pl) 中了解有關 Kotlin/Wasm 的更多資訊。
 * 在我們的 GitHub 存儲庫中探索 [Kotlin/Wasm 範例](https://github.com/Kotlin/kotlin-wasm-examples)。

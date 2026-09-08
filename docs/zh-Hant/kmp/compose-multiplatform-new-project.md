@@ -24,7 +24,7 @@
 >
 {style="note"}
 
-## 奠定基礎
+## 奠定基礎 {id="lay-the-foundation"}
 
 首先，實作一個新的 `App()` composable：
 
@@ -95,7 +95,7 @@
 
    ![Compose Hot Reload](compose-hot-reload-resize.gif)
 
-## 支援使用者輸入
+## 支援使用者輸入 {id="support-user-input"}
 
 現在，讓使用者輸入城市名稱以查看該地點的時間。實現此功能最簡單的方法是新增一個 `TextField` composable：
 
@@ -141,7 +141,7 @@
     </TabItem>
 </Tabs>
 
-## 計算時間
+## 計算時間 {id="calculate-time"}
 
 下一步是使用給定的輸入來計算時間。為此，請建立一個 `currentTimeAt()` 函式：
 
@@ -210,7 +210,7 @@
     </TabItem>
 </Tabs>
 
-## 改進樣式
+## 改進樣式 {id="improve-the-style"}
 
 應用程式雖然可以運作，但外觀仍有一些問題。Composable 的間距可以更好，時間訊息的呈現也可以更醒目。
 
@@ -272,7 +272,7 @@
     </TabItem>
 </Tabs>
 
-## 重構 UI
+## 重構 UI {id="refactor-the-ui"}
 
 應用程式雖然可以運作，但很容易出現拼寫錯誤。例如，如果使用者輸入「Franse」而不是「France」，應用程式將無法處理該輸入。更好的做法是要求使用者從預定義的清單中選擇國家。
 
@@ -368,7 +368,7 @@
 >
 {style="note"}
 
-## 導入圖片
+## 導入圖片 {id="introduce-images"}
 
 國家名稱列表雖然可以運作，但視覺上不夠吸引人。你可以透過在國家名稱旁邊新增國旗圖片來改進清單。
 
@@ -489,7 +489,7 @@ Compose Multiplatform 提供了一個程式庫，用於在所有平台上透過�
 >
 {style="note"}
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 我們鼓勵你進一步探索多平台開發並嘗試更多專案：
 

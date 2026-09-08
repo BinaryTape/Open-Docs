@@ -7,7 +7,7 @@
 
 在回答「是或否」問題的函式，以及 `while`、`if` 與 `when` 的條件中使用 `Boolean` 值。
 
-## 宣告 `Boolean` 變數
+## 宣告 `Boolean` 變數 {id="declare-a-boolean-variable"}
 
 要宣告 `Boolean` 變數，請對其指派 `true` 或 `false`。
 
@@ -29,7 +29,7 @@ val isEnabled: Boolean? = null
 >
 {style="note"}
 
-## 產出 `Boolean` 值
+## 產出 `Boolean` 值 {id="produce-boolean-values"}
 
 您可以使用比較運算式與函式來產出 `Boolean` 值：
 
@@ -64,11 +64,11 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## `Boolean` 運算
+## `Boolean` 運算 {id="boolean-operations"}
 
 Kotlin 提供了用於處理 `Boolean` 值的運算子與中綴函式。您可以使用它們來反轉 `Boolean` 值，或將多個 `Boolean` 值結合成單一結果。
 
-### 否定 (NOT)
+### 否定 (NOT) {id="negation-not"}
 
 NOT 運算子會反轉 `Boolean` 值。
 
@@ -79,7 +79,7 @@ val isOn = true
 val isOff = !isOn // isOff 為 false
 ```
 
-### 邏輯 AND（合取）
+### 邏輯 AND（合取） {id="logical-and"}
 
 僅當兩個運算元皆為 `true` 時，AND 運算子才會傳回 `true`。
 
@@ -97,7 +97,7 @@ val d = true && true  // true
 >
 {style="note"}
 
-### 邏輯 OR（析取）
+### 邏輯 OR（析取） {id="logical-or"}
 
 如果至少有一個運算元為 `true`，OR 運算子就會傳回 `true`。
 
@@ -115,7 +115,7 @@ val d = true || true   // true
 >
 {style="note"}
 
-### 互斥或 (XOR)
+### 互斥或 (XOR) {id="exclusive-or-xor"}
 
 如果運算元具有不同的值，互斥或 (XOR) 運算就會傳回 `true`。
 
@@ -134,7 +134,7 @@ val d = true xor true   // false
 >
 {style="note"}
 
-## 運算子優先級
+## 運算子優先級 {id="operator-precedence"}
 
 如果運算式包含多個邏輯運算，且沒有使用圓括號來指定評估順序，Kotlin 將套用優先級規則。較高優先級的運算會先於較低優先級的運算進行評估。
 
@@ -169,11 +169,11 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false"}
 
-## 條件中的 `Boolean`
+## 條件中的 `Boolean` {id="boolean-in-conditions"}
 
 [`if`](control-flow.md#if-expression)、[`when`](control-flow.md#when-expressions-and-statements) 與 [`while`](control-flow.md#while-loops) 會評估 `Boolean` 運算式以引導程式流程。
 
-### `if` 運算式
+### `if` 運算式 {id="if-expressions"}
 
 ```kotlin
 fun main() {
@@ -193,7 +193,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### `when` 運算式
+### `when` 運算式 {id="when-expressions"}
 
 ```kotlin
 fun main() {
@@ -210,7 +210,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### `while` 迴圈
+### `while` 迴圈 {id="while-loops"}
 
 ```kotlin
 fun main() {

@@ -27,7 +27,7 @@ RSA暗号アルゴリズムの一部であるRS256は、ハッシュ化にSHA-25
 </p>
 </warning>
 
-## RSA秘密鍵の生成
+## RSA秘密鍵の生成 {id="generating-an-rsa-private-key"}
 
 秘密鍵を生成するには、OpenSSL、`ssh-keygen`、または認証鍵ペアを作成するための他の任意のツールを使用できます。ここではデモンストレーション目的でOpenSSLを使用します。
 
@@ -61,7 +61,7 @@ OpenSSLでこれを行うには、次のコマンドを実行します。
 
 公開鍵が手元にあれば、そのエキスポネント（指数）とモジュラス（係数）の値を導出できます。
 
-## モジュラスとエキスポネント属性の抽出
+## モジュラスとエキスポネント属性の抽出 {id="extracting-the-modulus-exponent-attributes"}
 
 鍵ペアが用意できたので、`jwks.json`ファイルで使用するために、公開鍵の`e`（エキスポネント）属性と`n`（モジュラス）属性を抽出する必要があります。これには次の手順が必要です。
 
@@ -98,11 +98,11 @@ Exponent: 65537 (0x10001)
 </p>
 </warning>
 
-## モジュラスとエキスポネント属性の変換とエンコード
+## モジュラスとエキスポネント属性の変換とエンコード {id="converting-and-encoding-the-modulus-and-exponent-attributes"}
 
 前のステップで、`jwks.json`ファイルに必要な`n`属性と`e`属性を抽出しました。しかし、これらは16進数形式です。次に、エキスポネントとモジュラスの16進数表現を、それぞれの[Base64URL](https://en.wikipedia.org/wiki/Base64#URL_applications)エンコードに変換する必要があります。
 
-### エキスポネント (Exponent)
+### エキスポネント (Exponent) {id="exponent"}
 
 エキスポネント属性のHEX（16進数）値は`0x10001`です。この値をBase64URLに変換するには、次のコマンドを使用します。
 
@@ -128,7 +128,7 @@ AQAB
 
 エキスポネントのBase64URLエンコードされた値は`AQAB`であり、このケースではこれ以上の処理は必要ありません。他のケースでは、次のステップで示すように`tr`コマンドを使用する必要がある場合があります。
 
-### モジュラス (Modulus)
+### モジュラス (Modulus) {id="modulus"}
 
 `n`属性については、`tr`ユーティリティを使用してモジュラスの16進数表現をさらに処理します。
 
@@ -167,7 +167,7 @@ tfJaLrzXILUg1U3N1KV8yJr92GHn5OtYZR7qWk1Mc4cy4JGjklYup7weMjBD9f3bBVoIsiUVX6xNcYIr
 
 `tr`コマンドを適切に活用することで、モジュラスフィールドがBase64URL文字列にエンコードされ、`jwks.json`ファイルで使用できるようになりました。
 
-## jwks.jsonファイルへの設定
+## jwks.jsonファイルへの設定 {id="populating-the-jwks-json-file"}
 
 前の手順で、以下の必要な情報を収集しました。
 
@@ -196,7 +196,7 @@ tfJaLrzXILUg1U3N1KV8yJr92GHn5OtYZR7qWk1Mc4cy4JGjklYup7weMjBD9f3bBVoIsiUVX6xNcYIr
 
 残っている唯一のステップは、Ktorプロジェクトが認証に使用できるように秘密鍵を指定することです。
 
-## 秘密鍵の定義
+## 秘密鍵の定義 {id="defining-the-private-key"}
 
 公開鍵情報の設定が完了したら、最後のステップは、Ktorプロジェクトに秘密鍵へのアクセス権を与えることです。
 

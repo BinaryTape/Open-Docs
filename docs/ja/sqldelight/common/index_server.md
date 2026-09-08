@@ -2,13 +2,13 @@ SQLDelightはデータベースのスキーマを把握する必要がありま�
 
 SQLDelightでは、これらのアプローチは、「[Fresh Schema](#fresh-schema)」として`.sq`ファイルにテーブル定義を記述するか、「[Migration Schema](#migration-schema)」として`.sqm`ファイルにマイグレーション文を記述するかのいずれかに対応します。いずれの場合も、SQLクエリは（[こちらに示されている通り](#typesafe-sql)）`.sq`ファイルに記述されます。
 
-## Fresh Schema
+## Fresh Schema {id="fresh-schema"}
 
 {% include 'common/index_schema_sq.md' %}
 
 同じ`.sq`ファイル内に、[実行時](#typesafe-sql)に実行されるSQL文の記述を開始できます。
 
-## Migration Schema
+## Migration Schema {id="migration-schema"}
 
 まず、スキーマを組み立てるためにマイグレーションを使用するようGradleを設定します：
 
@@ -49,7 +49,7 @@ src
 
 SQLDelightは、まず`v1__backend.sqm`を適用し、次に`v2__backend.sqm`を適用することでスキーマを作成します。これらのファイルには、通常のSQL `CREATE`/`ALTER` 文を記述してください。もし他のサービス（Flywayなど）がマイグレーションファイルを読み取る場合は、[マイグレーション](migrations)に関する情報と、有効なSQLを出力する方法について必ず確認してください。
 
-## Typesafe SQL
+## Typesafe SQL {id="typesafe-sql"}
 
 実行時にSQL文を実行できるようにするには、まずデータベースに接続するための `SqlDriver` を作成する必要があります。最も簡単な方法は、Hikariやその他の接続マネージャーから取得した `DataSource` から作成することです。
 

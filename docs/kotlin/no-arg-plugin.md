@@ -6,7 +6,7 @@
 
 这使得 Java Persistence API (JPA) 能够实例化一个类，尽管从 Kotlin 或 Java 的角度来看，该类并没有零参数构造函数（参见 [下文](#jpa-support) 中关于 `kotlin-jpa` 插件的说明）。
 
-## 在 Kotlin 文件中
+## 在 Kotlin 文件中 {id="in-your-kotlin-file"}
 
 添加新注解以标记需要零参数构造函数的代码：
 
@@ -16,7 +16,7 @@ package com.my
 annotation class Annotation
 ```
 
-## Gradle
+## Gradle {id="gradle"}
 
 使用 Gradle 的插件 DSL 添加插件：
 
@@ -57,7 +57,7 @@ noArg {
 }
 ```
 
-## Maven
+## Maven {id="maven"}
 
 ```xml
 <plugin>
@@ -88,7 +88,7 @@ noArg {
 </plugin>
 ```
 
-## JPA 支持
+## JPA 支持 {id="jpa-support"}
 
 与封装在 `all-open` 之上的 `kotlin-spring` 插件类似，`kotlin-jpa` 封装在 `no-arg` 之上。该插件会自动指定 [`@Entity`](https://docs.oracle.com/javaee/7/api/javax/persistence/Entity.html)、[`@Embeddable`](https://docs.oracle.com/javaee/7/api/javax/persistence/Embeddable.html) 和 [`@MappedSuperclass`](https://docs.oracle.com/javaee/7/api/javax/persistence/MappedSuperclass.html) 为 *no-arg* 注解。
 
@@ -123,7 +123,7 @@ plugins {
 </compilerPlugins>
 ```
 
-## 命令行编译器
+## 命令行编译器 {id="command-line-compiler"}
 
 将插件 JAR 文件添加到编译器插件类路径并指定注解或预设：
 

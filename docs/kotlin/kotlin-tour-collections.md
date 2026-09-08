@@ -14,7 +14,7 @@ Kotlin 拥有以下用于对项进行分组的集合类型：
 
 每种集合类型都可以是可变的或只读的。
 
-## List
+## List {id="list"}
 
 List 按添加顺序存储项，并允许重复项。
 
@@ -136,7 +136,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-list-add-remove"}
 
-## Set
+## Set {id="set"}
 
 List 是有序且允许重复项的，而 Set 则是**无序**且仅存储**唯一**项的。
 
@@ -222,7 +222,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-set-add-remove"}
 
-## Map
+## Map {id="map"}
 
 Map 以键值对的形式存储项。你可以通过引用键来访问值。你可以将 Map 想象成一份食物菜单。
 你可以通过找到你想吃的食物（键）来找到价格（值）。如果你想在不使用数字索引（如 List）的情况下查找值，Map 非常有用。
@@ -407,9 +407,9 @@ fun main() {
 
 现在你已经了解了基本类型以及如何管理集合，是时候探索可以在程序中使用的[控制流](kotlin-tour-control-flow.md)了。
 
-## 练习 {completion-point="true"}
+## 练习 {completion-point="true" id="practice"}
 
-### 练习 1 {initial-collapse-state="collapsed" collapsible="true"}
+### 练习 1 {initial-collapse-state="collapsed" collapsible="true" id="exercise-1"}
 
 你有一个“绿色”数字列表和一个“红色”数字列表。完成代码以打印总共有多少个数字。
 
@@ -434,7 +434,7 @@ fun main() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="示例解法" id="kotlin-tour-collections-solution-1"}
 
-### 练习 2 {initial-collapse-state="collapsed" collapsible="true"}
+### 练习 2 {initial-collapse-state="collapsed" collapsible="true" id="exercise-2"}
 
 你有一组服务器支持的协议。用户请求使用特定协议。完成程序以检查请求的协议是否受支持（`isSupported` 必须是一个布尔值）。
 
@@ -466,7 +466,7 @@ fun main() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="示例解法" id="kotlin-tour-collections-solution-2"}
 
-### 练习 3 {initial-collapse-state="collapsed" collapsible="true"}
+### 练习 3 {initial-collapse-state="collapsed" collapsible="true" id="exercise-3"}
 
 定义一个 Map，将 1 到 3 的整数与其对应的拼写形式关联起来。使用此 Map 拼写给定的数字。
 

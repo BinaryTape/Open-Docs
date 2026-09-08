@@ -17,9 +17,9 @@ fun addEntryToMap(baseMap: Map<String, Number>, additionalEntry: Pair<String, In
 
 这里的类型信息不足以通过常规方式推断类型实参，但构建器推断可以分析 lambda 实参内部的调用。根据 `putAll()` 和 `put()` 调用的类型信息，编译器可以自动将 `buildMap()` 调用的类型实参推断为 `String` 和 `Number`。构建器推断允许在正式使用泛型构建器时省略类型实参。
 
-## 编写您自己的构建器
+## 编写您自己的构建器 {id="writing-your-own-builders"}
 
-### 启用构建器推断的要求
+### 启用构建器推断的要求 {id="requirements-for-enabling-builder-inference"}
 
 > 在 Kotlin 1.7.0 之前，为构建器函数启用构建器推断需要使用 `-Xenable-builder-inference` 编译器选项。从 1.7.0 版本开始，该选项默认启用。
 >
@@ -69,7 +69,7 @@ fun addEntryToMap(baseMap: Map<String, Number>, additionalEntry: Pair<String, In
    }
    ```
 
-### 支持的功能
+### 支持的功能 {id="supported-features"}
 
 构建器推断支持： 
 * 推断多个类型实参
@@ -117,9 +117,9 @@ fun addEntryToMap(baseMap: Map<String, Number>, additionalEntry: Pair<String, In
   }
   ```
 
-## 构建器推断的工作原理
+## 构建器推断的工作原理 {id="how-builder-inference-works"}
 
-### 推迟类型变量
+### 推迟类型变量 {id="postponed-type-variables"}
 
 构建器推断是根据*推迟类型变量*工作的，这些变量在构建器推断分析期间出现在构建器 lambda 内部。推迟类型变量是正在推断过程中的类型实参类型。编译器使用它来收集有关类型实参的类型信息。
 
@@ -146,7 +146,7 @@ val result = buildList {
 
 请注意，您始终可以使用推迟类型变量作为接收者来调用 `equals()`、`hashCode()` 和 `toString()` 函数。
 
-### 辅助构建器推断结果
+### 辅助构建器推断结果 {id="contributing-to-builder-inference-results"}
 
 构建器推断可以收集多种对分析结果有贡献的类型信息。它会考虑：
 * 在 lambda 接收者上调用使用类型形参类型的函数

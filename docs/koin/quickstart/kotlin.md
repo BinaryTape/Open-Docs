@@ -13,13 +13,13 @@ title: Kotlin
 正在寻找本教程的**注解版本**？请查看 [Kotlin 与注解](./kotlin-annotations.md)，它使用 Koin 注解进行编译时验证和自动模块发现。
 :::
 
-## 获取代码
+## 获取代码 {id="get-the-code"}
 
 :::info
 [源代码可在 Github 上获取](https://github.com/InsertKoinIO/koin-getting-started/tree/main/kotlin)
 :::
 
-## 设置
+## 设置 {id="setup"}
 
 首先，检查是否已按如下方式添加 `koin-core` 依赖项：
 
@@ -31,13 +31,13 @@ dependencies {
 }
 ```
 
-## 应用程序概览
+## 应用程序概览 {id="application-overview"}
 
 该应用程序的想法是管理一个用户列表，并将其显示在我们的 `UserApplication` 类中：
 
 > Users -> UserRepository -> UserService -> UserApplication
 
-## “User” 数据
+## “User” 数据 {id="the-user-data"}
 
 我们将管理一个 User 集合。以下是数据类：
 
@@ -67,7 +67,7 @@ class UserRepositoryImpl : UserRepository {
 }
 ```
 
-## Koin 模块
+## Koin 模块 {id="the-koin-module"}
 
 使用 `module` 函数来声明 Koin 模块。Koin 模块是我们定义所有待注入组件的地方。
 
@@ -89,7 +89,7 @@ val appModule = module {
 本教程使用的是 **Koin 编译器插件 DSL** (`single<T>()`)，它在编译时提供自动装配。有关配置，请参阅 [编译器插件设置](/docs/setup/compiler-plugin)。
 :::
 
-## UserService 组件
+## UserService 组件 {id="the-userservice-component"}
 
 让我们编写 `UserService` 组件来管理用户操作：
 
@@ -131,7 +131,7 @@ val appModule = module {
 }
 ```
 
-## 在 UserApplication 中注入依赖项
+## 在 UserApplication 中注入依赖项 {id="injecting-dependencies-in-userapplication"}
 
 `UserApplication` 类将帮助从 Koin 中引导实例。它将通过构造函数注入来解析 `UserService`：
 
@@ -159,7 +159,7 @@ class UserApplication(
 构造函数注入是 Kotlin 应用程序中注入依赖项的首选方式。Koin 将在创建 `UserApplication` 时自动解析并注入 `UserService`。
 :::
 
-## 启动 Koin
+## 启动 Koin {id="start-koin"}
 
 我们需要随应用程序一起启动 Koin，并将 `UserApplication` 添加到我们的模块中。只需在应用程序的主入口点（即我们的 `main` 函数）中调用 `startKoin()` 函数即可：
 
@@ -184,7 +184,7 @@ fun main() {
 `startKoin` 中的 `modules()` 函数加载给定的模块列表。我们使用 `KoinPlatform.getKoin().get<UserApplication>()` 从 Koin 中检索 `UserApplication` 实例。
 :::
 
-## Koin 模块：DSL 比较
+## Koin 模块：DSL 比较 {id="koin-module-dsl-comparison"}
 
 以下是使用**经典 DSL**（手动装配）的 Koin 模块声明：
 

@@ -13,13 +13,13 @@ title: Kotlin
 이 튜토리얼의 **어노테이션 버전(annotations version)**을 찾고 계신가요? 컴파일 타임 검증과 자동 모듈 검색을 위해 Koin 어노테이션을 사용하는 [Kotlin & Annotations](./kotlin-annotations.md)를 확인해 보세요.
 :::
 
-## 코드 가져오기
+## 코드 가져오기 {id="get-the-code"}
 
 :::info
 [소스 코드는 Github에서 확인하실 수 있습니다](https://github.com/InsertKoinIO/koin-getting-started/tree/main/kotlin)
 :::
 
-## 설정
+## 설정 {id="setup"}
 
 먼저, 아래와 같이 `koin-core` 의존성이 추가되었는지 확인하세요.
 
@@ -31,13 +31,13 @@ dependencies {
 }
 ```
 
-## 애플리케이션 개요
+## 애플리케이션 개요 {id="application-overview"}
 
 이 애플리케이션의 아이디어는 사용자 목록을 관리하고, 이를 `UserApplication` 클래스에서 표시하는 것입니다.
 
 > Users -> UserRepository -> UserService -> UserApplication
 
-## "User" 데이터
+## "User" 데이터 {id="the-user-data"}
 
 사용자 컬렉션을 관리할 것입니다. 다음은 데이터 클래스입니다.
 
@@ -67,7 +67,7 @@ class UserRepositoryImpl : UserRepository {
 }
 ```
 
-## Koin 모듈
+## Koin 모듈 {id="the-koin-module"}
 
 `module` 함수를 사용하여 Koin 모듈을 선언합니다. Koin 모듈은 주입될 모든 컴포넌트를 정의하는 공간입니다.
 
@@ -89,7 +89,7 @@ val appModule = module {
 이 튜토리얼은 컴파일 타임에 자동 연결(auto-wiring)을 제공하는 **Koin 컴파일러 플러그인 DSL**(`single<T>()`)을 사용합니다. 구성 방법은 [컴파일러 플러그인 설정](/docs/setup/compiler-plugin)을 참조하세요.
 :::
 
-## UserService 컴포넌트
+## UserService 컴포넌트 {id="the-userservice-component"}
 
 사용자 작업을 관리하기 위한 `UserService` 컴포넌트를 작성해 봅시다.
 
@@ -131,7 +131,7 @@ val appModule = module {
 }
 ```
 
-## UserApplication에서 의존성 주입하기
+## UserApplication에서 의존성 주입하기 {id="injecting-dependencies-in-userapplication"}
 
 `UserApplication` 클래스는 Koin에서 인스턴스를 부트스트랩(bootstrap)하는 데 도움이 됩니다. 생성자 주입(constructor injection)을 통해 `UserService`를 해결(resolve)합니다.
 
@@ -159,7 +159,7 @@ class UserApplication(
 생성자 주입은 Kotlin 애플리케이션에서 의존성을 주입하는 권장되는 방법입니다. Koin은 `UserApplication`을 생성할 때 `UserService`를 자동으로 해결하고 주입합니다.
 :::
 
-## Koin 시작하기
+## Koin 시작하기 {id="start-koin"}
 
 애플리케이션과 함께 Koin을 시작하고 `UserApplication`을 모듈에 추가해야 합니다. 애플리케이션의 메인 진입점인 `main` 함수에서 `startKoin()` 함수를 호출하기만 하면 됩니다.
 
@@ -184,7 +184,7 @@ fun main() {
 `startKoin`의 `modules()` 함수는 주어진 모듈 목록을 로드합니다. `KoinPlatform.getKoin().get<UserApplication>()`을 사용하여 Koin에서 `UserApplication` 인스턴스를 가져옵니다.
 :::
 
-## Koin 모듈: DSL 비교
+## Koin 모듈: DSL 비교 {id="koin-module-dsl-comparison"}
 
 다음은 **클래식 DSL(Classic DSL)**(수동 연결)을 사용한 Koin 모듈 선언입니다.
 

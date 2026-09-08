@@ -6,11 +6,11 @@
 >
 {style="tip"}
 
-## 互換性の確認
+## 互換性の確認 {id="check-the-compatibility"}
 
 新しいレイアウトにはAndroid Gradleプラグイン 7.0以降が必要であり、Android Studio 2022.3以降でサポートされています。Android Gradleプラグインのバージョンを確認し、必要に応じてアップグレードしてください。
 
-## Kotlinソースセットの名前変更
+## Kotlinソースセットの名前変更 {id="rename-kotlin-source-sets"}
 
 該当する場合は、以下のパターンに従ってプロジェクト内のソースセットの名前を変更してください。
 
@@ -26,7 +26,7 @@
 | test        | androidTest                | android<b>Unit</b>Test         |
 | androidTest | android<b>Android</b>Test  | android<b>Instrumented</b>Test |
 
-## ソースファイルの移動
+## ソースファイルの移動 {id="move-source-files"}
 
 該当する場合は、以下のパターンに従ってソースファイルを新しいディレクトリに移動してください。
 
@@ -42,7 +42,7 @@
 | test        | src/androidTest/kotlin<br/>src/test/kotlin<br/>src/test/java  | src/android<b>Unit</b>Test/kotlin<br/>src/test/kotlin<br/>src/test/java                           |
 | androidTest | src/android<b>Android</b>Test/kotlin<br/>src/androidTest/java | src/android<b>Instrumented</b>Test/kotlin<br/>src/androidTest/java, <b>src/androidTest/kotlin</b> |
 
-## AndroidManifest.xmlファイルの移動
+## AndroidManifest.xmlファイルの移動 {id="move-the-androidmanifest-xml-file"}
 
 プロジェクトに `AndroidManifest.xml` ファイルがある場合は、以下のパターンに従って新しいディレクトリに移動してください。
 
@@ -57,7 +57,7 @@
 | main  | src/main/AndroidManifest.xml  | src/<b>android</b>Main/AndroidManifest.xml  |
 | debug | src/debug/AndroidManifest.xml | src/<b>android</b>Debug/AndroidManifest.xml |
 
-## Androidテストと共通テスト（common tests）の関係の確認
+## Androidテストと共通テスト（common tests）の関係の確認 {id="check-the-relationship-between-android-and-common-tests"}
 
 新しいAndroidソースセットのレイアウトでは、Androidインストゥルメンテーションテスト（Android-instrumented tests、新しいレイアウトでは `androidInstrumentedTest` に改名）と共通テストの関係が変わります。
 
@@ -81,7 +81,7 @@ kotlin {
 }
 ```
 
-## Androidフレーバーの実装の調整
+## Androidフレーバーの実装の調整 {id="adjust-the-implementation-of-android-flavors"}
 
 以前は、Kotlin Gradleプラグインは、`debug` や `release` ビルドタイプ、または `demo` や `full` などのカスタムフレーバー（flavor）を含むAndroidソースセットに対応するソースセットを先行して（eagerly）作成していました。
 これにより、`val androidDebug by getting { ... }` のような式を使用してソースセットにアクセスできました。

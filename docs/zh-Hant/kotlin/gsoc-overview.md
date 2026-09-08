@@ -4,11 +4,11 @@ Kotlin 基金會為 Google Summer of Code (GSoC) 提供導師指導，這是一�
 
 若要進一步了解 GSoC，請參閱 [Google Summer of Code 官方網站](https://summerofcode.withgoogle.com/)。
 
-## GSoC 2026：專案構想
+## GSoC 2026：專案構想 {id="gsoc-2026-project-ideas"}
 
 Kotlin 基金會已發佈 Google Summer of Code 2026 的專案構想清單。如果您有興趣參與貢獻，請查看可用的專案與準則：[](gsoc-2026.md)。
 
-## 歷屆 Kotlin 的 GSoC 專案
+## 歷屆 Kotlin 的 GSoC 專案 {id="past-gsoc-projects-with-kotlin"}
 
 您可以探索過去 Kotlin 的 Google Summer of Code 專案與構想：
 

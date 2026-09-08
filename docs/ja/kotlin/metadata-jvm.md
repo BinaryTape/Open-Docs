@@ -12,7 +12,7 @@
 
 また、Kotlin Metadata JVM ライブラリを使用して、可視性（visibility）やモダリティ（modality）などのさまざまな宣言属性を検査したり、メタデータを生成して `.class` ファイルに埋め込んだりすることもできます。
 
-## プロジェクトへのライブラリの追加
+## プロジェクトへのライブラリの追加 {id="add-the-library-to-your-project"}
 
 プロジェクトに Kotlin Metadata JVM ライブラリを含めるには、ビルドツールに基づいて対応する依存関係の設定を追加します。
 
@@ -21,7 +21,7 @@
 > 
 {style="note"}
 
-### Gradle
+### Gradle {id="gradle"}
 
 `build.gradle(.kts)` ファイルに以下の依存関係を追加します。
 
@@ -55,7 +55,7 @@ dependencies {
 </tab>
 </tabs>
 
-### Maven
+### Maven {id="maven"}
 
 `pom.xml` ファイルに以下の依存関係を追加します。
 
@@ -72,7 +72,7 @@ dependencies {
 </project>
 ```
 
-## メタデータの読み取りとパース
+## メタデータの読み取りとパース {id="read-and-parse-metadata"}
 
 `kotlin-metadata-jvm` ライブラリは、コンパイル済みの Kotlin `.class` ファイルから、クラス名、可視性、シグネチャなどの構造化された情報を抽出します。
 コンパイル済みの Kotlin 宣言を分析する必要があるプロジェクトで使用できます。
@@ -172,7 +172,7 @@ fun main() {
 }
 ```
 
-### メタデータ内でのアノテーションの書き込みと読み取り
+### メタデータ内でのアノテーションの書き込みと読み取り {id="write-and-read-annotations-in-metadata"}
 
 Kotlin はアノテーションをバイトコードと Kotlin メタデータの両方に保存します。`kotlin-metadata-jvm` ライブラリを使用してアノテーションを読み書きする場合、それらのメタデータ表現を操作することになります。
 
@@ -215,7 +215,7 @@ fun main() {
 }
 ```
 
-### バイトコードからのメタデータの抽出
+### バイトコードからのメタデータの抽出 {id="extract-metadata-from-bytecode"}
 
 リフレクションを使用してメタデータを取得することもできますが、[ASM](https://asm.ow2.io/) などのバイトコード操作フレームワークを使用してバイトコードから抽出するアプローチもあります。
 
@@ -307,7 +307,7 @@ fun main() {
 }
 ```
 
-## メタデータの変更
+## メタデータの変更 {id="modify-metadata"}
 
 バイトコードを縮小および最適化するために [ProGuard](https://github.com/Guardsquare/proguard) などのツールを使用すると、`.class` ファイルから一部の宣言が削除されることがあります。
 ProGuard は、変更されたバイトコードとの整合性を保つために、メタデータを自動的に更新します。
@@ -376,7 +376,7 @@ fun main() {
 > 
 {style="tip"}
 
-## メタデータの新規作成
+## メタデータの新規作成 {id="create-metadata-from-scratch"}
 
 Kotlin Metadata JVM ライブラリを使用して Kotlin クラスファイルのメタデータをゼロから作成するには：
 
@@ -453,7 +453,7 @@ fun main() {
 > 
 {style="tip"}
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [Kotlin Metadata JVM ライブラリの API リファレンスを見る](https://kotlinlang.org/api/kotlinx-metadata-jvm/)。
 * [Kotlin Metadata JVM GitHub リポジトリを確認する](https://github.com/JetBrains/kotlin/tree/master/libraries/kotlinx-metadata/jvm)。

@@ -35,7 +35,7 @@ val service: GreetingService by dependencies
 val service = dependencies.resolve<GreetingService>()
 ```
 
-### 形参解析
+### 形参解析 {id="parameter-resolution"}
 
 解析构造函数或函数时，Ktor 使用 DI 容器解析形参。默认情况下按类型解析形参。
 
@@ -51,7 +51,7 @@ fun Application.userRepository(@Named("mongo") database: Database) {
 }
 ```
 
-#### 使用配置属性
+#### 使用配置属性 {id="use-configuration-properties"}
 
 使用 `@Property` 注解从应用程序配置中注入值：
 
@@ -166,7 +166,7 @@ fun Application.logging(printStreamProvider: () -> PrintStream) {
 </TabItem>
 </Tabs>
 
-## 高级依赖项解析
+## 高级依赖项解析 {id="advanced-dependency-resolution"}
 
 ### 可选和可空依赖项 {id="optional-dependencies"}
 
@@ -206,7 +206,7 @@ dependencies {
 val outputStream: OutputStream by dependencies
 ```
 
-#### 局限性
+#### 局限性 {id="limitations"}
 
 虽然 DI 系统支持泛型类型的协变，但目前不支持跨类型实参子类型解析参数化类型。这意味着您无法使用比注册类型更具体或更宽泛的类型来检索依赖项。
 

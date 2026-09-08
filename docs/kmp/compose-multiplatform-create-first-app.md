@@ -25,7 +25,7 @@
 * 要完成本教程，您只需要 IntelliJ IDEA。它允许您在 Android 和桌面端尝试多平台开发。对于 iOS，您需要一台安装了 Xcode 的 macOS 机器。这是 iOS 开发的通用限制。
 * 如果愿意，您可以将选择限制在您感兴趣的特定平台，并忽略其他平台。
 
-## 创建项目
+## 创建项目 {id="create-a-project"}
 
 1. 在[快速入门](quickstart.md)中，按照说明[设置您的 Kotlin Multiplatform 开发环境](quickstart.md#set-up-the-environment)。
 2. 在 IntelliJ IDEA 中，选择 **File** | **New** | **Project**。
@@ -46,7 +46,7 @@
 
    ![创建 Compose Multiplatform 项目](create-compose-multiplatform-project.png){width=800}
 
-## 检查项目结构
+## 检查项目结构 {id="examine-the-project-structure"}
 
 在 IntelliJ IDEA 中，导航到 `ComposeDemo` 文件夹。
 如果您在向导中没有选择 iOS，则不会有名称以 "ios" 或 "apple" 开头的文件夹。
@@ -123,7 +123,7 @@ fun App() {
 
 让我们在所有支持的平台上运行该应用。
 
-## 运行您的应用
+## 运行您的应用 {id="run-your-application"}
 
 您可以在 Android、iOS、桌面端和 Web 上运行该应用。您不必按任何特定顺序运行这些应用，因此可以从您最熟悉的任何平台开始。
 
@@ -132,7 +132,7 @@ fun App() {
 >
 {style="tip"}
 
-### 在 Android 上运行应用
+### 在 Android 上运行应用 {id="run-your-application-on-android"}
 
 1. 在运行配置列表中，选择 **androidApp**。
 2. 选择您的 Android 虚拟设备，然后点击 **Run**：如果选定的虚拟设备处于关机状态， IDE 将启动它并运行应用。
@@ -143,17 +143,17 @@ fun App() {
 
 <snippet id="run_android_other_devices">
 
-#### 在不同的 Android 模拟设备上运行 {initial-collapse-state="collapsed" collapsible="true"}
+#### 在不同的 Android 模拟设备上运行 {initial-collapse-state="collapsed" collapsible="true" id="run-on-a-different-android-simulated-device"}
 
 了解如何 [配置 Android Emulator 并在不同的模拟设备上运行您的应用](https://developer.android.com/studio/run/emulator#runningapp)。
 
-#### 在真实的 Android 设备上运行 {initial-collapse-state="collapsed" collapsible="true"}
+#### 在真实的 Android 设备上运行 {initial-collapse-state="collapsed" collapsible="true" id="run-on-a-real-android-device"}
 
 了解如何 [配置并连接硬件设备并在其上运行您的应用](https://developer.android.com/studio/run/device)。
 
 </snippet>
 
-### 在 iOS 上运行应用
+### 在 iOS 上运行应用 {id="run-your-application-on-ios"}
 
 如果您在初始设置中未启动过 Xcode，请在运行 iOS 应用之前启动它。
 
@@ -165,11 +165,11 @@ fun App() {
 
 <snippet id="run_ios_other_devices">
 
-#### 在真实的 iOS 设备上运行 {initial-collapse-state="collapsed" collapsible="true"}
+#### 在真实的 iOS 设备上运行 {initial-collapse-state="collapsed" collapsible="true" id="run-on-a-real-ios-device"}
 
 您可以在真实的 iOS 设备上运行您的多平台应用。在开始之前，您需要设置与您的 [Apple ID](https://support.apple.com/en-us/HT204316) 关联的 Team ID。
 
-##### 设置您的 Team ID
+##### 设置您的 Team ID {id="set-your-team-id"}
 
 要首次为您的项目设置新的 Team ID，请在 Xcode 中打开项目（**File | Open Project in Xcode**）：
 
@@ -189,7 +189,7 @@ fun App() {
 
 2. 切换到 **Options** 选项卡，在 **Development team** 下拉菜单中进行必要的更改，然后点击 **OK**。
 
-##### 运行应用
+##### 运行应用 {id="run-the-app"}
 
 用电缆连接您的 iPhone。如果您已经在 Xcode 中注册了该设备，IntelliJ IDEA 应该会将其显示在运行配置列表中。运行相应的 `iosApp` 配置。
 
@@ -206,7 +206,7 @@ fun App() {
 
 </snippet>
 
-### 在桌面端运行应用
+### 在桌面端运行应用 {id="run-your-application-on-desktop"}
 
 在运行配置列表中选择 **desktopApp [hot] 🔥**，然后点击 **Run**。
 默认情况下，运行配置会在其自己的操作系统窗口中启动桌面应用，并运行 [Compose Hot Reload (热重载)](compose-hot-reload.md)：
@@ -215,7 +215,7 @@ fun App() {
 
 ![桌面端上的第一个 Compose Multiplatform 应用](first-compose-project-on-desktop-1.png){width=500}
 
-### 运行 Web 应用
+### 运行 Web 应用 {id="run-your-web-application"}
 
 1. 在运行配置列表中，选择：
 
@@ -233,7 +233,7 @@ Web 应用会自动在您的默认浏览器中打开，默认情况下可以通�
 
 ![Compose Web 应用](first-compose-project-on-web.png){width=600}
 
-#### Web 目标的兼容模式
+#### Web 目标的兼容模式 {id="compatibility-mode-for-web-targets"}
 
 您可以为 Web 应用启用兼容模式，以确保它能在所有浏览器上开箱即用。
 在这种模式下，现代浏览器使用 Wasm 版本，而旧版本则回退到 JS 版本。
@@ -259,13 +259,13 @@ Web 应用会自动在您的默认浏览器中打开，默认情况下可以通�
 Gradle 任务完成后，兼容的工件将在 `composeApp/build/dist/composeWebCompatibility/productionExecutable` 目录中生成。
 您可以使用这些工件来[发布您的应用](https://kotlinlang.org/docs/wasm-get-started.html#publish-the-application)，使其在 `js` 和 `wasmJs` 目标上均可运行。
 
-## 下一步
+## 下一步 {id="next-step"}
 
 在教程的下一部分，您将学习如何实现可组合函数并在各个平台上启动应用。
 
 **[继续进行下一部分](compose-multiplatform-explore-composables.md)**
 
-## 获取帮助
+## 获取帮助 {id="get-help"}
 
 * **Kotlin Slack**。获取[邀请](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)并加入 [#multiplatform](https://kotlinlang.slack.com/archives/C3PQML5NU) 频道。
 * **Kotlin 问题跟踪器**。[报告新问题](https://youtrack.jetbrains.com/newIssue?project=KT)。

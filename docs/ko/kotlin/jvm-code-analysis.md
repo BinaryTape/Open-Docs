@@ -4,7 +4,7 @@
 
 코드 품질 도구는 Kotlin 프로젝트 전반에서 코딩 표준을 준수하고, 버그를 조기에 발견하며, 테스트 커버리지를 측정하고, 코드 품질을 유지하는 데 도움이 됩니다. 이 가이드에서는 [ktlint](https://ktlint.github.io/ktlint/latest/), [detekt](https://detekt.dev/), [SonarQube](https://www.sonarsource.com/products/sonarqube/), [SonarCloud](https://www.sonarsource.com/products/sonarcloud/), 그리고 [Kover](https://kotlin.github.io/kotlinx-kover/)와 같은 인기 있는 도구들을 Maven 또는 Gradle 기반의 백엔드 프로젝트에 통합하는 방법을 설명합니다.
 
-## ktlint를 이용한 코드 포맷팅
+## ktlint를 이용한 코드 포맷팅 {id="code-formatting-with-ktlint"}
 
 [ktlint](https://github.com/ktlint/ktlint)는 별도의 추가 설정 없이 공식 Kotlin [코딩 컨벤션](coding-conventions.md)을 준수하도록 돕는 Kotlin 린터(linter) 및 포맷터(formatter)입니다.
 
@@ -103,7 +103,7 @@ ktlint는 들여쓰기, 연산자 주변의 공백, 임포트(import) 순서, �
 
 사용 가능한 기능 및 규칙에 대한 자세한 내용은 [ktlint 문서](https://github.com/ktlint/ktlint/tree/master/documentation)를 참조하세요.
 
-## detekt를 이용한 코드 분석
+## detekt를 이용한 코드 분석 {id="code-analysis-with-detekt"}
 
 [detekt](https://github.com/detekt/detekt)는 코드 스멜(code smells), 복잡성 문제 및 잠재적 버그를 감지하는 Kotlin용 정적 코드 분석 도구입니다.
 
@@ -241,7 +241,7 @@ detekt는 모든 규칙 위반 사항을 심각도, 파일 위치, 문제 설명
 
 자세한 내용은 [Gradle](https://detekt.dev/docs/intro) 및 [Maven](https://github.com/Ozsie/detekt-maven-plugin)용 detekt 문서를 참조하세요.
 
-## SonarSource를 이용한 코드 품질 관리
+## SonarSource를 이용한 코드 품질 관리 {id="code-quality-with-sonarsource"}
 
 SonarSource의 [SonarQube](https://github.com/SonarSource/sonarqube) 및 [SonarCloud](https://github.com/marketplace/sonarcloud)는 웹 대시보드를 통해 버그 탐지, 취약점 스캐닝, 코드 커버리지 추적을 포함하여 Kotlin 프로젝트에 대한 심층적인 정적 분석을 제공합니다.
 
@@ -364,7 +364,7 @@ SonarQube로 프로젝트를 분석하려면 다음 단계를 따르세요.
 
 자세한 내용은 [SonarSource 문서](https://docs.sonarsource.com/)를 참조하세요.
 
-## Kover를 이용한 코드 커버리지
+## Kover를 이용한 코드 커버리지 {id="code-coverage-with-kover"}
 
 [Kover](https://github.com/Kotlin/kotlinx-kover)는 JetBrains에서 제공하는 공식 Kotlin용 코드 커버리지 도구입니다. 코드의 어떤 라인과 브랜치가 테스트에 의해 실행되었는지 측정하고 사람이 읽을 수 있는 보고서를 생성합니다.
 
@@ -498,7 +498,7 @@ SonarQube로 프로젝트를 분석하려면 다음 단계를 따르세요.
 
 검증 규칙 구성에 대한 자세한 내용은 [Maven](https://kotlin.github.io/kotlinx-kover/maven-plugin/) 및 [Gradle](https://kotlin.github.io/kotlinx-kover/gradle-plugin/)용 Kover 문서를 참조하세요.
 
-## 기타 도구
+## 기타 도구 {id="other-tools"}
 
 ktlint, detekt, SonarQube, SonarCloud, Kover 외에도 Kotlin 코드 품질을 개선하기 위해 다음 도구들을 시도해 보세요.
 
@@ -508,7 +508,7 @@ ktlint, detekt, SonarQube, SonarCloud, Kover 외에도 Kotlin 코드 품질을 �
 | [Semgrep](https://semgrep.dev/docs/)      | 커스텀 규칙을 지원하는 빠르고 가벼운 정적 분석 도구입니다. Kotlin 코드에서 특정 패턴을 강제하거나 안티 패턴을 감지하는 데 사용할 수 있습니다. |
 | [PMD](https://docs.pmd-code.org/latest/)  | Kotlin을 지원하는 소스 코드 분석기(CPD 복사-붙여넣기 탐지기 포함)로, 일반적인 프로그래밍 결함과 중복 코드를 감지합니다. |
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [Maven 프로젝트에서 테스트 실행하기](jvm-test-maven.md)
 * [Maven으로 Kotlin 프로젝트 구성하기](maven-configure-project.md)

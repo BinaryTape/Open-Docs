@@ -4,7 +4,7 @@
 
 Coil は、単一の `ImageLoader` を作成し、それをアプリ全体で共有することで最高のパフォーマンスを発揮します。これは、各 `ImageLoader` が独自のメモリキャッシュ、ディスクキャッシュ、および `OkHttpClient` を持っているためです。
 
-## シングルトン (Singleton)
+## シングルトン (Singleton) {id="singleton"}
 
 デフォルトの `io.coil-kt.coil3:coil` アーティファクトには、シングルトンの `ImageLoader` が含まれています。Coil はこの `ImageLoader` を遅延生成（Lazy creation）します。これはいくつかの方法で設定できます。
 
@@ -46,13 +46,13 @@ class CustomApplication : SingletonImageLoader.Factory {
 
 **どのような場合でも、上記のメソッドはアプリの起動後できるだけ早く（つまり、`Application.onCreate` 内、またはアプリが単一の `Activity` のみの場合は `MainActivity.onCreate` 内で）呼び出されるようにしてください。**
 
-## 依存関係の注入 (Dependency injection)
+## 依存関係の注入 (Dependency injection) {id="dependency-injection"}
 
 より大規模なアプリを作成する場合や、独自の `ImageLoader` を管理したい場合は、`io.coil-kt.coil3:coil` の代わりに `io.coil-kt.coil3:coil-core` に依存させることができます。
 
 この方法をとることで、フェイク（Fake）の `ImageLoader` のライフサイクルのスコープ設定が非常に容易になり、全体としてテストがしやすくなります。
 
-## キャッシング
+## キャッシング {id="caching"}
 
 各 `ImageLoader` は、最近デコードされた `Bitmap` のメモリキャッシュと、インターネットから読み込まれた画像のディスクキャッシュを保持します。これらは両方とも、`ImageLoader` の作成時に設定可能です。
 

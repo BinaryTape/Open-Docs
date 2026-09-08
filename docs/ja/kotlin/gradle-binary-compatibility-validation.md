@@ -10,7 +10,7 @@
 
 Kotlin Gradle プラグインはバイナリ互換性の検証をサポートしています。このプラグインは現在のコードからアプリケーション・バイナリ・インターフェース（ABI: Application Binary Interface）ダンプを生成し、それを以前のダンプと比較して差異を浮き彫りにします。これらの変更を確認することで、バイナリ互換性を損なう可能性のある修正を特定し、対処することができます。
 
-## 有効にする方法
+## 有効にする方法 {id="how-to-enable"}
 
 バイナリ互換性の検証を有効にするには、`build.gradle.kts` ファイルに `abiValidation {}` ブロックを追加してください。カスタム設定が不要な場合は、代わりに `abiValidation()` 関数を使用できます。
 
@@ -38,7 +38,7 @@ kotlin {
 
 KGP（Kotlin Gradle プラグイン）は必要な Gradle タスクを作成します。プロジェクトにバイナリ互換性をチェックしたいモジュールが複数ある場合は、各モジュールを個別に設定してください。
 
-## バイナリ互換性の問題を確認する
+## バイナリ互換性の問題を確認する {id="check-for-binary-compatibility-issues"}
 
 コードに変更を加えた後、バイナリ互換性を損なう可能性のある問題を確認するには、IntelliJ IDEA で `checkKotlinAbi` Gradle タスクを実行するか、プロジェクトディレクトリで以下のコマンドを使用します。
 
@@ -50,7 +50,7 @@ KGP（Kotlin Gradle プラグイン）は必要な Gradle タスクを作成し�
 
 デフォルトでは、プロジェクトで [バイナリ互換性の検証が有効](#how-to-enable) になっている場合に `check` タスクを実行すると、Gradle は `checkKotlinAbi` タスクも実行します。
 
-## リファレンス ABI ダンプの更新
+## リファレンス ABI ダンプの更新 {id="update-reference-abi-dump"}
 
 Gradle が最新の変更をチェックするために使用するリファレンス ABI ダンプを更新するには、IntelliJ IDEA で `updateKotlinAbi` タスクを実行するか、プロジェクトディレクトリで以下のコマンドを使用します。
 
@@ -60,7 +60,7 @@ Gradle が最新の変更をチェックするために使用するリファレ�
 
 リファレンスダンプの更新は、変更が以前のバージョンとのバイナリ互換性を維持していると確信できる場合にのみ行ってください。
 
-## フィルタの設定
+## フィルタの設定 {id="configure-filters"}
 
 ABI ダンプに含めるクラス、プロパティ、関数を制御するためのフィルタを定義できます。`filters {}` ブロックを使用し、`excluded {}` ブロックで除外ルールを、`included {}` ブロックで包含ルールをそれぞれ追加します。
 
@@ -137,7 +137,7 @@ kotlin {
 
 フィルタリングの詳細については、[Kotlin Gradle プラグイン API リファレンス](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.dsl.abi/-abi-filters-spec/) を参照してください。
 
-## サポートされていないターゲットに対する推論された変更の防止
+## サポートされていないターゲットに対する推論された変更の防止 {id="prevent-inferred-changes-for-unsupported-targets"}
 
 マルチプラットフォームプロジェクトにおいて、ホストシステムがすべてのターゲットをコンパイルできない場合、Kotlin Gradle プラグインは利用可能なターゲットから ABI の変更を推論しようとします。これにより、後でより多くのターゲットをサポートするホストに切り替えたときに、誤った失敗が発生するのを防ぐことができます。
 
@@ -171,7 +171,7 @@ kotlin {
 
 ターゲットがサポートされておらず、推論が無効になっている場合、`checkKotlinAbi` タスクは完全な ABI ダンプを生成できないため失敗します。この動作は、バイナリ互換性を損なう変更を見逃すリスクを負うよりも、タスクを失敗させたい場合に役立ちます。
 
-## `maven-publish` プラグインからのパブリケーションを含める
+## `maven-publish` プラグインからのパブリケーションを含める {id="include-publications-from-the-maven-publish-plugin"}
 
 デフォルトでは、バイナリ互換性の検証は、Kotlin のコンパイル出力を使用して ABI ダンプを生成します。このため、生成された ABI ダンプは最終的な公開アーティファクトを反映していない可能性があります。例えば、[`maven-publish` プラグイン](https://docs.gradle.org/current/userguide/publishing_maven.html) を使用する場合、再配置 (relocation) などのポストプロセスステップによって、コンパイル後にアーティファクトが変更されることがあります。
 

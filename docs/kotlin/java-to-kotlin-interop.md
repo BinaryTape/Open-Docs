@@ -5,7 +5,7 @@ Kotlin 代码可以从 Java 轻松调用。
 然而，在将 Kotlin 代码集成到 Java 时，Java 和 Kotlin 之间存在某些需要注意的差异。
 在本页中，我们将介绍定制 Kotlin 代码与其 Java 客户端互操作的方式。
 
-## 属性
+## 属性 {id="properties"}
 
 Kotlin 属性会被编译为以下 Java 元素：
 
@@ -31,7 +31,7 @@ public void setFirstName(String firstName) {
 例如，对于属性 `isOpen`，getter 名为 `isOpen()`，setter 名为 `setOpen()`。
 此规则适用于任何类型的属性，而不仅仅是 `Boolean`。
 
-## 软件包级函数
+## 软件包级函数 {id="package-level-functions"}
 
 在 `org.example` 软件包内的 `app.kt` 文件中声明的所有函数和属性（包括扩展函数），都会被编译为名为 `org.example.AppKt` 的 Java 类的静态方法。
 
@@ -100,7 +100,7 @@ org.example.Utils.getTime();
 org.example.Utils.getDate();
 ```
 
-## 实例字段
+## 实例字段 {id="instance-fields"}
 
 如果你需要将 Kotlin 属性公开为 Java 中的字段，请为其添加 [`@JvmField`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-field/index.html) 注解。
 该字段的可见性与其底层属性相同。如果满足以下条件，则可以使用 `@JvmField` 注解属性：
@@ -127,7 +127,7 @@ class JavaClient {
 [延迟初始化](properties.md#late-initialized-properties-and-variables)的属性也会作为字段公开。
 该字段的可见性与 `lateinit` 属性的 setter 的可见性相同。
 
-## 静态字段
+## 静态字段 {id="static-fields"}
 
 在具名对象或伴生对象中声明的 Kotlin 属性具有静态支持字段，这些字段要么位于该具名对象中，要么位于包含伴生对象的类中。
 
@@ -194,7 +194,7 @@ int max = ExampleKt.MAX;
 int version = C.VERSION;
 ```
 
-## 静态方法
+## 静态方法 {id="static-methods"}
 
 Kotlin 将软件包级函数表示为静态方法。
 如果你将函数注解为 [`@JvmStatic`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-static/)，Kotlin 还可以为具名对象或伴生对象中定义的函数生成静态方法。
@@ -255,7 +255,7 @@ interface ChatBot {
 
 你还可以将 `@JvmStatic` 注解应用于具名对象或伴生对象的属性，使其 getter 和 setter 方法成为该对象或包含该伴生对象的类中的静态成员。
 
-## 接口中的默认方法
+## 接口中的默认方法 {id="default-methods-in-interfaces"}
 
 当目标平台为 JVM 时，Kotlin 会将接口中声明的函数编译为 [默认方法](https://docs.oracle.com/javase/tutorial/java/IandI/defaultmethods.html)，除非 [另有配置](#compatibility-modes-for-default-methods)。
 这些是接口中的具体方法，Java 类可以直接继承而无需重新实现。
@@ -306,7 +306,7 @@ public class BB8 implements Robot {
 }
 ```
 
-### 默认方法的兼容模式
+### 默认方法的兼容模式 {id="compatibility-modes-for-default-methods"}
 
 Kotlin 提供了三种模式，用于控制接口中的函数如何编译为 JVM 默认方法。
 这些模式决定了编译器是否在 `DefaultImpls` 类中生成兼容性桥接方法和静态方法。
@@ -319,13 +319,13 @@ Kotlin 提供了三种模式，用于控制接口中的函数如何编译为 JVM
 
 详细了解兼容模式：
 
-#### enable {initial-collapse-state="collapsed" collapsible="true"}
+#### enable {initial-collapse-state="collapsed" collapsible="true" id="enable"}
 
 默认行为。
 在接口中生成默认实现，并包括兼容性桥接方法和 `DefaultImpls` 类。
 此模式保持与旧版编译的 Kotlin 代码的兼容性。
 
-#### no-compatibility {initial-collapse-state="collapsed" collapsible="true"}
+#### no-compatibility {initial-collapse-state="collapsed" collapsible="true" id="no-compatibility"}
 
 仅在接口中生成默认实现。
 跳过兼容性桥接方法和 `DefaultImpls` 类。
@@ -336,12 +336,12 @@ Kotlin 提供了三种模式，用于控制接口中的函数如何编译为 JVM
 >
 {style="note"}
 
-#### disable {initial-collapse-state="collapsed" collapsible="true"}
+#### disable {initial-collapse-state="collapsed" collapsible="true" id="disable"}
 
 禁用接口中的默认实现。
 仅生成兼容性桥接方法和 `DefaultImpls` 类。
 
-## 可见性
+## 可见性 {id="visibility"}
 
 Kotlin 可见性修饰符以下列方式映射到 Java：
 
@@ -357,7 +357,7 @@ Kotlin 可见性修饰符以下列方式映射到 Java：
   请注意，`internal` 类的公共成员名称不会被修饰，并且在 Java 中仍然可以调用。
 * `public` 成员保持为 `public`。
 
-## KClass
+## KClass {id="kclass"}
 
 有时你需要调用一个带有 `KClass` 类型参数的 Kotlin 方法。
 从 `Class` 到 `KClass` 没有自动转换，因此你必须通过调用相当于 `Class<T>.kotlin` 扩展属性的以下内容来手动完成：
@@ -366,7 +366,7 @@ Kotlin 可见性修饰符以下列方式映射到 Java：
 kotlin.jvm.JvmClassMappingKt.getKotlinClass(MainView.class)
 ```
 
-## 使用 @JvmName 处理签名冲突
+## 使用 @JvmName 处理签名冲突 {id="handling-signature-clashes-with-jvmname"}
 
 有时我们在 Kotlin 中有一个具名函数，而在字节码中我们需要一个不同的 JVM 名称。
 最突出的例子是由于 *类型擦除* 引起的：
@@ -406,7 +406,7 @@ fun getX() = 10
 var x: Int = 23
 ```
 
-## 生成重载
+## 生成重载 {id="overloads-generation"}
 
 通常情况下，如果你编写一个带有默认参数值的 Kotlin 函数，它在 Java 中仅作为完整签名可见，且所有形参都存在。
 
@@ -494,7 +494,7 @@ void draw(String label) { }
 
 请注意，正如 [次用构造函数](classes.md#secondary-constructors) 中所述，如果一个类的所有构造函数参数都有默认值，则会为其生成一个不带实参的公共构造函数。即使未指定 `@JvmOverloads` 注解，这也有效。
 
-## 受检异常
+## 受检异常 {id="checked-exceptions"}
 
 Kotlin 没有受检异常。
 因此，通常 Kotlin 函数的 Java 签名不会声明抛出的异常。
@@ -533,13 +533,13 @@ fun writeToFile() {
 }
 ```
 
-## null 安全
+## null 安全 {id="null-safety"}
 
 从 Java 调用 Kotlin 函数时，没有人能阻止我们将 `null` 作为非 nullable 形参传递。
 这就是为什么 Kotlin 会为所有预期非 null 的公共函数生成运行时检查的原因。
 通过这种方式，我们在 Java 代码中会立即收到 `NullPointerException`。
 
-## 变体泛型
+## 变体泛型 {id="variant-generics"}
 
 当 Kotlin 类使用 [声明处型变](generics.md#declaration-site-variance) 时，Java 代码中看到的使用方式有两种选择。例如，假设你具有以下类和两个使用它的函数：
 
@@ -604,7 +604,7 @@ fun unboxBase(box: Box<@JvmSuppressWildcards Base>): Base = box.value
 >
 {style="note"}
 
-### Nothing 类型的转换
+### Nothing 类型的转换 {id="translation-of-type-nothing"}
  
 [`Nothing`](exceptions.md#the-nothing-type) 类型很特殊，因为它在 Java 中没有自然的对应物。实际上，每个 Java 引用类型（包括 `java.lang.Void`）都接受 `null` 作为值，而 `Nothing` 甚至不接受该值。因此，此类型无法在 Java 世界中准确表示。这就是为什么 Kotlin 在使用 `Nothing` 类型实参的地方生成原始类型（raw type）的原因：
 
@@ -614,7 +614,7 @@ fun emptyList(): List<Nothing> = listOf()
 // List emptyList() { ... }
 ```
 
-## 内联值类
+## 内联值类 {id="inline-value-classes"}
 
 <primary-label ref="experimental-general"/>
 
@@ -665,7 +665,7 @@ MyInt output = ExampleKt.timesTwoBoxed(input);
 要将此行为应用于模块内的所有内联值类及其使用的函数，请使用 `-Xjvm-expose-boxed` 选项进行编译。
 使用此选项编译的效果相当于该模块中的每个声明都带有 `@JvmExposeBoxed` 注解。
 
-### 继承的函数
+### 继承的函数 {id="inherited-functions"}
 
 `@JvmExposeBoxed` 注解不会自动为继承的函数生成装箱表示。
  

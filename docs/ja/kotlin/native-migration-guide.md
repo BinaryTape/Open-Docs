@@ -23,11 +23,11 @@
 
 レガシーメモリマネージャーからプロジェクトを移行するには、以下のガイドラインに従ってください：
 
-## Kotlin のアップデート
+## Kotlin のアップデート {id="update-kotlin"}
 
 新しい Kotlin/Native メモリマネージャーは、Kotlin 1.7.20 以降、デフォルトで有効になっています。Kotlin のバージョンを確認し、必要に応じて[最新バージョンにアップデート](releases.md#update-to-a-new-kotlin-version)してください。
 
-## 依存関係のアップデート
+## 依存関係のアップデート {id="update-dependencies"}
 
 <deflist type="medium">
     <def title="kotlinx.coroutines">
@@ -50,7 +50,7 @@
     </def>
 </deflist>
 
-## コードのアップデート
+## コードのアップデート {id="update-your-code"}
 
 新しいメモリマネージャーをサポートするために、影響を受ける API の使用箇所を削除してください：
 
@@ -69,7 +69,7 @@
 | [`WorkerBoundReference<out T : Any>` クラス](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.native.concurrent/-worker-bound-reference/) | `T` を直接使用してください。                                                                                                                                                 |
 | [`DetachedObjectGraph<T>` クラス](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.native.concurrent/-detached-object-graph/)             | `T` を直接使用してください。C インターオペラビリティを介して値を渡すには、[StableRef クラス](https://kotlinlang.org/api/latest/jvm/stdlib/kotlinx.cinterop/-stable-ref/)を使用してください。 |
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [新しいメモリマネージャーについて詳しく学ぶ](native-memory-manager.md)
 * [Swift/Objective-C ARC との統合における特記事項を確認する](native-arc-integration.md)

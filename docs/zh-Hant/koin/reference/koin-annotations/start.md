@@ -10,11 +10,11 @@ title: Koin Annotations 入門
 
 Koin Annotations 讓您可以使用註解在類別上宣告定義。Koin 編譯器外掛程式會處理這些註解，並在編譯期為您產生所有底層的 Koin DSL。
 
-## 快速入門
+## 快速入門 {id="getting-started"}
 
 對 Koin 不熟悉嗎？首先，請查看 [Koin 快速入門](https://insert-koin.io/docs/quickstart/kotlin/)
 
-### 設定
+### 設定 {id="setup"}
 
 將 Koin 編譯器外掛程式加入到您的專案中。請參閱 [編譯器外掛程式設定](/docs/setup/compiler-plugin) 以獲取完整說明。
 
@@ -30,7 +30,7 @@ dependencies {
 }
 ```
 
-### 為元件加上註解
+### 為元件加上註解 {id="annotating-components"}
 
 使用定義註解標記您的元件：
 
@@ -45,7 +45,7 @@ class MyService(val repository: MyRepository)
 class MyUseCase(val service: MyService)
 ```
 
-### 宣告模組
+### 宣告模組 {id="declaring-modules"}
 
 建立模組以組織您的定義：
 
@@ -55,7 +55,7 @@ class MyUseCase(val service: MyService)
 class AppModule
 ```
 
-### 啟動 Koin
+### 啟動 Koin {id="starting-koin"}
 
 搭配型別安全啟動 API 使用 `@KoinApplication`：
 
@@ -73,7 +73,7 @@ fun main() {
 }
 ```
 
-## 配置標記
+## 配置標記 {id="configuration-labels"}
 
 使用 `@Configuration` 建立根據標記載入的模組：
 
@@ -105,7 +105,7 @@ fun main() {
 }
 ```
 
-## 型別安全啟動 API
+## 型別安全啟動 API {id="typed-startup-apis"}
 
 編譯器外掛程式提供了用於啟動 Koin 的型別安全 API：
 
@@ -120,7 +120,7 @@ fun main() {
 
 其中 `T` 是標記有 `@KoinApplication`（適用於啟動 API）或 `@Module`（適用於模組載入 API）的類別。
 
-### 載入個別模組
+### 載入個別模組 {id="loading-individual-modules"}
 
 您可以直接載入 `@Module` 類別，無需使用 `@KoinApplication`：
 
@@ -140,11 +140,11 @@ val koinTestRule = KoinTestRule.create {
 }
 ```
 
-## 編譯期安全
+## 編譯期安全 {id="compile-time-safety"}
 
 編譯器外掛程式會在編譯期驗證您的 Koin 配置，檢查所有相依性是否已宣告且可存取。
 
-### 使用 @Provided 繞過
+### 使用 @Provided 繞過 {id="bypass-with-provided"}
 
 使用 `@Provided` 來表示相依性是由外部提供的：
 
@@ -155,11 +155,11 @@ class ExternalComponent  // 宣告於他處
 class MyPresenter(@Provided val external: ExternalComponent)
 ```
 
-## 編譯器外掛程式選項
+## 編譯器外掛程式選項 {id="compiler-plugin-options"}
 
 請參閱 **[編譯器外掛程式選項](/docs/reference/koin-annotations/options)** 以獲取所有配置選項。
 
-## ProGuard 規則
+## ProGuard 規則 {id="proguard-rules"}
 
 搭配 ProGuard/R8 進行 SDK 開發時：
 
@@ -171,7 +171,7 @@ class MyPresenter(@Provided val external: ExternalComponent)
 -keep @org.koin.core.annotation.* class * { *; }
 ```
 
-## 另請參閱
+## 另請參閱 {id="see-also"}
 
 - **[編譯器外掛程式設定](/docs/setup/compiler-plugin)** – 完整設定指南
 - **[定義](/docs/reference/koin-annotations/definitions)** – 所有定義註解

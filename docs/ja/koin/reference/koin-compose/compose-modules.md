@@ -6,7 +6,7 @@ title: ダイナミックモジュール
 
 Koin は、Composable のライフサイクルに紐づけてモジュールを動的にロードおよびアンロードするための API を提供します。これは、機能（フィーチャー）モジュール、遅延読み込み、およびオンデマンドの依存関係において非常に有用です。
 
-## rememberKoinModules
+## rememberKoinModules {id="rememberkoinmodules"}
 
 Composable がコンポジション（Composition）を開始したときに Koin モジュールをロードします：
 
@@ -25,7 +25,7 @@ fun FeatureScreen() {
 }
 ```
 
-### 複数のモジュール
+### 複数のモジュール {id="multiple-modules"}
 
 ```kotlin
 @Composable
@@ -38,7 +38,7 @@ fun FeatureScreen() {
 }
 ```
 
-### モジュールのアンロード
+### モジュールのアンロード {id="unloading-modules"}
 
 モジュールをアンロードするタイミングを制御できます：
 
@@ -58,9 +58,9 @@ fun FeatureScreen() {
 | `unloadOnForgotten` | Composable がコンポジションから削除されたとき |
 | `unloadOnAbandoned` | コンポジションが失敗した、または破棄（abandoned）されたとき |
 
-## ユースケース
+## ユースケース {id="use-cases"}
 
-### 機能モジュール
+### 機能モジュール {id="feature-modules"}
 
 機能固有の依存関係をオンデマンドでロードします：
 
@@ -81,7 +81,7 @@ fun CheckoutScreen() {
 }
 ```
 
-### 機能の遅延読み込み
+### 機能の遅延読み込み {id="lazy-feature-loading"}
 
 ナビゲーションと組み合わせて、機能の遅延読み込み（Lazy Loading）を実現します：
 
@@ -103,7 +103,7 @@ NavHost(navController, startDestination = "home") {
 }
 ```
 
-### デバッグ／プレビュー用モジュール
+### デバッグ／プレビュー用モジュール {id="debug-preview-modules"}
 
 プレビュー用に実装を差し替えます：
 
@@ -120,7 +120,7 @@ fun FeatureScreenPreview() {
 }
 ```
 
-### 条件付きモジュール
+### 条件付きモジュール {id="conditional-modules"}
 
 条件に基づいてモジュールをロードします：
 
@@ -135,7 +135,7 @@ fun App(isDebug: Boolean) {
 }
 ```
 
-## Lazy Modules との併用
+## Lazy Modules との併用 {id="with-lazy-modules"}
 
 パフォーマンス向上のために、Koin の Lazy Module ロードと組み合わせることができます：
 
@@ -154,7 +154,7 @@ fun FeatureScreen() {
 }
 ```
 
-## ベストプラクティス
+## ベストプラクティス {id="best-practices"}
 
 1. **`unloadOnForgotten = true` を使用する** - メモリーリークを防止します
    ```kotlin
@@ -172,7 +172,7 @@ fun FeatureScreen() {
 
 5. **循環依存を避ける** - 機能モジュール同士が互いに依存しないようにします。
 
-## 次のステップ
+## 次のステップ {id="next-steps"}
 
 - **[Compose におけるスコープ](/docs/reference/koin-compose/compose-scopes)** - スコープ API について
 - **[Compose の概要](/docs/reference/koin-compose/compose)** - セットアップと基本的なインジェクション

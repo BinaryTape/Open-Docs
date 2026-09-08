@@ -11,7 +11,7 @@ fun main() {
 
 ターゲットプラットフォームによっては、コードを初めて実行するためにプラットフォーム固有の追加セットアップが必要になる場合があります。
 
-## Node.js ターゲットの実行
+## Node.js ターゲットの実行 {id="run-the-node-js-target"}
 
 Kotlin/JS で Node.js をターゲットにする場合、`jsNodeDevelopmentRun` Gradle タスクを実行するだけで済みます。
 これは、たとえば Gradle ラッパーを使用してコマンドラインから実行できます。
@@ -29,7 +29,7 @@ IntelliJ IDEA を使用している場合は、Gradle ツールウィンドウ�
 
 ![Executing the JS target in a Kotlin Multiplatform project in IntelliJ IDEA](cli-output.png){width=700}
 
-## ブラウザターゲットの実行
+## ブラウザターゲットの実行 {id="run-the-browser-target"}
 
 ブラウザをターゲットにする場合、プロジェクトに HTML ページが必要です。このページは、アプリケーションの開発中に開発サーバーによって提供され、コンパイルされた Kotlin/JS ファイルを埋め込む必要があります。
 HTML ファイル `/src/jsMain/resources/index.html` を作成し、以下を記述します。

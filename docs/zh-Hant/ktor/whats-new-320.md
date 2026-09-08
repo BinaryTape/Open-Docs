@@ -11,9 +11,9 @@ _[發佈日期：2025 年 6 月 12 日](releases.md#release-details)_
 * [一等 HTMX 支援](#htmx-integration)
 * [可暫停的模組函式](#suspendable-module-functions)
 
-## Ktor Server
+## Ktor Server {id="ktor-server"}
 
-### 可暫停的模組函式
+### 可暫停的模組函式 {id="suspendable-module-functions"}
 
 從 Ktor 3.2.0 開始，[應用程式模組](server-modules.md) 已支援可暫停的函式。
 
@@ -39,13 +39,13 @@ suspend fun Application.installEvents() {
 }
 ```
 
-#### 並行模組載入
+#### 並行模組載入 {id="concurrent-module-loading"}
 
 您也可以透過新增 `ktor.application.startup = concurrent` 的 Gradle 屬性來選擇啟用並行模組載入。它會獨立啟動所有應用程式模組，因此當一個模組暫停時，其他模組不會被阻塞。這允許相依注入進行非循序載入，且在某些情況下可以加快載入速度。
 
 如需更多資訊，請參閱 [並行模組](server-modules.md#concurrent-modules)。
 
-### 配置檔案反序列化
+### 配置檔案反序列化 {id="configuration-file-deserialization"}
 
 Ktor 3.2.0 在 `Application` 類別上引入了新的 `.property()` 擴充功能來支援型別化配置載入。您現在可以將結構化的配置區段直接反序列化為 Kotlin 資料類別。
 
@@ -69,7 +69,7 @@ database:
 
 此功能同時支援 HOCON 與 YAML 配置格式，並使用 `kotlinx.serialization` 進行反序列化。
 
-### `ApplicationTestBuilder` 具有可配置的 `client`
+### `ApplicationTestBuilder` 具有可配置的 `client` {id="applicationtestbuilder-has-a-configurable-client"}
 
 從 Ktor 3.2.0 開始，`ApplicationTestBuilder` 類別中的 `client` 屬性是可變的。以前它是唯讀的。這項變更讓您可以配置自己的測試用戶端，並在任何提供 `ApplicationTestBuilder` 類別的地方重複使用。例如，您可以從擴充函式中存取該用戶端：
 
@@ -102,7 +102,7 @@ private fun ApplicationTestBuilder.auth(token: AuthToken) {
 }
 ```
 
-### 相依注入
+### 相依注入 {id="dependency-injection"}
 
 Ktor 3.2.0 引入了相依注入（DI）支援，讓直接從配置檔案和應用程式程式碼中管理與連線相依性變得更加容易。新的 DI 外掛程式簡化了相依性解析、支援非同步載入、提供自動清理，並與測試順暢整合。
 
@@ -122,7 +122,7 @@ Ktor 3.2.0 引入了相依注入（DI）支援，讓直接從配置檔案和應�
     </TabItem>
 </Tabs>
 
-#### 基本相依性註冊
+#### 基本相依性註冊 {id="basic-dependency-registration"}
 
 您可以使用 Lambda、函式參考或建構函式參考來註冊相依性：
 
@@ -141,7 +141,7 @@ dependencies {
 }
 ```
 
-#### 基於配置的相依性註冊
+#### 基於配置的相依性註冊 {id="configuration-based-dependency-registration"}
 
 您可以使用配置檔案中的類別路徑（classpath）參考來宣告式地配置相依性。這支援函式與類別參考：
 
@@ -168,9 +168,9 @@ class UserRepository(val db: Database) {
 
 引數會透過 `@Property` 與 `@Named` 等註解自動解析。
 
-#### 相依性解析與注入
+#### 相依性解析與注入 {id="dependency-resolution-and-injection"}
 
-##### 解析相依性
+##### 解析相依性 {id="resolving-dependencies"}
 
 若要解析相依性，您可以使用屬性委派或直接解析：
 
@@ -182,7 +182,7 @@ val service: GreetingService by dependencies
 val service = dependencies.resolve<GreetingService>()
 ```
 
-##### 非同步相依性解析
+##### 非同步相依性解析 {id="asynchronous-dependency-resolution"}
 
 若要支援非同步載入，您可以使用暫停函式：
 
@@ -200,7 +200,7 @@ suspend fun Application.loadEventsConnection() {
 
 DI 外掛程式會自動暫停 `resolve()` 呼叫，直到所有相依性準備就緒。
 
-##### 注入至應用程式模組
+##### 注入至應用程式模組 {id="injecting-into-application-modules"}
 
 您可以透過指定模組參數將相依性直接注入到應用程式模組中。Ktor 會從 DI 容器中解析它們：
 
@@ -229,7 +229,7 @@ fun Application.userRepository(@Named("mongo") database: Database) {
 }
 ```
 
-##### 屬性與配置注入
+##### 屬性與配置注入 {id="property-and-configuration-injection"}
 
 使用 `@Property` 直接注入配置值：
 
@@ -248,7 +248,7 @@ val connection: Connection = application.property("connection")
 
 如需更多資訊和進階用法，請參閱 [相依注入](server-dependency-injection.md)。
 
-### 在 `testApplication` 中存取應用程式執行個體
+### 在 `testApplication` 中存取應用程式執行個體 {id="access-the-application-instance-in-testapplication"}
 
 您現在可以使用 `ApplicationTestBuilder.application` 屬性，直接從 `testApplication {}` 區塊存取執行中的 `Application` 執行個體。
 
@@ -292,9 +292,9 @@ ktor {
 }
 ```
 
-## Ktor Client
+## Ktor Client {id="ktor-client"}
 
-### `SaveBodyPlugin` 與 `HttpRequestBuilder.skipSavingBody()` 已遭棄用
+### `SaveBodyPlugin` 與 `HttpRequestBuilder.skipSavingBody()` 已遭棄用 {id="savebodyplugin-and-httprequestbuilder-skipsavingbody-are-deprecated"}
 
 在 Ktor 3.2.0 之前，`SaveBodyPlugin` 是預設安裝的。它會將整個回應主體快取在記憶體中，以便多次存取。為了避免儲存回應主體，必須明確停用該外掛程式。
 
@@ -320,7 +320,7 @@ client.prepareGet("/some-file").execute { response ->
 
 這種方法會直接串流回應，防止主體被儲存在記憶體中。
 
-### `.wrapWithContent()` 與 `.wrap()` 擴充函式已遭棄用
+### `.wrapWithContent()` 與 `.wrap()` 擴充函式已遭棄用 {id="the-wrapwithcontent-and-wrap-extension-functions-are-deprecated"}
 
 在 Ktor 3.2.0 中，[`.wrapWithContent()`](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins.observer/wrap-with-content.html) 與 [`.wrap()`](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins.observer/wrap.html) 擴充函式已遭棄用，建議改用新的 `.replaceResponse()` 函式。
 
@@ -347,7 +347,7 @@ call.replaceResponse {
 }
 ```
 
-### 存取已解析的 IP 位址
+### 存取已解析的 IP 位址 {id="access-resolved-ip-address"}
 
 您現在可以在 `io.ktor.network.sockets.InetSocketAddress` 執行個體上使用新的 `.resolveAddress()` 函式。此函式允許您獲取相關主機原始解析出的 IP 位址：
 
@@ -358,7 +358,7 @@ val rawAddress = address.resolveAddress()
 
 它會以 `ByteArray` 形式傳回解析後的 IP 位址，如果無法解析位址則傳回 `null`。傳回的 `ByteArray` 大小取決於 IP 版本：IPv4 位址包含 4 個位元組，IPv6 位址包含 16 個位元組。在 JS 與 Wasm 平台上，`.resolveAddress()` 將始終傳回 `null`。
 
-### HTTP 快取清理
+### HTTP 快取清理 {id="http-cache-clearing"}
 
 您現在可以在 [`CacheStorage`](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins.cache.storage/-cache-storage/index.html) 上使用新方法，以便在需要時清理快取的 HTTP 回應。
 
@@ -367,9 +367,9 @@ val rawAddress = address.resolveAddress()
 
 這些方法為您提供了更多關於快取失效（invalidation）以及如何管理過時或特定快取回應的控制權。
 
-## Shared
+## Shared {id="shared"}
 
-### HTMX 整合
+### HTMX 整合 {id="htmx-integration"}
 
 Ktor 3.2.0 引入了對 [HTMX](https://htmx.org/) 的實驗性支援，這是一個現代 JavaScript 程式庫，可透過 `hx-get` 與 `hx-swap` 等 HTML 屬性實現動態互動。Ktor 的 HTMX 整合提供：
 
@@ -387,7 +387,7 @@ Ktor 的 HTMX 支援可在三個實驗性模組中使用：
 
 所有 API 都標記為 `@ExperimentalKtorApi`，且需要透過 `@OptIn(ExperimentalKtorApi::class)` 選擇啟用。如需更多資訊，請參閱 [HTMX 整合](htmx-integration.md)。
 
-### Unix 網域通訊端
+### Unix 網域通訊端 {id="unix-domain-sockets"}
 
 透過 3.2.0，您可以設定 Ktor 用戶端連線至 Unix 網域通訊端（Unix domain sockets），並設定 Ktor 伺服器監聽此類通訊端。目前，Unix 網域通訊端僅在 CIO 引擎中受支援。
 
@@ -417,7 +417,7 @@ val response: HttpResponse = client.get("/") {
 
 您也可以在 [預設請求](client-default-request.md#unix-domain-sockets) 中使用 Unix 網域通訊端。
 
-### 用於建置標頭與參數的新 `.appendAll()` 多載
+### 用於建置標頭與參數的新 `.appendAll()` 多載 {id="new-appendall-overloads-for-building-headers-and-parameters"}
 
 [`StringValuesBuilder.appendAll()`](https://api.ktor.io/ktor-utils/io.ktor.util/append-all.html) 函式具有接受 `Map` 或 `vararg Pair` 的新多載。這讓您可以在單次呼叫中附加多個值，簡化了標頭、URL 參數以及其他基於 `StringValues` 的集合之建構。
 
@@ -435,9 +435,9 @@ val headers = buildHeaders {
 }
 ```
 
-## Infrastructure
+## Infrastructure {id="infrastructure"}
 
-### 發佈的版本目錄
+### 發佈的版本目錄 {id="published-version-catalog"}
 
 隨此版本發佈，您現在可以使用官方的 [發佈的版本目錄](server-dependencies.topic#using-version-catalog) 從單一來源管理所有 Ktor 相依性。這消除了在相依性中手動宣告 Ktor 版本的需求。
 
@@ -470,9 +470,9 @@ dependencies {
 </TabItem>
 </Tabs>
 
-## Gradle 外掛程式
+## Gradle 外掛程式 {id="gradle-plugin"}
 
-### 啟用開發模式
+### 啟用開發模式 {id="enabling-development-mode"}
 
 Ktor 3.2.0 簡化了開發模式的啟用。以前，啟用開發模式需要在 `application` 區塊中進行明確配置。現在，您可以使用 `ktor.development` 屬性來啟用它，無論是動態還是明確設定：
 

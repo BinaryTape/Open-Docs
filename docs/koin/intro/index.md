@@ -8,11 +8,11 @@ title: 简介
 
 Koin 是一个专为 Kotlin 开发者打造的轻量级依赖注入框架。无论您是在构建 Android 应用、Kotlin 多平台项目、使用 Ktor 的后端服务，还是任何 Kotlin 应用程序，Koin 都能让依赖注入变得简单且直观。
 
-## 为什么选择 Koin？
+## 为什么选择 Koin？ {id="why-koin"}
 
 Koin 的设计理念非常明确：**您不应该在简单性和功能性之间做选择**。使用 Koin，您可以兼顾两者。
 
-### DSL 与注解 —— 随心选择
+### DSL 与注解 —— 随心选择 {id="dsl-annotations-choose-what-you-want"}
 
 Koin 在这两种方式下都非常强大。更喜欢纯净的 Kotlin DSL？那就使用它。喜欢注解？也没问题。两者都是一等公民，功能同样强大。
 
@@ -24,33 +24,33 @@ Koin 在这两种方式下都非常强大。更喜欢纯净的 Kotlin DSL？那�
 | **安全** | 通过 Koin 编译器插件提供编译时安全性 |
 | **动态** | 运行时灵活性：动态加载模块、延迟加载、功能标志 |
 
-## 从哪里开始？
+## 从哪里开始？ {id="where-to-start"}
 
 根据您的经验水平选择路径：
 
-### 刚接触依赖注入？
+### 刚接触依赖注入？ {id="new-to-dependency-injection"}
 
 从基础知识开始：
 - **[什么是依赖注入？](/docs/intro/what-is-dependency-injection)** —— 了解核心概念
 
-### 了解 DI，但刚接触 Koin？
+### 了解 DI，但刚接触 Koin？ {id="know-di-new-to-koin"}
 
 直接进入 Koin 的世界：
 - **[什么是 Koin？](/docs/intro/what-is-koin)** —— 探索 Koin 的 DI 实现方式
 - **[Koin 编译器插件](/docs/intro/koin-compiler-plugin)** —— 官方推荐的、更安全的 Koin 使用方式
 
-### 之前使用过 Hilt/Dagger？
+### 之前使用过 Hilt/Dagger？ {id="coming-from-hilt-dagger"}
 
 查看 Koin 的对比情况：
 - **[Koin vs Hilt/Dagger](/docs/intro/koin-vs-hilt)** —— 了解差异和迁移路径
 
-### 准备好编码了？
+### 准备好编码了？ {id="ready-to-code"}
 
 - **[设置指南](/docs/setup/gradle)** —— 将 Koin 添加到您的项目
 - **[教程](/docs/tutorials/your-first-app)** —— 构建您的第一个 Koin 应用
 - **[Koin IDE 插件](https://plugins.jetbrains.com/plugin/26131-koin-dependency-injection-official-)** —— 安装适用于 Android Studio 和 IntelliJ IDEA 的官方插件 —— 提供代码导航、实时安全检查、依赖图可视化等功能
 
-## Koin 的方式
+## Koin 的方式 {id="koin-s-approaches"}
 
 Koin 在如何定义依赖项方面提供了灵活性：
 
@@ -63,7 +63,7 @@ Koin 在如何定义依赖项方面提供了灵活性：
 
 在[什么是 Koin？](/docs/intro/what-is-koin)和 [Koin 编译器插件](/docs/intro/koin-compiler-plugin)中了解更多信息。
 
-## 平台支持
+## 平台支持 {id="platform-support"}
 
 Koin 可以在任何运行 Kotlin 的地方工作：
 
@@ -77,7 +77,7 @@ Koin 可以在任何运行 Kotlin 的地方工作：
 | **Web (JS/Wasm)** | `koin-core` | ✅ 完全支持 |
 | **Ktor** | `koin-ktor` | ✅ 完全支持 |
 
-## 快速示例
+## 快速示例 {id="quick-example"}
 
 以下是 Koin 代码风格的一个简单展示：
 

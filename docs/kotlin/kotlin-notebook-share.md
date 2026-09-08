@@ -18,7 +18,7 @@
   示例请参阅 [Kotlin DataFrame GitHub 仓库示例](https://github.com/Kotlin/dataframe/blob/master/examples/notebooks/titanic/Titanic.ipynb)。
   ![GitHub Notebook 示例](github-notebook.png){width=700}
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * 使用 [Kandy 库](data-analysis-visualization.md)探索数据可视化
 * 在[处理数据源](data-analysis-work-with-data-sources.md)中了解如何从文件、Web 来源或数据库检索数据

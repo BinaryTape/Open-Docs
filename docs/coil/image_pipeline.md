@@ -18,7 +18,7 @@ val imageLoader = ImageLoader.Builder(context)
     .build()
 ```
 
-## Interceptor
+## Interceptor {id="interceptors"}
 
 Interceptor 允许你观察、转换、短路或重试对 `ImageLoader` 图像引擎的请求。例如，你可以像这样添加一个自定义缓存层：
 
@@ -46,7 +46,7 @@ Interceptor 是一项高级功能，让你能用自定义逻辑包装 `ImageLoad
 
 有关更多信息，请参阅 [Interceptor](/coil/api/coil-core/coil3.intercept/-interceptor)。
 
-## Mapper
+## Mapper {id="mappers"}
 
 Mapper 允许你添加对自定义数据类型的支持。例如，假设我们从服务器获取到以下模型：
 
@@ -79,13 +79,13 @@ imageLoader.enqueue(request)
 
 有关更多信息，请参阅 [Mapper](/coil/api/coil-core/coil3.map/-mapper)。
 
-## Keyer
+## Keyer {id="keyers"}
 
 Keyer 将数据转换为缓存键的一部分。当该请求的输出被写入 `MemoryCache` 时，此值将用作 `MemoryCache.Key.key`。
 
 有关更多信息，请参阅 [Keyer](/coil/api/coil-core/coil3.key/-keyer)。
 
-## Fetcher
+## Fetcher {id="fetchers"}
 
 Fetcher 将数据（例如 URL、URI、文件等）转换为 `ImageSource` 或 `Image`。它们通常将输入数据转换为随后可由 `Decoder` 使用的格式。使用此接口可添加对自定义获取机制的支持（例如 Cronet、自定义 URI 方案等）。
 
@@ -94,13 +94,13 @@ Fetcher 将数据（例如 URL、URI、文件等）转换为 `ImageSource` 或 `
 !!! Note
     如果你添加了一个使用自定义数据类型的 `Fetcher`，你还需要提供一个自定义的 `Keyer`，以确保使用该类型的请求结果可以被内存缓存。例如，`Fetcher.Factory<MyDataType>` 将需要添加一个 `Keyer<MyDataType>`。
 
-## Decoder
+## Decoder {id="decoders"}
 
 Decoder 读取 `ImageSource` 并返回 `Image`。使用此接口可添加对自定义文件格式的支持（例如 GIF、SVG、TIFF 等）。
 
 有关更多信息，请参阅 [Decoder](/coil/api/coil-core/coil3.decode/-decoder)。
 
-## 自定义 ImageLoader 和 ImageRequest 属性
+## 自定义 ImageLoader 和 ImageRequest 属性 {id="custom-imageloader-and-imagerequest-properties"}
 
 Coil 支持通过 `Extras` 向 `ImageRequest` 和 `ImageLoader` 附加自定义数据。`Extras` 是一个额外属性的映射，通过 `Extras.Key` 进行引用。
 
@@ -161,7 +161,7 @@ AsyncImage(
 
 [Coil 自身也使用这种模式](https://github.com/coil-kt/coil/blob/main/coil-gif/src/main/java/coil3/gif/imageRequests.kt)，以为 `coil-gif` 中的 GIF 以及其他扩展库支持自定义请求属性。
 
-## 链式调用组件
+## 链式调用组件 {id="chaining-components"}
 
 Coil 图像加载器组件的一个有用特性是它们可以在内部进行链式调用。例如，假设你需要执行网络请求以获取要加载的图像 URL。
 

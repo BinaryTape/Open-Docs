@@ -18,7 +18,7 @@ Koog を使用すると、テキストと共に、`user` メッセージ内で�
     マルチモーダルコンテンツのサポート状況は [LLM プロバイダー](../../llm-providers.md)によって異なります。
     サポートされているコンテンツタイプについては、プロバイダーのドキュメントを確認してください。
 
-### 自動設定された添付
+### 自動設定された添付 {id="auto-configured-attachments"}
 
 添付関数またはメソッドに URL またはファイルパスを渡すと、Koog はファイル拡張子に基づいて対応する添付パラメータを自動的に構築します。
 
@@ -69,7 +69,7 @@ Koog を使用すると、テキストと共に、`user` メッセージ内で�
 
 Kotlin では、`+` 演算子が添付と共にテキストコンテンツをユーザーメッセージに追加します。Java では、`ContentPartsBuilder` の `text()` メソッドを使用します。
 
-### カスタム設定された添付
+### カスタム設定された添付 {id="custom-configured-attachments"}
 
 [`ContentPart`](api:prompt-model::ai.koog.prompt.message.ContentPart) インターフェースを使用すると、各添付のパラメータを個別に構成できます。
 
@@ -144,7 +144,7 @@ Koog は、`ContentPart.Attachment` インターフェースを実装する、�
 | `mimeType` | String | `ContentPart.File` のみ | 提供されたファイルの MIME タイプ。<br/>`ContentPart.Image`、`ContentPart.Audio`、および `ContentPart.Video` の場合、デフォルトは `<type>/<format>`（例：`image/png`）になります。<br/>`ContentPart.File` の場合、明示的に指定する必要があります。 |
 | `fileName` | String? | いいえ | 拡張子を含む、提供されたファイルの名前。例：`screenshot.png`。 |
 
-#### 添付コンテンツ
+#### 添付コンテンツ {id="attachment-content"}
 
 AttachmentContent インターフェースの実装は、LLM への入力として提供されるコンテンツのタイプとソースを定義します。
 
@@ -172,7 +172,7 @@ AttachmentContent インターフェースの実装は、LLM への入力とし�
     ```
     <!--- KNIT example-multimodal-content-04.txt -->
 
-### 混合添付
+### 混合添付 {id="mixed-attachments"}
 
 異なる種類の添付を個別のプロンプトやメッセージで提供するだけでなく、単一の `user()` メッセージ内で複数の混合した種類の添付を提供することもできます。
 
@@ -228,7 +228,7 @@ AttachmentContent インターフェースの実装は、LLM への入力とし�
     ```
     <!--- KNIT example-multimodal-content-java-03.java -->
 
-## 次のステップ
+## 次のステップ {id="next-steps"}
 
 - 単一の LLM プロバイダーを使用する場合は、[LLM クライアント](../llm-clients.md)でプロンプトを実行します。
 - 複数の LLM プロバイダーを使用する場合は、[プロンプトエグゼキューター](../prompt-executors.md)でプロンプトを実行します。

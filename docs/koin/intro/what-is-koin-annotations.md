@@ -4,13 +4,13 @@ title: 什么是 Koin Annotations？
 
 # 什么是 Koin Annotations？
 
-### 熟悉的注解风格 —— Koin 主项目的一部分
+### 熟悉的注解风格 —— Koin 主项目的一部分 {id="familiar-annotation-style-part-of-the-main-koin-project"}
 
 **Koin Annotations** 是在 Koin 中基于注解定义依赖项的方式。如果您更喜欢 `@Singleton`、`@Factory`、`@KoinViewModel` 的风格而非 Kotlin DSL，那么它非常适合您。
 
 它是 **Koin 主项目的一部分** —— 相同的 GitHub 仓库、相同的发布周期、相同的 Koin 版本、相同的维护者。不是副作用项目，不是社区分支，也不是独立的框架。它由 **Koin 编译器插件**处理，以实现编译时安全性，就像 DSL 一样。
 
-## 简而言之
+## 简而言之 {id="in-a-nutshell"}
 
 ```kotlin
 @Singleton
@@ -26,7 +26,7 @@ class AppModule
 
 这就是核心思想：为您的类添加注解，声明一个模块，Koin 编译器插件会在构建时完成剩余的装配工作。
 
-## Koin 主项目的一部分
+## Koin 主项目的一部分 {id="part-of-the-main-koin-project"}
 
 `koin-annotations` 库是 **Koin 主项目的一部分**。它位于同一个仓库中，以与 `koin-core` **相同的 Koin 版本**发布，遵循相同的发布周期，并包含在 Koin BOM 中：
 
@@ -45,7 +45,7 @@ dependencies {
 - **版本保持同步** —— `koin-core` 和 `koin-annotations` 始终匹配
 - **与 DSL 的功能完全对等** —— 您可以使用 DSL 完成的任何操作，都可以通过注解完成
 
-## 现由 Koin 编译器插件提供支持
+## 现由 Koin 编译器插件提供支持 {id="now-powered-by-the-koin-compiler-plugin"}
 
 Koin Annotations 由 **Koin 编译器插件**处理 —— 这是一个直接与 Kotlin 编译器集成的原生 **Kotlin 编译器插件 (K2)**。无需 KSP，无需提交生成的代码文件，也无需额外的处理步骤。
 
@@ -58,7 +58,7 @@ Koin Annotations 由 **Koin 编译器插件**处理 —— 这是一个直接与
 
 请参阅 [Koin 编译器插件](/docs/intro/koin-compiler-plugin) 了解其工作原理和生成内容的完整图景。
 
-## `koin-ksp-compiler` 已弃用
+## `koin-ksp-compiler` 已弃用 {id="koin-ksp-compiler-is-deprecated"}
 
 :::warning
 旧版 KSP 处理器 `koin-ksp-compiler` 已**弃用**，并将在未来的 Koin 版本中移除。
@@ -72,7 +72,7 @@ Koin Annotations 由 **Koin 编译器插件**处理 —— 这是一个直接与
 
 请参阅[从 KSP 迁移到编译器插件](/docs/migration/from-ksp-to-compiler-plugin)了解详细步骤。
 
-## 何时选择注解
+## 何时选择注解 {id="when-to-choose-annotations"}
 
 注解和 DSL 都是一等的。在以下情况下请选择注解：
 
@@ -82,7 +82,7 @@ Koin Annotations 由 **Koin 编译器插件**处理 —— 这是一个直接与
 
 如果您更喜欢 Kotlin 原生的、纯代码风格，请选择 DSL。您还可以在同一个项目中**混合使用两者** —— 它们由同一个编译器插件处理。
 
-## 后续步骤
+## 后续步骤 {id="next-steps"}
 
 - **[Koin 编译器插件](/docs/intro/koin-compiler-plugin)** —— 插件如何为您的注解提供支持
 - **[注解参考](/docs/reference/koin-annotations/start)** —— 完整的注解目录和模式

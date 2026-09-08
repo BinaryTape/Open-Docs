@@ -2,7 +2,7 @@
 
 若要使用 Maven 封裝您的 Kotlin 應用程式，您可以建立一個標準的 JAR 檔案，或是建立一個包含所有相依性的自我包含 (fat) JAR 檔案。封裝您的應用程式可讓您在任何安裝了 Java 執行環境 (JRE) 的電腦上發行並執行它。
 
-## 建立 JAR 檔案
+## 建立 JAR 檔案 {id="create-jar-files"}
 
 若要建立一個僅包含模組程式碼的小型 JAR 檔案，請在 Maven `pom.xml` 檔案的 `<build><plugins>` 下包含以下內容，其中 `main.class` 定義為屬性並指向 Kotlin 或 Java 的主要類別：
 
@@ -22,7 +22,7 @@
 </plugin>
 ```
 
-## 建立自我包含的 JAR 檔案
+## 建立自我包含的 JAR 檔案 {id="create-self-contained-jar-files"}
 
 若要建立一個包含模組程式碼及其相依性的自我包含 JAR 檔案，請在 Maven `pom.xml` 檔案的 `<build><plugins>` 下包含以下內容，其中 `main.class` 定義為屬性並指向 Kotlin 或 Java 的主要類別：
 

@@ -25,7 +25,7 @@ lateinit var process: Process
 
 ```
 
-## 1) OpenAI API 키 제공
+## 1) OpenAI API 키 제공 {id="1-provide-your-openai-api-key"}
 노트북에 보안 정보를 노출하지 않도록 `OPENAI_API_KEY` 환경 변수에서 API 키를 읽어옵니다.
 
 ```kotlin
@@ -33,7 +33,7 @@ val token = System.getenv("OPENAI_API_KEY") ?: error("OPENAI_API_KEY environment
 val executor = simpleOpenAIExecutor(token)
 ```
 
-## 2) Unity 에이전트 설정
+## 2) Unity 에이전트 설정 {id="2-configure-the-unity-agent"}
 Unity를 위한 간결한 시스템 프롬프트와 에이전트 설정을 정의합니다.
 
 ```kotlin
@@ -52,7 +52,7 @@ val agentConfig = AIAgentConfig(
 
 ```
 
-## 3) Unity MCP 서버 시작
+## 3) Unity MCP 서버 시작 {id="3-start-the-unity-mcp-server"}
 Unity 프로젝트 디렉토리에서 Unity MCP 서버를 실행하고 stdio를 통해 연결합니다.
 
 ```kotlin
@@ -64,7 +64,7 @@ val process = ProcessBuilder(
 ).start()
 ```
 
-## 4) Koog에서 연결 및 에이전트 실행
+## 4) Koog에서 연결 및 에이전트 실행 {id="4-connect-from-koog-and-run-the-agent"}
 Unity MCP 서버에서 도구들을 검색하고, 간단한 선 계획(plan-first) 전략을 구축한 뒤, 도구만을 사용하여 열려 있는 씬을 수정하는 에이전트를 실행합니다.
 
 ```kotlin
@@ -139,7 +139,7 @@ description:" + it.descriptor
 }
 ```
 
-## 5) MCP 프로세스 종료
+## 5) MCP 프로세스 종료 {id="5-shut-down-the-mcp-process"}
 실행이 끝나면 항상 외부 Unity MCP 서버 프로세스를 정리해야 합니다.
 
 ```kotlin

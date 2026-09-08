@@ -22,7 +22,7 @@
 >
 {style="note"}
 
-## 来自 CocoaPods 仓库
+## 来自 CocoaPods 仓库 {id="from-the-cocoapods-repository"}
 
 要添加对位于 CocoaPods 仓库中的 Pod 库的依赖项：
 
@@ -61,7 +61,7 @@
 import cocoapods.SDWebImage.*
 ```
 
-## 来自本地存储的库
+## 来自本地存储的库 {id="on-a-locally-stored-library"}
 
 要添加对本地存储的 Pod 库的依赖项：
 
@@ -117,7 +117,7 @@ import cocoapods.subspec_dependency.*
 import cocoapods.SDWebImage.*
 ```
 
-## 来自自定义 Git 仓库
+## 来自自定义 Git 仓库 {id="from-a-custom-git-repository"}
 
 要添加对位于自定义 Git 仓库中的 Pod 库的依赖项：
 
@@ -179,7 +179,7 @@ import cocoapods.JSONModel.*
 import cocoapods.CocoaLumberjack.*
 ```
 
-## 来自自定义 Podspec 仓库
+## 来自自定义 Podspec 仓库 {id="from-a-custom-podspec-repository"}
 
 要添加对位于自定义 Podspec 仓库中的 Pod 库的依赖项：
 
@@ -221,7 +221,7 @@ import cocoapods.CocoaLumberjack.*
 import cocoapods.example.*
 ```
 
-## 使用自定义 cinterop 选项
+## 使用自定义 cinterop 选项 {id="with-custom-cinterop-options"}
 
 要使用自定义 cinterop 选项添加对 Pod 库的依赖项：
 
@@ -272,7 +272,7 @@ import FirebaseAuthWrapper.Auth
 import FirebaseAuthWrapper.User
 ```
 
-### 支持带有 @import 指令的 Objective-C 头文件
+### 支持带有 @import 指令的 Objective-C 头文件 {id="support-for-objective-c-headers-with-import-directives"}
 
 > 此功能为[实验性](supported-platforms.md#general-kotlin-stability-levels)功能。它可能随时被删除或更改。请仅将其用于评估目的。我们感谢您在 [YouTrack](https://kotl.in/issue) 上提供的反馈。
 >
@@ -300,7 +300,7 @@ kotlin {
 }
 ```
 
-### 在相互依赖的 Pod 之间共享 Kotlin cinterop
+### 在相互依赖的 Pod 之间共享 Kotlin cinterop {id="share-kotlin-cinterop-between-dependent-pods"}
 
 如果您使用 `pod()` 函数添加了多个对 Pod 的依赖项，当这些 Pod 的 API 之间存在依赖关系时，您可能会遇到问题。
 
@@ -321,7 +321,7 @@ printImageInfo(loadImage())
 
 在这种情况下，如果您没有在 cinterop 之间配置正确的依赖关系，代码将无效，因为 `WebImage` 类型将源自不同的 cinterop 文件，从而属于不同的包。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * [设置 Kotlin 项目与 Xcode 项目之间的依赖关系](multiplatform-cocoapods-xcode.md)
 * [参阅完整的 CocoaPods Gradle 插件 DSL 参考](multiplatform-cocoapods-dsl-reference.md)

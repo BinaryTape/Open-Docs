@@ -26,7 +26,7 @@
   [来自外部库](#accessing-multiplatform-resources-from-external-libraries)、
   [远程文件](#remote-files)以及 [Java 资源](#using-java-resources)。
 
-## 导入生成的类
+## 导入生成的类 {id="importing-the-generated-class"}
 
 要使用准备好的资源，请导入生成的类，例如：
 
@@ -41,7 +41,7 @@ import project.shared.generated.resources.example_image
 * `Res` 是生成的类的默认名称
 * `example_image` 是 `composeResources/drawable` 目录中的图像文件名（例如 `example_image.png`）。
 
-## 自定义访问器类生成
+## 自定义访问器类生成 {id="customizing-accessor-class-generation"}
 
 你可以使用 Gradle 设置来根据需要自定义生成的 `Res` 类。
 
@@ -60,9 +60,9 @@ compose.resources {
 * `packageOfResClass` 允许你将生成的 `Res` 类分配给特定的软件包（以便在代码中访问，以及在最终工件中进行隔离）。默认情况下，Compose Multiplatform 为该类分配 `{group name}.{module name}.generated.resources` 软件包。
 * 将 `generateResClass` 设置为 `always` 会使项目无条件生成 `Res` 类。当资源库仅通过传递方式可用时，这可能很有用。默认情况下，Compose Multiplatform 使用 `auto` 值，仅当当前项目对资源库有显式的 `implementation` 或 `api` 依赖项时才生成 `Res` 类。
 
-## 资源用法
+## 资源用法 {id="resource-usage"}
 
-### 图像
+### 图像 {id="images"}
 
 你可以将可绘制资源作为简单图像、栅格化图像或 XML 矢量图访问。
 除 Android **外**，所有平台均支持 SVG 图像。
@@ -102,7 +102,7 @@ Image(
 )
 ```
 
-#### 在画布上绘制图像
+#### 在画布上绘制图像 {id="drawing-images-on-a-canvas"}
 
 要在画布上自行绘制资源图像，而不是通过 `Image()` 可组合项显示它，请将其加载为 `ImageBitmap` 或 `ImageVector` 并将其用于 `DrawScope` 中：
 
@@ -127,7 +127,7 @@ Canvas(modifier = Modifier.fillMaxSize()) {
 }
 ```
 
-### 图标
+### 图标 {id="icons"}
 
 你可以使用来自 Material Symbols 库的矢量 Android XML 图标：
 
@@ -180,7 +180,7 @@ Image(
 )
 ```
 
-### 字符串
+### 字符串 {id="strings"}
 
 将所有字符串资源存储在 `composeResources/values` 目录下的 XML 文件中。系统会为每个文件中的每个项目生成一个静态访问器。
 
@@ -188,7 +188,7 @@ Compose Multiplatform 支持类 Emmet 的缩写语法，以便直接在 XML 文�
 
 有关如何针对不同区域性进行字符串本地化的更多信息，请参阅[本地化字符串指南](compose-localize-strings.md)。
 
-#### 简单字符串
+#### 简单字符串 {id="simple-strings"}
 
 要存储简单字符串，请在 XML 中添加 `<string>` 元素：
 
@@ -253,7 +253,7 @@ coroutineScope.launch {
 >
 {style="note"}
 
-#### 字符串模板
+#### 字符串模板 {id="string-templates"}
 
 目前，参数对字符串资源提供基本支持。创建模板时，使用 `%<number>` 格式在字符串中放置参数，并包含 `$d` 或 `$s` 后缀以指示它是变量占位符而非简单文本。例如：
 
@@ -279,7 +279,7 @@ Text(stringResource(Res.string.str_template, "User_name", 100.1f))
 > 
 {style="note"}
 
-#### 字符串数组
+#### 字符串数组 {id="string-arrays"}
 
 你可以将相关的字符串分组到一个数组中，并将其作为 `List<String>` 对象自动访问：
 
@@ -340,7 +340,7 @@ coroutineScope.launch {
 >
 {style="note"}
 
-#### 复数
+#### 复数 {id="plurals"}
 
 当你的 UI 显示某物的数量时，你可能希望支持对同一事物的不同数量进行语法一致性处理（例如：one _book_，many _books_ 等），而无需以编程方式创建不相关的字符串。
 
@@ -411,7 +411,7 @@ coroutineScope.launch {
 >
 {style="note"}
 
-### 字体
+### 字体 {id="fonts"}
 
 将自定义字体存储在 `composeResources/font` 目录中。Compose Multiplatform 在所有平台上均支持 TTF、OTF、TTC 和可变字体格式。WOFF 和 WOFF2 仅在 Web 和 macOS 上可用。
 
@@ -468,7 +468,7 @@ private fun InterTypography(): Typography {
 
 如果你需要完全控制使用的字体，请捆绑特定字体并使用 [预加载 API](compose-web-resources.md#preload-resources-using-the-compose-multiplatform-preload-api) 手动注册。
 
-### 原始文件
+### 原始文件 {id="raw-files"}
 
 要将任何原始文件加载为字节数组，请使用 `Res.readBytes(path)` 函数：
 
@@ -505,7 +505,7 @@ coroutineScope.launch {
 </TabItem>
 </Tabs>
 
-#### 将字节数组转换为图像
+#### 将字节数组转换为图像 {id="convert-byte-arrays-into-images"}
 
 如果你读取的文件是位图（JPEG、PNG、BMP、WEBP）或 XML 矢量图像，可以使用以下函数将它们转换为适用于 `Image()` 可组合项的 `ImageBitmap` 或 `ImageVector` 对象。
 
@@ -526,7 +526,7 @@ Image(bytes.decodeToImageVector(LocalDensity.current), null)
 Image(bytes.decodeToSvgPainter(LocalDensity.current), null)
 ```
 
-### 访问通过字符串 ID 映射的资源
+### 访问通过字符串 ID 映射的资源 {id="generated-maps-for-resources-and-string-ids"}
 
 为了方便访问，Compose Multiplatform 还通过字符串 ID 映射资源。你可以使用文件名作为键来访问它们：
 
@@ -544,7 +544,7 @@ val Res.allFontResources: Map<String, FontResource>
 Image(painterResource(Res.allDrawableResources["compose_multiplatform"]!!), null)
 ```
 
-### 将多平台资源用作 Android 资产
+### 将多平台资源用作 Android 资产 {id="compose-multiplatform-resources-as-android-assets"}
 
 从 Compose Multiplatform 1.7.0 开始，所有多平台资源都被打包到 Android 资产中。这使得 Android Studio 能够在 Android 源集中为 Compose Multiplatform 可组合项生成预览。
 
@@ -602,9 +602,9 @@ fun App() {
 
 ![composeResources 目录的文件结构](compose-resources-android-webview.png){width="230"}
 
-## 与其他库和资源的交互
+## 与其他库和资源的交互 {id="interaction-with-other-libraries-and-resources"}
 
-### 访问来自外部库的多平台资源
+### 访问来自外部库的多平台资源 {id="accessing-multiplatform-resources-from-external-libraries"}
 
 如果你想使用项目中包含的其他库来处理多平台资源，可以将平台特定的文件路径传递给这些其他 API。要获取平台特定的路径，请使用资源的项项目路径调用 `Res.getUri()` 函数：
 
@@ -616,7 +616,7 @@ val uri = Res.getUri("files/my_video.mp4")
 
 对于 Android 特定的用途，多平台资源也会 [作为 Android 资产打包](#compose-multiplatform-resources-as-android-assets)。
 
-### 远程文件
+### 远程文件 {id="remote-files"}
 
 在资源库的上下文中，只有作为应用程序一部分的文件才被视为资源。
 
@@ -630,7 +630,7 @@ val uri = Res.getUri("files/my_video.mp4")
 
 如果你自行下载或读取图像字节，请使用资源库的 [解码函数](#convert-byte-arrays-into-images) 将其转换为图像。有关在桌面应用程序中从网络加载图像的示例，请参阅[在 Compose Multiplatform for Desktop 中使用图像](compose-desktop-images.md#loading-images-from-the-file-system-or-the-network)教程。
 
-### 使用 Java 资源
+### 使用 Java 资源 {id="using-java-resources"}
 
 虽然你可以在 Compose Multiplatform 中使用 Java 资源，但它们无法受益于框架提供的扩展功能：生成的访问器、多模块支持、本地化等。考虑完全过渡到多平台资源库以释放这些潜力。
 
@@ -670,7 +670,7 @@ private fun readResourceBytes(resourcePath: String) =
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="internal fun painterResource(resourcePath: String): Painter"}
 
-## 后续步骤
+## 后续步骤 {id="what-s-next"}
 
 * 查看官方 [示例项目](https://github.com/JetBrains/compose-multiplatform/tree/master/components/resources/demo)，该项目展示了如何在针对 iOS、Android 和桌面的 Compose Multiplatform 项目中处理资源。
 * 了解如何管理应用程序的 [资源环境](compose-resource-environment.md)，例如应用内主题和语言。

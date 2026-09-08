@@ -7,7 +7,7 @@ Koog は、オブザーバビリティ（可観測性）データのオープン
 
 ---
 
-## セットアップ手順
+## セットアップ手順 {id="setup-instructions"}
 
 1. [https://wandb.ai](https://wandb.ai) で W&B アカウントを作成します。
 2. [https://wandb.ai/authorize](https://wandb.ai/authorize) から API キーを取得します。
@@ -22,11 +22,11 @@ export WEAVE_PROJECT_NAME="koog-tracing"
 ```
 <!--- KNIT example-weave-exporter-01.txt -->
 
-## 設定
+## 設定 {id="configuration"}
 
 **OpenTelemetry 機能**をインストールし、[`addWeaveExporter()`](api:agents-features-opentelemetry::ai.koog.agents.features.opentelemetry.integration.weave.addWeaveExporter) を呼び出すことで Weave へのエクスポートを有効にします。
 
-### 基本的な例
+### 基本的な例 {id="basic-example"}
 
 === "Kotlin"
 
@@ -116,7 +116,7 @@ See traces on https://wandb.ai/" + entity + "/" + projectName + "/weave/traces")
     ```
     <!--- KNIT exampleWeaveExporterJava01.java -->
 
-## トレースされる内容
+## トレースされる内容 {id="what-gets-traced"}
 
 Weave エクスポーターは、Koog の一般的な OpenTelemetry 統合と同じアクティビティをキャプチャします。
 キャプチャされるスパンの全リスト、および LLM のプロンプトとレスポンスの内容を含める方法については、[トレースされる内容](index.md#what-gets-traced)を参照してください。
@@ -129,7 +129,7 @@ W&B Weave で可視化すると、トレースは次のように表示されま�
 
 ---
 
-## トラブルシューティング
+## トラブルシューティング {id="troubleshooting"}
 
 - **トレースが表示されない**: `WEAVE_API_KEY`、`WEAVE_ENTITY`、および `WEAVE_PROJECT_NAME` が設定されていること、および W&B アカウントが指定されたエンティティとプロジェクトへのアクセス権を持っていることを確認してください。
 - **認証エラー**: `WEAVE_API_KEY` が有効であり、選択したエンティティに対して書き込み権限があることを確認してください。

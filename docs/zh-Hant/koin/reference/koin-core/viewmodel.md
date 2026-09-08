@@ -4,7 +4,7 @@ title: ViewModel
 
 Koin 透過 `koin-core-viewmodel` 模組提供多平台 ViewModel 支援。這讓您可以在所有 Kotlin Multiplatform 目標中宣告並注入 [AndroidX ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) 執行個體。
 
-## 設定 (Setup)
+## 設定 (Setup) {id="setup"}
 
 新增核心 ViewModel 相依性：
 
@@ -23,9 +23,9 @@ implementation("io.insert-koin:koin-android:$koin_version")
 implementation("io.insert-koin:koin-compose-viewmodel:$koin_version")
 ```
 
-## 宣告 ViewModel (Declaring ViewModels)
+## 宣告 ViewModel (Declaring ViewModels) {id="declaring-viewmodels"}
 
-### 編譯器外掛程式 DSL (Compiler Plugin DSL)
+### 編譯器外掛程式 DSL (Compiler Plugin DSL) {id="compiler-plugin-dsl"}
 
 ```kotlin
 class UserViewModel(
@@ -37,7 +37,7 @@ val appModule = module {
 }
 ```
 
-### 註解 (Annotations)
+### 註解 (Annotations) {id="annotations"}
 
 ```kotlin
 @KoinViewModel
@@ -46,7 +46,7 @@ class UserViewModel(
 ) : ViewModel()
 ```
 
-### 經典 DSL (Classic DSL)
+### 經典 DSL (Classic DSL) {id="classic-dsl"}
 
 ```kotlin
 val appModule = module {
@@ -58,7 +58,7 @@ val appModule = module {
 }
 ```
 
-## 包含參數的 ViewModel (ViewModel with Parameters)
+## 包含參數的 ViewModel (ViewModel with Parameters) {id="viewmodel-with-parameters"}
 
 在注入時使用 `@InjectedParam` 傳遞參數：
 
@@ -98,7 +98,7 @@ val appModule = module {
 }
 ```
 
-## ViewModel 作用域 (ViewModel Scope)
+## ViewModel 作用域 (ViewModel Scope) {id="viewmodel-scope"}
 
 需要自己作用域相依性的 ViewModel 會使用 `viewModelScope` 原型。在 `viewModelScope` 內宣告的相依性會與 ViewModel 的生命週期繫結。
 
@@ -165,9 +165,9 @@ No definition found for type 'MyViewModel' on scope '['_root_']'
 因為 ViewModel 是在 ViewModel 作用域原型下註冊的，而該作用域僅在啟用該選項時才會建立。（這與手動的 `ScopeViewModel` 模式不同，後者會建立自己的作用域，不需要此選項。）
 :::
 
-## 注入 ViewModel (Injecting ViewModels)
+## 注入 ViewModel (Injecting ViewModels) {id="injecting-viewmodels"}
 
-### 在 Compose (多平台) 中
+### 在 Compose (多平台) 中 {id="in-compose-multiplatform"}
 
 在 Composable 函式中使用 `koinViewModel()`：
 
@@ -180,7 +180,7 @@ fun UserScreen() {
 }
 ```
 
-### 在 Android 中
+### 在 Android 中 {id="in-android"}
 
 在 Activity 或 Fragment 中使用 `by viewModel()` 委派：
 
@@ -193,7 +193,7 @@ class UserActivity : AppCompatActivity() {
 }
 ```
 
-## SavedStateHandle
+## SavedStateHandle {id="savedstatehandle"}
 
 將 `SavedStateHandle` 新增至您的 ViewModel 建構函式中 — Koin 會自動注入：
 
@@ -216,7 +216,7 @@ val appModule = module {
 }
 ```
 
-## 快速參考 (Quick Reference)
+## 快速參考 (Quick Reference) {id="quick-reference"}
 
 | 方法 (Approach) | 模組宣告 | 作用域宣告 |
 |----------|-------------------|-------------------|
@@ -229,12 +229,12 @@ val appModule = module {
 | Compose | `koinViewModel<MyVM>()` |
 | Android | `by viewModel()` |
 
-## 特定平台的特性 (Platform-Specific Features)
+## 特定平台的特性 (Platform-Specific Features) {id="platform-specific-features"}
 
 - **Android**：請參閱 [Android ViewModel](/docs/reference/koin-android/viewmodel) 以了解 Activity/Fragment 共享、導航圖 (Navigation Graph) 作用域。
 - **Compose**：請參閱 [Compose ViewModel](/docs/reference/koin-compose/compose#viewmodel-for-composable) 以了解 Compose 特定的 API。
 
-## 後續步驟 (Next Steps)
+## 後續步驟 (Next Steps) {id="next-steps"}
 
 - **[作用域 (Scopes)](/docs/reference/koin-core/scopes)** – 核心作用域概念
 - **[Android ViewModel](/docs/reference/koin-android/viewmodel)** – Android 特定特性

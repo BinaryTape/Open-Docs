@@ -23,11 +23,11 @@ Kotlin Multiplatform プロジェクトと iOS プロジェクトでコードを
 * 埋め込まれたフレームワークのコード署名プロセスを処理します。
 * Kotlin フレームワークでのコード変更が Xcode の iOS アプリに反映されるようにします。
 
-## セットアップ方法
+## セットアップ方法 {id="how-to-set-up"}
 
 現在、Kotlin フレームワークの接続に CocoaPods プラグインを使用している場合は、まず移行を行ってください。プロジェクトに CocoaPods の依存関係がない場合は、[このステップをスキップ](#connect-the-framework-to-your-project)してください。
 
-### CocoaPods プラグインからの移行
+### CocoaPods プラグインからの移行 {id="migrate-from-the-cocoapods-plugin"}
 
 CocoaPods プラグインから移行するには：
 
@@ -100,6 +100,6 @@ CocoaPods プラグインから移行するには：
 >
 {style="note"}
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 Swift Package Manager を使用する場合も、ローカル統合を利用できます。[ローカルパッケージ内の Kotlin フレームワークへの依存関係を追加する方法](multiplatform-spm-local-integration.md)を確認してください。

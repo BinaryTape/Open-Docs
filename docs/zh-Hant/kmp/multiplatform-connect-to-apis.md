@@ -4,14 +4,14 @@
 
 <video src="https://www.youtube.com/v/bSNumV04y_w" title="在 KMP 應用程式中使用平台特定 API"/>
 
-## Kotlin 多平台程式庫
+## Kotlin 多平台程式庫 {id="kotlin-multiplatform-libraries"}
 
 在編寫使用平台特定 API 的程式碼之前，請先檢查是否可以使用多平台程式庫代替。
 這類程式庫提供一個通用的 Kotlin API，並針對不同平台有不同的實作。
 
 目前已有許多程式庫可用於實作網路、記錄（logging）和分析，以及存取裝置功能等。你可以在 [klibs.io](https://klibs.io) 上瀏覽程式庫，這是 Kotlin Multiplatform 程式庫的搜尋平台。
 
-## expect 和 actual 函式與屬性
+## expect 和 actual 函式與屬性 {id="expected-and-actual-functions-and-properties"}
 
 Kotlin 提供了一種語言機制，用於在開發通用邏輯時存取平台特定 API：
 [expect 和 actual 宣告](multiplatform-expect-actual.md)。
@@ -24,7 +24,7 @@ Kotlin 提供了一種語言機制，用於在開發通用邏輯時存取平台�
 
 在此範例中，你將在通用原始碼集中定義一個預期的 `platform()` 函式，並在平台原始碼集中提供實際的實作。在為特定平台產生程式碼時，Kotlin 編譯器會合併 expect 和 actual 宣告。它會產生一個具有實際實作的 `platform()` 函式。expect 和 actual 宣告應定義在同一個套件中，並在產生的平台程式碼中合併為 *一個宣告*。在產生的平台程式碼中對 expect `platform()` 函式的任何調用，都將呼叫正確的 actual 實作。
 
-### 範例：產生 UUID
+### 範例：產生 UUID {id="example-generate-a-uuid"}
 
 假設你正在使用 Kotlin Multiplatform 開發 iOS 和 Android 應用程式，且想要產生通用唯一識別碼 (UUID)。
 
@@ -64,7 +64,7 @@ Android 實作使用 Android 上的可用 API，而 iOS 實作則使用 iOS 上�
 
 與 expect 和 actual 函式類似，expect 和 actual 屬性允許你在不同平台上使用不同的值。expect 和 actual 函式與屬性對於簡單的案例最為實用。
 
-## 通用程式碼中的介面
+## 通用程式碼中的介面 {id="interfaces-in-common-code"}
 
 如果平台特定邏輯過於龐大且複雜，你可以透過在通用程式碼中定義一個介面來代表它，然後在平台原始碼集中提供不同的實作，以此簡化程式碼。
 
@@ -103,7 +103,7 @@ class IOSPlatform : Platform {
 * [透過不同的入口點提供實作](#different-entry-points)
 * [使用相依注入架構](#dependency-injection-framework)
 
-### expect 和 actual 函式
+### expect 和 actual 函式 {id="expected-and-actual-functions"}
 
 定義一個回傳此介面值的 expect 函式，然後定義回傳其子類別的 actual 函式：
 
@@ -132,7 +132,7 @@ actual fun platform() = IOSPlatform()
 當你在 Android 上執行此通用程式碼時，`platform()` 呼叫會回傳 `AndroidPlatform` 類別的執行個體。
 當你在 iOS 上執行時，`platform()` 會回傳 `IOSPlatform` 類別的執行個體。
 
-### 不同的入口點
+### 不同的入口點 {id="different-entry-points"}
 
 如果你可以控制入口點，則可以在不使用 expect 和 actual 宣告的情況下，建構每個平台產物的實作。為此，請在共享的 Kotlin Multiplatform 模組中定義平台實作，但在平台模組中具現化它們：
 
@@ -185,7 +185,7 @@ struct iOSApp : App {
 
 使用 expect 和 actual 函式或直接透過入口點提供正確的實作，對於簡單的案例非常有效。然而，如果你在專案中使用了相依注入架構，我們建議在簡單的情況下也使用它，以確保一致性。
 
-### 相依注入架構
+### 相依注入架構 {id="dependency-injection-framework"}
 
 現代應用程式通常使用相依注入 (DI) 架構來建立鬆散耦合的架構。DI 架構允許根據目前的環境將相依性注入到組件中。
 
@@ -234,6 +234,6 @@ actual val platformModule = module {
 
 <!-- 如果你對將此功能擴展到共享模組感興趣，請在 Youtrack 中為此問題投票並描述你的使用案例。 -->
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 如需更多關於 expect/actual 機制的範例和資訊，請參閱 [expect 和 actual 宣告](multiplatform-expect-actual.md)。

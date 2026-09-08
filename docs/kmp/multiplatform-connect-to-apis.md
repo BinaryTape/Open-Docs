@@ -4,14 +4,14 @@
 
 <video src="https://www.youtube.com/v/bSNumV04y_w" title="在 KMP 应用中使用平台特定 API"/>
 
-## Kotlin 多平台库
+## Kotlin 多平台库 {id="kotlin-multiplatform-libraries"}
 
 在编写使用平台特定 API 的代码之前，请检查是否可以使用多平台库代替。
 此类库提供通用的 Kotlin API，并针对不同平台有不同的实现。
 
 目前已有许多库可用于实现网络、日志记录和分析，以及访问设备功能等。您可以在 [klibs.io](https://klibs.io)（Kotlin 多平台库搜索平台）上浏览库。
 
-## expect 和 actual 函数与属性
+## expect 和 actual 函数与属性 {id="expected-and-actual-functions-and-properties"}
 
 Kotlin 提供了一种语言机制，用于在开发公共逻辑时访问平台特定 API：
 [expect 和 actual 声明](multiplatform-expect-actual.md)。
@@ -24,7 +24,7 @@ Kotlin 提供了一种语言机制，用于在开发公共逻辑时访问平台�
 
 在此示例中，您将在公共源集中定义一个预期的 `platform()` 函数，并在平台源集中提供其实际实现。在为特定平台生成代码时，Kotlin 编译器会合并 expect 和 actual 声明。它会生成一个带有实际实现的 `platform()` 函数。expect 和 actual 声明应定义在同一个包中，并合并为生成的平台代码中的“一个声明”。在生成的平台代码中，任何对预期 `platform()` 函数的调用都将调用正确的实际实现。
 
-### 示例：生成 UUID
+### 示例：生成 UUID {id="example-generate-a-uuid"}
 
 假设您正在使用 Kotlin Multiplatform 开发 iOS 和 Android 应用程序，并且想要生成一个通用唯一标识符 (UUID)。
 
@@ -63,7 +63,7 @@ Android 实现使用 Android 上的可用 API，而 iOS 实现使用 iOS 上的�
 
 与 expect 和 actual 函数类似，expect 和 actual 属性允许您在不同平台上使用不同的值。expect 和 actual 函数与属性对于简单的用例非常有用。
 
-## 公共代码中的接口
+## 公共代码中的接口 {id="interfaces-in-common-code"}
 
 如果平台特定逻辑过于庞大且复杂，您可以通过在公共代码中定义一个接口来表示该逻辑，然后在平台源集中提供不同的实现，从而简化代码。
 
@@ -102,7 +102,7 @@ class IOSPlatform : Platform {
 * [通过不同的入口点提供实现](#different-entry-points)
 * [使用依赖注入框架](#dependency-injection-framework)
 
-### expect 和 actual 函数
+### expect 和 actual 函数 {id="expected-and-actual-functions"}
 
 定义一个返回此接口值的 expect 函数，然后定义返回其子类的 actual 函数：
 
@@ -129,7 +129,7 @@ actual fun platform() = IOSPlatform()
 
 当您在公共代码中调用 `platform()` 函数时，它可以处理 `Platform` 类型对象。当您在 Android 上运行此公共代码时，`platform()` 调用将返回 `AndroidPlatform` 类的实例。当您在 iOS 上运行时，`platform()` 将返回 `IOSPlatform` 类的实例。
 
-### 不同的入口点
+### 不同的入口点 {id="different-entry-points"}
 
 如果您控制入口点，则可以在不使用 expect 和 actual 声明的情况下构建每个平台工件的实现。为此，请在共享的 Kotlin Multiplatform 模块中定义平台实现，但在平台模块中对其实例化：
 
@@ -182,7 +182,7 @@ struct iOSApp : App {
 
 通过 expect 和 actual 函数或直接通过入口点提供正确的实现对于简单场景非常有效。但是，如果您在项目中使用依赖注入框架，我们建议在简单情况下也使用它以确保一致性。
 
-### 依赖注入框架
+### 依赖注入框架 {id="dependency-injection-framework"}
 
 现代应用程序通常使用依赖注入 (DI) 框架来构建松耦合架构。DI 框架允许根据当前环境将依赖项注入组件。
 
@@ -231,6 +231,6 @@ actual val platformModule = module {
 
 <!-- If you're interested in having this functionality expanded to a shared module, please vote for this issue in Youtrack and describe your use case. -->
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 有关 expect/actual 机制的更多示例和信息，请参阅 [expect 和 actual 声明](multiplatform-expect-actual.md)。

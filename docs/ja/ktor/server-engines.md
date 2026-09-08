@@ -86,7 +86,7 @@ fun main(args: Array<String>) {
 * `io.ktor.server.tomcat.jakarta.EngineMain`
 * `io.ktor.server.cio.EngineMain`
 
-#### サーバーの作成と起動
+#### サーバーの作成と起動 {id="creating-and-starting-the-server"}
 
 `EngineMain.main()` 関数は、選択したエンジンでサーバーを起動し、外部の[設定ファイル](server-configuration-file.topic)で指定された[アプリケーションモジュール](server-modules.md)をロードするために使用されます。以下の例では、アプリケーションの `main` 関数がサーバーを起動します：
 

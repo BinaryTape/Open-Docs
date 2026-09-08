@@ -3,7 +3,7 @@
 Kotlin/Native는 [C](native-c-interop.md) 및 [Objective-C](native-objc-interop.md) 라이브러리를 임포트(import)하는 기능을 제공합니다.
 또한 Kotlin/Native 프로젝트에서 순수 [Swift 라이브러리](#swift-library-import)를 임포트하기 위한 우회 방법도 사용할 수 있습니다.
 
-## C 및 Objective-C 라이브러리 임포트의 안정성
+## C 및 Objective-C 라이브러리 임포트의 안정성 {id="stability-of-c-and-objective-c-library-import"}
 <primary-label ref="beta"/>
 
 C 및 Objective-C 라이브러리 임포트 지원은 현재 [베타(Beta)](components-stability.md#kotlin-native) 단계입니다.
@@ -17,7 +17,7 @@ C 및 Objective-C 라이브러리 임포트 지원은 현재 [베타(Beta)](comp
 
 이 두 종류의 네이티브 라이브러리는 서로 다른 호환성 특성을 가집니다.
 
-### 플랫폼 라이브러리
+### 플랫폼 라이브러리 {id="platform-libraries"}
 
 [_플랫폼 라이브러리_](native-platform-libs.md)는 Kotlin/Native 컴파일러와 함께 제공됩니다.
 따라서 프로젝트에서 다른 버전의 Kotlin을 사용하면 다른 버전의 플랫폼 라이브러리를 사용하게 됩니다. Apple 타겟(예: iOS)의 경우, 플랫폼 라이브러리는 특정 컴파일러 버전이 지원하는 Xcode 버전을 기준으로 생성됩니다.
@@ -39,7 +39,7 @@ JetBrains 팀은 플랫폼 라이브러리를 생성하는 데 사용되는 Xcod
 
 플랫폼 라이브러리에서 브레이킹 체인지가 발생하는 또 다른 잠재적 이유는 네이티브 API를 Kotlin으로 번역하는 알고리즘의 변경입니다. JetBrains 팀은 이러한 경우에도 브레이킹 체인지를 피하기 위해 합리적인 노력을 기울입니다.
 
-#### 플랫폼 라이브러리의 새로운 Objective-C 클래스 사용
+#### 플랫폼 라이브러리의 새로운 Objective-C 클래스 사용 {id="using-new-objective-c-classes-from-platform-libraries"}
 
 Kotlin 컴파일러는 배포 대상(deployment target)에서 사용할 수 없는 Objective-C 클래스를 사용하는 것을 방지하지 않습니다.
 
@@ -48,12 +48,12 @@ Kotlin 컴파일러는 배포 대상(deployment target)에서 사용할 수 없�
 
 자세한 내용은 [강한 연결(Strong linking)](native-objc-interop.md#strong-linking)을 참조하세요.
 
-### 서드파티 라이브러리
+### 서드파티 라이브러리 {id="third-party-libraries"}
 
 시스템 플랫폼 라이브러리 외에도 Kotlin/Native는 서드파티 네이티브 라이브러리 임포트를 허용합니다.
 예를 들어, [CocoaPods 통합](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html)을 사용하거나 [cinterops 설정](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#cinterops)을 구성할 수 있습니다.
 
-#### 일치하지 않는 Xcode 버전으로 라이브러리 임포트
+#### 일치하지 않는 Xcode 버전으로 라이브러리 임포트 {id="importing-libraries-with-mismatched-xcode-version"}
 
 서드파티 네이티브 라이브러리를 임포트하면 다른 Xcode 버전과의 호환성 문제가 발생할 수 있습니다.
 
@@ -65,11 +65,11 @@ Kotlin 컴파일러는 배포 대상(deployment target)에서 사용할 수 없�
 
 더 새롭거나 오래된 Xcode 버전을 사용하는 것이 가능한 경우가 많지만, 대개 서드파티 네이티브 라이브러리 임포트에 영향을 미치는 문제가 발생할 수 있습니다.
 
-##### Xcode 버전이 권장 버전보다 최신인 경우
+##### Xcode 버전이 권장 버전보다 최신인 경우 {id="xcode-version-is-newer-than-recommended"}
 
 권장 버전보다 최신인 Xcode 버전을 사용하면 일부 Kotlin 기능이 작동하지 않을 수 있습니다. 서드파티 네이티브 라이브러리 임포트가 이에 가장 큰 영향을 받습니다. 지원되지 않는 Xcode 버전에서는 아예 작동하지 않는 경우가 많습니다.
 
-##### Xcode 버전이 권장 버전보다 오래된 경우
+##### Xcode 버전이 권장 버전보다 오래된 경우 {id="xcode-version-is-older-than-recommended"}
 
 일반적으로 Kotlin은 이전 Xcode 버전과 잘 작동합니다. 간혹 다음과 같은 문제가 발생할 수 있습니다:
 
@@ -79,7 +79,7 @@ Kotlin 컴파일러는 배포 대상(deployment target)에서 사용할 수 없�
 
 이전 Xcode 버전에서 Kotlin 라이브러리가 성공적으로 컴파일된다면, [Kotlin 라이브러리 API에서 서드파티 라이브러리의 타입을 사용](#using-native-types-in-library-api)하지 않는 한 안전하게 배포할 수 있습니다.
 
-#### 전이적 서드파티 네이티브 의존성 사용
+#### 전이적 서드파티 네이티브 의존성 사용 {id="using-a-transitive-third-party-native-dependency"}
 
 프로젝트의 Kotlin 라이브러리가 구현의 일부로 서드파티 네이티브 라이브러리를 임포트하면, 해당 프로젝트도 해당 네이티브 라이브러리에 접근할 수 있게 됩니다.
 이는 Kotlin/Native가 `api`와 `implementation` 의존성 유형을 구분하지 않기 때문에 발생하며, 네이티브 라이브러리는 항상 `api` 의존성이 됩니다.
@@ -89,7 +89,7 @@ Kotlin 컴파일러는 배포 대상(deployment target)에서 사용할 수 없�
 
 따라서 전이적 의존성에 의존하는 대신, 동일한 네이티브 라이브러리와 직접 상호 운용성을 구성하세요. 이를 위해 호환성 문제를 방지하기 위해 [커스텀 패키지 이름 사용](#use-custom-package-name)과 유사하게 네이티브 라이브러리에 다른 패키지 이름을 사용하세요.
 
-#### 라이브러리 API에서 네이티브 타입 사용
+#### 라이브러리 API에서 네이티브 타입 사용 {id="using-native-types-in-library-api"}
 
 Kotlin 라이브러리를 배포하는 경우 라이브러리 API에서 네이티브 타입을 사용하는 데 주의해야 합니다. 이러한 사용은 향후 호환성 및 기타 문제를 해결하기 위해 변경될 가능성이 있으며, 이는 라이브러리 사용자에게 영향을 미칩니다.
 
@@ -107,11 +107,11 @@ internal fun createUIViewController(): UIViewController
 public fun getDate(): String = NSDate().toString()
 ```
 
-#### 서드파티 라이브러리를 사용하는 라이브러리 배포
+#### 서드파티 라이브러리를 사용하는 라이브러리 배포 {id="publishing-a-library-that-uses-third-party-library"}
 
 서드파티 네이티브 라이브러리를 사용하는 Kotlin 라이브러리를 배포할 때 호환성 문제를 피하기 위해 할 수 있는 몇 가지 작업이 있습니다.
 
-##### 커스텀 패키지 이름 사용
+##### 커스텀 패키지 이름 사용 {id="use-custom-package-name"}
 
 서드파티 네이티브 라이브러리에 커스텀 패키지 이름을 사용하면 호환성 문제를 예방하는 데 도움이 될 수 있습니다.
 
@@ -124,7 +124,7 @@ public fun getDate(): String = NSDate().toString()
 * CocoaPods 통합을 통해 네이티브 라이브러리를 임포트할 때, Gradle 빌드 스크립트의 `pod {}` 블록에서 [`packageName`](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-dsl-reference.html#pod-function) 속성을 사용하세요.
 * `cinterops` 구성으로 네이티브 라이브러리를 임포트할 때, 구성 블록에서 [`packageName`](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#cinterops) 속성을 사용하세요.
 
-##### 이전 Kotlin 버전과의 호환성 확인
+##### 이전 Kotlin 버전과의 호환성 확인 {id="check-compatibility-with-older-kotlin-versions"}
 
 Kotlin 라이브러리를 배포할 때 서드파티 네이티브 라이브러리를 사용하면 다른 Kotlin 버전과의 라이브러리 호환성에 영향을 미칠 수 있습니다. 구체적으로 다음과 같습니다:
 
@@ -136,17 +136,17 @@ Kotlin 라이브러리를 배포할 때 서드파티 네이티브 라이브러�
 
   Kotlin 라이브러리에서 네이티브 라이브러리를 사용하는 것은 일반적으로 후방 호환성에 영향을 미치지 않아야 합니다. 하지만 호환성에 영향을 미치는 컴파일러 버그가 발생할 가능성이 높아집니다.
 
-##### 정적 라이브러리 임베딩 지양
+##### 정적 라이브러리 임베딩 지양 {id="avoid-embedding-static-libraries"}
 
 네이티브 라이브러리를 임포트할 때 `-staticLibrary` 컴파일러 옵션이나 `.def` 파일의 `staticLibraries` 속성을 사용하여 관련 [정적 라이브러리](native-definition-file.md#include-a-static-library)(`.a` 파일)를 포함할 수 있습니다. 이 경우 라이브러리 사용자는 네이티브 의존성 및 링커 옵션을 직접 다룰 필요가 없습니다.
 
 하지만 포함된 정적 라이브러리의 사용을 어떤 방식으로도 구성할 수 없습니다. 즉, 제외하거나 교체(대체)할 수 없습니다. 따라서 사용자는 동일한 정적 라이브러리를 포함하는 다른 Kotlin 라이브러리와의 잠재적인 충돌을 해결하거나 버전을 조정할 수 없게 됩니다.
 
-### 네이티브 라이브러리 지원의 진화
+### 네이티브 라이브러리 지원의 진화 {id="evolution-of-native-library-support"}
 
 현재 Kotlin 프로젝트에서 C 및 Objective-C를 사용하면 호환성 문제가 발생할 수 있으며, 그중 일부는 이 가이드에 나열되어 있습니다. 이를 해결하기 위해 향후 일부 브레이킹 체인지가 필요할 수 있으며, 이는 그 자체로 호환성 문제의 원인이 될 수 있습니다.
 
-## Swift 라이브러리 임포트
+## Swift 라이브러리 임포트 {id="swift-library-import"}
 
 Kotlin/Native는 순수 Swift 라이브러리의 직접 임포트를 지원하지 않습니다. 하지만 이를 우회할 수 있는 몇 가지 옵션이 있습니다.
 

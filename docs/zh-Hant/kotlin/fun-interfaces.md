@@ -10,7 +10,7 @@ fun interface KRunnable {
 }
 ```
 
-## SAM 轉換
+## SAM 轉換 {id="sam-conversions"}
 
 對於函式介面，您可以使用 SAM 轉換，透過 [Lambda 運算式](lambdas.md#lambda-expressions-and-anonymous-functions) 使您的程式碼更加簡潔且易讀。
 
@@ -59,7 +59,7 @@ fun main() {
 
 您也可以對 [Java 介面使用 SAM 轉換](java-interop.md#sam-conversions)。
 
-## 從具有建構函式的介面遷移到函式介面
+## 從具有建構函式的介面遷移到函式介面 {id="migration-from-an-interface-with-constructor-function-to-a-functional-interface"}
 
 從 1.6.20 開始，Kotlin 支援對函式介面建構函式的 [可呼叫參照](reflection.md#callable-references)，這增加了一種原始碼相容的方式，可以從具有建構函式的介面遷移到函式介面。考慮以下程式碼：
 
@@ -94,7 +94,7 @@ documentsStorage.addPrinter(::Printer)
 fun Printer(...) {...}
 ```
 
-## 函式介面 vs. 型別別名
+## 函式介面 vs. 型別別名 {id="functional-interfaces-vs-type-aliases"}
 
 您也可以使用函式型別的 [型別別名](type-aliases.md) 簡單地改寫上述內容：
 

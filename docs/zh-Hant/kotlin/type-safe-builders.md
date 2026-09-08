@@ -208,7 +208,7 @@ fun html(init: HTML.() -> Unit): HTML {
 ```
 {collapsible="true" collapsed-title="範例輸出"}
 
-## 運作原理
+## 運作原理 {id="how-it-works"}
 
 假設您需要在 Kotlin 中實作一個類型安全構建器。
 首先，定義您想要構建的模型。在此範例中，您需要為 HTML 標籤建模。
@@ -328,7 +328,7 @@ operator fun String.unaryPlus() {
 這一切都定義在 `com.example.html` 封裝套件中，該套件已在上面的構建器範例頂部匯入。
 在最後一節中，您可以閱讀此封裝套件的完整定義。
 
-## 作用域控制：@DslMarker
+## 作用域控制：@DslMarker {id="scope-control-dslmarker"}
 
 使用 DSL 時，可能會遇到在內容中可以呼叫太多函式的問題。
 您可以在 Lambda 內部呼叫每個可用的 [隱式接收者](lambdas.md#function-literals-with-receiver) 的方法，從而得到不一致的結果，
@@ -473,7 +473,7 @@ fun test(head: HtmlTag, extraInfo: HtmlTag) {
 }
 ```
 
-### com.example.html 封裝套件的完整定義
+### com.example.html 封裝套件的完整定義 {id="full-definition-of-the-com-example-html-package"}
 
 這是 `com.example.html` 封裝套件的定義方式（僅包含上述範例中使用的元素）。
 它構建了一個 HTML 樹。它大量使用了 [擴充函式](extensions.md) 和 [帶有接收者的 Lambda](lambdas.md#function-literals-with-receiver)。

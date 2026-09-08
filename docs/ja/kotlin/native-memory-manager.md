@@ -5,7 +5,7 @@ Kotlin/Nativeは、JVM、Go、およびその他の主要な技術と同様の�
 * オブジェクトは共有ヒープに格納され、任意のスレッドからアクセスできます。
 * ローカル変数やグローバル変数などの「ルート」から到達不能なオブジェクトを回収するために、トレース型ガベージコレクション（tracing garbage collection）が定期的に実行されます。
 
-## ガベージコレクター
+## ガベージコレクター {id="garbage-collector"}
 
 Kotlin/Nativeのガベージコレクター（GC）アルゴリズムは絶えず進化しています。現在は、世代別ヒープを採用しない、コンカレント・マーク・アンド・スイープ（CMS）コレクターとして機能しています。
 
@@ -25,11 +25,11 @@ CMSで問題が発生した場合は、パラレル・マーク・コンカレ�
 kotlin.native.binary.gc=pmcs
 ```
 
-### ガベージコレクションを手動で有効にする
+### ガベージコレクションを手動で有効にする {id="enable-garbage-collection-manually"}
 
 ガベージコレクターを強制的に開始するには、`kotlin.native.internal.GC.collect()` を呼び出します。このメソッドは新しいコレクションをトリガーし、その完了を待ちます。
 
-### GCのパフォーマンスを監視する
+### GCのパフォーマンスを監視する {id="monitor-gc-performance"}
 
 GCのパフォーマンスを監視するために、ログを確認して問題を診断できます。ログを有効にするには、Gradleビルドスクリプトで以下のコンパイラオプションを設定します。
 
@@ -58,7 +58,7 @@ Appleプラットフォームでは、XcodeのInstrumentsツールキットを�
 
    ここでは、一番下のグラフにある各青い塊が個別のサインポストイベント、つまりGCの一時停止を表しています。
 
-### ガベージコレクションを無効にする
+### ガベージコレクションを無効にする {id="disable-garbage-collection"}
 
 GCは有効のままにしておくことが推奨されます。ただし、テスト目的や、問題が発生した場合でプログラムの実行時間が短いなど、特定のケースでは無効にすることができます。そのためには、`gradle.properties` ファイルに以下のバイナリオプションを設定します。
 
@@ -70,7 +70,7 @@ kotlin.native.binary.gc=noop
 >
 {style="warning"}
 
-## メモリ消費
+## メモリ消費 {id="memory-consumption"}
 
 Kotlin/Nativeは独自の[メモリアロケータ](https://github.com/JetBrains/kotlin/blob/master/kotlin-native/runtime/src/alloc/custom/README.md)を使用しています。システムメモリをページに分割し、連続した順序で独立したスイープを可能にします。各アロケーション（割り当て）はページ内のメモリブロックとなり、ページはブロックサイズを追跡します。異なるページタイプが、さまざまなアロケーションサイズに合わせて最適化されています。メモリブロックを連続して配置することで、すべてのアロケート済みブロックを効率的に反復処理できます。
 
@@ -80,11 +80,11 @@ Kotlin/Nativeのメモリアロケータには、メモリ割り当ての急激�
 
 メモリ消費量を自分で監視し、メモリリークをチェックし、メモリ消費量を調整することができます。
 
-### メモリ消費量を監視する
+### メモリ消費量を監視する {id="monitor-memory-consumption"}
 
 メモリの問題をデバッグするために、メモリマネージャーのメトリクスを確認できます。さらに、AppleプラットフォームではKotlinのメモリ消費量を追跡することも可能です。
 
-#### メモリリークをチェックする
+#### メモリリークをチェックする {id="check-for-memory-leaks"}
 
 メモリマネージャーのメトリクスにアクセスするには、`kotlin.native.internal.GC.lastGCInfo()` を呼び出します。このメソッドは、最後に実行されたガベージコレクターの統計情報を返します。統計情報は以下の用途に役立ちます。
 
@@ -121,7 +121,7 @@ fun test() {
 }
 ```
 
-#### Appleプラットフォームでメモリ消費を追跡する
+#### Appleプラットフォームでメモリ消費を追跡する {id="track-memory-consumption-on-apple-platforms"}
 
 Appleプラットフォームでメモリの問題をデバッグする際、Kotlinコードによってどの程度のメモリが確保されているかを確認できます。Kotlinのシェアには識別子のタグが付けられ、Xcode InstrumentsのVM Trackerなどのツールを通じて追跡できます。
 
@@ -139,15 +139,15 @@ Appleプラットフォームでメモリの問題をデバッグする際、Kot
 
   [`kotlin.native.binary.pagedAllocator=false`](#disable-allocator-paging) Gradleプロパティを設定すると、代わりにオブジェクト単位でメモリが確保されます。
 
-### メモリ消費量を調整する
+### メモリ消費量を調整する {id="adjust-memory-consumption"}
 
 予期せずメモリ消費量が高くなった場合は、以下の解決策を試してください。
 
-#### Kotlinをアップデートする
+#### Kotlinをアップデートする {id="update-kotlin"}
 
 Kotlinを最新バージョンにアップデートしてください。メモリマネージャーは常に改善されているため、単純なコンパイラのアップデートだけでもメモリ消費が改善される可能性があります。
 
-#### アロケータのページングを無効にする
+#### アロケータのページングを無効にする {id="disable-allocator-paging"}
 <primary-label ref="experimental-opt-in"/>
 
 アロケーションのページング（バッファリング）を無効にして、メモリアロケータがオブジェクト単位でメモリを確保するようにできます。場合によっては、厳しいメモリ制限を満たしたり、アプリケーションの起動時のメモリ消費を抑えたりするのに役立ちます。
@@ -162,7 +162,7 @@ kotlin.native.binary.pagedAllocator=false
 > 
 {style="note"}
 
-#### Latin-1文字列のサポートを有効にする
+#### Latin-1文字列のサポートを有効にする {id="enable-support-for-latin-1-strings"}
 <primary-label ref="experimental-opt-in"/>
 
 デフォルトでは、Kotlinの文字列はUTF-16エンコーディングを使用して格納され、各文字は2バイトで表されます。場合によっては、バイナリ内で文字列がソースコードの2倍のスペースを占有し、データの読み込みに2倍のメモリを消費することにつながります。
@@ -183,7 +183,7 @@ Latin-1サポートを有効にすると、すべての文字がその範囲内�
 
 これらのオプションのどれも役に立たなかった場合は、[YouTrack](https://kotl.in/issue) で問題を作成してください。
 
-## バックグラウンドでのユニットテスト
+## バックグラウンドでのユニットテスト {id="unit-tests-in-the-background"}
 
 ユニットテストでは、メインスレッドのキューを処理するものが何もないため、モック化されていない限り `Dispatchers.Main` を使用しないでください。モック化は、`kotlinx-coroutines-test` から `Dispatchers.setMain` を呼び出すことで行えます。
 
@@ -211,7 +211,7 @@ fun mainBackground(args: Array<String>) {
 
 次に、`-e testlauncher.mainBackground` コンパイラオプションを使用してテストバイナリをコンパイルします。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [レガシーメモリマネージャーからの移行](native-migration-guide.md)
 * [Swift/Objective-C ARCとの統合の詳細を確認する](native-arc-integration.md)

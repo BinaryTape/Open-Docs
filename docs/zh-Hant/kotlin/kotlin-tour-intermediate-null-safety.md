@@ -4,11 +4,11 @@
 
 在初學者導覽中，您學習了如何在程式碼中處理 `null` 值。本章節將介紹 Null 安全特性的常見使用案例，以及如何充分利用這些特性。
 
-## 智慧轉換與安全轉換
+## 智慧轉換與安全轉換 {id="smart-casts-and-safe-casts"}
 
 Kotlin 有時可以在沒有顯式宣告的情況下推斷型別。當您告訴 Kotlin 將某個變數或物件視為屬於特定型別時，這個過程稱為 **轉換 (casting)**。當型別被自動轉換時（例如被推斷時），則稱為 **智慧轉換 (smart casting)**。
 
-### is 與 !is 運算子
+### is 與 !is 運算子 {id="is-and-is-operators"}
 
 在探索轉換如何運作之前，讓我們先看看如何檢查物件是否具有特定型別。為此，您可以在 `when` 或 `if` 條件運算式中使用 `is` 和 `!is` 運算子：
 
@@ -50,7 +50,7 @@ fun main() {
 > 
 {style="tip"}
 
-### as 與 as? 運算子
+### as 與 as? 運算子 {id="as-and-as-operators"}
 
 要將物件顯式 *轉換* 為任何其他型別，請使用 `as` 運算子。這包括從可為 null 型別轉換為其對應的不可為 null 型別。如果無法轉換，程式會在 **執行時 (runtime)** 崩潰。這就是為什麼它被稱為 **非安全** 轉換運算子。
 
@@ -124,7 +124,7 @@ fun calculateTotalStringLength(items: List<Any>): Int {
 * 如果呼叫未傳回 `null` 值，則使用安全呼叫 `?.` 來存取 `length` 屬性。
 * 如果安全呼叫傳回 `null` 值，則使用 Elvis 運算子 `?:` 傳回 `0`。
 
-## Null 值與集合
+## Null 值與集合 {id="null-values-and-collections"}
 
 在 Kotlin 中，處理集合時通常涉及處理 `null` 值並過濾掉不必要的元素。Kotlin 擁有一些實用的函式，讓您在處理列表、集合 (Set)、Map 和其他類型的集合時，能夠編寫簡潔、高效且 Null 安全的程式碼。
 
@@ -273,7 +273,7 @@ fun main() {
 
 探索 Kotlin 的 [標準函式庫 (standard library)](https://kotlinlang.org/api/core/kotlin-stdlib/) 以尋找更多可用於提高程式碼安全性的函式。
 
-## 提前傳回與 Elvis 運算子
+## 提前傳回與 Elvis 運算子 {id="early-returns-and-the-elvis-operator"}
 
 在初學者導覽中，您學習了如何使用 [提前傳回](kotlin-tour-functions.md#early-returns-in-functions) 來停止函式在某個點之後繼續執行。您可以將 Elvis 運算子 `?:` 與提前傳回結合使用，以檢查函式中的先決條件。這種方法是保持程式碼簡潔的好方法，因為您不需要使用巢狀檢查。降低程式碼的複雜度也使其更容易維護。例如：
 
@@ -341,7 +341,7 @@ fun getNumberOfFriends(users: Map<Int, User>, userId: Int): Int {
 
 有關如何在程式碼中使用 `return` 的更多資訊，請參閱 [傳回與跳轉 (Returns and jumps)](returns.md)。
 
-## 練習 {completion-point="true"}
+## 練習 {completion-point="true" id="practice"}
 
 ### 練習 1 {initial-collapse-state="collapsed" collapsible="true" id="null-safety-exercise-1"}
 

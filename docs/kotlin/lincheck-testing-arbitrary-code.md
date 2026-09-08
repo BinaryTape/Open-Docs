@@ -52,7 +52,7 @@ Lincheck 提供了一个 `runConcurrentTest()` 函数来测试任意并发代码
   | ------------------------------------------------------------------------------- |
   ```
 
-## 示例：测试 `ConcurrentHashMap` 函数
+## 示例：测试 `ConcurrentHashMap` 函数 {id="example-test-concurrenthashmap-functions"}
 
 考虑下面针对 `ConcurrentHashMap` 函数的测试：
 
@@ -100,12 +100,12 @@ class ConcurrentHashMapDeadlock {
 
 ![失败测试的 Lincheck 报告截图。](concurrenthashmapdeadlock.png){thumbnail="true" width=700}
 
-## 后续步骤
+## 后续步骤 {id="what-s-next"}
 
 了解如何[使用 Lincheck 测试数据结构](lincheck-how-to-test-data-structures.md)。
 
 <!-- TODO: uncomment after the articles are published
-## 另请参阅
+## 另请参阅 {id="see-also"}
 
 * [Lincheck 中的模型检查](lincheck-model-checking.md)
 * [Kotlin Multiplatform 项目中的 Lincheck](lincheck-kmp.md)

@@ -93,7 +93,7 @@ routing {
 
 外掛程式會首先在應用程式資源中尋找規格。若未找到，則會嘗試使用 `java.io.File` 從檔案系統載入。
 
-## 產生執行時 OpenAPI 元資料
+## 產生執行時 OpenAPI 元資料 {id="generate-runtime-openapi-metadata"}
 
 您可以改為使用 OpenAPI 編譯器外掛程式與路由註解產生的元資料在執行時產生 OpenAPI 規格，而不必依賴靜態檔案。
 

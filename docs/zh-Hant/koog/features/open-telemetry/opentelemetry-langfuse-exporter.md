@@ -7,7 +7,7 @@ Koog 使用 [OpenTelemetry](https://opentelemetry.io/) 傳送 agent 追蹤，這
 
 ---
 
-## 設定說明
+## 設定說明 {id="setup-instructions"}
 
 1. 使用 [設定指南](https://langfuse.com/docs/get-started#create-new-project-in-langfuse) 建立 Langfuse 專案。
 2. 從 [Organization Settings > API Keys](https://langfuse.com/faq/all/where-are-langfuse-api-keys) 取得您的 `public key` 與 `secret key`。
@@ -20,11 +20,11 @@ Koog 使用 [OpenTelemetry](https://opentelemetry.io/) 傳送 agent 追蹤，這
 ```
 <!--- KNIT example-langfuse-exporter-01.txt -->
 
-## 配置
+## 配置 {id="configuration"}
 
 安裝 **OpenTelemetry feature** 並呼叫 [`addLangfuseExporter()`](api:agents-features-opentelemetry::ai.koog.agents.features.opentelemetry.integration.langfuse.addLangfuseExporter) 以啟用 Langfuse 匯出。
 
-### 基本範例
+### 基本範例 {id="basic-example"}
 
 === "Kotlin"
 
@@ -94,7 +94,7 @@ See traces on the Langfuse instance");
     ```
     <!--- KNIT exampleLangfuseExporterJava01.java -->
 
-## 追蹤屬性
+## 追蹤屬性 {id="trace-attributes"}
 
 當 Koog 將 agent 活動發送到 Langfuse 時，它是以一系列 *span* 的形式進行的 — 這些是個別的工作記錄，例如 LLM 呼叫或工具執行。相關的 span 會被分組到一個 *追蹤* (trace) 中，代表一個 agent 從開始到結束的完整執行過程。
 
@@ -108,7 +108,7 @@ See traces on the Langfuse instance");
 - **環境** (`langfuse.environment`)：將生產環境追蹤與開發和暫存（staging）隔離
 - **標籤** (`langfuse.trace.tags`)：使用功能名稱、實驗 ID 或客戶細分標記追蹤（字串陣列）
 
-### 帶有工作階段和標籤的範例
+### 帶有工作階段和標籤的範例 {id="example-with-session-and-tags"}
 
 === "Kotlin"
 
@@ -156,7 +156,7 @@ See traces on the Langfuse instance");
     !!! note
         目前不支援從 Java 設定 `traceAttributes`，因為底層 Kotlin 函式包含一個 [`kotlin.time.Duration`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-duration/) 參數（一個 value class），這會導致所有多載（包含其後的參數）產生 JVM 名稱混淆 (name mangling)。當您需要 `traceAttributes` 時，請使用上方的 Kotlin 範例。
 
-## 追蹤內容
+## 追蹤內容 {id="what-gets-traced"}
 
 Langfuse 匯出器擷取的活動與 Koog 常規的 OpenTelemetry 整合相同。
 它還會擷取 Langfuse 顯示 [Agent 圖表 (Agent Graphs)](https://langfuse.com/docs/observability/features/agent-graphs) 所需的 span 屬性。
@@ -172,7 +172,7 @@ Langfuse 匯出器擷取的活動與 Koog 常規的 OpenTelemetry 整合相同�
 
 ---
 
-## 疑難排解
+## 疑難排解 {id="troubleshooting"}
 
 - **沒有追蹤**：確認已設定 `LANGFUSE_HOST`、`LANGFUSE_PUBLIC_KEY` 與 `LANGFUSE_SECRET_KEY`，且金鑰配對屬於正確的專案。
 - **連線問題**：如果執行自我託管 (self-hosted) 的 Langfuse，請確認您的環境可以連通 `LANGFUSE_HOST`。

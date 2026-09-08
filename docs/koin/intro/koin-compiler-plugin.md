@@ -6,7 +6,7 @@ title: Koin 编译器插件
 
 **Koin 编译器插件**是所有新 Kotlin 2.x 项目的推荐方案。它是一个原生的 Kotlin 编译器插件，为 **DSL 和注解**提供自动装配、编译时安全以及更简洁的语法支持。
 
-## 什么是编译器插件？
+## 什么是编译器插件？ {id="what-is-the-compiler-plugin"}
 
 Koin 编译器插件是一个**原生 Kotlin 编译器插件 (K2)** —— 而非 KSP 或注解处理。它直接与 Kotlin 编译器集成，旨在：
 
@@ -15,9 +15,9 @@ Koin 编译器插件是一个**原生 Kotlin 编译器插件 (K2)** —— 而�
 - **同时支持 DSL 和注解** —— 随心选择您的样式
 - **不生成可见文件** —— 项目结构更整洁
 
-## 为什么要使用编译器插件？
+## 为什么要使用编译器插件？ {id="why-use-the-compiler-plugin"}
 
-### 1. 更安全的代码
+### 1. 更安全的代码 {id="1-safer-code"}
 
 该插件会自动检测构造函数依赖项，从而减少手动装配错误：
 
@@ -33,7 +33,7 @@ val appModule = module {
 }
 ```
 
-### 2. 更简洁的语法
+### 2. 更简洁的语法 {id="2-cleaner-syntax"}
 
 更少的模板代码，更高的可读性：
 
@@ -46,7 +46,7 @@ val appModule = module {
 | `scopedOf(::MyPresenter)` | `scoped<MyPresenter>()` |
 | `workerOf(::MyWorker)` | `worker<MyWorker>()` |
 
-### 3. 编译时安全
+### 3. 编译时安全 {id="3-compile-time-safety"}
 
 Koin 编译器插件为 DSL 和注解提供**编译时依赖项验证**：
 
@@ -58,7 +58,7 @@ Koin 编译器插件为 DSL 和注解提供**编译时依赖项验证**：
 
 详情请参阅[编译时安全](/docs/reference/koin-compiler/compile-safety)。
 
-### 4. DSL 与注解 —— 两者同样强大
+### 4. DSL 与注解 —— 两者同样强大 {id="4-dsl-annotations-both-equally-powerful"}
 
 使用您喜欢的任何样式 —— 同一个插件为两者提供完全相同的功能：
 
@@ -101,9 +101,9 @@ class UserRepository(private val database: Database)
 class UserViewModel(private val repository: UserRepository) : ViewModel()
 ```
 
-## 快速入门
+## 快速入门 {id="getting-started"}
 
-### 设置
+### 设置 {id="setup"}
 
 将编译器插件添加到您的项目中。 
 
@@ -111,7 +111,7 @@ class UserViewModel(private val repository: UserRepository) : ViewModel()
     请参阅**[编译器插件设置指南](/docs/setup/compiler-plugin)**了解详细说明。
 :::
 
-### 使用编译器插件 DSL
+### 使用编译器插件 DSL {id="using-the-compiler-plugin-dsl"}
 
 从编译器插件包中导入：
 
@@ -131,7 +131,7 @@ val appModule = module {
 编译器插件 DSL 位于 `org.koin.plugin.module.dsl` 中。经典 DSL 仍保留在 `org.koin.dsl` 中。
 :::
 
-### 使用注解
+### 使用注解 {id="using-annotations"}
 
 注解的使用方式与之前相同：
 
@@ -156,18 +156,18 @@ class UserViewModel(private val repository: UserRepository) : ViewModel()
 class AppModule
 ```
 
-## 工作原理
+## 工作原理 {id="how-it-works"}
 
 编译器插件分为两个阶段运行：
 
-### 1. FIR 阶段 (分析)
+### 1. FIR 阶段 (分析) {id="1-fir-phase-analysis"}
 
 在前端中间表示 (Frontend Intermediate Representation) 阶段，插件会：
 - 分析您的模块定义
 - 检测构造函数形参
 - 验证依赖项声明
 
-### 2. IR 阶段 (转换)
+### 2. IR 阶段 (转换) {id="2-ir-phase-transformation"}
 
 在中间表示 (Intermediate Representation) 阶段，插件会：
 - 为每个形参生成适当的 `get()` 调用
@@ -175,7 +175,7 @@ class AppModule
 - 处理注入形参 (`@InjectedParam`)
 - 处理可为 null 类型和 Lazy 类型
 
-### 生成的内容
+### 生成的内容 {id="what-gets-generated"}
 
 当您编写：
 
@@ -210,9 +210,9 @@ class MyService(
 - Lazy：`inject()`
 - 注入形参 (InjectedParam)：`params.get()`
 
-## 编译器插件 DSL 参考
+## 编译器插件 DSL 参考 {id="compiler-plugin-dsl-reference"}
 
-### 定义类型
+### 定义类型 {id="definition-types"}
 
 ```kotlin
 import org.koin.plugin.module.dsl.*
@@ -237,7 +237,7 @@ val appModule = module {
 }
 ```
 
-### 使用 `create()` 安全创建实例
+### 使用 `create()` 安全创建实例 {id="safe-instance-creation-with-create"}
 
 在定义 lambda 内部使用 `create(::T)` 来安全地构建一个带有自动解析构造函数依赖项的实例：
 
@@ -249,7 +249,7 @@ val appModule = module {
 
 编译器插件会将 `create(::MyService)` 转换为 `MyService(get(), get(), ...)`，自动装配所有构造函数形参。
 
-### 使用限定符
+### 使用限定符 {id="with-qualifiers"}
 
 在类上使用 `@Named` 来定义限定符，并在形参上指定要注入哪个依赖项：
 
@@ -296,7 +296,7 @@ class SyncService(
 )
 ```
 
-### 使用参数
+### 使用参数 {id="with-parameters"}
 
 在类上使用 `@InjectedParam` 来标记在注入时传递的参数：
 
@@ -316,7 +316,7 @@ val appModule = module {
 val presenter: UserPresenter = get { parametersOf("user123") }
 ```
 
-### 接口绑定
+### 接口绑定 {id="interface-binding"}
 
 ```kotlin
 val appModule = module {
@@ -330,9 +330,9 @@ val appModule = module {
 }
 ```
 
-## 注解参考
+## 注解参考 {id="annotations-reference"}
 
-### 定义注解
+### 定义注解 {id="definition-annotations"}
 
 | 注解 | 描述 |
 |------------|-------------|
@@ -342,7 +342,7 @@ val appModule = module {
 | `@KoinViewModel` | Android ViewModel |
 | `@KoinWorker` | Android WorkManager Worker |
 
-### 形参注解
+### 形参注解 {id="parameter-annotations"}
 
 | 注解 | 描述 |
 |------------|-------------|
@@ -351,7 +351,7 @@ val appModule = module {
 | `@Property("key")` | Koin 属性值 |
 | `@Provided` | 外部依赖项（跳过验证） |
 
-### 模块注解
+### 模块注解 {id="module-annotations"}
 
 | 注解 | 描述 |
 |------------|-------------|
@@ -359,7 +359,7 @@ val appModule = module {
 | `@ComponentScan("package")` | 扫描包中的注解类 |
 | `@Configuration` | 自动发现的模块 |
 
-## 方案对比
+## 方案对比 {id="comparison-approaches"}
 
 | 方案 | 状态 | 软件包 | 语法 |
 |----------|--------|---------|--------|
@@ -368,34 +368,34 @@ val appModule = module {
 | **经典 DSL** | 完全支持 | `org.koin.dsl` | `singleOf(::MyService)`, `single { MyService(get()) }`, `viewModelOf(::MyVM)` |
 | **KSP 处理器** | 已弃用 | `koin-ksp-compiler` | Koin 注解的旧版处理器 —— 注解相同，**请迁移至编译器插件 ⚠️** |
 
-### 编译器插件 DSL (推荐)
+### 编译器插件 DSL (推荐) {id="compiler-plugin-dsl-recommended"}
 
 - 自动检测依赖项
 - 编译时分析
 - 最简洁的语法
 
-### 编译器插件注解 (推荐)
+### 编译器插件注解 (推荐) {id="compiler-plugin-annotations-recommended"}
 
 - 自动检测依赖项
 - 编译时分析
 - 熟悉的注解样式
 
-### 经典 DSL (完全支持)
+### 经典 DSL (完全支持) {id="classic-dsl-fully-supported"}
 
 - 适用于任何 Kotlin 版本
 - 对装配拥有完全控制权
 - 准备就绪后可迁移至插件 DSL
 
-### KSP 处理器 `koin-ksp-compiler` (已弃用)
+### KSP 处理器 `koin-ksp-compiler` (已弃用) {id="ksp-processor-koin-ksp-compiler-deprecated"}
 
 - `koin-annotations` 库**并未弃用** —— 它现在是 Koin 项目的一部分
 - 仅弃用了旧的基于 KSP 的处理器 (`koin-ksp-compiler`)
 - 请迁移到 Koin 编译器插件 —— 您的注解保持不变
 - `koin-ksp-compiler` 将在未来的 Koin 版本中移除
 
-## 迁移
+## 迁移 {id="migration"}
 
-### 从经典 DSL 迁移
+### 从经典 DSL 迁移 {id="from-classic-dsl"}
 
 如果您正在使用经典 DSL，迁移是可选的但建议执行：
 
@@ -406,7 +406,7 @@ val appModule = module {
 
 有关编译时安全语法的说明，请参阅[编译器插件 DSL 参考](/docs/setup/compiler-plugin#dsl-style)。
 
-### 从 KSP 处理器 (`koin-ksp-compiler`) 迁移
+### 从 KSP 处理器 (`koin-ksp-compiler`) 迁移 {id="from-the-ksp-processor-koin-ksp-compiler"}
 
 如果您正在使用 Koin 注解和旧版 KSP 处理器，现在建议进行迁移：
 
@@ -417,12 +417,12 @@ val appModule = module {
 
 请参阅[从 KSP 迁移到编译器插件](/docs/migration/from-ksp-to-compiler-plugin)。
 
-## 要求
+## 要求 {id="requirements"}
 
 - **Kotlin 2.x** (K2 编译器)
 - Gradle 8.x+
 
-## 配置选项
+## 配置选项 {id="configuration-options"}
 
 ```kotlin
 // build.gradle.kts
@@ -431,7 +431,7 @@ koinCompiler {
 }
 ```
 
-## 经典 DSL：仍受完全支持
+## 经典 DSL：仍受完全支持 {id="classic-dsl-still-fully-supported"}
 
 编译器插件并非取代经典 DSL —— 它是在其基础上增加了分析和生成功能。经典 DSL 仍受完全支持：
 
@@ -451,7 +451,7 @@ val appModule = module {
 - 条件实例化
 - 与 Kotlin 1.x 的向后兼容性
 
-## 后续步骤
+## 后续步骤 {id="next-steps"}
 
 - **[设置指南](/docs/setup/compiler-plugin)** —— 详细的设置说明
 - **[DSL 参考](/docs/reference/dsl-reference)** —— 完整的 DSL 文档

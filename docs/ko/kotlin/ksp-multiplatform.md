@@ -3,7 +3,7 @@
 
 여기서는 Kotlin 멀티플랫폼 프로젝트에서 KSP(Kotlin Symbol Processing)를 사용하는 방법을 알아봅니다. 빠른 시작을 위해 [소스 저장소](https://github.com/google/ksp/tree/main/examples/multiplatform)에서 KSP를 사용하는 여러 타겟이 포함된 멀티플랫폼 프로젝트 예시를 확인하세요. 이 예시의 프로세서는 프로젝트에서 사용되는 `Foo` 클래스를 생성합니다.
 
-## 멀티플랫폼 프로젝트에 KSP 추가하기
+## 멀티플랫폼 프로젝트에 KSP 추가하기 {id="add-ksp-to-a-multiplatform-project"}
 
 클라이언트 모듈(프로세서를 사용하는 모듈)의 `build.gradle.kts` 파일에서, 심볼 처리가 필요한 각 타겟에 대해 적절한 KSP 프로세서 종속성(dependency)을 추가하세요.
 
@@ -37,7 +37,7 @@ dependencies {
 >
 {style="warning"}
 
-### 한 타겟에서 여러 프로세서 사용하기
+### 한 타겟에서 여러 프로세서 사용하기 {id="use-multiple-processors-in-a-single-target"}
 
 하나의 타겟에 둘 이상의 프로세서를 추가할 수 있습니다:
 
@@ -60,7 +60,7 @@ add('kspAndroid', 'androidx.room:room-compiler:2.6.1')
 </tab>
 </tabs> 
 
-### 여러 타겟에서 동일한 프로세서 사용하기
+### 여러 타겟에서 동일한 프로세서 사용하기 {id="use-the-same-processor-in-multiple-targets"}
 
 동일한 프로세서를 여러 타겟에 추가할 수 있습니다:
 
@@ -114,7 +114,7 @@ kotlin.targets.filter { it.name.startsWith("ios") }.forEach { target ->
 </tab>
 </tabs>
 
-### 테스트 컴파일을 위한 KSP 구성
+### 테스트 컴파일을 위한 KSP 구성 {id="configure-ksp-for-test-compilations"}
 
 테스트 컴파일 중에 KSP를 실행하려면 대응하는 테스트 구성(test configurations)에 프로세서를 추가하세요:
 
@@ -160,7 +160,7 @@ add('kspAndroidDeviceTest', project(':test-processor'))
 </tab>
 </tabs>
 
-## KSP 구성 이름 찾기
+## KSP 구성 이름 찾기 {id="find-ksp-configuration-names"}
 
 KSP는 Kotlin 멀티플랫폼 소스 세트에서 구성 이름을 파생합니다. 모듈의 전체 KSP 구성 목록을 보려면 다음을 실행하세요:
 
@@ -170,7 +170,7 @@ KSP는 Kotlin 멀티플랫폼 소스 세트에서 구성 이름을 파생합니�
 
 타겟 소스 세트에 대응하는 구성 이름을 찾으세요.
 
-## 컴파일 및 처리
+## 컴파일 및 처리 {id="compilation-and-processing"}
 
 멀티플랫폼 프로젝트에서 Kotlin은 `main` 및 `test`와 같은 각 타겟 및 소스 세트에 대해 별도의 [컴파일](https://kotlinlang.org/docs/multiplatform/multiplatform-advanced-project-structure.html#compilations)을 생성합니다. 하나 이상의 KSP 프로세서가 구성된 각 Kotlin 컴파일 태스크에 대해, KSP는 그에 대응하는 심볼 처리 태스크를 생성합니다.
 

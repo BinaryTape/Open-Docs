@@ -19,7 +19,7 @@ Kotlin 멀티플랫폼 프로젝트는 산출물(artifact)을 생성하기 위�
 
 모든 타겟 또는 특정 타겟에서 사용할 수 있는 [컴파일 파라미터 목록](multiplatform-dsl-reference.md#compilation-parameters)과 [컴파일러 옵션](https://kotlinlang.org/docs/gradle-compiler-options.html)을 참조하세요.
 
-## 모든 컴파일 설정
+## 모든 컴파일 설정 {id="configure-all-compilations"}
 
 이 예제는 모든 타겟에서 공통으로 사용하는 컴파일러 옵션을 구성합니다:
 
@@ -48,7 +48,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-## 특정 타겟의 컴파일 설정
+## 특정 타겟의 컴파일 설정 {id="configure-compilations-for-one-target"}
 
 <Tabs group="build-script">
 <TabItem title="Kotlin" group-key="kotlin">
@@ -79,7 +79,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-## 특정 컴파일 하나 설정
+## 특정 컴파일 하나 설정 {id="configure-one-compilation"}
 
 <Tabs group="build-script">
 <TabItem title="Kotlin" group-key="kotlin">
@@ -118,7 +118,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-## 커스텀 컴파일 생성
+## 커스텀 컴파일 생성 {id="create-a-custom-compilation"}
 
 프로덕션 코드와 유닛 테스트 외에 통합 테스트나 성능 테스트 등을 컴파일해야 하는 경우 커스텀 컴파일을 생성하세요.
 
@@ -193,7 +193,7 @@ kotlin {
 > 
 {style="tip"}
 
-## JVM 컴파일
+## JVM 컴파일 {id="compilation-for-jvm"}
 
 멀티플랫폼 프로젝트에서 `jvm` 타겟을 선언하면, Kotlin 멀티플랫폼 Gradle 플러그인이 자동으로 Java 소스 세트를 생성하고 이를 JVM 타겟의 컴파일에 포함시킵니다.
 
@@ -270,7 +270,7 @@ kotlin {
 
 이 타겟은 Kotlin 멀티플랫폼 Gradle 플러그인에 의해 게시되며 Java 플러그인에 특화된 단계가 필요하지 않습니다.
 
-## 네이티브 언어와의 상호 운용성 설정
+## 네이티브 언어와의 상호 운용성 설정 {id="configure-interop-with-native-languages"}
 
 Kotlin은 [네이티브 언어와의 상호 운용성(interoperability)](https://kotlinlang.org/docs/native-overview.html) 및 특정 컴파일에 대해 이를 구성할 수 있는 DSL을 제공합니다.
 
@@ -359,7 +359,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-## Android 컴파일
+## Android 컴파일 {id="compilation-for-android"}
  
 Android 타겟을 위해 기본적으로 생성되는 컴파일은 [Android 빌드 변형(build variant)](https://developer.android.com/build/build-variants)에 연결됩니다. 각 빌드 변형에 대해 동일한 이름으로 Kotlin 컴파일이 생성됩니다.
 
@@ -379,7 +379,7 @@ dependencies {
 }
 ```
 
-## 소스 세트 계층 구조 컴파일
+## 소스 세트 계층 구조 컴파일 {id="compilation-of-the-source-set-hierarchy"}
 
 Kotlin은 `dependsOn` 관계를 사용하여 [소스 세트 계층 구조(source set hierarchy)](multiplatform-share-on-platforms.md#share-code-on-similar-platforms)를 빌드할 수 있습니다.
 
@@ -399,7 +399,7 @@ Kotlin은 `dependsOn` 관계를 사용하여 [소스 세트 계층 구조(source
 * `jvmMain`은 `commonMain`이 사용하는 모든 실험적(experimental) 어노테이션을 사용해야 합니다.
 * `apiVersion`, 버그 수정 언어 기능 및 `progressiveMode`는 임의로 설정할 수 있습니다.
 
-## Gradle의 프로젝트 격리 기능 설정
+## Gradle의 프로젝트 격리 기능 설정 {id="configure-isolated-projects-feature-in-gradle"}
 
 > 이 기능은 [실험적(Experimental)](supported-platforms.md#general-kotlin-stability-levels)이며 현재 Gradle에서 프리 알파(pre-alpha) 상태입니다. Gradle 버전 8.10 이상에서만 평가 목적으로만 사용하십시오. 이 기능은 언제든지 중단되거나 변경될 수 있습니다. [YouTrack](https://youtrack.jetbrains.com/issue/KT-57279/Support-Gradle-Project-Isolation-Feature-for-Kotlin-Multiplatform)에서 의견을 보내주시면 감사하겠습니다. 사용을 위해서는 명시적 동의(Opt-in)가 필요합니다(아래 상세 내용 참조).
 > 

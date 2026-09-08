@@ -11,7 +11,7 @@
 下面你将找到一些基于演示应用程序中已有的数据对象来处理集合的实用方法。
 在所有示例中，我们都假设首先通过调用 `service.findMessages()` 函数来检索数据库中存储的所有消息，然后执行各种操作来对消息列表进行过滤、排序、分组或转换。
 
-## 获取元素
+## 获取元素 {id="retrieving-elements"}
 
 Kotlin 集合提供了一组用于从集合中获取单个元素的函数。
 可以通过位置或匹配条件从集合中获取单个元素。
@@ -57,7 +57,7 @@ fun firstMessageOrNull(): Message {
 
 ```
 
-## 过滤元素
+## 过滤元素 {id="filtering-elements"}
 
 *过滤*是集合处理中最常见的任务之一。
 标准库包含一组扩展函数，让你可以在单次调用中过滤集合。
@@ -74,7 +74,7 @@ fun filterMessagesLongerThan10(): List<Message> {
 这段代码看起来与你使用 `first()` 函数查找文本长度大于 10 的单个元素的示例非常相似。
 区别在于 `filter()` 返回的是匹配条件的元素列表。
 
-## 排序元素
+## 排序元素 {id="sorting-elements"}
 
 元素的顺序是某些集合类型的一个重要方面。
 Kotlin 标准库提供了许多以各种方式进行排序的函数：自然顺序、自定义顺序、逆序和随机顺序。
@@ -91,7 +91,7 @@ fun sortByLastLetter(): List<Message> {
 }
 ```
 
-## 分组元素
+## 分组元素 {id="grouping-elements"}
 
 分组可能需要实现一些相当复杂的逻辑，即元素应该如何分组在一起。
 [`groupBy()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/group-by.html) 函数接受一个 lambda表达式并返回一个 `Map`。
@@ -116,7 +116,7 @@ fun groups(): Map<String, List<Message>> {
 }
 ```
 
-## 转换操作
+## 转换操作 {id="transformation-operations"}
 
 集合的一个常见任务是将集合元素从一种类型转换为另一种类型。
 当然，Kotlin 标准库为此类任务提供了许多[转换函数](collection-transformations.md)。
@@ -132,7 +132,7 @@ fun transformMessagesToListOfStrings(): List<String> {
 }
 ```
 
-## 聚合操作
+## 聚合操作 {id="aggregate-operations"}
 
 聚合操作根据一组值计算出单个值。
 聚合操作的一个示例是计算所有消息长度的平均值：
@@ -164,6 +164,6 @@ fun reduce(): Message {
 }
 ```
 
-## 下一步
+## 下一步 {id="next-step"}
 
 转到[下一部分](jvm-spring-boot-using-crudrepository.md)。

@@ -15,7 +15,7 @@ TeamCity 支援所有主要的版本控制系統提供者（GitHub、GitLab、Bi
 
 本教學基於 [JetCaster KMP 範例](https://github.com/kotlin-hands-on/jetcaster-kmp-migration/)。
 
-## 建立新專案
+## 建立新專案 {id="create-a-new-project"}
 
 每個 TeamCity 工作流都從一個專案開始。專案擁有組建組態和管線等實體， 
 這些實體執行實際的 CI/CD 常式、儲存用於啟動雲端代理的雲端設定檔、與子物件共享參數等。
@@ -62,7 +62,7 @@ TeamCity 支援所有主要的版本控制系統提供者（GitHub、GitLab、Bi
    保留預設設定，以允許管線追蹤所有儲存庫分支，使用 `main` 作為預設分支， 
    並在每次將變更提交到儲存庫時自動觸發新執行。
 
-## 新增管線工作
+## 新增管線工作 {id="add-pipeline-jobs"}
 
 管線準備就緒後，TeamCity 將導覽至其設定頁面。 
 您可以使用左上角的切換開關在視覺化編輯器和程式碼編輯器之間切換。
@@ -75,7 +75,7 @@ TeamCity 管線由工作 (job) 組成，這些工作是連續執行的建置步�
 在 TeamCity UI 中，點擊工作方塊以編輯其設定，或點擊工作下方的深色區域 
 以修改全域管線設定。
 
-### 常見管線設定
+### 常見管線設定 {id="common-pipeline-settings"}
 
 本教學不需要設定任何全域管線選項。 
 關於影響管線內所有工作的設定（例如以下各項），請參閱 [這篇文章](https://www.jetbrains.com/help/teamcity/pipeline-settings.html)：
@@ -87,7 +87,7 @@ TeamCity 管線由工作 (job) 組成，這些工作是連續執行的建置步�
   則不需要配置對應的整合， 
   除非您的管線執行頻率高到超過 Docker Hub 對匿名提取的速率限制。
 
-### 代理設定
+### 代理設定 {id="agent-settings"}
 
 組建任務由安裝在實體機或雲端機器上的建置代理處理。 
 這些機器必須安裝給定組建任務所需的所有工具。 
@@ -100,7 +100,7 @@ TeamCity 管線由工作 (job) 組成，這些工作是連續執行的建置步�
 
 在本教學中，工作指定了代理需求，以保證它們僅被分配給安裝了必要工具的代理。
 
-### 執行共享測試
+### 執行共享測試 {id="run-shared-tests"}
 
 切換到 YAML 管線編輯器並貼上以下標記以設定第一個工作：
 
@@ -140,7 +140,7 @@ jobs:
 如需更多資訊，請參閱 [工作設定](https://www.jetbrains.com/help/teamcity/job-settings.html) 
 和 [Gradle 建置步驟](https://www.jetbrains.com/help/teamcity/gradle.html)。
 
-### 組建 Android 除錯套件
+### 組建 Android 除錯套件 {id="build-the-android-debug-package"}
 
 按如下方式修改管線 YAML：
 
@@ -172,7 +172,7 @@ jobs:
 * `requirement` 區塊確保此工作僅會分配給安裝了 Android SDK 的代理。 
 * `dependencies` 區段保證此工作僅在 `Job1` 成功完成後才會啟動。
 
-### 組建 iOS 模擬器應用程式
+### 組建 iOS 模擬器應用程式 {id="build-the-ios-simulator-application"}
 
 對於最後一步，請將以下標記新增到管線 YAML：
 
@@ -212,7 +212,7 @@ jobs:
 >
 {style="tip"}
 
-## 執行管線
+## 執行管線 {id="run-the-pipeline"}
 
 點擊右上角的 **Save and Run** 以啟動您的工作流。 
 工作完成後，它發佈的任何建置產物都可以在建置日誌旁邊的 **Artifacts** 分頁中找到。
@@ -223,7 +223,7 @@ jobs:
 
 <img src="teamcity-kmp-tests.png" alt="TeamCity 測試" width="450"/>
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 您可以繼續修改此範例以獲得更多好處：
 

@@ -5,7 +5,7 @@
 このガイドには、Java と Kotlin で文字列に関する一般的なタスクを実行する方法の例が含まれています。
 Java から Kotlin への移行や、Kotlin らしい方法でコードを記述するのに役立ちます。
 
-## 文字列を結合する
+## 文字列を結合する {id="concatenate-strings"}
 
 Java では、次のように行います。
 
@@ -34,7 +34,7 @@ fun main() {
 `${name.length}` のように、複雑な式を波括弧で囲むことで、その式の値を補完することができます。
 詳細は [文字列テンプレート](strings.md#string-templates) を参照してください。
 
-## 文字列を構築する
+## 文字列を構築する {id="build-a-string"}
 
 Java では、[StringBuilder](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/StringBuilder.html) を使用できます。
 
@@ -72,7 +72,7 @@ fun main() {
 
 [ラムダのコーディング規約](coding-conventions.md#lambdas) について詳しく学ぶ。
 
-## コレクションの要素から文字列を作成する
+## コレクションの要素から文字列を作成する {id="create-a-string-from-collection-items"}
 
 Java では、[Stream API](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/stream/package-summary.html) を使用して、フィルタリング、マッピングを行い、その後要素を収集します。
 
@@ -111,7 +111,7 @@ fun main() {
 
 [joinToString()](collection-transformations.md#string-representation) の使い方について詳しく学ぶ。
 
-## 文字列が空白の場合にデフォルト値を設定する
+## 文字列が空白の場合にデフォルト値を設定する {id="set-default-value-if-the-string-is-blank"}
 
 Java では、[三項演算子](https://ja.wikipedia.org/wiki/%3F:) を使用できます。
 
@@ -148,7 +148,7 @@ fun getName(): String =
 ```
 {kotlin-runnable="true" id="set-default-value-if-blank-kotlin"}
 
-## 文字列の先頭と末尾の文字を置換する
+## 文字列の先頭と末尾の文字を置換する {id="replace-characters-at-the-beginning-and-end-of-a-string"}
 
 Java では、[replaceAll()](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#replaceAll(java.lang.String,java.lang.String)) 関数を使用できます。
 この場合の `replaceAll()` 関数は、それぞれ `##` で始まる文字列と終わる文字列を定義する正規表現 `^##` と `##$` を受け取ります。
@@ -175,7 +175,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="replace-characters-kotlin"}
 
-## 出現箇所を置換する
+## 出現箇所を置換する {id="replace-occurrences"}
 
 Java では、例えば一部のデータを難読化するために、[Pattern](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/regex/Pattern.html) クラスと [Matcher](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/regex/Matcher.html) クラスを使用できます。
 
@@ -207,7 +207,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="replace-occurrences-kotlin"}
 
-## 文字列を分割する
+## 文字列を分割する {id="split-a-string"}
 
 Java で、ピリオド文字 (`.`) を使用して文字列を分割するには、エスケープ (`\\`) を使用する必要があります。
 これは、`String` クラスの [split()](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#split(java.lang.String)) 関数が引数として正規表現を受け取るためです。
@@ -232,7 +232,7 @@ fun main() {
 
 正規表現で分割する必要がある場合は、`Regex` をパラメータとして受け取るオーバーロードされた `split()` バージョンを使用してください。
 
-## 部分文字列を取得する
+## 部分文字列を取得する {id="take-a-substring"}
 
 Java では、[substring()](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#substring(int)) 関数を使用できます。これは、部分文字列の取得を開始する文字のインデックス（そのインデックスを含む）を受け取ります。
 特定の文字の後の部分文字列を取得するには、インデックスをインクリメントする必要があります。
@@ -273,7 +273,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="take-substring-after-last-kotlin"}
 
-## マルチライン文字列を使用する
+## マルチライン文字列を使用する {id="use-multiline-strings"}
 
 Java 15 より前は、マルチライン文字列を作成する方法がいくつかありました。例えば、`String` クラスの [join()](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#join(java.lang.CharSequence,java.lang.CharSequence...)) 関数を使用する方法です。
 
@@ -345,7 +345,7 @@ fun main() {
 
 [マルチライン文字列](coding-conventions.md#strings) について詳しく学ぶ。
 
-## 次は？
+## 次は？ {id="what-s-next"}
 
 * 他の [Kotlin の慣用句 (idioms)](idioms.md) を見る。
 * [Java から Kotlin への変換ツール](mixing-java-kotlin-intellij.md#convert-java-files-to-kotlin) を使用して、既存の Java コードを Kotlin に変換する方法を学ぶ。

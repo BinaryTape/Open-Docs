@@ -4,7 +4,7 @@
 キーに基づいたマップエントリへのアクセスにより、キーによる値の取得から、キーと値を個別にフィルタリングする機能まで、マップ固有のさまざまな処理が可能になります。
 このページでは、標準ライブラリのマップ処理関数について説明します。
 
-## キーと値の取得
+## キーと値の取得 {id="retrieve-keys-and-values"}
 
 マップから値を取得するには、[`get()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/get.html) 関数の引数としてそのキーを渡す必要があります。
 短縮形の `[key]` 構文もサポートされています。指定されたキーが見つからない場合、`null` を返します。
@@ -68,7 +68,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## フィルタリング
+## フィルタリング {id="filter"}
 
 他のコレクションと同様に、[`filter()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/filter.html) 関数を使用してマップを[フィルタリング](collection-filtering.md)できます。
 マップで `filter()` を呼び出すときは、`Pair` を引数とする述語（predicate）を渡します。
@@ -106,7 +106,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## plus および minus 演算子
+## plus および minus 演算子 {id="plus-and-minus-operators"}
 
 要素へのキーアクセスがあるため、[`plus`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/plus.html) (`+`) および [`minus`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/minus.html) (`-`) 演算子は、他のコレクションとは異なる動作をマップに対して行います。
 `plus` は、両方のオペランド（左側の `Map` と、右側の `Pair` または別の `Map`）の要素を含む `Map` を返します。
@@ -142,7 +142,7 @@ fun main() {
 
 可変マップでの [`plusAssign`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/plus-assign.html) (`+=`) および [`minusAssign`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/minus-assign.html) (`-=`) 演算子の使用方法の詳細については、以下の[マップの書き込み操作](#マップの書き込み操作)を参照してください。
 
-## マップの書き込み操作
+## マップの書き込み操作 {id="map-write-operations"}
 
 [可変（Mutable）](collections-overview.md#collection-types)マップは、マップ固有の書き込み操作を提供します。
 これらの操作により、キーに基づいた値へのアクセスを使用してマップの内容を変更できます。
@@ -154,7 +154,7 @@ fun main() {
 
 以下は、可変マップで使用できる書き込み操作用の標準ライブラリ関数の説明です。
 
-### エントリの追加と更新
+### エントリの追加と更新 {id="add-and-update-entries"}
 
 可変マップに新しいキーと値のペアを追加するには、[`put()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-map/put.html) を使用します。
 新しいエントリが `LinkedHashMap`（デフォルトのマップ実装）に入れられると、マップを反復処理する際に最後に来るように追加されます。ソートされたマップでは、新しい要素の位置はキーの順序によって定義されます。
@@ -221,7 +221,7 @@ fun main() {
 
 マップ内に存在するキーを指定して呼び出された場合、演算子は対応するエントリの値を上書きします。
 
-#### 欠落しているエントリへのデフォルト値の追加
+#### 欠落しているエントリへのデフォルト値の追加 {id="add-default-values-for-missing-entries"}
 
 既存の値を返すか、値が利用できない場合にデフォルト値を追加するには、[`.getOrPut()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/get-or-put.html) 拡張関数を使用します。
 キーが欠落しているか、値が `null` の場合、`.getOrPut()` はデフォルト値を保存してそれを返します。
@@ -259,7 +259,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.4"}
 
-### エントリの削除
+### エントリの削除 {id="remove-entries"}
 
 可変マップからエントリを削除するには、[`remove()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-map/remove.html) 関数を使用します。
 `remove()` を呼び出すときは、キーまたはキーと値のペア全体を渡すことができます。

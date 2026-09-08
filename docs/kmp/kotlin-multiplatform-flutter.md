@@ -6,17 +6,17 @@
 
 每个项目都是独特的，并且具有特定的要求。本文旨在帮助您权衡选择，并更好地了解哪种技术（如 Kotlin Multiplatform 或 Flutter）最适合您的项目，以便您做出明智的决策。
 
-## 跨平台开发：现代应用构建的统一方法
+## 跨平台开发：现代应用构建的统一方法 {id="cross-platform-development-a-unified-approach-to-modern-application-building"}
 
 跨平台开发提供了一种使用单一代码库构建可在多个平台运行的应用的方法，消除了为每个系统重写相同功能的需求。虽然这种方法通常与[移动开发](cross-platform-mobile-development.topic)（针对 Android 和 iOS）相关联，但它已远远超出了移动端的范畴，涵盖了 Web、桌面端甚至服务器端环境。
 
 核心思想是最大限度地提高代码复用率，同时确保在必要时仍能实现平台特定功能，从而简化开发流程并减少维护工作。团队可以加快开发周期、降低成本并确保各平台之间的一致性，这使得跨平台开发成为当今日益多样化的应用格局中的明智选择。
 
-## Kotlin Multiplatform 与 Flutter：简化跨平台开发
+## Kotlin Multiplatform 与 Flutter：简化跨平台开发 {id="kotlin-multiplatform-and-flutter-streamlining-development-across-platforms"}
 
 Flutter 与 Kotlin Multiplatform 是两种流行的跨平台技术，它们简化了跨不同平台的应用开发。
 
-### Flutter
+### Flutter {id="flutter"}
 
 [Flutter](https://flutter.dev/) 是一个开源框架，用于从单一代码库构建原生编译的多平台应用。它允许您在 Android、iOS、Web、桌面端（Windows、macOS、Linux）和嵌入式系统上创建丰富的应用体验——所有这些都来自单一的共享应用代码库。Flutter 应用使用 Dart 编程语言编写。Flutter 由 Google 提供支持并使用。
 
@@ -24,7 +24,7 @@ Flutter 与 Kotlin Multiplatform 是两种流行的跨平台技术，它们简�
 
 Flutter 开发者社区规模庞大且非常活跃，提供持续的改进和支持。Flutter 允许使用由 Flutter 和 Dart 生态系统中的开发者贡献的共享软件包。
 
-### Kotlin Multiplatform
+### Kotlin Multiplatform {id="kotlin-multiplatform"}
 
 [Kotlin Multiplatform](https://www.jetbrains.com/kotlin-multiplatform/) (KMP) 是由 JetBrains 构建的一项开源技术，允许开发者为 Android、iOS、Web、桌面端（Windows、macOS、Linux）和服务器端创建应用，使他们能够高效地在这些平台之间复用 Kotlin 代码，同时保留原生编程的优势。
 
@@ -38,7 +38,7 @@ Kotlin Multiplatform 最初作为 Kotlin 1.2 的一部分于 2017 年推出。20
 
 [![发现 Kotlin Multiplatform](discover-kmp.svg){width="500"}](https://www.jetbrains.com/kotlin-multiplatform/)
 
-#### Compose Multiplatform
+#### Compose Multiplatform {id="compose-multiplatform"}
 
 您可以使用 [Compose Multiplatform](https://www.jetbrains.com/compose-multiplatform/) 在多个平台编写共享的 UI 代码。它是 JetBrains 推出的一款现代声明式框架，构建在 Kotlin Multiplatform 和 Google 的 Jetpack Compose 之上。
 
@@ -48,7 +48,7 @@ Compose Multiplatform 目前在 [iOS 上已处于稳定状态](https://blog.jetb
 
 我们的专题文章概述了 [Compose Multiplatform 与 Jetpack Compose 之间的关系](compose-multiplatform-and-jetpack-compose.md)，并强调了其中的关键区别。
 
-### Kotlin Multiplatform 与 Flutter：概览
+### Kotlin Multiplatform 与 Flutter：概览 {id="kotlin-multiplatform-and-flutter-an-overview"}
 
 <table style="both">
     

@@ -6,7 +6,7 @@
 
 ただし、コンパイラの配布物に含まれるプラットフォームライブラリは、単なるネイティブライブラリのラッパーおよびバインディングです。つまり、ローカルマシンにネイティブライブラリ自体（`.so`、`.a`、`.dylib`、`.dll` など）をインストールしておく必要があります。
 
-## POSIX バインディング
+## POSIX バインディング {id="posix-bindings"}
 
 Kotlin は、Android や iOS を含む、すべての UNIX および Windows ベースのターゲットに対して POSIX プラットフォームライブラリを提供します。
 これらのプラットフォームライブラリには、[POSIX 標準](https://en.wikipedia.org/wiki/POSIX)に従ったプラットフォームの実装へのバインディングが含まれています。
@@ -33,7 +33,7 @@ import platform.posix.*
 
 POSIX プラットフォームライブラリは、[WebAssembly](wasm-overview.md) ターゲットでは利用できません。
 
-## 一般的なネイティブライブラリ
+## 一般的なネイティブライブラリ {id="popular-native-libraries"}
 
 Kotlin/Native は、OpenGL、zlib、Foundation など、さまざまなプラットフォームで一般的に使用される多くの一般的なネイティブライブラリのバインディングを提供しています。
 
@@ -76,6 +76,6 @@ Apple プラットフォームでは、[Objective-C API との相互運用性](n
 > 
 {style="tip"}
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 [Swift/Objective-C との相互運用性について詳しく学ぶ](native-objc-interop.md)

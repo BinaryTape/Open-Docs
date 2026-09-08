@@ -4,7 +4,7 @@ Compose Multiplatform 桌面版提供了对文本上下文菜单的开箱即用�
 
 undefined
 
-## 自定义区域中的上下文菜单
+## 自定义区域中的上下文菜单 {id="context-menu-in-a-custom-area"}
 
 你可以为应用程序的任意区域创建上下文菜单。使用 `ContextMenuArea` 定义一个容器，在该容器中点击鼠标右键将触发上下文菜单的显示：
 
@@ -40,7 +40,7 @@ fun main() = singleWindowApplication(title = "Context menu") {
 
 <img src="compose-desktop-context-menu-custom-area.png" alt="上下文菜单：ContextMenuArea" width="500"/>
 
-## 设置主题
+## 设置主题 {id="set-up-theming"}
 
 你可以自定义上下文菜单颜色，以创建与系统设置匹配的响应式 UI，并避免在应用程序之间切换时出现剧烈的对比度变化。对于默认的浅色和深色主题，有两个内置实现：`LightDefaultContextMenuRepresentation` 和 `DarkDefaultContextMenuRepresentation`。它们不会自动应用于上下文菜单颜色，因此你需要通过 `LocalContextMenuRepresentation` 设置合适的主题：
 
@@ -88,7 +88,7 @@ fun main() = singleWindowApplication(title = "Dark theme") {
 
 <img src="compose-desktop-context-menu-dark-mode.png" alt="上下文菜单：深色主题" width="500"/>
 
-## 本地化菜单项
+## 本地化菜单项 {id="localize-menu-items"}
 
 默认情况下，上下文菜单将以系统设置的首选语言显示：
 
@@ -100,9 +100,9 @@ fun main() = singleWindowApplication(title = "Dark theme") {
 java.util.Locale.setDefault(java.util.Locale("en"))
 ```
 
-## 文本上下文菜单
+## 文本上下文菜单 {id="text-context-menu"}
 
-### 默认文本上下文菜单
+### 默认文本上下文菜单 {id="default-text-context-menu"}
 
 Compose Multiplatform 桌面版为 `TextField` 和可选择的 `Text` 提供了内置的上下文菜单。
 
@@ -147,7 +147,7 @@ fun main() = singleWindowApplication(title = "Context menu") {
 
 <img src="compose-desktop-context-menu-text.png" alt="Text 的默认上下文菜单" width="500"/>
 
-### 添加自定义项
+### 添加自定义项 {id="add-custom-items"}
 
 要为 `TextField` 和 `Text` 组件添加自定义上下文菜单操作，请通过 `ContextMenuItem` 指定新项，并通过 `ContextMenuDataProvider` 将它们添加到上下文菜单项的层次结构中。例如，以下代码示例显示了如何向文本字段和简单的可选择文本元素的默认上下文菜单中添加两个新的自定义操作：
 
@@ -200,7 +200,7 @@ fun main() = singleWindowApplication(title = "Context menu") {
 
 <img src="compose-desktop-context-menu-custom-actions.png" alt="带有自定义操作的上下文菜单" width="500"/>
 
-### 重写默认文本上下文菜单
+### 重写默认文本上下文菜单 {id="override-default-text-context-menu"}
 
 要重写文本字段和可选择文本元素的默认上下文菜单，请重写 `TextContextMenu` 接口。在以下代码示例中，我们重用了原始的 `TextContextMenu`，但在列表底部添加了一个额外的项。新项会根据文本选择进行调整：
 
@@ -278,7 +278,7 @@ private fun AnnotatedString.crop() = if (length <= 5) toString() else "${take(5)
 
 <img src="compose-desktop-context-menu-custom-text.png" alt="上下文菜单：LocalTextContextMenu" width="500"/>
 
-### Swing 互操作性
+### Swing 互操作性 {id="swing-interoperability"}
 
 如果你正在将 Compose 代码嵌入到现有的 Swing 应用程序中，并且需要上下文菜单与应用程序其他部分的外观和行为保持一致，可以使用 `JPopupTextMenu` 类。在此类中，`LocalTextContextMenu` 对 Compose 组件中的上下文菜单使用 Swing 的 `JPopupMenu`。
 
@@ -408,6 +408,6 @@ private fun circleIcon(color: Color) = object : Icon {
 
 <img src="compose-desktop-context-menu-swing.png" alt="上下文菜单：Swing 互操作性" width="500"/>
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 探索关于 [其他桌面组件](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop) 的教程。

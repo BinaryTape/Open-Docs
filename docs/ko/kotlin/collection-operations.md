@@ -2,7 +2,7 @@
 
 코틀린 표준 라이브러리는 컬렉션에서 연산을 수행하기 위한 매우 다양한 함수를 제공합니다. 여기에는 요소 가져오기 또는 추가와 같은 단순한 연산부터 검색, 정렬, 필터링, 변환(transformations) 등과 같은 복잡한 연산까지 포함됩니다.
 
-## 확장 함수 및 멤버 함수
+## 확장 함수 및 멤버 함수 {id="extension-and-member-functions"}
 
 컬렉션 연산은 표준 라이브러리에서 두 가지 방식으로 선언됩니다: 컬렉션 인터페이스의 [멤버 함수](classes.md)와 [확장 함수](extensions.md#extension-functions)입니다.
 
@@ -12,7 +12,7 @@
 
 그 외의 컬렉션 연산들은 확장 함수로 선언되어 있습니다. 필터링, 변환, 정렬 및 기타 컬렉션 처리 함수들이 이에 해당합니다.
 
-## 공통 연산
+## 공통 연산 {id="common-operations"}
 
 공통 연산은 [읽기 전용 및 가변 컬렉션](collections-overview.md#collection-types) 모두에서 사용할 수 있습니다. 공통 연산은 다음과 같은 그룹으로 나뉩니다:
 
@@ -76,7 +76,7 @@ fun main() {
 
 대상(destination)을 사용하는 함수는 필터링, 연관(association), 그룹화, 평탄화(flattening) 및 기타 연산에서 사용할 수 있습니다. 대상 연산의 전체 목록은 [Kotlin 컬렉션 레퍼런스](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/index.html)를 참조하세요.
 
-## 쓰기 연산
+## 쓰기 연산 {id="write-operations"}
 
 가변 컬렉션에는 컬렉션 상태를 변경하는 _쓰기 연산(write operations)_도 있습니다. 이러한 연산에는 요소 추가, 삭제 및 업데이트가 포함됩니다. 쓰기 연산은 [쓰기 연산](collection-write.md) 섹션과 [List 전용 연산](list-operations.md#list-write-operations) 및 [Map 전용 연산](map-operations.md#map-write-operations)의 해당 섹션에 나열되어 있습니다.
 

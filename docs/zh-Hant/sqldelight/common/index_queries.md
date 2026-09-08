@@ -1,4 +1,4 @@
-## 定義型別安全查詢
+## 定義型別安全查詢 {id="defining-typesafe-queries"}
 
 SQLDelight 會為 `.sq` 檔案中任何帶有標籤的 SQL 陳述式產生型別安全函式。
 

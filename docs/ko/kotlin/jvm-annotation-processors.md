@@ -22,7 +22,7 @@ Kotlin은 어노테이션 프로세서를 사용하는 두 가지 방법을 지�
 
   현재 KSP는 Gradle에 대해서만 공식 지원을 제공합니다. 자신만의 프로세서를 작성하거나 [Dagger](https://dagger.dev/)와 같이 KSP와 호환되는 라이브러리를 사용하는 경우에 권장됩니다.
 
-## Java 어노테이션 프로세서와 함께 kapt 사용하기
+## Java 어노테이션 프로세서와 함께 kapt 사용하기 {id="use-kapt-with-java-annotation-processors"}
 
 [kapt](kapt.md)를 사용하면 프로세서 자체를 변경하지 않고도 Kotlin 프로젝트에서 기존 Java 어노테이션 프로세서를 사용할 수 있습니다.
 
@@ -142,11 +142,11 @@ Kotlin은 어노테이션 프로세서를 사용하는 두 가지 방법을 지�
    }
    ```
 
-## Gradle 프로젝트에서 KSP 사용하기
+## Gradle 프로젝트에서 KSP 사용하기 {id="use-ksp-in-gradle-projects"}
 
 [KSP](ksp-overview.md)를 사용하면 Gradle 프로젝트에서 기존 어노테이션 프로세서를 사용하거나, 소스 코드의 어노테이션을 기반으로 코드를 생성하는 고유한 프로세서를 만들 수 있습니다.
 
-### Java 어노테이션 프로세서와 함께 KSP 사용하기
+### Java 어노테이션 프로세서와 함께 KSP 사용하기 {id="use-ksp-with-java-annotation-processors"}
 
 Gradle 프로젝트의 경우, 호환되는 어노테이션 프로세서와 함께 KSP를 사용하세요. KSP는 kapt보다 빠르며 Kotlin 고유의 기능을 네이티브하게 이해할 수 있습니다. [이미 KSP를 지원하는 라이브러리](ksp-overview.md#supported-libraries) 목록을 확인하세요.
 
@@ -236,7 +236,7 @@ Gradle 프로젝트의 경우, 호환되는 어노테이션 프로세서와 함�
 
 Dagger의 KSP 지원에 대한 자세한 내용은 해당 [문서](https://dagger.dev/dev-guide/ksp.html)를 참조하세요.
 
-### 자신만의 어노테이션 프로세서 만들기
+### 자신만의 어노테이션 프로세서 만들기 {id="create-your-own-annotation-processor"}
 
 KSP API를 사용하여 컴파일 시점에 코드를 생성하는 고유한 어노테이션 프로세서를 작성할 수 있습니다.
 새로운 프로세서에는 세 가지 모듈이 필요합니다:
@@ -247,7 +247,7 @@ KSP API를 사용하여 컴파일 시점에 코드를 생성하는 고유한 어
 
 단계별 전체 안내는 [KSP 퀵스타트](ksp-quickstart.md#create-your-own-processor)를 참조하세요.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [kapt 구성에 대해 더 알아보기](kapt.md)
 * [KSP 시작하기](ksp-quickstart.md)

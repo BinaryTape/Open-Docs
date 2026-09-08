@@ -2,7 +2,7 @@
 
 您可以使用用於記錄、測試、偵錯及擴充 agent 行為的事件處理常式，在 agent 工作流程期間監控並回應特定事件。
 
-## 功能概覽
+## 功能概覽 {id="feature-overview"}
 
 EventHandler 功能讓您可以攔截各種 agent 事件。它作為一種事件委派機制，具備以下功能：
 
@@ -21,7 +21,7 @@ The EventHandler entity consists of five main handler types:
 - Tool call listener that notifies when a tool is about to be invoked
 - Tool result listener that processes the results after a tool has been called-->
 
-### 安裝與配置
+### 安裝與配置 {id="installation-and-configuration"}
 
 EventHandler 功能透過 `EventHandler` 類別與 agent 工作流程整合，該類別提供了一種為不同 agent 事件註冊回呼的方法，並可以作為一種功能安裝在 agent 配置中。如需詳細資訊，請參閱 [API 參考](api:agents-features-event-handler::ai.koog.agents.features.eventHandler.feature.EventHandler)。
 

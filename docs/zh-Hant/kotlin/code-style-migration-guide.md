@@ -6,7 +6,7 @@
 > 
 {style="note"}
 
-## Kotlin 編碼慣例與 IntelliJ IDEA 格式化程序
+## Kotlin 編碼慣例與 IntelliJ IDEA 格式化程序 {id="kotlin-coding-conventions-and-intellij-idea-formatter"}
 
 [Kotlin 編碼慣例](coding-conventions.md)影響了編寫道地 Kotlin 的多個方面，其中包括一套旨在提高 Kotlin 程式碼可讀性的格式化建議。
 
@@ -19,7 +19,7 @@ IntelliJ IDEA 內建的程式碼格式化程序（formatter）過去使用預設
 * 現有專案的作者可以選擇在專案中明確宣告使用舊的程式碼風格（這樣專案就不會受到未來切換到預設值的影響）。
 * 從 Kotlin 1.4.0 開始，所有專案都啟用預設格式化，以與 Kotlin 編碼慣例保持一致。
 
-## 「Kotlin 編碼慣例」與「IntelliJ IDEA 預設程式碼風格」的差異
+## 「Kotlin 編碼慣例」與「IntelliJ IDEA 預設程式碼風格」的差異 {id="differences-between-kotlin-coding-conventions-and-intellij-idea-default-code-style"}
 
 最顯著的變更在於續行縮排（continuation indentation）策略。使用雙倍縮排來顯示多行運算式尚未在前一行結束是一個不錯的想法。這是一個簡單且通用的規則，但當以這種方式格式化時，某些 Kotlin 結構看起來會有些彆扭。在 Kotlin 編碼慣例中，建議在以前強制使用長續行縮排的情況下改用單一縮排。
 
@@ -27,7 +27,7 @@ IntelliJ IDEA 內建的程式碼格式化程序（formatter）過去使用預設
 
 在實務中，相當多程式碼會受到影響，因此這可以被視為一次重大的程式碼風格更新。
 
-## 遷移至新程式碼風格的討論
+## 遷移至新程式碼風格的討論 {id="migration-to-a-new-code-style-discussion"}
 
 如果從新專案開始，且沒有以舊方式格式化的程式碼，採用新程式碼風格可能會是一個非常自然的過程。這就是為什麼從 1.3.0 版本開始，Kotlin IntelliJ 外掛程式建立的新專案會預設啟用 [編碼慣例](coding-conventions.md) 文件中的格式化。
 
@@ -41,7 +41,7 @@ IntelliJ IDEA 內建的程式碼格式化程序（formatter）過去使用預設
 
 對於中大型專案，這個決定可能很艱難。如果您還沒準備好立即更新許多檔案，您可以決定逐個模組進行遷移，或僅針對修改過的檔案繼續進行漸進式遷移。
 
-## 遷移至新程式碼風格
+## 遷移至新程式碼風格 {id="migration-to-a-new-code-style"}
 
 切換到 Kotlin 編碼慣例程式碼風格可以在 **Settings/Preferences** | **Editor** | **Code Style** | **Kotlin** 對話方塊中完成。將配置（scheme）切換為 **Project**，並啟動 **Set from...** | **Kotlin style guide**。
 
@@ -49,11 +49,11 @@ IntelliJ IDEA 內建的程式碼格式化程序（formatter）過去使用預設
 
 如果使用外部建置系統來配置專案，且決定不共享 `.idea/codeStyle` 資料夾，則可以使用額外屬性強制執行 Kotlin 編碼慣例：
 
-### 在 Gradle 中
+### 在 Gradle 中 {id="in-gradle"}
 
 將 `kotlin.code.style=official` 屬性新增至專案根目錄的 `gradle.properties` 檔案，並將該檔案提交至 VCS。
 
-### 在 Maven 中
+### 在 Maven 中 {id="in-maven"}
 
 將 `kotlin.code.style official` 屬性新增至根目錄的 `pom.xml` 專案檔中。
 
@@ -73,7 +73,7 @@ IntelliJ IDEA 內建的程式碼格式化程序（formatter）過去使用預設
 
 對於漸進式遷移，可以啟用 **File is not formatted according to project settings** 檢查。它會醒目提示應該重新格式化的地方。啟用 **Apply only to modified files** 選項後，檢查將僅顯示已修改檔案中的格式化問題。這類檔案反正很可能很快就會被提交。
 
-## 在專案中保留舊的程式碼風格
+## 在專案中保留舊的程式碼風格 {id="store-old-code-style-in-project"}
 
 您隨時可以明確地將 IntelliJ IDEA 程式碼風格設定為專案的正確程式碼風格：
 

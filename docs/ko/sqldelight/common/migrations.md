@@ -16,7 +16,7 @@ src
 
 드라이버가 지원하는 경우, 마이그레이션은 트랜잭션(transaction) 내에서 실행됩니다. 일부 드라이버에서 충돌을 일으킬 수 있으므로 마이그레이션 구문을 `BEGIN/END TRANSACTION`으로 감싸면 안 됩니다.
 
-## 버전 관리(Versioning)
+## 버전 관리(Versioning) {id="versioning"}
 
 스키마의 첫 번째 버전은 1입니다. 마이그레이션 파일의 이름은 `<업그레이드 시작 버전>.sqm`으로 지정합니다. 버전 2로 마이그레이션하려면 `1.sqm`에 마이그레이션 문을 작성합니다.
 
@@ -27,7 +27,7 @@ ALTER TABLE hockeyPlayer ADD COLUMN draft_order INTEGER;
 
 이러한 SQL 문은 `Database.Schema.migrate()` 메서드에 의해 실행됩니다. 마이그레이션 파일은 `.sq` 파일과 동일한 소스 세트(source set)에 위치해야 합니다.
 
-## 마이그레이션 검증(Verifying Migrations)
+## 마이그레이션 검증(Verifying Migrations) {id="verifying-migrations"}
 
 `verifySqlDelightMigration` 태스크가 Gradle 프로젝트에 추가되며, 이는 `check` 태스크의 일부로 실행됩니다. SqlDelight 소스 세트(예: `src/main/sqldelight`)에 있는 `<버전 번호>.db`라는 이름의 모든 `.db` 파일에 대해, `<버전 번호>.sqm`부터 시작하는 모든 마이그레이션을 적용하고, 마이그레이션 결과가 최신 스키마의 데이터베이스와 일치하는지 확인합니다.
 
@@ -35,7 +35,7 @@ ALTER TABLE hockeyPlayer ADD COLUMN draft_order INTEGER;
 
 대부분의 경우 초기 버전의 스키마를 나타내는 `1.db` 파일 하나만 유지하는 것이 좋습니다. 여러 개의 `.db` 파일을 가질 수 있지만, 이 경우 각 `.db` 파일마다 모든 마이그레이션이 적용되므로 불필요한 작업이 많이 발생하게 됩니다.
 
-## 코드 마이그레이션(Code Migrations)
+## 코드 마이그레이션(Code Migrations) {id="code-migrations"}
 
 코드에서 마이그레이션을 실행하고 데이터 마이그레이션을 수행하려는 경우 `Database.Schema.migrate` API를 사용할 수 있습니다.
 

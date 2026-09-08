@@ -41,7 +41,7 @@ fun formatGreeting(name: String): String {
 }
 ```
 
-## 設定未使用的傳回值檢查器
+## 設定未使用的傳回值檢查器 {id="configure-the-unused-return-value-checker"}
 
 您可以使用 `-Xreturn-value-checker` 編譯器選項來控制編譯器如何報告被忽略的結果。
 
@@ -88,7 +88,7 @@ kotlin {
 </tab>
 </tabs>
 
-## 標記函式以檢查被忽略的結果
+## 標記函式以檢查被忽略的結果 {id="mark-functions-to-check-ignored-results"}
 
 當您將 [`-Xreturn-value-checker` 編譯器選項](#configure-the-unused-return-value-checker)設定為 `check` 時，
 檢查器僅會報告來自已標記運算式的被忽略結果，例如 Kotlin 標準函式庫中的大多數函式。
@@ -125,7 +125,7 @@ fun someFunction(): Int = ...
 >
 {style="note"}
 
-## 隱藏被忽略結果的報告
+## 隱藏被忽略結果的報告 {id="suppress-reports-for-ignored-results"}
 
 您可以透過在特定函式上加上 [`@IgnorableReturnValue`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-ignorable-return-value/) 註解來隱藏其報告。
 請在那些忽略傳回值是常見且預期的函式上加上註解，例如 `MutableList.add`：
@@ -154,7 +154,7 @@ fun main() {
 }
 ```
 
-### 函式覆寫中被忽略的結果
+### 函式覆寫中被忽略的結果 {id="ignored-results-in-function-overrides"}
 
 當您覆寫一個函式時，該覆寫會繼承基底宣告上註解所定義的報告規則。
 這也適用於基底宣告屬於 Kotlin 標準函式庫或其他函式庫相依性的情況，因此檢查器會針對 `Any.hashCode()` 等函式的覆寫報告被忽略的結果。
@@ -182,7 +182,7 @@ fun check(g: Greeter) {
 }
 ```
 
-## 在高階函數中檢查未使用的結果
+## 在高階函數中檢查未使用的結果 {id="check-for-unused-results-in-higher-order-functions"}
 
 某些高階函數（例如 `let` 作用域函式）會傳回 Lambda 的結果。
 要檢查高階函數中未使用的 Lambda 結果，請將[實驗性](components-stability.md#stability-levels-explained) `returnsResultOf()` 合約新增到該函式的合約中。
@@ -259,7 +259,7 @@ kotlin {
 </tab> 
 </tabs>
 
-## 與 Java 註解的互通性
+## 與 Java 註解的互通性 {id="interoperability-with-java-annotations"}
 
 某些 Java 函式庫使用類似的機制但使用不同的註解。
 未使用的傳回值檢查器將以下註解視為等同於使用 `@MustUseReturnValues`：

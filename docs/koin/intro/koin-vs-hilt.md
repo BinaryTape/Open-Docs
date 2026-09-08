@@ -10,7 +10,7 @@ title: Koin vs Hilt/Dagger
 Koin 同时支持 **DSL 与注解 (Annotations)** —— 您可以根据团队偏好进行选择。两者均为一等公民，功能同样强大，且均由同一个编译器插件驱动。为了与 Hilt 进行公平对比，本对比示例使用了注解形式，但 Koin 的 DSL 提供了同等的功能，且模板代码更少。
 :::
 
-## 哲学差异
+## 哲学差异 {id="philosophy-differences"}
 
 | 维度 | Koin | Hilt/Dagger |
 |--------|------|-------------|
@@ -21,7 +21,7 @@ Koin 同时支持 **DSL 与注解 (Annotations)** —— 您可以根据团队�
 | **编译时安全** | ✅ 搭配编译器插件 | ✅ 始终支持 |
 | **运行时灵活性** | ✅ 动态功能 | ❌ 仅静态 |
 
-## 注解对比
+## 注解对比 {id="annotation-comparison"}
 
 即使是注解，Koin 也更为简洁：
 
@@ -34,9 +34,9 @@ Koin 同时支持 **DSL 与注解 (Annotations)** —— 您可以根据团队�
 | **提供第三方库** | `@Singleton fun provide()` | `@Module` 中的 `@Provides` + `@InstallIn` |
 | **ViewModel** | `@KoinViewModel class MyVM` | `@HiltViewModel class MyVM @Inject constructor` |
 
-## 代码对比
+## 代码对比 {id="code-comparison"}
 
-### 简单单例
+### 简单单例 {id="simple-singleton"}
 
 **Koin：**
 ```kotlin
@@ -61,7 +61,7 @@ abstract class AppModule {
 }
 ```
 
-### 接口绑定
+### 接口绑定 {id="interface-binding"}
 
 **Koin - 自动绑定：**
 ```kotlin
@@ -84,7 +84,7 @@ abstract class RepositoryModule {
 }
 ```
 
-### 多模块应用
+### 多模块应用 {id="multi-module-apps"}
 
 **Koin - 模块自动发现：**
 ```kotlin
@@ -122,7 +122,7 @@ class ProfileModule { ... }
 class MyApp  // 仍然需要在各处使用正确的 @InstallIn
 ```
 
-### ViewModel
+### ViewModel {id="viewmodel"}
 
 **Koin：**
 ```kotlin
@@ -154,7 +154,7 @@ val viewModel: UserViewModel by viewModels()
 val viewModel: UserViewModel = hiltViewModel()
 ```
 
-### 提供第三方库
+### 提供第三方库 {id="providing-third-party-libraries"}
 
 **Koin：**
 ```kotlin
@@ -189,7 +189,7 @@ object NetworkModule {
 }
 ```
 
-## 动态功能：Koin 的独特优势
+## 动态功能：Koin 的独特优势 {id="dynamic-features-koin-s-unique-advantage"}
 
 Koin **基于运行时，但具备高性能且编译时安全**。这使其能够提供 Hilt 无法实现的动态功能：
 
@@ -203,7 +203,7 @@ Koin **基于运行时，但具备高性能且编译时安全**。这使其能�
 | A/B 测试实现 | ✅ 运行时切换 | ⚠️ 仅限编译时 |
 | 动态配置 | ✅ 支持 | ❌ 不支持，必须重新编译 |
 
-### 示例：动态模块加载
+### 示例：动态模块加载 {id="example-dynamic-module-loading"}
 
 ```kotlin
 // KOIN - 动态模块加载
@@ -226,7 +226,7 @@ startKoin {
 
 **这在 Hilt 中是不可能实现的** —— 所有依赖关系都在编译时固定。
 
-### 示例：功能标志 (Feature Flags)
+### 示例：功能标志 (Feature Flags) {id="example-feature-flags"}
 
 ```kotlin
 // KOIN - 在运行时切换实现
@@ -245,13 +245,13 @@ fun updateApiImplementation(useNew: Boolean) {
 }
 ```
 
-## 设置对比
+## 设置对比 {id="setup-comparison"}
 
-### Koin 设置
+### Koin 设置 {id="koin-setup"}
 
 有关详细说明，请参阅 **[编译器插件设置指南](/docs/setup/compiler-plugin)**。
 
-### Hilt 设置
+### Hilt 设置 {id="hilt-setup"}
 
 ```kotlin
 // settings.gradle.kts
@@ -271,9 +271,9 @@ dependencies {
 }
 ```
 
-## 错误消息
+## 错误消息 {id="error-messages"}
 
-### Koin
+### Koin {id="koin"}
 
 ```
 org.koin.core.error.NoBeanDefFoundException:
@@ -283,7 +283,7 @@ Check your module definitions.
 
 清晰直观，直接指出问题所在。
 
-### Hilt/Dagger
+### Hilt/Dagger {id="hilt-dagger"}
 
 ```
 error: [Dagger/MissingBinding] com.app.UserRepository cannot be provided
@@ -298,9 +298,9 @@ com.app.UserActivity is injected at
 
 较为冗长，需要理解组件图 (component graph)。
 
-## 如何选择
+## 如何选择 {id="when-to-choose-each"}
 
-### 在以下情况选择 Koin：
+### 在以下情况选择 Koin： {id="choose-koin-when"}
 
 - 您重视 **开发效率与简单性**
 - 您需要 **运行时灵活性**（动态模块、功能标志）
@@ -309,17 +309,17 @@ com.app.UserActivity is injected at
 - 您更喜欢 **更少的模板代码**
 - 您希望 **更容易调试**
 
-### 在以下情况选择 Hilt：
+### 在以下情况选择 Hilt： {id="choose-hilt-when"}
 
 - 您的团队 **已经熟悉 Dagger**
 - 您需要与 **Google 优先的生态系统** 保持兼容
 - 您需要 **Dagger 的特定功能**
 
-## 从 Hilt 迁移到 Koin
+## 从 Hilt 迁移到 Koin {id="migration-from-hilt-to-koin"}
 
 如果您正在考虑迁移：
 
-### 概念映射
+### 概念映射 {id="concept-mapping"}
 
 | Hilt | Koin |
 |------|------|
@@ -331,7 +331,7 @@ com.app.UserActivity is injected at
 | `@InstallIn(SingletonComponent)` | `@Configuration` |
 | 函数上的 `@Provides` | 函数上的 `@Factory` |
 
-### 渐进式迁移
+### 渐进式迁移 {id="gradual-migration"}
 
 您可以进行增量迁移：
 
@@ -342,7 +342,7 @@ com.app.UserActivity is injected at
 
 请参阅 [从 Hilt 迁移](/docs/migration/from-hilt) 了解详细步骤。
 
-## 总结
+## 总结 {id="summary"}
 
 **Koin：简单且强大**
 
@@ -353,7 +353,7 @@ com.app.UserActivity is injected at
 
 您不必在安全性与简单性之间做选择。使用 Koin，您可以两者兼得。
 
-## 后续步骤
+## 后续步骤 {id="next-steps"}
 
 - **[什么是 Koin？](/docs/intro/what-is-koin)** —— 进一步了解 Koin
 - **[设置指南](/docs/setup/gradle)** —— 将 Koin 添加到您的项目

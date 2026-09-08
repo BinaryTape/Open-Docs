@@ -93,7 +93,7 @@ fun main() {
 > 
 {type="tip"}
 
-## 类型转换
+## 类型转换 {id="type-casts"}
 
 在 Kotlin 中将对象的类型转换为另一种类型被称为**转换**（casting）。
 
@@ -101,7 +101,7 @@ fun main() {
 
 如果你需要显式转换类型，请使用 `as?` 或 `as` [转换操作符](#unsafe-cast-operator)。 
 
-## 智能转换
+## 智能转换 {id="smart-casts"}
 
 编译器会跟踪不可变值的类型检查和[显式转换](#unsafe-cast-operator)，并自动插入隐式（安全）转换：
 
@@ -139,7 +139,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-typecasts-smartcast-negative"}
 
-### 控制流
+### 控制流 {id="control-flow"}
 
 智能转换不仅适用于 `if` 条件表达式，还适用于 [`when` 表达式](control-flow.md#when-expressions-and-statements)：
 
@@ -241,7 +241,7 @@ fun main(){
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-smart-casts-local-variables" validate="false"}
 
-### 逻辑操作符
+### 逻辑操作符 {id="logical-operators"}
 
 如果 `&&` 或 `||` 操作符左侧有类型检查（正常或否定），编译器可以在其右侧执行智能转换：
 
@@ -280,7 +280,7 @@ fun signalCheck(signalStatus: Any) {
 >
 {style="note"}
 
-### 交叉类型
+### 交叉类型 {id="intersection-types"}
 
 当编译器通过多个 `&&` 检查对一个对象进行智能转换时，它会推断出一个[*交叉类型*](https://kotlinlang.org/spec/type-system.html#intersection-types)。这是一种内部类型，它同时满足所有已检查的约束：
 
@@ -310,7 +310,7 @@ fun describe(animal: Any) {
 fun  <T> T.assertNotNull(): T & Any = this ?: throw IllegalStateException("null value")
 ```
 
-### 内联函数
+### 内联函数 {id="inline-functions"}
 
 对于传递给[内联函数](inline-functions.md)的 lambda 函数中捕获的变量，编译器可以对其进行智能转换。
 
@@ -347,7 +347,7 @@ fun runProcessor(): Processor? {
 }
 ```
 
-### 异常处理
+### 异常处理 {id="exception-handling"}
 
 智能转换信息会被传递到 `catch` 和 `finally` 块中。由于编译器会跟踪你的对象是否具有可空类型，这使你的代码更加安全。例如：
 
@@ -383,7 +383,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-smart-casts-exception-handling"}
 
-### 智能转换的前提条件
+### 智能转换的前提条件 {id="smart-cast-prerequisites"}
 
 只有当编译器能够保证变量在检查和使用之间不会发生变化时，智能转换才有效。它们可以在以下条件下使用：
 
@@ -500,7 +500,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-cast-nullable-types"}
 
-### 向上转型与向下转型
+### 向上转型与向下转型 {id="up-and-downcasting"}
 
 在 Kotlin 中，你可以将对象转换为父类型和子类型。 
 

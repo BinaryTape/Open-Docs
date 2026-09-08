@@ -2,12 +2,12 @@
 
 このページでは、組み込みのリトライおよびタイムアウトメカニズムを使用して、LLMクライアントとプロンプトエグゼキュータの失敗（エラー）を処理する方法について説明します。
 
-## リトライ機能
+## リトライ機能 {id="retry-functionality"}
 
 LLMプロバイダーを利用する際、レート制限や一時的なサービスの停止といった一時的なエラー（transient errors）が発生することがあります。
 `RetryingLLMClient` デコレータを使用すると、KotlinとJavaの両方で、任意のLLMクライアントに自動リトライロジックを追加できます。
 
-### 基本的な使い方
+### 基本的な使い方 {id="basic-usage"}
 
 既存のクライアントをリトライ機能でラップします。
 
@@ -57,7 +57,7 @@ LLMプロバイダーを利用する際、レート制限や一時的なサー�
     ```
     <!--- KNIT example-handling-failures-java-01.java -->
 
-### リトライ動作の設定
+### リトライ動作の設定 {id="configuring-retry-behavior"}
 
 デフォルトでは、`RetryingLLMClient` は最大3回のリトライ試行、1秒の初期遅延、および30秒の最大遅延でLLMクライアントを設定します。
 `RetryingLLMClient` に `RetryConfig` を渡すことで、異なるリトライ設定を指定できます。
@@ -134,7 +134,7 @@ val customClient = RetryingLLMClient(
 ```
 <!--- KNIT example-handling-failures-03.kt -->
 
-### リトライエラーのパターン
+### リトライエラーのパターン {id="retry-error-patterns"}
 
 デフォルトでは、`RetryingLLMClient` は一般的な一時的エラーを認識します。
 この動作は [`RetryConfig.retryablePatterns`](api:prompt-executor-clients::ai.koog.prompt.executor.clients.retry.RetryConfig.retryablePatterns) パターンによって制御されます。
@@ -143,7 +143,7 @@ val customClient = RetryingLLMClient(
 Koogは、サポートされているすべてのLLMプロバイダーで動作する定義済みのリトライ構成とパターンを提供しています。
 デフォルトのまま使用することも、特定のニーズに合わせてカスタマイズすることも可能です。
 
-#### パターンの種類
+#### パターンの種類 {id="pattern-types"}
 
 以下のパターンタイプを使用し、それらを任意に組み合わせることができます。
 
@@ -154,7 +154,7 @@ Koogは、サポートされているすべてのLLMプロバイダーで動作�
 
 いずれかのパターンが `true` を返した場合、そのエラーはリトライ可能とみなされ、LLMクライアントはリクエストを再試行します。
 
-#### デフォルトのパターン
+#### デフォルトのパターン {id="default-patterns"}
 
 リトライ構成をカスタマイズしない限り、以下のパターンがデフォルトで使用されます。
 
@@ -180,7 +180,7 @@ Koogは、サポートされているすべてのLLMプロバイダーで動作�
 
 これらのデフォルトパターンは、Koog内で [`RetryConfig.DEFAULT_PATTERNS`](api:prompt-executor-clients::ai.koog.prompt.executor.clients.retry.RetryConfig.Companion.DEFAULT_PATTERNS) として定義されています。
 
-#### カスタムパターン
+#### カスタムパターン {id="custom-patterns"}
 
 特定のニーズに合わせてカスタムパターンを定義できます。
 
@@ -217,7 +217,7 @@ val config = RetryConfig(
 ```
 <!--- KNIT example-handling-failures-05.kt -->
 
-### リトライを伴うストリーミング
+### リトライを伴うストリーミング {id="streaming-with-retry"}
 
 ストリーミング操作もオプションでリトライ可能です。この機能はデフォルトでは無効になっています。
 
@@ -254,7 +254,7 @@ val stream = client.executeStreaming(prompt, OpenAIModels.Chat.GPT4o)
     ストリーミングが開始されると、リトライロジックは無効になります。
     ストリーミング中にエラーが発生した場合、操作は終了します。
 
-### プロンプトエグゼキュータでのリトライ
+### プロンプトエグゼキュータでのリトライ {id="retry-with-prompt-executors"}
 
 プロンプトエグゼキュータを使用する場合、KotlinとJavaの両方で、エグゼキュータを作成する前に基盤となるLLMクライアントをリトライメカニズムでラップできます。
 プロンプトエグゼキュータの詳細については、[プロンプトエグゼキュータ](prompt-executors.md)を参照してください。
@@ -338,7 +338,7 @@ val stream = client.executeStreaming(prompt, OpenAIModels.Chat.GPT4o)
     ```
     <!--- KNIT example-handling-failures-java-03.java -->
 
-## タイムアウトの設定
+## タイムアウトの設定 {id="timeout-configuration"}
 
 すべてのLLMクライアントは、リクエストのハングを防ぐため、KotlinとJavaの両方でタイムアウト設定をサポートしています。
 クライアントの作成時に、[`ConnectionTimeoutConfig`](api:prompt-executor-clients::ai.koog.prompt.executor.clients.ConnectionTimeoutConfig) クラスを使用してネットワーク接続のタイムアウト値を指定できます。
@@ -406,7 +406,7 @@ val stream = client.executeStreaming(prompt, OpenAIModels.Chat.GPT4o)
 !!! tip
     実行時間が長いコールやストリーミングコールの場合は、`requestTimeoutMillis` と `socketTimeoutMillis` に大きな値を設定してください。
 
-## エラーハンドリング
+## エラーハンドリング {id="error-handling"}
 
 本番環境でLLMを扱う際は、以下のようなエラーハンドリングを実装する必要があります。
 

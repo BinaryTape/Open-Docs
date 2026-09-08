@@ -5,7 +5,7 @@
 
 `String` 型別是不可變的 (immutable)。建立 `String` 物件後，其內容在剩餘的生命週期內都將保持不變。任何看似修改字串的操作實際上都會建立一個新的字串。
 
-## 宣告字串
+## 宣告字串 {id="declare-strings"}
 
 要宣告 `String` 常值，請將值包含在雙引號 (`""`) 中。您可以明確指定 `String` 型別，或讓 Kotlin 根據值進行型別推論：
 
@@ -23,7 +23,7 @@ world!"
 val quote = "Kotlin says, \"Hi\"."
 ```
 
-### 多行字串
+### 多行字串 {id="multiline-strings"}
 
 若要儲存包含多行或包含您不想轉義的引號的文字，請使用包裹在三重引號 (`""" """`) 中的多行字串：
 
@@ -91,7 +91,7 @@ fun main() {
 >
 {style="note"}
 
-## 字串範本
+## 字串範本 {id="string-templates"}
 
 字串範本讓您可以直接在 `String` 常值中嵌入變數和運算式。此過程稱為*插值 (interpolation)*。您可以在一般字串和多行字串中使用字串範本。
 
@@ -141,7 +141,7 @@ Result: ${"OK".lowercase()}
 """
 ```
 
-### 字串範本中的可 null 值
+### 字串範本中的可 null 值 {id="nullable-values-in-string-templates"}
 
 如果插值運算式或變數的求值結果為 `null`，Kotlin 編譯器會將文字 `null` 插入結果字串中。若要將 `null` 替換為另一個值，請使用 [Elvis 運算子](null-safety.md#elvis-operator) (`?:`)：
 
@@ -160,7 +160,7 @@ fun main(){
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 多錢字號字串插值
+### 多錢字號字串插值 {id="multi-dollar-string-interpolation"}
 
 在一般字串範本中，單個錢字號 (`$`) 代表插值的開始。如果您需要在字串中包含常值錢字號，請使用 **多錢字號字串插值**。
 
@@ -185,7 +185,7 @@ val KClass<*>.jsonSchema : String
 >
 {style="tip"}
 
-## 基本字串操作
+## 基本字串操作 {id="basic-string-operations"}
 
 Kotlin 提供了一系列用於處理字串的操作。本節介紹一些最常用的操作。
 
@@ -193,7 +193,7 @@ Kotlin 提供了一系列用於處理字串的操作。本節介紹一些最常�
 >
 {style="tip"}
 
-### 取得字串長度
+### 取得字串長度 {id="get-string-length"}
 
 若要取得字串中的字元數量，請使用 [`length`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/length.html) 屬性：
 
@@ -208,7 +208,7 @@ fun main (){
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 存取字元
+### 存取字元 {id="access-characters"}
 
 您可以使用索引運算子 (`[]`) 存取字串中的個別字元：
 
@@ -244,7 +244,7 @@ fun main(){
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 擷取字串的部分內容
+### 擷取字串的部分內容 {id="extract-parts-of-a-string"}
 
 若要擷取字串的部分內容，請使用以下函式之一：
 
@@ -270,7 +270,7 @@ fun main() {
 
 由於 `String` 型別是不可變的，這些函式不會修改原始字串。
 
-### 比較字串
+### 比較字串 {id="compare-strings"}
 
 您可以使用 `==` 運算子檢查兩個字串是否具有相同的內容：
 
@@ -310,7 +310,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 處理字串內容
+### 處理字串內容 {id="work-with-string-content"}
 
 如果您想更改字串的內容，請使用 [`.trim()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/trim.html)、[`.replace()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/replace.html)、[`.uppercase()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/uppercase.html) 和 [`.lowercase()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/lowercase.html) 等函式建立其修改後的複本：
 
@@ -358,7 +358,7 @@ fun main() {
  ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 分割字串
+### 分割字串 {id="split-strings"}
 
 您可以使用 [`split()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/split.html) 函式根據分隔符號將字串分割成多個部分：
 
@@ -388,7 +388,7 @@ three"
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 建置與格式化字串
+### 建置與格式化字串 {id="build-and-format-strings"}
 
 > 對於 Kotlin 中的大多數格式化任務，請使用[字串範本](#字串範本)。
 >
@@ -459,7 +459,7 @@ val text = String.format("Hello, %s", "Kotlin")
 >
 {style="note"}
 
-## 字串轉換
+## 字串轉換 {id="string-conversion"}
 
 您經常會使用字串來表示其他型別的值，例如數字、`Boolean` 值或來自輸入的識別符。Kotlin 提供了將值轉換為字串以及將字串剖析為其他型別的函式。
 

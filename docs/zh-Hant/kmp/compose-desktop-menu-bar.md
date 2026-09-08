@@ -102,7 +102,7 @@ object AboutIcon : Painter() {
 
 在 Windows 和 Linux 上，功能表列是視窗的一部分。在 macOS 上，當視窗處於活動狀態時，它會顯示在螢幕頂端的系統功能表列中。
 
-## 後續步驟
+## 後續步驟 {id="what-s-next"}
 
 * 了解如何將應用程式圖示和功能表新增至 [系統匣](compose-desktop-tray.md)。
 * 探索有關 [其他桌面組件](compose-desktop-components.md) 的教學。

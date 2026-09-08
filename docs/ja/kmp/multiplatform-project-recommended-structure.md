@@ -7,7 +7,7 @@
 > この記事では、具体的に KMP プロジェクトについて説明します。
 > モジュール化の意思決定に関する一般的な理解については、[Android のモジュール化の概要](https://developer.android.com/topic/modularization)を参照してください。
 
-## 最適なモジュール構造
+## 最適なモジュール構造 {id="optimal-module-structure"}
 
 最適なモジュール構造は、目的や必要なターゲットによって異なります。
 KMP IDE プラグインウィザードの出力をさまざまな構成やターゲットセットで分析することで、デフォルトでプロジェクトがどのように整理されているかを確認できます。
@@ -30,7 +30,7 @@ KMP IDE プラグインウィザードの出力をさまざまな構成やター
 > 
 {style="note"}
 
-## アプリエントリポイント用の個別モジュールの作成
+## アプリエントリポイント用の個別モジュールの作成 {id="creating-separate-modules-for-app-entry-points"}
 
 推奨される構造への移行を説明するために使用するサンプルプロジェクトは、サンプルのリポジトリの [old-project-structure](https://github.com/kotlin-hands-on/get-started-with-cm/tree/old-project-structure) ブランチにある、古い Compose Multiplatform のサンプルです。
 
@@ -38,9 +38,9 @@ KMP IDE プラグインウィザードの出力をさまざまな構成やター
 
 エントリポイントを独自のモジュールに抽出するには、モジュールを作成し、コードを移動し、新しいモジュールと共通コードモジュールの両方の設定を適宜調整する必要があります。
 
-### デスクトップ JVM アプリ
+### デスクトップ JVM アプリ {id="desktop-jvm-app"}
 
-#### デスクトップアプリモジュールの作成と設定
+#### デスクトップアプリモジュールの作成と設定 {id="create-and-configure-the-desktop-app-module"}
 
 デスクトップアプリモジュール（`desktopApp`）を作成するには：
 
@@ -52,7 +52,7 @@ KMP IDE プラグインウィザードの出力をさまざまな構成やター
     include(":desktopApp")
     ```
 
-#### デスクトップアプリのビルドスクリプトの設定
+#### デスクトップアプリのビルドスクリプトの設定 {id="configure-the-build-script-for-the-desktop-app"}
 
 デスクトップアプリのビルドスクリプトを機能させるには：
 
@@ -114,7 +114,7 @@ KMP IDE プラグインウィザードの出力をさまざまな構成やター
     ```
 6. メインメニューから **Build | Sync Project with Gradle Files** を選択するか、エディタの Gradle リフレッシュボタンをクリックします。
 
-#### コードの移動とデスクトップアプリの実行
+#### コードの移動とデスクトップアプリの実行 {id="move-the-code-and-run-the-desktop-app"}
 
 設定が完了したら、デスクトップアプリのコードを新しいディレクトリに移動します：
 
@@ -134,9 +134,9 @@ KMP IDE プラグインウィザードの出力をさまざまな構成やター
        * Kotlin `sourceSets {}` ブロック内の `jvmMain.dependencies {}` ブロック
        * `kotlin {}` ブロック内の `jvm()` ターゲット宣言
 
-### Web アプリ
+### Web アプリ {id="web-app"}
 
-#### Web アプリモジュールの作成と設定
+#### Web アプリモジュールの作成と設定 {id="create-and-configure-the-web-app-module"}
 
 Web アプリモジュール（`webApp`）を作成するには：
 
@@ -148,7 +148,7 @@ Web アプリモジュール（`webApp`）を作成するには：
     include(":webApp")
     ```
 
-#### Web アプリのビルドスクリプトの設定
+#### Web アプリのビルドスクリプトの設定 {id="configure-the-build-script-for-the-web-app"}
 
 Web アプリのビルドスクリプトを機能させるには：
 
@@ -206,7 +206,7 @@ Web アプリのビルドスクリプトを機能させるには：
 
 5. メインメニューから **Build | Sync Project with Gradle Files** を選択するか、エディタの Gradle リフレッシュボタンをクリックします。
 
-#### コードの移動と Web アプリの実行
+#### コードの移動と Web アプリの実行 {id="move-the-code-and-run-the-web-app"}
 
 設定が完了したら、Web アプリのコードを新しいディレクトリに移動します：
 
@@ -225,7 +225,7 @@ Web アプリのビルドスクリプトを機能させるには：
         * Kotlin `sourceSets {}` ブロック内の `webMain.dependencies {}` ブロック
         * `kotlin {}` ブロック内の `js {}` および `wasmJs {}` ターゲット宣言
 
-### 共有モジュールの設定
+### 共有モジュールの設定 {id="configure-the-shared-module"}
 
 サンプルアプリでは、UI とビジネスロジックの両方のコードが共有されているため、すべての共通コードを保持するために単一の共有モジュールのみが必要です。`composeApp` を共通コードモジュールとして再利用するだけで済みます。
 
@@ -279,13 +279,13 @@ Gradle 設定で調整が必要な唯一のこと（エントリポイントモ�
    `kotlin.sourceSets.androidMain.dependencies {}` ブロックを削除します。
 7. Android アプリが期待通りに動作していることを確認します。
 
-### (任意) 共有ロジックと共有 UI の分離 {collapsible="true"}
+### (任意) 共有ロジックと共有 UI の分離 {collapsible="true" id="optional-separate-shared-logic-and-shared-ui"}
 
 プロジェクトの一部のターゲットがネイティブ UI を実装している場合、共通コードを `sharedLogic` モジュールと `sharedUI` モジュールに分離することをお勧めします。これにより、ネイティブ UI を持つアプリモジュールが、共有コードを使用するために Compose Multiplatform に依存する必要がなくなります。
 
 以下は、同じサンプルアプリに基づいたアプローチの例です。
 
-#### 共有ロジックモジュールの作成
+#### 共有ロジックモジュールの作成 {id="create-a-shared-logic-module"}
 
 実際にモジュールを作成する前に、何がビジネスロジックであるか、つまり UI とプラットフォームの両方に依存しないコードはどれかを判断する必要があります。
 この例では、唯一の候補は `currentTimeAt()` 関数です。これは、場所とタイムゾーンのペアに対して正確な時刻を返します。
@@ -403,7 +403,7 @@ Gradle 設定で調整が必要な唯一のこと（エントリポイントモ�
 これで、共有ロジックを別のモジュールに分離し、クロスプラットフォームで使用することに成功しました。
 次のステップ：共有 UI モジュールの作成。
 
-#### 共有 UI モジュールの作成
+#### 共有 UI モジュールの作成 {id="create-a-shared-ui-module"}
 
 共通の UI 要素を実装する共有コードを `sharedUI` モジュールに抽出します：
 
@@ -550,7 +550,7 @@ Gradle 設定で調整が必要な唯一のこと（エントリポイントモ�
 
 これで、クロスプラットフォーム UI コードを専用のモジュールに正常に移動できました。
 
-### iOS 統合の更新
+### iOS 統合の更新 {id="update-the-ios-integration"}
 
 iOS アプリのエントリポイントは個別の Gradle モジュールとして構築されていないため、ソースコードを任意のモジュールに埋め込むことができます。
 この例では、`shared` 内に残すことができます：

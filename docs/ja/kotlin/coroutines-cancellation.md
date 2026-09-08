@@ -15,7 +15,7 @@
 キャンセルは、コルーチンのライフサイクルと親子関係を表す [`Job`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/) ハンドルを介して機能します。
 `Job` を使用すると、[構造化された並行性（structured concurrency）](coroutines-basics.md#coroutine-scope-and-structured-concurrency)で定義されているように、コルーチンがアクティブかどうかを確認したり、コルーチンとその子をキャンセルしたりできます。
 
-## コルーチンのキャンセル
+## コルーチンのキャンセル {id="cancel-coroutines"}
 
 コルーチンは、その `Job` ハンドルに対して [`cancel()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/cancel.html) 関数が呼び出されるとキャンセルされます。
 [`.launch()`](coroutines-basics.md#coroutinescope-launch) などの [コルーチン・ビルダー関数](coroutines-basics.md#coroutine-builder-functions) は `Job` を返します。[`.async()`](coroutines-basics.md#coroutinescope-async) 関数は [`Deferred`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-deferred/) を返します。これは `Job` を実装しており、同じキャンセル動作をサポートします。
@@ -96,7 +96,7 @@ deferred.cancel()
 >
 {style="warning"}
 
-### キャンセルの伝搬
+### キャンセルの伝搬 {id="cancellation-propagation"}
 
 [構造化された並行性](coroutines-basics.md#coroutine-scope-and-structured-concurrency)により、コルーチンをキャンセルするとそのすべての子もキャンセルされることが保証されます。
 これにより、親コルーチンがキャンセルされた後に子コルーチンが作業を継続することを防ぎます。
@@ -157,7 +157,7 @@ Kotlin では、コルーチンのキャンセルは *協調的（cooperative）
 
 このセクションでは、[yield()](#the-yield-suspending-function) 関数の呼び出しなど、中断ポイントを追加することでコルーチンをキャンセルに反応させる方法について学びます。
 
-### 中断ポイントとキャンセル
+### 中断ポイントとキャンセル {id="suspension-points-and-cancellation"}
 
 コルーチンがキャンセルされた場合、コード内の中断可能な箇所、つまり *中断ポイント（suspension point）* に到達するまで実行を継続します。
 そこでコルーチンが中断する場合、その中断関数は自身がキャンセルされたかどうかを確認します。
@@ -221,7 +221,7 @@ println("All child jobs completed!")
 >
 {style="tip"}
 
-### `yield()` 中断関数
+### `yield()` 中断関数 {id="the-yield-suspending-function"}
 
 コルーチンが中断しない場合、そのコルーチンが完了するまで、同じスレッドで他のコルーチンを実行することはできません。
 その結果、中断しないコルーチンはそのスレッド上で順次実行されることになります。
@@ -264,7 +264,7 @@ runBlocking {
 
 この例では、各コルーチンが `yield()` を使用して、各反復の間に他のコルーチンが実行されるようにしています。
 
-### 明示的にキャンセルを確認する
+### 明示的にキャンセルを確認する {id="check-for-cancellation-explicitly"}
 
 キャンセルを明示的に確認することができ、これにより長時間実行されるコードが中断することなくキャンセルに反応できるようになります。
 中断しない長時間実行のコルーチンは、完了するまで同じスレッド上の他のコルーチンの実行を妨げる可能性があります。
@@ -275,7 +275,7 @@ API によっては、確認結果として Boolean 値を返すか、例外を�
 * [`isActive`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/is-active.html) プロパティは、コルーチンがキャンセルされると `false` を返します。
 * [`ensureActive()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/ensure-active.html) 関数は、コルーチンがキャンセルされると `CancellationException` をスローします。
 
-### コルーチンがキャンセルされたときにブロックするコードを中断（interrupt）する
+### コルーチンがキャンセルされたときにブロックするコードを中断（interrupt）する {id="interrupt-blocking-code-when-coroutines-are-canceled"}
 
 JVM では、`Thread.sleep()` や `BlockingQueue.take()` などの一部のブロック関数が現在のスレッドをブロックすることがあります。
 これらのブロック関数は中断（interrupt）することができ、それにより途中で停止させることができます。
@@ -318,7 +318,7 @@ withContext(Dispatchers.Default) {
 ```
 {kotlin-runnable="true" id="interrupt-cancellation-example"}
 
-## コルーチンキャンセル時の値を安全に処理する
+## コルーチンキャンセル時の値を安全に処理する {id="handle-values-safely-when-canceling-coroutines"}
 
 中断されたコルーチンがキャンセルされると、値がすでに利用可能であっても、値を返さずに `CancellationException` で再開されます。
 この動作は *即時キャンセル（prompt cancellation）* と呼ばれます。
@@ -430,7 +430,7 @@ class ScreenWithFileContents(private val scope: CoroutineScope) {
 
 この例では、`BufferedReader` を変数に保存し、`finally` ブロックで閉じることで、コルーチンがキャンセルされた場合でもリソースが解放されることを保証しています。
 
-### キャンセル不可なブロックを実行する
+### キャンセル不可なブロックを実行する {id="run-non-cancelable-blocks"}
 
 コルーチンの特定の箇所にキャンセルが影響しないようにすることができます。
 それには、`withContext()` コルーチン・ビルダー関数の引数として [`NonCancellable`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-non-cancellable/) を渡します。
@@ -484,7 +484,7 @@ suspend fun main() {
 ```
 {kotlin-runnable="true" id="noncancellable-blocks-example"}
 
-## タイムアウト
+## タイムアウト {id="timeout"}
 
 タイムアウトを使用すると、指定した時間の経過後にコルーチンを自動的にキャンセルできます。
 時間がかかりすぎる操作を停止するために使用できます。

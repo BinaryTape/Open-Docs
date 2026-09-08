@@ -4,7 +4,7 @@
 
 在本章中，您将学习 open 类、它们如何与接口配合使用，以及 Kotlin 中提供的其他特殊类型的类。
 
-## open 类
+## open 类 {id="open-classes"}
 
 如果无法使用接口或抽象类，可以通过将类声明为 **open** 来显式使其可继承。
 为此，请在类声明之前使用 `open` 关键字：
@@ -33,13 +33,13 @@ fun main() {
 
 就像创建普通类实例时一样，如果您的类继承自父类，那么它必须初始化父类标头中声明的所有形参。因此在示例中，`Car` 类的 `car` 实例初始化了父类形参：`make` 和 `model`。
 
-### 重写继承的行为
+### 重写继承的行为 {id="overriding-inherited-behavior"}
 
 如果您想继承一个类但更改其中的某些行为，您可以重写继承的行为。
 
 默认情况下，无法重写父类的成员函数或属性。与抽象类一样，您需要添加特殊的关键字。
 
-#### 成员函数
+#### 成员函数 {id="member-functions"}
 
 要允许父类中的函数被重写，请在父类中的函数声明前使用 `open` 关键字：
 
@@ -89,7 +89,7 @@ fun main() {
 * 在 `Car` 类中重写了 `displayInfo()` 函数，以同时打印车门数量。
 * 在 `car1` 和 `car2` 实例上调用重写的 `displayInfo()` 函数。
 
-#### 属性
+#### 属性 {id="properties"}
 
 在 Kotlin 中，使用 `open` 关键字使属性可继承并在以后重写它并不是常见的做法。大多数情况下，您会使用抽象类或接口，其中的属性默认是可继承的。
 
@@ -119,7 +119,7 @@ class Car(make: String, model: String, val numberOfDoors: Int) : Vehicle(make, m
 
 有关类继承和重写类行为的更多信息，请参阅 [继承](inheritance.md)。
 
-### open 类与接口
+### open 类与接口 {id="open-classes-and-interfaces"}
 
 您可以创建一个继承一个类 **并** 实现多个接口的类。在这种情况下，您必须在冒号之后先声明父类，然后再列出接口：
 
@@ -152,11 +152,11 @@ class ElectricCar(
 }
 ```
 
-## 特殊类
+## 特殊类 {id="special-classes"}
 
 除了抽象类、open 类和数据类之外，Kotlin 还有为各种目的设计的特殊类型的类，例如限制特定行为或减少创建小对象的性能影响。
 
-### 密封类
+### 密封类 {id="sealed-classes"}
 
 有时您可能想要限制继承。您可以使用密封类来实现这一点。密封类是一种特殊类型的 [抽象类](kotlin-tour-intermediate-classes-interfaces.md#abstract-classes)。一旦您声明一个类是密封的，您只能在同一个软件包内创建它的子类。在此作用域之外继承密封类是不可能的。
 
@@ -207,7 +207,7 @@ fun main() {
 
 有关密封类及其推荐用例的更多信息，请参阅 [密封类与接口](sealed-classes.md)。
 
-### 枚举类
+### 枚举类 {id="enum-classes"}
 
 当您想在类中表示有限的一组不同值时，枚举类非常有用。枚举类包含枚举常量，它们本身就是枚举类的实例。
 
@@ -301,7 +301,7 @@ fun main() {
 
 有关更多信息，请参阅 [枚举类](enum-classes.md)。
 
-### 内联值类
+### 内联值类 {id="inline-value-classes"}
 
 有时在代码中，您可能希望从类中创建小对象并仅短暂使用它们。这种做法可能会对性能产生影响。内联值类是一种特殊类型的类，可以避免这种性能影响。但是，它们只能包含值。
 
@@ -349,7 +349,7 @@ fun main() {
 
 有关内联值类的更多信息，请参阅 [内联值类](inline-classes.md)。
 
-## 练习 {completion-point="true"}
+## 练习 {completion-point="true" id="practice"}
 
 ### 练习 1 {initial-collapse-state="collapsed" collapsible="true" id="special-classes-exercise-1"}
 

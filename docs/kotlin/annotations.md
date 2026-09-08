@@ -8,7 +8,7 @@
 >
 {style="tip"}
 
-## 声明
+## 声明 {id="declaration"}
 
 注解是一种特殊的类。要声明注解，请在类声明前使用 `annotation` 关键字：
 
@@ -32,7 +32,7 @@ annotation class Fancy
 annotation class Fancy
 ```
 
-## 用法
+## 用法 {id="usage"}
 
 ```kotlin
 @Fancy class Foo {
@@ -57,7 +57,7 @@ class Foo {
 }
 ```
 
-## 构造函数
+## 构造函数 {id="constructors"}
 
 注解可以拥有接受参数的构造函数。
 
@@ -101,7 +101,7 @@ annotation class Ann(val arg1: KClass<*>, val arg2: KClass<out Any>)
 @Ann(String::class, Int::class) class MyClass
 ```
 
-## 实例化
+## 实例化 {id="instantiation"}
 
 在 Java 中，注解类型是接口的一种形式，因此您可以实现它并使用实例。作为该机制的替代方案，Kotlin 允许您在任意代码中调用注解类的构造函数，并同样使用生成的实例。
 
@@ -120,7 +120,7 @@ fun main(args: Array<String>) {
 
 在 [此 KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/annotation-instantiation.md) 中了解更多关于注解类实例化的信息。
 
-## Lambda 表达式
+## Lambda 表达式 {id="lambdas"}
 
 注解也可以用于 lambda 表达式。它们将被应用于生成 lambda 表达式体的 `invoke()` 方法。这对于像 [Quasar](https://docs.paralleluniverse.co/quasar/) 这样的框架非常有用，该框架使用注解进行并发控制。
 
@@ -130,7 +130,7 @@ annotation class Suspendable
 val f = @Suspendable { Fiber.sleep(10) }
 ```
 
-## 注解使用处目标
+## 注解使用处目标 {id="annotation-use-site-targets"}
 
 当您为属性或主构造函数形参添加注解时，会从相应的 Kotlin 元素生成多个 Java 元素，因此在生成的 Java 字节码中注解可能有多个可能的位置。要指定注解具体应如何生成，请使用以下语法：
 
@@ -177,7 +177,7 @@ class Example {
   * `setparam`（属性 setter 形参）
   * `delegate`（存储委托属性的委托实例的字段）
 
-### 未指定使用处目标时的默认情况
+### 未指定使用处目标时的默认情况 {id="defaults-when-no-use-site-targets-are-specified"}
 
 如果您不指定使用处目标，则编译器会根据所使用注解的 `@Target` 注解来选择目标。如果有多个适用的目标，则编译器会按以下顺序选择一个或多个目标：
 
@@ -215,7 +215,7 @@ data class User(val username: String,
 * 不在主构造函数中声明。
 * 没有自定义 getter 或 setter，因此编译器会生成一个支持字段。
 
-### `all` 元目标
+### `all` 元目标 {id="all-meta-target"}
 
 使用 `all` 目标可以更轻松地将同一个注解不仅应用于形参和属性或字段，还应用于相应的 getter 和 setter。
 
@@ -252,7 +252,7 @@ data class User(
 
 您可以将 `all` 元目标用于任何属性，无论是在主构造函数内部还是外部。
 
-#### 限制
+#### 限制 {id="limitations"}
 
 `all` 目标存在一些限制：
 
@@ -264,7 +264,7 @@ data class User(
     ```
 * 它不能与 [委托属性](delegated-properties.md) 一起使用。
 
-## Java 注解
+## Java 注解 {id="java-annotations"}
 
 Java 注解与 Kotlin 100% 兼容：
 
@@ -314,7 +314,7 @@ public @interface AnnWithValue {
 @AnnWithValue("abc") class C
 ```
 
-### 数组作为注解参数
+### 数组作为注解参数 {id="arrays-as-annotation-parameters"}
 
 如果 Java 中的 `value` 实参具有数组类型，它在 Kotlin 中会变成一个 `vararg` 参数：
 
@@ -344,7 +344,7 @@ public @interface AnnWithArrayMethod {
 class C
 ```
 
-### 访问注解实例的属性
+### 访问注解实例的属性 {id="accessing-properties-of-an-annotation-instance"}
 
 注解实例的值会作为属性暴露给 Kotlin 代码：
 
@@ -362,13 +362,13 @@ fun foo(ann: Ann) {
 }
 ```
 
-### 能够不生成 JVM 1.8+ 注解目标
+### 能够不生成 JVM 1.8+ 注解目标 {id="ability-to-not-generate-jvm-1-8-annotation-targets"}
 
 如果 Kotlin 注解在其 Kotlin 目标中包含 `TYPE`，则该注解在其 Java 注解目标列表中映射为 `java.lang.annotation.ElementType.TYPE_USE`。这就像 `TYPE_PARAMETER` Kotlin 目标映射到 `java.lang.annotation.ElementType.TYPE_PARAMETER` Java 目标一样。对于 API 级别低于 26 的 Android 客户端来说，这是一个问题，因为它们的 API 中没有这些目标。
 
 要避免生成 `TYPE_USE` 和 `TYPE_PARAMETER` 注解目标，请使用新的编译器参数 `-Xno-new-java-annotation-targets`。
 
-## 可重复注解
+## 可重复注解 {id="repeatable-annotations"}
 
 与 [Java 中](https://docs.oracle.com/javase/tutorial/java/annotations/repeating.html)一样，Kotlin 拥有可重复注解，可以多次应用于单个代码元素。要使您的注解可重复，请使用 [`@kotlin.annotation.Repeatable`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.annotation/-repeatable/) 元注解标记其声明。这将使其在 Kotlin 和 Java 中都是可重复的。Kotlin 端也支持 Java 可重复注解。
 

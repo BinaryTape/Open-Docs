@@ -4,13 +4,13 @@ title: R8 / ProGuard
 
 本页面介绍了 Koin 在代码缩减和混淆 (R8 / ProGuard) 下的表现、Koin 为你保留的内容，以及**你**需要在应用中保留的内容。
 
-## TL;DR
+## TL;DR {id="tl-dr"}
 
 - **Koin 的核心解析对 R8 是安全的。** `get<T>()`、`inject<T>()` 以及 `*Of` 构建器 (`singleOf`、`factoryOf`、`viewModelOf`……) 在**编译时**解析依赖项 —— 它们使用具体化类型，并在 Android/JVM 上通过 `Class.getName()` 作为注册表的键。对你的构造函数**没有运行时反射**，因此你**不需要**代表 Koin 保留你的定义、ViewModel 或它们的构造函数。
 - Koin 在其 Android AAR (`koin-android`、`koin-core-viewmodel`、`koin-compose-viewmodel`、`koin-androidx-workmanager`、`koin-androidx-startup`) 中附带了 `consumer-rules.pro`，因此以下规则会自动应用 —— 你通常不需要添加任何内容。
 - 你仍然需要保留**其他组件**通过反射加载的类（见下文）。
 
-## Koin 为你保留的内容（附带的消费者规则）
+## Koin 为你保留的内容（附带的消费者规则） {id="what-koin-keeps-for-you-shipped-consumer-rules"}
 
 AAR 会静默关于 Koin 内部机制的 R8 警告：
 
@@ -20,7 +20,7 @@ AAR 会静默关于 Koin 内部机制的 R8 警告：
 
 `koin-androidx-startup` 还会保留其在清单文件中引用的初始值设定项。这些都不会保留你的应用程序类 —— Koin 不需要保留它们。
 
-## 你必须保留的内容
+## 你必须保留的内容 {id="what-you-must-keep"}
 
 这些来自平台或库，而不是来自 Koin 的解析：
 
@@ -33,7 +33,7 @@ AAR 会静默关于 Koin 内部机制的 R8 警告：
 -keep class com.example.** implements android.os.Parcelable { *; }
 ```
 
-## ViewModel 与 SavedStateHandle (#2044)
+## ViewModel 与 SavedStateHandle (#2044) {id="viewmodels-savedstatehandle-2044"}
 
 一种普遍的观点认为，间歇性的 `No definition found for SavedStateHandle` 崩溃是由 R8 剥离了 Koin 的 ViewModel 反射引起的。**事实并非如此** —— `viewModelOf(::MyViewModel)` 是编译时的，因此在你的 ViewModel 上添加 `-keep` 不会改变 Koin 的解析。
 
@@ -58,6 +58,6 @@ startKoin {
 }
 ```
 
-## 非 Android 目标 (JS / WASM / Native)
+## 非 Android 目标 (JS / WASM / Native) {id="non-android-targets-js-wasm-native"}
 
 在 Android/JVM 上，Koin 通过 `Class.getName()` 作为注册表的键，这在 R8 下是稳定的。在 **Kotlin/JS、WASM 和 Native** 上，Koin 使用来自 Kotlin 反射的 `qualifiedName` / `simpleName`。在这些目标上进行激进的名称混淆可能会影响类型标识 —— 在混淆非 Android 目标时，建议优先使用**命名限定符** (`named("...")`)，而不是依赖类名。

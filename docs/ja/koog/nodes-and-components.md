@@ -63,9 +63,9 @@ graph LR
 
 詳細については、[node()](api:agents-core::ai.koog.agents.core.dsl.builder.node) (Kotlin) または Java 用の [AIAgentNode.builder()](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentNode.Companion.builder) を参照してください。
 
-## ユーティリティノード
+## ユーティリティノード {id="utility-nodes"}
 
-### パススルーノード
+### パススルーノード {id="pass-through-node"}
 
 何も行わず、入力をそのまま出力として返すシンプルなパススルーノードです。詳細は [nodeDoNothing](api:agents-core::ai.koog.agents.core.dsl.extension.nodeDoNothing) (Kotlin) または [AIAgentNode.doNothing()](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentNode.Companion.doNothing) (Java) を参照してください。
 
@@ -137,9 +137,9 @@ graph LR
     ```
     <!--- KNIT exampleNodesAndComponentsJava02.java -->
 
-## LLMノード
+## LLMノード {id="llm-nodes"}
 
-### プロンプト準備ノード
+### プロンプト準備ノード {id="prompt-preparation-node"}
 
 **提供されたプロンプトビルダーを使用して、LLMプロンプトにメッセージを追加するノードです。これは、実際のLLMリクエストを行う前に、会話のコンテキストを修正するのに役立ちます。** 詳細は [nodeAppendPrompt](api:agents-core::ai.koog.agents.core.dsl.extension.nodeAppendPrompt) (Kotlin) または [AIAgentNode.appendPrompt()](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentNodeBuilderWithInput.appendPrompt) (Java) を参照してください。
 
@@ -247,7 +247,7 @@ graph LR
     ```
     <!--- KNIT exampleNodesAndComponentsJava03.java -->
 
-### ツール呼び出し専用ノード
+### ツール呼び出し専用ノード {id="tool-only-node"}
 
 LLMプロンプトにユーザーメッセージを追加し、LLMがツール呼び出しのみを行えるレスポンスを取得するノードです。詳細は [nodeLLMSendMessageOnlyCallingTools](api:agents-core::ai.koog.agents.core.dsl.extension.nodeLLMSendMessageOnlyCallingTools) (Kotlin) または [AIAgentNode.llmSendMessageOnlyCallingTools()](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentNode.Companion.llmSendMessageOnlyCallingTools) (Java) を参照してください。
 
@@ -266,7 +266,7 @@ graph LR
 ```
 <!--- KNIT example-nodes-and-component-04.txt -->
 
-### 特定ツールの使用強制ノード
+### 特定ツールの使用強制ノード {id="forced-single-tool-use-node"}
 
 LLMプロンプトにユーザーメッセージを追加し、LLMに特定のツールの使用を強制するノードです。詳細は [nodeLLMSendMessageForceOneTool](api:agents-core::ai.koog.agents.core.dsl.extension.nodeLLMSendMessageForceOneTool) (Kotlin) または [AIAgentNode.llmSendMessageForceOneTool()](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentNode.Companion.llmSendMessageForceOneTool) (Java) を参照してください。
 
@@ -285,7 +285,7 @@ graph LR
 ```
 <!--- KNIT example-nodes-and-component-05.txt -->
 
-### LLMリクエストノード
+### LLMリクエストノード {id="llm-request-node"}
 
 LLMプロンプトにユーザーメッセージを追加し、オプションでツールを使用できるレスポンスを取得するノードです。ノードの設定により、メッセージの処理中にツール呼び出しを許可するかどうかが決まります。詳細は [nodeLLMRequest](api:agents-core::ai.koog.agents.core.dsl.extension.nodeLLMRequest) (Kotlin) または [AIAgentNode.llmRequest()](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentNode.Companion.llmRequest) (Java) を参照してください。
 
@@ -360,7 +360,7 @@ graph LR
     ```
     <!--- KNIT exampleNodesAndComponentsJava04.java -->
 
-### 構造化レスポンス対応LLMリクエストノード
+### 構造化レスポンス対応LLMリクエストノード {id="llm-request-node-with-structured-response"}
 
 LLMプロンプトにユーザーメッセージを追加し、エラー訂正機能を備えた構造化データをLLMに要求するノードです。詳細は [nodeLLMRequestStructured](api:agents-core::ai.koog.agents.core.dsl.extension.nodeLLMRequestStructured) (Kotlin) または [AIAgentNode.llmRequestStructured()](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentNode.Companion.llmRequestStructured) (Java) を参照してください。
 
@@ -379,7 +379,7 @@ graph LR
 ```
 <!--- KNIT example-nodes-and-component-07.txt -->
 
-### ストリーミングレスポンス対応LLMリクエストノード
+### ストリーミングレスポンス対応LLMリクエストノード {id="llm-request-node-with-streaming-response"}
 
 LLMプロンプトにユーザーメッセージを追加し、ストリームデータの変換の有無にかかわらず、LLMレスポンスをストリーミングするノードです。詳細は [nodeLLMRequestStreaming](api:agents-core::ai.koog.agents.core.dsl.extension.nodeLLMRequestStreaming) (Kotlin) または [AIAgentNode.llmRequestStreaming()](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentNode.Companion.llmRequestStreaming) (Java) を参照してください。
 
@@ -398,7 +398,7 @@ graph LR
 ```
 <!--- KNIT example-nodes-and-component-08.txt -->
 
-### 複数レスポンス対応LLMリクエストノード
+### 複数レスポンス対応LLMリクエストノード {id="llm-request-node-with-multiple-responses"}
 
 LLMプロンプトにユーザーメッセージを追加し、ツール呼び出しを有効にした状態で複数のLLMレスポンスを取得するノードです。詳細は [nodeLLMRequest](api:agents-core::ai.koog.agents.core.dsl.extension.nodeLLMRequest) (Kotlin) または [AIAgentNode.llmRequest()](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentNode.Companion.llmRequest) (Java) を参照してください。
 
@@ -475,7 +475,7 @@ graph LR
     ```
     <!--- KNIT exampleNodesAndComponentsJava05.java -->
 
-### 履歴圧縮ノード
+### 履歴圧縮ノード {id="history-compression-node"}
 
 現在のLLMプロンプト（メッセージ履歴）を要約に圧縮し、メッセージを簡潔なサマリー（TL;DR）に置き換えるノードです。これは、履歴を圧縮してトークンの使用量を抑えることにより、長い会話を管理するのに役立ちます。詳細は [nodeLLMCompressHistory](api:agents-core::ai.koog.agents.core.dsl.extension.nodeLLMCompressHistory) (Kotlin) または [AIAgentNode.llmCompressHistory()](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentNode.Companion.llmCompressHistory) (Java) を参照してください。
 
@@ -557,9 +557,9 @@ graph LR
     ```
     <!--- KNIT exampleNodesAndComponentsJava06.java -->
 
-## ツールノード
+## ツールノード {id="tool-nodes"}
 
-### ツール実行ノード
+### ツール実行ノード {id="tool-execution-node"}
 
 単一のツール呼び出しを実行し、その結果を返すノードです。このノードは、LLMによって行われたツール呼び出しを処理するために使用されます。詳細は [nodeExecuteTool](api:agents-core::ai.koog.agents.core.dsl.extension.nodeExecuteTool) (Kotlin) または [AIAgentNode.executeTool()](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentNode.Companion.executeTool) (Java) を参照してください。
 
@@ -636,7 +636,7 @@ graph LR
     ```
     <!--- KNIT exampleNodesAndComponentsJava07.java -->
 
-### ツール結果フォローアップノード
+### ツール結果フォローアップノード {id="tool-result-follow-up-node"}
 
 ツールの結果をプロンプトに追加し、LLMレスポンスを要求するノードです。詳細は [nodeLLMSendToolResult](api:agents-core::ai.koog.agents.core.dsl.extension.nodeLLMSendToolResult) (Kotlin) または [AIAgentNode.llmSendToolResult()](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentNode.Companion.llmSendToolResult) (Java) を参照してください。
 
@@ -705,7 +705,7 @@ graph LR
     ```
     <!--- KNIT exampleNodesAndComponentsJava08.java -->
 
-### 複数ツール実行ノード
+### 複数ツール実行ノード {id="multi-tool-execution-node"}
 
 複数のツール呼び出しを実行するノードです。これらの呼び出しは、オプションで並列実行できます。詳細は [nodeExecuteMultipleTools](api:agents-core::ai.koog.agents.core.dsl.extension.nodeExecuteMultipleTools) (Kotlin) または [AIAgentNode.executeMultipleTools()](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentNode.Companion.executeMultipleTools) (Java) を参照してください。
 
@@ -783,7 +783,7 @@ graph LR
     ```
     <!--- KNIT exampleNodesAndComponentsJava09.java -->
 
-### 複数ツール結果フォローアップノード
+### 複数ツール結果フォローアップノード {id="multiple-tool-result-follow-up-node"}
 
 複数のツールの結果をプロンプトに追加し、複数のLLMレスポンスを取得するノードです。詳細は [nodeLLMSendMultipleToolResults](api:agents-core::ai.koog.agents.core.dsl.extension.nodeLLMSendMultipleToolResults) (Kotlin) または [AIAgentNode.llmSendMultipleToolResults()](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentNode.Companion.llmSendMultipleToolResults) (Java) を参照してください。
 
@@ -853,7 +853,7 @@ graph LR
     ```
     <!--- KNIT exampleNodesAndComponentsJava10.java -->
 
-## ノード出力の変換
+## ノード出力の変換 {id="node-output-transformation"}
 
 フレームワークは、出力に変換を適用する「変換済みノード」を作成できる Kotlin の `transform` 拡張関数を提供しています。Java では、明示的な変換を行う中間ノードを作成することで、同じ結果を実現します。これは、元のノードの機能を維持したまま、ノードの出力を別の型や形式に変換する必要がある場合に便利です。
 
@@ -875,7 +875,7 @@ graph LR
 ```
 <!--- KNIT example-nodes-and-component-15.txt -->
 
-### ノードの変換
+### ノードの変換 {id="node-transformation"}
 
 Kotlin では、[transform()](api:agents-core::ai.koog.agents.core.dsl.builder.AIAgentNodeDelegate.transform) 関数は、元のノードをラップし、その出力に変換関数を適用する新しい `AIAgentNodeDelegate` を作成します。Java では、`AIAgentNode.builder()` と明示的な型パラメータを使用して、変換ロジックを含むノードを手動で構成する必要があります。
 
@@ -903,7 +903,7 @@ Kotlin では、[transform()](api:agents-core::ai.koog.agents.core.dsl.builder.A
     ```
     <!--- KNIT example-nodes-and-component-java-01.java -->
 
-#### カスタムノードの変換
+#### カスタムノードの変換 {id="custom-node-transformation"}
 
 カスタムノードの出力を別のデータ型に変換します。
 
@@ -964,7 +964,7 @@ Kotlin では、[transform()](api:agents-core::ai.koog.agents.core.dsl.builder.A
     ```
     <!--- KNIT exampleNodesAndComponentsJava11.java -->
 
-#### 組み込みノードの変換
+#### 組み込みノードの変換 {id="built-in-node-transformation"}
 
 `nodeLLMRequest` (Kotlin) または `AIAgentNode.llmRequest()` (Java) のような組み込みノードの出力を変換します。
 
@@ -1033,7 +1033,7 @@ Kotlin では、[transform()](api:agents-core::ai.koog.agents.core.dsl.builder.A
     ```
     <!--- KNIT exampleNodesAndComponentsJava12.java -->
 
-## 構成済みサブグラフ
+## 構成済みサブグラフ {id="predefined-subgraphs"}
 
 フレームワークは、一般的に使用されるパターンやワークフローをカプセル化した構成済みサブグラフを提供しています。これらのサブグラフは、ベースとなるノードとエッジの作成を自動的に処理することで、複雑なエージェント戦略の開発を簡素化します。APIはKotlinとJavaの間で一貫しており、KotlinではDSL関数を使用し、Javaではビルダーメソッドを使用します。
 
@@ -1043,7 +1043,7 @@ Kotlin では、[transform()](api:agents-core::ai.koog.agents.core.dsl.builder.A
 2. タスクを実行する。
 3. タスク結果を検証する。結果が不正確な場合は、調整を行うためのフィードバックメッセージを添えてステップ2に戻る。
 
-### タスク実行サブグラフ
+### タスク実行サブグラフ {id="task-execution-subgraph"}
 
 提供されたツールを使用して特定のタスクを実行し、構造化された結果を返すサブグラフです。マルチレスポンスLLMインタラクション（アシスタントがツール呼び出しを挟んで複数のレスポンスを生成する場合がある）をサポートし、ツール呼び出しの実行方法を制御できます。Kotlin では [subgraphWithTask()](api:agents-core::ai.koog.agents.ext.agent.subgraphWithTask) を、Java では [AIAgentSubgraph.builder().withTask()](api:agents-core::ai.koog.agents.core.agent.entity.TypedAIAgentSubgraphBuilder.withTask) を使用します。
 
@@ -1132,7 +1132,7 @@ APIでは、オプションのパラメータを使用して実行を微調整�
     ```
     <!--- KNIT exampleNodesAndComponentsJava13.java -->
 
-### 検証機能付きタスク実行サブグラフ
+### 検証機能付きタスク実行サブグラフ {id="task-execution-subgraph-with-verification"}
 
 `subgraphWithTask` の特別バージョンで、タスクが正しく実行されたかどうかを検証し、発生した問題の詳細を提供します。このサブグラフは、バリデーションや品質チェックが必要なワークフローに役立ちます。Kotlin では [subgraphWithVerification()](api:agents-core::ai.koog.agents.ext.agent.subgraphWithVerification) を、Java では `AIAgentSubgraph.builder().withVerification()` を使用します。
 
@@ -1224,14 +1224,14 @@ APIでは、オプションのパラメータを使用して実行を微調整�
     ```
     <!--- KNIT exampleNodesAndComponentsJava14.java -->
 
-## 構成済みの戦略（Strategy）と一般的な戦略パターン
+## 構成済みの戦略（Strategy）と一般的な戦略パターン {id="predefined-strategies-and-common-strategy-patterns"}
 
 Koogは、さまざまなノードを組み合わせた構成済みの戦略（Strategy）を提供しています。
 ノードは、各エッジをいつたどるかを指定する条件とともに、エッジを使用して接続され、操作のフローを定義します。
 
 必要に応じて、これらの戦略をエージェントワークフローに統合できます。
 
-### 単発実行戦略
+### 単発実行戦略 {id="single-run-strategy"}
 
 単発実行戦略は、エージェントが一度だけ入力を処理して結果を返す、非対話型のユースケース向けに設計されています。
 
@@ -1323,7 +1323,7 @@ Koogは、さまざまなノードを組み合わせた構成済みの戦略（S
     ```
     <!--- KNIT exampleNodesAndComponentsJava15.java -->
 
-### ツールベースの戦略
+### ツールベースの戦略 {id="tool-based-strategy"}
 
 ツールベースの戦略は、特定の操作を実行するためにツールに大きく依存するワークフロー向けに設計されています。
 通常、LLMの決定に基づいてツールを実行し、その結果を処理します。
@@ -1447,7 +1447,7 @@ Koogは、さまざまなノードを組み合わせた構成済みの戦略（S
     ```
     <!--- KNIT exampleNodesAndComponentsJava16.java -->
 
-### ストリーミングデータ戦略
+### ストリーミングデータ戦略 {id="streaming-data-strategy"}
 
 ストリーミングデータ戦略は、LLMからのストリーミングデータを処理するために設計されています。通常、ストリーミングデータを要求し、それを処理し、処理されたデータを使用してツールを呼び出す可能性があります。
 

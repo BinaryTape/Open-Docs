@@ -23,7 +23,7 @@ K2 컴파일러의 등장과 함께 코틀린 프런트엔드는 완전히 새�
 >
 {style="note"}
 
-## 성능 개선 사항
+## 성능 개선 사항 {id="performance-improvements"}
 
 K2 컴파일러의 성능을 평가하기 위해 [Anki-Android](https://github.com/ankidroid/Anki-Android)와 [Exposed](https://github.com/JetBrains/Exposed), 두 개의 오픈 소스 프로젝트에서 성능 테스트를 수행했습니다. 테스트를 통해 발견된 주요 성능 개선 사항은 다음과 같습니다.
 
@@ -33,11 +33,11 @@ K2 컴파일러의 성능을 평가하기 위해 [Anki-Android](https://github.c
 
 이러한 개선 사항에 대한 더 자세한 내용과 K2 컴파일러의 성능 분석 방법에 대해 알아보려면 [블로그 포스트](https://blog.jetbrains.com/kotlin/2024/04/k2-compiler-performance-benchmarks-and-how-to-measure-them-on-your-projects/)를 확인하세요.
 
-## 언어 기능 개선 사항
+## 언어 기능 개선 사항 {id="language-feature-improvements"}
 
 코틀린 K2 컴파일러는 [스마트 캐스트](#smart-casts) 및 [코틀린 멀티플랫폼](#kotlin-multiplatform)과 관련된 언어 기능을 개선했습니다.
 
-### 스마트 캐스트
+### 스마트 캐스트 {id="smart-casts"}
 
 코틀린 컴파일러는 특정 상황에서 객체를 특정 타입으로 자동으로 캐스팅하여, 개발자가 명시적으로 타입을 지정해야 하는 번거로움을 덜어줍니다. 이를 [스마트 캐스트(smart-casting)](typecasts.md#smart-casts)라고 합니다. 코틀린 K2 컴파일러는 이제 이전보다 더 많은 시나리오에서 스마트 캐스트를 수행합니다.
 
@@ -50,7 +50,7 @@ K2 컴파일러의 성능을 평가하기 위해 [Anki-Android](https://github.c
 * [예외 처리](#exception-handling)
 * [증감 연산자](#increment-and-decrement-operators)
 
-#### 지역 변수 및 이후 스코프
+#### 지역 변수 및 이후 스코프 {id="local-variables-and-further-scopes"}
 
 이전에는 변수가 `if` 조건 내에서 `null`이 아닌 것으로 평가되면 해당 변수는 스마트 캐스트되었습니다. 이 변수에 대한 정보는 `if` 블록의 스코프 내에서 공유되었습니다.
 
@@ -87,7 +87,7 @@ fun main(){
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-smart-casts-k2-local-variables" validate="false"}
 
-#### 논리 연산자 or를 사용한 타입 검사
+#### 논리 연산자 or를 사용한 타입 검사 {id="type-checks-with-the-logical-or-operator"}
 
 코틀린 2.0.0에서는 객체에 대한 타입 검사를 `or` 연산자(`||`)로 결합하면, 이들의 가장 가까운 공통 상위 타입(common supertype)으로 스마트 캐스트가 이루어집니다. 이 변경 이전에는 항상 `Any` 타입으로 스마트 캐스트되었습니다.
 
@@ -120,7 +120,7 @@ fun signalCheck(signalStatus: Any) {
 >
 {style="note"}
 
-#### 인라인 함수
+#### 인라인 함수 {id="inline-functions"}
 
 코틀린 2.0.0에서 K2 컴파일러는 인라인 함수를 다르게 처리하여, 다른 컴파일러 분석과 결합하여 스마트 캐스트가 안전한지 여부를 결정할 수 있게 합니다.
 
@@ -162,7 +162,7 @@ fun runProcessor(): Processor? {
 }
 ```
 
-#### 함수 타입 프로퍼티
+#### 함수 타입 프로퍼티 {id="properties-with-function-types"}
 
 이전 버전의 코틀린에서는 함수 타입을 가진 클래스 프로퍼티가 스마트 캐스트되지 않는 버그가 있었습니다. 코틀린 2.0.0과 K2 컴파일러에서 이 동작을 수정했습니다. 예시는 다음과 같습니다.
 
@@ -203,7 +203,7 @@ class Holder(val provider: Provider?, val processor: Processor?) {
 }
 ```
 
-#### 예외 처리
+#### 예외 처리 {id="exception-handling"}
 
 코틀린 2.0.0에서는 예외 처리를 개선하여 스마트 캐스트 정보가 `catch` 및 `finally` 블록으로 전달될 수 있도록 했습니다. 이 변경은 컴파일러가 객체가 널 허용 타입인지 여부를 추적하므로 코드를 더욱 안전하게 만듭니다. 예시는 다음과 같습니다.
 
@@ -242,7 +242,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-smart-casts-k2-exception-handling"}
 
-#### 증감 연산자
+#### 증감 연산자 {id="increment-and-decrement-operators"}
 
 코틀린 2.0.0 이전에는 컴파일러가 증감 연산자를 사용한 후 객체의 타입이 변할 수 있음을 이해하지 못했습니다. 컴파일러가 객체 타입을 정확하게 추적할 수 없었기 때문에 해결되지 않은 참조(unresolved reference) 에러가 발생할 수 있었습니다. 코틀린 2.0.0에서 이 문제가 해결되었습니다.
 
@@ -292,14 +292,14 @@ fun main(input: Rho) {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-smart-casts-k2-increment-decrement-operators" validate="false"}
 
-### 코틀린 멀티플랫폼
+### 코틀린 멀티플랫폼 {id="kotlin-multiplatform"}
 
 K2 컴파일러는 코틀린 멀티플랫폼과 관련된 다음 영역에서도 개선을 이루었습니다.
 
 * [컴파일 중 공통 및 플랫폼 소스 분리](#separation-of-common-and-platform-sources-during-compilation)
 * [expected 및 actual 선언의 가시성 수준 차이 허용](#different-visibility-levels-of-expected-and-actual-declarations)
 
-#### 컴파일 중 공통 및 플랫폼 소스 분리
+#### 컴파일 중 공통 및 플랫폼 소스 분리 {id="separation-of-common-and-platform-sources-during-compilation"}
 
 이전에는 코틀린 컴파일러 설계 구조상 컴파일 시점에 공통(common) 소스 세트와 플랫폼 소스 세트를 별도로 유지할 수 없었습니다. 그 결과, 공통 코드가 플랫폼 코드에 접근할 수 있게 되어 플랫폼 간에 서로 다른 동작이 발생하곤 했습니다. 또한 공통 코드의 일부 컴파일러 설정과 의존성이 플랫폼 코드로 유출되는 경우도 있었습니다.
 
@@ -384,7 +384,7 @@ actual class Identity {
 Expected class 'expect class Identity : Any' does not have default constructor
 ```
 
-##### 분석 동작이 변하지 않는 경우
+##### 분석 동작이 변하지 않는 경우 {id="when-resolution-behavior-doesn-t-change"}
 
 현재 새로운 컴파일 체계로 마이그레이션 중이므로, 동일한 소스 세트 내에 있지 않은 함수를 호출할 때는 분석 동작이 이전과 동일합니다. 주로 공통 코드에서 멀티플랫폼 라이브러리의 오버로드를 사용할 때 이러한 차이를 느낄 수 있습니다.
 
@@ -433,7 +433,7 @@ fun whichFun(x: Int) = println("platform function")
 
 향후에는 이러한 잔여 사례들도 새로운 컴파일 체계와 더욱 일관되게 바뀔 예정입니다.
 
-#### expected 및 actual 선언의 가시성 수준 차이 허용
+#### expected 및 actual 선언의 가시성 수준 차이 허용 {id="different-visibility-levels-of-expected-and-actual-declarations"}
 
 코틀린 2.0.0 이전에는 코틀린 멀티플랫폼 프로젝트에서 [expected 및 actual 선언](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html)을 사용할 때 동일한 [가시성 수준(visibility level)](visibility-modifiers.md)을 가져야 했습니다. 코틀린 2.0.0은 이제 서로 다른 가시성 수준을 지원하지만, actual 선언이 expected 선언보다 **더 허용적인(more permissive)** 경우에만 해당합니다. 예를 들어 다음과 같습니다.
 
@@ -453,17 +453,17 @@ class Expanded                                  // 기본 가시성이 public이
                                                 // 더 허용적임
 ```
 
-## 코틀린 K2 컴파일러 활성화 방법
+## 코틀린 K2 컴파일러 활성화 방법 {id="how-to-enable-the-kotlin-k2-compiler"}
 
 코틀린 2.0.0 버전부터 코틀린 K2 컴파일러가 기본적으로 활성화됩니다.
 
 코틀린 버전을 업그레이드하려면 [Gradle](gradle-configure-project.md#apply-the-plugin) 또는 [Maven](maven-configure-project.md) 빌드 스크립트에서 버전을 2.0.0 이상으로 변경하세요.
 
-### Gradle에서 코틀린 빌드 보고서 사용
+### Gradle에서 코틀린 빌드 보고서 사용 {id="use-kotlin-build-reports-with-gradle"}
 
 코틀린 [빌드 보고서(build reports)](gradle-compilation-and-caches.md#build-reports)는 코틀린 컴파일러 작업의 다양한 컴파일 단계에서 소요된 시간 정보뿐만 아니라 사용된 컴파일러 및 코틀린 버전, 증분 컴파일 여부 등을 제공합니다. 이러한 빌드 보고서는 빌드 성능을 평가하는 데 유용합니다. 모든 Gradle 작업의 성능 개요를 제공하므로 [Gradle 빌드 스캔(build scans)](https://scans.gradle.com/)보다 코틀린 컴파일 파이프라인에 대해 더 많은 통찰력을 제공합니다.
 
-#### 빌드 보고서 활성화 방법
+#### 빌드 보고서 활성화 방법 {id="how-to-enable-build-reports"}
 
 빌드 보고서를 활성화하려면 `gradle.properties` 파일에 빌드 보고서 출력을 저장할 위치를 선언하세요.
 
@@ -483,15 +483,15 @@ kotlin.build.report.output=file
 
 빌드 보고서로 할 수 있는 작업에 대한 자세한 내용은 [빌드 보고서](gradle-compilation-and-caches.md#build-reports)를 참조하세요.
 
-## IDE 지원
+## IDE 지원 {id="support-in-ides"}
 
 IntelliJ IDEA 및 Android Studio는 K2 컴파일러를 완벽하게 지원하며, 코드 분석, 코드 완성 및 하이라이팅을 개선하기 위해 이를 기본으로 사용합니다. 별도의 설정은 필요하지 않습니다. 이점을 확인하려면 최신 버전으로 업데이트하세요.
 
-## Kotlin Playground에서 K2 컴파일러 사용해 보기
+## Kotlin Playground에서 K2 컴파일러 사용해 보기 {id="try-the-kotlin-k2-compiler-in-the-kotlin-playground"}
 
 Kotlin Playground는 코틀린 2.0.0 이상 버전을 지원합니다. [지금 확인해 보세요!](https://pl.kotl.in/czuoQprce)
 
-## 이전 컴파일러로 되돌리는 방법
+## 이전 컴파일러로 되돌리는 방법 {id="how-to-roll-back-to-the-previous-compiler"}
 
 코틀린 2.0.0–2.3.21 버전에서 이전 컴파일러를 사용하려면 다음 중 하나를 수행하세요.
 
@@ -502,7 +502,7 @@ Kotlin Playground는 코틀린 2.0.0 이상 버전을 지원합니다. [지금 �
 
 코틀린 2.4.0 버전부터는 이전 컴파일러로 되돌릴 수 없습니다.
 
-## 변경 사항
+## 변경 사항 {id="changes"}
 
 새로운 프런트엔드 도입과 함께 코틀린 컴파일러는 여러 가지 변화를 겪었습니다. 먼저 코드에 영향을 미치는 가장 중요한 변경 사항들을 살펴보고, 무엇이 바뀌었는지와 앞으로의 권장 사례를 자세히 설명하겠습니다. 더 자세한 내용을 원하시면 주제별로 정리된 [주제 영역별](#per-subject-area) 섹션을 읽어보시기 바랍니다.
 
@@ -515,7 +515,7 @@ Kotlin Playground는 코틀린 2.0.0 이상 버전을 지원합니다. [지금 �
 * [자바 기본 타입 배열에 대한 널 안전성 개선](#improved-null-safety-for-java-primitive-arrays)
 * [expected 클래스의 추상 멤버에 대한 더 엄격한 규칙](#stricter-rules-for-abstract-members-in-expected-classes)
 
-### 보조 필드가 있는 open 프로퍼티의 즉시 초기화
+### 보조 필드가 있는 open 프로퍼티의 즉시 초기화 {id="immediate-initialization-of-open-properties-with-backing-fields"}
 
 **무엇이 바뀌었나요?**
 
@@ -555,7 +555,7 @@ class Derived : Base() {
 
 자세한 내용은 [YouTrack의 관련 이슈](https://youtrack.jetbrains.com/issue/KT-57555)를 참조하세요.
 
-### 프로젝션된 수신객체에 대한 합성 세터 사용 중단(Deprecated)
+### 프로젝션된 수신객체에 대한 합성 세터 사용 중단(Deprecated) {id="deprecated-synthetics-setter-on-a-projected-receiver"}
 
 **무엇이 바뀌었나요?**
 
@@ -598,7 +598,7 @@ fun exampleFunction(starProjected: Container<*>, inProjected: Container<in Numbe
 
 자세한 내용은 [YouTrack의 관련 이슈](https://youtrack.jetbrains.com/issue/KT-54309)를 참조하세요.
 
-### 접근 불가능한 제네릭 타입 사용 금지
+### 접근 불가능한 제네릭 타입 사용 금지 {id="forbidden-use-of-inaccessible-generic-types"}
 
 **무엇이 바뀌었나요?**
 
@@ -750,7 +750,7 @@ fun test() {
 
 자세한 내용은 [YouTrack의 관련 이슈](https://youtrack.jetbrains.com/issue/KT-64474)를 참조하세요.
 
-### 동일한 이름을 가진 코틀린 프로퍼티와 자바 필드의 일관된 분석 순서
+### 동일한 이름을 가진 코틀린 프로퍼티와 자바 필드의 일관된 분석 순서 {id="consistent-resolution-order-of-kotlin-properties-and-java-fields-with-the-same-name"}
 
 **무엇이 바뀌었나요?**
 
@@ -846,7 +846,7 @@ fun main() {
 
 자세한 내용은 [YouTrack의 관련 이슈](https://youtrack.jetbrains.com/issue/KT-55017)를 참조하세요.
 
-### 자바 기본 타입 배열에 대한 널 안전성 개선
+### 자바 기본 타입 배열에 대한 널 안전성 개선 {id="improved-null-safety-for-java-primitive-arrays"}
 
 **무엇이 바뀌었나요?**
 
@@ -890,7 +890,7 @@ dataService.fetchData()[0]
 
 자세한 내용은 [YouTrack의 관련 이슈](https://youtrack.jetbrains.com/issue/KT-54521)를 참조하세요.
 
-### expected 클래스의 추상 멤버에 대한 더 엄격한 규칙
+### expected 클래스의 추상 멤버에 대한 더 엄격한 규칙 {id="stricter-rules-for-abstract-members-in-expected-classes"}
 
 > expected 및 actual 클래스는 [베타(Beta)](components-stability.md#stability-levels-explained) 단계입니다.
 > 거의 안정화되었으나 향후 마이그레이션 단계가 필요할 수 있습니다. 
@@ -948,11 +948,11 @@ actual open class PlatformFileSystem : FileSystem {
 
 자세한 내용은 [YouTrack의 관련 이슈](https://youtrack.jetbrains.com/issue/KT-59739/K2-MPP-reports-ABSTRACTMEMBERNOTIMPLEMENTED-for-inheritor-in-common-code-when-the-implementation-is-located-in-the-actual)를 참조하세요.
 
-### 주제 영역별
+### 주제 영역별 {id="per-subject-area"}
 
 다음 주제 영역에는 코드에 영향을 줄 가능성은 낮지만, 추가 정보를 위해 관련 YouTrack 이슈 링크가 포함되어 있습니다. 이슈 ID 옆에 별표(*)가 표시된 변경 사항은 이 섹션의 시작 부분에서 설명된 내용입니다.
 
-#### 타입 추론 (Type inference) {initial-collapse-state="collapsed" collapsible="true"}
+#### 타입 추론 (Type inference) {initial-collapse-state="collapsed" collapsible="true" id="type-inference"}
 
 | 이슈 ID | 제목 |
 |-----------------------------------------------------------|------------------------------------------------------------------------------------------------------------|
@@ -973,7 +973,7 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-65750](https://youtrack.jetbrains.com/issue/KT-65750) | 반환 타입을 변경하는 증가 및 더하기 연산자가 스마트 캐스트에 영향을 미쳐야 함 |
 | [KT-65349](https://youtrack.jetbrains.com/issue/KT-65349) | [LC] K2: 변수 타입을 명시적으로 지정하면 K1에서 작동하던 일부 상황에서 바운드 스마트 캐스트가 깨짐 |
 
-#### 제네릭 (Generics) {initial-collapse-state="collapsed" collapsible="true"}
+#### 제네릭 (Generics) {initial-collapse-state="collapsed" collapsible="true" id="generics"}
 
 | 이슈 ID | 제목 |
 |------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -991,7 +991,7 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-64966](https://youtrack.jetbrains.com/issue/KT-64966) | 제네릭 파라미터에 잘못된 타입을 사용한 제네릭 위임 생성자 호출 금지 |
 | [KT-65712](https://youtrack.jetbrains.com/issue/KT-65712) | 상한이 캡처 타입일 때 누락된 상한 위반 보고 |
 
-#### 분석 (Resolution) {initial-collapse-state="collapsed" collapsible="true"}
+#### 분석 (Resolution) {initial-collapse-state="collapsed" collapsible="true" id="resolution"}
 
 | 이슈 ID | 제목 |
 |------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -1007,7 +1007,7 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-64431](https://youtrack.jetbrains.com/issue/KT-64431) | K2: 임포트에서 타입 별칭을 한정자로 사용하는 것을 금지 |
 | [KT-56520](https://youtrack.jetbrains.com/issue/KT-56520) | K1/K2: 하위 레벨에서 모호성이 있는 타입 참조에 대한 분석 타워의 잘못된 동작 |
 
-#### 가시성 (Visibility) {initial-collapse-state="collapsed" collapsible="true"}
+#### 가시성 (Visibility) {initial-collapse-state="collapsed" collapsible="true" id="visibility"}
 
 | 이슈 ID | 제목 |
 |-------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
@@ -1022,7 +1022,7 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-65004](https://youtrack.jetbrains.com/issue/KT-65004) | K1: protected val을 재정의하는 var의 세터가 public으로 생성됨 |
 | [KT-64972](https://youtrack.jetbrains.com/issue/KT-64972) | Kotlin/Native의 링크 타임에서 private 멤버로 재정의하는 것을 금지 |
 
-#### 어노테이션 (Annotations) {initial-collapse-state="collapsed" collapsible="true"}
+#### 어노테이션 (Annotations) {initial-collapse-state="collapsed" collapsible="true" id="annotations"}
 
 | 이슈 ID | 제목 |
 |-----------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
@@ -1036,7 +1036,7 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-63389](https://youtrack.jetbrains.com/issue/KT-63389) | K2: `()?`로 감싸진 타입의 호환되지 않는 어노테이션에 대해 `WRONG_ANNOTATION_TARGET` 보고 |
 | [KT-63388](https://youtrack.jetbrains.com/issue/KT-63388) | K2: `WRONG_ANNOTATION_TARGET`이 catch 파라미터 타입의 어노테이션에 대해 보고됨 |
 
-#### 널 안전성 (Null safety) {initial-collapse-state="collapsed" collapsible="true"}
+#### 널 안전성 (Null safety) {initial-collapse-state="collapsed" collapsible="true" id="null-safety"}
 
 | 이슈 ID | 제목 |
 |------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
@@ -1047,7 +1047,7 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-62998](https://youtrack.jetbrains.com/issue/KT-62998)  | 안전하지 않은 할당의 선택자로서 nullable을 not-null 자바 필드에 할당하는 것을 금지 |
 | [KT-63209](https://youtrack.jetbrains.com/issue/KT-63209)  | 경고 수준 자바 타입의 에러 수준 널 허용 인수에 대해 누락된 에러 보고 |
 
-#### 자바 상호운용성 (Java interoperability) {initial-collapse-state="collapsed" collapsible="true"}
+#### 자바 상호운용성 (Java interoperability) {initial-collapse-state="collapsed" collapsible="true" id="java-interoperability"}
 
 | 이슈 ID | 제목 |
 |-----------------------------------------------------------|------------------------------------------------------------------------------------------------------------|
@@ -1057,7 +1057,7 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-66220](https://youtrack.jetbrains.com/issue/KT-66220) | 자바 가변 인자(vararg) 메서드를 인라인 함수에 전달하면 런타임에 단순 배열 대신 배열의 배열이 생성됨 |
 | [KT-66204](https://youtrack.jetbrains.com/issue/KT-66204) | K-J-K 계층 구조에서 internal 멤버를 재정의할 수 있도록 허용 |
 
-#### 프로퍼티 (Properties) {initial-collapse-state="collapsed" collapsible="true"}
+#### 프로퍼티 (Properties) {initial-collapse-state="collapsed" collapsible="true" id="properties"}
 
 | 이슈 ID | 제목 |
 |------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
@@ -1067,7 +1067,7 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-57290](https://youtrack.jetbrains.com/issue/KT-57290)  | 상위 클래스가 다른 모듈에 있는 경우 비가시적인 파생 클래스로부터 상위 클래스 프로퍼티에 대한 스마트 캐스트 사용 중단 |
 | [KT-62661](https://youtrack.jetbrains.com/issue/KT-62661)  | K2: 데이터 클래스 프로퍼티에 대한 OPT_IN_USAGE_ERROR 누락 |
 
-#### 제어 흐름 (Control flow) {initial-collapse-state="collapsed" collapsible="true"}
+#### 제어 흐름 (Control flow) {initial-collapse-state="collapsed" collapsible="true" id="control-flow"}
 
 | 이슈 ID | 제목 |
 |-----------------------------------------------------------|--------------------------------------------------------------------------------------------|
@@ -1076,7 +1076,7 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-42995](https://youtrack.jetbrains.com/issue/KT-42995) | 스코프 함수 내에서 초기화가 이루어지는 try/catch 블록에서의 가짜 음성 "VAL_REASSIGNMENT" |
 | [KT-65724](https://youtrack.jetbrains.com/issue/KT-65724) | try 블록에서 catch 및 finally 블록으로 데이터 흐름 정보 전파 |
 
-#### 열거형 클래스 (Enum classes) {initial-collapse-state="collapsed" collapsible="true"}
+#### 열거형 클래스 (Enum classes) {initial-collapse-state="collapsed" collapsible="true" id="enum-classes"}
 
 | 이슈 ID | 제목 |
 |-----------------------------------------------------------|----------------------------------------------------------------------------------------------|
@@ -1085,7 +1085,7 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-52802](https://youtrack.jetbrains.com/issue/KT-52802) | 프로퍼티/필드와 열거형 항목 간의 분석 모호성 보고 |
 | [KT-47310](https://youtrack.jetbrains.com/issue/KT-47310) | 컴패니언 프로퍼티가 열거형 항목보다 우선되는 경우의 한정자 분석 동작 변경 |
 
-#### 함수형 (SAM) 인터페이스 {initial-collapse-state="collapsed" collapsible="true"}
+#### 함수형 (SAM) 인터페이스 {initial-collapse-state="collapsed" collapsible="true" id="functional-sam-interfaces"}
 
 | 이슈 ID | 제목 |
 |-----------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
@@ -1093,14 +1093,14 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-57014](https://youtrack.jetbrains.com/issue/KT-57014) | JDK 함수형 인터페이스의 SAM 생성자를 위한 람다에서 잘못된 널 허용 여부를 가진 값 반환 금지 |
 | [KT-64342](https://youtrack.jetbrains.com/issue/KT-64342) | 호출 가능 참조의 파라미터 타입에 대한 SAM 변환이 CCE(ClassCastException)를 유발함 |
 
-#### 컴패니언 객체 (Companion object) {initial-collapse-state="collapsed" collapsible="true"}
+#### 컴패니언 객체 (Companion object) {initial-collapse-state="collapsed" collapsible="true" id="companion-object"}
 
 | 이슈 ID | 제목 |
 |-----------------------------------------------------------|--------------------------------------------------------------------------|
 | [KT-54316](https://youtrack.jetbrains.com/issue/KT-54316) | 컴패니언 객체 멤버에 대한 out-of-call 참조가 유효하지 않은 시그니처를 가짐 |
 | [KT-47313](https://youtrack.jetbrains.com/issue/KT-47313) | V에 컴패니언이 있을 때 (V)::foo 참조 분석 방식 변경 |
 
-#### 기타 (Miscellaneous) {initial-collapse-state="collapsed" collapsible="true"}
+#### 기타 (Miscellaneous) {initial-collapse-state="collapsed" collapsible="true" id="miscellaneous"}
 
 | 이슈 ID | 제목 |
 |------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
@@ -1115,7 +1115,7 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-65682](https://youtrack.jetbrains.com/issue/KT-65682)  | [LC] `header`/`impl` 키워드 사용 중단 |
 | [KT-45375](https://youtrack.jetbrains.com/issue/KT-45375)  | 기본적으로 invokedynamic + LambdaMetafactory를 통해 모든 코틀린 람다 생성 |
 
-## 코틀린 릴리스와의 호환성
+## 코틀린 릴리스와의 호환성 {id="compatibility-with-kotlin-releases"}
 
 다음 코틀린 릴리스들은 새로운 K2 컴파일러를 지원합니다.
 
@@ -1126,13 +1126,13 @@ actual open class PlatformFileSystem : FileSystem {
 | 1.9.0–1.9.10          | JVM은 베타 |
 | 1.7.0–1.8.22          | 알파(Alpha) |
 
-## 코틀린 라이브러리와의 호환성
+## 코틀린 라이브러리와의 호환성 {id="compatibility-with-kotlin-libraries"}
 
 Kotlin/JVM을 사용하는 경우 K2 컴파일러는 모든 버전의 코틀린으로 컴파일된 라이브러리와 호환됩니다.
 
 코틀린 멀티플랫폼을 사용하는 경우 K2 컴파일러는 코틀린 1.9.20 이상 버전으로 컴파일된 라이브러리와의 작동이 보장됩니다.
 
-## 컴파일러 플러그인 지원
+## 컴파일러 플러그인 지원 {id="compiler-plugins-support"}
 
 현재 코틀린 K2 컴파일러는 다음 코틀린 컴파일러 플러그인을 지원합니다.
 
@@ -1157,7 +1157,7 @@ Kotlin/JVM을 사용하는 경우 K2 컴파일러는 모든 버전의 코틀린�
 >
 {style="tip"}
 
-### 커스텀 컴파일러 플러그인 업그레이드
+### 커스텀 컴파일러 플러그인 업그레이드 {id="upgrade-your-custom-compiler-plugins"}
 
 > 커스텀 컴파일러 플러그인은 [실험적(Experimental)](components-stability.md#stability-levels-explained) 단계인 플러그인 API를 사용합니다. 
 > 결과적으로 API는 언제든지 변경될 수 있으므로 하위 호환성을 보장할 수 없습니다.
@@ -1166,11 +1166,11 @@ Kotlin/JVM을 사용하는 경우 K2 컴파일러는 모든 버전의 코틀린�
 
 업그레이드 프로세스는 커스텀 플러그인의 유형에 따라 두 가지 경로가 있습니다.
 
-#### 백엔드 전용 컴파일러 플러그인
+#### 백엔드 전용 컴파일러 플러그인 {id="backend-only-compiler-plugins"}
 
 플러그인이 `IrGenerationExtension` 확장 지점만 구현한다면, 프로세스는 다른 새로운 컴파일러 릴리스와 동일합니다. 사용하는 API에 변경 사항이 있는지 확인하고 필요한 경우 수정하세요.
 
-#### 백엔드 및 프런트엔드 컴파일러 플러그인
+#### 백엔드 및 프런트엔드 컴파일러 플러그인 {id="backend-and-frontend-compiler-plugins"}
 
 플러그인이 프런트엔드 관련 확장 지점을 사용하는 경우 새로운 K2 컴파일러 API를 사용하여 플러그인을 다시 작성해야 합니다. 새로운 API에 대한 입문은 [FIR Plugin API](https://github.com/JetBrains/kotlin/blob/master/docs/fir/fir-plugins.md)를 참조하세요.
 
@@ -1178,7 +1178,7 @@ Kotlin/JVM을 사용하는 경우 K2 컴파일러는 모든 버전의 코틀린�
 >
 {style="note"}
 
-## 새로운 K2 컴파일러에 대한 피드백 공유
+## 새로운 K2 컴파일러에 대한 피드백 공유 {id="share-your-feedback-on-the-new-k2-compiler"}
 
 여러분의 소중한 피드백을 기다립니다!
 

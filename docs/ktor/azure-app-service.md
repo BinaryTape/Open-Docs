@@ -122,7 +122,7 @@ azurewebapp {
 
 ## 部署应用程序 {id="deploy-app"}
 
-### 部署到新的 Web 应用
+### 部署到新的 Web 应用 {id="to-a-new-web-app"}
 
 Azure Web 应用部署插件使用的身份验证方式是 Azure CLI。如果您尚未登录，请使用 `az login` 登录一次并按照说明操作。
 
@@ -157,7 +157,7 @@ Application url: https://your-webapp-name.azurewebsites.net
 
 当部署完成后，您应该能够看到您的新 Web 应用在上面显示的 URL 处运行。
 
-### 部署到现有 Web 应用
+### 部署到现有 Web 应用 {id="to-an-existing-web-app"}
 
 如果您在 Azure 应用服务中已有一个现有的 Java Web 应用，请先执行由 [Ktor 插件](#plugins)提供的 `buildFatJar` 任务来构建 fat JAR：
 

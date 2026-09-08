@@ -36,7 +36,7 @@ data class User(val name: String, val age: Int)
 >
 {style="note"}
 
-## 클래스 본문에 선언된 속성
+## 클래스 본문에 선언된 속성 {id="properties-declared-in-the-class-body"}
 
 컴파일러는 자동으로 생성되는 함수를 위해 주 생성자 내부에 정의된 속성만 사용합니다. 생성된 구현에서 속성을 제외하려면 클래스 본문 내부에 선언하세요:
 
@@ -73,7 +73,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 복사하기
+## 복사하기 {id="copying"}
 
 `copy()` 함수를 사용하면 객체의 나머지 속성은 그대로 유지하면서 *일부* 속성만 변경하여 객체를 복사할 수 있습니다. 위 `User` 클래스에 대한 이 함수의 구현은 다음과 같습니다:
 
@@ -111,7 +111,7 @@ fun main() {
 
 보시는 것처럼 `duplicate.roles` 속성을 수정하면 `original.roles` 속성도 변경됩니다. 두 속성이 동일한 리스트 참조를 공유하기 때문입니다.
 
-## 데이터 클래스와 구조 분해 선언
+## 데이터 클래스와 구조 분해 선언 {id="data-classes-and-destructuring-declarations"}
 
 데이터 클래스에 대해 생성된 *컴포넌트 함수(Component functions)*를 사용하면 [구조 분해 선언(destructuring declarations)](destructuring-declarations.md)에서 데이터 클래스를 사용할 수 있습니다:
 
@@ -122,6 +122,6 @@ println("$name, $age years of age")
 // Jane, 35 years of age
 ```
 
-## 표준 데이터 클래스
+## 표준 데이터 클래스 {id="standard-data-classes"}
 
 표준 라이브러리는 `Pair`와 `Triple` 클래스를 제공합니다. 하지만 대부분의 경우, 이름이 지정된 데이터 클래스가 더 나은 디자인 선택입니다. 속성에 의미 있는 이름을 제공하여 코드를 더 읽기 쉽게 만들기 때문입니다.

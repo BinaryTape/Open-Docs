@@ -9,13 +9,13 @@ title: Android
 更新 - 2024-10-21
 :::
 
-## 取得程式碼
+## 取得程式碼 {id="get-the-code"}
 
 :::info
 [原始碼可在 Github 上取得](https://github.com/InsertKoinIO/koin-getting-started/tree/main/android)
 :::
 
-## Gradle 設定
+## Gradle 設定 {id="gradle-setup"}
 
 如下所示新增 Koin Android 相依性：
 
@@ -27,13 +27,13 @@ dependencies {
 }
 ```
 
-## 應用程式概覽
+## 應用程式概覽 {id="application-overview"}
 
 此應用程式的想法是管理使用者清單，並透過 Presenter 或 ViewModel 將其顯示在我們的 `MainActivity` 類別中：
 
 > Users -> UserRepository -> UserService -> (Presenter 或 ViewModel) -> MainActivity
 
-## 「User」資料
+## 「User」資料 {id="the-user-data"}
 
 我們將管理一個 User 的集合。以下是資料類別：
 
@@ -63,7 +63,7 @@ class UserRepositoryImpl : UserRepository {
 }
 ```
 
-## UserService 組建
+## UserService 組建 {id="the-userservice-component"}
 
 讓我們編寫一個服務組建來管理使用者操作：
 
@@ -94,7 +94,7 @@ class UserServiceImpl(
 }
 ```
 
-## Koin 模組
+## Koin 模組 {id="the-koin-module"}
 
 使用 `module` 函式來宣告 Koin 模組。Koin 模組是我們定義所有要注入之組建的地方。
 
@@ -117,7 +117,7 @@ val appModule = module {
 本教學使用 **Koin Compiler Plugin DSL** (`single<T>()`, `factory<T>()`)，它在編譯期提供自動裝配。請參閱 [編譯器外掛程式設定](/docs/setup/compiler-plugin) 以進行配置。
 :::
 
-## 使用 Presenter 顯示使用者
+## 使用 Presenter 顯示使用者 {id="displaying-user-with-presenter"}
 
 讓我們編寫一個 presenter 組建來顯示使用者：
 
@@ -144,7 +144,7 @@ val appModule = module {
 }
 ```
 
-## 在 Android 中注入相依性
+## 在 Android 中注入相依性 {id="injecting-dependencies-in-android"}
 
 `UserPresenter` 組建將被建立，並解決其中的 `UserService` 執行個體。要在我們的 Activity 中取得它，讓我們使用 `by inject()` 委派函式來注入：
 
@@ -167,7 +167,7 @@ class MainActivity : AppCompatActivity() {
 `by inject()` 函式讓我們能在 Android 組建執行階段（Activity、fragment、Service...）取得 Koin 執行個體
 :::
 
-## 啟動 Koin
+## 啟動 Koin {id="start-koin"}
 
 我們需要在 Android 應用程式中啟動 Koin。只需在應用程式的主要進入點（即我們的 `MainApplication` 類別）呼叫 `startKoin()` 函式：
 
@@ -189,7 +189,7 @@ class MainApplication : Application(){
 `startKoin` 中的 `modules()` 函式會載入指定的模組清單
 :::
 
-## Koin 模組：DSL 比較
+## Koin 模組：DSL 比較 {id="koin-module-dsl-comparison"}
 
 以下是使用 **Classic DSL** (手動裝配) 的 Koin 模組宣告：
 

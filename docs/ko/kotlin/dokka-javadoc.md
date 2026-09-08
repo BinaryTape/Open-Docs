@@ -16,7 +16,7 @@ Dokka의 Javadoc 출력 형식은 Java의 [Javadoc HTML 형식](https://docs.ora
 
 Javadoc 출력 형식은 [Dokka 플러그인](dokka-plugins.md)으로 구현되어 있으며 Dokka 팀에서 유지 관리합니다. 오픈 소스이며 [GitHub](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/dokka-subprojects/plugin-javadoc)에서 소스 코드를 확인할 수 있습니다.
 
-## Javadoc 문서 생성
+## Javadoc 문서 생성 {id="generate-javadoc-documentation"}
 
 > Dokka는 멀티 프로젝트 빌드 또는 Kotlin 멀티플랫폼(Multiplatform) 프로젝트에 대해 Javadoc 형식을 지원하지 않습니다.
 >

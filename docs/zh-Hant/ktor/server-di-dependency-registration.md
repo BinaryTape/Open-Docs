@@ -17,7 +17,7 @@
 
 Ktor 的 [相依注入 (DI)](server-dependency-injection.md) 容器需要知道如何建立您的應用程式所相依的物件。此程序稱為相依項註冊。
 
-### 基本相依項註冊
+### 基本相依項註冊 {id="basic-dependency-registration"}
 
 基本相依項註冊是在程式碼中完成的，通常位於 `Application` 模組內，並使用 `dependencies {}` 區塊。
 
@@ -100,7 +100,7 @@ dependencies {
 
 具名相依項必須[使用 `@Named` 註解明確解析](server-di-dependency-resolution.md#resolve-named)。
 
-### 基於配置的相依項註冊
+### 基於配置的相依項註冊 {id="configuration-based-dependency-registration"}
 
 您可以在配置檔案中使用類別路徑參考來宣告式地配置相依項。您可以列出傳回物件的函式，或是具有可解析建構函式的類別。
 

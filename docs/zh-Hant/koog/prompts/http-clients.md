@@ -6,7 +6,7 @@ Koog 中的每個 LLM 用戶端都需要一個 [`KoogHttpClient`](api:http-clien
 
 現有的四個後端工廠提供開箱即用的支援 — Ktor、JDK `HttpClient`、OkHttp 以及 Spring 的 `WebClient` — 且您也可以實作自己的工廠。
 
-## 運作方式
+## 運作方式 {id="how-it-works"}
 
 同一個工廠可用於任何提供者：只需選擇一次後端，即可在各個用戶端之間共用。
 
@@ -69,7 +69,7 @@ Koog 中的每個 LLM 用戶端都需要一個 [`KoogHttpClient`](api:http-clien
     ```
     <!--- KNIT example-http-clients-java-01.java -->
 
-## 支援的 HTTP 用戶端類型
+## 支援的 HTTP 用戶端類型 {id="supported-http-client-flavors"}
 
 | 模組 | 說明 |
 |-------------------------------------------------------------------------|----------------------------------------------------|
@@ -78,7 +78,7 @@ Koog 中的每個 LLM 用戶端都需要一個 [`KoogHttpClient`](api:http-clien
 | [`http-client-okhttp`](api:http-client-okhttp::)                        | 由 OkHttp 提供支援。對 Android 友善。 |
 | [`http-client-spring-webclient`](api:http-client-spring-webclient::)    | 由 Spring `WebClient` 提供支援。 |
 
-## 便利的 API 與工廠自動探索
+## 便利的 API 與工廠自動探索 {id="convenience-apis-and-factory-auto-discovery"}
 
 在 JVM 和 Android 上，您可以直接建構每個 LLM 用戶端，而無需明確傳入工廠。
 
@@ -126,12 +126,12 @@ Koog 中的每個 LLM 用戶端都需要一個 [`KoogHttpClient`](api:http-clien
 
 目前 KMP 尚不支援自動探索，因此在 JVM 之外也無法使用這些便利方法。在 `commonMain` 中，請明確傳入一個 `Factory`。
 
-### 自動探索的注意事項
+### 自動探索的注意事項 {id="auto-discovery-gotchas"}
 
 - **執行時 classpath 上沒有任何後端** → 在第一次解析時會拋出 `IllegalStateException`。請將一個後端模組加入執行時 classpath，或者明確傳入一個 `Factory`。
 - **有兩個或多個後端** → 會拋出相同的異常；訊息中會列出它找到的所有提供者。請使用 Gradle 排除除一個以外的所有後端（在有衝突的相依性上使用 `exclude(module = "http-client-ktor")`），或在呼叫點明確傳入一個 `Factory`。
 
-## 自訂後端
+## 自訂後端 {id="custom-backends"}
 
 任何實作了 `KoogHttpClient.Factory` 的類別均可運作。若要使其在 JVM 上可自動探索，請將其註冊為 `ServiceLoader` 提供者：
 

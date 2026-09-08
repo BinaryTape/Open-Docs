@@ -25,7 +25,7 @@
 1. [设置您的开发环境](#set-the-kotlin-multiplatform-gradle-plugin-version)
 2. [向您的 KMP 模块添加并使用 SwiftPM 依赖项](#add-and-use-swiftpm-dependencies)
 
-## 设置 Kotlin 多平台 Gradle 插件版本
+## 设置 Kotlin 多平台 Gradle 插件版本 {id="set-the-kotlin-multiplatform-gradle-plugin-version"}
 
 要试用 SwiftPM 导入功能，请确保您使用的是 Kotlin 多平台 Gradle 插件的 **%kotlinEapVersion%** 版本。
 `gradle/libs.versions.toml` 文件的示例：
@@ -38,7 +38,7 @@ kotlin = "%kotlinEapVersion%"
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 ```
 
-## 添加并使用 SwiftPM 依赖项
+## 添加并使用 SwiftPM 依赖项 {id="add-and-use-swiftpm-dependencies"}
 
 > 有关运行示例，请参阅我们的示例项目。
 > 在 `master` 分支上，每个项目都使用 CocoaPods 构建，而 `spm_import` 分支则使用 SwiftPM：
@@ -48,7 +48,7 @@ kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref 
 >
 {type="tip"}
 
-### 配置构建
+### 配置构建 {id="configure-the-build"}
 
 可以在声明 Apple 目标的 `build.gradle.kts` 文件的 `swiftPMDependencies {}` 块中添加特定的 SwiftPM 依赖项。
 例如，对于 Firebase：
@@ -112,7 +112,7 @@ kotlin {
 }
 ```
 
-### 设置平台约束
+### 设置平台约束 {id="set-platform-constraints"}
 
 某些 SwiftPM 依赖项可能无法在构建脚本中的所有目标上编译或提供有效的 API。
 例如，Google Maps SDK 目前仅支持 iOS 目标。
@@ -147,7 +147,7 @@ kotlin {
 }
 ```
 
-### 运行 SwiftPM 集成任务
+### 运行 SwiftPM 集成任务 {id="run-the-swiftpm-integration-task"}
 
 SwiftPM 导入工具会生成一个中间软件包，以跟踪当前的 SwiftPM 依赖项列表。
 当您第一次向项目添加 SwiftPM 依赖项时，需要将 Xcode 项目与生成的软件包链接。
@@ -163,7 +163,7 @@ XCODEPROJ_PATH='/path/to/project/iosApp/iosApp.xcodeproj' ./gradlew :kotlin-libr
 
 在初始集成之后，每当您更改 SwiftPM 依赖项集或其版本时，合成软件包都将自动更新。
 
-### 使用导入的 API
+### 使用导入的 API {id="use-imported-apis"}
 
 导入的 Objective-C API 包含在以 `swiftPMImport` 前缀开头，并以项目及其组的 Gradle 名称结尾的命名空间中。
 
@@ -183,7 +183,7 @@ import swiftPMImport.groupName.subproject.FIRAnalytics
 import swiftPMImport.groupName.subproject.FIRApp
 ```
 
-## 生成的 `Package.resolved` 文件
+## 生成的 `Package.resolved` 文件 {id="generated-package-resolved-files"}
 
 为了使依赖于 Swift 软件包的构建更加稳定，SwiftPM 导入工具引入了一种使用 `Package.resolved` 文件的锁定机制。这些文件会在初始软件包解析期间为每个子项目生成。
 
@@ -198,7 +198,7 @@ import swiftPMImport.groupName.subproject.FIRApp
 当您在构建脚本中更改 SwiftPM 依赖项集或版本时，锁定文件会自动更新。
 您也可以[手动强制更新锁定文件](#force-an-update-of-the-lock-file)。
 
-### 自定义 Swift 软件包版本的聚合
+### 自定义 Swift 软件包版本的聚合 {id="customize-aggregation-of-swift-package-versions"}
 
 除了对所有子项目使用 `default` 组之外，您还可以定义自定义组，以便为每个组生成单独的 `Package.resolved` 锁定文件。
 
@@ -282,7 +282,7 @@ kotlin {
 
 与默认同步一样，自定义子项目的所有 `Package.resolved` 文件都应提交到您的仓库。
 
-### 强制更新锁定文件
+### 强制更新锁定文件 {id="force-an-update-of-the-lock-file"}
 
 如果您想手动强制更新锁定文件：
 
@@ -293,9 +293,9 @@ kotlin {
    * 对于设置了 `noSynchronization()` 的子项目，找到并删除子项目目录中的 `Package.resolved` 文件。
 3. 再次运行依赖项解析任务：`./gradlew :yourModuleName:fetchSyntheticImportProjectPackages`。
 
-## 其他导入选项
+## 其他导入选项 {id="additional-import-options"}
 
-### 导入本地 Swift 软件包
+### 导入本地 Swift 软件包 {id="importing-local-swift-packages"}
 
 SwiftPM 导入机制还允许从本地文件系统导入 Swift 软件包。
 
@@ -347,7 +347,7 @@ fun useExamplePackage() {
 }
 ```
 
-### 特定部署版本
+### 特定部署版本 {id="specific-deployment-versions"}
 
 如果您的依赖项需要更高的[部署版本](https://developer.apple.com/documentation/packagedescription/supportedplatform)，请在 `*MinimumDeploymentTarget` 参数中指定它。例如，对于 iOS：
 
@@ -359,7 +359,7 @@ kotlin {
 }
 ```
 
-### Swift 软件包的位置和版本
+### Swift 软件包的位置和版本 {id="location-and-version-of-swift-packages"}
 
 与 `Package.swift` 清单文件类似，您可以在 `swiftPackage()` 调用中指定 Swift 软件包的位置和版本。两者都有几个互斥的选项。 
 
@@ -397,7 +397,7 @@ swiftPackage(
 )
 ```
 
-## 动态 Kotlin/Native 框架的已知限制
+## 动态 Kotlin/Native 框架的已知限制 {id="known-limitations-with-dynamic-kotlin-native-frameworks"}
 
 目前，SwiftPM 导入集成并不支持生成动态 Kotlin/Native 框架时可能出现的所有边缘情况。您可能会在 Xcode 构建期间遇到问题，或者在运行时看到警告，例如：
 
@@ -426,6 +426,6 @@ kotlin {
 
 如果您遇到了这些问题中的任何一个，需要保持 `isStatic=false`，或者更改此属性无助于解决构建失败，请在我们的 Slack 频道中告知我们。获取[邀请](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)并加入 [#kmp-swift-package-manager](https://kotlinlang.slack.com/archives/C09TW68099C)。
 
-## 下一步？
+## 下一步？ {id="what-s-next"}
 
 详细了解[在 KMP 项目中从 CocoaPods 切换到 SwiftPM 依赖项](multiplatform-cocoapods-spm-migration.md)。

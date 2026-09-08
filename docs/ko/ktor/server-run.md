@@ -58,7 +58,7 @@ mainClassName = "io.ktor.server.netty.EngineMain"
 
 </TabItem>
 
-### WAR 세부 사항
+### WAR 세부 사항 {id="war-specifics"}
 
 Ktor를 사용하면 애플리케이션 내에서 바로 원하는 엔진(Netty, Jetty, Tomcat 등)으로 [서버를 생성하고 시작](server-create-and-configure.topic)할 수 있습니다. 이 경우 애플리케이션이 엔진 설정, 연결 및 SSL 옵션을 제어합니다.
 

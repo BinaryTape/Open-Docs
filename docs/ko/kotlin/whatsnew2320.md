@@ -23,7 +23,7 @@ Kotlin 2.3.20 버전이 릴리스되었습니다! 이번 버전의 주요 하이
 >
 {style="tip"}
 
-## Kotlin 2.3.20으로 업데이트하기
+## Kotlin 2.3.20으로 업데이트하기 {id="update-to-kotlin-2-3-20"}
 
 최신 버전의 Kotlin은 최신 버전의 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 및 [Android Studio](https://developer.android.com/studio)에 포함되어 있습니다.
 
@@ -317,11 +317,11 @@ Kotlin Multiplatform(KMP) 라이브러리나 애플리케이션에서 C 또는 O
 
 </snippet>
 
-## 언어
+## 언어 {id="language"}
 
 Kotlin 2.3.20은 위치에 의존하지 않고 변수를 프로퍼티 이름과 일치시키는 이름 기반 구조 분해 선언을 추가합니다. 또한 컨텍스트 파라미터(context parameters)가 있는 선언에 대한 오버로드 해소(overload resolution) 규칙이 변경되었습니다.
 
-### 컨텍스트 파라미터 오버로드 해소 규칙 변경
+### 컨텍스트 파라미터 오버로드 해소 규칙 변경 {id="changes-to-overload-resolution-for-context-parameters"}
 <secondary-label ref="language"/>
 
 Kotlin 2.3.20에서는 컨텍스트 파라미터가 있는 선언의 오버로드 해소 방식이 변경되었습니다.
@@ -364,7 +364,7 @@ fun main() {
 <var name="id5" value="language-name-based-destructuring-how-to-enable"/>
 </include>
 
-## 표준 라이브러리
+## 표준 라이브러리 {id="standard-library"}
 
 Kotlin 2.3.20은 표준 라이브러리에 새로운 실험적 기능을 포함합니다.
 
@@ -372,11 +372,11 @@ Kotlin 2.3.20은 표준 라이브러리에 새로운 실험적 기능을 포함�
 <var name="id6" value="standard-library-new-api-for-creating-immutable-copies-of-map-entry"/>
 </include>
 
-## Kotlin 컴파일러 플러그인
+## Kotlin 컴파일러 플러그인 {id="kotlin-compiler-plugins"}
 
 Kotlin 2.3.20은 Lombok 및 `kotlin.plugin.jpa` 컴파일러 플러그인에 중요한 업데이트를 가져왔습니다.
 
-### `kotlin.plugin.jpa` 플러그인의 JPA 지원 개선
+### `kotlin.plugin.jpa` 플러그인의 JPA 지원 개선 {id="improved-jpa-support-in-the-kotlin-plugin-jpa-plugin"}
 <secondary-label ref="compiler"/>
 
 `kotlin.plugin.jpa` 플러그인은 이제 기존의 [`no-arg`](no-arg-plugin.md) 컴파일러 플러그인 적용과 더불어, 새로 추가된 내장 JPA 프리셋과 함께 [`all-open`](all-open-plugin.md) 컴파일러 플러그인을 자동으로 적용합니다.
@@ -411,11 +411,11 @@ Kotlin 2.3.20부터 변경되는 사항:
 <var name="id3" value="compiler-lombok-is-now-alpha"/>
 </include>
 
-## Kotlin/JVM
+## Kotlin/JVM {id="kotlin-jvm"}
 
 Kotlin 2.3.20은 Java 상호운용성에 대한 여러 개선 사항을 도입합니다. 이제 컴파일러는 null 가능성 검사를 위해 Vert.x의 `@Nullable` 어노테이션을 인식합니다. 또한 Java의 `@Unmodifiable` 및 `@UnmodifiableView` 어노테이션을 지원하여, 해당 어노테이션이 달린 컬렉션을 Kotlin에서 읽기 전용으로 처리합니다.
 
-### Vert.x `@Nullable` 어노테이션 지원
+### Vert.x `@Nullable` 어노테이션 지원 {id="support-for-vert-x-nullable-annotation"}
 <secondary-label ref="jvm"/>
 
 Kotlin 2.3.20은 [`io.vertx.codegen.annotations.Nullable`](https://www.javadoc.io/doc/io.vertx/vertx-codegen/3.5.0/io/vertx/codegen/annotations/Nullable.html) 어노테이션에 대한 지원을 추가했습니다. 컴파일러는 이제 이 어노테이션을 인식하고 기본적으로 null 가능성 불일치를 경고로 보고합니다.
@@ -455,7 +455,7 @@ kotlin {
 </tab>
 </tabs>
 
-### Java 불변 컬렉션 어노테이션 지원
+### Java 불변 컬렉션 어노테이션 지원 {id="support-for-java-unmodifiable-collection-annotations"}
 <secondary-label ref="jvm"/>
 
 Kotlin 2.3.20은 Java의 [`org.jetbrains.annotations.Unmodifiable`](https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/Unmodifiable.html) 및 [`org.jetbrains.annotations.UnmodifiableView`](https://javadoc.io/doc/org.jetbrains/annotations/24.0.1/org/jetbrains/annotations/UnmodifiableView.html) 어노테이션에 대한 지원을 추가했습니다.
@@ -487,11 +487,11 @@ fun main() {
 }
 ```
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 Kotlin 2.3.20은 C 및 Objective-C 라이브러리를 위한 새로운 실험적 상호운용성 모드, 크로스 컴파일 체커, 그리고 Kotlin/Native 프로젝트에서 컴파일 캐시를 비활성화하기 위한 새로운 DSL을 도입합니다.
 
-### 크로스 컴파일 체커 (Cross-compilation checker)
+### 크로스 컴파일 체커 (Cross-compilation checker) {id="cross-compilation-checker"}
 <secondary-label ref="native"/>
 
 Kotlin 2.3.20은 주어진 타겟에 대해 크로스 컴파일이 지원되는지 확인하는 방법을 도입했습니다. 이는 컴파일 태스크의 상태를 추적하는 서드파티 플러그인에 유용할 수 있습니다.
@@ -502,7 +502,7 @@ Kotlin 2.3.20은 주어진 타겟에 대해 크로스 컴파일이 지원되는�
 
 지원되는 타겟 및 호스트에 대한 자세한 정보는 [Kotlin/Native 문서](native-target-support.md)를 참조하세요.
 
-### 컴파일 캐시 비활성화를 위한 새로운 DSL
+### 컴파일 캐시 비활성화를 위한 새로운 DSL {id="new-dsl-for-disabling-compilation-cache"}
 <secondary-label ref="native"/>
 
 Kotlin 2.3.20에는 Kotlin/Native 프로젝트에서 컴파일 캐시를 비활성화하기 위한 새로운 DSL이 포함되어 있습니다. 이는 캐시 비활성화 결정을 더 신중하고 명시적으로 만들기 위한 것입니다.
@@ -548,11 +548,11 @@ kotlin {
 <var name="id9" value="native-new-interoperability-mode-for-c-or-objective-c-libraries-report-your-results"/>
 </include>
 
-## Kotlin/Wasm
+## Kotlin/Wasm {id="kotlin-wasm"}
 
 Kotlin 2.3.20은 문자열 연산 성능, 컴파일 시간 및 메모리 사용량을 개선했습니다. 또한 Kotlin 객체나 클래스를 JavaScript 함수처럼 호출할 수 있게 해주는 실험적인 `@nativeInvoke` 어노테이션에 대한 지원을 추가했습니다.
 
-### 문자열 성능 개선
+### 문자열 성능 개선 {id="improved-string-performance"}
 <secondary-label ref="wasm"/>
 
 이제 Kotlin/Wasm은 `kotlin.String` 값의 연산에 JS String 내장 기능(builtins)을 사용합니다. 이를 통해 Kotlin/Wasm은 브라우저의 JavaScript 엔진 문자열 최적화와 해당 제안을 지원하는 Wasm 런타임의 이점을 누릴 수 있습니다. 이 최적화는 문자열 연결(concatenation), 보간(interpolation), `StringBuilder.append()`, 숫자-문자열 변환 등의 연산에 적용됩니다.
@@ -564,14 +564,14 @@ Kotlin 2.3.20은 문자열 연산 성능, 컴파일 시간 및 메모리 사용�
 * 모든 Wasm 벤치마크에서 중앙값 기준 약 1%의 개선이 있었습니다.
 * 추가 작업이 많은 워크로드에서 `StringBuilder.append()` 및 `kotlin.String` 인스턴스 연결 속도가 최소 20% 향상되었습니다.
 
-### 컴파일 시간 개선 및 메모리 최적화
+### 컴파일 시간 개선 및 메모리 최적화 {id="improved-compilation-time-and-memory-optimizations"}
 <secondary-label ref="wasm"/>
 
 Kotlin 2.3.20은 특히 대규모 프로젝트에서 컴파일 중 메모리 소비를 현저히 줄이는 컴파일러 최적화를 추가했습니다. 이러한 최적화는 증분 빌드(incremental build) 성능도 개선합니다.
 
 테스트 결과, 클린 빌드(clean build) 시간은 65%, 증분 빌드 시간은 21% 개선된 것으로 나타났습니다.
 
-### `@nativeInvoke` 어노테이션 지원
+### `@nativeInvoke` 어노테이션 지원 {id="support-for-nativeinvoke-annotation"}
 <primary-label ref="experimental-opt-in"/>
 <secondary-label ref="wasm"/>
 
@@ -598,11 +598,11 @@ fun main() {
 
 Kotlin/Wasm과 JavaScript의 상호운용성에 대한 자세한 내용은 [JavaScript 상호운용성](wasm-js-interop.md)을 참조하세요.
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
 Kotlin 2.3.20은 TypeScript에서 Kotlin 인터페이스를 구현할 수 있게 하며, SWC 컴파일 플랫폼에 대한 실험적 지원을 도입합니다.
 
-### JavaScript/TypeScript에서 Kotlin 인터페이스 구현하기
+### JavaScript/TypeScript에서 Kotlin 인터페이스 구현하기 {id="implementing-kotlin-interfaces-from-javascript-typescript"}
 <primary-label ref="experimental-opt-in"/>
 <secondary-label ref="js"/>
 
@@ -686,7 +686,7 @@ kotlin {
 
 자세한 내용은 [`@JsExport` 어노테이션](js-to-kotlin-interop.md#jsexport-annotation)을 참조하세요.
 
-### SWC 컴파일 플랫폼 지원
+### SWC 컴파일 플랫폼 지원 {id="support-for-swc-compilation-platform"}
 <primary-label ref="experimental-opt-in"/>
 <secondary-label ref="js"/>
 
@@ -710,16 +710,16 @@ kotlin.js.delegated.transpilation=true
 
 SWC 플랫폼에 대한 자세한 정보는 [공식 문서](https://swc.rs/docs/getting-started)를 참조하세요.
 
-## Gradle
+## Gradle {id="gradle"}
 
 Kotlin 2.3.20은 새로운 버전의 Gradle과 호환되며 Kotlin Gradle 플러그인의 Kotlin/JVM 컴파일 변경 사항을 포함합니다.
 
-### Gradle 9.3.0 호환성
+### Gradle 9.3.0 호환성 {id="compatibility-with-gradle-9-3-0"}
 <secondary-label ref="gradle"/>
 
 Kotlin 2.3.20은 Gradle 7.6.3부터 9.3.0까지 완벽하게 호환됩니다. 최신 Gradle 릴리스 버전까지 사용할 수 있으나, 이 경우 지원 중단(deprecation) 경고가 발생할 수 있으며 일부 새로운 Gradle 기능이 작동하지 않을 수 있습니다.
 
-### KGP의 바이너리 호환성 검증 개선
+### KGP의 바이너리 호환성 검증 개선 {id="improvements-to-binary-compatibility-validation-in-kgp"}
 <secondary-label ref="gradle"/>
 
 Kotlin 2.2.0에서 처음으로 [Kotlin Gradle 플러그인의 바이너리 호환성 검증](gradle-binary-compatibility-validation.md)이 도입되었습니다. Kotlin 2.3.20에서는 두 가지 개선 사항이 추가되었습니다.
@@ -736,7 +736,7 @@ Kotlin 2.2.0에서 처음으로 [Kotlin Gradle 플러그인의 바이너리 호�
 
 둘째, 프로젝트에서 바이너리 호환성 검증을 활성화한 경우, 이제 `check` 태스크 실행 시 Gradle이 자동으로 `checkKotlinAbi` 태스크를 실행합니다. 이전에는 `check` 태스크가 모든 검증 태스크를 실행해야 함에도 불구하고 `checkKotlinAbi` 태스크를 실행하지 않았으며, 이로 인해 Gradle 프로젝트에서 일관성 없는 동작이 발생했습니다.
 
-### Kotlin/JVM 컴파일 시 Build tools API 기본 사용
+### Kotlin/JVM 컴파일 시 Build tools API 기본 사용 {id="kotlin-jvm-compilation-uses-build-tools-api-by-default"}
 <primary-label ref="experimental-general"/>
 <secondary-label ref="gradle"/>
 
@@ -744,7 +744,7 @@ Kotlin 2.3.20에서 Kotlin/JVM 컴파일 시 Kotlin Gradle 플러그인은 [빌�
 
 문제가 발견되면 [이슈 트래커](https://youtrack.jetbrains.com/newIssue?project=KT&summary=Kotlin+Gradle+plugin+BTA+migration+issue&description=Describe+the+problem+you+encountered+here.&c=tag+kgp-bta-migration)를 통해 피드백을 공유해 주세요.
 
-## Maven
+## Maven {id="maven"}
 
 Kotlin 2.3.20은 Maven 프로젝트 설정을 더 쉽게 만드는 중요한 변경 사항을 가져왔습니다.
 
@@ -753,11 +753,11 @@ Kotlin 2.3.20은 Maven 프로젝트 설정을 더 쉽게 만드는 중요한 변
 <var name="id2" value="maven-simplified-setup-for-kotlin-projects-how-to-enable"/>
 </include>
 
-## 빌드 도구 API
+## 빌드 도구 API {id="build-tools-api"}
 
 Kotlin 2.3.20은 빌드 도구 API(BTA)를 사용하여 자신의 빌드 시스템을 Kotlin 컴파일러와 통합하려는 개발자들을 위한 더 많은 변경 사항을 도입했습니다.
 
-### 빌드 작업 개선
+### 빌드 작업 개선 {id="improvements-to-build-operations"}
 <secondary-label ref="bta"/>
 
 이번 릴리스에서 BTA는 빌드 도구가 빌드 작업을 관리하는 방식을 개선했습니다. 빌드 작업을 통해 빌드 도구는 Kotlin 컴파일러와 상호작용할 수 있습니다. 각 빌드 작업은 [`BuildOperation`](https://github.com/JetBrains/kotlin/blob/v2.3.20/compiler/build-tools/kotlin-build-tools-api/src/main/kotlin/org/jetbrains/kotlin/buildtools/api/BuildOperation.kt#L25) 인터페이스의 구현체입니다.
@@ -805,7 +805,7 @@ fun prepareBuildOperation(toolchains: KotlinToolchains, sources: List<Path>, des
 }
 ```
 
-### 빌드 도구 간 일관된 메트릭 수집
+### 빌드 도구 간 일관된 메트릭 수집 {id="consistent-metric-collection-across-build-tools"}
 <secondary-label ref="bta"/>
 
 Kotlin 2.3.20 이전에는 빌드 메트릭 인프라가 Gradle 중심으로 구성되어 있어 메트릭 이름 등 인프라 일부에 영향을 주었습니다. 또한 모든 메트릭이 서로 다른 [컴파일러 실행 전략(compiler execution strategies)](compiler-execution-strategy.md)에서 사용 가능한 것은 아니었습니다.
@@ -828,7 +828,7 @@ operation[BuildOperation.METRICS_COLLECTOR] = object : BuildMetricsCollector {
 }
 ```
 
-### 빌드 도구에 의한 컴파일러 플러그인 구성 간소화
+### 빌드 도구에 의한 컴파일러 플러그인 구성 간소화 {id="easier-configuration-of-compiler-plugins-by-build-tools"}
 <secondary-label ref="bta"/>
 
 Kotlin 2.3.20에서 BTA는 빌드 도구가 컴파일러 플러그인을 구성할 수 있는 더 간단한 새로운 방법을 제공합니다. 이 방식을 통해 빌드 도구는 구성을 사용자에게 직접 전달할 수 있습니다.
@@ -864,7 +864,7 @@ operation.compilerArguments[COMPILER_PLUGINS] = listOf(
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="코드 예시"}
 
-## 주요 변경 사항 및 지원 중단(Deprecations)
+## 주요 변경 사항 및 지원 중단(Deprecations) {id="breaking-changes-and-deprecations"}
 
 이 섹션에서는 중요한 주요 변경 사항 및 지원 중단 사항을 다룹니다. Kotlin 2.3.0 및 2.3.20의 지원 중단 사항에 대한 자세한 정보는 [호환성 가이드](compatibility-guide-23.md)를 참조하세요.
 
@@ -877,7 +877,7 @@ operation.compilerArguments[COMPILER_PLUGINS] = listOf(
   많은 서드파티 라이브러리가 여전히 `iosX64` 타겟에 의존하고 있으므로, 당분간 지원 티어 3(support tier 3) 상태를 유지할 예정입니다. 이는 CI 테스트를 보장하지 않으며, 서로 다른 컴파일러 릴리스 간의 소스 및 바이너리 호환성을 제공하지 않을 수도 있음을 의미합니다. 지원 티어에 대한 자세한 내용은 [Kotlin/Native 타겟 지원](native-target-support.md)을 참조하세요.
 * Kotlin 2.3.20에서는 Kotlin Multiplatform의 엄격해진 의존성 매칭으로 인해 공통 소스 세트와 플랫폼 소스 세트 간의 의존성 해소가 다를 경우 메타데이터 컴파일 실패가 발생할 수 있습니다. 자세한 내용과 해결 방법은 [YouTrack 이슈](https://youtrack.jetbrains.com/issue/KT-84533#tldr-workaround)를 확인하세요.
 
-## 문서 업데이트
+## 문서 업데이트 {id="documentation-updates"}
 
 Kotlin 생태계에서 다음과 같은 문서 변경이 있었습니다:
 

@@ -5,7 +5,7 @@
 このチュートリアルでは、アプリケーションに機能を追加し、データクラスなどのKotlin言語のさらなる機能について学びます。
 これには、シリアル化されたオブジェクトのコレクションを含むJSONドキュメントを応答するように `MessageController` クラスを変更する必要があります。
 
-## アプリケーションの更新
+## アプリケーションの更新 {id="update-your-application"}
 
 1. 同じパッケージ内の `DemoApplication.kt` ファイルの隣に、 `Message.kt` ファイルを作成します。
 2. `Message.kt` ファイルに、 `id` と `text` の2つのプロパティを持つデータクラスを作成します。
@@ -150,7 +150,7 @@ data class Message(val id: String?, val text: String)
 ```
 {initial-collapse-state="collapsed" collapsible="true"}
 
-## アプリケーションの実行
+## アプリケーションの実行 {id="run-the-application"}
 
 Springアプリケーションを実行する準備が整いました。
 
@@ -166,7 +166,7 @@ Springアプリケーションを実行する準備が整いました。
 
     ![アプリケーションの実行](messages-in-json-format.png){width=700}
 
-## 次のステップ
+## 次のステップ {id="next-step"}
 
 チュートリアルの次のパートでは、プロジェクトにデータベースを追加して設定し、HTTPリクエストを実行します。
 

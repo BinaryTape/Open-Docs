@@ -6,7 +6,7 @@ title: Compose 中的作用域
 
 Koin 提供了多种 API 来管理 Compose 应用程序中的作用域，从简单的可组合项绑定作用域到与导航集成的作用域。
 
-## KoinScope
+## KoinScope {id="koinscope"}
 
 创建一个与可组合项生命周期绑定的 Koin 作用域：
 
@@ -35,7 +35,7 @@ fun FeatureContent() {
 
 当可组合项离开组合时（在 `onForgotten` 或 `onAbandoned` 时），作用域会自动关闭。
 
-## KoinNavigationScope
+## KoinNavigationScope {id="koinnavigationscope"}
 
 创建一个与导航回退栈条目绑定的作用域：
 
@@ -75,7 +75,7 @@ fun DetailScreen() {
 需要 `koin-compose-viewmodel-navigation` 软件包。
 :::
 
-### navigationScope DSL
+### navigationScope DSL {id="navigationscope-dsl"}
 
 在模块中定义导航作用域的依赖项：
 
@@ -92,7 +92,7 @@ val appModule = module {
 
 这将创建一个由 `NavBackStackEntry` 限定的作用域，用于 `KoinNavigationScope()`。
 
-## UnboundKoinScope
+## UnboundKoinScope {id="unboundkoinscope"}
 
 提供一个没有生命周期绑定的外部管理的作用域：
 
@@ -130,7 +130,7 @@ fun MyFeature(externalScope: Scope, onClose: () -> Unit) {
 }
 ```
 
-## currentKoinScope
+## currentKoinScope {id="currentkoinscope"}
 
 从组合中获取当前 Koin 作用域：
 
@@ -146,7 +146,7 @@ fun MyScreen() {
 
 这将从 `LocalKoinScopeContext` 中检索作用域。这是 `koinInject()` 使用的默认作用域。
 
-## rememberKoinScope
+## rememberKoinScope {id="rememberkoinscope"}
 
 跨重组记住具有自动生命周期管理的 Koin 作用域：
 
@@ -162,9 +162,9 @@ fun FeatureScreen() {
 }
 ```
 
-## Android 特定作用域
+## Android 特定作用域 {id="android-specific-scopes"}
 
-### KoinActivityScope
+### KoinActivityScope {id="koinactivityscope"}
 
 为可组合项层次结构提供 Activity 作用域：
 
@@ -190,7 +190,7 @@ fun MainScreen() {
 }
 ```
 
-### KoinFragmentScope
+### KoinFragmentScope {id="koinfragmentscope"}
 
 为可组合项层次结构提供 Fragment 作用域：
 
@@ -210,7 +210,7 @@ class MyFragment : Fragment(), AndroidScopeComponent {
 }
 ```
 
-### koinActivityInject
+### koinActivityInject {id="koinactivityinject"}
 
 在任何可组合项中从 Activity 作用域进行注入：
 
@@ -228,7 +228,7 @@ fun DeepNestedScreen() {
 }
 ```
 
-## 作用域对比
+## 作用域对比 {id="scope-comparison"}
 
 | API | 生命周期 | 用例 |
 |-----|-----------|----------|
@@ -238,9 +238,9 @@ fun DeepNestedScreen() {
 | `KoinActivityScope` | Activity | Activity 范围的依赖项 |
 | `KoinFragmentScope` | Fragment | Fragment 范围的依赖项 |
 
-## 用例
+## 用例 {id="use-cases"}
 
-### 按屏幕划分的导航作用域
+### 按屏幕划分的导航作用域 {id="per-screen-navigation-scopes"}
 
 每个屏幕都有自己的作用域：
 
@@ -266,7 +266,7 @@ NavHost(navController, startDestination = "list") {
 }
 ```
 
-### 会话作用域数据
+### 会话作用域数据 {id="session-scoped-data"}
 
 在会话内的屏幕之间共享数据：
 
@@ -295,7 +295,7 @@ fun CartScreen() {
 }
 ```
 
-### 共享 ViewModel 作用域
+### 共享 ViewModel 作用域 {id="shared-viewmodel-scope"}
 
 在相关屏幕之间共享 ViewModel 及其依赖项：
 
@@ -326,7 +326,7 @@ fun CartScreen() {
 }
 ```
 
-## 最佳做法
+## 最佳做法 {id="best-practices"}
 
 1. **为每个屏幕的依赖项使用 `KoinNavigationScope`** —— 随导航自动管理生命周期。
 
@@ -345,7 +345,7 @@ fun CartScreen() {
 
 5. **与 ViewModel 结合处理复杂状态** —— 作用域持有共享状态，ViewModel 处理 UI 逻辑。
 
-## 后续步骤
+## 后续步骤 {id="next-steps"}
 
 - **[动态模块](/docs/reference/koin-compose/compose-modules)** —— 动态加载模块
 - **[Compose 概览](/docs/reference/koin-compose/compose)** —— 设置和基本注入

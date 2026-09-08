@@ -11,7 +11,7 @@ Kotlin 1.4.0에서는 [품질과 성능에 집중](https://blog.jetbrains.com/ko
 >
 {style="tip"}
 
-## 언어 기능 및 개선 사항
+## 언어 기능 및 개선 사항 {id="language-features-and-improvements"}
 
 Kotlin 1.4.0에는 다음과 같은 다양한 언어 기능과 개선 사항이 포함되어 있습니다.
 
@@ -22,7 +22,7 @@ Kotlin 1.4.0에는 다음과 같은 다양한 언어 기능과 개선 사항이 
 * [Callable 참조 개선](#callable-reference-improvements)
 * [루프 내 when 문 내부에서 break 및 continue 사용](#using-break-and-continue-inside-when-expressions-included-in-loops)
 
-### Kotlin 인터페이스를 위한 SAM 변환
+### Kotlin 인터페이스를 위한 SAM 변환 {id="sam-conversions-for-kotlin-interfaces"}
 
 Kotlin 1.4.0 이전에는 [Kotlin에서 Java 메서드 및 Java 인터페이스를 사용할 때](java-interop.md#sam-conversions)만 SAM(Single Abstract Method) 변환을 적용할 수 있었습니다. 이제부터는 Kotlin 인터페이스에 대해서도 SAM 변환을 사용할 수 있습니다.
 이를 위해 Kotlin 인터페이스를 `fun` 수정자를 사용하여 명시적으로 함수형(functional)으로 표시해야 합니다.
@@ -44,7 +44,7 @@ fun main() {
 
 [Kotlin 함수형 인터페이스와 SAM 변환에 대해 자세히 알아보기](fun-interfaces.md).
 
-### 라이브러리 작성자를 위한 명시적 API 모드
+### 라이브러리 작성자를 위한 명시적 API 모드 {id="explicit-api-mode-for-library-authors"}
 
 Kotlin 컴파일러는 라이브러리 작성자를 위한 _명시적 API 모드(explicit API mode)_를 제공합니다. 이 모드에서 컴파일러는 라이브러리의 API를 더 명확하고 일관되게 만드는 데 도움이 되는 추가 검사를 수행합니다. 라이브러리의 공개(public) API에 노출되는 선언에 대해 다음과 같은 요구 사항을 추가합니다.
 
@@ -107,7 +107,7 @@ kotlin {
 
 [명시적 API 모드에 대한 더 자세한 내용은 KEEP에서 확인하세요](https://github.com/Kotlin/KEEP/blob/master/proposals/explicit-api-mode.md).
 
-### 이름이 지정된 인자와 위치 인자 혼합 사용
+### 이름이 지정된 인자와 위치 인자 혼합 사용 {id="mixing-named-and-positional-arguments"}
 
 Kotlin 1.3에서는 [이름이 지정된 인자(named arguments)](functions.md#named-arguments)로 함수를 호출할 때, 이름이 없는 모든 인자(위치 인자)를 첫 번째 이름이 지정된 인자 앞에 배치해야 했습니다. 예를 들어 `f(1, y = 2)`는 호출할 수 있었지만 `f(x = 1, 2)`는 호출할 수 없었습니다.
 
@@ -128,7 +128,7 @@ fun reformat(
 reformat("This is a String!", uppercaseFirstLetter = false , '-')
 ```
 
-### 트레일링 쉼표(Trailing comma)
+### 트레일링 쉼표(Trailing comma) {id="trailing-comma"}
 
 Kotlin 1.4부터는 인자 및 파라미터 리스트, `when` 엔트리, 구조 분해 선언의 컴포넌트와 같은 열거형 항목에 트레일링 쉼표(마지막 쉼표)를 추가할 수 있습니다. 트레일링 쉼표를 사용하면 쉼표를 추가하거나 제거하지 않고도 새로운 항목을 추가하거나 순서를 변경할 수 있습니다.
 
@@ -152,7 +152,7 @@ val colors = listOf(
 )
 ```
 
-### Callable 참조 개선
+### Callable 참조 개선 {id="callable-reference-improvements"}
 
 Kotlin 1.4는 Callable 참조를 사용할 수 있는 더 많은 케이스를 지원합니다.
 
@@ -161,7 +161,7 @@ Kotlin 1.4는 Callable 참조를 사용할 수 있는 더 많은 케이스를 �
 * 함수의 인자 개수에 따라 적응하는 참조
 * Callable 참조에 대한 Suspend 변환
 
-#### 기본값을 가진 파라미터를 포함하는 함수에 대한 참조
+#### 기본값을 가진 파라미터를 포함하는 함수에 대한 참조 {id="references-to-functions-that-include-parameters-with-default-values"}
 
 이제 기본값을 가진 파라미터를 포함하는 함수에 대해 Callable 참조를 사용할 수 있습니다. 함수 `foo`에 대한 Callable 참조가 인자를 받지 않으면 기본값 `0`이 사용됩니다.
 
@@ -183,7 +183,7 @@ fun main() {
 fun applyInt(func: (Int) -> String): String = func(0) 
 ```
 
-#### Unit을 반환하는 함수에서의 함수 참조
+#### Unit을 반환하는 함수에서의 함수 참조 {id="function-references-in-unit-returning-functions"}
 
 Kotlin 1.4에서는 어떤 타입이든 반환하는 함수에 대한 Callable 참조를 `Unit`을 반환하는 함수에서 사용할 수 있습니다. Kotlin 1.4 이전에는 이 경우 람다 인자만 사용할 수 있었습니다. 이제는 람다 인자와 Callable 참조를 모두 사용할 수 있습니다.
 
@@ -197,7 +197,7 @@ fun main() {
 }
 ```
 
-#### 함수의 인자 개수에 따라 적응하는 참조
+#### 함수의 인자 개수에 따라 적응하는 참조 {id="references-that-adapt-based-on-the-number-of-arguments-in-a-function"}
 
 이제 가변 인자(`vararg`)를 전달할 때 함수에 대한 Callable 참조를 적응시킬 수 있습니다. 전달된 인자 리스트의 마지막에 동일한 타입의 파라미터를 원하는 개수만큼 전달할 수 있습니다.
 
@@ -215,7 +215,7 @@ fun test() {
 }
 ```
 
-#### Callable 참조에 대한 Suspend 변환
+#### Callable 참조에 대한 Suspend 변환 {id="suspend-conversion-on-callable-references"}
 
 람다에 대한 Suspend 변환 외에도, Kotlin은 버전 1.4.0부터 Callable 참조에 대한 Suspend 변환을 지원합니다.
 
@@ -229,7 +229,7 @@ fun test() {
 }
 ```
 
-### 루프 내 when 문 내부에서 break 및 continue 사용
+### 루프 내 when 문 내부에서 break 및 continue 사용 {id="using-break-and-continue-inside-when-expressions-included-in-loops"}
 
 Kotlin 1.3에서는 루프에 포함된 `when` 표현식 내부에서 레이블이 지정되지 않은(unqualified) `break`와 `continue`를 사용할 수 없었습니다. 그 이유는 이러한 키워드들이 `when` 표현식에서의 잠재적인 [fall-through 동작](https://en.wikipedia.org/wiki/Switch_statement#Fallthrough)을 위해 예약되어 있었기 때문입니다.
 
@@ -263,14 +263,14 @@ fun test(xs: List<Int>) {
 
 `when` 내부의 fall-through 동작은 추후 디자인 대상입니다.
 
-## IDE의 새로운 도구들
+## IDE의 새로운 도구들 {id="new-tools-in-the-ide"}
 
 Kotlin 1.4와 함께 IntelliJ IDEA의 새로운 도구들을 사용하여 Kotlin 개발을 간소화할 수 있습니다.
 
 * [새로운 유연한 프로젝트 마법사](#new-flexible-project-wizard)
 * [코루틴 디버거](#coroutine-debugger)
 
-### 새로운 유연한 프로젝트 마법사
+### 새로운 유연한 프로젝트 마법사 {id="new-flexible-project-wizard"}
 
 새로운 유연한 Kotlin 프로젝트 마법사(Project Wizard)를 사용하면 UI 없이 설정하기 어려울 수 있는 멀티플랫폼 프로젝트를 포함하여 다양한 유형의 Kotlin 프로젝트를 쉽게 생성하고 구성할 수 있습니다.
 
@@ -298,7 +298,7 @@ Kotlin 1.4와 함께 IntelliJ IDEA의 새로운 도구들을 사용하여 Kotlin
 * [React용 Kotlin/JS 애플리케이션 만들기](js-react.md)
 * [Kotlin/Native 애플리케이션 만들기](native-get-started.md)
 
-### 코루틴 디버거
+### 코루틴 디버거 {id="coroutine-debugger"}
 
 이미 많은 사람이 비동기 프로그래밍을 위해 [코루틴(coroutines)](coroutines-guide.md)을 사용하고 있습니다.
 하지만 Kotlin 1.4 이전에는 코루틴을 디버깅하는 것이 매우 힘들었습니다. 코루틴이 스레드 사이를 이동하기 때문에 특정 코루틴이 무엇을 하고 있는지 이해하고 컨텍스트를 확인하기가 어려웠습니다. 어떤 경우에는 중단점(breakpoint) 위로 단계를 추적하는 것이 제대로 작동하지 않았습니다. 결과적으로 코루틴을 사용하는 코드를 디버깅하기 위해 로깅이나 직관에 의존해야 했습니다.
@@ -324,14 +324,14 @@ Kotlin 1.4에서는 Kotlin 플러그인과 함께 제공되는 새로운 기능�
 
 코루틴 디버깅에 대한 자세한 내용은 [이 블로그 포스트](https://blog.jetbrains.com/kotlin/2020/07/kotlin-1-4-rc-debugging-coroutines/)와 [IntelliJ IDEA 문서](https://www.jetbrains.com/help/idea/debug-kotlin-coroutines.html)에서 확인할 수 있습니다.
 
-## 새로운 컴파일러
+## 새로운 컴파일러 {id="new-compiler"}
 
 새로운 Kotlin 컴파일러는 매우 빨라질 것입니다. 지원되는 모든 플랫폼을 통합하고 컴파일러 확장을 위한 API를 제공할 것입니다. 이는 장기 프로젝트이며, Kotlin 1.4.0에서 이미 몇 가지 단계를 완료했습니다.
 
 * [더 강력해진 새로운 타입 추론 알고리즘](#new-more-powerful-type-inference-algorithm)이 기본으로 활성화되었습니다.
 * [새로운 JVM 및 JS IR 백엔드](#unified-backends-and-extensibility). 안정화되면 기본값이 될 예정입니다.
 
-### 더 강력해진 새로운 타입 추론 알고리즘
+### 더 강력해진 새로운 타입 추론 알고리즘 {id="new-more-powerful-type-inference-algorithm"}
 
 Kotlin 1.4는 더 강력해진 새로운 타입 추론 알고리즘을 사용합니다. 이 새로운 알고리즘은 이미 Kotlin 1.3에서 컴파일러 옵션을 지정하여 사용해 볼 수 있었으며, 이제는 기본으로 사용됩니다. 새로운 알고리즘에서 해결된 전체 이슈 목록은 [YouTrack](https://youtrack.jetbrains.com/issues/KT?q=Tag:%20fixed-in-new-inference%20)에서 확인할 수 있습니다. 가장 눈에 띄는 개선 사항은 다음과 같습니다.
 
@@ -342,7 +342,7 @@ Kotlin 1.4는 더 강력해진 새로운 타입 추론 알고리즘을 사용합
 * [서로 다른 인자를 가진 Java 인터페이스에 대한 SAM 변환](#sam-conversion-for-java-interfaces-with-different-arguments)
 * [Kotlin에서의 Java SAM 인터페이스](#java-sam-interfaces-in-kotlin)
 
-#### 타입이 자동으로 추론되는 케이스 확대
+#### 타입이 자동으로 추론되는 케이스 확대 {id="more-cases-where-type-is-inferred-automatically"}
 
 새로운 추론 알고리즘은 이전 알고리즘에서 타입을 명시적으로 지정해야 했던 많은 경우에 대해 타입을 추론합니다. 예를 들어, 다음 예제에서 람다 파라미터 `it`의 타입은 `String?`으로 올바르게 추론됩니다.
 
@@ -365,7 +365,7 @@ fun main() {
 
 Kotlin 1.3에서는 이를 작동시키기 위해 명시적인 람다 파라미터를 도입하거나 `to`를 명시적인 제네릭 인자가 있는 `Pair` 생성자로 교체해야 했습니다.
 
-#### 람다의 마지막 표현식에 대한 스마트 캐스트
+#### 람다의 마지막 표현식에 대한 스마트 캐스트 {id="smart-casts-for-a-lambda-s-last-expression"}
 
 Kotlin 1.3에서는 예상되는 타입을 명시하지 않으면 람다 내부의 마지막 표현식이 스마트 캐스트 되지 않았습니다. 따라서 다음 예제에서 Kotlin 1.3은 `result` 변수의 타입을 `String?`으로 추론합니다.
 
@@ -384,7 +384,7 @@ Kotlin 1.4에서는 새로운 추론 알고리즘 덕분에 람다 내부의 마
 
 Kotlin 1.3에서는 이러한 케이스를 작동시키기 위해 명시적인 캐스트(`!!` 또는 `as String`과 같은 타입 캐스트)를 추가해야 하는 경우가 많았으나, 이제 이러한 캐스트는 불필요해졌습니다.
 
-#### Callable 참조에 대한 스마트 캐스트
+#### Callable 참조에 대한 스마트 캐스트 {id="smart-casts-for-callable-references"}
 
 Kotlin 1.3에서는 스마트 캐스트 된 타입의 멤버 참조에 접근할 수 없었습니다. 이제 Kotlin 1.4에서는 가능합니다.
 
@@ -422,7 +422,7 @@ fun main() {
 
 `animal` 변수가 특정 타입 `Cat` 및 `Dog`로 스마트 캐스트 된 후 서로 다른 멤버 참조 `animal::meow` 및 `animal::woof`를 사용할 수 있습니다. 타입 체크 후 서브타입에 해당하는 멤버 참조에 접근할 수 있습니다.
 
-#### 위임된 프로퍼티에 대한 더 나은 추론
+#### 위임된 프로퍼티에 대한 더 나은 추론 {id="better-inference-for-delegated-properties"}
 
 위임된 프로퍼티의 타입은 `by` 키워드 뒤에 오는 위임 표현식을 분석할 때 고려되지 않았습니다. 예를 들어 다음 코드는 이전에는 컴파일되지 않았지만, 이제 컴파일러는 `old` 및 `new` 파라미터의 타입을 `String?`으로 올바르게 추론합니다.
 
@@ -439,7 +439,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.4"}
 
-#### 서로 다른 인자를 가진 Java 인터페이스에 대한 SAM 변환
+#### 서로 다른 인자를 가진 Java 인터페이스에 대한 SAM 변환 {id="sam-conversion-for-java-interfaces-with-different-arguments"}
 
 Kotlin은 처음부터 Java 인터페이스에 대한 SAM 변환을 지원해 왔지만, 기존 Java 라이브러리를 사용할 때 가끔 번거로운 지원되지 않는 케이스가 하나 있었습니다. 두 개의 SAM 인터페이스를 파라미터로 받는 Java 메서드를 호출할 때, 두 인자 모두 람다이거나 일반 객체여야 했습니다. 한 인자는 람다로, 다른 인자는 객체로 전달할 수 없었습니다.
 
@@ -459,7 +459,7 @@ fun test(r1: Runnable) {
 }
 ```
 
-#### Kotlin에서의 Java SAM 인터페이스
+#### Kotlin에서의 Java SAM 인터페이스 {id="java-sam-interfaces-in-kotlin"}
 
 Kotlin 1.4에서는 Kotlin에서 Java SAM 인터페이스를 사용하고 이에 SAM 변환을 적용할 수 있습니다.
 
@@ -475,7 +475,7 @@ fun test() {
 
 Kotlin 1.3에서는 SAM 변환을 수행하기 위해 위의 `foo` 함수를 Java 코드로 선언해야 했습니다.
 
-### 통합 백엔드 및 확장성
+### 통합 백엔드 및 확장성 {id="unified-backends-and-extensibility"}
 
 Kotlin에는 실행 파일을 생성하는 세 가지 백엔드인 Kotlin/JVM, Kotlin/JS, Kotlin/Native가 있습니다. Kotlin/JVM과 Kotlin/JS는 서로 독립적으로 개발되었기 때문에 공유하는 코드가 많지 않았습니다. Kotlin/Native는 Kotlin 코드를 위한 중간 표현(IR)을 기반으로 구축된 새로운 인프라를 바탕으로 합니다.
 
@@ -485,7 +485,7 @@ Kotlin에는 실행 파일을 생성하는 세 가지 백엔드인 Kotlin/JVM, K
 
 현재 Alpha 단계인 새로운 [JVM IR](#new-jvm-ir-backend) 및 [JS IR](#new-js-ir-backend) 백엔드를 사용해 보고 의견을 공유해 주시길 권장합니다.
 
-## Kotlin/JVM
+## Kotlin/JVM {id="kotlin-jvm"}
 
 Kotlin 1.4.0에는 다음과 같은 다양한 JVM 전용 개선 사항이 포함되어 있습니다.
  
@@ -494,7 +494,7 @@ Kotlin 1.4.0에는 다음과 같은 다양한 JVM 전용 개선 사항이 포함
 * [null 체크를 위한 통합된 예외 타입](#unified-exception-type-for-null-checks)
 * [JVM 바이트코드의 타입 어노테이션](#type-annotations-in-the-jvm-bytecode)
 
-### 새로운 JVM IR 백엔드
+### 새로운 JVM IR 백엔드 {id="new-jvm-ir-backend"}
 
 Kotlin/JS와 함께 Kotlin/JVM을 [통합 IR 백엔드](#unified-backends-and-extensibility)로 마이그레이션하고 있으며, 이를 통해 대부분의 기능과 버그 수정을 모든 플랫폼에 대해 한 번에 구현할 수 있습니다. 또한 모든 플랫폼에서 작동하는 멀티플랫폼 확장을 만들어 이 혜택을 누릴 수 있습니다.
 
@@ -519,7 +519,7 @@ kotlinOptions.useIR = true
 >
 {style="note"}
 
-### 기본 메서드 생성을 위한 새로운 모드
+### 기본 메서드 생성을 위한 새로운 모드 {id="new-modes-for-generating-default-methods"}
 
 Kotlin 코드를 JVM 1.8 이상 타겟으로 컴파일할 때, Kotlin 인터페이스의 비추상 메서드를 Java의 `default` 메서드로 컴파일할 수 있었습니다. 이를 위해 해당 메서드를 표시하는 `@JvmDefault` 어노테이션과 이 어노테이션의 처리를 활성화하는 `-Xjvm-default` 컴파일러 옵션을 포함하는 메커니즘이 있었습니다.
 
@@ -527,7 +527,7 @@ Kotlin 코드를 JVM 1.8 이상 타겟으로 컴파일할 때, Kotlin 인터페�
 
 Java 상호 운용성에서의 기본 메서드에 대한 자세한 내용은 [상호 운용성 문서](java-to-kotlin-interop.md#default-methods-in-interfaces)와 [이 블로그 포스트](https://blog.jetbrains.com/kotlin/2020/07/kotlin-1-4-m3-generating-default-methods-in-interfaces/)를 참조하세요. 
 
-### null 체크를 위한 통합된 예외 타입
+### null 체크를 위한 통합된 예외 타입 {id="unified-exception-type-for-null-checks"}
 
 Kotlin 1.4.0부터 모든 런타임 null 체크는 `KotlinNullPointerException`, `IllegalStateException`, `IllegalArgumentException`, `TypeCastException` 대신 `java.lang.NullPointerException`을 던집니다. 이는 `!!` 연산자, 메서드 서문의 파라미터 null 체크, 플랫폼 타입 표현식 null 체크, null이 불가능한 타입으로의 `as` 연산자에 적용됩니다. `lateinit` null 체크와 `checkNotNull` 또는 `requireNotNull`과 같은 명시적인 라이브러리 함수 호출에는 적용되지 않습니다.
 
@@ -535,7 +535,7 @@ Kotlin 1.4.0부터 모든 런타임 null 체크는 `KotlinNullPointerException`,
 
 개발자 관점에서는 크게 변하는 것이 없습니다. Kotlin 코드는 이전과 동일한 에러 메시지로 예외를 던질 것입니다. 예외의 타입은 변경되지만 전달되는 정보는 동일하게 유지됩니다.
 
-### JVM 바이트코드의 타입 어노테이션
+### JVM 바이트코드의 타입 어노테이션 {id="type-annotations-in-the-jvm-bytecode"}
 
 Kotlin은 이제 JVM 바이트코드(타겟 버전 1.8+)에 타입 어노테이션을 생성할 수 있으므로 런타임에 Java 리플렉션에서 사용할 수 있습니다. 바이트코드에 타입 어노테이션을 생성하려면 다음 단계를 따르세요.
 
@@ -561,14 +561,14 @@ class A {
 }
 ```
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
 JS 플랫폼에서 Kotlin 1.4.0은 다음과 같은 개선 사항을 제공합니다.
 
 - [새로운 Gradle DSL](#new-gradle-dsl)
 - [새로운 JS IR 백엔드](#new-js-ir-backend)
 
-### 새로운 Gradle DSL
+### 새로운 Gradle DSL {id="new-gradle-dsl"}
 
 `kotlin.js` Gradle 플러그인에는 조정된 Gradle DSL이 함께 제공됩니다. 이 DSL은 여러 새로운 구성 옵션을 제공하며 `kotlin-multiplatform` 플러그인에서 사용되는 DSL과 더 밀접하게 정렬됩니다. 가장 영향력 있는 변경 사항은 다음과 같습니다.
 
@@ -577,7 +577,7 @@ JS 플랫폼에서 Kotlin 1.4.0은 다음과 같은 개선 사항을 제공합�
 - 필수 버전 번호 또는 [semver](https://docs.npmjs.com/about-semantic-versioning) 버전 범위를 통한 npm 의존성 관리 개선. 또한 `devNpm`, `optionalNpm`, `peerNpm`을 사용하여 _development_, _peer_, _optional_ npm 의존성을 지원합니다. [Gradle에서 직접 npm 패키지 의존성 관리에 대한 자세한 내용은 여기](js-project-setup.md#npm-dependencies)에서 읽어보세요.
 - Kotlin 외부 선언 생성기인 [Dukat](https://github.com/Kotlin/dukat)과의 통합 강화. 외부 선언은 이제 빌드 시점에 생성되거나 Gradle 태스크를 통해 수동으로 생성될 수 있습니다.
 
-### 새로운 JS IR 백엔드
+### 새로운 JS IR 백엔드 {id="new-js-ir-backend"}
 
 현재 [Alpha](components-stability.md) 단계인 [Kotlin/JS용 IR 백엔드](js-ir-compiler.md)는 데드 코드 제거(DCE)를 통한 생성된 코드 크기 최적화, JavaScript 및 TypeScript와의 상호 운용성 개선 등 Kotlin/JS 타겟에 특화된 몇 가지 새로운 기능을 제공합니다.
 
@@ -600,7 +600,7 @@ kotlin {
 
 [Kotlin/JS IR 컴파일러 백엔드에서 사용 가능한 기능에 대해 자세히 알아보기](js-ir-compiler.md).
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 1.4.0에서 Kotlin/Native는 다음과 같은 상당수의 새로운 기능과 개선 사항을 얻었습니다.
 
@@ -611,7 +611,7 @@ kotlin {
 * [성능 개선](#performance-improvements)
 * [CocoaPods 의존성 관리 간소화](#simplified-management-of-cocoapods-dependencies)
 
-### Swift 및 Objective-C에서 Kotlin의 suspend 함수 지원
+### Swift 및 Objective-C에서 Kotlin의 suspend 함수 지원 {id="support-for-kotlin-s-suspending-functions-in-swift-and-objective-c"}
 
 1.4.0에서는 Swift 및 Objective-C에서 suspend 함수에 대한 기본 지원을 추가했습니다. 이제 Kotlin 모듈을 Apple 프레임워크로 컴파일할 때, suspend 함수는 콜백이 있는 함수(Swift/Objective-C 용어로는 `completionHandler`)로 사용할 수 있습니다. 생성된 프레임워크의 헤더에 이러한 함수가 있으면 Swift 또는 Objective-C 코드에서 이를 호출하고 심지어 오버라이드할 수도 있습니다.
 
@@ -635,7 +635,7 @@ queryData(id: 17) { result, error in
 
 [Swift 및 Objective-C에서 suspend 함수 사용에 대해 자세히 알아보기](native-objc-interop.md).
 
-### Objective-C 제네릭 지원 기본 활성화
+### Objective-C 제네릭 지원 기본 활성화 {id="objective-c-generics-support-by-default"}
 
 이전 버전의 Kotlin은 Objective-C 상호 운용성에서 제네릭에 대한 실험적 지원을 제공했습니다. 1.4.0부터 Kotlin/Native는 기본적으로 Kotlin 코드에서 제네릭이 포함된 Apple 프레임워크를 생성합니다. 경우에 따라 이는 Kotlin 프레임워크를 호출하는 기존 Objective-C 또는 Swift 코드를 깨뜨릴 수 있습니다. 제네릭 없이 프레임워크 헤더를 작성하려면 `-Xno-objc-generics` 컴파일러 옵션을 추가하세요.
 
@@ -651,7 +651,7 @@ kotlin {
 
 [Objective-C 상호 운용성 문서](native-objc-interop.md#generics)에 나열된 모든 세부 사항과 제한 사항은 여전히 유효합니다.
 
-### Objective-C/Swift 상호 운용성에서의 예외 처리
+### Objective-C/Swift 상호 운용성에서의 예외 처리 {id="exception-handling-in-objective-c-swift-interop"}
 
 1.4.0에서는 예외가 번역되는 방식과 관련하여 Kotlin에서 생성된 Swift API를 약간 변경했습니다. Kotlin과 Swift 사이에는 에러 처리에 근본적인 차이가 있습니다. 모든 Kotlin 예외는 언체크(unchecked) 예외인 반면, Swift에는 체크(checked) 에러만 있습니다. 따라서 Swift 코드가 예상되는 예외를 인지하게 하려면 Kotlin 함수에 잠재적인 예외 클래스 리스트를 지정하는 `@Throws` 어노테이션을 표시해야 합니다.
 
@@ -659,7 +659,7 @@ Swift 또는 Objective-C 프레임워크로 컴파일할 때, `@Throws` 어노�
 
 이전에는 `RuntimeException` 및 `Error` 이외의 모든 예외가 `NSError`로 전파되었습니다. 이제 이 동작이 변경됩니다. 이제 `NSError`는 `@Throws` 어노테이션의 파라미터로 지정된 클래스(또는 그 서브클래스)의 인스턴스인 예외에 대해서만 던져집니다. Swift/Objective-C에 도달하는 다른 Kotlin 예외는 처리되지 않은 것으로 간주되어 프로그램 종료를 유발합니다.
 
-### Apple 타겟에서 릴리스용 .dSYM 기본 생성
+### Apple 타겟에서 릴리스용 .dSYM 기본 생성 {id="generate-release-dsyms-on-apple-targets-by-default"}
 
 1.4.0부터 Kotlin/Native 컴파일러는 Darwin 플랫폼의 릴리스 바이너리에 대해 기본적으로 [디버그 심볼 파일](https://developer.apple.com/documentation/xcode/building_your_app_to_include_debugging_information)(`.dSYM`)을 생성합니다. 이는 `-Xadd-light-debug=disable` 컴파일러 옵션으로 비활성화할 수 있습니다. 다른 플랫폼에서 이 옵션은 기본적으로 비활성화되어 있습니다. Gradle에서 이 옵션을 토글하려면 다음을 사용하세요.
 
@@ -675,7 +675,7 @@ kotlin {
 
 [크래시 리포트 심볼화에 대해 자세히 알아보기](native-debugging.md#debug-ios-applications).
 
-### 성능 개선
+### 성능 개선 {id="performance-improvements"}
 
 Kotlin/Native는 개발 프로세스와 실행 속도를 모두 높이는 여러 성능 개선 사항을 적용받았습니다. 다음은 몇 가지 예시입니다.
 
@@ -687,7 +687,7 @@ Kotlin/Native는 개발 프로세스와 실행 속도를 모두 높이는 여러
 
 - 1.3.70에서 Kotlin/Native 컴파일 성능을 개선하기 위한 두 가지 새로운 기능을 도입했습니다. [프로젝트 의존성 캐싱 및 Gradle 데몬에서 컴파일러 실행](https://blog.jetbrains.com/kotlin/2020/03/kotlin-1-3-70-released/#kotlin-native)이 그것입니다. 그 이후로 수많은 이슈를 수정하고 이러한 기능의 전반적인 안정성을 개선했습니다.
 
-### CocoaPods 의존성 관리 간소화
+### CocoaPods 의존성 관리 간소화 {id="simplified-management-of-cocoapods-dependencies"}
 
 이전에는 프로젝트를 의존성 관리자인 CocoaPods와 통합하면 프로젝트의 iOS, macOS, watchOS 또는 tvOS 부분을 멀티플랫폼 프로젝트의 다른 부분과 분리하여 Xcode에서만 빌드할 수 있었습니다. 다른 부분들은 IntelliJ IDEA에서 빌드할 수 있었습니다.
 
@@ -705,7 +705,7 @@ Kotlin/Native는 개발 프로세스와 실행 속도를 모두 높이는 여러
 
 [의존성을 추가하는 방법 알아보기](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-libraries.html).
 
-## Kotlin 멀티플랫폼
+## Kotlin 멀티플랫폼 {id="kotlin-multiplatform"}
 
 > 멀티플랫폼 프로젝트 지원은 [Alpha](components-stability.md) 단계에 있습니다. 향후 호환되지 않게 변경될 수 있으며 수동 마이그레이션이 필요할 수 있습니다.
 > [YouTrack](https://youtrack.jetbrains.com/issues/KT)을 통한 피드백을 환영합니다.
@@ -722,7 +722,7 @@ Kotlin/Native는 개발 프로세스와 실행 속도를 모두 높이는 여러
 >
 {style="note"}
 
-### 계층적 프로젝트 구조를 통한 여러 타겟 간 코드 공유
+### 계층적 프로젝트 구조를 통한 여러 타겟 간 코드 공유 {id="sharing-code-in-several-targets-with-the-hierarchical-project-structure"}
 
 새로운 계층적 프로젝트 구조 지원을 통해 [멀티플랫폼 프로젝트](https://kotlinlang.org/docs/multiplatform/multiplatform-discover-project.html) 내의 [여러 플랫폼](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#targets) 간에 코드를 공유할 수 있습니다.
 
@@ -801,7 +801,7 @@ kotlin {
 
 계층적 프로젝트 구조 덕분에 라이브러리는 타겟의 서브셋에 대한 공통 API를 제공할 수도 있습니다. [라이브러리에서 코드 공유](https://kotlinlang.org/docs/multiplatform/multiplatform-share-on-platforms.html#share-code-in-libraries)에 대해 자세히 알아보세요.
 
-### 계층적 구조에서 네이티브 라이브러리 활용 
+### 계층적 구조에서 네이티브 라이브러리 활용 {id="leveraging-native-libs-in-the-hierarchical-structure"}
 
 여러 네이티브 타겟 간에 공유되는 소스 세트에서 Foundation, UIKit, POSIX와 같은 플랫폼 의존적인 라이브러리를 사용할 수 있습니다. 이를 통해 플랫폼 전용 의존성에 제한받지 않고 더 많은 네이티브 코드를 공유할 수 있습니다. 
 
@@ -809,7 +809,7 @@ kotlin {
 
 [플랫폼 의존 라이브러리 사용에 대해 자세히 알아보기](https://kotlinlang.org/docs/multiplatform/multiplatform-share-on-platforms.html#connect-platform-specific-libraries).
 
-### 의존성을 단 한 번만 지정
+### 의존성을 단 한 번만 지정 {id="specifying-dependencies-only-once"}
 
 이제부터는 동일한 라이브러리의 다양한 변형을 공유 소스 세트와 플랫폼별 소스 세트에서 각각 지정하는 대신, 공유 소스 세트에서 의존성을 단 한 번만 지정하면 됩니다.
 
@@ -856,7 +856,7 @@ kotlin {
 
 [의존성 구성에 대해 자세히 알아보기](gradle-configure-project.md#configure-dependencies).
 
-## Gradle 프로젝트 개선 사항
+## Gradle 프로젝트 개선 사항 {id="gradle-project-improvements"}
 
 [Kotlin 멀티플랫폼](#kotlin-multiplatform), [Kotlin/JVM](#kotlin-jvm), [Kotlin/Native](#kotlin-native), [Kotlin/JS](#kotlin-js)에 특화된 Gradle 프로젝트 기능 및 개선 사항 외에도 모든 Kotlin Gradle 프로젝트에 적용되는 몇 가지 변경 사항이 있습니다.
 
@@ -864,7 +864,7 @@ kotlin {
 * [Kotlin 프로젝트에는 최신 버전의 Gradle이 필요합니다](#minimum-gradle-version-for-kotlin-projects)
 * [IDE에서 Kotlin Gradle DSL 지원 개선](#improved-gradle-kts-support-in-the-ide)
 
-### 표준 라이브러리 의존성 기본 추가
+### 표준 라이브러리 의존성 기본 추가 {id="dependency-on-the-standard-library-added-by-default"}
 
 이제 멀티플랫폼 프로젝트를 포함한 모든 Kotlin Gradle 프로젝트에서 `stdlib` 라이브러리에 대한 의존성을 선언할 필요가 없습니다. 의존성이 기본으로 추가됩니다. 
 
@@ -874,11 +874,11 @@ kotlin {
 
 [기본 동작을 변경하는 방법 알아보기](gradle-configure-project.md#dependency-on-the-standard-library).
 
-### Kotlin 프로젝트를 위한 최소 Gradle 버전
+### Kotlin 프로젝트를 위한 최소 Gradle 버전 {id="minimum-gradle-version-for-kotlin-projects"}
 
 Kotlin 프로젝트의 새로운 기능을 즐기려면 Gradle을 [최신 버전](https://gradle.org/releases/)으로 업데이트하세요. 멀티플랫폼 프로젝트에는 Gradle 6.0 이상이 필요하며, 다른 Kotlin 프로젝트는 Gradle 5.4 이상에서 작동합니다.
 
-### IDE에서 *.gradle.kts 지원 개선 
+### IDE에서 *.gradle.kts 지원 개선 {id="improved-gradle-kts-support-in-the-ide"}
 
 1.4.0에서는 Gradle Kotlin DSL 스크립트(`*.gradle.kts` 파일)에 대한 IDE 지원을 계속해서 개선했습니다. 새로운 버전의 변경 사항은 다음과 같습니다.
 
@@ -904,7 +904,7 @@ Kotlin 프로젝트의 새로운 기능을 즐기려면 Gradle을 [최신 버전
   
 - _에러 보고 개선_. 이전에는 Gradle 데몬의 에러를 별도의 로그 파일에서만 볼 수 있었습니다. 이제 Gradle 데몬은 에러에 대한 모든 정보를 직접 반환하고 이를 Build 도구 창에 표시합니다. 이를 통해 시간과 노력을 모두 아낄 수 있습니다.
 
-## 표준 라이브러리
+## 표준 라이브러리 {id="standard-library"}
 
 1.4.0 표준 라이브러리의 가장 중요한 변경 사항 목록은 다음과 같습니다.
 
@@ -920,7 +920,7 @@ Kotlin 프로젝트의 새로운 기능을 즐기려면 Gradle을 [최신 버전
 - [지원 중단(Deprecations)](#deprecations)
 - [지원 중단된 실험적 코루틴 제외](#exclusion-of-the-deprecated-experimental-coroutines)
 
-### 공통 예외 처리 API
+### 공통 예외 처리 API {id="common-exception-processing-api"}
 
 다음 API 요소들이 공통 라이브러리로 이동되었습니다.
 
@@ -928,9 +928,9 @@ Kotlin 프로젝트의 새로운 기능을 즐기려면 Gradle을 [최신 버전
 * 예외를 전달하기 위해 억제된 예외를 지정할 수 있게 해주는 `Throwable.addSuppressed()` 함수와 모든 억제된 예외 리스트를 반환하는 `Throwable.suppressedExceptions` 프로퍼티.
 * 함수가 플랫폼 메서드(JVM 또는 Native)로 컴파일될 때 체크될 예외 타입들을 나열하는 `@Throws` 어노테이션. 
 
-### 배열 및 컬렉션을 위한 새로운 함수
+### 배열 및 컬렉션을 위한 새로운 함수 {id="new-functions-for-arrays-and-collections"}
 
-#### 컬렉션
+#### 컬렉션 {id="collections"}
 
 1.4.0에서 표준 라이브러리에는 **컬렉션** 작업을 위한 여러 유용한 함수가 포함되어 있습니다.
 
@@ -1069,7 +1069,7 @@ Kotlin 프로젝트의 새로운 기능을 즐기려면 Gradle을 [최신 버전
 
 * 가변 리스트에서 요소를 제거하기 위한 숏컷인 `removeFirst()`, `removeLast()`와 이들의 `*orNull()` 대응 함수.
 
-#### 배열
+#### 배열 {id="arrays"}
 
 다양한 컨테이너 타입 작업 시 일관된 경험을 제공하기 위해 **배열**을 위한 새로운 함수도 추가했습니다.
 
@@ -1115,7 +1115,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.4"}
 
-#### ArrayDeque
+#### ArrayDeque {id="arraydeque"}
 
 양방향 큐(double-ended queue)의 구현인 `ArrayDeque` 클래스도 추가했습니다.
 양방향 큐를 사용하면 큐의 시작과 끝 모두에서 분할 상환 상수 시간(amortized constant time) 내에 요소를 추가하거나 제거할 수 있습니다. 코드에서 큐나 스택이 필요할 때 기본적으로 양방향 큐를 사용할 수 있습니다.
@@ -1140,7 +1140,7 @@ fun main() {
 
 `ArrayDeque` 구현은 내부적으로 크기 조정이 가능한 배열을 사용합니다. 순환 버퍼인 `Array`에 내용을 저장하고 `Array`가 가득 찼을 때만 크기를 조정합니다.
 
-### 문자열 조작을 위한 함수
+### 문자열 조작을 위한 함수 {id="functions-for-string-manipulations"}
 
 1.4.0의 표준 라이브러리에는 문자열 조작 API에 대한 여러 개선 사항이 포함되어 있습니다.
 
@@ -1175,7 +1175,7 @@ fun main() {
     ```
     {kotlin-runnable="true" kotlin-min-compiler-version="1.4"}
 
-### 비트 연산
+### 비트 연산 {id="bit-operations"}
 
 비트 조작을 위한 새로운 함수들입니다.
 * `countOneBits()` 
@@ -1197,7 +1197,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.4"}
 
-### 위임된 프로퍼티 개선
+### 위임된 프로퍼티 개선 {id="delegated-properties-improvements"}
 
 1.4.0에서는 Kotlin의 위임된 프로퍼티(delegated properties) 사용 경험을 개선하기 위해 새로운 기능을 추가했습니다.
 - 이제 프로퍼티를 다른 프로퍼티에 위임할 수 있습니다.
@@ -1208,7 +1208,7 @@ fun main() {
 
 [위임된 프로퍼티에 대해 자세히 알아보기](delegated-properties.md).
 
-### KType에서 Java Type으로 변환
+### KType에서 Java Type으로 변환 {id="converting-from-ktype-to-java-type"}
 
 표준 라이브러리의 새로운 확장 프로퍼티 `KType.javaType`(현재 실험적)을 사용하면 전체 `kotlin-reflect` 의존성을 사용하지 않고도 Kotlin 타입에서 `java.lang.reflect.Type`을 얻을 수 있습니다.
 
@@ -1236,11 +1236,11 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.4"}
 
-### Kotlin 리플렉션을 위한 Proguard 구성
+### Kotlin 리플렉션을 위한 Proguard 구성 {id="proguard-configurations-for-kotlin-reflection"}
 
 1.4.0부터 `kotlin-reflect.jar`에 Kotlin 리플렉션을 위한 Proguard/R8 구성을 내장했습니다. 이를 통해 R8 또는 Proguard를 사용하는 대부분의 Android 프로젝트는 추가 구성 없이 kotlin-reflect와 함께 작동할 수 있습니다. 더 이상 kotlin-reflect 내부를 위한 Proguard 규칙을 복사해서 붙여넣을 필요가 없습니다. 하지만 리플렉션을 사용할 모든 API를 명시적으로 나열해야 한다는 점에 유의하세요.
 
-### 기존 API 개선
+### 기존 API 개선 {id="improving-the-existing-api"}
 
 * 여러 함수가 이제 null 수신자에서도 작동합니다. 예를 들면 다음과 같습니다.
     * 문자열의 `toBoolean()`
@@ -1252,34 +1252,34 @@ fun main() {
 
 * `maxOf()` 및 `minOf()` 최상위 함수가 가변 인자(`vararg`)를 받을 수 있습니다.
 
-### stdlib 아티팩트를 위한 module-info 디스크립터
+### stdlib 아티팩트를 위한 module-info 디스크립터 {id="module-info-descriptors-for-stdlib-artifacts"}
 
 Kotlin 1.4.0은 기본 표준 라이브러리 아티팩트에 `module-info.java` 모듈 정보를 추가합니다. 이를 통해 앱에 필요한 플랫폼 모듈만 포함하는 맞춤형 Java 런타임 이미지를 생성하는 [jlink 도구](https://docs.oracle.com/en/java/javase/11/tools/jlink.html)와 함께 사용할 수 있습니다.
 이전에도 Kotlin 표준 라이브러리 아티팩트와 함께 jlink를 사용할 수 있었으나, 이를 위해 별도의 아티팩트("modular" 분류자가 있는 아티팩트)를 사용해야 했고 전체 설정이 간단하지 않았습니다.  
 Android의 경우, module-info가 있는 jar 파일을 올바르게 처리할 수 있는 Android Gradle 플러그인 버전 3.2 이상을 사용하고 있는지 확인하세요.
 
-### 지원 중단(Deprecations)
+### 지원 중단(Deprecations) {id="deprecations"}
 
-#### Double 및 Float의 toShort() 및 toByte()
+#### Double 및 Float의 toShort() 및 toByte() {id="toshort-and-tobyte-of-double-and-float"}
 
 `Double` 및 `Float`의 `toShort()` 및 `toByte()` 함수는 좁은 값 범위와 더 작은 변수 크기로 인해 예상치 못한 결과를 초래할 수 있어 지원이 중단되었습니다.
 
 부동 소수점 숫자를 `Byte` 또는 `Short`로 변환하려면 2단계 변환을 사용하세요. 먼저 `Int`로 변환한 다음 대상 타입으로 다시 변환하세요.
 
-#### 부동 소수점 배열에서의 contains(), indexOf(), lastIndexOf()
+#### 부동 소수점 배열에서의 contains(), indexOf(), lastIndexOf() {id="contains-indexof-and-lastindexof-on-floating-point-arrays"}
 
 `FloatArray` 및 `DoubleArray`의 `contains()`, `indexOf()`, `lastIndexOf()` 확장 함수는 일부 경계 케이스에서 전순서 동등성(total order equality)과 상충되는 [IEEE 754](https://en.wikipedia.org/wiki/IEEE_754) 표준 동등성을 사용하기 때문에 지원이 중단되었습니다. 자세한 내용은 [이 이슈](https://youtrack.jetbrains.com/issue/KT-28753)를 참조하세요.
 
-#### min() 및 max() 컬렉션 함수
+#### min() 및 max() 컬렉션 함수 {id="min-and-max-collection-functions"}
 
 빈 컬렉션에 대해 `null`을 반환하는 동작을 더 적절하게 반영하기 위해 `min()` 및 `max()` 컬렉션 함수를 `minOrNull()` 및 `maxOrNull()`로 대체하고 지원을 중단했습니다.
 자세한 내용은 [이 이슈](https://youtrack.jetbrains.com/issue/KT-38854)를 참조하세요. 
 
-### 지원 중단된 실험적 코루틴 제외
+### 지원 중단된 실험적 코루틴 제외 {id="exclusion-of-the-deprecated-experimental-coroutines"}
  
 `kotlin.coroutines.experimental` API는 1.3.0에서 `kotlin.coroutines`를 위해 지원이 중단되었습니다. 1.4.0에서는 표준 라이브러리에서 `kotlin.coroutines.experimental`을 제거함으로써 지원 중단 사이클을 완료합니다. 여전히 JVM에서 이를 사용하는 사람들을 위해 모든 실험적 코루틴 API가 포함된 호환성 아티팩트 `kotlin-coroutines-experimental-compat.jar`를 제공했습니다. 이를 Maven에 게시했으며 표준 라이브러리와 함께 Kotlin 배포판에 포함했습니다.
 
-## 안정적인 JSON 직렬화
+## 안정적인 JSON 직렬화 {id="stable-json-serialization"}
 
 Kotlin 1.4.0과 함께 [kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization)의 첫 번째 안정 버전인 1.0.0-RC를 출시합니다. 이제 `kotlinx-serialization-core`(이전 명칭 `kotlinx-serialization-runtime`)의 JSON 직렬화 API가 안정적임을 선언합니다. 다른 직렬화 형식용 라이브러리는 코어 라이브러리의 일부 고급 부분과 함께 실험적 단계로 유지됩니다.
 
@@ -1290,7 +1290,7 @@ JSON 직렬화 API를 더 일관되고 사용하기 쉽게 대폭 재작업했�
 >
 {style="note"}
 
-## 스크립팅 및 REPL
+## 스크립팅 및 REPL {id="scripting-and-repl"}
 
 1.4.0에서 Kotlin의 스크립팅은 다른 업데이트와 함께 여러 기능 및 성능 개선의 혜택을 받았습니다. 주요 변경 사항은 다음과 같습니다.
 
@@ -1301,24 +1301,24 @@ JSON 직렬화 API를 더 일관되고 사용하기 쉽게 대폭 재작업했�
 
 Kotlin의 스크립팅에 더 익숙해질 수 있도록 [예제 프로젝트](https://github.com/Kotlin/kotlin-script-examples)를 준비했습니다. 여기에는 표준 스크립트(`*.main.kts`) 예제와 Kotlin 스크립팅 API 및 맞춤형 스크립트 정의 사용 예제가 포함되어 있습니다. 사용해 보시고 [이슈 트래커](https://youtrack.jetbrains.com/issues/KT)를 통해 의견을 공유해 주세요.
 
-### 새로운 의존성 해결 API
+### 새로운 의존성 해결 API {id="new-dependencies-resolution-api"}
 
 1.4.0에서는 외부 의존성(예: Maven 아티팩트)을 해결하기 위한 새로운 API와 그 구현을 도입했습니다. 이 API는 새로운 아티팩트인 `kotlin-scripting-dependencies` 및 `kotlin-scripting-dependencies-maven`으로 게시됩니다. `kotlin-script-util` 라이브러리의 이전 의존성 해결 기능은 이제 지원이 중단되었습니다.
 
-### 새로운 REPL API
+### 새로운 REPL API {id="new-repl-api"}
 
 새로운 실험적 REPL API가 이제 Kotlin 스크립팅 API의 일부가 되었습니다. 게시된 아티팩트에는 이를 구현한 여러 구현체가 있으며, 일부는 코드 완성(code completion)과 같은 고급 기능을 갖추고 있습니다. 우리는 이 API를 [Kotlin Jupyter 커널](https://blog.jetbrains.com/kotlin/2020/05/kotlin-kernel-for-jupyter-notebook-v0-8/)에서 사용하고 있으며, 이제 여러분의 맞춤형 셸과 REPL에서도 시도해 볼 수 있습니다.
 
-### 컴파일된 스크립트 캐시
+### 컴파일된 스크립트 캐시 {id="compiled-scripts-cache"}
 
 Kotlin 스크립팅 API는 이제 컴파일된 스크립트 캐시를 구현하는 기능을 제공하여, 변경되지 않은 스크립트의 후속 실행 속도를 대폭 높입니다. 기본 고급 스크립트 구현인 `kotlin-main-kts`에는 이미 자체 캐시가 포함되어 있습니다.
 
-### 아티팩트 이름 변경
+### 아티팩트 이름 변경 {id="artifacts-renaming"}
 
 아티팩트 이름의 혼동을 피하기 위해 `kotlin-scripting-jsr223-embeddable` 및 `kotlin-scripting-jvm-host-embeddable`을 각각 `kotlin-scripting-jsr223` 및 `kotlin-scripting-jvm-host`로 변경했습니다. 이 아티팩트들은 사용 충돌을 피하기 위해 번들로 제공되는 서드파티 라이브러리를 숨긴(shade) `kotlin-compiler-embeddable` 아티팩트에 의존합니다. 이번 이름 변경을 통해 (일반적으로 더 안전한) `kotlin-compiler-embeddable`의 사용을 스크립팅 아티팩트의 기본값으로 만듭니다.
 어떤 이유로든 숨겨지지 않은(unshaded) `kotlin-compiler`에 의존하는 아티팩트가 필요한 경우, `kotlin-scripting-jsr223-unshaded`와 같이 `-unshaded` 접미사가 붙은 아티팩트 버전을 사용하세요. 이 이름 변경은 직접 사용될 것으로 예상되는 스크립팅 아티팩트에만 영향을 미치며, 다른 아티팩트의 이름은 변경되지 않습니다.
 
-## Kotlin 1.4.0으로 마이그레이션하기
+## Kotlin 1.4.0으로 마이그레이션하기 {id="migrating-to-kotlin-1-4-0"}
 
 Kotlin 플러그인의 마이그레이션 도구는 프로젝트를 이전 버전의 Kotlin에서 1.4.0으로 마이그레이션하는 것을 도와줍니다.
 

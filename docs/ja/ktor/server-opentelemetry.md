@@ -51,7 +51,7 @@ Ktor は [OpenTelemetry](https://opentelemetry.io/) と統合されています�
 
 Ktor アプリケーションに `%plugin_name%` プラグインをインストールする前に、`OpenTelemetry` インスタンスを設定して初期化する必要があります。このインスタンスは、トレースやメトリクスを含むテレメトリデータの管理を担当します。
 
-### 自動設定
+### 自動設定 {id="automatic-configuration"}
 
 OpenTelemetry を設定する一般的な方法は、[`AutoConfiguredOpenTelemetrySdk`](https://javadoc.io/doc/io.opentelemetry/opentelemetry-sdk-extension-autoconfigure/latest/io/opentelemetry/sdk/autoconfigure/AutoConfiguredOpenTelemetrySdk.html) を使用することです。これにより、システムプロパティや環境変数に基づいてエクスポーターやリソースを自動的に構成し、セットアップを簡素化できます。
 
@@ -76,7 +76,7 @@ fun getOpenTelemetry(serviceName: String): OpenTelemetry {
 
 ```
 
-### プログラムによる設定
+### プログラムによる設定 {id="programmatic-configuration"}
 
 環境ベースの設定に依存せず、コード内でエクスポーター、プロセッサ、プロパゲーターを定義するには、[`OpenTelemetrySdk`](https://javadoc.io/doc/io.opentelemetry/opentelemetry-sdk/latest/io/opentelemetry/sdk/OpenTelemetrySdk.html) を使用できます。
 
@@ -229,11 +229,11 @@ install(%plugin_name%) {
 
 アプリケーション全体のトレーシング動作を微調整するために、プロパゲーター、属性制限、インストゥルメンテーションの有効化/無効化などの追加の OpenTelemetry プロパティを設定することもできます。詳細については、[OpenTelemetry Java 設定ガイド](https://opentelemetry.io/docs/languages/java/configuration/)を参照してください。
 
-## Grafana LGTM によるテレメトリデータの検証
+## Grafana LGTM によるテレメトリデータの検証 {id="verify-telemetry-data-with-grafana-lgtm"}
 
 テレメトリデータを視覚化して検証するために、トレース、メトリクス、ログを Grafana などの分散トレーシングバックエンドにエクスポートできます。`grafana/otel-lgtm` オールインワンイメージには、[Grafana](https://grafana.com/)、[Tempo](https://grafana.com/oss/tempo/) (トレース)、[Loki](https://grafana.com/oss/loki/) (ログ)、[Mimir](https://grafana.com/oss/mimir/) (メトリクス) がバンドルされています。
 
-### Docker Compose を使用する
+### Docker Compose を使用する {id="using-docker-compose"}
 
 以下の内容で **docker-compose.yml** ファイルを作成します。
 
@@ -257,7 +257,7 @@ Grafana LGTM オールインワンコンテナを起動するには、次のコ�
 docker compose up -d
 ```
 
-### Docker CLI を使用する
+### Docker CLI を使用する {id="using-docker-cli"}
 
 あるいは、Docker コマンドラインを使用して直接 Grafana を実行することもできます。
 
@@ -271,7 +271,7 @@ docker run -d --name grafana_lgtm \
     grafana/otel-lgtm:latest
 ```
 
-### アプリケーションのエクスポート設定
+### アプリケーションのエクスポート設定 {id="application-export-configuration"}
 
 Ktor アプリケーションから OTLP エンドポイントにテレメトリを送信するには、gRPC プロトコルを使用するように OpenTelemetry SDK を設定します。SDK をビルドする前に、環境変数を介してこれらの値を設定できます。
 
@@ -287,7 +287,7 @@ export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4317
 -Dotel.traces.exporter=otlp -Dotel.exporter.otlp.protocol=grpc -Dotel.exporter.otlp.endpoint=http://localhost:4317
 ```
 
-### Grafana UI へのアクセス
+### Grafana UI へのアクセス {id="accessing-grafana-ui"}
 
 実行されると、Grafana UI は [http://localhost:3000/](http://localhost:3000/) で利用可能になります。
 

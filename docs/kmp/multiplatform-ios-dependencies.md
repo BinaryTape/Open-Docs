@@ -6,7 +6,7 @@ Apple SDK 依赖项（例如 Foundation 或 Core Bluetooth）在 Kotlin 多平�
 
 要处理 Kotlin 多平台项目中的 iOS 依赖项，您可以使用 [cinterop 工具](#with-cinterop)进行管理，或者使用 [CocoaPods 依赖管理器](#with-cocoapods)（不支持纯 Swift Pod）。
 
-### 使用 cinterop
+### 使用 cinterop {id="with-cinterop"}
 
 您可以使用 cinterop 工具为 Objective-C 或 Swift 声明创建 Kotlin 绑定。这将允许您从 Kotlin 代码中调用它们。
 
@@ -17,7 +17,7 @@ Apple SDK 依赖项（例如 Foundation 或 Core Bluetooth）在 Kotlin 多平�
 3. 创建一个特殊的 `.def` [定义文件](https://kotlinlang.org/docs/native-definition-file.html)，向 cinterop 描述该依赖项。
 4. 调整构建脚本以在构建期间生成绑定。
 
-#### 添加库
+#### 添加库 {id="add-a-library"}
 
 1. 下载库源代码并将其放置在可以从项目中引用到的位置。
 2. 构建库（库作者通常会提供关于如何执行此操作的指南）并获取二进制文件的路径。
@@ -108,7 +108,7 @@ import DateTools.*
 >
 {style="tip"}
 
-#### 添加框架
+#### 添加框架 {id="add-a-framework"}
 
 1. 下载框架源代码并将其放置在可以从项目中引用到的位置。
 2. 构建框架（框架作者通常会提供关于如何执行此操作的指南）并获取二进制文件的路径。
@@ -194,7 +194,7 @@ import MyFramework.*
 
 详细了解 [Swift/Objective-C 互操作性](https://kotlinlang.org/docs/native-objc-interop.html)以及[从 Gradle 配置 cinterop](multiplatform-dsl-reference.md#cinterops)。
 
-### 使用 CocoaPods
+### 使用 CocoaPods {id="with-cocoapods"}
 
 1. 执行[初始 CocoaPods 集成设置](multiplatform-cocoapods-overview.md#set-up-an-environment-to-work-with-cocoapods)。
 2. 通过在项目的 `build.gradle(.kts)` 中包含 `pod()` 函数调用，添加对您想要使用的 CocoaPods 仓库中 Pod 库的依赖。
@@ -253,7 +253,7 @@ import cocoapods.SDWebImage.*
 > 
 {style="tip"}
 
-## 后续步骤
+## 后续步骤 {id="what-s-next"}
 
 查看关于在多平台项目中添加依赖项的其他资源，并详细了解：
 

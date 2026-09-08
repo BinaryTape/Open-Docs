@@ -18,6 +18,6 @@ Dokka 可以產生多種格式的文件，包括其專有的現代 [HTML 格式]
 
 請參閱 [開始使用 Dokka](dokka-get-started.md) 以邁出使用 Dokka 的第一步。
 
-## 社群
+## 社群 {id="community"}
 
 Dokka 在 [Kotlin Community Slack](https://kotl.in/slack) 中有一個專屬的 `#dokka` 頻道，您可以在那裡討論 Dokka、其外掛程式以及如何開發這些外掛程式，並與維護者聯繫。

@@ -8,7 +8,7 @@
 2. 為每種資源建立必要的目錄。
 3. 為限定資源建立額外目錄（例如，用於深色 UI 佈景主題的不同影像或在地化字串）。
 
-## 建置指令碼與目錄設定
+## 建置指令碼與目錄設定 {id="build-script-and-directory-setup"}
 
 若要在多平台專案中存取資源，請新增程式庫相依性並在專案目錄中組織檔案：
 
@@ -39,7 +39,7 @@
    * 字串應放置在 `values` 目錄中。
    * 其他檔案應放置在 `files` 目錄中，您可以根據需要建立任何資料夾階層。
 
-### 自訂資源目錄
+### 自訂資源目錄 {id="custom-resource-directories"}
 
 在 `build.gradle.kts` 檔案的 `compose.resources {}` 區塊中，您可以為每個原始碼集指定自訂資源目錄。每個自訂目錄也應以與預設 `composeResources` 相同的方式包含檔案：包含用於影像的 `drawable` 子目錄、用於字體的 `font` 子目錄，依此類推。
 
@@ -77,7 +77,7 @@ compose.resources {
 
 在 [存取與用法](compose-multiplatform-resources-usage.md#customizing-accessor-class-generation) 中進一步了解如何自訂資源存取。
 
-### 自訂 Web 資源路徑
+### 自訂 Web 資源路徑 {id="custom-web-resource-paths"}
 
 您可以使用 `configureWebResources()` 函式為 Web 資源指定路徑和 URL：
 
@@ -96,7 +96,7 @@ configureWebResources {
 }
 ```
 
-### `androidLibrary` 目標中的資源
+### `androidLibrary` 目標中的資源 {id="resources-in-the-androidlibrary-target"}
 <primary-label ref="Experimental"/>
 
 從 Android Gradle 外掛程式 8.8.0 版本開始，您可以在 `androidLibrary` 目標中使用產生的 `Res` 類別和資源存取子。若要在 `androidLibrary` 中啟用對多平台資源的支援，請按如下方式更新您的配置：
@@ -109,7 +109,7 @@ kotlin {
 }
 ```
 
-## 限定詞
+## 限定詞 {id="qualifiers"}
 
 有時，同一種資源應根據環境（如地區、螢幕密度或介面主題）以不同方式呈現。例如，您可能需要為不同語言在地化文字，或針對深色主題調整影像。為此，該程式庫提供了特殊的限定詞 (qualifiers)。
 
@@ -126,7 +126,7 @@ kotlin {
 * 不同類型的限定詞可以組合使用。例如，「drawable-en-rUS-mdpi-dark」是適用於美國地區英語、160 DPI 螢幕且處於深色佈景主題下的影像。
 * 如果無法存取具有所求限定詞的資源，則會改用預設資源（無限定詞）。
 
-### 語言與地區限定詞
+### 語言與地區限定詞 {id="language-and-regional-qualifiers"}
 
 您可以結合語言與地區限定詞：
 
@@ -139,7 +139,7 @@ kotlin {
 
 在 [在地化](compose-regional-format.md) 中進一步了解如何處理特定地區的格式。
 
-#### 具有多種書寫體語言的備援 (Fallback)
+#### 具有多種書寫體語言的備援 (Fallback) {id="fallback-for-languages-with-multiple-scripts"}
 
 在 Android 和桌面平台上，系統可能會請求不含書寫體的地區設定 (locale)，例如，不含特定 `zh-Hans` 或 `zh-Hant` 的 `zh`。如果您僅提供特定書寫體的資源，所有這些資源都會匹配此類不含書寫體的請求，且資源將無法解析，導致應用程式拋出例外。為避免歧義，請為每種具有特定書寫體資源的語言新增一個不含書寫體的目錄：
 
@@ -153,11 +153,11 @@ commonMain/composeResources/
 
 這同樣適用於所有具有一種以上書寫體的語言，例如塞爾維亞語 (`sr-Cyrl`, `sr-Latn`) 或烏茲別克語 (`uz-Cyrl`, `uz-Latn`)。
 
-### 佈景主題限定詞
+### 佈景主題限定詞 {id="theme-qualifier"}
 
 您可以新增「light」或「dark」限定詞。Compose Multiplatform 隨後會根據目前的系統佈景主題選擇必要的資源。
 
-### 密度限定詞
+### 密度限定詞 {id="density-qualifier"}
 
 您可以使用以下密度限定詞：
 
@@ -170,13 +170,13 @@ commonMain/composeResources/
 
 資源是根據系統中定義的螢幕密度來選擇的。
 
-## 發佈
+## 發佈 {id="publication"}
 
 從 Compose Multiplatform 1.6.10 開始，所有必要的資源都包含在發佈的 Maven 構件中。
 
 若要啟用此功能，您的專案需要使用 Kotlin 2.0.0 或更新版本，以及 Gradle 7.6 或更新版本。
 
-## 下一步？
+## 下一步？ {id="what-s-next"}
 
 * 在 [在您的應用程式中使用多平台資源](compose-multiplatform-resources-usage.md) 頁面中，了解如何存取您設定的資源，以及如何自訂預設產生的存取子。
 * 查看官方的 [範例專案](https://github.com/JetBrains/compose-multiplatform/tree/master/components/resources/demo)，該專案展示了如何在針對 iOS、Android 和桌面平台的 Compose Multiplatform 專案中處理資源。

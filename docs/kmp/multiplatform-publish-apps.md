@@ -7,11 +7,11 @@
 
 您将学习如何为发布准备 Kotlin Multiplatform 应用程序，我们将重点介绍此流程中值得特别关注的部分。
 
-## Android 应用
+## Android 应用 {id="android-app"}
 
 由于 [Kotlin 是 Android 开发的主要语言](https://developer.android.com/kotlin)，Kotlin Multiplatform 对项目编译和构建 Android 应用没有明显影响。从共享模块生成的 Android 库和 Android 应用本身都是典型的 Android Gradle 模块；它们与其他 Android 库和应用没有什么不同。因此，从 Kotlin Multiplatform 项目发布 Android 应用与 [Android 开发者文档](https://developer.android.com/studio/publish)中描述的通常流程没有区别。
 
-## iOS 应用
+## iOS 应用 {id="ios-app"}
 
 Kotlin Multiplatform 项目中的 iOS 应用是基于典型的 Xcode 项目构建的，因此发布涉及的主要阶段与 [iOS 开发者文档](https://developer.apple.com/ios/submit/)中描述的相同。
 
@@ -35,15 +35,15 @@ Kotlin Multiplatform 项目的特殊之处在于将共享的 Kotlin 模块编译
 *   使用 [Kotlin CocoaPods Gradle 插件](multiplatform-cocoapods-overview.md)，该插件允许您将具有原生目标的多平台项目作为 CocoaPods 依赖项在 iOS 项目中使用。
 *   手动配置您的 Multiplatform 项目以创建 iOS 框架，并配置 Xcode 项目以获取其最新版本。Kotlin Multiplatform 向导或 Kotlin Multiplatform IDE 插件通常会负责此项配置。请参阅[将框架连接到您的 iOS 项目](multiplatform-integrate-in-existing-app.md#configure-the-ios-project-to-use-a-kmp-framework)了解如何直接在 Xcode 中添加框架。
 
-### 配置您的 iOS 应用程序
+### 配置您的 iOS 应用程序 {id="configure-your-ios-application"}
 
 您可以在不使用 Xcode 的情况下配置影响最终应用的基本属性。
 
-#### Bundle ID
+#### Bundle ID {id="bundle-id"}
 
 [Bundle ID](https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleidentifier#discussion) 在操作系统中唯一标识您的应用。要更改它，请在 Android Studio 中打开 `iosApp/Configuration/Config.xcconfig` 文件并更新 `BUNDLE_ID`。
 
-#### 应用名称
+#### 应用名称 {id="app-name"}
 
 应用名称设置目标可执行文件和应用程序包名称。要更改您的应用名称：
 
@@ -56,7 +56,7 @@ Kotlin Multiplatform 项目的特殊之处在于将共享的 Kotlin 模块编译
 
 如果您需要配置其他设置，请使用 Xcode：在 Android Studio 中打开项目后，在 Xcode 中打开 `iosApp/iosApp.xcworkspace` 文件并在其中进行更改。
 
-### 符号化崩溃报告
+### 符号化崩溃报告 {id="symbolicating-crash-reports"}
 
 为了帮助开发者改进其应用，iOS 提供了一种分析应用崩溃的手段。对于详细的崩溃分析，它使用特殊的调试符号 (`.dSYM`) 文件，这些文件将崩溃报告中的内存地址与源代码中的位置（如函数或行号）相匹配。
 
@@ -64,17 +64,17 @@ Kotlin Multiplatform 项目的特殊之处在于将共享的 Kotlin 模块编译
 
 有关崩溃报告符号化的更多信息，请参阅 [Kotlin/Native 文档](https://kotlinlang.org/docs/native-debugging.html#debug-ios-applications)。
 
-### 自动化发布到 TestFlight
+### 自动化发布到 TestFlight {id="automate-publishing-to-testflight"}
 
 除了通过 Xcode 手动构建、签名和上传应用外，您还可以自动化整个发布流程。
 
 要了解如何设置 TeamCity Cloud 流水线以直接从您的 IDE 自动构建 iOS 应用并将其部署到 TestFlight，请参阅[配置 iOS 交付流水线](ios-ci-cd-teamcity.md)。
 
-## Web 应用
+## Web 应用 {id="web-app"}
 
 要发布您的 Web 应用程序，请创建包含构成您的应用程序的编译文件和资源的工件。这些工件是将您的应用程序部署到 GitHub Pages 等 Web 托管平台所必需的。
 
-### 生成工件
+### 生成工件 {id="generate-artifacts"}
 
 创建用于运行 **wasmJsBrowserDistribution** 任务的运行配置：
 
@@ -96,7 +96,7 @@ Kotlin Multiplatform 项目的特殊之处在于将共享的 Kotlin 模块编译
 
 ![工件目录](compose-web-artifacts.png){width=400}
 
-### 在 GitHub Pages 上发布您的应用程序
+### 在 GitHub Pages 上发布您的应用程序 {id="publish-your-application-on-github-pages"}
 
 准备好工件后，您可以将应用程序部署到 Web 托管平台：
 
@@ -113,6 +113,6 @@ Kotlin Multiplatform 项目的特殊之处在于将共享的 Kotlin 模块编译
 
    恭喜！您已在 GitHub Pages 上发布了您的工件。
 
-### 调试您的 Web 应用程序
+### 调试您的 Web 应用程序 {id="debug-your-web-application"}
 
 您可以开箱即用地在浏览器中调试 Web 应用程序，无需额外配置。要了解如何在浏览器中进行调试，请参阅 Kotlin 文档中的[在浏览器中调试](https://kotlinlang.org/docs/wasm-debugging.html#debug-in-your-browser)指南。

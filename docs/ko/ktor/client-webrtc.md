@@ -44,7 +44,7 @@ Ktor의 WebRTC 클라이언트는 멀티플랫폼 프로젝트에서 실시간 �
     </TabItem>
 </Tabs>
 
-## 클라이언트 생성
+## 클라이언트 생성 {id="create-a-client"}
 
 `WebRtcClient`를 생성할 때 대상 플랫폼에 맞는 엔진을 선택하세요.
 
@@ -90,7 +90,7 @@ val iosClient = WebRtcClient(IosWebRtc) {
 </TabItem>
 </Tabs>
 
-## 연결 생성 및 SDP 협상
+## 연결 생성 및 SDP 협상 {id="create-a-connection-and-negotiate-sdp"}
 
 `WebRtcClient`를 생성한 후 다음 단계는 피어 연결(peer connection)을 생성하는 것입니다.
 피어 연결은 두 클라이언트 간의 실시간 통신을 관리하는 핵심 객체입니다.
@@ -150,11 +150,11 @@ callee.awaitIceGatheringComplete()
 > 
 {style="note"}
 
-## 데이터 채널 사용
+## 데이터 채널 사용 {id="use-a-data-channel"}
 
 WebRTC는 피어 간에 임의의 메시지를 교환할 수 있는 데이터 채널을 지원합니다. 이는 채팅, 멀티플레이어 게임, 협업 도구 또는 클라이언트 간의 모든 저지연 메시징에 유용합니다.
 
-### 채널 생성
+### 채널 생성 {id="creating-a-channel"}
 
 한쪽에서 채널을 생성하려면 `.createDataChannel()` 메서드를 사용합니다.
 
@@ -176,7 +176,7 @@ scope.launch {
 }
 ```
 
-### 메시지 송수신
+### 메시지 송수신 {id="sending-and-receiving-messages"}
 
 채널은 Kotlin 개발자에게 익숙한 `Channel`과 유사한 API를 사용합니다.
 
@@ -188,11 +188,11 @@ scope.launch { channel.send("hello") }
 scope.launch { println("received: " + channel.receiveText()) }
 ```
 
-## 미디어 트랙 추가 및 관찰
+## 미디어 트랙 추가 및 관찰 {id="add-and-observe-media-tracks"}
 
 데이터 채널 외에도 WebRTC는 오디오 및 비디오를 위한 미디어 트랙을 지원합니다. 이를 통해 영상 통화나 화면 공유와 같은 애플리케이션을 구축할 수 있습니다.
 
-### 로컬 트랙 생성
+### 로컬 트랙 생성 {id="creating-local-tracks"}
 
 로컬 장치(마이크, 카메라)에서 오디오 또는 비디오 트랙을 요청할 수 있습니다.
 
@@ -216,7 +216,7 @@ pc.addTrack(video)
 > 더 이상 필요하지 않을 때 리소스를 해제하려면 반드시 `close()` 메서드를 호출하세요.
 {style="note"}
 
-### 원격 트랙 수신
+### 원격 트랙 수신 {id="receiving-remote-tracks"}
 
 원격 미디어 트랙을 수신할 수도 있습니다.
 
@@ -231,7 +231,7 @@ scope.launch {
 }
 ```
 
-## 플랫폼별 로직
+## 플랫폼별 로직 {id="platform-specific-logic"}
 
 이 API는 고수준의 추상화를 제공하지만, 플랫폼 전용 API에 액세스해야 하는 사용 사례가 있을 수 있습니다. `.getNative()` 확장 함수를 사용하여 기본 구현을 가져올 수 있습니다.
 플랫폼별 라이브러리는 iOS의 `WebRTC-SDK` CocoaPod을 제외하고 전이적 라이브러리(transitive libraries)로 노출됩니다.
@@ -329,7 +329,7 @@ audio.enable(false)
 > 이 스니펫들은 Compose Multiplatform과 함께 사용할 수 있지만, 해당 생명주기(lifecycle)를 고려하지는 않습니다. 완전한 통합을 위해서는 [Ktor Chat](https://github.com/ktorio/ktor-chat) 예제를 참조하세요.
 {style="note"}
 
-## 제한 사항
+## 제한 사항 {id="limitations"}
 
 WebRTC 클라이언트는 실험적이며 다음과 같은 제한 사항이 있습니다.
 

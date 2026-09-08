@@ -11,11 +11,11 @@
 
 이 튜토리얼은 피보나치(Fibonacci) 수열을 생성하는 함수가 포함된 간단한 라이브러리인 [멀티플랫폼 라이브러리 템플릿(multiplatform library template)](https://github.com/Kotlin/multiplatform-library-template)을 기반으로 합니다.
 
-## 환경 설정 
+## 환경 설정 {id="set-up-the-environment"}
 
 [필요한 모든 도구를 설치하고 최신 버전으로 업데이트하세요](quickstart.md).
 
-## 프로젝트 생성
+## 프로젝트 생성 {id="create-a-project"}
 
 1. IntelliJ IDEA에서 **File** | **New** | **Project from Version Control**을 선택합니다.
 2. [멀티플랫폼 라이브러리 템플릿 프로젝트](https://github.com/Kotlin/multiplatform-library-template)의 URL을 입력합니다:
@@ -26,7 +26,7 @@
    
 3. **Clone**을 클릭합니다.
 
-## 프로젝트 구조 살펴보기
+## 프로젝트 구조 살펴보기 {id="examine-the-project-structure"}
 
 Kotlin 멀티플랫폼 라이브러리 템플릿 프로젝트는 Kotlin 멀티플랫폼 라이브러리 개발을 위한 기초 구조를 제공합니다. 이 템플릿은 다양한 플랫폼에서 작동할 수 있는 라이브러리를 만드는 데 도움이 됩니다.
 
@@ -83,13 +83,13 @@ actual val secondElement: Int = 2
 
 다른 플랫폼들도 동일한 패턴을 따르며, `firstElement`와 `secondElement` 프로퍼티 값만 다르게 설정되어 있습니다.
 
-## 새로운 플랫폼 추가하기
+## 새로운 플랫폼 추가하기 {id="add-a-new-platform"}
 
 템플릿에서 공유 코드와 플랫폼별 코드가 어떻게 작동하는지 익혔으므로, 이제 추가 플랫폼에 대한 지원을 추가하여 프로젝트를 확장해 보겠습니다.
 
 [`expect`/`actual` 메커니즘](multiplatform-connect-to-apis.md#expected-and-actual-functions-and-properties)을 사용하여 [Kotlin/Wasm](https://kotlinlang.org/docs/wasm-overview.html) 플랫폼 지원을 구성한 후, `firstElement` 및 `secondElement` 프로퍼티에 대해 플랫폼 전용 기능을 구현해 보겠습니다.
 
-### 프로젝트에 Kotlin/Wasm 타겟 추가하기
+### 프로젝트에 Kotlin/Wasm 타겟 추가하기 {id="add-the-kotlin-wasm-target-to-your-project"}
 
 1. `library/build.gradle.kts` 파일에서 Kotlin/Wasm 타겟(`wasmJs`)과 소스 세트를 추가합니다:
 
@@ -113,7 +113,7 @@ actual val secondElement: Int = 2
 
 2. 빌드 파일에 나타나는 **Sync Gradle Changes** 아이콘(![Gradle sync icon](gradle-sync-icon.png){width=30}{type="joined"})을 클릭하여 Gradle 파일을 동기화합니다. 또는 Gradle 도구 창에서 새로고침 버튼을 클릭합니다.
 
-### Wasm 전용 코드 만들기
+### Wasm 전용 코드 만들기 {id="create-platform-specific-code-for-wasm"}
 
 Wasm 타겟을 추가한 후에는 `firstElement` 및 `secondElement`의 플랫폼별 구현을 담을 Wasm 디렉토리가 필요합니다:
 
@@ -135,7 +135,7 @@ Wasm 타겟을 추가한 후에는 `firstElement` 및 `secondElement`의 플랫�
 
     이 코드는 Wasm 전용 구현을 설정하며, `firstElement`를 `3`으로, `secondElement`를 `5`로 정의하는 `actual` 값을 제공합니다.
 
-### 프로젝트 빌드하기
+### 프로젝트 빌드하기 {id="build-the-project"}
 
 새로운 플랫폼을 포함하여 프로젝트가 올바르게 컴파일되는지 확인합니다:
 
@@ -152,7 +152,7 @@ Wasm 타겟을 추가한 후에는 `firstElement` 및 `secondElement`의 플랫�
 
 **Build** 도구 창에서 성공적인 출력 결과를 확인할 수 있습니다. 
 
-## 로컬 Maven 저장소에 라이브러리 배포하기
+## 로컬 Maven 저장소에 라이브러리 배포하기 {id="publish-your-library-to-the-local-maven-repository"}
 
 이제 멀티플랫폼 라이브러리를 로컬에 배포하여 동일한 컴퓨터의 다른 프로젝트에서 사용할 준비가 되었습니다.
 
@@ -194,7 +194,7 @@ Wasm 타겟을 추가한 후에는 `firstElement` 및 `secondElement`의 플랫�
 
 배포된 아티팩트(artifacts)를 확인하려면 파일 탐색기나 터미널을 사용하여 `~\.m2\repository\io\github\kotlin\library\1.0.0\` 디렉토리로 이동하세요.
 
-## 다른 프로젝트에서 라이브러리를 의존성으로 추가하기
+## 다른 프로젝트에서 라이브러리를 의존성으로 추가하기 {id="add-your-library-as-a-dependency-in-another-project"}
 
 멀티플랫폼 라이브러리를 로컬 Maven 저장소에 배포한 후에는 동일한 컴퓨터의 다른 Kotlin 프로젝트에서 사용할 수 있습니다.
 
@@ -238,7 +238,7 @@ val seq = generateFibi()
 println(seq.elementAt(3))
 ```
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 멀티플랫폼 개발에 대해 더 자세히 알아보시기를 권장합니다:
 

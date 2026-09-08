@@ -35,7 +35,7 @@ data class User(val name: String, val age: Int)
 >
 {style="note"}
 
-## 类体中声明的属性
+## 类体中声明的属性 {id="properties-declared-in-the-class-body"}
 
 编译器仅将主构造函数内定义的属性用于自动生成的函数。要从生成的实现中排除某个属性，请将其声明在类体中：
 
@@ -71,7 +71,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 复制
+## 复制 {id="copying"}
 
 使用 `copy()` 函数可以复制对象，允许你修改其中的*部分*属性，同时保持其余属性不变。上述 `User` 类的该函数实现如下：
 
@@ -109,7 +109,7 @@ fun main() {
 
 如你所见，修改 `duplicate.roles` 属性也会更改 `original.roles` 属性，因为这两个属性共享同一个列表引用。
 
-## 数据类与析构声明
+## 数据类与析构声明 {id="data-classes-and-destructuring-declarations"}
 
 为数据类生成的 *component 函数* 使其能够用于[析构声明](destructuring-declarations.md)：
 
@@ -120,6 +120,6 @@ println("$name, $age years of age")
 // Jane, 35 years of age
 ```
 
-## 标准数据类
+## 标准数据类 {id="standard-data-classes"}
 
 标准库提供了 `Pair` 和 `Triple` 类。但在大多数情况下，命名数据类是更好的设计选择，因为它们通过为属性提供有意义的名称使代码更易于阅读。

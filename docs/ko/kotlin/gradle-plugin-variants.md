@@ -22,7 +22,7 @@ Gradle 플러그인 변형을 통해 Kotlin 팀은 서로 다른 Gradle 버전�
 
 빌드에서 어떤 변형을 사용하는지 확인하려면 [`--info` 로그 레벨](https://docs.gradle.org/current/userguide/logging.html#sec:choosing_a_log_level)을 활성화하고 출력에서 `Using Kotlin Gradle plugin`으로 시작하는 문자열(예: `Using Kotlin Gradle plugin main variant`)을 찾으세요.
 
-## 문제 해결(Troubleshooting)
+## 문제 해결(Troubleshooting) {id="troubleshooting"}
 
 > 다음은 Gradle의 변형 선택과 관련하여 알려진 문제들에 대한 해결 방법입니다.
 > * [pluginManagement의 ResolutionStrategy가 다중 변형 플러그인에서 작동하지 않음](https://github.com/gradle/gradle/issues/20545)
@@ -30,7 +30,7 @@ Gradle 플러그인 변형을 통해 Kotlin 팀은 서로 다른 Gradle 버전�
 >
 {style="note"}
 
-### Gradle이 커스텀 구성에서 KGP 변형을 선택할 수 없는 경우
+### Gradle이 커스텀 구성에서 KGP 변형을 선택할 수 없는 경우 {id="gradle-can-t-select-a-kgp-variant-in-a-custom-configuration"}
 
 Gradle이 커스텀 구성(custom configuration)에서 KGP 변형을 선택하지 못하는 것은 예상된 상황입니다. 커스텀 Gradle 구성을 사용하는 경우:
 
@@ -148,6 +148,6 @@ configurations {
                  - Unmatched attributes:
 ```
 
-## 다음 단계는 무엇인가요?
+## 다음 단계는 무엇인가요? {id="what-s-next"}
 
 [Gradle 기본 사항 및 세부 정보](https://docs.gradle.org/current/userguide/userguide.html)에 대해 자세히 알아보세요.

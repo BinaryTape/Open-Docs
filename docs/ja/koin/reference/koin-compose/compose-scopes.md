@@ -6,7 +6,7 @@ title: Compose におけるスコープ
 
 Koin は、シンプルな Composable に紐づくスコープから、ナビゲーションに統合されたスコープまで、Compose アプリケーション内のスコープを管理するためのいくつかの API を提供します。
 
-## KoinScope
+## KoinScope {id="koinscope"}
 
 Composable のライフサイクルに紐づく Koin スコープを作成します：
 
@@ -35,7 +35,7 @@ fun FeatureContent() {
 
 スコープは、Composable が Composition から離れるとき（`onForgotten` または `onAbandoned` 時）に自動的にクローズされます。
 
-## KoinNavigationScope
+## KoinNavigationScope {id="koinnavigationscope"}
 
 ナビゲーションのバックスタックエントリに紐づくスコープを作成します：
 
@@ -75,7 +75,7 @@ fun DetailScreen() {
 `koin-compose-viewmodel-navigation` パッケージが必要です。
 :::
 
-### navigationScope DSL
+### navigationScope DSL {id="navigationscope-dsl"}
 
 モジュール内でナビゲーションスコープの依存関係を定義します：
 
@@ -92,7 +92,7 @@ val appModule = module {
 
 これにより、`KoinNavigationScope()` で使用するための `NavBackStackEntry` で修飾されたスコープが作成されます。
 
-## UnboundKoinScope
+## UnboundKoinScope {id="unboundkoinscope"}
 
 ライフサイクルの紐付けなしで、外部で管理されるスコープを提供します：
 
@@ -130,7 +130,7 @@ fun MyFeature(externalScope: Scope, onClose: () -> Unit) {
 }
 ```
 
-## currentKoinScope
+## currentKoinScope {id="currentkoinscope"}
 
 Composition から現在の Koin スコープを取得します：
 
@@ -146,7 +146,7 @@ fun MyScreen() {
 
 これは `LocalKoinScopeContext` からスコープを取得します。`koinInject()` で使用されるデフォルトのスコープです。
 
-## rememberKoinScope
+## rememberKoinScope {id="rememberkoinscope"}
 
 自動ライフサイクル管理機能を備えた、再構成（recomposition）をまたいで Koin スコープを保持（remember）します：
 
@@ -162,9 +162,9 @@ fun FeatureScreen() {
 }
 ```
 
-## Android 固有のスコープ
+## Android 固有のスコープ {id="android-specific-scopes"}
 
-### KoinActivityScope
+### KoinActivityScope {id="koinactivityscope"}
 
 Activity スコープを Composable 階層に提供します：
 
@@ -190,7 +190,7 @@ fun MainScreen() {
 }
 ```
 
-### KoinFragmentScope
+### KoinFragmentScope {id="koinfragmentscope"}
 
 Fragment スコープを Composable 階層に提供します：
 
@@ -210,7 +210,7 @@ class MyFragment : Fragment(), AndroidScopeComponent {
 }
 ```
 
-### koinActivityInject
+### koinActivityInject {id="koinactivityinject"}
 
 任意の Composable 内で Activity スコープからインジェクトします：
 
@@ -228,7 +228,7 @@ fun DeepNestedScreen() {
 }
 ```
 
-## スコープの比較
+## スコープの比較 {id="scope-comparison"}
 
 | API | ライフサイクル | ユースケース |
 |-----|-----------|----------|
@@ -238,9 +238,9 @@ fun DeepNestedScreen() {
 | `KoinActivityScope` | Activity | Activity 全体の依存関係 |
 | `KoinFragmentScope` | Fragment | Fragment 全体の依存関係 |
 
-## ユースケース
+## ユースケース {id="use-cases"}
 
-### 画面ごとのナビゲーションスコープ
+### 画面ごとのナビゲーションスコープ {id="per-screen-navigation-scopes"}
 
 各画面が独自のスコープを持ちます：
 
@@ -266,7 +266,7 @@ NavHost(navController, startDestination = "list") {
 }
 ```
 
-### セッションスコープのデータ
+### セッションスコープのデータ {id="session-scoped-data"}
 
 セッション内の画面間でデータを共有します：
 
@@ -295,7 +295,7 @@ fun CartScreen() {
 }
 ```
 
-### 共有 ViewModel スコープ
+### 共有 ViewModel スコープ {id="shared-viewmodel-scope"}
 
 関連する画面間で ViewModel とその依存関係を共有します：
 
@@ -326,7 +326,7 @@ fun CartScreen() {
 }
 ```
 
-## ベストプラクティス
+## ベストプラクティス {id="best-practices"}
 
 1. **画面ごとの依存関係には `KoinNavigationScope` を使用する** - ナビゲーションに伴う自動ライフサイクル。
 
@@ -345,7 +345,7 @@ fun CartScreen() {
 
 5. **複雑な状態には ViewModel と組み合わせる** - スコープは共有状態を保持し、ViewModel は UI ロジックを処理する。
 
-## 次のステップ
+## 次のステップ {id="next-steps"}
 
 - **[動的モジュール](/docs/reference/koin-compose/compose-modules)** - モジュールを動的にロードする
 - **[Compose の概要](/docs/reference/koin-compose/compose)** - セットアップと基本的なインジェクション

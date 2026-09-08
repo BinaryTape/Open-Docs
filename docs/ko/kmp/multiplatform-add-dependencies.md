@@ -37,9 +37,9 @@ kotlin {
 </TabItem>
 </Tabs>
 
-## 코틀린 라이브러리 의존성
+## 코틀린 라이브러리 의존성 {id="dependency-on-a-kotlin-library"}
 
-### 표준 라이브러리
+### 표준 라이브러리 {id="standard-library"}
 
 각 소스 세트(source set)에 대한 표준 라이브러리(`stdlib`) 의존성은 자동으로 추가됩니다. 표준 라이브러리의 버전은 `kotlin-multiplatform` 플러그인의 버전과 동일합니다.
 
@@ -47,7 +47,7 @@ kotlin {
 
 [기본 동작을 변경하는 방법](https://kotlinlang.org/docs/gradle-configure-project.html#dependency-on-the-standard-library)을 알아보세요.
 
-### 테스트 라이브러리
+### 테스트 라이브러리 {id="test-libraries"}
 
 멀티플랫폼 테스트를 위해 [`kotlin.test`](https://kotlinlang.org/api/latest/kotlin.test/) API를 사용할 수 있습니다. 멀티플랫폼 프로젝트를 생성할 때, `commonTest`에서 단일 의존성을 사용하여 모든 소스 세트에 테스트 의존성을 추가할 수 있습니다.
 
@@ -84,7 +84,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-### kotlinx 라이브러리
+### kotlinx 라이브러리 {id="kotlinx-libraries"}
 
 멀티플랫폼 라이브러리를 사용하고 [공유 코드에 의존](#library-shared-for-all-source-sets)해야 하는 경우, 공유 소스 세트에서 의존성을 한 번만 설정하세요. `kotlinx-coroutines-core`와 같은 라이브러리 기본 아티팩트(artifact) 이름을 사용하세요.
 
@@ -156,7 +156,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-## 코틀린 멀티플랫폼 라이브러리 의존성
+## 코틀린 멀티플랫폼 라이브러리 의존성 {id="dependency-on-kotlin-multiplatform-libraries"}
 
 [SQLDelight](https://github.com/cashapp/sqldelight)와 같이 코틀린 멀티플랫폼 기술을 채택한 라이브러리에 의존성을 추가할 수 있습니다. 이러한 라이브러리의 작성자는 보통 프로젝트에 의존성을 추가하기 위한 가이드를 제공합니다.
 
@@ -164,7 +164,7 @@ kotlin {
 >
 {style="tip"}
 
-### 모든 소스 세트에서 공유되는 라이브러리
+### 모든 소스 세트에서 공유되는 라이브러리 {id="library-shared-for-all-source-sets"}
 
 모든 소스 세트에서 라이브러리를 사용하려는 경우, 공통 소스 세트에만 추가하면 됩니다. 코틀린 멀티플랫폼 Gradle 플러그인이 다른 소스 세트에도 해당하는 부분을 자동으로 추가합니다.
 
@@ -217,7 +217,7 @@ kotlin {
 > 
 {style="tip"}
 
-### 특정 소스 세트에서 사용되는 라이브러리
+### 특정 소스 세트에서 사용되는 라이브러리 {id="library-used-in-specific-source-sets"}
 
 특정 소스 세트에서만 멀티플랫폼 라이브러리를 사용하려는 경우, 해당 소스 세트에만 전용으로 추가할 수 있습니다. 그러면 지정된 라이브러리 선언은 해당 소스 세트에서만 사용할 수 있게 됩니다.
 
@@ -282,7 +282,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-## 다른 멀티플랫폼 프로젝트에 대한 의존성
+## 다른 멀티플랫폼 프로젝트에 대한 의존성 {id="dependency-on-another-multiplatform-project"}
 
 하나의 멀티플랫폼 프로젝트를 다른 프로젝트의 의존성으로 연결할 수 있습니다. 이를 위해 의존성이 필요한 소스 세트에 프로젝트 의존성을 추가하기만 하면 됩니다. 모든 소스 세트에서 의존성을 사용하려면 공통 소스 세트에 추가하세요. 이 경우 다른 소스 세트들은 자동으로 해당 버전을 가져오게 됩니다.
 
@@ -327,7 +327,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 멀티플랫폼 프로젝트에서 의존성을 추가하는 방법에 대한 다른 리소스를 확인하고 다음 내용에 대해 자세히 알아보세요.
 

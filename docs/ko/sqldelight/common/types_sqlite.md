@@ -1,4 +1,4 @@
-## SQLite 타입
+## SQLite 타입 {id="sqlite-types"}
 
 SQLDelight 컬럼 정의는 일반적인 SQLite 컬럼 정의와 동일하지만, 생성된 인터페이스에서 컬럼의 Kotlin 타입을 지정하는 [추가 컬럼 제약 사항(extra column constraint)](#custom-column-types)을 지원합니다.
 
@@ -11,7 +11,7 @@ CREATE TABLE some_types (
 );
 ```
 
-## 기본 타입(Primitives)
+## 기본 타입(Primitives) {id="primitives"}
 
 사용자의 편의를 위해 기본 타입(primitives)을 어댑팅하는 형제 모듈입니다.
 

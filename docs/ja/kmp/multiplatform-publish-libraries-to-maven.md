@@ -23,18 +23,18 @@
 > 
 {style="note"}
 
-## サンプルライブラリ
+## サンプルライブラリ {id="sample-library"}
 
 このチュートリアルでは、例として [fibonacci](https://github.com/Kotlin/multiplatform-library-template/) ライブラリを使用します。
 公開設定がどのように機能するかについては、そのリポジトリのコードを参照してください。
 
 コードを再利用する場合は、**すべての例の値をプロジェクト固有の値に置き換える**必要があります。
 
-## アカウントと認証情報の準備
+## アカウントと認証情報の準備 {id="prepare-accounts-and-credentials"}
 
 Maven Central への公開を開始するには、[Maven Central](https://central.sonatype.com/) ポータルにサインイン（または新しいアカウントを作成）します。
 
-### ネームスペースの選択と検証
+### ネームスペースの選択と検証 {id="choose-and-verify-a-namespace"}
 
 Maven Central 上でライブラリのアーティファクトを一意に識別するために、検証済みのネームスペースが必要です。
 
@@ -73,7 +73,7 @@ Maven Central にサインインしたら、[Namespaces](https://central.sonatyp
 </TabItem>
 </Tabs>
 
-#### キーペアの生成
+#### キーペアの生成 {id="generate-a-key-pair"}
 
 Maven Central に何かを公開する前に、アーティファクトに [PGP 署名](https://central.sonatype.org/publish/requirements/gpg/)を付与する必要があります。これにより、ユーザーはアーティファクトの出所を検証できるようになります。
 
@@ -191,7 +191,7 @@ brew install gpg
 </TabItem>
 </Tabs>
 
-#### 公開鍵のアップロード
+#### 公開鍵のアップロード {id="upload-the-public-key"}
 
 Maven Central に受け入れられるためには、[公開鍵をキーサーバーにアップロード](https://central.sonatype.org/publish/requirements/gpg/#distributing-your-public-key)する必要があります。利用可能なキーサーバーは複数ありますが、デフォルトとして `keyserver.ubuntu.com` を使用しましょう。
 
@@ -237,9 +237,9 @@ gpg --armor --export-secret-keys F175482952A225BFC4A07A715EE6B5F76620B385CE > ke
 </TabItem>
 </Tabs>
 
-## プロジェクトの設定
+## プロジェクトの設定 {id="configure-the-project"}
 
-### ライブラリプロジェクトの準備
+### ライブラリプロジェクトの準備 {id="prepare-your-library-project"}
 
 テンプレートプロジェクトからライブラリの開発を始めた場合は、このタイミングでプロジェクト内のデフォルト名を自身のライブラリ名に合わせるのが良いでしょう。これには、ライブラリモジュールの名前や、トップレベルの `build.gradle.kts` ファイル内のルートプロジェクト名が含まれます。
 
@@ -254,7 +254,7 @@ android {
 }
 ```
 
-### 公開用プラグインのセットアップ
+### 公開用プラグインのセットアップ {id="set-up-the-publishing-plugin"}
 
 このチュートリアルでは、Maven Central への公開を支援するために [vanniktech/gradle-maven-publish-plugin](https://github.com/vanniktech/gradle-maven-publish-plugin) を使用します。
 このプラグインの利点については、[こちら](https://vanniktech.github.io/gradle-maven-publish-plugin/#advantages-over-maven-publish)で詳しく読むことができます。使用方法や利用可能な設定オプションの詳細については、[プラグインのドキュメント](https://vanniktech.github.io/gradle-maven-publish-plugin/central/)を参照してください。
@@ -324,11 +324,11 @@ mavenPublishing {
 * [開発者情報 (Developer information)](https://central.sonatype.org/publish/requirements/#developer-information): ライブラリの作者のリスト。
 * [SCM (Source Code Management) 情報](https://central.sonatype.org/publish/requirements/#scm-information): ライブラリのソースコードがホストされている場所を指定します。
 
-### ローカルでのチェック
+### ローカルでのチェック {id="run-local-checks"}
 
 Maven Central に公開する前に、プロジェクトが正しく設定されているかローカルで確認することをお勧めします。
 
-#### 署名のローカルチェック
+#### 署名のローカルチェック {id="check-signing-locally"}
 
 次のコマンドを実行して、署名用のキーが正しく設定されているか確認します。
 
@@ -340,7 +340,7 @@ Maven Central に公開する前に、プロジェクトが正しく設定され
 
 タスクがエラーを報告した場合は、出力内容を確認して修正方法を確認してください。
 
-#### `pom.xml` ファイルのローカルチェック
+#### `pom.xml` ファイルのローカルチェック {id="check-the-pom-xml-file-locally"}
 
 ライブラリを Maven Central に公開するには、`pom.xml` ファイルが Maven Central の[要件](https://central.sonatype.org/publish/requirements/#required-pom-metadata)を満たしている必要があります。
 
@@ -358,9 +358,9 @@ Maven Central に公開する前に、プロジェクトが正しく設定され
 
 タスクがエラーを報告した場合は、出力内容を確認して修正方法を確認してください。
 
-## 継続的インテグレーションを使用した Maven Central への公開
+## 継続的インテグレーションを使用した Maven Central への公開 {id="publish-to-maven-central-using-continuous-integration"}
 
-### ユーザートークンの生成
+### ユーザートークンの生成 {id="generate-the-user-token"}
 
 公開リクエストを承認するために、Maven Central 用の Maven アクセストークンが必要です。
 [Setup Token-Based Authentication](https://central.sonatype.com/usertoken) ページを開き、**Generate User Token** ボタンをクリックします。
@@ -376,7 +376,7 @@ Maven Central に公開する前に、プロジェクトが正しく設定され
 </server>
 ```
 
-### GitHub へのシークレットの追加
+### GitHub へのシークレットの追加 {id="add-secrets-to-github"}
 
 公開に必要なキーや認証情報を GitHub Actions ワークフローで使用しつつ非公開に保つために、これらの値をシークレットとして保存する必要があります。
 
@@ -392,7 +392,7 @@ Maven Central に公開する前に、プロジェクトが正しく設定され
 
 次のステップの CI 設定で、これらのシークレットの名前を使用します。
 
-### プロジェクトへの GitHub Actions ワークフローの追加
+### プロジェクトへの GitHub Actions ワークフローの追加 {id="add-a-github-actions-workflow-to-your-project"}
 
 継続的インテグレーションを設定して、ライブラリのビルドと公開を自動的に行うことができます。ここでは [GitHub Actions](https://docs.github.com/en/actions) を例として使用します。
 
@@ -441,7 +441,7 @@ jobs:
 
 ワークフロー設定により、これらのシークレットが自動的に環境変数に転送され、Gradle のビルドプロセスで利用可能になります。
 
-### GitHub でのリリース作成
+### GitHub でのリリース作成 {id="create-a-release-on-github"}
 
 ワークフローとシークレットが設定されたので、ライブラリの公開をトリガーする [リリースを作成](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository#creating-a-release) する準備が整いました。
 
@@ -478,7 +478,7 @@ jobs:
 
 デプロイが検証されたら自動的にアーティファクトをリリースするには、ワークフローの `publishToMavenCentral` タスクを `publishAndReleaseToMavenCentral` に置き換えてください。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [マルチプラットフォームライブラリの公開設定と要件について詳しく学ぶ](multiplatform-publish-lib-setup.md)
 * [README に shield.io バッジを追加する](https://shields.io/badges/maven-central-version)

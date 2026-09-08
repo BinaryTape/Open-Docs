@@ -23,11 +23,11 @@
 
 请按照以下指南从旧版内存管理器迁移您的项目：
 
-## 更新 Kotlin
+## 更新 Kotlin {id="update-kotlin"}
 
 新的 Kotlin/Native 内存管理器自 Kotlin 1.7.20 起已默认启用。请检查 Kotlin 版本，并在必要时[更新到最新版本](releases.md#update-to-a-new-kotlin-version)。
 
-## 更新依赖项
+## 更新依赖项 {id="update-dependencies"}
 
 <deflist type="medium">
     <def title="kotlinx.coroutines">
@@ -50,7 +50,7 @@
     </def>
 </deflist>
 
-## 更新您的代码
+## 更新您的代码 {id="update-your-code"}
 
 要支持新内存管理器，请移除受影响 API 的用法：
 
@@ -69,7 +69,7 @@
 | [`WorkerBoundReference<out T : Any>` 类](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.native.concurrent/-worker-bound-reference/) | 直接使用 `T`。                                                                                                                                                 |
 | [`DetachedObjectGraph<T>` 类](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.native.concurrent/-detached-object-graph/)             | 直接使用 `T`。要通过 C 互操作传递值，请使用 [StableRef 类](https://kotlinlang.org/api/latest/jvm/stdlib/kotlinx.cinterop/-stable-ref/)。 |
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * [详细了解新内存管理器](native-memory-manager.md)
 * [查看与 Swift/Objective-C ARC 集成的具体细节](native-arc-integration.md)

@@ -3,7 +3,7 @@
 
 在執行為並行資料結構產生的場景後，Lincheck 會根據指定的驗證模型（例如：線性化，linearizability）驗證結果，並可選擇性地根據使用者提供的驗證（validation）函式檢查資料結構的最終狀態。
 
-## 驗證 (Verification)
+## 驗證 (Verification) {id="verification"}
 
 在驗證過程中，Lincheck 會嘗試尋找並行場景中操作的循序執行順序，使其達成與並行執行相同的結果：
 
@@ -11,7 +11,7 @@
 
 根據 [驗證模型](#verification-models) 的不同，循序執行可能會受到額外的限制。如果沒有符合驗證屬性的循序執行能產生觀察到的結果，Lincheck 就會報告錯誤。
 
-### 循序規格 (Sequential specification)
+### 循序規格 (Sequential specification) {id="sequential-specification"}
 
 預設情況下，在驗證過程中，Lincheck 會使用「並行」資料結構的操作來建構循序執行。
 
@@ -64,7 +64,7 @@ class SequentialQueue {
 }
 ```
 
-### 驗證模型 (Verification models)
+### 驗證模型 (Verification models) {id="verification-models"}
 
 預設情況下，Lincheck 會根據線性化（linearizability）模型來驗證並行執行的結果。
 若要套用不同的驗證模型，請使用 `verifierClass` 選項：
@@ -94,7 +94,7 @@ Lincheck 提供以下驗證器類別：
 
 * `SerializabilityVerifier` – 使用「可序列化性」（serializability）模型，如果存在某種循序執行（以任何順序）能導致與並行執行相同的結果，且不論「happens-before」約束為何，則該並行執行即為有效。它可用於並行操作的相對順序並不重要的結構。
 
-#### 比較可序列化性與線性化
+#### 比較可序列化性與線性化 {id="compare-serializability-and-linearizability"}
 
 為了理解這兩個模型之間的差異，請看一個資料結構如何做到可序列化但非線性化：
 
@@ -206,7 +206,7 @@ Lincheck 提供以下驗證器類別：
 
    由於 Lincheck 在驗證過程中無法重新排序 `put()` 操作，因此找不到符合線性化限制的循序執行。這導致測試失敗。
 
-## 確認 (Validation)
+## 確認 (Validation) {id="validation"}
 
 預設情況下，Lincheck 在執行產生的場景後不會確認（validate）並行資料結構的狀態。
 若要檢查最終狀態，請在測試類別的確認函式上使用 `@Validate` 註解：
@@ -224,7 +224,7 @@ fun validate() {
 * 不接受任何引數。
 * 如果資料結構處於無效狀態，則拋出例外。
 
-## 接下來的內容
+## 接下來的內容 {id="what-s-next"}
 
 * [配置引數產生約束](lincheck-argument-generation-constraints.md)
 * [配置操作執行](lincheck-operation-execution-options.md)

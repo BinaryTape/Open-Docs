@@ -11,7 +11,7 @@ Dokkaプラグインは、他のプログラミング言語ソースのサポー
 
 Dokkaプラグインの作成方法について詳しく知りたい場合は、[開発者ガイド](https://kotlin.github.io/dokka/%dokkaVersion%/developer_guide/introduction/)（英語）を参照してください。
 
-## Dokkaプラグインの適用
+## Dokkaプラグインの適用 {id="apply-dokka-plugins"}
 
 Dokkaプラグインは個別のアーティファクトとして公開されているため、Dokkaプラグインを適用するには、単にそれを依存関係として追加するだけです。追加すると、プラグイン自体がDokkaを拡張します。それ以上の操作は必要ありません。
 
@@ -108,7 +108,7 @@ java -jar dokka-cli-%dokkaVersion%.jar \
 </tab>
 </tabs>
 
-## Dokkaプラグインの設定
+## Dokkaプラグインの設定 {id="configure-dokka-plugins"}
 
 Dokkaプラグインには独自の設定オプションがある場合があります。どのようなオプションが利用可能かについては、使用しているプラグインのドキュメントを参照してください。
 
@@ -205,7 +205,7 @@ java -jar dokka-cli-%dokkaVersion%.jar \
 </tab>
 </tabs>
 
-## 注目すべきプラグイン
+## 注目すべきプラグイン {id="notable-plugins"}
 
 以下は、便利と思われる注目のDokkaプラグインです。
 

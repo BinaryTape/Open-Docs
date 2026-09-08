@@ -20,7 +20,7 @@ Kotlin 預設將所有例外視為 *非受檢 (unchecked)*。
 [`Exception`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-exception/) 類別的子類別表示，而該類別又是 
 [`Throwable`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/) 類別的子類別。有關階層結構的更多資訊，請參閱[例外階層結構](#exception-hierarchy)章節。由於 `Exception` 是一個 [`open class`](inheritance.md)，您可以建立[自訂例外](#create-custom-exceptions)以符合您應用程式的特定需求。
 
-## 拋出例外
+## 拋出例外 {id="throw-exceptions"}
 
 您可以使用 `throw` 關鍵字手動拋出例外。
 拋出例外表示程式碼中發生了非預期的執行階段錯誤。
@@ -48,7 +48,7 @@ if (userInput < 0) {
 您可以建立自訂錯誤訊息並保留例外的原始原因 (`cause`)，
 這將會包含在[堆疊追蹤](#stack-trace)中。
 
-### 使用前置條件函式拋出例外
+### 使用前置條件函式拋出例外 {id="throw-exceptions-with-precondition-functions"}
 
 Kotlin 提供了使用前置條件函式 (precondition functions) 自動拋出例外的其他方式。
 前置條件函式包括：
@@ -62,7 +62,7 @@ Kotlin 提供了使用前置條件函式 (precondition functions) 自動拋出�
 這些函式適用於如果未滿足特定條件則程式流程無法繼續的情況。
 這可以簡化您的程式碼並使處理這些檢查變得有效率。
 
-#### require() 函式
+#### require() 函式 {id="require-function"}
 
 當輸入引數對於函式的運作至關重要，且如果這些引數無效則函式無法繼續執行時，請使用 [`require()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/require.html) 函式來驗證輸入引數。
 
@@ -101,7 +101,7 @@ fun main() {
 >
 {style="note"}
 
-#### check() 函式
+#### check() 函式 {id="check-function"}
 
 使用 [`check()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/check.html) 函式來驗證物件或變數的狀態。
 如果檢查失敗，則表示需要解決的邏輯錯誤。
@@ -149,7 +149,7 @@ fun main() {
 >
 {style="note"}
 
-#### error() 函式
+#### error() 函式 {id="error-function"}
 
 [`error()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/error.html) 函式用於發出不合法狀態或程式碼中邏輯上不應發生之條件的訊號。
 這適用於您想要在程式碼中刻意拋出例外的場景，例如當程式碼遇到非預期的狀態時。 
@@ -183,7 +183,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-## 使用 try-catch 區塊處理例外
+## 使用 try-catch 區塊處理例外 {id="handle-exceptions-using-try-catch-blocks"}
 
 當拋出例外時，它會中斷程式的正常執行。
 您可以使用 `try` 和 `catch` 關鍵字優雅地處理例外，以保持程式穩定。
@@ -297,7 +297,7 @@ fun main() {
 
 一個處理 `WithdrawalException` 的通用擷取區塊會擷取其型別的所有例外，包括像 `InsufficientFundsException` 這樣具體的例外，除非它們先前已被更具體的擷取區塊所擷取。
 
-### finally 區塊
+### finally 區塊 {id="the-finally-block"}
 
 `finally` 區塊包含無論 `try` 區塊成功完成還是拋出例外都一律執行的程式碼。
 使用 `finally` 區塊，您可以在執行 `try` 和 `catch` 區塊後清理程式碼。
@@ -409,7 +409,7 @@ fun main() {
 
 在 Kotlin 中，您可以根據特定需求靈活地僅使用 `catch` 區塊、僅使用 `finally` 區塊，或者兩者都使用，但 `try` 區塊必須始終至少搭配一個 `catch` 區塊或一個 `finally` 區塊。
 
-## 建立自訂例外
+## 建立自訂例外 {id="create-custom-exceptions"}
 
 在 Kotlin 中，您可以藉由建立擴充內建 `Exception` 類別的類別來定義自訂例外。這允許您建立針對應用程式需求量身打造的更具體錯誤型別。
 
@@ -512,7 +512,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-## Nothing 型別
+## Nothing 型別 {id="the-nothing-type"}
 
 在 Kotlin 中，每個運算式都有一個型別。
 運算式 `throw IllegalArgumentException()` 的型別是 [`Nothing`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-nothing.html)，這是一個內建型別，是所有其他型別的子型別，也稱為 [底端型別 (bottom type)](https://en.wikipedia.org/wiki/Bottom_type)。 
@@ -565,7 +565,7 @@ fun main() {
 
 如您所見，`TODO()` 函式一律會拋出 [`NotImplementedError`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-not-implemented-error/) 例外。
 
-## 例外類別
+## 例外類別 {id="exception-classes"}
 
 讓我們探索 Kotlin 中常見的一些例外型別，它們都是 [`RuntimeException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-runtime-exception/) 類別的子類別：
 
@@ -639,7 +639,7 @@ fun main() {
 
 雖然在 Kotlin 中所有例外都是非受檢的，且您不一定要明確地擷取它們，但如果您有需要，仍可以靈活地擷取它們。
 
-### 例外階層結構
+### 例外階層結構 {id="exception-hierarchy"}
 
 Kotlin 例外階層結構的根源是 [`Throwable`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/) 類別。
 它有兩個直接子類別，即 [`Error`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-error/) 和 [`Exception`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-exception/)：
@@ -657,7 +657,7 @@ Kotlin 有助於防止常見的 `RuntimeExceptions`（例如 `NullPointerExcepti
 
 ![RuntimeException 階層結構](runtime-exception.svg){width=700}
 
-## 堆疊追蹤
+## 堆疊追蹤 {id="stack-trace"}
 
 *堆疊追蹤 (stack trace)* 是由執行環境產生的報告，用於偵錯。
 它顯示了導致程式中特定點（尤其是發生錯誤或例外之處）的函式呼叫序列。
@@ -692,7 +692,7 @@ Exception in thread "main" java.lang.ArithmeticException: This is an arithmetic 
 * `at MainKt.main (Main.kt:3)`：這顯示了方法名稱 (`MainKt.main`)，以及呼叫該方法的原始程式檔和行號 (`Main.kt:3`)。
 * `at MainKt.main (Main.kt)`：這顯示例外發生在 `Main.kt` 檔案的 `main()` 函式中。
 
-## 與 Java、Swift 及 Objective-C 的例外互通性
+## 與 Java、Swift 及 Objective-C 的例外互通性 {id="exception-interoperability-with-java-swift-and-objective-c"}
 
 由於 Kotlin 將所有例外視為非受檢，因此當從區分受檢 (checked) 與非受檢例外的語言呼叫此類例外時，可能會導致複雜情況。
 為了解決 Kotlin 與 Java、Swift 及 Objective-C 等語言在例外處理上的差異，

@@ -4,7 +4,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 
 雖然大多數語言變更已透過其他管道宣布（例如更新日誌或編譯器警告），本文件彙整了所有變更，為從 Kotlin 1.5 遷移到 Kotlin 1.6 提供完整的參考。
 
-## 基本術語
+## 基本術語 {id="basic-terms"}
 
 在本文件中，我們介紹了幾種相容性：
 
@@ -14,9 +14,9 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 
 請記住，這些定義僅針對純 Kotlin 給出。從其他語言角度（例如 Java）看 Kotlin 程式碼的相容性不在本文件的討論範圍之內。
 
-## 語言
+## 語言 {id="language"}
 
-### 預設使以 enum、sealed 以及 Boolean 為主體的 when 陳述式完備
+### 預設使以 enum、sealed 以及 Boolean 為主體的 when 陳述式完備 {id="make-when-statements-with-enum-sealed-and-boolean-subjects-exhaustive-by-default"}
 
 > **問題**：[KT-47709](https://youtrack.jetbrains.com/issue/KT-47709)
 >
@@ -31,7 +31,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - 1.6.0：當以 enum、sealed 或 Boolean 為主體的 `when` 陳述式不完備時，引入警告（在漸進模式下為錯誤）
 > - 1.7.0：將此警告提升為錯誤
 
-### 棄用帶主體的 when 中易混淆的語法
+### 棄用帶主體的 when 中易混淆的語法 {id="deprecate-confusing-grammar-in-when-with-subject"}
 
 > **問題**：[KT-48385](https://youtrack.jetbrains.com/issue/KT-48385)
 >
@@ -47,7 +47,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - 1.8.0：將此警告提升為錯誤
 > - &gt;= 1.8：將某些棄用的建構重新用於新的語言特性
 
-### 禁止在其伴生與巢狀物件的父類別建構函式呼叫中存取類別成員
+### 禁止在其伴生與巢狀物件的父類別建構函式呼叫中存取類別成員 {id="prohibit-access-to-class-members-in-the-super-constructor-call-of-its-companion-and-nested-objects"}
 
 > **問題**：[KT-25289](https://youtrack.jetbrains.com/issue/KT-25289)
 >
@@ -63,7 +63,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - 1.6.0：將此警告提升為錯誤，
 >  可以使用 `-XXLanguage:-ProhibitSelfCallsInNestedObjects` 暫時恢復為 1.6 之前的行為
 
-### 型別可 null 性增強改進
+### 型別可 null 性增強改進 {id="type-nullability-enhancement-improvements"}
 
 > **問題**：[KT-48623](https://youtrack.jetbrains.com/issue/KT-48623)
 >
@@ -79,7 +79,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - 1.7.0：推論出更精確的 Java 型別可 null 性，
 >   可以使用 `-XXLanguage:-TypeEnhancementImprovementsInStrictMode` 暫時恢復為 1.7 之前的行為
 
-### 防止不同數值型別之間的隱式強制轉換
+### 防止不同數值型別之間的隱式強制轉換 {id="prevent-implicit-coercions-between-different-numeric-types"}
 
 > **問題**：[KT-48645](https://youtrack.jetbrains.com/issue/KT-48645)
 >
@@ -96,7 +96,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 >   可以使用 `-Xuse-old-backend` 暫時恢復為 1.5.30 修正之前的行為
 > - &gt;= 1.6.20：修正其他受影響情況下的向下轉換行為
 
-### 禁止宣告其容器註解違反 JLS 的可重複註解類別
+### 禁止宣告其容器註解違反 JLS 的可重複註解類別 {id="prohibit-declarations-of-repeatable-annotation-classes-whose-container-annotation-violates-jls"}
 
 > **問題**：[KT-47928](https://youtrack.jetbrains.com/issue/KT-47928)
 >
@@ -112,7 +112,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - 1.6.0：將此警告提升為錯誤，
 >   可以使用 `-XXLanguage:-RepeatableAnnotationContainerConstraints` 暫時停用錯誤回報
 
-### 禁止在可重複註解類別中宣告名為 Container 的巢狀類別
+### 禁止在可重複註解類別中宣告名為 Container 的巢狀類別 {id="prohibit-declaring-a-nested-class-named-container-in-a-repeatable-annotation-class"}
 
 > **問題**：[KT-47971](https://youtrack.jetbrains.com/issue/KT-47971)
 >
@@ -128,7 +128,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - 1.6.0：將此警告提升為錯誤，
 >   可以使用 `-XXLanguage:-RepeatableAnnotationContainerConstraints` 暫時停用錯誤回報
 
-### 禁止在主建構函數中覆寫介面屬性的屬性上使用 @JvmField
+### 禁止在主建構函數中覆寫介面屬性的屬性上使用 @JvmField {id="prohibit-jvmfield-on-a-property-in-the-primary-constructor-that-overrides-an-interface-property"}
 
 > **問題**：[KT-32753](https://youtrack.jetbrains.com/issue/KT-32753)
 >
@@ -144,7 +144,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - 1.6.0：將此警告提升為錯誤，
 >   可以使用 `-XXLanguage:-ProhibitJvmFieldOnOverrideFromInterfaceInPrimaryConstructor` 暫時停用錯誤回報
 
-### 棄用編譯器選項 -Xjvm-default 的 enable 和 compatibility 模式
+### 棄用編譯器選項 -Xjvm-default 的 enable 和 compatibility 模式 {id="deprecate-the-enable-and-the-compatibility-modes-of-the-compiler-option-xjvm-default"}
 
 > **問題**：[KT-46329](https://youtrack.jetbrains.com/issue/KT-46329)
 >
@@ -159,7 +159,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - 1.6.20：針對 `-Xjvm-default` 編譯器選項的 `enable` 和 `compatibility` 模式引入警告
 > - &gt;= 1.8.0：將此警告提升為錯誤
 
-### 禁止從 public-abi 內嵌函式進行 super 呼叫
+### 禁止從 public-abi 內嵌函式進行 super 呼叫 {id="prohibit-super-calls-from-public-abi-inline-functions"}
 
 > **問題**：[KT-45379](https://youtrack.jetbrains.com/issue/KT-45379)
 >
@@ -175,7 +175,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - 1.6.0：將此警告提升為錯誤，
 >   可以使用 `-XXLanguage:-ProhibitSuperCallsFromPublicInline` 暫時停用錯誤回報
 
-### 禁止從公開內嵌函式呼叫受保護的建構函式
+### 禁止從公開內嵌函式呼叫受保護的建構函式 {id="prohibit-protected-constructor-calls-from-public-inline-functions"}
 
 > **問題**：[KT-48860](https://youtrack.jetbrains.com/issue/KT-48860)
 >
@@ -191,7 +191,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - 1.6.0：將此警告提升為錯誤，
 >   可以使用 `-XXLanguage:-ProhibitProtectedConstructorCallFromPublicInline` 暫時停用錯誤回報
 
-### 禁止從檔案私有型別暴露私有巢狀型別
+### 禁止從檔案私有型別暴露私有巢狀型別 {id="prohibit-exposing-private-nested-types-from-private-in-file-types"}
 
 > **問題**：[KT-20094](https://youtrack.jetbrains.com/issue/KT-20094)
 >
@@ -207,7 +207,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - 1.6.0：將此警告提升為錯誤，
 >   可以使用 `-XXLanguage:-PrivateInFileEffectiveVisibility` 暫時停用錯誤回報
 
-### 在數種情況下未對型別上的註解進行註解目標分析
+### 在數種情況下未對型別上的註解進行註解目標分析 {id="annotation-target-is-not-analyzed-in-several-cases-for-annotations-on-a-type"}
 
 > **問題**：[KT-28449](https://youtrack.jetbrains.com/issue/KT-28449)
 >
@@ -223,7 +223,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - 1.6.0：引入錯誤，
 >   可以使用 `-XXLanguage:-ProperCheckAnnotationsTargetInTypeUsePositions` 暫時停用錯誤回報
 
-### 禁止呼叫名為 suspend 且帶有尾隨 Lambda 的函式
+### 禁止呼叫名為 suspend 且帶有尾隨 Lambda 的函式 {id="prohibit-calls-to-functions-named-suspend-with-a-trailing-lambda"}
 
 > **問題**：[KT-22562](https://youtrack.jetbrains.com/issue/KT-22562)
 >
@@ -239,9 +239,9 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - 1.6.0：將此警告提升為錯誤
 > - &gt;= 1.7.0：對語言語法進行變更，使得 `{` 之前的 `suspend` 被解析為關鍵字
 
-## 標準庫
+## 標準庫 {id="standard-library"}
 
-### 移除 minus/removeAll/retainAll 中脆弱的 contains 最佳化
+### 移除 minus/removeAll/retainAll 中脆弱的 contains 最佳化 {id="remove-brittle-contains-optimization-in-minus-removeall-retainall"}
 
 > **問題**：[KT-45438](https://youtrack.jetbrains.com/issue/KT-45438)
 >
@@ -258,7 +258,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > 舊行為可以在 JVM 上透過設定系統屬性 `kotlin.collections.convert_arg_to_set_in_removeAll=true` 來暫時恢復
 > - &gt;= 1.7：上述系統屬性將不再生效
 
-### 變更 Random.nextLong 中的值產生演算法
+### 變更 Random.nextLong 中的值產生演算法 {id="change-value-generation-algorithm-in-random-nextlong"}
 
 > **問題**：[KT-47304](https://youtrack.jetbrains.com/issue/KT-47304)
 >
@@ -272,7 +272,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 >
 > - 1.6.0：該行為立即修正
 
-### 逐步將集合 min 和 max 函式的回傳型別變更為非空
+### 逐步將集合 min 和 max 函式的回傳型別變更為非空 {id="gradually-change-the-return-type-of-collection-min-and-max-functions-to-non-nullable"}
 
 > **問題**：[KT-38854](https://youtrack.jetbrains.com/issue/KT-38854)
 >
@@ -289,7 +289,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - 1.6.0：從公開 API 中隱藏棄用的函式
 > - &gt;= 1.7：重新引入受影響的 API，但具有非空回傳型別
 
-### 棄用浮點數陣列函式：contains、indexOf、lastIndexOf
+### 棄用浮點數陣列函式：contains、indexOf、lastIndexOf {id="deprecate-floating-point-array-functions-contains-indexof-lastindexof"}
 
 > **問題**：[KT-28753](https://youtrack.jetbrains.com/issue/KT-28753)
 >
@@ -305,7 +305,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - 1.6.0：將棄用級別提升為錯誤
 > - &gt;= 1.7：從公開 API 中隱藏棄用的函式
 
-### 將宣告從 kotlin.dom 和 kotlin.browser 套件遷移至 kotlinx.*
+### 將宣告從 kotlin.dom 和 kotlin.browser 套件遷移至 kotlinx.* {id="migrate-declarations-from-kotlin-dom-and-kotlin-browser-packages-to-kotlinx"}
 
 > **問題**：[KT-39330](https://youtrack.jetbrains.com/issue/KT-39330)
 >
@@ -323,7 +323,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - &gt;= 1.7：從 stdlib 中移除棄用的函式
 > - &gt;= 1.7：將 kotlinx.* 套件中的 API 移至獨立程式庫
 
-### 使 Kotlin/JS 中的 Regex.replace 函式不再是內嵌的
+### 使 Kotlin/JS 中的 Regex.replace 函式不再是內嵌的 {id="make-regex-replace-function-not-inline-in-kotlin-js"}
 
 > **問題**：[KT-27738](https://youtrack.jetbrains.com/issue/KT-27738)
 >
@@ -337,7 +337,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 >
 > - 1.6.0：從受影響的函式中移除 `inline` 修飾符
 
-### 當替換字串包含群組參考時，Regex.replace 函式在 JVM 和 JS 中的不同行為
+### 當替換字串包含群組參考時，Regex.replace 函式在 JVM 和 JS 中的不同行為 {id="different-behavior-of-the-regex-replace-function-in-jvm-and-js-when-replacement-string-contains-group-reference"}
 
 > **問題**：[KT-28378](https://youtrack.jetbrains.com/issue/KT-28378)
 >
@@ -351,7 +351,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 >
 > - 1.6.0：變更 Kotlin/JS stdlib 中 `Regex.replace` 的替換模式處理方式
 
-### 在 JS Regex 中使用 Unicode 大小寫摺疊
+### 在 JS Regex 中使用 Unicode 大小寫摺疊 {id="use-the-unicode-case-folding-in-js-regex"}
 
 > **問題**：[KT-45928](https://youtrack.jetbrains.com/issue/KT-45928)
 >
@@ -367,7 +367,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - 1.5.0：在 JS `Regex` 類別的大多數函式中啟用 Unicode 大小寫摺疊
 > - 1.6.0：在 `Regex.replaceFirst` 函式中啟用 Unicode 大小寫摺疊
 
-### 棄用某些僅限 JS 的 API
+### 棄用某些僅限 JS 的 API {id="deprecate-some-js-only-api"}
 
 > **問題**：[KT-48587](https://youtrack.jetbrains.com/issue/KT-48587)
 >
@@ -383,7 +383,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - 1.7.0：將棄用級別提升為錯誤
 > - 1.8.0：從公開 API 中移除棄用的函式
 
-### 從 Kotlin/JS 類別的公開 API 中隱藏實作和互通特定函式
+### 從 Kotlin/JS 類別的公開 API 中隱藏實作和互通特定函式 {id="hide-implementation-and-interop-specific-functions-from-the-public-api-of-classes-in-kotlin-js"}
 
 > **問題**：[KT-48587](https://youtrack.jetbrains.com/issue/KT-48587)
 >
@@ -397,9 +397,9 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 >
 > - 1.6.0：將這些函式設為 internal，進而從公開 API 中移除
 
-## 工具
+## 工具 {id="tools"}
 
-### 棄用 KotlinGradleSubplugin 類別
+### 棄用 KotlinGradleSubplugin 類別 {id="deprecate-kotlingradlesubplugin-class"}
 
 > **問題**：[KT-48830](https://youtrack.jetbrains.com/issue/KT-48830)
 >
@@ -414,7 +414,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - 1.6.0：將棄用級別提升為錯誤
 > - &gt;= 1.7.0：移除棄用的類別
 
-### 移除 kotlin.useFallbackCompilerSearch 組建選項
+### 移除 kotlin.useFallbackCompilerSearch 組建選項 {id="remove-kotlin-usefallbackcompilersearch-build-option"}
 
 > **問題**：[KT-46719](https://youtrack.jetbrains.com/issue/KT-46719)
 >
@@ -429,7 +429,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - 1.5.0：將棄用級別提升為警告
 > - 1.6.0：移除棄用的選項
 
-### 移除數個編譯器選項
+### 移除數個編譯器選項 {id="remove-several-compiler-options"}
 
 > **問題**：[KT-48847](https://youtrack.jetbrains.com/issue/KT-48847)
 >
@@ -444,7 +444,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - 1.5.0：將棄用級別提升為錯誤
 > - 1.6.0：移除棄用的選項
 
-### 棄用 useIR 編譯器選項
+### 棄用 useIR 編譯器選項 {id="deprecate-useir-compiler-option"}
 
 > **問題**：[KT-48847](https://youtrack.jetbrains.com/issue/KT-48847)
 >
@@ -460,7 +460,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - 1.6.0：隱藏該選項
 > - &gt;= 1.7.0：移除棄用的選項
 
-### 棄用 kapt.use.worker.api Gradle 屬性
+### 棄用 kapt.use.worker.api Gradle 屬性 {id="deprecate-kapt-use-worker-api-gradle-property"}
 
 > **問題**：[KT-48826](https://youtrack.jetbrains.com/issue/KT-48826)
 >
@@ -475,7 +475,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - 1.6.20：將棄用級別提升為警告
 > - &gt;= 1.8.0：移除此屬性
 
-### 移除 kotlin.parallel.tasks.in.project Gradle 屬性
+### 移除 kotlin.parallel.tasks.in.project Gradle 屬性 {id="remove-kotlin-parallel-tasks-in-project-gradle-property"}
 
 > **問題**：[KT-46406](https://youtrack.jetbrains.com/issue/KT-46406)
 >
@@ -490,7 +490,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - 1.5.20：將棄用級別提升為警告
 > - 1.6.20：移除此屬性
 
-### 棄用 kotlin.experimental.coroutines Gradle DSL 選項和 kotlin.coroutines Gradle 屬性
+### 棄用 kotlin.experimental.coroutines Gradle DSL 選項和 kotlin.coroutines Gradle 屬性 {id="deprecate-kotlin-experimental-coroutines-gradle-dsl-option-and-kotlin-coroutines-gradle-property"}
 
 > **問題**：[KT-50369](https://youtrack.jetbrains.com/issue/KT-50369)
 >

@@ -8,11 +8,11 @@
 
 如果您希望將最終應用程式的程式碼庫與通用程式碼庫明確分離，請設定遠端整合。在這種情況下，共享程式碼將像一般的第三方相依性一樣整合到最終應用程式中。
 
-## 本機整合
+## 本機整合 {id="local-integration"}
 
 在本機設定中，有兩種主要的整合選項。您可以使用透過特殊指令碼進行的直接整合，這會使 Kotlin 組建變為 iOS 組建的一部分。如果您的 Kotlin Multiplatform 專案中有 Pod 相依性，請採用 CocoaPods 整合方式。
 
-### 直接整合
+### 直接整合 {id="direct-integration"}
 
 您可以透過在 Xcode 專案中新增特殊指令碼，直接從 Kotlin Multiplatform 專案連接 iOS 架構。該指令碼會整合到專案組建設定的組建階段中。
 
@@ -22,7 +22,7 @@
 
 若要了解更多資訊，請參閱 [直接整合](multiplatform-direct-integration.md)。
 
-### 搭配本機套件的 SwiftPM 整合
+### 搭配本機套件的 SwiftPM 整合 {id="swiftpm-integration-with-a-local-package"}
 
 您的 KMP iOS 架構可以透過 [Swift Package Manager](https://docs.swift.org/swiftpm/documentation/packagemanagerdocs/) 相依於本機 Swift 套件。
 
@@ -33,7 +33,7 @@
 
 若要了解如何將本機 Swift 套件相依性新增至您的專案，請參閱 [將 Swift 套件新增為相依性](multiplatform-spm-import.md#importing-local-swift-packages)。
 
-### 搭配本機 podspec 的 CocoaPods 整合
+### 搭配本機 podspec 的 CocoaPods 整合 {id="cocoapods-integration-with-a-local-podspec"}
 
 您可以透過 [CocoaPods](https://cocoapods.org/)（Swift 和 Objective-C 專案的流行相依管理器）連接來自 Kotlin Multiplatform 專案的 iOS 架構。
 
@@ -44,17 +44,17 @@
 
 若要了解如何透過本機 CocoaPods 相依性設定工作流程，請參閱 [CocoaPods 總覽與設定](multiplatform-cocoapods-overview.md)。
 
-## 遠端整合
+## 遠端整合 {id="remote-integration"}
 
 對於遠端整合，您的專案可能會使用 Swift Package Manager (SwiftPM) 或 CocoaPods 相依管理器來連接來自 Kotlin Multiplatform 專案的 iOS 架構。
 
-### 搭配 XCFrameworks 的 SwiftPM
+### 搭配 XCFrameworks 的 SwiftPM {id="swiftpm-with-xcframeworks"}
 
 您既可以從 Kotlin Multiplatform 專案匯出 XCFramework，也可以將遠端 Swift 套件作為相依性匯入至 KMP 專案中：
 * 關於如何從您的 XCFramework 製作並分發 Swift 套件的說明，請參閱 [Swift 套件匯出設定](multiplatform-spm-export.md)。
 * 若要了解如何將 Swift 套件新增為相依性，請參閱 [Swift PM 匯入文件](multiplatform-spm-import.md)。
 
-### 搭配 XCFrameworks 的 CocoaPods 整合
+### 搭配 XCFrameworks 的 CocoaPods 整合 {id="cocoapods-integration-with-xcframeworks"}
 
 您可以使用 Kotlin CocoaPods Gradle 外掛程式組建 XCFrameworks，然後透過 CocoaPods 將專案的共享部分與行動應用程式分開分發。
 

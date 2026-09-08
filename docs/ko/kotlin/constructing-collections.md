@@ -1,6 +1,6 @@
 [//]: # (title: 컬렉션 생성하기)
 
-## 요소로부터 생성하기
+## 요소로부터 생성하기 {id="construct-from-elements"}
 
 컬렉션을 생성하는 가장 일반적인 방법은 표준 라이브러리 함수인 [`listOf<T>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/list-of.html),
 [`setOf<T>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/set-of.html),
@@ -30,7 +30,7 @@ val numbersMap = mapOf("key1" to 1, "key2" to 2, "key3" to 3, "key4" to 1)
 val numbersMap = mutableMapOf<String, String>().apply { this["one"] = "1"; this["two"] = "2" }
 ```
 
-## 컬렉션 빌더 함수로 생성하기
+## 컬렉션 빌더 함수로 생성하기 {id="create-with-collection-builder-functions"}
 
 컬렉션을 생성하는 또 다른 방법은 빌더 함수인
 [`buildList()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/build-list.html), [`buildSet()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/build-set.html),
@@ -48,7 +48,7 @@ val map = buildMap { // 이 안에서는 MutableMap<String, Int>이며, 키와 �
 println(map) // {a=1, b=0, c=4}
 ```
 
-## 빈 컬렉션
+## 빈 컬렉션 {id="empty-collections"}
 
 요소가 없는 컬렉션을 생성하기 위한 함수들도 있습니다: [`emptyList()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/empty-list.html),
 [`emptySet()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/empty-set.html), 그리고
@@ -59,7 +59,7 @@ println(map) // {a=1, b=0, c=4}
 val empty = emptyList<String>()
 ```
 
-## 리스트를 위한 초기화 함수
+## 리스트를 위한 초기화 함수 {id="initializer-functions-for-lists"}
 
 리스트의 경우, 리스트의 크기와 인덱스를 기반으로 요소 값을 정의하는 초기화 함수를 받는 생성자 형태의 함수가 있습니다.
 
@@ -73,7 +73,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 구체적인 타입의 생성자
+## 구체적인 타입의 생성자 {id="concrete-type-constructors"}
 
 `ArrayList`나 `LinkedList`와 같은 구체적인 타입의 컬렉션을 생성하려면 해당 타입에서 제공하는 생성자를 사용할 수 있습니다.
 `Set` 및 `Map`의 구현체들에 대해서도 유사한 생성자들을 사용할 수 있습니다.
@@ -83,7 +83,7 @@ val linkedList = LinkedList<String>(listOf("one", "two", "three"))
 val presizedSet = HashSet<Int>(32)
 ```
 
-## 복사
+## 복사 {id="copy"}
 
 기존 컬렉션과 동일한 요소를 가진 컬렉션을 생성하려면 복사 함수를 사용할 수 있습니다.
 표준 라이브러리의 컬렉션 복사 함수는 동일한 요소들에 대한 참조를 가지는 *얕은 복사(shallow copy)* 컬렉션을 생성합니다.
@@ -157,7 +157,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 다른 컬렉션에 대한 함수 호출
+## 다른 컬렉션에 대한 함수 호출 {id="invoke-functions-on-other-collections"}
 
 컬렉션은 다른 컬렉션에 대한 다양한 연산의 결과로 생성될 수 있습니다. 예를 들어, 리스트를 [필터링(filtering)](collection-filtering.md)하면
 필터 조건에 맞는 요소들로 구성된 새로운 리스트가 생성됩니다.

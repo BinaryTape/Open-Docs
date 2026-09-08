@@ -4,11 +4,11 @@
 
 在初学者教程中，你已经学习了如何在代码中处理 `null` 值。本章将涵盖 Null 安全功能的常见用例，以及如何充分利用这些功能。
 
-## 智能转换与安全转换
+## 智能转换与安全转换 {id="smart-casts-and-safe-casts"}
 
 Kotlin 有时可以在没有显式声明的情况下推断类型。当你告诉 Kotlin 将某个变量或对象视为属于特定类型时，这个过程被称为**转换 (casting)**。当类型被自动转换（例如被推断）时，它被称为**智能转换 (smart casting)**。
 
-### is 与 !is 运算符
+### is 与 !is 运算符 {id="is-and-is-operators"}
 
 在我们探索转换如何工作之前，让我们看看如何检查一个对象是否具有某种类型。为此，你可以将 `is` 和 `!is` 运算符与 `when` 或 `if` 条件表达式配合使用：
 
@@ -50,7 +50,7 @@ fun main() {
 > 
 {style="tip"}
 
-### as 与 as? 运算符
+### as 与 as? 运算符 {id="as-and-as-operators"}
 
 要显式地将一个对象*转换*为任何其他类型，请使用 `as` 运算符。这包括从可空类型转换为其对应的不可空类型。如果转换无法执行，程序将在**运行时**崩溃。这就是为什么它被称为**不安全**转换运算符。
 
@@ -124,7 +124,7 @@ fun calculateTotalStringLength(items: List<Any>): Int {
 * 使用安全调用 `?.` 在调用不返回 `null` 值的情况下访问 `length` 属性。
 * 使用 Elvis 运算符 `?:` 在安全调用返回 `null` 值的情况下返回 `0`。
 
-## Null 值与集合
+## Null 值与集合 {id="null-values-and-collections"}
 
 在 Kotlin 中，处理集合通常涉及处理 `null` 值并过滤掉不需要的元素。Kotlin 提供了许多有用的函数，你可以在处理列表、集合 (set)、映射 (map) 和其他类型的集合时，使用它们来编写简洁、高效且 null 安全的代码。
 
@@ -273,7 +273,7 @@ fun main() {
 
 探索 Kotlin 的[标准库](https://kotlinlang.org/api/core/kotlin-stdlib/)以查找更多可以使你的代码更安全的函数。
 
-## 提前返回与 Elvis 运算符
+## 提前返回与 Elvis 运算符 {id="early-returns-and-the-elvis-operator"}
 
 在初学者教程中，你学习了如何使用[提前返回](kotlin-tour-functions.md#early-returns-in-functions)来防止函数在超过某一点后继续处理。你可以将 Elvis 运算符 `?:` 与提前返回结合使用，以在函数中检查前提条件。这种方法是保持代码简洁的绝佳方式，因为你不需要使用嵌套检查。代码复杂性的降低也使其更易于维护。例如：
 
@@ -341,7 +341,7 @@ fun getNumberOfFriends(users: Map<Int, User>, userId: Int): Int {
 
 有关如何在代码中使用 `return` 的更多信息，请参阅[返回与跳转](returns.md)。
 
-## 练习 {completion-point="true"}
+## 练习 {completion-point="true" id="practice"}
 
 ### 练习 1 {initial-collapse-state="collapsed" collapsible="true" id="null-safety-exercise-1"}
 

@@ -4,7 +4,7 @@ title: ViewModel
 
 Koinは`koin-core-viewmodel`モジュールを通じて、マルチプラットフォームのViewModelサポートを提供します。これにより、すべてのKotlin Multiplatformターゲットにおいて[AndroidX ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)のインスタンスを宣言および注入できるようになります。
 
-## セットアップ
+## セットアップ {id="setup"}
 
 コアとなるViewModelの依存関係を追加します：
 
@@ -23,9 +23,9 @@ implementation("io.insert-koin:koin-android:$koin_version")
 implementation("io.insert-koin:koin-compose-viewmodel:$koin_version")
 ```
 
-## ViewModelの宣言
+## ViewModelの宣言 {id="declaring-viewmodels"}
 
-### コンパイラプラグインDSL
+### コンパイラプラグインDSL {id="compiler-plugin-dsl"}
 
 ```kotlin
 class UserViewModel(
@@ -37,7 +37,7 @@ val appModule = module {
 }
 ```
 
-### アノテーション
+### アノテーション {id="annotations"}
 
 ```kotlin
 @KoinViewModel
@@ -46,7 +46,7 @@ class UserViewModel(
 ) : ViewModel()
 ```
 
-### クラシックDSL
+### クラシックDSL {id="classic-dsl"}
 
 ```kotlin
 val appModule = module {
@@ -58,7 +58,7 @@ val appModule = module {
 }
 ```
 
-## パラメータを持つViewModel
+## パラメータを持つViewModel {id="viewmodel-with-parameters"}
 
 注入時にパラメータを渡すには、`@InjectedParam`を使用します：
 
@@ -98,7 +98,7 @@ val appModule = module {
 }
 ```
 
-## ViewModelスコープ
+## ViewModelスコープ {id="viewmodel-scope"}
 
 独自のスコープ付き依存関係を必要とするViewModelは、`viewModelScope`アーキタイプを使用します。`viewModelScope`内で宣言された依存関係は、ViewModelのライフサイクルに関連付けられます。
 
@@ -165,9 +165,9 @@ No definition found for type 'MyViewModel' on scope '['_root_']'
 これは、ViewModelがViewModelスコープアーキタイプの下で登録されており、そのスコープはオプションが有効な場合にのみ作成されるためです。（これは、独自のスコープを作成し、オプションを必要としない手動の `ScopeViewModel` パターンとは異なります。）
 :::
 
-## ViewModelの注入
+## ViewModelの注入 {id="injecting-viewmodels"}
 
-### Compose (マルチプラットフォーム) の場合
+### Compose (マルチプラットフォーム) の場合 {id="in-compose-multiplatform"}
 
 Composable関数内で `koinViewModel()` を使用します：
 
@@ -180,7 +180,7 @@ fun UserScreen() {
 }
 ```
 
-### Android の場合
+### Android の場合 {id="in-android"}
 
 ActivityまたはFragmentで `by viewModel()` デリゲートを使用します：
 
@@ -193,7 +193,7 @@ class UserActivity : AppCompatActivity() {
 }
 ```
 
-## SavedStateHandle
+## SavedStateHandle {id="savedstatehandle"}
 
 ViewModelのコンストラクタに `SavedStateHandle` を追加すると、Koinが自動的に注入します：
 
@@ -216,7 +216,7 @@ val appModule = module {
 }
 ```
 
-## クイックリファレンス
+## クイックリファレンス {id="quick-reference"}
 
 | 手法 | モジュール宣言 | スコープ宣言 |
 |----------|-------------------|-------------------|
@@ -229,12 +229,12 @@ val appModule = module {
 | Compose | `koinViewModel<MyVM>()` |
 | Android | `by viewModel()` |
 
-## プラットフォーム固有の機能
+## プラットフォーム固有の機能 {id="platform-specific-features"}
 
 - **Android**: Activity/Fragment間での共有、Navigation Graphのスコープ設定については、[Android ViewModel](/docs/reference/koin-android/viewmodel)を参照してください。
 - **Compose**: Compose固有のAPIについては、[Compose ViewModel](/docs/reference/koin-compose/compose#viewmodel-for-composable)を参照してください。
 
-## 次のステップ
+## 次のステップ {id="next-steps"}
 
 - **[スコープ](/docs/reference/koin-core/scopes)** - コアのスコープ概念について
 - **[Android ViewModel](/docs/reference/koin-android/viewmodel)** - Android固有の機能について

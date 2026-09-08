@@ -11,7 +11,7 @@
 아래에서는 데모 애플리케이션에 이미 존재하는 데이터 객체를 바탕으로 컬렉션을 다루는 몇 가지 유용한 레시피(recipes)를 확인할 수 있습니다.
 모든 예제는 `service.findMessages()` 함수를 호출하여 데이터베이스에 저장된 모든 메시지를 가져온 후, 메시지 리스트를 필터링, 정렬, 그룹화 또는 변환하는 다양한 연산을 수행한다고 가정합니다.
 
-## 요소 조회
+## 요소 조회 {id="retrieving-elements"}
 
 Kotlin 컬렉션은 컬렉션에서 단일 요소를 조회하기 위한 일련의 함수를 제공합니다.
 위치 또는 일치하는 조건에 따라 컬렉션에서 단일 요소를 조회할 수 있습니다.
@@ -56,7 +56,7 @@ fun firstMessageOrNull(): Message {
 
 ```
 
-## 요소 필터링
+## 요소 필터링 {id="filtering-elements"}
 
 _필터링(Filtering)_은 컬렉션 처리에서 가장 대중적인 작업 중 하나입니다.
 표준 라이브러리에는 단일 호출로 컬렉션을 필터링할 수 있는 확장 함수(extension functions) 그룹이 포함되어 있습니다.
@@ -73,7 +73,7 @@ fun filterMessagesLongerThan10(): List<Message> {
 이 코드는 `first()` 함수를 사용하여 텍스트 길이가 10보다 큰 단일 요소를 찾았던 예제와 매우 유사해 보입니다.
 차이점은 `filter()`는 조건에 일치하는 모든 요소의 리스트를 반환한다는 것입니다.
 
-## 요소 정렬
+## 요소 정렬 {id="sorting-elements"}
 
 요소의 순서는 특정 컬렉션 타입에서 중요한 측면입니다.
 Kotlin 표준 라이브러리는 자연 순서(natural order), 커스텀 순서, 역순(reverse), 랜덤 순서 등 다양한 방식으로 정렬할 수 있는 여러 함수를 제공합니다.
@@ -90,7 +90,7 @@ fun sortByLastLetter(): List<Message> {
 }
 ```
 
-## 요소 그룹화
+## 요소 그룹화 {id="grouping-elements"}
 
 그룹화(Grouping)는 요소들을 어떻게 묶을지에 대한 다소 복잡한 로직을 구현해야 할 수도 있습니다.
 [`groupBy()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/group-by.html) 함수는 람다를 인자로 받아 `Map`을 반환합니다.
@@ -115,7 +115,7 @@ fun groups(): Map<String, List<Message>> {
 }
 ```
 
-## 변환 연산
+## 변환 연산 {id="transformation-operations"}
 
 컬렉션 작업에서 흔히 수행하는 작업은 컬렉션 요소를 한 타입에서 다른 타입으로 변환(transform)하는 것입니다.
 당연히 Kotlin 표준 라이브러리는 이러한 작업을 위해 다수의 [변환 함수](collection-transformations.md)를 제공합니다.
@@ -131,7 +131,7 @@ fun transformMessagesToListOfStrings(): List<String> {
 }
 ```
 
-## 집계 연산
+## 집계 연산 {id="aggregate-operations"}
 
 집계(aggregation) 연산은 값의 컬렉션으로부터 단일 값을 계산합니다.
 집계 연산의 예로는 모든 메시지 길이의 평균을 계산하는 것이 있습니다.
@@ -163,6 +163,6 @@ fun reduce(): Message {
 }
 ```
 
-## 다음 단계
+## 다음 단계 {id="next-step"}
 
 [다음 섹션](jvm-spring-boot-using-crudrepository.md)으로 이동하세요.

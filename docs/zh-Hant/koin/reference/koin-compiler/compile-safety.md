@@ -6,11 +6,11 @@ Koin 外掛程式會在編譯期驗證您的相依性圖表 — 在應用程式�
 
 這取代了 `verify()` 和 `checkModules()` 等執行時驗證工具。只要能通過編譯，就能正常運作。
 
-## 運作原理
+## 運作原理 {id="how-it-works"}
 
 外掛程式在編譯期間會從三個層級驗證您的圖表：
 
-### A2 — 每個模組（早期回饋）
+### A2 — 每個模組（早期回饋） {id="a2-per-module-early-feedback"}
 
 每個模組的定義都會針對可見的定義進行檢查：其自身的定義、明確包含的模組，以及 `@Configuration` 同級模組。
 
@@ -49,7 +49,7 @@ class ServiceModule         // Service(repo: Repository) → 錯誤
 - `Lazy<T>` 但未提供 `T`
 - 未標記為 `@Provided` 的外部相依性
 
-### A3 — 完整圖表（完整保證）
+### A3 — 完整圖表（完整保證） {id="a3-full-graph-complete-guarantee"}
 
 在 `startKoin<T>()` 處，來自所有來源的所有模組都會被組合，並驗證完整的圖表。A2 無法看到的內容 — 跨模組相依性、來自 JAR 的定義 — 都會在此處進行檢查。
 
@@ -63,7 +63,7 @@ startKoin<MyApp> { }
 
 當 DSL 定義（`single<T>()`、`factory<T>()` 等）是圖表的一部分時，A3 也會對其進行驗證。
 
-### A4 — 呼叫點驗證
+### A4 — 呼叫點驗證 {id="a4-call-site-validation"}
 
 程式碼庫中的每個 `koinViewModel<T>()`、`get<T>()`、`inject<T>()` 呼叫都會被攔截。外掛程式會擷取目標型別、檔案、行號和欄位 — 然後檢查 `T` 是否存在於組合後的圖表中。
 
@@ -82,7 +82,7 @@ class MyFragment : Fragment() {
 
 **跨模組呼叫點：** 如果功能模組呼叫了 `koinViewModel<T>()` 但不具備完整圖表的可見性，外掛程式會產生呼叫點提示。當應用程式模組編譯時，它會從相依性 JAR 中發現這些提示，並根據完整圖表對其進行驗證。
 
-## 驗證內容
+## 驗證內容 {id="what-gets-validated"}
 
 | 場景 | 結果 |
 |----------|--------|
@@ -102,7 +102,7 @@ class MyFragment : Fragment() {
 | Android 架構型別（例如 `Context`） | OK — 硬編碼白名單 |
 | 循環相依 (A → B → A) | **錯誤** — 在 A2/A3 圖表遍歷期間偵測到 |
 
-## 使用註解確保安全性
+## 使用註解確保安全性 {id="safety-with-annotations"}
 
 標註您的類別，將它們組織在模組中，編譯器就會驗證一切：
 
@@ -151,7 +151,7 @@ class CoreModule
 class FeatureModule  // 可見 CoreModule 的定義
 ```
 
-## 使用 DSL 確保安全性
+## 使用 DSL 確保安全性 {id="safety-with-dsl"}
 
 編譯器外掛程式也會驗證 DSL 定義。當您撰寫 `single<T>()`、`factory<T>()` 或 `viewModel<T>()` 時，外掛程式會攔截該呼叫，自動裝配建構函式，並驗證所有參數：
 
@@ -179,7 +179,7 @@ val appModule = module {
 
 DSL 定義會參與 A3 驗證（完整圖表）和 A4 驗證（呼叫點）。如果您使用 `startKoin { modules(appModule) }`，外掛程式會根據組合後的圖表驗證所有 DSL 定義。
 
-## 兩種風格結合使用
+## 兩種風格結合使用 {id="both-styles-together"}
 
 您可以在同一個專案中混合使用註解和 DSL。兩者都會被收集到同一個驗證圖表中：
 
@@ -193,7 +193,7 @@ val featureModule = module {
 }
 ```
 
-## 錯誤訊息
+## 錯誤訊息 {id="error-messages"}
 
 錯誤會報告缺失的型別、需要該型別的定義，以及所在的模組：
 
@@ -221,11 +221,11 @@ val featureModule = module {
   → file: UserScreen.kt, line: 12, column: 5
 ```
 
-## 禁止的定義
+## 禁止的定義 {id="forbidden-definitions"}
 
 某些回傳型別永遠無法透過 Koin 進行有意義的解析，因此在編譯期會被拒絕：
 
-### KOIN-D007：`@Factory` 回傳 suspend `fun interface`
+### KOIN-D007：`@Factory` 回傳 suspend `fun interface` {id="koin-d007-factory-returning-a-suspend-fun-interface"}
 
 回傳繼承自 suspend `fun interface` 型別的 `@Factory` 無法透過 Koin 的同步 `get<T>()` API 調用。外掛程式會在編譯期阻斷此行為。
 
@@ -239,7 +239,7 @@ fun provideTask(): AsyncTask = AsyncTask { ... }
 
 請重構為一般介面，或透過具有 suspend 方法的類別公開 suspend 作業。
 
-## 泛型 DSL 型別
+## 泛型 DSL 型別 {id="generic-dsl-types"}
 
 執行時 Koin 會在**抹除後的原始類別（erased raw class）**上解析定義 — 型別參數不是查閱鍵（lookup key）的一部分。編譯安全性遵循此原則：`get<Box<X>>()` 呼叫會針對圖表中的任何 `Box<*>` 提供者進行驗證，而兩個 `single<Box<A>>()` / `single<Box<B>>()` 宣告會發生衝突（原始類別相同，且無限定符）。
 
@@ -256,7 +256,7 @@ koin.get<Box<String>>() // → 回傳同一個註冊（型別抹除）
 
 在原始類別上驗證也避免了 Kotlin/Native klib 簽章修飾（signature mangling）失敗的問題，該問題以前在 DSL 定義攜帶未替換的型別參數時會導致 iOS 組建崩潰。
 
-### 區分泛型執行個體：泛型參數上的型別限定符
+### 區分泛型執行個體：泛型參數上的型別限定符 {id="discriminating-generic-instances-type-qualifier-on-the-generic-parameter"}
 
 當同一個泛型類別的多個執行個體必須共存時，慣用的模式是註冊一個**具體的包裝型別**，並使用**衍生自泛型參數的型別限定符** — `named<T>()`。這正是 `koin-compose-navigation3` 在內部將每個導航路線與其路線型別關聯時所做的：
 
@@ -287,7 +287,7 @@ koin.get<EntryProviderInstaller>(named<HomeRoute>())
 
 每當您需要區分泛型具現化時，請優先使用此模式而非直接使用 `single<Box<X>>()`。
 
-## 作用域參數注入
+## 作用域參數注入 {id="scope-parameter-injection"}
 
 型別為 `org.koin.core.scope.Scope` 的參數會自動被注入作用域接收者 — 不需要註解。驗證會被跳過，因為注入作用域可以進行動態查閱。
 
@@ -299,7 +299,7 @@ class ScopedService(val scope: Scope) {
 // 產生：ScopedService(scope)  — 直接傳遞作用域接收者
 ```
 
-## 具名作用域解析：`@ScopeId`
+## 具名作用域解析：`@ScopeId` {id="named-scope-resolution-scopeid"}
 
 使用 `@ScopeId` 從具名的 Koin 作用域（而非目前作用域）解析相依性。驗證會被跳過，因為作用域是在執行時解析的。
 
@@ -316,7 +316,7 @@ class ProfileService(@ScopeId(name = "user_session") val session: UserSession)
 | 字串名稱 | `@ScopeId(name = "user_session")` | `"user_session"` |
 | 型別參考 | `@ScopeId(UserSessionScope::class)` | 完整限定類名 |
 
-## 屬性驗證
+## 屬性驗證 {id="property-validation"}
 
 `@Property("key")` 參數是從 Koin 屬性（透過啟動時的 `properties()` 設定）中解析。當不存在 `@PropertyValue("key")` 預設值時，外掛程式會在編譯期發出警告：
 
@@ -334,7 +334,7 @@ class Other(@Property("missing.key") val value: String)
 // （仍可編譯 — 屬性可能在執行時提供）
 ```
 
-## 外部型別：`@Provided`
+## 外部型別：`@Provided` {id="external-types-provided"}
 
 某些型別是由平台或外部架構在執行時提供的，且永遠不會宣告為 Koin 定義。請使用 `@Provided` 標記它們以跳過驗證。
 
@@ -377,7 +377,7 @@ class PaymentProcessor(@Provided val paymentGateway: PaymentGateway)
 - `androidx.lifecycle.SavedStateHandle`
 - `androidx.work.WorkerParameters`
 
-## 預設值與 skipDefaultValues
+## 預設值與 skipDefaultValues {id="default-values-and-skipdefaultvalues"}
 
 當啟用 `skipDefaultValues` 時（預設），具有 Kotlin 預設值的參數會使用該預設值，而不是從 DI 容器中解析：
 
@@ -408,7 +408,7 @@ class ApiClient(
 
 將 `skipDefaultValues = false` 設定為一律從 DI 容器注入所有參數，忽略 Kotlin 預設值。
 
-## 配置
+## 配置 {id="configuration"}
 
 編譯期安全性預設為啟用。若要停用：
 
@@ -434,7 +434,7 @@ koinCompiler {
 完整圖表階段 (A3) 僅在聚合器的 `compileKotlin` 中執行。K2 下的 Kotlin 增量編譯不會追蹤 `module { }` lambda 主體內部的 DSL 變更，也不會追蹤新加入 `@ComponentScan` 套件的類別 — 因此即使圖表已變更，聚合器仍可能被標記為 UP-TO-DATE。外掛程式會在偵測到的聚合器模組上自動啟用 [`strictSafety`](/docs/reference/koin-annotations/options#strictsafety) 以強制 A3 重新執行；程式庫和功能模組則保持完全增量。
 :::
 
-## 從 verify() / checkModules() 遷移
+## 從 verify() / checkModules() 遷移 {id="migrating-from-verify-checkmodules"}
 
 編譯器外掛程式取代了執行時驗證。您可以移除驗證測試：
 
@@ -447,7 +447,7 @@ koinCompiler {
 
 編譯器會在每次組建時進行驗證 — 不需要測試程式碼。
 
-## 另請參閱
+## 另請參閱 {id="see-also"}
 
 - **[編譯器外掛程式選項](/docs/reference/koin-annotations/options)** - 所有配置選項
 - **[編譯器外掛程式設定](/docs/setup/compiler-plugin)** - 安裝指南

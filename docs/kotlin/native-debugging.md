@@ -12,7 +12,7 @@ Kotlin/Native 编译器可以生成带有调试信息的二进制文件，还可
 >
 {style="note"}
 
-## 生成带有调试信息的二进制文件
+## 生成带有调试信息的二进制文件 {id="generate-binaries-with-debug-information"}
 
 在 IntelliJ IDEA、Android Studio 或 Xcode 中进行调试时，会自动生成带有调试信息的二进制文件（除非构建配置另有设置）。
 
@@ -74,11 +74,11 @@ Process 28473 stopped
 (lldb)
 ```
 
-## 设置断点
+## 设置断点 {id="set-breakpoints"}
 
 现代调试器提供了多种设置断点的方法。以下是各工具的具体说明：
 
-### LLDB
+### LLDB {id="lldb"}
 
 * 按名称设置：
 
@@ -111,7 +111,7 @@ Process 28473 stopped
     3.1: where = terminator.kexe`kfun:main(kotlin.Array<kotlin.String>) + 4 at hello.kt:2, address = terminator.kexe[0x00000001000012e4], unresolved, hit count = 0
   ```
 
-### GDB
+### GDB {id="gdb"}
 
 * 按正则表达式设置：
 
@@ -145,11 +145,11 @@ Process 28473 stopped
   Breakpoint 3 at 0x100001704: file /Users/minamoto/ws/.git-trees/hello.kt, line 2.
   ```
 
-## 使用逐步执行
+## 使用逐步执行 {id="use-stepping"}
 
 对函数进行逐步执行的操作与 C/C++ 程序基本相同。
 
-## 检查变量
+## 检查变量 {id="inspect-variables"}
 
 对 `var` 变量的检查对于原始类型和非原始类型都是开箱即用的：
 
@@ -191,7 +191,7 @@ Process 4985 launched: './program.kexe' (x86_64)
 (int32_t) p->x = 1
 ```
 
-## 调试 iOS 应用程序
+## 调试 iOS 应用程序 {id="debug-ios-applications"}
 
 调试 iOS 应用程序有时涉及详细分析崩溃报告。崩溃报告通常需要符号化，即将内存地址转换为可读的源代码位置的过程。
 
@@ -232,11 +232,11 @@ kotlin {
 
 有关崩溃报告的更多信息，请参阅 [Apple 文档](https://developer.apple.com/documentation/xcode/diagnosing-issues-using-crash-reports-and-device-logs)。
 
-## 已知问题
+## 已知问题 {id="known-issues"}
 
 * Python 绑定的性能。
 * 调试器工具中的表达式计算尚不支持，目前没有实现计划。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 [了解如何改进 iOS 代码中未处理的 Kotlin 异常的崩溃报告](native-faq.md#how-do-i-get-better-crash-reports-for-ios)

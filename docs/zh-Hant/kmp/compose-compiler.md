@@ -16,7 +16,7 @@ Compose 編譯器由 Gradle 外掛程式補充，這簡化了設定並提供更�
 要在您的專案中使用新的 Compose 編譯器外掛程式，請為每個使用 Compose 的模組套用它。
 請閱讀下文以了解有關如何 [遷移 Compose Multiplatform 專案](#migrating-a-compose-multiplatform-project) 的詳細資訊。對於 Jetpack Compose 專案，請參閱 [遷移指南](https://kotlinlang.org/docs/compose-compiler-migration-guide.html#migrating-a-jetpack-compose-project)。
 
-## 遷移 Compose Multiplatform 專案
+## 遷移 Compose Multiplatform 專案 {id="migrating-a-compose-multiplatform-project"}
 
 從 Compose Multiplatform 1.6.10 開始，您應該將 `org.jetbrains.kotlin.plugin.compose` Gradle 外掛程式套用到每個使用 `org.jetbrains.compose` 外掛程式的模組：
 
@@ -58,7 +58,7 @@ Compose 編譯器由 Gradle 外掛程式補充，這簡化了設定並提供更�
 4. 如果您正在為 Jetpack Compose 編譯器使用編譯器選項，請在 `composeCompiler {}` 區塊中設定它們。
    請參閱 [Compose 編譯器選項 DSL](https://kotlinlang.org/docs/compose-compiler-options.html) 以取得參考。
 
-#### 可能的問題：「Missing resource with path」
+#### 可能的問題：「Missing resource with path」 {id="possible-issue-missing-resource-with-path"}
 
 當從 Kotlin 1.9.0 切換到 2.0.0，或從 2.0.0 切換到 1.9.0 時，您可能會遇到以下錯誤：
 
@@ -68,7 +68,7 @@ org.jetbrains.compose.resources.MissingResourceException: Missing resource with 
 
 要解決此問題，請刪除所有 `build` 目錄：包括專案根目錄以及每個模組中的目錄。
 
-## 接續步驟
+## 接續步驟 {id="what-s-next"}
 
 * 請參閱 [Google 的公告](https://android-developers.googleblog.com/2024/04/jetpack-compose-compiler-moving-to-kotlin-repository.html)，了解有關 Compose 編譯器移至 Kotlin 存儲庫的資訊。
 * 請參閱 [Compose 編譯器選項 DSL](https://kotlinlang.org/docs/compose-compiler-options.html) 以取得參考。

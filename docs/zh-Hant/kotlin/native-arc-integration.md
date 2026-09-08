@@ -4,9 +4,9 @@ Kotlin 與 Objective-C 使用不同的記憶體管理策略。Kotlin 擁有追�
 
 這些策略之間的整合通常是無縫的，且一般不需要額外的工作。然而，仍有一些細節需要注意：
 
-## 執行緒
+## 執行緒 {id="threads"}
 
-### Deinitializer
+### Deinitializer {id="deinitializers"}
 
 如果 Swift/Objective-C 物件是在主執行緒上傳遞給 Kotlin 的，那麼該物件及其參照物件的 deinitialization (解構) 會在主執行緒上呼叫，例如：
 
@@ -53,7 +53,7 @@ deinit on <_NSMainThread: 0x600003bc0000>{number = 1, name = main}
 
 特殊的 GC 執行緒符合 Objective-C 執行階段 (runtime) 規範，這意味著它擁有執行迴圈 (run loop) 並會排空 autorelease pool。
 
-### 完成處理常式
+### 完成處理常式 {id="completion-handlers"}
 
 當從 Swift 呼叫 Kotlin 的掛起函式 (suspending function) 時，完成處理常式 (completion handler) 可能會在非主執行緒上被呼叫，例如：
 
@@ -88,9 +88,9 @@ World!
 Running completion handler on <NSThread: 0x600001b45bc0>{number = 7, name = (null)}
 ```
 
-## 垃圾收集與生命週期
+## 垃圾收集與生命週期 {id="garbage-collection-and-lifecycle"}
 
-### 物件回收
+### 物件回收 {id="object-reclamation"}
 
 物件僅在垃圾收集期間被回收。這也適用於跨越互通邊界進入 Kotlin/Native 的 Swift/Objective-C 物件，例如：
 
@@ -138,7 +138,7 @@ kotlinTest finished
 SwiftExample deinit
 ```
 
-### Objective-C 物件生命週期
+### Objective-C 物件生命週期 {id="objective-c-objects-lifecycle"}
 
 Objective-C 物件的存活時間可能會超過其應有的長度，這有時可能會導致效能問題。例如，當一個長時間運行的迴圈在每次反覆運算中都建立數個跨越 Swift/Objective-C 互通邊界的暫時物件時。
 
@@ -163,7 +163,7 @@ fun steadyMemoryUsage() {
 }
 ```
 
-### Swift 與 Kotlin 物件鏈的垃圾收集
+### Swift 與 Kotlin 物件鏈的垃圾收集 {id="garbage-collection-of-swift-and-kotlin-objects-chains"}
 
 請考慮以下範例：
 
@@ -231,7 +231,7 @@ func test() {
 
 收集這四個物件需要兩個 GC 週期，因為 Swift 與 Objective-C 物件的 deinitialization 是發生在 GC 週期之後。此限制源於 `deinit` 可能呼叫任意程式碼，包括無法在 GC 暫停期間執行的 Kotlin 程式碼。
 
-### 循環參照
+### 循環參照 {id="retain-cycles"}
 
 在「循環參照 (retain cycle)」中，多個物件使用強參照循環地互相指向：
 
@@ -256,7 +256,7 @@ graph TD
 
 不幸的是，目前尚無專門的工具可用於自動偵測 Kotlin/Native 程式碼中的循環參照。為了避免循環參照，請使用 [弱參照 (weak reference) 或無主參照 (unowned reference)](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/automaticreferencecounting/#Resolving-Strong-Reference-Cycles-Between-Class-Instances)。
 
-## 支援背景狀態與 App 擴充套件
+## 支援背景狀態與 App 擴充套件 {id="support-for-background-state-and-app-extensions"}
 
 目前的記憶體管理員預設不會追蹤應用程式狀態，且未開箱即用地與 [App 擴充套件 (App Extensions)](https://developer.apple.com/app-extensions/) 整合。
 
@@ -268,6 +268,6 @@ kotlin.native.binary.appStateTracking=enabled
 
 當應用程式處於背景時，它會關閉基於計時器的垃圾收集器叫用，因此僅在記憶體消耗過高時才會呼叫 GC。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 進一步了解 [Swift/Objective-C 互通性](native-objc-interop.md)。

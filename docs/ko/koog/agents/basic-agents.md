@@ -19,7 +19,7 @@ LLM은 제공된 도구(tools)를 호출하기로 결정할 수 있습니다.
 
     이 페이지의 예제들은 `OPENAI_API_KEY` 환경 변수가 설정되어 있다고 가정합니다.
 
-## 최소한의 에이전트 생성하기
+## 최소한의 에이전트 생성하기 {id="create-a-minimal-agent"}
 
 가장 기본적인 에이전트를 생성하려면, [`AIAgent`](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.agent/-a-i-agent/index.html)를 인스턴스화하고 [언어 모델](../model-capabilities.md#creating-a-model-llmodel-configuration)이 포함된 [프롬프트 실행기(prompt executor)](../prompts/prompt-executors.md)를 제공하세요.
 
@@ -95,7 +95,7 @@ What's on your mind? Do you have a specific question, topic, or task you'd like 
 ```
 <!--- KNIT example-basic-01.txt -->
 
-## 시스템 프롬프트 추가하기
+## 시스템 프롬프트 추가하기 {id="add-a-system-prompt"}
 
 작업과 관련된 지침, 문맥, 목적뿐만 아니라 에이전트의 역할을 정의하기 위해 [시스템 메시지](../prompts/prompt-creation/index.md#system-message)를 제공하세요.
 
@@ -146,7 +146,7 @@ What's on your mind? Are you trying to understand a specific meme, need help fin
 ```
 <!--- KNIT example-basic-02.txt -->
 
-## LLM 출력 구성하기
+## LLM 출력 구성하기 {id="configure-llm-output"}
 
 LLM의 동작을 커스텀하기 위해 에이전트 생성자(Kotlin)에 몇 가지 [LLM 파라미터](../llm-parameters.md#llm-parameter-reference)를 직접 제공하거나 빌더 메서드(Java)를 통해 제공할 수 있습니다.
 예를 들어, 생성된 응답의 무작위성을 조정하려면 `temperature` 파라미터를 사용하세요.
@@ -220,7 +220,7 @@ LLM의 동작을 커스텀하기 위해 에이전트 생성자(Kotlin)에 몇 �
     ```
     <!--- KNIT example-basic-05.txt -->
 
-## 도구 추가하기
+## 도구 추가하기 {id="add-tools"}
 
 에이전트는 특정 작업을 수행하기 위해 [도구(tools)](../tools/index.md)를 사용할 수 있습니다.
 
@@ -350,7 +350,7 @@ The meme is known for its lighthearted and playful tone, and is often used to ex
 ```
 <!--- KNIT example-basic-06.txt -->
 
-## 에이전트 반복 횟수 조정하기
+## 에이전트 반복 횟수 조정하기 {id="adjust-agent-iterations"}
 
 무한 루프를 방지하기 위해 Koog는 모든 에이전트가 제한된 횟수의 단계(기본값 50회)만 수행하도록 허용합니다.
 에이전트가 더 많은 단계(도구 호출 및 LLM 요청 등)를 필요로 할 것으로 예상되면 `maxIterations` 파라미터를 사용하여 이 제한을 늘리거나, 몇 단계만 필요한 에이전트의 경우에는 줄일 수 있습니다.
@@ -445,7 +445,7 @@ The meme is known for its lighthearted and playful tone, and is often used to ex
     모델, temperature, 최대 반복 횟수 및 기타 파라미터들을 Kotlin 생성자나 Java 빌더에 직접 전달하는 대신, 별도의 구성 객체로 정의하여 전달할 수도 있습니다.
     자세한 내용은 [에이전트 구성](index.md#agent-configuration)을 참조하세요.
 
-## 에이전트 실행 중 이벤트 처리하기
+## 에이전트 실행 중 이벤트 처리하기 {id="handle-events-during-agent-runtime"}
 
 테스트 및 디버깅을 돕고 체인으로 연결된 에이전트 상호작용을 위한 후크(hook)를 만들기 위해, Koog는 [EventHandler](https://api.koog.ai/agents/agents-features/agents-features-event-handler/ai.koog.agents.features.eventHandler.feature/-event-handler/index.html) 기능을 제공합니다.
 
@@ -560,6 +560,6 @@ Tool called: askUser with args {"question":"Which meme would you like me to expl
 
 Koog 에이전트 기능에 대한 자세한 내용은 [기능](../features/index.md)을 참조하세요.
 
-## 다음 단계
+## 다음 단계 {id="next-steps"}
 
 - [그래프 기반 에이전트](graph-based-agents.md) 및 [함수형 에이전트](functional-agents.md) 구축에 대해 자세히 알아보기

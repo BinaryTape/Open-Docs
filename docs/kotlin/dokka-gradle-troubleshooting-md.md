@@ -4,7 +4,7 @@
 
 如果此处未列出您的问题，请在我们的 [问题跟踪器](https://kotl.in/dokka-issues) 中提交反馈或报告问题，或者在官方 [Kotlin Slack](https://kotlinlang.slack.com/) 中与 Dokka 社区交流。点击 [此处](https://kotl.in/slack) 获取 Slack 邀请。
 
-## 内存问题
+## 内存问题 {id="memory-issues"}
 
 在大型项目中，Dokka 生成文档可能会消耗大量内存。这可能会超出 Gradle 的内存限制，尤其是在处理海量数据时。
 
@@ -17,7 +17,7 @@
 * [增加堆空间](#increase-heap-space)
 * [在 Gradle 进程中运行 Dokka](#run-dokka-within-the-gradle-process)
 
-### 增加堆空间
+### 增加堆空间 {id="increase-heap-space"}
 
 解决内存问题的一种方法是增加 Dokka 生成器进程的 Java 堆内存。在 `build.gradle.kts` 文件中，调整以下配置选项：
 
@@ -39,7 +39,7 @@
 >
 {style="note"}
 
-### 在 Gradle 进程中运行 Dokka
+### 在 Gradle 进程中运行 Dokka {id="run-dokka-within-the-gradle-process"}
 
 当 Gradle 构建和 Dokka 生成都需要大量内存时，它们可能会作为独立的进程运行，从而在单台机器上消耗大量内存。
 

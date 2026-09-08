@@ -4,7 +4,7 @@ title: なぜ Koin なのか？
 
 Koin は、あらゆる Kotlin アプリケーション（マルチプラットフォーム、Android、バックエンドなど）に、依存関係注入（Dependency Injection）を簡単かつ効率的に組み込む方法を提供します。
 
-## Koin の目標
+## Koin の目標 {id="goals-of-koin"}
 
 Koin の目標は以下の通りです。
 - スマートな API で依存関係注入（DI）のインフラを**簡素化**する
@@ -14,9 +14,9 @@ Koin の目標は以下の通りです。
 
 ---
 
-## Koin の概要
+## Koin の概要 {id="koin-in-a-nutshell"}
 
-### Kotlin 開発を容易にし、生産性を向上させる
+### Kotlin 開発を容易にし、生産性を向上させる {id="making-your-kotlin-development-easy-and-productive"}
 
 Koin は、ツールではなくアプリ自体に集中できるように設計された、スマートな Kotlin 依存関係注入ライブラリです。
 
@@ -45,9 +45,9 @@ fun main() {
 
 ---
 
-## プラットフォームのサポート
+## プラットフォームのサポート {id="platform-support"}
 
-### Android 対応
+### Android 対応 {id="ready-for-android"}
 
 Kotlin 言語のおかげで、Koin は Android プラットフォームを拡張し、オリジナルのプラットフォームの一部として新機能を提供します。
 
@@ -79,7 +79,7 @@ class MyActivity : AppCompatActivity() {
 **詳しく学ぶ**: [Android で Koin を開始する](/docs/reference/koin-android/start)
 :::
 
-### Kotlin Multiplatform を強力にサポート
+### Kotlin Multiplatform を強力にサポート {id="powering-kotlin-multiplatform"}
 
 モバイルプラットフォーム間でのコード共有は、Kotlin Multiplatform の主要なユースケースの 1 つです。Kotlin Multiplatform Mobile を使用すると、クロスプラットフォームのモバイルアプリケーションを構築し、Android と iOS で共通のコードを共有できます。
 
@@ -89,17 +89,17 @@ Koin はマルチプラットフォームの依存関係注入を提供し、ネ
 **詳しく学ぶ**: [Koin を使用した Kotlin Multiplatform](/docs/reference/koin-mp/kmp)
 :::
 
-### パフォーマンスと生産性
+### パフォーマンスと生産性 {id="performances-and-productivity"}
 
 Koin は純粋な Kotlin フレームワークであり、使用法と実行の両面で分かりやすく設計されています。使いやすく、コンパイル時間に影響を与えず、追加のプラグイン設定も必要ありません。
 
 ---
 
-## Koin：依存関係注入フレームワーク
+## Koin：依存関係注入フレームワーク {id="koin-a-dependency-injection-framework"}
 
 Koin は、Kotlin で人気の依存関係注入（DI）フレームワークであり、最小限のボイラープレートコードでアプリケーションの依存関係を管理するための、モダンで軽量なソリューションを提供します。
 
-### 依存関係注入 vs. サービスロケーター
+### 依存関係注入 vs. サービスロケーター {id="dependency-injection-vs-service-locator"}
 
 Koin はサービスロケーターパターンに似ているように見えるかもしれませんが、それとは一線を画す重要な違いがあります。
 
@@ -117,7 +117,7 @@ Koin はサービスロケーターパターンに似ているように見える
 **依存関係注入**: 対照的に、Koin は純粋な依存関係注入フレームワークです。Koin では、モジュール内で依存関係を宣言し、Koin がオブジェクトの作成と接続（配線）を処理します。独自のスコープを持つ複数の独立したモジュールを作成できるため、依存関係管理がよりモジュール化され、潜在的な競合を回避できます。
 :::
 
-### Koin のアプローチ：柔軟性とベストプラクティスの融合
+### Koin のアプローチ：柔軟性とベストプラクティスの融合 {id="koin-s-approach-a-blend-of-flexibility-and-best-practices"}
 
 Koin は DI とサービスロケーター（SL）パターンの両方をサポートしており、開発者に柔軟性を提供します。しかし、DI、特に依存関係をコンストラクタ引数として渡す**コンストラクタ注入**の使用を**強く推奨**しています。このアプローチはテスト容易性を高め、コードの推論を容易にします。
 
@@ -146,11 +146,11 @@ Koin の設計思想は、必要に応じて複雑な構成を可能にしなが
 
 ---
 
-## 透明性と設計の概要
+## 透明性と設計の概要 {id="transparency-and-design-overview"}
 
 Koin は、依存関係注入（DI）とサービスロケーター（SL）パターンの両方をサポートする、汎用性の高い制御の反転（IoC）コンテナとして設計されています。Koin がどのように動作するかを明確に理解し、効果的に使用するためのガイドとして、以下の側面を探ってみましょう。
 
-### Koin が DI と SL のバランスをどう取っているか
+### Koin が DI と SL のバランスをどう取っているか {id="how-koin-balances-di-and-sl"}
 
 Koin は DI と SL の両方の要素を組み合わせており、それがフレームワークの使用方法に影響を与える場合があります。
 
@@ -160,7 +160,7 @@ Koin は DI と SL の両方の要素を組み合わせており、それがフ�
 
 3. **Android コンポーネントにおける SL:** Android 開発において、Koin はセットアップを容易にするために、`Application` や `Activity` などのコンポーネント内で内部的に SL を使用することがよくあります。この時点から、Koin はより構造化された方法で依存関係を管理するために、DI（特にコンストラクタ注入）を推奨します。ただし、これは強制ではなく、開発者は必要に応じて SL を使用する柔軟性を持っています。
 
-### なぜこれが重要なのか
+### なぜこれが重要なのか {id="why-this-matters-to-you"}
 
 DI と SL の違いを理解することは、アプリケーションの依存関係を効果的に管理するのに役立ちます。
 
@@ -182,11 +182,11 @@ Koin は利便性のため、特に Android コンポーネントにおいて SL
 
 ---
 
-## Koin を最大限に活用するために
+## Koin を最大限に活用するために {id="making-the-most-of-koin"}
 
 Koin を効果的に使用するために：
 
-### 1. ベストプラクティスに従う
+### 1. ベストプラクティスに従う {id="1-follow-best-practices"}
 
 依存関係管理のベストプラクティスに合わせるため、可能な限り**コンストラクタ注入**を使用してください。このアプローチにより、テスト容易性とメンテナンス性が向上します。
 
@@ -205,15 +205,15 @@ class UserService : KoinComponent {
 }
 ```
 
-### 2. Koin の柔軟性を活用する
+### 2. Koin の柔軟性を活用する {id="2-leverage-koin-s-flexibility"}
 
 セットアップを簡素化できるシナリオでは Koin の SL サポートを利用しますが、コアアプリケーションの依存関係の管理には DI に頼ることを目指してください。
 
-### 3. ドキュメントと例を参照する
+### 3. ドキュメントと例を参照する {id="3-refer-to-documentation-and-examples"}
 
 プロジェクトのニーズに基づいて DI と SL を適切に構成および使用する方法を理解するために、Koin のドキュメントと例を確認してください。
 
-### 4. スコープを賢く使用する
+### 4. スコープを賢く使用する {id="4-use-scopes-wisely"}
 
 Koin のスコープ機能を使用すると、アプリケーションの特定の部分に対して依存関係を分離できます。
 
@@ -231,21 +231,21 @@ module {
 
 ---
 
-## 次のステップ
+## 次のステップ {id="next-steps"}
 
 準備はできましたか？プラットフォームを選択してください：
 
-### セットアップガイド
+### セットアップガイド {id="setup-guides"}
 - [Koin のセットアップ](/docs/setup/koin) - 全プラットフォーム向けの Gradle 設定
 - [Koin Annotations のセットアップ](/docs/setup/annotations) - アノテーションベース DI のための KSP 設定
 
-### はじめてのチュートリアル
+### はじめてのチュートリアル {id="getting-started-tutorials"}
 - [Android と ViewModel](/docs/quickstart/android-viewmodel) - Koin を使用した Android アプリ開発の開始
 - [Jetpack Compose](/docs/quickstart/android-compose) - Koin と Compose UI
 - [Kotlin Multiplatform](/docs/reference/koin-mp/kmp) - プラットフォーム間でのコード共有
 - [Ktor バックエンド](/docs/quickstart/ktor) - サーバーアプリケーションの構築
 
-### コアコンセプト
+### コアコンセプト {id="core-concepts"}
 - [依存関係注入の基本](/docs/intro/what-is-dependency-injection) - DI の基本的な概念
 - [コア機能](/docs/reference/koin-core/dsl) - Koin DSL とモジュールシステム
 - [Android 統合](/docs/reference/koin-android/start) - Android 特有の機能

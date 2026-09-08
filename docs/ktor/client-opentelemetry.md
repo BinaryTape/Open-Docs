@@ -45,7 +45,7 @@ val client = HttpClient(CIO) {
 }
 ```
 
-## 配置跟踪
+## 配置跟踪 {id="configure-tracing"}
 
 您可以自定义 Ktor 客户端如何记录和导出发出 HTTP 调用时的 OpenTelemetry span。通过以下选项，您可以调整哪些请求被跟踪、span 的命名方式、它们包含哪些属性、捕获哪些标头以及如何确定 span 种类。
 
@@ -54,7 +54,7 @@ val client = HttpClient(CIO) {
 undefined
 undefined
 
-### 捕获响应标头
+### 捕获响应标头 {id="capture-response-headers"}
 
 要将特定的 HTTP 响应标头捕获为 span 属性，请使用 `capturedResponseHeaders` 属性：
 
@@ -67,6 +67,6 @@ install(%plugin_name%) {
 
 undefined
 
-## 后续步骤
+## 后续步骤 {id="next-steps"}
 
 安装并配置好 %plugin_name% 后，您可以通过向同样启用了遥测功能的服务（例如使用 [`KtorServerTelemetry`](server-opentelemetry.md) 的服务）发送请求，来验证 span 是否已创建并传播。在 [Jaeger](https://www.jaegertracing.io/)、[Zipkin](https://zipkin.io/) 或 [Grafana Tempo](https://grafana.com/oss/tempo/) 等可观测性后端中查看跟踪的两端，将确认分布式跟踪正在端到端运行。

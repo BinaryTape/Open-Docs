@@ -63,7 +63,7 @@ val client = HttpClient(CIO) {
 
 ## 配置 ContentEncoding {id="configure_plugin"}
 
-### 启用编码器
+### 启用编码器 {id="enable-encoders"}
 
 您可以配置支持哪些编码器，并指定它们的质量值（用于 `Accept-Encoding` 标头）。
 
@@ -80,7 +80,7 @@ val client = HttpClient(CIO) {
 
 如有需要，您可以实现 [`ContentEncoder`](https://api.ktor.io/ktor-utils/io.ktor.util/-content-encoder/index.html) 接口以创建自定义编码器，并使用 `customEncoder()` 函数对其进行注册。
 
-### 设置 mode 属性
+### 设置 mode 属性 {id="set-the-mode-property"}
 
 默认情况下，`ContentEncoding` 仅处理响应解压缩。您可以使用 `mode` 属性来定义插件的操作方式。
 

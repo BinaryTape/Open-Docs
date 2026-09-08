@@ -1,11 +1,11 @@
 # その他のリソース
 
-## ガイド
+## ガイド {id="guides"}
 
 - [SQLDelight を使用したマルチプラットフォーム永続化入門](https://johnoreilly.dev/posts/sqldelight-multiplatform/)
 - [SQLDelight を使用したマルチプラットフォーム永続化](https://gh.jdoneill.com/2020/06/29/sqldelight/)
 
-## サンプル
+## サンプル {id="samples"}
 
 - [https://github.com/joreilly/PeopleInSpace](https://github.com/joreilly/PeopleInSpace) (Android/iOS/watchOS/macOS/Web)
 - [https://github.com/JakeWharton/SdkSearch](https://github.com/JakeWharton/SdkSearch) (Android/Web)

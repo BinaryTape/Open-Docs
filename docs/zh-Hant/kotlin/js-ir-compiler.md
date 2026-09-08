@@ -3,7 +3,7 @@
 Kotlin/JS 包含編譯器特性，用於優化程式碼的效能、大小和開發速度。
 這透過編譯程序運作，在產生 JavaScript 程式碼之前，將 Kotlin 程式碼轉換為中間表示 (IR)。
 
-## 頂層屬性的延遲初始化
+## 頂層屬性的延遲初始化 {id="lazy-initialization-of-top-level-properties"}
 
 為了獲得更好的應用程式啟動效能，Kotlin/JS 編譯器會延遲初始化頂層屬性。透過這種方式，
 應用程式載入時不需要初始化其程式碼中使用的所有頂層屬性。它僅初始化
@@ -20,7 +20,7 @@ val a = run {
 如果出於某種原因您需要立即初始化屬性（在應用程式啟動時），請使用
 [`@EagerInitialization`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.js/-eager-initialization/){nullable="true"} 註解對其進行標記。
 
-## 開發二進位檔的增量編譯
+## 開發二進位檔的增量編譯 {id="incremental-compilation-for-development-binaries"}
 
 Kotlin/JS 編譯器提供了「開發二進位檔的增量編譯模式」，可加速開發過程。
 在該模式下，編譯器會在模組層級快取 `compileDevelopmentExecutableKotlinJs` Gradle 任務的結果。
@@ -38,7 +38,7 @@ kotlin.incremental.js.ir=false // 預設為 true
 >
 {style="note"}
 
-## 生產環境中的成員名稱縮減
+## 生產環境中的成員名稱縮減 {id="minification-of-member-names-in-production"}
 
 Kotlin/JS 編譯器利用有關 Kotlin 類別和函式關係的內部資訊來套用更有效的縮減，縮短函式、屬性和類別的名稱。這可以減少最終打包應用程式的大小。
 
@@ -56,7 +56,7 @@ kotlin {
 }
 ```
 
-## 無效程式碼刪除
+## 無效程式碼刪除 {id="dead-code-elimination"}
 
 [無效程式碼刪除](https://wikipedia.org/wiki/Dead_code_elimination) (DCE) 藉由移除未使用的屬性、函式和類別，來減少產生的 JavaScript 程式碼大小。
 

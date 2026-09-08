@@ -8,7 +8,7 @@
 >
 {style="tip"}
 
-## 선언
+## 선언 {id="declaration"}
 
 어노테이션은 클래스의 특별한 유형입니다. 어노테이션을 선언하려면 클래스 선언 앞에 `annotation` 키워드를 사용합니다.
 
@@ -32,7 +32,7 @@ annotation class Fancy
 annotation class Fancy
 ```
 
-## 사용법
+## 사용법 {id="usage"}
 
 ```kotlin
 @Fancy class Foo {
@@ -57,7 +57,7 @@ class Foo {
 }
 ```
 
-## 생성자
+## 생성자 {id="constructors"}
 
 어노테이션은 파라미터를 받는 생성자를 가질 수 있습니다.
 
@@ -101,7 +101,7 @@ annotation class Ann(val arg1: KClass<*>, val arg2: KClass<out Any>)
 @Ann(String::class, Int::class) class MyClass
 ```
 
-## 인스턴스화
+## 인스턴스화 {id="instantiation"}
 
 Java에서 어노테이션 타입은 인터페이스의 일종이므로 이를 구현하고 인스턴스를 사용할 수 있습니다. 이 메커니즘의 대안으로, Kotlin에서는 임의의 코드에서 어노테이션 클래스의 생성자를 호출하고 결과 인스턴스를 유사하게 사용할 수 있도록 합니다.
 
@@ -120,7 +120,7 @@ fun main(args: Array<String>) {
 
 어노테이션 클래스의 인스턴스화에 대한 자세한 내용은 [이 KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/annotation-instantiation.md)에서 확인할 수 있습니다.
 
-## 람다
+## 람다 {id="lambdas"}
 
 어노테이션은 람다에도 사용할 수 있습니다. 어노테이션은 람다 본문이 생성되는 `invoke()` 메서드에 적용됩니다. 이는 동시성 제어를 위해 어노테이션을 사용하는 [Quasar](https://docs.paralleluniverse.co/quasar/)와 같은 프레임워크에 유용합니다.
 
@@ -130,7 +130,7 @@ annotation class Suspendable
 val f = @Suspendable { Fiber.sleep(10) }
 ```
 
-## 어노테이션 사용 지점 대상
+## 어노테이션 사용 지점 대상 {id="annotation-use-site-targets"}
 
 프로퍼티나 주 생성자 파라미터에 어노테이션을 달 때, 해당 Kotlin 요소로부터 생성되는 여러 Java 요소가 존재하며, 따라서 생성된 Java 바이트코드 내에서 어노테이션이 위치할 수 있는 여러 지점이 존재합니다. 어노테이션이 정확히 어떻게 생성되어야 하는지 지정하려면 다음 구문을 사용하세요.
 
@@ -177,7 +177,7 @@ class Example {
   * `setparam` (프로퍼티 세터 파라미터)
   * `delegate` (위임된 프로퍼티의 위임 인스턴스를 저장하는 필드)
 
-### 사용 지점 대상이 지정되지 않은 경우의 기본값
+### 사용 지점 대상이 지정되지 않은 경우의 기본값 {id="defaults-when-no-use-site-targets-are-specified"}
 
 사용 지점 대상을 지정하지 않으면, 컴파일러는 사용하는 어노테이션의 `@Target` 어노테이션에 따라 대상을 선택합니다. 적용 가능한 대상이 여러 개인 경우, 컴파일러는 다음 순서에 따라 하나 이상의 대상을 선택합니다.
 
@@ -215,7 +215,7 @@ data class User(val username: String,
 * 주 생성자에 선언되지 않았습니다.
 * 커스텀 게터나 세터가 없으므로 컴파일러가 뒷받침하는 필드를 생성합니다.
 
-### `all` 메타 대상
+### `all` 메타 대상 {id="all-meta-target"}
 
 `all` 대상은 파라미터와 프로퍼티 또는 필드뿐만 아니라 해당하는 게터와 세터에도 동일한 어노테이션을 더 쉽게 적용할 수 있게 해줍니다.
 
@@ -252,7 +252,7 @@ data class User(
 
 주 생성자 내부와 외부 모두에서 모든 프로퍼티에 `all` 메타 대상을 사용할 수 있습니다.
 
-#### 제한 사항
+#### 제한 사항 {id="limitations"}
 
 `all` 대상에는 몇 가지 제한 사항이 있습니다.
 
@@ -264,7 +264,7 @@ data class User(
     ```
 * [위임된 프로퍼티](delegated-properties.md)와 함께 사용할 수 없습니다.
 
-## Java 어노테이션
+## Java 어노테이션 {id="java-annotations"}
 
 Java 어노테이션은 Kotlin과 100% 호환됩니다.
 
@@ -314,7 +314,7 @@ public @interface AnnWithValue {
 @AnnWithValue("abc") class C
 ```
 
-### 어노테이션 파라미터로서의 배열
+### 어노테이션 파라미터로서의 배열 {id="arrays-as-annotation-parameters"}
 
 Java의 `value` 인자가 배열 타입인 경우, Kotlin에서는 `vararg` 파라미터가 됩니다.
 
@@ -344,7 +344,7 @@ public @interface AnnWithArrayMethod {
 class C
 ```
 
-### 어노테이션 인스턴스의 프로퍼티 접근
+### 어노테이션 인스턴스의 프로퍼티 접근 {id="accessing-properties-of-an-annotation-instance"}
 
 어노테이션 인스턴스의 값은 Kotlin 코드에 프로퍼티로 노출됩니다.
 
@@ -362,13 +362,13 @@ fun foo(ann: Ann) {
 }
 ```
 
-### JVM 1.8+ 어노테이션 대상을 생성하지 않는 기능
+### JVM 1.8+ 어노테이션 대상을 생성하지 않는 기능 {id="ability-to-not-generate-jvm-1-8-annotation-targets"}
 
 Kotlin 어노테이션의 Kotlin 대상 중에 `TYPE`이 있으면, 해당 어노테이션은 Java 어노테이션 대상 목록의 `java.lang.annotation.ElementType.TYPE_USE`에 매핑됩니다. 이는 `TYPE_PARAMETER` Kotlin 대상이 `java.lang.annotation.ElementType.TYPE_PARAMETER` Java 대상에 매핑되는 것과 같습니다. 이는 API 레벨이 26 미만인 Android 클라이언트에서 이러한 대상이 API에 없기 때문에 문제가 됩니다.
 
 `TYPE_USE` 및 `TYPE_PARAMETER` 어노테이션 대상을 생성하지 않으려면 새로운 컴파일러 인자 `-Xno-new-java-annotation-targets`를 사용하세요.
 
-## 반복 가능한 어노테이션
+## 반복 가능한 어노테이션 {id="repeatable-annotations"}
 
 [Java에서와](https://docs.oracle.com/javase/tutorial/java/annotations/repeating.html) 마찬가지로 Kotlin에도 단일 코드 요소에 여러 번 적용할 수 있는 반복 가능한 어노테이션(repeatable annotations)이 있습니다. 어노테이션을 반복 가능하게 만들려면 선언부에 [`@kotlin.annotation.Repeatable`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.annotation/-repeatable/) 메타 어노테이션을 표시하세요. 이렇게 하면 Kotlin과 Java 모두에서 반복 가능해집니다. Java의 반복 가능한 어노테이션도 Kotlin 측에서 지원됩니다.
 

@@ -27,7 +27,7 @@ Kotlin 2.3.0이 출시되었습니다! 주요 하이라이트는 다음과 같�
 > 
 {style="tip"}
 
-## IDE 지원
+## IDE 지원 {id="ide-support"}
 
 Kotlin 2.3.0을 지원하는 Kotlin 플러그인은 최신 버전의 IntelliJ IDEA 및 Android Studio에 포함되어 있습니다.
 IDE에서 Kotlin 플러그인을 별도로 업데이트할 필요는 없습니다.
@@ -35,24 +35,24 @@ IDE에서 Kotlin 플러그인을 별도로 업데이트할 필요는 없습니�
 
 자세한 내용은 [새 릴리스로 업데이트](releases.md#update-to-a-new-kotlin-version)를 참조하세요.
 
-## 언어(Language)
+## 언어(Language) {id="language"}
 
 Kotlin 2.3.0은 기능 안정화에 중점을 두었으며, 사용되지 않는 반환 값을 감지하는 새로운 메커니즘을 도입하고 문맥 민감 해소(context-sensitive resolution)를 개선했습니다.
 
-### 안정화된 기능
+### 안정화된 기능 {id="stable-features"}
 
 이전 Kotlin 릴리스에서 실험적(Experimental) 및 베타(Beta)로 도입되었던 몇 가지 언어 기능이 Kotlin 2.3.0에서 [안정화(Stable)](components-stability.md#stability-levels-explained) 단계로 승격되었습니다.
 
 * [중첩된 타입 별칭(type alias) 지원](whatsnew22.md#support-for-nested-type-aliases)
 * [데이터 흐름 기반의 `when` 표현식 완전성 검사(exhaustiveness checks)](whatsnew2220.md#data-flow-based-exhaustiveness-checks-for-when-expressions)
 
-### 기본으로 활성화된 기능
+### 기본으로 활성화된 기능 {id="features-enabled-by-default"}
 
 Kotlin 2.3.0에서는 [명시적 반환 타입이 있는 표현식 본문의 `return` 문](whatsnew2220.md#support-for-return-statements-in-expression-bodies-with-explicit-return-types) 지원이 기본적으로 활성화됩니다.
 
 [전체 Kotlin 언어 기능 및 제안 목록 보기](kotlin-language-features-and-proposals.md).
 
-### 사용되지 않는 반환 값 체커(Unused return value checker)
+### 사용되지 않는 반환 값 체커(Unused return value checker) {id="unused-return-value-checker"}
 <primary-label ref="experimental-general"/>
 
 Kotlin 2.3.0은 무시된 결과를 방지하는 데 도움이 되는 '사용되지 않는 반환 값 체커'를 도입했습니다.
@@ -210,7 +210,7 @@ fun main() {
 
 [YouTrack](https://youtrack.jetbrains.com/issue/KT-12719)에 피드백을 남겨주시면 감사하겠습니다.
 
-### 명시적 뒷받침하는 필드(Explicit backing fields)
+### 명시적 뒷받침하는 필드(Explicit backing fields) {id="explicit-backing-fields"}
 <primary-label ref="experimental-opt-in"/>
 
 Kotlin 2.3.0은 명시적 뒷받침하는 필드(explicit backing fields)를 도입했습니다. 이는 기존의 암시적 뒷받침하는 필드와 대조적으로 프로퍼티의 값을 보유하는 기본 필드를 명시적으로 선언하기 위한 새로운 구문입니다.
@@ -285,7 +285,7 @@ kotlin {
 
 [YouTrack](https://youtrack.jetbrains.com/issue/KT-14663)에 피드백을 남겨주시면 감사하겠습니다.
 
-### 문맥 민감 해소(Context-sensitive resolution)의 변경 사항
+### 문맥 민감 해소(Context-sensitive resolution)의 변경 사항 {id="changes-to-context-sensitive-resolution"}
 <primary-label ref="experimental-general"/>
 
 문맥 민감 해소는 여전히 [실험적(Experimental)](components-stability.md#stability-levels-explained) 단계이지만, 사용자 피드백을 바탕으로 기능을 계속 개선하고 있습니다.
@@ -295,15 +295,15 @@ kotlin {
 
 현재 제안서의 전체 텍스트는 [KEEP](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0379-context-sensitive-resolution.md)에서 확인할 수 있습니다.
 
-## Kotlin/JVM: Java 25 지원
+## Kotlin/JVM: Java 25 지원 {id="kotlin-jvm-support-for-java-25"}
 
 Kotlin 2.3.0부터 컴파일러는 Java 25 바이트코드를 포함하는 클래스를 생성할 수 있습니다.
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 Kotlin 2.3.0은 Swift 내보내기(export) 지원과 C 및 Objective-C 라이브러리 임포트 기능을 개선하고, 릴리스 태스크의 빌드 시간 단축했습니다.
 
-### Swift 내보내기를 통한 상호운용성 개선
+### Swift 내보내기를 통한 상호운용성 개선 {id="improved-interop-through-swift-export"}
 <primary-label ref="experimental-general"/>
 
 Kotlin 2.3.0은 Swift 내보내기를 통해 Kotlin과 Swift의 상호운용성을 더욱 개선하여 네이티브 enum 클래스와 가변 인자 함수 파라미터에 대한 지원을 추가했습니다.
@@ -348,7 +348,7 @@ public func log(messages: Swift.String...)
 >
 {style="note"}
 
-### C 및 Objective-C 라이브러리 임포트 베타(Beta)
+### C 및 Objective-C 라이브러리 임포트 베타(Beta) {id="c-and-objective-c-library-import-is-in-beta"}
 <primary-label ref="beta"/>
 
 Kotlin/Native 프로젝트로 [C](native-c-interop.md) 및 [Objective-C](native-objc-interop.md) 라이브러리를 임포트하는 지원이 [베타(Beta)](components-stability.md#stability-levels-explained) 단계에 진입했습니다.
@@ -364,7 +364,7 @@ Kotlin/Native 프로젝트로 [C](native-c-interop.md) 및 [Objective-C](native-
 
 자세한 내용은 [C 및 Objective-C 라이브러리 임포트의 안정성](native-lib-import-stability.md)을 참조하세요.
 
-### Objective-C 헤더의 블록 타입에 대한 기본 명시적 이름 지원
+### Objective-C 헤더의 블록 타입에 대한 기본 명시적 이름 지원 {id="default-explicit-names-in-block-types-for-objective-c-headers"}
 
 [Kotlin 2.2.20에서 도입된](whatsnew2220.md#explicit-names-in-block-types-for-objective-c-headers) Kotlin 함수 타입의 명시적 파라미터 이름이 이제 Kotlin/Native 프로젝트에서 내보낸 Objective-C 헤더의 기본값이 되었습니다. 이러한 파라미터 이름은 Xcode의 자동 완성 제안을 개선하고 Clang 경고를 방지하는 데 도움이 됩니다.
 
@@ -393,7 +393,7 @@ kotlin.native.binary.objcExportBlockExplicitParameterNames=false
 
 문제가 있으면 [YouTrack](https://kotl.in/issue)에 보고해 주세요.
 
-### 릴리스 태스크의 빌드 시간 단축
+### 릴리스 태스크의 빌드 시간 단축 {id="faster-build-time-for-release-tasks"}
 
 Kotlin/Native는 2.3.0에서 여러 성능 개선이 이루어졌습니다. 그 결과 `linkReleaseFrameworkIosArm64`와 같은 `linkRelease*` 릴리스 태스크의 빌드 시간이 빨라졌습니다.
 
@@ -401,7 +401,7 @@ Kotlin/Native는 2.3.0에서 여러 성능 개선이 이루어졌습니다. 그 
 
 프로젝트 컴파일 시간을 개선하는 더 많은 팁은 [문서](native-improving-compilation-time.md)를 참조하세요.
 
-### Apple 타겟 지원 변경 사항
+### Apple 타겟 지원 변경 사항 {id="changes-to-apple-target-support"}
 
 Kotlin 2.3.0은 Apple 타겟의 최소 지원 버전을 상향 조정했습니다.
 
@@ -431,11 +431,11 @@ Kotlin 2.3.0부터 `macosX64`, `iosX64`, `tvosX64`, `watchosX64` 타겟이 지�
 
 자세한 내용은 [Kotlin/Native 타겟 지원](native-target-support.md)을 참조하세요.
 
-## Kotlin/Wasm
+## Kotlin/Wasm {id="kotlin-wasm"}
 
 Kotlin 2.3.0은 Kotlin/Wasm 타겟에 대해 완전한 정규화된 이름(FQNs)을 기본으로 활성화하고, `wasmWasi` 타겟에 대한 새로운 예외 처리 제안을 활성화하며, Latin-1 문자를 위한 압축 저장 방식을 도입합니다.
 
-### 완전한 정규화된 이름(FQN) 기본 활성화
+### 완전한 정규화된 이름(FQN) 기본 활성화 {id="fully-qualified-names-enabled-by-default"}
 
 Kotlin/Wasm 타겟에서 런타임에 완전한 정규화된 이름(Fully Qualified Names, FQNs)이 기본적으로 활성화되지 않았습니다. FQN을 사용하려면 `KClass.qualifiedName` 프로퍼티에 대한 지원을 수동으로 활성화해야 했습니다.
 
@@ -447,7 +447,7 @@ FQN을 기본적으로 활성화하면 코드 이식성이 향상되고, 런타�
 
 이 변경 사항은 컴파일러 최적화 덕분에 컴파일된 Wasm 바이너리 크기를 증가시키지 않습니다. 이는 Latin-1 문자열 리터럴에 대해 압축 저장 방식을 사용하여 메타데이터를 줄였기 때문입니다.
 
-### Latin-1 문자를 위한 압축 저장 방식
+### Latin-1 문자를 위한 압축 저장 방식 {id="compact-storage-for-latin-1-characters"}
 
 이전에는 Kotlin/Wasm이 문자열 리터럴 데이터를 그대로 저장했기 때문에 모든 문자가 UTF-16으로 인코딩되었습니다. 이는 Latin-1 문자만 포함하거나 주로 포함하는 텍스트에는 최적화되지 않은 방식이었습니다.
 
@@ -462,7 +462,7 @@ JetBrains의 [KotlinConf 애플리케이션](https://github.com/JetBrains/kotlin
 
 이 변경 사항은 기본적으로 활성화되며 추가 조치가 필요하지 않습니다.
 
-### `wasmWasi`에 대한 새로운 예외 처리 제안 기본 활성화
+### `wasmWasi`에 대한 새로운 예외 처리 제안 기본 활성화 {id="new-exception-handling-proposal-enabled-by-default-for-wasmwasi"}
 
 이전에는 Kotlin/Wasm이 [`wasmWasi`](wasm-overview.md#kotlin-wasm-and-wasi)를 포함한 모든 타겟에 대해 [기존 예외 처리 제안(legacy exception handling proposal)](https://github.com/WebAssembly/exception-handling/blob/master/proposals/exception-handling/legacy/Exceptions.md)을 사용했습니다. 그러나 대부분의 단독형 WebAssembly 가상 머신(VM)들은 [새로운 버전의 예외 처리 제안](https://github.com/WebAssembly/exception-handling/blob/main/proposals/exception-handling/Exceptions.md)을 따르고 있습니다.
 
@@ -472,13 +472,13 @@ Kotlin 2.3.0부터 `wasmWasi` 타겟에 대해 새로운 WebAssembly 예외 처�
 
 [`wasmJs` 타겟](wasm-overview.md#kotlin-wasm-and-compose-multiplatform)의 경우 새로운 예외 처리 제안은 여전히 기본적으로 꺼져 있습니다. `-Xwasm-use-new-exception-proposal` 컴파일러 옵션을 사용하여 수동으로 활성화할 수 있습니다.
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
 Kotlin 2.3.0은 JavaScript로의 중단 함수(suspend functions) 내보내기에 대한 실험적 지원과 Kotlin의 `LongArray` 타입을 표현하기 위한 `BigInt64Array` 타입을 도입했습니다.
 
 이번 릴리스를 통해 이제 인터페이스 내부의 동반 객체(companion objects)에 통합된 방식으로 접근할 수 있고, 동반 객체가 있는 인터페이스에서 `@JsStatic` 어노테이션을 사용할 수 있으며, 개별 함수와 클래스에서 `@JsQualifier` 어노테이션을 사용할 수 있습니다. 또한 새로운 어노테이션인 `@JsExport.Default`를 통한 기본 내보내기(default exports)를 지원합니다.
 
-### `JsExport`를 통한 중단 함수의 새로운 내보내기 방식
+### `JsExport`를 통한 중단 함수의 새로운 내보내기 방식 {id="new-export-of-suspend-function-with-jsexport"}
 <primary-label ref="experimental-opt-in"/>
 
 이전에는 `@JsExport` 어노테이션이 중단 함수(또는 이러한 함수를 포함하는 클래스 및 인터페이스)를 JavaScript로 내보내는 것을 허용하지 않았습니다. 각 중단 함수를 수동으로 래핑해야 했으며, 이는 번거롭고 오류가 발생하기 쉬웠습니다.
@@ -518,7 +518,7 @@ class Bar extends Foo {
 
 이 기능은 [실험적(Experimental)](components-stability.md#stability-levels-explained)입니다. 이슈 트래커인 [YouTrack](https://youtrack.jetbrains.com/issue/KT-56281/KJS-Cant-export-suspend-functions)에 피드백을 남겨주시면 감사하겠습니다.
 
-### Kotlin `LongArray` 타입을 표현하기 위한 `BigInt64Array` 타입 사용
+### Kotlin `LongArray` 타입을 표현하기 위한 `BigInt64Array` 타입 사용 {id="usage-of-the-bigint64array-type-to-represent-kotlin-s-longarray-type"}
 <primary-label ref="experimental-opt-in"/>
 
 이전에는 Kotlin/JS가 `LongArray`를 JavaScript의 `Array<bigint>`로 표현했습니다. 이 방식은 작동은 했으나 형식화된 배열(typed arrays)을 기대하는 JavaScript API와의 상호운용성 측면에서 이상적이지 않았습니다.
@@ -542,7 +542,7 @@ kotlin {
 
 이 기능은 [실험적(Experimental)](components-stability.md#stability-levels-explained)입니다. 이슈 트래커인 [YouTrack](https://youtrack.jetbrains.com/issue/KT-79284/Use-BigInt64Array-for-LongArray)에 피드백을 남겨주시면 감사하겠습니다.
 
-### JS 모듈 시스템 전반에서 통합된 동반 객체 접근 방식
+### JS 모듈 시스템 전반에서 통합된 동반 객체 접근 방식 {id="unified-companion-object-access-across-js-module-systems"}
 
 이전에는 `@JsExport` 어노테이션을 사용하여 동반 객체가 있는 Kotlin 인터페이스를 JavaScript/TypeScript로 내보낼 때, TypeScript에서 해당 인터페이스를 사용하는 방식이 ES 모듈과 다른 모듈 시스템 간에 차이가 있었습니다.
 
@@ -599,7 +599,7 @@ KtList.fromJsArray([1, 2, 3])
 
 이 기능은 기본적으로 활성화되어 있습니다.
 
-### 동반 객체가 있는 인터페이스에서 `@JsStatic` 어노테이션 지원
+### 동반 객체가 있는 인터페이스에서 `@JsStatic` 어노테이션 지원 {id="support-for-jsstatic-annotations-in-interfaces-with-companion-objects"}
 
 이전에는 동반 객체가 있는 내보내기용 인터페이스 내부에서 `@JsStatic` 어노테이션을 사용할 수 없었습니다.
 
@@ -634,7 +634,7 @@ Foo.bar()
 
 이 기능은 기본적으로 활성화되어 있습니다.
 
-### 개별 함수 및 클래스에서 `@JsQualifier` 어노테이션 허용
+### 개별 함수 및 클래스에서 `@JsQualifier` 어노테이션 허용 {id="jsqualifier-annotation-allowed-in-individual-functions-and-classes"}
 
 이전에는 파일 레벨에서만 `@JsQualifier` 어노테이션을 적용할 수 있었기 때문에 모든 외부 JavaScript(JS) 선언을 별도의 파일에 배치해야 했습니다.
 
@@ -651,7 +651,7 @@ private external fun jsFun()
 
 이 기능은 기본적으로 활성화되어 있습니다.
 
-### JavaScript 기본 내보내기(default exports) 지원
+### JavaScript 기본 내보내기(default exports) 지원 {id="support-for-javascript-default-exports"}
 
 이전에는 Kotlin/JS가 Kotlin 코드에서 JavaScript의 기본 내보내기(default exports)를 생성할 수 없었습니다. 대신 Kotlin/JS는 명명된 내보내기(named exports)만 생성했습니다. 예:
 
@@ -687,7 +687,7 @@ export default HelloWorker;
 
 이 기능은 기본적으로 활성화되어 있습니다. `@JsExport.Default` 어노테이션을 사용하기만 하면 됩니다.
 
-## Gradle
+## Gradle {id="gradle"}
 
 Kotlin 2.3.0은 Gradle 7.6.3부터 9.0.0까지 완벽하게 호환됩니다. 최신 Gradle 버전까지도 사용할 수 있습니다. 다만, 최신 버전을 사용할 경우 지원 중단 경고가 발생할 수 있으며 일부 새로운 Gradle 기능이 작동하지 않을 수 있습니다.
 
@@ -695,7 +695,7 @@ Kotlin 2.3.0은 Gradle 7.6.3부터 9.0.0까지 완벽하게 호환됩니다. 최
 
 Kotlin 2.3.0은 또한 Gradle 프로젝트에서 생성된 소스(generated sources)를 등록하기 위한 새로운 API를 도입했습니다.
 
-### Gradle 프로젝트에서 생성된 소스 등록을 위한 새로운 API
+### Gradle 프로젝트에서 생성된 소스 등록을 위한 새로운 API {id="new-api-for-registering-generated-sources-in-gradle-projects"}
 <primary-label ref="experimental-general"/>
 
 Kotlin 2.3.0은 [`KotlinSourceSet`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-source-set/) 인터페이스에 새로운 [실험적(Experimental)](components-stability.md#stability-levels-explained) API를 도입했습니다. 이를 사용하여 Gradle 프로젝트에서 생성된 소스를 등록할 수 있습니다.
@@ -704,11 +704,11 @@ Kotlin 2.3.0은 [`KotlinSourceSet`](https://kotlinlang.org/api/kotlin-gradle-plu
 
 자세한 내용은 [생성된 소스 등록](gradle-configure-project.md#register-generated-sources)을 참조하세요.
 
-## 표준 라이브러리(Standard library)
+## 표준 라이브러리(Standard library) {id="standard-library"}
 
 Kotlin 2.3.0은 새로운 시간 추적 기능인 [`kotlin.time.Clock` 및 `kotlin.time.Instant`](whatsnew2120.md#new-time-tracking-functionality)를 안정화하고, 실험적 UUID API에 몇 가지 개선 사항을 추가했습니다.
 
-### UUID 생성 및 파싱 개선
+### UUID 생성 및 파싱 개선 {id="improved-uuid-generation-and-parsing"}
 <primary-label ref="experimental-opt-in"/>
 
 Kotlin 2.3.0은 다음과 같은 UUID API에 대한 몇 가지 개선 사항을 도입했습니다.
@@ -754,7 +754,7 @@ kotlin {
 
 [YouTrack](https://youtrack.jetbrains.com/issue/KT-81395)이나 [관련 Slack 채널](https://slack-chats.kotlinlang.org/c/uuid)에서 피드백을 남겨주시면 감사하겠습니다.
 
-#### 유효하지 않은 UUID 파싱 시 `null` 반환 지원
+#### 유효하지 않은 UUID 파싱 시 `null` 반환 지원 {id="support-for-returning-null-when-parsing-invalid-uuids"}
 
 Kotlin 2.3.0은 문자열로부터 `Uuid` 인스턴스를 생성하는 새로운 함수를 도입했습니다. 이 함수들은 문자열이 유효한 UUID가 아닌 경우 예외를 던지는 대신 `null`을 반환합니다.
 
@@ -791,7 +791,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-#### v4 및 v7 UUID 생성을 위한 새로운 함수
+#### v4 및 v7 UUID 생성을 위한 새로운 함수 {id="new-functions-to-generate-v4-and-v7-uuids"}
 
 Kotlin 2.3.0은 UUID 생성을 위한 두 가지 새로운 함수 `Uuid.generateV4()` 및 `Uuid.generateV7()`를 도입했습니다.
 
@@ -824,7 +824,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-#### 특정 타임스탬프에 대한 v7 UUID 생성 지원
+#### 특정 타임스탬프에 대한 v7 UUID 생성 지원 {id="support-for-generating-v7-uuids-for-specific-timestamps"}
 
 Kotlin 2.3.0은 특정 시점에 대한 버전 7 UUID를 생성하는 데 사용할 수 있는 새로운 `Uuid.generateV7NonMonotonicAt()` 함수를 도입했습니다.
 
@@ -853,7 +853,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-## Compose 컴파일러: 미니파이된 Android 애플리케이션을 위한 스택 트레이스
+## Compose 컴파일러: 미니파이된 Android 애플리케이션을 위한 스택 트레이스 {id="compose-compiler-stack-traces-for-minified-android-applications"}
 
 Kotlin 2.3.0부터 컴파일러는 애플리케이션이 R8에 의해 미니파이될 때 Compose 스택 트레이스에 대한 ProGuard 매핑을 출력합니다. 이는 이전에 디버그 가능한 변형에서만 사용할 수 있었던 실험적 스택 트레이스 기능을 확장한 것입니다.
 
@@ -896,7 +896,7 @@ composeCompiler {
 
 발생하는 문제는 [Google IssueTracker](https://issuetracker.google.com/issues/new?component=610764&template=1424126)에 보고해 주세요.
 
-## 주요 변경 사항 및 지원 중단(Deprecations)
+## 주요 변경 사항 및 지원 중단(Deprecations) {id="breaking-changes-and-deprecations"}
 
 이 섹션에서는 중요한 주요 변경 사항 및 지원 중단 사항을 강조합니다.
 전체 개요는 [호환성 가이드](compatibility-guide-23.md)를 참조하세요.
@@ -914,7 +914,7 @@ composeCompiler {
 
 * Ant 빌드 시스템에 대한 지원은 더 이상 제공되지 않습니다.
 
-## 문서 업데이트
+## 문서 업데이트 {id="documentation-updates"}
 
 Kotlin Multiplatform 문서가 kotlinlang.org로 이동했습니다. 이제 한 곳에서 Kotlin과 KMP 문서를 모두 확인할 수 있습니다. 또한 언어 가이드의 목차를 갱신하고 새로운 내비게이션을 도입했습니다.
 
@@ -934,7 +934,7 @@ Kotlin Multiplatform 문서가 kotlinlang.org로 이동했습니다. 이제 한 
 * [Kotlin으로 Java 코드 테스트하기(Test Java code with Kotlin)](jvm-test-using-junit.md) – JUnit으로 Java-Kotlin 혼합 프로젝트를 테스트하세요.
 * [새로운 사례 연구 페이지(New case studies page)](https://kotlinlang.org/case-studies/) – 다양한 기업들이 Kotlin을 어떻게 적용하고 있는지 확인해 보세요.
 
-## Kotlin 2.3.0으로 업데이트하는 방법
+## Kotlin 2.3.0으로 업데이트하는 방법 {id="how-to-update-to-kotlin-2-3-0"}
 
 Kotlin 플러그인은 IntelliJ IDEA 및 Android Studio에 번들 플러그인으로 제공됩니다.
 

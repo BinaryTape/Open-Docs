@@ -2,7 +2,7 @@
 
 여기에서는 브라우저 기능과 `preload` API를 사용한 리소스 프리로딩(preloading), 웹 리소스 캐싱, 그리고 자동 폰트 폴백(fallback)에 대한 정보를 확인할 수 있습니다.
   
-## 웹 타겟을 위한 리소스 프리로딩
+## 웹 타겟을 위한 리소스 프리로딩 {id="preloading-of-resources-for-web-targets"}
 
 폰트나 이미지와 같은 웹 리소스는 [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)를 사용하여 비동기적으로 로드됩니다.
 초기 로드 시 또는 네트워크 연결이 느린 경우, 리소스 페칭(fetching)으로 인해 [FOUT](https://fonts.google.com/knowledge/glossary/fout)이 발생하거나 이미지 대신 플레이스홀더(placeholder)가 표시되는 등의 시각적 결함이 발생할 수 있습니다.
@@ -11,7 +11,7 @@
 
 시각적 결함을 방지하기 위해 브라우저의 내장 리소스 프리로딩 기능, Compose Multiplatform의 프리로드(preload) API 또는 두 가지의 조합을 사용할 수 있습니다.
 
-### 브라우저 기능을 사용하여 리소스 프리로딩하기
+### 브라우저 기능을 사용하여 리소스 프리로딩하기 {id="preload-resources-using-browser-features"}
 
 최신 브라우저에서는 [`rel="preload"` 속성](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel/preload)이 있는 `<link>` 태그를 사용하여 리소스를 프리로딩할 수 있습니다.
 이 속성은 애플리케이션이 시작되기 전에 폰트 및 이미지와 같은 리소스의 다운로드 및 캐싱을 우선적으로 처리하도록 브라우저에 지시하여, 해당 리소스를 조기에 사용할 수 있도록 보장합니다.
@@ -32,7 +32,7 @@
 <link rel="preload" href="./composeResources/username.shared.generated.resources/font/FiraMono-Regular.ttf" as="fetch" type="font/ttf" crossorigin/>
 ```
 
-### Compose Multiplatform 프리로드 API를 사용하여 리소스 프리로딩하기
+### Compose Multiplatform 프리로드 API를 사용하여 리소스 프리로딩하기 {id="preload-resources-using-the-compose-multiplatform-preload-api"}
 <primary-label ref="Experimental"/>
 
 브라우저에서 리소스를 프리로딩했더라도, 해당 리소스는 로우 바이트(raw bytes)로 캐싱되어 있으므로 여전히 `FontResource`나 `DrawableResource`와 같이 렌더링에 적합한 형식으로 변환되어야 합니다. 애플리케이션이 리소스를 처음 요청할 때 변환이 비동기적으로 수행되며, 이로 인해 다시 깜빡임 현상이 발생할 수 있습니다. 이러한 경험을 더욱 최적화하기 위해 Compose Multiplatform 리소스에는 더 높은 수준의 리소스 표현을 위한 자체 내부 캐시가 있으며, 이 역시 프리로딩할 수 있습니다.
@@ -69,7 +69,7 @@ fun MainScreen() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="val icon by preloadImageVector(Res.drawable.heavy_vector_icon)"}
 
-## 자동 폰트 폴백
+## 자동 폰트 폴백 {id="automatic-font-fallback"}
 <primary-label ref="Experimental"/>
 
 기본적으로 애플리케이션에 로드된 폰트에서 지원하지 않는 문자는 대체 글리프(□, "[토푸(tofu)](https://fonts.google.com/knowledge/glossary/tofu)"라고도 함)로 표시됩니다.
@@ -80,7 +80,7 @@ fun MainScreen() {
 
 CJK(한중일: 중국어, 일본어, 한국어) 문자의 경우, 브라우저의 언어 설정에 따라 올바른 폰트 변체가 자동으로 선택됩니다.
 
-## 웹 리소스 캐싱
+## 웹 리소스 캐싱 {id="caching-web-resources"}
 <primary-label ref="Experimental"/>
 
 Compose Multiplatform은 [Web Cache API](https://developer.mozilla.org/en-US/docs/Web/API/Cache)를 사용하여 성공적인 응답을 캐싱하고, 브라우저의 기본 캐싱 메커니즘에 의해 일반적으로 수행되는 중복 HTTP 재검증(revalidation)을 방지합니다.
@@ -89,7 +89,7 @@ Compose Multiplatform은 [Web Cache API](https://developer.mozilla.org/en-US/doc
 
 동일한 리소스에 대한 중복된 동시 페칭을 방지하기 위해, 구현 시 리소스별 락(lock)을 사용합니다. 각 요청은 리소스별 뮤텍스(mutex)에 의해 보호되며, 서로 다른 리소스에 대한 병렬 요청을 허용하는 동시에 동일한 경로에 대한 중복 요청은 직렬화합니다. 이 설계는 불필요한 네트워크 트래픽을 최소화하고 캐시 생성 중 발생하는 레이스 컨디션(race condition)을 제거합니다.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [리소스 설정](compose-multiplatform-resources-setup.md) 및 [앱에서 리소스 사용](compose-multiplatform-resources-usage.md)에 대해 자세히 알아보세요.
 * 인앱 테마 및 언어와 같은 애플리케이션의 [리소스 환경](compose-resource-environment.md)을 관리하는 방법을 알아보세요.

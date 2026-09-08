@@ -25,7 +25,7 @@ Ktor 支援建置在 [`kotlinx-io`](https://github.com/Kotlin/kotlinx-io) 之上
 [`ByteReadChannel`](https://api.ktor.io/ktor-io/io.ktor.utils.io/-byte-read-channel/index.html)、
 [`ByteWriteChannel`](https://api.ktor.io/ktor-io/io.ktor.utils.io/-byte-write-channel/index.html)) 與這些外部型別之間進行轉換。
 
-## 將 `ByteReadChannel` 轉換為 `RawSource`
+## 將 `ByteReadChannel` 轉換為 `RawSource` {id="convert-bytereadchannel-to-rawsource"}
 
 若要將 `ByteReadChannel` 轉換為 `RawSource`，請使用 `.asSource()` 擴充函式：
 
@@ -39,7 +39,7 @@ client.prepareGet("https://httpbin.org/bytes/1024").execute { httpResponse ->
 }
 ```
 
-## 將 `ByteWriteChannel` 轉換為 `RawSink`
+## 將 `ByteWriteChannel` 轉換為 `RawSink` {id="convert-bytewritechannel-to-rawsink"}
 
 若要將暫止的 `ByteWriteChannel` 轉換為 `RawSink`，請使用 `.asSink()` 擴充函式：
 
@@ -56,7 +56,7 @@ get("/sink") {
 
 此配接器產生的 `RawSink` 在排清 (flush) 資料時內部會使用 `runBlocking`，因此排清作業可能會阻塞呼叫方的執行緒。
 
-## 將 `RawSink` 轉換為 `ByteWriteChannel`
+## 將 `RawSink` 轉換為 `ByteWriteChannel` {id="convert-rawsink-to-bytewritechannel"}
 
 若要將 `RawSink` 包裝為暫止的 `ByteWriteChannel`，請使用 `.asByteWriteChannel()` 擴充函式：
 
@@ -73,7 +73,7 @@ get("/raw-sink") {
 
 這使得從暫止函式對 sink 進行非同步寫入成為可能。傳回的通道具有緩衝。請使用 `.flush()` 或 `.flushAndClose()` 以確保所有資料皆已寫入。
 
-## 將 `OutputStream` 轉換為 `ByteWriteChannel`
+## 將 `OutputStream` 轉換為 `ByteWriteChannel` {id="convert-outputstream-to-bytewritechannel"}
 
 若要將 Java `OutputStream` 轉換為 `ByteWriteChannel`，請使用 `.asByteWriteChannel()` 擴充函式：
 

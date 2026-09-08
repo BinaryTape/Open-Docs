@@ -30,7 +30,7 @@ fun main() {
 
 > 之前使用的 `CanvasBasedWindow` 目前已棄用。它會自動將 CSS 樣式直接插入頁面的 HTML 元素中，以強制畫布填滿瀏覽器視窗。雖然這對於獨立應用程式來說較為簡單，但這種做法會導致難以將 Compose 嵌入至現有的網頁配置中。`ComposeViewport` 是更靈活的方法，它依賴於標準的 CSS 版面配置管理。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * 了解如何[處理 Web 特定資源](compose-web-resources.md)。
 * 閱讀更多關於 [Kotlin/Wasm 和 Compose Multiplatform](https://kotlinlang.org/docs/wasm-get-started.html) 的內容。

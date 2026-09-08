@@ -4,7 +4,7 @@ title: Koin 어노테이션
 
 프로젝트를 위한 Koin 어노테이션 설정하기
 
-## 현재 버전
+## 현재 버전 {id="current-versions"}
 
 모든 Koin 패키지는 [maven central](https://search.maven.org/search?q=io.insert-koin)에서 찾을 수 있습니다.
 
@@ -13,7 +13,7 @@ title: Koin 어노테이션
 - **안정 버전(Stable)**: [![Maven Central](https://img.shields.io/maven-central/v/io.insert-koin/koin-annotations?label=stable)](https://mvnrepository.com/artifact/io.insert-koin/koin-annotations) - 프로덕션 애플리케이션용
 - **최신 버전(Latest)**: [![Maven Central](https://img.shields.io/maven-central/v/io.insert-koin/koin-annotations)](https://mvnrepository.com/artifact/io.insert-koin/koin-annotations) - 향후 제공될 기능 미리보기
 
-## KSP 플러그인
+## KSP 플러그인 {id="ksp-plugin"}
 
 동작을 위해 [Google KSP](https://github.com/google/ksp)가 필요합니다. 공식 [KSP 설정 문서](https://kotlinlang.org/docs/ksp-quickstart.html)를 따르세요.
 
@@ -30,7 +30,7 @@ plugins {
 **KSP 버전 관리 변경**: KSP 2.x부터 버전 번호는 이제 Kotlin 버전과 독립적으로 관리됩니다. Koin 어노테이션 2.3.1에는 KSP 2.3.2를 사용하세요.
 :::
 
-## 버전 카탈로그 사용 (권장)
+## 버전 카탈로그 사용 (권장) {id="using-version-catalogs-recommended"}
 
 `gradle/libs.versions.toml` 파일에 다음과 같이 작성합니다.
 
@@ -47,7 +47,7 @@ koin-ksp-compiler = { module = "io.insert-koin:koin-ksp-compiler", version.ref =
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 ```
 
-## Android 및 Ktor 앱 KSP 설정
+## Android 및 Ktor 앱 KSP 설정 {id="android-ktor-app-ksp-setup"}
 
 - KSP Gradle 플러그인 사용
 - Koin 어노테이션 및 Koin KSP 컴파일러 의존성 추가
@@ -85,7 +85,7 @@ dependencies {
 }
 ```
 
-## Kotlin 멀티플랫폼 설정
+## Kotlin 멀티플랫폼 설정 {id="kotlin-multiplatform-setup"}
 
 표준 Kotlin/Kotlin 멀티플랫폼 프로젝트에서는 다음과 같이 KSP를 설정해야 합니다.
 
@@ -138,7 +138,7 @@ tasks.matching { it.name.startsWith("ksp") && it.name != "kspCommonMainKotlinMet
 전체 KMP 설정 및 아키텍처 패턴은 [Koin 어노테이션 KMP](/docs/reference/koin-annotations/kmp)를 참조하세요.
 :::
 
-## 다음 단계
+## 다음 단계 {id="next-steps"}
 
 설정이 완료되었습니다! 다음 내용을 확인해 보세요:
 

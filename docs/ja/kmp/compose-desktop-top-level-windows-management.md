@@ -8,7 +8,7 @@ Compose Multiplatform for desktop は、ウィンドウを管理するための�
 
 undefined
 
-## ウィンドウを開く・閉じる
+## ウィンドウを開く・閉じる {id="open-and-close-windows"}
 
 `Window()` 関数を使用して、通常のウィンドウを作成できます。コンポーザブルなスコープに配置するには、`application` エントリーポイント内で `Window()` を使用します。
 
@@ -50,7 +50,7 @@ fun main() = application {
 
 <img src="compose-window-properties.animated.gif" alt="Window properties: change title" preview-src="compose-window-properties.png" width="600"/>
 
-### 条件の追加
+### 条件の追加 {id="add-conditions"}
 
 単純な `if` 条件を使用してウィンドウを開いたり閉じたりすることもできます。次のコードサンプルでは、タスクの完了後にアプリケーションウィンドウが自動的に閉じられます。
 
@@ -95,7 +95,7 @@ fun main() = application {
 
 <img src="compose-window-condition.animated.gif" alt="Windows with conditions" preview-src="compose-window-condition.png" width="600"/>
 
-### 終了時の確認の追加
+### 終了時の確認の追加 {id="ask-for-confirmation-on-close"}
 
 アプリケーションの終了時にダイアログを表示するなど、カスタムロジックを使用したい場合は、`onCloseRequest` コールバックを使用して終了アクションをオーバーライドできます。
 次のコードサンプルでは、命令的なアプローチ (`window.close()`) の代わりに宣言的なアプローチを使用し、状態の変化 (`isOpen = false`) に応じてウィンドウを閉じています。
@@ -140,7 +140,7 @@ fun main() = application {
 
 <img src="compose-window-ask-to-close.animated.gif" alt="Close with confirmation" preview-src="compose-window-ask-to-close.png" width="600"/>
 
-## シングルウィンドウアプリケーションの作成
+## シングルウィンドウアプリケーションの作成 {id="create-a-single-window-application"}
 
 1 つのトップレベルウィンドウを持つシンプルなアプリケーションの場合、`Window()` コンポーザブルを含む完全な `application` エントリーポイントは必要ありません。`singleWindowApplication()` 関数がそれら両方を 1 つの呼び出しにラップします。
 
@@ -154,7 +154,7 @@ fun main() = singleWindowApplication {
 
 2 つ以上のトップレベルウィンドウ、カスタムの終了ロジック、または実行時におけるウィンドウ属性の変更が必要な場合は、`application` エントリーポイント内で [`Window()` コンポーザブル](#ウィンドウを開く・閉じる) を使用してください。
 
-## ウィンドウの状態の管理
+## ウィンドウの状態の管理 {id="manage-window-state"}
 
 `WindowState` クラスは、ウィンドウの配置（placement）、現在の位置、およびサイズを保持します。
 配置（placement）属性を使用すると、ウィンドウを画面上でどのように配置するかを指定できます（フローティング、最大化/最小化、またはフルスクリーン）。
@@ -237,7 +237,7 @@ fun main() = application {
 
 <img src="compose-window-minimize.animated.gif" alt="Changing the state" preview-src="compose-window-minimize.png" width="600"/>
 
-### コンテンツに応じたウィンドウサイズ
+### コンテンツに応じたウィンドウサイズ {id="adapt-window-size-to-its-content"}
 
 事前に寸法を指定せずにコンテンツに基づいてウィンドウのサイズを決定するには、ウィンドウの寸法の片方または両方を `Dp.Unspecified` に設定します。
 Compose Multiplatform は、コンテンツに合わせてウィンドウの初期サイズを自動的に調整します。
@@ -278,7 +278,7 @@ fun main() = application {
 
 <img src="compose-window-adaptive-size.png" alt="Adaptive window size" width="451"/>
 
-### 状態の変化をリッスンする
+### 状態の変化をリッスンする {id="listen-to-state-changes"}
 
 状態の変化に反応して、その値を（例えばデータベースに書き込むなど）非コンポーザブルなアプリケーション層に送る必要がある場合は、`snapshotFlow()` 関数を使用できます。この関数は、コンポーザブルの状態の現在の値をキャプチャします。
 
@@ -321,7 +321,7 @@ private fun onWindowRelocate(position: WindowPosition) {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="LaunchedEffect(state) { snapshotFlow { state.size } .onEach(::onWindowResize)"}
 
-## 複数のウィンドウを扱う
+## 複数のウィンドウを扱う {id="manage-multiple-windows"}
 
 複数のウィンドウを管理するには、アプリケーションの状態用に別のクラスを作成し、`mutableStateListOf` の変更に応じてウィンドウを開いたり閉じたりすることができます。
 
@@ -396,7 +396,7 @@ private class MyWindowState(
 
 より複雑な例については、[Code Viewer](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/codeviewer) サンプルを参照してください。
 
-## ダイアログの表示
+## ダイアログの表示 {id="show-dialogs"}
 
 `DialogWindow()` コンポーザブルを使用して、独自のタイトルバーを持つ別の OS レベルのウィンドウを表示できます。これは、確認、ファイルピッカー、またはユーザーが続行する前に完了しなければならない操作に役立ちます。
 
@@ -461,7 +461,7 @@ fun main() = application {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="if (isDialogOpen) { DialogWindow( ... ) }"}
 
-## ウィンドウをシステムトレイに格納する
+## ウィンドウをシステムトレイに格納する {id="hide-windows-to-the-system-tray"}
 
 デフォルトでは、ウィンドウを閉じるとアプリケーションが終了します。代わりにウィンドウをシステムトレイやメニューバーに隠すには、`onCloseRequest` をインターセプトしてウィンドウの可視性（visibility）状態を変更します。
 
@@ -526,7 +526,7 @@ object TrayIcon : Painter() {
 
 <img src="compose-window-hide-tray.animated.gif" alt="Hide instead of closing" preview-src="compose-window-hide-tray.png" width="600"/>
 
-## ドラッグ可能なウィンドウ領域
+## ドラッグ可能なウィンドウ領域 {id="make-window-areas-draggable"}
 
 装飾なし（undecorated）のウィンドウにカスタムのドラッグ可能なタイトルバーを追加したり、ウィンドウ全体をドラッグ可能にしたりするには、`WindowDraggableArea()` コンポーザブルを使用できます。
 
@@ -583,7 +583,7 @@ private fun WindowScope.AppWindowTitleBar() = WindowDraggableArea {
 
 <img src="compose-window-draggable-area.animated.gif" alt="Draggable area" preview-src="compose-window-draggable-area.png" width="600"/>
 
-## 透明なウィンドウの作成
+## 透明なウィンドウの作成 {id="create-transparent-windows"}
 
 透明なウィンドウを作成するには、`Window()` 関数に `transparent=true` と `undecorated=true` の 2 つのパラメータを渡します。透明なウィンドウを装飾することはできないため、ウィンドウは `undecorated`（装飾なし）である必要があります。
 
@@ -629,7 +629,7 @@ fun main() = application {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="Modifier.fillMaxSize().padding(5.dp).shadow(3.dp, RoundedCornerShape(20.dp))"}
 
-## Swing コンポーネントの使用
+## Swing コンポーネントの使用 {id="use-swing-components"}
 
 Compose Multiplatform for desktop は内部で Swing を使用しているため、Swing を直接使用してウィンドウを作成することもできます。
 
@@ -725,7 +725,7 @@ private fun FileDialog(
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="@Composable private fun FileDialog( parent: Frame? = null, "}
 
-## ウィンドウとダイアログ API v2
+## ウィンドウとダイアログ API v2 {id="window-and-dialog-api-v2"}
 <primary-label ref="Experimental"/>
 
 Compose Multiplatform 1.12.0 から、再設計された `WindowState` および `DialogState` クラスが `androidx.compose.ui.window.v2` サブパッケージで利用可能になりました。
@@ -734,7 +734,7 @@ v2 ウィンドウおよびダイアログ API は、状態のリクエストと
 
 v2 API は、このページの残りの部分で説明されている既存の API と併用できるため、独自のペースで個々のウィンドウを移行できます。
 
-### 状態の指定と監視
+### 状態の指定と監視 {id="specify-and-observe-state"}
 
 v2 API は、望ましい状態の指定と、実際の状態の監視を明示的に分離します。
 
@@ -803,7 +803,7 @@ if (windowState.isInitialized) {
 
 同様の非同期モデルは、`DialogState` および `rememberDialogState()` を介してダイアログでも利用可能です。
 
-### 画面の選択
+### 画面の選択 {id="choose-a-screen"}
 
 ウィンドウが表示されるべき画面のリクエストは、`rememberWindowState()` に `initialScreenProvider` を渡すか、後で `WindowState.requestScreen()` を呼び出すことで行えます。
 ウィンドウが実際に配置されている画面は、`WindowState.screenId` を介して監視可能です。
@@ -817,7 +817,7 @@ windowState.requestScreen {
 }
 ```
 
-### 位置の指定
+### 位置の指定 {id="specify-position"}
 
 ウィンドウの位置を変更するには、`rememberWindowState()` に `initialBoundsProvider` を渡すか、後で `WindowState.requestBounds()` を呼び出します。
 ウィンドウの実際の境界（bounds）は `WindowState.bounds` を介して監視可能です。
@@ -851,7 +851,7 @@ v2 API は `WindowPositionProvider` を使用して、画面および親ウィ�
     )
     ```
 
-### サイズの指定
+### サイズの指定 {id="specify-size"}
 
 サイズの指定もウィンドウ境界（bounds）の一部であるため、同じ `initialBoundsProvider`/`WindowState.requestBounds()` の仕組みを通じて構成されます。
 
@@ -894,6 +894,6 @@ DialogWindow(
 }
 ```
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 [その他のデスクトップコンポーネント](compose-desktop-components.md) に関するチュートリアルをご覧ください。

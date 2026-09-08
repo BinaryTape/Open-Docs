@@ -13,21 +13,21 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
 - **精度の向上**。関連情報に集中することで、LLMは注意を散らすことなくタスクの完了に専念し続けることができます。
 - **コストの削減**。無関係なメッセージを減らすことでトークン使用量が抑えられ、API呼び出しの全体的なコストが低下します。
 
-## 履歴を圧縮するタイミング
+## 履歴を圧縮するタイミング {id="when-to-compress-history"}
 
 履歴の圧縮は、エージェントのワークフローにおける特定のステップで実行されます：
 
 - エージェント戦略の論理的なステップ（サブグラフ）の間。
 - コンテキストが長くなりすぎたとき。
 
-## 履歴圧縮の実装
+## 履歴圧縮の実装 {id="history-compression-implementation"}
 
 エージェントに履歴の圧縮を実装するには、主に2つのアプローチがあります：
 
 - ストラテジーグラフ内
 - カスタムノード内
 
-### ストラテジーグラフでの履歴圧縮
+### ストラテジーグラフでの履歴圧縮 {id="history-compression-in-a-strategy-graph"}
 
 ストラテジーグラフで履歴を圧縮するには、現在のメッセージ履歴を簡潔な要約に圧縮する、事前定義されたノードを使用する必要があります：
 
@@ -255,7 +255,7 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
 
 この例では、情報収集フェーズが完了した後、意思決定フェーズに進む前に履歴が圧縮されます。
 
-### カスタムノードでの履歴圧縮
+### カスタムノードでの履歴圧縮 {id="history-compression-in-a-custom-node"}
 
 カスタムノードを実装している場合は、以下のように `replaceHistoryWithTLDR()` 関数（Kotlin）を使用して履歴を圧縮できます：
 
@@ -283,7 +283,7 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
 
 カスタムノードの詳細については、[Custom nodes](custom-nodes.md) を参照してください。
 
-## 履歴圧縮の戦略
+## 履歴圧縮の戦略 {id="history-compression-strategies"}
 
 オプションの `strategy` パラメータを使用して、圧縮プロセスをカスタマイズできます：
 
@@ -292,7 +292,7 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
 
 フレームワークは、いくつかの組み込み戦略を提供しています。
 
-### WholeHistory (デフォルト)
+### WholeHistory (デフォルト) {id="wholehistory-default"}
 
 履歴全体を、これまでに達成された内容を要約する1つのTLDRメッセージに圧縮するデフォルトの戦略です。
 この戦略は、トークン使用量を削減しながら、会話全体のコンテキストを把握し続けたいほとんどの一般的なユースケースに適しています。
@@ -409,7 +409,7 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     ```
     <!--- KNIT exampleHistoryCompressionJava04.java -->
 
-### FromLastNMessages
+### FromLastNMessages {id="fromlastnmessages"}
 
 この戦略は、最後の `n` 個のメッセージのみをTLDRメッセージに圧縮し、それ以前のメッセージを完全に破棄します。
 これは、エージェントの最新の成果（または最新の発見、最新のコンテキスト）のみが問題解決に関連する場合に有用です。
@@ -527,7 +527,7 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     ```
     <!--- KNIT exampleHistoryCompressionJava06.java -->
 
-### Chunked
+### Chunked {id="chunked"}
 
 この戦略は、メッセージ履歴全体を固定サイズのチャンクに分割し、各チャンクを個別にTLDRメッセージに圧縮します。
 これは、これまでに何が行われたかの簡潔な要約だけでなく、全体的な進捗も把握し続ける必要があり、古い情報も重要である可能性がある場合に有用です。
@@ -645,7 +645,7 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     ```
     <!--- KNIT exampleHistoryCompressionJava08.java -->
 
-### FactRetrievalHistoryCompressionStrategy
+### FactRetrievalHistoryCompressionStrategy {id="factretrievalhistorycompressionstrategy"}
 
 この戦略は、履歴の中から提供されたコンセプトのリストに関連する特定の事実を検索して抽出します。
 履歴全体をこれらの事実のみに変更し、将来のLLMリクエストのためのコンテキストとして残します。
@@ -857,7 +857,7 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     ```
     <!--- KNIT exampleHistoryCompressionJava10.java -->
 
-## カスタム履歴圧縮戦略の実装
+## カスタム履歴圧縮戦略の実装 {id="custom-history-compression-strategy-implementation"}
 
 !!! warning
     カスタム履歴圧縮戦略は、Kotlinでのみ利用可能です。
@@ -960,7 +960,7 @@ AIエージェントは、ユーザーメッセージ、アシスタントの応
     ```
     <!--- KNIT example-history-compression-14.kt -->
 
-## 圧縮中のメモリ保持
+## 圧縮中のメモリ保持 {id="memory-preservation-during-compression"}
 
 すべての履歴圧縮メソッドは、圧縮中にメモリ関連のメッセージを保持するかどうかを決定するメモリ保持（memory preservation）をサポートしています。Kotlinでは `preserveMemory` パラメータを使用し、Javaでは `.preserveMemory()` ビルダーメソッドを使用します。
 これらは、メモリから抽出された事実を含むメッセージや、メモリ機能が有効になっていないことを示すメッセージです。

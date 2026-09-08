@@ -8,7 +8,7 @@ Koog 스킬을 사용하면 에이전트가 파일 시스템에서 재사용 가
 2. 검색된 메타데이터로부터 스킬 프롬프트 블록을 생성합니다.
 3. 생성된 블록을 에이전트의 `system` 프롬프트에 추가하고, 에이전트가 파일을 검사하고 스킬 스크립트를 실행하는 데 사용할 수 있는 도구를 제공합니다.
 
-## 예제: 시스템 프롬프트에 스킬 추가하기
+## 예제: 시스템 프롬프트에 스킬 추가하기 {id="example-adding-skills-to-system-prompt"}
 
 ```kotlin
 
@@ -54,7 +54,7 @@ fun main() = runBlocking {
 ```
 <!--- KNIT example-skills-usage-01.kt -->
 
-## 필수 구성 요소
+## 필수 구성 요소 {id="required-pieces"}
 
 - `discoverSkills(...)`: 설정된 디렉터리를 스캔하고 검색된 스킬 디스크립터(skill descriptors)를 반환합니다.
 - `generateSkillsPrompt(...)`: 검색된 스킬을 프롬프트 텍스트로 변환합니다 (`SkillsPromptFormat.XML`이 일반적으로 사용됩니다).
@@ -63,7 +63,7 @@ fun main() = runBlocking {
   - 파일 검색/읽기 도구 (투명한 스킬 노출을 위해)
   - 스킬 스크립트를 실행하는 데 사용되는 하나 이상의 실행 도구
 
-## 동작 기대 사항
+## 동작 기대 사항 {id="behavior-expectations"}
 
 스킬 프롬프트가 존재하고 일치하는 도구가 등록되면, 에이전트는 다음을 수행할 수 있습니다:
 
@@ -73,7 +73,7 @@ fun main() = runBlocking {
 
 자세한 내용은 [Agent Skills](https://agentskills.io/home) 문서를 참조하세요.
 
-## 실용적인 팁
+## 실용적인 팁 {id="practical-tips"}
 
 - 스킬을 전용 디렉터리에 보관하고, 상대 루트가 달라질 수 있는 런타임 환경에서는 절대 경로를 전달하세요.
 - 스킬이 정적인 경우(예: `JVMFileSystemProvider.ReadOnly`), 검색을 위해 읽기 전용 파일 제공자를 사용하세요.

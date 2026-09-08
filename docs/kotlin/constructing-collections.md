@@ -1,6 +1,6 @@
 [//]: # (title: 构造集合)
 
-## 通过元素构造
+## 通过元素构造 {id="construct-from-elements"}
 
 创建集合最常用的方式是使用标准库函数 [`listOf<T>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/list-of.html)、[`setOf<T>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/set-of.html)、[`mutableListOf<T>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/mutable-list-of.html)、[`mutableSetOf<T>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/mutable-set-of.html)。如果你以逗号分隔的集合元素列表作为实参，编译器会自动检测元素类型。创建空集合时，请显式指定类型。
 
@@ -21,7 +21,7 @@ val numbersMap = mapOf("key1" to 1, "key2" to 2, "key3" to 3, "key4" to 1)
 val numbersMap = mutableMapOf<String, String>().apply { this["one"] = "1"; this["two"] = "2" }
 ```
 
-## 使用集合构建器函数创建
+## 使用集合构建器函数创建 {id="create-with-collection-builder-functions"}
 
 创建集合的另一种方式是调用构建器函数 —— [`buildList()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/build-list.html)、[`buildSet()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/build-set.html) 或 [`buildMap()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/build-map.html)。它们会创建一个相应类型的新的可变集合，使用[写操作](collection-write.md)进行填充，并返回一个包含相同元素的只读集合：
 
@@ -35,7 +35,7 @@ val map = buildMap { // 此处为 MutableMap<String, Int>，键和值的类型�
 println(map) // {a=1, b=0, c=4}
 ```
 
-## 空集合
+## 空集合 {id="empty-collections"}
 
 还有一些用于创建没有任何元素的集合的函数：[`emptyList()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/empty-list.html)、[`emptySet()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/empty-set.html) 以及 [`emptyMap()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/empty-map.html)。创建空集合时，你应该指定集合将持有的元素类型。
 
@@ -43,7 +43,7 @@ println(map) // {a=1, b=0, c=4}
 val empty = emptyList<String>()
 ```
 
-## List 的初始化函数
+## List 的初始化函数 {id="initializer-functions-for-lists"}
 
 对于 List，有一种类似于构造函数的函数，它接受 List 的大小以及根据索引定义元素值的初始化函数。
 
@@ -57,7 +57,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 具体类型构造函数
+## 具体类型构造函数 {id="concrete-type-constructors"}
 
 要创建具体类型的集合，例如 `ArrayList` 或 `LinkedList`，你可以使用这些类型可用的构造函数。`Set` 和 `Map` 的实现也有类似的构造函数。
 
@@ -66,7 +66,7 @@ val linkedList = LinkedList<String>(listOf("one", "two", "three"))
 val presizedSet = HashSet<Int>(32)
 ```
 
-## 复制
+## 复制 {id="copy"}
 
 要创建一个与现有集合具有相同元素的集合，可以使用复制函数。标准库中的集合复制函数会创建指向相同元素的**浅拷贝 (shallow copy)** 集合。因此，对集合元素所做的更改会反映在其所有副本中。
 
@@ -132,7 +132,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 在其他集合上调用函数
+## 在其他集合上调用函数 {id="invoke-functions-on-other-collections"}
 
 集合可以作为在其他集合上进行各种操作的结果而创建。例如，[过滤](collection-filtering.md)一个 List 会创建一个包含匹配过滤器元素的新 List：
 

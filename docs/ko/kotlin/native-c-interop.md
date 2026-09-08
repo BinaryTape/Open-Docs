@@ -14,7 +14,7 @@
 >
 {style="tip"}
 
-## 프로젝트 설정하기
+## 프로젝트 설정하기 {id="setting-up-your-project"}
 
 C 라이브러리를 사용해야 하는 프로젝트를 작업할 때의 일반적인 워크플로우는 다음과 같습니다:
 
@@ -28,9 +28,9 @@ C 라이브러리를 사용해야 하는 프로젝트를 작업할 때의 일반
 
 대부분의 경우 C 라이브러리와의 커스텀 상호 운용성을 설정할 필요가 없습니다. 대신 [플랫폼 라이브러리](native-platform-libs.md)라고 불리는, 플랫폼에 표준화된 바인딩 API를 사용할 수 있습니다. 예를 들어 Linux/macOS의 POSIX, Windows의 Win32, macOS/iOS의 Apple 프레임워크는 이 방식으로 이미 제공되고 있습니다.
 
-## 바인딩(Bindings)
+## 바인딩(Bindings) {id="bindings"}
 
-### 기본 상호 운용 타입
+### 기본 상호 운용 타입 {id="basic-interop-types"}
 
 지원되는 모든 C 타입은 Kotlin에서 그에 대응하는 표현을 가집니다:
 
@@ -44,7 +44,7 @@ C 라이브러리를 사용해야 하는 프로젝트를 작업할 때의 일반
 
 두 가지 표현을 모두 가진 타입의 경우, lvalue를 가진 타입은 값에 접근하기 위한 가변 `.value` 프로퍼티를 가집니다.
 
-#### 포인터 타입
+#### 포인터 타입 {id="pointer-types"}
 
 `CPointer<T>`의 타입 인자 `T`는 위에서 설명한 lvalue 타입 중 하나여야 합니다. 예를 들어, C 타입 `struct S*`는 `CPointer<S>`로 매핑되고, `int8_t*`는 `CPointer<int_8tVar>`, `char**`는 `CPointer<CPointerVar<ByteVar>>`로 매핑됩니다.
 
@@ -102,7 +102,7 @@ val originalPtr = longValue.toCPointer<T>()
 > 
 {style="tip"}
 
-### 메모리 할당
+### 메모리 할당 {id="memory-allocation"}
 
 네이티브 메모리는 `NativePlacement` 인터페이스를 사용하여 할당할 수 있습니다. 예를 들어:
 
@@ -146,7 +146,7 @@ val fileSize = memScoped {
 }
 ```
 
-### 바인딩에 포인터 전달하기
+### 바인딩에 포인터 전달하기 {id="pass-pointers-to-bindings"}
 
 C 포인터는 `CPointer<T>` 타입으로 매핑되지만, C 함수의 포인터 타입 파라미터는 `CValuesRef<T>`로 매핑됩니다. `CPointer<T>`를 이러한 파라미터의 값으로 전달하면, C 함수로 있는 그대로 전달됩니다. 그러나 포인터 대신 일련의 값(sequence of values)을 전달할 수도 있습니다. 이 경우 시퀀스는 "값에 의한 전달(by value)"로 처리됩니다. 즉, C 함수는 해당 시퀀스의 임시 복사본에 대한 포인터를 받으며, 이 포인터는 함수가 반환될 때까지만 유효합니다.
 
@@ -172,7 +172,7 @@ foo(elements, 3);
 foo(cValuesOf(1, 2, 3), 3)
 ```
 
-### 문자열
+### 문자열 {id="strings"}
 
 다른 포인터들과 달리 `const char*` 타입의 파라미터는 Kotlin `String`으로 표현됩니다. 따라서 C 문자열을 기대하는 바인딩에 어떤 Kotlin 문자열이든 전달할 수 있습니다.
 
@@ -207,7 +207,7 @@ memScoped {
 }
 ```
 
-### 스코프 로컬 포인터
+### 스코프 로컬 포인터 {id="scope-local-pointers"}
 
 `memScoped {}` 환경에서 사용 가능한 `CValues<T>.ptr` 확장 프로퍼티를 사용하여 `CValues<T>` 인스턴스에 대해 스코프 내에서 안정적인 C 표현 포인터를 생성할 수 있습니다. 이를 통해 특정 `MemScope`에 묶인 수명을 가진 C 포인터가 필요한 API를 사용할 수 있습니다. 예를 들어:
 
@@ -225,7 +225,7 @@ memScoped {
 
 이 예제에서 C API `new_menu()`에 전달된 모든 값은 해당 값이 속한 가장 안쪽의 `memScope` 수명을 가집니다. 제어 흐름이 `memScoped` 스코프를 벗어나면 C 포인터는 유효하지 않게 됩니다.
 
-### 구조체를 값으로 전달 및 받기
+### 구조체를 값으로 전달 및 받기 {id="pass-and-receive-structs-by-value"}
 
 C 함수가 구조체/공용체 `T`를 값으로 받거나 반환할 때, 해당 인자 타입 또는 반환 타입은 `CValue<T>`로 표현됩니다.
 
@@ -247,11 +247,11 @@ C 함수가 구조체/공용체 `T`를 값으로 받거나 반환할 때, 해당
 * [`fun CValues<T>.placeTo(scope: AutofreeScope): CPointer<T>`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/place-to.html)
   `CValues<T>`를 `AutofreeScope`에 배치하고 할당된 메모리에 대한 포인터를 반환합니다. 할당된 메모리는 `AutofreeScope`가 해제될 때 자동으로 해제됩니다.
 
-### 콜백(Callbacks)
+### 콜백(Callbacks) {id="callbacks"}
 
 Kotlin 함수를 C 함수 포인터로 변환하려면 `staticCFunction(::kotlinFunction)`을 사용할 수 있습니다. 함수 참조 대신 람다를 제공하는 것도 가능합니다. 단, 해당 함수나 람다는 어떠한 값도 캡처(capture)해서는 안 됩니다.
 
-#### 콜백에 사용자 데이터 전달하기
+#### 콜백에 사용자 데이터 전달하기 {id="pass-user-data-to-callbacks"}
 
 C API는 종종 콜백에 사용자 데이터를 전달할 수 있도록 허용합니다. 이러한 데이터는 일반적으로 사용자가 콜백을 설정할 때 제공됩니다. 예를 들어 `void*` 형식으로 C 함수에 전달되거나 구조체에 작성됩니다. 하지만 Kotlin 객체에 대한 참조는 C로 직접 전달할 수 없습니다. 따라서 Kotlin에서 C를 거쳐 다시 Kotlin으로 안전하게 전달되려면 콜백을 설정하기 전에 래핑(wrapping)하고 콜백 내부에서 다시 언래핑(unwrapping)하는 과정이 필요합니다. 이러한 래핑은 `StableRef` 클래스를 통해 가능합니다.
 
@@ -285,7 +285,7 @@ stableRef.dispose()
 
 해제된 후에는 유효하지 않게 되므로 더 이상 `voidPtr`을 언래핑할 수 없습니다.
 
-### 매크로(Macros)
+### 매크로(Macros) {id="macros"}
 
 상수로 확장되는 모든 C 매크로는 Kotlin 프로퍼티로 표현됩니다.
 
@@ -310,7 +310,7 @@ static inline int foo(int arg) {
 }
 ```
 
-### 이식성(Portability)
+### 이식성(Portability) {id="portability"}
 
 때때로 C 라이브러리는 플랫폼에 따라 달라지는 타입(예: `long` 또는 `size_t`)의 함수 파라미터나 구조체 필드를 가집니다. Kotlin 자체는 암시적 정수 캐스트나 C 방식의 정수 캐스트(예: `(size_t) intValue`)를 제공하지 않으므로, 이러한 경우에 이식 가능한 코드를 더 쉽게 작성할 수 있도록 `convert` 메서드가 제공됩니다:
 
@@ -336,7 +336,7 @@ fun zeroMemory(buffer: COpaquePointer, size: Int) {
 
 또한 타입 파라미터는 자동으로 추론될 수 있으므로 일부 경우 생략 가능합니다.
 
-### 객체 피닝(Object pinning)
+### 객체 피닝(Object pinning) {id="object-pinning"}
 
 Kotlin 객체는 피닝(pinning)될 수 있습니다. 즉, 언피닝(unpinning)될 때까지 메모리 내 위치가 고정됨을 보장하며, 이러한 객체의 내부 데이터에 대한 포인터를 C 함수로 전달할 수 있습니다.
 
@@ -387,7 +387,7 @@ Kotlin 객체는 피닝(pinning)될 수 있습니다. 즉, 언피닝(unpinning)�
 
   여기서 `buffer.refTo(0)`는 `CValuesRef` 타입을 가지며, `recv()` 함수에 진입하기 전에 배열을 피닝하고 0번째 요소의 주소를 함수에 전달한 뒤, 종료 시 배열을 언피닝합니다.
 
-### 전방 선언(Forward declarations)
+### 전방 선언(Forward declarations) {id="forward-declarations"}
 
 전방 선언을 임포트하려면 `cnames` 패키지를 사용하세요. 예를 들어, `library.package`를 가진 C 라이브러리에 선언된 `cstructName` 전방 선언을 임포트하려면 특수한 전방 선언 패키지를 사용합니다: `import cnames.structs.cstructName`.
 
@@ -431,7 +431,7 @@ fun test() {
 }
 ```
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 다음 튜토리얼을 통해 Kotlin과 C 간에 타입, 함수 및 문자열이 어떻게 매핑되는지 자세히 알아보세요:
 

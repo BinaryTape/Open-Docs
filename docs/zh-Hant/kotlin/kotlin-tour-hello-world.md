@@ -21,7 +21,7 @@ fun main() {
 
 函式是一組執行特定任務的指令。一旦建立了函式，每當需要執行該任務時就可以使用它，而不需要重新編寫所有指令。後續章節會更詳細地討論函式。在此之前，所有範例都使用 `main()` 函式。
 
-## 變數
+## 變數 {id="variables"}
 
 所有程式都需要能夠儲存資料，而變數可以幫助您做到這一點。在 Kotlin 中，您可以宣告：
 
@@ -62,7 +62,7 @@ fun main() {
 > 
 {style="note"}
 
-## 字串範本
+## 字串範本 {id="string-templates"}
 
 瞭解如何將變數內容印出到標準輸出非常實用。您可以使用 **字串範本 (string templates)** 來達成此目的。您可以使用範本運算式來存取儲存在變數和其他物件中的資料，並將其轉換為字串。字串值是包含在雙引號 `"` 中的一連串字元。範本運算式總是以錢字號 `$` 開頭。
 
@@ -88,9 +88,9 @@ fun main() {
 
 您會注意到變數並沒有宣告任何型別。Kotlin 已自行推論出型別：`Int`。本導覽將在[下一章節](kotlin-tour-basic-types.md)介紹不同的 Kotlin 基本型別以及如何宣告它們。
 
-## 練習 {completion-point="true"}
+## 練習 {completion-point="true" id="practice"}
 
-### 練習 {initial-collapse-state="collapsed" collapsible="true"}
+### 練習 {initial-collapse-state="collapsed" collapsible="true" id="exercise"}
 
 完成程式碼，使程式將 `"Mary is 20 years old"` 印出至標準輸出：
 

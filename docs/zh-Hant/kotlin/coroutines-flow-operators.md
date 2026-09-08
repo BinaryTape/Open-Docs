@@ -15,7 +15,7 @@ Kotlin 提供兩類主要的 Flow 運算子：
 >
 {style="tip"}
 
-## 中間運算子
+## 中間運算子 {id="intermediate-operators"}
 
 中間運算子會傳回一個新的下游 Flow，其取用來自上游 Flow 的值。
 在收集最終結果之前，您可以串接多個中間運算子來建立一個 Flow 管線。
@@ -28,7 +28,7 @@ Kotlin 提供兩類主要的 Flow 運算子：
 * [**組合運算子 (Combining operators)**](#combining-operators) 收集來自多個上游 Flow 的值，並將其發出至單個下游 Flow。
 * [**生命週期運算子 (Lifecycle operators)**](#lifecycle-operators) 針對 Flow 收集期間的特定事件執行操作，例如當收集開始或上游 Flow 完成時。
 
-### 轉換運算子
+### 轉換運算子 {id="transforming-operators"}
 
 轉換運算子會轉換上游 Flow 發出的值。
 您可以使用它們將值轉換為另一種類型、跳過某些值，或向下游發出額外的值。
@@ -156,7 +156,7 @@ suspend fun main() = withContext(Dispatchers.Default) {
 ```
 {kotlin-runnable="true"}
 
-### 篩選與大小限制運算子
+### 篩選與大小限制運算子 {id="filtering-and-size-limiting-operators"}
 
 篩選與大小限制運算子控制哪些值能從 Flow 繼續流向下游。
 您可以使用它們移除連續重複的值、跳過 Flow 開頭的值，或在達到指定數量的值後取消收集。
@@ -267,7 +267,7 @@ suspend fun main() = withContext(Dispatchers.Default) {
 ```
 {kotlin-runnable="true"}
 
-### 並行處理運算子
+### 並行處理運算子 {id="concurrent-processing-operators"}
 
 預設情況下，Flow 管線會按順序處理值。
 上游 Flow 發出一個值，收集器先對其進行處理，然後才發出下一個值。
@@ -447,7 +447,7 @@ suspend fun main() = withContext(Dispatchers.Default) {
 ```
 {kotlin-runnable="true"}
 
-### 組合運算子
+### 組合運算子 {id="combining-operators"}
 
 組合運算子取用來自多個上游 Flow 的值，並傳回單個下游 Flow。
 當收集器需要來自多個 Flow 的值時，請使用這些運算子。
@@ -596,7 +596,7 @@ suspend fun main() {
 ```
 {kotlin-runnable="true"}
 
-### 生命週期運算子
+### 生命週期運算子 {id="lifecycle-operators"}
 
 生命週期運算子接受在 Flow 收集期間的特定點執行的暫停 Lambda。
 您可以使用它們在 Flow 被收集前、每個值被發出前、收集完成後，或者當 Flow 在未發出任何值的情況下完成時放置邏輯。
@@ -717,7 +717,7 @@ suspend fun main() {
 ```
 {kotlin-runnable="true"}
 
-## 終端運算子
+## 終端運算子 {id="terminal-operators"}
 
 終端運算子收集 Flow。
 您可以使用它們來取用發出的值、根據收集的值傳回結果，或[在特定的 `CoroutineScope` 中收集 Flow](#在特定的-coroutinescope-中收集-flow)。
@@ -878,7 +878,7 @@ suspend fun main() {
 ```
 {kotlin-runnable="true"}
 
-### 在特定的 `CoroutineScope` 中收集 Flow
+### 在特定的 `CoroutineScope` 中收集 Flow {id="collect-a-flow-in-a-specific-coroutinescope"}
 
 當畫面或另一個長效物件需要來自 Flow 的值時，請在該物件的 `CoroutineScope` 中啟動收集器。
 這可確保當物件被銷毀時，取消該物件的 `CoroutineScope` 同時也會取消收集。

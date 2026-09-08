@@ -13,7 +13,7 @@ Kotlin 工具鏈確保每個原始碼集僅能存取該原始碼集編譯至的�
 該範本涵蓋了最常見的情況。如果您有更進階的專案，可以 [手動配置](#manual-configuration)。
 這是一種更低階的方法：它更靈活，但需要更多的精力與知識。
 
-## 預設階層範本
+## 預設階層範本 {id="default-hierarchy-template"}
 
 Kotlin Gradle 外掛程式內建了預設的 [階層範本](#see-the-full-hierarchy-template)。
 它包含為一些常見使用案例預先定義的中間原始碼集。
@@ -107,7 +107,7 @@ kotlin {
 >
 {style="note"}
 
-### 額外配置
+### 額外配置 {id="additional-configuration"}
 
 您可能需要對預設階層範本進行調整。如果您先前透過 `dependsOn` 呼叫 [手動](#manual-configuration) 引入了中間原始碼，這會取消預設階層範本的使用並導致以下警告：
 
@@ -129,13 +129,13 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
 * [在預設階層範本中建立額外的原始碼集](#creating-additional-source-sets)
 * [修改預設階層範本建立的原始碼集](#modifying-source-sets)
 
-#### 替換手動配置
+#### 替換手動配置 {id="replacing-a-manual-configuration"}
 
 **案例**：您所有的中間原始碼集目前都已包含在預設階層範本中。
 
 **解決方案**：在共享模組的 `build.gradle(.kts)` 檔案中，移除所有手動的 `dependsOn()` 呼叫以及使用 `by creating` 構建的原始碼集。要查看所有預設原始碼集的列表，請參閱 [完整階層範本](#see-the-full-hierarchy-template)。
 
-#### 建立額外原始碼集
+#### 建立額外原始碼集 {id="creating-additional-source-sets"}
 
 **案例**：您想要新增預設階層範本尚未提供的原始碼集，例如在 macOS 與 JVM 目標之間的原始碼集。
 
@@ -200,7 +200,7 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
     </TabItem>
     </Tabs>
 
-#### 修改原始碼集
+#### 修改原始碼集 {id="modifying-source-sets"}
 
 **案例**：您已經擁有與範本生成的名稱完全相同的原始碼集，但在專案中是在不同的目標集之間共享。例如，`nativeMain` 原始碼集僅在桌面專用的目標之間共享：`linuxX64`、`mingwX64` 與 `macosArm64`。
 
@@ -217,7 +217,7 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
 >
 {style="tip"}
 
-#### 查看完整階層範本 {initial-collapse-state="collapsed" collapsible="true"}
+#### 查看完整階層範本 {initial-collapse-state="collapsed" collapsible="true" id="see-the-full-hierarchy-template"}
 
 當您宣告專案編譯至的目標時，外掛程式會根據範本中指定的目標選取共享原始碼集，並在您的專案中建立它們。
 
@@ -227,7 +227,7 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
 >
 {style="tip"}
 
-## 手動配置
+## 手動配置 {id="manual-configuration"}
 
 您可以在原始碼集結構中手動引入中間原始碼。它將保存多個目標的共享程式碼。
 

@@ -6,7 +6,7 @@ title: 動態模組
 
 Koin 提供的 API 可動態載入與卸載與 Composable 生命週期繫結的模組。這對於功能模組、延遲載入與按需相依性非常有用。
 
-## rememberKoinModules
+## rememberKoinModules {id="rememberkoinmodules"}
 
 當 Composable 進入組合 (composition) 時載入 Koin 模組：
 
@@ -25,7 +25,7 @@ fun FeatureScreen() {
 }
 ```
 
-### 多個模組
+### 多個模組 {id="multiple-modules"}
 
 ```kotlin
 @Composable
@@ -38,7 +38,7 @@ fun FeatureScreen() {
 }
 ```
 
-### 卸載模組
+### 卸載模組 {id="unloading-modules"}
 
 控制何時卸載模組：
 
@@ -58,9 +58,9 @@ fun FeatureScreen() {
 | `unloadOnForgotten` | Composable 從組合中移除 |
 | `unloadOnAbandoned` | 組合失敗或被捨棄 |
 
-## 使用案例
+## 使用案例 {id="use-cases"}
 
-### 功能模組
+### 功能模組 {id="feature-modules"}
 
 根據需求載入特定功能的相依性：
 
@@ -81,7 +81,7 @@ fun CheckoutScreen() {
 }
 ```
 
-### 延遲功能載入
+### 延遲功能載入 {id="lazy-feature-loading"}
 
 與導航結合以進行延遲功能載入：
 
@@ -103,7 +103,7 @@ NavHost(navController, startDestination = "home") {
 }
 ```
 
-### 偵錯/預覽模組
+### 偵錯/預覽模組 {id="debug-preview-modules"}
 
 為預覽切換實作：
 
@@ -120,7 +120,7 @@ fun FeatureScreenPreview() {
 }
 ```
 
-### 條件模組
+### 條件模組 {id="conditional-modules"}
 
 根據條件載入模組：
 
@@ -135,7 +135,7 @@ fun App(isDebug: Boolean) {
 }
 ```
 
-## 搭配延遲模組 (Lazy Modules)
+## 搭配延遲模組 (Lazy Modules) {id="with-lazy-modules"}
 
 結合 Koin 的延遲模組載入以獲得更好的效能：
 
@@ -154,7 +154,7 @@ fun FeatureScreen() {
 }
 ```
 
-## 最佳實務
+## 最佳實務 {id="best-practices"}
 
 1. **使用 `unloadOnForgotten = true`** - 防止記憶體洩漏
    ```kotlin
@@ -172,7 +172,7 @@ fun FeatureScreen() {
 
 5. **避免循環相依性** - 功能模組不應互相依賴
 
-## 後續步驟
+## 後續步驟 {id="next-steps"}
 
 - **[Compose 中的作用域](/docs/reference/koin-compose/compose-scopes)** - 作用域 API
 - **[Compose 總覽](/docs/reference/koin-compose/compose)** - 設定與基礎注入

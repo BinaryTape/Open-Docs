@@ -16,7 +16,7 @@
 >
 {style="note"}
 
-## 開始之前
+## 開始之前 {id="before-you-start"}
 
 1. 下載並安裝最新版本的 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)。
 2. 複製 [專案樣板](https://github.com/kotlin-hands-on/web-app-react-kotlin-js-gradle) 並在 IntelliJ IDEA 中開啟。該樣板包含一個基礎的 Kotlin 多平台 Gradle 專案，並已完成所有必要的配置與相依性設定。
@@ -74,7 +74,7 @@
    }
    ```
 
-### 執行開發伺服器
+### 執行開發伺服器 {id="run-the-development-server"}
 
 預設情況下，Kotlin 多平台 Gradle 外掛程式支援內嵌的 `webpack-dev-server`，讓您能從 IDE 執行應用程式，而無需手動設定任何伺服器。
 
@@ -88,7 +88,7 @@
 
 ![空白紅色頁面](red-page.png){width=700}
 
-### 啟用熱重載 / 持續模式
+### 啟用熱重載 / 持續模式 {id="enable-hot-reload-continuous-mode"}
 
 配置 _[持續編譯](dev-server-continuous-compilation.md)_ 模式，如此您就不必在每次進行更改時都手動編譯並執行專案。在繼續之前，請確保停止所有正在執行的開發伺服器執行個體。
 
@@ -116,9 +116,9 @@
 >
 {style="note"}
 
-## 建立 Web 應用程式草稿
+## 建立 Web 應用程式草稿 {id="create-a-web-app-draft"}
 
-### 使用 React 加入第一個靜態頁面
+### 使用 React 加入第一個靜態頁面 {id="add-the-first-static-page-with-react"}
 
 要讓您的應用程式顯示簡單的訊息，請將 `Main.kt` 檔案中的程式碼替換為以下內容：
 
@@ -155,7 +155,7 @@ fun main() {
 
 ![HTML 頁面範例](hello-react-js.png){width=700}
 
-### 將 HTML 轉換為 Kotlin 的型別安全 HTML DSL
+### 將 HTML 轉換為 Kotlin 的型別安全 HTML DSL {id="convert-html-to-kotlin-s-typesafe-html-dsl"}
 
 React 的 Kotlin [包裝函式](https://github.com/JetBrains/kotlin-wrappers/blob/master/kotlin-react/README.md) 附帶了一個 [領域特定語言 (DSL)](type-safe-builders.md)，可以用純 Kotlin 程式碼編寫 HTML。就此而言，它類似於 JavaScript 的 [JSX](https://reactjs.org/docs/introducing-jsx.html)。然而，由於這些標記是 Kotlin，您可以獲得靜態型別語言的所有好處，例如自動補全或型別檢查。
 
@@ -226,7 +226,7 @@ div {
 
 ![Web 應用程式草稿](website-draft.png){width=700}
 
-### 使用標記中的 Kotlin 結構加入影片
+### 使用標記中的 Kotlin 結構加入影片 {id="add-videos-using-kotlin-constructs-in-markup"}
 
 使用此 DSL 在 Kotlin 中編寫 HTML 有一些優點。您可以使用常規的 Kotlin 結構來操作應用程式，例如迴圈、條件、集合和字串插值。
 
@@ -279,7 +279,7 @@ div {
 
 等待瀏覽器重新載入。配置應保持與之前相同。您可以向清單中加入更多影片，以確保迴圈正常運作。
 
-### 使用型別安全的 CSS 加入樣式
+### 使用型別安全的 CSS 加入樣式 {id="add-styles-with-typesafe-css"}
 
 用於 [Emotion](https://emotion.sh/docs/introduction) 程式庫的 [kotlin-emotion](https://github.com/JetBrains/kotlin-wrappers/blob/master/kotlin-emotion/) 包裝函式讓您能直接在 HTML 中使用 JavaScript 指定 CSS 屬性（甚至是動態屬性）。從概念上講，這類似於 [CSS-in-JS](https://reactjs.org/docs/faq-styling.html#what-is-css-in-js) —— 但適用於 Kotlin。使用 DSL 的好處是您可以使用 Kotlin 程式碼結構來表達格式化規則。
 
@@ -316,7 +316,7 @@ div {
 
 您可以隨意嘗試其他樣式。例如，您可以更改 `fontFamily` 或為 UI 加入一些 `color`。
 
-## 設計應用程式組件
+## 設計應用程式組件 {id="design-app-components"}
 
 React 中的基本構建塊稱為 _[組件](https://reactjs.org/docs/components-and-props.html)_。組件本身也可以由其他更小的組件組成。透過組合組件，您可以建置應用程式。如果您將組件結構化為通用且可重複使用的，您將能在應用程式的多個部分使用它們，而無需重複程式碼或邏輯。
 
@@ -330,7 +330,7 @@ React 中的基本構建塊稱為 _[組件](https://reactjs.org/docs/components-
 
 組件封裝了特定的功能。使用組件可以縮短原始碼，並使其更易於閱讀 and 理解。
 
-### 加入主組件
+### 加入主組件 {id="add-the-main-component"}
 
 要開始建立應用程式的結構，首先明確指定 `App`，即用於渲染到 `root` 元素的主組件：
 
@@ -374,7 +374,7 @@ React 中的基本構建塊稱為 _[組件](https://reactjs.org/docs/components-
 
 有關 React 概念的更多資訊，請參閱 [文件與指南](https://reactjs.org/docs/hello-world.html#how-to-read-this-guide)。
 
-### 提取清單組件
+### 提取清單組件 {id="extract-a-list-component"}
 
 由於 `watchedVideos` 和 `unwatchedVideos` 清單各包含一個影片清單，因此建立一個單一的可重複使用組件是有意義的，只需調整清單中顯示的內容即可。
 
@@ -419,7 +419,7 @@ React 中的基本構建塊稱為 _[組件](https://reactjs.org/docs/components-
 
    目前，`App` 組件無法控制 `VideoList` 組件顯示的內容。它是硬編碼的，因此您會看到相同的清單兩次。
 
-### 加入屬性 (Props) 以在組件之間傳遞資料
+### 加入屬性 (Props) 以在組件之間傳遞資料 {id="add-props-to-pass-data-between-components"}
 
 由於您將重複使用 `VideoList` 組件，您需要能夠為其填入不同的內容。您可以加入將項目清單作為屬性傳遞給組件的功能。在 React 中，這些屬性稱為 _props_。當 React 中組件的 props 發生變化時，架構會自動重新渲染該組件。
 
@@ -469,7 +469,7 @@ React 中的基本構建塊稱為 _[組件](https://reactjs.org/docs/components-
 
 重新載入後，瀏覽器將顯示清單現在已正確渲染。
 
-### 讓清單具有互動性
+### 讓清單具有互動性 {id="make-the-list-interactive"}
 
 首先，加入一個當使用者點擊清單項目時跳出的警示訊息。在 `VideoList.kt` 中，加入一個 `onClick` 處理常式函式，觸發帶有目前影片資訊的警示：
 
@@ -495,7 +495,7 @@ p {
 >
 {style="tip"}
 
-### 加入狀態 (State) 以保存值
+### 加入狀態 (State) 以保存值 {id="add-state-to-keep-values"}
 
 與其僅僅警示使用者，您可以加入一些功能，使用 ▶ 三角形醒目提示所選的影片。為此，請引入此組件特有的 _狀態 (state)_。
 
@@ -544,7 +544,7 @@ p {
 
 檢查瀏覽器並點擊清單中的項目，確保一切運作正常。
 
-## 組合組件
+## 組合組件 {id="compose-components"}
 
 目前，這兩個影片清單各自獨立運作，這意味著每個清單都追蹤一個選取的影片。使用者可以選取兩個影片，一個在未觀看清單中，另一個在已觀看清單中，儘管只有一個播放器：
 
@@ -552,7 +552,7 @@ p {
 
 清單無法同時追蹤其內部以及同級清單中選取了哪個影片。原因是選取的影片不屬於 _清單_ 狀態的一部分，而是屬於 _應用程式_ 狀態。這意味著您需要從個別組件中 _提升 (lift)_ 狀態。
 
-### 提升狀態 (Lift state)
+### 提升狀態 (Lift state) {id="lift-state"}
 
 React 確保 props 只能從父組件傳遞給其子組件。這可以防止組件之間被硬連線在一起。
 
@@ -590,7 +590,7 @@ React 確保 props 只能從父組件傳遞給其子組件。這可以防止組�
    }
    ```
 
-### 傳遞處理常式
+### 傳遞處理常式 {id="pass-handlers"}
 
 目前，無法為 prop 指派值，因此 `onClick` 函式將無法按照目前的設定運作。要更改父組件的狀態，您需要再次提升狀態。
 
@@ -631,9 +631,9 @@ React 確保 props 只能從父組件傳遞給其子組件。這可以防止組�
 
 切換回瀏覽器，確保在選取影片時，選取狀態會在兩個清單之間跳轉而不會重複。
 
-## 加入更多組件
+## 加入更多組件 {id="add-more-components"}
 
-### 提取影片播放器組件
+### 提取影片播放器組件 {id="extract-the-video-player-component"}
 
 您現在可以建立另一個獨立的組件：影片播放器，目前它只是一張占位圖片。您的影片播放器需要知道演講標題、演講作者以及影片連結。這些資訊已經包含在每個 `Video` 物件中，因此您可以將其作為 prop 傳遞並存取其屬性。
 
@@ -685,7 +685,7 @@ React 確保 props 只能從父組件傳遞給其子組件。這可以防止組�
 
 現在，點擊清單中的專案將啟動影片播放器，並根據點擊專案的資訊填入內容。
 
-### 加入按鈕並進行連動
+### 加入按鈕並進行連動 {id="add-a-button-and-wire-it"}
 
 為了讓使用者能夠將影片標記為已看過或未看過，並在兩個清單之間移動影片，請在 `VideoPlayer` 組件中加入一個按鈕。
 
@@ -722,7 +722,7 @@ React 確保 props 只能從父組件傳遞給其子組件。這可以防止組�
 
    借助能動態更改樣式的 Kotlin CSS DSL，您可以使用基本的 Kotlin `if` 運算式來更改按鈕的顏色。
 
-### 將影片清單移動到應用程式狀態
+### 將影片清單移動到應用程式狀態 {id="move-video-lists-to-the-application-state"}
 
 現在是調整 `App` 組件中 `VideoPlayer` 使用位置的時候了。當按鈕被點擊時，影片應從未觀看清單移至已觀看清單，反之亦然。由於這些清單現在實際上會發生變化，請將它們移動到應用程式狀態中：
 
@@ -765,13 +765,13 @@ React 確保 props 只能從父組件傳遞給其子組件。這可以防止組�
 
 回到瀏覽器，選取一段影片，然後按幾次按鈕。影片將在兩個清單之間跳轉。
 
-## 使用來自 npm 的套件
+## 使用來自 npm 的套件 {id="use-packages-from-npm"}
 
 為了讓應用程式實用，您仍然需要一個真正能播放影片的影片播放器，以及一些能幫助人們分享內容的按鈕。
 
 React 擁有豐富的生態系統，其中包含許多現成的組件，您可以使用它們，而無需自己構建這些功能。
 
-### 加入影片播放器組件
+### 加入影片播放器組件 {id="add-the-video-player-component"}
 
 要將占位影片組件替換為實際的 YouTube 播放器，請使用 npm 的 `react-player` 套件。它可以播放影片並讓您控制播放器的外觀。
 
@@ -838,7 +838,7 @@ React 擁有豐富的生態系統，其中包含許多現成的組件，您可�
    }
    ```
 
-### 加入社群分享按鈕
+### 加入社群分享按鈕 {id="add-social-share-buttons"}
 
 分享應用程式內容的一種簡單方法是為通訊軟體和電子郵件提供社群分享按鈕。您也可以為此使用現成的 React 組件，例如 [react-share](https://github.com/nygardk/react-share/blob/master/README.md)：
 
@@ -923,13 +923,13 @@ React 擁有豐富的生態系統，其中包含許多現成的組件，您可�
 
 您可以隨意為 [react-share](https://github.com/nygardk/react-share/blob/master/README.md#features) 中提供的其他社群網絡重複此步驟以加入更多分享按鈕。
 
-## 使用外部 REST API
+## 使用外部 REST API {id="use-an-external-rest-api"}
 
 您現在可以將硬編碼的展示資料替換為來自應用程式中 REST API 的真實資料。
 
 在本教學中，有一個[小型 API](https://my-json-server.typicode.com/kotlin-hands-on/kotlinconf-json/videos/1)。它僅提供一個端點 `videos`，並接收一個數字參數來存取清單中的元素。如果您使用瀏覽器造訪該 API，您會發現從 API 回傳的物件與 `Video` 物件具有相同的結構。
 
-### 從 Kotlin 使用 JS 功能
+### 從 Kotlin 使用 JS 功能 {id="use-js-functionality-from-kotlin"}
 
 瀏覽器已經配備了多種 [Web API](https://developer.mozilla.org/en-US/docs/Web/API)。您也可以從 Kotlin/JS 使用它們，因為它開箱即用地包含了這些 API 的包裝函式。其中一個例子是用於發送 HTTP 請求的 [fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)。
 
@@ -950,7 +950,7 @@ dependencies {
 }
 ```
 
-### 加入序列化
+### 加入序列化 {id="add-serialization"}
 
 當您呼叫外部 API 時，您會獲得 JSON 格式的文字，仍需將其轉換為可供操作的 Kotlin 物件。
 
@@ -984,7 +984,7 @@ dependencies {
    )
    ```
 
-### 獲取影片
+### 獲取影片 {id="fetch-videos"}
 
 要從 API 獲取影片，請在 `App.kt`（或新檔案）中加入以下函式：
 
@@ -1055,17 +1055,17 @@ suspend fun fetchVideo(id: Int): Video {
 
 如果您想深入了解協同程式的工作原理，請查看這篇[關於協同程式的教學](coroutines-and-channels.md)。
 
-## 部署到生產環境與雲端
+## 部署到生產環境與雲端 {id="deploy-to-production-and-the-cloud"}
 
 是時候將應用程式發布到雲端，讓其他人也能存取了。
 
-### 打包生產版本組建
+### 打包生產版本組建 {id="package-a-production-build"}
 
 要在生產模式下打包所有資產，請透過 IntelliJ IDEA 中的工具視窗執行 Gradle 中的 `build` 任務，或執行 `./gradlew build`。這會產生優化後的專案組建，並套用各種改進措施，例如 DCE (無效程式碼刪除)。
 
 組建完成後，您可以在 `/build/dist` 中找到部署所需的所有檔案。它們包括執行應用程式所需的 JavaScript 檔案、HTML 檔案和其他資源。您可以將它們放在靜態 HTTP 伺服器上，使用 GitHub Pages 提供服務，或託管在您選擇的雲端供應商上。
 
-### 部署到 Heroku
+### 部署到 Heroku {id="deploy-to-heroku"}
 
 Heroku 讓啟動可在其自身網域下存取的應用程式變得非常簡單。其免費層級應足以用於開發目的。
 
@@ -1126,9 +1126,9 @@ Heroku 讓啟動可在其自身網域下存取的應用程式變得非常簡單�
 >
 {style="note"}
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
-### 加入更多功能 {initial-collapse-state="collapsed" collapsible="true"}
+### 加入更多功能 {initial-collapse-state="collapsed" collapsible="true" id="add-more-features"}
 
 您可以將產生的應用程式作為起點，探索 React、Kotlin/JS 等領域中更進階的主題。
 
@@ -1136,18 +1136,18 @@ Heroku 讓啟動可在其自身網域下存取的應用程式變得非常簡單�
 * **持久化**。目前，每當頁面重新載入時，應用程式就會遺失觀看者的觀看清單。考慮使用適用於 Kotlin 的 Web 架構（例如 [Ktor](https://ktor.io/)）建置您自己的後端。或者，研究在[用戶端儲存資訊](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)的方法。
 * **複雜的 API**。有很多資料集和 API 可供使用。您可以將各種資料拉入您的應用程式。例如，您可以為 [貓咪照片](https://thecatapi.com/) 或 [無版權圖庫 API](https://unsplash.com/developers) 建立一個視覺化工具。
 
-### 改進樣式：回應式與網格 {initial-collapse-state="collapsed" collapsible="true"}
+### 改進樣式：回應式與網格 {initial-collapse-state="collapsed" collapsible="true" id="improve-the-style-responsiveness-and-grids"}
 
 應用程式設計仍然非常簡單，在行動裝置或窄視窗中看起來效果不佳。探索更多 CSS DSL，讓應用程式更易於使用。
 
-### 加入社群並尋求幫助 {initial-collapse-state="collapsed" collapsible="true"}
+### 加入社群並尋求幫助 {initial-collapse-state="collapsed" collapsible="true" id="join-the-community-and-get-help"}
 
 報告問題並尋求協助的最佳方式是 [kotlin-wrappers 問題追蹤器](https://github.com/JetBrains/kotlin-wrappers/issues)。如果您找不到符合您問題的項目，請隨意提交一個新問題。您也可以加入官方 [Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)。那裡有 `#javascript` 和 `#react` 頻道。
 
-### 了解更多關於協同程式的資訊 {initial-collapse-state="collapsed" collapsible="true"}
+### 了解更多關於協同程式的資訊 {initial-collapse-state="collapsed" collapsible="true" id="learn-more-about-coroutines"}
 
 如果您有興趣了解更多關於如何編寫並行程式碼的資訊，請查看關於 [協同程式](coroutines-and-channels.md) 的教學。
 
-### 了解更多關於 React 的資訊 {initial-collapse-state="collapsed" collapsible="true"}
+### 了解更多關於 React 的資訊 {initial-collapse-state="collapsed" collapsible="true" id="learn-more-about-react"}
 
 現在您已經了解了基礎的 React 概念以及它們如何轉換為 Kotlin，您可以將 [React 文件](https://react.dev/learn)中概述的其他一些概念轉換為 Kotlin。

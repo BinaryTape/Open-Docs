@@ -8,7 +8,7 @@ status: beta
 
 Koog 提供了与 Amazon Bedrock AgentCore 服务运行 agent 的集成。
 
-## Amazon Bedrock AgentCore Runtime
+## Amazon Bedrock AgentCore Runtime {id="amazon-bedrock-agentcore-runtime"}
 
 `koog-bedrock-agentcore-runtime` 模块提供了一个 Ktor 路由安装程序，通过 [Amazon Bedrock AgentCore Runtime](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime.html) HTTP 契约公开 Koog agent。它会安装相对于其配置的 Ktor 路由的以下端点：
 
@@ -17,7 +17,7 @@ Koog 提供了与 Amazon Bedrock AgentCore 服务运行 agent 的集成。
 
 该模块支持类型化 JSON 处理程序，以及文本、二进制、多部分 (multipart) 和流式有效负载。调用处理程序在 Ktor `RoutingContext` 中运行，因此当安装了 `koog-ktor` 插件时，它们可以使用 Koog 路由扩展（例如 `aiAgent()`）。
 
-### 添加依赖项
+### 添加依赖项 {id="add-the-dependency"}
 
 将 AgentCore Runtime 模块添加到您的 Gradle 构建中：
 
@@ -29,7 +29,7 @@ dependencies {
 
 该模块需要 JVM 17 或更高版本、Kotlin 2.x 以及 Ktor 3.x。
 
-### 安装 Runtime 路由
+### 安装 Runtime 路由 {id="install-the-runtime-routes"}
 
 以下示例安装了 Koog 和 Ktor 内容协商，然后公开了一个类型化 JSON 调用处理程序：
 
@@ -81,7 +81,7 @@ fun Application.module() {
 
 类型化处理程序将请求反序列化和响应序列化委托给 Ktor 的 `ContentNegotiation` 插件。宿主应用程序必须为其接受的媒体类型安装转换器，例如用于 JSON 请求和响应的 `json()`。服务器引擎、端口和其他应用程序插件也仍由宿主应用程序控制。
 
-### 处理不同的有效负载类型
+### 处理不同的有效负载类型 {id="handle-different-payload-types"}
 
 对于非 JSON 有效负载或多模态响应，请配置统一的 `handler`。它接收 `InvocationInput` 和 `AgentCoreContext`，并返回 `InvocationResult`：
 
@@ -111,7 +111,7 @@ routing {
 
 流式响应是直接写入的，不需要 Ktor 的 `SSE` 插件。
 
-### 配置请求处理
+### 配置请求处理 {id="configure-request-handling"}
 
 `AgentCoreRuntimeConfig` 提供以下选项：
 
@@ -126,7 +126,7 @@ routing {
 
 不带 `Content-Length` 标头的请求不会针对 `maxRequestBytes` 进行预检查；底层服务器引擎的限制仍然适用。
 
-### 监控健康状况和后台任务
+### 监控健康状况和后台任务 {id="monitor-health-and-background-tasks"}
 
 `/ping` 端点返回：
 
@@ -138,7 +138,7 @@ routing {
 
 速率限制也由宿主应用程序控制。全局安装 Ktor 的 `RateLimit` 插件，或将 `agentCoreRuntime` 路由包装在命名的 `rateLimit` 块中，以应用所需的策略。
 
-## Amazon Bedrock AgentCore Memory
+## Amazon Bedrock AgentCore Memory {id="amazon-bedrock-agentcore-memory"}
 
 Koog 通过两种方式与 [Amazon Bedrock AgentCore Memory](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/memory.html) 集成：
 
@@ -147,7 +147,7 @@ Koog 通过两种方式与 [Amazon Bedrock AgentCore Memory](https://docs.aws.am
 
 这两种集成都需要 JVM 17 或更高版本以及 AgentCore 记忆资源。通过标准的 AWS SDK 凭据和区域提供者链配置 AWS 凭据和区域。
 
-### 添加依赖项
+### 添加依赖项 {id="add-the-dependencies"}
 
 将一个或两个 Memory 集成模块添加到您的 Gradle 构建中：
 
@@ -160,7 +160,7 @@ dependencies {
 
 这两个模块都公开了其公共 API 使用的 AWS SDK for Kotlin `BedrockAgentCoreClient`。长期记忆还公开了用于记忆策略发现的 `BedrockAgentCoreControlClient`。
 
-### 持久化对话历史记录
+### 持久化对话历史记录 {id="persist-conversational-history"}
 
 `AgentcoreChatHistoryProvider` 通过 AgentCore `createEvent` 和 `listEvents` API 实现了 Koog 的 `ChatHistoryProvider`。通过 `ChatMemory` 功能安装它：
 
@@ -192,7 +192,7 @@ val result = agent.run(
 
 提供者存储纯文本 `Message.User` 和 `Message.Assistant` 消息。从 AgentCore 加载的消息在其元数据中携带事件 ID，从而允许提供者在再次保存完整历史记录时仅存储新消息。系统、工具、推理和非文本内容默认会被跳过；将 `ignoreUnsupportedValues = false` 设置为拒绝此类内容。使用 `pageSize` 控制 `listEvents` 分页，使用 `totalEventsLimit` 限制加载事件的数量。
 
-### 检索长期记忆
+### 检索长期记忆 {id="retrieve-long-term-memory"}
 
 `LongTermMemory` 可以在每次 LLM 请求之前查询一个或多个 AgentCore 记忆策略。`agentcore` DSL 创建一个复合检索，因此单个代码块可以组合多种策略类型和命名空间作用域：
 
@@ -242,7 +242,7 @@ val agent = AIAgent(/* ... */) {
 
 默认的 `AgentcorePromptAugmenter` 将语义、偏好、片段 (episode) 和反思 (reflection) 记录放置在系统消息中。摘要记录会附加到最新的用户消息中。在块中设置 `augmenter` 以使用另一个 Koog `PromptAugmenter`。
 
-### 发现配置的记忆策略
+### 发现配置的记忆策略 {id="discover-configured-memory-strategies"}
 
 当不应硬编码策略 ID 或命名空间模板时，请将 `AgentcoreStrategyDiscovery` 与 AWS `BedrockAgentCoreControlClient` 配合使用，然后将其结果传递给 `agentcoreDiscovered`。发现 DSL 会配置为记忆资源返回的所有支持的策略，并允许您覆盖检索限制、分数、过滤器和命名空间模式，或排除单个策略。当发现的集合包含摘要或片段式策略时，需要 `sessionId`。
 

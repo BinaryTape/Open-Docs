@@ -13,7 +13,7 @@
 * [구조체 및 공용체 타입이 매핑되는 방식](#mapping-struct-and-union-c-types)
 * [Kotlin에서 구조체 및 공용체 타입을 사용하는 방법](#use-struct-and-union-types-from-kotlin)
 
-## C의 구조체 및 공용체 타입 매핑하기
+## C의 구조체 및 공용체 타입 매핑하기 {id="mapping-struct-and-union-c-types"}
 
 Kotlin이 구조체와 공용체 타입을 어떻게 매핑하는지 이해하기 위해, C에서 이를 선언하고 Kotlin에서 어떻게 표현되는지 살펴보겠습니다.
 
@@ -43,7 +43,7 @@ void union_by_pointer(MyUnion* u) {}
 
 `interop.def` 파일은 애플리케이션을 컴파일, 실행하거나 IDE에서 여는 데 필요한 모든 정보를 제공합니다.
 
-## C 라이브러리용으로 생성된 Kotlin API 검사하기
+## C 라이브러리용으로 생성된 Kotlin API 검사하기 {id="inspect-generated-kotlin-apis-for-a-c-library"}
 
 C 구조체와 공용체 타입이 Kotlin/Native로 어떻게 매핑되는지 확인하고 프로젝트를 업데이트해 보겠습니다.
 
@@ -130,7 +130,7 @@ C 구조체와 공용체 타입이 Kotlin/Native로 어떻게 매핑되는지 �
 
 생성된 API에는 `kotlinx.cinterop`에서의 위치를 반영하는 `CValue<T>` 및 `CValuesRef<T>`의 전체 경로 패키지 이름이 포함됩니다. `CValue<T>`는 값에 의한(by-value) 구조체 파라미터를 나타내며, `CValuesRef<T>?`는 구조체 또는 공용체에 대한 포인터를 전달하는 데 사용됩니다.
 
-## Kotlin에서 구조체 및 공용체 타입 사용하기
+## Kotlin에서 구조체 및 공용체 타입 사용하기 {id="use-struct-and-union-types-from-kotlin"}
 
 생성된 API 덕분에 Kotlin에서 C 구조체와 공용체 타입을 사용하는 것은 매우 간단합니다. 유일한 문제는 이러한 타입의 새로운 인스턴스를 생성하는 방법입니다.
 
@@ -138,7 +138,7 @@ C 구조체와 공용체 타입이 Kotlin/Native로 어떻게 매핑되는지 �
 
 Kotlin은 이러한 타입을 생성하고 작업하기 위한 편리한 API를 제공합니다. 실제로 어떻게 사용하는지 살펴보겠습니다.
 
-### CValue&lt;T&gt; 생성하기
+### CValue&lt;T&gt; 생성하기 {id="create-a-cvalue-lt-t-gt"}
 
 `CValue<T>` 타입은 C 함수 호출에 값에 의한 파라미터를 전달할 때 사용됩니다. `cValue` 함수를 사용하여 `CValue<T>` 인스턴스를 생성하세요. 이 함수는 해당 C 타입을 즉석에서 초기화하기 위해 [수신 객체가 있는 람다 함수 (lambda function with a receiver)](lambdas.md#function-literals-with-receiver)가 필요합니다. 함수는 다음과 같이 선언됩니다:
 
@@ -171,7 +171,7 @@ fun callValue() {
 }
 ```
 
-### CValuesRef&lt;T&gt;로 구조체 및 공용체 생성하기
+### CValuesRef&lt;T&gt;로 구조체 및 공용체 생성하기 {id="create-struct-and-union-as-cvaluesref-lt-t-gt"}
 
 `CValuesRef<T>` 타입은 Kotlin에서 C 함수의 포인터 타입 파라미터를 전달하는 데 사용됩니다. 네이티브 메모리에 `MyStruct` 및 `MyUnion`을 할당하려면 `kotlinx.cinterop.NativePlacement` 타입의 다음 확장 함수를 사용하세요:
 
@@ -219,7 +219,7 @@ fun callRef() {
 
 메모리는 `memScoped {}` 블록 내부에서 관리되므로 블록 끝에서 자동으로 해제됩니다. 할당 해제된 메모리에 접근하는 것을 방지하기 위해 이 범위 밖에서 포인터를 사용하는 것은 피해야 합니다. (예를 들어 C 라이브러리의 캐싱을 위해) 더 오래 유지되어야 하는 할당이 필요한 경우 `Arena()` 또는 `nativeHeap` 사용을 고려하세요.
 
-### CValue&lt;T&gt;와 CValuesRef&lt;T&gt; 간의 변환
+### CValue&lt;T&gt;와 CValuesRef&lt;T&gt; 간의 변환 {id="conversion-between-cvalue-lt-t-gt-and-cvaluesref-lt-t-gt"}
 
 때로는 한 함수 호출에서는 구조체를 값으로 전달하고, 다른 호출에서는 동일한 구조체를 참조로 전달해야 할 때가 있습니다.
 
@@ -267,7 +267,7 @@ fun callMix_value() {
 }
 ```
 
-## Kotlin 코드 업데이트하기
+## Kotlin 코드 업데이트하기 {id="update-kotlin-code"}
 
 이제 Kotlin 코드에서 C 선언을 사용하는 방법을 배웠으므로, 프로젝트에서 이를 사용해 보세요. `hello.kt` 파일의 최종 코드는 다음과 같을 수 있습니다:
 
@@ -312,7 +312,7 @@ fun main() {
 ./gradlew runDebugExecutableMacosArm64
 ```
 
-## 다음 단계
+## 다음 단계 {id="next-step"}
 
 이 시리즈의 다음 파트에서는 Kotlin과 C 사이에서 함수 포인터가 어떻게 매핑되는지 배울 것입니다:
 
@@ -325,6 +325,6 @@ fun main() {
   </li>
 </list>
 
-### 더 보기
+### 더 보기 {id="see-also"}
 
 더 고급 시나리오를 다루는 [C와의 상호운용성 (Interoperability with C)](native-c-interop.md) 문서에서 더 많은 내용을 배울 수 있습니다.

@@ -6,7 +6,7 @@
 >
 {style="tip"}
 
-## 目標層級
+## 目標層級 {id="target-tiers"}
 
 Kotlin/Native 編譯器支援多種不同的目標，但對這些目標的支援程度各不相同。
 為了釐清這些程度，我們根據編譯器對目標的支援完善程度將其分為幾個層級。
@@ -19,7 +19,7 @@ Kotlin/Native 編譯器支援多種不同的目標，但對這些目標的支援
   
   這僅在特定目標的原生主機上可用。例如，您只能在 macOS ARM64 主機上執行 `macosArm64` 和 `iosArm64` 測試。
 
-### 第 1 層級
+### 第 1 層級 {id="tier-1"}
 
 * 該目標在 CI 上定期進行測試，以確保能夠編譯與執行。
 * 我們提供編譯器版本之間的原始碼與 [二進位相容性](https://youtrack.jetbrains.com/issue/KT-42293)。
@@ -31,7 +31,7 @@ Kotlin/Native 編譯器支援多種不同的目標，但對這些目標的支援
 | `iosSimulatorArm64` | `aarch64-apple-ios-simulator` | ✅ | Apple Silicon 平台上的 Apple iOS 模擬器 15.0 及更高版本 |
 | `iosArm64` | `aarch64-apple-ios` | | ARM64 平台上的 Apple iOS 與 iPadOS 15.0 及更高版本 |
 
-### 第 2 層級
+### 第 2 層級 {id="tier-2"}
 
 * 該目標在 CI 上定期進行測試以確保能夠編譯，但可能不會自動測試其是否能夠執行。
 * 我們盡力提供編譯器版本之間的原始碼與 [二進位相規性](https://youtrack.jetbrains.com/issue/KT-42293)。
@@ -47,7 +47,7 @@ Kotlin/Native 編譯器支援多種不同的目標，但對這些目標的支援
 | `tvosSimulatorArm64` | `aarch64-apple-tvos-simulator` | ✅ | Apple Silicon 平台上的 Apple tvOS 模擬器 15.0 及更高版本 |
 | `tvosArm64` | `aarch64-apple-tvos` | | ARM64 平台上的 Apple tvOS 15.0 及更高版本 |
 
-### 第 3 層級
+### 第 3 層級 {id="tier-3"}
 
 * 不保證該目標會在 CI 上進行測試。
 * 我們無法承諾不同編譯器版本之間的原始碼與二進位相容性，儘管這些目標的此類變更相當罕見。
@@ -71,7 +71,7 @@ Kotlin/Native 編譯器支援多種不同的目標，但對這些目標的支援
 > 
 {style="note"}
 
-### 已棄用目標
+### 已棄用目標 {id="deprecated-targets"}
 
 從 Kotlin 2.3.20 開始，以下目標已被棄用：
 
@@ -79,7 +79,7 @@ Kotlin/Native 編譯器支援多種不同的目標，但對這些目標的支援
 * `watchosX64` (x86_64 平台上的 Apple watchOS 64 位元模擬器)
 * `tvosX64` (x86_64 平台上的 Apple tvOS 模擬器)
 
-### 支援較舊的 Apple 目標版本
+### 支援較舊的 Apple 目標版本 {id="supporting-lower-apple-target-versions"}
 
 目前，Apple 目標預設的最低支援版本如下：
 
@@ -102,7 +102,7 @@ kotlin {
 }
 ```
 
-### 給程式庫作者
+### 給程式庫作者 {id="for-library-authors"}
 
 我們不建議程式庫作者測試比 Kotlin/Native 編譯器更多的目標或提供更嚴格的保證。考慮支援原生目標時，您可以採用以下方法：
 
@@ -111,7 +111,7 @@ kotlin {
 
 Kotlin 團隊在官方 Kotlin 程式庫中也使用了此方法，例如 [kotlinx.coroutines](coroutines-guide.md) 和 [kotlinx.serialization](serialization.md)。
 
-## 主機
+## 主機 {id="hosts"}
 
 Kotlin/Native 編譯器支援以下主機：
 
@@ -122,13 +122,13 @@ Kotlin/Native 編譯器支援以下主機：
 | x86_64 架構的 Linux | 除 Apple 目標外，任何支援的目標 | 任何支援的目標，Apple 目標僅限無 cinterop 相依性時 |
 | x86_64 架構的 Windows (MinGW 工具鏈) | 除 Apple 目標外，任何支援的目標 | 任何支援的目標，Apple 目標僅限無 cinterop 相依性時 |
 
-### 建置最終執行檔
+### 建置最終執行檔 {id="building-final-binaries"}
 
 若要產生最終執行檔，您只能在 *支援的主機* 上為 [支援的目標](#target-tiers) 進行編譯。例如，您無法在 FreeBSD 或執行 ARM64 架構的 Linux 電腦上進行編譯。
 
 此外，也無法在 Linux 和 Windows 上為 Apple 目標建置最終執行檔。
 
-### 產生 `.klib` 構件
+### 產生 `.klib` 構件 {id="producing-klib-artifacts"}
 
 通常，Kotlin/Native 允許任何 *支援的主機* 為支援的目標產生 `.klib` 構件。
 
@@ -136,7 +136,7 @@ Kotlin/Native 編譯器支援以下主機：
 
 例如，只有在沒有 cinterop 相依性的情況下，您才能在執行 x86_64 架構的 Windows 電腦上為 `macosArm64` 目標產生 `.klib`。
 
-## 接下來？
+## 接下來？ {id="what-s-next"}
 
 * [建置最終原生執行檔](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html)
 * [針對 Apple 目標進行編譯](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-lib-setup.html#compilation-for-apple-targets)

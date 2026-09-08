@@ -8,7 +8,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 >
 {style="note"}
 
-## 기본 용어
+## 기본 용어 {id="basic-terms"}
 
 이 문서에서는 여러 종류의 호환성을 소개합니다.
 
@@ -18,10 +18,10 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 
 이러한 정의는 순수 코틀린에 대해서만 제공된다는 점을 기억하세요. 다른 언어의 관점(예: Java)에서 본 코틀린 코드의 호환성은 이 문서의 범위를 벗어납니다.
 
-## 언어
+## 언어 {id="language"}
 
 <!--
-### 제목
+### 제목 {id="title"}
 
 > **이슈**: [KT-NNNNN](https://youtrack.jetbrains.com/issue/KT-NNNNN)
 >
@@ -37,7 +37,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.8.0: 경고를 오류로 격상
 -->
 
-### 프로젝션된 리시버에서의 합성 세터 사용 중단
+### 프로젝션된 리시버에서의 합성 세터 사용 중단 {id="deprecate-use-of-a-synthetic-setter-on-a-projected-receiver"}
 
 > **이슈**: [KT-54309](https://youtrack.jetbrains.com/issue/KT-54309)
 >
@@ -52,7 +52,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.8.20: 합성 프로퍼티 세터가 반공변(contravariant) 위치에 프로젝션된 매개변수 타입을 가져 호출 지점의 인자 타입이 호환되지 않는 경우 경고 리포트
 > - 2.0.0: 경고를 오류로 격상
 
-### Java 서브클래스에서 오버로드된 인라인 클래스 매개변수를 가진 함수 호출 시 맹글링 수정
+### Java 서브클래스에서 오버로드된 인라인 클래스 매개변수를 가진 함수 호출 시 맹글링 수정 {id="correct-mangling-when-calling-functions-with-inline-class-parameters-that-are-overloaded-in-a-java-subclass"}
 
 > **이슈**: [KT-56545](https://youtrack.jetbrains.com/issue/KT-56545)
 >
@@ -64,7 +64,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 >
 > - 2.0.0: 함수 호출 시 올바른 맹글링(mangling) 동작을 사용합니다. 이전 동작으로 되돌리려면 `-XXLanguage:-MangleCallsToJavaMethodsWithValueClasses` 컴파일러 옵션을 사용하세요.
 
-### 반공변 캡처된 타입에 대한 타입 근사 알고리즘 수정
+### 반공변 캡처된 타입에 대한 타입 근사 알고리즘 수정 {id="correct-type-approximation-algorithm-for-contravariant-captured-types"}
 
 > **이슈**: [KT-49404](https://youtrack.jetbrains.com/issue/KT-49404)
 >
@@ -77,7 +77,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.8.20: 문제가 있는 호출에 대해 경고 리포트
 > - 2.0.0: 경고를 오류로 격상
 
-### 프로퍼티 초기화 전 프로퍼티 값 접근 금지
+### 프로퍼티 초기화 전 프로퍼티 값 접근 금지 {id="prohibit-accessing-property-value-before-property-initialization"}
 
 > **이슈**: [KT-56408](https://youtrack.jetbrains.com/issue/KT-56408)
 >
@@ -89,7 +89,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 >
 > - 2.0.0: 영향받는 컨텍스트에서 프로퍼티가 초기화되기 전에 접근되는 경우 오류 리포트
 
-### 동일한 이름을 가진 임포트된 클래스 간에 모호성이 있는 경우 오류 리포트
+### 동일한 이름을 가진 임포트된 클래스 간에 모호성이 있는 경우 오류 리포트 {id="report-error-when-there-s-ambiguity-in-imported-classes-with-the-same-name"}
 
 > **이슈**: [KT-57750](https://youtrack.jetbrains.com/issue/KT-57750)
 >
@@ -101,7 +101,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 >
 > - 2.0.0: 스타 임포트(star import)로 임포트된 여러 패키지에 존재하는 클래스 이름을 해석할 때 오류 리포트
 
-### 기본적으로 invokedynamic 및 LambdaMetafactory를 통해 코틀린 람다 생성
+### 기본적으로 invokedynamic 및 LambdaMetafactory를 통해 코틀린 람다 생성 {id="generate-kotlin-lambdas-via-invokedynamic-and-lambdametafactory-by-default"}
 
 > **이슈**: [KT-45375](https://youtrack.jetbrains.com/issue/KT-45375)
 >
@@ -113,7 +113,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 >
 > - 2.0.0: 새로운 동작 구현. 람다는 기본적으로 `invokedynamic` 및 `LambdaMetafactory`를 사용하여 생성됩니다.
 
-### 식이 필요한 경우 브랜치가 하나만 있는 if 조건문 금지
+### 식이 필요한 경우 브랜치가 하나만 있는 if 조건문 금지 {id="forbid-if-condition-with-one-branch-when-an-expression-is-required"}
 
 > **이슈**: [KT-57871](https://youtrack.jetbrains.com/issue/KT-57871)
 >
@@ -125,7 +125,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 >
 > - 2.0.0: `if` 조건문에 브랜치가 하나만 있는 경우 오류 리포트
 
-### 제네릭 타입의 스타 프로젝션을 전달하여 셀프 상한(self upper bounds)을 위반하는 행위 금지
+### 제네릭 타입의 스타 프로젝션을 전달하여 셀프 상한(self upper bounds)을 위반하는 행위 금지 {id="prohibit-violation-of-self-upper-bounds-by-passing-a-star-projection-of-a-generic-type"}
 
 > **이슈**: [KT-61718](https://youtrack.jetbrains.com/issue/KT-61718)
 >
@@ -137,7 +137,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 >
 > - 2.0.0: 제네릭 타입의 스타 프로젝션을 전달하여 셀프 상한을 위반하는 경우 오류 리포트
 
-### 프라이빗 인라인 함수의 반환 타입에서 익명 타입 근사 수행
+### 프라이빗 인라인 함수의 반환 타입에서 익명 타입 근사 수행 {id="approximate-anonymous-types-in-private-inline-functions-return-type"}
 
 > **이슈**: [KT-54862](https://youtrack.jetbrains.com/issue/KT-54862)
 >
@@ -150,7 +150,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.9.0: 추론된 반환 타입에 익명 타입이 포함된 프라이빗 인라인 함수에 대해 경고 리포트
 > - 2.0.0: 이러한 프라이빗 인라인 함수의 반환 타입을 상위 타입(supertype)으로 근사(approximate) 처리
 
-### 로컬 함수형 타입 프로퍼티의 invoke 규칙보다 로컬 확장 함수 호출을 우선하도록 오버로드 해소 동작 변경
+### 로컬 함수형 타입 프로퍼티의 invoke 규칙보다 로컬 확장 함수 호출을 우선하도록 오버로드 해소 동작 변경 {id="change-overload-resolution-behavior-to-prioritize-local-extension-function-calls-over-invoke-conventions-of-local-functional-type-properties"}
 
 > **이슈**: [KT-37592](https://youtrack.jetbrains.com/issue/KT-37592)
 >
@@ -162,7 +162,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 >
 > - 2.0.0: 새로운 오버로드 해소 동작 적용. 함수 호출이 invoke 규칙보다 일관되게 우선순위를 갖습니다.
 
-### 바이너리 의존성의 상위 타입 변경으로 인해 상속된 멤버 충돌이 발생하는 경우 오류 리포트
+### 바이너리 의존성의 상위 타입 변경으로 인해 상속된 멤버 충돌이 발생하는 경우 오류 리포트 {id="report-error-when-an-inherited-member-conflict-occurs-due-to-a-change-in-a-supertype-from-binary-dependency"}
 
 > **이슈**: [KT-51194](https://youtrack.jetbrains.com/issue/KT-51194)
 >
@@ -175,7 +175,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.7.0: 바이너리 의존성의 상위 타입에서 상속된 멤버 충돌이 발생한 선언에 대해 `CONFLICTING_INHERITED_MEMBERS_WARNING` 경고 리포트
 > - 2.0.0: 경고를 오류로 격상: `CONFLICTING_INHERITED_MEMBERS`
 
-### 무공변(invariant) 타입의 매개변수에서 @UnsafeVariance 어노테이션 무시
+### 무공변(invariant) 타입의 매개변수에서 @UnsafeVariance 어노테이션 무시 {id="ignore-unsafevariance-annotations-on-parameters-in-invariant-types"}
 
 > **이슈**: [KT-57609](https://youtrack.jetbrains.com/issue/KT-57609)
 >
@@ -187,7 +187,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 >
 > - 2.0.0: 새로운 동작 구현. 반공변(contravariant) 매개변수의 타입 불일치에 대한 오류를 리포트할 때 `@UnsafeVariance` 어노테이션을 무시합니다.
 
-### 컴패니언 객체 멤버의 호출 외부 참조에 대한 타입 변경
+### 컴패니언 객체 멤버의 호출 외부 참조에 대한 타입 변경 {id="change-type-for-out-of-call-references-to-a-companion-object-s-member"}
 
 > **이슈**: [KT-54316](https://youtrack.jetbrains.com/issue/KT-54316)
 >
@@ -200,7 +200,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.8.20: 바인딩되지 않은 참조(unbound reference)로 추론된 컴패니언 객체 함수 참조 타입에 대해 경고 리포트
 > - 2.0.0: 모든 사용 컨텍스트에서 컴패니언 객체 함수 참조가 바인딩된 참조(bound reference)로 추론되도록 동작 변경
 
-### 프라이빗 인라인 함수를 통한 익명 타입 노출 금지
+### 프라이빗 인라인 함수를 통한 익명 타입 노출 금지 {id="prohibit-exposure-of-anonymous-types-from-private-inline-functions"}
 
 > **이슈**: [KT-33917](https://youtrack.jetbrains.com/issue/KT-33917)
 >
@@ -213,7 +213,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.3.0: 프라이빗 인라인 함수에서 반환된 익명 객체의 고유 멤버 호출에 대해 경고 리포트
 > - 2.0.0: 이러한 프라이빗 인라인 함수의 반환 타입을 상위 타입으로 근사하고 익명 객체 멤버에 대한 호출을 해소(resolve)하지 않음
 
-### while 루프 break 이후의 불안전한 스마트 캐스트에 대해 오류 리포트
+### while 루프 break 이후의 불안전한 스마트 캐스트에 대해 오류 리포트 {id="report-error-for-an-unsound-smart-cast-after-a-while-loop-break"}
 
 > **이슈**: [KT-22379](https://youtrack.jetbrains.com/issue/KT-22379)
 >
@@ -225,7 +225,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 >
 > - 2.0.0: 새로운 동작 구현. 언어 버전을 1.9로 전환하여 이전 동작을 복구할 수 있음
 
-### 교차 타입 변수에 해당 교차 타입의 하위 타입이 아닌 값이 할당될 때 오류 리포트
+### 교차 타입 변수에 해당 교차 타입의 하위 타입이 아닌 값이 할당될 때 오류 리포트 {id="report-error-when-a-variable-of-an-intersection-type-is-assigned-a-value-that-is-not-a-subtype-of-that-intersection-type"}
 
 > **이슈**: [KT-53752](https://youtrack.jetbrains.com/issue/KT-53752)
 >
@@ -237,7 +237,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 >
 > - 2.0.0: 교차 타입(intersection type)을 가진 변수에 해당 교차 타입의 하위 타입이 아닌 값이 할당될 때 오류 리포트
 
-### SAM 생성자로 구성된 인터페이스에 옵트인이 필요한 메서드가 포함된 경우 옵트인 요구
+### SAM 생성자로 구성된 인터페이스에 옵트인이 필요한 메서드가 포함된 경우 옵트인 요구 {id="require-opt-in-when-an-interface-constructed-with-a-sam-constructor-contains-a-method-that-requires-an-opt-in"}
 
 > **이슈**: [KT-52628](https://youtrack.jetbrains.com/issue/KT-52628)
 >
@@ -250,7 +250,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.7.20: SAM 생성자를 통한 `OptIn` 사용에 대해 경고 리포트
 > - 2.0.0: SAM 생성자를 통한 `OptIn` 사용에 대해 경고를 오류로 격상 (단, `OptIn` 마커 심각도가 경고인 경우 경고로 유지)
 
-### 타입별칭 생성자에서의 상한 위반 금지
+### 타입별칭 생성자에서의 상한 위반 금지 {id="prohibit-upper-bound-violation-in-typealias-constructors"}
 
 > **이슈**: [KT-54066](https://youtrack.jetbrains.com/issue/KT-54066)
 >
@@ -263,7 +263,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.8.0: 타입별칭(typealias) 생성자에서 상한(upper bound)이 위반되는 경우에 대해 경고 도입
 > - 2.0.0: K2 컴파일러에서 경고를 오류로 격상
 
-### 명시적 타입이 지정된 경우 구조 분해 변수의 실제 타입을 명시적 타입과 일치시킴
+### 명시적 타입이 지정된 경우 구조 분해 변수의 실제 타입을 명시적 타입과 일치시킴 {id="make-the-real-type-of-a-destructuring-variable-consistent-with-the-explicit-type-when-specified"}
 
 > **이슈**: [KT-57011](https://youtrack.jetbrains.com/issue/KT-57011)
 >
@@ -275,7 +275,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 >
 > - 2.0.0: 새로운 동작 구현. 구조 분해 변수의 실제 타입이 명시적으로 지정된 타입과 일치하게 됨
 
-### 옵트인이 필요한 기본값을 가진 매개변수 타입을 포함한 생성자 호출 시 옵트인 요구
+### 옵트인이 필요한 기본값을 가진 매개변수 타입을 포함한 생성자 호출 시 옵트인 요구 {id="require-opt-in-when-calling-a-constructor-that-has-parameter-types-with-default-values-that-require-an-opt-in"}
 
 > **이슈**: [KT-55111](https://youtrack.jetbrains.com/issue/KT-55111)
 >
@@ -288,7 +288,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.8.20: 옵트인이 필요한 매개변수 타입을 가진 생성자 호출에 대해 경고 리포트
 > - 2.0.0: 경고를 오류로 격상 (단, `OptIn` 마커 심각도가 경고인 경우 경고로 유지)
 
-### 동일한 스코프 레벨에서 동일한 이름을 가진 프로퍼티와 열거형 엔트리 간의 모호성 리포트
+### 동일한 스코프 레벨에서 동일한 이름을 가진 프로퍼티와 열거형 엔트리 간의 모호성 리포트 {id="report-ambiguity-between-a-property-and-an-enum-entry-with-the-same-name-at-the-same-scope-level"}
 
 > **이슈**: [KT-52802](https://youtrack.jetbrains.com/issue/KT-52802)
 >
@@ -301,7 +301,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.7.20: 컴파일러가 동일한 스코프 레벨에서 열거형 엔트리 대신 프로퍼티로 해석할 때 경고 리포트
 > - 2.0.0: K2 컴파일러에서 동일한 스코프 레벨에 동일한 이름을 가진 프로퍼티와 열거형 엔트리가 모두 있는 경우 모호성 리포트 (이전 컴파일러에서는 경고 유지)
 
-### 열거형 엔트리보다 컴패니언 프로퍼티를 우선하도록 한정자 해소 동작 변경
+### 열거형 엔트리보다 컴패니언 프로퍼티를 우선하도록 한정자 해소 동작 변경 {id="change-qualifier-resolution-behavior-to-prefer-companion-property-over-enum-entry"}
 
 > **이슈**: [KT-47310](https://youtrack.jetbrains.com/issue/KT-47310)
 >
@@ -313,7 +313,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 >
 > - 2.0.0: 새로운 해소 동작 구현. 열거형 엔트리보다 컴패니언 프로퍼티를 우선함
 
-### invoke 호출 리시버 타입과 invoke 함수 타입을 디슈가링된 형식으로 작성된 것처럼 해소
+### invoke 호출 리시버 타입과 invoke 함수 타입을 디슈가링된 형식으로 작성된 것처럼 해소 {id="resolve-invoke-call-receiver-type-and-the-invoke-function-type-as-if-written-in-desugared-form"}
 
 > **이슈**: [KT-58260](https://youtrack.jetbrains.com/issue/KT-58260)
 >
@@ -325,7 +325,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 >
 > - 2.0.0: invoke 호출 리시버 타입과 invoke 함수 타입을 마치 디슈가링(desugared)된 형식으로 작성된 것처럼 각각 독립적으로 해소
 
-### 비공개 인라인 함수를 통한 프라이빗 클래스 멤버 노출 금지
+### 비공개 인라인 함수를 통한 프라이빗 클래스 멤버 노출 금지 {id="prohibit-exposing-private-class-members-through-non-private-inline-functions"}
 
 > **이슈**: [KT-55179](https://youtrack.jetbrains.com/issue/KT-55179)
 >
@@ -338,7 +338,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.9.0: 내부 인라인 함수에서 프라이빗 클래스 컴패니언 객체 멤버를 호출할 때 `PRIVATE_CLASS_MEMBER_FROM_INLINE_WARNING` 경고 리포트
 > - 2.0.0: 이 경고를 `PRIVATE_CLASS_MEMBER_FROM_INLINE` 오류로 격상
 
-### 프로젝션된 제네릭 타입에서 반드시 null이 아닌 타입의 null 허용 여부 수정
+### 프로젝션된 제네릭 타입에서 반드시 null이 아닌 타입의 null 허용 여부 수정 {id="correct-nullability-of-definitely-non-null-types-in-projected-generic-types"}
 
 > **이슈**: [KT-54663](https://youtrack.jetbrains.com/issue/KT-54663)
 >
@@ -350,7 +350,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 >
 > - 2.0.0: 새로운 동작 구현. 프로젝션된 타입이 모든 인플레이스(in-place) null이 아닌 타입을 고려함
 
-### 접두사 증감 연산자의 추론된 타입을 inc() 연산자의 반환 타입 대신 게터의 반환 타입과 일치하도록 변경
+### 접두사 증감 연산자의 추론된 타입을 inc() 연산자의 반환 타입 대신 게터의 반환 타입과 일치하도록 변경 {id="change-inferred-type-of-prefix-increment-to-match-getter-s-return-type-instead-of-inc-operator-s-return-type"}
 
 > **이슈**: [KT-57178](https://youtrack.jetbrains.com/issue/KT-57178)
 >
@@ -362,7 +362,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 >
 > - 2.0.0: 새로운 동작 구현. 접두사 증감 연산자의 추론된 타입이 `inc()` 연산자의 반환 타입 대신 게터(getter)의 반환 타입과 일치하도록 변경됨
 
-### 상위 클래스에 선언된 제네릭 내부 클래스로부터 내부 클래스를 상속받을 때 제약 조건 검사 강제
+### 상위 클래스에 선언된 제네릭 내부 클래스로부터 내부 클래스를 상속받을 때 제약 조건 검사 강제 {id="enforce-bound-checks-when-inheriting-inner-classes-from-generic-inner-classes-declared-in-superclasses"}
 
 > **이슈**: [KT-61749](https://youtrack.jetbrains.com/issue/KT-61749)
 >
@@ -374,7 +374,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 >
 > - 2.0.0: 제네릭 내부 상위 클래스의 타입 매개변수 상한이 위반될 때 오류 리포트
 
-### 기대되는 타입이 함수 타입 매개변수를 가진 함수 타입인 경우 SAM 타입을 가진 호출 가능 참조 할당 금지
+### 기대되는 타입이 함수 타입 매개변수를 가진 함수 타입인 경우 SAM 타입을 가진 호출 가능 참조 할당 금지 {id="forbid-assigning-callable-references-with-sam-types-when-the-expected-type-is-a-function-type-with-a-function-type-parameter"}
 
 > **이슈**: [KT-64342](https://youtrack.jetbrains.com/issue/KT-64342)
 >
@@ -386,7 +386,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 >
 > - 2.0.0: 기대되는 타입이 함수 타입 매개변수를 가진 함수 타입일 때, SAM 타입을 가진 호출 가능 참조(callable reference)에 대해 컴파일 오류 리포트
 
-### 컴패니언 객체의 어노테이션 해소 시 컴패니언 객체 스코프 고려
+### 컴패니언 객체의 어노테이션 해소 시 컴패니언 객체 스코프 고려 {id="consider-companion-object-scope-for-annotation-resolution-on-companion-objects"}
 
 > **이슈**: [KT-64299](https://youtrack.jetbrains.com/issue/KT-64299)
 >
@@ -398,7 +398,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 >
 > - 2.0.0: 새로운 동작 구현. 컴패니언 객체의 어노테이션 해소 시 컴패니언 객체 스코프가 무시되지 않음
 
-### 안전한 호출과 관례 연산자 조합에 대한 평가 시맨틱 변경
+### 안전한 호출과 관례 연산자 조합에 대한 평가 시맨틱 변경 {id="change-evaluation-semantics-for-combination-of-safe-calls-and-convention-operators"}
 
 > **이슈**: [KT-41034](https://youtrack.jetbrains.com/issue/KT-41034)
 >
@@ -411,7 +411,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.4.0: 잘못된 각 호출에 대해 경고 리포트
 > - 2.0.0: 새로운 해소 동작 구현
 
-### 백킹 필드와 커스텀 세터가 있는 프로퍼티의 즉시 초기화 요구
+### 백킹 필드와 커스텀 세터가 있는 프로퍼티의 즉시 초기화 요구 {id="require-properties-with-backing-field-and-a-custom-setter-to-be-immediately-initialized"}
 
 > **이슈**: [KT-58589](https://youtrack.jetbrains.com/issue/KT-58589)
 > 
@@ -424,7 +424,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.9.20: 기본 생성자가 없는 경우 `MUST_BE_INITIALIZED` 경고 도입
 > - 2.0.0: 경고를 오류로 격상
 
-### invoke 연산자 관례 호출 시 임의의 식에 대한 Unit 변환 금지
+### invoke 연산자 관례 호출 시 임의의 식에 대한 Unit 변환 금지 {id="prohibit-unit-conversion-on-arbitrary-expressions-in-invoke-operator-convention-call"}
 
 > **이슈**: [KT-61182](https://youtrack.jetbrains.com/issue/KT-61182)
 >
@@ -436,7 +436,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 >
 > - 2.0.0: 변수 및 invoke 해소 시 임의의 식에 Unit 변환이 적용되는 경우 오류 리포트. 영향받는 식에 대해 이전 동작을 유지하려면 `-XXLanguage:+UnitConversionsOnArbitraryExpressions` 컴파일러 옵션을 사용하세요.
 
-### 안전한 호출로 필드에 접근할 때 null 허용 값을 null이 아닌 Java 필드에 할당하는 행위 금지
+### 안전한 호출로 필드에 접근할 때 null 허용 값을 null이 아닌 Java 필드에 할당하는 행위 금지 {id="forbid-nullable-assignment-to-non-null-java-field-when-the-field-is-accessed-with-a-safe-call"}
 
 > **이슈**: [KT-62998](https://youtrack.jetbrains.com/issue/KT-62998)
 >
@@ -448,7 +448,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 >
 > - 2.0.0: null 허용 값이 null이 아닌 Java 필드에 할당되는 경우 오류 리포트
 
-### 로우 타입 매개변수를 포함하는 Java 메서드를 오버라이드할 때 스타 프로젝션 타입 요구
+### 로우 타입 매개변수를 포함하는 Java 메서드를 오버라이드할 때 스타 프로젝션 타입 요구 {id="require-star-projected-type-when-overriding-a-java-method-containing-a-raw-type-parameter"}
 
 > **이슈**: [KT-57600](https://youtrack.jetbrains.com/issue/KT-57600)
 >
@@ -460,7 +460,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 >
 > - 2.0.0: 새로운 동작 구현. 로우 타입(raw type) 매개변수에 대한 오버라이딩 금지
 
-### V에 컴패니언이 있을 때 (V)::foo 참조 해소 변경
+### V에 컴패니언이 있을 때 (V)::foo 참조 해소 변경 {id="change-v-foo-reference-resolution-when-v-has-a-companion"}
 
 > **이슈**: [KT-47313](https://youtrack.jetbrains.com/issue/KT-47313)
 >
@@ -473,7 +473,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.6.0: 현재 컴패니언 객체 인스턴스에 바인딩된 호출 가능 참조에 대해 경고 리포트
 > - 2.0.0: 새로운 동작 구현. 타입 주위에 괄호를 추가해도 더 이상 해당 타입의 컴패니언 객체 인스턴스에 대한 참조가 되지 않음
 
-### 실질적으로 공개된 인라인 함수에서 암시적 비공개 API 접근 금지
+### 실질적으로 공개된 인라인 함수에서 암시적 비공개 API 접근 금지 {id="forbid-implicit-non-public-api-access-in-effectively-public-inline-functions"}
 
 > **이슈**: [KT-54997](https://youtrack.jetbrains.com/issue/KT-54997)
 >
@@ -486,7 +486,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.8.20: 공개 인라인 함수에서 암시적 비공개 API에 접근할 때 컴파일 경고 리포트
 > - 2.0.0: 경고를 오류로 격상
 
-### 프로퍼티 게터에서의 사용 지점 get 어노테이션 사용 금지
+### 프로퍼티 게터에서의 사용 지점 get 어노테이션 사용 금지 {id="prohibit-use-site-get-annotations-on-property-getters"}
 
 > **이슈**: [KT-57422](https://youtrack.jetbrains.com/issue/KT-57422)
 >
@@ -499,7 +499,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.9.0: 게터의 사용 지점(use-site) `get` 어노테이션에 대해 경고(프로그레시브 모드에서는 오류) 리포트
 > - 2.0.0: 경고를 `INAPPLICABLE_TARGET_ON_PROPERTY` 오류로 격상. 경고로 되돌리려면 `-XXLanguage:-ProhibitUseSiteGetTargetAnnotations` 사용
 
-### 빌더 추론 람다 함수에서 타입 매개변수가 상한으로 암시적으로 추론되는 현상 방지
+### 빌더 추론 람다 함수에서 타입 매개변수가 상한으로 암시적으로 추론되는 현상 방지 {id="prevent-implicit-inference-of-type-parameters-into-upper-bounds-in-builder-inference-lambda-functions"}
 
 > **이슈**: [KT-47986](https://youtrack.jetbrains.com/issue/KT-47986)
 >
@@ -512,7 +512,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.7.20: 타입 인자에 대한 타입 매개변수가 선언된 상한으로 추론될 수 없는 경우 경고(또는 프로그레시브 모드에서 오류) 리포트
 > - 2.0.0: 경고를 오류로 격상
 
-### 공개 시그니처에서 로컬 타입을 근사할 때 null 허용 여부 유지
+### 공개 시그니처에서 로컬 타입을 근사할 때 null 허용 여부 유지 {id="keep-nullability-when-approximating-local-types-in-public-signatures"}
 
 > **이슈**: [KT-53982](https://youtrack.jetbrains.com/issue/KT-53982)
 >
@@ -525,7 +525,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.8.0: 유연한 타입(flexible types)은 유연한 상위 타입에 의해 근사됨. 선언이 null 허용이어야 함에도 null 허용이 아닌 타입으로 추론되는 경우, NPE를 방지하기 위해 타입을 명시적으로 지정하도록 권장하는 경고 리포트
 > - 2.0.0: null 허용 타입은 null 허용 상위 타입에 의해 근사됨
 
-### 스마트 캐스트 목적의 false && ... 및 false || ... 특수 처리 제거
+### 스마트 캐스트 목적의 false && ... 및 false || ... 특수 처리 제거 {id="remove-special-handling-for-false-and-false-for-the-purposes-of-smart-casting"}
 
 > **이슈**: [KT-65776](https://youtrack.jetbrains.com/issue/KT-65776)
 >
@@ -537,7 +537,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 >
 > - 2.0.0: 새로운 동작 구현. `false && ...` 및 `false || ...`에 대한 특수 처리 없음
 
-### 열거형 내 인라인 open 함수 금지
+### 열거형 내 인라인 open 함수 금지 {id="forbid-inline-open-functions-in-enums"}
 
 > **이슈**: [KT-34372](https://youtrack.jetbrains.com/issue/KT-34372)
 >
@@ -550,9 +550,9 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.8.0: 열거형(enum) 내 인라인 open 함수에 대해 경고 리포트
 > - 2.0.0: 경고를 오류로 격상
 
-## 도구
+## 도구 {id="tools"}
 
-### Gradle 가시성 변경
+### Gradle 가시성 변경 {id="visibility-changes-in-gradle"}
 
 > **이슈**: [KT-64653](https://youtrack.jetbrains.com/issue/KT-64653)
 >
@@ -570,7 +570,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 >
 > - 2.0.0: 가장 일반적인 경우, 빌드 스크립트가 잘못 구성되면 컴파일러가 해결 방법이 포함된 경고를 리포트합니다. 그 외의 경우에는 컴파일러가 오류를 리포트합니다.
 
-### kotlinOptions DSL 사용 중단
+### kotlinOptions DSL 사용 중단 {id="deprecate-kotlinoptions-dsl"}
 
 > **이슈**: [KT-63419](https://youtrack.jetbrains.com/issue/KT-63419)
 >
@@ -584,7 +584,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 >
 > - 2.0.0: 경고 리포트
 
-### KotlinCompilation DSL에서 compilerOptions 사용 중단
+### KotlinCompilation DSL에서 compilerOptions 사용 중단 {id="deprecate-compileroptions-in-kotlincompilation-dsl"}
 
 > **이슈**: [KT-65568](https://youtrack.jetbrains.com/issue/KT-65568)
 >
@@ -598,7 +598,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 >
 > - 2.0.0: 경고 리포트
 
-### CInteropProcess 처리의 이전 방식 지원 중단
+### CInteropProcess 처리의 이전 방식 지원 중단 {id="deprecate-old-ways-of-cinteropprocess-handling"}
 
 > **이슈**: [KT-62795](https://youtrack.jetbrains.com/issue/KT-62795)
 >
@@ -617,7 +617,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 2.0.0: `defFile` 및 `defFileProperty` 매개변수 지원 중단
 > - 2.4.0: [지원 중단된 defFile 프로퍼티에 대해 오류 리포트](compatibility-guide-24.md#report-errors-for-obsolete-kotlin-native-gradle-task-apis)
 
-### kotlin.useK2 Gradle 프로퍼티 제거
+### kotlin.useK2 Gradle 프로퍼티 제거 {id="remove-kotlin-usek2-gradle-property"}
 
 > **이슈**: [KT-64379](https://youtrack.jetbrains.com/issue/KT-64379)
 >
@@ -632,7 +632,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.8.20: `kotlin.useK2` Gradle 프로퍼티 지원 중단
 > - 2.0.0: `kotlin.useK2` Gradle 프로퍼티 제거
 
-### 지원 중단된 플랫폼 플러그인 ID 제거
+### 지원 중단된 플랫폼 플러그인 ID 제거 {id="remove-deprecated-platform-plugin-ids"}
 
 > **이슈**: [KT-65187](https://youtrack.jetbrains.com/issue/KT-65187)
 >
@@ -653,7 +653,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.3: 해당 플랫폼 플러그인 ID 지원 중단
 > - 2.0.0: 해당 플랫폼 플러그인 ID를 더 이상 지원하지 않음
 
-### outputFile JavaScript 컴파일러 옵션 제거
+### outputFile JavaScript 컴파일러 옵션 제거 {id="remove-outputfile-javascript-compiler-option"}
 
 > **이슈**: [KT-61116](https://youtrack.jetbrains.com/issue/KT-61116)
 >

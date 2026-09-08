@@ -7,7 +7,7 @@
 > 이 문서는 특히 KMP 프로젝트에 대해 설명합니다.
 > 모듈화 의사 결정에 대한 일반적인 이해를 원하시면 [Android의 모듈화 소개](https://developer.android.com/topic/modularization)를 참조하세요.
 
-## 최적의 모듈 구조
+## 최적의 모듈 구조 {id="optimal-module-structure"}
 
 최적의 모듈 구조는 목표와 필요한 타겟에 따라 달라질 수 있습니다.
 다양한 구성과 타겟 세트를 사용하여 KMP IDE 플러그인 마법사의 결과물을 분석해 보며 프로젝트가 기본적으로 어떻게 구성되는지 확인할 수 있습니다.
@@ -30,7 +30,7 @@
 > 
 {style="note"}
 
-## 앱 진입점을 위한 별도 모듈 생성
+## 앱 진입점을 위한 별도 모듈 생성 {id="creating-separate-modules-for-app-entry-points"}
 
 권장 구조로의 전환을 설명하기 위해 사용할 예제 프로젝트는 샘플 저장소의 [old-project-structure](https://github.com/kotlin-hands-on/get-started-with-cm/tree/old-project-structure) 브랜치에서 찾을 수 있는 이전 Compose Multiplatform 샘플입니다.
 
@@ -38,9 +38,9 @@
 
 진입점을 자체 모듈로 추출하려면 모듈을 생성하고, 코드를 이동하고, 새 모듈과 공통 코드 모듈 모두에 대해 설정을 적절히 조정해야 합니다.
 
-### 데스크톱 JVM 앱
+### 데스크톱 JVM 앱 {id="desktop-jvm-app"}
 
-#### 데스크톱 앱 모듈 생성 및 설정
+#### 데스크톱 앱 모듈 생성 및 설정 {id="create-and-configure-the-desktop-app-module"}
 
 데스크톱 앱 모듈(`desktopApp`)을 생성하려면 다음을 수행하세요:
 
@@ -52,7 +52,7 @@
     include(":desktopApp")
     ```
 
-#### 데스크톱 앱용 빌드 스크립트 구성
+#### 데스크톱 앱용 빌드 스크립트 구성 {id="configure-the-build-script-for-the-desktop-app"}
 
 데스크톱 앱 빌드 스크립트가 작동하도록 하려면 다음을 수행하세요:
 
@@ -114,7 +114,7 @@
     ```
 6. 메인 메뉴에서 **Build | Sync Project with Gradle Files**를 선택하거나 에디터에서 Gradle 새로고침 버튼을 클릭합니다.
 
-#### 코드 이동 및 데스크톱 앱 실행
+#### 코드 이동 및 데스크톱 앱 실행 {id="move-the-code-and-run-the-desktop-app"}
 
 설정이 완료되면 데스크톱 앱의 코드를 새 디렉토리로 이동합니다:
 
@@ -134,9 +134,9 @@
        * Kotlin `sourceSets {}` 블록 내부의 `jvmMain.dependencies {}` 블록,
        * `kotlin {}` 블록 내부의 `jvm()` 타겟 선언.
 
-### 웹 앱
+### 웹 앱 {id="web-app"}
 
-#### 웹 앱 모듈 생성 및 설정
+#### 웹 앱 모듈 생성 및 설정 {id="create-and-configure-the-web-app-module"}
 
 웹 앱 모듈(`webApp`)을 생성하려면 다음을 수행하세요:
 
@@ -148,7 +148,7 @@
     include(":webApp")
     ```
 
-#### 웹 앱용 빌드 스크립트 구성
+#### 웹 앱용 빌드 스크립트 구성 {id="configure-the-build-script-for-the-web-app"}
 
 웹 앱 빌드 스크립트가 작동하도록 하려면 다음을 수행하세요:
 
@@ -206,7 +206,7 @@
 
 5. 메인 메뉴에서 **Build | Sync Project with Gradle Files**를 선택하거나 에디터에서 Gradle 새로고침 버튼을 클릭합니다.
 
-#### 코드 이동 및 웹 앱 실행
+#### 코드 이동 및 웹 앱 실행 {id="move-the-code-and-run-the-web-app"}
 
 설정이 완료되면 웹 앱의 코드를 새 디렉토리로 이동합니다:
 
@@ -225,7 +225,7 @@
         * Kotlin `sourceSets {}` 블록 내부의 `webMain.dependencies {}` 블록,
         * `kotlin {}` 블록 내부의 `js {}` 및 `wasmJs {}` 타겟 선언.
 
-### 공유 모듈 구성
+### 공유 모듈 구성 {id="configure-the-shared-module"}
 
 예제 앱에서는 UI와 비즈니스 로직 코드가 모두 공유되므로 모든 공통 코드를 보유할 단일 공유 모듈만 있으면 됩니다. 단순히 `composeApp`을 공통 코드 모듈로 용도를 변경할 수 있습니다.
 
@@ -279,13 +279,13 @@
    `kotlin.sourceSets.androidMain.dependencies {}` 블록을 삭제합니다.
 7. Android 앱이 예상대로 실행되는지 확인합니다.
 
-### (선택 사항) 공유 로직 및 공유 UI 분리 {collapsible="true"}
+### (선택 사항) 공유 로직 및 공유 UI 분리 {collapsible="true" id="optional-separate-shared-logic-and-shared-ui"}
 
 프로젝트의 일부 타겟이 네이티브 UI를 구현하는 경우 공통 코드를 `sharedLogic`과 `sharedUI` 모듈로 분리하여 네이티브 UI가 있는 앱 모듈이 공유 코드를 사용하기 위해 Compose Multiplatform에 의존할 필요가 없도록 하는 것이 좋습니다.
 
 다음은 동일한 샘플 앱을 기반으로 이에 접근하는 방법의 예입니다.
 
-#### 공유 로직 모듈 생성
+#### 공유 로직 모듈 생성 {id="create-a-shared-logic-module"}
 
 실제로 모듈을 생성하기 전에 무엇이 비즈니스 로직인지, 즉 UI와 플랫폼 모두에 독립적인 코드가 무엇인지 결정해야 합니다.
 이 예제에서 유일한 후보는 위치와 시간대 쌍에 대한 정확한 시간을 반환하는 `currentTimeAt()` 함수입니다.
@@ -403,7 +403,7 @@
 성공적으로 공유 로직을 별도의 모듈로 격리하고 교차 플랫폼에서 사용했습니다.
 다음 단계는 공유 UI 모듈을 생성하는 것입니다.
 
-#### 공유 UI 모듈 생성
+#### 공유 UI 모듈 생성 {id="create-a-shared-ui-module"}
 
 공통 UI 요소를 구현하는 공유 코드를 `sharedUI` 모듈로 추출합니다:
 
@@ -549,7 +549,7 @@
 
 성공적으로 크로스 플랫폼 UI 코드를 전용 모듈로 이동했습니다.
 
-### iOS 통합 업데이트
+### iOS 통합 업데이트 {id="update-the-ios-integration"}
 
 iOS 앱 진입점은 별도의 Gradle 모듈로 빌드되지 않으므로 소스 코드를 어떤 모듈에도 포함할 수 있습니다. 이 예제에서는 `shared` 내부에 남겨둘 수 있습니다:
 

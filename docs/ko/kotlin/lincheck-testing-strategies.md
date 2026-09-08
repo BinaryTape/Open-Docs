@@ -5,7 +5,7 @@ Lincheck은 동시성 데이터 구조를 테스트하기 위해 모델 검사(m
 
 이 문서에서는 각 전략의 차이점과 테스트 전략을 선택할 때 고려해야 할 사항을 알아봅니다.
 
-## 모델 검사 (Model checking)
+## 모델 검사 (Model checking) {id="model-checking"}
 
 모델 검사를 사용하면 Lincheck이 발생 가능한 스레드 인터리빙(interleaving)을 시뮬레이션하고, 잘못된 동작을 유발하는 경우를 보고합니다.
 
@@ -32,7 +32,7 @@ fun modelCheckingTest() = ModelCheckingOptions()
 {style=”tip”}
 -->
 
-## 스트레스 테스트 (Stress testing)
+## 스트레스 테스트 (Stress testing) {id="stress-testing"}
 
 스트레스 테스트를 사용하면 Lincheck은 오류를 발견할 가능성을 높이기 위해 각 시나리오를 여러 번 실행합니다.
 
@@ -47,7 +47,7 @@ fun stressTest() = StressOptions()
 모델 검사와 달리, Lincheck은 스레드 전환을 제어하거나 추적하지 않습니다. 이로 인해 스트레스 테스트는 더 빠르며 Lincheck이 메모리 모델에 대해 어떠한 가정도 할 필요가 없습니다.
 하지만 스트레스 테스트는 테스트 결과를 재현할 수 없으며, Lincheck이 실행 트레이스를 제공할 수 없습니다.
 
-## 전략 선택하기
+## 전략 선택하기 {id="choose-a-strategy"}
 
 전략을 선택할 때는 다음 사항을 고려하십시오:
 
@@ -93,11 +93,11 @@ fun stressTest() = StressOptions()
     </tr>
 </table>
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 시나리오 생성을 커스터마이징하고, 중단된 실행 감지(stalled execution detection)를 활성화하며, 라이브러리에 대한 스레드 안전성 보장을 제공함으로써 [테스트 전략을 구성하는 방법](lincheck-testing-strategies-options.md)을 알아보세요.
 
-## 참고 항목
+## 참고 항목 {id="see-also"}
 
 * [연산 인자 생성](lincheck-argument-generation-constraints.md)
 * [연산 실행 옵션 설정](lincheck-operation-execution-options.md)

@@ -11,19 +11,19 @@ Coil 3 是 Coil 的下一个主要版本，包含多项重大改进：
 
 在 Compose Multiplatform 项目中使用 Coil 3？请查看 [`samples`](https://github.com/coil-kt/coil/tree/3.x/samples/compose) 仓库获取示例。
 
-## Maven 坐标与包名
+## Maven 坐标与包名 {id="maven-coordinates-and-package-name"}
 
 Coil 的 Maven 坐标已从 `io.coil-kt` 更新为 `io.coil-kt.coil3`，其包名已从 `coil` 更新为 `coil3`。这允许 Coil 3 与 Coil 2 并存运行，而不会产生二进制兼容性问题。例如，`io.coil-kt:coil:2.7.0` 现在是 `io.coil-kt.coil3:coil:3.0.0`。
 
 `coil-base` 和 `coil-compose-base` 构件分别重命名为 `coil-core` 和 `coil-compose-core`，以符合 Coroutines、Ktor 和 AndroidX 使用的命名约定。
 
-## 网络图像
+## 网络图像 {id="network-images"}
 
 **`coil-core` 默认不再支持从网络加载图像。**[您必须添加对 Coil 网络构件之一的依赖。点击此处查看更多信息。](network.md)。进行此项更改是为了让使用者可以使用不同的网络库，或者在应用不需要时避免引入网络依赖。
 
 此外，默认情况下不再遵循缓存控制标头。详见[此处](network.md)。
 
-## 多平台
+## 多平台 {id="multiplatform"}
 
 Coil 3 现在是一个 Kotlin Multiplatform 库，支持 Android、JVM、iOS、macOS、Javascript 和 WASM。
 
@@ -39,7 +39,7 @@ Coil 3 现在是一个 Kotlin Multiplatform 库，支持 Android、JVM、iOS、m
 
 `coil-svg` 构件在多平台中受支持，但 `coil-gif` 和 `coil-video` 构件（目前）仍仅限 Android，因为它们依赖于特定的 Android 解码器和库。
 
-## Compose
+## Compose {id="compose"}
 
 `coil-compose` 构件的 API 基本保持不变。您可以继续以与 Coil 2 相同的方式使用 `AsyncImage`、`SubcomposeAsyncImage` 和 `rememberAsyncImagePainter`。此外，这些方法已更新为[可重启且可跳过 (restartable and skippable)](https://developer.android.com/jetpack/compose/performance/stability)，这应该会提高它们的性能。
 
@@ -47,7 +47,7 @@ Coil 3 现在是一个 Kotlin Multiplatform 库，支持 Android、JVM、iOS、m
 - `AsyncImagePainter` 的默认 `SizeResolver` 不再等待第一次 `onDraw` 调用来获取画布大小。相反，`AsyncImagePainter` 默认为 `Size.ORIGINAL`。
 - Compose 的 `modelEqualityDelegate` 委托现在通过组合本地项 `LocalAsyncImageModelEqualityDelegate` 进行设置，而不是作为 `AsyncImage`/`SubcomposeAsyncImage`/`rememberAsyncImagePainter` 的参数。
 
-## 通用
+## 通用 {id="general"}
 
 其他重要的行为变化包括：
 

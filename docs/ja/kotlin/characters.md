@@ -10,7 +10,7 @@
 > 
 {style="tip"}
 
-## 構文
+## 構文 {id="syntax"}
 
 文字を宣言するには、値をシングルクォート (`' '`) で囲みます。`Char` 型を明示的に指定することも、Kotlin に値から推論させることもできます：
 
@@ -32,7 +32,7 @@ val invalidEmpty = '' // エラー
 ```
 {validate="false"}
 
-### Null 許容値
+### Null 許容値 {id="nullable-values"}
 
 Null 許容値を格納するには、`Char?` を使用します：
 
@@ -45,11 +45,11 @@ val maybeAbsent: Char? = null
 >
 {style="note"}
 
-## Unicode サポート
+## Unicode サポート {id="unicode-support"}
 
 Kotlin は `Char` 値を UTF-16 コードユニットとして表します。これは、単一の `Char` が1つの UTF-16 コードユニットを格納することを意味し、必ずしも1つの完全な Unicode 文字であるとは限りません。
 
-### 基本多言語面 (BMP)
+### 基本多言語面 (BMP) {id="basic-multilingual-plane"}
 
 単一の `Char` は、`\u0000` から `\uFFFF` の範囲の値を格納できます。
 この範囲は、ほぼすべての現代の言語の文字と膨大な数の記号を含む基本多言語面 (BMP) をカバーしています。
@@ -60,7 +60,7 @@ Unicode 値で文字を指定するには、`\u` の後に [Unicode 一覧表](h
 val unicodeNumber = '\u0031' // '1' と等価
 ```
 
-### 追加文字
+### 追加文字 {id="supplementary-characters"}
 
 絵文字や一部の歴史的な文字など、BMP 以外の Unicode 文字は、単一の `Char` で表すことができません。UTF-16 では、これらは *サロゲートペア*（surrogate pair）としてエンコードされ、2つの `Char` 値が組み合わさって `String` 内の1つの Unicode 文字を表します。
 
@@ -80,7 +80,7 @@ fun main() {
 >
 {style="tip"}
 
-## エスケープシーケンス
+## エスケープシーケンス {id="escape-sequences"}
 
 ソースコードに直接記述するのが難しい、または特別な意味を持つ特殊文字には、エスケープシーケンスを使用します。
 
@@ -107,11 +107,11 @@ val dollar = '\$'
 val backslash = '\\'
 ```
 
-## 操作
+## 操作 {id="operations"}
 
 `Char` は、比較、検査、大文字・小文字の変換、および明示的な数値変換をサポートしています。
 
-### 文字の比較
+### 文字の比較 {id="character-comparison"}
 
 `Char` 値を比較するには、`==`、`!=`、`<`、`>`、`<=`、`>=` などの標準的な [比較演算子](keyword-reference.md#operators-and-special-symbols) を使用します。
 
@@ -124,7 +124,7 @@ val different = 'A' == 'a' // false
 val equal = 'A' == 'A' // true
 ```
 
-### 文字の処理
+### 文字の処理 {id="character-processing"}
 
 Kotlin は、文字値の検査や大文字・小文字の変換のための関数を提供しています。
 例えば：
@@ -149,7 +149,7 @@ fun main() {
 >
 {style="note"}
 
-### 文字の算術演算
+### 文字の算術演算 {id="character-arithmetic"}
 
 整数を加算または減算することで、別の文字値を作成できます：
 
@@ -192,7 +192,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 文字の変換
+### 文字の変換 {id="character-conversion"}
 
 `Char` を数値型に変換するには、明示的な変換を使用します：
 

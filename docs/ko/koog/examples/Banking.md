@@ -18,7 +18,7 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Bank
 
 완료하고 나면, 자유 형식의 사용자 요청을 올바른 도구로 라우팅하고 도움이 되며 감사가 가능한 응답을 생성할 수 있게 됩니다.
 
-## 설정 및 의존성
+## 설정 및 의존성 {id="setup-dependencies"}
 
 Kotlin Notebook 커널을 사용합니다. Koog 아티팩트가 Maven Central에서 확인 가능한지, 그리고 LLM 제공자 키가 `OPENAI_API_KEY` 환경 변수를 통해 사용 가능한지 확인하세요.
 
@@ -37,7 +37,7 @@ val apiKey = System.getenv("OPENAI_API_KEY") ?: error("Please set OPENAI_API_KEY
 val openAIExecutor = simpleOpenAIExecutor(apiKey)
 ```
 
-## 시스템 프롬프트 정의
+## 시스템 프롬프트 정의 {id="defining-the-system-prompt"}
 
 잘 작성된 시스템 프롬프트는 AI가 자신의 역할과 제약 사항을 이해하는 데 도움이 됩니다. 이 프롬프트는 모든 에이전트의 동작을 가이드합니다.
 
@@ -52,7 +52,7 @@ val bankingAssistantSystemPrompt = """
 """.trimMargin()
 ```
 
-## 도메인 모델 및 샘플 데이터
+## 도메인 모델 및 샘플 데이터 {id="domain-model-sample-data"}
 
 먼저, 도메인 모델과 샘플 데이터를 정의해 보겠습니다. 직렬화(serialization)를 지원하는 Kotlin의 데이터 클래스를 사용합니다.
 
@@ -78,7 +78,7 @@ val contactList = listOf(
 val contactById = contactList.associateBy(Contact::id)
 ```
 
-## 도구: 송금
+## 도구: 송금 {id="tools-money-transfer"}
 
 도구는 **순수(pure)**하고 예측 가능해야 합니다.
 
@@ -186,7 +186,7 @@ class MoneyTransferTools : ToolSet {
 }
 ```
 
-## 첫 번째 에이전트 만들기
+## 첫 번째 에이전트 만들기 {id="creating-your-first-agent"}
 이제 송금 도구를 사용하는 에이전트를 만들어 보겠습니다.
 에이전트는 작업을 완수하기 위해 LLM과 도구를 결합합니다.
 
@@ -233,7 +233,7 @@ runBlocking {
 
     Task completed successfully.
 
-## 거래 분석 기능 추가
+## 거래 분석 기능 추가 {id="adding-transaction-analytics"}
 거래 분석 도구를 추가하여 어시스턴트의 기능을 확장해 보겠습니다.
 먼저 거래 도메인 모델을 정의합니다.
 
@@ -267,7 +267,7 @@ data class Transaction(
 )
 ```
 
-### 샘플 거래 데이터
+### 샘플 거래 데이터 {id="sample-transaction-data"}
 
 ```kotlin
 val transactionAnalysisPrompt = """
@@ -332,7 +332,7 @@ val sampleTransactions = listOf(
 )
 ```
 
-## 거래 분석 도구
+## 거래 분석 도구 {id="transaction-analysis-tools"}
 
 ```kotlin
 @LLMDescription("Tools for analyzing transaction history")
@@ -451,10 +451,10 @@ runBlocking {
     
     Task completed successfully.
 
-## 그래프를 사용한 에이전트 구축
+## 그래프를 사용한 에이전트 구축 {id="building-an-agent-with-graph"}
 이제 전문화된 에이전트들을 그래프 에이전트로 결합하여 요청을 적절한 핸들러로 라우팅할 수 있도록 만들어 보겠습니다.
 
-### 요청 분류
+### 요청 분류 {id="request-classification"}
 먼저, 들어오는 요청을 분류할 방법이 필요합니다:
 
 ```kotlin
@@ -479,7 +479,7 @@ data class ClassifiedBankRequest(
 
 ```
 
-### 공유 도구 레지스트리
+### 공유 도구 레지스트리 {id="shared-tool-registry"}
 
 ```kotlin
 // 멀티 에이전트 시스템을 위한 포괄적인 도구 레지스트리 생성
@@ -490,7 +490,7 @@ val toolRegistry = ToolRegistry {
 }
 ```
 
-## 에이전트 전략
+## 에이전트 전략 {id="agent-strategy"}
 
 이제 여러 노드를 오케스트레이션하는 전략을 만들어 보겠습니다:
 
@@ -613,7 +613,7 @@ val agent = AIAgent<String, String>(
 )
 ```
 
-## 그래프 에이전트 실행
+## 그래프 에이전트 실행 {id="run-graph-agent"}
 
 ```kotlin
 println("Banking Assistant started")
@@ -646,7 +646,7 @@ runBlocking {
 
     Result: Task completed successfully.
 
-## 에이전트 구성 — 에이전트를 도구로 사용하기
+## 에이전트 구성 — 에이전트를 도구로 사용하기 {id="agent-composition-using-agents-as-tools"}
 
 Koog를 사용하면 에이전트를 다른 에이전트 내부의 도구로 사용할 수 있어 강력한 구성 패턴이 가능해집니다.
 
@@ -691,7 +691,7 @@ $transactionAnalysisPrompt"
 )
 ```
 
-## 구성된 에이전트 실행
+## 구성된 에이전트 실행 {id="run-composed-agent"}
 
 ```kotlin
 println("Banking Assistant started")
@@ -711,7 +711,7 @@ runBlocking {
 
     Result: Can't perform the task.
 
-## 요약
+## 요약 {id="summary"}
 이 튜토리얼에서 배운 내용은 다음과 같습니다:
 
 1. AI가 언제 어떻게 사용해야 하는지 이해할 수 있도록 명확한 설명이 포함된 LLM 기반 도구 만들기
@@ -720,7 +720,7 @@ runBlocking {
 4. 에이전트를 다른 에이전트 내의 도구로 사용하여 에이전트 구성하기
 5. 확인 및 모호성 해소를 포함한 사용자 상호작용 처리
 
-## 베스트 프랙티스
+## 베스트 프랙티스 {id="best-practices"}
 
 1. 명확한 도구 설명: AI가 도구 사용법을 이해할 수 있도록 상세한 `LLMDescription` 어노테이션을 작성하세요.
 2. 관용적인 Kotlin: 데이터 클래스, 확장 함수, 스코프 함수와 같은 Kotlin의 기능을 활용하세요.

@@ -73,7 +73,7 @@ routing {
 
 플러그인은 먼저 애플리케이션 리소스에서 명세를 찾습니다. 찾지 못한 경우 `java.io.File`을 사용하여 파일 시스템에서 로드를 시도합니다.
 
-## 런타임 OpenAPI 메타데이터 생성
+## 런타임 OpenAPI 메타데이터 생성 {id="generate-runtime-openapi-metadata"}
 
 정적 파일에 의존하는 대신, OpenAPI 컴파일러 플러그인과 라우트 어노테이션에 의해 생성된 메타데이터를 사용하여 런타임에 OpenAPI 명세를 생성할 수 있습니다:
 
@@ -92,7 +92,7 @@ swaggerUI("/swaggerUI") {
 >
 {style="tip"}
 
-## Swagger UI 구성
+## Swagger UI 구성 {id="configure-swagger-ui"}
 
 예를 들어 기본 Swagger UI 버전을 재정의하는 등 `swaggerUI {}` 블록 내에서 Swagger UI를 커스텀할 수 있습니다:
 

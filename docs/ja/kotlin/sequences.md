@@ -10,9 +10,9 @@
 
 そのため、シーケンスを使用すると中間ステップの結果の構築を避けることができ、コレクション処理チェーン全体のパフォーマンスが向上します。ただし、シーケンスの遅延性には一定のオーバーヘッドが伴い、小さなコレクションの処理や単純な計算を行う場合にはその影響が無視できないことがあります。したがって、`Sequence` と `Iterable` の両方を検討し、どちらが自身のケースに適しているかを判断する必要があります。
 
-## 作成 (Construct)
+## 作成 (Construct) {id="construct"}
 
-### 要素から
+### 要素から {id="from-elements"}
 
 シーケンスを作成するには、要素を引数として列挙して [`sequenceOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/sequence-of.html) 関数を呼び出します。
 
@@ -20,7 +20,7 @@
 val numbersSequence = sequenceOf("four", "three", "two", "one")
 ```
 
-### Iterable から
+### Iterable から {id="from-an-iterable"}
 
 すでに `Iterable` オブジェクト（`List` や `Set` など）がある場合は、[`asSequence()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/as-sequence.html) を呼び出すことでそこからシーケンスを作成できます。
 
@@ -30,7 +30,7 @@ val numbersSequence = numbers.asSequence()
 
 ```
 
-### 関数から
+### 関数から {id="from-a-function"}
 
 シーケンスを作成するもう一つの方法は、要素を計算する関数を使用して構築することです。
 関数に基づいてシーケンスを構築するには、その関数を引数として [`generateSequence()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/generate-sequence.html) を呼び出します。オプションとして、最初の要素を明示的な値または関数呼び出しの結果として指定できます。
@@ -61,7 +61,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### チャンク（塊）から
+### チャンク（塊）から {id="from-chunks"}
 
 最後に、シーケンスの要素を一つずつ、あるいは任意のサイズのチャンク（塊）ごとに生成できる [`sequence()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/sequence.html) 関数があります。
 この関数は、[`yield()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence-scope/yield.html) および [`yieldAll()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence-scope/yield-all.html) 関数の呼び出しを含むラムダ式を受け取ります。
@@ -82,7 +82,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## シーケンスの操作
+## シーケンスの操作 {id="sequence-operations"}
 
 シーケンスの操作は、状態の要件に関して以下のグループに分類できます：
 
@@ -94,11 +94,11 @@ fun main() {
 
 シーケンスは複数回イテレートできます。ただし、一部のシーケンスの実装では、一度しかイテレートできないように制限されている場合があります。これについては、各ドキュメントに明記されています。
 
-## シーケンス処理の例
+## シーケンス処理の例 {id="sequence-processing-example"}
 
 例を使って `Iterable` と `Sequence` の違いを見てみましょう。
 
-### Iterable
+### Iterable {id="iterable"}
 
 単語のリストがあると仮定します。以下のコードは、3文字より長い単語をフィルタリングし、そのような最初の4つの単語の長さを出力します。
 
@@ -124,7 +124,7 @@ fun main() {
 
 ![リストの処理](list-processing.svg)
 
-### シーケンス
+### シーケンス {id="sequence"}
 
 次に、同じことをシーケンスで書いてみましょう：
 

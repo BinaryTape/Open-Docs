@@ -5,7 +5,7 @@
 이 가이드는 Java와 Kotlin에서 문자열을 사용하는 일반적인 작업들에 대한 예제를 포함하고 있습니다.
 이 가이드를 통해 Java에서 Kotlin으로 마이그레이션하고, Kotlin다운 방식(authentically Kotlin way)으로 코드를 작성하는 데 도움을 얻을 수 있습니다.
 
-## 문자열 결합 (Concatenate strings)
+## 문자열 결합 (Concatenate strings) {id="concatenate-strings"}
 
 Java에서는 다음과 같은 방식으로 문자열을 결합할 수 있습니다:
 
@@ -34,7 +34,7 @@ fun main() {
 `${name.length}`와 같이 복잡한 식의 값을 보간하려면 중괄호로 감싸면 됩니다.
 자세한 내용은 [문자열 템플릿(string templates)](strings.md#string-templates)을 참조하세요.
 
-## 문자열 빌드 (Build a string)
+## 문자열 빌드 (Build a string) {id="build-a-string"}
 
 Java에서는 [StringBuilder](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/StringBuilder.html)를 사용할 수 있습니다:
 
@@ -72,7 +72,7 @@ fun main() {
 
 [람다 코딩 컨벤션](coding-conventions.md#lambdas)에 대해 더 자세히 알아보세요.
 
-## 컬렉션 항목으로 문자열 생성 (Create a string from collection items)
+## 컬렉션 항목으로 문자열 생성 (Create a string from collection items) {id="create-a-string-from-collection-items"}
 
 Java에서는 [Stream API](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/stream/package-summary.html)를 사용하여 필터링, 매핑한 다음 항목들을 수집합니다:
 
@@ -111,7 +111,7 @@ fun main() {
 
 [joinToString()](collection-transformations.md#string-representation) 사용법에 대해 더 자세히 알아보세요.
 
-## 문자열이 비어있는 경우 기본값 설정 (Set default value if the string is blank)
+## 문자열이 비어있는 경우 기본값 설정 (Set default value if the string is blank) {id="set-default-value-if-the-string-is-blank"}
 
 Java에서는 [삼항 연산자(ternary operator)](https://en.wikipedia.org/wiki/%3F:)를 사용할 수 있습니다:
 
@@ -148,7 +148,7 @@ fun getName(): String =
 ```
 {kotlin-runnable="true" id="set-default-value-if-blank-kotlin"}
 
-## 문자열의 시작과 끝에서 문자 교체 (Replace characters at the beginning and end of a string)
+## 문자열의 시작과 끝에서 문자 교체 (Replace characters at the beginning and end of a string) {id="replace-characters-at-the-beginning-and-end-of-a-string"}
 
 Java에서는 [replaceAll()](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#replaceAll(java.lang.String,java.lang.String)) 함수를 사용할 수 있습니다.
 이 경우 `replaceAll()` 함수는 각각 `##`로 시작하고 끝나는 문자열을 정의하는 정규식 `^##`와 `##$`를 인자로 받습니다.
@@ -175,7 +175,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="replace-characters-kotlin"}
 
-## 일치하는 항목 교체 (Replace occurrences)
+## 일치하는 항목 교체 (Replace occurrences) {id="replace-occurrences"}
 
 Java에서는 예를 들어 일부 데이터를 난독화하기 위해 [Pattern](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/regex/Pattern.html)과 [Matcher](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/regex/Matcher.html) 클래스를 사용할 수 있습니다:
 
@@ -207,7 +207,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="replace-occurrences-kotlin"}
 
-## 문자열 분리 (Split a string)
+## 문자열 분리 (Split a string) {id="split-a-string"}
 
 Java에서 마침표 문자(`.`)를 기준으로 문자열을 분리하려면 이스케이프 처리(`\\`)를 해야 합니다.
 이는 `String` 클래스의 [split()](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#split(java.lang.String)) 함수가 정규식을 인자로 받기 때문입니다:
@@ -232,7 +232,7 @@ fun main() {
 
 정규식으로 분리해야 하는 경우, `Regex`를 매개변수로 받는 오버로드된 `split()` 버전을 사용하세요.
 
-## 부분 문자열 추출 (Take a substring)
+## 부분 문자열 추출 (Take a substring) {id="take-a-substring"}
 
 Java에서는 부분 문자열을 추출하기 시작할 문자의 인덱스(포함)를 인자로 받는 [substring()](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#substring(int)) 함수를 사용할 수 있습니다.
 특정 문자 이후의 부분 문자열을 가져오려면 해당 인덱스를 1 증가시켜야 합니다:
@@ -273,7 +273,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="take-substring-after-last-kotlin"}
 
-## 멀티라인 문자열 사용 (Use multiline strings)
+## 멀티라인 문자열 사용 (Use multiline strings) {id="use-multiline-strings"}
 
 Java 15 이전에는 멀티라인 문자열을 만드는 몇 가지 방법이 있었습니다. 예를 들어 `String` 클래스의 [join()](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#join(java.lang.CharSequence,java.lang.CharSequence...)) 함수를 사용하는 방식입니다:
 
@@ -345,7 +345,7 @@ fun main() {
 
 [멀티라인 문자열](coding-conventions.md#strings)에 대해 더 자세히 알아보세요.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * 다른 [Kotlin 관용구(idioms)](idioms.md)를 살펴보세요.
 * [Java to Kotlin 변환기(converter)](mixing-java-kotlin-intellij.md#convert-java-files-to-kotlin)를 사용하여 기존 Java 코드를 Kotlin으로 변환하는 방법을 배워보세요.

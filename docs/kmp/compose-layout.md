@@ -2,7 +2,7 @@
 
 为了在 Compose Multiplatform 中有效地构建用户界面，了解布局构建的关键概念非常重要，包括核心原则、布局阶段以及用于构建 UI 的常用组件和工具。
 
-## 可组合函数
+## 可组合函数 {id="composable-functions"}
 
 您可以通过定义一组可组合函数来构建用户界面。这些函数接收数据并发出 UI 元素。`@Composable` 注解告知 Compose 编译器该函数将数据转换为 UI。
 
@@ -15,7 +15,7 @@ fun Greeting(name: String) {
 }
 ```
 
-## Column、Row 与 Box
+## Column、Row 与 Box {id="column-row-and-box"}
 
 要构建布局，您可以使用以下基本构建块：
 
@@ -35,7 +35,7 @@ fun Greeting(name: String) {
     }
     ```
 
-## 修饰符
+## 修饰符 {id="modifiers"}
 
 修饰符允许您以声明式方式装饰或调整可组合项的行为。通过提供对尺寸、对齐、内边距、交互行为等内容的控制，它们对于自定义布局和交互至关重要。
 
@@ -53,7 +53,7 @@ fun ModifierExample() {
 
 详细了解请参阅 [](compose-layout-modifiers.md)。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * 如需深入了解布局，请参阅 [Jetpack Compose 文档](https://developer.android.com/develop/ui/compose/layouts)。
 * 了解组件的[生命周期](compose-lifecycle.md)。

@@ -9,7 +9,7 @@
 >
 {style="note" id="desktop-snippets-intro"}
 
-## 滚动修饰符
+## 滚动修饰符 {id="scroll-modifiers"}
 
 `verticalScroll` 和 `horizontalScroll` 修饰符提供了最简单的方法，允许用户在元素内容边界大于其最大尺寸约束时进行滚动。
 你可以将 `VerticalScrollbar` 可组合项附加到带有 `verticalScroll` 修饰符的可滚动组件，将 `HorizontalScrollbar` 可组合项附加到带有 `horizontalScroll` 修饰符的可滚动组件：
@@ -101,7 +101,7 @@ fun TextBox(text: String = "Item") {
 
 <img src="compose-desktop-scrollbar.animated.gif" alt="Scrollbar" width="289" preview-src="compose-desktop-scrollbar.png"/>
 
-## 延迟加载的可滚动组件
+## 延迟加载的可滚动组件 {id="lazy-scrollable-components"}
 
 你也可以将滚动条与 `LazyColumn` 和 `LazyRow` 等延迟加载的可滚动组件配合使用。
 当你预估列表中会有大量项目时，延迟加载组件会更加高效，因为它们仅在需要时才对项目进行组合。
@@ -180,13 +180,13 @@ fun TextBox(text: String = "Item") {
 
 <img src="compose-desktop-lazy-scrollbar.animated.gif" alt="Lazy scrollbar" width="289" preview-src="compose-desktop-lazy-scrollbar.png"/>
 
-## 已知限制
+## 已知限制 {id="known-limitations"}
 
 目前，使用触摸屏、触控板和轨迹板进行的滚动被视为鼠标事件，这可能会导致一些瑕疵和限制（例如缺乏捏合缩放功能）。我们正在不断改进输入和手势处理，并计划为这些输入设备引入原生支持：
 
 * 原生支持触摸屏 ([CMP-1609](https://youtrack.jetbrains.com/issue/CMP-1609/))
 * 原生支持触控板和轨迹板 ([CMP-1610](https://youtrack.jetbrains.com/issue/CMP-1610/))
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 探索关于 [其他桌面组件](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop) 的教程。

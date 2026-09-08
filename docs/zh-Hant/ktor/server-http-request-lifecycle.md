@@ -84,6 +84,6 @@ fun Application.module() {
 
 > 如需完整範例，請參閱 [%example_name%](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%)。
 
-## 限制
+## 限制 {id="limitations"}
 
 此外掛程式僅在 `CIO` 和 `Netty` 引擎上受到完整支援。基於 servlet 的引擎（或其他不支援的引擎）無法可靠地偵測用戶端斷開連線。取消只能在伺服器嘗試寫入回應時被偵測到。

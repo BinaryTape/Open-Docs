@@ -3,7 +3,7 @@
 
 Compose Multiplatform for desktopでは、次のコンポーネントへ移動するための <shortcut>Tab</shortcut> キーボードショートカットと、前のコンポーネントへ戻るための <shortcut>Shift+Tab</shortcut> を使用して、コンポーネント間のナビゲーションを設定できます。
 
-## デフォルトのタブナビゲーション
+## デフォルトのタブナビゲーション {id="default-tab-navigation"}
 
 デフォルトでは、タブナビゲーションにより、ユーザーはフォーカス可能なコンポーネント間をそれらが表示される順序で移動できます。
 この機能はデフォルトで有効になっており、追加のコードは必要ありません。
@@ -57,7 +57,7 @@ fun main() = application {
 
 <img src="compose-desktop-tab-navigation-default.animated.gif" alt="Default tab order" width="450" preview-src="compose-desktop-tab-navigation-default.png"/>
 
-## カスタムのフォーカス可能コンポーネント
+## カスタムのフォーカス可能コンポーネント {id="custom-focusable-components"}
 
 デフォルトでフォーカス可能ではないコンポーネントをタブ順序に含めるには、`focusable()` モディファイアを適用します。
 
@@ -177,7 +177,7 @@ fun FocusableBox(
 
 <img src="compose-desktop-tab-navigation-custom-focusable.animated.gif" alt="A custom focusable component" width="450" preview-src="compose-desktop-tab-navigation-custom-focusable.png"/>
 
-## カスタムのタブ順序
+## カスタムのタブ順序 {id="custom-tab-order"}
 
 表示順序以外の順序でフォーカスを移動させるには、2つのモディファイアを組み合わせます。
 
@@ -243,7 +243,7 @@ fun main() = application {
 
 <img src="compose-desktop-tab-navigation-custom-order.animated.gif" alt="Custom tab order" width="450" preview-src="compose-desktop-tab-navigation-custom-order.png"/>
 
-## コードからのフォーカス移動
+## コードからのフォーカス移動 {id="moving-focus-from-code"}
 
 ユーザーの操作なしにコンポーネントをフォーカスさせるには、`focusRequester()` モディファイアを使用してフォーカス可能なコンポーネントに `FocusRequester` をアタッチし、`FocusRequester.requestFocus()` を呼び出します。コンポーネントが[デフォルトでフォーカス可能でない](#カスタムのフォーカス可能コンポーネント)場合は、`focusRequester()` の *後* に `focusable()` モディファイアを適用する必要があります。
 
@@ -320,7 +320,7 @@ fun main() = application {
 
 <img src="compose-desktop-tab-navigation-move-focus-from-code.animated.gif" alt="Moving focus from code" width="450" preview-src="compose-desktop-tab-navigation-move-focus-from-code.png"/>
 
-### 表示時のコンポーネントへのフォーカス
+### 表示時のコンポーネントへのフォーカス {id="focusing-a-component-when-it-appears"}
 
 フォームやダイアログでは、ユーザーがマウスに手を伸ばさずにタイピングを開始できるように、最初の入力項目にすぐフォーカスを合わせるのが一般的です。このユースケースでは、コンポーネントがコンポジションに入った後に一度だけ実行される `LaunchedEffect(Unit)` ブロックからフォーカスを要求します。
 
@@ -382,7 +382,7 @@ fun main() = application {
 
 <img src="compose-desktop-tab-navigation-focus-on-appearance.animated.gif" alt="Focus text field on appearance" width="450" preview-src="compose-desktop-tab-navigation-focus-on-appearance.png"/>
 
-## マルチラインテキストフィールドからのフォーカス移動
+## マルチラインテキストフィールドからのフォーカス移動 {id="moving-focus-from-multiline-text-fields"}
 
 マルチラインテキストフィールドでは、<shortcut>Tab</shortcut> を押すと次のコンポーネントにフォーカスを移動する代わりに、タブ文字が挿入されます。
 
@@ -449,7 +449,7 @@ fun Modifier.moveFocusOnTab(): Modifier {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="fun Modifier.moveFocusOnTab() { focusManager.moveFocus("}
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [キーボードイベント](compose-desktop-keyboard.md)の処理について詳しく学ぶ。
 * [異なるプラットフォームにおけるアクセシビリティサポート](compose-desktop-accessibility.md)について学ぶ。

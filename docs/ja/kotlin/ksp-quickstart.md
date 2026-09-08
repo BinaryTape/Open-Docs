@@ -7,7 +7,7 @@
 * KSP API を使用して独自のアノテーションプロセッサーを作成する方法。
 * プロセッサーによって生成されたコードがどこにあるか。
 
-## KSP ベースのプロセッサーをプロジェクトに追加する
+## KSP ベースのプロセッサーをプロジェクトに追加する {id="add-a-ksp-based-processor-to-your-project"}
 
 プロジェクトで外部プロセッサーを使用するには、`build.gradle(.kts)` ファイルの [`plugins {}` ブロック](https://docs.gradle.org/current/userguide/plugins.html#sec:plugins_block)に KSP を追加します。プロセッサーが特定のモジュールでのみ必要な場合は、代わりにそのモジュールの `build.gradle(.kts)` ファイルに追加してください。
 
@@ -76,11 +76,11 @@ dependencies {
 > 
 {style="note"}
 
-## 独自のプロセッサーを作成する
+## 独自のプロセッサーを作成する {id="create-your-own-processor"}
 
 以下の手順に従って、`helloWorld()` 関数を生成するシンプルなアノテーションプロセッサーを作成します。実用的ではありませんが、独自のプロセッサーとアノテーションを作成するための基本を理解できます。
 
-### プロジェクトに KSP を追加する
+### プロジェクトに KSP を追加する {id="add-ksp-to-the-project"}
 
 新しい Kotlin プロジェクトを作成し、KSP プラグインを追加します。
 
@@ -119,7 +119,7 @@ dependencies {
     </tab>
     </tabs>
 
-### アノテーションを作成する
+### アノテーションを作成する {id="create-an-annotation"}
 
 プロジェクトのルートに新しいモジュールを作成し、アノテーションを宣言します。
 
@@ -142,7 +142,7 @@ dependencies {
     annotation class HelloWorldAnnotation
     ```
 
-### プロセッサーを作成して登録する
+### プロセッサーを作成して登録する {id="create-and-register-a-processor"}
 
 1. プロジェクトのルートに **processor** という名前の別のモジュールを作成します。
 2. モジュールの `build.gradle(.kts)` ファイルに、KSP API と宣言したアノテーションを依存関係として追加します。
@@ -292,7 +292,7 @@ dependencies {
     HelloWorldProcessorProvider
     ```
 
-### プロセッサーを使用する
+### プロセッサーを使用する {id="use-your-processor"}
 
 これでプロセッサーをテストする準備が整いました。以下の手順に従ってクライアントモジュールを作成し、アノテーションが付いた要素に基づいてプロセッサーにコードを生成させます。
 
@@ -396,7 +396,7 @@ dependencies {
     app/build/generated/ksp/main/kotlin/GeneratedHelloWorld.kt
     ```
 
-### プロジェクト構造を確認する
+### プロジェクト構造を確認する {id="explore-the-project-structure"}
 
 プロジェクトの最終的なファイル構造は以下のようになるはずです。
 
@@ -436,7 +436,7 @@ dependencies {
 > 
 {style="tip"}
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * この例の完全なコードは [KSP リポジトリ](https://github.com/google/ksp/tree/main/examples/hello-world)で確認できます。
 * より複雑で実践的な例については、[KSP リポジトリ](https://github.com/google/ksp/tree/main/examples)を参照してください。

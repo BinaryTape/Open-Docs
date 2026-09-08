@@ -21,7 +21,7 @@ Compose Multiplatform 使 Compose API 可在 [通用 Kotlin 代码](multiplatfor
 | **平台**    | Android、iOS、桌面端、Web 端 | Android             |
 | **支持者** | JetBrains                  | Google              |
 
-## Jetpack Compose 与可组合函数 (Composables)
+## Jetpack Compose 与可组合函数 (Composables) {id="jetpack-compose-and-composables"}
 
 Jetpack Compose 是一个用于构建原生 Android 界面的声明式 UI 工具包。
 它的基础是带有 `@Composable` 注解的 *可组合* 函数。
@@ -34,7 +34,7 @@ Compose Multiplatform 建立在相同的原则之上。
 诸如 `remember` 之类的状态管理工具、布局组件、修饰符以及动画支持。
 这意味着您可以将 Jetpack Compose 的知识复用到 Compose Multiplatform 中，为 Android、iOS、桌面端和 Web 端构建跨平台 UI。
 
-## Compose Multiplatform 与 Jetpack Compose 的功能
+## Compose Multiplatform 与 Jetpack Compose 的功能 {id="compose-multiplatform-and-jetpack-compose-features"}
 
 > 您可以从几乎任何 Jetpack Compose 资料中学习这两个 UI 框架的基础知识，
 > 包括 [Google 的官方文档](https://developer.android.com/jetpack/compose/documentation)。
@@ -64,7 +64,7 @@ Compose Multiplatform 建立在相同的原则之上。
 | [Maps Compose](https://developers.google.com/maps/documentation/android-sdk/maps-compose)                           | 否                                                                                                        | 是                                                                                                    |
 | 用于 UI 组件、导航、架构等的 [第三方库](#libraries-for-compose-multiplatform) | [Compose Multiplatform 库](https://github.com/terrakok/kmp-awesome?tab=readme-ov-file#-compose-ui) | Jetpack Compose 和 Compose Multiplatform 库                                                    |
 
-## 技术细节
+## 技术细节 {id="technical-details"}
 
 Compose Multiplatform 基于 Google 发布的代码和版本构建。
 虽然 Google 的重点是针对 Android 的 Jetpack Compose，
@@ -81,7 +81,7 @@ JetBrains 维护了这些库的多平台版本，并为 Android 以外的目标�
 当您为 Android 构建 Compose Multiplatform 应用程序时，您使用的是由 Google 发布的原生 Jetpack Compose 工件。
 例如，如果您将 `compose.material3` 添加到依赖项中，您的项目将在 Android 目标中使用 `androidx.compose.material3:material3`，而在其他目标中使用 `org.jetbrains.compose.material3:material3`。这是基于多平台工件中的 Gradle Module Metadata 自动完成的。
 
-## Compose Multiplatform 库
+## Compose Multiplatform 库 {id="libraries-for-compose-multiplatform"}
 
 通过使用 Compose Multiplatform，您可以将使用 Compose API 的库作为 [Kotlin Multiplatform 库](multiplatform-publish-lib-setup.md) 发布。
 这使得它们可以在通用 Kotlin 代码中使用，并支持多个平台。
@@ -93,7 +93,7 @@ JetBrains 维护了这些库的多平台版本，并为 Android 以外的目标�
 当一个库使用 Compose Multiplatform 发布时，仅使用 Jetpack Compose 的应用仍然可以无缝地使用它；
 它们只需直接使用该库的 Android 工件即可。
 
-## 后续步骤
+## 后续步骤 {id="what-s-next"}
 
 阅读有关以下组件的 Compose Multiplatform 实现的更多信息：
   * [生命周期 (Lifecycle)](compose-lifecycle.md)

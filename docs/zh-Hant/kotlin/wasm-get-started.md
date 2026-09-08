@@ -4,7 +4,7 @@
 
 本教學將示範如何在 IntelliJ IDEA 中透過 [](wasm-overview.md) 執行 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) 應用程式，並產生可作為網站一部分發佈的構件。
 
-## 建立專案
+## 建立專案 {id="create-a-project"}
 
 1. [設定您的 Kotlin Multiplatform 開發環境](https://kotlinlang.org/docs/multiplatform/quickstart.html#set-up-the-environment)。
 2. 在 IntelliJ IDEA 中，選擇 **File | New | Project**。
@@ -28,7 +28,7 @@
 
    ![Kotlin Multiplatform 精靈](wasm-kmp-wizard.png){width=600}
 
-## 執行應用程式
+## 執行應用程式 {id="run-the-application"}
 
 1. 專案載入後，在執行組態清單中選擇 **webApp [wasmJs]** 並點擊 **Run**。
 
@@ -46,7 +46,7 @@
     
     ![瀏覽器中的 Compose 應用程式](wasm-composeapp-browser.png){width=600}
 
-## 產生構件
+## 產生構件 {id="generate-artifacts"}
 
 產生專案構件以發佈至網站：
 
@@ -69,7 +69,7 @@
 
 ![構件目錄](wasm-composeapp-directory.png){width=400}
 
-## 發佈應用程式
+## 發佈應用程式 {id="publish-the-application"}
 
 使用產生的構件來部署您的 Kotlin/Wasm 應用程式。選擇您偏好的發佈方式，並按照指示進行：
 
@@ -83,7 +83,7 @@
 
    恭喜！您已成功發佈構件。
 
-## 後續步驟
+## 後續步驟 {id="what-s-next"}
 
 * [了解如何使用 Compose Multiplatform 在 iOS 與 Android 之間共享 UI](https://kotlinlang.org/docs/multiplatform/compose-multiplatform-create-first-app.html)
 * 嘗試更多 Kotlin/Wasm 範例：

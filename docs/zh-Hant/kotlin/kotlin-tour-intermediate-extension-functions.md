@@ -4,7 +4,7 @@
 
 在本章中，你將探索特殊的 Kotlin 函式，它們能讓你的程式碼更簡潔且易讀。了解它們如何幫助你使用高效的設計模式，將你的專案提升到新的境界。
 
-## 擴充函式
+## 擴充函式 {id="extension-functions"}
 
 在軟體開發中，你經常需要在不更改原始原始碼的情況下修改程式的行為。例如，你可能想為來自第三方程式庫的類別添加額外功能。
 
@@ -41,7 +41,7 @@ fun main() {
 * 使用字串範本（String template）來存取 `this` 的值。
 * `.bold()` 擴充函式接收一個字串，並將其傳回為用於粗體文字的 `<b>` HTML 元素中。
 
-## 以擴充為導向的設計
+## 以擴充為導向的設計 {id="extension-oriented-design"}
 
 你可以在任何地方定義擴充函式，這讓你能建立以擴充為導向的設計。這些設計將核心功能與有用但非必要的特性分開，使你的程式碼更容易閱讀和維護。
 
@@ -93,7 +93,7 @@ fun main() {
 
 有關擴充函式的更多資訊，請參閱 [擴充](extensions.md)。
 
-## 練習 {completion-point="true"}
+## 練習 {completion-point="true" id="practice"}
 
 ### 練習 1 {initial-collapse-state="collapsed" collapsible="true" id="extension-functions-exercise-1"}
 

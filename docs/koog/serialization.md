@@ -1,6 +1,6 @@
 # 序列化
 
-## 简介
+## 简介 {id="introduction"}
 
 Koog 使用了一个轻量级的、与库无关的序列化层，用于在 JSON 与工具实参 (argument) 及结果之间进行转换。
 该层位于代理运行时与底层序列化库之间，因此你可以在不更改任何工具或代理代码的情况下更换库。
@@ -10,7 +10,7 @@ Koog 使用了一个轻量级的、与库无关的序列化层，用于在 JSON 
 默认情况下，Koog 使用 `KotlinxSerializer`（由 kotlinx-serialization 提供支持）。
 在 JVM 上，你也可以切换到 `JacksonSerializer`（由 jackson-databind 提供支持）。
 
-## `JSONSerializer` 接口
+## `JSONSerializer` 接口 {id="the-jsonserializer-interface"}
 
 `JSONSerializer` 是位于 `serialization-core` 中的核心抽象。
 该接口具有四个主要方法（针对字符串和 `JSONElement` 的编码/解码），以及两个用于在 `JSONElement` 与字符串之间转换的便捷方法：
@@ -97,7 +97,7 @@ Koog 使用了一个轻量级的、与库无关的序列化层，用于在 JSON 
     ```
     <!--- KNIT exampleSerializationJava01.java -->
 
-## Type token
+## Type token {id="type-tokens"}
 
 `TypeToken` 是 Koog 在运行时传递类型信息的方式。
 
@@ -146,12 +146,12 @@ Koog 使用了一个轻量级的、与库无关的序列化层，用于在 JSON 
     ```
     <!--- KNIT exampleSerializationJava02.java -->
 
-## `JSONElement` — 与库无关的 JSON 树
+## `JSONElement` — 与库无关的 JSON 树 {id="jsonelement-library-agnostic-json-tree"}
 
 `JSONElement` 是 JSON 数据的一种中立中间表示。
 它的存在是为了使序列化器、工具和代理内部机制不依赖于特定库中的特定 JSON 类型。
 
-### 层次结构
+### 层次结构 {id="hierarchy"}
 
 ```
 JSONElement
@@ -163,12 +163,12 @@ JSONElement
 ```
 <!--- KNIT example-serialization-01.txt -->
 
-### 与库类型之间的转换
+### 与库类型之间的转换 {id="conversion-to-and-from-library-types"}
 
 每个序列化集成都提供了扩展函数，允许你在 `JSONElement` 与库自身的动态 JSON 类型之间进行转换。当你已经拥有 `JsonElement` 或 `JsonNode` 并希望将其传递给 Koog（或反之亦然），而不经过完整的编码/解码周期时，这非常有用。
 下文针对每个受支持的库提供了示例。
 
-### 构建和读取元素
+### 构建和读取元素 {id="building-and-reading-elements"}
 
 === "Kotlin"
 
@@ -229,9 +229,9 @@ JSONElement
     ```
     <!--- KNIT exampleSerializationJava03.java -->
 
-## 受支持的序列化器
+## 受支持的序列化器 {id="supported-serializers"}
 
-### `KotlinxSerializer`（默认）
+### `KotlinxSerializer`（默认） {id="kotlinxserializer-default"}
 
 - **模块**: `ai.koog:serialization-core`（通过 `ai.koog:agents-core` 传递包含）
 - **支持库**: kotlinx-serialization
@@ -285,7 +285,7 @@ JSONElement
     ```
     <!--- KNIT example-serialization-05.kt -->
 
-### `JacksonSerializer`（仅限 JVM）
+### `JacksonSerializer`（仅限 JVM） {id="jacksonserializer-jvm-only"}
 
 - **模块**: `ai.koog:serialization-jackson`（独立依赖项）
 - **支持库**: jackson-databind
@@ -407,7 +407,7 @@ dependencies {
     ```
     <!--- KNIT exampleSerializationJava05.java -->
 
-## 在 `AIAgentConfig` 中配置序列化器
+## 在 `AIAgentConfig` 中配置序列化器 {id="configuring-the-serializer-in-aiagentconfig"}
 
 === "Kotlin" 
 
@@ -465,7 +465,7 @@ dependencies {
     ```
     <!--- KNIT exampleSerializationJava06.java -->
 
-## 工具如何与序列化器交互
+## 工具如何与序列化器交互 {id="how-tools-interact-with-the-serializer"}
 
 代理运行时会自动在每个 `Tool` 实例上调用以下方法。
 在正常使用中，你无需亲自调用它们。
@@ -479,7 +479,7 @@ dependencies {
 
 这些方法在 `Tool` 上是 `open` 的，因此如果你需要为特定工具定制序列化行为，可以重写它们。
 
-## 功能如何使用序列化器
+## 功能如何使用序列化器 {id="how-features-use-the-serializer"}
 
 序列化层并不局限于工具 —— 某些代理功能也依赖于它。
 

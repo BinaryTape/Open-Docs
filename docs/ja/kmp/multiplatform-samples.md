@@ -13,7 +13,7 @@
 
 GitHub の [kotlin-multiplatform-sample](https://github.com/topics/kotlin-multiplatform-sample) トピックを通じて、さらに多くのサンプルプロジェクトを見つけることができます。エコシステム全体を探索するには、[kotlin-multiplatform](https://github.com/topics/kotlin-multiplatform) トピックを確認してください。
 
-### JetBrains 公式サンプル
+### JetBrains 公式サンプル {id="jetbrains-official-samples"}
 
 <table>
     
@@ -209,7 +209,7 @@ GitHub の [kotlin-multiplatform-sample](https://github.com/topics/kotlin-multip
 
 </table>
 
-### 推奨サンプル
+### 推奨サンプル {id="recommended-samples"}
 
 <table>
     
@@ -366,7 +366,7 @@ GitHub の [kotlin-multiplatform-sample](https://github.com/topics/kotlin-multip
 
 </table>
 
-### その他のコミュニティサンプル
+### その他のコミュニティサンプル {id="other-community-samples"}
 
 <table>
     

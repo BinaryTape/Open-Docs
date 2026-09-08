@@ -10,7 +10,7 @@ Kotlin標準ライブラリには、さまざまな単位で時間を計算お�
 デフォルトでは、時間はモノトニック（単調増加）時間ソースを使用して計測されますが、他の時間ソースを設定することも可能です。
 詳細については、[時間ソースの作成](#create-time-source)を参照してください。
 
-## 期間の計算
+## 期間の計算 {id="calculate-duration"}
 
 時間の量を表すために、標準ライブラリには [`Duration`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-duration/) クラスがあります。`Duration` は、[`DurationUnit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-duration-unit/) enumクラスの以下の単位で表現できます：
   * `NANOSECONDS`（ナノ秒）
@@ -23,7 +23,7 @@ Kotlin標準ライブラリには、さまざまな単位で時間を計算お�
 
 `Duration` は、正、負、ゼロ、正の無限大、または負の無限大の値をとることができます。
 
-### 期間の作成
+### 期間の作成 {id="create-duration"}
 
 `Duration` を作成するには、`Int`、`Long`、および `Double` 型で利用可能な[拡張プロパティ](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-duration/#companion-object-properties)である `nanoseconds`、`microseconds`、`milliseconds`、`seconds`、`minutes`、`hours`、`days` を使用します。
 
@@ -91,7 +91,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-time-create-duration-arithmetic"}
 
-### 文字列表現の取得
+### 文字列表現の取得 {id="get-string-representation"}
 
 `Duration` を出力、シリアル化、転送、または保存するために、文字列表現を取得できると便利です。
 
@@ -127,7 +127,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-time-iso-string-representation"}
 
-### 期間の変換
+### 期間の変換 {id="convert-duration"}
 
 `Duration` を別の `DurationUnit` に変換するには、以下のプロパティを使用します：
 * `inWholeNanoseconds`
@@ -173,7 +173,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-time-convert-duration-extension"}
 
-### 期間の比較
+### 期間の比較 {id="compare-duration"}
 
 `Duration` オブジェクトが等しいかどうかを確認するには、等価演算子（`==`）を使用します：
 
@@ -208,7 +208,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-time-compare-duration"}
 
-### 期間をコンポーネントに分解する
+### 期間をコンポーネントに分解する {id="break-duration-into-components"}
 
 `Duration` を時間の構成要素に分解してさらにアクションを実行するには、[`toComponents()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-duration/to-components.html) 関数のオーバーロードを使用します。目的のアクションを関数またはラムダ式として関数のパラメータに追加します。
 
@@ -230,7 +230,7 @@ fun main() {
 
 この例では、ラムダ式に `hours` と `minutes` を関数パラメータとして持ち、使用しない `seconds` と `nanoseconds` パラメータにはアンダースコア（`_`）を使用しています。この式は、[文字列テンプレート](strings.md#string-templates)を使用して `hours` と `minutes` の目的の出力形式を取得し、連結された文字列を返します。
 
-## 時間の計測
+## 時間の計測 {id="measure-time"}
 
 時間の経過を追跡するために、標準ライブラリは以下のことを簡単に行えるツールを提供しています：
 * 目的の時間単位でコードの実行時間を計測する。
@@ -239,7 +239,7 @@ fun main() {
 * 特定の瞬間からどれくらい時間が経過したかを確認する。
 * 現在時刻が特定の瞬間を過ぎたかどうかを確認する。
 
-### コードの実行時間の計測
+### コードの実行時間の計測 {id="measure-code-execution-time"}
 
 コードブロックの実行にかかった時間を計測するには、[`measureTime`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/measure-time.html) インライン関数を使用します：
 
@@ -279,7 +279,7 @@ fun main() {
 
 デフォルトでは、両方の関数がモノトニック時間ソースを使用します。
 
-### 時間の特定の瞬間をマークする
+### 時間の特定の瞬間をマークする {id="mark-moments-in-time"}
 
 時間の特定の瞬間をマークするには、[`TimeSource`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-time-source/) インターフェースと [`markNow()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-time-source/mark-now.html) 関数を使用して [`TimeMark`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-time-mark/) を作成します：
 
@@ -292,7 +292,7 @@ fun main() {
 }
 ```
 
-### 時間の差を計測する
+### 時間の差を計測する {id="measure-differences-in-time"}
 
 同じ時間ソースからの `TimeMark` オブジェクト間の差を計測するには、減算演算子（`-`）を使用します。
 
@@ -352,11 +352,11 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-time-deadline=passed"}
 
-## 時間ソース
+## 時間ソース {id="time-sources"}
 
 デフォルトでは、時間はモノトニック時間ソースを使用して計測されます。モノトニック時間ソースは前進するのみで、タイムゾーンなどの変化による影響を受けません。モノトニック時間の代替となるのが経過実時間であり、これは「ウォールクロック時刻（実時刻）」としても知られています。経過実時間は、別の時点からの相対的な時間として計測されます。
 
-### プラットフォームごとのデフォルトの時間ソース
+### プラットフォームごとのデフォルトの時間ソース {id="default-time-sources-per-platform"}
 
 以下の表は、各プラットフォームにおけるモノトニック時間のデフォルトソースを説明したものです：
 
@@ -367,7 +367,7 @@ fun main() {
 | Kotlin/JS (ブラウザ) | `window.performance.now()` または `Date.now()`|
 | Kotlin/Native       | `std::chrono::high_resolution_clock` または `std::chrono::steady_clock`|
 
-### 時間ソースの作成
+### 時間ソースの作成 {id="create-time-source"}
 
 異なる時間ソースを使用した方がよい場合もあります。例えばAndroidでは、`System.nanoTime()` はデバイスがアクティブな間のみ時間をカウントします。デバイスがディープスリープに入ると、時間の追跡ができなくなります。デバイスがディープスリープ中も時間を追跡し続けるには、[`SystemClock.elapsedRealtimeNanos()`](https://developer.android.com/reference/android/os/SystemClock#elapsedRealtimeNanos()) を使用する時間ソースを作成します：
 

@@ -15,7 +15,7 @@ ComposeコンパイラはKotlinと同時にリリースされ、常に同じバ�
 
 プロジェクトで新しいComposeコンパイラプラグインを使用するには、Composeを使用する各モジュールに対してプラグインを適用してください。[Compose Multiplatformプロジェクトの移行](#migrating-a-compose-multiplatform-project)の詳細については、以下を読み進めてください。Jetpack Composeプロジェクトについては、[移行ガイド](https://kotlinlang.org/docs/compose-compiler-migration-guide.html#migrating-a-jetpack-compose-project)を参照してください。
 
-## Compose Multiplatformプロジェクトの移行
+## Compose Multiplatformプロジェクトの移行 {id="migrating-a-compose-multiplatform-project"}
 
 Compose Multiplatform 1.6.10以降、`org.jetbrains.compose`プラグインを使用する各モジュールに対して、`org.jetbrains.kotlin.plugin.compose` Gradleプラグインを適用する必要があります。
 
@@ -57,7 +57,7 @@ Compose Multiplatform 1.6.10以降、`org.jetbrains.compose`プラグインを�
 4. Jetpack Composeコンパイラのコンパイラオプションを使用している場合は、それらを `composeCompiler {}` ブロック内で設定します。
    詳細は [ComposeコンパイラオプションDSL](https://kotlinlang.org/docs/compose-compiler-options.html) を参照してください。
 
-#### 発生する可能性のある問題: "Missing resource with path"
+#### 発生する可能性のある問題: "Missing resource with path" {id="possible-issue-missing-resource-with-path"}
 
 Kotlin 1.9.0から2.0.0に、あるいは2.0.0から1.9.0に切り替える際、以下のエラーが発生することがあります。
 
@@ -67,7 +67,7 @@ org.jetbrains.compose.resources.MissingResourceException: Missing resource with 
 
 これを解決するには、プロジェクトのルートおよび各モジュール内にあるすべての `build` ディレクトリを削除してください。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * ComposeコンパイラのKotlinリポジトリへの移行に関する [Googleのアナウンス](https://android-developers.googleblog.com/2024/04/jetpack-compose-compiler-moving-to-kotlin-repository.html) を参照してください。
 * [ComposeコンパイラオプションDSL](https://kotlinlang.org/docs/compose-compiler-options.html) を参照してください。

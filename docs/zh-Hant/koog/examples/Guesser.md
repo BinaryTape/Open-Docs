@@ -11,7 +11,7 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Gues
 
 我們將保持程式碼極簡且流程透明：包含幾個微型工具、簡潔的提示詞 (prompt) 以及一個互動式 CLI 迴圈。
 
-## 設定
+## 設定 {id="setup"}
 
 此筆記本假設：
 - 你正在執行已安裝 Koog 的 Kotlin Notebook。
@@ -24,7 +24,7 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Gues
 %use koog
 ```
 
-## 工具：提出針對性問題
+## 工具：提出針對性問題 {id="tools-asking-targeted-questions"}
 
 工具是 LLM 可以呼叫的小型、描述詳盡的函式。我們將提供三個：
 - `lessThan(value)`：「你的數字是否小於該值？」
@@ -73,7 +73,7 @@ class GuesserTool : ToolSet {
 }
 ```
 
-## 工具註冊表 (Tool Registry)
+## 工具註冊表 (Tool Registry) {id="tool-registry"}
 
 將你的工具公開給 Agent。我們還新增了一個內建的 `SayToUser` 工具，讓 Agent 能直接向使用者傳達訊息。
 
@@ -84,7 +84,7 @@ val toolRegistry = ToolRegistry {
 }
 ```
 
-## Agent 配置
+## Agent 配置 {id="agent-configuration"}
 
 我們只需要一個簡短且以工具為導向的系統提示詞。我們將建議使用二元搜尋策略，並將 `temperature` 設為 `0.0` 以獲得穩定、具決定性的行為。這裡我們使用 OpenAI 的推理模型 `GPT4oMini` 來進行清晰的規劃。
 
@@ -109,7 +109,7 @@ val agent = AIAgent(
 )
 ```
 
-## 執行
+## 執行 {id="run-it"}
 
 - 心中想一個 1 到 100 之間的數字。
 - 輸入 `start` 開始。
@@ -128,21 +128,21 @@ runBlocking {
 }
 ```
 
-## 運作原理
+## 運作原理 {id="how-it-works"}
 
 - Agent 讀取系統提示詞並規劃二元搜尋。
 - 在每次迭代中，它會呼叫你的一個工具：`lessThan`、`greaterThan` 或（當確定時）`proposeNumber`。
 - 輔助程式 `ask` 收集你的 Y/n 輸入，並將乾淨的 "YES"/"NO" 信號回傳給模型。
 - 當獲得確認時，它會透過 `SayToUser` 向你祝賀。
 
-## 擴充功能
+## 擴充功能 {id="extend-it"}
 
 - 透過調整系統提示詞來更改範圍（例如 1..1000）。
 - 新增 `between(low, high)` 工具以進一步減少呼叫次數。
 - 在保持相同工具的情況下，更換模型或執行器 (executor)（例如，使用 Ollama 執行器和本機模型）。
 - 將猜測結果或產出持久化到存儲庫中以進行分析。
 
-## 疑難排解
+## 疑難排解 {id="troubleshooting"}
 
 - 缺少金鑰：確保環境中已設定 `OPENAI_API_KEY`。
 - 找不到核心：確保 `%useLatestDescriptors` 和 `%use koog` 已成功執行。

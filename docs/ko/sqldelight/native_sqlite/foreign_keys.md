@@ -1,5 +1,5 @@
 {% if multiplatform %}
-## Native SQLite
+## Native SQLite {id="native-sqlite"}
 {% else %}
 # 외래 키
 {% endif %}

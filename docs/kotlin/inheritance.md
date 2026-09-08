@@ -42,7 +42,7 @@ class MyView : View {
 }
 ```
 
-## Open 关键字
+## Open 关键字 {id="open-keyword"}
 
 在 Kotlin 中，`open` 关键字表示一个类或成员（函数或属性）可以在子类中被重写。
 默认情况下，Kotlin 的类及其成员都是 *final* 的，这意味着除非你显式地将它们标记为 `open`，否则它们不能被继承（对于类）或重写（对于成员）：
@@ -89,7 +89,7 @@ class Student(name: String, val school: String) : Person(name) {
 }
 ```
 
-## 重写方法
+## 重写方法 {id="overriding-methods"}
 
 Kotlin 要求对可重写成员和重写操作使用显式修饰符：
 
@@ -114,7 +114,7 @@ open class Rectangle() : Shape() {
 }
 ```
 
-## 重写属性
+## 重写属性 {id="overriding-properties"}
 
 重写机制对属性的作用方式与对方法的作用方式相同。在超类中声明并在派生类中重新声明的属性必须以 `override` 开头，并且它们必须具有兼容的类型。每个声明的属性都可以由具有初始值设定项的属性或具有 `get` 方法的属性重写：
 
@@ -144,7 +144,7 @@ class Polygon : Shape {
 }
 ```
 
-## 派生类初始化顺序
+## 派生类初始化顺序 {id="derived-class-initialization-order"}
 
 在构造派生类的新实例期间，基类初始化是作为第一步完成的（仅在计算基类构造函数的实参之后），这意味着它发生在派生类的初始化逻辑运行之前。
 
@@ -179,7 +179,7 @@ fun main() {
 
 这意味着当基类构造函数执行时，在派生类中声明或重写的属性尚未初始化。在基类初始化逻辑中使用这些属性（无论是直接使用，还是通过另一个被重写的 `open` 成员实现间接使用）都可能导致错误行为或运行时故障。因此，在设计基类时，应避免在构造函数、属性初始值设定项或 `init` 代码块中使用 `open` 成员。
 
-## 调用超类实现
+## 调用超类实现 {id="calling-the-superclass-implementation"}
 
 派生类中的代码可以使用 `super` 关键字调用其超类函数和属性访问器的实现：
 
@@ -232,7 +232,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-## 重写规则
+## 重写规则 {id="overriding-rules"}
 
 在 Kotlin 中，实现继承受以下规则约束：如果一个类从其直接超类继承了同一个成员的多个实现，则它必须重写该成员并提供自己的实现（可以使用继承的实现之一）。
 

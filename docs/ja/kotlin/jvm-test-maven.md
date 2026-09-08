@@ -6,17 +6,17 @@ Kotlin は Maven エコシステムとシームレスに統合されており、
 > 
 {style="tip"}
 
-## JUnit を使用したテストの作成
+## JUnit を使用したテストの作成 {id="create-tests-with-junit"}
 
 [JUnit](https://junit.org/) は、Kotlin バックエンド開発における標準的なテスティングフレームワークです。Kotlin は複数の JUnit バージョンをサポートしていますが、現代的なプロジェクトの多くは JUnit 6 を使用すべきです。
 
 JUnit を使用して Kotlin でテストを作成するには、`kotlin.test` または JUnit パッケージの `@Test` アノテーションを使用します。
 
-### 依存関係の追加
+### 依存関係の追加 {id="add-dependency"}
 
 `kotlin-test` ライブラリを使用するのが最も簡単な方法です。これは共通のアサーションセットを提供し、必要な JUnit アーティファクトを自動的に取得します。
 
-#### JUnit 5 以降
+#### JUnit 5 以降 {id="junit-5-and-later"}
 
 すべての新しいプロジェクトでは、`kotlin-test-junit5` アーティファクトを使用してください。これには、ネストされたテストや並列実行などの機能を含む、JUnit の完全なサポートが含まれています。Kotlin/JVM は、最新の安定した JUnit バージョンである JUnit 6 をサポートしています。
 
@@ -37,7 +37,7 @@ JUnit を使用して Kotlin でテストを作成するには、`kotlin.test` �
 >
 {style="note"}
 
-#### JUnit 4
+#### JUnit 4 {id="junit-4"}
 
 レガシープロジェクトなどで以前のバージョンの JUnit を使用したい場合は、JUnit 4 を利用する `kotlin-test-junit` アーティファクトを使用してください。
 
@@ -57,7 +57,7 @@ JUnit を使用して Kotlin でテストを作成するには、`kotlin.test` �
 >
 {style="tip"}
 
-### ユニットテストの作成
+### ユニットテストの作成 {id="write-unit-tests"}
 
 ユニットテストは、個々の関数やクラスなど、コードの隔離された部分を検証します。
 慣例として、ユニットテストには `*Test` という接尾辞を付けます。例：
@@ -76,7 +76,7 @@ class OrderServiceTest {
 }
 ```
 
-### 統合テストの作成
+### 統合テストの作成 {id="write-integration-tests"}
 
 統合テストは、サービスとデータベースの間など、コンポーネント間の相互作用を検証します。
 慣例として、統合テストには `*IT` という接尾辞を付けます。例：
@@ -98,11 +98,11 @@ class UserRepositoryIT {
 }
 ```
 
-## テストの実行
+## テストの実行 {id="run-tests"}
 
 Maven プロジェクトでは、クリーンなビルドライフサイクルを確保するために、通常 Surefire と Failsafe の 2 つのプラグインでテスト実行を分担します。
 
-### Surefire プラグインによる実行
+### Surefire プラグインによる実行 {id="with-surefire-plugin"}
 
 [Surefire プラグイン](https://maven.apache.org/surefire/maven-surefire-plugin/) は、*ユニットテスト* を処理します。
 `*Test` の命名パターンに従うすべての Kotlin および Java テストを実行します。
@@ -123,7 +123,7 @@ Maven プロジェクトでは、クリーンなビルドライフサイクル�
 mvn test
 ```
 
-### Failsafe プラグインによる実行
+### Failsafe プラグインによる実行 {id="with-failsafe-plugin"}
 
 [Failsafe プラグイン](https://maven.apache.org/surefire/maven-failsafe-plugin/) は、*統合テスト* を処理します。
 `*IT` の命名パターンに従うすべての Kotlin および Java テストを実行します。
@@ -153,7 +153,7 @@ Surefire とは異なり、Failsafe は `integration-test` フェーズ中にテ
 mvn verify
 ```
 
-## 詳細な失敗メッセージの取得
+## 詳細な失敗メッセージの取得 {id="get-detailed-failure-messages"}
 
 Kotlin の [Power-assert コンパイラプラグイン](power-assert.md) は、アサーション内の中間値を表示する詳細な失敗メッセージを生成し、コンソール出力に完全な図（ダイアグラム）を表示します。
 
@@ -266,7 +266,7 @@ assertEquals(expectedRecord, actualRecord, "Profile configurations out of sync")
              UserProfile(id=451, email=admin-dev@company.internal)
 ```
 
-## その他のテスティングフレームワークの探索
+## その他のテスティングフレームワークの探索 {id="explore-other-testing-frameworks"}
 
 JUnit のほかに、Kotlin のテストをよりイディオマティック（Kotlin らしい書き方）で読みやすくするために、他の人気のあるフレームワークを使用することもできます。
 
@@ -278,7 +278,7 @@ JUnit のほかに、Kotlin のテストをよりイディオマティック（K
 | [Kotest](https://github.com/kotest/kotest)                  | 複数のアサーションスタイルと広範なマッチャーをサポートする Kotlin 用アサーションライブラリ。 |
 | [Strikt](https://github.com/robfletcher/strikt)             | 型安全なアサーションとデータクラスのサポートを備えた Kotlin 用アサーションライブラリ。 |
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [`kotlin.test` ライブラリ](https://kotlinlang.org/api/latest/kotlin.test/kotlin.test/) の機能を探索する。
 * [Power-assert コンパイラプラグイン](power-assert.md) について詳しく学ぶ。

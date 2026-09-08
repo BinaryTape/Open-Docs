@@ -8,7 +8,7 @@ KSP 支援增量處理（incremental processing）：僅當一個或多個相依
 ksp.incremental=false
 ```
 
-## Dirty 檔案
+## Dirty 檔案 {id="dirty-files"}
 
 如果一個檔案是由開發人員直接修改，或者是間接受到其他 dirty 檔案變更的影響，則該檔案被視為 *dirty*（需要重新處理）。
 
@@ -31,7 +31,7 @@ KSP 僅需要一組最小的根來源（root sources）。處理器將這些來�
 >
 {style="tip"}
 
-### 聚合與隔離輸出
+### 聚合與隔離輸出 {id="aggregating-and-isolating-outputs"}
 
 KSP 將產生的輸出分為兩種類型：聚合（aggregating）和隔離（isolating）。
 
@@ -60,7 +60,7 @@ KSP 將產生的輸出分為兩種類型：聚合（aggregating）和隔離（is
 </def>
 </deflist>
 
-### Dirty 狀態傳播
+### Dirty 狀態傳播 {id="dirtiness-propagation"}
 
 KSP 透過以下方式傳播 dirty 狀態：
 
@@ -72,7 +72,7 @@ KSP 透過以下方式傳播 dirty 狀態：
 >
 {style="tip"}
 
-## 實作
+## 實作 {id="implementation"}
 
 相依性是由輸入和輸出檔案之間的多對多關係決定的。
 
@@ -126,7 +126,7 @@ KSP 透過以下方式傳播 dirty 狀態：
 
 如果移除 `sourceA` 或 `sourceB`，KSP 不需要重新處理任何檔案。
 
-## 處理器範例
+## 處理器範例 {id="example-processor"}
 
 以下專案包含類別 `A` 和 `B`，其中 `A` 繼承 `B`：
 
@@ -165,7 +165,7 @@ class Example1Processor : SymbolProcessor {
 
 KSP 透過解析追蹤來追蹤此關係，並自動將 `B` 記錄為 `A` 的相依性。因此，您不需要明確宣告 `B.kt` 為 `outputForA` 的相依性。
 
-## 回報 Bug
+## 回報 Bug {id="reporting-bugs"}
 
 如果您遇到僅在啟用增量處理時才發生的任何錯誤，請在 [GitHub 儲存庫](https://github.com/google/ksp/issues) 中建立問題 (issue) 並附上相關的日誌檔案。
 
@@ -186,7 +186,7 @@ KSP 透過解析追蹤來追蹤此關係，並自動將 `B` 記錄為 `A` 的相
 
 5. 將成功組建的日誌檔案，以及重現問題之組建的日誌檔案，一併附加到 GitHub 問題中。
 
-### 視覺化符號相依圖
+### 視覺化符號相依圖 {id="visualizing-the-symbol-dependency-graph"}
 
 為了協助偵錯增量處理，KSP 可以產生一個 Graphviz DOT 檔案，用以視覺化從指定符號開始的符號相依圖。
 

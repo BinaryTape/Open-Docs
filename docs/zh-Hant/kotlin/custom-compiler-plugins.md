@@ -12,7 +12,7 @@
 
 如果您 *仍然* 找不到所需的內容，則可以建立自訂編譯器外掛程式。請注意，Kotlin 編譯器外掛程式 API 是 **不穩定** 的。由於每個新的編譯器版本都會引入破壞性變更，您需要投入大量的持續精力來維護它。
 
-### Kotlin 編譯器與編譯器外掛程式
+### Kotlin 編譯器與編譯器外掛程式 {id="the-kotlin-compiler-and-compiler-plugins"}
 
 <p></p> <!-- workaround for MRK057: Paragraph can only contain inline elements-->
 <list columns="2">
@@ -44,7 +44,7 @@
 
 [Kotlin serialization 外掛程式](https://github.com/Kotlin/kotlinx.serialization) 是一個很好的例子。該外掛程式的前端部分會加入一個隨伴物件 (companion object) 和一個序列化器函式，並進行檢查以防止名稱衝突。後端部分則透過 `KSerializer` 物件實作所需的序列化行為。
 
-### Kotlin 編譯器外掛程式範本
+### Kotlin 編譯器外掛程式範本 {id="kotlin-compiler-plugin-template"}
 
 要開始撰寫自訂編譯器外掛程式，您可以使用 [Kotlin 編譯器外掛程式範本](https://github.com/Kotlin/compiler-plugin-template)。
 然後，您從前端和後端外掛程式 API 註冊擴充點。
@@ -53,7 +53,7 @@
 > 
 {style="note"}
 
-### Frontend 外掛程式 API
+### Frontend 外掛程式 API {id="frontend-plugin-api"}
 
 Frontend 外掛程式 API（也稱為 Frontend 中間表示，FIR）具有以下專門的擴充點來自訂解析：
 
@@ -68,7 +68,7 @@ Frontend 外掛程式 API（也稱為 Frontend 中間表示，FIR）具有以下
 | [`FirSupertypeGenerationExtension`](https://github.com/JetBrains/kotlin/blob/master/compiler/fir/resolve/src/org/jetbrains/kotlin/fir/extensions/FirSupertypeGenerationExtension.kt)         | 為現有類別加入新的父型別。 |
 | [`FirTypeAttributeExtension`]( https://github.com/JetBrains/kotlin/blob/master/compiler/fir/tree/src/org/jetbrains/kotlin/fir/extensions/FirTypeAttributeExtension.kt)                       | 根據型別註解為特定型別加入特殊屬性。 |
 
-#### IDE 整合
+#### IDE 整合 {id="ide-integration"}
 
 解析的變更會影響 IDE 的行為（例如程式碼高亮和建議），因此您的外掛程式與 IDE 相容非常重要。每個版本的 IntelliJ IDEA 和 Android Studio 都包含一個開發版本的 Kotlin 編譯器。此版本專用於該 IDE，與已發佈的 Kotlin 編譯器不具備二進位相容性。因此，當您更新 IDE 時，也需要更新編譯器外掛程式以保持其正常運作。基於這個原因，社群外掛程式預設不會載入。
 
@@ -76,7 +76,7 @@ Frontend 外掛程式 API（也稱為 Frontend 中間表示，FIR）具有以下
 
 如果有了 Kotlin 編譯器外掛程式的開發工具包 (devkit)，支援多個 IDE 版本可能會變得更容易。如果您對此功能感興趣，請在我們的 [問題追蹤器](https://youtrack.jetbrains.com/issue/KT-82617) 中分享您的回饋。
 
-### Backend 外掛程式 API
+### Backend 外掛程式 API {id="backend-plugin-api"}
 
 > 在不降低 IDE 或偵錯工具效能的情況下，正確開發 Backend 外掛程式是很困難的，因此請謹慎且保守地進行變更。
 > 
@@ -87,12 +87,12 @@ Backend 外掛程式 API（也稱為 IR）具有單一擴充點：[`IrGeneration
 
 透過此擴充點所做的變更 **不會** 被編譯器檢查。您必須確保您的變更在此階段不會破壞編譯器的預期。例如，您可能會意外引入無效的型別、不正確的函式參考或正確作用域之外的參考。
 
-#### 探索 Backend 外掛程式程式碼
+#### 探索 Backend 外掛程式程式碼 {id="explore-backend-plugin-code"}
 
 您可以探索 Kotlin serialization 外掛程式的程式碼，了解實際的 Backend 編譯器外掛程式程式碼。
 例如，[`SerializableCompanionIrGenerator.kt`](https://github.com/JetBrains/kotlin/blob/master/plugins/kotlinx-serialization/kotlinx-serialization.backend/src/org/jetbrains/kotlinx/serialization/compiler/backend/ir/SerializerIrGenerator.kt) 為關鍵的序列化器成員填補缺失的主體。其中一個例子是 [`generateChildSerializersGetter()`](https://github.com/JetBrains/kotlin/blob/9cfa558902abc13d245c825717026af63ef82dd2/plugins/kotlinx-serialization/kotlinx-serialization.backend/src/org/jetbrains/kotlinx/serialization/compiler/backend/ir/SerializerIrGenerator.kt#L242) 函式，它收集 `KSerializer` 運算式列表並將其在陣列中回傳。
 
-#### 檢查您的 Backend 外掛程式程式碼是否存在問題
+#### 檢查您的 Backend 外掛程式程式碼是否存在問題 {id="check-your-backend-plugin-code-for-problems"}
 
 您可以透過三種方式檢查 Backend 外掛程式程式碼中的問題：
 
@@ -108,7 +108,7 @@ Backend 外掛程式 API（也稱為 IR）具有單一擴充點：[`IrGeneration
 
     在 `convertToIr.kt` 檔案中的 `convertToIrAndActualize()` 函式加入中斷點，並在偵錯模式下執行編譯器，以便在編譯期間獲取更詳細的資訊。
 
-### 測試您的外掛程式
+### 測試您的外掛程式 {id="test-your-plugin"}
 
 實作外掛程式後，請對其進行徹底測試。[Kotlin 編譯器外掛程式範本](https://github.com/Kotlin/compiler-plugin-template) 已設定為使用 [Kotlin 編譯器測試框架](https://github.com/JetBrains/kotlin/blob/master/compiler/test-infrastructure/ReadMe.md)。
 您可以在以下目錄中加入測試：
@@ -126,6 +126,6 @@ Backend 外掛程式 API（也稱為 IR）具有單一擴充點：[`IrGeneration
 
 您可以使用這些檔案來檢查產生的 diff 中是否有任何非預期的變更。如果沒有問題，新的 dump 檔案就會成為您最新的 _golden_ 檔案：這是經過核准且受信任的來源，可用於與未來的變更進行比較。
 
-### 獲取協助
+### 獲取協助 {id="get-help"}
 
 如果您在開發自訂編譯器外掛程式時遇到問題，請在 [Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) 的 [#compiler](https://slack-chats.kotlinlang.org/c/compiler) 頻道尋求協助。我們不能保證一定有解決方案，但我們會盡力提供協助。

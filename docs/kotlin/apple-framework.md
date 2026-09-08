@@ -27,7 +27,7 @@ Kotlin/Native 可以通过 [Kotlin 多平台插件](gradle-configure-project.md#
 >
 {style="note"}
 
-## 创建 Kotlin 库
+## 创建 Kotlin 库 {id="create-a-kotlin-library"}
 
 > 请参阅 [Kotlin/Native 入门](native-get-started.md#using-gradle)教程，了解详细的第一步操作，以及关于如何创建新 Kotlin/Native 项目并在 IntelliJ IDEA 中打开它的说明。
 >
@@ -162,11 +162,11 @@ Kotlin/Native 编译器可以根据 Kotlin 代码为 macOS 和 iOS 生成框架�
 >
 {style="tip"}
 
-## 生成的框架头文件
+## 生成的框架头文件 {id="generated-framework-headers"}
 
 每个框架变体都包含一个头文件。头文件不依赖于目标平台。头文件包含针对你的 Kotlin 代码的定义以及一些 Kotlin 范围内的声明。让我们看看里面有什么。
 
-### Kotlin/Native 运行时声明
+### Kotlin/Native 运行时声明 {id="kotlin-native-runtime-declarations"}
 
 在 `build/bin/<你的目标名称>/debugFramework/Demo.framework/Headers` 目录中，打开 `Demo.h` 头文件。
 查看 Kotlin 运行时声明：
@@ -219,7 +219,7 @@ Kotlin 类在 Swift/Objective-C 中有一个 `KotlinBase` 基类，它扩展了�
 | Map         | Dictionary          | NSDictionary        |
 | MutableMap  | NSMutableDictionary | NSMutableDictionary |
 
-### Kotlin 数字与 NSNumber
+### Kotlin 数字与 NSNumber {id="kotlin-numbers-and-nsnumber"}
 
 `Demo.h` 文件的下一部分包含 Kotlin/Native 数字类型与 `NSNumber` 之间的类型映射。基类在 Objective-C 中称为 `DemoNumber`，在 Swift 中称为 `KotlinNumber`。它扩展了 `NSNumber`。
 
@@ -255,7 +255,7 @@ __attribute__((swift_name("Kotlin__TYPE__")))
 这些类型用于将装箱的 Kotlin 数字类型映射到 Swift/Objective-C。
 在 Swift 中，你可以通过调用构造函数来创建实例，例如 `KotlinLong(value: 42)`。
 
-### 来自 Kotlin 的类和对象
+### 来自 Kotlin 的类和对象 {id="classes-and-objects-from-kotlin"}
 
 让我们看看 `class` 和 `object` 是如何映射到 Swift/Objective-C 的。生成的 `Demo.h` 文件包含了 `Class`、`Interface` 和 `Object` 的确切定义：
 
@@ -289,7 +289,7 @@ __attribute__((swift_name("Object")))
 
 `Interface` 被转换为 `@protocol`，而 `class` 和 `object` 都表示为 `@interface`。`Demo` 前缀来自框架名称。可为 null 的返回值类型 `ULong?` 在 Objective-C 中被转换为 `DemoULong`。
 
-### 来自 Kotlin 的全局声明
+### 来自 Kotlin 的全局声明 {id="global-declarations-from-kotlin"}
 
 Kotlin 中的所有全局函数在 Objective-C 中被转换为 `DemoLibKt`，在 Swift 中被转换为 `LibKt`，其中 `Demo` 是由 `kotlinc-native` 的 `-output` 参数设置的框架名称：
 
@@ -312,13 +312,13 @@ Kotlin `String` 和 Objective-C `NSString*` 之间是透明映射的。同样，
 
 你可以在 [与 Swift/Objective-C 的互操作性](native-objc-interop.md#mappings)中找到关于类型映射的更多信息。
 
-## 垃圾回收与引用计数
+## 垃圾回收与引用计数 {id="garbage-collection-and-reference-counting"}
 
 Swift 和 Objective-C 使用自动引用计数 (ARC)。Kotlin/Native 拥有自己的[垃圾回收器](native-memory-manager.md#garbage-collector)，它也[与 Swift/Objective-C ARC 集成](native-arc-integration.md)。
 
 未使用的 Kotlin 对象会被自动移除。你不需要采取额外步骤来从 Swift 或 Objective-C 控制 Kotlin/Native 实例的生命周期。
 
-## 在 Objective-C 中使用代码
+## 在 Objective-C 中使用代码 {id="use-code-from-objective-c"}
 
 让我们从 Objective-C 调用该框架。在框架目录中，创建包含以下代码的 `main.m` 文件：
 
@@ -358,7 +358,7 @@ int main(int argc, const char * argv[]) {
 
 `strings` 函数在 Objective-C 中被转换为 `DemoLibKt.stringsStr` 函数，因此你可以直接将 `NSString` 传递给它。返回值也可见为 `NSString`。
 
-## 在 Swift 中使用代码
+## 在 Swift 中使用代码 {id="use-code-from-swift"}
 
 你生成的框架具有辅助特性，使其更容易在 Swift 中使用。让我们将[之前的 Objective-C 示例](#use-code-from-objective-c)转换为 Swift。
 
@@ -390,13 +390,13 @@ Kotlin 函数和属性名称按原样转换。Kotlin 的 `String` 被转换为 S
 
 你可以在 [与 Swift/Objective-C 的互操作性](native-objc-interop.md#mappings)中找到关于类型映射的更多信息。
 
-## 将框架连接到你的 iOS 项目
+## 将框架连接到你的 iOS 项目 {id="connect-the-framework-to-your-ios-project"}
 
 现在，你可以将生成的框架作为依赖项连接到你的 iOS 项目。有多种方式来设置并自动化此过程，请选择最适合你的方法：
 
 <a href="https://kotlinlang.org/docs/multiplatform/multiplatform-ios-integration-overview.html" as="button" mode="rock" icon="arrow-right" icon-position="right">选择 iOS 集成方法</a>
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * [详细了解与 Objective-C 的互操作性](native-objc-interop.md)
 * [查看 Kotlin 中如何实现与 C 的互操作性](native-c-interop.md)

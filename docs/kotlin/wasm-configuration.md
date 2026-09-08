@@ -4,13 +4,13 @@
 
 本页面提供了关于 [WebAssembly 提案](https://webassembly.org/roadmap/)、受支持的浏览器以及高效开发 Kotlin/Wasm 的配置建议的详细信息。
 
-## 浏览器版本
+## 浏览器版本 {id="browser-versions"}
 
 Kotlin/Wasm 依赖于最新的 WebAssembly 提案，例如 [垃圾回收 (WasmGC)](#garbage-collection-proposal) 和 [异常处理](#exception-handling-proposal)，以便在 WebAssembly 中引入改进和新功能。
 
 为了确保这些功能正常运行，请提供一个支持最新提案的环境。请检查你的浏览器版本是默认支持新的 WasmGC，还是需要对环境进行更改。
 
-### Chrome 
+### Chrome {id="chrome"}
 
 * **对于 119 或更高版本：**
 
@@ -26,7 +26,7 @@ Kotlin/Wasm 依赖于最新的 WebAssembly 提案，例如 [垃圾回收 (WasmGC
   2. 启用 **WebAssembly Garbage Collection**。
   3. 重新启动浏览器。
 
-### 基于 Chromium 的浏览器
+### 基于 Chromium 的浏览器 {id="chromium-based"}
 
 包括 Edge、Brave、Opera 或 Samsung Internet 等基于 Chromium 的浏览器。
 
@@ -42,7 +42,7 @@ Kotlin/Wasm 依赖于最新的 WebAssembly 提案，例如 [垃圾回收 (WasmGC
 
   使用 `--js-flags=--experimental-wasm-gc` 命令行参数运行应用程序。
 
-### Firefox
+### Firefox {id="firefox"}
 
 * **对于 120 或更高版本：**
 
@@ -54,7 +54,7 @@ Kotlin/Wasm 依赖于最新的 WebAssembly 提案，例如 [垃圾回收 (WasmGC
   2. 启用 `javascript.options.wasm_gc` 选项。
   3. 刷新页面。
 
-### Safari/WebKit
+### Safari/WebKit {id="safari-webkit"}
 
 * **对于 18.2 或更高版本：**
 
@@ -71,17 +71,17 @@ Kotlin/Wasm 依赖于最新的 WebAssembly 提案，例如 [垃圾回收 (WasmGC
 >
 {style="note"}
 
-## Wasm 提案支持情况
+## Wasm 提案支持情况 {id="wasm-proposals-support"}
 
 Kotlin/Wasm 的改进基于 [WebAssembly 提案](https://webassembly.org/roadmap/)。在此你可以找到关于 WebAssembly 垃圾回收提案和（旧版）异常处理提案支持的详细信息。
 
-### 垃圾回收提案
+### 垃圾回收提案 {id="garbage-collection-proposal"}
 
 自 Kotlin 1.9.20 起，Kotlin 工具链使用最新版本的 [Wasm 垃圾回收](https://github.com/WebAssembly/gc) (WasmGC) 提案。
 
 因此，我们强烈建议你将 Wasm 项目更新到最新版本的 Kotlin。我们还建议你在 Wasm 环境中使用最新版本的浏览器。
 
-### 异常处理提案
+### 异常处理提案 {id="exception-handling-proposal"}
 
 Kotlin 工具链同时支持 [旧版](https://github.com/WebAssembly/exception-handling/blob/master/proposals/exception-handling/legacy/Exceptions.md) 和 [新版](https://github.com/WebAssembly/exception-handling/blob/main/proposals/exception-handling/Exceptions.md) 的异常处理提案。这使得 Kotlin 生成的 Wasm 二进制文件可以在更广泛的环境中运行。
 
@@ -95,7 +95,7 @@ Kotlin 工具链同时支持 [旧版](https://github.com/WebAssembly/exception-h
 >
 {style="tip"}
 
-## 使用默认导入
+## 使用默认导入 {id="use-default-import"}
 
 [将 Kotlin/Wasm 代码导入 JavaScript](wasm-js-interop.md) 已转向命名导出 (named exports)，不再使用默认导出 (default exports)。
 
@@ -112,7 +112,7 @@ export { moduleExports as default };
 
 你也可以将 `.mjs` 文件放置在自定义位置。在这种情况下，你需要手动将其移动到主 `.mjs` 文件旁边，或者调整 import 语句中的路径以匹配其位置。
 
-## Kotlin/Wasm 增量编译
+## Kotlin/Wasm 增量编译 {id="kotlin-wasm-incremental-compilation"}
 
 Kotlin/Wasm 目标支持增量编译，这使编译器能够仅重新编译受近期更改影响的文件。这有助于减少编译时间。
 
@@ -122,7 +122,7 @@ Wasm 目标的增量编译默认处于启用状态。要禁用它，请将以下
 kotlin.incremental.wasm=false
 ```
 
-## 完全限定类名中的诊断
+## 完全限定类名中的诊断 {id="diagnostics-in-fully-qualified-class-names"}
 
 在 Kotlin/Wasm 上，编译器默认不会在生成的二进制文件中存储类的完全限定名称 (FQN)，以避免增加应用程序的大小。
 
@@ -144,13 +144,13 @@ kotlin {
 
 请记住，启用此选项会增加应用程序的大小。
 
-### 完全限定名称
+### 完全限定名称 {id="fully-qualified-names"}
 
 在 Kotlin/Wasm 目标上，无需任何额外配置即可在运行时使用完全限定名称 (FQN)。这意味着 `KClass.qualifiedName` 属性是默认启用的。
 
 使用 FQN 提高了代码从 JVM 到 Wasm 目标的便携性，并通过显示完整的完全限定名称使运行时错误更具信息量。
 
-## 数组越界访问与陷阱
+## 数组越界访问与陷阱 {id="array-out-of-bounds-access-and-traps"}
 
 在 Kotlin/Wasm 中，使用超出其边界的索引访问数组会触发 WebAssembly 陷阱 (trap)，而不是常规的 Kotlin 异常。陷阱会立即停止当前的执行堆栈。
 
@@ -177,7 +177,7 @@ kotlin {
 
 请参阅此 [YouTrack 问题](https://youtrack.jetbrains.com/issue/KT-73452/K-Wasm-turning-on-range-checks-by-default) 以了解更多详细信息并分享你的反馈。
 
-## 实验性注解
+## 实验性注解 {id="experimental-annotations"}
 
 Kotlin/Wasm 为通用的 WebAssembly 互操作性提供了几个实验性注解。
 
@@ -185,7 +185,7 @@ Kotlin/Wasm 为通用的 WebAssembly 互操作性提供了几个实验性注解�
 
 由于这些机制仍在演进中，所有注解都被标记为实验性。你必须显式 [选择加入以使用它们](opt-in-requirements.md)，并且其设计或行为可能会在未来的 Kotlin 版本中发生变化。
 
-## 调试期间的重新加载
+## 调试期间的重新加载 {id="reloads-during-debugging"}
 
 在 [现代浏览器](#browser-versions) 中 [调试](wasm-debugging.md) 你的应用程序是开箱即用的。当你运行开发 Gradle 任务 (`*DevRun`) 时，Kotlin 会自动将源文件提供给浏览器。
 

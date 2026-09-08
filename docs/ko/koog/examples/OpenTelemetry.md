@@ -44,7 +44,7 @@ import io.opentelemetry.exporter.otlp.trace.OtlpGrpcSpanExporter
 
 ```
 
-## OpenTelemetry 익스포터 구성
+## OpenTelemetry 익스포터 구성 {id="configure-opentelemetry-exporters"}
 
 다음 셀에서는 다음을 수행합니다:
 - Koog AIAgent 생성
@@ -75,7 +75,7 @@ val agent = AIAgent(
 }
 ```
 
-## 에이전트 실행 및 Jaeger에서 트레이스 확인
+## 에이전트 실행 및 Jaeger에서 트레이스 확인 {id="run-the-agent-and-view-traces-in-jaeger"}
 
 다음 셀을 실행하여 간단한 프롬프트를 트리거합니다. 결과는 다음과 같습니다:
 - `LoggingSpanExporter`가 출력하는 콘솔 스팬 로그
@@ -99,7 +99,7 @@ Check Jaeger UI at http://localhost:16686 to view traces"
 }
 ```
 
-## 정리 및 문제 해결
+## 정리 및 문제 해결 {id="cleanup-and-troubleshooting"}
 
 작업을 마친 후:
 

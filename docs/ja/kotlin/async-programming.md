@@ -12,7 +12,7 @@
 
 コルーチンとは何かを説明する前に、他の解決策をいくつか簡単におさらいしましょう。
 
-## スレッド
+## スレッド {id="threading"}
 
 スレッドは、アプリケーションのブロッキングを回避するための手法として、おそらく最もよく知られているものです。
 
@@ -36,7 +36,7 @@ fun preparePost(): Token {
 * **スレッドが常に利用可能とは限らない。** JavaScriptなどの一部のプラットフォームでは、スレッドをサポートさえしていません。
 * **スレッドは簡単ではない。** スレッドのデバッグやレースコンディション（競合状態）の回避は、マルチスレッドプログラミングにおいて私たちが苦しむ一般的な問題です。
 
-## コールバック
+## コールバック {id="callbacks"}
 
 コールバックの考え方は、ある関数を別の関数のパラメータとして渡し、プロセスが完了した時点でその関数を呼び出してもらうというものです。
 
@@ -62,7 +62,7 @@ fun preparePostAsync(callback: (Token) -> Unit) {
 
 コールバックはJavaScriptのようなイベントループ・アーキテクチャでは非常に一般的ですが、そこでも一般的にはPromiseやReactive Extensionsなどの他の手法へと移行が進んでいます。
 
-## Future、Promise、その他
+## Future、Promise、その他 {id="futures-promises-and-others"}
 
 FutureやPromise（言語やプラットフォームによって他の用語が使われることもあります）の背後にある考え方は、呼び出しを行う際に、いつかの時点で `Promise` オブジェクトが返されることを「約束（promise）」され、そのオブジェクトに対して操作を行うというものです。
 
@@ -91,7 +91,7 @@ fun preparePostAsync(): Promise<Token> {
 * **特定の戻り値の型。** 戻り値の型は、私たちが必要とする実際のデータではなく、イントロスペクション（内省）が必要な新しい型である `Promise` に変わります。
 * **エラーハンドリングが複雑になる可能性がある。** エラーの伝搬や連鎖が常に単純であるとは限りません。
 
-## Reactive Extensions
+## Reactive Extensions {id="reactive-extensions"}
 
 Reactive Extensions (Rx) は、[Erik Meijer](https://en.wikipedia.org/wiki/Erik_Meijer_(computer_scientist)) によって C# に導入されました。.NETプラットフォームで間違いなく使用されていましたが、NetflixがそれをJavaに移植し RxJava と命名するまでは、主流の採用には至りませんでした。それ以来、JavaScript (RxJS) を含む様々なプラットフォーム向けに多数の移植版が提供されています。
 
@@ -105,7 +105,7 @@ Rxの背後にある考え方は、「Observableストリーム（観察可能�
 
 さらに、Rxはエラーハンドリングに対していくらか優れたアプローチを導入しています。
 
-## コルーチン
+## コルーチン {id="coroutines"}
 
 非同期コードを扱うためのKotlinのアプローチはコルーチンを使用することです。これは「中断可能な計算（suspendable computations）」という考え方であり、すなわち、ある時点で実行を中断し、後で再開できる関数の概念です。
 

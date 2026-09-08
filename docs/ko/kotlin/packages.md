@@ -5,7 +5,7 @@ Kotlin 프로젝트에서 코드는 패키지와 임포트를 사용하여 구�
 * **패키지(package)**는 하나 이상의 Kotlin 파일을 담는 컨테이너입니다. 파일은 `package` 헤더를 통해 패키지와 연결됩니다.
 * **임포트(import)**는 다른 패키지의 엔티티를 현재 파일에서 사용할 수 있게 해주는 지시문입니다.
 
-## 패키지 헤더
+## 패키지 헤더 {id="package-headers"}
 
 소스 파일은 패키지 헤더로 시작할 수 있습니다:
 
@@ -25,12 +25,12 @@ class Message(val text: String) { /*...*/ }
 
 파일에 패키지 헤더가 없으면, 해당 콘텐츠는 루트 패키지에 속하게 됩니다.
 
-## 임포트
+## 임포트 {id="imports"}
 
 다른 패키지의 파일에 있는 엔티티를 사용하려면 `import` 지시문을 사용하세요.
 기본 임포트 외에도, 각 파일은 고유한 임포트를 선언할 수 있습니다.
 
-### 단일 엔티티 임포트
+### 단일 엔티티 임포트 {id="import-a-single-entity"}
 
 특정 엔티티를 임포트하면 한정어(qualification) 없이 사용할 수 있습니다:
 
@@ -44,7 +44,7 @@ fun main() {
 }
 ```
 
-### 범위 내 콘텐츠 임포트
+### 범위 내 콘텐츠 임포트 {id="import-the-contents-of-a-scope"}
 
 별표(`*`)로 끝나는 스타 임포트(star import)는 해당 범위 내의 모든 이름이 있는 엔티티를 임포트합니다:
 
@@ -60,7 +60,7 @@ fun main() {
 
 스타 임포트와 명시적 임포트로 동일한 엔티티를 임포트하는 경우, 오버로드 해소(overload resolution) 시 명시적 임포트가 우선순위를 갖습니다.
 
-### 별칭을 사용하여 이름 충돌 해결
+### 별칭을 사용하여 이름 충돌 해결 {id="resolve-name-clashes-with-aliases"}
 
 임포트한 두 엔티티의 이름이 같은 경우, `as` 키워드를 사용하여 로컬에서 그 중 하나의 이름을 변경함으로써 모호함을 해소할 수 있습니다:
 
@@ -77,7 +77,7 @@ fun main() {
 }
 ```
 
-### 임포트할 수 있는 항목
+### 임포트할 수 있는 항목 {id="what-you-can-import"}
 
 `import` 키워드는 클래스 임포트에만 국한되지 않습니다. 패키지, 클래스, 객체, 열거형(enum) 중 어디에 있든 다음과 같은 엔티티를 임포트하는 데 사용할 수 있습니다:
 
@@ -105,7 +105,7 @@ fun main() {
     import org.example.Outer.Nested
     ```
 
-## 기본 임포트
+## 기본 임포트 {id="default-imports"}
 
 많은 패키지가 기본적으로 모든 Kotlin 파일에 임포트됩니다:
 
@@ -128,7 +128,7 @@ fun main() {
 * JS:
   * [kotlin.js.*](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.js/index.html)
 
-## 가시성과 임포트
+## 가시성과 임포트 {id="visibility-and-imports"}
 
 엔티티를 임포트할 수 있는지 여부는 해당 엔티티의 [가시성 수정자(visibility modifiers)](visibility-modifiers.md)에 따라 달라집니다:
 

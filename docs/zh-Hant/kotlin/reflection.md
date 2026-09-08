@@ -7,7 +7,7 @@
 >
 {style="note"}
 
-## JVM 相依性
+## JVM 相依性 {id="jvm-dependency"}
 
 在 JVM 平台上，Kotlin 編譯器發行版將使用反射功能所需的執行階段元件作為獨立的建置產物 `kotlin-reflect.jar` 包含在內。這樣做是為了減少不使用反射功能的應用程式所需的執行階段程式庫大小。
 
@@ -50,7 +50,7 @@
 如果你不使用 Gradle 或 Maven，請確保你的專案 Classpath 中有 `kotlin-reflect.jar`。
 在其他受支援的情況下（使用命令列編譯器的 IntelliJ IDEA 專案），它是預設加入的。在命令列編譯器中，你可以使用 `-no-reflect` 編譯器選項來從 Classpath 中排除 `kotlin-reflect.jar`。
 
-## 類別參照
+## 類別參照 {id="class-references"}
 
 最基本的反射功能是獲取 Kotlin 類別的執行階段參照。要取得靜態已知的 Kotlin 類別參照，你可以使用「類別常值」（class literal）語法：
 
@@ -64,7 +64,7 @@ val c = MyClass::class
 >
 {style="note"}
 
-### 繫結類別參照
+### 繫結類別參照 {id="bound-class-references"}
 
 你可以使用相同的 `::class` 語法，透過將物件作為接收者（receiver）來獲取特定物件類別的參照：
 
@@ -75,13 +75,13 @@ assert(widget is GoodWidget) { "Bad widget: ${widget::class.qualifiedName}" }
 
 你將獲得該物件確切類別的參照，例如 `GoodWidget` 或 `BadWidget`，而不論接收者運算式（`Widget`）的型別為何。
 
-## 可呼叫參照
+## 可呼叫參照 {id="callable-references"}
 
 對函式、屬性和建構函式的參照也可以被呼叫，或作為 [函式型別](lambdas.md#function-types) 的執行個體使用。
 
 所有可呼叫參照的共同超型別（supertype）是 [`KCallable<out R>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-callable/index.html)，其中 `R` 是傳回值型別。對於屬性來說，它是屬性型別；對於建構函式來說，它是建構出的型別。
 
-### 函式參照
+### 函式參照 {id="function-references"}
 
 當你擁有如下宣告的具名函式時，可以直接呼叫它（`isOdd(5)`）：
 
@@ -137,7 +137,7 @@ val predicate: (String) -> Boolean = ::isOdd   // 指向 isOdd(x: String)
 val isEmptyStringList: List<String>.() -> Boolean = List<String>::isEmpty
 ```
 
-#### 範例：函式組合
+#### 範例：函式組合 {id="example-function-composition"}
 
 考慮以下函式：
 
@@ -170,7 +170,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 屬性參照
+### 屬性參照 {id="property-references"}
 
 要在 Kotlin 中將屬性作為一等物件存取，請使用 `::` 運算子：
 
@@ -234,7 +234,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 與 Java 反射的互通性
+### 與 Java 反射的互通性 {id="interoperability-with-java-reflection"}
 
 在 JVM 平台上，標準函式庫包含反射類別的擴充，提供與 Java 反射物件之間的對應（參見套件 `kotlin.reflect.jvm`）。
 例如，要尋找作為 Kotlin 屬性 getter 的支援欄位或 Java 方法，你可以編寫如下程式碼：
@@ -256,7 +256,7 @@ fun main() {
 fun getKClass(o: Any): KClass<Any> = o.javaClass.kotlin
 ```
 
-### 建構函式參照
+### 建構函式參照 {id="constructor-references"}
 
 建構函式可以像方法和屬性一樣被參照。只要程式預期一個函式型別物件，且該物件接受與建構函式相同的參數並傳回適當型別的物件，你就可以使用它們。
 建構函式透過使用 `::` 運算子並加上類別名稱來參照。考慮以下預期一個無參數且傳回型別為 `Foo` 的函式參數的函式：
@@ -277,7 +277,7 @@ function(::Foo)
 
 指向建構函式的可呼叫參照，其型別取決於參數數量，為 [`KFunction<out R>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-function/index.html) 的其中一個子型別。
 
-### 繫結函式與屬性參照
+### 繫結函式與屬性參照 {id="bound-function-and-property-references"}
 
 你可以參照特定物件的執行個體方法：
 
@@ -332,7 +332,7 @@ fun main() {
 
 你不需要指定 `this` 作為接收者：`this::foo` 與 `::foo` 是等價的。
 
-### 繫結建構函式參照
+### 繫結建構函式參照 {id="bound-constructor-references"}
 
 可以透過提供外部類別的執行個體，來獲取 [內部類別](nested-classes.md#inner-classes) 建構函式的繫結可呼叫參照：
 

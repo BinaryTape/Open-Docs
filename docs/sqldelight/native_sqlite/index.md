@@ -36,7 +36,7 @@ val driver: SqlDriver = NativeSqliteDriver(Database.Schema, "test.db")
 
 {% include 'common/index_queries.md' %}
 
-## 读取器连接池
+## 读取器连接池 {id="reader-connection-pools"}
 
 磁盘数据库可以（可选）具有多个读取器连接。要配置读取器池，请将 `maxReaderConnections` 形参传递给 `NativeSqliteDriver` 的各个构造函数：
 

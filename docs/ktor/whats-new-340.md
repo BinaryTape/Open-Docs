@@ -11,9 +11,9 @@ Ktor 3.4.0 在服务器、客户端和工具方面带来了一系列增强功能
 * [运行时 OpenAPI 路由注解](#runtime-openapi-route-annotations)
 * [OkHttp 的双工流](#duplex-streaming-for-okhttp)
 
-## Ktor 服务器
+## Ktor 服务器 {id="ktor-server"}
 
-### 针对错误处理的 OAuth 回退
+### 针对错误处理的 OAuth 回退 {id="oauth-fallback-for-error-handling"}
 
 Ktor 3.4.0 为 [OAuth](server-oauth.md) 身份验证提供程序引入了新的 [`fallback()`](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-o-auth-authentication-provider/-config/fallback.html) 函数。
 当 OAuth 流程因 `AuthenticationFailedCause.Error`（例如令牌交换失败、网络问题或响应解析错误）而失败时，将调用该回退。
@@ -42,13 +42,13 @@ install(Authentication) {
 }
 ```
 
-### 静态 OAuth 提供程序设置
+### 静态 OAuth 提供程序设置 {id="static-oauth-provider-settings"}
 
 Ktor 3.4.0 为 [OAuth](server-oauth.md) 身份验证提供程序引入了 `settings` 属性。可以使用它直接在 `oauth` 块中配置静态 OAuth 提供程序设置。对于静态提供程序配置，建议优先使用 `settings` 而非 `providerLookup`，因为这允许 Ktor 为生成的 [OpenAPI 规范](openapi-spec-generation.md)推断元数据。
 
 `providerLookup` 属性仍然可用于为特定调用动态解析 OAuth 设置。
 
-### Zstd 压缩支持
+### Zstd 压缩支持 {id="zstd-compression-support"}
 
 [Compression](server-compression.md) 插件现在支持 [Zstd](https://github.com/facebook/zstd) 压缩。
 
@@ -70,7 +70,7 @@ install(Compression) {
 }
 ```
 
-### 配置文件中的 SSL 信任库设置
+### 配置文件中的 SSL 信任库设置 {id="ssl-trust-store-settings-in-a-configuration-file"}
 
 Ktor 现在允许您使用应用程序配置文件为服务器配置额外的 [SSL 设置](server-ssl.md#config-file)。您可以直接在配置中指定信任库、其相应的密码以及启用的 TLS 协议列表。
 
@@ -95,7 +95,7 @@ ktor {
 - `trustStorePassword` – 信任库的密码。
 - `enabledProtocols` – 允许的 TLS 协议列表。
 
-### 用于部分响应的 HTML 片段
+### 用于部分响应的 HTML 片段 {id="html-fragments-for-partial-responses"}
 
 Ktor 现在提供了一个新的 [`.respondHtmlFragment()`](https://api.ktor.io/ktor-server-html-builder/io.ktor.server.html/respond-html-fragment.html) 函数，用于发送部分 HTML 响应。这在生成不需要完整 `<html>` 文档的标记时非常有用，例如使用 HTMX 等工具进行动态 UI 更新。
 
@@ -113,7 +113,7 @@ get("/books.html") {
 }
 ```
 
-### HTTP 请求生命周期
+### HTTP 请求生命周期 {id="http-request-lifecycle"}
 
 新的 [`HttpRequestLifecycle` 插件](server-http-request-lifecycle.md)允许您在客户端断开连接时取消正在处理的 HTTP 请求。
 当您需要在客户端断开连接时取消长时间运行或资源密集型的正在处理的 HTTP 请求时，这非常有用。 
@@ -143,7 +143,7 @@ routing {
 当客户端断开连接时，处理请求的协程将被取消，结构化并发将处理所有资源的清理工作。由请求启动的任何 `launch` 或 `async` 协程也会被取消。
 目前仅 `Netty` 和 `CIO` 引擎支持此功能。
 
-### 响应资源的新方法
+### 响应资源的新方法 {id="new-method-to-respond-with-a-resource"}
 
 新的 [`call.respondResource()`](server-responses.md#resource) 方法的工作方式与 [`call.respondFile()`](server-responses.md#file) 类似，但它接受资源而不是文件作为响应。
 
@@ -157,7 +157,7 @@ routing {
 }
 ```
 
-### 运行时 OpenAPI 路由注解
+### 运行时 OpenAPI 路由注解 {id="runtime-openapi-route-annotations"}
 
 <primary-label ref="experimental"/>
 
@@ -205,7 +205,7 @@ get("/messages") {
 
 有关更多详情和示例，请参阅[运行时路由注解](openapi-spec-generation.md#runtime-route-annotations)。
 
-### API Key 身份验证
+### API Key 身份验证 {id="api-key-authentication"}
 
 新的 [API Key 身份验证插件](server-api-key-auth.md)允许您使用随每个请求传递的共享密钥（通常在 HTTP 标头中）来保护服务器路由。
 
@@ -237,9 +237,9 @@ API Key 身份验证可用于服务间通信以及其他轻量级身份验证机
 
 有关更多详情和配置选项，请参阅 [API Key 身份验证](server-api-key-auth.md)。
 
-## 核心
+## 核心 {id="core"}
 
-### 多标头解析
+### 多标头解析 {id="multiple-header-parsing"}
 
 新的 [`Headers.getSplitValues()`](https://api.ktor.io/ktor-http/io.ktor.http/get-split-values.html) 函数简化了对单行中包含多个值的标头的处理。
 
@@ -265,15 +265,15 @@ val forceSplit = headers.getSplitValues("X-Quoted", splitInsideQuotes = true)
 // ["a", "\"b", "c\"", "d"]
 ```
 
-## Ktor 客户端
+## Ktor 客户端 {id="ktor-client"}
 
-### 身份验证令牌缓存控制
+### 身份验证令牌缓存控制 {id="authentication-token-cache-control"}
 
 在 Ktor 3.4.0 之前，使用 [Basic](client-basic-auth.md) 和 [Bearer 身份验证](client-bearer-auth.md)提供程序的应用程序在用户注销或更新其身份验证数据后可能会继续发送过时的令牌或凭据。发生这种情况是因为每个提供程序都会通过负责存储已加载身份验证令牌的内部组件，在内部缓存 `loadTokens()` 函数的结果，并且该缓存会一直保持活动状态，直到手动清除。
 
 Ktor 3.4.0 引入了新的函数和配置选项，让您可以显式且便捷地控制令牌缓存行为。
 
-#### 访问和清除身份验证令牌
+#### 访问和清除身份验证令牌 {id="accessing-and-clearing-authentication-tokens"}
 
 您现在可以直接从客户端访问身份验证提供程序，并在需要时清除其缓存的令牌。
 
@@ -307,7 +307,7 @@ fun updateCredentials(new: Credentials) {
 }
 ```
 
-#### 配置令牌缓存行为
+#### 配置令牌缓存行为 {id="configuring-token-cache-behavior"}
 
 Basic 和 Bearer 身份验证提供程序都添加了一个新的 `cacheTokens` 配置选项。这允许您控制是否应在请求之间缓存令牌或凭据。
 
@@ -324,7 +324,7 @@ basic {
 
 当身份验证数据频繁更改或必须始终反映最新状态时，禁用缓存特别有用。
 
-### OkHttp 的双工流
+### OkHttp 的双工流 {id="duplex-streaming-for-okhttp"}
 
 OkHttp 客户端引擎现在支持双工流，使客户端能够同时发送请求正文数据和接收响应数据。
 
@@ -343,7 +343,7 @@ val client = HttpClient(OkHttp) {
 }
 ```
 
-### Apache5 连接管理器配置
+### Apache5 连接管理器配置 {id="apache5-connection-manager-configuration"}
 
 Apache5 引擎现在支持使用新的 [`configureConnectionManager {}`](https://api.ktor.io/ktor-client-apache5/io.ktor.client.engine.apache5/-apache5-engine-config/configure-connection-manager.html) 函数直接配置连接管理器。
 
@@ -381,7 +381,7 @@ val client = HttpClient(Apache5) {
 
 新的 `configureConnectionManager {}` 函数让 Ktor 保持控制，同时允许您调整参数，例如每个路由的最大连接数 (`maxConnPerRoute`) 和总最大连接数 (`maxConnTotal`)。
 
-### 原生客户端引擎的调度器配置
+### 原生客户端引擎的调度器配置 {id="dispatcher-configuration-for-native-client-engines"}
 
 原生 HTTP 客户端引擎（`Curl`、`Darwin` 和 `WinHttp`）现在遵循配置的引擎调度器，并默认使用 `Dispatchers.IO`。
 
@@ -430,11 +430,11 @@ client.prepareGet("https://httpbin.org/bytes/$fileSize").execute { httpResponse 
 ```
 </compare>
 
-### 插件和默认请求配置替换
+### 插件和默认请求配置替换 {id="plugin-and-default-request-configuration-replacement"}
 
 Ktor 客户端配置现在提供了更多在运行时替换现有设置的控制权。
 
-#### 替换插件配置
+#### 替换插件配置 {id="replace-plugin-configuration"}
 
 新的 [`installOrReplace()`](https://api.ktor.io/ktor-client-core/io.ktor.client/-http-client-config/install-or-replace.html) 函数会安装客户端插件，或者如果插件已经安装，则替换其现有的配置。当您需要重新配置插件而无需先手动移除它时，这非常有用。
 
@@ -448,7 +448,7 @@ val client = HttpClient {
 
 在上面的示例中，如果 `ContentNegotiation` 已经安装，其配置将被块中提供的新配置替换。
 
-#### 替换默认请求配置
+#### 替换默认请求配置 {id="replace-default-request-configuration"}
 
 [`defaultRequest()`](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins/default-request.html) 函数现在接受一个可选的 `replace` 参数（默认为 `false`）。当设置为 `true` 时，新配置将替换之前定义的任何默认请求设置，而不是与其合并。
 
@@ -462,7 +462,7 @@ val client = HttpClient {
 
 这允许您在组合或重用客户端设置时显式覆盖早期的默认请求配置。
 
-### 对 `js` 和 `wasmJs` 目标的共享源集支持
+### 对 `js` 和 `wasmJs` 目标的共享源集支持 {id="shared-source-set-support-for-js-and-wasmjs-targets"}
 
 Ktor 现在支持多平台项目中的 [Kotlin 共享 `web` 源集](https://kotlinlang.org/docs/whatsnew2220.html#shared-source-set-for-js-and-wasmjs-targets)，允许您在 `js` 和 `wasmJs` 目标之间共享 Ktor 依赖项。这使得在 JavaScript 和 Wasm/JS 之间共享特定于 Web 的客户端代码（例如 HTTP 客户端和引擎）变得更加容易。
 
@@ -486,9 +486,9 @@ kotlin {
 actual fun createClient(): HttpClient = HttpClient(Js)
 ```
 
-## I/O
+## I/O {id="i-o"}
 
-### 将字节从 `ByteReadChannel` 流式传输到 `RawSink`
+### 将字节从 `ByteReadChannel` 流式传输到 `RawSink` {id="stream-bytes-from-a-bytereadchannel-to-a-rawsink"}
 
 您现在可以使用新的 [`ByteReadChannel.readTo()`](https://api.ktor.io/ktor-io/io.ktor.utils.io/read-to.html) 函数从通道读取字节并直接将其写入指定的 `RawSink`。此函数简化了在没有中间缓冲区或手动复制的情况下处理大型响应或文件下载的过程。
 
@@ -511,15 +511,15 @@ println("文件已保存至 ${file.path}")
 
 ```
 
-## Gradle 插件
+## Gradle 插件 {id="gradle-plugin"}
 
-### OpenAPI 编译器扩展程序
+### OpenAPI 编译器扩展程序 {id="openapi-compiler-extension"}
 
 以前，OpenAPI 编译器插件在构建时生成完整的静态 OpenAPI 文档。在 Ktor 3.4.0 中，它改为生成在运行时提供 OpenAPI 元数据的代码，这些元数据由 [OpenAPI](server-openapi.md) 和 [Swagger UI](server-swagger-ui.md) 插件在提供规范时使用。
 
 专用的 `buildOpenApi` Gradle 任务已被移除。编译器插件现在在常规构建期间自动应用，对路由或注解的更改会反映在运行的服务器中，而无需任何额外的生成步骤。
 
-#### 配置
+#### 配置 {id="configuration"}
 
 配置仍然使用 `ktor` Gradle 扩展程序内的 `openApi {}` 块完成。然而，用于定义全局 OpenAPI 元数据（如 `title`、`version`、`description` 和 `target`）的属性已被弃用并被忽略。
 

@@ -12,7 +12,7 @@ Kotlin/Native 編譯器可以產生包含偵錯資訊的二進位檔案，並能
 >
 {style="note"}
 
-## 產生包含偵錯資訊的二進位檔案
+## 產生包含偵錯資訊的二進位檔案 {id="generate-binaries-with-debug-information"}
 
 在 IntelliJ IDEA、Android Studio 或 Xcode 中進行偵錯時，會自動產生包含偵錯資訊的二進位檔案（除非組建組態另有設定）。
 
@@ -74,11 +74,11 @@ Process 28473 stopped
 (lldb)
 ```
 
-## 設定中斷點
+## 設定中斷點 {id="set-breakpoints"}
 
 現代偵錯工具提供多種設定中斷點的方法。請參閱下方的各工具細目：
 
-### LLDB
+### LLDB {id="lldb"}
 
 * 依名稱：
 
@@ -111,7 +111,7 @@ Process 28473 stopped
     3.1: where = terminator.kexe`kfun:main(kotlin.Array<kotlin.String>) + 4 at hello.kt:2, address = terminator.kexe[0x00000001000012e4], unresolved, hit count = 0
   ```
 
-### GDB
+### GDB {id="gdb"}
 
 * 依正規表示式：
 
@@ -145,11 +145,11 @@ Process 28473 stopped
   Breakpoint 3 at 0x100001704: file /Users/minamoto/ws/.git-trees/hello.kt, line 2.
   ```
 
-## 使用單步執行
+## 使用單步執行 {id="use-stepping"}
 
 函式的單步執行方式與 C/C++ 程式基本相同。
 
-## 檢查變數
+## 檢查變數 {id="inspect-variables"}
 
 對於基本型別與非基本型別，`var` 變數的變數檢查皆可開箱即用：
 
@@ -191,7 +191,7 @@ Process 4985 launched: './program.kexe' (x86_64)
 (int32_t) p->x = 1
 ```
 
-## 偵錯 iOS 應用程式
+## 偵錯 iOS 應用程式 {id="debug-ios-applications"}
 
 偵錯 iOS 應用程式有時涉及詳細分析當機報告。當機報告通常需要符號化，這是將記憶體位址轉換為可讀原始碼位置的程序。
 
@@ -232,11 +232,11 @@ kotlin {
 
 有關當機報告的更多資訊，請參閱 [Apple 文件](https://developer.apple.com/documentation/xcode/diagnosing-issues-using-crash-reports-and-device-logs)。
 
-## 已知問題
+## 已知問題 {id="known-issues"}
 
 * Python 繫結的效能。
 * 偵錯工具中不支援運算式求值，目前沒有實作該功能的計畫。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 [了解如何改善 iOS 程式碼中未處理 Kotlin 例外狀況的當機報告](native-faq.md#how-do-i-get-better-crash-reports-for-ios)

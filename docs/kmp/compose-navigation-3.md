@@ -7,7 +7,7 @@
 >
 {style="tip"}
 
-## 关键变化
+## 关键变化 {id="key-changes"}
 
 Navigation 3 不仅仅是该库的一个新版本——在许多方面，它完全是一个全新的库。
 要了解此次重新设计背后的理念，请参阅 [Android 开发者博客文章](https://android-developers.googleblog.com/2025/05/announcing-jetpack-navigation-3-for-compose.html)。
@@ -20,7 +20,7 @@ Navigation 3 的关键变化包括：
 
 在 [Android 文档](https://developer.android.com/guide/navigation/navigation-3)中详细了解 Navigation 3 的通用设计。
 
-## 依赖项设置
+## 依赖项设置 {id="dependencies-setup"}
 
 要试用 Navigation 3 的多平台实现，请将以下依赖项添加到您的版本编目（version catalog）中：
 
@@ -61,7 +61,7 @@ navigation3-browser = { module = "com.github.terrakok:navigation3-browser", vers
 计划在未来的版本中为基础多平台 Navigation 3 库提供浏览器历史记录导航支持。
 请在 [CMP-8924](https://youtrack.jetbrains.com/projects/CMP/issues/CMP-8924/Integrate-Browser-History-with-Nav3) 中跟踪进度。
 
-## 多平台支持
+## 多平台支持 {id="multiplatform-support"}
 
 Navigation 3 与 Compose 紧密对齐，允许 Android 导航实现只需极少的改动即可在通用的 Compose Multiplatform 代码中运行。
 为了支持 Web 和 iOS 等非 JVM 平台，您唯一需要做的就是实现[目的地键的多态序列化](#目的地键的多态序列化)。 
@@ -70,7 +70,7 @@ Navigation 3 与 Compose 紧密对齐，允许 Android 导航实现只需极少�
 * [包含 Navigation 3 方案的原始 Android 仓库](https://github.com/android/nav3-recipes)
 * [包含大部分相同方案的 Compose Multiplatform 项目](https://github.com/terrakok/nav3-recipes)
 
-### 目的地键的多态序列化
+### 目的地键的多态序列化 {id="polymorphic-serialization-for-destination-keys"}
 
 在 Android 上，Navigation 3 依赖于基于反射的序列化，这在针对 iOS 等非 JVM 平台时不可用。
 考虑到这一点，该库为 `rememberNavBackStack()` 函数提供了两个重载：
@@ -109,12 +109,12 @@ fun BasicDslActivity() {
 }
 ```
 
-### 建议的序列化方法
+### 建议的序列化方法 {id="recommended-serialization-approaches"}
 
 在实现多平台导航时，您需要选择如何组织和序列化您的路由定义。
 根据项目的复杂程度和模块化程度，请使用以下三种模式之一。
 
-#### 带有密封类型的单一模块
+#### 带有密封类型的单一模块 {id="single-module-with-sealed-type"}
 
 对于所有路由都存在于一个模块中的小型项目，请使用 `sealed interface`。 
 这是最直接的方法，因为 Kotlin 序列化会自动处理层次结构：
@@ -150,7 +150,7 @@ private val config = SavedStateConfiguration {
 val backStack = rememberNavBackStack(config, RouteA)
 ```
 
-#### 带有聚合密封类型的多模块
+#### 带有聚合密封类型的多模块 {id="multi-module-with-aggregated-sealed-types"}
 
 对于在多个模块中定义路由的更复杂项目，您可以为每个模块定义一个密封类型。 
 然后，使用 `subclassesOfSealed()` 函数在 `app` 模块中聚合它们的序列化程序。
@@ -180,7 +180,7 @@ val backStack = rememberNavBackStack(config, RouteA1)
 
 通过依赖注入 (DI)，您还可以使用 DI 容器动态地将每个模块中密封类型的序列化程序收集到 `Set<KSerializer>` 中。
 
-#### 带有独立路由注册的多模块
+#### 带有独立路由注册的多模块 {id="multi-module-with-individual-route-registration"}
 
 如果您的路由无法分组为密封类型， 
 您可以手动组合来自不同模块的 `SerializersModule` 实例。
@@ -220,7 +220,7 @@ val backStack = rememberNavBackStack(config, RouteA1)
 您可以使用 DI 动态组装序列化程序列表， 
 这可以提高灵活性。
 
-## 后续步骤
+## 后续步骤 {id="what-s-next"}
 
 Android 开发者门户对 Navigation 3 进行了深入介绍。
 虽然某些文档使用了 Android 特有的示例，

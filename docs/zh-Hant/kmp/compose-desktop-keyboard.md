@@ -7,7 +7,7 @@
 
 undefined
 
-## 受焦點元件中的事件
+## 受焦點元件中的事件 {id="events-in-a-focused-component"}
 
 此方法代表按下鍵盤上的按鍵會觸發目前受焦點元件的處理常式。
 
@@ -71,7 +71,7 @@ fun main() = singleWindowApplication (title = "Key events") {
 
 <img src="compose-desktop-key-focus.animated.gif" alt="受焦點元件中的鍵盤事件" width="600" preview-src="compose-desktop-key-focus.png"/>
 
-## 視窗作用域中的事件
+## 視窗作用域中的事件 {id="events-in-a-window-scope"}
 
 若要定義在目前視窗中始終有效的鍵盤事件處理常式，請使用 `Window`、`singleWindowApplication` 與 `Dialog` 函式中提供的 `onPreviewKeyEvent` 和 `onKeyEvent` 參數。
 它們的區別在於事件未被消耗時的派送方式：`onPreviewKeyEvent` 將事件派送給其第一個子元件，而 `onKeyEvent` 則將事件派送給該可組合項的父元件。通常，攔截事件時偏好使用 `onPreviewKeyEvent`，因為它甚至可以實作全視窗範圍的鍵盤快速鍵。
@@ -163,7 +163,7 @@ fun App() {
 
 <img src="compose-desktop-key-window.animated.gif" alt="視窗作用域中的鍵盤事件" width="600" preview-src="compose-desktop-key-window.png"/>
 
-## 接續內容
+## 接續內容 {id="what-s-next"}
 
 * 參閱 [API 參考](https://developer.android.com/reference/kotlin/androidx/compose/ui/input/key/package-summary#keyinputfilter) 以了解詳細資訊。
 * 探索關於 [其他電腦版元件](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop) 的教學。

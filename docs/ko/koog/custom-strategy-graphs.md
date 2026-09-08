@@ -4,7 +4,7 @@
 
 전략 그래프를 생성하면 단순한 챗봇부터 복잡한 데이터 처리 파이프라인에 이르기까지 에이전트의 동작을 특정 요구 사항에 맞게 조정할 수 있습니다.
 
-## 전략 그래프 아키텍처 (Strategy graph architecture)
+## 전략 그래프 아키텍처 (Strategy graph architecture) {id="strategy-graph-architecture"}
 
 상위 수준에서 전략 그래프는 다음과 같은 구성 요소로 이루어집니다:
 
@@ -15,9 +15,9 @@
 
 전략 그래프는 `nodeStart`라는 특별한 노드에서 시작하여 `nodeFinish`에서 끝납니다. 이 노드들 사이의 경로는 그래프에 지정된 에지와 조건에 의해 결정됩니다.
 
-## 전략 그래프 구성 요소 (Strategy graph components)
+## 전략 그래프 구성 요소 (Strategy graph components) {id="strategy-graph-components"}
 
-### 노드 (Nodes)
+### 노드 (Nodes) {id="nodes"}
 
 노드는 전략 그래프의 기본 빌딩 블록입니다. 각 노드는 특정 작업을 나타냅니다.
 
@@ -25,7 +25,7 @@ Koog 프레임워크는 미리 정의된 노드를 제공하며, `node` 함수�
 
 자세한 내용은 [미리 정의된 노드 및 구성 요소](nodes-and-components.md) 및 [커스텀 노드](custom-nodes.md)를 참조하세요.
 
-### 에지 (Edges)
+### 에지 (Edges) {id="edges"}
 
 에지는 노드를 연결하고 전략 그래프에서 작업의 흐름을 정의합니다. 에지는 `edge` 함수와 `forwardTo` 중위 함수(infix function)를 사용하여 생성됩니다:
 
@@ -78,7 +78,7 @@ Koog 프레임워크는 미리 정의된 노드를 제공하며, `node` 함수�
     ```
     <!--- KNIT exampleCustomStrategyGraphsJava01.java -->
 
-#### 조건 (Conditions)
+#### 조건 (Conditions) {id="conditions"}
 
 조건은 전략 그래프에서 특정 에지를 따라갈 시점을 결정합니다. 다음과 같은 몇 가지 일반적인 조건 유형이 있습니다:
 
@@ -149,7 +149,7 @@ Koog 프레임워크는 미리 정의된 노드를 제공하며, `node` 함수�
     ```
     <!--- KNIT exampleCustomStrategyGraphsJava02.java -->
 
-### 서브그래프 (Subgraphs)
+### 서브그래프 (Subgraphs) {id="subgraphs"}
 
 서브그래프는 자체적인 도구 세트와 컨텍스트로 작동하는 전략 그래프의 섹션입니다. 전략 그래프는 여러 개의 서브그래프를 포함할 수 있습니다. 각 서브그래프는 `subgraph` 함수를 사용하여 정의됩니다:
 
@@ -269,7 +269,7 @@ Koog 프레임워크는 미리 정의된 노드를 제공하며, `node` 함수�
     ```
     <!--- KNIT exampleCustomStrategyGraphsJava04.java -->
 
-## 기본 전략 그래프 생성 (Basic strategy graph creation)
+## 기본 전략 그래프 생성 (Basic strategy graph creation) {id="basic-strategy-graph-creation"}
 
 기본 전략 그래프는 다음과 같이 작동합니다: 
 
@@ -373,7 +373,7 @@ Koog 프레임워크는 미리 정의된 노드를 제공하며, `node` 함수�
     ```
     <!--- KNIT exampleCustomStrategyGraphsJava05.java -->
 
-## 전략 그래프 시각화 (Visualizing strategy graph)
+## 전략 그래프 시각화 (Visualizing strategy graph) {id="visualizing-strategy-graph"}
 
 JVM에서는 전략 그래프에 대한 [Mermaid 상태 다이어그램(state diagram)](https://mermaid.js.org/syntax/stateDiagram.html)을 생성할 수 있습니다.
 
@@ -457,13 +457,13 @@ stateDiagram
 ```
 <!--- KNIT example-custom-strategy-graphs-01.txt -->
 
-## 고급 전략 기법 (Advanced strategy techniques)
+## 고급 전략 기법 (Advanced strategy techniques) {id="advanced-strategy-techniques"}
 
-### 히스토리 압축 (History compression)
+### 히스토리 압축 (History compression) {id="history-compression"}
 
 장시간 실행되는 대화의 경우, 히스토리가 커져서 많은 토큰을 소비할 수 있습니다. 히스토리를 압축하는 방법은 [히스토리 압축](history-compression.md)을 참조하세요.
 
-### 병렬 도구 실행 (Parallel tool execution)
+### 병렬 도구 실행 (Parallel tool execution) {id="parallel-tool-execution"}
 
 여러 도구를 병렬로 실행해야 하는 워크플로의 경우 `nodeExecuteTools` 노드를 `parallel = true`와 함께 사용할 수 있습니다:
 
@@ -506,7 +506,7 @@ parseMarkdownStreamToBooks(markdownStream).toParallelToolCallsRaw(BookTool::clas
 
 자세한 내용은 [도구](tools/index.md#parallel-tool-calls)를 참조하세요. 
 
-### 병렬 노드 실행 (Parallel node execution) 
+### 병렬 노드 실행 (Parallel node execution) {id="parallel-node-execution"}
 
 병렬 노드 실행을 사용하면 여러 노드를 동시에 실행하여 성능을 향상시키고 복잡한 워크플로를 구현할 수 있습니다.
 
@@ -540,7 +540,7 @@ val calc by parallel<String, Int>(
 
 병렬 노드 실행에 관한 더 자세한 정보와 상세 레퍼런스는 [병렬 노드 실행](parallel-node-execution.md)을 참조하세요.
 
-### 조건부 분기 (Conditional branching)
+### 조건부 분기 (Conditional branching) {id="conditional-branching"}
 
 특정 조건에 따라 다른 경로가 필요한 복잡한 워크플로의 경우 조건부 분기를 사용할 수 있습니다:
 
@@ -578,7 +578,7 @@ edge(
 ```
 <!--- KNIT example-custom-strategy-graphs-10.kt -->
 
-## 권장 사항 (Best practices)
+## 권장 사항 (Best practices) {id="best-practices"}
 
 커스텀 전략 그래프를 생성할 때 다음 권장 사항을 따르세요:
 
@@ -591,9 +591,9 @@ edge(
 - 장시간 실행되는 대화의 경우 토큰 사용량을 줄이기 위해 히스토리 압축을 사용하세요.
 - 서브그래프를 사용하여 그래프를 구조화하고 도구 액세스를 관리하세요.
 
-## 사용 예시 (Usage examples)
+## 사용 예시 (Usage examples) {id="usage-examples"}
 
-### 어조 분석 전략 (Tone analysis strategy)
+### 어조 분석 전략 (Tone analysis strategy) {id="tone-analysis-strategy"}
 
 어조 분석 전략은 히스토리 압축을 포함하는 도구 기반 전략의 좋은 예시입니다.
 
@@ -675,11 +675,11 @@ fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentGraphStrategy
 6. LLM이 다른 도구를 호출하면 전략이 이를 실행합니다.
 7. LLM이 메시지로 응답하면 전략이 프로세스를 종료합니다.
 
-## 문제 해결 (Troubleshooting)
+## 문제 해결 (Troubleshooting) {id="troubleshooting"}
 
 커스텀 전략 그래프를 생성할 때 몇 가지 일반적인 문제가 발생할 수 있습니다. 다음은 문제 해결을 위한 팁입니다.
 
-### 그래프가 종료 노드에 도달하지 못함
+### 그래프가 종료 노드에 도달하지 못함 {id="graph-fails-to-reach-the-finish-node"}
 
 그래프가 종료 노드(`nodeFinish`)에 도달하지 않는 경우 다음을 확인하세요:
 
@@ -687,14 +687,14 @@ fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentGraphStrategy
 - 조건이 너무 엄격하여 에지를 따라가는 것을 방해하고 있지 않은지 확인합니다.
 - 탈출 조건이 없는 사이클(순환)이 그래프에 존재하지 않는지 확인합니다.
 
-### 도구 호출이 실행되지 않음
+### 도구 호출이 실행되지 않음 {id="tool-calls-are-not-running"}
 
 도구 호출이 실행되지 않는 경우 다음을 확인하세요:
 
 - 도구가 도구 레지스트리에 적절히 등록되어 있는지 확인합니다.
 - LLM 노드에서 도구 실행 노드로 이어지는 에지에 올바른 조건(`onToolCall { true }`)이 설정되어 있는지 확인합니다.
 
-### 히스토리 압축 (History compression)
+### 히스토리 압축 (History compression) {id="history-gets-too-large"}
 
 히스토리가 너무 커져서 토큰을 너무 많이 소비하는 경우 다음을 고려하세요:
 
@@ -702,7 +702,7 @@ fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentGraphStrategy
 - 히스토리 크기를 체크하는 조건을 사용하여 너무 커졌을 때 압축하도록 합니다.
 - 더 공격적인 압축 전략(예: N 값이 더 작은 `FromLastNMessages`)을 사용합니다.
 
-### 그래프가 예상치 않게 동작함
+### 그래프가 예상치 않게 동작함 {id="graph-behaves-unexpectedly"}
 
 그래프가 예상치 못한 분기로 이동하는 경우 다음을 확인하세요:
 
@@ -710,7 +710,7 @@ fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentGraphStrategy
 - 조건이 예상되는 순서대로 평가되는지 확인합니다 (에지는 정의된 순서대로 확인됩니다).
 - 더 일반적인 조건으로 인해 실수로 조건을 덮어쓰고 있지 않은지 확인합니다.
 
-### 성능 이슈 발생
+### 성능 이슈 발생 {id="performance-issues-occur"}
 
 그래프에 성능 문제가 있는 경우 다음을 고려하세요:
 

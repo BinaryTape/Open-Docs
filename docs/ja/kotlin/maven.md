@@ -21,7 +21,7 @@ Kotlin Mavenプロジェクトを扱う際の一般的なワークフローは�
 >
 {style="tip"}
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [`power-assert`プラグイン](power-assert.md#maven)を使用して**デバッグ体験を向上させる**。
 * [`kover-maven-plugin`](https://kotlin.github.io/kotlinx-kover/maven-plugin/)を使用して**テストカバレッジの測定とレポートの生成を行う**。

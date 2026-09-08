@@ -4,7 +4,7 @@
 
 目前仅支持 Maven v3。
 
-## 自动配置
+## 自动配置 {id="automatic-configuration"}
 
 在 Java-Kotlin 混合项目和纯 Kotlin 项目中，您都可以使用 `<extensions>` 选项来简化 Maven 配置。这种方法可以节省您的时间，因为您不需要配置 Maven 编译器插件。
 
@@ -79,7 +79,7 @@
 </build>
 ```
 
-### JVM 目标版本
+### JVM 目标版本 {id="jvm-target-version"}
 
 `<extensions>` 选项可确保 Kotlin 和 Maven 编译器以相同的字节码版本为目标。
 
@@ -95,7 +95,7 @@ graph TD
     B --> C
 ```
 
-#### Kotlin 编译器版本
+#### Kotlin 编译器版本 {id="kotlin-compiler-versions"}
 
 如果项目中定义了 `kotlin.compiler.jdkRelease` 或 `kotlin.compiler.jvmTarget` 属性，则其设置的版本具有优先级。
 
@@ -110,7 +110,7 @@ graph TD
 >
 {style="note"}
 
-#### Maven 编译器版本
+#### Maven 编译器版本 {id="maven-compiler-versions"}
 
 * 如果既未设置 `kotlin.compiler.jdkRelease` 也未设置 `kotlin.compiler.jvmTarget` 选项，则插件将采用 `maven.compiler.release` 版本。
 
@@ -130,13 +130,13 @@ graph TD
 >
 {style="note"}
 
-## 手动配置
+## 手动配置 {id="manual-configuration"}
 
 如果不启用 Kotlin Maven 插件中的 `<extensions>`，您需要手动配置项目以确保源代码正确编译。
 
 您可以将 Maven 项目设置为编译 [Java 与 Kotlin 混合源代码](#编译-kotlin-和-java-源代码)或[仅编译 Kotlin 源代码](#仅编译-kotlin-源代码)。
 
-### 编译 Kotlin 和 Java 源代码
+### 编译 Kotlin 和 Java 源代码 {id="compile-kotlin-and-java-sources"}
 
 要编译同时包含 Kotlin 和 Java 源文件的项目，请确保 Kotlin 编译器在 Java 编译器之前运行。
 
@@ -243,7 +243,7 @@ Maven 根据两个主要因素确定插件执行顺序：
 
 有关 Maven 如何处理插件执行的更多详细信息，请参阅 Maven 官方文档中的[默认插件执行 ID 指南](https://maven.apache.org/guides/mini/guide-default-execution-ids.html)。
 
-### 仅编译 Kotlin 源代码
+### 仅编译 Kotlin 源代码 {id="compile-kotlin-only-sources"}
 
 要编译仅包含 Kotlin 源文件的项目，请声明源根目录并配置 Kotlin Maven 插件：
 
@@ -284,7 +284,7 @@ Maven 根据两个主要因素确定插件执行顺序：
     </build>
     ```
 
-### 设置 JDK 版本
+### 设置 JDK 版本 {id="set-jdk-version"}
 
 Kotlin 支持 [Maven Toolchains](https://maven.apache.org/guides/mini/guide-using-toolchains.html)，可帮助您管理构建中的 JDK 版本。
 
@@ -335,7 +335,7 @@ graph TD
 >
 {style="note"}
 
-## 配置 Java 模块 (JPMS)
+## 配置 Java 模块 (JPMS) {id="configure-java-modules-jpms"}
 
 Kotlin Maven 插件支持 [Java 平台模块系统 (JPMS)](https://dev.java/learn/modules/)，因此您可以将 Kotlin 代码与 `module-info.java` 描述符一起编译，并像其他 Java 模块一样使用生成的模块。
 
@@ -360,6 +360,6 @@ module org.example.myapp {
 * 对于模块，Kotlin 文件中的软件包名称必须与 `module-info.java` 中的软件包名称匹配，以避免 `软件包为空或不存在` (Package is empty or does not exist) 的构建失败。
 * `pom.xml` 构建文件应配置为[先编译 Kotlin 后编译 Java](#编译-kotlin-和-java-源代码)。如果您使用[项目自动配置](#自动配置)，`<extensions>` 选项已经确保了这一点。
 
-## 下一步？
+## 下一步？ {id="what-s-next"}
 
 [设置您的 Kotlin Maven 项目的依赖项](maven-set-dependencies.md)

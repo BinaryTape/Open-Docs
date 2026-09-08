@@ -5,7 +5,7 @@ KotlinのコードはJavaから簡単に呼び出すことができます。
 ただし、KotlinのコードをJavaに統合する際には、JavaとKotlinの間の特定の相違点に注意する必要があります。
 このページでは、KotlinコードとJavaクライアントとの相互運用性（interop）を調整する方法について説明します。
 
-## プロパティ (Properties)
+## プロパティ (Properties) {id="properties"}
 
 Kotlinのプロパティは、以下のJava要素にコンパイルされます：
 
@@ -31,7 +31,7 @@ public void setFirstName(String firstName) {
 例えば、プロパティ `isOpen` の場合、ゲッターは `isOpen()` と呼ばれ、セッターは `setOpen()` と呼ばれます。
 この規則は、`Boolean` だけでなく、あらゆる型のプロパティに適用されます。
 
-## パッケージレベルの関数 (Package-level functions)
+## パッケージレベルの関数 (Package-level functions) {id="package-level-functions"}
 
 パッケージ `org.example` 内のファイル `app.kt` で宣言されたすべての関数とプロパティ（拡張関数を含む）は、`org.example.AppKt` という名前のJavaクラスの静的メソッドにコンパイルされます。
 
@@ -100,7 +100,7 @@ org.example.Utils.getTime();
 org.example.Utils.getDate();
 ```
 
-## インスタンスフィールド (Instance fields)
+## インスタンスフィールド (Instance fields) {id="instance-fields"}
 
 KotlinのプロパティをJavaのフィールドとして公開する必要がある場合は、[`@JvmField`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-field/index.html) アノテーションを付加します。
 フィールドは、基になるプロパティと同じ可視性を持ちます。以下の条件を満たす場合、プロパティに `@JvmField` を付加できます：
@@ -127,7 +127,7 @@ class JavaClient {
 [遅延初期化](properties.md#late-initialized-properties-and-variables)（Late-Initialized）プロパティもフィールドとして公開されます。
 フィールドの可視性は、`lateinit` プロパティのセッターの可視性と同じになります。
 
-## 静的フィールド (Static fields)
+## 静的フィールド (Static fields) {id="static-fields"}
 
 名前付きオブジェクト（named object）またはコンパニオンオブジェクト（companion object）で宣言されたKotlinのプロパティは、その名前付きオブジェクト内、またはコンパニオンオブジェクトを含むクラス内に静的なバッキングフィールドを持ちます。
 
@@ -194,7 +194,7 @@ int max = ExampleKt.MAX;
 int version = C.VERSION;
 ```
 
-## 静的メソッド (Static methods)
+## 静的メソッド (Static methods) {id="static-methods"}
 
 前述のように、Kotlinはパッケージレベルの関数を静的メソッドとして表現します。
 また、名前付きオブジェクトまたはコンパニオンオブジェクトで定義された関数を [`@JvmStatic`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-static/) としてアノテートすると、その関数に対して静的メソッドを生成できます。
@@ -255,7 +255,7 @@ interface ChatBot {
 
 `@JvmStatic` アノテーションをオブジェクトまたはコンパニオンオブジェクトのプロパティに適用して、そのゲッターおよびセッターメソッドをそのオブジェクトまたはコンパニオンオブジェクトを含むクラスの静的メンバーにすることもできます。
 
-## インターフェースのデフォルトメソッド (Default methods in interfaces)
+## インターフェースのデフォルトメソッド (Default methods in interfaces) {id="default-methods-in-interfaces"}
 
 JVMをターゲットにする場合、Kotlinは、[別の設定](#compatibility-modes-for-default-methods)がされていない限り、インターフェースで宣言された関数を[デフォルトメソッド](https://docs.oracle.com/javase/tutorial/java/IandI/defaultmethods.html)にコンパイルします。
 これらはインターフェース内の具体的なメソッドであり、Javaクラスは再実装することなく直接継承できます。
@@ -306,7 +306,7 @@ public class BB8 implements Robot {
 }
 ```
 
-### デフォルトメソッドの互換モード
+### デフォルトメソッドの互換モード {id="compatibility-modes-for-default-methods"}
 
 Kotlinは、インターフェース内の関数をJVMのデフォルトメソッドにコンパイルする方法を制御するための3つのモードを提供しています。
 これらのモードは、コンパイラが互換性のためのブリッジ（compatibility bridges）や `DefaultImpls` クラス内の静的メソッドを生成するかどうかを決定します。
@@ -319,13 +319,13 @@ Kotlinは、インターフェース内の関数をJVMのデフォルトメソ�
 
 互換モードの詳細：
 
-#### enable {initial-collapse-state="collapsed" collapsible="true"}
+#### enable {initial-collapse-state="collapsed" collapsible="true" id="enable"}
 
 デフォルトの動作です。
 インターフェースにデフォルト実装を生成し、互換ブリッジと `DefaultImpls` クラスを含めます。
 このモードは、以前にコンパイルされたKotlinコードとの互換性を維持します。
 
-#### no-compatibility {initial-collapse-state="collapsed" collapsible="true"}
+#### no-compatibility {initial-collapse-state="collapsed" collapsible="true" id="no-compatibility"}
 
 インターフェースにデフォルト実装のみを生成します。
 互換ブリッジと `DefaultImpls` クラスをスキップします。
@@ -336,12 +336,12 @@ Kotlinは、インターフェース内の関数をJVMのデフォルトメソ�
 >
 {style="note"}
 
-#### disable {initial-collapse-state="collapsed" collapsible="true"}
+#### disable {initial-collapse-state="collapsed" collapsible="true" id="disable"}
 
 インターフェースのデフォルト実装を無効にします。
 互換ブリッジと `DefaultImpls` クラスのみが生成されます。
 
-## 可視性 (Visibility)
+## 可視性 (Visibility) {id="visibility"}
 
 Kotlinは可視性修飾子を以下のようにJavaにマッピングします：
 
@@ -357,7 +357,7 @@ Kotlinは可視性修飾子を以下のようにJavaにマッピングします�
   `internal` クラスのパブリックメンバーの名前はマングリングされず、Javaから呼び出し可能なままであることに注意してください。
 * `public` メンバーは `public` のままです。
 
-## KClass
+## KClass {id="kclass"}
 
 `KClass` 型のパラメータを持つKotlinメソッドを呼び出す必要がある場合があります。
 `Class` から `KClass` への自動変換はないため、`Class<T>.kotlin` 拡張プロパティに相当するものを呼び出して手動で行う必要があります。
@@ -366,7 +366,7 @@ Kotlinは可視性修飾子を以下のようにJavaにマッピングします�
 kotlin.jvm.JvmClassMappingKt.getKotlinClass(MainView.class)
 ```
 
-## @JvmName によるシグネチャ衝突の処理
+## @JvmName によるシグネチャ衝突の処理 {id="handling-signature-clashes-with-jvmname"}
 
 Kotlinで名前を付けた関数が、バイトコードにおいて異なるJVM名を必要とする場合があります。
 最も顕著な例は、*型消去*（type erasure）によって発生します：
@@ -406,7 +406,7 @@ fun getX() = 10
 var x: Int = 23
 ```
 
-## オーバーロードの生成 (Overloads generation)
+## オーバーロードの生成 (Overloads generation) {id="overloads-generation"}
 
 通常、デフォルトの引数値を持つKotlin関数を作成すると、Javaからはすべての引数が存在するフルシグネチャとしてのみ見えます。
 
@@ -494,7 +494,7 @@ void draw(String label) { }
 
 [セカンダリコンストラクタ](classes.md#secondary-constructors)で説明されているように、クラスのすべてのコンストラクタパラメータにデフォルト値がある場合、そのクラスに対して引数なしのパブリックコンストラクタが生成されます。これは、`@JvmOverloads` アノテーションが指定されていない場合でも機能します。
 
-## 検査例外 (Checked exceptions)
+## 検査例外 (Checked exceptions) {id="checked-exceptions"}
 
 Kotlinには検査例外がありません。
 そのため、通常、Kotlin関数のJavaシグネチャはスローされる例外を宣言しません。
@@ -533,13 +533,13 @@ fun writeToFile() {
 }
 ```
 
-## Null安全性 (Null-safety)
+## Null安全性 (Null-safety) {id="null-safety"}
 
 JavaからKotlin関数を呼び出す際、非Null（non-nullable）パラメータとして `null` を渡すことを防ぐものはありません。
 そのため、Kotlinは非Nullを期待するすべてのパブリック関数に対してランタイムチェックを生成します。
 これにより、Javaコードで即座に `NullPointerException` が発生するようになります。
 
-## ジェネリクスの変異 (Variant generics)
+## ジェネリクスの変異 (Variant generics) {id="variant-generics"}
 
 Kotlinクラスが[宣言区変異](generics.md#declaration-site-variance)（declaration-site variance）を使用している場合、それらがJavaコードからどのように見えるかについて2つのオプションがあります。例えば、次のクラスとそれを使用する2つの関数があるとします：
 
@@ -604,7 +604,7 @@ fun unboxBase(box: Box<@JvmSuppressWildcards Base>): Base = box.value
 >
 {style="note"}
 
-### Nothing型の翻訳
+### Nothing型の翻訳 {id="translation-of-type-nothing"}
  
 [`Nothing`](exceptions.md#the-nothing-type) 型は、Javaに自然な対応物がないため特殊です。実際、`java.lang.Void` を含むすべてのJavaの参照型は値として `null` を受け入れますが、`Nothing` はそれさえ受け入れません。したがって、この型をJavaの世界で正確に表現することはできません。これが、Kotlinが `Nothing` 型の引数が使用される場所に raw 型を生成する理由です：
 
@@ -614,7 +614,7 @@ fun emptyList(): List<Nothing> = listOf()
 // List emptyList() { ... }
 ```
 
-## インライン値クラス (Inline value classes)
+## インライン値クラス (Inline value classes) {id="inline-value-classes"}
 
 <primary-label ref="experimental-general"/>
 
@@ -665,7 +665,7 @@ MyInt output = ExampleKt.timesTwoBoxed(input);
 この動作をモジュール内のすべてのインライン値クラスおよびそれらを使用する関数に適用するには、`-Xjvm-expose-boxed` オプションを使用してコンパイルします。
 このオプションを使用してコンパイルすることは、モジュール内のすべての宣言に `@JvmExposeBoxed` アノテーションが付いているのと同じ効果があります。
 
-### 継承された関数
+### 継承された関数 {id="inherited-functions"}
 
 `@JvmExposeBoxed` アノテーションは、継承された関数に対して自動的にボックス化された表現を生成しません。
  

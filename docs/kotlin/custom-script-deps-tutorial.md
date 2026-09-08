@@ -32,7 +32,7 @@ print(
 
 指定的 Maven 依赖项（本例中为 `kotlinx-html-jvm`）将在执行期间从指定的 Maven 仓库或本地缓存中解析，并用于脚本的其余部分。
 
-## 项目结构
+## 项目结构 {id="project-structure"}
 
 一个最小的 Kotlin 自定义脚本项目包含两部分：
 
@@ -41,11 +41,11 @@ print(
 
 基于以上考虑，最好将项目拆分为两个模块。
 
-## 开始之前
+## 开始之前 {id="before-you-start"}
 
 下载并安装最新版本的 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)。
 
-## 创建项目
+## 创建项目 {id="create-a-project"}
 
 1. 在 IntelliJ IDEA 中，选择 **File** | **New** | **Project**。
 2. 在左侧面板中，选择 **New Project**。
@@ -66,7 +66,7 @@ print(
 
 ![为自定义 Kotlin 脚本创建一个根项目](script-deps-create-root-project.png){width=700}
 
-## 添加脚本模块
+## 添加脚本模块 {id="add-scripting-modules"}
 
 现在你拥有一个空的 Kotlin/JVM Gradle 项目。添加所需的模块：脚本定义和脚本宿主。
 
@@ -90,7 +90,7 @@ print(
 
 你可以在 [kotlin-script-examples GitHub 仓库](https://github.com/Kotlin/kotlin-script-examples/tree/master/jvm/basic/jvm-maven-deps)中找到此类项目的示例以及更多 Kotlin 脚本示例。
 
-## 创建脚本定义
+## 创建脚本定义 {id="create-a-script-definition"}
 
 首先，定义脚本类型：开发者可以在此类脚本中编写什么，以及它将如何被处理。在本教程中，这包括在脚本中支持 `@Repository` 和 `@DependsOn` 注解。
 
@@ -200,7 +200,7 @@ print(
 
    你可以在[此处](https://github.com/Kotlin/kotlin-script-examples/blob/master/jvm/basic/jvm-maven-deps/script/src/main/kotlin/org/jetbrains/kotlin/script/examples/jvm/resolve/maven/scriptDef.kt)找到完整代码。
 
-## 创建脚本宿主
+## 创建脚本宿主 {id="create-a-scripting-host"}
 
 下一步是创建脚本宿主——处理脚本执行的组件。
 
@@ -283,7 +283,7 @@ print(
 
 你可以在[此处](https://github.com/Kotlin/kotlin-script-examples/blob/master/jvm/basic/jvm-maven-deps/host/src/main/kotlin/org/jetbrains/kotlin/script/examples/jvm/resolve/maven/host/host.kt)找到完整代码。
 
-## 运行脚本
+## 运行脚本 {id="run-scripts"}
 
 为了检查你的脚本宿主如何工作，请准备一个要执行的脚本和一个运行配置。
 
@@ -329,7 +329,7 @@ print(
 
 第一次运行时解析依赖项可能需要一些时间。后续运行速度会快得多，因为它们使用从本地 Maven 仓库下载的依赖项。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 创建简单的 Kotlin 脚本项目后，可以查找有关此主题的更多信息：
 * 阅读 [Kotlin 脚本 KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/scripting-support.md)

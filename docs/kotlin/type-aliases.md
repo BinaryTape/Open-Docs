@@ -39,7 +39,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-## 声明类型别名
+## 声明类型别名 {id="declare-type-aliases"}
 
 你可以声明类型别名：
 
@@ -52,7 +52,7 @@ fun main() {
 
 类型别名公开的底层类型的[可见性](visibility-modifiers.md)不能比别名自身更严格。例如，`public` 类型别名不能引用 `private` 类。
 
-### 顶级类型别名
+### 顶级类型别名 {id="top-level-type-aliases"}
 
 顶级类型别名是软件包级别的声明。在同一个软件包中，你可以通过其非限定名称引用别名。要在另一个软件包中使用别名，请导入该别名或通过其限定名称引用它：
 
@@ -83,7 +83,7 @@ fun deleteUser(id: org.example.users.UserId) {
 }
 ```
 
-### 嵌套类型别名
+### 嵌套类型别名 {id="nested-type-aliases"}
 
 嵌套类型别名通过改进封装、减少软件包级别的混乱以及简化内部实现，使代码更加简洁且更易于维护。嵌套类型别名遵循与[嵌套类](nested-classes.md)相同的作用域和名称解析规则。
 
@@ -111,7 +111,7 @@ fun synchronizeUsers(users: UserRepository.UserIndex) {
 >
 {style="note"}
 
-#### 类型形参
+#### 类型形参 {id="type-parameters"}
 
 要在嵌套类型别名中使用类型形参，请将它们添加到别名声明中：
 

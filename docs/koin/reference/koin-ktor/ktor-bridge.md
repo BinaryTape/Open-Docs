@@ -10,7 +10,7 @@ Koin 4.2+ 通过可配置的桥接，提供了与 **Ktor 3.4+** 内置依赖项�
 Ktor DI 桥接是一项实验性功能，可实现 Koin 与 Ktor DI 之间的双向依赖项解析。
 :::
 
-## 桥接配置
+## 桥接配置 {id="bridge-configuration"}
 
 使用 `bridge { }` DSL 来启用双向依赖项解析：
 
@@ -34,14 +34,14 @@ fun Application.module() {
 }
 ```
 
-## 桥接选项
+## 桥接选项 {id="bridge-options"}
 
 | 选项 | 描述 |
 |--------|-------------|
 | `ktorToKoin()` | 允许 Ktor 的 `by dependencies` 委托从 Koin 中解析 |
 | `koinToKtor()` | 允许 Koin 的 `inject()` 和 `get()` 从 Ktor DI 中解析 |
 
-## 使用 ktorToKoin()
+## 使用 ktorToKoin() {id="using-ktortokoin"}
 
 使用 Ktor 的 `by dependencies` 委托解析 Koin 依赖项：
 
@@ -66,7 +66,7 @@ fun Application.module() {
 }
 ```
 
-## 使用 koinToKtor()
+## 使用 koinToKtor() {id="using-kointoktor"}
 
 使用 Koin 的 `inject()` 解析 Ktor DI 依赖项：
 
@@ -94,7 +94,7 @@ fun Application.module() {
 }
 ```
 
-## 完整双向示例
+## 完整双向示例 {id="full-bidirectional-example"}
 
 启用两个方向以获得最大的灵活性：
 
@@ -135,7 +135,7 @@ fun Application.module() {
 }
 ```
 
-## 架构模式
+## 架构模式 {id="architecture-pattern"}
 
 将基础架构与应用程序逻辑分离：
 
@@ -172,14 +172,14 @@ val appModule = module {
 }
 ```
 
-## 最佳做法
+## 最佳做法 {id="best-practices"}
 
 1. **在 Ktor DI 中存放基础架构** - 数据库连接、配置、外部客户端。
 2. **在 Koin 中存放业务逻辑** - 仓库、服务、用例。
 3. **仅启用需要的方向** - 除非必要，否则仅使用 `koinToKtor()`，不要同时启用两者。
 4. **记录边界** - 明确哪个系统拥有哪些依赖项。
 
-## 使用隔离上下文
+## 使用隔离上下文 {id="with-isolated-context"}
 
 该桥接也适用于 `KoinIsolated`：
 
@@ -201,7 +201,7 @@ fun Application.module() {
 }
 ```
 
-## 另请参阅
+## 另请参阅 {id="see-also"}
 
 - **[Koin for Ktor](/docs/reference/koin-ktor/ktor)** - 主要 Ktor 文档
 - **[隔离上下文](/docs/reference/koin-ktor/ktor-isolated)** - 隔离的 Koin 实例

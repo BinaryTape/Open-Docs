@@ -122,7 +122,7 @@ dependencies {
 `tc.native.classifier`는 `linux-x86_64`, `osx-x86_64`, 또는 `windows-x86_64` 중 하나여야 합니다.
 [http2-netty](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/http2-netty) 실행 예제에서 Netty의 HTTP/2 지원을 활성화하는 방법을 확인할 수 있습니다.
 
-#### TLS 없는 HTTP/2
+#### TLS 없는 HTTP/2 {id="http-2-without-tls"}
 
 Netty 엔진은 [HTTP/2 over cleartext (h2c)](https://httpwg.org/specs/rfc7540.html#discover-http)도 지원합니다.
 이를 통해 암호화가 필요하지 않은 개인 네트워크 내에서 주로 사용되는 TLS 없는 HTTP/2 통신이 가능합니다.

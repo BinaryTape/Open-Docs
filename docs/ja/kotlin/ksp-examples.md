@@ -1,20 +1,20 @@
 [//]: # (title: KSP の例)
 
-## すべてのメンバ関数を取得する
+## すべてのメンバ関数を取得する {id="get-all-member-functions"}
 
 ```kotlin
 fun KSClassDeclaration.getDeclaredFunctions(): Sequence<KSFunctionDeclaration> =
     declarations.filterIsInstance<KSFunctionDeclaration>()
 ```
 
-## クラスまたは関数がローカルかどうかを確認する
+## クラスまたは関数がローカルかどうかを確認する {id="check-whether-a-class-or-function-is-local"}
 
 ```kotlin
 fun KSDeclaration.isLocal(): Boolean =
     parentDeclaration != null && parentDeclaration !is KSClassDeclaration
 ```
 
-## 型エイリアスが指し示す実際のクラスまたはインターフェースの宣言を見つける
+## 型エイリアスが指し示す実際のクラスまたはインターフェースの宣言を見つける {id="find-the-actual-class-or-interface-declaration-that-the-type-alias-points-to"}
 
 ```kotlin
 fun KSTypeAlias.findActualType(): KSClassDeclaration {
@@ -27,7 +27,7 @@ fun KSTypeAlias.findActualType(): KSClassDeclaration {
 }
 ```
 
-## ファイルアノテーション内の抑制された名前を収集する
+## ファイルアノテーション内の抑制された名前を収集する {id="collect-suppressed-names-in-a-file-annotation"}
 
 ```kotlin
 // @file:kotlin.Suppress("Example1", "Example2")

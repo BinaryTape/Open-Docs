@@ -24,7 +24,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false" id="kotlin-function-double"}
 
-## 関数の使用
+## 関数の使用 {id="function-usage"}
 
 関数は標準的な方法で呼び出されます：
 
@@ -39,7 +39,7 @@ val result = double(2)
 Stream().read()
 ```
 
-### パラメータ
+### パラメータ {id="parameters"}
 
 関数パラメータは、パスカル記法（`name: Type`）を使用して宣言します。
 パラメータはカンマで区切り、各パラメータには明示的に型を指定する必要があります：
@@ -147,7 +147,7 @@ class Rectangle : Shape() {
 }
 ```
 
-#### デフォルト値としての定数ではない式
+#### デフォルト値としての定数ではない式 {id="non-constant-expressions-as-default-values"}
 
 パラメータに定数ではないデフォルト値を割り当てることができます。
 例えば、この例の `len` パラメータのように、デフォルト値を関数呼び出しの結果や他の引数の値を使用した計算の結果にすることができます：
@@ -210,7 +210,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="lambda-outside-parentheses"}
 
-### 名前付き引数
+### 名前付き引数 {id="named-arguments"}
 
 関数を呼び出す際、1つ以上の引数に名前を付けることができます。
 これは、関数呼び出しに多くの引数がある場合に役立ちます。
@@ -274,7 +274,7 @@ mergeStrings(strings = arrayOf("a", "b", "c"))
 >
 {style="note"}
 
-### 戻り値の型
+### 戻り値の型 {id="return-types"}
 
 ブロック本体（波括弧 `{}` 内に命令を記述する形式）を持つ関数を宣言する場合、常に明示的に戻り値の型を指定する必要があります。
 唯一の例外は、`Unit` を返す場合です。[その場合、戻り値の型の指定は任意です](#unit-を返す関数)。
@@ -283,7 +283,7 @@ Kotlin はブロック本体を持つ関数の戻り値の型を推論しませ�
 そのような関数の制御フローは複雑になる可能性があり、読み手にとっても、時にはコンパイラにとっても戻り値の型が不明確になるためです。
 ただし、[単一式関数](#単一式関数)の場合は、戻り値の型を指定しなくても Kotlin が推論できます。
 
-### 単一式関数
+### 単一式関数 {id="single-expression-functions"}
 
 関数の本体が単一の式で構成されている場合、波括弧を省略し、`=` 記号の後に本体を指定できます：
 
@@ -312,7 +312,7 @@ fun getDisplayNameOrDefault(userId: String?): String =
     getDisplayName(userId ?: return "default")
 ```
 
-### Unit を返す関数
+### Unit を返す関数 {id="unit-returning-functions"}
 
 関数がブロック本体（波括弧 `{}` 内の命令）を持ち、有用な値を返さない場合、コンパイラはその戻り値の型が `Unit` であると見なします。
 `Unit` は、`Unit` と呼ばれる値を 1 つだけ持つ型です。
@@ -378,7 +378,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false" id="return-unit-explicit"}
 
-### 可変長引数 (varargs)
+### 可変長引数 (varargs) {id="variable-number-of-arguments-varargs"}
 
 関数に可変の数の引数を渡すには、パラメータの1つ（通常は最後）に `vararg` 修飾子を付けます。
 関数内では、型 `T` の `vararg` パラメータを `T` の配列として使用できます：
@@ -449,7 +449,7 @@ val a = intArrayOf(1, 2, 3)
 val list = asList(-1, 0, *a.toTypedArray(), 4)
 ```
 
-### 中置表記法 (Infix notation)
+### 中置表記法 (Infix notation) {id="infix-notation"}
 
 `infix` キーワードを使用すると、括弧やピリオドを使わずに呼び出せる関数を宣言できます。
 これにより、コード内の単純な関数呼び出しが読みやすくなります。
@@ -517,12 +517,12 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="infix-notation-example"}
 
-## 関数のスコープ
+## 関数のスコープ {id="function-scope"}
 
 Kotlin の関数はファイル内のトップレベルで宣言できます。つまり、関数を保持するためにクラスを作成する必要はありません。
 また、関数は*メンバ関数*や*拡張関数*として、あるいはローカルに宣言することもできます。
 
-### ローカル関数
+### ローカル関数 {id="local-functions"}
 
 Kotlin は、他の関数の中で宣言される関数であるローカル関数をサポートしています。
 例えば、以下のコードは与えられたグラフの深さ優先探索（DFS）アルゴリズムを実装しています。
@@ -590,7 +590,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="local-functions-dfs-with-local-variable"}
 
-### メンバ関数
+### メンバ関数 {id="member-functions"}
 
 メンバ関数とは、クラスまたはオブジェクトの中で定義された関数です：
 
@@ -609,7 +609,7 @@ Stream().read()
 
 クラスとメンバのオーバーライドの詳細については、[クラス](classes.md)と[継承](classes.md#継承)を参照してください。
 
-## ジェネリック関数
+## ジェネリック関数 {id="generic-functions"}
 
 関数の名前の前に山括弧 `<>` を使用して、関数のジェネリックパラメータを指定できます：
 
@@ -619,7 +619,7 @@ fun <T> singletonList(item: T): List<T> { /*...*/ }
 
 ジェネリック関数の詳細については、[ジェネリクス](generics.md)を参照してください。
 
-## 末尾再帰関数
+## 末尾再帰関数 {id="tail-recursive-functions"}
 
 Kotlin は、[末尾再帰](https://ja.wikipedia.org/wiki/%E6%9C%AB%E5%B0%BE%E5%86%8D%E5%B1%B0) (tail recursion) として知られる関数型プログラミングのスタイルをサポートしています。
 通常ループを使用するようなアルゴリズムの場合、スタックオーバーフローのリスクなしに再帰関数を使用できます。

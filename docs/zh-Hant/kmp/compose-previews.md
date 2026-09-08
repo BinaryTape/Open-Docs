@@ -16,7 +16,7 @@ Compose Multiplatform 最初將有限的 `@Preview` 註解實作為自訂程式�
 * [如何使用和自訂預覽](#use-previews) 以及其他參數，
 * [支援的 Compose Multiplatform、AGP 和註解組合概覽](#supported-configurations)。
 
-## 預覽設定
+## 預覽設定 {id="preview-setup"}
 
 如果您是從頭開始，可以使用 IDE 精靈建立 **新專案**，該專案已預先配置完成。
 
@@ -67,7 +67,7 @@ kotlin {
     }
     ```
 
-## 使用預覽
+## 使用預覽 {id="use-previews"}
 
 Compose Multiplatform 允許使用 Android 工具提供的完整預覽功能。
 您可以讓預覽具有互動性、將預覽複製為圖片，或以不同參數顯示相同 `@Preview` 可組合項的多個版本。
@@ -86,7 +86,7 @@ Compose Multiplatform 支援 `@Preview` 註解的以下參數：
 * `showBackground`：決定是否對預覽套用預設背景顏色的旗標。
 * `backgroundColor`：定義預覽背景顏色的 32 位元 ARGB 顏色整數。
 
-## 支援的配置
+## 支援的配置 {id="supported-configurations"}
 
 根據您的相依性版本和專案的配置樣式，有幾種支援的組合可用於啟用 Compose 預覽：
 
@@ -99,7 +99,7 @@ Compose Multiplatform 支援 `@Preview` 註解的以下參數：
 >
 {style="note"}
 
-### 可用的註解
+### 可用的註解 {id="available-annotations"}
 
 Compose Multiplatform 中有兩種 `@Preview` 註解可用：
 
@@ -114,7 +114,7 @@ Compose Multiplatform 中有兩種 `@Preview` 註解可用：
 
 若要在您的共用程式碼中使用其中一個註解，請為您的 `commonMain` 原始碼集新增適當的執行時相依性，[如上所示](#preview-setup)。
 
-### Android 目標配置
+### Android 目標配置 {id="android-target-configurations"}
 
 如果您的專案使用 Android Gradle 外掛程式 8.x，則專案的 Kotlin Multiplatform 部分應使用 Android 應用程式 (`com.android.application`) 或 Android 程式庫 (`com.android.library`) 外掛程式，且 Android 配置包含在 `build.gradle.kts` 檔案的 `androidTarget {}` 區塊中。
 

@@ -11,7 +11,7 @@
 有關 Kotlin Multiplatform Gradle 外掛程式的資訊，請參閱其 [DSL 參考](multiplatform-dsl-reference.md)
 和[相容性指南](multiplatform-compatibility-guide.md)。
 
-## 更新至最新版本
+## 更新至最新版本 {id="update-to-the-latest-release"}
 
 當有新的 Kotlin Multiplatform 外掛程式版本可用時，您的 IDE 會立即建議更新。
 如果您接受建議，外掛程式將更新至最新版本。
@@ -27,7 +27,7 @@
 >
 {style="note"}
 
-## 版本詳情
+## 版本詳情 {id="release-details"}
 
 下表列出了 Kotlin Multiplatform IDE 外掛程式的版本： 
 

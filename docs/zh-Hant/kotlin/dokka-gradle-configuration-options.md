@@ -8,7 +8,7 @@ Dokka 提供許多配置選項來建立您與讀者的體驗。
 有關為單專案與多專案組建套用配置區塊的更多詳細資訊，
 請參閱 [配置範例](dokka-gradle.md#configuration-examples)。
 
-### 一般配置
+### 一般配置 {id="general-configuration"}
 
 以下是一般 Dokka Gradle 外掛程式配置的範例： 
 
@@ -217,7 +217,7 @@ dokka {
     </def>
 </deflist>
 
-### 原始碼集配置
+### 原始碼集配置 {id="source-set-configuration"}
 
 Dokka 允許為 [Kotlin 原始碼集](https://kotlinlang.org/docs/multiplatform-discover-project.html#source-sets) 配置一些選項：
 
@@ -428,7 +428,7 @@ dokka {
     </def>
 </deflist>
 
-### 原始碼連結配置
+### 原始碼連結配置 {id="source-link-configuration"}
 
 配置原始碼連結以幫助讀者在遠端存儲庫中尋找每個宣告的原始碼。
 請使用 `dokkaSourceSets.main {}` 區塊進行此配置。
@@ -540,7 +540,7 @@ dokka {
     </def>
 </deflist>
 
-### 套件選項
+### 套件選項 {id="package-options"}
 
 `perPackageOption` 配置區塊允許為由 `matchingRegex` 匹配的特定套件設定一些選項：
 
@@ -629,7 +629,7 @@ dokka {
     </def>
 </deflist>
 
-### 外部文件連結配置
+### 外部文件連結配置 {id="external-documentation-links-configuration"}
 
 `externalDocumentationLinks {}`
 區塊允許建立連向相依項之外部代管文件的連結。
@@ -696,7 +696,7 @@ dokka {
     </def>
 </deflist>
 
-### 完整配置
+### 完整配置 {id="complete-configuration"}
 
 在下方您可以看到同時套用了所有可能配置選項的範例：
 

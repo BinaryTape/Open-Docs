@@ -2,11 +2,11 @@
 title: Androidのインストゥルメンテッドテスト
 ---
 
-## 概要
+## 概要 {id="overview"}
 
 インストゥルメンテッドテスト（Instrumented tests）は、Androidデバイスまたはエミュレータ上で実行され、アプリとAndroidフレームワークとの統合をテストします。Koinのライフサイクルを自身で制御するユニットテストとは異なり、インストゥルメンテッドテストでは `Application` クラスによってKoinが開始されるため、特別な処理が必要になります。
 
-### ユニットテストとの主な違い
+### ユニットテストとの主な違い {id="key-differences-from-unit-tests"}
 
 | 項目 | ユニットテスト | インストゥルメンテッドテスト |
 |--------|------------|-------------------|
@@ -17,7 +17,7 @@ title: Androidのインストゥルメンテッドテスト
 | **テストの分離** | 容易（各テストがクリーンに開始される） | 注意深いセットアップが必要 |
 | **ユースケース** | ビジネスロジック、ViewModel | UI、Androidコンポーネントの統合 |
 
-### インストゥルメンテッドテストでテストすべきもの
+### インストゥルメンテッドテストでテストすべきもの {id="what-to-test-with-instrumented-tests"}
 
 ✅ **インストゥルメンテッドテストに適しているもの:**
 - UIの動作とインタラクション
@@ -33,23 +33,23 @@ title: Androidのインストゥルメンテッドテスト
 - リポジトリ（モックを使用したユニットテストが可能）
 - 純粋なKotlin関数
 
-## テスト戦略
+## テスト戦略 {id="test-strategies"}
 
-### 戦略 1: カスタムテストApplicationクラス
+### 戦略 1: カスタムテストApplicationクラス {id="strategy-1-custom-test-application"}
 
 テスト専用のモジュールを持つ、テスト用のApplicationクラスを個別に作成します。
 
-### 戦略 2: テストルール
+### 戦略 2: テストルール {id="strategy-2-test-rules"}
 
 JUnitルールを使用して、テストクラスまたはテストメソッドごとにKoinを構成します。
 
-### 戦略 3: モジュールのオーバーライド
+### 戦略 3: モジュールのオーバーライド {id="strategy-3-module-override"}
 
 プロダクション用のApplicationを維持しつつ、テスト用に特定の定義をオーバーライドします。
 
 それぞれの戦略を詳しく見ていきましょう。
 
-## カスタムApplicationクラスでのプロダクションモジュールのオーバーライド
+## カスタムApplicationクラスでのプロダクションモジュールのオーバーライド {id="override-production-modules-in-a-custom-application-class"}
 
 各テストクラスで実質的にKoinを開始する（すなわち `startKoin` や `KoinTestExtension` を呼び出す）[ユニットテスト](/docs/reference/koin-test/testing)とは異なり、インストゥルメンテッドテストでは `Application` クラスによってKoinが開始されます。
 
@@ -87,7 +87,7 @@ class InstrumentationTestRunner : AndroidJUnitRunner() {
 testInstrumentationRunner "com.example.myapplication.InstrumentationTestRunner"
 ```
 
-## テストルールを使用したプロダクションモジュールのオーバーライド
+## テストルールを使用したプロダクションモジュールのオーバーライド {id="override-production-modules-with-a-test-rule"}
 
 より柔軟性が必要な場合は、カスタム `AndroidJUnitRunner` を作成した上で、カスタムアプリケーション内で `startKoin { ... }` を実行する代わりに、以下のようなカスタムテストルール内に記述することができます。
 
@@ -126,9 +126,9 @@ val koinTestRule = KoinTestRule(
 )
 ```
 
-## モックとフェイク（Mocking and Fakes）
+## モックとフェイク（Mocking and Fakes） {id="mocking-and-fakes"}
 
-### `declareMock()` の使用（推奨）
+### `declareMock()` の使用（推奨） {id="using-declaremock-recommended"}
 
 :::info
 **Koin 4.2+:** 個別のテストモジュールを作成することなく、テスト中に依存関係をオンザフライ（on-the-fly）で素早くモックするには、`declareMock()` を使用します。
@@ -166,7 +166,7 @@ class UserViewModelTest : KoinTest {
 - ✅ テストコードがクリーンになる
 - ✅ MockKと標準で連携する
 
-### テストダブル（Test Doubles）の使用
+### テストダブル（Test Doubles）の使用 {id="using-test-doubles"}
 
 テストのために、実際の構成要素をモックまたはフェイクに置き換えます。
 
@@ -202,7 +202,7 @@ class FakeUserRepository : UserRepository {
 }
 ```
 
-### MockK の使用
+### MockK の使用 {id="using-mockk"}
 
 ```kotlin
 // MockKを使用したテストモジュール
@@ -227,7 +227,7 @@ class TestApplication : Application() {
 }
 ```
 
-### 部分的なモッキング（Partial Mocking）
+### 部分的なモッキング（Partial Mocking） {id="partial-mocking"}
 
 特定の依存関係のみを置き換えます。
 
@@ -244,9 +244,9 @@ val testModule = module {
 }
 ```
 
-## Activity と Fragment のテスト
+## Activity と Fragment のテスト {id="testing-activities-and-fragments"}
 
-### Koin を使用した Activity のテスト
+### Koin を使用した Activity のテスト {id="testing-activity-with-koin"}
 
 ```kotlin
 @RunWith(AndroidJUnit4::class)
@@ -277,7 +277,7 @@ class LoginActivityTest {
 }
 ```
 
-### Koin を使用した Fragment のテスト
+### Koin を使用した Fragment のテスト {id="testing-fragment-with-koin"}
 
 ```kotlin
 @RunWith(AndroidJUnit4::class)
@@ -308,9 +308,9 @@ class ProfileFragmentTest {
 }
 ```
 
-## インストゥルメンテッドテストでの ViewModel のテスト
+## インストゥルメンテッドテストでの ViewModel のテスト {id="testing-viewmodels-in-instrumented-tests"}
 
-### テストでの ViewModel のインジェクト
+### テストでの ViewModel のインジェクト {id="injecting-viewmodel-in-tests"}
 
 ```kotlin
 @RunWith(AndroidJUnit4::class)
@@ -338,7 +338,7 @@ class HomeViewModelTest : KoinTest {
 }
 ```
 
-### Activity を使用した ViewModel のテスト
+### Activity を使用した ViewModel のテスト {id="testing-viewmodel-with-activity"}
 
 ```kotlin
 @Test
@@ -357,9 +357,9 @@ fun testViewModelStateReflectsInUI() {
 }
 ```
 
-## Jetpack Compose でのテスト
+## Jetpack Compose でのテスト {id="testing-with-jetpack-compose"}
 
-### Koin を使用した Compose UI テスト
+### Koin を使用した Compose UI テスト {id="compose-ui-test-with-koin"}
 
 ```kotlin
 @RunWith(AndroidJUnit4::class)
@@ -401,7 +401,7 @@ class LoginScreenTest {
 }
 ```
 
-### koinViewModel を使用した Composable のテスト
+### koinViewModel を使用した Composable のテスト {id="testing-composables-with-koinviewmodel"}
 
 ```kotlin
 @Composable
@@ -425,9 +425,9 @@ fun testHomeScreenDisplaysUser() {
 }
 ```
 
-## スコープ（Scopes）のテスト
+## スコープ（Scopes）のテスト {id="testing-scopes"}
 
-### Activity スコープのテスト
+### Activity スコープのテスト {id="testing-activity-scope"}
 
 ```kotlin
 @RunWith(AndroidJUnit4::class)
@@ -469,7 +469,7 @@ class CheckoutActivityTest {
 }
 ```
 
-### カスタムスコープのテスト
+### カスタムスコープのテスト {id="testing-custom-scopes"}
 
 ```kotlin
 @Test
@@ -501,9 +501,9 @@ fun testCustomScopeLifecycle() {
 }
 ```
 
-## マルチモジュールアプリのテスト
+## マルチモジュールアプリのテスト {id="testing-multi-module-apps"}
 
-### フィーチャーモジュール（Feature Modules）を使用したテスト
+### フィーチャーモジュール（Feature Modules）を使用したテスト {id="testing-with-feature-modules"}
 
 ```kotlin
 @RunWith(AndroidJUnit4::class)
@@ -543,7 +543,7 @@ class MultiModuleTest {
 }
 ```
 
-### テストでのモジュール検証
+### テストでのモジュール検証 {id="module-verification-in-tests"}
 
 ```kotlin
 class ModuleVerificationTest {
@@ -565,9 +565,9 @@ class ModuleVerificationTest {
 Koin Compiler Plugin はコンパイル時の依存関係検証を提供するようになったため、`verify()` や `checkModules()` の必要性がなくなりました。[コンパイル時の安全性（Compile-Time Safety）](/docs/reference/koin-compiler/compile-safety) を参照してください。
 :::
 
-## Espresso を使用した UI テスト
+## Espresso を使用した UI テスト {id="ui-tests-with-espresso"}
 
-### 完全な UI フローのテスト
+### 完全な UI フローのテスト {id="complete-ui-flow-test"}
 
 ```kotlin
 @RunWith(AndroidJUnit4::class)
@@ -619,7 +619,7 @@ class CheckoutFlowTest {
 }
 ```
 
-### ナビゲーションのテスト
+### ナビゲーションのテスト {id="testing-navigation"}
 
 ```kotlin
 @Test
@@ -640,9 +640,9 @@ fun testNavigationWithSharedState() {
 }
 ```
 
-## テストの分離（Test Isolation）
+## テストの分離（Test Isolation） {id="test-isolation"}
 
-### テスト間でのクリーンな状態の保証
+### テスト間でのクリーンな状態の保証 {id="ensuring-clean-state-between-tests"}
 
 ```kotlin
 class KoinIsolationTestRule : TestWatcher() {
@@ -682,7 +682,7 @@ class IsolatedTest {
 }
 ```
 
-### テスト間でのフェイクのリセット
+### テスト間でのフェイクのリセット {id="resetting-fakes-between-tests"}
 
 ```kotlin
 class FakeUserRepository : UserRepository {
@@ -727,9 +727,9 @@ class UserTest {
 }
 ```
 
-## よく使われるパターン
+## よく使われるパターン {id="common-patterns"}
 
-### パターン 1: 共有テストモジュール
+### パターン 1: 共有テストモジュール {id="pattern-1-shared-test-module"}
 
 ```kotlin
 // androidTestパッケージ内の TestModules.kt
@@ -764,7 +764,7 @@ val koinTestRule = KoinTestRule(
 )
 ```
 
-### パターン 2: テスト固有の構成
+### パターン 2: テスト固有の構成 {id="pattern-2-test-specific-configuration"}
 
 ```kotlin
 class TestConfig {
@@ -790,7 +790,7 @@ val testConfigModule = module {
 }
 ```
 
-### パターン 3: テストごとのオーバーライド
+### パターン 3: テストごとのオーバーライド {id="pattern-3-per-test-override"}
 
 ```kotlin
 @RunWith(AndroidJUnit4::class)
@@ -824,9 +824,9 @@ class FlexibleTest : KoinTest {
 }
 ```
 
-## トラブルシューティング
+## トラブルシューティング {id="troubleshooting"}
 
-### 問題: Koin が既に開始されている
+### 問題: Koin が既に開始されている {id="issue-koin-already-started"}
 
 **事象:**
 ```
@@ -855,7 +855,7 @@ class SafeKoinTestRule : TestWatcher() {
 }
 ```
 
-### 問題: 定義のオーバーライドが機能しない
+### 問題: 定義のオーバーライドが機能しない {id="issue-definition-override-doesn-t-work"}
 
 **事象:**
 テスト用の定義がプロダクション用の定義を置き換えない。
@@ -875,7 +875,7 @@ val testModule = module {
 }
 ```
 
-### 問題: スコープが見つからない
+### 問題: スコープが見つからない {id="issue-scope-not-found"}
 
 **事象:**
 ```
@@ -893,7 +893,7 @@ scenario.onActivity { activity ->
 }
 ```
 
-### 問題: テストが互いに影響し合っている
+### 問題: テストが互いに影響し合っている {id="issue-tests-affecting-each-other"}
 
 **事象:**
 個別のテストはパスするが、一括実行すると失敗する。
@@ -914,7 +914,7 @@ fun tearDown() {
 }
 ```
 
-### 問題: ViewModel が UI を更新しない
+### 問題: ViewModel が UI を更新しない {id="issue-viewmodel-not-updating-ui"}
 
 **事象:**
 ViewModel の状態は変化しているが、テストで UI が更新されない。
@@ -943,9 +943,9 @@ fun testViewModelUpdatesUI() = runTest {
 }
 ```
 
-## ベストプラクティス
+## ベストプラクティス {id="best-practices"}
 
-### 1. テストにはインメモリデータベースを使用する
+### 1. テストにはインメモリデータベースを使用する {id="1-use-in-memory-database-for-tests"}
 
 ```kotlin
 val testDatabaseModule = module {
@@ -958,7 +958,7 @@ val testDatabaseModule = module {
 }
 ```
 
-### 2. テストモジュールの責務を絞る
+### 2. テストモジュールの責務を絞る {id="2-keep-test-modules-focused"}
 
 ```kotlin
 // ✅ 良い例 - 責務が絞られたテストモジュール
@@ -973,7 +973,7 @@ val hugeTestModule = module {
 }
 ```
 
-### 3. 共通のフェイクを共有する
+### 3. 共通のフェイクを共有する {id="3-share-common-fakes"}
 
 ```kotlin
 // 再利用可能なテストダブルを作成
@@ -988,7 +988,7 @@ object TestDoubles {
 }
 ```
 
-### 4. 実際の統合ポイントをテストする
+### 4. 実際の統合ポイントをテストする {id="4-test-real-integration-points"}
 
 ```kotlin
 // 実際の Room + Repository の統合をテスト
@@ -1008,7 +1008,7 @@ fun testDatabaseIntegration() = runTest {
 }
 ```
 
-### 5. 説明的なテスト名を使用する
+### 5. 説明的なテスト名を使用する {id="5-use-descriptive-test-names"}
 
 ```kotlin
 // ✅ 良い例
@@ -1026,7 +1026,7 @@ fun test1()
 fun testLogin()
 ```
 
-## まとめ
+## まとめ {id="summary"}
 
 Koin を使用したインストゥルメンテッドテストの重要ポイント：
 
@@ -1039,7 +1039,7 @@ Koin を使用したインストゥルメンテッドテストの重要ポイン
 - **スコープのテスト** を行い、ライフサイクルに紐づく依存関係を検証する。
 - Koin Compiler Plugin による **コンパイル時の依存関係検証** または `verify()` による実行時の検証を行い、構成エラーを早期に発見する。
 
-## 次のステップ
+## 次のステップ {id="next-steps"}
 
 - **[ユニットテスト](/docs/reference/koin-test/testing)** - ユニットテストのテスト戦略
 - **[モジュールの検証](/docs/reference/koin-test/verify)** - モジュール構成の検証

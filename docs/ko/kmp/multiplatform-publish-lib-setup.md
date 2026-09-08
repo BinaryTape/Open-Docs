@@ -6,7 +6,7 @@
 * 메이븐 중앙(Maven Central) 저장소로 배포. 계정 자격 증명 설정, 라이브러리 메타데이터 사용자 정의 및 배포 플러그인 구성 방법은 [자습서](multiplatform-publish-libraries-to-maven.md)에서 확인할 수 있습니다.
 * GitHub 저장소로 배포. 자세한 내용은 [GitHub 패키지(GitHub packages)](https://docs.github.com/en/packages)에 대한 GitHub 문서를 참조하세요.
 
-## 로컬 메이븐 저장소로 배포
+## 로컬 메이븐 저장소로 배포 {id="publishing-to-a-local-maven-repository"}
 
 `maven-publish` Gradle 플러그인을 사용하여 멀티플랫폼 라이브러리를 로컬 메이븐 저장소에 배포할 수 있습니다:
 
@@ -33,13 +33,13 @@
 
 `maven-publish`와 함께 사용하면, Kotlin 플러그인은 현재 호스트에서 빌드 가능한 각 타겟에 대해 배포(publication)를 자동으로 생성합니다. 단, 안드로이드(Android) 타겟은 [배포 구성을 위한 추가 단계](#publish-an-android-library)가 필요합니다.
 
-## 배포 구조
+## 배포 구조 {id="structure-of-publications"}
 
 Kotlin 멀티플랫폼 라이브러리의 배포는 여러 개의 메이븐 배포로 구성되며, 각 배포는 특정 타겟에 대응합니다. 또한, 전체 라이브러리를 나타내는 통합 *루트(root)* 배포인 `kotlinMultiplatform`이 함께 발행됩니다.
 
 공통 소스 세트(common source set)에 [의존성](multiplatform-add-dependencies.md)으로 추가될 때, 루트 배포는 적절한 플랫폼별 아티팩트로 자동 확인(resolve)됩니다.
 
-### 타겟별 배포 및 루트 배포
+### 타겟별 배포 및 루트 배포 {id="target-specific-and-root-publications"}
 
 Kotlin 멀티플랫폼 Gradle 플러그인은 각 타겟에 대해 별도의 배포를 구성합니다. 다음 프로젝트 구성을 예로 들어보겠습니다:
 
@@ -77,7 +77,7 @@ kotlin {
 
 * 저장소에서 요구하는 경우 `kotlinMultiplatform` 배포에 소스 및 문서 아티팩트가 필요할 수도 있습니다. 이 경우 배포 범위 내에서 [`artifact()`](https://docs.gradle.org/current/javadoc/org/gradle/api/publish/maven/MavenPublication.html#artifact-java.lang.Object-)를 사용하세요.
 
-### 전체 라이브러리 배포
+### 전체 라이브러리 배포 {id="publishing-a-complete-library"}
 
 필요한 모든 아티팩트를 한 번에 배포하려면 `publishAllPublicationsTo<MavenRepositoryName>` 통합(umbrella) 태스크를 사용하세요. 예시:
 
@@ -107,11 +107,11 @@ Maven Local로 배포할 때는 다음과 같은 특수 태스크를 사용할 �
 
 이렇게 하면 모든 아티팩트가 사용 가능하고 올바르게 참조되는 것을 보장할 수 있습니다.
 
-## 호스트 요구 사항
+## 호스트 요구 사항 {id="host-requirements"}
 
 Kotlin/Native는 교차 컴파일(cross-compilation)을 지원하므로 어떤 호스트에서든 필요한 `.klib` 아티팩트를 생성할 수 있습니다. 하지만 주의해야 할 몇 가지 제한 사항이 있습니다.
 
-### Apple 타겟을 위한 컴파일
+### Apple 타겟을 위한 컴파일 {id="compilation-for-apple-targets"}
 
 모든 호스트를 사용하여 Apple 타겟이 포함된 프로젝트의 아티팩트를 생성할 수 있습니다. 하지만 다음과 같은 경우에는 여전히 Mac 시스템을 사용해야 합니다:
 
@@ -119,11 +119,11 @@ Kotlin/Native는 교차 컴파일(cross-compilation)을 지원하므로 어떤 �
 * 프로젝트에 [CocoaPods 통합](multiplatform-cocoapods-overview.md)이 설정된 경우.
 * Apple 타겟을 위한 [최종 바이너리(final binaries)](multiplatform-build-native-binaries.md)를 빌드하거나 테스트해야 하는 경우.
 
-### 배포 중복 방지
+### 배포 중복 방지 {id="duplicating-publications"}
 
 저장소에서 배포가 중복되는 것을 방지하려면, 단일 호스트에서 모든 아티팩트를 배포하세요. 예를 들어, 메이븐 중앙(Maven Central)은 중복 배포를 명시적으로 금지하며 중복이 발생하면 프로세스가 실패합니다.
 
-## 안드로이드 라이브러리 배포
+## 안드로이드 라이브러리 배포 {id="publish-an-android-library"}
 
 안드로이드 라이브러리를 배포하려면 추가 구성이 필요합니다. 기본적으로 안드로이드 라이브러리의 아티팩트는 배포되지 않습니다.
 
@@ -192,7 +192,7 @@ Android Gradle Library 플러그인을 사용하면 소스 세트 이름과 함�
   os: ubuntu-latest
 ```
 
-## 소스 배포 비활성화
+## 소스 배포 비활성화 {id="disable-sources-publication"}
 
 기본적으로 Kotlin 멀티플랫폼 Gradle 플러그인은 지정된 모든 타겟에 대해 소스 코드를 배포합니다. 하지만 `shared/build.gradle.kts` 파일의 `withSourcesJar()` API를 사용하여 소스 배포를 구성하거나 비활성화할 수 있습니다:
 
@@ -233,13 +233,13 @@ Android Gradle Library 플러그인을 사용하면 소스 세트 이름과 함�
   }
   ```
 
-## 라이브러리 홍보하기
+## 라이브러리 홍보하기 {id="promote-your-library"}
 
 여러분의 라이브러리를 [JetBrains의 멀티플랫폼 라이브러리 카탈로그](https://klibs.io/)에 등록할 수 있습니다. 이 사이트는 타겟 플랫폼에 따라 Kotlin 멀티플랫폼 라이브러리를 쉽게 찾을 수 있도록 설계되었습니다.
 
 기준을 충족하는 라이브러리는 자동으로 추가됩니다. 라이브러리가 카탈로그에 표시되도록 하는 자세한 방법은 [FAQ](https://klibs.io/faq)를 참조하세요.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [Kotlin 멀티플랫폼 라이브러리를 메이븐 중앙 저장소에 배포하는 방법 알아보기](multiplatform-publish-libraries-to-maven.md)
 * [Kotlin 멀티플랫폼 라이브러리 설계를 위한 모범 사례 및 팁은 라이브러리 작성자 가이드라인을 참조하세요](https://kotlinlang.org/docs/api-guidelines-build-for-multiplatform.html)

@@ -17,7 +17,7 @@ Compose Multiplatform 팀은 AndroidX Navigation 라이브러리에 멀티플랫
 >
 {style="tip"}
 
-## Compose 내비게이션의 기본 개념
+## Compose 내비게이션의 기본 개념 {id="basic-concepts-of-compose-navigation"}
 
 Navigation 라이브러리는 내비게이션 유스케이스를 매핑하기 위해 다음 개념들을 사용합니다:
 
@@ -35,7 +35,7 @@ Navigation 라이브러리는 내비게이션 유스케이스를 매핑하기 �
 * 앱은 사용자의 경로를 목적지 스택, 즉 **백 스택(back stack)**으로 표현합니다. 기본적으로 사용자가 새로운 목적지로 이동할 때마다 해당 목적지가 스택의 맨 위에 추가됩니다. 백 스택을 사용하면 내비게이션을 더 직관적으로 만들 수 있습니다. 직접 앞뒤로 이동하는 대신 스택 맨 위에서 현재 목적지를 꺼내(pop) 자동으로 이전 목적지로 돌아갈 수 있습니다.
 * 각 목적지는 연결된 **딥 링크(deep links)** 세트를 가질 수 있습니다. 이는 앱이 운영 체제로부터 링크를 받았을 때 해당 목적지로 연결되어야 하는 URI 패턴입니다.
 
-## 기본 내비게이션 예제
+## 기본 내비게이션 예제 {id="basic-navigation-example"}
 
 Navigation 라이브러리를 사용하려면 `commonMain` 소스 세트에 다음 종속성을 추가하세요:
 
@@ -80,7 +80,7 @@ NavHost(navController = navController, startDestination = Profile) {
 }
 ```
 
-### Navigation 라이브러리의 주요 클래스
+### Navigation 라이브러리의 주요 클래스 {id="main-classes-of-the-navigation-library"}
 
 Navigation 라이브러리는 다음과 같은 핵심 타입을 제공합니다:
 
@@ -94,9 +94,9 @@ Navigation 라이브러리는 다음과 같은 핵심 타입을 제공합니다:
 
 핵심 타입 기능 외에도, Navigation 컴포넌트는 애니메이션 및 전환, 딥 링크 지원, 타입 안정성, `ViewModel` 지원 및 앱 내 내비게이션 처리를 위한 기타 편의 기능들을 제공합니다.
 
-## 내비게이션 유스케이스
+## 내비게이션 유스케이스 {id="navigation-use-cases"}
 
-### 목적지로 이동하기
+### 목적지로 이동하기 {id="go-to-a-destination"}
 
 목적지로 이동하려면 `NavController.navigate()` 함수를 호출합니다. 위의 예제를 이어가자면 다음과 같습니다:
 
@@ -106,7 +106,7 @@ Button(onClick = { navController.navigate(Profile) }) {
 }
 ```
 
-### 목적지에 인자 전달하기
+### 목적지에 인자 전달하기 {id="pass-arguments-to-a-destination"}
 
 내비게이션 그래프를 설계할 때, 다음과 같이 루트를 파라미터가 있는 데이터 클래스로 정의할 수 있습니다:
 
@@ -133,7 +133,7 @@ composable<Profile> { backStackEntry ->
 }
 ```
 
-### 내비게이션 시 복잡한 데이터 조회하기
+### 내비게이션 시 복잡한 데이터 조회하기 {id="retrieve-complex-data-when-navigating"}
 
 목적지 간에 이동할 때는 필요한 최소한의 정보만 전달하는 것을 고려하세요. 파일이나 앱의 전반적인 상태를 반영하는 복잡한 객체는 데이터 레이어에 저장되어야 합니다. 사용자가 목적지에 도달하면 UI는 단일 진실 공급원(single source of truth)으로부터 실제 데이터를 로드해야 합니다.
 
@@ -147,7 +147,7 @@ composable<Profile> { backStackEntry ->
 
 앱에서 데이터 레이어를 적절하게 구현하는 방법은 [Android의 데이터 레이어 문서](https://developer.android.com/topic/architecture/data-layer)를 참조하세요.
 
-### 백 스택 관리하기
+### 백 스택 관리하기 {id="manage-back-stack"}
 
 백 스택은 `NavController` 클래스에 의해 제어됩니다. 다른 스택과 마찬가지로, `NavController`는 새로운 항목을 스택 맨 위에 밀어 넣고(push) 맨 위에서 꺼냅니다(pop):
 
@@ -164,7 +164,7 @@ Navigation 라이브러리는 백 스택 처리에 있어 유연성을 제공합
 
 자세한 내용과 유스케이스는 [백 스택에 관한 Jetpack Compose 문서](https://developer.android.com/guide/navigation/backstack)를 참조하세요.
 
-### 딥 링크
+### 딥 링크 {id="deep-links"}
 
 Navigation 라이브러리를 사용하면 특정 URI, 액션 또는 MIME 타입을 목적지와 연결할 수 있습니다. 이 연결을 **딥 링크(deep link)**라고 합니다.
 
@@ -172,7 +172,7 @@ Navigation 라이브러리를 사용하면 특정 URI, 액션 또는 MIME 타입
 
 딥 링크 생성, 등록 및 처리에 대한 자세한 내용은 [딥 링크](compose-navigation-deep-links.md)를 참조하세요.
 
-### 뒤로 가기 제스처
+### 뒤로 가기 제스처 {id="back-gesture"}
 
 멀티플랫폼 Navigation 라이브러리는 각 플랫폼의 뒤로 가기 제스처를 이전 화면으로 이동하는 동작으로 변환합니다 (예를 들어, iOS에서는 간단한 백 스와이프, 데스크톱에서는 <shortcut>Esc</shortcut> 키).
 
@@ -201,7 +201,7 @@ ComposeUIViewController(
 }
 ```
 
-## 대체 내비게이션 솔루션
+## 대체 내비게이션 솔루션 {id="alternative-navigation-solutions"}
 
 Compose 기반의 내비게이션 구현이 적합하지 않은 경우, 검토해 볼 만한 서드파티 대안들이 있습니다:
 
@@ -215,7 +215,7 @@ Compose 기반의 내비게이션 구현이 적합하지 않은 경우, 검토�
 
 iOS를 타겟팅하고 내비게이션 UI에서 [Liquid Glass](https://developer.apple.com/documentation/technologyoverviews/liquid-glass)와 같은 시스템 렌더링 효과를 원하는 경우, 화면 콘텐츠에는 Compose를 계속 사용하면서 [내비게이션을 네이티브 SwiftUI로 마이그레이션](ios-liquid-glass.md)하는 것을 고려해 보세요.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 Compose 내비게이션은 Android 개발자 포털에서 심도 있게 다뤄집니다. 해당 문서는 때때로 Android 전용 예제를 사용하지만, 기본적인 가이드와 내비게이션 원칙은 멀티플랫폼에서도 동일합니다:
 

@@ -4,7 +4,7 @@
 
 JetBrains Academy의 무료 [Kotlin Core 트랙](https://hyperskill.org/tracks?category=4&utm_source=jbkotlin_hs&utm_medium=referral&utm_campaign=kotlinlang-docs&utm_content=button_1&utm_term=22.03.23)을 통해서도 Kotlin의 모든 필수 요소를 배울 수 있습니다.
 
-## 패키지 정의 및 임포트
+## 패키지 정의 및 임포트 {id="package-definition-and-imports"}
 
 패키지 정의는 소스 파일의 가장 최상단에 위치해야 합니다.
 
@@ -20,7 +20,7 @@ import kotlin.text.*
 
 [패키지(Packages)](packages.md)를 참고하세요.
 
-## 프로그램 진입점
+## 프로그램 진입점 {id="program-entry-point"}
 
 Kotlin 애플리케이션의 진입점은 `main` 함수입니다.
 
@@ -40,7 +40,7 @@ fun main(args: Array<String>) {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 표준 출력으로 출력
+## 표준 출력으로 출력 {id="print-to-the-standard-output"}
 
 `print`는 인자를 표준 출력(standard output)으로 출력합니다.
 
@@ -66,7 +66,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-println"}
 
-## 표준 입력으로부터 읽기
+## 표준 입력으로부터 읽기 {id="read-from-the-standard-input"}
 
 `readln()` 함수는 표준 입력(standard input)으로부터 내용을 읽습니다. 이 함수는 사용자가 입력한 전체 줄을 문자열로 읽어옵니다.
 
@@ -87,7 +87,7 @@ print(yourWord)
 
 더 자세한 정보는 [표준 입력 읽기(Read standard input)](read-standard-input.md)를 참고하세요.
 
-## 함수
+## 함수 {id="functions"}
 
 두 개의 `Int` 파라미터와 `Int` 반환 타입을 가진 함수:
 
@@ -150,7 +150,7 @@ fun main() {
 
 [함수(Functions)](functions.md)를 참고하세요.
 
-## 변수
+## 변수 {id="variables"}
 
 Kotlin에서는 키워드 `val` 또는 `var`로 시작하고 그 뒤에 변수 이름을 붙여 변수를 선언합니다.
 
@@ -244,7 +244,7 @@ fun main() {
 
 속성(property) 선언에 대한 정보는 [속성(Properties)](properties.md)을 참고하세요.
 
-## 클래스 및 인스턴스 생성
+## 클래스 및 인스턴스 생성 {id="creating-classes-and-instances"}
 
 클래스를 정의하려면 `class` 키워드를 사용합니다.
 ```kotlin
@@ -284,7 +284,7 @@ class Rectangle(val height: Double, val length: Double): Shape() {
 
 생성자와 상속에 대한 더 자세한 정보는 [클래스(Classes)](classes.md)와 [객체 및 인스턴스(Objects and instances)](object-declarations.md)를 참고하세요.
 
-## 주석
+## 주석 {id="comments"}
 
 대부분의 현대 프로그래밍 언어와 마찬가지로, Kotlin은 단일 행(또는 줄 끝) 주석과 여러 행(블록) 주석을 지원합니다.
 
@@ -305,7 +305,7 @@ Kotlin의 블록 주석은 중첩될 수 있습니다.
 
 문서 주석 문법에 대한 정보는 [Kotlin 코드 문서화(Documenting Kotlin Code)](kotlin-doc.md)를 참고하세요.
 
-## 문자열 템플릿
+## 문자열 템플릿 {id="string-templates"}
 
 ```kotlin
 fun main() {
@@ -325,7 +325,7 @@ fun main() {
 
 자세한 내용은 [문자열 템플릿(String templates)](strings.md#string-templates)을 참고하세요.
 
-## 조건식
+## 조건식 {id="conditional-expressions"}
 
 ```kotlin
 //sampleStart
@@ -359,7 +359,7 @@ fun main() {
 
 [`if`-식(if-expressions)](control-flow.md#if-expression)을 참고하세요.
 
-## for 루프
+## for 루프 {id="for-loop"}
 
 ```kotlin
 fun main() {
@@ -389,7 +389,7 @@ fun main() {
 
 [for 루프(for loop)](control-flow.md#for-loops)를 참고하세요.
 
-## while 루프
+## while 루프 {id="while-loop"}
 
 ```kotlin
 fun main() {
@@ -407,7 +407,7 @@ fun main() {
 
 [while 루프(while loop)](control-flow.md#while-loops)를 참고하세요.
 
-## when 식
+## when 식 {id="when-expression"}
 
 ```kotlin
 //sampleStart
@@ -433,7 +433,7 @@ fun main() {
 
 [when 식 및 문(when expressions and statements)](control-flow.md#when-expressions-and-statements)을 참고하세요.
 
-## 범위 (Ranges)
+## 범위 (Ranges) {id="ranges"}
 
 `in` 연산자를 사용하여 숫자가 범위 내에 있는지 확인합니다.
 
@@ -500,7 +500,7 @@ fun main() {
 
 [범위 및 수열(Ranges and progressions)](ranges.md)을 참고하세요.
 
-## 컬렉션 (Collections)
+## 컬렉션 (Collections) {id="collections"}
 
 컬렉션을 반복합니다.
 
@@ -549,7 +549,7 @@ fun main() {
 
 [컬렉션 개요(Collections overview)](collections-overview.md)를 참고하세요.
 
-## 널 허용 값 및 널 체크
+## 널 허용 값 및 널 체크 {id="nullable-values-and-null-checks"}
 
 `null` 값이 가능할 때는 참조를 명시적으로 널 허용(nullable)으로 표시해야 합니다. 널 허용 타입 이름은 끝에 `?`가 붙습니다. 예: `Int?`.
 
@@ -629,7 +629,7 @@ fun main() {
 
 [널 안전성(Null-safety)](null-safety.md)을 참고하세요.
 
-## 타입 체크 및 자동 캐스트
+## 타입 체크 및 자동 캐스트 {id="type-checks-and-automatic-casts"}
 
 `is` 연산자는 식이 특정 타입의 인스턴스인지 확인합니다.
 불변 지역 변수나 속성이 특정 타입인지 확인되었다면, 명시적으로 캐스팅할 필요가 없습니다.

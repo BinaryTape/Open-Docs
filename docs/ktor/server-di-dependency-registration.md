@@ -17,7 +17,7 @@
 
 Ktor 的 [依赖注入 (DI)](server-dependency-injection.md) 容器需要知道如何创建应用程序所依赖的对象。这个过程被称为依赖项注册。
 
-### 基本依赖项注册
+### 基本依赖项注册 {id="basic-dependency-registration"}
 
 基本的依赖项注册在代码中完成，通常在 `Application` 模块中使用 `dependencies {}` 代码块。
 
@@ -100,7 +100,7 @@ dependencies {
 
 命名依赖项必须[使用 `@Named` 注解显式解析](server-di-dependency-resolution.md#resolve-named)。
 
-### 基于配置的依赖项注册
+### 基于配置的依赖项注册 {id="configuration-based-dependency-registration"}
 
 您可以在配置文件中使用类路径引用声明式地配置依赖项。您可以列出返回对象的函数，或者具有可解析构造函数的类。
 

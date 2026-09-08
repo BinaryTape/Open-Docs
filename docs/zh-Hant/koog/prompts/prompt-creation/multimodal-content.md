@@ -18,7 +18,7 @@ Koog 讓您可以在 `user` 訊息中連同文字一起將影像、音訊、影�
     多模態內容支援因 [大型語言模型提供者](../../llm-providers.md) 而異。
     請查看提供者文件以瞭解支援的內容類型。
 
-### 自動配置附件
+### 自動配置附件 {id="auto-configured-attachments"}
 
 如果您將 URL 或檔案路徑傳遞給附件函式或方法，Koog 會根據副檔名自動建構相應的附件參數。
 
@@ -69,7 +69,7 @@ Koog 讓您可以在 `user` 訊息中連同文字一起將影像、音訊、影�
 
 在 Kotlin 中，`+` 運算子會將文字內容連同附件一起新增至使用者訊息中。在 Java 中，請使用 `ContentPartsBuilder` 的 `text()` 方法。
 
-### 自訂配置附件
+### 自訂配置附件 {id="custom-configured-attachments"}
 
 [`ContentPart`](api:prompt-model::ai.koog.prompt.message.ContentPart) 介面讓您可以個別配置每個附件的參數。
 
@@ -144,7 +144,7 @@ Koog 為每種媒體類型提供了以下實作 `ContentPart.Attachment` 介面�
 | `mimeType` | String                                                                                                             | 僅適用於 `ContentPart.File`      | 提供的檔案 MIME 類型。<br/>對於 `ContentPart.Image`、`ContentPart.Audio` 和 `ContentPart.Video`，預設為 `<type>/<format>`（例如 `image/png`）。<br/>對於 `ContentPart.File`，必須明確提供。 |
 | `fileName` | String?                                                                                                            | 否       | 提供的檔案名稱，包含副檔名。例如 `screenshot.png`。                                                                                                                                                   |
 
-#### 附件內容
+#### 附件內容 {id="attachment-content"}
 
 `AttachmentContent` 介面的實作定義了作為大型語言模型輸入提供的內容類型與來源：
 
@@ -172,7 +172,7 @@ Koog 為每種媒體類型提供了以下實作 `ContentPart.Attachment` 介面�
     ```
     <!--- KNIT example-multimodal-content-04.txt -->
 
-### 混合附件
+### 混合附件 {id="mixed-attachments"}
 
 除了在個別提示或訊息中提供不同類型的附件外，您還可以在單個 `user()` 訊息中提供多種且混合類型的附件：
 
@@ -228,7 +228,7 @@ Koog 為每種媒體類型提供了以下實作 `ContentPart.Attachment` 介面�
     ```
     <!--- KNIT example-multimodal-content-java-03.java -->
 
-## 後續步驟
+## 後續步驟 {id="next-steps"}
 
 - 如果您只使用單個大型語言模型提供者，請使用 [大型語言模型用戶端](../llm-clients.md) 執行提示。
 - 如果您使用多個大型語言模型提供者，請使用 [提示執行器](../prompt-executors.md) 執行提示。

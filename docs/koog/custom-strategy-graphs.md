@@ -4,7 +4,7 @@
 
 通过创建策略图，你可以根据特定需求定制智能体的行为，无论是构建简单的聊天机器人、复杂的数据处理流水线，还是介于两者之间的任何应用。
 
-## 策略图架构
+## 策略图架构 {id="strategy-graph-architecture"}
 
 从高层级来看，策略图由以下组件组成：
 
@@ -15,9 +15,9 @@
 
 策略图从名为 `nodeStart` 的特殊节点开始，到 `nodeFinish` 结束。这些节点之间的路径由图中指定的边和条件决定。
 
-## 策略图组件
+## 策略图组件 {id="strategy-graph-components"}
 
-### 节点
+### 节点 {id="nodes"}
 
 节点是策略图的构建块。每个节点代表一个特定的操作。
 
@@ -25,7 +25,7 @@ Koog 框架提供了预定义节点，同时也允许你使用 `node` 函数创�
 
 有关详细信息，请参阅[预定义节点与组件](nodes-and-components.md)和[自定义节点](custom-nodes.md)。
 
-### 边
+### 边 {id="edges"}
 
 边连接节点并定义策略图中的操作流。使用 `edge` 函数和 `forwardTo` 中缀函数创建边：
 
@@ -78,7 +78,7 @@ Koog 框架提供了预定义节点，同时也允许你使用 `node` 函数创�
     ```
     <!--- KNIT exampleCustomStrategyGraphsJava01.java -->
 
-#### 条件
+#### 条件 {id="conditions"}
 
 条件决定何时沿策略图中的特定边执行。有多种类型的条件，以下是一些常见的：
 
@@ -149,7 +149,7 @@ Koog 框架提供了预定义节点，同时也允许你使用 `node` 函数创�
     ```
     <!--- KNIT exampleCustomStrategyGraphsJava02.java -->
 
-### 子图
+### 子图 {id="subgraphs"}
 
 子图是策略图的一部分，使用自己的一套工具和上下文运行。策略图可以包含多个子图。每个子图使用 `subgraph` 函数定义：
 
@@ -269,7 +269,7 @@ Koog 框架提供了预定义节点，同时也允许你使用 `node` 函数创�
     ```
     <!--- KNIT exampleCustomStrategyGraphsJava04.java -->
 
-## 基础策略图创建
+## 基础策略图创建 {id="basic-strategy-graph-creation"}
 
 基础策略图的运行方式如下：
 
@@ -373,7 +373,7 @@ Koog 框架提供了预定义节点，同时也允许你使用 `node` 函数创�
     ```
     <!--- KNIT exampleCustomStrategyGraphsJava05.java -->
 
-## 可视化策略图 
+## 可视化策略图 {id="visualizing-strategy-graph"}
 
 在 JVM 上，你可以为策略图生成 [Mermaid 状态图](https://mermaid.js.org/syntax/stateDiagram.html)。
 
@@ -457,13 +457,13 @@ stateDiagram
 ```
 <!--- KNIT example-custom-strategy-graphs-01.txt -->
 
-## 高级策略技巧
+## 高级策略技巧 {id="advanced-strategy-techniques"}
 
-### 历史压缩
+### 历史压缩 {id="history-compression"}
 
 对于长时间运行的对话，历史记录可能会变得很大并消耗大量 token。要了解如何压缩历史记录，请参阅[历史压缩](history-compression.md)。
 
-### 并行工具执行
+### 并行工具执行 {id="parallel-tool-execution"}
 
 对于需要并行执行多个工具的工作流，可以使用 `nodeExecuteTools` 节点，并设置 `parallel = true`：
 
@@ -506,7 +506,7 @@ parseMarkdownStreamToBooks(markdownStream).toParallelToolCallsRaw(BookTool::clas
 
 要了解更多信息，请参阅[工具](tools/index.md#parallel-tool-calls)。 
 
-### 并行节点执行 
+### 并行节点执行 {id="parallel-node-execution"}
 
 并行节点执行允许你并发运行多个节点，从而提高性能并启用复杂的工作流。
 
@@ -540,7 +540,7 @@ val calc by parallel<String, Int>(
 
 有关并行节点执行的更多信息和详细参考，请参阅[并行节点执行](parallel-node-execution.md)。
 
-### 条件分支
+### 条件分支 {id="conditional-branching"}
 
 对于需要根据某些条件采取不同路径的复杂工作流，可以使用条件分支：
 
@@ -578,7 +578,7 @@ edge(
 ```
 <!--- KNIT example-custom-strategy-graphs-10.kt -->
 
-## 最佳做法
+## 最佳做法 {id="best-practices"}
 
 创建自定义策略图时，请遵循以下最佳做法：
 
@@ -591,9 +591,9 @@ edge(
 - 对于长时间运行的对话，使用历史压缩来减少 token 使用量。
 - 使用子图来组织你的图并管理工具访问。
 
-## 使用示例
+## 使用示例 {id="usage-examples"}
 
-### 语气分析策略
+### 语气分析策略 {id="tone-analysis-strategy"}
 
 语气分析策略是基于工具的策略的一个很好的例子，它包含了历史压缩：
 
@@ -675,11 +675,11 @@ fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentGraphStrategy
 6. 如果 LLM 调用另一个工具，策略将运行它。
 7. 如果 LLM 以消息形式响应，策略将结束流程。
 
-## 故障排除
+## 故障排除 {id="troubleshooting"}
 
 创建自定义策略图时，你可能会遇到一些常见问题。以下是一些故障排除提示：
 
-### 图无法到达结束节点
+### 图无法到达结束节点 {id="graph-fails-to-reach-the-finish-node"}
 
 如果你的图没有到达结束节点，请检查以下内容：
 
@@ -687,14 +687,14 @@ fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentGraphStrategy
 - 你的条件没有过于严格，从而阻止了边的执行。
 - 图中没有缺少退出条件的循环。
 
-### 工具调用未运行
+### 工具调用未运行 {id="tool-calls-are-not-running"}
 
 如果工具调用未运行，请检查以下内容：
 
 - 工具已在工具注册表中正确注册。
 - 从 LLM 节点到工具执行节点的边具有正确的条件（`onToolCall { true }`）。
 
-### 历史记录变得太大
+### 历史记录变得太大 {id="history-gets-too-large"}
 
 如果你的历史记录变得太大并消耗过多 token，请考虑以下事项：
 
@@ -702,7 +702,7 @@ fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentGraphStrategy
 - 使用条件检查历史记录的大小，并在其过大时进行压缩。
 - 使用更激进的压缩策略（例如，使用较小 N 值的 `FromLastNMessages`）。
 
-### 图的行为不符合预期
+### 图的行为不符合预期 {id="graph-behaves-unexpectedly"}
 
 如果你的图进入了意料之外的分支，请检查以下内容：
 
@@ -710,7 +710,7 @@ fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentGraphStrategy
 - 条件按预期的顺序进行评估（边按定义的顺序进行检查）。
 - 你没有意外地用更通用的条件覆盖了特定条件。
 
-### 出现性能问题
+### 出现性能问题 {id="performance-issues-occur"}
 
 如果你的图存在性能问题，请考虑以下事项：
 

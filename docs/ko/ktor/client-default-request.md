@@ -136,7 +136,7 @@ defaultRequest {
 }
 ```
 
-### 유닉스 도메인 소켓 (Unix domain sockets)
+### 유닉스 도메인 소켓 (Unix domain sockets) {id="unix-domain-sockets"}
 
 > 유닉스 도메인 소켓은 CIO 엔진에서만 지원됩니다.
 >

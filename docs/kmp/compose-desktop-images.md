@@ -5,7 +5,7 @@
 
 此页面上的示例使用了 Kotlin 和 Compose Multiplatform 的徽标。这两个徽标都可以作为 [Kotlin 品牌资产](https://kotlinlang.org/docs/kotlin-brand-assets.html#kotlin-logo)包的一部分获取。
 
-## 显示来自资源的图像
+## 显示来自资源的图像 {id="displaying-images-from-resources"}
 
 要显示随应用程序打包的图像，请[将其添加到项目的多平台资源中](compose-multiplatform-resources-setup.md)，并构建项目以生成资源访问器。通过将访问器传递给 `painterResource()` 来创建 `Painter` 实例，并将生成的 `Painter` 传递给 `Image()` 可组合项：
 
@@ -49,7 +49,7 @@ fun main() = application {
 >
 {style="tip"}
 
-## 从文件系统或网络加载图像
+## 从文件系统或网络加载图像 {id="loading-images-from-the-file-system-or-the-network"}
 
 不属于应用程序一部分的图像（由用户选择或在运行时下载的文件）不是资源。请使用任何 JVM API 读取它们的字节，并使用资源库的以下函数之一对它们进行解码：
 
@@ -182,7 +182,7 @@ fun <T> AsyncImage(
 >
 {style="tip"}
 
-## 设置窗口图标
+## 设置窗口图标 {id="setting-the-window-icon"}
 
 要将图像用作窗口图标，请将 `Painter` 实例作为 `icon` 参数传递给 `Window()` 可组合项：
 
@@ -225,7 +225,7 @@ fun main() = application {
 
 <img src="compose-desktop-images-window-icon.png" alt="打包后的应用程序及其 Dock 图标" width="426"/>
 
-### 单窗口应用程序图标
+### 单窗口应用程序图标 {id="single-window-application-icon"}
 
 `singleWindowApplication()` 函数在组合 (composition) 之外评估其 `icon` 参数，此时 `painterResource()` 不可用。相反，应使用 `Res.readBytes()` 读取资源，它接收 `composeResources` 目录下的文件路径，并将其解码为 `BitmapPainter`：
 
@@ -248,7 +248,7 @@ fun main() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="val icon = BitmapPainter(iconBytes.decodeToImageBitmap())"}
 
-## 设置托盘图标
+## 设置托盘图标 {id="setting-the-tray-icon"}
 
 要将图像用作[托盘](compose-desktop-tray.md)图标，请将 `Painter` 实例作为 `icon` 参数传递给 `Tray()` 可组合项：
 
@@ -300,7 +300,7 @@ fun main() = application {
 
 <img src="compose-desktop-images-tray-icon.png" alt="macOS 菜单栏中的托盘图标" width="430"/>
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * 详细了解[多平台资源](compose-multiplatform-resources.md)以及[如何在公共代码中访问它们](compose-multiplatform-resources-usage.md)。
 * 了解如何向[系统托盘](compose-desktop-tray.md)添加应用程序图标。

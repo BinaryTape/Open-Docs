@@ -39,7 +39,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-## 宣告型別別名
+## 宣告型別別名 {id="declare-type-aliases"}
 
 你可以宣告型別別名：
 
@@ -52,7 +52,7 @@ fun main() {
 
 型別別名不能暴露比自身具有更嚴格 [可見性](visibility-modifiers.md) 的底層型別。例如，`public` 型別別名不能引用 `private` 類別。
 
-### 最上層型別別名
+### 最上層型別別名 {id="top-level-type-aliases"}
 
 最上層型別別名是套件層級的宣告。在同一個套件中，你可以透過其不合格名稱來引用別名。要從另一個套件使用該別名，請匯入該別名或透過其合格名稱來引用它：
 
@@ -83,7 +83,7 @@ fun deleteUser(id: org.example.users.UserId) {
 }
 ```
 
-### 巢狀型別別名
+### 巢狀型別別名 {id="nested-type-aliases"}
 
 巢狀型別別名透過改進封裝、減少套件層級的混亂並簡化內部實作，讓程式碼更簡潔、更易於維護。巢狀型別別名遵循與 [巢狀類別](nested-classes.md) 相同的作用域與名稱解析規則。
 
@@ -111,7 +111,7 @@ fun synchronizeUsers(users: UserRepository.UserIndex) {
 >
 {style="note"}
 
-#### 型別參數
+#### 型別參數 {id="type-parameters"}
 
 要在巢狀型別別名中使用型別參數，請將其加入別名宣告中：
 

@@ -20,7 +20,7 @@ Kotlin 1.5.30은 향후 변경 사항에 대한 프리뷰를 포함한 언어 �
 >
 {style="tip"}
 
-## 언어 기능
+## 언어 기능 {id="language-features"}
 
 Kotlin 1.5.30은 향후 언어 변경 사항의 프리뷰를 제시하고 옵트인 요구 사항 메커니즘 및 타입 추론을 개선합니다.
 * [봉인된(sealed) 및 불리언(Boolean) 대상을 위한 완전한 when 문](#exhaustive-when-statements-for-sealed-and-boolean-subjects)
@@ -30,7 +30,7 @@ Kotlin 1.5.30은 향후 언어 변경 사항의 프리뷰를 제시하고 옵트
 * [재귀적 제네릭 타입에 대한 타입 추론 개선](#improvements-to-type-inference-for-recursive-generic-types)
 * [빌더 추론 제한 제거](#eliminating-builder-inference-restrictions)
 
-### 봉인된(sealed) 및 불리언(Boolean) 대상을 위한 완전한 when 문
+### 봉인된(sealed) 및 불리언(Boolean) 대상을 위한 완전한 when 문 {id="exhaustive-when-statements-for-sealed-and-boolean-subjects"}
 
 > 봉인된(sealed) 대상을 위한 완전한(exhaustive) when 문 지원은 [실험적(Experimental)](components-stability.md) 단계입니다. 언제든지 삭제되거나 변경될 수 있습니다.
 > 옵트인(아래 상세 내용 참조)이 필요하며, 평가 목적으로만 사용해야 합니다. [YouTrack](https://youtrack.jetbrains.com/issue/KT-12380)을 통해 여러분의 피드백을 기다립니다.
@@ -101,7 +101,7 @@ kotlin {
 </tab>
 </tabs>
 
-### 상위 타입으로서의 서스펜딩 함수
+### 상위 타입으로서의 서스펜딩 함수 {id="suspending-functions-as-supertypes"}
 
 > 상위 타입으로서의 서스펜딩(suspending) 함수 지원은 [실험적(Experimental)](components-stability.md) 단계입니다. 언제든지 삭제되거나 변경될 수 있습니다.
 > 옵트인(아래 상세 내용 참조)이 필요하며, 평가 목적으로만 사용해야 합니다. [YouTrack](https://youtrack.jetbrains.com/issue/KT-18707)을 통해 여러분의 피드백을 기다립니다.
@@ -151,7 +151,7 @@ kotlin {
 * 일반 함수형 타입과 `suspend` 함수형 타입을 상위 타입으로 섞어 쓸 수 없습니다. 이는 JVM 백엔드의 `suspend` 함수형 타입 구현 방식 때문입니다. JVM에서는 마커 인터페이스가 있는 일반 함수형 타입으로 표현됩니다. 이 마커 인터페이스 때문에 어떤 상위 인터페이스가 서스펜드 타입이고 어떤 것이 일반 타입인지 구별할 방법이 없습니다.
 * 여러 개의 `suspend` 함수형 상위 타입을 사용할 수 없습니다. 타입 체크가 있는 경우 여러 개의 일반 함수형 상위 타입도 사용할 수 없습니다.
 
-### 실험적 API의 암시적 사용에 대한 옵트인 요구
+### 실험적 API의 암시적 사용에 대한 옵트인 요구 {id="requiring-opt-in-on-implicit-usages-of-experimental-apis"}
 
 > 옵트인 요구 사항 메커니즘은 [실험적(Experimental)](components-stability.md) 단계입니다.
 > 언제든지 변경될 수 있습니다. [옵트인 방법 보기](opt-in-requirements.md).
@@ -187,7 +187,7 @@ fun getDate(): Date {
 
 [옵트인 요구 사항](opt-in-requirements.md)에 대해 더 알아보세요.
 
-### 서로 다른 타겟에 대한 옵트인 요구 사항 어노테이션 사용 변경 사항
+### 서로 다른 타겟에 대한 옵트인 요구 사항 어노테이션 사용 변경 사항 {id="changes-to-using-opt-in-requirement-annotations-with-different-targets"}
 
 > 옵트인 요구 사항 메커니즘은 [실험적(Experimental)](components-stability.md) 단계입니다.
 > 언제든지 변경될 수 있습니다. [옵트인 방법 보기](opt-in-requirements.md).
@@ -203,7 +203,7 @@ Kotlin 1.5.30은 다양한 [타겟(targets)](https://kotlinlang.org/api/latest/j
 
 [옵트인 요구 사항](opt-in-requirements.md)에 대해 더 알아보세요.
 
-### 재귀적 제네릭 타입에 대한 타입 추론 개선
+### 재귀적 제네릭 타입에 대한 타입 추론 개선 {id="improvements-to-type-inference-for-recursive-generic-types"}
 
 Kotlin과 Java에서는 타입 파라미터에서 자신을 참조하는 재귀적 제네릭 타입(recursive generic type)을 정의할 수 있습니다. Kotlin 1.5.30에서 Kotlin 컴파일러는 재귀적 제네릭인 경우 해당 타입 파라미터의 상한(upper bound)만을 기반으로 타입 인자를 추론할 수 있습니다. 이를 통해 Java에서 빌더 API를 만들 때 자주 사용되는 재귀적 제네릭 타입의 다양한 패턴을 생성할 수 있게 되었습니다.
 
@@ -226,7 +226,7 @@ val containerB = PostgreSQLContainer(DockerImageName.parse("postgres:13-alpine")
 
 `-Xself-upper-bound-inference` 또는 `-language-version 1.6` 컴파일러 옵션을 전달하여 개선 사항을 활성화할 수 있습니다. 새로 지원되는 다른 사용 사례의 예는 [이 YouTrack 티켓](https://youtrack.jetbrains.com/issue/KT-40804)에서 확인하세요.
 
-### 빌더 추론 제한 제거
+### 빌더 추론 제한 제거 {id="eliminating-builder-inference-restrictions"}
 
 빌더 추론(builder inference)은 람다 인자 내부의 다른 호출 정보를 기반으로 호출의 타입 인자를 추론할 수 있게 해주는 특수한 타입 추론입니다. 이는 [`buildList()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/build-list.html) 또는 [`sequence()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/sequence.html)와 같은 제네릭 빌더 함수를 호출할 때 유용합니다: `buildList { add("string") }`.
 
@@ -256,7 +256,7 @@ val map = buildMap {
 
 또한, `-language-version 1.6` 컴파일러 옵션으로도 이 기능을 활성화할 수 있습니다.
 
-## Kotlin/JVM
+## Kotlin/JVM {id="kotlin-jvm"}
 
 Kotlin 1.5.30과 함께 Kotlin/JVM에는 다음과 같은 기능이 추가되었습니다:
 * [어노테이션 클래스의 인스턴스화](#instantiation-of-annotation-classes)
@@ -264,7 +264,7 @@ Kotlin 1.5.30과 함께 Kotlin/JVM에는 다음과 같은 기능이 추가되었
 
 JVM 플랫폼의 Kotlin Gradle 플러그인 업데이트에 대해서는 [Gradle](#gradle) 섹션을 참조하세요.
 
-### 어노테이션 클래스의 인스턴스화
+### 어노테이션 클래스의 인스턴스화 {id="instantiation-of-annotation-classes"}
 
 > 어노테이션 클래스의 인스턴스화는 [실험적(Experimental)](components-stability.md) 단계입니다. 언제든지 삭제되거나 변경될 수 있습니다.
 > 옵트인(아래 상세 내용 참조)이 필요하며, 평가 목적으로만 사용해야 합니다. [YouTrack](https://youtrack.jetbrains.com/issue/KT-45395)을 통해 여러분의 피드백을 기다립니다.
@@ -290,7 +290,7 @@ fun main(args: Array<String>) {
 
 어노테이션 클래스 인스턴스화에 대한 자세한 내용은 [이 KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/annotation-instantiation.md)에서 확인할 수 있습니다.
 
-### 개선된 널 허용 여부(nullability) 어노테이션 지원 구성
+### 개선된 널 허용 여부(nullability) 어노테이션 지원 구성 {id="improved-nullability-annotation-support-configuration"}
 
 Kotlin 컴파일러는 Java에서 널 허용 여부 정보를 가져오기 위해 다양한 유형의 [널 허용 여부 어노테이션(nullability annotations)](java-interop.md#nullability-annotations)을 읽을 수 있습니다. 이 정보를 통해 Java 코드를 호출할 때 Kotlin에서 널 허용 여부 불일치를 보고할 수 있습니다.
 
@@ -303,7 +303,7 @@ Kotlin 1.5.30에서는 특정 유형의 널 허용 여부 어노테이션 정보
 
 다음은 새로 지원되는 [RxJava](https://github.com/ReactiveX/RxJava) 3 널 허용 여부 어노테이션에 대해 에러 보고를 활성화하는 예입니다: `-Xnullability-annotations=@io.reactivex.rxjava3.annotations:strict`. 이러한 모든 널 허용 여부 불일치는 기본적으로 경고입니다.
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 Kotlin/Native에 다양한 변경 및 개선 사항이 적용되었습니다:
 * [애플 실리콘(Apple silicon) 지원](#apple-silicon-support)
@@ -312,7 +312,7 @@ Kotlin/Native에 다양한 변경 및 개선 사항이 적용되었습니다:
 * [객체(object) 및 컴패니언 객체(companion object)에 대한 개선된 Swift/Objective-C 매핑](#improved-swift-objective-c-mapping-for-objects-and-companion-objects)
 * [MinGW 타겟에 대해 임포트 라이브러리 없는 DLL 링크 금지(deprecated)](#deprecation-of-linkage-against-dlls-without-import-libraries-for-mingw-targets)
 
-### 애플 실리콘 지원
+### 애플 실리콘 지원 {id="apple-silicon-support"}
 
 Kotlin 1.5.30은 [애플 실리콘(Apple silicon)](https://support.apple.com/en-us/HT211814)을 네이티브로 지원합니다.
 
@@ -329,9 +329,9 @@ Kotlin 1.5.30은 [애플 실리콘(Apple silicon)](https://support.apple.com/en-
 1.5.30에서는 `kotlin-multiplatform` Gradle 플러그인에서 애플 실리콘 타겟에 대한 기본적인 지원만 제공한다는 점에 유의하세요. 특히, 새로운 시뮬레이터 타겟은 `ios`, `tvos`, `watchos` 타겟 단축어(shortcuts)에 포함되지 않습니다.
 새로운 타겟들에 대한 사용자 경험을 개선하기 위해 계속 노력할 예정입니다.
 
-### CocoaPods Gradle 플러그인을 위한 개선된 Kotlin DSL
+### CocoaPods Gradle 플러그인을 위한 개선된 Kotlin DSL {id="improved-kotlin-dsl-for-the-cocoapods-gradle-plugin"}
 
-#### Kotlin/Native 프레임워크를 위한 새로운 파라미터
+#### Kotlin/Native 프레임워크를 위한 새로운 파라미터 {id="new-parameters-for-kotlin-native-frameworks"}
 
 Kotlin 1.5.30은 Kotlin/Native 프레임워크를 위한 개선된 CocoaPods Gradle 플러그인 DSL을 도입했습니다. 프레임워크 이름 외에도 Pod 구성에서 다른 파라미터를 지정할 수 있습니다:
 * 프레임워크의 동적(dynamic) 또는 정적(static) 버전 지정
@@ -360,7 +360,7 @@ cocoapods {
 }
 ```
 
-#### Xcode 구성을 위한 커스텀 이름 지원
+#### Xcode 구성을 위한 커스텀 이름 지원 {id="support-custom-names-for-xcode-configuration"}
 
 Kotlin CocoaPods Gradle 플러그인은 Xcode 빌드 구성에서 커스텀 이름을 지원합니다. 이는 Xcode에서 `Staging`과 같은 빌드 구성에 특별한 이름을 사용하는 경우 도움이 됩니다.
 
@@ -380,7 +380,7 @@ cocoapods {
 >
 {style="note"}
 
-### Swift 5.5 async/await와의 실험적 상호 운용성
+### Swift 5.5 async/await와의 실험적 상호 운용성 {id="experimental-interoperability-with-swift-5-5-async-await"}
 
 > Swift async/await와의 동시성 상호 운용성은 [실험적(Experimental)](components-stability.md) 단계입니다. 언제든지 삭제되거나 변경될 수 있습니다.
 > 평가 목적으로만 사용해야 합니다. [YouTrack](https://youtrack.jetbrains.com/issue/KT-47610)을 통해 여러분의 피드백을 기다립니다.
@@ -393,7 +393,7 @@ cocoapods {
 
 이 기능은 실험적이며 향후 Kotlin 및 Swift의 변경 사항에 의해 영향을 받을 수 있습니다. 현재로서는 특정 제한 사항이 있는 프리뷰를 제공하고 있으며, 여러분의 의견을 기다리고 있습니다. 현재 상태에 대해 자세히 알아보고 [이 YouTrack 이슈](https://youtrack.jetbrains.com/issue/KT-47610)에 피드백을 남겨주세요.
 
-### 객체(object) 및 컴패니언 객체(companion object)에 대한 개선된 Swift/Objective-C 매핑
+### 객체(object) 및 컴패니언 객체(companion object)에 대한 개선된 Swift/Objective-C 매핑 {id="improved-swift-objective-c-mapping-for-objects-and-companion-objects"}
 
 이제 네이티브 iOS 개발자에게 더 직관적인 방식으로 객체 및 컴패니언 객체에 접근할 수 있습니다. 예를 들어 Kotlin에 다음과 같은 객체가 있다고 가정해 보겠습니다:
 
@@ -420,7 +420,7 @@ MyClass.Companion.shared
 
 [Swift/Objective-C 상호 운용성](native-objc-interop.md)에 대해 더 알아보세요.
 
-### MinGW 타겟에 대해 임포트 라이브러리 없는 DLL 링크 금지(deprecated)
+### MinGW 타겟에 대해 임포트 라이브러리 없는 DLL 링크 금지(deprecated) {id="deprecation-of-linkage-against-dlls-without-import-libraries-for-mingw-targets"}
 
 [LLD](https://lld.llvm.org/)는 LLVM 프로젝트의 링커로, 기본 ld.bfd에 비해 더 나은 성능 등의 장점이 있어 MinGW 타겟용 Kotlin/Native에서 사용을 시작할 계획입니다.
 
@@ -428,14 +428,14 @@ MyClass.Companion.shared
 
 LLD 링커로의 전환에 대한 생각이나 우려 사항을 [이 YouTrack 이슈](https://youtrack.jetbrains.com/issue/KT-47605)에 공유해 주세요.
 
-## Kotlin 멀티플랫폼
+## Kotlin 멀티플랫폼 {id="kotlin-multiplatform"}
 
 1.5.30은 Kotlin 멀티플랫폼에 다음과 같은 주목할 만한 업데이트를 제공합니다:
 * [공유 네이티브 코드에서 커스텀 `cinterop` 라이브러리 사용 기능](#ability-to-use-custom-cinterop-libraries-in-shared-native-code)
 * [XCFrameworks 지원](#support-for-xcframeworks)
 * [Android 아티팩트를 위한 새로운 기본 게시 설정](#new-default-publishing-setup-for-android-artifacts)
 
-### 공유 네이티브 코드에서 커스텀 cinterop 라이브러리 사용 기능
+### 공유 네이티브 코드에서 커스텀 cinterop 라이브러리 사용 기능 {id="ability-to-use-custom-cinterop-libraries-in-shared-native-code"}
 
 Kotlin 멀티플랫폼은 공유 소스 세트에서 플랫폼 종속 상호 운용 라이브러리를 사용할 수 있는 [옵션](https://kotlinlang.org/docs/multiplatform/multiplatform-share-on-platforms.html#connect-platform-specific-libraries)을 제공합니다. 1.5.30 이전에는 Kotlin/Native 배포판과 함께 제공되는 [플랫폼 라이브러리](native-platform-libs.md)에서만 작동했습니다. 1.5.30부터는 커스텀 `cinterop` 라이브러리에서도 이를 사용할 수 있습니다. 이 기능을 활성화하려면 `gradle.properties`에 `kotlin.mpp.enableCInteropCommonization=true` 프로퍼티를 추가하세요:
 
@@ -445,7 +445,7 @@ kotlin.native.enableDependencyPropagation=false
 kotlin.mpp.enableCInteropCommonization=true
 ```
 
-### XCFrameworks 지원
+### XCFrameworks 지원 {id="support-for-xcframeworks"}
 
 이제 모든 Kotlin 멀티플랫폼 프로젝트에서 출력 형식으로 XCFrameworks를 가질 수 있습니다. 애플은 유니버설(fat) 프레임워크의 대체재로 XCFrameworks를 도입했습니다. XCFrameworks를 사용하면 다음이 가능합니다:
 * 모든 타겟 플랫폼 및 아키텍처에 대한 로직을 단일 번들에 모을 수 있습니다.
@@ -533,7 +533,7 @@ XCFrameworks를 선언하면 다음과 같은 새로운 Gradle 태스크들이 �
 
 [이 WWDC 영상](https://developer.apple.com/videos/play/wwdc2019/416/)에서 XCFrameworks에 대해 더 알아보세요.
 
-### Android 아티팩트를 위한 새로운 기본 게시 설정
+### Android 아티팩트를 위한 새로운 기본 게시 설정 {id="new-default-publishing-setup-for-android-artifacts"}
 
 `maven-publish` Gradle 플러그인을 사용하여 빌드 스크립트에 [Android 배리에이션(variant)](https://developer.android.com/studio/build/build-variants) 이름을 지정함으로써 [Android 타겟용 멀티플랫폼 라이브러리를 게시](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-lib-setup.html#publish-an-android-library)할 수 있습니다. Kotlin Gradle 플러그인이 자동으로 게시물을 생성합니다.
 
@@ -543,31 +543,31 @@ XCFrameworks를 선언하면 다음과 같은 새로운 Gradle 태스크들이 �
 
 이를 거부하고 모든 배리에이션에 대해 빌드 타입 속성을 유지하려면 `kotlin.android.buildTypeAttribute.keep=true` Gradle 프로퍼티를 설정할 수 있습니다.
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
 1.5.30에서 Kotlin/JS에 두 가지 주요 개선 사항이 적용되었습니다:
 * [JS IR 컴파일러 백엔드 베타(Beta) 단계 진입](#js-ir-compiler-backend-reaches-beta)
 * [Kotlin/JS IR 백엔드를 사용하는 애플리케이션의 더 나은 디버깅 경험](#better-debugging-experience-for-applications-with-the-kotlin-js-ir-backend)
 
-### JS IR 컴파일러 백엔드 베타 단계 진입
+### JS IR 컴파일러 백엔드 베타 단계 진입 {id="js-ir-compiler-backend-reaches-beta"}
 
 1.4.0에서 [알파(Alpha)](components-stability.md) 단계로 도입되었던 Kotlin/JS의 [IR 기반 컴파일러 백엔드](whatsnew14.md#unified-backends-and-extensibility)가 베타 단계에 도달했습니다.
 
 이전에 프로젝트를 새 백엔드로 이전하는 데 도움을 주기 위해 JS IR 백엔드 마이그레이션 가이드를 게시한 바 있습니다. 이제 IntelliJ IDEA에서 필요한 변경 사항을 직접 표시해 주는 [Kotlin/JS Inspection Pack](https://plugins.jetbrains.com/plugin/17183-kotlin-js-inspection-pack/) IDE 플러그인을 선보입니다.
 
-### Kotlin/JS IR 백엔드를 사용하는 애플리케이션의 더 나은 디버깅 경험
+### Kotlin/JS IR 백엔드를 사용하는 애플리케이션의 더 나은 디버깅 경험 {id="better-debugging-experience-for-applications-with-the-kotlin-js-ir-backend"}
 
 Kotlin 1.5.30은 Kotlin/JS IR 백엔드를 위한 JavaScript 소스 맵 생성을 제공합니다. 이를 통해 IR 백엔드가 활성화되었을 때 브레이크포인트, 스테핑(stepping), 적절한 소스 참조가 포함된 가독성 있는 스택 트레이스를 포함한 전체 디버깅 지원으로 Kotlin/JS 디버깅 경험이 개선됩니다.
 
 [브라우저나 IntelliJ IDEA Ultimate에서 Kotlin/JS를 디버깅하는 방법](js-debugging.md)을 알아보세요.
 
-## Gradle
+## Gradle {id="gradle"}
 
 [Kotlin Gradle 플러그인 사용자 경험을 개선](https://youtrack.jetbrains.com/issue/KT-45778)하려는 미션의 일환으로 다음 기능들을 구현했습니다:
 * [Java 툴체인(toolchain) 지원](#support-for-java-toolchains). 여기에는 [이전 Gradle 버전을 위해 `UsesKotlinJavaToolchain` 인터페이스로 JDK 홈을 지정하는 기능](#ability-to-specify-jdk-home-with-useskotlinjavatoolchain-interface)이 포함됩니다.
 * [Kotlin 데몬의 JVM 인자를 명시적으로 지정하는 더 쉬운 방법](#easier-way-to-explicitly-specify-kotlin-daemon-jvm-arguments)
 
-### Java 툴체인 지원
+### Java 툴체인 지원 {id="support-for-java-toolchains"}
 
 Gradle 6.7은 ["Java 툴체인(Java toolchains) 지원"](https://docs.gradle.org/current/userguide/toolchains.html) 기능을 도입했습니다.
 이 기능을 사용하면 다음이 가능합니다:
@@ -631,7 +631,7 @@ java {
 
 Gradle 버전 6.1에서 6.6의 경우, [`UsesKotlinJavaToolchain` 인터페이스를 사용하여 JDK 홈을 설정하세요](#ability-to-specify-jdk-home-with-useskotlinjavatoolchain-interface).
 
-### UsesKotlinJavaToolchain 인터페이스를 통한 JDK 홈 지정 기능
+### UsesKotlinJavaToolchain 인터페이스를 통한 JDK 홈 지정 기능 {id="ability-to-specify-jdk-home-with-useskotlinjavatoolchain-interface"}
 
 [`kotlinOptions`](gradle-compiler-options.md)를 통해 JDK 설정을 지원하는 모든 Kotlin 태스크는 이제 `UsesKotlinJavaToolchain` 인터페이스를 구현합니다. JDK 홈을 설정하려면 JDK 경로를 입력하고 `<JDK_VERSION>` 자리 표시자를 바꾸세요:
 
@@ -670,7 +670,7 @@ Gradle 버전 6.1에서 6.6의 경우 `UsesKotlinJavaToolchain` 인터페이스�
 
 이 기능을 사용할 때 [kapt 태스크 워커](kapt.md#run-kapt-tasks-in-parallel)는 [프로세스 격리 모드(process isolation mode)](https://docs.gradle.org/current/userguide/worker_api.html#changing_the_isolation_mode)만 사용하며, `kapt.workers.isolation` 프로퍼티는 무시된다는 점에 유의하세요.
 
-### Kotlin 데몬 JVM 인자를 명시적으로 지정하는 더 쉬운 방법
+### Kotlin 데몬 JVM 인자를 명시적으로 지정하는 더 쉬운 방법 {id="easier-way-to-explicitly-specify-kotlin-daemon-jvm-arguments"}
 
 Kotlin 1.5.30에는 Kotlin 데몬의 JVM 인자를 위한 새로운 로직이 적용되었습니다. 다음 목록의 각 옵션은 그 이전의 옵션을 덮어씁니다:
 
@@ -750,7 +750,7 @@ Kotlin 1.5.30에는 Kotlin 데몬의 JVM 인자를 위한 새로운 로직이 �
 
 Kotlin 데몬에 대한 자세한 정보는 [Kotlin 데몬 및 Gradle에서의 사용](gradle-compilation-and-caches.md#the-kotlin-daemon-and-how-to-use-it-with-gradle)을 참조하세요.
 
-## 표준 라이브러리
+## 표준 라이브러리 {id="standard-library"}
 
 Kotlin 1.5.30은 표준 라이브러리의 `Duration` 및 `Regex` API에 개선 사항을 제공합니다:
 * [`Duration.toString()` 출력 변경](#changing-duration-tostring-output)
@@ -758,7 +758,7 @@ Kotlin 1.5.30은 표준 라이브러리의 `Duration` 및 `Regex` API에 개선 
 * [특정 위치에서 Regex 매칭](#matching-with-regex-at-particular-position)
 * [Regex를 시퀀스로 분할](#splitting-regex-to-a-sequence)
 
-### Duration.toString() 출력 변경
+### Duration.toString() 출력 변경 {id="changing-duration-tostring-output"}
 
 > Duration API는 [실험적(Experimental)](components-stability.md) 단계입니다. 언제든지 삭제되거나 변경될 수 있습니다.
 > 평가 목적으로만 사용하세요. [YouTrack](https://youtrack.jetbrains.com/issues/KT)을 통해 여러분의 피드백을 기다립니다.
@@ -789,7 +789,7 @@ Duration.milliseconds(25.12).toString()|`25.1ms`|`25.12ms`|
 >
 {style="note"}
 
-### 문자열에서 Duration 파싱
+### 문자열에서 Duration 파싱 {id="parsing-duration-from-string"}
 
 > Duration API는 [실험적(Experimental)](components-stability.md) 단계입니다. 언제든지 삭제되거나 변경될 수 있습니다.
 > 평가 목적으로만 사용하세요. [이 이슈](https://github.com/Kotlin/KEEP/issues/190)를 통해 여러분의 피드백을 기다립니다.
@@ -846,7 +846,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.5" validate="false"}
 
-### 특정 위치에서 Regex 매칭
+### 특정 위치에서 Regex 매칭 {id="matching-with-regex-at-a-particular-position"}
 
 > `Regex.matchAt()` 및 `Regex.matchesAt()` 함수는 [실험적(Experimental)](components-stability.md) 단계입니다. 언제든지 삭제되거나 변경될 수 있습니다.
 > 평가 목적으로만 사용하세요. [YouTrack](https://youtrack.jetbrains.com/issue/KT-34021)을 통해 여러분의 피드백을 기다립니다.
@@ -884,7 +884,7 @@ fun main(){
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.5" validate="false"}
 
-### Regex를 시퀀스로 분할
+### Regex를 시퀀스로 분할 {id="splitting-regex-to-a-sequence"}
 
 > `Regex.splitToSequence()` 및 `CharSequence.splitToSequence(Regex)` 함수는 [실험적(Experimental)](components-stability.md) 단계입니다. 언제든지 삭제되거나 변경될 수 있습니다.
 > 평가 목적으로만 사용하세요. [YouTrack](https://youtrack.jetbrains.com/issue/KT-23351)을 통해 여러분의 피드백을 기다립니다.
@@ -914,7 +914,7 @@ fun main(){
 ```
 {kotlin-runnable="false"}
 
-## Serialization 1.3.0-RC
+## Serialization 1.3.0-RC {id="serialization-1-3-0-rc"}
 
 `kotlinx.serialization` [1.3.0-RC](https://github.com/Kotlin/kotlinx.serialization/releases/tag/v1.3.0-RC)가 새로운 JSON 직렬화 기능과 함께 출시되었습니다:
 * Java IO 스트림 직렬화

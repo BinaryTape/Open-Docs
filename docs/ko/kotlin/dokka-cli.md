@@ -4,7 +4,7 @@
 
 Dokka CLI 러너는 Gradle 플러그인과 비교했을 때 동일하거나 오히려 더 많은 기능을 제공합니다. 하지만 자동 설정 기능이 없기 때문에, 특히 멀티플랫폼이나 멀티 모듈 환경에서는 설정이 상당히 더 까다롭습니다.
 
-## 시작하기
+## 시작하기 {id="get-started"}
 
 CLI 러너는 별도의 실행 가능한 아티팩트로 Maven Central에 배포됩니다.
 
@@ -22,9 +22,9 @@ java -jar dokka-cli-%dokkaVersion%.jar -help
 java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
 ```
 
-## 문서 생성
+## 문서 생성 {id="generate-documentation"}
 
-### 사전 요구 사항
+### 사전 요구 사항 {id="prerequisites"}
 
 의존성을 관리할 빌드 도구가 없으므로, 의존성 `.jar` 파일들을 직접 제공해야 합니다.
 
@@ -42,7 +42,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
 | `org.jetbrains.kotlinx` | `kotlinx-html-jvm` | 0.8.0    | [다운로드](https://repo1.maven.org/maven2/org/jetbrains/kotlinx/kotlinx-html-jvm/0.8.0/kotlinx-html-jvm-0.8.0.jar) |
 | `org.freemarker`        | `freemarker`       | 2.3.31   | [다운로드](https://repo1.maven.org/maven2/org/freemarker/freemarker/2.3.31/freemarker-2.3.31.jar)                  |
 
-### 커맨드 라인 옵션으로 실행
+### 커맨드 라인 옵션으로 실행 {id="run-with-command-line-options"}
 
 CLI 러너를 구성하기 위해 커맨드 라인 옵션을 전달할 수 있습니다.
 
@@ -63,7 +63,7 @@ java -jar dokka-cli-%dokkaVersion%.jar \
 
 더 자세한 구성 내용은 [커맨드 라인 옵션](#command-line-options)을 참고하세요.
 
-### JSON 구성으로 실행
+### JSON 구성으로 실행 {id="run-with-json-configuration"}
 
 JSON을 사용하여 CLI 러너를 구성할 수 있습니다. 이 경우, 첫 번째이자 유일한 인자로 JSON 구성 파일의 절대/상대 경로를 제공해야 합니다. 다른 모든 구성 옵션은 이 파일에서 파싱됩니다.
 
@@ -98,7 +98,7 @@ java -jar dokka-cli-%dokkaVersion%.jar dokka-configuration.json
 
 더 자세한 내용은 [JSON 구성 옵션](#json-configuration)을 참고하세요.
 
-### 기타 출력 형식
+### 기타 출력 형식 {id="other-output-formats"}
 
 기본적으로 `dokka-base` 아티팩트에는 [HTML](dokka-html.md) 출력 형식만 포함되어 있습니다.
 
@@ -132,7 +132,7 @@ GFM 플러그인을 `pluginsClasspath`에 전달하면 CLI 러너가 GFM 출력 
 
 더 많은 정보는 [GFM](https://github.com/Kotlin/dokka/blob/8e5c63d035ef44a269b8c43430f43f5c8eebfb63/dokka-subprojects/plugin-gfm/README.md) 및 [Javadoc](dokka-javadoc.md#generate-javadoc-documentation) 페이지를 확인하세요.
 
-## 커맨드 라인 옵션
+## 커맨드 라인 옵션 {id="command-line-options"}
 
 가능한 모든 커맨드 라인 옵션 목록과 상세 설명을 보려면 다음을 실행하세요.
 
@@ -163,7 +163,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -help
 | `loggingLevel`               | 로깅 레벨입니다. 가능한 값: `DEBUG, PROGRESS, INFO, WARN, ERROR`.                                                                                                                                   |
 | `help, h`                    | 사용법 정보를 출력합니다.                                                                                                                                                                             |
 
-#### 소스 세트 옵션
+#### 소스 세트 옵션 {id="source-set-options"}
 
 중첩된 `-sourceSet` 구성에 대한 커맨드 라인 옵션 목록을 보려면 다음을 실행하세요.
 
@@ -198,11 +198,11 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
 | `externalDocumentationLinks` | `{url}^{packageListUrl}` 형식의 외부 문서 링크입니다. `^^`로 구분된 여러 값을 허용합니다.                                                                                      |
 | `srcLink`                    | 소스 디렉토리와 코드를 탐색하기 위한 웹 서비스 간의 매핑입니다. 세미콜론으로 구분된 여러 경로를 허용합니다.                                                                     |
 
-## JSON 구성
+## JSON 구성 {id="json-configuration"}
 
 아래는 각 구성 섹션에 대한 예시와 상세 설명입니다. 페이지 하단에서 [모든 구성 옵션](#complete-configuration)이 적용된 예시도 확인할 수 있습니다.
 
-### 일반 구성
+### 일반 구성 {id="general-configuration"}
 
 ```json
 {
@@ -329,7 +329,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
     </def>
 </deflist>
 
-### 소스 세트 구성
+### 소스 세트 구성 {id="source-set-configuration"}
 
 Kotlin [소스 세트](https://kotlinlang.org/docs/multiplatform-discover-project.html#source-sets)를 구성하는 방법입니다.
 
@@ -532,7 +532,7 @@ Kotlin [소스 세트](https://kotlinlang.org/docs/multiplatform-discover-projec
     </def>
 </deflist>
 
-### 소스 링크 구성
+### 소스 링크 구성 {id="source-link-configuration"}
 
 `sourceLinks` 구성 블록을 사용하면 각 시그니처에 특정 라인 번호가 포함된 `remoteUrl`로 연결되는 `source` 링크를 추가할 수 있습니다. (라인 번호는 `remoteLineSuffix`를 설정하여 구성 가능합니다).
 
@@ -584,7 +584,7 @@ Kotlin [소스 세트](https://kotlinlang.org/docs/multiplatform-discover-projec
     </def>
 </deflist>
 
-### 패키지별 구성
+### 패키지별 구성 {id="per-package-configuration"}
 
 `perPackageOptions` 구성 블록을 사용하면 `matchingRegex`로 일치하는 특정 패키지에 대해 옵션을 설정할 수 있습니다.
 
@@ -637,7 +637,7 @@ Kotlin [소스 세트](https://kotlinlang.org/docs/multiplatform-discover-projec
     </def>
 </deflist>
 
-### 외부 문서 링크 구성
+### 외부 문서 링크 구성 {id="external-documentation-links-configuration"}
 
 `externalDocumentationLinks` 블록을 사용하면 의존하고 있는 외부 호스팅 문서로 연결되는 링크를 생성할 수 있습니다.
 
@@ -677,7 +677,7 @@ Kotlin [소스 세트](https://kotlinlang.org/docs/multiplatform-discover-projec
     </def>
 </deflist>
 
-### 전체 구성 예시
+### 전체 구성 예시 {id="complete-configuration"}
 
 아래는 모든 가능한 구성 옵션이 동시에 적용된 예시입니다.
 

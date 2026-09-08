@@ -88,7 +88,7 @@
       }
   ```
 
-## 访问服务
+## 访问服务 {id="access-the-service"}
 
 {id="service"}
 
@@ -103,7 +103,7 @@ val dataConversion = application.conversionService
 * `fromValues(values: List<String>, type: TypeInfo)` 回调函数接受 `values` 字符串列表，以及要转换到的 `TypeInfo` 目标类型，并返回解码后的值。
 * `toValues(value: Any?)` 回调函数接受一个任意值，并返回代表该值的字符串列表。
 
-## 示例
+## 示例 {id="example"}
 
 在以下示例中，定义并配置了 `LocalDate` 类型的转换器，用于序列化和反序列化值。当调用 `encode` 函数时，该服务将使用 `SimpleDateFormat` 转换该值，并返回包含格式化值的列表。当调用 `decode` 函数时，该服务将日期格式化为 `LocalDate` 并将其返回。
 

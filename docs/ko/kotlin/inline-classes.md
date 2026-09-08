@@ -29,7 +29,7 @@ val securePassword = Password("Don't try this in production")
 
 이것이 인라인 클래스의 주요 특징이며, 클래스의 데이터가 사용되는 곳에 **인라인(inline)**된다는 점에서 그 이름이 유래되었습니다([인라인 함수](inline-functions.md)의 내용이 호출 지점에 인라인되는 방식과 유사함).
 
-## 멤버
+## 멤버 {id="members"}
 
 인라인 클래스는 일반 클래스의 일부 기능을 지원합니다. 특히 프로퍼티와 함수를 선언할 수 있으며, `init` 블록과 [보조 생성자(secondary constructors)](classes.md#secondary-constructors)를 가질 수 있습니다:
 
@@ -67,7 +67,7 @@ fun main() {
 
 인라인 클래스의 프로퍼티는 [뒷받침하는 필드(backing fields)](properties.md#backing-fields)를 가질 수 없습니다. 단순한 계산된 프로퍼티만 가질 수 있으며 `lateinit`이나 위임된 프로퍼티(delegated properties)는 사용할 수 없습니다.
 
-## 상속
+## 상속 {id="inheritance"}
 
 인라인 클래스는 인터페이스를 상속할 수 있습니다:
 
@@ -89,7 +89,7 @@ fun main() {
 
 인라인 클래스가 클래스 계층 구조에 참여하는 것은 금지되어 있습니다. 즉, 인라인 클래스는 다른 클래스를 확장(extend)할 수 없으며 항상 `final`입니다.
 
-## 표현 방식 (Representation)
+## 표현 방식 (Representation) {id="representation"}
 
 생성된 코드에서 코틀린 컴파일러는 각 인라인 클래스에 대한 **래퍼(wrapper)**를 유지합니다. 인라인 클래스 인스턴스는 런타임에 래퍼 또는 기저 타입(underlying type)으로 표현될 수 있습니다. 이는 `Int`가 원시 타입 `int` 또는 래퍼 `Integer`로 [표현](numbers.md#boxing-and-caching-numbers-on-the-jvm)될 수 있는 방식과 유사합니다.
 
@@ -133,7 +133,7 @@ value class UserId<T>(val value: T)
 fun compute(s: UserId<String>) {} // 컴파일러는 fun compute-<hashcode>(s: Any?)를 생성함
 ```
 
-### 맹글링 (Mangling)
+### 맹글링 (Mangling) {id="mangling"}
 
 인라인 클래스는 기저 타입으로 컴파일되기 때문에, 예기치 않은 플랫폼 시그니처 충돌과 같은 다양한 모호한 오류가 발생할 수 있습니다:
 
@@ -150,7 +150,7 @@ fun compute(x: UInt) { }
 
 이러한 문제를 완화하기 위해 인라인 클래스를 사용하는 함수는 함수 이름에 안정적인 해시코드를 추가하여 **맹글링(mangled)**됩니다. 따라서 `fun compute(x: UInt)`는 `public final void compute-<hashcode>(int x)`로 표현되어 충돌 문제를 해결합니다.
 
-### Java 코드에서 호출하기
+### Java 코드에서 호출하기 {id="calling-from-java-code"}
 
 Java 코드에서 인라인 클래스를 인자로 받는 함수를 호출할 수 있습니다. 이를 위해 함수 선언 앞에 `@JvmName` 어노테이션을 추가하여 수동으로 맹글링을 비활성화해야 합니다:
 
@@ -166,7 +166,7 @@ fun compute(x: UInt) { }
 
 기본적으로 코틀린은 인라인 클래스를 **언박싱된 표현(unboxed representations)**을 사용하여 컴파일하므로 Java에서 접근하기 어렵습니다. 인라인 클래스를 Java에서 접근 가능한 **박싱된 표현(boxed representations)**으로 컴파일하는 방법은 [Java에서 코틀린 호출하기](java-to-kotlin-interop.md#inline-value-classes) 가이드를 참조하세요.
 
-## 인라인 클래스 vs 타입 별칭 (Type aliases)
+## 인라인 클래스 vs 타입 별칭 (Type aliases) {id="inline-classes-vs-type-aliases"}
 
 첫눈에 인라인 클래스는 [타입 별칭(type aliases)](type-aliases.md)과 매우 유사해 보입니다. 실제로 두 가지 모두 새로운 타입을 도입하는 것처럼 보이며 런타임에는 기저 타입으로 표현됩니다.
 
@@ -198,7 +198,7 @@ fun main() {
 }
 ```
 
-## 인라인 클래스와 위임 (Delegation)
+## 인라인 클래스와 위임 (Delegation) {id="inline-classes-and-delegation"}
 
 인터페이스를 사용하여 인라인 클래스의 인라인된 값으로의 위임 구현이 허용됩니다:
 

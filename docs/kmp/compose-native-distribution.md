@@ -14,7 +14,7 @@
 * [特定于平台的选项](#platform-specific-options)，例如 Linux 上的软件包维护者电子邮件和 macOS 上 Apple App Store 的应用类别。
 * [特定于 macOS 的配置](#macos-specific-configuration)：签名、公证和 `Info.plist`。
 
-## Gradle 插件
+## Gradle 插件 {id="gradle-plugin"}
 
 本指南主要侧重于使用 Compose Multiplatform Gradle 插件打包 Compose 应用程序。
 `org.jetbrains.compose` 插件提供了用于基本打包、混淆和 macOS 代码签名的任务。
@@ -30,7 +30,7 @@
 Conveyor 支持在线更新、跨平台构建和各种其他功能，但对于非开源项目需要[许可证](https://hydraulic.software/pricing.html)。
 有关更多信息，请参考 [Conveyor 文档](https://conveyor.hydraulic.dev/latest/tutorial/hare/jvm)。
 
-## 基本任务
+## 基本任务 {id="basic-tasks"}
 
 Compose Multiplatform Gradle 插件中的基本可配置单元是 `application`（不要与已弃用的 [Gradle application](https://docs.gradle.org/current/userguide/application_plugin.html) 插件混淆）。
 
@@ -122,7 +122,7 @@ compose.desktop {
 
 所有可用任务都列在 Gradle 工具窗口中。执行任务后，Gradle 会在 `${project.buildDir}/compose/binaries` 目录中生成输出二进制文件。
 
-## 包含 JDK 模块
+## 包含 JDK 模块 {id="including-jdk-modules"}
 
 为了减小可分发文件的大小，Gradle 插件使用 [jlink](https://openjdk.org/jeps/282)，它有助于仅捆绑必要的 JDK 模块。
 
@@ -146,9 +146,9 @@ compose.desktop {
 
 如果可分发文件的大小不是关键因素并且可以忽略，您可以选择通过使用 `includeAllModules` DSL 属性来包含所有运行时模块。
 
-## 指定分发属性
+## 指定分发属性 {id="specifying-distribution-properties"}
 
-### 软件包版本
+### 软件包版本 {id="package-version"}
 
 原生分发软件包必须具有特定的软件包版本。
 要指定软件包版本，您可以使用以下 DSL 属性，按优先级从高到低排列：
@@ -279,7 +279,7 @@ compose.desktop {
 
 </table>
 
-### JDK 版本
+### JDK 版本 {id="jdk-version"}
 
 该插件使用 `jpackage`，这需要不低于 [JDK 17](https://openjdk.java.net/projects/jdk/17/) 的 JDK 版本。 
 指定 JDK 版本时，请确保至少满足以下要求之一：
@@ -295,7 +295,7 @@ compose.desktop {
   }
   ```
 
-### 输出目录
+### 输出目录 {id="output-directory"}
 
 要为原生分发使用自定义输出目录，请按如下所示配置 `outputBaseDir` 属性：
 
@@ -309,7 +309,7 @@ compose.desktop {
 }
 ```
 
-### 启动器属性
+### 启动器属性 {id="launcher-properties"}
 
 要定制应用程序启动过程，您可以自定义以下属性：
 
@@ -352,7 +352,7 @@ compose.desktop {
 }
 ```
 
-### 元数据
+### 元数据 {id="metadata"}
 
 在 `nativeDistributions` DSL 块中，您可以配置以下属性：
 
@@ -425,21 +425,21 @@ compose.desktop {
 }
 ```
 
-## 管理资源
+## 管理资源 {id="managing-resources"}
 
 要打包和加载资源，您可以使用 Compose Multiplatform 资源库、JVM 资源加载，或向打包后的应用程序添加文件。
 
-### 资源库
+### 资源库 {id="resources-library"}
 
 为项目设置资源最直接的方法是使用资源库。
 通过资源库，您可以在所有受支持平台的通用代码中访问资源。
 详情请参阅[多平台资源](compose-multiplatform-resources.md)。
 
-### JVM 资源加载
+### JVM 资源加载 {id="jvm-resource-loading"}
 
 用于桌面的 Compose Multiplatform 在 JVM 平台上运行，这意味着您可以使用 `java.lang.Class` API 从 `.jar` 文件加载资源。您可以通过 [`Class::getResource`](https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Class.html#getResource(java.lang.String)) 或 [`Class::getResourceAsStream`](https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Class.html#getResourceAsStream(java.lang.String)) 访问 `src/main/resources` 目录中的文件。
 
-### 向打包后的应用程序添加文件
+### 向打包后的应用程序添加文件 {id="adding-files-to-packaged-application"}
 
 在某些情况下，从 `.jar` 文件加载资源可能不太实际，例如，当您拥有特定于目标的资源，并且需要仅在 macOS 软件包中包含文件而在 Windows 软件包中不包含时。
 
@@ -486,7 +486,7 @@ fun main() {
 }
 ```
 
-## 自定义源集
+## 自定义源集 {id="custom-source-sets"}
 
 如果您使用 `org.jetbrains.kotlin.jvm` 或 `org.jetbrains.kotlin.multiplatform` 插件，可以依赖默认配置：
 
@@ -545,7 +545,7 @@ compose.desktop {
 }
 ```
 
-## 应用程序图标
+## 应用程序图标 {id="application-icon"}
 
 确保您的应用程序图标具有以下特定于操作系统的格式：
 
@@ -571,7 +571,7 @@ compose.desktop {
 }
 ```
 
-## 特定于平台的选项
+## 特定于平台的选项 {id="platform-specific-options"}
 
 可以使用相应的 DSL 块配置特定于平台的设置：
 
@@ -850,20 +850,20 @@ compose.desktop {
 
 </table>
 
-## macOS 特定的配置
+## macOS 特定的配置 {id="macos-specific-configuration"}
 
-### macOS 上的签名和公证
+### macOS 上的签名和公证 {id="signing-and-notarization-on-macos"}
 
 现代 macOS 版本不允许用户执行从互联网下载的未经签名的应用程序。如果您尝试运行此类应用程序，您将遇到以下错误：“YourApp 已损坏，无法打开。您应该弹出磁盘镜像”。
 
 要了解如何为您的应用程序签名和公证，请参阅我们的[教程](https://github.com/JetBrains/compose-multiplatform/blob/master/tutorials/Signing_and_notarization_on_macOS/README.md)。
 
-### macOS 上的信息属性列表
+### macOS 上的信息属性列表 {id="information-property-list-on-macos"}
 
 虽然 DSL 支持基本的特定于平台的自定义，但仍可能存在超出所提供功能的情况。 
 如果您需要指定 DSL 中未体现的 `Info.plist` 值，您可以包含一段原始 XML 作为权宜之计。此 XML 将被附加到应用程序的 `Info.plist` 中。
 
-#### 示例：深度链接
+#### 示例：深度链接 {id="example-deep-linking"}
 
 1. 在 `build.gradle.kts` 文件中定义自定义 URL 方案：
 
@@ -936,7 +936,7 @@ compose.desktop {
 
 结果，像 `compose://foo/bar` 这样的链接现在可以从浏览器重定向到您的应用程序。
 
-## 压缩与混淆
+## 压缩与混淆 {id="minification-and-obfuscation"}
 
 Compose Multiplatform Gradle 插件包含对 [ProGuard](https://www.guardsquare.com/proguard) 的内置支持。 
 ProGuard 是一款用于代码压缩和混淆的[开源工具](https://github.com/Guardsquare/proguard)。
@@ -1101,6 +1101,6 @@ ProGuard 是一款用于代码压缩和混淆的[开源工具](https://github.co
 
 有关 ProGuard 规则和配置选项的完整列表，请参阅 Guardsquare 的 [ProGuard 手册](https://www.guardsquare.com/manual/configuration/usage)。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 探索关于[桌面组件](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop)的教程。

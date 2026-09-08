@@ -4,7 +4,7 @@ Kotlin 标准库为集合*转换*提供了一组扩展函数。
 这些函数根据提供的转换规则，从现有集合构建新集合。
 在本页面中，我们将概述可用的集合转换函数。
 
-## Map
+## Map {id="map"}
 
 *映射*转换根据另一个集合的元素上的函数结果创建一个集合。
 基本的映射函数是 [`map()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/map.html)。
@@ -55,7 +55,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## Zip
+## Zip {id="zip"}
 
 *Zipping*（拉链式）转换是从两个集合中相同位置的元素构建对（pair）。
 在 Kotlin 标准库中，这是通过 [`zip()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/zip.html) 扩展函数完成的。
@@ -116,7 +116,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## Associate
+## Associate {id="associate"}
 
 *Association*（关联）转换允许从集合元素以及与其关联的某些值构建 map。
 在不同的关联类型中，元素可以是关联 map 中的键或值。
@@ -184,7 +184,7 @@ fun parseFullName(fullName: String): FullName {
 
 在这里，我们首先在元素上调用一个转换函数，然后从该函数结果的属性中构建一个对（pair）。
 
-## Flatten
+## Flatten {id="flatten"}
 
 如果你操作嵌套集合，你可能会发现提供对嵌套集合元素进行平坦化访问的标准库函数很有用。
 
@@ -226,7 +226,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 字符串表示
+## 字符串表示 {id="string-representation"}
 
 如果你需要以可读格式检索集合内容，请使用将集合转换为字符串的函数：[`joinToString()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/join-to-string.html) 和 [`joinTo()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/join-to.html)。
 

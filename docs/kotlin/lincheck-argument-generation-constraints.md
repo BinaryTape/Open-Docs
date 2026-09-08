@@ -47,7 +47,7 @@
 | ---------------------------------- |
 ```
 
-## 生成器类型
+## 生成器类型 {id="generator-types"}
 
 Lincheck 提供以下实参生成器类型：
 
@@ -144,11 +144,11 @@ Lincheck 提供以下实参生成器类型：
     </tr>
 </table>
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 了解如何在 Lincheck 中[将某些操作限制在单个线程](lincheck-operation-execution-options.md)。
 
-## 另请参阅
+## 另请参阅 {id="see-also"}
 
 * [检查非阻塞进度保证](lincheck-progress-guarantees.md)
 * [定义算法的顺序规范](lincheck-results-validation.md)

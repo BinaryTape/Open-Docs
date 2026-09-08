@@ -10,7 +10,7 @@ Koin は、Compose アプリケーションで ViewModel を注入（inject）�
 モジュールでの ViewModel の宣言については、[Core ViewModel](/docs/reference/koin-core/viewmodel) を参照してください。このページでは、Compose での ViewModel の取得に焦点を当てています。
 :::
 
-## セットアップ
+## セットアップ {id="setup"}
 
 ```kotlin
 // Compose Multiplatform (または Android)
@@ -27,9 +27,9 @@ implementation("io.insert-koin:koin-compose-viewmodel-navigation:$koin_version")
 すべての ViewModel API は `koin-compose-viewmodel` に含まれています。`koin-androidx-compose` パッケージにはこれが自動的に含まれます。
 :::
 
-## ViewModel の宣言
+## ViewModel の宣言 {id="declaring-viewmodels"}
 
-### コンパイラプラグイン DSL
+### コンパイラプラグイン DSL {id="compiler-plugin-dsl"}
 
 ```kotlin
 class UserViewModel(
@@ -41,7 +41,7 @@ val appModule = module {
 }
 ```
 
-### アノテーション
+### アノテーション {id="annotations"}
 
 ```kotlin
 @KoinViewModel
@@ -50,7 +50,7 @@ class UserViewModel(
 ) : ViewModel()
 ```
 
-### クラシック DSL
+### クラシック DSL {id="classic-dsl"}
 
 ```kotlin
 val appModule = module {
@@ -60,9 +60,9 @@ val appModule = module {
 }
 ```
 
-## ViewModel 注入 API
+## ViewModel 注入 API {id="viewmodel-injection-apis"}
 
-### koinViewModel() - 基本的な注入
+### koinViewModel() - 基本的な注入 {id="koinviewmodel-basic-injection"}
 
 Compose で ViewModel を注入するための主要な API です。
 
@@ -86,7 +86,7 @@ fun UserScreen(
 }
 ```
 
-### koinNavViewModel() - Navigation 引数を使用する場合
+### koinNavViewModel() - Navigation 引数を使用する場合 {id="koinnavviewmodel-with-navigation-arguments"}
 
 Navigation Compose を使用する場合、`koinNavViewModel()` を使用すると、`SavedStateHandle` を介してナビゲーション引数を自動的に受け取ることができます。
 
@@ -113,7 +113,7 @@ fun DetailScreen(
 }
 ```
 
-### koinActivityViewModel() - Activity スコープ (Android)
+### koinActivityViewModel() - Activity スコープ (Android) {id="koinactivityviewmodel-activity-scoped-android"}
 
 同じ Activity 内のすべての Composable で ViewModel を共有します。
 
@@ -135,7 +135,7 @@ fun ScreenB() {
 バージョン 4.1 以降の `koin-androidx-compose` で利用可能です。
 :::
 
-### sharedKoinViewModel() - ナビゲーショングラフスコープ
+### sharedKoinViewModel() - ナビゲーショングラフスコープ {id="sharedkoinviewmodel-navigation-graph-scoped"}
 
 ナビゲーショングラフ内で ViewModel を共有します（実験的機能）。
 
@@ -153,9 +153,9 @@ navigation<Route.BookGraph>(startDestination = Route.BookList) {
 }
 ```
 
-## パラメータ付きの ViewModel
+## パラメータ付きの ViewModel {id="viewmodel-with-parameters"}
 
-### @InjectedParam の使用
+### @InjectedParam の使用 {id="using-injectedparam"}
 
 ランタイムパラメータに `@InjectedParam` を付けます。
 
@@ -195,7 +195,7 @@ fun DetailScreen(newsId: String) {
 
 `key` を使用することで、一意な `newsId` ごとに専用の ViewModel インスタンスが確実に作成されます。これは、異なる引数を持つ複数の画面がバックスタックに保持される場合に重要です。
 
-### クラシック DSL でのパラメータ指定
+### クラシック DSL でのパラメータ指定 {id="classic-dsl-with-parameters"}
 
 ```kotlin
 val appModule = module {
@@ -208,7 +208,7 @@ val appModule = module {
 }
 ```
 
-## SavedStateHandle
+## SavedStateHandle {id="savedstatehandle"}
 
 Koin は `SavedStateHandle` を自動的に ViewModel に提供します。
 
@@ -236,7 +236,7 @@ val appModule = module {
 `SavedStateHandle` は、コンテキストに応じて ViewModel の `CreationExtras` または Navigation の `BackStackEntry` から注入されます。
 :::
 
-## ViewModel スコープ
+## ViewModel スコープ {id="viewmodel-scope"}
 
 `viewModelScope` を使用して、依存関係を ViewModel のライフサイクルにスコープします。
 
@@ -282,7 +282,7 @@ val appModule = module {
 `viewModelScope { }` 内で ViewModel を宣言するには、Koin 設定で `options(viewModelScopeFactory())` を有効にする必要があります。そうしないと、`koinViewModel()` は `No definition found … on scope '['_root_']'` というエラーで失敗します。詳細は [ViewModel Scope](/docs/reference/koin-core/viewmodel#viewmodel-scope) を参照してください。
 :::
 
-## クイックリファレンス
+## クイックリファレンス {id="quick-reference"}
 
 | API | ユースケース | パッケージ |
 |-----|----------|---------|
@@ -291,7 +291,7 @@ val appModule = module {
 | `koinActivityViewModel()` | Activity 全体で共有 (Android) | `koin-androidx-compose` |
 | `sharedKoinViewModel()` | ナビゲーショングラフ内で共有 | `koin-compose-viewmodel-navigation` |
 
-## ベストプラクティス
+## ベストプラクティス {id="best-practices"}
 
 1. **デフォルトパラメータとして注入する** - Koin なしでのテストが可能になります。
    ```kotlin
@@ -313,7 +313,7 @@ val appModule = module {
    Button(onClick = { vm.doSomething() })
    ```
 
-## 次のステップ
+## 次のステップ {id="next-steps"}
 
 - **[Compose ライフサイクル](/docs/reference/koin-compose/compose-lifecycle)** - 状態と再コンポジション
 - **[Core ViewModel](/docs/reference/koin-core/viewmodel)** - ViewModel 宣言 DSL

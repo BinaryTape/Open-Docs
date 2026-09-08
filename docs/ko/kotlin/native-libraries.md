@@ -1,10 +1,10 @@
 [//]: # (title: Kotlin/Native 라이브러리)
 
-## 라이브러리 컴파일
+## 라이브러리 컴파일 {id="library-compilation"}
 
 프로젝트의 빌드 파일이나 Kotlin/Native 컴파일러를 사용하여 라이브러리를 위한 `*.klib` 아티팩트를 생성할 수 있습니다.
 
-### Gradle 빌드 파일 사용
+### Gradle 빌드 파일 사용 {id="using-gradle-build-file"}
 
 Gradle 빌드 파일에 [Kotlin/Native 타겟(target)](native-target-support.md)을 지정하여 `*.klib` 라이브러리 아티팩트를 컴파일할 수 있습니다.
 
@@ -31,7 +31,7 @@ Gradle 빌드 파일에 [Kotlin/Native 타겟(target)](native-target-support.md)
 
 Gradle은 해당 타겟에 대한 소스 파일을 자동으로 컴파일하고 프로젝트의 `build/libs` 디렉토리에 `.klib` 아티팩트를 생성합니다.
 
-### Kotlin/Native 컴파일러 사용
+### Kotlin/Native 컴파일러 사용 {id="using-kotlin-native-compiler"}
 
 Kotlin/Native 컴파일러로 라이브러리를 생성하려면 다음 단계를 따르세요:
 
@@ -52,7 +52,7 @@ Kotlin/Native 컴파일러로 라이브러리를 생성하려면 다음 단계�
    
    이 명령은 `qux.kt` 소스 파일의 내용과 `bar.klib` 라이브러리를 컴파일하여 최종 실행 바이너리인 `program.kexe`를 생성합니다.
 
-## klib 유틸리티
+## klib 유틸리티 {id="klib-utility"}
 
 **klib** 라이브러리 관리 유틸리티를 사용하면 다음 구문을 사용하여 라이브러리를 검사할 수 있습니다:
 
@@ -80,7 +80,7 @@ klib dump-metadata-signatures mylib.klib -signature-version 1
 
 또한, `dump-metadata` 명령은 출력의 모든 선언에 대해 IR 시그니처를 출력하도록 klib 유틸리티에 지시하는 `-print-signatures {true|false}` 인자를 허용합니다.
 
-## 라이브러리 생성 및 사용
+## 라이브러리 생성 및 사용 {id="creating-and-using-a-library"}
 
 1. `kotlinizer.kt`에 소스 코드를 작성하여 라이브러리를 생성합니다:
 
@@ -133,7 +133,7 @@ klib dump-metadata-signatures mylib.klib -signature-version 1
 
 출력 결과로 `Hello, Kotlin world!`가 표시되어야 합니다.
 
-## 라이브러리 검색 순서
+## 라이브러리 검색 순서 {id="library-search-sequence"}
 
 > 라이브러리 검색 메커니즘은 곧 변경될 예정입니다. 이 섹션의 업데이트를 확인하고 지원 중단된(deprecated) 플래그에 의존하지 마세요.
 > 
@@ -152,7 +152,7 @@ klib dump-metadata-signatures mylib.klib -signature-version 1
 
 3. `$installation/klib` 디렉토리에 설치된 라이브러리.
 
-## 라이브러리 형식
+## 라이브러리 형식 {id="library-format"}
 
 Kotlin/Native 라이브러리는 미리 정의된 디렉토리 구조를 포함하는 zip 파일이며, 다음과 같은 레이아웃을 갖습니다:
 
@@ -180,7 +180,7 @@ Kotlin/Native 라이브러리는 미리 정의된 디렉토리 구조를 포함�
 
 Kotlin/Native 컴파일러 설치 경로의 `klib/common/stdlib` 디렉토리에서 예시 레이아웃을 확인할 수 있습니다.
 
-## klib에서 상대 경로 사용하기
+## klib에서 상대 경로 사용하기 {id="using-relative-paths-in-klibs"}
 
 소스 파일의 직렬화된 IR 표현은 `klib` 라이브러리의 [일부](#라이브러리-형식)입니다. 여기에는 적절한 디버그 정보를 생성하기 위한 파일 경로가 포함됩니다. 기본적으로 저장된 경로는 절대 경로입니다.
 
@@ -217,6 +217,6 @@ tasks.named('compileKotlin', KotlinCompilationTask) {
 </tab>
 </tabs>
 
-## 다음 단계는 무엇인가요?
+## 다음 단계는 무엇인가요? {id="what-s-next"}
 
 [cinterop 도구를 사용하여 `*.klib` 아티팩트를 생성하는 방법을 알아보세요](native-definition-file.md)

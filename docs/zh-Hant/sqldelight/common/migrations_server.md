@@ -1,4 +1,4 @@
-## 有效的 SQL 遷移
+## 有效的 SQL 遷移 {id="valid-sql-migrations"}
 
 在遷移檔案中使用自訂 Kotlin 型別，代表這些檔案不再是有效的 SQL。
 您可以選擇性地配置 Gradle 任務，將您的遷移檔案輸出為有效的 SQL，以便其他服務讀取：

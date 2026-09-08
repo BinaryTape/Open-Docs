@@ -4,7 +4,7 @@ JavaScript ソースマップは、バンドラーやミニファイアー（コ
 
 Kotlin Multiplatform Gradle プラグインは、プロジェクトのビルド時にソースマップを自動的に生成するため、追加の設定なしで利用可能です。
 
-## ブラウザでのデバッグ
+## ブラウザでのデバッグ {id="debug-in-browser"}
 
 ほとんどのモダンなブラウザには、ページの内容を検査し、そこで実行されるコードをデバッグするためのツールが備わっています。詳細については、お使いのブラウザのドキュメントを参照してください。
 
@@ -25,7 +25,7 @@ Kotlin Multiplatform Gradle プラグインは、プロジェクトのビルド�
 これでプログラムのデバッグを開始できます。行番号のいずれかをクリックしてブレークポイントを設定します。
 デベロッパーツールでは、ステートメント内へのブレークポイント設定もサポートされています。通常の JavaScript コードと同様に、設定したブレークポイントはページの再読み込み後も保持されます。これにより、スクリプトの初回ロード時に実行される Kotlin の `main()` メソッドをデバッグすることも可能です。
 
-## IDE でのデバッグ
+## IDE でのデバッグ {id="debug-in-the-ide"}
 
 [IntelliJ IDEA](https://www.jetbrains.com/idea/) の Ultimate サブスクリプションは、開発中のコードをデバッグするための強力なツールセットを提供しています。
 
@@ -61,7 +61,7 @@ IntelliJ IDEA で Kotlin/JS をデバッグするには、**JavaScript Debug** �
 >
 {style="note"}
 
-## Node.js でのデバッグ
+## Node.js でのデバッグ {id="debug-in-node-js"}
 
 プロジェクトが Node.js をターゲットにしている場合は、そのランタイムでデバッグできます。
 
@@ -71,7 +71,7 @@ Node.js をターゲットとする Kotlin/JS アプリケーションをデバ�
 2. プロジェクトディレクトリ内の `build/js/packages/your-module/kotlin/` ディレクトリにある、Node.js 用の生成された `.js` ファイルを探します。
 3. [Node.js デバッグガイド](https://nodejs.org/en/docs/guides/debugging-getting-started/#jetbrains-webstorm-2017-1-and-other-jetbrains-ides) の説明に従って、Node.js でデバッグします。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 Kotlin/JS プロジェクトでデバッグセッションを開始する方法を理解したら、デバッグツールをさらに活用する方法を学びましょう。
 
@@ -79,6 +79,6 @@ Kotlin/JS プロジェクトでデバッグセッションを開始する方法�
 * [IntelliJ IDEA JavaScript デバッガー](https://www.jetbrains.com/help/idea/debugging-javascript-in-chrome.html) に慣れる
 * [Node.js でのデバッグ方法](https://nodejs.org/en/docs/guides/debugging-getting-started/) を学ぶ
 
-## 問題が発生した場合
+## 問題が発生した場合 {id="if-you-run-into-any-problems"}
 
 Kotlin/JS のデバッグに関して問題が発生した場合は、当社の課題トラッカーである [YouTrack](https://kotl.in/issue) へ報告してください。

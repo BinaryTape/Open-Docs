@@ -6,7 +6,7 @@ Kotlinでは、フィルタリング条件は *述語（predicate）* — コレ
 標準ライブラリには、1回の呼び出しでコレクションをフィルタリングできる一連の拡張関数が含まれています。
 これらの関数は元のコレクションを変更しないため、[ミュータブル（mutable）と読み取り専用（read-only）](collections-overview.md#collection-types) の両方のコレクションで使用できます。フィルタリング結果を操作するには、変数に代入するか、フィルタリングの後に関数をチェーンさせます。
 
-## 述語によるフィルタリング
+## 述語によるフィルタリング {id="filter-by-predicate"}
 
 基本的なフィルタリング関数は [`filter()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/filter.html) です。
 述語を引数に指定して呼び出すと、`filter()` はそれに一致するコレクション要素を返します。
@@ -84,7 +84,7 @@ fun main() {
     ```
     {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## パーティション（Partition）
+## パーティション（Partition） {id="partition"}
 
 もう一つのフィルタリング関数である [`partition()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/partition.html)
 は、述語によってコレクションをフィルタリングし、一致しない要素を別のリストに保持します。
@@ -104,7 +104,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 述語のテスト
+## 述語のテスト {id="test-predicates"}
 
 最後に、コレクションの要素に対して述語を単にテストする関数があります。
 

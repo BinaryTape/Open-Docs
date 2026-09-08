@@ -6,7 +6,7 @@ Kotlin/Native コンパイラは、さまざまなターゲットプラットフ
 
 Kotlin/Native がどのように LLVM を使用するかをカスタマイズし、最適化パス（optimization passes）のリストを調整することができます。
 
-## ビルドログの調査
+## ビルドログの調査 {id="examine-the-build-log"}
 
 LLVM の最適化パスにどれくらいのコンパイル時間が費やされているかを理解するために、ビルドログを見てみましょう。
 
@@ -81,7 +81,7 @@ Kotlin/Native コンパイラは、モジュールパス（module passes）と�
 
 上記のログでは、2 つの LLVM 最適化は `ModuleBitcodeOptimization` と `LTOBitcodeOptimization` です。整形された表は、各パスのタイミングを含む最適化の出力です。
 
-## LLVM 最適化パスのカスタマイズ
+## LLVM 最適化パスのカスタマイズ {id="customize-llvm-optimization-passes"}
 
 上記のパスのいずれかが不当に長く思われる場合は、それをスキップすることができます。ただし、これにより実行時のパフォーマンスが低下する可能性があるため、その後でベンチマークのパフォーマンスに変化がないかを確認する必要があります。
 

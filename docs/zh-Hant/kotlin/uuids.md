@@ -17,7 +17,7 @@ description: 了解如何在 Kotlin 中使用 UUID，包括在多平台和 JVM �
 import kotlin.uuid.Uuid
 ```
 
-## 產生 UUID
+## 產生 UUID {id="generate-uuids"}
 
 要為一般識別符號（例如使用者或資料庫 ID）產生隨機的第 4 版 UUID，請使用 [`Uuid.random()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.uuid/-uuid/-companion/random.html) 函式：
 
@@ -99,7 +99,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.3"}
 
-## 剖析 UUID
+## 剖析 UUID {id="parse-uuids"}
 
 UUID 值通常以字串表示，例如在 URL 參數或資料庫記錄中。
 
@@ -163,7 +163,7 @@ fun parseId(input: String): Uuid? {
 }
 ```
 
-## 將 UUID 轉換為字串
+## 將 UUID 轉換為字串 {id="convert-uuids-to-strings"}
 
 您可以使用以下函式將 `Uuid` 值轉換為 `String` 值：
 
@@ -191,7 +191,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.3"}
 
-## 比較 UUID
+## 比較 UUID {id="compare-uuids"}
 
 您可以使用 `==` 運算子檢查 `Uuid` 值是否相等。
 
@@ -231,7 +231,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.3"}
 
-## 處理二進制表示法
+## 處理二進制表示法 {id="work-with-binary-representations"}
 
 某些 API、儲存格式和二進制協定不將 UUID 表示為字串。相反地，它們將 128 位元 UUID 值儲存為以下任一形式：
 
@@ -305,7 +305,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.0"}
 
-## 序列化 UUID
+## 序列化 UUID {id="serialize-uuids"}
 
 Kotlin 支援對 `Uuid` 值進行序列化。使用它在 Kotlin 程式碼之外儲存或傳輸 UUID 值，例如在 JSON API 或組態檔案中。
 
@@ -337,7 +337,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.3"}
 
-## 搭配 Java API 使用 UUID
+## 搭配 Java API 使用 UUID {id="use-uuids-with-java-apis"}
 
 Java 使用 `java.util.UUID` 類別來代表 UUID。在 JVM 上，Java API 可能會接受或回傳此型別。雖然 `java.util.UUID` 和 `kotlin.uuid.Uuid` 都代表 UUID，但它們是兩個不同的型別。
 

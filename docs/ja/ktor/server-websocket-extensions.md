@@ -2,7 +2,7 @@
 
 Ktor WebSocket API は、独自の拡張機能（[RFC-7692](https://tools.ietf.org/html/rfc7692) など）や、任意のカスタム拡張機能の作成をサポートしています。
 
-## 拡張機能のインストール
+## 拡張機能のインストール {id="install-extension"}
 
 拡張機能をインストールして設定するために、`extensions` と `install` という 2 つのメソッドを提供しており、次のように使用できます。
 ```kotlin
@@ -17,7 +17,7 @@ install(WebSockets) {
 
 拡張機能は、インストールされた順序で使用されます。
 
-## 拡張機能がネゴシエーションされたかどうかの確認
+## 拡張機能がネゴシエーションされたかどうかの確認 {id="check-if-the-extension-is-negotiated"}
 
 インストールされたすべての拡張機能はネゴシエーション（交渉）プロセスを経て、正常にネゴシエーションされたものがリクエスト中に使用されます。
 `WebSocketSession.extensions: List<WebSocketExtension<*>>` プロパティを使用して、現在のセッションで使用されているすべての拡張機能のリストを取得できます。
@@ -31,7 +31,7 @@ webSocket("/echo") {
 }
 ```
 
-## 新しい拡張機能の作成
+## 新しい拡張機能の作成 {id="write-a-new-extension"}
 
 新しい拡張機能を実装するためのインターフェースは、`WebSocketExtension<ConfigType: Any>` と `WebSocketExtensionFactory<ConfigType : Any, ExtensionType : WebSocketExtension<ConfigType>>` の 2 つです。
 1 つの実装で、クライアントとサーバーの両方に対応できます。

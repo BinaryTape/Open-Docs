@@ -8,7 +8,7 @@ title: HiltからKoinへの移行
 実践的な完全な例については、[Now in Androidの移行](https://blog.insert-koin.io/migrating-now-in-android-to-koin-annotations-2-3-67d252dbb97d)を確認してください。30個のGradleモジュールを持つGoogleのプロダクション対応ニュースアプリが、HiltからKoin Annotationsにどのように移行されたかが示されています。
 :::
 
-## なぜKoinに移行するのか？
+## なぜKoinに移行するのか？ {id="why-migrate-to-koin"}
 
 **Koinの主な利点：**
 
@@ -19,9 +19,9 @@ title: HiltからKoinへの移行
 - **マルチモジュールに最適** - `@EntryPoint` インターフェースは必要ありません。
 - **JSR-330のサポート** - 既存の `@Inject` コンストラクタを修正なしでそのまま利用できます。
 
-## クイックリファレンス：Hilt vs Koin
+## クイックリファレンス：Hilt vs Koin {id="quick-reference-hilt-vs-koin"}
 
-### アノテーションのマッピング
+### アノテーションのマッピング {id="annotation-mappings"}
 
 | Hilt | Koin DSL                                 | Koin Annotations                                                                                    |
 |------|------------------------------------------|-----------------------------------------------------------------------------------------------------|
@@ -37,7 +37,7 @@ title: HiltからKoinへの移行
 | `@ApplicationContext` | コンテキストの自動注入              | コンテキストの自動注入                                                                         |
 | `@EntryPoint` | 不要                               | 不要                                                                                          |
 
-### スコープのマッピング
+### スコープのマッピング {id="scope-mappings"}
 
 | Hiltスコープ | Koin DSL | Koin Annotations | 備考 |
 |------------|----------|------------------|-------|
@@ -46,9 +46,9 @@ title: HiltからKoinへの移行
 | `@ViewModelScoped` | `viewModelScope { scoped { } }` | `@ViewModelScope` | ViewModelのライフサイクルに紐づく |
 | `@ActivityRetainedScoped` | `activityRetainedScope { scoped { } }` | `@ActivityRetainedScope` | 設定変更（Configuration changes）をまたいで維持される |
 
-## 移行ステップ
+## 移行ステップ {id="migration-steps"}
 
-### ステップ 1: 依存関係の更新
+### ステップ 1: 依存関係の更新 {id="step-1-update-dependencies"}
 
 **Hiltの依存関係を削除する：**
 
@@ -80,7 +80,7 @@ dependencies {
 }
 ```
 
-### ステップ 2: Applicationの設定
+### ステップ 2: Applicationの設定 {id="step-2-application-setup"}
 
 **Hilt:**
 
@@ -125,7 +125,7 @@ class MyApplication : Application() {
 `@KoinApplication` を使用すると、`@Configuration` が付与されたモジュールが自動的に検出されます。また、`modules` プロパティを使用して明示的にモジュールを含めることもできます： `@KoinApplication(modules = [AppModule::class])`。
 :::
 
-### ステップ 3: モジュールの移行
+### ステップ 3: モジュールの移行 {id="step-3-migrate-modules"}
 
 **Hilt:**
 
@@ -211,7 +211,7 @@ class NetworkModule {
 }
 ```
 
-### ステップ 4: ViewModelの移行
+### ステップ 4: ViewModelの移行 {id="step-4-migrate-viewmodels"}
 
 **Hilt:**
 
@@ -274,7 +274,7 @@ fun MyScreen() {
 `viewModelOf` DSL関数は、コンストラクタパラメータの自動配線（autowiring）を使用します。`SavedStateHandle` はKoinによって自動的に提供されるため、明示的に渡す必要はありません。これはViewModelの定義を簡素化するKoinのautowire DSLの一部です。
 :::
 
-### ステップ 5: ActivityとFragmentの移行
+### ステップ 5: ActivityとFragmentの移行 {id="step-5-migrate-activities-and-fragments"}
 
 **Hilt:**
 
@@ -311,7 +311,7 @@ class MainActivity : ComponentActivity() {
 Koinでは `@AndroidEntryPoint` は必要ありません。`by inject()` または `by viewModel()` プロパティ委譲を使用するだけです。
 :::
 
-### ステップ 6: インターフェース・バインディングの移行
+### ステップ 6: インターフェース・バインディングの移行 {id="step-6-migrate-interface-bindings"}
 
 **Hilt:**
 
@@ -373,7 +373,7 @@ class MyRepositoryImpl(
 Koin Annotationsは、クラスがインターフェースを実装している場合、自動的にインターフェース・バインディングを検出します。複数のインターフェースを明示的に指定したり、バインディングの動作を制御したりする必要がある場合は、`binds` プロパティを使用してください。
 :::
 
-### ステップ 7: Qualifier（限定子）の移行
+### ステップ 7: Qualifier（限定子）の移行 {id="step-7-migrate-qualifiers"}
 
 **Hilt:**
 
@@ -474,7 +474,7 @@ class MyRepository @Inject constructor(
 Koin AnnotationsはJSR-330の `@Qualifier` アノテーションを完全にサポートしています！これは標準的なJava/KotlinのDIアノテーションであり（Hilt固有ではありません）、移行時に既存の限定子アノテーションをそのまま維持できます。また、DSLも文字列ベースの `named("string")` の代わりに `named<T>()` を使用した型安全な限定子をサポートしています。
 :::
 
-### ステップ 8: Compose連携の移行
+### ステップ 8: Compose連携の移行 {id="step-8-migrate-compose-integration"}
 
 **Hilt:**
 
@@ -501,7 +501,7 @@ fun MyScreen(
 }
 ```
 
-### ステップ 9: テストの移行
+### ステップ 9: テストの移行 {id="step-9-migrate-testing"}
 
 **Hilt:**
 
@@ -553,16 +553,16 @@ class MyTest : KoinTest {
 }
 ```
 
-## マルチモジュール・プロジェクト
+## マルチモジュール・プロジェクト {id="multi-module-projects"}
 
-### Hiltのアプローチ
+### Hiltのアプローチ {id="hilt-approach"}
 
 Hiltでは以下が必要です：
 - コンポーネント階層を指定するための `@InstallIn`
 - モジュールをまたいでアクセスするための `@EntryPoint` インターフェース
 - 複雑なコンポーネント依存関係
 
-### Koinのアプローチ
+### Koinのアプローチ {id="koin-approach"}
 
 Koinでは：
 - 各モジュールが独自のKoinモジュールを宣言します
@@ -599,9 +599,9 @@ class MyApplication : Application() {
 
 詳細は [マルチモジュール・アーキテクチャ](/docs/reference/koin-android/multi-module) を参照してください。
 
-## 一般的なパターン
+## 一般的なパターン {id="common-patterns"}
 
-### コンストラクタ・インジェクション (JSR-330)
+### コンストラクタ・インジェクション (JSR-330) {id="constructor-injection-jsr-330"}
 
 最大の利点の一つは、**既存の `@Inject` コンストラクタがKoin Annotationsでもそのまま動作する**ことです！
 
@@ -627,7 +627,7 @@ class MyRepository @Inject constructor(
 }
 ```
 
-### AssistedInject
+### AssistedInject {id="assistedinject"}
 
 **Hilt:**
 
@@ -660,7 +660,7 @@ val appModule = module {
 val viewModel: MyViewModel by viewModel { parametersOf("user123") }
 ```
 
-### 遅延インジェクション (Lazy Injection)
+### 遅延インジェクション (Lazy Injection) {id="lazy-injection"}
 
 **Hilt:**
 
@@ -679,7 +679,7 @@ private val heavyService: HeavyService by inject()
 private val heavyService: Lazy<HeavyService> by lazy { get() }
 ```
 
-## 移行チェックリスト
+## 移行チェックリスト {id="migration-checklist"}
 
 移行の進捗確認にこのリストを使用してください：
 
@@ -720,9 +720,9 @@ private val heavyService: Lazy<HeavyService> by lazy { get() }
   - [ ] アプリ内の依存関係注入をテスト
   - [ ] ランタイムクラッシュがないことを確認
 
-## トラブルシューティング
+## トラブルシューティング {id="troubleshooting"}
 
-### "No definition found for X"
+### "No definition found for X" {id="no-definition-found-for-x"}
 
 **問題**: Koinが型の定義を見つけられません。
 
@@ -731,7 +731,7 @@ private val heavyService: Lazy<HeavyService> by lazy { get() }
 - 定義が存在するか確認してください（`single { }` または `factory { }` を使用）。
 - 正しい型が指定されているか確認してください。
 
-### "DefinitionOverrideException"
+### "DefinitionOverrideException" {id="definitionoverrideexception"}
 
 **問題**: 同じ型に対して複数の定義が存在します。
 
@@ -739,7 +739,7 @@ private val heavyService: Lazy<HeavyService> by lazy { get() }
 - 限定子を使用してください： `single(named("qualifier")) { }`
 - オーバーライドを有効にしてください： `startKoin { allowOverride(true) }`
 
-### 循環依存 (Circular Dependencies)
+### 循環依存 (Circular Dependencies) {id="circular-dependencies"}
 
 **問題**: 2つのクラスが互いに依存しています。
 
@@ -748,13 +748,13 @@ private val heavyService: Lazy<HeavyService> by lazy { get() }
 - 循環依存を解消するようにリファクタリングしてください。
 - スコープを使用してサイクルを断ち切ってください。
 
-## その他のリソース
+## その他のリソース {id="additional-resources"}
 
 - **実践的な移行事例**: [Migrating Now in Android to Koin](https://blog.insert-koin.io/migrating-now-in-android-to-koin-annotations-2-3-67d252dbb97d)
 - **Koinドキュメント**: [はじめに](/docs/setup/koin)
 - **Koin Annotations**: [Android Annotations ガイド](/docs/quickstart/android-annotations)
 
-## ヘルプが必要ですか？
+## ヘルプが必要ですか？ {id="need-help"}
 
 - **GitHub Discussions**: [Koinリポジトリ](https://github.com/InsertKoinIO/koin/discussions)で質問する
 - **Slack**: SlackのKoinコミュニティに参加する

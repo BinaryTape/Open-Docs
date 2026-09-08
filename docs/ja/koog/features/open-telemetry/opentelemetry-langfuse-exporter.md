@@ -7,7 +7,7 @@ Koogは、オブザーバビリティ（可観測性）データのオープン�
 
 ---
 
-## セットアップ手順
+## セットアップ手順 {id="setup-instructions"}
 
 1. [セットアップガイド](https://langfuse.com/docs/get-started#create-new-project-in-langfuse)に従って、Langfuseプロジェクトを作成します。
 2. [Organization Settings > API Keys](https://langfuse.com/faq/all/where-are-langfuse-api-keys)から、`public key` と `secret key` を取得します。
@@ -20,11 +20,11 @@ Koogは、オブザーバビリティ（可観測性）データのオープン�
 ```
 <!--- KNIT example-langfuse-exporter-01.txt -->
 
-## 設定
+## 設定 {id="configuration"}
 
 Langfuseへのエクスポートを有効にするには、**OpenTelemetry機能**をインストールし、[`addLangfuseExporter()`](api:agents-features-opentelemetry::ai.koog.agents.features.opentelemetry.integration.langfuse.addLangfuseExporter) を呼び出します。
 
-### 基本的な例
+### 基本的な例 {id="basic-example"}
 
 === "Kotlin"
 
@@ -94,7 +94,7 @@ See traces on the Langfuse instance");
     ```
     <!--- KNIT exampleLangfuseExporterJava01.java -->
 
-## トレース属性
+## トレース属性 {id="trace-attributes"}
 
 KoogがエージェントのアクティビティをLangfuseに送信する際、LLMの呼び出しやツールの実行など、個々の作業記録である「スパン（span）」のシリーズとして送信されます。関連するスパンは「トレース（trace）」にグループ化され、開始から終了までのエージェントの完全な実行を表します。
 
@@ -108,7 +108,7 @@ KoogがエージェントのアクティビティをLangfuseに送信する際�
 - **環境** (`langfuse.environment`): 開発やステージングのトレースを本番環境から分離します。
 - **タグ** (`langfuse.trace.tags`): 機能名、実験ID、または顧客セグメントなどのラベルをトレースに付けます（文字列の配列）。
 
-### セッションとタグを使用した例
+### セッションとタグを使用した例 {id="example-with-session-and-tags"}
 
 === "Kotlin"
 
@@ -156,7 +156,7 @@ KoogがエージェントのアクティビティをLangfuseに送信する際�
     !!! note
         現在、Javaから `traceAttributes` を設定することはサポートされていません。これは、基盤となるKotlin関数が [`kotlin.time.Duration`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-duration/) パラメータ（値クラス/value class）を保持しており、それ以降のパラメータを含むすべてのオーバーロードにおいてJVM名のマングリング（mangling）が発生するためです。`traceAttributes` が必要な場合は、上記のKotlinの例を使用してください。
 
-## トレースされる内容
+## トレースされる内容 {id="what-gets-traced"}
 
 Langfuseエクスポーターは、Koogの一般的なOpenTelemetry統合と同じアクティビティをキャプチャします。
 また、Langfuseで[エージェント・グラフ](https://langfuse.com/docs/observability/features/agent-graphs)を表示するために必要なスパン属性もキャプチャします。
@@ -172,7 +172,7 @@ Langfuse OpenTelemetryトレースの詳細については、以下を参照し�
 
 ---
 
-## トラブルシューティング
+## トラブルシューティング {id="troubleshooting"}
 
 - **トレースが表示されない**: `LANGFUSE_HOST`、`LANGFUSE_PUBLIC_KEY`、および `LANGFUSE_SECRET_KEY` が設定されていること、およびキーペアが正しいプロジェクトのものであることを確認してください。
 - **接続の問題**: セルフホスト型のLangfuseを実行している場合は、アプリケーション環境から `LANGFUSE_HOST` に到達可能であることを確認してください。

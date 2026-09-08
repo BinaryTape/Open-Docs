@@ -13,26 +13,26 @@
 
 在本教學中，我們使用 GitHub 來託管專案，並透過 GitHub Actions 執行 CI。
 
-## 範例程式庫
+## 範例程式庫 {id="sample-library"}
 
 您可以使用 [範例程式庫專案](https://github.com/Kotlin/kotlin-multiplatform-web-library)
 來跟隨步驟並查看可運作的配置。
 
 如果您重用該程式碼，請務必**將所有範例值替換為**您專案特定的值。
 
-## 準備帳戶與憑據
+## 準備帳戶與憑據 {id="prepare-accounts-and-credentials"}
 
 若要發佈到 npm，您需要[登入 npm 門戶網站](https://www.npmjs.com/login)。
 
 在本教學中，您將需要一個組織和一個存取權杖來設定手動發佈。
 
-### 建立一個簡單的組織
+### 建立一個簡單的組織 {id="create-a-simple-organization"}
 
 在本教學中，我們將程式庫發佈在 npm 組織下，以避免名稱衝突。
 
 要建立新組織，請參閱 [npm 文件](https://docs.npmjs.com/creating-an-organization)。
 
-### 產生存取權杖
+### 產生存取權杖 {id="generate-an-access-token"}
 
 要手動發佈到 npm，您需要一個存取權杖，允許在您新建立的組織下發佈套件。
 要產生此類權杖，請參閱 [npm 指南](https://docs.npmjs.com/creating-and-viewing-access-tokens)。
@@ -41,7 +41,7 @@
 * 啟用 **Bypass two-factor authentication (2FA)**（繞過雙重身分驗證）選項。
 * 將權杖的一般權限和組織權限均設定為 **Read and write**（讀取與寫入）。
 
-## 設定程式庫專案
+## 設定程式庫專案 {id="configure-the-library-project"}
 
 如果您使用 [範例專案](https://github.com/Kotlin/kotlin-multiplatform-web-library)，
 請在發佈前更新預設名稱。
@@ -52,7 +52,7 @@
 
 設定好名稱後，請按照後續步驟設定發佈。
 
-### 設定發佈外掛程式
+### 設定發佈外掛程式 {id="set-up-the-publishing-plugin"}
 
 本教學使用官方的 [npm-publish 外掛程式](https://github.com/Kotlin/npm-publish)
 來協助發佈到 npm。
@@ -140,7 +140,7 @@
   * 可以省略 `packageName` 參數，以使用模組的名稱作為預設值。
 * `packageJson {}` 區塊持有各種元資料。
 
-## 手動發佈
+## 手動發佈 {id="publish-manually"}
 
 當您仍在嘗試專案結構，或想要自行實作發佈自動化時，手動發佈會非常有用。
 
@@ -157,7 +157,7 @@ NPM_TOKEN=YOUR_ACCESS_TOKEN ./gradlew :shared:publishJsPackageToNpmjsRegistry
 
 ![npm 上已發佈的程式庫](published-on-npm.png){width=700}
 
-### 疑難排解
+### 疑難排解 {id="troubleshooting"}
 
 手動發佈時經常出錯的幾件事：
 
@@ -166,14 +166,14 @@ NPM_TOKEN=YOUR_ACCESS_TOKEN ./gradlew :shared:publishJsPackageToNpmjsRegistry
 * 產生針對組織作用域 (organization-scoped) 套件的權杖時，
   請確保同時設定一般權限**和**組織權限。
 
-## 使用持續整合 (CI) 發佈
+## 使用持續整合 (CI) 發佈 {id="publish-using-continuous-integration-ci"}
 
 npm 的受信任的發佈者 (Trusted Publishers) 機制允許您使用 OpenID Connect 快速設定 CI。
 這種方法可以完全避免產生和維護權杖。
 
 在此範例中，我們將使用 [GitHub Actions](https://docs.github.com/en/actions) 設定工作流程。
 
-### 建立 GitHub Actions 工作流程檔案
+### 建立 GitHub Actions 工作流程檔案 {id="create-a-github-actions-workflow-file"}
 
 建立 `.github/workflows/publish.yml` 檔案來設定 GitHub action：
 
@@ -219,7 +219,7 @@ jobs:
 > 
 {style="tip"}
 
-### 設定 GitHub Actions 為您的受信任的發佈者
+### 設定 GitHub Actions 為您的受信任的發佈者 {id="set-up-github-actions-as-your-trusted-publisher"}
 
 現在您已經發佈了工作流程，可以使用 GitHub Action 將[受信任的發佈者 (Trusted Publisher)](https://docs.npmjs.com/trusted-publishers) 新增到您的 npm 套件：
 
@@ -242,7 +242,7 @@ jobs:
 建立的連線隨後會列在套件設定的 **Trusted Publishers** 區塊中，
 這表示具有指定座標的工作流程現在已被授權發佈到 npm。
 
-### 在 GitHub 上建立版本
+### 在 GitHub 上建立版本 {id="create-a-release-on-github"}
 
 設定好工作流程和受信任的發佈者連線後，您現在可以準備透過[建立 GitHub 版本](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository#creating-a-release)來觸發發佈：
 
@@ -272,7 +272,7 @@ jobs:
 
 ![透過 CI/CD 在 npm 上發佈的程式庫](published-second-version-on-npm.png){width=700}
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * [將 shield.io 徽章新增到您的 README](https://shields.io/badges/npm-version)
 * [使用 Dokka 產生 API 文件](https://kotl.in/dokka)

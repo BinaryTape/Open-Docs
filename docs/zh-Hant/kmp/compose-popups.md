@@ -11,7 +11,7 @@ Compose Multiplatform 中的對話方塊作為強制回應容器，會取得焦�
 當您需要中斷使用者並要求其在繼續之前做出決定時，請使用 [`Dialog()`](https://developer.android.com/reference/kotlin/androidx/compose/ui/window/Dialog.composable)，例如回應確認、警報或短表單。對於桌面端獨立的作業系統級別對話方塊，請參閱 [`DialogWindow()`](compose-desktop-top-level-windows-management.md#show-dialogs)。
 對於保持錨定在目前視窗內元件上的輕量化、非阻塞重疊層（如下拉式功能表、工具提示和選單），請使用 `Popup()`。
 
-## 定位 Popup
+## 定位 Popup {id="position-a-popup"}
 
 若要定位 Popup，請使用 `alignment` 和 `offset`，或使用自訂的 `PopupPositionProvider` 進行錨定放置。
 
@@ -88,7 +88,7 @@ Column(Modifier.padding(24.dp)) {
 }
 ```
 
-## 自訂行為
+## 自訂行為 {id="customize-behavior"}
 
 透過 `PopupProperties`，您可以控制 Popup 如何處理焦點和關閉：
 
@@ -98,7 +98,7 @@ Column(Modifier.padding(24.dp)) {
 
 `Popup()` 及其 `PopupProperties` 是通用 API 的一部分。然而，某些屬性在通用原始碼集中不可用。例如，`usePlatformInsets` 在 iOS 上可用，它將 Popup 的內容限制在平台邊距（安全區域）內。
 
-## 接下來的步驟
+## 接下來的步驟 {id="what-s-next"}
 
 若要了解完整的 API 詳細資訊，請參閱 Jetpack Compose 文件中的參考資料：
 * [`Popup()`](https://developer.android.com/reference/kotlin/androidx/compose/ui/window/Popup.composable)

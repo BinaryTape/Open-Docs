@@ -7,7 +7,7 @@
 
 我们将保持内容简单且可复现，重点介绍一种最小化但符合实际的智能体 + 工具设置，您可以根据自己的网页抓取需求进行调整。
 
-## 前置条件
+## 前置条件 {id="prerequisites"}
 
 - 已导出为环境变量的 OpenAI API 密钥：`OPENAI_API_KEY`
 - 已导出为环境变量的 Bright Data API 令牌：`BRIGHT_DATA_API_TOKEN`
@@ -16,7 +16,7 @@
 
 **提示**：Bright Data MCP 服务器提供了对企业级网页抓取工具的访问，这些工具可以处理复杂的网站、验证码 (CAPTCHA) 和反爬虫措施。
 
-## 1) 设置您的 API 凭据
+## 1) 设置您的 API 凭据 {id="1-set-up-your-api-credentials"}
 
 我们从环境变量中读取这两个 API 密钥，以确保密钥安全并将其从代码中分离。
 
@@ -28,7 +28,7 @@ val brightDataToken = System.getenv("BRIGHT_DATA_API_TOKEN")
     ?: error("BRIGHT_DATA_API_TOKEN environment variable is not set")
 ```
 
-## 2) 启动 Bright Data 的 Web MCP 服务器
+## 2) 启动 Bright Data 的 Web MCP 服务器 {id="2-start-the-web-mcp-server-by-bright-data"}
 
 我们将使用 `npx` 启动 Bright Data 的 MCP 服务器，并使用您的 API 令牌对其进行配置。该服务器将通过 Model Context Protocol 开放网页抓取功能。
 
@@ -49,7 +49,7 @@ val process = processBuilder.start()
 Thread.sleep(2000)
 ```
 
-## 3) 从 Koog 连接并创建智能体
+## 3) 从 Koog 连接并创建智能体 {id="3-connect-from-koog-and-create-the-agent"}
 
 我们构建一个带有 OpenAI 执行器的 Koog `AIAgent`，并通过 STDIO 传输将其工具注册表连接到 Bright Data MCP 服务器。然后，我们将探索可用的工具并运行网页抓取任务。
 
@@ -99,7 +99,7 @@ Agent response:")
 }
 ```
 
-## 4) 完整代码示例
+## 4) 完整代码示例 {id="4-complete-code-example"}
 
 以下是演示使用 Bright Data 的 Web MCP 进行网页抓取的完整工作示例：
 
@@ -198,14 +198,14 @@ Agent response:")
 }
 ```
 
-## 故障排除
+## 故障排除 {id="troubleshooting"}
 
 - **连接问题**：如果智能体无法连接到 MCP 服务器，请确保已通过 `npx @brightdata/mcp` 正确安装了 Bright Data MCP 软件包。
 - **API 令牌错误**：仔细检查您的 `BRIGHT_DATA_API_TOKEN` 是否有效，并且具有网页抓取所需的权限。
 - **OpenAI 身份验证**：验证您的 `OPENAI_API_KEY` 环境变量是否已正确设置且 API 密钥有效。
 - **进程超时**：如果服务器启动时间较长，请增加 `Thread.sleep(2000)` 的持续时间。
 
-## 后续步骤
+## 后续步骤 {id="next-steps"}
 
 - **探索不同的查询**：尝试抓取不同的网站或搜索各种主题。
 - **自定义工具集成**：在 Bright Data 的网页抓取能力之外添加您自己的工具。
@@ -213,7 +213,7 @@ Agent response:")
 - **数据处理**：将抓取的数据与其他 Koog 智能体结合进行分析和洞察。
 - **生产部署**：将此模式集成到您的应用程序中，以实现自动化网页数据采集。
 
-## 您学到的内容
+## 您学到的内容 {id="what-you-ve-learned"}
 
 本教程演示了如何：
 - 设置并配置 Bright Data 的 Web MCP

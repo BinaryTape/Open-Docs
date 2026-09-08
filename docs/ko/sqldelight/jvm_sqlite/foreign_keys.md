@@ -1,5 +1,5 @@
 {% if multiplatform %}
-## JVM SQLite
+## JVM SQLite {id="jvm-sqlite"}
 {% else %}
 # 외래 키
 {% endif %}

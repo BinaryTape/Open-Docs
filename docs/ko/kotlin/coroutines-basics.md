@@ -10,7 +10,7 @@ JVM 및 Kotlin/Native에서 코루틴과 같은 모든 동시성 코드는 운�
 
 코루틴과 스레드의 차이점에 대한 자세한 내용은 [코루틴과 JVM 스레드 비교](#comparing-coroutines-and-jvm-threads)를 참조하세요.
 
-## 중단 함수 (Suspending functions)
+## 중단 함수 (Suspending functions) {id="suspending-functions"}
 
 코루틴의 가장 기본적인 빌딩 블록은 _중단 함수(suspending function)_입니다. 중단 함수는 코드의 구조에 영향을 주지 않으면서 실행 중인 작업을 일시 중지하고 나중에 재개할 수 있도록 해줍니다.
 
@@ -45,7 +45,7 @@ suspend fun greet() {
 
 `suspend` 키워드는 코틀린 언어의 핵심 기능이지만, 대부분의 코루틴 기능은 [`kotlinx.coroutines`](https://github.com/Kotlin/kotlinx.coroutines) 라이브러리를 통해 제공됩니다.
 
-## 프로젝트에 kotlinx.coroutines 라이브러리 추가하기
+## 프로젝트에 kotlinx.coroutines 라이브러리 추가하기 {id="add-the-kotlinx-coroutines-library-to-your-project"}
 
 프로젝트에 `kotlinx.coroutines` 라이브러리를 포함하려면 빌드 도구에 따라 해당 종속성 설정을 추가하세요:
 
@@ -97,7 +97,7 @@ dependencies {
 </tab>
 </tabs>
 
-## 첫 번째 코루틴 만들기
+## 첫 번째 코루틴 만들기 {id="create-your-first-coroutines"}
 
 > 이 페이지의 예제들은 코루틴 빌더 함수인 `CoroutineScope.launch()` 및 `CoroutineScope.async()`와 함께 명시적인 `this` 표현식을 사용합니다.
 > 이러한 코루틴 빌더들은 `CoroutineScope`에 대한 [확장 함수(extension functions)](extensions.md)이며, `this` 표현식은 수신 객체(receiver)로서 현재의 `CoroutineScope`를 가리킵니다.
@@ -278,7 +278,7 @@ suspend fun main() {
 
 이 예제에서는 [디스패처](#coroutine-dispatchers)가 지정되지 않았으므로, `coroutineScope()` 블록 내의 `CoroutineScope.launch()` 빌더 함수들은 현재 문맥을 상속합니다. 해당 문맥에 지정된 디스패처가 없다면, `CoroutineScope.launch()`는 공유 스레드 풀에서 실행되는 `Dispatchers.Default`를 사용합니다.
 
-### 코루틴 스코프에서 코루틴 빌더 추출하기
+### 코루틴 스코프에서 코루틴 빌더 추출하기 {id="extract-coroutine-builders-from-the-coroutine-scope"}
 
 경우에 따라 [`CoroutineScope.launch()`](#coroutinescope-launch)와 같은 코루틴 빌더 호출을 별도의 함수로 추출하고 싶을 수 있습니다.
 
@@ -332,7 +332,7 @@ fun launchAll() {
 
 이 예제에서 `launchAll()` 함수는 `suspend` 키워드가 필요하지 않습니다. 왜냐하면 단순히 현재 `CoroutineScope`에서 코루틴을 시작하고 즉시 반환되기 때문입니다. 반환하기 전에 실행을 일시 중지하고 재개해야 할 필요가 있는 경우에만 함수를 `suspend`로 표시하세요.
 
-## 코루틴 빌더 함수
+## 코루틴 빌더 함수 {id="coroutine-builder-functions"}
 
 코루틴 빌더 함수는 실행할 코루틴을 정의하는 `suspend` [람다(lambda)](lambdas.md)를 받는 함수입니다. 다음은 몇 가지 예입니다:
 
@@ -344,7 +344,7 @@ fun launchAll() {
 
 코루틴 빌더 함수가 실행되려면 `CoroutineScope`가 필요합니다. 이는 기존 스코프일 수도 있고, `coroutineScope()`, [`runBlocking()`](#runblocking), 또는 [`withContext()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/with-context.html#)와 같은 도우미 함수로 만든 스코프일 수도 있습니다. 각 빌더는 코루틴이 어떻게 시작되는지, 그리고 그 결과와 어떻게 상호작용하는지를 정의합니다.
 
-### `CoroutineScope.launch()`
+### `CoroutineScope.launch()` {id="coroutinescope-launch"}
 
 [`CoroutineScope.launch()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/launch.html#) 코루틴 빌더 함수는 `CoroutineScope`에 대한 확장 함수입니다. 이는 기존의 [코루틴 스코프](#coroutine-scope-and-structured-concurrency) 내에서 나머지 스코프를 블로킹하지 않고 새로운 코루틴을 시작합니다.
 
@@ -384,7 +384,7 @@ suspend fun performBackgroundWork() = coroutineScope { // this: CoroutineScope
 > 
 {style="tip"}
 
-### `CoroutineScope.async()`
+### `CoroutineScope.async()` {id="coroutinescope-async"}
 
 [`CoroutineScope.async()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/async.html) 코루틴 빌더 함수는 `CoroutineScope`에 대한 확장 함수입니다. 이는 기존의 [코루틴 스코프](#coroutine-scope-and-structured-concurrency) 내에서 동시성 연산을 시작하고, 최종적인 결과를 나타내는 [`Deferred`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-deferred/) 핸들을 반환합니다. 결과가 준비될 때까지 코드를 중단하려면 `.await()` 함수를 사용하세요:
 
@@ -416,7 +416,7 @@ suspend fun main() = withContext(Dispatchers.Default) { // this: CoroutineScope
 ```
 {kotlin-runnable="true"}
 
-### `runBlocking()`
+### `runBlocking()` {id="runblocking"}
 
 [`runBlocking()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/run-blocking.html) 코루틴 빌더 함수는 코루틴 스코프를 생성하고 해당 스코프에서 시작된 코루틴들이 끝날 때까지 현재 [스레드](#comparing-coroutines-and-jvm-threads)를 블로킹합니다.
 
@@ -446,7 +446,7 @@ suspend fun myReadItem(): Int {
 }
 ```
 
-## 코루틴 디스패처 (Coroutine dispatchers)
+## 코루틴 디스패처 (Coroutine dispatchers) {id="coroutine-dispatchers"}
 
 [_코루틴 디스패처_](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-dispatchers/#)는 코루틴이 실행에 어떤 스레드나 스레드 풀을 사용할지 제어합니다. 코루틴은 항상 단일 스레드에 묶여 있는 것은 아닙니다. 디스패처에 따라 한 스레드에서 중단되었다가 다른 스레드에서 재개될 수 있습니다. 이를 통해 모든 코루틴에 별도의 스레드를 할당하지 않고도 많은 코루틴을 동시에 실행할 수 있습니다.
 
@@ -510,7 +510,7 @@ suspend fun main() = withContext(Dispatchers.Default) { // this: CoroutineScope
 
 [`Dispatchers.IO`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-dispatchers/-i-o.html) 및 [`Dispatchers.Main`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-dispatchers/-main.html)과 같은 다른 디스패처를 포함하여 코루틴 디스패처와 그 용도에 대해 자세히 알아보려면 [코루틴 문맥과 디스패처](coroutine-context-and-dispatchers.md)를 참조하세요.
 
-## 코루틴과 JVM 스레드 비교
+## 코루틴과 JVM 스레드 비교 {id="comparing-coroutines-and-jvm-threads"}
 
 코루틴은 JVM의 스레드처럼 코드를 동시적으로 실행하는 중단 가능한 연산이지만, 내부적으로는 다르게 작동합니다.
 
@@ -567,7 +567,7 @@ fun main() {
 
 사용 중인 운영 체제, JDK 버전 및 설정에 따라 JVM 스레드 버전은 메모리 부족(out-of-memory) 오류를 발생시키거나 너무 많은 스레드가 한 번에 실행되는 것을 방지하기 위해 스레드 생성을 늦출 수 있습니다.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [중단 함수 구성하기](composing-suspending-functions.md)에서 중단 함수를 결합하는 방법에 대해 더 알아보세요.
 * [취소와 타임아웃](coroutines-cancellation.md)에서 코루틴을 취소하고 타임아웃을 처리하는 방법을 배우세요.

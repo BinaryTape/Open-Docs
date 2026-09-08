@@ -1,6 +1,6 @@
 [//]: # (title: Java アノテーションプロセッシングから KSP へのリファレンス)
 
-## プログラム要素 (Program elements)
+## プログラム要素 (Program elements) {id="program-elements"}
 
 | **Java** | **KSP における最も近い機能** | **備考** |
 | -------- | --------------------------- | --------- |
@@ -15,7 +15,7 @@
 | `TypeParameterElement` | `KSTypeParameter` | |
 | `VariableElement` | `KSValueParameter` / `KSPropertyDeclaration` | |
 
-## 型 (Types)
+## 型 (Types) {id="types"}
 
 KSP では明示的な型解決（type resolution）が必要なため、Java の一部の機能は `KSType` および解決前の対応する要素によってのみ実行できます。
 
@@ -35,7 +35,7 @@ KSP では明示的な型解決（type resolution）が必要なため、Java �
 | `UnionType` | N/A | Kotlin は catch ブロックごとに 1 つの型しか持ちません。`UnionType` は Java のアノテーションプロセッサからさえも観測できません |
 | `WildcardType` | `KSType` / `KSTypeArgument` | |
 
-## その他 (Misc)
+## その他 (Misc) {id="misc"}
 
 | **Java** | **KSP における最も近い機能** | **備考** |
 | -------- | --------------------------- | --------- |
@@ -58,24 +58,24 @@ KSP では明示的な型解決（type resolution）が必要なため、Java �
 | `Types` | `Resolver` / `utils` | `utils` の一部はシンボルインターフェースにも統合されています |
 | `Elements` | `Resolver` / `utils` | |
 
-## 詳細 (Details)
+## 詳細 (Details) {id="details"}
 
 Java アノテーションプロセッシング API の機能が KSP でどのように実行されるかを確認してください。
 
-### AnnotationMirror
+### AnnotationMirror {id="annotationmirror"}
 
 | **Java** | **KSP における同等の機能** |
 | -------- | ------------------ |
 | `getAnnotationType` | `ksAnnotation.annotationType` |
 | `getElementValues` | `ksAnnotation.arguments` |
 
-### AnnotationValue
+### AnnotationValue {id="annotationvalue"}
 
 | **Java** | **KSP における同等の機能** |
 | -------- | ------------------ |
 | `getValue` | `ksValueArgument.value` |
 
-### Element
+### Element {id="element"}
 
 | **Java** | **KSP における同等の機能** |
 | -------- | ------------------ |
@@ -88,7 +88,7 @@ Java アノテーションプロセッシング API の機能が KSP でどの�
 | `getModifiers` | `ksDeclaration.modifiers` |
 | `getSimpleName` | `ksDeclaration.simpleName` |
 
-### ExecutableElement
+### ExecutableElement {id="executableelement"}
 
 | **Java** | **KSP における同等の機能** |
 | -------- | ------------------ |
@@ -102,19 +102,19 @@ Java アノテーションプロセッシング API の機能が KSP でどの�
 | `isDefault` | 親の宣言がインターフェースかどうかを確認します |
 | `isVarArgs` | `ksFunctionDeclaration.parameters.any { it.isVarArg }` |
 
-### Parameterizable
+### Parameterizable {id="parameterizable"}
 
 | **Java** | **KSP における同等の機能** |
 | -------- | ------------------ |
 | `getTypeParameters` | `ksFunctionDeclaration.typeParameters` |
 
-### QualifiedNameable
+### QualifiedNameable {id="qualifiednameable"}
 
 | **Java** | **KSP における同等の機能** |
 | -------- | ------------------ |
 | `getQualifiedName` | `ksDeclaration.qualifiedName` |
 
-### TypeElement
+### TypeElement {id="typeelement"}
 
 <table>
     <tr>
@@ -173,7 +173,7 @@ ksClassDeclaration.superTypes
     </tr>
 </table>
 
-### TypeParameterElement
+### TypeParameterElement {id="typeparameterelement"}
 
 | **Java** | **KSP における同等の機能** |
 | -------- | ------------------ |
@@ -181,7 +181,7 @@ ksClassDeclaration.superTypes
 | `getEnclosingElement` | `ksTypeParameter.parentDeclaration` |
 | `getGenericElement` | `ksTypeParameter.parentDeclaration` |
 
-### VariableElement
+### VariableElement {id="variableelement"}
 
 | **Java** | **KSP における同等の機能** |
 | -------- | ------------------ |
@@ -189,13 +189,13 @@ ksClassDeclaration.superTypes
 | `getEnclosingElement` | `ksValueParameter.parentDeclaration` |
 | `getSimpleName` | `ksValueParameter.simpleName` |
 
-### ArrayType
+### ArrayType {id="arraytype"}
 
 | **Java** | **KSP における同等の機能** |
 | -------- | ------------------ |
 | `getComponentType` | `ksType.arguments.first()` |
 
-### DeclaredType
+### DeclaredType {id="declaredtype"}
 
 | **Java** | **KSP における同等の機能** |
 | -------- | ------------------ |
@@ -203,7 +203,7 @@ ksClassDeclaration.superTypes
 | `getEnclosingType` | `ksType.declaration.parentDeclaration` |
 | `getTypeArguments` | `ksType.arguments` |
 
-### ExecutableType
+### ExecutableType {id="executabletype"}
 
 > 関数の `KSType` は、`FunctionN<R, T1, T2, ..., TN>` ファミリによって表される単なるシグネチャです。
 >
@@ -217,19 +217,19 @@ ksClassDeclaration.superTypes
 | `getThrownTypes` | Kotlin では不要です |
 | `getTypeVariables` | `ksFunctionDeclaration.typeParameters` |
 
-### IntersectionType
+### IntersectionType {id="intersectiontype"}
 
 | **Java** | **KSP における同等の機能** |
 | -------- | ------------------ |
 | `getBounds` | `ksTypeParameter.bounds` |
 
-### TypeMirror
+### TypeMirror {id="typemirror"}
 
 | **Java** | **KSP における同等の機能** |
 | -------- | ------------------ |
 | `getKind` | プリミティブ型や `Unit` 型については `KSBuiltIns` 内の型と比較し、それ以外は宣言された型と比較します |
 
-### TypeVariable
+### TypeVariable {id="typevariable"}
 
 | **Java** | **KSP における同等の機能** |
 | -------- | ------------------ |
@@ -237,7 +237,7 @@ ksClassDeclaration.superTypes
 | `getLowerBound` | 検討中。キャプチャが提供され、明示的な境界チェックが必要な場合にのみ必要です。 |
 | `getUpperBound` | `ksTypeParameter.bounds` |
 
-### WildcardType
+### WildcardType {id="wildcardtype"}
 
 <table>
     <tr>
@@ -266,7 +266,7 @@ if (ksTypeArgument.variance == Variance.CONTRAVARIANT) ksTypeArgument.type else 
     </tr>
 </table>
 
-### Elements
+### Elements {id="elements"}
 
 <table>
     <tr>

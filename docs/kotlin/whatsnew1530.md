@@ -20,7 +20,7 @@ Kotlin 1.5.30 提供了语言更新，包括未来变化的预览、平台支持
 >
 {style="tip"}
 
-## 语言功能
+## 语言功能 {id="language-features"}
 
 Kotlin 1.5.30 提供了未来语言变化的预览，并对选择加入要求机制和类型推断进行了改进：
 * [针对密封和布尔主体的详尽 when 语句](#exhaustive-when-statements-for-sealed-and-boolean-subjects)
@@ -30,7 +30,7 @@ Kotlin 1.5.30 提供了未来语言变化的预览，并对选择加入要求机
 * [递归泛型类型的类型推断改进](#improvements-to-type-inference-for-recursive-generic-types)
 * [消除构建器推断限制](#eliminating-builder-inference-restrictions)
 
-### 针对密封和布尔主体的详尽 when 语句
+### 针对密封和布尔主体的详尽 when 语句 {id="exhaustive-when-statements-for-sealed-and-boolean-subjects"}
 
 > 对密封（详尽）when 语句的支持是 [实验性的](components-stability.md)。它可能随时被放弃或更改。
 > 需要选择加入（见下文详情），并且您应该仅出于评估目的使用它。我们非常欢迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-12380) 上提供反馈。
@@ -101,7 +101,7 @@ kotlin {
 </tab>
 </tabs>
 
-### 将挂起函数作为基类型
+### 将挂起函数作为基类型 {id="suspending-functions-as-supertypes"}
 
 > 将挂起函数作为基类型的支持是 [实验性的](components-stability.md)。它可能随时被放弃或更改。
 > 需要选择加入（见下文详情），并且您应该仅出于评估目的使用它。我们非常欢迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-18707) 上提供反馈。
@@ -151,7 +151,7 @@ kotlin {
 * 您不能将普通函数类型和 `suspend` 函数类型混合作为基类型。这是因为 JVM 后端中 `suspend` 函数类型的实现细节所致。它们在其中被表示为带有标记接口的普通函数类型。由于标记接口的存在，无法区分哪些基接口是挂起的，哪些是普通的。
 * 您不能使用多个 `suspend` 函数基类型。如果存在类型检查，您也不能使用多个普通函数基类型。
 
-### 对实验性 API 的隐式使用要求选择加入
+### 对实验性 API 的隐式使用要求选择加入 {id="requiring-opt-in-on-implicit-usages-of-experimental-apis"}
 
 > 选择加入要求机制是 [实验性的](components-stability.md)。
 > 它可能随时更改。[了解如何选择加入](opt-in-requirements.md)。
@@ -187,7 +187,7 @@ fun getDate(): Date {
 
 详细了解 [选择加入要求](opt-in-requirements.md)。
 
-### 对具有不同目标的选择加入要求注解使用的更改
+### 对具有不同目标的选择加入要求注解使用的更改 {id="changes-to-using-opt-in-requirement-annotations-with-different-targets"}
 
 > 选择加入要求机制是 [实验性的](components-stability.md)。
 > 它可能随时更改。[了解如何选择加入](opt-in-requirements.md)。
@@ -203,7 +203,7 @@ Kotlin 1.5.30 提出了在不同 [目标 (targets)](https://kotlinlang.org/api/l
 
 详细了解 [选择加入要求](opt-in-requirements.md)。
 
-### 递归泛型类型的类型推断改进
+### 递归泛型类型的类型推断改进 {id="improvements-to-type-inference-for-recursive-generic-types"}
 
 在 Kotlin 和 Java 中，您可以定义递归泛型类型，即在其类型形参中引用自身。在 Kotlin 1.5.30 中，如果是递归泛型，Kotlin 编译器可以仅根据相应类型形参的上界来推断类型实参。这使得创建带有递归泛型类型的各种模式成为可能，这些模式在 Java 中常用于制作构建器 API。
 
@@ -226,7 +226,7 @@ val containerB = PostgreSQLContainer(DockerImageName.parse("postgres:13-alpine")
 
 您可以通过传递 `-Xself-upper-bound-inference` 或 `-language-version 1.6` 编译器选项来启用这些改进。在 [此 YouTrack 工单](https://youtrack.jetbrains.com/issue/KT-40804) 中查看新支持的其他用例示例。
 
-### 消除构建器推断限制
+### 消除构建器推断限制 {id="eliminating-builder-inference-restrictions"}
 
 构建器推断是一种特殊的类型推断，它允许您根据其 lambda 实参中其他调用的类型信息来推断调用的类型实参。这在调用泛型构建器函数时非常有用，例如 [`buildList()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/build-list.html) 或 [`sequence()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/sequence.html)：`buildList { add("string") }`。
 
@@ -256,7 +256,7 @@ val map = buildMap {
 
 此外，您还可以通过 `-language-version 1.6` 编译器选项启用此功能。
 
-## Kotlin/JVM
+## Kotlin/JVM {id="kotlin-jvm"}
 
 随着 Kotlin 1.5.30 的发布，Kotlin/JVM 获得了以下功能：
 * [注解类的实例化](#instantiation-of-annotation-classes)
@@ -264,7 +264,7 @@ val map = buildMap {
 
 有关 JVM 平台上 Kotlin Gradle 插件的更新，请参阅 [Gradle](#gradle) 部分。
 
-### 注解类的实例化
+### 注解类的实例化 {id="instantiation-of-annotation-classes"}
 
 > 注解类的实例化是 [实验性的](components-stability.md)。它可能随时被放弃或更改。
 > 需要选择加入（见下文详情），并且您应该仅出于评估目的使用它。我们非常欢迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-45395) 上提供反馈。
@@ -290,7 +290,7 @@ fun main(args: Array<String>) {
 
 在 [此 KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/annotation-instantiation.md) 中了解更多关于注解类实例化的信息。
 
-### 改进的为 null 性注解支持配置
+### 改进的为 null 性注解支持配置 {id="improved-nullability-annotation-support-configuration"}
 
 Kotlin 编译器可以读取各种类型的 [为 null 性注解](java-interop.md#nullability-annotations)，以从 Java 中获取为 null 性信息。这些信息允许它在调用 Java 代码时报告 Kotlin 中的为 null 性不匹配。
 
@@ -303,7 +303,7 @@ Kotlin 编译器可以读取各种类型的 [为 null 性注解](java-interop.md
 
 以下是一个示例，展示了如何为新支持的 [RxJava](https://github.com/ReactiveX/RxJava) 3 为 null 性注解启用错误报告：`-Xnullability-annotations=@io.reactivex.rxjava3.annotations:strict`。请注意，所有此类为 null 性不匹配默认都是警告。
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 Kotlin/Native 获得了各种更改和改进：
 * [Apple 芯片支持](#apple-silicon-support)
@@ -312,7 +312,7 @@ Kotlin/Native 获得了各种更改和改进：
 * [改进的对象和伴生对象的 Swift/Objective-C 映射](#improved-swift-objective-c-mapping-for-objects-and-companion-objects)
 * [弃用针对没有导入库的 MinGW 目标的 DLL 链接](#deprecation-of-linkage-against-dlls-without-import-libraries-for-mingw-targets)
 
-### Apple 芯片支持
+### Apple 芯片支持 {id="apple-silicon-support"}
 
 Kotlin 1.5.30 引入了对 [Apple 芯片](https://support.apple.com/en-us/HT211814) 的原生支持。
 
@@ -329,9 +329,9 @@ Kotlin 1.5.30 引入了对 [Apple 芯片](https://support.apple.com/en-us/HT2118
 请注意，在 1.5.30 中，我们仅在 `kotlin-multiplatform` Gradle 插件中提供对 Apple 芯片目标的初步支持。特别是，新的模拟器目标未包含在 `ios`、`tvos` 和 `watchos` 目标快捷方式中。
 我们将继续努力改进新目标的用户体验。
 
-### 针对 CocoaPods Gradle 插件改进的 Kotlin DSL
+### 针对 CocoaPods Gradle 插件改进的 Kotlin DSL {id="improved-kotlin-dsl-for-the-cocoapods-gradle-plugin"}
 
-#### Kotlin/Native 框架的新参数
+#### Kotlin/Native 框架的新参数 {id="new-parameters-for-kotlin-native-frameworks"}
 
 Kotlin 1.5.30 为 Kotlin/Native 框架引入了改进的 CocoaPods Gradle 插件 DSL。除了框架名称外，您还可以在 Pod 配置中指定其他参数：
 * 指定框架的动态或静态版本
@@ -361,7 +361,7 @@ cocoapods {
 }
 ```
 
-#### 支持 Xcode 配置的自定义名称
+#### 支持 Xcode 配置的自定义名称 {id="support-custom-names-for-xcode-configuration"}
 
 Kotlin CocoaPods Gradle 插件支持 Xcode 构建配置中的自定义名称。如果您在 Xcode 中为构建配置使用特殊名称（例如 `Staging`），它也会对您有所帮助。
 
@@ -381,7 +381,7 @@ cocoapods {
 >
 {style="note"}
 
-### 与 Swift 5.5 async/await 的实验性互操作性
+### 与 Swift 5.5 async/await 的实验性互操作性 {id="experimental-interoperability-with-swift-5-5-async-await"}
 
 > 与 Swift async/await 的并发互操作性是 [实验性的](components-stability.md)。它可能随时被放弃或更改。
 > 您应该仅出于评估目的使用它。我们非常欢迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-47610) 上提供反馈。
@@ -394,7 +394,7 @@ Kotlin/Native 编译器现在在为具有可为 null 返回类型的挂起函数
 
 请注意，此功能是实验性的，未来可能会受到 Kotlin 和 Swift 变化的影响。目前，我们提供此功能的预览版，它具有某些限制，我们渴望听到您的想法。在 [此 YouTrack 问题](https://youtrack.jetbrains.com/issue/KT-47610) 中了解更多关于其当前状态的信息并留下您的反馈。
 
-### 改进的对象和伴生对象的 Swift/Objective-C 映射
+### 改进的对象和伴生对象的 Swift/Objective-C 映射 {id="improved-swift-objective-c-mapping-for-objects-and-companion-objects"}
 
 现在可以以对原生 iOS 开发者更直观的方式获取对象和伴生对象。例如，如果您在 Kotlin 中有以下对象：
 
@@ -421,7 +421,7 @@ MyClass.Companion.shared
 
 了解更多关于 [Swift/Objective-C 互操作性](native-objc-interop.md) 的信息。
 
-### 弃用针对没有导入库的 MinGW 目标的 DLL 链接
+### 弃用针对没有导入库的 MinGW 目标的 DLL 链接 {id="deprecation-of-linkage-against-dlls-without-import-libraries-for-mingw-targets"}
 
 [LLD](https://lld.llvm.org/) 是 LLVM 项目中的一个链接器，我们计划在 Kotlin/Native 中为 MinGW 目标开始使用它，因为它比默认的 ld.bfd 具有更多优势——主要是更好的性能。
 
@@ -429,14 +429,14 @@ MyClass.Companion.shared
 
 请在 [此 YouTrack 问题](https://youtrack.jetbrains.com/issue/KT-47605) 中分享您对向 LLD 链接器过渡的想法和疑虑。
 
-## Kotlin 多平台
+## Kotlin 多平台 {id="kotlin-multiplatform"}
 
 1.5.30 为 Kotlin 多平台带来了以下显著更新：
 * [在共享原生代码中使用自定义 `cinterop` 库的能力](#ability-to-use-custom-cinterop-libraries-in-shared-native-code)
 * [对 XCFrameworks 的支持](#support-for-xcframeworks)
 * [Android 构件的新默认发布设置](#new-default-publishing-setup-for-android-artifacts)
 
-### 在共享原生代码中使用自定义 cinterop 库的能力
+### 在共享原生代码中使用自定义 cinterop 库的能力 {id="ability-to-use-custom-cinterop-libraries-in-shared-native-code"}
 
 Kotlin 多平台为您提供了一个 [选项](https://kotlinlang.org/docs/multiplatform/multiplatform-share-on-platforms.html#connect-platform-specific-libraries) 在共享源集中使用平台相关的互操作库。在 1.5.30 之前，这仅适用于随 Kotlin/Native 分发版提供的 [平台库](native-platform-libs.md)。从 1.5.30 开始，您可以将其用于自定义 `cinterop` 库。要启用此功能，请在您的 `gradle.properties` 中添加 `kotlin.mpp.enableCInteropCommonization=true` 属性：
 
@@ -446,7 +446,7 @@ kotlin.native.enableDependencyPropagation=false
 kotlin.mpp.enableCInteropCommonization=true
 ```
 
-### 对 XCFrameworks 的支持
+### 对 XCFrameworks 的支持 {id="support-for-xcframeworks"}
 
 所有 Kotlin 多平台项目现在都可以将 XCFrameworks 作为输出格式。Apple 引入了 XCFrameworks 作为通用 (fat) 框架的替代品。通过 XCFrameworks，您可以：
 * 在单个包中收集所有目标平台和架构的逻辑。
@@ -534,7 +534,7 @@ kotlin {
 
 在 [此 WWDC 视频](https://developer.apple.com/videos/play/wwdc2019/416/) 中详细了解 XCFrameworks。
 
-### Android 构件的新默认发布设置
+### Android 构件的新默认发布设置 {id="new-default-publishing-setup-for-android-artifacts"}
 
 使用 `maven-publish` Gradle 插件，您可以通过在构建脚本中指定 [Android 变体](https://developer.android.com/studio/build/build-variants) 名称来 [发布适用于 Android 目标的多平台库](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-lib-setup.html#publish-an-android-library)。Kotlin Gradle 插件将自动生成发布内容。
 
@@ -544,31 +544,31 @@ kotlin {
 
 要退出并为所有变体保留构建类型属性，可以设置此 Gradle 属性：`kotlin.android.buildTypeAttribute.keep=true`。
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
 1.5.30 为 Kotlin/JS 带来了两项重大改进：
 * [JS IR 编译器后端达到 Beta 阶段](#js-ir-compiler-backend-reaches-beta)
 * [使用 Kotlin/JS IR 后端的应用程序获得更好的调试体验](#better-debugging-experience-for-applications-with-the-kotlin-js-ir-backend)
 
-### JS IR 编译器后端达到 Beta 阶段
+### JS IR 编译器后端达到 Beta 阶段 {id="js-ir-compiler-backend-reaches-beta"}
 
 在 1.4.0 中作为 [Alpha](components-stability.md) 引入的 Kotlin/JS [基于 IR 的编译器后端](whatsnew14.md#unified-backends-and-extensibility) 已达到 Beta 阶段。
 
 此前，我们发布了 JS IR 后端迁移指南，以帮助您将项目迁移到新后端。现在我们想介绍 [Kotlin/JS Inspection Pack](https://plugins.jetbrains.com/plugin/17183-kotlin-js-inspection-pack/) IDE 插件，它直接在 IntelliJ IDEA 中显示所需的更改。
 
-### 使用 Kotlin/JS IR 后端的应用程序获得更好的调试体验
+### 使用 Kotlin/JS IR 后端的应用程序获得更好的调试体验 {id="better-debugging-experience-for-applications-with-the-kotlin-js-ir-backend"}
 
 Kotlin 1.5.30 为 Kotlin/JS IR 后端带来了 JavaScript 源代码映射生成。启用 IR 后端时，这将改进 Kotlin/JS 调试体验，提供完整的调试支持，包括断点、步进以及带有正确源引用的可读堆栈跟踪。
 
 了解如何 [在浏览器或 IntelliJ IDEA 中调试 Kotlin/JS](js-debugging.md)。
 
-## Gradle
+## Gradle {id="gradle"}
 
 作为我们 [改进 Kotlin Gradle 插件用户体验](https://youtrack.jetbrains.com/issue/KT-45778) 使命的一部分，我们实现了以下功能：
 * [支持 Java 工具链](#support-for-java-toolchains)，其中包括针对旧版 Gradle 版本 [使用 `UsesKotlinJavaToolchain` 接口指定 JDK home 的能力](#ability-to-specify-jdk-home-with-useskotlinjavatoolchain-interface)
 * [显式指定 Kotlin 守护进程 JVM 参数的更简单方法](#easier-way-to-explicitly-specify-kotlin-daemon-jvm-arguments)
 
-### 支持 Java 工具链
+### 支持 Java 工具链 {id="support-for-java-toolchains"}
 
 Gradle 6.7 引入了 ["Java 工具链支持"](https://docs.gradle.org/current/userguide/toolchains.html) 功能。
 使用此功能，您可以：
@@ -632,7 +632,7 @@ java {
 
 对于 6.1 到 6.6 的 Gradle 版本，[使用 `UsesKotlinJavaToolchain` 接口设置 JDK home](#ability-to-specify-jdk-home-with-useskotlinjavatoolchain-interface)。
 
-### 使用 UsesKotlinJavaToolchain 接口指定 JDK home 的能力
+### 使用 UsesKotlinJavaToolchain 接口指定 JDK home 的能力 {id="ability-to-specify-jdk-home-with-useskotlinjavatoolchain-interface"}
 
 所有支持通过 [`kotlinOptions`](gradle-compiler-options.md) 设置 JDK 的 Kotlin 任务现在都实现了 `UsesKotlinJavaToolchain` 接口。要设置 JDK home，请输入您的 JDK 路径并替换 `<JDK_VERSION>` 占位符：
 
@@ -671,7 +671,7 @@ project.tasks
 
 使用此功能时，请注意 [kapt 任务工作线程](kapt.md#run-kapt-tasks-in-parallel) 将仅使用 [进程隔离模式](https://docs.gradle.org/current/userguide/worker_api.html#changing_the_isolation_mode)，并且 `kapt.workers.isolation` 属性将被忽略。
 
-### 显式指定 Kotlin 守护进程 JVM 参数的更简单方法
+### 显式指定 Kotlin 守护进程 JVM 参数的更简单方法 {id="easier-way-to-explicitly-specify-kotlin-daemon-jvm-arguments"}
 
 在 Kotlin 1.5.30 中，Kotlin 守护进程的 JVM 参数有了新的逻辑。以下列表中的每个选项都会覆盖其之前的选项：
 
@@ -751,7 +751,7 @@ project.tasks
 
 有关 Kotlin 守护进程的更多信息，请参阅 [Kotlin 守护进程及其在 Gradle 中的使用](gradle-compilation-and-caches.md#the-kotlin-daemon-and-how-to-use-it-with-gradle)。
 
-## 标准库
+## 标准库 {id="standard-library"}
 
 Kotlin 1.5.30 为标准库的 `Duration` 和 `Regex` API 带来了改进：
 * [更改 `Duration.toString()` 的输出](#changing-duration-tostring-output)
@@ -759,7 +759,7 @@ Kotlin 1.5.30 为标准库的 `Duration` 和 `Regex` API 带来了改进：
 * [在特定位置使用正则表达式进行匹配](#matching-with-regex-at-a-particular-position)
 * [将正则表达式拆分为序列](#splitting-regex-to-a-sequence)
 
-### 更改 Duration.toString() 的输出
+### 更改 Duration.toString() 的输出 {id="changing-duration-tostring-output"}
 
 > Duration API 是 [实验性的](components-stability.md)。它可能随时被放弃或更改。
 > 请仅出于评估目的使用它。我们非常欢迎您在 [YouTrack](https://youtrack.jetbrains.com/issues/KT) 上向我们提供关于它的反馈。
@@ -790,7 +790,7 @@ Duration.milliseconds(25.12).toString()|`25.1ms`|`25.12ms`|
 >
 {style="note"}
 
-### 从字符串解析 Duration
+### 从字符串解析 Duration {id="parsing-duration-from-string"}
 
 > Duration API 是 [实验性的](components-stability.md)。它可能随时被放弃或更改。
 > 请仅出于评估目的使用它。我们非常欢迎您在 [此问题](https://github.com/Kotlin/KEEP/issues/190) 中向我们提供反馈。
@@ -847,7 +847,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.5" validate="false"}
 
-### 在特定位置使用正则表达式进行匹配
+### 在特定位置使用正则表达式进行匹配 {id="matching-with-regex-at-a-particular-position"}
 
 > `Regex.matchAt()` 和 `Regex.matchesAt()` 函数是 [实验性的](components-stability.md)。它们可能随时被放弃或更改。
 > 请仅出于评估目的使用它们。我们非常欢迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-34021) 上向我们提供关于它们的反馈。
@@ -885,7 +885,7 @@ fun main(){
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.5" validate="false"}
 
-### 将正则表达式拆分为序列
+### 将正则表达式拆分为序列 {id="splitting-regex-to-a-sequence"}
 
 > `Regex.splitToSequence()` 和 `CharSequence.splitToSequence(Regex)` 函数是 [实验性的](components-stability.md)。它们可能随时被放弃或更改。
 > 请仅出于评估目的使用它们。我们非常欢迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-23351) 上向我们提供关于它们的反馈。
@@ -915,7 +915,7 @@ fun main(){
 ```
 {kotlin-runnable="false"}
 
-## Serialization 1.3.0-RC
+## Serialization 1.3.0-RC {id="serialization-1-3-0-rc"}
 
 `kotlinx.serialization` [1.3.0-RC](https://github.com/Kotlin/kotlinx.serialization/releases/tag/v1.3.0-RC) 带来了新的 JSON 序列化功能：
 * Java IO 流序列化

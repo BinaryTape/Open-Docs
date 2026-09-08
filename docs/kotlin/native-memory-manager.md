@@ -5,7 +5,7 @@ Kotlin/Native 使用一种与 JVM、Go 以及其他主流技术类似的现代�
 * 对象存储在共享堆中，可以从任何线程访问。
 * 定期进行跟踪式垃圾回收，以回收从“根”（如局部变量和全局变量）不可达的对象。
 
-## 垃圾回收器
+## 垃圾回收器 {id="garbage-collector"}
 
 Kotlin/Native 的垃圾回收器 (GC) 算法在不断演进。目前，它作为一个并发标记清除 (CMS) 回收器运行，不将堆分为分代。
 
@@ -26,11 +26,11 @@ GC 在多个线程上并行处理标记队列，包括应用线程、GC 线程�
 kotlin.native.binary.gc=pmcs
 ```
 
-### 手动启用垃圾回收
+### 手动启用垃圾回收 {id="enable-garbage-collection-manually"}
 
 要强制启动垃圾回收器，请调用 `kotlin.native.internal.GC.collect()`。此方法会触发一次新的回收并等待其完成。
 
-### 监控 GC 性能
+### 监控 GC 性能 {id="monitor-gc-performance"}
 
 要监控 GC 性能，您可以查看其日志并诊断问题。要启用日志记录，请在 Gradle 构建脚本中设置以下编译器选项：
 
@@ -59,7 +59,7 @@ kotlin.native.binary.gc=pmcs
 
    在这里，最低图表上的每个蓝色块代表一个单独的迹点事件，即一次 GC 暂停。
 
-### 禁用垃圾回收
+### 禁用垃圾回收 {id="disable-garbage-collection"}
 
 建议保持启用 GC。但在某些情况下您可以禁用它，例如出于测试目的，或者如果您遇到了问题且程序是短期的。为此，请在您的 `gradle.properties` 文件中设置以下二进制选项：
 
@@ -71,7 +71,7 @@ kotlin.native.binary.gc=noop
 >
 {style="warning"}
 
-## 内存消耗
+## 内存消耗 {id="memory-consumption"}
 
 Kotlin/Native 使用自己的[内存分配器](https://github.com/JetBrains/kotlin/blob/master/kotlin-native/runtime/src/alloc/custom/README.md)。它将系统内存划分为页，允许按连续顺序进行独立清除。每次分配都成为页内的一个内存块，并且页会跟踪块的大小。不同的页类型针对各种分配大小进行了优化。内存块的连续安排确保了对所有已分配块的高效遍历。
 
@@ -81,11 +81,11 @@ Kotlin/Native 内存分配器带有针对内存分配突然激增的保护机制
 
 您可以自行监控内存消耗、检查内存泄漏并调整内存消耗。
 
-### 监控内存消耗
+### 监控内存消耗 {id="monitor-memory-consumption"}
 
 要调试内存问题，您可以检查内存管理器指标。此外，还可以在 Apple 平台上跟踪 Kotlin 的内存消耗。
 
-#### 检查内存泄漏
+#### 检查内存泄漏 {id="check-for-memory-leaks"}
 
 要访问内存管理器指标，请调用 `kotlin.native.internal.GC.lastGCInfo()`。此方法返回最后一次运行垃圾回收器的统计信息。这些统计信息可用于：
 
@@ -122,7 +122,7 @@ fun test() {
 }
 ```
 
-#### 在 Apple 平台上跟踪内存消耗
+#### 在 Apple 平台上跟踪内存消耗 {id="track-memory-consumption-on-apple-platforms"}
 
 在 Apple 平台上调试内存问题时，您可以查看 Kotlin 代码预留了多少内存。Kotlin 的份额贴有标识符标签，可以通过 Xcode Instruments 中的 VM Tracker 等工具进行跟踪。
 
@@ -140,15 +140,15 @@ fun test() {
 
   如果您设置了 [`kotlin.native.binary.pagedAllocator=false`](#禁用分配器分页) Gradle 属性，则内存将改为按对象预留。
 
-### 调整内存消耗
+### 调整内存消耗 {id="adjust-memory-consumption"}
 
 如果您遇到意外的高内存消耗，请尝试以下解决方案：
 
-#### 更新 Kotlin
+#### 更新 Kotlin {id="update-kotlin"}
 
 将 Kotlin 更新到最新版本。我们一直在改进内存管理器，因此即使是简单的编译器更新也可能改善内存消耗。
 
-#### 禁用分配器分页 
+#### 禁用分配器分页 {id="disable-allocator-paging"}
 <primary-label ref="experimental-opt-in"/>
 
 您可以禁用分配的分页（缓冲），以便内存分配器按对象预留内存。在某些情况下，这可能有助于您满足严格的内存限制或减少应用启动时的内存消耗。
@@ -163,7 +163,7 @@ kotlin.native.binary.pagedAllocator=false
 > 
 {style="note"}
 
-#### 启用 Latin-1 字符串支持
+#### 启用 Latin-1 字符串支持 {id="enable-support-for-latin-1-strings"}
 <primary-label ref="experimental-opt-in"/>
 
 默认情况下，Kotlin 中的字符串使用 UTF-16 编码存储，其中每个字符由两个字节表示。在某些情况下，这会导致字符串在二进制文件中占用的空间是源代码中的两倍，读取数据占用的内存也是两倍。
@@ -184,7 +184,7 @@ kotlin.native.binary.latin1Strings=true
 
 如果这些选项都没有帮助，请在 [YouTrack](https://kotl.in/issue) 中创建一个问题。
 
-## 在后台运行单元测试
+## 在后台运行单元测试 {id="unit-tests-in-the-background"}
 
 在单元测试中，没有任何机制处理主线程队列，因此除非已将其模拟 (mock)，否则不要使用 `Dispatchers.Main`。可以通过调用 `kotlinx-coroutines-test` 中的 `Dispatchers.setMain` 来完成模拟。
 
@@ -212,7 +212,7 @@ fun mainBackground(args: Array<String>) {
 
 然后，使用 `-e testlauncher.mainBackground` 编译器选项编译测试二进制文件。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * [从旧版内存管理器迁移](native-migration-guide.md)
 * [查看与 Swift/Objective-C ARC 集成的具体细节](native-arc-integration.md)

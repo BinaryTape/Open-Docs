@@ -15,7 +15,7 @@
 
 このセクションの残りの部分では、さまざまな種類の互換性を確保するために実行できるアクションと、使用できるツールについて説明します。
 
-## 互換性のタイプ {initial-collapse-state="collapsed" collapsible="true"}
+## 互換性のタイプ {initial-collapse-state="collapsed" collapsible="true" id="compatibility-types"}
 
 **バイナリ互換性（Binary compatibility）**とは、ライブラリの新しいバージョンが、以前にコンパイルされたバージョンのライブラリを置き換えられることを意味します。
 以前のバージョンのライブラリに対してコンパイルされたソフトウェアは、引き続き正しく動作する必要があります。
@@ -28,7 +28,7 @@
 
 **振る舞いの互換性（Behavioral compatibility）**とは、ライブラリの新しいバージョンが、バグ修正を除いて既存の機能を変更しないことを意味します。同じ機能が含まれ、それらは同じセマンティクス（意味論）を持ちます。
 
-## 互換性のある言語およびAPIバージョンの選択
+## 互換性のある言語およびAPIバージョンの選択 {id="choose-compatible-language-and-api-versions"}
 
 ライブラリを公開する際は、コンパイル時と実行時の互換性の両方を考慮してください：
 
@@ -47,7 +47,7 @@ GradleやIDEプラグインのように、実行環境が利用者の制御外�
 
 ライブラリに最適な言語バージョンとAPIバージョンを選択してください。新しいバージョンでは最新のKotlin機能を採用でき、古いバージョンではより多くの利用者がライブラリを使用できるようになります。最適な選択は、ライブラリのユースケースと、それに依存する利用者の数によって異なります。
 
-## Binary compatibility validatorの使用
+## Binary compatibility validatorの使用 {id="use-the-binary-compatibility-validator"}
 
 JetBrainsは、APIの異なるバージョン間でバイナリ互換性を確保するために使用できる [Binary compatibility validator](https://github.com/Kotlin/binary-compatibility-validator) ツールを提供しています。
 
@@ -62,13 +62,13 @@ JetBrainsは、APIの異なるバージョン間でバイナリ互換性を確�
 
 このバリデーターは、マルチプラットフォームライブラリによって生成される [KLibの検証を実験的にサポート](https://github.com/Kotlin/binary-compatibility-validator?tab=readme-ov-file#experimental-klib-abi-validation-support) しています。
 
-### Kotlin Gradleプラグインでのバイナリ互換性検証
+### Kotlin Gradleプラグインでのバイナリ互換性検証 {id="binary-compatibility-validation-in-the-kotlin-gradle-plugin"}
 
 <primary-label ref="experimental-general"/>
 
 バージョン 2.2.0 以降、Kotlin Gradle プラグインはバイナリ互換性の検証をサポートしています。詳細については、[Kotlin Gradle プラグインでのバイナリ互換性検証](gradle-binary-compatibility-validation.md) を参照してください。
 
-## 戻り値の型を明示的に指定する
+## 戻り値の型を明示的に指定する {id="specify-return-types-explicitly"}
 
 [Kotlinコーディングガイドライン](coding-conventions.md#coding-conventions-for-libraries) で議論されているように、API内の関数の戻り値の型とプロパティの型は常に明示的に指定する必要があります。[Explicit APIモード](api-guidelines-simplicity.md#use-explicit-api-mode) に関するセクションも参照してください。
 
@@ -101,7 +101,7 @@ fun Int.defaultDeserializer() = JsonOrXmlDeserializer({ ... }, { ... })
 
 既存の機能は、XMLをデシリアライズする機能が追加された状態で引き続き動作します。しかし、これはバイナリ互換性を壊します。
 
-## 既存のAPI関数への引数の追加を避ける
+## 既存のAPI関数への引数の追加を避ける {id="avoid-adding-arguments-to-existing-api-functions"}
 
 公開APIにデフォルト値のない引数を追加すると、ユーザーは以前よりも多くの情報を呼び出し時に提供する必要があるため、バイナリ互換性とソース互換性の両方が壊れます。
 しかし、[デフォルト引数](functions.md#parameters-with-default-values) を追加する場合であっても、互換性が壊れる可能性があります。
@@ -146,7 +146,7 @@ Exception in thread "main" java.lang.NoSuchMethodError: 'int LibKt.fib()'
 
 ただし、ソース互換性は維持されます。両方のファイルを再コンパイルすれば、プログラムは以前と同様に動作します。
 
-### バイナリ互換性を維持するためにオーバーロードを使用する {initial-collapse-state="collapsed" collapsible="true"}
+### バイナリ互換性を維持するためにオーバーロードを使用する {initial-collapse-state="collapsed" collapsible="true" id="use-overloads-to-preserve-binary-compatibility"}
 
 公開されたAPIにオプションのパラメータを追加する際、バイナリ互換性を維持するために[実験的（Experimental）](components-stability.md#stability-levels-explained)な [`@IntroducedAt`](java-to-kotlin-interop.md#overloads-generation) アノテーションを使用できます。
 
@@ -174,7 +174,7 @@ fun fib() = …
 fun fib(input: Int) = …
 ```
 
-## 戻り値の型の拡張や縮小を避ける
+## 戻り値の型の拡張や縮小を避ける {id="avoid-widening-or-narrowing-return-types"}
 
 APIを進化させる際、関数の戻り値の型を拡張（widen）したり縮小（narrow）したりしたくなることはよくあります。
 例えば、APIの将来のバージョンで、戻り値の型を `List` から `Collection` に、あるいは `Collection` から `List` に変更したい場合があります。
@@ -223,7 +223,7 @@ Exception in thread "main" java.lang.NoSuchMethodError: 'java.lang.Number Librar
 JVMは `Number` を返す `demo` という名前の静的メソッドを呼び出そうとしています。
 しかし、そのメソッドはもはや存在しないため、バイナリ互換性を壊したことになります。
 
-## APIでのデータクラスの使用を避ける
+## APIでのデータクラスの使用を避ける {id="avoid-using-data-classes-in-your-api"}
 
 通常の開発において、データクラスの強みは自動生成される追加の関数にあります。
 APIデザインにおいては、この強みが弱点となります。
@@ -267,7 +267,7 @@ public final User copy(java.lang.String, java.lang.String, boolean)
 
 データクラスに関するもう一つの問題は、コンストラクタ引数の順序を変更すると、非構造化（destructuring）に使用される生成された `componentX` メソッドに影響が及ぶことです。たとえバイナリ互換性が壊れなかったとしても、順序の変更は確実に振る舞いの互換性を壊します。
 
-## アノテーションターゲットの変更を避ける
+## アノテーションターゲットの変更を避ける {id="avoid-changing-annotation-targets"}
 
 アノテーションを公開する際は、ライブラリのリリース後に許可されるターゲット（allowed targets）を変更しないようにしてください。これらを変更すると、ユーザーが既存のコードを再コンパイルした際、同じアノテーションが適用される方法に影響を与える可能性があります。
 
@@ -307,14 +307,14 @@ class User {
 }
 ```
 
-## PublishedApiアノテーションを使用する際の考慮事項
+## PublishedApiアノテーションを使用する際の考慮事項 {id="considerations-for-using-the-publishedapi-annotation"}
 
 Kotlinでは、インライン関数をライブラリのAPIの一部にすることができます。これらの関数への呼び出しは、ユーザーが記述したクライアントコード内にインライン展開されます。これは互換性の問題を引き起こす可能性があるため、これらの関数が非公開APIの宣言を呼び出すことは許可されていません。
 
 インライン化された公開関数からライブラリの内部APIを呼び出す必要がある場合は、その内部APIに [`@PublishedApi`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-published-api/) アノテーションを付けることで呼び出しが可能になります。
 これにより内部宣言は実質的に公開され、その参照はコンパイルされたクライアントコードに含まれることになります。したがって、内部宣言を変更する際には、それらの変更がバイナリ互換性に影響を与える可能性があるため、公開宣言と同様に扱う必要があります。
 
-## APIを実利的に進化させる
+## APIを実利的に進化させる {id="evolve-apis-pragmatically"}
 
 既存の宣言を削除または変更することで、時間をかけてライブラリのAPIに破壊的変更を加える必要がある場合があります。このセクションでは、そのようなケースに実利的に対処する方法について説明します。
 
@@ -332,7 +332,7 @@ Kotlinでは、インライン関数をライブラリのAPIの一部にする�
 
 詳細は、[Kotlin Evolution principles ドキュメント](kotlin-evolution-principles.md#libraries) または KotlinConf 2023 での Leonid Startsev によるトーク [Evolving your Kotlin API painlessly for clients](https://www.youtube.com/watch?v=cCgXtpVPO-o&t=1468s) で学ぶことができます。
 
-## RequiresOptInメカニズムの使用
+## RequiresOptInメカニズムの使用 {id="use-the-requiresoptin-mechanism"}
 
 Kotlin標準ライブラリは、APIの一部を使用する前にユーザーからの明示的な同意を要求するための [オプトインメカニズムを提供](opt-in-requirements.md) しています。
 これは、それ自体に [`@RequiresOptIn`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-requires-opt-in/) アノテーションが付いたマーカーアノテーションを作成することに基づいています。
@@ -344,7 +344,7 @@ Kotlin標準ライブラリは、APIの一部を使用する前にユーザー�
 * ライブラリが実験的APIを使用している場合は、その [アノテーションを自身のユーザーに伝播](opt-in-requirements.md#propagate-opt-in-requirements) させてください。これにより、ユーザーはまだ進化途中の依存関係があることを認識できます。
 * ライブラリ内の既存の宣言を非推奨にするためにオプトインメカニズムを使用することは避けてください。代わりに、[APIを実利的に進化させる](#apiを実利的に進化させる) セクションで説明されているように、`@Deprecated` を使用してください。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 まだ確認していない場合は、以下のページも参照してください：
 

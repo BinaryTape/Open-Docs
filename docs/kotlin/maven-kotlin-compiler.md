@@ -3,7 +3,7 @@
 `kotlin-maven-plugin` 允许您为 Maven 项目配置 Kotlin 编译器。
 您可以指定编译器选项、选择执行策略并启用增量编译。
 
-## 指定编译器选项
+## 指定编译器选项 {id="specify-compiler-options"}
 
 您可以在 Kotlin Maven 插件节点的 `<configuration>` 部分中，通过元素为编译器指定额外的选项和参数：
 
@@ -36,7 +36,7 @@
 
 支持以下属性：
 
-### JVM 专属属性
+### JVM 专属属性 {id="attributes-specific-to-jvm"}
 
 | 名称 | 属性名称 | 描述 | 可能的值 | 默认值 |
 |-------------------|-----------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------|-----------------------------|
@@ -52,7 +52,7 @@
 | `jdkHome`         | `kotlin.compiler.jdkHome`         | 将指定位置的自定义 JDK 包含到类路径中，而不是默认的 `JAVA_HOME` |                                                         |                             |
 | `jdkToolchain`    | `kotlin.compiler.jdkToolchain`    | 设置要从工具链中使用的 JDK 版本。仅影响 Kotlin 编译 |                                                         |                             |
 
-## 选择执行策略
+## 选择执行策略 {id="choose-execution-strategy"}
 
 <snippet id="maven-configure-execution-strategy">
 
@@ -68,7 +68,7 @@
 
 有关不同策略的更多信息，请参阅[编译器执行策略](compiler-execution-strategy.md)。
 
-## 启用增量编译
+## 启用增量编译 {id="enable-incremental-compilation"}
 
 为了加快构建速度，您可以通过添加 `kotlin.compiler.incremental` 属性来启用增量编译：
 
@@ -80,6 +80,6 @@
 
 或者，在运行构建时使用 `-Dkotlin.compiler.incremental=true` 选项。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 [打包您的项目](maven-compile-package.md)

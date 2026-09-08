@@ -62,11 +62,11 @@ NEW has been assigned to 'p' in Example@33a17727.
 你可以在函式或程式碼區塊內宣告委派屬性；它不一定要是類別的成員。
 下方可以找到[一個範例](#local-delegated-properties)。
 
-## 標準委派
+## 標準委派 {id="standard-delegates"}
 
 Kotlin 標準函式庫為幾種有用的委派提供了工廠方法。
 
-### 延遲屬性
+### 延遲屬性 {id="lazy-properties"}
 
 [`lazy()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/lazy.html) 是一個接收 Lambda 並傳回 `Lazy<T>` 執行個體的函式，該執行個體可作為實作延遲屬性的委派。
 第一次呼叫 `get()` 時會執行傳遞給 `lazy()` 的 Lambda 並記錄結果。
@@ -89,7 +89,7 @@ fun main() {
 
 如果你確定初始化一律發生在與使用屬性相同的執行緒中，則可以使用 `LazyThreadSafetyMode.NONE`。它不會提供任何執行緒安全性保證及相關開銷。
 
-### 可觀察屬性
+### 可觀察屬性 {id="observable-properties"}
 
 [`Delegates.observable()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.properties/-delegates/observable.html)
 接收兩個引數：初始值與修改時的處理常式。
@@ -116,7 +116,7 @@ fun main() {
 
 如果你想攔截指派動作並**否決**（veto）它們，請使用 [`vetoable()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.properties/-delegates/vetoable.html) 取代 `observable()`。傳遞給 `vetoable` 的處理常式會在指派新屬性值**之前**被呼叫。
 
-## 委派給另一個屬性
+## 委派給另一個屬性 {id="delegating-to-another-property"}
 
 一個屬性可以將其 getter 與 setter 委派給另一個屬性。這種委派可用於頂層屬性與類別屬性（成員與擴充）。委派屬性可以是：
 * 頂層屬性
@@ -156,7 +156,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.4"}
 
-## 將屬性儲存於 Map 中
+## 將屬性儲存於 Map 中 {id="storing-properties-in-a-map"}
 
 一個常見的使用案例是將屬性的值儲存於 Map 中。這在解析 JSON 或執行其他動態任務的應用程式中經常出現。在這種情況下，你可以使用 Map 執行個體本身作為委派屬性的委派。
 
@@ -206,7 +206,7 @@ class MutableUser(val map: MutableMap<String, Any?>) {
 }
 ```
 
-## 區域委派屬性
+## 區域委派屬性 {id="local-delegated-properties"}
 
 你可以將區域變數宣告為委派屬性。
 例如，你可以讓一個區域變數變為延遲加載：
@@ -224,7 +224,7 @@ fun example(computeFoo: () -> Foo) {
 `memoizedFoo` 變數將僅在首次存取時計算。
 如果 `someCondition` 為 false，則該變數完全不會被計算。
 
-## 屬性委派的需求
+## 屬性委派的需求 {id="property-delegate-requirements"}
 
 對於**唯讀**屬性（`val`），委派應提供一個具有以下參數的運算子函式 `getValue()`：
 
@@ -290,7 +290,7 @@ val readOnlyResource: Resource by resourceDelegate()  // ReadWriteProperty 作�
 var readWriteResource: Resource by resourceDelegate()
 ```
 
-## 委派屬性的轉換規則
+## 委派屬性的轉換規則 {id="translation-rules-for-delegated-properties"}
 
 在底層，Kotlin 編譯器會為某些類型的委派屬性產生輔助屬性，然後將操作委派給它們。
 
@@ -317,7 +317,7 @@ class C {
 
 Kotlin 編譯器在引數中提供了關於 `prop` 的所有必要資訊：第一個引數 `this` 指向外部類別 `C` 的執行個體，而 `this::prop` 是一個 `KProperty` 型別的反射物件，描述了 `prop` 本身。
 
-### 委派屬性的最佳化情況
+### 委派屬性的最佳化情況 {id="optimized-cases-for-delegated-properties"}
 
 如果委派符合以下情況，則會省略 `$delegate` 欄位：
 * 被參考的屬性：
@@ -359,7 +359,7 @@ Kotlin 編譯器在引數中提供了關於 `prop` 的所有必要資訊：第�
   }
   ```
 
-### 委派給另一個屬性時的轉換規則
+### 委派給另一個屬性時的轉換規則 {id="translation-rules-when-delegating-to-another-property"}
 
 當委派給另一個屬性時，Kotlin 編譯器會產生對該參考屬性的直接存取。這意味著編譯器不會產生 `prop$delegate` 欄位。此最佳化有助於節省記憶體。
 
@@ -390,7 +390,7 @@ class C<Type> {
 }
 ```
 
-## 提供委派
+## 提供委派 {id="providing-a-delegate"}
 
 透過定義 `provideDelegate` 運算子，你可以擴充建立屬性實作所委派之物件的邏輯。如果 `by` 右側使用的物件將 `provideDelegate` 定義為成員或擴充函式，則會呼叫該函式來建立屬性委派執行個體。
 

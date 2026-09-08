@@ -3,7 +3,7 @@
 Compose Multiplatformは、異なるプラットフォーム間で可能な限り同様に動作するアプリの作成を支援することを目的としています。
 このページでは、Compose Multiplatformを使用して異なるプラットフォーム向けの共通UIコードを記述する際に想定される、回避不可能な違いや一時的な妥協点について説明します。
 
-## プロジェクト構造
+## プロジェクト構造 {id="project-structure"}
 
 ターゲットとするプラットフォームに関わらず、それぞれに専用のエントリポイントが必要です。
 
@@ -16,9 +16,9 @@ Compose Multiplatformは、異なるプラットフォーム間で可能な限�
 その前に、利用可能なすべてのKotlin Multiplatformライブラリを網羅的にカタログ化することを目指しているJetBrainsのプロジェクトである [klibs.io](https://klibs.io/) を確認してください。
 ネットワークコード、データベース、コルーチンなど、多くのライブラリが既に利用可能です。
 
-## 入力方法
+## 入力方法 {id="input-methods"}
 
-### ソフトウェアキーボード
+### ソフトウェアキーボード {id="software-keyboards"}
 
 各プラットフォームは、テキストフィールドがアクティブになったときのキーボードの表示方法を含め、ソフトウェアキーボードをわずかに異なる方法で処理する場合があります。
 
@@ -26,14 +26,14 @@ Compose Multiplatformは、[Composeのウィンドウインセット（window in
 実装によっては、iOS上でソフトウェアキーボードの配置が少し異なる場合があります。
 どちらのプラットフォームでも、キーボードが重要なUI要素を覆い隠さないように確認してください。
 
-### タッチとマウスのサポート
+### タッチとマウスのサポート {id="touch-and-mouse-support"}
 
 現在のデスクトップ実装では、すべてのポインター操作をマウスジェスチャーとして解釈するため、マルチタッチジェスチャーをサポートしていません。
 例えば、一般的なピンチ・トゥ・ズーム（pinch-to-zoom）ジェスチャーは、2つのタッチを同時に処理する必要があるため、デスクトップ向けのCompose Multiplatformでは実装できません。
 
-## UIの動作と外観
+## UIの動作と外観 {id="ui-behavior-and-appearance"}
 
-### プラットフォーム固有の機能
+### プラットフォーム固有の機能 {id="platform-specific-functionality"}
 
 一部の一般的なUI要素はCompose Multiplatformによってカバーされておらず、フレームワークを使用してカスタマイズすることはできません。
 そのため、プラットフォームごとに見た目が異なることが予想されます。
@@ -41,12 +41,12 @@ Compose Multiplatformは、[Composeのウィンドウインセット（window in
 ネイティブのポップアップビューがその一例です。
 Compose Multiplatformのテキストフィールドでテキストを選択すると、**Copy**（コピー）や **Translate**（翻訳）などのデフォルトの推奨アクションは、アプリが実行されているプラットフォームに固有のものになります。
 
-### スクロールの物理挙動 (Scroll physics)
+### スクロールの物理挙動 (Scroll physics) {id="scroll-physics"}
 
 AndroidとiOSでは、スクロールの感覚は各プラットフォームに合わせて調整されています。
 デスクトップでは、スクロールのサポートは（[タッチとマウスのサポート](#touch-and-mouse-support)で述べたように）マウスホイールに限定されています。
 
-### 相互運用（Interop）ビュー
+### 相互運用（Interop）ビュー {id="interop-views"}
 
 共通のコンポーザブル内にネイティブビューを埋め込みたい場合、またはその逆の場合は、Compose Multiplatformがサポートするプラットフォーム固有のメカニズムに精通する必要があります。
 
@@ -54,7 +54,7 @@ iOSについては、[SwiftUI](compose-swiftui-integration.md) および [UIKit]
 
 デスクトップについては、Compose Multiplatformは [Swingとの相互運用性](compose-desktop-swing-interoperability.md) をサポートしています。
 
-### 戻るジェスチャー
+### 戻るジェスチャー {id="back-gesture"}
 
 Androidデバイスはデフォルトで戻るジェスチャーをサポートしており、すべての画面は何らかの形で **戻る** ボタンに反応します。
 
@@ -65,7 +65,7 @@ iOS向けのCompose Multiplatformは、Androidの機能を模倣するために�
 
 詳細については、[こちら](compose-navigation.md#back-gesture) のセクションを参照してください。
 
-### テキスト
+### テキスト {id="text"}
 
 テキストに関しては、Compose Multiplatformは異なるプラットフォーム間でのピクセル単位での完全な一致を保証しません。
 
@@ -76,7 +76,7 @@ iOS向けのCompose Multiplatformは、Androidの機能を模倣するために�
 しかし、ピクセルの違いは、例えばスクリーンショットテストに影響を与える可能性があります。
 
 <!-- this should be covered in benchmarking, not as a baseline Compose Multiplatform limitation 
-### 初回パフォーマンス
+### 初回パフォーマンス {id="initial-performance"}
 
 iOSでは、Androidと比較して、個々の画面の初回パフォーマンスに遅延を感じる場合があります。
 これは、Compose MultiplatformがオンデマンドでUIシェーダーをコンパイルするために発生する可能性があります。
@@ -86,16 +86,16 @@ iOSでは、Androidと比較して、個々の画面の初回パフォーマン�
 必要なすべてのシェーダーがキャッシュされると、その後の起動がコンパイルによって遅れることはありません。
 -->
 
-## 開発者体験
+## 開発者体験 {id="developer-experience"}
 
-### プレビュー (Previews)
+### プレビュー (Previews) {id="previews"}
 
 *プレビュー*は、`@Preview` アノテーションが付けられたコンポーザブルのレイアウト表示であり、IntelliJ IDEAやAndroid Studioで共有UIコードと並んでレンダリングできます。
 
 プレビューには、明示的な依存関係を含む特定のプロジェクト構成が必要です。
 プロジェクトでプレビューを有効にする方法については、[Compose UIプレビュー](compose-previews.md) を参照してください。
 
-### ホットリロード (Hot reload)
+### ホットリロード (Hot reload) {id="hot-reload"}
 
 *ホットリロード*とは、追加の入力を必要とせずに、コードの変更を即座にアプリに反映させることを指します。
 Compose Multiplatformでは、ホットリロード機能はJVM（デスクトップ）ターゲットに対してのみ利用可能です。
@@ -103,7 +103,7 @@ Compose Multiplatformでは、ホットリロード機能はJVM（デスクト�
 
 詳細については、[Composeホットリロード](compose-hot-reload.md) の記事を参照してください。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 以下のコンポーネントに関するCompose Multiplatformの実装について詳しくはこちらをご覧ください：
   * [リソース (Resources)](compose-multiplatform-resources.md)

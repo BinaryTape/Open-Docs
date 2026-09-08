@@ -1,8 +1,8 @@
-## 建立與配置子圖
+## 建立與配置子圖 {id="creating-and-configuring-subgraphs"}
 
 以下章節提供在建立代理式工作流程 (agentic workflows) 子圖時的程式碼範本與常用模式。
 
-### 基本子圖建立
+### 基本子圖建立 {id="basic-subgraph-creation"}
 
 自訂子圖通常使用以下模式建立：
 
@@ -242,7 +242,7 @@
     ```
     <!--- KNIT exampleCustomSubgraphsJava03.java -->
 
-### 在子圖中配置工具
+### 在子圖中配置工具 {id="configuring-tools-in-a-subgraph"}
 
 可以透過幾種方式為子圖配置工具：
 
@@ -398,9 +398,9 @@
     ```
     <!--- KNIT exampleCustomSubgraphsJava06.java -->
 
-## 進階子圖技術
+## 進階子圖技術 {id="advanced-subgraph-techniques"}
 
-### 多部分策略
+### 多部分策略 {id="multi-part-strategies"}
 
 複雜的工作流程可以分解為多個子圖，每個子圖處理程序中的特定部分：
 
@@ -515,7 +515,7 @@
     ```
     <!--- KNIT exampleCustomSubgraphsJava07.java -->
 
-## 最佳實務
+## 最佳實務 {id="best-practices"}
 
 在使用子圖時，請遵循以下最佳實務：
 
@@ -529,15 +529,15 @@
 
 5. **考慮 Token 使用量**：注意 Token 使用量，尤其是在子圖之間傳遞大型歷程記錄時。
 
-## 疑難排解
+## 疑難排解 {id="troubleshooting"}
 
-### 工具不可用
+### 工具不可用 {id="tools-not-available"}
 
 如果工具在子圖中不可用：
 
 - 檢查工具是否已正確註冊在工具註冊表中。
 
-### 子圖未按定義及預期的順序執行
+### 子圖未按定義及預期的順序執行 {id="subgraphs-not-running-in-the-defined-and-expected-order"}
 
 如果子圖未按定義的順序執行：
 
@@ -545,7 +545,7 @@
 - 驗證每個子圖是否已將其輸出正確傳遞給下一個子圖。
 - 確保您的子圖與其餘子圖連接，且可從 nodeStart 到達（並可到達 nodeFinish）。請小心使用條件邊，確保它們涵蓋了所有可能的繼續條件，以免在子圖或節點中受阻。
 
-## 範例
+## 範例 {id="examples"}
 
 以下範例顯示如何使用子圖在真實場景中建立代理策略。
 程式碼範例包含三個定義的子圖：`researchSubgraph`、`planSubgraph` 和 `executeSubgraph`，其中每個子圖在助理流程中都有明確且不同的目的。

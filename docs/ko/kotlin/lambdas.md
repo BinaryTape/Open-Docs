@@ -4,7 +4,7 @@
 
 이를 용이하게 하기 위해, 정적 타입 지정 언어인 코틀린은 함수를 표현하기 위해 일련의 [함수 타입(function types)](#function-types)을 사용하며, [람다 표현식(lambda expressions)](#lambda-expressions-and-anonymous-functions)과 같은 특수한 언어 구조를 제공합니다.
 
-## 고차 함수 (Higher-order functions)
+## 고차 함수 (Higher-order functions) {id="higher-order-functions"}
 
 고차 함수는 함수를 매개변수로 받거나 함수를 반환하는 함수를 말합니다.
 
@@ -55,7 +55,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-## 함수 타입 (Function types)
+## 함수 타입 (Function types) {id="function-types"}
 
 코틀린은 함수를 다루는 선언을 위해 `(Int) -> String`과 같은 함수 타입을 사용합니다: `val onClick: () -> Unit = ...`.
 
@@ -83,7 +83,7 @@ fun main() {
 typealias ClickHandler = (Button, ClickEvent) -> Unit
 ```
 
-### 함수 타입 인스턴스화하기
+### 함수 타입 인스턴스화하기 {id="instantiating-a-function-type"}
 
 함수 타입의 인스턴스를 얻는 방법은 여러 가지가 있습니다.
 
@@ -138,7 +138,7 @@ fun main() {
 >
 {style="note"}
 
-### 함수 타입 인스턴스 호출하기
+### 함수 타입 인스턴스 호출하기 {id="invoking-a-function-type-instance"}
 
 함수 타입의 값은 [`invoke(...)` 연산자](operator-overloading.md#invoke-operator)를 사용하여 호출할 수 있습니다: `f.invoke(x)` 또는 단순히 `f(x)`.
 
@@ -163,11 +163,11 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-### 인라인 함수 (Inline functions)
+### 인라인 함수 (Inline functions) {id="inline-functions"}
 
 때로는 고차 함수에 유연한 제어 흐름을 제공하는 [인라인 함수(inline functions)](inline-functions.md)를 사용하는 것이 유리할 때가 있습니다.
 
-## 람다 표현식과 익명 함수
+## 람다 표현식과 익명 함수 {id="lambda-expressions-and-anonymous-functions"}
 
 람다 표현식과 익명 함수는 *함수 리터럴*입니다. 함수 리터럴은 선언되지 않았지만 표현식으로 즉시 전달되는 함수입니다. 다음 예제를 고려해 보십시오.
 
@@ -187,7 +187,7 @@ fun compare(a: String, b: String): Boolean = a.length < b.length
 val suspendingTask = suspend { doSuspendingWork() }
 ```
 
-### 람다 표현식 문법
+### 람다 표현식 문법 {id="lambda-expression-syntax"}
 
 람다 표현식의 전체 문법 형태는 다음과 같습니다.
 
@@ -206,7 +206,7 @@ val sum: (Int, Int) -> Int = { x: Int, y: Int -> x + y }
 val sum = { x: Int, y: Int -> x + y }
 ```
 
-### 후행 람다 전달하기
+### 후행 람다 전달하기 {id="passing-trailing-lambdas"}
 
 코틀린 관례에 따라, 함수의 마지막 매개변수가 함수인 경우 대응하는 인자로 전달되는 람다 표현식을 괄호 밖에 배치할 수 있습니다.
 
@@ -222,7 +222,7 @@ val product = items.fold(1) { acc, e -> acc * e }
 run { println("...") }
 ```
 
-### it: 단일 매개변수의 암시적 이름
+### it: 단일 매개변수의 암시적 이름 {id="it-implicit-name-of-a-single-parameter"}
 
 람다 표현식에 매개변수가 하나만 있는 경우가 매우 흔합니다.
 
@@ -232,7 +232,7 @@ run { println("...") }
 ints.filter { it > 0 } // 이 리터럴의 타입은 '(it: Int) -> Boolean'입니다.
 ```
 
-### 람다 표현식에서 값 반환하기
+### 람다 표현식에서 값 반환하기 {id="returning-a-value-from-a-lambda-expression"}
 
 [한정된 반환(qualified return)](returns.md#return-to-labels) 문법을 사용하여 람다에서 명시적으로 값을 반환할 수 있습니다. 그렇지 않으면 마지막 표현식의 값이 암시적으로 반환됩니다.
 
@@ -256,7 +256,7 @@ ints.filter {
 strings.filter { it.length == 5 }.sortedBy { it }.map { it.uppercase() }
 ```
 
-### 사용하지 않는 변수를 위한 언더스코어
+### 사용하지 않는 변수를 위한 언더스코어 {id="underscore-for-unused-variables"}
 
 람다 매개변수를 사용하지 않는 경우, 이름 대신 언더스코어를 사용할 수 있습니다.
 
@@ -264,11 +264,11 @@ strings.filter { it.length == 5 }.sortedBy { it }.map { it.uppercase() }
 map.forEach { (_, value) -> println("$value!") }
 ```
 
-### 람다에서의 구조 분해
+### 람다에서의 구조 분해 {id="destructuring-in-lambdas"}
 
 람다에서의 구조 분해는 [구조 분해 선언(destructuring declarations)](destructuring-declarations.md#destructuring-in-lambdas)의 일부로 설명되어 있습니다.
 
-### 익명 함수 (Anonymous functions)
+### 익명 함수 (Anonymous functions) {id="anonymous-functions"}
 
 위의 람다 표현식 문법에서 한 가지 빠진 것은 함수의 반환 타입을 지정하는 기능입니다. 대부분의 경우 반환 타입을 자동으로 추론할 수 있으므로 이는 불필요합니다. 그러나 명시적으로 지정해야 하는 경우 *익명 함수*라는 대체 문법을 사용할 수 있습니다.
 
@@ -298,7 +298,7 @@ ints.filter(fun(item) = item > 0)
 
 람다 표현식과 익명 함수의 또 다른 차이점은 [비지역 반환(non-local returns)](inline-functions.md#returns)의 동작입니다. 레이블이 없는 `return` 문은 항상 `fun` 키워드로 선언된 함수에서 반환됩니다. 즉, 람다 표현식 내부의 `return`은 람다를 감싸고 있는 함수에서 반환되지만, 익명 함수 내부의 `return`은 익명 함수 자체에서 반환됩니다.
 
-### 클로저 (Closures)
+### 클로저 (Closures) {id="closures"}
 
 람다 표현식이나 익명 함수(그리고 [지역 함수](functions.md#local-functions), [객체 표현식](object-declarations.md#object-expressions))는 자신의 *클로저(closure)*에 접근할 수 있습니다. 클로저에는 외부 범위에서 선언된 변수가 포함됩니다. 클로저에 캡처된 변수는 람다 안에서 수정할 수 있습니다.
 
@@ -310,7 +310,7 @@ ints.filter { it > 0 }.forEach {
 print(sum)
 ```
 
-### 수신 객체가 있는 함수 리터럴
+### 수신 객체가 있는 함수 리터럴 {id="function-literals-with-receiver"}
 
 `A.(B) -> C`와 같은 수신 객체가 있는 [함수 타입](#function-types)은 특별한 형태의 함수 리터럴인 '수신 객체가 있는 함수 리터럴'로 인스턴스화할 수 있습니다.
 

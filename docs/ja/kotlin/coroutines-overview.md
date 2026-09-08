@@ -22,11 +22,11 @@ Kotlinのコルーチンを初めて使用する場合は、より複雑なト�
 > 
 {style="tip"}
 
-## コルーチンの概念
+## コルーチンの概念 {id="coroutine-concepts"}
 
 `kotlinx.coroutines` ライブラリは、タスクを並行して実行し、コルーチンの実行を構造化し、共有状態を管理するためのコアとなる構成要素を提供します。
 
-### サスペンド関数とコルーチンビルダー
+### サスペンド関数とコルーチンビルダー {id="suspending-functions-and-coroutine-builders"}
 
 Kotlinのコルーチンはサスペンド関数（suspending functions）に基づいて構築されています。サスペンド関数を使用すると、スレッドをブロックすることなくコードを一時停止（pause）し、再開（resume）させることができます。
 `suspend` キーワードは、長時間実行されるオペレーションを非同期的に実行できる関数であることを示します。
@@ -36,7 +36,7 @@ Kotlinのコルーチンはサスペンド関数（suspending functions）に基
 
 これらのビルダーの詳細については、[コルーチンの基本](coroutines-basics.md) および [サスペンド関数の構成](coroutines-and-channels.md) で学ぶことができます。
 
-### コルーチンコンテキストと動作
+### コルーチンコンテキストと動作 {id="coroutine-context-and-behavior"}
 
 `CoroutineScope` からコルーチンを起動すると、その実行を制御する「コンテキスト（context）」が作成されます。
 `.launch()` や `.async()` などのビルダー関数は、コルーチンの動作を定義する一連の要素を自動的に作成します。
@@ -48,7 +48,7 @@ Kotlinのコルーチンはサスペンド関数（suspending functions）に基
 これらは他の要素とともに、デフォルトで親コルーチンから継承される「[_コルーチンコンテキスト（coroutine context）_](coroutine-context-and-dispatchers.md)」を構成します。
 このコンテキストは階層構造を形成し、関連するコルーチンをまとめて[キャンセル](coroutines-cancellation.md)したり、グループとして[例外を処理](exception-handling.md)したりできる「構造化された並行処理」を実現します。
 
-### 非同期フローと共有ミュータブル状態
+### 非同期フローと共有ミュータブル状態 {id="asynchronous-flow-and-shared-mutable-state"}
 
 Kotlinは、コルーチン同士が通信するためのいくつかの方法を提供しています。
 コルーチン間で値を共有する方法に基づいて、以下のオプションから選択してください。
@@ -65,7 +65,7 @@ Kotlinは、コルーチン同士が通信するためのいくつかの方法�
 
 詳細については、[非同期フロー](coroutines-flow.md)、[チャネル](channels.md)、および [コルーチンとチャネルのチュートリアル](coroutines-and-channels.md) を参照してください。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [コルーチンの基本ガイド](coroutines-basics.md) で、コルーチン、サスペンド関数、ビルダーの基礎を学びましょう。
 * [サスペンド関数の構成](coroutine-context-and-dispatchers.md) で、サスペンド関数を組み合わせ、コルーチンのパイプラインを構築する方法を確認しましょう。

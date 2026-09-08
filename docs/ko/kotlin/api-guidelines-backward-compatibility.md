@@ -16,7 +16,7 @@
 
 이 섹션의 나머지 부분에서는 다양한 종류의 호환성을 보장하는 데 도움이 되는 작업과 도구에 대해 설명합니다.
 
-## 호환성 유형 {initial-collapse-state="collapsed" collapsible="true"}
+## 호환성 유형 {initial-collapse-state="collapsed" collapsible="true" id="compatibility-types"}
 
 **바이너리 호환성(Binary compatibility)**은 라이브러리의 새 버전이 이전에 컴파일된 라이브러리 버전을 대체할 수 있음을 의미합니다.
 이전 버전의 라이브러리를 대상으로 컴파일된 모든 소프트웨어가 계속해서 올바르게 작동해야 합니다.
@@ -29,7 +29,7 @@
 
 **동작 호환성(Behavioral compatibility)**은 라이브러리의 새 버전이 버그 수정을 제외하고는 기존 기능을 수정하지 않음을 의미합니다. 동일한 기능이 포함되며 동일한 시맨틱(semantics)을 갖습니다.
 
-## 호환 가능한 언어 및 API 버전 선택
+## 호환 가능한 언어 및 API 버전 선택 {id="choose-compatible-language-and-api-versions"}
 
 라이브러리를 배포할 때는 컴파일 타임(compile-time) 및 런타임(runtime) 호환성을 모두 고려하십시오.
 
@@ -48,7 +48,7 @@
 
 라이브러리에 가장 적합한 언어 및 API 버전을 선택하십시오. 최신 버전은 최신 Kotlin 기능을 도입할 수 있게 해주며, 이전 버전은 더 많은 사용자가 라이브러리를 사용할 수 있도록 돕습니다. 최선의 선택은 라이브러리의 사용 사례와 라이브러리에 의존하는 사용자 수에 따라 달라집니다.
 
-## Binary compatibility validator 사용
+## Binary compatibility validator 사용 {id="use-the-binary-compatibility-validator"}
 
 JetBrains는 API의 여러 버전 간에 바이너리 호환성을 보장하는 데 사용할 수 있는 [Binary compatibility validator](https://github.com/Kotlin/binary-compatibility-validator) 도구를 제공합니다.
 
@@ -63,13 +63,13 @@ JetBrains는 API의 여러 버전 간에 바이너리 호환성을 보장하는 
 
 이 검증 도구는 멀티플랫폼 라이브러리에서 생성된 [KLib 검증에 대한 실험적 지원](https://github.com/Kotlin/binary-compatibility-validator?tab=readme-ov-file#experimental-klib-abi-validation-support)을 포함하고 있습니다.
 
-### Kotlin Gradle 플러그인의 바이너리 호환성 검증
+### Kotlin Gradle 플러그인의 바이너리 호환성 검증 {id="binary-compatibility-validation-in-the-kotlin-gradle-plugin"}
 
 <primary-label ref="experimental-general"/>
 
 버전 2.2.0부터 Kotlin Gradle 플러그인은 바이너리 호환성 검증을 지원합니다. 자세한 내용은 [Kotlin Gradle 플러그인의 바이너리 호환성 검증](gradle-binary-compatibility-validation.md)을 참조하세요.
 
-## 반환 타입을 명시적으로 지정
+## 반환 타입을 명시적으로 지정 {id="specify-return-types-explicitly"}
 
 [Kotlin 코딩 가이드라인](coding-conventions.md#coding-conventions-for-libraries)에서 논의된 바와 같이, API 내에서는 항상 함수의 반환 타입과 프로퍼티 타입을 명시적으로 지정해야 합니다. [Explicit API 모드](api-guidelines-simplicity.md#use-explicit-api-mode)에 관한 섹션도 참조하세요.
 
@@ -102,7 +102,7 @@ fun Int.defaultDeserializer() = JsonOrXmlDeserializer({ ... }, { ... })
 
 기존 기능은 XML 역직렬화 기능이 추가된 상태로 계속 작동할 것입니다. 그러나 이는 바이너리 호환성을 깨뜨립니다.
 
-## 기존 API 함수에 인자 추가 피하기
+## 기존 API 함수에 인자 추가 피하기 {id="avoid-adding-arguments-to-existing-api-functions"}
 
 공개 API에 기본값(default)이 없는 인자를 추가하면 사용자가 이전보다 호출 시 더 많은 정보를 제공해야 하므로 바이너리 및 소스 호환성이 모두 깨집니다. 하지만 [기본 인자(default arguments)](functions.md#parameters-with-default-values)를 추가하는 것조차 호환성을 깨뜨릴 수 있습니다.
 
@@ -147,7 +147,7 @@ Exception in thread "main" java.lang.NoSuchMethodError: 'int LibKt.fib()'
 
 그러나 소스 호환성은 유지됩니다. 두 파일을 모두 다시 컴파일하면 프로그램이 이전과 같이 실행됩니다.
 
-### 바이너리 호환성 유지를 위해 오버로드 사용 {initial-collapse-state="collapsed" collapsible="true"}
+### 바이너리 호환성 유지를 위해 오버로드 사용 {initial-collapse-state="collapsed" collapsible="true" id="use-overloads-to-preserve-binary-compatibility"}
 
 공개된 API에 선택적 매개변수(optional parameters)를 추가할 때, [실험적(Experimental)](components-stability.md#stability-levels-explained) 기능인 [`@IntroducedAt`](java-to-kotlin-interop.md#overloads-generation) 애노테이션을 사용하여 바이너리 호환성을 유지할 수 있습니다.
 
@@ -173,7 +173,7 @@ fun fib() = …
 fun fib(input: Int) = …
 ```
 
-## 반환 타입을 넓히거나 좁히는 것 피하기
+## 반환 타입을 넓히거나 좁히는 것 피하기 {id="avoid-widening-or-narrowing-return-types"}
 
 API를 발전시킬 때 함수의 반환 타입을 넓히거나(widen) 좁히고(narrow) 싶은 경우가 흔히 발생합니다. 예를 들어, 차기 API 버전에서 반환 타입을 `List`에서 `Collection`으로, 또는 `Collection`에서 `List`로 변경하고 싶을 수 있습니다.
 
@@ -220,7 +220,7 @@ Exception in thread "main" java.lang.NoSuchMethodError: 'java.lang.Number Librar
 
 JVM은 `Number`를 반환하는 `demo`라는 정적 메서드를 호출하려고 시도합니다. 그러나 이 메서드는 더 이상 존재하지 않으므로 바이너리 호환성이 깨진 것입니다.
 
-## API에서 데이터 클래스 사용 피하기
+## API에서 데이터 클래스 사용 피하기 {id="avoid-using-data-classes-in-your-api"}
 
 일반적인 개발에서 데이터 클래스의 장점은 자동으로 생성되는 추가 함수들입니다. API 설계에서 이 장점은 약점이 됩니다.
 
@@ -263,7 +263,7 @@ public final User copy(java.lang.String, java.lang.String, boolean)
 
 데이터 클래스의 또 다른 문제는 생성자 인자의 순서를 변경하면 구조 분해(destructuring)에 사용되는 생성된 `componentX` 메서드에 영향을 미친다는 점입니다. 바이너리 호환성을 깨뜨리지 않더라도 순서를 변경하면 동작 호환성이 반드시 깨집니다.
 
-## 애노테이션 타겟 변경 피하기
+## 애노테이션 타겟 변경 피하기 {id="avoid-changing-annotation-targets"}
 
 애노테이션을 공개할 때는 라이브러리를 배포한 후 허용된 타겟(target)을 변경하지 마십시오. 타겟을 변경하면 사용자가 기존 코드를 다시 컴파일할 때 동일한 애노테이션이 적용되는 방식에 영향을 줄 수 있습니다.
 
@@ -304,13 +304,13 @@ class User {
 }
 ```
 
-## PublishedApi 애노테이션 사용 시 고려 사항
+## PublishedApi 애노테이션 사용 시 고려 사항 {id="considerations-for-using-the-publishedapi-annotation"}
 
 Kotlin은 인라인 함수가 라이브러리 API의 일부가 되는 것을 허용합니다. 이러한 함수에 대한 호출은 사용자가 작성한 클라이언트 코드에 인라인으로 삽입됩니다. 이는 호환성 문제를 유발할 수 있으므로, 이러한 함수는 공개 API가 아닌 선언을 호출할 수 없습니다.
 
 인라인된 공개 함수에서 라이브러리의 내부 API를 호출해야 하는 경우, 해당 API에 [`@PublishedApi`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-published-api/) 애노테이션을 달아 호출할 수 있습니다. 이렇게 하면 해당 내부 선언에 대한 참조가 컴파일된 클라이언트 코드에 포함되므로 사실상 공개된 것과 같아집니다. 따라서 이를 변경할 때는 바이너리 호환성에 영향을 미칠 수 있으므로 공개 선언과 동일하게 취급해야 합니다.
 
-## 실용적인 API 발전시키기
+## 실용적인 API 발전시키기 {id="evolve-apis-pragmatically"}
 
 기존 선언을 제거하거나 변경하여 시간이 지남에 따라 라이브러리 API에 중대한 변경(breaking changes)을 가해야 하는 경우가 있습니다. 이 섹션에서는 이러한 경우를 실용적으로 처리하는 방법에 대해 논의합니다.
 
@@ -326,7 +326,7 @@ Kotlin은 인라인 함수가 라이브러리 API의 일부가 되는 것을 허
 
 자세한 내용은 [Kotlin 진화 원칙(Kotlin Evolution principles) 문서](kotlin-evolution-principles.md#libraries) 또는 KotlinConf 2023에서 Leonid Startsev가 발표한 [Evolving your Kotlin API painlessly for clients 강연](https://www.youtube.com/watch?v=cCgXtpVPO-o&t=1468s)에서 확인할 수 있습니다.
 
-## RequiresOptIn 메커니즘 사용
+## RequiresOptIn 메커니즘 사용 {id="use-the-requiresoptin-mechanism"}
 
 Kotlin 표준 라이브러리는 사용자가 API의 일부를 사용하기 전에 명시적인 동의를 요구하는 [옵트인(opt-in) 메커니즘](opt-in-requirements.md)을 제공합니다. 이는 그 자체가 [`@RequiresOptIn`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-requires-opt-in/)으로 애노테이션된 마커 애노테이션을 생성하는 것을 기반으로 합니다. 특히 라이브러리에 새로운 API를 도입할 때 소스 및 동작 호환성에 관한 기대치를 관리하기 위해 이 메커니즘을 사용해야 합니다.
 
@@ -336,7 +336,7 @@ Kotlin 표준 라이브러리는 사용자가 API의 일부를 사용하기 전�
 * 라이브러리에서 실험적(experimental) API를 사용하는 경우, 해당 애노테이션을 자체 사용자에게도 [전파(propagate)](opt-in-requirements.md#propagate-opt-in-requirements)하십시오. 이를 통해 사용자는 아직 진화 중인 의존성이 있음을 인지할 수 있습니다.
 * 라이브러리의 기존 선언을 지원 중단하는 용도로 옵트인 메커니즘을 사용하지 마십시오. 대신 [실용적인 API 발전시키기](#실용적인-api-발전시키기) 섹션에서 설명한 대로 `@Deprecated`를 사용하십시오.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 아직 확인하지 않았다면 다음 페이지를 확인해 보세요.
 

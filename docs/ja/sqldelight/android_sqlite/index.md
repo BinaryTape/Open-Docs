@@ -32,7 +32,7 @@ val driver: SqlDriver = AndroidSqliteDriver(Database.Schema, context, "test.db")
 
 {% include 'common/index_queries.md' %}
 
-## SQLite のバージョン
+## SQLite のバージョン {id="sqlite-versions"}
 
 Android プロジェクトでは、SQLDelight Gradle プラグインがプロジェクトの `minSdkVersion` 設定に基づいて SQLite ダイアレクト (dialect) のバージョンを自動的に選択します。各 Android SDK レベルでサポートされている SQLite バージョンのリストについては、[こちら](https://developer.android.com/reference/android/database/sqlite/package-summary) を参照してください。
 

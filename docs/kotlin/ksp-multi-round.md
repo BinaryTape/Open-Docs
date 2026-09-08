@@ -19,7 +19,7 @@ override fun process(resolver: Resolver): List<KSAnnotated> {
 
 当一整轮处理没有产生新文件时，多轮处理结束。如果仍有延迟符号未处理，KSP 将为每个带有剩余延迟符号的处理器记录一条错误。
 
-## 将符号延迟到下一轮
+## 将符号延迟到下一轮 {id="deferring-symbols-to-the-next-round"}
 
 当需要来自其他处理器的额外信息时，处理器可以将符号延迟到后续轮次。处理器可以跨多轮持续延迟某个符号，直到所需信息可用。一旦信息可用，处理器即可处理该符号。
 
@@ -35,7 +35,7 @@ override fun process(resolver: Resolver): List<KSAnnotated> {
 
 例如，为被注解的类生成构建器的处理器可能要求其所有构造函数形参类型都解析为具体类型。在第一轮中，其中一个形参类型可能无法解析。在后续轮次中，由于在此期间生成了文件，它可能变得可以解析。随后处理器即可处理该类。
 
-## 验证符号
+## 验证符号 {id="validating-symbols"}
 
 验证是决定是否将符号延迟到后续轮次的便捷方法。处理器应定义正确处理符号所需的信息。
 
@@ -47,7 +47,7 @@ override fun process(resolver: Resolver): List<KSAnnotated> {
 
 在实现自定义验证时，请使用 `KSType.isError` 来确定类型是否有效。如果 `isError` 为 `true`，则表示 KSP 无法解析该类型。利用此信息来决定是否将处理延迟到后续轮次。
 
-## 访问文件和符号
+## 访问文件和符号 {id="accessing-files-and-symbols"}
 
 新生成的文件和现有文件均可通过 `Resolver` 访问。
 
@@ -61,7 +61,7 @@ KSP 提供了两个用于访问文件的 API：
 
 在每一轮中，`Resolver.getSymbolsWithAnnotation()` 仅返回来自新生成文件的符号以及从上一轮延迟的符号。这有助于避免不必要的重复处理。
 
-## 处理器实例化
+## 处理器实例化 {id="processor-instantiation"}
 
 KSP 仅创建一次处理器实例。您可以在处理器实例中存储信息，并跨多轮重用这些信息。
 
@@ -71,9 +71,9 @@ KSP 仅创建一次处理器实例。您可以在处理器实例中存储信息�
 > 
 {style="note"}
 
-## 错误和异常处理
+## 错误和异常处理 {id="error-and-exception-handling"}
 
-### 错误
+### 错误 {id="errors"}
 
 处理器通过调用 `KSPLogger.error()` 来报告错误。
 
@@ -81,7 +81,7 @@ KSP 仅创建一次处理器实例。您可以在处理器实例中存储信息�
 
 在该轮次期间，其他处理器仍会正常继续处理。KSP 仅在所有处理器完成当前轮次后才处理错误。
 
-### 异常
+### 异常 {id="exceptions"}
 
 KSP 区分来自 KSP 的异常和来自处理器的异常。这两种类型都会立即终止处理，并由 `KSPLogger` 记录为错误。
 

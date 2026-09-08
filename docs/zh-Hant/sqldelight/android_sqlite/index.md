@@ -32,7 +32,7 @@ val driver: SqlDriver = AndroidSqliteDriver(Database.Schema, context, "test.db")
 
 {% include 'common/index_queries.md' %}
 
-## SQLite 版本
+## SQLite 版本 {id="sqlite-versions"}
 
 對於 Android 專案，SQLDelight Gradle 外掛程式會根據您專案的 `minSdkVersion` 設定，自動選取 SQLite 方言版本。[點擊此處](https://developer.android.com/reference/android/database/sqlite/package-summary) 以查看各個 Android SDK 層級支援的 SQLite 版本列表。
 

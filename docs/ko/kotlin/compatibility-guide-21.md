@@ -4,7 +4,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_와 _[
 
 대부분의 언어 변경 사항은 업데이트 변경 로그나 컴파일러 경고와 같은 다른 채널을 통해 이미 발표되었지만, 이 문서는 이를 모두 요약하여 Kotlin 2.0에서 Kotlin 2.1로의 마이그레이션을 위한 완전한 참고 자료를 제공합니다.
 
-## 기본 용어
+## 기본 용어 {id="basic-terms"}
 
 이 문서에서는 몇 가지 종류의 호환성을 소개합니다.
 
@@ -14,9 +14,9 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_와 _[
 
 이러한 정의는 순수 Kotlin에 대해서만 적용된다는 점을 기억하십시오. 다른 언어 관점(예: Java)에서의 Kotlin 코드 호환성은 이 문서의 범위를 벗어납니다.
 
-## 언어 (Language)
+## 언어 (Language) {id="language"}
 
-### 언어 버전 1.4 및 1.5 제거
+### 언어 버전 1.4 및 1.5 제거 {id="remove-language-versions-1-4-and-1-5"}
 
 > **이슈**: [KT-60521](https://youtrack.jetbrains.com/issue/KT-60521)
 >
@@ -32,7 +32,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_와 _[
 > - 1.9.0: 언어 버전 1.5에 대해 경고 보고
 > - 2.1.0: 언어 버전 1.6 및 1.7에 대해 경고 보고, 언어 버전 1.4 및 1.5에 대한 경고를 에러로 격상
 
-### Kotlin/Native에서 typeOf() 함수 동작 변경
+### Kotlin/Native에서 typeOf() 함수 동작 변경 {id="change-the-typeof-function-behavior-on-kotlin-native"}
 
 > **이슈**: [KT-70754](https://youtrack.jetbrains.com/issue/KT-70754)
 >
@@ -46,7 +46,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_와 _[
 >
 > - 2.1.0: Kotlin/Native에서 `typeOf()` 함수 동작 조정
 
-### 타입 파라미터 바운드를 통한 타입 노출 금지
+### 타입 파라미터 바운드를 통한 타입 노출 금지 {id="prohibit-exposing-types-through-type-parameters-bounds"}
 
 > **이슈**: [KT-69653](https://youtrack.jetbrains.com/issue/KT-69653)
 >
@@ -61,7 +61,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_와 _[
 > - 2.1.0: 더 낮은 가시성을 가진 타입 파라미터 바운드를 통해 타입을 노출하는 경우 경고 보고
 > - 2.2.0: 경고를 에러로 격상
 
-### 동일한 이름을 가진 추상 var 프로퍼티와 val 프로퍼티의 상속 금지
+### 동일한 이름을 가진 추상 var 프로퍼티와 val 프로퍼티의 상속 금지 {id="prohibit-inheriting-an-abstract-var-property-and-a-val-property-with-the-same-name"}
 
 > **이슈**: [KT-58659](https://youtrack.jetbrains.com/issue/KT-58659)
 >
@@ -76,7 +76,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_와 _[
 > - 2.1.0: 클래스가 인터페이스로부터 추상 `var` 프로퍼티를 상속받고 상위 클래스로부터 동일한 이름의 `val` 프로퍼티를 상속받을 때 경고(또는 progressive 모드에서 에러) 보고
 > - 2.2.0: 경고를 에러로 격상
 
-### 초기화되지 않은 열거형 항목 접근 시 에러 보고
+### 초기화되지 않은 열거형 항목 접근 시 에러 보고 {id="report-error-when-accessing-uninitialized-enum-entries"}
 
 > **이슈**: [KT-68451](https://youtrack.jetbrains.com/issue/KT-68451)
 >
@@ -90,7 +90,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_와 _[
 >
 > - 2.1.0: 초기화되지 않은 열거형 항목 접근 시 에러 보고
 
-### K2 스마트 캐스트 전파의 변경 사항
+### K2 스마트 캐스트 전파의 변경 사항 {id="changes-in-k2-smart-cast-propagation"}
 
 > **이슈**: [KTLC-34](https://youtrack.jetbrains.com/issue/KTLC-34)
 >
@@ -104,7 +104,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_와 _[
 >
 > - 2.1.0: 새로운 동작 활성화
 
-### Java 서브클래스에서 멤버 확장 프로퍼티 오버라이드 처리 수정
+### Java 서브클래스에서 멤버 확장 프로퍼티 오버라이드 처리 수정 {id="correct-the-handling-of-member-extension-property-overrides-in-java-subclasses"}
 
 > **이슈**: [KTLC-35](https://youtrack.jetbrains.com/issue/KTLC-35)
 >
@@ -118,7 +118,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_와 _[
 >
 > - 2.1.0: 새로운 동작 활성화
 
-### protected val을 오버라이드하는 var 프로퍼티의 게터 및 세터 가시성 정렬 수정
+### protected val을 오버라이드하는 var 프로퍼티의 게터 및 세터 가시성 정렬 수정 {id="correct-visibility-alignment-for-getters-and-setters-of-var-properties-overriding-a-protected-val"}
 
 > **이슈**: [KTLC-36](https://youtrack.jetbrains.com/issue/KTLC-36)
 >
@@ -132,7 +132,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_와 _[
 >
 > - 2.1.0: K2에서 게터와 세터 모두에 대해 일관된 가시성 강제 적용. K1은 영향받지 않음.
 
-### JSpecify nullability 불일치 진단 심각도를 에러로 격상
+### JSpecify nullability 불일치 진단 심각도를 에러로 격상 {id="raise-severity-of-jspecify-nullability-mismatch-diagnostics-to-errors"}
 
 > **이슈**: [KTLC-11](https://youtrack.jetbrains.com/issue/KTLC-11)
 >
@@ -149,7 +149,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_와 _[
 > - 2.0.0: `@NonNull` 어노테이션 지원 추가
 > - 2.1.0: JSpecify 어노테이션의 기본 모드를 `strict`로 변경하여 경고를 에러로 변환. 기본 동작을 덮어쓰려면 `-Xnullability-annotations=@org.jspecify.annotations:warning` 또는 `-Xnullability-annotations=@org.jspecify.annotations:ignore`를 사용
 
-### 모호한 경우 invoke 호출보다 확장 함수를 우선하도록 오버로드 해제 변경
+### 모호한 경우 invoke 호출보다 확장 함수를 우선하도록 오버로드 해제 변경 {id="change-overload-resolution-to-prioritize-extension-functions-over-invoke-calls-in-ambiguous-cases"}
 
 > **이슈**: [KTLC-37](https://youtrack.jetbrains.com/issue/KTLC-37)
 >
@@ -163,7 +163,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_와 _[
 >
 > - 2.1.0: 시그니처가 일치하는 확장 함수에 대해 `invoke` 호출보다 확장 함수를 일관되게 우선하도록 오버로드 해제 변경. 이 변경 사항은 재컴파일 후에만 적용되며 이미 컴파일된 바이너리에는 영향을 미치지 않음
 
-### JDK 함수형 인터페이스의 SAM 생성자 내 람다에서 nullable 값 반환 금지
+### JDK 함수형 인터페이스의 SAM 생성자 내 람다에서 nullable 값 반환 금지 {id="prohibit-returning-nullable-values-from-lambdas-in-sam-constructors-of-jdk-function-interfaces"}
 
 > **이슈**: [KTLC-42](https://youtrack.jetbrains.com/issue/KTLC-42)
 >
@@ -178,7 +178,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_와 _[
 > - 2.0.0: JDK 함수형 인터페이스의 SAM 생성자 내 nullable 반환 값에 대해 지원 중단 경고 보고
 > - 2.1.0: 기본적으로 새로운 동작 활성화
 
-### Kotlin/Native에서 상위 클래스의 public 멤버와 충돌하는 private 멤버 처리 수정
+### Kotlin/Native에서 상위 클래스의 public 멤버와 충돌하는 private 멤버 처리 수정 {id="correct-handling-of-private-members-conflicting-with-public-members-in-kotlin-native"}
 
 > **이슈**: [KTLC-43](https://youtrack.jetbrains.com/issue/KTLC-43)
 >
@@ -192,7 +192,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_와 _[
 >
 > - 2.1.0: Kotlin/Native의 private 함수 및 프로퍼티가 더 이상 상위 클래스의 public 멤버를 오버라이드하거나 영향을 주지 않으며 JVM 동작과 일치하게 됨
 
-### public inline 함수에서 private 연산자 함수 접근 금지
+### public inline 함수에서 private 연산자 함수 접근 금지 {id="forbid-access-to-private-operator-functions-in-public-inline-functions"}
 
 > **이슈**: [KTLC-71](https://youtrack.jetbrains.com/issue/KTLC-71)
 >
@@ -207,7 +207,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_와 _[
 > - 2.0.0: public inline 함수에서 private 연산자 함수 접근에 대해 지원 중단 경고 보고
 > - 2.1.0: 경고를 에러로 격상
 
-### @UnsafeVariance가 지정된 불변(invariant) 파라미터에 유효하지 않은 인자 전달 금지
+### @UnsafeVariance가 지정된 불변(invariant) 파라미터에 유효하지 않은 인자 전달 금지 {id="prohibit-passing-invalid-arguments-to-invariant-parameters-annotated-with-unsafevariance"}
 
 > **이슈**: [KTLC-72](https://youtrack.jetbrains.com/issue/KTLC-72)
 >
@@ -221,7 +221,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_와 _[
 >
 > - 2.1.0: 새로운 동작 활성화
 
-### 경고 수준 Java 타입의 에러 수준 nullable 인자에 대해 null 허용 여부 에러 보고
+### 경고 수준 Java 타입의 에러 수준 nullable 인자에 대해 null 허용 여부 에러 보고 {id="report-nullability-errors-for-error-level-nullable-arguments-of-warning-level-java-types"}
 
 > **이슈**: [KTLC-100](https://youtrack.jetbrains.com/issue/KTLC-100)
 >
@@ -236,7 +236,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_와 _[
 > - 2.0.0: 더 엄격한 타입 인자를 가진 Java 메서드의 null 허용 여부 불일치에 대해 지원 중단 경고 보고
 > - 2.1.0: 경고를 에러로 격상
 
-### 접근 불가능한 타입의 암시적 사용 보고
+### 접근 불가능한 타입의 암시적 사용 보고 {id="report-implicit-usages-of-inaccessible-types"}
 
 > **이슈**: [KTLC-3](https://youtrack.jetbrains.com/issue/KTLC-3)
 >
@@ -252,9 +252,9 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_와 _[
 > - 2.1.0: 접근 불가능한 비-제네릭 타입을 파라미터나 리시버로 가지는 함수 리터럴에 대해 경고를 에러로 격상
 > - 2.2.0: 접근 불가능한 타입 인자를 가진 타입에 대해 경고를 에러로 격상
 
-## 표준 라이브러리 (Standard library)
+## 표준 라이브러리 (Standard library) {id="standard-library"}
 
-### Char 및 String의 로케일 종속 대소문자 변환 함수 지원 중단
+### Char 및 String의 로케일 종속 대소문자 변환 함수 지원 중단 {id="deprecate-locale-sensitive-case-conversion-functions-for-char-and-string"}
 
 > **이슈**: [KT-43023](https://youtrack.jetbrains.com/issue/KT-43023)
 >
@@ -272,7 +272,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_와 _[
 > - 1.5.0: 로케일 종속 대소문자 변환 함수에 대해 경고와 함께 지원 중단
 > - 2.1.0: 경고를 에러로 격상
 
-### kotlin-stdlib-common JAR 아티팩트 제거
+### kotlin-stdlib-common JAR 아티팩트 제거 {id="remove-kotlin-stdlib-common-jar-artifact"}
 
 > **이슈**: [KT-62159](https://youtrack.jetbrains.com/issue/KT-62159)
 >
@@ -286,7 +286,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_와 _[
 >
 > - 2.1.0: `kotlin-stdlib-common.jar` 아티팩트 지원 중단 및 제거
 
-### appendln()을 appendLine()으로 대체하기 위해 지원 중단
+### appendln()을 appendLine()으로 대체하기 위해 지원 중단 {id="deprecate-appendln-in-favor-of-appendline"}
 
 > **이슈**: [KTLC-27](https://youtrack.jetbrains.com/issue/KTLC-27)
 >
@@ -301,7 +301,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_와 _[
 > - 1.4.0: `appendln()` 함수 지원 중단, 사용 시 경고 보고
 > - 2.1.0: 경고를 에러로 격상
 
-### Kotlin/Native에서 프리징 관련 API 지원 중단
+### Kotlin/Native에서 프리징 관련 API 지원 중단 {id="deprecate-freezing-related-apis-in-kotlin-native"}
 
 > **이슈**: [KT-69545](https://youtrack.jetbrains.com/issue/KT-69545)
 >
@@ -316,7 +316,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_와 _[
 > - 1.7.20: 프리징 관련 API에 대해 경고와 함께 지원 중단
 > - 2.1.0: 경고를 에러로 격상
 
-### 구조적 변경 시 Map.Entry가 fail-fast 하도록 동작 변경
+### 구조적 변경 시 Map.Entry가 fail-fast 하도록 동작 변경 {id="change-map-entry-behavior-to-fail-fast-on-structural-modification"}
 
 > **이슈**: [KTLC-23](https://youtrack.jetbrains.com/issue/KTLC-23)
 >
@@ -330,9 +330,9 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_와 _[
 >
 > - 2.1.0: 맵의 구조적 변경이 감지되면 예외 발생
 
-## 도구 (Tools)
+## 도구 (Tools) {id="tools"}
 
-### KotlinCompilationOutput#resourcesDirProvider 지원 중단
+### KotlinCompilationOutput#resourcesDirProvider 지원 중단 {id="deprecate-kotlincompilationoutput-resourcesdirprovider"}
 
 > **이슈**: [KT-69255](https://youtrack.jetbrains.com/issue/KT-69255)
 >
@@ -346,7 +346,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_와 _[
 >
 > - 2.1.0: `KotlinCompilationOutput#resourcesDirProvider` 지원 중단
 
-### registerKotlinJvmCompileTask(taskName, moduleName) 함수 지원 중단
+### registerKotlinJvmCompileTask(taskName, moduleName) 함수 지원 중단 {id="deprecate-registerkotlinjvmcompiletask-taskname-modulename-function"}
 
 > **이슈**: [KT-69927](https://youtrack.jetbrains.com/issue/KT-69927)
 >
@@ -360,7 +360,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_와 _[
 >
 > - 2.1.0: `registerKotlinJvmCompileTask(taskName, moduleName)` 함수 지원 중단
 
-### registerKaptGenerateStubsTask(taskName) 함수 지원 중단
+### registerKaptGenerateStubsTask(taskName) 함수 지원 중단 {id="deprecate-registerkaptgeneratestubstask-taskname-function"}
 
 > **이슈**: [KT-70383](https://youtrack.jetbrains.com/issue/KT-70383)
 >
@@ -374,7 +374,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_와 _[
 >
 > - 2.1.0: `registerKaptGenerateStubsTask(taskName)` 함수 지원 중단
 
-### KotlinTopLevelExtension 및 KotlinTopLevelExtensionConfig 인터페이스 지원 중단
+### KotlinTopLevelExtension 및 KotlinTopLevelExtensionConfig 인터페이스 지원 중단 {id="deprecate-kotlintoplevelextension-and-kotlintoplevelextensionconfig-interfaces"}
 
 > **이슈**: [KT-71602](https://youtrack.jetbrains.com/issue/KT-71602)
 >
@@ -388,7 +388,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_와 _[
 >
 > - 2.1.0: `KotlinTopLevelExtension` 및 `KotlinTopLevelExtensionConfig` 인터페이스 지원 중단
 
-### 빌드 런타임 종속성에서 kotlin-compiler-embeddable 제거
+### 빌드 런타임 종속성에서 kotlin-compiler-embeddable 제거 {id="remove-kotlin-compiler-embeddable-from-build-runtime-dependencies"}
 
 > **이슈**: [KT-61706](https://youtrack.jetbrains.com/issue/KT-61706)
 >
@@ -403,7 +403,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_와 _[
 > - 2.1.0: `kotlin-compiler-embeddable` 사용 시 경고 보고
 > - 2.2.0: 경고를 에러로 격상
 
-### Kotlin Gradle Plugin API에서 컴파일러 심볼 숨김
+### Kotlin Gradle Plugin API에서 컴파일러 심볼 숨김 {id="hide-compiler-symbols-from-the-kotlin-gradle-plugin-api"}
 
 > **이슈**: [KT-70251](https://youtrack.jetbrains.com/issue/KT-70251)
 >
@@ -418,7 +418,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_와 _[
 > - 2.1.0: 해당 심볼 접근 시 경고 보고
 > - 2.2.0: 경고를 에러로 격상
 
-### 다중 안정성 구성 파일 지원 추가
+### 다중 안정성 구성 파일 지원 추가 {id="add-support-for-multiple-stability-configuration-files"}
 
 > **이슈**: [KT-68345](https://youtrack.jetbrains.com/issue/KT-68345)
 >
@@ -432,7 +432,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_와 _[
 >
 > - 2.1.0: `stabilityConfigurationFile` 프로퍼티 지원 중단
 
-### 지원 중단된 플랫폼 플러그인 ID 제거
+### 지원 중단된 플랫폼 플러그인 ID 제거 {id="remove-deprecated-platform-plugin-ids"}
 
 > **이슈**: [KT-65565](https://youtrack.jetbrains.com/issue/KT-65565)
 >

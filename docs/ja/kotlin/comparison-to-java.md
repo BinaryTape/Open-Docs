@@ -1,6 +1,6 @@
 [//]: # (title: Java との比較)
 
-## Kotlin で解決された Java のいくつかの問題
+## Kotlin で解決された Java のいくつかの問題 {id="some-java-issues-addressed-in-kotlin"}
 
 Kotlin は、Java が抱える一連の問題を解決しています。
 
@@ -12,7 +12,7 @@ Kotlin は、Java が抱える一連の問題を解決しています。
 *   Kotlin にはチェックされる[例外 (Exceptions)](exceptions.md) がありません。
 *   [読み取り専用コレクションと可変コレクションのための独立したインターフェース](collections-overview.md)があります。
 
-## Kotlin にはなく Java にあるもの
+## Kotlin にはなく Java にあるもの {id="what-java-has-that-kotlin-does-not"}
 
 *   [チェック例外 (Checked exceptions)](exceptions.md)
 *   クラスではない[プリミティブ型 (Primitive types)](types-overview.md)。バイトコードでは可能な限りプリミティブが使用されますが、明示的に利用することはできません。
@@ -28,7 +28,7 @@ Kotlin は、Java が抱える一連の問題を解決しています。
 >
 {style="note"}
 
-## Java にはなく Kotlin にあるもの
+## Java にはなく Kotlin にあるもの {id="what-kotlin-has-that-java-does-not"}
 
 *   [ラムダ式 (Lambda expressions)](lambdas.md) + [インライン関数 (Inline functions)](inline-functions.md) = 高パフォーマンスなカスタム制御構造
 *   [拡張関数 (Extension functions)](extensions.md)
@@ -58,7 +58,7 @@ Kotlin は、Java が抱える一連の問題を解決しています。
 >
 {style="note"}
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 以下の方法について学びましょう：
 *   [Java と Kotlin での文字列に関する一般的なタスク](java-to-kotlin-idioms-strings.md)の実行。

@@ -5,7 +5,7 @@
 *   **套件 (package)** 是包含一個或多個 Kotlin 檔案的容器。檔案使用 `package` 標頭連結到套件。
 *   **匯入 (import)** 是一條指示詞，可讓其他套件中的實體在目前檔案中可用。
 
-## 套件標頭
+## 套件標頭 {id="package-headers"}
 
 原始碼檔案可以從套件標頭開始：
 
@@ -25,12 +25,12 @@ class Message(val text: String) { /*...*/ }
 
 如果檔案沒有套件標頭，則其內容屬於根套件。
 
-## 匯入
+## 匯入 {id="imports"}
 
 若要使用來自不同套件檔案中的實體，請使用 `import` 指示詞。
 除了預設匯入外，每個檔案也可以宣告自己的匯入。
 
-### 匯入單一實體
+### 匯入單一實體 {id="import-a-single-entity"}
 
 匯入特定的實體，以便您可以在不使用限定符的情況下使用它：
 
@@ -44,7 +44,7 @@ fun main() {
 }
 ```
 
-### 匯入作用域中的內容
+### 匯入作用域中的內容 {id="import-the-contents-of-a-scope"}
 
 星號匯入（以星號 `*` 結尾）會匯入對應作用域中的所有具名實體：
 
@@ -60,7 +60,7 @@ fun main() {
 
 如果您同時使用星號匯入與明確匯入來匯入同一個實體，則在進行多載解析時，明確匯入具有較高的優先權。
 
-### 使用別名消除名稱衝突
+### 使用別名消除名稱衝突 {id="resolve-name-clashes-with-aliases"}
 
 如果兩個匯入的實體具有相同的名稱，請使用 `as` 關鍵字在本地重新命名其中一個來消除歧義：
 
@@ -77,7 +77,7 @@ fun main() {
 }
 ```
 
-### 您可以匯入的內容
+### 您可以匯入的內容 {id="what-you-can-import"}
 
 `import` 關鍵字不僅限於類別。您可以匯入以下任何實體，無論它們來自套件、類別、物件還是列舉：
 
@@ -105,7 +105,7 @@ fun main() {
     import org.example.Outer.Nested
     ```
 
-## 預設匯入
+## 預設匯入 {id="default-imports"}
 
 許多套件預設會匯入到每個 Kotlin 檔案中：
 
@@ -128,7 +128,7 @@ fun main() {
 *   JS：
     *   [kotlin.js.*](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.js/index.html)
 
-## 可見性與匯入
+## 可見性與匯入 {id="visibility-and-imports"}
 
 匯入實體的能力取決於其 [可見性修飾詞](visibility-modifiers.md)：
 

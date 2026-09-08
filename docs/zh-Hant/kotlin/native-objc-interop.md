@@ -16,7 +16,7 @@ Kotlin/Native 透過 Objective-C 提供與 Swift 的間接互通性。本文件�
 * [Kotlin-Swift 互通性百科](https://github.com/kotlin-hands-on/kotlin-swift-interopedia)：關於如何在 Swift 程式碼中使用 Kotlin 宣告的範例集合。
 * [與 Swift/Objective-C ARC 的整合](native-arc-integration.md)章節：涵蓋 Kotlin 的追蹤式垃圾收集（GC）與 Objective-C 的 ARC 之間整合的詳細資訊。
 
-## 將 Swift/Objective-C 庫匯入 Kotlin
+## 將 Swift/Objective-C 庫匯入 Kotlin {id="importing-swift-objective-c-libraries-to-kotlin"}
 
 如果 Objective-C 架構與庫已正確匯入至組建中（系統架構預設會匯入），則可以在 Kotlin 程式碼中使用它們。更多詳細資訊，請參閱：
 
@@ -25,14 +25,14 @@ Kotlin/Native 透過 Objective-C 提供與 Swift 的間接互通性。本文件�
 
 如果 Swift 庫的 API 透過 `@objc` 匯出至 Objective-C，則可以在 Kotlin 程式碼中使用該 Swift 庫。目前尚不支援純 Swift 模組。
 
-## 在 Swift/Objective-C 中使用 Kotlin
+## 在 Swift/Objective-C 中使用 Kotlin {id="using-kotlin-in-swift-objective-c"}
 
 Kotlin 模組如果編譯為架構，則可以在 Swift/Objective-C 程式碼中使用：
 
 * 請參閱[建置最終原生二進位檔案](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html#declare-binaries)以了解如何宣告二進位檔案。
 * 檢視 [Kotlin Multiplatform 範例專案](https://github.com/Kotlin/kmm-basic-sample)以獲取範例。
 
-### 對 Objective-C 和 Swift 隱藏 Kotlin 宣告
+### 對 Objective-C 和 Swift 隱藏 Kotlin 宣告 {id="hide-kotlin-declarations-from-objective-c-and-swift"}
 
 <primary-label ref="experimental-opt-in"/>
 
@@ -42,7 +42,7 @@ Kotlin 模組如果編譯為架構，則可以在 Swift/Objective-C 程式碼中
 
 [在 Kotlin-Swift 互通性百科中檢視範例](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/overview/HiddenFromObjC.md)。
 
-### 在 Swift 中使用精煉（Refining）
+### 在 Swift 中使用精煉（Refining） {id="use-refining-in-swift"}
 
 <primary-label ref="experimental-opt-in"/>
 
@@ -53,7 +53,7 @@ Kotlin 模組如果編譯為架構，則可以在 Swift/Objective-C 程式碼中
 * 有關在 Swift 中精煉 Objective-C 宣告的更多資訊，請參閱 [Apple 官方文件](https://developer.apple.com/documentation/swift/improving-objective-c-api-declarations-for-swift)。
 * 有關如何使用 `@ShouldRefineInSwift` 註解的範例，請參閱 [Kotlin-Swift 互通性百科](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/overview/ShouldRefineInSwift.md)。
 
-### 變更宣告名稱
+### 變更宣告名稱 {id="change-declaration-names"}
 
 <primary-label ref="experimental-opt-in"/>
 
@@ -73,7 +73,7 @@ let index = array.index(of: "element")
 
 [在 Kotlin-Swift 互通性百科中檢視另一個範例](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/overview/ObjCName.md)。
 
-### 透過 KDoc 註解提供文件
+### 透過 KDoc 註解提供文件 {id="provide-documentation-with-kdoc-comments"}
 
 文件對於理解任何 API 都至關重要。為共用的 Kotlin API 提供文件可讓您與其使用者溝通使用方式、注意事項等。
 
@@ -123,7 +123,7 @@ kotlin {
 }
 ```
 
-## 對應
+## 對應 {id="mappings"}
 
 下表顯示了 Kotlin 概念如何對應到 Swift/Objective-C，反之亦然。
 
@@ -156,9 +156,9 @@ kotlin {
 | 函式型別 | Function type | Block pointer type | [註解](#function-types) |
 | 內嵌類別 | 不支援 | 不支援 | [註解](#unsupported) |
 
-### 類別
+### 類別 {id="classes"}
 
-#### 名稱轉換
+#### 名稱轉換 {id="name-translation"}
 
 Objective-C 類別以其原始名稱匯入 Kotlin。協定以帶有 `Protocol` 名稱後綴的介面匯入，例如 `@protocol Foo` -> `interface FooProtocol`。這些類別和介面被放置在[組建組態中指定的](#importing-swift-objective-c-libraries-to-kotlin)套件中（預配置的系統架構為 `platform.*` 套件）。
 
@@ -166,7 +166,7 @@ Kotlin 類別和介面的名稱在匯入到 Objective-C 時會加上前綴。該
 
 Objective-C 不支援架構中的套件。如果 Kotlin 編譯器在同一個架構中發現名稱相同但套件不同的 Kotlin 類別，它會重新命名它們。此演算法目前尚不穩定，可能會在 Kotlin 版本之間變更。為了規避此問題，您可以在架構中重新命名衝突的 Kotlin 類別。
 
-#### 強烈連結
+#### 強烈連結 {id="strong-linking"}
 
 每當您在 Kotlin 原始碼中使用 Objective-C 類別時，它都會被標記為強烈連結符號。產生的建置產物會將相關符號提及為強烈外部參考。
 
@@ -174,7 +174,7 @@ Objective-C 不支援架構中的套件。如果 Kotlin 編譯器在同一個架
 
 為了規避此問題並避免「Symbol not found」錯誤，請使用一個檢查類別是否實際可用的 Swift 或 Objective-C 包裝函式。[檢視此規避方法在 Compose Multiplatform 架構中的實作方式](https://github.com/JetBrains/compose-multiplatform-core/pull/1278/files)。
 
-### 初始設定式
+### 初始設定式 {id="initializers"}
 
 Swift/Objective-C 初始設定式會以建構函式或名為 `create` 的工廠方法匯入 Kotlin。後者發生在 Objective-C 分類（category）或 Swift 擴充中宣告的初始設定式，因為 Kotlin 沒有擴充建構函式的概念。
 
@@ -184,11 +184,11 @@ Swift/Objective-C 初始設定式會以建構函式或名為 `create` 的工廠�
 
 Kotlin 建構函式會以初始設定式匯入 Swift/Objective-C。
 
-### Setters
+### Setters {id="setters"}
 
 覆寫父類別唯讀屬性的可寫 Objective-C 屬性，對於屬性 `foo` 會表示為 `setFoo()` 方法。實作為可變的協定唯讀屬性也是如此。
 
-### 頂層函式與屬性
+### 頂層函式與屬性 {id="top-level-functions-and-properties"}
 
 頂層 Kotlin 函式和屬性可以作為特殊類別的成員來存取。每個 Kotlin 檔案都會被轉換為這樣一個類別，例如：
 
@@ -211,7 +211,7 @@ MyLibraryUtilsKt.foo()
 * [頂層唯讀屬性](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/functionsandproperties/Top-level%20val%20properties.md)
 * [頂層可變屬性](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/functionsandproperties/Top-level%20mutable%20var%20properties.md)
 
-### 方法名稱轉換
+### 方法名稱轉換 {id="method-names-translation"}
 
 通常，Swift 引數標籤和 Objective-C selector 片段會對應到 Kotlin 參數名稱。這兩個概念具有不同的語意，因此有時 Swift/Objective-C 方法匯入時可能會帶有衝突的 Kotlin 簽章。在這種情況下，可以使用具名引數從 Kotlin 呼叫衝突的方法，例如：
 
@@ -239,7 +239,7 @@ player.moveTo(UP, byInches = 42)
 
 您可以在 Swift 或 Objective-C 中指定更具慣用性的名稱，而不是使用 [`@ObjCName` 註解](#change-declaration-names)重新命名 Kotlin 宣告。
 
-### 錯誤與例外
+### 錯誤與例外 {id="errors-and-exceptions"}
 
 所有 Kotlin 例外都是非受檢的，這意味著錯誤是在執行時擷取的。然而，Swift 只有在編譯時處理的受檢錯誤。因此，如果 Swift 或 Objective-C 程式碼呼叫擲回例外的 Kotlin 方法，則該 Kotlin 方法應使用 `@Throws` 註解進行標記，並指定「預期」例外類別的清單。
 
@@ -253,7 +253,7 @@ player.moveTo(UP, byInches = 42)
 
 [在 Kotlin-Swift 互通性百科中檢視範例](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/overview/Exceptions.md)。
 
-### 列舉
+### 列舉 {id="enums"}
 
 Kotlin 列舉在 Objective-C 中匯入為 `@interface`，在 Swift 中匯入為 `class`。這些資料結構具有對應於每個列舉值的屬性。考慮這段 Kotlin 程式碼：
 
@@ -286,7 +286,7 @@ switch color {
 
 [在 Kotlin-Swift 互通性百科中檢視另一個範例](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/classesandinterfaces/Enum%20classes.md)。
 
-### 暫停函式
+### 暫停函式 {id="suspending-functions"}
 
 <primary-label ref="experimental-opt-in"/>
 
@@ -297,7 +297,7 @@ Kotlin 的[暫停函式](coroutines-basics.md) (`suspend`) 在產生的 Objectiv
 * 在 [Swift 文件中進一步了解 `async`/`await` 機制](https://docs.swift.org/swift-book/LanguageGuide/Concurrency.html)。
 * 在 [Kotlin-Swift 互通性百科](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/coroutines/Suspend%20functions.md)中檢視範例，以及對實作相同功能的第三方庫的建議。
 
-### 擴充與分類成員
+### 擴充與分類成員 {id="extensions-and-category-members"}
 
 Objective-C 分類（category）和 Swift 擴充（extension）的成員通常作為擴充匯入 Kotlin。這就是為什麼這些宣告不能在 Kotlin 中被覆寫，且擴充初始設定式不能作為 Kotlin 建構函式使用的原因。
 
@@ -318,7 +318,7 @@ Objective-C 分類（category）和 Swift 擴充（extension）的成員通常�
 
 [在 Kotlin-Swift 互通性百科中檢視範例集合](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/tree/main/docs/extensions)。
 
-### Kotlin 單例
+### Kotlin 單例 {id="kotlin-singletons"}
 
 Kotlin 單例（使用 `object` 宣告建立，包括 `companion object`）會作為具有單一執行個體的類別匯入 Swift/Objective-C。
 
@@ -356,32 +356,32 @@ MyClass.Companion.shared
 * [如何使用 `shared` 存取 Kotlin 物件](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/classesandinterfaces/Objects.md)
 * [如何從 Swift 存取 Kotlin companion 物件的成員](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/classesandinterfaces/Companion%20objects.md)。
 
-### 原始型別
+### 原始型別 {id="primitive-types"}
 
 Kotlin 原始型別的裝箱（boxing）會對應到特殊的 Swift/Objective-C 類別。例如，`kotlin.Int` 裝箱在 Swift 中表示為 `KotlinInt` 類別執行個體（或在 Objective-C 中表示為 `${prefix}Int` 執行個體，其中 `prefix` 是架構名稱的前綴）。這些類別衍生自 `NSNumber`，因此執行個體是正確的 `NSNumber`，支援所有對應的操作。
 
 當 `NSNumber` 型別用作 Swift/Objective-C 參數型別或傳回值時，不會自動轉換為 Kotlin 原始型別。原因是 `NSNumber` 型別沒有提供足夠的關於裝箱原始值型別的資訊，例如，靜態上無法得知 `NSNumber` 是 `Byte`、`Boolean` 還是 `Double`。因此 Kotlin 原始值應該[手動在 `NSNumber` 之間進行轉換](#casting-between-mapped-types)。
 
-### 字串
+### 字串 {id="strings"}
 
 當 Kotlin `String` 傳遞給 Swift 時，它首先匯出為 Objective-C 物件，然後 Swift 編譯器會再次複製它以進行 Swift 轉換。這會導致額外的執行時開銷。
 
 為了避免這種情況，可以在 Swift 中直接將 Kotlin 字串作為 Objective-C 的 `NSString` 存取。
 [查看轉換範例](#see-the-conversion-example)。
 
-#### NSMutableString
+#### NSMutableString {id="nsmutablestring"}
 
 Objective-C 類別 `NSMutableString` 在 Kotlin 中不可用。所有 `NSMutableString` 執行個體在傳遞給 Kotlin 時都會被複製。
 
-### 集合
+### 集合 {id="collections"}
 
-#### Kotlin -> Objective-C -> Swift
+#### Kotlin -> Objective-C -> Swift {id="kotlin-objective-c-swift"}
 
 當 Kotlin 集合傳遞給 Swift 時，它首先轉換為對應的 Objective-C 等效項，然後 Swift 編譯器會複製整個集合，並將其轉換為 Swift 原生集合，如[對應表](#mappings)中所述。
 
 最後一次轉換會導致效能成本。為了防止這種情況，在 Swift 中使用 Kotlin 庫時，請將它們明確轉換為對應的 Objective-C 型別：`NSDictionary`、`NSArray` 或 `NSSet`。
 
-##### 查看轉換範例 {initial-collapse-state="collapsed" collapsible="true"}
+##### 查看轉換範例 {initial-collapse-state="collapsed" collapsible="true" id="see-the-conversion-example"}
 
 例如，以下 Kotlin 宣告：
 
@@ -406,7 +406,7 @@ let nsMap: NSDictionary = map as NSDictionary
 
 這可確保 Swift 編譯器不會執行額外的轉換步驟。
 
-#### Swift -> Objective-C -> Kotlin
+#### Swift -> Objective-C -> Kotlin {id="swift-objective-c-kotlin"}
 
 Swift/Objective-C 庫對應到 Kotlin，如[對應表](#mappings)中所述，除了 `NSMutableSet` 和 `NSMutableDictionary`。
 
@@ -414,7 +414,7 @@ Swift/Objective-C 庫對應到 Kotlin，如[對應表](#mappings)中所述，除
 
 [在 Kotlin-Swift 互通性百科中檢視範例](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/overview/Collections.md)。
 
-### 函式型別
+### 函式型別 {id="function-types"}
 
 Kotlin 函式型別物件（例如 lambda）在 Swift 中轉換為閉包（closure），在 Objective-C 中轉換為 block。
 [在 Kotlin-Swift 互通性百科中檢視具有 lambda 的 Kotlin 函式範例](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/functionsandproperties/Functions%20returning%20function%20type.md)。
@@ -442,7 +442,7 @@ foo {
 }
 ```
 
-#### Objective-C block 型別中的明確參數名稱
+#### Objective-C block 型別中的明確參數名稱 {id="explicit-parameter-names-in-objective-c-block-types"}
 <primary-label ref="experimental-opt-in"/>
 
 您可以為匯出的 Objective-C 標頭檔中的 Kotlin 函式型別加入明確的參數名稱。Xcode 的自動補全隨後會在 Objective-C block 中呼叫 Objective-C 函式時建議這些名稱。這有助於避免產生的 block 中出現 Clang 警告。
@@ -473,7 +473,7 @@ greetUserBlock:^(NSString *name) {
 >
 {style="note"}
 
-### 泛型
+### 泛型 {id="generics"}
 
 Objective-C 支援在類別中定義的「輕量級泛型」，其功能集相對有限。 Swift 可以匯入類別上定義的泛型，以協助向編譯器提供額外的型別資訊。
 
@@ -481,13 +481,13 @@ Objective-C 和 Swift 的泛型功能支援與 Kotlin 不同，因此轉換不�
 
 有關如何在 Swift 中使用 Kotlin 泛型的具體範例，請參閱 [Kotlin-Swift 互通性百科](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/overview/ShouldRefineInSwift.md)。
 
-#### 限制
+#### 限制 {id="limitations"}
 
 Objective-C 泛型並不支援 Kotlin 或 Swift 的所有功能，因此轉換中會遺失一些資訊。
 
 泛型只能定義在類別上，不能定義在介面（Objective-C 和 Swift 中的協定）或函式上。
 
-#### 可 null 性
+#### 可 null 性 {id="nullability"}
 
 Kotlin 和 Swift 都將可 null 性定義為型別規格的一部分，而 Objective-C 在型別的方法和屬性上定義可 null 性。因此，以下 Kotlin 程式碼：
 
@@ -517,7 +517,7 @@ class Sample<T : Any>() {
 
 這將強制 Objective-C 標頭檔將 `myVal` 標記為不可 null。
 
-#### 差異（Variance）
+#### 差異（Variance） {id="variance"}
 
 Objective-C 允許將泛型宣告為協變或逆變。Swift 不支援差異。來自 Objective-C 的泛型類別可以根據需要進行強制轉換。
 
@@ -531,11 +531,11 @@ let variOut = GenVarOut<SomeData>(arg: sd)
 let variOutAny : GenVarOut<BaseData> = variOut as! GenVarOut<BaseData>
 ```
 
-#### 約束
+#### 約束 {id="constraints"}
 
 在 Kotlin 中，您可以為泛型型別提供上界（upper bounds）。Objective-C 也支援此功能，但在更複雜的情況下無法使用，目前 Kotlin - Objective-C 互通性尚不支援。此處的例外是不可 null 的上界將使 Objective-C 方法/屬性成為不可 null。
 
-#### 停用
+#### 停用 {id="to-disable"}
 
 要讓寫出的架構標頭檔不帶泛型，請在建置檔案中加入以下編譯器選項：
 
@@ -545,7 +545,7 @@ binaries.framework {
 }
 ```
 
-### 前向宣告
+### 前向宣告 {id="forward-declarations"}
 
 要匯入前向宣告，請使用 `objcnames.classes` 和 `objcnames.protocols` 套件。例如，要匯入在具有 `library.package` 的 Objective-C 庫中宣告的 `objcprotocolName` 前向宣告，請使用特殊的前向宣告套件：`import objcnames.protocols.objcprotocolName`。
 
@@ -590,7 +590,7 @@ fun test() {
 >
 {style="note"}
 
-## 在對應型別之間進行轉換
+## 在對應型別之間進行轉換 {id="casting-between-mapped-types"}
 
 編寫 Kotlin 程式碼時，可能需要將物件從 Kotlin 型別轉換為等效的 Swift/Objective-C 型別，或反之亦然。在這種情況下，您可以使用 [`as` 轉換](typecasts.md#unsafe-cast-operator)，例如：
 
@@ -606,13 +606,13 @@ val string = nsString as String
 
 IDE 可能會錯誤地發出「This cast can never succeed」警告。在這種情況下，請使用 `@Suppress("CAST_NEVER_SUCCEEDS")` 註解。
 
-## 子類化
+## 子類化 {id="subclassing"}
 
-### 從 Swift/Objective-C 子類化 Kotlin 類別和介面
+### 從 Swift/Objective-C 子類化 Kotlin 類別和介面 {id="subclassing-kotlin-classes-and-interfaces-from-swift-objective-c"}
 
 Kotlin 類別和介面可以被 Swift/Objective-C 類別和協定子類化。
 
-### 從 Kotlin 子類化 Swift/Objective-C 類別和協定
+### 從 Kotlin 子類化 Swift/Objective-C 類別和協定 {id="subclassing-swift-objective-c-classes-and-protocols-from-kotlin"}
 
 Swift/Objective-C 類別和協定可以用 Kotlin `final` 類別進行子類化。繼承 Swift/Objective-C 型別的非 `final` Kotlin 類別目前尚不支援，因此無法宣告繼承 Swift/Objective-C 型別的複雜類別階層。
 
@@ -634,11 +634,11 @@ class ViewController : UIViewController {
 
 預設情況下，Kotlin/Native 編譯器不允許呼叫非指定 Objective-C 初始設定式作為 `super()` 建構函式。如果指定初始設定式在 Objective-C 庫中未正確標記，此行為可能會帶來不便。要停用這些編譯器檢查，請在程式庫的 [`.def` 檔案](native-definition-file.md)中加入 `disableDesignatedInitializerChecks = true`。
 
-## C 功能
+## C 功能 {id="c-features"}
 
 查看[與 C 的互通性](native-c-interop.md)，以獲取庫使用某些純 C 功能（如不安全指標、結構等）的範例。
 
-## 不支援
+## 不支援 {id="unsupported"}
 
 Kotlin 程式語言的某些功能尚未對應到 Objective-C 或 Swift 的相應功能。目前，產生的架構標頭檔中尚未正確公開以下功能：
 

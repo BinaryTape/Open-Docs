@@ -32,7 +32,7 @@ print(
 
 指定的 Maven 相依性（本範例中為 `kotlinx-html-jvm`）將在執行期間從指定的 Maven 儲存庫或本機快取中解析，並用於指令碼的其餘部分。
 
-## 專案結構
+## 專案結構 {id="project-structure"}
 
 一個最小的 Kotlin 自訂指令碼專案包含兩個部分：
 
@@ -41,11 +41,11 @@ print(
 
 考慮到這些因素，最好將專案拆分為兩個模組。
 
-## 在您開始之前
+## 在您開始之前 {id="before-you-start"}
 
 下載並安裝最新版本的 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)。
 
-## 建立專案
+## 建立專案 {id="create-a-project"}
 
 1. 在 IntelliJ IDEA 中，選取 **File** | **New** | **Project**。
 2. 在左側面板中，選取 **New Project**。
@@ -66,7 +66,7 @@ print(
 
 ![建立自訂 Kotlin 指令碼的根專案](script-deps-create-root-project.png){width=700}
 
-## 加入指令碼模組
+## 加入指令碼模組 {id="add-scripting-modules"}
 
 現在您已有一個空的 Kotlin/JVM Gradle 專案。請加入必要的模組：指令碼定義與指令碼主機：
 
@@ -90,7 +90,7 @@ print(
 
 您可以在 [kotlin-script-examples GitHub 儲存庫](https://github.com/Kotlin/kotlin-script-examples/tree/master/jvm/basic/jvm-maven-deps)中找到此類專案的範例以及更多 Kotlin 指令碼範例。
 
-## 建立指令碼定義
+## 建立指令碼定義 {id="create-a-script-definition"}
 
 首先，定義指令碼類型：開發人員可以在此類指令碼中編寫什麼內容，以及它將如何被處理。在本教學中，這包括支援指令碼中的 `@Repository` 和 `@DependsOn` 註解。
 
@@ -201,7 +201,7 @@ print(
 
    您可以在[此處](https://github.com/Kotlin/kotlin-script-examples/blob/master/jvm/basic/jvm-maven-deps/script/src/main/kotlin/org/jetbrains/kotlin/script/examples/jvm/resolve/maven/scriptDef.kt)找到完整程式碼。
 
-## 建立指令碼主機
+## 建立指令碼主機 {id="create-a-scripting-host"}
 
 下一步是建立指令碼主機 – 處理指令碼執行的組件。
 
@@ -284,7 +284,7 @@ print(
 
 您可以在[此處](https://github.com/Kotlin/kotlin-script-examples/blob/master/jvm/basic/jvm-maven-deps/host/src/main/kotlin/org/jetbrains/kotlin/script/examples/jvm/resolve/maven/host/host.kt)找到完整程式碼。
 
-## 執行指令碼
+## 執行指令碼 {id="run-scripts"}
 
 為了檢查指令碼主機的運作情況，請準備一個要執行的指令碼和一個執行配置。
 
@@ -330,7 +330,7 @@ print(
 
 第一次執行時，解析相依性可能需要一些時間。後續執行將會快得多，因為它們會使用從本機 Maven 儲存庫下載的相依性。
 
-## 接續步驟
+## 接續步驟 {id="what-s-next"}
 
 建立簡單的 Kotlin 指令碼專案後，您可以尋找有關此主題的更多資訊：
 * 閱讀 [Kotlin 指令碼 KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/scripting-support.md)

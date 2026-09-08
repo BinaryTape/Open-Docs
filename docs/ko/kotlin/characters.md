@@ -10,7 +10,7 @@
 > 
 {style="tip"}
 
-## 구문
+## 구문 {id="syntax"}
 
 문자를 선언하려면 값을 작은따옴표(`' '`)로 감쌉니다. `Char` 타입을 명시적으로 지정하거나 Kotlin이 값으로부터 타입을 추론하게 할 수 있습니다.
 
@@ -32,7 +32,7 @@ val invalidEmpty = '' // 오류
 ```
 {validate="false"}
 
-### 널 허용 값
+### 널 허용 값 {id="nullable-values"}
 
 널 허용(nullable) 값을 저장하려면 `Char?`를 사용하세요.
 
@@ -44,11 +44,11 @@ val maybeAbsent: Char? = null
 >
 {style="note"}
 
-## 유니코드 지원
+## 유니코드 지원 {id="unicode-support"}
 
 Kotlin은 `Char` 값을 UTF-16 코드 단위로 표현합니다. 이는 단일 `Char`가 반드시 하나의 완전한 유니코드 문자가 아닌, 하나의 UTF-16 코드 단위를 저장함을 의미합니다.
 
-### 기본 다국어 평면
+### 기본 다국어 평면 {id="basic-multilingual-plane"}
 
 단일 `Char`는 `\u0000`에서 `\uFFFF` 범위의 값을 저장할 수 있습니다. 이 범위는 거의 모든 현대 언어의 문자와 수많은 기호를 포함하는 기본 다국어 평면(Basic Multilingual Plane, BMP)을 다룹니다.
 
@@ -58,7 +58,7 @@ Kotlin은 `Char` 값을 UTF-16 코드 단위로 표현합니다. 이는 단일 `
 val unicodeNumber = '\u0031' // '1'과 같음
 ```
 
-### 보충 문자
+### 보충 문자 {id="supplementary-characters"}
 
 이모지나 일부 역사적 문자와 같은 BMP 외부의 유니코드 문자는 단일 `Char`로 표현할 수 없습니다. UTF-16에서 이러한 문자는 _서로게이트 쌍(surrogate pair)_으로 인코딩되며, 두 개의 `Char` 값이 합쳐져 `String` 내에서 하나의 유니코드 문자를 나타냅니다.
 
@@ -78,7 +78,7 @@ fun main() {
 >
 {style="tip"}
 
-## 이스케이프 시퀀스
+## 이스케이프 시퀀스 {id="escape-sequences"}
 
 소스 코드에 직접 쓰기 어렵거나 특별한 의미를 가진 특수 문자에는 이스케이프 시퀀스를 사용하세요.
 
@@ -105,11 +105,11 @@ val dollar = '\$'
 val backslash = '\\'
 ```
 
-## 연산
+## 연산 {id="operations"}
 
 `Char`는 비교, 검사, 대소문자 변환 및 명시적 숫자 변환을 지원합니다.
 
-### 문자 비교
+### 문자 비교 {id="character-comparison"}
 
 `Char` 값을 비교하려면 `==`, `!=`, `<`, `>`, `<=`, `>=`와 같은 표준 [비교 연산자](keyword-reference.md#operators-and-special-symbols)를 사용하세요.
 
@@ -122,7 +122,7 @@ val different = 'A' == 'a' // false
 val equal = 'A' == 'A' // true
 ```
 
-### 문자 처리
+### 문자 처리 {id="character-processing"}
 
 Kotlin은 문자 값의 검사 및 대소문자 변환을 위한 함수를 제공합니다.
 예를 들어:
@@ -146,7 +146,7 @@ fun main() {
 >
 {style="note"}
 
-### 문자 산술 연산
+### 문자 산술 연산 {id="character-arithmetic"}
 
 정수를 더하거나 빼서 다른 문자 값을 생성할 수 있습니다.
 
@@ -189,7 +189,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 문자 변환
+### 문자 변환 {id="character-conversion"}
 
 `Char`를 숫자 타입으로 변환하려면 명시적 변환을 사용하세요.
 

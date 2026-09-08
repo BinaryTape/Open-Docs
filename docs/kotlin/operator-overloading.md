@@ -17,9 +17,9 @@ class OrdersList: IndexedContainer {
 }
 ```
 
-## 一元运算
+## 一元运算 {id="unary-operations"}
 
-### 一元前缀运算符
+### 一元前缀运算符 {id="unary-prefix-operators"}
 
 | 表达式 | 转换为 |
 |------------|------------------|
@@ -53,7 +53,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-### 自增与自减
+### 自增与自减 {id="increments-and-decrements"}
 
 | 表达式 | 转换为 |
 |------------|-----------------------|
@@ -81,9 +81,9 @@ fun main() {
 * 将 `a.inc()` 的结果赋值给 `a`。
 * 返回 `a` 的新值作为表达式的结果。
 
-## 二元运算
+## 二元运算 {id="binary-operations"}
 
-### 算术运算符 
+### 算术运算符 {id="arithmetic-operators"}
 
 | 表达式 | 转换为 |
 |------------|-------------------|
@@ -107,7 +107,7 @@ data class Counter(val dayIndex: Int) {
 }
 ```
 
-### in 运算符
+### in 运算符 {id="in-operator"}
 
 | 表达式 | 转换为 |
 |------------|------------------|
@@ -116,7 +116,7 @@ data class Counter(val dayIndex: Int) {
 
 对于 `in` 和 `!in`，处理过程相同，但实参的顺序相反。
 
-### 索引访问运算符
+### 索引访问运算符 {id="indexed-access-operator"}
 
 | 表达式 | 转换为 |
 |-------------------------|---------------------------|
@@ -129,7 +129,7 @@ data class Counter(val dayIndex: Int) {
 
 方括号会被转换为对 `get` 和 `set` 的调用，并带有相应数量的实参。
 
-### invoke 运算符
+### invoke 运算符 {id="invoke-operator"}
 
 | 表达式 | 转换为 |
 |---------------------|----------------------------|
@@ -140,7 +140,7 @@ data class Counter(val dayIndex: Int) {
 
 圆括号会被转换为对 `invoke` 的调用，并带有相应数量的实参。
 
-### 复合赋值
+### 复合赋值 {id="augmented-assignments"}
 
 | 表达式 | 转换为 |
 |------------|--------------------|
@@ -162,7 +162,7 @@ data class Counter(val dayIndex: Int) {
 >
 {style="note"}
 
-### 相等与不等运算符
+### 相等与不等运算符 {id="equality-and-inequality-operators"}
 
 | 表达式 | 转换为 |
 |------------|-----------------------------------|
@@ -177,7 +177,7 @@ data class Counter(val dayIndex: Int) {
 >
 {style="note"}
 
-### 比较运算符
+### 比较运算符 {id="comparison-operators"}
 
 | 表达式 | 转换为 |
 |------------|-----------------------|
@@ -188,10 +188,10 @@ data class Counter(val dayIndex: Int) {
 
 所有比较都会转换为对 `compareTo` 的调用，该函数要求返回 `Int`。
 
-### 属性委托运算符
+### 属性委托运算符 {id="property-delegation-operators"}
 
 `provideDelegate`、`getValue` 和 `setValue` 运算符函数在[委托属性](delegated-properties.md)中详细说明。
 
-## 具名函数的中缀调用
+## 具名函数的中缀调用 {id="infix-calls-for-named-functions"}
 
 你可以通过使用[中缀函数调用](functions.md#infix-notation)来模拟自定义的中缀运算。

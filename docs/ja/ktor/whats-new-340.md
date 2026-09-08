@@ -11,9 +11,9 @@ Ktor 3.4.0 では、サーバー、クライアント、およびツールにわ
 * [ランタイム OpenAPI ルートアノテーション](#runtime-openapi-route-annotations)
 * [OkHttp での全二重（Duplex）ストリーミング](#duplex-streaming-for-okhttp)
 
-## Ktor Server
+## Ktor Server {id="ktor-server"}
 
-### エラーハンドリングのための OAuth フォールバック
+### エラーハンドリングのための OAuth フォールバック {id="oauth-fallback-for-error-handling"}
 
 Ktor 3.4.0 では、[OAuth](server-oauth.md) 認証プロバイダーに新しい [`fallback()`](https://api.ktor.io/ktor-server-auth/io.ktor.server.auth/-o-auth-authentication-provider/-config/fallback.html) 関数が導入されました。
 このフォールバックは、トークン交換の失敗、ネットワークの問題、レスポンスのパースエラーなど、OAuth フローが `AuthenticationFailedCause.Error` で失敗したときに呼び出されます。
@@ -42,13 +42,13 @@ install(Authentication) {
 }
 ```
 
-### 静的な OAuth プロバイダー設定
+### 静的な OAuth プロバイダー設定 {id="static-oauth-provider-settings"}
 
 Ktor 3.4.0 では、[OAuth](server-oauth.md) 認証プロバイダーに `settings` プロパティが導入されました。`oauth` ブロック内で静的な OAuth プロバイダー設定を直接構成するためにこれを使用します。静的なプロバイダー構成には、`providerLookup` よりも `settings` を優先してください。これにより、Ktor は生成された [OpenAPI 仕様](openapi-spec-generation.md)のメタデータを推論できるようになります。
 
 `providerLookup` プロパティは、特定のコールに対して OAuth 設定を動的に解決するために引き続き利用可能です。
 
-### Zstd 圧縮のサポート
+### Zstd 圧縮のサポート {id="zstd-compression-support"}
 
 [Zstd](https://github.com/facebook/zstd) 圧縮が [Compression](server-compression.md) プラグインでサポートされるようになりました。
 
@@ -70,7 +70,7 @@ install(Compression) {
 }
 ```
 
-### 設定ファイルでの SSL トラストストア設定
+### 設定ファイルでの SSL トラストストア設定 {id="ssl-trust-store-settings-in-a-configuration-file"}
 
 Ktor では、アプリケーション設定ファイルを使用して、サーバーの追加の [SSL 設定](server-ssl.md#config-file)を構成できるようになりました。設定ファイルでトラストストア（Trust store）、対応するパスワード、および有効な TLS プロトコルのリストを直接指定できます。
 
@@ -95,7 +95,7 @@ ktor {
 - `trustStorePassword` – トラストストアのパスワード。
 - `enabledProtocols` – 許可される TLS プロトコルのリスト。
 
-### 部分的なレスポンスのための HTML フラグメント
+### 部分的なレスポンスのための HTML フラグメント {id="html-fragments-for-partial-responses"}
 
 Ktor は、部分的な HTML レスポンスを送信するための新しい [`.respondHtmlFragment()`](https://api.ktor.io/ktor-server-html-builder/io.ktor.server.html/respond-html-fragment.html) 関数を提供するようになりました。これは、HTMX のようなツールを使用した動的な UI 更新など、完全な `<html>` ドキュメントを必要としないマークアップを生成する場合に便利です。
 
@@ -113,7 +113,7 @@ get("/books.html") {
 }
 ```
 
-### HTTP リクエストのライフサイクル
+### HTTP リクエストのライフサイクル {id="http-request-lifecycle"}
 
 新しい [`HttpRequestLifecycle` プラグイン](server-http-request-lifecycle.md)を使用すると、クライアントが切断されたときに実行中の HTTP リクエスト（Inflight HTTP requests）をキャンセルできます。
 これは、長時間実行されるリクエストやリソースを大量に消費するリクエストにおいて、クライアントの切断時に処理をキャンセルする必要がある場合に便利です。
@@ -143,7 +143,7 @@ routing {
 クライアントが切断されると、リクエストを処理しているコルーチンがキャンセルされ、構造化された並行性（Structured concurrency）によってすべてのリソースのクリーンアップが処理されます。リクエストによって開始された `launch` や `async` コルーチンもすべてキャンセルされます。
 現時点では、`Netty` および `CIO` エンジンのみがこれをサポートしています。
 
-### リソースでレスポンスを返す新しいメソッド
+### リソースでレスポンスを返す新しいメソッド {id="new-method-to-respond-with-a-resource"}
 
 新しい [`call.respondResource()`](server-responses.md#resource) メソッドは、[`call.respondFile()`](server-responses.md#file) と同様に動作しますが、レスポンスとしてファイルの代わりにリソースを受け取ります。
 
@@ -157,7 +157,7 @@ routing {
 }
 ```
 
-### ランタイム OpenAPI ルートアノテーション
+### ランタイム OpenAPI ルートアノテーション {id="runtime-openapi-route-annotations"}
 
 <primary-label ref="experimental"/>
 
@@ -205,7 +205,7 @@ get("/messages") {
 
 詳細と例については、[ランタイムルートアノテーション](openapi-spec-generation.md#runtime-route-annotations)を参照してください。
 
-### API キー認証
+### API キー認証 {id="api-key-authentication"}
 
 新しい [API キー認証プラグイン](server-api-key-auth.md)を使用すると、通常は HTTP ヘッダーで各リクエストと共に渡される共有シークレットを使用して、サーバーのルートを保護できます。
 
@@ -237,9 +237,9 @@ API キー認証は、サービス間通信や、軽量な認証メカニズム�
 
 詳細および構成オプションについては、[API キー認証](server-api-key-auth.md)を参照してください。
 
-## Core
+## Core {id="core"}
 
-### 複数ヘッダーの解析
+### 複数ヘッダーの解析 {id="multiple-header-parsing"}
 
 新しい [`Headers.getSplitValues()`](https://api.ktor.io/ktor-http/io.ktor.http/get-split-values.html) 関数は、1 行に複数の値が含まれるヘッダーの処理を簡素化します。
 
@@ -265,15 +265,15 @@ val forceSplit = headers.getSplitValues("X-Quoted", splitInsideQuotes = true)
 // ["a", "\"b", "c\"", "d"]
 ```
 
-## Ktor Client
+## Ktor Client {id="ktor-client"}
 
-### 認証トークンのキャッシュ制御
+### 認証トークンのキャッシュ制御 {id="authentication-token-cache-control"}
 
 Ktor 3.4.0 より前は、[Basic](client-basic-auth.md) および [Bearer 認証](client-bearer-auth.md)プロバイダーを使用するアプリケーションで、ユーザーがログアウトしたり認証データを更新したりした後も、古いトークンや資格情報が送信され続けることがありました。これは、各プロバイダーが内部コンポーネントを通じて `loadTokens()` 関数の結果をキャッシュしており、このキャッシュが手動でクリアされるまでアクティブなままだったためです。
 
 Ktor 3.4.0 では、トークンのキャッシュ動作を明示的かつ便利に制御できる新しい関数と構成オプションが導入されました。
 
-#### 認証トークンへのアクセスとクリア
+#### 認証トークンへのアクセスとクリア {id="accessing-and-clearing-authentication-tokens"}
 
 クライアントから認証プロバイダーに直接アクセスし、必要に応じてキャッシュされたトークンをクリアできるようになりました。
 
@@ -306,7 +306,7 @@ fun updateCredentials(new: Credentials) {
 }
 ```
 
-#### トークンキャッシュ動作の構成
+#### トークンキャッシュ動作の構成 {id="configuring-token-cache-behavior"}
 
 Basic と Bearer の両方の認証プロバイダーに、新しい `cacheTokens` 構成オプションが追加されました。これにより、リクエスト間でトークンや資格情報をキャッシュするかどうかを制御できます。
 
@@ -323,7 +323,7 @@ basic {
 
 キャッシュの無効化は、認証データが頻繁に変更される場合や、常に最新の状態を反映させる必要がある場合に特に便利です。
 
-### OkHttp での全二重（Duplex）ストリーミング
+### OkHttp での全二重（Duplex）ストリーミング {id="duplex-streaming-for-okhttp"}
 
 OkHttp クライアントエンジンが全二重（Duplex）ストリーミングをサポートし、クライアントがリクエストボディデータの送信とレスポンスデータの受信を同時に行えるようになりました。
 
@@ -342,7 +342,7 @@ val client = HttpClient(OkHttp) {
 }
 ```
 
-### Apache5 コネクションマネージャーの設定
+### Apache5 コネクションマネージャーの設定 {id="apache5-connection-manager-configuration"}
 
 Apache5 エンジンにおいて、新しい [`configureConnectionManager {}`](https://api.ktor.io/ktor-client-apache5/io.ktor.client.engine.apache5/-apache5-engine-config/configure-connection-manager.html) 関数を使用して、コネクションマネージャーを直接設定できるようになりました。
 
@@ -380,7 +380,7 @@ val client = HttpClient(Apache5) {
 
 新しい `configureConnectionManager {}` 関数を使用すると、ルートごとの最大接続数 (`maxConnPerRoute`) や総最大接続数 (`maxConnTotal`) などのパラメータを調整しながら、Ktor による制御を維持できます。
 
-### ネイティブクライアントエンジン用のディスパッチャー設定
+### ネイティブクライアントエンジン用のディスパッチャー設定 {id="dispatcher-configuration-for-native-client-engines"}
 
 ネイティブ HTTP クライアントエンジン（`Curl`、`Darwin`、`WinHttp`）が、設定されたエンジンディスパッチャーを尊重し、デフォルトで `Dispatchers.IO` を使用するようになりました。
 
@@ -429,11 +429,11 @@ client.prepareGet("https://httpbin.org/bytes/$fileSize").execute { httpResponse 
 ```
 </compare>
 
-### プラグインおよびデフォルトリクエスト設定の置換
+### プラグインおよびデフォルトリクエスト設定の置換 {id="plugin-and-default-request-configuration-replacement"}
 
 Ktor クライアントの構成において、実行時に既存の設定を置き換えるための制御がより強化されました。
 
-#### プラグイン構成の置換
+#### プラグイン構成の置換 {id="replace-plugin-configuration"}
 
 新しい [`installOrReplace()`](https://api.ktor.io/ktor-client-core/io.ktor.client/-http-client-config/install-or-replace.html) 関数は、クライアントプラグインをインストールするか、既にインストールされている場合はその既存の構成を置き換えます。これは、プラグインを手動で削除することなく再構成する必要がある場合に便利です。
 
@@ -447,7 +447,7 @@ val client = HttpClient {
 
 上記の例では、`ContentNegotiation` が既にインストールされている場合、その構成がブロック内で提供された新しいものに置き換えられます。
 
-#### デフォルトリクエスト構成の置換
+#### デフォルトリクエスト構成の置換 {id="replace-default-request-configuration"}
 
 [`defaultRequest()`](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins/default-request.html) 関数にオプションの `replace` パラメータ（デフォルトは `false`）が追加されました。`true` に設定すると、新しい構成は以前に定義されたデフォルトリクエスト設定とマージされるのではなく、それらを完全に置き換えます。
 
@@ -461,7 +461,7 @@ val client = HttpClient {
 
 これにより、クライアント設定を構成または再利用する際に、以前のデフォルトリクエスト構成を明示的にオーバーライドできます。
 
-### `js` および `wasmJs` ターゲットの共有ソースセットのサポート
+### `js` および `wasmJs` ターゲットの共有ソースセットのサポート {id="shared-source-set-support-for-js-and-wasmjs-targets"}
 
 Ktor がマルチプラットフォームプロジェクトにおける [Kotlin の共有 `web` ソースセット](https://kotlinlang.org/docs/whatsnew2220.html#shared-source-set-for-js-and-wasmjs-targets)をサポートするようになり、`js` ターゲットと `wasmJs` ターゲット間で Ktor の依存関係を共有できるようになりました。これにより、HTTP クライアントやエンジンなどの Web 固有のクライアントコードを JavaScript と Wasm/JS で共有しやすくなります。
 
@@ -485,9 +485,9 @@ kotlin {
 actual fun createClient(): HttpClient = HttpClient(Js)
 ```
 
-## I/O
+## I/O {id="i-o"}
 
-### `ByteReadChannel` から `RawSink` へのバイトのストリーミング
+### `ByteReadChannel` から `RawSink` へのバイトのストリーミング {id="stream-bytes-from-a-bytereadchannel-to-a-rawsink"}
 
 新しい [`ByteReadChannel.readTo()`](https://api.ktor.io/ktor-io/io.ktor.utils.io/read-to.html) 関数を使用して、チャネルからバイトを読み取り、指定された `RawSink` に直接書き込むことができるようになりました。この関数は、中間バッファや手動コピーを使用せずに、大きなレスポンスやファイルのダウンロードを処理することを簡素化します。
 
@@ -510,15 +510,15 @@ println("A file saved to ${file.path}")
 
 ```
 
-## Gradle プラグイン
+## Gradle プラグイン {id="gradle-plugin"}
 
-### OpenAPI コンパイラ拡張
+### OpenAPI コンパイラ拡張 {id="openapi-compiler-extension"}
 
 以前の OpenAPI コンパイラプラグインは、ビルド時に完全で静的な OpenAPI ドキュメントを生成していました。Ktor 3.4.0 では、代わりに実行時に OpenAPI メタデータを提供するコードを生成します。このメタデータは、仕様を提供するときに [OpenAPI](server-openapi.md) および [Swagger UI](server-swagger-ui.md) プラグインによって消費されます。
 
 専用 `buildOpenApi` Gradle タスクは削除されました。コンパイラプラグインは通常のビルド中に自動的に適用され、ルートやアノテーションの変更は、追加の生成ステップを必要とせずに、実行中のサーバーに反映されます。
 
-#### 構成
+#### 構成 {id="configuration"}
 
 構成は引き続き `ktor` Gradle 拡張内の `openApi {}` ブロックを使用して行われます。ただし、`title`、`version`、`description`、`target` など、グローバルな OpenAPI メタデータを定義するために使用されていたプロパティは非推奨となり、無視されます。
 

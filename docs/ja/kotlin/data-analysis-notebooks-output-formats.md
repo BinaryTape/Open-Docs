@@ -47,9 +47,9 @@ DISPLAY(plot {
 
 ![ガウス分布のさまざまな出力](gaussian-distribution-output.png){width=700}
 
-## テキスト
+## テキスト {id="texts"}
 
-### プレーンテキスト
+### プレーンテキスト {id="plain-text"}
 
 最もシンプルな出力タイプはプレーンテキストです。これは、print文、変数の値、またはコードからのテキストベースの出力で使用されます：
 
@@ -66,7 +66,7 @@ var a3: Int? = a1 + a2
 * セルの結果がどの出力タイプとしても[レンダリング](https://github.com/Kotlin/kotlin-jupyter?tab=readme-ov-file#rendering)および表示できない場合、`toString()` 関数を使用してプレーンテキストとして出力されます。
 * コードにエラーが含まれている場合、Kotlin Notebookはエラーメッセージとトレースバックを表示し、デバッグのための情報を提供します。
 
-### リッチテキスト
+### リッチテキスト {id="rich-text"}
 
 リッチテキストを使用するには、Markdownタイプのセルを選択します。これにより、リスト、テーブル、フォントスタイル、コードブロックなどを使用して、MarkdownやHTMLマークアップでコンテンツをフォーマットできます。HTMLにはCSSスタイルやJavaScriptを含めることができます。
 
@@ -88,7 +88,7 @@ var a3: Int? = a1 + a2
 
 ![Markdownセルのリッチテキスト](markdown-cells-output.png){width=700}
 
-## HTML
+## HTML {id="html"}
 
 Kotlin NotebookはHTMLを直接レンダリングでき、スクリプトを実行したり、ウェブサイトを埋め込んだりすることも可能です：
 
@@ -110,11 +110,11 @@ HTML("""
 >
 {style="note"}
 
-## 画像
+## 画像 {id="images"}
 
 Kotlin Notebookでは、ファイルからの画像、生成されたグラフ、またはその他のビジュアルメディアを表示できます。静止画像は `.png`、`jpeg`、`.svg` などの形式で表示できます。
 
-### BufferedImage
+### BufferedImage {id="buffered-images"}
 
 デフォルトでは、`BufferedImage` クラスを使用して画像を表示できます：
 
@@ -141,7 +141,7 @@ graphics.dispose()
 
 ![デフォルトのBufferedImageを使用して画像を表示](bufferedimage-output.png){width=400}
 
-### 読み込まれた画像
+### 読み込まれた画像 {id="loaded-images"}
 
 `lib-ext` ライブラリを使用すると、標準のJupyter機能を拡張し、ネットワークから読み込まれた画像を表示できます：
 
@@ -155,7 +155,7 @@ Image("https://kotlinlang.org/docs/images/kotlin-logo.png", embed = false).withW
 
 ![外部画像リンクの使用](external-images-output.png){width=400}
 
-### 埋め込み画像
+### 埋め込み画像 {id="embedded-images"}
 
 ネットワークから読み込まれる画像の欠点は、リンクが切れたりネットワーク接続が失われたりすると画像が表示されなくなることです。これを回避するには、埋め込み画像を使用します。例：
 
@@ -166,7 +166,7 @@ kotlinMascot
 
 ![埋め込み画像の使用](embedded-images-output.png){width=400}
 
-## 数式と方程式
+## 数式と方程式 {id="math-formulas-and-equations"}
 
 アカデミアで広く使用されている組版システムであるLaTeX形式を使用して、数式や方程式をレンダリングできます：
 
@@ -184,7 +184,7 @@ kotlinMascot
 
    ![LaTeXを使用して数式をレンダリング](latex-output.png){width=300}
 
-## データフレーム
+## データフレーム {id="data-frames"}
 
 Kotlin Notebookでは、データフレームを使用して構造化データを可視化できます：
 
@@ -235,7 +235,7 @@ Kotlin Notebookでは、データフレームを使用して構造化データ�
    dfSales.writeCSV("sales-stats.csv")
    ```
 
-## チャート
+## チャート {id="charts"}
 
 Kotlin Notebook内で直接さまざまなチャートを作成して、データを可視化できます：
 
@@ -280,7 +280,7 @@ Kotlin Notebook内で直接さまざまなチャートを作成して、デー�
    salesPlot.save("sales-chart.svg")
    ```
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [DataFrameおよびKandyライブラリを使用したデータの可視化](data-analysis-visualization.md)
 * [Kotlin Notebookでのリッチ出力のレンダリングと表示についての詳細](https://www.jetbrains.com/help/idea/kotlin-notebook.html#render-rich-output)

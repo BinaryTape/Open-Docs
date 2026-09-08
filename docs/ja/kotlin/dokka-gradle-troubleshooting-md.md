@@ -4,7 +4,7 @@
 
 もし問題がここに記載されていない場合は、[issue トラッカー](https://kotl.in/dokka-issues)でフィードバックや問題を報告するか、公式の [Kotlin Slack](https://kotlinlang.slack.com/) にある Dokka コミュニティでチャットしてください。Slack への招待は[こちら](https://kotl.in/slack)から取得できます。
 
-## メモリの問題
+## メモリの問題 {id="memory-issues"}
 
 大規模なプロジェクトでは、Dokka はドキュメント生成のためにかなりのメモリを消費することがあります。これは、特に大量のデータを処理する場合に Gradle のメモリ制限を超える可能性があります。
 
@@ -17,7 +17,7 @@ Dokka のパフォーマンス向上のための取り組みが進行中です�
 * [ヒープ領域の増加](#increase-heap-space)
 * [Gradle プロセス内での Dokka の実行](#run-dokka-within-the-gradle-process)
 
-### ヒープ領域の増加
+### ヒープ領域の増加 {id="increase-heap-space"}
 
 メモリの問題を解決する一つの方法は、Dokka ジェネレータープロセスの Java ヒープメモリの量を増やすことです。`build.gradle.kts` ファイルで、以下の設定オプションを調整します。
 
@@ -39,7 +39,7 @@ Dokka のパフォーマンス向上のための取り組みが進行中です�
 >
 {style="note"}
 
-### Gradle プロセス内での Dokka の実行
+### Gradle プロセス内での Dokka の実行 {id="run-dokka-within-the-gradle-process"}
 
 Gradle のビルドと Dokka の生成の両方が大量のメモリを必要とする場合、それらが別々のプロセスとして実行され、1 台のマシンで大きなメモリを消費することがあります。
 

@@ -6,7 +6,7 @@ title: 한정자 (Qualifiers)
 
 한정자(Qualifiers)를 사용하면 Koin 모듈 내에서 동일한 타입의 여러 정의를 구분할 수 있습니다.
 
-## 한정자가 필요한 경우
+## 한정자가 필요한 경우 {id="when-you-need-qualifiers"}
 
 다음과 같은 상황에서 한정자가 필요합니다:
 - 동일한 인터페이스의 구현체가 여러 개인 경우
@@ -21,11 +21,11 @@ val networkModule = module {
 }
 ```
 
-## 이름 기반 한정자 (Named Qualifiers)
+## 이름 기반 한정자 (Named Qualifiers) {id="named-qualifiers"}
 
 `named()`를 사용하여 정의를 구분합니다:
 
-### 정의하기
+### 정의하기 {id="defining"}
 
 ```kotlin
 import org.koin.core.qualifier.named
@@ -45,7 +45,7 @@ val networkModule = module {
 }
 ```
 
-### 주입하기
+### 주입하기 {id="injecting"}
 
 ```kotlin
 // 모듈 정의에서
@@ -64,7 +64,7 @@ class MyService : KoinComponent {
 }
 ```
 
-### 어노테이션과 함께 사용하기
+### 어노테이션과 함께 사용하기 {id="with-annotations"}
 
 ```kotlin
 import org.koin.core.annotation.Named
@@ -89,9 +89,9 @@ class ApiService(
 컴파일러 플러그인 DSL 및 클래식 DSL 자동 연결(`singleOf`, `factoryOf`)의 경우, 한정자는 자동으로 해결될 수 없습니다. 정의에 한정자가 필요한 경우 람다를 사용하는 클래식 DSL이나 어노테이션을 사용하세요.
 :::
 
-## 타입 안전 한정자 (Type-Safe Qualifiers)
+## 타입 안전 한정자 (Type-Safe Qualifiers) {id="type-safe-qualifiers"}
 
-### 타입 사용하기
+### 타입 사용하기 {id="using-types"}
 
 어떤 타입이든 `named<T>()`와 함께 한정자로 사용할 수 있습니다:
 
@@ -118,7 +118,7 @@ val networkModule = module {
 val client: OkHttpClient = get(named<EncryptedClient>())
 ```
 
-### 열거형(Enums) 사용하기
+### 열거형(Enums) 사용하기 {id="using-enums"}
 
 더 나은 IDE 지원을 위해 열거형을 사용하세요:
 
@@ -152,7 +152,7 @@ val client: OkHttpClient = get(named(NetworkClient.ENCRYPTED))
 - 문자열 오타 방지
 - IDE 자동 완성 및 리팩터링 지원
 
-## JSR-330 @Qualifier
+## JSR-330 @Qualifier {id="jsr-330-qualifier"}
 
 Koin은 표준 JSR-330 `@Qualifier` 어노테이션을 지원합니다:
 
@@ -179,9 +179,9 @@ class MyRepository(
 )
 ```
 
-## 일반적인 유스케이스
+## 일반적인 유스케이스 {id="common-use-cases"}
 
-### 여러 API 버전
+### 여러 API 버전 {id="multiple-api-versions"}
 
 ```kotlin
 val networkModule = module {
@@ -199,7 +199,7 @@ val networkModule = module {
 }
 ```
 
-### 서로 다른 타임아웃 설정
+### 서로 다른 타임아웃 설정 {id="different-timeout-configurations"}
 
 ```kotlin
 val networkModule = module {
@@ -217,7 +217,7 @@ val networkModule = module {
 }
 ```
 
-### 환경별 설정
+### 환경별 설정 {id="environment-configurations"}
 
 ```kotlin
 val configModule = module {
@@ -236,9 +236,9 @@ val configModule = module {
 }
 ```
 
-## 권장 사항 (Best Practices)
+## 권장 사항 (Best Practices) {id="best-practices"}
 
-### 1. 한정자는 꼭 필요한 경우에만 사용하세요
+### 1. 한정자는 꼭 필요한 경우에만 사용하세요 {id="1-use-qualifiers-sparingly"}
 
 ```kotlin
 // 좋음 - 꼭 필요한 경우에만 한정자 사용
@@ -255,7 +255,7 @@ val appModule = module {
 }
 ```
 
-### 2. 타입 차별화를 선호하세요
+### 2. 타입 차별화를 선호하세요 {id="2-prefer-type-differentiation"}
 
 ```kotlin
 // 더 좋음 - 서로 다른 타입 사용
@@ -271,7 +271,7 @@ val networkModule = module {
 }
 ```
 
-### 3. 한정자 체인을 피하세요
+### 3. 한정자 체인을 피하세요 {id="3-avoid-qualifier-chains"}
 
 ```kotlin
 // 나쁨 - 복잡한 한정자 의존성
@@ -289,7 +289,7 @@ val goodModule = module {
 }
 ```
 
-### 4. 한정자에 대해 설명(문서화)하세요
+### 4. 한정자에 대해 설명(문서화)하세요 {id="4-document-qualifiers"}
 
 ```kotlin
 val networkModule = module {
@@ -301,9 +301,9 @@ val networkModule = module {
 }
 ```
 
-## 명명 규칙 (Naming Conventions)
+## 명명 규칙 (Naming Conventions) {id="naming-conventions"}
 
-### 문자열 기반
+### 문자열 기반 {id="string-based"}
 
 ```kotlin
 // 좋음 - 설명적이며 언더바를 사용한 소문자
@@ -315,7 +315,7 @@ single(named("api_v2")) { ... }
 single(named("client1")) { ... }  // "1"이 무엇을 의미하는지 알 수 없음
 ```
 
-### 열거형 기반
+### 열거형 기반 {id="enum-based"}
 
 ```kotlin
 // 좋음 - 명확한 열거형 이름
@@ -330,9 +330,9 @@ enum class ApiVersion {
 }
 ```
 
-## 흔히 발생하는 실수
+## 흔히 발생하는 실수 {id="common-pitfalls"}
 
-### 주입 시 한정자 누락
+### 주입 시 한정자 누락 {id="forgetting-qualifiers-on-injection"}
 
 ```kotlin
 val module = module {
@@ -347,7 +347,7 @@ val repoModule = module {
 }
 ```
 
-### 한정자 이름 불일치
+### 한정자 이름 불일치 {id="mismatched-qualifier-names"}
 
 ```kotlin
 val module = module {
@@ -365,7 +365,7 @@ val repoModule = module {
 
 오타를 방지하려면 열거형 한정자를 사용하세요!
 
-## 다음 단계
+## 다음 단계 {id="next-steps"}
 
 - **[정의 (Definitions)](/docs/reference/koin-core/definitions)** - 정의 타입 및 바인딩
 - **[모듈 (Modules)](/docs/reference/koin-core/modules)** - 모듈 구성

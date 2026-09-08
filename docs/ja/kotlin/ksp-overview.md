@@ -11,7 +11,7 @@ KSP ベースのプラグインの代表的なユースケースには、以下�
 
 最初の KSP ベースのプロセッサを作成する方法については、[KSP クイックスタート](ksp-quickstart.md) をご覧ください。
 
-## 概要
+## 概要 {id="overview"}
 
 KSP API は、Kotlin プログラムを慣用的に処理します。KSP は、拡張関数、宣言区の変異（declaration-site variance）、ローカル関数といった Kotlin 特有の機能を理解しています。また、型を明示的にモデル化し、等価性や代入互換性などの基本的な型チェックも提供します。
 
@@ -31,7 +31,7 @@ KSP の概要については、こちらの動画（英語）でもご確認い�
 
 <video src="https://www.youtube.com/v/bv-VyGM3HCY" title="Kotlin Symbol Processing (KSP)"/>
 
-## KSP がソースファイルをどのように見るか
+## KSP がソースファイルをどのように見るか {id="how-ksp-looks-at-source-files"}
 
 ほとんどのプロセッサは、入力ソースコードのさまざまなプログラム構造を辿ります。API の使用方法に入る前に、KSP の視点からファイルがどのように見えるかを確認してみましょう。
 
@@ -80,7 +80,7 @@ KSFile
 
 このビューには、ファイル内で宣言されている一般的な要素（クラス、関数、プロパティなど）がリストされています。
 
-## SymbolProcessorProvider: エントリポイント
+## SymbolProcessorProvider: エントリポイント {id="symbolprocessorprovider-the-entry-point"}
 
 KSP は、`SymbolProcessor` をインスタンス化するために `SymbolProcessorProvider` インターフェースの実装を必要とします。
 
@@ -133,7 +133,7 @@ class HelloFunctionFinderProcessor : SymbolProcessor() {
 }
 ```
 
-## リソース
+## リソース {id="resources"}
 
 * [クイックスタート](ksp-quickstart.md)
 * [例 (Examples)](ksp-examples.md)
@@ -145,7 +145,7 @@ class HelloFunctionFinderProcessor : SymbolProcessor() {
 * [コマンドラインからの KSP の実行](ksp-command-line.md)
 * [FAQ](ksp-faq.md)
 
-## サポートされているライブラリ
+## サポートされているライブラリ {id="supported-libraries"}
 
 以下の表は、Android で人気のライブラリと、それらの KSP サポート状況のリストです。
 

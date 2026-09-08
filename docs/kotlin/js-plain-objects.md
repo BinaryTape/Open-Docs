@@ -10,13 +10,13 @@ JavaScript (JS) 普通对象编译器插件 (`js-plain-objects`) 允许你以类
 >
 {style="warning"}
 
-## JS 普通对象
+## JS 普通对象 {id="plain-js-objects"}
 
 普通对象是通过对象字面量 (`{}`) 创建的包含数据属性的简单 JS 对象。许多 JS API 接受或返回 JS 普通对象用于配置或数据交换。
 
 通过使用 `js-plain-objects` 插件，你可以声明一个 Kotlin 外部接口来描述对象形状，并为其添加 `@JsPlainObject` 注解。随后，编译器会生成便捷的函数来构建和拷贝此类对象，同时保持 Kotlin 的类型安全。
 
-## 启用插件
+## 启用插件 {id="enable-the-plugin"}
 
 将 `js-plain-objects` 插件添加到项目的 Gradle 构建配置文件中，如下面的 Kotlin DSL 所示：
 
@@ -57,7 +57,7 @@ kotlin {
 </tab>
 </tabs>
 
-## 声明普通对象类型
+## 声明普通对象类型 {id="declare-a-plain-object-type"}
 
 启用 `js-plain-objects` 插件后，你就可以声明一个普通对象类型。为外部接口添加 `@JsPlainObject` 注解。例如：
 
@@ -100,7 +100,7 @@ external interface User {
 * `copy` 函数通过对 `source` 进行浅拷贝并重写任何指定的属性来创建一个新对象。
 * 伴生对象被标记为 `@JsExport.Ignore`，以避免这些辅助程序泄露到 JS 导出中。
 
-## 使用普通对象
+## 使用普通对象 {id="use-plain-objects"}
 
 使用生成的辅助程序创建和拷贝对象：
 
@@ -132,6 +132,6 @@ function main () {
 
 使用这种方法创建的任何 JavaScript 对象都是安全的。当你使用错误的属性名称或值类型时，会遇到编译时错误。这种方法也是零成本的，因为生成的代码以内联方式呈现为简单的对象字面量和 `Object.assign` 调用。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 在[从 Kotlin 使用 JavaScript 代码](js-interop.md)和 [dynamic 类型](dynamic-type.md)文档中详细了解与 JavaScript 的互操作性。

@@ -11,16 +11,16 @@ Kotlin/Wasm을 사용하면 Kotlin에서 JavaScript 코드를 사용하거나 Ja
 >
 {style="note"}
 
-## Kotlin에서 JavaScript 코드 사용하기
+## Kotlin에서 JavaScript 코드 사용하기 {id="use-javascript-code-in-kotlin"}
 
 `external` 선언, JavaScript 코드 스니펫이 포함된 함수, 그리고 `@JsModule` 어노테이션을 사용하여 Kotlin에서 JavaScript 코드를 사용하는 방법을 알아봅니다.
 
-### 외부 선언 (External declarations)
+### 외부 선언 (External declarations) {id="external-declarations"}
 
 기본적으로 외부 JavaScript 코드는 Kotlin에서 보이지 않습니다.
 Kotlin에서 JavaScript 코드를 사용하려면 `external` 선언으로 해당 API를 설명해야 합니다.
 
-#### JavaScript 함수
+#### JavaScript 함수 {id="javascript-functions"}
 
 다음과 같은 JavaScript 함수가 있다고 가정해 보겠습니다. 
 
@@ -44,7 +44,7 @@ fun main() {
 }
 ```
 
-#### JavaScript 프로퍼티
+#### JavaScript 프로퍼티 {id="javascript-properties"}
 
 다음과 같은 전역 JavaScript 변수가 있다고 가정해 보겠습니다.
 
@@ -60,7 +60,7 @@ external var globalCounter: Int
 
 이러한 프로퍼티는 외부에서 초기화됩니다. Kotlin 코드 내에서 `= value` 형태의 초기화 식을 가질 수 없습니다.
 
-#### JavaScript 클래스
+#### JavaScript 클래스 {id="javascript-classes"}
 
 다음과 같은 JavaScript 클래스가 있다고 가정해 보겠습니다.
 
@@ -89,7 +89,7 @@ external class Rectangle(height: Double, width: Double) : JsAny {
 
 `external` 클래스 내부의 모든 선언은 암시적으로 외부 선언으로 간주됩니다.
 
-#### 외부 인터페이스 (External interfaces)
+#### 외부 인터페이스 (External interfaces) {id="external-interfaces"}
 
 Kotlin에서 JavaScript 객체의 형태(shape)를 설명할 수 있습니다. 다음 JavaScript 함수와 그 반환값을 살펴보세요.
 
@@ -117,7 +117,7 @@ external fun createUser(name: String, age: Int): User
 * 실체화된 타입 인자(reified type arguments)로 전달할 수 없습니다.
 * 외부 인터페이스로 `as` 캐스팅하는 것은 항상 성공합니다.
 
-#### 외부 객체 (External objects)
+#### 외부 객체 (External objects) {id="external-objects"}
 
 객체를 담고 있는 다음과 같은 JavaScript 변수가 있다고 가정해 보겠습니다.
 
@@ -141,12 +141,12 @@ external object Counter : JsAny {
 }
 ```
 
-#### 외부 타입 계층 구조 (External type hierarchy)
+#### 외부 타입 계층 구조 (External type hierarchy) {id="external-type-hierarchy"}
 
 일반 클래스 및 인터페이스와 마찬가지로, 다른 외부 클래스를 확장하거나 외부 인터페이스를 구현하도록 외부 선언을 할 수 있습니다.
 그러나 동일한 타입 계층 구조 내에서 외부 선언과 비외부(non-external) 선언을 혼합하여 사용할 수는 없습니다.
 
-#### @nativeInvoke를 사용한 호출 가능한 JavaScript 객체
+#### @nativeInvoke를 사용한 호출 가능한 JavaScript 객체 {id="callable-javascript-objects-with-nativeinvoke"}
 <primary-label ref="experimental-opt-in"/>
 
 `external` 선언(클래스 또는 인터페이스)의 Kotlin 멤버 함수에 `@nativeInvoke` 어노테이션을 사용하여 JavaScript 함수처럼 호출할 수 있도록 만들 수 있습니다.
@@ -173,7 +173,7 @@ fun main() {
 >
 > {style="note"}
 
-### JavaScript 코드가 포함된 Kotlin 함수
+### JavaScript 코드가 포함된 Kotlin 함수 {id="kotlin-functions-with-javascript-code"}
 
 함수 본문을 `= js("code")`로 정의하여 Kotlin/Wasm 코드에 JavaScript 스니펫을 추가할 수 있습니다.
 
@@ -214,7 +214,7 @@ JavaScript 구문 오류가 있는 경우, JavaScript 코드를 실행할 때 �
 >
 {style="note"}
 
-### JavaScript 모듈
+### JavaScript 모듈 {id="javascript-modules"}
 
 기본적으로 외부 선언은 JavaScript 전역 스코프에 대응합니다. Kotlin 파일에 [`@JsModule` 어노테이션](js-modules.md#jsmodule-annotation)을 추가하면, 해당 파일 내의 모든 외부 선언은 지정된 모듈에서 임포트됩니다.
 
@@ -246,7 +246,7 @@ external class User : JsAny {
 }
 ```
 
-### 배열 상호운용성
+### 배열 상호운용성 {id="array-interoperability"}
 
 JavaScript의 `JsArray<T>`를 Kotlin의 기본 `Array` 또는 `List` 타입으로 복사할 수 있으며, 마찬가지로 이러한 Kotlin 타입을 `JsArray<T>`로 복사할 수 있습니다.
 
@@ -284,11 +284,11 @@ import org.khronos.webgl.*
     val kotlinIntArray: IntArray = jsInt32Array.toIntArray()
 ```
 
-## JavaScript에서 Kotlin 코드 사용하기
+## JavaScript에서 Kotlin 코드 사용하기 {id="use-kotlin-code-in-javascript"}
 
 `@JsExport` 어노테이션을 사용하여 Kotlin 코드를 JavaScript에서 사용하는 방법을 알아봅니다.
 
-### @JsExport 어노테이션이 있는 함수
+### @JsExport 어노테이션이 있는 함수 {id="functions-with-the-jsexport-annotation"}
 
 Kotlin/Wasm 함수를 JavaScript 코드에서 사용할 수 있게 하려면 `@JsExport` 어노테이션을 사용하세요.
 
@@ -331,7 +331,7 @@ kotlin {
 >
 {style="warning"}
 
-## 타입 대응 (Type correspondence)
+## 타입 대응 (Type correspondence) {id="type-correspondence"}
 
 Kotlin/Wasm은 JavaScript 상호운용성 선언의 시그니처에서 특정 타입만 허용합니다.
 이러한 제한은 `external`, `= js("code")` 또는 `@JsExport`를 사용한 선언에 공통적으로 적용됩니다.
@@ -353,7 +353,7 @@ Kotlin 타입이 JavaScript 타입에 어떻게 대응하는지 확인해 보세
 
 이러한 타입들의 널 허용(nullable) 버전도 사용할 수 있습니다.
 
-### JsAny 타입
+### JsAny 타입 {id="jsany-type"}
 
 JavaScript 값은 Kotlin에서 `JsAny` 타입과 그 하위 타입을 사용하여 표현됩니다.
 
@@ -366,7 +366,7 @@ Kotlin/Wasm 표준 라이브러리는 이러한 타입 중 일부에 대한 표�
 
 또한 `external` 인터페이스나 클래스를 선언하여 커스텀 `JsAny` 하위 타입을 만들 수도 있습니다.
 
-### JsReference 타입
+### JsReference 타입 {id="jsreference-type"}
 
 Kotlin 값은 `JsReference` 타입을 사용하여 JavaScript에 불투명 참조로 전달될 수 있습니다.
 
@@ -404,7 +404,7 @@ let user = UserLib.createUser("Bob");
 UserLib.setUserName(user, "Alice");
 ```
 
-### 타입 파라미터
+### 타입 파라미터 {id="type-parameters"}
 
 JavaScript 상호운용성 선언은 `JsAny` 또는 그 하위 타입을 상한 경계(upper bound)로 갖는 경우 타입 파라미터를 가질 수 있습니다. 예를 들어:
 
@@ -412,7 +412,7 @@ JavaScript 상호운용성 선언은 `JsAny` 또는 그 하위 타입을 상한 
 external fun <T : JsAny> processData(data: JsArray<T>): T
 ```
 
-## 예외 처리
+## 예외 처리 {id="exception-handling"}
 
 Kotlin/Wasm 코드에서 JavaScript 예외를 잡기 위해 Kotlin의 `try-catch` 표현식을 사용할 수 있습니다.
 예외 처리는 다음과 같이 작동합니다.
@@ -454,7 +454,7 @@ fun main() {
 * Firefox 129+
 * Safari 18.4+
 
-## Kotlin/Wasm과 Kotlin/JS 상호운용성의 차이점
+## Kotlin/Wasm과 Kotlin/JS 상호운용성의 차이점 {id="kotlin-wasm-and-kotlin-js-interoperability-differences"}
 
 Kotlin/Wasm 상호운용성은 Kotlin/JS 상호운용성과 유사한 점이 많지만, 고려해야 할 몇 가지 중요한 차이점이 있습니다.
 
@@ -495,7 +495,7 @@ Kotlin/Wasm 상호운용성은 Kotlin/JS 상호운용성과 유사한 점이 많
 >
 {style="note"}
 
-## 웹 관련 브라우저 API
+## 웹 관련 브라우저 API {id="web-related-browser-apis"}
 
 [`kotlinx-browser` 라이브러리](https://github.com/kotlin/kotlinx-browser)는 다음과 같은 JavaScript 브라우저 API를 제공하는 독립 라이브러리입니다.
 * `org.khronos.webgl` 패키지:

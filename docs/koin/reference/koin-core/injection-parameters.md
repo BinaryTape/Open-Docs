@@ -4,7 +4,7 @@ title: 传递参数 - 注入参数
 
 在任何定义中，你都可以使用注入参数：这些参数将被注入并供你的定义使用。
 
-## 传递待注入的值
+## 传递待注入的值 {id="passing-values-to-inject"}
 
 给定一个定义，你可以将参数传递给该定义：
 
@@ -29,7 +29,7 @@ class MyComponent : View, KoinComponent {
 }
 ```
 
-## 定义“注入参数”
+## 定义“注入参数” {id="defining-an-injected-parameter"}
 
 下面是一个注入参数的示例。我们确定需要一个 `view` 参数来构建 `Presenter` 类。我们使用 `params` 函数实参来辅助检索注入的参数：
 
@@ -55,7 +55,7 @@ val myModule = module {
  即使“析构”声明更方便且更易读，但它不是类型安全的。如果你有多个值，Kotlin 将无法检测传递的类型顺序是否正确。
 :::
 
-## 按顺序解析注入参数
+## 按顺序解析注入参数 {id="resolving-injected-parameters-in-order"}
 
 如果要解析参数，且存在多个相同类型的参数，你可以使用 `get(index)`（也等同于 `[ ]` 运算符），而不是直接使用 `get()`：
 
@@ -68,7 +68,7 @@ val myModule = module {
 }
 ```
 
-## 从图中解析注入参数
+## 从图中解析注入参数 {id="resolving-injected-parameters-from-graph"}
 
 Koin 图解析（所有定义的解析主树）也允许你查找注入参数。只需使用常用的 `get()` 函数即可：
 
@@ -80,7 +80,7 @@ val myModule = module {
 }
 ```
 
-## 注入参数：索引值或集合 (`3.4.3`)
+## 注入参数：索引值或集合 (`3.4.3`) {id="injected-parameters-indexed-values-or-set-3-4-3"}
 
 除 `parametersOf` 外，还可以访问以下 API：
 

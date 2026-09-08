@@ -37,9 +37,9 @@ kotlin {
 </TabItem>
 </Tabs>
 
-## Kotlinライブラリへの依存関係
+## Kotlinライブラリへの依存関係 {id="dependency-on-a-kotlin-library"}
 
-### 標準ライブラリ
+### 標準ライブラリ {id="standard-library"}
 
 各ソースセットへの標準ライブラリ（`stdlib`）の依存関係は自動的に追加されます。標準ライブラリのバージョンは、`kotlin-multiplatform` プラグインのバージョンと同じです。
 
@@ -47,7 +47,7 @@ kotlin {
 
 [デフォルトの動作を変更する方法](https://kotlinlang.org/docs/gradle-configure-project.html#dependency-on-the-standard-library)についてはこちらをご覧ください。
 
-### テストライブラリ
+### テストライブラリ {id="test-libraries"}
 
 マルチプラットフォームテストでは、[`kotlin.test`](https://kotlinlang.org/api/latest/kotlin.test/) APIを利用できます。マルチプラットフォームプロジェクトを作成する際、`commonTest` で単一の依存関係を使用することで、すべてのソースセットにテストの依存関係を追加できます。
 
@@ -84,7 +84,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-### kotlinxライブラリ
+### kotlinxライブラリ {id="kotlinx-libraries"}
 
 マルチプラットフォームライブラリを使用し、[共有コードに依存](#library-shared-for-all-source-sets)する必要がある場合は、共有ソースセットで一度だけ依存関係を設定してください。`kotlinx-coroutines-core` のようなライブラリのベースアーティファクト名を使用します。
 
@@ -156,7 +156,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-## Kotlin Multiplatformライブラリへの依存関係
+## Kotlin Multiplatformライブラリへの依存関係 {id="dependency-on-kotlin-multiplatform-libraries"}
 
 [SQLDelight](https://github.com/cashapp/sqldelight)など、Kotlin Multiplatform技術を採用しているライブラリへの依存関係を追加できます。これらのライブラリの作者は通常、プロジェクトに依存関係を追加するためのガイドを提供しています。
 
@@ -164,7 +164,7 @@ kotlin {
 >
 {style="tip"}
 
-### すべてのソースセットで共有されるライブラリ
+### すべてのソースセットで共有されるライブラリ {id="library-shared-for-all-source-sets"}
 
 すべてのソースセットからライブラリを使用したい場合は、共通（common）ソースセットにのみ追加できます。Kotlin Multiplatform Gradleプラグインは、他のソースセットに対応するパーツを自動的に追加します。
 
@@ -217,7 +217,7 @@ kotlin {
 > 
 {style="tip"}
 
-### 特定のソースセットで使用されるライブラリ
+### 特定のソースセットで使用されるライブラリ {id="library-used-in-specific-source-sets"}
 
 特定のソースセットでのみマルチプラットフォームライブラリを使用したい場合は、それらのソースセットにのみライブラリを追加できます。指定されたライブラリの宣言は、それらのソースセットでのみ利用可能になります。
 
@@ -282,7 +282,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-## 他のマルチプラットフォームプロジェクトへの依存関係
+## 他のマルチプラットフォームプロジェクトへの依存関係 {id="dependency-on-another-multiplatform-project"}
 
 あるマルチプラットフォームプロジェクトを別のプロジェクトの依存関係として接続できます。これを行うには、プロジェクトの依存関係をそれを必要とするソースセットに追加するだけです。すべてのソースセットで依存関係を使用したい場合は、共通ソースセットに追加します。この場合、他のソースセットにはそれぞれのバージョンが自動的に適用されます。
 
@@ -327,7 +327,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 マルチプラットフォームプロジェクトでの依存関係の追加に関する他のリソースを確認し、以下についてさらに詳しく学びましょう：
 

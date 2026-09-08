@@ -5,7 +5,7 @@ Kotlin 코드는 Java에서 쉽게 호출할 수 있습니다.
 하지만 Kotlin 코드를 Java에 통합할 때 주의해야 할 Java와 Kotlin 간의 몇 가지 차이점이 있습니다.
 이 페이지에서는 Kotlin 코드를 Java 클라이언트에 맞게 조정하는 방법을 설명합니다.
 
-## 프로퍼티 (Properties)
+## 프로퍼티 (Properties) {id="properties"}
 
 Kotlin 프로퍼티는 다음과 같은 Java 요소로 컴파일됩니다:
 
@@ -31,7 +31,7 @@ public void setFirstName(String firstName) {
 예를 들어, `isOpen` 프로퍼티의 경우 getter는 `isOpen()`이고 setter는 `setOpen()`이 됩니다.
 이 규칙은 `Boolean`뿐만 아니라 모든 타입의 프로퍼티에 적용됩니다.
 
-## 패키지 수준 함수 (Package-level functions)
+## 패키지 수준 함수 (Package-level functions) {id="package-level-functions"}
 
 패키지 `org.example` 내의 `app.kt` 파일에 선언된 확장 함수를 포함한 모든 함수와 프로퍼티는 `org.example.AppKt`라는 이름의 Java 클래스의 정적 메서드로 컴파일됩니다.
 
@@ -100,7 +100,7 @@ org.example.Utils.getTime();
 org.example.Utils.getDate();
 ```
 
-## 인스턴스 필드 (Instance fields)
+## 인스턴스 필드 (Instance fields) {id="instance-fields"}
 
 Kotlin 프로퍼티를 Java의 필드로 노출해야 하는 경우, [`@JvmField`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-field/index.html) 어노테이션을 붙이세요.
 필드는 기본 프로퍼티와 동일한 가시성을 갖습니다. 다음 조건에 해당하면 프로퍼티에 `@JvmField`를 붙일 수 있습니다:
@@ -127,7 +127,7 @@ class JavaClient {
 [지연 초기화(Late-Initialized)](properties.md#late-initialized-properties-and-variables) 프로퍼티 또한 필드로 노출됩니다.
 필드의 가시성은 `lateinit` 프로퍼티 setter의 가시성과 동일합니다.
 
-## 정적 필드 (Static fields)
+## 정적 필드 (Static fields) {id="static-fields"}
 
 이름이 있는 객체(named object) 또는 컴패니언 객체(companion object)에 선언된 Kotlin 프로퍼티는 해당 객체 또는 컴패니언 객체를 포함하는 클래스에 정적 백킹 필드를 갖습니다.
 
@@ -194,7 +194,7 @@ int max = ExampleKt.MAX;
 int version = C.VERSION;
 ```
 
-## 정적 메서드 (Static methods)
+## 정적 메서드 (Static methods) {id="static-methods"}
 
 Kotlin은 패키지 수준 함수를 정적 메서드로 표현합니다.
 또한 이름이 있는 객체 또는 컴패니언 객체에 정의된 함수에 [`@JvmStatic`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-static/) 어노테이션을 붙이면 정적 메서드를 생성할 수 있습니다.
@@ -255,7 +255,7 @@ interface ChatBot {
 
 `@JvmStatic` 어노테이션을 객체나 컴패니언 객체의 프로퍼티에도 적용할 수 있으며, 이 경우 getter와 setter 메서드가 해당 객체 또는 컴패니언 객체를 포함하는 클래스의 정적 멤버가 됩니다.
 
-## 인터페이스의 디폴트 메서드 (Default methods in interfaces)
+## 인터페이스의 디폴트 메서드 (Default methods in interfaces) {id="default-methods-in-interfaces"}
 
 JVM을 타겟으로 할 때, Kotlin은 [별도로 구성](#compatibility-modes-for-default-methods)하지 않는 한 인터페이스에 선언된 함수를 [디폴트 메서드(default methods)](https://docs.oracle.com/javase/tutorial/java/IandI/defaultmethods.html)로 컴파일합니다.
 이것은 Java 클래스가 재구현 없이 직접 상속받을 수 있는 인터페이스 내의 구체적인 메서드입니다.
@@ -306,7 +306,7 @@ public class BB8 implements Robot {
 }
 ```
 
-### 디폴트 메서드 호환성 모드
+### 디폴트 메서드 호환성 모드 {id="compatibility-modes-for-default-methods"}
 
 Kotlin은 인터페이스의 함수가 JVM 디폴트 메서드로 컴파일되는 방식을 제어하기 위해 세 가지 모드를 제공합니다.
 이러한 모드는 컴파일러가 호환성 브리지 및 `DefaultImpls` 클래스에 정적 메서드를 생성할지 여부를 결정합니다.
@@ -319,13 +319,13 @@ Kotlin은 인터페이스의 함수가 JVM 디폴트 메서드로 컴파일되�
 
 호환성 모드에 대해 자세히 알아보기:
 
-#### enable {initial-collapse-state="collapsed" collapsible="true"}
+#### enable {initial-collapse-state="collapsed" collapsible="true" id="enable"}
 
 기본 동작입니다.
 인터페이스에 디폴트 구현을 생성하고 호환성 브리지 및 `DefaultImpls` 클래스를 포함합니다.
 이 모드는 이전에 컴파일된 Kotlin 코드와의 호환성을 유지합니다.
 
-#### no-compatibility {initial-collapse-state="collapsed" collapsible="true"}
+#### no-compatibility {initial-collapse-state="collapsed" collapsible="true" id="no-compatibility"}
 
 인터페이스에 디폴트 구현만 생성합니다.
 호환성 브리지 및 `DefaultImpls` 클래스를 건너뜁니다.
@@ -336,12 +336,12 @@ Kotlin은 인터페이스의 함수가 JVM 디폴트 메서드로 컴파일되�
 >
 {style="note"}
 
-#### disable {initial-collapse-state="collapsed" collapsible="true"}
+#### disable {initial-collapse-state="collapsed" collapsible="true" id="disable"}
 
 인터페이스의 디폴트 구현을 비활성화합니다.
 호환성 브리지 및 `DefaultImpls` 클래스만 생성됩니다.
 
-## 가시성 (Visibility)
+## 가시성 (Visibility) {id="visibility"}
 
 Kotlin 가시성 제어자는 다음과 같은 방식으로 Java에 매핑됩니다:
 
@@ -357,7 +357,7 @@ Kotlin 가시성 제어자는 다음과 같은 방식으로 Java에 매핑됩니
   참고로 `internal` 클래스의 public 멤버 이름은 맹글링되지 않으며 Java에서 계속 호출 가능한 상태로 유지됩니다.
 * `public` 멤버는 `public`으로 유지됩니다.
 
-## KClass
+## KClass {id="kclass"}
 
 가끔 `KClass` 타입의 파라미터를 가진 Kotlin 메서드를 호출해야 할 때가 있습니다.
 `Class`에서 `KClass`로의 자동 변환은 없으므로, `Class<T>.kotlin` 확장 프로퍼티에 상응하는 다음 코드를 호출하여 수동으로 수행해야 합니다:
@@ -366,7 +366,7 @@ Kotlin 가시성 제어자는 다음과 같은 방식으로 Java에 매핑됩니
 kotlin.jvm.JvmClassMappingKt.getKotlinClass(MainView.class)
 ```
 
-## @JvmName으로 시그니처 충돌 처리하기
+## @JvmName으로 시그니처 충돌 처리하기 {id="handling-signature-clashes-with-jvmname"}
 
 가끔 Kotlin에 이름이 있는 함수가 있는데, 바이트코드에서 다른 JVM 이름이 필요한 경우가 있습니다.
 가장 대표적인 예는 *타입 소거(type erasure)* 때문에 발생합니다:
@@ -406,7 +406,7 @@ fun getX() = 10
 var x: Int = 23
 ```
 
-## 오버로드 생성 (Overloads generation)
+## 오버로드 생성 (Overloads generation) {id="overloads-generation"}
 
 일반적으로 디폴트 파라미터 값을 가진 Kotlin 함수를 작성하면, Java에서는 모든 파라미터가 존재하는 전체 시그니처로만 보입니다.
 
@@ -494,7 +494,7 @@ void draw(String label) { }
 
 [보조 생성자(Secondary constructors)](classes.md#secondary-constructors)에서 설명한 대로, 클래스가 모든 생성자 파라미터에 대해 디폴트 값을 가지면 인자가 없는 public 생성자가 생성됩니다. 이는 `@JvmOverloads` 어노테이션이 지정되지 않은 경우에도 작동합니다.
 
-## 체크 예외 (Checked exceptions)
+## 체크 예외 (Checked exceptions) {id="checked-exceptions"}
 
 Kotlin에는 체크 예외(checked exceptions)가 없습니다.
 따라서 일반적으로 Kotlin 함수의 Java 시그니처는 던져지는 예외를 선언하지 않습니다.
@@ -533,13 +533,13 @@ fun writeToFile() {
 }
 ```
 
-## 널 안전성 (Null-safety)
+## 널 안전성 (Null-safety) {id="null-safety"}
 
 Java에서 Kotlin 함수를 호출할 때, null이 될 수 없는(non-nullable) 파라미터에 `null`을 전달하는 것을 막을 수 있는 방법은 없습니다.
 그렇기 때문에 Kotlin은 null이 아닌 값을 기대하는 모든 public 함수에 대해 런타임 검사를 생성합니다.
 이렇게 하면 Java 코드에서 즉시 `NullPointerException`이 발생하게 됩니다.
 
-## 변성 제네릭 (Variant generics)
+## 변성 제네릭 (Variant generics) {id="variant-generics"}
 
 Kotlin 클래스가 [선언 지점 변성(declaration-site variance)](generics.md#declaration-site-variance)을 사용할 때, Java 코드에서 해당 클래스의 사용이 어떻게 보이는지에 대해 두 가지 옵션이 있습니다. 예를 들어, 다음과 같은 클래스와 이를 사용하는 두 개의 함수가 있다고 가정해 보겠습니다:
 
@@ -604,7 +604,7 @@ fun unboxBase(box: Box<@JvmSuppressWildcards Base>): Base = box.value
 >
 {style="note"}
 
-### Nothing 타입의 변환
+### Nothing 타입의 변환 {id="translation-of-type-nothing"}
  
 [`Nothing`](exceptions.md#the-nothing-type) 타입은 Java에 자연스러운 대응물이 없기 때문에 특별합니다. 실제로 `java.lang.Void`를 포함한 모든 Java 참조 타입은 값으로 `null`을 허용하지만, `Nothing`은 그것조차 허용하지 않습니다. 따라서 이 타입은 Java 세계에서 정확하게 표현될 수 없습니다. 이것이 Kotlin이 `Nothing` 타입의 인자가 사용되는 곳에 로우 타입(raw type)을 생성하는 이유입니다:
 
@@ -614,7 +614,7 @@ fun emptyList(): List<Nothing> = listOf()
 // List emptyList() { ... }
 ```
 
-## 인라인 값 클래스 (Inline value classes)
+## 인라인 값 클래스 (Inline value classes) {id="inline-value-classes"}
 
 <primary-label ref="experimental-general"/>
 
@@ -663,7 +663,7 @@ MyInt output = ExampleKt.timesTwoBoxed(input);
 모듈 내의 모든 인라인 값 클래스와 이를 사용하는 함수에 이 동작을 적용하려면 `-Xjvm-expose-boxed` 옵션으로 컴파일하세요.
 이 옵션으로 컴파일하는 것은 모듈의 모든 선언에 `@JvmExposeBoxed` 어노테이션이 있는 것과 동일한 효과를 가집니다.
 
-### 상속된 함수 (Inherited functions)
+### 상속된 함수 (Inherited functions) {id="inherited-functions"}
 
 `@JvmExposeBoxed` 어노테이션은 상속된 함수에 대해 박싱된 표현을 자동으로 생성하지 않습니다.
  

@@ -6,17 +6,17 @@
 
 各プロジェクトは独自であり、特定の要件を持っています。この記事は、選択肢を整理し、Kotlin MultiplatformやFlutterといったテクノロジーがあなたのプロジェクトにどのように適合するかをより深く理解し、情報に基づいた意思決定ができるよう支援することを目的としています。
 
-## クロスプラットフォーム開発：モダンなアプリケーション構築への統合的アプローチ
+## クロスプラットフォーム開発：モダンなアプリケーション構築への統合的アプローチ {id="cross-platform-development-a-unified-approach-to-modern-application-building"}
 
 クロスプラットフォーム開発は、単一のコードベースで複数のプラットフォームで動作するアプリケーションを構築する方法を提供し、システムごとに同じ機能を書き直す必要をなくします。AndroidとiOSの両方をターゲットとする[モバイル開発](cross-platform-mobile-development.topic)に関連付けられることが多いですが、このアプローチはモバイルをはるかに超え、ウェブ、デスクトップ、さらにはサーバーサイドの環境までカバーしています。
 
 その核心となる考え方は、必要に応じてプラットフォーム固有の機能を実装できるようにしつつ、コードの再利用を最大化することにあります。これにより、開発プロセスを合理化し、メンテナンスの手間を削減できます。チームは開発サイクルを加速させ、コストを削減し、プラットフォーム間での一貫性を確保できるため、今日のますます多様化するアプリケーション環境において、クロスプラットフォーム開発は賢明な選択肢となっています。
 
-## Kotlin MultiplatformとFlutter：プラットフォーム間の開発を効率化する
+## Kotlin MultiplatformとFlutter：プラットフォーム間の開発を効率化する {id="kotlin-multiplatform-and-flutter-streamlining-development-across-platforms"}
 
 FlutterとKotlin Multiplatformは、異なるプラットフォーム間でのアプリケーション開発を簡素化する、人気のある2つのクロスプラットフォームテクノロジーです。
 
-### Flutter
+### Flutter {id="flutter"}
 
 [Flutter](https://flutter.dev/)は、単一のコードベースからネイティブにコンパイルされたマルチプラットフォームアプリケーションを構築するためのオープンソースフレームワークです。Android、iOS、ウェブ、デスクトップ（Windows、macOS、Linux）、および組み込みシステムにおいて、すべて単一の共有アプリコードベースから豊かなアプリ体験を作成できます。FlutterアプリはDartプログラミング言語を使用して記述されます。FlutterはGoogleによってサポートおよび使用されています。
 
@@ -24,7 +24,7 @@ FlutterとKotlin Multiplatformは、異なるプラットフォーム間での�
 
 Flutterの開発者コミュニティは大規模かつ非常に活発で、継続的な改善とサポートを提供しています。Flutterでは、FlutterおよびDartのエコシステム内の開発者によって提供された共有パッケージを使用できます。
 
-### Kotlin Multiplatform
+### Kotlin Multiplatform {id="kotlin-multiplatform"}
 
 [Kotlin Multiplatform](https://www.jetbrains.com/kotlin-multiplatform/) (KMP) はJetBrainsによって構築されたオープンソーステクノロジーです。開発者はAndroid、iOS、ウェブ、デスクトップ（Windows、macOS、Linux）、およびサーバーサイド向けのアプリケーションを作成でき、ネイティブプログラミングの利点を維持しながら、これらのプラットフォーム間でKotlinコードを効率的に再利用できます。
 
@@ -38,7 +38,7 @@ Kotlin Multiplatformの一般的な方向性について詳しく知りたい場
 
 [![Discover Kotlin Multiplatform](discover-kmp.svg){width="500"}](https://www.jetbrains.com/kotlin-multiplatform/)
 
-#### Compose Multiplatform
+#### Compose Multiplatform {id="compose-multiplatform"}
 
 JetBrainsによるモダンな宣言型フレームワークである[Compose Multiplatform](https://www.jetbrains.com/compose-multiplatform/)を使用すると、複数のプラットフォーム間で共有UIコードを記述できます。これはKotlin MultiplatformとGoogleのJetpack Composeをベースに構築されています。
 
@@ -48,7 +48,7 @@ Compose Multiplatformは現在、[iOS](https://blog.jetbrains.com/kotlin/2025/05
 
 専用の記事「[Compose Multiplatform and Jetpack Compose](compose-multiplatform-and-jetpack-compose.md)」では、両者の関係と主な違いの概要を説明し、重要な相違点をハイライトしています。
 
-### Kotlin MultiplatformとFlutter：概要
+### Kotlin MultiplatformとFlutter：概要 {id="kotlin-multiplatform-and-flutter-an-overview"}
 
 <table style="both">
     

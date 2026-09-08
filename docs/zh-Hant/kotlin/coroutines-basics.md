@@ -10,7 +10,7 @@
 
 若要了解更多關於協同程式與執行緒之間差異的資訊，請參閱[比較協同程式與 JVM 執行緒](#comparing-coroutines-and-jvm-threads)。
 
-## 暫停函式
+## 暫停函式 {id="suspending-functions"}
 
 協同程式最基本的建構要素是 _暫停函式 (suspending function)_。它允許執行中的操作暫停並在稍後恢復，而不會影響程式碼的結構。
 
@@ -45,7 +45,7 @@ suspend fun greet() {
 
 雖然 `suspend` 關鍵字是 Kotlin 核心語言的一部分，但大多數協同程式功能都是透過 [`kotlinx.coroutines`](https://github.com/Kotlin/kotlinx.coroutines) 程式庫提供的。
 
-## 將 kotlinx.coroutines 程式庫加入你的專案
+## 將 kotlinx.coroutines 程式庫加入你的專案 {id="add-the-kotlinx-coroutines-library-to-your-project"}
 
 要將 `kotlinx.coroutines` 程式庫包含在你的專案中，請根據你的建置工具新增對應的相依性配置：
 
@@ -97,7 +97,7 @@ dependencies {
 </tab>
 </tabs>
 
-## 建立你的第一個協同程式
+## 建立你的第一個協同程式 {id="create-your-first-coroutines"}
 
 > 此頁面中的範例在協同程式建構器函式 `CoroutineScope.launch()` 與 `CoroutineScope.async()` 中使用了明確的 `this` 表達式。
 > 這些協同程式建構器是 `CoroutineScope` 上的 [擴充函式](extensions.md)，而 `this` 表達式指的是作為接收者 (receiver) 的當前 `CoroutineScope`。
@@ -285,7 +285,7 @@ suspend fun main() {
 
 由於此範例中未指定 [分派器](#coroutine-dispatchers)，因此 `coroutineScope()` 區塊中的 `CoroutineScope.launch()` 建構器函式會繼承當前的上下文。如果該上下文沒有指定的分派器，`CoroutineScope.launch()` 會使用 `Dispatchers.Default`，它在共享執行緒池上執行。
 
-### 從協同程式作用域中提取協同程式建構器
+### 從協同程式作用域中提取協同程式建構器 {id="extract-coroutine-builders-from-the-coroutine-scope"}
 
 在某些情況下，你可能希望將協同程式建構器呼叫（例如 [`CoroutineScope.launch()`](#coroutinescope-launch)）提取到個別的函式中。
 
@@ -340,7 +340,7 @@ fun launchAll() {
 
 在執行此範例時，`launchAll()` 函式不需要 `suspend` 關鍵字，因為它僅在當前的 `CoroutineScope` 中啟動協同程式並立即返回。僅在函式需要在返回前暫停與恢復時，才將其標記為 `suspend`。
 
-## 協同程式建構器函式
+## 協同程式建構器函式 {id="coroutine-builder-functions"}
 
 協同程式建構器函式是一個接受 `suspend` [Lambda](lambdas.md) 的函式，該 Lambda 定義了要執行的協同程式。這裡有一些範例：
 
@@ -352,7 +352,7 @@ fun launchAll() {
 
 協同程式建構器函式需要一個 `CoroutineScope` 才能執行。這可以是現有的作用域，也可以是使用 `coroutineScope()`、[`runBlocking()`](#runblocking) 或 [`withContext()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/with-context.html#) 等輔助函式建立的作用域。每個建構器都定義了協同程式如何啟動以及你如何與其結果進行互動。
 
-### `CoroutineScope.launch()`
+### `CoroutineScope.launch()` {id="coroutinescope-launch"}
 
 [`CoroutineScope.launch()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/launch.html#) 協同程式建構器函式是 `CoroutineScope` 上的擴充函式。它在現有的 [協同程式作用域](#coroutine-scope-and-structured-concurrency) 內啟動一個新的協同程式，且不會阻塞作用域的其餘部分。
 
@@ -394,7 +394,7 @@ suspend fun performBackgroundWork() = coroutineScope { // this: CoroutineScope
 > 
 {style="tip"}
 
-### `CoroutineScope.async()`
+### `CoroutineScope.async()` {id="coroutinescope-async"}
 
 [`CoroutineScope.async()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/async.html) 協同程式建構器函式是 `CoroutineScope` 上的擴充函式。它在現有的 [協同程式作用域](#coroutine-scope-and-structured-concurrency) 內啟動一個並行計算，並回傳一個代表最終結果的 [`Deferred`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-deferred/) 控制代碼。使用 `.await()` 函式來暫停程式碼，直到結果就緒為止：
 
@@ -426,7 +426,7 @@ suspend fun main() = withContext(Dispatchers.Default) { // this: CoroutineScope
 ```
 {kotlin-runnable="true"}
 
-### `runBlocking()`
+### `runBlocking()` {id="runblocking"}
 
 [`runBlocking()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/run-blocking.html) 協同程式建構器函式會建立一個協同程式作用域，並阻塞當前 [執行緒](#comparing-coroutines-and-jvm-threads)，直到該作用域內啟動的協同程式完成。
 
@@ -456,7 +456,7 @@ suspend fun myReadItem(): Int {
 }
 ```
 
-## 協同程式分派器
+## 協同程式分派器 {id="coroutine-dispatchers"}
 
 一個 [_協同程式分派器 (coroutine dispatcher)_](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-dispatchers/#) 控制協同程式執行時使用哪個執行緒或執行緒池。協同程式並不總是繫結於單一執行緒。根據分派器的不同，它們可以在一個執行緒上暫停並在另一個執行緒上恢復。這讓你可以同時執行許多協同程式，而無需為每個協同程式分配個別的執行緒。
 
@@ -523,7 +523,7 @@ suspend fun main() = withContext(Dispatchers.Default) { // this: CoroutineScope
 
 若要了解更多關於協同程式分派器及其用途的資訊，包括 [`Dispatchers.IO`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-dispatchers/-i-o.html) 和 [`Dispatchers.Main`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-dispatchers/-main.html) 等其他分派器，請參閱[協同程式上下文與分派器](coroutine-context-and-dispatchers.md)。
 
-## 比較協同程式與 JVM 執行緒
+## 比較協同程式與 JVM 執行緒 {id="comparing-coroutines-and-jvm-threads"}
 
 雖然協同程式是可暫停的計算，且能像 JVM 上的執行緒一樣並行執行程式碼，但它們在底層的運作方式不同。
 
@@ -580,7 +580,7 @@ fun main() {
 
 根據你的作業系統、JDK 版本與設定，JVM 執行緒版本可能會丟出記憶體不足錯誤 (out-of-memory error)，或者為了避免同時執行過多執行緒而減慢執行緒建立的速度。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * 在[組合暫停函式](composing-suspending-functions.md)中探索更多關於結合暫停函式的資訊。
 * 在[取消與逾時](coroutines-cancellation.md)中了解如何取消協同程式並處理逾時。

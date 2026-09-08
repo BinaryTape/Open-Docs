@@ -59,7 +59,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="class-with-header-and-body"}
 
-## 建立執行個體
+## 建立執行個體 {id="creating-instances"}
 
 當你將類別作為藍圖，在程式中建立一個可供使用的真實物件時，就會建立一個執行個體（instance）。
 
@@ -118,7 +118,7 @@ fun main() {
 
 有關建立巢狀、內部和匿名內部類別執行個體的資訊，請參閱 [巢狀類別](nested-classes.md) 章節。
 
-## 建構函式與初始化區塊
+## 建構函式與初始化區塊 {id="constructors-and-initializer-blocks"}
 
 當你建立類別執行個體時，會呼叫其建構函式之一。Kotlin 中的類別可以有一個 [_主建構函數_](#primary-constructor) 和一或多個 [_次要建構函式_](#secondary-constructors)。
 
@@ -126,7 +126,7 @@ fun main() {
 
 主建構函數和次要建構函式都是選用的，但類別必須至少有一個建構函式。
 
-### 主建構函數
+### 主建構函數 {id="primary-constructor"}
 
 主建構函數在執行個體 [建立時](#creating-instances) 設定其初始狀態。
 
@@ -239,7 +239,7 @@ class Person(
 ) { /*...*/ }
 ```
 
-### 初始化區塊
+### 初始化區塊 {id="initializer-blocks"}
 
 主建構函數會初始化類別並設定其屬性。在大多數情況下，你可以使用簡單的程式碼來處理。
 
@@ -309,7 +309,7 @@ class Person(val age: Int) {
 }
 ```
 
-### 次要建構函式
+### 次要建構函式 {id="secondary-constructors"}
 
 在 Kotlin 中，次要建構函式是類別除了主建構函數之外可以擁有的額外建構函式。當你需要多種方式來初始化類別或為了與 [Java 互通性](java-to-kotlin-interop.md) 時，次要建構函式非常有用。
 
@@ -407,7 +407,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="class-delegation-sequence"}
 
-### 沒有建構函式的類別
+### 沒有建構函式的類別 {id="classes-without-constructors"}
 
 沒有宣告任何建構函式（主或次要）的類別具有一個隱式的無參數主建構函數：
 
@@ -442,13 +442,13 @@ class Person private constructor() { /*...*/ }
 >
 {style="note"}
 
-## 繼承
+## 繼承 {id="inheritance"}
 
 Kotlin 中的類別繼承允許你從現有類別（基底類別）建立一個新類別（衍生類別），繼承其屬性和函式，同時增加或修改行為。
 
 有關繼承階層結構以及如何使用 `open` 關鍵字的詳細資訊，請參閱 [繼承](inheritance.md) 章節。
 
-## 抽象類別
+## 抽象類別 {id="abstract-classes"}
 
 在 Kotlin 中，抽象類別是不能直接具現化的類別。它們被設計為由定義其實際行為的其他類別繼承。這種行為稱為「實作」（_implementation_）。
 
@@ -509,7 +509,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="abstract-class"}
 
-## 伴隨物件
+## 伴隨物件 {id="companion-objects"}
 
 在 Kotlin 中，每個類別都可以有一個 [伴隨物件](object-declarations.md#companion-objects)。伴隨物件是一種物件宣告，允許你使用類別名稱來存取其成員，而無需建立類別執行個體。
 

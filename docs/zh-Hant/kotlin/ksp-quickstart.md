@@ -7,7 +7,7 @@
 * 如何使用 KSP API 建立你自己的註解處理器。
 * 在哪裡可以找到處理器產生的程式碼。
 
-## 將基於 KSP 的處理器新增到你的專案
+## 將基於 KSP 的處理器新增到你的專案 {id="add-a-ksp-based-processor-to-your-project"}
 
 若要在你的專案中使用外部處理器，請將 KSP 新增到 `build.gradle(.kts)` 檔案中的 [`plugins {}` 區塊](https://docs.gradle.org/current/userguide/plugins.html#sec:plugins_block)。如果僅在特定模組中需要該處理器，請改為將其新增到該模組的 `build.gradle(.kts)` 檔案中：
 
@@ -76,11 +76,11 @@ dependencies {
 > 
 {style="note"}
 
-## 建立你自己的處理器
+## 建立你自己的處理器 {id="create-your-own-processor"}
 
 透過以下步驟，你將建立一個簡單的註解處理器，用以產生 `helloWorld()` 函式。雖然這在實踐中沒什麼用，但它展示了建立你自己的處理器和註解的基礎知識。
 
-### 將 KSP 新增到專案
+### 將 KSP 新增到專案 {id="add-ksp-to-the-project"}
 
 建立一個新的 Kotlin 專案並新增 KSP 外掛程式：
 
@@ -119,7 +119,7 @@ dependencies {
     </tab>
     </tabs>
 
-### 建立一個註解
+### 建立一個註解 {id="create-an-annotation"}
 
 在專案根目錄建立一個新模組並宣告一個註解：
 
@@ -142,7 +142,7 @@ dependencies {
     annotation class HelloWorldAnnotation
     ```
 
-### 建立並註冊處理器
+### 建立並註冊處理器 {id="create-and-register-a-processor"}
 
 1. 在專案根目錄建立另一個名為 **processor** 的模組。
 2. 在該模組的 `build.gradle(.kts)` 檔案中，將 KSP API 和你宣告的註解新增為相依性：
@@ -292,7 +292,7 @@ dependencies {
     HelloWorldProcessorProvider
     ```
 
-### 使用你的處理器
+### 使用你的處理器 {id="use-your-processor"}
 
 現在你已準備好測試你的處理器。按照以下步驟建立一個用戶端模組，並讓你的處理器根據被標註的元素產生程式碼：
 
@@ -396,7 +396,7 @@ dependencies {
     app/build/generated/ksp/main/kotlin/GeneratedHelloWorld.kt
     ```
 
-### 探索專案結構
+### 探索專案結構 {id="explore-the-project-structure"}
 
 你專案的最終檔案結構應如下所示：
 
@@ -436,7 +436,7 @@ dependencies {
 > 
 {style="tip"}
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * 在 [KSP 存儲庫](https://github.com/google/ksp/tree/main/examples/hello-world) 中探索此範例的完整程式碼。
 * 在 [KSP 存儲庫](https://github.com/google/ksp/tree/main/examples) 中尋找更複雜的實際範例。

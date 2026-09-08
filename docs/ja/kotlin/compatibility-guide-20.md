@@ -8,7 +8,7 @@
 >
 {style="note"}
 
-## 基本用語
+## 基本用語 {id="basic-terms"}
 
 このドキュメントでは、数種類の互換性について紹介します。
 
@@ -18,10 +18,10 @@
 
 これらの定義は純粋な Kotlin に対してのみ適用されることに注意してください。他の言語の観点（例：Java）からの Kotlin コードの互換性は、このドキュメントの範囲外です。
 
-## 言語（Language）
+## 言語（Language） {id="language"}
 
 <!--
-### Title
+### Title {id="title"}
 
 > **Issue**: [KT-NNNNN](https://youtrack.jetbrains.com/issue/KT-NNNNN)
 >
@@ -37,7 +37,7 @@
 > - 1.8.0: raise the warning to an error
 -->
 
-### プロジェクションされたレシーバーにおけるシンセティックセッターの使用を非推奨化
+### プロジェクションされたレシーバーにおけるシンセティックセッターの使用を非推奨化 {id="deprecate-use-of-a-synthetic-setter-on-a-projected-receiver"}
 
 > **Issue**: [KT-54309](https://youtrack.jetbrains.com/issue/KT-54309)
 >
@@ -52,7 +52,7 @@
 > - 1.8.20: シンセティックプロパティセッターが、コールサイトの引数型を互換性のないものにする反変（contravariant）な位置のプロジェクションされたパラメータ型を持つ場合、警告を報告します
 > - 2.0.0: 警告をエラーに引き上げます
 
-### Java のサブクラスでオーバーロードされたインラインクラスのパラメータを持つ関数を呼び出す際の、マングリングの修正
+### Java のサブクラスでオーバーロードされたインラインクラスのパラメータを持つ関数を呼び出す際の、マングリングの修正 {id="correct-mangling-when-calling-functions-with-inline-class-parameters-that-are-overloaded-in-a-java-subclass"}
 
 > **Issue**: [KT-56545](https://youtrack.jetbrains.com/issue/KT-56545)
 >
@@ -64,7 +64,7 @@
 >
 > - 2.0.0: 関数呼び出しにおいて正しいマングリングの振る舞いを使用します。以前の振る舞いに戻すには、`-XXLanguage:-MangleCallsToJavaMethodsWithValueClasses` コンパイラオプションを使用してください。
 
-### 反変なキャプチャされた型に対する型近似アルゴリズムの修正
+### 反変なキャプチャされた型に対する型近似アルゴリズムの修正 {id="correct-type-approximation-algorithm-for-contravariant-captured-types"}
 
 > **Issue**: [KT-49404](https://youtrack.jetbrains.com/issue/KT-49404)
 >
@@ -77,7 +77,7 @@
 > - 1.8.20: 問題のある呼び出しに対して警告を報告します
 > - 2.0.0: 警告をエラーに引き上げます
 
-### プロパティの初期化前のプロパティ値へのアクセスを禁止
+### プロパティの初期化前のプロパティ値へのアクセスを禁止 {id="prohibit-accessing-property-value-before-property-initialization"}
 
 > **Issue**: [KT-56408](https://youtrack.jetbrains.com/issue/KT-56408)
 >
@@ -89,7 +89,7 @@
 >
 > - 2.0.0: 影響を受けるコンテキストにおいて、プロパティが初期化される前にアクセスされた場合にエラーを報告します
 
-### スターインポートされた同名のクラスに曖昧さがある場合にエラーを報告
+### スターインポートされた同名のクラスに曖昧さがある場合にエラーを報告 {id="report-error-when-there-s-ambiguity-in-imported-classes-with-the-same-name"}
 
 > **Issue**: [KT-57750](https://youtrack.jetbrains.com/issue/KT-57750)
 >
@@ -101,7 +101,7 @@
 >
 > - 2.0.0: スターインポート（*）によってインポートされた複数のパッケージに存在するクラス名を解決する際に、曖昧さがある場合にエラーを報告します
 
-### デフォルトで invokedynamic および LambdaMetafactory を使用して Kotlin ラムダを生成
+### デフォルトで invokedynamic および LambdaMetafactory を使用して Kotlin ラムダを生成 {id="generate-kotlin-lambdas-via-invokedynamic-and-lambdametafactory-by-default"}
 
 > **Issue**: [KT-45375](https://youtrack.jetbrains.com/issue/KT-45375)
 >
@@ -113,7 +113,7 @@
 >
 > - 2.0.0: 新しい振る舞いを実装します。ラムダはデフォルトで `invokedynamic` および `LambdaMetafactory` を使用して生成されます
 
-### 式が必要な場合にブランチが1つしかない if 条件を禁止
+### 式が必要な場合にブランチが1つしかない if 条件を禁止 {id="forbid-if-condition-with-one-branch-when-an-expression-is-required"}
 
 > **Issue**: [KT-57871](https://youtrack.jetbrains.com/issue/KT-57871)
 >
@@ -125,7 +125,7 @@
 >
 > - 2.0.0: `if` 条件にブランチ（枝）が1つしかない場合にエラーを報告します
 
-### ジェネリック型のスタープロジェクションを渡すことによる自己上限（self upper bounds）の違反を禁止
+### ジェネリック型のスタープロジェクションを渡すことによる自己上限（self upper bounds）の違反を禁止 {id="prohibit-violation-of-self-upper-bounds-by-passing-a-star-projection-of-a-generic-type"}
 
 > **Issue**: [KT-61718](https://youtrack.jetbrains.com/issue/KT-61718)
 >
@@ -137,7 +137,7 @@
 >
 > - 2.0.0: ジェネリック型のスタープロジェクションを渡すことで自己上限が違反された場合にエラーを報告します
 
-### private なインライン関数の戻り値型における匿名型の近似
+### private なインライン関数の戻り値型における匿名型の近似 {id="approximate-anonymous-types-in-private-inline-functions-return-type"}
 
 > **Issue**: [KT-54862](https://youtrack.jetbrains.com/issue/KT-54862)
 >
@@ -150,7 +150,7 @@
 > - 1.9.0: 推論された戻り値型に匿名型が含まれている場合、private なインライン関数に対して警告を報告します
 > - 2.0.0: このような private なインライン関数の戻り値型をスーパータイプに近似します
 
-### ローカルな関数型プロパティの invoke コンベンションよりもローカルな拡張関数の呼び出しを優先するようにオーバーロード解決の振る舞いを変更
+### ローカルな関数型プロパティの invoke コンベンションよりもローカルな拡張関数の呼び出しを優先するようにオーバーロード解決の振る舞いを変更 {id="change-overload-resolution-behavior-to-prioritize-local-extension-function-calls-over-invoke-conventions-of-local-functional-type-properties"}
 
 > **Issue**: [KT-37592](https://youtrack.jetbrains.com/issue/KT-37592)
 >
@@ -162,7 +162,7 @@
 >
 > - 2.0.0: 新しいオーバーロード解決の振る舞いを導入します。関数呼び出しが一貫して invoke コンベンションよりも優先されます
 
-### バイナリ依存関係にあるスーパータイプの変更により継承メンバーの衝突が発生した場合にエラーを報告
+### バイナリ依存関係にあるスーパータイプの変更により継承メンバーの衝突が発生した場合にエラーを報告 {id="report-error-when-an-inherited-member-conflict-occurs-due-to-a-change-in-a-supertype-from-binary-dependency"}
 
 > **Issue**: [KT-51194](https://youtrack.jetbrains.com/issue/KT-51194)
 >
@@ -175,7 +175,7 @@
 > - 1.7.0: バイナリ依存関係にあるスーパータイプで継承メンバーの衝突が発生している宣言に対して、警告 `CONFLICTING_INHERITED_MEMBERS_WARNING` を報告します
 > - 2.0.0: 警告をエラー `CONFLICTING_INHERITED_MEMBERS` に引き上げます
 
-### 不変（invariant）な型のパラメータにおける @UnsafeVariance アノテーションを無視
+### 不変（invariant）な型のパラメータにおける @UnsafeVariance アノテーションを無視 {id="ignore-unsafevariance-annotations-on-parameters-in-invariant-types"}
 
 > **Issue**: [KT-57609](https://youtrack.jetbrains.com/issue/KT-57609)
 >
@@ -187,7 +187,7 @@
 >
 > - 2.0.0: 新しい振る舞いを実装します。反変なパラメータの型不一致に関するエラーを報告する際、`@UnsafeVariance` アノテーションを無視します
 
-### コンパニオンオブジェクトのメンバーに対する out-of-call 参照の型を変更
+### コンパニオンオブジェクトのメンバーに対する out-of-call 参照の型を変更 {id="change-type-for-out-of-call-references-to-a-companion-object-s-member"}
 
 > **Issue**: [KT-54316](https://youtrack.jetbrains.com/issue/KT-54316)
 >
@@ -200,7 +200,7 @@
 > - 1.8.20: アンバウンド（非拘束）参照として推論されたコンパニオンオブジェクト関数の参照型に対して警告を報告します
 > - 2.0.0: すべての使用コンテキストにおいて、コンパニオンオブジェクト関数の参照がバウンド（拘束）参照として推論されるように振る舞いを変更します
 
-### private なインライン関数からの匿名型の露出を禁止
+### private なインライン関数からの匿名型の露出を禁止 {id="prohibit-exposure-of-anonymous-types-from-private-inline-functions"}
 
 > **Issue**: [KT-33917](https://youtrack.jetbrains.com/issue/KT-33917)
 >
@@ -213,7 +213,7 @@
 > - 1.3.0: private なインライン関数から返された匿名オブジェクトの独自のメンバーへの呼び出しに対して警告を報告します
 > - 2.0.0: このような private なインライン関数の戻り値型をスーパータイプに近似し、匿名オブジェクトメンバーへの呼び出しを解決しないようにします
 
-### while ループの break 後の安全でないスマートキャストに対してエラーを報告
+### while ループの break 後の安全でないスマートキャストに対してエラーを報告 {id="report-error-for-an-unsound-smart-cast-after-a-while-loop-break"}
 
 > **Issue**: [KT-22379](https://youtrack.jetbrains.com/issue/KT-22379)
 >
@@ -225,7 +225,7 @@
 >
 > - 2.0.0: 新しい振る舞いを実装します。以前の振る舞いは言語バージョンを 1.9 に切り替えることで復元できます
 
-### 交差型（intersection type）の変数にその交差型のサブタイプではない値が代入された場合にエラーを報告
+### 交差型（intersection type）の変数にその交差型のサブタイプではない値が代入された場合にエラーを報告 {id="report-error-when-a-variable-of-an-intersection-type-is-assigned-a-value-that-is-not-a-subtype-of-that-intersection-type"}
 
 > **Issue**: [KT-53752](https://youtrack.jetbrains.com/issue/KT-53752)
 >
@@ -237,7 +237,7 @@
 >
 > - 2.0.0: 交差型を持つ変数に、その交差型のサブタイプではない値が代入された場合にエラーを報告します
 
-### SAM コンストラクタで構築されたインターフェースにオプトインが必要なメソッドが含まれている場合に、オプトインを要求
+### SAM コンストラクタで構築されたインターフェースにオプトインが必要なメソッドが含まれている場合に、オプトインを要求 {id="require-opt-in-when-an-interface-constructed-with-a-sam-constructor-contains-a-method-that-requires-an-opt-in"}
 
 > **Issue**: [KT-52628](https://youtrack.jetbrains.com/issue/KT-52628)
 >
@@ -250,7 +250,7 @@
 > - 1.7.20: SAM コンストラクタを介した `OptIn` の使用に対して警告を報告します
 > - 2.0.0: SAM コンストラクタを介した `OptIn` の使用に対する警告をエラーに引き上げます（`OptIn` マーカーの深刻度が警告である場合は警告の報告を継続します）
 
-### typealias コンストラクタにおける上限境界の違反を禁止
+### typealias コンストラクタにおける上限境界の違反を禁止 {id="prohibit-upper-bound-violation-in-typealias-constructors"}
 
 > **Issue**: [KT-54066](https://youtrack.jetbrains.com/issue/KT-54066)
 >
@@ -263,7 +263,7 @@
 > - 1.8.0: typealias コンストラクタで上限境界が違反された場合の警告を導入します
 > - 2.0.0: K2 コンパイラにおいて警告をエラーに引き上げます
 
-### 分解宣言の変数の実際の型を、指定された場合は明示的な型と一致させる
+### 分解宣言の変数の実際の型を、指定された場合は明示的な型と一致させる {id="make-the-real-type-of-a-destructuring-variable-consistent-with-the-explicit-type-when-specified"}
 
 > **Issue**: [KT-57011](https://youtrack.jetbrains.com/issue/KT-57011)
 >
@@ -275,7 +275,7 @@
 >
 > - 2.0.0: 新しい振る舞いを実装します。明示的な型が指定された場合、分解宣言の変数の実際の型が一貫したものになります
 
-### オプトインを必要とするデフォルト値を持つパラメータ型があるコンストラクタを呼び出す際に、オプトインを要求
+### オプトインを必要とするデフォルト値を持つパラメータ型があるコンストラクタを呼び出す際に、オプトインを要求 {id="require-opt-in-when-calling-a-constructor-that-has-parameter-types-with-default-values-that-require-an-opt-in"}
 
 > **Issue**: [KT-55111](https://youtrack.jetbrains.com/issue/KT-55111)
 >
@@ -288,7 +288,7 @@
 > - 1.8.20: オプトインを必要とするパラメータ型を持つコンストラクタ呼び出しに対して警告を報告します
 > - 2.0.0: 警告をエラーに引き上げます（`OptIn` マーカーの深刻度が警告である場合は警告の報告を継続します）
 
-### 同じスコープ階層にある同名のプロパティと Enum エントリ間の曖昧さを報告
+### 同じスコープ階層にある同名のプロパティと Enum エントリ間の曖昧さを報告 {id="report-ambiguity-between-a-property-and-an-enum-entry-with-the-same-name-at-the-same-scope-level"}
 
 > **Issue**: [KT-52802](https://youtrack.jetbrains.com/issue/KT-52802)
 >
@@ -301,7 +301,7 @@
 > - 1.7.20: 同じスコープ階層で Enum エントリではなくプロパティに解決される場合に警告を報告します
 > - 2.0.0: K2 コンパイラにおいて、同じスコープ階層で同じ名前のプロパティと Enum エントリの両方に遭遇した場合、曖昧さとして報告します（古いコンパイラでは警告のまま維持されます）
 
-### Enum エントリよりもコンパニオンプロパティを優先するように修飾子の解決の振る舞いを変更
+### Enum エントリよりもコンパニオンプロパティを優先するように修飾子の解決の振る舞いを変更 {id="change-qualifier-resolution-behavior-to-prefer-companion-property-over-enum-entry"}
 
 > **Issue**: [KT-47310](https://youtrack.jetbrains.com/issue/KT-47310)
 >
@@ -313,7 +313,7 @@
 >
 > - 2.0.0: 新しい解決の振る舞いを実装します。Enum エントリよりもコンパニオンプロパティが優先されます
 
-### invoke 演算子コンベンションの呼び出しのレシーバー型と invoke 関数型を、糖衣構文を解除した形式で記述されたかのように解決
+### invoke 演算子コンベンションの呼び出しのレシーバー型と invoke 関数型を、糖衣構文を解除した形式で記述されたかのように解決 {id="resolve-invoke-call-receiver-type-and-the-invoke-function-type-as-if-written-in-desugared-form"}
 
 > **Issue**: [KT-58260](https://youtrack.jetbrains.com/issue/KT-58260)
 >
@@ -325,7 +325,7 @@
 >
 > - 2.0.0: invoke 呼び出しのレシーバー型と invoke 関数型を、糖衣構文を解除した（desugared）形式で記述されたかのように、それぞれ独立して解決します
 
-### private ではないインライン関数を通じて private なクラスメンバーを露出させることを禁止
+### private ではないインライン関数を通じて private なクラスメンバーを露出させることを禁止 {id="prohibit-exposing-private-class-members-through-non-private-inline-functions"}
 
 > **Issue**: [KT-55179](https://youtrack.jetbrains.com/issue/KT-55179)
 >
@@ -338,7 +338,7 @@
 > - 1.9.0: 内部（internal）インライン関数から private クラスのコンパニオンオブジェクトメンバーを呼び出す際に `PRIVATE_CLASS_MEMBER_FROM_INLINE_WARNING` 警告を報告します
 > - 2.0.0: この警告を `PRIVATE_CLASS_MEMBER_FROM_INLINE` エラーに引き上げます
 
-### プロジェクションされたジェネリック型における Definitely Non-Null 型の Null 許容性を修正
+### プロジェクションされたジェネリック型における Definitely Non-Null 型の Null 許容性を修正 {id="correct-nullability-of-definitely-non-null-types-in-projected-generic-types"}
 
 > **Issue**: [KT-54663](https://youtrack.jetbrains.com/issue/KT-54663)
 >
@@ -350,7 +350,7 @@
 >
 > - 2.0.0: 新しい振る舞いを実装します。プロジェクションされた型において、すべてのインプレースな非 Null 型が考慮されます
 
-### 前置インクリメントの推論される型を、inc() 演算子の戻り値型ではなくゲッターの戻り値型に一致するように変更
+### 前置インクリメントの推論される型を、inc() 演算子の戻り値型ではなくゲッターの戻り値型に一致するように変更 {id="change-inferred-type-of-prefix-increment-to-match-getter-s-return-type-instead-of-inc-operator-s-return-type"}
 
 > **Issue**: [KT-57178](https://youtrack.jetbrains.com/issue/KT-57178)
 >
@@ -362,7 +362,7 @@
 >
 > - 2.0.0: 新しい振る舞いを実装します。前置インクリメントの推論される型が、`inc()` 演算子の戻り値型ではなくゲッターの戻り値型に一致するように変更されます
 
-### スーパークラスで宣言されたジェネリックなインナークラスからインナークラスを継承する際の境界チェックを強制
+### スーパークラスで宣言されたジェネリックなインナークラスからインナークラスを継承する際の境界チェックを強制 {id="enforce-bound-checks-when-inheriting-inner-classes-from-generic-inner-classes-declared-in-superclasses"}
 
 > **Issue**: [KT-61749](https://youtrack.jetbrains.com/issue/KT-61749)
 >
@@ -374,7 +374,7 @@
 >
 > - 2.0.0: ジェネリックなインナースーパークラスの型パラメータの上限境界が違反された場合にエラーを報告します
 
-### 期待される型が関数型のパラメータを持つ関数型である場合に、SAM 型を持つ呼び出し可能参照の代入を禁止
+### 期待される型が関数型のパラメータを持つ関数型である場合に、SAM 型を持つ呼び出し可能参照の代入を禁止 {id="forbid-assigning-callable-references-with-sam-types-when-the-expected-type-is-a-function-type-with-a-function-type-parameter"}
 
 > **Issue**: [KT-64342](https://youtrack.jetbrains.com/issue/KT-64342)
 >
@@ -386,7 +386,7 @@
 >
 > - 2.0.0: 期待される型が関数型のパラメータを持つ関数型である場合に、SAM 型を持つ呼び出し可能参照に対してコンパイルエラーを報告します
 
-### コンパニオンオブジェクト上のアノテーション解決において、コンパニオンオブジェクトのスコープを考慮
+### コンパニオンオブジェクト上のアノテーション解決において、コンパニオンオブジェクトのスコープを考慮 {id="consider-companion-object-scope-for-annotation-resolution-on-companion-objects"}
 
 > **Issue**: [KT-64299](https://youtrack.jetbrains.com/issue/KT-64299)
 >
@@ -398,7 +398,7 @@
 >
 > - 2.0.0: 新しい振る舞いを実装します。コンパニオンオブジェクト上のアノテーション解決時に、コンパニオンオブジェクトのスコープが無視されなくなります
 
-### セーフコールとコンベンション演算子の組み合わせに対する評価セマンティクスを変更
+### セーフコールとコンベンション演算子の組み合わせに対する評価セマンティクスを変更 {id="change-evaluation-semantics-for-combination-of-safe-calls-and-convention-operators"}
 
 > **Issue**: [KT-41034](https://youtrack.jetbrains.com/issue/KT-41034)
 >
@@ -411,7 +411,7 @@
 > - 1.4.0: 各誤った呼び出しに対して警告を報告します
 > - 2.0.0: 新しい解決の振る舞いを実装します
 
-### バッキングフィールドとカスタムセッターを持つプロパティの即時初期化を要求
+### バッキングフィールドとカスタムセッターを持つプロパティの即時初期化を要求 {id="require-properties-with-backing-field-and-a-custom-setter-to-be-immediately-initialized"}
 
 > **Issue**: [KT-58589](https://youtrack.jetbrains.com/issue/KT-58589)
 > 
@@ -424,7 +424,7 @@
 > - 1.9.20: プライマリコンストラクタがない場合に `MUST_BE_INITIALIZED` 警告を導入します
 > - 2.0.0: 警告をエラーに引き上げます
 
-### invoke 演算子コンベンションの呼び出しにおける、任意の式に対する Unit 変換を禁止
+### invoke 演算子コンベンションの呼び出しにおける、任意の式に対する Unit 変換を禁止 {id="prohibit-unit-conversion-on-arbitrary-expressions-in-invoke-operator-convention-call"}
 
 > **Issue**: [KT-61182](https://youtrack.jetbrains.com/issue/KT-61182)
 >
@@ -436,7 +436,7 @@
 >
 > - 2.0.0: 変数および invoke の解決において、任意の式に Unit 変換が適用された場合にエラーを報告します。影響を受ける式に対して以前の振る舞いを維持するには、`-XXLanguage:+UnitConversionsOnArbitraryExpressions` コンパイラオプションを使用してください。
 
-### セーフコールでアクセスされる非 Null の Java フィールドへの Null 許容値の代入を禁止
+### セーフコールでアクセスされる非 Null の Java フィールドへの Null 許容値の代入を禁止 {id="forbid-nullable-assignment-to-non-null-java-field-when-the-field-is-accessed-with-a-safe-call"}
 
 > **Issue**: [KT-62998](https://youtrack.jetbrains.com/issue/KT-62998)
 >
@@ -448,7 +448,7 @@
 >
 > - 2.0.0: 非 Null の Java フィールドに Null 許容値が代入された場合にエラーを報告します
 
-### raw 型のパラメータを含む Java メソッドをオーバーライドする際にスタープロジェクションされた型を要求
+### raw 型のパラメータを含む Java メソッドをオーバーライドする際にスタープロジェクションされた型を要求 {id="require-star-projected-type-when-overriding-a-java-method-containing-a-raw-type-parameter"}
 
 > **Issue**: [KT-57600](https://youtrack.jetbrains.com/issue/KT-57600)
 >
@@ -460,7 +460,7 @@
 >
 > - 2.0.0: 新しい振る舞いを実装します。raw 型パラメータのオーバーライドを禁止します
 
-### V がコンパニオンを持つ場合の (V)::foo 参照解決の変更
+### V がコンパニオンを持つ場合の (V)::foo 参照解決の変更 {id="change-v-foo-reference-resolution-when-v-has-a-companion"}
 
 > **Issue**: [KT-47313](https://youtrack.jetbrains.com/issue/KT-47313)
 >
@@ -473,7 +473,7 @@
 > - 1.6.0: 現在コンパニオンオブジェクトインスタンスにバインドされている呼び出し可能参照に対して警告を報告します
 > - 2.0.0: 新しい振る舞いを実装します。型の周囲に括弧を追加しても、その型のコンパニオンオブジェクトインスタンスへの参照とはみなされなくなります
 
-### 実質的に public なインライン関数内での暗黙的な非公開 API へのアクセスを禁止
+### 実質的に public なインライン関数内での暗黙的な非公開 API へのアクセスを禁止 {id="forbid-implicit-non-public-api-access-in-effectively-public-inline-functions"}
 
 > **Issue**: [KT-54997](https://youtrack.jetbrains.com/issue/KT-54997)
 >
@@ -486,7 +486,7 @@
 > - 1.8.20: public なインライン関数内で暗黙的な非公開 API がアクセスされた場合にコンパイル警告を報告します
 > - 2.0.0: 警告をエラーに引き上げます
 
-### プロパティゲッターにおける get 使用箇所ターゲット（use-site）アノテーションを禁止
+### プロパティゲッターにおける get 使用箇所ターゲット（use-site）アノテーションを禁止 {id="prohibit-use-site-get-annotations-on-property-getters"}
 
 > **Issue**: [KT-57422](https://youtrack.jetbrains.com/issue/KT-57422)
 >
@@ -499,7 +499,7 @@
 > - 1.9.0: ゲッターにおける `get` 使用箇所ターゲットアノテーションに対して警告を報告します（progressive モードではエラー）
 > - 2.0.0: 警告を `INAPPLICABLE_TARGET_ON_PROPERTY` エラーに引き上げます。警告に戻すには `-XXLanguage:-ProhibitUseSiteGetTargetAnnotations` を使用してください。
 
-### ビルダー推論ラムダ関数において、型パラメータが上限境界へと暗黙的に推論されるのを防止
+### ビルダー推論ラムダ関数において、型パラメータが上限境界へと暗黙的に推論されるのを防止 {id="prevent-implicit-inference-of-type-parameters-into-upper-bounds-in-builder-inference-lambda-functions"}
 
 > **Issue**: [KT-47986](https://youtrack.jetbrains.com/issue/KT-47986)
 >
@@ -512,7 +512,7 @@
 > - 1.7.20: 型引数の型パラメータが宣言された上限境界に推論できない場合に、警告（progressive モードではエラー）を報告します
 > - 2.0.0: 警告をエラーに引き上げます
 
-### 公開シグネチャにおけるローカル型の近似時に Null 許容性を維持
+### 公開シグネチャにおけるローカル型の近似時に Null 許容性を維持 {id="keep-nullability-when-approximating-local-types-in-public-signatures"}
 
 > **Issue**: [KT-53982](https://youtrack.jetbrains.com/issue/KT-53982)
 >
@@ -525,7 +525,7 @@
 > - 1.8.0: フレキシブルな型（flexible types）がフレキシブルなスーパータイプによって近似されます。本来 Null 許容であるべき宣言が非 Null 型として推論された場合に警告を報告し、NPE を避けるために明示的に型を指定するよう促します
 > - 2.0.0: Null 許容型は Null 許容なスーパータイプによって近似されます
 
-### スマートキャストを目的とした false && ... および false || ... の特別な処理を削除
+### スマートキャストを目的とした false && ... および false || ... の特別な処理を削除 {id="remove-special-handling-for-false-and-false-for-the-purposes-of-smart-casting"}
 
 > **Issue**: [KT-65776](https://youtrack.jetbrains.com/issue/KT-65776)
 >
@@ -537,7 +537,7 @@
 >
 > - 2.0.0: 新しい振る舞いを実装します。`false && ...` および `false || ...` に対する特別な処理は行われません
 
-### Enum 内の inline open 関数を禁止
+### Enum 内の inline open 関数を禁止 {id="forbid-inline-open-functions-in-enums"}
 
 > **Issue**: [KT-34372](https://youtrack.jetbrains.com/issue/KT-34372)
 >
@@ -550,9 +550,9 @@
 > - 1.8.0: Enum 内の inline open 関数に対して警告を報告します
 > - 2.0.0: 警告をエラーに引き上げます
 
-## ツール
+## ツール {id="tools"}
 
-### Gradle における可視性の変更
+### Gradle における可視性の変更 {id="visibility-changes-in-gradle"}
 
 > **Issue**: [KT-64653](https://youtrack.jetbrains.com/issue/KT-64653)
 >
@@ -570,7 +570,7 @@
 >
 > - 2.0.0: 多くの一般的なケースにおいて、ビルドスクリプトが誤って設定されている場合に、コンパイラは修正案を含む警告を報告します。それ以外の場合、コンパイラはエラーを報告します
 
-### kotlinOptions DSL の非推奨化
+### kotlinOptions DSL の非推奨化 {id="deprecate-kotlinoptions-dsl"}
 
 > **Issue**: [KT-63419](https://youtrack.jetbrains.com/issue/KT-63419)
 >
@@ -584,7 +584,7 @@
 >
 > - 2.0.0: 警告を報告します
 
-### KotlinCompilation DSL における compilerOptions の非推奨化
+### KotlinCompilation DSL における compilerOptions の非推奨化 {id="deprecate-compileroptions-in-kotlincompilation-dsl"}
 
 > **Issue**: [KT-65568](https://youtrack.jetbrains.com/issue/KT-65568)
 >
@@ -598,7 +598,7 @@
 >
 > - 2.0.0: 警告を報告します
 
-### CInteropProcess 処理の古い方法を非推奨化
+### CInteropProcess 処理の古い方法を非推奨化 {id="deprecate-old-ways-of-cinteropprocess-handling"}
 
 > **Issue**: [KT-62795](https://youtrack.jetbrains.com/issue/KT-62795)
 >
@@ -617,7 +617,7 @@
 > - 2.0.0: `defFile` および `defFileProperty` パラメータは非推奨となりました
 > - 2.4.0: [非推奨となった defFile プロパティに対してエラーを報告します](compatibility-guide-24.md#report-errors-for-obsolete-kotlin-native-gradle-task-apis)
 
-### kotlin.useK2 Gradle プロパティの削除
+### kotlin.useK2 Gradle プロパティの削除 {id="remove-kotlin-usek2-gradle-property"}
 
 > **Issue**: [KT-64379](https://youtrack.jetbrains.com/issue/KT-64379)
 >
@@ -632,7 +632,7 @@
 > - 1.8.20: `kotlin.useK2` Gradle プロパティは非推奨となりました
 > - 2.0.0: `kotlin.useK2` Gradle プロパティは削除されました
 
-### 非推奨のプラットフォームプラグイン ID の削除
+### 非推奨のプラットフォームプラグイン ID の削除 {id="remove-deprecated-platform-plugin-ids"}
 
 > **Issue**: [KT-65187](https://youtrack.jetbrains.com/issue/KT-65187)
 >
@@ -653,7 +653,7 @@
 > - 1.3: プラットフォームプラグイン ID は非推奨となりました
 > - 2.0.0: プラットフォームプラグイン ID はサポートされなくなりました
 
-### outputFile JavaScript コンパイラオプションの削除
+### outputFile JavaScript コンパイラオプションの削除 {id="remove-outputfile-javascript-compiler-option"}
 
 > **Issue**: [KT-61116](https://youtrack.jetbrains.com/issue/KT-61116)
 >

@@ -4,7 +4,7 @@ Compose Multiplatform for desktop 針對文字操作功能表提供開箱即用�
 
 undefined
 
-## 任意區域的操作功能表
+## 任意區域的操作功能表 {id="context-menu-in-a-custom-area"}
 
 您可以為應用程式的任何任意區域建立操作功能表。使用 `ContextMenuArea` 來定義一個容器，在該區域按一下滑鼠右鍵將會觸發操作功能表的出現：
 
@@ -40,7 +40,7 @@ fun main() = singleWindowApplication(title = "Context menu") {
 
 <img src="compose-desktop-context-menu-custom-area.png" alt="操作功能表：ContextMenuArea" width="500"/>
 
-## 設定佈景主題
+## 設定佈景主題 {id="set-up-theming"}
 
 您可以自訂操作功能表的顏色，以建立符合系統設定的回應式 UI，並避免在切換應用程式時產生劇烈的對比變化。針對預設的淺色與深色佈景主題，提供了兩種內建實作：`LightDefaultContextMenuRepresentation` 和 `DarkDefaultContextMenuRepresentation`。
 它們不會自動套用到操作功能表的顏色，因此您需要透過 `LocalContextMenuRepresentation` 設定合適的佈景主題：
@@ -89,7 +89,7 @@ fun main() = singleWindowApplication(title = "Dark theme") {
 
 <img src="compose-desktop-context-menu-dark-mode.png" alt="操作功能表：深色佈景主題" width="500"/>
 
-## 在地化功能表項目
+## 在地化功能表項目 {id="localize-menu-items"}
 
 預設情況下，操作功能表將以您系統設定中的偏好語言顯示：
 
@@ -101,9 +101,9 @@ fun main() = singleWindowApplication(title = "Dark theme") {
 java.util.Locale.setDefault(java.util.Locale("en"))
 ```
 
-## 文字操作功能表
+## 文字操作功能表 {id="text-context-menu"}
 
-### 預設文字操作功能表
+### 預設文字操作功能表 {id="default-text-context-menu"}
 
 Compose Multiplatform for desktop 為 `TextField` 和可選取的 `Text` 提供內建的操作功能表。
 
@@ -150,7 +150,7 @@ fun main() = singleWindowApplication(title = "Context menu") {
 
 <img src="compose-desktop-context-menu-text.png" alt="Text 的預設操作功能表" width="500"/>
 
-### 新增自訂項目
+### 新增自訂項目 {id="add-custom-items"}
 
 若要為 `TextField` 和 `Text` 元件新增自訂的操作功能表動作，請透過 `ContextMenuItem` 指定新項目，並透過 `ContextMenuDataProvider` 將其新增至操作功能表項目的階層中。例如，以下程式碼範例示範了如何為文字欄位和簡單的可選取文字元件的預設操作功能表新增兩個新的自訂動作：
 
@@ -203,7 +203,7 @@ fun main() = singleWindowApplication(title = "Context menu") {
 
 <img src="compose-desktop-context-menu-custom-actions.png" alt="帶有自訂操作的操作功能表" width="500"/>
 
-### 覆寫預設文字操作功能表
+### 覆寫預設文字操作功能表 {id="override-default-text-context-menu"}
 
 若要覆寫文字欄位和可選取文字元件的預設操作功能表，請覆寫 `TextContextMenu` 介面。
 在以下程式碼範例中，我們重複使用了原始的 `TextContextMenu`，但在清單底部新增了一個額外項目。
@@ -283,7 +283,7 @@ private fun AnnotatedString.crop() = if (length <= 5) toString() else "${take(5)
 
 <img src="compose-desktop-context-menu-custom-text.png" alt="操作功能表：LocalTextContextMenu" width="500"/>
 
-### Swing 互通性
+### Swing 互通性 {id="swing-interoperability"}
 
 如果您正在將 Compose 程式碼嵌入現有的 Swing 應用程式中，並需要操作功能表符合應用程式其他部分的外觀與行為，您可以使用 `JPopupTextMenu` 類別。在此類別中，`LocalTextContextMenu` 會為 Compose 元件中的操作功能表使用 Swing 的 `JPopupMenu`。
 
@@ -413,6 +413,6 @@ private fun circleIcon(color: Color) = object : Icon {
 
 <img src="compose-desktop-context-menu-swing.png" alt="操作功能表：Swing 互通性" width="500"/>
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 探索關於 [其他桌面元件](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop) 的教學。

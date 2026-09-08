@@ -16,7 +16,7 @@
 
 你可以使用命令行直接或通过脚本文件（如 `.sh` 或 `.bat` 文件）生成 Kotlin 库。然而，对于拥有数百个文件和库的大型项目，这种方法的扩展性并不理想。使用构建系统可以简化流程，它负责下载并缓存 Kotlin/Native 编译器二进制文件和带有传递依赖项的库，并运行编译器和测试。Kotlin/Native 可以通过 [Kotlin 多平台插件](gradle-configure-project.md#targeting-multiple-platforms)使用 [Gradle](https://gradle.org) 构建系统。
 
-## C 语言中的类型
+## C 语言中的类型 {id="types-in-c-language"}
 
 C 编程语言具有以下[数据类型](https://en.wikipedia.org/wiki/C_data_types)：
 
@@ -35,7 +35,7 @@ C 语言中还有以下类型限定符：`const`、`volatile`、`restrict`、`at
 
 让我们看看哪些 C 数据类型在 Kotlin 中是可见的。
 
-## 创建 C 库
+## 创建 C 库 {id="create-a-c-library"}
 
 在本教程中，你不会创建 `lib.c` 源文件，只有在你想编译并运行 C 库时才需要它。对于此设置，你只需要一个用于运行 [cinterop 工具](native-c-interop.md)的 `.h` 头文件。
 
@@ -80,7 +80,7 @@ cinterop 工具会为每组 `.h` 文件生成一个 Kotlin/Native 库（一个 `
 
 `interop.def` 文件提供了编译、运行或在 IDE 中打开应用程序所需的一切。
 
-## 创建 Kotlin/Native 项目
+## 创建 Kotlin/Native 项目 {id="create-a-kotlin-native-project"}
 
 > 请参阅 [Kotlin/Native 入门](native-get-started.md#using-gradle)教程，了解详细的初步步骤以及如何创建新 Kotlin/Native 项目并在 IntelliJ IDEA 中打开它的说明。
 >
@@ -192,7 +192,7 @@ cinterop 工具会为每组 `.h` 文件生成一个 Kotlin/Native 库（一个 `
 
 稍后当你了解从 Kotlin 侧看 C 原生类型声明是什么样子时，你将完成代码。
 
-## 检查从 C 库生成的 Kotlin API
+## 检查从 C 库生成的 Kotlin API {id="inspect-generated-kotlin-apis-for-a-c-library"}
 
 让我们看看 C 原生类型是如何映射到 Kotlin/Native 的，并相应地更新示例项目。
 
@@ -219,7 +219,7 @@ C 类型是直接映射的，但 `char` 类型除外，它被映射到 `kotlin.B
 | float              | kotlin.Float  |
 | double             | kotlin.Double |
 
-## 更新 Kotlin 代码
+## 更新 Kotlin 代码 {id="update-kotlin-code"}
 
 既然你已经看过了 C 定义，现在可以更新你的 Kotlin 代码了。`hello.kt` 文件中的最终代码可能如下所示：
 
@@ -243,7 +243,7 @@ fun main() {
 ./gradlew runDebugExecutableMacosArm64
 ```
 
-## 下一步
+## 下一步 {id="next-step"}
 
 在本系列的下一部分中，你将学习结构和联合类型如何在 Kotlin 和 C 之间进行映射：
 
@@ -253,6 +253,6 @@ fun main() {
   </li>
 </list>
 
-### 另请参阅
+### 另请参阅 {id="see-also"}
 
 在[与 C 互操作](native-c-interop.md)文档中了解更多信息，该文档涵盖了更高级的场景。

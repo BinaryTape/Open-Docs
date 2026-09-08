@@ -7,7 +7,7 @@ Koog 使用 [OpenTelemetry](https://opentelemetry.io/) 發出 Agent 追蹤 (trac
 
 ---
 
-## 設定說明
+## 設定說明 {id="setup-instructions"}
 
 1. 在 [https://www.datadoghq.com/](https://www.datadoghq.com/) 建立 Datadog 帳戶。
 
@@ -33,11 +33,11 @@ export DD_SITE="datadoghq.eu"
 
 <!--- KNIT example-datadog-exporter-01.txt -->
 
-## 配置
+## 配置 {id="configuration"}
 
 若要啟用 Datadog 匯出，請安裝 **OpenTelemetry 功能** 並呼叫 [`addDatadogExporter()`](api:agents-features-opentelemetry::ai.koog.agents.features.opentelemetry.integration.datadog.addDatadogExporter)。
 
-### 基本範例
+### 基本範例 {id="basic-example"}
 
 === "Kotlin"
 
@@ -107,7 +107,7 @@ See traces in Datadog LLM Observability");
     ```
     <!--- KNIT exampleDatadogExporterJava01.java -->
 
-## 追蹤屬性
+## 追蹤屬性 {id="trace-attributes"}
 
 當 Koog 將 Agent 活動傳送到 Datadog 時，會以一系列的 *span* 形式傳送 — 這是個別的工作記錄，例如 LLM 呼叫或工具執行。相關的 span 會被分組為一個 *trace* (追蹤)，代表從開始到結束的完整 Agent 執行過程。
 
@@ -119,7 +119,7 @@ See traces in Datadog LLM Observability");
 - **service.name**：您的服務或應用程式名稱
 - **version**：應用程式版本，對於比較不同部署之間的行為非常有用
 
-### 具有追蹤屬性的範例
+### 具有追蹤屬性的範例 {id="example-with-trace-attributes"}
 
 === "Kotlin"
 
@@ -198,7 +198,7 @@ See traces in Datadog LLM Observability");
     !!! note
         目前不支援從 Java 設定 `resourceAttributes`，因為底層的 Kotlin 函式帶有一個 [`kotlin.time.Duration`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-duration/) 參數（一個值類別），這會導致所有多載（包括其後的參數）發生 JVM 名稱重整 (mangling)。需要 `resourceAttributes` 時，請使用上述的 Kotlin 範例。
 
-## 傳送至多個後端
+## 傳送至多個後端 {id="sending-to-multiple-backends"}
 
 若要同時將追蹤傳送到 Datadog 和另一個後端，請透過 [`addDatadogExporter()`](api:agents-features-opentelemetry::ai.koog.agents.features.opentelemetry.integration.datadog.addDatadogExporter) 註冊 Datadog，並透過 [`addSpanExporter()`](api:agents-features-opentelemetry::ai.koog.agents.features.opentelemetry.feature.OpenTelemetryConfig.addSpanExporter) 新增第二個匯出器。
 每次呼叫都會註冊一個獨立的批次 span 處理器，因此這兩個後端會並行導出：
@@ -237,7 +237,7 @@ See traces in Datadog LLM Observability");
     ```
     <!--- KNIT example-datadog-exporter-03.kt -->
 
-## 擷取哪些內容
+## 擷取哪些內容 {id="what-gets-traced"}
 
 Datadog 匯出器擷取的活動與 Koog 的一般 OpenTelemetry 整合相同。
 有關擷取的 span 完整清單，以及如何包含 LLM 提示與回應內容，請參閱 [擷取哪些內容](index.md#what-gets-traced)。
@@ -246,7 +246,7 @@ Datadog 匯出器擷取的活動與 Koog 的一般 OpenTelemetry 整合相同。
 
 ---
 
-## 疑難排解
+## 疑難排解 {id="troubleshooting"}
 
 - **未顯示任何追蹤**：確認 `DD_API_KEY` 與 `DD_SITE` 設定正確（請參閱 [設定說明](#setup-instructions)）。
 - **驗證錯誤**：在 [Organization Settings > API Keys](https://app.datadoghq.com/organization-settings/api-keys) 中確認您的金鑰處於啟用狀態。

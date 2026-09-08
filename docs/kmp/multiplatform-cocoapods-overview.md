@@ -19,7 +19,7 @@ Kotlin/Native 提供了与 [CocoaPods 依赖管理器](https://cocoapods.org/) �
 
 只有当您想要更改 Swift/Objective-C 代码或在 Apple 模拟器或设备上运行应用程序时，才需要 Xcode。若要配合 Xcode 工作，请先 [更新您的 Podfile](#update-podfile-for-xcode)。
 
-## 设置 CocoaPods 工作环境
+## 设置 CocoaPods 工作环境 {id="set-up-an-environment-to-work-with-cocoapods"}
 
 使用您选择的安装工具安装 [CocoaPods 依赖管理器](https://cocoapods.org/)：
 
@@ -96,7 +96,7 @@ sudo gem install cocoapods
 
 如果您在安装过程中遇到问题，请查看 [可能的问题与解决方案](#possible-issues-and-solutions) 章节。
 
-## 创建项目
+## 创建项目 {id="create-a-project"}
 
 设置好 CocoaPods 环境后，您可以配置 Kotlin Multiplatform 项目以配合 Pod 工作。以下步骤展示了在全新生成的项目上的配置过程：
 
@@ -123,7 +123,7 @@ sudo gem install cocoapods
 
 现在您已准备好 [在 Kotlin Multiplatform 项目中配置 CocoaPods](#configure-the-project)。
 
-## 配置项目
+## 配置项目 {id="configure-the-project"}
 
 要在您的多平台项目中配置 Kotlin CocoaPods Gradle 插件：
 
@@ -196,7 +196,7 @@ sudo gem install cocoapods
 
 `Podspec` 文件包含指向输出框架的路径，以及在 Xcode 项目构建过程中自动构建此框架的脚本阶段。
 
-## 为 Xcode 更新 Podfile
+## 为 Xcode 更新 Podfile {id="update-podfile-for-xcode"}
 
 如果您想将 Kotlin 项目导入到 Xcode 项目中：
 
@@ -234,23 +234,23 @@ sudo gem install cocoapods
 
 如果您未在 Podfile 中进行这些更改，`podInstall` 任务将失败，并且 CocoaPods 插件将在日志中显示错误消息。
 
-## 可能的问题与解决方案
+## 可能的问题与解决方案 {id="possible-issues-and-solutions"}
 
-### CocoaPods 安装 {initial-collapse-state="collapsed" collapsible="true"}
+### CocoaPods 安装 {initial-collapse-state="collapsed" collapsible="true" id="cocoapods-installation"}
 
-#### Ruby 安装
+#### Ruby 安装 {id="ruby-installation"}
 
 CocoaPods 是用 Ruby 构建的，您可以使用 macOS 上默认提供的 Ruby 安装它。
 Ruby 1.9 或更高版本内置了 RubyGems 软件包管理框架，可帮助您安装 [CocoaPods 依赖管理器](https://guides.cocoapods.org/using/getting-started.html#installation)。
 
 如果您在安装和运行 CocoaPods 时遇到问题，请按照 [此指南](https://www.ruby-lang.org/en/documentation/installation/) 安装 Ruby，或参考 [RubyGems 网站](https://rubygems.org/pages/download/) 安装该框架。
 
-#### 版本兼容性
+#### 版本兼容性 {id="version-compatibility"}
 
 我们建议使用最新的 Kotlin 版本。
 此 CocoaPods 设置所需的最低版本为 1.7.0。
 
-### 使用 Xcode 时的构建错误 {initial-collapse-state="collapsed" collapsible="true"}
+### 使用 Xcode 时的构建错误 {initial-collapse-state="collapsed" collapsible="true" id="build-errors-when-using-xcode"}
 
 CocoaPods 安装的某些变体可能会导致 Xcode 中的构建错误。
 通常，Kotlin Gradle 插件会在 `PATH` 中寻找 `pod` 可执行文件，但这可能会因您的环境而异，从而导致不一致。
@@ -269,11 +269,11 @@ CocoaPods 安装的某些变体可能会导致 Xcode 中的构建错误。
     echo -e "kotlin.apple.cocoapods.bin=$(which pod)" >> local.properties
     ```
 
-### 未找到模块或框架 {initial-collapse-state="collapsed" collapsible="true"}
+### 未找到模块或框架 {initial-collapse-state="collapsed" collapsible="true" id="module-or-framework-not-found"}
 
 安装 Pod 时，您可能会遇到与 [C 互操作 (C interop)](https://kotlinlang.org/docs/native-c-interop.html) 问题相关的 `module 'SomeSDK' not found` 或 `framework 'SomeFramework' not found` 错误。要解决此类错误，请尝试以下解决方案：
 
-#### 更新软件包
+#### 更新软件包 {id="update-packages"}
 
 更新您的安装工具和已安装的软件包 (gems)：
 
@@ -338,7 +338,7 @@ CocoaPods 安装的某些变体可能会导致 Xcode 中的构建错误。
 </TabItem>
 </Tabs>
 
-#### 指定框架名称 
+#### 指定框架名称 {id="specify-the-framework-name"}
 
 1. 在下载的 Pod 目录 `[shared_module_name]/build/cocoapods/synthetic/IOS/Pods/...` 中查找 `module.modulemap` 文件。
 2. 检查模块内的框架名称，例如 `SDWebImageMapKit {}`。如果框架名称与 Pod 名称不匹配，请显式指定：
@@ -349,7 +349,7 @@ CocoaPods 安装的某些变体可能会导致 Xcode 中的构建错误。
     }
     ```
 
-#### 指定头文件
+#### 指定头文件 {id="specify-headers"}
 
 如果 Pod 不包含 `.modulemap` 文件（例如 `pod("NearbyMessages")`），请显式指定主头文件：
 
@@ -362,7 +362,7 @@ pod("NearbyMessages") {
 
 查看 [CocoaPods 文档](https://guides.cocoapods.org/) 了解更多信息。如果这些方法都不起作用，并且您仍然遇到此错误，请在 [YouTrack](https://youtrack.jetbrains.com/newissue?project=kt) 中报告问题。
 
-### 应用程序包中缺少资源 {initial-collapse-state="collapsed" collapsible="true"}
+### 应用程序包中缺少资源 {initial-collapse-state="collapsed" collapsible="true" id="missing-resources-in-the-app-bundle"}
 
 如果您的 iOS 应用构建成功但在启动时崩溃，或者最终的 `.ipa` 包中缺少自定义字体和图像等资源，则可能是 Pod 与项目的集成方式存在问题。
 
@@ -375,7 +375,7 @@ open iosApp/iosApp.xcworkspace
 
 **问题发生的原因**：当您在全新的项目上（例如，在克隆仓库后或在 CI/CD 流水线中工作时）运行原生的 `pod install` 命令时，资源目录尚未创建。Compose Multiplatform Gradle 插件在生成的 `.podspec` 文件中指定了资源的位置：`spec.resources = ['build/compose/cocoapods/compose-resources']`，但该路径仅在构建后才会存在。因此，CocoaPods 会忽略缺失的目录，并在没有这些资源的情况下配置 Xcode 项目。当项目构建并生成资源后，Xcode 不会将其复制到最终的包中。
 
-### Rsync 错误 {initial-collapse-state="collapsed" collapsible="true"}
+### Rsync 错误 {initial-collapse-state="collapsed" collapsible="true" id="rsync-error"}
 
 您可能会遇到 `rsync error: some files could not be transferred` 错误。这是一个 [已知问题](https://github.com/CocoaPods/CocoaPods/issues/11946)，如果 Xcode 中的应用程序目标启用了用户脚本沙箱化 (sandboxing)，就会发生此问题。
 
@@ -391,7 +391,7 @@ open iosApp/iosApp.xcworkspace
     ./gradlew --stop
     ```
 
-## 后续步骤
+## 后续步骤 {id="what-s-next"}
 
 * [在您的 Kotlin 项目中添加对 Pod 库的依赖](multiplatform-cocoapods-libraries.md)
 * [设置 Kotlin 项目与 Xcode 项目之间的依赖关系](multiplatform-cocoapods-xcode.md)

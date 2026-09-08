@@ -2,7 +2,7 @@
 
 Compose Multiplatform でユーザーインターフェースを効率的に構築するには、コアとなる原則、レイアウトのフェーズ、および UI を構造化するために利用可能な一般的なコンポーネントやツールを含む、レイアウト構築の主要な概念を理解することが重要です。
 
-## コンポーザブル関数
+## コンポーザブル関数 {id="composable-functions"}
 
 一連のコンポーザブル関数を定義することで、ユーザーインターフェースを構築できます。これらの関数はデータを受け取り、UI 要素を出力（emit）します。`@Composable` アノテーションは、その関数がデータを UI に変換することを Compose コンパイラに伝えます。
 
@@ -15,7 +15,7 @@ fun Greeting(name: String) {
 }
 ```
 
-## Column、Row、および Box
+## Column、Row、および Box {id="column-row-and-box"}
 
 レイアウトを構造化するために、以下の基本的な構成要素を使用できます。
 
@@ -35,7 +35,7 @@ fun Greeting(name: String) {
     }
     ```
 
-## 修飾子 (Modifiers)
+## 修飾子 (Modifiers) {id="modifiers"}
 
 修飾子（Modifier）を使用すると、宣言的な方法でコンポーザブルを装飾したり、その動作を調整したりできます。これらは、サイズ、配置（alignment）、パディング、インタラクションの動作などを制御することで、レイアウトやインタラクションをカスタマイズするために不可欠です。
 
@@ -53,7 +53,7 @@ fun ModifierExample() {
 
 詳細は [](compose-layout-modifiers.md) をご覧ください。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * レイアウトの詳細については、[Jetpack Compose のドキュメント](https://developer.android.com/develop/ui/compose/layouts) を参照してください。
 * コンポーネントの [ライフサイクル](compose-lifecycle.md) について学びましょう。

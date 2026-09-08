@@ -7,7 +7,7 @@ Compose Multiplatform は [Jetpack Compose](https://developer.android.com/jetpac
 >
 {style="note"}
 
-## Android 専用 API
+## Android 専用 API {id="android-only-api"}
 
 Android 専用 API は Android に特化したものであり、他のプラットフォームでは利用できません。これは、Android が使用する特定の概念が、他のプラットフォームでは必要ないためです。これらの API は通常、`android.*` パッケージのクラスを使用するか、Android 固有の動作を設定します。以下は、Android 専用 API の例です：
 
@@ -24,7 +24,7 @@ Android 専用 API は Android に特化したものであり、他のプラッ�
 
 通常、このような API を共通化する強い理由はないため、`androidMain` のみに留めておくのが最適です。
 
-## シグネチャに Android クラスが含まれる API
+## シグネチャに Android クラスが含まれる API {id="api-with-android-classes-in-their-signatures"}
 
 Compose Multiplatform の API の中には、シグネチャ（定義）に `android.*` や `androidx.*`（`androidx.compose.*` を除く）を使用しているものの、その動作が他のプラットフォームにも適用可能なものがあります：
 
@@ -45,7 +45,7 @@ Compose Multiplatform の API の中には、シグネチャ（定義）に `and
 権限（パーミッション）、デバイス（Bluetooth、GPS、カメラ）、入出力（ネットワーク、ファイル、データベース）など、アプリケーション開発で頻繁に使用される API は、Compose Multiplatform のスコープ外です。
 <!-- 代替ソリューションを見つけるには、[マルチプラットフォームライブラリの検索](search-libs.md)を参照してください。 -->
 
-## シグネチャに Android クラスが含まれない API
+## シグネチャに Android クラスが含まれない API {id="api-without-android-classes-in-their-signatures"}
 
 シグネチャに `android.*` や `androidx.*` クラスが含まれておらず、API が他のプラットフォームにも適用可能である場合でも、Android ターゲットでのみ利用可能な API があります。この主な理由は、実装がプラットフォーム固有の要素を多く使用しており、他のプラットフォーム向けの実装を作成するのに時間がかかるためです。
 
@@ -61,6 +61,6 @@ Compose Multiplatform %org.jetbrains.compose% では、以下の API は `common
 * [material3-adaptive](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive) ライブラリ
 * [material3-window-size-class](https://developer.android.com/reference/kotlin/androidx/compose/material3/windowsizeclass/package-summary) ライブラリ
 
-## Android API の移植リクエスト
+## Android API の移植リクエスト {id="request-to-port-android-api"}
 
 Android から移植可能な各 API について、Compose Multiplatform の [YouTrack](https://youtrack.jetbrains.com/issues/CMP) にオープンなイシューが存在します。Android から移植して共通化できると思われる API があり、それに関する既存のイシューがない場合は、[新しく作成](https://youtrack.jetbrains.com/newIssue?project=CMP)してください。

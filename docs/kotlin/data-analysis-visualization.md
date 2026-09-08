@@ -5,7 +5,7 @@ Kotlin 提供了一站式的高效且灵活的数据可视化解决方案，在�
 
 本教程演示了如何在 IntelliJ IDEA 中使用 [Kandy](https://kotlin.github.io/kandy/welcome.html) 和 [Kotlin 数据帧](https://kotlin.github.io/dataframe/home.html)库创建不同的图表类型。
 
-## 开始之前
+## 开始之前 {id="before-you-start"}
 
 > 从 IntelliJ IDEA 2026.2 开始，Kotlin Notebook 将不再随 IDE 内置，也不再由 JetBrains 提供官方支持。
 > 源代码将继续在 [GitHub](https://github.com/Kotlin/kotlin-notebook) 上提供。
@@ -28,7 +28,7 @@ Kotlin 提供了一站式的高效且灵活的数据可视化解决方案，在�
 
 要按照本教程操作，您也可以将数据帧作为 [Gradle](https://kotlin.github.io/dataframe/setupgradle.html) 或 [Maven](https://kotlin.github.io/dataframe/setupmaven.html) 依赖项使用。
 
-## 创建数据帧
+## 创建数据帧 {id="create-a-dataframe"}
 
 首先，让我们创建一个包含要可视化数据的数据帧。此数据帧存储了柏林、马德里和加拉加斯三个城市的模拟月平均气温：
 
@@ -74,7 +74,7 @@ df.head(4) // 返回前四行
 >
 {style="tip"}
 
-## 创建折线图
+## 创建折线图 {id="create-a-line-chart"}
 
 让我们使用上一节中的 `df` 数据帧创建一张折线图：
 
@@ -108,7 +108,7 @@ df.plot {
 
 ![折线图](visualization-line-chart.svg){width=600}
 
-## 创建点图
+## 创建点图 {id="create-a-points-chart"}
 
 现在，让我们在点图（散点图）中可视化 `df` 数据帧：
 
@@ -147,7 +147,7 @@ df.plot {
 
 ![点图](visualization-points-chart.svg){width=600}
 
-## 创建柱状图
+## 创建柱状图 {id="create-a-bar-chart"}
 
 最后，让我们为每个城市创建一张柱状图：
 
@@ -180,7 +180,7 @@ df.groupBy { City }.plot {
 
 ![柱状图](visualization-bar-chart.svg){width=600}
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * 在 [Kandy 库文档](https://kotlin.github.io/kandy/examples.html)中探索更多图表示例
 * 在 [Lets-Plot 库文档](lets-plot.md)中探索更高级的绘图选项

@@ -18,7 +18,7 @@ Compose Multiplatform 團隊為 AndroidX Navigation 程式庫貢獻了多平台�
 >
 {style="tip"}
 
-## Compose Navigation 的基本概念
+## Compose Navigation 的基本概念 {id="basic-concepts-of-compose-navigation"}
 
 Navigation 程式庫使用以下概念來對應導覽使用案例：
 
@@ -45,7 +45,7 @@ Navigation 程式庫使用以下概念來對應導覽使用案例：
 * 每個目的地都可以有一組與其關聯的 **深層連結 (deep links)**：
     當應用程式從作業系統接收到連結時，應引導至該目的地的 URI 模式。
 
-## 基本導覽範例
+## 基本導覽範例 {id="basic-navigation-example"}
 
 要使用 Navigation 程式庫，請將以下相依性新增至您的 `commonMain` 原始碼集：
 
@@ -93,7 +93,7 @@ NavHost(navController = navController, startDestination = Profile) {
 }
 ```
 
-### Navigation 程式庫的主要類別
+### Navigation 程式庫的主要類別 {id="main-classes-of-the-navigation-library"}
 
 Navigation 程式庫提供以下核心型別：
 
@@ -110,9 +110,9 @@ Navigation 程式庫提供以下核心型別：
 
 除了核心型別的功能外，Navigation 組件還提供動畫和轉場、深層連結支援、型別安全性、`ViewModel` 支援以及其他用於處理應用程式導覽的便利功能。
 
-## 導覽使用案例
+## 導覽使用案例 {id="navigation-use-cases"}
 
-### 前往目的地
+### 前往目的地 {id="go-to-a-destination"}
 
 要導覽至目的地，請呼叫 `NavController.navigate()` 函式。延續上面的範例：
 
@@ -122,7 +122,7 @@ Button(onClick = { navController.navigate(Profile) }) {
 }
 ```
 
-### 傳遞引數至目的地
+### 傳遞引數至目的地 {id="pass-arguments-to-a-destination"}
 
 設計導覽圖時，您可以將路由定義為帶有參數的資料類別，例如：
 
@@ -149,7 +149,7 @@ composable<Profile> { backStackEntry ->
 }
 ```
 
-### 導覽時擷取複雜資料
+### 導覽時擷取複雜資料 {id="retrieve-complex-data-when-navigating"}
 
 在目的地之間導覽時，請考慮僅在它們之間傳遞必要的最小資訊。
 反映應用程式整體狀態的檔案或複雜物件應儲存在資料層：
@@ -165,7 +165,7 @@ composable<Profile> { backStackEntry ->
 
 有關在應用程式中正確實作資料層的指引，請參閱 [Android 關於資料層的文章](https://developer.android.com/topic/architecture/data-layer)。
 
-### 管理返回堆疊
+### 管理返回堆疊 {id="manage-back-stack"}
 
 返回堆疊由 `NavController` 類別控制。
 與任何其他堆疊一樣，`NavController` 將新項目推送 (push) 到堆疊頂部，並從頂部彈出 (pop) 它們：
@@ -188,7 +188,7 @@ Navigation 程式庫在處理返回堆疊方面具有一定的靈活性。
 
 有關詳細資訊和使用案例，請參閱 [關於返回堆疊的 Jetpack Compose 文件](https://developer.android.com/guide/navigation/backstack)。
 
-### 深層連結
+### 深層連結 {id="deep-links"}
 
 Navigation 程式庫允許您將特定的 URI、操作或 MIME 型別與目的地關聯。
 這種關聯稱為 **深層連結 (deep link)**。
@@ -197,7 +197,7 @@ Navigation 程式庫允許您將特定的 URI、操作或 MIME 型別與目的�
 
 有關建立、註冊和處理深層連結的詳細資訊，請參閱 [深層連結](compose-navigation-deep-links.md)。
 
-### 返回手勢
+### 返回手勢 {id="back-gesture"}
 
 多平台 Navigation 程式庫會將各個平台上的返回手勢轉換為導覽至上一個畫面（例如，在 iOS 上這是一個簡單的向後滑動，而在桌面上則是 <shortcut>Esc</shortcut> 鍵）。
 
@@ -228,7 +228,7 @@ ComposeUIViewController(
 }
 ```
 
-## 替代導覽解決方案
+## 替代導覽解決方案 {id="alternative-navigation-solutions"}
 
 如果基於 Compose 的導覽實作不符合您的需求，還有一些第三方替代方案可供評估：
 
@@ -242,7 +242,7 @@ ComposeUIViewController(
 
 如果您鎖定 iOS 平台，且希望在導覽 UI 中使用系統呈現的效果，例如 [Liquid Glass](https://developer.apple.com/documentation/technologyoverviews/liquid-glass)，請考慮[將導覽遷移至原生 SwiftUI](ios-liquid-glass.md)，同時保留 Compose 處理畫面內容。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 Android 開發者入口網站深入介紹了 Compose 導覽。
 雖然這些文件有時使用僅限 Android 的範例，但基本的引導和導覽原則對於多平台 (Multiplatform) 是相同的：

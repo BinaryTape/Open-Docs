@@ -13,7 +13,7 @@
 
 探索 [GitHub 上的 Kotlin DataFrame SQL 示例](https://github.com/zaleslaw/KotlinDataFrame-SQL-Examples/tree/master/src/main/kotlin)。
 
-## 开始之前
+## 开始之前 {id="before-you-start"}
 
 > 从 IntelliJ IDEA 2026.2 开始，Kotlin Notebook 将不再与 IDE 捆绑，也不再由 JetBrains 官方支持。
 > 源代码将继续在 [GitHub](https://github.com/Kotlin/kotlin-notebook) 上提供。
@@ -44,7 +44,7 @@
 
 要学习本教程，您还可以将 DataFrame 作为 [Gradle](https://kotlin.github.io/dataframe/setupgradle.html) 或 [Maven](https://kotlin.github.io/dataframe/setupmaven.html) 依赖项使用。
 
-## 连接数据库
+## 连接数据库 {id="connect-to-a-database"}
 
 要连接到数据库，请使用 `DbConnectionConfig()` 函数创建连接配置：
 
@@ -69,7 +69,7 @@
 >
 {style="tip"}
 
-## 检查数据库架构
+## 检查数据库架构 {id="inspect-database-schema"}
 
 在加载数据之前，请检查数据库架构以了解您拥有哪些表以及它们包含哪些列。您可以使用这些架构来决定将哪个表加载到 DataFrame 中。
 
@@ -85,7 +85,7 @@ dataSchemas.forEach { (tableName, schema) ->
 }
 ```
 
-## 加载数据
+## 加载数据 {id="load-data"}
 
 在检查数据库架构并选择数据后，将数据加载到 DataFrame 中。
 
@@ -96,7 +96,7 @@ Kotlin DataFrame 提供了两种从数据库加载数据的方法：
 
 这两种方法都会返回一个 DataFrame，您可以在其中对其进行检查、转换和分析。
 
-### 从表加载数据
+### 从表加载数据 {id="load-data-from-a-table"}
 
 要从表加载数据，请使用 [`DataFrame.readSqlTable()`](https://kotlin.github.io/dataframe/readsqldatabases.html#reading-specific-tables) 函数。
 
@@ -112,7 +112,7 @@ val moviesDf = DataFrame.readSqlTable(
 moviesDf
 ```
 
-### 使用 SQL 查询加载数据
+### 使用 SQL 查询加载数据 {id="load-data-with-an-sql-query"}
 
 要对数据库执行特定的 SQL 查询，请使用 [`DataFrame.readSqlQuery()`](https://kotlin.github.io/dataframe/readsqldatabases.html#executing-sql-queries) 函数。当您需要加载特定列、连接表、筛选行或在数据库中聚合数据时，此方法非常有用。
 
@@ -133,7 +133,7 @@ val tarantinoMoviesDf = DataFrame.readSqlQuery(dbConfig, TARANTINO_FILMS_SQL_QUE
 tarantinoMoviesDf
 ```
 
-## 处理数据
+## 处理数据 {id="process-data"}
 
 将数据库加载到 DataFrame 后，您可以使用 DataFrame 操作来处理获取的数据。
 
@@ -151,7 +151,7 @@ val filteredTarantinoMovies = tarantinoMoviesDf
 filteredTarantinoMovies
 ```
 
-## 分析数据
+## 分析数据 {id="analyze-data"}
 
 使用 [DataFrame 库](https://kotlin.github.io/dataframe/home.html)对数据进行分组、排序和聚合，以便您可以发现并理解数据中的模式。
 
@@ -174,7 +174,7 @@ val top20ActorNames = actorDf
    .take(20)
 ```
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * 使用 [Kandy 库](https://kotlin.github.io/kandy/examples.html)探索数据可视化
 * 在[使用 Kandy 进行数据可视化](data-analysis-visualization.md)中查找有关数据可视化的更多信息

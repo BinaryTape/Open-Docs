@@ -4,7 +4,7 @@ title: 使用 @Monitor 进行 Koin 内置性能监控
 
 `@Monitor` 注解（自 Koin Annotations 2.2.0 起可用）通过 [Kotzilla 平台](https://kotzilla.io)（Koin 的官方工具平台）为您的 Koin 组件启用自动性能监控和跟踪。
 
-## 设置
+## 设置 {id="setup"}
 
 添加 Kotzilla SDK 依赖项：
 
@@ -42,7 +42,7 @@ fun initKoin() {
 }
 ```
 
-## 基本用法
+## 基本用法 {id="basic-usage"}
 
 只需使用 `@Monitor` 为您的 Koin 组件添加注解：
 
@@ -58,7 +58,7 @@ class UserService(private val userRepository: UserRepository) {
 }
 ```
 
-## 生成的代码
+## 生成的代码 {id="generated-code"}
 
 编译器会自动生成一个包装您的组件的代理类：
 
@@ -87,7 +87,7 @@ Koin 会自动使用代理类代替原始类，透明地捕获：
 - 错误率和类型
 - 性能瓶颈
 
-## ViewModel 监控
+## ViewModel 监控 {id="viewmodels-monitoring"}
 
 监控您的 ViewModel 以跟踪 UI 性能：
 
@@ -99,7 +99,7 @@ class DetailViewModel(private val repository: Repository) : ViewModel() {
 }
 ```
 
-## Kotzilla 平台集成
+## Kotzilla 平台集成 {id="kotzilla-platform-integration"}
 
 监控数据会自动发送到您的 [Kotzilla 平台](https://kotzilla.io)工作区，提供：
 
@@ -124,7 +124,7 @@ class DetailViewModel(private val repository: Repository) : ViewModel() {
 }
 ```
 
-## 要求
+## 要求 {id="requirements"}
 
 - 使用 `@Monitor` 注解的类必须是 open 的（由 `allOpen` 插件自动处理）
 - Kotzilla SDK 依赖项在运行时必须可用

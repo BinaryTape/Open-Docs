@@ -4,7 +4,7 @@ Prompt 是针对大型语言模型 (LLM) 的指令，用于引导其生成响应
 它们定义了您与 LLM 交互的内容和结构。
 本节介绍了如何使用 Koog 创建和运行 prompt。
 
-## 创建 prompt
+## 创建 prompt {id="creating-prompts"}
 
 在 Koog 中，prompt 是 [**Prompt**](api:prompt-model::ai.koog.prompt.dsl.Prompt) 数据类的实例，具有以下属性：
 
@@ -51,7 +51,7 @@ Prompt 是针对大型语言模型 (LLM) 的指令，用于引导其生成响应
     它们会自动将文本 prompt 转换为 Prompt 对象并发送给 LLM 执行。
     这对只需要运行单个请求且不需要复杂对话逻辑的[基础智能体](../agents/basic-agents.md)非常有用。
 
-## 运行 prompt
+## 运行 prompt {id="running-prompts"}
 
 Koog 为针对 LLM 运行 prompt 提供了两个抽象级别：LLM 客户端和 prompt 执行器。
 两者都接受 Prompt 对象，并且可以在没有 AI 智能体的情况下用于直接执行 prompt。
@@ -89,7 +89,7 @@ flowchart TB
 
 </div>
 
-## 优化性能和处理失败
+## 优化性能和处理失败 {id="optimizing-performance-and-handling-failures"}
 
 Koog 允许您在运行 prompt 时优化性能并处理失败。
 
@@ -109,7 +109,7 @@ Koog 允许您在运行 prompt 时优化性能并处理失败。
 
 </div>
 
-## AI 智能体中的 prompt
+## AI 智能体中的 prompt {id="prompts-in-ai-agents"}
 
 在 Koog 中，AI 智能体在生命周期内维护并管理 prompt。
 虽然 LLM 客户端或执行器用于运行 prompt，但智能体负责处理 prompt 更新流程，确保对话历史记录保持相关性和一致性。
@@ -121,7 +121,7 @@ Koog 允许您在运行 prompt 时优化性能并处理失败。
 3. 上下文窗口管理。
 4. 手动 prompt 管理。
 
-### 初始 prompt 设置
+### 初始 prompt 设置 {id="initial-prompt-setup"}
 
 当您[初始化智能体](../quickstart.md#create-your-first-koog-agent)时，可以定义一条[系统消息](prompt-creation/index.md#system-message)来设定智能体的行为。
 然后，当您调用智能体的 `run()` 方法时，通常会提供一条初始[用户消息](prompt-creation/index.md#user-messages)作为输入。
@@ -196,7 +196,7 @@ flowchart TB
 
 对于更高级的配置，您还可以使用 [AIAgentConfig](api:agents-core::ai.koog.agents.core.agent.config.AIAgentConfig) 来定义智能体的初始 prompt。
 
-### 自动 prompt 更新
+### 自动 prompt 更新 {id="automatic-prompt-updates"}
 
 随着智能体运行其策略，[预定义节点](../nodes-and-components.md)会自动更新 prompt。
 例如：
@@ -205,11 +205,11 @@ flowchart TB
 - [`nodeLLMSendToolResult`](../nodes-and-components.md#nodellmsendtoolresult)：将工具执行结果附加到对话中。
 - [`nodeAppendPrompt`](../nodes-and-components.md#nodeappendprompt)：在工作流的任何位置向 prompt 插入特定消息。
 
-### 上下文窗口管理
+### 上下文窗口管理 {id="context-window-management"}
 
 为了避免在长时间运行的交互中超出 LLM 上下文窗口，智能体可以使用[历史记录压缩](../history-compression.md)功能。
 
-### 手动 prompt 管理
+### 手动 prompt 管理 {id="manual-prompt-management"}
 
 对于复杂的工作流，您可以使用 [LLM 会话](../sessions.md)手动管理 prompt。
 在智能体策略或自定义节点中，您可以使用 `llm.writeSession` 来访问和更改 `Prompt` 对象。

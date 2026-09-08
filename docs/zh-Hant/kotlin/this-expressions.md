@@ -44,7 +44,7 @@
 > 
 {style="tip"}
 
-## 限定的 this
+## 限定的 this {id="qualified-this"}
 
 當 receiver 的作用域巢狀（nested）時，您的程式碼可能同時有多個可用的 receiver。Kotlin 可以隱式使用任何可用的 receiver 來存取其成員，但來自內層作用域的 receiver 具有較高優先級。若要明確參考特定的 receiver，請使用限定的 `this`。當多個 receiver 具有相同名稱的成員，且您需要存取外層 receiver 的成員時，這特別有用。
 
@@ -56,7 +56,7 @@ this@label
 
 標籤會告訴編譯器要存取哪個 receiver。您可以使用封閉類別或擴充方法的名稱。例如，`this@foo` 指的是名為 `foo` 的封閉擴充方法的 receiver。
 
-### 從內部類別存取外層類別
+### 從內部類別存取外層類別 {id="access-an-outer-class-from-an-inner-class"}
 
 在 [內部類別](nested-classes.md#inner-classes) 中，不帶限定詞的 `this` 指的是內部類別的執行個體。若要存取外層類別物件，請使用限定的 `this`：
 
@@ -88,7 +88,7 @@ fun main() {
 > 
 {style="note"}
 
-### 從擴充方法存取類別
+### 從擴充方法存取類別 {id="access-a-class-from-an-extension-function"}
 
 如果您在類別內部宣告擴充方法，則有兩個可用的 receiver：
 
@@ -124,7 +124,7 @@ fun main() {
 * `this@User` 指的是目前的 `User` 物件。
 * `this@User.prefix` 會存取目前 `User` 物件的 `prefix` 屬性。
 
-### 從 Lambda 存取
+### 從 Lambda 存取 {id="access-from-a-lambda"}
 
 與一般的 Lambda 不同，[帶有接收者的 Lambda](lambdas.md#function-literals-with-receiver) 會在其作用域內引入一個 receiver。因此，Lambda 內部的 `this` 指的是該 Lambda 的 receiver，而非來自封閉作用域的 receiver。
 如果帶有接收者的 Lambda 巢狀於另一個 receiver 作用域內，請為該 Lambda 加入標籤，並使用限定的 `this` 來明確參考該 Lambda 的 receiver 或封閉作用域的 receiver：
@@ -156,7 +156,7 @@ fun main() {
 
 標籤不會進行任何呼叫，也不會改變 Lambda 的運作方式。它僅協助您參考該 Lambda 的 receiver。
 
-### 存取匿名物件或其外層類別
+### 存取匿名物件或其外層類別 {id="access-an-anonymous-object-or-its-outer-class"}
 
 [匿名物件](object-declarations.md#object-expressions) 擁有自己的 receiver 作用域。在物件主體內部，不帶限定詞的 `this` 指的是匿名物件本身。然而，由於匿名物件沒有類別名稱，您不能將它們用作 `this` 限定詞。因此，您只能使用不帶限定詞的 `this` 來參考匿名物件：
 
@@ -210,7 +210,7 @@ fun main() {
 
 {kotlin-runnable="true"}
 
-## 隱式 this
+## 隱式 this {id="implicit-this"}
 
 當您在 `this` 上呼叫成員函數時，可以省略 `this.` 限定詞。然而，如果另一個具有相同名稱的可呼叫物件在更近的語法作用域內可用，Kotlin 會將不帶限定詞的呼叫解析為該物件，而非成員函數。若要明確呼叫成員函數，請使用 `this.` 限定詞：
 

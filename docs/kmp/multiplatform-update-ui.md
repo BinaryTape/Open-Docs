@@ -18,7 +18,7 @@
 要构建用户界面，您将针对项目的 Android 部分使用 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) 工具包，针对 iOS 部分使用 [SwiftUI](https://developer.apple.com/xcode/swiftui/)。
 这两者都是声明式 UI 框架，您会看到 UI 实现上的相似之处。在这两种情况下，您都将数据存储在 `phrases` 变量中，随后对其进行迭代以生成 `Text` 项列表。
 
-## 更新 Android 部分
+## 更新 Android 部分 {id="update-the-android-part"}
 
 `androidApp` 模块包含一个 Android 应用程序并定义了其主 Activity。
 UI 代码主要包含在 `sharedUI` 模块中，Android 应用将其作为 Android 库使用。
@@ -74,7 +74,7 @@ UI 是使用 Compose Multiplatform 框架实现的。
 
    ![更新后的 Android 多平台应用 UI](first-multiplatform-project-on-android-2.png){width=300}
 
-## 更新 iOS 部分
+## 更新 iOS 部分 {id="update-the-ios-part"}
 
 `iosApp` 目录构建为一个 iOS 应用程序。
 它依赖并使用 `sharedLogic` 模块作为 iOS 框架。
@@ -107,24 +107,24 @@ UI 是使用 Compose Multiplatform 框架实现的。
 
     ![更新后的 iOS 多平台应用 UI](first-multiplatform-project-on-ios-2.png){width=350}
 
-## 可能的问题与解决方案
+## 可能的问题与解决方案 {id="possible-issues-and-solutions"}
 
-### Xcode 报告调用共享框架的代码中存在错误
+### Xcode 报告调用共享框架的代码中存在错误 {id="xcode-reports-errors-in-the-code-calling-the-shared-framework"}
 
 如果您在 Xcode 中工作，您的 Xcode 项目可能仍在使用旧版本的框架。
 要解决此问题，请返回 IntelliJ IDEA 并重新构建项目或启动 iOS 运行配置。
 
-### Xcode 在导入共享框架时报告错误
+### Xcode 在导入共享框架时报告错误 {id="xcode-reports-an-error-when-importing-the-shared-framework"}
 
 如果您正在使用 Xcode，它可能需要清除缓存的二进制文件：尝试通过在主菜单中选择 **Product | Clean Build Folder** 来重置环境。
 
-## 下一步
+## 下一步 {id="next-step"}
 
 在本教程的下一部分中，您将学习依赖项并添加第三方库以扩展项目的功能。
 
 **[继续下一部分](multiplatform-dependencies.md)**
 
-## 获取帮助
+## 获取帮助 {id="get-help"}
 
 * **Kotlin Slack**。获取[邀请](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)并加入 [#multiplatform](https://kotlinlang.slack.com/archives/C3PQML5NU) 频道。
 * **Kotlin 问题跟踪器**。[报告新问题](https://youtrack.jetbrains.com/newIssue?project=KT)。

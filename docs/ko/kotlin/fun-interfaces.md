@@ -10,7 +10,7 @@ fun interface KRunnable {
 }
 ```
 
-## SAM 변환
+## SAM 변환 {id="sam-conversions"}
 
 함수형 인터페이스의 경우, [람다 식](lambdas.md#lambda-expressions-and-anonymous-functions)을 사용하여 코드를 더 간결하고 읽기 좋게 만드는 SAM 변환을 사용할 수 있습니다.
 
@@ -59,7 +59,7 @@ fun main() {
 
 [Java 인터페이스에 대한 SAM 변환](java-interop.md#sam-conversions)도 사용할 수 있습니다.
 
-## 생성자 함수가 있는 인터페이스에서 함수형 인터페이스로 마이그레이션
+## 생성자 함수가 있는 인터페이스에서 함수형 인터페이스로 마이그레이션 {id="migration-from-an-interface-with-constructor-function-to-a-functional-interface"}
 
 1.6.20부터 Kotlin은 함수형 인터페이스 생성자에 대한 [호출 가능 참조(callable references)](reflection.md#callable-references)를 지원합니다. 이를 통해 생성자 함수가 있는 인터페이스에서 함수형 인터페이스로 소스 호환성을 유지하며 마이그레이션하는 방법이 추가되었습니다. 다음 코드를 살펴보세요.
 
@@ -94,7 +94,7 @@ documentsStorage.addPrinter(::Printer)
 fun Printer(...) {...}
 ```
 
-## 함수형 인터페이스 vs. 타입 별칭
+## 함수형 인터페이스 vs. 타입 별칭 {id="functional-interfaces-vs-type-aliases"}
 
 위의 내용을 함수형 타입에 대한 [타입 별칭(type alias)](type-aliases.md)을 사용하여 간단히 다시 작성할 수도 있습니다.
 

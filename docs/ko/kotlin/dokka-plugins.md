@@ -12,7 +12,7 @@ Dokka 플러그인은 다른 프로그래밍 언어 소스 지원부터 이색�
 Dokka 플러그인을 만드는 방법을 배우려면 
 [개발자 가이드](https://kotlin.github.io/dokka/%dokkaVersion%/developer_guide/introduction/)를 참조하세요.
 
-## Dokka 플러그인 적용
+## Dokka 플러그인 적용 {id="apply-dokka-plugins"}
 
 Dokka 플러그인은 별도의 아티팩트로 게시되므로, Dokka 플러그인을 적용하려면 의존성(dependency)으로 추가하기만 하면 됩니다. 그 이후에는 플러그인이 스스로 Dokka를 확장하며, 추가 작업은 필요하지 않습니다.
 
@@ -109,7 +109,7 @@ java -jar dokka-cli-%dokkaVersion%.jar \
 </tab>
 </tabs>
 
-## Dokka 플러그인 설정
+## Dokka 플러그인 설정 {id="configure-dokka-plugins"}
 
 Dokka 플러그인은 자체적인 설정 옵션을 가질 수 있습니다. 어떤 옵션을 사용할 수 있는지 확인하려면 사용 중인 플러그인의 문서를 참조하세요. 
 
@@ -206,7 +206,7 @@ java -jar dokka-cli-%dokkaVersion%.jar \
 </tab>
 </tabs>
 
-## 주요 플러그인
+## 주요 플러그인 {id="notable-plugins"}
 
 유용하게 사용할 수 있는 주요 Dokka 플러그인들입니다:
 

@@ -22,11 +22,11 @@ Dokka Gradle 外掛程式 v2 模式預設為啟用，且符合 Gradle 最佳實�
 
 閱讀本指南以了解有關 DGP v1 到 v2 模式的變更和遷移的進一步資訊。
 
-## 開始之前
+## 開始之前 {id="before-you-start"}
 
 在開始遷移之前，請完成以下步驟。
 
-### 驗證支援的版本
+### 驗證支援的版本 {id="verify-supported-versions"}
 
 確保您的專案符合最低版本需求：
 
@@ -36,7 +36,7 @@ Dokka Gradle 外掛程式 v2 模式預設為啟用，且符合 Gradle 最佳實�
 | [Android Gradle 外掛程式](https://developer.android.com/build/agp-upgrade-assistant) | 7.0 或更高版本 |
 | [Kotlin Gradle 外掛程式](https://kotlinlang.org/docs/gradle-configure-project.html) | 1.9 或更高版本 |
 
-### 啟用 DGP v2
+### 啟用 DGP v2 {id="enable-dgp-v2"}
 
 在專案 `build.gradle.kts` 檔案的 `plugins {}` 區塊中，將 Dokka 版本更新為 %dokkaVersion%：
 
@@ -56,7 +56,7 @@ plugins {
 >
 {style="tip"}
 
-### 啟用遷移幫助程式
+### 啟用遷移幫助程式 {id="enable-migration-helpers"}
 
 在專案的 `gradle.properties` 檔案中，設定以下 Gradle 屬性以啟動帶有幫助程式的 DGP v2：
 
@@ -76,7 +76,7 @@ org.jetbrains.dokka.experimental.gradle.pluginMode=V2EnabledWithHelpers
 
 完成遷移後，[停用遷移幫助程式](#set-the-opt-in-flag)。
 
-### 將您的專案與 Gradle 同步
+### 將您的專案與 Gradle 同步 {id="sync-your-project-with-gradle"}
 
 啟用 DGP v2 和遷移幫助程式後， 
 將您的專案與 Gradle 同步，以確保 DGP v2 已正確套用：
@@ -84,15 +84,15 @@ org.jetbrains.dokka.experimental.gradle.pluginMode=V2EnabledWithHelpers
 * 如果您使用 IntelliJ IDEA，請點擊 Gradle 工具視窗中的 **Reload All Gradle Projects** ![Reload button](gradle-reload-button.png){width=30}{type="joined"} 按鈕。
 * 如果您使用 Android Studio，請選取 **File** | **Sync Project with Gradle Files**。
 
-## 遷移您的專案
+## 遷移您的專案 {id="migrate-your-project"}
 
 更新 Dokka Gradle 外掛程式至 v2 後，請遵循適用於您專案的遷移步驟。
 
-### 調整配置選項
+### 調整配置選項 {id="adjust-configuration-options"}
 
 DGP v2 在 [Gradle 配置選項](dokka-gradle-configuration-options.md)中引入了一些變更。請在 `build.gradle.kts` 檔案中根據您的專案設定調整配置選項。
 
-#### DGP v2 中的頂層 DSL 配置
+#### DGP v2 中的頂層 DSL 配置 {id="top-level-dsl-configuration-in-dgp-v2"}
 
 將 DGP v1 的配置語法取代為 DGP v2 的頂層 `dokka {}` DSL 配置：
 
@@ -200,7 +200,7 @@ abstract class CustomPlugin : Plugin<Project> {
 </tab>
 </tabs>
 
-#### 可見性設定
+#### 可見性設定 {id="visibility-settings"}
 
 將 `documentedVisibilities` 屬性從 `Visibility.PUBLIC` 改為 `VisibilityModifier.Public`。
 
@@ -237,7 +237,7 @@ fun documentedVisibilities(vararg visibilities: VisibilityModifier): Unit =
     documentedVisibilities.set(visibilities.asList()) 
 ```
 
-#### 原始碼連結
+#### 原始碼連結 {id="source-links"}
 
 配置原始碼連結，以允許從產生的文件導覽至遠端存儲庫中對應的原始碼。 
 請使用 `dokkaSourceSets.main{}` 區塊進行此配置。
@@ -341,7 +341,7 @@ fun remoteUrl(value: Provider<String>): Unit =
     remoteUrl.set(value.map(::URI))
 ```
 
-#### 外部文件連結
+#### 外部文件連結 {id="external-documentation-links"}
 
 使用 `register()` 方法註冊外部文件連結，以定義每個連結。
 `externalDocumentationLinks` API 使用此方法，以符合 Gradle DSL 慣例。
@@ -374,7 +374,7 @@ dokka {
 }
 ```
 
-#### 自訂資源
+#### 自訂資源 {id="custom-assets"}
 
 將 [`customAssets`](dokka-html.md#customize-assets) 屬性與檔案集合 [(`FileCollection`)](https://docs.gradle.org/8.10/userguide/lazy_configuration.html#working_with_files_in_lazy_properties) 配合使用，而非列表 (`var List<File>`)。
 
@@ -390,7 +390,7 @@ DGP v2 中的配置：
 customAssets.from("example.png", "example2.png")
 ```
 
-#### 輸出目錄
+#### 輸出目錄 {id="output-directory"}
 
 使用 `dokka {}` 區塊指定產生的 Dokka 文件的輸出目錄。
 
@@ -412,7 +412,7 @@ dokka {
 }
 ```
 
-#### 其他檔案的輸出目錄
+#### 其他檔案的輸出目錄 {id="output-directory-for-additional-files"}
 
 在 `dokka {}` 區塊內為單模組和多模組專案指定輸出目錄並包含其他檔案。
 
@@ -474,7 +474,7 @@ abstract class CustomPlugin : Plugin<Project> {
 </tab>
 </tabs>
 
-### 配置 Dokka 外掛程式
+### 配置 Dokka 外掛程式 {id="configure-dokka-plugins"}
 
 棄用使用 JSON 配置內建的 Dokka 外掛程式，改用型別安全 DSL。此變更提高了與 Gradle 漸進式建置系統的相容性，並改善了任務輸入追蹤。
 
@@ -517,7 +517,7 @@ dokka {
 DGP v2 允許您透過[配置自訂外掛程式](https://github.com/Kotlin/dokka/blob/ae3840edb4e4afd7b3e3768a5fddfe8ec0e08f31/examples/gradle-v2/custom-dokka-plugin-example/demo-library/build.gradle.kts)來擴充其功能。
 自訂外掛程式可在文件產生過程中進行額外的處理或修改。
 
-### 跨子專案共用 Dokka 配置
+### 跨子專案共用 Dokka 配置 {id="share-dokka-configuration-across-subprojects"}
 
 DPG v2 不再使用 `subprojects {}` 或 `allprojects {}` 來跨子專案共用配置。在未來的 Gradle 版本中， 
 使用這些方法將[導致錯誤](https://docs.gradle.org/current/userguide/isolated_projects.html)。
@@ -531,7 +531,7 @@ DPG v2 不再使用 `subprojects {}` 或 `allprojects {}` 來跨子專案共用�
 >
 {style="tip"}
 
-#### 不具有慣例外掛程式的多模組專案
+#### 不具有慣例外掛程式的多模組專案 {id="multi-module-projects-without-convention-plugins"}
 
 如果您的專案不使用慣例外掛程式，您仍可透過直接配置每個子專案來共用 Dokka 配置。 
 這涉及在每個子專案的 `build.gradle.kts` 檔案中手動設定共用配置。雖然這種方法較不集中， 
@@ -540,7 +540,7 @@ DPG v2 不再使用 `subprojects {}` 或 `allprojects {}` 來跨子專案共用�
 或者，如果您的專案使用慣例外掛程式，您也可以在多模組專案中， 
 透過在 `buildSrc` 目錄中建立一個慣例外掛程式，然後將該外掛程式套用到子專案中來共用 Dokka 配置。
 
-##### 設定 buildSrc 目錄
+##### 設定 buildSrc 目錄 {id="set-up-the-buildsrc-directory"}
 
 1. 在您的專案根目錄中，建立一個包含兩個檔案的 `buildSrc` 目錄：
 
@@ -570,7 +570,7 @@ DPG v2 不再使用 `subprojects {}` 或 `allprojects {}` 來跨子專案共用�
     }   
     ```
 
-##### 設定 Dokka 慣例外掛程式
+##### 設定 Dokka 慣例外掛程式 {id="set-up-the-dokka-convention-plugin"}
 
 設定 `buildSrc` 目錄後：
 
@@ -590,7 +590,7 @@ DPG v2 不再使用 `subprojects {}` 或 `allprojects {}` 來跨子專案共用�
    您需要在 `dokka {}` 區塊中加入所有子專案通用的共用 Dokka [配置](#adjust-configuration-options)。
    此外，您不需要指定 Dokka 版本。版本已經在 `buildSrc/build.gradle.kts` 檔案中設定。
 
-##### 將慣例外掛程式套用至您的子專案
+##### 將慣例外掛程式套用至您的子專案 {id="apply-the-convention-plugin-to-your-subprojects"}
 
 透過將 Dokka 慣例外掛程式加入每個子專案的 `build.gradle.kts` 檔案中，在您的子專案中套用該外掛程式：
 
@@ -600,14 +600,14 @@ plugins {
 }
 ```
 
-#### 具有慣例外掛程式的多模組專案
+#### 具有慣例外掛程式的多模組專案 {id="multi-module-projects-with-convention-plugins"}
 
 如果您已有慣例外掛程式，請參考 [Gradle 的文件](https://docs.gradle.org/current/userguide/custom_plugins.html#sec:convention_plugins)建立專用的 Dokka 慣例外掛程式。
 
 然後，依照步驟[設定 Dokka 慣例外掛程式](#set-up-the-dokka-convention-plugin)並 
 [在您的子專案中套用](#apply-the-convention-plugin-to-your-subprojects)。
 
-### 更新多模組專案中的文件聚合
+### 更新多模組專案中的文件聚合 {id="update-documentation-aggregation-in-multi-module-projects"}
 
 Dokka 可以將多個子專案的文件聚合到單個輸出或出版物中。
 
@@ -634,7 +634,7 @@ dependencies {
 }
 ```
 
-### 變更聚合文件的目錄
+### 變更聚合文件的目錄 {id="change-directory-of-aggregated-documentation"}
 
 當 DGP 聚合子專案時，每個子專案在聚合文件中都有其專屬的子目錄。
 
@@ -662,7 +662,7 @@ turbo-lib/build/dokka/html/turbo-lib/maths/
 此變更可防止同名的子專案發生衝突。但是，由於目錄結構已變更，外部連結 
 可能會過時，並可能導致 `404` 錯誤。
 
-#### 恢復為 DGP v1 的目錄行為
+#### 恢復為 DGP v1 的目錄行為 {id="revert-to-the-dgp-v1-directory-behavior"}
 
 如果您的專案依賴 DGP v1 中使用的目錄結構，您可以透過手動指定子專案目錄來恢復此行為。
 在每個子專案的 `build.gradle.kts` 檔案中加入以下配置：
@@ -680,7 +680,7 @@ dokka {
 }
 ```
 
-### 使用更新後的任務產生文件
+### 使用更新後的任務產生文件 {id="generate-documentation-with-the-updated-task"}
 
 DGP v2 已重新命名用於產生 API 文件的 Gradle 任務。
 
@@ -705,7 +705,7 @@ DGP v2 中的任務：
 在 DGP v2 版本中，`dokkaGenerate` 任務名稱同時適用於單模組和多模組專案。您可以使用不同的任務
 來以 HTML、Javadoc 或同時以 HTML 和 Javadoc 格式產生輸出。欲了解更多資訊，請參閱[選取文件輸出格式](#select-documentation-output-format)。
 
-### 選取文件輸出格式
+### 選取文件輸出格式 {id="select-documentation-output-format"}
 
 > Javadoc 輸出格式處於 [Alpha](https://kotlinlang.org/docs/components-stability.html#stability-levels-explained) 階段。
 > 使用它時，您可能會遇到錯誤和遷移問題。不保證能與接受 Javadoc 作為輸入的工具成功整合。請自行承擔風險。
@@ -747,16 +747,16 @@ DGP v2 的預設輸出格式為 HTML。但是，您可以選擇以 HTML、Javado
 如果您使用的是 IntelliJ IDEA，您可能會看到 `dokkaGenerateHtml` Gradle 任務。
 此任務僅為 `dokkaGeneratePublicationHtml` 的別名。兩個任務執行完全相同的操作。
 
-### 處理棄用與移除事項
+### 處理棄用與移除事項 {id="address-deprecations-and-removals"}
 
 * **輸出格式支援：** DGP v2 僅支援 HTML 和 Javadoc 輸出。不再支援 Markdown 和 Jekyll 等實驗性格式。
 * **收集器任務：** `DokkaCollectorTask` 已被移除。現在，您需要為每個子專案單獨產生文件，並在必要時[聚合文件](#update-documentation-aggregation-in-multi-module-projects)。
 
-## 完成遷移
+## 完成遷移 {id="finalize-your-migration"}
 
 完成專案遷移後，請執行以下步驟以收尾並提升效能。
 
-### 設定選入標記
+### 設定選入標記 {id="set-the-opt-in-flag"}
 
 成功遷移後，在專案的 `gradle.properties` 檔案中設定以下不含幫助程式的選入標記：
 
@@ -767,14 +767,14 @@ org.jetbrains.dokka.experimental.gradle.pluginMode=V2Enabled
 如果您已移除對 DGP v1 中存在但在 DGP v2 中已不再提供的 Gradle 任務的引用， 
 則不應看到與其相關的編譯錯誤。
 
-### 啟用建置快取與配置快取
+### 啟用建置快取與配置快取 {id="enable-build-cache-and-configuration-cache"}
 
 DGP v2 現在支援 Gradle 建置快取和配置快取，可提升建置效能。
 
 * 要啟用建置快取，請遵循 [Gradle 建置快取文件](https://docs.gradle.org/current/userguide/build_cache.html#sec:build_cache_enable)中的說明。
 * 要啟用配置快取，請遵循 [Gradle 配置快取文件](https://docs.gradle.org/current/userguide/configuration_cache.html#config_cache:usage:enable)中的說明。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * [探索更多 DGP v2 專案範例](https://github.com/Kotlin/dokka/tree/master/examples/gradle-v2)。 
 * [開始使用 Dokka](dokka-get-started.md)。

@@ -21,7 +21,7 @@
 
 Ktor は、サーバーとクライアントの両方のコンテキストでの統合を簡素化する一連の共有モジュールを通じて、HTMX に対する実験的な第一級（first-class）のサポートを提供します。これらのモジュールは、HTMX ヘッダーの操作、Kotlin DSL を使用した HTML 属性の定義、サーバー上での HTMX 固有のルーティングロジックの処理のためのツールを提供します。
 
-## モジュールの概要
+## モジュールの概要 {id="modules-overview"}
 
 Ktor の HTMX サポートは、以下の 3 つの実験的モジュールで利用可能です。
 
@@ -33,11 +33,11 @@ Ktor の HTMX サポートは、以下の 3 つの実験的モジュールで利
 
 すべての API は `@ExperimentalKtorApi` でマークされており、`@OptIn(ExperimentalKtorApi::class)` によるオプトインが必要です。
 
-## HTMX ヘッダー
+## HTMX ヘッダー {id="htmx-headers"}
 
 コアの `ktor-htmx` モジュールにある定義済みの定数を使用して、型安全な方法で HTMX ヘッダーにアクセスしたり、設定したりできます。これらの定数は、トリガー、履歴の復元、コンテンツのスワップなどの HTMX の動作を検出する際に、マジック文字列を避けるのに役立ちます。
 
-### リクエストヘッダー
+### リクエストヘッダー {id="request-headers"}
 
 アプリケーションで HTMX リクエストヘッダーを読み取ったり、一致させたりするには、`HxRequestHeaders` オブジェクトを使用します。
 
@@ -52,7 +52,7 @@ Ktor の HTMX サポートは、以下の 3 つの実験的モジュールで利
 <def title="HxRequestHeaders.Prompt">hx-prompt に対するユーザーのレスポンス</def>
 </deflist>
 
-### レスポンスヘッダー
+### レスポンスヘッダー {id="response-headers"}
 
 `HxResponseHeaders` オブジェクトを使用して、HTMX レスポンスヘッダーの定数にアクセスできます。
 
@@ -70,7 +70,7 @@ Ktor の HTMX サポートは、以下の 3 つの実験的モジュールで利
 <def title="HxResponseHeaders.TriggerAfterSwap">スワップ後にイベントをトリガーする</def>
 </deflist>
 
-## スワップモード
+## スワップモード {id="swap-modes"}
 
 コアの `ktor-htmx` モジュールにある `HxSwap` オブジェクトを使用して、さまざまな HTMX スワップモードの定数にアクセスできます。
 
@@ -86,7 +86,7 @@ Ktor の HTMX サポートは、以下の 3 つの実験的モジュールで利
 <def title="HxSwap.none">コンテンツを追加しない</def>
 </deflist>
 
-## HTML DSL 拡張
+## HTML DSL 拡張 {id="html-dsl-extensions"}
 
 `ktor-htmx-html` モジュールは、Kotlin の HTML DSL に拡張関数を追加し、HTML 要素に HTMX 属性を直接追加できるようにします。
 
@@ -113,7 +113,7 @@ html {
 <button hx-get="/api/data" hx-target="#result-div" hx-swap="outerHTML" hx-trigger="click">Load Data</button>
 ```
 
-## サーバーサイドのルーティング
+## サーバーサイドのルーティング {id="server-side-routing"}
 
 `ktor-server-htmx` モジュールは、`hx` DSL ブロックを介して HTMX を認識するルーティングを提供します。
 

@@ -6,7 +6,7 @@ Kotlin Night는 Kotlin 또는 관련 기술에 관한 3~4개의 강연을 포함
 > 
 {style="note"}
 
-## 이벤트 가이드라인
+## 이벤트 가이드라인 {id="event-guidelines"}
 
 * 제공된 [브랜딩 자료](kotlin-brand-assets.md#kotlin-night-brand-assets)를 사용해 주세요. 모든 이벤트와 자료를 동일한 스타일로 구성하면 Kotlin Night의 경험을 일관되게 유지하는 데 도움이 됩니다.
 * Kotlin Night는 무료 이벤트여야 합니다. 비용 충당을 위해 최소한의 참가비를 부과할 수는 있지만, 비영리 이벤트로 유지되어야 합니다.
@@ -16,7 +16,7 @@ Kotlin Night는 Kotlin 또는 관련 기술에 관한 3~4개의 강연을 포함
 * 강연은 주로 Kotlin에 관한 내용이어야 하며, 마케팅이나 판매에 초점을 맞춰서는 안 됩니다.
 * 이벤트에서 식음료 제공 여부는 선택 사항입니다.
 
-## 이벤트 요건
+## 이벤트 요건 {id="event-requirements"}
 
 JetBrains는 여러분의 Kotlin Night 이벤트를 지원하게 되어 기쁩니다. 모든 이벤트가 동일하게 수준 높은 경험을 제공하기를 바라므로, JetBrains의 지원을 받기 위해서는 주최자가 몇 가지 기본 요건을 충족해야 합니다. 주최자로서 여러분은 이벤트의 다음 측면들에 대해 책임을 집니다.
 
@@ -33,7 +33,7 @@ JetBrains는 여러분의 Kotlin Night 이벤트를 지원하게 되어 기쁩�
 4. 이벤트 종료 후 JetBrains에 자료 제공
     * [kotlinlang.org](https://kotlinlang.org/community/talks.html)에 여러분의 이벤트를 기꺼이 홍보하고 싶으며, 후속 포스팅을 위해 슬라이드와 영상 자료를 제공해 주시면 감사하겠습니다.
 
-## JetBrains 지원 사항
+## JetBrains 지원 사항 {id="jetbrains-support"}
 
 JetBrains는 다음 사항을 지원합니다.
 

@@ -4,7 +4,7 @@
 
 虽然大多数语言变更已经通过更新日志或编译器警告等其他渠道公布，但本文档对这些变更进行了汇总，为从 Kotlin 1.2 迁移到 Kotlin 1.3 提供完整的参考。
 
-## 基本术语
+## 基本术语 {id="basic-terms"}
 
 在本文档中，我们介绍了以下几种兼容性：
 
@@ -14,9 +14,9 @@
 
 请记住，这些定义仅针对纯 Kotlin 而言。Kotlin 代码从其他语言角度（例如从 Java）来看的兼容性不在本文档的讨论范围之内。
 
-## 不兼容变更
+## 不兼容变更 {id="incompatible-changes"}
 
-### 关于 &lt;clinit&gt; 调用的构造函数参数求值顺序
+### 关于 &lt;clinit&gt; 调用的构造函数参数求值顺序 {id="evaluation-order-of-constructor-arguments-regarding-lt-clinit-gt-call"}
 
 > **问题**：[KT-19532](https://youtrack.jetbrains.com/issue/KT-19532)
 >
@@ -32,7 +32,7 @@
 > - &gt;= 1.3：行为已更改，
 > `-Xnormalize-constructor-calls=disable` 可用于暂时恢复到 1.3 之前的行为。对该标志的支持将在下一个主要版本中移除。
 
-### 注解构造函数参数上缺失的以 getter 为目标的注解
+### 注解构造函数参数上缺失的以 getter 为目标的注解 {id="missing-getter-targeted-annotations-on-annotation-constructor-parameters"}
 
 > **问题**：[KT-25287](https://youtrack.jetbrains.com/issue/KT-25287)
 >
@@ -47,7 +47,7 @@
 > - <1.3：注解构造函数参数上以 getter 为目标的注解未生效
 > - &gt;=1.3：注解构造函数参数上以 getter 为目标的注解已正确生效并写入生成的代码中
 
-### 类构造函数 @get: 注解中缺失的错误报告
+### 类构造函数 @get: 注解中缺失的错误报告 {id="missing-errors-in-class-constructor-s-get-annotations"}
 
 > **问题**：[KT-19628](https://youtrack.jetbrains.com/issue/KT-19628)
 >
@@ -63,7 +63,7 @@
 > - 1.2.x：错误仅由工具报告，编译器仍可在没有任何警告的情况下编译此类代码
 > - &gt;=1.3：编译器也会报告错误，导致错误的代码被拒绝编译
 
-### 对带有 @NotNull 注解的 Java 类型进行访问时的为 null 性断言
+### 对带有 @NotNull 注解的 Java 类型进行访问时的为 null 性断言 {id="nullability-assertions-on-access-to-java-types-annotated-with-notnull"}
 
 > **问题**：[KT-20830](https://youtrack.jetbrains.com/issue/KT-20830)
 >
@@ -79,7 +79,7 @@
 > - &gt;=1.3：编译器会生成遗漏的断言。这可能会导致（错误地）在此处传递 `null` 的代码更快失败。
 > `-XXLanguage:-StrictJavaNullabilityAssertions` 可用于暂时恢复到 1.3 之前的行为。对该标志的支持将在下一个主要版本中移除。
 
-### 枚举成员上不完善的智能转换
+### 枚举成员上不完善的智能转换 {id="unsound-smartcasts-on-enum-members"}
 
 > **问题**：[KT-20772](https://youtrack.jetbrains.com/issue/KT-20772)
 >
@@ -95,7 +95,7 @@
 > - &gt;=1.3：智能转换将仅正确应用于该枚举条目的成员。
 > `-XXLanguage:-SoundSmartcastForEnumEntries` 将暂时恢复旧行为。对该标志的支持将在下一个主要版本中移除。
 
-### 在 getter 中对 val 支持字段进行重新赋值
+### 在 getter 中对 val 支持字段进行重新赋值 {id="val-backing-field-reassignment-in-getter"}
 
 > **问题**：[KT-16681](https://youtrack.jetbrains.com/issue/KT-16681)
 >
@@ -111,7 +111,7 @@
 > - 1.2.X：对重新赋值 `val` 支持字段的代码报告弃用警告
 > - &gt;=1.3：弃用警告提升为错误
 
-### 在迭代的 for 循环之前捕获数组
+### 在迭代的 for 循环之前捕获数组 {id="array-capturing-before-the-for-loop-where-it-is-iterated"}
 
 > **问题**：[KT-21354](https://youtrack.jetbrains.com/issue/KT-21354)
 >
@@ -127,7 +127,7 @@
 > - 1.2.X：如果 for 循环中的范围表达式是在循环体中赋值的数组类型局部变量，则报告弃用警告
 > - 1.3：在此类情况下更改行为，以与其他容器保持一致
 
-### 枚举条目中的嵌套分类器
+### 枚举条目中的嵌套分类器 {id="nested-classifiers-in-enum-entries"}
 
 > **问题**：[KT-16310](https://youtrack.jetbrains.com/issue/KT-16310)
 >
@@ -143,7 +143,7 @@
 > - 1.2.X：对嵌套分类器报告弃用警告
 > - &gt;=1.3：弃用警告提升为错误
 
-### 数据类重写 copy
+### 数据类重写 copy {id="data-class-overriding-copy"}
 
 > **问题**：[KT-19618](https://youtrack.jetbrains.com/issue/KT-19618)
 >
@@ -159,7 +159,7 @@
 > - 1.2.X：对重写 `copy()` 的数据类报告弃用警告
 > - &gt;=1.3：弃用警告提升为错误
 
-### 继承 Throwable 且捕获外部类泛型参数的内部类
+### 继承 Throwable 且捕获外部类泛型参数的内部类 {id="inner-classes-inheriting-throwable-that-capture-generic-parameters-from-the-outer-class"}
 
 > **问题**：[KT-17981](https://youtrack.jetbrains.com/issue/KT-17981)
 >
@@ -175,7 +175,7 @@
 > - 1.2.X：对继承 `Throwable` 的内部类报告弃用警告
 > - &gt;=1.3：弃用警告提升为错误
 
-### 涉及伴生对象与复杂类层次结构的可见性规则
+### 涉及伴生对象与复杂类层次结构的可见性规则 {id="visibility-rules-regarding-complex-class-hierarchies-with-companion-objects"}
 
 > **问题**：[KT-21515](https://youtrack.jetbrains.com/issue/KT-21515), [KT-25333](https://youtrack.jetbrains.com/issue/KT-25333)
 >
@@ -191,7 +191,7 @@
 > - 1.2.X：对将不再能访问的短名称报告弃用警告。工具建议通过添加全名来进行自动迁移。
 > - &gt;=1.3：弃用警告提升为错误。违规代码应添加完整限定符或显式导入
 
-### 非常量 vararg 注解参数
+### 非常量 vararg 注解参数 {id="non-constant-vararg-annotation-parameters"}
 
 > **问题**：[KT-23153](https://youtrack.jetbrains.com/issue/KT-23153)
 >
@@ -207,7 +207,7 @@
 > - 1.2.X：对此类代码模式报告弃用警告
 > - &gt;=1.3：弃用警告提升为错误
 
-### 局部注解类
+### 局部注解类 {id="local-annotation-classes"}
 
 > **问题**：[KT-23277](https://youtrack.jetbrains.com/issue/KT-23277)
 >
@@ -223,7 +223,7 @@
 > - 1.2.X：对局部注解类报告弃用警告
 > - &gt;=1.3：弃用警告提升为错误
 
-### 局部委托属性的智能转换
+### 局部委托属性的智能转换 {id="smartcasts-on-local-delegated-properties"}
 
 > **问题**：[KT-22517](https://youtrack.jetbrains.com/issue/KT-22517)
 >
@@ -239,7 +239,7 @@
 > - 1.2.X：局部委托属性的智能转换被报告为已弃用（编译器发布警告）
 > - &gt;=1.3：弃用警告提升为错误
 
-### mod 运算符约定
+### mod 运算符约定 {id="mod-operator-convention"}
 
 > **问题**：[KT-24197](https://youtrack.jetbrains.com/issue/KT-24197)
 >
@@ -255,7 +255,7 @@
 > - 1.3.X：将警告提升为错误，但仍允许解析到 `operator mod` 声明
 > - 1.4.X：不再将调用解析到 `operator mod`
 
-### 以命名形式向 vararg 传递单个元素
+### 以命名形式向 vararg 传递单个元素 {id="passing-single-element-to-vararg-in-named-form"}
 
 > **问题**：[KT-20588](https://youtrack.jetbrains.com/issue/KT-20588), [KT-20589](https://youtrack.jetbrains.com/issue/KT-20589)。另请参阅 [KT-20171](https://youtrack.jetbrains.com/issue/KT-20171)
 >
@@ -272,7 +272,7 @@
 > - 1.3.X：警告提升为错误
 > - &gt;= 1.4：更改向 vararg 分配单个元素的语义，使分配数组等同于分配数组的展开
 
-### 目标为 EXPRESSION 的注解的保留策略
+### 目标为 EXPRESSION 的注解的保留策略 {id="retention-of-annotations-with-target-expression"}
 
 > **问题**：[KT-13762](https://youtrack.jetbrains.com/issue/KT-13762)
 >
@@ -288,7 +288,7 @@
 > - 1.2.X：对此类注解的声明报告弃用警告
 > - &gt;=1.3：警告提升为错误
 
-### 目标为 PARAMETER 的注解不应适用于参数类型
+### 目标为 PARAMETER 的注解不应适用于参数类型 {id="annotations-with-target-parameter-shouldn-t-be-applicable-to-parameter-s-type"}
 
 > **问题**：[KT-9580](https://youtrack.jetbrains.com/issue/KT-9580)
 >
@@ -304,7 +304,7 @@
 > - 1.2.X：对此类用法报告弃用警告
 > - &gt;=1.3：警告提升为错误
 
-### Array.copyOfRange 在索引越界时抛出异常而非扩大返回数组
+### Array.copyOfRange 在索引越界时抛出异常而非扩大返回数组 {id="array-copyofrange-throws-an-exception-when-indices-are-out-of-bounds-instead-of-enlarging-the-returned-array"}
 
 > **问题**：[KT-19489](https://youtrack.jetbrains.com/issue/KT-19489)
 >
@@ -319,7 +319,7 @@
 > - <1.3：如果 `Array.copyOfRange` 调用中的 `toIndex` 大于数组大小，范围内缺失的元素将填充为 `null`，这违反了 Kotlin 类型系统的完善性。
 > - &gt;=1.3：检查 `toIndex` 是否在数组范围内，如果不在则抛出异常
 
-### 禁止实例化步长为 Int.MIN_VALUE 和 Long.MIN_VALUE 的 Int 与 Long 级数
+### 禁止实例化步长为 Int.MIN_VALUE 和 Long.MIN_VALUE 的 Int 与 Long 级数 {id="progressions-of-ints-and-longs-with-a-step-of-int-minvalue-and-long-minvalue-are-outlawed-and-won-t-be-allowed-to-be-instantiated"}
 
 > **问题**：[KT-17176](https://youtrack.jetbrains.com/issue/KT-17176)
 >
@@ -334,7 +334,7 @@
 > - <1.3：可以创建步长为 `Int.MIN_VALUE` 的 `IntProgression`，它会产生两个值 `[0, -2147483648]`，这是一种不明显的行为
 > - &gt;=1.3：如果步长是其整数类型的最小负值，则抛出 `IllegalArgumentException`
 
-### 检查极长序列操作中的索引溢出
+### 检查极长序列操作中的索引溢出 {id="check-for-index-overflow-in-operations-on-very-long-sequences"}
 
 > **问题**：[KT-16097](https://youtrack.jetbrains.com/issue/KT-16097)
 >
@@ -349,7 +349,7 @@
 > - <1.3：在极长序列上调用此类方法可能会由于整数溢出而产生负数结果
 > - &gt;=1.3：在此类方法中检测溢出并立即抛出异常
 
-### 统一各平台下使用空匹配正则表达式进行 split 的结果
+### 统一各平台下使用空匹配正则表达式进行 split 的结果 {id="unify-split-by-an-empty-match-regex-result-across-the-platforms"}
 
 > **问题**：[KT-21049](https://youtrack.jetbrains.com/issue/KT-21049)
 >
@@ -364,7 +364,7 @@
 > - <1.3：在 JS、JRE 6、JRE 7 与 JRE 8+ 之间比较时，所述调用的行为不同
 > - &gt;=1.3：统一各平台的行为
 
-### 编译器分发版中停止提供已弃用的构件
+### 编译器分发版中停止提供已弃用的构件 {id="discontinued-deprecated-artifacts-in-the-compiler-distribution"}
 
 > **问题**：[KT-23799](https://youtrack.jetbrains.com/issue/KT-23799)
 >
@@ -382,7 +382,7 @@
 > - 1.2.X：构件被标记为已弃用，编译器在使用这些构件时报告警告
 > - &gt;=1.3：这些构件已停止提供
 
-### stdlib 中的注解
+### stdlib 中的注解 {id="annotations-in-stdlib"}
 
 > **问题**：[KT-21784](https://youtrack.jetbrains.com/issue/KT-21784)
 >

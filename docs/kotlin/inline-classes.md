@@ -28,7 +28,7 @@ val securePassword = Password("Don't try this in production")
 
 这是内联类的主要特征，也是 *内联 (inline)* 这一名称的灵感来源：类的数据被 *内联* 到其使用处（类似于 [内联函数](inline-functions.md) 的内容被内联到调用站点的方式）。
 
-## 成员
+## 成员 {id="members"}
 
 内联类支持常规类的一些功能。特别是，允许它们声明属性和方法，拥有 `init` 块和 [次构造函数](classes.md#secondary-constructors)：
 
@@ -66,7 +66,7 @@ fun main() {
 
 内联类属性不能有 [支持字段](properties.md#backing-fields)。它们只能有简单的可计算属性（不能有 `lateinit` 属性或委托属性）。
 
-## 继承
+## 继承 {id="inheritance"}
 
 允许内联类继承自接口：
 
@@ -88,7 +88,7 @@ fun main() {
 
 内联类禁止参与类层次结构。这意味着内联类不能扩展其他类，而且始终是 `final` 的。
 
-## 表示
+## 表示 {id="representation"}
 
 在生成的代码中，Kotlin 编译器为每个内联类保留一个 *包装器 (wrapper)*。内联类实例在运行时可以表示为包装器，也可以表示为底层类型。这类似于 `Int` 如何既可以 [表示](numbers.md#boxing-and-caching-numbers-on-the-java-virtual-machine) 为基元类型 `int`，也可以表示为包装器 `Integer`。
 
@@ -132,7 +132,7 @@ value class UserId<T>(val value: T)
 fun compute(s: UserId<String>) {} // 编译器生成 fun compute-<hashcode>(s: Any?)
 ```
 
-### 修饰
+### 修饰 {id="mangling"}
 
 由于内联类被编译为其底层类型，这可能会导致各种难以发现的错误，例如意外平台签名冲突：
 
@@ -149,7 +149,7 @@ fun compute(x: UInt) { }
 
 为了缓解此类问题，使用内联类的函数会通过在函数名中添加稳定的哈希码来进行 *修饰 (mangled)*。因此，`fun compute(x: UInt)` 将表示为 `public final void compute-<hashcode>(int x)`，从而解决了冲突问题。
 
-### 从 Java 代码中调用
+### 从 Java 代码中调用 {id="calling-from-java-code"}
 
 你可以从 Java 代码中调用接受内联类的函数。为此，你应该手动禁用修饰：在函数声明前添加 `@JvmName` 注解：
 
@@ -165,7 +165,7 @@ fun compute(x: UInt) { }
 
 默认情况下，Kotlin 使用 **拆箱表示 (unboxed representations)** 编译内联类，这使得它们难以从 Java 访问。要了解如何将内联类编译为可从 Java 访问的 **装箱表示 (boxed representations)**，请参阅 [从 Java 调用 Kotlin](java-to-kotlin-interop.md#inline-value-classes) 指南。
 
-## 内联类与类型别名
+## 内联类与类型别名 {id="inline-classes-vs-type-aliases"}
 
 乍一看，内联类似乎与 [类型别名](type-aliases.md) 非常相似。事实上，两者似乎都引入了一个新类型，并且在运行时都将表示为底层类型。
 
@@ -197,7 +197,7 @@ fun main() {
 }
 ```
 
-## 内联类与委托
+## 内联类与委托 {id="inline-classes-and-delegation"}
 
 允许通过接口将实现委托给内联类的内联值：
 

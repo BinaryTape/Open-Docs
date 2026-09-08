@@ -32,7 +32,7 @@ inline fun <T> lock(lock: Lock, body: () -> T): T { ... }
 
 内联可能会导致生成的代码量增加。但是，如果你以合理的方式进行（避免内联大型函数），它将在性能上得到回报，尤其是在循环内部的“多态 (megamorphic)”调用站点。
 
-## noinline
+## noinline {id="noinline"}
 
 如果你不希望传递给内联函数的所有 lambda 都被内联，请使用 `noinline` 修饰符标记部分函数参数：
 
@@ -46,9 +46,9 @@ inline fun foo(inlined: () -> Unit, noinline notInlined: () -> Unit) { ... }
 >
 {style="note"}
 
-## 非局部跳转表达式
+## 非局部跳转表达式 {id="non-local-jump-expressions"}
 
-### 返回
+### 返回 {id="returns"}
 
 在 Kotlin 中，你只能使用正常的、非限定的 `return` 来退出命名函数或匿名函数。
 要退出 lambda，请使用[标签](returns.md#return-to-labels)。lambda 内部禁止使用赤裸的 `return`，因为 lambda 不能让外围函数 `return`：
@@ -111,7 +111,7 @@ inline fun f(crossinline body: () -> Unit) {
 }
 ```
 
-### Break 与 continue
+### Break 与 continue {id="break-and-continue"}
 
 与非局部 `return` 类似，你可以在作为参数传递给包裹循环的内联函数的 lambda 中应用 `break` 和 `continue` [跳转表达式](returns.md)：
 
@@ -128,7 +128,7 @@ fun processList(elements: List<Int>): Boolean {
 }
 ```
 
-## 具化类型形参
+## 具化类型形参 {id="reified-type-parameters"}
 
 有时你需要访问作为参数传递的类型：
 
@@ -183,7 +183,7 @@ fun main(s: Array<String>) {
 普通函数（未标记为内联）不能拥有具化形参。
 没有运行时表示的类型（例如，非具化类型形参或像 `Nothing` 这样的虚构类型）不能用作具化类型形参的实参。
 
-## 内联属性
+## 内联属性 {id="inline-properties"}
 
 `inline` 修饰符可用于没有[支持字段](properties.md#backing-fields)的属性访问器。你可以为单个属性访问器添加注解：
 
@@ -206,7 +206,7 @@ inline var bar: Bar
 
 在调用站点，内联访问器会像普通的内联函数一样被内联。
 
-## 公共 API 内联函数的限制
+## 公共 API 内联函数的限制 {id="restrictions-for-public-api-inline-functions"}
 
 当内联函数是 `public` 或 `protected` 但不是 `private` 或 `internal` 声明的一部分时，它被视为[模块](visibility-modifiers.md#modules)的公共 API。它可以在其他模块中被调用，并且在这些调用站点也会被内联。
 

@@ -14,7 +14,7 @@
 * Linux의 패키지 관리자 이메일이나 macOS용 Apple App Store의 앱 카테고리와 같은 [플랫폼별 옵션](#platform-specific-options).
 * [macOS 전용 설정](#macos-specific-configuration): 서명(signing), 공증(notarization) 및 `Info.plist`.
 
-## Gradle 플러그인 (Gradle plugin)
+## Gradle 플러그인 (Gradle plugin) {id="gradle-plugin"}
 
 이 가이드는 주로 Compose Multiplatform Gradle 플러그인을 사용하여 Compose 애플리케이션을 패키징하는 방법에 중점을 둡니다.
 `org.jetbrains.compose` 플러그인은 기본 패키징, 난독화 및 macOS 코드 서명을 위한 태스크를 제공합니다.
@@ -30,7 +30,7 @@
 Conveyor는 온라인 업데이트, 크로스 빌드 및 기타 다양한 기능을 지원하지만, 오픈 소스가 아닌 프로젝트의 경우 [라이선스](https://hydraulic.software/pricing.html)가 필요합니다.
 자세한 내용은 [Conveyor 문서](https://conveyor.hydraulic.dev/latest/tutorial/hare/jvm)를 참조하세요.
 
-## 기본 작업 (Basic tasks)
+## 기본 작업 (Basic tasks) {id="basic-tasks"}
 
 Compose Multiplatform Gradle 플러그인의 기본 구성 단위는 `application`입니다 (현재는 더 이상 사용되지 않는 [Gradle application](https://docs.gradle.org/current/userguide/application_plugin.html) 플러그인과 혼동하지 마세요).
 
@@ -122,7 +122,7 @@ compose.desktop {
 
 사용 가능한 모든 태스크는 Gradle 도구 창에 나열됩니다. 태스크를 실행하면 Gradle은 `${project.buildDir}/compose/binaries` 디렉터리에 출력 바이너리를 생성합니다.
 
-## JDK 모듈 포함 (Including JDK modules)
+## JDK 모듈 포함 (Including JDK modules) {id="including-jdk-modules"}
 
 배포 크기를 줄이기 위해 Gradle 플러그인은 필요한 JDK 모듈만 번들링하는 데 도움이 되는 [jlink](https://openjdk.org/jeps/282)를 사용합니다.
 
@@ -146,9 +146,9 @@ compose.desktop {
 
 배포판의 크기가 중요한 요소가 아니라면 `includeAllModules` DSL 속성을 사용하여 모든 런타임 모듈을 포함하도록 선택할 수 있습니다.
 
-## 배포 속성 지정 (Specifying distribution properties)
+## 배포 속성 지정 (Specifying distribution properties) {id="specifying-distribution-properties"}
 
-### 패키지 버전 (Package version)
+### 패키지 버전 (Package version) {id="package-version"}
 
 네이티브 배포 패키지에는 특정 패키지 버전이 있어야 합니다.
 패키지 버전을 지정하려면 우선순위가 높은 순서대로 나열된 다음 DSL 속성들을 사용할 수 있습니다:
@@ -281,7 +281,7 @@ compose.desktop {
 
 </table>
 
-### JDK 버전 (JDK version)
+### JDK 버전 (JDK version) {id="jdk-version"}
 
 플러그인은 [JDK 17](https://openjdk.java.net/projects/jdk/17/) 이상의 JDK 버전이 필요한 `jpackage`를 사용합니다. 
 JDK 버전을 지정할 때 다음 요구 사항 중 하나 이상을 충족하는지 확인하세요:
@@ -297,7 +297,7 @@ JDK 버전을 지정할 때 다음 요구 사항 중 하나 이상을 충족하�
   }
   ```
 
-### 출력 디렉터리 (Output directory)
+### 출력 디렉터리 (Output directory) {id="output-directory"}
 
 네이티브 배포판에 커스텀 출력 디렉터리를 사용하려면 아래와 같이 `outputBaseDir` 속성을 구성하세요:
 
@@ -311,7 +311,7 @@ compose.desktop {
 }
 ```
 
-### 런처 속성 (Launcher properties)
+### 런처 속성 (Launcher properties) {id="launcher-properties"}
 
 애플리케이션 시작 프로세스를 맞춤화하기 위해 다음 속성들을 커스텀할 수 있습니다:
 
@@ -354,7 +354,7 @@ compose.desktop {
 }
 ```
 
-### 메타데이터 (Metadata)
+### 메타데이터 (Metadata) {id="metadata"}
 
 `nativeDistributions` DSL 블록 내에서 다음 속성들을 구성할 수 있습니다:
 
@@ -427,23 +427,23 @@ compose.desktop {
 }
 ```
 
-## 리소스 관리 (Managing resources)
+## 리소스 관리 (Managing resources) {id="managing-resources"}
 
 리소스를 패키징하고 로드하려면 Compose Multiplatform 리소스 라이브러리, JVM 리소스 로딩을 사용하거나 패키징된 애플리케이션에 파일을 직접 추가할 수 있습니다.
 
-### 리소스 라이브러리 (Resources library)
+### 리소스 라이브러리 (Resources library) {id="resources-library"}
 
 프로젝트의 리소스를 설정하는 가장 간단한 방법은 리소스 라이브러리를 사용하는 것입니다.
 리소스 라이브러리를 사용하면 지원되는 모든 플랫폼의 공통 코드에서 리소스에 액세스할 수 있습니다.
 자세한 내용은 [멀티플랫폼 리소스](compose-multiplatform-resources.md)를 참조하세요.
 
-### JVM 리소스 로딩 (JVM resource loading)
+### JVM 리소스 로딩 (JVM resource loading) {id="jvm-resource-loading"}
 
 데스크톱용 Compose Multiplatform은 JVM 플랫폼에서 동작하므로 `java.lang.Class` API를 사용하여 `.jar` 파일에서 리소스를 로드할 수 있습니다.
 [`Class::getResource`](https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Class.html#getResource(java.lang.String)) 
 또는 [`Class::getResourceAsStream`](https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Class.html#getResourceAsStream(java.lang.String))을 통해 `src/main/resources` 디렉터리에 있는 파일에 액세스할 수 있습니다.
 
-### 패키징된 애플리케이션에 파일 추가 (Adding files to packaged application)
+### 패키징된 애플리케이션에 파일 추가 (Adding files to packaged application) {id="adding-files-to-packaged-application"}
 
 대상별 에셋이 있어 macOS 패키지에는 포함하고 Windows 패키지에는 포함하지 않아야 하는 경우처럼, `.jar` 파일에서 리소스를 로드하는 것이 덜 실용적인 시나리오가 있습니다.
 
@@ -492,7 +492,7 @@ fun main() {
 }
 ```
 
-## 커스텀 소스 세트 (Custom source sets)
+## 커스텀 소스 세트 (Custom source sets) {id="custom-source-sets"}
 
 `org.jetbrains.kotlin.jvm` 또는 `org.jetbrains.kotlin.multiplatform` 플러그인을 사용하는 경우 기본 구성을 사용할 수 있습니다:
 
@@ -551,7 +551,7 @@ compose.desktop {
 }
 ```
 
-## 애플리케이션 아이콘 (Application icon)
+## 애플리케이션 아이콘 (Application icon) {id="application-icon"}
 
 앱 아이콘이 다음의 OS별 형식으로 제공되는지 확인하세요:
 
@@ -577,7 +577,7 @@ compose.desktop {
 }
 ```
 
-## 플랫폼별 옵션 (Platform-specific options)
+## 플랫폼별 옵션 (Platform-specific options) {id="platform-specific-options"}
 
 플랫폼별 설정은 해당 DSL 블록을 사용하여 구성할 수 있습니다:
 
@@ -857,20 +857,20 @@ compose.desktop {
 
 </table>
 
-## macOS 전용 설정 (macOS-specific configuration)
+## macOS 전용 설정 (macOS-specific configuration) {id="macos-specific-configuration"}
 
-### macOS에서의 서명 및 공증 (Signing and notarization on macOS)
+### macOS에서의 서명 및 공증 (Signing and notarization on macOS) {id="signing-and-notarization-on-macos"}
 
 최신 버전의 macOS는 인터넷에서 다운로드한 서명되지 않은 애플리케이션의 실행을 허용하지 않습니다. 이러한 애플리케이션을 실행하려고 하면 "YourApp이(가) 손상되었기 때문에 열 수 없습니다. 디스크 이미지를 추출해야 합니다."와 같은 오류가 발생합니다.
 
 애플리케이션을 서명하고 공증하는 방법은 [튜토리얼](https://github.com/JetBrains/compose-multiplatform/blob/master/tutorials/Signing_and_notarization_on_macOS/README.md)을 참조하세요.
 
-### macOS의 정보 속성 목록 (Information property list on macOS)
+### macOS의 정보 속성 목록 (Information property list on macOS) {id="information-property-list-on-macos"}
 
 DSL이 필수적인 플랫폼별 커스텀을 지원하지만, 제공된 기능 이외의 사례가 있을 수 있습니다. 
 DSL에 표현되지 않은 `Info.plist` 값을 지정해야 하는 경우, 해결 방법으로 원시 XML 스니펫을 포함할 수 있습니다. 이 XML은 애플리케이션의 `Info.plist` 끝에 추가됩니다.
 
-#### 예: 딥 링크 (Deep linking)
+#### 예: 딥 링크 (Deep linking) {id="example-deep-linking"}
 
 1. `build.gradle.kts` 파일에 커스텀 URL 스킴을 정의합니다:
 
@@ -943,7 +943,7 @@ DSL에 표현되지 않은 `Info.plist` 값을 지정해야 하는 경우, 해�
 
 결과적으로 `compose://foo/bar`와 같은 링크가 브라우저에서 애플리케이션으로 리디렉션될 수 있습니다.
 
-## 코드 압축 및 난독화 (Minification and obfuscation)
+## 코드 압축 및 난독화 (Minification and obfuscation) {id="minification-and-obfuscation"}
 
 Compose Multiplatform Gradle 플러그인에는 [ProGuard](https://www.guardsquare.com/proguard)에 대한 내장 지원이 포함되어 있습니다. ProGuard는 코드 압축(minification) 및 난독화(obfuscation)를 위한 [오픈 소스 도구](https://github.com/Guardsquare/proguard)입니다.
 
@@ -1105,6 +1105,6 @@ ProGuard 처리 후에만 발생하는 문제가 있다면 커스텀 규칙을 �
 
 ProGuard 규칙 및 구성 옵션의 전체 목록은 Guardsquare의 [ProGuard 매뉴얼](https://www.guardsquare.com/manual/configuration/usage)을 참조하세요.
 
-## 다음 단계는 무엇인가요? (What's next?)
+## 다음 단계는 무엇인가요? (What's next?) {id="what-s-next"}
 
 [데스크톱 컴포넌트](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop)에 관한 튜토리얼을 살펴보세요.

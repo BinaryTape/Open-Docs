@@ -4,7 +4,7 @@
 
 현재 Maven v3만 지원됩니다.
 
-## 자동 설정
+## 자동 설정 {id="automatic-configuration"}
 
 `<extensions>` 옵션을 사용하면 Java-Kotlin 혼합 프로젝트와 순수 Kotlin 프로젝트 모두에서 Maven 구성을 간소화할 수 있습니다. 이 방식을 사용하면 Maven 컴파일러 플러그인을 별도로 구성할 필요가 없으므로 시간을 절약할 수 있습니다.
 
@@ -79,7 +79,7 @@ Java와 Kotlin 혼합 프로젝트의 경우, 이 구성은 다음을 보장합�
 </build>
 ```
 
-### JVM 대상 버전
+### JVM 대상 버전 {id="jvm-target-version"}
 
 `<extensions>` 옵션은 Kotlin과 Maven 컴파일러가 동일한 바이트코드 버전을 대상으로 하도록 보장합니다.
 
@@ -95,7 +95,7 @@ graph TD
     B --> C
 ```
 
-#### Kotlin 컴파일러 버전
+#### Kotlin 컴파일러 버전 {id="kotlin-compiler-versions"}
 
 프로젝트에 `kotlin.compiler.jdkRelease` 또는 `kotlin.compiler.jvmTarget` 속성 중 하나가 정의되어 있으면 해당 버전이 우선순위를 가집니다.
 
@@ -110,7 +110,7 @@ graph TD
 >
 {style="note"}
 
-#### Maven 컴파일러 버전
+#### Maven 컴파일러 버전 {id="maven-compiler-versions"}
 
 * `kotlin.compiler.jdkRelease`와 `kotlin.compiler.jvmTarget` 옵션이 모두 설정되지 않은 경우, 플러그인은 `maven.compiler.release` 버전을 사용합니다.
 
@@ -130,13 +130,13 @@ Maven 컴파일러의 `target`과 `release` 옵션은 서로 다르게 동작한
 >
 {style="note"}
 
-## 수동 구성
+## 수동 구성 {id="manual-configuration"}
 
 Kotlin Maven 플러그인에서 `<extensions>`를 활성화하지 않는 경우, 소스 코드가 올바르게 컴파일되도록 프로젝트를 수동으로 구성해야 합니다.
 
 [Java와 Kotlin 소스 혼합](#compile-kotlin-and-java-sources) 또는 [Kotlin 전용 소스](#compile-kotlin-only-sources)를 컴파일하도록 Maven 프로젝트를 설정할 수 있습니다.
 
-### Kotlin 및 Java 소스 컴파일
+### Kotlin 및 Java 소스 컴파일 {id="compile-kotlin-and-java-sources"}
 
 Kotlin과 Java 소스 파일이 모두 포함된 프로젝트를 컴파일하려면 Kotlin 컴파일러가 Java 컴파일러보다 먼저 실행되도록 해야 합니다.
 
@@ -243,7 +243,7 @@ Kotlin Maven 플러그인을 적용하려면 `pom.xml` 빌드 파일을 다음�
 
 Maven이 플러그인 실행을 처리하는 방법에 대한 자세한 내용은 공식 Maven 문서의 [기본 플러그인 실행 ID 가이드(Guide to default plugin execution IDs)](https://maven.apache.org/guides/mini/guide-default-execution-ids.html)를 참고하세요.
 
-### Kotlin 전용 소스 컴파일
+### Kotlin 전용 소스 컴파일 {id="compile-kotlin-only-sources"}
 
 Kotlin 소스 파일만 있는 프로젝트를 컴파일하려면 소스 루트를 선언하고 Kotlin Maven 플러그인을 구성하세요.
 
@@ -284,7 +284,7 @@ Kotlin 소스 파일만 있는 프로젝트를 컴파일하려면 소스 루트�
     </build>
     ```
 
-### JDK 버전 설정
+### JDK 버전 설정 {id="set-jdk-version"}
 
 Kotlin은 빌드에서 JDK 버전을 관리하는 데 도움이 되는 [Maven 툴체인(Maven Toolchains)](https://maven.apache.org/guides/mini/guide-using-toolchains.html)을 지원합니다.
 
@@ -335,7 +335,7 @@ graph TD
 >
 {style="note"}
 
-## Java 모듈(JPMS) 구성하기
+## Java 모듈(JPMS) 구성하기 {id="configure-java-modules-jpms"}
 
 Kotlin Maven 플러그인은 [Java 플랫폼 모듈 시스템(JPMS)](https://dev.java/learn/modules/)을 지원하므로, `module-info.java` 서술자와 함께 Kotlin 코드를 컴파일하고 결과 모듈을 다른 Java 모듈처럼 사용할 수 있습니다.
 
@@ -360,6 +360,6 @@ module org.example.myapp {
 * 모듈의 경우, Kotlin 파일의 패키지 이름이 `module-info.java`의 패키지 이름과 일치해야 `Package is empty or does not exist` 빌드 실패를 피할 수 있습니다.
 * `pom.xml` 빌드 파일은 [Kotlin이 Java보다 먼저 컴파일되도록](#compile-kotlin-and-java-sources) 구성해야 합니다. [자동 프로젝트 설정](#automatic-configuration)을 사용하는 경우, `<extensions>` 옵션이 이미 이를 보장합니다.
 
-## 다음 단계는?
+## 다음 단계는? {id="what-s-next"}
 
 [Kotlin Maven 프로젝트의 의존성 설정](maven-set-dependencies.md)

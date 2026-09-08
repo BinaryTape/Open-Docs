@@ -1,6 +1,6 @@
 # 용어집 (Glossary)
 
-## 에이전트 (Agent)
+## 에이전트 (Agent) {id="agent"}
 
 - **에이전트 (Agent)**: 도구와 상호작용하고, 복잡한 워크플로를 처리하며, 사용자와 소통할 수 있는 AI 엔티티입니다.
 
@@ -16,13 +16,13 @@
 
 - **LLM 세션 (LLM session)**: 대화 기록, 사용 가능한 도구 및 요청 생성 방법이 포함된, LLM과 상호작용하는 구조화된 방식입니다.
 
-## 에이전트 워크플로 (Agent workflow)
+## 에이전트 워크플로 (Agent workflow) {id="agent-workflow"}
 
 - **전략 (Strategy)**: 순차적인 서브그래프로 구성된 에이전트의 정의된 워크플로입니다.
 전략은 에이전트가 입력을 처리하고, 도구와 상호작용하며, 출력을 생성하는 방법을 정의합니다.
 전략 그래프는 노드 간의 전환을 나타내는 엣지로 연결된 노드들로 구성됩니다.
 
-### 전략 그래프 (Strategy graphs)
+### 전략 그래프 (Strategy graphs) {id="strategy-graphs"}
 
 - **그래프 (Graph)**: 에이전트 전략 워크플로를 정의하는, 엣지로 연결된 노드 구조입니다.
 
@@ -34,7 +34,7 @@
 
 - **서브그래프 (Subgraph)**: 에이전트 전략 내에서 자체적인 도구 세트, 컨텍스트 및 책임을 가진 독립적인 처리 단위입니다.
 
-## 도구 (Tools)
+## 도구 (Tools) {id="tools"}
 
 - **도구 (Tool)**: 에이전트가 특정 작업을 수행하거나 외부 시스템에 접근하기 위해 사용할 수 있는 함수입니다. 에이전트는 사용 가능한 도구와 해당 인자를 인식하지만, 구현 세부 사항에 대해서는 알지 못합니다.
 
@@ -46,15 +46,15 @@
 
 - **도구 결과 (Tool result)**: 도구를 실행하여 생성된 출력입니다. 예를 들어, 도구가 메서드라면 결과는 해당 반환값이 됩니다.
 
-## 히스토리 압축 (History compression)
+## 히스토리 압축 (History compression) {id="history-compression"}
 
 - **히스토리 압축 (History compression)**: 다양한 압축 전략을 적용하여 토큰 사용량을 관리하기 위해 대화 기록의 크기를 줄이는 프로세스입니다.
 자세한 내용은 [History compression](history-compression.md)을 참고하세요.
 
-## 기능 (Features)
+## 기능 (Features) {id="features"}
 
 - **기능 (Feature)**: AI 에이전트의 기능을 확장하고 강화하는 구성 요소입니다.
 
-### EventHandler 기능
+### EventHandler 기능 {id="eventhandler-feature"}
 
 - **EventHandler**: 워크플로 전반에 걸쳐 에이전트 수명 주기 추적, 오류 처리 및 도구 호출 처리를 위한 훅(hook)을 제공하여 다양한 에이전트 이벤트를 모니터링하고 응답할 수 있게 하는 기능입니다.

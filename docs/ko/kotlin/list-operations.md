@@ -2,7 +2,7 @@
 
 [`List`](collections-overview.md#list)는 Kotlin에서 가장 인기 있는 기본 컬렉션 유형입니다. 리스트 요소에 대한 인덱스 접근은 리스트를 위한 강력한 연산 세트를 제공합니다.
 
-## 인덱스로 요소 추출
+## 인덱스로 요소 추출 {id="retrieve-elements-by-index"}
 
 리스트는 `elementAt()`, `first()`, `last()` 및 [개별 요소 추출](collection-elements.md)에 나열된 다른 모든 일반적인 요소 추출 연산을 지원합니다.
 리스트에 특화된 기능은 인덱스를 통한 요소 접근입니다. 따라서 요소를 읽는 가장 간단한 방법은 인덱스로 추출하는 것입니다.
@@ -29,7 +29,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 리스트 부분 추출
+## 리스트 부분 추출 {id="retrieve-list-parts"}
 
 [컬렉션 부분 추출](collection-parts.md)에 대한 공통 연산 외에도, 리스트는 지정된 요소 범위를 리스트 형태의 뷰(view)로 반환하는 [`subList()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/sub-list.html) 함수를 제공합니다.
 따라서 원본 컬렉션의 요소가 변경되면 이전에 생성된 서브리스트에도 반영되며, 그 반대도 마찬가지입니다.
@@ -45,9 +45,9 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 요소 위치 찾기
+## 요소 위치 찾기 {id="find-element-positions"}
 
-### 선형 검색
+### 선형 검색 {id="linear-search"}
 
 모든 리스트에서 [`indexOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/index-of.html) 및 [`lastIndexOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/last-index-of.html) 함수를 사용하여 요소의 위치를 찾을 수 있습니다.
 이 함수들은 리스트에서 주어진 인자와 일치하는 요소의 첫 번째 위치와 마지막 위치를 반환합니다.
@@ -82,7 +82,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 정렬된 리스트에서의 이진 탐색
+### 정렬된 리스트에서의 이진 탐색 {id="binary-search-in-sorted-lists"}
 
 리스트에서 요소를 검색하는 또 다른 방법은 [이진 탐색(binary search)](https://en.wikipedia.org/wiki/Binary_search_algorithm)입니다.
 이 방법은 다른 내장 검색 함수보다 훨씬 빠르지만, 리스트가 자연 순서 또는 함수 매개변수에 제공된 다른 순서에 따라 오름차순으로 [정렬](collection-ordering.md)되어 있어야 합니다.
@@ -109,7 +109,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-#### Comparator 이진 탐색
+#### Comparator 이진 탐색 {id="comparator-binary-search"}
 
 리스트 요소가 `Comparable`이 아닌 경우, 이진 탐색에 사용할 [`Comparator`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-comparator/)를 제공해야 합니다.
 리스트는 이 `Comparator`에 따라 오름차순으로 정렬되어 있어야 합니다. 예제를 살펴보겠습니다:
@@ -148,7 +148,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-#### Comparison 이진 탐색
+#### Comparison 이진 탐색 {id="comparison-binary-search"}
 
 *비교(comparison)* 함수를 사용한 이진 탐색을 사용하면 명시적인 검색 값을 제공하지 않고도 요소를 찾을 수 있습니다.
 대신 요소를 `Int` 값으로 매핑하는 비교 함수를 인자로 받아, 함수가 0을 반환하는 요소를 검색합니다.
@@ -177,12 +177,12 @@ fun main() {
 
 Comparator 및 Comparison 이진 탐색 모두 리스트 범위에 대해서도 수행될 수 있습니다.
 
-## 리스트 쓰기 연산
+## 리스트 쓰기 연산 {id="list-write-operations"}
 
 [컬렉션 쓰기 연산](collection-write.md)에서 설명된 컬렉션 수정 연산 외에도, [변경 가능한(mutable)](collections-overview.md#collection-types) 리스트는 특정한 쓰기 연산을 지원합니다.
 이러한 연산은 인덱스를 사용하여 요소에 접근함으로써 리스트 수정 기능을 확장합니다.
 
-### 추가
+### 추가 {id="add"}
 
 리스트의 특정 위치에 요소를 추가하려면, 요소 삽입 위치를 추가 인자로 제공하는 [`add()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/add.html) 및 [`addAll()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/add-all.html)을 사용하세요.
 해당 위치 뒤에 오는 모든 요소는 오른쪽으로 이동합니다.
@@ -200,7 +200,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 업데이트
+### 업데이트 {id="update"}
 
 리스트는 주어진 위치의 요소를 교체하는 함수인 [`set()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/set.html)과 연산자 형태인 `[]`도 제공합니다. `set()`은 다른 요소의 인덱스를 변경하지 않습니다.
 
@@ -230,7 +230,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 삭제
+### 삭제 {id="remove"}
 
 리스트의 특정 위치에서 요소를 삭제하려면 위치를 인자로 제공하는 [`removeAt()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/remove-at.html) 함수를 사용하세요.
 삭제되는 요소 뒤에 오는 요소들의 모든 인덱스는 1씩 감소합니다.
@@ -247,7 +247,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 정렬
+### 정렬 {id="sort"}
 
 [컬렉션 정렬](collection-ordering.md)에서는 컬렉션 요소를 특정 순서로 추출하는 연산을 설명합니다.
 변경 가능한 리스트의 경우, 표준 라이브러리는 동일한 정렬 작업을 제자리(in-place)에서 수행하는 유사한 확장 함수를 제공합니다.

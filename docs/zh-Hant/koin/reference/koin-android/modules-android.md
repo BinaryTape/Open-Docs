@@ -8,9 +8,9 @@ title: Android 模組載入
 關於核心模組概念（宣告、包含、覆寫），請參閱 [Modules](/docs/reference/koin-core/modules)。關於延遲模組載入，請參閱 [Lazy Modules](/docs/reference/koin-core/lazy-modules)。
 :::
 
-## 在 Android 上啟動 Koin
+## 在 Android 上啟動 Koin {id="starting-koin-on-android"}
 
-### 使用註解
+### 使用註解 {id="with-annotations"}
 
 ```kotlin
 @KoinApplication
@@ -27,7 +27,7 @@ class MainApplication : Application() {
 }
 ```
 
-### 使用 DSL
+### 使用 DSL {id="with-dsl"}
 
 ```kotlin
 class MainApplication : Application() {
@@ -51,7 +51,7 @@ class MainApplication : Application() {
 }
 ```
 
-## Android 特有的函式
+## Android 特有的函式 {id="android-specific-functions"}
 
 | 函式 | 說明 |
 |----------|-------------|
@@ -59,7 +59,7 @@ class MainApplication : Application() {
 | `androidApplication()` | 在定義中提供 Application 執行個體 |
 | `androidLogger()` | 適用於 Koin 的 Android Logcat 記錄器 |
 
-### 使用 Android 上下文
+### 使用 Android 上下文 {id="using-android-context"}
 
 ```kotlin
 val androidModule = module {
@@ -69,7 +69,7 @@ val androidModule = module {
 }
 ```
 
-## 動態模組載入
+## 動態模組載入 {id="dynamic-module-loading"}
 
 根據 Activity 生命週期在執行時載入或卸載模組：
 
@@ -90,7 +90,7 @@ class FeatureActivity : AppCompatActivity() {
 }
 ```
 
-### 使用案例
+### 使用案例 {id="use-cases"}
 
 - **進階功能** - 僅在使用者擁有訂閱時載入
 - **偵錯工具** - 僅在偵錯組建中載入
@@ -113,7 +113,7 @@ class PremiumActivity : AppCompatActivity() {
 }
 ```
 
-## 在 Android 上延遲載入
+## 在 Android 上延遲載入 {id="lazy-loading-on-android"}
 
 對於背景模組載入，請使用延遲模組：
 
@@ -140,7 +140,7 @@ class MainApplication : Application() {
 關於包含並列載入在內的完整延遲模組文件，請參閱 [Lazy Modules](/docs/reference/koin-core/lazy-modules)。
 :::
 
-## 後續步驟
+## 後續步驟 {id="next-steps"}
 
 - **[Modules](/docs/reference/koin-core/modules)** - 核心模組概念
 - **[Lazy Modules](/docs/reference/koin-core/lazy-modules)** - 背景載入

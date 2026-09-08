@@ -178,11 +178,11 @@ ktor:
 
 您可以在此處找到完整的範例：[engine-main-modules](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/engine-main-modules)。
 
-## 模組相依性
+## 模組相依性 {id="module-dependencies"}
 
 模組通常需要共用服務、存儲庫（Repository）或配置。相較於在模組內部建立相依性，注入相依性可提高可測試性與靈活性。根據專案的複雜程度，Ktor 提供多種方法。
 
-### 透過參數傳遞相依性
+### 透過參數傳遞相依性 {id="passing-dependencies-through-parameters"}
 
 傳遞相依性最簡單的方法是將其宣告為模組函式的參數：
 
@@ -200,7 +200,7 @@ fun main() {
 
 這對於小型或中型應用程式效果良好，且能保持相依性清晰。然而，模組在編譯時期會變得緊密耦合，且在執行時期不易替換。
 
-### 使用應用程式屬性
+### 使用應用程式屬性 {id="using-application-attributes"}
 
 您可以使用 `Application.attributes` —— 這是一個適用於所有模組的型別安全對應（Map）：
 
@@ -237,7 +237,7 @@ suspend fun Application.installEvents() {
 
 您也可以獨立啟動所有應用程式模組，因此當其中一個模組被掛起時，其他模組不會被阻塞。這允許非順序載入以進行相依注入，並在某些情況下加速載入。
 
-### 配置選項
+### 配置選項 {id="configuration-options"}
 
 以下是可用的配置屬性：
 
@@ -246,7 +246,7 @@ suspend fun Application.installEvents() {
 | `ktor.application.startup`             | `sequential` / `concurrent` | 定義應用程式模組如何載入                          | `sequential` |
 | `ktor.application.startupTimeoutMillis` | `Long`                      | 應用程式模組載入的逾時時間（以毫秒為單位）                  | `10000`      |
 
-### 啟用並行模組載入
+### 啟用並行模組載入 {id="enable-concurrent-module-loading"}
 
 若要選用並行模組載入，請在您的伺服器配置檔案中新增以下內容：
 

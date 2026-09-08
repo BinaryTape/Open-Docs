@@ -6,7 +6,7 @@ title: 高階模式
 
 本指南涵蓋了適用於複雜情境的高階相依注入模式。
 
-## 外部程式庫繫結
+## 外部程式庫繫結 {id="external-library-binding"}
 
 對於無法加入註解的第三方程式庫，請使用帶有 `create()` 的建置器函式：
 
@@ -52,9 +52,9 @@ class NetworkModule {
 }
 ```
 
-## 相依性集合
+## 相依性集合 {id="collections-of-dependencies"}
 
-### 多個實作
+### 多個實作 {id="multiple-implementations"}
 
 使用限定詞彙總一個介面的多個實作：
 
@@ -69,7 +69,7 @@ class PayPalProcessor : PaymentProcessor { ... }
 class CryptoProcessor : PaymentProcessor { ... }
 ```
 
-#### 編譯器外掛程式 DSL
+#### 編譯器外掛程式 DSL {id="compiler-plugin-dsl"}
 
 在類別上使用 `@Named` 限定詞註解：
 
@@ -101,7 +101,7 @@ val paymentModule = module {
 }
 ```
 
-#### 註解
+#### 註解 {id="annotations"}
 
 ```kotlin
 @Module
@@ -127,7 +127,7 @@ class PaymentModule {
 }
 ```
 
-#### 經典 DSL
+#### 經典 DSL {id="classic-dsl"}
 
 ```kotlin
 val paymentModule = module {
@@ -147,7 +147,7 @@ val paymentModule = module {
 }
 ```
 
-## 泛型型別
+## 泛型型別 {id="generic-types"}
 
 Koin 會保留泛型型別資訊：
 
@@ -176,7 +176,7 @@ val userRepo: Repository<User> = get()
 val productRepo: Repository<Product> = get()
 ```
 
-## 提供者模式
+## 提供者模式 {id="provider-pattern"}
 
 當您需要使用執行時參數建立物件時，請為執行時實體建立工廠：
 
@@ -204,7 +204,7 @@ class MyScreen(private val dialogFactory: DialogFactory) {
 }
 ```
 
-## 裝飾者模式
+## 裝飾者模式 {id="decorator-pattern"}
 
 使用委派來堆疊行為：
 
@@ -261,7 +261,7 @@ val notificationModule = module {
 }
 ```
 
-## 下一步
+## 下一步 {id="next-steps"}
 
 - **[Definitions](/docs/reference/koin-core/definitions)** - 基礎定義型別
 - **[Qualifiers](/docs/reference/koin-core/qualifiers)** - 命名與型別限定詞

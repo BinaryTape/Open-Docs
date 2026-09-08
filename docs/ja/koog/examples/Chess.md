@@ -9,7 +9,7 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Ches
 
 このチュートリアルでは、Koogフレームワークを使用してインテリジェントなチェス対戦エージェントを構築する方法を説明します。ツールの統合、エージェント戦略、メモリの最適化、およびインタラクティブなAIの意思決定といった主要な概念について学びます。
 
-## 学べること
+## 学べること {id="what-you-ll-learn"}
 
 - 複雑なゲームのためのドメイン固有のデータ構造をモデリングする方法
 - エージェントが環境と対話するために使用できるカスタムツールの作成方法
@@ -17,7 +17,7 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Ches
 - 選択肢の選別機能を備えたインタラクティブなAIシステムの構築方法
 - ターン制ゲームにおけるエージェントのパフォーマンスの最適化
 
-## セットアップ
+## セットアップ {id="setup"}
 
 まず、Koogフレームワークをインポートし、開発環境をセットアップしましょう。
 
@@ -26,11 +26,11 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Ches
 %use koog
 ```
 
-## チェスドメインのモデリング
+## チェスドメインのモデリング {id="modeling-the-chess-domain"}
 
 堅牢なドメインモデルを作成することは、あらゆるゲームAIにとって不可欠です。チェスでは、プレイヤー、駒、およびそれらの関係を表現する必要があります。まず、コアとなるデータ構造を定義することから始めましょう。
 
-### コアとなる列挙型と型
+### コアとなる列挙型と型 {id="core-enums-and-types"}
 
 ```kotlin
 enum class Player {
@@ -65,7 +65,7 @@ enum class Side {
 
 `Side` 列挙型は、キングサイドとクイーンサイドのキャスリングを区別するのに役立ちます。
 
-### 駒と位置のモデリング
+### 駒と位置のモデリング {id="piece-and-position-modeling"}
 
 ```kotlin
 data class Piece(val pieceType: PieceType, val player: Player) {
@@ -135,9 +135,9 @@ class ChessBoard {
 
 `Piece` データクラスは、駒のタイプと所有者を組み合わせたものです。視覚的な表現として、白の駒には大文字、黒の駒には小文字を使用します。`Position` クラスは、バリデーション機能を内蔵し、チェスの座標（例: "e4"）をカプセル化します。
 
-## ゲーム状態の管理
+## ゲーム状態の管理 {id="game-state-management"}
 
-### ChessBoard の実装
+### ChessBoard の実装 {id="chessboard-implementation"}
 
 `ChessBoard` クラスは、8×8のグリッドと駒の位置を管理します。主な設計上の決定事項は以下の通りです：
 
@@ -145,7 +145,7 @@ class ChessBoard {
 - **視覚的表示**: `toString()` メソッドは、ランク（Rank：段）番号とファイル（File：列）文字を含む明確なASCII表現を提供します。
 - **位置のマッピング**: チェスの記法（a1-h8）と内部配列のインデックスの間で変換を行います。
 
-### ChessGame のロジック
+### ChessGame のロジック {id="chessgame-logic"}
 
 ```kotlin
 /**
@@ -238,9 +238,9 @@ class ChessGame {
 
 `moveNotation` 文字列は、許容される指し手の形式についてAIエージェントに明確なドキュメントを提供します。
 
-## Koogフレームワークとの統合
+## Koogフレームワークとの統合 {id="integrating-with-koog-framework"}
 
-### カスタムツールの作成
+### カスタムツールの作成 {id="creating-custom-tools"}
 
 ```kotlin
 import kotlinx.serialization.Serializable
@@ -287,9 +287,9 @@ ${game.getBoard()}
 - **フィードバックループ**: 現在のボードの状態を返し、次のプレイヤーを促すことで、対話の流れを維持します。
 - **エラー処理**: 指し手のバリデーションとエラー報告はゲームクラスに依存します。
 
-## エージェント戦略の設計
+## エージェント戦略の設計 {id="agent-strategy-design"}
 
-### メモリ最適化手法
+### メモリ最適化手法 {id="memory-optimization-technique"}
 
 ```kotlin
 import ai.koog.agents.core.environment.ReceivedToolResult
@@ -354,7 +354,7 @@ val strategy = strategy<String, String>("chess_strategy") {
 
 この戦略により、会話の整合性を維持しながら、効率的でステートフルなゲームプレイが保証されます。
 
-### AIエージェントのセットアップ
+### AIエージェントのセットアップ {id="setting-up-the-ai-agent"}
 
 ```kotlin
 val baseExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY"))
@@ -367,7 +367,7 @@ val baseExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY"))
 - エグゼキュータは、認証とAPI通信を自動的に処理します。
 - さまざまなLLMプロバイダー向けに異なる種類のエグゼキュータが用意されています。
 
-### エージェントの組み立て
+### エージェントの組み立て {id="agent-assembly"}
 
 ```kotlin
 val game = ChessGame()
@@ -408,7 +408,7 @@ val agent = AIAgent(
 - メッセージ送信を投了またはチェックメイトの宣言のみに制限。
 - ゲームに特化した、集中した動作を生成。
 
-### 基本エージェントの実行
+### 基本エージェントの実行 {id="running-the-basic-agent"}
 
 ```kotlin
 import kotlinx.coroutines.runBlocking
@@ -478,11 +478,11 @@ runBlocking {
 
 この基本エージェントは自律的に動作し、自動的に指し手を選択します。ゲームの出力には、AIが自分自身と対局する際の指し手のシーケンスとボードの状態が表示されます。
 
-## 高度な機能：インタラクティブな選択肢の選別
+## 高度な機能：インタラクティブな選択肢の選別 {id="advanced-feature-interactive-choice-selection"}
 
 次のセクションでは、ユーザーが複数のAI生成された指し手から選択することで、AIの意思決定プロセスに参加できる、より洗練されたアプローチを紹介します。
 
-### カスタム選択肢選別戦略
+### カスタム選択肢選別戦略 {id="custom-choice-selection-strategy"}
 
 ```kotlin
 import ai.koog.agents.core.feature.choice.ChoiceSelectionStrategy
@@ -544,7 +544,7 @@ class AskUserChoiceSelectionStrategy(
 - トレーニングおよびデバッグのシナリオ。
 - 教育的なデモンストレーション。
 
-### 選択肢選別を備えた強化された戦略
+### 選択肢選別を備えた強化された戦略 {id="enhanced-strategy-with-choice-selection"}
 
 ```kotlin
 inline fun <reified T> AIAgentSubgraphBuilderBase<*, *>.nodeTrimHistory(
@@ -597,7 +597,7 @@ val promptExecutor = PromptExecutorWithChoiceSelection(baseExecutor, askChoiceSt
 - **コンテキストを考慮した表示**: 完全なプロンプトではなく、最後のツール呼び出しの内容を表示します。
 - **より高い Temperature**: より多様な指し手のオプションを生成するために 1.0 に引き上げられました。
 
-### 高度な戦略：手動による選択肢選別
+### 高度な戦略：手動による選択肢選別 {id="advanced-strategy-manual-choice-selection"}
 
 ```kotlin
 val game = ChessGame()
@@ -638,7 +638,7 @@ val agent = AIAgent(
 - **柔軟性**: 他のエージェント機能と組み合わせることが可能。
 - **透明性**: ユーザーはAIが何を検討しているかを正確に把握できます。
 
-### インタラクティブエージェントの実行
+### インタラクティブエージェントの実行 {id="running-interactive-agents"}
 
 ```kotlin
 println("Chess Game started!")
@@ -839,11 +839,11 @@ runBlocking {
 2. **ユーザーによる選択**: ユーザーが1〜3の数字を入力して、好みの指し手を選択します。
 3. **ゲームの継続**: 選択された指し手が実行され、ゲームが続行されます。
 
-## 結論
+## 結論 {id="conclusion"}
 
 このチュートリアルでは、Koogフレームワークを使用してインテリジェントなエージェントを構築する際のいくつかの重要な側面を実演しました：
 
-### 主な学習ポイント
+### 主な学習ポイント {id="key-takeaways"}
 
 1. **ドメインモデリング**: 複雑なアプリケーションには、適切に構造化されたデータモデルが不可欠です。
 2. **ツールの統合**: カスタムツールにより、エージェントは外部システムと効果的に対話できるようになります。
@@ -851,7 +851,7 @@ runBlocking {
 4. **戦略グラフ**: Koogのグラフベースのアプローチは、柔軟なコントロールフローを提供します。
 5. **インタラクティブAI**: 選択肢の選別により、人間とAIのコラボレーションと透明性が実現します。
 
-### 探索したフレームワークの機能
+### 探索したフレームワークの機能 {id="framework-features-explored"}
 
 - ✅ カスタムツールの作成と統合
 - ✅ エージェント戦略の設計とグラフベースのコントロールフロー

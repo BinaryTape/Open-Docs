@@ -5,7 +5,7 @@
 
 Compose Multiplatform で文字列をローカライズするには、サポートするすべての言語でアプリケーションのユーザーインターフェース要素の翻訳テキストを提供する必要があります。Compose Multiplatform は、共通のリソース管理ライブラリと翻訳への簡単なアクセスのためのコード生成を提供することで、このプロセスを簡素化します。
 
-## 翻訳ディレクトリの設定
+## 翻訳ディレクトリの設定 {id="set-up-translation-directories"}
 
 すべての文字列リソースを、共有ソースセット（common source set）内の専用の `composeResources` ディレクトリに保存します。
 デフォルトのテキストを `values` ディレクトリに配置し、各言語に対応するディレクトリを作成します。
@@ -45,7 +45,7 @@ commonMain/composeResources/
 </resources>
 ```
 
-## 静的アクセスのためのクラス生成
+## 静的アクセスのためのクラス生成 {id="generate-class-for-static-access"}
 
 すべての翻訳を追加したら、プロジェクトをビルドして、リソースへのアクセスを提供する特別なクラスを生成します。
 Compose Multiplatform は `composeResources` 内の `strings.xml` リソースファイルを処理し、各文字列リソースに対して静的アクセサプロパティを作成します。
@@ -67,7 +67,7 @@ fun MyApp() {
 
 上記の例では、`welcome_message` 文字列に動的な値のためのプレースホルダー（`%s`）が含まれています。生成されたアクセサと `stringResource()` 関数の両方が、このようなパラメータの受け渡しをサポートしています。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [地域固有の形式の管理方法を学ぶ](compose-regional-format.md)
 * [右から左に書く（Right-to-left）言語の処理について読む](compose-rtl.md)

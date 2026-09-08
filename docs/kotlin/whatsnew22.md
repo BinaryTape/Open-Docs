@@ -25,7 +25,7 @@ Kotlin 2.2.0 正式发布！以下是主要亮点：
 >
 {style="tip"}
 
-## IDE 支持
+## IDE 支持 {id="ide-support"}
 
 支持 2.2.0 的 Kotlin 插件已捆绑在最新版本的 IntelliJ IDEA 和 Android Studio 中。
 你无需在 IDE 中更新 Kotlin 插件。
@@ -33,12 +33,12 @@ Kotlin 2.2.0 正式发布！以下是主要亮点：
 
 有关详情，请参阅[更新至新版本](releases.md#update-to-a-new-kotlin-version)。
 
-## 语言
+## 语言 {id="language"}
 
 此版本将守卫条件 (guard conditions)、非局部 `break` 与 `continue` 以及多美元符插值[提升](#stable-features-guard-conditions-non-local-break-and-continue-and-multi-dollar-interpolation)至[稳定 (Stable)](components-stability.md#stability-levels-explained) 阶段。
 此外，还有多项功能以预览版形式引入，例如 [上下文参数 (context parameters)](#preview-of-context-parameters) 和 [上下文感知解析 (context-sensitive resolution)](#preview-of-context-sensitive-resolution)。
 
-### 上下文参数预览
+### 上下文参数预览 {id="preview-of-context-parameters"}
 <primary-label ref="experimental-general"/> 
 
 上下文参数允许函数和属性声明在周围上下文中隐式可用的依赖项。
@@ -51,7 +51,7 @@ Kotlin 2.2.0 正式发布！以下是主要亮点：
 
 Kotlin 中的上下文参数代表了在管理依赖项方面的重大改进，它通过简化的依赖注入、改进的 DSL 设计和作用域操作来实现。有关更多信息，请参阅该功能的 [KEEP](https://github.com/Kotlin/KEEP/blob/context-parameters/proposals/context-parameters.md)。
 
-#### 如何声明上下文参数
+#### 如何声明上下文参数 {id="how-to-declare-context-parameters"}
 
 你可以使用 `context` 关键字后跟参数列表（格式均为 `name: Type`）来为属性和函数声明上下文参数。以下是一个依赖于 `UserService` 接口的示例：
 
@@ -87,7 +87,7 @@ fun logWelcome() {
 }
 ```
 
-#### 如何启用上下文参数
+#### 如何启用上下文参数 {id="how-to-enable-context-parameters"}
 
 要在项目中启用上下文参数，请在命令行中使用以下编译器选项：
 
@@ -110,12 +110,12 @@ kotlin {
 >
 {style="warning"}
 
-#### 留下你的反馈
+#### 留下你的反馈 {id="leave-your-feedback"}
 
 此功能计划在未来的 Kotlin 版本中进行稳定和改进。
 我们非常感谢你在我们的问题跟踪器 [YouTrack](https://youtrack.jetbrains.com/issue/KT-10468/Context-Parameters-expanding-extension-receivers-to-work-with-scopes) 上提供的反馈。
 
-### 上下文感知解析预览
+### 上下文感知解析预览 {id="preview-of-context-sensitive-resolution"}
 <primary-label ref="experimental-general"/> 
 
 Kotlin 2.2.0 在预览版中引入了上下文感知解析 (context-sensitive resolution) 的实现。
@@ -188,12 +188,12 @@ kotlin {
 
 我们计划在未来的 Kotlin 版本中稳定并改进此功能，并感谢你在我们的问题跟踪器 [YouTrack](https://youtrack.jetbrains.com/issue/KT-16768/Context-sensitive-resolution) 上提供的反馈。
 
-### 注解使用点目标功能预览
+### 注解使用点目标功能预览 {id="preview-of-features-for-annotation-use-site-targets"}
 <primary-label ref="experimental-general"/>
 
 Kotlin 2.2.0 引入了几项功能，使处理注解使用点目标 (annotation use-site targets) 更加方便。
 
-#### 属性的 `@all` 元目标
+#### 属性的 `@all` 元目标 {id="all-meta-target-for-properties"}
 <primary-label ref="experimental-general"/>
 
 Kotlin 允许你将注解附加到声明的特定部分，这被称为 [使用点目标](annotations.md#annotation-use-site-targets)。
@@ -275,7 +275,7 @@ kotlin {
 此功能处于预览阶段。请向我们的问题跟踪器 [YouTrack](https://kotl.in/issue) 报告任何问题。
 有关 `@all` 元目标的更多信息，请阅读此 [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/annotation-target-in-properties.md) 提案。
 
-#### 使用点注解目标的新默认规则
+#### 使用点注解目标的新默认规则 {id="new-defaulting-rules-for-use-site-annotation-targets"}
 <primary-label ref="experimental-general"/>
 
 Kotlin 2.2.0 引入了将注解传播到形参、字段和属性的新默认规则。 
@@ -323,7 +323,7 @@ kotlin {
 此功能处于预览阶段。请向我们的问题跟踪器 [YouTrack](https://kotl.in/issue) 报告任何问题。
 有关使用点注解目标新默认规则的更多信息，请阅读此 [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/annotation-target-in-properties.md) 提案。
 
-### 嵌套类型别名支持
+### 嵌套类型别名支持 {id="support-for-nested-type-aliases"}
 <primary-label ref="beta"/>
 
 Kotlin 2.2.0 增加了在其他声明内部定义类型别名的支持。
@@ -350,7 +350,7 @@ class Dijkstra {
 
 嵌套类型别名通过改进封装、减少软件包级的混乱以及简化内部实现，使代码更加整洁、更易于维护。
 
-#### 如何启用嵌套类型别名
+#### 如何启用嵌套类型别名 {id="how-to-enable-nested-type-aliases"}
 
 要在项目中启用嵌套类型别名，请在命令行中使用以下编译器选项：
 
@@ -369,12 +369,12 @@ kotlin {
 }
 ```
 
-#### 分享你的反馈
+#### 分享你的反馈 {id="share-your-feedback"}
 
 嵌套类型别名目前处于 [Beta](components-stability.md#stability-levels-explained) 阶段。请向我们的问题跟踪器 [YouTrack](https://kotl.in/issue) 报告任何问题。有关此功能的更多信息， 
 请阅读此 [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/nested-typealias.md) 提案。
 
-### 稳定功能：守卫条件、非局部 `break` 与 `continue` 以及多美元符插值
+### 稳定功能：守卫条件、非局部 `break` 与 `continue` 以及多美元符插值 {id="stable-features-guard-conditions-non-local-break-and-continue-and-multi-dollar-interpolation"}
 
 在 Kotlin 2.1.0 中，有几项新的语言功能以预览版形式引入。
 我们很高兴地宣布，以下语言功能在此版本中现已 [稳定 (Stable)](components-stability.md#stability-levels-explained)：
@@ -385,7 +385,7 @@ kotlin {
 
 [查看 Kotlin 语言设计功能和提案的完整列表](kotlin-language-features-and-proposals.md)。
 
-## Kotlin 编译器：统一管理编译器警告
+## Kotlin 编译器：统一管理编译器警告 {id="kotlin-compiler-unified-management-of-compiler-warnings"}
 <primary-label ref="experimental-general"/>
 
 Kotlin 2.2.0 引入了一个新的编译器选项 `-Xwarning-level`。它旨在提供一种 
@@ -396,7 +396,7 @@ Kotlin 2.2.0 引入了一个新的编译器选项 `-Xwarning-level`。它旨在�
 
 通过新方案，你可以覆盖通用规则并以一致的方式排除特定的诊断信息。
 
-### 如何应用
+### 如何应用 {id="how-to-apply"}
 
 新的编译器选项语法如下：
 
@@ -410,12 +410,12 @@ Kotlin 2.2.0 引入了一个新的编译器选项 `-Xwarning-level`。它旨在�
 
 请记住，你只能使用新的编译器选项配置 _警告_ 的严重级别。
 
-### 使用场景
+### 使用场景 {id="use-cases"}
 
 通过新方案，你可以通过结合通用规则和特定规则，更好地微调项目中的警告报告。
 选择你的使用场景：
 
-#### 抑制警告
+#### 抑制警告 {id="suppress-warnings"}
 
 | 命令 | 描述 |
 |---------------------------------------------------|--------------------------------------------------------|
@@ -423,7 +423,7 @@ Kotlin 2.2.0 引入了一个新的编译器选项 `-Xwarning-level`。它旨在�
 | `-Xwarning-level=DIAGNOSTIC_NAME:disabled`        | 仅抑制指定的警告。 |
 | `-nowarn -Xwarning-level=DIAGNOSTIC_NAME:warning` | 抑制除指定警告外的所有警告。 |
 
-#### 将警告提升为错误
+#### 将警告提升为错误 {id="raise-warnings-to-errors"}
 
 | 命令 | 描述 |
 |---------------------------------------------------|--------------------------------------------------------------|
@@ -431,7 +431,7 @@ Kotlin 2.2.0 引入了一个新的编译器选项 `-Xwarning-level`。它旨在�
 | `-Xwarning-level=DIAGNOSTIC_NAME:error`           | 仅将指定的警告提升为错误。 |
 | `-Werror -Xwarning-level=DIAGNOSTIC_NAME:warning` | 将除指定警告外的所有警告提升为错误。 |
 
-#### 启用额外的编译器警告
+#### 启用额外的编译器警告 {id="enable-additional-compiler-warnings"}
 
 | 命令 | 描述 |
 |----------------------------------------------------|------------------------------------------------------------------------------------------------------|
@@ -439,22 +439,22 @@ Kotlin 2.2.0 引入了一个新的编译器选项 `-Xwarning-level`。它旨在�
 | `-Xwarning-level=DIAGNOSTIC_NAME:warning`          | 仅启用指定的额外编译器检查。 |
 | `-Wextra -Xwarning-level=DIAGNOSTIC_NAME:disabled` | 启用除指定检查外的所有额外检查。 |
 
-#### 警告列表
+#### 警告列表 {id="warning-lists"}
 
 如果你有许多想要从通用规则中排除的警告，可以通过 [`@argfile`](compiler-reference.md#argfile) 在单独的文件中列出它们。
 
-### 留下反馈
+### 留下反馈 {id="leave-feedback"}
 
 新的编译器选项仍处于 [实验性 (Experimental)](components-stability.md#stability-levels-explained) 阶段。请 
 向我们的问题跟踪器 [YouTrack](https://kotl.in/issue) 报告任何问题。
 
-## Kotlin/JVM
+## Kotlin/JVM {id="kotlin-jvm"}
 
 Kotlin 2.2.0 为 JVM 带来了许多更新。编译器现在支持 Java 24 字节码，并引入了 
 接口函数默认方法生成的更改。此版本还简化了 Kotlin 元数据中注解的处理， 
 改进了内联值类与 Java 的互操作性，并包含了对 JVM record 注解的更好支持。
 
-### 接口函数默认方法生成的更改
+### 接口函数默认方法生成的更改 {id="changes-to-default-method-generation-for-interface-functions"}
 
 从 Kotlin 2.2.0 开始，除非另有配置，否则接口中声明的函数将编译为 JVM 默认方法。 
 此更改会影响带有实现的 Kotlin 接口函数编译为字节码的方式。
@@ -481,7 +481,7 @@ kotlin {
 }
 ```
 
-### 支持在 Kotlin 元数据中读取和写入注解
+### 支持在 Kotlin 元数据中读取和写入注解 {id="support-for-reading-and-writing-annotations-in-kotlin-metadata"}
 <primary-label ref="experimental-general"/>
 
 以前，你必须使用反射或字节码分析从编译后的 JVM 类文件中读取注解，并根据签名 
@@ -556,7 +556,7 @@ fun main() {
 >
 {style="warning"}
 
-### 改进内联值类与 Java 的互操作性
+### 改进内联值类与 Java 的互操作性 {id="improved-java-interop-with-inline-value-classes"}
 <primary-label ref="experimental-general"/>
 
 Kotlin 2.2.0 引入了一个新的实验性注解：[`@JvmExposeBoxed`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-expose-boxed/)。此注解使从 Java 调用 [内联值类](inline-classes.md) 变得更加容易。
@@ -626,7 +626,7 @@ MyInt output = ExampleKt.timesTwoBoxed(input);
 有关 `@JvmExposedBoxed` 注解工作原理及其解决问题的更详细说明， 
 请参阅此 [KEEP](https://github.com/Kotlin/KEEP/blob/jvm-expose-boxed/proposals/jvm-expose-boxed.md) 提案。
 
-### 对 JVM record 注解的改进支持
+### 对 JVM record 注解的改进支持 {id="improved-support-for-annotating-jvm-records"}
 
 Kotlin 自 Kotlin 1.5.0 起就已支持 [JVM record](jvm-records.md)。现在，Kotlin 2.2.0 改进了 Kotlin 处理 
 record 组件注解的方式，特别是与 Java 的 [`RECORD_COMPONENT`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/annotation/ElementType.html#RECORD_COMPONENT) 目标相关的处理。
@@ -663,12 +663,12 @@ data class Person(val name: String, @all:Positive val age: Int)
 * 将注解传播到属性、支持字段、构造函数形参和 getter。
 * 如果该注解支持 Java 的 `RECORD_COMPONENT`，也会将该注解应用于 record 组件。
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 从 2.2.0 开始，Kotlin/Native 使用 LLVM 19。此版本还带来了几个旨在 
 跟踪和调整内存消耗的实验性功能。
 
-### 基于对象的内存分配
+### 基于对象的内存分配 {id="per-object-memory-allocation"}
 <primary-label ref="experimental-opt-in"/>
 
 Kotlin/Native 的 [内存分配器](https://github.com/JetBrains/kotlin/blob/master/kotlin-native/runtime/src/alloc/custom/README.md) 
@@ -687,7 +687,7 @@ kotlin.native.binary.pagedAllocator=false
 
 请向我们的问题跟踪器 [YouTrack](https://kotl.in/issue) 报告任何问题。
 
-### 运行时支持 Latin-1 编码的字符串
+### 运行时支持 Latin-1 编码的字符串 {id="support-for-latin-1-encoded-strings-at-runtime"}
 <primary-label ref="experimental-opt-in"/>
 
 Kotlin 现在支持 Latin-1 编码的字符串，类似于 [JVM](https://openjdk.org/jeps/254)。这应该有助于 
@@ -701,7 +701,7 @@ Kotlin 现在支持 Latin-1 编码的字符串，类似于 [JVM](https://openjdk
 256 个 Unicode 字符。在启用 Latin-1 支持的情况下，只要所有字符都在其范围内， 
 字符串就会以 Latin-1 编码存储。否则，将使用默认的 UTF-16 编码。
 
-#### 如何启用 Latin-1 支持
+#### 如何启用 Latin-1 支持 {id="how-to-enable-latin-1-support"}
 
 该功能目前处于 [实验性 (Experimental)](components-stability.md#stability-levels-explained) 阶段。 
 要启用它，请在你的 `gradle.properties` 文件中设置以下选项：
@@ -709,7 +709,7 @@ Kotlin 现在支持 Latin-1 编码的字符串，类似于 [JVM](https://openjdk
 ```none
 kotlin.native.binary.latin1Strings=true
 ```
-#### 已知问题
+#### 已知问题 {id="known-issues"}
 
 只要该功能处于实验性阶段，cinterop 扩展函数 [`String.pin`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/pin.html)、[`String.usePinned`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/use-pinned.html) 和 [`String.refTo`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/ref-to.html) 的效率就会降低。每次调用它们都可能触发字符串自动转换为 UTF-16。
 
@@ -718,7 +718,7 @@ Kotlin 团队非常感谢我们在 Google 的同事，特别是 [Sonya Valchuk](
 
 有关 Kotlin 中内存消耗的更多信息，请参阅 [文档](native-memory-manager.md#memory-consumption)。
 
-### 改进 Apple 平台上的内存消耗跟踪
+### 改进 Apple 平台上的内存消耗跟踪 {id="improved-tracking-of-memory-consumption-on-apple-platforms"}
 
 从 Kotlin 2.2.0 开始，由 Kotlin 代码分配的内存现在会被标记。这可以帮助你调试 Apple 平台上的内存问题。
 
@@ -744,26 +744,26 @@ Kotlin 的份额标记有一个标识符，可以通过 Xcode Instruments 中的
 
 有关 Kotlin 中内存消耗的更多信息，请参阅 [文档](native-memory-manager.md#memory-consumption)。
 
-### LLVM 从 16 更新至 19
+### LLVM 从 16 更新至 19 {id="llvm-update-from-16-to-19"}
 
 在 Kotlin 2.2.0 中，我们将 LLVM 从版本 16 更新到了 19。 
 新版本包含性能改进、错误修复和安全更新。
 
 此更新不应影响你的代码，但如果你遇到任何问题，请向我们的 [问题跟踪器](http://kotl.in/issue) 报告。
 
-### Windows 7 目标已弃用
+### Windows 7 目标已弃用 {id="windows-7-target-deprecated"}
 
 从 Kotlin 2.2.0 开始，支持的最低 Windows 版本已从 Windows 7 提高到 Windows 10。由于 
 Microsoft 已于 2025 年 1 月停止支持 Windows 7，我们也决定弃用此旧版目标。
 
 欲了解更多信息，请参阅 [](native-target-support.md)。
 
-## Kotlin/Wasm
+## Kotlin/Wasm {id="kotlin-wasm"}
 
 在此版本中，[Wasm 目标的构建基础架构已与 JavaScript 目标分离](#build-infrastructure-for-wasm-target-separated-from-javascript-target)。此外，你现在可以 
 [针对每个项目或模块配置 Binaryen 工具](#per-project-binaryen-configuration)。
 
-### Wasm 目标的构建基础架构已与 JavaScript 目标分离
+### Wasm 目标的构建基础架构已与 JavaScript 目标分离 {id="build-infrastructure-for-wasm-target-separated-from-javascript-target"}
 
 以前，`wasmJs` 目标与 `js` 目标共享相同的基础架构。因此，两个目标都托管在同一个 
 目录 (`build/js`) 中，并使用相同的 NPM 任务和配置。
@@ -795,7 +795,7 @@ Wasm 任务和类型能够与 JavaScript 区分开来，从而实现独立配置
 
 此更改默认启用，无需额外设置。
 
-### 针对每个项目的 Binaryen 配置
+### 针对每个项目的 Binaryen 配置 {id="per-project-binaryen-configuration"}
 
 在 Kotlin/Wasm 中用于 [优化生产构建](whatsnew20.md#optimized-production-builds-by-default-using-binaryen) 的 Binaryen 工具，此前是在根项目中统一配置的。
 
@@ -808,12 +808,12 @@ Wasm 任务和类型能够与 JavaScript 区分开来，从而实现独立配置
 此功能默认启用。但是，如果你有 Binaryen 的自定义配置， 
 现在需要针对每个项目应用，而不是仅在根项目中应用。
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
 此版本改进了 [`@JsPlainObject` 接口中的 `copy()` 函数](#fix-for-copy-in-jsplainobject-interfaces)、 
 [带有 `@JsModule` 注解文件中的类型别名](#support-for-type-aliases-in-files-with-jsmodule-annotation)以及其他 Kotlin/JS 功能。
 
-### 修复 `@JsPlainObject` 接口中的 `copy()`
+### 修复 `@JsPlainObject` 接口中的 `copy()` {id="fix-for-copy-in-jsplainobject-interfaces"}
 
 Kotlin/JS 有一个名为 `js-plain-objects` 的实验性插件，它为带 `@JsPlainObject` 注解的接口引入了 `copy()` 函数。 
 你可以使用 `copy()` 函数来操作对象。
@@ -842,7 +842,7 @@ fun main() {
 此更改解决了继承层次结构中的冲突并消除了歧义。 
 从 Kotlin 2.2.0 开始默认启用。
 
-### 在带有 `@JsModule` 注解的文件中支持类型别名
+### 在带有 `@JsModule` 注解的文件中支持类型别名 {id="support-for-type-aliases-in-files-with-jsmodule-annotation"}
 
 以前，为了从 JavaScript 模块导入声明而使用 `@JsModule` 注解的文件 
 被限制为只能包含外部声明。这意味着你不能在这些文件中声明 `typealias`。
@@ -859,7 +859,7 @@ typealias SomeClass = Any
 
 带有 `@JsModule` 的文件中对类型别名的支持默认启用。
 
-### 在多平台 `expect` 声明中支持 `@JsExport`
+### 在多平台 `expect` 声明中支持 `@JsExport` {id="support-for-jsexport-in-multiplatform-expect-declarations"}
 
 在 Kotlin Multiplatform 项目中使用 [`expect/actual` 机制](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html)时， 
 无法在通用代码中为 `expect` 声明使用 `@JsExport` 注解。
@@ -898,7 +898,7 @@ actual class WindowManager {
 
 此更改默认启用。
 
-### 在 `Promise<Unit>` 类型中使用 `@JsExport` 的能力
+### 在 `Promise<Unit>` 类型中使用 `@JsExport` 的能力 {id="ability-to-use-jsexport-with-the-promise-unit-type"}
 
 以前，当你尝试使用 `@JsExport` 注解导出返回 `Promise<Unit>` 类型的函数时， 
 Kotlin 编译器会产生错误。
@@ -925,7 +925,7 @@ fun fooUnit(): Promise<Unit> = GlobalScope.promise {
 
 此更改移除了 Kotlin/JS 互操作模型中不必要的限制。此修复默认启用。
 
-## Gradle
+## Gradle {id="gradle"}
 
 Kotlin 2.2.0 与 Gradle 7.6.3 到 8.14 完全兼容。你也可以使用最新 Gradle 
 版本。但是，请注意，这样做可能会导致弃用警告，并且某些新的 Gradle 功能可能无法工作。
@@ -933,7 +933,7 @@ Kotlin 2.2.0 与 Gradle 7.6.3 到 8.14 完全兼容。你也可以使用最新 G
 在此版本中，Kotlin Gradle 插件对其诊断功能进行了多项改进。 
 它还引入了 [二进制兼容性验证](#binary-compatibility-validation-included-in-kotlin-gradle-plugin) 的实验性集成，使得开发库变得更加容易。
 
-### Kotlin Gradle 插件中包含二进制兼容性验证
+### Kotlin Gradle 插件中包含二进制兼容性验证 {id="binary-compatibility-validation-included-in-kotlin-gradle-plugin"}
 <primary-label ref="experimental-general"/>
 
 为了更轻松地检查库版本之间的二进制兼容性，我们正在尝试将 
@@ -974,7 +974,7 @@ IntelliJ IDEA 中或在项目目录的命令行中运行该任务：
 它会将其报告为错误。在审查错误后，如果你认为更改是可以接受的，可以 
 通过运行 `updateLegacyAbi` Gradle 任务来更新参考 ABI 转储。
 
-#### 过滤类
+#### 过滤类 {id="filter-classes"}
 
 该功能允许你在 ABI 转储中过滤类。你可以通过名称或部分 
 名称，或者通过标记它们的注解（或注解名称的一部分）来显式包含或排除类。
@@ -993,7 +993,7 @@ kotlin {
 
 探索 [KGP API 参考](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.dsl.abi/) 以了解有关配置二进制兼容性验证器的更多信息。
 
-#### 多平台限制
+#### 多平台限制 {id="multiplatform-limitations"}
 
 在多平台项目中，如果你的宿主环境不支持所有目标的交叉编译，KGP 会尝试通过 
 检查其他目标的 ABI 转储来推断不支持目标的 ABI 更改。如果你稍后切换到 
@@ -1018,7 +1018,7 @@ kotlin {
 无法创建 ABI 转储。如果任务失败比因为推断 ABI 更改而错过 
 不兼容的更改更重要，那么这种行为可能是理想的。
 
-### Kotlin Gradle 插件控制台支持富媒体输出
+### Kotlin Gradle 插件控制台支持富媒体输出 {id="support-for-rich-output-in-console-for-kotlin-gradle-plugin"}
 
 在 Kotlin 2.2.0 中，我们支持在 Gradle 构建过程中控制台输出颜色和其他富媒体输出， 
 这使得阅读和理解报告的诊断信息变得更加容易。
@@ -1035,7 +1035,7 @@ org.gradle.console=plain
 
 有关此属性及其选项的更多信息，请参阅 Gradle 有关 [自定义日志格式](https://docs.gradle.org/current/userguide/command_line_interface.html#sec:command_line_customizing_log_format) 的文档。
 
-### KGP 诊断中集成 Problems API
+### KGP 诊断中集成 Problems API {id="integration-of-problems-api-within-kgp-diagnostics"}
 
 以前，Kotlin Gradle 插件 (KGP) 仅能将警告和错误等诊断信息作为纯文本输出到控制台或日志。
 
@@ -1047,7 +1047,7 @@ KGP 诊断信息现在更容易阅读，并且在 Gradle CLI 和 IntelliJ IDEA �
 从 Gradle 8.6 或更高版本开始，此集成默认启用。 
 由于 API 仍在演变中，请使用最新的 Gradle 版本以受益于最新的改进。
 
-### KGP 与 `--warning-mode` 的兼容性
+### KGP 与 `--warning-mode` 的兼容性 {id="kgp-compatibility-with-warning-mode"}
 
 此前，Kotlin Gradle 插件 (KGP) 诊断报告的问题使用固定的严重级别， 
 这意味着 Gradle 的 [`--warning-mode` 命令行选项](https://docs.gradle.org/current/userguide/command_line_interface.html#sec:command_line_warnings) 对 KGP 显示错误的方式没有影响。
@@ -1068,7 +1068,7 @@ KGP 诊断信息现在更容易阅读，并且在 Gradle CLI 和 IntelliJ IDEA �
 kotlin.internal.diagnostics.ignoreWarningMode=true
 ```
 
-## 新的实验性构建工具 API
+## 新的实验性构建工具 API {id="new-experimental-build-tools-api"}
 <primary-label ref="experimental-general"/>
 
 你可以在各种构建系统中使用 Kotlin，例如 Gradle、Maven、Amper 等。然而，将 Kotlin 
@@ -1102,7 +1102,7 @@ BTA 目前对 Maven 插件没有直接的好处，但它为更快交付
 * [改进的“进程内 (in process)”编译器执行策略](#improved-in-process-compiler-execution-strategy)
 * [更灵活地从 Kotlin 配置不同的编译器版本](#flexibility-to-configure-different-compiler-versions-from-kotlin)
 
-### 改进的“进程内 (in process)”编译器执行策略
+### 改进的“进程内 (in process)”编译器执行策略 {id="improved-in-process-compiler-execution-strategy"}
 
 KGP 支持三种 [Kotlin 编译器执行策略](compiler-execution-strategy.md)。 
 此前的“进程内 (in process)”策略（在 Gradle 守护进程中运行编译器）不支持增量编译。
@@ -1114,7 +1114,7 @@ KGP 支持三种 [Kotlin 编译器执行策略](compiler-execution-strategy.md)�
 kotlin.compiler.execution.strategy=in-process
 ```
 
-### 灵活地从 Kotlin 配置不同的编译器版本
+### 灵活地从 Kotlin 配置不同的编译器版本 {id="flexibility-to-configure-different-compiler-versions-from-kotlin"}
 
 有时你可能想在代码中使用较新的 Kotlin 编译器版本，同时让 KGP 保持在旧版本上 
 —— 例如，在尝试新语言功能的同时仍然在处理构建脚本弃用。或者你可能 
@@ -1155,11 +1155,11 @@ KGP 2.2.0 也与未来的 Kotlin 编译器版本 2.2.x 和 2.3.x 兼容。
 
 在这些插件中尝试 BTA，并在专门的 YouTrack 工单中向我们发送你的反馈：[KGP](https://youtrack.jetbrains.com/issue/KT-56574) 和 [Maven 插件](https://youtrack.jetbrains.com/issue/KT-73012)。
 
-## 标准库
+## 标准库 {id="standard-library"}
 
 在 Kotlin 2.2.0 中，[`Base64` API](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.io.encoding/-base64/) 和 [`HexFormat` API](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/-hex-format/) 现已 [稳定 (Stable)](components-stability.md#stability-levels-explained)。
 
-### 稳定的 Base64 编码与解码
+### 稳定的 Base64 编码与解码 {id="stable-base64-encoding-and-decoding"}
 
 Kotlin 1.8.20 引入了 [对 Base64 编码与解码的实验性支持](whatsnew1820.md#support-for-base64-encoding)。
 在 Kotlin 2.2.0 中，[Base64 API](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.io.encoding/-base64/) 现已 [稳定 (Stable)](components-stability.md#stability-levels-explained)，并且 
@@ -1216,7 +1216,7 @@ fun main() {
 }
 ```
 
-### 使用 `HexFormat` API 进行稳定的十六进制解析与格式设置
+### 使用 `HexFormat` API 进行稳定的十六进制解析与格式设置 {id="stable-hexadecimal-parsing-and-formatting-with-the-hexformat-api"}
 
 [Kotlin 1.9.0](whatsnew19.md#new-hexformat-class-to-format-and-parse-hexadecimals) 中引入的 [`HexFormat` API](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/-hex-format/) 现已 [稳定 (Stable)](components-stability.md#stability-levels-explained)。 
 你可以使用它在数值和十六进制字符串之间进行转换。
@@ -1234,11 +1234,11 @@ fun main() {
 
 有关更多信息，请参阅 [用于格式设置和解析十六进制的新 HexFormat 类](whatsnew19.md#new-hexformat-class-to-format-and-parse-hexadecimals)。
 
-## Compose 编译器
+## Compose 编译器 {id="compose-compiler"}
 
 在此版本中，Compose 编译器引入了对可组合函数引用的支持，并更改了多个功能标志的默认值。
 
-### 支持 `@Composable` 函数引用
+### 支持 `@Composable` 函数引用 {id="support-for-composable-function-references"}
 
 从 Kotlin 2.2.0 版本开始，Compose 编译器支持可组合函数引用的声明和使用：
 
@@ -1253,7 +1253,7 @@ val content: @Composable (String) -> Unit = ::Text
 可组合函数引用在运行时的行为与可组合 lambda 对象略有不同。 
 特别是，可组合 lambda 通过扩展 `ComposableLambda` 类允许对跳过 (skipping) 进行更精细的控制。函数引用预期实现 `KCallable` 接口，因此同样的优化无法应用于它们。
 
-### `PausableComposition` 功能标志默认启用
+### `PausableComposition` 功能标志默认启用 {id="pausablecomposition-feature-flag-enabled-by-default"}
 
 从 Kotlin 2.2.0 开始，`PausableComposition` 功能标志默认启用。此标志调整了 
 Compose 编译器对可重启函数的输出，允许运行时强制跳过行为，从而有效地 
@@ -1268,7 +1268,7 @@ composeCompiler {
 }
 ```
 
-### `OptimizeNonSkippingGroups` 功能标志默认启用
+### `OptimizeNonSkippingGroups` 功能标志默认启用 {id="optimizenonskippinggroups-feature-flag-enabled-by-default"}
 
 从 Kotlin 2.2.0 开始，`OptimizeNonSkippingGroups` 功能标志默认启用。此优化 
 通过删除为不可跳过的可组合函数生成的组调用来提高运行时性能。 
@@ -1285,12 +1285,12 @@ composeCompiler {
 }
 ```
 
-### 已弃用的功能标志
+### 已弃用的功能标志 {id="deprecated-feature-flags"}
 
 `StrongSkipping` 和 `IntrinsicRemember` 功能标志现已弃用，并将于未来版本移除。 
 如果你遇到任何导致你必须禁用这些功能标志的问题，请向 [Jetpack Compose 问题跟踪器](https://issuetracker.google.com/issues/new?component=610764&template=1424126) 报告。
 
-## 重大变更与弃用
+## 重大变更与弃用 {id="breaking-changes-and-deprecations"}
 
 本节重点介绍值得注意的重要重大变更和弃用。请参阅我们的 [兼容性指南](compatibility-guide-22.md) 
 以获取此版本中所有重大变更和弃用的完整概述。
@@ -1335,13 +1335,13 @@ composeCompiler {
 * 使用弃用的 `destinationDir` 属性现在 [会导致错误](compatibility-guide-22.md#deprecate-destinationdir-in-cinteropprocess)。 
   请改用 `CInteropProcess.destinationDirectory.set()`。
 
-## 文档更新
+## 文档更新 {id="documentation-updates"}
 
 此版本带来了显著的文档变更，包括将 Kotlin Multiplatform 文档迁移到 [KMP 门户](https://kotlinlang.org/docs/multiplatform/get-started.html)。 
 
 此外，我们创建了新的页面和教程，并翻新了现有内容。 
 
-### 新增及翻新教程
+### 新增及翻新教程 {id="new-and-revamped-tutorials"}
 
 * [Kotlin 中级之旅](kotlin-tour-welcome.md) – 提升你对 Kotlin 的理解。了解何时使用扩展函数、接口、类等。
 * [构建使用 Spring AI 的 Kotlin 应用](spring-ai-guide.md) – 了解如何使用 OpenAI 和向量数据库创建一个能够回答问题的 Kotlin 应用。
@@ -1352,7 +1352,7 @@ composeCompiler {
 * [使用 Ktor 和 Kotlin Multiplatform 构建全栈应用程序](https://ktor.io/docs/full-stack-development-with-kotlin-multiplatform.html) – 此教程现在使用 IntelliJ IDEA 代替 Fleet，并结合 Material 3 以及最新版本的 Ktor 和 Kotlin。
 * [在 Compose Multiplatform 应用中管理本地资源环境](https://kotlinlang.org/docs/multiplatform/compose-resource-environment.html) – 了解如何管理应用程序的资源环境，例如应用内主题和语言。
 
-### 新增及翻新页面
+### 新增及翻新页面 {id="new-and-revamped-pages"}
 
 * [Kotlin 用于 AI 概述](kotlin-ai-apps-development-overview.md) – 探索 Kotlin 构建 AI 驱动应用程序的能力。
 * [Dokka 迁移指南](https://kotlinlang.org/docs/dokka-migration.html) – 了解如何迁移到 Dokka Gradle 插件的 v2 版本。
@@ -1365,7 +1365,7 @@ composeCompiler {
 * [Compose 热重载 (Hot Reload)](https://kotlinlang.org/docs/multiplatform/compose-hot-reload.html) – 了解如何针对桌面目标使用 Compose 热重载，以及如何将其添加到现有项目中。
 * [Exposed 迁移](https://www.jetbrains.com/help/exposed/migrations.html) – 了解 Exposed 提供的用于管理数据库架构更改的工具。
 
-## 如何更新至 Kotlin 2.2.0
+## 如何更新至 Kotlin 2.2.0 {id="how-to-update-to-kotlin-2-2-0"}
 
 Kotlin 插件作为捆绑插件随 IntelliJ IDEA 和 Android Studio 一起分发。
 

@@ -6,13 +6,13 @@ Kotlin 标准库提供了一种机制，用于要求并给予使用某些 API �
 
 为了保护用户，编译器会对这些情况发出警告，并要求用户在能够使用该 API 之前进行选择加入。
 
-## 选择加入 API
+## 选择加入 API {id="opt-in-to-api"}
 
 如果库作者将库 API 中的某个声明标记为 **[要求选择加入](#require-opt-in-to-use-api)**，
 则必须先给予显式许可，然后才能在代码中使用它。
 有几种选择加入的方法。我们建议选择最适合你情况的方法。
 
-### 局部选择加入
+### 局部选择加入 {id="opt-in-locally"}
 
 要在代码中使用特定的 API 元素时局部地选择加入，请使用 [`@OptIn`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-opt-in/)
 注解，并引用实验性 API 标记。例如，假设你想使用 `DateProvider` 类，
@@ -66,7 +66,7 @@ fun displayDate() {
 选择加入要求不会被传播，这意味着其他人可能会在不知情的情况下使用实验性 API。为了避免这种情况，
 传播选择加入要求会更安全。
 
-#### 传播选择加入要求
+#### 传播选择加入要求 {id="propagate-opt-in-requirements"}
 
 当你在代码（例如库）中使用旨在供第三方使用的 API 时，也可以将其选择加入要求传播到
 你的 API 中。为此，请使用库所使用的同一个 **[选择加入要求注解](#create-opt-in-requirement-annotations)**
@@ -149,7 +149,7 @@ fun displayDate() {
 }
 ```
 
-#### 选择加入多个 API
+#### 选择加入多个 API {id="opt-in-to-multiple-apis"}
 
 要选择加入多个 API，请使用它们所有的选择加入要求注解来标记声明。例如：
 
@@ -164,7 +164,7 @@ fun displayDate() {
 @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
 ```
 
-### 在文件中选择加入
+### 在文件中选择加入 {id="opt-in-a-file"}
 
 要在文件中为所有函数和类使用要求选择加入的 API，请在包规范和导入之前的
 文件顶部添加文件级注解 `@file:OptIn`。
@@ -174,7 +174,7 @@ fun displayDate() {
  @file:OptIn(MyDateTime::class)
  ```
 
-### 在模块中选择加入
+### 在模块中选择加入 {id="opt-in-a-module"}
 
 > `-opt-in` 编译器选项从 Kotlin 1.6.0 开始提供。对于早期的 Kotlin 版本，请使用 `-Xopt-in`。
 >
@@ -265,7 +265,7 @@ kotlin {
 
 要在模块级别选择加入多个 API，请为模块中使用的每个选择加入要求标记添加上述参数之一。
 
-### 选择加入以从类或接口继承
+### 选择加入以从类或接口继承 {id="opt-in-to-inherit-from-a-class-or-interface"}
 
 有时，库作者提供了 API，但希望要求用户在扩展它之前显式地选择加入。 
 例如，库 API 的使用可能是稳定的，但继承可能并不稳定，因为它将来可能会通过
@@ -335,12 +335,12 @@ interface SomeImplementation : CoreLibraryApi
 interface SomeImplementation : CoreLibraryApi
 ```
 
-## 要求选择加入以使用 API
+## 要求选择加入以使用 API {id="require-opt-in-to-use-api"}
 
 你可以要求库的用户在能够使用你的 API 之前进行选择加入。此外，你可以向用户
 告知使用你的 API 的任何特殊条件，直到你决定删除选择加入要求为止。
 
-### 创建选择加入要求注解
+### 创建选择加入要求注解 {id="create-opt-in-requirement-annotations"}
 
 要要求选择加入以使用你模块的 API，请创建一个注解类作为 **选择加入要求注解**。
 该类必须使用 [`@RequiresOptIn`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-requires-opt-in/) 进行注解：
@@ -380,7 +380,7 @@ annotation class ExperimentalDateTime
 这也意味着你可以独立地删除功能的选择加入要求，从而使你的 API 更易于
 维护。
 
-### 标记 API 元素
+### 标记 API 元素 {id="mark-api-elements"}
 
 要要求选择加入以使用 API 元素，请使用选择加入要求注解来标记其声明：
 
@@ -397,7 +397,7 @@ fun getTime(): Time {}
 * 你不能为属性的支持字段或 getter 添加注解，只能为属性本身添加注解。
 * 你不能为局部变量或值参数添加注解。
 
-## 要求选择加入以扩展 API
+## 要求选择加入以扩展 API {id="require-opt-in-to-extend-api"}
 
 有时，你可能希望对 API 的哪些特定部分可以被使用和
 扩展进行更精细的控制。例如，当你有一些 API 使用起来很稳定，但：
@@ -431,7 +431,7 @@ interface CoreLibraryApi
 有关如何在 API 中使用 `@SubclassOptInRequired` 注解的真实示例，请查看 `kotlinx.coroutines` 库中的 [`SharedFlow`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-shared-flow/)
 接口。
 
-## 预稳定 API 的选择加入要求
+## 预稳定 API 的选择加入要求 {id="opt-in-requirements-for-pre-stable-apis"}
 
 如果你对尚未稳定的功能使用选择加入要求，请谨慎处理 API 晋级，以避免
 破坏客户端代码。

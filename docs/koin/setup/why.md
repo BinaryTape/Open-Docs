@@ -4,7 +4,7 @@ title: 为什么选择 Koin？
 
 Koin 提供了一种简单且高效的方式，将依赖项注入集成到任何 Kotlin 应用程序中（多平台、Android、后端等）。
 
-## Koin 的目标
+## Koin 的目标 {id="goals-of-koin"}
 
 Koin 的目标是：
 - 通过智能 API **简化**您的依赖项注入基础架构
@@ -14,9 +14,9 @@ Koin 的目标是：
 
 ---
 
-## Koin 简而言之
+## Koin 简而言之 {id="koin-in-a-nutshell"}
 
-### 让您的 Kotlin 开发变得简单且高效
+### 让您的 Kotlin 开发变得简单且高效 {id="making-your-kotlin-development-easy-and-productive"}
 
 Koin 是一款智能的 Kotlin 依赖项注入库，让您专注于应用本身，而非工具。
 
@@ -45,9 +45,9 @@ fun main() {
 
 ---
 
-## 平台支持
+## 平台支持 {id="platform-support"}
 
-### 适配 Android
+### 适配 Android {id="ready-for-android"}
 
 得益于 Kotlin 语言，Koin 扩展了 Android 平台，并作为原始平台的一部分提供了新功能。
 
@@ -79,7 +79,7 @@ class MyActivity : AppCompatActivity() {
 **了解详情**：[在 Android 上启动 Koin](/docs/reference/koin-android/start)
 :::
 
-### 助力 Kotlin Multiplatform
+### 助力 Kotlin Multiplatform {id="powering-kotlin-multiplatform"}
 
 在移动平台之间共享代码是 Kotlin Multiplatform 的主要用例之一。通过 Kotlin Multiplatform Mobile，您可以构建跨平台移动应用程序，并在 Android 和 iOS 之间共享通用代码。
 
@@ -89,17 +89,17 @@ Koin 提供多平台依赖项注入，并帮助您在原生移动应用程序以
 **了解详情**：[在 Kotlin Multiplatform 中使用 Koin](/docs/reference/koin-mp/kmp)
 :::
 
-### 性能与生产力
+### 性能与生产力 {id="performances-and-productivity"}
 
 Koin 是一个纯 Kotlin 框架，在用法和执行方面设计得非常直观。它易于使用，且不会影响您的编译时间，也不需要任何额外的插件配置。
 
 ---
 
-## Koin：一个依赖项注入框架
+## Koin：一个依赖项注入框架 {id="koin-a-dependency-injection-framework"}
 
 Koin 是一个流行的 Kotlin 依赖项注入 (DI) 框架，为管理应用程序的依赖项提供了一种现代且轻量级的解决方案，且只需极少的模板代码。
 
-### 依赖项注入 vs 服务定位器
+### 依赖项注入 vs 服务定位器 {id="dependency-injection-vs-service-locator"}
 
 虽然 Koin 看起来可能类似于服务定位器 (Service Locator) 模式，但它们之间存在关键区别：
 
@@ -117,7 +117,7 @@ Koin 是一个流行的 Kotlin 依赖项注入 (DI) 框架，为管理应用程�
 **依赖项注入**：相比之下，Koin 是一个纯粹的依赖项注入框架。使用 Koin，您在模块中声明依赖项，并由 Koin 处理对象的创建和装配。它允许创建多个带有各自作用域的独立模块，使依赖项管理更加模块化，并避免潜在的冲突。
 :::
 
-### Koin 的方法：灵活性与最佳实践的结合
+### Koin 的方法：灵活性与最佳实践的结合 {id="koin-s-approach-a-blend-of-flexibility-and-best-practices"}
 
 Koin 同时支持 DI 和服务定位器模式，为开发者提供了灵活性。然而，它**强烈建议使用 DI**，特别是**构造函数注入**，即通过构造函数参数传递依赖项。这种方法可以提高可测试性，并使您的代码更易于理解。
 
@@ -146,11 +146,11 @@ Koin 的设计理念以**简单和易于设置**为中心，同时允许在必�
 
 ---
 
-## 透明度与设计概览
+## 透明度与设计概览 {id="transparency-and-design-overview"}
 
 Koin 被设计为一个通用的控制反转 (IoC) 容器，支持依赖项注入 (DI) 和服务定位器 (SL) 模式。为了让您清楚地了解 Koin 的运作方式并指导您有效地使用它，让我们探讨以下几个方面：
 
-### Koin 如何平衡 DI 和 SL
+### Koin 如何平衡 DI 和 SL {id="how-koin-balances-di-and-sl"}
 
 Koin 结合了 DI 和 SL 的元素，这可能会影响您使用框架的方式：
 
@@ -160,7 +160,7 @@ Koin 结合了 DI 和 SL 的元素，这可能会影响您使用框架的方式�
 
 3. **Android 组件中的 SL：** 在 Android 开发中，Koin 经常在 `Application` 和 `Activity` 等组件内部使用 SL 以简化设置。从此以后，Koin 建议使用 DI（尤其是构造函数注入）以更结构化的方式管理依赖项。然而，这并不是强制性的，开发者可以根据需要灵活使用 SL。
 
-### 为什么这很重要
+### 为什么这很重要 {id="why-this-matters-to-you"}
 
 了解 DI 和 SL 之间的区别有助于有效地管理应用程序的依赖项：
 
@@ -182,11 +182,11 @@ Koin 结合了 DI 和 SL 的元素，这可能会影响您使用框架的方式�
 
 ---
 
-## 充分利用 Koin
+## 充分利用 Koin {id="making-the-most-of-koin"}
 
 要有效地使用 Koin：
 
-### 1. 遵循最佳实践
+### 1. 遵循最佳实践 {id="1-follow-best-practices"}
 
 尽可能使用**构造函数注入**，以符合依赖项管理的最佳实践。这种方法可以提高可测试性和可维护性。
 
@@ -205,15 +205,15 @@ class UserService : KoinComponent {
 }
 ```
 
-### 2. 利用 Koin 的灵活性
+### 2. 利用 Koin 的灵活性 {id="2-leverage-koin-s-flexibility"}
 
 在可以简化设置的场景中利用 Koin 对 SL 的支持，但目标是依靠 DI 来管理核心应用程序依赖项。
 
-### 3. 参考文档和示例
+### 3. 参考文档和示例 {id="3-refer-to-documentation-and-examples"}
 
 查看 Koin 的文档和示例，了解如何根据您的项目需求适当配置和使用 DI 与 SL。
 
-### 4. 明智地使用作用域
+### 4. 明智地使用作用域 {id="4-use-scopes-wisely"}
 
 Koin 的作用域功能允许您为应用程序的特定部分隔离依赖项：
 
@@ -231,21 +231,21 @@ module {
 
 ---
 
-## 后续步骤
+## 后续步骤 {id="next-steps"}
 
 准备好开始了吗？请选择您的平台：
 
-### 设置指南
+### 设置指南 {id="setup-guides"}
 - [Koin 设置](/docs/setup/koin) - 适用于所有平台的 Gradle 配置
 - [Koin 注解设置](/docs/setup/annotations) - 适用于基于注解的 DI 的 KSP 设置
 
-### 入门教程
+### 入门教程 {id="getting-started-tutorials"}
 - [Android 与 ViewModel](/docs/quickstart/android-viewmodel) - 开始使用 Koin 构建 Android 应用
 - [Jetpack Compose](/docs/quickstart/android-compose) - Koin 与 Compose UI
 - [Kotlin Multiplatform](/docs/reference/koin-mp/kmp) - 跨平台共享代码
 - [Ktor 后端](/docs/quickstart/ktor) - 构建服务器应用程序
 
-### 核心概念
+### 核心概念 {id="core-concepts"}
 - [依赖项注入基础](/docs/intro/what-is-dependency-injection) - 基础 DI 概念
 - [核心功能](/docs/reference/koin-core/dsl) - Koin DSL 与模块系统
 - [Android 集成](/docs/reference/koin-android/start) - Android 特定功能

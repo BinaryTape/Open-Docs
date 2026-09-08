@@ -9,7 +9,7 @@
 >
 {style="note" id="desktop-snippets-intro"}
 
-## スクロール修飾子
+## スクロール修飾子 {id="scroll-modifiers"}
 
 `verticalScroll` および `horizontalScroll` 修飾子 (modifiers) は、要素のコンテンツの境界 (bounds) がその最大サイズ制約よりも大きい場合に、ユーザーが要素をスクロールできるようにする最もシンプルな方法を提供します。
 `verticalScroll` 修飾子を持つスクロール可能なコンポーネントには `VerticalScrollbar` コンポーザブルを、`horizontalScroll` 修飾子を持つスクロール可能なコンポーネントには `HorizontalScrollbar` コンポーザブルをアタッチできます。
@@ -101,7 +101,7 @@ fun TextBox(text: String = "Item") {
 
 <img src="compose-desktop-scrollbar.animated.gif" alt="Scrollbar" width="289" preview-src="compose-desktop-scrollbar.png"/>
 
-## Lazy スクロール可能コンポーネント
+## Lazy スクロール可能コンポーネント {id="lazy-scrollable-components"}
 
 `LazyColumn` や `LazyRow` などの Lazy スクロール可能コンポーネントでもスクロールバーを使用できます。
 Lazy コンポーネントは、リストに大量のアイテムが含まれることが予想される場合、必要に応じてのみアイテムを構成 (compose) するため、はるかに効率的です。
@@ -180,13 +180,13 @@ fun TextBox(text: String = "Item") {
 
 <img src="compose-desktop-lazy-scrollbar.animated.gif" alt="Lazy scrollbar" width="289" preview-src="compose-desktop-lazy-scrollbar.png"/>
 
-## 既知の制限事項
+## 既知の制限事項 {id="known-limitations"}
 
 現在、タッチスクリーン、タッチパッド、およびトラックパッドを使用したスクロールはマウスイベントとして処理されるため、グリッチ（不自然な動作）やピンチズーム (pinch-to-zoom) の欠如などの制限が生じる可能性があります。私たちは入力とジェスチャーの処理を継続的に改善しており、これらの入力デバイスに対するネイティブサポートの導入を計画しています。
 
 * タッチスクリーンのネイティブサポート ([CMP-1609](https://youtrack.jetbrains.com/issue/CMP-1609/))
 * タッチパッドおよびトラックパッドのネイティブサポート ([CMP-1610](https://youtrack.jetbrains.com/issue/CMP-1610/))
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 [その他のデスクトップコンポーネント](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop)に関するチュートリアルをご覧ください。

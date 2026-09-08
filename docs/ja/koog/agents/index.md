@@ -17,7 +17,7 @@ Koogのエージェントは、以下のコア概念を中心に構築されて�
 
     最小限のエージェントの作成と実行に関する情報については、[クイックスタート](../quickstart.md)を参照してください。
 
-## Agent types
+## Agent types {id="agent-types"}
 
 実行する必要があるタスクに応じて、Koogはいくつかのエージェントタイプを提供しています。
 
@@ -27,7 +27,7 @@ Koogのエージェントは、以下のコア概念を中心に構築されて�
 - [関数型エージェント (Functional agents)](functional-agents.md)は、エージェントのコンテキストにアクセスできる関数として、カスタムロジックのプロトタイプを迅速に作成することを可能にします。
 - [プランナーエージェント (Planner agents)](planner-agents/index.md)は、望ましい最終状態に達するまで、反復的なサイクルを通じて多段階のタスクを自律的に計画および実行できます。
 
-## Agent configuration
+## Agent configuration {id="agent-configuration"}
 
 エージェント設定（Agent configuration）は、初期プロンプト、言語モデル、反復制限などのエージェントの実行パラメータを定義します。
 

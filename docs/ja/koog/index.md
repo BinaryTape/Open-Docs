@@ -27,7 +27,7 @@ Java開発者はイディオマティックなAPIを使用してJVM上でKoogの
 
 </div>
 
-## エージェント
+## エージェント {id="agents"}
 
 [エージェントの概要](agents/index.md)と、Koogを使用してさまざまなタイプのエージェントを作成する方法について説明します。
 
@@ -59,7 +59,7 @@ Java開発者はイディオマティックなAPIを使用してJVM上でKoogの
 
 </div>
 
-## コアコンポーネント
+## コアコンポーネント {id="core-components"}
 
 Koogエージェントのコアコンポーネントについて詳しく説明します。
 
@@ -91,7 +91,7 @@ Koogエージェントのコアコンポーネントについて詳しく説明�
 
 </div>
 
-## 高度な使用法
+## 高度な使用法 {id="advanced-usage"}
 
 <div class="grid cards" markdown>
 
@@ -140,7 +140,7 @@ Koogエージェントのコアコンポーネントについて詳しく説明�
 
 </div>
 
-## 統合
+## 統合 {id="integrations"}
 
 <div class="grid cards" markdown>
 

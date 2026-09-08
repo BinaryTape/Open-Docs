@@ -21,7 +21,7 @@ Kotlin 1.9.20 版本已發佈，[適用於所有目標的 K2 編譯器現已進�
 >
 {style="tip"}
 
-## IDE 支援
+## IDE 支援 {id="ide-support"}
 
 支援 1.9.20 的 Kotlin 外掛程式可用於：
 
@@ -34,18 +34,18 @@ Kotlin 1.9.20 版本已發佈，[適用於所有目標的 K2 編譯器現已進�
 >
 {style="note"}
 
-## 新的 Kotlin K2 編譯器更新
+## 新的 Kotlin K2 編譯器更新 {id="new-kotlin-k2-compiler-updates"}
 
 JetBrains 的 Kotlin 團隊持續穩定新的 K2 編譯器，這將帶來重大的效能提升，加速新語言特性的開發，統一 Kotlin 支援的所有平台，並為多平台專案提供更好的架構。
 
 K2 目前在所有目標中都處於 **Beta** 階段。[在發佈部落格文章中了解更多](https://blog.jetbrains.com/kotlin/2023/11/kotlin-1-9-20-released/)
 
-### 支援 Kotlin/Wasm
+### 支援 Kotlin/Wasm {id="support-for-kotlin-wasm"}
 
 自此版本起，Kotlin/Wasm 支援新的 K2 編譯器。
 [了解如何在您的專案中啟用它](#how-to-enable-the-kotlin-k2-compiler)。
 
-### K2 的 kapt 編譯器外掛程式預覽
+### K2 的 kapt 編譯器外掛程式預覽 {id="preview-kapt-compiler-plugin-with-k2"}
 
 > kapt 編譯器外掛程式對 K2 的支援是 [實驗性的](components-stability.md)。
 > 需要選擇加入（詳見下文），且您應僅出於評估目的使用它。
@@ -67,9 +67,9 @@ kapt.use.k2=true
 如果您在將 kapt 與 K2 編譯器搭配使用時遇到任何問題，請回報至我們的
 [問題追蹤器](http://kotl.in/issue)。
 
-### 如何啟用 Kotlin K2 編譯器
+### 如何啟用 Kotlin K2 編譯器 {id="how-to-enable-the-kotlin-k2-compiler"}
 
-#### 在 Gradle 中啟用 K2
+#### 在 Gradle 中啟用 K2 {id="enable-k2-in-gradle"}
 
 要啟用並測試 Kotlin K2 編譯器，請使用新的語言版本與以下編譯器選項：
 
@@ -89,7 +89,7 @@ kotlin {
 }
 ```
 
-#### 在 Maven 中啟用 K2
+#### 在 Maven 中啟用 K2 {id="enable-k2-in-maven"}
 
 要啟用並測試 Kotlin K2 編譯器，請更新 `pom.xml` 檔案的 `<project/>` 區段：
 
@@ -99,12 +99,12 @@ kotlin {
 </properties>
 ```
 
-#### 在 IntelliJ IDEA 中啟用 K2
+#### 在 IntelliJ IDEA 中啟用 K2 {id="enable-k2-in-intellij-idea"}
 
 要測試 IntelliJ IDEA 中的 Kotlin K2 編譯器，請前往 **Settings** | **Build, Execution, Deployment** |
 **Compiler** | **Kotlin Compiler** 並將 **Language Version** 欄位更新為 `2.0 (experimental)`。
 
-### 對新的 K2 編譯器留下您的回饋
+### 對新的 K2 編譯器留下您的回饋 {id="leave-your-feedback-on-the-new-k2-compiler"}
 
 我們非常感謝您提供的任何回饋！
 
@@ -114,11 +114,11 @@ kotlin {
 * [啟用傳送使用統計資料選項](https://www.jetbrains.com/help/idea/settings-usage-statistics.html) 以
   允許 JetBrains 收集有關 K2 使用情況的匿名數據。
 
-## Kotlin/JVM
+## Kotlin/JVM {id="kotlin-jvm"}
 
 從 1.9.20 版本開始，編譯器可以產生包含 Java 21 位元組碼的類別。
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 Kotlin 1.9.20 包含一個穩定的記憶體管理員，預設啟用新的記憶體分配器，垃圾收集器的效能改進，以及其他更新：
 
@@ -132,7 +132,7 @@ Kotlin 1.9.20 包含一個穩定的記憶體管理員，預設啟用新的記憶
 * [移除舊版記憶體管理員](#removal-of-the-legacy-memory-manager)
 * [目標分層政策的變更](#change-to-our-target-tiers-policy)
 
-### 預設啟用自訂記憶體分配器
+### 預設啟用自訂記憶體分配器 {id="custom-memory-allocator-enabled-by-default"}
 
 Kotlin 1.9.20 預設啟用了新的記憶體分配器。它旨在取代之前的預設分配器 `mimalloc`，使垃圾收集更有效率並提升 [Kotlin/Native 記憶體管理員](native-memory-manager.md) 的執行時期效能。
 
@@ -150,7 +150,7 @@ Kotlin 1.9.20 預設啟用了新的記憶體分配器。它旨在取代之前的
 新的分配器允許同時存在多個獨立的分配空間，
 這將使 Kotlin 團隊能夠嘗試不同的頁面佈局，以進一步提升效能。
 
-#### 如何啟用自訂記憶體分配器
+#### 如何啟用自訂記憶體分配器 {id="how-to-enable-the-custom-memory-allocator"}
 
 從 Kotlin 1.9.20 開始，新的記憶體分配器是預設值。不需要額外的設定。
 
@@ -158,7 +158,7 @@ Kotlin 1.9.20 預設啟用了新的記憶體分配器。它旨在取代之前的
 
 有關新分配器設計的技術細節，請參閱此 [README](https://github.com/JetBrains/kotlin/blob/master/kotlin-native/runtime/src/alloc/custom/README.md)。
 
-### 垃圾收集器的效能改進
+### 垃圾收集器的效能改進 {id="performance-improvements-for-the-garbage-collector"}
 
 Kotlin 團隊持續改進新 Kotlin/Native 記憶體管理員的效能和穩定性。
 此版本對垃圾收集器 (GC) 進行了許多重大變更，包括以下 1.9.20 亮點：
@@ -166,7 +166,7 @@ Kotlin 團隊持續改進新 Kotlin/Native 記憶體管理員的效能和穩定�
 * [](#full-parallel-mark-to-reduce-the-pause-time-for-the-gc)
 * [](#tracking-memory-in-big-chunks-to-improve-the-allocation-performance)
 
-#### 全平行標記以減少 GC 暫停時間
+#### 全平行標記以減少 GC 暫停時間 {id="full-parallel-mark-to-reduce-the-pause-time-for-the-gc"}
 
 先前，預設的垃圾收集器僅執行部分平行標記。當 mutator 執行緒暫停時，它會從自己的根（如執行緒區域變數和呼叫堆疊）開始標記。同時，一個獨立的 GC 執行緒負責從全域根以及所有正在執行原生程式碼（因此未暫停）的 mutator 根開始標記。
 
@@ -179,13 +179,13 @@ Kotlin 團隊持續改進新 Kotlin/Native 記憶體管理員的效能和穩定�
 
 這種新方法使標記過程更有效率，減少了 GC 的暫停時間。
 
-#### 以大區塊追蹤記憶體以提升分配效能
+#### 以大區塊追蹤記憶體以提升分配效能 {id="tracking-memory-in-big-chunks-to-improve-the-allocation-performance"}
 
 先前，GC 排程器會個別追蹤每個物件的分配。然而，無論是新的預設自訂分配器還是 `mimalloc` 記憶體分配器，都不會為每個物件分配獨立的存儲空間；它們會一次為多個物件分配大區域。
 
 在 Kotlin 1.9.20 中，GC 追蹤的是區域而非個別物件。這透過減少每次分配時執行的任務數量來加速小物件的分配，從而有助於極小化垃圾收集器的記憶體使用量。
 
-### klib 構件的增量編譯
+### klib 構件的增量編譯 {id="incremental-compilation-of-klib-artifacts"}
 
 > 此功能是 [實驗性的](components-stability.md#stability-levels-explained)。
 > 它可能隨時被刪除或更改。需要選擇加入（詳見下文）。
@@ -215,7 +215,7 @@ kotlin.incremental.native=true
 
 如果您遇到任何問題，請將此類情況回報至 [YouTrack](https://kotl.in/issue)。
 
-### 管理程式庫連結問題
+### 管理程式庫連結問題 {id="managing-library-linkage-issues"}
 
 此版本改進了 Kotlin/Native 編譯器處理 Kotlin 程式庫中連結問題的方式。錯誤訊息現在包含更具可讀性的宣告，因為它們使用簽章名稱而非雜湊值，幫助您更輕鬆地找到並修復問題。範例如下：
 
@@ -252,7 +252,7 @@ kotlin {
 
 如果您在使用此功能時遇到非預期的問題，可以隨時使用 `-Xpartial-linkage=disable` 編譯器選項選擇退出。請務必向 [我們的問題追蹤器](https://kotl.in/issue) 回報此類情況。
 
-### 呼叫類別建構函式時初始化隨伴物件
+### 呼叫類別建構函式時初始化隨伴物件 {id="companion-object-initialization-on-class-constructor-calls"}
 
 從 Kotlin 1.9.20 開始，Kotlin/Native 後端會在類別建構函式中呼叫隨伴物件的靜態初始設定式：
 
@@ -274,7 +274,7 @@ fun main() {
 
 既然此功能的實作在各平台之間更加一致，那麼在 Kotlin Multiplatform 專案中共享程式碼就會更容易。
 
-### 所有 cinterop 宣告都需要選擇加入
+### 所有 cinterop 宣告都需要選擇加入 {id="opt-in-requirement-for-all-cinterop-declarations"}
 
 從 Kotlin 1.9.20 開始，所有由 `cinterop` 工具從 C 和 Objective-C 程式庫（如 libcurl 和 libxml）產生的 Kotlin 宣告都會標記為 `@ExperimentalForeignApi`。如果缺少選擇加入註解，您的程式碼將無法編譯。
 
@@ -284,7 +284,7 @@ fun main() {
 >
 {style="note"}
 
-### 連結器錯誤的自訂訊息
+### 連結器錯誤的自訂訊息 {id="custom-message-for-linker-errors"}
 
 如果您是程式庫作者，現在可以透過自訂訊息協助您的使用者解決連結器錯誤。
 
@@ -292,14 +292,14 @@ fun main() {
 
 您現在可以在編譯失敗訊息中提供特定說明或連結。為此，請將 `-Xuser-setup-hint` 編譯器選項傳遞給 `cinterop`，或在您的 `.def` 檔案中新增 `userSetupHint=message` 屬性。
 
-### 移除舊版記憶體管理員
+### 移除舊版記憶體管理員 {id="removal-of-the-legacy-memory-manager"}
 
 [新的記憶體管理員](native-memory-manager.md) 已在 Kotlin 1.6.20 中引入，並在 1.7.20 中成為預設。
 自那時起，它不斷收到進一步的更新和效能改進，並已達到穩定版。
 
 完成棄用週期並移除舊版記憶體管理員的時間已經到來。如果您仍在使用它，請從 `gradle.properties` 中移除 `kotlin.native.binary.memoryModel=strict` 選項，並按照我們的 [遷移指南](native-migration-guide.md) 進行必要的變更。
 
-### 目標分層政策的變更
+### 目標分層政策的變更 {id="change-to-our-target-tiers-policy"}
 
 我們決定提升 [第 1 層級支援](native-target-support.md#tier-1) 的要求。Kotlin 團隊現在承諾為符合第 1 層級條件的目標在編譯器發佈版本之間提供原始碼和二進位檔案相容性。它們還必須定期使用 CI 工具進行測試，以確保能夠編譯和執行。目前，第 1 層級包括 macOS 主機的以下目標：
 
@@ -319,7 +319,7 @@ fun main() {
 
 請參閱目前 [支援的目標](native-target-support.md) 完整清單。
 
-## Kotlin Multiplatform
+## Kotlin Multiplatform {id="kotlin-multiplatform"}
 
 Kotlin 1.9.20 專注於 Kotlin Multiplatform 的穩定化，並透過新的專案精靈和其他顯著功能在改進開發人員體驗方面邁出了新步伐：
 
@@ -332,7 +332,7 @@ Kotlin 1.9.20 專注於 Kotlin Multiplatform 的穩定化，並透過新的專�
 * [Compose Multiplatform 專案支援 Kotlin/Native 編譯快取](#support-for-kotlin-native-compilation-caches-in-compose-multiplatform-projects)
 * [相容性指南](#compatibility-guidelines)
 
-### Kotlin Multiplatform 已穩定
+### Kotlin Multiplatform 已穩定 {id="kotlin-multiplatform-is-stable"}
 
 1.9.20 版本標誌著 Kotlin 演進中的一個重要里程碑：[Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform/get-started.html) 終於進入穩定版。這意味著該技術可以安全地用於您的專案，並已 100% 準備好用於生產環境。這也意味著 Kotlin Multiplatform 的進一步開發將根據我們嚴格的 [向後相容性規則](https://kotlinfoundation.org/language-committee-guidelines/) 繼續進行。
 
@@ -342,7 +342,7 @@ Kotlin 1.9.20 專注於 Kotlin Multiplatform 的穩定化，並透過新的專�
 * 查閱 [多平台相容性指南](https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html) 以查看在穩定化過程中做出的重大變更。
 * 閱讀 [預期宣告與實際宣告機制](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html)，這是 Kotlin Multiplatform 的重要部分，在此版本中也得到了部分穩定。
 
-### 用於配置多平台專案的範本
+### 用於配置多平台專案的範本 {id="template-for-configuring-multiplatform-projects"}
 
 從 Kotlin 1.9.20 開始，Kotlin Gradle 外掛程式會自動為常見的多平台情境建立共享的原始碼集。
 如果您的專案設置是其中之一，則無需手動配置原始碼集階層。
@@ -353,7 +353,7 @@ Kotlin 1.9.20 專注於 Kotlin Multiplatform 的穩定化，並透過新的專�
 它包含了 Kotlin 根據您宣告的目標自動建立的中間原始碼集。
 [參見完整範本](#see-the-full-hierarchy-template)。
 
-#### 更輕鬆地建立您的專案
+#### 更輕鬆地建立您的專案 {id="create-your-project-easier"}
 
 考慮一個同時針對 Android 和 iPhone 裝置並在 Apple 晶片 MacBook 上開發的多平台專案。
 比較此專案在不同 Kotlin 版本之間的設置方式：
@@ -415,7 +415,7 @@ kotlin {
 
 綠色的原始碼集是實際建立並包含在專案中的，而來自預設範本的灰色原始碼集則被忽略。
 
-#### 為原始碼集使用補全功能
+#### 為原始碼集使用補全功能 {id="use-completion-for-source-sets"}
 
 為了更輕鬆地處理建立的專案結構，IntelliJ IDEA 現在為使用預設階層範本建立的原始碼集提供補全功能：
 
@@ -450,7 +450,7 @@ w: Accessed 'source set jvmMain' without registering the jvm target:
   }
 ```
 
-#### 設置目標階層
+#### 設置目標階層 {id="set-up-the-target-hierarchy"}
 
 從 Kotlin 1.9.20 開始，預設階層範本會自動啟用。在大多數情況下，不需要額外的設置。
 
@@ -492,7 +492,7 @@ w: Accessed 'source set jvmMain' without registering the jvm target:
 
   我們目前正在開發用於建立您自己的階層範本的 API，以簡化此類情況下的設置程序。
 
-#### 查看完整階層範本 {initial-collapse-state="collapsed" collapsible="true"}
+#### 查看完整階層範本 {initial-collapse-state="collapsed" collapsible="true" id="see-the-full-hierarchy-template"}
 
 當您宣告專案編譯的目標時，外掛程式會據此從範本中挑選共享的原始碼集，並在您的專案中建立它們。
 
@@ -502,7 +502,7 @@ w: Accessed 'source set jvmMain' without registering the jvm target:
 >
 {style="tip"}
 
-### 新的專案精靈
+### 新的專案精靈 {id="new-project-wizard"}
 
 JetBrains 團隊正在引入一種建立跨平台專案的新方式 – [Kotlin Multiplatform 網頁精靈](https://kmp.jetbrains.com)。
 
@@ -523,7 +523,7 @@ JetBrains 團隊正在引入一種建立跨平台專案的新方式 – [Kotlin 
    <img src="multiplatform-create-project-button.png" alt="Create a project" style="block"/>
 </a>
 
-### Kotlin Multiplatform 完全支援 Gradle 配置快取
+### Kotlin Multiplatform 完全支援 Gradle 配置快取 {id="full-support-for-the-gradle-configuration-cache-in-kotlin-multiplatform"}
 
 先前，我們引入了適用於 Kotlin 多平台程式庫的 Gradle 配置快取 [預覽](whatsnew19.md#preview-of-the-gradle-configuration-cache)。在 1.9.20 中，Kotlin Multiplatform 外掛程式更進一步。
 
@@ -533,7 +533,7 @@ JetBrains 團隊正在引入一種建立跨平台專案的新方式 – [Kotlin 
 Gradle 配置快取透過為後續組建重複使用配置階段的結果來加速組建過程。
 有關詳細資訊和設置說明，請參閱 [Gradle 文件](https://docs.gradle.org/current/userguide/configuration_cache.html#config_cache:usage)。
 
-### 在 Gradle 中更輕鬆地配置新的標準程式庫版本
+### 在 Gradle 中更輕鬆地配置新的標準程式庫版本 {id="easier-configuration-of-new-standard-library-versions-in-gradle"}
 
 建立多平台專案時，標準程式庫 (`stdlib`) 的相依性會自動新增到每個原始碼集。這是開始使用多平台專案最簡單的方式。
 
@@ -595,7 +595,7 @@ kotlin {
 
 這項變更是透過在標準程式庫的 Gradle 中繼資料中包含新資訊實現的。這讓 Gradle 能夠自動為其他原始碼集解析正確的標準程式庫構件。
 
-### 預設支援第三方 cinterop 程式庫
+### 預設支援第三方 cinterop 程式庫 {id="default-support-for-third-party-cinterop-libraries"}
 
 Kotlin 1.9.20 為所有套用了 [Kotlin CocoaPods Gradle](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html) 外掛程式的專案中的 cinterop 相依性添加了預設支援（而非透過選擇加入的支援）。
 
@@ -603,7 +603,7 @@ Kotlin 1.9.20 為所有套用了 [Kotlin CocoaPods Gradle](https://kotlinlang.or
 
 先前，這僅適用於 Kotlin/Native 發行版隨附的 [平台特定程式庫](native-platform-libs.md)（如 Foundation、UIKit 和 POSIX）。現在，所有第三方 Pod 程式庫預設都可以在共享原始碼集中使用。您不再需要指定個別的 Gradle 屬性來支援它們。
 
-### Compose Multiplatform 專案支援 Kotlin/Native 編譯快取
+### Compose Multiplatform 專案支援 Kotlin/Native 編譯快取 {id="support-for-kotlin-native-compilation-caches-in-compose-multiplatform-projects"}
 
 此版本解決了與 Compose Multiplatform 編譯器外掛程式的相容性問題，該問題主要影響 iOS 的 Compose Multiplatform 專案。
 
@@ -613,7 +613,7 @@ Kotlin 1.9.20 為所有套用了 [Kotlin CocoaPods Gradle](https://kotlinlang.or
 
 有關提高編譯時間的更多提示，請參閱 [Kotlin/Native 文件](native-improving-compilation-time.md)。
 
-### 相容性指南
+### 相容性指南 {id="compatibility-guidelines"}
 
 配置專案時，請檢查 Kotlin Multiplatform Gradle 外掛程式與可用 Gradle、Xcode 和 Android Gradle 外掛程式 (AGP) 版本的相容性：
 
@@ -625,7 +625,7 @@ Kotlin 1.9.20 為所有套用了 [Kotlin CocoaPods Gradle](https://kotlinlang.or
 
 不過，Xcode 14.3 在大多數情況下仍可運作。請記住，如果您在本機電腦上使用 14.3 版本，隨 Xcode 15 交付的程式庫將可見但不可訪問。
 
-## Kotlin/Wasm
+## Kotlin/Wasm {id="kotlin-wasm"}
 
 在 1.9.20 中，Kotlin Wasm 達到了 [Alpha 階段](components-stability.md) 的穩定性。
 
@@ -641,7 +641,7 @@ Kotlin 1.9.20 為所有套用了 [Kotlin CocoaPods Gradle](https://kotlinlang.or
 >
 {style="note"}
 
-### 與 Wasm GC 第 4 階段和最終操作碼的相容性
+### 與 Wasm GC 第 4 階段和最終操作碼的相容性 {id="compatibility-with-wasm-gc-phase-4-and-final-opcodes"}
 
 Wasm GC 進入最終階段，需要更新操作碼（二進位表示中使用的常數數字）。
 Kotlin 1.9.20 支援最新的操作碼，因此我們強烈建議您將 Wasm 專案更新到最新版本的 Kotlin。
@@ -649,7 +649,7 @@ Kotlin 1.9.20 支援最新的操作碼，因此我們強烈建議您將 Wasm 專
 * Chrome 和基於 Chromium 的瀏覽器版本為 119 或更新。
 * Firefox 版本為 119 或更新。請注意，在 Firefox 119 中，您需要 [手動開啟 Wasm GC](wasm-configuration.md)。
 
-### 新的 wasm-wasi 目標，以及將 wasm 目標重新命名為 wasm-js
+### 新的 wasm-wasi 目標，以及將 wasm 目標重新命名為 wasm-js {id="new-wasm-wasi-target-and-the-renaming-of-the-wasm-target-to-wasm-js"}
 
 在此版本中，我們為 Kotlin/Wasm 引入了一個新目標 – `wasm-wasi`。我們也將 `wasm` 目標重新命名為 `wasm-js`。
 在 Gradle DSL 中，這些目標分別以 `wasmWasi {}` 和 `wasmJs {}` 的形式提供。
@@ -673,7 +673,7 @@ kotlin {
 * 在 `build.gradle.kts` 檔案中，將 `wasm {}` 區塊重新命名為 `wasmJs {}`。
 * 在您的專案結構中，將 `wasmMain` 目錄重新命名為 `wasmJsMain`。
 
-### 標準程式庫支援 WASI API
+### 標準程式庫支援 WASI API {id="support-for-the-wasi-api-in-the-standard-library"}
 
 在此版本中，我們包含了對 [WASI](https://github.com/WebAssembly/WASI) 的支援，這是 Wasm 平台的系統介面。
 WASI 支援讓您更容易在瀏覽器之外使用 Kotlin/Wasm，例如在伺服器端應用程式中，它提供了一組標準化的 API 來訪問系統資源。此外，WASI 還提供了基於能力的安全性 – 訪問外部資源時的另一層安全保護。
@@ -696,7 +696,7 @@ private external fun wasiRawClockTimeGet(clockId: Int, precision: Long, resultPt
 >
 {style="note"}
 
-### Kotlin/Wasm API 改進
+### Kotlin/Wasm API 改進 {id="kotlin-wasm-api-improvements"}
 
 此版本對 Kotlin/Wasm API 進行了一些生活品質方面的改進。
 例如，您不再需要為 DOM 事件監聽器回傳一個值：
@@ -731,7 +731,7 @@ fun main() {
 </tr>
 </table>
 
-## Gradle
+## Gradle {id="gradle"}
 
 Kotlin 1.9.20 與 Gradle 6.8.3 到 8.1 完全相容。您也可以使用最高到最新版本的 Gradle 版本，但如果這樣做，請記住您可能會遇到棄用警告，或者某些新的 Gradle 功能可能無法運作。
 
@@ -740,17 +740,17 @@ Kotlin 1.9.20 與 Gradle 6.8.3 到 8.1 完全相容。您也可以使用最高�
 * [用於配置 Konan 目錄路徑的新屬性](#new-property-to-configure-paths-to-konan-directories)
 * [Kotlin/Native 任務的新建置報告指標](#new-build-report-metrics-for-kotlin-native-tasks)
 
-### 支援測試夾具訪問 internal 宣告
+### 支援測試夾具訪問 internal 宣告 {id="support-for-test-fixtures-to-access-internal-declarations"}
 
 在 Kotlin 1.9.20 中，如果您使用 Gradle 的 `java-test-fixtures` 外掛程式，您的 [測試夾具](https://docs.gradle.org/current/userguide/java_testing.html#sec:java_test_fixtures) 現在可以訪問主原始碼集類別中的 `internal` 宣告。此外，任何測試原始碼也可以看到測試夾具類別中的任何 `internal` 宣告。
 
-### 用於配置 Konan 目錄路徑的新屬性
+### 用於配置 Konan 目錄路徑的新屬性 {id="new-property-to-configure-paths-to-konan-directories"}
 
 在 Kotlin 1.9.20 中，可以使用 `konan.data.dir` Gradle 屬性來自訂您的 `~/.konan` 目錄路徑，這樣您就不必透過環境變數 `KONAN_DATA_DIR` 進行配置。
 
 或者，您可以使用 `-Xkonan-data-dir` 編譯器選項，透過 `cinterop` 和 `konanc` 工具配置您的自訂 `~/.konan` 目錄路徑。
 
-### Kotlin/Native 任務的新建置報告指標
+### Kotlin/Native 任務的新建置報告指標 {id="new-build-report-metrics-for-kotlin-native-tasks"}
 
 在 Kotlin 1.9.20 中，Gradle 建置報告現在包含 Kotlin/Native 任務的指標。以下是包含這些指標的建置報告範例：
 
@@ -804,13 +804,13 @@ Size metrics:
 >
 {style="note"}
 
-## 標準程式庫
+## 標準程式庫 {id="standard-library"}
 
 在 Kotlin 1.9.20 中，[Kotlin/Native 標準程式庫已趨於穩定](#the-kotlin-native-standard-library-becomes-stable)，並有一些新功能：
 * [取代 Enum 類別 values 泛型函式](#replacement-of-the-enum-class-values-generic-function)
 * [改進 Kotlin/JS 中 HashMap 操作的效能](#improved-performance-of-hashmap-operations-in-kotlin-js)
 
-### 取代 Enum 類別 values 泛型函式
+### 取代 Enum 類別 values 泛型函式 {id="replacement-of-the-enum-class-values-generic-function"}
 
 > 此功能是 [實驗性的](components-stability.md#stability-levels-explained)。它可能隨時被刪除或更改。
 > 需要選擇加入（詳見下文）。僅出於評估目的使用它。我們歡迎您在 [YouTrack](https://kotl.in/issue) 上提供回饋。
@@ -837,11 +837,11 @@ printAllValues<RGB>()
 // RED, GREEN, BLUE
 ```
 
-#### 如何啟用 enumEntries 函式
+#### 如何啟用 enumEntries 函式 {id="how-to-enable-the-enumentries-function"}
 
 要嘗試此功能，請使用 `@OptIn(ExperimentalStdlibApi)` 進行選擇加入，並使用 1.9 或更高版本的語言版本。如果您使用最新版本的 Kotlin Gradle 外掛程式，則無需指定語言版本即可測試該功能。
 
-### Kotlin/Native 標準程式庫已穩定
+### Kotlin/Native 標準程式庫已穩定 {id="the-kotlin-native-standard-library-becomes-stable"}
 
 在 Kotlin 1.9.0 中，我們 [解釋了](whatsnew19.md#the-kotlin-native-standard-library-s-journey-towards-stabilization) 為了使 Kotlin/Native 標準程式庫更接近穩定目標而採取的行動。在 Kotlin 1.9.20 中，我們終於完成了這項工作，使 Kotlin/Native 標準程式庫趨於穩定。以下是此版本的一些亮點：
 
@@ -853,7 +853,7 @@ printAllValues<RGB>()
   >
   {style="warning"}
 
-#### Atomics API 的改進
+#### Atomics API 的改進 {id="improvements-to-the-atomics-api"}
 
 在 Kotlin 1.9.0 中，我們說過當 Kotlin/Native 標準程式庫穩定時，Atomics API 就會準備好穩定。Kotlin 1.9.20 包含以下額外變更：
 
@@ -867,14 +867,14 @@ printAllValues<RGB>()
 
 有關 Kotlin 1.9.20 中所有變更的更多資訊，請參閱我們的 [YouTrack 票證](https://youtrack.jetbrains.com/issue/KT-61028/Behavioural-changes-to-the-Native-stdlib-API)。
 
-### 改進 Kotlin/JS 中 HashMap 操作的效能
+### 改進 Kotlin/JS 中 HashMap 操作的效能 {id="improved-performance-of-hashmap-operations-in-kotlin-js"}
 
 Kotlin 1.9.20 改進了 `HashMap` 操作的效能，並減少了它們在 Kotlin/JS 中的記憶體佔用。在內部，Kotlin/JS 已將其實作更改為開放定址（open addressing）。這意味著當您執行以下操作時，應該會看到效能改進：
 * 將新元素插入 `HashMap`。
 * 在 `HashMap` 中搜尋現有元素。
 * 遍歷 `HashMap` 中的鍵或值。
 
-## 文件更新
+## 文件更新 {id="documentation-updates"}
 
 Kotlin 文件收到了一些顯著的變化：
 * [JVM 中繼資料](https://kotlinlang.org/api/kotlinx-metadata-jvm/) API 參考 – 探索如何使用 Kotlin/JVM 解析中繼資料。
@@ -884,9 +884,9 @@ Kotlin 文件收到了一些顯著的變化：
 * 改進的 [陣列頁面](arrays.md) – 了解陣列以及何時使用它們。
 * [Kotlin Multiplatform 中的預期宣告與實際宣告](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html) – 了解 Kotlin Multiplatform 中預期宣告與實際宣告的機制。
 
-## 安裝 Kotlin 1.9.20
+## 安裝 Kotlin 1.9.20 {id="install-kotlin-1-9-20"}
 
-### 檢查 IDE 版本
+### 檢查 IDE 版本 {id="check-the-ide-version"}
 
 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 2023.1.x 和 2023.2.x 會自動建議將 Kotlin 外掛程式更新到 1.9.20 版本。IntelliJ IDEA 2023.3 將包含 Kotlin 1.9.20 外掛程式。
 
@@ -894,7 +894,7 @@ Android Studio Hedgehog (231) 和 Iguana (232) 將在即將發佈的版本中支
 
 新的命令列編譯器可在 [GitHub 發佈頁面](https://github.com/JetBrains/kotlin/releases/tag/v1.9.20) 下載。
 
-### 配置 Gradle 設定
+### 配置 Gradle 設定 {id="configure-gradle-settings"}
 
 要下載 Kotlin 構件和相依性，請更新您的 `settings.gradle(.kts)` 檔案以使用 Maven Central 儲存庫：
 

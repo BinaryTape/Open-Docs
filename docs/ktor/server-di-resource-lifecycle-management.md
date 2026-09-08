@@ -17,7 +17,7 @@
 
 [依赖注入 (DI) 插件](server-dependency-injection.md)会在应用程序关闭时自动处理生命周期和清理。
 
-### AutoCloseable 支持
+### AutoCloseable 支持 {id="autocloseable-support"}
 
 默认情况下，任何实现 `AutoCloseable` 的依赖项都会在应用程序停止时自动关闭：
 
@@ -33,7 +33,7 @@ dependencies {
 }
 ```
 
-### 自定义清理逻辑
+### 自定义清理逻辑 {id="custom-cleanup-logic"}
 
 您可以通过指定 `cleanup` 函数来定义自定义清理逻辑：
 
@@ -45,7 +45,7 @@ dependencies {
 }
 ```
 
-### 使用 key 进行作用域清理
+### 使用 key 进行作用域清理 {id="scoped-cleanup-with-key"}
 
 使用 `key` 来管理命名资源及其清理：
 

@@ -47,9 +47,9 @@ DISPLAY(plot {
 
 ![가우스 분포에 대한 다양한 출력](gaussian-distribution-output.png){width=700}
 
-## 텍스트
+## 텍스트 {id="texts"}
 
-### 일반 텍스트
+### 일반 텍스트 {id="plain-text"}
 
 가장 간단한 출력 유형은 일반 텍스트(Plain text)입니다. 이는 출력문(printed statements), 변수 값 또는 코드의 모든 텍스트 기반 출력에 사용됩니다:
 
@@ -66,7 +66,7 @@ var a3: Int? = a1 + a2
 * 셀의 결과가 어떤 출력 유형으로도 [렌더링](https://github.com/Kotlin/kotlin-jupyter?tab=readme-ov-file#rendering) 및 표시될 수 없는 경우, `toString()` 함수를 사용하여 일반 텍스트로 출력됩니다.
 * 코드에 오류가 포함된 경우, Kotlin Notebook은 오류 메시지와 트레이스백(traceback)을 표시하여 디버깅을 위한 통찰력을 제공합니다.
 
-### 리치 텍스트
+### 리치 텍스트 {id="rich-text"}
 
 리치 텍스트(Rich text)를 사용하려면 마크다운(Markdown) 유형의 셀을 선택하세요. 이 방법을 통해 마크다운 및 HTML 마크업으로 콘텐츠 형식을 지정하고 리스트, 테이블, 글꼴 스타일, 코드 블록 등을 사용할 수 있습니다. HTML은 CSS 스타일과 JavaScript를 포함할 수 있습니다.
 
@@ -88,7 +88,7 @@ var a3: Int? = a1 + a2
 
 ![마크다운 셀의 리치 텍스트](markdown-cells-output.png){width=700}
 
-## HTML
+## HTML {id="html"}
 
 Kotlin Notebook은 HTML을 직접 렌더링하여 스크립트를 실행하거나 웹사이트를 포함할 수도 있습니다:
 
@@ -110,11 +110,11 @@ HTML("""
 >
 {style="note"}
 
-## 이미지
+## 이미지 {id="images"}
 
 Kotlin Notebook을 사용하면 파일의 이미지, 생성된 그래프 또는 기타 시각적 매체를 표시할 수 있습니다. 정적 이미지는 `.png`, `jpeg`, `.svg`와 같은 형식으로 표시할 수 있습니다.
 
-### 버퍼링된 이미지
+### 버퍼링된 이미지 {id="buffered-images"}
 
 기본적으로 `BufferedImage` 클래스를 사용하여 이미지를 표시할 수 있습니다:
 
@@ -141,7 +141,7 @@ graphics.dispose()
 
 ![기본 BufferedImage를 사용하여 이미지 표시](bufferedimage-output.png){width=400}
 
-### 로드된 이미지
+### 로드된 이미지 {id="loaded-images"}
 
 `lib-ext` 라이브러리의 도움으로 표준 Jupyter 기능을 확장하고 네트워크에서 로드된 이미지를 표시할 수 있습니다:
 
@@ -155,7 +155,7 @@ Image("https://kotlinlang.org/docs/images/kotlin-logo.png", embed = false).withW
 
 ![외부 이미지 링크 사용](external-images-output.png){width=400}
 
-### 임베디드 이미지
+### 임베디드 이미지 {id="embedded-images"}
 
 네트워크에서 로드된 이미지의 단점은 링크가 깨지거나 네트워크 연결이 끊어지면 이미지가 사라진다는 것입니다. 이를 해결하려면 다음과 같이 임베디드 이미지(embedded images)를 사용하세요:
 
@@ -166,7 +166,7 @@ kotlinMascot
 
 ![임베디드 이미지 사용](embedded-images-output.png){width=400}
 
-## 수학 공식 및 방정식
+## 수학 공식 및 방정식 {id="math-formulas-and-equations"}
 
 학계에서 널리 사용되는 조판 시스템인 LaTeX 형식을 사용하여 수학 공식과 방정식을 렌더링할 수 있습니다:
 
@@ -184,7 +184,7 @@ kotlinMascot
 
    ![LaTeX를 사용하여 수학 공식 렌더링](latex-output.png){width=300}
 
-## 데이터 프레임
+## 데이터 프레임 {id="data-frames"}
 
 Kotlin Notebook을 사용하면 데이터 프레임(data frames)으로 구조화된 데이터를 시각화할 수 있습니다:
 
@@ -235,7 +235,7 @@ Kotlin Notebook을 사용하면 데이터 프레임(data frames)으로 구조화
    dfSales.writeCSV("sales-stats.csv")
    ```
 
-## 차트
+## 차트 {id="charts"}
 
 Kotlin Notebook에서 직접 다양한 차트를 생성하여 데이터를 시각화할 수 있습니다:
 
@@ -280,7 +280,7 @@ Kotlin Notebook에서 직접 다양한 차트를 생성하여 데이터를 시�
    salesPlot.save("sales-chart.svg")
    ```
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [DataFrame 및 Kandy 라이브러리를 사용한 데이터 시각화](data-analysis-visualization.md)
 * [Kotlin Notebook의 리치 출력 렌더링 및 표시에 대해 자세히 알아보기](https://www.jetbrains.com/help/idea/kotlin-notebook.html#render-rich-output)

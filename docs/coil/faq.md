@@ -2,11 +2,11 @@
 
 有问题不在常见问题解答中？查看带有 #coil 标签的 [StackOverflow](https://stackoverflow.com/questions/tagged/coil) 或搜索 [Github 讨论区](https://github.com/coil-kt/coil/discussions)。
 
-## Coil 可以用于 Java 项目或 Kotlin/Java 混合项目吗？
+## Coil 可以用于 Java 项目或 Kotlin/Java 混合项目吗？ {id="can-coil-be-used-with-java-projects-or-mixed-kotlin-java-projects"}
 
 可以！[在此阅读](java_compatibility.md)。
 
-## 如何预加载图像？
+## 如何预加载图像？ {id="how-do-i-preload-an-image"}
 
 发起一个不带目标的图像请求：
 
@@ -32,14 +32,14 @@ val request = ImageRequest.Builder(context)
 imageLoader.enqueue(request)
 ```
 
-## 如何启用日志记录？
+## 如何启用日志记录？ {id="how-do-i-enable-logging"}
 
 在 [构造 `ImageLoader`](getting_started.md#configuring-the-singleton-imageloader) 时设置 `logger(DebugLogger())`。
 
 !!! Note
     `DebugLogger` 应仅在调试构建中使用。
 
-## 如何以 Java 8 或 Java 11 为目标？
+## 如何以 Java 8 或 Java 11 为目标？ {id="how-do-i-target-java-8-or-java-11"}
 
 Coil 需要 [Java 8 字节码](https://developer.android.com/studio/write/java8-support)。Android Gradle 插件 `4.2.0` 及更高版本以及 Kotlin Gradle 插件 `1.5.0` 及更高版本默认启用此功能。如果你正在使用这些插件的旧版本，请将以下内容添加到你的 Gradle 构建脚本中：
 
@@ -69,7 +69,7 @@ android {
 }
 ```
 
-## 为什么我会收到 Compose 多平台的 Skiko 版本警告？
+## 为什么我会收到 Compose 多平台的 Skiko 版本警告？ {id="why-do-i-get-a-skiko-version-warning-with-compose-multiplatform"}
 
 如果 Coil 的 Skiko 依赖版本早于 Compose 多平台的版本，Compose 多平台将打印如下警告：
 
@@ -111,7 +111,7 @@ dependencies {
 }
 ```
 
-## 如何获取开发快照？
+## 如何获取开发快照？ {id="how-do-i-get-development-snapshots"}
 
 将快照仓库添加到你的仓库列表中：
 
@@ -140,7 +140,7 @@ allprojects {
 !!! Note
     快照会针对通过 CI 的 `main` 分支上的每个新提交进行部署。它们可能包含破坏性变更或可能不稳定。使用风险自负。
 
-## 如何在 Coil 中使用 Proguard？
+## 如何在 Coil 中使用 Proguard？ {id="how-to-i-use-proguard-with-coil"}
 
 要在 Coil 中使用 Proguard，[请将这些 Proguard 规则添加到你的配置中](https://github.com/coil-kt/coil/blob/main/coil-core/src/jvmMain/resources/META-INF/proguard/proguard-rules.pro)。
 

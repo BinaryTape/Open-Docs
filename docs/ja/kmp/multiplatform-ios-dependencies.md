@@ -6,7 +6,7 @@ Apple SDKの依存関係（FoundationやCore Bluetoothなど）は、Kotlin Mult
 
 Kotlin MultiplatformプロジェクトでiOSの依存関係を処理するには、[cinteropツール](#with-cinterop)で管理するか、[CocoaPods依存関係マネージャー](#with-cocoapods)を使用します（純粋なSwiftのPodはサポートされていません）。
 
-### cinteropを使用する
+### cinteropを使用する {id="with-cinterop"}
 
 cinteropツールを使用して、Objective-CまたはSwiftの宣言に対するKotlinバインディングを作成できます。これにより、Kotlinコードからそれらを呼び出すことができるようになります。
 
@@ -17,7 +17,7 @@ cinteropツールを使用して、Objective-CまたはSwiftの宣言に対す�
 3. この依存関係をcinteropに説明するための特別な `.def` [定義ファイル](https://kotlinlang.org/docs/native-definition-file.html)を作成する。
 4. ビルド中にバインディングを生成するようにビルドスクリプトを調整する。
 
-#### ライブラリを追加する
+#### ライブラリを追加する {id="add-a-library"}
 
 1. ライブラリのソースコードをダウンロードし、プロジェクトから参照できる場所に配置します。
 2. ライブラリをビルドし（通常、ライブラリの作成者がビルド方法のガイドを提供しています）、バイナリへのパスを取得します。
@@ -108,7 +108,7 @@ import DateTools.*
 >
 {style="tip"}
 
-#### フレームワークを追加する
+#### フレームワークを追加する {id="add-a-framework"}
 
 1. フレームワークのソースコードをダウンロードし、プロジェクトから参照できる場所に配置します。
 2. フレームワークをビルドし（通常、フレームワークの作成者がビルド方法のガイドを提供しています）、バイナリへのパスを取得します。
@@ -194,7 +194,7 @@ import MyFramework.*
 
 [Swift/Objective-Cの相互運用](https://kotlinlang.org/docs/native-objc-interop.html)および[Gradleからのcinteropの設定](multiplatform-dsl-reference.md#cinterops)の詳細をご覧ください。
 
-### CocoaPodsを使用する
+### CocoaPodsを使用する {id="with-cocoapods"}
 
 1. [CocoaPods統合の初期セットアップ](multiplatform-cocoapods-overview.md#set-up-an-environment-to-work-with-cocoapods)を実行します。
 2. プロジェクトの `build.gradle(.kts)` に `pod()` 関数の呼び出しを含めることで、使用したいCocoaPodsリポジトリのPodライブラリへの依存関係を追加します。
@@ -253,7 +253,7 @@ import cocoapods.SDWebImage.*
 > 
 {style="tip"}
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 マルチプラットフォームプロジェクトでの依存関係の追加に関する他のリソースを確認し、以下について詳しく学びましょう：
 

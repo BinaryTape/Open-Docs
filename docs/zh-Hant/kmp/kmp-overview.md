@@ -5,9 +5,9 @@ Kotlin Multiplatform (KMP) 是由 JetBrains 開發的開源技術，能在 Andro
 
 透過 Compose Multiplatform，您還可以在多個平台之間共用 UI 程式碼，以實現最大程度的程式碼複用。
 
-## 為什麼公司選擇 KMP
+## 為什麼公司選擇 KMP {id="why-companies-choose-kmp"}
 
-### 成本效益與更快的交付速度
+### 成本效益與更快的交付速度 {id="cost-efficiency-and-faster-delivery"}
 
 Kotlin Multiplatform 有助於簡化技術和組織流程：
 
@@ -18,14 +18,14 @@ Kotlin Multiplatform 有助於簡化技術和組織流程：
 
 從新創公司到全球企業，各種規模的組織都在正式環境中使用 KMP。包括 Google、Duolingo、Forbes、Philips、McDonald's、Bolt、H&M、Baidu、Kuaishou 和 Bilibili 在內的公司都採用了 KMP，因為它具有靈活性、原生效能、提供原生使用者體驗的能力、成本效益以及對逐步採用的支援。[進一步了解已採用 KMP 的公司](https://kotlinlang.org/case-studies/?type=multiplatform)。
 
-### 程式碼共用的靈活性
+### 程式碼共用的靈活性 {id="flexibility-of-code-sharing"}
 
 您可以根據自己的需求共用程式碼：共用獨立的模組（如網路或儲存），並隨著時間推移逐步擴展共用程式碼。
 您也可以在保持 UI 原生的同時共用所有業務邏輯，或者使用 Compose Multiplatform 逐步遷移 UI。
 
 ![逐步採用 KMP 的說明：共用部分邏輯且不共用 UI、共用所有邏輯但不含 UI、共用邏輯與 UI](kmp-graphic.png){width="700"}
 
-### iOS 上的原生感
+### iOS 上的原生感 {id="native-feel-on-ios"}
 
 您可以完全使用 SwiftUI 或 UIKit 來建置 UI，使用 Compose Multiplatform 在 Android 和 iOS 上建立統一的體驗，或根據需要混合搭配原生與共用的 UI 程式碼。
 
@@ -33,7 +33,7 @@ Kotlin Multiplatform 有助於簡化技術和組織流程：
 
 <video src="https://www.youtube.com/watch?v=LB5a2FRrT94" width="700"/>
 
-### 原生效能
+### 原生效能 {id="native-performance"}
 
 Kotlin Multiplatform 利用 [Kotlin/Native](https://kotlinlang.org/docs/native-overview.html) 產出原生二進位檔，並在不適合或無法使用虛擬機（例如在 iOS 上）的情況下直接存取平台 API。
 
@@ -41,24 +41,24 @@ Kotlin Multiplatform 利用 [Kotlin/Native](https://kotlinlang.org/docs/native-o
 
 ![顯示 Compose Multiplatform 與 SwiftUI 在 iPhone 13 和 iPhone 16 的 iOS 上效能相當的圖表](cmp-ios-performance.png){width="700"}
 
-### 無縫的工具支援
+### 無縫的工具支援 {id="seamless-tooling"}
 
 IntelliJ IDEA 和 Android Studio 透過 [Kotlin Multiplatform IDE 外掛程式](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform) 為 KMP 提供智慧 IDE 支援，包括通用 UI 預覽、[Compose Multiplatform 的熱重載](compose-hot-reload.md)、跨語言導覽、重構作業，以及針對 Kotlin 和 Swift 程式碼的偵錯。
 
 <video src="https://youtu.be/ACmerPEQAWA" width="700"/>
 
-### AI 驅動開發
+### AI 驅動開發 {id="ai-powered-development"}
 
 讓 JetBrains 的 AI 編碼代理 [Junie](https://jetbrains.com/junie) 處理 KMP 任務，讓您的團隊能更快速前進。
 
-## 探索 Kotlin Multiplatform 使用案例
+## 探索 Kotlin Multiplatform 使用案例 {id="discover-kotlin-multiplatform-use-cases"}
 
 看看公司和開發人員如何享受共用 Kotlin 程式碼的好處：
 
 * 在我們的[案例研究頁面](https://kotlinlang.org/case-studies/?type=multiplatform)了解公司如何成功地在程式碼庫中採用 KMP。
 * 在我們的[精選範例清單](multiplatform-samples.md)和 GitHub 的 [kotlin-multiplatform-sample](https://github.com/topics/kotlin-multiplatform-sample) 主題中查看廣泛的範例應用程式。
 
-## 學習基礎知識
+## 學習基礎知識 {id="learn-the-basics"}
 
 若要快速查看 KMP 的實際運作，請嘗試[快速入門](quickstart.md)。
 您將設定環境並在不同的平台上執行範例應用程式。
@@ -76,13 +76,13 @@ IntelliJ IDEA 和 Android Studio 透過 [Kotlin Multiplatform IDE 外掛程式](
   * 了解 KMP 如何針對各種目標[編譯程式碼](multiplatform-configure-compilations.md)並[組建二進位檔](multiplatform-build-native-binaries.md)。
   * 閱讀關於[發佈多平台應用程式](multiplatform-publish-apps.md)或[多平台程式庫](multiplatform-publish-lib-setup.md)的內容。
 
-## 探索 Kotlin Multiplatform 程式庫生態系統
+## 探索 Kotlin Multiplatform 程式庫生態系統 {id="explore-the-kotlin-mutliplatform-library-ecosystem"}
 
 有數以千計的多平台程式庫可用於網路、儲存、相依注入、測試、UI、序列化等。
 
 在 [klibs.io](https://klibs.io) 上瀏覽這些程式庫，這是一個由 JetBrains 維護的搜尋平台。
 
-## 大規模採用 Kotlin Multiplatform
+## 大規模採用 Kotlin Multiplatform {id="adopt-kotlin-multiplatform-at-scale"}
 
 在團隊中採用跨平台架構可能是一項挑戰。
 若要了解跨平台開發的優點以及潛在問題的解決方案，請查看我們對跨平台開發的高階總覽：

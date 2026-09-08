@@ -52,7 +52,7 @@ Lincheck で並行処理コードをテストするには：
   | ------------------------------------------------------------------------------- |
   ```
 
-## 例: ConcurrentHashMap 関数のテスト
+## 例: ConcurrentHashMap 関数のテスト {id="example-test-concurrenthashmap-functions"}
 
 `ConcurrentHashMap` 関数の以下のテストについて考えてみましょう。
 
@@ -100,12 +100,12 @@ Lincheck がデッドロックにつながる実行スケジュールを発見�
 
 ![失敗したテストの Lincheck レポートのスクリーンショット。](concurrenthashmapdeadlock.png){thumbnail="true" width=700}
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 [Lincheck を使用したデータ構造のテスト](lincheck-how-to-test-data-structures.md)の方法を学びましょう。
 
 <!-- TODO: uncomment after the articles are published
-## See also
+## See also {id="see-also"}
 
 * [Model checking in Lincheck](lincheck-model-checking.md)
 * [Lincheck in Kotlin Multiplatform projects](lincheck-kmp.md)

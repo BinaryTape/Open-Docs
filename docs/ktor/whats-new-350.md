@@ -11,7 +11,7 @@ Ktor 3.5.0 在服务器和客户端方面带来了一系列改进。此功能版
 * [仅在修改时发送会话 cookie](#session-cookies)
 * [OkHttp 和 Apache5 客户端引擎中的自定义 DNS 解析器](#custom-dns-resolvers)
 
-## Ktor Server
+## Ktor Server {id="ktor-server"}
 
 ### 对 RFC 7616 摘要身份验证的支持 {id="rfc-7616-digest-auth"}
 
@@ -67,7 +67,7 @@ install(Authentication) {
 
 有关完整指南，请参阅 [Ktor Server 中的摘要身份验证](server-digest-auth.md)。
 
-### 自定义提供程序中的挂起 `.authenticate()` 重载
+### 自定义提供程序中的挂起 `.authenticate()` 重载 {id="suspending-authenticate-overload-in-custom-providers"}
 
 [自定义身份验证提供程序](server-auth.md#custom-auth-provider)现在可以实现 `DynamicProviderConfig.authenticate()` 函数的挂起版本。`.authenticate()` 函数接受一个挂起 lambda，因此您可以直接在身份验证中调用协程 API：
 
@@ -108,7 +108,7 @@ val config = ApplicationConfig("application.yaml").getAs<Config>()
 
 </compare>
 
-### 必需请求参数辅助函数
+### 必需请求参数辅助函数 {id="require-request-parameters-helper-functions"}
 
 Ktor 3.5.0 引入了一组新的扩展函数，简化了从 `ApplicationCall` 访问必需请求数据的过程。
 
@@ -152,7 +152,7 @@ post("/checkout") {
 
 </compare>
 
-### `ktor-network` 的 ES 模块兼容性
+### `ktor-network` 的 ES 模块兼容性 {id="es-modules-compatibility-for-ktor-network"}
 
 我们修复了在启用 ES 模块时无法使用 `ktor-network` 及其所有依赖模块的问题。
 
@@ -164,7 +164,7 @@ post("/checkout") {
 >
 {style="tip"}
 
-### Sessions 插件中改进的会话管理
+### Sessions 插件中改进的会话管理 {id="improved-session-management-in-the-sessions-plugin"}
 
 Ktor 3.5.0 通过新的配置选项改进了 [Sessions](server-sessions.md) 插件中的会话处理，使您能够更好地控制会话生命周期、标识生成和网络行为。
 
@@ -182,7 +182,7 @@ install(Sessions) {
 }
 ```
 
-#### 从请求数据生成会话 ID
+#### 从请求数据生成会话 ID {id="generate-session-ids-from-request-data"}
 
 `CookieIdSessionBuilder.identity()` 函数现在接受一个 `ApplicationCall`，允许从当前应用程序调用中派生会话 ID。这支持了诸如将会话绑定到已通过身份验证的用户或请求元数据之类的用例。
 
@@ -198,7 +198,7 @@ install(Sessions) {
 
 以前的 `identity()` 函数已弃用，取而代之的是可感知调用的重载。
 
-#### 按 ID 清除会话
+#### 按 ID 清除会话 {id="clear-sessions-by-id"}
 
 您现在可以使用 `call.sessions.clear<UserSession>()` 和 `CurrentSession.clear()` 便捷函数通过存储 ID 使会话失效，而无需活跃调用。这两个函数都委托给 `SessionTrackerById.clearById()`。
 
@@ -212,7 +212,7 @@ post("/logout/{sessionId}") {
 
 这对于诸如注销用户的所有设备或从后台作业使会话过期之类的场景非常有用。
 
-### 自定义 SSE 心跳事件
+### 自定义 SSE 心跳事件 {id="custom-sse-heartbeat-events"}
 
 此版本为 Ktor 服务器端 SSE 支持引入了一个新选项，允许您使用事件提供程序函数完全自定义心跳事件：
 
@@ -225,7 +225,7 @@ heartbeat {
 
 这使得定期发送自定义心跳有效负载成为可能，例如时间戳和状态信息。
 
-### Jetty 引擎中的 SNI 验证配置
+### Jetty 引擎中的 SNI 验证配置 {id="sni-validation-configuration-in-the-jetty-engine"}
 
 此版本为 Jetty 引擎引入了一个新的 `secureRequestCustomizer` 配置选项，提供了对 Jetty 的 `SecureRequestCustomizer` 实例的直接访问。
 
@@ -243,7 +243,7 @@ embeddedServer(
 )
 ```
 
-## Ktor Client
+## Ktor Client {id="ktor-client"}
 
 ### OkHttp 和 Apache5 引擎中的自定义 DNS 解析器 {id="custom-dns-resolvers"}
 
@@ -251,7 +251,7 @@ Ktor 3.5.0 在 OkHttp 和 Apache5 客户端引擎中增加了对配置自定义 
 
 以前，您需要通过访问引擎特定的内部结构来配置自定义 DNS 解析，例如 OkHttp 中的 `config {}` 或 Apache5 中的 `configureConnectionManager { setDnsResolver(...) }`。Ktor 现在在每个引擎上公开了专门的配置属性，以提供一致且类型安全的 API。
 
-#### OkHttp
+#### OkHttp {id="okhttp"}
 
 您现在可以使用 `OkHttpConfig.dns` 属性在 OkHttp 中配置自定义 DNS 解析器：
 
@@ -265,7 +265,7 @@ HttpClient(OkHttp) {
 
 如果您不配置 `dns` 属性，OkHttp 引擎将继续使用 OkHttp 默认的 `Dns.SYSTEM` 解析器。
 
-#### Apache5
+#### Apache5 {id="apache5"}
 
 您现在可以使用 `Apache5EngineConfig.dnsResolver` 属性在 Apache5 中配置自定义 DNS 解析器：
 

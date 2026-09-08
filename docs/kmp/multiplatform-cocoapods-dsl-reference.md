@@ -13,7 +13,7 @@ Kotlin CocoaPods Gradle 插件是一个用于创建 Podspec 文件的工具。�
 
 本 DSL 参考列出了 Kotlin CocoaPods Gradle 插件的主要块、函数和属性，您可以在设置 CocoaPods 集成时使用它们。
 
-## 启用插件
+## 启用插件 {id="enable-the-plugin"}
 
 要应用 CocoaPods 插件，请将以下行添加到 `build.gradle(.kts)` 文件中：
 
@@ -26,7 +26,7 @@ plugins {
 
 插件版本与 [Kotlin 发布版本](https://kotlinlang.org/docs/releases.html)一致。最新的稳定版本是 %kotlinVersion%。
 
-## `cocoapods {}` 块
+## `cocoapods {}` 块 {id="cocoapods-block"}
 
 `cocoapods {}` 块是 CocoaPods 配置的顶层块。它包含有关 Pod 的一般信息，包括 Pod 版本、摘要和主页等必填信息，以及可选功能。
 
@@ -51,7 +51,7 @@ plugins {
 | `pod()`                               | 向此项目构建的 Pod 添加一个 CocoaPods 依赖项。                                                                                                                                                                                   |
 | `specRepos`                           | 使用 `url()` 添加规格仓库。当使用私有 Pod 作为依赖项时，这是必需的。有关更多信息，请参阅 [CocoaPods 文档](https://guides.cocoapods.org/making/private-cocoapods.html)。                                                                        |
 
-### 目标
+### 目标 {id="targets"}
 
 | iOS                 | macOS        | tvOS                 | watchOS                 |
 |---------------------|--------------|----------------------|-------------------------|
@@ -89,7 +89,7 @@ kotlin {
 }
 ```
 
-### `framework {}` 块
+### `framework {}` 块 {id="framework-block"}
 
 `framework {}` 块嵌套在 `cocoapods` 内部，用于配置从此项目构建的 Pod 的框架属性。
 
@@ -117,7 +117,7 @@ kotlin {
 }
 ```
 
-## `pod()` 函数
+## `pod()` 函数 {id="pod-function"}
 
 `pod()` 函数调用可向从此项目构建的 Pod 添加 CocoaPods 依赖项。每个依赖项都需要单独的函数调用。
 
@@ -153,7 +153,7 @@ kotlin {
 }
 ```
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * [在 Kotlin Gradle 插件仓库中查看 Kotlin DSL 的完整语法](https://github.com/JetBrains/kotlin/blob/master/libraries/tools/kotlin-gradle-plugin/src/common/kotlin/org/jetbrains/kotlin/gradle/targets/native/cocoapods/CocoapodsExtension.kt)
 * [在您的 Kotlin 项目中添加对 Pod 库的依赖项](multiplatform-cocoapods-libraries.md)

@@ -13,7 +13,7 @@
     </p>
 </tldr>
 
-## 동기화된 탭
+## 동기화된 탭 {id="synchronized-tabs"}
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -57,9 +57,9 @@ plugins {
 </tab>
 </tabs>
 
-## 섹션
+## 섹션 {id="sections"}
 
-### 접힌 섹션 {initial-collapse-state="collapsed" collapsible="true"}
+### 접힌 섹션 {initial-collapse-state="collapsed" collapsible="true" id="collapsed-section"}
 
 여기에 약간의 텍스트와 코드 블록이 있습니다:
 
@@ -69,7 +69,7 @@ plugins {
 }
 ```
 
-## 코드 블록
+## 코드 블록 {id="codeblocks"}
 
 단순 코드 블록:
 
@@ -91,7 +91,7 @@ class MessageService(val db: MessageRepository) {
 }
 ```
 
-### 확장 가능한 코드 블록
+### 확장 가능한 코드 블록 {id="expandable-codeblock"}
 
 ```kotlin
 package com.example.demo
@@ -117,7 +117,7 @@ class MessageController {
 ```
 {initial-collapse-state="collapsed" collapsible="true"}
 
-### 실행 가능한 코드 블록
+### 실행 가능한 코드 블록 {id="runnable-codeblock"}
 
 ```kotlin
 data class User(val name: String, val id: Int)
@@ -134,9 +134,9 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 테이블
+## 테이블 {id="tables"}
 
-### Markdown 테이블
+### Markdown 테이블 {id="markdown-table"}
 
 | 기본 타입 배열 (Primitive-type array) | Java에서의 대응 타입 |
 |---------------------------------------------------------------------------------------|--------------------|
@@ -149,7 +149,7 @@ fun main() {
 | [`LongArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long-array/)       | `long[]`           |
 | [`ShortArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-short-array/)     | `short[]`          |
 
-### XML 테이블
+### XML 테이블 {id="xml-table"}
 
 <table>
     <tr>
@@ -162,7 +162,7 @@ fun main() {
     </tr>
 </table>
 
-### 내부에 코드 블록이 포함된 XML 테이블
+### 내부에 코드 블록이 포함된 XML 테이블 {id="xml-table-with-codeblocks-inside"}
 
 간단한 테이블:
 
@@ -287,9 +287,9 @@ jvmTest<Scope>
     </tr>
 </table>
 
-## 리스트
+## 리스트 {id="lists"}
 
-### 순서가 있는 리스트
+### 순서가 있는 리스트 {id="ordered-list"}
 
 1. 하나
 2. 둘
@@ -304,7 +304,7 @@ jvmTest<Scope>
    jvmTest<Scope>
    ```
 
-### 순서가 없는 리스트
+### 순서가 없는 리스트 {id="non-ordered-list"}
 
 * 첫 번째 불렛
 * 두 번째 불렛
@@ -318,7 +318,7 @@ jvmTest<Scope>
    jvmTest<Scope>
    ```
 
-### 정의 리스트 (Definition list)
+### 정의 리스트 (Definition list) {id="definition-list"}
 
 <deflist collapsible="true">
    <def title="접이식 항목 #1">
@@ -332,7 +332,7 @@ jvmTest<Scope>
    </def>
 </deflist>
 
-## 텍스트 요소
+## 텍스트 요소 {id="text-elements"}
 
 * **굵은 텍스트**
 * _기울임꼴 텍스트_
@@ -342,16 +342,16 @@ jvmTest<Scope>
 * [외부 링크](https://jetbrains.com)
 * 이모지 ❌✅🆕
 
-## 변수
+## 변수 {id="variables"}
 * 변수 사용: 최신 Kotlin 버전은 %kotlinVersion%입니다
 
-## 임베디드 요소
+## 임베디드 요소 {id="embedded-elements"}
 
-### YouTube 동영상
+### YouTube 동영상 {id="video-from-youtube"}
 
 <video src="https://www.youtube.com/v/Ol_96CHKqg8" title="Kotlin 1.9.20의 새로운 기능"/>
 
-### 이미지
+### 이미지 {id="pictures"}
 
 일반 (Markdown):
 
@@ -375,7 +375,7 @@ jvmTest<Scope>
    <img src="multiplatform-create-project-button.png" alt="프로젝트 생성" style="block"/>
 </a>
 
-## 노트
+## 노트 {id="notes"}
 
 경고:
 

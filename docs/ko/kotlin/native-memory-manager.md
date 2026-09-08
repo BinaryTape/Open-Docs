@@ -5,7 +5,7 @@ Kotlin/Native는 JVM, Go 및 기타 주요 기술과 유사한 현대적인 메�
 * 객체는 공유 힙(shared heap)에 저장되며 모든 스레드에서 접근할 수 있습니다.
 * 로컬 및 전역 변수와 같은 "루트(roots)"로부터 도달할 수 없는 객체를 수집하기 위해 주기적으로 트레이싱 가비지 컬렉션(tracing garbage collection)이 수행됩니다.
 
-## 가비지 컬렉터 (Garbage collector)
+## 가비지 컬렉터 (Garbage collector) {id="garbage-collector"}
 
 Kotlin/Native의 가비지 컬렉터(GC) 알고리즘은 지속적으로 발전하고 있습니다. 현재는 힙을 세대별로 나누지 않는 컨커런트 마크 및 스윕(concurrent mark and sweep, CMS) 컬렉터로 작동합니다.
 
@@ -25,11 +25,11 @@ CMS에서 문제가 발생하는 경우, 패러럴 마크 컨커런트 스윕(pa
 kotlin.native.binary.gc=pmcs
 ```
 
-### 가비지 컬렉션 수동 활성화
+### 가비지 컬렉션 수동 활성화 {id="enable-garbage-collection-manually"}
 
 가비지 컬렉터를 강제로 시작하려면 `kotlin.native.internal.GC.collect()`를 호출하세요. 이 메서드는 새로운 컬렉션을 트리거하고 완료될 때까지 기다립니다.
 
-### GC 성능 모니터링
+### GC 성능 모니터링 {id="monitor-gc-performance"}
 
 GC 성능을 모니터링하기 위해 로그를 살펴보고 문제를 진단할 수 있습니다. 로그를 활성화하려면 Gradle 빌드 스크립트에 다음 컴파일러 옵션을 설정하세요:
 
@@ -58,7 +58,7 @@ Apple 플랫폼에서는 Xcode Instruments 툴킷을 활용하여 iOS 앱 성능
 
    여기서 가장 낮은 그래프의 각 파란색 블롭(blob)은 개별 사인포스트 이벤트를 나타내며, 이는 곧 GC 일시 중지를 의미합니다.
 
-### 가비지 컬렉션 비활성화
+### 가비지 컬렉션 비활성화 {id="disable-garbage-collection"}
 
 GC를 활성화 상태로 유지하는 것이 권장됩니다. 그러나 테스트 목적이나 프로그램 수명이 짧고 문제가 발생하는 경우와 같은 특정 사례에서는 GC를 비활성화할 수 있습니다. 이를 위해 `gradle.properties` 파일에 다음 바이너리 옵션을 설정하세요:
 
@@ -70,7 +70,7 @@ kotlin.native.binary.gc=noop
 >
 {style="warning"}
 
-## 메모리 소비 (Memory consumption)
+## 메모리 소비 (Memory consumption) {id="memory-consumption"}
 
 Kotlin/Native는 자체 [메모리 할당자(memory allocator)](https://github.com/JetBrains/kotlin/blob/master/kotlin-native/runtime/src/alloc/custom/README.md)를 사용합니다. 이 할당자는 시스템 메모리를 페이지(page) 단위로 나누어 연속적인 순서로 독립적인 스윕이 가능하게 합니다. 각 할당은 페이지 내의 메모리 블록이 되며, 페이지는 블록 크기를 추적합니다. 다양한 페이지 유형이 다양한 할당 크기에 최적화되어 있습니다. 메모리 블록을 연속적으로 배치함으로써 할당된 모든 블록을 효율적으로 반복(iteration)할 수 있습니다.
 
@@ -80,11 +80,11 @@ Kotlin/Native 메모리 할당자는 메모리 할당의 갑작스러운 급증�
 
 직접 메모리 소비를 모니터링하고, 메모리 누수를 확인하며, 메모리 소비를 조정할 수 있습니다.
 
-### 메모리 소비 모니터링
+### 메모리 소비 모니터링 {id="monitor-memory-consumption"}
 
 메모리 문제를 디버깅하기 위해 메모리 매니저 메트릭을 확인할 수 있습니다. 또한, Apple 플랫폼에서 Kotlin의 메모리 소비를 추적하는 것도 가능합니다.
 
-#### 메모리 누수 확인
+#### 메모리 누수 확인 {id="check-for-memory-leaks"}
 
 메모리 매니저 메트릭에 접근하려면 `kotlin.native.internal.GC.lastGCInfo()`를 호출하세요. 이 메서드는 가비지 컬렉터의 마지막 실행에 대한 통계를 반환합니다. 이 통계는 다음과 같은 경우에 유용합니다:
 
@@ -121,7 +121,7 @@ fun test() {
 }
 ```
 
-#### Apple 플랫폼에서 메모리 소비 추적
+#### Apple 플랫폼에서 메모리 소비 추적 {id="track-memory-consumption-on-apple-platforms"}
 
 Apple 플랫폼에서 메모리 문제를 디버깅할 때 Kotlin 코드에 의해 얼마나 많은 메모리가 예약되었는지 확인할 수 있습니다. Kotlin의 지분(share)은 식별자로 태그가 지정되며 Xcode Instruments의 VM Tracker와 같은 도구를 통해 추적할 수 있습니다.
 
@@ -139,15 +139,15 @@ Apple 플랫폼에서 메모리 문제를 디버깅할 때 Kotlin 코드에 의�
 
   [`kotlin.native.binary.pagedAllocator=false`](#disable-allocator-paging) Gradle 속성을 설정하면 메모리가 객체별로 예약됩니다.
 
-### 메모리 소비 조정
+### 메모리 소비 조정 {id="adjust-memory-consumption"}
 
 예상치 못하게 높은 메모리 소비가 발생하는 경우 다음 해결 방법을 시도해 보세요:
 
-#### Kotlin 업데이트
+#### Kotlin 업데이트 {id="update-kotlin"}
 
 Kotlin을 최신 버전으로 업데이트하세요. 메모리 매니저를 지속적으로 개선하고 있으므로 단순한 컴파일러 업데이트만으로도 메모리 소비가 개선될 수 있습니다.
 
-#### 할당자 페이징 비활성화
+#### 할당자 페이징 비활성화 {id="disable-allocator-paging"}
 <primary-label ref="experimental-opt-in"/>
 
 메모리 할당자가 객체별로 메모리를 예약하도록 할당 페이징(버퍼링)을 비활성화할 수 있습니다. 일부 사례에서는 엄격한 메모리 제한을 충족하거나 애플리케이션 시작 시 메모리 소비를 줄이는 데 도움이 될 수 있습니다.
@@ -162,7 +162,7 @@ kotlin.native.binary.pagedAllocator=false
 > 
 {style="note"}
 
-#### Latin-1 문자열 지원 활성화
+#### Latin-1 문자열 지원 활성화 {id="enable-support-for-latin-1-strings"}
 <primary-label ref="experimental-opt-in"/>
 
 기본적으로 Kotlin의 문자열은 각 문자가 2바이트로 표현되는 UTF-16 인코딩을 사용하여 저장됩니다. 경우에 따라 이는 문자열이 소스 코드에 비해 바이너리에서 두 배의 공간을 차지하고, 데이터를 읽을 때 메모리를 두 배로 사용하는 결과를 초래합니다.
@@ -183,7 +183,7 @@ Latin-1 지원을 사용하면 모든 문자가 해당 범위 내에 있는 한 
 
 이러한 옵션 중 어느 것도 도움이 되지 않는다면 [YouTrack](https://kotl.in/issue)에 이슈를 생성해 주세요.
 
-## 백그라운드에서의 유닛 테스트
+## 백그라운드에서의 유닛 테스트 {id="unit-tests-in-the-background"}
 
 유닛 테스트에서는 메인 스레드 큐를 처리하는 것이 없으므로, 모킹(mock)되지 않은 한 `Dispatchers.Main`을 사용하지 마세요. `kotlinx-coroutines-test`의 `Dispatchers.setMain`을 호출하여 모킹할 수 있습니다.
 
@@ -211,7 +211,7 @@ fun mainBackground(args: Array<String>) {
 
 그런 다음 `-e testlauncher.mainBackground` 컴파일러 옵션을 사용하여 테스트 바이너리를 컴파일하세요.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [레거시 메모리 매니저에서 마이그레이션](native-migration-guide.md)
 * [Swift/Objective-C ARC와의 통합 세부 사항 확인](native-arc-integration.md)

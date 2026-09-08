@@ -23,7 +23,7 @@ Kotlin 2.3.20 正式發佈！以下是主要亮點：
 >
 {style="tip"}
 
-## 更新至 Kotlin 2.3.20
+## 更新至 Kotlin 2.3.20 {id="update-to-kotlin-2-3-20"}
 
 最新版本的 Kotlin 已包含在最新版本的 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Android Studio](https://developer.android.com/studio) 中。
 
@@ -316,11 +316,11 @@ fun main() {
 
 </snippet>
 
-## 語言
+## 語言 {id="language"}
 
 Kotlin 2.3.20 添加了以名稱為基礎的解構宣告，將變數與屬性名稱配對，而不是依賴位置。此外還引入了針對具有上下文參數 (context parameters) 的宣告的多載解析變動。
 
-### 上下文參數多載解析的變動
+### 上下文參數多載解析的變動 {id="changes-to-overload-resolution-for-context-parameters"}
 <secondary-label ref="language"/>
 
 Kotlin 2.3.20 引入了針對具有上下文參數的宣告的多載解析 (overload resolution) 變動。
@@ -363,7 +363,7 @@ fun main() {
 <var name="id5" value="language-name-based-destructuring-how-to-enable"/>
 </include>
 
-## 標準程式庫
+## 標準程式庫 {id="standard-library"}
 
 Kotlin 2.3.20 為標準程式庫包含了一個新的實驗性特性。
 
@@ -371,11 +371,11 @@ Kotlin 2.3.20 為標準程式庫包含了一個新的實驗性特性。
 <var name="id6" value="standard-library-new-api-for-creating-immutable-copies-of-map-entry"/>
 </include>
 
-## Kotlin 編譯器外掛程式
+## Kotlin 編譯器外掛程式 {id="kotlin-compiler-plugins"}
 
 Kotlin 2.3.20 為 Lombok 和 `kotlin.plugin.jpa` 編譯器外掛程式帶來了重要的更新。
 
-### 提升了 `kotlin.plugin.jpa` 外掛程式中的 JPA 支援
+### 提升了 `kotlin.plugin.jpa` 外掛程式中的 JPA 支援 {id="improved-jpa-support-in-the-kotlin-plugin-jpa-plugin"}
 <secondary-label ref="compiler"/>
 
 `kotlin.plugin.jpa` 外掛程式現在除了套用現有的 [`no-arg`](no-arg-plugin.md) 編譯器外掛程式外，還會透過新加入的內建 JPA 預設自動套用 [`all-open`](all-open-plugin.md) 編譯器外掛程式。
@@ -410,12 +410,12 @@ Kotlin 2.3.20 為 Lombok 和 `kotlin.plugin.jpa` 編譯器外掛程式帶來了�
 <var name="id3" value="compiler-lombok-is-now-alpha"/>
 </include>
 
-## Kotlin/JVM
+## Kotlin/JVM {id="kotlin-jvm"}
 
 Kotlin 2.3.20 引入了多項 Java 互通性的改進。編譯器現在能辨識用於可 null 性檢查的 Vert.x `@Nullable` 註解。
 此版本還增加了對 Java `@Unmodifiable` 和 `@UnmodifiableView` 註解的支援，以便在 Kotlin 中將標註的集合視為唯讀。
 
-### 支援 Vert.x `@Nullable` 註解
+### 支援 Vert.x `@Nullable` 註解 {id="support-for-vert-x-nullable-annotation"}
 <secondary-label ref="jvm"/>
 
 Kotlin 2.3.20 增加了對 [`io.vertx.codegen.annotations.Nullable`](https://www.javadoc.io/doc/io.vertx/vertx-codegen/3.5.0/io/vertx/codegen/annotations/Nullable.html) 註解的支援。
@@ -456,7 +456,7 @@ kotlin {
 </tab>
 </tabs>
 
-### 支援 Java 不可變集合註解
+### 支援 Java 不可變集合註解 {id="support-for-java-unmodifiable-collection-annotations"}
 <secondary-label ref="jvm"/>
 
 Kotlin 2.3.20 增加了對 [`org.jetbrains.annotations.Unmodifiable`](https://javadoc.io/doc/org.jetbrains/annotations/20.1.0/org/jetbrains/annotations/Unmodifiable.html) 和 [`org.jetbrains.annotations.UnmodifiableView`](https://javadoc.io/doc/org.jetbrains/annotations/24.0.1/org/jetbrains/annotations/UnmodifiableView.html) Java 註解的支援。
@@ -488,11 +488,11 @@ fun main() {
 }
 ```
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 Kotlin 2.3.20 引入了用於 C 和 Objective-C 程式庫的新實驗性互通模式、交叉編譯檢查器，以及用於在 Kotlin/Native 專案中停用編譯快取的新 DSL。
 
-### 交叉編譯檢查器
+### 交叉編譯檢查器 {id="cross-compilation-checker"}
 <secondary-label ref="native"/>
 
 Kotlin 2.3.20 引入了一種方法來確定給定目標是否支援交叉編譯 (cross-compilation)。
@@ -506,7 +506,7 @@ Kotlin 2.3.20 引入了一種方法來確定給定目標是否支援交叉編譯
 
 如需更多關於受支援目標與主機的資訊，請參閱 [Kotlin/Native 文件](native-target-support.md)。
 
-### 停用編譯快取的新 DSL
+### 停用編譯快取的新 DSL {id="new-dsl-for-disabling-compilation-cache"}
 <secondary-label ref="native"/>
 
 Kotlin 2.3.20 提供了一個新的 DSL，用於在 Kotlin/Native 專案中停用編譯快取。
@@ -554,12 +554,12 @@ kotlin {
 <var name="id9" value="native-new-interoperability-mode-for-c-or-objective-c-libraries-report-your-results"/>
 </include>
 
-## Kotlin/Wasm
+## Kotlin/Wasm {id="kotlin-wasm"}
 
 Kotlin 2.3.20 提升了字串操作的效能、編譯時間和記憶體使用量。
 它還增加了對實驗性 `@nativeInvoke` 註解的支援，讓您可以像呼叫 JavaScript 函式一樣呼叫 Kotlin 物件或類別。
 
-### 提升字串效能
+### 提升字串效能 {id="improved-string-performance"}
 <secondary-label ref="wasm"/>
 
 Kotlin/Wasm 現在針對 `kotlin.String` 值的操作使用 JS 字串內建功能 (JS String builtins)。
@@ -573,7 +573,7 @@ Kotlin/Wasm 現在針對 `kotlin.String` 值的操作使用 JS 字串內建功�
 * 在所有 Wasm 基準測試中，中位數提升約 1%。
 * 在重度使用附加的工作負載中，`StringBuilder.append()` 和 `kotlin.String` 實例的連接速度提升至少 20%。
 
-### 提升編譯時間與記憶體優化
+### 提升編譯時間與記憶體優化 {id="improved-compilation-time-and-memory-optimizations"}
 <secondary-label ref="wasm"/>
 
 Kotlin 2.3.20 加入了編譯器優化，可顯著降低編譯期間的記憶體消耗，特別是在大型專案中。
@@ -581,7 +581,7 @@ Kotlin 2.3.20 加入了編譯器優化，可顯著降低編譯期間的記憶體
 
 在我們的測試中，我們觀察到全新建置 (clean build) 時間提升了 65%，增量建置時間提升了 21%。
 
-### 支援 `@nativeInvoke` 註解
+### 支援 `@nativeInvoke` 註解 {id="support-for-nativeinvoke-annotation"}
 <primary-label ref="experimental-opt-in"/>
 <secondary-label ref="wasm"/>
 
@@ -611,11 +611,11 @@ fun main() {
 
 如需更多關於 Kotlin/Wasm 與 JavaScript 互通性的資訊，請參閱[與 JavaScript 的互通性](wasm-js-interop.md)。
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
 Kotlin 2.3.20 實現了從 TypeScript 實作 Kotlin 介面的可能性，並引入了對 SWC 編譯平台的實驗性支援。
 
-### 從 JavaScript/TypeScript 實作 Kotlin 介面
+### 從 JavaScript/TypeScript 實作 Kotlin 介面 {id="implementing-kotlin-interfaces-from-javascript-typescript"}
 <primary-label ref="experimental-opt-in"/>
 <secondary-label ref="js"/>
 
@@ -700,7 +700,7 @@ kotlin {
 
 如需更多資訊，請參閱 [`@JsExport` 註解](js-to-kotlin-interop.md#jsexport-annotation)。
 
-### 支援 SWC 編譯平台
+### 支援 SWC 編譯平台 {id="support-for-swc-compilation-platform"}
 <primary-label ref="experimental-opt-in"/>
 <secondary-label ref="js"/>
 
@@ -731,17 +731,17 @@ kotlin.js.delegated.transpilation=true
 
 如需更多關於 SWC 平台的資訊，請參閱官方 [文件](https://swc.rs/docs/getting-started)。
 
-## Gradle
+## Gradle {id="gradle"}
 
 Kotlin 2.3.20 相容於新版本的 Gradle，並包含 Kotlin Gradle 外掛程式中對 Kotlin/JVM 編譯的更動。
 
-### 相容於 Gradle 9.3.0
+### 相容於 Gradle 9.3.0 {id="compatibility-with-gradle-9-3-0"}
 <secondary-label ref="gradle"/>
 
 Kotlin 2.3.20 完全相容於 Gradle 7.6.3 至 9.3.0。您也可以使用到最新發佈版本為止的 Gradle 版本。
 然而請注意，這樣做可能會導致棄用警告，且某些新的 Gradle 功能可能無法運作。
 
-### 提升 KGP 中的二進制相容性驗證
+### 提升 KGP 中的二進制相容性驗證 {id="improvements-to-binary-compatibility-validation-in-kgp"}
 <secondary-label ref="gradle"/>
 
 Kotlin 2.2.0 首次帶來了 [Kotlin Gradle 外掛程式中的二進制相容性驗證](gradle-binary-compatibility-validation.md) 支援。Kotlin 2.3.20 則加入了兩項改進。
@@ -761,7 +761,7 @@ Kotlin 2.2.0 首次帶來了 [Kotlin Gradle 外掛程式中的二進制相容性
 先前即使 `check` 任務應該執行所有驗證任務，Gradle 也不會執行 `checkKotlinAbi` 任務。
 這導致了 Gradle 專案中的行為不一致。
 
-### Kotlin/JVM 編譯預設使用建置工具 API
+### Kotlin/JVM 編譯預設使用建置工具 API {id="kotlin-jvm-compilation-uses-build-tools-api-by-default"}
 <primary-label ref="experimental-general"/>
 <secondary-label ref="gradle"/>
 
@@ -769,7 +769,7 @@ Kotlin 2.2.0 首次帶來了 [Kotlin Gradle 外掛程式中的二進制相容性
 
 如果您發現任何問題，請在我們的 [問題追蹤器](https://youtrack.jetbrains.com/newIssue?project=KT&summary=Kotlin+Gradle+plugin+BTA+migration+issue&description=Describe+the+problem+you+encountered+here.&c=tag+kgp-bta-migration) 中分享您的回饋。
 
-## Maven
+## Maven {id="maven"}
 
 Kotlin 2.3.20 帶來了一項重要變動，讓您的 Maven 專案設定更簡單。
 
@@ -778,11 +778,11 @@ Kotlin 2.3.20 帶來了一項重要變動，讓您的 Maven 專案設定更簡�
 <var name="id2" value="maven-simplified-setup-for-kotlin-projects-how-to-enable"/>
 </include>
 
-## 建置工具 API
+## 建置工具 API {id="build-tools-api"}
 
 Kotlin 2.3.20 為希望使用建置工具 API (BTA) 將其建置系統與 Kotlin 編譯器整合的開發人員引入了更多變動。
 
-### 建置操作的改進
+### 建置操作的改進 {id="improvements-to-build-operations"}
 <secondary-label ref="bta"/>
 
 在此版本中，BTA 改進了建置工具管理建置操作的方式。
@@ -832,7 +832,7 @@ fun prepareBuildOperation(toolchains: KotlinToolchains, sources: List<Path>, des
 }
 ```
 
-### 各建置工具間一致的指標收集
+### 各建置工具間一致的指標收集 {id="consistent-metric-collection-across-build-tools"}
 <secondary-label ref="bta"/>
 
 在 Kotlin 2.3.20 之前，建置指標 (build metrics) 基礎設施是以 Gradle 為中心的，這影響了部分基礎設施，例如指標名稱。
@@ -859,7 +859,7 @@ operation[BuildOperation.METRICS_COLLECTOR] = object : BuildMetricsCollector {
 }
 ```
 
-### 建置工具更容易配置編譯器外掛程式
+### 建置工具更容易配置編譯器外掛程式 {id="easier-configuration-of-compiler-plugins-by-build-tools"}
 <secondary-label ref="bta"/>
 
 在 Kotlin 2.3.20 中，BTA 提供了一種全新且更簡單的方式供建置工具配置編譯器外掛程式。
@@ -896,7 +896,7 @@ operation.compilerArguments[COMPILER_PLUGINS] = listOf(
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="範例程式碼"}
 
-## 重大變更與棄用
+## 重大變更與棄用 {id="breaking-changes-and-deprecations"}
 
 本節重點介紹重要的重大變更和棄用。如需更多關於 Kotlin 2.3.0 和 2.3.20 中棄用的資訊，請參閱 [相容性指南](compatibility-guide-23.md)。
 
@@ -910,7 +910,7 @@ operation.compilerArguments[COMPILER_PLUGINS] = listOf(
   由於許多第三方程式庫仍依賴 `iosX64` 目標，我們目前將其保留在第 3 級支援 (support tier 3) 中。這意味著我們不保證 CI 測試，且可能不提供不同編譯器版本間的原始碼和二進制相容性。如需更多關於支援分級的資訊，請參閱 [Kotlin/Native 目標支援](native-target-support.md)。
 * 在 Kotlin 2.3.20 中，Kotlin Multiplatform 中更嚴格的相依性配對可能會在通用 (common) 與平台 (platform) 原始碼集間的相依性解析不同時，導致元資料編譯失敗。詳情及解決方法請參閱 [YouTrack](https://youtrack.jetbrains.com/issue/KT-84533#tldr-workaround) 中的問題。
 
-## 文件更新
+## 文件更新 {id="documentation-updates"}
 
 我們對 Kotlin 生態系統中的文件進行了以下更改：
 

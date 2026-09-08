@@ -76,7 +76,7 @@
 
 [CallIdConfig](https://api.ktor.io/ktor-client-call-id/io.ktor.client.plugins.callid/-call-id-config/index.html) クラスによって提供される %plugin_name% プラグインの設定では、コール ID を生成してコールコンテキストに追加することができます。
 
-### コール ID の生成
+### コール ID の生成 {id="generate-a-call-id"}
 
 以下のいずれかの方法で、特定のリクエストに対してコール ID を生成します。
 
@@ -100,7 +100,7 @@
 
 複数の方法を使用してコール ID を生成できます。その場合、最初の非 null 値が適用されます。
 
-### コール ID の追加
+### コール ID の追加 {id="add-a-call-id"}
 
 コール ID を取得した後、それをリクエストに追加するために以下のオプションを利用できます。
 
@@ -122,7 +122,7 @@
  }
  ```
 
-## 例
+## 例 {id="example"}
 
 以下の例では、Ktor クライアント用の `%plugin_name%` プラグインが、新しいコール ID を生成してヘッダーに追加するように設定されています。
 

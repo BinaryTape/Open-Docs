@@ -13,13 +13,13 @@ Koog 提供了一組抽象和實作，用於以與供應商無關的方式處理
 
 這可作為以統一方式與不同 LLM 供應商互動的基礎，允許應用程式在使用各種模型時，抽象化掉特定供應商的細節。
 
-## LLM 功能
+## LLM 功能 {id="llm-capabilities"}
 
 LLM 功能代表大型語言模型可以支援的特定特性或功能性。在 Koog 架構中，功能用於定義特定模型可以執行什麼操作以及如何進行配置。每項功能都表示為 `LLMCapability` 類別的子類別或資料物件。
 
 在配置應用程式中使用的 LLM 時，您可以在建立 `LLModel` 執行個體時將支援的功能新增至 `capabilities` 列表來指定它們。這讓架構能夠正確地與模型互動並適當地使用其功能。
 
-### 核心功能
+### 核心功能 {id="core-capabilities"}
 
 下方列表包含 Koog 架構中模型可用的核心、LLM 特有功能：
 
@@ -37,7 +37,7 @@ LLM 功能代表大型語言模型可以支援的特定特性或功能性。在 
 
 - **多重選擇** (`LLMCapability.MultipleChoices`)：讓模型對單個提示詞產生多個獨立的回覆選擇。
 
-### 媒體處理功能
+### 媒體處理功能 {id="media-processing-capabilities"}
 
 以下列表代表一組用於處理圖像或音訊等媒體內容的功能：
 
@@ -50,7 +50,7 @@ LLM 功能代表大型語言模型可以支援的特定特性或功能性。在 
 
 - **文件** (`LLMCapability.Document`)：啟用基於文件的輸入和輸出的處理。
 
-### 文字處理功能
+### 文字處理功能 {id="text-processing-capabilities"}
 
 以下功能列表代表文字產生與處理功能：
 
@@ -62,7 +62,7 @@ LLM 功能代表大型語言模型可以支援的特定特性或功能性。在 
 
 - **審核** (`LLMCapability.Moderation`)：讓模型分析文字中潛在的有害內容，並根據各種細節分類，例如騷擾、仇恨言論、自殘、性內容、暴力等。
 
-### 架構功能
+### 架構功能 {id="schema-capabilities"}
 
 下方列表指出與處理結構化資料相關的功能：
 
@@ -72,7 +72,7 @@ LLM 功能代表大型語言模型可以支援的特定特性或功能性。在 
         - **基本** (`LLMCapability.Schema.JSON.Basic`)：提供輕量級或基本的 JSON 處理功能。
         - **標準** (`LLMCapability.Schema.JSON.Standard`)：為複雜的資料結構提供全面的 JSON 架構支援。
 
-## 建立模型 (LLModel) 配置
+## 建立模型 (LLModel) 配置 {id="creating-a-model-llmodel-configuration"}
 
 若要以通用、與供應商無關的方式定義模型，請建立 `LLModel` 類別的執行個體作為模型配置，並使用以下參數：
 
@@ -84,7 +84,7 @@ LLM 功能代表大型語言模型可以支援的特定特性或功能性。在 
 | `contextLength`   | Long                      | 是      |         | LLM 的上下文長度。這是 LLM 可以處理的最大 Token 數量。 |
 | `maxOutputTokens` | Long                      | 否       | `null`  | 供應商可為該 LLM 產生的最大 Token 數量。 |
 
-### 範例
+### 範例 {id="examples"}
 
 本節提供了建立具有不同功能的 `LLModel` 執行個體的詳細範例。
 
@@ -327,7 +327,7 @@ LLM 功能代表大型語言模型可以支援的特定特性或功能性。在 
     -->
     <!--- KNIT example-model-capabilities-java-05.java -->
 
-### 各模型的 LLM 功能
+### 各模型的 LLM 功能 {id="llm-capabilities-by-model"}
 
 此參考資料顯示了不同供應商的每個模型支援哪些 LLM 功能。
 

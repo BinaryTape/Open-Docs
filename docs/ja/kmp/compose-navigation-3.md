@@ -7,7 +7,7 @@
 >
 {style="tip"}
 
-## 主な変更点
+## 主な変更点 {id="key-changes"}
 
 Navigation 3 は単なるライブラリの新しいバージョンではなく、多くの面で完全に新しいライブラリと言えます。
 この再設計の背後にある哲学の詳細については、[Android Developers のブログ投稿](https://android-developers.googleblog.com/2025/05/announcing-jetpack-navigation-3-for-compose.html)をご覧ください。
@@ -20,7 +20,7 @@ Navigation 3 の主な変更点は以下の通りです：
 
 Navigation 3 の一般的な設計の詳細については、[Android のドキュメント](https://developer.android.com/guide/navigation/navigation-3)をご覧ください。
 
-## 依存関係の設定
+## 依存関係の設定 {id="dependencies-setup"}
 
 Navigation 3 のマルチプラットフォーム実装を試すには、以下の依存関係をバージョンカタログに追加してください。
 
@@ -61,7 +61,7 @@ navigation3-browser = { module = "com.github.terrakok:navigation3-browser", vers
 ブラウザ履歴ナビゲーションのサポートは、将来のリリースでベースのマルチプラットフォーム Navigation 3 ライブラリによって提供される予定です。
 進捗状況は [CMP-8924](https://youtrack.jetbrains.com/projects/CMP/issues/CMP-8924/Integrate-Browser-History-with-Nav3) で確認できます。
 
-## マルチプラットフォーム対応
+## マルチプラットフォーム対応 {id="multiplatform-support"}
 
 Navigation 3 は Compose と密接に連携しているため、Android のナビゲーション実装を最小限の変更で共通の Compose Multiplatform コードで動作させることができます。
 ウェブや iOS などの非 JVM プラットフォームをサポートするために必要なのは、[デスティネーションキーのポリモーフィックなシリアル化](#デスティネーションキーのポリモーフィックなシリアル化) を実装することだけです。
@@ -70,7 +70,7 @@ GitHub で、Navigation 3 を使用した Android 専用アプリとマルチプ
 * [Navigation 3 レシピが含まれるオリジナルの Android リポジトリ](https://github.com/android/nav3-recipes)
 * [同じレシピのほとんどを含む Compose Multiplatform プロジェクト](https://github.com/terrakok/nav3-recipes)
 
-### デスティネーションキーのポリモーフィックなシリアル化
+### デスティネーションキーのポリモーフィックなシリアル化 {id="polymorphic-serialization-for-destination-keys"}
 
 Android では、Navigation 3 はリフレクションベースのシリアル化に依存していますが、iOS のような非 JVM プラットフォームをターゲットにする場合はこれを利用できません。
 これを考慮して、このライブラリには `rememberNavBackStack()` 関数の 2 つのオーバーロードが用意されています。
@@ -109,12 +109,12 @@ fun BasicDslActivity() {
 }
 ```
 
-### 推奨されるシリアル化手法
+### 推奨されるシリアル化手法 {id="recommended-serialization-approaches"}
 
 マルチプラットフォームナビゲーションを実装する際には、ルート定義をどのように整理し、シリアル化するかを選択する必要があります。
 プロジェクトの複雑さとモジュール化に応じて、以下の 3 つのパターンのいずれかを使用してください。
 
-#### sealed 型を使用した単一モジュール
+#### sealed 型を使用した単一モジュール {id="single-module-with-sealed-type"}
 
 すべてのルートが 1 つのモジュールに存在する小規模なプロジェクトの場合は、`sealed interface` を使用します。
 Kotlin シリアル化が階層を自動的に処理するため、これが最も直接的な手法です：
@@ -149,7 +149,7 @@ private val config = SavedStateConfiguration {
 val backStack = rememberNavBackStack(config, RouteA)
 ```
 
-#### 集約された sealed 型を使用したマルチモジュール
+#### 集約された sealed 型を使用したマルチモジュール {id="multi-module-with-aggregated-sealed-types"}
 
 ルートが複数のモジュールで定義されているより複雑なプロジェクトの場合は、モジュールごとに sealed 型を定義できます。
 次に、`app` モジュールで `subclassesOfSealed()` 関数を使用して、それらのシリアライザーを集約します。
@@ -179,7 +179,7 @@ val backStack = rememberNavBackStack(config, RouteA1)
 
 依存性の注入 (DI) を使用すると、DI コンテナを使用して、各モジュールから sealed 型のシリアライザーを `Set<KSerializer>` に動的に収集することもできます。
 
-#### 個別のルート登録を使用したマルチモジュール
+#### 個別のルート登録を使用したマルチモジュール {id="multi-module-with-individual-route-registration"}
 
 ルートを sealed 型にグループ化できない場合は、異なるモジュールの `SerializersModule` インスタンスを手動で組み合わせることができます。
 
@@ -216,7 +216,7 @@ val backStack = rememberNavBackStack(config, RouteA1)
 この手法は高いレベルの柔軟性と非結合化を提供しますが、より多くの手動メンテナンスが必要になります。
 [集約された sealed 型を使用したマルチモジュール](#集約された-sealed-型を使用したマルチモジュール)手法と同様に、DI を使用してシリアライザーのリストを動的に組み立てることができ、これにより柔軟性が向上します。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 Navigation 3 については、Android デベロッパーポータルで詳しく説明されています。
 一部のドキュメントでは Android 固有の例が使用されていますが、コアとなる概念とナビゲーションの原則はすべてのプラットフォームで共通しています。

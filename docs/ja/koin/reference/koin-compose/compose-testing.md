@@ -6,7 +6,7 @@ title: Composable のテスト
 
 このガイドでは、Android Studio のプレビューから包括的なユニットテストまで、Koin を使用した Compose アプリケーションのテスト戦略について説明します。
 
-## KoinApplicationPreview
+## KoinApplicationPreview {id="koinapplicationpreview"}
 
 Koin の依存関係を持つ Android Studio プレビューには、`KoinApplicationPreview` を使用します。
 
@@ -24,7 +24,7 @@ fun UserScreenPreview() {
 }
 ```
 
-### 複数のプレビュー
+### 複数のプレビュー {id="multiple-previews"}
 
 ```kotlin
 @Preview(name = "Light Mode")
@@ -45,7 +45,7 @@ val previewModule = module {
 }
 ```
 
-### 異なる状態でのプレビュー
+### 異なる状態でのプレビュー {id="preview-with-different-states"}
 
 ```kotlin
 @Preview(name = "Loading")
@@ -85,9 +85,9 @@ fun SuccessPreview() {
 }
 ```
 
-## ComposeTestRule を使用したユニットテスト
+## ComposeTestRule を使用したユニットテスト {id="unit-testing-with-composetestrule"}
 
-### 基本的なセットアップ
+### 基本的なセットアップ {id="basic-setup"}
 
 ```kotlin
 class UserScreenTest : KoinTest {
@@ -115,7 +115,7 @@ class UserScreenTest : KoinTest {
 }
 ```
 
-### ユーザーインタラクションのテスト
+### ユーザーインタラクションのテスト {id="testing-user-interactions"}
 
 ```kotlin
 @Test
@@ -146,7 +146,7 @@ fun searchFiltersUsers() {
 }
 ```
 
-### ViewModel の状態を使用したテスト
+### ViewModel の状態を使用したテスト {id="testing-with-viewmodel-states"}
 
 ```kotlin
 @Test
@@ -204,9 +204,9 @@ fun showsErrorMessage() {
 }
 ```
 
-## 依存関係のモック
+## 依存関係のモック {id="mocking-dependencies"}
 
-### MockK の使用
+### MockK の使用 {id="using-mockk"}
 
 ```kotlin
 class UserScreenMockTest : KoinTest {
@@ -260,7 +260,7 @@ class UserScreenMockTest : KoinTest {
 }
 ```
 
-### Fake 実装の使用
+### Fake 実装の使用 {id="using-fake-implementations"}
 
 ```kotlin
 class FakeUserRepository : UserRepository {
@@ -333,7 +333,7 @@ class UserScreenFakeTest : KoinTest {
 }
 ```
 
-## ナビゲーションのテスト
+## ナビゲーションのテスト {id="testing-navigation"}
 
 ```kotlin
 class NavigationTest : KoinTest {
@@ -383,7 +383,7 @@ class NavigationTest : KoinTest {
 }
 ```
 
-## コルーチンを使用したテスト
+## コルーチンを使用したテスト {id="testing-with-coroutines"}
 
 ```kotlin
 class CoroutineTest : KoinTest {
@@ -419,7 +419,7 @@ class CoroutineTest : KoinTest {
 }
 ```
 
-## マルチプラットフォームのテスト
+## マルチプラットフォームのテスト {id="multiplatform-testing"}
 
 Compose Multiplatform の場合は、expect/actual のテストヘルパーを作成します。
 
@@ -453,7 +453,7 @@ class CommonUserScreenTest : KoinTest {
 }
 ```
 
-## ベストプラクティス
+## ベストプラクティス {id="best-practices"}
 
 1. **KoinTestRule を使用する** - セットアップとクリーンアップ（teardown）を自動的に処理します。
    ```kotlin
@@ -477,7 +477,7 @@ class CommonUserScreenTest : KoinTest {
 
 6. **Koin をクリーンアップする** - ルールを使用しない場合は、`@After` で `stopKoin()` を呼び出します。
 
-## 次のステップ
+## 次のステップ {id="next-steps"}
 
 - **[Compose の概要](/docs/reference/koin-compose/compose)** - セットアップと基本的なインジェクション
 - **[テストリファレンス](/docs/reference/koin-test/testing)** - 一般的な Koin のテスト

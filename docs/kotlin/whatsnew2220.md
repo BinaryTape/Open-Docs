@@ -32,14 +32,14 @@ Kotlin 2.2.20 版本已发布，为 Web 开发带来了重要变更。[Kotlin/Wa
 >
 {style="tip"}
 
-## IDE 支持
+## IDE 支持 {id="ide-support"}
 
 支持 Kotlin 2.2.20 的 Kotlin 插件已捆绑在最新版本的 IntelliJ IDEA 和 Android Studio 中。
 要进行更新，您只需在构建脚本中将 Kotlin 版本更改为 2.2.20。
 
 有关详细信息，请参阅 [更新到新版本](releases.md#update-to-a-new-kotlin-version)。
 
-## 语言
+## 语言 {id="language"}
 
 在 Kotlin 2.2.20 中，您可以试用计划用于 Kotlin 2.3.0 的后续语言功能，包括
 [改进了将 Lambda 传递给具有 `suspend` 函数类型的重载时的重载解析](#improved-overload-resolution-for-lambdas-with-suspend-function-types)
@@ -47,7 +47,7 @@ Kotlin 2.2.20 版本已发布，为 Web 开发带来了重要变更。[Kotlin/Wa
 对 [`when` 表达式完备性检查](#data-flow-based-exhaustiveness-checks-for-when-expressions)的改进、
 [具现化 `Throwable` 捕获](#support-for-reified-types-in-catch-clauses) 以及 [Kotlin 契约](#improved-kotlin-contracts)。
 
-### 改进了具有 `suspend` 函数类型的 Lambda 的重载解析
+### 改进了具有 `suspend` 函数类型的 Lambda 的重载解析 {id="improved-overload-resolution-for-lambdas-with-suspend-function-types"}
 
 以前，在传递 Lambda 时，同时使用常规函数类型和 `suspend` 函数类型重载函数会导致歧义
 错误。您可以通过显式类型转换来解决此错误，但编译器会错误地
@@ -98,7 +98,7 @@ kotlin {
 
 我们欢迎您在我们的问题跟踪器 [YouTrack](https://youtrack.jetbrains.com/issue/KT-23610) 中提供反馈。
 
-### 支持在具有显式返回值类型的表达式体中使用 `return` 语句
+### 支持在具有显式返回值类型的表达式体中使用 `return` 语句 {id="support-for-return-statements-in-expression-bodies-with-explicit-return-types"}
 
 以前，在表达式体中使用 `return` 会导致编译器错误，因为它可能导致函数的返回值类型
 被推断为 `Nothing`。
@@ -156,7 +156,7 @@ kotlin {
 
 我们欢迎您在我们的问题跟踪器 [YouTrack](https://youtrack.jetbrains.com/issue/KT-76926) 中提供反馈。
 
-### 基于数据流的 `when` 表达式完备性检查
+### 基于数据流的 `when` 表达式完备性检查 {id="data-flow-based-exhaustiveness-checks-for-when-expressions"}
 <primary-label ref="experimental-opt-in"/>
 
 Kotlin 2.2.20 引入了 **基于数据流的** `when` 表达式完备性检查。
@@ -195,7 +195,7 @@ kotlin {
 }
 ```
 
-### 支持在 `catch` 子句中使用具现化类型
+### 支持在 `catch` 子句中使用具现化类型 {id="support-for-reified-types-in-catch-clauses"}
 <primary-label ref="experimental-opt-in"/>
 
 在 Kotlin 2.2.20 中，编译器现在允许在 `inline` 函数的 `catch` 子句中使用 [具现化泛型类型形参](inline-functions.md#reified-type-parameters)。
@@ -236,7 +236,7 @@ kotlin {
 
 Kotlin 团队感谢外部贡献者 [Iven Krall](https://github.com/kralliv) 的贡献。
 
-### 改进的 Kotlin 契约
+### 改进的 Kotlin 契约 {id="improved-kotlin-contracts"}
 <primary-label ref="experimental-opt-in"/>
 
 Kotlin 2.2.20 对 [Kotlin 契约](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.contracts/contract.html) 进行了多项改进，包括：
@@ -254,7 +254,7 @@ Kotlin 2.2.20 对 [Kotlin 契约](https://kotlinlang.org/api/core/kotlin-stdlib/
 
 我们欢迎您在我们的 [问题跟踪器](https://kotl.in/issue) 中提供反馈。
 
-#### 支持契约类型断言中的泛型
+#### 支持契约类型断言中的泛型 {id="support-for-generics-in-contract-type-assertions"}
 
 您现在可以编写对泛型类型执行类型断言的契约：
 
@@ -295,7 +295,7 @@ kotlin {
 }
 ```
 
-#### 支持在属性访问器和特定运算符函数中使用契约
+#### 支持在属性访问器和特定运算符函数中使用契约 {id="support-for-contracts-inside-property-accessors-and-specific-operator-functions"}
 
 您现在可以在属性访问器和特定运算符函数内部定义契约。
 这让您可以在更多类型的声明上使用契约，使其更加灵活。
@@ -370,7 +370,7 @@ kotlin {
 }
 ```
 
-#### 支持在契约中使用 `returnsNotNull()` 函数
+#### 支持在契约中使用 `returnsNotNull()` 函数 {id="support-for-the-returnsnotnull-function-in-contracts"}
 
 Kotlin 2.2.20 为契约引入了 [`returnsNotNull()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.contracts/-contract-builder/returns-not-null.html) 函数。
 您可以使用此函数来确保当满足特定条件时，函数会返回一个非 null 值。
@@ -413,7 +413,7 @@ kotlin {
 }
 ```
 
-#### 新的 `holdsIn` 关键字
+#### 新的 `holdsIn` 关键字 {id="new-holdsin-keyword"}
 
 Kotlin 2.2.20 为契约引入了新的 [`holdsIn`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.contracts/-contract-builder/holds-in.html) 关键字。
 您可以使用它来确保在特定的 Lambda 内部，布尔条件被假定为 `true`。这让您可以使用契约
@@ -460,7 +460,7 @@ kotlin {
 }
 ```
 
-## Kotlin/JVM：在 `when` 表达式中支持 `invokedynamic`
+## Kotlin/JVM：在 `when` 表达式中支持 `invokedynamic` {id="kotlin-jvm-support-invokedynamic-with-when-expressions"}
 <primary-label ref="experimental-opt-in"/> 
 
 在 Kotlin 2.2.20 中，您现在可以使用 `invokedynamic` 编译 `when` 表达式。以前，具有多个
@@ -514,12 +514,12 @@ kotlin {
 
 此功能是 [实验性的](components-stability.md#stability-levels-explained)。我们欢迎您在我们的问题跟踪器 [YouTrack](https://youtrack.jetbrains.com/issue/KT-65688) 中提供反馈。
 
-## Kotlin Multiplatform
+## Kotlin Multiplatform {id="kotlin-multiplatform"}
 
 Kotlin 2.2.20 为 Kotlin Multiplatform 带来了重大变更：Swift 导出默认可用、
 新增了一个共享源集，并且您可以尝试一种管理公共依赖项的新方法。
 
-### Swift 导出默认可用
+### Swift 导出默认可用 {id="swift-export-available-by-default"}
 <primary-label ref="experimental-general"/> 
 
 Kotlin 2.2.20 引入了对 Swift 导出的实验性支持。它允许您直接导出 Kotlin 源代码
@@ -540,7 +540,7 @@ Kotlin 2.2.20 引入了对 Swift 导出的实验性支持。它允许您直接�
 * **展平的软件包结构**。您可以将 Kotlin 软件包转换为 Swift 枚举，从而从生成的 Swift 代码中移除软件包前缀。
 * **模块名称自定义**。您可以在 Kotlin 项目的 Gradle 配置中自定义生成的 Swift 模块名称。
 
-#### 如何启用 Swift 导出
+#### 如何启用 Swift 导出 {id="how-to-enable-swift-export"}
 
 该功能目前处于 [实验性阶段](components-stability.md#stability-levels-explained)，仅在使用 [直接集成](https://kotlinlang.org/docs/multiplatform/multiplatform-direct-integration.html)
 将 iOS 框架连接到 Xcode 项目的项目中有效。这是使用 IntelliJ IDEA 中的 Kotlin Multiplatform 插件或通过 [Web 向导](https://kmp.jetbrains.com/)
@@ -568,7 +568,7 @@ Kotlin 2.2.20 引入了对 Swift 导出的实验性支持。它允许您直接�
 
 有关 Swift 导出的更多信息，请参阅我们的 [文档](native-swift-export.md)。
 
-#### 留下反馈
+#### 留下反馈 {id="leave-feedback"}
 
 我们计划在未来的 Kotlin 版本中扩展并逐步稳定 Swift 导出支持。在
 Kotlin 2.2.20 之后，我们将专注于改进 Kotlin 和 Swift 之间的互操作性，特别是围绕协程和 Flow。
@@ -578,7 +578,7 @@ Kotlin 2.2.20 之后，我们将专注于改进 Kotlin 和 Swift 之间的互操
 * 在 Kotlin Slack 中直接联系开发团队 – [获取邀请](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up?_gl=1*ju6cbn*_ga*MTA3MTk5NDkzMC4xNjQ2MDY3MDU4*_ga_9J976DJZ68*MTY1ODMzNzA3OS4xMDAuMS4xNjU4MzQwODEwLjYw) 并加入 [#swift-export](https://kotlinlang.slack.com/archives/C073GUW6WN9) 频道。
 * 在 [YouTrack](https://kotl.in/issue) 中报告您在使用 Swift 导出时遇到的任何问题。
 
-### 用于 `js` 和 `wasmJs` 目标的共享源集
+### 用于 `js` 和 `wasmJs` 目标的共享源集 {id="shared-source-set-for-js-and-wasmjs-targets"}
 
 以前，Kotlin Multiplatform 默认不包含用于 JavaScript (`js`) 和 WebAssembly (`wasmJs`) Web 目标的共享源集。
 要在 `js` 和 `wasmJs` 之间共享代码，您必须手动配置自定义源集或在两个地方编写代码，
@@ -665,7 +665,7 @@ kotlin {
 源集或如果您重命名了 `js("web")` 目标，是否存在任何潜在冲突。要解决这些冲突，请重命名冲突的源集或目标，或者
 不使用默认层次结构。
 
-### 稳定的 Kotlin 库跨平台编译
+### 稳定的 Kotlin 库跨平台编译 {id="stable-cross-platform-compilation-for-kotlin-libraries"}
 
 Kotlin 2.2.20 完成了一个重要的 [路线图项目](https://youtrack.jetbrains.com/issue/KT-71290)，使
 Kotlin 库的跨平台编译趋于稳定。
@@ -684,7 +684,7 @@ Kotlin 库的跨平台编译趋于稳定。
 
 有关发布多平台库的更多信息，请参阅我们的 [文档](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-lib-setup.html)。
 
-### 声明公共依赖项的新方法
+### 声明公共依赖项的新方法 {id="new-approach-for-declaring-common-dependencies"}
 <primary-label ref="experimental-opt-in"/>
 
 为了简化使用 Gradle 设置多平台项目，当您的项目使用 Gradle 8.8 或更高版本时，Kotlin 2.2.20 现在允许您
@@ -709,7 +709,7 @@ kotlin {
 
 我们欢迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-76446) 中对该功能提供反馈。
 
-### 依赖项中目标支持的新诊断
+### 依赖项中目标支持的新诊断 {id="new-diagnostic-for-target-support-in-dependencies"}
 
 在 Kotlin 2.2.20 之前，如果构建脚本中的依赖项不支持源集所需的所有目标，
 Gradle 产生的错误消息会让人难以理解问题所在。
@@ -724,17 +724,17 @@ Kotlin 2.2.20 引入了一个新的诊断功能，可以清晰地显示每个依
 | `kotlin.kmp.eagerUnresolvedDependenciesDiagnostic=false` | 仅针对元数据编译和导入运行诊断                            |
 | `kotlin.kmp.unresolvedDependenciesDiagnostic=false`      | 完全禁用诊断                                      |
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 此版本带来了对 Xcode 26 的支持、对 Objective-C/Swift 互操作性的改进、调试功能改进以及新的二进制选项。
 
-### 支持 Xcode 26
+### 支持 Xcode 26 {id="support-for-xcode-26"}
 
 从 Kotlin 2.2.2**1** 开始，Kotlin/Native 编译器支持 Xcode 26（Xcode 的最新稳定版本）。
 您现在可以更新您的 Xcode 并访问最新的 API，以继续为 Apple
 操作系统开发 Kotlin 项目。
 
-### 支持二进制文件中的栈保护 (Stack Canaries)
+### 支持二进制文件中的栈保护 (Stack Canaries) {id="support-for-stack-canaries-in-binaries"}
 
 从 Kotlin 2.2.20 开始，Kotlin 在生成的 Kotlin/Native 二进制文件中增加了对栈保护 (Stack Canaries) 的支持。作为
 堆栈保护的一部分，此安全功能可防止栈溢出攻击，从而减轻一些常见的应用程序漏洞。
@@ -755,7 +755,7 @@ kotlin.native.binary.stackProtector=yes
 
 请注意，在某些情况下，栈保护可能会带来性能损耗。
 
-### 更小的发布二进制文件体积
+### 更小的发布二进制文件体积 {id="smaller-binary-size-for-release-binaries"}
 <primary-label ref="experimental-opt-in"/> 
 
 Kotlin 2.2.20 引入了 `smallBinary` 选项，可以帮助您减小发布二进制文件的体积。
@@ -773,7 +773,7 @@ kotlin.native.binary.smallBinary=true
 
 Kotlin 团队感谢 [Troels Lund](https://github.com/troelsbjerre) 在实现此功能方面的帮助。
 
-### 改进的调试器对象摘要
+### 改进的调试器对象摘要 {id="improved-debugger-object-summaries"}
 
 Kotlin/Native 现在为 LLDB 和 GDB 等调试工具生成更清晰的对象摘要。这提高了
 生成的调试信息的可读性，并简化了您的调试体验。
@@ -807,7 +807,7 @@ Kotlin 团队感谢 [Nikita Nazarov](https://github.com/nikita-nazarov) 在实�
 
 有关 Kotlin/Native 调试的更多信息，请参阅 [文档](native-debugging.md)。
 
-### Objective-C 头文件代码块类型中的显式名称
+### Objective-C 头文件代码块类型中的显式名称 {id="explicit-names-in-block-types-for-objective-c-headers"}
 
 Kotlin 2.2.20 引入了一个选项，可以为从 Kotlin/Native 项目导出的 Objective-C 头文件的 Kotlin 函数类型
 添加显式形参名称。形参名称可以改进 Xcode 中的自动补全建议，并有助于避免 Clang 警告。
@@ -858,7 +858,7 @@ kotlin.native.binary.objcExportBlockExplicitParameterNames=true
 
 Kotlin 团队感谢 [Yijie Jiang](https://github.com/edisongz) 实现此功能。
 
-### 缩减了 Kotlin/Native 分发包的体积
+### 缩减了 Kotlin/Native 分发包的体积 {id="reduced-size-of-kotlin-native-distribution"}
 
 Kotlin/Native 分发包曾经包含两个带有编译器代码的 JAR 文件：
 
@@ -879,7 +879,7 @@ Kotlin/Native 分发包曾经包含两个带有编译器代码的 JAR 文件：
 
 有关更多信息，请参阅 [YouTrack 问题](https://kotl.in/KT-51301)。
 
-### 默认将 KDoc 导出到 Objective-C 头文件
+### 默认将 KDoc 导出到 Objective-C 头文件 {id="exporting-kdocs-to-objective-c-headers-by-default"}
 
 在编译 Kotlin/Native 最终二进制文件期间生成 Objective-C 头文件时，[KDoc](kotlin-doc.md) 注释现在默认导出。
 
@@ -908,7 +908,7 @@ kotlin {
 
 有关更多信息，请参阅 [我们的文档](native-objc-interop.md#provide-documentation-with-kdoc-comments)。
 
-### 弃用 `x86_64` Apple 目标
+### 弃用 `x86_64` Apple 目标 {id="deprecation-of-x8664-apple-targets"}
 
 Apple 在几年前停止生产搭载 Intel 芯片的设备，并于 [最近宣布](https://www.youtube.com/live/51iONeETSng?t=3288s) 
 macOS Tahoe 26 将是最后一个支持 Intel 架构的操作系统版本。
@@ -929,13 +929,13 @@ macOS Tahoe 26 将是最后一个支持 Intel 架构的操作系统版本。
 
 有关支持层级的更多信息，请参阅 [Kotlin/Native 目标支持](native-target-support.md)。
 
-## Kotlin/Wasm
+## Kotlin/Wasm {id="kotlin-wasm"}
 
 Kotlin/Wasm 现已进入 Beta 阶段，提供更高的稳定性以及诸如分离的 npm 依赖项、 
 [改进的 JavaScript 互操作异常处理](#improved-exception-handling-in-kotlin-wasm-and-javascript-interop)、
 [内置浏览器调试支持](#support-for-debugging-in-browsers-without-configuration) 等改进。
 
-### 分离的 npm 依赖项
+### 分离的 npm 依赖项 {id="separated-npm-dependencies"}
 
 以前，在您的 Kotlin/Wasm 项目中，所有 [npm](https://www.npmjs.com/) 依赖项都安装在您的项目文件夹中，
 包括 Kotlin 工具依赖项和您自己的依赖项。它们还一起记录在项目的锁定文件
@@ -963,7 +963,7 @@ Kotlin/Wasm 现已进入 Beta 阶段，提供更高的稳定性以及诸如分�
 此更改默认对 `wasm-js` 目标启用。该更改尚未对 `js` 目标实施。虽然
 计划在未来的版本中实施，但在 Kotlin 2.2.20 中，对于 `js` 目标，npm 依赖项的行为保持不变。
 
-### 改进了 Kotlin/Wasm 和 JavaScript 互操作中的异常处理
+### 改进了 Kotlin/Wasm 和 JavaScript 互操作中的异常处理 {id="improved-exception-handling-in-kotlin-wasm-and-javascript-interop"}
 
 以前，Kotlin 难以理解在 JavaScript (JS) 中抛出并跨越到 Kotlin/Wasm 代码的异常（错误）。
 
@@ -986,7 +986,7 @@ Kotlin/Wasm 现已进入 Beta 阶段，提供更高的稳定性以及诸如分�
 
 在旧版浏览器中，异常处理行为保持不变。
 
-### 支持在浏览器中无需配置即可调试
+### 支持在浏览器中无需配置即可调试 {id="support-for-debugging-in-browsers-without-configuration"}
 
 以前，浏览器无法自动访问调试所需的 Kotlin/Wasm 项目源代码。
 要在浏览器中调试 Kotlin/Wasm 应用程序，您必须手动配置构建以通过在 `build.gradle(.kts)` 文件中添加以下代码片段来提供这些源代码：
@@ -1010,7 +1010,7 @@ devServer = (devServer ?: KotlinWebpackConfig.DevServer()).apply {
 还提供其源文件，因此请仅将其用于本地开发，并避免在云端或生产环境中运行它们，
 因为在这些环境中源代码会被公开。
 
-#### 处理调试期间的重复重新加载
+#### 处理调试期间的重复重新加载 {id="handle-repeated-reloads-during-debugging"}
 
 默认提供源代码可能会导致 [在 Kotlin 编译和打包完成之前，应用程序在浏览器中重复重新加载](https://youtrack.jetbrains.com/issue/KT-80582/Multiple-reloads-when-using-webpack-dev-server-after-2.2.20-Beta2#focus=Comments-27-12596427.0-0)。
 作为变通方法，请调整您的 webpack 配置以忽略 Kotlin 源文件并禁用对所提供静态文件的监视。
@@ -1034,7 +1034,7 @@ if (config.devServer) {
 }
 ```
 
-### 消除空的 `yarn.lock` 文件
+### 消除空的 `yarn.lock` 文件 {id="elimination-of-empty-yarn-lock-files"}
 
 以前，Kotlin Gradle 插件 (KGP) 会自动生成一个 `yarn.lock` 文件，其中包含有关 
 Kotlin 工具链所需的 npm 软件包的信息，以及来自项目或所用库的任何现有 [npm](https://www.npmjs.com/) 依赖项。
@@ -1048,7 +1048,7 @@ Kotlin 工具链所需的 npm 软件包的信息，以及来自项目或所用�
 
 配置此行为无需额外步骤。从 Kotlin 2.2.20 开始，它默认应用于 Kotlin/Wasm 项目。
 
-### 完全限定类名中的新编译器错误
+### 完全限定类名中的新编译器错误 {id="new-compiler-error-in-fully-qualified-class-names"}
 
 在 Kotlin/Wasm 上，编译器默认不会在生成的二进制文件中存储类的完全限定名称 (FQN)。
 这种方法避免了增加应用程序体积。
@@ -1079,12 +1079,12 @@ kotlin {
 >
 {style="note"}
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
 Kotlin 2.2.20 支持使用 `BigInt` 类型来表示 Kotlin 的 `Long` 类型，从而在导出的
 声明中允许使用 `Long`。此外，此版本还添加了一个 DSL 函数来清理 Node.js 参数。
 
-### 使用 `BigInt` 类型来表示 Kotlin 的 `Long` 类型
+### 使用 `BigInt` 类型来表示 Kotlin 的 `Long` 类型 {id="usage-of-the-bigint-type-to-represent-kotlin-s-long-type"}
 <primary-label ref="experimental-opt-in"/>
 
 在 ES2020 标准之前，JavaScript (JS) 不支持用于精确表示大于 53 位的整数的
@@ -1112,7 +1112,7 @@ kotlin {
 
 此功能是 [实验性的](components-stability.md#stability-levels-explained)。我们欢迎您在我们的问题跟踪器 [YouTrack](https://youtrack.jetbrains.com/issue/KT-57128) 中提供反馈。
 
-#### 在导出的声明中使用 `Long`
+#### 在导出的声明中使用 `Long` {id="usage-of-long-in-exported-declarations"}
 
 由于 Kotlin/JS 使用了自定义的 `Long` 表示方式，因此很难提供一种直接的方法在 JavaScript 中与
 Kotlin 的 `Long` 进行交互。结果是，您无法将使用 `Long` 类型的 Kotlin 代码导出到 JavaScript。
@@ -1138,7 +1138,7 @@ Kotlin 的 `Long` 进行交互。结果是，您无法将使用 `Long` 类型的
 
 2. 启用 `BigInt` 类型。请参阅 [使用 `BigInt` 类型来表示 Kotlin 的 `Long` 类型](#usage-of-the-bigint-type-to-represent-kotlin-s-long-type) 了解如何启用它。
 
-### 用于更简洁参数的新 DSL 函数
+### 用于更简洁参数的新 DSL 函数 {id="new-dsl-function-for-cleaner-arguments"}
 
 当使用 Node.js 运行 Kotlin/JS 应用程序时，传递给程序的参数 (`args`) 曾经包括：
 
@@ -1182,12 +1182,12 @@ kotlin {
 }
 ```
 
-## Gradle
+## Gradle {id="gradle"}
 
 Kotlin 2.2.20 在 Gradle 构建报告中为 Kotlin/Native 任务添加了新的编译器性能指标，并对增量编译进行了
 体验改进。
 
-### 构建报告中 Kotlin/Native 任务的新编译器性能指标
+### 构建报告中 Kotlin/Native 任务的新编译器性能指标 {id="new-compiler-performance-metrics-in-build-reports-for-kotlin-native-tasks"}
 
 在 Kotlin 1.7.0 中，我们引入了 [构建报告](gradle-compilation-and-caches.md#build-reports) 以帮助跟踪编译器
 性能。自那时起，我们添加了更多指标，使这些报告更加详细，对于调查
@@ -1197,7 +1197,7 @@ Kotlin 2.2.20 在 Gradle 构建报告中为 Kotlin/Native 任务添加了新的�
 
 要了解有关构建报告及其配置方式的更多信息，请参阅 [启用构建报告](gradle-compilation-and-caches.md#enabling-build-reports)。
 
-### 预览 Kotlin/JVM 改进的增量编译
+### 预览 Kotlin/JVM 改进的增量编译 {id="preview-improved-incremental-compilation-for-kotlin-jvm"}
 <primary-label ref="experimental-general"/>
 
 Kotlin 2.0.0 引入了具有优化前端的新 K2 编译器。Kotlin 2.2.20 在此基础上，通过使用新的
@@ -1214,7 +1214,7 @@ kotlin.incremental.jvm.fir=true
 
 我们欢迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-72822) 中对该功能提供反馈。
 
-### 增量编译检测内联函数 Lambda 中的更改
+### 增量编译检测内联函数 Lambda 中的更改 {id="incremental-compilation-detects-changes-in-lambdas-of-inline-functions"}
 
 在 Kotlin 2.2.20 之前，如果您启用了增量编译并更改了内联函数中 Lambda 内部的逻辑，
 编译器不会在其他模块中重新编译该内联函数的调用站点。因此，这些调用站点使用的是
@@ -1222,20 +1222,20 @@ kotlin.incremental.jvm.fir=true
 
 在 Kotlin 2.2.20 中，编译器现在可以检测内联函数 Lambda 中的更改并自动重新编译其调用站点。
 
-### 库发布的改进
+### 库发布的改进 {id="improvements-for-library-publication"}
 
 Kotlin 2.2.20 添加了新的 Gradle 任务，使库发布更加容易。这些任务可帮助您生成密钥对、上传
 公钥，并运行本地检查以确保在上传到 Maven Central 仓库之前验证过程成功。
 
 有关如何将这些任务作为发布过程一部分使用的更多信息，请参阅 [将您的库发布到 Maven Central](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-libraries.html)。
 
-#### 用于生成和上传 PGP 密钥的新 Gradle 任务
+#### 用于生成和上传 PGP 密钥的新 Gradle 任务 {id="new-gradle-tasks-for-generating-and-uploading-pgp-keys"}
 
 在 Kotlin 2.2.20 之前，如果您想将多平台库发布到 Maven Central 仓库，您必须安装
 第三方程序（如 `gpg`）来生成用于对您的发布内容进行签名的密钥对。现在，Kotlin Gradle 插件附带了
 Gradle 任务，允许您生成密钥对并上传公钥，因此您无需安装其他程序。
 
-##### 生成密钥对
+##### 生成密钥对 {id="generate-a-key-pair"}
 
 `generatePgpKeys` 任务生成密钥对。当您运行它时，必须按以下格式提供私有密钥库的
 密码和您的姓名：
@@ -1250,7 +1250,7 @@ Gradle 任务，允许您生成密钥对并上传公钥，因此您无需安装�
 > 
 {style="warning"}
 
-##### 上传公钥
+##### 上传公钥 {id="upload-the-public-key"}
 
 `uploadPublicPgpKey` 任务将公钥上传到 Ubuntu 的密钥服务器：`keyserver.ubuntu.com`。运行该任务时， 
 请提供 `.asc` 格式公钥的路径：
@@ -1259,7 +1259,7 @@ Gradle 任务，允许您生成密钥对并上传公钥，因此您无需安装�
 ./gradlew uploadPublicPgpKey --keyring /path_to/build/pgp/public_KEY_ID.asc
 ```
 
-#### 本地测试验证的新 Gradle 任务
+#### 本地测试验证的新 Gradle 任务 {id="new-gradle-tasks-to-test-verification-locally"}
 
 Kotlin 2.2.20 还添加了 Gradle 任务，用于在将库上传到 Maven Central 仓库之前在本地测试验证。
 
@@ -1283,7 +1283,7 @@ Kotlin 2.2.20 还添加了 Gradle 任务，用于在将库上传到 Maven Centra
 `checkPomFileFor<PUBLICATION_NAME>Publication` 任务检查 `pom.xml` 文件是否符合 Maven Central 的 [要求](https://central.sonatype.org/publish/requirements/#required-pom-metadata)。
 如果不符合，该任务将返回一个错误，其中包含有关 `pom.xml` 文件哪些部分不合规的详细信息。
 
-## Maven：`kotlin-maven-plugin` 中支持 Kotlin 守护进程
+## Maven：`kotlin-maven-plugin` 中支持 Kotlin 守护进程 {id="maven-support-for-the-kotlin-daemon-in-the-kotlin-maven-plugin"}
 
 Kotlin 2.2.20 将 [Kotlin 2.2.0 中引入的构建工具 API](whatsnew22.md#new-experimental-build-tools-api) 更进
 一步，在 `kotlin-maven-plugin` 中添加了对 [Kotlin 守护进程](kotlin-daemon.md) 的支持。使用 Kotlin 守护进程时，Kotlin
@@ -1307,19 +1307,19 @@ Kotlin 2.2.20 还引入了一个新的 `jvmArgs` 属性，您可以使用它来�
 </properties>
 ```
 
-## Kotlin 编译器选项的新公共架构
+## Kotlin 编译器选项的新公共架构 {id="new-common-schema-for-kotlin-compiler-options"}
 
 Kotlin 2.2.20 为发布在 [`org.jetbrains.kotlin:kotlin-compiler-arguments-description`](https://central.sonatype.com/artifact/org.jetbrains.kotlin/kotlin-compiler-arguments-description) 下的所有编译器选项引入了一个公共架构。
 该构件包含所有编译器选项的代码表示形式和 JSON 等效形式（适用于非 JVM 使用者）、
 它们的描述以及元数据（例如引入或稳定每个选项的版本）。您可以使用此
 架构生成选项的自定义视图或根据需要对其进行分析。
 
-## 标准库
+## 标准库 {id="standard-library"}
 
 此版本在标准库中引入了新的实验性功能：用于识别 Kotlin/JS 中接口
 类型的反射支持、通用原子类型的更新函数，以及用于数组调整大小的 `copyOf()` 重载。
 
-### 支持在 Kotlin/JS 中通过反射识别接口类型
+### 支持在 Kotlin/JS 中通过反射识别接口类型 {id="support-for-identifying-interface-types-through-reflection-in-kotlin-js"}
 <primary-label ref="experimental-opt-in"/>
 
 Kotlin 2.2.20 在 Kotlin/JS 标准库中添加了 [实验性](components-stability.md#stability-levels-explained) [`KClass.isInterface`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.reflect/-k-class/is-interface.html) 属性。
@@ -1339,7 +1339,7 @@ fun inspect(klass: KClass<*>) {
 
 我们欢迎您在我们的问题跟踪器 [YouTrack](https://youtrack.jetbrains.com/issue/KT-78581) 中提供反馈。
 
-### 通用原子类型的新更新函数
+### 通用原子类型的新更新函数 {id="new-update-functions-for-common-atomic-types"}
 <primary-label ref="experimental-opt-in"/>
 
 Kotlin 2.2.20 引入了新的实验性函数，用于更新通用原子类型及其对应数组的元素。
@@ -1392,7 +1392,7 @@ fun main() {
 
 我们欢迎您在我们的问题跟踪器 [YouTrack](https://youtrack.jetbrains.com/issue/KT-76389) 中提供反馈。
 
-### 数组的 `copyOf()` 重载支持
+### 数组的 `copyOf()` 重载支持 {id="support-for-copyof-overloads-for-arrays"}
 <primary-label ref="experimental-opt-in"/>
 
 Kotlin 2.2.20 为 [`copyOf()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/copy-of.html) 函数引入了实验性重载。
@@ -1418,11 +1418,11 @@ fun main() {
 
 我们欢迎您在我们的 [问题跟踪器](https://youtrack.jetbrains.com/issue/KT-70984) 中提供反馈。
 
-## Compose 编译器
+## Compose 编译器 {id="compose-compiler"}
 
 在此版本中，Compose 编译器通过添加新警告并改进构建指标的输出使其更易于阅读，从而带来了体验改进。
 
-### 默认参数的语言版本限制
+### 默认参数的语言版本限制 {id="language-version-restrictions-for-default-parameters"}
 
 在此版本中，如果为编译指定的语言版本低于
 支持抽象或开放可组合函数中的默认参数所需的版本，Compose 编译器会报告错误。
@@ -1431,7 +1431,7 @@ Compose 编译器从 Kotlin 2.1.0 开始支持抽象函数中的默认参数，�
 开始支持开放函数中的默认参数。当针对旧版 Kotlin 语言版本使用较新版本的 Compose 编译器时，
 库开发者应注意，即使语言版本不支持，抽象或开放函数中的默认参数仍可能出现在公共 API 中。
 
-### K2 编译器的可组合目标警告
+### K2 编译器的可组合目标警告 {id="composable-target-warnings-for-the-k2-compiler"}
 
 此版本在使用 K2 编译器时添加了关于 [`@ComposableTarget`](https://developer.android.com/reference/kotlin/androidx/compose/runtime/ComposableTarget)
 不匹配的警告。
@@ -1447,21 +1447,21 @@ Compose 编译器从 Kotlin 2.1.0 开始支持抽象函数中的默认参数，�
   }
 }
 ```
-### 构建指标中的完全限定名称
+### 构建指标中的完全限定名称 {id="fully-qualified-names-in-build-metrics"}
 
 构建指标中报告的类名和函数名现在是完全限定的，从而更容易区分
 不同软件包中同名的声明。
 
 此外，构建指标不再包含默认参数中复杂表达式的转储，使其更易于阅读。
 
-## 破坏性变更和弃用
+## 破坏性变更和弃用 {id="breaking-changes-and-deprecations"}
 
 本节重点介绍了值得注意的重要破坏性变更和弃用：
 
 * [kapt](kapt.md) 编译器插件现在默认使用 K2 编译器。因此，控制插件是否使用 K2 编译器的 `kapt.use.k2` 属性已被弃用。如果您将此属性设置为 `false` 以选择
   退出使用 K2 编译器，Gradle 将显示警告。
 
-## 文档更新
+## 文档更新 {id="documentation-updates"}
 
 Kotlin 文档进行了一些显著更改：
 
@@ -1482,7 +1482,7 @@ Kotlin 文档进行了一些显著更改：
   * [自定义类型映射](https://www.jetbrains.com/help/exposed/custom-type-mapping.html)
 * [HTMX 集成](https://ktor.io/docs/htmx-integration.html) – 了解 Ktor 如何为 HTMX 提供实验性的、一流的支持。
 
-## 如何更新到 Kotlin 2.2.20
+## 如何更新到 Kotlin 2.2.20 {id="how-to-update-to-kotlin-2-2-20"}
 
 Kotlin 插件作为捆绑插件在 IntelliJ IDEA 和 Android Studio 中分发。
 

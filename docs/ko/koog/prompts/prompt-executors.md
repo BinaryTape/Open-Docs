@@ -3,7 +3,7 @@
 프롬프트 실행기(Prompt executors)는 하나 또는 여러 LLM 클라이언트의 생명 주기(lifecycle)를 관리할 수 있게 해주는 고수준 추상화를 제공합니다.
 공급자별 세부 사항을 추상화한 통합 인터페이스를 통해 여러 LLM 공급자와 작업할 수 있으며, 공급자 간의 동적 전환 및 폴백(fallback) 기능을 지원합니다.
 
-## 실행기 유형 (Executor types)
+## 실행기 유형 (Executor types) {id="executor-types"}
 
 Koog는 [`PromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.model.PromptExecutor) 인터페이스를 구현하는 세 가지 주요 프롬프트 실행기 유형을 제공합니다:
 
@@ -13,7 +13,7 @@ Koog는 [`PromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.mo
 | 다중 제공자 (Multi-provider) | [`MultiLLMPromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.llms.MultiLLMPromptExecutor)   | 여러 LLM 클라이언트를 래핑하고 LLM 공급자에 따라 호출을 라우팅합니다. 선택적으로 요청된 클라이언트를 사용할 수 없을 때 구성된 폴백 공급자 및 LLM을 사용할 수 있습니다. 에이전트가 서로 다른 공급자의 LLM 간에 전환해야 하는 경우 이 실행기를 사용하세요. |
 | 라우팅 (Routing) | [`RoutingLLMPromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.llms.RoutingLLMPromptExecutor) | 라우팅 전략을 사용하여 지정된 LLM 모델에 대한 요청을 여러 클라이언트 인스턴스에 분산합니다. 속도 제한(rate limits)을 피하고, 처리량(throughput)을 개선하며, 부하 분산(load balancing)과 함께 장애 조치(failover) 전략을 구현하려면 이 실행기를 사용하세요. |
 
-## 단일 제공자 실행기 생성하기
+## 단일 제공자 실행기 생성하기 {id="creating-a-single-provider-executor"}
 
 특정 LLM 공급자를 위한 프롬프트 실행기를 생성하려면 다음 단계를 수행하세요:
 
@@ -49,7 +49,7 @@ Koog는 [`PromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.mo
     ```
     <!--- KNIT example-prompt-executors-java-01.java -->
 
-## 다중 제공자 실행기 생성하기
+## 다중 제공자 실행기 생성하기 {id="creating-a-multi-provider-executor"}
 
 여러 LLM 공급자와 함께 작동하는 프롬프트 실행기를 생성하려면 다음 단계를 수행하세요:
 
@@ -92,7 +92,7 @@ Koog는 [`PromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.mo
     ```
     <!--- KNIT example-prompt-executors-java-02.java -->
 
-## 라우팅 실행기 생성하기
+## 라우팅 실행기 생성하기 {id="creating-a-routing-executor"}
 
 !!! warning "실험적 API"
     라우팅 기능은 실험적이며 향후 릴리스에서 변경될 수 있습니다.
@@ -155,7 +155,7 @@ Anthropic 모델에 대한 요청은 항상 단일 `anthropic` 클라이언트�
 
 [`LLMClientRouter`](api:prompt-executor-model::ai.koog.prompt.executor.llms.LLMClientRouter) 인터페이스를 구현하는 클래스를 생성하여 커스텀 라우팅 전략을 구현할 수도 있습니다.
 
-## 사전에 정의된 프롬프트 실행기
+## 사전에 정의된 프롬프트 실행기 {id="pre-defined-prompt-executors"}
 
 빠른 설정을 위해 Koog는 Kotlin과 Java 모두에서 일반적인 공급자에 대해 바로 사용할 수 있는 실행기 구현을 제공합니다.
 
@@ -209,7 +209,7 @@ the predefined executors will return a PromptExecutor instance configured with a
     ```
     <!--- KNIT example-prompt-executors-java-04.java -->
 
-## 프롬프트 실행하기
+## 프롬프트 실행하기 {id="running-a-prompt"}
 
 프롬프트 실행기를 사용하여 프롬프트를 실행하려면 다음 단계를 수행하세요:
 
@@ -272,7 +272,7 @@ the predefined executors will return a PromptExecutor instance configured with a
 !!! note
     프롬프트 실행기는 스트리밍, 다중 선택 생성(multiple choice generation), 콘텐츠 중재(content moderation) 등 다양한 기능을 사용하여 프롬프트를 실행하는 메서드를 제공합니다. 프롬프트 실행기는 LLM 클라이언트를 래핑하므로, 각 실행기는 해당 클라이언트의 기능을 지원합니다. 자세한 내용은 [LLM 클라이언트](llm-clients.md)를 참조하세요.
 
-## 공급자 간 전환하기
+## 공급자 간 전환하기 {id="switching-between-providers"}
 
 `MultiLLMPromptExecutor`를 사용하여 여러 LLM 공급자와 작업할 때, 공급자 간에 전환할 수 있습니다. 프로세스는 다음과 같습니다:
 
@@ -362,7 +362,7 @@ the predefined executors will return a PromptExecutor instance configured with a
 
 요청된 클라이언트를 사용할 수 없을 때 사용할 폴백(fallback) LLM 공급자 및 모델을 선택적으로 구성할 수 있습니다. 자세한 내용은 [폴백 구성하기](#configuring-fallbacks)를 참조하세요.
 
-## 폴백 구성하기
+## 폴백 구성하기 {id="configuring-fallbacks"}
 
 다중 제공자 및 라우팅 프롬프트 실행기는 요청된 LLM 클라이언트를 사용할 수 없을 때 사용할 폴백 LLM 공급자 및 모델을 사용하도록 구성할 수 있습니다.
 

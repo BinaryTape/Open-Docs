@@ -7,7 +7,7 @@
 
 我們將保持內容簡單且可重現，重點在於一個極簡但實際的代理 + 工具設定，您可以將其調整以符合自己的網路爬蟲需求。
 
-## 前置需求
+## 前置需求 {id="prerequisites"}
 
 - 已匯出為環境變數的 OpenAI API 金鑰：`OPENAI_API_KEY`
 - 已匯出為環境變數的 Bright Data API 權杖：`BRIGHT_DATA_API_TOKEN`
@@ -16,7 +16,7 @@
 
 **提示**：Bright Data MCP 伺服器提供存取企業級網路爬蟲工具的權限，這些工具可以處理複雜的網站、驗證碼（CAPTCHA）以及反機器人措施。
 
-## 1) 設定您的 API 憑據
+## 1) 設定您的 API 憑據 {id="1-set-up-your-api-credentials"}
 
 我們從環境變數讀取這兩個 API 金鑰，以確保秘密資訊安全且不呈現在程式碼中。
 
@@ -28,7 +28,7 @@ val brightDataToken = System.getenv("BRIGHT_DATA_API_TOKEN")
     ?: error("未設定 BRIGHT_DATA_API_TOKEN 環境變數")
 ```
 
-## 2) 啟動 Bright Data 的 Web MCP 伺服器
+## 2) 啟動 Bright Data 的 Web MCP 伺服器 {id="2-start-the-web-mcp-server-by-bright-data"}
 
 我們將使用 `npx` 啟動 Bright Data 的 MCP 伺服器，並使用您的 API 權杖進行配置。該伺服器將透過 Model Context Protocol 公開網路爬蟲功能。
 
@@ -49,7 +49,7 @@ val process = processBuilder.start()
 Thread.sleep(2000)
 ```
 
-## 3) 從 Koog 連線並建立代理
+## 3) 從 Koog 連線並建立代理 {id="3-connect-from-koog-and-create-the-agent"}
 
 我們建立一個帶有 OpenAI 執行器的 Koog `AIAgent`，並透過 STDIO 傳輸將其工具註冊表連接到 Bright Data MCP 伺服器。接著我們將探索可用的工具並執行網路爬蟲任務。
 
@@ -99,7 +99,7 @@ try {
 }
 ```
 
-## 4) 完整程式碼範例
+## 4) 完整程式碼範例 {id="4-complete-code-example"}
 
 這是展示使用 Bright Data 的 Web MCP 進行網路爬蟲的完整工作範例：
 
@@ -198,14 +198,14 @@ fun main() = runBlocking {
 }
 ```
 
-## 疑難排解
+## 疑難排解 {id="troubleshooting"}
 
 - **連線問題**：如果代理無法連線到 MCP 伺服器，請確保已透過 `npx @brightdata/mcp` 正確安裝 Bright Data MCP 封裝。
 - **API 權杖錯誤**：請仔細檢查您的 `BRIGHT_DATA_API_TOKEN` 是否有效，且具備網路爬蟲所需的權限。
 - **OpenAI 驗證**：驗證您的 `OPENAI_API_KEY` 環境變數是否正確設定且 API 金鑰有效。
 - **程序逾時**：如果伺服器啟動時間較長，請增加 `Thread.sleep(2000)` 的持續時間。
 
-## 後續步驟
+## 後續步驟 {id="next-steps"}
 
 - **探索不同的查詢**：嘗試爬取不同的網站或搜尋各種主題。
 - **自訂工具整合**：在 Bright Data 的網路爬蟲能力之外，加入您自己的工具。
@@ -213,7 +213,7 @@ fun main() = runBlocking {
 - **資料處理**：將爬取的資料與其他 Koog 代理結合以進行分析與洞察。
 - **正式環境部署**：將此模式整合到您的應用程式中，以實現自動化網路資料收集。
 
-## 您學到的內容
+## 您學到的內容 {id="what-you-ve-learned"}
 
 本教學展示了如何：
 - 設定與配置 Bright Data 的 Web MCP

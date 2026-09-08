@@ -12,7 +12,7 @@ title: KSP 处理程序设置（已弃用）
 **您的注解保持不变** —— 仅构建设置发生变化。请参阅下方的[迁移指南](#migration-to-koin-compiler-plugin)。
 :::
 
-## 为什么迁移？
+## 为什么迁移？ {id="why-migrate"}
 
 | 维度 | KSP 处理程序 (`koin-ksp-compiler`) | Koin 编译器插件 |
 |--------|-------------------------------------|----------------------|
@@ -22,18 +22,18 @@ title: KSP 处理程序设置（已弃用）
 | **未来支持** | ⚠️ 已弃用 | ✅ 活跃开发中 |
 | **您的代码** | ⚠️ 使用生成的扩展 | 使用 Kotlin 编译器插件专用 API |
 
-## 何时使用 KSP 处理程序（临时）
+## 何时使用 KSP 处理程序（临时） {id="when-to-use-the-ksp-processor-temporary"}
 
 仅在以下情况下使用 `koin-ksp-compiler`：
 - 停留在 Kotlin 1.x（建议升级）
 - 处于迁移中期且尚无法切换
 - 有特定的 KSP 要求
 
-## 当前 KSP 处理程序设置（参考）
+## 当前 KSP 处理程序设置（参考） {id="current-ksp-processor-setup-reference"}
 
 如果必须使用 KSP 处理程序，设置如下：
 
-### Gradle 设置
+### Gradle 设置 {id="gradle-setup"}
 
 ```kotlin
 // build.gradle.kts
@@ -49,7 +49,7 @@ dependencies {
 }
 ```
 
-### 版本兼容性
+### 版本兼容性 {id="version-compatibility"}
 
 | Koin Annotations | KSP 版本 | Kotlin 版本 |
 |------------------|-------------|----------------|
@@ -58,7 +58,7 @@ dependencies {
 | 2.1/2.2 | 2.1/2.2 | 2.1/2.2 |
 | 2.3 | 2.3 | 独立 |
 
-### 基本用法
+### 基本用法 {id="basic-usage"}
 
 ```kotlin
 @Single
@@ -77,7 +77,7 @@ fun main() {
 }
 ```
 
-### KSP 选项
+### KSP 选项 {id="ksp-options"}
 
 ```kotlin
 // build.gradle.kts
@@ -90,7 +90,7 @@ ksp {
 这一基于 KSP 的编译时检查已被 **Koin 编译器插件** 中的原生编译时安全性所取代。请参阅[编译时安全性](/docs/reference/koin-compiler/compile-safety)和[编译器插件设置](/docs/setup/compiler-plugin)。
 :::
 
-### KMP 设置（复杂）
+### KMP 设置（复杂） {id="kmp-setup-complex"}
 
 ```kotlin
 // shared/build.gradle.kts
@@ -116,9 +116,9 @@ dependencies {
 }
 ```
 
-## 迁移到 Koin 编译器插件
+## 迁移到 Koin 编译器插件 {id="migration-to-koin-compiler-plugin"}
 
-### 第 1 步：更新 Kotlin
+### 第 1 步：更新 Kotlin {id="step-1-update-kotlin"}
 
 确保您使用的是 Kotlin 2.3.20+：
 
@@ -129,7 +129,7 @@ plugins {
 }
 ```
 
-### 第 2 步：移除 KSP
+### 第 2 步：移除 KSP {id="step-2-remove-ksp"}
 
 移除 KSP 插件和依赖项：
 
@@ -144,11 +144,11 @@ dependencies {
 }
 ```
 
-### 第 3 步：添加编译器插件
+### 第 3 步：添加编译器插件 {id="step-3-add-compiler-plugin"}
 
 请参阅**[编译器插件设置指南](/docs/setup/compiler-plugin)**了解详细说明。
 
-### 第 4 步：保留您的代码
+### 第 4 步：保留您的代码 {id="step-4-keep-your-code"}
 
 **您的注解完全保持不变 👍**
 
@@ -168,7 +168,7 @@ class MyViewModel(val service: MyService)
 class AppModule
 ```
 
-### 第 5 步：更新 Koin 启动
+### 第 5 步：更新 Koin 启动 {id="step-5-update-koin-startup"}
 
 使用编译器插件后，**不再使用生成的代码**。将生成的扩展替换为类型化 API：
 
@@ -203,7 +203,7 @@ startKoin<MyApp> {
 
 其中 `T` 是一个带有 `@KoinApplication` 注解的类。
 
-### 第 6 步：清理
+### 第 6 步：清理 {id="step-6-clean-up"}
 
 删除生成的文件：
 
@@ -213,7 +213,7 @@ rm -rf build/generated/ksp
 
 重新构建您的项目。
 
-### 保持不变的内容
+### 保持不变的内容 {id="what-stays-the-same"}
 
 | 注解 | 状态 |
 |------------|--------|
@@ -229,7 +229,7 @@ rm -rf build/generated/ksp
 | `@ComponentScan` | ✅ 相同 |
 | `@Configuration` | ✅ 相同 |
 
-### 发生变化的内容
+### 发生变化的内容 {id="what-changes"}
 
 | 维度 | KSP 处理程序 | Koin 编译器插件 |
 |--------|---------------|----------------------|
@@ -240,20 +240,20 @@ rm -rf build/generated/ksp
 | Koin 启动 | `modules(AppModule().module)` | `startKoin<MyApp>()` |
 | KMP 设置 | 每个平台的 KSP | 仅需插件 |
 
-## 时间表
+## 时间表 {id="timeline"}
 
 :::warning
 `koin-ksp-compiler` 处理程序将在未来的 Koin 版本中移除。我们建议尽快迁移到 Koin 编译器插件。`koin-annotations` 库以及您的 `@Singleton` / `@Factory` / `@Module` 注解不会消失 —— 它们现在由 Koin 编译器插件进行处理。
 :::
 
-## 帮助
+## 帮助 {id="help"}
 
 如果您在迁移过程中遇到问题：
 - 检查[故障排除](/docs/reference/troubleshooting)
 - 在 [Slack](https://kotlinlang.slack.com/messages/koin/) 上提问
 - 在 [GitHub](https://github.com/InsertKoinIO/koin) 上提交问题
 
-## 下一步
+## 下一步 {id="next-steps"}
 
 - **[迁移指南](/docs/migration/from-ksp-to-compiler-plugin)** - 逐步迁移到编译器插件
 - **[编译器插件设置](/docs/setup/compiler-plugin)** - 完整的设置指南

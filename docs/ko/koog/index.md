@@ -27,7 +27,7 @@ Java 개발자는 관용적인 API를 사용하여 JVM에서 Koog의 모든 기�
 
 </div>
 
-## 에이전트
+## 에이전트 {id="agents"}
 
 [에이전트 일반](agents/index.md)에 대해 알아보고 Koog를 사용하여 다양한 유형의 에이전트를 생성하는 방법을 살펴보세요:
 
@@ -59,7 +59,7 @@ Java 개발자는 관용적인 API를 사용하여 JVM에서 Koog의 모든 기�
 
 </div>
 
-## 핵심 구성 요소
+## 핵심 구성 요소 {id="core-components"}
 
 Koog 에이전트의 핵심 구성 요소에 대해 자세히 알아보세요:
 
@@ -91,7 +91,7 @@ Koog 에이전트의 핵심 구성 요소에 대해 자세히 알아보세요:
 
 </div>
 
-## 고급 사용법
+## 고급 사용법 {id="advanced-usage"}
 
 <div class="grid cards" markdown>
 
@@ -140,7 +140,7 @@ Koog 에이전트의 핵심 구성 요소에 대해 자세히 알아보세요:
 
 </div>
 
-## 연동
+## 연동 {id="integrations"}
 
 <div class="grid cards" markdown>
 

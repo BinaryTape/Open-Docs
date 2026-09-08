@@ -12,7 +12,7 @@
 
 你可以直接使用命令列或透過指令碼檔案（如 `.sh` 或 `.bat` 檔案）來產生 Kotlin 程式庫。然而，對於擁有數百個檔案和程式庫的大型專案，這種方法的可擴充性並不理想。使用建置系統可以簡化程序，它能下載並快取具有遞移相依性的 Kotlin/Native 編譯器二進位檔案與程式庫，並執行編譯器和測試。Kotlin/Native 可以透過 [Kotlin 多平台外掛程式](gradle-configure-project.md#targeting-multiple-platforms)來使用 [Gradle](https://gradle.org) 建置系統。
 
-## 開始之前
+## 開始之前 {id="before-you-start"}
 
 1. 下載並安裝最新版本的 [IntelliJ IDEA](https://www.jetbrains.com/idea/)。
 2. 透過在 IntelliJ IDEA 中選擇 **File** | **New** | **Project from Version Control** 並使用以下 URL 來複製 [專案樣板](https://github.com/Kotlin/kmp-native-wizard)：
@@ -52,7 +52,7 @@
    * `binaries {}` 區塊定義了二進位檔案的產生方式以及應用程式的入口點。這些可以保留為預設值。
    * C 互通性被配置為建置中的一個額外步驟。預設情況下，所有來自 C 的符號都會匯入到 `interop` 套件中。你可能想要在 `.kt` 檔案中匯入整個套件。進一步了解[如何配置](gradle-configure-project.md#targeting-multiple-platforms)它。
 
-## 建立定義檔
+## 建立定義檔 {id="create-a-definition-file"}
 
 編寫原生應用程式時，你通常需要存取 [Kotlin 標準函式庫](https://kotlinlang.org/api/latest/jvm/stdlib/) 中未包含的某些功能，例如發送 HTTP 請求、讀寫磁碟等等。
 
@@ -91,7 +91,7 @@ Kotlin/Native 有助於取用標準 C 程式庫，從而開啟了一個功能齊
 >
 {style="note"}
 
-## 在建置程序中加入互通性
+## 在建置程序中加入互通性 {id="add-interoperability-to-the-build-process"}
 
 要使用標頭檔，請確保它們是作為建置程序的一部分產生的。為此，請將以下 `compilations {}` 區塊新增至 `build.gradle.kts` 檔案中：
 
@@ -123,7 +123,7 @@ cinterops {
 }
 ```
 
-## 編寫應用程式程式碼
+## 編寫應用程式程式碼 {id="write-the-application-code"}
 
 現在你已經有了程式庫和相對應的 Kotlin 虛設常式，你可以在應用程式中使用它們了。在本教學中，我們將 [simple.c](https://curl.se/libcurl/c/simple.html) 範例轉換為 Kotlin。
 
@@ -154,7 +154,7 @@ fun main(args: Array<String>) {
 >
 {style="tip"}
 
-## 編譯並執行應用程式
+## 編譯並執行應用程式 {id="compile-and-run-the-application"}
 
 1. 要編譯應用程式，請從任務清單中執行 `runDebugExecutable<YourTargetName>` Gradle 任務，或在終端機中使用命令列指令，例如：
  
@@ -176,6 +176,6 @@ fun main(args: Array<String>) {
 >
 {style="note"}
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 進一步了解 [Kotlin 與 C 的互通性](native-c-interop.md)。

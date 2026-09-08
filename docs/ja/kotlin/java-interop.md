@@ -21,7 +21,7 @@ fun demo(source: List<Int>) {
 }
 ```
 
-## ゲッターとセッター (Getters and setters)
+## ゲッターとセッター (Getters and setters) {id="getters-and-setters"}
 
 ゲッターとセッターに関するJavaの慣習（`get`で始まる名前の引数なしメソッドと、`set`で始まる名前の単一引数メソッド）に従うメソッドは、Kotlinではプロパティとして表されます。このようなプロパティは、*シンセティックプロパティ (synthetic properties)* とも呼ばれます。
 `Boolean`のアクセサメソッド（ゲッターの名前が`is`で始まり、セッターの名前が`set`で始まるもの）は、ゲッターメソッドと同じ名前を持つプロパティとして表されます。
@@ -44,7 +44,7 @@ fun calendarDemo() {
 
 なお、Javaクラスにセッターしかない場合、Kotlinはセット専用（set-only）プロパティをサポートしていないため、Kotlinからはプロパティとして見えません。
 
-## Javaシンセティックプロパティのリファレンス
+## Javaシンセティックプロパティのリファレンス {id="java-synthetic-property-references"}
 
 > この機能は[実験的](components-stability.md#stability-levels-explained)なものです。いつでも削除または変更される可能性があります。
 > 評価目的でのみ使用することをお勧めします。
@@ -84,7 +84,7 @@ val persons = listOf(Person("Jack", 11), Person("Sofie", 12), Person("Peter", 11
         .forEach { person -> println(person.name) }
 ```
 
-### Javaシンセティックプロパティのリファレンスを有効にする方法 {initial-collapse-state="collapsed" collapsible="true"}
+### Javaシンセティックプロパティのリファレンスを有効にする方法 {initial-collapse-state="collapsed" collapsible="true" id="how-to-enable-java-synthetic-property-references"}
 
 この機能を有効にするには、コンパイラオプション `-language-version 2.1` を設定してください。Gradleプロジェクトでは、`build.gradle(.kts)` に以下を追加することで設定できます：
 
@@ -122,12 +122,12 @@ tasks
 > 
 {style="note"}
 
-## voidを返すメソッド
+## voidを返すメソッド {id="methods-returning-void"}
 
 Javaのメソッドが `void` を返す場合、Kotlinから呼び出されると `Unit` を返します。
 もし誰かがその戻り値を使用した場合、値自体は事前に分かっている（`Unit` である）ため、Kotlinコンパイラによって呼び出し側で割り当てられます。
 
-## KotlinのキーワードであるJava識別子のエスケープ
+## KotlinのキーワードであるJava識別子のエスケープ {id="escaping-for-java-identifiers-that-are-keywords-in-kotlin"}
 
 Kotlinのキーワードの中には、Javaで有効な識別子であるものがあります：`in`、`object`、`is` など。
 Javaライブラリがメソッド名にKotlinのキーワードを使用している場合、バックティック (`) 文字でエスケープすることで、そのメソッドを呼び出すことができます：
@@ -136,7 +136,7 @@ Javaライブラリがメソッド名にKotlinのキーワードを使用して�
 foo.`is`(bar)
 ```
 
-## Null安全とプラットフォーム型 (Null-safety and platform types)
+## Null安全とプラットフォーム型 (Null-safety and platform types) {id="null-safety-and-platform-types"}
 
 Javaのあらゆる参照は `null` になる可能性があるため、Javaから来るオブジェクトに対してKotlinの厳格なNull安全要件を適用するのは現実的ではありません。
 Java宣言の型はKotlinでは特別な方法で扱われ、[*プラットフォーム型 (platform types)*](https://kotlinlang.org/spec/type-system.html#platform-types) と呼ばれます。
@@ -171,7 +171,7 @@ val notNull: String = item // 許可されるが、実行時に失敗する可�
 非Null型を選択した場合、コンパイラは代入時にアサーションを挿入します。これにより、Kotlinの非Null変数がNullを保持することを防ぎます。アサーションは、プラットフォーム値を非Null値を期待するKotlin関数に渡す際などにも挿入されます。
 全体として、コンパイラはプログラムの遠くまでNullが伝播するのを防ぐために最善を尽くしますが、ジェネリクスの影響などで完全に排除することが不可能な場合もあります。
 
-### プラットフォーム型の表記法
+### プラットフォーム型の表記法 {id="notation-for-platform-types"}
 
 前述の通り、プラットフォーム型をプログラム内で明示的に言及することはできないため、言語としての構文はありません。
 しかし、コンパイラやIDEは時としてそれらを表示する必要があるため（エラーメッセージやパラメータ情報など）、それらを表すためのニーモニック表記があります：
@@ -182,7 +182,7 @@ val notNull: String = item // 許可されるが、実行時に失敗する可�
 
 エラーメッセージやIDEのツールチップでこの表記を見た場合は、Kotlinの変数に明示的な型アノテーションを追加してNull安全チェックを復元するか、Null許容性アノテーションを使用してソースレベルでプラットフォーム型を排除してください。
 
-### Null許容性アノテーション (Nullability annotations)
+### Null許容性アノテーション (Nullability annotations) {id="nullability-annotations"}
 
 Null許容性アノテーションを持つJavaの型は、プラットフォーム型としてではなく、実際のNull許容または非NullのKotlin型として表されます。コンパイラは、以下を含むいくつかの種類のNull許容性アノテーションをサポートしています：
 
@@ -216,7 +216,7 @@ Null許容性アノテーションを持つJavaの型は、プラットフォー
 
 サポートされているNull許容性アノテーションの完全なリストは、[Kotlinコンパイラのソースコード](https://github.com/JetBrains/kotlin/blob/master/core/compiler.common.jvm/src/org/jetbrains/kotlin/load/java/JvmAnnotationNames.kt)で確認できます。
 
-### ミュータビリティアノテーション (Mutability annotations)
+### ミュータビリティアノテーション (Mutability annotations) {id="mutability-annotations"}
 
 Javaの宣言にミュータビリティアノテーションを付けて、返されるコレクションがKotlinで読み取り専用かミュータブルかを指定できます。
 もしミュータビリティの異なるコレクション型に値を代入した場合、コンパイラは型不一致を報告します。診断の重要度は、特定のミュータビリティアノテーションによって異なります。
@@ -230,7 +230,7 @@ Javaの宣言にミュータビリティアノテーションを付けて、返�
 
 サポートされているミュータビリティアノテーションの完全なリストは、[Kotlinコンパイラのソースコード](https://github.com/JetBrains/kotlin/blob/master/core/compiler.common.jvm/src/org/jetbrains/kotlin/load/java/JvmAnnotationNames.kt)で確認できます。
 
-### 型引数と型パラメータへのアノテーション
+### 型引数と型パラメータへのアノテーション {id="annotating-type-arguments-and-type-parameters"}
 
 ジェネリック型の型引数や型パラメータにアノテーションを付けて、それらに対してもNull許容性情報を提供できます。
 
@@ -238,7 +238,7 @@ Javaの宣言にミュータビリティアノテーションを付けて、返�
 >
 {style="note"}
 
-#### 型引数
+#### 型引数 {id="type-arguments"}
 
 Javaの宣言に対する以下のアノテーションを考えてみましょう：
 
@@ -283,7 +283,7 @@ fun main() {
 
 詳細は[KotlinにおけるJavaジェネリクス](#java-generics-in-kotlin)を参照してください。
 
-#### 型パラメータ
+#### 型パラメータ {id="type-parameters"}
 
 デフォルトでは、KotlinとJavaの両方において、単純な型パラメータのNull許容性は未定義です。Javaでは、Null許容性アノテーションを使用してこれを指定できます。`Base` クラスの型パラメータにアノテーションを付けてみましょう：
 
@@ -319,7 +319,7 @@ class BaseWithBound<T : Number> {}
 >
 {style="note"}
 
-### JSpecifyのサポート
+### JSpecifyのサポート {id="jspecify-support"}
 
 Kotlinは、JavaのNull許容性に対する統一されたアノテーションセットを提供する [JSpecify](https://jspecify.dev/) Null許容性アノテーションをサポートしています。JSpecifyを使用すると、Java宣言に対して詳細なNull許容性情報を提供でき、Javaコードを扱う際にKotlinがNull安全を維持するのに役立ちます。
 
@@ -375,7 +375,7 @@ fun test(inventory: InventoryService) {
 > 
 {type="tip"}
 
-### JSR-305のサポート
+### JSR-305のサポート {id="jsr-305-support"}
 
 [JSR-305](https://jcp.org/en/jsr/detail?id=305) で定義されている [`@Nonnull`](https://www.javadoc.io/doc/com.google.code.findbugs/jsr305/latest/javax/annotation/Nonnull.html) アノテーションは、Java型のNull許容性を示すためにサポートされています。
 
@@ -385,7 +385,7 @@ fun test(inventory: InventoryService) {
 
 [カスタムNull許容性クオリファイア (KEEP-79)](https://github.com/Kotlin/KEEP/blob/master/proposals/jsr-305-custom-nullability-qualifiers.md) もサポートされています（後述）。
 
-#### 型クオリファイアのニックネーム (Type qualifier nicknames)
+#### 型クオリファイアのニックネーム (Type qualifier nicknames) {id="type-qualifier-nicknames"}
 
 アノテーション型が [`@TypeQualifierNickname`](https://www.javadoc.io/doc/com.google.code.findbugs/jsr305/latest/javax/annotation/meta/TypeQualifierNickname.html) と JSR-305 の `@Nonnull`（または `@CheckForNull` などの別のニックネーム）の両方でアノテーションされている場合、そのアノテーション型自体が正確なNull許容性を取得するために使用され、そのNull許容性アノテーションと同じ意味を持ちます：
 
@@ -411,7 +411,7 @@ interface A {
 }
 ```
 
-#### 型クオリファイアのデフォルト (Type qualifier defaults)
+#### 型クオリファイアのデフォルト (Type qualifier defaults) {id="type-qualifier-defaults"}
 
 [`@TypeQualifierDefault`](https://www.javadoc.io/doc/com.google.code.findbugs/jsr305/latest/javax/annotation/meta/TypeQualifierDefault.html) を使用すると、適用された際にそのアノテーションされた要素のスコープ内でのデフォルトのNull許容性を定義するアノテーションを導入できます。
 
@@ -465,7 +465,7 @@ interface A {
 package test;
 ```
 
-#### @UnderMigration アノテーション
+#### @UnderMigration アノテーション {id="undermigration-annotation"}
 
 `@UnderMigration` アノテーション（別個のアーティファクト `kotlin-annotations-jvm` で提供）は、ライブラリのメンテナがNull許容型クオリファイアの移行ステータスを定義するために使用できます。
 
@@ -497,7 +497,7 @@ public class Test {}
 
 デフォルト型クオリファイアが型クオリファイアのニックネームを使用し、両方が `@UnderMigration` である場合、デフォルト型クオリファイアのステータスが使用されます。
 
-#### コンパイラ構成
+#### コンパイラ構成 {id="compiler-configuration"}
 
 JSR-305チェックは、`-Xjsr305` コンパイラフラグに以下のオプション（およびそれらの組み合わせ）を追加することで構成できます：
 
@@ -519,7 +519,7 @@ JSR-305チェックは、`-Xjsr305` コンパイラフラグに以下のオプ�
 
 デフォルトの動作は `-Xjsr305=warn` と同じです。`strict` 値は実験的なものとみなされるべきです（将来的にさらなるチェックが追加される可能性があります）。
 
-## マップされた型 (Mapped types)
+## マップされた型 (Mapped types) {id="mapped-types"}
 
 Kotlinは一部のJava型を特別に扱います。そのような型はJavaから「そのまま」ロードされるのではなく、対応するKotlinの型に *マップ* されます。
 マッピングはコンパイル時にのみ重要であり、実行時の表現は変更されません。
@@ -589,7 +589,7 @@ Javaの配列は[後述](#java-arrays)の通りマップされます：
 >
 {style="note"}
 
-## KotlinにおけるJavaジェネリクス
+## KotlinにおけるJavaジェネリクス {id="java-generics-in-kotlin"}
 
 KotlinのジェネリクスはJavaのものとは少し異なります（[ジェネリクス](generics.md)を参照）。
 Javaの型をKotlinにインポートする際、以下の変換が行われます：
@@ -611,7 +611,7 @@ if (a is List<Int>) // エラー：本当に Int の List かどうかチェッ�
 if (a is List<*>) // OK：リストの内容については保証しない
 ```
 
-## Javaの配列
+## Javaの配列 {id="java-arrays"}
 
 Javaとは異なり、Kotlinの配列は不変（invariant）です。これは、Kotlinが `Array<String>` を `Array<Any>` に代入することを許可しないことを意味し、実行時の失敗を防ぎます。Kotlinのメソッドにサブクラスの配列をスーパークラスの配列として渡すことも禁止されていますが、Javaのメソッドに対しては `Array<(out) String>!` という形式の[プラットフォーム型](#null-safety-and-platform-types)を介して許可されます。
 
@@ -664,7 +664,7 @@ if (i in array.indices) { // (i >= 0 && i < array.size) と同じです
 }
 ```
 
-## Javaの可変長引数 (Java varargs)
+## Javaの可変長引数 (Java varargs) {id="java-varargs"}
 
 Javaクラスでは、可変長引数（varargs）を使用したメソッド宣言が使われることがあります：
 
@@ -685,12 +685,12 @@ val array = intArrayOf(0, 1, 2, 3)
 javaObj.removeIndicesVarArg(*array)
 ```
 
-## 演算子 (Operators)
+## 演算子 (Operators) {id="operators"}
 
 Javaには演算子構文を使用するのが妥当なメソッドをマークする方法がないため、Kotlinでは、適切な名前とシグネチャを持つ任意のJavaメソッドを、演算子オーバーロードやその他の慣習（`invoke()` など）として使用することを許可しています。
 中置呼び出し（infix call）構文を使用したJavaメソッドの呼び出しは許可されていません。
 
-## チェック例外 (Checked exceptions)
+## チェック例外 (Checked exceptions) {id="checked-exceptions"}
 
 Kotlinでは、すべての[例外は非チェック例外](exceptions.md)です。つまり、コンパイラはいかなる例外のキャッチも強制しません。
 そのため、チェック例外を宣言しているJavaメソッドを呼び出す際、Kotlinは何も強制しません：
@@ -703,13 +703,13 @@ fun render(list: List<*>, to: Appendable) {
 }
 ```
 
-## Objectのメソッド
+## Objectのメソッド {id="object-methods"}
 
 Javaの型がKotlinにインポートされると、`java.lang.Object` 型のすべての参照は `Any` に変換されます。
 `Any` はプラットフォーム固有ではないため、メンバとして `toString()`、`hashCode()`、`equals()` のみを宣言しています。
 そのため、`java.lang.Object` の他のメンバを利用可能にするために、Kotlinは[拡張関数](extensions.md)を使用します。
 
-### `wait()` と `notify()`
+### `wait()` と `notify()` {id="wait-and-notify"}
 
 `wait()` および `notify()` メソッドは、`Any` 型の参照では利用できません。通常、これらの使用は `java.util.concurrent` を優先して控えることが推奨されます。
 
@@ -760,7 +760,7 @@ class SimpleBlockingQueue<T>(private val capacity: Int) {
 (foo as java.lang.Object).wait()
 ```
 
-### `getClass()`
+### `getClass()` {id="getclass"}
 
 オブジェクトのJavaクラスを取得するには、[クラス参照](reflection.md#class-references)の `java` 拡張プロパティを使用します：
 
@@ -774,7 +774,7 @@ val fooClass = foo::class.java
 val fooClass = foo.javaClass
 ```
 
-### `clone()`
+### `clone()` {id="clone"}
 
 `clone()` をオーバーライドするには、クラスが `kotlin.Cloneable` を継承する必要があります：
 
@@ -786,7 +786,7 @@ class Example : Cloneable {
 
 [Effective Java 第3版](https://www.oracle.com/technetwork/java/effectivejava-136174.html) 項目13：*cloneは注意してオーバーライドする* を忘れないでください。
 
-### `finalize()`
+### `finalize()` {id="finalize"}
 
 `finalize()` をオーバーライドするには、`override` キーワードを使わずに単に宣言するだけです：
 
@@ -800,11 +800,11 @@ class C {
 
 Javaのルールに従い、`finalize()` は `private` であってはなりません。
 
-## Javaクラスからの継承
+## Javaクラスからの継承 {id="inheritance-from-java-classes"}
 
 Kotlinのクラスにとってのスーパークラスとして、最大1つのJavaクラス（および任意の数のJavaインターフェース）を指定できます。
 
-## 静的メンバへのアクセス
+## 静的メンバへのアクセス {id="accessing-static-members"}
 
 Javaクラスの静的メンバ（static members）は、それらのクラスの「コンパニオンオブジェクト」を形成します。このような「コンパニオンオブジェクト」を値として受け渡しすることはできませんが、メンバに明示的にアクセスすることは可能です。例：
 
@@ -814,7 +814,7 @@ if (Character.isLetter(a)) { ... }
 
 Kotlinの型に[マップ](#mapped-types)されているJava型の静的メンバにアクセスするには、Java型の完全修飾名を使用してください：`java.lang.Integer.bitCount(foo)`。
 
-## Javaのリフレクション
+## Javaのリフレクション {id="java-reflection"}
 
 JavaのリフレクションはKotlinクラスに対して動作し、その逆も同様です。前述のように、`java.lang.Class` を通じてJavaのリフレクションに入るには、`instance::class.java`、`ClassName::class.java`、または `instance.javaClass` を使用できます。
 この目的で `ClassName.javaClass` を使用しないでください。これは `ClassName` のコンパニオンオブジェクトのクラスを参照しており、`ClassName.Companion::class.java` と同じであって `ClassName::class.java` ではないからです。
@@ -823,7 +823,7 @@ JavaのリフレクションはKotlinクラスに対して動作し、その逆�
 
 その他のサポートされているケースには、KotlinプロパティのJavaゲッター/セッターメソッドやバッキングフィールドの取得、Javaフィールドの `KProperty` の取得、`KFunction` のJavaメソッドやコンストラクタの取得、およびその逆が含まれます。
 
-## SAM変換 (SAM conversions)
+## SAM変換 (SAM conversions) {id="sam-conversions"}
 
 Kotlinは、Javaと[Kotlinの両方のインターフェース](fun-interfaces.md)に対してSAM変換をサポートしています。
 Javaにおけるこのサポートは、インターフェースメソッドのパラメータ型がKotlin関数のパラメータ型と一致する限り、単一の非デフォルトメソッドを持つJavaインターフェースの実装にKotlin関数リテラルを自動的に変換できることを意味します。
@@ -852,7 +852,7 @@ executor.execute(Runnable { println("This runs in a thread pool") })
 >
 {style="note"}
 
-## KotlinでJNIを使用する
+## KotlinでJNIを使用する {id="using-jni-with-kotlin"}
 
 ネイティブ（CまたはC++）コードで実装された関数を宣言するには、`external` 修飾子を付けてマークする必要があります：
 
@@ -872,7 +872,7 @@ var myProperty: String
 
 内部的には、これにより `getMyProperty` と `setMyProperty` という2つの関数が作成され、両方とも `external` としてマークされます。
 
-## KotlinでLombok生成の宣言を使用する
+## KotlinでLombok生成の宣言を使用する {id="using-lombok-generated-declarations-in-kotlin"}
 
 JavaのLombokで生成された宣言をKotlinコードで使用できます。
 同じJava/Kotlin混在モジュール内でこれらの宣言を生成して使用する必要がある場合は、[Lombokコンパイラプラグインのページ](lombok.md)でその方法を確認できます。

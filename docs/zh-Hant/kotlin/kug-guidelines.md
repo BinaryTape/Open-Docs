@@ -14,7 +14,7 @@ KUG 聚會的形式沒有限制。可以用社群最適合的任何方式進行�
 >
 {style="note"}
 
-## 如何經營 KUG？
+## 如何經營 KUG？ {id="how-to-run-a-kug"}
 
 * 為增進群組凝聚力並防止溝通誤解，我們建議每個城市僅設立一個 KUG。請查看 [KUG 列表](https://kotlinlang.org/community/user-groups/) 以確認您的地區是否已有 KUG。
 * 使用官方 KUG 標誌與品牌。請參考 [品牌指引](kotlin-brand-assets.md#kotlin-user-group-brand-assets)。
@@ -27,7 +27,7 @@ KUG 聚會的形式沒有限制。可以用社群最適合的任何方式進行�
 
 有任何問題嗎？[聯絡我們](mailto:kug@jetbrains.com)
 
-## JetBrains 對 KUG 的支援
+## JetBrains 對 KUG 的支援 {id="support-for-kugs-from-jetbrains"}
 
 每 3 個月舉辦至少 1 次聚會的活躍 KUG 可以申請 [社群支援計畫](https://www.jetbrains.com/community/user-groups/)，其內容包括：
 * 官方 KUG 品牌化。
@@ -36,7 +36,7 @@ KUG 聚會的形式沒有限制。可以用社群最適合的任何方式進行�
 * Kotlin 活動與宣傳活動的優先支援。
 * 協助為您的活動招募 Kotlin 講者。
 
-## JetBrains 對其他技術社群的支援
+## JetBrains 對其他技術社群的支援 {id="support-from-jetbrains-for-other-tech-communities"}
 
 如果您組織任何其他技術社群，也可以申請支援。申請後，您可能會獲得：
 * 用於在聚會中抽獎的免費 JetBrains 產品授權。

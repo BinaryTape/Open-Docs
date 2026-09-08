@@ -16,7 +16,7 @@
 
 * **Web API からのリアルタイムおよび動的なデータセットの取得と分析:** EDA ツールの柔軟性により、OpenAPI などのプロトコルを介して外部 API と統合できます。この機能により、Web API からデータを取得し、必要に応じてデータをクリーニングおよび変換できます。
 
-## Kotlin DataFrame
+## Kotlin DataFrame {id="kotlin-dataframe"}
 
 [Kotlin DataFrame](https://kotlin.github.io/dataframe/overview.html) ライブラリを使用すると、Kotlin プロジェクトで構造化データを操作できます。データの作成やクリーニングから、詳細な分析や特徴量エンジニアリングまで、このライブラリがカバーします。
 
@@ -25,13 +25,13 @@ Kotlin DataFrame ライブラリを使用すると、CSV、JSON、XLS、XLSX を
 
 ![Kotlin DataFrame](data-analysis-dataframe-example.png){width=700}
 
-## Kandy
+## Kandy {id="kandy"}
 
 [Kandy](https://kotlin.github.io/kandy/welcome.html) は、さまざまな種類のチャートをプロットするための強力で柔軟な DSL を提供するオープンソースの Kotlin ライブラリです。このライブラリは、データを視覚化するためのシンプルで慣用的（イディオマティック）、読みやすく、かつ型安全（type-safe）なツールです。また、Kandy と Kotlin DataFrame ライブラリを簡単に組み合わせて、さまざまなデータ関連のタスクを完了させることもできます。
 
 ![Kandy](data-analysis-kandy-example.png){width=700}
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [Kotlin DataFrame ライブラリを使用したデータの取得と変換](data-analysis-work-with-data-sources.md)
 * [Kandy ライブラリを使用したデータの視覚化](data-analysis-visualization.md)

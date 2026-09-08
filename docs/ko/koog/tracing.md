@@ -2,7 +2,7 @@
 
 이 페이지는 AI 에이전트에 대한 포괄적인 트레이싱(tracing) 기능을 제공하는 Tracing 기능에 대한 세부 정보를 포함하고 있습니다.
 
-## 기능 개요 (Feature overview)
+## 기능 개요 (Feature overview) {id="feature-overview"}
 
 Tracing 기능은 다음과 같은 에이전트 실행에 대한 상세 정보를 캡처하는 강력한 모니터링 및 디버깅 도구입니다:
 
@@ -14,16 +14,16 @@ Tracing 기능은 다음과 같은 에이전트 실행에 대한 상세 정보�
 
 이 기능은 에이전트 파이프라인의 주요 이벤트를 가로채서 설정 가능한 메시지 프로세서로 전달하는 방식으로 작동합니다. 이러한 프로세서는 트레이스 정보를 로그 파일이나 파일 시스템의 다른 유형의 파일과 같은 다양한 목적지로 출력할 수 있어, 개발자가 에이전트의 동작을 파악하고 문제를 효과적으로 해결할 수 있도록 돕습니다.
 
-### 이벤트 흐름 (Event flow)
+### 이벤트 흐름 (Event flow) {id="event-flow"}
 
 1. Tracing 기능이 에이전트 파이프라인의 이벤트를 가로챕니다.
 2. 설정된 메시지 필터에 따라 이벤트가 필터링됩니다.
 3. 필터링된 이벤트가 등록된 메시지 프로세서로 전달됩니다.
 4. 메시지 프로세서가 이벤트를 포맷팅하여 각각의 목적지로 출력합니다.
 
-## 설정 및 초기화 (Configuration and initialization)
+## 설정 및 초기화 (Configuration and initialization) {id="configuration-and-initialization"}
 
-### 기본 설정
+### 기본 설정 {id="basic-setup"}
 
 Tracing 기능을 사용하려면 다음 단계를 수행해야 합니다:
 
@@ -69,7 +69,7 @@ val agent = AIAgent(
 ```
 <!--- KNIT example-tracing-01.kt -->
 
-### 메시지 필터링 (Message filtering)
+### 메시지 필터링 (Message filtering) {id="message-filtering"}
 
 모든 기존 이벤트를 처리하거나 특정 기준에 따라 일부만 선택하여 처리할 수 있습니다. 메시지 필터를 사용하면 어떤 이벤트를 처리할지 제어할 수 있습니다. 이는 에이전트 실행의 특정 측면에 집중할 때 유용합니다:
 
@@ -124,7 +124,7 @@ fileWriter.setMessageFilter { message ->
 ```
 <!--- KNIT example-tracing-02.kt -->
 
-### 대량의 트레이스 볼륨 (Large trace volumes)
+### 대량의 트레이스 볼륨 (Large trace volumes) {id="large-trace-volumes"}
 
 복잡한 전략이나 장시간 실행되는 에이전트의 경우, 트레이스 이벤트의 양이 상당할 수 있습니다. 이벤트 볼륨을 관리하기 위해 다음 방법들을 고려해 보세요:
 
@@ -132,7 +132,7 @@ fileWriter.setMessageFilter { message ->
 - 버퍼링이나 샘플링 기능이 있는 커스텀 메시지 프로세서를 구현합니다.
 - 로그 파일이 너무 커지지 않도록 파일 로테이션(file rotation)을 사용합니다.
 
-### 의존성 그래프 (Dependency graph)
+### 의존성 그래프 (Dependency graph) {id="dependency-graph"}
 
 Tracing 기능은 다음과 같은 의존성을 가집니다:
 
@@ -174,9 +174,9 @@ Tracing
     └── ToolCallCompletedEvent
 ```
 
-## 예제 및 퀵스타트 (Examples and quickstarts)
+## 예제 및 퀵스타트 (Examples and quickstarts) {id="examples-and-quickstarts"}
 
-### 로거로의 기본 트레이싱
+### 로거로의 기본 트레이싱 {id="basic-tracing-to-logger"}
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
@@ -210,9 +210,9 @@ fun main() {
 ```
 <!--- KNIT example-tracing-03.kt -->
 
-## 에러 처리 및 예외 케이스 (Error handling and edge cases)
+## 에러 처리 및 예외 케이스 (Error handling and edge cases) {id="error-handling-and-edge-cases"}
 
-### 메시지 프로세서가 없는 경우
+### 메시지 프로세서가 없는 경우 {id="no-message-processors"}
 
 Tracing 기능에 메시지 프로세서가 추가되지 않은 경우, 다음과 같은 경고 로그가 출력됩니다:
 
@@ -222,7 +222,7 @@ Tracing Feature. No feature out stream providers are defined. Trace streaming ha
 
 기능 자체는 여전히 이벤트를 가로채지만, 어디로도 처리되거나 출력되지 않습니다.
 
-### 리소스 관리 (Resource management)
+### 리소스 관리 (Resource management) {id="resource-management"}
 
 메시지 프로세서는 적절히 해제되어야 하는 리소스(예: 파일 핸들)를 보유할 수 있습니다. `use` 확장 함수를 사용하여 적절한 정리가 이루어지도록 하십시오:
 
@@ -268,7 +268,7 @@ agent.run(input)
 ```
 <!--- KNIT example-tracing-04.kt -->
 
-### 특정 이벤트만 파일로 트레이싱하기
+### 특정 이벤트만 파일로 트레이싱하기 {id="tracing-specific-events-to-file"}
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
@@ -320,7 +320,7 @@ install(Tracing) {
 ```
 <!--- KNIT example-tracing-05.kt -->
 
-### 원격 엔드포인트로 특정 이벤트 트레이싱하기
+### 원격 엔드포인트로 특정 이벤트 트레이싱하기 {id="tracing-specific-events-to-remote-endpoint"}
 
 네트워크를 통해 이벤트 데이터를 전송해야 할 때 원격 엔드포인트로의 트레이싱을 사용합니다. 시작되면, 원격 엔드포인트로의 트레이싱은 지정된 포트 번호에서 가벼운 서버를 구동하고 Kotlin SSE(Server-Sent Events)를 통해 이벤트를 전송합니다.
 
@@ -415,7 +415,7 @@ listOf(clientJob).joinAll()
 ```
 <!--- KNIT example-tracing-07.kt -->
 
-## API 문서 (API documentation)
+## API 문서 (API documentation) {id="api-documentation"}
 
 Tracing 기능은 다음과 같은 주요 컴포넌트로 구성된 모듈식 아키텍처를 따릅니다:
 

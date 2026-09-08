@@ -6,7 +6,7 @@
 _CrudRepository_는 특정 타입의 저장소(repository)에 대한 일반적인 [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) 작업을 위한 Spring Data 인터페이스입니다.
 이 인터페이스는 데이터베이스와 상호작용하기 위한 여러 메서드를 기본으로 제공합니다.
 
-## 애플리케이션 업데이트하기
+## 애플리케이션 업데이트하기 {id="update-your-application"}
 
 먼저, `CrudRepository` API와 함께 작동하도록 `Message` 클래스를 조정해야 합니다:
 
@@ -198,7 +198,7 @@ class MessageController(private val service: MessageService) {
 ```
 {initial-collapse-state="collapsed" collapsible="true"}
 
-## 애플리케이션 실행하기
+## 애플리케이션 실행하기 {id="run-the-application"}
 
 축하합니다! 애플리케이션을 다시 실행할 준비가 되었습니다.
 `JdbcTemplate`을 `CrudRepository`로 교체한 후에도 기능은 동일하게 유지되므로 애플리케이션은 이전과 같이 작동합니다.
@@ -211,7 +211,7 @@ class MessageController(private val service: MessageService) {
   </li>
 </list>
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 Kotlin 기능을 탐색하고 언어 학습 진행 상황을 추적하는 데 도움이 되는 개인 언어 지도를 받아보세요:
 

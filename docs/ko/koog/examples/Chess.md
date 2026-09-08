@@ -9,7 +9,7 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Ches
 
 이 튜토리얼에서는 Koog 프레임워크를 사용하여 지능형 체스 플레이 에이전트를 구축하는 방법을 보여줍니다. 도구 통합, 에이전트 전략, 메모리 최적화 및 대화형 AI 의사 결정 등 핵심 개념을 살펴보겠습니다.
 
-## 학습 내용
+## 학습 내용 {id="what-you-ll-learn"}
 
 - 복잡한 게임을 위한 도메인별 데이터 구조 모델링 방법
 - 에이전트가 환경과 상호 작용하기 위해 사용할 수 있는 커스텀 도구 제작
@@ -17,7 +17,7 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Ches
 - 선택지 선택 기능을 갖춘 대화형 AI 시스템 구축
 - 턴제 게임을 위한 에이전트 성능 최적화
 
-## 설정
+## 설정 {id="setup"}
 
 먼저, Koog 프레임워크를 임포트하고 개발 환경을 설정합니다.
 
@@ -26,11 +26,11 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Ches
 %use koog
 ```
 
-## 체스 도메인 모델링
+## 체스 도메인 모델링 {id="modeling-the-chess-domain"}
 
 견고한 도메인 모델을 만드는 것은 모든 게임 AI에 필수적입니다. 체스에서는 플레이어, 기물(piece) 및 그들 사이의 관계를 표현해야 합니다. 먼저 핵심 데이터 구조를 정의해 보겠습니다.
 
-### 핵심 열거형(Enums) 및 타입
+### 핵심 열거형(Enums) 및 타입 {id="core-enums-and-types"}
 
 ```kotlin
 enum class Player {
@@ -65,7 +65,7 @@ enum class Side {
 
 `Side` 열거형은 킹사이드(kingside)와 퀸사이드(queenside) 캐슬링 움직임을 구분하는 데 도움을 줍니다.
 
-### 기물 및 위치 모델링
+### 기물 및 위치 모델링 {id="piece-and-position-modeling"}
 
 ```kotlin
 data class Piece(val pieceType: PieceType, val player: Player) {
@@ -135,9 +135,9 @@ class ChessBoard {
 
 `Piece` 데이터 클래스는 기물 타입과 소유자를 결합하며, 시각적 표현에서 백색 기물은 대문자, 흑색 기물은 소문자를 사용합니다. `Position` 클래스는 유효성 검사 기능이 내장된 체스 좌표(예: "e4")를 캡슐화합니다.
 
-## 게임 상태 관리
+## 게임 상태 관리 {id="game-state-management"}
 
-### ChessBoard 구현
+### ChessBoard 구현 {id="chessboard-implementation"}
 
 `ChessBoard` 클래스는 8×8 그리드와 기물 위치를 관리합니다. 주요 설계 결정은 다음과 같습니다:
 
@@ -145,7 +145,7 @@ class ChessBoard {
 - **시각적 표시**: `toString()` 메서드는 랭크(rank) 숫자와 파일(file) 문자가 포함된 명확한 ASCII 표현을 제공합니다.
 - **위치 매핑**: 체스 표기법(a1-h8)과 내부 배열 인덱스 간의 변환을 수행합니다.
 
-### ChessGame 로직
+### ChessGame 로직 {id="chessgame-logic"}
 
 ```kotlin
 /**
@@ -238,9 +238,9 @@ class ChessGame {
 
 `moveNotation` 문자열은 허용되는 이동 형식에 대해 AI 에이전트에게 명확한 문서를 제공합니다.
 
-## Koog 프레임워크와 통합
+## Koog 프레임워크와 통합 {id="integrating-with-koog-framework"}
 
-### 커스텀 도구 만들기
+### 커스텀 도구 만들기 {id="creating-custom-tools"}
 
 ```kotlin
 import kotlinx.serialization.Serializable
@@ -287,9 +287,9 @@ ${game.currentPlayer()}의 차례입니다! 수를 두세요!"
 - **피드백 루프**: 현재 보드 상태를 반환하고 다음 플레이어를 촉구하여 대화 흐름을 유지합니다.
 - **오류 처리**: 이동 검증 및 오류 보고는 게임 클래스에 의존합니다.
 
-## 에이전트 전략 설계
+## 에이전트 전략 설계 {id="agent-strategy-design"}
 
-### 메모리 최적화 기법
+### 메모리 최적화 기법 {id="memory-optimization-technique"}
 
 ```kotlin
 import ai.koog.agents.core.environment.ReceivedToolResult
@@ -354,7 +354,7 @@ val strategy = strategy<String, String>("chess_strategy") {
 
 이 전략은 대화의 일관성을 유지하면서 효율적이고 상태가 유지되는 게임 플레이를 보장합니다.
 
-### AI 에이전트 설정
+### AI 에이전트 설정 {id="setting-up-the-ai-agent"}
 
 ```kotlin
 val baseExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY"))
@@ -367,7 +367,7 @@ val baseExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY"))
 - 실행기는 인증 및 API 통신을 자동으로 처리합니다.
 - 다양한 LLM 제공업체를 위해 다른 실행기 타입을 사용할 수 있습니다.
 
-### 에이전트 조립
+### 에이전트 조립 {id="agent-assembly"}
 
 ```kotlin
 val game = ChessGame()
@@ -408,7 +408,7 @@ val agent = AIAgent(
 - 메시지 전송을 기권 또는 체크메이트 선언으로 제한
 - 집중된 게임 중심 행동 유도
 
-### 기본 에이전트 실행
+### 기본 에이전트 실행 {id="running-the-basic-agent"}
 
 ```kotlin
 import kotlinx.coroutines.runBlocking
@@ -478,11 +478,11 @@ runBlocking {
 
 이 기본 에이전트는 자율적으로 플레이하며 자동으로 수를 둡니다. 게임 출력은 AI가 자신과 대결할 때의 일련의 이동과 보드 상태를 보여줍니다.
 
-## 고급 기능: 대화형 선택지 선택
+## 고급 기능: 대화형 선택지 선택 {id="advanced-feature-interactive-choice-selection"}
 
 다음 섹션에서는 사용자가 AI가 생성한 여러 이동 중에서 하나를 선택하여 AI의 의사 결정 프로세스에 참여할 수 있는 보다 정교한 접근 방식을 보여줍니다.
 
-### 커스텀 선택지 선택 전략
+### 커스텀 선택지 선택 전략 {id="custom-choice-selection-strategy"}
 
 ```kotlin
 import ai.koog.agents.core.feature.choice.ChoiceSelectionStrategy
@@ -543,7 +543,7 @@ class AskUserChoiceSelectionStrategy(
 - 교육 및 디버깅 시나리오
 - 교육용 데모
 
-### 선택지 선택이 포함된 강화된 전략
+### 선택지 선택이 포함된 강화된 전략 {id="enhanced-strategy-with-choice-selection"}
 
 ```kotlin
 inline fun <reified T> AIAgentSubgraphBuilderBase<*, *>.nodeTrimHistory(
@@ -596,7 +596,7 @@ val promptExecutor = PromptExecutorWithChoiceSelection(baseExecutor, askChoiceSt
 - **컨텍스트 인식 표시**: 전체 프롬프트 대신 마지막 도구 호출 내용을 보여줍니다.
 - **높은 Temperature**: 더 다양한 이동 옵션을 위해 1.0으로 높였습니다.
 
-### 고급 전략: 수동 선택지 선택
+### 고급 전략: 수동 선택지 선택 {id="advanced-strategy-manual-choice-selection"}
 
 ```kotlin
 val game = ChessGame()
@@ -637,7 +637,7 @@ val agent = AIAgent(
 - **유연성**: 다른 에이전트 기능과 결합 가능
 - **투명성**: 사용자가 AI가 고려 중인 사항을 정확히 볼 수 있음
 
-### 대화형 에이전트 실행
+### 대화형 에이전트 실행 {id="running-interactive-agents"}
 
 ```kotlin
 println("체스 게임이 시작되었습니다!")
@@ -838,11 +838,11 @@ runBlocking {
 2. **사용자 선택**: 사용자가 선호하는 수를 두기 위해 1-3 사이의 숫자를 입력합니다.
 3. **게임 계속**: 선택한 수가 실행되고 게임이 계속됩니다.
 
-## 결론
+## 결론 {id="conclusion"}
 
 이 튜토리얼은 Koog 프레임워크를 사용하여 지능형 에이전트를 구축하는 몇 가지 핵심 측면을 보여주었습니다.
 
-### 핵심 요약
+### 핵심 요약 {id="key-takeaways"}
 
 1. **도메인 모델링**: 복잡한 애플리케이션에는 잘 구조화된 데이터 모델이 필수적입니다.
 2. **도구 통합**: 커스텀 도구를 통해 에이전트가 외부 시스템과 효과적으로 상호 작용할 수 있습니다.
@@ -850,7 +850,7 @@ runBlocking {
 4. **전략 그래프**: Koog의 그래프 기반 접근 방식은 유연한 제어 흐름을 제공합니다.
 5. **대화형 AI**: 선택지 선택 기능은 인간-AI 협업과 투명성을 가능하게 합니다.
 
-### 살펴본 프레임워크 기능
+### 살펴본 프레임워크 기능 {id="framework-features-explored"}
 
 - ✅ 커스텀 도구 생성 및 통합
 - ✅ 에이전트 전략 설계 및 그래프 기반 제어 흐름

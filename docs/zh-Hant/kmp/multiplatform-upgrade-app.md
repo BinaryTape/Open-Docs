@@ -25,7 +25,7 @@
 >
 {style="note"}
 
-## 新增更多相依性
+## 新增更多相依性 {id="add-more-dependencies"}
 
 您需要在專案中新增以下多平台程式庫：
 
@@ -33,7 +33,7 @@
 * [`kotlinx.serialization`](https://github.com/Kotlin/kotlinx.serialization)：用於將 SpaceX API 的 JSON 回應反序列化為用於處理網路操作的實體類別物件。
 * [Ktor](https://ktor.io/)：一個用於透過 HTTP 傳送與擷取資料的架構。
 
-### 更新 Gradle 版本目錄
+### 更新 Gradle 版本目錄 {id="update-the-gradle-version-catalog"}
 
 將以下項目新增至 `gradle/libs.versions.toml`，然後同步 Gradle 檔案，使這些參考可在組建組態程式碼中使用：
 
@@ -56,7 +56,7 @@ ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "k
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ```
 
-### 將相依性新增至對應的原始碼集
+### 將相依性新增至對應的原始碼集 {id="add-dependencies-to-corresponding-source-sets"}
 
 將程式庫參考新增至 `sharedLogic/build.gradle.kts` 檔案中對應的原始碼集：
 
@@ -94,11 +94,11 @@ kotlin {
 
 點擊 **Sync Gradle Changes** 按鈕同步 Gradle 檔案。
 
-## 設定 API 請求
+## 設定 API 請求 {id="set-up-api-requests"}
 
 您將使用 [Launch Library API](https://github.com/r-spacex/SpaceX-API/tree/master/docs#rspacex-api-docs) 來擷取資料，特別是來自 **/2.3.0/launches** 端點的所有發射清單。
 
-### 建立資料模型
+### 建立資料模型 {id="create-a-data-model"}
 
 在 `sharedLogic/src/commonMain/.../greetingkmp` 目錄中，建立一個新的 `RocketLaunch.kt` 檔案，並新增一個用於儲存來自 SpaceX API 資料的資料類別：
 
@@ -136,7 +136,7 @@ data class LaunchListResponse(
 * `RocketLaunch` 類別標記有 `@Serializable` 註解，以便 `kotlinx.serialization` 外掛程式可以自動為其產生預設序列化器。
 * `@SerialName` 註解允許您重新定義欄位名稱，從而可以在資料類別中宣告具有更易讀名稱的屬性。
 
-### 連接 HTTP 用戶端
+### 連接 HTTP 用戶端 {id="connect-http-client"}
 
 1. 在 `sharedLogic/src/commonMain/.../greetingkmp` 目錄中，建立一個新的 `RocketComponent` 類別。
 2. 新增 `httpClient` 屬性，透過 HTTP GET 請求擷取火箭發射資訊：
@@ -244,7 +244,7 @@ data class LaunchListResponse(
     }
     ```
 
-### 建立協同程式 Flow
+### 建立協同程式 Flow {id="create-a-coroutine-flow"}
 
 除了簡單地呼叫掛起函式之外，當您需要產生一系列值時，可以使用 [Flow](https://kotlinlang.org/docs/flow.html)。
 Flow 可以在產生值時發射一系列值，而不是像掛起函式那樣僅傳回單個值。
@@ -285,11 +285,11 @@ Flow 可以在產生值時發射一系列值，而不是像掛起函式那樣僅
 
 您已經透過將 `greet()` 函式的傳回型別更改為 `Flow` 更新了共享模組的 API。現在您需要更新專案的原生部分，以便它們能夠正確處理呼叫 `greet()` 函式的結果。
 
-## 更新原生 Android UI
+## 更新原生 Android UI {id="update-native-android-ui"}
 
 由於共享模組和 Android 應用程式都是用 Kotlin 編寫的，從 Android 使用共享程式碼非常簡單。
 
-### 引入視圖模型
+### 引入視圖模型 {id="introduce-a-view-model"}
 
 視圖模型 (ViewModel) 是 Android 開發中常見的模式，有助於管理資料與其他應在 [Android Activity](https://developer.android.com/guide/components/activities/intro-activities) 生命週期中持續存在的應用程式元件。
 現在應用程式變得更加複雜，是時候在我們的應用程式中也引入視圖模型了。
@@ -364,7 +364,7 @@ Flow 可以在產生值時發射一系列值，而不是像掛起函式那樣僅
     }
     ```
 
-### 使用視圖模型的 Flow
+### 使用視圖模型的 Flow {id="use-the-view-model-s-flow"}
 
 1. 在 `sharedUI/src/commonMain/.../greetingkmp` 中，開啟 `App.kt` 檔案並進行更新，取代之前的實作以使用新實作的視圖模型：
 
@@ -397,7 +397,7 @@ Flow 可以在產生值時發射一系列值，而不是像掛起函式那樣僅
    * `collectAsStateWithLifecycle()` 函式呼叫 `greetingList` 以從視圖模型的 Flow 中收集值，並以生命週期感知的方式將其表示為 composable 狀態。
    * 當新的 Flow 建立時，組合狀態將會改變，並顯示一個可捲動的 `Column`，其中包含垂直排列並由分隔線隔開的問候片語。
 
-### 新增網際網路存取權限
+### 新增網際網路存取權限 {id="add-internet-access-permission"}
 
 為了存取網際網路， Android 應用程式需要適當的權限。由於所有網路請求都是從共享模組發出的，因此在該模組的資訊清單中新增網際網路存取權限是合理的。
 
@@ -411,19 +411,19 @@ Flow 可以在產生值時發射一系列值，而不是像掛起函式那樣僅
 </manifest>
 ```
 
-### 執行應用程式
+### 執行應用程式 {id="run-the-app"}
 
 若要查看最終結果，請重新執行您的 **androidApp** 執行組態：
 
 ![Android 的最終結果](multiplatform-mobile-upgrade-android.png){width=350}
 
-## 更新原生 iOS UI
+## 更新原生 iOS UI {id="update-native-ios-ui"}
 
 對於專案的 iOS 部分，您將利用 [Model–view–viewmodel](https://en.wikipedia.org/wiki/Model–view–viewmodel) 模式（如同您在 Android 應用程式中所做的那樣），將 UI 連接到 `sharedLogic` 模組。
 
 該模組已透過 `import SharedLogic` 宣告匯入到 `ContentView.swift` 檔案中。
 
-### 引入 ViewModel
+### 引入 ViewModel {id="introducing-a-viewmodel"}
 
 在 `iosApp/ContentView.swift` 中，為 `ContentView` 建立一個 `ViewModel` 類別，它將為其準備與管理資料。在 `task()` 呼叫中呼叫 `startObserving()` 函式以支援並行：
 
@@ -472,7 +472,7 @@ SwiftUI 將視圖模型 (`ContentView.ViewModel`) 與視圖 (`ContentView`) 連�
 
 現在您需要實作 `startObserving()` 函式來取用 Flow。
 
-### 選擇一個程式庫在 iOS 中取用 Flow
+### 選擇一個程式庫在 iOS 中取用 Flow {id="choose-a-library-to-consume-flows-from-ios"}
 
 在本教學中，您可以使用 [SKIE](https://skie.touchlab.co/) 或 [KMP-NativeCoroutines](https://github.com/rickclephas/KMP-NativeCoroutines) 程式庫來協助您在 iOS 中處理 Flow。
 兩者都是開源解決方案，支援 Flow 的取消與泛型，而 Kotlin/Native 編譯器目前預設尚未提供這些功能：
@@ -480,7 +480,7 @@ SwiftUI 將視圖模型 (`ContentView.ViewModel`) 與視圖 (`ContentView`) 連�
 * KMP-NativeCoroutines 程式庫透過產生必要的包裝函式，協助您從 iOS 取用掛起函式與 Flow。KMP-NativeCoroutines 支援 Swift 的 `async`/`await` 功能以及 Combine 和 RxSwift。使用 KMP-NativeCoroutines 需要在 iOS 專案中新增 SwiftPM 或 CocoaPod 相依性。
 * SKIE 程式庫增強了 Kotlin 編譯器產生的 Objective-C API：SKIE 將 Flow 轉換為等同於 Swift 的 `AsyncSequence`。SKIE 直接支援 Swift 的 `async`/`await`，無執行緒限制，並具有自動雙向取消功能（Combine 和 RxSwift 需要適配器）。SKIE 提供其他功能，以便從 Kotlin 產生 Swift 友善的 API，包括將各種 Kotlin 型別橋接至 Swift 的對等型別。它也不需要在 iOS 專案中新增額外的相依性。
 
-### 選項 1. 設定 KMP-NativeCoroutines {initial-collapse-state="collapsed" collapsible="true"}
+### 選項 1. 設定 KMP-NativeCoroutines {initial-collapse-state="collapsed" collapsible="true" id="option-1-configure-kmp-nativecoroutines"}
 
 > 我們建議使用程式庫的最新版本。請查看 [KMP-NativeCoroutines 存儲庫](https://github.com/rickclephas/KMP-NativeCoroutines/releases)以確認是否有更新版本的外掛程式可用，以及它是否與您的 Kotlin 版本相容。
 >
@@ -532,7 +532,7 @@ SwiftUI 將視圖模型 (`ContentView.ViewModel`) 與視圖 (`ContentView`) 連�
 
 5. 點擊 **Sync Gradle Changes** 按鈕同步 Gradle 檔案。
 
-#### 使用 KMP-NativeCoroutines 標記 Flow
+#### 使用 KMP-NativeCoroutines 標記 Flow {id="mark-the-flow-with-kmp-nativecoroutines"}
 
 1. 開啟 `sharedLogic/src/commonMain/kotlin` 目錄中的 `Greeting.kt` 檔案。
 2. 將 `@NativeCoroutines` 註解新增至 `greet()` 函式。這將確保外掛程式產生正確的程式碼，以支援在 iOS 上的正確 Flow 處理：
@@ -642,7 +642,7 @@ plugins {
 }
 ```
 
-#### 使用 SKIE 取用 Flow
+#### 使用 SKIE 取用 Flow {id="consume-the-flow-using-skie"}
 
 您將使用迴圈與 `await` 機制來逐一查看 `Greeting().greet()` Flow，並在 Flow 每次發射值時更新 `greetings` 屬性。
 
@@ -668,7 +668,7 @@ extension ContentView {
 }
 ```
 
-### 取用 ViewModel 並執行 iOS 應用程式
+### 取用 ViewModel 並執行 iOS 應用程式 {id="consume-the-viewmodel-and-run-the-ios-app"}
 
 在 `iosApp/iOSApp.swift` 中，更新您應用程式的進入點：
 
@@ -693,19 +693,19 @@ struct iOSApp: App {
 >
 {style="note"}
 
-## 下一步
+## 下一步 {id="next-step"}
 
 在教學的最後一部分，您將完成您的專案，並瞭解接下來該採取哪些步驟。
 
 **[前往下一部分](multiplatform-wrap-up.md)**
 
-### 延伸閱讀
+### 延伸閱讀 {id="see-also"}
 
 * 探索[組合掛起函式](https://kotlinlang.org/docs/composing-suspending-functions.html)的各種方法。
 * 進一步了解[與 Objective-C 架構及程式庫的互通性](https://kotlinlang.org/docs/native-objc-interop.html)。
 * 完成此關於[網路與資料儲存](multiplatform-ktor-sqldelight.md)的教學。
 
-## 獲取協助
+## 獲取協助 {id="get-help"}
 
 * **Kotlin Slack**。獲取[邀請](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)並加入 [#multiplatform](https://kotlinlang.slack.com/archives/C3PQML5NU) 頻道。
 * **Kotlin 問題追蹤器**。[回報新問題](https://youtrack.jetbrains.com/newIssue?project=KT)。

@@ -6,7 +6,7 @@ title: 定義
 
 定義宣告了 Koin 如何建立與管理您的相依性。本指南涵蓋了使用 DSL 和註解 (Annotation) 的所有定義型別。
 
-## 定義型別
+## 定義型別 {id="definition-types"}
 
 | 型別 | DSL | 註解 | 生命週期 | 使用案例 |
 |------|-----|------------|-----------|----------|
@@ -15,9 +15,9 @@ title: 定義
 | Scoped | `scoped()` | `@Scoped` | 每個作用域 (scope) 一個執行個體 | 繫結至 Activity 或工作階段 (session) 的物件 |
 | ViewModel | `viewModel()` | `@KoinViewModel` | Android ViewModel 生命週期 | ViewModel |
 
-## 宣告定義
+## 宣告定義 {id="declaring-definitions"}
 
-### 編譯器外掛程式 DSL（推薦）
+### 編譯器外掛程式 DSL（推薦） {id="compiler-plugin-dsl-recommended"}
 
 ```kotlin
 import org.koin.plugin.module.dsl.*
@@ -35,7 +35,7 @@ val appModule = module {
 }
 ```
 
-### 註解
+### 註解 {id="annotations"}
 
 ```kotlin
 @Singleton  // 或 @Single
@@ -51,7 +51,7 @@ class UserPresenter(private val repository: UserRepository)
 class UserViewModel(private val repository: UserRepository) : ViewModel()
 ```
 
-### 經典 DSL
+### 經典 DSL {id="classic-dsl"}
 
 ```kotlin
 val appModule = module {
@@ -69,7 +69,7 @@ val appModule = module {
 }
 ```
 
-## 定義比較
+## 定義比較 {id="definition-comparison"}
 
 | 概念 | 編譯器外掛程式 DSL | 經典 DSL | 註解 |
 |---------|---------------------|-------------|------------|
@@ -83,7 +83,7 @@ val appModule = module {
 編譯器外掛程式正在分析您的類別和函式參數，以產生對 Koin 的正確呼叫並使用 `get()` 函式，您不再需要手動撰寫。
 :::
 
-## Single (Singleton)
+## Single (Singleton) {id="single-singleton"}
 
 建立一個在整個應用程式中重複使用的執行個體：
 
@@ -98,7 +98,7 @@ class DatabaseHelper
 
 兩者產生的結果相同：一個在所有取用者之間共用的單一執行個體。
 
-## Factory
+## Factory {id="factory"}
 
 每次都建立一個新執行個體：
 
@@ -111,7 +111,7 @@ factory<UserPresenter>()
 class UserPresenter(private val repository: UserRepository)
 ```
 
-## Scoped
+## Scoped {id="scoped"}
 
 每個作用域建立一個執行個體：
 
@@ -126,7 +126,7 @@ scope<MyActivity> {
 class ActivityPresenter
 ```
 
-## ViewModel
+## ViewModel {id="viewmodel"}
 
 具備適當生命週期的 Android ViewModel：
 
@@ -139,9 +139,9 @@ viewModel<UserViewModel>()
 class UserViewModel(private val repository: UserRepository) : ViewModel()
 ```
 
-## 介面繫結
+## 介面繫結 {id="interface-binding"}
 
-### 編譯器外掛程式 DSL
+### 編譯器外掛程式 DSL {id="compiler-plugin-dsl"}
 
 ```kotlin
 single<UserRepositoryImpl>() bind UserRepository::class
@@ -178,7 +178,7 @@ class UserRepositoryImpl(
 class UserRepositoryImpl : UserRepository
 ```
 
-## 限定詞（命名定義）
+## 限定詞（命名定義） {id="qualifiers-named-definitions"}
 
 當您有相同型別的多個定義時。有關檢索方式，請參閱 [使用限定詞進行注入](/docs/reference/koin-core/injection#injection-with-qualifiers)。
 
@@ -235,7 +235,7 @@ class UserRepository(
 )
 ```
 
-## 注入參數
+## 注入參數 {id="injected-parameters"}
 
 在注入時傳遞參數：
 
@@ -281,7 +281,7 @@ class UserPresenter(
 val presenter: UserPresenter = get { parametersOf("user123") }
 ```
 
-## 選用相依性
+## 選用相依性 {id="optional-dependencies"}
 
 ### 編譯器外掛程式 DSL
 
@@ -317,7 +317,7 @@ class MyService(
 )
 ```
 
-## 延遲注入
+## 延遲注入 {id="lazy-injection"}
 
 推遲執行個體建立：
 
@@ -350,7 +350,7 @@ class MyService(
 )
 ```
 
-## 屬性
+## 屬性 {id="properties"}
 
 注入組態值：
 
@@ -386,9 +386,9 @@ class ApiClient(
 )
 ```
 
-## 回呼
+## 回呼 {id="callbacks"}
 
-### onClose 回呼
+### onClose 回呼 {id="onclose-callback"}
 
 執行個體釋放時執行程式碼：
 
@@ -400,7 +400,7 @@ single {
 }
 ```
 
-### createdAtStart
+### createdAtStart {id="createdatstart"}
 
 在啟動時積極地建立執行個體：
 
@@ -416,9 +416,9 @@ single(createdAtStart = true) {
 }
 ```
 
-## 定義覆寫
+## 定義覆寫 {id="definition-override"}
 
-### 預設：最後一個勝出
+### 預設：最後一個勝出 {id="default-last-wins"}
 
 ```kotlin
 val prodModule = module {
@@ -434,7 +434,7 @@ startKoin {
 }
 ```
 
-### 明確覆寫
+### 明確覆寫 {id="explicit-override"}
 
 在嚴格模式下，請明確標記覆寫：
 
@@ -449,11 +449,11 @@ startKoin {
 }
 ```
 
-## 安全 DSL 模式
+## 安全 DSL 模式 {id="safe-dsl-patterns"}
 
 Koin 編譯器外掛程式會在編譯期轉換 DSL 定義 —— 自動裝配建構函式參數並對其進行驗證。以下是關鍵模式：
 
-### 使用 create() 的函式建置器
+### 使用 create() 的函式建置器 {id="function-builders-with-create"}
 
 使用 `create(::function)` 來封裝您不擁有的外部程式庫。函式參數會自動從 DI 容器中解析：
 
@@ -477,7 +477,7 @@ val databaseModule = module {
 
 這是推薦用於 Room 資料庫、Retrofit service、OkHttp 用戶端以及其他外部程式庫的模式。
 
-### 使用 includes() 的模組組合
+### 使用 includes() 的模組組合 {id="module-composition-with-includes"}
 
 按層級組織模組並組合它們：
 
@@ -496,7 +496,7 @@ val networkModule = module {
 private fun json(): Json = Json { ignoreUnknownKeys = true }
 ```
 
-### App 模組 — 組合一切
+### App 模組 — 組合一切 {id="app-module-composing-everything"}
 
 App 模組包含所有功能模組，並宣告 ViewModel 和使用案例：
 
@@ -531,7 +531,7 @@ val appModule = module {
 }
 ```
 
-### DSL 中的自訂限定詞
+### DSL 中的自訂限定詞 {id="custom-qualifiers-in-dsl"}
 
 限定詞註解也可以與 `create(::function)` 搭配使用：
 
@@ -556,7 +556,7 @@ fun coroutineScope(
 ) = CoroutineScope(SupervisorJob() + default)
 ```
 
-### 搭配 DSL 使用 Worker
+### 搭配 DSL 使用 Worker {id="worker-with-dsl"}
 
 ```kotlin
 import org.koin.dsl.module
@@ -569,7 +569,7 @@ val syncModule = module {
 }
 ```
 
-### 完整模式：具備介面繫結的存儲庫
+### 完整模式：具備介面繫結的存儲庫 {id="complete-pattern-repository-with-interface-binding"}
 
 ```kotlin
 import org.koin.dsl.module
@@ -587,7 +587,7 @@ val dataModule = module {
 
 所有這些定義都會在編譯期由 Koin 編譯器外掛程式驗證 —— 缺失的相依性、限定詞不匹配以及損壞的呼叫點都會在組建時被捕獲。請參閱 [編譯期安全](/docs/reference/koin-compiler/compile-safety)。
 
-## 最佳實務
+## 最佳實務 {id="best-practices"}
 
 1. **偏好建構函式注入** – 讓程式碼在不依賴 Koin 的情況下即可進行測試
 2. **對無狀態 Service 使用 `single`** – 存儲庫、用戶端、幫助程式 (helper)
@@ -597,7 +597,7 @@ val dataModule = module {
 6. **繫結至介面** – 依賴於抽象而非實作
 7. **對外部程式庫使用 `create(::builder)`** – 更安全的相依性解析
 
-## 後續步驟
+## 後續步驟 {id="next-steps"}
 
 - **[注入](/docs/reference/koin-core/injection)** – 檢索相依性
 - **[限定詞](/docs/reference/koin-core/qualifiers)** – 命名與具型別的限定詞

@@ -7,7 +7,7 @@ undefined
 
 이 페이지의 예제에서는 Kotlin 및 Compose Multiplatform 로고를 사용합니다. 두 로고 모두 [Kotlin 브랜드 자산(Kotlin Brand Assets)](https://kotlinlang.org/docs/kotlin-brand-assets.html#kotlin-logo) 패키지의 일부로 제공됩니다.
 
-## 리소스에서 이미지 표시하기
+## 리소스에서 이미지 표시하기 {id="displaying-images-from-resources"}
 
 애플리케이션에 포함된 이미지를 표시하려면, 프로젝트의 [멀티플랫폼 리소스에 추가](compose-multiplatform-resources-setup.md)하고 프로젝트를 빌드하여 리소스 접근자(accessor)를 생성하세요. 접근자를 `painterResource()`에 전달하여 `Painter` 인스턴스를 생성하고, 결과로 나온 `Painter`를 `Image()` 컴포저블에 전달합니다.
 
@@ -51,7 +51,7 @@ fun main() = application {
 >
 {style="tip"}
 
-## 파일 시스템이나 네트워크에서 이미지 로드하기
+## 파일 시스템이나 네트워크에서 이미지 로드하기 {id="loading-images-from-the-file-system-or-the-network"}
 
 애플리케이션의 일부가 아닌 이미지(사용자가 선택한 파일이나 런타임에 다운로드한 파일)는 리소스가 아닙니다. 모든 JVM API를 사용하여 해당 바이트를 읽고, 리소스 라이브러리의 다음 함수 중 하나를 사용하여 디코딩하세요.
 
@@ -184,7 +184,7 @@ fun <T> AsyncImage(
 >
 {style="tip"}
 
-## 창 아이콘 설정하기
+## 창 아이콘 설정하기 {id="setting-the-window-icon"}
 
 이미지를 창 아이콘으로 사용하려면 `Painter` 인스턴스를 `Window()` 컴포저블의 `icon` 파라미터로 전달하세요.
 
@@ -227,7 +227,7 @@ fun main() = application {
 
 <img src="compose-desktop-images-window-icon.png" alt="A packaged application and its Dock icon" width="426"/>
 
-### 단일 창 애플리케이션 아이콘
+### 단일 창 애플리케이션 아이콘 {id="single-window-application-icon"}
 
 `singleWindowApplication()` 함수는 컴포지션(composition) 외부에서 `icon` 파라미터를 평가하므로 `painterResource()`를 사용할 수 없습니다. 대신 `composeResources` 디렉토리 내의 파일 경로를 받는 `Res.readBytes()`를 사용하여 리소스를 읽고, 이를 `BitmapPainter`로 디코딩하세요.
 
@@ -250,7 +250,7 @@ fun main() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="val icon = BitmapPainter(iconBytes.decodeToImageBitmap())"}
 
-## 트레이 아이콘 설정하기
+## 트레이 아이콘 설정하기 {id="setting-the-tray-icon"}
 
 이미지를 [트레이(tray)](compose-desktop-tray.md) 아이콘으로 사용하려면 `Painter` 인스턴스를 `Tray()` 컴포저블의 `icon` 파라미터로 전달하세요.
 
@@ -302,7 +302,7 @@ macOS에서는 트레이 아이콘이 메뉴 막대에 표시됩니다.
 
 <img src="compose-desktop-images-tray-icon.png" alt="A tray icon in the macOS menu bar" width="430"/>
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [멀티플랫폼 리소스](compose-multiplatform-resources.md)와 공통 코드에서 [리소스에 액세스하는 방법](compose-multiplatform-resources-usage.md)에 대해 자세히 알아보세요.
 * [시스템 트레이](compose-desktop-tray.md)에 애플리케이션 아이콘을 추가하는 방법을 알아보세요.

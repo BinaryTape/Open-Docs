@@ -1,6 +1,6 @@
 # シリアライズ
 
-## はじめに
+## はじめに {id="introduction"}
 
 Koogは、ツールの引数や結果をJSONと相互に変換するために、ライブラリに依存しない軽量なシリアライズ層を使用します。
 この層はエージェントのランタイムと基底のシリアライズライブラリの間に位置するため、ツールやエージェントのコードを変更することなくシリアライズライブラリを入れ替えることができます。
@@ -10,7 +10,7 @@ Koogは、ツールの引数や結果をJSONと相互に変換するために、
 デフォルトでは、Koogは `KotlinxSerializer`（kotlinx-serializationベース）を使用します。
 JVMでは、`JacksonSerializer`（jackson-databindベース）に切り替えることも可能です。
 
-## `JSONSerializer` インターフェース
+## `JSONSerializer` インターフェース {id="the-jsonserializer-interface"}
 
 `JSONSerializer` は、`serialization-core` に含まれる中心的な抽象化です。
 このインターフェースには、4つの主要なメソッド（文字列および `JSONElement` との相互エンコード/デコード）に加えて、`JSONElement` と文字列の間を変換するための2つの便利なメソッドがあります。
@@ -97,7 +97,7 @@ JVMでは、`JacksonSerializer`（jackson-databindベース）に切り替える
     ```
     <!--- KNIT exampleSerializationJava01.java -->
 
-## 型トークン (Type tokens)
+## 型トークン (Type tokens) {id="type-tokens"}
 
 `TypeToken` は、Koogが実行時に型情報を渡すための仕組みです。
 
@@ -146,12 +146,12 @@ JVMでは、`JacksonSerializer`（jackson-databindベース）に切り替える
     ```
     <!--- KNIT exampleSerializationJava02.java -->
 
-## `JSONElement` — ライブラリに依存しないJSONツリー
+## `JSONElement` — ライブラリに依存しないJSONツリー {id="jsonelement-library-agnostic-json-tree"}
 
 `JSONElement` は、JSONデータの中立的な中間表現です。
 これがあることで、シリアライザー、ツール、エージェントの内部実装が、特定のライブラリ特有のJSON型に依存しないようになっています。
 
-### 階層構造
+### 階層構造 {id="hierarchy"}
 
 ```
 JSONElement
@@ -163,12 +163,12 @@ JSONElement
 ```
 <!--- KNIT example-serialization-01.txt -->
 
-### ライブラリ型との変換
+### ライブラリ型との変換 {id="conversion-to-and-from-library-types"}
 
 各シリアライズ統合（integration）は、`JSONElement` とライブラリ独自の動的なJSON型の間で変換を行うための拡張関数を提供しています。これは、すでに `JsonElement` や `JsonNode` を持っており、完全なエンコード/デコードのサイクルを経ずにKoogに渡したい（またはその逆）場合に便利です。
 以下に、サポートされている各ライブラリの例を示します。
 
-### 要素の構築と読み取り
+### 要素の構築と読み取り {id="building-and-reading-elements"}
 
 === "Kotlin"
 
@@ -229,9 +229,9 @@ JSONElement
     ```
     <!--- KNIT exampleSerializationJava03.java -->
 
-## サポートされているシリアライザー
+## サポートされているシリアライザー {id="supported-serializers"}
 
-### `KotlinxSerializer`（デフォルト）
+### `KotlinxSerializer`（デフォルト） {id="kotlinxserializer-default"}
 
 - **モジュール**: `ai.koog:serialization-core` (`ai.koog:agents-core` に推移的に含まれます)
 - **ベース**: kotlinx-serialization
@@ -285,7 +285,7 @@ Koogの `JSONElement` と kotlinx-serializationの `JsonElement` の間で変換
     ```
     <!--- KNIT example-serialization-05.kt -->
 
-### `JacksonSerializer`（JVMのみ）
+### `JacksonSerializer`（JVMのみ） {id="jacksonserializer-jvm-only"}
 
 - **モジュール**: `ai.koog:serialization-jackson`（個別の依存関係）
 - **ベース**: jackson-databind
@@ -407,7 +407,7 @@ Koogの `JSONElement` と Jacksonの `JsonNode` の間で変換することも�
     ```
     <!--- KNIT exampleSerializationJava05.java -->
 
-## `AIAgentConfig` でのシリアライザーの設定
+## `AIAgentConfig` でのシリアライザーの設定 {id="configuring-the-serializer-in-aiagentconfig"}
 
 === "Kotlin" 
 
@@ -465,7 +465,7 @@ Koogの `JSONElement` と Jacksonの `JsonNode` の間で変換することも�
     ```
     <!--- KNIT exampleSerializationJava06.java -->
 
-## ツールとシリアライザーの相互作用
+## ツールとシリアライザーの相互作用 {id="how-tools-interact-with-the-serializer"}
 
 エージェントのランタイムは、各 `Tool` インスタンスに対して以下のメソッドを自動的に呼び出します。
 通常の使用において、これらを自分で呼び出す必要はありません。
@@ -479,7 +479,7 @@ Koogの `JSONElement` と Jacksonの `JsonNode` の間で変換することも�
 
 これらのメソッドは `Tool` において `open` であるため、特定のツールでカスタムのシリアライズ動作が必要な場合にはオーバーライドできます。
 
-## 各機能でのシリアライザーの利用
+## 各機能でのシリアライザーの利用 {id="how-features-use-the-serializer"}
 
 シリアライズ層はツールに限定されず、特定のエージェント機能もこれに依存しています。
 

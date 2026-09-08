@@ -16,7 +16,7 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Calc
 
 我們將保持 API 整潔且符合 Kotlin 慣例，傳回可預測的結果並優雅地處理邊緣情況（例如除以零）。
 
-## 設定
+## 設定 {id="setup"}
 
 我們假設您處於已提供 Koog 的 Kotlin Notebook 環境中。
 提供一個 LLM 執行器：
@@ -31,7 +31,7 @@ val OPENAI_API_KEY = System.getenv("OPENAI_API_KEY")
 val executor = simpleOpenAIExecutor(OPENAI_API_KEY)
 ```
 
-## 計算機工具
+## 計算機工具 {id="calculator-tools"}
 
 工具是具有清晰契約的小型純函式。
 我們將使用 `Double` 以獲得更好的精度，並一致地格式化輸出。
@@ -80,7 +80,7 @@ class CalculatorTools : ToolSet {
 }
 ```
 
-## 工具註冊表
+## 工具註冊表 {id="tool-registry"}
 
 公開我們的工具（加上兩個用於互動／記錄的內建工具）。
 
@@ -92,7 +92,7 @@ val toolRegistry = ToolRegistry {
 }
 ```
 
-## 策略：多重工具呼叫（含可選壓縮）
+## 策略：多重工具呼叫（含可選壓縮） {id="strategy-multiple-tool-calls-with-optional-compression"}
 
 此策略讓 LLM 能夠 **一次提議多個工具呼叫**（例如：`plus`、`minus`、`multiply`、`divide`），然後將結果傳回。
 如果 Token 使用量增長過大，我們會在繼續之前 **壓縮** 工具結果的歷程記錄。
@@ -139,7 +139,7 @@ object CalculatorStrategy {
 }
 ```
 
-## 代理配置
+## 代理配置 {id="agent-configuration"}
 
 使用以工具為導向的極簡提示效果很好。保持低溫度以獲得確定的數學運算。
 
@@ -176,7 +176,7 @@ val agent = AIAgent(
 }
 ```
 
-## 試用一下
+## 試用一下 {id="try-it"}
 
 代理應該會將運算式分解為平行的工具呼叫，並傳回格式整齊的結果。
 
@@ -199,7 +199,7 @@ runBlocking {
 
     The result of the expression \((10 + 20) * (5 + 5) / (2 - 11)\) is approximately \(-33.33\).
 
-## 嘗試強制平行呼叫
+## 嘗試強制平行呼叫 {id="try-forcing-parallel-calls"}
 
 要求模型一次呼叫所有需要的工具。
 您應該仍然可以看到正確的計畫和穩定的執行。
@@ -219,7 +219,7 @@ runBlocking {
 
     The result of \((10 + 20) * (5 + 5) / (2 - 11)\) is approximately \(-3.33\).
 
-## 使用 Ollama 執行
+## 使用 Ollama 執行 {id="running-with-ollama"}
 
 如果您偏好本機推論，可以更換執行器和模型。
 

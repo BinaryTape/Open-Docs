@@ -2,7 +2,7 @@
 
 Ktor WebSocket API는 자신만의 확장(예: [RFC-7692](https://tools.ietf.org/html/rfc7692))이나 임의의 커스텀 확장을 작성할 수 있도록 지원합니다.
 
-## 확장 설치
+## 확장 설치 {id="install-extension"}
 
 확장을 설치하고 설정하기 위해 `extensions`와 `install`이라는 두 가지 메서드를 제공하며, 다음과 같은 방식으로 사용할 수 있습니다.
 
@@ -18,7 +18,7 @@ install(WebSockets) {
 
 확장은 설치된 순서대로 사용됩니다.
 
-## 확장이 협상되었는지 확인
+## 확장이 협상되었는지 확인 {id="check-if-the-extension-is-negotiated"}
 
 설치된 모든 확장은 협상(negotiation) 과정을 거치며, 성공적으로 협상된 확장들이 요청 중에 사용됩니다.
 현재 세션에서 사용 중인 모든 확장의 목록이 담긴 `WebSocketSession.extensions: List<WebSocketExtension<*>>` 프로퍼티를 사용할 수 있습니다.
@@ -33,7 +33,7 @@ webSocket("/echo") {
 }
 ```
 
-## 새로운 확장 작성하기
+## 새로운 확장 작성하기 {id="write-a-new-extension"}
 
 새로운 확장을 구현하기 위한 두 개의 인터페이스 `WebSocketExtension<ConfigType: Any>`와 `WebSocketExtensionFactory<ConfigType : Any, ExtensionType : WebSocketExtension<ConfigType>>`가 있습니다.
 단일 구현으로 클라이언트와 서버 모두에서 작동할 수 있습니다.

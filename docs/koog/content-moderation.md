@@ -26,7 +26,7 @@
     - 确保 AI 响应符合组织的价值观和标准
     - 通过持续提供安全且适当的内容来建立用户信任
 
-## 审核内容的类型
+## 审核内容的类型 {id="types-of-moderated-content"}
 
 Koog 的审核系统可以分析各种类型的内容：
 
@@ -42,11 +42,11 @@ Koog 的审核系统可以分析各种类型的内容：
     - 由与 AI 系统集成的工具生成的或传递给这些工具的内容
     - 确保工具的输入和输出符合内容安全标准
 
-## 支持的提供商与模型
+## 支持的提供商与模型 {id="supported-providers-and-models"}
 
 Koog 通过多个提供商和模型支持内容审核：
 
-### OpenAI
+### OpenAI {id="openai"}
 
 OpenAI 提供两种审核模型：
 
@@ -62,7 +62,7 @@ OpenAI 提供两种审核模型：
     - 可以识别文本和图像中的有害内容
     - 比 Text 模型更全面
 
-### Ollama
+### Ollama {id="ollama"}
 
 Ollama 通过以下模型支持审核：
 
@@ -72,11 +72,11 @@ Ollama 通过以下模型支持审核：
     - 专门用于内容审核任务
     - 通过 Ollama 在本地运行
 
-## 在 LLM 客户端中使用审核
+## 在 LLM 客户端中使用审核 {id="using-moderation-with-llm-clients"}
 
 Koog 提供了两种主要的内容审核方法：直接在 `LLMClient` 实例上进行审核，或者使用 `PromptExecutor` 上的 `moderate` 方法。
 
-### 使用 LLMClient 直接审核
+### 使用 LLMClient 直接审核 {id="direct-moderation-with-llmclient"}
 
 您可以直接在 LLMClient 实例上使用 `moderate` 方法：
 
@@ -231,7 +231,7 @@ Koog 提供了两种主要的内容审核方法：直接在 `LLMClient` 实例�
     ```
     <!--- KNIT example-content-moderation-java-02.java -->
 
-### 使用 PromptExecutor 审核
+### 使用 PromptExecutor 审核 {id="moderation-with-promptexecutor"}
 
 您还可以在 PromptExecutor 上使用 `moderate` 方法，它将根据模型的提供商使用适当的 LLMClient：
 
@@ -333,7 +333,7 @@ Koog 提供了两种主要的内容审核方法：直接在 `LLMClient` 实例�
 
 该方法返回一个 [ModerationResult](#moderationresult-structure)。
 
-## ModerationResult 结构
+## ModerationResult 结构 {id="moderationresult-structure"}
 
 审核过程返回一个具有以下结构的 `ModerationResult` 对象：
 
@@ -416,9 +416,9 @@ Koog 提供了两种主要的内容审核方法：直接在 `LLMClient` 实例�
 | `categories`     | Map&lt;ModerationCategory, ModerationCategoryResult&gt; | 是      |            | 审核类别到详细结果的映射，指示哪些类别被标记。 |
 | `violatedCategories` | List&lt;ModerationCategory&gt;                       | 否       |            | 在审核结果中被标记为已检测到的审核类别列表。 |
 
-## 审核类别
+## 审核类别 {id="moderation-categories"}
 
-### Koog 审核类别
+### Koog 审核类别 {id="koog-moderation-categories"}
 
 Koog 框架提供的可能审核类别（无论底层 LLM 和 LLM 提供商为何）如下：
 
@@ -444,7 +444,7 @@ Koog 框架提供的可能审核类别（无论底层 LLM 和 LLM 提供商为�
 !!! note
     这些类别可能会发生变化，因为可能会添加新的审核类别，且现有类别可能会随时间演变。
 
-#### OpenAI 审核类别
+#### OpenAI 审核类别 {id="openai-moderation-categories"}
 
 OpenAI 的审核 API 提供以下类别：
 
@@ -462,7 +462,7 @@ OpenAI 的审核 API 提供以下类别：
 - **Violence**: 描绘死亡、暴力或人身伤害的内容。
 - **Violence/graphic**: 以生动的细节描绘死亡、暴力或人身伤害的内容。
 
-#### Ollama 风险类别
+#### Ollama 风险类别 {id="ollama-hazard-categories"}
 
 Ollama 的 Llama Guard 模型使用以下风险类别：
 
@@ -512,7 +512,7 @@ Ollama 的 Llama Guard 模型使用以下风险类别：
 
 - **S13 - Elections**: 包含有关选举制度和流程的事实错误信息的响应，包括公民选举中投票的时间、地点或方式。
 
-#### 提供商之间的类别映射
+#### 提供商之间的类别映射 {id="category-mapping-between-providers"}
 
 下表显示了 Ollama 和 OpenAI 审核类别之间的映射：
 
@@ -532,9 +532,9 @@ Ollama 的 Llama Guard 模型使用以下风险类别：
 | **S12 – 性内容** (色情)                                                        | `sexual`                                                                              | 普通成人色情（涉及未成年人将转为 `sexual/minors`）。                            |
 | **S13 – 选举误导信息**                                                        | **唯一**                                                                            | 选举流程误导信息未在 OpenAI 的类别中单独列出。                 |
 
-## 审核结果示例
+## 审核结果示例 {id="examples-of-moderation-results"}
 
-### OpenAI 审核示例（有害内容）
+### OpenAI 审核示例（有害内容） {id="openai-moderation-example-harmful-content"}
 
 OpenAI 提供特定的 `/moderations` API，它以以下 JSON 格式提供响应：
 
@@ -650,7 +650,7 @@ OpenAI 提供特定的 `/moderations` API，它以以下 JSON 格式提供响应
     ```
     <!--- KNIT example-content-moderation-java-05.java -->
 
-### OpenAI 审核示例（安全内容）
+### OpenAI 审核示例（安全内容） {id="openai-moderation-example-safe-content"}
 
 ```json
 {
@@ -759,7 +759,7 @@ OpenAI 提供特定的 `/moderations` API，它以以下 JSON 格式提供响应
     ```
     <!--- KNIT example-content-moderation-java-06.java -->
 
-### Ollama 审核示例（有害内容）
+### Ollama 审核示例（有害内容） {id="ollama-moderation-example-harmful-content"}
 
 Ollama 处理审核格式的方法与 OpenAI 的方法有很大不同。
 Ollama 中没有特定的审核相关 API 端点。
@@ -844,7 +844,7 @@ S1,S10
     ```
     <!--- KNIT example-content-moderation-java-07.java -->
 
-### Ollama 审核示例（安全内容）
+### Ollama 审核示例（安全内容） {id="ollama-moderation-example-safe-content"}
 
 以下是 Ollama 响应将内容标记为安全的示例：
 

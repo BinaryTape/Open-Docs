@@ -17,7 +17,7 @@
 2. [在导航图中为目的地分配特定的深层链接](#assign-deep-links-to-destinations)
 3. [处理应用接收到的深层链接](#handle-received-deep-links)
 
-## 设置
+## 设置 {id="setup"}
 
 要在 Compose 跨平台中使用深层链接，请按如下方式设置依赖项。
 
@@ -71,7 +71,7 @@ kotlin {
 }
 ```
 
-## 在操作系统中注册深层链接协议 (schema)
+## 在操作系统中注册深层链接协议 (schema) {id="register-deep-links-schemas-in-the-operating-system"}
 
 每个操作系统都有自己处理深层链接的方式。参考针对你特定目标的文档会更可靠：
 
@@ -92,14 +92,14 @@ kotlin {
     {style="tip"}
 * 对于 Linux，深层链接方案可以在分发版中包含的 `.desktop` 文件中注册。
 
-## 为目的地分配深层链接
+## 为目的地分配深层链接 {id="assign-deep-links-to-destinations"}
 
 作为导航图的一部分声明的目的地具有一个可选的 `deepLinks` 参数，该参数可以保存相应 `NavDeepLink` 对象的列表。
 每个 `NavDeeplink` 描述了一个应与目的地匹配的 URI 模式——你可以定义多个应引导至同一屏幕的 URI 模式。
 
 你可以为一条路由定义的深层链接数量没有限制。
 
-### 深层链接的通用 URI 模式
+### 深层链接的通用 URI 模式 {id="general-uri-patterns-for-deep-links"}
 
 通用 URI 模式应匹配整个 URI。
 你可以使用参数的占位符，以便从目的地内接收到的 URI 中提取它们。
@@ -119,7 +119,7 @@ kotlin {
   请确保你的深层链接模式不会交叉。
   如果你需要多个可组合项处理相同的深层链接模式，请考虑添加路径或查询参数，或者使用中间目的地来可预测地路由用户。
 
-### 为路由类型生成的 URI 模式
+### 为路由类型生成的 URI 模式 {id="generated-uri-pattern-for-a-route-type"}
 
 你可以避免完整地写出 URI 模式：
 Navigation 库可以根据路由的参数自动生成 URI 模式。
@@ -160,7 +160,7 @@ URI 模式的其余部分将生成如下：
 <basePath>/{id}/{name}/?colors={color1}&colors={color2}&latinName={latinName}
 ```
 
-### 为目的地添加深层链接的示例
+### 为目的地添加深层链接的示例 {id="example-of-adding-deep-links-to-a-destination"}
 
 在此示例中，我们为一个目的地分配了多个深层链接，然后从接收到的 URI 中提取参数值：
 
@@ -224,7 +224,7 @@ composable<DeepLinkScreen>(
 >
 {style="tip"}
 
-## 处理接收到的深层链接
+## 处理接收到的深层链接 {id="handle-received-deep-links"}
 
 在 Android 上，发送到应用的深层链接 URI 可作为触发深层链接的 `Intent` 的一部分使用。
 跨平台实现需要一种通用的方式来侦听深层链接。
@@ -235,7 +235,7 @@ composable<DeepLinkScreen>(
 2. 在必要处，实现发送从操作系统接收到的 URI 的平台特定调用。
 3. 在主可组合项中为新深层链接设置侦听器。
 
-### 声明一个带有 URI 侦听器的单例
+### 声明一个带有 URI 侦听器的单例 {id="declare-a-singleton-with-a-uri-listener"}
 
 在 `commonMain` 中，在顶层声明单例对象：
 
@@ -267,7 +267,7 @@ object ExternalUriHandler {
 }
 ```
 
-### 实现对单例的平台特定调用
+### 实现对单例的平台特定调用 {id="implement-platform-specific-calls-to-the-singleton"}
 
 对于桌面 JVM 和 iOS，你都需要显式传递从系统接收到的 URI。
 
@@ -314,7 +314,7 @@ func application(
 > 
 {style="tip"}
 
-### 设置侦听器
+### 设置侦听器 {id="set-up-the-listener"}
 
 你可以使用 `DisposableEffect(Unit)` 来设置侦听器，并在可组合项不再处于活动状态后清理它。
 例如：
@@ -354,7 +354,7 @@ internal fun App(navController: NavHostController = rememberNavController()) = A
 }
 ```
 
-## 结果
+## 结果 {id="result"}
 
 现在你可以看到完整的工作流程：
 当用户打开一个 `demo://` URI 时，操作系统会将其与注册的方案匹配。
@@ -363,7 +363,7 @@ internal fun App(navController: NavHostController = rememberNavController()) = A
     当主可组合函数启动时，它会调用单例并导航到与缓存 URI 匹配的深层链接。
   * 如果处理深层链接的应用已打开，侦听器已经设置好，因此当单例接收到 URI 时，应用会立即导航到该链接。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 查看展示 Compose 跨平台导航库实际运用的项目：
 

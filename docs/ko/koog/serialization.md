@@ -1,6 +1,6 @@
 # 직렬화 (Serialization)
 
-## 소개
+## 소개 {id="introduction"}
 
 Koog은 도구 인자와 결과를 JSON으로 상호 변환하기 위해 가볍고 라이브러리에 독립적인 직렬화 레이어를 사용합니다.
 이 레이어는 에이전트 런타임과 기반 직렬화 라이브러리 사이에 위치하므로, 도구나 에이전트 코드를 변경하지 않고도 직렬화 라이브러리를 교체할 수 있습니다.
@@ -10,7 +10,7 @@ Koog은 도구 인자와 결과를 JSON으로 상호 변환하기 위해 가볍�
 기본적으로 Koog은 `KotlinxSerializer`(kotlinx-serialization 기반)를 사용합니다.
 JVM에서는 `JacksonSerializer`(jackson-databind 기반)로 전환할 수도 있습니다.
 
-## `JSONSerializer` 인터페이스
+## `JSONSerializer` 인터페이스 {id="the-jsonserializer-interface"}
 
 `JSONSerializer`는 `serialization-core`에 정의된 핵심 추상화입니다.
 이 인터페이스는 네 가지 주요 메서드(문자열 및 `JSONElement` 모두에 대한 인코딩/디코딩)와 `JSONElement`와 문자열 간의 변환을 위한 두 가지 편의 메서드를 제공합니다.
@@ -97,7 +97,7 @@ JVM에서는 `JacksonSerializer`(jackson-databind 기반)로 전환할 수도 �
     ```
     <!--- KNIT exampleSerializationJava01.java -->
 
-## 타입 토큰 (Type tokens)
+## 타입 토큰 (Type tokens) {id="type-tokens"}
 
 `TypeToken`은 Koog이 런타임에 타입 정보를 전달하는 방법입니다.
 
@@ -146,12 +146,12 @@ JVM에서는 `JacksonSerializer`(jackson-databind 기반)로 전환할 수도 �
     ```
     <!--- KNIT exampleSerializationJava02.java -->
 
-## `JSONElement` — 라이브러리 독립적 JSON 트리
+## `JSONElement` — 라이브러리 독립적 JSON 트리 {id="jsonelement-library-agnostic-json-tree"}
 
 `JSONElement`는 JSON 데이터를 위한 중립적인 중간 표현입니다.
 이것은 직렬화기(serializer), 도구 및 에이전트 내부 로직이 특정 라이브러리의 특정 JSON 타입에 의존하지 않도록 하기 위해 존재합니다.
 
-### 계층 구조 (Hierarchy)
+### 계층 구조 (Hierarchy) {id="hierarchy"}
 
 ```
 JSONElement
@@ -163,12 +163,12 @@ JSONElement
 ```
 <!--- KNIT example-serialization-01.txt -->
 
-### 라이브러리 타입과의 상호 변환
+### 라이브러리 타입과의 상호 변환 {id="conversion-to-and-from-library-types"}
 
 각 직렬화 통합 기능은 `JSONElement`와 라이브러리 고유의 동적 JSON 타입 간의 변환을 가능하게 하는 확장 함수를 제공합니다. 이는 이미 `JsonElement`나 `JsonNode` 등을 가지고 있고, 전체 인코딩/디코딩 과정을 거치지 않고 Koog에 전달하려는 경우(또는 그 반대의 경우)에 유용합니다.
 지원되는 각 라이브러리에 대한 예제가 아래에 제공됩니다.
 
-### 엘리먼트 생성 및 읽기
+### 엘리먼트 생성 및 읽기 {id="building-and-reading-elements"}
 
 === "Kotlin"
 
@@ -229,9 +229,9 @@ JSONElement
     ```
     <!--- KNIT exampleSerializationJava03.java -->
 
-## 지원되는 직렬화기 (Serializers)
+## 지원되는 직렬화기 (Serializers) {id="supported-serializers"}
 
-### `KotlinxSerializer` (기본값)
+### `KotlinxSerializer` (기본값) {id="kotlinxserializer-default"}
 
 - **모듈**: `ai.koog:serialization-core` (`ai.koog:agents-core`에 전이적으로 포함됨)
 - **기반 라이브러리**: kotlinx-serialization
@@ -285,7 +285,7 @@ Koog의 `JSONElement`와 kotlinx-serialization의 `JsonElement` 간의 변환도
     ```
     <!--- KNIT example-serialization-05.kt -->
 
-### `JacksonSerializer` (JVM 전용)
+### `JacksonSerializer` (JVM 전용) {id="jacksonserializer-jvm-only"}
 
 - **모듈**: `ai.koog:serialization-jackson` (별도 의존성)
 - **기반 라이브러리**: jackson-databind
@@ -407,7 +407,7 @@ Koog의 `JSONElement`와 Jackson의 `JsonNode` 간의 변환도 가능합니다.
     ```
     <!--- KNIT exampleSerializationJava05.java -->
 
-## `AIAgentConfig`에서 직렬화기 설정하기
+## `AIAgentConfig`에서 직렬화기 설정하기 {id="configuring-the-serializer-in-aiagentconfig"}
 
 === "Kotlin" 
 
@@ -465,7 +465,7 @@ Koog의 `JSONElement`와 Jackson의 `JsonNode` 간의 변환도 가능합니다.
     ```
     <!--- KNIT exampleSerializationJava06.java -->
 
-## 도구가 직렬화기와 상호작용하는 방식
+## 도구가 직렬화기와 상호작용하는 방식 {id="how-tools-interact-with-the-serializer"}
 
 에이전트 런타임은 각 `Tool` 인스턴스에서 다음 메서드들을 자동으로 호출합니다. 일반적인 사용 시에는 이 메서드들을 직접 호출할 필요가 없습니다.
 
@@ -478,7 +478,7 @@ Koog의 `JSONElement`와 Jackson의 `JsonNode` 간의 변환도 가능합니다.
 
 이 메서드들은 `Tool`에서 `open`으로 선언되어 있으므로, 특정 도구에 대해 커스텀 직렬화 동작이 필요한 경우 재정의할 수 있습니다.
 
-## 에이전트 기능이 직렬화기를 사용하는 방식
+## 에이전트 기능이 직렬화기를 사용하는 방식 {id="how-features-use-the-serializer"}
 
 직렬화 레이어는 도구에만 국한되지 않으며, 특정 에이전트 기능들도 이에 의존합니다.
 

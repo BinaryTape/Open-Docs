@@ -11,19 +11,19 @@ Coil 3는 다음과 같은 여러 주요 개선 사항을 포함하는 Coil의 �
 
 Compose Multiplatform 프로젝트에서 Coil 3를 사용하시나요? 예제는 [`samples`](https://github.com/coil-kt/coil/tree/3.x/samples/compose) 저장소를 확인해 보세요.
 
-## Maven 좌표 및 패키지 명
+## Maven 좌표 및 패키지 명 {id="maven-coordinates-and-package-name"}
 
 Coil의 Maven 좌표가 `io.coil-kt`에서 `io.coil-kt.coil3`로 업데이트되었으며, 패키지 명도 `coil`에서 `coil3`로 업데이트되었습니다. 이를 통해 Coil 3는 바이너리 호환성 문제 없이 Coil 2와 공존하여 실행될 수 있습니다. 예를 들어, `io.coil-kt:coil:2.7.0`은 이제 `io.coil-kt.coil3:coil:3.0.0`입니다.
 
 `coil-base` 및 `coil-compose-base` 아티팩트(artifact)는 Coroutines, Ktor 및 AndroidX에서 사용하는 명명 규칙에 맞추기 위해 각각 `coil-core` 및 `coil-compose-core`로 이름이 변경되었습니다.
 
-## 네트워크 이미지
+## 네트워크 이미지 {id="network-images"}
 
 **`coil-core`는 더 이상 기본적으로 네트워크에서 이미지 로딩을 지원하지 않습니다.** [Coil의 네트워크 아티팩트 중 하나에 대한 의존성을 추가해야 합니다. 자세한 내용은 여기를 참조하세요.](network.md). 이 변경은 사용자가 다른 네트워킹 라이브러리를 사용하거나, 앱에 네트워크 기능이 필요하지 않은 경우 네트워크 의존성을 피할 수 있도록 하기 위함입니다.
 
 또한, 캐시 제어(cache control) 헤더가 더 이상 기본적으로 적용되지 않습니다. 자세한 내용은 [여기](network.md)를 참조하세요.
 
-## 멀티플랫폼 (Multiplatform)
+## 멀티플랫폼 (Multiplatform) {id="multiplatform"}
 
 Coil 3는 이제 Android, JVM, iOS, macOS, Javascript 및 WASM을 지원하는 Kotlin Multiplatform 라이브러리입니다.
 
@@ -39,7 +39,7 @@ Android SDK와의 분리 작업의 일환으로 여러 API 변경이 이루어�
 
 `coil-svg` 아티팩트는 멀티플랫폼에서 지원되지만, `coil-gif` 및 `coil-video` 아티팩트는 특정 Android 디코더 및 라이브러리에 의존하기 때문에 (현재로서는) Android 전용으로 유지됩니다.
 
-## Compose
+## Compose {id="compose"}
 
 `coil-compose` 아티팩트의 API는 거의 변경되지 않았습니다. Coil 2와 동일한 방식으로 `AsyncImage`, `SubcomposeAsyncImage`, `rememberAsyncImagePainter`를 계속 사용할 수 있습니다. 또한, 이러한 메서드들은 성능 향상을 위해 [재시작 가능(restartable) 및 건너뛰기 가능(skippable)](https://developer.android.com/jetpack/compose/performance/stability)하도록 업데이트되었습니다.
 
@@ -47,7 +47,7 @@ Android SDK와의 분리 작업의 일환으로 여러 API 변경이 이루어�
 - `AsyncImagePainter`의 기본 `SizeResolver`는 더 이상 캔버스의 크기를 얻기 위해 첫 번째 `onDraw` 호출을 기다리지 않습니다. 대신, `AsyncImagePainter`는 기본값으로 `Size.ORIGINAL`을 사용합니다.
 - Compose `modelEqualityDelegate` 델리게이트는 이제 `AsyncImage`/`SubcomposeAsyncImage`/`rememberAsyncImagePainter`의 파라미터 대신 `LocalAsyncImageModelEqualityDelegate`라는 컴포지션 로컬(composition local)을 통해 설정됩니다.
 
-## 일반 사항 (General)
+## 일반 사항 (General) {id="general"}
 
 기타 중요한 동작 변경 사항은 다음과 같습니다:
 

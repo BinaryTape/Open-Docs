@@ -14,7 +14,7 @@ val s = person.name ?: return
 
 这些表达式的类型是 [Nothing 类型](exceptions.md#the-nothing-type)。
 
-## Break 与 continue 标签
+## Break 与 continue 标签 {id="break-and-continue-labels"}
 
 Kotlin 中的任何表达式都可以用_标签_（label）来标记。
 标签的格式为标识符后跟 `@` 符号，例如 `abc@` 或 `fooBar@`。
@@ -44,7 +44,7 @@ loop@ for (i in 1..100) {
 >
 {style="note"}
 
-## 返回至标签
+## 返回至标签 {id="return-to-labels"}
 
 在 Kotlin 中，可以使用函数字面量、局部函数和对象表达式来嵌套函数。
 限定 `return` 允许你从外部函数返回。

@@ -4,7 +4,7 @@
 
 虽然大多数语言变更已经通过其他渠道（如更新日志或编译器警告）宣布，但本文档对这些变更进行了汇总，为从 Kotlin 2.2 迁移到 Kotlin 2.3 提供完整参考。本文档还包含有关工具相关变更的信息。
 
-## 基本术语
+## 基本术语 {id="basic-terms"}
 
 在本文档中，我们引入了几种兼容性：
 
@@ -14,9 +14,9 @@
 
 请记住，这些定义仅适用于纯 Kotlin。从其他语言（例如 Java）的角度来看 Kotlin 代码的兼容性不在本文档的讨论范围内。
 
-## 语言
+## 语言 {id="language"}
 
-### 在 `-language-version` 中停止对 1.8 和 1.9 的支持
+### 在 `-language-version` 中停止对 1.8 和 1.9 的支持 {id="drop-support-in-language-version-for-1-8-and-1-9"}
 
 > **问题**：[KT-76343](https://youtrack.jetbrains.com/issue/KT-76343)，[KT-76344](https://youtrack.jetbrains.com/issue/KT-76344)。
 >
@@ -31,7 +31,7 @@
 > - 2.2.0：在使用版本 1.8 和 1.9 的 `-language-version` 时报告警告
 > - 2.3.0：在所有平台上将版本 1.8 的 `-language-version` 警告提升为错误，在非 JVM 平台上将版本 1.9 的警告提升为错误
 
-### 报告带有类型别名的推断类型的上界约束冲突错误
+### 报告带有类型别名的推断类型的上界约束冲突错误 {id="report-upper-bound-constraint-violation-errors-for-inferred-types-with-typealiases"}
 
 > **问题**：[KTLC-287](https://youtrack.jetbrains.com/issue/KTLC-287)
 >
@@ -46,7 +46,7 @@
 > - 2.2.20：对隐式类型实参的边界冲突报告弃用警告
 > - 2.3.0：对隐式类型实参上的 `UPPER_BOUND_VIOLATED` 将警告提升为错误
 
-### 禁止在 `inline` 和 `crossinline` lambda表达式上使用 `@JvmSerializableLambda` 注解
+### 禁止在 `inline` 和 `crossinline` lambda表达式上使用 `@JvmSerializableLambda` 注解 {id="prohibit-jvmserializablelambda-annotation-on-inline-and-crossinline-lambdas"}
 
 > **问题**：[KTLC-9](https://youtrack.jetbrains.com/issue/KTLC-9)
 >
@@ -61,7 +61,7 @@
 > - 2.1.20：当 `@JvmSerializableLambda` 应用于 `inline` 和 `crossinline` lambda表达式时报告警告
 > - 2.3.0：将警告提升为错误；此变更可以在渐进模式下启用
 
-### 当泛型签名不匹配时，禁止将 Kotlin 接口委托给 Java 类
+### 当泛型签名不匹配时，禁止将 Kotlin 接口委托给 Java 类 {id="prohibit-delegating-a-kotlin-interface-to-a-java-class-when-the-generic-signatures-don-t-match"}
 
 > **问题**：[KTLC-267](https://youtrack.jetbrains.com/issue/KTLC-267)
 >
@@ -76,7 +76,7 @@
 > - 2.1.20：报告警告
 > - 2.3.0：将警告提升为错误
 
-### 弃用在没有显式返回值类型的表达式体函数中使用 `return`
+### 弃用在没有显式返回值类型的表达式体函数中使用 `return` {id="deprecate-use-of-return-in-expression-bodied-functions-without-explicit-return-type"}
 
 > **问题**：[KTLC-288](https://youtrack.jetbrains.com/issue/KTLC-288)
 >
@@ -91,7 +91,7 @@
 > - 2.3.0：报告警告
 > - 2.4.0：将警告提升为错误
 
-### 禁止继承通过类型别名引入的可为 null 的超类型
+### 禁止继承通过类型别名引入的可为 null 的超类型 {id="prohibit-inheritance-from-nullable-supertypes-introduced-via-typealias"}
 
 > **问题**：[KTLC-279](https://youtrack.jetbrains.com/issue/KTLC-279)
 >
@@ -106,7 +106,7 @@
 > - 2.2.0：报告警告
 > - 2.3.0：将警告提升为错误
 
-### 统一顶层 lambda表达式和调用实参的泛型签名生成
+### 统一顶层 lambda表达式和调用实参的泛型签名生成 {id="unify-generic-signature-generation-for-top-level-lambdas-and-call-arguments"}
 
 > **问题**：[KTLC-277](https://youtrack.jetbrains.com/issue/KTLC-277)
 >
@@ -120,7 +120,7 @@
 >
 > - 2.3.0：引入新行为；不适用于渐进模式
 
-### 禁止将 reified 类型形参推断为相交类型
+### 禁止将 reified 类型形参推断为相交类型 {id="prohibit-reified-type-parameters-from-being-inferred-as-intersection-types"}
 
 > **问题**：[KTLC-13](https://youtrack.jetbrains.com/issue/KTLC-13)
 >
@@ -135,7 +135,7 @@
 > - 2.1.0：当 reified 类型形参被推断为相交类型时报告警告
 > - 2.3.0：将警告提升为错误
 
-### 禁止通过类型形参边界暴露可见性较低的类型
+### 禁止通过类型形参边界暴露可见性较低的类型 {id="prohibit-exposing-less-visible-types-through-type-parameter-bounds"}
 
 > **问题**：[KTLC-275](https://youtrack.jetbrains.com/issue/KTLC-275)
 >
@@ -150,9 +150,9 @@
 > - 2.1.0：在有问题的类型形参边界上报告警告
 > - 2.3.0：将警告提升为错误
 
-## 标准库
+## 标准库 {id="standard-library"}
 
-### 弃用 Char 到数字的转换，并引入显式的 digit 和 code API
+### 弃用 Char 到数字的转换，并引入显式的 digit 和 code API {id="deprecate-char-to-number-conversions-and-introduce-explicit-digit-and-code-apis"}
 
 > **问题**：[KTLC-321](https://youtrack.jetbrains.com/issue/KTLC-321)
 >
@@ -168,7 +168,7 @@
 > - 1.5.0：将新函数提升为稳定；对旧函数报告警告并提供替换建议
 > - 2.3.0：将警告提升为错误
 
-### 弃用 `Number.toChar()` 函数
+### 弃用 `Number.toChar()` 函数 {id="deprecate-number-tochar-function"}
 
 > **问题**：[KT-56822](https://youtrack.jetbrains.com/issue/KT-56822)
 >
@@ -183,7 +183,7 @@
 > - 1.9.0：在使用 `Number.toChar()` 函数时报告警告
 > - 2.3.0：将警告提升为错误
 
-### 弃用 `String.subSequence(start, end)` 函数
+### 弃用 `String.subSequence(start, end)` 函数 {id="deprecate-string-subsequence-start-end-function"}
 
 > **问题**：[KTLC-282](https://youtrack.jetbrains.com/issue/KTLC-282)
 >
@@ -198,7 +198,7 @@
 > - 1.0：在使用 `String.subSequence(start, end)` 时报告警告
 > - 2.3.0：将警告提升为错误
 
-### 弃用 `kotlin.io.createTempDirectory()` 和 `kotlin.io.createTempFile()` 函数
+### 弃用 `kotlin.io.createTempDirectory()` 和 `kotlin.io.createTempFile()` 函数 {id="deprecate-kotlin-io-createtempdirectory-and-kotlin-io-createtempfile-functions"}
 
 > **问题**：[KTLC-281](https://youtrack.jetbrains.com/issue/KTLC-281)
 >
@@ -213,7 +213,7 @@
 > - 1.4.20：在使用 `kotlin.io.createTempDirectory()` 和 `kotlin.io.createTempFile()` 函数时报告警告
 > - 2.3.0：将警告提升为错误
 
-### 隐藏 `InputStream.readBytes(Int)` 函数
+### 隐藏 `InputStream.readBytes(Int)` 函数 {id="hide-inputstream-readbytes-int-function"}
 
 > **问题**：[KTLC-280](https://youtrack.jetbrains.com/issue/KTLC-280)
 >
@@ -229,7 +229,7 @@
 > - 1.5.0：将警告提升为错误
 > - 2.3.0：隐藏该函数
 
-### 统一 Kotlin/Native 与其他平台的堆栈跟踪打印
+### 统一 Kotlin/Native 与其他平台的堆栈跟踪打印 {id="unify-kotlin-native-stack-trace-printing-with-other-platforms"}
 
 > **问题**：[KT-81431](https://youtrack.jetbrains.com/issue/KT-81431)
 >
@@ -243,7 +243,7 @@
 >
 > - 2.3.20：统一 Kotlin/Native 异常堆栈跟踪格式与其他 Kotlin 平台
 
-### 修正 `Iterable<T>.intersect()` 和 `Iterable<T>.subtract()` 的行为
+### 修正 `Iterable<T>.intersect()` 和 `Iterable<T>.subtract()` 的行为 {id="correct-iterable-t-intersect-and-iterable-t-subtract-behavior"}
 
 > **问题**：[KTLC-268](https://youtrack.jetbrains.com/issue/KTLC-268)
 >
@@ -257,9 +257,9 @@
 >
 > - 2.3.0：启用新行为
 
-## 工具
+## 工具 {id="tools"}
 
-### 使用 `kotlin-dsl` 和 `kotlin("jvm")` 插件时出现不支持的 KGP 版本警告
+### 使用 `kotlin-dsl` 和 `kotlin("jvm")` 插件时出现不支持的 KGP 版本警告 {id="unsupported-kgp-version-warning-when-using-kotlin-dsl-and-kotlin-jvm-plugins"}
 
 > **问题**：[KT-79851](https://youtrack.jetbrains.com/issue/KT-79851)
 >
@@ -290,7 +290,7 @@
 >
 > - 2.3.0：引入一项诊断，检测 `kotlin-dsl` 插件是否与编译器的不兼容语言或 API 版本一起使用
 
-### 针对 AGP 9.0.0 及更高版本弃用 `kotlin-android` 插件
+### 针对 AGP 9.0.0 及更高版本弃用 `kotlin-android` 插件 {id="deprecate-kotlin-android-plugin-for-agp-versions-9-0-0-and-later"}
 
 > **问题**：[KT-81199](https://youtrack.jetbrains.com/issue/KT-81199)
 >
@@ -304,7 +304,7 @@
 >
 > - 2.3.0：当 `kotlin-android` 插件与 AGP 版本 9.0.0 或更高版本一起使用，且 `android.builtInKotlin` 和 `android.newDsl=false` Gradle 属性均设置为 `false` 时报告警告
 
-### 弃用 `testApi` 配置
+### 弃用 `testApi` 配置 {id="deprecate-testapi-configuration"}
 
 > **问题**：[KT-63285](https://youtrack.jetbrains.com/issue/KT-63285)
 >
@@ -323,7 +323,7 @@
 >
 > - 2.3.0：报告警告
 
-### 弃用 `createTestExecutionSpec()` 函数
+### 弃用 `createTestExecutionSpec()` 函数 {id="deprecate-createtestexecutionspec-function"}
 
 > **问题**：[KT-75449](https://youtrack.jetbrains.com/issue/KT-75449)
 >
@@ -339,7 +339,7 @@
 > - 2.3.0：将警告提升为错误
 > - 2.4.0：移除该函数
 
-### 移除 `closureTo()`、`createResultSet()` 和 `KotlinToolingVersionOrNull()` 函数
+### 移除 `closureTo()`、`createResultSet()` 和 `KotlinToolingVersionOrNull()` 函数 {id="remove-closureto-createresultset-and-kotlintoolingversionornull-functions"}
 
 > **问题**：[KT-64273](https://youtrack.jetbrains.com/issue/KT-64273)
 >
@@ -354,7 +354,7 @@
 > - 1.7.20：报告错误
 > - 2.3.0：移除这些函数
 
-### 弃用 `ExtrasProperty` API
+### 弃用 `ExtrasProperty` API {id="deprecate-the-extrasproperty-api"}
 
 > **问题**：[KT-74915](https://youtrack.jetbrains.com/issue/KT-74915)
 >
@@ -370,7 +370,7 @@
 > - 2.1.0：将警告提升为错误
 > - 2.3.0：将 API 设为 internal
 
-### 弃用 `KotlinCompilation` 中的 `HasKotlinDependencies`
+### 弃用 `KotlinCompilation` 中的 `HasKotlinDependencies` {id="deprecate-haskotlindependencies-in-kotlincompilation"}
 
 > **问题**：[KT-67290](https://youtrack.jetbrains.com/issue/KT-67290)
 >
@@ -384,7 +384,7 @@
 >
 > - 2.3.0：报告警告
 
-### 弃用 npm 和 Yarn 软件包管理器内部函数和属性
+### 弃用 npm 和 Yarn 软件包管理器内部函数和属性 {id="deprecate-npm-and-yarn-package-manager-internal-functions-and-properties"}
 
 > **问题**：[KT-81009](https://youtrack.jetbrains.com/issue/KT-81009)
 >
@@ -410,7 +410,7 @@
 > - 2.3.0：将警告提升为错误
 > - 2.4.0：移除这些函数和属性
 
-### 弃用对 PhantomJS 的支持
+### 弃用对 PhantomJS 的支持 {id="deprecate-support-for-phantomjs"}
 
 > **问题**：[KT-76019](https://youtrack.jetbrains.com/issue/KT-76019)
 >
@@ -424,7 +424,7 @@
 >
 > - 2.3.0：报告警告
 
-### 禁止继承用于设置测试运行或 JavaScript 运行时的类
+### 禁止继承用于设置测试运行或 JavaScript 运行时的类 {id="prohibit-subclassing-of-classes-that-set-up-test-runs-or-javascript-runtime"}
 
 > **问题**：[KT-75869](https://youtrack.jetbrains.com/issue/KT-75869)，[KT-81007](https://youtrack.jetbrains.com/issue/KT-81007)
 >
@@ -454,7 +454,7 @@
 > - 2.3.0：将警告提升为错误
 > - 2.4.0：移除这些 API
 
-### 弃用 `ExperimentalWasmDsl` 注解类
+### 弃用 `ExperimentalWasmDsl` 注解类 {id="deprecate-experimentalwasmdsl-annotation-class"}
 
 > **问题**：[KT-81005](https://youtrack.jetbrains.com/issue/KT-81005)
 >
@@ -470,7 +470,7 @@
 > - 2.3.0：将警告提升为错误
 > - 2.4.0：移除该注解类
 
-### 弃用 `ExperimentalDceDsl` 注解类
+### 弃用 `ExperimentalDceDsl` 注解类 {id="deprecate-experimentaldcedsl-annotation-class"}
 
 > **问题**：[KT-81008](https://youtrack.jetbrains.com/issue/KT-81008)
 >
@@ -486,7 +486,7 @@
 > - 2.3.0：将警告提升为错误
 > - 2.4.0：移除该注解类
 
-### 弃用 JavaScript 实用工具
+### 弃用 JavaScript 实用工具 {id="deprecate-javascript-utilities"}
 
 > **问题**：[KT-81010](https://youtrack.jetbrains.com/issue/KT-81010)
 >
@@ -511,7 +511,7 @@
 > - 2.3.0：将警告提升为错误
 > - 2.4.0：移除这些 API
 
-### 弃用迁移后的 D8 和 Binaryen 属性
+### 弃用迁移后的 D8 和 Binaryen 属性 {id="deprecate-migrated-d8-and-binaryen-properties"}
 
 > **问题**：[KT-81006](https://youtrack.jetbrains.com/issue/KT-81006)
 >
@@ -536,7 +536,7 @@
 > - 2.3.0：将警告提升为错误
 > - 2.4.0：移除这些属性
 
-### 弃用 `NodeJsExec` DSL 中的 `create()` 函数
+### 弃用 `NodeJsExec` DSL 中的 `create()` 函数 {id="deprecate-create-function-in-nodejsexec-dsl"}
 
 > **问题**：[KT-81004](https://youtrack.jetbrains.com/issue/KT-81004)
 >
@@ -552,7 +552,7 @@
 > - 2.3.0：将警告提升为错误
 > - 2.4.0：移除该函数
 
-### 弃用 `kotlinOptions` DSL 中的属性
+### 弃用 `kotlinOptions` DSL 中的属性 {id="deprecate-properties-in-kotlinoptions-dsl"}
 
 > **问题**：[KT-76720](https://youtrack.jetbrains.com/issue/KT-76720)
 >
@@ -570,7 +570,7 @@
 > - 2.2.0：将警告提升为错误，并弃用 `kotlinOptions` 中的所有属性
 > - 2.3.0：对 `kotlinOptions` 中的所有属性将警告提升为错误
 
-### 弃用 `kotlinArtifacts` API
+### 弃用 `kotlinArtifacts` API {id="deprecate-kotlinartifacts-api"}
 
 > **问题**：[KT-77066](https://youtrack.jetbrains.com/issue/KT-77066)
 >
@@ -587,7 +587,7 @@
 > - 2.3.0：将此警告提升为错误
 > - 2.4.0：移除该 API
 
-### 移除 `kotlin.mpp.resourcesResolutionStrategy` Gradle 属性
+### 移除 `kotlin.mpp.resourcesResolutionStrategy` Gradle 属性 {id="remove-kotlin-mpp-resourcesresolutionstrategy-gradle-property"}
 
 > **问题**：[KT-74955](https://youtrack.jetbrains.com/issue/KT-74955)
 >
@@ -602,7 +602,7 @@
 > - 2.2.0：报告配置时诊断
 > - 2.3.0：移除该 Gradle 属性
 
-### 弃用旧模式的多平台 IDE 导入
+### 弃用旧模式的多平台 IDE 导入 {id="deprecated-old-mode-of-multiplatform-ide-import"}
 
 > **问题**：[KT-61127](https://youtrack.jetbrains.com/issue/KT-61127)
 >
@@ -616,7 +616,7 @@
 >
 > - 2.3.0：在使用 `kotlin.mpp.import.enableKgpDependencyResolution=false` Gradle 属性时报告警告
 
-### 移除用于禁用精确编译备份的属性
+### 移除用于禁用精确编译备份的属性 {id="remove-properties-to-disable-precise-compilation-backup"}
 
 > **问题**：[KT-81038](https://youtrack.jetbrains.com/issue/KT-81038)
 >
@@ -631,7 +631,7 @@
 > - 2.1.20：报告警告
 > - 2.3.0：移除这些属性
 
-### 弃用 `CInteropProcess` 中的 `destinationDir`
+### 弃用 `CInteropProcess` 中的 `destinationDir` {id="deprecate-destinationdir-in-cinteropprocess"}
 
 > **问题**：[KT-74910](https://youtrack.jetbrains.com/issue/KT-74910)
 >
@@ -648,7 +648,7 @@
 > - 2.2.0：将此警告提升为错误
 > - 2.3.0：隐藏 `destinationDir` 属性
 
-### 弃用 `CInteropProcess` 中的 `konanVersion`
+### 弃用 `CInteropProcess` 中的 `konanVersion` {id="deprecate-konanversion-in-cinteropprocess"}
 
 > **问题**：[KT-74911](https://youtrack.jetbrains.com/issue/KT-74911)
 >
@@ -665,7 +665,7 @@
 > - 2.2.0：将此警告提升为错误
 > - 2.3.0：隐藏 `konanVersion` 属性
 
-### 移除 `KotlinCompile.classpathSnapshotProperties` 属性
+### 移除 `KotlinCompile.classpathSnapshotProperties` 属性 {id="remove-kotlincompile-classpathsnapshotproperties-properties"}
 
 > **问题**：[KT-76177](https://youtrack.jetbrains.com/issue/KT-76177)
 >
@@ -684,7 +684,7 @@
 > - 2.2.0：移除 `kotlin.incremental.useClasspathSnapshot` 属性
 > - 2.3.0：移除 `KotlinCompile.classpathSnapshotProperties.useClasspathSnapshot` 和 `KotlinCompile.classpathSnapshotProperties.classpath` 属性
 
-### 弃用 `getPluginArtifactForNative()` 函数
+### 弃用 `getPluginArtifactForNative()` 函数 {id="deprecate-getpluginartifactfornative-function"}
 
 > **问题**：[KT-78870](https://youtrack.jetbrains.com/issue/KT-78870)
 >
@@ -701,7 +701,7 @@
 > - 2.3.0：将警告提升为错误
 > - 2.4.0：移除该函数
 
-### 更改注册所有生成源码的方法
+### 更改注册所有生成源码的方法 {id="change-the-approach-to-registering-all-generated-sources"}
 
 > **问题**：[KT-45161](https://youtrack.jetbrains.com/issue/KT-45161)
 >
@@ -715,7 +715,7 @@
 > * 要注册生成的源码，请使用 [`generatedKotlin`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-source-set/generated-kotlin.html) 属性。
 > * 要访问所有源码（包括非生成的源码），请使用 [`allKotlinSources`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-source-set/all-kotlin-sources.html) 属性。
 
-### 弃用 `kotlin.publishJvmEnvironmentAttribute` 属性
+### 弃用 `kotlin.publishJvmEnvironmentAttribute` 属性 {id="deprecate-kotlin-publishjvmenvironmentattribute-property"}
 
 > **问题**：[KT-83678](https://youtrack.jetbrains.com/issue/KT-83678)
 >
@@ -732,7 +732,7 @@
 > - 2.3.20：报告警告
 > - 2.4.0：移除该属性
 
-### 弃用 `CleanableStore` 接口和 `CleanDataTask` 类
+### 弃用 `CleanableStore` 接口和 `CleanDataTask` 类 {id="deprecate-cleanablestore-interface-and-cleandatatask-class"}
 
 > **问题**：[KT-78104](https://youtrack.jetbrains.com/issue/KT-78104)
 >
@@ -746,7 +746,7 @@
 >
 > - 2.3.20：报告警告
 
-### 弃用 `kotlin.kmp.isolated-projects.support` Gradle 属性
+### 弃用 `kotlin.kmp.isolated-projects.support` Gradle 属性 {id="deprecate-kotlin-kmp-isolated-projects-support-gradle-property"}
 
 > **问题**：[KT-79257](https://youtrack.jetbrains.com/issue/KT-79257)
 >
@@ -760,7 +760,7 @@
 >
 > - 2.3.20：报告警告
 
-### 弃用 `kotlin.mpp.enableKotlinToolingMetadataArtifact` Gradle 属性
+### 弃用 `kotlin.mpp.enableKotlinToolingMetadataArtifact` Gradle 属性 {id="deprecate-kotlin-mpp-enablekotlintoolingmetadataartifact-gradle-property"}
 
 > **问题**：[KT-79924](https://youtrack.jetbrains.com/issue/KT-79924)
 >
@@ -775,7 +775,7 @@
 > - 2.3.20：报告警告
 > - 2.4.0：移除支持
 
-### 弃用 `LanguageSettings.enableLanguageFeature` DSL
+### 弃用 `LanguageSettings.enableLanguageFeature` DSL {id="deprecate-languagesettings-enablelanguagefeature-dsl"}
 
 > **问题**：[KT-82323](https://youtrack.jetbrains.com/issue/KT-82323)，[KT-82847](https://youtrack.jetbrains.com/issue/KT-82847)
 >
@@ -790,7 +790,7 @@
 > - 2.3.20：在涉及 `LanguageSettings.enableLanguageFeature` 时报告警告
 > - 2.4.0：将警告提升为错误
 
-### 弃用“进程外”编译器执行策略
+### 弃用“进程外”编译器执行策略 {id="deprecate-out-of-process-compiler-execution-strategy"}
 
 > **问题**：[KT-83125](https://youtrack.jetbrains.com/issue/KT-83125)
 >
@@ -805,9 +805,9 @@
 > - 2.3.20：报告警告
 > - 2.4.0：移除“进程外”编译器执行策略
 
-## 构建工具移除
+## 构建工具移除 {id="build-tool-removal"}
 
-### 移除对 Ant 的支持
+### 移除对 Ant 的支持 {id="remove-support-for-ant"}
 
 > **问题**：[KT-75875](https://youtrack.jetbrains.com/issue/KT-75875)
 >

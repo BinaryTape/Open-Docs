@@ -4,7 +4,7 @@
 
 이 장에서는 코드를 더 간결하고 읽기 쉽게 만들어 주는 특별한 Kotlin 함수를 살펴봅니다. 효율적인 디자인 패턴을 사용하여 프로젝트를 한 단계 더 발전시키는 방법을 배워보세요.
 
-## 확장 함수 (Extension functions)
+## 확장 함수 (Extension functions) {id="extension-functions"}
 
 소프트웨어 개발에서는 원래 소스 코드를 수정하지 않고 프로그램의 동작을 변경해야 할 때가 많습니다. 예를 들어, 서드 파티 라이브러리의 클래스에 추가 기능을 더하고 싶은 경우가 이에 해당합니다.
 
@@ -43,7 +43,7 @@ fun main() {
 * 문자열 템플릿(`$this`)을 사용하여 `this`의 값에 접근합니다.
 * `.bold()` 확장 함수는 문자열을 받아 굵은 텍스트를 위한 `<b>` HTML 요소로 감싸서 반환합니다.
 
-## 확장 지향 설계 (Extension-oriented design)
+## 확장 지향 설계 (Extension-oriented design) {id="extension-oriented-design"}
 
 확장 함수는 어디서나 정의할 수 있으므로 확장 지향 설계를 가능하게 합니다. 이러한 설계는 핵심 기능과 유용하지만 필수적이지 않은 기능을 분리하여 코드를 더 읽기 쉽고 유지보수하기 편하게 만듭니다.
 
@@ -95,7 +95,7 @@ fun main() {
 
 확장 함수에 대한 자세한 정보는 [확장(Extensions)](extensions.md)을 참조하세요.
 
-## 연습 문제 {completion-point="true"}
+## 연습 문제 {completion-point="true" id="practice"}
 
 ### 연습 문제 1 {initial-collapse-state="collapsed" collapsible="true" id="extension-functions-exercise-1"}
 

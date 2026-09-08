@@ -1,4 +1,4 @@
-## 樂觀鎖 (Optimistic Locking)
+## 樂觀鎖 (Optimistic Locking) {id="optimistic-locking"}
 
 如果你將某個欄位指定為 `LOCK`，系統會為其產生一個值型別，並要求 `UPDATE` 陳述式必須正確地使用該鎖來執行更新。
 
@@ -22,7 +22,7 @@ SET name = ?
 WHERE version_number = :version_number;
 ```
 
-## 遷移中的自訂型別 (Custom Types in Migrations)
+## 遷移中的自訂型別 (Custom Types in Migrations) {id="custom-types-in-migrations"}
 
 如果遷移是架構的唯一事實來源，你也可以在修改資料表時指定公開的 Kotlin 型別：
 

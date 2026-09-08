@@ -16,14 +16,14 @@
 
 本教程展示了如何使用 Kotlin Gradle 插件构建 [XCFramework](multiplatform-build-native-binaries.md#build-xcframeworks) 来实现这一点。
 
-## 设置远程集成
+## 设置远程集成 {id="set-up-remote-integration"}
 
 为了使您的框架可供使用，您需要上传两个文件：
 
 * 包含 XCFramework 的 ZIP 归档。您需要将其上传到具有直接访问权限的便捷文件存储中（例如：创建一个附带归档文件的 GitHub release，使用 Amazon S3 或 Maven）。选择最易于集成到您的工作流中的选项。
 * 描述软件包的 `Package.swift` 文件。您需要将其推送到一个单独的 Git 仓库。
 
-#### 项目配置选项 {initial-collapse-state="collapsed" collapsible="true"}
+#### 项目配置选项 {initial-collapse-state="collapsed" collapsible="true" id="project-configuration-options"}
 
 在本教程中，您将 XCFramework 作为二进制文件存储在首选的文件存储中，并将 `Package.swift` 文件存储在单独的 Git 仓库中。
 
@@ -36,7 +36,7 @@
   * 在多软件包项目中，只有一个使用者软件包可以依赖外部模块（以避免项目内的依赖项冲突）。因此，所有依赖于您的 Kotlin Multiplatform 模块的逻辑都应封装在一个特定的使用者软件包中。
   * 如果您使用自动化的 CI 流程发布 Kotlin Multiplatform 项目，则该流程需要包括将更新后的 `Package.swift` 文件发布到使用者仓库。这可能会导致使用者仓库的冲突更新，因此 CI 中的此类阶段可能难以维护。
 
-### 配置您的多平台项目
+### 配置您的多平台项目 {id="configure-your-multiplatform-project"}
 
 在以下示例中，Kotlin Multiplatform 项目的共享代码存储在本地的 `shared` 模块中。如果您的项目结构不同，请将代码和路径示例中的 "shared" 替换为您的模块名称。
 
@@ -85,7 +85,7 @@
 
 3. 如果您有多个想要导出的包含共享代码的模块（例如，一个共享逻辑模块和一个共享 UI 模块），请[将它们组合成一个单独的新模块](#将多个模块导出为-xcframework)并改为分发该伞形模块。
 
-### 准备 XCFramework 和 Swift 软件包清单
+### 准备 XCFramework 和 Swift 软件包清单 {id="prepare-the-xcframework-and-the-swift-package-manifest"}
 
 1. 将 `Shared.xcframework` 文件夹压缩为 ZIP 文件，并计算生成的归档文件的校验和，例如：
    
@@ -158,7 +158,7 @@
 
 7. 将 `Package.swift` 文件推送到您的远程仓库。确保创建并推送一个包含软件包语义版本的 Git 标签。
 
-### 添加软件包依赖项
+### 添加软件包依赖项 {id="add-the-package-dependency"}
 
 现在这两个文件都已可以访问，您可以将对所创建软件包的依赖项添加到现有的客户端 iOS 项目中，或创建一个新项目。要添加软件包依赖项：
 
@@ -173,7 +173,7 @@
    >
    {style="tip"}
 
-### 检查您的设置
+### 检查您的设置 {id="check-your-setup"}
 
 要检查所有设置是否正确，请在 Xcode 中测试导入：
 
@@ -205,7 +205,7 @@
 
 3. 确保预览已更新为新文本。
 
-## 将多个模块导出为 XCFramework
+## 将多个模块导出为 XCFramework {id="exporting-multiple-modules-as-an-xcframework"}
 
 要将来自多个 Kotlin Multiplatform 模块的代码作为 iOS 二进制文件提供，请将这些模块组合在一个单独的伞形模块中。然后，构建并导出该伞形模块的 XCFramework。
 

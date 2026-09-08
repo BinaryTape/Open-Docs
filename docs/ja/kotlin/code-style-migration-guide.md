@@ -6,7 +6,7 @@
 > 
 {style="note"}
 
-## Kotlinコーディング規約とIntelliJ IDEAフォーマッタ
+## Kotlinコーディング規約とIntelliJ IDEAフォーマッタ {id="kotlin-coding-conventions-and-intellij-idea-formatter"}
 
 [Kotlinコーディング規約](coding-conventions.md)は、慣用的なKotlinを書くためのいくつかの側面に影響を与えます。その中には、Kotlinコードの可読性を向上させることを目的とした一連のフォーマット推奨事項も含まれています。
 
@@ -19,7 +19,7 @@ IntelliJ IDEAのデフォルト設定を切り替え、Kotlinコーディング�
 * 既存プロジェクトの作成者は、プロジェクトで古いコードスタイルを使用することを明示的に宣言することを選択できます（これにより、将来デフォルトが切り替わってもプロジェクトが影響を受けることはありません）。
 * Kotlin 1.4.0以降、Kotlinコーディング規約と一貫性を持たせるため、すべてのプロジェクトでデフォルトのフォーマットが有効になります。
 
-## 「Kotlinコーディング規約」と「IntelliJ IDEAデフォルトコードスタイル」の違い
+## 「Kotlinコーディング規約」と「IntelliJ IDEAデフォルトコードスタイル」の違い {id="differences-between-kotlin-coding-conventions-and-intellij-idea-default-code-style"}
 
 最も顕著な変更点は、継続インデント（continuation indentation）ポリシーです。複数行にわたる式が前の行で終わっていないことを示すために、ダブルインデントを使用するという優れたアイデアがあります。これは単純で一般的なルールですが、いくつかのKotlinの構文をこの方法でフォーマットすると、少し不自然に見えることがあります。Kotlinコーディング規約では、以前は長い継続インデントが強制されていたケースでも、シングルインデントを使用することが推奨されています。
 
@@ -27,7 +27,7 @@ IntelliJ IDEAのデフォルト設定を切り替え、Kotlinコーディング�
 
 実際にはかなりの量のコードが影響を受けるため、これは主要なコードスタイルのアップデートであると考えられます。
 
-## 新しいコードスタイルへの移行に関する議論
+## 新しいコードスタイルへの移行に関する議論 {id="migration-to-a-new-code-style-discussion"}
 
 新しいプロジェクトから開始し、古い方法でフォーマットされたコードがない場合、新しいコードスタイルの採用は非常に自然なプロセスとなります。そのため、バージョン1.3.0以降、Kotlin IntelliJプラグインは[コーディング規約](coding-conventions.md)ドキュメントのフォーマットを適用して新規プロジェクトを作成し、それがデフォルトで有効になっています。
 
@@ -41,7 +41,7 @@ IntelliJ IDEAのデフォルト設定を切り替え、Kotlinコーディング�
 
 中規模および大規模なプロジェクトでは、決断が難しい場合があります。すぐに多くのファイルを更新する準備ができていない場合は、モジュールごとに移行するか、変更されたファイルに対してのみ段階的な移行を続けることを選択できます。
 
-## 新しいコードスタイルへの移行
+## 新しいコードスタイルへの移行 {id="migration-to-a-new-code-style"}
 
 Kotlinコーディング規約のコードスタイルへの切り替えは、**Settings/Preferences** | **Editor** | **Code Style** | **Kotlin** ダイアログで行えます。Schemeを **Project** に切り替え、**Set from...** | **Kotlin style guide** を有効にします。
 
@@ -49,11 +49,11 @@ Kotlinコーディング規約のコードスタイルへの切り替えは、**
 
 プロジェクトの構成に外部ビルドシステムを使用しており、`.idea/codeStyle` フォルダを共有しないことに決めた場合は、追加のプロパティを使用してKotlinコーディング規約を強制できます。
 
-### Gradleの場合
+### Gradleの場合 {id="in-gradle"}
 
 プロジェクトのルートにある `gradle.properties` ファイルに `kotlin.code.style=official` プロパティを追加し、そのファイルをVCSにコミットします。
 
-### Mavenの場合
+### Mavenの場合 {id="in-maven"}
 
 プロジェクトのルートにある `pom.xml` ファイルに `kotlin.code.style official` プロパティを追加します。
 
@@ -73,7 +73,7 @@ Kotlinコーディング規約のコードスタイルへの切り替えは、**
 
 段階的に移行する場合は、**File is not formatted according to project settings** インスペクションを有効にすることができます。これにより、再フォーマットが必要な箇所が強調表示されます。**Apply only to modified files** オプションを有効にすると、インスペクションは変更されたファイル内のフォーマットの問題のみを表示します。そのようなファイルはいずれにせよ、近いうちにコミットされる可能性が高いものです。
 
-## 古いコードスタイルをプロジェクトに保存する
+## 古いコードスタイルをプロジェクトに保存する {id="store-old-code-style-in-project"}
 
 プロジェクトの正しいコードスタイルとして、IntelliJ IDEAのコードスタイルを明示的に設定することも常に可能です。
 

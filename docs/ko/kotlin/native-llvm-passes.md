@@ -6,7 +6,7 @@ Kotlin/Native 컴파일러는 [LLVM](https://llvm.org/)을 사용하여 다양�
 
 Kotlin/Native가 LLVM을 사용하는 방식을 사용자 정의하고 최적화 패스(optimization pass) 목록을 조정할 수 있습니다.
 
-## 빌드 로그 확인
+## 빌드 로그 확인 {id="examine-the-build-log"}
 
 LLVM 최적화 패스에 소요되는 컴파일 시간을 파악하기 위해 빌드 로그를 살펴보겠습니다.
 
@@ -81,7 +81,7 @@ Kotlin/Native 컴파일러는 모듈 패스(module passes)와 링크 타임 패�
 
 위의 로그에서 두 가지 LLVM 최적화는 `ModuleBitcodeOptimization`과 `LTOBitcodeOptimization`입니다. 표 형식의 데이터는 각 패스별 소요 시간이 포함된 최적화 출력 결과입니다.
 
-## LLVM 최적화 패스 사용자 정의
+## LLVM 최적화 패스 사용자 정의 {id="customize-llvm-optimization-passes"}
 
 위의 패스 중 하나가 비정상적으로 오래 걸린다면 이를 건너뛸 수 있습니다. 하지만 이는 런타임 성능에 영향을 줄 수 있으므로, 나중에 벤치마크 성능 변화를 확인해야 합니다.
 

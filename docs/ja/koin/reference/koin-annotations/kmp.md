@@ -2,7 +2,7 @@
 title: Kotlin Multiplatform
 ---
 
-## セットアップ
+## セットアップ {id="setup"}
 
 Koin Compiler Plugin は KMP のセットアップを簡略化します。プラグインを適用するだけです。
 
@@ -25,11 +25,11 @@ kotlin {
 
 これだけです！プラットフォームごとの KSP 設定は不要です。
 
-## 共通コードでの定義とモジュールの宣言
+## 共通コードでの定義とモジュールの宣言 {id="defining-definitions-and-modules-in-common-code"}
 
 `commonMain` sourceSet で、Module を宣言し、定義をスキャンするか、通常の Kotlin Koin 宣言として関数を定義します。[Definitions](./definitions) および [Modules](./modules) を参照してください。
 
-## 共有パターン
+## 共有パターン {id="sharing-patterns"}
 
 このセクションでは、定義とモジュールを使用してコンポーネントを共有するためのいくつかの方法を一緒に見ていきます。
 
@@ -44,7 +44,7 @@ expect/actual 実装を持つ定義、または expect/actual を持つモジュ
 Expect/Actual クラスは、プラットフォームごとに異なるコンストラクタを持つことはできません。共通スペース（common space）で設計された現在のコンストラクタのコントラクトを尊重する必要があります。
 :::
 
-### ネイティブ実装のための定義の共有
+### ネイティブ実装のための定義の共有 {id="sharing-definitions-for-native-implementations"}
 
 :::info
 共通モジュール（Common Module） + Expect/Actual クラス定義による共有を対象とします。
@@ -54,7 +54,7 @@ Expect/Actual クラスは、プラットフォームごとに異なるコンス
 
 expect/actual 定義を使用するには、同じコンストラクタ（デフォルトまたはカスタムのもの）を使用することに注意してください。このコンストラクタはすべてのプラットフォームで同じである必要があります。
 
-#### Expect/Actual 定義のスキャン
+#### Expect/Actual 定義のスキャン {id="scanning-for-expect-actual-definitions"}
 
 commonMain の場合:
 ```kotlin
@@ -89,7 +89,7 @@ actual class PlatformComponentA {
 }
 ```
 
-#### Expect/Actual 関数定義の宣言
+#### Expect/Actual 関数定義の宣言 {id="declaring-expect-actual-function-definitions"}
 
 commonMain の場合:
 ```kotlin
@@ -125,7 +125,7 @@ actual class PlatformComponentB {
 }
 ```
 
-### 異なるネイティブコントラクトを持つ定義の共有
+### 異なるネイティブコントラクトを持つ定義の共有 {id="sharing-definitions-with-different-native-contracts"}
 
 :::info
 Expect/Actual 共通モジュール + 共通インターフェース + ネイティブ実装を対象とします。
@@ -180,7 +180,7 @@ class PlatformComponentDiOS : PlatformComponentD{
 Koin スコープへの手動アクセスを使用するたびに、ダイナミックワイヤリング（dynamic wiring）を行っていることになります。コンパイル時の安全性は、このようなワイヤリングをカバーしません。
 :::
 
-### プラットフォームラッパーによるプラットフォーム間での安全な共有
+### プラットフォームラッパーによるプラットフォーム間での安全な共有 {id="safely-sharing-across-platforms-with-platform-wrapper"}
 
 :::info
 特定のプラットフォームコンポーネントを「プラットフォームラッパー（platform wrapper）」としてラップします。
@@ -268,7 +268,7 @@ actual class PlatformComponentA actual constructor(val ctx : ContextWrapper) {
 }
 ```
 
-### Expect/Actual モジュールの共有 - ネイティブモジュールスキャンへの依存
+### Expect/Actual モジュールの共有 - ネイティブモジュールスキャンへの依存 {id="sharing-expect-actual-module-rely-on-native-module-scanning"}
 
 :::info
 共通モジュールからネイティブモジュールに依存します。

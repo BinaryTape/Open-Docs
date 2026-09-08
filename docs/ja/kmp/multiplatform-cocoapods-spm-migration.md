@@ -21,7 +21,7 @@ CocoaPods 依存関係を持つ KMP モジュールがあり、[SwiftPM イン�
 >
 {style="note"}
 
-## ビルドスクリプトを更新する
+## ビルドスクリプトを更新する {id="update-your-build-script"}
 
 ビルドを更新するには、SwiftPM インポートのページの指示に従ってください：
 
@@ -71,7 +71,7 @@ CocoaPods 依存関係を持つ KMP モジュールがあり、[SwiftPM イン�
    <code-block lang="kotlin" code="   kotlin {&#10;       listOf(&#10;           iosArm64(),&#10;           iosSimulatorArm64(),&#10;       ).forEach { iosTarget -&gt;&#10;           iosTarget.binaries.framework {&#10;               baseName = &quot;Shared&quot;&#10;               isStatic = true&#10;           }&#10;       }&#10;   }"/>
    </compare>
 
-## Xcode プロジェクトを再構成する
+## Xcode プロジェクトを再構成する {id="reconfigure-your-xcode-project"}
 
 CocoaPods Gradle プラグイン (`kotlin("native.cocoapods")`) を使用している場合、SwiftPM に切り替える前に、Xcode プロジェクトを[直接統合（direct integration）](multiplatform-direct-integration.md)を使用するように再構成する必要があります。
 SwiftPM インポートツールは、`.xcodeproj` ファイルに必要な変更を加えるためのシェルコマンドを生成できます。
@@ -101,7 +101,7 @@ SwiftPM インポートツールは、`.xcodeproj` ファイルに必要な変�
 
 これで iOS アプリは SwiftPM 依存関係を使用するようになります。CocoaPods プラグインを無効にし、pod を解除（deintegrate）できます。
 
-## CocoaPods KMP 統合を削除する
+## CocoaPods KMP 統合を削除する {id="remove-the-cocoapods-kmp-integration"}
 
 すべての CocoaPods 依存関係を Swift パッケージに置き換えた場合は、`/path/to/project/iosApp` ディレクトリで以下のコマンドを実行して pod を解除できます：
 

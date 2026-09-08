@@ -12,7 +12,7 @@
 
 명령줄을 사용하여 직접 또는 스크립트 파일(`.sh` 또는 `.bat` 파일 등)을 사용하여 Kotlin 라이브러리를 생성할 수 있습니다. 하지만 이 방식은 수백 개의 파일과 라이브러리가 있는 대규모 프로젝트에는 적합하지 않습니다. 빌드 시스템을 사용하면 Kotlin/Native 컴파일러 바이너리와 전이 의존성(transitive dependencies)이 있는 라이브러리를 다운로드하고 캐싱할 뿐만 아니라, 컴파일러와 테스트를 실행하여 프로세스를 간소화할 수 있습니다. Kotlin/Native는 [Kotlin 멀티플랫폼 플러그인](gradle-configure-project.md#targeting-multiple-platforms)을 통해 [Gradle](https://gradle.org) 빌드 시스템을 사용할 수 있습니다.
 
-## 시작하기 전에
+## 시작하기 전에 {id="before-you-start"}
 
 1. 최신 버전의 [IntelliJ IDEA](https://www.jetbrains.com/idea/)를 다운로드하여 설치합니다.
 2. IntelliJ IDEA에서 **File | New | Project from Version Control**을 선택하고 다음 URL을 사용하여 [프로젝트 템플릿](https://github.com/Kotlin/kmp-native-wizard)을 복제(clone)합니다:
@@ -52,7 +52,7 @@
    * `binaries {}` 블록은 바이너리가 생성되는 방식과 애플리케이션의 엔트리 포인트(entry point)를 정의합니다. 기본값으로 유지해도 무방합니다.
    * C 상호 운용성(C interoperability)은 빌드의 추가 단계로 구성됩니다. 기본적으로 C의 모든 심볼은 `interop` 패키지로 가져옵니다. `.kt` 파일에서 전체 패키지를 가져오고 싶을 수 있습니다. [구성 방법](gradle-configure-project.md#targeting-multiple-platforms)에 대해 자세히 알아보세요.
 
-## 정의 파일 생성
+## 정의 파일 생성 {id="create-a-definition-file"}
 
 네이티브 애플리케이션을 작성할 때 HTTP 요청 수행, 디스크 읽기 및 쓰기 등과 같이 [Kotlin 표준 라이브러리](https://kotlinlang.org/api/latest/jvm/stdlib/)에 포함되지 않은 특정 기능에 액세스해야 하는 경우가 많습니다.
 
@@ -91,7 +91,7 @@ Kotlin/Native는 표준 C 라이브러리를 사용할 수 있도록 도와주�
 >
 {style="note"}
 
-## 빌드 프로세스에 상호 운용성 추가
+## 빌드 프로세스에 상호 운용성 추가 {id="add-interoperability-to-the-build-process"}
 
 헤더 파일을 사용하려면 빌드 프로세스의 일부로 생성되었는지 확인해야 합니다. 이를 위해 `build.gradle.kts` 파일에 다음 `compilations {}` 블록을 추가합니다:
 
@@ -123,7 +123,7 @@ cinterops {
 }
 ```
 
-## 애플리케이션 코드 작성
+## 애플리케이션 코드 작성 {id="write-the-application-code"}
 
 이제 라이브러리와 해당하는 Kotlin 스텁이 있으므로 애플리케이션에서 이를 사용할 수 있습니다. 이 튜토리얼에서는 [simple.c](https://curl.se/libcurl/c/simple.html) 예제를 Kotlin으로 변환합니다.
 
@@ -154,7 +154,7 @@ fun main(args: Array<String>) {
 >
 {style="tip"}
 
-## 애플리케이션 컴파일 및 실행
+## 애플리케이션 컴파일 및 실행 {id="compile-and-run-the-application"}
 
 1. 애플리케이션을 컴파일하려면 작업 목록에서 `runDebugExecutable<YourTargetName>` Gradle 태스크를 실행하거나 터미널에서 콘솔 명령을 사용합니다. 예:
  
@@ -176,6 +176,6 @@ fun main(args: Array<String>) {
 >
 {style="note"}
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 [Kotlin과 C의 상호 운용성](native-c-interop.md)에 대해 자세히 알아보세요.

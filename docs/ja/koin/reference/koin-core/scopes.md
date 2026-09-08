@@ -6,7 +6,7 @@ title: スコープ
 
 スコープは、依存関係のライフサイクルを制御します。このガイドでは、スコープの定義、作成、および管理方法について説明します。
 
-## スコープを理解する
+## スコープを理解する {id="understanding-scopes"}
 
 | スコープの種類 | ライフサイクル | 例 |
 |------------|-----------|---------|
@@ -14,16 +14,16 @@ title: スコープ
 | **Factory** | リクエストごと | Presenter, Use Case |
 | **Scoped** | スコープごと | Activity 紐付け, セッション紐付け |
 
-## スコープを使用するタイミング
+## スコープを使用するタイミング {id="when-to-use-scopes"}
 
 以下の場合にスコープを使用してください：
 - ファクトリより長く、シングルトンより短い期間存続するインスタンスが必要な場合
 - 特定のコンテキスト（Activity, Fragment, セッション）内で状態を共有する場合
 - コンテキスト終了時に自動的にクリーンアップを行いたい場合
 
-## スコープ定義の宣言
+## スコープ定義の宣言 {id="defining-scoped-definitions"}
 
-### DSL
+### DSL {id="dsl"}
 
 ```kotlin
 val appModule = module {
@@ -41,7 +41,7 @@ val appModule = module {
 }
 ```
 
-### アノテーション
+### アノテーション {id="annotations"}
 
 | アノテーション | DSL での同等表現 | 目的 |
 |------------|----------------|---------|
@@ -79,9 +79,9 @@ class RetainedPresenter
 class FragmentPresenter
 ```
 
-## スコープの作成と使用
+## スコープの作成と使用 {id="creating-and-using-scopes"}
 
-### 手動でのスコープ管理
+### 手動でのスコープ管理 {id="manual-scope-management"}
 
 ```kotlin
 // スコープの作成
@@ -95,7 +95,7 @@ val prefs: UserPreferences = myScope.get()
 myScope.close()
 ```
 
-### Android Activity スコープ
+### Android Activity スコープ {id="android-activity-scope"}
 
 ```kotlin
 class MyActivity : AppCompatActivity(), AndroidScopeComponent {
@@ -112,7 +112,7 @@ class MyActivity : AppCompatActivity(), AndroidScopeComponent {
 }
 ```
 
-### Android Fragment スコープ
+### Android Fragment スコープ {id="android-fragment-scope"}
 
 ```kotlin
 class MyFragment : Fragment(), AndroidScopeComponent {
@@ -123,9 +123,9 @@ class MyFragment : Fragment(), AndroidScopeComponent {
 }
 ```
 
-## スコープの種類
+## スコープの種類 {id="scope-types"}
 
-### 型ベースのスコープ
+### 型ベースのスコープ {id="type-based-scope"}
 
 ```kotlin
 scope<MyActivity> {
@@ -135,7 +135,7 @@ scope<MyActivity> {
 
 スコープは `MyActivity` 型によって識別されます。このスコープは `MyActivity` によってのみトリガーされますが、`activityScope` は汎用的なものです。
 
-### 名前付きスコープ
+### 名前付きスコープ {id="named-scope"}
 
 ```kotlin
 scope(named("user_session")) {
@@ -145,7 +145,7 @@ scope(named("user_session")) {
 
 スコープが特定の型に紐付けられていない場合に使用します。
 
-### 限定子ベースのスコープ
+### 限定子ベースのスコープ {id="qualifier-based-scope"}
 
 ```kotlin
 scope(named<MyQualifier>()) {
@@ -153,11 +153,11 @@ scope(named<MyQualifier>()) {
 }
 ```
 
-## スコープアーキタイプ
+## スコープアーキタイプ {id="scope-archetypes"}
 
 Koin は、一般的な Android スコープパターンのための専用 DSL を提供しています。これらのアーキタイプ（Archetypes）により、ViewModel、Activity、Fragment のスコープ定義が簡素化されます。
 
-### ViewModel スコープ
+### ViewModel スコープ {id="viewmodel-scope"}
 
 ViewModel のライフサイクルにスコープされた依存関係を定義します：
 
@@ -180,7 +180,7 @@ class UserViewModel(
 ) : ViewModel()
 ```
 
-### Activity スコープ
+### Activity スコープ {id="activity-scope"}
 
 Activity のライフサイクルにスコープされた依存関係を定義します：
 
@@ -193,7 +193,7 @@ val appModule = module {
 }
 ```
 
-### Fragment スコープ
+### Fragment スコープ {id="fragment-scope"}
 
 Fragment のライフサイクルにスコープされた依存関係を定義します：
 
@@ -205,7 +205,7 @@ val appModule = module {
 }
 ```
 
-### 比較
+### 比較 {id="comparison"}
 
 | アーキタイプ | DSL | アノテーション | ライフサイクル |
 |-----------|-----|------------|-----------|
@@ -218,7 +218,7 @@ val appModule = module {
 スコープアーキタイプは Koin 4.0 以降で利用可能です。これらは、一般的な Android コンポーネントに対して `scope<T> { }` を手動で定義するよりもクリーンな構文を提供します。
 :::
 
-## スコープのリンク
+## スコープのリンク {id="scope-linking"}
 
 親スコープの定義にアクセスするためにスコープをリンクします：
 
@@ -253,7 +253,7 @@ class UserFragment : Fragment(), AndroidScopeComponent {
 }
 ```
 
-## スコープのソース
+## スコープのソース {id="scope-source"}
 
 自身のスコープを認識している依存関係をインジェクトします：
 
@@ -271,7 +271,7 @@ scope<MyActivity> {
 }
 ```
 
-## スコープインスタンス ID
+## スコープインスタンス ID {id="scope-instance-id"}
 
 各スコープインスタンスには一意の ID があります：
 
@@ -284,9 +284,9 @@ val scope2 = getKoin().createScope("scope_2", named("session"))
 scope1.get<SessionData>() !== scope2.get<SessionData>()
 ```
 
-## スコープ付きインスタンスへのアクセス
+## スコープ付きインスタンスへのアクセス {id="accessing-scoped-instances"}
 
-### スコープ内から
+### スコープ内から {id="from-within-scope"}
 
 ```kotlin
 class MyActivity : AppCompatActivity(), AndroidScopeComponent {
@@ -297,7 +297,7 @@ class MyActivity : AppCompatActivity(), AndroidScopeComponent {
 }
 ```
 
-### スコープ外から
+### スコープ外から {id="from-outside-scope"}
 
 ```kotlin
 // スコープを取得または作成
@@ -307,7 +307,7 @@ val myScope = getKoin().getOrCreateScope("my_id", named("session"))
 val session: SessionData = myScope.get()
 ```
 
-### Compose 内で
+### Compose 内で {id="in-compose"}
 
 ```kotlin
 @Composable
@@ -320,9 +320,9 @@ fun MyScreen() {
 }
 ```
 
-## スコープのライフサイクル
+## スコープのライフサイクル {id="scope-lifecycle"}
 
-### スコープを閉じる
+### スコープを閉じる {id="closing-scopes"}
 
 スコープが閉じると：
 1. すべてのスコープ付きインスタンスが解放されます
@@ -342,7 +342,7 @@ scope.close()  // SessionData インスタンスが解放される
 // scope.get<SessionData>()  // エラー：スコープは閉じられています
 ```
 
-### onClose コールバック
+### onClose コールバック {id="onclose-callback"}
 
 ```kotlin
 scope(named("session")) {
@@ -354,9 +354,9 @@ scope(named("session")) {
 }
 ```
 
-## 一般的なパターン
+## 一般的なパターン {id="common-patterns"}
 
-### セッションスコープ
+### セッションスコープ {id="session-scope"}
 
 ```kotlin
 val appModule = module {
@@ -380,7 +380,7 @@ fun onLogout(userId: String) {
 }
 ```
 
-### 機能スコープ
+### 機能スコープ {id="feature-scope"}
 
 ```kotlin
 val appModule = module {
@@ -402,7 +402,7 @@ class CheckoutActivity : AppCompatActivity(), AndroidScopeComponent {
 }
 ```
 
-## ベストプラクティス
+## ベストプラクティス {id="best-practices"}
 
 1. **シングルトンの使用は控えめに** - 本当にアプリ全体で必要な依存関係にのみ使用してください。
 2. **共有状態のスコープ化** - 複数のコンポーネントが同じインスタンスを必要とする場合に使用します。
@@ -410,7 +410,7 @@ class CheckoutActivity : AppCompatActivity(), AndroidScopeComponent {
 4. **スコープの目的を絞る** - 1つのスコープにすべてを詰め込まないでください。
 5. **Android スコープコンポーネントを使用する** - ライフサイクルの自動管理のため。
 
-## 次のステップ
+## 次のステップ {id="next-steps"}
 
 - **[Koin for Android](/docs/integrations/android/android-scopes)** - Android 特有のスコープ
 - **[Koin for Compose](/docs/integrations/compose/compose-modules)** - Compose でのスコープ

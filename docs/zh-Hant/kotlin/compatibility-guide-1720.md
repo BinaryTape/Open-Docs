@@ -6,7 +6,7 @@
 
 本文件總結了這些變更，為從 Kotlin 1.7.0 和 1.7.10 遷移到 Kotlin 1.7.20 提供參考。
 
-## 基本術語
+## 基本術語 {id="basic-terms"}
 
 在本文件中，我們介紹了幾種相容性：
 
@@ -16,10 +16,10 @@
 
 請記住，這些定義僅針對純 Kotlin。從其他語言角度（例如 Java）看 Kotlin 程式碼的相容性不在本文件的討論範圍內。
 
-## 語言
+## 語言 {id="language"}
 
 <!--
-### Title
+### Title {id="title"}
 
 > **Issue**: [KT-NNNNN](https://youtrack.jetbrains.com/issue/KT-NNNNN)
 >
@@ -35,7 +35,7 @@
 > - 1.7.0: report an error
 -->
 
-### 回復修復正確約束處理的嘗試
+### 回復修復正確約束處理的嘗試 {id="rollback-attempt-to-fix-proper-constraints-processing"}
 
 > **問題**：[KT-53813](https://youtrack.jetbrains.com/issue/KT-53813)
 >
@@ -49,7 +49,7 @@
 >
 > - 1.7.20：回復至 1.7.0 的行為
 
-### 禁止某些建置器推論案例以避免與多重 Lambda 和解析發生問題
+### 禁止某些建置器推論案例以避免與多重 Lambda 和解析發生問題 {id="forbid-some-builder-inference-cases-to-avoid-problematic-interaction-with-multiple-lambdas-and-resolution"}
 
 > **問題**：[KT-53797](https://youtrack.jetbrains.com/issue/KT-53797)
 >

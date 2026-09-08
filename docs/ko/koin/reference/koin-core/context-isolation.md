@@ -8,13 +8,13 @@ title: 컨텍스트 격리 (Context Isolation)
 일반적인 Koin 설정에 대해서는 **[Koin 시작하기 (Starting Koin)](/docs/reference/koin-core/starting-koin)**를 참고하세요.
 :::
 
-## 컨텍스트 격리를 사용하는 경우
+## 컨텍스트 격리를 사용하는 경우 {id="when-to-use-context-isolation"}
 
 - **SDK/라이브러리 개발** - 라이브러리 내부에서 Koin을 사용하는 경우
 - **충돌 방지** - 호스트 앱 또한 Koin을 사용하고 있을 수 있는 경우
 - **캡슐화** - DI 컨테이너를 비공개(private)로 유지하고 싶은 경우
 
-## 격리된 컨텍스트 생성하기
+## 격리된 컨텍스트 생성하기 {id="creating-an-isolated-context"}
 
 `GlobalContext`에 등록되는 `startKoin` 대신, `koinApplication`을 사용하세요:
 
@@ -35,7 +35,7 @@ val sdkModule = module {
 }
 ```
 
-## 커스텀 KoinComponent
+## 커스텀 KoinComponent {id="custom-koincomponent"}
 
 격리된 컨텍스트를 사용하는 커스텀 `KoinComponent`를 생성합니다:
 
@@ -51,7 +51,7 @@ class MySdkClass : SdkKoinComponent {
 }
 ```
 
-## 격리된 컨텍스트 테스트하기
+## 격리된 컨텍스트 테스트하기 {id="testing-isolated-context"}
 
 테스트에서 격리된 컨텍스트를 사용하려면 `getKoin()`을 오버라이드하세요:
 
@@ -74,7 +74,7 @@ class SdkTest : KoinTest {
 }
 ```
 
-## 함께 보기
+## 함께 보기 {id="see-also"}
 
 - **[Koin 시작하기 (Starting Koin)](/docs/reference/koin-core/starting-koin)** - 표준 Koin 설정
 - **[Compose 컨텍스트 격리 (Compose Isolated Context)](/docs/reference/koin-compose/isolated-context)** - Compose 앱에서의 격리 방식

@@ -2,12 +2,12 @@
 
 本页面介绍了如何使用内置的重试和超时机制来处理 LLM 客户端和 prompt 执行器的失败。
 
-## 重试功能
+## 重试功能 {id="retry-functionality"}
 
 在使用 LLM 提供程序时，可能会出现速率限制或临时服务不可用等瞬态错误。
 `RetryingLLMClient` 修饰器为 Kotlin 和 Java 中的任何 LLM 客户端添加了自动重试逻辑。
 
-### 基本用法
+### 基本用法 {id="basic-usage"}
 
 为任何现有客户端包装重试功能：
 
@@ -57,7 +57,7 @@
     ```
     <!--- KNIT example-handling-failures-java-01.java -->
 
-### 配置重试行为
+### 配置重试行为 {id="configuring-retry-behavior"}
 
 默认情况下，`RetryingLLMClient` 为 LLM 客户端配置的最大重试次数为 3 次，初始延迟为 1 秒，最大延迟为 30 秒。
 您可以使用传递给 `RetryingLLMClient` 的 `RetryConfig` 来指定不同的重试配置。
@@ -134,7 +134,7 @@ val customClient = RetryingLLMClient(
 ```
 <!--- KNIT example-handling-failures-03.kt -->
 
-### 重试错误模式
+### 重试错误模式 {id="retry-error-patterns"}
 
 默认情况下，`RetryingLLMClient` 会识别常见的瞬态错误。
 此行为由 [`RetryConfig.retryablePatterns`](api:prompt-executor-clients::ai.koog.prompt.executor.clients.retry.RetryConfig.retryablePatterns) 模式控制。
@@ -143,7 +143,7 @@ val customClient = RetryingLLMClient(
 Koog 提供了预定义的重试配置和模式，适用于所有支持的 LLM 提供程序。
 您可以保留默认设置，也可以根据特定需求进行自定义。
 
-#### 模式类型
+#### 模式类型 {id="pattern-types"}
 
 您可以使用以下模式类型并组合其中的任意数量：
 
@@ -154,7 +154,7 @@ Koog 提供了预定义的重试配置和模式，适用于所有支持的 LLM �
 
 如果任何模式返回 `true`，则该错误被视为可重试，LLM 客户端将重试该请求。
 
-#### 默认模式
+#### 默认模式 {id="default-patterns"}
 
 除非您自定义重试配置，否则默认使用以下模式：
 
@@ -180,7 +180,7 @@ Koog 提供了预定义的重试配置和模式，适用于所有支持的 LLM �
 
 这些默认模式在 Koog 中定义为 [`RetryConfig.DEFAULT_PATTERNS`](api:prompt-executor-clients::ai.koog.prompt.executor.clients.retry.RetryConfig.Companion.DEFAULT_PATTERNS)。
 
-#### 自定义模式
+#### 自定义模式 {id="custom-patterns"}
 
 您可以根据特定需求定义自定义模式：
 
@@ -217,7 +217,7 @@ val config = RetryConfig(
 ```
 <!--- KNIT example-handling-failures-05.kt -->
 
-### 带重试的流式传输
+### 带重试的流式传输 {id="streaming-with-retry"}
 
 流式操作可以可选地进行重试。此功能默认禁用。
 
@@ -254,7 +254,7 @@ val stream = client.executeStreaming(prompt, OpenAIModels.Chat.GPT4o)
     流式传输一旦开始，重试逻辑就会被禁用。
     如果在流式传输过程中发生错误，操作将终止。
 
-### 在 prompt 执行器中使用重试
+### 在 prompt 执行器中使用重试 {id="retry-with-prompt-executors"}
 
 在 Kotlin 和 Java 中使用 prompt 执行器时，您都可以在创建执行器之前将底层的 LLM 客户端包装在重试机制中。
 要了解更多关于 prompt 执行器的信息，请参阅 [Prompt 执行器](prompt-executors.md)。
@@ -338,7 +338,7 @@ val stream = client.executeStreaming(prompt, OpenAIModels.Chat.GPT4o)
     ```
     <!--- KNIT example-handling-failures-java-03.java -->
 
-## 超时配置
+## 超时配置 {id="timeout-configuration"}
 
 在 Kotlin 和 Java 中，所有 LLM 客户端都支持超时配置以防止请求挂起。
 您可以在使用 [`ConnectionTimeoutConfig`](api:prompt-executor-clients::ai.koog.prompt.executor.clients.ConnectionTimeoutConfig) 类创建客户端时指定网络连接的超时值。
@@ -406,7 +406,7 @@ val stream = client.executeStreaming(prompt, OpenAIModels.Chat.GPT4o)
 !!! tip
     对于长时间运行或流式调用，请为 `requestTimeoutMillis` 和 `socketTimeoutMillis` 设置更高的值。
 
-## 错误处理
+## 错误处理 {id="error-handling"}
 
 在生产环境中使用 LLM 时，您需要实现错误处理，包括：
 

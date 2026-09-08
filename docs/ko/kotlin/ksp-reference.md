@@ -1,6 +1,6 @@
 [//]: # (title: Java 어노테이션 프로세싱에서 KSP로의 참조 가이드)
 
-## 프로그램 요소 (Program elements)
+## 프로그램 요소 (Program elements) {id="program-elements"}
 
 | **Java** | **KSP에서 가장 가까운 기능** | **참고** |
 | -------- | --------------------------- | --------- |
@@ -15,7 +15,7 @@
 | `TypeParameterElement` | `KSTypeParameter` | |
 | `VariableElement` | `KSValueParameter` / `KSPropertyDeclaration` | |
 
-## 타입 (Types)
+## 타입 (Types) {id="types"}
 
 KSP는 명시적인 타입 해석(type resolution)이 필요하므로, Java의 일부 기능은 해석 전의 `KSType` 및 해당 요소들을 통해서만 수행될 수 있습니다.
 
@@ -35,7 +35,7 @@ KSP는 명시적인 타입 해석(type resolution)이 필요하므로, Java의 �
 | `UnionType` | 해당 없음 | Kotlin은 catch 블록당 하나의 타입만 가짐. `UnionType`은 Java 어노테이션 프로세서에서도 관찰할 수 없음 |
 | `WildcardType` | `KSType` / `KSTypeArgument` | |
 
-## 기타 (Misc)
+## 기타 (Misc) {id="misc"}
 
 | **Java** | **KSP에서 가장 가까운 기능** | **참고** |
 | -------- | --------------------------- | --------- |
@@ -58,24 +58,24 @@ KSP는 명시적인 타입 해석(type resolution)이 필요하므로, Java의 �
 | `Types` | `Resolver` / `utils` | 일부 `utils`는 심볼 인터페이스에 통합됨 |
 | `Elements` | `Resolver` / `utils` | |
 
-## 세부 사항 (Details)
+## 세부 사항 (Details) {id="details"}
 
 Java 어노테이션 프로세싱 API의 기능이 KSP에서 어떻게 수행되는지 확인해 보세요.
 
-### AnnotationMirror
+### AnnotationMirror {id="annotationmirror"}
 
 | **Java** | **KSP 해당 기능** |
 | -------- | ------------------ |
 | `getAnnotationType` | `ksAnnotation.annotationType` |
 | `getElementValues` | `ksAnnotation.arguments` |
 
-### AnnotationValue
+### AnnotationValue {id="annotationvalue"}
 
 | **Java** | **KSP 해당 기능** |
 | -------- | ------------------ |
 | `getValue` | `ksValueArgument.value` |
 
-### Element
+### Element {id="element"}
 
 | **Java** | **KSP 해당 기능** |
 | -------- | ------------------ |
@@ -88,7 +88,7 @@ Java 어노테이션 프로세싱 API의 기능이 KSP에서 어떻게 수행되
 | `getModifiers` | `ksDeclaration.modifiers` |
 | `getSimpleName` | `ksDeclaration.simpleName` |
 
-### ExecutableElement
+### ExecutableElement {id="executableelement"}
 
 | **Java** | **KSP 해당 기능** |
 | -------- | ------------------ |
@@ -102,19 +102,19 @@ Java 어노테이션 프로세싱 API의 기능이 KSP에서 어떻게 수행되
 | `isDefault` | 부모 선언이 인터페이스인지 여부 확인 |
 | `isVarArgs` | `ksFunctionDeclaration.parameters.any { it.isVarArg }` |
 
-### Parameterizable
+### Parameterizable {id="parameterizable"}
 
 | **Java** | **KSP 해당 기능** |
 | -------- | ------------------ |
 | `getTypeParameters` | `ksFunctionDeclaration.typeParameters` |
 
-### QualifiedNameable
+### QualifiedNameable {id="qualifiednameable"}
 
 | **Java** | **KSP 해당 기능** |
 | -------- | ------------------ |
 | `getQualifiedName` | `ksDeclaration.qualifiedName` |
 
-### TypeElement
+### TypeElement {id="typeelement"}
 
 <table>
     <tr>
@@ -173,7 +173,7 @@ ksClassDeclaration.superTypes
     </tr>
 </table>
 
-### TypeParameterElement
+### TypeParameterElement {id="typeparameterelement"}
 
 | **Java** | **KSP 해당 기능** |
 | -------- | ------------------ |
@@ -181,7 +181,7 @@ ksClassDeclaration.superTypes
 | `getEnclosingElement` | `ksTypeParameter.parentDeclaration` |
 | `getGenericElement` | `ksTypeParameter.parentDeclaration` |
 
-### VariableElement
+### VariableElement {id="variableelement"}
 
 | **Java** | **KSP 해당 기능** |
 | -------- | ------------------ |
@@ -189,13 +189,13 @@ ksClassDeclaration.superTypes
 | `getEnclosingElement` | `ksValueParameter.parentDeclaration` |
 | `getSimpleName` | `ksValueParameter.simpleName` |
 
-### ArrayType
+### ArrayType {id="arraytype"}
 
 | **Java** | **KSP 해당 기능** |
 | -------- | ------------------ |
 | `getComponentType` | `ksType.arguments.first()` |
 
-### DeclaredType
+### DeclaredType {id="declaredtype"}
 
 | **Java** | **KSP 해당 기능** |
 | -------- | ------------------ |
@@ -203,7 +203,7 @@ ksClassDeclaration.superTypes
 | `getEnclosingType` | `ksType.declaration.parentDeclaration` |
 | `getTypeArguments` | `ksType.arguments` |
 
-### ExecutableType
+### ExecutableType {id="executabletype"}
 
 > 함수에 대한 `KSType`은 `FunctionN<R, T1, T2, ..., TN>` 계열로 표현되는 시그니처일 뿐입니다.
 >
@@ -217,19 +217,19 @@ ksClassDeclaration.superTypes
 | `getThrownTypes` | Kotlin에서 필요하지 않음 |
 | `getTypeVariables` | `ksFunctionDeclaration.typeParameters` |
 
-### IntersectionType
+### IntersectionType {id="intersectiontype"}
 
 | **Java** | **KSP 해당 기능** |
 | -------- | ------------------ |
 | `getBounds` | `ksTypeParameter.bounds` |
 
-### TypeMirror
+### TypeMirror {id="typemirror"}
 
 | **Java** | **KSP 해당 기능** |
 | -------- | ------------------ |
 | `getKind` | 원시 타입, `Unit` 타입의 경우 `KSBuiltIns`의 타입과 비교하고, 그렇지 않으면 선언된 타입과 비교 |
 
-### TypeVariable
+### TypeVariable {id="typevariable"}
 
 | **Java** | **KSP 해당 기능** |
 | -------- | ------------------ |
@@ -237,7 +237,7 @@ ksClassDeclaration.superTypes
 | `getLowerBound` | 결정 예정. 캡처(capture)가 제공되고 명시적인 바운드 검사가 필요한 경우에만 필요함. |
 | `getUpperBound` | `ksTypeParameter.bounds` |
 
-### WildcardType
+### WildcardType {id="wildcardtype"}
 
 <table>
     <tr>
@@ -266,7 +266,7 @@ if (ksTypeArgument.variance == Variance.CONTRAVARIANT) ksTypeArgument.type else 
     </tr>
 </table>
 
-### Elements
+### Elements {id="elements"}
 
 <table>
     <tr>

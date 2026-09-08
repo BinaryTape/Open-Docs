@@ -5,7 +5,7 @@ SQLDelight 2.0 では、Gradle プラグインとランタイム API にいく�
 このページでは、それらの破壊的変更と、2.0 における新しい代替手段をリストアップしています。
 新機能やその他の変更の完全なリストについては、[changelog](../changelog) を参照してください。
 
-## 新しいパッケージ名とアーティファクトグループ
+## 新しいパッケージ名とアーティファクトグループ {id="new-package-name-and-artifact-group"}
 
 `com.squareup.sqldelight` のすべての箇所を `app.cash.sqldelight` に置き換える必要があります。
 
@@ -34,7 +34,7 @@ dependencies {
 +import app.cash.sqldelight.db.SqlDriver
 ```
 
-## Gradle 設定の変更
+## Gradle 設定の変更 {id="gradle-configuration-changes"}
 
 * SQLDelight 2.0 は、ビルドに Java 11、ランタイムに Java 8 を必要とします。
 * SQLDelight の設定 API は、データベースに対してマネージドプロパティと `DomainObjectCollection` を使用するようになりました。
@@ -123,7 +123,7 @@ dependencies {
 
     現在サポートされているダイアレクトは、`mysql-dialect`、`postgresql-dialect`、`hsql-dialect`、`sqlite-3-18-dialect`、`sqlite-3-24-dialect`、`sqlite-3-25-dialect`、`sqlite-3-30-dialect`、`sqlite-3-35-dialect`、および `sqlite-3-38-dialect` です。
 
-## ランタイムの変更
+## ランタイムの変更 {id="runtime-changes"}
 
 * プリミティブ型は、`.sq` および `.sqm` ファイルにインポートする必要があります。
 

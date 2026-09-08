@@ -10,7 +10,7 @@ Koin은 Compose 애플리케이션에서 ViewModel을 주입하기 위한 여러
 모듈에서 ViewModel을 선언하는 방법은 [Core ViewModel](/docs/reference/koin-core/viewmodel)을 참조하세요. 이 페이지는 Compose에서 ViewModel을 가져오는(retrieving) 방법에 집중합니다.
 :::
 
-## 설정 (Setup)
+## 설정 (Setup) {id="setup"}
 
 ```kotlin
 // Compose 멀티플랫폼 (또는 Android)
@@ -27,9 +27,9 @@ implementation("io.insert-koin:koin-compose-viewmodel-navigation:$koin_version")
 모든 ViewModel API는 `koin-compose-viewmodel`에 포함되어 있습니다. `koin-androidx-compose` 패키지는 이를 자동으로 포함합니다.
 :::
 
-## ViewModel 선언하기
+## ViewModel 선언하기 {id="declaring-viewmodels"}
 
-### 컴파일러 플러그인 DSL
+### 컴파일러 플러그인 DSL {id="compiler-plugin-dsl"}
 
 ```kotlin
 class UserViewModel(
@@ -41,7 +41,7 @@ val appModule = module {
 }
 ```
 
-### 어노테이션 (Annotations)
+### 어노테이션 (Annotations) {id="annotations"}
 
 ```kotlin
 @KoinViewModel
@@ -50,7 +50,7 @@ class UserViewModel(
 ) : ViewModel()
 ```
 
-### 클래식 DSL
+### 클래식 DSL {id="classic-dsl"}
 
 ```kotlin
 val appModule = module {
@@ -60,9 +60,9 @@ val appModule = module {
 }
 ```
 
-## ViewModel 주입 API
+## ViewModel 주입 API {id="viewmodel-injection-apis"}
 
-### koinViewModel() - 기본 주입
+### koinViewModel() - 기본 주입 {id="koinviewmodel-basic-injection"}
 
 Compose에서 ViewModel을 주입하기 위한 기본 API입니다.
 
@@ -86,7 +86,7 @@ fun UserScreen(
 }
 ```
 
-### koinNavViewModel() - 네비게이션 인자 포함
+### koinNavViewModel() - 네비게이션 인자 포함 {id="koinnavviewmodel-with-navigation-arguments"}
 
 Navigation Compose를 사용할 때, `SavedStateHandle`을 통해 네비게이션 인자(arguments)를 자동으로 전달받으려면 `koinNavViewModel()`을 사용하세요.
 
@@ -113,7 +113,7 @@ fun DetailScreen(
 }
 ```
 
-### koinActivityViewModel() - Activity 스코프 (Android)
+### koinActivityViewModel() - Activity 스코프 (Android) {id="koinactivityviewmodel-activity-scoped-android"}
 
 동일한 Activity 내의 모든 Composable에서 ViewModel 인스턴스를 공유합니다.
 
@@ -135,7 +135,7 @@ fun ScreenB() {
 버전 4.1부터 `koin-androidx-compose`에서 사용할 수 있습니다.
 :::
 
-### sharedKoinViewModel() - 네비게이션 그래프 스코프
+### sharedKoinViewModel() - 네비게이션 그래프 스코프 {id="sharedkoinviewmodel-navigation-graph-scoped"}
 
 네비게이션 그래프 내에서 ViewModel을 공유합니다 (실험적 기능).
 
@@ -153,9 +153,9 @@ navigation<Route.BookGraph>(startDestination = Route.BookList) {
 }
 ```
 
-## 파라미터가 있는 ViewModel
+## 파라미터가 있는 ViewModel {id="viewmodel-with-parameters"}
 
-### @InjectedParam 사용
+### @InjectedParam 사용 {id="using-injectedparam"}
 
 런타임 파라미터를 `@InjectedParam`으로 표시합니다.
 
@@ -195,7 +195,7 @@ fun DetailScreen(newsId: String) {
 
 `key`는 각 고유한 `newsId`가 자신만의 ViewModel 인스턴스를 갖도록 보장합니다. 이는 서로 다른 인자를 가진 화면들이 백 스택에 동시에 존재할 수 있는 경우에 중요합니다.
 
-### 파라미터가 있는 클래식 DSL
+### 파라미터가 있는 클래식 DSL {id="classic-dsl-with-parameters"}
 
 ```kotlin
 val appModule = module {
@@ -208,7 +208,7 @@ val appModule = module {
 }
 ```
 
-## SavedStateHandle
+## SavedStateHandle {id="savedstatehandle"}
 
 Koin은 ViewModel에 `SavedStateHandle`을 자동으로 제공합니다.
 
@@ -236,7 +236,7 @@ val appModule = module {
 `SavedStateHandle`은 컨텍스트에 따라 ViewModel의 `CreationExtras` 또는 네비게이션의 `BackStackEntry`에서 주입됩니다.
 :::
 
-## ViewModel 스코프 (ViewModel Scope)
+## ViewModel 스코프 (ViewModel Scope) {id="viewmodel-scope"}
 
 `viewModelScope`를 사용하여 의존성의 스코프를 ViewModel 생명주기에 맞춥니다.
 
@@ -282,7 +282,7 @@ val appModule = module {
 `viewModelScope { }` 내부에 ViewModel을 선언하려면 Koin 설정에서 `options(viewModelScopeFactory())`를 활성화해야 합니다. 그렇지 않으면 `koinViewModel()` 호출 시 `No definition found … on scope '['_root_']'` 오류와 함께 실패합니다. 자세한 내용은 [ViewModel Scope](/docs/reference/koin-core/viewmodel#viewmodel-scope)를 참조하세요.
 :::
 
-## 빠른 참조 (Quick Reference)
+## 빠른 참조 (Quick Reference) {id="quick-reference"}
 
 | API | 사용 사례 | 패키지 |
 |-----|----------|---------|
@@ -291,7 +291,7 @@ val appModule = module {
 | `koinActivityViewModel()` | Activity 간 공유 (Android) | `koin-androidx-compose` |
 | `sharedKoinViewModel()` | 네비게이션 그래프 내 공유 | `koin-compose-viewmodel-navigation` |
 
-## 권장 사항 (Best Practices)
+## 권장 사항 (Best Practices) {id="best-practices"}
 
 1. **기본 파라미터로 주입하세요** - Koin 없이도 테스트가 가능해집니다.
    ```kotlin
@@ -313,7 +313,7 @@ val appModule = module {
    Button(onClick = { vm.doSomething() })
    ```
 
-## 다음 단계
+## 다음 단계 {id="next-steps"}
 
 - **[Compose Lifecycle](/docs/reference/koin-compose/compose-lifecycle)** - 상태 및 리컴포지션(Recomposition)
 - **[Core ViewModel](/docs/reference/koin-core/viewmodel)** - ViewModel 선언 DSL

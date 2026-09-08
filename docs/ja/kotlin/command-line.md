@@ -10,9 +10,9 @@ Kotlinの各リリースには、スタンドアロン版のコンパイラが�
 > 
 {style="note"}
 
-## コンパイラのインストール
+## コンパイラのインストール {id="install-the-compiler"}
 
-### 手動インストール
+### 手動インストール {id="manual-install"}
 
 Kotlinコンパイラを手動でインストールするには：
 
@@ -24,7 +24,7 @@ Kotlinコンパイラを手動でインストールするには：
 > 
 {style="note"}
 
-### SDKMAN!
+### SDKMAN! {id="sdkman"}
 
 macOS、Linux、Cygwin、FreeBSD、SolarisなどのUNIXベースのシステムでKotlinをインストールするより簡単な方法は、[SDKMAN!](https://sdkman.io) です。これは Bash や ZSH シェルでも動作します。[SDKMAN!のインストール方法](https://sdkman.io/install)を確認してください。
 
@@ -34,7 +34,7 @@ SDKMAN! 経由でKotlinコンパイラをインストールするには、ター
 sdk install kotlin
 ```
 
-### Homebrew
+### Homebrew {id="homebrew"}
 
 あるいは、macOSでは [Homebrew](https://brew.sh/) を使用してコンパイラをインストールできます。
 
@@ -43,7 +43,7 @@ brew update
 brew install kotlin
 ```
 
-### Snap パッケージ
+### Snap パッケージ {id="snap-package"}
 
 Ubuntu 16.04以降で [Snap](https://snapcraft.io/) を使用している場合は、コマンドラインからコンパイラをインストールできます。
 
@@ -51,7 +51,7 @@ Ubuntu 16.04以降で [Snap](https://snapcraft.io/) を使用している場合�
 sudo snap install --classic kotlin
 ```
 
-## アプリケーションの作成と実行
+## アプリケーションの作成と実行 {id="create-and-run-an-application"}
 
 1. `"Hello, World!"` を表示するシンプルなKotlinコンソールJVMアプリケーションを作成します。
    コードエディタで、以下のコードを含む `hello.kt` という名前の新しいファイルを作成します。
@@ -87,7 +87,7 @@ sudo snap install --classic kotlin
 > 
 {style="note"}
 
-## ライブラリのコンパイル
+## ライブラリのコンパイル {id="compile-a-library"}
 
 他のKotlinアプリケーションで使用されるライブラリを開発している場合は、Kotlinランタイムを含めずに **.jar** ファイルをビルドできます。
 
@@ -109,11 +109,11 @@ kotlinr -classpath hello.jar HelloKt
 >
 {style="note"}
 
-## REPLの実行
+## REPLの実行 {id="run-the-repl"}
 
 対話型シェル（REPL）を使用するには、[`-Xrepl` コンパイラオプション](compiler-reference.md#xrepl)を指定してコンパイラを実行します。このシェルでは、任意の有効なKotlinコードを入力して、その結果を確認できます。
 
-## スクリプトの実行
+## スクリプトの実行 {id="run-scripts"}
 
 Kotlinをスクリプティング言語として使用できます。
 Kotlinスクリプトは、トップレベルに実行可能コードを持つKotlinソースファイル（`.kts`）です。
@@ -148,6 +148,6 @@ kotlinc -script-templates org.example.CustomScriptDefinition -script custom.scri
 
 詳細については、[KEEP-75](https://github.com/Kotlin/KEEP/blob/master/proposals/scripting-support.md) を参照してください。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 [Kotlin/JVMによるコンソールアプリケーションの作成](jvm-get-started.md)

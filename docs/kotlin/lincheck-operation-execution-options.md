@@ -5,7 +5,7 @@ Lincheck 提供了一组选项，用于控制特定操作的执行方式，例�
 
 在本文中，你将了解不同的执行选项以及如何设置它们。
 
-## 单线程操作组
+## 单线程操作组 {id="single-thread-operation-groups"}
 
 某些操作要求永远不要并发运行，例如单生产者单消费者队列中的操作。
 
@@ -39,7 +39,7 @@ Lincheck 确保非并行组中的操作永远不会相互并行执行。然而�
 | --------------------- |
 ```
 
-## 单次执行操作
+## 单次执行操作 {id="single-use-operations"}
 
 使用 `runOnce` 选项可以使操作在每次测试调用中仅执行一次：
 
@@ -62,7 +62,7 @@ fun buzz() = struct.buzz()
 | ------------------- |
 ```
 
-## 阻塞操作
+## 阻塞操作 {id="blocking-operations"}
 
 如果操作旨在阻塞执行，请使用 `blocking` 选项。如果测试检查[非阻塞保证](lincheck-progress-guarantees.md)，当执行在标记有 `blocking` 选项的操作上停滞时，Lincheck 不会使测试失败：
 
@@ -71,7 +71,7 @@ fun buzz() = struct.buzz()
 fun foo(): Int = struct.foo()
 ```
 
-## 可取消操作
+## 可取消操作 {id="cancelable-operations"}
 
 如果操作在[挂起时可以被取消](https://kotlinlang.org/docs/cancellation-and-timeouts.html#suspension-points-and-cancellation)，请使用 `cancellableOnSuspension` 选项：
 
@@ -136,7 +136,7 @@ class ChannelCancellableTest {
 </tr>
 </table>
 
-### 即时取消
+### 即时取消 {id="prompt-cancellation"}
 
 如果启用了 `cancellableOnSuspension` 并且操作应该支持[即时取消](https://kotlinlang.org/docs/cancellation-and-timeouts.html#handle-values-safely-when-canceling-coroutines)，你还可以将 `promptCancellation` 设置为 `true`：
 
@@ -200,7 +200,7 @@ class PromptCancellationTest {
 </tr>
 </table>
 
-## 另请参阅
+## 另请参阅 {id="see-also"}
 
 * [检查非阻塞进度保证](lincheck-progress-guarantees.md)
 * [定义算法的顺序规范](lincheck-results-validation.md)

@@ -35,13 +35,13 @@ async: true
 !!! info
     웹 워커 드라이버는 브라우저 타겟(browser targets)과만 호환됩니다. 
 
-## 웹 워커 설정하기
+## 웹 워커 설정하기 {id="configuring-a-web-worker"}
 
 SQLDelight의 웹 워커 드라이버는 특정 워커 구현에 종속되지 않습니다. 대신 드라이버는 표준화된 메시지 세트를 사용하여 워커와 통신합니다. SQLDelight는 [SQL.js]를 사용하는 워커 구현체를 제공합니다.
 
 프로젝트 설정에 대한 자세한 내용은 [SQL.js 워커](sqljs_worker.md) 페이지를, 직접 워커를 구현하는 방법에 대한 자세한 내용은 [커스텀 워커](custom_worker.md) 페이지를 참조하세요.
 
-## 웹 워커 사용하기
+## 웹 워커 사용하기 {id="using-a-web-worker"}
 
 웹 워커 드라이버 인스턴스를 생성할 때, 모든 SQL 작업을 처리하는 데 사용할 웹 워커에 대한 참조를 전달해야 합니다. `Worker` 생성자는 워커 스크립트를 참조하는 `URL` 객체를 인자로 받습니다.
 
@@ -60,7 +60,7 @@ val driver = WebWorkerDriver(
 
 이 시점부터는 다른 SQLDelight 드라이버와 동일하게 드라이버를 사용할 수 있습니다.
 
-## 쿼리 사용하기
+## 쿼리 사용하기 {id="using-queries"}
 
 {% include 'common/index_queries.md' %}
 

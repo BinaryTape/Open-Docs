@@ -22,7 +22,7 @@
 >
 {style="note"}
 
-## 具有單個目標的 Xcode 專案
+## 具有單個目標的 Xcode 專案 {id="xcode-project-with-one-target"}
 
 要在具有單個目標的 Xcode 專案中將 Kotlin 專案作為 Pod 相依性使用：
 
@@ -73,7 +73,7 @@
 8. 關閉你的 `.xcodeproj` 並改為開啟新的 `.xcworkspace` 檔案。透過這種方式，你可以避免專案相依性方面的問題。
 9. 在 IntelliJ IDEA 中執行 **Build** | **Reload All Gradle Projects**（或在 Android Studio 中執行 **File** | **Sync Project with Gradle Files**）以重新匯入專案。
 
-## 具有多個目標的 Xcode 專案
+## 具有多個目標的 Xcode 專案 {id="xcode-project-with-several-targets"}
 
 要在具有多個目標的 Xcode 專案中將 Kotlin 專案作為 Pod 相依性使用：
 
@@ -132,7 +132,7 @@
 8. 關閉你的 `.xcodeproj` 並改為開啟新的 `.xcworkspace` 檔案。透過這種方式，你可以避免專案相依性方面的問題。
 9. 在 IntelliJ IDEA 中執行 **Build** | **Reload All Gradle Projects**（或在 Android Studio 中執行 **File** | **Sync Project with Gradle Files**）以重新匯入專案。
 
-## 接下來的操作
+## 接下來的操作 {id="what-s-next"}
 
 * [在你的 Kotlin 專案中新增對 Pod 程式庫的相依性](multiplatform-cocoapods-libraries.md)
 * [查看如何將架構連接到你的 iOS 專案](multiplatform-direct-integration.md)

@@ -17,7 +17,7 @@
 
 [종속성 주입(DI) 플러그인](server-dependency-injection.md)은 애플리케이션이 종료될 때 수명 주기(lifecycle)와 정리(cleanup)를 자동으로 처리합니다.
 
-### AutoCloseable 지원
+### AutoCloseable 지원 {id="autocloseable-support"}
 
 기본적으로 `AutoCloseable`을 구현하는 모든 종속성은 애플리케이션이 중지될 때 자동으로 닫힙니다.
 
@@ -33,7 +33,7 @@ dependencies {
 }
 ```
 
-### 사용자 정의 정리 로직
+### 사용자 정의 정리 로직 {id="custom-cleanup-logic"}
 
 `cleanup` 함수를 지정하여 사용자 정의 정리 로직을 정의할 수 있습니다.
 
@@ -45,7 +45,7 @@ dependencies {
 }
 ```
 
-### key를 사용한 범위 지정 정리
+### key를 사용한 범위 지정 정리 {id="scoped-cleanup-with-key"}
 
 `key`를 사용하여 명명된 리소스와 해당 정리를 관리할 수 있습니다.
 

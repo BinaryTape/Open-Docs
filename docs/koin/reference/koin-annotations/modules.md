@@ -2,7 +2,7 @@
 title: 应用、配置与模块
 ---
 
-## 使用 @KoinApplication 进行应用引导 (Bootstrap)
+## 使用 @KoinApplication 进行应用引导 (Bootstrap) {id="application-bootstrap-with-koinapplication"}
 
 使用 `@KoinApplication` 来定义您的应用程序入口点：
 
@@ -24,7 +24,7 @@ fun main() {
 }
 ```
 
-### 可用的类型化 API
+### 可用的类型化 API {id="available-typed-apis"}
 
 | API | 描述 |
 |-----|-------------|
@@ -35,7 +35,7 @@ fun main() {
 | `module<T>()` | 加载单个 `@Module` 类 |
 | `modules(A::class, B::class)` | 加载多个 `@Module` 类 |
 
-### 加载单个模块
+### 加载单个模块 {id="loading-individual-modules"}
 
 使用 `module<T>()` 或 `modules(vararg KClass)` 直接加载 `@Module` 类，无需 `@KoinApplication`：
 
@@ -60,7 +60,7 @@ val koinTestRule = KoinTestRule.create {
 `module<T>()` 和 `modules(vararg KClass)` 是存根函数，编译器插件会在编译时对其进行拦截并转换。它们需要应用 Koin 编译器插件。
 :::
 
-### @KoinApplication 参数
+### @KoinApplication 参数 {id="koinapplication-parameters"}
 
 - `modules`：要包含的模块类数组
 - `configurations`：要加载的配置标签数组
@@ -77,7 +77,7 @@ class ProdApp
 未指定配置时，会自动加载标记有 `@Configuration`（默认标签）的模块。
 :::
 
-### 模块加载顺序与重写
+### 模块加载顺序与重写 {id="module-load-order-and-overrides"}
 
 Koin 在运行时遵循 **最后胜出 (last-wins)** 原则：当两个模块定义了相同的类型时，最后加载的模块具有优先级。编译器插件按照以下顺序从 `@KoinApplication` 组装模块列表：
 
@@ -113,11 +113,11 @@ class MyApp
 如果您需要在多个 `@Configuration` 模块之间指定特定的加载顺序（而不是类路径扫描顺序），请在 `@KoinApplication(modules = [Core::class, Feature::class, App::class])` 中显式列出它们 —— 显式列表遵循声明顺序。
 :::
 
-## 使用 @Configuration 进行配置管理
+## 使用 @Configuration 进行配置管理 {id="configuration-management-with-configuration"}
 
 `@Configuration` 注解允许您将模块组织到不同的配置（环境、变体等）中。这对于按部署环境或功能集组织模块非常有用。
 
-### 基础配置用法
+### 基础配置用法 {id="basic-configuration-usage"}
 
 ```kotlin
 // 将模块放入默认配置中
@@ -148,7 +148,7 @@ class ModuleB
 object MyApp
 ```
 
-### 多配置支持
+### 多配置支持 {id="multiple-configuration-support"}
 
 一个模块可以与多个配置关联：
 
@@ -170,7 +170,7 @@ class LoggingModule {
 }
 ```
 
-### 特定环境的配置
+### 特定环境的配置 {id="environment-specific-configurations"}
 
 ```kotlin
 // 仅限开发环境的配置
@@ -198,7 +198,7 @@ class CoreModule {
 }
 ```
 
-### 在 @KoinApplication 中使用配置
+### 在 @KoinApplication 中使用配置 {id="using-configurations-with-koinapplication"}
 
 默认情况下，`@KoinApplication` 会加载所有默认配置（标记有 `@Configuration` 的模块）。
 
@@ -222,11 +222,11 @@ class SimpleApp
 - 模块可以通过在注解中列出配置来属于多个配置
 :::
 
-## 使用模块进行组织
+## 使用模块进行组织 {id="organizing-with-modules"}
 
 始终使用 `@Module` 在显式模块中组织您的定义：
 
-## 使用 @Module 的类模块
+## 使用 @Module 的类模块 {id="class-module-with-module"}
 
 要声明一个模块，只需在类上标记 `@Module` 注解：
 
@@ -246,7 +246,7 @@ fun main() {
 }
 ```
 
-## 使用 @ComponentScan 进行组件扫描
+## 使用 @ComponentScan 进行组件扫描 {id="components-scan-with-componentscan"}
 
 使用 `@ComponentScan` 自动发现带注解的组件：
 
@@ -268,7 +268,7 @@ class FeatureModule
 `@ComponentScan` 会遍历同一软件包下的所有 Gradle 模块。
 :::
 
-## 类模块中的定义
+## 类模块中的定义 {id="definitions-in-class-modules"}
 
 要直接在代码中定义一个定义 (definition)，您可以使用定义注解来标注函数：
 
@@ -286,7 +286,7 @@ class MyModule {
 
 > **注意**：`@InjectedParam`（用于来自 startKoin 的注入参数）和 `@Property`（用于属性注入）也可用于函数成员。有关这些注解的更多详细信息，请参阅定义文档。
 
-## 包含模块
+## 包含模块 {id="including-modules"}
 
 使用 `includes` 属性来组合模块：
 

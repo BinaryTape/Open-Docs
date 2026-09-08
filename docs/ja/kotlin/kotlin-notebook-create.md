@@ -13,7 +13,7 @@
 * [既存のプロジェクトに Kotlin Notebook を追加する](#add-a-new-kotlin-notebook-to-your-project)
 * [スクラッチ Kotlin Notebook を作成する](#create-a-scratch-kotlin-notebook)
 
-## 新規プロジェクトの作成 
+## 新規プロジェクトの作成 {id="create-a-new-project"}
 
 Kotlin Notebook を含む新しいプロジェクトを作成するには：
 
@@ -53,7 +53,7 @@ Kotlin Notebook を含む新しいプロジェクトを作成するには：
 
 プロジェクトが作成されたら、新しい Kotlin Notebook を追加します（次のセクションを参照）。
 
-## プロジェクトに新しい Kotlin Notebook を追加する
+## プロジェクトに新しい Kotlin Notebook を追加する {id="add-a-new-kotlin-notebook-to-your-project"}
 
 既存のプロジェクトに新しい Kotlin Notebook を追加するには：
 
@@ -64,7 +64,7 @@ Kotlin Notebook を含む新しいプロジェクトを作成するには：
 2. 新しいノートブックの名前（例：**first-notebook**）を設定します。
 3. **Enter** キーを押します。Kotlin Notebook **first-notebook.ipynb** を含む新しいタブが開きます。
 
-## スクラッチ Kotlin Notebook を作成する
+## スクラッチ Kotlin Notebook を作成する {id="create-a-scratch-kotlin-notebook"}
 
 スクラッチファイルとして Kotlin Notebook を作成することもできます。[スクラッチファイル](https://www.jetbrains.com/help/idea/scratches.html#create-scratch-file)を使用すると、新しいプロジェクトを作成したり既存のプロジェクトを変更したりすることなく、小さなコードをテストできます。
 
@@ -75,7 +75,7 @@ Kotlin Notebook を含む新しいプロジェクトを作成するには：
 
    ![スクラッチノートブック](kotlin-notebook-scratch-file.png){width=400}
 
-## 基本操作を行う
+## 基本操作を行う {id="perform-basic-operations"}
 
 1. 新しい Kotlin Notebook のコードセルに次のコードを入力します：
 
@@ -100,7 +100,7 @@ Kotlin Notebook を含む新しいプロジェクトを作成するには：
 
 おめでとうございます！初めての Kotlin Notebook を作成し、試すことができました。
 
-## 次のステップ
+## 次のステップ {id="next-step"}
 
 チュートリアルの次のパートでは、Kotlin Notebook に依存関係を追加する方法を学びます。
 

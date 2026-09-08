@@ -4,7 +4,7 @@ title: 傳遞參數 - 注入參數
 
 在任何定義中，您都可以使用注入參數：這些參數將被注入並由您的定義使用。
 
-## 傳遞值以進行注入
+## 傳遞值以進行注入 {id="passing-values-to-inject"}
 
 給定一個定義，您可以將參數傳遞給該定義：
 
@@ -29,7 +29,7 @@ class MyComponent : View, KoinComponent {
 }
 ```
 
-## 定義「注入參數」
+## 定義「注入參數」 {id="defining-an-injected-parameter"}
 
 以下是注入參數的範例。我們確定需要一個 `view` 參數來建置 `Presenter` 類別。我們使用 `params` 函式引數來協助擷取注入參數：
 
@@ -55,7 +55,7 @@ val myModule = module {
  即使「解構」宣告更方便且更具可讀性，但它並非型別安全。如果您有多個值，Kotlin 將無法偵測傳遞的型別順序是否正確。
 :::
 
-## 依序解析注入參數
+## 依序解析注入參數 {id="resolving-injected-parameters-in-order"}
 
 如果您有多個相同型別的參數，可以使用索引來解析參數，例如 `get(index)`（與 `[ ]` 運算子相同），而不是使用 `get()`：
 
@@ -68,7 +68,7 @@ val myModule = module {
 }
 ```
 
-## 從圖形中解析注入參數
+## 從圖形中解析注入參數 {id="resolving-injected-parameters-from-graph"}
 
 Koin 圖形解析（所有定義解析的主樹）也允許您尋找注入參數。只需使用常用的 `get()` 函式即可：
 
@@ -80,7 +80,7 @@ val myModule = module {
 }
 ```
 
-## 注入參數：索引值或集合 (`3.4.3`)
+## 注入參數：索引值或集合 (`3.4.3`) {id="injected-parameters-indexed-values-or-set-3-4-3"}
 
 除了 `parametersOf` 之外，還可以使用以下 API：
 

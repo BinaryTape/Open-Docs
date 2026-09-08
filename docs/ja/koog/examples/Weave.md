@@ -12,7 +12,7 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Weav
 
 背景知識については、Weave OpenTelemetry のドキュメントを参照してください: https://weave-docs.wandb.ai/guides/tracking/otel/
 
-## 前提条件
+## 前提条件 {id="prerequisites"}
 
 サンプルを実行する前に、以下が準備されていることを確認してください。
 
@@ -31,7 +31,7 @@ export WEAVE_PROJECT_NAME=koog-tracing
 export OPENAI_API_KEY=...
 ```
 
-## ノートブックのセットアップ
+## ノートブックのセットアップ {id="notebook-setup"}
 
 最新の Kotlin Jupyter ディスクリプタを使用します。Koog が `%use` プラグインとして事前設定されている場合は、以下の行のコメントアウトを解除してください。
 
@@ -41,7 +41,7 @@ export OPENAI_API_KEY=...
 
 ```
 
-## エージェントの作成と Weave トレーシングの有効化
+## エージェントの作成と Weave トレーシングの有効化 {id="create-an-agent-and-enable-weave-tracing"}
 
 最小限の `AIAgent` を構築し、Weave エクスポーターを使用して `OpenTelemetry` フィーチャー (feature) をインストールします。
 エクスポーターは、環境設定を使用して OTLP スパンを Weave に送信します：
@@ -73,7 +73,7 @@ val agent = AIAgent(
 
 ```
 
-## エージェントの実行と Weave でのトレース確認
+## エージェントの実行と Weave でのトレース確認 {id="run-the-agent-and-view-traces-in-weave"}
 
 シンプルなプロンプトを実行します。完了後、出力されたリンクを開いて Weave でトレースを確認してください。
 エージェントの実行、モデルの呼び出し、およびその他のインストルメント（計測）された操作のスパンが表示されます。
@@ -91,7 +91,7 @@ See traces on https://wandb.ai/$entity/$projectName/weave/traces"
 
 ```
 
-## トラブルシューティング
+## トラブルシューティング {id="troubleshooting"}
 
 - トレースが表示されない場合は、環境変数 `WEAVE_API_KEY`、`WEAVE_ENTITY`、`WEAVE_PROJECT_NAME` が正しく設定されているか確認してください。
 - ネットワークが Weave の OTLP エンドポイントへのアウトバウンド HTTPS 通信を許可していることを確認してください。

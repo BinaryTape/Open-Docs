@@ -64,7 +64,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 列表反覆運算器 (List iterators)
+## 列表反覆運算器 (List iterators) {id="list-iterators"}
 
 對於列表，有一種特殊的反覆運算器實作：[`ListIterator`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list-iterator/index.html)。它支援雙向遍歷集合：向前與向後。
 
@@ -94,7 +94,7 @@ fun main() {
 
 具備雙向遍歷的能力，意味著 `ListIterator` 在到達最後一個元素後仍然可以使用。
 
-## 可變反覆運算器 (Mutable iterators)
+## 可變反覆運算器 (Mutable iterators) {id="mutable-iterators"}
 
 為了遍歷可變集合，提供了 [`MutableIterator`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-iterator/index.html)，它擴充了 `Iterator` 並增加了元素移除函式 [`remove()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-iterator/remove.html)。因此，您可以在遍歷集合的同時移除其中的元素。
 

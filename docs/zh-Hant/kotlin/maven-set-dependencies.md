@@ -2,7 +2,7 @@
 
 對於您的 Kotlin Maven 專案，您可以設定 Maven 除了預設的 Maven Central 存儲庫之外尋找構件的位置，並定義您的專案所依賴的程式庫。
 
-## 宣告存儲庫
+## 宣告存儲庫 {id="declare-repositories"}
 
 預設情況下，`mavenCentral` 存儲庫可用於所有 Maven 專案。若要存取其他存儲庫中的構件，請在 `<repositories>` 區塊中為存儲庫名稱指定自訂 ID 及其 URL：
 
@@ -31,13 +31,13 @@
 </dependencies>
 ```
 
-## 設定相依性
+## 設定相依性 {id="set-dependencies"}
 
-### 對標準程式庫的相依性
+### 對標準程式庫的相依性 {id="dependency-on-the-standard-library"}
 
 Kotlin 擁有廣泛的標準程式庫，您可以在應用程式中使用。您可以手動新增標準程式庫相依性，或者啟用 `<extensions>` 選項以在缺失時自動設定。
 
-#### 自動設定
+#### 自動設定 {id="automatic-setup"}
 
 您可以使用 Kotlin Maven 外掛程式提供的 [`<extensions>` 選項](maven-configure-project.md#automatic-configuration) 來避免手動配置。如果專案中未定義，它會自動新增 `kotlin-stdlib` 相依性。例如，當您建立新的 Kotlin Maven 專案，或將 Kotlin 引入現有的 Java Maven 專案時。
 
@@ -57,7 +57,7 @@ Kotlin 擁有廣泛的標準程式庫，您可以在應用程式中使用。您�
 >
 {style="note"}
 
-#### 手動配置
+#### 手動配置 {id="manual-configuration"}
 
 若要手動將 Kotlin 的標準程式庫新增至您的專案，請使用以下內容更新 `pom.xml` 檔案中的 `dependencies` 區塊：
 
@@ -78,7 +78,7 @@ Kotlin 擁有廣泛的標準程式庫，您可以在應用程式中使用。您�
 >
 {style="note"}
 
-### 對測試程式庫的相依性
+### 對測試程式庫的相依性 {id="dependencies-on-test-libraries"}
 
 如果您的專案使用 [Kotlin 反射](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect.full/) 或測試架構，請新增相關的相依性。
 為反射程式庫使用 `kotlin-reflect`，並為測試程式庫使用 `kotlin-test` 和 `kotlin-test-junit5`：
@@ -98,7 +98,7 @@ Kotlin 擁有廣泛的標準程式庫，您可以在應用程式中使用。您�
 </dependencies>
 ```
 
-### 對 kotlinx 程式庫的相依性
+### 對 kotlinx 程式庫的相依性 {id="dependency-on-a-kotlinx-library"}
 
 對於 kotlinx 程式庫，您可以新增基礎構件名稱或帶有 `-jvm` 後綴的名稱。請參考 [klibs.io](https://klibs.io/) 上該程式庫的 README 檔案。
 
@@ -126,7 +126,7 @@ Kotlin 擁有廣泛的標準程式庫，您可以在應用程式中使用。您�
 </dependencies>
 ```
 
-## 使用 BOM 管理相依性
+## 使用 BOM 管理相依性 {id="manage-dependencies-with-a-bom"}
 
 [物料清單 (BOM)](https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#bill-of-materials-bom-poms) 是一種特殊的 POM 檔案，用於管理專案中的相依性版本。這可以保持相關構件一致，並避免版本衝突。
 
@@ -155,6 +155,6 @@ Kotlin 發布了 [`kotlin-bom`](https://mvnrepository.com/artifact/org.jetbrains
 
 如果您的專案發布了多個同時發行的程式庫，您可以提供自己的 BOM，以便使用者可以以相同的方式統一這些程式庫的版本。若要了解如何編寫自己的 BOM，請參閱 [Maven 文件](https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#bill-of-materials-bom-poms)。
 
-## 接下來？
+## 接下來？ {id="what-s-next"}
 
 [配置 Kotlin 編譯器](maven-kotlin-compiler.md)

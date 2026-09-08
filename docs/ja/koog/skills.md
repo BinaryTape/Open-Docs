@@ -8,7 +8,7 @@ Koogスキルを使用すると、エージェントはファイルシステム�
 2. 検出されたメタデータからスキルプロンプトブロックを生成する。
 3. 生成されたブロックをエージェントの `system` プロンプトに追加し、エージェントがファイルの検査やスキルスクリプトの実行に使用できるツールを提供する。
 
-## 例：システムプロンプトへのスキルの追加
+## 例：システムプロンプトへのスキルの追加 {id="example-adding-skills-to-system-prompt"}
 
 ```kotlin
 
@@ -54,7 +54,7 @@ fun main() = runBlocking {
 ```
 <!--- KNIT example-skills-usage-01.kt -->
 
-## 必要な構成要素
+## 必要な構成要素 {id="required-pieces"}
 
 - `discoverSkills(...)` は設定されたディレクトリをスキャンし、検出されたスキルの記述子（descriptors）を返します。
 - `generateSkillsPrompt(...)` は、検出されたスキルをプロンプトテキストに変換します（`SkillsPromptFormat.XML` が一般的な選択肢です）。
@@ -63,7 +63,7 @@ fun main() = runBlocking {
   - ファイルの検出/読み取りツール（スキルの透明な公開のため）
   - スキルスクリプトを実行するために使用される1つ以上の実行ツール
 
-## 期待される動作
+## 期待される動作 {id="behavior-expectations"}
 
 スキルプロンプトが存在し、対応するツールが登録されている場合、エージェントは以下のことが可能です：
 
@@ -73,7 +73,7 @@ fun main() = runBlocking {
 
 詳細は [Agent Skills](https://agentskills.io/home) のドキュメントを参照してください。
 
-## 実践的なヒント
+## 実践的なヒント {id="practical-tips"}
 
 - スキルは専用のディレクトリに保持し、相対パスのルートが変動する可能性のある実行環境では絶対パスを渡すようにしてください。
 - スキルが静的な場合は、検出に読み取り専用のファイルプロバイダーを使用します（例：`JVMFileSystemProvider.ReadOnly`）。

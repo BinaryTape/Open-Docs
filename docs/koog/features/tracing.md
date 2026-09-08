@@ -2,7 +2,7 @@
 
 本页面包含有关跟踪功能的详细信息，该功能为 AI Agent 提供了全面的跟踪能力。
 
-## 功能概述
+## 功能概述 {id="feature-overview"}
 
 跟踪功能是一个强大的监控与调试工具，可捕获 Agent 运行的详细信息，包括：
 
@@ -14,16 +14,16 @@
 
 该功能通过拦截 Agent 流水线中的关键事件并将其转发给可配置的消息处理器来工作。这些处理器可以将跟踪信息输出到各种目标，例如日志文件或文件系统中的其他类型文件，使开发者能够洞察 Agent 行为并有效地排除故障。
 
-### 事件流
+### 事件流 {id="event-flow"}
 
 1. 跟踪功能拦截 Agent 流水线中的事件。
 2. 根据配置的消息筛选器对事件进行过滤。
 3. 过滤后的事件被传递给注册的消息处理器。
 4. 消息处理器对事件进行格式化并输出到各自的目标。
 
-## 配置与初始化
+## 配置与初始化 {id="configuration-and-initialization"}
 
-### 基础设置
+### 基础设置 {id="basic-setup"}
 
 要使用跟踪功能，您需要：
 
@@ -104,7 +104,7 @@
     ```
     <!--- KNIT exampleTracingJava01.java -->
 
-### 消息过滤
+### 消息过滤 {id="message-filtering"}
 
 您可以处理所有现有事件，也可以根据特定条件选择其中的一部分。
 消息筛选器让您可以控制处理哪些事件。这对于关注 Agent 运行的特定方面非常有用：
@@ -216,7 +216,7 @@
     ```
     <!--- KNIT exampleTracingJava02.java -->
 
-### 大容量跟踪
+### 大容量跟踪 {id="large-trace-volumes"}
 
 对于具有复杂策略或长期运行执行任务的 Agent，跟踪事件的数量可能会非常庞大。请考虑使用以下方法来管理事件量：
 
@@ -224,7 +224,7 @@
 - 实现带缓冲或采样的自定义消息处理器。
 - 对日志文件使用文件轮转，防止其增长过大。
 
-### 依赖图
+### 依赖图 {id="dependency-graph"}
 
 跟踪功能具有以下依赖关系：
 
@@ -268,9 +268,9 @@ Tracing
 ```
 <!--- KNIT example-tracing-01.txt -->
 
-## 示例与快速入门
+## 示例与快速入门 {id="examples-and-quickstarts"}
 
-### 基础 logger 跟踪
+### 基础 logger 跟踪 {id="basic-tracing-to-logger"}
 
 === "Kotlin"
 
@@ -341,9 +341,9 @@ Tracing
     ```
     <!--- KNIT exampleTracingJava03.java -->
 
-## 错误处理与极端情况
+## 错误处理与极端情况 {id="error-handling-and-edge-cases"}
 
-### 无消息处理器
+### 无消息处理器 {id="no-message-processors"}
 
 如果没有将任何消息处理器添加到跟踪功能中，系统将记录一条警告：
 
@@ -354,7 +354,7 @@ Tracing Feature. No feature out stream providers are defined. Trace streaming ha
 
 该功能仍将拦截事件，但它们将不会被处理或输出到任何地方。
 
-### 资源管理
+### 资源管理 {id="resource-management"}
 
 消息处理器可能会持有需要正确释放的资源（如文件句柄）。使用 `use` 扩展函数以确保正确的清理：
 
@@ -446,7 +446,7 @@ Tracing Feature. No feature out stream providers are defined. Trace streaming ha
     ```
     <!--- KNIT exampleTracingJava04.java -->
 
-### 将特定事件跟踪到文件
+### 将特定事件跟踪到文件 {id="tracing-specific-events-to-file"}
 
 === "Kotlin"
 
@@ -540,7 +540,7 @@ Tracing Feature. No feature out stream providers are defined. Trace streaming ha
     ```
     <!--- KNIT exampleTracingJava05.java -->
 
-### 将特定事件跟踪到远程端点
+### 将特定事件跟踪到远程端点 {id="tracing-specific-events-to-remote-endpoint"}
 
 当您需要通过网络发送事件数据时，可以使用远程端点跟踪。一旦启动，远程端点跟踪将在指定的端口号上启动一个轻量化服务器，并通过 Kotlin Server-Sent Events (SSE) 发送事件。
 
@@ -677,7 +677,7 @@ Tracing Feature. No feature out stream providers are defined. Trace streaming ha
     ```
     <!--- KNIT example-tracing-07.kt -->
 
-## API 文档
+## API 文档 {id="api-documentation"}
 
 跟踪功能遵循模块化架构，包含以下核心组件：
 

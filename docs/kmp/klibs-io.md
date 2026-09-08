@@ -7,7 +7,7 @@
 
 <a as="button" href="https://klibs.io" mode="classic" icon="arrow-right" icon-position="right">浏览多平台库</a>
 
-## AI 工作流中的 klibs.io
+## AI 工作流中的 klibs.io {id="klibs-io-in-your-ai-workflow"}
 
 通过提供的 MCP 接口和现成的智能体指令，将 klibs.io 集成到您的 AI 工作流中：
 
@@ -30,7 +30,7 @@
     * 可比的替代方案。
     ```
   
-## 另请参阅
+## 另请参阅 {id="see-also"}
 
 有关更多信息，请参阅 [klibs.io 常见问题解答](https://klibs.io/faq)：
 * 库是如何索引和排名的，

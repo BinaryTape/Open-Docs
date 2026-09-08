@@ -7,7 +7,7 @@ Kotlinでは関数とプロパティが第一級オブジェクト（First-class
 >
 {style="note"}
 
-## JVMの依存関係
+## JVMの依存関係 {id="jvm-dependency"}
 
 JVMプラットフォームでは、リフレクション機能を使用するために必要なランタイムコンポーネントは、Kotlinコンパイラの配布物の中に `kotlin-reflect.jar` という別のアーティファクトとして含まれています。これは、リフレクション機能を使用しないアプリケーションに対して、ランタイムライブラリに必要なサイズを削減するために行われています。
 
@@ -50,7 +50,7 @@ GradleまたはMavenプロジェクトでリフレクションを使用するに
 GradleやMavenを使用していない場合は、プロジェクトのクラスパスに `kotlin-reflect.jar` が含まれていることを確認してください。
 その他のサポートされているケース（コマンドラインコンパイラを使用するIntelliJ IDEAプロジェクトなど）では、デフォルトで追加されます。コマンドラインコンパイラでは、`-no-reflect` コンパイラオプションを使用してクラスパスから `kotlin-reflect.jar` を除外することができます。
 
-## クラス参照
+## クラス参照 {id="class-references"}
 
 最も基本的なリフレクション機能は、Kotlinクラスの実行時参照を取得することです。
 静的に既知のKotlinクラスの参照を取得するには、クラスリテラル（class literal）構文を使用します：
@@ -65,7 +65,7 @@ val c = MyClass::class
 >
 {style="note"}
 
-### バインドされたクラス参照
+### バインドされたクラス参照 {id="bound-class-references"}
 
 特定のオブジェクトのクラスへの参照を取得するには、同じ `::class` 構文を使用して、そのオブジェクトをレシーバーとして指定します：
 
@@ -76,13 +76,13 @@ assert(widget is GoodWidget) { "Bad widget: ${widget::class.qualifiedName}" }
 
 レシーバー式の型（`Widget`）に関わらず、オブジェクトの正確なクラス（例：`GoodWidget` や `BadWidget`）の参照を取得できます。
 
-## 呼び出し可能参照
+## 呼び出し可能参照 {id="callable-references"}
 
 関数、プロパティ、コンストラクタへの参照は、呼び出すことも、[関数型](lambdas.md#function-types)のインスタンスとして使用することもできます。
 
 すべての呼び出し可能参照に共通するスーパータイプは [`KCallable<out R>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-callable/index.html) です。ここで `R` は戻り値の型です。これはプロパティの場合はプロパティの型であり、コンストラクタの場合は構築される型です。
 
-### 関数参照
+### 関数参照 {id="function-references"}
 
 以下のように宣言された名前付き関数がある場合、それを直接呼び出すことができます（`isOdd(5)`）：
 
@@ -138,7 +138,7 @@ val predicate: (String) -> Boolean = ::isOdd   // isOdd(x: String) を参照
 val isEmptyStringList: List<String>.() -> Boolean = List<String>::isEmpty
 ```
 
-#### 例：関数の合成
+#### 例：関数の合成 {id="example-function-composition"}
 
 以下の関数を考えてみましょう：
 
@@ -171,7 +171,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### プロパティ参照
+### プロパティ参照 {id="property-references"}
 
 Kotlinでプロパティを第一級オブジェクトとして扱うには、`::` 演算子を使用します：
 
@@ -235,7 +235,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### Javaリフレクションとの相互運用性
+### Javaリフレクションとの相互運用性 {id="interoperability-with-java-reflection"}
 
 JVMプラットフォームでは、標準ライブラリにJavaリフレクションオブジェクトとのマッピングを提供するリフレクションクラスの拡張が含まれています（`kotlin.reflect.jvm` パッケージを参照）。
 例えば、Kotlinプロパティのゲッターとして機能するバッキングフィールドやJavaメソッドを見つけるには、次のように記述できます：
@@ -257,7 +257,7 @@ Javaクラスに対応するKotlinクラスを取得するには、`.kotlin` 拡
 fun getKClass(o: Any): KClass<Any> = o.javaClass.kotlin
 ```
 
-### コンストラクタ参照
+### コンストラクタ参照 {id="constructor-references"}
 
 コンストラクタは、メソッドやプロパティと同じように参照できます。コンストラクタと同じパラメータを受け取り、適切な型のオブジェクトを返す関数型オブジェクトが期待される場所であれば、どこでもコンストラクタ参照を使用できます。
 コンストラクタは、`::` 演算子を使用し、クラス名を追加することで参照されます。引数なしで戻り値の型が `Foo` である関数パラメータを期待する、以下の関数を考えてみましょう：
@@ -278,7 +278,7 @@ function(::Foo)
 
 コンストラクタへの呼び出し可能参照は、パラメータの数に応じて [`KFunction<out R>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-function/index.html) のサブタイプのいずれかとして型付けされます。
 
-### バインドされた関数およびプロパティ参照
+### バインドされた関数およびプロパティ参照 {id="bound-function-and-property-references"}
 
 特定のオブジェクトのインスタンスメソッドを参照できます：
 
@@ -333,7 +333,7 @@ fun main() {
 
 レシーバーとして `this` を指定する必要はありません。`this::foo` と `::foo` は等価です。
 
-### バインドされたコンストラクタ参照
+### バインドされたコンストラクタ参照 {id="bound-constructor-references"}
 
 [内部クラス（inner class）](nested-classes.md#inner-classes)のコンストラクタへのバインドされた呼び出し可能参照は、外部クラスのインスタンスを提供することで取得できます：
 

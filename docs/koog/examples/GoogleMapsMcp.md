@@ -17,7 +17,7 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Goog
 
 ```
 
-## 前提条件
+## 前提条件 {id="prerequisites"}
 在运行下面的单元格之前，请确保你已经：
 
 - 安装并运行 Docker
@@ -38,7 +38,7 @@ val openAIApiToken = System.getenv("OPENAI_API_KEY") ?: error("OPENAI_API_KEY en
 
 ```
 
-## 启动 Google Maps MCP 服务器 (Docker)
+## 启动 Google Maps MCP 服务器 (Docker) {id="start-the-google-maps-mcp-server-docker"}
 我们将使用官方的 `mcp/google-maps` 镜像。该容器将通过 MCP 暴露 `maps_geocode` 和 `maps_elevation` 等工具。我们通过环境变量传递 API 密钥，并以连接模式启动它，以便笔记本可以通过 stdio 与其通信。
 
 ```kotlin
@@ -54,7 +54,7 @@ val process = ProcessBuilder(
 
 ```
 
-## 通过 McpToolRegistry 发现工具
+## 通过 McpToolRegistry 发现工具 {id="discover-tools-via-mcptoolregistry"}
 Koog 可以通过 stdio 连接到 MCP 服务器。在这里，我们从运行中的进程创建一个工具注册表，并打印出发现的工具及其描述符。
 
 ```kotlin
@@ -68,7 +68,7 @@ toolRegistry.tools.forEach {
 
 ```
 
-## 使用 OpenAI 构建 AI 智能体
+## 使用 OpenAI 构建 AI 智能体 {id="build-an-ai-agent-with-openai"}
 接下来，我们组装一个由 OpenAI 执行器和模型支持的简单智能体。该智能体将能够通过我们刚刚创建的注册表调用 MCP 服务器暴露的工具。
 
 ```kotlin
@@ -80,7 +80,7 @@ val agent = AIAgent(
 
 ```
 
-## 请求海拔：先地理编码，再获取海拔
+## 请求海拔：先地理编码，再获取海拔 {id="ask-for-elevation-geocode-first-then-elevation"}
 我们提示智能体查找位于慕尼黑的 JetBrains 办公室的海拔。指令明确告知智能体仅使用可用工具，并指明完成该任务首选哪些工具。
 
 ```kotlin
@@ -96,7 +96,7 @@ runBlocking {
 
 ```
 
-## 清理
+## 清理 {id="clean-up"}
 完成后，请停止 Docker 进程，以免在后台留下运行中的容器。
 
 ```kotlin
@@ -104,7 +104,7 @@ process.destroy()
 
 ```
 
-## 故障排除与后续步骤
+## 故障排除与后续步骤 {id="troubleshooting-and-next-steps"}
 - 如果容器启动失败，请检查 Docker 是否正在运行以及你的 `GOOGLE_MAPS_API_KEY` 是否有效。
 - 如果智能体无法调用工具，请重新运行发现工具的单元格，以确保工具注册表已填充。
 - 尝试使用其他提示词，例如使用可用的 Google Maps 工具进行路线规划或地点搜索。

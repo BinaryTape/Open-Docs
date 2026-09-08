@@ -8,9 +8,9 @@ title: 고급 안드로이드 패턴
 플랫폼에 독립적인 패턴(컬렉션, 데코레이터, 제네릭 타입, 순환 의존성)에 대해서는 [정의(Definitions)](/docs/reference/koin-core/definitions) 및 [모듈(Modules)](/docs/reference/koin-core/modules)을 참조하세요.
 :::
 
-## 싱글톤에서의 안드로이드 컨텍스트(Context)
+## 싱글톤에서의 안드로이드 컨텍스트(Context) {id="android-context-in-singletons"}
 
-### Activity 누수 방지
+### Activity 누수 방지 {id="avoiding-activity-leaks"}
 
 ```kotlin
 // ❌ 나쁨 - 싱글톤을 통한 Activity 누수 발생
@@ -31,7 +31,7 @@ module {
 }
 ```
 
-### 컨텍스트 타입
+### 컨텍스트 타입 {id="context-types"}
 
 ```kotlin
 module {
@@ -43,9 +43,9 @@ module {
 }
 ```
 
-## BuildConfig를 이용한 조건부 바인딩
+## BuildConfig를 이용한 조건부 바인딩 {id="conditional-bindings-with-buildconfig"}
 
-### 빌드 변리언트(Build Variant)
+### 빌드 변리언트(Build Variant) {id="build-variant"}
 
 ```kotlin
 fun createLogger(): Logger =
@@ -67,7 +67,7 @@ class LoggingModule {
 }
 ```
 
-### 애널리틱스 토글
+### 애널리틱스 토글 {id="analytics-toggle"}
 
 ```kotlin
 fun createAnalyticsService(): AnalyticsService =
@@ -78,7 +78,7 @@ val analyticsModule = module {
 }
 ```
 
-### 피처 플래그(Feature Flags)
+### 피처 플래그(Feature Flags) {id="feature-flags"}
 
 ```kotlin
 @Singleton
@@ -97,7 +97,7 @@ class PaymentProcessor(
 }
 ```
 
-## 안드로이드 Dialog 프로바이더
+## 안드로이드 Dialog 프로바이더 {id="android-dialog-provider"}
 
 안드로이드 UI 컴포넌트를 위한 팩토리를 생성합니다:
 
@@ -128,7 +128,7 @@ class MainActivity : AppCompatActivity() {
 }
 ```
 
-## 계층적 스코프(Hierarchical Scopes)
+## 계층적 스코프(Hierarchical Scopes) {id="hierarchical-scopes"}
 
 공유 액세스를 위해 안드로이드 스코프를 연결합니다:
 
@@ -154,7 +154,7 @@ shoppingScope.linkTo(sessionScope)
 val cart = shoppingScope.get<ShoppingCart>()
 ```
 
-## 동적 피처 레지스트리(Dynamic Feature Registry)
+## 동적 피처 레지스트리(Dynamic Feature Registry) {id="dynamic-feature-registry"}
 
 설정을 기반으로 컬렉션을 빌드합니다:
 
@@ -170,9 +170,9 @@ class FeatureRegistry(private val config: AppConfig) : KoinComponent {
 }
 ```
 
-## 흔한 안드로이드 실수(Pitfalls)
+## 흔한 안드로이드 실수(Pitfalls) {id="common-android-pitfalls"}
 
-### 숨겨진 순환 호출
+### 숨겨진 순환 호출 {id="hidden-circular-calls"}
 
 ```kotlin
 // ⚠️ Lazy는 순환을 숨기지만 런타임에 무한 루프가 발생합니다
@@ -187,7 +187,7 @@ class ServiceB : KoinComponent {
 }
 ```
 
-### ViewModel 스코프 혼동
+### ViewModel 스코프 혼동 {id="viewmodel-scope-confusion"}
 
 ```kotlin
 // ❌ 나쁨 - Activity 스코프 내의 ViewModel은 회전 시 상태를 잃음
@@ -203,7 +203,7 @@ module {
 }
 ```
 
-### 싱글톤에 Activity 주입
+### 싱글톤에 Activity 주입 {id="injecting-activity-in-singleton"}
 
 ```kotlin
 // ❌ 메모리 누수 - 싱글톤 내 Activity 참조
@@ -215,7 +215,7 @@ class ImageLoader(private val activity: Activity)
 class ImageLoader(private val context: Context)  // androidContext()를 통한 Application 컨텍스트
 ```
 
-## 다음 단계
+## 다음 단계 {id="next-steps"}
 
 - **[안드로이드 스코프](/docs/reference/koin-android/scope)** - 생명주기 인식 스코핑
 - **[멀티 모듈 앱](/docs/reference/koin-android/multi-module)** - 안드로이드 모듈 구성

@@ -34,7 +34,7 @@ for ((a, b) in collection) { ... }
 
 變數 `a` 與 `b` 會取得在集合元素上呼叫 `component1()` 與 `component2()` 所傳回的值。
 
-## 範例：從函式傳回兩個值
+## 範例：從函式傳回兩個值 {id="example-returning-two-values-from-a-function"}
  
 假設你需要從函式傳回兩個東西 —— 例如，一個結果物件與某種狀態。在 Kotlin 中一種精簡的做法是宣告一個 [data class](data-classes.md) 並傳回其執行個體：
 
@@ -56,7 +56,7 @@ val (result, status) = function(...)
 >
 {style="note"}
 
-## 範例：解構宣告與 map
+## 範例：解構宣告與 map {id="example-destructuring-declarations-and-maps"}
 
 遍歷 map 最優雅的方式可能是：
 
@@ -81,7 +81,7 @@ operator fun <K, V> Map.Entry<K, V>.component2() = getValue()
 
 因此，你可以自由地在 map 的 `for` 迴圈中使用解構宣告（以及資料類別執行個體或類似項目的集合）。
 
-## 底線用於未使用的變數
+## 底線用於未使用的變數 {id="underscore-for-unused-variables"}
 
 如果你在解構宣告中不需要某個變數，可以用底線代替其名稱：
 
@@ -91,7 +91,7 @@ val (_, status) = getResult()
 
 對於以此方式跳過的組件，不會呼叫其對應的 `componentN()` 運算子函式。
 
-## Lambda 中的解構
+## Lambda 中的解構 {id="destructuring-in-lambdas"}
 
 你可以對 Lambda 參數使用解構宣告語法。如果 Lambda 具有 `Pair` 型別（或 `Map.Entry`，或任何具有對應 `componentN` 函式的型別）的參數，你可以透過將它們放入圓括號中來引入多個新參數以取代原本的一個參數：
 
@@ -123,7 +123,7 @@ map.mapValues { (_, value): Map.Entry<Int, String> -> "$value!" }
 map.mapValues { (_, value: String) -> "$value!" }
 ```
 
-## 以名稱為基礎的解構
+## 以名稱為基礎的解構 {id="name-based-destructuring"}
 <primary-label ref="experimental-opt-in"/>
 
 Kotlin 支援*以名稱為基礎的解構宣告*（name-based destructuring declarations），其中變數會按名稱與屬性配對，而不是像*以位置為基礎*（position-based）的解構那樣由 `componentN()` 函式定義的位置來決定。

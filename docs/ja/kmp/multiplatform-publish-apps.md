@@ -6,11 +6,11 @@
 
 Kotlin Multiplatform アプリケーションを公開用に準備する方法を学び、このプロセスのうち特に注意が必要な部分を強調します。
 
-## Android アプリ
+## Android アプリ {id="android-app"}
 
 [Kotlin は Android 開発の主要言語](https://developer.android.com/kotlin)であるため、Kotlin Multiplatform がプロジェクトのコンパイルや Android アプリのビルドに与える影響はほとんどありません。共有モジュールから生成された Android ライブラリと Android アプリ自体の両方は、典型的な Android Gradle モジュールであり、他の Android ライブラリやアプリと何ら変わりありません。したがって、Kotlin Multiplatform プロジェクトから Android アプリを公開する方法は、[Android 開発者ドキュメント](https://developer.android.com/studio/publish)で説明されている通常のプロセスと同じです。
 
-## iOS アプリ
+## iOS アプリ {id="ios-app"}
 
 Kotlin Multiplatform プロジェクトの iOS アプリは一般的な Xcode プロジェクトからビルドされるため、公開に関わる主な段階は [iOS 開発者ドキュメント](https://developer.apple.com/ios/submit/)で説明されているものと同じです。
 
@@ -34,15 +34,15 @@ Kotlin Multiplatform プロジェクトに特有なのは、共有 Kotlin モジ
 *   [Kotlin CocoaPods Gradle プラグイン](multiplatform-cocoapods-overview.md)を使用する：これにより、ネイティブ ターゲットを持つマルチプラットフォーム プロジェクトを、iOS プロジェクトの CocoaPods 依存関係として使用できます。
 *   手動で構成する：マルチプラットフォーム プロジェクトで iOS フレームワークを作成し、Xcode プロジェクトでその最新バージョンを取得するように手動で構成します。Kotlin Multiplatform ウィザードや Kotlin Multiplatform IDE プラグインが通常この構成を処理します。Xcode でフレームワークを直接追加する方法については、「[既存のアプリにフレームワークを接続する](multiplatform-integrate-in-existing-app.md#configure-the-ios-project-to-use-a-kmp-framework)」を参照してください。
 
-### iOS アプリケーションの構成
+### iOS アプリケーションの構成 {id="configure-your-ios-application"}
 
 Xcode を使わずに、生成されるアプリに影響を与える基本プロパティを構成できます。
 
-#### バンドル ID
+#### バンドル ID {id="bundle-id"}
 
 [バンドル ID (Bundle ID)](https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleidentifier#discussion) は、オペレーティング システム内でアプリを一意に識別します。これを変更するには、Android Studio で `iosApp/Configuration/Config.xcconfig` ファイルを開き、`BUNDLE_ID` を更新します。
 
-#### アプリ名
+#### アプリ名 {id="app-name"}
 
 アプリ名は、ターゲットの実行可能ファイル名とアプリケーション バンドル名を設定します。アプリ名を変更するには：
 
@@ -55,7 +55,7 @@ Xcode を使わずに、生成されるアプリに影響を与える基本プ�
 
 その他の設定を構成する必要がある場合は、Xcode を使用してください。Android Studio でプロジェクトを開いた後、Xcode で `iosApp/iosApp.xcworkspace` ファイルを開き、そこで変更を加えます。
 
-### クラッシュ レポートのシンボル化
+### クラッシュ レポートのシンボル化 {id="symbolicating-crash-reports"}
 
 デベロッパーがアプリを改善できるように、iOS はアプリのクラッシュを分析する手段を提供しています。詳細なクラッシュ分析のために、クラッシュ レポートのメモリ アドレスを関数や行番号などのソース コード内の場所と一致させる、特別なデバッグ シンボル（`.dSYM`）ファイルを使用します。
 
@@ -63,17 +63,17 @@ Xcode を使わずに、生成されるアプリに影響を与える基本プ�
 
 クラッシュ レポートのシンボル化（symbolication）の詳細については、[Kotlin/Native ドキュメント](https://kotlinlang.org/docs/native-debugging.html#debug-ios-applications)を参照してください。
 
-### TestFlight への公開の自動化
+### TestFlight への公開の自動化 {id="automate-publishing-to-testflight"}
 
 Xcode を介して手動でアプリのビルド、署名、アップロードを行う代わりに、リリース プロセス全体を自動化できます。
 
 IDE から直接 iOS アプリを自動的にビルドして TestFlight にデプロイする TeamCity Cloud パイプラインをセットアップする方法については、「[iOS デリバリー パイプラインの構成](ios-ci-cd-teamcity.md)」を参照してください。
 
-## Web アプリ
+## Web アプリ {id="web-app"}
 
 Web アプリケーションを公開するには、アプリケーションを構成するコンパイル済みファイルとリソースを含むアーティファクトを作成します。これらのアーティファクトは、GitHub Pages などの Web ホスティング プラットフォームにアプリケーションをデプロイするために必要です。
 
-### アーティファクトの生成
+### アーティファクトの生成 {id="generate-artifacts"}
 
 **wasmJsBrowserDistribution** タスクを実行するための実行構成（Run configuration）を作成します。
 
@@ -95,7 +95,7 @@ Web アプリケーションを公開するには、アプリケーションを�
 
 ![アーティファクト ディレクトリ](compose-web-artifacts.png){width=400}
 
-### GitHub Pages でアプリケーションを公開する
+### GitHub Pages でアプリケーションを公開する {id="publish-your-application-on-github-pages"}
 
 アーティファクトの準備ができたら、Web ホスティング プラットフォームにアプリケーションをデプロイできます。
 
@@ -112,6 +112,6 @@ Web アプリケーションを公開するには、アプリケーションを�
 
    おめでとうございます！アーティファクトを GitHub Pages に公開できました。
 
-### Web アプリケーションのデバッグ
+### Web アプリケーションのデバッグ {id="debug-your-web-application"}
 
 追加の構成なしで、すぐにブラウザで Web アプリケーションをデバッグできます。ブラウザでのデバッグ方法については、Kotlin ドキュメントの「[ブラウザでのデバッグ](https://kotlinlang.org/docs/wasm-debugging.html#debug-in-your-browser)」ガイドを参照してください。

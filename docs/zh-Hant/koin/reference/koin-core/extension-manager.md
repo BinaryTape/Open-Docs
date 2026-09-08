@@ -6,7 +6,7 @@ title: 擴充套件管理器
 
 Koin 提供了一個擴充套件系統，讓您可以向架構中新增功能。這對於將 Koin 與外部系統整合或新增自訂功能非常有用。
 
-## KoinExtension
+## KoinExtension {id="koinextension"}
 
 Koin 擴充套件是實作了 `KoinExtension` 介面的類別：
 
@@ -24,7 +24,7 @@ interface KoinExtension {
 }
 ```
 
-### 建立擴充套件
+### 建立擴充套件 {id="creating-an-extension"}
 
 ```kotlin
 class MyCustomExtension : KoinExtension {
@@ -45,7 +45,7 @@ class MyCustomExtension : KoinExtension {
 }
 ```
 
-### 註冊擴充套件
+### 註冊擴充套件 {id="registering-an-extension"}
 
 使用 `ExtensionManager` 來註冊擴充套件：
 
@@ -61,7 +61,7 @@ fun KoinApplication.myExtension() {
 private const val EXTENSION_ID = "my-extension"
 ```
 
-### 存取擴充套件
+### 存取擴充套件 {id="accessing-an-extension"}
 
 ```kotlin
 val Koin.myExtension: MyCustomExtension
@@ -72,7 +72,7 @@ val extension = getKoin().myExtension
 extension.doSomething()
 ```
 
-### 在 Koin 設定中使用
+### 在 Koin 設定中使用 {id="using-in-koin-setup"}
 
 ```kotlin
 startKoin {
@@ -85,7 +85,7 @@ startKoin {
 `ExtensionManager` 被標記為 `@KoinInternalApi`。這意味著該 API 可能會在不同版本之間發生變化。在正式生產環境的程式碼中請謹慎使用。
 :::
 
-## ResolutionExtension
+## ResolutionExtension {id="resolutionextension"}
 
 對於更進階的使用案例，Koin 提供了 `ResolutionExtension` 以連結到相依性解析程序。這讓您可以提供來自外部來源的執行個體。
 
@@ -106,14 +106,14 @@ interface ResolutionExtension {
 }
 ```
 
-### 使用案例
+### 使用案例 {id="use-cases"}
 
 - 與外部相依注入（DI）容器整合
 - 提供來自快取（cache）或集區（pool）的執行個體
 - 根據執行時期條件進行動態執行個體解析
 - 使用模擬（mock）供應器進行測試
 
-### 範例：外部執行個體供應器
+### 範例：外部執行個體供應器 {id="example-external-instance-provider"}
 
 ```kotlin
 class ExternalInstanceProvider : ResolutionExtension {
@@ -131,7 +131,7 @@ class ExternalInstanceProvider : ResolutionExtension {
 }
 ```
 
-### 註冊 ResolutionExtension
+### 註冊 ResolutionExtension {id="registering-a-resolutionextension"}
 
 ```kotlin
 val externalProvider = ExternalInstanceProvider()
@@ -152,7 +152,7 @@ startKoin {
 `ResolutionExtension` API 被標記為 `@KoinExperimentalAPI`。該 API 可能會在未來版本中發生變化。
 :::
 
-### 完整範例
+### 完整範例 {id="complete-example"}
 
 ```kotlin
 @OptIn(KoinExperimentalAPI::class)
@@ -187,21 +187,21 @@ fun resolutionExtensionExample() {
 }
 ```
 
-## 何時使用擴充套件
+## 何時使用擴充套件 {id="when-to-use-extensions"}
 
 | 擴充套件型別 | 使用案例 |
 |---------------|----------|
 | `KoinExtension` | 向 Koin 新增功能（記錄、監控、自訂作用域） |
 | `ResolutionExtension` | 在解析期間提供來自外部來源的執行個體 |
 
-## 最佳實務
+## 最佳實務 {id="best-practices"}
 
 1. **謹慎使用** — 擴充套件會增加複雜性；盡可能優先使用標準 Koin 定義。
 2. **記錄您的擴充套件** — 明確說明擴充套件的功能以及如何使用它。
 3. **處理清理工作** — 務必實作 `onClose()` 以避免資源洩漏。
 4. **考慮執行緒安全** — 擴充套件可能會從多個執行緒中呼叫。
 
-## 後續步驟
+## 後續步驟 {id="next-steps"}
 
 - **[作用域](/docs/reference/koin-core/scopes)** — 自訂作用域管理
 - **[模組](/docs/reference/koin-core/modules)** — 模組組織方式

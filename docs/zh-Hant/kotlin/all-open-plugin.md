@@ -10,7 +10,7 @@ Kotlin 為 Gradle 和 Maven 提供了 `all-open` 外掛程式支援，並具備�
 >
 {style="note"}
 
-## Gradle
+## Gradle {id="gradle"}
 
 在你的 `build.gradle(.kts)` 檔案中新增該外掛程式：
 
@@ -74,7 +74,7 @@ class MyClass // 將會是 all-open
 
 `MyFrameworkAnnotation` 標註了 all-open 元註解 `com.my.Annotation`，因此它也成為了一個 all-open 註解。
 
-## Maven
+## Maven {id="maven"}
 
 在你的 `pom.xml` 檔案中新增該外掛程式：
 
@@ -109,7 +109,7 @@ class MyClass // 將會是 all-open
 
 關於 all-open 註解如何運作的詳細資訊，請參閱 [Gradle 章節](#gradle)。
 
-## Spring 支援
+## Spring 支援 {id="spring-support"}
 
 如果你使用 Spring，可以啟用 `kotlin-spring` 編譯器外掛程式，而不需要手動指定 Spring 註解。`kotlin-spring` 是基於 `all-open` 的包裝函式，其行為完全相同。
 
@@ -173,7 +173,7 @@ plugins {
 >
 {style="note"}
 
-## 命令列編譯器
+## 命令列編譯器 {id="command-line-compiler"}
 
 All-open 編譯器外掛程式 JAR 檔案包含在 Kotlin 編譯器的二進制發行版中。你可以透過 `kotlinc` 的 `-Xplugin` 選項提供其 JAR 檔案路徑來掛載該外掛程式：
 

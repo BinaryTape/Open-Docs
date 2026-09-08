@@ -6,7 +6,7 @@ title: 模块
 
 Koin 模块是组织依赖注入配置的构建块。
 
-## 什么是模块？
+## 什么是模块？ {id="what-is-a-module"}
 
 模块是一个用于对相关定义进行分组的逻辑容器：
 
@@ -24,9 +24,9 @@ val appModule = module {
 - 在不同上下文之间**复用**配置
 - 在多模块项目中**控制可见性**
 
-## 创建模块
+## 创建模块 {id="creating-modules"}
 
-### 使用编译器插件 DSL
+### 使用编译器插件 DSL {id="with-compiler-plugin-dsl"}
 
 ```kotlin
 import org.koin.plugin.module.dsl.*
@@ -42,7 +42,7 @@ val databaseModule = module {
 }
 ```
 
-### 使用注解
+### 使用注解 {id="with-annotations"}
 
 ```kotlin
 @Module
@@ -54,7 +54,7 @@ class NetworkModule
 class DatabaseModule
 ```
 
-### 使用经典 DSL
+### 使用经典 DSL {id="with-classic-dsl"}
 
 ```kotlin
 val networkModule = module {
@@ -63,7 +63,7 @@ val networkModule = module {
 }
 ```
 
-## 使用多个模块
+## 使用多个模块 {id="using-multiple-modules"}
 
 依赖项可以引用来自其他模块的定义：
 
@@ -93,7 +93,7 @@ Koin 会自动解析所有已加载模块中的依赖项。不需要显式导入
 虽然直接列出模块是可行的，但请考虑使用 [`includes()`](#module-composition-with-includes) 将您的模块组织成层次结构，以获得更好的结构和优化的加载。
 :::
 
-## 使用 `includes()` 进行模块组合
+## 使用 `includes()` 进行模块组合 {id="module-composition-with-includes"}
 
 `includes()` 函数是组织模块的**推荐方式**。它提供：
 
@@ -132,7 +132,7 @@ startKoin {
 }
 ```
 
-### `includes()` 如何优化加载
+### `includes()` 如何优化加载 {id="how-includes-optimizes-loading"}
 
 当模块被多次包含时，Koin 仅加载它们一次：
 
@@ -161,7 +161,7 @@ startKoin {
 }
 ```
 
-### 多模块项目
+### 多模块项目 {id="multi-module-projects"}
 
 使用可见性修饰符来控制暴露的内容：
 
@@ -188,9 +188,9 @@ startKoin {
 }
 ```
 
-## 模块重写
+## 模块重写 {id="module-override"}
 
-### 默认行为
+### 默认行为 {id="default-behavior"}
 
 默认情况下，**最后加载的定义优先**：
 
@@ -208,7 +208,7 @@ startKoin {
 }
 ```
 
-### 严格模式
+### 严格模式 {id="strict-mode"}
 
 在生产环境中禁用重写：
 
@@ -219,7 +219,7 @@ startKoin {
 }
 ```
 
-### 显式重写
+### 显式重写 {id="explicit-override"}
 
 在严格模式下允许特定的重写：
 
@@ -234,7 +234,7 @@ startKoin {
 }
 ```
 
-## 预先创建模块 (Eager Module Creation)
+## 预先创建模块 (Eager Module Creation) {id="eager-module-creation"}
 
 在启动时立即创建单例：
 
@@ -245,7 +245,7 @@ val coreModule = module(createdAtStart = true) {
 }
 ```
 
-## 参数化模块
+## 参数化模块 {id="parameterized-modules"}
 
 动态创建模块：
 
@@ -261,7 +261,7 @@ startKoin {
 }
 ```
 
-## 策略模式
+## 策略模式 {id="strategy-pattern"}
 
 使用模块来切换实现：
 
@@ -290,7 +290,7 @@ startKoin {
 }
 ```
 
-## 注解模块
+## 注解模块 {id="annotated-modules"}
 
 Koin 支持基于注解的模块配置，作为 DSL 的替代方案。
 
@@ -318,9 +318,9 @@ class AppModule
 有关注解模块的完整文档，请参阅 [注解参考 - 模块](/docs/reference/koin-annotations/modules)。
 :::
 
-## 最佳做法
+## 最佳做法 {id="best-practices"}
 
-### 组织结构
+### 组织结构 {id="organization"}
 
 1. **按功能/层分组**
    ```kotlin
@@ -348,7 +348,7 @@ class AppModule
 
 3. **保持模块专注** – 每个模块单一职责
 
-### 命名
+### 命名 {id="naming"}
 
 - 使用描述性名称：`networkModule`、`userFeatureModule`
 - 相关分组：`authDataModule`、`authDomainModule`
@@ -359,7 +359,7 @@ class AppModule
 2. **对实现模块使用 `private`/`internal`**
 3. **将共享模块放在 `:core` 中**
 
-## 后续步骤
+## 后续步骤 {id="next-steps"}
 
 - **[定义](/docs/reference/koin-core/definitions)** – 创建定义
 - **[限定符](/docs/reference/koin-core/qualifiers)** – 命名和类型限定符

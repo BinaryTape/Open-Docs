@@ -16,7 +16,7 @@
 
 本教學展示如何透過 Kotlin Gradle 外掛程式建置 [XCFramework](multiplatform-build-native-binaries.md#build-xcframeworks) 來實現這一點。
 
-## 設定遠端整合
+## 設定遠端整合 {id="set-up-remote-integration"}
 
 若要讓您的架構可供使用，您需要上傳兩個檔案：
 
@@ -24,7 +24,7 @@
   選擇最容易整合到您工作流程中的選項。
 * 描述套件的 `Package.swift` 檔案。您需要將其推送到一個獨立的 Git 存儲庫。
 
-#### 專案配置選項 {initial-collapse-state="collapsed" collapsible="true"}
+#### 專案配置選項 {initial-collapse-state="collapsed" collapsible="true" id="project-configuration-options"}
 
 在本教學中，您將把 XCFramework 作為二進位檔案儲存在您偏好的檔案存儲空間中，並將 `Package.swift` 檔案儲存在獨立的 Git 存儲庫中。
 
@@ -39,7 +39,7 @@
   * 在多套件專案中，只有一個取用者套件可以依賴外部模組（以避免專案內的相依性衝突）。因此，所有相依於 Kotlin Multiplatform 模組的邏輯都應封裝在特定的取用者套件中。
   * 如果您使用自動化 CI 程序發佈 Kotlin Multiplatform 專案，該程序需要包含將更新後的 `Package.swift` 檔案發佈到取用者存儲庫。這可能會導致取用者存儲庫的更新衝突，因此 CI 中的此類階段可能難以維護。
 
-### 配置您的多平台專案
+### 配置您的多平台專案 {id="configure-your-multiplatform-project"}
 
 在以下範例中，Kotlin Multiplatform 專案的共享程式碼儲存在本機的 `shared` 模組中。
 如果您的專案結構不同，請將程式碼和路徑範例中的 "shared" 替換為您的模組名稱。
@@ -92,7 +92,7 @@
 3. 如果您有多個模組包含想要匯出的共享程式碼（例如，一個共享邏輯模組和一個共享 UI 模組），
    請[將它們組合到一個新的模組中](#exporting-multiple-modules-as-an-xcframework)並改為分佈此傘狀模組。
 
-### 準備 XCFramework 與 Swift 套件資訊清單
+### 準備 XCFramework 與 Swift 套件資訊清單 {id="prepare-the-xcframework-and-the-swift-package-manifest"}
 
 1. 將 `Shared.xcframework` 目錄壓縮為 ZIP 檔案，並為產生的封存檔計算校驗碼，例如：
    
@@ -166,7 +166,7 @@
 
 7. 將 `Package.swift` 檔案推送到您的遠端存儲庫。請務必建立並推送一個帶有該套件語意化版本的 Git 標籤。
 
-### 加入套件相依性
+### 加入套件相依性 {id="add-the-package-dependency"}
 
 現在這兩個檔案都可以存取了，您可以將建立的套件相依性加入到現有的用戶端 iOS 專案中，或者建立一個新專案。若要加入套件相依性：
 
@@ -182,7 +182,7 @@
    >
    {style="tip"}
 
-### 檢查您的設定
+### 檢查您的設定 {id="check-your-setup"}
 
 若要檢查所有設定是否正確，請在 Xcode 中測試匯入：
 
@@ -214,7 +214,7 @@
 
 3. 確保預覽已更新為新文字。
 
-## 將多個模組匯出為 XCFramework
+## 將多個模組匯出為 XCFramework {id="exporting-multiple-modules-as-an-xcframework"}
 
 若要讓多個 Kotlin Multiplatform 模組的程式碼可作為 iOS 二進位檔案使用，請將這些模組組合在一個單一的傘狀（umbrella）模組中。接著，建置並匯出此傘狀模組的 XCFramework。
 

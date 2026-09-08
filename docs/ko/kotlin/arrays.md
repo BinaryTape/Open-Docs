@@ -6,7 +6,7 @@
 
 Kotlin은 [`Array<T>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/) 클래스와 [원시 타입 배열](#원시-타입-배열)을 제공합니다.
 
-## 배열 사용 시기
+## 배열 사용 시기 {id="when-to-use-arrays"}
 
 Java API와의 상호 운용성이 필요하거나 로우레벨(low-level) 요구사항이 있는 경우에 배열을 사용하세요. 예를 들어, 일반적인 애플리케이션에 필요한 수준 이상의 성능 요구사항이 있거나 커스텀 데이터 구조를 구축해야 하는 경우입니다.
 
@@ -24,7 +24,7 @@ Java API와의 상호 운용성이 필요하거나 로우레벨(low-level) 요�
 
 [배열을 컬렉션으로 변환](#컬렉션으로-변환)하는 방법을 알아보세요.
 
-## 배열 생성
+## 배열 생성 {id="create-arrays"}
 
 배열을 생성하려면 다음을 사용할 수 있습니다:
 
@@ -37,7 +37,7 @@ Java API와의 상호 운용성이 필요하거나 로우레벨(low-level) 요�
 > 
 {style="note"}
 
-### 값을 포함하는 배열
+### 값을 포함하는 배열 {id="array-with-values"}
 
 이미 알고 있는 값 세트로부터 타입이 지정된 배열을 생성하려면 [`arrayOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/array-of.html) 함수를 사용하세요.
 Kotlin은 타입을 자동으로 추론합니다:
@@ -53,7 +53,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="arrays-simple-array-kotlin"}
 
-### 빈 배열
+### 빈 배열 {id="empty-array"}
 
 요소가 없는 배열을 생성하려면 [`emptyArray()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/empty-array.html) 함수를 사용하세요.
 할당문의 왼쪽 또는 오른쪽에서 요소의 타입을 지정할 수 있습니다:
@@ -65,7 +65,7 @@ val emptyArrayLeft: Array<String> = emptyArray()
 
 배열에 [요소를 추가하는 방법](#요소-추가-및-제거)을 알아보세요.
 
-### null을 포함하는 배열
+### null을 포함하는 배열 {id="array-with-nulls"}
 
 지정된 크기의 `null` 요소로 채워진 배열을 생성하려면
 [`arrayOfNulls()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/array-of-nulls.html#kotlin$arrayOfNulls(kotlin.Int)) 함수를 사용하세요:
@@ -81,7 +81,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="arrays-null-array-kotlin"}
 
-### Array 생성자
+### Array 생성자 {id="array-constructor"}
 
 `Array` 생성자는 배열의 크기와 배열 요소의 값을 반환하는 함수를 인자로 받습니다:
 
@@ -100,7 +100,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="arrays-array-constructor-kotlin"}
 
-### 중첩 배열
+### 중첩 배열 {id="nested-arrays"}
 
 중첩 배열 또는 다차원 배열을 생성하려면 배열의 배열을 사용하세요.
 중첩 배열이 반드시 동일한 타입이거나 동일한 크기일 필요는 없습니다.
@@ -122,7 +122,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="arrays-multidimensional-array-kotlin"}
 
-### 원시 타입 배열
+### 원시 타입 배열 {id="primitive-type-arrays"}
 
 `Array` 클래스를 원시 타입 값과 함께 사용하면 컴파일러가 이 값들을 객체로 박싱합니다.
 박싱 오버헤드를 피하려면 전용 원시 타입 배열을 사용할 수 있습니다.
@@ -198,7 +198,7 @@ fun main() {
 >
 {style="note"}
 
-## 배열 작업
+## 배열 작업 {id="work-with-arrays"}
 
 배열은 반복(iteration), 검색, 정렬 및 변환을 포함하여 컬렉션과 동일한 작업을 많이 지원합니다.
 Kotlin에서는 배열을 사용하여 함수에 가변적인 개수의 인자를 전달하거나 배열 자체에 대한 연산을 수행할 수 있습니다.
@@ -219,7 +219,7 @@ Kotlin에서는 배열을 사용하여 함수에 가변적인 개수의 인자�
 
 이 섹션에서는 가장 자주 사용되는 작업 중 일부를 소개합니다.
 
-### 요소 접근 및 수정
+### 요소 접근 및 수정 {id="access-and-modify-elements"}
 
 배열의 요소에 접근하고 수정하려면 [인덱스 접근 연산자(indexed access operator)](operator-overloading.md#indexed-access-operator)
 (`[]`)를 사용하세요:
@@ -285,7 +285,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 요소 추가 및 제거
+### 요소 추가 및 제거 {id="add-and-remove-elements"}
 
 배열은 크기가 고정되어 있으므로 `.add()` 및 `.remove()` 함수를 지원하지 않습니다. 이러한 작업을 수행하려면 새로운 배열을 생성해야 합니다. 이를 위해 다음 옵션 중 하나를 사용할 수 있습니다:
 
@@ -331,7 +331,7 @@ fun main() {
 >
 {style="tip"}
 
-### 배열 비교
+### 배열 비교 {id="compare-arrays"}
 
 두 배열이 동일한 순서로 동일한 요소를 가지고 있는지 비교하려면 [`.contentEquals()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/content-equals.html) 및 [`.contentDeepEquals()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/content-deep-equals.html) 함수를 사용하세요:
 
@@ -361,11 +361,11 @@ fun main() {
 >
 {style="warning"}
 
-### 배열 변환
+### 배열 변환 {id="transform-arrays"}
 
 Kotlin에는 배열을 변환하는 유용한 함수가 많이 있습니다. 이 섹션에서는 그 중 몇 가지만 강조합니다. 전체 목록은 [API 레퍼런스](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/)를 확인하세요.
 
-#### 합계 (Sum)
+#### 합계 (Sum) {id="sum"}
 
 배열의 모든 요소의 합을 반환하려면 [`.sum()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/sum.html) 함수를 사용하세요:
 
@@ -384,7 +384,7 @@ fun main() {
 >
 {style="note"}
 
-#### 정렬 및 셔플
+#### 정렬 및 셔플 {id="sort-and-shuffle"}
 
 [`.sort()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/sort.html) 함수로 배열의 요소를 자연 순서에 따라 정렬하거나, [`.shuffle()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/shuffle.html) 함수로 무작위로 섞을 수 있습니다:
 
@@ -408,7 +408,7 @@ fun main() {
 
 원본을 수정하지 않고 정렬된 새 배열을 얻으려면 대신 [`.sortedArray()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/sorted-array.html) 함수를 사용하세요.
 
-### 함수에 가변 인자 전달
+### 함수에 가변 인자 전달 {id="pass-variable-number-of-arguments-to-a-function"}
 
 Kotlin에서는 [`vararg`](functions.md#가변-인자-varargs) 파라미터를 통해 함수에 가변적인 개수의 인자를 전달할 수 있습니다. 이는 메시지를 포맷팅하거나 SQL 쿼리를 생성할 때와 같이 인자의 개수를 미리 알 수 없을 때 유용합니다.
 
@@ -431,11 +431,11 @@ fun printAllStrings(vararg strings: String) {
 
 자세한 내용은 [가변 인자 (varargs)](functions.md#가변-인자-varargs)를 참조하세요.
 
-## 컬렉션으로 변환
+## 컬렉션으로 변환 {id="convert-to-collections"}
 
 어떤 API는 배열을 사용하고 어떤 API는 컬렉션을 사용하는 환경에서 작업한다면, 배열을 컬렉션으로 변환하거나 그 반대로 변환할 수 있습니다. 이를 위해 [`.toList()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-list.html), [`.toSet()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-set.html), [`.toMap()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-map.html) 함수를 사용하세요. 이 함수들은 배열의 콘텐츠를 독립적인 복사본으로 복사합니다. 따라서 이후 배열에 대한 변경 사항이 컬렉션에 반영되지 않습니다.
 
-### List 또는 Set으로 변환
+### List 또는 Set으로 변환 {id="convert-to-list-or-set"}
 
 배열을 `List` 또는 `Set`으로 변환하려면 [`.toList()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-list.html) 및 [`.toSet()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-set.html) 함수를 사용하세요:
 
@@ -472,7 +472,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### Map으로 변환
+### Map으로 변환 {id="convert-to-map"}
 
 배열을 `Map`으로 변환하려면 [`.toMap()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-map.html) 함수를 사용하세요.
 
@@ -495,7 +495,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="arrays-convert-map-kotlin"}
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * 대부분의 유스케이스에서 왜 컬렉션 사용을 권장하는지 알아보려면 [컬렉션 개요](collections-overview.md)를 읽어보세요.
 * 다른 [기본 타입](types-overview.md)에 대해 알아보세요.

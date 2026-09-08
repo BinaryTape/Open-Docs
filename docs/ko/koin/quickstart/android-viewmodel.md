@@ -9,13 +9,13 @@ title: Android - ViewModel
 업데이트 - 2024-10-21
 :::
 
-## 코드 가져오기
+## 코드 가져오기 {id="get-the-code"}
 
 :::info
 [GitHub에서 소스 코드를 확인하실 수 있습니다](https://github.com/InsertKoinIO/koin-getting-started/tree/main/android)
 :::
 
-## Gradle 설정
+## Gradle 설정 {id="gradle-setup"}
 
 아래와 같이 Koin 안드로이드 의존성을 추가하세요:
 
@@ -27,13 +27,13 @@ dependencies {
 }
 ```
 
-## 애플리케이션 개요
+## 애플리케이션 개요 {id="application-overview"}
 
 이 애플리케이션의 아이디어는 사용자 목록을 관리하고, Presenter 또는 ViewModel을 사용하여 `MainActivity` 클래스에 이를 표시하는 것입니다.
 
 > Users -> UserRepository -> UserService -> (Presenter 또는 ViewModel) -> MainActivity
 
-## "User" 데이터
+## "User" 데이터 {id="the-user-data"}
 
 사용자 컬렉션을 관리할 것입니다. 데이터 클래스는 다음과 같습니다:
 
@@ -63,7 +63,7 @@ class UserRepositoryImpl : UserRepository {
 }
 ```
 
-## UserService 컴포넌트
+## UserService 컴포넌트 {id="the-userservice-component"}
 
 사용자 작업을 관리하기 위한 서비스 컴포넌트를 작성해 봅시다:
 
@@ -94,7 +94,7 @@ class UserServiceImpl(
 }
 ```
 
-## Koin 모듈
+## Koin 모듈 {id="the-koin-module"}
 
 Koin 모듈을 선언하려면 `module` 함수를 사용하세요. Koin 모듈은 주입될 모든 컴포넌트를 정의하는 장소입니다.
 
@@ -117,7 +117,7 @@ val appModule = module {
 이 튜토리얼에서는 컴파일 타임에 자동 와이어링(auto-wiring)을 제공하는 **Koin 컴파일러 플러그인 DSL**(`single<T>()`, `viewModel<T>()`)을 사용합니다. 설정 방법은 [컴파일러 플러그인 설정](/docs/setup/compiler-plugin)을 참조하세요.
 :::
 
-## ViewModel로 사용자 표시하기
+## ViewModel로 사용자 표시하기 {id="displaying-user-with-viewmodel"}
 
 사용자를 표시하기 위한 ViewModel 컴포넌트를 작성해 봅시다:
 
@@ -144,7 +144,7 @@ val appModule = module {
 }
 ```
 
-## 안드로이드에서 ViewModel 주입하기
+## 안드로이드에서 ViewModel 주입하기 {id="injecting-viewmodel-in-android"}
 
 `UserViewModel` 컴포넌트가 생성될 때 `UserService` 인스턴스가 함께 해결(resolve)됩니다. 이를 액티비티로 가져오기 위해 `by viewModel()` 위임(delegate) 함수를 사용하여 주입해 보겠습니다: 
 
@@ -167,7 +167,7 @@ class MainActivity : AppCompatActivity() {
 `by viewModel()` 함수를 사용하면 ViewModel 인스턴스를 검색하고, 관련 ViewModel Factory를 생성하며, 이를 생명주기(lifecycle)에 바인딩할 수 있습니다.
 :::
 
-## Koin 시작하기
+## Koin 시작하기 {id="start-koin"}
 
 안드로이드 애플리케이션과 함께 Koin을 시작해야 합니다. 애플리케이션의 메인 진입점인 `MainApplication` 클래스에서 `startKoin()` 함수를 호출하기만 하면 됩니다:
 
@@ -189,7 +189,7 @@ class MainApplication : Application(){
 `startKoin` 내부의 `modules()` 함수는 주어진 모듈 목록을 로드합니다.
 :::
 
-## Koin 모듈: DSL 비교
+## Koin 모듈: DSL 비교 {id="koin-module-dsl-comparison"}
 
 다음은 **클래식 DSL**(수동 와이어링)을 사용한 Koin 모듈 선언입니다:
 

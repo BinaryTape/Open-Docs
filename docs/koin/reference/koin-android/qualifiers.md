@@ -8,11 +8,11 @@ title: Android Context 与限定符
 有关通用限定符概念（命名、类型安全、枚举、JSR-330），请参阅 [限定符](/docs/reference/koin-core/qualifiers)。
 :::
 
-## Android Context - 无需限定符
+## Android Context - 无需限定符 {id="android-context-no-qualifiers-needed"}
 
 与 Hilt 不同，Koin 会自动提供 Android Context，不需要限定符。
 
-### Koin 的 Context 解析
+### Koin 的 Context 解析 {id="koin-s-context-resolution"}
 
 ```kotlin
 val androidModule = module {
@@ -31,7 +31,7 @@ val androidModule = module {
 }
 ```
 
-### 无需 @ApplicationContext 或 @ActivityContext
+### 无需 @ApplicationContext 或 @ActivityContext {id="no-applicationcontext-or-activitycontext"}
 
 **在 Hilt 中，你需要：**
 ```kotlin
@@ -56,7 +56,7 @@ val appModule = module {
 **Koin 优势：** `androidContext()` 函数始终提供 Application context。无需使用限定符来区分 Application 和 Activity context。
 :::
 
-## 当你需要 Activity Context 时
+## 当你需要 Activity Context 时 {id="when-you-need-activity-context"}
 
 对于需要 Activity context 的情况，不要注入它——直接使用即可：
 
@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
 **最佳做法：** 避免将 Activity context 注入到长生命周期对象中。这会导致内存泄漏。对于生命周期长于 Activity 的依赖项，请使用 Application context (`androidContext()`)。
 :::
 
-## 限定 Android 依赖项
+## 限定 Android 依赖项 {id="qualified-android-dependencies"}
 
 当你需要 Android 特有依赖项的多种配置时：
 
@@ -105,7 +105,7 @@ val databaseModule = module {
 }
 ```
 
-## 后续步骤
+## 后续步骤 {id="next-steps"}
 
 - **[限定符](/docs/reference/koin-core/qualifiers)** - 完整的限定符文档
 - **[Android 最佳做法](/docs/reference/koin-android/best-practices)** - 内存管理

@@ -63,7 +63,7 @@ val client = HttpClient(CIO) {
 
 ## ContentEncodingの構成 {id="configure_plugin"}
 
-### エンコーダーの有効化
+### エンコーダーの有効化 {id="enable-encoders"}
 
 どのエンコーダーをサポートするかを構成し、それらの品質値（`Accept-Encoding`ヘッダーで使用）を指定できます。
 
@@ -80,7 +80,7 @@ val client = HttpClient(CIO) {
 
 必要に応じて、[`ContentEncoder`](https://api.ktor.io/ktor-utils/io.ktor.util/-content-encoder/index.html)インターフェースを実装してカスタムエンコーダーを作成し、それを`customEncoder()`関数を使用して登録できます。
 
-### modeプロパティの設定
+### modeプロパティの設定 {id="set-the-mode-property"}
 
 デフォルトでは、`ContentEncoding`はレスポンスのデコード（解凍）のみを処理します。`mode`プロパティを使用して、プラグインの動作を定義できます。
 

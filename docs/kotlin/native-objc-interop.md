@@ -14,7 +14,7 @@ Kotlin/Native 通过 Objective-C 提供与 Swift 的间接互操作性。本文�
 * [Kotlin-Swift interopedia](https://github.com/kotlin-hands-on/kotlin-swift-interopedia)：关于如何在 Swift 代码中使用 Kotlin 声明的示例集合。
 * [与 Swift/Objective-C ARC 的集成](native-arc-integration.md)部分：涵盖了 Kotlin 的跟踪式垃圾回收（GC）与 Objective-C 的 ARC 之间集成的详细信息。
 
-## 将 Swift/Objective-C 库导入 Kotlin
+## 将 Swift/Objective-C 库导入 Kotlin {id="importing-swift-objective-c-libraries-to-kotlin"}
 
 如果将 Objective-C 框架和库正确导入到构建中（默认导入系统框架），则可以在 Kotlin 代码中使用它们。更多详情请参阅：
 
@@ -23,14 +23,14 @@ Kotlin/Native 通过 Objective-C 提供与 Swift 的间接互操作性。本文�
 
 如果 Swift 库的 API 使用 `@objc` 导出到 Objective-C，则可以在 Kotlin 代码中使用该库。目前尚不支持纯 Swift 模块。
 
-## 在 Swift/Objective-C 中使用 Kotlin
+## 在 Swift/Objective-C 中使用 Kotlin {id="using-kotlin-in-swift-objective-c"}
 
 如果将 Kotlin 模块编译为框架，则可以在 Swift/Objective-C 代码中使用它们：
 
 * 请参阅[构建最终原生二进制文件](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html#declare-binaries)了解如何声明二进制文件。
 * 查看 [Kotlin Multiplatform 示例项目](https://github.com/Kotlin/kmm-basic-sample)以获取示例。
 
-### 对 Objective-C 和 Swift 隐藏 Kotlin 声明
+### 对 Objective-C 和 Swift 隐藏 Kotlin 声明 {id="hide-kotlin-declarations-from-objective-c-and-swift"}
 
 <primary-label ref="experimental-opt-in"/>
 
@@ -40,7 +40,7 @@ Kotlin/Native 通过 Objective-C 提供与 Swift 的间接互操作性。本文�
 
 [在 Kotlin-Swift interopedia 中查看示例](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/overview/HiddenFromObjC.md)。
 
-### 在 Swift 中使用精炼（refining）
+### 在 Swift 中使用精炼（refining） {id="use-refining-in-swift"}
 
 <primary-label ref="experimental-opt-in"/>
 
@@ -51,7 +51,7 @@ Kotlin/Native 通过 Objective-C 提供与 Swift 的间接互操作性。本文�
 * 有关在 Swift 中精炼 Objective-C 声明的更多信息，请参阅 [Apple 官方文档](https://developer.apple.com/documentation/swift/improving-objective-c-api-declarations-for-swift)。
 * 有关如何使用 `@ShouldRefineInSwift` 注解的示例，请参阅 [Kotlin-Swift interopedia](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/overview/ShouldRefineInSwift.md)。
 
-### 更改声明名称
+### 更改声明名称 {id="change-declaration-names"}
 
 <primary-label ref="experimental-opt-in"/>
 
@@ -71,7 +71,7 @@ let index = array.index(of: "element")
 
 [在 Kotlin-Swift interopedia 中查看另一个示例](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/overview/ObjCName.md)。
 
-### 通过 KDoc 注释提供文档
+### 通过 KDoc 注释提供文档 {id="provide-documentation-with-kdoc-comments"}
 
 文档对于理解任何 API 都至关重要。为共享的 Kotlin API 提供文档，可以让你就用法、注意事项等与用户进行交流。
 
@@ -121,7 +121,7 @@ kotlin {
 }
 ```
 
-## 映射
+## 映射 {id="mappings"}
 
 下表显示了 Kotlin 概念如何映射到 Swift/Objective-C，反之亦然。
 
@@ -154,9 +154,9 @@ kotlin {
 | 函数类型 | 函数类型 | 块指针类型 | [注意](#function-types) |
 | 内联类 | 不支持 | 不支持 | [注意](#unsupported) |
 
-### 类
+### 类 {id="classes"}
 
-#### 名称翻译
+#### 名称翻译 {id="name-translation"}
 
 Objective-C 类以原始名称导入 Kotlin。协议作为带有 `Protocol` 名称后缀的接口导入，例如 `@protocol Foo` -> `interface FooProtocol`。这些类和接口被放置在[构建配置中指定](#将-swiftobjective-c-库导入-kotlin)的软件包中（预配置的系统框架位于 `platform.*` 软件包中）。
 
@@ -164,7 +164,7 @@ Kotlin 类和接口的名称在导入到 Objective-C 时会添加前缀。前缀
 
 Objective-C 不支持框架中的软件包。如果 Kotlin 编译器在同一个框架中发现名称相同但软件包不同的 Kotlin 类，它会对其进行重命名。该算法目前尚不稳定，在不同 Kotlin 版本之间可能会发生变化。要解决此问题，你可以重命名框架中冲突的 Kotlin 类。
 
-#### 强链接
+#### 强链接 {id="strong-linking"}
 
 每当你在 Kotlin 源代码中使用 Objective-C 类时，它都会被标记为强链接符号。生成的构建工件会将相关符号作为强外部引用提及。
 
@@ -172,7 +172,7 @@ Objective-C 不支持框架中的软件包。如果 Kotlin 编译器在同一个
 
 To work around this issue and avoid “Symbol not found” 错误，请使用检查类是否实际可用的 Swift 或 Objective-C 包装器。[查看此解决办法在 Compose Multiplatform 框架中的实现方式](https://github.com/JetBrains/compose-multiplatform-core/pull/1278/files)。
 
-### 初始值设定项
+### 初始值设定项 {id="initializers"}
 
 Swift/Objective-C 初始值设定项作为构造函数或名为 `create` 的工厂方法导入 Kotlin。后者发生在 Objective-C 分类或 Swift 扩展中声明的初始值设定项上，因为 Kotlin 没有扩展构造函数的概念。
 
@@ -182,11 +182,11 @@ Swift/Objective-C 初始值设定项作为构造函数或名为 `create` 的工�
 
 Kotlin 构造函数作为初始值设定项导入 Swift/Objective-C。
 
-### Setter
+### Setter {id="setters"}
 
 重写基类只读属性的可写 Objective-C 属性表现为属性 `foo` 的 `setFoo()` 方法。对于实现为可变的协议只读属性也是如此。
 
-### 顶级函数和属性
+### 顶级函数和属性 {id="top-level-functions-and-properties"}
 
 顶级 Kotlin 函数和属性可以作为特殊类的成员进行访问。每个 Kotlin 文件都会被翻译成这样一个类，例如：
 
@@ -209,7 +209,7 @@ MyLibraryUtilsKt.foo()
 * [顶级只读属性](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/functionsandproperties/Top-level%20val%20properties.md)
 * [顶级可变属性](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/functionsandproperties/Top-level%20mutable%20var%20properties.md)
 
-### 方法名称翻译
+### 方法名称翻译 {id="method-names-translation"}
 
 通常，Swift 实参标签和 Objective-C 选择器片段会映射到 Kotlin 形参名称。这两个概念具有不同的语义，因此有时 Swift/Objective-C 方法导入后可能会产生冲突的 Kotlin 签名。在这种情况下，可以使用具名实参从 Kotlin 调用冲突的方法，例如：
 
@@ -237,7 +237,7 @@ player.moveTo(UP, byInches = 42)
 
 你可以在 Swift 或 Objective-C 中指定一个更符合语言习惯的名称，而不是使用 [`@ObjCName` 注解](#更改声明名称)来重命名 Kotlin 声明。
 
-### 错误和异常
+### 错误和异常 {id="errors-and-exceptions"}
 
 所有 Kotlin 异常都是未受检的，这意味着错误在运行时捕获。然而，Swift 只有在编译时处理的受检错误。因此，如果 Swift 或 Objective-C 代码调用一个抛出异常的 Kotlin 方法，该 Kotlin 方法应标记为 `@Throws` 注解，并指定一个“预期”异常类的列表。
 
@@ -251,7 +251,7 @@ player.moveTo(UP, byInches = 42)
 
 [在 Kotlin-Swift interopedia 中查看示例](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/overview/Exceptions.md)。
 
-### 枚举
+### 枚举 {id="enums"}
 
 Kotlin 枚举在 Objective-C 中作为 `@interface` 导入，在 Swift 中作为 `class` 导入。这些数据结构具有对应于每个枚举值的属性。考虑以下 Kotlin 代码：
 
@@ -284,7 +284,7 @@ switch color {
 
 [在 Kotlin-Swift interopedia 中查看另一个示例](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/classesandinterfaces/Enum%20classes.md)。
 
-### 挂起函数
+### 挂起函数 {id="suspending-functions"}
 
 <primary-label ref="experimental-opt-in"/>
 
@@ -295,7 +295,7 @@ Kotlin 的[挂起函数](coroutines-basics.md) (`suspend`) 在生成的 Objectiv
 * 在 [Swift 文档中详细了解 `async`/`await` 机制](https://docs.swift.org/swift-book/LanguageGuide/Concurrency.html)。
 * 在 [Kotlin-Swift interopedia](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/coroutines/Suspend%20functions.md) 中查看示例以及关于实现相同功能的第三方库的建议。
 
-### 扩展和分类成员
+### 扩展和分类成员 {id="extensions-and-category-members"}
 
 Objective-C 分类和 Swift 扩展的成员通常作为扩展导入 Kotlin。这就是为什么这些声明无法在 Kotlin 中被重写，且扩展初始值设定项无法作为 Kotlin 构造函数使用的原因。
 
@@ -316,7 +316,7 @@ Objective-C 分类和 Swift 扩展的成员通常作为扩展导入 Kotlin。这
 
 [在 Kotlin-Swift interopedia 中查看示例集合](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/tree/main/docs/extensions)。
 
-### Kotlin 单例
+### Kotlin 单例 {id="kotlin-singletons"}
 
 Kotlin 单例（通过 `object` 声明创建，包括 `companion object`）作为具有单一实例的类导入 Swift/Objective-C。
 
@@ -354,31 +354,31 @@ MyClass.Companion.shared
 * [如何使用 `shared` 访问 Kotlin 对象](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/classesandinterfaces/Objects.md)
 * [如何从 Swift 访问 Kotlin 伴生对象的成员](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/classesandinterfaces/Companion%20objects.md)。
 
-### 基元类型
+### 基元类型 {id="primitive-types"}
 
 Kotlin 基元类型的装箱被映射到特殊的 Swift/Objective-C 类。例如，`kotlin.Int` 装箱在 Swift 中表现为 `KotlinInt` 类实例（在 Objective-C 中为 `${prefix}Int` 实例，其中 `prefix` 是框架的名称前缀）。这些类派生自 `NSNumber`，因此实例是合法的 `NSNumber`，支持所有相应的操作。
 
 当 `NSNumber` 类型用作 Swift/Objective-C 的形参类型或返回值时，它不会自动转换为 Kotlin 基元类型。原因是 `NSNumber` 类型没有提供关于所包装的基元值类型的足够信息，例如，静态地无法得知 `NSNumber` 是 `Byte`、`Boolean` 还是 `Double`。因此，Kotlin 基元值应[手动与 `NSNumber` 进行相互转换](#在映射类型之间转换)。
 
-### 字符串
+### 字符串 {id="strings"}
 
 当 Kotlin `String` 传递给 Swift时，它首先被导出为 Objective-C 对象，然后 Swift 编译器会为了 Swift 转换再对其进行一次复制。这会导致额外的运行时开销。
 
 为了避免这种情况，可以在 Swift 中直接将 Kotlin 字符串作为 Objective-C `NSString` 访问。[查看转换示例](#查看转换示例)。
 
-#### NSMutableString
+#### NSMutableString {id="nsmutablestring"}
 
 Objective-C 类 `NSMutableString` 在 Kotlin 中不可用。所有 `NSMutableString` 实例在传递给 Kotlin 时都会被复制。
 
-### 集合
+### 集合 {id="collections"}
 
-#### Kotlin -> Objective-C -> Swift
+#### Kotlin -> Objective-C -> Swift {id="kotlin-objective-c-swift"}
 
 当 Kotlin 集合传递给 Swift 时，它首先被转换为等效的 Objective-C 集合，然后 Swift 编译器会复制整个集合，并将其转换为 [映射表](#映射) 中所述的 Swift 原生集合。
 
 最后一次转换会带来性能成本。为了防止这种情况，在 Swift 中使用 Kotlin 集合时，可以显式地将它们转换为对应的 Objective-C 集合：`NSDictionary`、`NSArray` 或 `NSSet`。
 
-##### 查看转换示例 {initial-collapse-state="collapsed" collapsible="true"}
+##### 查看转换示例 {initial-collapse-state="collapsed" collapsible="true" id="see-the-conversion-example"}
 
 例如，对于以下 Kotlin 声明：
 
@@ -403,7 +403,7 @@ let nsMap: NSDictionary = map as NSDictionary
 
 这确保了 Swift 编译器不会执行额外的转换步骤。
 
-#### Swift -> Objective-C -> Kotlin
+#### Swift -> Objective-C -> Kotlin {id="swift-objective-c-kotlin"}
 
 除了 `NSMutableSet` 和 `NSMutableDictionary` 外，Swift/Objective-C 集合会按照 [映射表](#映射) 中的说明映射到 Kotlin。
 
@@ -411,7 +411,7 @@ let nsMap: NSDictionary = map as NSDictionary
 
 [在 Kotlin-Swift interopedia 中查看示例](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/overview/Collections.md)。
 
-### 函数类型
+### 函数类型 {id="function-types"}
 
 Kotlin 函数类型对象（例如 lambda）在 Swift 中被转换为闭包，在 Objective-C 中被转换为块。[在 Kotlin-Swift interopedia 中查看带有 lambda 的 Kotlin 函数示例](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/functionsandproperties/Functions%20returning%20function%20type.md)。
 
@@ -438,7 +438,7 @@ foo {
 }
 ```
 
-#### Objective-C 块类型中的显式形参名称
+#### Objective-C 块类型中的显式形参名称 {id="explicit-parameter-names-in-objective-c-block-types"}
 <primary-label ref="experimental-opt-in"/>
 
 你可以为导出的 Objective-C 头文件中的 Kotlin 函数类型添加显式形参名称。在 Objective-C 块中调用 Objective-C 函数时，Xcode 的自动补全会建议这些名称。这有助于避免生成的块中出现 Clang 警告。
@@ -469,7 +469,7 @@ greetUserBlock:^(NSString *name) {
 >
 {style="note"}
 
-### 泛型
+### 泛型 {id="generics"}
 
 Objective-C 支持在类中定义的“轻量级泛型”，其功能集相对有限。Swift 可以导入类上定义的泛型，以帮助向编译器提供额外的类型信息。
 
@@ -477,13 +477,13 @@ Objective-C 和 Swift 对泛型功能的支持与 Kotlin 不同，因此翻译�
 
 有关如何在 Swift 中使用 Kotlin 泛型的具体示例，请参阅 [Kotlin-Swift interopedia](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/overview/ShouldRefineInSwift.md)。
 
-#### 限制
+#### 限制 {id="limitations"}
 
 Objective-C 泛型不支持 Kotlin 或 Swift 的所有功能，因此在翻译中会丢失一些信息。
 
 泛型只能在类上定义，不能在接口（Objective-C 和 Swift 中的协议）或函数上定义。
 
-#### 为 null 性
+#### 为 null 性 {id="nullability"}
 
 Kotlin 和 Swift 都将为 null 性定义为类型规范的一部分，而 Objective-C 在类型的属性和方法上定义为 null 性。因此，以下 Kotlin 代码：
 
@@ -513,7 +513,7 @@ class Sample<T : Any>() {
 
 这将强制 Objective-C 头文件将 `myVal` 标记为非 null。
 
-#### 差异 (Variance)
+#### 差异 (Variance) {id="variance"}
 
 Objective-C 允许将泛型声明为协变或逆变。Swift 不支持差异。来自 Objective-C 的泛型类可以根据需要进行强制转换。
 
@@ -527,11 +527,11 @@ let variOut = GenVarOut<SomeData>(arg: sd)
 let variOutAny : GenVarOut<BaseData> = variOut as! GenVarOut<BaseData>
 ```
 
-#### 约束
+#### 约束 {id="constraints"}
 
 在 Kotlin 中，你可以为泛型类型提供上界。Objective-C 也支持这一点，但在更复杂的情况下不可用，并且目前在 Kotlin - Objective-C 互操作中不受支持。例外情况是，非 null 的上界会使 Objective-C 方法/属性变为非 null。
 
-#### 禁用
+#### 禁用 {id="to-disable"}
 
 要使生成的框架头文件不带泛型，请在构建文件中添加以下编译器选项：
 
@@ -541,7 +541,7 @@ binaries.framework {
 }
 ```
 
-### 前向声明
+### 前向声明 {id="forward-declarations"}
 
 要导入前向声明，请使用 `objcnames.classes` 和 `objcnames.protocols` 软件包。例如，要导入在带有 `library.package` 的 Objective-C 库中声明的 `objcprotocolName` 前向声明，请使用特殊的前向声明软件包：`import objcnames.protocols.objcprotocolName`。
 
@@ -586,7 +586,7 @@ fun test() {
 >
 {style="note"}
 
-## 在映射类型之间转换
+## 在映射类型之间转换 {id="casting-between-mapped-types"}
 
 在编写 Kotlin 代码时，可能需要将对象从 Kotlin 类型转换为等效的 Swift/Objective-C 类型，反之亦然。在这种情况下，你可以使用 [`as` 转换](typecasts.md#unsafe-cast-operator)，例如：
 
@@ -602,13 +602,13 @@ val string = nsString as String
 
 IDE 可能会错误地发出 “This cast can never succeed” 的警告。在这种情况下，请使用 `@Suppress("CAST_NEVER_SUCCEEDS")` 注解。
 
-## 子类化
+## 子类化 {id="subclassing"}
 
-### 从 Swift/Objective-C 子类化 Kotlin 类和接口
+### 从 Swift/Objective-C 子类化 Kotlin 类和接口 {id="subclassing-kotlin-classes-and-interfaces-from-swift-objective-c"}
 
 Kotlin 类和接口可以被 Swift/Objective-C 类和协议子类化。
 
-### 从 Kotlin 子类化 Swift/Objective-C 类和协议
+### 从 Kotlin 子类化 Swift/Objective-C 类和协议 {id="subclassing-swift-objective-c-classes-and-protocols-from-kotlin"}
 
 Swift/Objective-C 类和协议可以使用 Kotlin `final` 类进行子类化。目前还不支持继承 Swift/Objective-C 类型的非 `final` Kotlin 类，因此无法声明继承自 Swift/Objective-C 类型的复杂类层次结构。
 
@@ -630,11 +630,11 @@ class ViewController : UIViewController {
 
 默认情况下，Kotlin/Native 编译器不允许调用非指定的 Objective-C 初始值设定项作为 `super()` 构造函数。如果 Objective-C 库中没有正确标记指定的初始值设定项，这种行为可能会带来不便。要禁用这些编译器检查，请将 `disableDesignatedInitializerChecks = true` 添加到库的 [`.def` 文件](native-definition-file.md)中。
 
-## C 功能
+## C 功能 {id="c-features"}
 
 请参阅[与 C 的互操作性](native-c-interop.md)，了解库使用某些纯 C 功能（如不安全指针、结构体等）的示例情况。
 
-## 不支持
+## 不支持 {id="unsupported"}
 
 Kotlin 编程语言的某些功能尚未映射到 Objective-C 或 Swift 的相应功能。目前，生成的框架头文件中未正确暴露以下功能：
 

@@ -15,7 +15,7 @@ java -cp <classpath> <mainclass> <options> <processor>
 | `<options>`   | KSP 的命令行选项。                            |
 | `<processor>` | 处理器 JAR 文件的路径。                         |
 
-## 类路径
+## 类路径 {id="classpath"}
 
 与 Gradle 插件不同，`java` 命令不会自动解析依赖项。你必须在类路径上提供 KSP 运行时 JAR 文件及其依赖项。
 
@@ -33,7 +33,7 @@ java -cp <classpath> <mainclass> <options> <processor>
 
 * [`kotlinx-coroutines-core-jvm-%coroutinesVersion%.jar`](https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-core-jvm)
 
-## 主类
+## 主类 {id="main-class"}
 
 因为 KSP 是一个 JVM 应用程序，所以你必须指定要启动的主类。KSP 为每个受支持的平台提供了不同的入口点：
 
@@ -71,7 +71,7 @@ com.google.devtools.ksp.cmdline.KSPJvmMain \
 path/to/processor.jar
 ```
 
-## 选项
+## 选项 {id="options"}
 
 从命令行运行时，KSP 需要以下选项：
 
@@ -91,7 +91,7 @@ path/to/processor.jar
 | `-resource-output-dir=<path>` | 生成的资源的目录。                                                                                                                       |
 | `<processor>`                 | 处理器类路径。                                                                                                                         |
 
-### 其他有用选项
+### 其他有用选项 {id="other-useful-options"}
 
 * `-libraries=<path>`：用于解析源文件所引用的依赖项的类路径。通常是模块的编译类路径。
 

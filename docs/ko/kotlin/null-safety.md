@@ -24,7 +24,7 @@ Kotlin에서 NPE가 발생할 수 있는 유일한 원인은 다음과 같습니
 >
 {style="tip"}
 
-## 널 허용 타입과 널 불가능 타입
+## 널 허용 타입과 널 불가능 타입 {id="nullable-types-and-non-nullable-types"}
 
 Kotlin의 타입 시스템은 `null`을 가질 수 있는 타입(널 허용 타입, nullable types)과 가질 수 없는 타입(널 불가능 타입, non-nullable types)을 구분합니다. 예를 들어, 일반적인 `String` 타입의 변수는 `null`을 가질 수 없습니다:
 
@@ -105,7 +105,7 @@ fun main() {
 
 `null` 처리 도구와 기술에 대한 자세한 내용과 예제는 다음 섹션을 참조하세요.
 
-## if 조건문으로 null 확인
+## if 조건문으로 null 확인 {id="check-for-null-with-the-if-conditional"}
 
 널 허용 타입을 다룰 때는 NPE를 피하기 위해 널 허용 여부를 안전하게 처리해야 합니다. 한 가지 방법은 `if` 조건식을 사용하여 명시적으로 널 허용 여부를 확인하는 것입니다.
 
@@ -150,7 +150,7 @@ fun main() {
 
 위의 예시는 [스마트 캐스트 전제 조건](typecasts.md#smart-cast-prerequisites)과 마찬가지로, 컴파일러가 확인 시점과 사용 시점 사이에 `b`가 변경되지 않음을 보장할 수 있는 경우에만 작동한다는 점에 유의하세요.
 
-## 안전한 호출 연산자
+## 안전한 호출 연산자 {id="safe-call-operator"}
 
 안전한 호출 연산자 `?.`를 사용하면 널 허용 여부를 더 짧은 형태로 안전하게 처리할 수 있습니다. 객체가 `null`인 경우 NPE를 발생시키는 대신, `?.` 연산자는 단순히 `null`을 반환합니다.
 
@@ -201,7 +201,7 @@ if (person != null && person.department != null) {
 }
 ```
 
-## 엘비스 연산자
+## 엘비스 연산자 {id="elvis-operator"}
 
 널 허용 타입을 다룰 때, `null`인지 확인하고 대안 값을 제공할 수 있습니다. 예를 들어, `b`가 `null`이 아니면 `b.length`에 접근하고, 그렇지 않으면 대안 값을 반환합니다:
 
@@ -249,7 +249,7 @@ fun foo(node: Node): String? {
 }
 ```
 
-## null 아님 단언 연산자
+## null 아님 단언 연산자 {id="not-null-assertion-operator"}
 
 null 아님 단언 연산자(not-null assertion operator) `!!`는 모든 값을 널 불가능 타입으로 변환합니다.
 
@@ -289,7 +289,7 @@ fun main() {
 
 `!!` 연산자는 값이 `null`이 아님을 확신하고 NPE가 발생할 가능성이 없지만, 특정 규칙으로 인해 컴파일러가 이를 보장할 수 없는 경우에 특히 유용합니다. 이러한 경우 `!!` 연산자를 사용하여 컴파일러에게 값이 `null`이 아님을 명시적으로 알릴 수 있습니다.
 
-## 널 허용 수신 객체
+## 널 허용 수신 객체 {id="nullable-receiver"}
 
 [널 허용 수신 객체 타입(nullable receiver type)](extensions.md#nullable-receivers)을 가진 확장 함수를 사용할 수 있으며, 이를 통해 `null`일 수 있는 변수에서도 해당 함수를 호출할 수 있습니다.
 
@@ -340,7 +340,7 @@ data class Person(val name: String)
 
 `?.` 연산자를 사용하면 `null`일 수 있는 객체의 프로퍼티나 함수에 접근하면서도 잠재적인 `null` 값을 안전하게 처리할 수 있습니다.
 
-## let 함수
+## let 함수 {id="let-function"}
 
 `null` 값을 처리하고 널 불가능 타입에 대해서만 연산을 수행하려면 안전한 호출 연산자 `?.`를 [`let` 함수](scope-functions.md#let)와 함께 사용할 수 있습니다.
 
@@ -363,7 +363,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-## 안전한 캐스트
+## 안전한 캐스트 {id="safe-casts"}
 
 [타입 캐스트](typecasts.md#unsafe-cast-operator)를 위한 일반적인 Kotlin 연산자는 `as` 연산자입니다. 그러나 일반적인 캐스트는 객체가 대상 타입이 아닌 경우 예외를 발생시킬 수 있습니다.
 
@@ -391,7 +391,7 @@ fun main() {
 
 위 코드는 `a`가 `Int`가 아니므로 안전하게 캐스팅에 실패하여 `null`을 출력합니다. 또한 `String?` 타입과는 일치하므로 안전한 캐스트에 성공하여 `"Hello, Kotlin!"`을 출력합니다.
 
-## 널 허용 타입의 컬렉션
+## 널 허용 타입의 컬렉션 {id="collections-of-a-nullable-type"}
 
 널 허용 요소가 포함된 컬렉션에서 널이 아닌 요소만 유지하고 싶다면 `filterNotNull()` 함수를 사용하세요:
 
@@ -411,7 +411,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [Java와 Kotlin에서 널 허용 여부를 처리하는 방법](java-to-kotlin-nullability-guide.md)을 배워보세요.
 * [확실히 널 불가능한 제네릭 타입](generics.md#definitely-non-nullable-types)에 대해 알아보세요.

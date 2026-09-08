@@ -8,11 +8,11 @@ title: 안드로이드 스코프(Android Scopes)
 코어 스코프 개념에 대해서는 [스코프(Scopes)](/docs/reference/koin-core/scopes)를 참조하십시오.
 :::
 
-## 개요
+## 개요 {id="overview"}
 
 Koin의 스코프를 사용하면 의존성의 생명주기(lifecycle)를 안드로이드 컴포넌트 생명주기에 맞춰 관리할 수 있습니다. 이를 통해 메모리 누수를 방지하고 적절한 리소스 관리를 보장할 수 있습니다.
 
-### 스코프 계층 구조 (Scope Hierarchy)
+### 스코프 계층 구조 (Scope Hierarchy) {id="scope-hierarchy"}
 
 | 스코프 유형 | 수명 | 화면 회전 시 유지 여부 | DSL | 어노테이션 |
 |------------|----------|-------------------|-----|------------|
@@ -22,7 +22,7 @@ Koin의 스코프를 사용하면 의존성의 생명주기(lifecycle)를 안드
 | **Fragment** | 프래그먼트 생명주기 | ❌ No | `fragmentScope { }` | `@FragmentScope` |
 | **ViewModel** | 뷰모델 생명주기 | ✅ Yes | `viewModelScope { }` | `@ViewModelScope` |
 
-### 스코프 관계 (Scope Relationships)
+### 스코프 관계 (Scope Relationships) {id="scope-relationships"}
 
 ```
 Application Scope (single { })
@@ -37,9 +37,9 @@ Application Scope (single { })
 **핵심 원칙:** 자식 스코프는 부모 스코프의 정의에 접근할 수 있지만, 반대는 불가능합니다.
 :::
 
-## 스코프 의존성 선언하기
+## 스코프 의존성 선언하기 {id="declaring-scoped-dependencies"}
 
-### 컴파일러 플러그인 DSL
+### 컴파일러 플러그인 DSL {id="compiler-plugin-dsl"}
 
 ```kotlin
 val appModule = module {
@@ -62,7 +62,7 @@ val appModule = module {
 }
 ```
 
-### 어노테이션
+### 어노테이션 {id="annotations"}
 
 ```kotlin
 // 액티비티 스코프
@@ -89,7 +89,7 @@ class UserCache
 class UserViewModel(private val cache: UserCache) : ViewModel()
 ```
 
-### 클래식 DSL
+### 클래식 DSL {id="classic-dsl"}
 
 ```kotlin
 val appModule = module {
@@ -109,9 +109,9 @@ val appModule = module {
 }
 ```
 
-## 안드로이드 컴포넌트에서 스코프 사용하기
+## 안드로이드 컴포넌트에서 스코프 사용하기 {id="using-scopes-in-android-components"}
 
-### 액티비티 스코프 (Activity Scope)
+### 액티비티 스코프 (Activity Scope) {id="activity-scope"}
 
 ```kotlin
 class MyActivity : AppCompatActivity(), AndroidScopeComponent {
@@ -134,7 +134,7 @@ class MyActivity : ScopeActivity() {
 }
 ```
 
-### 액티비티 유지 스코프 (Activity Retained Scope)
+### 액티비티 유지 스코프 (Activity Retained Scope) {id="activity-retained-scope"}
 
 구성 변경(화면 회전, 테마 변경 등) 시에도 유지됩니다:
 
@@ -157,7 +157,7 @@ class MyActivity : RetainedScopeActivity() {
 }
 ```
 
-### 프래그먼트 스코프 (Fragment Scope)
+### 프래그먼트 스코프 (Fragment Scope) {id="fragment-scope"}
 
 프래그먼트 스코프는 자동으로 부모 액티비티 스코프에 연결됩니다:
 
@@ -183,9 +183,9 @@ class MyFragment : ScopeFragment() {
 }
 ```
 
-## 타입 기반 vs 아키타입 스코프 (Type-Based vs Archetype Scopes)
+## 타입 기반 vs 아키타입 스코프 (Type-Based vs Archetype Scopes) {id="type-based-vs-archetype-scopes"}
 
-### 아키타입 스코프 (권장)
+### 아키타입 스코프 (권장) {id="archetype-scope-recommended"}
 
 어떤 액티비티나 프래그먼트와도 작동하는 범용적인 스코프입니다:
 
@@ -206,7 +206,7 @@ class ActivityB : ScopeActivity() {
 }
 ```
 
-### 타입 기반 스코프 (Type-Based Scope)
+### 타입 기반 스코프 (Type-Based Scope) {id="type-based-scope"}
 
 특정 클래스에 결합된 스코프입니다:
 
@@ -224,7 +224,7 @@ class MyActivity : AppCompatActivity(), AndroidScopeComponent {
 }
 ```
 
-## 뷰모델 스코프 (ViewModel Scope)
+## 뷰모델 스코프 (ViewModel Scope) {id="viewmodel-scope"}
 
 뷰모델은 (메모리 누수를 방지하기 위해) 액티비티나 프래그먼트 스코프에 접근할 수 없습니다. 스코프가 지정된 의존성을 위해서는 뷰모델 스코프를 사용하십시오:
 
@@ -254,9 +254,9 @@ class UserViewModel(
 
 상세한 뷰모델 스코프 사용법은 [스코프 - 뷰모델 스코프](/docs/reference/koin-core/scopes#viewmodel-scope)를 참조하십시오.
 
-## 스코프 생명주기 (Scope Lifecycle)
+## 스코프 생명주기 (Scope Lifecycle) {id="scope-lifecycle"}
 
-### 스코프 종료 처리
+### 스코프 종료 처리 {id="handling-scope-close"}
 
 스코프가 파괴되기 전에 정리 작업을 수행하려면 `onCloseScope()`를 오버라이드하십시오:
 
@@ -276,7 +276,7 @@ class MyActivity : AppCompatActivity(), AndroidScopeComponent {
 `onDestroy()`에서 스코프에 접근하지 마십시오. 해당 시점에 스코프는 이미 닫혀 있습니다.
 :::
 
-## 스코프 링크 (Scope Links)
+## 스코프 링크 (Scope Links) {id="scope-links"}
 
 커스텀 스코프를 사용하여 컴포넌트 간에 인스턴스를 공유할 수 있습니다:
 
@@ -303,7 +303,7 @@ class MyActivity : ScopeActivity() {
 }
 ```
 
-## 빠른 참조 (Quick Reference)
+## 빠른 참조 (Quick Reference) {id="quick-reference"}
 
 | 컴포넌트 | 델리게이트 | 베이스 클래스 |
 |-----------|----------|------------|
@@ -318,7 +318,7 @@ class MyActivity : ScopeActivity() {
 | `fragmentScope` | ❌ No | 프래그먼트 전용 프레젠터 |
 | `viewModelScope` | ✅ Yes | 뷰모델 의존성 |
 
-## 베스트 프랙티스 (Best Practices)
+## 베스트 프랙티스 (Best Practices) {id="best-practices"}
 
 1. **아키타입(Archetype) 사용** - 재사용성을 위해 `scope<MyActivity> { }`보다는 `activityScope { }`를 우선적으로 사용하십시오.
 2. **화면 회전 시 유지(Retained)** - 화면 회전 시에도 유지되어야 하는 상태에는 `activityRetainedScope`를 사용하십시오.
@@ -326,7 +326,7 @@ class MyActivity : ScopeActivity() {
 4. **커스텀 스코프 닫기** - 수동으로 생성한 스코프는 항상 직접 닫아주어야 합니다.
 5. **onCloseScope 활용** - 스코프가 파괴되기 전 정리 작업에 사용하십시오.
 
-## 다음 단계
+## 다음 단계 {id="next-steps"}
 
 - **[코어 스코프(Core Scopes)](/docs/reference/koin-core/scopes)** - 스코프 기초 및 뷰모델 스코프
 - **[뷰모델(ViewModel)](/docs/reference/koin-android/viewmodel)** - 뷰모델 주입

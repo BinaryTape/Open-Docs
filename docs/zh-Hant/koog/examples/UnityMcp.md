@@ -25,7 +25,7 @@ lateinit var process: Process
 
 ```
 
-## 1) 提供您的 OpenAI API 金鑰
+## 1) 提供您的 OpenAI API 金鑰 {id="1-provide-your-openai-api-key"}
 我們從 `OPENAI_API_KEY` 環境變數讀取 API 金鑰，以便您可以讓機密資訊留在筆記本之外。
 
 ```kotlin
@@ -33,7 +33,7 @@ val token = System.getenv("OPENAI_API_KEY") ?: error("OPENAI_API_KEY environment
 val executor = simpleOpenAIExecutor(token)
 ```
 
-## 2) 設定 Unity 代理
+## 2) 設定 Unity 代理 {id="2-configure-the-unity-agent"}
 我們為 Unity 定義了一個簡潔的系統提示詞和代理設定。
 
 ```kotlin
@@ -52,7 +52,7 @@ val agentConfig = AIAgentConfig(
 
 ```
 
-## 3) 啟動 Unity MCP 伺服器
+## 3) 啟動 Unity MCP 伺服器 {id="3-start-the-unity-mcp-server"}
 我們將從您的 Unity 專案目錄啟動 Unity MCP 伺服器，並透過 stdio 進行連線。
 
 ```kotlin
@@ -64,7 +64,7 @@ val process = ProcessBuilder(
 ).start()
 ```
 
-## 4) 從 Koog 連線並執行代理
+## 4) 從 Koog 連線並執行代理 {id="4-connect-from-koog-and-run-the-agent"}
 我們從 Unity MCP 伺服器探索工具，建構一個簡單的「計畫優先」策略，並執行一個僅使用工具來修改您目前開啟場景的代理。
 
 ```kotlin
@@ -139,7 +139,7 @@ description:" + it.descriptor
 }
 ```
 
-## 5) 關閉 MCP 程序
+## 5) 關閉 MCP 程序 {id="5-shut-down-the-mcp-process"}
 在執行結束時，請務必清理外部 Unity MCP 伺服器程序。
 
 ```kotlin

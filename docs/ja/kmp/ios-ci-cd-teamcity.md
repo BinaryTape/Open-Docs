@@ -12,9 +12,9 @@
 * ビルドに署名し、[TestFlight](https://developer.apple.com/testflight/)に公開します。
 * 月間のビルド時間とストレージの許容量が含まれる無料のスターティングティアを提供します。
 
-## TeamCityパイプラインの作成
+## TeamCityパイプラインの作成 {id="create-the-teamcity-pipeline"}
 
-### IDEからCIセットアップを開始する
+### IDEからCIセットアップを開始する {id="start-ci-setup-from-the-ide"}
 
 1. プロジェクトの変更をコミットしてプッシュします。CIがまだ構成されていない場合、Kotlin Multiplatform IDEプラグインはCIセットアップの開始を促すツールチップを表示します。
 2. **Configure CI** をクリックします。
@@ -31,7 +31,7 @@
 4. IDEに **Pipeline is ready** と表示されたら、初期のパイプライン構成は完了です。
    **Continue** をクリックし、プロンプトが表示されたら、IDEが生成されたファイルをGitに追加することを許可します。これらのファイルは、リポジトリにコミットするまでローカルに残ります。
 
-### TeamCity Cloudワークスペースの作成または接続
+### TeamCity Cloudワークスペースの作成または接続 {id="create-or-connect-a-teamcity-cloud-workspace"}
 
 TeamCityでホストされたmacOSエージェント上でビルドを実行するには、Cloudワークスペースが必要です。
 
@@ -48,7 +48,7 @@ TeamCityでホストされたmacOSエージェント上でビルドを実行す�
 
 TeamCityがワークスペースを作成または接続し、ビルド環境を準備します。これには通常30秒もかかりません。
 
-## iOSアプリのビルド
+## iOSアプリのビルド {id="build-the-ios-app"}
 
 ワークスペースの準備ができると、IDEは自動的に **TeamCity** タブを開き、最初のビルドを開始します。
 
@@ -58,11 +58,11 @@ TeamCityがワークスペースを作成または接続し、ビルド環境を
 
 自動ビルドが成功したら、**Publish to TestFlight** をクリックして署名とデプロイを構成します。
 
-## Apple署名とTestFlightの構成
+## Apple署名とTestFlightの構成 {id="configure-apple-signing-and-testflight"}
 
 TestFlightにビルドをアップロードするには、TeamCityにApp Store ConnectとAppleコード署名の資格情報が必要です。
 
-### App Store Connect APIキーの作成
+### App Store Connect APIキーの作成 {id="create-an-app-store-connect-api-key"}
 
 1. [App Store Connect](https://appstoreconnect.apple.com/)にサインインします。
 2. **ユーザとアクセス** に移動し、**キー** を選択します。
@@ -72,7 +72,7 @@ TestFlightにビルドをアップロードするには、TeamCityにApp Store C
 
 `.p8` ファイルは一度しかダウンロードできないため、安全に保管してください。
 
-### Apple Distribution証明書の書き出し
+### Apple Distribution証明書の書き出し {id="export-an-apple-distribution-certificate"}
 
 1. Xcodeで **Settings** | **Accounts** に移動するか、[Apple Developer Portal](https://developer.apple.com/account/)を開き、Apple Distribution証明書を作成または探します。
 2. Macで **キーチェーンアクセス** を開き、**自分の証明書** の下にある証明書を見つけます。
@@ -83,7 +83,7 @@ TestFlightにビルドをアップロードするには、TeamCityにApp Store C
 >
 {style="note"}
 
-### IDEでApple資格情報を追加する
+### IDEでApple資格情報を追加する {id="add-apple-credentials-in-the-ide"}
 
 IDEに戻り、**Add Apple signing credentials** フォームを入力します。
 TeamCityはこれらの値を安全なデプロイ資格情報として保存します。これらはプロジェクトのソースファイルには追加されません。
@@ -98,7 +98,7 @@ TeamCityはこれらの値を安全なデプロイ資格情報として保存し
 | **.p12 password** | 証明書を書き出す際に指定したパスワード。                                                                                                |
 {style="none"}
 
-### 最初のビルドをTestFlightにアップロードする
+### 最初のビルドをTestFlightにアップロードする {id="upload-the-first-build-to-testflight"}
 
 資格情報を追加すると、パイプラインに署名とデプロイのステップが含まれるようになります。
 
@@ -106,9 +106,9 @@ TeamCityはこれらの値を安全なデプロイ資格情報として保存し
     TeamCityがパイプラインを再実行し、署名済みのiOSビルドを作成してApp Store Connectにアップロードします。
 2. App Store ConnectまたはTestFlightを開き、ビルドが表示されることを確認します。
 
-## ビルドと公開の自動化
+## ビルドと公開の自動化 {id="automate-builds-and-publishing"}
 
-### リポジトリの接続
+### リポジトリの接続 {id="connect-the-repository"}
 
 このプロセスを自動化するには、GitHubリポジトリをTeamCityに接続し、プッシュのたびに新しいビルドがトリガーされるようにします。
 
@@ -118,7 +118,7 @@ TeamCityはこれらの値を安全なデプロイ資格情報として保存し
 
 これで、構成されたブランチに変更をプッシュするたびに、TeamCityがパイプラインをトリガーするようになります。
 
-### パイプラインの確認
+### パイプラインの確認 {id="verify-the-pipeline"}
 
 これでiOSデリバリーパイプラインの準備が整いました！構成されたブランチへのプッシュごとに、TeamCityは以下を実行します：
 
@@ -134,7 +134,7 @@ TeamCityはこれらの値を安全なデプロイ資格情報として保存し
 
 これからは、コードをプッシュするだけで、残りの処理はTeamCityが行います。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * セットアップをさらにカスタマイズするために、[TeamCity Cloudパイプライン](https://www.jetbrains.com/help/teamcity/cloud/create-and-edit-pipelines.html)について詳しく読む：プロジェクトの追加、ビルドエージェントの要件設定など。
 * [マルチプラットフォームアプリの公開](multiplatform-publish-apps.md)方法を学ぶ。

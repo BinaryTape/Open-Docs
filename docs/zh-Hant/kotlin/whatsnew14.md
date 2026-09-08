@@ -11,7 +11,7 @@ _[發布日期：2020 年 8 月 17 日](releases.md#release-history)_
 >
 {style="tip"}
 
-## 語言特性與改進
+## 語言特性與改進 {id="language-features-and-improvements"}
 
 Kotlin 1.4.0 帶來了多種不同的語言特性與改進。其中包括：
 
@@ -22,7 +22,7 @@ Kotlin 1.4.0 帶來了多種不同的語言特性與改進。其中包括：
 * [可呼叫參照的改進](#callable-reference-improvements)
 * [在迴圈中的 when 內使用 break 與 continue](#using-break-and-continue-inside-when-expressions-included-in-loops)
 
-### Kotlin 介面的 SAM 轉換
+### Kotlin 介面的 SAM 轉換 {id="sam-conversions-for-kotlin-interfaces"}
 
 在 Kotlin 1.4.0 之前，您只能在 [從 Kotlin 處理 Java 方法與 Java 介面時](java-interop.md#sam-conversions) 應用 SAM (Single Abstract Method) 轉換。從現在起，您也可以對 Kotlin 介面使用 SAM 轉換。
 為此，請使用 `fun` 修飾詞將 Kotlin 介面明確標記為功能性介面。
@@ -44,7 +44,7 @@ fun main() {
 
 [進一步了解 Kotlin 功能性介面與 SAM 轉換](fun-interfaces.md)。
 
-### 為程式庫作者提供的顯式 API 模式
+### 為程式庫作者提供的顯式 API 模式 {id="explicit-api-mode-for-library-authors"}
 
 Kotlin 編譯器為程式庫作者提供了「顯式 API 模式」。在這種模式下，編譯器會執行額外的檢查，有助於使程式庫的 API 更加清晰且一致。它對暴露於程式庫公共 API 的宣告增加了以下要求：
 
@@ -108,7 +108,7 @@ kotlin {
 
 [在 KEEP 中查找有關顯式 API 模式的更多詳細資訊](https://github.com/Kotlin/KEEP/blob/master/proposals/explicit-api-mode.md)。 
 
-### 混合使用命名引數與位置引數
+### 混合使用命名引數與位置引數 {id="mixing-named-and-positional-arguments"}
 
 在 Kotlin 1.3 中，當您使用 [命名引數](functions.md#named-arguments) 呼叫函式時，您必須將所有不含名稱的引數（位置引數）放在第一個命名引數之前。例如，您可以呼叫 `f(1, y = 2)`，但不能呼叫 `f(x = 1, 2)`。
 
@@ -129,7 +129,7 @@ fun reformat(
 reformat("This is a String!", uppercaseFirstLetter = false , '-')
 ```
 
-### 尾隨逗號
+### 尾隨逗號 {id="trailing-comma"}
 
 從 Kotlin 1.4 開始，您現在可以在列舉（如引數與參數列表）、`when` 項目以及解構宣告的組件中加入尾隨逗號。
 有了尾隨逗號，您可以在不增加或移除逗號的情況下增加新項目並更改其順序。
@@ -154,7 +154,7 @@ val colors = listOf(
 )
 ```
 
-### 可呼叫參照的改進
+### 可呼叫參照的改進 {id="callable-reference-improvements"}
 
 Kotlin 1.4 支援更多使用可呼叫參照的情況：
 
@@ -163,7 +163,7 @@ Kotlin 1.4 支援更多使用可呼叫參照的情況：
 * 根據函式中的引數數量進行適配的參照
 * 可呼叫參照上的 suspend 轉換
 
-#### 參照包含具有預設值參數的函式
+#### 參照包含具有預設值參數的函式 {id="references-to-functions-that-include-parameters-with-default-values"}
 
 現在您可以對包含具有預設值參數的函式使用可呼叫參照。如果對函式 `foo` 的可呼叫參照不帶引數，則使用預設值 `0`。
 
@@ -185,7 +185,7 @@ fun main() {
 fun applyInt(func: (Int) -> String): String = func(0) 
 ```
 
-#### 在回傳 Unit 的函式中使用函式參照
+#### 在回傳 Unit 的函式中使用函式參照 {id="function-references-in-unit-returning-functions"}
 
 在 Kotlin 1.4 中，您可以在回傳 `Unit` 的函式中使用回傳任何型別之函式的可呼叫參照。
 在 Kotlin 1.4 之前，在這種情況下您只能使用 Lambda 引數。現在您既可以使用 Lambda 引數，也可以使用可呼叫參照。
@@ -200,7 +200,7 @@ fun main() {
 }
 ```
 
-#### 根據函式中的引數數量進行適配的參照
+#### 根據函式中的引數數量進行適配的參照 {id="references-that-adapt-based-on-the-number-of-arguments-in-a-function"}
 
 現在您可以在傳遞可變數量參數 (`vararg`) 時適配函式的可呼叫參照。
 您可以在傳遞引數列表的末尾傳遞任意數量的相同型別參數。
@@ -219,7 +219,7 @@ fun test() {
 }
 ```
 
-#### 可呼叫參照上的 suspend 轉換
+#### 可呼叫參照上的 suspend 轉換 {id="suspend-conversion-on-callable-references"}
 
 除了 Lambda 上的 suspend 轉換外，Kotlin 從 1.4.0 版本開始也支援可呼叫參照上的 suspend 轉換。
 
@@ -233,7 +233,7 @@ fun test() {
 }
 ```
 
-### 在迴圈中的 when 內使用 break 與 continue
+### 在迴圈中的 when 內使用 break 與 continue {id="using-break-and-continue-inside-when-expressions-included-in-loops"}
 
 在 Kotlin 1.3 中，您不能在包含於迴圈中的 `when` 表達式內使用不帶限定符的 `break` 與 `continue`。原因是這些關鍵字被保留用於 `when` 表達式中可能的 [fall-through 行為](https://en.wikipedia.org/wiki/Switch_statement#Fallthrough)。
 
@@ -267,14 +267,14 @@ fun test(xs: List<Int>) {
 
 `when` 內部的 fall-through 行為仍有待進一步設計。
 
-## IDE 中的新工具
+## IDE 中的新工具 {id="new-tools-in-the-ide"}
 
 藉助 Kotlin 1.4，您可以使用 IntelliJ IDEA 中的新工具來簡化 Kotlin 開發：
 
 * [全新的靈活專案精靈](#new-flexible-project-wizard)
 * [協同程式偵錯工具](#coroutine-debugger)
 
-### 全新的靈活專案精靈
+### 全新的靈活專案精靈 {id="new-flexible-project-wizard"}
 
 透過靈活的新 Kotlin 專案精靈，您可以輕鬆建立與設定不同類型的 Kotlin 專案，包括多平台專案，這些專案在沒有 UI 的情況下可能難以設定。
 
@@ -302,7 +302,7 @@ fun test(xs: List<Int>) {
 * [為 React 建立 Kotlin/JS 應用程式](js-react.md)
 * [建立 Kotlin/Native 應用程式](native-get-started.md)
 
-### 協同程式偵錯工具
+### 協同程式偵錯工具 {id="coroutine-debugger"}
 
 許多人已經使用 [協同程式](coroutines-guide.md) 進行非同步程式設計。
 但在進行偵錯時，在 Kotlin 1.4 之前處理協同程式可能非常痛苦。由於協同程式會在執行緒之間跳轉，因此很難理解特定協同程式正在做什麼並檢查其上下文。在某些情況下，單步執行越過中斷點根本不起作用。因此，您不得不依賴日誌紀錄或心力來偵錯使用協同程式的程式碼。
@@ -328,14 +328,14 @@ fun test(xs: List<Int>) {
 
 在 [這篇部落格文章](https://blog.jetbrains.com/kotlin/2020/07/kotlin-1-4-rc-debugging-coroutines/) 與 [IntelliJ IDEA 文件](https://www.jetbrains.com/help/idea/debug-kotlin-coroutines.html) 中了解有關偵錯協同程式的更多資訊。
 
-## 新編譯器
+## 新編譯器 {id="new-compiler"}
 
 新的 Kotlin 編譯器將會非常快速；它將統一所有支援的平台並為編譯器擴充功能提供 API。這是一個長期專案，我們在 Kotlin 1.4.0 中已經完成了幾個步驟：
 
 * 預設啟用 [新的、更強大的型別推論演算法](#new-more-powerful-type-inference-algorithm)。
 * [新的 JVM 與 JS IR 後端](#unified-backends-and-extensibility)。一旦我們使其穩定，它們將成為預設。
 
-### 新的更強大的型別推論演算法
+### 新的更強大的型別推論演算法 {id="new-more-powerful-type-inference-algorithm"}
 
 Kotlin 1.4 使用了新的、更強大的型別推論演算法。這個新演算法在 Kotlin 1.3 中已經可以透過指定編譯器選項進行嘗試，現在它已被預設使用。您可以在 [YouTrack](https://youtrack.jetbrains.com/issues/KT?q=Tag:%20fixed-in-new-inference%20) 中找到新演算法中修復的問題完整清單。以下是一些最顯著的改進：
 
@@ -346,7 +346,7 @@ Kotlin 1.4 使用了新的、更強大的型別推論演算法。這個新演算
 * [具有不同引數之 Java 介面的 SAM 轉換](#sam-conversion-for-java-interfaces-with-different-arguments)
 * [Kotlin 中的 Java SAM 介面](#java-sam-interfaces-in-kotlin)
 
-#### 更多自動推論型別的情況
+#### 更多自動推論型別的情況 {id="more-cases-where-type-is-inferred-automatically"}
 
 新的推論演算法可以為許多舊演算法要求您顯式指定的情況推論型別。
 例如，在以下範例中，Lambda 參數 `it` 的型別被正確推論為 `String?`：
@@ -370,7 +370,7 @@ fun main() {
 
 在 Kotlin 1.3 中，您需要引入顯式的 Lambda 參數或將 `to` 替換為具有顯式泛型引數的 `Pair` 建構函式才能使其運作。
 
-#### Lambda 最後一個表達式的智慧轉型
+#### Lambda 最後一個表達式的智慧轉型 {id="smart-casts-for-a-lambda-s-last-expression"}
 
 在 Kotlin 1.3 中，除非您指定預期型別，否則 Lambda 內部的最後一個表達式不會被智慧轉型。因此，在以下範例中，Kotlin 1.3 將 `result` 變數的型別推論為 `String?`：
 
@@ -389,7 +389,7 @@ val result = run {
 
 在 Kotlin 1.3 中，您通常需要加入顯式轉型（使用 `!!` 或像 `as String` 這樣的型別轉型）才能使此類情況運作，現在這些轉型已變得不再必要。
 
-#### 可呼叫參照的智慧轉型
+#### 可呼叫參照的智慧轉型 {id="smart-casts-for-callable-references"}
 
 在 Kotlin 1.3 中，您無法存取智慧轉型型別的成員參照。現在在 Kotlin 1.4 中您可以：
 
@@ -427,7 +427,7 @@ fun main() {
 
 在 animal 變數被智慧轉型為特定型別 `Cat` 與 `Dog` 後，您可以使用不同的成員參照 `animal::meow` 與 `animal::woof`。經過型別檢查後，您可以存取對應於子型別的成員參照。
 
-#### 委派屬性的更好推論
+#### 委派屬性的更好推論 {id="better-inference-for-delegated-properties"}
 
 在分析 `by` 關鍵字之後的委派表達式時，以往不會考慮委派屬性的型別。例如，以下程式碼以前無法編譯，但現在編譯器可以正確推論 `old` 與 `new` 參數的型別為 `String?`：
 
@@ -444,7 +444,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.4"}
 
-#### 具有不同引數之 Java 介面的 SAM 轉換
+#### 具有不同引數之 Java 介面的 SAM 轉換 {id="sam-conversion-for-java-interfaces-with-different-arguments"}
 
 Kotlin 從一開始就支援 Java 介面的 SAM 轉換，但有一種情況不受支援，這在處理現有的 Java 程式庫時有時很煩人。如果您呼叫一個接受兩個 SAM 介面作為參數的 Java 方法，則兩個引數都必須是 Lambda 或一般物件。您不能將一個引數作為 Lambda 傳遞，另一個作為物件傳遞。
 
@@ -464,7 +464,7 @@ fun test(r1: Runnable) {
 }
 ```
 
-#### Kotlin 中的 Java SAM 介面
+#### Kotlin 中的 Java SAM 介面 {id="java-sam-interfaces-in-kotlin"}
 
 在 Kotlin 1.4 中，您可以在 Kotlin 中使用 Java SAM 介面並對其應用 SAM 轉換。 
 
@@ -480,7 +480,7 @@ fun test() {
 
 在 Kotlin 1.3 中，您必須在 Java 程式碼中宣告上述函式 `foo` 才能執行 SAM 轉換。
 
-### 統一的後端與擴充性
+### 統一的後端與擴充性 {id="unified-backends-and-extensibility"}
 
 在 Kotlin 中，我們有三個產生可執行檔的後端：Kotlin/JVM, Kotlin/JS 與 Kotlin/Native。Kotlin/JVM 與 Kotlin/JS 由於是彼此獨立開發的，因此共用的程式碼不多。Kotlin/Native 是基於圍繞 Kotlin 程式碼中間表示 (IR) 建構的新基礎結構。 
 
@@ -490,7 +490,7 @@ fun test() {
 
 我們鼓勵您使用我們目前處於 Alpha 階段的新 [JVM IR](#new-jvm-ir-backend) 與 [JS IR](#new-js-ir-backend) 後端，並與我們分享您的回饋。
 
-## Kotlin/JVM
+## Kotlin/JVM {id="kotlin-jvm"}
 
 Kotlin 1.4.0 包含許多 JVM 特定的改進，例如：
  
@@ -499,7 +499,7 @@ Kotlin 1.4.0 包含許多 JVM 特定的改進，例如：
 * [用於 null 檢查的統一例外型別](#unified-exception-type-for-null-checks)
 * [JVM 位元組碼中的型別註解](#type-annotations-in-the-jvm-bytecode)
 
-### 新的 JVM IR 後端
+### 新的 JVM IR 後端 {id="new-jvm-ir-backend"}
 
 與 Kotlin/JS 一起，我們正將 Kotlin/JVM 遷移到 [統一的 IR 後端](#unified-backends-and-extensibility)，這使我們能夠為所有平台實作一次大多數特性與錯誤修復。您也將能夠透過建立適用於所有平台的多平台擴充功能從中受益。
 
@@ -523,7 +523,7 @@ kotlinOptions.useIR = true
 >
 {style="note"}
 
-### 用於產生預設方法的新模式
+### 用於產生預設方法的新模式 {id="new-modes-for-generating-default-methods"}
 
 將 Kotlin 程式碼編譯為 JVM 1.8 及以上版本時，您可以將 Kotlin 介面的非抽象方法編譯為 Java 的 `default` 方法。為此，曾有一種機制包含用於標記此類方法的 `@JvmDefault` 註解，以及啟用處理此註解的 `-Xjvm-default` 編譯器選項。
 
@@ -531,7 +531,7 @@ kotlinOptions.useIR = true
 
 有關 Java 互通性中預設方法的更多資訊，請參閱 [互通性文件](java-to-kotlin-interop.md#default-methods-in-interfaces) 與 [這篇部落格文章](https://blog.jetbrains.com/kotlin/2020/07/kotlin-1-4-m3-generating-default-methods-in-interfaces/)。 
 
-### 用於 null 檢查的統一例外型別
+### 用於 null 檢查的統一例外型別 {id="unified-exception-type-for-null-checks"}
 
 從 Kotlin 1.4.0 開始，所有執行階段 null 檢查都將拋出 `java.lang.NullPointerException`，而不是 `KotlinNullPointerException`、`IllegalStateException`、`IllegalArgumentException` 與 `TypeCastException`。這適用於：`!!` 運算子、方法前言中的參數 null 檢查、平台型別表達式 null 檢查，以及帶有不可 null 型別的 `as` 運算子。這不適用於 `lateinit` null 檢查與顯式程式庫函式呼叫（如 `checkNotNull` 或 `requireNotNull`）。
 
@@ -539,7 +539,7 @@ kotlinOptions.useIR = true
 
 請注意，從開發人員的角度來看，事情不會改變太多：Kotlin 程式碼將拋出與以前相同錯誤訊息的例外。例外型別雖然改變，但傳遞的資訊保持不變。
 
-### JVM 位元組碼中的型別註解
+### JVM 位元組碼中的型別註解 {id="type-annotations-in-the-jvm-bytecode"}
 
 Kotlin 現在可以在 JVM 位元組碼中產生型別註解（目標版本 1.8+），以便它們在執行階段的 Java 反射中可用。若要在位元組碼中發出型別註解，請遵循以下步驟：
 
@@ -565,14 +565,14 @@ class A {
 }
 ```
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
 在 JS 平台上，Kotlin 1.4.0 提供了以下改進：
 
 - [新的 Gradle DSL](#new-gradle-dsl)
 - [新的 JS IR 後端](#new-js-ir-backend)
 
-### 新的 Gradle DSL
+### 新的 Gradle DSL {id="new-gradle-dsl"}
 
 `kotlin.js` Gradle 外掛程式帶有調整後的 Gradle DSL，它提供了許多新的組態選項，並且更接近 `kotlin-multiplatform` 外掛程式使用的 DSL。一些最具影響力的變更包括：
 
@@ -581,7 +581,7 @@ class A {
 - 改進了對 npm 相依性的管理，強制要求版本號或 [semver](https://docs.npmjs.com/about-semantic-versioning) 版本範圍，並支援使用 `devNpm`, `optionalNpm` 與 `peerNpm` 的 *development*, *peer*, 與 *optional* npm 相依性。[在此處閱讀更多關於直接從 Gradle 管理 npm 套件相依性的資訊](js-project-setup.md#npm-dependencies)。
 - 加強了與 [Dukat](https://github.com/Kotlin/dukat)（Kotlin 外部宣告產生器）的整合。外部宣告現在可以在建置時產生，也可以透過 Gradle 任務手動產生。
 
-### 新的 JS IR 後端
+### 新的 JS IR 後端 {id="new-js-ir-backend"}
 
 [Kotlin/JS 的 IR 後端](js-ir-compiler.md) 目前具有 [Alpha](components-stability.md) 穩定性，它提供了一些特定於 Kotlin/JS 目標的新功能，重點在於透過無效程式碼消除縮減產生的程式碼大小，以及改進與 JavaScript 與 TypeScript 的互通性等。
 
@@ -604,7 +604,7 @@ kotlin {
 
 [了解更多有關 Kotlin/JS IR 編譯器後端可用功能的資訊](js-ir-compiler.md)。
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 在 1.4.0 中，Kotlin/Native 獲得了大量新功能與改進，包括： 
 
@@ -615,7 +615,7 @@ kotlin {
 * [效能改進](#performance-improvements)
 * [簡化了 CocoaPods 相依性的管理](#simplified-management-of-cocoapods-dependencies)
 
-### 支援 Kotlin 的掛起函式於 Swift 與 Objective-C 中
+### 支援 Kotlin 的掛起函式於 Swift 與 Objective-C 中 {id="support-for-kotlin-s-suspending-functions-in-swift-and-objective-c"}
 
 在 1.4.0 中，我們增加了對 Swift 與 Objective-C 中掛起函式的基本支援。現在，當您將 Kotlin 模組編譯為 Apple 框架時，掛起函式在其中可用作帶有回呼（Swift/Objective-C 術語中的 `completionHandler`）的函式。當您在產生的框架標頭檔中擁有此類函式時，您可以從 Swift 或 Objective-C 程式碼中呼叫它們，甚至覆寫它們。
 
@@ -639,7 +639,7 @@ queryData(id: 17) { result, error in
 
 [進一步了解在 Swift 與 Objective-C 中使用掛起函式](native-objc-interop.md)。
 
-### 預設支援 Objective-C 泛型
+### 預設支援 Objective-C 泛型 {id="objective-c-generics-support-by-default"}
 
 先前版本的 Kotlin 對 Objective-C 互通性中的泛型提供了實驗性支援。從 1.4.0 開始，Kotlin/Native 預設會從 Kotlin 程式碼產生帶有泛型的 Apple 框架。在某些情況下，這可能會破壞呼叫 Kotlin 框架的現有 Objective-C 或 Swift 程式碼。若要讓框架標頭檔在不使用泛型的情況下編寫，請加入 `-Xno-objc-generics` 編譯器選項。
 
@@ -655,7 +655,7 @@ kotlin {
 
 請注意，[關於與 Objective-C 互通性的文件](native-objc-interop.md#generics) 中列出的所有細節與限制仍然有效。
 
-### Objective-C/Swift 互通性中的例外處理
+### Objective-C/Swift 互通性中的例外處理 {id="exception-handling-in-objective-c-swift-interop"}
 
 在 1.4.0 中，我們略微更改了從 Kotlin 產生的 Swift API，涉及例外的轉換方式。Kotlin 與 Swift 之間的錯誤處理存在根本差異。所有 Kotlin 例外都是非受檢的，而 Swift 只有受檢錯誤。因此，為了讓 Swift 程式碼感知到預期的例外，Kotlin 函式應標記為 `@Throws` 註解，並指定潛在的例外類別清單。
 
@@ -663,7 +663,7 @@ kotlin {
 
 以前，除了 `RuntimeException` 與 `Error` 之外的任何例外都作為 `NSError` 傳播。現在此行為發生了變化：現在只有作為 `@Throws` 註解參數指定的類別（或其子類別）執行個體的例外才會拋出 `NSError`。其他到達 Swift/Objective-C 的 Kotlin 例外被視為未處理，並導致程式終止。
 
-### 預設在 Apple 目標上產生 release .dSYMs
+### 預設在 Apple 目標上產生 release .dSYMs {id="generate-release-dsyms-on-apple-targets-by-default"}
 
 從 1.4.0 開始，判斷 Kotlin/Native 編譯器預設會為 Darwin 平台上的 release 二進位檔產生 [偵錯符號檔](https://developer.apple.com/documentation/xcode/building_your_app_to_include_debugging_information) (`.dSYM`s)。這可以使用 `-Xadd-light-debug=disable` 編譯器選項停用。在其他平台上，此選項預設為停用。若要在 Gradle 中切換此選項，請使用：
 
@@ -679,7 +679,7 @@ kotlin {
 
 [進一步了解當機報告符號化](native-debugging.md#debug-ios-applications)。
 
-### 效能改進
+### 效能改進 {id="performance-improvements"}
 
 Kotlin/Native 獲得了許多效能改進，加速了開發過程與執行速度。以下是一些範例：
 
@@ -691,7 +691,7 @@ Kotlin/Native 獲得了許多效能改進，加速了開發過程與執行速度
 
 - 在 1.3.70 中，我們引入了兩個用於提高 Kotlin/Native 編譯效能的新特性：[快取專案相依性以及從 Gradle daemon 執行編譯器](https://blog.jetbrains.com/kotlin/2020/03/kotlin-1-3-70-released/#kotlin-native)。從那時起，我們成功修復了許多問題並提高了這些特性的整體穩定性。
 
-### 簡化了 CocoaPods 相依性的管理
+### 簡化了 CocoaPods 相依性的管理 {id="simplified-management-of-cocoapods-dependencies"}
 
 以前，一旦您將專案與相依性管理工具 CocoaPods 整合，您只能在 Xcode 中建置專案的 iOS, macOS, watchOS, 或 tvOS 部分，與多平台專案的其他部分分開。這些其他部分可以在 IntelliJ IDEA 中建置。 
 
@@ -709,7 +709,7 @@ Kotlin/Native 獲得了許多效能改進，加速了開發過程與執行速度
 
 [了解如何加入相依性](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-libraries.html)。
 
-## Kotlin 多平台
+## Kotlin 多平台 {id="kotlin-multiplatform"}
 
 > 對多平台專案的支援處於 [Alpha](components-stability.md) 階段。未來可能會發生不相容的變更，並需要手動遷移。我們感謝您在 [YouTrack](https://youtrack.jetbrains.com/issues/KT) 上對其提供的回饋。
 >
@@ -725,7 +725,7 @@ Kotlin/Native 獲得了許多效能改進，加速了開發過程與執行速度
 >
 {style="note"}
 
-### 透過階層式專案結構在多個目標中共享程式碼
+### 透過階層式專案結構在多個目標中共享程式碼 {id="sharing-code-in-several-targets-with-the-hierarchical-project-structure"}
 
 藉助新的階層式專案結構支援，您可以在 [多平台專案](https://kotlinlang.org/docs/multiplatform/multiplatform-discover-project.html) 中與 [多個平台](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#targets) 共享程式碼。
 
@@ -804,7 +804,7 @@ kotlin {
 
 多虧了階層式專案結構，程式庫也可以為目標子集提供通用 API。進一步了解 [在程式庫中共享程式碼](https://kotlinlang.org/docs/multiplatform/multiplatform-share-on-platforms.html#share-code-in-libraries)。
 
-### 在階層式結構中利用原生程式庫
+### 在階層式結構中利用原生程式庫 {id="leveraging-native-libs-in-the-hierarchical-structure"}
 
 您可以在多個原生目標共用的原始碼集中使用平台相依程式庫，例如 Foundation, UIKit, 與 POSIX。這可以幫助您共享更多原生程式碼，而不會受到平台特定相依性的限制。 
 
@@ -812,7 +812,7 @@ kotlin {
 
 [進一步了解平台相依程式庫的使用](https://kotlinlang.org/docs/multiplatform/multiplatform-share-on-platforms.html#connect-platform-specific-libraries)。
 
-### 僅指定一次相依性
+### 僅指定一次相依性 {id="specifying-dependencies-only-once"}
 
 從現在開始，不再需要在共享與使用它的平台特定原始碼集中為同一個程式庫的不同變體指定相依性，您應該只在共享原始碼集中指定一次相依性。
 
@@ -859,7 +859,7 @@ kotlin {
 
 [進一步了解組態相依性](gradle-configure-project.md#configure-dependencies)。
 
-## Gradle 專案改進
+## Gradle 專案改進 {id="gradle-project-improvements"}
 
 除了特定於 [Kotlin 多平台](#kotlin-multiplatform), [Kotlin/JVM](#kotlin-jvm), [Kotlin/Native](#kotlin-native), 與 [Kotlin/JS](#kotlin-js) 的 Gradle 專案特性與改進之外，還有幾項適用於所有 Kotlin Gradle 專案的變更：
 
@@ -867,7 +867,7 @@ kotlin {
 * [Kotlin 專案需要較新版本的 Gradle](#minimum-gradle-version-for-kotlin-projects)
 * [改進了 IDE 中對 Kotlin Gradle DSL 的支援](#improved-gradle-kts-support-in-the-ide)
 
-### 預設加入標準程式庫相依性
+### 預設加入標準程式庫相依性 {id="dependency-on-the-standard-library-added-by-default"}
 
 您不再需要在任何 Kotlin Gradle 專案（包括多平台專案）中宣告對 `stdlib` 程式庫的相依性。該相依性已預設加入。 
 
@@ -877,11 +877,11 @@ kotlin {
 
 [了解如何更改預設行為](gradle-configure-project.md#dependency-on-the-standard-library)。
 
-### Kotlin 專案的最低 Gradle 版本
+### Kotlin 專案的最低 Gradle 版本 {id="minimum-gradle-version-for-kotlin-projects"}
 
 若要在您的 Kotlin 專案中享受新功能，請將 Gradle 更新至 [最新版本](https://gradle.org/releases/)。多平台專案需要 Gradle 6.0 或更高版本，而其他 Kotlin 專案則適用於 Gradle 5.4 或更高版本。
 
-### 改進的 *.gradle.kts 在 IDE 中的支援 
+### 改進的 *.gradle.kts 在 IDE 中的支援 {id="improved-gradle-kts-support-in-the-ide"}
 
 在 1.4.0 中，我們繼續改進 IDE 對 Gradle Kotlin DSL 指令碼 (`*.gradle.kts` 檔案) 的支援。以下是新版本帶來的功能：
 
@@ -907,7 +907,7 @@ kotlin {
   
 - _更好的錯誤報告_。以前您只能在單獨的日誌檔中看到來自 Gradle Daemon 的錯誤。現在，Gradle Daemon 會直接回傳所有關於錯誤的資訊並顯示在 Build 工具視窗中。這節省了您的時間與精力。
 
-## 標準程式庫
+## 標準程式庫 {id="standard-library"}
 
 以下是 1.4.0 中 Kotlin 標準程式庫最重大變更清單： 
 
@@ -923,7 +923,7 @@ kotlin {
 - [棄用](#deprecations)
 - [排除已棄用的實驗性協同程式](#exclusion-of-the-deprecated-experimental-coroutines)
 
-### 通用的例外處理 API
+### 通用的例外處理 API {id="common-exception-processing-api"}
 
 以下 API 元素已移動到通用程式庫：
 
@@ -931,9 +931,9 @@ kotlin {
 * `Throwable.addSuppressed()` 函式，允許您指定為了傳遞例外而被隱藏的例外，以及 `Throwable.suppressedExceptions` 屬性，回傳所有隱藏例外的清單。
 * `@Throws` 註解，列出了當函式編譯為平台方法（在 JVM 或原生平台上）時將被檢查的例外型別。 
 
-### 陣列與集合的新函式
+### 陣列與集合的新函式 {id="new-functions-for-arrays-and-collections"}
 
-#### 集合
+#### 集合 {id="collections"}
 
 在 1.4.0 中，標準程式庫包含許多用於處理 **集合** 的實用函式：
 
@@ -1072,7 +1072,7 @@ kotlin {
 
 * 用於從可變列表中移除元素的 `removeFirst()` 與 `removeLast()` 捷徑，以及這些函式的 `*orNull()` 對應函式。
 
-#### 陣列
+#### 陣列 {id="arrays"}
 
 為了在處理不同容器型別時提供一致的體驗，我們也為 **陣列** 加入了新函式：
 
@@ -1118,7 +1118,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.4"}
 
-#### ArrayDeque
+#### ArrayDeque {id="arraydeque"}
 
 我們還加入了 `ArrayDeque` 類別 – 雙端隊列的實作。
 雙端隊列允許您在攤銷常數時間內從隊列的開頭或末尾加入或移除元素。當您在程式碼中需要隊列或堆疊時，可以預設使用雙端隊列。
@@ -1143,7 +1143,7 @@ fun main() {
 
 `ArrayDeque` 實作底層使用可變大小陣列：它將內容儲存在環形緩衝區（一個 `Array`）中，且僅在 `Array` 滿時才調整其大小。
 
-### 字串操作函式
+### 字串操作函式 {id="functions-for-string-manipulations"}
 
 1.4.0 中的標準程式庫包含許多對字串操作 API 的改進：
 
@@ -1178,7 +1178,7 @@ fun main() {
     ```
     {kotlin-runnable="true" kotlin-min-compiler-version="1.4"}
 
-### 位元運算
+### 位元運算 {id="bit-operations"}
 
 位元操作的新函式：
 * `countOneBits()` 
@@ -1200,7 +1200,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.4"}
 
-### 委派屬性的改進
+### 委派屬性的改進 {id="delegated-properties-improvements"}
 
 在 1.4.0 中，我們加入了新功能以改善您在 Kotlin 中使用委派屬性的體驗：
 - 現在一個屬性可以委派給另一個屬性。
@@ -1211,7 +1211,7 @@ fun main() {
 
 [進一步了解委派屬性](delegated-properties.md)。
 
-### 從 KType 轉換為 Java Type
+### 從 KType 轉換為 Java Type {id="converting-from-ktype-to-java-type"}
 
 stdlib 中新的擴充屬性 `KType.javaType`（目前為實驗性）有助於在不使用整個 `kotlin-reflect` 相依性的情況下從 Kotlin 型別獲取 `java.lang.reflect.Type`。
 
@@ -1239,11 +1239,11 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.4"}
 
-### 用於 Kotlin 反射的 Proguard 組態
+### 用於 Kotlin 反射的 Proguard 組態 {id="proguard-configurations-for-kotlin-reflection"}
 
 從 1.4.0 開始，我們已在 `kotlin-reflect.jar` 中嵌入了 Proguard/R8 組態。有了這個，大多數使用 R8 或 Proguard 的 Android 專案在使用 kotlin-reflect 時應該不需要任何額外組態。您不再需要複製貼上 kotlin-reflect 內部的 Proguard 規則。但請注意，您仍需要顯式列出所有您打算進行反射的 API。
 
-### 改進現有 API
+### 改進現有 API {id="improving-the-existing-api"}
 
 * 幾個函式現在可以處理 null 接收者，例如：
     * 字串上的 `toBoolean()`
@@ -1255,34 +1255,34 @@ fun main() {
 
 * `maxOf()` 與 `minOf()` 頂層函式可以接受可變數量的引數 (`vararg`)。
 
-### stdlib 產物的 module-info 描述符
+### stdlib 產物的 module-info 描述符 {id="module-info-descriptors-for-stdlib-artifacts"}
 
 Kotlin 1.4.0 為預設標準程式庫產物加入了 `module-info.java` 模組資訊。這允許您將它們與 [jlink 工具](https://docs.oracle.com/en/java/javase/11/tools/jlink.html) 一起使用，後者會產生僅包含您應用程式所需平台模組的自訂 Java 執行階段映像。
 您以前也可以在 Kotlin 標準程式庫產物中使用 jlink，但必須使用單獨的產物 – 帶有 "modular" 分類器的產物 – 且整個設定並不簡單。  
 在 Android 中，請確保您使用 Android Gradle 外掛程式 3.2 或更高版本，它可以正確處理帶有 module-info 的 jar 檔案。
 
-### 棄用
+### 棄用 {id="deprecations"}
 
-#### Double 與 Float 的 toShort() 與 toByte()
+#### Double 與 Float 的 toShort() 與 toByte() {id="toshort-and-tobyte-of-double-and-float"}
 
 我們已棄用 `Double` 與 `Float` 上的 `toShort()` 與 `toByte()` 函式，因為它們可能由於數值範圍窄且變數大小較小而導致意外結果。
 
 若要將浮點數轉換為 `Byte` 或 `Short`，請使用兩步轉換：首先將其轉換為 `Int`，然後再次轉換為目標型別。
 
-#### 浮點陣列上的 contains(), indexOf(), 與 lastIndexOf()
+#### 浮點陣列上的 contains(), indexOf(), 與 lastIndexOf() {id="contains-indexof-and-lastindexof-on-floating-point-arrays"}
 
 我們已棄用 `FloatArray` 與 `DoubleArray` 的 `contains()`, `indexOf()`, 與 `lastIndexOf()` 擴充函式，因為它們使用 [IEEE 754](https://en.wikipedia.org/wiki/IEEE_754) 標準相等性，這在某些邊緣情況下與全序相等性相矛盾。詳情請參閱 [此問題](https://youtrack.jetbrains.com/issue/KT-28753)。
 
-#### min() 與 max() 集合函式
+#### min() 與 max() 集合函式 {id="min-and-max-collection-functions"}
 
 我們已棄用 `min()` 與 `max()` 集合函式，改用 `minOrNull()` 與 `maxOrNull()`，後者更正確地反映了它們的行為 – 在空集合上回傳 `null`。
 詳情請參閱 [此問題](https://youtrack.jetbrains.com/issue/KT-38854)。 
 
-### 排除已棄用的實驗性協同程式
+### 排除已棄用的實驗性協同程式 {id="exclusion-of-the-deprecated-experimental-coroutines"}
  
 `kotlin.coroutines.experimental` API 在 1.3.0 中已被棄用，改用 kotlin.coroutines。在 1.4.0 中，我們透過從標準程式庫中移除 `kotlin.coroutines.experimental` 來完成棄用週期。對於仍在 JVM 上使用它的用戶，我們提供了一個相容性產物 `kotlin-coroutines-experimental-compat.jar`，其中包含所有實驗性協同程式 API。我們已將其發布到 Maven，並將其隨標準程式庫一起包含在 Kotlin 發行版中。
 
-## 穩定的 JSON 序列化
+## 穩定的 JSON 序列化 {id="stable-json-serialization"}
 
 隨著 Kotlin 1.4.0 的發布，我們正交付 [kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization) 的第一個穩定版本 - 1.0.0-RC。現在我們很高興地宣告 `kotlinx-serialization-core`（以前稱為 `kotlinx-serialization-runtime`）中的 JSON 序列化 API 已穩定。其他序列化格式的程式庫仍處於實驗階段，核心程式庫的一些高級部分也是如此。
 
@@ -1294,7 +1294,7 @@ Kotlin 1.4.0 為預設標準程式庫產物加入了 `module-info.java` 模組�
 >
 {style="note"}
 
-## 指令碼與 REPL
+## 指令碼與 REPL {id="scripting-and-repl"}
 
 在 1.4.0 中，Kotlin 中的指令碼受益於許多功能與效能改進以及其他更新。以下是一些關鍵變更：
 
@@ -1306,26 +1306,26 @@ Kotlin 1.4.0 為預設標準程式庫產物加入了 `module-info.java` 模組�
 為了幫助您更熟悉 Kotlin 中的指令碼，我們準備了一個 [包含範例的專案](https://github.com/Kotlin/kotlin-script-examples)。
 它包含標準指令碼 (`*.main.kts`) 的範例，以及 Kotlin Scripting API 與自訂指令碼定義的使用範例。請嘗試一下，並使用我們的 [問題追蹤器](https://youtrack.jetbrains.com/issues/KT) 分享您的回饋。
 
-### 新的相依性解析 API
+### 新的相依性解析 API {id="new-dependencies-resolution-api"}
 
 In 1.4.0, we've introduced a new API for resolving external dependencies (such as Maven artifacts), along with implementations
 for it. This API is published in the new artifacts `kotlin-scripting-dependencies` and `kotlin-scripting-dependencies-maven`.
 The previous dependency resolution functionality in `kotlin-script-util` library is now deprecated.
 
-### 新的 REPL API
+### 新的 REPL API {id="new-repl-api"}
 
 新的實驗性 REPL API 現在是 Kotlin Scripting API 的一部分。在已發布的產物中也有該 API 的幾種實作，有些具有高級功能，例如程式碼補全。我們在 [Kotlin Jupyter 核心](https://blog.jetbrains.com/kotlin/2020/05/kotlin-kernel-for-jupyter-notebook-v0-8/) 中使用了此 API，現在您可以在自己的自訂 shell 與 REPL 中嘗試它。
 
-### 編譯後的指令碼快取
+### 編譯後的指令碼快取 {id="compiled-scripts-cache"}
 
 Kotlin Scripting API 現在提供了實作編譯後指令碼快取的能力，顯著加快了未更改指令碼的後續執行速度。我們預設的高級指令碼實作 `kotlin-main-kts` 已經擁有自己的快取。
 
-### 產物重命名
+### 產物重命名 {id="artifacts-renaming"}
 
 為了避免對產物名稱產生困惑，我們已將 `kotlin-scripting-jsr223-embeddable` 與 `kotlin-scripting-jvm-host-embeddable` 重命名為 `kotlin-scripting-jsr223` 與 `kotlin-scripting-jvm-host`。這些產物相依於 `kotlin-compiler-embeddable` 產物，該產物對捆綁的第三方程式庫進行了遮蔽 (shading) 以避免使用衝突。透過這次重命名，我們將使用 `kotlin-compiler-embeddable`（通常更安全）作為指令碼產物的預設選項。
 如果出於某種原因您需要相依於未遮蔽 `kotlin-compiler` 的產物，請使用帶有 `-unshaded` 後綴的產物版本，例如 `kotlin-scripting-jsr223-unshaded`。請注意，此重命名僅影響預期直接使用的指令碼產物；其他產物的名稱保持不變。
 
-## 遷移至 Kotlin 1.4.0
+## 遷移至 Kotlin 1.4.0 {id="migrating-to-kotlin-1-4-0"}
 
 Kotlin 外掛程式的遷移工具可幫助您將專案從早期版本的 Kotlin 遷移到 1.4.0。
 

@@ -81,7 +81,7 @@ Compose Multiplatform 桌面版提供了一個基於 JUnit 與 Jetpack Compose �
    ./gradlew desktopTest
    ```
    
-## 接續步驟
+## 接續步驟 {id="what-s-next"}
 
 * 了解如何 [建立與執行多平台測試](multiplatform-run-tests.md)。
 * 有關 Kotlin 專案中基於 JUnit 測試的一般概覽，請參閱 [在 JVM 中使用 JUnit 測試程式碼](https://kotlinlang.org/docs/jvm-test-using-junit.html) 教學。

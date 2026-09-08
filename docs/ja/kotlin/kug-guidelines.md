@@ -14,7 +14,7 @@ KUGミートアップの形式に制限はありません。プレゼンテー�
 >
 {style="note"}
 
-## KUGを運営するには？
+## KUGを運営するには？ {id="how-to-run-a-kug"}
 
 * グループの結束を高め、誤解を防ぐため、1都市につき1つのKUGに制限することをお勧めします。[KUGのリスト](https://kotlinlang.org/community/user-groups/)を確認して、お住まいの地域にすでにKUGが存在するかどうかを確認してください。
 * 公式のKUGロゴとブランディングを使用してください。[ブランディングガイドライン](kotlin-brand-assets.md#kotlin-user-group-brand-assets)を確認してください。
@@ -27,7 +27,7 @@ KUGミートアップの形式に制限はありません。プレゼンテー�
 
 ご質問がありますか？[お問い合わせください](mailto:kug@jetbrains.com)
 
-## JetBrainsによるKUGへのサポート
+## JetBrainsによるKUGへのサポート {id="support-for-kugs-from-jetbrains"}
 
 少なくとも3ヶ月に1回ミートアップを開催しているアクティブなKUGは、[コミュニティサポートプログラム](https://www.jetbrains.com/community/user-groups/)に申し込むことができます。これには以下が含まれます。
 * 公式KUGブランディング。
@@ -36,7 +36,7 @@ KUGミートアップの形式に制限はありません。プレゼンテー�
 * Kotlinのイベントやキャンペーンへの優先的なサポート。
 * イベントのためのKotlinスピーカーの募集支援。
 
-## その他の技術コミュニティに対するJetBrainsからのサポート
+## その他の技術コミュニティに対するJetBrainsからのサポート {id="support-from-jetbrains-for-other-tech-communities"}
 
 他の技術コミュニティを運営している場合も、サポートを申請できます。申請することで、以下を受け取れる場合があります。
 * ミートアップでの抽選用のJetBrains製品の無料ライセンス。

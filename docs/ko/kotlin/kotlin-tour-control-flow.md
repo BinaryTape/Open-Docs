@@ -4,7 +4,7 @@
 
 다른 프로그래밍 언어와 마찬가지로, 코틀린은 특정 코드 조각이 참(`true`)으로 평가되는지에 따라 결정을 내릴 수 있습니다. 이러한 코드 조각을 **조건식(conditional expressions)**이라고 합니다. 또한 코틀린은 루프(loop)를 생성하고 반복할 수도 있습니다.
 
-## 조건식
+## 조건식 {id="conditional-expressions"}
 
 코틀린은 조건식을 확인하기 위해 `if`와 `when`을 제공합니다. 
 
@@ -16,7 +16,7 @@
 > 
 {style="note"}
 
-### If
+### If {id="if"}
 
 `if`를 사용하려면 괄호 `()` 안에 조건식을 넣고, 결과가 참일 때 실행할 동작을 중괄호 `{}` 안에 넣습니다.
 
@@ -53,7 +53,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-if-expression"}
 
-### When
+### When {id="when"}
 
 여러 분기가 있는 조건식이 필요한 경우에는 `when`을 사용하세요.
 
@@ -156,7 +156,7 @@ fun main() {
 
 대상을 포함하여 `when`을 사용하면 코드를 더 읽기 쉽고 유지보수하기 좋게 만듭니다. `when` 식에 대상을 사용하면 코틀린이 가능한 모든 케이스가 다루어졌는지 확인하는 데에도 도움이 됩니다. 그렇지 않고 `when` 식에 대상을 사용하지 않는 경우에는 반드시 `else` 분기를 제공해야 합니다.
 
-## 조건식 연습
+## 조건식 연습 {id="conditional-expressions-practice"}
 
 ### 연습 문제 1 {initial-collapse-state="collapsed" collapsible="true" id="conditional-expressions-exercise-1"}
 
@@ -241,7 +241,7 @@ fun main() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="모범 답안" id="kotlin-tour-control-flow-conditional-solution-2"}
 
-## 범위 (Ranges)
+## 범위 (Ranges) {id="ranges"}
 
 루프에 대해 이야기하기 전에, 루프가 반복할 범위를 구성하는 방법을 알아두면 유용합니다.
 
@@ -258,11 +258,11 @@ fun main() {
 * `'a'..'d'`는 `'a', 'b', 'c', 'd'`와 같습니다.
 * `'z' downTo 's' step 2`는 `'z', 'x', 'v', 't'`와 같습니다.
 
-## 루프 (Loops)
+## 루프 (Loops) {id="loops"}
 
 프로그래밍에서 가장 일반적인 두 가지 루프 구조는 `for`와 `while`입니다. `for`는 일련의 값들을 반복하며 동작을 수행할 때 사용합니다. `while`은 특정 조건이 충족될 때까지 동작을 계속할 때 사용합니다.
 
-### For
+### For {id="for"}
 
 새롭게 배운 범위 지식을 활용하여 1부터 5까지의 숫자를 반복하며 매번 숫자를 출력하는 `for` 루프를 만들 수 있습니다.
 
@@ -299,7 +299,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-for-collection-loop"}
 
-### While
+### While {id="while"}
 
 `while`은 두 가지 방식으로 사용할 수 있습니다.
 
@@ -364,7 +364,7 @@ fun main() {
 
 코틀린 제어 흐름의 기본을 익혔으니, 이제 직접 [함수](kotlin-tour-functions.md)를 작성하는 방법을 알아볼 차례입니다.
 
-## 루프 연습 {completion-point="true"}
+## 루프 연습 {completion-point="true" id="loops-practice"}
 
 ### 연습 문제 1 {initial-collapse-state="collapsed" collapsible="true" id="loops-exercise-1"}
 

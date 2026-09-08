@@ -2,7 +2,7 @@
 
 对于您的 Kotlin Maven 项目，您可以配置 Maven 在默认的 Maven Central 仓库之外搜索构件的位置，并定义项目所依赖的库。
 
-## 声明仓库
+## 声明仓库 {id="declare-repositories"}
 
 默认情况下，`mavenCentral` 仓库对所有 Maven 项目可用。要访问其他仓库中的构件，请在 `<repositories>` 部分为仓库名称及其 URL 指定自定义 ID：
 
@@ -31,13 +31,13 @@
 </dependencies>
 ```
 
-## 设置依赖项
+## 设置依赖项 {id="set-dependencies"}
 
-### 对标准库的依赖
+### 对标准库的依赖 {id="dependency-on-the-standard-library"}
 
 Kotlin 拥有广泛的标准库，供您在应用程序中使用。您可以手动添加标准库依赖项，也可以启用 `<extensions>` 选项以便在缺失时自动设置。
 
-#### 自动设置
+#### 自动设置 {id="automatic-setup"}
 
 您可以使用 Kotlin Maven 插件提供的 [`<extensions>` 选项](maven-configure-project.md#automatic-configuration)来避免手动配置。如果项目中未定义 `kotlin-stdlib` 依赖项，它会自动添加。例如，当您创建新的 Kotlin Maven 项目或在现有 Java Maven 项目中引入 Kotlin 时。
 
@@ -57,7 +57,7 @@ Kotlin 拥有广泛的标准库，供您在应用程序中使用。您可以手�
 >
 {style="note"}
 
-#### 手动配置
+#### 手动配置 {id="manual-configuration"}
 
 要手动将 Kotlin 的标准库添加到您的项目，请使用以下内容更新 `pom.xml` 文件中的 `dependencies` 部分：
 
@@ -78,7 +78,7 @@ Kotlin 拥有广泛的标准库，供您在应用程序中使用。您可以手�
 >
 {style="note"}
 
-### 对测试库的依赖
+### 对测试库的依赖 {id="dependencies-on-test-libraries"}
 
 如果您的项目使用 [Kotlin 反射](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect.full/)或测试框架，请添加相关的依赖项。反射库使用 `kotlin-reflect`，测试库使用 `kotlin-test` 和 `kotlin-test-junit5`：
 
@@ -97,7 +97,7 @@ Kotlin 拥有广泛的标准库，供您在应用程序中使用。您可以手�
 </dependencies>
 ```
 
-### 对 kotlinx 库的依赖
+### 对 kotlinx 库的依赖 {id="dependency-on-a-kotlinx-library"}
 
 对于 kotlinx 库，您可以添加基础构件名称，也可以添加带有 `-jvm` 后缀的名称。请参考 [klibs.io](https://klibs.io/) 上的库 README 文件。
 
@@ -125,7 +125,7 @@ Kotlin 拥有广泛的标准库，供您在应用程序中使用。您可以手�
 </dependencies>
 ```
 
-## 使用 BOM 管理依赖项
+## 使用 BOM 管理依赖项 {id="manage-dependencies-with-a-bom"}
 
 [物料清单 (BOM)](https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#bill-of-materials-bom-poms) 是一种特殊的 POM 文件，用于管理项目中的依赖项版本。这可以保持相关构件的一致性并避免版本冲突。
 
@@ -154,6 +154,6 @@ Kotlin 发布了 [`kotlin-bom`](https://mvnrepository.com/artifact/org.jetbrains
 
 如果您的项目发布了多个一起发布的库，您可以提供自己的 BOM，以便用户能够以同样的方式统一这些库的版本。要了解如何编写自己的 BOM，请参阅 [Maven 文档](https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#bill-of-materials-bom-poms)。
 
-## 下一步？
+## 下一步？ {id="what-s-next"}
 
 [配置 Kotlin 编译器](maven-kotlin-compiler.md)

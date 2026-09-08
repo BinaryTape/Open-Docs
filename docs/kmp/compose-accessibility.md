@@ -4,7 +4,7 @@ Compose Multiplatform 提供了满足辅助功能标准所必需的功能，例�
 
 该框架支持设计符合 [欧洲辅助功能法案](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32019L0882) (EAA) 和 [Web 内容无障碍指南](https://www.w3.org/TR/WCAG21/) (WCAG) 要求的应用程序。
 
-## 语义属性
+## 语义属性 {id="semantic-properties"}
 
 为了给辅助功能、自动填充和测试等服务提供上下文，您可以使用语义属性定义组件的含义和角色。
 
@@ -38,7 +38,7 @@ Compose Multiplatform 提供了满足辅助功能标准所必需的功能，例�
 
 有关语义属性的完整列表，请参阅 Jetpack Compose API 参考文档中的 [`SemanticsProperties`](https://developer.android.com/reference/kotlin/androidx/compose/ui/semantics/SemanticsProperties)。
 
-## 遍历顺序
+## 遍历顺序 {id="traversal-order"}
 
 默认情况下，屏幕阅读器按照固定的顺序导航 UI 元素，遵循其从左到右、从上到下的布局。然而，对于复杂的布局，屏幕阅读器可能无法自动确定正确的阅读顺序。这对于包含表格和嵌套视图等容器视图（支持对所含视图进行滚动和缩放）的布局至关重要。
 
@@ -69,7 +69,7 @@ fun FloatingBox() {
 }
 ```
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 详细了解 iOS 的辅助功能：
 

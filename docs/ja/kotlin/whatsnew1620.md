@@ -14,14 +14,14 @@ Kotlin 1.6.20 では、将来の言語機能のプレビューが公開され、
 >
 {style="tip"}
 
-## 言語 (Language)
+## 言語 (Language) {id="language"}
 
 Kotlin 1.6.20 では、2 つの新しい言語機能を試すことができます：
 
 * [Kotlin/JVM 用のコンテキストレシーバーのプロトタイプ](#prototype-of-context-receivers-for-kotlin-jvm)
 * [確実な非 null 型 (Definitely non-nullable types)](#definitely-non-nullable-types)
 
-### Kotlin/JVM 用のコンテキストレシーバーのプロトタイプ
+### Kotlin/JVM 用のコンテキストレシーバーのプロトタイプ {id="prototype-of-context-receivers-for-kotlin-jvm"}
 
 > この機能は Kotlin/JVM でのみ利用可能なプロトタイプです。`-Xcontext-receivers` を有効にすると、コンパイラは製品コードでは使用できないプレリリースバイナリを生成します。
 > コンテキストレシーバーは、実験的なプロジェクトでのみ使用してください。
@@ -65,7 +65,7 @@ fun test(loggingContext: LoggingContext) {
 実験的なプロジェクトでこの機能を試し、[こちらの YouTrack イシュー](https://youtrack.jetbrains.com/issue/KT-42435)で感想や経験を共有してください。
 問題が発生した場合は、[新しいイシューを報告](https://kotl.in/issue)してください。
 
-### 確実な非 null 型 (Definitely non-nullable types)
+### 確実な非 null 型 (Definitely non-nullable types) {id="definitely-non-nullable-types"}
 
 > 確実な非 null 型は [ベータ版](components-stability.md) です。ほぼ安定していますが、将来的に移行ステップが必要になる可能性があります。
 > 必要な変更を最小限に抑えるよう最善を尽くします。
@@ -125,7 +125,7 @@ kotlin {
 
 確実な非 null 型の詳細については、[KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/definitely-non-nullable-types.md) を参照してください。
 
-## Kotlin/JVM
+## Kotlin/JVM {id="kotlin-jvm"}
 
 Kotlin 1.6.20 では以下が導入されました：
 
@@ -133,7 +133,7 @@ Kotlin 1.6.20 では以下が導入されました：
 * [JVM バックエンドにおける単一モジュールの並列コンパイルのサポート](#support-for-parallel-compilation-of-a-single-module-in-the-jvm-backend)
 * [関数型インターフェースのコンストラクタへの呼び出し可能参照のサポート](#support-for-callable-references-to-functional-interface-constructors)
 
-### インターフェース用の新しい @JvmDefaultWithCompatibility アノテーション
+### インターフェース用の新しい @JvmDefaultWithCompatibility アノテーション {id="new-jvmdefaultwithcompatibility-annotation-for-interfaces"}
 
 Kotlin 1.6.20 では、新しいアノテーション [`@JvmDefaultWithCompatibility`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-default-with-compatibility/) が導入されました。これを `-Xjvm-default=all` コンパイラオプションと一緒に使用すると、任意の Kotlin インターフェース内の任意の非抽象メンバーに対して、[JVM インターフェースのデフォルトメソッドを作成](java-to-kotlin-interop.md#default-methods-in-interfaces)できます。
 
@@ -150,7 +150,7 @@ Kotlin 1.6.20 より前では、この互換性の問題を回避するために
 
 この新しいアノテーションに関するフィードバックは、[こちらの YouTrack チケット](https://youtrack.jetbrains.com/issue/KT-48217)にお寄せください。
 
-### -Xjvm-default モードにおける互換性の変更
+### -Xjvm-default モードにおける互換性の変更 {id="compatibility-changes-in-the-xjvm-default-modes"}
 
 Kotlin 1.6.20 では、デフォルトモード (`-Xjvm-default=disable` コンパイラオプション) でコンパイルされたモジュールを、`-Xjvm-default=all` または `-Xjvm-default=all-compatibility` モードでコンパイルされたモジュールに対してコンパイルできるようになりました。
 以前と同様に、すべてのモジュールが `-Xjvm-default=all` または `-Xjvm-default=all-compatibility` モードであれば、コンパイルは成功します。
@@ -161,7 +161,7 @@ Kotlin 1.6.20 では、コンパイラオプション `-Xjvm-default` の `compa
 
 Java 相互運用におけるデフォルトメソッドの詳細については、[相互運用ドキュメント](java-to-kotlin-interop.md#default-methods-in-interfaces) および [こちらのブログ記事](https://blog.jetbrains.com/kotlin/2020/07/kotlin-1-4-m3-generating-default-methods-in-interfaces/) を参照してください。
 
-### JVM バックエンドにおける単一モジュールの並列コンパイルのサポート
+### JVM バックエンドにおける単一モジュールの並列コンパイルのサポート {id="support-for-parallel-compilation-of-a-single-module-in-the-jvm-backend"}
 
 > JVM バックエンドにおける単一モジュールの並列コンパイルのサポートは [実験的 (Experimental)](components-stability.md) です。
 > いつでも変更または削除される可能性があります。使用するにはオプトインが必要であり（詳細は下記）、評価目的でのみ使用してください。
@@ -189,7 +189,7 @@ Kotlin 1.6.20 では、モジュール内のすべてのファイルを並列に
 >
 {style="note"}
 
-### 関数型インターフェースのコンストラクタへの呼び出し可能参照のサポート
+### 関数型インターフェースのコンストラクタへの呼び出し可能参照のサポート {id="support-for-callable-references-to-functional-interface-constructors"}
 
 > 関数型インターフェースのコンストラクタへの呼び出し可能参照のサポートは [実験的 (Experimental)](components-stability.md) です。
 > いつでも変更または削除される可能性があります。使用するにはオプトインが必要であり（詳細は下記）、評価目的でのみ使用してください。
@@ -233,7 +233,7 @@ fun Printer(...) {...}
 
 この機能を有効にするには、コンパイラオプション `-XXLanguage:+KotlinFunInterfaceConstructorReference` を使用してください。
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 Kotlin/Native 1.6.20 では、新しいコンポーネントの開発が継続されています。他のプラットフォームの Kotlin との一貫した体験に向けて、さらに一歩前進しました：
 
@@ -247,7 +247,7 @@ Kotlin/Native 1.6.20 では、新しいコンポーネントの開発が継続�
 * [cinterop モジュールのインポート中のエラーハンドリングの改善](#improved-error-handling-during-cinterop-modules-import)
 * [Xcode 13 ライブラリのサポート](#support-for-xcode-13-libraries)
 
-### 新しいメモリマネージャに関するアップデート
+### 新しいメモリマネージャに関するアップデート {id="an-update-on-the-new-memory-manager"}
 
 > 新しい Kotlin/Native メモリマネージャは [アルファ版 (Alpha)](components-stability.md) です。
 > 将来的に互換性のない変更が行われ、手動での移行が必要になる可能性があります。
@@ -267,7 +267,7 @@ Kotlin 1.6.20 では、新しい Kotlin/Native メモリマネージャのアル
 
 プロジェクトで新しいメモリマネージャを使用してみて、動作を確認し、イシュートラッカー [YouTrack](https://youtrack.jetbrains.com/issue/KT-48525) でフィードバックを共有してください。
 
-### 新しいメモリマネージャにおけるスイープフェーズの並列実装
+### 新しいメモリマネージャにおけるスイープフェーズの並列実装 {id="concurrent-implementation-for-the-sweep-phase-in-new-memory-manager"}
 
 [Kotlin 1.6 で発表](whatsnew16.md#preview-of-the-new-memory-manager)された新しいメモリマネージャにすでに切り替えている場合は、実行時間が大幅に改善されていることに気づくかもしれません。ベンチマークでは平均 35% の改善が見られました。
 1.6.20 からは、新しいメモリマネージャでスイープフェーズの並列実装も利用可能になりました。
@@ -281,14 +281,14 @@ Kotlin 1.6.20 では、新しい Kotlin/Native メモリマネージャのアル
 
 新しいメモリマネージャのパフォーマンスに関するフィードバックは、[こちらの YouTrack イシュー](https://youtrack.jetbrains.com/issue/KT-48526) でお寄せください。
 
-### アノテーションクラスのインスタンス化
+### アノテーションクラスのインスタンス化 {id="instantiation-of-annotation-classes"}
 
 Kotlin 1.6.0 では、アノテーションクラスのインスタンス化が Kotlin/JVM および Kotlin/JS で [安定版 (Stable)](components-stability.md) になりました。
 1.6.20 バージョンでは、Kotlin/Native でもサポートが提供されます。
 
 [アノテーションクラスのインスタンス化](annotations.md#instantiation)の詳細についてはこちらを参照してください。
 
-### Swift async/await との相互運用：KotlinUnit の代わりに Void を返す
+### Swift async/await との相互運用：KotlinUnit の代わりに Void を返す {id="interop-with-swift-async-await-returning-void-instead-of-kotlinunit"}
 
 > Swift の async/await との並行性相互運用は [実験的 (Experimental)](components-stability.md) です。いつでも変更または削除される可能性があります。
 > 評価目的でのみ使用してください。[YouTrack](https://youtrack.jetbrains.com/issue/KT-47610) でのフィードバックをお待ちしております。
@@ -309,7 +309,7 @@ kotlin.native.binary.unitSuspendFunctionObjCExport=proper
 
 将来の Kotlin リリースでは、この挙動をデフォルトにする予定です。
 
-### libbacktrace によるスタックトレースの改善
+### libbacktrace によるスタックトレースの改善 {id="better-stack-traces-with-libbacktrace"}
 
 > ソース位置の解決に libbacktrace を使用することは [実験的 (Experimental)](components-stability.md) です。いつでも変更または削除される可能性があります。
 > 評価目的でのみ使用してください。[YouTrack](https://youtrack.jetbrains.com/issue/KT-48424) でのフィードバックをお待ちしております。
@@ -398,7 +398,7 @@ kotlin.native.binary.sourceInfoType=libbacktrace
 
 libbacktrace を使用した Kotlin/Native のデバッグの使用感について、[こちらの YouTrack イシュー](https://youtrack.jetbrains.com/issue/KT-48424) でお聞かせください。
 
-### Android スタンドアロン実行ファイルのサポート
+### Android スタンドアロン実行ファイルのサポート {id="support-for-standalone-android-executables"}
 
 以前の Kotlin/Native における Android Native 実行ファイルは、実際には実行ファイルではなく、NativeActivity として使用できる共有ライブラリでした。今回、Android Native ターゲット向けに標準の実行ファイルを生成するオプションが追加されました。
 
@@ -426,7 +426,7 @@ binaryOptions["androidProgramType"] = "nativeActivity"
 
 [実装](https://github.com/jetbrains/kotlin/pull/4624)に貢献してくれた Mattia Iavarone に感謝します！
 
-### パフォーマンスの向上
+### パフォーマンスの向上 {id="performance-improvements"}
 
 私たちは [コンパイルプロセスの高速化](https://youtrack.jetbrains.com/issue/KT-42294) と開発体験の向上のため、Kotlin/Native に懸命に取り組んでいます。
 
@@ -441,25 +441,25 @@ Kotlin 1.6.20 では、Kotlin が生成する LLVM IR に影響を与えるい�
 
 これを実現するために、コンパイラが生成する一部の合成オブジェクトの静的初期化を実装し、各関数の LLVM IR の構造化方法を改善し、コンパイラキャッシュを最適化しました。
 
-### cinterop モジュールのインポート中のエラーハンドリングの改善
+### cinterop モジュールのインポート中のエラーハンドリングの改善 {id="improved-error-handling-during-cinterop-modules-import"}
 
 本リリースでは、`cinterop` ツールを使用して Objective-C モジュールをインポートする場合（CocoaPods ポッドで一般的です）のエラーハンドリングが改善されました。
 以前は、Objective-C モジュールの処理中にエラーが発生した場合（ヘッダーのコンパイルエラーなど）、`fatal error: could not build module $name` のような情報の乏しいエラーメッセージが表示されていました。
 `cinterop` ツールのこの部分を拡張したため、より詳細な説明を含むエラーメッセージが表示されるようになります。
 
-### Xcode 13 ライブラリのサポート
+### Xcode 13 ライブラリのサポート {id="support-for-xcode-13-libraries"}
 
 Xcode 13 に付属するライブラリは、本リリースでフルサポートされました。
 Kotlin コードのどこからでも自由にアクセスできます。
 
-## Kotlin Multiplatform
+## Kotlin Multiplatform {id="kotlin-multiplatform"}
 
 1.6.20 では、Kotlin Multiplatform に以下の注目すべきアップデートがもたらされました：
 
 * [すべての新しいマルチプラットフォームプロジェクトで階層構造のサポートがデフォルトになりました](#hierarchical-structure-support-for-multiplatform-projects)
 * [Kotlin CocoaPods Gradle プラグインに、CocoaPods 統合のためのいくつかの便利な機能が追加されました](#kotlin-cocoapods-gradle-plugin)
 
-### マルチプラットフォームプロジェクトにおける階層構造のサポート
+### マルチプラットフォームプロジェクトにおける階層構造のサポート {id="hierarchical-structure-support-for-multiplatform-projects"}
 
 Kotlin 1.6.20 では、階層構造（hierarchical structure）のサポートがデフォルトで有効になっています。
 [Kotlin 1.4.0 で導入](whatsnew14.md#sharing-code-in-several-targets-with-the-hierarchical-project-structure)して以来、フロントエンドを大幅に改善し、IDE インポートを安定させました。
@@ -476,7 +476,7 @@ Kotlin 1.6.20 では、階層構造（hierarchical structure）のサポート�
 
 デフォルトでは、階層的なプロジェクト構造で公開されたライブラリは、階層構造のプロジェクトとのみ互換性があります。
 
-#### プロジェクト内でのより優れたコード共有
+#### プロジェクト内でのより優れたコード共有 {id="better-code-sharing-in-your-project"}
 
 階層構造のサポートがない場合、すべてではなく[一部の Kotlin ターゲット](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#targets)間でのみコードを共有する簡単な方法はありませんでした。
 よくある例は、すべての iOS ターゲット間でコードを共有し、Foundation などの iOS 固有の[依存関係](https://kotlinlang.org/docs/multiplatform/multiplatform-share-on-platforms.html#connect-platform-specific-libraries)にアクセスすることです。
@@ -494,13 +494,13 @@ Kotlin ツールチェーンは、Kotlin/Native 標準ライブラリやネイ�
 さらに、Kotlin ツールは共有コードで利用可能な正確な API サーフェスを見つけるために最善を尽くします。
 これにより、Windows 用に共有されているコードで macOS 固有の関数を使用するといったケースを防ぐことができます。
 
-#### ライブラリ作成者へのさらなる機会
+#### ライブラリ作成者へのさらなる機会 {id="more-opportunities-for-library-authors"}
 
 マルチプラットフォームライブラリが公開される際、中間ソースセットの API も適切に公開されるようになり、利用者が利用できるようになります。
 ここでも、Kotlin ツールチェーンは、JS コードで JVM 向けの API を使用するといった安全でない使用法を注意深く監視しながら、利用者のソースセットで利用可能な API を自動的に判断します。
 [ライブラリでのコード共有](https://kotlinlang.org/docs/multiplatform/multiplatform-share-on-platforms.html#share-code-in-libraries)についての詳細を確認してください。
 
-#### 設定とセットアップ
+#### 設定とセットアップ {id="configuration-and-setup"}
 
 Kotlin 1.6.20 以降、すべての新しいマルチプラットフォームプロジェクトは階層的なプロジェクト構造になります。追加のセットアップは必要ありません。
 
@@ -521,13 +521,13 @@ Kotlin 1.6.20 以降、すべての新しいマルチプラットフォームプ
   kotlin.mpp.hierarchicalStructureSupport=false
   ```
 
-#### フィードバックのお願い
+#### フィードバックのお願い {id="leave-your-feedback"}
 
 これはエコシステム全体にわたる重要な変更です。より良くするために、皆様のフィードバックをお待ちしております。
 
 今すぐ試して、遭遇した問題を [イシュートラッカー](https://kotl.in/issue) に報告してください。
 
-### Kotlin CocoaPods Gradle プラグイン
+### Kotlin CocoaPods Gradle プラグイン {id="kotlin-cocoapods-gradle-plugin"}
 
 CocoaPods の統合を簡素化するため、Kotlin 1.6.20 では以下の機能が提供されます：
 
@@ -559,7 +559,7 @@ kotlin {
 
 Kotlin CocoaPods Gradle プラグインの [DSL リファレンス](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-dsl-reference.html) 全体を確認してください。
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
 Kotlin/JS の 1.6.20 における改善は、主に IR コンパイラに関連するものです：
 
@@ -570,7 +570,7 @@ Kotlin/JS の 1.6.20 における改善は、主に IR コンパイラに関連�
 * [Export の改善 (IR およびレガシーバックエンドの両方)](#improvements-to-export-and-typescript-declaration-generation)
 * [非同期テストに対する @AfterTest の保証](#aftertest-guarantees-for-asynchronous-tests)
 
-### IR コンパイラによる開発用バイナリのインクリメンタルコンパイル
+### IR コンパイラによる開発用バイナリのインクリメンタルコンパイル {id="incremental-compilation-for-development-binaries-with-ir-compiler"}
 
 IR コンパイラを使用した Kotlin/JS 開発をより効率的にするため、新しい「インクリメンタルコンパイル (incremental compilation)」モードを導入します。
 
@@ -589,7 +589,7 @@ kotlin.incremental.js.ir=true // デフォルトは false
 
 Kotlin/JS プロジェクトでインクリメンタルコンパイルを使用してみた感想を、[こちらの YouTrack イシュー](https://youtrack.jetbrains.com/issue/KT-50203) で教えてください。
 
-### IR コンパイラにおけるトップレベルプロパティのデフォルトでの遅延初期化
+### IR コンパイラにおけるトップレベルプロパティのデフォルトでの遅延初期化 {id="lazy-initialization-of-top-level-properties-by-default-with-ir-compiler"}
 
 Kotlin 1.4.30 では、JS IR コンパイラにおける[トップレベルプロパティの遅延初期化 (lazy initialization)](whatsnew1430.md#lazy-initialization-of-top-level-properties) のプロトタイプを公開しました。
 アプリケーション起動時にすべてのプロパティを初期化する必要をなくすことで、遅延初期化は起動時間を短縮します。
@@ -608,7 +608,7 @@ val a = run {
 
 何らかの理由でプロパティを先行して（アプリケーション起動時に）初期化する必要がある場合は、[`@EagerInitialization`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.native/-eager-initialization/) アノテーションでマークしてください。
 
-### IR コンパイラにおけるプロジェクトモジュールごとの個別 JS ファイル生成のデフォルト化
+### IR コンパイラにおけるプロジェクトモジュールごとの個別 JS ファイル生成のデフォルト化 {id="separate-js-files-for-project-modules-by-default-with-ir-compiler"}
 
 以前、JS IR コンパイラには、プロジェクトモジュールごとに[個別の `.js` ファイルを生成する機能]( https://youtrack.jetbrains.com/issue/KT-44319)がありました。
 これは、プロジェクト全体に対して 1 つの `.js` ファイルを生成するデフォルトのオプションに代わるものでした。
@@ -626,14 +626,14 @@ kotlin.js.ir.output.granularity=whole-program // デフォルトは `per-module`
 
 以前のリリースでは、実験的な per-module モード（`-Xir-per-module=true` フラグ経由）は各モジュールの `main()` 関数を呼び出していました。これは通常の単一 `.js` モードと矛盾していました。1.6.20 からは、どちらの場合も `main()` 関数はメインモジュールでのみ呼び出されます。モジュールがロードされたときにコードを実行する必要がある場合は、`@EagerInitialization` アノテーションを付けたトップレベルプロパティを使用できます。[IR コンパイラにおけるトップレベルプロパティのデフォルトでの遅延初期化](#lazy-initialization-of-top-level-properties-by-default-with-ir-compiler) を参照してください。
 
-### Char クラスの最適化
+### Char クラスの最適化 {id="char-class-optimization"}
 
 `Char` クラスは、ボクシングを導入することなく Kotlin/JS コンパイラによって処理されるようになりました（[インラインクラス](inline-classes.md)と同様）。
 これにより、Kotlin/JS コードにおける文字操作が高速化されます。
 
 パフォーマンスの向上に加えて、`Char` が JavaScript にエクスポートされる方法も変更されます。現在は `Number` に変換されます。
 
-### Export と TypeScript 宣言生成の改善
+### Export と TypeScript 宣言生成の改善 {id="improvements-to-export-and-typescript-declaration-generation"}
 
 Kotlin 1.6.20 では、エクスポートメカニズム（[`@JsExport`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.js/-js-export/) アノテーション）に対して、[TypeScript 宣言 (`.d.ts`) の生成](js-project-setup.md#generation-of-typescript-declaration-files-d-ts)を含め、複数の修正と改善が行われました。
 インターフェースと列挙型（enum）をエクスポートする機能が追加され、以前に報告されたいくつかの特殊なケースにおけるエクスポートの動作が修正されました。
@@ -641,12 +641,12 @@ Kotlin 1.6.20 では、エクスポートメカニズム（[`@JsExport`](https:/
 
 [JavaScript からの Kotlin コードの使用](js-to-kotlin-interop.md)についての詳細を確認してください。
 
-### 非同期テストに対する @AfterTest の保証
+### 非同期テストに対する @AfterTest の保証 {id="aftertest-guarantees-for-asynchronous-tests"}
 
 Kotlin 1.6.20 では、[`@AfterTest`](https://kotlinlang.org/api/latest/kotlin.test/kotlin.test/-after-test/) 関数が Kotlin/JS の非同期テストで適切に動作するようになりました。
 テスト関数の戻り値の型が静的に [`Promise`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.js/-promise/) に解決される場合、コンパイラは `@AfterTest` 関数の実行を対応する [`then()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.js/-promise/then.html) コールバックにスケジュールするようになりました。
 
-## セキュリティ (Security)
+## セキュリティ (Security) {id="security"}
 
 Kotlin 1.6.20 では、コードのセキュリティを向上させるためのいくつかの機能が導入されました：
 
@@ -654,7 +654,7 @@ Kotlin 1.6.20 では、コードのセキュリティを向上させるための
 * [Kotlin/JS Gradle プロジェクトにおける yarn.lock の永続化](#persisting-yarn-lock-for-kotlin-js-gradle-projects)
 * [デフォルトでの --ignore-scripts を使用した npm 依存関係のインストール](#installation-of-npm-dependencies-with-ignore-scripts-by-default)
 
-### klib における相対パスの使用
+### klib における相対パスの使用 {id="using-relative-paths-in-klibs"}
 
 `klib` 形式のライブラリには、ソースファイルのシリアル化された IR 表現が[含まれており](native-libraries.md#library-format)、これには適切なデバッグ情報を生成するためのパスも含まれています。
 Kotlin 1.6.20 より前では、保存されるファイルパスは絶対パスでした。ライブラリ作成者が絶対パスを共有したくない場合があるため、1.6.20 バージョンでは代替オプションが用意されました。
@@ -686,7 +686,7 @@ tasks.withType(org.jetbrains.kotlin.gradle.dsl.KotlinCompile).configureEach {
 </tab>
 </tabs>
 
-### Kotlin/JS Gradle プロジェクトにおける yarn.lock の永続化
+### Kotlin/JS Gradle プロジェクトにおける yarn.lock の永続化 {id="persisting-yarn-lock-for-kotlin-js-gradle-projects"}
 
 > この機能は Kotlin 1.6.10 にバックポートされました。
 >
@@ -733,7 +733,7 @@ rootProject.plugins.withType(org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlu
 > 
 {style="warning"}
 
-### デフォルトでの --ignore-scripts を使用した npm 依存関係のインストール
+### デフォルトでの --ignore-scripts を使用した npm 依存関係のインストール {id="installation-of-npm-dependencies-with-ignore-scripts-by-default"}
 
 > この機能は Kotlin 1.6.10 にバックポートされました。
 >
@@ -767,7 +767,7 @@ rootProject.plugins.withType(org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlu
 
 [Kotlin/JS Gradle プロジェクトの npm 依存関係](js-project-setup.md#npm-dependencies)についての詳細を確認してください。
 
-## Gradle
+## Gradle {id="gradle"}
 
 Kotlin 1.6.20 では、Kotlin Gradle プラグインに以下の変更が行われました：
 
@@ -775,7 +775,7 @@ Kotlin 1.6.20 では、Kotlin Gradle プラグインに以下の変更が行わ�
 * [`kapt.use.worker.api`、`kotlin.experimental.coroutines`、および `kotlin.coroutines` オプションの非推奨化](#deprecation-of-build-options-for-kapt-and-coroutines)
 * [`kotlin.parallel.tasks.in.project` ビルドオプションの削除](#removal-of-the-kotlin-parallel-tasks-in-project-build-option)
 
-### Kotlin コンパイラの実行戦略を定義するためのプロパティ
+### Kotlin コンパイラの実行戦略を定義するためのプロパティ {id="properties-for-defining-kotlin-compiler-execution-strategy"}
 
 Kotlin 1.6.20 より前は、システムプロパティ `-Dkotlin.compiler.execution.strategy` を使用して Kotlin コンパイラの実行戦略を定義していました。
 このプロパティは、場合によっては不便なことがありました。
@@ -829,7 +829,7 @@ tasks.withType<KotlinCompile>().configureEach {
 
 フィードバックは [こちらの YouTrack タスク](https://youtrack.jetbrains.com/issue/KT-49299) でお聞かせください。
 
-### kapt とコルーチンのビルドオプションの非推奨化
+### kapt とコルーチンのビルドオプションの非推奨化 {id="deprecation-of-build-options-for-kapt-and-coroutines"}
 
 Kotlin 1.6.20 では、以下のプロパティの非推奨レベルを変更しました：
 
@@ -843,7 +843,7 @@ Kotlin 1.6.20 では、以下のプロパティの非推奨レベルを変更し
   
   コルーチンの詳細については、[コルーチンガイド](coroutines-guide.md) を参照してください。
 
-### kotlin.parallel.tasks.in.project ビルドオプションの削除
+### kotlin.parallel.tasks.in.project ビルドオプションの削除 {id="removal-of-the-kotlin-parallel-tasks-in-project-build-option"}
 
 Kotlin 1.5.20 で [ビルドオプション `kotlin.parallel.tasks.in.project` の非推奨化](whatsnew1520.md#deprecation-of-the-kotlin-parallel-tasks-in-project-build-property) を発表しました。
 このオプションは Kotlin 1.6.20 で削除されました。

@@ -10,7 +10,7 @@ Koin을 사용하면 설정 모듈을 검증할 수 있어, 런타임에 의존�
 마이그레이션 방법은 [컴파일 타임 안정성](/docs/reference/koin-compiler/compile-safety)을 참조하세요.
 :::
 
-## Verify API - JVM 전용 [3.3+]
+## Verify API - JVM 전용 [3.3+] {id="verify-api-jvm-only-3-3"}
 
 Koin 모듈에서 `verify()` 확장 함수를 사용하세요. 내부적으로 이 함수는 모든 생성자 클래스를 확인하고 Koin 설정과 대조하여 해당 의존성에 대해 선언된 컴포넌트가 있는지 크로스체크합니다. 실패할 경우, 이 함수는 `MissingKoinDefinitionException`을 발생시킵니다.
 
@@ -46,7 +46,7 @@ JUnit 테스트를 실행하면 끝입니다!
 
 `verify()` API는 매우 가볍게 실행되며 설정 상에서 어떠한 종류의 모의 객체(mock)나 스텁(stub)도 필요하지 않습니다.
 
-### 주입된 파라미터를 사용한 검증 [4.0+]
+### 주입된 파라미터를 사용한 검증 [4.0+] {id="verifying-with-injected-parameters-4-0"}
 
 `parametersOf`를 통해 객체 주입을 암시하는 설정이 있는 경우, 설정에 파라미터 타입에 대한 정의가 없으므로 검증이 실패합니다. 
 하지만 `definition<Type>(Class1::class, Class2::class ...)`와 같이 주어진 정의와 함께 주입될 파라미터 타입을 정의할 수 있습니다.
@@ -72,7 +72,7 @@ class ModuleCheck {
 }
 ```
 
-### 타입 화이트리스트 지정 (Type White-Listing)
+### 타입 화이트리스트 지정 (Type White-Listing) {id="type-white-listing"}
 
 타입을 "화이트리스트(white-listed)"로 추가할 수 있습니다. 이는 해당 타입이 시스템의 모든 정의에 대해 존재하는 것으로 간주됨을 의미합니다.
 
@@ -91,7 +91,7 @@ class NiaAppModuleCheck {
 }
 ```
 
-### 검증을 위해 어노테이션 사용하기
+### 검증을 위해 어노테이션 사용하기 {id="using-annotations-for-verification"}
 
 `koin-core-annotations`의 어노테이션은 Koin이 주입 계약을 추론하고 설정을 검증하도록 도와줍니다. 복잡한 DSL 설정을 사용하는 대신, 이러한 요소들을 식별하는 데 도움을 줍니다.
 
@@ -106,7 +106,7 @@ class ComponentBProvided(@Provided val a: ComponentA)
 
 ---
 
-## CheckModules API (지원 중단)
+## CheckModules API (지원 중단) {id="checkmodules-api-deprecated"}
 
 :::warning
 `checkModules()` API는 Koin 4.0부터 지원 중단(deprecated)되었습니다. 대신 `verify()`를 사용하거나 컴파일 타임 안정성을 위해 Koin 컴파일러 플러그인으로 마이그레이션하세요.
@@ -140,7 +140,7 @@ class CheckModulesTest : KoinTest {
 }
 ```
 
-### CheckModule DSL
+### CheckModule DSL {id="checkmodule-dsl"}
 
 주입된 파라미터, 프로퍼티 또는 동적 인스턴스를 사용하는 정의의 경우:
 
@@ -149,7 +149,7 @@ class CheckModulesTest : KoinTest {
 * `withParameter<Type>(qualifier){ qualifier -> value }` - 파라미터로 주입될 `value` 인스턴스를 추가합니다.
 * `withProperty(key, value)` - Koin에 프로퍼티를 추가합니다.
 
-### JUnit Rule을 이용한 모의 객체(Mocking) 처리
+### JUnit Rule을 이용한 모의 객체(Mocking) 처리 {id="mocking-with-a-junit-rule"}
 
 `checkModules`와 함께 모의 객체(mock)를 사용하려면 `MockProviderRule`을 제공하세요:
 
@@ -161,7 +161,7 @@ val mockProvider = MockProviderRule.create { clazz ->
 }
 ```
 
-### 동적 동작이 포함된 모듈 검증하기
+### 동적 동작이 포함된 모듈 검증하기 {id="verifying-modules-with-dynamic-behavior"}
 
 ```kotlin
 val myModule = module {
@@ -188,7 +188,7 @@ class CheckModulesTest : KoinTest {
 }
 ```
 
-### Android 예시
+### Android 예시 {id="android-example"}
 
 ```kotlin
 class CheckModulesTest {
@@ -213,7 +213,7 @@ class CheckModulesTest {
 }
 ```
 
-### 스코프 연결(Scope Link) 제공하기
+### 스코프 연결(Scope Link) 제공하기 {id="providing-scope-links"}
 
 `withScopeLink`를 사용하여 스코프를 연결합니다:
 
@@ -240,7 +240,7 @@ fun `test DI modules`(){
 
 ---
 
-## 컴파일 타임 안정성으로 마이그레이션
+## 컴파일 타임 안정성으로 마이그레이션 {id="migration-to-compile-time-safety"}
 
 Koin 컴파일러 플러그인은 이제 컴파일 타임 의존성 검증 기능을 제공하여 런타임 검증의 필요성을 대체합니다.
 

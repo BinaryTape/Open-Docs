@@ -4,7 +4,7 @@
 
 ほとんどの言語の変更は、アップデートの変更ログやコンパイラの警告などの他のチャネルを通じてすでに発表されていますが、このドキュメントではそれらをすべてまとめ、Kotlin 2.0 から Kotlin 2.1 への移行のための完全なリファレンスを提供します。
 
-## 基本用語
+## 基本用語 {id="basic-terms"}
 
 このドキュメントでは、数種類の互換性について紹介します。
 
@@ -14,9 +14,9 @@
 
 これらの定義は、純粋な Kotlin に対してのみ与えられていることに注意してください。他の言語の観点（例：Java）からの Kotlin コードの互換性は、このドキュメントの範囲外です。
 
-## 言語 (Language)
+## 言語 (Language) {id="language"}
 
-### 言語バージョン 1.4 および 1.5 の削除
+### 言語バージョン 1.4 および 1.5 の削除 {id="remove-language-versions-1-4-and-1-5"}
 
 > **課題**: [KT-60521](https://youtrack.jetbrains.com/issue/KT-60521)
 >
@@ -32,7 +32,7 @@
 > - 1.9.0: 言語バージョン 1.5 に対して警告を報告
 > - 2.1.0: 言語バージョン 1.6 および 1.7 に対して警告を報告。言語バージョン 1.4 および 1.5 に対する警告をエラーに引き上げ
 
-### Kotlin/Native における typeOf() 関数の振る舞いの変更
+### Kotlin/Native における typeOf() 関数の振る舞いの変更 {id="change-the-typeof-function-behavior-on-kotlin-native"}
 
 > **課題**: [KT-70754](https://youtrack.jetbrains.com/issue/KT-70754)
 >
@@ -46,7 +46,7 @@
 >
 > - 2.1.0: Kotlin/Native における `typeOf()` 関数の振る舞いを調整
 
-### 型パラメータの境界を通じた型の公開の禁止
+### 型パラメータの境界を通じた型の公開の禁止 {id="prohibit-exposing-types-through-type-parameters-bounds"}
 
 > **課題**: [KT-69653](https://youtrack.jetbrains.com/issue/KT-69653)
 >
@@ -61,7 +61,7 @@
 > - 2.1.0: より低い可視性を持つ型を型パラメータの境界を通じて公開している場合に警告を報告
 > - 2.2.0: 警告をエラーに引き上げ
 
-### 同名の抽象 var プロパティと val プロパティの継承を禁止
+### 同名の抽象 var プロパティと val プロパティの継承を禁止 {id="prohibit-inheriting-an-abstract-var-property-and-a-val-property-with-the-same-name"}
 
 > **課題**: [KT-58659](https://youtrack.jetbrains.com/issue/KT-58659)
 >
@@ -76,7 +76,7 @@
 > - 2.1.0: インターフェースから抽象 `var` プロパティを、スーパークラスから同名の `val` プロパティを継承している場合に警告を報告（プログレッシブモードではエラー）
 > - 2.2.0: 警告をエラーに引き上げ
 
-### 初期化されていない enum エントリへのアクセス時にエラーを報告
+### 初期化されていない enum エントリへのアクセス時にエラーを報告 {id="report-error-when-accessing-uninitialized-enum-entries"}
 
 > **課題**: [KT-68451](https://youtrack.jetbrains.com/issue/KT-68451)
 >
@@ -90,7 +90,7 @@
 >
 > - 2.1.0: 初期化されていない enum エントリへのアクセス時にエラーを報告
 
-### K2 スマートキャストの伝播における変更
+### K2 スマートキャストの伝播における変更 {id="changes-in-k2-smart-cast-propagation"}
 
 > **課題**: [KTLC-34](https://youtrack.jetbrains.com/issue/KTLC-34)
 >
@@ -104,7 +104,7 @@
 >
 > - 2.1.0: 新しい振る舞いを有効化
 
-### Java サブクラスにおけるメンバ拡張プロパティのオーバーライド処理の修正
+### Java サブクラスにおけるメンバ拡張プロパティのオーバーライド処理の修正 {id="correct-the-handling-of-member-extension-property-overrides-in-java-subclasses"}
 
 > **課題**: [KTLC-35](https://youtrack.jetbrains.com/issue/KTLC-35)
 >
@@ -118,7 +118,7 @@
 >
 > - 2.1.0: 新しい振る舞いを有効化
 
-### protected val をオーバーライドする var プロパティのゲッターとセッターの可視性の整合性を修正
+### protected val をオーバーライドする var プロパティのゲッターとセッターの可視性の整合性を修正 {id="correct-visibility-alignment-for-getters-and-setters-of-var-properties-overriding-a-protected-val"}
 
 > **課題**: [KTLC-36](https://youtrack.jetbrains.com/issue/KTLC-36)
 >
@@ -132,7 +132,7 @@
 >
 > - 2.1.0: K2 において、ゲッターとセッターの両方に一貫した可視性を強制。K1 は影響を受けません。
 
-### JSpecify の Null 許容性不一致診断の重要度をエラーに引き上げ
+### JSpecify の Null 許容性不一致診断の重要度をエラーに引き上げ {id="raise-severity-of-jspecify-nullability-mismatch-diagnostics-to-errors"}
 
 > **課題**: [KTLC-11](https://youtrack.jetbrains.com/issue/KTLC-11)
 >
@@ -149,7 +149,7 @@
 > - 2.0.0: `@NonNull` アノテーションのサポートを追加
 > - 2.1.0: JSpecify アノテーションのデフォルトモードを `strict` に変更し、警告をエラーに変換。デフォルトの動作を上書きするには、`-Xnullability-annotations=@org.jspecify.annotations:warning` または `-Xnullability-annotations=@org.jspecify.annotations:ignore` を使用
 
-### 曖昧なケースにおいて invoke 呼び出しよりも拡張関数を優先するようにオーバーロード解決を変更
+### 曖昧なケースにおいて invoke 呼び出しよりも拡張関数を優先するようにオーバーロード解決を変更 {id="change-overload-resolution-to-prioritize-extension-functions-over-invoke-calls-in-ambiguous-cases"}
 
 > **課題**: [KTLC-37](https://youtrack.jetbrains.com/issue/KTLC-37)
 >
@@ -163,7 +163,7 @@
 >
 > - 2.1.0: 一致するシグネチャを持つ拡張関数について、`invoke` 呼び出しよりも一貫して拡張関数を優先するようにオーバーロード解決を変更。この変更は再コンパイル後にのみ適用され、プリコンパイルされたバイナリには影響しません。
 
-### JDK 関数インターフェースの SAM コンストラクタ内のラムダから Null 許容値を返すことを禁止
+### JDK 関数インターフェースの SAM コンストラクタ内のラムダから Null 許容値を返すことを禁止 {id="prohibit-returning-nullable-values-from-lambdas-in-sam-constructors-of-jdk-function-interfaces"}
 
 > **課題**: [KTLC-42](https://youtrack.jetbrains.com/issue/KTLC-42)
 >
@@ -178,7 +178,7 @@
 > - 2.0.0: JDK 関数インターフェースの SAM コンストラクタにおける Null 許容の戻り値に対して非推奨の警告を報告
 > - 2.1.0: デフォルトで新しい振る舞いを有効化
 
-### Kotlin/Native におけるパブリックメンバと競合するプライベートメンバの処理の修正
+### Kotlin/Native におけるパブリックメンバと競合するプライベートメンバの処理の修正 {id="correct-handling-of-private-members-conflicting-with-public-members-in-kotlin-native"}
 
 > **課題**: [KTLC-43](https://youtrack.jetbrains.com/issue/KTLC-43)
 >
@@ -192,7 +192,7 @@
 >
 > - 2.1.0: Kotlin/Native のプライベート関数およびプロパティがスーパークラスのパブリックメンバをオーバーライドしたり影響を与えたりしなくなり、JVM の振る舞いと一致
 
-### パブリックなインライン関数内でのプライベートな演算子関数へのアクセスを禁止
+### パブリックなインライン関数内でのプライベートな演算子関数へのアクセスを禁止 {id="forbid-access-to-private-operator-functions-in-public-inline-functions"}
 
 > **課題**: [KTLC-71](https://youtrack.jetbrains.com/issue/KTLC-71)
 >
@@ -207,7 +207,7 @@
 > - 2.0.0: パブリックなインライン関数内でのプライベートな演算子関数へのアクセスに対して非推奨の警告を報告
 > - 2.1.0: 警告をエラーに引き上げ
 
-### @UnsafeVariance がアノテーションされた不変パラメータへの無効な引数の受け渡しを禁止
+### @UnsafeVariance がアノテーションされた不変パラメータへの無効な引数の受け渡しを禁止 {id="prohibit-passing-invalid-arguments-to-invariant-parameters-annotated-with-unsafevariance"}
 
 > **課題**: [KTLC-72](https://youtrack.jetbrains.com/issue/KTLC-72)
 >
@@ -221,7 +221,7 @@
 >
 > - 2.1.0: 新しい振る舞いを有効化
 
-### 警告レベルの Java 型のエラーレベルの Null 許容引数に対する Null 許容性エラーを報告
+### 警告レベルの Java 型のエラーレベルの Null 許容引数に対する Null 許容性エラーを報告 {id="report-nullability-errors-for-error-level-nullable-arguments-of-warning-level-java-types"}
 
 > **課題**: [KTLC-100](https://youtrack.jetbrains.com/issue/KTLC-100)
 >
@@ -236,7 +236,7 @@
 > - 2.0.0: より厳密な型引数を持つ Java メソッドにおける Null 許容性の不一致に対して非推奨の警告を報告
 > - 2.1.0: 警告をエラーに引き上げ
 
-### アクセス不可能な型の暗黙的な使用を報告
+### アクセス不可能な型の暗黙的な使用を報告 {id="report-implicit-usages-of-inaccessible-types"}
 
 > **課題**: [KTLC-3](https://youtrack.jetbrains.com/issue/KTLC-3)
 >
@@ -252,9 +252,9 @@
 > - 2.1.0: アクセス不可能な非ジェネリック型をパラメータまたはレシーバに持つ関数リテラルに対する警告をエラーに引き上げ
 > - 2.2.0: アクセス不可能な型引数を持つ型に対する警告をエラーに引き上げ
 
-## 標準ライブラリ (Standard library)
+## 標準ライブラリ (Standard library) {id="standard-library"}
 
-### Char および String のロケール依存のケース変換関数の非推奨化
+### Char および String のロケール依存のケース変換関数の非推奨化 {id="deprecate-locale-sensitive-case-conversion-functions-for-char-and-string"}
 
 > **課題**: [KT-43023](https://youtrack.jetbrains.com/issue/KT-43023)
 >
@@ -272,7 +272,7 @@
 > - 1.5.0: ロケール依存のケース変換関数を警告付きで非推奨化
 > - 2.1.0: 警告をエラーに引き上げ
 
-### kotlin-stdlib-common JAR アーティファクトの削除
+### kotlin-stdlib-common JAR アーティファクトの削除 {id="remove-kotlin-stdlib-common-jar-artifact"}
 
 > **課題**: [KT-62159](https://youtrack.jetbrains.com/issue/KT-62159)
 >
@@ -286,7 +286,7 @@
 >
 > - 2.1.0: `kotlin-stdlib-common.jar` アーティファクトを非推奨化し削除
 
-### appendLine() を優先し appendln() を非推奨化
+### appendLine() を優先し appendln() を非推奨化 {id="deprecate-appendln-in-favor-of-appendline"}
 
 > **課題**: [KTLC-27](https://youtrack.jetbrains.com/issue/KTLC-27)
 >
@@ -301,7 +301,7 @@
 > - 1.4.0: `appendln()` 関数を非推奨化。使用時に警告を報告
 > - 2.1.0: 警告をエラーに引き上げ
 
-### Kotlin/Native における Freezing 関連 API の非推奨化
+### Kotlin/Native における Freezing 関連 API の非推奨化 {id="deprecate-freezing-related-apis-in-kotlin-native"}
 
 > **課題**: [KT-69545](https://youtrack.jetbrains.com/issue/KT-69545)
 >
@@ -316,7 +316,7 @@
 > - 1.7.20: Freezing 関連 API を警告付きで非推奨化
 > - 2.1.0: 警告をエラーに引き上げ
 
-### 構造的な変更時にフェイルファストするように Map.Entry の振る舞いを変更
+### 構造的な変更時にフェイルファストするように Map.Entry の振る舞いを変更 {id="change-map-entry-behavior-to-fail-fast-on-structural-modification"}
 
 > **課題**: [KTLC-23](https://youtrack.jetbrains.com/issue/KTLC-23)
 >
@@ -330,9 +330,9 @@
 >
 > - 2.1.0: マップの構造的な変更が検出された場合に例外をスロー
 
-## ツール (Tools)
+## ツール (Tools) {id="tools"}
 
-### KotlinCompilationOutput#resourcesDirProvider の非推奨化
+### KotlinCompilationOutput#resourcesDirProvider の非推奨化 {id="deprecate-kotlincompilationoutput-resourcesdirprovider"}
 
 > **課題**: [KT-69255](https://youtrack.jetbrains.com/issue/KT-69255)
 >
@@ -346,7 +346,7 @@
 >
 > - 2.1.0: `KotlinCompilationOutput#resourcesDirProvider` が非推奨
 
-### registerKotlinJvmCompileTask(taskName, moduleName) 関数の非推奨化
+### registerKotlinJvmCompileTask(taskName, moduleName) 関数の非推奨化 {id="deprecate-registerkotlinjvmcompiletask-taskname-modulename-function"}
 
 > **課題**: [KT-69927](https://youtrack.jetbrains.com/issue/KT-69927)
 >
@@ -360,7 +360,7 @@
 >
 > - 2.1.0: `registerKotlinJvmCompileTask(taskName, moduleName)` 関数が非推奨
 
-### registerKaptGenerateStubsTask(taskName) 関数の非推奨化
+### registerKaptGenerateStubsTask(taskName) 関数の非推奨化 {id="deprecate-registerkaptgeneratestubstask-taskname-function"}
 
 > **課題**: [KT-70383](https://youtrack.jetbrains.com/issue/KT-70383)
 >
@@ -374,7 +374,7 @@
 >
 > - 2.1.0: `registerKaptGenerateStubsTask(taskName)` 関数が非推奨
 
-### KotlinTopLevelExtension および KotlinTopLevelExtensionConfig インターフェースの非推奨化
+### KotlinTopLevelExtension および KotlinTopLevelExtensionConfig インターフェースの非推奨化 {id="deprecate-kotlintoplevelextension-and-kotlintoplevelextensionconfig-interfaces"}
 
 > **課題**: [KT-71602](https://youtrack.jetbrains.com/issue/KT-71602)
 >
@@ -388,7 +388,7 @@
 >
 > - 2.1.0: `KotlinTopLevelExtension` および `KotlinTopLevelExtensionConfig` インターフェースが非推奨
 
-### ビルド実行時の依存関係から kotlin-compiler-embeddable を削除
+### ビルド実行時の依存関係から kotlin-compiler-embeddable を削除 {id="remove-kotlin-compiler-embeddable-from-build-runtime-dependencies"}
 
 > **課題**: [KT-61706](https://youtrack.jetbrains.com/issue/KT-61706)
 >
@@ -403,7 +403,7 @@
 > - 2.1.0: `kotlin-compiler-embeddable` の使用に対して警告を報告
 > - 2.2.0: 警告をエラーに引き上げ
 
-### Kotlin Gradle プラグイン API からコンパイラシンボルを隠蔽
+### Kotlin Gradle プラグイン API からコンパイラシンボルを隠蔽 {id="hide-compiler-symbols-from-the-kotlin-gradle-plugin-api"}
 
 > **課題**: [KT-70251](https://youtrack.jetbrains.com/issue/KT-70251)
 >
@@ -418,7 +418,7 @@
 > - 2.1.0: これらのシンボルへのアクセスに対して警告を報告
 > - 2.2.0: 警告をエラーに引き上げ
 
-### 複数の安定性設定ファイルのサポートを追加
+### 複数の安定性設定ファイルのサポートを追加 {id="add-support-for-multiple-stability-configuration-files"}
 
 > **課題**: [KT-68345](https://youtrack.jetbrains.com/issue/KT-68345)
 >
@@ -432,7 +432,7 @@
 >
 > - 2.1.0: `stabilityConfigurationFile` プロパティが非推奨
 
-### 非推奨のプラットフォームプラグイン ID の削除
+### 非推奨のプラットフォームプラグイン ID の削除 {id="remove-deprecated-platform-plugin-ids"}
 
 > **課題**: [KT-65565](https://youtrack.jetbrains.com/issue/KT-65565)
 >

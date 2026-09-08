@@ -1,4 +1,4 @@
-## 개요
+## 개요 {id="overview"}
 
 노드 병렬 실행(Parallel node execution)을 사용하면 여러 AI 에이전트 노드를 동시에 실행할 수 있어, 성능을 향상시키고 복잡한 워크플로를 구현할 수 있습니다. 이 기능은 특히 다음과 같은 경우에 유용합니다:
 
@@ -6,22 +6,22 @@
 - 여러 개의 독립적인 작업을 병렬로 수행해야 할 때
 - 여러 해결책을 생성한 후 비교하는 경쟁 평가 패턴을 구현할 때
 
-## 주요 구성 요소
+## 주요 구성 요소 {id="key-components"}
 
 Koog의 노드 병렬 실행은 아래에 설명된 메서드와 데이터 구조로 구성됩니다.
 
-### 메서드
+### 메서드 {id="methods"}
 
 - `parallel()`: 여러 노드를 병렬로 실행하고 그 결과를 수집합니다.
 
-### 데이터 구조
+### 데이터 구조 {id="data-structures"}
 
 - `ParallelResult`: 노드 병렬 실행이 완료된 결과를 나타냅니다.
 - `NodeExecutionResult`: 노드 실행의 출력과 컨텍스트(context)를 포함합니다.
 
-## 기본 사용법
+## 기본 사용법 {id="basic-usage"}
 
-### 노드를 병렬로 실행하기
+### 노드를 병렬로 실행하기 {id="running-nodes-in-parallel"}
 
 노드 병렬 실행을 시작하려면 다음과 같은 형식으로 `parallel` 메서드를 사용합니다.
 
@@ -80,7 +80,7 @@ val calc by parallel<String, Int>(
 
 위 코드는 `nodeCalcTokens`, `nodeCalcSymbols`, `nodeCalcWords` 노드를 병렬로 실행하고 최댓값을 가진 결과를 반환합니다.
 
-### 병합 전략
+### 병합 전략 {id="merge-strategies"}
 
 노드를 병렬로 실행한 후에는 결과를 병합하는 방법을 지정해야 합니다. Koog는 다음과 같은 병합 전략(merge strategies)을 제공합니다:
 
@@ -89,7 +89,7 @@ val calc by parallel<String, Int>(
 - `selectByIndex()`: 선택 함수(selection function)가 반환한 인덱스를 기반으로 결과를 선택합니다.
 - `fold()`: 연산 함수를 사용하여 결과를 하나의 값으로 병합(fold)합니다.
 
-#### selectBy
+#### selectBy {id="selectby"}
 
 조건 함수를 기반으로 결과를 선택합니다:
 
@@ -120,7 +120,7 @@ val nodeSelectJoke by parallel<String, String>(
 
 이 코드는 "programmer"라는 단어가 포함된 첫 번째 농담을 선택합니다.
 
-#### selectByMax
+#### selectByMax {id="selectbymax"}
 
 비교 함수를 기반으로 최댓값을 가진 결과를 선택합니다:
 
@@ -151,7 +151,7 @@ val nodeLongestJoke by parallel<String, String>(
 
 이 코드는 길이가 가장 긴 농담을 선택합니다.
 
-#### selectByIndex
+#### selectByIndex {id="selectbyindex"}
 
 선택 함수가 반환한 인덱스를 기반으로 결과를 선택합니다:
 
@@ -200,7 +200,7 @@ val nodeBestJoke by parallel<String, String>(
 
 이 코드는 별도의 LLM 호출을 사용하여 가장 좋은 농담의 인덱스를 결정합니다.
 
-#### fold
+#### fold {id="fold"}
 
 연산 함수를 사용하여 결과를 하나의 값으로 병합합니다:
 
@@ -233,7 +233,7 @@ $joke" }
 
 이 코드는 모든 농담을 하나의 문자열로 결합합니다.
 
-## 예제: 베스트 농담 에이전트
+## 예제: 베스트 농담 에이전트 {id="example-best-joke-agent"}
 
 다음은 서로 다른 LLM 모델에서 농담을 생성하고 그중 가장 좋은 것을 선택하기 위해 병렬 실행을 사용하는 전체 예제입니다:
 
@@ -333,7 +333,7 @@ $joke" }.joinToString("
 ```
 <!--- KNIT example-parallel-node-execution-07.kt -->
 
-## 권장 사항 (Best practices)
+## 권장 사항 (Best practices) {id="best-practices"}
 
 1. **리소스 제약 고려**: 특히 여러 LLM API 호출을 동시에 수행할 때 리소스 사용량에 유의하세요.
 
@@ -345,7 +345,7 @@ $joke" }.joinToString("
     - 조건에 따른 필터링에는 `selectBy`를 사용하세요.
     - 집계 작업에는 `fold`를 사용하여 모든 결과를 하나의 복합 출력으로 결합하세요.
 
-## 성능 고려 사항
+## 성능 고려 사항 {id="performance-considerations"}
 
 병렬 실행은 처리량(throughput)을 크게 향상시킬 수 있지만, 다음과 같은 약간의 오버헤드가 발생합니다:
 

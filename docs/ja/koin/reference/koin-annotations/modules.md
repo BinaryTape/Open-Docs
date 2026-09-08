@@ -2,7 +2,7 @@
 title: アプリケーション、設定、およびモジュール 
 ---
 
-## @KoinApplication によるアプリケーションのブートストラップ
+## @KoinApplication によるアプリケーションのブートストラップ {id="application-bootstrap-with-koinapplication"}
 
 アプリケーションのエントリポイントを定義するには、`@KoinApplication` を使用します。
 
@@ -24,7 +24,7 @@ fun main() {
 }
 ```
 
-### 利用可能な型指定された API
+### 利用可能な型指定された API {id="available-typed-apis"}
 
 | API | 説明 |
 |-----|-------------|
@@ -35,7 +35,7 @@ fun main() {
 | `module<T>()` | 単一の `@Module` クラスをロードする |
 | `modules(A::class, B::class)` | 複数の `@Module` クラスをロードする |
 
-### 個別モジュールのロード
+### 個別モジュールのロード {id="loading-individual-modules"}
 
 `module<T>()` または `modules(vararg KClass)` を使用すると、`@KoinApplication` を必要とせずに `@Module` クラスを直接ロードできます。
 
@@ -60,7 +60,7 @@ val koinTestRule = KoinTestRule.create {
 `module<T>()` および `modules(vararg KClass)` は、コンパイラプラグインがコンパイル時にインターセプト（傍受）して変換するためのスタブ関数です。これらを使用するには、Koin コンパイラプラグインを適用する必要があります。
 :::
 
-### @KoinApplication のパラメータ
+### @KoinApplication のパラメータ {id="koinapplication-parameters"}
 
 - `modules`: 含めるモジュールクラスの配列
 - `configurations`: ロードする設定ラベルの配列
@@ -77,7 +77,7 @@ class ProdApp
 設定が指定されていない場合、`@Configuration`（デフォルトラベル）でマークされたモジュールが自動的にロードされます。
 :::
 
-### モジュールのロード順序とオーバーライド
+### モジュールのロード順序とオーバーライド {id="module-load-order-and-overrides"}
 
 Koin は実行時に **最後にロードされたものが優先（last-wins）** されます。2 つのモジュールが同じ型を定義している場合、最後にロードされた方が優先されます。コンパイラプラグインは、`@KoinApplication` から以下の順序でモジュールリストを組み立てます。
 
@@ -113,11 +113,11 @@ class MyApp
 （クラスパススキャンの順序ではなく）複数の `@Configuration` モジュール間で特定のロード順序が必要な場合は、`@KoinApplication(modules = [Core::class, Feature::class, App::class])` のように明示的にリストしてください。明示的なリストは宣言順序を尊重します。
 :::
 
-## @Configuration による設定管理
+## @Configuration による設定管理 {id="configuration-management-with-configuration"}
 
 `@Configuration` アノテーションを使用すると、モジュールを異なる設定（環境、フレーバーなど）に整理できます。これは、デプロイ環境や機能セットごとにモジュールを整理するのに便利です。
 
-### 基本的な設定の使用方法
+### 基本的な設定の使用方法 {id="basic-configuration-usage"}
 
 ```kotlin
 // モジュールをデフォルトの Configuration に配置
@@ -148,7 +148,7 @@ class ModuleB
 object MyApp
 ```
 
-### 複数設定のサポート
+### 複数設定のサポート {id="multiple-configuration-support"}
 
 モジュールは複数の設定に関連付けることができます。
 
@@ -170,7 +170,7 @@ class LoggingModule {
 }
 ```
 
-### 環境固有の設定
+### 環境固有の設定 {id="environment-specific-configurations"}
 
 ```kotlin
 // 開発環境専用の設定
@@ -198,7 +198,7 @@ class CoreModule {
 }
 ```
 
-### @KoinApplication での設定の使用
+### @KoinApplication での設定の使用 {id="using-configurations-with-koinapplication"}
 
 デフォルトでは、`@KoinApplication` はすべてのデフォルト設定（`@Configuration` でタグ付けされたモジュール）をロードします。
 
@@ -222,11 +222,11 @@ class SimpleApp
 - アノテーション内にリストすることで、モジュールを複数の設定に所属させることができます
 :::
 
-## モジュールによる整理
+## モジュールによる整理 {id="organizing-with-modules"}
 
 定義は常に `@Module` を使用して明示的なモジュールに整理してください。
 
-## @Module によるクラスモジュール
+## @Module によるクラスモジュール {id="class-module-with-module"}
 
 モジュールを宣言するには、クラスに `@Module` アノテーションを付与します。
 
@@ -246,7 +246,7 @@ fun main() {
 }
 ```
 
-## @ComponentScan によるコンポーネントスキャン
+## @ComponentScan によるコンポーネントスキャン {id="components-scan-with-componentscan"}
 
 アノテーションが付与されたコンポーネントを自動的に検出するには、`@ComponentScan` を使用します。
 
@@ -268,7 +268,7 @@ class FeatureModule
 `@ComponentScan` は同じパッケージを対象にすべての Gradle モジュールを横断してスキャンします。
 :::
 
-## クラスモジュール内での定義
+## クラスモジュール内での定義 {id="definitions-in-class-modules"}
 
 コード内で直接定義を宣言するには、関数に定義用のアノテーションを付与します。
 
@@ -286,7 +286,7 @@ class MyModule {
 
 > **注意**: `@InjectedParam` (startKoin からの注入パラメータ用) および `@Property` (プロパティ注入用) も関数メンバで使用可能です。これらのアノテーションの詳細については、定義（definitions）のドキュメントを参照してください。
 
-## モジュールの包含 (Including Modules)
+## モジュールの包含 (Including Modules) {id="including-modules"}
 
 モジュールを構成するには、`includes` 属性を使用します。
 

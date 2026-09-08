@@ -14,7 +14,7 @@
 * [特定平台選項](#platform-specific-options)，例如 Linux 上的軟體包維護者電子郵件，以及 macOS 上 Apple App Store 的應用程式類別。
 * [macOS 特定配置](#macos-specific-configuration)：簽名、公證與 `Info.plist`。
 
-## Gradle plugin
+## Gradle plugin {id="gradle-plugin"}
 
 本指南主要關注於使用 Compose Multiplatform Gradle 外掛程式來封裝 Compose 應用程式。`org.jetbrains.compose` 外掛程式提供了用於基本封裝、混淆和 macOS 程式碼簽名的任務。
 
@@ -24,7 +24,7 @@
 
 作為另一種選擇，你可以使用 [Conveyor](https://www.hydraulic.software)，這是一個非 JetBrains 開發的外部工具。Conveyor 支援線上更新、跨平台編譯以及各種其他功能，但對於非開源專案需要[授權](https://hydraulic.software/pricing.html)。如需詳細資訊，請參閱 [Conveyor 文件](https://conveyor.hydraulic.dev/latest/tutorial/hare/jvm)。
 
-## Basic tasks
+## Basic tasks {id="basic-tasks"}
 
 Compose Multiplatform Gradle 外掛程式中的基本可配置單元是 `application`（請勿與已棄用的 [Gradle application](https://docs.gradle.org/current/userguide/application_plugin.html) 外掛程式混淆）。
 
@@ -111,7 +111,7 @@ compose.desktop {
 
 所有可用的任務都列在 Gradle 工具視窗中。執行任務後，Gradle 會在 `${project.buildDir}/compose/binaries` 目錄中產生輸出二進位檔案。
 
-## Including JDK modules
+## Including JDK modules {id="including-jdk-modules"}
 
 為了減小可發行版本的大小，Gradle 外掛程式使用 [jlink](https://openjdk.org/jeps/282)，這有助於僅綑綁必要的 JDK 模組。
 
@@ -134,9 +134,9 @@ compose.desktop {
 
 如果可發行版本的大小不是關鍵因素且可以忽略，你可以選擇使用 `includeAllModules` DSL 屬性來包含所有執行階段模組。
 
-## Specifying distribution properties
+## Specifying distribution properties {id="specifying-distribution-properties"}
 
-### Package version
+### Package version {id="package-version"}
 
 原生發行軟體包必須具有特定的軟體包版本。若要指定軟體包版本，你可以使用以下 DSL 屬性，按優先級從高到低排列：
 
@@ -266,7 +266,7 @@ compose.desktop {
 
 </table>
 
-### JDK version
+### JDK version {id="jdk-version"}
 
 該外掛程式使用 `jpackage`，其要求的 JDK 版本不得低於 [JDK 17](https://openjdk.java.net/projects/jdk/17/)。指定 JDK 版本時，請確保符合以下至少一項要求：
 
@@ -281,7 +281,7 @@ compose.desktop {
   }
   ```
 
-### Output directory
+### Output directory {id="output-directory"}
 
 若要為原生發行版本使用自訂輸出目錄，請配置 `outputBaseDir` 屬性，如下所示：
 
@@ -295,7 +295,7 @@ compose.desktop {
 }
 ```
 
-### Launcher properties
+### Launcher properties {id="launcher-properties"}
 
 若要調整應用程式啟動流程，你可以自訂以下屬性：
 
@@ -338,7 +338,7 @@ compose.desktop {
 }
 ```
 
-### Metadata
+### Metadata {id="metadata"}
 
 在 `nativeDistributions` DSL 區塊中，你可以配置以下屬性：
 
@@ -411,19 +411,19 @@ compose.desktop {
 }
 ```
 
-## Managing resources
+## Managing resources {id="managing-resources"}
 
 若要封裝並載入資源，你可以使用 Compose Multiplatform 資源程式庫、JVM 資源載入，或將檔案加入封裝後的應用程式。
 
-### Resources library
+### Resources library {id="resources-library"}
 
 為專案設置資源最直接的方法是使用資源程式庫。透過資源程式庫，你可以在所有支援平台的共通程式碼中存取資源。有關詳細資訊，請參閱[多平台資源](compose-multiplatform-resources.md)。
 
-### JVM resource loading
+### JVM resource loading {id="jvm-resource-loading"}
 
 用於桌面的 Compose Multiplatform 在 JVM 平台上運作，這意味著你可以使用 `java.lang.Class` API 從 `.jar` 檔案中載入資源。你可以透過 [`Class::getResource`](https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Class.html#getResource(java.lang.String)) 或 [`Class::getResourceAsStream`](https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Class.html#getResourceAsStream(java.lang.String)) 存取 `src/main/resources` 目錄中的檔案。
 
-### Adding files to packaged application
+### Adding files to packaged application {id="adding-files-to-packaged-application"}
 
 在某些情況下，從 `.jar` 檔案載入資源可能不太切合實際，例如當你擁有特定平台的資產，且只需要在 macOS 軟體包中包含檔案，而不需要在 Windows 中包含時。
 
@@ -468,7 +468,7 @@ fun main() {
 }
 ```
 
-## Custom source sets
+## Custom source sets {id="custom-source-sets"}
 
 如果你使用 `org.jetbrains.kotlin.jvm` 或 `org.jetbrains.kotlin.multiplatform` 外掛程式，則可以依賴預設組態：
 
@@ -526,7 +526,7 @@ compose.desktop {
 }
 ```
 
-## Application icon
+## Application icon {id="application-icon"}
 
 請確保你的應用程式圖示具有以下作業系統特定的格式：
 
@@ -552,7 +552,7 @@ compose.desktop {
 }
 ```
 
-## Platform-specific options
+## Platform-specific options {id="platform-specific-options"}
 
 特定平台設定可以使用對應的 DSL 區塊進行配置：
 
@@ -812,19 +812,19 @@ compose.desktop {
 
 </table>
 
-## macOS-specific configuration
+## macOS-specific configuration {id="macos-specific-configuration"}
 
-### Signing and notarization on macOS
+### Signing and notarization on macOS {id="signing-and-notarization-on-macos"}
 
 現代 macOS 版本不允許使用者執行從網際網路下載的未簽名應用程式。如果你嘗試執行此類應用程式，將會遇到以下錯誤：「YourApp 已損壞，無法開啟。你應該退出磁碟映像檔」。
 
 若要了解如何簽名並公證你的應用程式，請參閱我們的[教學](https://github.com/JetBrains/compose-multiplatform/blob/master/tutorials/Signing_and_notarization_on_macOS/README.md)。
 
-### Information property list on macOS
+### Information property list on macOS {id="information-property-list-on-macos"}
 
 雖然 DSL 支援基本的特定平台自訂，但仍可能存在超出所提供功能的情況。如果你需要指定 DSL 中未表示的 `Info.plist` 值，可以包含一段原始 XML 作為暫時解決方法。此 XML 將被附加到應用程式發行的 `Info.plist` 中。
 
-#### Example: Deep linking
+#### Example: Deep linking {id="example-deep-linking"}
 
 1. 在 `build.gradle.kts` 檔案中定義自訂 URL 配置 (scheme)：
 
@@ -897,7 +897,7 @@ compose.desktop {
 
 結果，像 `compose://foo/bar` 這樣的連結現在可以從瀏覽器重新導向到你的應用程式。
 
-## Minification and obfuscation
+## Minification and obfuscation {id="minification-and-obfuscation"}
 
 Compose Multiplatform Gradle 外掛程式包含對 [ProGuard](https://www.guardsquare.com/proguard) 的內建支援。ProGuard 是一套用於程式碼縮減與混淆的[開源工具](https://github.com/Guardsquare/proguard)。
 
@@ -1056,6 +1056,6 @@ Compose Multiplatform Gradle 外掛程式包含對 [ProGuard](https://www.guards
 
 有關 ProGuard 規則和配置選項的完整清單，請參閱 Guardsquare 的 [ProGuard 手冊](https://www.guardsquare.com/manual/configuration/usage)。
 
-## What's next?
+## What's next? {id="what-s-next"}
 
 探索關於[桌面組件](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop)的教學。

@@ -4,7 +4,7 @@
 
 當您建立單一 `ImageLoader` 並在整個應用程式中共用它時，Coil 的效能表現最佳。這是因為每個 `ImageLoader` 都擁有自己的記憶體快取、磁碟快取和 `OkHttpClient`。
 
-## Singleton
+## Singleton {id="singleton"}
 
 預設的 `io.coil-kt.coil3:coil` 構件附帶一個單例 `ImageLoader`。Coil 會延遲建立此 `ImageLoader`。可以透過多種方式進行配置：
 
@@ -46,13 +46,13 @@ class CustomApplication : SingletonImageLoader.Factory {
 
 **在所有情況下，請確保上述方法在應用程式啟動時盡快調用（例如：在 `Application.onCreate` 內，或者如果您的應用程式只有單一 `Activity`，則在 `MainActivity.onCreate` 內）。**
 
-## 相依注入
+## 相依注入 {id="dependency-injection"}
 
 如果您有較大型的應用程式或想要管理自己的 `ImageLoader`，您可以改為相依於 `io.coil-kt.coil3:coil-core` 而非 `io.coil-kt.coil3:coil`。
 
 這種做法讓限定虛擬 `ImageLoader` 的生命週期變得更容易，且總體上會讓測試更簡單。
 
-## 快取
+## 快取 {id="caching"}
 
 每個 `ImageLoader` 都會保留最近解碼的 `Bitmap` 的記憶體快取，以及從網際網路載入之任何圖片的磁碟快取。這兩者都可以在建立 `ImageLoader` 時進行配置：
 

@@ -2,9 +2,9 @@
 
 本页面将引导您了解在项目中将 Compose Multiplatform 库升级到新版本（从 1.7.0 开始）时，关于 iOS 方面的注意事项。
 
-## Compose Multiplatform 1.6.11 至 1.7.0
+## Compose Multiplatform 1.6.11 至 1.7.0 {id="compose-multiplatform-1-6-11-to-1-7-0"}
 
-### UIKitView 和 UIKitViewController 中移除了 background 参数
+### UIKitView 和 UIKitViewController 中移除了 background 参数 {id="removed-background-parameter-in-uikitview-and-uikitviewcontroller"}
 
 已弃用的 `UIKitView` 和 `UIKitViewController` API 具有 `background` 参数，而新版本的 API 则没有。
 该参数被认为冗余并已被移除：
@@ -12,7 +12,7 @@
 * 如果您需要为新实例设置互操作视图背景，可以使用 `factory` 参数来实现。
 * 如果您需要背景是可更新的，请将相应的代码放入 `update` lambda表达式中。
 
-### 轻触或手势可能无法按预期工作
+### 轻触或手势可能无法按预期工作 {id="touches-or-gestures-may-stop-working-as-expected"}
 
 新的默认[轻触行为](compose-ios-touch.md)使用延迟来确定轻触是针对互操作视图还是针对该视图的 Compose 容器：用户必须保持静止至少 150 ms，互操作视图才会接收到该轻触。
 
@@ -22,7 +22,7 @@
 该构造函数被标记为实验性，是因为我们最终打算通过单个布尔标记来保持互操作视图的可交互性。
 在 `interactionMode` 参数中明确描述的行为在未来极有可能被自动推导。
 
-### accessibilityEnabled 已替换为 isNativeAccessibilityEnabled，且默认关闭
+### accessibilityEnabled 已替换为 isNativeAccessibilityEnabled，且默认关闭 {id="accessibilityenabled-replaced-by-isnativeaccessibilityenabled-and-turned-off-by-default"}
 
 旧版 `UIKitView` 和 `UIKitViewController` 构造函数的 `accessibilityEnabled` 参数已移动并重命名，现在作为 `UIKitInteropProperties.isNativeAccessibilityEnabled` 属性提供。
 它默认也设置为 `false`。
@@ -32,7 +32,7 @@
 
 有关此属性及其默认值背后的原理，请参阅 [`UIKitInteropProperties` 类的代码内文档](https://github.com/JetBrains/compose-multiplatform-core/blob/jb-main/compose/ui/ui/src/uikitMain/kotlin/androidx/compose/ui/viewinterop/UIKitInteropProperties.uikit.kt)。
 
-### onResize 参数已移除
+### onResize 参数已移除 {id="onresize-parameter-removed"}
 
 旧版 `UIKitView` 和 `UIKitViewController` 构造函数的 `onResize` 参数根据 `rect` 实参设置了自定义框架，但并未影响 Compose 布局本身，因此使用起来并不直观。
 最重要的是，`onResize` 参数的默认实现需要正确设置互操作视图的框架，并且包含一些关于正确剪裁视图的实现细节。 <!-- TODO: what's wrong with that exactly? -->
@@ -45,7 +45,7 @@
     * 或者在 `Modifier` 链中添加 `onGloballyPositioned`。
 * 如果您需要设置互操作视图的框架，请使用相应的 Compose 修饰符：`size`、`fillMaxSize` 等。
 
-### 某些 onReset 使用模式已失效
+### 某些 onReset 使用模式已失效 {id="some-onreset-usage-patterns-were-invalidated"}
 
 将非 null 的 `onReset` lambda表达式与 `remember { UIView() }` 结合使用是不正确的。
 

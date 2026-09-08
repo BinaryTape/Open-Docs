@@ -51,7 +51,7 @@ Ktor 與 [OpenTelemetry](https://opentelemetry.io/) 整合 — 這是一個開�
 
 在您的 Ktor 應用程式中安裝 `%plugin_name%` 外掛程式之前，您需要配置並初始化一個 `OpenTelemetry` 執行個體。此執行個體負責管理遙測資料，包括追蹤和指標。
 
-### 自動配置
+### 自動配置 {id="automatic-configuration"}
 
 配置 OpenTelemetry 的常見方式是使用 [`AutoConfiguredOpenTelemetrySdk`](https://javadoc.io/doc/io.opentelemetry/opentelemetry-sdk-extension-autoconfigure/latest/io/opentelemetry/sdk/autoconfigure/AutoConfiguredOpenTelemetrySdk.html)。這可以透過根據系統屬性和環境變數自動配置匯出器 (exporter) 和資源 (resource)，進而簡化設定。
 
@@ -76,7 +76,7 @@ fun getOpenTelemetry(serviceName: String): OpenTelemetry {
 
 ```
 
-### 程式化配置
+### 程式化配置 {id="programmatic-configuration"}
 
 若要在程式碼中定義匯出器、處理器 (processor) 和傳播器 (propagator)，而不是依賴基於環境的配置，您可以使用 [`OpenTelemetrySdk`](https://javadoc.io/doc/io.opentelemetry/opentelemetry-sdk/latest/io/opentelemetry/sdk/OpenTelemetrySdk.html)。
 
@@ -229,11 +229,11 @@ install(%plugin_name%) {
 
 若要微調整個應用程式的追蹤行為，您還可以配置其他的 OpenTelemetry 屬性，例如傳播器、屬性限制以及啟用/停用檢測。欲了解更多細節，請參閱 [OpenTelemetry Java 配置指南](https://opentelemetry.io/docs/languages/java/configuration/)。
 
-## 使用 Grafana LGTM 驗證遙測資料
+## 使用 Grafana LGTM 驗證遙測資料 {id="verify-telemetry-data-with-grafana-lgtm"}
 
 若要視覺化並驗證您的遙測資料，您可以將追蹤、指標和記錄匯出到分散式追蹤後端，例如 Grafana。`grafana/otel-lgtm` 一體化映像封裝了 [Grafana](https://grafana.com/)、[Tempo](https://grafana.com/oss/tempo/)（追蹤）、[Loki](https://grafana.com/oss/loki/)（記錄）和 [Mimir](https://grafana.com/oss/mimir/)（指標）。
 
-### 使用 Docker Compose
+### 使用 Docker Compose {id="using-docker-compose"}
 
 建立一個內容如下的 **docker-compose.yml** 檔案：
 
@@ -257,7 +257,7 @@ services:
 docker compose up -d
 ```
 
-### 使用 Docker CLI
+### 使用 Docker CLI {id="using-docker-cli"}
 
 或者，您也可以直接使用 Docker 命令列執行 Grafana：
 
@@ -271,7 +271,7 @@ docker run -d --name grafana_lgtm \
     grafana/otel-lgtm:latest
 ```
 
-### 應用程式匯出配置
+### 應用程式匯出配置 {id="application-export-configuration"}
 
 若要將遙測資料從 Ktor 應用程式傳送到 OTLP 端點，請配置 OpenTelemetry SDK 使用 gRPC 協定。您可以在建置 SDK 之前透過環境變數設定這些值：
 
@@ -287,7 +287,7 @@ export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4317
 -Dotel.traces.exporter=otlp -Dotel.exporter.otlp.protocol=grpc -Dotel.exporter.otlp.endpoint=http://localhost:4317
 ```
 
-### 存取 Grafana UI
+### 存取 Grafana UI {id="accessing-grafana-ui"}
 
 啟動後，Grafana UI 網址為 [http://localhost:3000/](http://localhost:3000/)。
 

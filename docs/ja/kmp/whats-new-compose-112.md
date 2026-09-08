@@ -9,9 +9,9 @@
 このリリースにおける変更点の完全なリストは、[GitHub](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.12.0) で確認できます。
 特定のコンポーネントバージョンの詳細については、[依存関係](#dependencies)セクションを参照してください。
 
-## マルチプラットフォーム共通
+## マルチプラットフォーム共通 {id="across-platforms"}
 
-### Skia が Milestone 150 にアップデート
+### Skia が Milestone 150 にアップデート {id="skia-updated-to-milestone-150"}
 
 Skiko を介して Compose Multiplatform で使用されている Skia のバージョンが、Milestone 150 にアップデートされました。
 
@@ -20,16 +20,16 @@ Compose Multiplatform 1.11 で使用されていた以前のバージョンは M
 
 このアップデートにより、独自の Skia ライブラリをすでに同梱しているアプリ（例：Chromium ベースのアプリ）で発生していた、iOS 上でのシンボル重複の競合も解決されます。
 
-## iOS
+## iOS {id="ios"}
 
-### Lazy layout のスクロールパフォーマンスの向上
+### Lazy layout のスクロールパフォーマンスの向上 {id="improved-lazy-layout-scrolling-performance"}
 
 iOS 向けの Compose Multiplatform で、Lazy layout（遅延レイアウト）のスクロールパフォーマンスが向上しました。
 リスト項目の非アクティブ化が描画フェーズ（drawing phase）の外で実行されるようになり、描画フェーズをより早く完了できるようになったことで、よりスムーズなスクロールが実現しました。
 
-## Web
+## Web {id="web"}
 
-### 自動フォントフォールバック
+### 自動フォントフォールバック {id="automatic-font-fallback"}
 <primary-label ref="Experimental"/>
 
 以前は、アプリケーションに読み込まれたフォントでカバーされていない文字は、置換用グリフ（□、通称「豆腐」）として表示されていました。
@@ -38,9 +38,9 @@ Web 向けの Compose Multiplatform では、レンダリング中に未解決�
 フォントのダウンロード後、Compose は影響を受けるテキストを再構成（recompose）します。
 必要なフォントが取得されるまで、一時的に豆腐が表示される可能性があることに注意してください。
 
-## Desktop
+## Desktop {id="desktop"}
 
-### Compose Hot Reload における AI エージェント向けの MCP サーバー
+### Compose Hot Reload における AI エージェント向けの MCP サーバー {id="mcp-server-for-ai-agents-in-compose-hot-reload"}
 <primary-label ref="Experimental"/>
 
 Compose Hot Reload に、実験的な [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) サーバーが搭載されました。これにより、AI コーディングエージェントが実行中の Compose アプリケーションと直接対話できるようになります。
@@ -49,7 +49,7 @@ Compose Hot Reload に、実験的な [Model Context Protocol (MCP)](https://mod
 
 AI エージェントが利用可能な MCP ツールの完全なリストと接続方法については、[AI エージェント向けの MCP サーバー](compose-hot-reload.md#mcp-server-for-ai-agents)を参照してください。
 
-### Window および dialog API v2
+### Window および dialog API v2 {id="window-and-dialog-api-v2"}
 <primary-label ref="Experimental"/>
 
 デスクトップにおける `WindowState` および `DialogState` の新しい実験的な v2 API を導入し、既存の API のいくつかの制限に対応しました。
@@ -99,7 +99,7 @@ fun main() = application {
 v2 API は、ウィンドウがより大きい場合にコンテンツを（`fillMaxSize()` などの修飾子を介して）拡張させつつ、コンテンツのサイズに合わせてウィンドウのサイズを決定するといった、これまで不可能だったシナリオも可能にします。
 詳細は [Window および dialog API v2](compose-desktop-top-level-windows-management.md#window-and-dialog-api-v2) のドキュメントページを参照してください。
 
-## 依存関係
+## 依存関係 {id="dependencies"}
 
 | ライブラリ | Maven 座標 | ベースとなる Jetpack バージョン |
 |--------------------|------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|

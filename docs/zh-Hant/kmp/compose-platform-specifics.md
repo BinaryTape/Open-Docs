@@ -4,7 +4,7 @@ Compose Multiplatform 旨在協助您開發在不同平台上行為盡可能一�
 在本頁面中，您可以了解在使用 Compose Multiplatform 為不同平台編寫共享 UI 程式碼時，
 可能會遇到的不可避免的差異或暫時性的權衡。
 
-## 專案結構
+## 專案結構 {id="project-structure"}
 
 不論您的目標平台為何，每個平台都需要一個專屬的入口點：
 
@@ -18,9 +18,9 @@ Compose Multiplatform 旨在協助您開發在不同平台上行為盡可能一�
 在實作之前，請查看 [klibs.io](https://klibs.io/)，這是一個 JetBrains 專案，旨在全面編目所有可用的 Kotlin Multiplatform 程式庫。
 目前已有可用於網路程式碼、資料庫、協同程式 (coroutine) 等功能的程式庫。
 
-## 輸入方法
+## 輸入方法 {id="input-methods"}
 
-### 軟體鍵盤
+### 軟體鍵盤 {id="software-keyboards"}
 
 每個平台處理軟體鍵盤的方式可能略有不同，包括當文字欄位變為活動狀態時鍵盤出現的方式。
 
@@ -29,16 +29,16 @@ Compose Multiplatform 採用了 [Compose 視窗內縮 (window insets) 做法](ht
 根據您的實作方式，軟體鍵盤在 iOS 上的位置可能稍有不同。
 請務必檢查鍵盤在兩個平台上都不會遮擋重要的 UI 元素。
 
-### 觸控與滑鼠支援
+### 觸控與滑鼠支援 {id="touch-and-mouse-support"}
 
 目前的桌面版實作將所有指標 (pointer) 操作解釋為滑鼠手勢，
 因此不支援多點觸控手勢。
 例如，通用的捏合縮放 (pinch-to-zoom) 手勢無法在 Compose Multiplatform 桌面版中實作，
 因為它需要同時處理兩個觸控點。
 
-## UI 行為與外觀
+## UI 行為與外觀 {id="ui-behavior-and-appearance"}
 
-### 平台特定功能
+### 平台特定功能 {id="platform-specific-functionality"}
 
 Compose Multiplatform 並未涵蓋某些通用的 UI 元素，且無法使用該框架進行自訂。
 因此，您可以預期它們在不同平台上看起來會有所不同。
@@ -47,12 +47,12 @@ Compose Multiplatform 並未涵蓋某些通用的 UI 元素，且無法使用該
 當您在 Compose Multiplatform 文字欄位中選取文字時，預設建議的操作（如 **複製** 或 **翻譯**）
 會依據應用程式執行的平台而有所不同。
 
-### 滾動物理特性
+### 滾動物理特性 {id="scroll-physics"}
 
 對於 Android 和 iOS，滾動感會與平台保持一致。
 對於桌面版，滾動支援僅限於滑鼠輪（如 [觸控與滑鼠支援](#touch-and-mouse-support) 中所述）。
 
-### 互通視圖 (Interop views)
+### 互通視圖 (Interop views) {id="interop-views"}
 
 如果您想在通用可組合項中嵌入原生視圖，或反之亦然，
 您需要熟悉 Compose Multiplatform 支援的平台特定機制。
@@ -61,7 +61,7 @@ Compose Multiplatform 並未涵蓋某些通用的 UI 元素，且無法使用該
 
 對於桌面版，Compose Multiplatform 支援 [Swing 互通性](compose-desktop-swing-interoperability.md)。
 
-### 返回手勢
+### 返回手勢 {id="back-gesture"}
 
 Android 裝置預設支援返回手勢，且每個畫面都會以某種方式對 **返回** 按鈕做出反應。
 
@@ -72,7 +72,7 @@ Compose Multiplatform 為 iOS 預設支援返回手勢，以模擬 Android 的�
 
 如需詳細資訊，請參閱 [返回手勢](compose-navigation.md#back-gesture) 章節。
 
-### 文字
+### 文字 {id="text"}
 
 在文字方面，Compose Multiplatform 不保證不同平台之間具有像素級完美的對應：
 
@@ -83,7 +83,7 @@ Compose Multiplatform 為 iOS 預設支援返回手勢，以模擬 Android 的�
 然而，像素差異可能會干擾例如螢幕截圖測試等作業。
 
 <!-- this should be covered in benchmarking, not as a baseline Compose Multiplatform limitation 
-### Initial performance
+### Initial performance {id="initial-performance"}
 
 On iOS, you may notice a delay in the initial performance of individual screens compared to Android.
 This can happen because Compose Multiplatform compiles UI shaders on demand.
@@ -93,16 +93,16 @@ This issue affects only the first launch of each screen.
 Once all necessary shaders are cached, subsequent launches are not delayed by compilation.
 -->
 
-## 開發人員體驗
+## 開發人員體驗 {id="developer-experience"}
 
-### 預覽 (Previews)
+### 預覽 (Previews) {id="previews"}
 
 *預覽 (Previews)* 是帶有 `@Preview` 註解的可組合項版面配置呈現，可以在 IntelliJ IDEA 和 Android Studio 中與共享 UI 程式碼併列呈現。
 
 預覽需要特定的專案組態與明確的相依性。
 請參閱 [Compose UI 預覽](compose-previews.md) 以了解如何在您的專案中啟用預覽。
 
-### 熱重載 (Hot reload)
+### 熱重載 (Hot reload) {id="hot-reload"}
 
 *熱重載 (Hot reload)* 指的是應用程式即時反映程式碼變更，而不需要額外的輸入。
 在 Compose Multiplatform 中，熱重載功能僅適用於 JVM（桌面版）目標。
@@ -110,7 +110,7 @@ Once all necessary shaders are cached, subsequent launches are not delayed by co
 
 若要了解更多，請參閱我們的 [Compose 熱重載](compose-hot-reload.md) 文章。
 
-## 後續步驟
+## 後續步驟 {id="what-s-next"}
 
 閱讀更多關於以下組件在 Compose Multiplatform 中的實作：
   * [資源](compose-multiplatform-resources.md)

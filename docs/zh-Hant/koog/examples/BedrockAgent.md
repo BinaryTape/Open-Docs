@@ -9,14 +9,14 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Bedr
 
 歡迎閱讀這份關於使用 Koog 架構整合 AWS Bedrock 建立智慧 AI 代理的綜合指南。在此筆記本中，我們將引導您建置一個功能齊全的代理，它可以透過自然語言指令來控制一個簡單的開關裝置。
 
-## 您將學到什麼
+## 您將學到什麼 {id="what-you-ll-learn"}
 
 - 如何使用 Kotlin 註解為 AI 代理定義自訂工具
 - 為受 LLM 驅動的代理設定 AWS Bedrock 整合
 - 建立工具登錄器並將其連接到代理
 - 建置能夠理解並執行指令的互動式代理
 
-## 先決條件
+## 先決條件 {id="prerequisites"}
 
 - 具備適當權限的 AWS Bedrock 存取權
 - 已配置 AWS 憑據（存取金鑰與秘密金鑰）
@@ -203,7 +203,7 @@ runBlocking {
 
     執行被中斷
 
-## 剛才發生了什麼？ 🎯
+## 剛才發生了什麼？ 🎯 {id="what-just-happened"}
 
 當您執行代理時，幕後發生的魔力如下：
 
@@ -215,11 +215,11 @@ runBlocking {
 
 這展示了 Koog 架構的核心實力——自然語言理解與程式化動作之間的無縫整合。
 
-## 後續步驟與擴充
+## 後續步驟與擴充 {id="next-steps-extensions"}
 
 準備好進一步探索了嗎？這裡有一些可以嘗試的想法：
 
-### 🔧 增強型工具
+### 🔧 增強型工具 {id="enhanced-tools"}
 ```kotlin
 @Tool
 @LLMDescription("設定計時器，在指定的秒數後自動關閉開關")
@@ -230,7 +230,7 @@ fun setAutoOffTimer(seconds: Int): String
 fun getUsageStats(): String
 ```
 
-### 🌐 多個裝置
+### 🌐 多個裝置 {id="multiple-devices"}
 ```kotlin
 class HomeAutomationTools : ToolSet {
     @Tool fun controlLight(room: String, on: Boolean): String
@@ -239,7 +239,7 @@ class HomeAutomationTools : ToolSet {
 }
 ```
 
-### 🧠 記憶與上下文
+### 🧠 記憶與上下文 {id="memory-context"}
 ```kotlin
 val agent = AIAgent(
     executor = executor,
@@ -251,7 +251,7 @@ val agent = AIAgent(
 )
 ```
 
-### 🔄 進階工作流
+### 🔄 進階工作流 {id="advanced-workflows"}
 ```kotlin
 // 具有條件邏輯的多步驟工作流
 @Tool
@@ -259,7 +259,7 @@ val agent = AIAgent(
 fun eveningRoutine(): String
 ```
 
-## 核心要點
+## 核心要點 {id="key-takeaways"}
 
 ✅ **工具即函式**：任何 Kotlin 函式都可以變成代理的功能
 ✅ **註解驅動行為**：@Tool 與 @LLMDescription 讓功能可被發現
@@ -271,7 +271,7 @@ Koog 架構使得建置能夠理解自然語言並採取現實世界行動的複
 
 **祝您代理建置愉快！** 🚀
 
-## 測試代理
+## 測試代理 {id="testing-the-agent"}
 
 是時候看看我們的代理運作了！該代理現在可以理解自然語言請求，並使用我們提供的工具來控制開關。
 

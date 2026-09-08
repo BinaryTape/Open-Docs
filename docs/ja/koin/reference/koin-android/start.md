@@ -4,7 +4,7 @@ title: AndroidでKoinを開始する
 
 `koin-android` プロジェクトは、Androidの世界にKoinのパワーを提供することに特化しています。詳細については、[Androidのセットアップ](/docs/setup/koin#android) セクションを参照してください。
 
-## Applicationクラスから
+## Applicationクラスから {id="from-your-application-class"}
 
 `Application` クラスから `startKoin` 関数を使用し、以下のように `androidContext` でAndroidのコンテキストを注入できます。
 
@@ -40,7 +40,7 @@ startKoin {
 }
 ```
 
-## アノテーションでKoinを開始する
+## アノテーションでKoinを開始する {id="start-koin-with-annotations"}
 
 Koin Annotationsを使用する場合、`startKoin<T>()` を使用して、アノテーションが付加されたモジュールクラスでKoinを開始できます。
 
@@ -84,11 +84,11 @@ startKoin<MainApplication> {
 }
 ```
 
-## 追加設定
+## 追加設定 {id="extra-configurations"}
 
 Koinの設定（`startKoin { }` ブロック内）から、Koinのいくつかの構成要素を設定することもできます。
 
-### Android用Koinロギング
+### Android用Koinロギング {id="koin-logging-for-android"}
 
 `KoinApplication` インスタンス内には、`AndroidLogger()` クラスを使用する拡張機能 `androidLogger` があります。
 このロガーは、KoinロガーのAndroid実装です。
@@ -103,7 +103,7 @@ startKoin {
 }
 ```
 
-### プロパティの読み込み
+### プロパティの読み込み {id="loading-properties"}
 
 `assets/koin.properties` ファイル内のKoinプロパティを使用して、キーと値を保存できます。
 
@@ -115,7 +115,7 @@ startKoin {
 }
 ```
 
-## AndroidX StartupによるKoinの開始 (4.0.1)
+## AndroidX StartupによるKoinの開始 (4.0.1) {id="start-koin-with-androidx-startup-4-0-1"}
 
 [AndroidX Startup](https://developer.android.com/topic/libraries/app-startup) は、アプリの起動時にコンポーネントを初期化するための簡単な方法を提供するライブラリです。単一の `ContentProvider` を使用してすべての依存関係を初期化し、早期の初期化が必要な各コンポーネントに対して個別の `ContentProvider` を用意するオーバーヘッドを回避します。
 
@@ -161,7 +161,7 @@ class CrashTrackerInitializer : Initializer<Unit>, KoinComponent {
 }
 ```
 
-## 次のステップ
+## 次のステップ {id="next-steps"}
 
 - **[JSR-330 Compatibility](/docs/reference/koin-android/jsr330)** - 標準の `@Inject`、`@Singleton` アノテーションを使用する
 - **[Injecting in Android](/docs/reference/koin-android/get-instances)** - Activity、Fragment、Serviceでインスタンスを取得する

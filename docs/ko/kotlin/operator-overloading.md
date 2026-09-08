@@ -17,9 +17,9 @@ class OrdersList: IndexedContainer {
 }
 ```
 
-## 단항 연산 (Unary operations)
+## 단항 연산 (Unary operations) {id="unary-operations"}
 
-### 단항 접두사 연산자 (Unary prefix operators)
+### 단항 접두사 연산자 (Unary prefix operators) {id="unary-prefix-operators"}
 
 | 표현식 | 다음으로 변환됨 |
 |------------|---------------|
@@ -53,7 +53,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-### 증감 연산자 (Increments and decrements)
+### 증감 연산자 (Increments and decrements) {id="increments-and-decrements"}
 
 | 표현식 | 다음으로 변환됨 |
 |------------|---------------|
@@ -81,9 +81,9 @@ fun main() {
 * `a.inc()`의 결과를 `a`에 할당합니다.
 * 표현식의 결과로 `a`의 새로운 값을 반환합니다.
 
-## 이항 연산 (Binary operations)
+## 이항 연산 (Binary operations) {id="binary-operations"}
 
-### 산술 연산자 (Arithmetic operators)
+### 산술 연산자 (Arithmetic operators) {id="arithmetic-operators"}
 
 | 표현식 | 다음으로 변환됨 |
 | -----------|-------------- |
@@ -107,7 +107,7 @@ data class Counter(val dayIndex: Int) {
 }
 ```
 
-### in 연산자
+### in 연산자 {id="in-operator"}
 
 | 표현식 | 다음으로 변환됨 |
 | -----------|-------------- |
@@ -116,7 +116,7 @@ data class Counter(val dayIndex: Int) {
 
 `in`과 `!in`의 경우 절차는 동일하지만, 인자의 순서가 반대로 바뀝니다.
 
-### 인덱스 접근 연산자 (Indexed access operator)
+### 인덱스 접근 연산자 (Indexed access operator) {id="indexed-access-operator"}
 
 | 표현식 | 다음으로 변환됨 |
 | -------|-------------- |
@@ -129,7 +129,7 @@ data class Counter(val dayIndex: Int) {
 
 대괄호 `[]`는 적절한 수의 인자를 가진 `get` 및 `set` 호출로 변환됩니다.
 
-### invoke 연산자
+### invoke 연산자 {id="invoke-operator"}
 
 | 표현식 | 다음으로 변환됨 |
 |--------|---------------|
@@ -140,7 +140,7 @@ data class Counter(val dayIndex: Int) {
 
 괄호 `()`는 적절한 수의 인자를 가진 `invoke` 호출로 변환됩니다.
 
-### 복합 대입 연산자 (Augmented assignments)
+### 복합 대입 연산자 (Augmented assignments) {id="augmented-assignments"}
 
 | 표현식 | 다음으로 변환됨 |
 |------------|---------------|
@@ -162,7 +162,7 @@ data class Counter(val dayIndex: Int) {
 >
 {style="note"}
 
-### 동등성 및 부등성 연산자 (Equality and inequality operators)
+### 동등성 및 부등성 연산자 (Equality and inequality operators) {id="equality-and-inequality-operators"}
 
 | 표현식 | 다음으로 변환됨 |
 |------------|---------------|
@@ -179,7 +179,7 @@ Kotlin은 `==` 표현식에서 두 피연산자 모두 `null`과 직접 비교�
 >
 {style="note"}
 
-### 비교 연산자 (Comparison operators)
+### 비교 연산자 (Comparison operators) {id="comparison-operators"}
 
 | 표현식 | 다음으로 변환됨 |
 |--------|---------------|
@@ -190,10 +190,10 @@ Kotlin은 `==` 표현식에서 두 피연산자 모두 `null`과 직접 비교�
 
 모든 비교는 `Int`를 반환해야 하는 `compareTo` 호출로 변환됩니다.
 
-### 프로퍼티 위임 연산자 (Property delegation operators)
+### 프로퍼티 위임 연산자 (Property delegation operators) {id="property-delegation-operators"}
 
 `provideDelegate`, `getValue`, `setValue` 연산자 함수는 [위임된 프로퍼티](delegated-properties.md)에서 설명합니다.
 
-## 명명된 함수에 대한 중위 호출 (Infix calls for named functions)
+## 명명된 함수에 대한 중위 호출 (Infix calls for named functions) {id="infix-calls-for-named-functions"}
 
 [중위 함수 호출(infix function calls)](functions.md#infix-notation)을 사용하여 커스텀 중위 연산을 흉내 낼 수 있습니다.

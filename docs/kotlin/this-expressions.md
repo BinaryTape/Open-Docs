@@ -44,7 +44,7 @@
 > 
 {style="tip"}
 
-## 限定的 this
+## 限定的 this {id="qualified-this"}
 
 当接收者作用域嵌套时，你的代码中可能同时有多个可用的接收者。Kotlin 能够隐式使用任何可用的接收者来访问其成员，但来自内层作用域的接收者具有更高的优先级。要显式引用特定的接收者，请使用限定的 `this`。当多个接收者拥有同名成员，且你需要访问外层接收者的成员时，这非常有用。
 
@@ -56,7 +56,7 @@ this@label
 
 标签告诉编译器要访问哪个接收者。你可以使用外层类或扩展函数的名称。例如，`this@foo` 指向名为 `foo` 的外层扩展函数的接收者。
 
-### 从内部类访问外部类
+### 从内部类访问外部类 {id="access-an-outer-class-from-an-inner-class"}
 
 在 [内部类](nested-classes.md#inner-classes) 中，未限定的 `this` 指向内部类实例。要访问外部类对象，请使用限定的 `this`：
 
@@ -88,7 +88,7 @@ fun main() {
 > 
 {style="note"}
 
-### 从扩展函数访问类
+### 从扩展函数访问类 {id="access-a-class-from-an-extension-function"}
 
 如果你在类内部声明扩展函数，则有两个可用的接收者：
 
@@ -124,7 +124,7 @@ fun main() {
 * `this@User` 指向当前的 `User` 对象。
 * `this@User.prefix` 访问当前 `User` 对象的 `prefix` 属性。
 
-### 从 lambda 表达式中访问
+### 从 lambda 表达式中访问 {id="access-from-a-lambda"}
 
 与常规 lambda 表达式不同，[带接收者的 lambda 表达式](lambdas.md#function-literals-with-receiver) 会在其作用域中引入一个接收者。因此，lambda 内部的 `this` 指向 lambda 的接收者，而不是外层作用域的接收者。
 如果带接收者的 lambda 表达式嵌套在另一个接收者作用域内，请为该 lambda 添加标签，并使用限定的 `this` 来显式引用该 lambda 的接收者或外层作用域的接收者：
@@ -156,7 +156,7 @@ fun main() {
 
 标签不会调用任何内容或改变 lambda 的工作方式。它仅帮助你引用 lambda 的接收者。
 
-### 访问匿名对象或其外部类
+### 访问匿名对象或其外部类 {id="access-an-anonymous-object-or-its-outer-class"}
 
 [匿名对象](object-declarations.md#object-expressions) 拥有自己的接收者作用域。在对象体内部，未限定的 `this` 指向该匿名对象本身。然而，由于匿名对象没有类名，你不能将它们用作 `this` 限定符。因此，你只能使用未限定的 `this` 来引用匿名对象：
 
@@ -210,7 +210,7 @@ fun main() {
 
 {kotlin-runnable="true"}
 
-## 隐式 this
+## 隐式 this {id="implicit-this"}
 
 当你在 `this` 上调用成员函数时，可以省略 `this.` 限定符。然而，如果更近的词法作用域内有另一个同名的可调用对象，Kotlin 会将不带限定符的调用解析为该对象，而不是成员函数。要显式调用成员函数，请使用 `this.` 限定符：
 

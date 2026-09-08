@@ -4,7 +4,7 @@
 
 相比之下，它具有與 Dokka 的 Gradle 外掛程式相同（甚至更多）的功能。儘管由於沒有自動配置，設定起來會困難得多，特別是在多平台和多模組環境中。
 
-## 快速入門
+## 快速入門 {id="get-started"}
 
 CLI 執行器以單獨的可執行構件形式發佈到 Maven Central。
 
@@ -22,9 +22,9 @@ java -jar dokka-cli-%dokkaVersion%.jar -help
 java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
 ```
 
-## 產生文件
+## 產生文件 {id="generate-documentation"}
 
-### 先決條件
+### 先決條件 {id="prerequisites"}
 
 由於沒有建置工具來管理相依性，你必須自行提供相依性的 `.jar` 檔案。
 
@@ -42,7 +42,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
 | `org.jetbrains.kotlinx` | `kotlinx-html-jvm` | 0.8.0       | [下載](https://repo1.maven.org/maven2/org/jetbrains/kotlinx/kotlinx-html-jvm/0.8.0/kotlinx-html-jvm-0.8.0.jar) |
 | `org.freemarker`        | `freemarker`       | 2.3.31      | [下載](https://repo1.maven.org/maven2/org/freemarker/freemarker/2.3.31/freemarker-2.3.31.jar)                  |
 
-### 使用命令列選項執行
+### 使用命令列選項執行 {id="run-with-command-line-options"}
 
 你可以傳遞命令列選項來配置 CLI 執行器。
 
@@ -63,7 +63,7 @@ java -jar dokka-cli-%dokkaVersion%.jar \
 
 有關更多配置詳細資訊，請參閱 [命令列選項](#command-line-options)。
 
-### 使用 JSON 配置執行
+### 使用 JSON 配置執行 {id="run-with-json-configuration"}
 
 可以使用 JSON 配置 CLI 執行器。在這種情況下，你需要提供 JSON 配置檔案的絕對／相對路徑作為第一個且唯一的引數。所有其他配置選項都將從中剖析。
 
@@ -98,7 +98,7 @@ java -jar dokka-cli-%dokkaVersion%.jar dokka-configuration.json
 
 有關更多詳細資訊，請參閱 [JSON 配置選項](#json-configuration)。
 
-### 其他輸出格式
+### 其他輸出格式 {id="other-output-formats"}
 
 預設情況下，`dokka-base` 構件僅包含 [HTML](dokka-html.md) 輸出格式。
 
@@ -132,7 +132,7 @@ java -jar dokka-cli-%dokkaVersion%.jar \
 
 欲了解更多資訊，請參閱 [GFM](https://github.com/Kotlin/dokka/blob/8e5c63d035ef44a269b8c43430f43f5c8eebfb63/dokka-subprojects/plugin-gfm/README.md) 和 [Javadoc](dokka-javadoc.md#generate-javadoc-documentation) 頁面。
 
-## 命令列選項
+## 命令列選項 {id="command-line-options"}
 
 要查看所有可能的命令列選項清單及其詳細說明，請執行：
 
@@ -163,7 +163,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -help
 | `loggingLevel` | 記錄層級，可能的值：`DEBUG, PROGRESS, INFO, WARN, ERROR`。 |
 | `help, h` | 使用資訊。 |
 
-#### 原始碼集選項
+#### 原始碼集選項 {id="source-set-options"}
 
 要查看解除嵌套的 `-sourceSet` 配置的命令列選項清單，請執行：
 
@@ -198,11 +198,11 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
 | `externalDocumentationLinks` | 格式為 `{url}^{packageListUrl}` 的外部文件連結。接受以 `^^` 分隔的多個值。 |
 | `srcLink` | 原始碼目錄與用於瀏覽程式碼的 Web 服務之間的對應。接受以分號分隔的多個路徑。 |
 
-## JSON 配置
+## JSON 配置 {id="json-configuration"}
 
 以下是每個配置部分的範例和詳細描述。你也可以在頁面底部找到應用了 [所有配置選項](#complete-configuration) 的範例。
 
-### 一般配置
+### 一般配置 {id="general-configuration"}
 
 ```json
 {
@@ -333,7 +333,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
     </def>
 </deflist>
 
-### 原始碼集配置
+### 原始碼集配置 {id="source-set-configuration"}
 
 如何配置 Kotlin
 [原始碼集](https://kotlinlang.org/docs/multiplatform-discover-project.html#source-sets)：
@@ -540,7 +540,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
     </def>
 </deflist>
 
-### 原始碼連結配置
+### 原始碼連結配置 {id="source-link-configuration"}
 
 `sourceLinks` 配置區塊允許你為每個簽章新增一個 `source` 連結，該連結指向具有特定行號的 `remoteUrl`。（行號可以透過設定 `remoteLineSuffix` 來配置）。
 
@@ -596,7 +596,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
     </def>
 </deflist>
 
-### 每個套件的配置
+### 每個套件的配置 {id="per-package-configuration"}
 
 `perPackageOptions` 配置區塊允許為與 `matchingRegex` 相符的特定套件設定某些選項。
 
@@ -649,7 +649,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
     </def>
 </deflist>
 
-### 外部文件連結配置
+### 外部文件連結配置 {id="external-documentation-links-configuration"}
 
 `externalDocumentationLinks` 區塊允許建立指向相依性之外部代管文件的連結。
 
@@ -692,7 +692,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
     </def>
 </deflist>
 
-### 完整配置
+### 完整配置 {id="complete-configuration"}
 
 下面你可以看到同時應用的所有可能配置選項。
 

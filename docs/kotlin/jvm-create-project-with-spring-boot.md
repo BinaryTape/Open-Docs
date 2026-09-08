@@ -8,7 +8,7 @@
 > 
 {style="note"}
 
-## 开始之前
+## 开始之前 {id="before-you-start"}
 
 下载并安装最新版本的 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 并使用 Ultimate 订阅。
 
@@ -16,7 +16,7 @@
 > 
 {style="tip"}
 
-## 创建 Spring Boot 项目
+## 创建 Spring Boot 项目 {id="create-a-spring-boot-project"}
 
 通过 IntelliJ IDEA 中的项目向导创建一个新的 Kotlin Spring Boot 项目：
 
@@ -72,7 +72,7 @@
    * `main/kotlin` 文件夹下包含属于该应用程序的软件包和类。
    * 应用程序的入口点是 `DemoApplication.kt` 文件中的 `main()` 方法。
 
-## 探索项目的 Gradle 构建文件 {initial-collapse-state="collapsed" collapsible="true"}
+## 探索项目的 Gradle 构建文件 {initial-collapse-state="collapsed" collapsible="true" id="explore-the-project-gradle-build-file"}
 
 打开 `build.gradle.kts` 文件：它是 Gradle Kotlin 构建脚本，其中包含应用程序所需的依赖项列表。
 
@@ -143,7 +143,7 @@ tasks.withType<Test> {
 
 在 [](gradle-compiler-options.md) 中详细了解 Kotlin 编译器选项。
 
-## 探索生成的 Spring Boot 应用程序
+## 探索生成的 Spring Boot 应用程序 {id="explore-the-generated-spring-boot-application"}
 
 打开 `DemoApplication.kt` 文件：
 
@@ -182,7 +182,7 @@ fun main(args: Array<String>) {
    </def>
 </deflist>
 
-## 创建控制器
+## 创建控制器 {id="create-a-controller"}
 
 应用程序已准备好运行，但让我们先更新它的逻辑。
 
@@ -235,7 +235,7 @@ class MessageController {
    </def>
 </deflist>
 
-## 运行应用程序
+## 运行应用程序 {id="run-the-application"}
 
 Spring 应用程序现在可以运行了：
 
@@ -259,7 +259,7 @@ Spring 应用程序现在可以运行了：
 
     ![Spring 应用程序响应](spring-application-response.png){width=700}
 
-## 下一步
+## 下一步 {id="next-step"}
 
 在本教程的下一部分中，您将学习 Kotlin 数据类以及如何在应用程序中使用它们。
 

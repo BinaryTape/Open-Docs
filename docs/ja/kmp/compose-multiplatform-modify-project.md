@@ -16,7 +16,7 @@
 
 Kotlin Multiplatform ウィザードで生成されたコードを変更し、`App` コンポーザブル内に現在の日付を表示してみましょう。これを行うには、プロジェクトに新しい依存関係を追加し、UI を強化して、各プラットフォームでアプリケーションを再実行します。
 
-## 新しい依存関係の追加
+## 新しい依存関係の追加 {id="add-a-new-dependency"}
 
 プラットフォーム固有のライブラリと [expected and actual 宣言](multiplatform-expect-actual.md)を使用して日付を取得することもできます。しかし、Kotlin Multiplatform ライブラリが利用できない場合にのみ、そのアプローチを使用することをお勧めします。このケースでは、[kotlinx-datetime](https://github.com/Kotlin/kotlinx-datetime) ライブラリを利用できます。
 
@@ -104,7 +104,7 @@ Kotlin Multiplatform ウィザードで生成されたコードを変更し、`A
 > 
 {style="note"}
 
-## ユーザーインターフェースの強化
+## ユーザーインターフェースの強化 {id="enhance-the-user-interface"}
 
 1. `shared/src/commonMain/kotlin/App.kt` ファイルを開き、`App()` コンポーザブルの後に、現在の日付を含む文字列を返す次の関数を追加します。
 
@@ -159,7 +159,7 @@ Kotlin Multiplatform ウィザードで生成されたコードを変更し、`A
 
    ![Unresolved references](compose-unresolved-references.png)
 
-## アプリケーションの再実行
+## アプリケーションの再実行 {id="rerun-the-application"}
 
 Android、iOS、デスクトップ、および Web で同じ実行構成を使用して、[アプリケーションを再実行](compose-multiplatform-create-first-app.md#run-your-application)できるようになりました。
 
@@ -175,13 +175,13 @@ Android、iOS、デスクトップ、および Web で同じ実行構成を使�
     </TabItem>
 </Tabs>
 
-## 次のステップ
+## 次のステップ {id="next-step"}
 
 チュートリアルの次のパートでは、新しい Compose Multiplatform の概念を学び、独自のアプリケーションをゼロから作成します。
 
 **[次のパートへ進む](compose-multiplatform-new-project.md)**
 
-## ヘルプの参照
+## ヘルプの参照 {id="get-help"}
 
 * **Kotlin Slack**: [招待](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)を受け取り、[#multiplatform](https://kotlinlang.slack.com/archives/C3PQML5NU) チャンネルに参加してください。
 * **Kotlin イシュートラッカー**: [新しい問題を報告](https://youtrack.jetbrains.com/newIssue?project=KT)してください。

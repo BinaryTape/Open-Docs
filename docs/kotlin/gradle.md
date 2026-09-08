@@ -13,7 +13,7 @@ Gradle 是一种构建系统，可以帮助您自动化和管理构建过程。�
 * [增量编译、缓存支持、构建报告和 Kotlin 守护进程](gradle-compilation-and-caches.md)。
 * [对 Gradle 插件变体的支持](gradle-plugin-variants.md)。
 
-## 下一步？
+## 下一步？ {id="what-s-next"}
 
 了解：
 * **Gradle Kotlin DSL**。[Gradle Kotlin DSL](https://docs.gradle.org/current/userguide/kotlin_dsl.html) 是一种领域专用语言，您可以利用它快速高效地编写构建脚本。

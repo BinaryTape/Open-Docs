@@ -39,7 +39,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-## 타입 별칭 선언하기
+## 타입 별칭 선언하기 {id="declare-type-aliases"}
 
 타입 별칭은 다음과 같이 선언할 수 있습니다:
 
@@ -52,7 +52,7 @@ fun main() {
 
 타입 별칭은 자신보다 더 제한적인 [가시성](visibility-modifiers.md)을 가진 기본 타입을 노출할 수 없습니다. 예를 들어, `public` 타입 별칭은 `private` 클래스를 참조할 수 없습니다.
 
-### 최상위 타입 별칭
+### 최상위 타입 별칭 {id="top-level-type-aliases"}
 
 최상위 타입 별칭은 패키지 수준의 선언입니다. 동일한 패키지 내에서는 정규화되지 않은 이름(unqualified name)으로 별칭을 참조할 수 있습니다. 다른 패키지에서 별칭을 사용하려면 별칭을 임포트하거나 정규화된 이름(qualified name)으로 참조해야 합니다:
 
@@ -83,7 +83,7 @@ fun deleteUser(id: org.example.users.UserId) {
 }
 ```
 
-### 중첩 타입 별칭
+### 중첩 타입 별칭 {id="nested-type-aliases"}
 
 중첩 타입 별칭은 캡슐화를 개선하고, 패키지 수준의 혼란을 줄이며, 내부 구현을 단순화하여 더 깔끔하고 유지보수가 쉬운 코드를 가능하게 합니다. 중첩 타입 별칭은 [중첩 클래스](nested-classes.md)와 동일한 스코프 및 이름 확인(name-resolution) 규칙을 따릅니다.
 
@@ -111,7 +111,7 @@ fun synchronizeUsers(users: UserRepository.UserIndex) {
 >
 {style="note"}
 
-#### 타입 파라미터
+#### 타입 파라미터 {id="type-parameters"}
 
 중첩 타입 별칭에서 타입 파라미터를 사용하려면 별칭 선언에 이를 추가하세요:
 

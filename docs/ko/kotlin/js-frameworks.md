@@ -5,7 +5,7 @@
 
 커뮤니티에서 제공하는 몇 가지 Kotlin/JS 웹 프레임워크는 다음과 같습니다:
 
-## Kobweb
+## Kobweb {id="kobweb"}
 
 [Kobweb](https://kobweb.varabyte.com/)은 [Compose HTML](https://github.com/JetBrains/compose-multiplatform?tab=readme-ov-file#compose-html)을 사용하여 웹사이트와 웹 애플리케이션을 만들기 위한 Kotlin 프레임워크입니다. 빠른 개발을 위해 라이브 리로딩(live-reloading)을 지원합니다. [Next.js](https://nextjs.org/)에서 영감을 받은 Kobweb은 위젯, 레이아웃, 페이지를 추가하기 위한 표준 구조를 지향합니다.
 
@@ -17,7 +17,7 @@ Kobweb은 SEO 및 자동 검색 인덱싱을 위한 페이지 스냅샷을 생�
 
 프레임워크에 대한 업데이트 및 토론은 [Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)의 [#kobweb](https://kotlinlang.slack.com/archives/C04RTD72RQ8) 및 [#compose-web](https://kotlinlang.slack.com/archives/C01F2HV7868) 채널에서 확인하실 수 있습니다.
 
-## Kilua
+## Kilua {id="kilua"}
 
 [Kilua](https://kilua.dev/)는 [Compose Runtime](https://developer.android.com/jetpack/androidx/releases/compose-runtime)을 기반으로 구축된 컴포저블(composable) 웹 프레임워크이며, [compose-html](https://github.com/JetBrains/compose-multiplatform#compose-html) 라이브러리와 유사합니다. compose-html과 달리, Kilua는 Kotlin/Wasm 및 Kotlin/JS 타겟을 모두 지원합니다.
 
@@ -29,7 +29,7 @@ Kilua는 [KVision](https://kvision.io) 프레임워크의 후속작입니다. Ki
 
 프레임워크에 대한 업데이트 및 토론은 [Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)의 [#kilua](https://kotlinlang.slack.com/archives/C06UAH52PA7) 채널에서 확인하실 수 있습니다.
 
-## Summon
+## Summon {id="summon"}
 
 [Summon](https://summon.yousef.codes/)은 JVM, Kotlin/JS, Kotlin/Wasm 전반에서 고성능 애플리케이션을 구축하기 위한 Kotlin 멀티플랫폼 프런트엔드 프레임워크입니다. 컴포넌트 기반 UI 개발, HTML 스트리밍을 통한 퍼스트 클래스 서버 사이드 렌더링(SSR), 그리고 깔끔한 CSS로 컴파일되는 수정자(modifier) 기반 스타일링을 지원합니다.
 
@@ -37,7 +37,7 @@ Kilua는 [KVision](https://kvision.io) 프레임워크의 후속작입니다. Ki
 
 문서와 예제는 [Summon 문서](https://summon.yousef.codes/docs)를 참조하세요.
 
-## Kinetica
+## Kinetica {id="kinetica"}
 
 [Kinetica](https://kinetica.heapy.io/)는 웹 앱의 실질적인 결과물에 초점을 맞춘 Kotlin UI 프레임워크입니다. 서버 렌더링을 통한 빠른 초기 페이지 전달, SEO 친화적인 HTML 출력, 그리고 페이지 로드 후 인터랙티브한 클라이언트 사이드 UI로의 부드러운 전환(handoff)을 제공합니다. 또한 헤드리스 테스팅(headless testing)을 지원하여, 전체 브라우저 환경에 의존하지 않고도 UI 동작을 빠르고 안정적으로 테스트할 수 있도록 돕습니다.
 
@@ -45,7 +45,7 @@ Kinetica는 기본적으로 라우팅, 폼(forms), 지속성(persistence) 모듈
 
 문서와 예제는 [Kinetica 문서](https://kinetica.heapy.io/docs/getting-started)를 참조하세요.
 
-## Kotlin React
+## Kotlin React {id="kotlin-react"}
 
 [React](https://react.dev/)는 웹 및 네이티브 사용자 인터페이스에 널리 사용되는 컴포넌트 기반 라이브러리입니다. 방대한 컴포넌트 에코시스템, 학습 자료, 활발한 커뮤니티를 제공합니다.
 
@@ -53,7 +53,7 @@ Kinetica는 기본적으로 라우팅, 폼(forms), 지속성(persistence) 모듈
 
 라이브러리에 대한 업데이트 및 토론은 [Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)의 [#react](https://kotlinlang.slack.com/messages/react) 및 [#javascript](https://kotlinlang.slack.com/archives/C0B8L3U69) 채널에서 확인하실 수 있습니다.
 
-## KVision
+## KVision {id="kvision"}
 
 [KVision](https://kvision.io)은 즉시 사용 가능한 UI 컴포넌트로 Kotlin/JS 애플리케이션을 빌드하기 위한 객체 지향 웹 프레임워크입니다. 이러한 컴포넌트들은 애플리케이션 사용자 인터페이스의 구성 요소가 될 수 있습니다.
 
@@ -63,7 +63,7 @@ Kinetica는 기본적으로 라우팅, 폼(forms), 지속성(persistence) 모듈
 
 프레임워크에 대한 업데이트 및 토론은 [Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)의 [#kvision](https://kotlinlang.slack.com/messages/kvision) 및 [#javascript](https://kotlinlang.slack.com/archives/C0B8L3U69) 채널에서 확인하실 수 있습니다.
 
-## fritz2
+## fritz2 {id="fritz2"}
 
 [fritz2](https://www.fritz2.dev)는 반응형 웹 사용자 인터페이스를 빌드하기 위한 독립형 프레임워크입니다. HTML 요소를 빌드하고 렌더링하기 위한 자체 타입 안전 DSL을 제공하며, Kotlin의 코루틴과 Flow를 사용하여 컴포넌트와 데이터 바인딩을 정의합니다.
 
@@ -73,7 +73,7 @@ fritz2는 상태 관리, 유효성 검사, 라우팅 등을 기본적으로 제�
 
 프레임워크에 대한 업데이트 및 토론은 [Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)의 [#fritz2](https://kotlinlang.slack.com/messages/fritz2) 및 [#javascript](https://kotlinlang.slack.com/archives/C0B8L3U69) 채널에서 확인하실 수 있습니다.
 
-## Doodle
+## Doodle {id="doodle"}
 
 [Doodle](https://nacular.github.io/doodle/)은 Kotlin/JS를 위한 벡터 기반 UI 프레임워크입니다. Doodle 애플리케이션은 DOM, CSS 또는 JavaScript에 의존하는 대신 브라우저의 그래픽 기능을 사용하여 사용자 인터페이스를 그립니다. 이 접근 방식을 통해 임의의 UI 요소, 벡터 모양, 그라데이션 및 사용자 정의 시각화의 렌더링을 제어할 수 있습니다.
 

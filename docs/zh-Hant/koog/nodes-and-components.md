@@ -63,9 +63,9 @@ graph LR
 
 如需更多資訊，請參閱 Kotlin 的 [`node()`](api:agents-core::ai.koog.agents.core.dsl.builder.node) 或 Java 的 [`AIAgentNode.builder()`](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentNode.Companion.builder)。
 
-## 實用工具節點
+## 實用工具節點 {id="utility-nodes"}
 
-### 傳遞節點
+### 傳遞節點 {id="pass-through-node"}
 
 一個簡單的傳遞節點，不執行任何操作並將輸入作為輸出傳回。如需詳細資訊，請參閱 Kotlin 的 [nodeDoNothing](api:agents-core::ai.koog.agents.core.dsl.extension.nodeDoNothing) 或 Java 的 [AIAgentNode.doNothing()](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentNode.Companion.doNothing)。
 
@@ -137,9 +137,9 @@ graph LR
     ```
     <!--- KNIT exampleNodesAndComponentsJava02.java -->
 
-## LLM 節點
+## LLM 節點 {id="llm-nodes"}
 
-### 提示詞準備節點
+### 提示詞準備節點 {id="prompt-preparation-node"}
 
 **一個使用提供的提示詞建置器將訊息新增至 LLM 提示詞的節點。這對於在進行實際 LLM 請求之前修改對話上下文非常有用。** 如需詳細資訊，請參閱 Kotlin 的 [nodeAppendPrompt](api:agents-core::ai.koog.agents.core.dsl.extension.nodeAppendPrompt) 或 Java 的 [AIAgentNode.appendPrompt()](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentNodeBuilderWithInput.appendPrompt)。
 
@@ -247,7 +247,7 @@ graph LR
     ```
     <!--- KNIT exampleNodesAndComponentsJava03.java -->
 
-### 僅限工具節點
+### 僅限工具節點 {id="tool-only-node"}
 
 一個將使用者訊息新增至 LLM 提示詞並取得回應的節點，其中 LLM 僅能呼叫工具。如需詳細資訊，請參閱 Kotlin 的 [nodeLLMSendMessageOnlyCallingTools](api:agents-core::ai.koog.agents.core.dsl.extension.nodeLLMSendMessageOnlyCallingTools) 或 Java 的 [AIAgentNode.llmSendMessageOnlyCallingTools()](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentNode.Companion.llmSendMessageOnlyCallingTools)。
 
@@ -266,7 +266,7 @@ graph LR
 ```
 <!--- KNIT example-nodes-and-component-04.txt -->
 
-### 強制使用單一工具節點
+### 強制使用單一工具節點 {id="forced-single-tool-use-node"}
 
 一個將使用者訊息新增至 LLM 提示詞並強制 LLM 使用特定工具的節點。如需詳細資訊，請參閱 Kotlin 的 [nodeLLMSendMessageForceOneTool](api:agents-core::ai.koog.agents.core.dsl.extension.nodeLLMSendMessageForceOneTool) 或 Java 的 [AIAgentNode.llmSendMessageForceOneTool()](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentNode.Companion.llmSendMessageForceOneTool)。
 
@@ -285,7 +285,7 @@ graph LR
 ```
 <!--- KNIT example-nodes-and-component-05.txt -->
 
-### LLM 請求節點
+### LLM 請求節點 {id="llm-request-node"}
 
 一個將使用者訊息新增至 LLM 提示詞並取得回應（可選是否使用工具）的節點。節點配置決定了在處理訊息期間是否允許工具呼叫。如需詳細資訊，請參閱 Kotlin 的 [nodeLLMRequest](api:agents-core::ai.koog.agents.core.dsl.extension.nodeLLMRequest) 或 Java 的 [AIAgentNode.llmRequest()](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentNode.Companion.llmRequest)。
 
@@ -360,7 +360,7 @@ graph LR
     ```
     <!--- KNIT exampleNodesAndComponentsJava04.java -->
 
-### 具結構化回應的 LLM 請求節點
+### 具結構化回應的 LLM 請求節點 {id="llm-request-node-with-structured-response"}
 
 一個將使用者訊息新增至 LLM 提示詞，並向 LLM 請求具有錯誤修正能力的結構化資料之節點。如需詳細資訊，請參閱 Kotlin 的 [nodeLLMRequestStructured](api:agents-core::ai.koog.agents.core.dsl.extension.nodeLLMRequestStructured) 或 Java 的 [AIAgentNode.llmRequestStructured()](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentNode.Companion.llmRequestStructured)。
 
@@ -379,7 +379,7 @@ graph LR
 ```
 <!--- KNIT example-nodes-and-component-07.txt -->
 
-### 具串流回應的 LLM 請求節點
+### 具串流回應的 LLM 請求節點 {id="llm-request-node-with-streaming-response"}
 
 一個將使用者訊息新增至 LLM 提示詞並串流 LLM 回應（可選是否進行串流資料轉換）的節點。如需詳細資訊，請參閱 Kotlin 的 [nodeLLMRequestStreaming](api:agents-core::ai.koog.agents.core.dsl.extension.nodeLLMRequestStreaming) 或 Java 的 [AIAgentNode.llmRequestStreaming()](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentNode.Companion.llmRequestStreaming)。
 
@@ -398,7 +398,7 @@ graph LR
 ```
 <!--- KNIT example-nodes-and-component-08.txt -->
 
-### 具多重回應的 LLM 請求節點
+### 具多重回應的 LLM 請求節點 {id="llm-request-node-with-multiple-responses"}
 
 一個將使用者訊息新增至 LLM 提示詞並在啟用工具呼叫的情況下取得多個 LLM 回應的節點。如需詳細資訊，請參閱 Kotlin 的 [nodeLLMRequest](api:agents-core::ai.koog.agents.core.dsl.extension.nodeLLMRequest) 或 Java 的 [AIAgentNode.llmRequest()](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentNode.Companion.llmRequest)。
 
@@ -475,7 +475,7 @@ graph LR
     ```
     <!--- KNIT exampleNodesAndComponentsJava05.java -->
 
-### 歷程記錄壓縮節點
+### 歷程記錄壓縮節點 {id="history-compression-node"}
 
 一個將目前 LLM 提示詞（訊息歷程記錄）壓縮為摘要，並以簡潔摘要（TL;DR）取代訊息的節點。這對於透過壓縮歷程記錄以減少權杖使用量來管理長對話非常有用。如需詳細資訊，請參閱 Kotlin 的 [nodeLLMCompressHistory](api:agents-core::ai.koog.agents.core.dsl.extension.nodeLLMCompressHistory) 或 Java 的 [AIAgentNode.llmCompressHistory()](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentNode.Companion.llmCompressHistory)。
 
@@ -557,9 +557,9 @@ graph LR
     ```
     <!--- KNIT exampleNodesAndComponentsJava06.java -->
 
-## 工具節點
+## 工具節點 {id="tool-nodes"}
 
-### 工具執行節點
+### 工具執行節點 {id="tool-execution-node"}
 
 一個執行單個工具呼叫並傳回其結果的節點。此節點用於處理由 LLM 發起的工具呼叫。如需詳細資訊，請參閱 Kotlin 的 [nodeExecuteTool](api:agents-core::ai.koog.agents.core.dsl.extension.nodeExecuteTool) 或 Java 的 [AIAgentNode.executeTool()](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentNode.Companion.executeTool)。
 
@@ -636,7 +636,7 @@ graph LR
     ```
     <!--- KNIT exampleNodesAndComponentsJava07.java -->
 
-### 工具結果追隨節點
+### 工具結果追隨節點 {id="tool-result-follow-up-node"}
 
 一個將工具結果新增至提示詞並請求 LLM 回應的節點。如需詳細資訊，請參閱 Kotlin 的 [nodeLLMSendToolResult](api:agents-core::ai.koog.agents.core.dsl.extension.nodeLLMSendToolResult) 或 Java 的 [AIAgentNode.llmSendToolResult()](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentNode.Companion.llmSendToolResult)。
 
@@ -705,7 +705,7 @@ graph LR
     ```
     <!--- KNIT exampleNodesAndComponentsJava08.java -->
 
-### 多工具執行節點
+### 多工具執行節點 {id="multi-tool-execution-node"}
 
 一個執行多個工具呼叫的節點。這些呼叫可以選擇性地並行執行。如需詳細資訊，請參閱 Kotlin 的 [nodeExecuteMultipleTools](api:agents-core::ai.koog.agents.core.dsl.extension.nodeExecuteMultipleTools) 或 Java 的 [AIAgentNode.executeMultipleTools()](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentNode.Companion.executeMultipleTools)。
 
@@ -783,7 +783,7 @@ graph LR
     ```
     <!--- KNIT exampleNodesAndComponentsJava09.java -->
 
-### 多工具結果追隨節點
+### 多工具結果追隨節點 {id="multiple-tool-result-follow-up-node"}
 
 一個將多個工具結果新增至提示詞並取得多個 LLM 回應的節點。如需詳細資訊，請參閱 Kotlin 的 [nodeLLMSendMultipleToolResults](api:agents-core::ai.koog.agents.core.dsl.extension.nodeLLMSendMultipleToolResults) 或 Java 的 [AIAgentNode.llmSendMultipleToolResults()](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentNode.Companion.llmSendMultipleToolResults)。
 
@@ -853,7 +853,7 @@ graph LR
     ```
     <!--- KNIT exampleNodesAndComponentsJava10.java -->
 
-## 節點輸出轉換
+## 節點輸出轉換 {id="node-output-transformation"}
 
 該架構在 Kotlin 中提供了 `transform` 擴充函式，讓您可以建立節點的轉換版本，對其輸出套用轉換。在 Java 中，您可以透過建立具有明確轉換的過渡節點來達到相同的結果。當您需要將節點的輸出轉換為不同的型別或格式，同時保留原始節點的功能時，這非常有用。
 
@@ -875,7 +875,7 @@ graph LR
 ```
 <!--- KNIT example-nodes-and-component-15.txt -->
 
-### 節點轉換
+### 節點轉換 {id="node-transformation"}
 
 在 Kotlin 中，[transform()](api:agents-core::ai.koog.agents.core.dsl.builder.AIAgentNodeDelegate.transform) 函式會建立一個新的 `AIAgentNodeDelegate`，它封裝了原始節點並對其輸出套用轉換函式。在 Java 中，您需要使用 `AIAgentNode.builder()` 與明確的型別參數，手動組合包含轉換邏輯的節點。
 
@@ -903,7 +903,7 @@ graph LR
     ```
     <!--- KNIT example-nodes-and-component-java-01.java -->
 
-#### 自訂節點轉換
+#### 自訂節點轉換 {id="custom-node-transformation"}
 
 將自訂節點的輸出轉換為不同的資料型別：
 
@@ -964,7 +964,7 @@ graph LR
     ```
     <!--- KNIT exampleNodesAndComponentsJava11.java -->
 
-#### 內建節點轉換
+#### 內建節點轉換 {id="built-in-node-transformation"}
 
 轉換諸如 `nodeLLMRequest` (Kotlin) 或 `AIAgentNode.llmRequest()` (Java) 等內建節點的輸出：
 
@@ -1033,7 +1033,7 @@ graph LR
     ```
     <!--- KNIT exampleNodesAndComponentsJava12.java -->
 
-## 預定義子圖
+## 預定義子圖 {id="predefined-subgraphs"}
 
 架構提供了預定義的子圖，封裝了常用的模式和工作流程。這些子圖透過自動處理基礎節點和邊的建立，簡化了複雜代理策略的開發。API 在 Kotlin 和 Java 之間保持一致，Kotlin 使用 DSL 函式，Java 則使用建置器方法。
 
@@ -1043,7 +1043,7 @@ graph LR
 2. 執行任務。
 3. 驗證任務結果。如果結果不正確，則帶著回饋訊息返回第 2 步進行調整。
 
-### 任務執行子圖
+### 任務執行子圖 {id="task-execution-subgraph"}
 
 一個使用提供的工具執行特定任務並傳回結構化結果的子圖。它支援多重回應 LLM 互動（助理可能會產生多個回應，其中交錯著工具呼叫），並讓您控制工具呼叫的執行方式。在 Kotlin 中使用 [subgraphWithTask()](api:agents-core::ai.koog.agents.ext.agent.subgraphWithTask)，而在 Java 中使用 [AIAgentSubgraph.builder().withTask()](api:agents-core::ai.koog.agents.core.agent.entity.TypedAIAgentSubgraphBuilder.withTask)。
 
@@ -1132,7 +1132,7 @@ API 允許您透過選用參數微調執行過程：
     ```
     <!--- KNIT exampleNodesAndComponentsJava13.java -->
 
-### 具驗證功能的任務執行子圖
+### 具驗證功能的任務執行子圖 {id="task-execution-subgraph-with-verification"}
 
 `subgraphWithTask` 的特殊版本，用於驗證任務是否已正確執行，並提供遇到的任何問題之詳細資訊。此子圖對於需要驗證或品質檢查的工作流程非常有用。在 Kotlin 中使用 [subgraphWithVerification()](api:agents-core::ai.koog.agents.ext.agent.subgraphWithVerification)，而在 Java 中使用 `AIAgentSubgraph.builder().withVerification()`。
 
@@ -1224,14 +1224,14 @@ API 允許您透過選用參數微調執行過程：
     ```
     <!--- KNIT exampleNodesAndComponentsJava14.java -->
 
-## 預定義策略與常用策略模式
+## 預定義策略與常用策略模式 {id="predefined-strategies-and-common-strategy-patterns"}
 
 Koog 提供了結合各種節點的預定義策略。
 節點使用邊連接以定義操作流程，並帶有指定何時遵循每條邊的條件。
 
 如果需要，您可以將這些策略整合到您的代理工作流程中。
 
-### 單次執行策略
+### 單次執行策略 {id="single-run-strategy"}
 
 單次執行策略專為非互動式使用案例設計，其中代理處理輸入一次並傳回結果。
 
@@ -1323,7 +1323,7 @@ Koog 提供了結合各種節點的預定義策略。
     ```
     <!--- KNIT exampleNodesAndComponentsJava15.java -->
 
-### 基於工具的策略
+### 基於工具的策略 {id="tool-based-strategy"}
 
 基於工具的策略專為高度依賴工具執行特定操作的工作流程而設計。它通常根據 LLM 的決策執行工具並處理結果。
 
@@ -1446,7 +1446,7 @@ Koog 提供了結合各種節點的預定義策略。
     ```
     <!--- KNIT exampleNodesAndComponentsJava16.java -->
 
-### 串流資料策略
+### 串流資料策略 {id="streaming-data-strategy"}
 
 串流資料策略專為處理來自 LLM 的串流資料而設計。它通常請求串流資料，處理該資料，並可能使用處理後的資料呼叫工具。
 

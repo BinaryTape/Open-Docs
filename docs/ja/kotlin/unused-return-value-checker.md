@@ -38,7 +38,7 @@ fun formatGreeting(name: String): String {
 }
 ```
 
-## 未使用戻り値チェッカーの設定
+## 未使用戻り値チェッカーの設定 {id="configure-the-unused-return-value-checker"}
 
 コンパイラが無視された結果をどのように報告するかは、`-Xreturn-value-checker` コンパイラオプションで制御できます。
 
@@ -85,7 +85,7 @@ kotlin {
 </tab>
 </tabs>
 
-## 無視された結果をチェックする関数をマークする
+## 無視された結果をチェックする関数をマークする {id="mark-functions-to-check-ignored-results"}
 
 [-Xreturn-value-checker コンパイラオプション](#configure-the-unused-return-value-checker)を `check` に設定すると、チェッカーは、Kotlin標準ライブラリのほとんどの関数のよう、マークされている式からの無視された結果のみを報告します。
 
@@ -118,7 +118,7 @@ fun someFunction(): Int = ...
 >
 {style="note"}
 
-## 無視された結果の報告を抑制する
+## 無視された結果の報告を抑制する {id="suppress-reports-for-ignored-results"}
 
 特定の関数に対して報告を抑制するには、[`@IgnorableReturnValue`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-ignorable-return-value/) をアノテートします。`MutableList.add` のように、結果を無視することが一般的で想定内である関数にアノテートしてください：
 
@@ -145,7 +145,7 @@ fun main() {
 }
 ```
 
-### 関数のオーバーライドにおける無視された結果
+### 関数のオーバーライドにおける無視された結果 {id="ignored-results-in-function-overrides"}
 
 関数をオーバーライドすると、そのオーバーライドはベース宣言のアノテーションによって定義された報告ルールを継承します。これは、ベース宣言がKotlin標準ライブラリや他のライブラリ依存関係の一部である場合にも適用されるため、`Any.hashCode()` などの関数のオーバーライドに対しても、チェッカーは無視された結果を報告します。
 
@@ -171,7 +171,7 @@ fun check(g: Greeter) {
 }
 ```
 
-## 高階関数における未使用の結果のチェック
+## 高階関数における未使用の結果のチェック {id="check-for-unused-results-in-higher-order-functions"}
 
 `let` スコープ関数などの一部の高階関数は、ラムダの結果を返します。
 高階関数の未使用のラムダ結果をチェックするには、関数のコントラクトに[試験的](components-stability.md#stability-levels-explained)（Experimental）な `returnsResultOf()` コントラクトを追加します。
@@ -247,7 +247,7 @@ kotlin {
 </tab> 
 </tabs>
 
-## Javaアノテーションとの相互運用性
+## Javaアノテーションとの相互運用性 {id="interoperability-with-java-annotations"}
 
 一部のJavaライブラリでは、異なるアノテーションを使用して同様のメカニズムを採用しています。未使用戻り値チェッカーは、以下のアノテーションを `@MustUseReturnValues` を使用するのと同等として扱います：
 

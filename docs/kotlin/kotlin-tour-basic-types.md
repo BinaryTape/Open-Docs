@@ -84,9 +84,9 @@ fun main() {
 
 既然你已经了解了如何声明基本类型，现在是时候学习[集合](kotlin-tour-collections.md)了。
 
-## 练习 {completion-point="true"}
+## 练习 {completion-point="true" id="practice"}
 
-### 习题 {initial-collapse-state="collapsed" collapsible="true"}
+### 习题 {initial-collapse-state="collapsed" collapsible="true" id="exercise"}
 
 显式声明每个变量的正确类型：
 

@@ -13,7 +13,7 @@
 * Kotlin 1.7.0 から Kotlin 1.9.0 にアップグレードする場合、[Kotlin 1.9.0](#kotlin-1-9-0-1-9-25) と [Kotlin 1.7.0−1.8.22](#kotlin-1-7-0-1-8-22) の両方で有効になった互換性のない変更を確認してください。
 * Kotlin 1.9.0 から Kotlin 2.0.0 にアップグレードする場合、[Kotlin 2.0.0](#kotlin-2-0-0-and-later) と [Kotlin 1.9.0−1.9.25](#kotlin-1-9-0-1-9-25) の両方で有効になった互換性のない変更を確認してください。 
 
-## バージョンの互換性
+## バージョンの互換性 {id="version-compatibility"}
 
 プロジェクトを構成する際は、Kotlin Multiplatform Gradle プラグインの特定のバージョン（プロジェクトの Kotlin バージョンと同じ）と、Gradle、Xcode、Android Gradle プラグインのバージョンとの互換性を確認してください：
 
@@ -38,11 +38,11 @@
 >
 {style="warning"}
 
-## Kotlin 2.0.0 以降
+## Kotlin 2.0.0 以降 {id="kotlin-2-0-0-and-later"}
 
 このセクションでは、非推奨サイクルが終了し、Kotlin 2.0.0−%kotlinVersion% で有効になる互換性のない変更について説明します。
 
-### Android ターゲット用 Google 製プラグインへの移行
+### Android ターゲット用 Google 製プラグインへの移行 {id="migrate-to-google-s-plugin-for-android-targets"}
 
 **何が変更されましたか？**
 
@@ -68,7 +68,7 @@ Kotlin Multiplatform Gradle プラグインの非推奨サイクルは以下の�
 * 2.3.0: 新しい Android プラグインが利用可能。Kotlin Multiplatform プロジェクトで `androidTarget` という名前が使用された場合に非推奨の警告を導入。
 * 2.3.10: `androidTarget` 名が使用された場合の非推奨の警告を元に戻す。
 
-### ビットコード埋め込みの非推奨
+### ビットコード埋め込みの非推奨 {id="deprecated-bitcode-embedding"}
 
 **何が変更されましたか？**
 
@@ -87,7 +87,7 @@ Kotlin Multiplatform Gradle プラグインの非推奨サイクルは以下の�
 * 2.2.0: 警告がエラーに引き上げられます
 * 2.3.0: `embedBitcode` DSL が削除されます 
 
-### デフォルトで作成される Java ソースセット
+### デフォルトで作成される Java ソースセット {id="java-source-sets-created-by-default"}
 
 **何が変更されましたか？**
 
@@ -127,7 +127,7 @@ Kotlin 2.1.20 と 8.7 より新しい Gradle バージョンで [Java test fixtu
 * Gradle 9.0: この警告をエラーに引き上げ。
 * 2.1.20: Gradle のバージョンに関わらず、`withJava()` 関数を使用した場合に非推奨の警告を導入。
 
-### 複数の類似ターゲットの宣言
+### 複数の類似ターゲットの宣言 {id="declaring-several-similar-targets"}
 
 **何が変更されましたか？**
 
@@ -246,7 +246,7 @@ Ktor ベースと OkHttp ベースの実装が*同じ Gradle プロジェクト�
 * 1.9.20: Kotlin Multiplatform プロジェクトで複数の類似ターゲットが使用された場合に非推奨の警告を導入
 * 2.1.0: このような場合にエラーを報告します（Kotlin/JS ターゲットは例外）。この例外の詳細については、[YouTrack の課題](https://youtrack.jetbrains.com/issue/KT-47038/KJS-MPP-Split-JS-target-into-JsBrowser-and-JsNode)を参照してください。
 
-### レガシーモードで公開されたマルチプラットフォームライブラリのサポート非推奨
+### レガシーモードで公開されたマルチプラットフォームライブラリのサポート非推奨 {id="deprecated-support-of-multiplatform-libraries-published-in-legacy-mode"}
 
 **何が変更されましたか？**
 
@@ -276,7 +276,7 @@ Kotlin チームはエコシステムの移行を支援したいと考えてい�
 * 2.0.0: レガシーライブラリへの依存関係に対する警告をエラーに引き上げ
 * &gt;2.0.0: レガシーライブラリへの依存関係のサポートを削除。そのような依存関係を使用するとビルドが失敗する可能性があります
 
-### 階層構造サポートのための非推奨の Gradle プロパティ
+### 階層構造サポートのための非推奨の Gradle プロパティ {id="deprecated-gradle-properties-for-hierarchical-structure-support"}
 
 **何が変更されましたか？**
 
@@ -314,7 +314,7 @@ Kotlin 1.6.20 以降、Kotlin ツールチェーンのデフォルトの動作�
 
 これらのプロパティを削除した後に万が一問題が発生した場合は、[YouTrack で課題](https://kotl.in/issue)を作成してください。
 
-### ターゲットプリセット API の非推奨
+### ターゲットプリセット API の非推奨 {id="deprecated-target-presets-api"}
 
 **何が変更されましたか？**
 
@@ -357,7 +357,7 @@ Kotlin 1.6.20 以降、Kotlin ツールチェーンのデフォルトの動作�
 * 2.0.0: この警告をエラーに引き上げ
 * 2.2.0: Kotlin Gradle プラグインのパブリック API からプリセット関連 API を削除。これらを引き続き使用しているソースはビルドスクリプトのコンパイル中に "unresolved reference"（未解決の参照）エラーで失敗し、バイナリ（例：Gradle プラグイン）は、最新バージョンの Kotlin Gradle プラグインに対して再コンパイルされない限り、リンケージエラーで失敗する可能性があります。
 
-### Apple ターゲットのショートカットの非推奨
+### Apple ターゲットのショートカットの非推奨 {id="deprecated-apple-target-shortcuts"}
 
 **何が変更されましたか？**
 
@@ -383,7 +383,7 @@ Kotlin Gradle プラグインは現在、組み込みの階層テンプレート
 * 2.1.0: ターゲットショートカットが使用された場合にエラーを報告
 * 2.2.0: Kotlin Multiplatform Gradle プラグインからターゲットショートカット DSL を削除
 
-### Kotlin アップグレード後の iOS フレームワークのバージョンが正しくない問題
+### Kotlin アップグレード後の iOS フレームワークのバージョンが正しくない問題 {id="incorrect-version-of-ios-framework-after-kotlin-upgrade"}
 
 **何が問題ですか？**
 
@@ -408,11 +408,11 @@ Kotlin Gradle プラグインは現在、組み込みの階層テンプレート
 
 詳細については、[YouTrack の対応する課題](https://youtrack.jetbrains.com/issue/KT-68257)を参照してください。
 
-## Kotlin 1.9.0−1.9.25
+## Kotlin 1.9.0−1.9.25 {id="kotlin-1-9-0-1-9-25"}
 
 このセクションでは、非推奨サイクルが終了し、Kotlin 1.9.0−1.9.25 で有効になる互換性のない変更について説明します。
 
-### Kotlin コンパイルに Kotlin ソースセットを直接追加するための API の削除 {initial-collapse-state="collapsed" collapsible="true"}
+### Kotlin コンパイルに Kotlin ソースセットを直接追加するための API の削除 {initial-collapse-state="collapsed" collapsible="true" id="removed-api-for-adding-kotlin-source-sets-directly-to-the-kotlin-compilation"}
 
 **何が変更されましたか？**
 
@@ -483,7 +483,7 @@ kotlin {
 * 1.9.20: この警告をエラーに引き上げ
 * 2.3.0: Kotlin Gradle プラグインから `KotlinCompilation.source` を削除。これを使用しようとすると、ビルドスクリプトのコンパイル中に "unresolved reference" エラーが発生します
 
-### `kotlin-js` Gradle プラグインから `kotlin-multiplatform` Gradle プラグインへの移行 {initial-collapse-state="collapsed" collapsible="true"}
+### `kotlin-js` Gradle プラグインから `kotlin-multiplatform` Gradle プラグインへの移行 {initial-collapse-state="collapsed" collapsible="true" id="migration-from-kotlin-js-gradle-plugin-to-kotlin-multiplatform-gradle-plugin"}
 
 **何が変更されましたか？**
 
@@ -608,7 +608,7 @@ Kotlin 1.9.0 以降、`kotlin-js` Gradle プラグインは非推奨になりま
 * 1.9.0: `kotlin-js` プラグインを使用すると非推奨の警告を表示
 * 2.4.0: [この警告をエラーに引き上げ](https://youtrack.jetbrains.com/issue/KT-59305)
 
-### `jvmWithJava` プリセットの非推奨 {initial-collapse-state="collapsed" collapsible="true"}
+### `jvmWithJava` プリセットの非推奨 {initial-collapse-state="collapsed" collapsible="true" id="deprecated-jvmwithjava-preset"}
 
 **何が変更されましたか？**
 
@@ -637,7 +637,7 @@ Kotlin 1.9.0 以降、`kotlin-js` Gradle プラグインは非推奨になりま
 >
 {style="note"}
 
-### レガシーな Android ソースセットレイアウトの非推奨 {initial-collapse-state="collapsed" collapsible="true"}
+### レガシーな Android ソースセットレイアウトの非推奨 {initial-collapse-state="collapsed" collapsible="true" id="deprecated-legacy-android-source-set-layout"}
 
 **何が変更されましたか？**
 
@@ -651,7 +651,7 @@ Kotlin 1.9.0 以降、[新しい Android ソースセットレイアウト](mult
 * 1.9.20: この警告をエラーに引き上げ。このエラーは抑制**できません**
 * 2.4.0: レガシーな Android ソースセットレイアウトのサポートを削除し、[`kotlin.mpp.androidSourceSetLayoutVersion=1` Gradle プロパティを削除](https://youtrack.jetbrains.com/issue/KT-82265)
 
-### カスタム `dependsOn` を使用した `commonMain` および `commonTest` の非推奨 {initial-collapse-state="collapsed" collapsible="true"}
+### カスタム `dependsOn` を使用した `commonMain` および `commonTest` の非推奨 {initial-collapse-state="collapsed" collapsible="true" id="deprecated-commonmain-and-commontest-with-custom-dependson"}
 
 **何が変更されましたか？**
 
@@ -680,7 +680,7 @@ Kotlin 1.9.0 以降、[新しい Android ソースセットレイアウト](mult
 * 1.9.0: `commonMain` で `dependsOn` が使用された場合に警告を報告
 * &gt;=1.9.20: `commonMain` または `commonTest` で `dependsOn` が使用された場合にエラーを報告
 
-### 前方宣言への新しいアプローチ {initial-collapse-state="collapsed" collapsible="true"}
+### 前方宣言への新しいアプローチ {initial-collapse-state="collapsed" collapsible="true" id="new-approach-to-forward-declarations"}
 
 **何が変更されましたか？**
 
@@ -738,11 +738,11 @@ JetBrains チームは、Kotlin における前方宣言（forward declarations�
 
 Kotlin 1.9.20 以降、対応する C および Objective-C の前方宣言との間で明示的にキャストを行う必要があります。また、特別なパッケージを使用することによってのみ前方宣言をインポートできるようになりました。
 
-## Kotlin 1.7.0−1.8.22
+## Kotlin 1.7.0−1.8.22 {id="kotlin-1-7-0-1-8-22"}
 
 このセクションでは、非推奨サイクルが終了し、Kotlin 1.7.0−1.8.22 で有効になる互換性のない変更について説明します。
 
-### Kotlin Multiplatform Gradle プラグインと Gradle Java プラグインの非推奨の互換性 {initial-collapse-state="collapsed" collapsible="true"}
+### Kotlin Multiplatform Gradle プラグインと Gradle Java プラグインの非推奨の互換性 {initial-collapse-state="collapsed" collapsible="true" id="deprecated-compatibility-with-kotlin-multiplatform-gradle-plugin-and-gradle-java-plugins"}
 
 **何が変更されましたか？**
 
@@ -838,7 +838,7 @@ dependencies {
 
 これで、親プロジェクトで両方のプラグインを使用する準備が整いました。
 
-### 自動生成されたターゲットへの新しいアプローチ {initial-collapse-state="collapsed" collapsible="true"}
+### 自動生成されたターゲットへの新しいアプローチ {initial-collapse-state="collapsed" collapsible="true" id="new-approach-to-auto-generated-targets"}
 
 **何が変更されましたか？**
 
@@ -873,7 +873,7 @@ Kotlin 1.7.20 では、`kotlin.targets {}` ブロックでターゲットアク�
 
 詳細については、[YouTrack の対応する課題](https://youtrack.jetbrains.com/issue/KT-47047) を参照してください。
 
-### Gradle のコンパイルタスクの入力と出力における変更 {initial-collapse-state="collapsed" collapsible="true"}
+### Gradle のコンパイルタスクの入力と出力における変更 {initial-collapse-state="collapsed" collapsible="true" id="changes-in-gradle-input-and-output-compile-tasks"}
 
 **何が変更されましたか？**
 
@@ -896,7 +896,7 @@ Kotlin 1.7.20 では、入力が利用できなくなり、出力が置き換え
 
 詳細については、[YouTrack の対応する課題](https://youtrack.jetbrains.com/issue/KT-32805) を参照してください。
 
-### コンパイルに対する依存関係の新しい構成名 {initial-collapse-state="collapsed" collapsible="true"}
+### コンパイルに対する依存関係の新しい構成名 {initial-collapse-state="collapsed" collapsible="true" id="new-configuration-names-for-dependencies-on-the-compilation"}
 
 **何が変更されましたか？**
 

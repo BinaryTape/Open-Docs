@@ -8,7 +8,7 @@ KSP는 증분 처리(incremental processing)를 지원합니다. KSP는 하나 �
 ksp.incremental=false
 ```
 
-## 수정된(dirty) 파일
+## 수정된(dirty) 파일 {id="dirty-files"}
 
 개발자가 직접 수정했거나 다른 수정된 파일의 변경으로 인해 간접적으로 영향을 받은 파일은 _수정된(dirty)_ (재처리가 필요한) 파일로 간주됩니다.
 
@@ -31,7 +31,7 @@ KSP는 최소한의 루트 소스(root sources) 세트만 요구합니다. 프�
 >
 {style="tip"}
 
-### 집계형(Aggregating) 및 격리형(Isolating) 출력
+### 집계형(Aggregating) 및 격리형(Isolating) 출력 {id="aggregating-and-isolating-outputs"}
 
 KSP는 생성된 출력을 집계형과 격리형의 두 가지 유형으로 분류합니다.
 
@@ -60,7 +60,7 @@ KSP는 생성된 출력을 집계형과 격리형의 두 가지 유형으로 분
 </def>
 </deflist>
 
-### 수정 상태 전파(Dirtiness propagation)
+### 수정 상태 전파(Dirtiness propagation) {id="dirtiness-propagation"}
 
 KSP는 다음과 같은 방식으로 수정 상태를 전파합니다:
 
@@ -72,7 +72,7 @@ KSP는 다음과 같은 방식으로 수정 상태를 전파합니다:
 >
 {style="tip"}
 
-## 구현 방식
+## 구현 방식 {id="implementation"}
 
 의존성은 입력 파일과 출력 파일 간의 다대다(many-to-many) 관계에 의해 결정됩니다.
 
@@ -126,7 +126,7 @@ KSP가 재처리해야 할 파일을 결정하는 방식은 다음과 같습니�
 
 `sourceA` 또는 `sourceB`가 삭제될 때, KSP는 어떤 파일도 재처리할 필요가 없습니다.
 
-## 예제 프로세서
+## 예제 프로세서 {id="example-processor"}
 
 다음 프로젝트에는 `A`가 `B`를 상속하는 클래스 `A`와 `B`가 포함되어 있습니다.
 
@@ -165,7 +165,7 @@ class Example1Processor : SymbolProcessor {
 
 KSP는 해석 추적을 통해 이 관계를 추적하고 `B`를 `A`의 의존성으로 자동으로 기록합니다. 따라서 `outputForA`의 의존성으로 `B.kt`를 명시적으로 선언할 필요가 없습니다.
 
-## 버그 보고
+## 버그 보고 {id="reporting-bugs"}
 
 증분 처리가 활성화된 경우에만 발생하는 오류가 발견되면 [GitHub 저장소](https://github.com/google/ksp/issues)에 이슈를 생성하고 관련 로그 파일을 붙여해 주세요.
 
@@ -186,7 +186,7 @@ KSP는 해석 추적을 통해 이 관계를 추적하고 `B`를 `A`의 의존�
 
 5. 성공한 빌드와 이슈가 재현된 빌드의 로그 파일을 모두 GitHub 이슈에 첨부합니다.
 
-### 심볼 의존성 그래프 시각화하기
+### 심볼 의존성 그래프 시각화하기 {id="visualizing-the-symbol-dependency-graph"}
 
 증분 처리 디버깅을 돕기 위해, KSP는 지정된 심볼부터 시작하는 심볼 의존성 그래프를 시각화하는 Graphviz DOT 파일을 생성할 수 있습니다.
 

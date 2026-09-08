@@ -13,7 +13,7 @@
 
 欢迎阅读 Kotlin 路线图！在这里您可以预览 JetBrains 团队的工作重点。
 
-## 关键优先级
+## 关键优先级 {id="key-priorities"}
 
 路线图的目标是为您提供宏观视图。
 以下是我们关键关注领域的列表——也是我们致力于交付的最重要的方向：
@@ -23,7 +23,7 @@
 * **保持平台中立**：无论开发者使用何种工具或目标，都为其提供支持。
 * **第三方生态系统作者的体验**：简化 Kotlin 库、工具和框架的开发与发布流程。
 
-## Kotlin 分子系统路线图
+## Kotlin 分子系统路线图 {id="kotlin-roadmap-by-subsystem"}
 
 <!-- To view the biggest projects we're working on, see the [Roadmap details](#roadmap-details) table. -->
 
@@ -129,9 +129,9 @@ Visit the [roadmap board in our issue tracker YouTrack](https://youtrack.jetbrai
 > 
 {style="note"}
 
-## 自 2026 年 2 月以来的变化
+## 自 2026 年 2 月以来的变化 {id="what-s-changed-since-february-2026"}
 
-### 已完成项
+### 已完成项 {id="completed-items"}
 
 我们已**完成**上一个路线图中的以下项目：
 
@@ -147,7 +147,7 @@ Visit the [roadmap board in our issue tracker YouTrack](https://youtrack.jetbrai
 * ✅ 生态系统：[为标准库的安全修复引入 18 个月的支持窗口](https://youtrack.jetbrains.com/issue/KT-83525)
 * ✅ 生态系统：[为 Exposed 创建一个迁移 Gradle 插件](https://youtrack.jetbrains.com/issue/EXPOSED-755)
 
-### 新增项
+### 新增项 {id="new-items"}
 
 我们在路线图中**添加**了以下项目：
 
@@ -163,7 +163,7 @@ Visit the [roadmap board in our issue tracker YouTrack](https://youtrack.jetbrai
 * 🆕 工具：[Kotlin 工具链：Kotlin 的单一入口点](https://youtrack.jetbrains.com/issue/KTC-5718)
 * 🆕 生态系统：[为 Kotlin 标准库类型实现一等 JPA/Hibernate 支持](https://youtrack.jetbrains.com/issue/KT-88665)
 
-### 移除项
+### 移除项 {id="removed-items"}
 
 我们从路线图中**移除**了以下项目：
 

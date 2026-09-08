@@ -15,7 +15,7 @@
 이런 경우에도 요소들은 어떠한 방식으로든 정렬되어 있으므로, 요소의 위치에 의존하는 함수는 여전히 결과를 반환합니다.
 단, 사용된 `Set`의 구체적인 구현을 알지 못하는 한 호출자 입장에서 이러한 결과는 예측할 수 없습니다.
 
-## 위치로 추출
+## 위치로 추출 {id="retrieve-by-position"}
 
 특정 위치의 요소를 추출하려면 [`elementAt()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/element-at.html) 함수를 사용합니다.
 정수 값을 인자로 전달하여 호출하면 해당 위치의 컬렉션 요소를 반환합니다.
@@ -70,7 +70,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 조건으로 추출
+## 조건으로 추출 {id="retrieve-by-condition"}
 
 [`first()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/first.html)와 [`last()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/last.html) 함수를 사용하면 주어진 서술어(predicate)와 일치하는 요소를 컬렉션에서 검색할 수도 있습니다.
 컬렉션 요소를 검사하는 서술어와 함께 `first()`를 호출하면, 서술어가 `true`를 반환하는 첫 번째 요소를 얻게 됩니다.
@@ -119,7 +119,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 선택자로 추출
+## 선택자로 추출 {id="retrieve-with-selector"}
 
 요소를 추출하기 전에 컬렉션을 매핑해야 한다면 [`firstNotNullOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/first-not-null-of.html) 함수가 있습니다.
 이 함수는 다음 두 가지 작업을 결합합니다.
@@ -141,7 +141,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.5"}
 
-## 무작위 요소
+## 무작위 요소 {id="random-element"}
 
 컬렉션의 임의의 요소를 추출해야 한다면 [`random()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/random.html) 함수를 호출하세요.
 인자 없이 호출하거나 난수 생성 소스로 [`Random`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.random/-random/index.html) 객체를 전달하여 호출할 수 있습니다.
@@ -159,7 +159,7 @@ fun main() {
 
 비어 있는 컬렉션에서 `random()`은 예외를 던집니다. 대신 `null`을 받으려면 [`randomOrNull()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/random-or-null.html)을 사용하세요.
 
-## 요소 존재 여부 확인
+## 요소 존재 여부 확인 {id="check-element-existence"}
 
 컬렉션에 특정 요소가 포함되어 있는지 확인하려면 [`contains()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/contains.html) 함수를 사용하세요.
 함수 인자와 `equals()` 결과가 같은 컬렉션 요소가 있으면 `true`를 반환합니다.

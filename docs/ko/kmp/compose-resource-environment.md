@@ -7,7 +7,7 @@
 * [테마(Theme)](#theme)
 * [해상도 밀도(Density)](#density)
 
-## 로캘(Locale)
+## 로캘(Locale) {id="locale"}
 
 각 플랫폼은 언어 및 지역과 같은 로캘 설정을 서로 다르게 처리합니다. 공통 퍼블릭 API가 구현될 때까지의 임시 해결책으로, 공통 코드에 공통 진입점을 정의해야 합니다. 그런 다음 플랫폼별 API를 사용하여 각 플랫폼에 해당하는 선언을 제공합니다:
 
@@ -166,7 +166,7 @@
     </html>
     ```  
 
-## 테마(Theme) 
+## 테마(Theme) {id="theme"}
 
 Compose Multiplatform은 `isSystemInDarkTheme()`을 통해 현재 테마를 정의합니다. 테마는 플랫폼마다 다르게 처리됩니다:
 
@@ -273,7 +273,7 @@ fun AppEnvironment(content: @Composable () -> Unit) {
 }
 ```
 
-## 다음 단계는?
+## 다음 단계는? {id="what-s-next"}
 
 * [리소스 한정자(qualifiers)](compose-multiplatform-resources-setup.md#qualifiers)에 대해 더 자세히 알아보세요.
 * [리소스 지역화(localize)](compose-localize-strings.md) 방법을 알아보세요.

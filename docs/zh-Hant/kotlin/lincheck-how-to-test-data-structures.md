@@ -66,7 +66,7 @@ class Counter {
     | -------------------- |
     ```
 
-## 測試過程
+## 測試過程 {id="the-testing-process"}
 
 在測試資料結構時，Lincheck 會產生一份執行場景列表，執行它們並分析結果。
 
@@ -92,7 +92,7 @@ class Counter {
 
    在此步驟中，如果提供了[驗證函式](lincheck-results-validation.md)，Lincheck 也可以驗證該結構。
 
-## 範例：測試 Treiber 堆疊結構的實作
+## 範例：測試 Treiber 堆疊結構的實作 {id="example-test-an-implementation-of-a-treiber-stack-structure"}
 
 考慮這個 *不正確* 的 [Treiber 堆疊](https://en.wikipedia.org/wiki/Treiber_stack) 實作：
 
@@ -215,11 +215,11 @@ class TreiberStack<E> {
    }
    ```
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 了解 Lincheck 中可用的[測試策略](lincheck-testing-strategies.md)。
 
-## 延伸閱讀
+## 延伸閱讀 {id="see-also"}
 
 * [產生操作引數](lincheck-argument-generation-constraints.md)
 * [配置操作執行選項](lincheck-operation-execution-options.md)

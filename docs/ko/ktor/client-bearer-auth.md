@@ -41,7 +41,7 @@ val client = HttpClient(CIO) {
 }
 ```
 
-### 토큰 로드
+### 토큰 로드 {id="load-tokens"}
 
 `loadTokens {}` 콜백을 사용하여 초기 액세스 및 리프레시 토큰을 제공합니다. 일반적으로 이 콜백은 로컬 저장소에서 캐시된 토큰을 로드하고 이를 `BearerTokens` 인스턴스로 반환합니다.
 
@@ -63,7 +63,7 @@ GET http://localhost:8080/
 Authorization: Bearer abc123
 ```
 
-### 토큰 갱신
+### 토큰 갱신 {id="refresh-tokens"}
 
 `refreshTokens {}` 콜백을 사용하여 현재 액세스 토큰이 유효하지 않게 되었을 때 클라이언트가 새 토큰을 얻는 방법을 정의합니다.
 
@@ -93,7 +93,7 @@ install(Auth) {
 >
 {style="tip"}
 
-### 401을 기다리지 않고 자격 증명 보내기
+### 401을 기다리지 않고 자격 증명 보내기 {id="send-credentials-without-waiting-for-401"}
 
 기본적으로 클라이언트는 `401 Unauthorized` 응답을 받은 후에만 자격 증명을 보냅니다.
 
@@ -112,7 +112,7 @@ install(Auth) {
 }
 ```
 
-### 토큰 캐싱
+### 토큰 캐싱 {id="cache-tokens"}
 
 `cacheTokens` 속성을 사용하여 요청 간에 Bearer 토큰을 캐싱할지 여부를 제어합니다.
 

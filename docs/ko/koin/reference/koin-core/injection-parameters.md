@@ -4,7 +4,7 @@ title: 매개변수 전달 - 주입된 매개변수 (Injected Parameters)
 
 모든 정의에서 주입 매개변수(injection parameters)를 사용할 수 있습니다. 이 매개변수들은 정의에 주입되어 사용됩니다.
 
-## 주입할 값 전달하기
+## 주입할 값 전달하기 {id="passing-values-to-inject"}
 
 정의가 주어졌을 때, 해당 정의로 매개변수를 전달할 수 있습니다:
 
@@ -29,7 +29,7 @@ class MyComponent : View, KoinComponent {
 }
 ```
 
-## "주입된 매개변수" 정의하기
+## "주입된 매개변수" 정의하기 {id="defining-an-injected-parameter"}
 
 다음은 주입 매개변수의 예시입니다. `Presenter` 클래스를 생성하기 위해 `view` 매개변수가 필요하다고 가정해 봅시다. 주입된 매개변수를 가져오기 위해 `params` 함수 인자를 사용합니다:
 
@@ -55,7 +55,7 @@ val myModule = module {
  "구조 분해" 선언이 더 편리하고 가독성이 좋더라도, 타입 안전(type safe)하지는 않습니다. 여러 개의 값이 있는 경우 Kotlin은 전달된 타입의 순서가 올바른지 감지하지 못합니다.
 :::
 
-## 순서대로 주입된 매개변수 해결하기
+## 순서대로 주입된 매개변수 해결하기 {id="resolving-injected-parameters-in-order"}
 
 매개변수를 해결하기 위해 `get()`을 사용하는 대신, 동일한 타입의 매개변수가 여러 개 있는 경우 다음과 같이 인덱스 `get(index)`를 사용할 수 있습니다 (`[ ]` 연산자와 동일합니다):
 
@@ -68,7 +68,7 @@ val myModule = module {
 }
 ```
 
-## 그래프에서 주입된 매개변수 해결하기
+## 그래프에서 주입된 매개변수 해결하기 {id="resolving-injected-parameters-from-graph"}
 
 Koin 그래프 해결(모든 정의에 대한 주요 해결 트리)을 통해서도 주입된 매개변수를 찾을 수 있습니다. 평소처럼 `get()` 함수를 사용하면 됩니다:
 
@@ -80,7 +80,7 @@ val myModule = module {
 }
 ```
 
-## 주입된 매개변수: 인덱스 값 또는 집합 (`3.4.3`)
+## 주입된 매개변수: 인덱스 값 또는 집합 (`3.4.3`) {id="injected-parameters-indexed-values-or-set-3-4-3"}
 
 `parametersOf` 외에도 다음과 같은 API를 사용할 수 있습니다:
 

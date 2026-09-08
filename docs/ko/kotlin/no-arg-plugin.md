@@ -6,7 +6,7 @@
 
 이를 통해 Java Persistence API(JPA)는 Kotlin이나 Java 관점에서 인자가 없는 생성자가 없더라도 클래스의 인스턴스를 생성할 수 있게 됩니다([아래](#jpa-support)의 `kotlin-jpa` 플러그인 설명 참조).
 
-## Kotlin 파일에서
+## Kotlin 파일에서 {id="in-your-kotlin-file"}
 
 인자가 없는 생성자가 필요한 코드를 표시하기 위해 새로운 어노테이션을 추가하세요:
 
@@ -16,7 +16,7 @@ package com.my
 annotation class Annotation
 ```
 
-## Gradle
+## Gradle {id="gradle"}
 
 Gradle의 플러그인 DSL을 사용하여 플러그인을 추가하세요:
 
@@ -57,7 +57,7 @@ noArg {
 }
 ```
 
-## Maven
+## Maven {id="maven"}
 
 ```xml
 <plugin>
@@ -88,7 +88,7 @@ noArg {
 </plugin>
 ```
 
-## JPA 지원
+## JPA 지원 {id="jpa-support"}
 
 `all-open` 위에 래핑된 `kotlin-spring` 플러그인과 마찬가지로, `kotlin-jpa`는 `no-arg` 위에 래핑됩니다. 이 플러그인은 [`@Entity`](https://docs.oracle.com/javaee/7/api/javax/persistence/Entity.html), [`@Embeddable`](https://docs.oracle.com/javaee/7/api/javax/persistence/Embeddable.html), [`@MappedSuperclass`](https://docs.oracle.com/javaee/7/api/javax/persistence/MappedSuperclass.html) *no-arg* 어노테이션을 자동으로 지정합니다.
 
@@ -123,7 +123,7 @@ Maven에서는 `jpa` 플러그인을 활성화하세요:
 </compilerPlugins>
 ```
 
-## 명령줄 컴파일러
+## 명령줄 컴파일러 {id="command-line-compiler"}
 
 컴파일러 플러그인 클래스패스에 플러그인 JAR 파일을 추가하고 어노테이션이나 프리셋을 지정하세요:
 

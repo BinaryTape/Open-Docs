@@ -11,7 +11,7 @@
 * [为团队关于多平台开发的问题做好准备](#prepare-for-questions-about-multiplatform-development-from-your-team)
 * [在适应期为您的团队提供支持](#support-your-team-during-the-adaptation-period)
 
-## 从同理心开始
+## 从同理心开始 {id="start-with-empathy"}
 
 软件开发是一项团队运动，每一个关键决策都需要得到所有团队成员的认可。集成任何跨平台技术都会显著影响移动应用程序的开发过程。因此，在开始将 Kotlin Multiplatform 集成到项目中之前，您需要向团队介绍这项技术，并引导他们逐渐意识到其采用价值。
 
@@ -19,7 +19,7 @@
 
 考虑到这一切，在倡导迁移到 Kotlin Multiplatform 时，请准备好面对许多偏见并回答大量问题。在此过程中，切勿忽视团队的需求。以下一些建议可能有助于您准备推介方案。
 
-## 解释 Kotlin Multiplatform 的工作原理
+## 解释 Kotlin Multiplatform 的工作原理 {id="explain-how-kotlin-multiplatform-works"}
 
 在此阶段，您需要展示使用 Kotlin Multiplatform 能为项目带来价值，并消除团队可能对跨平台移动应用持有的任何偏见和疑虑。
 
@@ -31,7 +31,7 @@
 
 能够解释技术*如何*工作至关重要，因为没有人喜欢听起来像是在靠“魔法”运作的讨论。如果某些事情不清楚，人们可能会产生最坏的打算，因此请务必注意，不要误以为某些事情显而易见而无需解释。相反，请尝试在进入下一阶段之前解释所有基本概念。这篇关于[多平台编程](get-started.topic)的文档可以帮助您系统化知识，为这次经历做好准备。
 
-## 使用案例研究展示多平台开发的价值
+## 使用案例研究展示多平台开发的价值 {id="use-case-studies-to-demonstrate-the-value-of-multiplatform-development"}
 
 理解多平台技术的工作原理是必要的，但这还不够。您的团队需要看到使用它的收益，并且您展示这些收益的方式应该与您的产品相关。
 
@@ -46,7 +46,7 @@
 
 [![从 Kotlin Multiplatform 成功案例中学习](kmp-success-stories.svg){width="700"}](https://www.jetbrains.com/help/kotlin-multiplatform-dev/case-studies.html)
 
-## 通过创建示例项目提供证明
+## 通过创建示例项目提供证明 {id="offer-proof-by-creating-a-sample-project"}
 
 理论虽好，但付诸实践终究是最重要的。为了让您的案例更具说服力并展示多平台移动应用开发的潜力，您可以投入一些时间使用 Kotlin Multiplatform 创建一些东西，然后将结果带给团队讨论。您的原型可以是一个测试项目，您可以从头开始编写，并演示应用中所需的功能。
 [使用 Ktor 和 SQLDelight 创建多平台应用 – 教程](multiplatform-ktor-sqldelight.md)将很好地指导您完成这一过程。
@@ -57,11 +57,11 @@
 从积压工作 (backlog) 底部选取一个非优先级功能，并在共享模块中实现它。
 [使您的 Android 应用程序在 iOS 上运行 – 教程](multiplatform-integrate-in-existing-app.md)提供了一个基于示例项目的分步指南。
 
-## 为团队关于多平台开发的问题做好准备
+## 为团队关于多平台开发的问题做好准备 {id="prepare-for-questions-about-multiplatform-development-from-your-team"}
 
 无论您的推介方案多么详尽，团队都会有很多问题。请仔细倾听并耐心回答。您可以预料到大多数问题将来自 iOS 团队，因为他们是不习惯在日常开发流程中看到 Kotlin 的开发者。以下是一些最常见问题的列表，可能会对您有所帮助：
 
-### 问：我听说基于跨平台技术的应用可能会被 App Store 拒绝。冒这个风险值得吗？
+### 问：我听说基于跨平台技术的应用可能会被 App Store 拒绝。冒这个风险值得吗？ {id="q-i-heard-applications-based-on-cross-platform-technologies-can-be-rejected-from-the-app-store-is-taking-this-risk-worth-it"}
 
 答：Apple Store 对发布应用有严格的指南。其中一项限制是应用不得下载、安装或执行引入或更改应用任何功能或特性的代码（[App Store 审核指南 2.5.2](https://developer.apple.com/app-store/review/guidelines/#software-requirements)）。这与某些跨平台技术有关，但与 Kotlin Multiplatform 无关。共享的 Kotlin 代码通过 Kotlin/Native 编译为原生二进制文件，将常规的 iOS 框架捆绑到您的应用中，并且不提供动态执行代码的能力。
 
@@ -73,7 +73,7 @@
 
 2023 年底，JetBrains 推出了 [Amper](https://blog.jetbrains.com/blog/2023/11/09/amper-improving-the-build-tooling-user-experience/)，这是一种专注于易用性、入门引导和 IDE 支持的全新实验性项目配置工具。要深入了解 Amper 的功能，请查看其[教程](kotlin-toolchain.md)。
 
-### 问：Kotlin Multiplatform 准备好用于生产环境了吗？
+### 问：Kotlin Multiplatform 准备好用于生产环境了吗？ {id="q-is-kotlin-multiplatform-production-ready"}
 
 答：在 2023 年 11 月，我们宣布 Kotlin Multiplatform 现已进入[稳定状态 (Stable)](https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/)，这意味着它现在已完全准备好供您在生产环境中使用。
 
@@ -87,7 +87,7 @@
 
 您的团队对多平台移动开发研究得越深，他们的问题就会越有趣且越复杂。如果您没有答案，请不要担心 —— Kotlin Multiplatform 在 Kotlin Slack 中有一个庞大且提供支持的社区，其中设有专门的 [#multiplatform](https://slack-chats.kotlinlang.org/c/multiplatform) 频道，许多已经在使用它的开发者可以为您提供帮助。如果您能[与我们分享](mailto:kotlin.multiplatform.feedback@kotlinlang.org)您团队提出的最热门问题，我们将不胜感激。这些信息将帮助我们了解文档中需要涵盖的主题。
 
-## 在适应期为您的团队提供支持
+## 在适应期为您的团队提供支持 {id="support-your-team-during-the-adaptation-period"}
 
 在您决定使用 Kotlin Multiplatform 之后，当您的团队尝试该技术时，会有一个适应期。您的使命尚未结束！通过为队友提供持续支持，您将缩短团队深入研究该技术并取得初步成果所需的时间。
 

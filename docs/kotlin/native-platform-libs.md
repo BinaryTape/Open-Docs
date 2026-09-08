@@ -6,7 +6,7 @@
 
 然而，编译器分发版中的平台库仅仅是原生库的包装器和绑定。这意味着您需要在本地计算机上安装原生库本身（`.so`、`.a`、`.dylib`、`.dll` 等）。
 
-## POSIX 绑定
+## POSIX 绑定 {id="posix-bindings"}
 
 Kotlin 为所有基于 UNIX 和 Windows 的目标（包括 Android 和 iOS）提供 POSIX 平台库。
 这些平台库包含对遵循 [POSIX 标准](https://en.wikipedia.org/wiki/POSIX) 的平台实现的绑定。
@@ -33,7 +33,7 @@ import platform.posix.*
 
 POSIX 平台库不适用于 [WebAssembly](wasm-overview.md) 目标。
 
-## 流行原生库
+## 流行原生库 {id="popular-native-libraries"}
 
 Kotlin/Native 为不同平台上常用的各种流行原生库提供绑定，例如 OpenGL、zlib 和 Foundation。
 
@@ -76,6 +76,6 @@ Kotlin/Native 为不同平台上常用的各种流行原生库提供绑定，例
 > 
 {style="tip"}
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 [详细了解与 Swift/Objective-C 的互操作性](native-objc-interop.md)

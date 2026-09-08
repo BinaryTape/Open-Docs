@@ -7,7 +7,7 @@ Koogは、オブザーバビリティデータのオープン標準である[Ope
 
 ---
 
-## セットアップ手順
+## セットアップ手順 {id="setup-instructions"}
 
 1. [https://www.datadoghq.com/](https://www.datadoghq.com/) でDatadogアカウントを作成します。
 
@@ -33,11 +33,11 @@ export DD_SITE="datadoghq.eu"
 
 <!--- KNIT example-datadog-exporter-01.txt -->
 
-## 設定
+## 設定 {id="configuration"}
 
 Datadogへのエクスポートを有効にするには、**OpenTelemetry機能**をインストールし、[`addDatadogExporter()`](api:agents-features-opentelemetry::ai.koog.agents.features.opentelemetry.integration.datadog.addDatadogExporter) を呼び出します。
 
-### 基本的な例
+### 基本的な例 {id="basic-example"}
 
 === "Kotlin"
 
@@ -107,7 +107,7 @@ See traces in Datadog LLM Observability");
     ```
     <!--- KNIT exampleDatadogExporterJava01.java -->
 
-## リソース属性
+## リソース属性 {id="trace-attributes"}
 
 KoogがエージェントのアクティビティをDatadogに送信する際、それは一連の「スパン（span）」として行われます。スパンは、LLMの呼び出しやツールの実行といった個々の作業記録です。関連するスパンは「トレース（trace）」にグループ化され、これは開始から終了までの完全なエージェントの実行を表します。
 
@@ -119,7 +119,7 @@ KoogがエージェントのアクティビティをDatadogに送信する際、
 - **service.name**: サービスまたはアプリケーションの名前
 - **version**: アプリケーションのバージョン。デプロイをまたいだ動作の比較に役立ちます。
 
-### リソース属性を使用した例
+### リソース属性を使用した例 {id="example-with-trace-attributes"}
 
 === "Kotlin"
 
@@ -198,7 +198,7 @@ KoogがエージェントのアクティビティをDatadogに送信する際、
     !!! note
         Javaから `resourceAttributes` を設定することは現在サポートされていません。これは、基盤となるKotlin関数が [`kotlin.time.Duration`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-duration/) パラメータ（valueクラス）を保持しており、それ以降のパラメータを含むすべてのオーバーロードにおいてJVM名のマングリング（mangling）を引き起こすためです。`resourceAttributes` が必要な場合は、上記のKotlinの例を使用してください。
 
-## 複数のバックエンドへの送信
+## 複数のバックエンドへの送信 {id="sending-to-multiple-backends"}
 
 トレースをDatadogと別のバックエンドに同時に送信するには、[`addDatadogExporter()`](api:agents-features-opentelemetry::ai.koog.agents.features.opentelemetry.integration.datadog.addDatadogExporter) を通じてDatadogを登録し、[`addSpanExporter()`](api:agents-features-opentelemetry::ai.koog.agents.features.opentelemetry.feature.OpenTelemetryConfig.addSpanExporter) を通じて2つ目のエクスポーターを追加します。
 各呼び出しは独立したバッチスパンプロセッサを登録するため、2つのバックエンドは並行してエクスポートされます。
@@ -237,7 +237,7 @@ KoogがエージェントのアクティビティをDatadogに送信する際、
     ```
     <!--- KNIT example-datadog-exporter-03.kt -->
 
-## トレースの対象
+## トレースの対象 {id="what-gets-traced"}
 
 Datadogエクスポーターは、Koogの一般的なOpenTelemetry統合と同じアクティビティをキャプチャします。
 キャプチャされるスパンの全リスト、およびLLMのプロンプトとレスポンスの内容を含める方法については、[トレースの対象](index.md#what-gets-traced)を参照してください。
@@ -246,7 +246,7 @@ DatadogのOpenTelemetryサポートの詳細については、[Datadog OTLP API 
 
 ---
 
-## トラブルシューティング
+## トラブルシューティング {id="troubleshooting"}
 
 - **トレースが表示されない**: `DD_API_KEY` と `DD_SITE` が正しく設定されていることを確認してください（[セットアップ手順](#setup-instructions)を参照）。
 - **認証エラー**: [Organization Settings > API Keys](https://app.datadoghq.com/organization-settings/api-keys) で、キーがアクティブであることを確認してください。

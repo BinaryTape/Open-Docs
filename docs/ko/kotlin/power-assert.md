@@ -23,9 +23,9 @@ Power-assert 플러그인의 주요 기능:
 * **간소화된 테스트**: 유익한 실패 메시지를 자동으로 생성하여 복잡한 어서션 라이브러리의 필요성을 줄여줍니다.
 * **여러 함수 지원**: 기본적으로 `assert()` 함수 호출을 변환하지만, `require()`, `check()`, `assertTrue()`와 같은 다른 함수들도 변환할 수 있습니다.
 
-## 플러그인 적용하기
+## 플러그인 적용하기 {id="apply-the-plugin"}
 
-### Gradle
+### Gradle {id="gradle"}
 
 Power-assert 플러그인을 활성화하려면 `build.gradle(.kts)` 파일을 다음과 같이 설정하세요:
 
@@ -98,7 +98,7 @@ powerAssert {
 }
 ```
 
-### Maven
+### Maven {id="maven"}
 
 Maven 프로젝트에서 Power-assert 컴파일러 플러그인을 활성화하려면, `pom.xml` 파일의 `kotlin-maven-plugin` 설정 중 `<plugin>` 섹션을 업데이트하세요:
 
@@ -163,7 +163,7 @@ Maven 프로젝트에서 Power-assert 컴파일러 플러그인을 활성화하�
 </configuration>
 ```
 
-## Power-assert 플러그인 사용하기
+## Power-assert 플러그인 사용하기 {id="use-the-power-assert-plugin"}
 
 이 섹션에서는 Power-assert 컴파일러 플러그인을 사용하는 예제를 제공합니다.
 
@@ -364,7 +364,7 @@ powerAssert {
 </tab>
 </tabs>
 
-### `@PowerAssert` 어노테이션이 달린 함수
+### `@PowerAssert` 어노테이션이 달린 함수 {id="powerassert-annotated-functions"}
 
 함수에 `@PowerAssert` 어노테이션이 달려 있으면, Power-assert 플러그인이 해당 함수 호출을 자동으로 변환합니다. 빌드 구성에 함수를 별도로 등록할 필요가 없습니다.
 
@@ -402,7 +402,7 @@ check(subject.name == "Kodee")
       Mascot(name=Unknown)
 ```
 
-### assert 함수
+### assert 함수 {id="assert-function"}
 
 `assert()` 함수를 사용하는 다음 테스트를 살펴보세요:
 
@@ -482,7 +482,7 @@ assert(person.name.startsWith("A") && person.name.length > 3 && person.age > 20 
        Person(name=Alice, age=10)     Person(name=Alice, age=10)
 ```
 
-### assert 이외의 함수
+### assert 이외의 함수 {id="beyond-assert-function"}
 
 Power-assert 플러그인은 기본적으로 변환되는 `assert` 외에도 다양한 함수를 변환할 수 있습니다.
 `require()`, `check()`, `assertTrue()`, `assertEqual()` 등의 함수가 마지막 파라미터로 `String` 또는 `() -> String` 값을 가질 수 있는 형태라면 이들도 변환할 수 있습니다.
@@ -582,7 +582,7 @@ assert(exampleFunction(2, 3) + exampleFunction(1, 2) == 9)
 ```
 -->
 
-### 소프트 어서션
+### 소프트 어서션 {id="soft-assertions"}
 
 Power-assert 플러그인은 소프트 어서션(soft assertions)을 지원합니다. 소프트 어서션은 테스트를 즉시 실패 처리하지 않고, 대신 어서션 실패를 수집하여 테스트 실행이 끝날 때 보고합니다.
 이는 첫 번째 실패에서 멈추지 않고 한 번의 실행으로 모든 어서션 실패를 확인하고 싶을 때 유용합니다.
@@ -707,11 +707,11 @@ assert(employee.age < 100) { "${employee.name} has an invalid age: ${employee.ag
        Employee(name=Dave, age=150, salary=70000)
 ```
 
-## 라이브러리에 Power-assert 지원 추가하기
+## 라이브러리에 Power-assert 지원 추가하기 {id="add-support-for-power-assert-to-your-library"}
 
 라이브러리 작성자라면 Power-assert 런타임 라이브러리의 `@PowerAssert` 어노테이션과 `CallExplanation` 클래스를 사용하여 라이브러리에 Power-assert 기능을 즉시 지원하도록 추가할 수 있습니다.
 
-### `@PowerAssert` 어노테이션
+### `@PowerAssert` 어노테이션 {id="the-powerassert-annotation"}
 
 [`@PowerAssert` 어노테이션](https://github.com/JetBrains/kotlin/blob/master/plugins/power-assert/power-assert-runtime/src/commonMain/kotlin/kotlin/powerassert/PowerAssert.kt)은 해당 함수가 Power-assert 기능을 지원함을 나타냅니다. 라이브러리 사용자의 프로젝트에 Power-assert 컴파일러 플러그인이 적용되어 있고 어노테이션이 달린 함수를 호출하면, 별도의 빌드 구성 없이도 호출이 자동으로 변환됩니다.
 
@@ -777,7 +777,7 @@ assert(employee.age < 100) { "${employee.name} has an invalid age: ${employee.ag
 >
 {style="tip"}
 
-### `CallExplanation` 클래스
+### `CallExplanation` 클래스 {id="the-callexplanation-class"}
 
 [`CallExplanation`](https://github.com/JetBrains/kotlin/blob/master/plugins/power-assert/power-assert-runtime/src/commonMain/kotlin/kotlin/powerassert/CallExplanation.kt) 클래스는 중간 표현식 값을 포함하여 호출 지점(call site)에 대한 상세 정보를 제공합니다. 이를 통해 어서션 실패 시 메시지를 동적으로 렌더링하고 외부 도구와 더 잘 통합할 수 있습니다.
 
@@ -831,7 +831,7 @@ fun AssertScope<*>.require(condition: Boolean) {
 >
 {style="tip"}
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 다음 샘플 프로젝트들을 살펴보세요:
 

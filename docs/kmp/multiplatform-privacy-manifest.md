@@ -14,7 +14,7 @@ App Store Connect 可能会发出警告，提示该应用没有正确的隐私�
 >
 {style="tip"}
 
-## 问题是什么
+## 问题是什么 {id="what-s-the-issue"}
 
 Apple 对 App Store 提交的要求[在 2024 年春季发生了变化](https://developer.apple.com/news/?id=r1henawx)。
 [App Store Connect](https://appstoreconnect.apple.com) 不再接受未在其隐私清单中说明使用 required reason API 原因的应用。
@@ -24,7 +24,7 @@ Apple 对 App Store 提交的要求[在 2024 年春季发生了变化](https://d
 理想情况下，您应用使用的所有 SDK 都会提供自己的隐私清单，您无需担心。
 但如果您的某些依赖项没有这样做，您的 App Store 提交可能会被标记。
 
-## 如何解决
+## 如何解决 {id="how-to-resolve"}
 
 在您尝试提交应用并收到来自 App Store 的详细问题列表后，您可以按照 Apple 文档构建您的清单：
 
@@ -38,7 +38,7 @@ Apple 对 App Store 提交的要求[在 2024 年春季发生了变化](https://d
 
 如果新的隐私清单无法满足 App Store 的要求，或者您无法弄清楚如何执行这些步骤，请联系我们并在[此 YouTrack 问题](https://youtrack.jetbrains.com/issue/KT-67603)中分享您的案例。
 
-## 查找 required reason API 的用法
+## 查找 required reason API 的用法 {id="find-usages-of-required-reason-apis"}
 
 您应用中的 Kotlin 代码或其中一个依赖项可能会访问来自 `platform.posix` 等库的 required reason API，例如 `fstat`：
 
@@ -61,7 +61,7 @@ fun useRequiredReasonAPI() {
 
 您也可以单独[下载此脚本](https://github.com/JetBrains/kotlin/blob/rrf_v0.0.1/libraries/tools/required-reason-finder/required_reason_finder.py)，进行检查，然后使用 `python3` 运行它。
 
-## 将 .xcprivacy 文件放置在您的 Kotlin 构件中
+## 将 .xcprivacy 文件放置在您的 Kotlin 构件中 {id="place-the-xcprivacy-file-in-your-kotlin-artifacts"}
 
 如果您需要将 `PrivacyInfo.xcprivacy` 文件随 Kotlin 构件一起打包，请使用 `apple-privacy-manifests` 插件：
 
@@ -82,9 +82,9 @@ kotlin {
 
 该插件会将隐私清单文件复制到[相应的输出位置](https://developer.apple.com/documentation/bundleresources/adding-a-privacy-manifest-to-your-app-or-third-party-sdk?language=objc)。
 
-## 已知用法
+## 已知用法 {id="known-usages"}
 
-### Compose Multiplatform
+### Compose Multiplatform {id="compose-multiplatform"}
 
 使用 Compose Multiplatform 可能会导致您的二进制文件中出现 `fstat`、`stat` 和 `mach_absolute_time` 的用法。
 尽管这些函数不用于跟踪或指纹采集，也不会从设备发送，但 Apple 仍可能将其标记为缺少 required reason 的 API。 
@@ -93,7 +93,7 @@ kotlin {
 
 有关 Compose Multiplatform 中使用的 required reasons API 的进一步更新，请关注[此问题](https://github.com/JetBrains/compose-multiplatform/issues/4738)。
 
-### 1.9.10 或更早版本中的 Kotlin/Native 运行时
+### 1.9.10 或更早版本中的 Kotlin/Native 运行时 {id="kotlin-native-runtime-in-versions-1-9-10-or-earlier"}
 
 `mach_absolute_time` API 被用于 Kotlin/Native 运行时的 `mimalloc` 分配器中。这是 Kotlin 1.9.10 及更早版本中的默认分配器。
 

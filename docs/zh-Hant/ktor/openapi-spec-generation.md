@@ -33,7 +33,7 @@ Ktor 支援在執行時從一個或多個文件來源建置 OpenAPI 規格。
 >
 {style="note"}
 
-## 新增相依性
+## 新增相依性 {id="add-dependencies"}
 
 * 要啟用 OpenAPI 元資料產生，請將 Ktor 編譯器外掛程式套用到您的專案。
 
@@ -199,7 +199,7 @@ ktor {
 }
 ```
 
-### 配置選項
+### 配置選項 {id="configuration-options"}
 
 <deflist>
 <def>
@@ -216,7 +216,7 @@ ktor {
 </def>
 </deflist>
 
-### 路由結構分析
+### 路由結構分析 {id="routing-structure-analysis"}
 
 Ktor 編譯器外掛程式會分析您的伺服器路由 DSL，以確定 API 的結構形狀。此分析僅基於路由宣告，不會檢查路由處理常式的內容。
 
@@ -237,7 +237,7 @@ routing {
 
 由於請求參數、主體和回應是在路由 Lambda 內部處理的，編譯器無法僅從路由結構推論出完整的 OpenAPI 描述。為了豐富產生的元資料，Ktor 支援基於常見請求處理模式的[註解](#annotate-routes)和[自動推論](#code-inference)。
 
-### 程式碼推論
+### 程式碼推論 {id="code-inference"}
 
 當啟用程式碼推論時，編譯器外掛程式會識別常見的 Ktor 使用模式，並自動產生等效的執行時註解。
 
@@ -255,7 +255,7 @@ routing {
 
 推論會儘可能遵循提取的函式，並嘗試為典型的請求和回應流程產生一致的文件。
 
-#### 停用特定端點的推論
+#### 停用特定端點的推論 {id="disable-inference-for-an-endpoint"}
 
 如果推論為特定端點產生了不正確的元資料，您可以透過新增 `ignore` 標記來排除它：
 
@@ -303,7 +303,7 @@ get("/{id}") {
 }
 ```
 
-#### 格式化規則
+#### 格式化規則 {id="formatting-rules"}
 
 - 關鍵字必須出現在行首。
 - 冒號 (`:`) 用於分隔關鍵字及其值。
@@ -325,7 +325,7 @@ get("/{id}") {
  */
 ```
 
-#### 支援的註解欄位
+#### 支援的註解欄位 {id="supported-comment-fields"}
 
 | 標籤 | 格式 | 描述 |
 |----------------|-------------------------------------------------|----------------------------------|
@@ -392,7 +392,7 @@ get("/{id}") {
 
 執行時註解會與編譯器產生的元資料以及基於註解的元資料合併。當多個來源定義相同的 OpenAPI 欄位時，執行時註解提供的值具有[優先權](#metadata-precedence)。
 
-## 在 OpenAPI 規格中隱藏路由
+## 在 OpenAPI 規格中隱藏路由 {id="hide-routes-from-the-openapi-specification"}
 
 要將某個路由及其子路由從產生的 OpenAPI 文件中排除，請使用 `Route.hide()` 函式：
 
@@ -407,11 +407,11 @@ get("/routes") {
 
 OpenAPI 和 Swagger UI 外掛程式會自動呼叫 `.hide()`，因此它們的路由會從產生的文件中排除。
 
-## 架構推論
+## 架構推論 {id="schema-inference"}
 
 Ktor 在建置 OpenAPI 規格時會自動為請求和回應型別產生 JSON 架構。預設情況下，架構是透過使用資料類別上的 `kotlinx-serialization` 描述符從型別參考中推論出來的。這使得大多數常見的資料模型無需額外努力即可被記錄。
 
-### 使用註解自訂架構
+### 使用註解自訂架構 {id="customize-schemas-with-annotations"}
 
 您可以透過在資料類別中加入 [`@JsonSchema`](https://api.ktor.io/ktor-openapi-schema/io.ktor.openapi/-json-schema/index.html) 註解來覆寫自動產生的 JSON 架構欄位。這允許您新增描述、將欄位標記為必填等：
 
@@ -423,7 +423,7 @@ data class Article(
 )
 ```
 
-### 使用基於反射的架構推論
+### 使用基於反射的架構推論 {id="use-reflection-based-schema-inference"}
 
 對於使用 Jackson 或 Gson 而非 `kotlinx-serialization` 的專案，您可以使用基於反射的架構推論。要執行此操作，請在 OpenAPI 或 SwaggerUI 外掛程式的 `Routing` 來源中設定 `schemaInference` 欄位：
 
@@ -438,7 +438,7 @@ openAPI("docs") {
 }
 ```
 
-### 自訂反射行為
+### 自訂反射行為 {id="customize-reflection-behavior"}
 
 您可以提供自訂的 `SchemaReflectionAdapter` 來處理不直接支援的註解或命名慣例。
 
@@ -464,7 +464,7 @@ ReflectionJsonSchemaInference(object : SchemaReflectionAdapter {
 
 如需可用屬性的完整清單，請參閱 [`JsonSchema` API 文件](https://api.ktor.io/ktor-openapi-schema/io.ktor.openapi/-json-schema/index.html)。
 
-## 產生並提供規格
+## 產生並提供規格 {id="generate-and-serve-the-specification"}
 
 OpenAPI 規格是在執行時根據執行時路由註解和編譯器外掛程式產生的元資料組合而成的。
 
@@ -473,7 +473,7 @@ OpenAPI 規格是在執行時根據執行時路由註解和編譯器外掛程式
 - [手動組合並提供 OpenAPI 文件](#assemble-and-serve-the-specification)。
 - 使用 [OpenAPI](server-openapi.md) 或 [SwaggerUI](server-swagger-ui.md) 外掛程式來提供規格和互動式文件。
 
-### 組合並提供規格
+### 組合並提供規格 {id="assemble-and-serve-the-specification"}
 
 要在執行時組合完整的 OpenAPI 文件，請建立一個 `OpenApiDoc` 執行個體並提供應包含在規格中的路由。
 
@@ -503,7 +503,7 @@ OpenAPI 規格是在執行時根據執行時路由註解和編譯器外掛程式
 >
 {style="note"}
 
-### 提供互動式文件
+### 提供互動式文件 {id="serve-interactive-documentation"}
 
 要透過互動式 UI 公開 OpenAPI 規格，請使用 [OpenAPI](server-openapi.md) 和 [Swagger UI](server-swagger-ui.md) 外掛程式。
 
@@ -524,7 +524,7 @@ swaggerUI("/swaggerUI") {
 }
 ```
 
-### 元資料優先順序
+### 元資料優先順序 {id="metadata-precedence"}
 
 最終的 OpenAPI 規格是在執行時透過合併多個來源貢獻的元資料來組合的。
 

@@ -4,7 +4,7 @@
 
 独自のライブラリに加えて、Kotlin は Java と 100% の相互運用性を備えています。この相互運用性により、優れたパフォーマンスを持つ実証済みの Java ライブラリのエコシステム全体を活用できます。この利点により、[Kotlin データプロジェクト](data-analysis-overview.md)に取り組む際、Kotlin または Java のライブラリを簡単に使い分けることができます。
 
-## Kotlin ライブラリ
+## Kotlin ライブラリ {id="kotlin-libraries"}
 
 <table>
   <tr>
@@ -162,7 +162,7 @@
   </tr>
 </table>
 
-## Java ライブラリ
+## Java ライブラリ {id="java-libraries"}
 
 Kotlin は Java との第一級の相互運用性を提供しているため、Kotlin コード内でデータタスクに Java ライブラリを使用できます。以下にそのようなライブラリの例をいくつか挙げます。
 

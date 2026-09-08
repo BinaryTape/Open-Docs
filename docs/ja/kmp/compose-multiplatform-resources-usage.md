@@ -27,7 +27,7 @@
   [外部ライブラリから](#accessing-multiplatform-resources-from-external-libraries)、
   [リモートファイル](#remote-files)、および [Java リソース](#using-java-resources)。
 
-## 生成されたクラスのインポート
+## 生成されたクラスのインポート {id="importing-the-generated-class"}
 
 用意したリソースを使用するには、生成されたクラスをインポートします。例：
 
@@ -42,7 +42,7 @@ import project.shared.generated.resources.example_image
 * `Res` は生成されたクラスのデフォルト名です。
 * `example_image` は `composeResources/drawable` ディレクトリにある画像ファイルの名前です（例：`example_image.png`）。
 
-## アクセッサクラス生成のカスタマイズ
+## アクセッサクラス生成のカスタマイズ {id="customizing-accessor-class-generation"}
 
 Gradle の設定を使用して、ニーズに合わせて生成される `Res` クラスをカスタマイズできます。
 
@@ -61,9 +61,9 @@ compose.resources {
 * `packageOfResClass` を使用すると、生成された `Res` クラスを特定のパッケージに割り当てることができます（コード内でのアクセスや、最終的なアーティファクトでの分離のため）。デフォルトでは、Compose Multiplatform はクラスに `{group name}.{module name}.generated.resources` パッケージを割り当てます。
 * `generateResClass` を `always` に設定すると、プロジェクトは無条件に `Res` クラスを生成します。これは、リソースライブラリが推移的にのみ利用可能な場合に役立つことがあります。デフォルトでは、Compose Multiplatform は `auto` 値を使用し、現在のプロジェクトがリソースライブラリに対して明示的な `implementation` または `api` 依存関係を持っている場合にのみ `Res` クラスを生成します。
 
-## リソースの使用方法
+## リソースの使用方法 {id="resource-usage"}
 
-### 画像
+### 画像 {id="images"}
 
 ドローアブル（drawable）リソースには、単純な画像、ラスタライズされた画像、または XML ベクターとしてアクセスできます。
 SVG 画像は、Android **以外**のすべてのプラットフォームでサポートされています。
@@ -103,7 +103,7 @@ Image(
 )
 ```
 
-#### キャンバスへの画像の描画
+#### キャンバスへの画像の描画 {id="drawing-images-on-a-canvas"}
 
 `Image()` コンポーザブルで表示する代わりに、リソース画像を自分で描画するには、それを `ImageBitmap` または `ImageVector` としてロードし、`DrawScope` で使用します。
 
@@ -128,7 +128,7 @@ Canvas(modifier = Modifier.fillMaxSize()) {
 }
 ```
 
-### アイコン
+### アイコン {id="icons"}
 
 Material Symbols ライブラリのベクター Android XML アイコンを使用できます。
 
@@ -181,7 +181,7 @@ Image(
 )
 ```
 
-### 文字列
+### 文字列 {id="strings"}
 
 すべての文字列リソースは `composeResources/values` ディレクトリの XML ファイルに保存します。
 各ファイルの各アイテムに対して静的アクセッサが生成されます。
@@ -191,7 +191,7 @@ Compose Multiplatform は、XML ファイルに直接文字列リソース、文
 
 異なるロケール用に文字列をローカライズする方法の詳細については、[文字列のローカライズに関するガイド](compose-localize-strings.md)を参照してください。
 
-#### 単純な文字列
+#### 単純な文字列 {id="simple-strings"}
 
 単純な文字列を保存するには、XML に `<string>` 要素を追加します。
 
@@ -256,7 +256,7 @@ coroutineScope.launch {
 >
 {style="note"}
 
-#### 文字列テンプレート
+#### 文字列テンプレート {id="string-templates"}
 
 現在、引数は文字列リソースに対して基本的なサポートを提供しています。
 テンプレートを作成するときは、`%<number>` 形式を使用して文字列内に引数を配置し、単純なテキストではなく変数のプレースホルダーであることを示すために `$d` または `$s` 接尾辞を含めます。
@@ -287,7 +287,7 @@ Text(stringResource(Res.string.str_template, "User_name", 100.1f))
 > 
 {style="note"}
 
-#### 文字列配列
+#### 文字列配列 {id="string-arrays"}
 
 関連する文字列を配列にグループ化し、`List<String>` オブジェクトとして自動的にアクセスできます。
 
@@ -350,7 +350,7 @@ coroutineScope.launch {
 >
 {style="note"}
 
-#### 複数形（Plurals）
+#### 複数形（Plurals） {id="plurals"}
 
 UI に何らかの数量を表示する場合、プログラム的に無関係な文字列を作成することなく、同じものの異なる数（1冊の _book_、多数の _books_ など）に対する文法的な一致をサポートしたい場合があります。
 
@@ -427,7 +427,7 @@ coroutineScope.launch {
 >
 {style="note"}
 
-### フォント
+### フォント {id="fonts"}
 
 カスタムフォントは `composeResources/font` ディレクトリに保存します。
 Compose Multiplatform は、すべてのプラットフォームで TTF、OTF、TTC、およびバリアブルフォント形式をサポートしています。
@@ -486,7 +486,7 @@ Web ターゲットでは、[フォントの自動フォールバック](compose
 
 使用するフォントを完全に制御する必要がある場合は、特定のフォントをバンドルし、[preload API](compose-web-resources.md#preload-resources-using-the-compose-multiplatform-preload-api) を使用して手動で登録してください。
 
-### Raw ファイル
+### Raw ファイル {id="raw-files"}
 
 任意の Raw ファイルをバイト配列としてロードするには、`Res.readBytes(path)` 関数を使用します。
 
@@ -523,7 +523,7 @@ coroutineScope.launch {
 </TabItem>
 </Tabs>
 
-#### バイト配列を画像に変換する
+#### バイト配列を画像に変換する {id="convert-byte-arrays-into-images"}
 
 読み取っているファイルがビットマップ（JPEG、PNG、BMP、WEBP）または XML ベクター画像である場合、次の関数を使用して、`Image()` コンポーザブルに適した `ImageBitmap` または `ImageVector` オブジェクトに変換できます。
 
@@ -544,7 +544,7 @@ Android 以外のすべてのプラットフォームでは、SVG ファイル�
 Image(bytes.decodeToSvgPainter(LocalDensity.current), null)
 ```
 
-### 生成されたリソースと文字列 ID のマップ
+### 生成されたリソースと文字列 ID のマップ {id="generated-maps-for-resources-and-string-ids"}
 
 アクセスの便宜上、Compose Multiplatform はリソースを文字列 ID ともマップします。ファイル名をキーとして使用してアクセスできます。
 
@@ -562,7 +562,7 @@ val Res.allFontResources: Map<String, FontResource>
 Image(painterResource(Res.allDrawableResources["compose_multiplatform"]!!), null)
 ```
 
-### Compose Multiplatform リソースを Android アセットとして使用する
+### Compose Multiplatform リソースを Android アセットとして使用する {id="compose-multiplatform-resources-as-android-assets"}
 
 Compose Multiplatform 1.7.0 以降、すべてのマルチプラットフォームリソースは Android アセットにパックされます。これにより、Android Studio は Android ソースセット内の Compose Multiplatform コンポーザブルのプレビューを生成できるようになります。
 
@@ -620,9 +620,9 @@ fun App() {
 
 ![composeResources ディレクトリのファイル構造](compose-resources-android-webview.png){width="230"}
 
-## 他のライブラリやリソースとの相互作用
+## 他のライブラリやリソースとの相互作用 {id="interaction-with-other-libraries-and-resources"}
 
-### 外部ライブラリからマルチプラットフォームリソースへのアクセス
+### 外部ライブラリからマルチプラットフォームリソースへのアクセス {id="accessing-multiplatform-resources-from-external-libraries"}
 
 プロジェクトに含まれる他のライブラリを使用してマルチプラットフォームリソースを処理したい場合は、プラットフォーム固有のファイルパスをそれらの API に渡すことができます。
 プラットフォーム固有のパスを取得するには、リソースへのプロジェクトパスを指定して `Res.getUri()` 関数を呼び出します。
@@ -635,7 +635,7 @@ val uri = Res.getUri("files/my_video.mp4")
 
 Android 固有の使用法については、マルチプラットフォームリソースも [Android アセットとしてパック](#compose-multiplatform-resources-as-android-assets)されています。
 
-### リモートファイル
+### リモートファイル {id="remote-files"}
 
 リソースライブラリのコンテキストでは、アプリケーションの一部であるファイルのみがリソースと見なされます。
 
@@ -649,7 +649,7 @@ Android 固有の使用法については、マルチプラットフォームリ
 
 画像を手動でダウンロードしたり、バイトを読み取ったりした場合は、リソースライブラリの[デコード関数](#convert-byte-arrays-into-images)を使用して画像に変換してください。デスクトップアプリケーションでのネットワークからの画像の読み込み例については、[デスクトップ用 Compose Multiplatform での画像の使用](compose-desktop-images.md#loading-images-from-the-file-system-or-the-network)のチュートリアルを参照してください。
 
-### Java リソースの使用
+### Java リソースの使用 {id="using-java-resources"}
 
 Compose Multiplatform で Java リソースを使用することはできますが、生成されたアクセッサ、マルチモジュールサポート、ローカライズなどのフレームワークが提供する拡張機能の恩恵を受けることはできません。その可能性を最大限に引き出すために、マルチプラットフォームリソースライブラリへの完全な移行を検討してください。
 
@@ -689,7 +689,7 @@ private fun readResourceBytes(resourcePath: String) =
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="internal fun painterResource(resourcePath: String): Painter"}
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * iOS、Android、デスクトップをターゲットとした Compose Multiplatform プロジェクトでリソースを処理する方法を示す公式の [デモプロジェクト](https://github.com/JetBrains/compose-multiplatform/tree/master/components/resources/demo) を確認してください。
 * アプリ内のテーマや言語などのアプリケーションの [リソース環境](compose-resource-environment.md) を管理する方法を学びましょう。

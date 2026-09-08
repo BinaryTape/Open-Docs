@@ -2,7 +2,7 @@
 
 Ktor WebSocket API 支援撰寫您自己的擴充套件（例如 [RFC-7692](https://tools.ietf.org/html/rfc7692)）或任何自訂擴充套件。
 
-## 安裝擴充套件
+## 安裝擴充套件 {id="install-extension"}
 
 要安裝並配置擴充套件，我們提供兩種方法：`extensions` 和 `install`，可以按照以下方式使用：
 ```kotlin
@@ -17,7 +17,7 @@ install(WebSockets) {
 
 擴充套件會按照安裝順序使用。
 
-## 檢查擴充套件是否已協商
+## 檢查擴充套件是否已協商 {id="check-if-the-extension-is-negotiated"}
 
 所有安裝的擴充套件都會經過協商程序，而那些成功協商的擴充套件將會在請求期間被使用。
 您可以使用 `WebSocketSession.extensions: List<WebSocketExtension<*>>` 屬性，其中包含目前工作階段所使用的所有擴充套件清單。
@@ -31,7 +31,7 @@ webSocket("/echo") {
 }
 ```
 
-## 撰寫新的擴充套件
+## 撰寫新的擴充套件 {id="write-a-new-extension"}
 
 實作新的擴充套件有兩個介面：`WebSocketExtension<ConfigType: Any>` 和 `WebSocketExtensionFactory<ConfigType : Any, ExtensionType : WebSocketExtension<ConfigType>>`。
 單一實作可以同時適用於用戶端和伺服器。

@@ -3,7 +3,7 @@
 
 在执行为并发数据结构生成的场景后，Lincheck 会根据指定的验证模型（例如，线性一致性）验证结果，并可选地根据用户提供的校验函数检查数据结构的最终状态。
 
-## 验证
+## 验证 {id="verification"}
 
 在验证过程中，Lincheck 会尝试在并发场景中寻找操作的顺序执行，以实现与并发执行相同的结果：
 
@@ -11,7 +11,7 @@
 
 根据 [验证模型](#verification-models)，顺序执行可能会受到额外的限制。如果没有符合验证属性的顺序执行能产生观察到的结果，Lincheck 就会报告错误。
 
-### 顺序规范
+### 顺序规范 {id="sequential-specification"}
 
 默认情况下，在验证过程中，Lincheck 会使用 _并发_ 数据结构的操作来构建顺序执行。
 
@@ -64,7 +64,7 @@ class SequentialQueue {
 }
 ```
 
-### 验证模型
+### 验证模型 {id="verification-models"}
 
 默认情况下，Lincheck 会根据线性一致性模型验证并发执行的结果。要应用不同的验证模型，请使用 `verifierClass` 选项：
 
@@ -92,7 +92,7 @@ Lincheck 提供了以下验证器类：
 
 * `SerializabilityVerifier` – 使用 _可串行化_ 模型。如果存在某种顺序执行（以任何顺序）能导致与并发执行相同的结果，无论 “happens-before” 约束如何，该并发执行都是有效的。它可以用于并发操作的相对顺序无关紧要的结构。
 
-#### 比较可串行化与线性一致性
+#### 比较可串行化与线性一致性 {id="compare-serializability-and-linearizability"}
 
 为了理解这两个模型之间的区别，请看一个数据结构如何实现可串行化但不可线性化：
 
@@ -204,7 +204,7 @@ Lincheck 提供了以下验证器类：
 
    由于 Lincheck 在验证期间无法重新排序 `put()` 操作，因此它无法找到符合线性一致性限制的顺序执行。这导致了测试失败。
 
-## 校验
+## 校验 {id="validation"}
 
 默认情况下，Lincheck 在执行生成的场景后不会校验并发数据结构的状态。要检查最终状态，请在测试类的校验函数上使用 `@Validate` 注解：
 
@@ -221,7 +221,7 @@ fun validate() {
 * 不接收任何参数。
 * 如果数据结构处于无效状态，则抛出异常。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * [配置实参生成约束](lincheck-argument-generation-constraints.md)
 * [配置操作执行选项](lincheck-operation-execution-options.md)

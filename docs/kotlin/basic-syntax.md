@@ -4,7 +4,7 @@
 
 您还可以通过 JetBrains Academy 免费的 [Kotlin 核心轨道](https://hyperskill.org/tracks?category=4&utm_source=jbkotlin_hs&utm_medium=referral&utm_campaign=kotlinlang-docs&utm_content=button_1&utm_term=22.03.23) 学习所有 Kotlin 核心知识。
 
-## 包定义与导入
+## 包定义与导入 {id="package-definition-and-imports"}
 
 包规范应位于源文件的顶部：
 
@@ -20,7 +20,7 @@ import kotlin.text.*
 
 请参阅[包](packages.md)。
 
-## 程序入口点
+## 程序入口点 {id="program-entry-point"}
 
 Kotlin 应用程序的入口点是 `main` 函数：
 
@@ -40,7 +40,7 @@ fun main(args: Array<String>) {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 打印到标准输出
+## 打印到标准输出 {id="print-to-the-standard-output"}
 
 `print` 将其实参打印到标准输出：
 
@@ -66,7 +66,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-println"}
 
-## 从标准输入读取
+## 从标准输入读取 {id="read-from-the-standard-input"}
 
 `readln()` 函数从标准输入读取。该函数将用户输入的整行内容读取为字符串。
 
@@ -87,7 +87,7 @@ print(yourWord)
 
 欲了解更多信息，请参阅[读取标准输入](read-standard-input.md)。
 
-## 函数
+## 函数 {id="functions"}
 
 一个包含两个 `Int` 形参且返回值类型为 `Int` 的函数：
 
@@ -150,7 +150,7 @@ fun main() {
 
 请参阅[函数](functions.md)。
 
-## 变量
+## 变量 {id="variables"}
 
 在 Kotlin 中，声明变量时以关键字 `val` 或 `var` 开头，后跟变量名称。
 
@@ -244,7 +244,7 @@ fun main() {
 
 有关声明属性的信息，请参阅[属性](properties.md)。
 
-## 创建类与实例
+## 创建类与实例 {id="creating-classes-and-instances"}
 
 要定义类，请使用 `class` 关键字：
 ```kotlin
@@ -284,7 +284,7 @@ class Rectangle(val height: Double, val length: Double): Shape() {
 
 欲了解有关构造函数和继承的更多信息，请参阅[类](classes.md)以及[对象与实例](object-declarations.md)。
 
-## 注释
+## 注释 {id="comments"}
 
 与大多数现代语言一样，Kotlin 支持单行（或行末）注释和多行（块）注释：
 
@@ -305,7 +305,7 @@ Kotlin 中的块注释可以嵌套：
 
 有关文档注释语法的详细信息，请参阅[编写 Kotlin 代码文档](kotlin-doc.md)。
 
-## 字符串模板
+## 字符串模板 {id="string-templates"}
 
 ```kotlin
 fun main() {
@@ -325,7 +325,7 @@ fun main() {
 
 详情请参阅[字符串模板](strings.md#string-templates)。
 
-## 条件表达式
+## 条件表达式 {id="conditional-expressions"}
 
 ```kotlin
 //sampleStart
@@ -359,7 +359,7 @@ fun main() {
 
 请参阅 [`if` 表达式](control-flow.md#if-expression)。
 
-## for 循环
+## for 循环 {id="for-loop"}
 
 ```kotlin
 fun main() {
@@ -389,7 +389,7 @@ fun main() {
 
 请参阅 [for 循环](control-flow.md#for-loops)。
 
-## while 循环
+## while 循环 {id="while-loop"}
 
 ```kotlin
 fun main() {
@@ -407,7 +407,7 @@ fun main() {
 
 请参阅 [while 循环](control-flow.md#while-loops)。
 
-## when 表达式
+## when 表达式 {id="when-expression"}
 
 ```kotlin
 //sampleStart
@@ -433,7 +433,7 @@ fun main() {
 
 请参阅 [when 表达式与语句](control-flow.md#when-expressions-and-statements)。
 
-## 区间
+## 区间 {id="ranges"}
 
 使用 `in` 运算符检查数字是否在某个区间内：
 
@@ -500,7 +500,7 @@ fun main() {
 
 请参阅[区间与级数](ranges.md)。
 
-## 集合
+## 集合 {id="collections"}
 
 在集合上进行迭代：
 
@@ -549,7 +549,7 @@ fun main() {
 
 请参阅[集合概览](collections-overview.md)。
 
-## 可空值与 null 检查
+## 可空值与 null 检查 {id="nullable-values-and-null-checks"}
 
 当可能出现 `null` 值时，引用必须显式标记为可空。可空类型的名称末尾带有 `?`。
 例如，`Int?`。
@@ -630,7 +630,7 @@ fun main() {
 
 请参阅 [Null 安全](null-safety.md)。
 
-## 类型检查与自动转换
+## 类型检查与自动转换 {id="type-checks-and-automatic-casts"}
 
 `is` 运算符检查表达式是否为某种类型的实例。
 如果对不可变的局部变量或属性进行了特定类型的检查，则无需显式进行转换：

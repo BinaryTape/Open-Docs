@@ -15,7 +15,7 @@
 >
 {style="note"}
 
-## 無號陣列與範圍
+## 無號陣列與範圍 {id="unsigned-arrays-and-ranges"}
 
 > 無號陣列及其相關操作目前處於 [Beta](components-stability.md) 階段。它們可能隨時發生不相容的變更。需要明確啟用（opt-in）（詳見下文）。
 >
@@ -34,7 +34,7 @@
 
 [範圍與級數](ranges.md)透過 `UIntRange`、`UIntProgression`、`ULongRange` 和 `ULongProgression` 類別支援 `UInt` 和 `ULong`。這些類別與無號整數型別一樣都是穩定的。
 
-## 無號整數常值
+## 無號整數常值 {id="unsigned-integers-literals"}
 
 為了讓無號整數更易於使用，您可以在整數常值後方加上後綴，以指示特定的無號型別（類似於 `Float` 的 `F` 或 `Long` 的 `L`）：
 
@@ -55,7 +55,7 @@
     val a = 1UL // ULong，即使未提供預期型別且常值適合 UInt
     ```
 
-## 使用案例
+## 使用案例 {id="use-cases"}
 
 無號數的主要使用案例是利用整數的完整位元範圍來表示正值。例如，表示不適合有號型別的十六進位常數，例如 32 位元 `AARRGGBB` 格式的顏色：
 
@@ -73,7 +73,7 @@ val byteOrderMarkUtf8 = ubyteArrayOf(0xEFu, 0xBBu, 0xBFu)
 
 另一個使用案例是與原生 API 的互通性。Kotlin 允許在簽章中表示包含無號型別的原生宣告。該對應不會將無號整數替換為有號整數，從而保持語意不變。
 
-### 非目標
+### 非目標 {id="non-goals"}
 
 雖然無號整數只能表示正數和零，但將其用於應用程式領域需要非負整數的地方（例如作為集合大小或集合索引值的型別）並非其目標。
 

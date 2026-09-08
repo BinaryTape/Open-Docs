@@ -8,9 +8,9 @@ title: Android 모범 사례
 일반적인 모듈 개념은 **[모듈](/docs/reference/koin-core/modules)**을 참고하세요. 스코핑에 대해서는 **[스코프](/docs/reference/koin-core/scopes)** 및 **[Android 스코프](/docs/reference/koin-android/scope)**를 참고하세요.
 :::
 
-## 메모리 관리
+## 메모리 관리 {id="memory-management"}
 
-### Activity/Fragment 누수 방지
+### Activity/Fragment 누수 방지 {id="avoid-activity-fragment-leaks"}
 
 ```kotlin
 // ❌ 나쁨 - Activity 누수
@@ -31,7 +31,7 @@ module {
 }
 ```
 
-### 스코프를 올바르게 닫기
+### 스코프를 올바르게 닫기 {id="close-scopes-properly"}
 
 ```kotlin
 // ✅ 좋음 - 자동 스코프 관리
@@ -62,7 +62,7 @@ class MyActivity : AppCompatActivity() {
 }
 ```
 
-### 수명이 긴 객체의 참조 해제하기
+### 수명이 긴 객체의 참조 해제하기 {id="clear-references-in-long-lived-objects"}
 
 ```kotlin
 // ❌ 나쁨 - UI에 대한 참조 유지
@@ -88,9 +88,9 @@ class UserRepository {
 }
 ```
 
-## Android 디버깅
+## Android 디버깅 {id="android-debugging"}
 
-### Android 로거(Logger) 활성화
+### Android 로거(Logger) 활성화 {id="enable-android-logger"}
 
 ```kotlin
 startKoin {
@@ -100,7 +100,7 @@ startKoin {
 }
 ```
 
-### 디버그 빌드에서 모듈 검증
+### 디버그 빌드에서 모듈 검증 {id="verify-modules-in-debug-builds"}
 
 ```kotlin
 class MyApplication : Application() {
@@ -118,7 +118,7 @@ class MyApplication : Application() {
 }
 ```
 
-### 디버깅을 위한 스코프 콜백
+### 디버깅을 위한 스코프 콜백 {id="scope-callbacks-for-debugging"}
 
 ```kotlin
 class DebugActivity : ScopeActivity() {
@@ -134,9 +134,9 @@ class DebugActivity : ScopeActivity() {
 }
 ```
 
-## 보안 모범 사례
+## 보안 모범 사례 {id="security-best-practices"}
 
-### 모듈에 비밀 정보를 저장하지 마세요
+### 모듈에 비밀 정보를 저장하지 마세요 {id="don-t-store-secrets-in-modules"}
 
 ```kotlin
 // ❌ 나쁨 - 하드코딩된 비밀 정보
@@ -165,13 +165,13 @@ module {
 }
 ```
 
-## Dagger/Hilt로부터의 마이그레이션
+## Dagger/Hilt로부터의 마이그레이션 {id="migration-from-dagger-hilt"}
 
 :::info
 Koin은 `jakarta.inject`의 JSR-330 어노테이션(`@Singleton`, `@Inject`, `@Named`)을 지원합니다. 익숙한 어노테이션을 계속 사용할 수 있습니다. [JSR-330 호환성](/docs/reference/koin-android/jsr330)을 참고하세요.
 :::
 
-### 어노테이션 매핑
+### 어노테이션 매핑 {id="annotation-mapping"}
 
 | Hilt | Koin 어노테이션 |
 |------|------------------|
@@ -183,7 +183,7 @@ Koin은 `jakarta.inject`의 JSR-330 어노테이션(`@Singleton`, `@Inject`, `@N
 | `@InstallIn(SingletonComponent)` | `@Module` + `@ComponentScan` |
 | `@InstallIn(ActivityComponent)` | `@Scope(ActivityScope::class)` |
 
-### 마이그레이션 예시
+### 마이그레이션 예시 {id="example-migration"}
 
 ```kotlin
 // 변경 전 (Hilt)
@@ -209,7 +209,7 @@ class UserRepositoryImpl(
 ) : UserRepository
 ```
 
-### 모듈 마이그레이션
+### 모듈 마이그레이션 {id="module-migration"}
 
 ```kotlin
 // 변경 전 (Hilt)
@@ -229,7 +229,7 @@ class NetworkModule {
 }
 ```
 
-### 단계적 마이그레이션
+### 단계적 마이그레이션 {id="gradual-migration"}
 
 ```kotlin
 // 1단계: 새로운 기능을 위해 Hilt와 함께 Koin 추가
@@ -248,7 +248,7 @@ class MigratedRepository(private val api: ApiService) : UserRepository
 // 3단계: 마이그레이션이 완료되면 Hilt 제거
 ```
 
-## 함께 보기
+## 함께 보기 {id="see-also"}
 
 - **[스코프](/docs/reference/koin-core/scopes)** - 핵심 스코핑 개념
 - **[Android 스코프](/docs/reference/koin-android/scope)** - Android 수명 주기 스코프

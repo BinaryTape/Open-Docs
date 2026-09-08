@@ -6,7 +6,7 @@ title: Gradle 設定
 
 本指南涵蓋如何將 Koin 相依性新增到您的 Gradle 專案中。
 
-## Koin BOM (建議使用)
+## Koin BOM (建議使用) {id="koin-bom-recommended"}
 
 **物料清單 (BOM)** 是管理 Koin 相依性的建議方式。它能確保所有 Koin 程式庫都使用相容的版本。
 
@@ -14,7 +14,7 @@ title: Gradle 設定
 **最佳實務**：請務必使用 Koin BOM 以避免 Koin 程式庫之間的版本衝突。
 :::
 
-### 使用版本目錄 (建議使用)
+### 使用版本目錄 (建議使用) {id="using-version-catalogs-recommended"}
 
 在您的 `gradle/libs.versions.toml` 中：
 
@@ -41,7 +41,7 @@ dependencies {
 }
 ```
 
-### 直接使用 BOM
+### 直接使用 BOM {id="using-bom-directly"}
 
 ```kotlin
 dependencies {
@@ -53,7 +53,7 @@ dependencies {
 }
 ```
 
-## 特定平台設定
+## 特定平台設定 {id="platform-specific-setup"}
 
 ### Kotlin/JVM {#kotlin}
 
@@ -222,7 +222,7 @@ fun Application.module() {
 }
 ```
 
-## 所有可用套件
+## 所有可用套件 {id="all-available-packages"}
 
 目前最新版本為：[![Maven Central](https://img.shields.io/maven-central/v/io.insert-koin/koin-core?label=latest)](https://mvnrepository.com/artifact/io.insert-koin/koin-core)
 
@@ -248,7 +248,7 @@ fun Application.module() {
 | `koin-test-junit5` | JUnit 5 支援 |
 | `koin-android-test` | Android 檢測測試 |
 
-## 直接指定版本
+## 直接指定版本 {id="direct-version-specification"}
 
 如果您偏好不使用 BOM：
 
@@ -263,7 +263,7 @@ dependencies {
 此方法需要手動保持所有相依性同步。**強烈建議使用 BOM。**
 :::
 
-## 後續步驟
+## 後續步驟 {id="next-steps"}
 
 - **[編譯器外掛程式設定](/docs/setup/compiler-plugin)** - 加入編譯期安全性
 - **[啟動 Koin](/docs/reference/koin-core/starting-koin)** - 設定您的應用程式

@@ -12,7 +12,7 @@ Compose Multiplatform を使用すると、共通コードでも ViewModel を�
 * [ViewModel と UI コードをどの程度共有するかを選択する](#levels-of-code-sharing):
   完全に共有するアプローチから、リポジトリやデータレイヤーのみを共有する方法まで。
 
-## 依存関係のセットアップ
+## 依存関係のセットアップ {id="set-up-dependencies"}
 
 プラットフォーム間で ViewModel と UI を共有するには：
 
@@ -82,7 +82,7 @@ Compose Multiplatform を使用すると、共通コードでも ViewModel を�
      
     詳細は [`Dispatchers.Main` のドキュメント](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-dispatchers/-main.html)を参照してください。
 
-## 共通コードでの ViewModel の使用
+## 共通コードでの ViewModel の使用 {id="using-viewmodel-in-common-code"}
 
 Compose Multiplatform は共通の `ViewModelStoreOwner` 実装を提供しているため、共通コードでの `ViewModel` クラスの使用は、一般的に [Android のベストプラクティス](https://developer.android.com/topic/libraries/architecture/viewmodel#best-practices)と大きな違いはありません。
 
@@ -127,7 +127,7 @@ ViewModel を定義し、Composable に組み込んでみましょう：
     }
     ```
 
-## Navigation 3 での ViewModel のスコープ設定
+## Navigation 3 での ViewModel のスコープ設定 {id="viewmodel-scoping-with-navigation-3"}
 
 共通コードで Navigation 3 と共に ViewModel を使用する場合、デフォルトでは ViewModel がナビゲーションエントリに自動的にスコープ設定されることはありません。
 明示的なスコープ設定を行わない場合、各 ViewModel は画面ではなく `Activity` に紐付けられ、ユーザーが画面を離れた後も維持されてしまいます。
@@ -152,14 +152,14 @@ NavDisplay(
 )
 ```
 
-## ViewModel と依存関係の注入
+## ViewModel と依存関係の注入 {id="viewmodel-and-dependency-injection"}
 
 依存関係の注入（DI）フレームワークを使用すると、現在の環境やターゲットプラットフォームに基づいて、コンポーネントに異なる依存関係を注入できます。
 ViewModel を管理するには、Koin、Metro、または Kotlin Multiplatform をサポートするその他の DI フレームワークを使用できます。
 
 依存関係の注入を使用した高度な例については、[データアクセスレイヤーの共有](multiplatform-ktor-sqldelight.md) チュートリアルを参照してください。
 
-### Koin
+### Koin {id="koin"}
 
 Koin は、依存関係を設定するための DSL またはアノテーションを提供するランタイム DI フレームワークです。
 Compose ViewModel で Koin を使用するには、`koin-compose-viewmodel` 依存関係を追加します。
@@ -177,7 +177,7 @@ fun CupcakeApp(
 
 詳細は、Koin ドキュメントの [ViewModel のサポート](https://insert-koin.io/docs/reference/koin-core/viewmodel) および [Compose での ViewModel 注入](https://insert-koin.io/docs/reference/koin-compose/compose-viewmodel) を参照してください。
 
-### Metro
+### Metro {id="metro"}
 
 Metro は、Kotlin コンパイラプラグインとして実装されたコンパイルタイム DI フレームワークです。
 Compose ViewModel で Metro を使用するには、`metrox-viewmodel-compose` 依存関係を追加します。
@@ -195,7 +195,7 @@ fun CupcakeApp(
 
 詳細は、MetroX ドキュメントの [ViewModel の統合](https://zacsweers.github.io/metro/latest/metrox-viewmodel/) および [Compose での ViewModel へのアクセス](https://zacsweers.github.io/metro/latest/metrox-viewmodel-compose/) を参照してください。
 
-## コード共有のレベル
+## コード共有のレベル {id="levels-of-code-sharing"}
 
 コードのどの部分を共有し、どの部分をプラットフォーム固有にするかを選択できます：
 
@@ -205,7 +205,7 @@ fun CupcakeApp(
 以下の例は、異なるコード共有レベルで ViewModel を使用する方法を示しています。
 すべての例は、上記で導入した `OrderViewModel` クラスに基づいています。
 
-### 共有 ViewModel と共有 UI
+### 共有 ViewModel と共有 UI {id="shared-viewmodel-and-ui"}
 
 このアプローチでは、`ViewModel` と UI を含むすべてが Compose Multiplatform を介して共有されます。
 アプリの UI コードを一度書けば、すべてのプラットフォームで動作します。
@@ -228,7 +228,7 @@ fun CupcakeApp(
 }
 ```
 
-### 共有 ViewModel とプラットフォーム固有の UI
+### 共有 ViewModel とプラットフォーム固有の UI {id="shared-viewmodel-and-platform-specific-ui"}
 
 このアプローチでは、`ViewModel`（ビジネスロジック）は共有されますが、各プラットフォームにはネイティブの UI 実装があります。
 詳細は、[Kotlin Multiplatform 向けの ViewModel のセットアップ](https://developer.android.com/kotlin/multiplatform/viewmodel)（英語）を参照してください。
@@ -261,7 +261,7 @@ fun CupcakeApp(
     ```
     {initial-collapse-state="collapsed" collapsible="true" collapsed-title="api(libs.androidx.lifecycle.viewmodel)"}
 
-#### Android での実装
+#### Android での実装 {id="android-implementation"}
 
 Android では、Jetpack Compose が自動的に `Activity` から提供される `ViewModelStoreOwner` を見つけ、`OrderViewModel` を提供します。
 
@@ -282,7 +282,7 @@ fun AndroidCupcakeApp(
 }
 ```
 
-#### iOS での実装
+#### iOS での実装 {id="ios-implementation"}
 
 iOS には組み込みの `ViewModelStoreOwner` がないため、ViewModel のライフサイクルを手動で SwiftUI に紐付ける必要があります。
 [KMP-ObservableViewModel](https://klibs.io/project/rickclephas/KMP-ObservableViewModel) ライブラリの使用をお勧めします。これにより、SwiftUI で Kotlin Multiplatform の ViewModel を直接監視でき、iOS で必要な ViewModel ライフサイクルや Store-owner に関するボイラープレート（定型コード）を処理できます。
@@ -354,7 +354,7 @@ iOS には組み込みの `ViewModelStoreOwner` がないため、ViewModel の�
     }
    ```
 
-### 共有リポジトリ/データレイヤー、プラットフォーム固有の ViewModel と UI
+### 共有リポジトリ/データレイヤー、プラットフォーム固有の ViewModel と UI {id="shared-repo-data-layer-platform-specific-viewmodels-and-ui"}
 
 もう一つの選択肢は、データとリポジトリレイヤーのみを共有し、プラットフォーム固有の ViewModel 実装を使用することです。
 これにより、Android の依存関係注入のための Hilt や、iOS の Combine を使用した `ObservableObject` など、各プラットフォームのネイティブパターンを使用できます。
@@ -445,7 +445,7 @@ iOS には組み込みの `ViewModelStoreOwner` がないため、ViewModel の�
        }
        ```
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [完全なサンプル](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/nav_cupcake)を確認してください。
 * Android に焦点を当てた追加のガイダンスについては、[Kotlin Multiplatform 向けの ViewModel のセットアップ](https://developer.android.com/kotlin/multiplatform/viewmodel)（英語）を参照してください。

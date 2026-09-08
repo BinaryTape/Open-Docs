@@ -12,7 +12,7 @@
 
 在解釋什麼是協同程式之前，讓我們簡要地回顧一些其他的解決方案。
 
-## 執行緒
+## 執行緒 {id="threading"}
 
 到目前為止，執行緒（thread）可能是避免應用程式阻塞最廣為人知的方法。
 
@@ -36,7 +36,7 @@ fun preparePost(): Token {
 * 執行緒並非總是可用。某些平台（例如 JavaScript）甚至不支援執行緒。
 * 執行緒並不簡單。在多執行緒程式設計中，偵錯執行緒以及避免競爭條件（race conditions）是我們經常遭遇的問題。
 
-## 回呼
+## 回呼 {id="callbacks"}
 
 使用回呼（callback）的想法是將一個函式作為參數傳遞給另一個函式，並在處理程序完成後呼叫此函式。
 
@@ -62,7 +62,7 @@ fun preparePostAsync(callback: (Token) -> Unit) {
 
 回呼在 JavaScript 等事件迴圈（event-loop）架構中非常常見，但即便在那裡，人們通常也已經轉向使用其他方法，例如 promise 或 Reactive Extensions。
 
-## future、promise 及其他
+## future、promise 及其他 {id="futures-promises-and-others"}
 
 future 或 promise（根據語言或平台的不同，可能會使用其他術語）背後的想法是，當我們發起呼叫時，我們被 _承諾_（promised）在某個時間點該呼叫將回傳一個 `Promise` 物件，然後我們就可以對其進行操作。
 
@@ -91,7 +91,7 @@ fun preparePostAsync(): Promise<Token> {
 * 特定的傳回型別。傳回型別從我們需要的實際資料轉變為需要進行反省（introspected）的新型別 `Promise`。
 * 錯誤處理可能很複雜。錯誤的傳遞和鏈接並不總是直觀的。
 
-## Reactive Extensions
+## Reactive Extensions {id="reactive-extensions"}
 
 Reactive Extensions (Rx) 是由 [Erik Meijer](https://en.wikipedia.org/wiki/Erik_Meijer_(computer_scientist)) 引入到 C# 的。雖然它確實被用在 .NET 平台上，但直到 Netflix 將其移植到 Java 並命名為 RxJava，它才真正被主流採用。從那時起，許多移植版被提供給了各種平台，包括 JavaScript (RxJS)。
 
@@ -105,7 +105,7 @@ Rx 背後的想法是轉向所謂的 `observable streams`，藉此我們現在�
 
 此外，Rx 確實為錯誤處理引入了一種更完善的方法。
 
-## 協同程式
+## 協同程式 {id="coroutines"}
 
 Kotlin 處理非同步程式碼的方法是使用協同程式（coroutine），這是一種可掛起運算（suspendable computations）的想法，即函式可以在某個點掛起其執行，並在稍後恢復。
 

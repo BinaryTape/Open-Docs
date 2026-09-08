@@ -2,7 +2,7 @@
 title: Kotlin Multiplatform
 ---
 
-## 設定
+## 設定 {id="setup"}
 
 Koin 編譯器外掛程式簡化了 KMP 的設定 —— 只需要套用該外掛程式即可。
 
@@ -25,11 +25,11 @@ kotlin {
 
 就這樣！不需要針對每個平台進行 KSP 設定。
 
-## 在共用程式碼中定義定義與模組
+## 在共用程式碼中定義定義與模組 {id="defining-definitions-and-modules-in-common-code"}
 
 在您的 `commonMain` 原始碼集中，宣告您的模組、掃描定義，或將函式定義為一般的 Kotlin Koin 宣告。請參閱 [定義](./definitions) 與 [模組](./modules)。
 
-## 共享模式
+## 共享模式 {id="sharing-patterns"}
 
 在本節中，我們將一起探討數種透過定義與模組來共享組件的方法。
 
@@ -44,7 +44,7 @@ kotlin {
 Expect/Actual 類別在每個平台上不能有不同的建構函式。您必須遵守在共用空間中設計的現有建構函式協約。
 :::
 
-### 針對原生實作共享定義
+### 針對原生實作共享定義 {id="sharing-definitions-for-native-implementations"}
 
 :::info
 我們的目標是透過「共用模組 + Expect/Actual 類別定義」進行共享。
@@ -54,7 +54,7 @@ Expect/Actual 類別在每個平台上不能有不同的建構函式。您必須
 
 請注意，若要使用 `expect/actual` 定義，您將使用相同的建構函式（預設建構函式或自訂建構函式）。此建構函式在所有平台上都必須相同。
 
-#### 掃描 Expect/Actual 定義
+#### 掃描 Expect/Actual 定義 {id="scanning-for-expect-actual-definitions"}
 
 在 commonMain 中：
 ```kotlin
@@ -89,7 +89,7 @@ actual class PlatformComponentA {
 }
 ```
 
-#### 宣告 Expect/Actual 函式定義
+#### 宣告 Expect/Actual 函式定義 {id="declaring-expect-actual-function-definitions"}
 
 在 commonMain 中：
 ```kotlin
@@ -125,7 +125,7 @@ actual class PlatformComponentB {
 }
 ```
 
-### 共享具有不同原生協約的定義
+### 共享具有不同原生協約的定義 {id="sharing-definitions-with-different-native-contracts"}
 
 :::info
 我們的目標是透過「Expect/Actual 共用模組 + 共用介面 + 原生實作」進行共享。
@@ -180,7 +180,7 @@ class PlatformComponentDiOS : PlatformComponentD{
 每當您手動存取 Koin 作用域（scope）時，您就是在進行動態裝配。編譯安全不涵蓋此類裝配。
 :::
 
-### 使用平台包裝函式跨平台安全共享
+### 使用平台包裝函式跨平台安全共享 {id="safely-sharing-across-platforms-with-platform-wrapper"}
 
 :::info
 將特定的平台組件封裝為「平台包裝函式」。
@@ -268,7 +268,7 @@ actual class PlatformComponentA actual constructor(val ctx : ContextWrapper) {
 }
 ```
 
-### 共享 Expect/Actual 模組 - 依賴原生模組掃描
+### 共享 Expect/Actual 模組 - 依賴原生模組掃描 {id="sharing-expect-actual-module-rely-on-native-module-scanning"}
 
 :::info
 從共用模組依賴原生模組。

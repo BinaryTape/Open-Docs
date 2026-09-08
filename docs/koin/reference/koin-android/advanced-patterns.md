@@ -8,9 +8,9 @@ title: 高级 Android 模式
 有关平台无关的模式（集合、装饰器、泛型类型、循环依赖），请参阅 [定义 (Definitions)](/docs/reference/koin-core/definitions) 和 [模块 (Modules)](/docs/reference/koin-core/modules)。
 :::
 
-## 单例中的 Android Context
+## 单例中的 Android Context {id="android-context-in-singletons"}
 
-### 避免 Activity 泄漏
+### 避免 Activity 泄漏 {id="avoiding-activity-leaks"}
 
 ```kotlin
 // ❌ 错误 - Activity 通过单例泄漏
@@ -31,7 +31,7 @@ module {
 }
 ```
 
-### Context 类型
+### Context 类型 {id="context-types"}
 
 ```kotlin
 module {
@@ -43,9 +43,9 @@ module {
 }
 ```
 
-## 使用 BuildConfig 进行条件绑定
+## 使用 BuildConfig 进行条件绑定 {id="conditional-bindings-with-buildconfig"}
 
-### 构建变体
+### 构建变体 {id="build-variant"}
 
 ```kotlin
 fun createLogger(): Logger =
@@ -67,7 +67,7 @@ class LoggingModule {
 }
 ```
 
-### 分析开关
+### 分析开关 {id="analytics-toggle"}
 
 ```kotlin
 fun createAnalyticsService(): AnalyticsService =
@@ -78,7 +78,7 @@ val analyticsModule = module {
 }
 ```
 
-### 功能标志
+### 功能标志 {id="feature-flags"}
 
 ```kotlin
 @Singleton
@@ -97,7 +97,7 @@ class PaymentProcessor(
 }
 ```
 
-## Android Dialog 提供程序
+## Android Dialog 提供程序 {id="android-dialog-provider"}
 
 为 Android UI 组件创建工厂：
 
@@ -128,7 +128,7 @@ class MainActivity : AppCompatActivity() {
 }
 ```
 
-## 分层作用域
+## 分层作用域 {id="hierarchical-scopes"}
 
 链接 Android 作用域以实现共享访问：
 
@@ -154,7 +154,7 @@ shoppingScope.linkTo(sessionScope)
 val cart = shoppingScope.get<ShoppingCart>()
 ```
 
-## 动态功能注册表
+## 动态功能注册表 {id="dynamic-feature-registry"}
 
 根据配置构建集合：
 
@@ -170,9 +170,9 @@ class FeatureRegistry(private val config: AppConfig) : KoinComponent {
 }
 ```
 
-## 常见的 Android 陷阱
+## 常见的 Android 陷阱 {id="common-android-pitfalls"}
 
-### 隐藏的循环调用
+### 隐藏的循环调用 {id="hidden-circular-calls"}
 
 ```kotlin
 // ⚠️ Lazy 隐藏了循环，但在运行时会导致死循环
@@ -187,7 +187,7 @@ class ServiceB : KoinComponent {
 }
 ```
 
-### ViewModel 作用域混淆
+### ViewModel 作用域混淆 {id="viewmodel-scope-confusion"}
 
 ```kotlin
 // ❌ 错误 - Activity 作用域中的 ViewModel 在屏幕旋转时会丢失状态
@@ -203,7 +203,7 @@ module {
 }
 ```
 
-### 在单例中注入 Activity
+### 在单例中注入 Activity {id="injecting-activity-in-singleton"}
 
 ```kotlin
 // ❌ 内存泄漏 - 单例中的 Activity 引用
@@ -215,7 +215,7 @@ class ImageLoader(private val activity: Activity)
 class ImageLoader(private val context: Context)  // 通过 androidContext() 获取 Application context
 ```
 
-## 下一步
+## 下一步 {id="next-steps"}
 
 - **[Android 作用域](/docs/reference/koin-android/scope)** - 生命周期感知作用域
 - **[多模块应用](/docs/reference/koin-android/multi-module)** - 组织 Android 模块

@@ -12,7 +12,7 @@
 >
 {style="tip"}
 
-## 準備開發環境
+## 準備開發環境 {id="prepare-an-environment-for-development"}
 
 1. 在快速入門指南中，完成[設定 Kotlin Multiplatform 開發環境](quickstart.md#set-up-the-environment)的說明。
 
@@ -32,7 +32,7 @@
 
    ![Project 檢視](switch-to-project.png){width="513"}
 
-## 讓您的程式碼具備跨平台能力
+## 讓您的程式碼具備跨平台能力 {id="make-your-code-cross-platform"}
 
 要使您的程式碼具備跨平台能力，您將遵循以下步驟：
 
@@ -43,7 +43,7 @@
 5. [使商業邏輯具備跨平台能力](#make-the-business-logic-cross-platform)
 6. [在 Android 上執行您的跨平台應用程式](#run-your-cross-platform-application-on-android)
 
-### 決定哪些程式碼要跨平台
+### 決定哪些程式碼要跨平台 {id="decide-what-code-to-make-cross-platform"}
 
 決定 Android 應用程式中的哪些程式碼較適合與 iOS 共享，以及哪些程式碼應保持原生。一個簡單的規則是：盡可能共享您想要重複使用的內容。商業邏輯在 Android 和 iOS 上通常是相同的，因此它是重複使用的絕佳候選者。
 
@@ -51,7 +51,7 @@
 
 ![要共享的商業邏輯](business-logic-to-share.png){width=366}
 
-### 為跨平台程式碼建立共享模組
+### 為跨平台程式碼建立共享模組 {id="create-a-shared-module-for-cross-platform-code"}
 
 用於 iOS 和 Android 的跨平台程式碼將儲存在共享模組中。Android Studio 和 IntelliJ IDEA 都提供了為 Kotlin Multiplatform 建立共享模組的精靈。
 
@@ -101,7 +101,7 @@
     }
     ```
    
-### 將程式碼新增至共享模組
+### 將程式碼新增至共享模組 {id="add-code-to-the-shared-module"}
 
 現在您已有共享模組，請在 `shared/src/commonMain/kotlin/com.jetbrains.simplelogin.shared` 目錄中新增一些要共享的通用程式碼：
 
@@ -162,7 +162,7 @@
 
 現在您有一個通用的 `getPlatform()` 函式，它會傳回一個包含平台名稱屬性的平台特定物件。
 
-### 在您的 Android 應用程式中新增對共享模組的相依性
+### 在您的 Android 應用程式中新增對共享模組的相依性 {id="add-a-dependency-on-the-shared-module-to-your-android-application"}
 
 要在您的 Android 應用程式中使用跨平台程式碼，請將共享模組連接至該程式碼，將商業邏輯程式碼移至該處，並使此程式碼具備跨平台能力。
 
@@ -198,7 +198,7 @@
 
    ![來自共享模組的問候語](shared-module-greeting.png){width="700"}
 
-### 使商業邏輯具備跨平台能力
+### 使商業邏輯具備跨平台能力 {id="make-the-business-logic-cross-platform"}
 
 您現在可以將商業邏輯程式碼提取到 Kotlin Multiplatform 共享模組中的 `commonMain` 原始碼集。這將允許在 Android 和 iOS 上使用該程式碼。
 
@@ -216,7 +216,7 @@
 
 4. 移除 Android 特有的程式碼，將其替換為跨平台 Kotlin 程式碼，或使用 [expect 和 actual 宣告](multiplatform-connect-to-apis.md)連接至 Android 特有的 API。詳情請參閱以下章節：
 
-   #### 將 Android 特有的程式碼替換為跨平台程式碼 {initial-collapse-state="collapsed" collapsible="true"}
+   #### 將 Android 特有的程式碼替換為跨平台程式碼 {initial-collapse-state="collapsed" collapsible="true" id="replace-android-specific-code-with-cross-platform-code"}
    
    為了讓您的程式碼在 Android 和 iOS 上都能良好運作，請盡可能在移動後的 `data` 目錄中將所有 JVM 相依性替換為 Kotlin 相依性。
 
@@ -267,7 +267,7 @@
        import java.io.IOException
        ```
 
-   #### 實作特定平台的 UUID 產生 {initial-collapse-state="collapsed" collapsible="true"}
+   #### 實作特定平台的 UUID 產生 {initial-collapse-state="collapsed" collapsible="true" id="implement-platform-specific-uuid-generation"}
    
    在 `LoginDataSource` 類別中，`fakeUser` 的通用唯一識別碼 (UUID) 是使用 `java.util.UUID` 類別產生的，該類別在 iOS 中不可用。
    
@@ -321,13 +321,13 @@
    
 現在，Kotlin 將為 Android 和 iOS 使用特定平台的 UUID 實作。
 
-### 在 Android 上執行您的跨平台應用程式
+### 在 Android 上執行您的跨平台應用程式 {id="run-your-cross-platform-application-on-android"}
 
 執行 `app` 執行配置，以確保 Android 應用程式的運作與之前相同。
 
 ![Android 登入應用程式](android-login.png){width=300}
 
-## 讓您的跨平台應用程式在 iOS 上運作
+## 讓您的跨平台應用程式在 iOS 上運作 {id="make-your-cross-platform-application-work-on-ios"}
 
 一旦您使 Android 應用程式具備跨平台能力，您就可以建立一個 iOS 應用程式並在其中重複使用共享的商業邏輯。
 
@@ -336,7 +336,7 @@
 3. [在 Android Studio 中設定 iOS 運行配置](#set-up-an-ios-run-configuration-in-android-studio)
 4. [在 iOS 專案中使用共享模組](#use-the-shared-module-in-the-ios-project)
 
-### 在 Xcode 中建立 iOS 專案
+### 在 Xcode 中建立 iOS 專案 {id="create-an-ios-project-in-xcode"}
 
 1. 在 Xcode 中，點擊 **File** | **New** | **Project**。
 2. 在對話方塊中，切換至 **iOS** 標籤：
@@ -363,7 +363,7 @@
 
    ![Android Studio 中重新命名後的 iOS 專案目錄](ios-directory-renamed-in-as.png){width=194}
 
-### 設定 iOS 專案以使用 KMP 架構
+### 設定 iOS 專案以使用 KMP 架構 {id="configure-the-ios-project-to-use-a-kmp-framework"}
 
 您可以直接在 iOS 應用程式與 Kotlin Multiplatform 建置的架構（framework）之間設定整合。
 
@@ -428,7 +428,7 @@
     > 
     {style="note"}
 
-### 在 Android Studio 中設定 iOS 運行配置
+### 在 Android Studio 中設定 iOS 運行配置 {id="set-up-an-ios-run-configuration-in-android-studio"}
 
 確保 Xcode 設定正確後，返回 Android Studio：
 
@@ -441,7 +441,7 @@
 
    ![運行配置清單中的 iOS 運行配置](ios-run-configuration-simplelogin.png)
 
-### 在 iOS 專案中使用共享模組
+### 在 iOS 專案中使用共享模組 {id="use-the-shared-module-in-the-ios-project"}
 
 `shared/build.gradle.kts` 檔案為每個 iOS 目標將 `binaries.framework.baseName` 屬性定義為 `sharedKit`。
 這是 Kotlin Multiplatform 為 iOS 應用程式組建以供取用的架構名稱。
@@ -497,7 +497,7 @@
 
    ![簡單登入應用程式](xcode-iphone-login.png){width=300}
 
-## 享受成果 – 僅需更新一次邏輯
+## 享受成果 – 僅需更新一次邏輯 {id="enjoy-the-results-update-the-logic-only-once"}
 
 現在您的應用程式已成為跨平台應用程式。您可以在 `shared` 模組中更新商業邏輯，並在 Android 和 iOS 上都能看到結果。
 
@@ -528,14 +528,14 @@
 
 您可以查閱[本教學的最終程式碼](https://github.com/Kotlin/kmp-integration-sample/tree/final)。
 
-## 還有什麼可以共享的？
+## 還有什麼可以共享的？ {id="what-else-to-share"}
 
 您已經共享了應用程式的商業邏輯，但您也可以決定共享應用程式的其他層級。
 例如，`ViewModel` 類別程式碼在 [Android](https://github.com/Kotlin/kmp-integration-sample/blob/final/app/src/main/java/com/jetbrains/simplelogin/androidapp/ui/login/LoginViewModel.kt)
 和 [iOS 應用程式](https://github.com/Kotlin/kmp-integration-sample/blob/final/iosApp/SimpleLoginIOS/ContentView.swift#L84)中幾乎相同，
 如果您的行動應用程式應該具有相同的展示層（presentation layer），您可以將其共享。
 
-## 下一步是什麼？
+## 下一步是什麼？ {id="what-s-next"}
 
 一旦您使 Android 應用程式具備跨平台能力，您可以繼續進行：
 

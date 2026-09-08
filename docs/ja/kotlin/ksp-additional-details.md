@@ -9,7 +9,7 @@ API 定義は [KSP GitHub リポジトリ](https://github.com/google/ksp/tree/ma
 >
 {style="note"}
 
-## 型と解決 (Resolution)
+## 型と解決 (Resolution) {id="type-and-resolution"}
 
 解決（resolution）は、基盤となる API 実装において最もコストがかかる部分です。そのため、型参照は（いくつかの例外を除き）プロセッサによって明示的に解決されるように設計されています。`KSFunctionDeclaration.returnType` や `KSAnnotation.annotationType` などの *型* が参照される場合、それは常に `KSTypeReference` であり、これはアノテーションと修飾子を持つ `KSReferenceElement` です。
 

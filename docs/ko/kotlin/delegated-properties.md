@@ -61,11 +61,11 @@ NEW has been assigned to 'p' in Example@33a17727.
 
 위임 프로퍼티는 함수 내부나 코드 블록 안에서 선언할 수 있으며, 반드시 클래스의 멤버일 필요는 없습니다. [로컬 위임 프로퍼티 예시](#local-delegated-properties)는 아래에서 확인할 수 있습니다.
 
-## 표준 대리자 (Standard delegates)
+## 표준 대리자 (Standard delegates) {id="standard-delegates"}
 
 Kotlin 표준 라이브러리는 몇 가지 유용한 종류의 대리자를 위한 팩토리 메서드를 제공합니다.
 
-### 지연 프로퍼티 (Lazy properties)
+### 지연 프로퍼티 (Lazy properties) {id="lazy-properties"}
 
 [`lazy()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/lazy.html)는 람다를 인자로 받아 `Lazy<T>` 인스턴스를 반환하는 함수로, 지연 프로퍼티를 구현하기 위한 대리자 역할을 할 수 있습니다. `get()`을 처음 호출하면 `lazy()`에 전달된 람다를 실행하고 그 결과를 기억합니다. 이후 `get()`을 호출하면 단순히 기억된 결과를 반환합니다.
 
@@ -86,7 +86,7 @@ fun main() {
 
 만약 초기화가 항상 프로퍼티를 사용하는 스레드와 동일한 스레드에서 일어날 것이라고 확신한다면 `LazyThreadSafetyMode.NONE`을 사용할 수 있습니다. 이는 스레드 안전성 보장과 그에 따른 오버헤드를 발생시키지 않습니다.
 
-### 관찰 가능한 프로퍼티 (Observable properties)
+### 관찰 가능한 프로퍼티 (Observable properties) {id="observable-properties"}
 
 [`Delegates.observable()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.properties/-delegates/observable.html)은 초기값과 변경 시 호출될 핸들러라는 두 개의 인자를 받습니다.
 
@@ -112,7 +112,7 @@ fun main() {
 
 만약 할당을 가로채서 거부(veto)하고 싶다면 `observable()` 대신 [`vetoable()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.properties/-delegates/vetoable.html)을 사용하세요. `vetoable`에 전달된 핸들러는 새로운 프로퍼티 값이 할당되기 *전*에 호출됩니다.
 
-## 다른 프로퍼티로 위임하기 (Delegating to another property)
+## 다른 프로퍼티로 위임하기 (Delegating to another property) {id="delegating-to-another-property"}
 
 프로퍼티의 게터(getter)와 세터(setter)를 다른 프로퍼티로 위임할 수 있습니다. 이러한 위임은 최상위(top-level) 프로퍼티와 클래스 프로퍼티(멤버 및 확장) 모두에서 가능합니다. 대리자 프로퍼티는 다음과 같을 수 있습니다:
 * 최상위 프로퍼티
@@ -152,7 +152,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.4"}
 
-## 맵에 프로퍼티 저장하기 (Storing properties in a map)
+## 맵에 프로퍼티 저장하기 (Storing properties in a map) {id="storing-properties-in-a-map"}
 
 일반적인 사용 사례 중 하나는 프로퍼티의 값을 맵(map)에 저장하는 것입니다. 이는 JSON을 파싱하거나 다른 동적인 작업을 수행하는 애플리케이션에서 자주 발생합니다. 이 경우 맵 인스턴스 자체를 위임 프로퍼티의 대리자로 사용할 수 있습니다.
 
@@ -202,7 +202,7 @@ class MutableUser(val map: MutableMap<String, Any?>) {
 }
 ```
 
-## 로컬 위임 프로퍼티 (Local delegated properties)
+## 로컬 위임 프로퍼티 (Local delegated properties) {id="local-delegated-properties"}
 
 로컬 변수를 위임 프로퍼티로 선언할 수 있습니다. 예를 들어, 로컬 변수를 지연 초기화할 수 있습니다:
 
@@ -218,7 +218,7 @@ fun example(computeFoo: () -> Foo) {
 
 `memoizedFoo` 변수는 처음 접근할 때만 계산됩니다. 만약 `someCondition`이 실패하면 변수는 전혀 계산되지 않습니다.
 
-## 프로퍼티 대리자 요구 사항 (Property delegate requirements)
+## 프로퍼티 대리자 요구 사항 (Property delegate requirements) {id="property-delegate-requirements"}
 
 *읽기 전용* 프로퍼티(`val`)의 경우, 대리자는 다음과 같은 파라미터를 가진 연산자 함수(operator function) `getValue()`를 제공해야 합니다:
 
@@ -284,7 +284,7 @@ val readOnlyResource: Resource by resourceDelegate()  // ReadWriteProperty를 va
 var readWriteResource: Resource by resourceDelegate()
 ```
 
-## 위임 프로퍼티의 변환 규칙 (Translation rules for delegated properties)
+## 위임 프로퍼티의 변환 규칙 (Translation rules for delegated properties) {id="translation-rules-for-delegated-properties"}
 
 내부적으로 Kotlin 컴파일러는 일부 종류의 위임 프로퍼티에 대해 보조 프로퍼티를 생성하고 이를 위임합니다.
 
@@ -310,7 +310,7 @@ class C {
 
 Kotlin 컴파일러는 인자를 통해 `prop`에 대한 모든 필요한 정보를 제공합니다. 첫 번째 인자 `this`는 외부 클래스 `C`의 인스턴스를 참조하고, `this::prop`은 `prop` 자체를 설명하는 `KProperty` 타입의 리플렉션 객체입니다.
 
-### 위임 프로퍼티의 최적화 사례 (Optimized cases for delegated properties)
+### 위임 프로퍼티의 최적화 사례 (Optimized cases for delegated properties) {id="optimized-cases-for-delegated-properties"}
 
 다음과 같은 경우 `$delegate` 필드가 생략됩니다:
 * 참조된 프로퍼티인 경우:
@@ -352,7 +352,7 @@ Kotlin 컴파일러는 인자를 통해 `prop`에 대한 모든 필요한 정보
   }
   ```
 
-### 다른 프로퍼티로 위임할 때의 변환 규칙 (Translation rules when delegating to another property)
+### 다른 프로퍼티로 위임할 때의 변환 규칙 (Translation rules when delegating to another property) {id="translation-rules-when-delegating-to-another-property"}
 
 다른 프로퍼티로 위임할 때, Kotlin 컴파일러는 참조된 프로퍼티에 대한 즉각적인 접근을 생성합니다. 즉, 컴파일러는 `prop$delegate` 필드를 생성하지 않습니다. 이 최적화는 메모리를 절약하는 데 도움이 됩니다.
 
@@ -383,7 +383,7 @@ class C<Type> {
 }
 ```
 
-## 대리자 제공하기 (Providing a delegate)
+## 대리자 제공하기 (Providing a delegate) {id="providing-a-delegate"}
 
 `provideDelegate` 연산자를 정의하면 프로퍼티 구현이 위임되는 객체를 생성하는 로직을 확장할 수 있습니다. `by`의 우변에 사용된 객체가 `provideDelegate`를 멤버 함수나 확장 함수로 정의하고 있다면, 해당 함수가 프로퍼티 대리자 인스턴스를 생성하기 위해 호출됩니다.
 

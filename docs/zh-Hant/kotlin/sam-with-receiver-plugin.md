@@ -25,7 +25,7 @@ fun test(context: TaskContext) {
 }
 ```
 
-## Gradle
+## Gradle {id="gradle"}
 
 其用法與 [all-open](all-open-plugin.md) 和 [no-arg](no-arg-plugin.md) 相同，唯獨 sam-with-receiver 沒有任何內建預設，您需要指定自己的特殊處理註解清單。
 
@@ -58,7 +58,7 @@ samWithReceiver {
 }
 ```
 
-## Maven
+## Maven {id="maven"}
 
 ```xml
 <plugin>
@@ -88,7 +88,7 @@ samWithReceiver {
 </plugin>
 ```
 
-## 命令列編譯器
+## 命令列編譯器 {id="command-line-compiler"}
 
 將外掛程式的 JAR 檔案新增至編譯器外掛程式的類別路徑 (classpath)，並指定 sam-with-receiver 註解清單：
 

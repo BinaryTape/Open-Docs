@@ -4,9 +4,9 @@ Kotlin 和 Objective-C 使用不同的内存管理策略。Kotlin 拥有一个�
 
 这些策略之间的集成通常是无缝的，一般不需要额外的工作。然而，你应该牢记一些细节：
 
-## 线程
+## 线程 {id="threads"}
 
-### 析构函数
+### 析构函数 {id="deinitializers"}
 
 如果 Swift/Objective-C 对象在主线程上被传递给 Kotlin，那么这些对象及其引用的对象的析构过程将在主线程上调用，例如：
 
@@ -53,7 +53,7 @@ deinit on <_NSMainThread: 0x600003bc0000>{number = 1, name = main}
 
 特殊的 GC 线程符合 Objective-C 运行时规范，这意味着它拥有运行循环（run loop）并会排空自动释放池（autorelease pool）。
 
-### 完成处理程序
+### 完成处理程序 {id="completion-handlers"}
 
 从 Swift 调用 Kotlin 挂起函数时，完成处理程序可能会在主线程之外的线程上调用，例如：
 
@@ -88,9 +88,9 @@ World!
 Running completion handler on <NSThread: 0x600001b45bc0>{number = 7, name = (null)}
 ```
 
-## 垃圾回收与生命周期
+## 垃圾回收与生命周期 {id="garbage-collection-and-lifecycle"}
 
-### 对象回收
+### 对象回收 {id="object-reclamation"}
 
 对象仅在垃圾回收期间被回收。这适用于跨越互操作边界进入 Kotlin/Native 的 Swift/Objective-C 对象，例如：
 
@@ -138,7 +138,7 @@ kotlinTest finished
 SwiftExample deinit
 ```
 
-### Objective-C 对象生命周期
+### Objective-C 对象生命周期 {id="objective-c-objects-lifecycle"}
 
 Objective-C 对象的存活时间可能比预期的更长，这有时可能会导致性能问题。例如，当一个长时间运行的循环在每次迭代中创建多个跨越 Swift/Objective-C 互操作边界的临时对象时。
 
@@ -163,7 +163,7 @@ fun steadyMemoryUsage() {
 }
 ```
 
-### Swift 与 Kotlin 对象链的垃圾回收
+### Swift 与 Kotlin 对象链的垃圾回收 {id="garbage-collection-of-swift-and-kotlin-objects-chains"}
 
 考虑以下示例：
 
@@ -231,7 +231,7 @@ func test() {
 
 收集这四个对象需要两个 GC 周期，因为 Swift 和 Objective-C 对象的析构过程发生在 GC 周期之后。这种限制源于 `deinit`，它可以调用任意代码，包括无法在 GC 暂停期间运行的 Kotlin 代码。
 
-### 循环引用
+### 循环引用 {id="retain-cycles"}
 
 在“循环引用”（retain cycle）中，多个对象通过强引用循环地相互引用：
 
@@ -256,7 +256,7 @@ graph TD
 
 遗憾的是，目前没有专门的工具可以自动检测 Kotlin/Native 代码中的循环引用。为了避免循环引用，请使用[弱引用或无主引用](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/automaticreferencecounting/#Resolving-Strong-Reference-Cycles-Between-Class-Instances)。
 
-## 对后台状态和应用扩展的支持
+## 对后台状态和应用扩展的支持 {id="support-for-background-state-and-app-extensions"}
 
 目前的内存管理器默认不会跟踪应用程序状态，并且不会开箱即用地与 [应用扩展](https://developer.apple.com/app-extensions/) 集成。
 
@@ -268,6 +268,6 @@ kotlin.native.binary.appStateTracking=enabled
 
 当应用程序处于后台时，它会关闭基于定时器的垃圾回收器调用，因此只有在内存消耗过高时才会调用 GC。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 详细了解 [Swift/Objective-C 互操作性](native-objc-interop.md)。

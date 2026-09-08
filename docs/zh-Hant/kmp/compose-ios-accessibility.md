@@ -9,7 +9,7 @@ Compose Multiplatform 的無障礙支援讓身心障礙人士能如同使用原�
 
 您也可以在測試與其他自動化中使用此語意資料：如 `testTag` 等屬性將正確對應到原生無障礙屬性（例如 `accessibilityIdentifier`）。這使得來自 Compose Multiplatform 的語意資料可供無障礙服務與 XCTest 架構使用。
 
-## 高對比佈景主題
+## 高對比佈景主題 {id="high-contrast-theme"}
 
 Compose Multiplatform 使用 Material3 程式庫中的 [`ColorScheme`](https://kotlinlang.org/api/compose-multiplatform/material3/androidx.compose.material3/-color-scheme/) 類別，該類別目前缺乏對高對比色彩的開箱即用支援。對於 iOS 上的高對比佈景主題，您需要在應用程式調色盤中加入額外的一組顏色。對於每個自訂顏色，應手動指定其高對比版本。
 
@@ -113,7 +113,7 @@ val DarkHighContrastPalette =
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="val LightHighContrastPalette = HighContrastColors( primary = RoyalBlue,"}
 
-## 透過觸控板與鍵盤控制
+## 透過觸控板與鍵盤控制 {id="control-via-trackpad-and-keyboard"}
 
 iOS 版 Compose Multiplatform 支援額外的輸入方式來控制您的裝置。除了依賴觸控螢幕外，您還可以啟用 AssistiveTouch 以使用滑鼠或觸控板，或啟用全鍵盤控制（Full Keyboard Access）以使用鍵盤：
 
@@ -122,7 +122,7 @@ iOS 版 Compose Multiplatform 支援額外的輸入方式來控制您的裝置�
   在 iPad 上，連接滑鼠或觸控板即可直接進行基本操作。然而，若您想調整指標大小、更改追蹤速度或為按鈕指定特定操作，仍需啟用 AssistiveTouch。
 * 全鍵盤控制（**設定** | **無障礙** | **鍵盤** | **全鍵盤控制**）可透過連接的鍵盤控制裝置。您可以使用 **Tab** 等按鍵進行瀏覽，並使用 **空格鍵** 啟動項目。
 
-## 使用 XCTest 架構測試無障礙功能
+## 使用 XCTest 架構測試無障礙功能 {id="test-accessibility-with-xctest-framework"}
 
 您可以在測試與其他自動化中使用語意無障礙資料。如 `testTag` 等屬性會正確對應到原生無障礙屬性，例如 `accessibilityIdentifier`。這使得來自 Compose Multiplatform 的語意資料可供無障礙服務與 XCTest 架構使用。
 
@@ -138,7 +138,7 @@ func testAccessibilityTabView() throws {
 }
 ```
 
-## 自訂無障礙樹的同步
+## 自訂無障礙樹的同步 {id="customize-synchronization-of-the-accessibility-tree"}
 
 使用預設設定時：
 * iOS 無障礙樹僅在無障礙服務執行時才與 UI 同步。
@@ -146,7 +146,7 @@ func testAccessibilityTabView() throws {
 
 您可以使用新的 Compose Multiplatform API 自訂這些設定。
 
-### 選擇樹同步選項
+### 選擇樹同步選項 {id="choose-the-tree-synchronization-option"}
 
 > 在 Compose Multiplatform 1.8.0 中，[此選項已被移除](whats-new-compose-180.md#loading-accessibility-tree-on-demand)，因為無障礙樹採延遲同步，不再需要額外配置。
 >
@@ -193,7 +193,7 @@ sealed class AccessibilitySyncOptions {
 }
 ```
 
-### 實作記錄介面
+### 實作記錄介面 {id="implement-the-logging-interface"}
 
 您可以實作 `AccessibilityDebugLogger` 介面，將自訂訊息寫入您選擇的輸出：
 
@@ -213,7 +213,7 @@ ComposeUIViewController(configure = {
 }
 ```
 
-## 接下來？
+## 接下來？ {id="what-s-next"}
 
 * 在 [Apple 無障礙](https://developer.apple.com/accessibility/) 指南中了解更多資訊。
 * 在您平常的 iOS 無障礙工作流程中，嘗試使用 [Kotlin Multiplatform 精靈](https://kmp.jetbrains.com/) 產生的專案。

@@ -13,7 +13,7 @@
 
 [GitHub의 Kotlin DataFrame SQL 예제](https://github.com/zaleslaw/KotlinDataFrame-SQL-Examples/tree/master/src/main/kotlin)를 살펴보세요.
 
-## 시작하기 전에
+## 시작하기 전에 {id="before-you-start"}
 
 > IntelliJ IDEA 2026.2부터 Kotlin Notebook은 더 이상 IDE에 포함되지 않으며 JetBrains에서 공식적으로 지원하지 않습니다.
 > 소스 코드는 [GitHub](https://github.com/Kotlin/kotlin-notebook)에서 계속 이용 가능합니다.
@@ -44,7 +44,7 @@
 
 이 튜토리얼을 따라 하기 위해 DataFrame을 [Gradle](https://kotlin.github.io/dataframe/setupgradle.html) 또는 [Maven](https://kotlin.github.io/dataframe/setupmaven.html) 의존성으로 사용할 수도 있습니다.
 
-## 데이터베이스 연결
+## 데이터베이스 연결 {id="connect-to-a-database"}
 
 데이터베이스에 연결하려면 `DbConnectionConfig()` 함수를 사용하여 연결 설정을 생성합니다:
 
@@ -69,7 +69,7 @@
 >
 {style="tip"}
 
-## 데이터베이스 스키마 검사
+## 데이터베이스 스키마 검사 {id="inspect-database-schema"}
 
 데이터를 로드하기 전에 데이터베이스 스키마(schema)를 검사하여 어떤 테이블이 있고 어떤 컬럼이 포함되어 있는지 파악합니다. 스키마를 확인하여 어떤 테이블을 DataFrame으로 로드할지 결정할 수 있습니다.
 
@@ -85,7 +85,7 @@ dataSchemas.forEach { (tableName, schema) ->
 }
 ```
 
-## 데이터 로드
+## 데이터 로드 {id="load-data"}
 
 데이터베이스 스키마를 검사하고 데이터를 선택한 후, 데이터를 DataFrame으로 로드합니다.
 
@@ -96,7 +96,7 @@ Kotlin DataFrame은 데이터베이스에서 데이터를 로드하는 두 가�
 
 두 방법 모두 검사, 변환 및 분석할 수 있는 DataFrame을 반환합니다.
 
-### 테이블에서 데이터 로드
+### 테이블에서 데이터 로드 {id="load-data-from-a-table"}
 
 테이블에서 데이터를 로드하려면 [`DataFrame.readSqlTable()`](https://kotlin.github.io/dataframe/readsqldatabases.html#reading-specific-tables) 함수를 사용합니다.
 
@@ -112,7 +112,7 @@ val moviesDf = DataFrame.readSqlTable(
 moviesDf
 ```
 
-### SQL 쿼리로 데이터 로드
+### SQL 쿼리로 데이터 로드 {id="load-data-with-an-sql-query"}
 
 데이터베이스에서 특정 SQL 쿼리를 실행하려면 [`DataFrame.readSqlQuery()`](https://kotlin.github.io/dataframe/readsqldatabases.html#executing-sql-queries) 함수를 사용합니다.
 이 방법은 특정 컬럼만 로드하거나, 테이블을 조인(join)하고, 행을 필터링하거나, 데이터베이스 내에서 데이터를 집계해야 할 때 유용합니다.
@@ -135,7 +135,7 @@ val tarantinoMoviesDf = DataFrame.readSqlQuery(dbConfig, TARANTINO_FILMS_SQL_QUE
 tarantinoMoviesDf
 ```
 
-## 데이터 처리
+## 데이터 처리 {id="process-data"}
 
 데이터베이스를 DataFrame으로 로드한 후, DataFrame 연산을 사용하여 가져온 데이터를 처리할 수 있습니다.
 
@@ -153,7 +153,7 @@ val filteredTarantinoMovies = tarantinoMoviesDf
 filteredTarantinoMovies
 ```
 
-## 데이터 분석
+## 데이터 분석 {id="analyze-data"}
 
 [DataFrame 라이브러리](https://kotlin.github.io/dataframe/home.html)를 사용하여 데이터를 그룹화, 정렬, 집계함으로써 데이터 내의 패턴을 발견하고 이해할 수 있습니다.
 
@@ -176,7 +176,7 @@ val top20ActorNames = actorDf
    .take(20)
 ```
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [Kandy 라이브러리](https://kotlin.github.io/kandy/examples.html)를 사용한 데이터 시각화 탐색
 * [Data visualization with Kandy](data-analysis-visualization.md)에서 데이터 시각화에 대한 추가 정보 찾기

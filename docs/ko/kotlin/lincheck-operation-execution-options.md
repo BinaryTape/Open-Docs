@@ -5,7 +5,7 @@ Lincheck은 작업을 단일 스레드에서 실행하거나, 작업을 단 한 
 
 이 문서에서는 다양한 실행 옵션과 설정 방법에 대해 알아봅니다.
 
-## 단일 스레드 작업 그룹
+## 단일 스레드 작업 그룹 {id="single-thread-operation-groups"}
 
 단일 생산자 단일 소비자(single-producer single-consumer) 큐의 작업과 같이 특정 작업은 절대로 동시에 실행되지 않아야 할 때가 있습니다.
 
@@ -39,7 +39,7 @@ Lincheck은 비병렬 그룹(non-parallel group)에 속한 작업들이 서로 �
 | --------------------- |
 ```
 
-## 단일 실행 작업
+## 단일 실행 작업 {id="single-use-operations"}
 
 테스트 호출당 작업을 단 한 번만 실행하려면 `runOnce` 옵션을 사용하세요.
 
@@ -62,7 +62,7 @@ fun buzz() = struct.buzz()
 | ------------------- |
 ```
 
-## 블로킹 작업
+## 블로킹 작업 {id="blocking-operations"}
 
 작업이 실행을 블로킹하도록 설계된 경우 `blocking` 옵션을 사용하세요. 테스트가 [논블로킹 보장(non-blocking guarantees)](lincheck-progress-guarantees.md)을 확인하는 경우, Lincheck은 `blocking` 옵션이 표시된 작업에서 실행이 정지되더라도 테스트를 실패로 처리하지 않습니다.
 
@@ -71,7 +71,7 @@ fun buzz() = struct.buzz()
 fun foo(): Int = struct.foo()
 ```
 
-## 취소 가능한 작업
+## 취소 가능한 작업 {id="cancelable-operations"}
 
 작업이 [중단될 때 취소](https://kotlinlang.org/docs/cancellation-and-timeouts.html#suspension-points-and-cancellation)될 수 있는 경우 `cancellableOnSuspension` 옵션을 사용하세요.
 
@@ -136,7 +136,7 @@ class ChannelCancellableTest {
 </tr>
 </table>
 
-### 즉각적인 취소 (Prompt cancellation)
+### 즉각적인 취소 (Prompt cancellation) {id="prompt-cancellation"}
 
 `cancellableOnSuspension`이 활성화되어 있고 해당 작업이 [즉각적인 취소(prompt cancellation)](https://kotlinlang.org/docs/cancellation-and-timeouts.html#handle-values-safely-when-canceling-coroutines)를 지원해야 하는 경우, `promptCancellation`을 `true`로 설정할 수도 있습니다.
 
@@ -200,7 +200,7 @@ class PromptCancellationTest {
 </tr>
 </table>
 
-## 참고 항목
+## 참고 항목 {id="see-also"}
 
 * [논블로킹 진행 보장 확인](lincheck-progress-guarantees.md)
 * [알고리즘의 순차 명세 정의](lincheck-results-validation.md)

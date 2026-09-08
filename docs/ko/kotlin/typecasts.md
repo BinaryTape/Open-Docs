@@ -93,7 +93,7 @@ fun main() {
 > 
 {type="tip"}
 
-## 타입 캐스트
+## 타입 캐스트 {id="type-casts"}
 
 Kotlin에서 객체의 타입을 다른 타입으로 변환하는 것을 **캐스팅(casting)**이라고 합니다.
 
@@ -101,7 +101,7 @@ Kotlin에서 객체의 타입을 다른 타입으로 변환하는 것을 **캐�
 
 타입을 명시적으로 캐스팅해야 하는 경우, `as?` 또는 `as` [캐스트 연산자](#unsafe-cast-operator)를 사용하세요.
 
-## 스마트 캐스트
+## 스마트 캐스트 {id="smart-casts"}
 
 컴파일러는 불변 값에 대한 타입 검사와 [명시적 캐스트](#unsafe-cast-operator)를 추적하여 암시적인(안전한) 캐스트를 자동으로 삽입합니다.
 
@@ -139,7 +139,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-typecasts-smartcast-negative"}
 
-### 제어 흐름
+### 제어 흐름 {id="control-flow"}
 
 스마트 캐스트는 `if` 조건식뿐만 아니라 [`when` 식](control-flow.md#when-expressions-and-statements)에서도 작동합니다.
 
@@ -241,7 +241,7 @@ fun main(){
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-smart-casts-local-variables" validate="false"}
 
-### 논리 연산자
+### 논리 연산자 {id="logical-operators"}
 
 컴파일러는 `&&` 또는 `||` 연산자의 왼쪽에서 타입 검사(일반 또는 부정)가 이루어진 경우, 오른쪽에서도 스마트 캐스트를 수행할 수 있습니다.
 
@@ -280,7 +280,7 @@ fun signalCheck(signalStatus: Any) {
 >
 {style="note"}
 
-### 교차 타입(Intersection types)
+### 교차 타입(Intersection types) {id="intersection-types"}
 
 컴파일러가 여러 `&&` 검사를 통해 객체를 스마트 캐스트할 때, [*교차 타입(intersection type)*](https://kotlinlang.org/spec/type-system.html#intersection-types)을 추론합니다. 이는 체크된 모든 제약 조건을 동시에 충족하는 내부 타입입니다.
 
@@ -310,7 +310,7 @@ fun describe(animal: Any) {
 fun  <T> T.assertNotNull(): T & Any = this ?: throw IllegalStateException("null value")
 ```
 
-### 인라인 함수
+### 인라인 함수 {id="inline-functions"}
 
 컴파일러는 [인라인 함수(inline functions)](inline-functions.md)에 전달된 람다 함수 내에서 캡처된 변수를 스마트 캐스트할 수 있습니다.
 
@@ -348,7 +348,7 @@ fun runProcessor(): Processor? {
 }
 ```
 
-### 예외 처리
+### 예외 처리 {id="exception-handling"}
 
 스마트 캐스트 정보는 `catch` 및 `finally` 블록으로 전달됩니다. 컴파일러가 객체가 널 허용(nullable) 타입인지 여부를 추적하므로 코드가 더 안전해집니다. 예를 들어:
 
@@ -384,7 +384,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-smart-casts-exception-handling"}
 
-### 스마트 캐스트 전제 조건
+### 스마트 캐스트 전제 조건 {id="smart-cast-prerequisites"}
 
 스마트 캐스트는 검사와 사용 사이에 변수가 변하지 않는다고 컴파일러가 보장할 수 있을 때만 작동합니다. 스마트 캐스트는 다음 조건에서 사용할 수 있습니다.
 
@@ -501,7 +501,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-cast-nullable-types"}
 
-### 업캐스팅 및 다운캐스팅
+### 업캐스팅 및 다운캐스팅 {id="up-and-downcasting"}
 
 Kotlin에서는 객체를 상위 타입 및 하위 타입으로 캐스팅할 수 있습니다.
 

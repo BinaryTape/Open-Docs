@@ -22,11 +22,11 @@
 > 
 {style="tip"}
 
-## 코루틴 개념
+## 코루틴 개념 {id="coroutine-concepts"}
 
 `kotlinx.coroutines` 라이브러리는 작업을 동시에 실행하고, 코루틴 실행을 구조화하며, 공유 상태를 관리하기 위한 핵심 빌딩 블록을 제공합니다.
 
-### 일시 중단 함수와 코루틴 빌더
+### 일시 중단 함수와 코루틴 빌더 {id="suspending-functions-and-coroutine-builders"}
 
 코틀린의 코루틴은 스레드를 차단하지 않고 코드를 일시 중지하고 재개할 수 있게 해주는 일시 중단 함수를 기반으로 구축되었습니다.
 `suspend` 키워드는 장시간 실행되는 작업을 비동기적으로 수행할 수 있는 함수임을 나타냅니다.
@@ -36,7 +36,7 @@
 
 이러한 빌더에 대한 자세한 내용은 [코루틴 기초](coroutines-basics.md) 및 [일시 중단 함수 구성하기](coroutines-and-channels.md)에서 배울 수 있습니다.
 
-### 코루틴 컨텍스트와 동작
+### 코루틴 컨텍스트와 동작 {id="coroutine-context-and-behavior"}
 
 `CoroutineScope`에서 코루틴을 시작하면 그 실행을 제어하는 컨텍스트가 생성됩니다.
 `.launch()` 및 `.async()`와 같은 빌더 함수는 코루틴의 동작 방식을 정의하는 요소 집합을 자동으로 생성합니다.
@@ -48,7 +48,7 @@
 이러한 요소들과 다른 가능한 요소들은 [_코루틴 컨텍스트(coroutine context)_](coroutine-context-and-dispatchers.md)를 구성하며, 이는 기본적으로 부모 코루틴으로부터 상속됩니다.
 이 컨텍스트는 구조화된 동시성을 가능하게 하는 계층 구조를 형성하여, 관련 코루틴들을 함께 [취소](coroutines-cancellation.md)하거나 그룹으로 [예외를 처리](exception-handling.md)할 수 있게 합니다.
 
-### 비동기 플로우와 공유되는 가변 상태
+### 비동기 플로우와 공유되는 가변 상태 {id="asynchronous-flow-and-shared-mutable-state"}
 
 코틀린은 코루틴 간에 통신할 수 있는 여러 가지 방법을 제공합니다.
 코루틴 간에 값을 공유하려는 방식에 따라 다음 옵션 중 하나를 사용하세요.
@@ -65,7 +65,7 @@
 
 더 자세한 내용은 [비동기 플로우](coroutines-flow.md), [채널](channels.md) 및 [코루틴과 채널 튜토리얼](coroutines-and-channels.md)을 참조하세요.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [코루틴 기초 가이드](coroutines-basics.md)에서 코루틴, 일시 중단 함수 및 빌더의 기본 사항을 알아보세요.
 * [일시 중단 함수 구성하기](coroutine-context-and-dispatchers.md)에서 일시 중단 함수를 결합하고 코루틴 파이프라인을 구축하는 방법을 살펴보세요.

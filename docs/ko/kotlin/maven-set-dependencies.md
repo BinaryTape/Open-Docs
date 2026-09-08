@@ -2,7 +2,7 @@
 
 Kotlin Maven 프로젝트의 경우, 기본 Maven Central 저장소 외에 Maven이 아티팩트를 찾을 위치를 구성하고 프로젝트가 의존하는 라이브러리를 정의할 수 있습니다.
 
-## 저장소 선언
+## 저장소 선언 {id="declare-repositories"}
 
 기본적으로 `mavenCentral` 저장소는 모든 Maven 프로젝트에서 사용할 수 있습니다. 다른 저장소의 아티팩트에 액세스하려면 `<repositories>` 섹션에 저장소 이름에 대한 사용자 지정 ID와 URL을 지정하세요.
 
@@ -31,13 +31,13 @@ Kotlin Maven 프로젝트의 경우, 기본 Maven Central 저장소 외에 Maven
 </dependencies>
 ```
 
-## 의존성 설정
+## 의존성 설정 {id="set-dependencies"}
 
-### 표준 라이브러리 의존성
+### 표준 라이브러리 의존성 {id="dependency-on-the-standard-library"}
 
 Kotlin은 애플리케이션에서 사용할 수 있는 광범위한 표준 라이브러리를 제공합니다. 표준 라이브러리 의존성을 수동으로 추가하거나, `<extensions>` 옵션을 활성화하여 누락된 경우 자동으로 설정되도록 할 수 있습니다.
 
-#### 자동 설정
+#### 자동 설정 {id="automatic-setup"}
 
 Kotlin Maven 플러그인에서 제공하는 [`<extensions>` 옵션](maven-configure-project.md#automatic-configuration)을 사용하면 수동 구성을 피할 수 있습니다. 이 옵션은 프로젝트에 `kotlin-stdlib` 의존성이 정의되어 있지 않은 경우 자동으로 추가합니다. 예를 들어, 새로운 Kotlin Maven 프로젝트를 생성하거나 기존 Java Maven 프로젝트에 Kotlin을 도입할 때 유용합니다.
 
@@ -57,7 +57,7 @@ Kotlin Maven 플러그인에서 제공하는 [`<extensions>` 옵션](maven-confi
 >
 {style="note"}
 
-#### 수동 구성
+#### 수동 구성 {id="manual-configuration"}
 
 프로젝트에 Kotlin 표준 라이브러리를 수동으로 추가하려면 `pom.xml` 파일의 `dependencies` 섹션을 다음과 같이 업데이트하세요.
 
@@ -78,7 +78,7 @@ Kotlin Maven 플러그인에서 제공하는 [`<extensions>` 옵션](maven-confi
 >
 {style="note"}
 
-### 테스트 라이브러리 의존성
+### 테스트 라이브러리 의존성 {id="dependencies-on-test-libraries"}
 
 프로젝트에서 [Kotlin 리플렉션](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect.full/)이나 테스트 프레임워크를 사용하는 경우 관련 의존성을 추가하세요. 리플렉션 라이브러리에는 `kotlin-reflect`를, 테스트 라이브러리에는 `kotlin-test` 및 `kotlin-test-junit5`를 사용하세요.
 
@@ -97,7 +97,7 @@ Kotlin Maven 플러그인에서 제공하는 [`<extensions>` 옵션](maven-confi
 </dependencies>
 ```
 
-### kotlinx 라이브러리 의존성
+### kotlinx 라이브러리 의존성 {id="dependency-on-a-kotlinx-library"}
 
 kotlinx 라이브러리의 경우 기본 아티팩트 이름을 추가하거나 `-jvm` 접미사가 붙은 이름을 추가할 수 있습니다. [klibs.io](https://klibs.io/)에 있는 라이브러리의 README 파일을 참고하세요.
 
@@ -125,7 +125,7 @@ kotlinx 라이브러리의 경우 기본 아티팩트 이름을 추가하거나 
 </dependencies>
 ```
 
-## BOM으로 의존성 관리하기
+## BOM으로 의존성 관리하기 {id="manage-dependencies-with-a-bom"}
 
 [BOM(Bill of Materials)](https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#bill-of-materials-bom-poms)은 프로젝트의 의존성 버전을 관리하는 특수한 POM 파일입니다. 이는 관련 아티팩트의 버전을 일치시키고 버전 충돌을 방지합니다.
 
@@ -154,6 +154,6 @@ BOM을 가져온 후에는 `<dependencies>` 섹션에서 버전을 지정하지 
 
 프로젝트에서 함께 출시되는 여러 라이브러리를 게시하는 경우, 사용자가 동일한 방식으로 해당 라이브러리들의 버전을 일치시킬 수 있도록 자체 BOM을 제공할 수 있습니다. 자체 BOM을 작성하는 방법을 알아보려면 [Maven 문서](https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#bill-of-materials-bom-poms)를 참고하세요.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 [Kotlin 컴파일러 구성](maven-kotlin-compiler.md)

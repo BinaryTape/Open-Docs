@@ -60,7 +60,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.4"}
 
-## Fold 與 reduce
+## Fold 與 reduce {id="fold-and-reduce"}
 
 對於更特定的情況，提供了 [`reduce()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/reduce.html) 與 [`fold()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/fold.html) 函式，它們會按順序將提供的操作應用於集合元素，並傳回累加的結果。該操作接受兩個引數：前一個累加值與集合元素。
 

@@ -73,7 +73,7 @@ routing {
 
 外掛程式會先在應用程式資源中尋找規格。如果找不到，則會嘗試使用 `java.io.File` 從檔案系統載入。
 
-## 在執行時產生 OpenAPI 元資料
+## 在執行時產生 OpenAPI 元資料 {id="generate-runtime-openapi-metadata"}
 
 除了依賴靜態檔案，您也可以使用由 OpenAPI 編譯器外掛程式產生的元資料和路由註解，在執行時產生 OpenAPI 規格：
 
@@ -92,7 +92,7 @@ swaggerUI("/swaggerUI") {
 >
 {style="tip"}
 
-## 配置 Swagger UI
+## 配置 Swagger UI {id="configure-swagger-ui"}
 
 您可以在 `swaggerUI {}` 區塊內自訂 Swagger UI，例如覆寫預設的 Swagger UI 版本：
 

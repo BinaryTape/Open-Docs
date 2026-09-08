@@ -5,7 +5,7 @@ Compose Multiplatform for desktop では、システムトレイにアプリケ�
 
 undefined
 
-## システムトレイ
+## システムトレイ {id="system-tray"}
 
 システムトレイにアプリケーションアイコンを追加するには、`Tray()` コンポーザブルを使用します。`Tray()` は `application()` 関数のスコープ内で利用可能なため、アプリケーションウィンドウと並行して、あるいは単独で呼び出すことができます。
 
@@ -117,7 +117,7 @@ object TrayIcon : Painter() {
 
 すべてのデスクトップ環境にシステムトレイがあるわけではありません。プラットフォームがサポートしていない場合、`Tray()` は例外をスローする代わりに、標準エラー出力にエラーを出力します。アプリケーションでトレイ関連のオプションを表示する前に、`isTraySupported` プロパティを確認してください。
 
-### ウィンドウなしのトレイ
+### ウィンドウなしのトレイ {id="tray-without-a-window"}
 
 アプリケーションにトレイアイコンを表示させるために、必ずしもウィンドウが必要なわけではありません。`Tray()` 関数のみが呼び出された場合、アプリケーションは完全にシステムトレイ内のみで実行されます。
 
@@ -153,7 +153,7 @@ object TrayIcon : Painter() {
 
 閉じるためのウィンドウが存在しないため、メニュー項目から `exitApplication()` を呼び出す必要があります。
 
-## 通知
+## 通知 {id="notifications"}
 
 システム通知を送信するには、[システムトレイの例](#system-tray)のように `rememberNotification()` で通知を作成し、それを `TrayState.sendNotification()` に渡します。通知は、`Tray()` コンポーザブルに渡された `TrayState` を通じて配信されます。ステートがトレイに関連付けられていない場合、通知は失われます。
 
@@ -165,7 +165,7 @@ object TrayIcon : Painter() {
 >
 {style="note"}
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * ウィンドウに [メニューバー](compose-desktop-menu-bar.md) を追加する方法を学ぶ。
 * [その他のデスクトップコンポーネント](compose-desktop-components.md) に関するチュートリアルを確認する。

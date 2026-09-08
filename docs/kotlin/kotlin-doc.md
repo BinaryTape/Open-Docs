@@ -7,7 +7,7 @@
 >
 {style="note"}
 
-## KDoc 语法
+## KDoc 语法 {id="kdoc-syntax"}
 
 与 Javadoc 类似，KDoc 注释以 `/**` 开头，以 `*/` 结尾。注释的每一行都可以以星号开头，该星号不被视为注释内容的一部分。
 
@@ -36,11 +36,11 @@ class Group<T>(val name: String) {
 }
 ```
 
-### 块标记
+### 块标记 {id="block-tags"}
 
 KDoc 目前支持以下块标记：
 
-### @param _name_
+### @param _name_ {id="param-name"}
 
 记录函数的值形参或类、属性、函数的类型形参。
 为了更好地将形参名称与描述分开，如果您愿意，可以将形参名称放在方括号中。因此，以下两种语法是等效的：
@@ -50,43 +50,43 @@ KDoc 目前支持以下块标记：
 @param[name] 描述。
 ```
 
-### @return
+### @return {id="return"}
 
 记录函数的返回值。
 
-### @constructor
+### @constructor {id="constructor"}
 
 记录类的主构造函数。
 
-### @receiver
+### @receiver {id="receiver"}
 
 记录扩展函数的接收者。
 
-### @property _name_
+### @property _name_ {id="property-name"}
 
 记录类中具有指定名称的属性。此标记可用于记录在主构造函数中声明的属性，在主构造函数中，直接在属性定义前放置文档注释会显得很尴尬。
 
-### @throws _class_, @exception _class_
+### @throws _class_, @exception _class_ {id="throws-class-exception-class"}
 
 记录方法可能抛出的异常。由于 Kotlin 没有受检异常，因此也不期望记录所有可能的异常，但当它能为类的用户提供有用信息时，您仍然可以使用此标记。
 
-### @sample _identifier_
+### @sample _identifier_ {id="sample-identifier"}
 
 将具有指定限定名称的函数体嵌入到当前元素的文档中，以展示该元素的使用示例。
 
-### @see _identifier_
+### @see _identifier_ {id="see-identifier"}
 
 在文档的 **See also** 部分添加指向指定类或方法的链接。
 
-### @author
+### @author {id="author"}
 
 指定被记录元素的作者。
 
-### @since
+### @since {id="since"}
 
 指定引入被记录元素的软件版本。
 
-### @suppress
+### @suppress {id="suppress"}
 
 从生成的文档中排除该元素。可用于那些不属于模块官方 API 但仍必须对外可见的元素。
 
@@ -94,11 +94,11 @@ KDoc 目前支持以下块标记：
 >
 {style="note"}
 
-## 内联标记
+## 内联标记 {id="inline-markup"}
 
 对于内联标记，KDoc 使用常规的 [Markdown](https://daringfireball.net/projects/markdown/syntax) 语法，并经过扩展以支持链接到代码中其他元素的简写语法。
 
-### 链接到元素
+### 链接到元素 {id="links-to-elements"}
 
 要链接到另一个元素（类、方法、属性或形参），只需将其名称放在方括号中：
 
@@ -122,7 +122,7 @@ KDoc 目前支持以下块标记：
 
 请注意，KDoc 没有任何用于在链接中解析重载成员的语法。由于 Kotlin 的文档生成工具会将函数所有重载的文档放在同一个页面上，因此链接生效并不需要标识特定的重载函数。
 
-### 外部链接
+### 外部链接 {id="external-links"}
 
 要添加外部链接，请使用典型的 Markdown 语法：
 
@@ -130,6 +130,6 @@ KDoc 目前支持以下块标记：
 有关 KDoc 语法的更多信息，请参阅 [KDoc](<example-URL>)。
 ```
 
-## 后续步骤
+## 后续步骤 {id="what-s-next"}
 
 了解如何使用 Kotlin 的文档生成工具：[Dokka](dokka-introduction.md)。

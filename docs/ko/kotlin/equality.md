@@ -5,7 +5,7 @@ Kotlin에는 두 가지 유형의 동등성(Equality)이 있습니다.
 * **구조적 동등성 (Structural equality)** (`==`) – `equals()` 함수를 호출하여 확인
 * **참조 동일성 (Referential equality)** (`===`) – 두 참조가 동일한 객체를 가리키는지 확인
 
-## 구조적 동등성
+## 구조적 동등성 {id="structural-equality"}
 
 구조적 동등성은 두 객체의 내용이나 구조가 같은지 확인합니다. 구조적 동등성은 `==` 연산자와 그 반대인 `!=` 연산자로 확인합니다.
 관례에 따라 `a == b`와 같은 표현식은 다음과 같이 변환됩니다.
@@ -65,7 +65,7 @@ class Point(val x: Int, val y: Int) {
 
 구조적 동등성은 `Comparable<...>` 인터페이스에 정의된 비교와는 무관하므로, 오직 사용자 정의 `equals(Any?)` 구현만이 해당 연산자의 동작에 영향을 줄 수 있습니다.
 
-## 참조 동일성
+## 참조 동일성 {id="referential-equality"}
 
 참조 동일성은 두 객체의 메모리 주소를 확인하여 동일한 인스턴스인지 판단합니다.
 
@@ -95,7 +95,7 @@ fun main() {
 >
 {style="tip"}
 
-## 부동 소수점 숫자 동등성
+## 부동 소수점 숫자 동등성 {id="floating-point-numbers-equality"}
 
 동등성 검사의 피연산자가 정적으로 `Float` 또는 `Double`로 알려진 경우(null 허용 여부와 상관없이), 해당 검사는 [IEEE 754 부동 소수점 산술 표준](https://en.wikipedia.org/wiki/IEEE_754)을 따릅니다.
 
@@ -107,7 +107,7 @@ fun main() {
 
 자세한 정보는 [부동 소수점 숫자 비교](numbers.md#floating-point-number-comparison)를 참조하세요.
 
-## 배열 동등성
+## 배열 동등성 {id="array-equality"}
 
 두 배열이 동일한 순서로 동일한 요소를 가지고 있는지 비교하려면 [`contentEquals()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/content-equals.html)를 사용하세요.
 

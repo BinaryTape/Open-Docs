@@ -7,7 +7,7 @@
 
 我们将保持代码简洁，流程透明：几个微型工具、一段精炼的提示词以及一个交互式命令行循环。
 
-## 设置
+## 设置 {id="setup"}
 
 此 Notebook 假设：
 - 你正在运行已启用 Koog 的 Kotlin Notebook。
@@ -20,7 +20,7 @@
 %use koog
 ```
 
-## 工具：提出针对性问题
+## 工具：提出针对性问题 {id="tools-asking-targeted-questions"}
 
 工具是 LLM 可以调用的、描述良好的微型函数。我们将提供三个：
 - `lessThan(value)`：“你的数字是否小于该值？”
@@ -69,7 +69,7 @@ class GuesserTool : ToolSet {
 }
 ```
 
-## 工具注册表
+## 工具注册表 {id="tool-registry"}
 
 向智能体公开你的工具。我们还添加了一个内置的 `SayToUser` 工具，以便智能体能直接向用户显示消息。
 
@@ -80,7 +80,7 @@ val toolRegistry = ToolRegistry {
 }
 ```
 
-## 智能体配置
+## 智能体配置 {id="agent-configuration"}
 
 我们只需要一段简短的、以工具为导向的系统提示词。我们将建议使用二分查找策略，并将 `temperature = 0.0` 以获得稳定、确定的行为。在这里，我们使用 OpenAI 的推理模型 `GPT4oMini` 进行清晰的规划。
 
@@ -105,7 +105,7 @@ val agent = AIAgent(
 )
 ```
 
-## 运行
+## 运行 {id="run-it"}
 
 - 思考一个 1 到 100 之间的数字。
 - 输入 `start` 开始游戏。
@@ -124,21 +124,21 @@ runBlocking {
 }
 ```
 
-## 工作原理
+## 工作原理 {id="how-it-works"}
 
 - 智能体读取系统提示词并规划二分查找。
 - 在每次迭代中，它会调用你的一个工具：`lessThan`、`greaterThan` 或（确定时）`proposeNumber`。
 - 辅助函数 `ask` 收集你的 Y/n 输入，并向模型返回干净的 "YES"/"NO" 信号。
 - 当获得确认后，它会通过 `SayToUser` 向你表示祝贺。
 
-## 扩展
+## 扩展 {id="extend-it"}
 
 - 通过调整系统提示词来更改范围（例如 1..1000）。
 - 添加 `between(low, high)` 工具以进一步减少调用次数。
 - 更换模型或执行器（例如使用 Ollama 执行器和本地模型），同时保留相同的工具。
 - 将猜测结果或产出持久化到存储中以供分析。
 
-## 故障排除
+## 故障排除 {id="troubleshooting"}
 
 - 缺少密钥：确保你的环境中设置了 `OPENAI_API_KEY`。
 - 找不到内核：确保 `%useLatestDescriptors` 和 `%use koog` 执行成功。

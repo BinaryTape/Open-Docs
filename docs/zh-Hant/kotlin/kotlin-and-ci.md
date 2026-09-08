@@ -6,7 +6,7 @@
 Kotlin 可搭配不同的建置工具使用，因此如果您使用的是 Maven 或 Gradle 等標準工具，設定 Kotlin 專案的流程與整合這些工具的其他語言或程式庫並無二致。
 在使用 IntelliJ IDEA 的內部組建系統時，會有一些微小的需求和差異，TeamCity 也支援該系統。
 
-## Gradle 與 Maven
+## Gradle 與 Maven {id="gradle-and-maven"}
 
 如果使用 Maven 或 Gradle，設定流程非常簡單。只需要定義建置步驟（Build Step）即可。
 例如，如果使用 Gradle，只需為 Runner Type 定義所需的參數，例如 Step Name 和需要執行的 Gradle 任務（tasks）。
@@ -17,20 +17,20 @@ Kotlin 可搭配不同的建置工具使用，因此如果您使用的是 Maven 
 
 如果使用 Maven，適用相同的配置。唯一的區別在於 Runner Type 將會是 Maven。
 
-## IntelliJ IDEA 組建系統
+## IntelliJ IDEA 組建系統 {id="intellij-idea-build-system"}
 
 如果將 IntelliJ IDEA 組建系統與 TeamCity 搭配使用，請確保 IntelliJ IDEA 使用的 Kotlin 版本與 TeamCity 執行的版本相同。您可能需要下載特定版本的 Kotlin 外掛程式並將其安裝在 TeamCity 上。
 
 幸運的是，目前已有一個 Meta-runner 可以處理大部分的手動工作。如果您不熟悉 TeamCity Meta-runner 的概念，請參閱 [文件](https://www.jetbrains.com/help/teamcity/working-with-meta-runner.html)。它們是引入自訂 Runner 的一種非常簡單且強大的方式，無需編寫外掛程式。
 
-### 下載並安裝 Meta-runner
+### 下載並安裝 Meta-runner {id="download-and-install-the-meta-runner"}
 
 Kotlin 的 Meta-runner 可在 [GitHub](https://github.com/jonnyzzz/Kotlin.TeamCity) 上取得。
 下載該 Meta-runner 並從 TeamCity 使用者介面匯入。
 
 <img src="teamcity-metarunner.png" alt="Meta-runner" width="700"/>
 
-### 設定 Kotlin 編譯器獲取步驟
+### 設定 Kotlin 編譯器獲取步驟 {id="setup-kotlin-compiler-fetching-step"}
 
 基本上，此步驟僅限於定義 Step Name 和您所需的 Kotlin 版本。可以使用標籤。
 
@@ -39,7 +39,7 @@ Kotlin 的 Meta-runner 可在 [GitHub](https://github.com/jonnyzzz/Kotlin.TeamCi
 執行器會根據 IntelliJ IDEA 專案的路徑設定，將屬性 `system.path.macro.KOTLIN.BUNDLED` 的值設定為正確的值。然而，這個值必須在 TeamCity 中定義（且可以設定為任何值）。
 因此，您需要將其定義為系統變數。
 
-### 設定 Kotlin 編譯步驟
+### 設定 Kotlin 編譯步驟 {id="setup-kotlin-compilation-step"}
 
 最後一個步驟是定義專案的實際編譯，這會使用標準的 IntelliJ IDEA Runner Type。
 
@@ -47,6 +47,6 @@ Kotlin 的 Meta-runner 可在 [GitHub](https://github.com/jonnyzzz/Kotlin.TeamCi
 
 至此，我們的專案現在應該可以組建並產出對應的建置產物。
 
-## 其他 CI 伺服器
+## 其他 CI 伺服器 {id="other-ci-servers"}
 
 如果使用與 TeamCity 不同的持續整合工具，只要它支援任何建置工具或呼叫命令列工具，就應該可以編譯 Kotlin 並將自動化作業作為 CI 流程的一部分。

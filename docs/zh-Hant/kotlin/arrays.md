@@ -6,7 +6,7 @@
 
 Kotlin 提供了 [`Array<T>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/) 類別以及 [基本型別陣列](#primitive-type-arrays)。
 
-## 何時使用陣列
+## 何時使用陣列 {id="when-to-use-arrays"}
 
 在需要與 Java API 互通或有低階需求時，請使用陣列。例如，如果您的效能需求超出了常規應用程式的需要，或者您需要建構自訂的資料結構。
 
@@ -24,7 +24,7 @@ Kotlin 提供了 [`Array<T>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotli
 
 了解如何[將陣列轉換為集合](#convert-to-collections)。 
 
-## 建立陣列
+## 建立陣列 {id="create-arrays"}
 
 要建立陣列，您可以使用：
 
@@ -37,7 +37,7 @@ Kotlin 提供了 [`Array<T>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotli
 > 
 {style="note"}
 
-### 帶有值的陣列
+### 帶有值的陣列 {id="array-with-values"}
 
 要從一組已知的值建立型別化陣列，請使用 [`arrayOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/array-of.html) 函式。
 Kotlin 會自動推論型別：
@@ -53,7 +53,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="arrays-simple-array-kotlin"}
 
-### 空陣列
+### 空陣列 {id="empty-array"}
 
 要建立一個沒有元素的陣列，請使用 [`emptyArray()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/empty-array.html) 函式。
 您可以在指派的左側或右側指定元素的型別：
@@ -65,7 +65,7 @@ val emptyArrayLeft: Array<String> = emptyArray()
 
 了解[如何新增元素](#add-and-remove-elements)到陣列。
 
-### 帶有 null 的陣列
+### 帶有 null 的陣列 {id="array-with-nulls"}
 
 要建立一個指定大小且填滿 `null` 元素的陣列，
 請使用 [`arrayOfNulls()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/array-of-nulls.html#kotlin$arrayOfNulls(kotlin.Int)) 函式：
@@ -81,7 +81,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="arrays-null-array-kotlin"}
 
-### Array 建構函式
+### Array 建構函式 {id="array-constructor"}
 
 `Array` 建構函式接受陣列大小，以及一個傳回陣列元素值的函式：
 
@@ -100,7 +100,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="arrays-array-constructor-kotlin"}
 
-### 巢狀陣列
+### 巢狀陣列 {id="nested-arrays"}
 
 要建立巢狀或多維陣列，請使用陣列的陣列。
 巢狀陣列不需要是相同的型別或相同的大小。
@@ -122,7 +122,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="arrays-multidimensional-array-kotlin"}
 
-### 基本型別陣列
+### 基本型別陣列 {id="primitive-type-arrays"}
 
 如果您在 `Array` 類別中使用基本型別值，編譯器會將這些值裝箱 (box) 成物件。
 為了避免裝箱開銷，您可以使用專用的基本型別陣列。
@@ -198,7 +198,7 @@ fun main() {
 >
 {style="note"}
 
-## 使用陣列
+## 使用陣列 {id="work-with-arrays"}
 
 陣列支援許多與集合相同的操作，包括迭代、搜尋、排序和轉換。
 在 Kotlin 中，您可以透過將陣列用於向函式傳遞可變數量的引數，或對陣列本身執行操作來使用陣列。
@@ -219,7 +219,7 @@ fun main() {
 
 本節介紹了一些最常用的操作。
 
-### 存取與修改元素
+### 存取與修改元素 {id="access-and-modify-elements"}
 
 要存取和修改陣列中的元素，請使用[索引存取運算子](operator-overloading.md#indexed-access-operator) (`[]`)：
 
@@ -284,7 +284,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 新增與移除元素
+### 新增與移除元素 {id="add-and-remove-elements"}
 
 由於陣列的大小是固定的，因此它們不支援 `.add()` 和 `.remove()` 函式。要執行這些操作，您需要建立一個新陣列。為此，您可以使用以下選項之一：
 
@@ -330,7 +330,7 @@ fun main() {
 >
 {style="tip"}
 
-### 比較陣列
+### 比較陣列 {id="compare-arrays"}
 
 要比較兩個陣列是否具有相同順序的相同元素，請使用 [`.contentEquals()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/content-equals.html) 和 [`.contentDeepEquals()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/content-deep-equals.html) 函式：
 
@@ -359,12 +359,12 @@ fun main() {
 >
 {style="warning"}
 
-### 轉換陣列
+### 轉換陣列 {id="transform-arrays"}
 
 Kotlin 有許多用於轉換陣列的實用函式。本節重點介紹其中一些。
 如需完整清單，請參閱我們的 [API 參考](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/)。
 
-#### 加總
+#### 加總 {id="sum"}
 
 要傳回陣列中所有元素的總和，請使用 [`.sum()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/sum.html) 函式：
 
@@ -383,7 +383,7 @@ fun main() {
 >
 {style="note"}
 
-#### 排序與打亂
+#### 排序與打亂 {id="sort-and-shuffle"}
 
 您可以使用 [`.sort()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/sort.html) 函式按自然順序對陣列中的元素進行排序，或者使用 [`.shuffle()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/shuffle.html) 函式隨機打亂它們：
 
@@ -407,7 +407,7 @@ fun main() {
 
 要獲取新的排序後陣列而不修改原始陣列，請改用 [`.sortedArray()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/sorted-array.html) 函式。
 
-### 將可變數量的引數傳遞給函式
+### 將可變數量的引數傳遞給函式 {id="pass-variable-number-of-arguments-to-a-function"}
 
 在 Kotlin 中，您可以透過 [`vararg`](functions.md#variable-number-of-arguments-varargs) 參數向函式傳遞可變數量的引數。這在您預先不知道引數數量時非常有用，例如在格式化訊息或建立 SQL 查詢時。
 
@@ -430,12 +430,12 @@ fun printAllStrings(vararg strings: String) {
 
 如需更多資訊，請參閱[可變參數 (varargs)](functions.md#variable-number-of-arguments-varargs)。
 
-## 轉換為集合
+## 轉換為集合 {id="convert-to-collections"}
 
 如果您使用的不同 API 中，有些使用陣列而有些使用集合，則可以將陣列轉換為集合，反之亦然。為此，請使用 [`.toList()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-list.html)、[`.toSet()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-set.html) 和 [`.toMap()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-map.html) 函式。
 這些函式會將陣列內容複製到獨立的複本中。它們不會反映對陣列的後續更改。
 
-### 轉換為 List 或 Set
+### 轉換為 List 或 Set {id="convert-to-list-or-set"}
 
 要將陣列轉換為 `List` 或 `Set`，請使用 [`.toList()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-list.html) 和 [`.toSet()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-set.html) 函式：
 
@@ -472,7 +472,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 轉換為 Map
+### 轉換為 Map {id="convert-to-map"}
 
 要將陣列轉換為 `Map`，請使用 [`.toMap()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-map.html) 函式。
 
@@ -497,7 +497,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="arrays-convert-map-kotlin"}
 
-## 後續步驟
+## 後續步驟 {id="what-s-next"}
 
 * 在[集合概覽](collections-overview.md)中進一步了解為什麼我們建議在大多數使用案例中使用集合。
 * 了解其他[基本型別](types-overview.md)。

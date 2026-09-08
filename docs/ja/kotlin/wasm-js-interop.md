@@ -10,16 +10,16 @@ Kotlin/Wasm では、Kotlin 内で JavaScript コードを使用することも�
 >
 {style="note"}
 
-## Kotlin で JavaScript コードを使用する
+## Kotlin で JavaScript コードを使用する {id="use-javascript-code-in-kotlin"}
 
 `external` 宣言、JavaScript コードスニペットを含む関数、および `@JsModule` アノテーションを使用して、Kotlin で JavaScript コードを使用する方法について学びます。
 
-### 外部宣言 (External declarations)
+### 外部宣言 (External declarations) {id="external-declarations"}
 
 デフォルトでは、外部の JavaScript コードは Kotlin からは見えません。
 Kotlin で JavaScript コードを使用するには、`external` 宣言を使用してその API を記述します。
 
-#### JavaScript 関数
+#### JavaScript 関数 {id="javascript-functions"}
 
 次のような JavaScript 関数を考えます：
 
@@ -43,7 +43,7 @@ fun main() {
 }
 ```
 
-#### JavaScript プロパティ
+#### JavaScript プロパティ {id="javascript-properties"}
 
 次のような JavaScript のグローバル変数を考えます：
 
@@ -59,7 +59,7 @@ external var globalCounter: Int
 
 これらのプロパティは外部で初期化されます。Kotlin コード内で `= value` による初期化子を持つことはできません。
 
-#### JavaScript クラス
+#### JavaScript クラス {id="javascript-classes"}
 
 次のような JavaScript クラスを考えます：
 
@@ -88,7 +88,7 @@ external class Rectangle(height: Double, width: Double) : JsAny {
 
 `external` クラス内のすべての宣言は、暗黙的に外部のものとみなされます。
 
-#### 外部インターフェース (External interfaces)
+#### 外部インターフェース (External interfaces) {id="external-interfaces"}
 
 JavaScript オブジェクトの形状を Kotlin で記述できます。次のような JavaScript 関数とその戻り値を考えます：
 
@@ -116,7 +116,7 @@ external fun createUser(name: String, age: Int): User
 * `reified` 型引数として渡すことはできません。
 * `as` による外部インターフェースへのキャストは常に成功します。
 
-#### 外部オブジェクト (External objects)
+#### 外部オブジェクト (External objects) {id="external-objects"}
 
 オブジェクトを保持する次のような JavaScript 変数を考えます：
 
@@ -140,12 +140,12 @@ external object Counter : JsAny {
 }
 ```
 
-#### 外部型の階層
+#### 外部型の階層 {id="external-type-hierarchy"}
 
 通常のクラスやインターフェースと同様に、他の外部クラスを拡張したり、外部インターフェースを実装したりするように外部宣言を行うことができます。
 ただし、同じ型階層内で外部宣言と非外部宣言を混在させることはできません。
 
-#### @nativeInvoke を使用した呼び出し可能な JavaScript オブジェクト
+#### @nativeInvoke を使用した呼び出し可能な JavaScript オブジェクト {id="callable-javascript-objects-with-nativeinvoke"}
 <primary-label ref="experimental-opt-in"/>
 
 `external` 宣言（クラスまたはインターフェース）の Kotlin メンバ関数に `@nativeInvoke` アノテーションを使用することで、それを JavaScript 関数として呼び出し可能にすることができます。
@@ -172,7 +172,7 @@ fun main() {
 >
 > {style="note"}
 
-### JavaScript コードを含む Kotlin 関数
+### JavaScript コードを含む Kotlin 関数 {id="kotlin-functions-with-javascript-code"}
 
 `= js("code")` 形式の本体を持つ関数を定義することで、Kotlin/Wasm コードに JavaScript スニペットを追加できます。
 
@@ -213,7 +213,7 @@ JavaScript の構文エラーがある場合は、JavaScript コードを実行�
 >
 {style="note"}
 
-### JavaScript モジュール
+### JavaScript モジュール {id="javascript-modules"}
 
 デフォルトでは、外部宣言は JavaScript のグローバルスコープに対応します。Kotlin ファイルに [`@JsModule` アノテーション](js-modules.md#jsmodule-annotation)を付けると、そのファイル内のすべての外部宣言は指定されたモジュールからインポートされます。
 
@@ -245,7 +245,7 @@ external class User : JsAny {
 }
 ```
 
-### 配列の相互運用性
+### 配列の相互運用性 {id="array-interoperability"}
 
 JavaScript の `JsArray<T>` を Kotlin のネイティブな `Array` または `List` 型にコピーできます。同様に、これらの Kotlin 型を `JsArray<T>` にコピーすることもできます。
 
@@ -283,11 +283,11 @@ import org.khronos.webgl.*
     val kotlinIntArray: IntArray = jsInt32Array.toIntArray()
 ```
 
-## JavaScript で Kotlin コードを使用する
+## JavaScript で Kotlin コードを使用する {id="use-kotlin-code-in-javascript"}
 
 `@JsExport` アノテーションを使用して、JavaScript で Kotlin コードを使用する方法について学びます。
 
-### @JsExport アノテーション付きの関数
+### @JsExport アノテーション付きの関数 {id="functions-with-the-jsexport-annotation"}
 
 Kotlin/Wasm 関数を JavaScript コードから利用できるようにするには、`@JsExport` アノテーションを使用します：
 
@@ -332,7 +332,7 @@ kotlin {
 >
 {style="warning"}
 
-## 型の対応関係
+## 型の対応関係 {id="type-correspondence"}
 
 Kotlin/Wasm では、JavaScript 相互運用宣言のシグネチャにおいて、特定の型のみが許可されます。
 これらの制限は、`external`、`= js("code")`、または `@JsExport` を使用した宣言に一律に適用されます。
@@ -354,7 +354,7 @@ Kotlin 型が JavaScript 型にどのように対応するかを確認してく�
 
 これらの型の null 許容（nullable）バージョンも使用できます。
 
-### JsAny 型
+### JsAny 型 {id="jsany-type"}
 
 JavaScript の値は、Kotlin では `JsAny` 型とそのサブタイプを使用して表されます。
 
@@ -367,7 +367,7 @@ Kotlin/Wasm 標準ライブラリは、これらの型のいくつかの表現�
 
 また、`external` インターフェースやクラスを宣言することで、カスタムの `JsAny` サブタイプを作成することもできます。
 
-### JsReference 型
+### JsReference 型 {id="jsreference-type"}
 
 Kotlin の値は、`JsReference` 型を使用して、不透明な参照（opaque reference）として JavaScript に渡すことができます。
 
@@ -405,7 +405,7 @@ let user = UserLib.createUser("Bob");
 UserLib.setUserName(user, "Alice");
 ```
 
-### 型パラメータ
+### 型パラメータ {id="type-parameters"}
 
 JavaScript 相互運用宣言は、`JsAny` またはそのサブタイプを上限境界（upper bound）として持つ場合に限り、型パラメータを持つことができます。例：
 
@@ -413,7 +413,7 @@ JavaScript 相互運用宣言は、`JsAny` またはそのサブタイプを上�
 external fun <T : JsAny> processData(data: JsArray<T>): T
 ```
 
-## 例外処理
+## 例外処理 {id="exception-handling"}
 
 Kotlin の `try-catch` 式を使用して、Kotlin/Wasm コードで JavaScript の例外をキャッチできます。
 例外処理は以下のように機能します：
@@ -455,7 +455,7 @@ fun main() {
 * Firefox 129+
 * Safari 18.4+
 
-## Kotlin/Wasm と Kotlin/JS の相互運用性の違い
+## Kotlin/Wasm と Kotlin/JS の相互運用性の違い {id="kotlin-wasm-and-kotlin-js-interoperability-differences"}
 
 Kotlin/Wasm の相互運用性は Kotlin/JS の相互運用性と類似していますが、考慮すべき重要な違いがあります：
 
@@ -496,7 +496,7 @@ Kotlin/Wasm の相互運用性は Kotlin/JS の相互運用性と類似してい
 >
 {style="note"}
 
-## Web 関連のブラウザ API
+## Web 関連のブラウザ API {id="web-related-browser-apis"}
 
 [`kotlinx-browser` ライブラリ](https://github.com/kotlin/kotlinx-browser) は、以下を含む JavaScript ブラウザ API を提供するスタンドアロンライブラリです：
 * `org.khronos.webgl` パッケージ:

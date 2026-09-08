@@ -10,7 +10,7 @@ Koin では設定モジュールを検証することができ、実行時に依
 移行については [コンパイル時の安全性](/docs/reference/koin-compiler/compile-safety) を参照してください。
 :::
 
-## Verify API - JVM 限定 [3.3+]
+## Verify API - JVM 限定 [3.3+] {id="verify-api-jvm-only-3-3"}
 
 Koin モジュールで `verify()` 拡張関数を使用します。内部的には、これはすべてのコンストラクタクラスを検証し、Koin 設定と照合して、その依存関係に対して宣言されたコンポーネントがあるかどうかを確認します。失敗した場合、この関数は `MissingKoinDefinitionException` をスローします。
 
@@ -46,7 +46,7 @@ JUnit テストを実行すれば完了です！
 
 `verify()` API は動作が非常に軽量で、設定に対して実行するためにモックやスタブの類を一切必要としません。
 
-### 注入パラメータを使用した検証 [4.0+]
+### 注入パラメータを使用した検証 [4.0+] {id="verifying-with-injected-parameters-4-0"}
 
 `parametersOf` を使用してオブジェクトを注入する設定がある場合、設定内にパラメータ型の定義がないため、検証は失敗します。
 しかし、`definition<Type>(Class1::class, Class2::class ...)` を使用して、指定された定義で注入されるパラメータ型を定義できます。
@@ -72,7 +72,7 @@ class ModuleCheck {
 }
 ```
 
-### 型のホワイトリスト登録 (Type White-Listing)
+### 型のホワイトリスト登録 (Type White-Listing) {id="type-white-listing"}
 
 型を「ホワイトリスト」として追加できます。これは、その型がいかなる定義に対してもシステム内に存在するものとみなされることを意味します。
 
@@ -91,7 +91,7 @@ class NiaAppModuleCheck {
 }
 ```
 
-### 検証のためのアノテーションの使用
+### 検証のためのアノテーションの使用 {id="using-annotations-for-verification"}
 
 `koin-core-annotations` のアノテーションは、Koin が注入コントラクト（injection contracts）を推論し、設定を検証するのに役立ちます。複雑な DSL 設定を使用する代わりに、これらのアノテーションが要素の特定に役立ちます。
 
@@ -106,7 +106,7 @@ class ComponentBProvided(@Provided val a: ComponentA)
 
 ---
 
-## CheckModules API (非推奨)
+## CheckModules API (非推奨) {id="checkmodules-api-deprecated"}
 
 :::warning
 `checkModules()` API は Koin 4.0 以降、非推奨となりました。代わりに `verify()` を使用するか、コンパイル時の安全性のために Koin Compiler Plugin へ移行してください。
@@ -140,7 +140,7 @@ class CheckModulesTest : KoinTest {
 }
 ```
 
-### CheckModule DSL
+### CheckModule DSL {id="checkmodule-dsl"}
 
 注入パラメータ、プロパティ、または動的インスタンスを使用する定義の場合：
 
@@ -149,7 +149,7 @@ class CheckModulesTest : KoinTest {
 * `withParameter<Type>(qualifier){ qualifier -> value }` - パラメータとして注入される `value` インスタンスを追加します。
 * `withProperty(key, value)` - Koin にプロパティを追加します。
 
-### JUnit ルールによるモック
+### JUnit ルールによるモック {id="mocking-with-a-junit-rule"}
 
 `checkModules` でモックを使用するには、`MockProviderRule` を提供します。
 
@@ -161,7 +161,7 @@ val mockProvider = MockProviderRule.create { clazz ->
 }
 ```
 
-### 動的な振る舞いを持つモジュールの検証
+### 動的な振る舞いを持つモジュールの検証 {id="verifying-modules-with-dynamic-behavior"}
 
 ```kotlin
 val myModule = module {
@@ -188,7 +188,7 @@ class CheckModulesTest : KoinTest {
 }
 ```
 
-### Android の例
+### Android の例 {id="android-example"}
 
 ```kotlin
 class CheckModulesTest {
@@ -213,7 +213,7 @@ class CheckModulesTest {
 }
 ```
 
-### スコープリンクの提供
+### スコープリンクの提供 {id="providing-scope-links"}
 
 `withScopeLink` を使用してスコープをリンクします：
 
@@ -240,7 +240,7 @@ fun `test DI modules`(){
 
 ---
 
-## コンパイル時の安全性への移行
+## コンパイル時の安全性への移行 {id="migration-to-compile-time-safety"}
 
 Koin Compiler Plugin は現在、コンパイル時の依存関係検証を提供しており、実行時の検証の必要性を置き換えています。
 

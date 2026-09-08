@@ -4,7 +4,7 @@
 
 undefined
 
-## 클릭 리스너(Click listeners)
+## 클릭 리스너(Click listeners) {id="click-listeners"}
 
 클릭 리스너는 안드로이드용 Compose 멀티플랫폼과 데스크톱용 Compose 멀티플랫폼 모두에서 사용할 수 있으므로, 코드가 두 플랫폼 모두에서 작동합니다.
 예를 들어, `onClick`, `onDoubleClick`, `onLongClick` 수정자(modifier)를 사용하여 간단한 클릭 리스너를 설정하는 방법은 다음과 같습니다.
@@ -62,7 +62,7 @@ fun main() = singleWindowApplication(title = "Mouse clicks") {
 
 `combinedClickable` 수정자는 기본 버튼(마우스 왼쪽 버튼)과 터치 이벤트만 지원합니다. 버튼을 다르게 처리해야 하는 경우, [`Modifier.onClick`](#onclick-handlers) 섹션을 참조하세요.
 
-## 이동 리스너(Move listeners)
+## 이동 리스너(Move listeners) {id="move-listeners"}
 
 > `onPointerEvent` 수정자는 [실험적(Experimental)](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels)입니다. 옵트인(Opt-in)이 필요하며(아래 세부 정보 참조), 평가 목적으로만 사용해야 합니다.
 > [안정(Stable)](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) API를 보려면 [`Modifier.pointerInput`](#listening-for-raw-events-in-common-code-via-pointerinput)을 참조하세요.
@@ -106,7 +106,7 @@ fun main() = singleWindowApplication(title = "Mouse move listeners") {
 
 <img src="compose-mouse-move-listeners.animated.gif" alt="Mouse move listeners" width="600" preview-src="compose-mouse-move-listeners.png"/>
 
-## 진입 리스너(Enter listeners)
+## 진입 리스너(Enter listeners) {id="enter-listeners"}
 
 > `onPointerEvent` 수정자는 [실험적(Experimental)](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels)입니다. 옵트인(Opt-in)이 필요하며(아래 세부 정보 참조), 평가 목적으로만 사용해야 합니다.
 > [안정(Stable)](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) API를 보려면 [`Modifier.pointerInput`](#listening-for-raw-events-in-common-code-via-pointerinput)을 참조하세요.
@@ -162,7 +162,7 @@ fun main() = singleWindowApplication(title = "Mouse enter listeners") {
 
 <img src="compose-mouse-enter-listeners.animated.gif" alt="Mouse enter listeners" width="600" preview-src="compose-mouse-enter-listeners.png"/>
 
-## 스크롤 리스너(Scroll listeners)
+## 스크롤 리스너(Scroll listeners) {id="scroll-listeners"}
 
 > `onPointerEvent` 수정자는 [실험적(Experimental)](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels)입니다. 옵트인(Opt-in)이 필요하며(아래 세부 정보 참조), 평가 목적으로만 사용해야 합니다.
 > [안정(Stable)](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) API를 보려면 [`Modifier.pointerInput`](#listening-for-raw-events-in-common-code-via-pointerinput)을 참조하세요.
@@ -325,7 +325,7 @@ RMB + Alt") }
 
 <img src="compose-onclick-modifier.animated.gif" alt="Modifier.onClick" width="600" preview-src="compose-onclick-modifier.png"/>
 
-## 실험적 onDrag 수정자
+## 실험적 onDrag 수정자 {id="experimental-ondrag-modifier"}
 
 > `onDrag` 수정자는 [실험적(Experimental)](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels)이며 데스크톱 프로젝트에서만 지원됩니다. 옵트인(Opt-in)이 필요하며(아래 세부 정보 참조), 평가 목적으로만 사용해야 합니다.
 >
@@ -464,7 +464,7 @@ fun main() = singleWindowApplication(title = "Drag") {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="Modifier.pointerInput(Unit) { detectDragGestures(matcher = PointerMatcher.Primary)"}
 
-## Swing 상호운용성을 통한 원시 AWT 이벤트 액세스
+## Swing 상호운용성을 통한 원시 AWT 이벤트 액세스 {id="accessing-raw-awt-events-with-swing-interoperability"}
 
 > `onPointerEvent` 수정자는 [실험적(Experimental)](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels)입니다. 옵트인(Opt-in)이 필요하며(아래 세부 정보 참조), 평가 목적으로만 사용해야 합니다.
 > [안정(Stable)](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) API를 보려면 [`Modifier.pointerInput`](#listening-for-raw-events-in-common-code-via-pointerinput)을 참조하세요.
@@ -509,7 +509,7 @@ fun main() = singleWindowApplication(title = "Raw AWT events") {
 
 <img src="compose-raw-awt-events.animated.gif" alt="Swing interoperability" width="600" preview-src="compose-raw-awt-events.png"/>
 
-## pointerInput을 통해 공통 코드에서 원시 이벤트 리슨하기
+## pointerInput을 통해 공통 코드에서 원시 이벤트 리슨하기 {id="listening-for-raw-events-in-common-code-via-pointerinput"}
 
 위 스니펫에서는 특정 유형의 포인터 이벤트를 구독하는 헬퍼 함수인 `Modifier.onPointerEvent` 함수를 사용했습니다. 이는 `Modifier.pointerInput` 함수의 새롭고 짧은 변형입니다. 현재는 실험적이며 데스크톱 전용이므로 공통(common) 코드에서는 사용할 수 없습니다.
 
@@ -556,6 +556,6 @@ fun main() = singleWindowApplication(title = "Raw events via Modifier.pointerInp
 
 <img src="compose-raw-events.animated.gif" alt="Raw events via Modifier.pointerInput" width="600" preview-src="compose-raw-events.png"/>
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 [기타 데스크톱 컴포넌트](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop)에 관한 튜토리얼을 살펴보세요.

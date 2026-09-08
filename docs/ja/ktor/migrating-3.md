@@ -6,7 +6,7 @@
 
 ## Ktor サーバー {id="server"}
 
-### `ApplicationEngine`、`ApplicationEnvironment`、および `Application`
+### `ApplicationEngine`、`ApplicationEnvironment`、および `Application` {id="applicationengine-applicationenvironment-and-application"}
 
 設定可能性を向上させ、`ApplicationEngine`、`ApplicationEnvironment`、および `Application` インスタンス間の分離をより明確にするために、いくつかの設計変更が導入されました。
 
@@ -180,9 +180,9 @@ fun main(args: Array<String>) {
 
 モデルの変更に関する詳細は、[YouTrack の issue KTOR-3857](https://youtrack.jetbrains.com/issue/KTOR-3857/Environment-Engine-Application-Design) を参照してください。
 
-### テスト
+### テスト {id="testing"}
 
-##### `withTestApplication` および `withApplication` が削除されました
+##### `withTestApplication` および `withApplication` が削除されました {id="withtestapplication-and-withapplication-have-been-removed"}
 
 [`2.0.0` リリースで以前に非推奨となった](migration-to-20x.md#testing-api) `withTestApplication` および `withApplication` 関数が、`ktor-server-test-host` パッケージから完全に削除されました。
 
@@ -289,7 +289,7 @@ fun testHello() = testApplication {
 
 テストアプリケーションの設定の詳細については、[Ktor Server でのテスト](server-testing.md)セクションを参照してください。
 
-### `CallLogging` プラグインのパッケージ名が変更されました
+### `CallLogging` プラグインのパッケージ名が変更されました {id="calllogging-plugin-package-has-been-renamed"}
 
 [`CallLogging`](https://api.ktor.io/ktor-server-call-logging/io.ktor.server.plugins.calllogging/index.html) プラグインのパッケージ名が、タイポ修正のため変更されました。
 
@@ -297,13 +297,13 @@ fun testHello() = testApplication {
 |-------------------------------------|--------------------------------------|
 | `io.ktor.server.plugins.callloging` | `io.ktor.server.plugins.calllogging` |
 
-### `ktor-server-host-common` モジュールが削除されました
+### `ktor-server-host-common` モジュールが削除されました {id="ktor-server-host-common-module-has-been-removed"}
 
 `Application` が `ApplicationEngine` の情報を必要とするようになったため、`ktor-server-host-common` モジュールの内容は `ktor-server-core`、具体的には [`io.ktor.server.engine`](https://api.ktor.io/ktor-server-core/io.ktor.server.engine/index.html) パッケージに統合されました。
 
 依存関係が適切に更新されていることを確認してください。ほとんどの場合、`ktor-server-host-common` の依存関係を削除するだけで済みます。
 
-### `Locations` プラグインが削除されました
+### `Locations` プラグインが削除されました {id="locations-plugin-has-been-removed"}
 
 Ktor サーバー用の `Locations` プラグインが削除されました。型安全なルーティングを作成するには、代わりに [Resources プラグイン](server-resources.md) を使用してください。これには以下の変更が必要です。
 
@@ -358,7 +358,7 @@ fun Application.module() {
 
 `Resources` の使用方法に関する詳細は、[型安全なルーティング](server-resources.md)を参照してください。
 
-### WebSockets 設定における `java.time` の置き換え
+### WebSockets 設定における `java.time` の置き換え {id="replacement-of-java-time-in-websockets-configuration"}
 
 [WebSockets](server-websockets.md) プラグインの設定が更新され、`pingPeriod` および `timeout` プロパティに Kotlin の [Duration](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-duration/) を使用するようになりました。これにより、以前使用されていた `java.time.Duration` が置き換えられ、より Kotlin らしい記述が可能になりました。
 
@@ -390,7 +390,7 @@ install(WebSockets) {
 
 必要に応じて、他の期間設定でも同様の Kotlin duration 拡張（`minutes`、`hours` など）を使用できます。詳細については、[Duration](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-duration/) のドキュメントを参照してください。
 
-### サーバーソケットの `.bind()` が中断関数になりました
+### サーバーソケットの `.bind()` が中断関数になりました {id="server-socket-bind-is-now-suspending"}
 
 JS および WasmJS 環境での非同期操作をサポートするため、[`TCPSocketBuilder`](https://api.ktor.io/ktor-network/io.ktor.network.sockets/-tcp-socket-builder/index.html) と [`UDPSocketBuilder`](https://api.ktor.io/ktor-network/io.ktor.network.sockets/-u-d-p-socket-builder/index.html) の両方におけるサーバーソケットの `.bind()` 関数が中断関数（suspending function）に更新されました。つまり、`.bind()` への呼び出しはすべてコルーチン内で行う必要があります。
 
@@ -406,13 +406,13 @@ JS および WasmJS 環境での非同期操作をサポートするため、[`T
 
 ソケットの操作に関する詳細は、[ソケットのドキュメント](server-sockets.md)を参照してください。
 
-## マルチパートフォームデータ
+## マルチパートフォームデータ {id="multipart-form-data"}
 
-### バイナリおよびファイル項目の新しいデフォルト制限
+### バイナリおよびファイル項目の新しいデフォルト制限 {id="new-default-limit-for-binary-and-file-items"}
 
 Ktor 3.0.0 では、[`ApplicationCall.receiveMultipart()`](https://api.ktor.io/3.0.x/ktor-server-core/io.ktor.server.request/receive-multipart.html) を使用してバイナリおよびファイル項目を受信する際のデフォルト制限として 50MiB が導入されました。受信したファイルまたはバイナリ項目が 50MiB の制限を超えると、`IOException` がスローされます。
 
-#### デフォルト制限のオーバーライド
+#### デフォルト制限のオーバーライド {id="override-the-default-limit"}
 
 明示的な設定なしに 50MiB を超えるファイルを処理していたアプリケーションの場合は、予期しない動作を避けるためにコードを更新する必要があります。
 
@@ -422,7 +422,7 @@ Ktor 3.0.0 では、[`ApplicationCall.receiveMultipart()`](https://api.ktor.io/3
 val multipartData = call.receiveMultipart(formFieldLimit = 1024 * 1024 * 100)
 ```
 
-### `PartData.FileItem.streamProvider()` は非推奨となりました
+### `PartData.FileItem.streamProvider()` は非推奨となりました {id="partdata-fileitem-streamprovider-is-deprecated"}
 
 Ktor の以前のバージョンでは、`PartData.FileItem` の `.streamProvider()` 関数を使用して、ファイル項目の内容を `InputStream` として取得していました。Ktor 3.0.0 以降、この関数は非推奨となりました。
 
@@ -473,7 +473,7 @@ fun Application.main() {
 
 マルチパートフォームデータの操作に関する完全な例と詳細は、[マルチパートフォームデータのリクエスト処理](server-requests.md#form_data)を参照してください。
 
-### セッション暗号化方式の更新
+### セッション暗号化方式の更新 {id="session-encryption-method-update"}
 
 セキュリティを強化するため、`Sessions` プラグインが提供する暗号化方式が更新されました。
 
@@ -498,13 +498,13 @@ install(Sessions) {
 
 Ktor でのセッション暗号化の詳細については、[セッションデータの署名と暗号化](server-sessions.md#sign_encrypt_session)を参照してください。
 
-## Ktor クライアント
+## Ktor クライアント {id="ktor-client"}
 
-### `HttpResponse` の `content` プロパティの名前変更
+### `HttpResponse` の `content` プロパティの名前変更 {id="renaming-of-httpresponse-s-content-property"}
 
 Ktor 3.0.0 より前は、[`HttpResponse`](https://api.ktor.io/ktor-client-core/io.ktor.client.statement/-http-response/index.html) の `content` プロパティが、ネットワークから読み取られるレスポンスコンテンツへの生の `ByteReadChannel` を提供していました。Ktor 3.0.0 以降、その目的をより正確に反映するために、`content` プロパティは `rawContent` に名前変更されました。
 
-### `SocketTimeoutException` が型エイリアスになりました
+### `SocketTimeoutException` が型エイリアスになりました {id="sockettimeoutexception-is-now-a-typealias"}
 
 `io.ktor.client.network.sockets` パッケージの [`SocketTimeoutException`](https://api.ktor.io/3.0.x/ktor-client-core/io.ktor.client.network.sockets/-socket-timeout-exception/index.html) が、Kotlin クラスから Java クラスのエイリアスに変更されました。この変更により、特定の場合に `NoClassDefFoundError` が発生する可能性があり、既存のコードの更新が必要になる場合があります。
 
@@ -515,9 +515,9 @@ Ktor 3.0.0 より前は、[`HttpResponse`](https://api.ktor.io/ktor-client-core/
     <code-block lang="kotlin" code="    if (exception is java.net.SocketTimeoutException) { ... }"/>
 </compare>
 
-## 共有モジュール
+## 共有モジュール {id="shared-modules"}
 
-### `kotlinx-io` への移行
+### `kotlinx-io` への移行 {id="migration-to-kotlinx-io"}
 
 3.0.0 リリースに伴い、Ktor は `kotlinx-io` ライブラリを使用するように移行しました。これにより、Kotlin ライブラリ間で標準化された効率的な I/O API が提供されます。この変更により、パフォーマンスが向上し、メモリ割り当てが削減され、I/O 処理が簡素化されます。プロジェクトが Ktor の低レベル I/O API とやり取りしている場合は、互換性を確保するためにコードを更新する必要があるかもしれません。
 
@@ -536,7 +536,7 @@ Ktor 3.0.0 より前は、[`HttpResponse`](https://api.ktor.io/ktor-client-core/
 
 非推奨の API は Ktor 4.0 までサポートされますが、できるだけ早く移行することをお勧めします。アプリケーションを移行するには、`kotlinx-io` の対応するメソッドを使用するようにコードを更新してください。
 
-#### 例：ストリーミング I/O
+#### 例：ストリーミング I/O {id="example-streaming-i-o"}
 
 大きなファイルのダウンロードを処理し、効率的なストリーミングソリューションが必要な場合は、手動のバイト配列処理を `kotlinx-io` の最適化されたストリーミング API に置き換えることができます。
 
@@ -598,7 +598,7 @@ Ktor 3.x では、`ByteReadChannel.readRemaining()` が `Source` を返すよう
 
 > API の置き換えに関する詳細は、[`kotlinx-io` ドキュメント](https://kotlinlang.org/api/kotlinx-io/)を参照してください。
 
-### 属性キーに厳密な型一致が必要になりました
+### 属性キーに厳密な型一致が必要になりました {id="attribute-keys-now-require-exact-type-matching"}
 
 Ktor 3.0.0 では、[`AttributeKey`](https://api.ktor.io/3.0.x/ktor-utils/io.ktor.util/-attribute-key.html) インスタンスは同一性（identity）によって比較され、値を保存および取得する際に厳密な型一致が必要になりました。これにより、型安全性が確保され、型の不一致による意図しない動作が防止されます。
 
@@ -613,7 +613,7 @@ attrs.put(AttributeKey<Boolean>("key"), true)
 attrs.getOrNull<Boolean>("key")
 ```
 
-### 空のアーティファクトの削除
+### 空のアーティファクトの削除 {id="removal-of-empty-artifact"}
 
 Ktor 1.0.0 以降、空のアーティファクト `io.ktor:ktor` が誤って [Maven](https://repo1.maven.org/maven2/io/ktor/ktor/) に公開されていました。このアーティファクトは Ktor 3.0.0 から削除されました。
 

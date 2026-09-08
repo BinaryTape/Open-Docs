@@ -8,7 +8,7 @@ Compose Multiplatform 與 [UIKit](https://developer.apple.com/documentation/uiki
 >
 {style="tip"}
 
-## 在 UIKit 應用程式中使用 Compose Multiplatform
+## 在 UIKit 應用程式中使用 Compose Multiplatform {id="use-compose-multiplatform-inside-a-uikit-application"}
 
 若要在 UIKit 應用程式中使用 Compose Multiplatform，請將您的 Compose Multiplatform 程式碼加入任何 [容器視圖控制器 (container view controller)](https://developer.apple.com/documentation/uikit/view_controllers)。此範例在 `UITabBarController` 類別中使用 Compose Multiplatform：
 
@@ -40,11 +40,11 @@ tabBarController.tabBar.items?[1].title = "UIKit"
 
 在 [範例專案](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/interop/ios-compose-in-uikit)中探索此程式碼。
 
-## 在 Compose Multiplatform 中使用 UIKit
+## 在 Compose Multiplatform 中使用 UIKit {id="use-uikit-inside-compose-multiplatform"}
 
 若要在 Compose Multiplatform 中使用 UIKit 元素，請將您要使用的 UIKit 元素加入來自 Compose Multiplatform 的 [UIKitView](https://github.com/JetBrains/compose-multiplatform-core/blob/47c012bfe2d4570fb08432253298b8e2b6e38ade/compose/ui/ui/src/uikitMain/kotlin/androidx/compose/ui/interop/UIKitView.uikit.kt)。您可以純粹使用 Kotlin 編寫這段程式碼，也可以使用 Swift。
 
-### 地圖檢視 (Map view)
+### 地圖檢視 (Map view) {id="map-view"}
 
 您可以使用 UIKit 的 [`MKMapView`](https://developer.apple.com/documentation/mapkit/mkmapview) 組建在 Compose Multiplatform 中實作地圖檢視。使用 Compose Multiplatform 的 `Modifier.size()` 或 `Modifier.fillMaxSize()` 函式來設定組建大小：
 
@@ -103,7 +103,7 @@ fun UseUITextField(modifier: Modifier = Modifier) {
 
 在我們的 [範例專案](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/interop/ios-uikit-in-compose)中探索此範例的程式碼。
 
-### 相機檢視 (Camera view)
+### 相機檢視 (Camera view) {id="camera-view"}
 
 您可以使用 UIKit 的 [`AVCaptureSession`](https://developer.apple.com/documentation/avfoundation/avcapturesession) 與 [`AVCaptureVideoPreviewLayer`](https://developer.apple.com/documentation/avfoundation/avcapturevideopreviewlayer) 組建在 Compose Multiplatform 中實作相機檢視。
 
@@ -250,7 +250,7 @@ fun RealDeviceCamera(
 
 在 [ImageViewer 範例專案](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/imageviewer)中探索此範例的完整程式碼。
 
-### 網頁檢視 (Web view)
+### 網頁檢視 (Web view) {id="web-view"}
 
 您可以使用 UIKit 的 [`WKWebView`](https://developer.apple.com/documentation/webkit/wkwebview) 組建在 Compose Multiplatform 中實作網頁檢視。這讓您的應用程式能夠在 UI 中顯示網頁內容並與其互動。使用 Compose Multiplatform 的 `Modifier.size()` 或 `Modifier.fillMaxSize()` 函式來設定組建大小：
 
@@ -313,6 +313,6 @@ fun WebViewWithDelegate(
 * 透過委派觀察導覽變更，並透過 `onNavigationChange` 回呼傳遞目前 URL。
 * 使用 `update` 參數來觀察請求 URL 的變更，並據此重新載入網頁。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 您也可以探索 Compose Multiplatform [與 SwiftUI 架構整合](compose-swiftui-integration.md)的方式。

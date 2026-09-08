@@ -4,12 +4,12 @@ Kotlin Foundation は、オープンソース開発に新しいコントリビ�
 
 GSoC の詳細については、[Google Summer of Code 公式サイト](https://summerofcode.withgoogle.com/)をご覧ください。
 
-## GSoC 2026: プロジェクト案
+## GSoC 2026: プロジェクト案 {id="gsoc-2026-project-ideas"}
 
 Kotlin Foundation は Google Summer of Code 2026 のプロジェクト案のリストを公開しました。
 貢献に興味がある方は、公開されているプロジェクトとガイドラインを確認してください: [](gsoc-2026.md)。
 
-## 過去の Kotlin による GSoC プロジェクト
+## 過去の Kotlin による GSoC プロジェクト {id="past-gsoc-projects-with-kotlin"}
 
 Kotlin を使用した過去の Google Summer of Code のプロジェクトやアイデアを探索できます：
 

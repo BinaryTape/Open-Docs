@@ -32,7 +32,7 @@ fun test() = testApplication {
 
 上記の例では、`loadServices()` はアプリケーションのモジュールをブートストラップする関数です。例えば、ルートやサービスを登録する関数であり、`application.yaml` の `modules` の下にリストされているものと同等です。
 
-### テストでの設定の読み込み
+### テストでの設定の読み込み {id="loading-configuration-in-tests"}
 
 テストで設定ファイルを簡単に読み込むには、`configure()` を使用します。
 

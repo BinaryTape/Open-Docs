@@ -8,7 +8,7 @@ status: beta
 
 Koog는 자동 구성(auto-configuration) 스타터를 통해 원활한 Spring Boot 통합을 제공하므로, 최소한의 설정만으로 Spring Boot 애플리케이션에 AI 에이전트를 쉽게 통합할 수 있습니다.
 
-## 개요
+## 개요 {id="overview"}
 
 `koog-spring-boot-starter`는 애플리케이션 속성(properties)을 기반으로 LLM 클라이언트를 자동으로 구성하고, 의존성 주입(dependency injection)을 위해 즉시 사용 가능한 빈(bean)을 제공합니다. 다음과 같은 모든 주요 LLM 제공자를 지원합니다:
 
@@ -20,9 +20,9 @@ Koog는 자동 구성(auto-configuration) 스타터를 통해 원활한 Spring B
 - Mistral
 - Ollama
 
-## 시작하기
+## 시작하기 {id="getting-started"}
 
-### 1. 의존성 추가
+### 1. 의존성 추가 {id="1-add-dependency"}
 
 Gradle 빌드 설정에 Koog Spring Boot 스타터를 추가합니다:
 
@@ -48,7 +48,7 @@ dependencies {
 - Kotlin 버전 2.3.10+
 - kotlinx-serialization 버전 1.10.0 (구체적으로 kotlinx-serialization-core-jvm 및 kotlinx-serialization-json-jvm)
 
-### 2. 제공자 설정
+### 2. 제공자 설정 {id="2-configure-providers"}
 
 `application.properties`에서 선호하는 LLM 제공자를 설정합니다:
 
@@ -141,7 +141,7 @@ Ollama와 같이 제공자가 API 키를 지원하지 않는 경우, `ai.koog.PR
 | DeepSeek     | `DEEPSEEK_API_KEY`    |
 | Mistral      | `MISTRALAI_API_KEY`   |
 
-### 3. 프로젝트에서 사용하기
+### 3. 프로젝트에서 사용하기 {id="3-use-in-your-project"}
 
 다음은 Spring MVC RestController에서 자동 구성된 실행기(executor)를 사용하는 예시입니다. 다음 사항들이 필요합니다:
 - spring-boot-starter-web 의존성
@@ -237,8 +237,8 @@ Ollama와 같이 제공자가 API 키를 지원하지 않는 경우, `ai.koog.PR
 
 Spring Framework는 빈 이름(`anthropicExecutor`)을 통해 Anthropic용 실행기를 주입했지만, `@Qualifier` 어노테이션을 사용하여 여러 개의 `PromptExecutor` 빈을 주입할 수도 있습니다 (아래 "중복 빈 오류" 섹션 참조).
 
-## 고급 사용법
-### LLM 제공자 폴백(Fallback)
+## 고급 사용법 {id="advanced-usage"}
+### LLM 제공자 폴백(Fallback) {id="llm-provider-fallback"}
 
 여러 LLM 제공자를 구성한 후, `MultiLLMPromptExecutor`를 통해 여러 LLM에 요청을 보낼 수 있습니다:
 
@@ -335,9 +335,9 @@ Spring Framework는 빈 이름(`anthropicExecutor`)을 통해 Anthropic용 실�
 
 사용자 정의 `MultiLLMPromptExecutor` 빈을 직접 등록하고 `FallbackPromptExecutorSettings`를 전달할 수도 있습니다. 자동 구성을 재정의하려면 직접 만든 빈에 `@Primary` 어노테이션을 사용하면 됩니다.
 
-## 구성 참조
+## 구성 참조 {id="configuration-reference"}
 
-### 사용 가능한 속성
+### 사용 가능한 속성 {id="available-properties"}
 
 | 속성 | 설명 | 빈 조건 | 기본값 |
 |-------------------------------|---------------------|----------------------------------------|---------------------------------------------|
@@ -355,7 +355,7 @@ Spring Framework는 빈 이름(`anthropicExecutor`)을 통해 Anthropic용 실�
 | `ai.koog.mistral.base-url`    | Mistral 기본 URL    | 선택 사항                               | `https://api.mistral.ai`                    |
 | `ai.koog.ollama.base-url`     | Ollama 기본 URL     | 선택 사항                               | `http://127.0.0.1:11434`                    |
 
-### 빈(Bean) 이름
+### 빈(Bean) 이름 {id="bean-names"}
 
 자동 구성은 (설정된 경우) 다음과 같은 빈을 생성합니다:
 
@@ -368,9 +368,9 @@ Spring Framework는 빈 이름(`anthropicExecutor`)을 통해 Anthropic용 실�
 - `ollamaExecutor` - Ollama 실행기 (`ai.koog.ollama.enabled=true` 필요)
 - `multiLLMPromptExecutor` - MultiLLMPromptExecutor
 
-## 문제 해결
+## 문제 해결 {id="troubleshooting"}
 
-### 일반적인 문제
+### 일반적인 문제 {id="common-issues"}
 
 **오류: No qualifying bean of type 'PromptExecutor' available**
 
@@ -415,7 +415,7 @@ Spring Framework는 빈 이름(`anthropicExecutor`)을 통해 Anthropic용 실�
 
 **해결 방법:** 환경 변수가 제대로 설정되었고 Spring Boot 애플리케이션에서 접근 가능한지 확인하세요.
 
-## 권장 사항
+## 권장 사항 {id="best-practices"}
 
 1. **환경 변수**: API 키에는 항상 환경 변수를 사용하세요.
 2. **Nullable 주입**: 제공자가 설정되지 않은 경우를 처리하려면 Nullable 타입을 사용하세요.
@@ -424,7 +424,7 @@ Spring Framework는 빈 이름(`anthropicExecutor`)을 통해 Anthropic용 실�
 5. **테스트**: 실제 API 호출을 피하기 위해 테스트에서는 모의 객체(mock)를 사용하세요.
 6. **구성 유효성 검사**: 실행기를 사용하기 전에 사용 가능한지 확인하세요.
 
-## 다음 단계
+## 다음 단계 {id="next-steps"}
 
 - 최소한의 AI 워크플로를 구축하기 위한 [기본 에이전트](agents/basic-agents.md)에 대해 알아보세요.
 - 고급 사용 사례를 위한 [그래프 기반 에이전트](agents/graph-based-agents.md)를 살펴보세요.

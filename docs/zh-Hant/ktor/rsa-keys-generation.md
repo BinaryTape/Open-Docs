@@ -27,7 +27,7 @@ RS256 是 RSA 加密演算法的一部分，利用 SHA-256 進行雜湊，並使
 </p>
 </warning>
 
-## 產生 RSA 私鑰
+## 產生 RSA 私鑰 {id="generating-an-rsa-private-key"}
 
 要產生私鑰，您可以使用 OpenSSL、`ssh-keygen` 或其他您選擇的工具來建立驗證金鑰對。為了演示目的，將使用 OpenSSL。
 
@@ -63,7 +63,7 @@ RS256 是 RSA 加密演算法的一部分，利用 SHA-256 進行雜湊，並使
 
 有了公鑰後，您現在可以衍生其指數 (exponent) 和模數 (modulus) 的值。
 
-## 提取模數與指數屬性
+## 提取模數與指數屬性 {id="extracting-the-modulus-exponent-attributes"}
 
 現在您已經有了金鑰對，您需要提取公鑰的 `e`（指數）和 `n`（模數）屬性，以便在 `jwks.json` 檔案中使用它們。這需要以下步驟：
 
@@ -100,11 +100,11 @@ Exponent: 65537 (0x10001)
 </p>
 </warning>
 
-## 轉換與編碼模數和指數屬性
+## 轉換與編碼模數和指數屬性 {id="converting-and-encoding-the-modulus-and-exponent-attributes"}
 
 在上一個步驟中，您提取了 `jwks.json` 檔案所需的 `n` 和 `e` 屬性。然而，它們是十六進位格式。您現在需要將指數和模數的十六進位表示形式轉換為其各自的 [Base64URL](https://en.wikipedia.org/wiki/Base64#URL_applications) 編碼。
 
-### 指數 (Exponent)
+### 指數 (Exponent) {id="exponent"}
 
 指數屬性的十六進位值為 `0x10001`。要將值轉換為 Base64URL，請使用以下指令：
 
@@ -130,7 +130,7 @@ AQAB
 
 指數的 Base64URL 編碼值為 `AQAB`，在這種情況下不需要進一步處理。在其他情況下，您可能需要使用下一個步驟中所示的 `tr` 指令。
 
-### 模數 (Modulus)
+### 模數 (Modulus) {id="modulus"}
 
 對於 `n` 屬性，您將使用 `tr` 公用程式進一步處理模數的十六進位表示。
 
@@ -169,7 +169,7 @@ tfJaLrzXILUg1U3N1KV8yJr92GHn5OtYZR7qWk1Mc4cy4JGjklYup7weMjBD9f3bBVoIsiUVX6xNcYIr
 
 透過正確利用 `tr` 指令，模數欄位已被編碼為一個 Base64URL 字串，您可以在 `jwks.json` 檔案中使用它。
 
-## 填寫 jwks.json 檔案
+## 填寫 jwks.json 檔案 {id="populating-the-jwks-json-file"}
 
 在先前的步驟中，您收集了以下必要資訊：
 
@@ -198,7 +198,7 @@ tfJaLrzXILUg1U3N1KV8yJr92GHn5OtYZR7qWk1Mc4cy4JGjklYup7weMjBD9f3bBVoIsiUVX6xNcYIr
 
 剩下的唯一步驟是指定您的私鑰，以便您的 Ktor 專案可以使用它進行驗證。
 
-## 定義私鑰
+## 定義私鑰 {id="defining-the-private-key"}
 
 設定好公鑰資訊後，最後一個步驟是讓您的 Ktor 專案能夠存取您的私鑰。
 

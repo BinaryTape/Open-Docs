@@ -30,7 +30,7 @@
 >
 {style="note"}
 
-## 创建一个项目
+## 创建一个项目 {id="create-a-project"}
 
 1. 在 [快速入门](quickstart.md) 中，完成 [为 Kotlin Multiplatform 开发设置环境](quickstart.md#set-up-the-environment) 的说明。
 2. 在 IntelliJ IDEA 中，选择 **File** | **New** | **Project**。
@@ -46,7 +46,7 @@
 
    ![Create Ktor and SQLDelight Multiplatform project](create-ktor-sqldelight-multiplatform-project.png){width=800}
 
-## 添加 Gradle 依赖项
+## 添加 Gradle 依赖项 {id="add-gradle-dependencies"}
 
 要将多平台库添加到共享模块中，您需要将依赖项指令 (`implementation`) 添加到模块 `build.gradle.kts` 文件中相关源集 (source set) 的 `dependencies {}` 块中。
 
@@ -149,7 +149,7 @@
 >
 {style="tip"}
 
-## 创建应用数据模型
+## 创建应用数据模型 {id="create-an-application-data-model"}
 
 本教程的应用将包含公共的 `SpaceSDK` 类，作为联网和缓存服务的门面 (facade)。
 应用程序数据模型将拥有三个实体类，包含：
@@ -178,11 +178,11 @@
 
 `@SerialName` 注解允许您重新定义字段名称，这有助于使用更具可读性的标识符访问数据类中的属性。
 
-## 配置 SQLDelight 并实现缓存逻辑
+## 配置 SQLDelight 并实现缓存逻辑 {id="configure-sqldelight-and-implement-cache-logic"}
 
 SQLDelight 库允许您从 SQL 查询生成类型安全的 Kotlin 数据库 API。在编译期间，生成器会验证 SQL 查询并将其转换为可在共享模块中使用的 Kotlin 代码。
 
-### 配置 SQLDelight
+### 配置 SQLDelight {id="configure-sqldelight"}
 
 SQLDelight 依赖项已包含在项目中。要配置该库，请打开 `sharedLogic/build.gradle.kts` 文件并在末尾添加 `sqldelight {}` 块。此块包含数据库列表及其参数：
 
@@ -204,7 +204,7 @@ sqldelight {
 >
 {style="tip"}
 
-### 生成数据库 API
+### 生成数据库 API {id="generate-the-database-api"}
 
 首先，创建包含所有必要 SQL 查询的 `.sq` 文件。默认情况下，SQLDelight 插件会在源集 (source set) 的 `sqldelight` 文件夹中查找 `.sq` 文件：
 
@@ -250,7 +250,7 @@ sqldelight {
 
    生成的 Kotlin 代码存储在 `sharedLogic/build/generated/sqldelight` 目录中。
 
-### 为平台特定的数据库驱动程序创建工厂
+### 为平台特定的数据库驱动程序创建工厂 {id="create-factories-for-platform-specific-database-drivers"}
 
 要初始化 `AppDatabase` 接口，您需要向其传递一个 `SqlDriver` 实例。
 SQLDelight 提供了 SQLite 驱动程序的多个平台特定实现，因此您需要为每个平台单独创建这些实例。
@@ -309,7 +309,7 @@ SQLDelight 提供了 SQLite 驱动程序的多个平台特定实现，因此您�
 
 稍后您将在项目的平台特定部分中使用这些工厂。
 
-### 实现缓存
+### 实现缓存 {id="implement-cache"}
 
 到目前为止，您已经为平台数据库驱动程序添加了工厂，并添加了一个用于执行数据库操作的 `AppDatabase` 接口。
 现在，创建一个 `Database` 类，它将包装 `AppDatabase` 接口并包含缓存逻辑。
@@ -401,7 +401,7 @@ SQLDelight 提供了 SQLite 驱动程序的多个平台特定实现，因此您�
     }
     ```
 
-## 实现 API 服务
+## 实现 API 服务 {id="implement-the-api-service"}
 
 为了通过互联网检索数据，您将使用 [Launch Library 公开 API](https://lldev.thespacedevs.com/docs) 和一个从 `/2.3.0/launches` 端点检索所有发射列表的方法。
 
@@ -457,7 +457,7 @@ SQLDelight 提供了 SQLite 驱动程序的多个平台特定实现，因此您�
 
 发送 GET 请求的 URL 作为参数传递给 `get()` 函数。
 
-## 构建 SDK
+## 构建 SDK {id="build-an-sdk"}
 
 您的 iOS 和 Android 应用程序将通过共享模块与航天 API 进行通信，共享模块将提供一个公共类 `SpaceSDK`。
 
@@ -508,13 +508,13 @@ SQLDelight 提供了 SQLite 驱动程序的多个平台特定实现，因此您�
 
 所有 Kotlin 异常都是非受检异常，而 Swift 只有受检错误（详见 [与 Swift/Objective-C 的互操作性](https://kotlinlang.org/docs/native-objc-interop.html#errors-and-exceptions)）。因此，为了让您的 Swift 代码意识到预期的异常，从 Swift 调用的 Kotlin 函数应标有 `@Throws` 注解，并指定潜在异常类的列表。
 
-## 创建 Android 应用程序
+## 创建 Android 应用程序 {id="create-the-android-application"}
 
 IntelliJ IDEA 为您处理了初始 Gradle 配置，因此 `sharedUI` 和 `sharedLogic` 模块已经连接到了您的 Android 应用程序 (`androidApp`)。
 
 提示时同步 Gradle 项目文件，或者按两次 <shortcut>Shift</shortcut> 并搜索 **Sync All Gradle, Swift Package Manager projects**。
 
-### 为 `androidApp` 添加互联网访问权限
+### 为 `androidApp` 添加互联网访问权限 {id="add-internet-access-permission-for-androidapp"}
 
 要访问互联网，Android 应用程序需要相应的权限。
 在 `androidApp/src/main/AndroidManifest.xml` 文件中，添加 `<uses-permission>` 标记：
@@ -527,7 +527,7 @@ IntelliJ IDEA 为您处理了初始 Gradle 配置，因此 `sharedUI` 和 `share
 </manifest>
 ```
 
-### 添加 SQL 注入代码
+### 添加 SQL 注入代码 {id="add-dependency-injection-code"}
 
 Koin SQL 注入允许您声明可在不同上下文中使用的模块（组件集）。
 在本项目中，您将创建两个模块：一个用于 Android 应用程序，另一个用于 iOS 应用。
@@ -625,7 +625,7 @@ Koin SQL 注入允许您声明可在不同上下文中使用的模块（组件�
 
 现在，您已准备好实现使用平台特定数据库驱动程序提供的信息的 UI。
 
-### 准备带有发射列表的 View model
+### 准备带有发射列表的 View model {id="prepare-the-view-model-with-the-list-of-launches"}
 
 您将使用 Jetpack Compose 和 Material 3 实现 Android UI。首先，您将创建使用 SDK 获取发射列表的 View model。然后，您将设置 Material 主题，最后，您将编写将所有内容整合在一起的可组合函数 (composable function)。
 
@@ -699,7 +699,7 @@ Koin SQL 注入允许您声明可在不同上下文中使用的模块（组件�
     }
     ```
 
-### 构建 Material Theme
+### 构建 Material Theme {id="build-the-material-theme"}
 
 您将围绕 Material Theme 提供的 `AppTheme` 函数构建主 `App()` 可组合项：
 
@@ -722,7 +722,7 @@ Koin SQL 注入允许您声明可在不同上下文中使用的模块（组件�
     val app_theme_unsuccessful = Color(0xffFC100D)
     ```
 
-### 实现展示逻辑
+### 实现展示逻辑 {id="implement-the-presentation-logic"}
 
 为您的应用程序创建主 `App()` 可组合项，并从 `ComponentActivity` 类中调用它：
 
@@ -885,13 +885,13 @@ Koin SQL 注入允许您声明可在不同上下文中使用的模块（组件�
 
 您刚刚创建了一个 Android 应用程序，其业务逻辑在 Kotlin Multiplatform 模块中实现，UI 在原生 Jetpack Compose 上运行。
 
-## 创建 iOS 应用程序
+## 创建 iOS 应用程序 {id="create-the-ios-application"}
 
 对于项目的 iOS 部分，您将利用 [SwiftUI](https://developer.apple.com/xcode/swiftui/) 构建用户界面，并使用 [Model View View-Model](https://en.wikipedia.org/wiki/Model–view–viewmodel) 模式。
 
 IntelliJ IDEA 生成了一个已连接到共享模块的 iOS 项目。Kotlin 模块以 `sharedLogic/build.gradle.kts` 文件中指定的名称（`baseName = "SharedLogic"`）导出，并使用常规的 `import` 语句导入：`import SharedLogic`。
 
-### 为 SQLDelight 添加动态链接标志
+### 为 SQLDelight 添加动态链接标志 {id="add-the-dynamic-linking-flag-for-sqldelight"}
 
 默认情况下，IntelliJ IDEA 生成的项目设置为静态链接 iOS 框架。
 
@@ -906,7 +906,7 @@ IntelliJ IDEA 生成了一个已连接到共享模块的 iOS 项目。Kotlin 模
    ![The result of correctly adding the linker flag to the Xcode project](xcode-other-linker-flags.png){width="434"}
 6. 返回 IntelliJ IDEA。
 
-### 为 iOS SQL 注入准备 Koin 类
+### 为 iOS SQL 注入准备 Koin 类 {id="prepare-a-koin-class-for-ios-dependency-injection"}
 
 要在 Swift 代码中使用 Koin 类和函数，请创建一个特殊的 `KoinComponent` 类并为 iOS 声明 Koin 模块。
 
@@ -953,7 +953,7 @@ IntelliJ IDEA 生成了一个已连接到共享模块的 iOS 项目。Kotlin 模
 
 现在，您可以在 iOS 应用中启动 Koin 模块，以便通过通用的 `SpaceSDK` 类使用原生数据库驱动程序。
 
-### 实现 UI
+### 实现 UI {id="implement-the-ui"}
 
 首先，您将创建一个 `RocketLaunchRow` SwiftUI 视图来显示列表中的一项。它将基于 `HStack` 和 `VStack` 视图。`RocketLaunchRow` 结构上将会有一些扩展，包含显示数据的有用帮助程序。
 
@@ -1063,7 +1063,7 @@ IntelliJ IDEA 生成了一个已连接到共享模块的 iOS 项目。Kotlin 模
     extension RocketLaunch: Identifiable { }
     ```
 
-### 加载数据
+### 加载数据 {id="load-the-data"}
 
 要在 View model 中检索有关火箭发射的数据，您需要多平台库中 `KoinHelper` 类的一个实例。它将允许您使用正确的数据库驱动程序调用 SDK 函数。
 
@@ -1135,7 +1135,7 @@ IntelliJ IDEA 生成了一个已连接到共享模块的 iOS 项目。Kotlin 模
 >
 {style="note"}
 
-## 下一步是什么？
+## 下一步是什么？ {id="what-s-next"}
 
 本教程包含一些可能耗费资源的操作，例如在主线程中解析 JSON 和向数据库发出请求。要了解如何编写并发代码并优化您的应用，请参阅 [协程指南](https://kotlinlang.org/docs/coroutines-guide.html)。
 

@@ -23,7 +23,7 @@
 >
 {style="note"}
 
-## 從 CocoaPods 存儲庫
+## 從 CocoaPods 存儲庫 {id="from-the-cocoapods-repository"}
 
 要新增對位於 CocoaPods 存儲庫中的 Pod 程式庫之相依性：
 
@@ -63,7 +63,7 @@
 import cocoapods.SDWebImage.*
 ```
 
-## 在本機存儲的程式庫上
+## 在本機存儲的程式庫上 {id="on-a-locally-stored-library"}
 
 要新增對本機存儲的 Pod 程式庫之相依性：
 
@@ -120,7 +120,7 @@ import cocoapods.subspec_dependency.*
 import cocoapods.SDWebImage.*
 ```
 
-## 從自訂 Git 存儲庫
+## 從自訂 Git 存儲庫 {id="from-a-custom-git-repository"}
 
 要新增對位於自訂 Git 存儲庫中的 Pod 程式庫之相依性：
 
@@ -183,7 +183,7 @@ import cocoapods.JSONModel.*
 import cocoapods.CocoaLumberjack.*
 ```
 
-## 從自訂 Podspec 存儲庫
+## 從自訂 Podspec 存儲庫 {id="from-a-custom-podspec-repository"}
 
 要新增對位於自訂 Podspec 存儲庫中的 Pod 程式庫之相依性：
 
@@ -225,7 +225,7 @@ import cocoapods.CocoaLumberjack.*
 import cocoapods.example.*
 ```
 
-## 使用自訂 cinterop 選項
+## 使用自訂 cinterop 選項 {id="with-custom-cinterop-options"}
 
 要使用自訂 cinterop 選項新增對 Pod 程式庫的相依性：
 
@@ -276,7 +276,7 @@ import FirebaseAuthWrapper.Auth
 import FirebaseAuthWrapper.User
 ```
 
-### 支援帶有 @import 指示詞的 Objective-C 標頭
+### 支援帶有 @import 指示詞的 Objective-C 標頭 {id="support-for-objective-c-headers-with-import-directives"}
 
 > 此功能為 [實驗性](supported-platforms.md#general-kotlin-stability-levels)。
 > 它隨時可能被捨棄或變更。請僅出於評估目的使用。
@@ -306,7 +306,7 @@ kotlin {
 }
 ```
 
-### 在相依的 Pod 之間共用 Kotlin cinterop
+### 在相依的 Pod 之間共用 Kotlin cinterop {id="share-kotlin-cinterop-between-dependent-pods"}
 
 如果您使用 `pod()` 函式新增多個 Pod 相依性，當 Pod 的 API 之間存在相依關係時，您可能會遇到問題。
 
@@ -328,7 +328,7 @@ printImageInfo(loadImage())
 
 如果您在這種情況下沒有配置 cinterop 之間正確的相依性，程式碼將會無效，因為 `WebImage` 型別會來自不同的 cinterop 檔案，進而來自不同的套件。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * [設定 Kotlin 專案與 Xcode 專案之間的相依性](multiplatform-cocoapods-xcode.md)
 * [參閱完整的 CocoaPods Gradle 外掛程式 DSL 參考](multiplatform-cocoapods-dsl-reference.md)

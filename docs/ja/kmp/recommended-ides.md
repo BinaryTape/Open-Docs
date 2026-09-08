@@ -1,6 +1,6 @@
 [//]: # (title: 推奨されるIDEおよびコードエディタ)
 
-## IntelliJ IDEA および Android Studio
+## IntelliJ IDEA および Android Studio {id="intellij-idea-and-android-studio"}
 
 [IntelliJ IDEA](https://www.jetbrains.com/idea/) は、Kotlin Multiplatform の完全なサポートを提供しています。
 [Android Studio](https://developer.android.com/studio) も、Kotlin Multiplatform のためのもう一つの安定したソリューションです。
@@ -20,13 +20,13 @@ iOS アプリの基本的な起動およびデバッグ機能、プリフライ�
   ログや設定との IDE 統合、および
   全体的な体験をよりスムーズにするための専用の IDE アクションやツールバーが含まれます。
 
-## Xcode
+## Xcode {id="xcode"}
 
 Kotlin Multiplatform プロジェクトで iOS をターゲットにする場合、iOS 固有のコードを記述し、
 iOS アプリケーションを実行するために、マシンに [Xcode](https://developer.apple.com/xcode/) をインストールする必要があります。
 
 アプリを App Store Connect にアップロードするには、Xcode 16 以降でビルドしてください。
 
-## その他の IDE およびコードエディタ
+## その他の IDE およびコードエディタ {id="other-ides-and-code-editors"}
 
 基本的な Kotlin Multiplatform サポートで十分な場合は、Kotlin をサポートする任意の IDE を使用できます。

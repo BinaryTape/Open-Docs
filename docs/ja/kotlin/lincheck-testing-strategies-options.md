@@ -3,7 +3,7 @@
 
 Lincheck は、シナリオ生成、実行のスタール（停滞）検出、検証など、テスト戦略のためのさまざまな設定オプションをサポートしています。
 
-## オプションを有効にする方法
+## オプションを有効にする方法 {id="how-to-enable-options"}
 
 テスト戦略のオプションを有効にするには、戦略クラスで設定を行います。
 
@@ -14,7 +14,7 @@ fun modelCheckingTest() = ModelCheckingOptions()
     .check(this::class)
 ```
 
-## シナリオの最小化
+## シナリオの最小化 {id="scenario-minimization"}
 
 デフォルトでは、Lincheck はテストの動作を変更しない操作を削除することで、失敗したシナリオの最小化を試みます。
 
@@ -47,7 +47,7 @@ fun modelCheckingTest() = ModelCheckingOptions()
 </code-block>
 </compare>
 
-## シナリオの生成
+## シナリオの生成 {id="scenario-generation"}
 
 | オプション | デフォルト値 | 説明 |
 |---------------------------|---------------|---------------------------------------------------------------------------------------------------------------------------------------------|
@@ -59,7 +59,7 @@ fun modelCheckingTest() = ModelCheckingOptions()
 | `actorsAfter`             | `5`           | シナリオの並列セクションの後に呼び出される操作の数。 |
 | `customScenarios`         | –             | [カスタム並行シナリオ](#カスタムシナリオの定義)のリスト。カスタムシナリオは、ランダムに生成されたシナリオの前に実行されます。 |
 
-### カスタムシナリオの定義
+### カスタムシナリオの定義 {id="defining-a-custom-scenario"}
 
 Lincheck は、カスタムシナリオを定義するために [ドメイン特有言語 (DSL)](https://kotlinlang.org/docs/type-safe-builders.html) を使用します：
 
@@ -95,7 +95,7 @@ fun test() = StressOptions()
 
 操作は `actor(function, arg1, arg2, ...)` 関数を使用して定義されます。単一のブロック内の操作は順次実行されます。
 
-## 実行のスタール検出
+## 実行のスタール検出 {id="stalled-execution-detection"}
 
 <table>
 <tr><td>オプション</td><td>デフォルト値</td><td>説明</td></tr>
@@ -117,7 +117,7 @@ fun test() = StressOptions()
         このオプションは <a href="lincheck-testing-strategies.md#model-checking">モデルチェック</a> にのみ適用可能です。</td></tr>
 </table>
 
-## ループ内でのスレッド切り替え
+## ループ内でのスレッド切り替え {id="thread-switching-in-loops"}
 
 <table><tr><td>オプション</td><td>デフォルト値</td><td>説明</td></tr>
 <tr>
@@ -128,7 +128,7 @@ fun test() = StressOptions()
         このオプションは <a href="lincheck-testing-strategies.md#model-checking">モデルチェック</a> にのみ適用可能です。</td></tr>
 </table>
 
-## 検証
+## 検証 {id="verification"}
 
 <table>
 <tr><td>オプション</td><td>デフォルト値</td><td>説明</td></tr>
@@ -148,7 +148,7 @@ fun test() = StressOptions()
 </tr>
 </table>
 
-## 進捗保証
+## 進捗保証 {id="progress-guarantees"}
 
 <table><tr><td>オプション</td><td>デフォルト値</td><td>説明</td></tr>
 <tr>
@@ -158,7 +158,7 @@ fun test() = StressOptions()
         このオプションは <a href="lincheck-testing-strategies.md#model-checking">モデルチェック</a> にのみ適用可能です。</td></tr>
 </table>
 
-## ライブラリ解析
+## ライブラリ解析 {id="library-analysis"}
 
 <table>
 <tr><td>オプション</td><td>デフォルト値</td><td>説明</td></tr>
@@ -174,7 +174,7 @@ fun test() = StressOptions()
         このオプションは <a href="lincheck-testing-strategies.md#model-checking">モデルチェック</a> にのみ適用可能です。</td></tr>
 </table>
 
-### 保証の定義
+### 保証の定義 {id="defining-a-guarantee"}
 
 保証を定義するには、ビルダーチェーンを使用します。クラスを選択し、次にメソッドを選択し、最後に保証タイプを選択します。
 
@@ -214,11 +214,11 @@ fun modelCheckingTest() = ModelCheckingOptions()
 
      ロギングやデバッグユーティリティなど、解析に無関係なメソッドには `ignore()` を使用してください。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 Lincheck の実行シナリオで使用される操作の [引数生成の設定](lincheck-argument-generation-constraints.md) 方法について学びます。
 
-## 関連項目
+## 関連項目 {id="see-also"}
 
 * [操作の実行オプションの設定](lincheck-operation-execution-options.md)
 * [非ブロック進捗保証のチェック](lincheck-progress-guarantees.md)

@@ -13,7 +13,7 @@
 > 
 {style="note"}
 
-## プロジェクトに KSP プラグインを追加する
+## プロジェクトに KSP プラグインを追加する {id="add-the-ksp-plugin-to-your-project"}
 
 プロジェクトレベルの `build.gradle(.kts)` ファイルの `plugins {}` ブロックに KSP を追加します。
 
@@ -42,7 +42,7 @@ plugins {
 > 
 {style="tip"}
 
-## プロセッサを更新する
+## プロセッサを更新する {id="update-your-processor"}
 
 移行したいプロセッサを使用しているモジュールを見つけます。そのモジュールの `build.gradle(.kts)` ファイルで以下のように行います。
 
@@ -105,7 +105,7 @@ plugins {
 > 
 {style="note"}
 
-## kapt プラグインを削除する
+## kapt プラグインを削除する {id="remove-the-kapt-plugin"}
 
 すべてのプロセッサを KSP に移行した後、すべてのビルドファイルから kapt プラグインを安全に削除できます。
 
@@ -134,7 +134,7 @@ plugins {
 
 残っている kapt の設定があれば削除してください。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [KSP の開始方法](ksp-quickstart.md#create-your-own-processor)で、独自の KSP ベースのアノテーションプロセッサを作成する方法を学びます。
 * [KSP リポジトリ](https://github.com/google/ksp/tree/main/examples)で、KSP を使用したプロジェクトの例を探索します。

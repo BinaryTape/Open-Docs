@@ -20,7 +20,7 @@ Kotlin 1.5.30 では、将来の変更のプレビューを含む言語のアッ
 >
 {style="tip"}
 
-## 言語機能
+## 言語機能 {id="language-features"}
 
 Kotlin 1.5.30 では、将来の言語変更のプレビューを紹介し、オプトイン要求メカニズムと型推論に改善を加えています：
 * [sealed および Boolean な対象に対する網羅的な when ステートメント](#exhaustive-when-statements-for-sealed-and-boolean-subjects)
@@ -30,7 +30,7 @@ Kotlin 1.5.30 では、将来の言語変更のプレビューを紹介し、オ
 * [再帰的ジェネリック型の型推論の改善](#improvements-to-type-inference-for-recursive-generic-types)
 * [ビルダー推論의 制限の撤廃](#eliminating-builder-inference-restrictions)
 
-### sealed および Boolean な対象に対する網羅的な when ステートメント
+### sealed および Boolean な対象に対する網羅的な when ステートメント {id="exhaustive-when-statements-for-sealed-and-boolean-subjects"}
 
 > シールド（網羅的）な `when` ステートメントのサポートは[実験的](components-stability.md)です。これはいつでも変更または削除される可能性があります。
 > オプトインが必要です（詳細は以下を参照）。評価目的のみで使用してください。これに関するフィードバックを [YouTrack](https://youtrack.jetbrains.com/issue/KT-12380) でお待ちしております。
@@ -101,7 +101,7 @@ kotlin {
 </tab>
 </tabs>
 
-### スーパータイプとしての suspend 関数
+### スーパータイプとしての suspend 関数 {id="suspending-functions-as-supertypes"}
 
 > スーパータイプとしての suspend 関数のサポートは[実験的](components-stability.md)です。これはいつでも変更または削除される可能性があります。
 > オプトインが必要です（詳細は以下を参照）。評価目的のみで使用してください。これに関するフィードバックを [YouTrack](https://youtrack.jetbrains.com/issue/KT-18707) でお待ちしております。
@@ -151,7 +151,7 @@ kotlin {
 * 通常の関数型と `suspend` 関数型をスーパータイプとして混ぜることはできません。これは JVM バックエンドにおける `suspend` 関数型の実装の詳細によるものです。これらはマーカーインターフェースを持つ通常の関数型として表現されます。マーカーインターフェースのため、どのスーパーインターフェースが suspend でどれが通常のものかを区別する方法がありません。
 * 複数の `suspend` 関数スーパータイプを使用することはできません。型チェックがある場合、複数の通常の関数スーパータイプを使用することもできません。
 
-### 実験的 API の暗黙的な使用に対するオプトイン要求
+### 実験的 API の暗黙的な使用に対するオプトイン要求 {id="requiring-opt-in-on-implicit-usages-of-experimental-apis"}
 
 > オプトイン要求メカニズムは[実験的](components-stability.md)です。
 > いつでも変更される可能性があります。[オプトインの方法はこちら](opt-in-requirements.md)を参照してください。
@@ -187,7 +187,7 @@ fun getDate(): Date {
 
 詳細は [オプトイン要求](opt-in-requirements.md) をご覧ください。
 
-### 異なるターゲットでのオプトイン要求アノテーションの使用に関する変更
+### 異なるターゲットでのオプトイン要求アノテーションの使用に関する変更 {id="changes-to-using-opt-in-requirement-annotations-with-different-targets"}
 
 > オプトイン要求メカニズムは[実験的](components-stability.md)です。
 > いつでも変更される可能性があります。[オプトインの方法はこちら](opt-in-requirements.md)を参照してください。
@@ -203,7 +203,7 @@ Kotlin 1.5.30 では、さまざまな [ターゲット](https://kotlinlang.org/
 
 詳細は [オプトイン要求](opt-in-requirements.md) をご覧ください。
 
-### 再帰的ジェネリック型の型推論の改善
+### 再帰的ジェネリック型の型推論の改善 {id="improvements-to-type-inference-for-recursive-generic-types"}
 
 Kotlin と Java では、型パラメータの中で自分自身を参照する再帰的ジェネリック型を定義できます。Kotlin 1.5.30 では、Kotlin コンパイラは、再帰的ジェネリックの場合に、対応する型パラメータの境界（upper bounds）のみに基づいて型引数を推論できるようになりました。これにより、Java でビルダー API を作成するためによく使用される、再帰的ジェネリック型を用いたさまざまなパターンを作成することが可能になります。
 
@@ -226,7 +226,7 @@ val containerB = PostgreSQLContainer(DockerImageName.parse("postgres:13-alpine")
 
 この改善を有効にするには、`-Xself-upper-bound-inference` または `-language-version 1.6` コンパイラオプションを渡します。新しくサポートされたユースケースの他の例については、[こちらの YouTrack チケット](https://youtrack.jetbrains.com/issue/KT-40804) を参照してください。
 
-### ビルダー推論の制限の撤廃
+### ビルダー推論の制限の撤廃 {id="eliminating-builder-inference-restrictions"}
 
 ビルダー推論は、ラムダ引数内の他の呼び出しからの型情報に基づいて、呼び出しの型引数を推論できるようにする特殊な型の型推論です。これは、[`buildList()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/build-list.html) や [`sequence()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/sequence.html) のようなジェネリックなビルダー関数を呼び出す際に便利です： `buildList { add("string") }`。
 
@@ -256,7 +256,7 @@ val map = buildMap {
 
 また、`-language-version 1.6` コンパイラオプションでもこの機能を有効にできます。
 
-## Kotlin/JVM
+## Kotlin/JVM {id="kotlin-jvm"}
 
 Kotlin 1.5.30 では、Kotlin/JVM に以下の機能が導入されています：
 * [アノテーションクラスのインスタンス化](#instantiation-of-annotation-classes)
@@ -264,7 +264,7 @@ Kotlin 1.5.30 では、Kotlin/JVM に以下の機能が導入されています�
 
 JVM プラットフォームにおける Kotlin Gradle プラグインの更新については、[Gradle](#gradle) セクションを参照してください。
 
-### アノテーションクラスのインスタンス化
+### アノテーションクラスのインスタンス化 {id="instantiation-of-annotation-classes"}
 
 > アノテーションクラスのインスタンス化は[実験的](components-stability.md)です。これはいつでも変更または削除される可能性があります。
 > オプトインが必要です（詳細は以下を参照）。評価目的のみで使用してください。これに関するフィードバックを [YouTrack](https://youtrack.jetbrains.com/issue/KT-45395) でお待ちしております。
@@ -290,7 +290,7 @@ fun main(args: Array<String>) {
 
 アノテーションクラスのインスタンス化の詳細については、[この KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/annotation-instantiation.md) を参照してください。
 
-### Nullability アノテーションサポート設定の改善
+### Nullability アノテーションサポート設定の改善 {id="improved-nullability-annotation-support-configuration"}
 
 Kotlin コンパイラは、Java から null 許容性（nullability）情報を取得するために、さまざまな種類の [null 許容性アノテーション](java-interop.md#nullability-annotations) を読み取ることができます。この情報により、Java コードを呼び出す際に Kotlin 側で null 許容性の不一致を報告できます。
 
@@ -303,7 +303,7 @@ Kotlin 1.5.30 では、特定の種類の null 許容性アノテーションか
 
 新しくサポートされた [RxJava](https://github.com/ReactiveX/RxJava) 3 の null 許容性アノテーションに対してエラー報告を有効にする例： `-Xnullability-annotations=@io.reactivex.rxjava3.annotations:strict`。なお、このような不一致はデフォルトではすべて警告となります。
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 Kotlin/Native には、さまざまな変更と改善が行われました：
 * [Appleシリコンのサポート](#apple-silicon-support)
@@ -312,7 +312,7 @@ Kotlin/Native には、さまざまな変更と改善が行われました：
 * [オブジェクトおよびコンパニオンオブジェクトに対する Swift/Objective-C マッピングの改善](#improved-swift-objective-c-mapping-for-objects-and-companion-objects)
 * [MinGW ターゲットにおけるインポートライブラリなしの DLL へのリンクの非推奨化](#deprecation-of-linkage-against-dlls-without-import-libraries-for-mingw-targets)
 
-### Appleシリコンのサポート
+### Appleシリコンのサポート {id="apple-silicon-support"}
 
 Kotlin 1.5.30 では、[Appleシリコン](https://support.apple.com/en-us/HT211814)のネイティブサポートが導入されました。
 
@@ -329,9 +329,9 @@ Kotlin 1.5.30 では、[Appleシリコン](https://support.apple.com/en-us/HT211
 なお、1.5.30 では、`kotlin-multiplatform` Gradle プラグインにおける Appleシリコンターゲットのサポートは基本的なものに留まっています。特に、新しいシミュレータターゲットは `ios`、`tvos`、`watchos` のターゲットショートカットには含まれていません。
 新しいターゲットでのユーザーエクスペリエンス向上のため、引き続き取り組んでまいります。
 
-### CocoaPods Gradle プラグイン用の Kotlin DSL の改善
+### CocoaPods Gradle プラグイン用の Kotlin DSL の改善 {id="improved-kotlin-dsl-for-the-cocoapods-gradle-plugin"}
 
-#### Kotlin/Native フレームワーク用の新パラメータ
+#### Kotlin/Native フレームワーク用の新パラメータ {id="new-parameters-for-kotlin-native-frameworks"}
 
 Kotlin 1.5.30 では、Kotlin/Native フレームワーク用の改善された CocoaPods Gradle プラグイン DSL が導入されました。フレームワークの名前だけでなく、Pod 設定で他のパラメータも指定できるようになりました：
 * フレームワークの動的または静的なバージョンの指定
@@ -360,7 +360,7 @@ cocoapods {
 }
 ```
 
-#### Xcode 設定のカスタム名のサポート
+#### Xcode 設定のカスタム名のサポート {id="support-custom-names-for-xcode-configuration"}
 
 Kotlin CocoaPods Gradle プラグインは、Xcode ビルド設定のカスタム名をサポートするようになりました。Xcode でビルド設定に `Staging` などの特別な名前を使用している場合にも役立ちます。
 
@@ -380,7 +380,7 @@ cocoapods {
 >
 {style="note"}
 
-### Swift 5.5 の async/await との実験的な相互運用性
+### Swift 5.5 の async/await との実験的な相互運用性 {id="experimental-interoperability-with-swift-5-5-async-await"}
 
 > Swift の async/await との並行性相互運用性は[実験的](components-stability.md)です。これはいつでも変更または削除される可能性があります。
 > 評価目的のみで使用してください。これに関するフィードバックを [YouTrack](https://youtrack.jetbrains.com/issue/KT-47610) でお待ちしております。
@@ -393,7 +393,7 @@ Kotlin/Native コンパイラは、戻り値の型が null 許容（nullable）�
 
 この機能は実験的であり、将来的に Kotlin と Swift の両方の変更によって影響を受ける可能性があることに注意してください。現在は、特定の制限があるプレビューとして提供しており、皆さんの意見をお待ちしております。現在の状況の詳細については、[こちらの YouTrack イシュー](https://youtrack.jetbrains.com/issue/KT-47610) で確認し、フィードバックをお寄せください。
 
-### オブジェクトおよびコンパニオンオブジェクトに対する Swift/Objective-C マッピングの改善
+### オブジェクトおよびコンパニオンオブジェクトに対する Swift/Objective-C マッピングの改善 {id="improved-swift-objective-c-mapping-for-objects-and-companion-objects"}
 
 オブジェクトおよびコンパニオンオブジェクトの取得が、ネイティブの iOS 開発者にとってより直感的な方法で行えるようになりました。例えば、Kotlin に以下のオブジェクトがあるとします：
 
@@ -420,7 +420,7 @@ MyClass.Companion.shared
 
 詳細は [Swift/Objective-C の相互運用性](native-objc-interop.md) を参照してください。
 
-### MinGW ターゲットにおけるインポートライブラリなしの DLL へのリンクの非推奨化
+### MinGW ターゲットにおけるインポートライブラリなしの DLL へのリンクの非推奨化 {id="deprecation-of-linkage-against-dlls-without-import-libraries-for-mingw-targets"}
 
 [LLD](https://lld.llvm.org/) は LLVM プロジェクトのリンカーであり、デフォルトの ld.bfd に対する利点（主にパフォーマンスの向上）のため、Kotlin/Native の MinGW ターゲットでの使用を開始する予定です。
 
@@ -428,14 +428,14 @@ MyClass.Companion.shared
 
 LLD リンカーへの移行に関するご意見や懸念事項は、[こちらの YouTrack イシュー](https://youtrack.jetbrains.com/issue/KT-47605) で共有してください。
 
-## Kotlin Multiplatform
+## Kotlin Multiplatform {id="kotlin-multiplatform"}
 
 1.5.30 では、Kotlin Multiplatform に以下の注目すべきアップデートが行われました：
 * [共有ネイティブコードでカスタム cinterop ライブラリを使用可能に](#ability-to-use-custom-cinterop-libraries-in-shared-native-code)
 * [XCFrameworks のサポート](#support-for-xcframeworks)
 * [Android アーティファクトの新しいデフォルトパブリッシュ設定](#new-default-publishing-setup-for-android-artifacts)
 
-### 共有ネイティブコードでカスタム cinterop ライブラリを使用可能に
+### 共有ネイティブコードでカスタム cinterop ライブラリを使用可能に {id="ability-to-use-custom-cinterop-libraries-in-shared-native-code"}
 
 Kotlin Multiplatform では、共有ソースセットでプラットフォーム依存の相互運用（interop）ライブラリを使用する [オプション](https://kotlinlang.org/docs/multiplatform/multiplatform-share-on-platforms.html#connect-platform-specific-libraries) が用意されています。1.5.30 より前は、これは Kotlin/Native ディストリビューションに付属する [プラットフォームライブラリ](native-platform-libs.md) でのみ動作していました。1.5.30 からは、独自のカスタム `cinterop` ライブラリでも使用可能になります。この機能を有効にするには、`gradle.properties` に `kotlin.mpp.enableCInteropCommonization=true` プロパティを追加してください：
 
@@ -445,7 +445,7 @@ kotlin.native.enableDependencyPropagation=false
 kotlin.mpp.enableCInteropCommonization=true
 ```
 
-### XCFrameworks のサポート
+### XCFrameworks のサポート {id="support-for-xcframeworks"}
 
 すべての Kotlin Multiplatform プロジェクトで、出力フォーマットとして XCFrameworks を使用できるようになりました。Apple はユニバーサル（ファット）フレームワークの代替として XCFrameworks を導入しました。XCFrameworks を使用すると：
 * すべてのターゲットプラットフォームおよびアーキテクチャのロジックを単一のバンドルに集約できます。
@@ -533,7 +533,7 @@ XCFrameworks を宣言すると、以下の新しい Gradle タスクが登録�
 
 XCFrameworks の詳細は、[この WWDC ビデオ](https://developer.apple.com/videos/play/wwdc2019/416/) を参照してください。
 
-### Android アーティファクトの新しいデフォルトパブリッシュ設定
+### Android アーティファクトの新しいデフォルトパブリッシュ設定 {id="new-default-publishing-setup-for-android-artifacts"}
 
 `maven-publish` Gradle プラグインを使用して、ビルドスクリプトで [Android バリアント](https://developer.android.com/studio/build/build-variants) 名を指定することで、[Android ターゲット用のマルチプラットフォームライブラリを公開](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-lib-setup.html#publish-an-android-library) できます。Kotlin Gradle プラグインが自動的にパブリケーションを生成します。
 
@@ -543,31 +543,31 @@ XCFrameworks の詳細は、[この WWDC ビデオ](https://developer.apple.com/
 
 これをオプトアウトしてすべてのバリアントでビルドタイプ属性を維持するには、Gradle プロパティ `kotlin.android.buildTypeAttribute.keep=true` を設定できます。
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
 Kotlin/JS では、1.5.30 で 2 つの大きな改善が行われました：
 * [JS IR コンパイラバックエンドが Beta に到達](#js-ir-compiler-backend-reaches-beta)
 * [Kotlin/JS IR バックエンドを使用するアプリケーションのデバッグエクスペリエンスの向上](#better-debugging-experience-for-applications-with-the-kotlin-js-ir-backend)
 
-### JS IR コンパイラバックエンドが Beta に到達
+### JS IR コンパイラバックエンドが Beta に到達 {id="js-ir-compiler-backend-reaches-beta"}
 
 1.4.0 で [Alpha](components-stability.md) として導入された Kotlin/JS 用の [IR ベースのコンパイラバックエンド](whatsnew14.md#unified-backends-and-extensibility) が Beta に到達しました。
 
 以前、プロジェクトを新しいバックエンドに移行するのを支援するために JS IR バックエンドへの移行ガイドを公開しました。今回、必要な変更を IntelliJ IDEA 内で直接表示する IDE プラグイン [Kotlin/JS Inspection Pack](https://plugins.jetbrains.com/plugin/17183-kotlin-js-inspection-pack/) を紹介します。
 
-### Kotlin/JS IR バックエンドを使用するアプリケーションのデバッグエクスペリエンスの向上
+### Kotlin/JS IR バックエンドを使用するアプリケーションのデバッグエクスペリエンスの向上 {id="better-debugging-experience-for-applications-with-the-kotlin-js-ir-backend"}
 
 Kotlin 1.5.30 では、Kotlin/JS IR バックエンド向けに JavaScript ソースマップの生成が導入されました。これにより、IR バックエンドが有効な場合の Kotlin/JS デバッグエクスペリエンスが向上し、ブレークポイント、ステップ実行、適切なソース参照を含む読みやすいスタックトレースなど、完全なデバッグサポートが提供されます。
 
 [ブラウザまたは IntelliJ IDEA Ultimate で Kotlin/JS をデバッグする方法](js-debugging.md) をご覧ください。
 
-## Gradle
+## Gradle {id="gradle"}
 
 [Kotlin Gradle プラグインのユーザーエクスペリエンス向上](https://youtrack.jetbrains.com/issue/KT-45778) の一環として、以下の機能を実装しました：
 * [Java ツールチェーンのサポート](#support-for-java-toolchains)。これには、[古い Gradle バージョン向けに `UsesKotlinJavaToolchain` インターフェースを使用して JDK のホームを指定する機能](#ability-to-specify-jdk-home-with-useskotlinjavatoolchain-interface) も含まれます。
 * [Kotlin デーモンの JVM 引数を明示的に指定するより簡単な方法](#easier-way-to-explicitly-specify-kotlin-daemon-jvm-arguments)
 
-### Java ツールチェーンのサポート
+### Java ツールチェーンのサポート {id="support-for-java-toolchains"}
 
 Gradle 6.7 で [「Java ツールチェーンのサポート」](https://docs.gradle.org/current/userguide/toolchains.html) 機能が導入されました。
 この機能を使用すると：
@@ -631,7 +631,7 @@ java {
 
 Gradle 6.1 から 6.6 のバージョンでは、[`UsesKotlinJavaToolchain` インターフェースを使用して JDK のホームを設定してください](#ability-to-specify-jdk-home-with-useskotlinjavatoolchain-interface)。
 
-### UsesKotlinJavaToolchain インターフェースを使用した JDK ホームの指定機能
+### UsesKotlinJavaToolchain インターフェースを使用した JDK ホームの指定機能 {id="ability-to-specify-jdk-home-with-useskotlinjavatoolchain-interface"}
 
 [`kotlinOptions`](gradle-compiler-options.md) を介した JDK の設定をサポートするすべての Kotlin タスクが、`UsesKotlinJavaToolchain` インターフェースを実装するようになりました。JDK のホームを設定するには、JDK へのパスを指定し、`<LOCAL_JDK_VERSION>` プレースホルダーを置き換えます：
 
@@ -670,7 +670,7 @@ Gradle 6.1 から 6.6 のバージョンでは `UsesKotlinJavaToolchain` イン�
 
 この機能を使用する場合、[kapt タスクワーカー](kapt.md#run-kapt-tasks-in-parallel) は [プロセス分離モード](https://docs.gradle.org/current/userguide/worker_api.html#changing_the_isolation_mode) のみを使用し、`kapt.workers.isolation` プロパティは無視されることに注意してください。
 
-### Kotlin デーモンの JVM 引数を明示的に指定するより簡単な方法
+### Kotlin デーモンの JVM 引数を明示的に指定するより簡単な方法 {id="easier-way-to-explicitly-specify-kotlin-daemon-jvm-arguments"}
 
 Kotlin 1.5.30 では、Kotlin デーモンの JVM 引数に関する新しいロジックが導入されました。以下のリストの各オプションは、その前にあるオプションを上書きします：
 
@@ -750,7 +750,7 @@ Kotlin 1.5.30 では、Kotlin デーモンの JVM 引数に関する新しいロ
 
 Kotlin デーモンの詳細については、[Kotlin デーモンと Gradle での使用](gradle-compilation-and-caches.md#the-kotlin-daemon-and-how-to-use-it-with-gradle) を参照してください。
 
-## 標準ライブラリ
+## 標準ライブラリ {id="standard-library"}
 
 Kotlin 1.5.30 では、標準ライブラリの `Duration` および `Regex` API に改善が行われました：
 * [`Duration.toString()` 出力の変更](#changing-duration-tostring-output)
@@ -758,7 +758,7 @@ Kotlin 1.5.30 では、標準ライブラリの `Duration` および `Regex` API
 * [特定のポジションでの Regex マッチング](#matching-with-regex-at-a-particular-position)
 * [Regex によるシーケンスへの分割](#splitting-regex-to-a-sequence)
 
-### Duration.toString() 出力の変更
+### Duration.toString() 出力の変更 {id="changing-duration-tostring-output"}
 
 > Duration API は[実験的](components-stability.md)です。これはいつでも変更または削除される可能性があります。
 > 評価目的のみで使用してください。これに関するフィードバックを [YouTrack](https://youtrack.jetbrains.com/issues/KT) でお待ちしております。
@@ -789,7 +789,7 @@ Duration.milliseconds(25.12).toString()|`25.1ms`|`25.12ms`|
 >
 {style="note"}
 
-### 文字列からの Duration のパース
+### 文字列からの Duration のパース {id="parsing-duration-from-string"}
 
 > Duration API は[実験的](components-stability.md)です。これはいつでも変更または削除される可能性があります。
 > 評価目的のみで使用してください。これに関するフィードバックを [こちらのイシュー](https://github.com/Kotlin/KEEP/issues/190) でお待ちしております。
@@ -846,7 +846,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.5" validate="false"}
 
-### 特定のポジションでの Regex マッチング
+### 特定のポジションでの Regex マッチング {id="matching-with-regex-at-a-particular-position"}
 
 > `Regex.matchAt()` および `Regex.matchesAt()` 関数は[実験的](components-stability.md)です。これらはいつでも変更または削除される可能性があります。
 > 評価目的のみで使用してください。これに関するフィードバックを [YouTrack](https://youtrack.jetbrains.com/issue/KT-34021) でお待ちしております。
@@ -884,7 +884,7 @@ fun main(){
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.5" validate="false"}
 
-### Regex によるシーケンスへの分割
+### Regex によるシーケンスへの分割 {id="splitting-regex-to-a-sequence"}
 
 > `Regex.splitToSequence()` および `CharSequence.splitToSequence(Regex)` 関数は[実験的](components-stability.md)です。これらはいつでも変更または削除される可能性があります。
 > 評価目的のみで使用してください。これに関するフィードバックを [YouTrack](https://youtrack.jetbrains.com/issue/KT-23351) でお待ちしております。
@@ -914,7 +914,7 @@ fun main(){
 ```
 {kotlin-runnable="false"}
 
-## Serialization 1.3.0-RC
+## Serialization 1.3.0-RC {id="serialization-1-3-0-rc"}
 
 `kotlinx.serialization` [1.3.0-RC](https://github.com/Kotlin/kotlinx.serialization/releases/tag/v1.3.0-RC) が公開され、新しい JSON シリアライズ機能が追加されました：
 * Java IO ストリームのシリアライズ

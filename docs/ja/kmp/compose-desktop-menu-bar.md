@@ -102,7 +102,7 @@ object AboutIcon : Painter() {
 
 Windows および Linux では、メニューバーはウィンドウの一部として表示されます。macOS では、ウィンドウがアクティブなときに画面上部のシステムメニューバーに表示されます。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * アプリケーションアイコンとメニューを[システムトレイ](compose-desktop-tray.md)に追加する方法を学ぶ。
 * [その他のデスクトップコンポーネント](compose-desktop-components.md)に関するチュートリアルを調べる。

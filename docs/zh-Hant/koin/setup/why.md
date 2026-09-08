@@ -4,7 +4,7 @@ title: 為什麼選擇 Koin？
 
 Koin 為任何 Kotlin 應用程式（多平台、Android、後端等）提供了一種簡單且高效的方式來整合相依注入。
 
-## Koin 的目標
+## Koin 的目標 {id="goals-of-koin"}
 
 Koin 的目標是：
 - 使用高效智能 API **簡化**您的相依注入基礎結構
@@ -14,9 +14,9 @@ Koin 的目標是：
 
 ---
 
-## Koin 簡介
+## Koin 簡介 {id="koin-in-a-nutshell"}
 
-### 讓您的 Kotlin 開發變得輕鬆且高效
+### 讓您的 Kotlin 開發變得輕鬆且高效 {id="making-your-kotlin-development-easy-and-productive"}
 
 Koin 是一款高效智能的 Kotlin 相依注入庫，讓您專注於應用程式本身，而非工具。
 
@@ -45,9 +45,9 @@ fun main() {
 
 ---
 
-## 平台支援
+## 平台支援 {id="platform-support"}
 
-### 準備好支援 Android
+### 準備好支援 Android {id="ready-for-android"}
 
 憑藉 Kotlin 語言，Koin 擴充了 Android 平台，並作為原始平台的一部分提供新功能。
 
@@ -79,7 +79,7 @@ class MyActivity : AppCompatActivity() {
 **了解更多**：[在 Android 上啟動 Koin](/docs/reference/koin-android/start)
 :::
 
-### 助力 Kotlin 多平台
+### 助力 Kotlin 多平台 {id="powering-kotlin-multiplatform"}
 
 在行動平台之間共用程式碼是 Kotlin 多平台的主要使用案例之一。透過 Kotlin Multiplatform Mobile，您可以建置跨平台行動應用程式，並在 Android 和 iOS 之間共用通用程式碼。
 
@@ -89,17 +89,17 @@ Koin 提供多平台相依注入，協助您在原生行動應用程式以及 We
 **了解更多**：[搭配 Koin 使用 Kotlin 多平台](/docs/reference/koin-mp/kmp)
 :::
 
-### 效能與生產力
+### 效能與生產力 {id="performances-and-productivity"}
 
 Koin 是一個純 Kotlin 架構，旨在實現簡單直接的使用與執行。它易於使用，且不會影響您的編譯時間，也不需要任何額外的外掛程式配置。
 
 ---
 
-## Koin：一個相依注入架構
+## Koin：一個相依注入架構 {id="koin-a-dependency-injection-framework"}
 
 Koin 是一個熱門的 Kotlin 相依注入 (DI) 架構，為管理應用程式的相依項提供現代化且輕量級的解決方案，且只需極少的樣板程式碼。
 
-### 相依注入 vs. 服務定位器
+### 相依注入 vs. 服務定位器 {id="dependency-injection-vs-service-locator"}
 
 雖然 Koin 看起來可能與服務定位器模式相似，但兩者之間存在關鍵差異：
 
@@ -117,7 +117,7 @@ Koin 是一個熱門的 Kotlin 相依注入 (DI) 架構，為管理應用程式�
 **相依注入**：相比之下，Koin 是一個純粹的相依注入架構。使用 Koin 時，您在模組中宣告相依項，並由 Koin 處理物件的建立與串接。它允許建立具有各自作用域的多個獨立模組，使相依項管理更具模組化，並避免潛在的衝突。
 :::
 
-### Koin 的方法：靈活性與最佳實務的結合
+### Koin 的方法：靈活性與最佳實務的結合 {id="koin-s-approach-a-blend-of-flexibility-and-best-practices"}
 
 Koin 同時支援 DI 和服務定位器模式，為開發人員提供靈活性。然而，它**強烈鼓勵使用 DI**，特別是**建構函式注入**，即相依項作為建構函式參數傳遞。這種方法能提升可測試性，並使您的程式碼更容易理解。
 
@@ -146,11 +146,11 @@ Koin 的設計理念以**簡單和易於設定**為中心，同時在需要時�
 
 ---
 
-## 透明度與設計概覽
+## 透明度與設計概覽 {id="transparency-and-design-overview"}
 
 Koin 旨在成為一個多功能的控制反轉 (IoC) 容器，支援相依注入 (DI) 和服務定位器 (SL) 模式。為了讓您清楚了解 Koin 的運作方式並引導您有效地使用它，讓我們探討以下面向：
 
-### Koin 如何平衡 DI 與 SL
+### Koin 如何平衡 DI 與 SL {id="how-koin-balances-di-and-sl"}
 
 Koin 結合了 DI 和 SL 的元素，這可能會影響您使用該架構的方式：
 
@@ -160,7 +160,7 @@ Koin 結合了 DI 和 SL 的元素，這可能會影響您使用該架構的方�
 
 3. **Android 組件中的 SL：** 在 Android 開發中，Koin 經常在 `Application` 和 `Activity` 等組件內部使用 SL 以簡化設定。從這一點出發，Koin 建議使用 DI（特別是建構函式注入）以更結構化的方式管理相依項。然而，這並非強制要求，開發人員可以根據需要靈活地使用 SL。
 
-### 為什麼這對您很重要
+### 為什麼這對您很重要 {id="why-this-matters-to-you"}
 
 了解 DI 與 SL 之間的區別有助於有效地管理應用程式的相依項：
 
@@ -182,11 +182,11 @@ Koin 結合了 DI 和 SL 的元素，這可能會影響您使用該架構的方�
 
 ---
 
-## 充分利用 Koin
+## 充分利用 Koin {id="making-the-most-of-koin"}
 
 若要有效率地使用 Koin：
 
-### 1. 遵循最佳實務
+### 1. 遵循最佳實務 {id="1-follow-best-practices"}
 
 盡可能使用**建構函式注入**，以符合相依項管理的最佳實務。這種方法可以提高可測試性和可維護性。
 
@@ -205,15 +205,15 @@ class UserService : KoinComponent {
 }
 ```
 
-### 2. 利用 Koin 的靈活性
+### 2. 利用 Koin 的靈活性 {id="2-leverage-koin-s-flexibility"}
 
 在能簡化設定的場景中使用 Koin 對 SL 的支援，但目標應是依靠 DI 來管理核心應用程式相依項。
 
-### 3. 參考文件與範例
+### 3. 參考文件與範例 {id="3-refer-to-documentation-and-examples"}
 
 查閱 Koin 的文件與範例，了解如何根據您的專案需求適當地配置和使用 DI 與 SL。
 
-### 4. 明智地使用作用域
+### 4. 明智地使用作用域 {id="4-use-scopes-wisely"}
 
 Koin 的作用域功能允許您為應用程式的特定部分隔離相依項：
 
@@ -231,21 +231,21 @@ module {
 
 ---
 
-## 後續步驟
+## 後續步驟 {id="next-steps"}
 
 準備好開始了嗎？請選擇您的平台：
 
-### 安裝指南
+### 安裝指南 {id="setup-guides"}
 - [Koin 安裝](/docs/setup/koin) - 適用於所有平台的 Gradle 配置
 - [Koin 註解安裝](/docs/setup/annotations) - 適用於基於註解之 DI 的 KSP 設定
 
-### 快速入門教學
+### 快速入門教學 {id="getting-started-tutorials"}
 - [Android 與 ViewModel](/docs/quickstart/android-viewmodel) - 開始使用 Koin 建置 Android 應用程式
 - [Jetpack Compose](/docs/quickstart/android-compose) - Koin 搭配 Compose UI
 - [Kotlin 多平台](/docs/reference/koin-mp/kmp) - 跨平台共用程式碼
 - [Ktor 後端](/docs/quickstart/ktor) - 建置伺服器端應用程式
 
-### 核心概念
+### 核心概念 {id="core-concepts"}
 - [相依注入基礎知識](/docs/intro/what-is-dependency-injection) - DI 的基本概念
 - [核心功能](/docs/reference/koin-core/dsl) - Koin DSL 與模組系統
 - [Android 整合](/docs/reference/koin-android/start) - Android 特有功能

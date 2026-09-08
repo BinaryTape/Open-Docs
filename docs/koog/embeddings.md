@@ -2,21 +2,21 @@
 
 `embeddings` 模块提供了生成和比较文本及代码嵌入的功能。嵌入是捕捉语义含义的向量表示，允许进行高效的相似性比较。
 
-## 概览
+## 概览 {id="overview"}
 
 该模块由两个主要组件组成：
 
 1. **embeddings-base**：嵌入的核心接口和数据结构。
 2. **embeddings-llm**：使用 Ollama 进行本地嵌入生成的实现。
 
-## 入门指南
+## 入门指南 {id="getting-started"}
 
 以下章节包含了如何通过以下方式使用嵌入的基本示例：
 
 - 通过 Ollama 使用本地嵌入模型
 - 使用 OpenAI 嵌入模型
 
-### 本地嵌入
+### 本地嵌入 {id="local-embeddings"}
 
 要将嵌入功能与本地模型配合使用，您需要在系统上安装并运行 Ollama。
 有关安装和运行说明，请参阅 [Ollama 官方 GitHub 仓库](https://github.com/ollama/ollama)。
@@ -54,7 +54,7 @@ fun main() {
 
     将 `<ollama-model-id>` 替换为特定模型的 Ollama 标识符。有关可用嵌入模型及其标识符的更多信息，请参阅 [Ollama 模型概览](#ollama-models-overview)。
 
-### Ollama 模型概览
+### Ollama 模型概览 {id="ollama-models-overview"}
 
 下表提供了可用 Ollama 嵌入模型的概览。
 
@@ -68,7 +68,7 @@ fun main() {
 
 有关这些模型的更多信息，请参阅 Ollama 的 [嵌入模型](https://ollama.com/blog/embedding-models) 博客文章。
 
-### 选择模型
+### 选择模型 {id="choosing-a-model"}
 
 以下是一些根据您的需求选择 Ollama 嵌入模型的通用提示：
 
@@ -78,7 +78,7 @@ fun main() {
 - 为了获得最高效率（以牺牲部分质量为代价），使用 `ALL_MINILM`。
 - 对于高维嵌入，使用 `MXBAI_EMBED_LARGE`。
 
-## OpenAI 嵌入
+## OpenAI 嵌入 {id="openai-embeddings"}
 
 要使用 OpenAI 嵌入模型创建嵌入，请使用 `OpenAILLMClient` 实例的 `embed` 方法，如下面的示例所示。
 
@@ -103,7 +103,7 @@ suspend fun openAIEmbed(text: String) {
 ```
 <!--- KNIT example-embeddings-02.kt -->
 
-## AWS Bedrock 嵌入
+## AWS Bedrock 嵌入 {id="aws-bedrock-embeddings"}
 
 要使用 AWS Bedrock 嵌入模型创建嵌入，请使用 `BedrockLLMClient` 实例的 `embed` 方法及您选择的模型。示例：
 
@@ -140,7 +140,7 @@ suspend fun bedrockEmbed(text: String) {
 ```
 <!--- KNIT example-embeddings-03.kt -->
 
-### 支持的 AWS Bedrock 嵌入模型
+### 支持的 AWS Bedrock 嵌入模型 {id="supported-aws-bedrock-embedding-models"}
 
 | 提供商 | 模型名称 | 模型 ID | 输入 | 输出 | 维度 | 上下文长度 | 备注 |
 |----------|------------------------------|--------------------------------|-------|-----------|------------|----------------|-------------------------------------------------------------------------------------------------------|
@@ -151,11 +151,11 @@ suspend fun bedrockEmbed(text: String) {
 
 > 有关最新的模型支持情况，请参阅 [AWS Bedrock 支持的模型文档](https://docs.aws.amazon.com/bedrock/latest/userguide/models-supported.html)。
 
-## 示例
+## 示例 {id="examples"}
 
 以下示例展示了如何使用嵌入来将代码与文本或其他代码片段进行比较。
 
-### 代码与文本比较
+### 代码与文本比较 {id="code-to-text-comparison"}
 
 将代码片段与自然语言描述进行比较以找到语义匹配：
 
@@ -197,7 +197,7 @@ suspend fun compareCodeToText(embedder: Embedder) { // Embedder 类型
 ```
 <!--- KNIT example-embeddings-04.kt -->
 
-### 代码与代码比较
+### 代码与代码比较 {id="code-to-code-comparison"}
 
 比较代码片段以找到语义相似性，无论语法是否存在差异：
 
@@ -259,7 +259,7 @@ suspend fun compareCodeToCode(embedder: Embedder) { // Embedder 类型
 ```
 <!--- KNIT example-embeddings-05.kt -->
 
-## API 文档
+## API 文档 {id="api-documentation"}
 
 有关嵌入相关的完整 API 参考，请参阅以下模块的参考文档：
 

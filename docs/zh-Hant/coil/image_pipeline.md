@@ -18,7 +18,7 @@ val imageLoader = ImageLoader.Builder(context)
     .build()
 ```
 
-## Interceptor
+## Interceptor {id="interceptors"}
 
 Interceptor 允許您觀察、轉換、短路或重試對 `ImageLoader` 圖片引擎的請求。例如，您可以像這樣加入自訂快取層：
 
@@ -46,7 +46,7 @@ Interceptor 是一項進階功能，讓您能使用自訂邏輯封裝 `ImageLoad
 
 請參閱 [Interceptor](/coil/api/coil-core/coil3.intercept/-interceptor) 以了解更多資訊。
 
-## Mapper
+## Mapper {id="mappers"}
 
 Mapper 允許您新增對自訂資料型別的支援。例如，假設我們從伺服器取得此模型：
 
@@ -79,13 +79,13 @@ imageLoader.enqueue(request)
 
 請參閱 [Mapper](/coil/api/coil-core/coil3.map/-mapper) 以了解更多資訊。
 
-## Keyer
+## Keyer {id="keyers"}
 
 Keyer 將資料轉換為快取金鑰的一部分。當此請求的輸出被寫入 `MemoryCache` 時，此值將用作 `MemoryCache.Key.key`。
 
 請參閱 [Keyer](/coil/api/coil-core/coil3.key/-keyer) 以了解更多資訊。
 
-## Fetcher
+## Fetcher {id="fetchers"}
 
 Fetcher 將資料（例如：URL、URI、File 等）轉換為 `ImageSource` 或 `Image`。它們通常將輸入資料轉換為隨後可由 `Decoder` 取用的格式。使用此介面可新增對自訂擷取機制（例如：Cronet、自訂 URI 配置等）的支援。
 
@@ -94,13 +94,13 @@ Fetcher 將資料（例如：URL、URI、File 等）轉換為 `ImageSource` 或 
 !!! Note
     如果您加入一個使用自訂資料型別的 `Fetcher`，您也需要提供一個自訂的 `Keyer`，以確保使用該型別的請求結果可被記憶體快取。例如，`Fetcher.Factory<MyDataType>` 將需要加入 `Keyer<MyDataType>`。
 
-## Decoder
+## Decoder {id="decoders"}
 
 Decoder 讀取 `ImageSource` 並傳回 `Image`。使用此介面可新增對自訂檔案格式（例如：GIF、SVG、TIFF 等）的支援。
 
 請參閱 [Decoder](/coil/api/coil-core/coil3.decode/-decoder) 以了解更多資訊。
 
-## 自訂 ImageLoader 與 ImageRequest 屬性
+## 自訂 ImageLoader 與 ImageRequest 屬性 {id="custom-imageloader-and-imagerequest-properties"}
 
 Coil 支援透過 `Extras` 將自訂資料附加到 `ImageRequest` 和 `ImageLoader`。`Extras` 是一個額外屬性的 Map，透過 `Extras.Key` 進行參照。
 
@@ -161,7 +161,7 @@ AsyncImage(
 
 [Coil 本身也使用這種模式](https://github.com/coil-kt/coil/blob/main/coil-gif/src/main/java/coil3/gif/imageRequests.kt)，在 `coil-gif` 以及其他擴充程式庫中為 GIF 支援自訂請求屬性。
 
-## 串聯組建
+## 串聯組建 {id="chaining-components"}
 
 Coil 圖片載入器組建的一個實用特性是它們可以在內部串聯。例如，假設您需要執行網路請求以取得要載入的圖片 URL。
 

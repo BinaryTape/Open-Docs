@@ -6,7 +6,7 @@ title: Navigation 3
 
 Koin은 의존성 주입을 포함한 타입 안전(type-safe) 멀티플랫폼 내비게이션을 위해 [AndroidX Navigation 3](https://developer.android.com/guide/navigation/navigation-3)와의 통합을 지원합니다.
 
-## Navigation 3란 무엇인가요?
+## Navigation 3란 무엇인가요? {id="what-is-navigation-3"}
 
 Navigation 3는 Compose를 위해 특별히 설계된 Jetpack의 새로운 내비게이션 라이브러리입니다:
 
@@ -15,9 +15,9 @@ Navigation 3는 Compose를 위해 특별히 설계된 Jetpack의 새로운 내�
 - **적응형 레이아웃(Adaptive layouts)** - 여러 목적지를 동시에 표시할 수 있습니다(리스트-상세 구조 등).
 - **자동 애니메이션** - 기본적으로 트랜지션 지원이 내장되어 있습니다.
 
-## 설정
+## 설정 {id="setup"}
 
-### 멀티플랫폼 프로젝트
+### 멀티플랫폼 프로젝트 {id="multiplatform-projects"}
 
 ```kotlin
 // shared/build.gradle.kts
@@ -27,7 +27,7 @@ commonMain.dependencies {
 }
 ```
 
-### Android 전용 프로젝트
+### Android 전용 프로젝트 {id="android-only-projects"}
 
 ```kotlin
 dependencies {
@@ -44,7 +44,7 @@ plugins {
 }
 ```
 
-### 플랫폼 지원
+### 플랫폼 지원 {id="platform-support"}
 
 | 플랫폼 | 상태 |
 |----------|--------|
@@ -53,9 +53,9 @@ plugins {
 | Desktop | 전체 지원 |
 | Web | 전체 지원 |
 
-## 핵심 개념
+## 핵심 개념 {id="core-concepts"}
 
-### Kotlin 클래스로 정의하는 라우트
+### Kotlin 클래스로 정의하는 라우트 {id="routes-as-kotlin-classes"}
 
 `@Serializable`을 사용하여 타입 안전한 라우트를 정의합니다:
 
@@ -73,7 +73,7 @@ data class DetailRoute(val itemId: String)
 data class SettingsRoute(val section: String? = null)
 ```
 
-### 백 스택 (Back Stack)
+### 백 스택 (Back Stack) {id="back-stack"}
 
 Navigation 3는 간단한 리스트 기반의 백 스택을 사용합니다:
 
@@ -91,7 +91,7 @@ backStack.add(DetailRoute("123"))
 backStack.removeLastOrNull()
 ```
 
-### NavDisplay
+### NavDisplay {id="navdisplay"}
 
 `NavDisplay`는 애니메이션과 함께 백 스택을 렌더링합니다:
 
@@ -103,9 +103,9 @@ NavDisplay(
 )
 ```
 
-## Koin 통합
+## Koin 통합 {id="koin-integration"}
 
-### 내비게이션 엔트리 선언
+### 내비게이션 엔트리 선언 {id="declaring-navigation-entries"}
 
 모듈에서 `navigation<T>` DSL을 사용합니다:
 
@@ -134,7 +134,7 @@ val appModule = module {
 }
 ```
 
-### koinEntryProvider 사용하기
+### koinEntryProvider 사용하기 {id="using-koinentryprovider"}
 
 Koin에서 모든 내비게이션 엔트리를 가져옵니다:
 
@@ -177,7 +177,7 @@ NavDisplay(
 (마찬가지로, `val entryProvider: EntryProvider<Route> = koinEntryProvider()`와 같이 작성하면 타입 인자가 기대되는 타입으로부터 추론됩니다.)
 :::
 
-### 전체 예제
+### 전체 예제 {id="complete-example"}
 
 ```kotlin
 // 라우트
@@ -259,7 +259,7 @@ class MainActivity : ComponentActivity(), AndroidScopeComponent {
 }
 ```
 
-## 스코프 내비게이션 (Scoped Navigation)
+## 스코프 내비게이션 (Scoped Navigation) {id="scoped-navigation"}
 
 Koin 스코프 내에서 내비게이션 엔트리를 선언합니다:
 
@@ -291,9 +291,9 @@ val appModule = module {
 }
 ```
 
-## ViewModel 통합
+## ViewModel 통합 {id="viewmodel-integration"}
 
-### 내비게이션 인자 포함하기
+### 내비게이션 인자 포함하기 {id="with-navigation-arguments"}
 
 라우트 데이터를 ViewModel에 전달합니다:
 
@@ -319,7 +319,7 @@ val appModule = module {
 }
 ```
 
-### 엔트리 데코레이터 사용하기
+### 엔트리 데코레이터 사용하기 {id="with-entry-decorators"}
 
 ViewModel 상태 유지를 위해 데코레이터를 사용합니다:
 
@@ -342,9 +342,9 @@ NavDisplay(
 )
 ```
 
-## 애니메이션
+## 애니메이션 {id="animations"}
 
-### 기본 트랜지션 (Default Transitions)
+### 기본 트랜지션 (Default Transitions) {id="default-transitions"}
 
 ```kotlin
 NavDisplay(
@@ -364,7 +364,7 @@ NavDisplay(
 )
 ```
 
-### 라우트별 애니메이션
+### 라우트별 애니메이션 {id="per-route-animations"}
 
 ```kotlin
 navigation<ModalRoute>(
@@ -380,9 +380,9 @@ navigation<ModalRoute>(
 }
 ```
 
-## 적응형 레이아웃 (Adaptive Layouts)
+## 적응형 레이아웃 (Adaptive Layouts) {id="adaptive-layouts"}
 
-### 리스트-상세 패턴 (List-Detail Pattern)
+### 리스트-상세 패턴 (List-Detail Pattern) {id="list-detail-pattern"}
 
 적응형 레이아웃을 위해 씬 전략(scene strategies)을 사용합니다:
 
@@ -413,7 +413,7 @@ fun App() {
 }
 ```
 
-### Koin 모듈과 함께 사용하기
+### Koin 모듈과 함께 사용하기 {id="with-koin-modules"}
 
 ```kotlin
 val appModule = module {
@@ -433,9 +433,9 @@ val appModule = module {
 }
 ```
 
-## Android 확장 기능
+## Android 확장 기능 {id="android-extensions"}
 
-### 지연 엔트리 프로바이더 (Lazy Entry Provider)
+### 지연 엔트리 프로바이더 (Lazy Entry Provider) {id="lazy-entry-provider"}
 
 ```kotlin
 class MainActivity : ComponentActivity() {
@@ -457,7 +457,7 @@ class MainActivity : ComponentActivity() {
 }
 ```
 
-### 즉시 엔트리 프로바이더 (Eager Entry Provider)
+### 즉시 엔트리 프로바이더 (Eager Entry Provider) {id="eager-entry-provider"}
 
 ```kotlin
 class MainActivity : ComponentActivity() {
@@ -477,16 +477,16 @@ class MainActivity : ComponentActivity() {
 }
 ```
 
-## API 레퍼런스
+## API 레퍼런스 {id="api-reference"}
 
-### DSL 함수
+### DSL 함수 {id="dsl-functions"}
 
 | 함수 | 설명 |
 |----------|-------------|
 | `Module.navigation<T> { }` | 모듈 수준에서 내비게이션 엔트리 선언 |
 | `ScopeDSL.navigation<T> { }` | 특정 스코프 내에서 내비게이션 엔트리 선언 |
 
-### Composable 함수
+### Composable 함수 {id="composable-functions"}
 
 | 함수 | 설명 |
 |----------|-------------|
@@ -499,9 +499,9 @@ class MainActivity : ComponentActivity() {
 | `entryProvider<T>()` | 지연 엔트리 프로바이더 위임(delegate) |
 | `getEntryProvider<T>()` | 즉시 엔트리 프로바이더 |
 
-## Navigation 2.x에서 마이그레이션
+## Navigation 2.x에서 마이그레이션 {id="migration-from-navigation-2-x"}
 
-### 이전 (Navigation 2.x)
+### 이전 (Navigation 2.x) {id="before-navigation-2-x"}
 
 ```kotlin
 NavHost(navController, startDestination = "home") {
@@ -515,7 +515,7 @@ NavHost(navController, startDestination = "home") {
 }
 ```
 
-### 이후 (Navigation 3)
+### 이후 (Navigation 3) {id="after-navigation-3"}
 
 ```kotlin
 // 타입 안전한 라우트
@@ -539,7 +539,7 @@ NavDisplay(
 )
 ```
 
-## 참고 자료
+## 참고 자료 {id="resources"}
 
 - [Navigation 3 공식 가이드](https://developer.android.com/guide/navigation/navigation-3)
 - [Nav3 Recipes 저장소](https://github.com/android/nav3-recipes)

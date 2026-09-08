@@ -6,11 +6,11 @@ Kotlin daemon 是一個背景程序，建構系統可以使用它來保持編譯
 
 雖然 Kotlin daemon 沒有直接面向使用者的介面，但您可以透過建構系統或 [建置工具 API](build-tools-api.md) 來使用它。
 
-## Kotlin Daemon 配置
+## Kotlin Daemon 配置 {id="kotlin-daemon-configuration"}
 
 您可以透過多種方式為 Gradle 或 Maven 的 Kotlin daemon 配置部分設定。
 
-### 記憶體管理
+### 記憶體管理 {id="memory-management"}
 
 Kotlin daemon 是一個獨立的程序，擁有自己的記憶體空間，並與用戶端隔離。預設情況下，Kotlin daemon 會嘗試繼承啟動它的 JVM 程序的堆積大小 (`-Xmx`)。
 
@@ -35,7 +35,7 @@ kotlin.daemon.jvmargs=-Xmx1500m
 </tab>
 </tabs>
 
-### 生命周期
+### 生命周期 {id="lifetime"}
 
 Kotlin daemon 有兩種常見的生命週期策略：
 

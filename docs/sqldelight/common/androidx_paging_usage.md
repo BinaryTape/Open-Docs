@@ -1,6 +1,6 @@
 SQLDelight 提供两种数据分页方法 — 基于偏移量的分页和键集分页。
 
-## 基于偏移量的分页
+## 基于偏移量的分页 {id="offset-based-paging"}
 
 偏移量分页使用 `OFFSET` 和 `LIMIT` 子句实现分页结果。创建一个执行基于偏移量分页的 `PagingSource` 需要一个计数查询以及分页查询。
 
@@ -27,7 +27,7 @@ val pagingSource: PagingSource = QueryPagingSource(
 
 如果未指定 context，默认情况下将在 `Dispatchers.IO` 上执行查询。期望使用 RxJava 的 `Scheduler` 执行查询的使用者应使用 [`Scheduler.asCoroutineDispatcher`](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-rx2/kotlinx.coroutines.rx2/io.reactivex.-scheduler/as-coroutine-dispatcher.html) 扩展函数。
 
-## 键集分页
+## 键集分页 {id="keyset-paging"}
 
 偏移量分页简单且易于维护。遗憾的是，它在大型数据集上表现不佳。SQL 语句的 `OFFSET` 子句实际上只是丢弃了 SQL 查询中已经执行的行。因此，随着 `OFFSET` 数量的增长，执行查询所需的时间也会随之增加。为了克服这个问题，SQLDelight 提供了 `PagingSource` 的“键集分页”实现。键集分页不是查询整个数据集并低效地丢弃前 `OFFSET` 个元素，而是通过使用唯一列来限制查询的边界。虽然这需要开发者付出更高的维护成本，但性能更好。
 

@@ -8,7 +8,7 @@ LPK は、[Kotlin/JS](js-overview.md)、[JVM の Swing](https://docs.oracle.com/
 
 このチュートリアルでは、IntelliJ IDEA で LPK および [Kotlin DataFrame](https://kotlin.github.io/dataframe/home.html) ライブラリを使用して、様々な種類のプロットを作成する方法を説明します。
 
-## 開始する前に
+## 開始する前に {id="before-you-start"}
 
 > IntelliJ IDEA 2026.2 以降、Kotlin Notebook は IDE にバンドルされなくなり、JetBrains による公式サポートも終了します。
 > ソースコードは引き続き [GitHub](https://github.com/Kotlin/kotlin-notebook) で公開されます。
@@ -29,7 +29,7 @@ Lets-Plot を使用するための新しい Kotlin Notebook を作成します�
 
 このチュートリアルを進めるために、DataFrame を [Gradle](https://kotlin.github.io/dataframe/setupgradle.html) または [Maven](https://kotlin.github.io/dataframe/setupmaven.html) の依存関係として使用することもできます。
 
-## データの準備
+## データの準備 {id="prepare-the-data"}
 
 ベルリン、マドリード、カラカスの 3 都市における月平均気温のシミュレーション数値を格納する DataFrame を作成しましょう。
 
@@ -71,7 +71,7 @@ LPK ライブラリを使用してプロットを作成するには、データ�
 val data = df.toMap()
 ```
 
-## 散布図の作成
+## 散布図の作成 {id="create-a-scatter-plot"}
 
 LPK ライブラリを使用して散布図（scatter plot）を作成しましょう。
 
@@ -88,7 +88,7 @@ scatterPlot
 
 ![Scatter plot](lets-plot-scatter.svg){width=600}
 
-## 箱ひげ図の作成
+## 箱ひげ図の作成 {id="create-a-box-plot"}
 
 [データ](#prepare-the-data)を箱ひげ図（box plot）で可視化してみましょう。LPK ライブラリの [`geomBoxplot()`](https://lets-plot.org/kotlin/api-reference/-lets--plot--kotlin/org.jetbrains.letsPlot.geom/geom-boxplot.html) 関数を使用してプロットを生成し、[`scaleFillManual()`](https://lets-plot.org/kotlin/api-reference/-lets--plot--kotlin/org.jetbrains.letsPlot.scale/scale-fill-manual.html) 関数で色を[カスタマイズ](https://lets-plot.org/kotlin/aesthetics.html#point-shapes)します。
 
@@ -104,11 +104,11 @@ boxPlot
 
 ![Box plot](box-plot.svg){width=600}
 
-## 2D 密度プロット의作成
+## 2D 密度プロット의作成 {id="create-a-2d-density-plot"}
 
 次に、ランダムデータの分布と集中度を可視化するために、2D 密度プロット（2D density plot）を作成しましょう。
 
-### 2D 密度プロット用のデータを準備する
+### 2D 密度プロット用のデータを準備する {id="prepare-the-data-for-the-2d-density-plot"}
 
 1. データを処理し、プロットを生成するための依存関係をインポートします。
 
@@ -163,7 +163,7 @@ boxPlot
    )
    ```
 
-### 2D 密度プロットを生成する
+### 2D 密度プロットを生成する {id="generate-the-2d-density-plot"}
 
 前のステップの `Map` を使用して、2D 密度プロット（`geomDensity2D`）を作成します。データポイントと外れ値をより適切に可視化するために、背景に散布図（`geomPoint`）を重ねます。[`scaleColorGradient()`](https://lets-plot.org/kotlin/api-reference/-lets--plot--kotlin/org.jetbrains.letsPlot.scale/scale-color-gradient.html) 関数を使用して、色のスケールをカスタマイズできます。
 
@@ -181,7 +181,7 @@ densityPlot
 
 ![2D density plot](2d-density-plot.svg){width=600}
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [Lets-Plot for Kotlin のドキュメント](https://lets-plot.org/kotlin/charts.html)で、より多くのプロット例を探索してください。
 * Lets-Plot for Kotlin の [API リファレンス](https://lets-plot.org/kotlin/api-reference/)を確認してください。

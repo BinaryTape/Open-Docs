@@ -29,7 +29,7 @@ Ktor 提供了两种生成 HTML 响应的主要机制：
 * 使用 Kotlin HTML DSL 构建 HTML。
 * 使用 JVM 模板引擎（如 [FreeMarker](https://freemarker.apache.org/) 或 [Velocity](https://velocity.apache.org/engine/)）渲染模板。
 
-#### 完整 HTML 文档
+#### 完整 HTML 文档 {id="full-html-documents"}
 
 要发送使用 Kotlin DSL 构建的完整 HTML 文档，请使用 [`call.respondHtml()`](https://api.ktor.io/ktor-server-html-builder/io.ktor.server.html/respond-html.html) 函数：
 
@@ -51,7 +51,7 @@ get("/") {
 }
 ```
 
-#### 部分 HTML 片段
+#### 部分 HTML 片段 {id="partial-html-fragments"}
 
 如果您只需要返回 HTML 片段，而不将其包装在 `<html>`、`<head>` 或 `<body>` 中，可以使用 `call.respondHtmlFragment()`：
 
@@ -66,7 +66,7 @@ get("/") {
 }
 ```
 
-#### 模板
+#### 模板 {id="templates"}
 
 要在响应中发送模板，请将 [`call.respond()`](https://api.ktor.io/ktor-server-core/io.ktor.server.response/respond.html) 函数与特定内容配合使用：
 ```kotlin
@@ -152,7 +152,7 @@ fun Application.main() {
 
 有关完整代码示例，请参阅 [download-file](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/download-file)。
 
-### 资源
+### 资源 {id="resource"}
 
 您可以使用 [`call.respondResource()`](https://api.ktor.io/ktor-server-core/io.ktor.server.response/respond-resource.html) 方法从 <tooltip term="classpath">classpath</tooltip> 提供单个资源。
 该方法接受指向资源的路径，并发送按以下方式构建的响应：

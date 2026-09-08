@@ -13,7 +13,7 @@
 * [向现有项目添加 Kotlin Notebook](#add-a-new-kotlin-notebook-to-your-project)
 * [创建临时 Kotlin Notebook](#create-a-scratch-kotlin-notebook)
 
-## 创建新项目 
+## 创建新项目 {id="create-a-new-project"}
 
 要创建一个包含 Kotlin Notebook 的新项目：
 
@@ -54,7 +54,7 @@
 
 项目创建完成后，添加一个新的 Kotlin Notebook（参见下一部分）。
 
-## 向现有项目添加新的 Kotlin Notebook
+## 向现有项目添加新的 Kotlin Notebook {id="add-a-new-kotlin-notebook-to-your-project"}
 
 要向现有项目添加新的 Kotlin Notebook： 
 
@@ -65,7 +65,7 @@
 2. 设置新笔记本的名称，例如 **first-notebook**。
 3. 按 **Enter** 键。此时会打开一个带有 Kotlin Notebook **first-notebook.ipynb** 的新选项卡。
 
-## 创建临时 Kotlin Notebook
+## 创建临时 Kotlin Notebook {id="create-a-scratch-kotlin-notebook"}
 
 您还可以将 Kotlin Notebook 创建为临时文件。[临时文件](https://www.jetbrains.com/help/idea/scratches.html#create-scratch-file)允许您测试一小段代码，而无需创建新项目或修改现有项目。
 
@@ -76,7 +76,7 @@
 
    ![临时笔记本](kotlin-notebook-scratch-file.png){width=400}
 
-## 执行基本操作
+## 执行基本操作 {id="perform-basic-operations"}
 
 1. 在新的 Kotlin Notebook 中，在代码单元中输入以下代码：
 
@@ -101,7 +101,7 @@
 
 恭喜！您刚刚创建并试用了您的第一个 Kotlin Notebook。
 
-## 下一步
+## 下一步 {id="next-step"}
 
 在本教程的下一部分中，您将学习如何向 Kotlin Notebook 添加依赖项。
 

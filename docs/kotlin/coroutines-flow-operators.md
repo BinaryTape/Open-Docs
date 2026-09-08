@@ -15,7 +15,7 @@ Kotlin 提供了两种主要的 Flow 运算符：
 >
 {style="tip"}
 
-## 中间运算符
+## 中间运算符 {id="intermediate-operators"}
 
 中间运算符返回一个新的下游流，用于消费来自上游流的值。
 您可以链接多个中间运算符，在收集最终结果之前构建一个 Flow 流水线。
@@ -28,7 +28,7 @@ Kotlin 提供了两种主要的 Flow 运算符：
 * [**组合运算符**](#combining-operators) 从多个上游流收集值并将其发射到同一个下游流中。
 * [**生命周期运算符**](#lifecycle-operators) 针对流收集期间的特定事件（例如收集开始或上游流完成时）运行操作。
 
-### 转换运算符
+### 转换运算符 {id="transforming-operators"}
 
 转换运算符对上游流发射的值进行转换。
 您可以使用它们将值转换为另一种类型、跳过某些值或向下游发射额外的值。
@@ -156,7 +156,7 @@ suspend fun main() = withContext(Dispatchers.Default) {
 ```
 {kotlin-runnable="true"}
 
-### 过滤与限制大小的运算符
+### 过滤与限制大小的运算符 {id="filtering-and-size-limiting-operators"}
 
 过滤与限制大小的运算符控制哪些值可以从流中继续传递到下游。
 您可以使用它们来移除连续的重复值、跳过流开头的某些值，或者在收到指定数量的值后取消收集。
@@ -267,7 +267,7 @@ suspend fun main() = withContext(Dispatchers.Default) {
 ```
 {kotlin-runnable="true"}
 
-### 并发处理运算符
+### 并发处理运算符 {id="concurrent-processing-operators"}
 
 默认情况下，Flow 流水线按顺序处理值。
 上游流发射一个值，收集器处理完该值后，才会发射下一个值。
@@ -448,7 +448,7 @@ suspend fun main() = withContext(Dispatchers.Default) {
 ```
 {kotlin-runnable="true"}
 
-### 组合运算符
+### 组合运算符 {id="combining-operators"}
 
 组合运算符消费来自多个上游流的值并返回单个下游流。
 当收集器需要来自多个流的值时，可以使用它们。
@@ -597,7 +597,7 @@ suspend fun main() {
 ```
 {kotlin-runnable="true"}
 
-### 生命周期运算符
+### 生命周期运算符 {id="lifecycle-operators"}
 
 生命周期运算符接受一个挂起 lambda 表达式，该表达式在流收集期间的特定时间点运行。
 您可以使用它们在收集流之前、每个值发射之前、收集完成后，或者在流完成且未发射任何值时放置逻辑。
@@ -718,7 +718,7 @@ suspend fun main() {
 ```
 {kotlin-runnable="true"}
 
-## 终端运算符
+## 终端运算符 {id="terminal-operators"}
 
 终端运算符用于收集流。
 您可以使用它们来消费发射的值、根据收集到的值返回结果，或者[在特定的 `CoroutineScope` 中收集流](#collect-a-flow-in-a-specific-coroutinescope)。
@@ -879,7 +879,7 @@ suspend fun main() {
 ```
 {kotlin-runnable="true"}
 
-### 在特定的 `CoroutineScope` 中收集流
+### 在特定的 `CoroutineScope` 中收集流 {id="collect-a-flow-in-a-specific-coroutinescope"}
 
 当屏幕或其他长生命周期对象需要来自流的值时，请在该对象的 `CoroutineScope` 中启动收集器。
 这可以确保当该对象被销毁时，取消该对象的 `CoroutineScope` 也会同时取消收集。

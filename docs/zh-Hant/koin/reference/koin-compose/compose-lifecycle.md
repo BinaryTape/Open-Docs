@@ -10,7 +10,7 @@ title: 生命週期與狀態
 本指南與 [Android 的官方 Compose 生命週期文件](https://developer.android.com/develop/ui/compose/lifecycle) 保持一致。
 :::
 
-## Compose 生命週期概覽
+## Compose 生命週期概覽 {id="compose-lifecycle-overview"}
 
 一個 Composable 具有三個生命週期事件：
 
@@ -20,9 +20,9 @@ title: 生命週期與狀態
 
 Koin 的 Compose API 旨在與此生命週期高效配合。
 
-## 注入與重組 (Injection and Recomposition)
+## 注入與重組 (Injection and Recomposition) {id="injection-and-recomposition"}
 
-### koinInject() 如何運作
+### koinInject() 如何運作 {id="how-koininject-works"}
 
 `koinInject()` 從 Koin 檢索執行個體，並在重組之間**記住 (remembers)** 它們：
 
@@ -37,7 +37,7 @@ fun MyScreen() {
 }
 ```
 
-### 注入時機
+### 注入時機 {id="injection-timing"}
 
 請在 **Composable 函式層級**注入相依性，而不是在回呼內部：
 
@@ -60,7 +60,7 @@ fun MyScreen() {
 }
 ```
 
-### 搭配參數的效能
+### 搭配參數的效能 {id="performance-with-parameters"}
 
 當 `koinInject` 使用參數時，偏好使用顯式參數形式：
 
@@ -79,9 +79,9 @@ fun MyScreen(userId: String) {
 }
 ```
 
-## 使用 Koin 進行狀態管理
+## 使用 Koin 進行狀態管理 {id="state-management-with-koin"}
 
-### StateFlow 與 collectAsState
+### StateFlow 與 collectAsState {id="stateflow-and-collectasstate"}
 
 使用 Koin 進行響應式 UI 的標準模式：
 
@@ -118,7 +118,7 @@ fun UserScreen(
 }
 ```
 
-### 直接注入存儲庫 (Repository)
+### 直接注入存儲庫 (Repository) {id="direct-repository-injection"}
 
 對於較簡單的情況，直接注入存儲庫：
 
@@ -142,7 +142,7 @@ fun UserListScreen() {
 }
 ```
 
-### remember() vs koinInject()
+### remember() vs koinInject() {id="remember-vs-koininject"}
 
 為每項工作使用正確的工具：
 
@@ -163,9 +163,9 @@ fun MyScreen() {
 }
 ```
 
-## 使用 Koin 處理副作用 (Side Effects)
+## 使用 Koin 處理副作用 (Side Effects) {id="side-effects-with-koin"}
 
-### LaunchedEffect
+### LaunchedEffect {id="launchedeffect"}
 
 在進入 composition 或 key 更改時執行暫停程式碼：
 
@@ -184,7 +184,7 @@ fun UserDetailScreen(userId: String) {
 }
 ```
 
-### DisposableEffect
+### DisposableEffect {id="disposableeffect"}
 
 在離開 composition 時清理資源：
 
@@ -205,7 +205,7 @@ fun EventScreen() {
 }
 ```
 
-### SideEffect
+### SideEffect {id="sideeffect"}
 
 在每次成功的重組後執行非暫停副作用：
 
@@ -220,9 +220,9 @@ fun AnalyticsScreen(screenName: String) {
 }
 ```
 
-## 穩定性與跳過 (Stability and Skipping)
+## 穩定性與跳過 (Stability and Skipping) {id="stability-and-skipping"}
 
-### 瞭解穩定類型 (Stable Types)
+### 瞭解穩定類型 (Stable Types) {id="understanding-stable-types"}
 
 當輸入未更改時，Compose 可以跳過重組。為了使此功能運作，參數型別必須是**穩定 (stable)** 的：
 
@@ -242,7 +242,7 @@ fun UserCard(
 )
 ```
 
-### Koin 注入與穩定性
+### Koin 注入與穩定性 {id="koin-injections-and-stability"}
 
 Koin 注入被視為穩定的，因為它們傳回相同的執行個體（對於單例而言）或是被記住的：
 
@@ -257,9 +257,9 @@ fun MyScreen() {
 }
 ```
 
-## 傳遞參數 vs 注入
+## 傳遞參數 vs 注入 {id="passing-parameters-vs-injection"}
 
-### 決策指南
+### 決策指南 {id="decision-guide"}
 
 | 作為參數傳遞 | 使用 Koin 注入 |
 |-------------------|------------------|
@@ -268,7 +268,7 @@ fun MyScreen() {
 | 導覽引數 | 業務邏輯 (案例) |
 | 父級提供的資料 | ViewModel |
 
-### 範例模式
+### 範例模式 {id="example-pattern"}
 
 ```kotlin
 // userId 會變動 - 作為參數傳遞
@@ -297,9 +297,9 @@ fun ProfileContent(user: User) {
 }
 ```
 
-## 最佳實務
+## 最佳實務 {id="best-practices"}
 
-### 1. 在頂層注入
+### 1. 在頂層注入 {id="1-inject-at-the-top-level"}
 
 ```kotlin
 @Composable
@@ -316,7 +316,7 @@ fun FeatureScreen() {
 }
 ```
 
-### 2. 保持子 Composable 的純粹性
+### 2. 保持子 Composable 的純粹性 {id="2-keep-child-composables-pure"}
 
 ```kotlin
 // 純粹 - 接收所有資料作為參數
@@ -330,7 +330,7 @@ fun UserCard(
 }
 ```
 
-### 3. 使用 ViewModel 處理複雜狀態
+### 3. 使用 ViewModel 處理複雜狀態 {id="3-use-viewmodel-for-complex-state"}
 
 ```kotlin
 // 在 ViewModel 中進行複雜的狀態管理
@@ -353,7 +353,7 @@ class SearchViewModel(
 }
 ```
 
-### 4. 避免在迴圈中注入
+### 4. 避免在迴圈中注入 {id="4-avoid-injection-in-loops"}
 
 ```kotlin
 @Composable
@@ -370,7 +370,7 @@ fun UserList(userIds: List<String>) {
 }
 ```
 
-## 下一步
+## 下一步 {id="next-steps"}
 
 - **[Compose 中的 ViewModel](/docs/reference/koin-compose/compose-viewmodel)** - ViewModel API
 - **[動態模組](/docs/reference/koin-compose/compose-modules)** - 模組的載入與卸載

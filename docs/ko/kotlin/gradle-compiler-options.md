@@ -9,7 +9,7 @@ Kotlin의 각 릴리스에는 지원되는 타겟(JVM, JavaScript 및 [지원되
 
 [커맨드 라인 컴파일러 사용하기](command-line.md) 튜토리얼의 설명에 따라 커맨드 라인에서 Kotlin 컴파일러를 수동으로 실행할 수도 있습니다.
 
-## 옵션을 정의하는 방법
+## 옵션을 정의하는 방법 {id="how-to-define-options"}
 
 Kotlin 컴파일러에는 컴파일 프로세스를 맞춤화하기 위한 여러 옵션이 있습니다.
 
@@ -39,7 +39,7 @@ JVM 및 JS/WASM 태스크의 경우 로그 내에서 `"Kotlin compiler args:"` �
 >
 {style="tip"}
 
-### 익스텐션 레벨
+### 익스텐션 레벨 {id="extension-level"}
 
 최상위 레벨의 `compilerOptions {}` 블록에서 모든 타겟 및 공유 소스 세트에 대한 공통 컴파일러 옵션을 구성할 수 있습니다:
 
@@ -51,7 +51,7 @@ kotlin {
 }
 ```
 
-### 타겟 레벨
+### 타겟 레벨 {id="target-level"}
 
 `target {}` 블록 내부의 `compilerOptions {}` 블록에서 JVM/Android 타겟에 대한 컴파일러 옵션을 구성할 수 있습니다:
 
@@ -67,7 +67,7 @@ kotlin {
 
 Kotlin 멀티플랫폼 프로젝트에서는 특정 타겟 내부에서 컴파일러 옵션을 구성할 수 있습니다. 예를 들어, `jvm { compilerOptions {}}`와 같습니다. 자세한 내용은 [멀티플랫폼 Gradle DSL 레퍼런스](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html)를 참고하세요.
 
-### 컴파일 단위 레벨
+### 컴파일 단위 레벨 {id="compilation-unit-level"}
 
 태스크 구성 내부의 `compilerOptions {}` 블록에서 특정 컴파일 단위 또는 태스크에 대한 컴파일러 옵션을 구성할 수 있습니다:
 
@@ -122,7 +122,7 @@ tasks.named('compileKotlin', org.jetbrains.kotlin.gradle.tasks.KotlinCompilation
 </tab>
 </tabs>
 
-### `kotlinOptions {}`에서 `compilerOptions {}`로 마이그레이션 {initial-collapse-state="collapsed" collapsible="true"}
+### `kotlinOptions {}`에서 `compilerOptions {}`로 마이그레이션 {initial-collapse-state="collapsed" collapsible="true" id="migrate-from-kotlinoptions-to-compileroptions"}
 
 Kotlin 2.2.0 이전에는 `kotlinOptions {}` 블록을 사용하여 컴파일러 옵션을 구성할 수 있었습니다. `kotlinOptions {}` 블록은 Kotlin 2.0.0부터 사용이 중단(deprecated)되었으므로, 이 섹션에서는 빌드 스크립트에서 대신 `compilerOptions {}` 블록을 사용하도록 마이그레이션하기 위한 가이드와 권장 사항을 제공합니다:
 
@@ -130,7 +130,7 @@ Kotlin 2.2.0 이전에는 `kotlinOptions {}` 블록을 사용하여 컴파일러
 * [`android.kotlinOptions`에서 마이그레이션](#migrate-away-from-android-kotlinoptions)
 * [`freeCompilerArgs` 마이그레이션](#migrate-freecompilerargs)
 
-#### 컴파일러 옵션 중앙화 및 타입 사용
+#### 컴파일러 옵션 중앙화 및 타입 사용 {id="centralize-compiler-options-and-use-types"}
 
 가능하면 [익스텐션 레벨](#extension-level)에서 컴파일러 옵션을 구성하고, 특정 태스크에 대해서는 [컴파일 단위 레벨](#compilation-unit-level)에서 오버라이드하세요.
 
@@ -234,7 +234,7 @@ tasks.named("compileKotlin", KotlinJvmCompile).configure {
 </tab>
 </tabs>
 
-#### `android.kotlinOptions`에서 마이그레이션
+#### `android.kotlinOptions`에서 마이그레이션 {id="migrate-away-from-android-kotlinoptions"}
 
 빌드 스크립트에서 이전에 `android.kotlinOptions`를 사용했다면, 익스텐션 레벨이나 타겟 레벨 중 하나에서 `kotlin.compilerOptions`를 사용하도록 마이그레이션하세요.
 
@@ -395,7 +395,7 @@ kotlin {
 </tab>
 </tabs>
 
-#### `freeCompilerArgs` 마이그레이션
+#### `freeCompilerArgs` 마이그레이션 {id="migrate-freecompilerargs"}
 
 * 모든 `+=` 연산을 `add()` 또는 `addAll()` 함수로 교체하세요.
 * `-opt-in` 컴파일러 옵션을 사용하는 경우, [KGP API 레퍼런스](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/)에서 전용 DSL을 사용할 수 있는지 확인하고 이를 대신 사용하세요.
@@ -466,7 +466,7 @@ kotlin {
 </tab>
 </tabs>
 
-## JVM 타겟팅
+## JVM 타겟팅 {id="target-the-jvm"}
 
 [앞서 설명한 대로](#how-to-define-options), JVM/Android 프로젝트에 대한 컴파일러 옵션을 익스텐션, 타겟 및 컴파일 단위 레벨(태스크)에서 정의할 수 있습니다.
 
@@ -479,7 +479,7 @@ kotlin {
 * `kotlin.compilerOptions`는 프로젝트의 모든 Kotlin 컴파일 태스크를 구성합니다.
 * `tasks.named<KotlinJvmCompile>("compileKotlin") { }` (또는 `tasks.withType<KotlinJvmCompile>().configureEach { }`) 접근 방식을 사용하여 `kotlin.compilerOptions` DSL에 의해 적용된 구성을 오버라이드할 수 있습니다.
 
-## JavaScript 타겟팅
+## JavaScript 타겟팅 {id="target-javascript"}
 
 JavaScript 컴파일 태스크는 프로덕션 코드의 경우 `compileKotlinJs`, 테스트 코드의 경우 `compileTestKotlinJs`, 커스텀 소스 세트의 경우 `compile<Name>KotlinJs`라고 불립니다.
 
@@ -520,7 +520,7 @@ JS 타겟의 경우 `Kotlin2JsCompile` 타입을, 공통(common) 타겟의 경�
 
 터미널에서 `gradlew tasks --all` 명령을 실행하고 `Other tasks` 그룹에서 `compile*KotlinJS` 태스크 이름을 검색하여 JavaScript 컴파일 태스크 목록을 확인할 수 있습니다.
 
-## 모든 Kotlin 컴파일 태스크
+## 모든 Kotlin 컴파일 태스크 {id="all-kotlin-compilation-tasks"}
 
 프로젝트의 모든 Kotlin 컴파일 태스크를 구성할 수도 있습니다:
 
@@ -551,11 +551,11 @@ tasks.named('compileKotlin', KotlinCompilationTask) {
 </tab>
 </tabs>
 
-## 모든 컴파일러 옵션
+## 모든 컴파일러 옵션 {id="all-compiler-options"}
 
 다음은 Gradle 컴파일러 옵션의 전체 목록입니다:
 
-### 공통 속성
+### 공통 속성 {id="common-attributes"}
 
 | 이름 | 설명 | 가능한 값 | 기본값 |
 |-------------------|------------------------------------------------------------------------------------------------------------------------------------------|---------------------------|---------------|
@@ -563,7 +563,7 @@ tasks.named('compileKotlin', KotlinCompilationTask) {
 | `progressiveMode` | [프로그레시브 컴파일러 모드](whatsnew13.md#progressive-mode)를 활성화합니다. | `true`, `false` | `false` |
 | `extraWarnings` | true인 경우 경고를 생성하는 [추가 선언, 표현식 및 타입 컴파일러 체크](whatsnew21.md#extra-compiler-checks)를 활성화합니다. | `true`, `false` | `false` |
 
-### JVM 전용 속성
+### JVM 전용 속성 {id="attributes-specific-to-jvm"}
 
 | 이름 | 설명 | 가능한 값 | 기본값 |
 |---------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------|-----------------------------|
@@ -573,7 +573,7 @@ tasks.named('compileKotlin', KotlinCompilationTask) {
 | `jvmTargetValidationMode` | <list><li>Kotlin과 Java 간의 [JVM 타겟 호환성](gradle-configure-project.md#check-for-jvm-target-compatibility-of-related-compile-tasks) 유효성 검사</li><li>`KotlinCompile` 타입 태스크를 위한 속성입니다.</li></list> | `WARNING`, `ERROR`, `IGNORE` | `ERROR` |
 | `jvmDefault` | 인터페이스에 선언된 함수가 JVM에서 디폴트 메서드로 컴파일되는 방식을 제어합니다. | `ENABLE`, `NO_COMPATIBILITY`, `DISABLE` | `ENABLE` |
 
-### JVM 및 JavaScript 공통 속성
+### JVM 및 JavaScript 공통 속성 {id="attributes-common-to-jvm-and-javascript"}
 
 | 이름 | 설명 | 가능한 값 | 기본값 |
 |-----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------|---------------|
@@ -588,7 +588,7 @@ tasks.named('compileKotlin', KotlinCompilationTask) {
 >
 {style="warning"}
 
-#### freeCompilerArgs를 통한 추가 인자 사용 예시 {initial-collapse-state="collapsed" collapsible="true"}
+#### freeCompilerArgs를 통한 추가 인자 사용 예시 {initial-collapse-state="collapsed" collapsible="true" id="example-of-additional-arguments-usage-via-freecompilerargs"}
 
 추가 컴파일러 인자(실험적 인자 포함)를 제공하려면 `freeCompilerArgs` 속성을 사용하세요. 이 속성에 단일 인자 또는 인자 목록을 추가할 수 있습니다:
 
@@ -654,7 +654,7 @@ tasks.named('compileKotlin', KotlinCompilationTask) {
 >
 {style="tip"} 
 
-#### languageVersion 설정 예시 {initial-collapse-state="collapsed" collapsible="true"}
+#### languageVersion 설정 예시 {initial-collapse-state="collapsed" collapsible="true" id="example-of-setting-languageversion"}
 
 언어 버전을 설정하려면 다음 구문을 사용하세요:
 
@@ -686,7 +686,7 @@ tasks
 
 또한 [컴파일러 옵션용 타입](#types-for-compiler-options)을 참고하세요.
 
-### JavaScript 전용 속성
+### JavaScript 전용 속성 {id="attributes-specific-to-javascript"}
 
 | 이름 | 설명 | 가능한 값 | 기본값 |
 |---|---|---|---|
@@ -700,7 +700,7 @@ tasks
 | `target` | 특정 ECMA 버전에 맞는 JS 파일을 생성합니다. | `"es5"`, `"es2015"` | `"es5"` |
 | `useEsClasses` | 생성된 JavaScript 코드가 ES2015 클래스를 사용하도록 합니다. ES2015 타겟 사용 시 기본적으로 활성화됩니다. | | `null` |
 
-### 컴파일러 옵션용 타입
+### 컴파일러 옵션용 타입 {id="types-for-compiler-options"}
 
 일부 `compilerOptions`는 `String` 타입 대신 새로운 타입을 사용합니다:
 
@@ -713,7 +713,7 @@ tasks
 | `sourceMapEmbedSources` | [`JsSourceMapEmbedMode`](https://github.com/JetBrains/kotlin/blob/master/libraries/tools/kotlin-gradle-compiler-types/src/generated/kotlin/org/jetbrains/kotlin/gradle/dsl/JsSourceMapEmbedMode.kt) | `compilerOptions.sourceMapEmbedSources.set(JsSourceMapEmbedMode.SOURCE_MAP_SOURCE_CONTENT_INLINING)` |
 | `sourceMapNamesPolicy` | [`JsSourceMapNamesPolicy`](https://github.com/JetBrains/kotlin/blob/master/libraries/tools/kotlin-gradle-compiler-types/src/generated/kotlin/org/jetbrains/kotlin/gradle/dsl/JsSourceMapNamesPolicy.kt) | `compilerOptions.sourceMapNamesPolicy.set(JsSourceMapNamesPolicy.SOURCE_MAP_NAMES_POLICY_FQ_NAMES)` |
 
-## 다음 단계는?
+## 다음 단계는? {id="what-s-next"}
 
 다음에 대해 자세히 알아보세요:
 * [Kotlin 멀티플랫폼 DSL 레퍼런스](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html).

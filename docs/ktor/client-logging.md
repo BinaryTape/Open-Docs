@@ -23,7 +23,7 @@ Ktor 提供了使用 [Logging](https://api.ktor.io/ktor-client-logging/io.ktor.c
 
 > 在服务器端，Ktor 提供了用于应用程序日志记录的 [Logging](server-logging.md) 插件，以及用于记录客户端请求的 [CallLogging](server-call-logging.md) 插件。
 
-## JVM
+## JVM {id="jvm"}
 
 <snippet id="jvm-logging">
   <p>
@@ -51,7 +51,7 @@ Ktor 提供了使用 [Logging](https://api.ktor.io/ktor-client-logging/io.ktor.c
   </Tabs>
 </snippet>
 
-### Android
+### Android {id="android"}
 
 <p>
     在 Android 上，我们建议使用 SLF4J Android 库：
@@ -68,11 +68,11 @@ Ktor 提供了使用 [Logging](https://api.ktor.io/ktor-client-logging/io.ktor.c
     </TabItem>
 </Tabs>
 
-## Native
+## Native {id="native"}
 
 对于 [Native 目标](client-engines.md#native)，`Logging` 插件提供了一个将所有内容打印到标准输出流 (`STDOUT`) 的日志记录器。
 
-## 多平台
+## 多平台 {id="multiplatform"}
 
 在 [多平台项目](client-create-multiplatform-application.md) 中，您可以指定 [自定义日志记录器](#custom_logger)，例如 [Napier](https://github.com/AAkira/Napier)。
 

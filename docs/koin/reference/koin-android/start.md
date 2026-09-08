@@ -4,7 +4,7 @@ title: 在 Android 上启动 Koin
 
 `koin-android` 项目致力于为 Android 世界提供 Koin 动力。详见 [Android 设置](/docs/setup/koin#android)部分。
 
-## 在 Application 类中
+## 在 Application 类中 {id="from-your-application-class"}
 
 在 `Application` 类中，你可以使用 `startKoin` 函数并使用 `androidContext` 注入 Android context，如下所示：
 
@@ -40,7 +40,7 @@ startKoin {
 }
 ```
 
-## 使用注解启动 Koin
+## 使用注解启动 Koin {id="start-koin-with-annotations"}
 
 使用 Koin Annotations 时，可以使用 `startKoin<T>()` 并结合已注解的模块类来启动 Koin：
 
@@ -84,11 +84,11 @@ startKoin<MainApplication> {
 }
 ```
 
-## 额外配置
+## 额外配置 {id="extra-configurations"}
 
 在 Koin 配置中（在 `startKoin { }` 代码块中），你还可以配置 Koin 的多个部分。
 
-### 适用于 Android 的 Koin 日志记录
+### 适用于 Android 的 Koin 日志记录 {id="koin-logging-for-android"}
 
 在 `KoinApplication` 实例中，我们提供了一个 `androidLogger` 扩展，它使用 `AndroidLogger()` 类。此日志记录器是 Koin 日志记录器的 Android 实现。
 
@@ -102,7 +102,7 @@ startKoin {
 }
 ```
 
-### 加载属性
+### 加载属性 {id="loading-properties"}
 
 你可以使用 `assets/koin.properties` 文件中的 Koin 属性来存储键/值：
 
@@ -114,7 +114,7 @@ startKoin {
 }
 ```
 
-## 通过 AndroidX Startup 启动 Koin (4.0.1)
+## 通过 AndroidX Startup 启动 Koin (4.0.1) {id="start-koin-with-androidx-startup-4-0-1"}
 
 [AndroidX Startup](https://developer.android.com/topic/libraries/app-startup) 是一个提供简单方式在应用启动时初始化组件的库。它使用单个 ContentProvider 来初始化所有依赖项，避免了每个需要早期初始化的组件都使用单独 ContentProvider 所带来的开销。
 
@@ -160,7 +160,7 @@ class CrashTrackerInitializer : Initializer<Unit>, KoinComponent {
 }
 ```
 
-## 后续步骤
+## 后续步骤 {id="next-steps"}
 
 - **[JSR-330 兼容性](/docs/reference/koin-android/jsr330)** — 使用标准的 `@Inject`、`@Singleton` 注解
 - **[在 Android 中注入](/docs/reference/koin-android/get-instances)** — 在 Activity、Fragment、Service 中获取实例

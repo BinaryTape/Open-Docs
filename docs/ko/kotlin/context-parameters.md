@@ -67,7 +67,7 @@ fun logWelcome() {
 }
 ```
 
-## 컨텍스트 파라미터 해석
+## 컨텍스트 파라미터 해석 {id="context-parameters-resolution"}
 
 Kotlin은 호출 지점(call site)의 현재 스코프에서 일치하는 컨텍스트 값을 검색하여 컨텍스트 파라미터를 해결(resolve)합니다. Kotlin은 타입을 기준으로 일치 여부를 판단합니다.
 동일한 스코프 레벨에 호환되는 값이 여러 개 존재하면 컴파일러가 모호성(ambiguity) 오류를 보고합니다:
@@ -103,7 +103,7 @@ fun main() {
 }
 ```
 
-### 컨텍스트 인자 명시적으로 전달하기
+### 컨텍스트 인자 명시적으로 전달하기 {id="pass-context-arguments-explicitly"}
 <primary-label ref="experimental-opt-in"/>
 
 오버로드(overload)가 컨텍스트 파라미터에 의해서만 구분되는 경우, 일치하는 컨텍스트 값이 여러 개 존재하면 호출 시 모호함이 발생할 수 있습니다.
@@ -174,7 +174,7 @@ kotlin {
 </tab>
 </tabs>
 
-## 제한 사항
+## 제한 사항 {id="restrictions"}
 
 컨텍스트 파라미터는 지속적으로 개선되고 있으며, 현재 몇 가지 제한 사항은 다음과 같습니다:
 

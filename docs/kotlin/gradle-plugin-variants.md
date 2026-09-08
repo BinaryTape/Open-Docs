@@ -22,7 +22,7 @@ Gradle 7.0 为 Gradle 插件作者引入了一项新功能——[带变体的插
 
 要检查你的构建使用的是哪个变体，请启用 [`--info` 日志级别](https://docs.gradle.org/current/userguide/logging.html#sec:choosing_a_log_level)，并在输出中查找以 `Using Kotlin Gradle plugin` 开头的字符串，例如 `Using Kotlin Gradle plugin main variant`。
 
-## 故障排除
+## 故障排除 {id="troubleshooting"}
 
 > 以下是 Gradle 中变体选择的一些已知问题的解决办法：
 > * [`pluginManagement` 中的 `ResolutionStrategy` 对多变体插件无效](https://github.com/gradle/gradle/issues/20545)
@@ -30,7 +30,7 @@ Gradle 7.0 为 Gradle 插件作者引入了一项新功能——[带变体的插
 >
 {style="note"}
 
-### Gradle 无法在自定义配置中选择 KGP 变体
+### Gradle 无法在自定义配置中选择 KGP 变体 {id="gradle-can-t-select-a-kgp-variant-in-a-custom-configuration"}
 
 Gradle 无法在自定义配置中选择 KGP 变体，这属于预期情况。如果你使用了自定义 Gradle 配置：
 
@@ -148,6 +148,6 @@ configurations {
                  - Unmatched attributes:
 ```
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 详细了解 [Gradle 基础知识和特性](https://docs.gradle.org/current/userguide/userguide.html)。

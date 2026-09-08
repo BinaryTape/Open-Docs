@@ -10,7 +10,7 @@
 !!! note
     对于 Kotlin，该 API 是多平台的。Java 工具使用基于注解的方法实现，并针对反射进行注册。这让您可以在 Kotlin 的不同平台之间使用相同的工具，而 Java 则提供了完整的 JVM 互操作性。
 
-## 工具实现
+## 工具实现 {id="tool-implementation"}
 
 Koog 框架提供了以下工具实现方法：
 
@@ -25,7 +25,7 @@ Koog 框架提供了以下工具实现方法：
 
 *   使用基于注解的方法（`@Tool` 和 `@LLMDescription`）并配合基于反射的注册。这是 Java 互操作性的推荐方法，因为由于挂起函数限制，不支持从 Java 继承 Kotlin 的 `Tool` 或 `SimpleTool`。
 
-### Tool 类 (Kotlin)
+### Tool 类 (Kotlin) {id="tool-class-kotlin"}
 
 [`Tool<Args, Result>`](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool/index.html) 抽象类是 Kotlin 中创建工具的基类。
 它允许您创建接收特定实参类型 (`Args`) 并返回各种类型结果 (`Result`) 的工具。
@@ -47,7 +47,7 @@ Koog 框架提供了以下工具实现方法：
 !!! tip
     确保您的工具有清晰的描述和明确定义的形参名称，以便 LLM 更容易理解并正确使用它们。在 Kotlin 中，使用 `descriptor` 属性；在 Java 中，使用 `@LLMDescription` 注解。
 
-#### 使用示例
+#### 使用示例 {id="usage-example"}
 
 以下是使用 `Tool` 类实现返回数值结果的自定义工具示例：
 
@@ -95,7 +95,7 @@ Koog 框架提供了以下工具实现方法：
 
 欲了解更多详情，请参阅 [API 参考](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool/index.html)。
 
-#### 从工具中读取智能体上下文
+#### 从工具中读取智能体上下文 {id="reading-the-agent-context-from-a-tool"}
 
 需要智能体完整状态（LLM 上下文、运行 id、配置、存储等）的工具应继承 `AgentContextAwareTool<Args, Result>` 而不是 `Tool<Args, Result>`。框架会注入驱动该调用的实时 `AIAgentContext`，工具将其作为类型化参数接收，而不是从实参架构 (argument schema) 中读取。
 
@@ -135,7 +135,7 @@ Koog 框架提供了以下工具实现方法：
 
 `AgentContextAwareTool` 由框架通过框架代为管理的每次调用 `ToolCallMetadata` 旁路通道进行分派。在智能体运行之外调用此类工具会抛出 `IllegalStateException`，因为没有注入 `AIAgentContext`；生产代码应始终通过 `ContextualAgentEnvironment` 进行，单元测试可以通过 `ToolCallMetadata.of(AgentContextAwareTool.AgentContextKey to context)` 显式提供上下文。
 
-#### 读取原始的每次调用元数据
+#### 读取原始的每次调用元数据 {id="reading-raw-per-call-metadata"}
 
 少数工具希望读取调用者或功能贡献的、*不属于* 智能体上下文的条目（例如由可观测性功能贡献的分布式跟踪 span id）。这些工具直接继承 `ToolBase<Args, Result>`，它公开了完整的 `ToolCallMetadata` 集合：
 
@@ -176,7 +176,7 @@ Koog 框架提供了以下工具实现方法：
 
 继承 `Tool<Args, Result>` 并重写 `execute(args)` 的现有工具仍可照常工作：框架通过相同的路径分派它们，并丢弃任何 `ToolCallMetadata`。要选择使用元数据，请切换到 `AgentContextAwareTool`（类型化上下文访问）或 `ToolBase`（原始集合访问）。
 
-### SimpleTool 类 (Kotlin)
+### SimpleTool 类 (Kotlin) {id="simpletool-class-kotlin"}
 
 [`SimpleTool<Args>`](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-simple-tool/index.html) 抽象类扩展了 `Tool<Args, ToolResult.Text>`，并简化了返回文本结果的工具的创建。
 
@@ -236,11 +236,11 @@ Koog 框架提供了以下工具实现方法：
     ```
     <!--- KNIT example-class-based-tools-02.kt -->
 
-### 基于注解的方法 (Java)
+### 基于注解的方法 (Java) {id="annotation-based-methods-java"}
 
 要在 Java 中实现工具，不要继承 `Tool` 或 `SimpleTool`，而是使用带有 `@Tool` 和 `@LLMDescription` 的基于注解的方法。Koog 通过反射自动处理序列化和注册。要了解更多关于实现的细节，请参阅下面的 Java 示例。
 
-#### 使用示例
+#### 使用示例 {id="usage-examples"}
 
 这是一个在 Java 中实现工具的示例，相当于在 Kotlin 中使用 `Tool` 类。
 
@@ -320,7 +320,7 @@ Koog 框架提供了以下工具实现方法：
     ```
     <!--- KNIT example-class-based-tools-java-02.java -->
 
-### 以自定义格式向 LLM 发送工具结果
+### 以自定义格式向 LLM 发送工具结果 {id="sending-tool-result-to-llm-in-custom-format"}
 
 针对 Kotlin：
 
@@ -333,7 +333,7 @@ Koog 框架提供了以下工具实现方法：
 
 直接从您的注解方法返回格式化文本（如 Markdown）作为 `String`。框架会自动处理。
 
-#### 示例
+#### 示例 {id="example"}
 
 以下示例显示了 Kotlin 和 Java 中的自定义格式化输出：
 

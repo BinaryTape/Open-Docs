@@ -303,7 +303,7 @@ get("/logout") {
 
 您可以在此处找到完整示例：[session-cookie-client](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/session-cookie-client)。
 
-## 延迟会话检索
+## 延迟会话检索 {id="deferred-session-retrieval"}
 
 默认情况下，Ktor 会尝试为每个包含会话的请求从存储中读取会话，而不管路由是否实际需要它。这种行为可能会导致不必要的开销 —— 特别是在使用自定义会话存储的应用中。
 

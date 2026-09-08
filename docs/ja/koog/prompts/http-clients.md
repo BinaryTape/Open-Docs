@@ -6,7 +6,7 @@ Koog のすべての LLM クライアントは、[`KoogHttpClient`](api:http-cli
 
 標準では、Ktor、JDK の `HttpClient`、OkHttp、そして Spring の `WebClient` という 4 つのバックエンドファクトリが提供されており、独自のファクトリを実装することも可能です。
 
-## 仕組み
+## 仕組み {id="how-it-works"}
 
 1 つのファクトリで任意のプロバイダーに対応できます。バックエンドを一度選択すれば、複数のクライアントにわたって使用できます。
 
@@ -69,7 +69,7 @@ Koog のすべての LLM クライアントは、[`KoogHttpClient`](api:http-cli
     ```
     <!--- KNIT example-http-clients-java-01.java -->
 
-## サポートされているHTTPクライアントの種類
+## サポートされているHTTPクライアントの種類 {id="supported-http-client-flavors"}
 
 | モジュール | 備考 |
 |-------------------------------------------------------------------------|----------------------------------------------------|
@@ -78,7 +78,7 @@ Koog のすべての LLM クライアントは、[`KoogHttpClient`](api:http-cli
 | [`http-client-okhttp`](api:http-client-okhttp::)                        | OkHttp をベースにしています。Androidに適しています。 |
 | [`http-client-spring-webclient`](api:http-client-spring-webclient::)    | Spring の `WebClient` をベースにしています。 |
 
-## 便利なAPIとファクトリの自動検出
+## 便利なAPIとファクトリの自動検出 {id="convenience-apis-and-factory-auto-discovery"}
 
 JVM および Android では、ファクトリを明示的に渡さずに各 LLM クライアントを構築できます。
 
@@ -126,12 +126,12 @@ JVM および Android では、ファクトリを明示的に渡さずに各 LLM
 
 現在、KMP（Kotlin Multiplatform）では自動検出はサポートされていないため、JVM 以外ではこれらの便利なメソッドは利用できません。`commonMain` からは、ファクトリを明示的に渡してください。
 
-### 自動検出の注意点
+### 自動検出の注意点 {id="auto-discovery-gotchas"}
 
 - **実行時のクラスパスにバックエンドが存在しない場合** → 初回解決時に `IllegalStateException` が発生します。バックエンドモジュールをクラスパスに追加するか、ファクトリを明示的に渡してください。
 - **2つ以上のバックエンドが存在する場合** → 同様の例外が発生します。メッセージには見つかったプロバイダーの名前が表示されます。Gradle で 1 つを除いてすべて除外するか（対象の依存関係に対して `exclude(module = "http-client-ktor")` を使用）、呼び出し箇所で明示的にファクトリを渡してください。
 
-## カスタムバックエンド
+## カスタムバックエンド {id="custom-backends"}
 
 `KoogHttpClient.Factory` を実装するクラスであれば、どのようなクラスでも動作します。JVM で自動検出可能にするには、`ServiceLoader` プロバイダーとして登録します。
 

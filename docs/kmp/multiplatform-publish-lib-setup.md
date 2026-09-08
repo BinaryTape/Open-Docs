@@ -6,7 +6,7 @@
 * 到 Maven Central 仓库。了解如何在[我们的教程](multiplatform-publish-libraries-to-maven.md)中设置帐户凭据、自定义库元数据以及配置发布插件。
 * 到 GitHub 仓库。更多信息请参阅 GitHub 关于 [GitHub packages](https://docs.github.com/en/packages) 的文档。
 
-## 发布到本地 Maven 仓库
+## 发布到本地 Maven 仓库 {id="publishing-to-a-local-maven-repository"}
 
 您可以使用 `maven-publish` Gradle 插件将多平台库发布到本地 Maven 仓库：
 
@@ -33,13 +33,13 @@
 
 当与 `maven-publish` 结合使用时，Kotlin 插件会自动为可以在当前主机上构建的每个目标创建发布，但 Android 目标除外，它需要[额外的步骤来配置发布](#publish-an-android-library)。
 
-## 发布结构
+## 发布结构 {id="structure-of-publications"}
 
 Kotlin 多平台库的发布包含多个 Maven 发布，每个发布对应一个特定的目标。此外，还会发布一个代表整个库的名为 `kotlinMultiplatform` 的伞形“根”发布。
 
 当作为[依赖项](multiplatform-add-dependencies.md)添加到公共源集中时，根发布会自动解析为相应的平台特定工件。
 
-### 目标特定发布与根发布
+### 目标特定发布与根发布 {id="target-specific-and-root-publications"}
 
 Kotlin 多平台 Gradle 插件为每个目标配置独立的发布。考虑以下项目配置：
 
@@ -77,7 +77,7 @@ kotlin {
 
 * 如果仓库有要求，`kotlinMultiplatform` 发布可能还需要源代码和文档工件。在这种情况下，请在发布的范围内使用 [`artifact()`](https://docs.gradle.org/current/javadoc/org/gradle/api/publish/maven/MavenPublication.html#artifact-java.lang.Object-)。
 
-### 发布完整的库
+### 发布完整的库 {id="publishing-a-complete-library"}
 
 要在一个步骤中发布所有必要的工件，请使用 `publishAllPublicationsTo<MavenRepositoryName>` 伞形任务。例如：
 
@@ -107,11 +107,11 @@ kotlin {
 
 这可以保证所有工件均可用并被正确引用。
 
-## 主机要求
+## 主机要求 {id="host-requirements"}
 
 Kotlin/Native 支持交叉编译，允许任何主机生成必要的 `.klib` 工件。但是，您仍需注意一些限制。
 
-### 为 Apple 目标编译
+### 为 Apple 目标编译 {id="compilation-for-apple-targets"}
 
 您可以使用任何主机为带有 Apple 项目目标生成工件。但是，在以下情况下您仍需使用 Mac 计算机：
 
@@ -119,11 +119,11 @@ Kotlin/Native 支持交叉编译，允许任何主机生成必要的 `.klib` 工
 * 您的项目中设置了 [CocoaPods 集成](multiplatform-cocoapods-overview.md)。
 * 您需要为 Apple 目标构建或测试[最终二进制文件](multiplatform-build-native-binaries.md)。
 
-### 避免重复发布
+### 避免重复发布 {id="duplicating-publications"}
 
 为了避免在仓库中产生重复发布，请从单个主机发布所有工件。例如，Maven Central 明确禁止重复发布，如果产生重复发布，发布过程将会失败。
 
-## 发布 Android 库
+## 发布 Android 库 {id="publish-an-android-library"}
 
 要发布 Android 库，您需要提供额外的配置。默认情况下，Android 库的任何工件都不会被发布。
 
@@ -191,7 +191,7 @@ kotlin {
   os: ubuntu-latest
 ```
 
-## 禁用源代码发布
+## 禁用源代码发布 {id="disable-sources-publication"}
 
 默认情况下，Kotlin 多平台 Gradle 插件会发布所有指定目标的源代码。但是，您可以在 `shared/build.gradle.kts` 文件中使用 `withSourcesJar()` API 配置并禁用源代码发布：
 
@@ -232,13 +232,13 @@ kotlin {
   }
   ```
 
-## 推广您的库
+## 推广您的库 {id="promote-your-library"}
 
 您的库可以在 [JetBrains 的多平台库目录](https://klibs.io/)中展示。该目录旨在让开发者根据目标平台轻松查找 Kotlin 多平台库。
 
 符合标准的库会被自动添加。有关如何确保您的库出现在目录中的更多信息，请参阅[常见问题解答 (FAQ)](https://klibs.io/faq)。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * [了解如何将您的 Kotlin 多平台库发布到 Maven Central 仓库](multiplatform-publish-libraries-to-maven.md)
 * [参阅库作者指南，了解为 Kotlin 多平台设计库的最佳做法和技巧](https://kotlinlang.org/docs/api-guidelines-build-for-multiplatform.html)

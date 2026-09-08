@@ -2,7 +2,7 @@
 
 Ktor WebSocket API 支持编写您自己的扩展程序（例如 [RFC-7692](https://tools.ietf.org/html/rfc7692)）或任何自定义扩展程序。
 
-## 安装扩展程序
+## 安装扩展程序 {id="install-extension"}
 
 为了安装和配置扩展程序，我们提供了两种方法：`extensions` 和 `install`，可以按以下方式使用：
 ```kotlin
@@ -17,7 +17,7 @@ install(WebSockets) {
 
 扩展程序按安装顺序使用。
 
-## 检查扩展程序是否已协商
+## 检查扩展程序是否已协商 {id="check-if-the-extension-is-negotiated"}
 
 所有安装的扩展程序都会经过协商过程，成功协商的扩展程序将在请求期间使用。
 您可以使用 `WebSocketSession.extensions: List<WebSocketExtension<*>>` 属性，其中包含当前会话使用的所有扩展程序的列表。
@@ -31,7 +31,7 @@ webSocket("/echo") {
 }
 ```
 
-## 编写新扩展程序
+## 编写新扩展程序 {id="write-a-new-extension"}
 
 实现新扩展程序有两个接口：`WebSocketExtension<ConfigType: Any>` 和 `WebSocketExtensionFactory<ConfigType : Any, ExtensionType : WebSocketExtension<ConfigType>>`。
 单个实现可以同时适用于客户端和服务器。

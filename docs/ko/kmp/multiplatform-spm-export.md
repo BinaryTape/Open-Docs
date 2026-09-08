@@ -16,14 +16,14 @@ iOS 타겟이 있는 Kotlin Multiplatform 프로젝트를 가정해 보겠습니
 
 이 튜토리얼에서는 Kotlin Gradle 플러그인으로 [XCFrameworks](multiplatform-build-native-binaries.md#build-xcframeworks)를 빌드하여 이를 수행하는 방법을 보여줍니다.
 
-## 원격 통합 설정
+## 원격 통합 설정 {id="set-up-remote-integration"}
 
 프레임워크를 사용할 수 있게 만들려면 두 개의 파일을 업로드해야 합니다:
 
 * XCFramework가 포함된 ZIP 아카이브. 직접 접근이 가능한 편리한 파일 저장소(예: 아카이브가 첨부된 GitHub 릴리스 생성, Amazon S3 또는 Maven 사용)에 업로드해야 합니다. 워크플로우에 통합하기 가장 쉬운 옵션을 선택하세요.
 * 패키지를 설명하는 `Package.swift` 파일. 이를 별도의 Git 저장소에 푸시해야 합니다.
 
-#### 프로젝트 구성 옵션 {initial-collapse-state="collapsed" collapsible="true"}
+#### 프로젝트 구성 옵션 {initial-collapse-state="collapsed" collapsible="true" id="project-configuration-options"}
 
 이 튜토리얼에서는 XCFramework를 선호하는 파일 저장소에 바이너리로 저장하고, `Package.swift` 파일을 별도의 Git 저장소에 저장합니다.
 
@@ -36,7 +36,7 @@ iOS 타겟이 있는 Kotlin Multiplatform 프로젝트를 가정해 보겠습니
   * 멀티 패키지 프로젝트에서는 (프로젝트 내의 의존성 충돌을 피하기 위해) 하나의 소비자 패키지만 외부 모듈에 의존할 수 있습니다. 따라서 Kotlin Multiplatform 모듈에 의존하는 모든 로직은 특정 소비자 패키지에 캡슐화되어야 합니다.
   * 자동 CI 프로세스를 사용하여 Kotlin Multiplatform 프로젝트를 게시하는 경우, 이 프로세스에 업데이트된 `Package.swift` 파일을 소비자 저장소에 게시하는 과정이 포함되어야 합니다. 이는 소비자 저장소의 업데이트 충돌로 이어질 수 있으므로 CI의 이러한 단계는 유지 관리가 어려울 수 있습니다.
 
-### 멀티플랫폼 프로젝트 구성
+### 멀티플랫폼 프로젝트 구성 {id="configure-your-multiplatform-project"}
 
 다음 예제에서 Kotlin Multiplatform 프로젝트의 공통 코드는 `shared` 모듈에 로컬로 저장되어 있습니다. 프로젝트 구조가 다른 경우 코드 및 경로 예제의 "shared"를 모듈 이름으로 바꾸세요.
 
@@ -86,7 +86,7 @@ XCFramework 게시를 설정하려면:
 
 3. 내보내고 싶은 공통 코드가 포함된 모듈이 둘 이상인 경우(예: 공통 로직 모듈과 공통 UI 모듈), [이를 하나의 새로운 모듈로 결합](#여러-모듈을-xcframework로-내보내기)하고 대신 이 엄브렐러(umbrella) 모듈을 배포하세요.
 
-### XCFramework 및 Swift 패키지 매니페스트 준비
+### XCFramework 및 Swift 패키지 매니페스트 준비 {id="prepare-the-xcframework-and-the-swift-package-manifest"}
 
 1. `Shared.xcframework` 폴더를 ZIP 파일로 압축하고 결과 아카이브의 체크섬(checksum)을 계산합니다. 예:
    
@@ -159,7 +159,7 @@ XCFramework 게시를 설정하려면:
 
 7. `Package.swift` 파일을 원격 저장소에 푸시합니다. 패키지의 시맨틱 버전(semantic version)이 포함된 Git 태그를 생성하고 푸시해야 합니다.
 
-### 패키지 의존성 추가
+### 패키지 의존성 추가 {id="add-the-package-dependency"}
 
 두 파일 모두 접근 가능한 상태이므로, 생성한 패키지에 대한 의존성을 기존 클라이언트 iOS 프로젝트에 추가하거나 새 프로젝트를 생성할 수 있습니다. 패키지 의존성을 추가하려면:
 
@@ -174,7 +174,7 @@ XCFramework 게시를 설정하려면:
    >
    {style="tip"}
 
-### 설정 확인
+### 설정 확인 {id="check-your-setup"}
 
 모든 것이 올바르게 설정되었는지 확인하려면 Xcode에서 임포트를 테스트하세요:
 
@@ -206,7 +206,7 @@ XCFramework 게시를 설정하려면:
 
 3. 프리뷰가 새 텍스트로 업데이트되는지 확인합니다.
 
-## 여러 모듈을 XCFramework로 내보내기
+## 여러 모듈을 XCFramework로 내보내기 {id="exporting-multiple-modules-as-an-xcframework"}
 
 여러 Kotlin Multiplatform 모듈의 코드를 하나의 iOS 바이너리로 사용하려면, 이 모듈들을 하나의 엄브렐러(umbrella) 모듈로 결합하세요. 그런 다음 이 엄브렐러 모듈의 XCFramework를 빌드하고 내보냅니다.
 

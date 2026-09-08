@@ -6,9 +6,9 @@ title: 테스트
 
 의존성 주입(Dependency Injection)을 위해 Koin을 사용하는 Ktor 애플리케이션을 테스트할 때의 모범 사례입니다.
 
-## 테스트 설정
+## 테스트 설정 {id="test-configuration"}
 
-### 기본 테스트 설정
+### 기본 테스트 설정 {id="basic-test-setup"}
 
 ```kotlin
 class UserServiceTest : KoinTest {
@@ -33,7 +33,7 @@ val testModule = module {
 }
 ```
 
-## Ktor testApplication으로 테스트하기
+## Ktor testApplication으로 테스트하기 {id="testing-with-ktor-testapplication"}
 
 ```kotlin
 class ApplicationTest {
@@ -54,7 +54,7 @@ class ApplicationTest {
 }
 ```
 
-## 테스트를 위한 격리된 컨텍스트(Isolated Context) 사용
+## 테스트를 위한 격리된 컨텍스트(Isolated Context) 사용 {id="using-isolated-context-for-tests"}
 
 각 테스트는 고유의 격리된 Koin 인스턴스를 갖습니다.
 
@@ -76,7 +76,7 @@ class UserRoutesTest {
 }
 ```
 
-### 병렬 테스트 실행
+### 병렬 테스트 실행 {id="parallel-test-execution"}
 
 격리된 컨텍스트를 사용하면 테스트가 서로 간섭 없이 병렬로 실행될 수 있습니다.
 
@@ -104,7 +104,7 @@ class ParallelTests {
 }
 ```
 
-## 모듈 검증
+## 모듈 검증 {id="module-verification"}
 
 애노테이션을 사용하여 컴파일 타임에 모듈을 검증하거나 테스트 타임에 검증할 수 있습니다.
 
@@ -117,7 +117,7 @@ class ModuleVerificationTest : KoinTest {
 }
 ```
 
-### 추가 타입과 함께 사용
+### 추가 타입과 함께 사용 {id="with-extra-types"}
 
 ```kotlin
 @Test
@@ -131,9 +131,9 @@ fun `verify modules with extra types`() {
 }
 ```
 
-## 의존성 모킹 (Mocking Dependencies)
+## 의존성 모킹 (Mocking Dependencies) {id="mocking-dependencies"}
 
-### 테스트 모듈 사용
+### 테스트 모듈 사용 {id="using-test-modules"}
 
 ```kotlin
 val productionModule = module {
@@ -147,7 +147,7 @@ val testModule = module {
 }
 ```
 
-### Mockk 사용
+### Mockk 사용 {id="using-mockk"}
 
 ```kotlin
 class UserServiceTest : KoinTest {
@@ -175,7 +175,7 @@ class UserServiceTest : KoinTest {
 }
 ```
 
-## 리퀘스트 스코프 (Request Scopes) 테스트
+## 리퀘스트 스코프 (Request Scopes) 테스트 {id="testing-request-scopes"}
 
 ```kotlin
 class RequestScopeTest {
@@ -207,7 +207,7 @@ class RequestScopeTest {
 }
 ```
 
-## DI 브리지 (Bridge)로 테스트하기
+## DI 브리지 (Bridge)로 테스트하기 {id="testing-with-di-bridge"}
 
 ```kotlin
 class BridgeTest {
@@ -235,7 +235,7 @@ class BridgeTest {
 }
 ```
 
-## 전체 테스트 예시
+## 전체 테스트 예시 {id="complete-test-example"}
 
 ```kotlin
 class UserApiTest : KoinTest {
@@ -305,7 +305,7 @@ val testModule = module {
 }
 ```
 
-## 모범 사례
+## 모범 사례 {id="best-practices"}
 
 1. **격리된 컨텍스트(Isolated context) 사용** - 테스트 간의 간섭을 방지합니다.
 2. **테스트 모듈 생성** - 프로덕션 의존성을 모크(mock)로 오버라이드합니다.
@@ -313,7 +313,7 @@ val testModule = module {
 4. **정리(Clean up)** - 글로벌 컨텍스트를 사용하는 테스트는 완료 후 Koin을 중지해야 합니다.
 5. **병렬 안전성** - 병렬 테스트 실행을 위해 `KoinIsolated`를 사용합니다.
 
-## 참고 항목
+## 참고 항목 {id="see-also"}
 
 - **[Ktor용 Koin](/docs/reference/koin-ktor/ktor)** - 메인 Ktor 문서
 - **[격리된 컨텍스트](/docs/reference/koin-ktor/ktor-isolated)** - 격리된 Koin 인스턴스

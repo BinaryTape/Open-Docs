@@ -50,14 +50,14 @@ Kotlin은 다음과 같은 플로우 유형을 제공합니다:
 > 
 {style="tip"}
 
-## 콜드 플로우 (Cold flows)
+## 콜드 플로우 (Cold flows) {id="cold-flows"}
 
 [시퀀스(sequences)](sequences.md)와 마찬가지로, 콜드 플로우는 지연(lazy) 방식입니다.
 
 콜드 플로우 빌더의 코드 블록은 수집기가 이를 수집할 때까지 실행되지 않습니다.
 각각의 새로운 수집기는 플로우의 새로운 실행을 시작합니다.
 
-### 콜드 플로우 생성하기
+### 콜드 플로우 생성하기 {id="create-a-cold-flow"}
 
 콜드 플로우를 만들려면 [`flow()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/flow.html) 빌더 함수를 사용하세요.
 블록 내부에서 [`emit()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-flow-collector/emit.html) 함수를 사용하여 수집기에게 값을 방출합니다:
@@ -105,7 +105,7 @@ fun main() {
 }
 ```
 
-### 콜드 플로우 수집하기
+### 콜드 플로우 수집하기 {id="collect-a-cold-flow"}
 
 콜드 플로우를 수집하려면 [`collect()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/collect.html) 함수를 사용하세요. 이 함수는 업스트림 플로우로부터 방출을 트리거합니다.
 `collect()`에 람다를 전달하면, 방출되는 각 값을 해당 람다에서 받게 됩니다:
@@ -185,7 +185,7 @@ suspend fun main() {
 이 예제에서 [`CoroutineName`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-name/)은 각 코루틴에 이름을 추가합니다.
 `CoroutineName`은 [디버깅](coroutine-context-and-dispatchers.md#naming-coroutines-for-debugging)에 사용할 수 있습니다. 여기서는 어떤 수집기가 각 수집 과정을 실행하는지 보여주는 데 도움이 됩니다.
 
-### 중간 플로우 연산자
+### 중간 플로우 연산자 {id="intermediate-flow-operators"}
 
 중간 연산자는 업스트림 플로우에 연산을 적용하고 새로운 다운스트림 플로우를 반환합니다.
 이들은 콜드 방식이므로, 업스트림 플로우가 핫 플로우일 때조차도 반환된 플로우가 수집되기 전까지는 값을 처리하지 않습니다.
@@ -219,7 +219,7 @@ suspend fun main() {
 ```
 {kotlin-runnable="true"}
 
-#### 플로우 빌더 내부에서 중단 함수 호출하기
+#### 플로우 빌더 내부에서 중단 함수 호출하기 {id="call-suspending-functions-inside-a-flow-builder"}
 
 시퀀스와 달리, `flow()` 빌더 함수 내부에서는 중단 함수를 호출할 수 있습니다:
 
@@ -274,7 +274,7 @@ suspend fun main() {
 
 또는, [`channelFlow()`](#emit-values-concurrently-with-channelflow)를 사용하여 여러 코루틴에서 값을 방출할 수 있습니다.
 
-#### `.flowOn()`으로 콜드 플로우의 코루틴 컨텍스트 변경하기
+#### `.flowOn()`으로 콜드 플로우의 코루틴 컨텍스트 변경하기 {id="change-the-coroutine-context-of-a-cold-flow-with-flowon"}
 
 기본적으로 콜드 플로우는 수집기와 동일한 코루틴 컨텍스트에서 실행됩니다.
 
@@ -314,7 +314,7 @@ suspend fun main() {
 ```
 {kotlin-runnable="true"}
 
-### 플로우의 예외 처리
+### 플로우의 예외 처리 {id="handle-exceptions-in-flows"}
 
 이미터와 수집기 모두 예외를 던질 수 있습니다.
 
@@ -363,7 +363,7 @@ suspend fun main() {
 플로우 빌더 함수 내부에서 수집기에 의해 발생한 예외를 포착한 경우, 이를 다시 던져야(rethrow) 합니다.
 이렇게 해야 예외 투명성(exception transparency)이 유지되어 `collect()` 호출자가 예외를 처리할 수 있게 됩니다.
 
-#### `.catch()` 연산자를 사용하여 업스트림 예외 처리하기
+#### `.catch()` 연산자를 사용하여 업스트림 예외 처리하기 {id="use-the-catch-operator-to-handle-upstream-exceptions"}
 
 예외가 수집기에 도달하기 전에 처리하려면 [`.catch()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/catch.html) 연산자를 사용하세요.
 
@@ -523,7 +523,7 @@ suspend fun main() {
 
 이 예제에서 `.onEach()` 연산자는 `.catch()`보다 업스트림에서 실행되므로, `'5'`에 대해 `require()` 체크가 실패할 때 `.catch()` 연산자가 예외를 처리하게 됩니다.
 
-#### 예외 발생 후 업스트림 플로우 재시작하기
+#### 예외 발생 후 업스트림 플로우 재시작하기 {id="restart-the-upstream-flow-after-an-exception"}
 
 연결이 끊긴 네트워크 요청과 같이 일부 작업은 일시적으로 실패할 수 있습니다.
 이러한 경우 [`.retry()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/retry.html) 연산자를 사용하여 예외 발생 후 업스트림 플로우를 재시작할 수 있습니다.
@@ -590,7 +590,7 @@ suspend fun main() {
 ```
 {kotlin-runnable="true" validate="false"}
 
-### 플로우 취소
+### 플로우 취소 {id="flow-cancellation"}
 
 플로우 취소는 요청 타임아웃 등 결과가 더 이상 필요하지 않을 때 수집을 중단합니다.
 
@@ -699,7 +699,7 @@ suspend fun main() {
 이 예제에서 `.myTake()` 함수는 요청된 모든 값이 방출될 때까지 업스트림 플로우의 값을 방출합니다.
 그 후 `CancellationException`을 던져 업스트림 플로우를 취소합니다.
 
-### `channelFlow()`로 값을 동시에 방출하기
+### `channelFlow()`로 값을 동시에 방출하기 {id="emit-values-concurrently-with-channelflow"}
 
 `flow()` 빌더 함수는 하나의 코루틴에서 값을 방출하는 플로우에 대해 간단하고 효율적입니다.
 동일한 플로우에 여러 코루틴에서 동시에 값을 방출하고 싶다면 [`channelFlow()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/channel-flow.html) 빌더 함수를 사용하세요.
@@ -794,7 +794,7 @@ suspend fun main() {
 
 `.buffer(0)`을 사용하면 각 `send()` 호출이 수집기가 값을 받을 수 있을 때까지 기다리므로, `Sending`과 `Processing`이 처음부터 교차로 일어납니다.
 
-## 핫 플로우 (Hot flows)
+## 핫 플로우 (Hot flows) {id="hot-flows"}
 
 핫 플로우는 수집기와 무관하게 독립적으로 값을 방출하는 공유 스트림입니다.
 활성화된 수집기가 없더라도 계속해서 값을 방출하며, 여러 수집기가 새로운 실행을 시작하는 대신 이미 활성화된 스트림에서 동일한 방출 내용을 공유하여 수집할 수 있습니다.
@@ -808,7 +808,7 @@ Kotlin은 두 가지 핫 플로우 유형을 제공합니다:
 * [`SharedFlow`](#create-a-sharedflow)는 여러 구독자에게 값을 브로드캐스트합니다. 메시지나 알림과 같이 시간이 지남에 따라 발생하는 이벤트를 브로드캐스트해야 할 때 사용하세요.
 * [`StateFlow`](#create-a-stateflow)는 항상 최신 상태 값을 보유하는 특수한 `SharedFlow`입니다. UI 상태와 같이 시간이 지남에 따라 변화하는 상태를 표현해야 할 때 사용하세요.
 
-### `SharedFlow` 생성하기
+### `SharedFlow` 생성하기 {id="create-a-sharedflow"}
 
 [`SharedFlow`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-shared-flow/)는 시간에 따라 방출되는 값을 구독자들에게 브로드캐스트하는 핫 플로우입니다.
 
@@ -950,7 +950,7 @@ suspend fun main() {
 
 이를 통해 각 코루틴이 `collect()`에 도달하여 `messages`를 구독하고, `sendMessageToEveryone()`이 메시지를 방출하기 전에 중단(suspend) 상태가 되도록 보장합니다. 만약 이 방식이 아니라면, 수집 코루틴이 늦게 시작되어 리플레이 캐시가 너무 작을 경우 초기 방출을 놓칠 수도 있습니다.
 
-#### 명시적 백킹 필드를 사용하여 핫 플로우 노출하기
+#### 명시적 백킹 필드를 사용하여 핫 플로우 노출하기 {id="use-explicit-backing-fields-to-expose-hot-flows"}
 <primary-label ref="experimental-opt-in"/>
 
 [명시적 백킹 필드(explicit backing fields)](whatsnew23.md#explicit-backing-fields)를 사용하면 클래스 내부에 가변 백킹 필드를 유지하면서 읽기 전용 `SharedFlow`를 노출할 수 있습니다.
@@ -1026,7 +1026,7 @@ suspend fun main() {
 ```
 {kotlin-runnable="true"}
 
-### `StateFlow` 생성하기
+### `StateFlow` 생성하기 {id="create-a-stateflow"}
 
 [`StateFlow`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-state-flow/)는 단일 상태 값을 저장하고, 해당 값이 새로운 값으로 교체될 때 업데이트를 방출하는 핫 플로우입니다.
 새로운 구독자는 수집을 시작하자마자 현재 값을 즉시 받게 되며, 이후 상태가 업데이트될 때마다 새로운 값을 받습니다.
@@ -1266,7 +1266,7 @@ suspend fun main() {
 
 이 예제에서 `.update()` 함수는 좋아요 수를 원자적으로 증가시킵니다. 이는 여러 코루틴이 동시에 `like()` 함수를 호출할 때 업데이트가 누락되는 것을 방지합니다.
 
-#### `StateFlow`에 누적된 상태 저장하기
+#### `StateFlow`에 누적된 상태 저장하기 {id="store-accumulated-state-in-a-stateflow"}
 
 때로는 구독자가 최신 방출 값뿐만 아니라 모든 이전 방출의 결과물(accumulated result)을 받기를 원할 수 있습니다.
 
@@ -1350,7 +1350,7 @@ suspend fun main() {
 
 `messageHistory`는 `StateFlow`이므로, 구독자는 수집을 시작할 때 현재 메시지 기록을 받습니다. 그 후 메시지가 전송될 때마다 채팅 기록이 변경된 새 목록을 받게 됩니다.
 
-### 콜드 플로우를 핫 플로우로 변환하기
+### 콜드 플로우를 핫 플로우로 변환하기 {id="convert-cold-flows-to-hot-flows"}
 
 콜드 플로우는 각 수집기마다 업스트림 작업을 별도로 실행합니다. 여러 구독자가 동일한 업스트림 수집의 방출 내용을 필요로 할 때, 콜드 플로우를 핫 플로우로 변환하여 해당 수집을 구독자들과 공유할 수 있습니다.
 
@@ -1511,7 +1511,7 @@ val lastUpdateFlow: StateFlow<Instant?> =
         )
 ```
 
-### 핫 플로우 취소
+### 핫 플로우 취소 {id="cancel-hot-flows"}
 
 핫 플로우는 구독자가 취소되어도 멈추지 않습니다.
 
@@ -1599,7 +1599,7 @@ suspend fun main() {
 
 `sendMessageToEveryone()` 함수는 이를 호출한 코루틴이 취소되지 않았으므로 여전히 `messageHistory`를 업데이트합니다. 결과적으로 `totalMessages.value`는 마지막으로 수집된 크기를 유지하는 반면, `chatroom.messageHistory.value.size`는 실제 메시지 수를 보여줍니다.
 
-### 핫 플로우의 예외 처리
+### 핫 플로우의 예외 처리 {id="handle-exceptions-in-hot-flows"}
 
 [콜드 플로우](#handle-exceptions-in-flows)에서는 `.catch()`와 같은 연산자를 사용하여 먼저 처리하지 않는 한, 업스트림 예외가 `collect()` 호출자에게 전파됩니다.
 

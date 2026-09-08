@@ -1,6 +1,6 @@
 # 시작하기
 
-## Compose UI
+## Compose UI {id="compose-ui"}
 
 일반적인 Compose UI 프로젝트에서는 다음을 임포트합니다:
 
@@ -21,7 +21,7 @@ AsyncImage(
 !!! Note
     Compose Multiplatform을 사용하는 경우 OkHttp 대신 Ktor를 사용해야 합니다. 자세한 방법은 [여기](network.md#ktor-network-engines)를 참고하세요.
 
-## Android View
+## Android View {id="android-views"}
 
 Compose UI 대신 Android View를 사용한다면 다음을 임포트하세요:
 
@@ -36,7 +36,7 @@ implementation("io.coil-kt.coil3:coil-network-okhttp:3.6.2")
 imageView.load("https://example.com/image.jpg")
 ```
 
-## 싱글톤 ImageLoader 설정하기
+## 싱글톤 ImageLoader 설정하기 {id="configuring-the-singleton-imageloader"}
 
 기본적으로 Coil은 싱글톤 `ImageLoader`를 포함하고 있습니다. `ImageLoader`는 들어오는 `ImageRequest`를 가져오기(fetching), 디코딩(decoding), 캐싱(caching)하여 그 결과를 반환하는 방식으로 실행합니다. `ImageLoader`를 직접 설정할 필요는 없습니다. 별도로 설정하지 않으면 Coil이 기본 설정으로 싱글톤 `ImageLoader`를 생성합니다.
 
@@ -77,7 +77,7 @@ SingletonImageLoader.setSafe { context ->
 !!! Note
     Coil에 의존하는 라이브러리를 작성 중이라면 싱글톤 `ImageLoader`를 가져오거나 설정해서는 안 됩니다. 대신 `io.coil-kt.coil3:coil-core`에 의존하고, 자체 `ImageLoader`를 만들어 직접 전달해야 합니다. 라이브러리에서 싱글톤 `ImageLoader`를 설정하면, 해당 라이브러리를 사용하는 앱에서도 Coil을 사용할 경우 앱이 설정한 `ImageLoader`를 덮어씌울 위험이 있습니다.
 
-## 이미지
+## 이미지 {id="images"}
 
 멀티플랫폼 렌더링을 지원하기 위해 Coil 3.x는 커스텀 `coil3.Image` 클래스를 사용합니다. 이는 Android의 `Drawable`을 대체하지만, 다음과 같이 완벽하게 상호 호환됩니다:
 
@@ -102,7 +102,7 @@ val painter = image.asPainter()
 !!! Note
     `Painter`는 컴포지션(composition) 내부에서만 렌더링될 수 있는 반면, `Image`는 모든 `Canvas`에서 렌더링될 수 있어야 하므로 `Painter`를 `Image`로 변환할 수는 없습니다.
 
-## 아티팩트
+## 아티팩트 {id="artifacts"}
 
 다음은 Coil이 `mavenCentral()`에 배포한 주요 아티팩트 목록입니다:
 

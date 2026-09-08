@@ -208,7 +208,7 @@ staticResources("/", "static"){
 
 在此示例中，当请求 `/index` 时，Ktor 将搜索 `/index.html` 并提供找到的内容。
 
-### 自定义回退
+### 自定义回退 {id="custom-fallback"}
 
 要配置当找不到请求的静态资源时的自定义回退行为，请使用 `fallback()` 函数。
 通过 `fallback()`，您可以检查请求的路径并决定如何响应。例如，您可以重定向到另一个资源、返回特定的 HTTP 状态或提供替代文件。

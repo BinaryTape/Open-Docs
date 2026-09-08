@@ -8,11 +8,11 @@ Prompt 快取控制可讓您指示支援的 LLM 提供者在伺服器端儲存 P
 
 Koog 支援 **Anthropic** 和 **Amazon Bedrock** 的 Prompt 快取控制。
 
-## Anthropic
+## Anthropic {id="anthropic"}
 
 Anthropic 支援兩種互補的 Prompt 快取方法。
 
-### 自動快取 (請求層級)
+### 自動快取 (請求層級) {id="automatic-caching-request-level"}
 
 在 [`AnthropicParams`](../../llm-parameters.md) 上設定 `cacheControl` 屬性，並將其傳遞給您的 Prompt。
 Anthropic 會自動將快取中斷點放置在請求中最後一個可快取的區塊，您無需手動為個別訊息標註。
@@ -73,11 +73,11 @@ Anthropic 會自動將快取中斷點放置在請求中最後一個可快取的�
     ```
     <!--- KNIT example-cache-control-java-01.java -->
 
-### 手動快取 (區塊層級)
+### 手動快取 (區塊層級) {id="manual-caching-block-level"}
 
 將 `cacheControl` 引數附加到個別訊息或工具定義中，以將快取中斷點放置在特定位置。到該標註區塊為止（包含該區塊）的所有內容皆符合快取資格。
 
-#### 系統訊息
+#### 系統訊息 {id="system-messages"}
 
 === "Kotlin"
 
@@ -124,7 +124,7 @@ Anthropic 會自動將快取中斷點放置在請求中最後一個可快取的�
     ```
     <!--- KNIT example-cache-control-java-02.java -->
 
-#### 使用者與助手訊息
+#### 使用者與助手訊息 {id="user-and-assistant-messages"}
 
 === "Kotlin"
 
@@ -176,7 +176,7 @@ Anthropic 會自動將快取中斷點放置在請求中最後一個可快取的�
     ```
     <!--- KNIT example-cache-control-java-03.java -->
 
-#### 工具定義
+#### 工具定義 {id="tool-definitions"}
 
 當工具列表在多個請求中保持不變時，快取最後一個工具定義意味著所有工具結構 (schema) 都會被一起快取。
 
@@ -224,7 +224,7 @@ Anthropic 會自動將快取中斷點放置在請求中最後一個可快取的�
     ```
     <!--- KNIT example-cache-control-java-04.java -->
 
-### 快取 TTL 選項
+### 快取 TTL 選項 {id="cache-ttl-options"}
 
 | 選項 | TTL | 價格倍率 |
 |-------------------------------|----------|-------------------------|
@@ -233,7 +233,7 @@ Anthropic 會自動將快取中斷點放置在請求中最後一個可快取的�
 
 快取寫入的費用高於一般輸入 Token，但快取讀取更便宜。請參閱 [Anthropic Prompt 快取文件](https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching) 以瞭解最新定價。
 
-### 監控快取使用情況
+### 監控快取使用情況 {id="monitoring-cache-usage"}
 
 Anthropic 在回應的使用情況 (usage) 中回報快取統計資訊。這些資訊可透過原始 API 回應存取，並可透過追蹤或記錄功能進行觀察。
 
@@ -242,7 +242,7 @@ Anthropic 在回應的使用情況 (usage) 中回報快取統計資訊。這些�
 | `cacheReadInputTokens` | 從現有快取項目中讀取的 Token 數量 |
 | `cacheCreationInputTokens` | 寫入新快取項目的 Token 數量 |
 
-### 結合自動快取與區塊層級快取
+### 結合自動快取與區塊層級快取 {id="combining-automatic-and-block-level-caching"}
 
 這兩種模式可以同時使用。區塊層級的 `cacheControl` 標記可讓您精細控制中斷點位置，而 `AnthropicParams` 中的請求層級 `cacheControl` 則會自動處理對話的尾端。
 
@@ -291,7 +291,7 @@ Anthropic 在回應的使用情況 (usage) 中回報快取統計資訊。這些�
 
 ---
 
-## Amazon Bedrock
+## Amazon Bedrock {id="amazon-bedrock"}
 
 Amazon Bedrock 透過 Converse API 使用區塊層級快取模型。
 當在訊息或工具上設定 `cacheControl` 時，Bedrock 會在被標註的元素之後立即插入一個 `CachePoint` 區塊。
@@ -468,7 +468,7 @@ Amazon Bedrock 透過 Converse API 使用區塊層級快取模型。
 
 ---
 
-## 選擇快取策略
+## 選擇快取策略 {id="choosing-a-caching-strategy"}
 
 | 情境 | 建議做法 |
 |---------------------------------------------------|-------------------------------------------------------------|

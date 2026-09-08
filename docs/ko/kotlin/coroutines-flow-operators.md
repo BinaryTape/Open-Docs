@@ -14,7 +14,7 @@ Kotlin은 크게 두 가지 종류의 플로우 연산자를 제공합니다:
 >
 {style="tip"}
 
-## 중간 연산자
+## 중간 연산자 {id="intermediate-operators"}
 
 중간 연산자는 업스트림 플로우의 값을 소비하는 새로운 다운스트림 플로우를 반환합니다.
 최종 결과를 수집하기 전에 여러 중간 연산자를 체이닝하여 플로우 파이프라인을 구축할 수 있습니다.
@@ -27,7 +27,7 @@ Kotlin은 크게 두 가지 종류의 플로우 연산자를 제공합니다:
 * [**합성 연산자(Combining operators)**](#combining-operators): 여러 업스트림 플로우에서 값을 수집하여 하나의 다운스트림 플로우로 방출합니다.
 * [**생명 주기 연산자(Lifecycle operators)**](#lifecycle-operators): 수집 시작 또는 업스트림 플로우 완료와 같이 플로우 수집 중 발생하는 특정 이벤트에 대응하여 동작을 실행합니다.
 
-### 변환 연산자
+### 변환 연산자 {id="transforming-operators"}
 
 변환 연산자는 업스트림 플로우에서 방출된 값을 변환합니다.
 값을 다른 타입으로 변환하거나, 값을 건너뛰거나, 다운스트림으로 추가 값을 방출하는 데 사용할 수 있습니다.
@@ -155,7 +155,7 @@ suspend fun main() = withContext(Dispatchers.Default) {
 ```
 {kotlin-runnable="true"}
 
-### 필터링 및 크기 제한 연산자
+### 필터링 및 크기 제한 연산자 {id="filtering-and-size-limiting-operators"}
 
 필터링 및 크기 제한 연산자는 플로우에서 어떤 값이 다운스트림으로 계속 흐를지 제어합니다.
 반복되는 연속 값을 제거하거나, 플로우 시작 부분의 값을 건너뛰거나, 지정된 개수의 값을 받은 후 수집을 취소하는 데 사용할 수 있습니다.
@@ -266,7 +266,7 @@ suspend fun main() = withContext(Dispatchers.Default) {
 ```
 {kotlin-runnable="true"}
 
-### 동시 처리 연산자
+### 동시 처리 연산자 {id="concurrent-processing-operators"}
 
 기본적으로 플로우 파이프라인은 값을 순차적으로 처리합니다.
 업스트림 플로우가 값을 방출하면, 다음 값이 방출되기 전에 수집기가 이를 처리합니다.
@@ -446,7 +446,7 @@ suspend fun main() = withContext(Dispatchers.Default) {
 ```
 {kotlin-runnable="true"}
 
-### 합성 연산자
+### 합성 연산자 {id="combining-operators"}
 
 합성 연산자는 여러 업스트림 플로우의 값을 소비하여 하나의 다운스트림 플로우를 반환합니다.
 수집기가 두 개 이상의 플로우에서 오는 값을 필요로 할 때 사용합니다.
@@ -595,7 +595,7 @@ suspend fun main() {
 ```
 {kotlin-runnable="true"}
 
-### 생명 주기 연산자
+### 생명 주기 연산자 {id="lifecycle-operators"}
 
 생명 주기 연산자는 플로우 수집 중 특정 시점에 실행되는 일시 중단 람다를 받습니다.
 플로우가 수집되기 전, 각 값이 방출되기 전, 수집이 완료된 후, 또는 플로우가 아무런 값도 방출하지 않고 완료될 때 실행될 로직을 배치하는 데 사용할 수 있습니다.
@@ -716,7 +716,7 @@ suspend fun main() {
 ```
 {kotlin-runnable="true"}
 
-## 종단 연산자
+## 종단 연산자 {id="terminal-operators"}
 
 종단 연산자는 플로우를 수집합니다.
 방출된 값을 소비하거나, 수집된 값을 기반으로 결과를 반환하거나, [특정 `CoroutineScope`에서 플로우를 수집](#특정-coroutinescope에서-플로우-수집하기)하는 데 사용할 수 있습니다.
@@ -877,7 +877,7 @@ suspend fun main() {
 ```
 {kotlin-runnable="true"}
 
-### 특정 `CoroutineScope`에서 플로우 수집하기
+### 특정 `CoroutineScope`에서 플로우 수집하기 {id="collect-a-flow-in-a-specific-coroutinescope"}
 
 화면이나 수명이 긴 다른 객체가 플로우의 값을 필요로 할 때, 해당 객체의 `CoroutineScope`에서 수집기를 시작하세요.
 이렇게 하면 객체가 파괴될 때 해당 객체의 `CoroutineScope`를 취소함으로써 수집도 함께 취소되도록 보장할 수 있습니다.

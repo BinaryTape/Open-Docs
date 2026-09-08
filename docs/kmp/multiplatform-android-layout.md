@@ -6,11 +6,11 @@
 >
 {style="tip"}
 
-## 检查兼容性
+## 检查兼容性 {id="check-the-compatibility"}
 
 新布局要求使用 Android Gradle 插件 7.0 或更高版本，并且受 Android Studio 2022.3 及更高版本支持。请检查您的 Android Gradle 插件版本，并在必要时进行升级。
 
-## 重命名 Kotlin 源集
+## 重命名 Kotlin 源集 {id="rename-kotlin-source-sets"}
 
 如果适用，请按照以下模式重命名项目中的源集：
 
@@ -26,7 +26,7 @@
 | test        | androidTest                | android<b>Unit</b>Test         |
 | androidTest | android<b>Android</b>Test  | android<b>Instrumented</b>Test |
 
-## 移动源文件
+## 移动源文件 {id="move-source-files"}
 
 如果适用，请按照以下模式将源文件移动到新目录：
 
@@ -42,7 +42,7 @@
 | test        | src/androidTest/kotlin<br/>src/test/kotlin<br/>src/test/java  | src/android<b>Unit</b>Test/kotlin<br/>src/test/kotlin<br/>src/test/java                           |
 | androidTest | src/android<b>Android</b>Test/kotlin<br/>src/androidTest/java | src/android<b>Instrumented</b>Test/kotlin<br/>src/androidTest/java, <b>src/androidTest/kotlin</b> |
 
-## 移动 AndroidManifest.xml 文件
+## 移动 AndroidManifest.xml 文件 {id="move-the-androidmanifest-xml-file"}
 
 如果您的项目中包含 `AndroidManifest.xml` 文件，请按照以下模式将其移动到新目录：
 
@@ -57,7 +57,7 @@
 | main  | src/main/AndroidManifest.xml  | src/<b>android</b>Main/AndroidManifest.xml  |
 | debug | src/debug/AndroidManifest.xml | src/<b>android</b>Debug/AndroidManifest.xml |
 
-## 检查 Android 与公共测试之间的关系
+## 检查 Android 与公共测试之间的关系 {id="check-the-relationship-between-android-and-common-tests"}
 
 新的 Android 源集布局改变了 Android 仪器化测试（在新布局中重命名为 `androidInstrumentedTest`）与公共测试（common tests）之间的关系。
 
@@ -81,7 +81,7 @@ kotlin {
 }
 ```
 
-## 调整 Android flavor 的实现
+## 调整 Android flavor 的实现 {id="adjust-the-implementation-of-android-flavors"}
 
 此前，Kotlin Gradle 插件会预先创建与 Android 源集相对应的源集，这些源集包含 `debug` 和 `release` 构建类型或自定义变体（如 `demo` 和 `full`）。这使得可以通过 `val androidDebug by getting { ... }` 之类的表达式访问这些源集。
 

@@ -51,7 +51,7 @@ fun main() {
 > 
 {style="note"}
 
-## 具名实参
+## 具名实参 {id="named-arguments"}
 
 为了使代码简洁，在调用函数时，你不必包含形参名称。但是，包含形参名称确实会使你的代码更易于阅读。这被称为使用**具名实参**。如果你确实包含了形参名称，那么你可以按任何顺序编写实参。
 
@@ -72,7 +72,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-named-arguments-function"}
 
-## 默认参数值
+## 默认参数值 {id="default-parameter-values"}
 
 你可以为函数形参定义默认值。在调用函数时，可以省略任何具有默认值的形参。要声明默认值，请在类型后使用赋值运算符 `=`：
 
@@ -100,7 +100,7 @@ fun main() {
 >
 {style="note"}
 
-## 不带返回值的函数
+## 不带返回值的函数 {id="functions-without-return"}
 
 如果你的函数不返回有用的值，那么它的返回值类型就是 `Unit`。`Unit` 是一种只有唯一值 `Unit` 的类型。你不需要在函数体中显式声明返回 `Unit`。这意味着你不需要使用 `return` 关键字或声明返回值类型：
 
@@ -117,7 +117,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-unit-function"}
 
-## 单表达式函数
+## 单表达式函数 {id="single-expression-functions"}
 
 为了使你的代码更简洁，你可以使用单表达式函数。例如，`sum()` 函数可以缩短：
 
@@ -151,7 +151,7 @@ fun main() {
 > 
 {style="note"}
 
-## 函数中的提前返回
+## 函数中的提前返回 {id="early-returns-in-functions"}
 
 要停止函数中的代码继续处理到某个特定点之后，请使用 `return` 关键字。此示例使用 `if` 在发现条件表达式为 true 时提前从函数返回：
 
@@ -189,7 +189,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-function-early-return"}
 
-## 函数练习
+## 函数练习 {id="functions-practice"}
 
 ### 练习 1 {initial-collapse-state="collapsed" collapsible="true" id="functions-exercise-1"}
 
@@ -293,7 +293,7 @@ fun main() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="示例解法" id="kotlin-tour-functions-solution-3"}
 
-## lambda表达式
+## lambda表达式 {id="lambda-expressions"}
 
 Kotlin 允许你通过使用 lambda表达式 为函数编写更简洁的代码。
 
@@ -350,7 +350,7 @@ lambda表达式 可以通过多种方式使用。你可以：
 * [从函数返回一个 lambda表达式](#从函数返回一个-lambda表达式)
 * [单独调用 lambda表达式](#单独调用-lambda表达式)
 
-### 将 lambda表达式 作为参数传递给另一个函数
+### 将 lambda表达式 作为参数传递给另一个函数 {id="pass-to-another-function"}
 
 将 lambda表达式 传递给函数的一个极佳示例是在集合上使用 [`.filter()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/filter.html) 函数：
 
@@ -418,7 +418,7 @@ fun main() {
 * `{ x -> x * 2 }` 获取列表的每个元素并返回该元素乘以 2 的结果。
 * `{ x -> x * 3 }` 获取列表的每个元素并返回该元素乘以 3 的结果。
 
-### 函数类型
+### 函数类型 {id="function-types"}
 
 在从函数返回 lambda表达式 之前，你首先需要理解**函数类型**。
 
@@ -453,7 +453,7 @@ fun main() {
 >
 {style="note"}
 
-### 从函数返回一个 lambda表达式
+### 从函数返回一个 lambda表达式 {id="return-from-a-function"}
 
 可以从函数返回 lambda表达式。为了使编译器理解返回的 lambda表达式 是什么类型，你必须声明一个函数类型。
 
@@ -479,7 +479,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-lambda-return-from-function"}
 
-### 单独调用 lambda表达式
+### 单独调用 lambda表达式 {id="invoke-separately"}
 
 lambda表达式 可以单独调用，方法是在花括号 `{}` 之后添加圆括号 `()`，并在圆括号内包含任何参数：
 
@@ -493,7 +493,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-lambda-standalone"}
 
-### 尾随 lambda
+### 尾随 lambda {id="trailing-lambdas"}
 
 如你所见，如果 lambda表达式 是唯一的函数形参，你可以省略函数圆括号 `()`。如果 lambda表达式 作为函数的最后一个形参传递，则该表达式可以写在函数圆括号 `()` 之外。在这两种情况下，这种语法都称为**尾随 lambda**。
 
@@ -517,7 +517,7 @@ fun main() {
 
 我们旅程的下一步是学习 Kotlin 中的[类](kotlin-tour-classes.md)。
 
-## lambda表达式练习 {completion-point="true"}
+## lambda表达式练习 {completion-point="true" id="lambda-expressions-practice"}
 
 ### 练习 1 {initial-collapse-state="collapsed" collapsible="true" id="lambdas-exercise-1"}
 

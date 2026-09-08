@@ -6,7 +6,7 @@ title: 啟動 Koin
 
 本指南涵蓋如何初始化 Koin 容器並為您的應用程式進行配置。
 
-## `startKoin` 函式
+## `startKoin` 函式 {id="the-startkoin-function"}
 
 `startKoin` 是啟動 Koin 的主要進入點。它將容器註冊到 `GlobalContext` 中，使其在整個應用程式中皆可存取。
 
@@ -18,7 +18,7 @@ startKoin {
 
 啟動後，即可透過 `get()` 或 `by inject()` 解析相依性。
 
-### 配置選項
+### 配置選項 {id="configuration-options"}
 
 ```kotlin
 startKoin {
@@ -63,7 +63,7 @@ startKoin {
 `startKoin` 只能呼叫 **一次**。若稍後要載入額外的模組，請使用 `loadKoinModules()`。
 :::
 
-## 啟動 Koin 容器
+## 啟動 Koin 容器 {id="starting-the-koin-container"}
 
 | 方法 | 使用案例 |
 |--------|----------|
@@ -75,7 +75,7 @@ startKoin {
 搭配 **Koin Compiler Plugin**，可以使用型別化變體：`startKoin<T>()`、`koinApplication<T>()`、`koinConfiguration<T>()`。請參閱下方的 [搭配編譯器外掛程式啟動 Koin](#starting-koin-with-compiler-plugin)。
 :::
 
-### `startKoin` - 全域執行個體
+### `startKoin` - 全域執行個體 {id="startkoin-global-instance"}
 
 最常見的方法 - 全域啟動 Koin：
 
@@ -90,7 +90,7 @@ fun main() {
 }
 ```
 
-### `koinApplication` - 隔離的執行個體
+### `koinApplication` - 隔離的執行個體 {id="koinapplication-isolated-instance"}
 
 建立一個隔離的 Koin 執行個體（不在 GlobalContext 中）：
 
@@ -108,7 +108,7 @@ val service: MyService = myKoin.get()
 - SDK 開發（避免污染主應用程式）
 - 多個 Koin 執行個體
 
-### `koinConfiguration` - 配置持有者
+### `koinConfiguration` - 配置持有者 {id="koinconfiguration-configuration-holder"}
 
 建立供專用 API 使用的配置（如 Compose `KoinApplication`、Ktor 外掛程式）：
 
@@ -120,7 +120,7 @@ val config = koinConfiguration {
 // 由 Compose KoinApplication、Ktor 等使用
 ```
 
-## 搭配編譯器外掛程式啟動 Koin
+## 搭配編譯器外掛程式啟動 Koin {id="starting-koin-with-compiler-plugin"}
 
 搭配註解使用 **Koin Compiler Plugin** 時，您可以使用 **型別化 API** 啟動 Koin - 不需要產生的程式碼。
 
@@ -128,7 +128,7 @@ val config = koinConfiguration {
 這需要 [Koin Compiler Plugin](/docs/setup/compiler-plugin)。您的應用程式類別必須標記 `@KoinApplication` 註解。
 :::
 
-### 定義您的應用程式
+### 定義您的應用程式 {id="define-your-application"}
 
 ```kotlin
 @Module
@@ -140,7 +140,7 @@ class MyModule
 class MyApp
 ```
 
-### 型別化啟動 API
+### 型別化啟動 API {id="typed-startup-apis"}
 
 | API | 說明 |
 |-----|-------------|
@@ -151,7 +151,7 @@ class MyApp
 
 其中 `T` 是標記有 `@KoinApplication` 的類別。
 
-### 範例
+### 範例 {id="examples"}
 
 ```kotlin
 // 簡單啟動
@@ -169,7 +169,7 @@ val myKoin = koinApplication<MyApp>().koin
 val config = koinConfiguration<MyApp>()
 ```
 
-### 多模組專案
+### 多模組專案 {id="multi-module-projects"}
 
 ```kotlin
 // feature/src/main/kotlin/FeatureModule.kt
@@ -186,9 +186,9 @@ class MyApp
 startKoin<MyApp>()
 ```
 
-## 平台整合
+## 平台整合 {id="platform-integrations"}
 
-### Android
+### Android {id="android"}
 
 ```kotlin
 class MainApplication : Application() {
@@ -222,7 +222,7 @@ class MainApplication : Application() {
 }
 ```
 
-### Compose
+### Compose {id="compose"}
 
 使用 `KoinApplication` 可組合項與 `koinConfiguration`：
 
@@ -253,7 +253,7 @@ fun App() {
 }
 ```
 
-### Ktor
+### Ktor {id="ktor"}
 
 ```kotlin
 fun Application.module() {
@@ -282,7 +282,7 @@ fun Application.module() {
 詳情請參閱 [Ktor 整合](/docs/reference/koin-ktor/ktor)。
 :::
 
-### Kotlin Multiplatform
+### Kotlin Multiplatform {id="kotlin-multiplatform"}
 
 跨平台共享配置：
 
@@ -310,9 +310,9 @@ class MainApplication : Application() {
 fun initKoinIos() = initKoin()
 ```
 
-## 動態模組管理
+## 動態模組管理 {id="dynamic-module-management"}
 
-### 啟動後載入模組
+### 啟動後載入模組 {id="loading-modules-after-startup"}
 
 ```kotlin
 // 初始啟動
@@ -324,13 +324,13 @@ startKoin {
 loadKoinModules(featureModule)
 ```
 
-### 卸載模組
+### 卸載模組 {id="unloading-modules"}
 
 ```kotlin
 unloadKoinModules(featureModule)
 ```
 
-### 功能切換 (Feature Toggle) 範例
+### 功能切換 (Feature Toggle) 範例 {id="feature-toggle-example"}
 
 ```kotlin
 if (isFeatureEnabled) {
@@ -341,7 +341,7 @@ if (isFeatureEnabled) {
 unloadKoinModules(premiumFeatureModule)
 ```
 
-## 停止 Koin
+## 停止 Koin {id="stopping-koin"}
 
 關閉容器並釋放資源：
 
@@ -356,9 +356,9 @@ val koinApp = koinApplication { modules(myModule) }
 koinApp.close()
 ```
 
-## 記錄
+## 記錄 {id="logging"}
 
-### 啟用記錄
+### 啟用記錄 {id="enable-logging"}
 
 ```kotlin
 startKoin {
@@ -366,7 +366,7 @@ startKoin {
 }
 ```
 
-### 可用的 Logger
+### 可用的 Logger {id="available-loggers"}
 
 | Logger | 平台 | 說明 |
 |--------|----------|-------------|
@@ -375,7 +375,7 @@ startKoin {
 | `AndroidLogger` | Android | Android Logcat |
 | `SLF4JLogger` | JVM | SLF4J 整合 |
 
-### 平台專用 Logger
+### 平台專用 Logger {id="platform-specific-loggers"}
 
 ```kotlin
 // Android
@@ -389,9 +389,9 @@ install(Koin) {
 }
 ```
 
-## 屬性
+## 屬性 {id="properties"}
 
-### 載入屬性
+### 載入屬性 {id="loading-properties"}
 
 ```kotlin
 startKoin {
@@ -409,7 +409,7 @@ startKoin {
 }
 ```
 
-### 使用屬性
+### 使用屬性 {id="using-properties"}
 
 ```kotlin
 val appModule = module {
@@ -422,7 +422,7 @@ val appModule = module {
 }
 ```
 
-## 最佳實務
+## 最佳實務 {id="best-practices"}
 
 1. **呼叫 `startKoin` 一次** - 在應用程式進入點
 2. **立即載入關鍵模組** - 使用 `modules()`
@@ -431,7 +431,7 @@ val appModule = module {
 5. **在生產環境中使用嚴格模式** - `allowOverride(false)`
 6. **在測試之間停止 Koin** - 呼叫 `stopKoin()` 以重設狀態
 
-## 下一步
+## 下一步 {id="next-steps"}
 
 - **[模組](/docs/reference/koin-core/modules)** - 組織您的定義
 - **[定義](/docs/reference/koin-core/definitions)** - 使用 DSL 或註解建立定義

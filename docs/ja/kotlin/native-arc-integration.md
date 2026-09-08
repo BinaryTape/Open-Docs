@@ -4,9 +4,9 @@ KotlinとObjective-Cでは、異なるメモリ管理戦略が使用されてい
 
 これらの戦略間の統合は通常シームレスであり、一般的に追加の作業は必要ありません。ただし、留意すべき点がいくつかあります。
 
-## スレッド
+## スレッド {id="threads"}
 
-### デイニシャライザ
+### デイニシャライザ {id="deinitializers"}
 
 Swift/Objective-Cオブジェクト、およびそれらが参照するオブジェクトがメインスレッドでKotlinに渡された場合、それらのオブジェクトのデイニシャライゼーション（deinitialization）はメインスレッドで呼び出されます。例：
 
@@ -53,7 +53,7 @@ deinit on <_NSMainThread: 0x600003bc0000>{number = 1, name = main}
 
 専用のGCスレッドはObjective-Cランタイムに準拠しており、ランループ（run loop）を持ち、オートリリースプール（autorelease pool）をドレイン（解放）します。
 
-### コンプリーションハンドラ
+### コンプリーションハンドラ {id="completion-handlers"}
 
 SwiftからKotlinの中断関数（suspending functions）を呼び出す際、コンプリーションハンドラ（completion handlers）がメイン以外のスレッドで呼び出されることがあります。例：
 
@@ -88,9 +88,9 @@ World!
 Running completion handler on <NSThread: 0x600001b45bc0>{number = 7, name = (null)}
 ```
 
-## ガベージコレクションとライフサイクル
+## ガベージコレクションとライフサイクル {id="garbage-collection-and-lifecycle"}
 
-### オブジェクトの回収
+### オブジェクトの回収 {id="object-reclamation"}
 
 オブジェクトはガベージコレクション中にのみ回収されます。これは、Kotlin/Nativeとの相互運用（インターオプ）の境界を越えるSwift/Objective-Cオブジェクトにも適用されます。例：
 
@@ -138,7 +138,7 @@ kotlinTest finished
 SwiftExample deinit
 ```
 
-### Objective-Cオブジェクトのライフサイクル
+### Objective-Cオブジェクトのライフサイクル {id="objective-c-objects-lifecycle"}
 
 Objective-Cオブジェクトが本来よりも長く生存し、パフォーマンスの問題を引き起こすことがあります。例えば、長時間実行されるループ内で、イテレーションごとにSwift/Objective-Cの相互運用の境界を越える一時的なオブジェクトが複数作成される場合などです。
 
@@ -163,7 +163,7 @@ fun steadyMemoryUsage() {
 }
 ```
 
-### SwiftおよびKotlinオブジェクトのチェーンのガベージコレクション
+### SwiftおよびKotlinオブジェクトのチェーンのガベージコレクション {id="garbage-collection-of-swift-and-kotlin-objects-chains"}
 
 以下の例を考えてみましょう。
 
@@ -231,7 +231,7 @@ func test() {
 
 SwiftおよびObjective-CオブジェクトのデイニシャライゼーションはGCサイクルの後に行われるため、これら4つのオブジェクトを回収するには2回のGCサイクルが必要になります。この制限は `deinit` に由来します。`deinit` は任意のコードを呼び出すことができ、その中にはGCポーズ（GC pause）中に実行できないKotlinコードも含まれる可能性があるためです。
 
-### 循環参照（Retain cycles）
+### 循環参照（Retain cycles） {id="retain-cycles"}
 
 「循環参照（retain cycle）」では、複数のオブジェクトが強参照を使用して互いに巡回するように参照し合います：
 
@@ -256,7 +256,7 @@ graph TD
 
 残念ながら、現在Kotlin/Nativeコードで循環参照を自動的に検出するための特別なツールは提供されていません。循環参照を避けるには、[弱参照（weak reference）または非所有参照（unowned reference）](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/automaticreferencecounting/#Resolving-Strong-Reference-Cycles-Between-Class-Instances)を使用してください。
 
-## バックグラウンド状態とApp Extensionsのサポート
+## バックグラウンド状態とApp Extensionsのサポート {id="support-for-background-state-and-app-extensions"}
 
 現在のメモリマネージャーは、デフォルトではアプリケーションの状態を追跡せず、[App Extensions](https://developer.apple.com/app-extensions/)とも標準では統合されていません。
 
@@ -268,6 +268,6 @@ kotlin.native.binary.appStateTracking=enabled
 
 これにより、アプリケーションがバックグラウンドにあるときのタイマーベースのガベージコレクタ起動が無効になり、メモリ消費量が高くなった場合にのみGCが呼び出されるようになります。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 [Swift/Objective-Cとの相互運用性](native-objc-interop.md)について詳しく学ぶ。

@@ -9,13 +9,13 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Lang
 
 本笔记本展示了如何使用 OpenTelemetry 将 Koog 智能体跟踪导出到您的 Langfuse 实例。您将设置环境变量，运行一个简单的智能体，然后在 Langfuse 中检查 span 和跟踪。
 
-## 您将学习到
+## 您将学习到 {id="what-you-ll-learn"}
 
 - Koog 如何与 OpenTelemetry 集成以发出跟踪
 - 如何通过环境变量配置 Langfuse 导出器
 - 如何运行智能体并在 Langfuse 中查看其跟踪
 
-## 前提条件
+## 前提条件 {id="prerequisites"}
 
 - 一个 Langfuse 项目（主机 URL、公钥、密钥）
 - 用于 LLM 执行器的 OpenAI API 密钥
@@ -63,7 +63,7 @@ val agent = AIAgent(
 }
 ```
 
-## 配置智能体和 Langfuse 导出器
+## 配置智能体和 Langfuse 导出器 {id="configure-the-agent-and-langfuse-exporter"}
 
 在下一个单元格中，我们：
 
@@ -86,11 +86,11 @@ See traces on the Langfuse instance"
 
 ```
 
-## 运行智能体并查看跟踪
+## 运行智能体并查看跟踪 {id="run-the-agent-and-view-traces"}
 
 执行下一个单元格以触发一个简单的提示词。这将生成导出到您的 Langfuse 项目的 span。
 
-### 在 Langfuse 中查看位置
+### 在 Langfuse 中查看位置 {id="where-to-look-in-langfuse"}
 
 1. 打开您的 Langfuse 仪表板并选择您的项目
 2. 导航至跟踪 (Traces)/Span 视图
@@ -100,7 +100,7 @@ See traces on the Langfuse instance"
    - LLM 请求/响应元数据
    - 错误（如果有）
 
-### 故障排除
+### 故障排除 {id="troubleshooting"}
 
 - 没有显示跟踪？
   - 仔细检查 LANGFUSE_HOST、LANGFUSE_PUBLIC_KEY、LANGFUSE_SECRET_KEY

@@ -4,7 +4,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 
 대부분의 언어 변경 사항은 업데이트 변경 로그나 컴파일러 경고와 같은 다른 채널을 통해 이미 발표되었지만, 이 문서는 이를 모두 요약하여 Kotlin 1.2에서 Kotlin 1.3으로의 마이그레이션을 위한 완전한 참조를 제공합니다.
 
-## 기본 용어
+## 기본 용어 {id="basic-terms"}
 
 이 문서에서는 여러 종류의 호환성을 소개합니다:
 
@@ -14,9 +14,9 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 
 이 정의들은 순수 Kotlin에 대해서만 적용됨을 유의하십시오. Java 등 다른 언어 관점에서의 Kotlin 코드 호환성은 이 문서의 범위를 벗어납니다.
 
-## 호환되지 않는 변경 사항
+## 호환되지 않는 변경 사항 {id="incompatible-changes"}
 
-### &lt;clinit&gt; 호출과 관련한 생성자 인자의 평가 순서
+### &lt;clinit&gt; 호출과 관련한 생성자 인자의 평가 순서 {id="evaluation-order-of-constructor-arguments-regarding-lt-clinit-gt-call"}
 
 > **이슈**: [KT-19532](https://youtrack.jetbrains.com/issue/KT-19532)
 >
@@ -32,7 +32,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.3 이상: 동작 변경됨.
 > `-Xnormalize-constructor-calls=disable`을 사용하여 일시적으로 1.3 이전 동작으로 되돌릴 수 있습니다. 이 플래그에 대한 지원은 다음 메이저 릴리스에서 제거될 예정입니다.
 
-### 어노테이션 생성자 파라미터에서 누락된 getter 대상 어노테이션
+### 어노테이션 생성자 파라미터에서 누락된 getter 대상 어노테이션 {id="missing-getter-targeted-annotations-on-annotation-constructor-parameters"}
 
 > **이슈**: [KT-25287](https://youtrack.jetbrains.com/issue/KT-25287)
 >
@@ -47,7 +47,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.3 미만: 어노테이션 생성자 파라미터의 getter 대상 어노테이션이 적용되지 않음
 > - 1.3 이상: 어노테이션 생성자 파라미터의 getter 대상 어노테이션이 올바르게 적용되어 생성된 코드에 기록됨
 
-### 클래스 생성자의 @get: 어노테이션에서 누락된 에러
+### 클래스 생성자의 @get: 어노테이션에서 누락된 에러 {id="missing-errors-in-class-constructor-s-get-annotations"}
 
 > **이슈**: [KT-19628](https://youtrack.jetbrains.com/issue/KT-19628)
 >
@@ -63,7 +63,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.2.x: 툴링에서만 에러가 보고되며, 컴파일러는 여전히 경고 없이 코드를 컴파일함.
 > - 1.3 이상: 컴파일러에서도 에러가 보고되어 잘못된 코드는 거부됨.
 
-### @NotNull이 붙은 Java 타입 접근 시 null 가능성 검사(Nullability assertions)
+### @NotNull이 붙은 Java 타입 접근 시 null 가능성 검사(Nullability assertions) {id="nullability-assertions-on-access-to-java-types-annotated-with-notnull"}
 
 > **이슈**: [KT-20830](https://youtrack.jetbrains.com/issue/KT-20830)
 >
@@ -79,7 +79,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.3 이상: 컴파일러가 누락된 검사를 생성합니다. 이로 인해 (잘못되게) `null`을 전달하던 코드가 더 일찍 실패할 수 있습니다.  
  `-XXLanguage:-StrictJavaNullabilityAssertions`를 사용하여 일시적으로 1.3 이전 동작으로 되돌릴 수 있습니다. 이 플래그에 대한 지원은 다음 메이저 릴리스에서 제거됩니다.
 
-### enum 멤버에 대한 잘못된(Unsound) 스마트 캐스트
+### enum 멤버에 대한 잘못된(Unsound) 스마트 캐스트 {id="unsound-smartcasts-on-enum-members"}
 
 > **이슈**: [KT-20772](https://youtrack.jetbrains.com/issue/KT-20772)
 >
@@ -95,7 +95,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.3 이상: 스마트 캐스트가 해당 enum 엔트리의 멤버에만 올바르게 적용됩니다.   
 `-XXLanguage:-SoundSmartcastForEnumEntries`는 일시적으로 이전 동작을 되돌립니다. 이 플래그에 대한 지원은 다음 메이저 릴리스에서 제거됩니다.
 
-### getter 내에서의 val 뒷받침 필드(backing field) 재할당
+### getter 내에서의 val 뒷받침 필드(backing field) 재할당 {id="val-backing-field-reassignment-in-getter"}
 
 > **이슈**: [KT-16681](https://youtrack.jetbrains.com/issue/KT-16681)
 >
@@ -111,7 +111,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.2.X: `val`의 뒷받침 필드를 재할당하는 코드에 지원 중단 경고가 보고됩니다.
 > - 1.3 이상: 지원 중단 경고가 에러로 격상됩니다.
 
-### 순회하는 for 루프 이전의 배열 캡처
+### 순회하는 for 루프 이전의 배열 캡처 {id="array-capturing-before-the-for-loop-where-it-is-iterated"}
 
 > **이슈**: [KT-21354](https://youtrack.jetbrains.com/issue/KT-21354)
 >
@@ -127,7 +127,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.2.X: for 루프의 범위 표현식이 루프 바디에서 할당되는 배열 타입 로컬 변수인 경우 지원 중단 경고가 보고됩니다.
 > - 1.3: 이러한 경우의 동작을 다른 컨테이너와 일치하도록 변경합니다.
 
-### enum 엔트리 내의 중첩 분류기(Nested classifiers)
+### enum 엔트리 내의 중첩 분류기(Nested classifiers) {id="nested-classifiers-in-enum-entries"}
 
 > **이슈**: [KT-16310](https://youtrack.jetbrains.com/issue/KT-16310)
 >
@@ -143,7 +143,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.2.X: 중첩 분류기에 대해 지원 중단 경고가 보고됩니다.
 > - 1.3 이상: 지원 중단 경고가 에러로 격상됩니다.
 
-### data 클래스의 copy 오버라이딩
+### data 클래스의 copy 오버라이딩 {id="data-class-overriding-copy"}
 
 > **이슈**: [KT-19618](https://youtrack.jetbrains.com/issue/KT-19618)
 >
@@ -159,7 +159,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.2.X: `copy()`를 오버라이딩하는 data 클래스에 대해 지원 중단 경고가 보고됩니다.
 > - 1.3 이상: 지원 중단 경고가 에러로 격상됩니다.
 
-### 외부 클래스의 제네릭 파라미터를 캡처하는 Throwable 상속 내부 클래스
+### 외부 클래스의 제네릭 파라미터를 캡처하는 Throwable 상속 내부 클래스 {id="inner-classes-inheriting-throwable-that-capture-generic-parameters-from-the-outer-class"}
 
 > **이슈**: [KT-17981](https://youtrack.jetbrains.com/issue/KT-17981)
 >
@@ -175,7 +175,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.2.X: `Throwable`을 상속하는 내부 클래스에 대해 지원 중단 경고가 보고됩니다.
 > - 1.3 이상: 지원 중단 경고가 에러로 격상됩니다.
 
-### 컴패니언 객체가 포함된 복잡한 클래스 계층 구조의 가시성 규칙
+### 컴패니언 객체가 포함된 복잡한 클래스 계층 구조의 가시성 규칙 {id="visibility-rules-regarding-complex-class-hierarchies-with-companion-objects"}
 
 > **이슈**: [KT-21515](https://youtrack.jetbrains.com/issue/KT-21515), [KT-25333](https://youtrack.jetbrains.com/issue/KT-25333)
 >
@@ -191,7 +191,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.2.X: 더 이상 접근할 수 없게 될 짧은 이름에 대해 지원 중단 경고가 보고됩니다. 툴링에서 전체 이름(full name)을 추가하는 자동 마이그레이션을 제안합니다.  
 > - 1.3 이상: 지원 중단 경고가 에러로 격상됩니다. 문제가 되는 코드는 전체 수식어(full qualifiers)를 추가하거나 명시적인 임포트(import)를 추가해야 합니다.
 
-### 상수가 아닌 vararg 어노테이션 파라미터
+### 상수가 아닌 vararg 어노테이션 파라미터 {id="non-constant-vararg-annotation-parameters"}
 
 > **이슈**: [KT-23153](https://youtrack.jetbrains.com/issue/KT-23153)
 >
@@ -207,7 +207,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.2.X: 이러한 코드 패턴에 대해 지원 중단 경고가 보고됩니다.
 > - 1.3 이상: 지원 중단 경고가 에러로 격상됩니다.
 
-### 로컬 어노테이션 클래스
+### 로컬 어노테이션 클래스 {id="local-annotation-classes"}
 
 > **이슈**: [KT-23277](https://youtrack.jetbrains.com/issue/KT-23277)
 >
@@ -223,7 +223,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.2.X: 로컬 어노테이션 클래스에 대해 지원 중단 경고가 보고됩니다.
 > - 1.3 이상: 지원 중단 경고가 에러로 격상됩니다.
 
-### 로컬 위임 프로퍼티에 대한 스마트 캐스트
+### 로컬 위임 프로퍼티에 대한 스마트 캐스트 {id="smartcasts-on-local-delegated-properties"}
 
 > **이슈**: [KT-22517](https://youtrack.jetbrains.com/issue/KT-22517)
 >
@@ -239,7 +239,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.2.X: 로컬 위임 프로퍼티에 대한 스마트 캐스트가 지원 중단된 것으로 보고됩니다(컴파일러 경고 발생).
 > - 1.3 이상: 지원 중단 경고가 에러로 격상됩니다.
 
-### mod 연산자 관례
+### mod 연산자 관례 {id="mod-operator-convention"}
 
 > **이슈**: [KT-24197](https://youtrack.jetbrains.com/issue/KT-24197)
 >
@@ -255,7 +255,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.3.X: 경고를 에러로 격상하지만, 여전히 `operator mod` 선언으로 분석되는 것은 허용합니다.
 > - 1.4.X: 더 이상 호출이 `operator mod` 선언으로 분석되지 않도록 합니다.
 
-### 이름을 지정한 형태(named form)로 vararg에 단일 요소 전달
+### 이름을 지정한 형태(named form)로 vararg에 단일 요소 전달 {id="passing-single-element-to-vararg-in-named-form"}
 
 > **이슈**: [KT-20588](https://youtrack.jetbrains.com/issue/KT-20588), [KT-20589](https://youtrack.jetbrains.com/issue/KT-20589). [KT-20171](https://youtrack.jetbrains.com/issue/KT-20171)도 참조하십시오.
 >
@@ -272,7 +272,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.3.X: 경고가 에러로 격상됩니다.
 > - 1.4 이상: vararg에 단일 요소를 할당하는 시맨틱을 변경하여, 배열의 할당을 배열의 스프레드를 할당하는 것과 동일하게 만듭니다.
 
-### EXPRESSION 타겟을 가진 어노테이션의 유지(Retention)
+### EXPRESSION 타겟을 가진 어노테이션의 유지(Retention) {id="retention-of-annotations-with-target-expression"}
 
 > **이슈**: [KT-13762](https://youtrack.jetbrains.com/issue/KT-13762)
 >
@@ -288,7 +288,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.2.X: 이러한 어노테이션 선언에 대해 지원 중단 경고가 보고됩니다. 
 > - 1.3 이상: 경고가 에러로 격상됩니다.
 
-### PARAMETER 타겟을 가진 어노테이션은 파라미터 타입에 적용될 수 없어야 함
+### PARAMETER 타겟을 가진 어노테이션은 파라미터 타입에 적용될 수 없어야 함 {id="annotations-with-target-parameter-shouldn-t-be-applicable-to-parameter-s-type"}
 
 > **이슈**: [KT-9580](https://youtrack.jetbrains.com/issue/KT-9580)
 >
@@ -304,7 +304,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.2.X: 이러한 사용법에 대해 지원 중단 경고가 보고됩니다.
 > - 1.3 이상: 경고가 에러로 격상됩니다.
 
-### Array.copyOfRange가 반환 배열을 확장하는 대신 인덱스가 범위를 벗어날 때 예외를 던짐
+### Array.copyOfRange가 반환 배열을 확장하는 대신 인덱스가 범위를 벗어날 때 예외를 던짐 {id="array-copyofrange-throws-an-exception-when-indices-are-out-of-bounds-instead-of-enlarging-the-returned-array"}
 
 > **이슈**: [KT-19489](https://youtrack.jetbrains.com/issue/KT-19489)
 >
@@ -319,7 +319,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.3 미만: `Array.copyOfRange` 호출 시 `toIndex`가 배열 크기보다 큰 경우, 범위 내의 누락된 요소가 `null`로 채워져 Kotlin 타입 시스템의 건전성(soundness)을 위반했습니다. 
 > - 1.3 이상: `toIndex`가 배열 범위 내에 있는지 확인하고, 그렇지 않으면 예외를 던집니다.
 
-### Int.MIN_VALUE 및 Long.MIN_VALUE를 step으로 하는 Int 및 Long 수열(Progression)은 금지되며 인스턴스화가 허용되지 않음
+### Int.MIN_VALUE 및 Long.MIN_VALUE를 step으로 하는 Int 및 Long 수열(Progression)은 금지되며 인스턴스화가 허용되지 않음 {id="progressions-of-ints-and-longs-with-a-step-of-int-minvalue-and-long-minvalue-are-outlawed-and-won-t-be-allowed-to-be-instantiated"}
 
 > **이슈**: [KT-17176](https://youtrack.jetbrains.com/issue/KT-17176)
 >
@@ -334,7 +334,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.3 미만: `Int.MIN_VALUE` step으로 `IntProgression`을 생성하는 것이 가능했으며, 이는 두 값 `[0, -2147483648]`을 생성하는 명확하지 않은 동작을 보였습니다. 
 > - 1.3 이상: step이 해당 정수 타입의 최소 음수 값인 경우 `IllegalArgumentException`을 던집니다.
 
-### 매우 긴 시퀀스(Sequence) 작업 시 인덱스 오버플로 검사
+### 매우 긴 시퀀스(Sequence) 작업 시 인덱스 오버플로 검사 {id="check-for-index-overflow-in-operations-on-very-long-sequences"}
 
 > **이슈**: [KT-16097](https://youtrack.jetbrains.com/issue/KT-16097)
 >
@@ -349,7 +349,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.3 미만: 매우 긴 시퀀스에서 이러한 메서드를 호출하면 정수 오버플로로 인해 음수 결과가 생성될 수 있었습니다. 
 > - 1.3 이상: 이러한 메서드에서 오버플로를 감지하고 즉시 예외를 던집니다.
 
-### 플랫폼 간 빈 일치 정규식에 의한 split 결과 통합
+### 플랫폼 간 빈 일치 정규식에 의한 split 결과 통합 {id="unify-split-by-an-empty-match-regex-result-across-the-platforms"}
 
 > **이슈**: [KT-21049](https://youtrack.jetbrains.com/issue/KT-21049)
 >
@@ -364,7 +364,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.3 미만: 설명된 호출의 동작이 JS, JRE 6, JRE 7과 JRE 8+를 비교할 때 서로 달랐습니다.
 > - 1.3 이상: 모든 플랫폼에서 동작을 통일합니다.
 
-### 컴파일러 배포판에서 지원 중단된 아티팩트 배포 중단
+### 컴파일러 배포판에서 지원 중단된 아티팩트 배포 중단 {id="discontinued-deprecated-artifacts-in-the-compiler-distribution"}
 
 > **이슈**: [KT-23799](https://youtrack.jetbrains.com/issue/KT-23799)
 >
@@ -382,7 +382,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.2.X: 아티팩트들이 지원 중단된 것으로 표시되었으며, 컴파일러가 해당 아티팩트 사용 시 경고를 보고했습니다.
 > - 1.3 이상: 아티팩트 배포가 중단됩니다.
 
-### stdlib의 어노테이션
+### stdlib의 어노테이션 {id="annotations-in-stdlib"}
 
 > **이슈**: [KT-21784](https://youtrack.jetbrains.com/issue/KT-21784)
 >

@@ -16,7 +16,7 @@ Kotlin Multiplatform Gradle 插件将不再兼容 `com.android.application` 和 
 > 
 {style="note"}
 
-## 迁移到 Android-KMP 库插件
+## 迁移到 Android-KMP 库插件 {id="migration-to-the-android-kmp-library-plugin"}
 
 以前，要在多平台模块中配置 Android 目标，您需要将
 KMP 插件 (`org.jetbrains.kotlin.multiplatform`) 
@@ -26,7 +26,7 @@ Android 应用程序插件 (`com.android.application`) 或 Android 库插件 (`c
 在 AGP 9.0 中，这些插件不再与 KMP 兼容，
 因此您需要迁移到专门为 KMP 构建的新 Android-KMP 库插件。
 
-### 如何迁移
+### 如何迁移 {id="how-to-migrate"}
 
 有关库的迁移步骤，请参阅 [Android 文档中的指南](https://developer.android.com/kotlin/multiplatform/plugin#migrate)。
 
@@ -40,7 +40,7 @@ Android 应用程序插件 (`com.android.application`) 或 Android 库插件 (`c
 >
 {style="note"}
 
-### 在 AGP 10 之前启用旧版 API
+### 在 AGP 10 之前启用旧版 API {id="enabling-the-legacy-apis-until-agp-10"}
 
 要让您的项目在短期内与 AGP 9.0 配合工作，您可以手动启用已弃用的 API。
 为此，在项目的 `gradle.properties` 文件中，添加以下属性：
@@ -50,7 +50,7 @@ Android 应用程序插件 (`com.android.application`) 或 Android 库插件 (`c
 AGP 10 可能会在 2026 年下半年发布。
 请确保在此之前完成迁移。
 
-## 示例应用的迁移
+## 示例应用的迁移 {id="migration-of-a-sample-app"}
 
 您将为迁移准备的示例项目是一个 Compose Multiplatform 应用，它是
 [创建您自己的应用程序](compose-multiplatform-new-project.md)
@@ -73,7 +73,7 @@ AGP 10 可能会在 2026 年下半年发布。
 
 ### Android 应用入口点模块 {id="android-app"}
 
-#### 创建并配置 Android 应用模块
+#### 创建并配置 Android 应用模块 {id="create-and-configure-the-android-app-module"}
 
 要创建 Android 应用模块 (`androidApp`)：
 
@@ -86,7 +86,7 @@ AGP 10 可能会在 2026 年下半年发布。
     ```
 4. 在主菜单中选择 **Build | Sync Project with Gradle Files**，或点击编辑器中的 Gradle 刷新按钮。
 
-#### 为 Android 应用配置构建脚本
+#### 为 Android 应用配置构建脚本 {id="configure-the-build-script-for-the-android-app"}
 
 为新模块配置 Gradle 构建脚本：
 
@@ -171,7 +171,7 @@ AGP 10 可能会在 2026 年下半年发布。
    
 8. 在主菜单中选择 **Build | Sync Project with Gradle Files**，或点击编辑器中的 Gradle 刷新按钮。
 
-#### 移动代码并运行 Android 应用
+#### 移动代码并运行 Android 应用 {id="move-the-code-and-run-the-android-app"}
 
 1. 将 `composeApp/src/androidMain` 目录移动到 `androidApp/src/` 目录中，
    但请记住应保持跨平台的代码：
@@ -194,7 +194,7 @@ AGP 10 可能会在 2026 年下半年发布。
 您已将 Android 入口点提取到单独的模块中。
 现在更新公共代码模块以使用新的 Android-KMP 库插件。 
 
-### 配置共享模块以使用 Android-KMP 库插件
+### 配置共享模块以使用 Android-KMP 库插件 {id="configure-the-shared-module-to-use-the-android-kmp-library-plugin"}
 
 为了简单地提取 Android 入口点，您为共享的 `composeApp` 模块应用了 `com.android.library` 插件。
 现在迁移到新的多平台库插件：
@@ -241,7 +241,7 @@ AGP 10 可能会在 2026 年下半年发布。
 7. 在主菜单中选择 **Build | Sync Project with Gradle Files**，或点击编辑器中的 Gradle 刷新按钮。
 8. 检查 Android 应用是否按预期运行。
 
-### 更新 Android Gradle 插件版本
+### 更新 Android Gradle 插件版本 {id="update-the-android-gradle-plugin-version"}
 
 当您的所有代码都能在新的配置下工作时：
 
@@ -282,7 +282,7 @@ AGP 10 可能会在 2026 年下半年发布。
 
 恭喜！您已成功升级项目以兼容 AGP 9.0。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 查看[推荐的项目结构](multiplatform-project-recommended-structure.md)，
 它遵循为您可能拥有的任何应用目标分离入口点的逻辑。

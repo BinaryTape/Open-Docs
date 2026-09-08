@@ -8,13 +8,13 @@ status: beta
 
 이 페이지는 Koog 에이전트 프레임워크의 A2A(Agent-to-Agent) 프로토콜 구현에 대한 개요를 제공합니다.
 
-## A2A 프로토콜이란 무엇인가요?
+## A2A 프로토콜이란 무엇인가요? {id="what-is-the-a2a-protocol"}
 
 A2A(Agent-to-Agent) 프로토콜은 AI 에이전트들이 서로, 그리고 클라이언트 애플리케이션과 상호작용할 수 있도록 해주는 표준화된 통신 프로토콜입니다.
 이 프로토콜은 일관되고 상호 운용 가능한 에이전트 통신을 가능하게 하는 메서드 세트, 메시지 형식 및 동작을 정의합니다.
 A2A 프로토콜에 대한 더 자세한 정보와 상세 명세는 공식 [A2A 프로토콜 웹사이트](https://a2a-protocol.org/latest/)를 참조하세요.
 
-## 시작하기
+## 시작하기 {id="getting-started"}
 
 **중요**: A2A 의존성은 `koog-agents` 메타 의존성에 기본적으로 포함되어 **있지 않습니다**. 
 프로젝트에 필요한 A2A 모듈을 명시적으로 추가해야 합니다.
@@ -25,7 +25,7 @@ A2A 프로토콜에 대한 더 자세한 정보와 상세 명세는 공식 [A2A 
 - **A2A 서버**: [A2A 서버 문서](a2a-server.md#dependencies)를 참조하세요.
 - **Koog 통합**: [A2A Koog 통합 문서](a2a-koog-integration.md#dependencies)를 참조하세요.
 
-## 주요 A2A 구성 요소
+## 주요 A2A 구성 요소 {id="key-a2a-components"}
 
 Koog는 클라이언트와 서버 모두를 위한 A2A 프로토콜 v0.3.0의 전체 구현과 Koog 에이전트 프레임워크와의 통합을 제공합니다:
 

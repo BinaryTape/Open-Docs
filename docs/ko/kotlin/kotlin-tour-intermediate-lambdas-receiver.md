@@ -4,7 +4,7 @@
 
 이 장에서는 또 다른 유형의 함수인 람다 식에서 수신 객체(receiver)를 사용하는 방법과, 이를 통해 도메인 특화 언어(DSL)를 만드는 방법을 알아봅니다.
 
-## 수신 객체가 있는 람다 식
+## 수신 객체가 있는 람다 식 {id="lambda-expressions-with-receiver"}
 
 초급 튜토리얼에서 [람다 식](kotlin-tour-functions.md#lambda-expressions)을 사용하는 방법을 배웠습니다. 람다 식은 수신 객체를 가질 수도 있습니다.
 이 경우, 람다 식은 매번 수신 객체를 명시적으로 지정하지 않고도 수신 객체의 모든 멤버 함수나 프로퍼티에 접근할 수 있습니다. 이러한 추가적인 참조가 없으면 코드를 읽고 유지보수하기가 더 쉬워집니다.
@@ -145,7 +145,7 @@ fun main() {
 >
 {style="tip"}
 
-## 연습 문제 {completion-point="true"}
+## 연습 문제 {completion-point="true" id="practice"}
 
 ### 연습 문제 1 {initial-collapse-state="collapsed" collapsible="true" id="lambda-receivers-exercise-1"}
 

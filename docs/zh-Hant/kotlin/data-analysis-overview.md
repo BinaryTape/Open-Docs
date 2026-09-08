@@ -16,7 +16,7 @@
 
 * **從 Web API 獲取並分析即時與動態資料集：** EDA 工具的靈活性允許透過 OpenAPI 等協定與外部 API 整合。此功能可協助您從 Web API 獲取資料，接著根據需求清理與轉換資料。
 
-## Kotlin DataFrame
+## Kotlin DataFrame {id="kotlin-dataframe"}
 
 [Kotlin DataFrame](https://kotlin.github.io/dataframe/overview.html) 程式庫可讓您在 Kotlin 專案中操作結構化資料。從資料建立與清理，到深入分析與特徵工程，此程式庫都能滿足您的需求。
 
@@ -25,13 +25,13 @@
 
 ![Kotlin DataFrame](data-analysis-dataframe-example.png){width=700}
 
-## Kandy
+## Kandy {id="kandy"}
 
 [Kandy](https://kotlin.github.io/kandy/welcome.html) 是一個開源 Kotlin 程式庫，提供強大且靈活的 DSL，用於繪製各種類型的圖表。此程式庫是一個簡單、慣用、易讀且型別安全的工具，用於視覺化資料。您還可以輕鬆地將 Kandy 與 Kotlin DataFrame 結合使用，以完成不同的資料相關任務。
 
 ![Kandy](data-analysis-kandy-example.png){width=700}
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * [使用 Kotlin DataFrame 程式庫檢索與轉換資料](data-analysis-work-with-data-sources.md)
 * [使用 Kandy 程式庫視覺化資料](data-analysis-visualization.md)

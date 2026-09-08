@@ -208,7 +208,7 @@ fun html(init: HTML.() -> Unit): HTML {
 ```
 {collapsible="true" collapsed-title="Example output"}
 
-## 동작 원리
+## 동작 원리 {id="how-it-works"}
 
 Kotlin에서 타입 세이프 빌더를 구현해야 한다고 가정해 보겠습니다.
 가장 먼저 빌드하려는 모델을 정의해야 합니다. 이 경우 HTML 태그를 모델링해야 합니다.
@@ -327,7 +327,7 @@ operator fun String.unaryPlus() {
 이 모든 내용은 위의 빌더 예제 상단에서 임포트한 `com.example.html` 패키지에 정의되어 있습니다.
 마지막 섹션에서 이 패키지의 전체 정의를 읽어볼 수 있습니다.
 
-## 스코프 제어: @DslMarker
+## 스코프 제어: @DslMarker {id="scope-control-dslmarker"}
 
 DSL을 사용할 때 컨텍스트 내에서 너무 많은 함수를 호출할 수 있는 문제에 직면할 수 있습니다.
 람다 내부에서 사용 가능한 모든 [암시적 수신 객체(implicit receiver)](lambdas.md#function-literals-with-receiver)의 메서드를 호출할 수 있으므로, `head` 태그 안에 또 다른 `head`가 들어가는 것과 같이 일관성 없는 결과가 발생할 수 있습니다:
@@ -471,7 +471,7 @@ fun test(head: HtmlTag, extraInfo: HtmlTag) {
 }
 ```
 
-### com.example.html 패키지의 전체 정의
+### com.example.html 패키지의 전체 정의 {id="full-definition-of-the-com-example-html-package"}
 
 `com.example.html` 패키지가 정의되는 방식은 다음과 같습니다(위의 예제에서 사용된 요소들만 포함).
 이 패키지는 HTML 트리를 빌드합니다. [확장 함수(extension functions)](extensions.md)와 [수신 객체 지정 람다(lambdas with receiver)](lambdas.md#function-literals-with-receiver)를 적극적으로 사용합니다.

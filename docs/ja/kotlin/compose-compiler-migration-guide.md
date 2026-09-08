@@ -9,11 +9,11 @@ Composeコンパイラは、Kotlin 2.0.0以降、Kotlinリポジトリに統合�
 プロジェクトで新しいComposeコンパイラプラグインを使用するには、Composeを使用する各モジュールにプラグインを適用してください。
 移行方法の詳細については、[Jetpack Composeプロジェクトの移行](#migrating-a-jetpack-compose-project)を参照してください。Compose Multiplatformプロジェクトについては、[マルチプラットフォーム移行ガイド](https://kotlinlang.org/docs/multiplatform/compose-compiler.html#migrating-a-compose-multiplatform-project)を参照してください。
 
-## Jetpack Composeプロジェクトの移行
+## Jetpack Composeプロジェクトの移行 {id="migrating-a-jetpack-compose-project"}
 
 1.9からKotlin 2.0.0以降に移行する場合、Composeコンパイラの取り扱い方法に応じてプロジェクト構成を調整する必要があります。構成管理を自動化するために、Kotlin GradleプラグインとComposeコンパイラGradleプラグインを使用することをお勧めします。
 
-### GradleプラグインによるComposeコンパイラの管理
+### GradleプラグインによるComposeコンパイラの管理 {id="managing-the-compose-compiler-with-gradle-plugins"}
 
 Androidモジュールの場合：
 
@@ -56,14 +56,14 @@ Androidモジュールの場合：
 
 5. Composeコンパイラのアーティファクトを直接参照している場合は、それらの参照を削除して、Gradleプラグインに処理を任せることができます。
 
-### Gradleプラグインを使用せずにComposeコンパイラを使用する
+### Gradleプラグインを使用せずにComposeコンパイラを使用する {id="using-compose-compiler-without-gradle-plugins"}
 
 Gradleプラグインを使用してComposeコンパイラを管理していない場合は、プロジェクト内の古いMavenアーティファクトへの直接参照を更新してください。
 
 * `androidx.compose.compiler:compiler` を `org.jetbrains.kotlin:kotlin-compose-compiler-plugin-embeddable` に変更
 * `androidx.compose.compiler:compiler-hosted` を `org.jetbrains.kotlin:kotlin-compose-compiler-plugin` に変更
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * ComposeコンパイラのKotlinリポジトリへの移行に関する [Googleのアナウンス](https://android-developers.googleblog.com/2024/04/jetpack-compose-compiler-moving-to-kotlin-repository.html) をご覧ください。
 * Jetpack Composeを使用してAndroidアプリを構築している場合は、[マルチプラットフォーム化の方法に関するガイド](https://kotlinlang.org/docs/multiplatform/multiplatform-integrate-in-existing-app.html) を確認してください。

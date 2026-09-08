@@ -2,7 +2,7 @@
 
 本页面详细介绍了 Koog 代理框架中的 LLM 参数。LLM 参数允许您控制和自定义语言模型的行为。
 
-## 概览
+## 概览 {id="overview"}
 
 LLM 参数是允许您微调语言模型生成响应方式的配置选项。这些参数控制响应的随机性、长度、格式和工具使用等方面。通过调整参数，您可以针对不同的用例优化模型行为，从创意内容生成到确定性的结构化输出。
 
@@ -154,7 +154,7 @@ LLM 参数是允许您微调语言模型生成响应方式的配置选项。这�
 
 有关会话的更多信息，请参阅 [LLM 会话和手动历史记录管理](sessions.md)。
 
-## LLM 参数参考
+## LLM 参数参考 {id="llm-parameter-reference"}
 
 下表提供了 `LLMParams` 类中包含的 LLM 参数参考，Koog 提供的所有开箱即用的 LLM 提供商均支持这些参数。
 有关某些提供商特定的参数列表，请参阅[提供商特定参数](#provider-specific-parameters)。
@@ -182,12 +182,12 @@ LLM 参数是允许您微调语言模型生成响应方式的配置选项。这�
 - 阿里巴巴 β ([DashScope](https://www.alibabacloud.com/help/en/model-studio/qwen-api-reference))
 - [Ollama](https://docs.ollama.com/api/openai-compatibility)
 
-## Schema
+## Schema {id="schema"}
 
 `Schema` 接口定义了模型响应格式的结构。
 Koog 支持 JSON schema，如下节所述。
 
-### JSON schema
+### JSON schema {id="json-schemas"}
 
 JSON schema 允许您向语言模型请求结构化的 JSON 数据。Koog 支持以下两种类型的 JSON schema：
 
@@ -364,7 +364,7 @@ JSON schema 允许您向语言模型请求结构化的 JSON 数据。Koog 支持
     ```
     <!--- KNIT example-llm-parameters-java-05.java -->
 
-## 工具选择
+## 工具选择 {id="tool-choice"}
 
 `ToolChoice` 类控制语言模型如何使用工具。它提供以下选项：
 
@@ -410,7 +410,7 @@ JSON schema 允许您向语言模型请求结构化的 JSON 数据。Koog 支持
     ```
     <!--- KNIT example-llm-parameters-java-06.java -->
 
-## 提供商特定参数
+## 提供商特定参数 {id="provider-specific-parameters"}
 
 Koog 支持某些 LLM 提供商的特定参数。这些参数扩展了基础 `LLMParams` 类并添加了特定于提供商的功能。以下类包含各提供商特定的参数：
 
@@ -613,9 +613,9 @@ Koog 支持某些 LLM 提供商的特定参数。这些参数扩展了基础 `LL
     ```
     <!--- KNIT example-llm-parameters-java-07.java -->
 
-## 使用示例
+## 使用示例 {id="usage-examples"}
 
-### 基础用法
+### 基础用法 {id="basic-usage"}
 
 === "Kotlin"
 
@@ -655,7 +655,7 @@ Koog 支持某些 LLM 提供商的特定参数。这些参数扩展了基础 `LL
     ```
     <!--- KNIT example-llm-parameters-java-08.java -->
 
-### 推理控制
+### 推理控制 {id="reasoning-control"}
 
 您可以通过控制模型推理的提供商特定参数来实现推理控制。
 当使用 OpenAI Chat API 以及支持推理的模型时，使用 `reasoningEffort` 参数来控制模型在提供响应之前生成的推理 token 数量：
@@ -760,7 +760,7 @@ Koog 支持某些 LLM 提供商的特定参数。这些参数扩展了基础 `LL
     ```
     <!--- KNIT example-llm-parameters-java-10.java -->
 
-### 自定义参数
+### 自定义参数 {id="custom-parameters"}
 
 要添加可能是特定于提供商且 Koog 开箱即用不支持的自定义参数，请使用 `additionalProperties` 属性，如以下示例所示。
 
@@ -809,7 +809,7 @@ Koog 支持某些 LLM 提供商的特定参数。这些参数扩展了基础 `LL
     ```
     <!--- KNIT example-llm-parameters-java-11.java -->
 
-### 设置与覆盖参数
+### 设置与覆盖参数 {id="setting-and-overriding-parameters"}
 
 下面的代码示例展示了如何定义一组您可能主要使用的 LLM 参数，然后通过部分覆盖原始集合中的值并向其添加新值来创建另一组参数。
 这允许您定义大多数请求通用的参数，同时添加更具体的参数组合，而无需重复通用参数。

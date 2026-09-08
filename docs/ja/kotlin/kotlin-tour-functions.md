@@ -51,7 +51,7 @@ fun main() {
 > 
 {style="note"}
 
-## 名前付き引数
+## 名前付き引数 {id="named-arguments"}
 
 コードを簡潔にするために、関数を呼び出す際にパラメータ名を含める必要はありません。しかし、パラメータ名を含めると、コードが読みやすくなります。これは**名前付き引数** (Named arguments) と呼ばれます。パラメータ名を含める場合は、パラメータを任意の順序で記述できます。
 
@@ -72,7 +72,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-named-arguments-function"}
 
-## デフォルト引数値
+## デフォルト引数値 {id="default-parameter-values"}
 
 関数のパラメータにデフォルト値を定義できます。デフォルト値を持つパラメータは、関数呼び出し時に省略可能です。デフォルト値を宣言するには、型の後に代入演算子 `=` を使用します。
 
@@ -100,7 +100,7 @@ fun main() {
 >
 {style="note"}
 
-## 戻り値のない関数
+## 戻り値のない関数 {id="functions-without-return"}
 
 関数が有用な値を返さない場合、その戻り値の型は `Unit` になります。`Unit` は `Unit` という1つの値しか持たない型です。関数本体で `Unit` が返されることを明示的に宣言する必要はありません。つまり、`return` キーワードを使用したり、戻り値の型を宣言したりする必要はありません。
 
@@ -117,7 +117,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-unit-function"}
 
-## 単一式関数
+## 単一式関数 {id="single-expression-functions"}
 
 コードをより簡潔にするために、単一式関数 (Single-expression functions) を使用できます。例えば、`sum()` 関数は短縮可能です。
 
@@ -151,7 +151,7 @@ fun main() {
 > 
 {style="note"}
 
-## 関数内での早期リターン
+## 関数内での早期リターン {id="early-returns-in-functions"}
 
 関数のコードがある時点以降処理されないようにするには、`return` キーワードを使用します。この例では、条件式が真である場合に関数から早期リターン (Early return) するために `if` を使用しています。
 
@@ -189,7 +189,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-function-early-return"}
 
-## 関数の練習
+## 関数の練習 {id="functions-practice"}
 
 ### 演習 1 {initial-collapse-state="collapsed" collapsible="true" id="functions-exercise-1"}
 
@@ -293,7 +293,7 @@ fun main() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="解答例" id="kotlin-tour-functions-solution-3"}
 
-## ラムダ式
+## ラムダ式 {id="lambda-expressions"}
 
 Kotlinでは、ラムダ式 (Lambda expressions) を使用することで、関数をさらに簡潔に記述できます。
 
@@ -350,7 +350,7 @@ fun main() {
 * [関数からラムダ式を返す](#関数から返す)
 * [ラムダ式を単独で呼び出す](#単独で呼び出す)
 
-### 別の関数に渡す
+### 別の関数に渡す {id="pass-to-another-function"}
 
 ラムダ式を関数に渡すのが便利な代表例は、コレクションに対して [`.filter()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/filter.html) 関数を使用する場合です。
 
@@ -418,7 +418,7 @@ fun main() {
 * `{ x -> x * 2 }` は、リストの各要素を受け取り、その要素に2を掛けた値を返します。
 * `{ x -> x * 3 }` は、リストの各要素を受け取り、その要素に3を掛けた値を返します。
 
-### 関数型
+### 関数型 {id="function-types"}
 
 関数からラムダ式を返せるようになる前に、まず**関数型** (Function types) を理解する必要があります。
 
@@ -453,7 +453,7 @@ fun main() {
 >
 {style="note"}
 
-### 関数から返す
+### 関数から返す {id="return-from-a-function"}
 
 ラムダ式は関数から返すことができます。コンパイラが返されるラムダ式の型を理解できるように、関数型を宣言する必要があります。
 
@@ -479,7 +479,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-lambda-return-from-function"}
 
-### 単独で呼び出す
+### 単独で呼び出す {id="invoke-separately"}
 
 ラムダ式は、波括弧 `{}` の後に丸括弧 `()` を付け、その中にパラメータを入れることで、単独で呼び出すことができます。
 
@@ -493,7 +493,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-lambda-standalone"}
 
-### 後置ラムダ
+### 後置ラムダ {id="trailing-lambdas"}
 
 すでに見たように、ラムダ式が唯一の関数パラメータである場合、関数の丸括弧 `()` を省略できます。ラムダ式が関数の最後のパラメータとして渡される場合、その式を関数の丸括弧 `()` の外に記述できます。どちらの場合も、この構文は**後置ラムダ** (Trailing lambda) と呼ばれます。
 
@@ -517,7 +517,7 @@ fun main() {
 
 ツアーの次のステップは、Kotlinの[クラス](kotlin-tour-classes.md)について学ぶことです。
 
-## ラムダ式の練習 {completion-point="true"}
+## ラムダ式の練習 {completion-point="true" id="lambda-expressions-practice"}
 
 ### 演習 1 {initial-collapse-state="collapsed" collapsible="true" id="lambdas-exercise-1"}
 

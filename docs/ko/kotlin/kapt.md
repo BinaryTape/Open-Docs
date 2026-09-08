@@ -20,7 +20,7 @@ kapt는 Kotlin 소스 코드에서 스텁(stub) 파일을 생성한 다음, 해�
 >
 {style="warning"}
 
-## 플러그인 설정하기
+## 플러그인 설정하기 {id="set-up-the-plugin"}
 
 [Gradle](#set-up-in-gradle), [Maven](#set-up-in-maven)을 위해 kapt 플러그인을 구성하거나 [커맨드 라인](#cli)에서 사용할 수 있습니다.
 
@@ -82,7 +82,7 @@ Gradle에서 kapt를 사용하려면 다음 단계를 따르세요:
 
 설정을 간소화하기 위해 [`<extensions>` 옵션](#automatic-configuration)을 사용하거나, kapt 실행을 완전히 제어하기 위해 [수동](#manual-configuration)으로 설정할 수 있습니다.
 
-#### 자동 구성
+#### 자동 구성 {id="automatic-configuration"}
 
 Kotlin Maven 플러그인의 `<extensions>` 옵션을 활성화하여 kapt 구성을 간소화할 수 있습니다. 이 경우 kapt의 `<execution>` 섹션을 목표(goal)나 소스 디렉토리와 함께 수동으로 설정할 필요가 없습니다.
 
@@ -109,7 +109,7 @@ kapt를 자동으로 구성하려면, `pom.xml` 빌드 파일에서 `kotlin-mave
 
 `<extensions>` 옵션에 대한 자세한 내용은 [자동 구성](maven-configure-project.md#automatic-configuration)을 참고하세요.
 
-#### 수동 구성
+#### 수동 구성 {id="manual-configuration"}
 
 Kotlin Maven 프로젝트에서 kapt를 수동으로 설정하려면, `compile` 실행 이전에 `kotlin-maven-plugin`의 `kapt` 목표 실행을 추가하세요:
 
@@ -145,7 +145,7 @@ Kotlin Maven 프로젝트에서 kapt를 수동으로 설정하려면, `compile` 
 </configuration>
 ```
 
-### CLI
+### CLI {id="cli"}
 
 kapt는 Kotlin 컴파일러의 바이너리 배포판에 독립적인 CLI 도구로 포함되어 있습니다.
 
@@ -170,13 +170,13 @@ kapt -Kapt-mode=stubsAndApt \
 * [kapt 전용 컴파일러 옵션](#compiler-options) 전체 목록을 확인하세요.
 * 모든 유효한 [Kotlin 컴파일러 옵션](compiler-reference.md)도 전달할 수 있습니다. `kotlinc -help`를 실행하여 확인할 수 있습니다.
 
-## 어노테이션 프로세서 구성
+## 어노테이션 프로세서 구성 {id="configure-annotation-processors"}
 
 kapt는 프로세서 클래스패스 관리, 공유 구성으로부터 프로세서 상속, javac 전용 프로세서 활성 상태 유지 등 어노테이션 프로세서가 검색, 조직 및 실행되는 방식을 제어하는 옵션을 제공합니다.
 
 어노테이션 프로세서 및 javac에 옵션을 전달하는 것과 같은 추가 구성 옵션은 [어노테이션 프로세서 구성](#annotation-processor-configuration)을 참고하세요.
 
-### 프로세서 클래스패스 및 검색 구성
+### 프로세서 클래스패스 및 검색 구성 {id="configure-processor-classpath-and-discovery"}
 
 kapt의 프로세서 경로(processor path)에 포함되지 않은 어노테이션 프로세서의 검색을 비활성화할 수 있습니다. 이를 통해 컴파일 클래스패스에서 불필요한 어노테이션 프로세서를 제외할 수 있습니다.
 
@@ -237,7 +237,7 @@ Set 'kapt.include.compile.classpath=false' to disable discovery.
 >
 {style="tip"}
 
-### 상위 구성(superconfigurations)으로부터 어노테이션 프로세서 상속
+### 상위 구성(superconfigurations)으로부터 어노테이션 프로세서 상속 {id="inherit-annotation-processors-from-superconfigurations"}
 
 별도의 Gradle 구성을 상위 구성으로 정의하여 공통 어노테이션 프로세서 세트를 구성하고, 이를 하위 프로젝트의 kapt 전용 구성에서 확장하여 사용할 수 있습니다.
 
@@ -255,7 +255,7 @@ dependencies {
 
 이 예제에서 `commonAnnotationProcessors` Gradle 구성은 모든 프로젝트에서 사용하고자 하는 공통 어노테이션 처리 상위 구성입니다. [`extendsFrom()`](https://docs.gradle.org/current/dsl/org.gradle.api.artifacts.Configuration.html#org.gradle.api.artifacts.Configuration:extendsFrom) 메서드를 사용하여 `commonAnnotationProcessors`를 상위 구성으로 추가합니다. kapt는 `commonAnnotationProcessors` Gradle 구성이 MapStruct 어노테이션 프로세서에 의존하고 있음을 인식하고, 이를 자신의 어노테이션 처리 구성에 포함시킵니다.
 
-### Java 컴파일러의 어노테이션 프로세서 유지
+### Java 컴파일러의 어노테이션 프로세서 유지 {id="keep-java-compiler-s-annotation-processors"}
 
 기본적으로 kapt는 모든 어노테이션 프로세서를 실행하고 javac에 의한 어노테이션 처리는 비활성화합니다.
 하지만 [Lombok](https://projectlombok.org/)과 같은 일부 어노테이션 프로세서를 실행하기 위해 javac가 필요할 수 있습니다.
@@ -271,13 +271,13 @@ kapt {
 Maven을 사용하는 경우 플러그인 설정을 명시적으로 구성해야 합니다.
 이 [Lombok 컴파일러 플러그인 설정 예시](lombok.md#using-with-kapt)를 참고하세요.
 
-## kapt 빌드 최적화
+## kapt 빌드 최적화 {id="optimize-kapt-builds"}
 
 kapt는 작업을 병렬로 실행하거나, 빌드 캐시 활용, 프로세서 클래스 로더 캐싱, 증분 어노테이션 처리 사용 등 어노테이션 처리 시간을 줄이기 위한 몇 가지 Gradle 전용 전략을 제공합니다.
 
 오류 타입 보정, 스텁 메타데이터 제거, 컴파일 클래스패스 스캐닝 등 빌드 동작에 영향을 주는 추가 옵션은 [동작 옵션](#behavioral-options)을 참고하세요.
 
-### kapt 작업을 병렬로 실행하기
+### kapt 작업을 병렬로 실행하기 {id="run-kapt-tasks-in-parallel"}
 
 kapt는 [Gradle Worker API](https://docs.gradle.org/current/userguide/worker_api.html)를 사용하여 어노테이션 처리 작업을 실행합니다. Worker API를 사용하면 Gradle이 단일 프로젝트 내의 독립적인 어노테이션 처리 작업을 병렬로 실행할 수 있으며, 이는 일부 경우에 실행 시간을 크게 단축시킵니다.
 
@@ -308,7 +308,7 @@ tasks.withType(org.jetbrains.kotlin.gradle.internal.KaptWithoutKotlincTask.class
 </tab>
 </tabs>
 
-### Gradle 빌드 캐시 안전하게 사용하기
+### Gradle 빌드 캐시 안전하게 사용하기 {id="use-gradle-build-cache-safely"}
 
 kapt 어노테이션 처리 작업은 기본적으로 [Gradle에서 캐시](https://docs.gradle.org/current/userguide/build_cache_use_cases.html)됩니다. 하지만 어노테이션 프로세서는 임의의 코드를 실행할 수 있습니다. 이는 작업 입력을 출력으로 불필요하게 변환하거나 Gradle이 추적하지 않는 파일에 접근하고 수정하는 결과를 초래할 수 있습니다.
 
@@ -320,7 +320,7 @@ kapt {
 }
 ```
 
-### 어노테이션 프로세서 클래스 로더 캐싱
+### 어노테이션 프로세서 클래스 로더 캐싱 {id="cache-annotation-processors-classloaders"}
 
 <primary-label ref="experimental-general"/>
 
@@ -350,7 +350,7 @@ kapt.classloaders.cache.disableForProcessors=[어노테이션 프로세서 전�
 >
 {style="note"}
 
-### 증분 어노테이션 처리 사용하기
+### 증분 어노테이션 처리 사용하기 {id="use-incremental-annotation-processing"}
 
 Gradle에서 kapt는 기본적으로 증분 어노테이션 처리를 지원하므로 변경된 파일만 다시 처리됩니다.
 
@@ -369,13 +369,13 @@ kapt.incremental.apt=false
 > 
 {style="note"}
 
-## 성능 분석
+## 성능 분석 {id="analyze-performance"}
 
 kapt는 어노테이션 처리 성능을 파악하는 데 도움이 되는 내장 진단 기능을 제공합니다. 여기에는 프로세서별 실행 시간 보고서와 사용되지 않는 프로세서를 식별하기 위한 생성된 파일 수 통계가 포함됩니다.
 
 증분 처리 디버깅을 위한 파일 읽기 기록 및 메모리 누수 감지와 같은 더 많은 진단 옵션은 [진단 및 통계 옵션](#diagnostics-and-statistics-options)을 참고하세요.
 
-### 어노테이션 프로세서 성능 측정
+### 어노테이션 프로세서 성능 측정 {id="measure-the-performance-of-annotation-processors"}
 
 어노테이션 프로세서 실행에 대한 성능 통계를 얻으려면 [`showProcessorStats`](#diagnostics-and-statistics-options) 옵션을 사용하세요. 출력 예시는 다음과 같습니다:
 
@@ -394,7 +394,7 @@ kapt -Kapt-mode=stubsAndApt \
   sample/src/main/
 ```
 
-### 생성된 파일 수 추적
+### 생성된 파일 수 추적 {id="track-the-number-of-generated-files"}
 
 kapt 플러그인은 각 어노테이션 프로세서에 대해 생성된 파일 수에 대한 통계를 보고할 수 있습니다.
 
@@ -431,7 +431,7 @@ kapt 플러그인은 각 어노테이션 프로세서에 대해 생성된 파일
 >
 {style="note"}
 
-## Kotlin 소스 생성
+## Kotlin 소스 생성 {id="generate-kotlin-sources"}
 
 kapt는 Kotlin 소스를 생성할 수 있습니다. 생성된 Kotlin 소스 파일을 `processingEnv.options["kapt.kotlin.generated"]`에 지정된 디렉토리에 작성하면, 이 파일들은 메인 소스와 함께 컴파일됩니다.
 
@@ -439,9 +439,9 @@ kapt는 Kotlin 소스를 생성할 수 있습니다. 생성된 Kotlin 소스 파
 > 
 {style="note"}
 
-## 컴파일러 옵션
+## 컴파일러 옵션 {id="compiler-options"}
 
-### 어노테이션 프로세서 구성
+### 어노테이션 프로세서 구성 {id="annotation-processor-configuration"}
 
 <table sticky-header="true">
     <tr>
@@ -573,7 +573,7 @@ kapt는 Kotlin 소스를 생성할 수 있습니다. 생성된 Kotlin 소스 파
     </tr>
 </table>
 
-### 출력 디렉토리 옵션
+### 출력 디렉토리 옵션 {id="output-directory-options"}
 
 <table sticky-header="true">
     <tr>
@@ -619,7 +619,7 @@ kapt는 Kotlin 소스를 생성할 수 있습니다. 생성된 Kotlin 소스 파
     </tr>
 </table>
 
-### 동작 옵션
+### 동작 옵션 {id="behavioral-options"}
 
 <table sticky-header="true">
     <tr>
@@ -775,7 +775,7 @@ kapt는 Kotlin 소스를 생성할 수 있습니다. 생성된 Kotlin 소스 파
     </tr>
 </table>
 
-### 진단 및 통계 옵션
+### 진단 및 통계 옵션 {id="diagnostics-and-statistics-options"}
 
 <table sticky-header="true">
     <tr>
@@ -831,7 +831,7 @@ kapt는 Kotlin 소스를 생성할 수 있습니다. 생성된 Kotlin 소스 파
     </tr>
 </table>
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [MapStruct 어노테이션 프로세서와 함께 kapt 사용하기](jvm-annotation-processors.md#use-kapt-with-java-annotation-processors)
 * [kapt에서 KSP로 마이그레이션하는 방법 보기](ksp-kapt-migration.md)

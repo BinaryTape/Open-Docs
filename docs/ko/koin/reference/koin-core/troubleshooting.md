@@ -6,9 +6,9 @@ title: 문제 해결
 
 이 가이드에서는 디버깅, 일반적인 오류, 그리고 피해야 할 안티 패턴에 대해 다룹니다.
 
-## 순환 의존성(Circular Dependencies)
+## 순환 의존성(Circular Dependencies) {id="circular-dependencies"}
 
-### 문제
+### 문제 {id="problem"}
 
 ```kotlin
 // 순환 의존성
@@ -25,7 +25,7 @@ module {
 [Koin 컴파일러 플러그인](/docs/reference/koin-compiler/compile-safety)은 컴파일 과정(A2/A3 단계) 중에 순환 의존성을 탐지하므로, 런타임까지 기다릴 필요가 없습니다. 플러그인이 없으면 런타임 오류와 함께 시작 시점에 실패하게 됩니다.
 :::
 
-### 해결 방법 1: 지연 주입(Lazy Injection)
+### 해결 방법 1: 지연 주입(Lazy Injection) {id="solution-1-lazy-injection"}
 
 지연 해결(lazy resolution)을 통해 순환을 끊습니다:
 
@@ -44,7 +44,7 @@ module {
 }
 ```
 
-### 해결 방법 2: 공통 의존성 추출
+### 해결 방법 2: 공통 의존성 추출 {id="solution-2-extract-shared-dependency"}
 
 순환을 제거하도록 리팩터링합니다(권장):
 
@@ -60,7 +60,7 @@ class ServiceA(private val shared: SharedService)
 class ServiceB(private val shared: SharedService)
 ```
 
-### 해결 방법 3: 인터페이스 사용
+### 해결 방법 3: 인터페이스 사용 {id="solution-3-use-an-interface"}
 
 ```kotlin
 interface ServiceBContract {
@@ -74,9 +74,9 @@ class ServiceA(private val serviceB: ServiceBContract)
 class ServiceB(private val serviceA: ServiceA) : ServiceBContract
 ```
 
-## 디버깅
+## 디버깅 {id="debugging"}
 
-### 로깅 활성화
+### 로깅 활성화 {id="enable-logging"}
 
 ```kotlin
 startKoin {
@@ -87,7 +87,7 @@ startKoin {
 }
 ```
 
-### `verify()`를 사용한 모듈 검증
+### `verify()`를 사용한 모듈 검증 {id="verify-modules-with-verify"}
 
 모든 정의가 해결될 수 있는지 확인합니다:
 
@@ -103,7 +103,7 @@ fun `verify all modules`() {
 Koin 컴파일러 플러그인은 이제 컴파일 타임 의존성 검증을 제공하여 `verify()`와 `checkModules()`를 대체합니다. 자세한 내용은 [컴파일 타임 안정성(Compile-Time Safety)](/docs/reference/koin-compiler/compile-safety)을 참조하세요.
 :::
 
-## 일반적인 오류
+## 일반적인 오류 {id="common-errors"}
 
 **정의 누락(Missing Definition):**
 ```
@@ -129,9 +129,9 @@ Multiple definitions found for type 'ApiClient'
 ```
 해결 방법: 한정자(qualifier)를 사용하여 정의를 구분합니다.
 
-## 일반적인 안티 패턴
+## 일반적인 안티 패턴 {id="common-anti-patterns"}
 
-### 1. 서비스 로케이터 오용
+### 1. 서비스 로케이터 오용 {id="1-service-locator-overuse"}
 
 ```kotlin
 // 나쁜 예 - 서비스 로케이터 패턴
@@ -152,7 +152,7 @@ class UserViewModel(
 }
 ```
 
-### 2. 갓 모듈(God Modules)
+### 2. 갓 모듈(God Modules) {id="2-god-modules"}
 
 ```kotlin
 // 나쁜 예 - 모든 것을 하나의 모듈에 포함
@@ -166,7 +166,7 @@ val networkModule = module { /* ... */ }
 val homeModule = module { /* ... */ }
 ```
 
-### 3. 과도한 한정자 사용
+### 3. 과도한 한정자 사용 {id="3-excessive-qualifiers"}
 
 ```kotlin
 // 나쁜 예 - 서로 다른 타입에 한정자 사용
@@ -182,7 +182,7 @@ module {
 }
 ```
 
-### 4. 관심사 혼용
+### 4. 관심사 혼용 {id="4-mixing-concerns"}
 
 ```kotlin
 // 나쁜 예 - 모듈 내의 부수 효과(side effects)
@@ -199,7 +199,7 @@ module {
 }
 ```
 
-### 5. 숨겨진 의존성
+### 5. 숨겨진 의존성 {id="5-hidden-dependencies"}
 
 ```kotlin
 // 나쁜 예 - 내부에 숨겨진 의존성
@@ -211,7 +211,7 @@ class UserService {
 class UserService(private val api: ApiClient)
 ```
 
-## 베스트 프랙티스 요약
+## 베스트 프랙티스 요약 {id="best-practices-summary"}
 
 1. **생성자 주입 선호** - 클래스 내부에서 `get()` 호출 지양
 2. **Koin 컴파일러 플러그인 사용** - 컴파일 타임에 누락된 정의 탐지 (또는 테스트에서 `verify()` 사용)
@@ -219,7 +219,7 @@ class UserService(private val api: ApiClient)
 4. **순환 의존성 방지** - 리팩터링하거나 지연 주입 사용
 5. **한정자 사용 절제** - 동일한 타입의 인스턴스가 여러 개인 경우에만 사용
 
-## 다음 단계
+## 다음 단계 {id="next-steps"}
 
 - **[모듈(Modules)](/docs/reference/koin-core/modules)** - 모듈 조직화
 - **[테스트(Testing)](/docs/reference/koin-test/testing)** - Koin으로 테스트하기

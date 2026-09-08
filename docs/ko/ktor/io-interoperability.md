@@ -23,7 +23,7 @@ Ktor는 기본 I/O 프리미티브를 제공하는 멀티플랫폼 Kotlin 라이
 
 이 페이지에서는 Ktor의 I/O 프리미티브([`ByteReadChannel`](https://api.ktor.io/ktor-io/io.ktor.utils.io/-byte-read-channel/index.html), [`ByteWriteChannel`](https://api.ktor.io/ktor-io/io.ktor.utils.io/-byte-write-channel/index.html))와 이러한 외부 타입 간에 변환하는 방법을 설명합니다.
 
-## `ByteReadChannel`을 `RawSource`로 변환하기
+## `ByteReadChannel`을 `RawSource`로 변환하기 {id="convert-bytereadchannel-to-rawsource"}
 
 `ByteReadChannel`을 `RawSource`로 변환하려면 `.asSource()` 확장 함수를 사용합니다:
 
@@ -37,7 +37,7 @@ client.prepareGet("https://httpbin.org/bytes/1024").execute { httpResponse ->
 }
 ```
 
-## `ByteWriteChannel`을 `RawSink`로 변환하기
+## `ByteWriteChannel`을 `RawSink`로 변환하기 {id="convert-bytewritechannel-to-rawsink"}
 
 일시 중단 가능한 `ByteWriteChannel`을 `RawSink`로 변환하려면 `.asSink()` 확장 함수를 사용합니다:
 
@@ -54,7 +54,7 @@ get("/sink") {
 
 이 어댑터로 생성된 `RawSink`는 데이터를 플러시(flush)할 때 내부적으로 `runBlocking`을 사용하므로, 플러시 작업이 호출 스레드를 차단(block)할 수 있습니다.
 
-## `RawSink`를 `ByteWriteChannel`로 변환하기
+## `RawSink`를 `ByteWriteChannel`로 변환하기 {id="convert-rawsink-to-bytewritechannel"}
 
 `RawSink`를 일시 중단 가능한 `ByteWriteChannel`로 래핑하려면 `.asByteWriteChannel()` 확장 함수를 사용합니다:
 
@@ -71,7 +71,7 @@ get("/raw-sink") {
 
 이를 통해 일시 중단 함수에서 싱크(sink)로 비동기 쓰기가 가능해집니다. 반환된 채널은 버퍼링됩니다. 모든 데이터가 기록되었는지 확인하려면 `.flush()` 또는 `.flushAndClose()`를 사용하세요.
 
-## `OutputStream`을 `ByteWriteChannel`로 변환하기
+## `OutputStream`을 `ByteWriteChannel`로 변환하기 {id="convert-outputstream-to-bytewritechannel"}
 
 Java `OutputStream`을 `ByteWriteChannel`로 변환하려면 `.asByteWriteChannel()` 확장 함수를 사용합니다:
 

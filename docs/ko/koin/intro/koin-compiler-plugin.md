@@ -6,7 +6,7 @@ title: Koin 컴파일러 플러그인
 
 **Koin 컴파일러 플러그인**은 모든 새로운 Kotlin 2.x 프로젝트에 권장되는 방식입니다. 이는 자동 연결(auto-wiring), 컴파일 타임 안전성, 그리고 더 깔끔한 구문을 통해 **DSL과 어노테이션(Annotations)** 모두를 지원하는 네이티브 Kotlin 컴파일러 플러그인입니다.
 
-## 컴파일러 플러그인이란?
+## 컴파일러 플러그인이란? {id="what-is-the-compiler-plugin"}
 
 Koin 컴파일러 플러그인은 KSP나 어노테이션 프로세싱이 아닌 **네이티브 Kotlin 컴파일러 플러그인(K2)**입니다. Kotlin 컴파일러와 직접 통합되어 다음과 같은 기능을 수행합니다:
 
@@ -15,9 +15,9 @@ Koin 컴파일러 플러그인은 KSP나 어노테이션 프로세싱이 아닌 
 - **DSL 및 어노테이션 모두 지원** - 원하는 스타일을 선택할 수 있습니다.
 - **가시적인 파일 생성 없음** - 프로젝트 구조가 더 깔끔해집니다.
 
-## 왜 컴파일러 플러그인을 사용해야 하나요?
+## 왜 컴파일러 플러그인을 사용해야 하나요? {id="why-use-the-compiler-plugin"}
 
-### 1. 더 안전한 코드
+### 1. 더 안전한 코드 {id="1-safer-code"}
 
 플러그인이 생성자 의존성을 자동으로 감지하여 수동 연결 시 발생할 수 있는 실수를 줄여줍니다:
 
@@ -33,7 +33,7 @@ val appModule = module {
 }
 ```
 
-### 2. 더 깔끔한 구문
+### 2. 더 깔끔한 구문 {id="2-cleaner-syntax"}
 
 보일러플레이트가 줄어들고 가독성이 높아집니다:
 
@@ -46,7 +46,7 @@ val appModule = module {
 | `scopedOf(::MyPresenter)` | `scoped<MyPresenter>()` |
 | `workerOf(::MyWorker)` | `worker<MyWorker>()` |
 
-### 3. 컴파일 타임 안전성
+### 3. 컴파일 타임 안전성 {id="3-compile-time-safety"}
 
 Koin 컴파일러 플러그인은 DSL과 어노테이션 모두에 대해 **컴파일 타임 의존성 검증**을 제공합니다:
 
@@ -58,7 +58,7 @@ Koin 컴파일러 플러그인은 DSL과 어노테이션 모두에 대해 **컴�
 
 자세한 내용은 [컴파일 타임 안전성](/docs/reference/koin-compiler/compile-safety)을 참조하세요.
 
-### 4. DSL 및 어노테이션 - 둘 다 동일하게 강력함
+### 4. DSL 및 어노테이션 - 둘 다 동일하게 강력함 {id="4-dsl-annotations-both-equally-powerful"}
 
 어떤 스타일을 선호하든 상관없습니다. 동일한 플러그인이 두 방식 모두에 동일한 기능을 제공합니다:
 
@@ -101,9 +101,9 @@ class UserRepository(private val database: Database)
 class UserViewModel(private val repository: UserRepository) : ViewModel()
 ```
 
-## 시작하기
+## 시작하기 {id="getting-started"}
 
-### 설정
+### 설정 {id="setup"}
 
 프로젝트에 컴파일러 플러그인을 추가합니다.
 
@@ -111,7 +111,7 @@ class UserViewModel(private val repository: UserRepository) : ViewModel()
 상세한 지침은 **[컴파일러 플러그인 설정 가이드](/docs/setup/compiler-plugin)**를 참조하세요.
 :::
 
-### 컴파일러 플러그인 DSL 사용하기
+### 컴파일러 플러그인 DSL 사용하기 {id="using-the-compiler-plugin-dsl"}
 
 컴파일러 플러그인 패키지에서 임포트합니다:
 
@@ -131,7 +131,7 @@ val appModule = module {
 컴파일러 플러그인 DSL은 `org.koin.plugin.module.dsl`에 위치합니다. Classic DSL은 `org.koin.dsl`에 그대로 유지됩니다.
 :::
 
-### 어노테이션 사용하기
+### 어노테이션 사용하기 {id="using-annotations"}
 
 어노테이션은 이전과 동일하게 작동합니다:
 
@@ -156,18 +156,18 @@ class UserViewModel(private val repository: UserRepository) : ViewModel()
 class AppModule
 ```
 
-## 동작 원리
+## 동작 원리 {id="how-it-works"}
 
 컴파일러 플러그인은 두 단계로 작동합니다:
 
-### 1. FIR 단계 (분석)
+### 1. FIR 단계 (분석) {id="1-fir-phase-analysis"}
 
 Frontend Intermediate Representation 단계에서 플러그인은 다음을 수행합니다:
 - 모듈 정의 분석
 - 생성자 파라미터 감지
 - 의존성 선언 검증
 
-### 2. IR 단계 (변환)
+### 2. IR 단계 (변환) {id="2-ir-phase-transformation"}
 
 Intermediate Representation 단계에서 플러그인은 다음을 수행합니다:
 - 각 파라미터에 대한 적절한 `get()` 호출 생성
@@ -175,7 +175,7 @@ Intermediate Representation 단계에서 플러그인은 다음을 수행합니�
 - 주입된 파라미터(`@InjectedParam`) 처리
 - Nullable 및 Lazy 타입 처리
 
-### 생성되는 코드
+### 생성되는 코드 {id="what-gets-generated"}
 
 다음과 같이 작성하면:
 
@@ -210,9 +210,9 @@ class MyService(
 - 지연 로딩(Lazy): `inject()`
 - 주입 파라미터(InjectedParam): `params.get()`
 
-## 컴파일러 플러그인 DSL 레퍼런스
+## 컴파일러 플러그인 DSL 레퍼런스 {id="compiler-plugin-dsl-reference"}
 
-### 정의 유형
+### 정의 유형 {id="definition-types"}
 
 ```kotlin
 import org.koin.plugin.module.dsl.*
@@ -237,7 +237,7 @@ val appModule = module {
 }
 ```
 
-### `create()`를 이용한 안전한 인스턴스 생성
+### `create()`를 이용한 안전한 인스턴스 생성 {id="safe-instance-creation-with-create"}
 
 정의 람다 내부에서 `create(::T)`를 사용하여 생성자 의존성이 자동으로 해결되는 인스턴스를 안전하게 빌드할 수 있습니다:
 
@@ -249,7 +249,7 @@ val appModule = module {
 
 컴파일러 플러그인은 `create(::MyService)`를 `MyService(get(), get(), ...)`으로 변환하여 모든 생성자 파라미터를 자동으로 연결합니다.
 
-### 식별자(Qualifiers) 사용
+### 식별자(Qualifiers) 사용 {id="with-qualifiers"}
 
 클래스에 `@Named`를 사용하여 식별자를 정의하고, 파라미터에 사용하여 어떤 의존성을 주입할지 지정할 수 있습니다:
 
@@ -296,7 +296,7 @@ class SyncService(
 )
 ```
 
-### 파라미터 사용
+### 파라미터 사용 {id="with-parameters"}
 
 주입 시점에 전달되는 파라미터를 표시하려면 클래스에 `@InjectedParam`을 사용하세요:
 
@@ -316,7 +316,7 @@ val appModule = module {
 val presenter: UserPresenter = get { parametersOf("user123") }
 ```
 
-### 인터페이스 바인딩
+### 인터페이스 바인딩 {id="interface-binding"}
 
 ```kotlin
 val appModule = module {
@@ -330,9 +330,9 @@ val appModule = module {
 }
 ```
 
-## 어노테이션 레퍼런스
+## 어노테이션 레퍼런스 {id="annotations-reference"}
 
-### 정의 어노테이션
+### 정의 어노테이션 {id="definition-annotations"}
 
 | 어노테이션 | 설명 |
 |------------|-------------|
@@ -342,7 +342,7 @@ val appModule = module {
 | `@KoinViewModel` | Android ViewModel |
 | `@KoinWorker` | Android WorkManager Worker |
 
-### 파라미터 어노테이션
+### 파라미터 어노테이션 {id="parameter-annotations"}
 
 | 어노테이션 | 설명 |
 |------------|-------------|
@@ -351,7 +351,7 @@ val appModule = module {
 | `@Property("key")` | Koin 프로퍼티 값 |
 | `@Provided` | 외부 의존성 (검증 건너뛰기) |
 
-### 모듈 어노테이션
+### 모듈 어노테이션 {id="module-annotations"}
 
 | 어노테이션 | 설명 |
 |------------|-------------|
@@ -359,7 +359,7 @@ val appModule = module {
 | `@ComponentScan("package")` | 어노테이션이 달린 클래스를 찾기 위해 패키지 스캔 |
 | `@Configuration` | 자동 감지되는 모듈 |
 
-## 접근 방식 비교
+## 접근 방식 비교 {id="comparison-approaches"}
 
 | 접근 방식 | 상태 | 패키지 | 구문 |
 |----------|--------|---------|--------|
@@ -368,34 +368,34 @@ val appModule = module {
 | **Classic DSL** | 완전히 지원됨 | `org.koin.dsl` | `singleOf(::MyService)`, `single { MyService(get()) }`, `viewModelOf(::MyVM)` |
 | **KSP 프로세서** | 지원 중단(Deprecated) | `koin-ksp-compiler` | Koin 어노테이션을 위한 레거시 프로세서 — 동일한 어노테이션을 사용하며, **컴파일러 플러그인으로 마이그레이션하세요 ⚠️** |
 
-### 컴파일러 플러그인 DSL (권장됨)
+### 컴파일러 플러그인 DSL (권장됨) {id="compiler-plugin-dsl-recommended"}
 
 - 의존성 자동 감지
 - 컴파일 타임 분석
 - 가장 깔끔한 구문
 
-### 컴파일러 플러그인 어노테이션 (권장됨)
+### 컴파일러 플러그인 어노테이션 (권장됨) {id="compiler-plugin-annotations-recommended"}
 
 - 의존성 자동 감지
 - 컴파일 타임 분석
 - 익숙한 어노테이션 스타일
 
-### Classic DSL (완전히 지원됨)
+### Classic DSL (완전히 지원됨) {id="classic-dsl-fully-supported"}
 
 - 모든 Kotlin 버전에서 작동
 - 연결 방식에 대한 완전한 제어
 - 준비가 되었을 때 플러그인 DSL로 마이그레이션 가능
 
-### KSP 프로세서 `koin-ksp-compiler` (지원 중단)
+### KSP 프로세서 `koin-ksp-compiler` (지원 중단) {id="ksp-processor-koin-ksp-compiler-deprecated"}
 
 - `koin-annotations` 라이브러리는 **지원 중단되지 않았습니다** — 이제 Koin 프로젝트의 일부입니다.
 - 레거시 KSP 기반 프로세서(`koin-ksp-compiler`)만 지원 중단되었습니다.
 - Koin 컴파일러 플러그인으로 마이그레이션하세요 — 어노테이션은 동일하게 유지됩니다.
 - `koin-ksp-compiler`는 향후 Koin 버전에서 제거될 예정입니다.
 
-## 마이그레이션
+## 마이그레이션 {id="migration"}
 
-### Classic DSL로부터 마이그레이션
+### Classic DSL로부터 마이그레이션 {id="from-classic-dsl"}
 
 Classic DSL을 사용 중이라면 마이그레이션은 선택 사항이지만 권장됩니다:
 
@@ -406,7 +406,7 @@ Classic DSL을 사용 중이라면 마이그레이션은 선택 사항이지만 
 
 컴파일 타임에 안전한 구문에 대해서는 [컴파일러 플러그인 DSL 레퍼런스](/docs/setup/compiler-plugin#dsl-style)를 참조하세요.
 
-### KSP 프로세서(`koin-ksp-compiler`)로부터 마이그레이션
+### KSP 프로세서(`koin-ksp-compiler`)로부터 마이그레이션 {id="from-the-ksp-processor-koin-ksp-compiler"}
 
 레거시 KSP 프로세서와 함께 Koin 어노테이션을 사용 중이라면 지금 마이그레이션하는 것이 좋습니다:
 
@@ -417,12 +417,12 @@ Classic DSL을 사용 중이라면 마이그레이션은 선택 사항이지만 
 
 [KSP에서 컴파일러 플러그인으로 마이그레이션하기](/docs/migration/from-ksp-to-compiler-plugin)를 참조하세요.
 
-## 요구 사항
+## 요구 사항 {id="requirements"}
 
 - **Kotlin 2.x** (K2 컴파일러)
 - Gradle 8.x 이상
 
-## 구성 옵션
+## 구성 옵션 {id="configuration-options"}
 
 ```kotlin
 // build.gradle.kts
@@ -431,7 +431,7 @@ koinCompiler {
 }
 ```
 
-## Classic DSL: 여전히 완전히 지원됨
+## Classic DSL: 여전히 완전히 지원됨 {id="classic-dsl-still-fully-supported"}
 
 컴파일러 플러그인이 Classic DSL을 대체하는 것이 아니라, 그 위에 분석 및 생성 기능을 추가하는 것입니다. Classic DSL은 여전히 완전히 지원됩니다:
 
@@ -451,7 +451,7 @@ val appModule = module {
 - 조건부 인스턴스화
 - Kotlin 1.x와의 하위 호환성
 
-## 다음 단계
+## 다음 단계 {id="next-steps"}
 
 - **[설정 가이드](/docs/setup/compiler-plugin)** - 상세 설정 지침
 - **[DSL 레퍼런스](/docs/reference/dsl-reference)** - 전체 DSL 문서

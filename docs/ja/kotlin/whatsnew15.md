@@ -12,7 +12,7 @@ Kotlin 1.5.0 では、新しい言語機能、安定版となった IR ベース
 >
 {style="tip"}
 
-## 言語機能
+## 言語機能 {id="language-features"}
 
 Kotlin 1.5.0 では、[1.4.30 でプレビュー](whatsnew1430.md#language-features)として提供された新しい言語機能の安定版が導入されました。
 * [JVM レコードのサポート](#jvm-records-support)
@@ -21,7 +21,7 @@ Kotlin 1.5.0 では、[1.4.30 でプレビュー](whatsnew1430.md#language-featu
 
 これらの機能の詳細は、[こちらのブログ投稿](https://blog.jetbrains.com/kotlin/2021/02/new-language-features-preview-in-kotlin-1-4-30/)および Kotlin ドキュメントの該当ページで確認できます。
 
-### JVM レコードのサポート
+### JVM レコードのサポート {id="jvm-records-support"}
 
 Java は急速に進化しており、Kotlin が Java との相互運用性を維持できるように、Java の最新機能の一つである [レコードクラス (record classes)](https://openjdk.java.net/jeps/395) のサポートを導入しました。
 
@@ -38,7 +38,7 @@ data class User(val name: String, val age: Int)
 
 <video src="https://www.youtube.com/v/iyEWXyuuseU" title="Support for JVM Records in Kotlin 1.5.0"/>
 
-### Sealed インターフェース
+### Sealed インターフェース {id="sealed-interfaces"}
 
 Kotlin のインターフェースに `sealed` 修飾子を付けられるようになりました。これはクラスの場合と同様に機能します。sealed インターフェースのすべての実装は、コンパイル時に既知となります。
 
@@ -67,7 +67,7 @@ class FilledRectangle: Polygon, Fillable
 
 <video src="https://www.youtube.com/v/d_Mor21W_60" title="Sealed Interfaces and Sealed Classes Improvements"/>
 
-### パッケージ全体の sealed クラス階層
+### パッケージ全体の sealed クラス階層 {id="package-wide-sealed-class-hierarchies"}
 
 Sealed クラスは、同じコンパイル単位かつ同じパッケージ内のすべてのファイルにサブクラスを持てるようになりました。以前は、すべてのサブクラスを同じファイル内に記述する必要がありました。
 
@@ -77,7 +77,7 @@ Sealed クラスのサブクラスは、適切に修飾された名前（qualifi
 
 [Sealed クラスの階層について詳しく学ぶ](sealed-classes.md#inheritance)。
 
-### インラインクラス (Inline classes)
+### インラインクラス (Inline classes) {id="inline-classes"}
 
 インラインクラスは、値のみを保持する[値ベース (value-based)](https://github.com/Kotlin/KEEP/blob/master/notes/value-classes.md)のクラスのサブセットです。メモリ割り当てによる追加のオーバーヘッドなしに、特定の型の値のラッパーとして使用できます。
 
@@ -100,7 +100,7 @@ value class Password(val s: String)
 
 <video src="https://www.youtube.com/v/LpqvtgibbsQ" title="From Inline to Value Classes"/>
 
-## Kotlin/JVM
+## Kotlin/JVM {id="kotlin-jvm"}
 
 Kotlin/JVM には、内部的な改善とユーザー向けの改善の両方が多数導入されました。主なものは以下の通りです。
 
@@ -111,7 +111,7 @@ Kotlin/JVM には、内部的な改善とユーザー向けの改善の両方が
 * [@JvmDefault および古い Xjvm-default モードの非推奨化](#deprecation-of-jvmdefault-and-old-xjvm-default-modes)
 * [Nullability アノテーションの処理の改善](#improvements-to-handling-nullability-annotations)
 
-### 安定版 JVM IR バックエンド
+### 安定版 JVM IR バックエンド {id="stable-jvm-ir-backend"}
 
 Kotlin/JVM コンパイラの [IR ベースのバックエンド](whatsnew14.md#new-jvm-ir-backend)が[安定版（Stable）](components-stability.md)となり、デフォルトで有効になりました。
 
@@ -154,7 +154,7 @@ Kotlin 1.5.0 で古いバックエンドを使用する必要がある場合は�
  </configuration>
  ```
 
-### 新しいデフォルト JVM ターゲット: 1.8
+### 新しいデフォルト JVM ターゲット: 1.8 {id="new-default-jvm-target-1-8"}
 
 Kotlin/JVM コンパイルのデフォルトターゲットバージョンが `1.8` になりました。`1.6` ターゲットは非推奨です。
 
@@ -164,7 +164,7 @@ JVM 1.6 用のビルドが必要な場合は、引き続きそのターゲット
 * [Maven の場合](maven-kotlin-compiler.md#attributes-specific-to-jvm)
 * [コマンドラインコンパイラの場合](compiler-reference.md#jvm-target-version)
 
-### invokedynamic を介した SAM アダプター
+### invokedynamic を介した SAM アダプター {id="sam-adapters-via-invokedynamic"}
 
 Kotlin 1.5.0 では、SAM (Single Abstract Method) 変換のコンパイルに動的呼び出し (`invokedynamic`) を使用するようになりました。
 * SAM 型が [Java インターフェース](java-interop.md#sam-conversions) である場合の任意の式
@@ -176,7 +176,7 @@ Kotlin 1.5.0 では、SAM (Single Abstract Method) 変換のコンパイルに�
 
 Gradle、Maven、およびコマンドラインコンパイラでのコンパイラオプションの追加方法は、[Gradle](gradle-compiler-options.md)、[Maven](maven-kotlin-compiler.md#specify-compiler-options)、および[コマンドラインコンパイラ](compiler-reference.md#compiler-options)を参照してください。
 
-### invokedynamic を介したラムダ
+### invokedynamic を介したラムダ {id="lambdas-via-invokedynamic"}
 
 > 純粋な Kotlin ラムダを `invokedynamic` にコンパイルする機能は[実験的（Experimental）](components-stability.md)です。これはいつでも削除または変更される可能性があります。使用にはオプトインが必要であり（詳細は下記参照）、評価目的でのみ使用してください。[YouTrack](https://youtrack.jetbrains.com/issue/KT-45375) でのフィードバックをお待ちしております。
 >
@@ -192,7 +192,7 @@ Kotlin 1.5.0 では、純粋な Kotlin ラムダ（関数型インターフェ�
 
 Gradle、Maven、およびコマンドラインコンパイラでのコンパイラオプションの追加方法は、[Gradle](gradle-compiler-options.md)、[Maven](maven-kotlin-compiler.md#specify-compiler-options)、および[コマンドラインコンパイラ](compiler-reference.md#compiler-options)を参照してください。
 
-### @JvmDefault および古い Xjvm-default モードの非推奨化
+### @JvmDefault および古い Xjvm-default モードの非推奨化 {id="deprecation-of-jvmdefault-and-old-xjvm-default-modes"}
 
 Kotlin 1.4.0 以前は、`-Xjvm-default=enable` および `-Xjvm-default=compatibility` モードとともに `@JvmDefault` アノテーションが存在していました。これらは、Kotlin インターフェース内の特定の非抽象メンバに対して JVM デフォルトメソッドを作成するために使用されていました。
 
@@ -202,7 +202,7 @@ Kotlin 1.5.0 では、`@JvmDefault` および古い Xjvm-default モード（`-X
 
 [Java 相互運用におけるデフォルトメソッドについて詳しく学ぶ](java-to-kotlin-interop.md#default-methods-in-interfaces)。
 
-### Nullability アノテーションの処理の改善
+### Nullability アノテーションの処理の改善 {id="improvements-to-handling-nullability-annotations"}
 
 Kotlin は、[nullability アノテーション](java-interop.md#nullability-annotations) を使用して Java からの型の null 許容情報を取り扱うことをサポートしています。Kotlin 1.5.0 では、この機能にいくつかの改善が導入されました。
 
@@ -220,13 +220,13 @@ Kotlin は、[nullability アノテーション](java-interop.md#nullability-ann
 
 [Null 安全性とプラットフォーム型について詳しく学ぶ](java-interop.md#null-safety-and-platform-types)。
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 Kotlin/Native はよりパフォーマンスが高く、安定しました。主な変更点は以下の通りです。
 * [パフォーマンスの向上](#performance-improvements)
 * [メモリリークチェッカーの無効化](#deactivation-of-the-memory-leak-checker)
 
-### パフォーマンスの向上
+### パフォーマンスの向上 {id="performance-improvements"}
 
 1.5.0 では、Kotlin/Native においてコンパイルと実行の両方を高速化する一連のパフォーマンスの改善が行われました。
 
@@ -242,7 +242,7 @@ Kotlin/Native はよりパフォーマンスが高く、安定しました。主
 * 些細な（Trivial）プロパティアクセサがインライン化されます。
 * 文字列リテラルの `trimIndent()` がコンパイル中に評価されます。
 
-### メモリリークチェッカーの無効化
+### メモリリークチェッカーの無効化 {id="deactivation-of-the-memory-leak-checker"}
 
 組み込みの Kotlin/Native メモリリークチェッカーがデフォルトで無効になりました。
 
@@ -256,20 +256,20 @@ Platform.isMemoryLeakCheckerActive = true
 
 なお、アプリケーションのランタイムでチェッカーを有効にすることは推奨されません。
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
 Kotlin/JS は 1.5.0 で発展的な変更を受けています。[JS IR コンパイラバックエンド](js-ir-compiler.md)の安定化に向けた作業を継続しており、その他のアップデートも提供しています。
 
 * [webpack バージョン 5 へのアップグレード](#upgrade-to-webpack-5)
 * [IR コンパイラ向けのフレームワークとライブラリ](#frameworks-and-libraries-for-the-ir-compiler)
 
-### webpack 5 へのアップグレード
+### webpack 5 へのアップグレード {id="upgrade-to-webpack-5"}
 
 Kotlin/JS Gradle プラグインは、ブラウザターゲットにおいて webpack 4 の代わりに webpack 5 を使用するようになりました。これは webpack のメジャーアップグレードであり、互換性のない変更が含まれています。カスタムの webpack 構成を使用している場合は、[webpack 5 のリリースノート](https://webpack.js.org/blog/2020-10-10-webpack-5-release/)を必ず確認してください。
 
 [webpack を使用した Kotlin/JS プロジェクトのバンドルについて詳しく学ぶ](js-project-setup.md#webpack-bundling)。
 
-### IR コンパイラ向けのフレームワークとライブラリ
+### IR コンパイラ向けのフレームワークとライブラリ {id="frameworks-and-libraries-for-the-ir-compiler"}
 
 > Kotlin/JS IR コンパイラは [アルファ版 (Alpha)](components-stability.md) です。将来的に互換性のない変更が行われ、手動での移行が必要になる可能性があります。[YouTrack](https://youtrack.jetbrains.com/issues/KT) でのフィードバックをお待ちしております。
 >
@@ -281,13 +281,13 @@ Kotlin/JS コンパイラの IR ベースのバックエンドの作業ととも
 
 自身のライブラリを執筆している場合は、クライアントが新しいコンパイラでも使用できるように、'both' モードでコンパイルしてください。
 
-## Kotlin マルチプラットフォーム
+## Kotlin マルチプラットフォーム {id="kotlin-multiplatform"}
 
 Kotlin 1.5.0 では、[各プラットフォームのテスト依存関係の選択が簡素化され](#simplified-test-dependencies-usage-in-multiplatform-projects)、Gradle プラグインによって自動的に行われるようになりました。
 
 [マルチプラットフォームプロジェクトで文字（char）のカテゴリを取得するための新しい API も利用可能になりました](#new-api-for-getting-a-char-category-now-available-in-multiplatform-code)。
 
-## 標準ライブラリ
+## 標準ライブラリ {id="standard-library"}
 
 標準ライブラリは、実験的機能の安定化から新機能の追加まで、多岐にわたる変更と改善を受けました。
 
@@ -305,13 +305,13 @@ Kotlin 1.5.0 では、[各プラットフォームのテスト依存関係の選
 
 <video src="https://www.youtube.com/v/MyTkiT2I6-8" title="New Standard Library Features"/>
 
-### 安定版 符号なし整数型
+### 安定版 符号なし整数型 {id="stable-unsigned-integer-types"}
 
 `UInt`、`ULong`、`UByte`、`UShort` の符号なし整数型が[安定版（Stable）](components-stability.md)となりました。これらの型に対する演算、レンジ、プログレッションも同様です。符号なし配列とその演算は Beta のままです。
 
 [符号なし整数型について詳しく学ぶ](unsigned-integer-types.md)。
 
-### 安定版 ロケールに依存しない大文字/小文字変換 API
+### 安定版 ロケールに依存しない大文字/小文字変換 API {id="stable-locale-agnostic-api-for-upper-lowercasing-text"}
 
 このリリースでは、ロケールに依存しない新しい大文字/小文字テキスト変換 API が導入されました。これは、ロケールに依存する `toLowerCase()`、`toUpperCase()`、`capitalize()`、および `decapitalize()` API 関数の代替を提供します。新しい API は、異なるロケール設定によるエラーを回避するのに役立ちます。
 
@@ -342,7 +342,7 @@ Kotlin 1.5.0 は、以下の完全に[安定した（Stable）](components-stabi
 
 テキスト処理機能への変更の全リストは [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/stdlib/locale-agnostic-case-conversions.md) を参照してください。
 
-### 安定版 Char から整数への変換 API
+### 安定版 Char から整数への変換 API {id="stable-char-to-integer-conversion-api"}
 
 Kotlin 1.5.0 から、新しい char-to-code（文字からコードへ）および char-to-digit（文字から数字へ）変換関数が[安定版（Stable）](components-stability.md)となりました。これらの関数は、同様の string-to-Int（文字列から整数へ）変換と混同されやすかった現在の API 関数を置き換えます。
 
@@ -375,7 +375,7 @@ Kotlin 1.5.0 から、新しい char-to-code（文字からコードへ）およ
 
 [KEEP で char から整数への変換 API について詳しく学ぶ](https://github.com/Kotlin/KEEP/blob/master/proposals/stdlib/char-int-conversions.md)。
 
-### 安定版 Path API
+### 安定版 Path API {id="stable-path-api"}
 
 `java.nio.file.Path` の拡張機能を備えた[実験的な Path API](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io.path/java.nio.file.-path/) が[安定版（Stable）](components-stability.md)となりました。
 
@@ -390,7 +390,7 @@ val kotlinFiles: List<Path> = Path("/home/user").listDirectoryEntries("*.kt")
 
 [Path API について詳しく学ぶ](whatsnew1420.md#extensions-for-java-nio-file-path)。
 
-### 床関数除算 (Floored division) と mod 演算子
+### 床関数除算 (Floored division) と mod 演算子 {id="floored-division-and-the-mod-operator"}
 
 モジュロ演算（modular arithmetics）のための新しい演算が標準ライブラリに追加されました。
 * `floorDiv()` は[床関数除算 (floored division)](https://en.wikipedia.org/wiki/Floor_and_ceiling_functions) の結果を返します。整数型で利用可能です。
@@ -413,7 +413,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.5"}
 
-### Duration API の変更
+### Duration API の変更 {id="duration-api-changes"}
 
 > Duration API は[実験的（Experimental）](components-stability.md)です。これはいつでも削除または変更される可能性があります。評価目的でのみ使用してください。[YouTrack](https://youtrack.jetbrains.com/issues/KT) でのフィードバックをお待ちしております。
 >
@@ -439,7 +439,7 @@ fun main() {
 ```
 {validate="false"}
 
-### マルチプラットフォームコードで利用可能になった文字カテゴリ取得用 API
+### マルチプラットフォームコードで利用可能になった文字カテゴリ取得用 API {id="new-api-for-getting-a-char-category-now-available-in-multiplatform-code"}
 
 Kotlin 1.5.0 では、マルチプラットフォームプロジェクトにおいて Unicode に準拠した文字のカテゴリを取得するための新しい API を導入しました。いくつかの関数がすべてのプラットフォームおよび共通コードで利用可能になりました。
 
@@ -485,7 +485,7 @@ fun main() {
 
 [文字 (Characters) について詳しく学ぶ](characters.md)。
 
-### 新しいコレクション関数 firstNotNullOf()
+### 新しいコレクション関数 firstNotNullOf() {id="new-collections-function-firstnotnullof"}
 
 新しい [`firstNotNullOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/first-not-null-of.html) および [`firstNotNullOfOrNull()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/first-not-null-of-or-null.html) 関数は、[`mapNotNull()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/map-not-null.html) を [`first()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/first.html) または [`firstOrNull()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/first-or-null.html) と組み合わせたものです。これらは元のコレクションをカスタムセレクター関数でマップし、最初の非 null 値を返します。そのような値がない場合、`firstNotNullOf()` は例外をスローし、`firstNotNullOfOrNull()` は null を返します。
 
@@ -500,7 +500,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.5"}
 
-### String?.toBoolean() の厳密版
+### String?.toBoolean() の厳密版 {id="strict-version-of-string-toboolean"}
 
 既存の [String?.toBoolean()](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/to-boolean.html) に対し、大文字小文字を区別する厳密版として 2 つの新しい関数が導入されました：
 * [`String.toBooleanStrict()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/to-boolean-strict.html) は、リテラルの `true` および `false` 以外のすべての入力に対して例外をスローします。
@@ -517,13 +517,13 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.5"}
 
-## kotlin-test ライブラリ
+## kotlin-test ライブラリ {id="kotlin-test-library"}
 [kotlin-test](https://kotlinlang.org/api/latest/kotlin.test/) ライブラリにいくつかの新機能が導入されました：
 * [マルチプラットフォームプロジェクトにおけるテスト依存関係の使用の簡素化](#simplified-test-dependencies-usage-in-multiplatform-projects)
 * [Kotlin/JVM ソースセットにおけるテストフレームワークの自動選択](#automatic-selection-of-a-testing-framework-for-kotlin-jvm-source-sets)
 * [アサーション関数のアップデート](#assertion-function-updates)
 
-### マルチプラットフォームプロジェクトにおけるテスト依存関係の使用の簡素化
+### マルチプラットフォームプロジェクトにおけるテスト依存関係の使用の簡素化 {id="simplified-test-dependencies-usage-in-multiplatform-projects"}
 
 `kotlin-test` 依存関係を使用して `commonTest` ソースセットにテスト用の依存関係を追加できるようになりました。Gradle プラグインが各テストソースセットに対応するプラットフォーム依存関係を推論します：
 * JVM ソースセット用の `kotlin-test-junit`（[Kotlin/JVM ソースセット用テストフレームワークの自動選択](#automatic-selection-of-a-testing-framework-for-kotlin-jvm-source-sets)を参照）
@@ -537,7 +537,7 @@ fun main() {
 
 [テストライブラリへの依存関係の設定](gradle-configure-project.md#set-dependencies-on-test-libraries)について詳しく学ぶ。
 
-### Kotlin/JVM ソースセットにおけるテストフレームワークの自動選択
+### Kotlin/JVM ソースセットにおけるテストフレームワークの自動選択 {id="automatic-selection-of-a-testing-framework-for-kotlin-jvm-source-sets"}
 
 Gradle プラグインが、テストフレームワークへの依存関係を自動的に選択して追加するようになりました。共通ソースセットに `kotlin-test` の依存関係を追加するだけで済みます。
 
@@ -596,7 +596,7 @@ tasks {
 
 [テストライブラリへの依存関係の設定](gradle-configure-project.md#set-dependencies-on-test-libraries)について詳しく学ぶ。
 
-### アサーション関数のアップデート
+### アサーション関数のアップデート {id="assertion-function-updates"}
 
 このリリースでは、新しいアサーション関数が導入され、既存の関数も改善されました。
 
@@ -675,14 +675,14 @@ tasks {
   }
   ```
 
-## kotlinx ライブラリ
+## kotlinx ライブラリ {id="kotlinx-libraries"}
 
 Kotlin 1.5.0 とともに、kotlinx ライブラリの新バージョンをリリースしています：
 * `kotlinx.coroutines` [1.5.0-RC](#coroutines-1-5-0-rc)
 * `kotlinx.serialization` [1.2.1](#serialization-1-2-1)
 * `kotlinx-datetime` [0.2.0](#datetime-0-2-0)
 
-### Coroutines 1.5.0-RC
+### Coroutines 1.5.0-RC {id="coroutines-1-5-0-rc"}
 
 `kotlinx.coroutines` [1.5.0-RC](https://github.com/Kotlin/kotlinx.coroutines/releases/tag/1.5.0-RC) が登場しました：
 * [新しいチャネル API](channels.md)
@@ -695,7 +695,7 @@ Kotlin 1.5.0 以降、[実験的なコルーチン](whatsnew14.md#exclusion-of-t
 
 <video src="https://www.youtube.com/v/EVLnWOcR0is" title="kotlinx.coroutines 1.5.0"/>
 
-### Serialization 1.2.1
+### Serialization 1.2.1 {id="serialization-1-2-1"}
 
 `kotlinx.serialization` [1.2.1](https://github.com/Kotlin/kotlinx.serialization/releases/tag/v1.2.1) が登場しました：
 * JSON シリアライゼーションのパフォーマンス向上
@@ -707,7 +707,7 @@ Kotlin 1.5.0 以降、[実験的なコルーチン](whatsnew14.md#exclusion-of-t
 
 <video src="https://www.youtube.com/v/698I_AH8h6s" title="kotlinx.serialization 1.2.1"/>
 
-### dateTime 0.2.0
+### dateTime 0.2.0 {id="datetime-0-2-0"}
 
 `kotlinx-datetime` [0.2.0](https://github.com/Kotlin/kotlinx-datetime/releases/tag/v0.2.0) が登場しました：
 * `@Serializable` な Datetime オブジェクト
@@ -716,7 +716,7 @@ Kotlin 1.5.0 以降、[実験的なコルーチン](whatsnew14.md#exclusion-of-t
 
 詳細は [チェンジログ](https://github.com/Kotlin/kotlinx-datetime/releases/tag/v0.2.0) および [`kotlinx-datetime` 0.2.0 リリースブログ投稿](https://blog.jetbrains.com/kotlin/2021/05/kotlinx-datetime-0-2-0-is-out/) を参照してください。
 
-## Kotlin 1.5.0 への移行
+## Kotlin 1.5.0 への移行 {id="migrating-to-kotlin-1-5-0"}
 
 IntelliJ IDEA と Android Studio は、Kotlin プラグインが利用可能になり次第、1.5.0 へのアップデートを提案します。
 

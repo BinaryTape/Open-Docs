@@ -19,11 +19,11 @@ Dokka Gradle 플러그인 v2 모드는 기본적으로 활성화되어 있으며
 
 DGP v1에서 v2 모드로의 변경 사항 및 마이그레이션에 대한 자세한 내용은 이 가이드를 읽어보세요.
 
-## 시작하기 전에
+## 시작하기 전에 {id="before-you-start"}
 
 마이그레이션을 시작하기 전에 다음 단계를 완료하세요.
 
-### 지원 버전 확인
+### 지원 버전 확인 {id="verify-supported-versions"}
 
 프로젝트가 최소 버전 요구 사항을 충족하는지 확인하세요.
 
@@ -33,7 +33,7 @@ DGP v1에서 v2 모드로의 변경 사항 및 마이그레이션에 대한 자�
 | [Android Gradle 플러그인](https://developer.android.com/build/agp-upgrade-assistant) | 7.0 이상 |
 | [Kotlin Gradle 플러그인](https://kotlinlang.org/docs/gradle-configure-project.html) | 1.9 이상 |
 
-### DGP v2 활성화
+### DGP v2 활성화 {id="enable-dgp-v2"}
 
 프로젝트의 `build.gradle.kts` 파일에 있는 `plugins {}` 블록에서 Dokka 버전을 %dokkaVersion%으로 업데이트하세요:
 
@@ -50,7 +50,7 @@ plugins {
 >
 {style="tip"}
 
-### 마이그레이션 헬퍼 활성화
+### 마이그레이션 헬퍼 활성화 {id="enable-migration-helpers"}
 
 프로젝트의 `gradle.properties` 파일에서 다음 Gradle 프로퍼티를 설정하여 헬퍼와 함께 DGP v2를 활성화하세요:
 
@@ -70,22 +70,22 @@ org.jetbrains.dokka.experimental.gradle.pluginMode=V2EnabledWithHelpers
 
 마이그레이션을 완료한 후에는 [마이그레이션 헬퍼를 비활성화](#set-the-opt-in-flag)하세요.
 
-### Gradle 프로젝트 동기화
+### Gradle 프로젝트 동기화 {id="sync-your-project-with-gradle"}
 
 DGP v2 및 마이그레이션 헬퍼를 활성화한 후, DGP v2가 제대로 적용되도록 프로젝트를 Gradle과 동기화하세요:
 
 * IntelliJ IDEA를 사용하는 경우, Gradle 도구 창에서 **Reload All Gradle Projects** ![Reload 버튼](gradle-reload-button.png){width=30}{type="joined"} 버튼을 클릭하세요.
 * Android Studio를 사용하는 경우, **File** | **Sync Project with Gradle Files**를 선택하세요.
 
-## 프로젝트 마이그레이션
+## 프로젝트 마이그레이션 {id="migrate-your-project"}
 
 Dokka Gradle 플러그인을 v2로 업데이트한 후, 프로젝트에 해당하는 마이그레이션 단계를 따르세요.
 
-### 설정 옵션 조정
+### 설정 옵션 조정 {id="adjust-configuration-options"}
 
 DGP v2에는 [Gradle 설정 옵션](dokka-gradle-configuration-options.md)에 몇 가지 변경 사항이 도입되었습니다. `build.gradle.kts` 파일에서 프로젝트 구성에 따라 설정 옵션을 조정하세요.
 
-#### DGP v2의 최상위 수준 DSL 설정
+#### DGP v2의 최상위 수준 DSL 설정 {id="top-level-dsl-configuration-in-dgp-v2"}
 
 DGP v1의 설정 구문을 DGP v2의 최상위 수준 `dokka {}` DSL 설정으로 교체하세요:
 
@@ -193,7 +193,7 @@ abstract class CustomPlugin : Plugin<Project> {
 </tab>
 </tabs>
 
-#### 가시성 설정
+#### 가시성 설정 {id="visibility-settings"}
 
 `documentedVisibilities` 속성을 `Visibility.PUBLIC`에서 `VisibilityModifier.Public`으로 변경하세요.
 
@@ -230,7 +230,7 @@ fun documentedVisibilities(vararg visibilities: VisibilityModifier): Unit =
     documentedVisibilities.set(visibilities.asList()) 
 ```
 
-#### 소스 링크
+#### 소스 링크 {id="source-links"}
 
 생성된 문서에서 원격 저장소의 해당 소스 코드로 이동할 수 있도록 소스 링크를 구성합니다. 이 설정에는 `dokkaSourceSets.main{}` 블록을 사용하세요.
 
@@ -331,7 +331,7 @@ fun remoteUrl(value: Provider<String>): Unit =
     remoteUrl.set(value.map(::URI))
 ```
 
-#### 외부 문서 링크
+#### 외부 문서 링크 {id="external-documentation-links"}
 
 각 링크를 정의하려면 `register()` 메서드를 사용하여 외부 문서 링크를 등록하세요. `externalDocumentationLinks` API는 Gradle DSL 규칙에 따라 이 메서드를 사용합니다.
 
@@ -363,7 +363,7 @@ dokka {
 }
 ```
 
-#### 커스텀 에셋
+#### 커스텀 에셋 {id="custom-assets"}
 
 리스트(`var List<File>`) 대신 파일 컬렉션 [(`FileCollection`)](https://docs.gradle.org/8.10/userguide/lazy_configuration.html#working_with_files_in_lazy_properties)과 함께 [`customAssets`](dokka-html.md#customize-assets) 속성을 사용하세요.
 
@@ -379,7 +379,7 @@ DGP v2의 설정:
 customAssets.from("example.png", "example2.png")
 ```
 
-#### 출력 디렉터리
+#### 출력 디렉터리 {id="output-directory"}
 
 `dokka {}` 블록을 사용하여 생성된 Dokka 문서의 출력 디렉터리를 지정하세요.
 
@@ -401,7 +401,7 @@ dokka {
 }
 ```
 
-#### 추가 파일의 출력 디렉터리
+#### 추가 파일의 출력 디렉터리 {id="output-directory-for-additional-files"}
 
 `dokka {}` 블록 내부에서 단일 모듈 및 멀티 모듈 프로젝트 모두에 대해 출력 디렉터리를 지정하고 추가 파일을 포함합니다.
 
@@ -462,7 +462,7 @@ abstract class CustomPlugin : Plugin<Project> {
 </tab>
 </tabs>
 
-### Dokka 플러그인 설정
+### Dokka 플러그인 설정 {id="configure-dokka-plugins"}
 
 기본 내장된 Dokka 플러그인을 JSON으로 설정하는 방식은 타입 안전 DSL을 위해 더 이상 사용되지 않습니다(deprecated). 이 변경으로 Gradle의 증분 빌드(incremental build) 시스템과의 호환성이 향상되고 태스크 입력 추적이 개선되었습니다.
 
@@ -503,7 +503,7 @@ DGP v2 설정의 예시는 [Dokka의 versioning 플러그인](https://github.com
 
 DGP v2는 [커스텀 플러그인 설정](https://github.com/Kotlin/dokka/blob/ae3840edb4e4afd7b3e3768a5fddfe8ec0e08f31/examples/gradle-v2/custom-dokka-plugin-example/demo-library/build.gradle.kts)을 통해 기능을 확장할 수 있도록 합니다. 커스텀 플러그인을 사용하면 문서 생성 프로세스에 추가적인 처리나 수정을 더할 수 있습니다.
 
-### 서브프로젝트 간 Dokka 설정 공유
+### 서브프로젝트 간 Dokka 설정 공유 {id="share-dokka-configuration-across-subprojects"}
 
 DGP v2는 서브프로젝트 간 설정을 공유하기 위해 `subprojects {}` 또는 `allprojects {}`를 사용하는 방식에서 벗어났습니다. 향후 Gradle 버전에서 이러한 방식을 사용하면 [오류가 발생](https://docs.gradle.org/current/userguide/isolated_projects.html)할 수 있습니다.
 
@@ -515,13 +515,13 @@ Dokka 설정을 공유한 후, 여러 서브프로젝트의 문서를 단일 출
 >
 {style="tip"}
 
-#### 컨벤션 플러그인이 없는 멀티 모듈 프로젝트
+#### 컨벤션 플러그인이 없는 멀티 모듈 프로젝트 {id="multi-module-projects-without-convention-plugins"}
 
 프로젝트에서 컨벤션 플러그인(convention plugins)을 사용하지 않는 경우, 각 서브프로젝트를 직접 구성하여 Dokka 설정을 공유할 수 있습니다. 여기에는 각 서브프로젝트의 `build.gradle.kts` 파일에서 공유 설정을 수동으로 지정하는 작업이 포함됩니다. 이 방식은 덜 중앙 집중적이지만 컨벤션 플러그인과 같은 추가 설정이 필요하지 않습니다.
 
 반면, 프로젝트에서 컨벤션 플러그인을 사용하는 경우, `buildSrc` 디렉터리에 컨벤션 플러그인을 생성한 다음 서브프로젝트에 플러그인을 적용하여 멀티 모듈 프로젝트에서 Dokka 설정을 공유할 수도 있습니다.
 
-##### buildSrc 디렉터리 설정
+##### buildSrc 디렉터리 설정 {id="set-up-the-buildsrc-directory"}
 
 1. 프로젝트 루트에 다음 두 파일을 포함하는 `buildSrc` 디렉터리를 생성합니다:
 
@@ -551,7 +551,7 @@ Dokka 설정을 공유한 후, 여러 서브프로젝트의 문서를 단일 출
     }   
     ```
 
-##### Dokka 컨벤션 플러그인 설정
+##### Dokka 컨벤션 플러그인 설정 {id="set-up-the-dokka-convention-plugin"}
 
 `buildSrc` 디렉터리를 설정한 후:
 
@@ -570,7 +570,7 @@ Dokka 설정을 공유한 후, 여러 서브프로젝트의 문서를 단일 출
 
    `dokka {}` 블록 내에 모든 서브프로젝트에 공통으로 적용될 공유 Dokka [설정](#adjust-configuration-options)을 추가해야 합니다. 또한 Dokka 버전을 지정할 필요가 없습니다. 버전은 이미 `buildSrc/build.gradle.kts` 파일에 설정되어 있습니다.
 
-##### 서브프로젝트에 컨벤션 플러그인 적용
+##### 서브프로젝트에 컨벤션 플러그인 적용 {id="apply-the-convention-plugin-to-your-subprojects"}
 
 각 서브프로젝트의 `build.gradle.kts` 파일에 Dokka 컨벤션 플러그인을 추가하여 프로젝트 전체에 적용합니다:
 
@@ -580,13 +580,13 @@ plugins {
 }
 ```
 
-#### 컨벤션 플러그인이 있는 멀티 모듈 프로젝트
+#### 컨벤션 플러그인이 있는 멀티 모듈 프로젝트 {id="multi-module-projects-with-convention-plugins"}
 
 이미 컨벤션 플러그인을 사용하고 있다면, [Gradle 문서](https://docs.gradle.org/current/userguide/custom_plugins.html#sec:convention_plugins)를 따라 전용 Dokka 컨벤션 플러그인을 만드세요.
 
 그런 다음 [Dokka 컨벤션 플러그인 설정](#set-up-the-dokka-convention-plugin) 및 [서브프로젝트에 적용](#apply-the-convention-plugin-to-your-subprojects) 단계를 따르세요.
 
-### 멀티 모듈 프로젝트의 문서 집계 업데이트
+### 멀티 모듈 프로젝트의 문서 집계 업데이트 {id="update-documentation-aggregation-in-multi-module-projects"}
 
 Dokka는 여러 서브프로젝트의 문서를 단일 출력 또는 게시물(publication)로 집계할 수 있습니다.
 
@@ -613,7 +613,7 @@ dependencies {
 }
 ```
 
-### 집계된 문서의 디렉터리 변경
+### 집계된 문서의 디렉터리 변경 {id="change-directory-of-aggregated-documentation"}
 
 DGP가 서브프로젝트를 집계할 때, 각 서브프로젝트는 집계된 문서 내에 자체 서브디렉터리를 갖습니다.
 
@@ -637,7 +637,7 @@ turbo-lib/build/dokka/html/turbo-lib/maths/
 
 이 변경은 이름이 같은 서브프로젝트가 충돌하는 것을 방지합니다. 그러나 디렉터리 구조가 변경되었으므로 외부 링크가 오래된 정보가 되어 `404` 오류가 발생할 수 있습니다.
 
-#### DGP v1 디렉터리 동작으로 되돌리기
+#### DGP v1 디렉터리 동작으로 되돌리기 {id="revert-to-the-dgp-v1-directory-behavior"}
 
 프로젝트가 DGP v1에서 사용된 디렉터리 구조에 의존하는 경우, 서브프로젝트 디렉터리를 수동으로 지정하여 이 동작을 되돌릴 수 있습니다. 각 서브프로젝트의 `build.gradle.kts` 파일에 다음 설정을 추가하세요:
 
@@ -654,7 +654,7 @@ dokka {
 }
 ```
 
-### 업데이트된 태스크로 문서 생성
+### 업데이트된 태스크로 문서 생성 {id="generate-documentation-with-the-updated-task"}
 
 DGP v2는 API 문서를 생성하는 Gradle 태스크의 이름을 변경했습니다.
 
@@ -678,7 +678,7 @@ DGP v2의 태스크:
 
 DGP v2 버전에서 `dokkaGenerate` 태스크 이름은 단일 모듈 및 멀티 모듈 프로젝트 모두에서 작동합니다. HTML, Javadoc 또는 HTML과 Javadoc 모두로 출력을 생성하기 위해 서로 다른 태스크를 사용할 수 있습니다. 자세한 내용은 [문서 출력 형식 선택](#select-documentation-output-format)을 참조하세요.
 
-### 문서 출력 형식 선택
+### 문서 출력 형식 선택 {id="select-documentation-output-format"}
 
 > Javadoc 출력 형식은 [알파(Alpha)](https://kotlinlang.org/docs/components-stability.html#stability-levels-explained) 단계입니다.
 > 이를 사용할 때 버그가 발생하거나 마이그레이션 문제를 겪을 수 있습니다. Javadoc을 입력으로 받는 도구와의 성공적인 통합은 보장되지 않습니다. 사용 시 주의하시기 바랍니다.
@@ -717,16 +717,16 @@ DGP v2의 기본 출력 형식은 HTML입니다. 하지만 API 문서를 HTML, J
 
 IntelliJ IDEA를 사용 중인 경우, `dokkaGenerateHtml` Gradle 태스크가 보일 수 있습니다. 이 태스크는 단순히 `dokkaGeneratePublicationHtml`의 별칭(alias)입니다. 두 태스크는 완전히 동일한 작업을 수행합니다.
 
-### 지원 중단 및 제거 사항 처리
+### 지원 중단 및 제거 사항 처리 {id="address-deprecations-and-removals"}
 
 * **출력 형식 지원:** DGP v2는 HTML 및 Javadoc 출력만 지원합니다. Markdown 및 Jekyll과 같은 실험적 형식은 더 이상 지원되지 않습니다.
 * **수집기(Collector) 태스크:** `DokkaCollectorTask`가 제거되었습니다. 이제 각 서브프로젝트에 대해 문서를 별도로 생성한 다음, 필요한 경우 [문서를 집계](#update-documentation-aggregation-in-multi-module-projects)해야 합니다.
 
-## 마이그레이션 마무리
+## 마이그레이션 마무리 {id="finalize-your-migration"}
 
 프로젝트를 마이그레이션한 후, 마무리를 위해 다음 단계를 수행하고 성능을 개선하세요.
 
-### 옵트인(opt-in) 플래그 설정
+### 옵트인(opt-in) 플래그 설정 {id="set-the-opt-in-flag"}
 
 성공적으로 마이그레이션을 마친 후, 프로젝트의 `gradle.properties` 파일에 헬퍼 없이 다음 옵트인 플래그를 설정하세요:
 
@@ -736,14 +736,14 @@ org.jetbrains.dokka.experimental.gradle.pluginMode=V2Enabled
 
 DGP v2에서 더 이상 사용할 수 없는 DGP v1의 Gradle 태스크에 대한 참조를 제거했다면 이와 관련된 컴파일 오류가 발생하지 않아야 합니다.
 
-### 빌드 캐시 및 설정 캐시 활성화
+### 빌드 캐시 및 설정 캐시 활성화 {id="enable-build-cache-and-configuration-cache"}
 
 DGP v2는 이제 Gradle 빌드 캐시와 설정 캐시를 지원하여 빌드 성능을 향상시킵니다.
 
 * 빌드 캐시를 활성화하려면 [Gradle 빌드 캐시 문서](https://docs.gradle.org/current/userguide/build_cache.html#sec:build_cache_enable)의 지침을 따르세요.
 * 설정 캐시를 활성화하려면 [Gradle 설정 캐시 문서](https://docs.gradle.org/current/userguide/configuration_cache.html#config_cache:usage:enable )의 지침을 따르세요.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [더 많은 DGP v2 프로젝트 예제 살펴보기](https://github.com/Kotlin/dokka/tree/master/examples/gradle-v2). 
 * [Dokka 시작하기](dokka-get-started.md).

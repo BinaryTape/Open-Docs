@@ -5,7 +5,7 @@
 
 標準函式庫包含一組擴充方法，讓您透過單次呼叫即可篩選集合。這些函式不會更改原始集合，因此可用於[可變和唯讀](collections-overview.md#collection-types)集合。若要操作篩選結果，您應該將其指派給變數，或在篩選後使用鏈式呼叫。
 
-## 按謂詞篩選
+## 按謂詞篩選 {id="filter-by-predicate"}
 
 基本的篩選函式是 [`filter()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/filter.html)。
 呼叫 `filter()` 並傳入謂詞時，它會傳回符合該條件的集合元素。對於 `List` 和 `Set`，產生的集合都是 `List`；對於 `Map`，產生的也是 `Map`。
@@ -75,7 +75,7 @@ fun main() {
     ```
     {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 分割
+## 分割 {id="partition"}
 
 另一個篩選函式 —— [`partition()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/partition.html) —— 會依據謂詞篩選集合，並將不符合條件的元素保留在另一個單獨的列表中。因此，您會得到一個 `List` 的 `Pair` 作為傳回值：第一個列表包含符合謂詞的元素，第二個列表則包含原始集合中的其餘所有內容。
 
@@ -92,7 +92,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 測試謂詞
+## 測試謂詞 {id="test-predicates"}
 
 最後，還有一些函式僅用於針對集合元素測試謂詞：
 

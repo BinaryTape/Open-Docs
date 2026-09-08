@@ -6,7 +6,7 @@ Kotlin/JS 对 Kotlin [反射 API](reflection.md) 提供有限的支持。该 API
 * [`KType` 和 `typeof()`](#ktype-and-typeof)
 * [`KClass` 和 `createInstance()`](#kclass-and-createinstance)
 
-## 类引用
+## 类引用 {id="class-references"}
 
 `::class` 语法返回实例所属类的引用，或与给定类型对应的类引用。
 在 Kotlin/JS 中，`::class` 表达式的值是一个精简版的 [KClass](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/) 实现，仅支持：
@@ -17,16 +17,16 @@ Kotlin/JS 对 Kotlin [反射 API](reflection.md) 提供有限的支持。该 API
 `JsClass` 实例本身是一个对构造函数的引用。
 这可以用于与需要构造函数引用的 JS 函数进行互操作。
 
-## KType 和 typeOf()
+## KType 和 typeOf() {id="ktype-and-typeof"}
 
 [`typeof()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/type-of.html) 函数会为给定类型构造一个 [`KType`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-type/) 实例。
 除了 Java 特有的部分外，Kotlin/JS 完全支持 `KType` API。
 
-## KClass 和 createInstance()
+## KClass 和 createInstance() {id="kclass-and-createinstance"}
 
 [KClass](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/) 接口中的 [`createInstance()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect.full/create-instance.html) 函数会创建指定类的新实例，这对于获取 Kotlin 类的运行时引用非常有用。
 
-## 示例
+## 示例 {id="example"}
 
 以下是 Kotlin/JS 中使用反射的示例。
 

@@ -8,7 +8,7 @@ Kotlin 中有四種可見性修飾詞：`private`、`protected`、`internal` 和
 
 在本頁面中，你將學習這些修飾詞如何應用於不同類型的宣告作用域。
 
-## 套件
+## 套件 {id="packages"}
 
 函式、屬性、類別、物件和介面可以直接在套件內的「頂層」進行宣告：
 
@@ -43,7 +43,7 @@ public var bar: Int = 5 // 屬性在任何地方都可見
 internal val baz = 6    // 在同一個模組內可見
 ```
 
-## 類別成員
+## 類別成員 {id="class-members"}
 
 對於在類別內部宣告的成員：
 
@@ -88,7 +88,7 @@ class Unrelated(o: Outer) {
 }
 ```
 
-### 建構函式
+### 建構函式 {id="constructors"}
 
 使用以下語法來指定類別主建構函數的可見性：
 
@@ -104,11 +104,11 @@ class C private constructor(a: Int) { ... }
 
 對於密封類別，建構函式預設為 `protected`。若要了解更多，請參閱 [密封類別](sealed-classes.md#constructors)。
 
-### 區域宣告
+### 區域宣告 {id="local-declarations"}
 
 區域變數、函式和類別不能具有可見性修飾詞。
 
-## 模組
+## 模組 {id="modules"}
 
 `internal` 可見性修飾詞表示該成員在同一個模組內可見。更具體地說，模組是一組共同編譯的 Kotlin 檔案，例如：
 

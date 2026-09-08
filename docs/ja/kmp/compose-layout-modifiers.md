@@ -7,7 +7,7 @@
 * ユーザー入力を処理する。
 * 要素をクリック可能、スクロール可能、ドラッグ可能、またはズーム可能にするなどの高度なインタラクションを追加する。
 
-## 修飾子の連結 
+## 修飾子の連結 {id="chaining-modifiers"}
 
 修飾子は連結して複数の効果を適用できます。
 
@@ -30,11 +30,11 @@ private fun Greeting(name: String) {
 
 **修飾子関数の連結順序は重要です**。各関数は前の関数から返された `Modifier` に変更を加えるため、呼び出しの順序がコンポーザブルの最終的な動作や外観に直接影響します。
 
-## 組み込みの修飾子
+## 組み込みの修飾子 {id="built-in-modifiers"}
 
 Compose Multiplatform には、一般的なレイアウトや配置タスクを処理するための `size`、`padding`、`offset` などの組み込み修飾子が用意されています。
 
-### サイズ修飾子
+### サイズ修飾子 {id="size-modifiers"}
 
 固定サイズを設定するには、`size` 修飾子を使用します。制約を上書きする必要がある場合は、`requiredSize` 修飾子を使用します。
 
@@ -55,7 +55,7 @@ fun Card() {
 }
 ```
 
-### パディング修飾子
+### パディング修飾子 {id="padding-modifiers"}
 
 `padding` 修飾子を使用して、要素の周囲にパディングを追加します。また、`paddingFromBaseline` を使用して、ベースラインを基準に動的にパディングを適用することもできます。
 
@@ -76,7 +76,7 @@ fun Card() {
 }
 ```
 
-### オフセット修飾子
+### オフセット修飾子 {id="offset-modifiers"}
 
 レイアウトの位置を元の位置から調整するには、`offset` 修飾子を使用します。X 軸と Y 軸のオフセットを指定します。
 
@@ -99,7 +99,7 @@ fun Card() {
 }
 ```
 
-## スコープ付き修飾子
+## スコープ付き修飾子 {id="scoped-modifiers"}
 
 スコープ付き修飾子は、親データ修飾子（parent data modifiers）とも呼ばれ、子の特定の要件を親レイアウトに通知します。
 例えば、親の `Box` のサイズに合わせるには、`matchParentSize` 修飾子を使用します。
@@ -146,7 +146,7 @@ fun Card() {
 }
 ```
 
-## 修飾子の抽出と再利用 
+## 修飾子の抽出と再利用 {id="extracting-and-reusing-modifiers"}
 
 修飾子を連結する場合、その連鎖を変数や関数に抽出して再利用できます。
 これにより、コードの可読性が向上し、修飾子のインスタンスを再利用することでパフォーマンスが向上する可能性があります。
@@ -172,7 +172,7 @@ fun Example() {
 }
 ```
 
-## カスタム修飾子
+## カスタム修飾子 {id="custom-modifiers"}
 
 Compose Multiplatform には、一般的なユースケース向けの組み込み修飾子が多数用意されていますが、独自のカスタム修飾子を作成することもできます。
 
@@ -182,6 +182,6 @@ Compose Multiplatform には、一般的なユースケース向けの組み込�
 * [コンポーザブルな修飾子ファクトリの使用](https://developer.android.com/develop/ui/compose/custom-modifiers#create_a_custom_modifier_using_a_composable_modifier_factory)
 * [低レベルの `Modifier.Node` API](https://developer.android.com/develop/ui/compose/custom-modifiers#implement-custom)
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 修飾子の詳細については、[Jetpack Compose のドキュメント](https://developer.android.com/develop/ui/compose/modifiers)をご覧ください。

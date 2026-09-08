@@ -27,7 +27,7 @@ Kotlin 2.2.0 正式發佈！以下是主要的亮點：
 >
 {style="tip"}
 
-## IDE 支援
+## IDE 支援 {id="ide-support"}
 
 支援 2.2.0 的 Kotlin 外掛程式已隨附於最新版本的 IntelliJ IDEA 與 Android Studio 中。
 您不需要更新 IDE 中的 Kotlin 外掛程式。
@@ -36,7 +36,7 @@ Kotlin 2.2.0 正式發佈！以下是主要的亮點：
 
 詳情請參閱 [更新至新版本](releases.md#update-to-a-new-kotlin-version)。
 
-## 語言
+## 語言 {id="language"}
 
 此版本將防護條件、
 非區域 `break` 與 `continue`
@@ -44,7 +44,7 @@ Kotlin 2.2.0 正式發佈！以下是主要的亮點：
 此外，還引入了數項預覽特性，
 例如 [上下文參數](#preview-of-context-parameters) 與 [上下文相關解析](#preview-of-context-sensitive-resolution)。
 
-### 上下文參數預覽
+### 上下文參數預覽 {id="preview-of-context-parameters"}
 <primary-label ref="experimental-general"/> 
 
 上下文參數 (context parameters) 允許函式與屬性宣告在周圍上下文中隱式可用的相依性。
@@ -57,7 +57,7 @@ Kotlin 2.2.0 正式發佈！以下是主要的亮點：
 
 Kotlin 中的上下文參數代表了透過簡化的相依注入、改進的 DSL 設計以及具作用域的操作來管理相依性的顯著進步。如需更多資訊，請參閱該特性的 [KEEP](https://github.com/Kotlin/KEEP/blob/context-parameters/proposals/context-parameters.md)。
 
-#### 如何宣告上下文參數
+#### 如何宣告上下文參數 {id="how-to-declare-context-parameters"}
 
 您可以使用 `context` 關鍵字宣告屬性和函式的上下文參數，
 後接圓括號內的參數清單，每個參數的形式為 `name: Type`。以下是相依於 `UserService` 介面的範例：
@@ -94,7 +94,7 @@ fun logWelcome() {
 }
 ```
 
-#### 如何啟用上下文參數
+#### 如何啟用上下文參數 {id="how-to-enable-context-parameters"}
 
 若要在您的專案中啟用上下文參數，請在命令列中使用以下編譯器選項：
 
@@ -117,12 +117,12 @@ kotlin {
 >
 {style="warning"}
 
-#### 提供您的回饋
+#### 提供您的回饋 {id="leave-your-feedback"}
 
 此特性計劃在未來的 Kotlin 版本中穩定並改進。
 我們誠摯歡迎您在問題追蹤器 [YouTrack](https://youtrack.jetbrains.com/issue/KT-10468/Context-Parameters-expanding-extension-receivers-to-work-with-scopes) 提供回饋。
 
-### 上下文相關解析預覽
+### 上下文相關解析預覽 {id="preview-of-context-sensitive-resolution"}
 <primary-label ref="experimental-general"/> 
 
 Kotlin 2.2.0 引入了上下文相關解析 (context-sensitive resolution) 的預覽實作。
@@ -195,12 +195,12 @@ kotlin {
 
 我們計劃在未來的 Kotlin 版本中穩定並改進此特性，並歡迎您在問題追蹤器 [YouTrack](https://youtrack.jetbrains.com/issue/KT-16768/Context-sensitive-resolution) 提供回饋。
 
-### 註解使用點目標特性預覽
+### 註解使用點目標特性預覽 {id="preview-of-features-for-annotation-use-site-targets"}
 <primary-label ref="experimental-general"/>
 
 Kotlin 2.2.0 引入了幾項特性，讓使用註解使用點目標 (annotation use-site targets) 變得更加便利。
 
-#### 屬性的 `@all` 中介目標
+#### 屬性的 `@all` 中介目標 {id="all-meta-target-for-properties"}
 <primary-label ref="experimental-general"/>
 
 Kotlin 允許您將註解附加到宣告的特定部分，這被稱為 [使用點目標](annotations.md#annotation-use-site-targets)。
@@ -282,7 +282,7 @@ kotlin {
 此特性處於預覽階段。請向我們的問題追蹤器 [YouTrack](https://kotl.in/issue) 回報任何問題。
 有關 `@all` 中介目標的更多資訊，請參閱此 [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/annotation-target-in-properties.md) 提案。
 
-#### 使用點註解目標的新預設規則
+#### 使用點註解目標的新預設規則 {id="new-defaulting-rules-for-use-site-annotation-targets"}
 <primary-label ref="experimental-general"/>
 
 Kotlin 2.2.0 引入了將註解傳播到參數、欄位和屬性的新預設規則。 
@@ -330,7 +330,7 @@ kotlin {
 此特性處於預覽階段。請向我們的問題追蹤器 [YouTrack](https://kotl.in/issue) 回報任何問題。
 有關註解使用點目標新預設規則的更多資訊，請參閱此 [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/annotation-target-in-properties.md) 提案。
 
-### 支援巢狀型別別名
+### 支援巢狀型別別名 {id="support-for-nested-type-aliases"}
 <primary-label ref="beta"/>
 
 Kotlin 2.2.0 增加了在其他宣告內部定義型別別名的支援。
@@ -356,7 +356,7 @@ class Dijkstra {
 
 巢狀型別別名透過改進封裝、減少封裝層級的混亂並簡化內部實作，讓程式碼更簡潔、更易於維護。
 
-#### 如何啟用巢狀型別別名
+#### 如何啟用巢狀型別別名 {id="how-to-enable-nested-type-aliases"}
 
 若要在您的專案中啟用巢狀型別別名，請在命令列中使用以下編譯器選項：
 
@@ -375,11 +375,11 @@ kotlin {
 }
 ```
 
-#### 分享您的回饋
+#### 分享您的回饋 {id="share-your-feedback"}
 
 巢狀型別別名目前處於 [Beta](components-stability.md#stability-levels-explained) 階段。請向我們的問題追蹤器 [YouTrack](https://kotl.in/issue) 回報任何問題。如需有關此特性的更多資訊，請參閱此 [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/nested-typealias.md) 提案。
 
-### 穩定版特性：防護條件、非區域 `break` 與 `continue` 以及多美元符號插值
+### 穩定版特性：防護條件、非區域 `break` 與 `continue` 以及多美元符號插值 {id="stable-features-guard-conditions-non-local-break-and-continue-and-multi-dollar-interpolation"}
 
 在 Kotlin 2.1.0 中，數項新的語言特性以預覽形式引入。
 我們很高興地宣布，以下語言特性在此版本中已達到 [穩定版](components-stability.md#stability-levels-explained)：
@@ -390,7 +390,7 @@ kotlin {
 
 [查看 Kotlin 語言設計特性與提案的完整清單](kotlin-language-features-and-proposals.md)。
 
-## Kotlin 編譯器：編譯器警告的統一管理
+## Kotlin 編譯器：編譯器警告的統一管理 {id="kotlin-compiler-unified-management-of-compiler-warnings"}
 <primary-label ref="experimental-general"/>
 
 Kotlin 2.2.0 引入了一個新的編譯器選項 `-Xwarning-level`。它旨在提供一種統一的方式來管理 Kotlin 專案中的編譯器警告。
@@ -399,7 +399,7 @@ Kotlin 2.2.0 引入了一個新的編譯器選項 `-Xwarning-level`。它旨在�
 
 透過新的解決方案，您可以以一致的方式覆蓋通用規則並排除特定的診斷資訊。
 
-### 如何套用
+### 如何套用 {id="how-to-apply"}
 
 新的編譯器選項具有以下語法：
 
@@ -413,11 +413,11 @@ Kotlin 2.2.0 引入了一個新的編譯器選項 `-Xwarning-level`。它旨在�
 
 請記住，您只能使用新的編譯器選項來配置 *警告* 的嚴重等級。
 
-### 使用案例
+### 使用案例 {id="use-cases"}
 
 透過新的解決方案，您可以透過結合通用規則與特定規則，更好地微調專案中的警告報告。選擇您的使用案例：
 
-#### 抑制警告
+#### 抑制警告 {id="suppress-warnings"}
 
 | 指令 | 描述 |
 |---------------------------------------------------|--------------------------------------------------------|
@@ -425,7 +425,7 @@ Kotlin 2.2.0 引入了一個新的編譯器選項 `-Xwarning-level`。它旨在�
 | `-Xwarning-level=DIAGNOSTIC_NAME:disabled` | 僅抑制指定的警告。 |
 | `-nowarn -Xwarning-level=DIAGNOSTIC_NAME:warning` | 抑制除指定警告以外的所有警告。 |
 
-#### 將警告提升為錯誤
+#### 將警告提升為錯誤 {id="raise-warnings-to-errors"}
 
 | 指令 | 描述 |
 |---------------------------------------------------|--------------------------------------------------------------|
@@ -433,7 +433,7 @@ Kotlin 2.2.0 引入了一個新的編譯器選項 `-Xwarning-level`。它旨在�
 | `-Xwarning-level=DIAGNOSTIC_NAME:error` | 僅將指定的警告提升為錯誤。 |
 | `-Werror -Xwarning-level=DIAGNOSTIC_NAME:warning` | 將除指定警告以外的所有警告提升為錯誤。 |
 
-#### 啟用額外的編譯器警告
+#### 啟用額外的編譯器警告 {id="enable-additional-compiler-warnings"}
 
 | 指令 | 描述 |
 |----------------------------------------------------|------------------------------------------------------------------------------------------------------|
@@ -441,19 +441,19 @@ Kotlin 2.2.0 引入了一個新的編譯器選項 `-Xwarning-level`。它旨在�
 | `-Xwarning-level=DIAGNOSTIC_NAME:warning` | 僅啟用指定的額外編譯器檢查。 |
 | `-Wextra -Xwarning-level=DIAGNOSTIC_NAME:disabled` | 啟用除指定檢查以外的所有額外檢查。 |
 
-#### 警告清單
+#### 警告清單 {id="warning-lists"}
 
 如果您有許多想要從通用規則中排除的警告，可以透過 [`@argfile`](compiler-reference.md#argfile) 將它們列在單獨的檔案中。
 
-### 提供回饋
+### 提供回饋 {id="leave-feedback"}
 
 新的編譯器選項仍處於 [實驗性](components-stability.md#stability-levels-explained) 階段。請向我們的問題追蹤器 [YouTrack](https://kotl.in/issue) 回報任何問題。
 
-## Kotlin/JVM
+## Kotlin/JVM {id="kotlin-jvm"}
 
 Kotlin 2.2.0 為 JVM 帶來了許多更新。編譯器現在支援 Java 24 位元組碼，並引入了介面函式之預設方法產生方式的變更。此版本還簡化了 Kotlin 元資料中註解的使用，改進了內嵌值類別 (inline value classes) 與 Java 的互通性，並包含對 JVM record 註解更好的支援。
 
-### 介面函式的預設方法產生變更
+### 介面函式的預設方法產生變更 {id="changes-to-default-method-generation-for-interface-functions"}
 
 從 Kotlin 2.2.0 開始，除非另有配置，否則在介面中宣告的函式將編譯為 JVM 預設方法 (default methods)。此變更會影響具有實作的 Kotlin 介面函式如何編譯為位元組碼。
 
@@ -476,7 +476,7 @@ kotlin {
 }
 ```
 
-### 支援在 Kotlin 元資料中讀寫註解
+### 支援在 Kotlin 元資料中讀寫註解 {id="support-for-reading-and-writing-annotations-in-kotlin-metadata"}
 <primary-label ref="experimental-general"/>
 
 以前，您必須使用反射或位元組碼分析從編譯後的 JVM 類別檔案中讀取註解，並根據簽章手動將其與元資料項目配對。此過程非常容易出錯，尤其是對於多載函式。
@@ -547,7 +547,7 @@ fun main() {
 >
 {style="warning"}
 
-### 改進與內嵌值類別的 Java 互通性
+### 改進與內嵌值類別的 Java 互通性 {id="improved-java-interop-with-inline-value-classes"}
 <primary-label ref="experimental-general"/>
 
 Kotlin 2.2.0 引入了一個新的實驗性註解：[`@JvmExposeBoxed`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-expose-boxed/)。此註解使得從 Java 使用 [內嵌值類別 (inline value classes)](inline-classes.md) 變得更加容易。
@@ -605,7 +605,7 @@ MyInt output = ExampleKt.timesTwoBoxed(input);
 
 有關 `@JvmExposedBoxed` 註解運作方式及其解決的問題的更詳細解釋，請參閱此 [KEEP](https://github.com/Kotlin/KEEP/blob/jvm-expose-boxed/proposals/jvm-expose-boxed.md) 提案。
 
-### 改進對 JVM record 註解的支援
+### 改進對 JVM record 註解的支援 {id="improved-support-for-annotating-jvm-records"}
 
 Kotlin 自 1.5.0 起就支援 [JVM record](jvm-records.md)。現在，Kotlin 2.2.0 改進了 Kotlin 處理 record 組件上註解的方式，特別是與 Java 的 [`RECORD_COMPONENT`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/annotation/ElementType.html#RECORD_COMPONENT) 目標相關的部分。
 
@@ -637,11 +637,11 @@ data class Person(val name: String, @all:Positive val age: Int)
 * 將註解傳播到屬性、支援欄位、建構函式參數與 getter。
 * 若該註解支援 Java 的 `RECORD_COMPONENT`，則也會將其套用到 record 組件。
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 從 2.2.0 開始，Kotlin/Native 使用 LLVM 19。此版本還帶來了幾項旨在追蹤與調整記憶體消耗的實驗性特性。
 
-### 個別物件記憶體分配
+### 個別物件記憶體分配 {id="per-object-memory-allocation"}
 <primary-label ref="experimental-opt-in"/>
 
 Kotlin/Native 的 [記憶體分配器 (memory allocator)](https://github.com/JetBrains/kotlin/blob/master/kotlin-native/runtime/src/alloc/custom/README.md) 現在可以基於個別物件預留記憶體。在某些情況下，這可能幫助您滿足嚴格的記憶體限制或在應用程式啟動時減少記憶體消耗。
@@ -657,7 +657,7 @@ kotlin.native.binary.pagedAllocator=false
 
 請向我們的問題追蹤器 [YouTrack](https://kotl.in/issue) 回報任何問題。
 
-### 執行時支援 Latin-1 編碼字串
+### 執行時支援 Latin-1 編碼字串 {id="support-for-latin-1-encoded-strings-at-runtime"}
 <primary-label ref="experimental-opt-in"/>
 
 Kotlin 現在支援 Latin-1 編碼字串，類似於 [JVM](https://openjdk.org/jeps/254)。這應有助於縮減應用程式的二進位檔案大小並調整記憶體消耗。
@@ -666,7 +666,7 @@ Kotlin 現在支援 Latin-1 編碼字串，類似於 [JVM](https://openjdk.org/j
 
 相應地，[Latin-1 (ISO 8859-1)](https://en.wikipedia.org/wiki/ISO/IEC_8859-1) 編碼僅用一個位元組表示前 256 個 Unicode 字元中的每一個。啟用 Latin-1 支援後，只要所有字元都落在其範圍內，字串就會以 Latin-1 編碼儲存。否則，將使用預設的 UTF-16 編碼。
 
-#### 如何啟用 Latin-1 支援
+#### 如何啟用 Latin-1 支援 {id="how-to-enable-latin-1-support"}
 
 該特性目前處於 [實驗性](components-stability.md#stability-levels-explained) 階段。
 若要啟用它，請在您的 `gradle.properties` 檔案中設定以下選項：
@@ -674,7 +674,7 @@ Kotlin 現在支援 Latin-1 編碼字串，類似於 [JVM](https://openjdk.org/j
 ```none
 kotlin.native.binary.latin1Strings=true
 ```
-#### 已知問題
+#### 已知問題 {id="known-issues"}
 
 只要該特性處於實驗性階段，cinterop 擴充函式 [`String.pin`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/pin.html)、[`String.usePinned`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/use-pinned.html) 與 [`String.refTo`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/ref-to.html) 的效率就會降低。對它們的每次呼叫都可能觸發字串自動轉換為 UTF-16。
 
@@ -682,7 +682,7 @@ Kotlin 團隊非常感謝 Google 的同事，特別是 [Sonya Valchuk](https://g
 
 有關 Kotlin 中記憶體消耗的更多資訊，請參閱 [文件](native-memory-manager.md#memory-consumption)。
 
-### 改進 Apple 平台上的記憶體消耗追蹤
+### 改進 Apple 平台上的記憶體消耗追蹤 {id="improved-tracking-of-memory-consumption-on-apple-platforms"}
 
 從 Kotlin 2.2.0 開始，由 Kotlin 程式碼分配的記憶體現在會加上標籤。這可以幫助您在 Apple 平台上偵錯記憶體問題。
 
@@ -704,24 +704,24 @@ Kotlin 團隊非常感謝 Google 的同事，特別是 [Sonya Valchuk](https://g
 
 有關 Kotlin 中記憶體消耗的更多資訊，請參閱 [文件](native-memory-manager.md#memory-consumption)。
 
-### LLVM 從 16 更新至 19
+### LLVM 從 16 更新至 19 {id="llvm-update-from-16-to-19"}
 
 在 Kotlin 2.2.0 中，我們將 LLVM 從版本 16 更新至 19。
 新版本包含效能改進、錯誤修正與安全性更新。
 
 此更新不應影響您的程式碼，但如果您遇到任何問題，請向我們的 [問題追蹤器](http://kotl.in/issue) 回報。
 
-### Windows 7 目標已棄用
+### Windows 7 目標已棄用 {id="windows-7-target-deprecated"}
 
 從 Kotlin 2.2.0 開始，最低支援的 Windows 版本已從 Windows 7 提升至 Windows 10。由於 Microsoft 已於 2025 年 1 月結束對 Windows 7 的支援，我們也決定棄用此舊版目標。
 
 如需更多資訊，請參閱 [](native-target-support.md)。
 
-## Kotlin/Wasm
+## Kotlin/Wasm {id="kotlin-wasm"}
 
 在此版本中，[Wasm 目標的建置基礎設施已與 JavaScript 目標分離](#build-infrastructure-for-wasm-target-separated-from-javascript-target)。此外，現在您可以[按專案或模組配置 Binaryen 工具](#per-project-binaryen-configuration)。
 
-### Wasm 目標的建置基礎設施已與 JavaScript 目標分離
+### Wasm 目標的建置基礎設施已與 JavaScript 目標分離 {id="build-infrastructure-for-wasm-target-separated-from-javascript-target"}
 
 以前，`wasmJs` 目標與 `js` 目標共享相同的基礎設施。因此，這兩個目標都代管在同一個目錄 (`build/js`) 中，並使用相同的 NPM 任務與配置。
 
@@ -751,7 +751,7 @@ Kotlin 團隊非常感謝 Google 的同事，特別是 [Sonya Valchuk](https://g
 
 此變更預設啟用，不需額外設定。
 
-### 個別專案 Binaryen 配置
+### 個別專案 Binaryen 配置 {id="per-project-binaryen-configuration"}
 
 在 Kotlin/Wasm 中用於 [優化生產環境組建](whatsnew20.md#optimized-production-builds-by-default-using-binaryen) 的 Binaryen 工具，以前是在根專案中配置一次。
 
@@ -761,11 +761,11 @@ Kotlin 團隊非常感謝 Google 的同事，特別是 [Sonya Valchuk](https://g
 
 此特性預設啟用。然而，如果您有 Binaryen 的自訂配置，現在需要按專案套用，而不僅是在根專案中。
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
 此版本改進了 [`@JsPlainObject` 介面中的 `copy()` 函式](#fix-for-copy-in-jsplainobject-interfaces)、[帶有 `@JsModule` 註解之檔案中的型別別名](#support-for-type-aliases-in-files-with-jsmodule-annotation) 以及其他 Kotlin/JS 特性。
 
-### 修正 `@JsPlainObject` 介面中的 `copy()`
+### 修正 `@JsPlainObject` 介面中的 `copy()` {id="fix-for-copy-in-jsplainobject-interfaces"}
 
 Kotlin/JS 有一個名為 `js-plain-objects` 的實驗性外掛程式，它為帶有 `@JsPlainObject` 註解的介面引入了 `copy()` 函式。您可以使用 `copy()` 函式來操作物件。
 
@@ -792,7 +792,7 @@ fun main() {
 此變更解決了繼承階層中的衝突並消除了歧義。
 從 Kotlin 2.2.0 開始預設啟用。
 
-### 支援在具有 `@JsModule` 註解的檔案中使用型別別名
+### 支援在具有 `@JsModule` 註解的檔案中使用型別別名 {id="support-for-type-aliases-in-files-with-jsmodule-annotation"}
 
 以前，帶有 `@JsModule` 註解以從 JavaScript 模組匯入宣告的檔案被限制只能包含外部宣告。這意味著您不能在此類檔案中宣告 `typealias`。
 
@@ -808,7 +808,7 @@ typealias SomeClass = Any
 
 在具有 `@JsModule` 的檔案中支援型別別名是預設啟用的。
 
-### 在多平台 `expect` 宣告中支援 `@JsExport`
+### 在多平台 `expect` 宣告中支援 `@JsExport` {id="support-for-jsexport-in-multiplatform-expect-declarations"}
 
 在 Kotlin 多平台專案中使用 [`expect/actual` 機制](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html) 時，以前無法在共通程式碼 (common code) 中為 `expect` 宣告使用 `@JsExport` 註解。
 
@@ -844,7 +844,7 @@ actual class WindowManager {
 
 此變更預設啟用。
 
-### 能夠在 `Promise<Unit>` 型別中使用 `@JsExport`
+### 能夠在 `Promise<Unit>` 型別中使用 `@JsExport` {id="ability-to-use-jsexport-with-the-promise-unit-type"}
 
 以前，當您嘗試使用 `@JsExport` 註解匯出回傳 `Promise<Unit>` 型別的函式時，Kotlin 編譯器會產生錯誤。
 
@@ -869,14 +869,14 @@ fun fooUnit(): Promise<Unit> = GlobalScope.promise {
 
 此變更移除了 Kotlin/JS 互通模型中不必要的限制。此修正預設啟用。
 
-## Gradle
+## Gradle {id="gradle"}
 
 Kotlin 2.2.0 與 Gradle 7.6.3 至 8.14 完全相容。您也可以使用截至最新發佈的 Gradle 版本。但請注意，這樣做可能會導致棄用警告，且某些新的 Gradle 特性可能無法運作。
 
 在此版本中，Kotlin Gradle 外掛程式對其診斷功能進行了多項改進。 
 它還引入了 [二進位相容性驗證](#binary-compatibility-validation-included-in-kotlin-gradle-plugin) 的實驗性整合，使得程式庫開發變得更加容易。
 
-### Kotlin Gradle 外掛程式中包含二進位相容性驗證
+### Kotlin Gradle 外掛程式中包含二進位相容性驗證 {id="binary-compatibility-validation-included-in-kotlin-gradle-plugin"}
 <primary-label ref="experimental-general"/>
 
 為了更輕鬆地檢查程式庫版本之間的二進位相容性，我們正在嘗試將 [二進位相容性驗證器 (binary compatibility validator)](https://github.com/Kotlin/binary-compatibility-validator) 的功能移至 Kotlin Gradle 外掛程式 (KGP) 中。 
@@ -909,7 +909,7 @@ kotlin {
 
 此任務會從目前的程式碼產生一個應用程式二進位介面 (ABI) 傾印作為 UTF-8 文字檔案。然後該任務會將新的傾印與前一個版本的傾印進行比較。如果任務發現任何差異，會將其報告為錯誤。審查錯誤後，如果您認為變更可以接受，可以透過執行 `updateLegacyAbi` Gradle 任務來更新參考 ABI 傾印。
 
-#### 過濾類別
+#### 過濾類別 {id="filter-classes"}
 
 此特性允許您在 ABI 傾印中過濾類別。您可以按名稱、部分名稱或標記它們的註解（或註解名稱的一部分）明確地包含或排除類別。
 
@@ -927,7 +927,7 @@ kotlin {
 
 探索 [KGP API 參考](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.dsl.abi/) 以了解更多關於配置二進位相容性驗證器的資訊。
 
-#### 多平台限制
+#### 多平台限制 {id="multiplatform-limitations"}
 
 在多平台專案中，如果您的主機不支援所有目標的交叉編譯，KGP 會嘗試透過檢查其他目標的 ABI 傾印來推斷不支援目標的 ABI 變更。這種方法有助於避免在您稍後切換到 **可以** 編譯所有目標的主機時出現錯誤的驗證失敗。
 
@@ -947,7 +947,7 @@ kotlin {
 
 然而，如果您的專案中有不支援的目標，執行 `checkLegacyAbi` 任務將會失敗，因為該任務無法建立 ABI 傾印。如果比起錯過由於推斷出的 ABI 變更而導致的不相容變更，您更傾向於讓檢查失敗，那麼這種行為可能是理想的。
 
-### 支援 Kotlin Gradle 外掛程式的主控台豐富輸出
+### 支援 Kotlin Gradle 外掛程式的主控台豐富輸出 {id="support-for-rich-output-in-console-for-kotlin-gradle-plugin"}
 
 在 Kotlin 2.2.0 中，我們在 Gradle 組建過程中支援主控台的顏色與其他豐富輸出，使得閱讀與理解報告的診斷資訊變得更加容易。
 
@@ -963,7 +963,7 @@ org.gradle.console=plain
 
 有關此屬性及其選項的更多資訊，請參閱 Gradle 關於 [自訂日誌格式](https://docs.gradle.org/current/userguide/command_line_interface.html#sec:command_line_customizing_log_format) 的文件。
 
-### 在 KGP 診斷中整合 Problems API
+### 在 KGP 診斷中整合 Problems API {id="integration-of-problems-api-within-kgp-diagnostics"}
 
 以前，Kotlin Gradle 外掛程式 (KGP) 僅能將診斷資訊（如警告與錯誤）作為純文字輸出回報到主控台或日誌。
 
@@ -974,7 +974,7 @@ KGP 診斷資訊現在更易於閱讀，且在不同的介面（例如 Gradle CL
 從 Gradle 8.6 或更新版本開始，此整合預設啟用。
 由於該 API 仍在演進中，請使用最新的 Gradle 版本以受益於最新的改進。
 
-### KGP 與 `--warning-mode` 的相容性
+### KGP 與 `--warning-mode` 的相容性 {id="kgp-compatibility-with-warning-mode"}
 
 Kotlin Gradle 外掛程式 (KGP) 診斷使用固定的嚴重等級來報告問題，這意味著 Gradle 的 [`--warning-mode` 命令列選項](https://docs.gradle.org/current/userguide/command_line_interface.html#sec:command_line_warnings) 對 KGP 如何顯示錯誤沒有影響。
 
@@ -994,7 +994,7 @@ Kotlin Gradle 外掛程式 (KGP) 診斷使用固定的嚴重等級來報告問�
 kotlin.internal.diagnostics.ignoreWarningMode=true
 ```
 
-## 新的實驗性組建工具 API
+## 新的實驗性組建工具 API {id="new-experimental-build-tools-api"}
 <primary-label ref="experimental-general"/>
 
 您可以將 Kotlin 與各種組建系統（例如 Gradle、Maven、Amper 等）搭配使用。然而，將 Kotlin 整合到每個系統中以支援完整的功能集（例如增量編譯以及與 Kotlin 編譯器外掛程式、守護進程和 Kotlin Multiplatform 的相容性）需要付出巨大的努力。
@@ -1020,7 +1020,7 @@ BTA 目前對 Maven 外掛程式沒有直接的好處，但它為更快地交付
 * [改進的「進程內 (in process)」編譯器執行策略](#improved-in-process-compiler-execution-strategy)
 * [更靈活地從 Kotlin 配置不同的編譯器版本](#flexibility-to-configure-different-compiler-versions-from-kotlin)
 
-### 改進的「進程內」編譯器執行策略
+### 改進的「進程內」編譯器執行策略 {id="improved-in-process-compiler-execution-strategy"}
 
 KGP 支援三種 [Kotlin 編譯器執行策略](gradle-compilation-and-caches.md#defining-kotlin-compiler-execution-strategy)。 
 「進程內 (in process)」策略在 Gradle 守護進程進程內執行編譯器，以前不支援增量編譯。
@@ -1031,7 +1031,7 @@ KGP 支援三種 [Kotlin 編譯器執行策略](gradle-compilation-and-caches.md
 kotlin.compiler.execution.strategy=in-process
 ```
 
-### 靈活地從 Kotlin 配置不同的編譯器版本
+### 靈活地從 Kotlin 配置不同的編譯器版本 {id="flexibility-to-configure-different-compiler-versions-from-kotlin"}
 
 有時您可能想在程式碼中使用較新的 Kotlin 編譯器版本，同時讓 KGP 保持在較舊的版本上——例如，在處理組建指令碼棄用項時嘗試新的語言特性。或者您可能想更新 KGP 版本但保留較舊的 Kotlin 編譯器版本。
 
@@ -1068,11 +1068,11 @@ KGP 2.2.0 也與未來的 Kotlin 編譯器版本 2.2.x 與 2.3.x 相容。
 
 請嘗試在這些外掛程式中使用 BTA，並在 [KGP](https://youtrack.jetbrains.com/issue/KT-56574) 與 [Maven 外掛程式](https://youtrack.jetbrains.com/issue/KT-73012) 的專屬 YouTrack 票證中向我們發送您的回饋。
 
-## 標準程式庫
+## 標準程式庫 {id="standard-library"}
 
 在 Kotlin 2.2.0 中，[`Base64` API](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.io.encoding/-base64/) 與 [`HexFormat` API](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/-hex-format/) 現已達到 [穩定版](components-stability.md#stability-levels-explained)。
 
-### 穩定的 Base64 編碼與解碼
+### 穩定的 Base64 編碼與解碼 {id="stable-base64-encoding-and-decoding"}
 
 Kotlin 1.8.20 引入了 [對 Base64 編碼與解碼的實驗性支援](whatsnew1820.md#support-for-base64-encoding)。
 在 Kotlin 2.2.0 中，[Base64 API](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.io.encoding/-base64/) 現已 [穩定](components-stability.md#stability-levels-explained)，且包含四種編碼方案，此版本新增了 `Base64.Pem`：
@@ -1128,7 +1128,7 @@ fun main() {
 }
 ```
 
-### 使用 `HexFormat` API 進行穩定的十六進位剖析與格式化
+### 使用 `HexFormat` API 進行穩定的十六進位剖析與格式化 {id="stable-hexadecimal-parsing-and-formatting-with-the-hexformat-api"}
 
 在 [Kotlin 1.9.0](whatsnew19.md#new-hexformat-class-to-format-and-parse-hexadecimals) 中引入的 [`HexFormat` API](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/-hex-format/) 現已達到 [穩定版](components-stability.md#stability-levels-explained)。
 您可以使用它在數值與十六進位字串之間進行轉換。
@@ -1146,11 +1146,11 @@ fun main() {
 
 如需更多資訊，請參閱 [用於格式化與剖析十六進位的新 HexFormat 類別](whatsnew19.md#new-hexformat-class-to-format-and-parse-hexadecimals)。
 
-## Compose 編譯器
+## Compose 編譯器 {id="compose-compiler"}
 
 在此版本中，Compose 編譯器引入了對可組合函式參考 (composable function references) 的支援，並變更了數個特性旗標的預設值。
 
-### 支援 `@Composable` 函式參考
+### 支援 `@Composable` 函式參考 {id="support-for-composable-function-references"}
 
 Compose 編譯器從 Kotlin 2.2.0 版本開始支援可組合函式參考的宣告與使用：
 
@@ -1165,7 +1165,7 @@ val content: @Composable (String) -> Unit = ::Text
 可組合函式參考在執行時的行為與可組合 Lambda 物件略有不同。特別是， 
 可組合 Lambda 透過擴充 `ComposableLambda` 類別允許對跳過行為進行更精細的控制。函式參考預期會實作 `KCallable` 介面，因此無法對其套用相同的優化。
 
-### `PausableComposition` 特性旗標預設啟用
+### `PausableComposition` 特性旗標預設啟用 {id="pausablecomposition-feature-flag-enabled-by-default"}
 
 從 Kotlin 2.2.0 開始，`PausableComposition` 特性旗標預設啟用。此旗標調整了 Compose 編譯器對於可重新啟動函式 (restartable functions) 的輸出，允許執行時強制執行跳過行為，從而透過跳過每個函式來有效地暫停組合。這允許沉重的組合被拆分到不同的畫面 (frames) 之間，這將在未來的版本中用於預取 (prefetching)。
 
@@ -1178,7 +1178,7 @@ composeCompiler {
 }
 ```
 
-### `OptimizeNonSkippingGroups` 特性旗標預設啟用
+### `OptimizeNonSkippingGroups` 特性旗標預設啟用 {id="optimizenonskippinggroups-feature-flag-enabled-by-default"}
 
 從 Kotlin 2.2.0 開始，`OptimizeNonSkippingGroups` 特性旗標預設啟用。這項優化透過移除為不可跳過的可組合函式產生的群組呼叫來提高執行時效能。 
 這不應導致執行時出現任何可觀察到的行為變化。
@@ -1194,12 +1194,12 @@ composeCompiler {
 }
 ```
 
-### 已棄用的特性旗標
+### 已棄用的特性旗標 {id="deprecated-feature-flags"}
 
 `StrongSkipping` 與 `IntrinsicRemember` 特性旗標現已棄用，並將在未來版本中移除。 
 如果您遇到 any 問題需要您停用這些特性旗標，請向 [Jetpack Compose 問題追蹤器](https://issuetracker.google.com/issues/new?component=610764&template=1424126) 回報。
 
-## 重大變更與棄用
+## 重大變更與棄用 {id="breaking-changes-and-deprecations"}
 
 本節強調值得注意的重要重大變更與棄用。請參閱我們的 [相容性指南](compatibility-guide-22.md)
 以獲取此版本中所有重大變更與棄用的完整概觀。
@@ -1241,13 +1241,13 @@ composeCompiler {
 * 使用已棄用的 `destinationDir` 屬性現在 [會導致錯誤](compatibility-guide-22.md#deprecate-destinationdir-in-cinteropprocess)。 
   請改用 `CInteropProcess.destinationDirectory.set()`。
 
-## 文件更新
+## 文件更新 {id="documentation-updates"}
 
 此版本帶來了顯著的文件變更，包括將 Kotlin Multiplatform 文件遷移至 [KMP 門戶](https://kotlinlang.org/docs/multiplatform/get-started.html)。 
 
 此外，我們建立了新的頁面與教學，並更新了現有的內容。 
 
-### 新增與翻新的教學
+### 新增與翻新的教學 {id="new-and-revamped-tutorials"}
 
 * [Kotlin 中階導覽](kotlin-tour-welcome.md) – 提升您對 Kotlin 的理解。了解何時使用擴充函式、介面、類別等。
 * [建置使用 Spring AI 的 Kotlin 應用程式](spring-ai-guide.md) – 了解如何使用 OpenAI 與向量資料庫建立能回答問題的 Kotlin 應用程式。
@@ -1258,7 +1258,7 @@ composeCompiler {
 * [使用 Ktor 與 Kotlin Multiplatform 建置全端應用程式](https://ktor.io/docs/full-stack-development-with-kotlin-multiplatform.html) – 此教學現在使用 IntelliJ IDEA 代替 Fleet，並搭配 Material 3 以及最新版本的 Ktor 與 Kotlin。
 * [在您的 Compose Multiplatform 應用程式中管理本機資源環境](https://kotlinlang.org/docs/multiplatform/compose-resource-environment.html) – 了解如何管理應用程式的資源環境，例如應用程式內的主題與語言。
 
-### 新增與翻新的頁面
+### 新增與翻新的頁面 {id="new-and-revamped-pages"}
 
 * [Kotlin for AI 概觀](kotlin-ai-apps-development-overview.md) – 探索 Kotlin 用於建置 AI 驅動應用程式的能力。
 * [Dokka 遷移指南](https://kotlinlang.org/docs/dokka-migration.html) – 了解如何遷移至 Dokka Gradle 外掛程式 v2 版本。
@@ -1271,7 +1271,7 @@ composeCompiler {
 * [Compose 熱重載 (Hot Reload)](https://kotlinlang.org/docs/multiplatform/compose-hot-reload.html) – 了解如何在您的桌面目標上使用 Compose 熱重載，以及如何將其加入現有專案。
 * [Exposed 遷移](https://www.jetbrains.com/help/exposed/migrations.html) – 了解 Exposed 提供用於管理資料庫架構變更的工具。
 
-## 如何更新至 Kotlin 2.2.0
+## 如何更新至 Kotlin 2.2.0 {id="how-to-update-to-kotlin-2-2-0"}
 
 Kotlin 外掛程式是以隨附外掛程式的形式發佈在 IntelliJ IDEA 與 Android Studio 中。
 

@@ -9,7 +9,7 @@ Kotlinライブラリを作成する際は、[Kotlin Multiplatformのサポー�
 
 以下のセクションでは、Kotlin Multiplatformライブラリを効果的に構築するためのガイドラインを提供します。
 
-## リーチを最大化する
+## リーチを最大化する {id="maximize-your-reach"}
 
 ライブラリを依存関係として可能な限り多くのプロジェクトで利用可能にするために、できるだけ多くのKotlin Multiplatformの[ターゲットプラットフォーム](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#targets)をサポートすることを目指してください。
 
@@ -21,7 +21,7 @@ Kotlinライブラリを作成する際は、[Kotlin Multiplatformのサポー�
 >
 {style="note"}
 
-## 共通コードから使用するためのAPI設計
+## 共通コードから使用するためのAPI設計 {id="design-apis-for-use-from-common-code"}
 
 ライブラリを作成する際は、プラットフォーム固有の実装を書くのではなく、共通のKotlinコードから使用できるようにAPIを設計してください。
 
@@ -37,7 +37,7 @@ Kotlinライブラリを作成する際は、[Kotlin Multiplatformのサポー�
 >
 {style="tip"}
 
-## プラットフォーム間での動作の一貫性の確保
+## プラットフォーム間での動作の一貫性の確保 {id="ensure-consistent-behavior-across-platforms"}
 
 ライブラリがサポートされているすべてのプラットフォームで一貫して動作するように、マルチプラットフォームライブラリのAPIは、すべてのプラットフォームで同じ範囲の有効な入力を受け入れ、同じアクションを実行し、同じ結果を返す必要があります。同様に、ライブラリは無効な入力を一律に扱い、すべてのプラットフォームで一貫してエラーを報告したり例外をスローしたりする必要があります。
 
@@ -51,7 +51,7 @@ APIがプラットフォーム間で一貫して動作する場合、それら�
 >
 > {style=”note”}
 
-## すべてのプラットフォームでテストする
+## すべてのプラットフォームでテストする {id="test-on-all-platforms"}
 
 マルチプラットフォームライブラリでは、すべてのプラットフォームで実行される共通コードで記述された[マルチプラットフォームテスト](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-run-tests.html)を持つことができます。サポートされているプラットフォームでこの共通テストスイートを定期的に実行することで、ライブラリが正しく一貫して動作することを確認できます。
 
@@ -59,13 +59,13 @@ APIがプラットフォーム間で一貫して動作する場合、それら�
 
 [`kotlin-test`](https://kotlinlang.org/api/latest/kotlin.test/) ライブラリを使用して共通コードでテストを記述し、プラットフォーム固有のテストランナーで実行してください。
 
-## Kotlin以外のユーザーを考慮する
+## Kotlin以外のユーザーを考慮する {id="consider-non-kotlin-users"}
 
 Kotlin Multiplatformは、サポートされているターゲットプラットフォーム全体でネイティブAPIや言語との相互運用性を提供します。Kotlin Multiplatformライブラリを作成する際は、ユーザーがあなたのライブラリの型や宣言をKotlin以外の言語から使用する必要があるかどうかを検討してください。
 
 例えば、ライブラリの一部の型が相互運用性を通じてSwiftコードに公開される場合、それらの型をSwiftから簡単にアクセスできるように設計してください。[Kotlin-Swift interopedia](https://github.com/kotlin-hands-on/kotlin-swift-interopedia)は、Swiftから呼び出されたときにKotlin APIがどのように見えるかについて役立つ洞察を提供します。
 
-## ライブラリのプロモーション
+## ライブラリのプロモーション {id="promote-your-library"}
 
 あなたのライブラリを、開発者がKotlin Multiplatformライブラリを検索・評価するための検索プラットフォームである [klibs.io](https://klibs.io/) に掲載できます。
 

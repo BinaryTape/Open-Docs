@@ -3,7 +3,7 @@
 Kotlin/JS には、パフォーマンス、サイズ、および開発スピードのためにコードを最適化するコンパイラ機能が含まれています。
 これは、JavaScript コードを生成する前に Kotlin コードを中間表現 (IR) に変換するコンパイルプロセスを通じて機能します。
 
-## トップレベルプロパティの遅延初期化
+## トップレベルプロパティの遅延初期化 {id="lazy-initialization-of-top-level-properties"}
 
 アプリケーションの起動パフォーマンスを向上させるため、Kotlin/JS コンパイラはトップレベルプロパティを遅延初期化（レイジー初期化）します。これにより、アプリケーションのコードで使用されているすべてのトップレベルプロパティを初期化することなく、アプリケーションをロードできます。起動時に必要なものだけが初期化され、その他のプロパティは、それらを使用するコードが実際に実行されるときに値を受け取ります。
 
@@ -17,7 +17,7 @@ val a = run {
 
 何らかの理由でプロパティを即時（アプリケーションの開始時）に初期化する必要がある場合は、[`@EagerInitialization`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.js/-eager-initialization/){nullable="true"} アノテーションを付けてください。
 
-## 開発用バイナリのインクリメンタルコンパイル
+## 開発用バイナリのインクリメンタルコンパイル {id="incremental-compilation-for-development-binaries"}
 
 Kotlin/JS コンパイラは、開発プロセスを高速化する「開発用バイナリのインクリメンタルコンパイルモード」を提供しています。
 このモードでは、コンパイラは `compileDevelopmentExecutableKotlinJs` Gradle タスクの結果をモジュールレベルでキャッシュします。
@@ -33,7 +33,7 @@ kotlin.incremental.js.ir=false // デフォルトは true
 >
 {style="note"}
 
-## プロダクションにおけるメンバー名のミニファイ
+## プロダクションにおけるメンバー名のミニファイ {id="minification-of-member-names-in-production"}
 
 Kotlin/JS コンパイラは、Kotlin のクラスや関数の関係に関する内部情報を使用して、より効率的なミニファイ（縮小化）を適用し、関数、プロパティ、クラスの名前を短縮します。これにより、生成されるバンドルされたアプリケーションのサイズが削減されます。
 
@@ -51,7 +51,7 @@ kotlin {
 }
 ```
 
-## デッドコード削除
+## デッドコード削除 {id="dead-code-elimination"}
 
 [デッドコード削除](https://wikipedia.org/wiki/Dead_code_elimination) (DCE) は、未使用のプロパティ、関数、およびクラスを削除することで、生成される JavaScript コードのサイズを削減します。
 

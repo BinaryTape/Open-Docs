@@ -1,4 +1,4 @@
-## 类型推断
+## 类型推断 {id="type-inference"}
 
 SQLDelight 会推断运行时形参的正确类型与为 null 性，包括自定义列类型。
 
@@ -15,7 +15,7 @@ println(selectNumber10.executeAsOne())
 // Prints "Corey Perry"
 ```
 
-## 命名实参
+## 命名实参 {id="named-arguments"}
 
 可以使用命名形参或索引形参。
 
@@ -31,7 +31,7 @@ OR full_name LIKE (:name || ' %');
 playerQueries.firstOrLastName(name = "Ryan")
 ```
 
-## 可变实参
+## 可变实参 {id="variable-arguments"}
 
 一组值也可以作为实参传递。
 
@@ -46,7 +46,7 @@ WHERE full_name IN ?;
 playerQueries.selectByNames(listOf("Alec", "Jake", "Matt"))
 ```
 
-## 插入
+## 插入 {id="inserts"}
 
 `INSERT VALUES` 实参可以绑定到表的 data class。
 
@@ -64,6 +64,6 @@ val rickardRakell = HockeyPlayer(
 playerQueries.insertPlayer(rickardRakell)
 ```
 
-## 输入净化
+## 输入净化 {id="input-sanitization"}
 
 SQLDelight 使用查询占位符将实参传递到查询中。实参输入的实际净化由每个对应平台和方言的底层驱动程序实现负责。

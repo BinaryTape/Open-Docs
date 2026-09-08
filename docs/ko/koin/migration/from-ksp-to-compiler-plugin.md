@@ -10,7 +10,7 @@ title: KSP에서 컴파일러 플러그인으로 Koin Annotations 마이그레�
 **어노테이션은 정확히 동일하게 유지됩니다.** 빌드 설정과 Koin 시작 코드만 변경하면 됩니다.
 :::
 
-## 무엇이 달라지나요?
+## 무엇이 달라지나요? {id="what-s-different"}
 
 | 항목 | KSP 프로세싱 | 컴파일러 플러그인 |
 |--------|----------------|-----------------|
@@ -21,14 +21,14 @@ title: KSP에서 컴파일러 플러그인으로 Koin Annotations 마이그레�
 | **Koin 시작** | `modules(AppModule().module)` | `startKoin<MyApp>()` |
 | **향후 지원** | 지원 중단(Deprecated) | 활발히 개발 중 |
 
-## 요구 사항
+## 요구 사항 {id="requirements"}
 
 - **Kotlin 2.3.20+** (K2 컴파일러 필수)
 - **Gradle 8.x+**
 
-## 마이그레이션 단계
+## 마이그레이션 단계 {id="migration-steps"}
 
-### 1단계: Kotlin 버전 업데이트
+### 1단계: Kotlin 버전 업데이트 {id="step-1-update-kotlin-version"}
 
 컴파일러 플러그인은 Kotlin 2.3.20 이상이 필요합니다:
 
@@ -39,7 +39,7 @@ plugins {
 }
 ```
 
-### 2단계: Version Catalog 업데이트
+### 2단계: Version Catalog 업데이트 {id="step-2-update-version-catalog"}
 
 **변경 전 (KSP):**
 ```toml
@@ -75,7 +75,7 @@ koin-compiler = { id = "io.insert-koin.compiler.plugin", version.ref = "koin-plu
 `koin-annotations`는 이제 메인 Koin 프로젝트의 일부이며 `koin-core`와 동일한 버전을 사용합니다.
 :::
 
-### 3단계: 빌드 설정 업데이트
+### 3단계: 빌드 설정 업데이트 {id="step-3-update-build-configuration"}
 
 **변경 전 (KSP):**
 ```kotlin
@@ -113,7 +113,7 @@ koinCompiler {
 }
 ```
 
-### 4단계: Koin 시작 코드 업데이트
+### 4단계: Koin 시작 코드 업데이트 {id="step-4-update-koin-startup"}
 
 이것이 주요 코드 변경 사항입니다. KSP 방식은 생성된 `.module` 확장 함수를 사용하는 반면, 컴파일러 플러그인은 `@KoinApplication`과 함께 타입 기반(typed) API를 사용합니다.
 
@@ -149,7 +149,7 @@ fun main() {
 }
 ```
 
-#### Android 예시
+#### Android 예시 {id="android-example"}
 
 **변경 전 (KSP):**
 ```kotlin
@@ -181,7 +181,7 @@ class MyApplication : Application() {
 }
 ```
 
-### 5단계: 정리
+### 5단계: 정리 {id="step-5-clean-up"}
 
 KSP로 생성된 파일들을 제거하고 다시 빌드합니다:
 
@@ -190,7 +190,7 @@ rm -rf build/generated/ksp
 ./gradlew clean build
 ```
 
-## 어노테이션은 동일하게 유지됩니다
+## 어노테이션은 동일하게 유지됩니다 {id="annotations-stay-the-same"}
 
 어노테이션이 추가된 모든 클래스는 변경되지 않고 그대로 유지됩니다:
 
@@ -212,7 +212,7 @@ class AppModule
 
 모든 어노테이션은 동일하게 작동합니다. 전체 목록은 **[어노테이션 레퍼런스](/docs/reference/koin-annotations/definitions)**를 참조하세요.
 
-### 임포트 변경: `@KoinViewModel`
+### 임포트 변경: `@KoinViewModel` {id="import-change-koinviewmodel"}
 
 `@KoinViewModel` 어노테이션의 패키지가 변경되었습니다:
 
@@ -224,7 +224,7 @@ import org.koin.android.annotation.KoinViewModel
 import org.koin.core.annotation.KoinViewModel
 ```
 
-### 최상위 함수 정의 (신규)
+### 최상위 함수 정의 (신규) {id="top-level-function-definitions-new"}
 
 컴파일러 플러그인은 `@ComponentScan`으로 탐색 가능한 최상위 함수(top-level functions)에 대한 어노테이션을 지원합니다:
 
@@ -242,7 +242,7 @@ class AppModule
 
 함수의 반환 타입에 따라 바인딩 타입이 결정됩니다. 함수의 파라미터는 의존성으로 주입됩니다.
 
-## DSL 구문 변경 사항
+## DSL 구문 변경 사항 {id="dsl-syntax-changes"}
 
 어노테이션과 함께 Koin DSL 모듈을 사용하는 경우, 컴파일러 플러그인은 더 깔끔한 구문을 제공합니다:
 
@@ -285,7 +285,7 @@ val dbModule = module {
 컴파일러 플러그인 DSL은 **`org.koin.plugin.module.dsl`** 패키지에 있습니다. 클래식 DSL은 기존처럼 `org.koin.dsl`에 유지됩니다.
 :::
 
-## 모듈 간 탐색 (Cross-Module Discovery)
+## 모듈 간 탐색 (Cross-Module Discovery) {id="cross-module-discovery"}
 
 Gradle 모듈 전체에서 자동 모듈 탐색을 위해 `@Configuration`을 사용하세요:
 
@@ -303,7 +303,7 @@ object MyApp
 startKoin<MyApp>()  // FeatureModule이 자동으로 포함됨
 ```
 
-## KMP 마이그레이션
+## KMP 마이그레이션 {id="kmp-migration"}
 
 컴파일러 플러그인은 KMP 설정을 크게 단순화합니다.
 
@@ -351,32 +351,32 @@ kotlin {
 }
 ```
 
-## 타입 기반 시작 API (Typed Startup APIs)
+## 타입 기반 시작 API (Typed Startup APIs) {id="typed-startup-apis"}
 
 컴파일러 플러그인은 `startKoin<T>()`, `koinApplication<T>()`, `koinConfiguration<T>()`와 같은 타입 기반 API를 제공합니다.
 
 자세한 내용은 **[Annotations로 시작하기](/docs/reference/koin-annotations/start)**를 참조하세요.
 
-## 설정 레이블 (신규)
+## 설정 레이블 (신규) {id="configuration-labels-new"}
 
 컴파일러 플러그인에는 조건부 모듈 로딩을 위한 설정 레이블(configuration labels)이 추가되었습니다.
 
 자세한 내용은 **[모듈 - 설정](/docs/reference/koin-annotations/modules)**을 참조하세요.
 
-## 컴파일러 플러그인 옵션
+## 컴파일러 플러그인 옵션 {id="compiler-plugin-options"}
 
 모든 설정 옵션은 **[컴파일러 플러그인 옵션](/docs/reference/koin-annotations/options)**을 참조하세요.
 
-## 문제 해결
+## 문제 해결 {id="troubleshooting"}
 
-### KSP 제거 후 빌드 실패
+### KSP 제거 후 빌드 실패 {id="build-fails-after-removing-ksp"}
 
 1. `./gradlew clean` 실행
 2. `rm -rf build/generated/ksp` 실행
 3. IDE 캐시 무효화 (Invalidate IDE caches)
 4. 다시 빌드
 
-### 어노테이션이 감지되지 않음
+### 어노테이션이 감지되지 않음 {id="annotations-not-detected"}
 
 로깅을 활성화하세요:
 ```kotlin
@@ -385,13 +385,13 @@ koinCompiler {
 }
 ```
 
-### 런타임 시 의존성 누락
+### 런타임 시 의존성 누락 {id="missing-dependencies-at-runtime"}
 
 1. `@ComponentScan` 패키지를 확인하세요.
 2. `@KoinApplication(modules = [...])`에 모듈이 포함되었는지 확인하세요.
 3. 외부 의존성에는 `@Provided`를 사용하세요.
 
-## 마이그레이션 체크리스트
+## 마이그레이션 체크리스트 {id="migration-checklist"}
 
 - [ ] Kotlin을 2.3.20 이상으로 업데이트
 - [ ] Koin을 4.2.0 이상으로 업데이트
@@ -406,7 +406,7 @@ koinCompiler {
 - [ ] `import org.koin.ksp.generated.*` 제거
 - [ ] Clean 및 다시 빌드 (`rm -rf build/generated/ksp && ./gradlew clean build`)
 
-## 참고 항목
+## 참고 항목 {id="see-also"}
 
 - **[컴파일러 플러그인 설정](/docs/setup/compiler-plugin)** - 전체 설정 가이드
 - **[어노테이션 레퍼런스](/docs/reference/koin-annotations/start)** - 모든 어노테이션 정보

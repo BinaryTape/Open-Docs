@@ -13,7 +13,7 @@
 
 Kotlin ロードマップへようこそ！JetBrains チームの優先事項をいち早くご紹介します。
 
-## 主要な優先事項
+## 主要な優先事項 {id="key-priorities"}
 
 このロードマップの目的は、全体像を提示することにあります。
 以下は、私たちが提供に注力している最も重要な方向性である、主要な重点分野のリストです。
@@ -23,7 +23,7 @@ Kotlin ロードマップへようこそ！JetBrains チームの優先事項を
 * **特定のツールに依存しない（Staying agnostic）**: 開発者がどのようなツールやターゲットを使用していても、それをサポートします。
 * **サードパーティ製エコシステム作者のエクスペリエンス**: Kotlin ライブラリ、ツール、フレームワークの開発および公開プロセスを簡素化します。
 
-## サブシステム別の Kotlin ロードマップ
+## サブシステム別の Kotlin ロードマップ {id="kotlin-roadmap-by-subsystem"}
 
 <!-- 私たちが取り組んでいる最大のプロジェクトを確認するには、[ロードマップの詳細](#roadmap-details) 表をご覧ください。 -->
 
@@ -129,9 +129,9 @@ Kotlin ロードマップへようこそ！JetBrains チームの優先事項を
 > 
 {style="note"}
 
-## 2026年2月以降の変更点
+## 2026年2月以降の変更点 {id="what-s-changed-since-february-2026"}
 
-### 完了した項目
+### 完了した項目 {id="completed-items"}
 
 以前のロードマップから以下の項目を**完了**しました。
 
@@ -147,7 +147,7 @@ Kotlin ロードマップへようこそ！JetBrains チームの優先事項を
 * ✅ エコシステム: [標準ライブラリのセキュリティ修正に対して 18 か月のサポート期間を導入](https://youtrack.jetbrains.com/issue/KT-83525)
 * ✅ エコシステム: [Exposed 移行用の Gradle プラグインを作成](https://youtrack.jetbrains.com/issue/EXPOSED-755)
 
-### 新規項目
+### 新規項目 {id="new-items"}
 
 ロードマップに以下の項目を**追加**しました。
 
@@ -163,7 +163,7 @@ Kotlin ロードマップへようこそ！JetBrains チームの優先事項を
 * 🆕 ツール: [Kotlin Toolchain: Kotlin への単一のエントリポイント](https://youtrack.jetbrains.com/issue/KTC-5718)
 * 🆕 エコシステム: [Kotlin 標準ライブラリ型に対する JPA/Hibernate のファーストクラスのサポートを実装](https://youtrack.jetbrains.com/issue/KT-88665)
 
-### 削除された項目
+### 削除された項目 {id="removed-items"}
 
 ロードマップから以下の項目を**削除**しました。
 

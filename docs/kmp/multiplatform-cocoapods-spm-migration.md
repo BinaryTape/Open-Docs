@@ -21,7 +21,7 @@
 >
 {style="note"}
 
-## 更新你的构建脚本
+## 更新你的构建脚本 {id="update-your-build-script"}
 
 要更新你的构建，请按照 SwiftPM 导入页面上的说明进行操作：
 
@@ -72,7 +72,7 @@
    <code-block lang="kotlin" code="   kotlin {&#10;       listOf(&#10;           iosArm64(),&#10;           iosSimulatorArm64(),&#10;       ).forEach { iosTarget -&gt;&#10;           iosTarget.binaries.framework {&#10;               baseName = &quot;Shared&quot;&#10;               isStatic = true&#10;           }&#10;       }&#10;   }"/>
    </compare>
 
-## 重新配置你的 Xcode 项目
+## 重新配置你的 Xcode 项目 {id="reconfigure-your-xcode-project"}
 
 如果你正在使用 CocoaPods Gradle 插件 (`kotlin("native.cocoapods")`)，
 在切换到 SwiftPM 之前，你需要重新配置你的 Xcode 项目以使用[直接集成](multiplatform-direct-integration.md)。
@@ -104,7 +104,7 @@ SwiftPM 导入工具可以生成 shell 命令，以对你的 `.xcodeproj` 文件
 
 现在 iOS 应用已使用 SwiftPM 依赖项。你可以禁用 CocoaPods 插件并反集成 (deintegrate) 该 pod。
 
-## 移除 CocoaPods KMP 集成
+## 移除 CocoaPods KMP 集成 {id="remove-the-cocoapods-kmp-integration"}
 
 如果你已经用 Swift 软件包替换了所有 CocoaPods 依赖项，现在可以通过在 `/path/to/project/iosApp` 目录中运行以下命令来反集成该 pod：
 

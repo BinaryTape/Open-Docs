@@ -6,7 +6,7 @@
 > 
 {style="note"}
 
-## Kotlin 编码规范与 IntelliJ IDEA 格式化程序
+## Kotlin 编码规范与 IntelliJ IDEA 格式化程序 {id="kotlin-coding-conventions-and-intellij-idea-formatter"}
 
 [Kotlin 编码规范](coding-conventions.md) 涉及编写惯用 Kotlin 的多个方面，其中包括旨在提高 Kotlin 代码可读性的一组格式化建议。
 
@@ -19,7 +19,7 @@ IntelliJ IDEA 内置的代码格式化程序过去使用的默认设置所生成
 * 现有项目的作者可以选择在项目中显式声明使用旧代码样式（这样项目在将来切换到默认设置时不会受到影响）。
 * 自 Kotlin 1.4.0 起，所有项目均启用默认格式化，以使其与 Kotlin 编码规范保持一致。
 
-## “Kotlin 编码规范”与 “IntelliJ IDEA 默认代码样式”的区别
+## “Kotlin 编码规范”与 “IntelliJ IDEA 默认代码样式”的区别 {id="differences-between-kotlin-coding-conventions-and-intellij-idea-default-code-style"}
 
 最显著的变化是连续缩进策略。使用双倍缩进（double indent）来表示多行表达式在前一行尚未结束是一个不错的想法。这是一个简单且通用的规则，但当以这种方式格式化时，几种 Kotlin 结构看起来会有些别扭。在 Kotlin 编码规范中，建议在以前强制使用长连续缩进的情况下使用单倍缩进。
 
@@ -27,7 +27,7 @@ IntelliJ IDEA 内置的代码格式化程序过去使用的默认设置所生成
 
 在实践中，受影响的代码相当多，因此这可以被视为一次重大的代码样式更新。
 
-## 迁移到新代码样式的讨论
+## 迁移到新代码样式的讨论 {id="migration-to-a-new-code-style-discussion"}
 
 如果从没有以旧方式格式化代码的新项目开始，采用新代码样式可能是一个非常自然的过程。这就是为什么从 1.3.0 版本开始，Kotlin IntelliJ 插件会使用 [编码规范](coding-conventions.md) 文档中的格式创建新项目，并默认启用。
 
@@ -41,7 +41,7 @@ IntelliJ IDEA 内置的代码格式化程序过去使用的默认设置所生成
 
 对于中大型项目，决策可能会很艰难。如果您不准备立即更新许多文件，可以决定逐个模块（module）进行迁移，或者仅针对修改过的文件继续进行逐步迁移。
 
-## 迁移到新代码样式
+## 迁移到新代码样式 {id="migration-to-a-new-code-style"}
 
 切换到 Kotlin 编码规范代码样式可以在 **设置/偏好设置** | **编辑器** | **代码样式** | **Kotlin** 对话框中完成。将方案切换为 **Project** 并激活 **Set from...** | **Kotlin style guide**。
 
@@ -49,11 +49,11 @@ IntelliJ IDEA 内置的代码格式化程序过去使用的默认设置所生成
 
 如果使用外部构建系统来配置项目，并且已决定不共享 `.idea/codeStyle` 文件夹，则可以使用附加属性强制执行 Kotlin 编码规范：
 
-### 在 Gradle 中
+### 在 Gradle 中 {id="in-gradle"}
 
 在项目根目录的 `gradle.properties` 文件中添加 `kotlin.code.style=official` 属性，并将该文件提交到 VCS。
 
-### 在 Maven 中
+### 在 Maven 中 {id="in-maven"}
 
 在根 `pom.xml` 项目文件中添加 `kotlin.code.style official` 属性。
 
@@ -73,7 +73,7 @@ IntelliJ IDEA 内置的代码格式化程序过去使用的默认设置所生成
 
 对于逐步迁移，可以启用 **File is not formatted according to project settings**（文件未根据项目设置进行格式化）检查（inspection）。它将高亮显示应该重新格式化的地方。启用 **Apply only to modified files**（仅应用于修改过的文件）选项后，检查将仅在修改过的文件中显示格式问题。这类文件反正很可能很快就会被提交。
 
-## 在项目中保存旧代码样式
+## 在项目中保存旧代码样式 {id="store-old-code-style-in-project"}
 
 始终可以显式地将 IntelliJ IDEA 代码样式设置为项目的正确代码样式：
 

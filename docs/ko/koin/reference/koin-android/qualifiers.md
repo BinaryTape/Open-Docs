@@ -8,11 +8,11 @@ title: Android 컨텍스트 및 한정자(Qualifiers)
 일반적인 한정자 개념(named, type-safe, enums, JSR-330)에 대해서는 [한정자(Qualifiers)](/docs/reference/koin-core/qualifiers)를 참고하세요.
 :::
 
-## Android 컨텍스트 - 한정자가 필요하지 않음
+## Android 컨텍스트 - 한정자가 필요하지 않음 {id="android-context-no-qualifiers-needed"}
 
 Hilt와 달리, Koin은 한정자를 요구하지 않고 자동으로 Android 컨텍스트를 제공합니다.
 
-### Koin의 컨텍스트 분석(Context Resolution)
+### Koin의 컨텍스트 분석(Context Resolution) {id="koin-s-context-resolution"}
 
 ```kotlin
 val androidModule = module {
@@ -31,7 +31,7 @@ val androidModule = module {
 }
 ```
 
-### @ApplicationContext 또는 @ActivityContext가 필요 없음
+### @ApplicationContext 또는 @ActivityContext가 필요 없음 {id="no-applicationcontext-or-activitycontext"}
 
 **Hilt에서는 다음과 같이 작성해야 합니다:**
 ```kotlin
@@ -56,7 +56,7 @@ val appModule = module {
 **Koin의 장점:** `androidContext()` 함수는 항상 애플리케이션 컨텍스트를 제공합니다. 애플리케이션 컨텍스트와 액티비티 컨텍스트를 구분하기 위한 별도의 한정자가 필요하지 않습니다.
 :::
 
-## 액티비티 컨텍스트가 필요한 경우
+## 액티비티 컨텍스트가 필요한 경우 {id="when-you-need-activity-context"}
 
 액티비티 컨텍스트가 필요한 경우에는 이를 주입하지 말고 직접 사용하세요:
 
@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
 **권장 사항:** 생명 주기가 긴 객체에 액티비티 컨텍스트를 주입하지 마세요. 이는 메모리 누수를 유발합니다. 액티비티보다 오래 지속되는 의존성에는 애플리케이션 컨텍스트(`androidContext()`)를 사용하세요.
 :::
 
-## 한정자가 지정된 Android 의존성
+## 한정자가 지정된 Android 의존성 {id="qualified-android-dependencies"}
 
 Android 전용 의존성에 대해 여러 설정이 필요한 경우 다음과 같이 사용합니다:
 
@@ -105,7 +105,7 @@ val databaseModule = module {
 }
 ```
 
-## 다음 단계
+## 다음 단계 {id="next-steps"}
 
 - **[한정자(Qualifiers)](/docs/reference/koin-core/qualifiers)** - 전체 한정자 문서
 - **[Android 권장 사항](/docs/reference/koin-android/best-practices)** - 메모리 관리

@@ -1,4 +1,4 @@
-## API
+## API {id="api"}
 
 如果您想在单个事务下执行多个语句，请使用 `transaction` 函数。
 
@@ -22,7 +22,7 @@ val players: List<Player> = database.playerQueries.transactionWithResult {
 }
 ```
 
-## 回滚
+## 回滚 {id="rollback"}
 
 如果事务中的任何位置发生异常，事务都将回滚。您可以在事务内部的任何位置手动回滚事务，但如果您的事务返回一个值，则需要为该事务指定一个要返回的值。
 
@@ -51,7 +51,7 @@ val numberInserted: Int = database.playerQueries.transactionWithResult {
 }
 ```
 
-## 回调
+## 回调 {id="callbacks"}
 
 您可以注册在事务完成或回滚后触发的回调：
 

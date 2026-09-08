@@ -8,7 +8,7 @@
 
 本教程基于 [JetCaster KMP 示例](https://github.com/kotlin-hands-on/jetcaster-kmp-migration/)。
 
-## 创建新项目
+## 创建新项目 {id="create-a-new-project"}
 
 每个 TeamCity 工作流都从项目开始。项目拥有诸如构建配置和流水线之类的实体，这些实体运行实际的 CI/CD 例程、存储用于启动云端代理的云配置集、与子对象共享参数等。
 
@@ -47,7 +47,7 @@
 
    保留默认设置，允许流水线跟踪所有仓库分支，使用 `main` 作为默认分支，并每当有更改提交到仓库时自动触发新的运行。
 
-## 添加流水线作业
+## 添加流水线作业 {id="add-pipeline-jobs"}
 
 流水线准备就绪后，TeamCity 将导航到其设置页面。您可以使用左上角的开关在视觉编辑器和代码编辑器之间切换。
 
@@ -57,7 +57,7 @@ TeamCity 流水线由作业组成，作业是连续执行的构建步骤的集�
 
 在 TeamCity UI 中，点击作业磁贴以编辑其设置，或者点击作业下方的较暗区域以修改全局流水线设置。
 
-### 通用流水线设置
+### 通用流水线设置 {id="common-pipeline-settings"}
 
 本教程不需要设置任何全局流水线选项。有关影响流水线内所有作业的设置（如以下内容），请参阅[这篇文章](https://www.jetbrains.com/help/teamcity/pipeline-settings.html)：
 
@@ -65,7 +65,7 @@ TeamCity 流水线由作业组成，作业是连续执行的构建步骤的集�
 * **仓库** (Repository) —— 允许您检出并处理来自不同版本控制系统托管服务提供商的多个仓库。
 * **集成** (Integrations) —— 让您连接外部 NPM 和 Docker 注册表。请注意，如果您计划在公共 Docker Hub 镜像中运行构建步骤，除非您的流水线运行频率高到超过了 Docker Hub 对匿名拉取的频率限制，否则无需配置相应的集成。
 
-### 代理设置
+### 代理设置 {id="agent-settings"}
 
 构建任务由安装在裸机或云端机器上的构建代理处理。这些机器必须安装了给定构建任务所需的所有工具。例如，此流水线中的作业 2 需要 Android SDK，而作业 3 使用 Xcode 来构建应用程序的 iOS 版本。
 
@@ -75,7 +75,7 @@ TeamCity 流水线由作业组成，作业是连续执行的构建步骤的集�
 
 在本教程中，作业指定了代理要求，以确保它们仅分配给安装了必要工具的代理。
 
-### 运行共享测试
+### 运行共享测试 {id="run-shared-tests"}
 
 切换到 YAML 流水线编辑器并粘贴以下标记以设置第一个作业：
 
@@ -110,7 +110,7 @@ jobs:
 
 有关更多信息，请参阅[作业设置](https://www.jetbrains.com/help/teamcity/job-settings.html)和 [Gradle 构建步骤](https://www.jetbrains.com/help/teamcity/gradle.html)。
 
-### 构建 Android 调试包
+### 构建 Android 调试包 {id="build-the-android-debug-package"}
 
 按如下方式修改流水线 YAML：
 
@@ -142,7 +142,7 @@ jobs:
 * `requirement` 块确保此作业仅分配给安装了 Android SDK 的代理。
 * `dependencies` 部分保证此作业仅在 `Job1` 成功完成后开始。
 
-### 构建 iOS 模拟器应用程序
+### 构建 iOS 模拟器应用程序 {id="build-the-ios-simulator-application"}
 
 对于最后一步，将以下标记添加到流水线 YAML：
 
@@ -180,7 +180,7 @@ jobs:
 >
 {style="tip"}
 
-## 运行流水线
+## 运行流水线 {id="run-the-pipeline"}
 
 点击右上角的 **Save and Run**（保存并运行）以启动您的工作流。作业完成后，它发布的任何工件都将在构建日志旁边的 **Artifacts**（工件）选项卡中可用。
 
@@ -190,7 +190,7 @@ jobs:
 
 <img src="teamcity-kmp-tests.png" alt="TeamCity tests" width="450"/>
 
-## 后续步骤
+## 后续步骤 {id="what-s-next"}
 
 您可以继续修改此示例以获得更多收益：
 

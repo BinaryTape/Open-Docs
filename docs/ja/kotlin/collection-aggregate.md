@@ -60,7 +60,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.4"}
 
-## Fold と reduce
+## Fold と reduce {id="fold-and-reduce"}
 
 より特定のケース向けに、提供された操作をコレクションの要素に順次適用し、累積された結果を返す関数 [`reduce()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/reduce.html) と [`fold()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/fold.html) があります。
 この操作は、以前に累積された値とコレクションの要素の2つの引数を取ります。

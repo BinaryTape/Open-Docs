@@ -32,7 +32,7 @@ fun test() = testApplication {
 
 在上面的示例中，`loadServices()` 是引导应用程序模块的函数 — 例如，注册路由和服务的函数，相当于 `application.yaml` 中 `modules` 下列出的内容。
 
-### 在测试中加载配置
+### 在测试中加载配置 {id="loading-configuration-in-tests"}
 
 使用 `configure()` 在测试中轻松加载配置文件：
 

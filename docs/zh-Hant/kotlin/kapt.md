@@ -20,7 +20,7 @@ kapt 編譯器外掛程式允許您在 Kotlin 中使用現有的 Java 註解處�
 >
 {style="warning"}
 
-## 設定外掛程式
+## 設定外掛程式 {id="set-up-the-plugin"}
 
 您可以為 [Gradle](#set-up-in-gradle)、[Maven](#set-up-in-maven) 配置 kapt 外掛程式，或從 [命令列](#cli) 使用它。
 
@@ -82,7 +82,7 @@ kapt 編譯器外掛程式允許您在 Kotlin 中使用現有的 Java 註解處�
 
 您可以使用 [`<extensions>` 選項](#automatic-configuration) 來簡化設定，或透過 [手動](#manual-configuration) 方式以獲得對 kapt 執行的完整控制。
 
-#### 自動配置
+#### 自動配置 {id="automatic-configuration"}
 
 您可以透過為 Kotlin Maven 外掛程式啟用 `<extensions>` 選項來簡化 kapt 配置。在這種情況下，您不需要手動設定帶有目標或原始碼目錄的 kapt `<execution>` 區塊。
 
@@ -109,7 +109,7 @@ kapt 編譯器外掛程式允許您在 Kotlin 中使用現有的 Java 註解處�
 
 有關 `<extensions>` 選項的更多資訊，請參閱 [自動配置](maven-configure-project.md#automatic-configuration)。
 
-#### 手動配置
+#### 手動配置 {id="manual-configuration"}
 
 若要在您的 Kotlin Maven 專案中手動設定 kapt，請在 `compile` 執行之前加入 `kotlin-maven-plugin` 的 `kapt` 目標執行：
 
@@ -145,7 +145,7 @@ kapt 編譯器外掛程式允許您在 Kotlin 中使用現有的 Java 註解處�
 </configuration>
 ```
 
-### CLI
+### CLI {id="cli"}
 
 kapt 在 Kotlin 編譯器的二進位發行版中作為獨立的命令列工具提供。
 
@@ -170,13 +170,13 @@ kapt -Kapt-mode=stubsAndApt \
 * 請參閱 [kapt 專用編譯器選項](#compiler-options) 的完整列表。
 * 您也可以傳遞所有有效的 [Kotlin 編譯器選項](compiler-reference.md)。執行 `kotlinc -help` 即可查看。
 
-## 配置註解處理器
+## 配置註解處理器 {id="configure-annotation-processors"}
 
 kapt 提供了用於控制註解處理器如何被探索、組織和執行的選項，包括管理處理器類別路徑、從共享配置繼承處理器，以及保持 javac 專屬處理器的啟用狀態。
 
 如需更多配置選項（例如將選項傳遞給註解處理器和 javac），請參閱 [註解處理器配置](#annotation-processor-configuration)。
 
-### 配置處理器類別路徑與探索
+### 配置處理器類別路徑與探索 {id="configure-processor-classpath-and-discovery"}
 
 您可以停用在 kapt 處理器路徑中未包含的註解處理器探索。這能有效從編譯類別路徑中排除不必要的註解處理器。
 
@@ -237,7 +237,7 @@ Set 'kapt.include.compile.classpath=false' to disable discovery.
 >
 {style="tip"}
 
-### 從父配置繼承註解處理器
+### 從父配置繼承註解處理器 {id="inherit-annotation-processors-from-superconfigurations"}
 
 您可以在單獨的 Gradle 配置中定義一組通用的註解處理器作為父配置（superconfiguration），並在子專案的 kapt 專屬配置中進一步延伸它。
 
@@ -255,7 +255,7 @@ dependencies {
 
 在此範例中，`commonAnnotationProcessors` Gradle 配置是您希望用於所有專案的通用註解處理父配置。您使用 [`extendsFrom()`](https://docs.gradle.org/current/dsl/org.gradle.api.artifacts.Configuration.html#org.gradle.api.artifacts.Configuration:extendsFrom) 方法將 `commonAnnotationProcessors` 加入為父配置。kapt 會看到 `commonAnnotationProcessors` Gradle 配置對 MapStruct 註解處理器具有相依性。因此，kapt 會在其註解處理配置中包含 MapStruct 註解處理器。
 
-### 保留 Java 編譯器的註解處理器
+### 保留 Java 編譯器的註解處理器 {id="keep-java-compiler-s-annotation-processors"}
 
 預設情況下，kapt 會執行所有註解處理器並停用 javac 的註解處理。但是，您可能需要 javac 執行一些註解處理器（例如 [Lombok](https://projectlombok.org/)）。
 
@@ -269,13 +269,13 @@ kapt {
 
 如果您使用 Maven，則需要明確配置外掛程式。請參閱這份 [Lombok 編譯器外掛程式設定範例](lombok.md#using-with-kapt)。
 
-## 優化 kapt 組建
+## 優化 kapt 組建 {id="optimize-kapt-builds"}
 
 kapt 提供了一些 Gradle 專用的策略來縮短註解處理時間，包括並行執行任務、利用組建快取、快取處理器類別載入器，以及使用增量註解處理。
 
 對於影響建置行為的其他選項，例如錯誤型別校正、虛設常式元資料剝離以及編譯類別路徑掃描，請參閱 [行為選項](#behavioral-options)。
 
-### 並行執行 kapt 任務
+### 並行執行 kapt 任務 {id="run-kapt-tasks-in-parallel"}
 
 kapt 使用 [Gradle Worker API](https://docs.gradle.org/current/userguide/worker_api.html) 來執行註解處理任務。使用 Worker API 讓 Gradle 能從單一專案中並行執行獨立的註解處理任務，在某些情況下可以顯著減少執行時間。
 
@@ -306,7 +306,7 @@ tasks.withType(org.jetbrains.kotlin.gradle.internal.KaptWithoutKotlincTask.class
 </tab>
 </tabs>
 
-### 安全地使用 Gradle 組建快取
+### 安全地使用 Gradle 組建快取 {id="use-gradle-build-cache-safely"}
 
 預設情況下，kapt 註解處理任務會在 [Gradle 中快取](https://docs.gradle.org/current/userguide/build_cache_use_cases.html)。然而，註解處理器可以執行任意程式碼，這可能導致任務輸入向輸出的不必要轉換，或者可能會存取及修改 Gradle 未追蹤的檔案。
 
@@ -318,7 +318,7 @@ kapt {
 }
 ```
 
-### 為註解處理器的類別載入器提供快取
+### 為註解處理器的類別載入器提供快取 {id="cache-annotation-processors-classloaders"}
 
 <primary-label ref="experimental-general"/>
 
@@ -348,7 +348,7 @@ kapt.classloaders.cache.disableForProcessors=[註解處理器完整名稱]
 >
 {style="note"}
 
-### 使用增量註解處理
+### 使用增量註解處理 {id="use-incremental-annotation-processing"}
 
 配合 Gradle，kapt 預設支援增量註解處理，因此僅會重新處理變更的檔案。
 
@@ -367,13 +367,13 @@ kapt.incremental.apt=false
 > 
 {style="note"}
 
-## 分析效能
+## 分析效能 {id="analyze-performance"}
 
 kapt 提供內建診斷功能來協助您了解註解處理效能，包括每個處理器的執行時間報告以及產生的檔案數量，以識別未使用的處理器。
 
 如需更多診斷選項，例如用於偵錯增量處理的檔案讀取歷程記錄以及記憶體洩漏偵測，請參閱 [診斷與統計選項](#diagnostics-and-statistics-options)。
 
-### 評估註解處理器的效能
+### 評估註解處理器的效能 {id="measure-the-performance-of-annotation-processors"}
 
 若要獲取註解處理器執行的效能統計資料，請使用 [`showProcessorStats`](#diagnostics-and-statistics-options) 選項。輸出範例：
 
@@ -392,7 +392,7 @@ kapt -Kapt-mode=stubsAndApt \
   sample/src/main/
 ```
 
-### 評估註解處理器產生的檔案數量
+### 評估註解處理器產生的檔案數量 {id="track-the-number-of-generated-files"}
 
 kapt 外掛程式可以報告每個註解處理器產生檔案數量的統計資料。
 
@@ -429,7 +429,7 @@ kapt 外掛程式可以報告每個註解處理器產生檔案數量的統計資
 >
 {style="note"}
 
-## 產生 Kotlin 原始碼
+## 產生 Kotlin 原始碼 {id="generate-kotlin-sources"}
 
 kapt 可以產生 Kotlin 原始碼。若要執行此操作，請使用 `processingEnv.options["kapt.kotlin.generated"]` 將產生的 Kotlin 原始碼檔案寫入指定的目錄。隨後 Kotlin 原始碼檔案將與主原始碼一起編譯。
 
@@ -437,9 +437,9 @@ kapt 可以產生 Kotlin 原始碼。若要執行此操作，請使用 `processi
 > 
 {style="note"}
 
-## 編譯器選項
+## 編譯器選項 {id="compiler-options"}
 
-### 註解處理器配置
+### 註解處理器配置 {id="annotation-processor-configuration"}
 
 <table sticky-header="true">
     <tr>
@@ -571,7 +571,7 @@ kapt 可以產生 Kotlin 原始碼。若要執行此操作，請使用 `processi
     </tr>
 </table>
 
-### 輸出目錄選項
+### 輸出目錄選項 {id="output-directory-options"}
 
 <table sticky-header="true">
     <tr>
@@ -617,7 +617,7 @@ kapt 可以產生 Kotlin 原始碼。若要執行此操作，請使用 `processi
     </tr>
 </table>
 
-### 行為選項
+### 行為選項 {id="behavioral-options"}
 
 <table sticky-header="true">
     <tr>
@@ -773,7 +773,7 @@ kapt 可以產生 Kotlin 原始碼。若要執行此操作，請使用 `processi
     </tr>
 </table>
 
-### 診斷與統計選項
+### 診斷與統計選項 {id="diagnostics-and-statistics-options"}
 
 <table sticky-header="true">
     <tr>
@@ -829,7 +829,7 @@ kapt 可以產生 Kotlin 原始碼。若要執行此操作，請使用 `processi
     </tr>
 </table>
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * [將 kapt 與 MapStruct 註解處理器搭配使用](jvm-annotation-processors.md#use-kapt-with-java-annotation-processors)
 * [參閱如何從 kapt 遷移到 KSP](ksp-kapt-migration.md)

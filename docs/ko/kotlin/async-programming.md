@@ -12,7 +12,7 @@
 
 코루틴이 무엇인지 설명하기 전에, 다른 솔루션들을 간략하게 살펴보겠습니다.
 
-## 스레딩(Threading)
+## 스레딩(Threading) {id="threading"}
 
 스레드는 애플리케이션의 블로킹을 방지하기 위해 아마도 현재까지 가장 잘 알려진 접근 방식일 것입니다.
 
@@ -36,7 +36,7 @@ fun preparePost(): Token {
 * 스레드를 항상 사용할 수 있는 것은 아닙니다. JavaScript와 같은 일부 플랫폼은 스레드를 아예 지원하지 않습니다.
 * 스레드는 쉽지 않습니다. 스레드를 디버깅하고 경합 상태(race conditions)를 피하는 것은 멀티스레드 프로그래밍에서 겪는 흔한 문제입니다.
 
-## 콜백(Callbacks)
+## 콜백(Callbacks) {id="callbacks"}
 
 콜백의 아이디어는 한 함수를 다른 함수의 파라미터로 전달하고, 프로세스가 완료되면 이 함수가 호출되도록 하는 것입니다.
 
@@ -62,7 +62,7 @@ fun preparePostAsync(callback: (Token) -> Unit) {
 
 콜백은 JavaScript와 같은 이벤트 루프 아키텍처에서 매우 흔하지만, 그곳에서도 일반적으로 사람들은 프로미스(promises)나 리액티브 확장과 같은 다른 접근 방식으로 이동했습니다.
 
-## 퓨처(Futures), 프로미스(Promises) 등
+## 퓨처(Futures), 프로미스(Promises) 등 {id="futures-promises-and-others"}
 
 퓨처 또는 프로미스(언어나 플랫폼에 따라 다른 용어가 사용될 수 있음) 뒤에 숨겨진 아이디어는, 호출을 할 때 언젠가 호출이 `Promise` 객체를 반환할 것임을 _약속(promised)_받고, 이후에 그 객체에 대해 작업을 수행할 수 있다는 것입니다.
 
@@ -91,7 +91,7 @@ fun preparePostAsync(): Promise<Token> {
 * 특정 반환 타입. 반환 타입이 우리가 실제로 필요한 데이터에서 벗어나, 내부를 들여다봐야 하는 `Promise`라는 새로운 타입을 반환합니다.
 * 에러 처리가 복잡할 수 있습니다. 에러의 전파와 체이닝이 항상 직관적인 것은 아닙니다.
 
-## 리액티브 확장(Reactive extensions)
+## 리액티브 확장(Reactive extensions) {id="reactive-extensions"}
 
 리액티브 확장(Rx)은 [Erik Meijer](https://en.wikipedia.org/wiki/Erik_Meijer_(computer_scientist))에 의해 C#에 도입되었습니다. .NET 플랫폼에서 분명히 사용되었지만, Netflix가 이를 Java로 포팅하여 RxJava라고 이름 붙이기 전까지는 주류로 채택되지 못했습니다. 그 이후로 JavaScript(RxJS)를 포함한 다양한 플랫폼을 위해 수많은 포팅 버전이 제공되었습니다.
 
@@ -105,7 +105,7 @@ Rx의 아이디어는 `관찰 가능한 스트림(observable streams)`이라고 
 
 또한 Rx는 에러 처리에 대해 다소 더 나은 접근 방식을 도입합니다.
 
-## 코루틴(Coroutines)
+## 코루틴(Coroutines) {id="coroutines"}
 
 비동기 코드를 다루는 코틀린의 접근 방식은 코루틴을 사용하는 것입니다. 이는 중단 가능한 연산(suspendable computations)이라는 아이디어, 즉 함수가 어느 지점에서 실행을 중단하고 나중에 재개할 수 있다는 개념입니다.
 

@@ -10,13 +10,13 @@ title: Ktor 与注解
 更新 - 2024-10-21
 :::
 
-## 获取代码
+## 获取代码 {id="get-the-code"}
 
 :::info
 [源代码可在 Github 上获取](https://github.com/InsertKoinIO/koin-getting-started/tree/main/ktor-annotations)
 :::
 
-## Gradle 设置
+## Gradle 设置 {id="gradle-setup"}
 
 首先，如下所示添加 Koin 依赖项：
 
@@ -36,13 +36,13 @@ dependencies {
 }
 ```
 
-## 应用程序概览
+## 应用程序概览 {id="application-overview"}
 
 该应用程序的构思是管理一个用户列表，并将其显示在我们的 `UserApplication` 类中：
 
 > Users -> UserRepository -> UserService -> UserApplication
 
-## “User” 数据
+## “User” 数据 {id="the-user-data"}
 
 我们将管理一个 User 集合。以下是数据类：
 
@@ -73,7 +73,7 @@ class UserRepositoryImpl : UserRepository {
 }
 ```
 
-## Koin 模块
+## Koin 模块 {id="the-koin-module"}
 
 使用 `@Module` 注解从给定的 Kotlin 类声明 Koin 模块。Koin 模块是我们定义所有要注入的组件的地方。
 
@@ -99,7 +99,7 @@ class AppModule
 class UserRepositoryImpl : UserRepository
 ```
 
-## UserService 组件
+## UserService 组件 {id="the-userservice-component"}
 
 让我们编写 `UserService` 组件来管理用户操作：
 
@@ -135,7 +135,7 @@ class UserServiceImpl(
 
 我们使用 `@Singleton` 注解声明 `UserService`：
 
-## HTTP 控制器与 Koin 应用程序
+## HTTP 控制器与 Koin 应用程序 {id="http-controller-and-koin-application"}
 
 最后，我们需要创建一个 `@KoinApplication` 对象并配置我们的 HTTP 路由：
 
@@ -146,7 +146,7 @@ object KoinUserApplication
 
 `@KoinApplication` 注解将此标记为 Koin 基于注解配置的入口点。KSP 处理器生成的配置可以与 `withConfiguration<T>()` 配合使用以初始化 Koin。
 
-## 启动与注入
+## 启动与注入 {id="start-and-inject"}
 
 现在让我们为 Ktor 应用程序配置 Koin：
 

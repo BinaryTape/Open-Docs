@@ -10,12 +10,12 @@ Kotlin이 처음이신가요? 브라우저에서 직접 기초를 배울 수 있
 
 <a href="kotlin-tour-welcome.md" as="button" mode="classic" icon="arrow-right" icon-position="right">Kotlin 투어 시작하기</a>
 
-## Kotlin 설치하기
+## Kotlin 설치하기 {id="install-kotlin"}
 
 Kotlin은 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 및 [Android Studio](https://developer.android.com/studio)의 모든 릴리스에 포함되어 있습니다.
 Kotlin을 사용하려면 이 IDE 중 하나를 다운로드하여 설치하세요.
 
-## Kotlin 사용 사례 선택하기
+## Kotlin 사용 사례 선택하기 {id="choose-your-kotlin-use-case"}
  
 <tabs>
 
@@ -84,7 +84,7 @@ Android 개발에 Kotlin을 사용하려면 [Google의 Android 기반 Kotlin 시
 
 </tabs>
 
-## 지원 받기
+## 지원 받기 {id="get-support"}
 
 어려움이나 문제가 발생하면 ![Slack](slack.svg){width=25}{type="joined"} Slack에서 도움을 요청하거나([초대 받기](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)), [이슈 트래커](https://youtrack.jetbrains.com/issues/KT)에 문제를 보고해 주세요.
 

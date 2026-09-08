@@ -4,7 +4,7 @@ Kotlin 最初是為了與 Java 平台輕鬆互通而設計的：它將 Java 類�
 
 然而，JavaScript 是一種動態型別語言 (dynamically typed language)，這意味著它不會在編譯期檢查型別。你可以透過 [dynamic](dynamic-type.md) 型別從 Kotlin 自由地與 JavaScript 通訊。如果你想利用 Kotlin 型別系統的完整功能，可以為 JavaScript 程式庫建立外部宣告 (external declarations)，這些宣告將被 Kotlin 編譯器和周邊工具所理解。
 
-## 內嵌 JavaScript
+## 內嵌 JavaScript {id="inline-javascript"}
 
 你可以使用 [`js()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.js/js.html) 函式將 JavaScript 程式碼內嵌到你的 Kotlin 程式碼中：
 
@@ -47,7 +47,7 @@ fun runSumExample() {
 >
 {style="note"}
 
-## `external` 修飾符
+## `external` 修飾符 {id="external-modifier"}
 
 為了告訴 Kotlin 某個宣告是用純 JavaScript 編寫的，你應該使用 `external` 修飾符標記它。當編譯器看到這樣的宣告時，它會假設對應的類別、函式或屬性的實作是由外部提供的（由開發者提供或透過 [npm 相依性](js-project-setup.md#npm-dependencies)），因此不會嘗試從該宣告產生任何 JavaScript 程式碼。這也是為什麼 `external` 宣告不能有主體 (body) 的原因。例如：
 
@@ -71,7 +71,7 @@ external val window: Window
 
 `external` 修飾符僅允許用於套件層級的宣告。你不能在非 `external` 類別中宣告 `external` 成員。
 
-### 宣告類別的 (static) 成員
+### 宣告類別的 (static) 成員 {id="declare-static-members-of-a-class"}
 
 在 JavaScript 中，你可以在原型 (prototype) 或類別本身定義成員：
 
@@ -93,7 +93,7 @@ external class MyClass {
 }
 ```
 
-### 宣告具有預設值的參數
+### 宣告具有預設值的參數 {id="declare-parameters-with-default-values"}
 
 如果你正在為具有預設值參數的 JavaScript 函式撰寫外部宣告，請使用 `definedExternally`。這會將預設值的產生委派給 JavaScript 函式本身：
 
@@ -107,7 +107,7 @@ external fun myFunWithOptionalArgs(
 
 有了這個外部宣告，你可以使用一個必選引數和兩個選用引數來呼叫 `myFunWithOptionalArgs`，其中的預設值由 `myFunWithOptionalArgs` 的 JavaScript 實作計算。
 
-### 擴充 JavaScript 類別
+### 擴充 JavaScript 類別 {id="extend-javascript-classes"}
 
 你可以像擴充 Kotlin 類別一樣輕鬆地擴充 JavaScript 類別。只需定義一個 `external open` 類別，並由非 `external` 類別擴充它即可。例如：
 
@@ -134,7 +134,7 @@ class Bar : Foo() {
 - 你不能覆寫包含具有預設值參數的函式。
 - 非外部類別不能被外部類別擴充。
 
-### 外部介面 (external interfaces)
+### 外部介面 (external interfaces) {id="external-interfaces"}
 
 JavaScript 沒有介面的概念。當一個函式預期其參數支援 `foo` 和 `bar` 兩個方法時，你只需傳入一個實際具有這些方法的物件即可。
 
@@ -190,7 +190,7 @@ fun sendQuery() {
 
     IntelliJ IDEA 也可以自動產生 `@Suppress` 註解。透過燈泡圖示或 Alt-Enter 開啟意圖功能表，然後點擊「Unchecked cast to external interface」檢查旁邊的小箭頭。在此處，你可以選擇抑制範圍，你的 IDE 將相應地在檔案中新增註解。
 
-### 轉換 (Casts)
+### 轉換 (Casts) {id="casts"}
 
 除了在無法轉換時拋出 `ClassCastException` 的[「不安全」轉換運算子](typecasts.md#unsafe-cast-operator) `as` 之外，Kotlin/JS 還提供了 [`unsafeCast<T>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.js/unsafe-cast.html)。使用 `unsafeCast` 時，在執行時完全不進行型別檢查。例如，考慮以下兩個方法：
 
@@ -212,7 +212,7 @@ function usingAsOperator(s) {
 }
 ```
 
-## 相等性 (Equality)
+## 相等性 (Equality) {id="equality"}
 
 與其他平台相比，Kotlin/JS 對相等性檢查具有特定的語義。
 

@@ -5,7 +5,7 @@ Lincheck 提供兩種測試並行資料結構的策略：模型檢查與壓力�
 
 在本文中，你將了解這些策略之間的差異，以及在選擇測試策略時需要注意的事項。
 
-## 模型檢查 (Model checking)
+## 模型檢查 (Model checking) {id="model-checking"}
 
 透過模型檢查，Lincheck 會模擬可能的執行緒交錯，並報告那些導致錯誤行為的交錯。
 
@@ -32,7 +32,7 @@ fun modelCheckingTest() = ModelCheckingOptions()
 {style=”tip”}
 -->
 
-## 壓力測試 (Stress testing)
+## 壓力測試 (Stress testing) {id="stress-testing"}
 
 透過壓力測試，Lincheck 會多次執行每個場景，以增加發現錯誤的機會。
 
@@ -46,7 +46,7 @@ fun stressTest() = StressOptions()
 
 與模型檢查不同，Lincheck 不會控制或追蹤執行緒切換。這使得壓力測試速度更快，且不需要 Lincheck 對記憶體模型做任何假設。然而，使用壓力測試時，測試是不可重現的，且 Lincheck 無法提供執行追蹤。
 
-## 選擇策略
+## 選擇策略 {id="choose-a-strategy"}
 
 選擇策略時，請考慮以下幾點：
 
@@ -92,11 +92,11 @@ fun stressTest() = StressOptions()
     </tr>
 </table>
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 了解如何透過自訂場景產生、啟用停滯執行偵測以及為程式庫提供執行緒安全保證來[配置測試策略](lincheck-testing-strategies-options.md)。
 
-## 延伸閱讀
+## 延伸閱讀 {id="see-also"}
 
 * [產生操作引數](lincheck-argument-generation-constraints.md)
 * [配置操作執行選項](lincheck-operation-execution-options.md)

@@ -8,7 +8,7 @@ Dokka には、開発者や読者の体験をカスタマイズするための�
 シングルプロジェクトおよびマルチプロジェクトビルドでの設定ブロックの適用に関する詳細は、
 [設定例](dokka-gradle.md#configuration-examples)を参照してください。
 
-### 一般設定 (General configuration)
+### 一般設定 (General configuration) {id="general-configuration"}
 
 以下は、一般的な Dokka Gradle プラグインの設定例です。
 
@@ -209,7 +209,7 @@ dokka {
     </def>
 </deflist>
 
-### ソースセット設定 (Source set configuration)
+### ソースセット設定 (Source set configuration) {id="source-set-configuration"}
 
 Dokka では、[Kotlin ソースセット](https://kotlinlang.org/docs/multiplatform-discover-project.html#source-sets)に対していくつかのオプションを設定できます：
 
@@ -413,7 +413,7 @@ dokka {
     </def>
 </deflist>
 
-### ソースリンク設定 (Source link configuration)
+### ソースリンク設定 (Source link configuration) {id="source-link-configuration"}
 
 ソースリンクを設定して、読者がリモートリポジトリ内の各宣言のソースを見つけられるようにします。
 この設定には `dokkaSourceSets.main {}` ブロックを使用します。
@@ -518,7 +518,7 @@ dokka {
     </def>
 </deflist>
 
-### パッケージオプション (Package options)
+### パッケージオプション (Package options) {id="package-options"}
 
 `perPackageOption` 設定ブロックを使用すると、`matchingRegex` に一致する特定のパッケージに対していくつかのオプションを設定できます：
 
@@ -606,7 +606,7 @@ dokka {
     </def>
 </deflist>
 
-### 外部ドキュメントリンクの設定 (External documentation links configuration)
+### 外部ドキュメントリンクの設定 (External documentation links configuration) {id="external-documentation-links-configuration"}
 
 `externalDocumentationLinks {}` ブロックを使用すると、依存関係にある外部でホストされているドキュメントへのリンクを作成できます。
 
@@ -668,7 +668,7 @@ dokka {
     </def>
 </deflist>
 
-### 全設定の例 (Complete configuration)
+### 全設定の例 (Complete configuration) {id="complete-configuration"}
 
 以下に、考えられるすべての設定オプションを同時に適用した例を示します：
 

@@ -4,11 +4,11 @@
 
 초보자 과정에서 코드의 `null` 값을 처리하는 방법을 배웠습니다. 이 장에서는 널 안전성(null safety) 기능의 일반적인 사용 사례와 이를 최대한 활용하는 방법을 다룹니다.
 
-## 스마트 캐스트와 안전한 캐스트
+## 스마트 캐스트와 안전한 캐스트 {id="smart-casts-and-safe-casts"}
 
 코틀린은 때때로 명시적인 선언 없이도 타입을 추론할 수 있습니다. 변수나 객체를 특정 타입에 속하는 것처럼 취급하도록 코틀린에 지시하는 과정을 **캐스팅(casting)**이라고 합니다. 타입이 추론될 때와 같이 자동으로 캐스팅되는 경우를 **스마트 캐스트(smart casting)**라고 부릅니다.
 
-### is 및 !is 연산자
+### is 및 !is 연산자 {id="is-and-is-operators"}
 
 캐스팅이 어떻게 작동하는지 살펴보기 전에, 객체가 특정 타입을 가졌는지 확인하는 방법을 알아보겠습니다. 이를 위해 `when` 또는 `if` 조건식과 함께 `is` 및 `!is` 연산자를 사용할 수 있습니다:
 
@@ -50,7 +50,7 @@ fun main() {
 > 
 {style="tip"}
 
-### as 및 as? 연산자
+### as 및 as? 연산자 {id="as-and-as-operators"}
 
 객체를 다른 타입으로 명시적으로 *캐스트*하려면 `as` 연산자를 사용합니다. 여기에는 널 허용(nullable) 타입에서 그에 대응하는 널 불허용(non-nullable) 타입으로의 캐스팅도 포함됩니다. 캐스팅이 불가능할 경우 프로그램은 **런타임 시점**에 충돌(crash)합니다. 이러한 이유로 이를 **안전하지 않은(unsafe)** 캐스트 연산자라고 부릅니다.
 
@@ -124,7 +124,7 @@ fun calculateTotalStringLength(items: List<Any>): Int {
 * 호출 결과가 `null` 값이 아닌 경우 안전한 호출 `?.`을 사용하여 `length` 프로퍼티에 접근합니다.
 * 안전한 호출이 `null` 값을 반환하는 경우 엘비스 연산자 `?:`를 사용하여 `0`을 반환합니다.
 
-## 널 값과 컬렉션
+## 널 값과 컬렉션 {id="null-values-and-collections"}
 
 코틀린에서 컬렉션을 다룰 때는 종종 `null` 값을 처리하고 불필요한 요소를 필터링하는 작업이 포함됩니다. 코틀린에는 리스트(list), 셋(set), 맵(map) 및 기타 타입의 컬렉션을 다룰 때 깨끗하고 효율적이며 널 안전한 코드를 작성하는 데 사용할 수 있는 유용한 함수들이 있습니다.
 
@@ -273,7 +273,7 @@ fun main() {
 
 코드를 더 안전하게 만드는 데 사용할 수 있는 더 많은 함수들을 코틀린 [표준 라이브러리](https://kotlinlang.org/api/core/kotlin-stdlib/)에서 찾아보세요.
 
-## 조기 반환과 엘비스 연산자
+## 조기 반환과 엘비스 연산자 {id="early-returns-and-the-elvis-operator"}
 
 초보자 과정에서 함수가 특정 지점 이상으로 처리되지 않도록 중단하는 [조기 반환(early returns)](kotlin-tour-functions.md#early-returns-in-functions) 사용법을 배웠습니다. 함수 내에서 전제 조건을 확인하기 위해 엘비스 연산자 `?:`와 조기 반환을 함께 사용할 수 있습니다. 이 접근 방식은 중첩된 체크를 사용할 필요가 없으므로 코드를 간결하게 유지하는 좋은 방법입니다. 코드의 복잡성이 줄어들면 유지관리도 쉬워집니다. 예시:
 
@@ -341,7 +341,7 @@ fun getNumberOfFriends(users: Map<Int, User>, userId: Int): Int {
 
 코드에서 `return`을 사용하는 방법에 대한 자세한 내용은 [반환 및 점프(Returns and jumps)](returns.md)를 참조하세요.
 
-## 연습 {completion-point="true"}
+## 연습 {completion-point="true" id="practice"}
 
 ### 연습 문제 1 {initial-collapse-state="collapsed" collapsible="true" id="null-safety-exercise-1"}
 

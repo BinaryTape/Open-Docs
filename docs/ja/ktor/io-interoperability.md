@@ -23,7 +23,7 @@ Ktorは、基本的なI/Oプリミティブを提供するマルチプラット�
 
 このページでは、KtorのI/Oプリミティブ（[`ByteReadChannel`](https://api.ktor.io/ktor-io/io.ktor.utils.io/-byte-read-channel/index.html)、[`ByteWriteChannel`](https://api.ktor.io/ktor-io/io.ktor.utils.io/-byte-write-channel/index.html)）とこれらの外部の型との間で変換を行う方法について説明します。
 
-## ByteReadChannelからRawSourceへの変換
+## ByteReadChannelからRawSourceへの変換 {id="convert-bytereadchannel-to-rawsource"}
 
 `ByteReadChannel`を`RawSource`に変換するには、`.asSource()`拡張関数を使用します。
 
@@ -37,7 +37,7 @@ client.prepareGet("https://httpbin.org/bytes/1024").execute { httpResponse ->
 }
 ```
 
-## ByteWriteChannelからRawSinkへの変換
+## ByteWriteChannelからRawSinkへの変換 {id="convert-bytewritechannel-to-rawsink"}
 
 中断（suspending）`ByteWriteChannel`を`RawSink`に変換するには、`.asSink()`拡張関数を使用します。
 
@@ -54,7 +54,7 @@ get("/sink") {
 
 このアダプターによって生成された`RawSink`は、データのフラッシュ時に内部で`runBlocking`を使用するため、フラッシュ操作が呼び出し元のスレッドをブロックする可能性があります。
 
-## RawSinkからByteWriteChannelへの変換
+## RawSinkからByteWriteChannelへの変換 {id="convert-rawsink-to-bytewritechannel"}
 
 `RawSink`を中断`ByteWriteChannel`としてラップするには、`.asByteWriteChannel()`拡張関数を使用します。
 
@@ -71,7 +71,7 @@ get("/raw-sink") {
 
 これにより、中断関数からシンクへの非同期書き込みが可能になります。返されるチャネルはバッファリングされます。すべてのデータが書き込まれたことを確実にするには、`.flush()`または`.flushAndClose()`を使用してください。
 
-## OutputStreamからByteWriteChannelへの変換
+## OutputStreamからByteWriteChannelへの変換 {id="convert-outputstream-to-bytewritechannel"}
 
 Javaの`OutputStream`を`ByteWriteChannel`に変換するには、`.asByteWriteChannel()`拡張関数を使用します。
 

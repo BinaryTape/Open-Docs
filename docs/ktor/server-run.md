@@ -58,7 +58,7 @@ mainClassName = "io.ktor.server.netty.EngineMain"
 
 </TabItem>
 
-### WAR 细节
+### WAR 细节 {id="war-specifics"}
 
 Ktor 允许您直接在应用程序中使用所需的引擎（例如 Netty、Jetty 或 Tomcat）[创建并启动服务器](server-create-and-configure.topic)。在这种情况下，您的应用程序可以控制引擎设置、连接和 SSL 选项。
 

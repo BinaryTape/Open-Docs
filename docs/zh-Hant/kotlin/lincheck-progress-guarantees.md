@@ -26,7 +26,7 @@ Lincheck 透過檢查當所有其他執行緒都暫停時，某個執行緒是�
 
 如果某些函式是刻意設定為阻塞的，您可以使用 [`@Operation(blocking = true)`](lincheck-operation-execution-options.md#blocking-operations) 對其進行標記，以防止誤報。
 
-## 範例：測試 `ConcurrentHashMap` 的無阻礙性
+## 範例：測試 `ConcurrentHashMap` 的無阻礙性 {id="example-test-concurrenthashmap-for-obstruction-freedom"}
 
 在此範例中，您將測試 `ConcurrentHashMap` 結構的 `put()` 函式。
 
@@ -93,7 +93,7 @@ Lincheck 透過檢查當所有其他執行緒都暫停時，某個執行緒是�
 
 6. 重新執行測試。應該會成功通過。
 
-## 範例：測試 `ConcurrentSkipListMap` 的無阻礙性
+## 範例：測試 `ConcurrentSkipListMap` 的無阻礙性 {id="example-test-concurrentskiplistmap-for-obstruction-freedom"}
 
 在此範例中，您將測試非阻塞 `ConcurrentSkipListMap` 結構的 `put()` 函式。
 
@@ -120,7 +120,7 @@ Lincheck 透過檢查當所有其他執行緒都暫停時，某個執行緒是�
 
 4. 執行測試。應該會成功通過。
 
-## 參閱
+## 參閱 {id="see-also"}
 
 * [設定引數生成約束](lincheck-argument-generation-constraints.md)
 * [設定操作執行](lincheck-operation-execution-options.md)

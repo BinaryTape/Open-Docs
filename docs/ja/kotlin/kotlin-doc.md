@@ -7,7 +7,7 @@ Kotlinコードをドキュメント化するために使用される言語（Ja
 >
 {style="note"}
 
-## KDocの構文
+## KDocの構文 {id="kdoc-syntax"}
 
 Javadocと同様に、KDocコメントは `/**` で始まり、`*/` で終わります。コメントの各行はアスタリスクで始めることができますが、これはコメントの内容の一部とはみなされません。
 
@@ -36,11 +36,11 @@ class Group<T>(val name: String) {
 }
 ```
 
-### ブロックタグ
+### ブロックタグ {id="block-tags"}
 
 KDocは現在、以下のブロックタグをサポートしています。
 
-### @param _name_
+### @param _name_ {id="param-name"}
 
 関数の値パラメータ、またはクラス、プロパティ、関数の型パラメータをドキュメント化します。
 パラメータ名と説明をより明確に分けるために、お好みでパラメータ名を括弧で囲むこともできます。したがって、以下の2つの構文は同等です。
@@ -50,43 +50,43 @@ KDocは現在、以下のブロックタグをサポートしています。
 @param[name] 説明。
 ```
 
-### @return
+### @return {id="return"}
 
 関数の戻り値をドキュメント化します。
 
-### @constructor
+### @constructor {id="constructor"}
 
 クラスのプライマリコンストラクタをドキュメント化します。
 
-### @receiver
+### @receiver {id="receiver"}
 
 拡張関数のレシーバーをドキュメント化します。
 
-### @property _name_
+### @property _name_ {id="property-name"}
 
 指定された名前を持つクラスのプロパティをドキュメント化します。このタグは、プライマリコンストラクタで宣言されたプロパティをドキュメント化する場合に使用できます。プロパティ定義の直前にドキュメントコメントを配置するのが不自然な場合に便利です。
 
-### @throws _class_, @exception _class_
+### @throws _class_, @exception _class_ {id="throws-class-exception-class"}
 
 メソッドによってスローされる可能性のある例外をドキュメント化します。Kotlinにはチェック例外（checked exceptions）がないため、考えられるすべての例外をドキュメント化することは期待されていませんが、クラスの利用者に有用な情報を提供する場合にこのタグを使用できます。
 
-### @sample _identifier_
+### @sample _identifier_ {id="sample-identifier"}
 
 指定された完全修飾名（qualified name）を持つ関数の本体を、現在の要素のドキュメントに埋め込み、その要素の使用例を表示します。
 
-### @see _identifier_
+### @see _identifier_ {id="see-identifier"}
 
 指定されたクラスまたはメソッドへのリンクを、ドキュメントの **See also** ブロックに追加します。
 
-### @author
+### @author {id="author"}
 
 ドキュメント化されている要素の作成者を指定します。
 
-### @since
+### @since {id="since"}
 
 ドキュメント化されている要素が導入されたソフトウェアのバージョンを指定します。
 
-### @suppress
+### @suppress {id="suppress"}
 
 生成されるドキュメントから要素を除外します。モジュールの公式APIの一部ではないが、外部から見える必要がある要素に使用できます。
 
@@ -94,11 +94,11 @@ KDocは現在、以下のブロックタグをサポートしています。
 >
 {style="note"}
 
-## インラインマークアップ
+## インラインマークアップ {id="inline-markup"}
 
 インラインマークアップには、KDocは通常の[Markdown](https://daringfireball.net/projects/markdown/syntax)構文を使用しますが、コード内の他の要素にリンクするための短縮構文をサポートするように拡張されています。
 
-### 要素へのリンク
+### 要素へのリンク {id="links-to-elements"}
 
 別の要素（クラス、メソッド、プロパティ、またはパラメータ）にリンクするには、その名前を角括弧で囲むだけです。
 
@@ -122,7 +122,7 @@ KDocは現在、以下のブロックタグをサポートしています。
 
 KDocには、リンク内でオーバーロードされたメンバーを解決するための構文はないことに注意してください。Kotlinのドキュメント生成ツールは、関数のすべてのオーバーロードのドキュメントを同じページに配置するため、リンクが機能するために特定のオーバーロードされた関数を識別する必要はありません。
 
-### 外部リンク
+### 外部リンク {id="external-links"}
 
 外部リンクを追加するには、典型的なMarkdown構文を使用します。
 
@@ -130,6 +130,6 @@ KDocには、リンク内でオーバーロードされたメンバーを解決�
 KDoc構文の詳細については、[KDoc](<example-URL>)を参照してください。
 ```
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 Kotlin's documentation generation toolの使い方を学ぶ: [Dokka](dokka-introduction.md)。

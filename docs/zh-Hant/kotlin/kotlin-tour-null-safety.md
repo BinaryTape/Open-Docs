@@ -14,7 +14,7 @@
 * 對可能包含 `null` 值的屬性或函式使用安全呼叫（safe calls）。
 * 宣告偵測到 `null` 值時應採取的動作。
 
-## 可為 null 的型別
+## 可為 null 的型別 {id="nullable-types"}
 
 Kotlin 支援可為 null 的型別（nullable types），這讓宣告的型別有可能包含 `null` 值。預設情況下，型別是**不**允許接受 `null` 值的。可為 null 的型別是透過在型別宣告後明確加上 `?` 來宣告的。
 
@@ -55,7 +55,7 @@ fun main() {
 >
 {style="tip"}
 
-## 執行 null 檢查
+## 執行 null 檢查 {id="check-for-null-values"}
 
 你可以在條件運算式中檢查是否存在 `null` 值。在以下範例中，`describeString()` 函式包含一個 `if` 陳述式，檢查 `maybeString` 是否**不**為 `null` 且其 `length` 是否大於零：
 
@@ -76,7 +76,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-check-nulls"}
 
-## 使用安全呼叫
+## 使用安全呼叫 {id="use-safe-calls"}
 
 要安全地存取可能包含 `null` 值的物件屬性，請使用安全呼叫運算子 `?.`。如果物件或其存取的屬性之一為 `null`，安全呼叫運算子會傳回 `null`。如果你想避免 `null` 值的出現導致程式碼觸發錯誤，這會非常有用。
 
@@ -114,7 +114,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-safe-call-function"}
 
-## 使用 Elvis 運算子
+## 使用 Elvis 運算子 {id="use-elvis-operator"}
 
 你可以使用 **Elvis 運算子** `?:` 來提供偵測到 `null` 值時要傳回的預設值。
 
@@ -134,9 +134,9 @@ fun main() {
 
 如需更多關於 Kotlin 中空值安全的資訊，請參閱[空值安全](null-safety.md)。
 
-## 練習 {completion-point="true"}
+## 練習 {completion-point="true" id="practice"}
 
-### 練習 {initial-collapse-state="collapsed" collapsible="true"}
+### 練習 {initial-collapse-state="collapsed" collapsible="true" id="exercise"}
 
 你有一個 `employeeById` 函式，可以讓你存取公司的員工資料庫。不幸的是，這個函式傳回 `Employee?` 型別的值，所以結果可能是 `null`。你的目標是撰寫一個函式，在提供員工的 `id` 時傳回其薪資（salary），或者如果資料庫中沒有該員工，則傳回 `0`。
 
@@ -180,7 +180,7 @@ fun main() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="範例解答" id="kotlin-tour-null-safety-solution"}
 
-## 下一步？
+## 下一步？ {id="what-s-next"}
 
 恭喜！現在你已經完成了初學者導覽，透過我們的進階導覽將你對 Kotlin 的理解提升到下一個層次：
 

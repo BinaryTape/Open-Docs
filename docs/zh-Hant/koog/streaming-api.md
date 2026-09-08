@@ -47,7 +47,7 @@ Koog 的 **串流 API (Streaming API)** 讓您能在 Kotlin 中以 `Flow<StreamF
 
 系統提供了幫助程式 (helper) 來提取純文字、將框架轉換為 `Message.Response` 物件，以及安全地 **合併區塊化的工具呼叫**。
 
-## API 概覽
+## API 概覽 {id="api-overview"}
 
 透過串流，您可以：
 
@@ -59,7 +59,7 @@ Koog 的 **串流 API (Streaming API)** 讓您能在 Kotlin 中以 `Flow<StreamF
 
 您可以直接對 **框架 (frame)** 進行操作，也可以處理從框架衍生的 **純文字**。
 
-### 增量框架 vs 完整框架 (Delta vs Complete Frames)
+### 增量框架 vs 完整框架 (Delta vs Complete Frames) {id="delta-vs-complete-frames"}
 
 串流 API 區分了兩種框架類型：
 
@@ -70,9 +70,9 @@ Koog 的 **串流 API (Streaming API)** 讓您能在 Kotlin 中以 `Flow<StreamF
 通常，您會使用增量框架來更新 UI，並使用完整框架來提取最終的結構化資料。
 
 ---
-## 用法
+## 用法 {id="usage"}
 
-### 直接處理框架
+### 直接處理框架 {id="working-with-frames-directly"}
 
 這是最通用的方法：針對每種框架類型做出反應。
 
@@ -278,7 +278,7 @@ Tool call: " + toolCall.getName()
     ```
     <!--- KNIT exampleStreamingApiJava02.java -->
 
-### 處理推理框架
+### 處理推理框架 {id="working-with-reasoning-frames"}
 
 支援推理 (reasoning) 的模型（例如 Claude Sonnet 4.5 或 GPT-o1）會在串流過程中發送推理框架。您可以同時存取推理過程及其摘要：
 
@@ -411,7 +411,7 @@ Complete reasoning: "
     ```
     <!--- KNIT exampleStreamingApiReasoningJava01.java -->
 
-### 處理原始文字串流（衍生）
+### 處理原始文字串流（衍生） {id="working-with-a-raw-text-stream-derived"}
 
 如果您現有的串流剖析器預期接收 `Flow<String>`，
 請透過 `filterTextOnly()` 衍生文字區塊，或使用 `collectText()` 進行收集。
@@ -503,7 +503,7 @@ $fullText")
     ```
     <!--- KNIT exampleStreamingApiJava03.java -->
 
-### 在事件處理常式中監聽串流事件
+### 在事件處理常式中監聽串流事件 {id="listening-to-stream-events-in-event-handlers"}
 
 您可以在 [代理事件處理常式 (agent event handlers)](features/agent-event-handlers.md) 中監聽串流事件。
 
@@ -594,7 +594,7 @@ Using " + ctx.getToolName() + " with " + ctx.getToolArgs() + "... ");
     ```
     <!--- KNIT exampleStreamingApiJava04.java -->
 
-### 將框架轉換為 `Message.Response`
+### 將框架轉換為 `Message.Response` {id="converting-frames-to-message-response"}
 
 您可以將收集到的框架列表轉換為標準訊息物件：
 
@@ -603,9 +603,9 @@ Using " + ctx.getToolName() + " with " + ctx.getToolArgs() + "... ");
 - `toToolCallMessages()` — 從工具呼叫框架提取 `MessagePart.Tool.Call`
 - `toMessageResponses()` — 將所有完整框架轉換為其對應的 `Message.Response` 物件
 
-## 範例
+## 範例 {id="examples"}
 
-### 串流時的結構化資料（Markdown 範例）
+### 串流時的結構化資料（Markdown 範例） {id="structured-data-while-streaming-markdown-example"}
 
 雖然可以直接處理原始字串串流，
 但處理 [結構化資料 (structured data)](structured-output.md) 通常更為方便。
@@ -617,7 +617,7 @@ Using " + ctx.getToolName() + " with " + ctx.getToolArgs() + "... ");
 
 以下章節提供了處理結構化資料串流的逐步說明與程式碼範例。
 
-#### 1. 定義您的資料結構
+#### 1. 定義您的資料結構 {id="1-define-your-data-structure"}
 
 首先，定義一個資料類別來代表您的結構化資料：
 
@@ -651,7 +651,7 @@ Using " + ctx.getToolName() + " with " + ctx.getToolArgs() + "... ");
     ```
     <!--- KNIT exampleStreamingApiJava05.java -->
 
-#### 2. 定義 Markdown 結構
+#### 2. 定義 Markdown 結構 {id="2-define-the-markdown-structure"}
 
 使用 `MarkdownStructureDefinition` 類別建立定義，指定您的資料應如何在 Markdown 中結構化：
 
@@ -699,7 +699,7 @@ Using " + ctx.getToolName() + " with " + ctx.getToolArgs() + "... ");
     ```
     <!--- KNIT exampleStreamingApiJava06.java -->
 
-#### 3. 為您的資料結構建立剖析器
+#### 3. 為您的資料結構建立剖析器 {id="3-create-a-parser-for-your-data-structure"}
 
 `markdownStreamingParser` 為不同的 Markdown 元素提供了多個處理常式：
 
@@ -815,7 +815,7 @@ Using " + ctx.getToolName() + " with " + ctx.getToolArgs() + "... ");
     ```
     <!--- KNIT exampleStreamingApiJava08.java -->
 
-#### 4. 在您的代理策略中使用剖析器
+#### 4. 在您的代理策略中使用剖析器 {id="4-use-the-parser-in-your-agent-strategy"}
 
 === "Kotlin"
 
@@ -868,12 +868,12 @@ Using " + ctx.getToolName() + " with " + ctx.getToolArgs() + "... ");
     ```
     <!--- KNIT exampleStreamingApiJava09.java -->
 
-### 進階用法：搭配工具進行串流
+### 進階用法：搭配工具進行串流 {id="advanced-usage-streaming-with-tools"}
 
 您也可以將串流 API 與工具結合使用，以便在資料到達時立即處理。
 以下章節提供了關於如何定義工具並將其用於串流資料的簡要逐步指南。
 
-### 1. 為您的資料結構定義工具
+### 1. 為您的資料結構定義工具 {id="1-define-a-tool-for-your-data-structure"}
 
 === "Kotlin"
 
@@ -933,7 +933,7 @@ Using " + ctx.getToolName() + " with " + ctx.getToolArgs() + "... ");
     ```
     <!--- KNIT exampleStreamingApiJava10.java -->
 
-### 2. 在串流資料中使用工具
+### 2. 在串流資料中使用工具 {id="2-use-the-tool-with-streaming-data"}
 
 === "Kotlin"
 
@@ -1045,7 +1045,7 @@ Using " + ctx.getToolName() + " with " + ctx.getToolArgs() + "... ");
     ```
     <!--- KNIT exampleStreamingApiJava11.java -->
 
-### 3. 在代理配置中註冊工具
+### 3. 在代理配置中註冊工具 {id="3-register-the-tool-in-your-agent-configuration"}
 
 === "Kotlin"
 
@@ -1105,7 +1105,7 @@ Using " + ctx.getToolName() + " with " + ctx.getToolArgs() + "... ");
     ```
     <!--- KNIT exampleStreamingApiJava12.java -->
 
-## 最佳實務
+## 最佳實務 {id="best-practices"}
 
 1. **定義清晰的結構**：為您的資料建立清晰且無歧義的 Markdown 結構。
 

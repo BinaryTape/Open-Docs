@@ -18,7 +18,7 @@
    <img src="icon-3.svg" width="20" alt="第三步"/> <a href="kotlin-notebook-add-dependencies.md">为你的 Kotlin Notebook 添加依赖项</a><br/>
 </p>
 
-## 下一步
+## 下一步 {id="next-step"}
 
 首先设置 Kotlin Notebook 的工作环境：
 

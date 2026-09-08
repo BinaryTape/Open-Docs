@@ -6,11 +6,11 @@ Kotlin daemon 是一个后台进程，构建系统可以使用它来缩短构建
 
 虽然 Kotlin daemon 没有直接面向用户的接口，但您可以通过构建系统或[构建工具 API](build-tools-api.md) 来使用它。
 
-## Kotlin daemon 配置
+## Kotlin daemon 配置 {id="kotlin-daemon-configuration"}
 
 可以通过多种方式为 Gradle 或 Maven 配置 Kotlin daemon 的某些设置。
 
-### 内存管理
+### 内存管理 {id="memory-management"}
 
 Kotlin daemon 是一个独立的进程，拥有自己的内存空间，与客户端隔离。默认情况下，Kotlin daemon 会尝试继承启动它的 JVM 进程的堆 (heap) 大小 (`-Xmx`)。
 
@@ -35,7 +35,7 @@ kotlin.daemon.jvmargs=-Xmx1500m
 </tab>
 </tabs>
 
-### 生存期
+### 生存期 {id="lifetime"}
 
 Kotlin daemon 有两种常见的生存期策略：
 

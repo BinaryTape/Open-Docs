@@ -49,11 +49,11 @@ routing {
 > 
 {style="tip"}
 
-### 連線詳細資訊
+### 連線詳細資訊 {id="connection-details"}
 
 使用 [`ApplicationRequest.local`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/local.html) 屬性來獲取連線詳細資訊，例如主機名稱、埠 (port) 和 scheme。
 
-### `X-Forwarded-` 頁首
+### `X-Forwarded-` 頁首 {id="x-forwarded-headers"}
 
 要獲取透過 HTTP 代理或負載平衡器傳遞的請求資訊，請安裝 [Forwarded headers](server-forward-headers.md) 外掛程式並使用 [`ApplicationRequest.origin`](https://api.ktor.io/ktor-server-core/io.ktor.server.plugins/origin.html) 屬性。
 
@@ -87,7 +87,7 @@ get("/products") {
 
 您也可以使用 [`ApplicationRequest.queryString()`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/query-string.html) 函式獲取整個查詢字串。
 
-## 必要的請求參數
+## 必要的請求參數 {id="required-request-parameters"}
 
 處理請求時，通常會從 [路徑參數](#path_parameters)、[查詢參數](#query_parameters)、[頁首](#headers) 或 [Cookies](#cookies) 中提取值，並在繼續處理請求之前驗證它們是否存在。
 
@@ -257,7 +257,7 @@ fun Application.main() {
 }
 ```
 
-#### 預設檔案大小限制
+#### 預設檔案大小限制 {id="default-file-size-limit"}
 
 預設情況下，允許接收的二進位和檔案項目大小限制為 50 MiB。如果接收的檔案或二進位項目超過 50 MiB 限制，則會拋出 `IOException`。
 
@@ -269,7 +269,7 @@ val multipartData = call.receiveMultipart(formFieldLimit = 1024 * 1024 * 100)
 
 在此範例中，新的限制設定為 100 MiB。
 
-#### 表單欄位
+#### 表單欄位 {id="form-fields"}
 
 `PartData.FormItem` 代表表單欄位，其值可以透過 `value` 屬性存取：
 
@@ -281,7 +281,7 @@ when (part) {
 }
 ```
 
-#### 檔案上傳
+#### 檔案上傳 {id="file-uploads"}
 
 `PartData.FileItem` 代表檔案項目。您可以將檔案上傳作為位元組串流處理：
 
@@ -306,7 +306,7 @@ post("/upload") {
 }
 ```
 
-#### 資源清理
+#### 資源清理 {id="resource-cleanup"}
 
 一旦表單處理完成，會使用 `.dispose()` 函式處理掉每個部分以釋放資源。
 

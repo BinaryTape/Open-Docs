@@ -4,7 +4,7 @@
 
 发现有未涵盖的常用用例？欢迎提交包含新章节的拉取请求 (PR)。
 
-## Palette
+## Palette {id="palette"}
 
 [Palette](https://developer.android.com/training/material/palette-colors?hl=en) 允许您从图像中提取显著颜色。要创建 `Palette`，您需要访问图像的 `Bitmap`。这可以通过多种方式实现：
 
@@ -25,7 +25,7 @@ imageView.load("https://example.com/image.jpg") {
 }
 ```
 
-## 使用内存缓存键作为占位符
+## 使用内存缓存键作为占位符 {id="using-a-memory-cache-key-as-a-placeholder"}
 
 如果两个图像相同但加载尺寸不同，将前一个请求的 `MemoryCache.Key` 用作后续请求的占位符会非常有用。例如，如果第一个请求以 100x100 加载图像，而第二个请求以 500x500 加载图像，我们可以将第一个图像用作第二个请求的同步占位符。
 
@@ -51,7 +51,7 @@ detailImageView.load("https://example.com/image.jpg") {
 }
 ```
 
-## Compose AnimatedContent
+## Compose AnimatedContent {id="compose-animatedcontent"}
 
 使用 `rememberAsyncImagePainter` 和 `AnimatedContent` 在占位符和加载的图像之间制作动画：
 
@@ -94,7 +94,7 @@ AnimatedContent(
 
 注意：`AnimatedContent` 的开销比 painter 淡入淡出大得多，并且会一直将旧图像保留在内存中，直到动画结束。在延迟列表或简单的淡入淡出效果中，请优先使用 `ImageRequest.Builder.crossfade`。
 
-## 共享元素转换
+## 共享元素转换 {id="shared-element-transitions"}
 
 [共享元素转换](https://developer.android.com/training/transitions/start-activity)允许您在 `Activities` 和 `Fragments` 之间制作动画。以下是关于如何让它们与 Coil 协同工作的一些建议：
 
@@ -106,7 +106,7 @@ AnimatedContent(
 
 正在使用 Compose？[查看这篇文章，了解如何使用 `AsyncImage` 执行共享元素转换](https://www.tunjid.com/articles/animating-contentscale-during-image-shared-element-transitions-65fba03537c67f8df0161c31)。
 
-## Remote Views
+## Remote Views {id="remote-views"}
 
 Coil 没有开箱即用地为 [`RemoteViews`](https://developer.android.com/reference/android/widget/RemoteViews) 提供 `Target`，但您可以像这样创建一个：
 
@@ -141,7 +141,7 @@ val request = ImageRequest.Builder(context)
 imageLoader.enqueue(request)
 ```
 
-## 转换 Painter
+## 转换 Painter {id="transforming-painters"}
 
 `AsyncImage` 和 `AsyncImagePainter` 都有接受 `Painter` 的 `placeholder`/`error`/`fallback` 参数。Painter 的灵活性不如使用组合项，但速度更快，因为 Coil 不需要使用子组合。即便如此，可能仍需要对您的 painter 进行内切、拉伸、着色或转换以获得所需的 UI。要实现这一点，请[将此代码片段 (Gist) 复制到您的项目中](https://gist.github.com/colinrtwhite/c2966e0b8584b4cdf0a5b05786b20ae1)并像这样包装 painter：
 
@@ -173,7 +173,7 @@ AsyncImage(
 )
 ```
 
-## 转换请求
+## 转换请求 {id="transforming-requests"}
 
 您可能需要转换用于获取图像的 HTTP 请求。在此示例中，我们将使用一个 [Interceptor](https://coil-kt.github.io/coil/api/coil-core/coil3.intercept/-interceptor) 将 `width` 和 `height` 查询参数附加到请求 URL。
 

@@ -4,16 +4,16 @@ title: WorkManager
 
 Koinは、Workerでのコンストラクタインジェクションを可能にするために、[Android WorkManager](https://developer.android.com/topic/libraries/architecture/workmanager)と統合されています。
 
-## セットアップ
+## セットアップ {id="setup"}
 
-### 依存関係の追加
+### 依存関係の追加 {id="add-dependencies"}
 
 ```groovy
 implementation "io.insert-koin:koin-android:$koin_version"
 implementation "io.insert-koin:koin-androidx-workmanager:$koin_version"
 ```
 
-### WorkManagerの設定
+### WorkManagerの設定 {id="configure-workmanager"}
 
 ApplicationクラスでKoin WorkManagerファクトリをセットアップします：
 
@@ -32,7 +32,7 @@ class MainApplication : Application() {
 }
 ```
 
-### デフォルトの初期化子の無効化
+### デフォルトの初期化子の無効化 {id="disable-default-initializer"}
 
 デフォルトのWorkManager初期化子を無効にするために、`AndroidManifest.xml`に以下を追加します：
 
@@ -49,9 +49,9 @@ class MainApplication : Application() {
 </provider>
 ```
 
-## Workerの宣言
+## Workerの宣言 {id="declaring-workers"}
 
-### コンパイラプラグインDSL
+### コンパイラプラグインDSL {id="compiler-plugin-dsl"}
 
 ```kotlin
 class MyWorker(
@@ -72,7 +72,7 @@ val appModule = module {
 }
 ```
 
-### アノテーション
+### アノテーション {id="annotations"}
 
 ```kotlin
 @KoinWorker
@@ -92,7 +92,7 @@ class MyWorker(
 class MyService
 ```
 
-### クラシックDSL
+### クラシックDSL {id="classic-dsl"}
 
 ```kotlin
 val appModule = module {
@@ -107,7 +107,7 @@ val appModule = module {
 }
 ```
 
-## Workのエンキュー
+## Workのエンキュー {id="enqueuing-work"}
 
 WorkManagerを通常通り使用して、workerをエンキューします：
 
@@ -116,7 +116,7 @@ val workRequest = OneTimeWorkRequestBuilder<MyWorker>().build()
 WorkManager.getInstance(context).enqueue(workRequest)
 ```
 
-## パラメータを持つWorker
+## パラメータを持つWorker {id="worker-with-parameters"}
 
 WorkManagerのinput dataを介してパラメータを渡します：
 
@@ -146,7 +146,7 @@ val workRequest = OneTimeWorkRequestBuilder<SyncWorker>()
 WorkManager.getInstance(context).enqueue(workRequest)
 ```
 
-## クイックリファレンス
+## クイックリファレンス {id="quick-reference"}
 
 | アプローチ | 宣言 |
 |----------|-------------|
@@ -159,7 +159,7 @@ WorkManager.getInstance(context).enqueue(workRequest)
 | ファクトリを有効化 | startKoin内で `workManagerFactory()` |
 | デフォルトを無効化 | マニフェスト内で `WorkManagerInitializer` を削除 |
 
-## 次のステップ
+## 次のステップ {id="next-steps"}
 
 - **[Android WorkManager](https://developer.android.com/topic/libraries/architecture/workmanager)** - WorkManager公式ドキュメント
 - **[Scopes](/docs/reference/koin-android/scope)** - Androidのスコープ

@@ -2,7 +2,7 @@
 
 Kotlin에서 자주 사용되는 다양한 관용구(Idioms) 모음입니다. 선호하는 관용구가 있다면 풀 리퀘스트(pull request)를 보내 기여해 주세요.
 
-## DTO(POJO/POCO) 생성하기
+## DTO(POJO/POCO) 생성하기 {id="create-dtos-pojos-pocos"}
 
 ```kotlin
 data class Customer(val name: String, val email: String)
@@ -17,13 +17,13 @@ data class Customer(val name: String, val email: String)
 * `copy()`
 * 모든 속성에 대한 `component1()`, `component2()`, ... (참조: [데이터 클래스(Data classes)](data-classes.md))
 
-## 함수 파라미터 기본값
+## 함수 파라미터 기본값 {id="default-values-for-function-parameters"}
 
 ```kotlin
 fun foo(a: Int = 0, b: String = "") { ... }
 ```
 
-## 리스트 필터링
+## 리스트 필터링 {id="filter-a-list"}
 
 ```kotlin
 val positives = list.filter { x -> x > 0 }
@@ -37,7 +37,7 @@ val positives = list.filter { it > 0 }
 
 [Java와 Kotlin의 필터링 차이점](java-to-kotlin-collections-guide.md#filter-elements)을 알아보세요.
 
-## 컬렉션 내 요소 존재 여부 확인
+## 컬렉션 내 요소 존재 여부 확인 {id="check-the-presence-of-an-element-in-a-collection"}
 
 ```kotlin
 if ("john@example.com" in emailsList) { ... }
@@ -45,7 +45,7 @@ if ("john@example.com" in emailsList) { ... }
 if ("jane@example.com" !in emailsList) { ... }
 ```
 
-## 문자열 보간(String interpolation)
+## 문자열 보간(String interpolation) {id="string-interpolation"}
 
 ```kotlin
 println("Name $name")
@@ -53,7 +53,7 @@ println("Name $name")
 
 [Java와 Kotlin의 문자열 연결(concatenation) 차이점](java-to-kotlin-idioms-strings.md#concatenate-strings)을 알아보세요.
 
-## 표준 입력 안전하게 읽기
+## 표준 입력 안전하게 읽기 {id="read-standard-input-safely"}
 
 ```kotlin
 // 문자열을 읽고, 입력값이 정수로 변환될 수 없는 경우 null을 반환합니다. 예: Hi there!
@@ -69,7 +69,7 @@ println(correctInt)
 
 더 자세한 정보는 [표준 입력 읽기](read-standard-input.md)를 참조하세요.
 
-## 인스턴스 확인
+## 인스턴스 확인 {id="instance-checks"}
 
 ```kotlin
 when (x) {
@@ -79,25 +79,25 @@ when (x) {
 }
 ```
 
-## 읽기 전용 리스트
+## 읽기 전용 리스트 {id="read-only-list"}
 
 ```kotlin
 val list = listOf("a", "b", "c")
 ```
-## 읽기 전용 맵
+## 읽기 전용 맵 {id="read-only-map"}
 
 ```kotlin
 val map = mapOf("a" to 1, "b" to 2, "c" to 3)
 ```
 
-## 맵 항목 접근
+## 맵 항목 접근 {id="access-a-map-entry"}
 
 ```kotlin
 println(map["key"])
 map["key"] = value
 ```
 
-## 맵 또는 페어(pair) 리스트 순회
+## 맵 또는 페어(pair) 리스트 순회 {id="traverse-a-map-or-a-list-of-pairs"}
 
 ```kotlin
 for ((k, v) in map) {
@@ -107,7 +107,7 @@ for ((k, v) in map) {
 
 `k`와 `v`는 `name`, `age`와 같이 편리한 이름을 사용할 수 있습니다.
 
-## 범위(range) 반복
+## 범위(range) 반복 {id="iterate-over-a-range"}
 
 ```kotlin
 for (i in 1..100) { ... }  // 닫힌 범위(closed-ended range): 100을 포함
@@ -117,7 +117,7 @@ for (x in 10 downTo 1) { ... }
 (1..10).forEach { ... }
 ```
 
-## 지연 속성(Lazy property)
+## 지연 속성(Lazy property) {id="lazy-property"}
 
 ```kotlin
 val p: String by lazy { // 값은 처음 액세스할 때만 계산됩니다.
@@ -125,7 +125,7 @@ val p: String by lazy { // 값은 처음 액세스할 때만 계산됩니다.
 }
 ```
 
-## 확장 함수(Extension functions)
+## 확장 함수(Extension functions) {id="extension-functions"}
 
 ```kotlin
 fun String.spaceToCamelCase() { ... }
@@ -133,7 +133,7 @@ fun String.spaceToCamelCase() { ... }
 "Convert this to camelcase".spaceToCamelCase()
 ```
 
-## 싱글톤(Singleton) 생성
+## 싱글톤(Singleton) 생성 {id="create-a-singleton"}
 
 ```kotlin
 object Resource {
@@ -141,7 +141,7 @@ object Resource {
 }
 ```
 
-## 타입 안전한 값을 위해 인라인 값 클래스(inline value classes) 사용
+## 타입 안전한 값을 위해 인라인 값 클래스(inline value classes) 사용 {id="use-inline-value-classes-for-type-safe-values"}
 
 ```kotlin
 @JvmInline
@@ -157,7 +157,7 @@ value class CustomerId(private val id: String)
 >
 {style="note"}
 
-## 추상 클래스 인스턴스화
+## 추상 클래스 인스턴스화 {id="instantiate-an-abstract-class"}
 
 ```kotlin
 abstract class MyAbstractClass {
@@ -178,7 +178,7 @@ fun main() {
 }
 ```
 
-## If-not-null 축약형
+## If-not-null 축약형 {id="if-not-null-shorthand"}
 
 ```kotlin
 val files = File("Test").listFiles()
@@ -186,7 +186,7 @@ val files = File("Test").listFiles()
 println(files?.size) // files가 null이 아니면 size가 출력됨
 ```
 
-## If-not-null-else 축약형
+## If-not-null-else 축약형 {id="if-not-null-else-shorthand"}
 
 ```kotlin
 val files = File("Test").listFiles()
@@ -202,14 +202,14 @@ val filesSize = files?.size ?: run {
 println(filesSize)
 ```
 
-## null인 경우 표현식 실행
+## null인 경우 표현식 실행 {id="execute-an-expression-if-null"}
 
 ```kotlin
 val values = ...
 val email = values["email"] ?: throw IllegalStateException("Email is missing!")
 ```
 
-## 비어있을 수 있는 컬렉션의 첫 번째 항목 가져오기
+## 비어있을 수 있는 컬렉션의 첫 번째 항목 가져오기 {id="get-first-item-of-a-possibly-empty-collection"}
 
 ```kotlin
 val emails = ... // 비어있을 수 있음
@@ -218,7 +218,7 @@ val mainEmail = emails.firstOrNull() ?: ""
 
 [Java와 Kotlin의 첫 번째 항목 가져오기 차이점](java-to-kotlin-collections-guide.md#get-the-first-and-the-last-items-of-a-possibly-empty-collection)을 알아보세요.
 
-## null이 아닌 경우 실행
+## null이 아닌 경우 실행 {id="execute-if-not-null"}
 
 ```kotlin
 val value = ...
@@ -228,7 +228,7 @@ value?.let {
 }
 ```
 
-## null이 아닌 경우 null 허용 값 매핑
+## null이 아닌 경우 null 허용 값 매핑 {id="map-nullable-value-if-not-null"}
 
 ```kotlin
 val value = ...
@@ -237,7 +237,7 @@ val mapped = value?.let { transformValue(it) } ?: defaultValue
 // value 또는 변환 결과가 null인 경우 defaultValue가 반환됩니다.
 ```
 
-## when 문에서 반환
+## when 문에서 반환 {id="return-on-when-statement"}
 
 ```kotlin
 fun transform(color: String): Int {
@@ -250,7 +250,7 @@ fun transform(color: String): Int {
 }
 ```
 
-## try-catch 표현식
+## try-catch 표현식 {id="try-catch-expression"}
 
 ```kotlin
 fun test() {
@@ -264,7 +264,7 @@ fun test() {
 }
 ```
 
-## if 표현식
+## if 표현식 {id="if-expression"}
 
 ```kotlin
 val y = if (x == 1) {
@@ -276,7 +276,7 @@ val y = if (x == 1) {
 }
 ```
 
-## Unit을 반환하는 메서드의 빌더 스타일 사용
+## Unit을 반환하는 메서드의 빌더 스타일 사용 {id="builder-style-usage-of-methods-that-return-unit"}
 
 ```kotlin
 fun arrayOfMinusOnes(size: Int): IntArray {
@@ -284,7 +284,7 @@ fun arrayOfMinusOnes(size: Int): IntArray {
 }
 ```
 
-## 단일 표현식 함수(Single-expression functions)
+## 단일 표현식 함수(Single-expression functions) {id="single-expression-functions"}
 
 ```kotlin
 fun theAnswer() = 42
@@ -309,7 +309,7 @@ fun transform(color: String): Int = when (color) {
 }
 ```
 
-## 객체 인스턴스의 여러 메서드 호출(with)
+## 객체 인스턴스의 여러 메서드 호출(with) {id="call-multiple-methods-on-an-object-instance-with"}
 
 ```kotlin
 class Turtle {
@@ -330,7 +330,7 @@ with(myTurtle) { // 100 픽셀의 사각형 그리기
 }
 ```
 
-## 객체의 속성 설정(apply)
+## 객체의 속성 설정(apply) {id="configure-properties-of-an-object-apply"}
 
 ```kotlin
 val myRectangle = Rectangle().apply {
@@ -342,7 +342,7 @@ val myRectangle = Rectangle().apply {
 
 이 방법은 객체 생성자에 없는 속성들을 설정할 때 유용합니다.
 
-## Java 7의 try-with-resources
+## Java 7의 try-with-resources {id="java-7-s-try-with-resources"}
 
 ```kotlin
 val stream = Files.newInputStream(Paths.get("/some/file.txt"))
@@ -351,7 +351,7 @@ stream.buffered().reader().use { reader ->
 }
 ```
 
-## 제네릭 타입 정보가 필요한 제네릭 함수
+## 제네릭 타입 정보가 필요한 제네릭 함수 {id="generic-function-that-requires-the-generic-type-information"}
 
 ```kotlin
 //  public final class Gson {
@@ -362,7 +362,7 @@ stream.buffered().reader().use { reader ->
 inline fun <reified T: Any> Gson.fromJson(json: JsonElement): T = this.fromJson(json, T::class.java)
 ```
 
-## 두 변수 바꾸기
+## 두 변수 바꾸기 {id="swap-two-variables"}
 
 ```kotlin
 var a = 1
@@ -370,7 +370,7 @@ var b = 2
 a = b.also { b = a }
 ```
 
-## 미완성 코드 표시(TODO)
+## 미완성 코드 표시(TODO) {id="mark-code-as-incomplete-todo"}
  
 Kotlin 표준 라이브러리에는 항상 `NotImplementedError`를 던지는 `TODO()` 함수가 있습니다.
 이 함수의 반환 타입은 `Nothing`이므로 기대되는 타입에 관계없이 사용할 수 있습니다.
@@ -382,7 +382,7 @@ fun calcTaxes(): BigDecimal = TODO("Waiting for feedback from accounting")
 
 IntelliJ IDEA의 Kotlin 플러그인은 `TODO()`의 의미를 이해하고 TODO 도구 창에 코드 포인터를 자동으로 추가합니다.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * 관용적인 Kotlin 스타일을 사용하여 [Advent of Code 퍼즐](advent-of-code.md)을 풀어보세요.
 * [Java와 Kotlin에서 문자열로 수행하는 일반적인 작업](java-to-kotlin-idioms-strings.md)을 알아보세요.

@@ -1,4 +1,4 @@
-## PostgreSQL の型
+## PostgreSQL の型 {id="postgresql-types"}
 
 SQLDelight の列定義は、通常の PostgreSQL の列定義と同じですが、生成されるインターフェースにおける列の Kotlin 型を指定する [追加の列制約](#custom-column-types) をサポートしています。
 

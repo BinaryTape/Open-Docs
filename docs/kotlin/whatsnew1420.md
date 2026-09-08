@@ -12,18 +12,18 @@ Kotlin 1.4.20 提供了许多新的实验性功能，并对现有功能（包括
 >
 {style="tip"}
 
-## Kotlin/JVM
+## Kotlin/JVM {id="kotlin-jvm"}
 
 Kotlin/JVM 的改进旨在紧跟现代 Java 版本的特性：
 
 - [Java 15 目标](#java-15-target)
 - [invokedynamic 字符串串联](#invokedynamic-string-concatenation)
 
-### Java 15 目标
+### Java 15 目标 {id="java-15-target"}
 
 现在 Java 15 已可作为 Kotlin/JVM 的目标版本。
 
-### invokedynamic 字符串串联
+### invokedynamic 字符串串联 {id="invokedynamic-string-concatenation"}
 
 > `invokedynamic` 字符串串联处于[实验性](components-stability.md)阶段。它可能随时被删除或更改。需要启用（详情见下文）。请仅出于评估目的使用它。我们欢迎您在 [YouTrack](https://youtrack.jetbrains.com/issues/KT) 上提供反馈。
 >
@@ -41,7 +41,7 @@ Kotlin 1.4.20 可以将字符串串联编译为 JVM 9+ 目标上的 [动态调�
 - `indy`：使用 [StringConcatFactory.makeConcat()](https://docs.oracle.com/javase/9/docs/api/java/lang/invoke/StringConcatFactory.html#makeConcat-java.lang.invoke.MethodHandles.Lookup-java.lang.String-java.lang.invoke.MethodType-) 对字符串执行 `invokedynamic` 串联。
 - `inline`：切换回通过 `StringBuilder.append()` 进行的传统串联。
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
 Kotlin/JS 持续快速演进，在 1.4.20 中您可以发现许多实验性功能和改进：
 
@@ -49,11 +49,11 @@ Kotlin/JS 持续快速演进，在 1.4.20 中您可以发现许多实验性功�
 - [新的向导模板](#new-wizard-templates)
 - [使用 IR 编译器忽略编译错误](#ignoring-compilation-errors-with-ir-compiler)
 
-### Gradle DSL 变更
+### Gradle DSL 变更 {id="gradle-dsl-changes"}
 
 Kotlin/JS 的 Gradle DSL 进行了多项更新，简化了项目设置和自定义。这包括 webpack 配置调整、对自动生成的 `package.json` 文件的修改，以及对传递性依赖项的改进控制。
 
-#### webpack 配置的单点设置
+#### webpack 配置的单点设置 {id="single-point-for-webpack-configuration"}
 
 浏览器目标现在提供了一个新的配置块 `commonWebpackConfig`。在其中，您可以从单点调整通用设置，而无需为 `webpackTask`、`runTask` 和 `testTask` 重复配置。
 
@@ -70,7 +70,7 @@ browser {
 
 详细了解[配置 webpack 打包](js-project-setup.md#webpack-bundling)。
 
-#### 从 Gradle 自定义 package.json
+#### 从 Gradle 自定义 package.json {id="package-json-customization-from-gradle"}
 
 为了更好地控制 Kotlin/JS 软件包管理和分发，您现在可以通过 Gradle DSL 向项目文件 [`package.json`](https://nodejs.dev/learn/the-package-json-guide) 添加属性。
 
@@ -88,7 +88,7 @@ kotlin {
 
 详细了解 [`package.json` 自定义](js-project-setup.md#package-json-customization)。
 
-#### 选择性 Yarn 依赖项解析
+#### 选择性 Yarn 依赖项解析 {id="selective-yarn-dependency-resolutions"}
 
 > 对选择性 Yarn 依赖项解析的支持处于[实验性](components-stability.md)阶段。它可能随时被删除或更改。请仅出于评估目的使用它。我们欢迎您在 [YouTrack](https://youtrack.jetbrains.com/issues/KT) 上提供反馈。
 >
@@ -109,7 +109,7 @@ rootProject.plugins.withType<YarnPlugin> {
 
 在这里，您*所有*需要 `react` 的 npm 依赖项都将获得 `16.0.0` 版本，而 `processor` 将获得版本为 `3.0.0` 的依赖项 `decamelize`。
 
-#### 禁用细粒度工作区
+#### 禁用细粒度工作区 {id="disabling-granular-workspaces"}
 
 > 禁用细粒度工作区处于[实验性](components-stability.md)阶段。它可能随时被删除或更改。请仅出于评估目的使用它。我们欢迎您在 [YouTrack](https://youtrack.jetbrains.com/issues/KT) 上提供反馈。
 >
@@ -125,14 +125,14 @@ rootProject.plugins.withType<YarnPlugin> {
 }
 ```
 
-### 新的向导模板
+### 新的向导模板 {id="new-wizard-templates"}
 
 为了在创建项目期间为您提供更方便的自定义方式，Kotlin 的项目向导为 Kotlin/JS 应用程序带来了新的模板：
 - **浏览器应用程序 (Browser Application)** - 一个在浏览器中运行的极简 Kotlin/JS Gradle 项目。
 - **React 应用程序 (React Application)** - 一个使用适当 `kotlin-wrappers` 的 React 应用。它提供了启用样式表、导航组件或状态容器集成的选项。
 - **Node.js 应用程序 (Node.js Application)** - 一个在 Node.js 运行时中运行的极简项目。它带有一个可以直接包含实验性 `kotlinx-nodejs` 软件包的选项。
 
-### 使用 IR 编译器忽略编译错误
+### 使用 IR 编译器忽略编译错误 {id="ignoring-compilation-errors-with-ir-compiler"}
 
 > “忽略编译错误”模式处于[实验性](components-stability.md)阶段。它可能随时被删除或更改。需要启用（详情见下文）。请仅出于评估目的使用它。我们欢迎您在 [YouTrack](https://youtrack.jetbrains.com/issues/KT) 上提供反馈。
 >
@@ -149,7 +149,7 @@ Kotlin/JS 的 [IR 编译器](js-ir-compiler.md) 带来了一种新的实验性�
 
 [详细了解 Kotlin/JS IR 编译器](js-ir-compiler.md)。
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 Kotlin/Native 在 1.4.20 中的优先级是性能和完善现有功能。以下是显著的改进：
   
@@ -159,7 +159,7 @@ Kotlin/Native 在 1.4.20 中的优先级是性能和完善现有功能。以下�
 - [CocoaPods 插件改进](#cocoapods-plugin-improvements)
 - [支持 Xcode 12 库](#support-for-xcode-12-libraries)
 
-### 逃逸分析
+### 逃逸分析 {id="escape-analysis"}
 
 > 逃逸分析机制处于[实验性](components-stability.md)阶段。它可能随时被删除或更改。请仅出于评估目的使用它。我们欢迎您在 [YouTrack](https://youtrack.jetbrains.com/issues/KT) 上提供反馈。
 >
@@ -171,11 +171,11 @@ Kotlin/Native 获得了新 [逃逸分析](https://en.wikipedia.org/wiki/Escape_a
 
 如果您想禁用逃逸分析阶段，请使用 `-Xdisable-phases=EscapeAnalysis` 编译器选项。
 
-### 性能改进和错误修复
+### 性能改进和错误修复 {id="performance-improvements-and-bug-fixes"}
 
 Kotlin/Native 在各个组件中都获得了性能改进和错误修复，包括 1.4.0 中添加的组件，例如 [代码共享机制](https://kotlinlang.org/docs/multiplatform/multiplatform-share-on-platforms.html#share-code-on-similar-platforms)。
 
-### 选择性包装 Objective-C 异常
+### 选择性包装 Objective-C 异常 {id="opt-in-wrapping-of-objective-c-exceptions"}
 
 > Objective-C 异常包装机制处于[实验性](components-stability.md)阶段。它可能随时被删除或更改。需要启用（详情见下文）。请仅出于评估目的使用它。我们欢迎您在 [YouTrack](https://youtrack.jetbrains.com/issues/KT) 上提供反馈。
 >
@@ -195,7 +195,7 @@ pod("foo") {
 
 默认行为保持不变：当从 Objective-C 代码抛出异常时，程序将终止。
 
-### CocoaPods 插件改进
+### CocoaPods 插件改进 {id="cocoapods-plugin-improvements"}
 
 Kotlin 1.4.20 继续对 CocoaPods 集成进行了一系列改进。具体来说，您可以尝试以下新功能：
 
@@ -203,11 +203,11 @@ Kotlin 1.4.20 继续对 CocoaPods 集成进行了一系列改进。具体来说�
 - [扩展的 DSL](#extended-dsl)
 - [更新的 Xcode 集成](#updated-integration-with-xcode)
 
-#### 改进的任务执行
+#### 改进的任务执行 {id="improved-task-execution"}
 
 CocoaPods 插件获得了改进的任务执行流程。例如，如果您添加了一个新的 CocoaPods 依赖项，现有的依赖项不会被重新构建。添加额外的目标也不会影响现有目标的依赖项重构。
 
-#### 扩展的 DSL
+#### 扩展的 DSL {id="extended-dsl"}
 
 向 Kotlin 项目添加 [CocoaPods](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html) 依赖项的 DSL 获得了新的功能。
 
@@ -220,7 +220,7 @@ CocoaPods 插件获得了改进的任务执行流程。例如，如果您添加�
 
 详细了解在 Kotlin 项目中[添加 CocoaPods 依赖项](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-libraries.html)。在 [Kotlin with CocoaPods 示例](https://github.com/Kotlin/kmm-with-cocoapods-sample)中查找示例。
 
-#### 更新的 Xcode 集成
+#### 更新的 Xcode 集成 {id="updated-integration-with-xcode"}
 
 为了与 Xcode 正确配合，Kotlin 需要对 Podfile 进行一些更改：
 
@@ -231,32 +231,32 @@ CocoaPods 插件获得了改进的任务执行流程。例如，如果您添加�
 
 详细了解[创建 Kotlin pod](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-xcode.html)。
 
-### 支持 Xcode 12 库
+### 支持 Xcode 12 库 {id="support-for-xcode-12-libraries"}
     
 我们增加了对随 Xcode 12 交付的新库的支持。现在您可以在 Kotlin 代码中使用它们。
 
-## Kotlin 多平台
+## Kotlin 多平台 {id="kotlin-multiplatform"}
 
-### 多平台库发布结构的更新 
+### 多平台库发布结构的更新 {id="updated-structure-of-multiplatform-library-publications"}
 
 从 Kotlin 1.4.20 开始，不再有单独的元数据发布。元数据工件现在包含在代表整个库的*根*发布中，当作为依赖项添加到公共源集时，会自动解析为适当的平台特定工件。
 
 详细了解[发布多平台库](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-lib-setup.html)。
 
-#### 与早期版本的兼容性
+#### 与早期版本的兼容性 {id="compatibility-with-earlier-versions"}
 
 这种结构变化打破了具有[分层项目结构](https://kotlinlang.org/docs/multiplatform/multiplatform-share-on-platforms.html#share-code-on-similar-platforms)的项目之间的兼容性。如果一个多平台项目及其依赖的库都具有分层项目结构，那么您需要同时将它们更新到 Kotlin 1.4.20 或更高版本。使用 Kotlin 1.4.20 发布的库无法在早期版本发布的项目中使用。
 
 不带分层项目结构的项目和库保持兼容。
 
-## 标准库
+## 标准库 {id="standard-library"}
 
 Kotlin 1.4.20 的标准库提供了用于处理文件的新扩展以及更好的性能。
 
 - [java.nio.file.Path 的扩展](#extensions-for-java-nio-file-path)
 - [改进的 String.replace 函数性能](#improved-string-replace-function-performance)
 
-### java.nio.file.Path 的扩展
+### java.nio.file.Path 的扩展 {id="extensions-for-java-nio-file-path"}
 
 > `java.nio.file.Path` 的扩展处于[实验性](components-stability.md)阶段。它们可能随时被删除或更改。需要启用（详情见下文）。请仅出于评估目的使用它们。我们欢迎您在 [YouTrack](https://youtrack.jetbrains.com/issues/KT) 上提供反馈。
 >
@@ -275,24 +275,24 @@ val kotlinFiles: List<Path> = Path("/home/user").listDirectoryEntries("*.kt")
 
 这些扩展在 `kotlin-stdlib-jdk7` 模块的 `kotlin.io.path` 软件包中可用。要使用这些扩展，请[启用](opt-in-requirements.md)实验性注解 `@ExperimentalPathApi`。
 
-### 改进的 String.replace 函数性能
+### 改进的 String.replace 函数性能 {id="improved-string-replace-function-performance"}
 
 `String.replace()` 的新实现加快了函数执行速度。区分大小写的变体使用基于 `indexOf` 的手动替换循环，而不区分大小写的变体使用正则表达式匹配。
 
-## Kotlin Android 扩展
+## Kotlin Android 扩展 {id="kotlin-android-extensions"}
 
 在 1.4.20 中，Kotlin Android Extensions 插件被弃用，并且 `Parcelable` 实现生成器移至一个单独的插件中。
 
 - [弃用合成视图](#deprecation-of-synthetic-views)
 - [用于 Parcelable 实现生成器的新插件](#new-plugin-for-parcelable-implementation-generator)
 
-### 弃用合成视图
+### 弃用合成视图 {id="deprecation-of-synthetic-views"}
 
 *合成视图 (Synthetic views)* 在一段时间前被引入 Kotlin Android Extensions 插件中，以简化与 UI 元素的交互并减少模板代码。现在 Google 提供了一个执行相同功能的原生机制——Android Jetpack 的[视图绑定 (view bindings)](https://developer.android.com/topic/libraries/view-binding)，我们正弃用合成视图以支持后者。
 
 我们将 Parcelable 实现生成器从 `kotlin-android-extensions` 中提取出来，并对其余部分——合成视图——开始弃用周期。目前，它们将继续工作，但会显示弃用警告。将来，您需要将项目切换到另一个解决方案。以下[指南](https://goo.gle/kotlin-android-extensions-deprecation)将帮助您将 Android 项目从 synthetics 迁移到视图绑定。
 
-### 用于 Parcelable 实现生成器的新插件
+### 用于 Parcelable 实现生成器的新插件 {id="new-plugin-for-parcelable-implementation-generator"}
 
 `Parcelable` 实现生成器现在在新的 `kotlin-parcelize` 插件中可用。请应用此插件而不是 `kotlin-android-extensions`。
 

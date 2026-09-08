@@ -17,7 +17,7 @@
 
 您可以在应用程序配置文件中配置 [依赖项注入 (DI) 插件](server-dependency-injection.md)。这些设置会全局影响依赖项解析的行为，并适用于所有已注册的依赖项。
 
-### 依赖项键映射
+### 依赖项键映射 {id="dependency-key-mapping"}
 
 `ktor.di.keyMapping` 属性定义了在解析过程中如何对依赖项键进行泛化和匹配。这决定了在解析请求类型时，哪些已注册的依赖项被视为兼容。
 
@@ -29,7 +29,7 @@ ktor:
 
 上述示例匹配了 DI 插件使用的默认键映射。
 
-#### 可用的键映射选项
+#### 可用的键映射选项 {id="available-key-mapping-options"}
 
 <deflist>
 <def>
@@ -59,7 +59,7 @@ ktor:
 </def>
 </deflist>
 
-#### 组合键映射选项
+#### 组合键映射选项 {id="combine-key-mapping-options"}
 
 您可以使用集合运算符 `*`（交集）、`+`（并集）和 `()`（圆括号分组）来组合键映射选项。
 
@@ -73,7 +73,7 @@ ktor:
 
 它不会被解析为 `Collection?`，因为该组合未包含在表达式中。
 
-### 冲突解决策略
+### 冲突解决策略 {id="conflict-resolution-policy"}
 
 `ktor.di.conflictPolicy` 属性控制当为同一个依赖项键注册了多个提供程序时，DI 容器的行为方式：
 
@@ -83,7 +83,7 @@ ktor:
     conflictPolicy: Default
 ```
 
-#### 可用策略
+#### 可用策略 {id="available-policies"}
 
 <deflist>
 <def>

@@ -7,7 +7,7 @@ Compose Multiplatform 앱이 다른 애플리케이션에서 사용자가 드래
 > 
 {style="warning"}
 
-## 플랫폼별 데이터 처리
+## 플랫폼별 데이터 처리 {id="platform-specific-data-handling"}
 
 `dragAndDropSource` 및 `dragAndDropTarget` 수정자는 공통 API의 일부이지만, 전송되는 데이터는 플랫폼별 타입으로 래핑해야 합니다:
 
@@ -47,7 +47,7 @@ Compose Multiplatform 앱이 다른 애플리케이션에서 사용자가 드래
     }
     ```
 
-## 드래그 소스 만들기
+## 드래그 소스 만들기 {id="creating-a-drag-source"}
 
 컴포저블을 드래그 소스로 준비하려면 다음을 수행합니다:
 
@@ -108,7 +108,7 @@ Box(Modifier
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="Box(Modifier.dragAndDropSource"}
 
-## 드롭 대상 만들기
+## 드롭 대상 만들기 {id="creating-a-drop-target"}
 
 컴포저블을 드래그 앤 드롭 대상으로 준비하려면 다음을 수행합니다:
 
@@ -189,6 +189,6 @@ Row(
 }
 ```
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 구현 및 일반적인 사용 사례에 대한 자세한 내용은 Jetpack Compose 문서의 해당 수정자에 관한 [Drag and drop](https://developer.android.com/develop/ui/compose/touch-input/user-interactions/drag-and-drop) 문서를 참조하십시오.

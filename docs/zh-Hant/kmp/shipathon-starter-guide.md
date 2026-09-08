@@ -1,12 +1,12 @@
 [//]: # (title: Kotlin Multiplatform 快速入門指南)
 
-## 從何處開始
+## 從何處開始 {id="where-to-start"}
 
 1. 了解 Kotlin Multiplatform (KMP) 與 Compose Multiplatform (CMP)：
    [它們是什麼、其優勢與使用案例](kmp-overview.md)。
 2. [在範例專案中嘗試 KMP](quickstart.md)，查看其組織方式以及如何在不同平台上執行。
 
-## 學習 KMP 基礎知識
+## 學習 KMP 基礎知識 {id="learn-kmp-basics"}
 
 基礎知識包括：
 
@@ -25,7 +25,7 @@
 
 <!-- ## \[AI Agents scenario tools TODO\] -->
 
-## 共享程式碼
+## 共享程式碼 {id="share-code"}
 
 在 KMP 專案中共享程式碼有多種方式，並具有一些平台特性：
 
@@ -47,7 +47,7 @@
     * 了解更直接的 [Swift export](https://kotlinlang.org/docs/native-swift-export.html) 方法（目前為 Alpha 版本）。
     
 
-## 探索生態系統
+## 探索生態系統 {id="discover-the-ecosystem"}
 
 [klibs.io](https://klibs.io/) 提供多平台程式庫的完整型錄：
 
@@ -57,7 +57,7 @@
     * [SQLDelight / Ktor / kotlinx-serialization / Koin](https://github.com/kotlin-hands-on/kmp-networking-and-data-storage/tree/final) 以及對應的[教學](multiplatform-ktor-sqldelight.md)。
     * 從[原始 Android 範例](https://github.com/android/compose-samples/tree/main/Jetcaster)轉換而來的[多平台 Jetcaster 應用程式](https://github.com/kotlin-hands-on/jetcaster-kmp-migration)。
 
-## 建立 KMP 程式庫
+## 建立 KMP 程式庫 {id="create-a-kmp-library"}
 
 如果您決定將您的共享程式碼打包成多平台程式庫，請查看以下文件頁面：
 
@@ -65,16 +65,16 @@
 * [KMP 程式庫的發佈配置](multiplatform-publish-lib-setup.md)
 * 將建置產物發佈到 [Maven Central](multiplatform-publish-libraries-to-maven.md) 與 [npm](multiplatform-publish-libraries-to-npm.md) 的教學
 
-## 發佈建置產物
+## 發佈建置產物 {id="publish-the-artifacts"}
 
 * 閱讀[發佈 KMP 應用程式的通用文章](multiplatform-publish-apps.md)。
 * 別忘了 Apple App Store 所要求的[隱私權資訊清單](multiplatform-privacy-manifest.md)。
 
-## 使用 AI 進行 KMP 開發
+## 使用 AI 進行 KMP 開發 {id="using-ai-for-kmp-development"}
 
-### 在您開始之前
+### 在您開始之前 {id="before-you-start"}
 
-#### 使用免費的 Junie 存取權限
+#### 使用免費的 Junie 存取權限 {id="use-the-free-junie-access"}
 
 Junie 是一款 JetBrains AI 代理。
 針對 Shipaton 參賽者，JetBrains 提供免費存取 Junie CLI 代理 EAP 版本的權限。
@@ -82,7 +82,7 @@ Junie 是一款 JetBrains AI 代理。
 
 <a as="button" href="https://surveys.jetbrains.com/s3/Build-with-Junie-at-Shipaton-2026-Application-Form" mode="classic" icon="arrow-right" icon-position="right">領取您的 Junie 存取權限</a>
 
-#### 設定並提交 AGENTS.md
+#### 設定並提交 AGENTS.md {id="set-up-and-commit-agents-md"}
 
 AI 代理在探索陌生的程式碼庫時高度依賴 AGENTS.md 檔案，
 因此準確且完整的上下文可以顯著提升其洞察與產生程式碼的品質。
@@ -90,7 +90,7 @@ AI 代理在探索陌生的程式碼庫時高度依賴 AGENTS.md 檔案，
 
 若要了解格式並查看範例，請造訪 [AGENTS.md](https://agents.md/) 網站。
 
-#### 設定實用的 MCP 伺服器
+#### 設定實用的 MCP 伺服器 {id="configure-useful-mcp-servers"}
 
 這些 MCP 伺服器對於在 KMP 環境中建置應用程式的 AI 代理非常有用：
 
@@ -99,9 +99,9 @@ AI 代理在探索陌生的程式碼庫時高度依賴 AGENTS.md 檔案，
 * [Compose 熱重載](compose-hot-reload.md#mcp-server-for-ai-agents)伺服器
   允許代理快速迭代 UI。
 
-### 建置功能
+### 建置功能 {id="build-features"}
 
-#### 使用計畫模式
+#### 使用計畫模式 {id="use-planning-mode"}
 
 對於較大的任務與分散式工作，大多數代理都支援**計畫模式**，這有助於分解任務
 並產生清晰的逐步指示，讓您在正式開始產生程式碼前進行驗證。
@@ -112,7 +112,7 @@ AI 代理在探索陌生的程式碼庫時高度依賴 AGENTS.md 檔案，
 * 程式庫整合、
 * 大型重構。
 
-#### 驗證 AI 產生的變更
+#### 驗證 AI 產生的變更 {id="validate-ai-generated-changes"}
 
 除了 AI 一般的非決定性之外，Kotlin Multiplatform 還引入了難以全面涵蓋的多面向上下文。
 例如，常見的情況是變更在一個平台上實作良好且運作正常，卻破壞了另一個平台。
@@ -124,12 +124,12 @@ AI 代理在探索陌生的程式碼庫時高度依賴 AGENTS.md 檔案，
 * 審查實作中是否有平台特定 API 洩漏到通用程式碼中：
   這可能會導致代理（以及人類）在後續階段中使用這些 API。
 
-#### 使用 Kotlin AI 技能
+#### 使用 Kotlin AI 技能 {id="use-kotlin-ai-skills"}
 
 Kotlin 團隊建置並維護旨在解決 Kotlin 特定問題的 AI 技能。
 請參閱[技能儲存庫](https://github.com/Kotlin/kotlin-agent-skills)並為您的代理安裝技能。
 
-#### 使用 Swift Package Manager 整合原生 iOS 程式庫
+#### 使用 Swift Package Manager 整合原生 iOS 程式庫 {id="use-swift-package-manager-to-integrate-native-ios-libraries"}
 
 對於尚未有多平台程式庫支援的 iOS 功能，
 您可能需要整合原生 iOS 程式庫。
@@ -138,28 +138,28 @@ Kotlin 團隊建置並維護旨在解決 Kotlin 特定問題的 AI 技能。
 Kotlin 團隊維護了一個[旨在將 CocoaPods 遷移至 SwiftPM 的 AI 技能](https://github.com/Kotlin/kotlin-agent-skills/tree/main/skills/kotlin-tooling-cocoapods-spm-migration)，
 這對於從頭開始設定 SwiftPM 整合也很有幫助。
 
-#### 設定代理編排
+#### 設定代理編排 {id="set-up-agent-orchestration"}
 
 JetBrains Air 提供代理編排功能，可透過協調多個代理
 同時處理專案的不同部分來加速工作。
 
 <a as="button" href="https://air.dev/" mode="classic" icon="arrow-right" icon-position="right">嘗試使用 Air</a>
 
-### 迭代 UI
+### 迭代 UI {id="iterate-on-ui"}
 
-#### 使用 Figma 產生 UI 設計與 Compose 程式碼
+#### 使用 Figma 產生 UI 設計與 Compose 程式碼 {id="use-figma-to-generate-ui-designs-and-compose-code"}
 
 [Figma MCP 伺服器](https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Figma-MCP-server)
 可以幫助將設計轉換為 Compose 程式碼。
 
 若要從頭開始產生 UI 設計，請考慮使用 [Google Stitch](https://stitch.withgoogle.com/) 或 [Figma Make](https://www.figma.com/make/)。
 
-#### 使用 Gemini CLI 作為 Compose UI 任務的代理
+#### 使用 Gemini CLI 作為 Compose UI 任務的代理 {id="use-gemini-cli-as-the-agent-for-compose-ui-tasks"}
 
 我們在使用 Google 的模型（包括 [Flash 系列](https://ai.google.dev/gemini-api/docs/models#gemini-3-stable)模型）產生 Compose 程式碼時，看到了一貫良好的結果。
 它在生成速度、Token 消耗與 UI 品質之間取得了良好的平衡。
 
-#### 使用 Compose 熱重載迭代 UI
+#### 使用 Compose 熱重載迭代 UI {id="use-compose-hot-reload-to-iterate-on-ui"}
 
 [Compose 熱重載](compose-hot-reload.md)可實現近乎即時的 UI 更新，反映您（或您的代理）
 在 Compose 程式碼中所做的變更。
@@ -168,6 +168,6 @@ JetBrains Air 提供代理編排功能，可透過協調多個代理
 新增至您的代理配置中。
 它使代理能夠直接觸發重載、擷取螢幕截圖，甚至與 UI 進行互動。
 
-## 學習資源型錄
+## 學習資源型錄 {id="learning-resources-catalog"}
 
 所有提到的資源，以及更深入的指南與第三方內容，都收錄在[學習資源](kmp-learning-resources.md)頁面中。

@@ -17,14 +17,14 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Play
 
 ```
 
-## 前置需求
+## 前置需求 {id="prerequisites"}
 - 已匯出為環境變數的 OpenAI API 金鑰：`OPENAI_API_KEY`
 - 您的 PATH 中有 Node.js 和 npx 可供使用
 - 具備可透過 `%use koog` 使用 Koog 的 Kotlin Jupyter 筆記本環境
 
 提示：在 headful 模式下執行 Playwright MCP 伺服器，以觀察瀏覽器自動化執行的步驟。
 
-## 1) 提供您的 OpenAI API 金鑰
+## 1) 提供您的 OpenAI API 金鑰 {id="1-provide-your-openai-api-key"}
 我們從 `OPENAI_API_KEY` 環境變數中讀取 API 金鑰。這可以確保秘密資訊不會留在筆記本中。
 
 ```kotlin
@@ -33,7 +33,7 @@ val openAIApiToken = System.getenv("OPENAI_API_KEY") ?: error("OPENAI_API_KEY en
 
 ```
 
-## 2) 啟動 Playwright MCP 伺服器
+## 2) 啟動 Playwright MCP 伺服器 {id="2-start-the-playwright-mcp-server"}
 我們將使用 `npx` 在本機啟動 Playwright 的 MCP 伺服器。預設情況下，它會公開一個 SSE 端點，我們可以從 Koog 連接該端點。
 
 ```kotlin
@@ -47,7 +47,7 @@ val process = ProcessBuilder(
 
 ```
 
-## 3) 從 Koog 連接並執行 agent
+## 3) 從 Koog 連接並執行 agent {id="3-connect-from-koog-and-run-the-agent"}
 我們建立一個帶有 OpenAI 執行器的極簡 Koog `AIAgent`，並將其工具註冊表透過 SSE 指向 MCP 伺服器。接著我們要求它完全透過工具來完成瀏覽器任務。
 
 ```kotlin
@@ -78,7 +78,7 @@ runBlocking {
 
 ```
 
-## 4) 關閉 MCP 處理程序
+## 4) 關閉 MCP 處理程序 {id="4-shut-down-the-mcp-process"}
 在執行結束時，請務必清理外部處理程序。
 
 ```kotlin
@@ -88,12 +88,12 @@ process.destroy()
 
 ```
 
-## 疑難排解
+## 疑難排解 {id="troubleshooting"}
 - 如果 agent 無法連接，請確保 MCP 伺服器正在 `http://localhost:8931` 上執行。
 - 如果您沒有看到瀏覽器，請確保已安裝 Playwright 且能夠在您的系統上啟動瀏覽器。
 - 如果您收到來自 OpenAI 的身份驗證錯誤，請再次檢查 `OPENAI_API_KEY` 環境變數。
 
-## 下一步
+## 下一步 {id="next-steps"}
 - 嘗試不同的網站或流程。MCP 伺服器公開了一套豐富的 Playwright 工具。
 - 更換 LLM 模型，或為 Koog agent 增加更多工具。
 - 將此流程整合到您的應用程式中，或將筆記本發佈為文件。

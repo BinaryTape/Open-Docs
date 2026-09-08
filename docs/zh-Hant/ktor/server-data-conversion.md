@@ -88,7 +88,7 @@ Ktor 伺服器的 %plugin_name% 外掛程式可讓您針對值的清單序列化
       }
   ```
 
-## 存取服務
+## 存取服務 {id="access-the-service"}
 
 {id="service"}
 
@@ -103,7 +103,7 @@ val dataConversion = application.conversionService
 * `fromValues(values: List<String>, type: TypeInfo)` 回呼函式接受 `values` 作為字串清單，以及要將值轉換成的 `TypeInfo`，並回傳解碼後的值。
 * `toValues(value: Any?)` 回呼函式接受一個任意的值，並回傳代表它的字串清單。
 
-## 範例
+## 範例 {id="example"}
 
 在以下範例中，定義了 `LocalDate` 型別的轉換器，並配置為序列化與反序列化值。當呼叫 `encode` 函式時，服務將使用 `SimpleDateFormat` 轉換該值，並回傳包含格式化後值的清單。當呼叫 `decode` 函式時，服務將日期格式化為 `LocalDate` 並將其回傳。
 

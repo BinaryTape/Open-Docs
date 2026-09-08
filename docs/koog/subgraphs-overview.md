@@ -2,13 +2,13 @@
 
 本页提供了有关 Koog 框架中子图 (subgraph) 的详细信息。理解这些概念对于创建跨多个处理步骤保持上下文 (context) 的复杂智能体工作流 (agent workflow) 至关重要。
 
-## 简介
+## 简介 {id="introduction"}
 
 子图 (subgraph) 是 Koog 框架中的一个基本概念，它允许您将复杂的智能体工作流 (agent workflow) 分解为可管理的顺序步骤。每个子图代表一个处理阶段，具有自己的上下文 (context)、职责以及可选的工具子集。
 
 子图是策略 (strategy) 的重要组成部分，策略是表示整体智能体工作流的图。有关策略的更多信息，请参阅 [自定义策略图](custom-strategy-graphs.md)。
 
-## 理解子图
+## 理解子图 {id="understanding-subgraphs"}
 
 子图是智能体策略中一个自包含的处理单元。每个子图：
 
@@ -20,7 +20,7 @@
 
 要在图中定义子图序列，请使用边连接或使用 `then` 关键字定义序列。有关更多信息，请参阅 [自定义策略图](custom-strategy-graphs.md)。
 
-### 子图上下文
+### 子图上下文 {id="subgraph-context"}
 
 每个子图都在提供以下访问权限的上下文 (context) 中执行：
 

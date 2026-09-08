@@ -27,7 +27,7 @@ SwiftUI がプロジェクトに適さない場合は、[代替アプローチ](
 
 簡略化のため、アプリの 2 つのタブ（**Schedule** と **Info**）のバージョンを移行しますが、同じパターンを任意の数のタブに拡張できます。
 
-## 移行プラン
+## 移行プラン {id="migration-plan"}
 
 UI コードが完全に共有されている Compose Multiplatform の構成では、単一の `ComposeUIViewController` が iOS の UI 全体（タブ、ナビゲーションスタック、戻るジェスチャ、画面コンテンツ）を担当します。
 Compose Multiplatform の iOS 上でのナビゲーション遷移はネイティブのように感じられるよう設計されていますが、iOS 26 の Liquid Glass タブバースタイリングのような一部のプラットフォームレベルの機能は、ネイティブの iOS コンポーネントを通じてのみ利用可能です。
@@ -77,7 +77,7 @@ ContentView
 
 * [SwiftUI ナビゲーションレイヤーを構築する](#build-the-swiftui-navigation-layer): ネイティブの `TabView` および `NavigationStack` ビュー、および Compose 画面を埋め込むブリッジを作成します。
 
-## ルートにタイトルのメタデータを追加する
+## ルートにタイトルのメタデータを追加する {id="add-title-metadata-to-routes"}
 
 iOS では、各遷移先にはナビゲーションバーに表示されるタイトルがあり、戻るボタンを長押ししたときに表示されるバックスタックにもタイトルが表示されます。
 タイトルをルートオブジェクトに直接保存することで、各ルートが自己記述的になり、Swift が Kotlin へのラウンドトリップなしでタイトルを読み取れるようにします。
@@ -124,7 +124,7 @@ iOS では、各遷移先にはナビゲーションバーに表示されるタ�
     }
     ```
 
-## iOS エントリポイントにナビゲーションコールバックを追加する
+## iOS エントリポイントにナビゲーションコールバックを追加する {id="add-navigation-callbacks-to-the-ios-entry-point"}
 
 `App()` は iOS が呼び出す Kotlin のエントリポイントです。Swift でナビゲーションを制御できるようにするには、次の 3 つのことを行う方法が必要です。
 
@@ -155,7 +155,7 @@ fun App(
 
 完全な実装については、[`App.kt`](https://github.com/JetBrains/kotlinconf-app/blob/3982334f1c3712fb959f0d20b563d6c8b81e9bbd/app/shared/src/commonMain/kotlin/org/jetbrains/kotlinconf/App.kt) を参照してください。
 
-## Compose レベルでナビゲーションをインターセプトする
+## Compose レベルでナビゲーションをインターセプトする {id="intercept-navigation-at-the-compose-level"}
 
 `App()` がナビゲーションコールバックを公開したので、`NavHost` はそれらを使用する必要があります。
 詳細ルートが Compose のバックスタックに現れるたびに、それを Swift に渡し、すぐに Compose から削除します。これにより、Compose は Swift から呼び出されたときにのみ詳細画面をレンダリングするようになります。
@@ -207,12 +207,12 @@ internal fun NavHost(
 
 ファイル全体については、[`NavHost.kt`](https://github.com/JetBrains/kotlinconf-app/blob/3982334f1c3712fb959f0d20b563d6c8b81e9bbd/app/shared/src/commonMain/kotlin/org/jetbrains/kotlinconf/navigation/NavHost.kt) を参照してください。
 
-## iOS 用のスタンドアロン画面レンダラーを構築する
+## iOS 用のスタンドアロン画面レンダラーを構築する {id="build-a-standalone-screen-renderer-for-ios"}
 
 SwiftUI が `NavigationStack` を所有している場合、Compose は各画面のコンテンツのみをレンダリングする必要があります。
 `NavHost` はバックスタック、遷移、およびライフサイクルの管理用に構築されているため、単一のルートをレンダリングするためのよりシンプルなエントリポイントが必要です。
 
-### フラットな画面レンダラーの追加
+### フラットな画面レンダラーの追加 {id="add-a-flat-screen-renderer"}
 
 `ScreenContent` はそのシンプルなエントリポイントです。単一の詳細ルートをその Composable にマップするフラットな `when` 式であり、自身ではナビゲーション状態を持ちません。タブルートは引き続き完全な `App()` / `NavHost` によって処理されます。
 SwiftUI は、遷移先ごとに個別のビューコントローラーを作成し、それぞれが単一の `ScreenContent` 呼び出しをホストします。
@@ -255,7 +255,7 @@ fun ScreenContent(
 
 この関数にタイトルは表示されません。タイトルは [ルートにタイトルのメタデータを追加する](#add-title-metadata-to-routes) のステップでルートオブジェクトにアタッチされているため、Swift 側でナビゲーションバーを設定する際に各ルートから直接読み取ることができます。
 
-### SwiftUI がナビゲーションを所有していることを Compose に通知する
+### SwiftUI がナビゲーションを所有していることを Compose に通知する {id="signal-to-compose-that-swiftui-owns-navigation"}
 
 `ScreenContent` は、SwiftUI がナビゲーションバーと戻るボタンをレンダリングするコンテキストで実行されます。独自のタイトルバーや戻るボタンを描画する Compose 画面は、それらをスキップする必要があります。
 
@@ -267,7 +267,7 @@ fun ScreenContent(
 val LocalUseNativeNavigation = staticCompositionLocalOf { false }
 ```
 
-### iOS 用のレンダラーをラップする
+### iOS 用のレンダラーをラップする {id="wrap-the-renderer-for-ios"}
 
 `ScreenContent` はルートをレンダリングしますが、`App()` が通常設定するのと同じテーマ、依存関係注入、およびアプリ全体の `CompositionLocal` 値を設定するラッパーが必要です。
 
@@ -301,7 +301,7 @@ internal fun SingleScreenApp(
 }
 ```
 
-### フラグをタブルートに適用する
+### フラグをタブルートに適用する {id="apply-the-flag-to-tab-roots"}
 
 タブルートは依然として通常の `NavHost` を経由するため、これらも `LocalUseNativeNavigation` の値を尊重する必要があります。
 ネイティブのナビゲーションコールバックがアクティブかどうかに基づいてこれを提供します。
@@ -336,7 +336,7 @@ CompositionLocalProvider(LocalUseNativeNavigation provides useNativeNavigation) 
 
 完全な実装については、[`NavHost.kt`](https://github.com/JetBrains/kotlinconf-app/blob/3982334f1c3712fb959f0d20b563d6c8b81e9bbd/app/shared/src/commonMain/kotlin/org/jetbrains/kotlinconf/navigation/NavHost.kt) および [`SingleScreenApp.kt`](https://github.com/JetBrains/kotlinconf-app/blob/3982334f1c3712fb959f0d20b563d6c8b81e9bbd/app/shared/src/iosMain/kotlin/org/jetbrains/kotlinconf/SingleScreenApp.kt) を参照してください。
 
-## Compose 内蔵のナビゲーション UI を非表示にする
+## Compose 内蔵のナビゲーション UI を非表示にする {id="hide-compose-s-built-in-navigation-ui"}
 
 SwiftUI がナビゲーション UI をレンダリングする場所で `LocalUseNativeNavigation` が設定されるようになったため、個別の画面でそれを読み取り、独自のタイトルバーと戻るボタンを非表示にする必要があります。そうしないと、2 つのタイトルバーが重なり、2 つの競合する戻るボタンがユーザーに表示されてしまいます。
 
@@ -355,7 +355,7 @@ if (!useNativeNavigation) {
 
 完全な実装については、[`BaseScreens.kt`](https://github.com/JetBrains/kotlinconf-app/blob/3982334f1c3712fb959f0d20b563d6c8b81e9bbd/app/shared/src/commonMain/kotlin/org/jetbrains/kotlinconf/BaseScreens.kt) を参照してください。
 
-## 新しい iOS エントリポイントを公開する
+## 新しい iOS エントリポイントを公開する {id="expose-new-ios-entry-points"}
 
 SwiftUI から新しいナビゲーション構造を構築するために、3 つの Kotlin エントリポイントを公開します。`MainViewController` の 2 つのオーバーロードと、1 つの `ScreenViewController` です。
 `iosMain/main.ios.kt` に、これら 3 つの関数を追加します。
@@ -412,7 +412,7 @@ SwiftUI から新しいナビゲーション構造を構築するために、3 �
 
 完全な実装については、[`main.ios.kt`](https://github.com/JetBrains/kotlinconf-app/blob/3982334f1c3712fb959f0d20b563d6c8b81e9bbd/app/shared/src/iosMain/kotlin/org/jetbrains/kotlinconf/main.ios.kt) を参照してください。
 
-### 代替案: SwiftUI をスキップして Kotlin から UIKit を駆動する {collapsible="true"}
+### 代替案: SwiftUI をスキップして Kotlin から UIKit を駆動する {collapsible="true" id="alternative-skip-swiftui-and-drive-uikit-from-kotlin"}
 
 上記のエントリポイントは、SwiftUI の `TabView` および `NavigationStack` 用に設計されています。
 内部的には、SwiftUI は `UITabBarController` と `UINavigationController` を使用してこれらのビューを実装しており、iOS 26 の Liquid Glass は、SwiftUI で宣言するか UIKit で構成するかに関わらず、ネイティブのタブバーおよびナビゲーションバーに適用されます。
@@ -464,7 +464,7 @@ Kotlin と Swift の間で作業を分担する方法は 2 つあります。
 
 `UITabBarController` 内で Compose を使用する方法の詳細については、[UIKit フレームワークとの統合](compose-uikit-integration.md) を参照してください。
 
-## SwiftUI ナビゲーションレイヤーを構築する
+## SwiftUI ナビゲーションレイヤーを構築する {id="build-the-swiftui-navigation-layer"}
 
 ここからは移行の iOS 側の作業です。これまでのステップでの Kotlin の変更はすべて、ここで行われることへの準備です。つまり、Compose ビューを遷移先としてホストする、タブごとの `NavigationStack` を備えた SwiftUI の `TabView` を作成します。
 これを構築するために、以下の手順を完了してください。
@@ -479,7 +479,7 @@ Kotlin と Swift の間で作業を分担する方法は 2 つあります。
 このセクションのコードには、Liquid Glass 効果を直接適用するものは含まれていないことに注意してください。
 iOS 26 は、ネイティブの `TabView` および `NavigationStack` ビューに対して Liquid Glass を自動的にレンダリングするため、それらを使用するだけで有効になります。
 
-### Kotlin のルートを `NavigationStack` で使用可能にする
+### Kotlin のルートを `NavigationStack` で使用可能にする {id="make-kotlin-routes-usable-in-navigationstack"}
 
 `NavigationStack` では、パス要素が `Hashable` かつ `Identifiable` である必要があります。
 Kotlin の sealed interface でこれを満たすために、`AppRoute` を Swift の `struct` でラップします。
@@ -503,7 +503,7 @@ struct RouteWrapper: Hashable, Identifiable {
 
 同じルートを 2 回プッシュした場合、期待されるナビゲーション動作と一致するように、2 つの個別のスタックエントリを作成する必要があります。これを実現するために、識別（Identity）はルートの値ではなく UUID に基づいています。
 
-### タブとナビゲーションの状態を追跡する
+### タブとナビゲーションの状態を追跡する {id="track-tab-and-navigation-state"}
 
 各タブは独自のナビゲーションスタックを持ち、アプリは現在どのタブが選択されているかを追跡します。これを処理するために 2 つの `@Observable` クラスを追加します。
 
@@ -555,7 +555,7 @@ class AppNavigationCoordinator {
 
 `AppNavigationCoordinator` は、このチュートリアルで使用する 2 タブバージョン用に簡略化されています。完全なバージョンについては [`ContentView.swift`](https://github.com/JetBrains/kotlinconf-app/blob/b451d80301c50097d4cf5050d865829b49d07c8e/app/iosApp/iosApp/ContentView.swift) を参照してください。
 
-### Compose 画面を SwiftUI ビューとして埋め込む
+### Compose 画面を SwiftUI ビューとして埋め込む {id="embed-compose-screens-as-swiftui-views"}
 
 2 つの `UIViewControllerRepresentable` タイプが、[新しい iOS エントリポイントを公開する](#expose-new-ios-entry-points) のステップで作成した Kotlin のエントリポイントを SwiftUI に接続します。1 つはタブルート用、もう 1 つは詳細画面用です。
 
@@ -621,7 +621,7 @@ struct DetailComposeView: UIViewControllerRepresentable {
 }
 ```
 
-### 各タブ内のナビゲーションを設定する
+### 各タブ内のナビゲーションを設定する {id="set-up-navigation-within-each-tab"}
 
 タブレベルでは、`NavigationStack` が Compose のタブコンテンツをルートとして使用し、詳細画面を遷移先としてレンダリングします。
 
@@ -664,7 +664,7 @@ struct TabContentView: View {
 }
 ```
 
-### タブバーを構築する
+### タブバーを構築する {id="build-the-tab-bar"}
 
 トップレベルのコンテナは `TabView` で、トップレベルルートごとに 1 つの `Tab` を持ちます。
 `.tabBarMinimizeBehavior(.automatic)` モディファイアにより、タブバーが浮遊し、スクロール時に最小化されます。これがない場合、タブバーは下部に固定されたままになります。
@@ -708,7 +708,7 @@ struct NativeNavContentView: View {
 
 半透明感、奥行き、フローティングタブバーはすべて iOS 26 によって適用されます。追加のスタイリングコードは必要ありません。
 
-### 古い iOS バージョンでのフォールバック
+### 古い iOS バージョンでのフォールバック {id="fall-back-on-older-ios-versions"}
 
 Liquid Glass と新しい `TabView` API は iOS 26 専用です。
 古いバージョンでは、アプリは以前の Compose 主導のセットアップにフォールバックします。
@@ -729,7 +729,7 @@ struct ContentView: View {
 
 完全なファイルを参照してください: [`ContentView.swift`](https://github.com/JetBrains/kotlinconf-app/blob/3982334f1c3712fb959f0d20b563d6c8b81e9bbd/app/iosApp/iosApp/ContentView.swift)。
 
-## 代替アプローチ
+## 代替アプローチ {id="alternative-approaches"}
 
 このチュートリアルでの移行方法はネイティブの SwiftUI ナビゲーションを優先しており、これにより Liquid Glass やその他のシステム動作をすぐに利用できます。このアプローチがプロジェクトに合わない場合は、以下の代替案を検討してください。
 
@@ -738,7 +738,7 @@ struct ContentView: View {
 * **アダプティブ UI のためのサードパーティ製ソリューションを使用した Compose 主導のナビゲーション**。[Calf](https://klibs.io/project/MohamedRejeb/Calf) のようなライブラリを使用して、アプリが動作しているプラットフォームにネイティブなアダプティブ UI コンポーネントをレンダリングします。このアプローチにより、プラットフォーム間の差異をご自身で処理する複雑さが軽減され、iOS での Liquid Glass のようなネイティブな動作がそのまま提供されます。
 * **Liquid Glass 効果を模倣した Compose のみのナビゲーション**。すべてを Compose でレンダリングし、Liquid Glass を視覚的に近似させます。例えば、[AndroidLiquidGlass](https://klibs.io/project/Kyant0/AndroidLiquidGlass) や [Liquid](https://klibs.io/project/FletchMcKee/liquid) といったライブラリを使用します。このアプローチでは、すべての UI が Compose 側に保持され、効果は視覚的に似ていますが、システムの Liquid Glass と同一ではありません。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * Liquid Glass 効果が適用された [公式 KotlinConf アプリケーション](https://github.com/JetBrains/kotlinconf-app/tree/lg-nav) を確認してください。
 * Apple による新しいマテリアルの概要と採用チェックリストである [Adopting Liquid Glass](https://developer.apple.com/documentation/TechnologyOverviews/adopting-liquid-glass) を参照してください。

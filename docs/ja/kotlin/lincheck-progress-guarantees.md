@@ -22,7 +22,7 @@ Lincheckは、他のすべてのスレッドが一時停止しているときに
 
 特定の関数が意図的にブロッキングである場合は、[`@Operation(blocking = true)`](lincheck-operation-execution-options.md#blocking-operations)でマークすることで誤検知を防ぐことができます。
 
-## 例: `ConcurrentHashMap` のオブストラクション・フリーダムのテスト
+## 例: `ConcurrentHashMap` のオブストラクション・フリーダムのテスト {id="example-test-concurrenthashmap-for-obstruction-freedom"}
 
 この例では、`ConcurrentHashMap` 構造の `put()` 関数をテストします。
 
@@ -89,7 +89,7 @@ Lincheckは、他のすべてのスレッドが一時停止しているときに
 
 6. テストを再実行します。正常にパスするはずです。
 
-## 例: `ConcurrentSkipListMap` のオブストラクション・フリーダムのテスト
+## 例: `ConcurrentSkipListMap` のオブストラクション・フリーダムのテスト {id="example-test-concurrentskiplistmap-for-obstruction-freedom"}
 
 この例では、ノンブロッキングな `ConcurrentSkipListMap` 構造の `put()` 関数をテストします。
 
@@ -116,7 +116,7 @@ Lincheckは、他のすべてのスレッドが一時停止しているときに
 
 4. テストを実行します。正常にパスするはずです。
 
-## 関連項目
+## 関連項目 {id="see-also"}
 
 * [引数生成の制約の設定](lincheck-argument-generation-constraints.md)
 * [オペレーション実行の設定](lincheck-operation-execution-options.md)

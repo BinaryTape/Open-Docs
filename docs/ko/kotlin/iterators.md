@@ -64,7 +64,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 리스트 반복자 (List iterators)
+## 리스트 반복자 (List iterators) {id="list-iterators"}
 
 리스트의 경우 특별한 반복자 구현체인 [`ListIterator`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list-iterator/index.html)가 있습니다. 이는 정방향과 역방향 모두로 리스트를 순회하는 것을 지원합니다.
 
@@ -94,7 +94,7 @@ fun main() {
 
 양방향 순회가 가능하다는 것은 `ListIterator`가 마지막 요소에 도달한 후에도 여전히 사용될 수 있음을 의미합니다.
 
-## 가변 반복자 (Mutable iterators)
+## 가변 반복자 (Mutable iterators) {id="mutable-iterators"}
 
 가변 컬렉션을 순회하기 위해, `Iterator`에 요소 삭제 함수인 [`remove()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-iterator/remove.html)를 확장한 [`MutableIterator`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-iterator/index.html)가 있습니다. 따라서 컬렉션을 순회하는 동안 요소를 삭제할 수 있습니다.
 

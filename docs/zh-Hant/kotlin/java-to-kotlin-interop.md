@@ -5,7 +5,7 @@ Kotlin 程式碼可以輕易地在 Java 中呼叫。
 然而，在將 Kotlin 程式碼整合到 Java 時，Java 與 Kotlin 之間存在某些需要注意的差異。
 在此頁面中，我們將說明調整 Kotlin 程式碼與其 Java 用戶端互通性的方式。
 
-## 屬性
+## 屬性 {id="properties"}
 
 Kotlin 屬性會被編譯為以下 Java 元素：
 
@@ -31,7 +31,7 @@ public void setFirstName(String firstName) {
 例如，對於屬性 `isOpen`，getter 稱為 `isOpen()`，而 setter 稱為 `setOpen()`。
 此規則適用於任何型別的屬性，而不僅限於 `Boolean`。
 
-## 套件層級函式
+## 套件層級函式 {id="package-level-functions"}
 
 在套件 `org.example` 內的 `app.kt` 檔案中宣告的所有函式與屬性（包括擴充函式），都會被編譯為名為 `org.example.AppKt` 的 Java 類別之 static 方法。
 
@@ -100,7 +100,7 @@ org.example.Utils.getTime();
 org.example.Utils.getDate();
 ```
 
-## 執行個體欄位
+## 執行個體欄位 {id="instance-fields"}
 
 如果您需要將 Kotlin 屬性作為 Java 中的欄位公開，請使用 [`@JvmField`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-field/index.html) 註解。
 該欄位具有與基礎屬性相同的可見性。如果屬性滿足以下條件，則可以使用 `@JvmField` 進行註解：
@@ -127,7 +127,7 @@ class JavaClient {
 [延遲載入](properties.md#late-initialized-properties-and-variables)屬性也會作為欄位公開。
 該欄位的可見性與 `lateinit` 屬性 setter 的可見性相同。
 
-## Static 欄位
+## Static 欄位 {id="static-fields"}
 
 在具名物件或 companion object 中宣告的 Kotlin 屬性，在該具名物件或包含 companion object 的類別中具有 static 支援欄位。
 
@@ -194,7 +194,7 @@ int max = ExampleKt.MAX;
 int version = C.VERSION;
 ```
 
-## Static 方法
+## Static 方法 {id="static-methods"}
 
 Kotlin 將套件層級函式表示為 static 方法。
 如果您將定義在具名物件或 companion object 中的函式註解為 [`@JvmStatic`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-static/)，Kotlin 也可以為其產生 static 方法。
@@ -255,7 +255,7 @@ interface ChatBot {
 
 您也可以將 `@JvmStatic` 註解應用於物件或 companion object 的屬性，使其 getter 與 setter 方法成為該物件或包含 companion object 類別中的 static 成員。
 
-## 介面中的 Default 方法
+## 介面中的 Default 方法 {id="default-methods-in-interfaces"}
 
 當目標為 JVM 時，Kotlin 會將介面中宣告的函式編譯為 [default 方法](https://docs.oracle.com/javase/tutorial/java/IandI/defaultmethods.html)，除非[另有配置](#compatibility-modes-for-default-methods)。
 這些是介面中具體的方法，Java 類別可以直接繼承而無需重新實作。
@@ -306,7 +306,7 @@ public class BB8 implements Robot {
 }
 ```
 
-### Default 方法的相容性模式
+### Default 方法的相容性模式 {id="compatibility-modes-for-default-methods"}
 
 Kotlin 提供三種模式來控制介面中的函式如何編譯為 JVM default 方法。
 這些模式決定編譯器是否產生相容性橋接以及 `DefaultImpls` 類別中的 static 方法。
@@ -319,13 +319,13 @@ Kotlin 提供三種模式來控制介面中的函式如何編譯為 JVM default 
 
 進一步了解相容性模式：
 
-#### enable {initial-collapse-state="collapsed" collapsible="true"}
+#### enable {initial-collapse-state="collapsed" collapsible="true" id="enable"}
 
 預設行為。
 在介面中產生預設實作，並包含相容性橋接與 `DefaultImpls` 類別。
 此模式保持與舊版已編譯 Kotlin 程式碼的相容性。
 
-#### no-compatibility {initial-collapse-state="collapsed" collapsible="true"}
+#### no-compatibility {initial-collapse-state="collapsed" collapsible="true" id="no-compatibility"}
 
 僅在介面中產生預設實作。
 跳過相容性橋接與 `DefaultImpls` 類別。
@@ -336,12 +336,12 @@ Kotlin 提供三種模式來控制介面中的函式如何編譯為 JVM default 
 >
 {style="note"}
 
-#### disable {initial-collapse-state="collapsed" collapsible="true"}
+#### disable {initial-collapse-state="collapsed" collapsible="true" id="disable"}
 
 停用介面中的預設實作。
 僅產生相容性橋接與 `DefaultImpls` 類別。
 
-## 可見性
+## 可見性 {id="visibility"}
 
 Kotlin 可見性修飾詞按以下方式對應至 Java：
 
@@ -357,7 +357,7 @@ Kotlin 可見性修飾詞按以下方式對應至 Java：
   請注意，`internal` 類別的 public 成員名稱不會被修飾，因此仍可從 Java 呼叫。
 * `public` 成員保持為 `public`。
 
-## KClass
+## KClass {id="kclass"}
 
 有時您需要使用 `KClass` 型別的參數來呼叫 Kotlin 方法。
 目前沒有從 `Class` 到 `KClass` 的自動轉換，因此您必須透過呼叫與 `Class<T>.kotlin` 擴充屬性等效的方法來手動執行：
@@ -366,7 +366,7 @@ Kotlin 可見性修飾詞按以下方式對應至 Java：
 kotlin.jvm.JvmClassMappingKt.getKotlinClass(MainView.class)
 ```
 
-## 使用 @JvmName 處理簽章衝突
+## 使用 @JvmName 處理簽章衝突 {id="handling-signature-clashes-with-jvmname"}
 
 有時我們在 Kotlin 中有一個具名函式，但在位元組碼中需要一個不同的 JVM 名稱。
 最顯著的例子是由於 *型別抹除 (type erasure)* 造成的：
@@ -406,7 +406,7 @@ fun getX() = 10
 var x: Int = 23
 ```
 
-## 多載產生
+## 多載產生 {id="overloads-generation"}
 
 通常，如果您編寫一個具有參數預設值的 Kotlin 函式，它在 Java 中僅以完整簽章的形式可見（包含所有參數）。
 
@@ -495,7 +495,7 @@ void draw(String label) { }
 
 請注意，如[次要建構函式](classes.md#secondary-constructors)中所述，如果一個類別的所有建構函式參數都有預設值，則會為其產生一個無引數的 public 建構函式。即使未指定 `@JvmOverloads` 註解，這也會生效。
 
-## 受檢例外
+## 受檢例外 {id="checked-exceptions"}
 
 Kotlin 沒有受檢例外。
 因此，通常 Kotlin 函式的 Java 簽章不會宣告拋出的例外。
@@ -534,13 +534,13 @@ fun writeToFile() {
 }
 ```
 
-## Null 安全
+## Null 安全 {id="null-safety"}
 
 從 Java 呼叫 Kotlin 函式時，沒有人阻止我們將 `null` 作為不可為 null 的參數傳遞。
 這就是為什麼 Kotlin 為所有預期非 null 值的 public 函式產生執行階段檢查的原因。
 這樣我們就能立即在 Java 程式碼中收到 `NullPointerException`。
 
-## 型別差異泛型
+## 型別差異泛型 {id="variant-generics"}
 
 當 Kotlin 類別使用[宣告點差異 (declaration-site variance)](generics.md#declaration-site-variance) 時，它們在 Java 程式碼中的用法有兩種選項。例如，假設您有以下類別以及兩個使用它的函式：
 
@@ -605,7 +605,7 @@ fun unboxBase(box: Box<@JvmSuppressWildcards Base>): Base = box.value
 >
 {style="note"}
 
-### Nothing 型別的翻譯
+### Nothing 型別的翻譯 {id="translation-of-type-nothing"}
  
 [`Nothing`](exceptions.md#the-nothing-type) 型別非常特殊，因為它在 Java 中沒有對應的內容。事實上，每個 Java 參考型別（包括 `java.lang.Void`）都接受 `null` 作為值，而 `Nothing` 甚至連 `null` 都不接受。因此，此型別無法在 Java 世界中準確表示。這就是為什麼 Kotlin 在使用 `Nothing` 型別引數的地方產生原始型別 (raw type) 的原因：
 
@@ -615,7 +615,7 @@ fun emptyList(): List<Nothing> = listOf()
 // List emptyList() { ... }
 ```
 
-## Inline Value 類別
+## Inline Value 類別 {id="inline-value-classes"}
 
 <primary-label ref="experimental-general"/>
 
@@ -666,7 +666,7 @@ MyInt output = ExampleKt.timesTwoBoxed(input);
 若要將此行為套用於模組內的所有 Inline Value 類別及其使用的函式，請使用 `-Xjvm-expose-boxed` 選項進行編譯。 
 使用此選項進行編譯的效果等同於模組中的每個宣告都具有 `@JvmExposeBoxed` 註解。
 
-### 繼承的函式
+### 繼承的函式 {id="inherited-functions"}
 
 `@JvmExposeBoxed` 註解不會自動為繼承的函式產生裝箱表示。
  

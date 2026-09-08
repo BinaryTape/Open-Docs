@@ -22,7 +22,7 @@
 >
 {style="tip"}
 
-## 프로젝트 설정
+## 프로젝트 설정 {id="set-up-the-project"}
 
 이 기능은 Kotlin 2.0.0부터 사용할 수 있습니다.
 
@@ -34,14 +34,14 @@
 
 이 튜토리얼은 프로젝트가 빌드 단계에서 `embedAndSignAppleFrameworkForXcode` 태스크를 사용하는 [직접 통합](multiplatform-direct-integration.md) 방식을 사용하고 있다고 가정합니다. CocoaPods 플러그인이나 `binaryTarget`이 포함된 Swift 패키지를 통해 Kotlin 프레임워크를 연결하고 있다면 먼저 마이그레이션하세요.
 
-### SPM binaryTarget 통합에서 마이그레이션 {initial-collapse-state="collapsed" collapsible="true"}
+### SPM binaryTarget 통합에서 마이그레이션 {initial-collapse-state="collapsed" collapsible="true" id="migrate-from-swiftpm-binarytarget-integration"}
 
 SPM 통합에서 `binaryTarget`을 사용하는 방식으로부터 마이그레이션하려면 다음을 수행하세요:
 
 1. Xcode에서 **Product** | **Clean Build Folder**를 선택하거나 <shortcut>Cmd + Shift + K</shortcut> 단축키를 사용하여 빌드 디렉터리를 정리합니다.
 2. 각 `Package.swift` 파일에서 Kotlin 프레임워크가 포함된 패키지에 대한 종속성과 제품(products)에 대한 타겟 종속성을 모두 제거합니다.
 
-### CocoaPods 플러그인에서 마이그레이션 {initial-collapse-state="collapsed" collapsible="true"}
+### CocoaPods 플러그인에서 마이그레이션 {initial-collapse-state="collapsed" collapsible="true" id="migrate-from-the-cocoapods-plugin"}
 
 > `cocoapods {}` 블록에 다른 Pod에 대한 종속성이 있는 경우 CocoaPods 통합 방식을 계속 사용해야 합니다. 현재 멀티모달(multimodal) SwiftPM 프로젝트에서는 Pod과 Kotlin 프레임워크 모두에 대한 종속성을 동시에 가질 수 없습니다.
 >
@@ -133,7 +133,7 @@ CocoaPods 플러그인에서 마이그레이션하려면 다음을 수행하세�
 * 기본 `Debug` 또는 `Release`와 다른 커스텀 빌드 구성(build configuration)이 있는 경우, **Build Settings** 탭의 **User-Defined** 아래에 `KOTLIN_FRAMEWORK_BUILD_TYPE` 설정을 추가하고 이를 `Debug` 또는 `Release`로 설정하세요.
 * 스크립트 샌드박싱(script sandboxing) 오류가 발생하는 경우, 프로젝트 이름을 더블 클릭하여 iOS 프로젝트 설정을 열고 **Build Settings** 탭의 **Build Options** 아래에서 **User Script Sandboxing**을 비활성화하세요.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [통합 방식 선택하기](multiplatform-ios-integration-overview.md)
 * [Swift 패키지 내보내기 설정 방법 알아보기](multiplatform-spm-export.md)

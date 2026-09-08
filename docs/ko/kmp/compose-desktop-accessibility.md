@@ -8,7 +8,7 @@ Compose Multiplatform은 [Jetpack Compose](https://developer.android.com/jetpack
 | Windows  | Java Access Bridge를 통해 지원    |
 | Linux    | 지원되지 않음                     | 
 
-## Windows에서 접근성 사용 설정하기
+## Windows에서 접근성 사용 설정하기 {id="enabling-accessibility-on-windows"}
 
 Windows의 접근성은 기본적으로 비활성화되어 있는 Java Access Bridge를 통해 제공됩니다.
 Windows에서 접근성 기능을 개발하려면 다음 명령어로 Java Access Bridge를 활성화하세요:
@@ -31,7 +31,7 @@ compose.desktop {
 }
 ```
 
-## 예제: 시맨틱 규칙이 적용된 커스텀 버튼
+## 예제: 시맨틱 규칙이 적용된 커스텀 버튼 {id="example-custom-button-with-semantic-rules"}
 
 커스텀 버튼이 있는 간단한 앱을 만들고 스크린 리더 도구를 위한 설명 텍스트를 지정해 보겠습니다.
 스크린 리더가 활성화된 상태에서 버튼 설명에 지정된 "Click to increment value" 텍스트를 들을 수 있습니다:
@@ -88,6 +88,6 @@ Windows에서는 [JAWS](https://www.freedomscientific.com/Products/Blindness/JAW
 
 더 많은 예제는 [Accessibility in Jetpack Compose](https://developer.android.com/develop/ui/compose/accessibility) 가이드를 참고하세요.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 [기타 데스크톱 컴포넌트](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop)에 대한 튜토리얼을 살펴보세요.

@@ -3,7 +3,7 @@
 
 동시성 데이터 구조에 대해 생성된 시나리오를 실행한 후, Lincheck은 지정된 검증 모델(예: 선형성(Linearizability))에 따라 결과를 검증하고, 선택적으로 사용자가 제공한 유효성 검사 함수를 통해 데이터 구조의 최종 상태를 확인합니다.
 
-## 검증 (Verification)
+## 검증 (Verification) {id="verification"}
 
 검증 과정에서 Lincheck은 동시성 시나리오에서의 실행 결과와 동일한 결과를 내는 순차적 실행(sequential execution)을 찾으려고 시도합니다.
 
@@ -11,7 +11,7 @@
 
 [검증 모델](#검증-모델)에 따라 순차적 실행에 추가적인 제약 조건이 있을 수 있습니다. 검증 속성과 일치하는 순차적 실행이 관찰된 결과와 동일한 결과를 낼 수 없는 경우, Lincheck은 오류를 보고합니다.
 
-### 순차 사양 (Sequential specification)
+### 순차 사양 (Sequential specification) {id="sequential-specification"}
 
 기본적으로 검증 과정에서 Lincheck은 *동시성* 데이터 구조의 연산들을 사용하여 순차적 실행을 구성합니다.
 
@@ -64,7 +64,7 @@ class SequentialQueue {
 }
 ```
 
-### 검증 모델 (Verification models)
+### 검증 모델 (Verification models) {id="verification-models"}
 
 기본적으로 Lincheck은 동시성 실행 결과를 선형성(Linearizability) 모델에 따라 검증합니다.
 다른 검증 모델을 적용하려면 `verifierClass` 옵션을 사용하세요.
@@ -94,7 +94,7 @@ Lincheck은 다음과 같은 검증기 클래스를 제공합니다.
 
 * `SerializabilityVerifier` – 직렬 가능성 (Serializability) 모델을 사용합니다. "happens-before" 제약 조건과 상관없이, 동시성 실행과 동일한 결과를 내는 *어떠한* 순차적 실행(어떤 순서로든)이라도 존재하면 유효한 것으로 간주합니다. 동시성 연산의 상대적 순서가 중요하지 않은 구조에 사용할 수 있습니다.
 
-#### 직렬 가능성과 선형성 비교
+#### 직렬 가능성과 선형성 비교 {id="compare-serializability-and-linearizability"}
 
 두 모델의 차이점을 이해하기 위해, 데이터 구조가 직렬 가능하지만 선형적이지 않을 수 있는 경우를 살펴보겠습니다.
 
@@ -206,7 +206,7 @@ Lincheck은 다음과 같은 검증기 클래스를 제공합니다.
 
    Lincheck은 검증 중에 `put()` 연산의 순서를 재정렬할 수 없으므로(선형성 제약 조건 때문), 선형성 규칙을 준수하는 순차적 실행을 찾을 수 없습니다. 결과적으로 테스트가 실패하게 됩니다.
 
-## 유효성 검사 (Validation)
+## 유효성 검사 (Validation) {id="validation"}
 
 기본적으로 Lincheck은 생성된 시나리오를 실행한 후 동시성 데이터 구조의 상태를 유효성 검사하지 않습니다. 최종 상태를 확인하려면 테스트 클래스의 유효성 검사 함수에 `@Validate` 어노테이션을 사용하세요.
 
@@ -223,7 +223,7 @@ fun validate() {
 * 인자를 받지 않아야 합니다.
 * 데이터 구조가 유효하지 않은 상태인 경우 예외를 발생시켜야 합니다.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [인자 생성 제약 조건 구성](lincheck-argument-generation-constraints.md)
 * [연산 실행 구성 옵션](lincheck-operation-execution-options.md)

@@ -60,7 +60,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.4"}
 
-## Fold와 reduce
+## Fold와 reduce {id="fold-and-reduce"}
 
 더 특정한 사례를 위해, 제공된 연산을 컬렉션 요소에 순차적으로 적용하고 누적된 결과를 반환하는 [`reduce()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/reduce.html)와 [`fold()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/fold.html) 함수가 있습니다. 연산은 이전까지 누적된 값과 컬렉션 요소라는 두 개의 인자를 받습니다.
 

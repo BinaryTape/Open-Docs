@@ -20,7 +20,7 @@ Compose Multiplatform 讓 compose API 可用於 [common Kotlin 程式碼](multip
 | **平台**    | Android、iOS、桌面端、Web | Android             |
 | **支援者** | JetBrains                  | Google              |
 
-## Jetpack Compose 與 composable
+## Jetpack Compose 與 composable {id="jetpack-compose-and-composables"}
 
 Jetpack Compose 是一個用於建置原生 Android 介面的宣告式 UI 工具集。
 它的基礎是 `composable` 函式，並以 `@Composable` 註解標記。
@@ -34,7 +34,7 @@ Compose Multiplatform 以相同的原理為基礎。
 這意味著您可以將 Jetpack Compose 的知識複用到 Compose Multiplatform 中，為 Android、
 iOS、桌面端和 Web 建置跨平台 UI。
 
-## Compose Multiplatform 與 Jetpack Compose 功能
+## Compose Multiplatform 與 Jetpack Compose 功能 {id="compose-multiplatform-and-jetpack-compose-features"}
 
 > 您可以從幾乎任何 Jetpack Compose 材料中了解這兩個 UI 架構的基礎知識，
 > 包括 [Google 的官方文件](https://developer.android.com/jetpack/compose/documentation)。
@@ -66,7 +66,7 @@ Android 平台緊密連結的 API，因此無法在 common Compose Multiplatform
 | [Maps Compose](https://developers.google.com/maps/documentation/android-sdk/maps-compose)                           | 否                                                                                                        | 是                                                                                                    |
 | 用於 UI 組建、導覽、架構等的[第三方程式庫](#libraries-for-compose-multiplatform) | [Compose Multiplatform 程式庫](https://github.com/terrakok/kmp-awesome?tab=readme-ov-file#-compose-ui) | Jetpack Compose 與 Compose Multiplatform 程式庫                                                    |
 
-## 技術細節
+## 技術細節 {id="technical-details"}
 
 Compose Multiplatform 以 Google 發佈的程式碼和版本為基礎。
 雖然 Google 的重點是針對 Android 的 Jetpack Compose，
@@ -86,7 +86,7 @@ JetBrains 維護了這些程式庫的多平台版本，並為 Android 以外的�
 而在其他目標中使用 `org.jetbrains.compose.material3:material3`。
 這會根據多平台構件中的 Gradle 模組元資料自動完成。
 
-## Compose Multiplatform 程式庫
+## Compose Multiplatform 程式庫 {id="libraries-for-compose-multiplatform"}
 
 透過使用 Compose Multiplatform，您可以將使用 compose API 的程式庫作為 [Kotlin Multiplatform 程式庫](multiplatform-publish-lib-setup.md)發佈。 
 這使得它們可以從 common Kotlin 程式碼中使用，並以多個平台為目標。
@@ -98,7 +98,7 @@ JetBrains 維護了這些程式庫的多平台版本，並為 Android 以外的�
 當程式庫使用 Compose Multiplatform 發佈時，僅使用 Jetpack Compose 的應用程式仍然可以順暢地取用它；
 它們只需使用該程式庫的 Android 構件即可。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 閱讀更多關於以下組建的 Compose Multiplatform 實作：
   * [Lifecycle](compose-lifecycle.md)

@@ -26,7 +26,7 @@ SwiftPM インポート統合を備えた Kotlin Gradle プラグインを使用
 1. [開発環境のセットアップ](#kotlin-multiplatform-gradle-プラグインのバージョン設定)
 2. [KMP モジュールでの SwiftPM 依存関係の追加と使用](#swiftpm-依存関係の追加と使用)
 
-## Kotlin Multiplatform Gradle プラグインのバージョン設定
+## Kotlin Multiplatform Gradle プラグインのバージョン設定 {id="set-the-kotlin-multiplatform-gradle-plugin-version"}
 
 SwiftPM インポート機能を試すには、Kotlin Multiplatform Gradle プラグインの **%kotlinEapVersion%** バージョンを使用していることを確認してください。
 `gradle/libs.versions.toml` ファイルの例：
@@ -39,7 +39,7 @@ kotlin = "%kotlinEapVersion%"
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 ```
 
-## SwiftPM 依存関係の追加と使用
+## SwiftPM 依存関係の追加と使用 {id="add-and-use-swiftpm-dependencies"}
 
 > 動作する例については、サンプルプロジェクトを参照してください。
 > `master` ブランチでは各プロジェクトは CocoaPods を使用してセットアップされていますが、`spm_import` ブランチでは SwiftPM を使用しています。
@@ -49,7 +49,7 @@ kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref 
 >
 {type="tip"}
 
-### ビルドの構成
+### ビルドの構成 {id="configure-the-build"}
 
 特定の SwiftPM 依存関係は、Apple ターゲットが宣言されている `build.gradle.kts` ファイルの `swiftPMDependencies {}` ブロックに追加できます。
 例えば、Firebase の場合は以下のようになります。
@@ -113,7 +113,7 @@ kotlin {
 }
 ```
 
-### プラットフォーム制約の設定
+### プラットフォーム制約の設定 {id="set-platform-constraints"}
 
 一部の SwiftPM 依存関係は、ビルドスクリプト内のすべてのターゲットに対してコンパイルできなかったり、有効な API を提供できなかったりする場合があります。
 例えば、Google Maps SDK は現在 iOS ターゲットのみをサポートしています。
@@ -148,7 +148,7 @@ kotlin {
 }
 ```
 
-### SwiftPM 統合タスクの実行
+### SwiftPM 統合タスクの実行 {id="run-the-swiftpm-integration-task"}
 
 SwiftPM インポートツールは、現在の SwiftPM 依存関係のリストを追跡するための中間パッケージを生成します。
 プロジェクトに初めて SwiftPM 依存関係を追加するときは、生成されたパッケージを Xcode プロジェクトにリンクする必要があります。
@@ -163,7 +163,7 @@ XCODEPROJ_PATH='/path/to/project/iosApp/iosApp.xcodeproj' ./gradlew :kotlin-libr
 
 最初の統合後は、SwiftPM 依存関係のセットやそのバージョンを変更するたびに、合成パッケージが自動的に更新されます。
 
-### インポートされた API の使用
+### インポートされた API の使用 {id="use-imported-apis"}
 
 インポートされた Objective-C API は、`swiftPMImport` プレフィックスで始まり、プロジェクトとそのグループの Gradle 名で終わる名前空間に含まれます。
 
@@ -183,7 +183,7 @@ import swiftPMImport.groupName.subproject.FIRAnalytics
 import swiftPMImport.groupName.subproject.FIRApp
 ```
 
-## 生成される `Package.resolved` ファイル
+## 生成される `Package.resolved` ファイル {id="generated-package-resolved-files"}
 
 Swift パッケージに依存するビルドをより安定させるために、SwiftPM インポートツールは `Package.resolved` ファイルによるロックメカニズムを導入しています。これらは初回のパッケージ解決中に、各サブプロジェクトに対して生成されます。
 
@@ -194,7 +194,7 @@ Swift パッケージに依存するビルドをより安定させるために�
 ロックファイルは、ビルドスクリプトで SwiftPM 依存関係のセットやバージョンを変更すると自動的に更新されます。
 また、[手動でロックファイルの更新を強制する](#ロックファイルの手動更新)こともできます。
 
-### Swift パッケージバージョンの集約設定のカスタマイズ
+### Swift パッケージバージョンの集約設定のカスタマイズ {id="customize-aggregation-of-swift-package-versions"}
 
 すべてのサブプロジェクトに `default` グループを使用する代わりに、カスタムグループを定義して、グループごとに個別の `Package.resolved` ロックファイルを生成できます。
 
@@ -278,7 +278,7 @@ kotlin {
 
 デフォルトの同期の場合と同様に、カスタマイズされたサブプロジェクトのすべての `Package.resolved` ファイルをリポジトリにコミットする必要があります。
 
-### ロックファイルの手動更新
+### ロックファイルの手動更新 {id="force-an-update-of-the-lock-file"}
 
 ロックファイルを手動で強制的に更新したい場合は：
 
@@ -289,9 +289,9 @@ kotlin {
    * `noSynchronization()` が設定されているサブプロジェクトの場合は、サブプロジェクトディレクトリ内の `Package.resolved` ファイルを探して削除します。
 3. 依存関係解決タスクを再度実行します： `./gradlew :yourModuleName:fetchSyntheticImportProjectPackages`。
 
-## 追加のインポートオプション
+## 追加のインポートオプション {id="additional-import-options"}
 
-### ローカル Swift パッケージのインポート
+### ローカル Swift パッケージのインポート {id="importing-local-swift-packages"}
 
 SwiftPM インポートメカニズムでは、ローカルファイルシステムからの Swift パッケージのインポートも可能です。
 
@@ -343,7 +343,7 @@ fun useExamplePackage() {
 }
 ```
 
-### 特定のデプロイメントターゲット
+### 特定のデプロイメントターゲット {id="specific-deployment-versions"}
 
 依存関係により高い[デプロイメントバージョン（deployment version）](https://developer.apple.com/documentation/packagedescription/supportedplatform)が必要な場合は、`*MinimumDeploymentTarget` パラメーターで指定します。例えば、iOS の場合は以下のようになります。
 
@@ -355,7 +355,7 @@ kotlin {
 }
 ```
 
-### Swift パッケージの場所とバージョン
+### Swift パッケージの場所とバージョン {id="location-and-version-of-swift-packages"}
 
 `Package.swift` マニフェストファイルと同様に、`swiftPackage()` 呼び出しで Swift パッケージの場所とバージョンを指定できます。それぞれに、いくつか排他的なオプションがあります。
 
@@ -393,7 +393,7 @@ swiftPackage(
 )
 ```
 
-## 動的な Kotlin/Native フレームワークに関する既知の制限
+## 動的な Kotlin/Native フレームワークに関する既知の制限 {id="known-limitations-with-dynamic-kotlin-native-frameworks"}
 
 現在、SwiftPM インポート統合は、動的な Kotlin/Native フレームワークを生成する際に発生する可能性のあるすべてのエッジケースをサポートしているわけではありません。Xcode でのビルド中に問題が発生したり、実行時に警告が表示されたりすることがあります。例：
 
@@ -422,6 +422,6 @@ kotlin {
 
 これらの問題のいずれかに遭遇した場合、`isStatic=false` を維持する必要がある場合、またはこのプロパティを変更してもビルドの失敗が解決しなかった場合は、Slack チャンネルでお知らせください。[招待](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)を取得して、[#kmp-swift-package-manager](https://kotlinlang.slack.com/archives/C09TW68099C) に参加してください。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 [KMP プロジェクトで CocoaPods から SwiftPM 依存関係に切り替える方法](multiplatform-cocoapods-spm-migration.md)について詳細を学びましょう。

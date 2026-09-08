@@ -22,7 +22,7 @@ Lincheck 通过检查当所有其他线程都暂停时，某个线程是否可�
 
 如果某些函数是有意阻塞的，你可以使用 [`@Operation(blocking = true)`](lincheck-operation-execution-options.md#blocking-operations) 对其进行标记，以防止误报。
 
-## 示例：测试 `ConcurrentHashMap` 的无障碍性
+## 示例：测试 `ConcurrentHashMap` 的无障碍性 {id="example-test-concurrenthashmap-for-obstruction-freedom"}
 
 在此示例中，你将测试 `ConcurrentHashMap` 结构的 `put()` 函数。
 
@@ -89,7 +89,7 @@ Lincheck 通过检查当所有其他线程都暂停时，某个线程是否可�
 
 6. 重新运行测试。它应该会成功通过。
 
-## 示例：测试 `ConcurrentSkipListMap` 的无障碍性
+## 示例：测试 `ConcurrentSkipListMap` 的无障碍性 {id="example-test-concurrentskiplistmap-for-obstruction-freedom"}
 
 在此示例中，你将测试非阻塞 `ConcurrentSkipListMap` 结构的 `put()` 函数。
 
@@ -116,7 +116,7 @@ Lincheck 通过检查当所有其他线程都暂停时，某个线程是否可�
 
 4. 运行测试。它应该会成功通过。
 
-## 另请参阅
+## 另请参阅 {id="see-also"}
 
 * [配置实参生成约束](lincheck-argument-generation-constraints.md)
 * [配置操作执行](lincheck-operation-execution-options.md)

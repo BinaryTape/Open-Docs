@@ -2,7 +2,7 @@
 title: 애플리케이션, 설정 및 모듈 
 ---
 
-## @KoinApplication을 이용한 애플리케이션 부트스트랩
+## @KoinApplication을 이용한 애플리케이션 부트스트랩 {id="application-bootstrap-with-koinapplication"}
 
 애플리케이션 엔트리 포인트(entry point)를 정의하려면 `@KoinApplication`을 사용하세요:
 
@@ -24,7 +24,7 @@ fun main() {
 }
 ```
 
-### 사용 가능한 타입 안전 API
+### 사용 가능한 타입 안전 API {id="available-typed-apis"}
 
 | API | 설명 |
 |-----|-------------|
@@ -35,7 +35,7 @@ fun main() {
 | `module<T>()` | 단일 `@Module` 클래스 로드 |
 | `modules(A::class, B::class)` | 여러 `@Module` 클래스 로드 |
 
-### 개별 모듈 로드하기
+### 개별 모듈 로드하기 {id="loading-individual-modules"}
 
 `@KoinApplication` 없이 `@Module` 클래스를 직접 로드하려면 `module<T>()` 또는 `modules(vararg KClass)`를 사용하세요:
 
@@ -60,7 +60,7 @@ val koinTestRule = KoinTestRule.create {
 `module<T>()`와 `modules(vararg KClass)`는 컴파일러 플러그인이 컴파일 시점에 가로채서 변환하는 스텁(stub) 함수입니다. 이를 사용하려면 Koin 컴파일러 플러그인이 적용되어 있어야 합니다.
 :::
 
-### @KoinApplication 파라미터
+### @KoinApplication 파라미터 {id="koinapplication-parameters"}
 
 - `modules`: 포함할 모듈 클래스 배열
 - `configurations`: 로드할 설정 레이블(label) 배열
@@ -77,7 +77,7 @@ class ProdApp
 설정이 지정되지 않은 경우, `@Configuration`(기본 레이블)으로 표시된 모듈이 자동으로 로드됩니다.
 :::
 
-### 모듈 로드 순서 및 오버라이드(Overrides)
+### 모듈 로드 순서 및 오버라이드(Overrides) {id="module-load-order-and-overrides"}
 
 Koin은 런타임에 **마지막에 로드된 것이 우선(last-wins)** 적용됩니다. 즉, 두 모듈이 동일한 타입을 정의할 경우 마지막에 로드된 모듈이 우선권을 가집니다. 컴파일러 플러그인은 `@KoinApplication`에서 다음과 같은 순서로 모듈 목록을 구성합니다:
 
@@ -113,11 +113,11 @@ class MyApp
 여러 `@Configuration` 모듈 간에 (클래스패스 스캔 순서가 아닌) 특정 로드 순서가 필요한 경우, `@KoinApplication(modules = [Core::class, Feature::class, App::class])`와 같이 명시적으로 나열하세요. 명시적 목록은 선언 순서를 존중합니다.
 :::
 
-## @Configuration을 이용한 설정 관리
+## @Configuration을 이용한 설정 관리 {id="configuration-management-with-configuration"}
 
 `@Configuration` 어노테이션을 사용하면 모듈을 다양한 설정(환경, flavor 등)으로 구성할 수 있습니다. 이는 배포 환경이나 기능 세트별로 모듈을 정리하는 데 유용합니다.
 
-### 기본적인 설정 사용법
+### 기본적인 설정 사용법 {id="basic-configuration-usage"}
 
 ```kotlin
 // 모듈을 기본(default) 설정에 배치합니다
@@ -148,7 +148,7 @@ class ModuleB
 object MyApp
 ```
 
-### 다중 설정 지원
+### 다중 설정 지원 {id="multiple-configuration-support"}
 
 하나의 모듈을 여러 설정과 연결할 수 있습니다:
 
@@ -170,7 +170,7 @@ class LoggingModule {
 }
 ```
 
-### 환경별 설정
+### 환경별 설정 {id="environment-specific-configurations"}
 
 ```kotlin
 // 개발 전용 설정
@@ -198,7 +198,7 @@ class CoreModule {
 }
 ```
 
-### @KoinApplication과 함께 설정 사용하기
+### @KoinApplication과 함께 설정 사용하기 {id="using-configurations-with-koinapplication"}
 
 기본적으로 `@KoinApplication`은 모든 기본 설정(`@Configuration`이 태그된 모듈)을 로드합니다.
 
@@ -222,11 +222,11 @@ class SimpleApp
 - 어노테이션에 목록을 나열하여 모듈을 여러 설정에 속하게 할 수 있습니다.
 :::
 
-## 모듈을 이용한 구성
+## 모듈을 이용한 구성 {id="organizing-with-modules"}
 
 정의(definitions)는 항상 `@Module`을 사용하여 명시적인 모듈로 구성하십시오:
 
-## @Module을 이용한 클래스 모듈
+## @Module을 이용한 클래스 모듈 {id="class-module-with-module"}
 
 모듈을 선언하려면 클래스에 `@Module` 어노테이션을 태그하기만 하면 됩니다:
 
@@ -246,7 +246,7 @@ fun main() {
 }
 ```
 
-## @ComponentScan을 이용한 컴포넌트 스캔
+## @ComponentScan을 이용한 컴포넌트 스캔 {id="components-scan-with-componentscan"}
 
 어노테이션이 달린 컴포넌트들을 자동으로 탐색하려면 `@ComponentScan`을 사용하세요:
 
@@ -268,7 +268,7 @@ class FeatureModule
 `@ComponentScan`은 동일한 패키지에 대해 모든 Gradle 모듈을 가로질러 탐색합니다.
 :::
 
-## 클래스 모듈 내의 정의
+## 클래스 모듈 내의 정의 {id="definitions-in-class-modules"}
 
 코드 내에서 직접 정의(definition)를 선언하려면, 함수에 정의 어노테이션을 달아주면 됩니다:
 
@@ -286,7 +286,7 @@ class MyModule {
 
 > **참고**: `@InjectedParam` (startKoin에서 주입된 파라미터용) 및 `@Property` (프로퍼티 주입용)도 함수 멤버에 사용할 수 있습니다. 이러한 어노테이션에 대한 자세한 내용은 정의(definitions) 문서를 참조하세요.
 
-## 모듈 포함하기
+## 모듈 포함하기 {id="including-modules"}
 
 `includes` 속성을 사용하여 모듈을 구성(compose)하세요:
 

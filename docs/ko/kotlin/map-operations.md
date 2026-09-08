@@ -4,7 +4,7 @@
 맵 엔트리에 대한 키 기반 접근은 키를 사용하여 값을 가져오는 것부터 키와 값을 개별적으로 필터링하는 것까지 다양한 맵 전용 처리 기능을 제공합니다.
 이 페이지에서는 표준 라이브러리에서 제공하는 맵 처리 함수들에 대해 설명합니다.
 
-## 키와 값 추출
+## 키와 값 추출 {id="retrieve-keys-and-values"}
 
 맵에서 값을 추출하려면 해당 키를 [`get()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/get.html) 함수의 인자로 제공해야 합니다.
 `[key]` 단축 구문도 지원됩니다. 지정된 키를 찾을 수 없으면 `null`을 반환합니다.
@@ -68,7 +68,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 필터링 (Filter)
+## 필터링 (Filter) {id="filter"}
 
 다른 컬렉션과 마찬가지로 [`filter()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/filter.html) 함수를 사용하여 맵을 [필터링](collection-filtering.md)할 수 있습니다.
 맵에서 `filter()`를 호출할 때는 `Pair`를 인자로 받는 서술어(predicate)를 전달합니다.
@@ -106,7 +106,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 더하기 및 빼기 연산자
+## 더하기 및 빼기 연산자 {id="plus-and-minus-operators"}
 
 요소에 대한 키 기반 접근 때문에, [`plus`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/plus.html) (`+`) 및 [`minus`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/minus.html) (`-`) 연산자는 다른 컬렉션과는 다르게 맵에서 작동합니다. 
 `plus`는 두 피연산자의 요소를 모두 포함하는 `Map`을 반환합니다. 왼쪽에는 `Map`이 오고 오른쪽에는 `Pair` 또는 다른 `Map`이 올 수 있습니다.
@@ -142,7 +142,7 @@ fun main() {
 
 가변 맵에서 [`plusAssign`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/plus-assign.html) (`+=`) 및 [`minusAssign`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/minus-assign.html) (`-=`) 연산자를 사용하는 방법에 대한 자세한 내용은 아래의 [맵 쓰기 연산](#map-write-operations)을 참조하세요.
 
-## 맵 쓰기 연산
+## 맵 쓰기 연산 {id="map-write-operations"}
 
 [가변(Mutable)](collections-overview.md#collection-types) 맵은 맵 전용 쓰기 연산을 제공합니다.
 이러한 연산을 사용하면 값에 대한 키 기반 접근을 통해 맵 내용을 변경할 수 있습니다.
@@ -154,7 +154,7 @@ fun main() {
 
 아래는 가변 맵에서 사용할 수 있는 표준 라이브러리의 쓰기 연산 함수들에 대한 설명입니다.
 
-### 엔트리 추가 및 업데이트
+### 엔트리 추가 및 업데이트 {id="add-and-update-entries"}
 
 가변 맵에 새로운 키-값 쌍을 추가하려면 [`put()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-map/put.html)을 사용하세요.
 `LinkedHashMap`(기본 맵 구현체)에 새로운 엔트리가 추가될 때, 맵을 반복(iterate)할 때 가장 마지막에 오도록 추가됩니다. 정렬된 맵(sorted maps)에서는 새로운 요소의 위치가 키의 순서에 의해 결정됩니다. 
@@ -221,7 +221,7 @@ fun main() {
 
 맵에 존재하는 키와 함께 호출되면 연산자는 해당 엔트리의 값을 덮어씁니다. 
 
-#### 누락된 엔트리에 대한 기본값 추가
+#### 누락된 엔트리에 대한 기본값 추가 {id="add-default-values-for-missing-entries"}
 
 기존 값을 반환하거나, 값이 없을 때 기본값을 추가하려면 [`.getOrPut()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/get-or-put.html) 확장 함수를 사용하세요.
 키가 없거나 값이 `null`인 경우, `.getOrPut()`은 기본값을 저장하고 이를 반환합니다.
@@ -259,7 +259,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.4"}
 
-### 엔트리 제거
+### 엔트리 제거 {id="remove-entries"}
 
 가변 맵에서 엔트리를 제거하려면 [`remove()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-map/remove.html) 함수를 사용하세요.
 `remove()`를 호출할 때 키만 전달하거나 전체 키-값 쌍을 전달할 수 있습니다.

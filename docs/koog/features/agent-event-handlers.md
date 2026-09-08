@@ -2,7 +2,7 @@
 
 您可以通过使用事件处理程序来进行日志记录、测试、调试和扩展智能体行为，从而监控并响应智能体工作流中的特定事件。
 
-## 功能概览
+## 功能概览 {id="feature-overview"}
 
 EventHandler 功能允许您挂钩到各种智能体事件中。它作为一个事件委托机制，负责：
 
@@ -21,7 +21,7 @@ EventHandler 实体由五种主要的处理程序类型组成：
 - 工具调用监听器：在工具即将被调用时发出通知
 - 工具结果监听器：在工具调用完成后处理结果-->
 
-### 安装与配置
+### 安装与配置 {id="installation-and-configuration"}
 
 EventHandler 功能通过 `EventHandler` 类与智能体工作流集成，该类提供了一种为不同智能体事件注册回调的方法，并可以作为一项功能安装在智能体配置中。有关详细信息，请参阅 [API 参考](api:agents-features-event-handler::ai.koog.agents.features.eventHandler.feature.EventHandler)。
 

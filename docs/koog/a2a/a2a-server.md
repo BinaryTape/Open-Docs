@@ -8,7 +8,7 @@ status: beta
 
 A2A 服务器允许您通过标准化的 A2A (Agent-to-Agent) 协议公开 AI 智能体。它提供了 [A2A 协议规范](https://a2a-protocol.org/latest/specification/)的完整实现，处理客户端请求、执行智能体逻辑、管理复杂的任务生命周期并支持实时流式响应。
 
-## 依赖项
+## 依赖项 {id="dependencies"}
 
 要在您的项目中使用 A2A 服务器，请在 `build.gradle.kts` 中添加以下依赖项：
 
@@ -25,14 +25,14 @@ dependencies {
 }
 ```
 
-## 概述
+## 概述 {id="overview"}
 
 A2A 服务器充当 A2A 协议传输层与您的自定义智能体逻辑之间的桥梁。
 它编排了整个请求生命周期，同时保持协议合规性并提供强大的会话管理。
 
-## 核心组件
+## 核心组件 {id="core-components"}
 
-### A2AServer
+### A2AServer {id="a2aserver"}
 
 实现完整 A2A 协议的主服务器类。它作为中央协调器负责：
 
@@ -48,7 +48,7 @@ A2A 服务器充当 A2A 协议传输层与您的自定义智能体逻辑之间�
 
 以及许多可选形参，可用于自定义其存储和传输行为。
 
-### AgentExecutor
+### AgentExecutor {id="agentexecutor"}
 
 `AgentExecutor` 接口是您实现智能体核心业务逻辑的地方。
 它充当 A2A 协议与您的特定 AI 智能体能力之间的桥梁。
@@ -107,7 +107,7 @@ eventProcessor.sendTaskEvent(
 )
 ```
 
-### AgentCard
+### AgentCard {id="agentcard"}
 
 `AgentCard` 充当智能体的自描述清单。它向客户端告知您的智能体可以做什么、如何与其通信以及有哪些安全要求。
 
@@ -192,12 +192,12 @@ val agentCard = AgentCard(
 )
 ```
 
-### 传输层
+### 传输层 {id="transport-layer"}
 
 A2A 本身支持多种传输协议来与客户端通信。
 目前，Koog 提供了基于 HTTP 的 JSON-RPC 服务器传输实现。
 
-#### HTTP JSON-RPC 传输
+#### HTTP JSON-RPC 传输 {id="http-json-rpc-transport"}
 
 ```kotlin
 val transport = HttpJSONRPCServerTransport(server)
@@ -209,7 +209,7 @@ transport.start(
 )
 ```
 
-### 存储
+### 存储 {id="storage"}
 
 A2A 服务器使用可插拔存储架构，将不同类型的数据分开。
 所有存储实现都是可选的，开发时默认使用内存变体。
@@ -218,9 +218,9 @@ A2A 服务器使用可插拔存储架构，将不同类型的数据分开。
 - **MessageStorage**：对话历史记录 - 管理对话上下文中的消息历史记录
 - **PushNotificationConfigStorage**：Webhook 管理 - 管理用于异步通知的 Webhook 配置
 
-## 快速入门
+## 快速入门 {id="quickstart"}
 
-### 1. 创建 AgentCard
+### 1. 创建 AgentCard {id="1-create-agentcard"}
 定义智能体的能力和元数据。
 ```kotlin
 val agentCard = AgentCard(
@@ -257,7 +257,7 @@ val agentCard = AgentCard(
 )
 ```
 
-### 2. 创建 AgentExecutor
+### 2. 创建 AgentExecutor {id="2-create-an-agentexecutor"}
 执行器负责实现智能体逻辑、处理传入请求并发送响应。
 
 ```kotlin
@@ -285,7 +285,7 @@ class EchoAgentExecutor : AgentExecutor {
 }
 ```
 
-### 2. 创建服务器
+### 2. 创建服务器 {id="2-create-the-server"}
 将智能体执行器和智能体卡片传递给服务器。
 
 ```kotlin
@@ -295,7 +295,7 @@ val server = A2AServer(
 )
 ```
 
-### 3. 添加传输层
+### 3. 添加传输层 {id="3-add-transport-layer"}
 创建传输层并启动服务器。
 ```kotlin
 // HTTP JSON-RPC 传输
@@ -308,9 +308,9 @@ transport.start(
 )
 ```
 
-## 智能体实现模式
+## 智能体实现模式 {id="agent-implementation-patterns"}
 
-### 简单响应智能体
+### 简单响应智能体 {id="simple-response-agent"}
 如果您的智能体只需要响应单条消息，您可以将其实现为简单智能体。如果智能体执行逻辑不复杂且不耗时，也可以使用此模式。
 
 ```kotlin
@@ -332,7 +332,7 @@ class SimpleAgentExecutor : AgentExecutor {
 }
 ```
 
-### 基于任务的智能体
+### 基于任务的智能体 {id="task-based-agent"}
 如果您的智能体执行逻辑很复杂且需要多个步骤，您可以将其实现为基于任务的智能体。如果智能体执行逻辑耗时且需要挂起，也可以使用此模式。
 ```kotlin
 class TaskAgentExecutor : AgentExecutor {

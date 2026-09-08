@@ -32,7 +32,7 @@ inline fun <T> lock(lock: Lock, body: () -> T): T { ... }
 
 インライン化により、生成されるコードが肥大化する可能性があります。しかし、合理的な方法で（大きな関数のインライン化を避けるなど）行えば、特にループ内の「メガモーフィック（megamorphic）」な呼び出し箇所において、パフォーマンス面で報われることになります。
 
-## noinline
+## noinline {id="noinline"}
 
 インライン関数に渡されるすべてのラムダをインライン化したくない場合は、関数パラメータの一部に `noinline` 修飾子を付与します。
 
@@ -46,9 +46,9 @@ inline fun foo(inlined: () -> Unit, noinline notInlined: () -> Unit) { ... }
 >
 {style="note"}
 
-## 非ローカルなジャンプ式
+## 非ローカルなジャンプ式 {id="non-local-jump-expressions"}
 
-### Return
+### Return {id="returns"}
 
 Kotlinでは、名前付き関数または匿名関数を終了するためにのみ、通常の修飾子のない `return` を使用できます。
 ラムダを終了するには、[ラベル](returns.md#return-to-labels)を使用する必要があります。ラムダ内では、ラムダがそれを囲んでいる関数を `return` させることができないため、単独の `return` は禁止されています。
@@ -111,7 +111,7 @@ inline fun f(crossinline body: () -> Unit) {
 }
 ```
 
-### Break と continue
+### Break と continue {id="break-and-continue"}
 
 非ローカルな `return` と同様に、ループを囲むインライン関数に引数として渡されるラムダ内で、`break` および `continue` [ジャンプ式](returns.md)を使用することもできます。
 
@@ -128,7 +128,7 @@ fun processList(elements: List<Int>): Boolean {
 }
 ```
 
-## 実体化された型パラメータ (Reified type parameters)
+## 実体化された型パラメータ (Reified type parameters) {id="reified-type-parameters"}
 
 パラメータとして渡された型にアクセスする必要がある場合があります。
 
@@ -184,7 +184,7 @@ fun main(s: Array<String>) {
 通常の関数（`inline` とマークされていない関数）は、実体化された（reified）パラメータを持つことはできません。
 実行時の表現を持たない型（例えば、実体化されていない型パラメータや、`Nothing` のような架空の型）は、実体化された型パラメータの引数として使用することはできません。
 
-## インラインプロパティ
+## インラインプロパティ {id="inline-properties"}
 
 `inline` 修飾子は、[バッキングフィールド](properties.md#backing-fields)を持たないプロパティのアクセサに使用できます。
 個々のプロパティアクセサにアノテーションを付けることができます。
@@ -208,7 +208,7 @@ inline var bar: Bar
 
 呼び出し箇所では、インラインアクセサは通常のインライン関数と同様にインライン化されます。
 
-## 公開APIインライン関数の制限
+## 公開APIインライン関数の制限 {id="restrictions-for-public-api-inline-functions"}
 
 インライン関数が `public` または `protected` であり、かつ `private` または `internal` な宣言の一部ではない場合、それは[モジュール](visibility-modifiers.md#modules)の公開APIと見なされます。これは他のモジュールからも呼び出すことができ、それらの呼び出し箇所でも同様にインライン化されます。
 

@@ -5,7 +5,7 @@
 在此部分教學中，您將為應用程式新增更多功能，並探索更多 Kotlin 語言特性，例如 data class。
 這需要修改 `MessageController` 類別，使其回傳包含序列化物件集合的 JSON 文件。
 
-## 更新您的應用程式
+## 更新您的應用程式 {id="update-your-application"}
 
 1. 在同一個套件中，於 `DemoApplication.kt` 檔案旁邊建立 `Message.kt` 檔案。
 2. 在 `Message.kt` 檔案中，建立一個具有兩個屬性的 data class：`id` 與 `text`：
@@ -150,7 +150,7 @@ data class Message(val id: String?, val text: String)
 ```
 {initial-collapse-state="collapsed" collapsible="true"}
 
-## 執行應用程式
+## 執行應用程式 {id="run-the-application"}
 
 Spring 應用程式已準備好執行：
 
@@ -166,7 +166,7 @@ Spring 應用程式已準備好執行：
 
     ![執行應用程式](messages-in-json-format.png){width=700}
 
-## 下一步
+## 下一步 {id="next-step"}
 
 在教學的下一部分中，您將為專案新增並配置資料庫，並發送 HTTP 請求。
 

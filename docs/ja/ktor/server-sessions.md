@@ -303,7 +303,7 @@ get("/logout") {
 
 完全な例はこちらにあります: [session-cookie-client](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/session-cookie-client)。
 
-## 遅延セッション取得
+## 遅延セッション取得 {id="deferred-session-retrieval"}
 
 デフォルトでは、Ktor はセッションを含むすべてのリクエストに対して、ルートが実際にそれを必要とするかどうかに関係なく、ストレージからのセッションの読み取りを試みます。この動作は、特にカスタムセッションストレージを使用しているアプリケーションにおいて、不要なオーバーヘッドを引き起こす可能性があります。
 

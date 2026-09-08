@@ -18,7 +18,7 @@
 첫 번째 Kotlin Multiplatform 프로젝트를 만들고 수정해 보셨군요!
 이제 성공적인 크로스 플랫폼 애플리케이션을 구축하는 데 필수적인 서드파티 라이브러리 의존성(dependency)을 추가하는 방법을 배워보겠습니다.
 
-## 의존성 유형
+## 의존성 유형 {id="dependency-types"}
 
 Kotlin Multiplatform 프로젝트에서 사용할 수 있는 의존성 유형은 두 가지입니다:
 
@@ -34,7 +34,7 @@ Kotlin Multiplatform 프로젝트에서 사용할 수 있는 의존성 유형은
 
 두 유형의 의존성 모두 로컬 및 외부 저장소를 사용할 수 있습니다.
 
-## 멀티플랫폼 의존성 추가하기
+## 멀티플랫폼 의존성 추가하기 {id="add-a-multiplatform-dependency"}
 
 > Android 앱 개발 경험이 있다면, 멀티플랫폼 의존성을 추가하는 과정은 일반적인 Android 프로젝트에서 Gradle 의존성을 추가하는 것과 매우 유사합니다. 유일한 차이점은 특정 소스 세트(source set)에 추가해야 한다는 것입니다.
 >
@@ -67,7 +67,7 @@ OS 버전 외에 새해까지 남은 일수를 표시하는 기능을 추가하�
 
 3. **Build | Sync Project with Gradle Files** 메뉴 항목을 선택하거나 빌드 스크립트 에디터에서 **Sync Gradle Changes** 버튼을 클릭하여 Gradle 파일을 동기화합니다: ![Gradle 파일 동기화](gradle-sync.png){width=50}
 
-## kotlinx-datetime API 호출하기
+## kotlinx-datetime API 호출하기 {id="call-a-kotlinx-datetime-api"}
 
 의존성을 추가했으므로, 이제 공통 코드에 날짜 및 시간 계산 로직을 추가할 수 있습니다.
 
@@ -103,19 +103,19 @@ OS 버전 외에 새해까지 남은 일수를 표시하는 기능을 추가하�
 
 ![외부 의존성이 추가된 모바일 멀티플랫폼 앱 업데이트](first-multiplatform-project-3.png){width=600}
 
-## 다음 단계
+## 다음 단계 {id="next-step"}
 
 튜토리얼의 다음 파트에서는 프로젝트에 더 많은 의존성과 더 복잡한 로직을 추가해 보겠습니다.
 
 **[다음 파트로 진행하기](multiplatform-upgrade-app.md)**
 
-### 참고 항목
+### 참고 항목 {id="see-also"}
 
 * 다양한 종류의 멀티플랫폼 의존성 활용법을 알아보세요: [Kotlin 라이브러리, Kotlin Multiplatform 라이브러리 및 기타 멀티플랫폼 프로젝트](multiplatform-add-dependencies.md).
 * 플랫폼별 소스 세트에서 사용하기 위한 [Android 의존성 추가](multiplatform-android-dependencies.md) 및 [CocoaPods 유무에 따른 iOS 의존성 추가](multiplatform-ios-dependencies.md) 방법을 배워보세요.
 * 샘플 프로젝트에서 [Android 및 iOS 라이브러리 사용 방법](multiplatform-samples.md) 예제를 확인해 보세요.
 
-## 도움 받기
+## 도움 받기 {id="get-help"}
 
 * **Kotlin Slack**: [초대](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)를 받고 [#multiplatform](https://kotlinlang.slack.com/archives/C3PQML5NU) 채널에 참여하세요.
 * **Kotlin 이슈 트래커**: [새로운 이슈를 보고](https://youtrack.jetbrains.com/newIssue?project=KT)하세요.

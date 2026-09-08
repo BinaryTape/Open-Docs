@@ -17,7 +17,7 @@
 
 Ktorの[依存性の注入 (DI)](server-dependency-injection.md)コンテナは、アプリケーションが依存するオブジェクトを作成する方法を知る必要があります。このプロセスは「依存関係の登録」と呼ばれます。
 
-### 基本的な依存関係の登録
+### 基本的な依存関係の登録 {id="basic-dependency-registration"}
 
 基本的な依存関係の登録は、通常、`Application`モジュール内の`dependencies {}`ブロックを使用してコード内で行われます。
 
@@ -100,7 +100,7 @@ dependencies {
 
 名前付き依存関係は、[`@Named`アノテーションを使用して明示的に解決](server-di-dependency-resolution.md#resolve-named)する必要があります。
 
-### 設定ベースの依存関係の登録
+### 設定ベースの依存関係の登録 {id="configuration-based-dependency-registration"}
 
 設定ファイル内のクラスパス参照を使用して、宣言的に依存関係を設定できます。オブジェクトを返す関数、または解決可能なコンストラクタを持つクラスをリストできます。
 

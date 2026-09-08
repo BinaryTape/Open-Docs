@@ -10,7 +10,7 @@
 
 Kotlin/Native 컴파일러가 생성하는 바이너리에는 서드파티 코드, 데이터 또는 파생 저작물이 포함될 수 있습니다. 즉, Kotlin/Native로 컴파일된 최종 바이너리를 배포하는 경우, 바이너리 배포판에 필요한 [라이선스 파일](https://kotlinlang.org/docs/native-binary-licenses.html)을 항상 포함해야 합니다.
 
-## 바이너리 선언
+## 바이너리 선언 {id="declare-binaries"}
 
 `binaries` 컬렉션의 요소를 선언하려면 다음 팩토리 메서드(factory method)를 사용하세요.
 
@@ -117,7 +117,7 @@ binaries {
 
 첫 번째 인자는 이름 접두사(name prefix)를 설정하며, 이는 바이너리 파일의 기본 이름이 됩니다. 예를 들어, Windows의 경우 위 코드는 `foo.exe` 및 `bar.exe` 파일을 생성합니다. 또한 이름 접두사를 사용하여 [빌드 스크립트에서 바이너리에 접근](#바이너리-접근)할 수도 있습니다.
 
-## 바이너리 접근
+## 바이너리 접근 {id="access-binaries"}
 
 바이너리를 [설정](multiplatform-dsl-reference.md#native-targets)하거나 프로퍼티(예: 출력 파일 경로)를 가져오기 위해 바이너리에 접근할 수 있습니다.
 
@@ -198,7 +198,7 @@ binaries.findExecutable('foo', DEBUG)
 </TabItem>
 </Tabs>
 
-## 바이너리에 의존성 익스포트하기
+## 바이너리에 의존성 익스포트하기 {id="export-dependencies-to-binaries"}
 
 Objective-C 프레임워크나 네이티브 라이브러리(공유 또는 정적)를 빌드할 때, 현재 프로젝트의 클래스뿐만 아니라 의존성의 클래스도 패키징해야 할 수 있습니다. `export` 메서드를 사용하여 바이너리에 익스포트(export)할 의존성을 지정하세요.
 
@@ -308,7 +308,7 @@ binaries {
 </TabItem>
 </Tabs>
 
-## 유니버설 프레임워크 빌드
+## 유니버설 프레임워크 빌드 {id="build-universal-frameworks"}
 
 기본적으로 Kotlin/Native에서 생성된 Objective-C 프레임워크는 하나의 플랫폼만 지원합니다. 하지만 [`lipo` 도구](https://llvm.org/docs/CommandGuide/llvm-lipo.html)를 사용하여 이러한 프레임워크를 단일 유니버설(fat) 바이너리로 병합할 수 있습니다. 이 작업은 특히 32비트 및 64비트 iOS 프레임워크에 유용합니다. 이 경우 결과물인 유니버설 프레임워크를 32비트와 64비트 장치 모두에서 사용할 수 있습니다.
 
@@ -381,7 +381,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-## XCFramework 빌드
+## XCFramework 빌드 {id="build-xcframeworks"}
 
 모든 Kotlin 멀티플랫폼 프로젝트는 XCFramework를 출력으로 사용하여 모든 타겟 플랫폼과 아키텍처에 대한 로직을 단일 번들에 모을 수 있습니다. [유니버설(fat) 프레임워크](#유니버설-프레임워크-빌드)와 달리, App Store에 애플리케이션을 배포하기 전에 모든 불필요한 아키텍처를 제거할 필요가 없습니다.
 
@@ -452,7 +452,7 @@ XCFramework를 선언하면 Kotlin Gradle 플러그인이 다음과 같은 여�
 >
 {style="warning"}
 
-## Info.plist 파일 사용자 정의
+## Info.plist 파일 사용자 정의 {id="customize-the-info-plist-file"}
 
 프레임워크를 생성할 때 Kotlin/Native 컴파일러는 정보 프로퍼티 리스트 파일인 `Info.plist`를 생성합니다. 해당 바이너리 옵션을 사용하여 프로퍼티를 사용자 정의할 수 있습니다.
 

@@ -11,7 +11,7 @@ Kotlinツールチェーンは、各ソースセットが、そのソースセ�
 
 ソースセット階層をセットアップする推奨される方法は、[デフォルトの階層テンプレート](#default-hierarchy-template)を使用することです。このテンプレートは、最も一般的なケースをカバーしています。より高度なプロジェクトの場合は、[手動で構成](#manual-configuration)することも可能です。これはより低レベルなアプローチであり、柔軟性は高いですが、より多くの労力と知識を必要とします。
 
-## デフォルトの階層テンプレート
+## デフォルトの階層テンプレート {id="default-hierarchy-template"}
 
 Kotlin Gradleプラグインには、組み込みのデフォルト[階層テンプレート](#see-the-full-hierarchy-template)が含まれています。これには、一般的なユースケース向けに事前に定義された中間ソースセットが含まれています。プラグインは、プロジェクトで指定されたターゲットに基づいて、これらのソースセットを自動的にセットアップします。
 
@@ -102,7 +102,7 @@ kotlin {
 >
 {style="note"}
 
-### 追加の構成
+### 追加の構成 {id="additional-configuration"}
 
 デフォルトの階層テンプレートに調整を加える必要がある場合があります。以前に `dependsOn` 呼び出しを使用して[手動で](#manual-configuration)中間ソースを導入していた場合、デフォルトの階層テンプレートの使用がキャンセルされ、以下の警告が表示されます。
 
@@ -124,13 +124,13 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
 * [デフォルトの階層テンプレートに追加のソースセットを作成する](#creating-additional-source-sets)
 * [デフォルトの階層テンプレートによって作成されたソースセットを変更する](#modifying-source-sets)
 
-#### 手動構成の置き換え
+#### 手動構成の置き換え {id="replacing-a-manual-configuration"}
 
 **ケース**: すべての中間ソースセットが現在デフォルトの階層テンプレートでカバーされている場合。
 
 **解決策**: 共有モジュールの `build.gradle(.kts)` ファイルで、手動の `dependsOn()` 呼び出しと `by creating` 構文を使用したソースセットをすべて削除します。すべてのデフォルトソースセットのリストを確認するには、[完全な階層テンプレート](#see-the-full-hierarchy-template)を参照してください。
 
-#### 追加のソースセットの作成
+#### 追加のソースセットの作成 {id="creating-additional-source-sets"}
 
 **ケース**: デフォルトの階層テンプレートがまだ提供していないソースセット（例えば、macOSターゲットとJVMターゲットの間のものなど）を追加したい場合。
 
@@ -195,7 +195,7 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
     </TabItem>
     </Tabs>
 
-#### ソースセットの変更
+#### ソースセットの変更 {id="modifying-source-sets"}
 
 **ケース**: テンプレートによって生成されるものとまったく同じ名前のソースセットが既にあり、それらがプロジェクト内の異なるターゲットセット間で共有されている場合。例えば、`nativeMain` ソースセットがデスクトップ固有のターゲットである `linuxX64`、`mingwX64`、および `macosArm64` 間でのみ共有されているような場合です。
 
@@ -212,7 +212,7 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
 >
 {style="tip"}
 
-#### 完全な階層テンプレートを表示する {initial-collapse-state="collapsed" collapsible="true"}
+#### 完全な階層テンプレートを表示する {initial-collapse-state="collapsed" collapsible="true" id="see-the-full-hierarchy-template"}
 
 プロジェクトがコンパイルされるターゲットを宣言すると、プラグインはテンプレートから指定されたターゲットに基づいて共有ソースセットを選択し、プロジェクト内に作成します。
 
@@ -222,7 +222,7 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
 >
 {style="tip"}
 
-## 手動構成
+## 手動構成 {id="manual-configuration"}
 
 ソースセット構造の中に、手動で中間ソースを導入することができます。これは複数のターゲットの共有コードを保持します。
 

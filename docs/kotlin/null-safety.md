@@ -24,7 +24,7 @@ Kotlin 的空安全通过在编译时而非运行时捕获潜在的 null 相关�
 >
 {style="tip"}
 
-## 可空类型与不可空类型
+## 可空类型与不可空类型 {id="nullable-types-and-non-nullable-types"}
 
 在 Kotlin 中，类型系统区分了可以持有 `null` 的类型（可空类型）和不能持有 `null` 的类型（不可空类型）。例如，一个普通的 `String` 类型变量不能持有 `null`：
 
@@ -105,7 +105,7 @@ fun main() {
 
 请阅读以下各节，了解 `null` 处理工具和技术的详细信息及示例。
 
-## 使用 if 条件表达式检查 null
+## 使用 if 条件表达式检查 null {id="check-for-null-with-the-if-conditional"}
 
 在处理可空类型时，你需要安全地处理可空性以避免 NPE。一种方法是使用 `if` 条件表达式显式检查可空性。
 
@@ -150,7 +150,7 @@ fun main() {
 
 请注意，上面的示例仅在编译器能够保证 `b` 在检查和使用之间不发生变化时才有效，这与[智能转换的前提条件](typecasts.md#smart-cast-prerequisites)相同。
 
-## 安全调用运算符
+## 安全调用运算符 {id="safe-call-operator"}
 
 安全调用运算符 `?.` 允许你以更简短的形式安全地处理可空性。如果对象为 `null`，`?.` 运算符不会抛出 NPE，而是简单地返回 `null`：
 
@@ -201,7 +201,7 @@ if (person != null && person.department != null) {
 }
 ```
 
-## Elvis 运算符
+## Elvis 运算符 {id="elvis-operator"}
 
 在处理可空类型时，你可以检查 `null` 并提供一个替代值。例如，如果 `b` 不为 `null`，则访问 `b.length`。否则，返回一个替代值：
 
@@ -249,7 +249,7 @@ fun foo(node: Node): String? {
 }
 ```
 
-## 非空断言运算符
+## 非空断言运算符 {id="not-null-assertion-operator"}
 
 非空断言运算符 `!!` 将任何值转换为不可空类型。
 
@@ -289,7 +289,7 @@ fun main() {
 
 当你确信某个值不为 `null` 且没有发生 NPE 的可能性，但编译器由于某些规则无法保证这一点时，`!!` 运算符特别有用。在这种情况下，你可以使用 `!!` 运算符显式告知编译器该值不为 `null`。
 
-## 可空接收器
+## 可空接收器 {id="nullable-receiver"}
 
 你可以对[可空接收器类型](extensions.md#nullable-receivers)使用扩展函数，从而允许在可能为 `null` 的变量上调用这些函数。
 
@@ -340,7 +340,7 @@ data class Person(val name: String)
 
 `?.` 运算符允许你安全地处理潜在的 `null` 值，同时仍能访问可能为 `null` 的对象的属性或函数。
 
-## Let 函数
+## Let 函数 {id="let-function"}
 
 为了处理 `null` 值并仅对非空类型执行操作，你可以将安全调用运算符 `?.` 与 [`let` 函数](scope-functions.md#let)结合使用。
 
@@ -363,7 +363,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-## 安全转换
+## 安全转换 {id="safe-casts"}
 
 Kotlin 中用于[类型转换](typecasts.md#unsafe-cast-operator)的常规运算符是 `as` 运算符。然而，如果对象不是目标类型，常规转换可能会导致异常。
 
@@ -391,7 +391,7 @@ fun main() {
 
 上面的代码打印了 `null`，因为 `a` 不是 `Int`，所以转换安全地失败了。它还打印了 `"Hello, Kotlin!"`，因为它匹配 `String?` 类型，所以安全转换成功。
 
-## 可空类型的集合
+## 可空类型的集合 {id="collections-of-a-nullable-type"}
 
 如果你有一个包含可空元素的集合，并且只想保留非空元素，请使用 `filterNotNull()` 函数：
 
@@ -411,7 +411,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-## 下一步是什么？
+## 下一步是什么？ {id="what-s-next"}
 
 * 了解如何[处理 Java 和 Kotlin 中的可空性](java-to-kotlin-nullability-guide.md)。
 * 了解[绝对不可空](generics.md#definitely-non-nullable-types)的泛型类型。

@@ -111,7 +111,7 @@ Kotlin 集合套件提供了以自然、自訂甚至隨機順序對集合進行�
 這些函式將其結果作為一個新集合傳回，該集合包含原集合中按要求順序排列的元素。
 若要了解如何對 [可變](collections-overview.md#collection-types) 集合進行就地 (in place) 排序的函式，請參閱 [List 專屬操作](list-operations.md#sort)。
 
-## 自然順序
+## 自然順序 {id="natural-order"}
 
 基本函式 [`.sorted()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/sorted.html) 和 [`.sortedDescending()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/sorted-descending.html) 傳回集合元素，並根據其自然順序按升序和降序排列。
 這些函式適用於 `Comparable` 元素的集合。
@@ -128,7 +128,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 自訂順序
+## 自訂順序 {id="custom-orders"}
  
 對於以自訂順序排序或對不可比較物件進行排序，可以使用函式 [`.sortedBy()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/sorted-by.html) 和 [`.sortedByDescending()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/sorted-by-descending.html)。
 它們接收一個選擇器函式，該函式將集合元素對應到 `Comparable` 值，並按這些值的自然順序對集合進行排序。
@@ -161,7 +161,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 檢查排序順序
+## 檢查排序順序 {id="check-sorted-order"}
 
 你可以使用以下擴充方法來檢查元素是否已經遵循指定的順序：
 
@@ -212,7 +212,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.4"}
 
-## 反轉順序
+## 反轉順序 {id="reverse-order"}
 
 你可以使用 [`.reversed()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/reversed.html) 函式以反轉的順序檢索集合。 
 
@@ -260,7 +260,7 @@ fun main() {
 
 然而，如果列表的可變性未知，或者來源根本不是列表，則 `.reversed()` 更值得推薦，因為其結果是一個副本，未來不會改變。
 
-## 隨機順序
+## 隨機順序 {id="random-order"}
 
 最後，有一個函式可以傳回包含隨機順序集合元素的新 `List` —— [`.shuffled()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/shuffled.html)。
 你可以不帶引數呼叫它，也可以傳入一個 [`Random`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.random/-random/index.html) 物件。

@@ -67,7 +67,7 @@ println(doubles)
 >
 {style="note"}
 
-## 安全处理标准输入
+## 安全处理标准输入 {id="handle-standard-input-safely"}
 
 您可以使用 `.toIntOrNull()` 函数安全地将用户输入从字符串转换为整数。如果转换成功，该函数将返回一个整数。但是，如果输入不是整数的有效表示，它将返回 `null`：
 

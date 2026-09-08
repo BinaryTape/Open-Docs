@@ -3,7 +3,7 @@
 Kotlin 표준 라이브러리에는 컬렉션의 일부를 가져오기 위한 확장 함수들이 포함되어 있습니다.
 이 함수들은 위치를 명시적으로 나열하거나 결과 크기를 지정하는 등, 결과 컬렉션에 포함할 요소를 선택하는 다양한 방법을 제공합니다.
 
-## Slice
+## Slice {id="slice"}
 
 [`slice()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/slice.html)는 주어진 인덱스에 해당하는 컬렉션 요소의 리스트를 반환합니다. 인덱스는 [범위(range)](ranges.md) 또는 정수 값의 컬렉션으로 전달할 수 있습니다.
 
@@ -20,7 +20,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## Take와 drop
+## Take와 drop {id="take-and-drop"}
 
 첫 번째 요소부터 지정된 개수의 요소를 가져오려면 [`take()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/take.html) 함수를 사용하세요.
 마지막 요소들을 가져오려면 [`takeLast()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/take-last.html)를 사용합니다.
@@ -64,7 +64,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## Chunked
+## Chunked {id="chunked"}
 
 컬렉션을 지정된 크기의 부분들로 나누려면 [`chunked()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/chunked.html) 함수를 사용하세요.
 `chunked()`는 단일 인자인 청크(chunk) 크기를 받으며, 지정된 크기의 `List`들을 담은 `List`를 반환합니다.
@@ -96,7 +96,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## Windowed
+## Windowed {id="windowed"}
 
 지정된 크기의 컬렉션 요소들로 구성된 가능한 모든 범위를 가져올 수 있습니다.
 이를 위한 함수는 [`windowed()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/windowed.html)입니다.

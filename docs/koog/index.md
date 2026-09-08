@@ -27,7 +27,7 @@ Koog 是一个开源的 JetBrains 框架，用于构建专门为 JVM 生态系�
 
 </div>
 
-## 智能体
+## 智能体 {id="agents"}
 
 详细了解[智能体概览](agents/index.md)以及如何使用 Koog 创建不同类型的智能体：
 
@@ -59,7 +59,7 @@ Koog 是一个开源的 JetBrains 框架，用于构建专门为 JVM 生态系�
 
 </div>
 
-## 核心组件
+## 核心组件 {id="core-components"}
 
 详细了解 Koog 智能体的核心组件：
 
@@ -91,7 +91,7 @@ Koog 是一个开源的 JetBrains 框架，用于构建专门为 JVM 生态系�
 
 </div>
 
-## 高级用法
+## 高级用法 {id="advanced-usage"}
 
 <div class="grid cards" markdown>
 
@@ -140,7 +140,7 @@ Koog 是一个开源的 JetBrains 框架，用于构建专门为 JVM 生态系�
 
 </div>
 
-## 集成
+## 集成 {id="integrations"}
 
 <div class="grid cards" markdown>
 

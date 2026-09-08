@@ -17,7 +17,7 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Goog
 
 ```
 
-## 前置條件
+## 前置條件 {id="prerequisites"}
 在執行下方的程式碼資料格之前，請確保您已具備：
 
 - 已安裝並執行 Docker
@@ -38,7 +38,7 @@ val openAIApiToken = System.getenv("OPENAI_API_KEY") ?: error("OPENAI_API_KEY en
 
 ```
 
-## 啟動 Google Maps MCP 伺服器 (Docker)
+## 啟動 Google Maps MCP 伺服器 (Docker) {id="start-the-google-maps-mcp-server-docker"}
 我們將使用官方的 `mcp/google-maps` 映像。該容器將透過 MCP 暴露 `maps_geocode` 和 `maps_elevation` 等工具。我們透過環境變數傳遞 API 金鑰，並以附接 (attached) 模式啟動，以便 notebook 可以透過 stdio 與其通訊。
 
 ```kotlin
@@ -54,7 +54,7 @@ val process = ProcessBuilder(
 
 ```
 
-## 透過 McpToolRegistry 探索工具
+## 透過 McpToolRegistry 探索工具 {id="discover-tools-via-mcptoolregistry"}
 Koog 可以透過 stdio 連接到 MCP 伺服器。在這裡，我們從執行中的處理序建立工具註冊表，並列印出探索到的工具及其描述符。
 
 ```kotlin
@@ -68,7 +68,7 @@ toolRegistry.tools.forEach {
 
 ```
 
-## 使用 OpenAI 構建 AI 代理
+## 使用 OpenAI 構建 AI 代理 {id="build-an-ai-agent-with-openai"}
 接下來，我們組裝一個由 OpenAI 執行器和模型支援的簡單代理。該代理將能夠透過我們剛剛建立的註冊表呼叫 MCP 伺服器所提供的工具。
 
 ```kotlin
@@ -80,7 +80,7 @@ val agent = AIAgent(
 
 ```
 
-## 請求海拔：先進行地理編碼，再獲取海拔
+## 請求海拔：先進行地理編碼，再獲取海拔 {id="ask-for-elevation-geocode-first-then-elevation"}
 我們提示代理尋找 JetBrains 慕尼黑辦公室的海拔。指令明確地告訴代理僅使用可用工具，以及在該任務中優先使用哪些工具。
 
 ```kotlin
@@ -96,7 +96,7 @@ runBlocking {
 
 ```
 
-## 清理
+## 清理 {id="clean-up"}
 完成後，請停止 Docker 處理序，以免任何內容在背景執行。
 
 ```kotlin
@@ -104,7 +104,7 @@ process.destroy()
 
 ```
 
-## 疑難排解與後續步驟
+## 疑難排解與後續步驟 {id="troubleshooting-and-next-steps"}
 - 如果容器無法啟動，請檢查 Docker 是否正在執行以及您的 `GOOGLE_MAPS_API_KEY` 是否有效。
 - 如果代理無法呼叫工具，請重新執行探索工具的程式碼資料格，以確保工具註冊表已填充內容。
 - 嘗試使用可用的 Google Maps 工具進行其他提示，例如路線規劃或地點搜尋。

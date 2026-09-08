@@ -8,7 +8,7 @@
 
 このガイドでは、複数の例を通して、データの取得、精製、および処理の方法を学ぶことができます。
 
-## 始める前に
+## 始める前に {id="before-you-start"}
 
 > IntelliJ IDEA 2026.2 以降、Kotlin Notebook は IDE にバンドルされなくなり、JetBrains による公式サポートも終了します。
 > ソースコードは引き続き [GitHub](https://github.com/Kotlin/kotlin-notebook) で公開されます。
@@ -30,7 +30,7 @@
 
 このチュートリアルに従うために、DataFrame を [Gradle](https://kotlin.github.io/dataframe/setupgradle.html) または [Maven](https://kotlin.github.io/dataframe/setupmaven.html) の依存関係として使用することもできます。
 
-## データの取得
+## データの取得 {id="retrieve-data"}
 
 ファイルからデータを取得するには、`DataFrame.read()` 関数を使用します。
 
@@ -50,7 +50,7 @@ val movies = DataFrame.read("movies.csv", delimiter = ';')
 > 
 {style="tip"}
 
-## データの表示
+## データの表示 {id="display-data"}
 
 データを取得したら、それを表示できます。最も簡単な方法は、データを変数に保存してから、その変数を返すことです：
 
@@ -65,7 +65,7 @@ jsonDf
 
 このビューを使用して、値の検査、列名の確認、データセットの状態の把握を簡単に行うことができます。
 
-## データ構造の検査
+## データ構造の検査 {id="inspect-data-structure"}
 
 データの構造やスキーマを把握するには、DataFrame 変数に対して [`.schema()`](https://kotlin.github.io/dataframe/schema.html) 関数を使用します。
 
@@ -77,7 +77,7 @@ Kotlin Notebook では、オートコンプリート機能も使用できます�
 
 ![利用可能なプロパティ](auto-completion-data-analysis.png){width=700}
 
-## データの精製
+## データの精製 {id="refine-data"}
 
 Kotlin DataFrame は、データセットを精製するためのさまざまな操作を提供しています。例えば、[グルーピング](https://kotlin.github.io/dataframe/group.html)、[フィルタリング](https://kotlin.github.io/dataframe/filter.html)、[更新](https://kotlin.github.io/dataframe/update.html)、[新しい列の追加](https://kotlin.github.io/dataframe/add.html)などがあります。これらの関数はデータ分析に不可欠であり、データを効果的に整理、クリーンアップ、変換することができます。
 
@@ -160,7 +160,7 @@ Kotlin DataFrame は、データセットを精製するためのさまざまな
 > 
 {style="tip"}
 
-## データの書き出し
+## データの書き出し {id="export-data"}
 
 データを精製した後、簡単にエクスポートできます。
 
@@ -196,7 +196,7 @@ refinedMoviesDf
     .openInBrowser()
 ```
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [Kandy ライブラリ](https://kotlin.github.io/kandy/examples.html)を使用したデータの可視化を探索する
 * [Kandy を使用したデータの可視化](data-analysis-visualization.md)でデータの可視化に関する追加情報を見つける

@@ -4,7 +4,7 @@
 이 페이지에서는 모든 `MutableCollection` 구현체에서 사용할 수 있는 쓰기 작업을 설명합니다.
 `List` 및 `Map`에서만 사용할 수 있는 특정 작업에 대해서는 각각 [리스트 관련 작업](list-operations.md) 및 [맵 관련 작업](map-operations.md)을 참조하세요.
 
-## 요소 추가
+## 요소 추가 {id="adding-elements"}
 
 리스트나 셋(Set)에 단일 요소를 추가하려면 [`add()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/add.html) 함수를 사용합니다. 지정된 객체는 컬렉션의 끝에 추가됩니다.
 
@@ -59,7 +59,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 요소 삭제
+## 요소 삭제 {id="removing-elements"}
 
 가변 컬렉션에서 요소를 삭제하려면 [`remove()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/remove.html) 함수를 사용합니다.
 `remove()`는 요소의 값을 인자로 받아 해당 값과 일치하는 요소 하나를 삭제합니다. 
@@ -125,7 +125,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 요소 수정
+## 요소 수정 {id="updating-elements"}
 
 리스트와 맵은 요소를 수정하기 위한 작업도 제공합니다.
 이 작업들은 [리스트 관련 작업](list-operations.md) 및 [맵 관련 작업](map-operations.md)에 설명되어 있습니다.

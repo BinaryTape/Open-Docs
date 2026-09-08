@@ -4,7 +4,7 @@
 
 在本章中，你将学习如何将接收者与其他类型的函数（即 lambda 表达式）结合使用，以及它们如何帮助你创建领域专用语言 (DSL)。
 
-## 带接收者的 lambda 表达式
+## 带接收者的 lambda 表达式 {id="lambda-expressions-with-receiver"}
 
 在初学者教程中，你学习了如何使用 [lambda 表达式](kotlin-tour-functions.md#lambda-expressions)。Lambda 表达式也可以拥有接收者。
 在这种情况下，lambda 表达式可以访问接收者的任何成员函数或属性，而无需每次都显式指定接收者。由于没有这些额外的引用，你的代码将更易于阅读和维护。
@@ -145,7 +145,7 @@ Kotlin 生态系统中有许多此设计模式的示例，例如标准库中的 
 >
 {style="tip"}
 
-## 练习 {completion-point="true"}
+## 练习 {completion-point="true" id="practice"}
 
 ### 练习 1 {initial-collapse-state="collapsed" collapsible="true" id="lambda-receivers-exercise-1"}
 

@@ -49,7 +49,7 @@ fun main() {
 
 由於作用域函式之間有許多相似之處，為你的使用案例選擇正確的函式可能會有些棘手。選擇主要取決於你的意圖以及專案中使用的連貫性。下面我們將詳細說明作用域函式之間的差異及其慣例。
 
-## 函式選擇
+## 函式選擇 {id="function-selection"}
 
 為了幫助你針對特定目的選擇正確的作用域函式，我們提供此表來總結它們之間的主要差異。
 
@@ -78,14 +78,14 @@ fun main() {
 
 雖然作用域函式可以讓程式碼更簡潔，但請避免過度使用：這可能會使程式碼難以閱讀並導致錯誤。我們還建議你避免巢狀使用作用域函式，並在鏈式呼叫它們時保持謹慎，因為這很容易讓人對當前的上下文物件以及 `this` 或 `it` 的值感到困惑。
 
-## 差異點
+## 差異點 {id="distinctions"}
 
 由於作用域函式在本質上非常相似，了解它們之間的差異非常重要。
 每個作用域函式之間有兩個主要差異：
 * 它們引用上下文物件的方式。
 * 它們的傳回值。
 
-### 上下文物件：this 或 it
+### 上下文物件：this 或 it {id="context-object-this-or-it"}
 
 在傳遞給作用域函式的 Lambda 內部，上下文物件可以透過簡短的引用而不是其實際名稱來存取。每個作用域函式都使用兩種引用上下文物件的方式之一：作為 Lambda [接收者](lambdas.md#function-literals-with-receiver) (`this`) 或作為 Lambda 引數 (`it`)。兩者提供相同的功能，因此我們針對不同使用案例描述了各自的優缺點，並提供了使用建議。
 
@@ -106,7 +106,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-#### this
+#### this {id="this"}
 
 `run`、`with` 和 `apply` 將上下文物件引用為 Lambda [接收者](lambdas.md#function-literals-with-receiver) —— 透過關鍵字 `this`。因此，在它們的 Lambda 中，該物件就像在普通的類別函式中一樣可用。
 
@@ -127,7 +127,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-#### it
+#### it {id="it"}
 
 相應地，`let` 和 `also` 將上下文物件引用為 Lambda [引數](lambdas.md#lambda-expression-syntax)。如果未指定引數名稱，則透過隱式預設名稱 `it` 存取該物件。`it` 比 `this` 更短，且帶有 `it` 的運算式通常更容易閱讀。
 
@@ -179,7 +179,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 傳回值
+### 傳回值 {id="return-value"}
 
 作用域函式的傳回結果各不相同：
 * `apply` 和 `also` 傳回上下文物件。
@@ -187,7 +187,7 @@ fun main() {
 
 你應該根據程式碼接下來要執行的操作，仔細考慮你需要的傳回值。這有助於你選擇最適合的作用域函式。
 
-#### 上下文物件 
+#### 上下文物件 {id="context-object"}
 
 `apply` 和 `also` 的傳回值是上下文物件本身。因此，它們可以作為「附帶步驟」包含在呼叫鏈中：你可以繼續在同一個物件上一個接一個地鏈式呼叫函式。
 
@@ -232,7 +232,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-#### Lambda 結果
+#### Lambda 結果 {id="lambda-result"}
 
 `let`、`run` 和 `with` 傳回 Lambda 結果。因此，當你將結果指派給變數、在結果上進行鏈式操作等情況時可以使用它們。
 
@@ -267,11 +267,11 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 函式
+## 函式 {id="functions"}
 
 為了幫助你針對自己的使用案例選擇正確的作用域函式，我們將詳細介紹它們並提供使用建議。從技術上講，作用域函式在許多情況下是可以互換的，因此範例展示了使用它們的慣例。
 
-### let
+### let {id="let"}
 
 - **上下文物件** 作為引數 (`it`) 可用。
 - **傳回值** 是 Lambda 結果。
@@ -351,7 +351,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### with
+### with {id="with"}
 
 - **上下文物件** 作為接收者 (`this`) 可用。
 - **傳回值** 是 Lambda 結果。
@@ -389,7 +389,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### run
+### run {id="run"}
 
 - **上下文物件** 作為接收者 (`this`) 可用。 
 - **傳回值** 是 Lambda 結果。
@@ -446,7 +446,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### apply
+### apply {id="apply"}
 
 - **上下文物件** 作為接收者 (`this`) 可用。 
 - **傳回值** 是物件本身。
@@ -470,7 +470,7 @@ fun main() {
 
 `apply` 的另一個使用案例是在多個呼叫鏈中包含 `apply` 以進行更複雜的處理。
 
-### also
+### also {id="also"}
 
 - **上下文物件** 作為引數 (`it`) 可用。 
 - **傳回值** 是物件本身。
@@ -491,7 +491,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## takeIf 與 takeUnless
+## takeIf 與 takeUnless {id="takeif-and-takeunless"}
 
 除了作用域函式外，標準函式庫還包含函式 [`takeIf`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/take-if.html) 和 [`takeUnless`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/take-unless.html)。這些函式讓你可以在呼叫鏈中嵌入物件狀態檢查。
 

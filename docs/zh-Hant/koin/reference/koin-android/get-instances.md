@@ -4,7 +4,7 @@ title: 在 Android 中進行注入
 
 一旦你宣告了一些模組並啟動了 Koin，該如何在 Android 的 Activity、Fragment 或 Service 中獲取執行個體？
 
-## 支援 Android 類別
+## 支援 Android 類別 {id="ready-for-android-classes"}
 
 `Activity`、`Fragment` 與 `Service` 已透過 Koin 擴充功能進行擴充。任何 `ComponentCallbacks` 類別都可以存取：
 
@@ -13,9 +13,9 @@ title: 在 Android 中進行注入
 * `by viewModel()` - 延遲求值的 ViewModel 執行個體
 * `getViewModel()` - 立即獲取 ViewModel 執行個體
 
-## 定義相依性
+## 定義相依性 {id="defining-dependencies"}
 
-### 編譯器外掛程式 DSL
+### 編譯器外掛程式 DSL {id="compiler-plugin-dsl"}
 
 ```kotlin
 val appModule = module {
@@ -24,7 +24,7 @@ val appModule = module {
 }
 ```
 
-### 註解
+### 註解 {id="annotations"}
 
 ```kotlin
 @Factory
@@ -34,7 +34,7 @@ class Presenter(private val repository: UserRepository)
 class UserViewModel(private val repository: UserRepository) : ViewModel()
 ```
 
-### 傳統 DSL
+### 傳統 DSL {id="classic-dsl"}
 
 ```kotlin
 val appModule = module {
@@ -43,7 +43,7 @@ val appModule = module {
 }
 ```
 
-## 在 Activity 中進行注入
+## 在 Activity 中進行注入 {id="injecting-in-activity"}
 
 ```kotlin
 class DetailActivity : AppCompatActivity() {
@@ -61,7 +61,7 @@ class DetailActivity : AppCompatActivity() {
 }
 ```
 
-## 在 Fragment 中進行注入
+## 在 Fragment 中進行注入 {id="injecting-in-fragment"}
 
 ```kotlin
 class UserFragment : Fragment() {
@@ -77,7 +77,7 @@ class UserFragment : Fragment() {
 }
 ```
 
-## 在 Service 中進行注入
+## 在 Service 中進行注入 {id="injecting-in-service"}
 
 ```kotlin
 class MyService : Service() {
@@ -91,7 +91,7 @@ class MyService : Service() {
 }
 ```
 
-## 立即與延遲注入
+## 立即與延遲注入 {id="eager-vs-lazy-injection"}
 
 ```kotlin
 class DetailActivity : AppCompatActivity() {
@@ -120,7 +120,7 @@ class DetailActivity : AppCompatActivity() {
 如果你的類別沒有 Koin 擴充功能，請實作 `KoinComponent` 介面以存取 `inject()` 或 `get()`。
 :::
 
-## 帶參數的注入
+## 帶參數的注入 {id="injection-with-parameters"}
 
 在注入時傳遞參數：
 
@@ -139,7 +139,7 @@ class UserActivity : AppCompatActivity() {
 }
 ```
 
-## 使用限定詞進行注入
+## 使用限定詞進行注入 {id="injection-with-qualifiers"}
 
 當你有多個相同型別的定義時：
 
@@ -158,7 +158,7 @@ class MyActivity : AppCompatActivity() {
 }
 ```
 
-## 在定義中使用 Android Context
+## 在定義中使用 Android Context {id="using-android-context-in-definitions"}
 
 一旦你的 `Application` 類別使用 `androidContext` 配置了 Koin，你就可以在定義中解析它。
 
@@ -174,7 +174,7 @@ class MyPresenter(private val context: Context)
 class MyRepository(private val application: Application)
 ```
 
-### DSL
+### DSL {id="dsl"}
 
 在模組中使用 `androidContext()` 或 `androidApplication()` 函式：
 
@@ -189,7 +189,7 @@ val appModule = module {
 }
 ```
 
-## Android 作用域與 Context 解析
+## Android 作用域與 Context 解析 {id="android-scope-context-resolution"}
 
 當你具有一個繫結 `Context` 型別的作用域時，你可能需要從不同層級解析 `Context`：
 

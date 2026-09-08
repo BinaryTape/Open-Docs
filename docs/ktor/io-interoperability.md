@@ -23,7 +23,7 @@ Ktor 支持基于 [`kotlinx-io`](https://github.com/Kotlin/kotlinx-io) 构建的
 
 本页面介绍了如何在 Ktor 的 I/O 原语（[`ByteReadChannel`](https://api.ktor.io/ktor-io/io.ktor.utils.io/-byte-read-channel/index.html)、[`ByteWriteChannel`](https://api.ktor.io/ktor-io/io.ktor.utils.io/-byte-write-channel/index.html)）与这些外部类型之间进行转换。
 
-## 将 `ByteReadChannel` 转换为 `RawSource`
+## 将 `ByteReadChannel` 转换为 `RawSource` {id="convert-bytereadchannel-to-rawsource"}
 
 要将 `ByteReadChannel` 转换为 `RawSource`，请使用 `.asSource()` 扩展函数：
 
@@ -37,7 +37,7 @@ client.prepareGet("https://httpbin.org/bytes/1024").execute { httpResponse ->
 }
 ```
 
-## 将 `ByteWriteChannel` 转换为 `RawSink`
+## 将 `ByteWriteChannel` 转换为 `RawSink` {id="convert-bytewritechannel-to-rawsink"}
 
 要将挂起式 `ByteWriteChannel` 转换为 `RawSink`，请使用 `.asSink()` 扩展函数：
 
@@ -54,7 +54,7 @@ get("/sink") {
 
 此适配器生成的 `RawSink` 在刷新数据时会在内部使用 `runBlocking`，因此刷新操作可能会阻塞调用线程。
 
-## 将 `RawSink` 转换为 `ByteWriteChannel`
+## 将 `RawSink` 转换为 `ByteWriteChannel` {id="convert-rawsink-to-bytewritechannel"}
 
 要将 `RawSink` 包装为挂起式 `ByteWriteChannel`，请使用 `.asByteWriteChannel()` 扩展函数：
 
@@ -71,7 +71,7 @@ get("/raw-sink") {
 
 这使得从挂起函数向 sink 进行异步写入成为可能。返回的通道带有缓冲区。请使用 `.flush()` 或 `.flushAndClose()` 以确保所有数据均已写入。
 
-## 将 `OutputStream` 转换为 `ByteWriteChannel`
+## 将 `OutputStream` 转换为 `ByteWriteChannel` {id="convert-outputstream-to-bytewritechannel"}
 
 要将 Java `OutputStream` 转换为 `ByteWriteChannel`，请使用 `.asByteWriteChannel()` 扩展函数：
 

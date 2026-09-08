@@ -12,18 +12,18 @@ Kotlin 1.4.20 では、多くの新しい実験的な機能が導入され、1.4
 >
 {style="tip"}
 
-## Kotlin/JVM
+## Kotlin/JVM {id="kotlin-jvm"}
 
 Kotlin/JVM の改善は、最新の Java バージョンの機能に対応することを目的としています。
 
 - [Java 15 ターゲット](#java-15-target)
 - [invokedynamic による文字列連結](#invokedynamic-string-concatenation)
 
-### Java 15 ターゲット
+### Java 15 ターゲット {id="java-15-target"}
 
 Java 15 が Kotlin/JVM のターゲットとして利用可能になりました。
 
-### invokedynamic による文字列連結
+### invokedynamic による文字列連結 {id="invokedynamic-string-concatenation"}
 
 > `invokedynamic` による文字列連結は[実験的](components-stability.md)な機能です。予告なく変更または削除される可能性があります。使用するにはオプトインが必要です（詳細は以下を参照）。評価目的でのみ使用してください。 [YouTrack](https://youtrack.jetbrains.com/issues/KT) へのフィードバックをお待ちしております。
 >
@@ -41,7 +41,7 @@ Kotlin 1.4.20 では、JVM 9+ ターゲットにおいて文字列連結を [dyn
 - `indy`: [StringConcatFactory.makeConcat()](https://docs.oracle.com/javase/9/docs/api/java/lang/invoke/StringConcatFactory.html#makeConcat-java.lang.invoke.MethodHandles.Lookup-java.lang.String-java.lang.invoke.MethodType-) を使用して文字列の `invokedynamic` 連結を行います。
 - `inline`: `StringBuilder.append()` による従来の連結に戻します。
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
 Kotlin/JS は急速に進化を続けており、1.4.20 ではいくつかの実験的な機能と改善が行われています。
 
@@ -49,11 +49,11 @@ Kotlin/JS は急速に進化を続けており、1.4.20 ではいくつかの実
 - [新しいウィザードテンプレート](#new-wizard-templates)
 - [IR コンパイラでのコンパイルエラーの無視](#ignoring-compilation-errors-with-ir-compiler)
 
-### Gradle DSL の変更
+### Gradle DSL の変更 {id="gradle-dsl-changes"}
 
 Kotlin/JS の Gradle DSL には、プロジェクトのセットアップとカスタマイズを簡素化するいくつかのアップデートが行われました。これには、webpack 設定の調整、自動生成される `package.json` ファイルの変更、および推移的依存関係の制御の向上が含まれます。
 
-#### webpack 設定の単一ポイント
+#### webpack 設定の単一ポイント {id="single-point-for-webpack-configuration"}
 
 ブラウザターゲット向けに、新しい設定ブロック `commonWebpackConfig` が利用可能になりました。この中で、`webpackTask`、`runTask`、`testTask` の設定を重複させることなく、1 か所から共通の設定を調整できます。
 
@@ -70,7 +70,7 @@ browser {
 
 [webpack バンドリングの設定](js-project-setup.md#webpack-bundling)についての詳細はこちらをご覧ください。
 
-#### Gradle からの package.json カスタマイズ
+#### Gradle からの package.json カスタマイズ {id="package-json-customization-from-gradle"}
 
 Kotlin/JS のパッケージ管理と配布をより詳細に制御するために、Gradle DSL を介してプロジェクトファイル [`package.json`](https://nodejs.dev/learn/the-package-json-guide) にプロパティを追加できるようになりました。
 
@@ -88,7 +88,7 @@ kotlin {
 
 [`package.json` のカスタマイズ](js-project-setup.md#package-json-customization)についての詳細はこちらをご覧ください。
 
-#### Yarn の選択的依存関係解決
+#### Yarn の選択的依存関係解決 {id="selective-yarn-dependency-resolutions"}
 
 > Yarn の選択的依存関係解決のサポートは[実験的](components-stability.md)です。予告なく変更または削除される可能性があります。評価目的でのみ使用してください。[YouTrack](https://youtrack.jetbrains.com/issues/KT) へのフィードバックをお待ちしております。
 >
@@ -109,7 +109,7 @@ rootProject.plugins.withType<YarnPlugin> {
 
 ここでは、`react` を必要とする *すべて* の npm 依存関係がバージョン `16.0.0` を受け取り、`processor` はその依存関係である `decamelize` をバージョン `3.0.0` として受け取ります。
 
-#### きめ細かなワークスペースの無効化
+#### きめ細かなワークスペースの無効化 {id="disabling-granular-workspaces"}
 
 > きめ細かな（granular）ワークスペースの無効化は[実験的](components-stability.md)です。予告なく変更または削除される可能性があります。評価目的でのみ使用してください。[YouTrack](https://youtrack.jetbrains.com/issues/KT) へのフィードバックをお待ちしております。
 >
@@ -125,14 +125,14 @@ rootProject.plugins.withType<YarnPlugin> {
 }
 ```
 
-### 新しいウィザードテンプレート
+### 新しいウィザードテンプレート {id="new-wizard-templates"}
 
 プロジェクト作成時により便利なカスタマイズ方法を提供するため、Kotlin プロジェクトウィザードに Kotlin/JS アプリケーション用の新しいテンプレートが追加されました。
 - **Browser Application** - ブラウザで動作する最小限の Kotlin/JS Gradle プロジェクト。
 - **React Application** - 適切な `kotlin-wrappers` を使用する React アプリ。スタイルシート、ナビゲーションコンポーネント、または状態コンテナの統合を有効にするオプションを提供します。
 - **Node.js Application** - Node.js ランタイムで動作する最小限のプロジェクト。実験的な `kotlinx-nodejs` パッケージを直接含めるオプションが付属しています。
 
-### IR コンパイラでのコンパイルエラーの無視
+### IR コンパイラでのコンパイルエラーの無視 {id="ignoring-compilation-errors-with-ir-compiler"}
 
 > 「コンパイルエラーを無視する」モードは[実験的](components-stability.md)です。予告なく変更または削除される可能性があります。使用するにはオプトインが必要です（詳細は以下を参照）。評価目的でのみ使用してください。[YouTrack](https://youtrack.jetbrains.com/issues/KT) へのフィードバックをお待ちしております。
 >
@@ -148,7 +148,7 @@ Kotlin/JS 用の [IR コンパイラ](js-ir-compiler.md)に、新しい実験的
 
 [Kotlin/JS IR コンパイラの詳細はこちら](js-ir-compiler.md)。
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 1.4.20 における Kotlin/Native の優先事項は、パフォーマンスと既存機能のブラッシュアップです。主な改善点は以下の通りです。
 
@@ -158,7 +158,7 @@ Kotlin/JS 用の [IR コンパイラ](js-ir-compiler.md)に、新しい実験的
 - [CocoaPods プラグインの改善](#cocoapods-plugin-improvements)
 - [Xcode 12 ライブラリのサポート](#support-for-xcode-12-libraries)
 
-### エスケープ解析
+### エスケープ解析 {id="escape-analysis"}
 
 > エスケープ解析の仕組みは[実験的](components-stability.md)です。予告なく変更または削除される可能性があります。評価目的でのみ使用してください。[YouTrack](https://youtrack.jetbrains.com/issues/KT) へのフィードバックをお待ちしております。
 >
@@ -170,11 +170,11 @@ Kotlin/Native に新しい[エスケープ解析 (escape analysis)](https://ja.w
 
 エスケープ解析フェーズを無効にしたい場合は、`-Xdisable-phases=EscapeAnalysis` コンパイラオプションを使用してください。
 
-### パフォーマンスの向上とバグ修正
+### パフォーマンスの向上とバグ修正 {id="performance-improvements-and-bug-fixes"}
 
 Kotlin/Native は、1.4.0 で追加された[コード共有メカニズム](https://kotlinlang.org/docs/multiplatform/multiplatform-share-on-platforms.html#share-code-on-similar-platforms)を含む、さまざまなコンポーネントでパフォーマンスの向上とバグ修正が行われました。
 
-### Objective-C 例外のラッピングのオプトイン
+### Objective-C 例外のラッピングのオプトイン {id="opt-in-wrapping-of-objective-c-exceptions"}
 
 > Objective-C 例外のラッピングメカニズムは[実験的](components-stability.md)です。予告なく変更または削除される可能性があります。使用するにはオプトインが必要です（詳細は以下を参照）。評価目的でのみ使用してください。[YouTrack](https://youtrack.jetbrains.com/issues/KT) へのフィードバックをお待ちしております。
 >
@@ -194,7 +194,7 @@ pod("foo") {
 
 デフォルトの動作は変更されません。Objective-C コードから例外がスローされるとプログラムは終了します。
 
-### CocoaPods プラグインの改善
+### CocoaPods プラグインの改善 {id="cocoapods-plugin-improvements"}
 
 Kotlin 1.4.20 では、CocoaPods 統合の一連の改善が続けられています。具体的には、以下の新機能を試すことができます。
 
@@ -202,11 +202,11 @@ Kotlin 1.4.20 では、CocoaPods 統合の一連の改善が続けられてい�
 - [DSL の拡張](#extended-dsl)
 - [Xcode との統合の更新](#updated-integration-with-xcode)
 
-#### タスク実行の改善
+#### タスク実行の改善 {id="improved-task-execution"}
 
 CocoaPods プラグインのタスク実行フローが改善されました。たとえば、新しい CocoaPods 依存関係を追加しても、既存の依存関係は再ビルドされません。ターゲットを追加しても、既存ターゲットの依存関係の再ビルドには影響しません。
 
-#### DSL の拡張
+#### DSL の拡張 {id="extended-dsl"}
 
 Kotlin プロジェクトに [CocoaPods](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html) 依存関係を追加するための DSL に新しい機能が追加されました。
 
@@ -220,7 +220,7 @@ Kotlin プロジェクトに [CocoaPods](https://kotlinlang.org/docs/multiplatfo
 Kotlin プロジェクトでの [CocoaPods 依存関係の追加](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-libraries.html)についての詳細はこちらをご覧ください。
 例については、[Kotlin with CocoaPods サンプル](https://github.com/Kotlin/kmm-with-cocoapods-sample)を参照してください。
 
-#### Xcode との統合の更新
+#### Xcode との統合の更新 {id="updated-integration-with-xcode"}
 
 Xcode で正しく動作させるために、Kotlin はいくつかの Podfile の変更を必要とします。
 
@@ -231,32 +231,32 @@ Xcode で正しく動作させるために、Kotlin はいくつかの Podfile �
 
 [Kotlin Pod の作成](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-xcode.html)についての詳細はこちらをご覧ください。
 
-### Xcode 12 ライブラリのサポート
+### Xcode 12 ライブラリのサポート {id="support-for-xcode-12-libraries"}
 
 Xcode 12 に同梱されている新しいライブラリのサポートを追加しました。Kotlin コードからこれらを使用できるようになりました。
 
-## Kotlin マルチプラットフォーム
+## Kotlin マルチプラットフォーム {id="kotlin-multiplatform"}
 
-### マルチプラットフォームライブラリ公開構造の更新
+### マルチプラットフォームライブラリ公開構造の更新 {id="updated-structure-of-multiplatform-library-publications"}
 
 Kotlin 1.4.20 から、個別のメタデータ公開は行われなくなりました。メタデータアーティファクトは、ライブラリ全体を表す *ルート（root）* 公開に含まれるようになり、共通ソースセット（common source set）への依存関係として追加されたときに、適切なプラットフォーム固有のアーティファクトに自動的に解決されます。
 
 [マルチプラットフォームライブラリの公開](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-lib-setup.html)についての詳細はこちらをご覧ください。
 
-#### 旧バージョンとの互換性
+#### 旧バージョンとの互換性 {id="compatibility-with-earlier-versions"}
 
 この構造の変更により、[階層的プロジェクト構造 (hierarchical project structure)](https://kotlinlang.org/docs/multiplatform/multiplatform-share-on-platforms.html#share-code-on-similar-platforms) を持つプロジェクト間の互換性が失われます。マルチプラットフォームプロジェクトとそれが依存するライブラリの両方が階層的プロジェクト構造を持っている場合、それらを同時に Kotlin 1.4.20 以降に更新する必要があります。Kotlin 1.4.20 で公開されたライブラリは、以前のバージョンで公開されたプロジェクトからは利用できません。
 
 階層的プロジェクト構造を持たないプロジェクトとライブラリについては、互換性が維持されます。
 
-## 標準ライブラリ
+## 標準ライブラリ {id="standard-library"}
 
 Kotlin 1.4.20 の標準ライブラリでは、ファイルを操作するための新しい拡張機能とパフォーマンスの向上が提供されています。
 
 - [java.nio.file.Path の拡張関数](#extensions-for-java-nio-file-path)
 - [String.replace 関数のパフォーマンス向上](#improved-string-replace-function-performance)
 
-### java.nio.file.Path の拡張関数
+### java.nio.file.Path の拡張関数 {id="extensions-for-java-nio-file-path"}
 
 > `java.nio.file.Path` の拡張関数は[実験的](components-stability.md)です。予告なく変更または削除される可能性があります。使用するにはオプトインが必要です（詳細は以下を参照）。評価目的でのみ使用してください。[YouTrack](https://youtrack.jetbrains.com/issues/KT) へのフィードバックをお待ちしております。
 >
@@ -275,25 +275,25 @@ val kotlinFiles: List<Path> = Path("/home/user").listDirectoryEntries("*.kt")
 
 これらの拡張関数は、`kotlin-stdlib-jdk7` モジュールの `kotlin.io.path` パッケージで利用可能です。拡張関数を使用するには、実験的アノテーション `@ExperimentalPathApi` に[オプトイン](opt-in-requirements.md)してください。
 
-### String.replace 関数のパフォーマンス向上
+### String.replace 関数のパフォーマンス向上 {id="improved-string-replace-function-performance"}
 
 `String.replace()` の新しい実装により、関数の実行が高速化されました。
 大文字小文字を区別するバリアントは `indexOf` に基づく手動の置換ループを使用し、大文字小文字を区別しないバリアントは正規表現マッチングを使用します。
 
-## Kotlin Android Extensions
+## Kotlin Android Extensions {id="kotlin-android-extensions"}
 
 1.4.20 では、Kotlin Android Extensions プラグインが非推奨（deprecated）となり、`Parcelable` 実装ジェネレーターは別のプラグインに移動しました。
 
 - [シンセティックビューの非推奨化](#deprecation-of-synthetic-views)
 - [Parcelable 実装ジェネレーター用の新しいプラグイン](#new-plugin-for-parcelable-implementation-generator)
 
-### シンセティックビューの非推奨化
+### シンセティックビューの非推奨化 {id="deprecation-of-synthetic-views"}
 
 UI 要素とのやり取りを簡素化しボイラープレートを削減するために、少し前に Kotlin Android Extensions プラグインで「シンセティックビュー (Synthetic views)」が導入されました。現在、Google は同様のことを行うネイティブな仕組みである Android Jetpack の[ビューバインディング (view bindings)](https://developer.android.com/topic/libraries/view-binding) を提供しており、それに伴いシンセティックビューを非推奨にします。
 
 `kotlin-android-extensions` から Parcelable 実装ジェネレーターを抽出し、残りの部分であるシンセティックビューの非推奨化サイクルを開始します。現時点では、非推奨の警告とともに動作し続けます。将来的に、プロジェクトを別のソリューションに切り替える必要があります。Android プロジェクトをシンセティックからビューバインディングに移行するのに役立つ[ガイドライン](https://goo.gle/kotlin-android-extensions-deprecation)はこちらです。
 
-### Parcelable 実装ジェネレーター用の新しいプラグイン
+### Parcelable 実装ジェネレーター用の新しいプラグイン {id="new-plugin-for-parcelable-implementation-generator"}
 
 `Parcelable` 実装ジェネレーターは、新しい `kotlin-parcelize` プラグインで利用可能になりました。`kotlin-android-extensions` の代わりにこのプラグインを適用してください。
 

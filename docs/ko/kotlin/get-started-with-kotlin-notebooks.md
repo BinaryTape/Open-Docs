@@ -18,7 +18,7 @@
    <img src="icon-3.svg" width="20" alt="세 번째 단계"/> <a href="kotlin-notebook-add-dependencies.md">Kotlin Notebook에 의존성 추가</a><br/>
 </p>
 
-## 다음 단계
+## 다음 단계 {id="next-step"}
 
 Kotlin Notebook 작업을 위한 환경 설정부터 시작해 보세요:
 

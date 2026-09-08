@@ -84,6 +84,6 @@ fun Application.module() {
 
 > 有关完整示例，请参阅 [%example_name%](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%)。
 
-## 限制
+## 限制 {id="limitations"}
 
 此插件仅在 `CIO` 和 `Netty` 引擎上得到完全支持。基于 servlet 的引擎（或其他不支持的引擎）无法可靠地检测客户端断开连接。只有当服务器尝试写入响应时，才能检测到取消。

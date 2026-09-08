@@ -32,7 +32,7 @@ fun test() = testApplication {
 
 위의 예제에서 `loadServices()`는 애플리케이션의 모듈을 부트스트랩하는 함수입니다. 예를 들어, 라우트와 서비스를 등록하는 함수이며 `application.yaml`의 `modules` 항목에 나열된 것과 동일합니다.
 
-### 테스트에서 설정 로드하기
+### 테스트에서 설정 로드하기 {id="loading-configuration-in-tests"}
 
 `configure()`를 사용하면 테스트에서 설정 파일을 쉽게 로드할 수 있습니다:
 

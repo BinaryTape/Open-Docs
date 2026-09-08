@@ -4,7 +4,7 @@
 
 [GitHub의 DataFrame 예제](https://github.com/Kotlin/dataframe/tree/master/examples/projects)를 살펴보세요.
 
-## 시작하기 전에
+## 시작하기 전에 {id="before-you-start"}
 
 > IntelliJ IDEA 2026.2부터 Kotlin Notebook은 더 이상 IDE에 기본적으로 포함되지 않으며 JetBrains에서 공식적으로 지원하지 않습니다.
 > 소스 코드는 [GitHub](https://github.com/Kotlin/kotlin-notebook)에서 계속 확인할 수 있습니다.
@@ -24,7 +24,7 @@
    ```
 이 튜토리얼을 따라 하려면 DataFrame을 [Gradle](https://kotlin.github.io/dataframe/setupgradle.html) 또는 [Maven](https://kotlin.github.io/dataframe/setupmaven.html) 종속성(dependency)으로 사용할 수도 있습니다.
 
-## API에서 데이터 가져오기
+## API에서 데이터 가져오기 {id="fetch-data-from-an-api"}
 
 Kotlin DataFrame 라이브러리를 사용하여 API에서 데이터를 가져오는 것은 CSV 또는 JSON과 같은 [파일에서 데이터를 검색](data-analysis-work-with-data-sources.md#retrieve-data)하는 것과 유사한 [`.read()`](https://kotlin.github.io/dataframe/read.html) 함수를 통해 이루어집니다.
 하지만 웹 기반 소스를 다룰 때는 원시(raw) API 데이터를 구조화된 형식으로 변환하기 위해 추가적인 포맷팅이 필요할 수 있습니다.
@@ -85,7 +85,7 @@ Kotlin DataFrame 라이브러리를 사용하여 API에서 데이터를 가져�
    items
    ```
 
-## 데이터 정제 및 가공
+## 데이터 정제 및 가공 {id="clean-and-refine-data"}
 
 데이터 정제(Cleaning) 및 가공(Refining)은 분석을 위해 데이터셋을 준비하는 중요한 단계입니다. [Kotlin DataFrame 라이브러리](https://kotlin.github.io/dataframe/home.html)는 이러한 작업을 위한 강력한 기능을 제공합니다. [`move`](https://kotlin.github.io/dataframe/move.html), [`concat`](https://kotlin.github.io/dataframe/concatdf.html), [`select`](https://kotlin.github.io/dataframe/select.html), [`parse`](https://kotlin.github.io/dataframe/parse.html), [`join`](https://kotlin.github.io/dataframe/join.html)과 같은 메서드들은 데이터를 정리하고 변환하는 데 유용합니다. 
 
@@ -126,7 +126,7 @@ Kotlin DataFrame 라이브러리를 사용하여 API에서 데이터를 가져�
 
 이 예제는 Kotlin DataFrame의 다양한 함수를 사용하여 데이터셋을 정제, 재구성 및 향상시키는 방법을 보여줍니다. 각 단계는 데이터를 가공하여 [심층 분석](#kotlin-notebook에서-데이터-분석)에 더 적합하게 만들도록 설계되었습니다.
 
-## Kotlin Notebook에서 데이터 분석
+## Kotlin Notebook에서 데이터 분석 {id="analyze-data-in-kotlin-notebook"}
 
 [Kotlin DataFrame 라이브러리](https://kotlin.github.io/dataframe/home.html)의 함수를 사용하여 성공적으로 [데이터를 가져오고](#api에서-데이터-가져오기) [데이터를 정제 및 가공](#데이터-정제-및-가공)했다면, 다음 단계는 이 준비된 데이터셋을 분석하여 의미 있는 인사이트를 추출하는 것입니다.
 
@@ -175,7 +175,7 @@ Kotlin DataFrame 라이브러리를 사용하여 API에서 데이터를 가져�
 
 더 고급 기술에 대해서는 [Kotlin DataFrame 문서](https://kotlin.github.io/dataframe/home.html)를 참조하세요.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [Kandy 라이브러리](https://kotlin.github.io/kandy/examples.html)를 사용한 데이터 시각화 탐색
 * [Kandy를 사용한 Kotlin Notebook의 데이터 시각화](data-analysis-visualization.md)에서 데이터 시각화에 대한 추가 정보 확인

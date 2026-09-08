@@ -10,7 +10,7 @@ Kotlin Toolchain 允许您为在 JVM、Android、iOS、macOS、Windows 和 Linux
 >
 {style="warning"}
 
-## Kotlin Toolchain 的工作原理
+## Kotlin Toolchain 的工作原理 {id="how-kotlin-toolchain-works"}
 
 Kotlin Toolchain 是一个独立的命令行应用程序，允许使用 YAML 文件配置您的项目。
 
@@ -51,13 +51,13 @@ settings:
 * `$compose` 命名空间是一个内置的库目录，提供对所有可选 Compose 模块的访问。
 * `@platform` 限定符标记了特定平台的各个部分，包括依赖项和设置。
 
-## 尝试使用 Kotlin Toolchain
+## 尝试使用 Kotlin Toolchain {id="try-kotlin-toolchain"}
 
 查看 Kotlin Toolchain 的[快速入门指南](https://kotlin-toolchain.org/dev/getting-started/)以亲自尝试。
 
 欢迎随时向我们的[问题跟踪器](https://jb.gg/amper-issues)提交您的任何反馈。您的意见将帮助我们塑造 Kotlin Toolchain 的未来。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 <!---
 * 访问 [JetBrains 博客](https://blog.jetbrains.com/blog/2023/11/09/amper-improving-the-build-tooling-user-experience) 

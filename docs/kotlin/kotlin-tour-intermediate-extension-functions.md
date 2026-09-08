@@ -4,7 +4,7 @@
 
 在本章中，你将探索特殊的 Kotlin 函数，它们能让你的代码更加简洁易读。了解它们如何帮助你使用高效的设计模式，从而将你的项目提升到新的水平。
 
-## 扩展函数
+## 扩展函数 {id="extension-functions"}
 
 在软件开发中，你经常需要修改程序的行为而无需更改原始源代码。例如，你可能想为来自第三方库的类添加额外的功能。
 
@@ -43,7 +43,7 @@ fun main() {
 * 使用字符串模板 (`$this`) 来访问 `this` 的值。
 * `.bold()` 扩展函数接收一个字符串，并将其包装在用于加粗文本的 `<b>` HTML 元素中返回。
 
-## 面向扩展的设计
+## 面向扩展的设计 {id="extension-oriented-design"}
 
 你可以在任何地方定义扩展函数，这使你能够创建面向扩展的设计。这些设计将核心功能与有用但非必需的特性分开，使你的代码更易于阅读和维护。
 
@@ -96,7 +96,7 @@ fun main() {
 
 有关扩展函数的更多信息，请参阅 [扩展](extensions.md)。
 
-## 练习 {completion-point="true"}
+## 练习 {completion-point="true" id="practice"}
 
 ### 练习 1 {initial-collapse-state="collapsed" collapsible="true" id="extension-functions-exercise-1"}
 

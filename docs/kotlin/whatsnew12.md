@@ -4,7 +4,7 @@
 
 _发布日期：2017 年 11 月 28 日_
 
-## 目录
+## 目录 {id="table-of-contents"}
 
 * [多平台项目](#multiplatform-projects-experimental)
 * [其他语言功能](#other-language-features)
@@ -16,7 +16,7 @@ _发布日期：2017 年 11 月 28 日_
 >
 {style="tip"}
 
-## 多平台项目（实验性）
+## 多平台项目（实验性） {id="multiplatform-projects-experimental"}
 
 多平台项目是 Kotlin 1.2 中的一项新**实验性**功能，允许你在 Kotlin 支持的目标平台（JVM、JavaScript 以及未来的 Native）之间复用代码。在一个多平台项目中，有三种模块：
 
@@ -58,9 +58,9 @@ actual typealias URL = java.net.URL
 
 有关构建多平台项目的详细信息和步骤，请参阅[多平台编程文档](https://kotlinlang.org/docs/multiplatform/get-started.html)。
 
-## 其他语言功能
+## 其他语言功能 {id="other-language-features"}
 
-### 注解中的数组字面量
+### 注解中的数组字面量 {id="array-literals-in-annotations"}
 
 从 Kotlin 1.2 开始，注解的数组实参可以使用新的数组字面量语法传递，而不再需要使用 `arrayOf` 函数：
 
@@ -73,7 +73,7 @@ public class BookRepositoryImpl {
 
 数组字面量语法仅限于注解实参。
 
-### Lateinit 顶级属性和局部变量
+### Lateinit 顶级属性和局部变量 {id="lateinit-top-level-properties-and-local-variables"}
 
 `lateinit` 修饰符现在可以用于顶级属性和局部变量。例如，当作为构造函数实参传递给一个对象的 lambda 引用了另一个必须稍后定义的对象时，可以使用局部变量：
 
@@ -95,7 +95,7 @@ fun main(args: Array<String>) {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 检查 lateinit 变量是否已初始化
+### 检查 lateinit 变量是否已初始化 {id="check-whether-a-lateinit-var-is-initialized"}
 
 你现在可以通过属性引用上的 `isInitialized` 来检查 lateinit 变量是否已初始化：
 
@@ -118,7 +118,7 @@ fun main(args: Array<String>) {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 带默认函数参数的内联函数
+### 带默认函数参数的内联函数 {id="inline-functions-with-default-functional-parameters"}
 
 内联函数现在允许为其内联的函数参数提供默认值：
 
@@ -138,7 +138,7 @@ fun main(args: Array<String>) {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 显式转换的信息用于类型推断
+### 显式转换的信息用于类型推断 {id="information-from-explicit-casts-is-used-for-type-inference"}
 
 Kotlin 编译器现在可以在类型推断中使用来自类型转换的信息。如果你调用一个返回类型形参 `T` 的泛型方法，并将返回值转换为特定类型 `Foo`，编译器现在会理解该调用的 `T` 需要绑定到 `Foo` 类型。
 
@@ -148,7 +148,7 @@ Kotlin 编译器现在可以在类型推断中使用来自类型转换的信息�
 val button = findViewById(R.id.button) as Button
 ```
 
-### 智能转换改进
+### 智能转换改进 {id="smart-cast-improvements"}
 
 当一个变量由安全调用表达式赋值并进行 null 检查时，智能转换现在也会应用于安全调用的接收者：
 
@@ -197,27 +197,27 @@ fun main(args: Array<String>) {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 支持 ::foo 作为 this::foo 的简写
+### 支持 ::foo 作为 this::foo 的简写 {id="support-for-foo-as-a-shorthand-for-this-foo"}
 
 指向 `this` 成员的绑定可调用引用现在可以不写显式接收者，使用 `::foo` 代替 `this::foo`。这也使得在引用外部接收者成员的 lambda 中使用可调用引用更加方便。
 
-### 破坏性变更：try 块后可靠的智能转换
+### 破坏性变更：try 块后可靠的智能转换 {id="breaking-change-sound-smart-casts-after-try-blocks"}
 
 此前，Kotlin 会将在 `try` 块内进行的赋值用于块后的智能转换，这可能会破坏类型安全和 null 安全并导致运行时故障。此版本修复了该问题，使智能转换更加严格，但会破坏一些依赖此类智能转换的代码。
 
 要切换回旧的智能转换行为，请将回退标志 `-Xlegacy-smart-cast-after-try` 作为编译器参数传递。该标志将在 Kotlin 1.3 中被弃用。
 
-### 弃用：数据类重写 copy
+### 弃用：数据类重写 copy {id="deprecation-data-classes-overriding-copy"}
 
 当数据类派生自一个已经拥有相同签名的 `copy` 函数的类型时，为该数据类生成的 `copy` 实现会使用基类型的默认值，这会导致违反直觉的行为；如果基类型中没有默认参数，则会在运行时失败。
 
 在 Kotlin 1.2 中，导致 `copy` 冲突的继承已被弃用并会发出警告，在 Kotlin 1.3 中将成为错误。
 
-### 弃用：枚举条目中的嵌套类型
+### 弃用：枚举条目中的嵌套类型 {id="deprecation-nested-types-in-enum-entries"}
 
 在枚举条目内部，由于初始化逻辑的问题，定义非 `inner class` 的嵌套类型已被弃用。这在 Kotlin 1.2 中会导致警告，在 Kotlin 1.3 中将成为错误。
 
-### 弃用：vararg 的单个命名实参
+### 弃用：vararg 的单个命名实参 {id="deprecation-single-named-argument-for-vararg"}
 
 为了与注解中的数组字面量保持一致，以命名形式为 vararg 参数传递单个条目（`foo(items = i)`）已被弃用。请使用扩展运算符配合相应的数组工厂函数：
 
@@ -227,17 +227,17 @@ foo(items = *arrayOf(1))
 
 存在一种优化可以移除此类情况下冗余的数组创建，从而防止性能下降。单实参形式在 Kotlin 1.2 中产生警告，并将在 Kotlin 1.3 中移除。
 
-### 弃用：继承 Throwable 的泛型类的内部类
+### 弃用：继承 Throwable 的泛型类的内部类 {id="deprecation-inner-classes-of-generic-classes-extending-throwable"}
 
 继承自 `Throwable` 的泛型类型的内部类可能会在 throw-catch 场景中违反类型安全，因此已被弃用。在 Kotlin 1.2 中会发出警告，在 Kotlin 1.3 中将成为错误。
 
-### 弃用：修改只读属性的支持字段
+### 弃用：修改只读属性的支持字段 {id="deprecation-mutating-backing-field-of-a-read-only-property"}
 
 在自定义 getter 中通过赋值 `field = ...` 来修改只读属性的支持字段已被弃用。在 Kotlin 1.2 中会发出警告，在 Kotlin 1.3 中将成为错误。
 
-## 标准库
+## 标准库 {id="standard-library"}
 
-### Kotlin 标准库构件与拆分包
+### Kotlin 标准库构件与拆分包 {id="kotlin-standard-library-artifacts-and-split-packages"}
 
 Kotlin 标准库现在与 Java 9 模块系统完全兼容，该系统禁止拆分包（多个 jar 文件在同一个包中声明类）。为了支持这一点，引入了新的构件 `kotlin-stdlib-jdk7` 和 `kotlin-stdlib-jdk8`，它们取代了旧的 `kotlin-stdlib-jre7` 和 `kotlin-stdlib-jre8`。
 
@@ -245,7 +245,7 @@ Kotlin 标准库现在与 Java 9 模块系统完全兼容，该系统禁止拆�
 
 为确保与新模块系统兼容而做的另一项更改是从 `kotlin-reflect` 库中移除了 `kotlin.reflect` 包中已弃用的声明。如果你正在使用它们，需要切换到使用 `kotlin.reflect.full` 包中的声明，该包自 Kotlin 1.1 起受到支持。
 
-### windowed, chunked, zipWithNext
+### windowed, chunked, zipWithNext {id="windowed-chunked-zipwithnext"}
 
 针对 `Iterable<T>`、`Sequence<T>` 和 `CharSequence` 的新扩展涵盖了诸如缓冲或批处理（`chunked`）、滑动窗口和计算滑动平均值（`windowed`）以及处理后续元素对（`zipWithNext`）等用例：
 
@@ -273,7 +273,7 @@ fun main(args: Array<String>) {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### fill, replaceAll, shuffle/shuffled
+### fill, replaceAll, shuffle/shuffled {id="fill-replaceall-shuffle-shuffled"}
 
 添加了一组用于操作列表的扩展函数：用于 `MutableList` 的 `fill`、`replaceAll` 和 `shuffle`，以及用于只读 `List` 的 `shuffled`：
 
@@ -295,7 +295,7 @@ fun main(args: Array<String>) {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### kotlin-stdlib 中的数学运算
+### kotlin-stdlib 中的数学运算 {id="math-operations-in-kotlin-stdlib"}
 
 为了满足长期以来的需求，Kotlin 1.2 添加了用于数学运算的 `kotlin.math` API，该 API 在 JVM 和 JS 中是通用的，包含以下内容：
 
@@ -319,7 +319,7 @@ fun main(args: Array<String>) {
 
 同样的一组函数（但不含常量）也适用于 `Float` 实参。
 
-### BigInteger 和 BigDecimal 的运算符和转换
+### BigInteger 和 BigDecimal 的运算符和转换 {id="operators-and-conversions-for-biginteger-and-bigdecimal"}
 
 Kotlin 1.2 引入了一组用于操作 `BigInteger` 和 `BigDecimal` 以及从其他数字类型创建它们的函数。包括：
 
@@ -329,26 +329,26 @@ Kotlin 1.2 引入了一组用于操作 `BigInteger` 和 `BigDecimal` 以及从�
     * 二元运算符 `+`、`-`、`*`、`/`、`%` 和中缀函数 `and`、`or`、`xor`、`shl`、`shr`
     * 一元运算符 `-`、`++`、`--` 和 `inv` 函数
 
-### 浮点数到位的转换
+### 浮点数到位的转换 {id="floating-point-to-bits-conversions"}
 
 添加了用于将 `Double` 和 `Float` 与其位表示进行相互转换的新函数：
 
 * `toBits` 和 `toRawBits` 为 `Double` 返回 `Long`，为 `Float` 返回 `Int`
 * `Double.fromBits` 和 `Float.fromBits` 用于从位表示创建浮点数
 
-### Regex 现在是可序列化的
+### Regex 现在是可序列化的 {id="regex-is-now-serializable"}
 
 `kotlin.text.Regex` 类现已变为 `Serializable`，可以用于可序列化的层次结构中。
 
-### 如果可用，Closeable.use 会调用 Throwable.addSuppressed
+### 如果可用，Closeable.use 会调用 Throwable.addSuppressed {id="closeable-use-calls-throwable-addsuppressed-if-available"}
 
 当在关闭资源期间抛出异常且之前已有其他异常抛出时，`Closeable.use` 函数会调用 `Throwable.addSuppressed`。
 
 要启用此行为，你的依赖项中需要包含 `kotlin-stdlib-jdk7`。
 
-## JVM 后端
+## JVM 后端 {id="jvm-backend"}
 
-### 构造函数调用归一化
+### 构造函数调用归一化 {id="constructor-calls-normalization"}
 
 自 1.0 版本以来，Kotlin 就支持带有复杂控制流的表达式，例如 try-catch 表达式和内联函数调用。根据 Java 虚拟机规范，此类代码是有效的。遗憾的是，当此类表达式出现在构造函数调用的实参中时，一些字节码处理工具不能很好地处理此类代码。
 
@@ -360,31 +360,31 @@ Kotlin 1.2 引入了一组用于操作 `BigInteger` 和 `BigDecimal` 以及从�
 
 “手动”解决方法是将带有控制流的子表达式的值存储在变量中，而不是直接在调用实参中对其求值。这类似于 `-Xnormalize-constructor-calls=enable`。
 
-### Java 默认方法调用
+### Java 默认方法调用 {id="java-default-method-calls"}
 
 在 Kotlin 1.2 之前，针对 JVM 1.6 编译时，重写 Java 默认方法的接口成员在进行 super 调用时会产生警告：`Super calls to Java default methods are deprecated in JVM target 1.6. Recompile with '-jvm-target 1.8'`。在 Kotlin 1.2 中，这改为**错误**，因此要求所有此类代码必须针对 JVM 目标 1.8 进行编译。
 
-### 破坏性变更：x.equals(null) 对平台类型的行为一致性
+### 破坏性变更：x.equals(null) 对平台类型的行为一致性 {id="breaking-change-consistent-behavior-of-x-equals-null-for-platform-types"}
 
 在映射到 Java 原生类型（`Int!`、`Boolean!`、`Short!`、`Long!`、`Float!`、`Double!`、`Char!`）的平台类型上调用 `x.equals(null)` 时，如果 `x` 为 null，此前会错误地返回 `true`。从 Kotlin 1.2 开始，在平台类型的 null 值上调用 `x.equals(...)` 将**抛出 NPE**（但 `x == ...` 不会）。
 
 要返回到 1.2 之前的行为，请将标志 `-Xno-exception-on-explicit-equals-for-boxed-null` 传递给编译器。
 
-### 破坏性变更：修复平台 null 通过内联扩展接收者逃逸的问题
+### 破坏性变更：修复平台 null 通过内联扩展接收者逃逸的问题 {id="breaking-change-fix-for-platform-null-escaping-through-an-inlined-extension-receiver"}
 
 在平台类型的 null 值上调用的内联扩展函数此前不会检查接收者是否为 null，从而允许 null 逃逸到其他代码中。Kotlin 1.2 在调用站点强制执行此检查，如果接收者为 null 则抛出异常。
 
 要切换回旧行为，请将回退标志 `-Xno-receiver-assertions` 传递给编译器。
 
-## JavaScript 后端
+## JavaScript 后端 {id="javascript-backend"}
 
-### 默认启用 TypedArrays 支持
+### 默认启用 TypedArrays 支持 {id="typedarrays-support-enabled-by-default"}
 
 将 Kotlin 原生数组（如 `IntArray`、`DoubleArray`）转换为 [JavaScript 类型化数组](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays) 的 JS 类型化数组支持此前是一项可选功能，现在已默认启用。
 
-## 工具
+## 工具 {id="tools"}
 
-### 将警告视为错误
+### 将警告视为错误 {id="warnings-as-errors"}
 
 编译器现在提供了一个将所有警告视为错误的选项。在命令行上使用 `-Werror`，或使用以下 Gradle 代码段：
 

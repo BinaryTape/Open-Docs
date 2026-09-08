@@ -8,11 +8,11 @@ title: Androidのエントリーポイント
 このページでは、**どこで**注入するか（エントリーポイント）に焦点を当てています。注入用API（`by inject()`、`get()`、`by viewModel()`）は、定義をどのように宣言したかに関係なく同じように動作します。定義の宣言については、[定義（Definitions）](/docs/reference/koin-core/definitions)を参照してください。
 :::
 
-## 概要
+## 概要 {id="overview"}
 
 Androidアプリケーションはさまざまなコンポーネントタイプで構成されており、それぞれ独自のライフサイクルと初期化パターンを持っています。Koinは、これらすべてに依存関係を注入するための柔軟な方法を提供します。
 
-### クイックリファレンス
+### クイックリファレンス {id="quick-reference"}
 
 | コンポーネント | 注入方法 | ビルトインサポート | 備考 |
 |-----------|-----------------|------------------|-------|
@@ -25,7 +25,7 @@ Androidアプリケーションはさまざまなコンポーネントタイプ�
 | **ContentProvider** | `KoinComponent` + `get()` | ⚠️ 手動 | 初期化タイミングに特別な考慮が必要 |
 | **Custom View** | コンストラクタ または `KoinComponent` | ⚠️ 手動 | DIの回避を検討 |
 
-## Applicationクラス
+## Applicationクラス {id="application-class"}
 
 ApplicationクラスはKoinを初期化する場所です。これがアプリ内のすべての依存関係注入の基盤となります。
 
@@ -47,11 +47,11 @@ class MyApplication : Application() {
 Applicationの完全なセットアップ手順については、[AndroidでKoinを開始する](/docs/reference/koin-android/start)を参照してください。
 :::
 
-## Activityへの注入
+## Activityへの注入 {id="activity-injection"}
 
 Activityは、拡張関数を通じてKoinのビルトインサポートを利用できます。
 
-### by inject() を使用する
+### by inject() を使用する {id="using-by-inject"}
 
 ```kotlin
 class UserActivity : AppCompatActivity() {
@@ -67,7 +67,7 @@ class UserActivity : AppCompatActivity() {
 }
 ```
 
-### get() を使用する
+### get() を使用する {id="using-get"}
 
 ```kotlin
 class UserActivity : AppCompatActivity() {
@@ -82,7 +82,7 @@ class UserActivity : AppCompatActivity() {
 }
 ```
 
-### パラメータを渡す場合
+### パラメータを渡す場合 {id="with-parameters"}
 
 ```kotlin
 class UserDetailActivity : AppCompatActivity() {
@@ -104,7 +104,7 @@ class UserDetailActivity : AppCompatActivity() {
 Activityへの注入パターンの詳細については、[Androidでの注入](/docs/reference/koin-android/get-instances)を参照してください。
 :::
 
-## Fragmentへの注入
+## Fragmentへの注入 {id="fragment-injection"}
 
 Fragmentでも、Activityと同様にKoinの拡張関数を使用できます。
 
@@ -127,7 +127,7 @@ class UserListFragment : Fragment() {
 }
 ```
 
-### 共有ViewModel
+### 共有ViewModel {id="shared-viewmodels"}
 
 ActivityとFragmentの間でViewModelを共有する場合：
 
@@ -147,7 +147,7 @@ FragmentおよびViewModelの注入の詳細については、以下を参照し
 - [Android ViewModels](/docs/reference/koin-android/viewmodel)
 :::
 
-## Serviceへの注入
+## Serviceへの注入 {id="service-injection"}
 
 ServiceもActivityやFragmentと同様に、拡張関数によるKoinのビルトインサポートがあります。
 
@@ -194,13 +194,13 @@ class DownloadService : Service() {
 }
 ```
 
-### ライフサイクルに関する考慮事項
+### ライフサイクルに関する考慮事項 {id="lifecycle-considerations"}
 
 - **Serviceは長時間実行される**: コストの高いリソースには `single` を使用してください。
 - **クリーンアップが重要**: `onDestroy()` でリソースを解放してください。
 - **バックグラウンドスレッド**: バックグラウンドでの作業が適切にスコープされるように考慮してください。
 
-### ベストプラクティス
+### ベストプラクティス {id="best-practices"}
 
 ```kotlin
 class DownloadService : Service() {
@@ -226,11 +226,11 @@ class DownloadService : Service() {
 **代替案:** `WorkManager` によるバックグラウンドタスクの場合は、Serviceの代わりにKoinの組み込み `WorkManager` サポートを使用してください。[WorkManagerの統合](/docs/reference/koin-android/workmanager)を参照してください。
 :::
 
-## BroadcastReceiverへの注入
+## BroadcastReceiverへの注入 {id="broadcastreceiver-injection"}
 
 BroadcastReceiverで依存関係を注入するには、`KoinComponent` が必要です。
 
-### 動的に登録されるReceiver
+### 動的に登録されるReceiver {id="dynamically-registered-receiver"}
 
 ```kotlin
 class NetworkChangeReceiver : BroadcastReceiver(), KoinComponent {
@@ -263,7 +263,7 @@ class MainActivity : AppCompatActivity() {
 }
 ```
 
-### 静的に登録されるReceiver (Manifest)
+### 静的に登録されるReceiver (Manifest) {id="statically-registered-receiver-manifest"}
 
 ```kotlin
 class BootReceiver : BroadcastReceiver(), KoinComponent {
@@ -290,7 +290,7 @@ class BootReceiver : BroadcastReceiver(), KoinComponent {
 </receiver>
 ```
 
-### 重要な考慮事項
+### 重要な考慮事項 {id="important-considerations"}
 
 **ライフサイクル:**
 - Receiverは**極めて短命**です（通常10秒未満）。
@@ -323,11 +323,11 @@ class AlarmReceiver : BroadcastReceiver(), KoinComponent {
 BroadcastReceiverには厳しい時間制限（約10秒）があります。大規模な処理を行う場合は、代わりに `Service`、`WorkManager`、または `JobScheduler` を使用してください。
 :::
 
-## ContentProviderへの注入
+## ContentProviderへの注入 {id="contentprovider-injection"}
 
 ContentProviderは、`Application.onCreate()` よりも**前**に作成されるため、タイミングに関して特別な考慮が必要です。
 
-### 課題
+### 課題 {id="the-challenge"}
 
 ```kotlin
 // ❌ 問題: これは動作しません！
@@ -342,7 +342,7 @@ class MyContentProvider : ContentProvider(), KoinComponent {
 }
 ```
 
-### 解決策 1: 遅延初期化 (Lazy Initialization)
+### 解決策 1: 遅延初期化 (Lazy Initialization) {id="solution-1-lazy-initialization"}
 
 ```kotlin
 class UserContentProvider : ContentProvider(), KoinComponent {
@@ -370,7 +370,7 @@ class UserContentProvider : ContentProvider(), KoinComponent {
 }
 ```
 
-### 解決策 2: 手動によるKoinの初期化
+### 解決策 2: 手動によるKoinの初期化 {id="solution-2-manual-koin-initialization"}
 
 ```kotlin
 class UserContentProvider : ContentProvider(), KoinComponent {
@@ -432,11 +432,11 @@ class DataContentProvider : ContentProvider(), KoinComponent {
 **重要:** ContentProviderは `Application.onCreate()` よりも**前**に作成されます。常に遅延初期化（lazy initialization）を使用するか、依存関係を注入する前にKoinが初期化されているかを確認してください。
 :::
 
-## カスタムビューへの注入
+## カスタムビューへの注入 {id="custom-view-injection"}
 
 カスタムビューでも依存関係の注入を使用できますが、慎重に検討する必要があります。
 
-### オプション 1: コンストラクタ注入 (ビジネスロジックに推奨)
+### オプション 1: コンストラクタ注入 (ビジネスロジックに推奨) {id="option-1-constructor-injection-recommended-for-business-logic"}
 
 ```kotlin
 // ドメイン/ViewModel層 - コンストラクタ注入を使用
@@ -478,7 +478,7 @@ class ChartActivity : AppCompatActivity() {
 }
 ```
 
-### オプション 2: KoinComponent (ビューに複雑なロジックがある場合)
+### オプション 2: KoinComponent (ビューに複雑なロジックがある場合) {id="option-2-koincomponent-when-view-has-complex-logic"}
 
 ```kotlin
 class SmartChartView @JvmOverloads constructor(
@@ -498,7 +498,7 @@ class SmartChartView @JvmOverloads constructor(
 }
 ```
 
-### ビューでのDIを避けるべきケース
+### ビューでのDIを避けるべきケース {id="when-to-avoid-di-in-views"}
 
 ❌ **以下のような場合は、ビューへの注入を避けてください：**
 - ビューが純粋に表示用である場合（単にデータを描画するだけ）
@@ -511,7 +511,7 @@ class SmartChartView @JvmOverloads constructor(
 - ビルドバリアントごとに変わる設定をビューが必要とする場合
 - ビューが重要な状態やビジネスロジックを管理している場合（ただし、その場合はViewModelへの移行も検討すべきです）
 
-### ベストプラクティス: ビューはシンプルに保つ
+### ベストプラクティス: ビューはシンプルに保つ {id="best-practice-keep-views-simple"}
 
 ```kotlin
 // ❌ ビューにロジックが多すぎる例
@@ -549,9 +549,9 @@ class UserCardView(context: Context) : FrameLayout(context) {
 **推奨事項:** ビューは「表示に徹する（dumb）」コンポーネントとして保つことを優先してください。ビジネスロジックは、コンストラクタ注入がよりクリーンでテストしやすいViewModelやPresenterに移動させてください。
 :::
 
-## まとめ
+## まとめ {id="summary"}
 
-### 適切な注入アプローチの選択
+### 適切な注入アプローチの選択 {id="choosing-the-right-injection-approach"}
 
 | コンポーネント | 推奨されるアプローチ | 理由 |
 |-----------|---------------------|-----------|
@@ -563,7 +563,7 @@ class UserCardView(context: Context) : FrameLayout(context) {
 | **ContentProvider** | `KoinComponent` + `lazy { get() }` | タイミングの問題があるため、遅延初期化を使用する |
 | **Custom View** | DIを避け、メソッド経由でデータを渡す | ビューをシンプルに保ち、ロジックをViewModelに移動する |
 
-### 全般的なベストプラクティス
+### 全般的なベストプラクティス {id="general-best-practices"}
 
 1. ビジネスロジッククラス（Repository、UseCase、ViewModel）には**コンストラクタ注入を優先**してください。
 2. Androidフレームワーククラス（Activity、Fragment、Service）には**フィールド注入**（`by inject()`）を使用してください。
@@ -572,7 +572,7 @@ class UserCardView(context: Context) : FrameLayout(context) {
 5. **ビューはシンプルに保つ** - 可能な限りビューへの注入は避けてください。
 6. **ライフサイクルのタイミングに注意** - ContentProviderには特別な処理が必要です。
 
-## 次のステップ
+## 次のステップ {id="next-steps"}
 
 - **[定義（Definitions）](/docs/reference/koin-core/definitions)** - 依存関係の宣言
 - **[Androidでの注入](/docs/reference/koin-android/get-instances)** - Activity/Fragmentでの注入の詳細

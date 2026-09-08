@@ -5,7 +5,7 @@
 * 结构相等 (`==`) - 检查 `equals()` 函数
 * 引用相等 (`===`) - 检查两个引用是否指向同一个对象
 
-## 结构相等
+## 结构相等 {id="structural-equality"}
 
 结构相等验证两个对象是否具有相同的内容或结构。结构相等通过 `==` 操作及其否定形式 `!=` 来检查。
 按照约定，像 `a == b` 这样的表达式会被转换为：
@@ -65,7 +65,7 @@ class Point(val x: Int, val y: Int) {
 
 结构相等与由 `Comparable<...>` 接口定义的比较无关，因此只有自定义的 `equals(Any?)` 实现才会影响该运算符的行为。
 
-## 引用相等
+## 引用相等 {id="referential-equality"}
 
 引用相等验证两个对象的内存地址，以确定它们是否为同一个实例。
 
@@ -95,7 +95,7 @@ fun main() {
 >
 {style="tip"}
 
-## 浮点数相等
+## 浮点数相等 {id="floating-point-numbers-equality"}
 
 当相等检查的操作数在静态上已知为 `Float` 或 `Double`（无论是否可为 null）时，该检查遵循 [IEEE 754 浮点运算标准](https://en.wikipedia.org/wiki/IEEE_754)。
 
@@ -107,7 +107,7 @@ fun main() {
 
 有关更多信息，请参阅[浮点数比较](numbers.md#floating-point-numbers-comparison)。
 
-## 数组相等
+## 数组相等 {id="array-equality"}
 
 要比较两个数组是否以相同的顺序包含相同的元素，请使用 [`contentEquals()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/content-equals.html)。
 

@@ -12,18 +12,18 @@ Kotlin 1.4.20 提供了許多新的實驗功能，並針對現有功能（包括
 >
 {style="tip"}
 
-## Kotlin/JVM
+## Kotlin/JVM {id="kotlin-jvm"}
 
 Kotlin/JVM 的改進旨在跟上現代 Java 版本的特性：
 
 - [Java 15 目標](#java-15-target)
 - [invokedynamic 字串連接](#invokedynamic-string-concatenation)
 
-### Java 15 目標
+### Java 15 目標 {id="java-15-target"}
 
 現在 Java 15 已可作為 Kotlin/JVM 的目標。
 
-### invokedynamic 字串連接
+### invokedynamic 字串連接 {id="invokedynamic-string-concatenation"}
 
 > `invokedynamic` 字串連接是 [實驗性](components-stability.md) 的。它可能隨時被刪除或更改。需要選擇性啟用（詳情見下文）。僅用於評估目的。歡迎您在 [YouTrack](https://youtrack.jetbrains.com/issues/KT) 中提供回饋。
 >
@@ -41,7 +41,7 @@ Kotlin 1.4.20 可以將字串連接編譯為 JVM 9+ 目標上的 [動態呼叫 (
 - `indy`：使用 [StringConcatFactory.makeConcat()](https://docs.oracle.com/javase/9/docs/api/java/lang/invoke/StringConcatFactory.html#makeConcat-java.lang.invoke.MethodHandles.Lookup-java.lang.String-java.lang.invoke.MethodType-) 對字串執行 `invokedynamic` 連接。
 - `inline`：切換回透過 `StringBuilder.append()` 執行的傳統連接。
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
 Kotlin/JS 持續快速演進，在 1.4.20 中您可以發現許多實驗功能與改進：
 
@@ -49,11 +49,11 @@ Kotlin/JS 持續快速演進，在 1.4.20 中您可以發現許多實驗功能�
 - [新精靈範本](#new-wizard-templates)
 - [使用 IR 編譯器忽略編譯錯誤](#ignoring-compilation-errors-with-ir-compiler)
 
-### Gradle DSL 變更
+### Gradle DSL 變更 {id="gradle-dsl-changes"}
 
 Kotlin/JS 的 Gradle DSL 獲得了多項更新，簡化了專案設定與自訂。這包括 webpack 配置調整、自動產生的 `package.json` 檔案修改，以及對傳遞相依性更完善的控制。
 
-#### webpack 配置的單一入口
+#### webpack 配置的單一入口 {id="single-point-for-webpack-configuration"}
 
 針對 browser 目標提供了一個新的配置區塊 `commonWebpackConfig`。在其中，您可以從單一位置調整常用設定，而無需為 `webpackTask`、`runTask` 和 `testTask` 重複配置。
 
@@ -70,7 +70,7 @@ browser {
 
 進一步了解 [配置 webpack 統合 (bundling)](js-project-setup.md#webpack-bundling)。
 
-#### 從 Gradle 自訂 package.json
+#### 從 Gradle 自訂 package.json {id="package-json-customization-from-gradle"}
 
 為了更精確地控制 Kotlin/JS 套件管理與散佈，您現在可以透過 Gradle DSL 向專案檔案 [`package.json`](https://nodejs.dev/learn/the-package-json-guide) 加入屬性。
 
@@ -88,7 +88,7 @@ kotlin {
 
 進一步了解 [`package.json` 自訂](js-project-setup.md#package-json-customization)。
 
-#### 選擇性 yarn 相依性解析
+#### 選擇性 yarn 相依性解析 {id="selective-yarn-dependency-resolutions"}
 
 > 支援選擇性 yarn 相依性解析是 [實驗性](components-stability.md) 的。它可能隨時被刪除或更改。僅用於評估目的。歡迎您在 [YouTrack](https://youtrack.jetbrains.com/issues/KT) 中提供回饋。
 >
@@ -109,7 +109,7 @@ rootProject.plugins.withType<YarnPlugin> {
 
 如此一來，您所有需要 `react` 的 npm 相依性都將獲得 `16.0.0` 版本，而 `processor` 將獲得其 `3.0.0` 版本的 `decamelize` 相依性。
 
-#### 停用細粒度工作區 (granular workspaces)
+#### 停用細粒度工作區 (granular workspaces) {id="disabling-granular-workspaces"}
 
 > 停用細粒度工作區是 [實驗性](components-stability.md) 的。它可能隨時被刪除或更改。僅用於評估目的。歡迎您在 [YouTrack](https://youtrack.jetbrains.com/issues/KT) 中提供回饋。
 >
@@ -125,14 +125,14 @@ rootProject.plugins.withType<YarnPlugin> {
 }
 ```
 
-### 新精靈範本
+### 新精靈範本 {id="new-wizard-templates"}
 
 為了讓您在建立專案期間有更方便的方式進行自訂，Kotlin 的專案精靈為 Kotlin/JS 應用程式帶來了新的範本：
 - **Browser Application** – 一個在瀏覽器中運行的最小 Kotlin/JS Gradle 專案。
 - **React Application** – 一個使用適當 `kotlin-wrappers` 的 React 應用程式。它提供了啟用樣式表、導覽組件或狀態容器整合的選項。
 - **Node.js Application** – 一個在 Node.js 執行階段運行的最小專案。它可以選擇直接包含實驗性的 `kotlinx-nodejs` 套件。
 
-### 使用 IR 編譯器忽略編譯錯誤
+### 使用 IR 編譯器忽略編譯錯誤 {id="ignoring-compilation-errors-with-ir-compiler"}
 
 > 「忽略編譯錯誤」模式是 [實驗性](components-stability.md) 的。它可能隨時被刪除或更改。需要選擇性啟用（詳情見下文）。僅用於評估目的。歡迎您在 [YouTrack](https://youtrack.jetbrains.com/issues/KT) 中提供回饋。
 >
@@ -149,7 +149,7 @@ Kotlin/JS 的 [IR 編譯器](js-ir-compiler.md) 附帶了一個新的實驗模�
 
 [進一步了解 Kotlin/JS IR 編譯器](js-ir-compiler.md)。
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 Kotlin/Native 在 1.4.20 中的優先事項是效能與現有功能的打磨。以下是顯著的改進：
   
@@ -159,7 +159,7 @@ Kotlin/Native 在 1.4.20 中的優先事項是效能與現有功能的打磨。�
 - [CocoaPods 外掛程式改進](#cocoapods-plugin-improvements)
 - [支援 Xcode 12 程式庫](#support-for-xcode-12-libraries)
 
-### 逃逸分析 (Escape analysis)
+### 逃逸分析 (Escape analysis) {id="escape-analysis"}
 
 > 逃逸分析機制是 [實驗性](components-stability.md) 的。它可能隨時被刪除或更改。僅用於評估目的。歡迎您在 [YouTrack](https://youtrack.jetbrains.com/issues/KT) 中提供回饋。
 >
@@ -171,11 +171,11 @@ Kotlin/Native 獲得了新逃逸分析機器的原型。它透過將某些物件
 
 如果您想停用逃逸分析階段，請使用 `-Xdisable-phases=EscapeAnalysis` 編譯器選項。
 
-### 效能改進與錯誤修正
+### 效能改進與錯誤修正 {id="performance-improvements-and-bug-fixes"}
 
 Kotlin/Native 在各個組件中都獲得了效能改進與錯誤修正，包括 1.4.0 中加入的功能，例如 [程式碼共享機制](https://kotlinlang.org/docs/multiplatform/multiplatform-share-on-platforms.html#share-code-on-similar-platforms)。
 
-### 選擇性啟用 Objective-C 例外包裝
+### 選擇性啟用 Objective-C 例外包裝 {id="opt-in-wrapping-of-objective-c-exceptions"}
 
 > Objective-C 例外包裝機制是 [實驗性](components-stability.md) 的。它可能隨時被刪除或更改。需要選擇性啟用（詳情見下文）。僅用於評估目的。歡迎您在 [YouTrack](https://youtrack.jetbrains.com/issues/KT) 中提供回饋。
 >
@@ -195,7 +195,7 @@ pod("foo") {
 
 預設行為保持不變：當從 Objective-C 程式碼拋出例外時，程式將終止。
 
-### CocoaPods 外掛程式改進
+### CocoaPods 外掛程式改進 {id="cocoapods-plugin-improvements"}
 
 Kotlin 1.4.20 繼續對 CocoaPods 整合進行一系列改進。具體而言，您可以嘗試以下新功能：
 
@@ -203,11 +203,11 @@ Kotlin 1.4.20 繼續對 CocoaPods 整合進行一系列改進。具體而言，�
 - [擴充 DSL](#extended-dsl)
 - [更新與 Xcode 的整合](#updated-integration-with-xcode)
 
-#### 改進任務執行
+#### 改進任務執行 {id="improved-task-execution"}
 
 CocoaPods 外掛程式獲得了改進的任務執行流程。例如，如果您加入新的 CocoaPods 相依性，現有的相依性不會重新組建。加入額外的目標也不會影響現有目標的相依性重新組建。
 
-#### 擴充 DSL
+#### 擴充 DSL {id="extended-dsl"}
 
 向 Kotlin 專案加入 [CocoaPods](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html) 相依性的 DSL 獲得了新能力。
 
@@ -220,7 +220,7 @@ CocoaPods 外掛程式獲得了改進的任務執行流程。例如，如果您�
 
 進一步了解在 Kotlin 專案中 [加入 CocoaPods 相依性](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-libraries.html)。在 [Kotlin with CocoaPods 範例](https://github.com/Kotlin/kmm-with-cocoapods-sample) 中尋找範例。
 
-#### 更新與 Xcode 的整合
+#### 更新與 Xcode 的整合 {id="updated-integration-with-xcode"}
 
 為了與 Xcode 正確運作，Kotlin 需要對 Podfile 進行一些變更：
 
@@ -231,32 +231,32 @@ CocoaPods 外掛程式獲得了改進的任務執行流程。例如，如果您�
 
 進一步了解 [建立 Kotlin pods](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-xcode.html)。
 
-### 支援 Xcode 12 程式庫
+### 支援 Xcode 12 程式庫 {id="support-for-xcode-12-libraries"}
     
 我們加入了對隨 Xcode 12 交付之新程式庫的支援。現在您可以在 Kotlin 程式碼中使用它們。
 
-## Kotlin Multiplatform
+## Kotlin Multiplatform {id="kotlin-multiplatform"}
 
-### 更新多平台程式庫發佈結構
+### 更新多平台程式庫發佈結構 {id="updated-structure-of-multiplatform-library-publications"}
 
 從 Kotlin 1.4.20 開始，不再有獨立的元資料發佈。元資料構件現在包含在「根」發佈中，該發佈代表整個程式庫，並且在作為相依性加入通用原始碼集時，會自動解析為適當的平台特定構件。
 
 進一步了解 [發佈多平台程式庫](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-lib-setup.html)。
 
-#### 與早期版本的相容性
+#### 與早期版本的相容性 {id="compatibility-with-earlier-versions"}
 
 結構的這種變化打破了具有 [分層專案結構 (hierarchical project structure)](https://kotlinlang.org/docs/multiplatform/multiplatform-share-on-platforms.html#share-code-on-similar-platforms) 的專案之間的相容性。如果一個多平台專案及其相依的程式庫都具有分層專案結構，那麼您需要同時將它們更新到 Kotlin 1.4.20 或更高版本。使用 Kotlin 1.4.20 發佈的程式庫無法供使用早期版本發佈的專案使用。
 
 沒有分層專案結構的專案和程式庫保持相容。
 
-## 標準程式庫
+## 標準程式庫 {id="standard-library"}
 
 Kotlin 1.4.20 的標準程式庫提供了用於處理檔案的新擴充功能，並具備更好的效能。
 
 - [java.nio.file.Path 的擴充功能](#extensions-for-java-nio-file-path)
 - [改進 String.replace 函式的效能](#improved-string-replace-function-performance)
 
-### java.nio.file.Path 的擴充功能
+### java.nio.file.Path 的擴充功能 {id="extensions-for-java-nio-file-path"}
 
 > `java.nio.file.Path` 的擴充功能是 [實驗性](components-stability.md) 的。它們可能隨時被刪除或更改。需要選擇性啟用（詳情見下文）。僅用於評估目的。歡迎您在 [YouTrack](https://youtrack.jetbrains.com/issues/KT) 中提供回饋。
 >
@@ -275,24 +275,24 @@ val kotlinFiles: List<Path> = Path("/home/user").listDirectoryEntries("*.kt")
 
 這些擴充功能在 `kotlin-stdlib-jdk7` 模組的 `kotlin.io.path` 套件中提供。要使用這些擴充功能，請 [選擇性啟用](opt-in-requirements.md) 實驗性註解 `@ExperimentalPathApi`。
 
-### 改進 String.replace 函式的效能
+### 改進 String.replace 函式的效能 {id="improved-string-replace-function-performance"}
 
 `String.replace()` 的新實作加快了函式執行速度。區分大小寫的變體使用基於 `indexOf` 的手動替換迴圈，而不區分大小寫的變體則使用正規表示式比對。
 
-## Kotlin Android Extensions
+## Kotlin Android Extensions {id="kotlin-android-extensions"}
 
 在 1.4.20 中，Kotlin Android Extensions 外掛程式已棄用，且 `Parcelable` 實作產生器已移至獨立的外掛程式。
 
 - [棄用 synthetic views](#deprecation-of-synthetic-views)
 - [Parcelable 實作產生器的新外掛程式](#new-plugin-for-parcelable-implementation-generator)
 
-### 棄用 synthetic views
+### 棄用 synthetic views {id="deprecation-of-synthetic-views"}
 
 「Synthetic views」在很久以前就出現在 Kotlin Android Extensions 外掛程式中，目的是簡化與 UI 元素的互動並減少樣板程式碼。現在 Google 提供了一個原生的機制來執行相同的操作：Android Jetpack 的 [view bindings](https://developer.android.com/topic/libraries/view-binding)，而我們正棄用 synthetic views 以轉向使用後者。
 
 我們將 Parcelable 實作產生器從 `kotlin-android-extensions` 中提取出來，並開始對其餘部分（即 synthetic views）進行棄用週期。目前，它們仍可運作但會顯示棄用警告。未來，您需要將專案切換到其他解決方案。這裡有 [指引](https://goo.gle/kotlin-android-extensions-deprecation) 可協助您將 Android 專案從 synthetics 遷移到 view bindings。
 
-### Parcelable 實作產生器的新外掛程式
+### Parcelable 實作產生器的新外掛程式 {id="new-plugin-for-parcelable-implementation-generator"}
 
 `Parcelable` 實作產生器現在可在新的 `kotlin-parcelize` 外掛程式中使用。請套用此外掛程式而非 `kotlin-android-extensions`。
 

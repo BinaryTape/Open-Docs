@@ -20,7 +20,7 @@ Koin Annotations は、Koin DSL と同じセマンティクス（意味合い）
 
 スコープについては、[スコープの宣言](/docs/reference/koin-core/scopes) セクションを確認してください。
 
-## アノテーション付きトップレベル関数
+## アノテーション付きトップレベル関数 {id="annotated-top-level-functions"}
 
 アノテーションはクラスだけでなく、**トップレベル関数**にも使用できます。これは、外部ライブラリのインスタンスやビルダーパターンを提供する場合に便利です。トップレベル関数はクラスと同様に `@ComponentScan` によって検出されます。
 
@@ -46,7 +46,7 @@ fun provideHttpClient(json: Json): HttpClient = HttpClient { install(ContentNego
 
 パラメータは DI コンテナから自動的に解決されます。クオリファイア（`@Named`、カスタム `@Qualifier`）は、関数とそのパラメータの両方で使用できます。
 
-## モジュール関数（プロバイダー関数）
+## モジュール関数（プロバイダー関数） {id="module-functions-provider-functions"}
 
 `@Module` クラス内では、`@Singleton` や `@Factory` などが付与された関数が、Dagger/Hilt の `@Provides` と同様にプロバイダー関数として動作します。
 
@@ -75,7 +75,7 @@ class DaosModule {
 
 これは、所有していない、あるいは直接アノテーションを付与できない外部ライブラリ（Room、Retrofit、OkHttp など）をラップするためのパターンです。
 
-## カスタムクオリファイアアノテーション
+## カスタムクオリファイアアノテーション {id="custom-qualifier-annotations"}
 
 `@Named` 以外にも、`@Qualifier` を使用してパラメータを持つカスタムクオリファイアアノテーションを作成できます。
 
@@ -117,7 +117,7 @@ class DispatchersModule {
 
 カスタムクオリファイアはコンパイル時に検証されます。プロバイダーと注入ポイントのクオリファイアが一致しない場合は、ビルドエラーが発生します。
 
-### Kotlin Multiplatform 用の ViewModel
+### Kotlin Multiplatform 用の ViewModel {id="viewmodel-for-kotlin-multiplatform"}
 
 `@KoinViewModel` アノテーションは、統一された `koin-core-viewmodel` API を使用して ViewModel を生成し、Kotlin Multiplatform との互換性を提供します。
 
@@ -128,7 +128,7 @@ class UserViewModel(val repository: UserRepository) : ViewModel()
 
 これにより、Android と Compose Multiplatform の両方に対応した `viewModel` 定義が生成されます。
 
-## 自動または特定のバインディング
+## 自動または特定のバインディング {id="automatic-or-specific-binding"}
 
 コンポーネントを宣言すると、検出されたすべての「バインディング」（関連するスーパータイプ）が自動的に準備されます。例えば、以下の定義を見てみましょう。
 
@@ -145,7 +145,7 @@ Koin に自動検出させる代わりに、`binds` アノテーションパラ�
 @Single(binds = [MyBoundType::class])
 ```
 
-## Null 許容の依存関係 (Nullable Dependencies)
+## Null 許容の依存関係 (Nullable Dependencies) {id="nullable-dependencies"}
 
 コンポーネントが Null 許容の依存関係（nullable dependency）を使用している場合でも、自動的に処理されるので心配ありません。通常通り定義アノテーションを使用し続けるだけで、Koin が適切に判断します。
 
@@ -158,7 +158,7 @@ class MyComponent(val myDependency : MyDependency?)
 
 > これは、注入されたパラメータ（Parameters）やプロパティ（Properties）でも同様に動作します。
 
-## @Named によるクオリファイア
+## @Named によるクオリファイア {id="qualifier-with-named"}
 
 `@Named` アノテーションを使用して、定義に「名前」（クオリファイアとも呼ばれます）を付け、同じ型の複数の定義を区別することができます。
 
@@ -200,7 +200,7 @@ class LoggerLocalDataSource(private val logDao: LogDao) : LoggerDataSource
 val logger: LoggerDataSource by inject(named<InMemoryLogger>())
 ```
 
-## @InjectedParam による注入パラメータ
+## @InjectedParam による注入パラメータ {id="injected-parameters-with-injectedparam"}
 
 コンストラクタのメンバーに「注入パラメータ（injected parameter）」としてタグを付けることができます。これは、解決（resolution）を呼び出す際に、依存関係がグラフに渡されることを意味します。
 
@@ -221,7 +221,7 @@ koin.get<MyComponent> { parametersOf(m) }
 
 生成される DSL の同等表現は `single { params -> MyComponent(params.get()) }` になります。
 
-## 遅延依存関係の注入 - `Lazy<T>`
+## 遅延依存関係の注入 - `Lazy<T>` {id="injecting-a-lazy-dependency-lazy-t"}
 
 Koin は、遅延依存関係を自動的に検出して解決できます。ここでは例として、`LoggerDataSource` の定義を遅延解決したいとします。次のように Kotlin の `Lazy` 型を使用するだけです。
 
@@ -239,7 +239,7 @@ class LoggerAggregator(val lazyLogger : Lazy<LoggerDataSource>)
 single { LoggerAggregator(inject()) }
 ```
 
-## 依存関係リストの注入 - `List<T>`
+## 依存関係リストの注入 - `List<T>` {id="injecting-a-list-of-dependencies-list-t"}
 
 Koin は、依存関係のリストを自動的に検出して解決できます。ここでは例として、すべての `LoggerDataSource` 定義を解決したいとします。次のように Kotlin の `List` 型を使用するだけです。
 
@@ -262,7 +262,7 @@ class LoggerAggregator(val datasource : List<LoggerDataSource>)
 single { LoggerAggregator(getAll()) }
 ```
 
-## @Property によるプロパティ
+## @Property によるプロパティ {id="properties-with-property"}
 
 定義内で Koin プロパティを解決するには、コンストラクタのメンバーに `@Property` を付与します。これにより、アノテーションに渡された値を使用して Koin プロパティが解決されます。
 
@@ -275,7 +275,7 @@ public class ComponentWithProps(
 
 生成される DSL の同等表現は `factory { ComponentWithProps(getProperty("id")) }` になります。
 
-### @PropertyValue - デフォルト値付きプロパティ (1.4 以降)
+### @PropertyValue - デフォルト値付きプロパティ (1.4 以降) {id="propertyvalue-property-with-default-value-since-1-4"}
 
 Koin Annotations では、`@PropertyValue` アノテーションを使用して、コードから直接プロパティのデフォルト値を定義することができます。
 サンプルを見てみましょう。
@@ -294,11 +294,11 @@ public class ComponentWithProps(
 
 生成される DSL の同等表現は `factory { ComponentWithProps(getProperty("id", ComponentWithProps.DEFAULT_ID)) }` になります。
 
-## JSR-330 互換アノテーション
+## JSR-330 互換アノテーション {id="jsr-330-compatibility-annotations"}
 
 Koin Annotations は、`koin-jsr330` モジュールを通じて JSR-330 (Jakarta Inject) 互換のアノテーションを提供します。これらのアノテーションは、Hilt、Dagger、Guice などの他の JSR-330 互換フレームワークから移行する開発者にとって特に有用です。
 
-### セットアップ
+### セットアップ {id="setup"}
 
 プロジェクトに `koin-jsr330` 依存関係を追加します。
 
@@ -308,9 +308,9 @@ dependencies {
 }
 ```
 
-### 利用可能な JSR-330 アノテーション
+### 利用可能な JSR-330 アノテーション {id="available-jsr-330-annotations"}
 
-#### @Singleton (jakarta.inject.Singleton)
+#### @Singleton (jakarta.inject.Singleton) {id="singleton-jakarta-inject-singleton"}
 
 JSR-330 標準のシングルトンアノテーションで、Koin の `@Single` と同等です。
 
@@ -323,7 +323,7 @@ class DatabaseService
 
 これは `@Single` と同じ結果（Koin におけるシングルトンインスタンス）を生成します。
 
-#### @Named (jakarta.inject.Named)
+#### @Named (jakarta.inject.Named) {id="named-jakarta-inject-named"}
 
 文字列ベースのクオリファイアのための JSR-330 標準クオリファイアアノテーションです。
 
@@ -340,7 +340,7 @@ class InMemoryCache : Cache
 class RedisCache : Cache
 ```
 
-#### @Inject (jakarta.inject.Inject)
+#### @Inject (jakarta.inject.Inject) {id="inject-jakarta-inject-inject"}
 
 JSR-330 標準の注入アノテーションです。Koin Annotations は明示的なコンストラクタのマーキングを必要としませんが、JSR-330 との互換性のために `@Inject` を使用できます。
 
@@ -354,7 +354,7 @@ class UserService @Inject constructor(
 )
 ```
 
-#### @Qualifier (jakarta.inject.Qualifier)
+#### @Qualifier (jakarta.inject.Qualifier) {id="qualifier-jakarta-inject-qualifier"}
 
 カスタムクオリファイアアノテーションを作成するためのメタアノテーションです。
 
@@ -376,7 +376,7 @@ class DatabaseConfig
 class CacheConfig
 ```
 
-#### @Scope (jakarta.inject.Scope)
+#### @Scope (jakarta.inject.Scope) {id="scope-jakarta-inject-scope"}
 
 カスタムスコープアノテーションを作成するためのメタアノテーションです。
 
@@ -392,7 +392,7 @@ annotation class RequestScoped
 class RequestProcessor
 ```
 
-### 混合利用
+### 混合利用 {id="mixed-usage"}
 
 同じプロジェクト内で JSR-330 アノテーションと Koin アノテーションを自由に混ぜて使用できます。
 
@@ -415,7 +415,7 @@ class DatabaseManager @Inject constructor(
 )
 ```
 
-### フレームワーク移行のメリット
+### フレームワーク移行のメリット {id="framework-migration-benefits"}
 
 JSR-330 アノテーションを使用することで、フレームワークの移行においていくつかの利点があります。
 

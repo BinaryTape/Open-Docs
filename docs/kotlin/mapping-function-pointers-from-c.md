@@ -13,7 +13,7 @@
 * [学习如何将 Kotlin 函数作为 C 函数指针传递](#pass-kotlin-function-as-a-c-function-pointer)
 * [从 Kotlin 中使用 C 函数指针](#use-the-c-function-pointer-from-kotlin)
 
-## 映射来自 C 的函数指针类型
+## 映射来自 C 的函数指针类型 {id="mapping-function-pointer-types-from-c"}
 
 为了理解 Kotlin 和 C 之间的映射，我们声明两个函数：一个接受函数指针作为形参，另一个返回函数指针。
 
@@ -40,7 +40,7 @@ MyFun supply_fun() {
 
 `interop.def` 文件提供了编译、运行或在 IDE 中打开应用程序所需的一切。
 
-## 检查为 C 库生成的 Kotlin API
+## 检查为 C 库生成的 Kotlin API {id="inspect-generated-kotlin-apis-for-a-c-library"}
 
 让我们看看 C 函数指针是如何映射到 Kotlin/Native 的，并更新您的项目：
 
@@ -71,7 +71,7 @@ MyFun supply_fun() {
 
 `CFunction<(Int) -> Int>` 代表函数签名，而 `CPointer<CFunction<...>>?` 代表一个可为 null 的函数指针。所有 `CPointer<CFunction<...>>` 类型都有一个可用的 [`.invoke()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/invoke.html) 运算符扩展函数，允许您像调用常规 Kotlin 函数一样调用函数指针。
 
-## 将 Kotlin 函数作为 C 函数指针传递
+## 将 Kotlin 函数作为 C 函数指针传递 {id="pass-kotlin-function-as-a-c-function-pointer"}
 
 是时候尝试从 Kotlin 代码中使用 C 函数了。调用 `accept_fun()` 函数并将 C 函数指针传递给 Kotlin lambda表达式：
 
@@ -90,7 +90,7 @@ fun myFun() {
 
 确保该函数不会抛出任何异常。从 `staticCFunction {}` 中抛出异常会导致不确定的副作用。
 
-## 从 Kotlin 中使用 C 函数指针
+## 从 Kotlin 中使用 C 函数指针 {id="use-the-c-function-pointer-from-kotlin"}
 
 下一步是调用从 `supply_fun()` 调用返回的 C 函数指针：
 
@@ -109,7 +109,7 @@ fun myFun2() {
 
 Kotlin 将函数指针返回值类型转换为可为 null 的 `CPointer<CFunction<>>` 对象。您需要首先显式检查 `null`，这就是为什么在上面的代码中使用 [Elvis 运算符](null-safety.md)的原因。cinterop 工具允许您像调用常规 Kotlin 函数一样调用 C 函数指针：`functionFromC(42)`。
 
-## 更新 Kotlin 代码
+## 更新 Kotlin 代码 {id="update-kotlin-code"}
 
 既然您已经看过了所有的定义，请尝试在您的项目中使用它们。
 `hello.kt` 文件中的代码可能如下所示：
@@ -138,7 +138,7 @@ fun main() {
 ./gradlew runDebugExecutableMacosArm64
 ```
 
-## 下一步
+## 下一步 {id="next-step"}
 
 在本系列的下一部分中，您将学习如何在 Kotlin 和 C 之间映射字符串：
 
@@ -151,6 +151,6 @@ fun main() {
   </li>
 </list>
 
-### 另请参阅
+### 另请参阅 {id="see-also"}
 
 在涵盖更多高级场景的[与 C 互操作](native-c-interop.md)文档中了解更多信息。

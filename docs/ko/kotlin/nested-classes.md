@@ -27,7 +27,7 @@ class OuterClass {
 }
 ```
 
-## 내부 클래스
+## 내부 클래스 {id="inner-classes"}
 
 `inner` 키워드가 표시된 중첩 클래스는 외부 클래스의 멤버에 접근할 수 있습니다. 내부 클래스(Inner classes)는 외부 클래스의 객체에 대한 참조를 유지합니다:
 
@@ -44,7 +44,7 @@ val demo = Outer().Inner().foo() // == 1
 
 내부 클래스에서 `this`의 모호성을 해소하는 방법에 대해서는 [한정된 `this` 식(Qualified `this` expressions)](this-expressions.md)을 참고하세요.
 
-## 익명 내부 클래스
+## 익명 내부 클래스 {id="anonymous-inner-classes"}
 
 익명 내부 클래스(Anonymous inner class) 인스턴스는 [객체 식(object expression)](object-declarations.md#object-expressions)을 사용하여 생성합니다:
 

@@ -7,7 +7,7 @@
 这些函数不会改变原始集合，因此它们既可用于[可变集合也可用于只读集合](collections-overview.md#collection-types)。
 要操作过滤结果，你应该将其赋值给一个变量，或者在过滤后进行链式函数调用。
 
-## 按谓词过滤
+## 按谓词过滤 {id="filter-by-predicate"}
 
 基本的过滤函数是 [`filter()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/filter.html)。
 当调用并传入谓词时，`filter()` 会返回与其匹配的集合元素。
@@ -83,7 +83,7 @@ fun main() {
     ```
     {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 分区
+## 分区 {id="partition"}
 
 另一个过滤函数 —— [`partition()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/partition.html) —— 通过谓词过滤集合，并将不匹配的元素保留在一个单独的列表中。
 因此，你会得到一个由 `List` 组成的 `Pair` (对) 作为返回值：第一个列表包含与谓词匹配的元素，第二个列表包含原始集合中的其他所有元素。
@@ -101,7 +101,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 测试谓词
+## 测试谓词 {id="test-predicates"}
 
 最后，还有一些函数只是简单地针对集合元素测试谓词：
 

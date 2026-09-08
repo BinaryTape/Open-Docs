@@ -1,14 +1,14 @@
-## 總覽
+## 總覽 {id="overview"}
 
 Koog 提供了一種使用 `AIAgentStorage` 存儲和傳遞資料的方式，這是一個鍵值存儲系統，旨在以型別安全的方式在不同節點甚至子圖之間傳遞資料。
 
 存儲空間可透過代理節點中提供的 `storage` 屬性（`storage: AIAgentStorage`）存取，從而實現在 AI 代理系統的不同元件之間無縫共用資料。
 
-## 鍵值結構
+## 鍵值結構 {id="key-and-value-structure"}
 
 鍵值資料存儲結構依賴於 `AIAgentStorageKey` 資料類別。有關 `AIAgentStorageKey` 的更多資訊，請參閱以下章節。
 
-### AIAgentStorageKey
+### AIAgentStorageKey {id="aiagentstoragekey"}
 
 存儲使用類型化金鑰系統，以確保在存儲和檢索資料時的型別安全。
 
@@ -20,11 +20,11 @@ Koog 提供了一種使用 `AIAgentStorage` 存儲和傳遞資料的方式，這
 
 - 每個金鑰執行個體都是唯一的。`name` 不用於決定唯一性，因此可以有多個具有相同名稱的金鑰。這允許重用現有的策略元件，而不會有意外覆蓋存儲中資料的風險。
 
-## 使用範例
+## 使用範例 {id="usage-examples"}
 
 以下章節提供了一個建立存儲金鑰並使用其存儲和檢索資料的實際範例。
 
-### 定義代表資料的類別
+### 定義代表資料的類別 {id="defining-a-class-that-represents-your-data"}
 
 存儲您想要傳遞的資料的第一步是建立一個代表資料的類別。以下是包含基本使用者資料的簡單類別範例：
 
@@ -50,7 +50,7 @@ Koog 提供了一種使用 `AIAgentStorage` 存儲和傳遞資料的方式，這
 
 定義完成後，請使用該類別建立存儲金鑰，如下所述。
 
-### 建立存儲金鑰
+### 建立存儲金鑰 {id="creating-a-storage-key"}
 
 為定義的資料結構建立類型化存儲金鑰：
 
@@ -92,7 +92,7 @@ Koog 提供了一種使用 `AIAgentStorage` 存儲和傳遞資料的方式，這
 
 `createStorageKey` 函式接受一個用於識別和偵錯目的的字串參數，以及一個代表值型別的 `TypeToken`（在 Java 中使用；Kotlin 則會自動使用具體化泛型）。
 
-### 存儲資料
+### 存儲資料 {id="storing-data"}
 
 若要使用建立的存儲金鑰儲存資料，請在節點中使用 `storage.set(key: AIAgentStorageKey<T>, value: T)` 方法：
 
@@ -146,7 +146,7 @@ Koog 提供了一種使用 `AIAgentStorage` 存儲和傳遞資料的方式，這
     ```
     <!--- KNIT exampleDataTransferBetweenNodesJava03.java -->
 
-### 檢索資料
+### 檢索資料 {id="retrieving-data"}
 
 若要檢索資料，請在節點中使用 `storage.get` 方法：
 
@@ -209,7 +209,7 @@ Koog 提供了一種使用 `AIAgentStorage` 存儲和傳遞資料的方式，這
     ```
     <!--- KNIT exampleDataTransferBetweenNodesJava04.java -->
 
-## API 文件
+## API 文件 {id="api-documentation"}
 
 有關 `AIAgentStorage` 類別的完整參考，請參閱 [AIAgentStorage](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentStorage)。
 
@@ -223,7 +223,7 @@ Koog 提供了一種使用 `AIAgentStorage` 存儲和傳遞資料的方式，這
 - [set](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentStorage.set)
 - [toMap](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentStorage.toMap)
 
-## 附加資訊
+## 附加資訊 {id="additional-information"}
 
 - `AIAgentStorage` 是執行緒安全的，使用 Mutex 來確保並行存取得到正確處理。
 - 檢索值時，型別轉換會自動處理，確保整個應用程式的型別安全。

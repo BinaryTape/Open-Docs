@@ -17,9 +17,9 @@ class OrdersList: IndexedContainer {
 }
 ```
 
-## 単項演算
+## 単項演算 {id="unary-operations"}
 
-### 単項接頭辞演算子
+### 単項接頭辞演算子 {id="unary-prefix-operators"}
 
 | 式 | 変換先 |
 |------------|------------------|
@@ -53,7 +53,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-### インクリメントとデクリメント
+### インクリメントとデクリメント {id="increments-and-decrements"}
 
 | 式 | 変換先 |
 |------------|-----------------------|
@@ -81,9 +81,9 @@ fun main() {
 * `a.inc()`の結果を`a`に代入します。
 * 式の結果として`a`の新しい値を返します。
 
-## 二項演算
+## 二項演算 {id="binary-operations"}
 
-### 算術演算子 
+### 算術演算子 {id="arithmetic-operators"}
 
 | 式 | 変換先 |
 |------------|-------------------|
@@ -107,7 +107,7 @@ data class Counter(val dayIndex: Int) {
 }
 ```
 
-### in 演算子
+### in 演算子 {id="in-operator"}
 
 | 式 | 変換先 |
 |------------|------------------|
@@ -116,7 +116,7 @@ data class Counter(val dayIndex: Int) {
 
 `in`と`!in`の手順は同じですが、引数の順序が逆になります。
 
-### インデックスアクセス演算子
+### インデックスアクセス演算子 {id="indexed-access-operator"}
 
 | 式 | 変換先 |
 |-------------------------|---------------------------|
@@ -129,7 +129,7 @@ data class Counter(val dayIndex: Int) {
 
 角括弧（Square brackets）は、適切な数の引数を持つ`get`および`set`の呼び出しに変換されます。
 
-### invoke 演算子
+### invoke 演算子 {id="invoke-operator"}
 
 | 式 | 変換先 |
 |---------------------|----------------------------|
@@ -140,7 +140,7 @@ data class Counter(val dayIndex: Int) {
 
 丸括弧（Parentheses）は、適切な数の引数を持つ`invoke`の呼び出しに変換されます。
 
-### 複合代入
+### 複合代入 {id="augmented-assignments"}
 
 | 式 | 変換先 |
 |------------|--------------------|
@@ -162,7 +162,7 @@ data class Counter(val dayIndex: Int) {
 >
 {style="note"}
 
-### 等価および不等価演算子
+### 等価および不等価演算子 {id="equality-and-inequality-operators"}
 
 | 式 | 変換先 |
 |------------|-----------------------------------|
@@ -179,7 +179,7 @@ Kotlinは、`==`式において両方のオペランドが直接`null`と比較�
 >
 {style="note"}
 
-### 比較演算子
+### 比較演算子 {id="comparison-operators"}
 
 | 式 | 変換先 |
 |------------|-----------------------|
@@ -190,10 +190,10 @@ Kotlinは、`==`式において両方のオペランドが直接`null`と比較�
 
 すべての比較は`compareTo`の呼び出しに変換され、この関数は`Int`を返す必要があります。
 
-### プロパティ委譲演算子
+### プロパティ委譲演算子 {id="property-delegation-operators"}
 
 `provideDelegate`、`getValue`、`setValue`演算子関数については、[委譲プロパティ](delegated-properties.md)で説明されています。
 
-## 名前付き関数の中置呼び出し
+## 名前付き関数の中置呼び出し {id="infix-calls-for-named-functions"}
 
 [中置記法（infix notation）の関数呼び出し](functions.md#infix-notation)を使用することで、カスタムの中置操作を模倣することができます。

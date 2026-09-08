@@ -29,7 +29,7 @@ Ktor는 HTML 응답을 생성하기 위한 두 가지 주요 메커니즘을 제
 * Kotlin HTML DSL을 사용하여 HTML 빌드.
 * [FreeMarker](https://freemarker.apache.org/) 또는 [Velocity](https://velocity.apache.org/engine/)와 같은 JVM 템플릿 엔진을 사용하여 템플릿 렌더링.
 
-#### 전체 HTML 문서
+#### 전체 HTML 문서 {id="full-html-documents"}
 
 Kotlin DSL로 빌드된 전체 HTML 문서를 보내려면 [`call.respondHtml()`](https://api.ktor.io/ktor-server-html-builder/io.ktor.server.html/respond-html.html) 함수를 사용하세요:
 
@@ -51,7 +51,7 @@ get("/") {
 }
 ```
 
-#### 부분 HTML 프래그먼트
+#### 부분 HTML 프래그먼트 {id="partial-html-fragments"}
 
 `<html>`, `<head>`, 또는 `<body>`로 감싸지 않고 HTML의 일부(fragment)만 반환해야 하는 경우, `call.respondHtmlFragment()`를 사용할 수 있습니다:
 
@@ -66,7 +66,7 @@ get("/") {
 }
 ```
 
-#### 템플릿
+#### 템플릿 {id="templates"}
 
 응답에 템플릿을 보내려면 [`call.respond()`](https://api.ktor.io/ktor-server-core/io.ktor.server.response/respond.html) 함수를 특정 콘텐츠와 함께 사용하세요:
 ```kotlin
@@ -152,7 +152,7 @@ fun Application.main() {
 
 전체 코드 샘플은 [download-file](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/download-file)을 참조하세요.
 
-### 리소스
+### 리소스 {id="resource"}
 
 [`call.respondResource()`](https://api.ktor.io/ktor-server-core/io.ktor.server.response/respond-resource.html) 메서드를 사용하여 <tooltip term="classpath">클래스패스(classpath)</tooltip>에서 단일 리소스를 제공할 수 있습니다.
 이 메서드는 리소스 경로를 인자로 받아 다음과 같은 방식으로 구성된 응답을 보냅니다:

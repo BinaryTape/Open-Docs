@@ -136,7 +136,7 @@ defaultRequest {
 }
 ```
 
-### Unixドメインソケット
+### Unixドメインソケット {id="unix-domain-sockets"}
 
 > Unixドメインソケットは CIO エンジンでのみサポートされています。
 >

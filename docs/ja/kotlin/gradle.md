@@ -13,7 +13,7 @@ Gradle は、ビルドプロセスの自動化と管理を支援するビルド�
 * [インクリメンタルコンパイル、キャッシュのサポート、ビルドレポート、および Kotlin デーモン](gradle-compilation-and-caches.md)
 * [Gradle プラグインバリアントのサポート](gradle-plugin-variants.md)
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 以下の項目について学習しましょう：
 * **Gradle Kotlin DSL**：[Gradle Kotlin DSL](https://docs.gradle.org/current/userguide/kotlin_dsl.html) は、ビルドスクリプトを迅速かつ効率的に記述するために使用できるドメイン固有言語（DSL）です。

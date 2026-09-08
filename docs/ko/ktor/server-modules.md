@@ -178,11 +178,11 @@ ktor:
 
 전체 예제는 여기에서 확인할 수 있습니다: [engine-main-modules](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/engine-main-modules).
 
-## 모듈 의존성
+## 모듈 의존성 {id="module-dependencies"}
 
 모듈은 종종 공통 서비스, 리포지토리 또는 구성을 공유해야 합니다. 모듈 내부에서 의존성을 생성하기보다 주입하는 방식이 테스트 가능성과 유연성을 향상시킵니다. Ktor는 프로젝트의 복잡성에 따라 여러 가지 접근 방식을 제공합니다.
 
-### 매개변수를 통한 의존성 전달
+### 매개변수를 통한 의존성 전달 {id="passing-dependencies-through-parameters"}
 
 의존성을 전달하는 가장 간단한 방법은 모듈 함수의 매개변수로 선언하는 것입니다:
 
@@ -200,7 +200,7 @@ fun main() {
 
 이 방식은 소규모 또는 중형 애플리케이션에서 잘 작동하며 의존성 관계를 명확하게 유지합니다. 하지만 모듈이 컴파일 타임에 강하게 결합되어 런타임에 쉽게 교체할 수 없다는 단점이 있습니다.
 
-### 애플리케이션 속성 사용
+### 애플리케이션 속성 사용 {id="using-application-attributes"}
 
 모든 모듈에서 사용할 수 있는 타입 세이프(type-safe) 맵인 `Application.attributes`를 사용할 수 있습니다:
 
@@ -237,7 +237,7 @@ suspend fun Application.installEvents() {
 
 또한 모든 애플리케이션 모듈을 독립적으로 실행할 수 있으므로, 하나의 모듈이 중단(suspended)되더라도 다른 모듈이 차단되지 않습니다. 이를 통해 의존성 주입을 위한 비순차적 로딩이 가능하며, 경우에 따라 더 빠른 로딩이 가능해집니다.
 
-### 구성 옵션
+### 구성 옵션 {id="configuration-options"}
 
 다음 구성 속성들을 사용할 수 있습니다:
 
@@ -246,7 +246,7 @@ suspend fun Application.installEvents() {
 | `ktor.application.startup`              | `sequential` / `concurrent` | 애플리케이션 모듈이 로드되는 방식을 정의합니다.                | `sequential` |
 | `ktor.application.startupTimeoutMillis` | `Long`                      | 애플리케이션 모듈 로딩 제한 시간 (밀리초 단위)               | `10000`      |
 
-### 동시성 모듈 로딩 활성화
+### 동시성 모듈 로딩 활성화 {id="enable-concurrent-module-loading"}
 
 동시성 모듈 로딩을 사용하려면 서버 설정 파일에 다음을 추가하세요:
 

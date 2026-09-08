@@ -18,7 +18,7 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Bank
 
 完成後，你將能夠將自由格式的使用者請求導向正確的工具，並產生實用且可稽核的回應。
 
-## 設定與相依性 (Setup & Dependencies)
+## 設定與相依性 (Setup & Dependencies) {id="setup-dependencies"}
 
 我們將使用 Kotlin Notebook 核心。請確保你的 Koog 構件 (artifacts) 可從 Maven Central 解析，且你的 LLM 提供者金鑰可透過 `OPENAI_API_KEY` 取得。
 
@@ -37,7 +37,7 @@ val apiKey = System.getenv("OPENAI_API_KEY") ?: error("Please set OPENAI_API_KEY
 val openAIExecutor = simpleOpenAIExecutor(apiKey)
 ```
 
-## 定義系統提示詞 (System Prompt)
+## 定義系統提示詞 (System Prompt) {id="defining-the-system-prompt"}
 
 精心設計的系統提示詞有助於 AI 理解其角色與約束。此提示詞將引導我們所有 Agent 的行為。
 
@@ -52,7 +52,7 @@ val bankingAssistantSystemPrompt = """
 """.trimMargin()
 ```
 
-## 領域模型與範例資料 (Domain model & Sample data)
+## 領域模型與範例資料 (Domain model & Sample data) {id="domain-model-sample-data"}
 
 首先，讓我們定義領域模型與範例資料。我們將使用支援序列化的 Kotlin 資料類別。
 
@@ -78,7 +78,7 @@ val contactList = listOf(
 val contactById = contactList.associateBy(Contact::id)
 ```
 
-## 工具：轉帳 (Tools: Money Transfer)
+## 工具：轉帳 (Tools: Money Transfer) {id="tools-money-transfer"}
 
 工具應該是 **純粹 (pure)** 且可預測的。
 
@@ -186,7 +186,7 @@ class MoneyTransferTools : ToolSet {
 }
 ```
 
-## 建立你的第一個 Agent
+## 建立你的第一個 Agent {id="creating-your-first-agent"}
 現在讓我們建立一個使用我們轉帳工具的 Agent。
 Agent 結合了 LLM 與工具來完成任務。
 
@@ -233,7 +233,7 @@ runBlocking {
 
     Task completed successfully.
 
-## 加入交易分析 (Adding Transaction Analytics)
+## 加入交易分析 (Adding Transaction Analytics) {id="adding-transaction-analytics"}
 讓我們使用交易分析工具擴充助手的技能。
 首先，我們定義交易領域模型。
 
@@ -267,7 +267,7 @@ data class Transaction(
 )
 ```
 
-### 範例交易資料
+### 範例交易資料 {id="sample-transaction-data"}
 
 ```kotlin
 val transactionAnalysisPrompt = """
@@ -332,7 +332,7 @@ val sampleTransactions = listOf(
 )
 ```
 
-## 交易分析工具 (Transaction Analysis Tools)
+## 交易分析工具 (Transaction Analysis Tools) {id="transaction-analysis-tools"}
 
 ```kotlin
 @LLMDescription("Tools for analyzing transaction history")
@@ -451,10 +451,10 @@ runBlocking {
     
     Task completed successfully.
 
-## 使用圖 (Graph) 構建 Agent
+## 使用圖 (Graph) 構建 Agent {id="building-an-agent-with-graph"}
 現在讓我們將專業化的 Agent 組合到一個圖型 Agent 中，該 Agent 可以將請求導向適當的處理常式。
 
-### 請求分類 (Request Classification)
+### 請求分類 (Request Classification) {id="request-classification"}
 首先，我們需要一種分類傳入請求的方法：
 
 ```kotlin
@@ -479,7 +479,7 @@ data class ClassifiedBankRequest(
 
 ```
 
-### 共享工具註冊表 (Shared tool registry)
+### 共享工具註冊表 (Shared tool registry) {id="shared-tool-registry"}
 
 ```kotlin
 // 為多 Agent 系統建立一個全面的工具註冊表
@@ -490,7 +490,7 @@ val toolRegistry = ToolRegistry {
 }
 ```
 
-## Agent 策略 (Agent Strategy)
+## Agent 策略 (Agent Strategy) {id="agent-strategy"}
 
 現在我們將建立一個編排多個節點的策略：
 
@@ -613,7 +613,7 @@ val agent = AIAgent<String, String>(
 )
 ```
 
-## 執行圖型 Agent
+## 執行圖型 Agent {id="run-graph-agent"}
 
 ```kotlin
 println("Banking Assistant started")
@@ -646,7 +646,7 @@ runBlocking {
 
     Result: Task completed successfully.
 
-## Agent 組合 — 將 Agent 作為工具使用
+## Agent 組合 — 將 Agent 作為工具使用 {id="agent-composition-using-agents-as-tools"}
 
 Koog 允許你在其他 Agent 中將 Agent 作為工具使用，進而實現強大的組合模式。
 
@@ -691,7 +691,7 @@ $transactionAnalysisPrompt"
 )
 ```
 
-## 執行組合 Agent
+## 執行組合 Agent {id="run-composed-agent"}
 
 ```kotlin
 println("Banking Assistant started")
@@ -711,7 +711,7 @@ runBlocking {
 
     Result: Can't perform the task.
 
-## 總結 (Summary)
+## 總結 (Summary) {id="summary"}
 在本教學中，你已經學習了如何：
 
 1. 建立具有清晰描述的 LLM 驅動工具，幫助 AI 理解何時以及如何使用它們
@@ -720,7 +720,7 @@ runBlocking {
 4. 透過在其他 Agent 中將 Agent 作為工具使用來組合 Agent
 5. 處理使用者互動，包括確認與消除歧義
 
-## 最佳實務 (Best Practices)
+## 最佳實務 (Best Practices) {id="best-practices"}
 
 1. 清晰的工具描述：撰寫詳細的 `LLMDescription` 註解，幫助 AI 理解工具用途
 2. 慣用的 Kotlin：使用 Kotlin 特性，如資料類別 (data classes)、擴充函式 (extension functions) 與作用域函式 (scope functions)

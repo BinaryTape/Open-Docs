@@ -8,7 +8,7 @@ Kotlin 中有四种可见性修饰符：`private`、`protected`、`internal` 和
 
 在本页面中，你将了解这些修饰符如何应用于不同类型的声明作用域。
 
-## 软件包
+## 软件包 {id="packages"}
 
 函数、属性、类、对象和接口可以直接在软件包内的“顶级”进行声明：
 
@@ -43,7 +43,7 @@ public var bar: Int = 5 // 属性随处可见
 internal val baz = 6    // 在同一个模块内可见
 ```
 
-## 类成员
+## 类成员 {id="class-members"}
 
 对于在类内部声明的成员：
 
@@ -88,7 +88,7 @@ class Unrelated(o: Outer) {
 }
 ```
 
-### 构造函数
+### 构造函数 {id="constructors"}
 
 使用以下语法指定类的主构造函数的可见性：
 
@@ -104,11 +104,11 @@ class C private constructor(a: Int) { ... }
 
 对于密封类，构造函数默认是 `protected`。更多信息请参阅[密封类](sealed-classes.md#constructors)。
 
-### 局部声明
+### 局部声明 {id="local-declarations"}
 
 局部变量、函数和类不能有可见性修饰符。
 
-## 模块
+## 模块 {id="modules"}
 
 `internal` 可见性修饰符意味着成员在同一个模块内可见。更具体地说，一个模块是编译在一起的一组 Kotlin 文件，例如：
 

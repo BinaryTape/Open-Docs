@@ -16,7 +16,7 @@ src
 
 如果驅動程式支援，遷移會在交易中執行。您不應將遷移放在 `BEGIN/END TRANSACTION` 之中，因為這可能會導致某些驅動程式當機。
 
-## 版本管理
+## 版本管理 {id="versioning"}
 
 架構的第一個版本是 1。遷移檔案的命名方式為 `<要從其升級的版本>.sqm`。要遷移到版本 2，請將遷移陳述式放在 `1.sqm` 中：
 
@@ -27,7 +27,7 @@ ALTER TABLE hockeyPlayer ADD COLUMN draft_order INTEGER;
 
 這些 SQL 陳述式由 `Database.Schema.migrate()` 方法執行。遷移檔案與您的 `.sq` 檔案位於相同的原始碼集中。
 
-## 驗證遷移
+## 驗證遷移 {id="verifying-migrations"}
 
 一個 `verifySqlDelightMigration` 任務將被加入到 Gradle 專案中，並作為 `check` 任務的一部分執行。對於您的 SqlDelight 原始碼集（例如 `src/main/sqldelight`）中任何名為 `<版本號碼>.db` 的檔案，它將套用從 `<版本號碼>.sqm` 開始的所有遷移，並確認遷移產生的資料庫具有最新的架構。
 
@@ -35,7 +35,7 @@ ALTER TABLE hockeyPlayer ADD COLUMN draft_order INTEGER;
 
 大多數使用案例僅需保留一個代表資料庫初始版本架構的 `1.db` 檔案即可獲益。雖然允許擁有多個 `.db` 檔案，但這會導致每個 `.db` 檔案都需要套用其各自的遷移，從而造成許多不必要的工作。
 
-## 程式碼遷移
+## 程式碼遷移 {id="code-migrations"}
 
 如果您從程式碼執行遷移並希望執行資料遷移，可以使用 `Database.Schema.migrate` API：
 

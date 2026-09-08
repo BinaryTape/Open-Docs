@@ -17,7 +17,7 @@ Compose Multiplatform 团队为 AndroidX Navigation 库贡献了跨平台支持�
 >
 {style="tip"}
 
-## Compose 导航的基本概念
+## Compose 导航的基本概念 {id="basic-concepts-of-compose-navigation"}
 
 Navigation 库使用以下概念来映射导航用例：
 
@@ -35,7 +35,7 @@ Navigation 库使用以下概念来映射导航用例：
 * 应用将用户的路径表示为一个目的地堆栈，即**返回堆栈 (back stack)**。默认情况下，每当用户导航到一个新目的地时，该目的地都会被添加到堆栈顶部。您可以使用返回堆栈使导航更加直观：通过从堆栈顶部弹出当前目的地并自动返回到前一个目的地，而不是直接来回导航。
 * 每个目的地可以关联一组**深层链接 (deep links)**：当应用从操作系统接收到链接时，应引导至该目的地的 URI 模式。
 
-## 基本导航示例
+## 基本导航示例 {id="basic-navigation-example"}
 
 要使用 Navigation 库，请将以下依赖项添加到您的 `commonMain` 源集：
 
@@ -80,7 +80,7 @@ NavHost(navController = navController, startDestination = Profile) {
 }
 ```
 
-### Navigation 库的主要类
+### Navigation 库的主要类 {id="main-classes-of-the-navigation-library"}
 
 Navigation 库提供了以下核心类型：
 
@@ -90,9 +90,9 @@ Navigation 库提供了以下核心类型：
 
 除了核心类型的功能外，Navigation 组件还提供动画和过渡效果、深层链接支持、类型安全、`ViewModel` 支持以及其他用于处理应用导航的便捷功能。
 
-## 导航用例
+## 导航用例 {id="navigation-use-cases"}
 
-### 转到目的地
+### 转到目的地 {id="go-to-a-destination"}
 
 要导航到目的地，请调用 `NavController.navigate()` 函数。继续上面的示例：
 
@@ -102,7 +102,7 @@ Button(onClick = { navController.navigate(Profile) }) {
 }
 ```
 
-### 向目的地传递实参
+### 向目的地传递实参 {id="pass-arguments-to-a-destination"}
 
 在设计导航图时，您可以将路线定义为带有参数的数据类，例如：
 
@@ -129,7 +129,7 @@ composable<Profile> { backStackEntry ->
 }
 ```
 
-### 导航时检索复杂数据
+### 导航时检索复杂数据 {id="retrieve-complex-data-when-navigating"}
 
 在目的地之间导航时，请考虑仅在它们之间传递最必要的最小信息。反映应用总体状态的文件或复杂对象应存储在数据层中：当用户到达目的地时，UI 应从单一事实来源加载实际数据。
 
@@ -143,7 +143,7 @@ composable<Profile> { backStackEntry ->
 
 有关在应用中正确实现数据层的指南，请参阅 [Android 关于数据层的文章](https://developer.android.com/topic/architecture/data-layer)。
 
-### 管理返回堆栈
+### 管理返回堆栈 {id="manage-back-stack"}
 
 返回堆栈由 `NavController` 类控制。与任何其他堆栈一样，`NavController` 将新项压入堆栈顶部并从顶部弹出：
 
@@ -160,7 +160,7 @@ Navigation 库允许在处理返回堆栈时具有一定的灵活性。您可以
 
 有关详细信息和用例，请参阅 [Jetpack Compose 关于返回堆栈的文档](https://developer.android.com/guide/navigation/backstack)。
 
-### 深层链接
+### 深层链接 {id="deep-links"}
 
 Navigation 库允许您将特定的 URI、操作或 MIME 类型与目的地关联。这种关联称为**深层链接 (deep link)**。
 
@@ -168,7 +168,7 @@ Navigation 库允许您将特定的 URI、操作或 MIME 类型与目的地关�
 
 有关创建、注册和处理深层链接的详细信息，请参阅[深层链接](compose-navigation-deep-links.md)。
 
-### 返回手势
+### 返回手势 {id="back-gesture"}
 
 跨平台 Navigation 库将每个平台上的返回手势转换为导航到上一个屏幕（例如，在 iOS 上这是一个简单的向后滑动，在桌面上则是 <shortcut>Esc</shortcut> 键）。
 
@@ -197,7 +197,7 @@ ComposeUIViewController(
 }
 ```
 
-## 替代导航解决方案
+## 替代导航解决方案 {id="alternative-navigation-solutions"}
 
 如果基于 Compose 的导航实现不适合您，还有一些第三方替代方案可供评估：
 
@@ -211,7 +211,7 @@ ComposeUIViewController(
 
 如果您的目标平台是 iOS 并且希望在导航 UI 中实现系统渲染的效果（如 [Liquid Glass](https://developer.apple.com/documentation/technologyoverviews/liquid-glass)），请考虑[将导航迁移到原生 SwiftUI](ios-liquid-glass.md)，同时保留 Compose 用于屏幕内容。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 Android 开发者门户对 Compose 导航进行了深入介绍。虽然该文档有时使用仅限 Android 的示例，但跨平台的基本指南和导航原则是相同的：
 

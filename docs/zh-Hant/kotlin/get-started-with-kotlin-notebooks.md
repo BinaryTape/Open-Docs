@@ -18,7 +18,7 @@
    <img src="icon-3.svg" width="20" alt="第三步"/> <a href="kotlin-notebook-add-dependencies.md">為您的 Kotlin Notebook 新增相依性</a><br/>
 </p>
 
-## 下一步
+## 下一步 {id="next-step"}
 
 從設定 Kotlin Notebook 的工作環境開始：
 

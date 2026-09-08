@@ -561,7 +561,7 @@ CIO 引擎是一个完全异步的基于协程的引擎，可在 JVM、Android�
 
 ## 限制 {id="limitations"}
 
-### HTTP/2 和 WebSockets
+### HTTP/2 和 WebSockets {id="http-2-and-websockets"}
 
 并非所有引擎都支持 HTTP/2 协议。如果某个引擎支持 HTTP/2，您可以在该引擎的配置中启用它。例如，使用 [Java](#java) 引擎。
 
@@ -580,19 +580,19 @@ CIO 引擎是一个完全异步的基于协程的引擎，可在 JVM、Android�
 | `WinHttp` | ✅ | ✅ |
 | `Curl` | ✅ | ✅ |
 
-### 安全性
+### 安全性 {id="security"}
 
 [SSL](client-ssl.md) 必须针对每个引擎进行配置。每个引擎都提供自己的 SSL 配置选项。
 
-### 代理支持
+### 代理支持 {id="proxy-support"}
 
 某些引擎不支持代理。完整列表请参阅[代理文档](client-proxy.md#supported_engines)。
 
-### 日志记录
+### 日志记录 {id="logging"}
 
 [Logging](client-logging.md) 插件根据目标平台提供不同的记录器类型。
 
-### 超时
+### 超时 {id="timeout"}
 
 [HttpTimeout](client-timeout.md) 插件在某些引擎上有一些限制。完整列表请参阅[超时限制](client-timeout.md#limitations)。
 

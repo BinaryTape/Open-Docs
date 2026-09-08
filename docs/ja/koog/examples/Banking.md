@@ -18,7 +18,7 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Bank
 
 最後には、自由形式のユーザーリクエストを適切なツールにルーティングし、役立つ、かつ監査可能なレスポンスを生成できるようになります。
 
-## セットアップと依存関係
+## セットアップと依存関係 {id="setup-dependencies"}
 
 Kotlin Notebook カーネルを使用します。Koog のアーティファクトが Maven Central から解決可能であること、および LLM プロバイダーのキーが `OPENAI_API_KEY` を通じて利用可能であることを確認してください。
 
@@ -37,7 +37,7 @@ val apiKey = System.getenv("OPENAI_API_KEY") ?: error("Please set OPENAI_API_KEY
 val openAIExecutor = simpleOpenAIExecutor(apiKey)
 ```
 
-## システムプロンプトの定義
+## システムプロンプトの定義 {id="defining-the-system-prompt"}
 
 適切に設計されたシステムプロンプトは、AI が自身の役割と制約を理解するのに役立ちます。このプロンプトは、すべてのエージェントの動作をガイドします。
 
@@ -52,7 +52,7 @@ val bankingAssistantSystemPrompt = """
 """.trimMargin()
 ```
 
-## ドメインモデルとサンプルデータ
+## ドメインモデルとサンプルデータ {id="domain-model-sample-data"}
 
 まず、ドメインモデルとサンプルデータを定義しましょう。Kotlin のデータクラスとシリアライズ・サポートを使用します。
 
@@ -78,7 +78,7 @@ val contactList = listOf(
 val contactById = contactList.associateBy(Contact::id)
 ```
 
-## ツール：送金
+## ツール：送金 {id="tools-money-transfer"}
 
 ツールは**純粋 (pure)** で予測可能である必要があります。
 
@@ -186,7 +186,7 @@ class MoneyTransferTools : ToolSet {
 }
 ```
 
-## 最初のエージェントの作成
+## 最初のエージェントの作成 {id="creating-your-first-agent"}
 それでは、送金ツールを使用するエージェントを作成しましょう。
 エージェントは LLM とツールを組み合わせて、タスクを遂行します。
 
@@ -233,7 +233,7 @@ runBlocking {
 
     Task completed successfully.
 
-## 取引分析の追加
+## 取引分析の追加 {id="adding-transaction-analytics"}
 取引分析ツールを追加して、アシスタントの機能を拡張しましょう。
 まず、取引のドメインモデルを定義します。
 
@@ -267,7 +267,7 @@ data class Transaction(
 )
 ```
 
-### 取引サンプルデータ
+### 取引サンプルデータ {id="sample-transaction-data"}
 
 ```kotlin
 val transactionAnalysisPrompt = """
@@ -332,7 +332,7 @@ val sampleTransactions = listOf(
 )
 ```
 
-## 取引分析ツール
+## 取引分析ツール {id="transaction-analysis-tools"}
 
 ```kotlin
 @LLMDescription("Tools for analyzing transaction history")
@@ -451,10 +451,10 @@ runBlocking {
     
     Task completed successfully.
 
-## グラフを使用したエージェントの構築
+## グラフを使用したエージェントの構築 {id="building-an-agent-with-graph"}
 次に、これらの特化型エージェントを、リクエストを適切なハンドラーにルーティングできるグラフ・エージェントとして統合しましょう。
 
-### リクエストの分類
+### リクエストの分類 {id="request-classification"}
 まず、入力リクエストを分類する方法が必要です：
 
 ```kotlin
@@ -479,7 +479,7 @@ data class ClassifiedBankRequest(
 
 ```
 
-### 共有ツールレジストリ
+### 共有ツールレジストリ {id="shared-tool-registry"}
 
 ```kotlin
 // マルチエージェントシステム用の包括的なツールレジストリを作成します
@@ -490,7 +490,7 @@ val toolRegistry = ToolRegistry {
 }
 ```
 
-## エージェント戦略
+## エージェント戦略 {id="agent-strategy"}
 
 複数のノードを調整するストラテジーを作成します：
 
@@ -613,7 +613,7 @@ val agent = AIAgent<String, String>(
 )
 ```
 
-## グラフ・エージェントの実行
+## グラフ・エージェントの実行 {id="run-graph-agent"}
 
 ```kotlin
 println("Banking Assistant started")
@@ -646,7 +646,7 @@ runBlocking {
 
     Result: Task completed successfully.
 
-## エージェントの構成 — エージェントをツールとして使用する
+## エージェントの構成 — エージェントをツールとして使用する {id="agent-composition-using-agents-as-tools"}
 
 Koog では、エージェントを他のエージェント内でツールとして使用することができ、強力な構成（コンポジション）パターンを実現できます。
 
@@ -691,7 +691,7 @@ $transactionAnalysisPrompt"
 )
 ```
 
-## 構成済みエージェントの実行
+## 構成済みエージェントの実行 {id="run-composed-agent"}
 
 ```kotlin
 println("Banking Assistant started")
@@ -711,7 +711,7 @@ runBlocking {
 
     Result: Can't perform the task.
 
-## まとめ
+## まとめ {id="summary"}
 このチュートリアルでは、以下の内容を学びました：
 
 1. AI がいつどのように使用するかを理解できるように、明確な説明文（description）を備えた LLM 駆動ツールの作成
@@ -720,7 +720,7 @@ runBlocking {
 4. エージェントを他のエージェント内のツールとして使用することによるエージェントの構成
 5. 確認や曖昧さの解消を含む、ユーザーとの対話の処理
 
-## ベストプラクティス
+## ベストプラクティス {id="best-practices"}
 
 1. 明確なツールの説明：AI がツールの使用方法を理解できるように、詳細な `LLMDescription` アノテーションを記述します。
 2. 慣用的な Kotlin：データクラス、拡張関数、スコープ関数などの Kotlin の機能を活用します。

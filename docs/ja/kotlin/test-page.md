@@ -13,7 +13,7 @@
     </p>
 </tldr>
 
-## 同期タブ
+## 同期タブ {id="synchronized-tabs"}
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -57,9 +57,9 @@ plugins {
 </tab>
 </tabs>
 
-## セクション
+## セクション {id="sections"}
 
-### 折りたたみセクション {initial-collapse-state="collapsed" collapsible="true"}
+### 折りたたみセクション {initial-collapse-state="collapsed" collapsible="true" id="collapsed-section"}
 
 ここにテキストとコードブロックがあります：
 
@@ -69,7 +69,7 @@ plugins {
 }
 ```
 
-## コードブロック
+## コードブロック {id="codeblocks"}
 
 単一のコードブロック：
 
@@ -91,7 +91,7 @@ class MessageService(val db: MessageRepository) {
 }
 ```
 
-### 展開可能なコードブロック
+### 展開可能なコードブロック {id="expandable-codeblock"}
 
 ```kotlin
 package com.example.demo
@@ -117,7 +117,7 @@ class MessageController {
 ```
 {initial-collapse-state="collapsed" collapsible="true"}
 
-### 実行可能なコードブロック
+### 実行可能なコードブロック {id="runnable-codeblock"}
 
 ```kotlin
 data class User(val name: String, val id: Int)
@@ -134,9 +134,9 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## テーブル
+## テーブル {id="tables"}
 
-### Markdownテーブル
+### Markdownテーブル {id="markdown-table"}
 
 | プリミティブ型の配列                                                                    | Javaでの対応 |
 |---------------------------------------------------------------------------------------|--------------------|
@@ -149,7 +149,7 @@ fun main() {
 | [`LongArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long-array/)       | `long[]`           |
 | [`ShortArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-short-array/)     | `short[]`          |
 
-### XMLテーブル
+### XMLテーブル {id="xml-table"}
 
 <table>
     <tr>
@@ -162,7 +162,7 @@ fun main() {
     </tr>
 </table>
 
-### コードブロックを含むXMLテーブル
+### コードブロックを含むXMLテーブル {id="xml-table-with-codeblocks-inside"}
 
 シンプルなテーブル：
 
@@ -287,9 +287,9 @@ jvmTest<Scope>
     </tr>
 </table>
 
-## リスト
+## リスト {id="lists"}
 
-### 番号付きリスト
+### 番号付きリスト {id="ordered-list"}
 
 1. 1つ目
 2. 2つ目
@@ -304,7 +304,7 @@ jvmTest<Scope>
    jvmTest<Scope>
    ```
 
-### 番号なしリスト
+### 番号なしリスト {id="non-ordered-list"}
 
 * 最初の項目
 * 2番目の項目
@@ -318,7 +318,7 @@ jvmTest<Scope>
    jvmTest<Scope>
    ```
 
-### 定義リスト
+### 定義リスト {id="definition-list"}
 
 <deflist collapsible="true">
    <def title="折りたたみアイテム #1">
@@ -332,7 +332,7 @@ jvmTest<Scope>
    </def>
 </deflist>
 
-## テキスト要素
+## テキスト要素 {id="text-elements"}
 
 * **太字テキスト**
 * _斜体テキスト_
@@ -342,16 +342,16 @@ jvmTest<Scope>
 * [外部リンク](https://jetbrains.com)
 * 絵文字 ❌✅🆕
 
-## 変数
+## 変数 {id="variables"}
 * 変数の使用：最新のKotlinバージョンは %kotlinVersion% です
 
-## 埋め込み要素
+## 埋め込み要素 {id="embedded-elements"}
 
-### YouTubeの動画
+### YouTubeの動画 {id="video-from-youtube"}
 
 <video src="https://www.youtube.com/v/Ol_96CHKqg8" title="What's new in Kotlin 1.9.20"/>
 
-### 画像
+### 画像 {id="pictures"}
 
 標準（Markdown）：
 
@@ -375,7 +375,7 @@ jvmTest<Scope>
    <img src="multiplatform-create-project-button.png" alt="プロジェクトを作成する" style="block"/>
 </a>
 
-## ノート
+## ノート {id="notes"}
 
 警告：
 

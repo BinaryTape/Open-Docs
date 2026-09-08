@@ -11,7 +11,7 @@ Ktor 3.5.0 針對伺服器與用戶端提供了一系列改進。本次功能發
 * [僅在修改時傳送工作階段 Cookie](#session-cookies)
 * [OkHttp 與 Apache5 用戶端引擎中的自訂 DNS 解析器](#custom-dns-resolvers)
 
-## Ktor Server
+## Ktor Server {id="ktor-server"}
 
 ### 支援 RFC 7616 摘要驗證 (Digest authentication) {id="rfc-7616-digest-auth"}
 
@@ -67,7 +67,7 @@ install(Authentication) {
 
 如需完整指南，請參閱 [Ktor 伺服器中的摘要驗證](server-digest-auth.md)。
 
-### 自訂提供者中的掛起 (Suspending) `.authenticate()` 多載
+### 自訂提供者中的掛起 (Suspending) `.authenticate()` 多載 {id="suspending-authenticate-overload-in-custom-providers"}
 
 [自訂驗證提供者](server-auth.md#custom-auth-provider) 現在可以實作掛起 (suspending) 版本的 `DynamicProviderConfig.authenticate()` 函式。`.authenticate()` 函式接受一個掛起 lambda，因此您可以在驗證過程中直接呼叫協同程式 API：
 
@@ -108,7 +108,7 @@ val config = ApplicationConfig("application.yaml").getAs<Config>()
 
 </compare>
 
-### 必要的請求參數輔助函式
+### 必要的請求參數輔助函式 {id="require-request-parameters-helper-functions"}
 
 Ktor 3.5.0 引入了一組新的擴充函式，簡化了從 `ApplicationCall` 存取必要請求資料的操作。
 
@@ -152,7 +152,7 @@ post("/checkout") {
 
 </compare>
 
-### `ktor-network` 的 ES 模組相容性
+### `ktor-network` 的 ES 模組相容性 {id="es-modules-compatibility-for-ktor-network"}
 
 我們修復了在啟用 ES 模組時無法使用 `ktor-network` 及其所有相依模組的問題。
 
@@ -164,7 +164,7 @@ post("/checkout") {
 >
 {style="tip"}
 
-### 工作階段 (Sessions) 外掛程式中改進的工作階段管理
+### 工作階段 (Sessions) 外掛程式中改進的工作階段管理 {id="improved-session-management-in-the-sessions-plugin"}
 
 Ktor 3.5.0 改進了 [工作階段 (Sessions)](server-sessions.md) 外掛程式中的工作階段處理，增加了新的配置選項，讓您能更精確地控制工作階段生命週期、身分識別產生以及網路行為。
 
@@ -182,7 +182,7 @@ install(Sessions) {
 }
 ```
 
-#### 透過請求資料產生工作階段 ID
+#### 透過請求資料產生工作階段 ID {id="generate-session-ids-from-request-data"}
 
 `CookieIdSessionBuilder.identity()` 函式現在接受一個 `ApplicationCall`，允許工作階段 ID 衍生自當前的應用程式呼叫。這支援了諸如將工作階段綁定到已驗證使用者或請求元資料的使用案例。
 
@@ -198,7 +198,7 @@ install(Sessions) {
 
 先前的 `identity()` 函式已被棄用，建議改用這個具備呼叫感知 (call-aware) 能力的多載版本。
 
-#### 依 ID 清除工作階段
+#### 依 ID 清除工作階段 {id="clear-sessions-by-id"}
 
 您現在可以透過工作階段的存儲 ID 來使該工作階段失效，而無需作用中的呼叫，這可以透過 `call.sessions.clear<UserSession>()` 和 `CurrentSession.clear()` 輔助函式來達成。這兩個函式都會委派給 `SessionTrackerById.clearById()`。
 
@@ -212,7 +212,7 @@ post("/logout/{sessionId}") {
 
 這對於諸如登出使用者的所有裝置，或從背景工作 (background jobs) 中使工作階段過期等情境非常有用。
 
-### 自訂 SSE 心跳事件
+### 自訂 SSE 心跳事件 {id="custom-sse-heartbeat-events"}
 
 本次發布為 Ktor 伺服器端的 SSE 支援引入了一個新選項，讓您可以使用事件提供者函式 (event provider function) 完整自訂心跳事件：
 
@@ -225,7 +225,7 @@ heartbeat {
 
 這使得定期傳送自訂心跳承載資料 (heartbeat payloads) 成為可能，例如時間戳記和狀態資訊。
 
-### Jetty 引擎中的 SNI 驗證配置
+### Jetty 引擎中的 SNI 驗證配置 {id="sni-validation-configuration-in-the-jetty-engine"}
 
 本次發布為 Jetty 引擎引入了一個新的 `secureRequestCustomizer` 配置選項，讓您可以直接存取 Jetty 的 `SecureRequestCustomizer` 執行個體。
 
@@ -243,7 +243,7 @@ embeddedServer(
 )
 ```
 
-## Ktor Client
+## Ktor Client {id="ktor-client"}
 
 ### OkHttp 與 Apache5 引擎中的自訂 DNS 解析器 {id="custom-dns-resolvers"}
 
@@ -251,7 +251,7 @@ Ktor 3.5.0 在 OkHttp 與 Apache5 用戶端引擎中增加了對配置自訂 DNS
 
 以前，您需要透過存取引擎特定的內部細節來配置自訂 DNS 解析，例如 OkHttp 中的 `config {}` 或 Apache5 中的 `configureConnectionManager { setDnsResolver(...) }`。Ktor 現在在每個引擎上公開了專用的配置屬性，以提供一致且型別安全的 API。
 
-#### OkHttp
+#### OkHttp {id="okhttp"}
 
 您現在可以使用 `OkHttpConfig.dns` 屬性在 OkHttp 中配置自訂 DNS 解析器：
 
@@ -265,7 +265,7 @@ HttpClient(OkHttp) {
 
 如果您未配置 `dns` 屬性，OkHttp 引擎將繼續使用 OkHttp 預設的 `Dns.SYSTEM` 解析器。
 
-#### Apache5
+#### Apache5 {id="apache5"}
 
 您現在可以使用 `Apache5EngineConfig.dnsResolver` 屬性在 Apache5 中配置自訂 DNS 解析器：
 

@@ -16,7 +16,7 @@
 
 Kotlin Multiplatform 마법사가 생성한 샘플 컴포저블을 자세히 살펴보겠습니다. 먼저, 공통 UI를 구현하며 모든 플랫폼에서 사용할 수 있는 `App()` 컴포저블 함수가 있습니다. 두 번째로, 각 플랫폼에서 이 UI를 실행하는 플랫폼별 코드가 있습니다.
 
-## 컴포저블 함수 구현하기
+## 컴포저블 함수 구현하기 {id="implementing-composable-functions"}
 
 `shared/src/commonMain/kotlin/App.kt` 파일에서 `App()` 함수를 살펴보세요.
 
@@ -37,7 +37,7 @@ undefined
 수정자(Modifiers)는 Jetpack Compose 및 Compose Multiplatform의 핵심 구성 요소입니다. 이는 UI에서 컴포저블의 모양이나 동작을 조정하는 데 사용하는 기본 메커니즘입니다. 수정자는 `Modifier` 타입의 메서드를 사용하여 생성됩니다. 이러한 메서드들을 체이닝(chaining)할 때, 각 호출은 이전 호출에서 반환된 `Modifier`를 변경할 수 있으므로 호출 순서가 중요합니다.
 더 자세한 내용은 [Compose Multiplatform 수정자 소개](https://kotlinlang.org/docs/multiplatform/compose-layout-modifiers.html#built-in-modifiers) 및 방대한 [Jetpack Compose 수정자 문서](https://developer.android.com/jetpack/compose/modifiers)를 참조하세요.
 
-## 상태 관리하기
+## 상태 관리하기 {id="managing-the-state"}
 
 로드된 이미지는 영속적인 특성을 가집니다. 즉, 사용자가 버튼을 클릭하지 않는 한 리컴포지션 전반에 걸쳐 일관되게 표시되거나 숨겨진 상태를 유지해야 합니다.
 `App()` 컴포저블의 `showContent` 속성은 `mutableStateOf()` 함수를 사용하여 작성되었으며, 이는 관찰 가능한 상태 객체임을 의미합니다.
@@ -54,7 +54,7 @@ var showContent by remember { mutableStateOf(false) }
 이벤트 핸들러는 `showContent` 속성의 값을 반전시킵니다.
 결과적으로 부모인 `AnimatedVisibility()` 컴포저블이 `showContent`를 관찰하고 있기 때문에 `Greeting().greet()` 호출과 함께 이미지가 표시되거나 숨겨집니다.
 
-## 다양한 플랫폼에서 UI 실행하기
+## 다양한 플랫폼에서 UI 실행하기 {id="launching-ui-on-different-platforms"}
 
 `App()` 함수는 각 플랫폼에서 다르게 실행됩니다.
 
@@ -65,7 +65,7 @@ var showContent by remember { mutableStateOf(false) }
 
 각 플랫폼을 살펴보겠습니다.
 
-### Android에서
+### Android에서 {id="on-android"}
 
 Android의 경우 `androidApp/src/main/kotlin`에 있는 `MainActivity.kt` 파일을 엽니다.
 
@@ -84,7 +84,7 @@ class MainActivity : ComponentActivity() {
 
 이것은 공통 코드에 선언된 `App()` 컴포저블을 호출하는 `MainActivity`라는 [Android 액티비티](https://developer.android.com/guide/components/activities/intro-activities)입니다.
 
-### iOS에서
+### iOS에서 {id="on-ios"}
 
 iOS의 경우 `shared/src/iosMain/kotlin`에 있는 `MainViewController.kt` 파일을 엽니다.
 
@@ -94,7 +94,7 @@ fun MainViewController() = ComposeUIViewController { App() }
 
 이것은 Android의 액티비티와 동일한 역할을 수행하는 [뷰 컨트롤러(view controller)](https://developer.apple.com/documentation/uikit/view_controllers)입니다. iOS와 Android 타입 모두 단순히 공통 코드의 `App()` 컴포저블을 호출한다는 점에 유의하세요.
 
-### 데스크톱에서
+### 데스크톱에서 {id="on-desktop"}
 
 데스크톱의 경우 `desktopApp/src/main/kotlin`에 있는 `main.kt` 파일을 확인하세요.
 
@@ -115,7 +115,7 @@ fun main() = application {
 
 이 예제에서 `App()` 함수는 어떠한 매개변수도 받지 않습니다. 규모가 큰 애플리케이션에서는 일반적으로 플랫폼별 종속성(dependencies)을 매개변수로 전달합니다. 이러한 종속성은 직접 작성하거나 의존성 주입(dependency injection) 라이브러리를 사용하여 전달할 수 있습니다.
 
-### 웹에서
+### 웹에서 {id="on-web"}
 
 `webApp/src/webMain/kotlin/` 디렉토리 내의 `main.kt` 파일에서 `main()` 함수를 살펴보세요.
 
@@ -133,13 +133,13 @@ fun main() {
 * 웹 앱은 `ComposeViewport` 함수의 매개변수로 지정된 컨테이너에 삽입됩니다.
 * `App()` 함수는 Jetpack Compose를 사용하여 애플리케이션의 UI 컴포넌트를 빌드하는 역할을 합니다.
 
-## 다음 단계
+## 다음 단계 {id="next-step"}
 
 튜토리얼의 다음 부분에서는 프로젝트에 종속성을 추가하고 사용자 인터페이스를 수정해 보겠습니다.
 
 **[다음 단계로 진행하기](compose-multiplatform-modify-project.md)**
 
-## 도움받기
+## 도움받기 {id="get-help"}
 
 * **Kotlin Slack**: [초대](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)를 받고 [#multiplatform](https://kotlinlang.slack.com/archives/C3PQML5NU) 채널에 참여하세요.
 * **Kotlin 이슈 트래커**: [새로운 이슈를 보고](https://youtrack.jetbrains.com/newIssue?project=KT)하세요.

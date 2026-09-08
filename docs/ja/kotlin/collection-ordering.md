@@ -111,7 +111,7 @@ Kotlin のコレクションパッケージには、自然順序、カスタム�
 これらの関数は、元のコレクションの要素を要求された順序で保持する新しいコレクションとして結果を返します。
 [ミュータブル（変更可能）](collections-overview.md#collection-types)なコレクションをその場でソートする関数については、[リスト固有の操作](list-operations.md#sort)を参照してください。
 
-## 自然順序
+## 自然順序 {id="natural-order"}
 
 基本となる関数 [`.sorted()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/sorted.html) および [`.sortedDescending()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/sorted-descending.html) は、自然順序に従って昇順および降順にソートされたコレクションの要素を返します。
 これらの関数は `Comparable` 要素のコレクションに適用されます。
@@ -128,7 +128,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## カスタム順序
+## カスタム順序 {id="custom-orders"}
 
 カスタム順序でのソートや、比較可能ではないオブジェクトのソートには、[`.sortedBy()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/sorted-by.html) および [`.sortedByDescending()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/sorted-by-descending.html) 関数があります。
 これらは、コレクションの要素を `Comparable` な値にマッピングするセレクター関数を受け取り、それらの値の自然順序でコレクションをソートします。
@@ -161,7 +161,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## ソート順のチェック
+## ソート順のチェック {id="check-sorted-order"}
 
 以下の拡張関数を使用して、要素がすでに指定された順序に従っているかどうかを確認できます：
 
@@ -217,7 +217,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.4"}
 
-## 逆順
+## 逆順 {id="reverse-order"}
 
 [`.reversed()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/reversed.html) 関数を使用すると、コレクションを逆順で取得できます。 
 
@@ -264,7 +264,7 @@ fun main() {
 
 ただし、リストの可変性が不明な場合や、ソースがリストでない場合は、結果が将来変更されないコピーである `.reversed()` の方が好ましいです。
 
-## ランダム順
+## ランダム順 {id="random-order"}
 
 最後に、コレクションの要素をランダムな順序で含む新しい `List` を返す関数 [`.shuffled()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/shuffled.html) があります。
 引数なしで呼び出すか、[`Random`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.random/-random/index.html) オブジェクトを指定して呼び出すことができます。

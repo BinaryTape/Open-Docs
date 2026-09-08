@@ -6,7 +6,7 @@ title: 정의
 
 정의(Definitions)는 Koin이 의존성을 생성하고 관리하는 방법을 선언합니다. 이 가이드에서는 DSL과 어노테이션을 모두 사용하여 모든 정의 타입을 다룹니다.
 
-## 정의 타입
+## 정의 타입 {id="definition-types"}
 
 | 타입 | DSL | 어노테이션 | 생명주기 | 사용 사례 |
 |------|-----|------------|-----------|----------|
@@ -15,9 +15,9 @@ title: 정의
 | 스코프 (Scoped) | `scoped()` | `@Scoped` | 스코프당 하나의 인스턴스 유지 | 액티비티 바인딩, 세션 바인딩 객체 |
 | 뷰모델 (ViewModel) | `viewModel()` | `@KoinViewModel` | 안드로이드 뷰모델 생명주기 | 뷰모델 |
 
-## 정의 선언하기
+## 정의 선언하기 {id="declaring-definitions"}
 
-### 컴파일러 플러그인 DSL (권장)
+### 컴파일러 플러그인 DSL (권장) {id="compiler-plugin-dsl-recommended"}
 
 ```kotlin
 import org.koin.plugin.module.dsl.*
@@ -35,7 +35,7 @@ val appModule = module {
 }
 ```
 
-### 어노테이션
+### 어노테이션 {id="annotations"}
 
 ```kotlin
 @Singleton  // 또는 @Single
@@ -51,7 +51,7 @@ class UserPresenter(private val repository: UserRepository)
 class UserViewModel(private val repository: UserRepository) : ViewModel()
 ```
 
-### 클래식 DSL
+### 클래식 DSL {id="classic-dsl"}
 
 ```kotlin
 val appModule = module {
@@ -69,7 +69,7 @@ val appModule = module {
 }
 ```
 
-## 정의 비교
+## 정의 비교 {id="definition-comparison"}
 
 | 개념 | 컴파일러 플러그인 DSL | 클래식 DSL | 어노테이션 |
 |---------|---------------------|-------------|------------|
@@ -83,7 +83,7 @@ val appModule = module {
 컴파일러 플러그인은 클래스와 함수 파라미터를 분석하여, 더 이상 직접 작성할 필요가 없는 `get()` 함수를 사용한 적절한 Koin 호출을 생성합니다.
 :::
 
-## Single (싱글톤)
+## Single (싱글톤) {id="single-singleton"}
 
 앱 전체에서 재사용되는 단일 인스턴스를 생성합니다:
 
@@ -98,7 +98,7 @@ class DatabaseHelper
 
 두 방식 모두 모든 소비자들 사이에서 공유되는 단일 인스턴스라는 동일한 결과를 생성합니다.
 
-## Factory (팩토리)
+## Factory (팩토리) {id="factory"}
 
 매번 새로운 인스턴스를 생성합니다:
 
@@ -111,7 +111,7 @@ factory<UserPresenter>()
 class UserPresenter(private val repository: UserRepository)
 ```
 
-## Scoped (스코프 정의)
+## Scoped (스코프 정의) {id="scoped"}
 
 스코프당 하나의 인스턴스를 생성합니다:
 
@@ -126,7 +126,7 @@ scope<MyActivity> {
 class ActivityPresenter
 ```
 
-## ViewModel (뷰모델)
+## ViewModel (뷰모델) {id="viewmodel"}
 
 적절한 생명주기를 가진 안드로이드 뷰모델:
 
@@ -139,9 +139,9 @@ viewModel<UserViewModel>()
 class UserViewModel(private val repository: UserRepository) : ViewModel()
 ```
 
-## 인터페이스 바인딩
+## 인터페이스 바인딩 {id="interface-binding"}
 
-### 컴파일러 플러그인 DSL
+### 컴파일러 플러그인 DSL {id="compiler-plugin-dsl"}
 
 ```kotlin
 single<UserRepositoryImpl>() bind UserRepository::class
@@ -178,7 +178,7 @@ class UserRepositoryImpl(
 class UserRepositoryImpl : UserRepository
 ```
 
-## 한정자 (이름이 지정된 정의)
+## 한정자 (이름이 지정된 정의) {id="qualifiers-named-definitions"}
 
 동일한 타입의 정의가 여러 개 있는 경우에 사용합니다. 인스턴스를 가져오는 방법은 [한정자를 사용한 주입](/docs/reference/koin-core/injection#injection-with-qualifiers) 섹션을 참조하세요.
 
@@ -235,7 +235,7 @@ class UserRepository(
 )
 ```
 
-## 주입 파라미터
+## 주입 파라미터 {id="injected-parameters"}
 
 주입 시점에 파라미터를 전달합니다:
 
@@ -281,7 +281,7 @@ class UserPresenter(
 val presenter: UserPresenter = get { parametersOf("user123") }
 ```
 
-## 선택적 의존성 (Optional Dependencies)
+## 선택적 의존성 (Optional Dependencies) {id="optional-dependencies"}
 
 ### 컴파일러 플러그인 DSL
 
@@ -317,7 +317,7 @@ class MyService(
 )
 ```
 
-## 지연 주입 (Lazy Injection)
+## 지연 주입 (Lazy Injection) {id="lazy-injection"}
 
 인스턴스 생성을 지연시킵니다:
 
@@ -350,7 +350,7 @@ class MyService(
 )
 ```
 
-## 프로퍼티 (Properties)
+## 프로퍼티 (Properties) {id="properties"}
 
 설정 값을 주입합니다:
 
@@ -386,9 +386,9 @@ class ApiClient(
 )
 ```
 
-## 콜백
+## 콜백 {id="callbacks"}
 
-### onClose 콜백
+### onClose 콜백 {id="onclose-callback"}
 
 인스턴스가 해제될 때 코드를 실행합니다:
 
@@ -400,7 +400,7 @@ single {
 }
 ```
 
-### createdAtStart
+### createdAtStart {id="createdatstart"}
 
 시작 시 인스턴스를 즉시 생성합니다:
 
@@ -416,9 +416,9 @@ single(createdAtStart = true) {
 }
 ```
 
-## 정의 오버라이드 (Definition Override)
+## 정의 오버라이드 (Definition Override) {id="definition-override"}
 
-### 기본값: 마지막 정의가 우선함
+### 기본값: 마지막 정의가 우선함 {id="default-last-wins"}
 
 ```kotlin
 val prodModule = module {
@@ -434,7 +434,7 @@ startKoin {
 }
 ```
 
-### 명시적 오버라이드
+### 명시적 오버라이드 {id="explicit-override"}
 
 엄격 모드(strict mode)에서는 오버라이드를 명시적으로 표시하세요:
 
@@ -449,11 +449,11 @@ startKoin {
 }
 ```
 
-## 안전한 DSL 패턴
+## 안전한 DSL 패턴 {id="safe-dsl-patterns"}
 
 Koin 컴파일러 플러그인은 컴파일 시점에 DSL 정의를 변환하여 생성자 파라미터를 자동으로 연결(auto-wiring)하고 검증합니다. 주요 패턴은 다음과 같습니다:
 
-### create()를 사용한 함수 빌더
+### create()를 사용한 함수 빌더 {id="function-builders-with-create"}
 
 직접 소유하지 않은 외부 라이브러리를 래핑하려면 `create(::function)`를 사용하세요. 함수 파라미터는 DI 컨테이너에서 자동으로 해결됩니다.
 
@@ -477,7 +477,7 @@ val databaseModule = module {
 
 이 패턴은 Room 데이터베이스, Retrofit 서비스, OkHttp 클라이언트 및 기타 외부 라이브러리에 권장되는 패턴입니다.
 
-### includes()를 사용한 모듈 구성
+### includes()를 사용한 모듈 구성 {id="module-composition-with-includes"}
 
 레이어별로 모듈을 구성하고 이들을 합칠 수 있습니다:
 
@@ -496,7 +496,7 @@ val networkModule = module {
 private fun json(): Json = Json { ignoreUnknownKeys = true }
 ```
 
-### 앱 모듈 — 모든 구성 요소 합치기
+### 앱 모듈 — 모든 구성 요소 합치기 {id="app-module-composing-everything"}
 
 앱 모듈은 모든 기능 모듈을 포함하고 뷰모델과 사용 사례(use cases)를 선언합니다:
 
@@ -531,7 +531,7 @@ val appModule = module {
 }
 ```
 
-### DSL에서의 커스텀 한정자
+### DSL에서의 커스텀 한정자 {id="custom-qualifiers-in-dsl"}
 
 한정자 어노테이션은 `create(::function)`와도 함께 작동합니다:
 
@@ -556,7 +556,7 @@ fun coroutineScope(
 ) = CoroutineScope(SupervisorJob() + default)
 ```
 
-### DSL을 사용한 워커(Worker)
+### DSL을 사용한 워커(Worker) {id="worker-with-dsl"}
 
 ```kotlin
 import org.koin.dsl.module
@@ -569,7 +569,7 @@ val syncModule = module {
 }
 ```
 
-### 완성된 패턴: 인터페이스 바인딩이 포함된 레포지토리
+### 완성된 패턴: 인터페이스 바인딩이 포함된 레포지토리 {id="complete-pattern-repository-with-interface-binding"}
 
 ```kotlin
 import org.koin.dsl.module
@@ -587,7 +587,7 @@ val dataModule = module {
 
 이 모든 정의는 컴파일 시점에 Koin 컴파일러 플러그인에 의해 검증됩니다. 누락된 의존성, 한정자 불일치, 잘못된 호출 지점 등이 빌드 시점에 발견됩니다. 자세한 내용은 [컴파일 타임 안전성(Compile-Time Safety)](/docs/reference/koin-compiler/compile-safety)을 참조하세요.
 
-## 권장 모범 사례
+## 권장 모범 사례 {id="best-practices"}
 
 1. **생성자 주입 선호** - Koin 없이도 코드를 테스트할 수 있게 만듭니다.
 2. **상태가 없는 서비스에는 `single` 사용** - 레포지토리, 클라이언트, 헬퍼 등.
@@ -597,7 +597,7 @@ val dataModule = module {
 6. **인터페이스에 바인딩** - 구현체가 아닌 추상화에 의존하세요.
 7. **외부 라이브러리에는 `create(::builder)` 사용** - 더 안전한 의존성 해결을 제공합니다.
 
-## 다음 단계
+## 다음 단계 {id="next-steps"}
 
 - **[주입 (Injection)](/docs/reference/koin-core/injection)** - 의존성 가져오기
 - **[한정자 (Qualifiers)](/docs/reference/koin-core/qualifiers)** - 이름 및 타입 한정자

@@ -4,7 +4,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_和_[舒适更新](kotl
 
 虽然大多数语言变更已经通过其他渠道（如更新日志或编译器警告）公布，但本文档对这些变更进行了汇总，为从 Kotlin 2.1 迁移到 Kotlin 2.2 提供完整的参考。
 
-## 基本术语
+## 基本术语 {id="basic-terms"}
 
 在本文档中，我们引入了几种兼容性：
 
@@ -14,9 +14,9 @@ _[保持语言现代性](kotlin-evolution-principles.md)_和_[舒适更新](kotl
 
 请记住，这些定义仅针对纯 Kotlin。从其他语言（例如 Java）的角度来看 Kotlin 代码的兼容性不在本文档的讨论范围内。
 
-## 语言
+## 语言 {id="language"}
 
-### `-language-version` 停止支持 1.6 和 1.7
+### `-language-version` 停止支持 1.6 和 1.7 {id="drop-support-in-language-version-for-1-6-and-1-7"}
 
 > **问题**：[KT-71793](https://youtrack.jetbrains.com/issue/KT-71793)
 >
@@ -31,7 +31,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_和_[舒适更新](kotl
 > - 2.1.0：在使用版本 1.6 和 1.7 的 `-language-version` 时报告警告
 > - 2.2.0：在使用版本 1.8 和 1.9 的 `-language-version` 时报告警告；对于版本 1.6 和 1.7，将警告升级为错误
 
-### 默认对带注解的 lambda 启用 invokedynamic
+### 默认对带注解的 lambda 启用 invokedynamic {id="enable-invokedynamic-for-annotated-lambdas-by-default"}
 
 > **问题**：[KTLC-278](https://youtrack.jetbrains.com/issue/KTLC-278)
 >
@@ -45,7 +45,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_和_[舒适更新](kotl
 >
 > - 2.2.0：默认对带注解的 lambda 启用 `invokedynamic`
 
-### 在 K2 中禁止对展开类型中具有差异（variance）的类型别名进行构造函数调用和继承
+### 在 K2 中禁止对展开类型中具有差异（variance）的类型别名进行构造函数调用和继承 {id="prohibit-constructor-call-and-inheritance-on-type-aliases-with-variance-in-expanded-types-in-k2"}
 
 > **问题**：[KTLC-4](https://youtrack.jetbrains.com/issue/KTLC-4)
 >
@@ -60,7 +60,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_和_[舒适更新](kotl
 > - 2.0.0：对于展开为具有差异修饰符类型的类型别名，在其构造函数调用或超类型使用时报告警告
 > - 2.2.0：将警告升级为错误
 
-### 禁止来自 Kotlin getter 的合成属性
+### 禁止来自 Kotlin getter 的合成属性 {id="prohibit-synthetic-properties-from-kotlin-getters"}
 
 > **问题**：[KTLC-272](https://youtrack.jetbrains.com/issue/KTLC-272)
 >
@@ -75,7 +75,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_和_[舒适更新](kotl
 > - 2.0.0：对于访问从 Kotlin getter 创建的合成属性报告警告
 > - 2.2.0：将警告升级为错误
 
-### 更改 JVM 上接口函数的默认方法生成方式
+### 更改 JVM 上接口函数的默认方法生成方式 {id="change-default-method-generation-for-interface-functions-on-jvm"}
 
 > **问题**：[KTLC-269](https://youtrack.jetbrains.com/issue/KTLC-269)
 >
@@ -89,7 +89,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_和_[舒适更新](kotl
 >
 > - 2.2.0：`-jvm-default` 编译器选项默认设置为 `enable`
 
-### 禁止在注解属性上使用针对字段的注解
+### 禁止在注解属性上使用针对字段的注解 {id="forbid-field-targeted-annotations-on-annotation-properties"}
 
 > **问题**：[KTLC-7](https://youtrack.jetbrains.com/issue/KTLC-7)
 >
@@ -105,7 +105,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_和_[舒适更新](kotl
 > - 2.1.20：对注解属性上所有针对字段的注解报告警告
 > - 2.2.0：将警告升级为错误
 
-### 禁止在类型别名中使用 reified 类型形参
+### 禁止在类型别名中使用 reified 类型形参 {id="forbid-reified-type-parameters-in-type-aliases"}
 
 > **问题**：[KTLC-5](https://youtrack.jetbrains.com/issue/KTLC-5)
 >
@@ -120,7 +120,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_和_[舒适更新](kotl
 > - 2.1.0：对类型别名中的 reified 类型形参报告警告
 > - 2.2.0：将警告升级为错误
 
-### 修正 `Number` 和 `Comparable` 的内联值类类型检查
+### 修正 `Number` 和 `Comparable` 的内联值类类型检查 {id="correct-type-checks-on-inline-value-classes-for-number-and-comparable"}
 
 > **问题**：[KTLC-21](https://youtrack.jetbrains.com/issue/KTLC-21)
 >
@@ -134,7 +134,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_和_[舒适更新](kotl
 >
 > - 2.2.0：启用新行为
 
-### 禁止来自间接依赖项的不可访问泛型类型
+### 禁止来自间接依赖项的不可访问泛型类型 {id="prohibit-inaccessible-generic-types-from-indirect-dependencies"}
 
 > **问题**：[KTLC-3](https://youtrack.jetbrains.com/issue/KTLC-3)
 >
@@ -150,7 +150,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_和_[舒适更新](kotl
 > - 2.1.0：将 lambda 中不可访问的非泛型类型的警告升级为错误
 > - 2.2.0：将表达式类型中不可访问类型实参的警告升级为错误
 
-### 强制执行类型形参上限的可见性检查
+### 强制执行类型形参上限的可见性检查 {id="enforce-visibility-checks-on-type-parameter-bounds"}
 
 > **问题**：[KTLC-274](https://youtrack.jetbrains.com/issue/KTLC-274)
 >
@@ -165,7 +165,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_和_[舒适更新](kotl
 > - 2.1.0：当类型形参的上限在声明的可见性范围内不可见时，报告警告
 > - 2.2.0：将警告升级为错误
 
-### 在非私有内联函数中暴露私有类型时报告错误
+### 在非私有内联函数中暴露私有类型时报告错误 {id="report-errors-when-exposing-private-types-in-non-private-inline-functions"}
 
 > **问题**：[KT-70916](https://youtrack.jetbrains.com/issue/KT-70916)
 >
@@ -179,7 +179,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_和_[舒适更新](kotl
 >
 > - 2.2.0：在从非私有内联函数访问私有类型或成员时报告错误
 
-### 禁止在用作形参默认值的 lambda 中使用非局部返回
+### 禁止在用作形参默认值的 lambda 中使用非局部返回 {id="forbid-non-local-returns-in-lambdas-used-as-parameter-s-default-value"}
 
 > **问题**：[KTLC-286](https://youtrack.jetbrains.com/issue/KTLC-286)
 >
@@ -193,9 +193,9 @@ _[保持语言现代性](kotlin-evolution-principles.md)_和_[舒适更新](kotl
 >
 > - 2.2.0：对用作形参默认值的 lambda 中的非局部返回报告错误
 
-## 标准库
+## 标准库 {id="standard-library"}
 
-### 弃用 `kotlin.native.Throws`
+### 弃用 `kotlin.native.Throws` {id="deprecate-kotlin-native-throws"}
 
 > **问题**：[KT-72137](https://youtrack.jetbrains.com/issue/KT-72137)
 >
@@ -210,7 +210,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_和_[舒适更新](kotl
 > - 1.9.0：在使用 `kotlin.native.Throws` 时报告警告
 > - 2.2.0：将警告升级为错误
 
-### 弃用 `AbstractDoubleTimeSource`
+### 弃用 `AbstractDoubleTimeSource` {id="deprecate-abstractdoubletimesource"}
 
 > **问题**：[KT-72137](https://youtrack.jetbrains.com/issue/KT-72137)
 >
@@ -225,9 +225,9 @@ _[保持语言现代性](kotlin-evolution-principles.md)_和_[舒适更新](kotl
 > - 1.8.20：在使用 `AbstractDoubleTimeSource` 时报告警告
 > - 2.2.0：将警告升级为错误
 
-## 工具
+## 工具 {id="tools"}
 
-### 修正 `KotlinCompileTool` 中的 `setSource()` 函数以替换源码
+### 修正 `KotlinCompileTool` 中的 `setSource()` 函数以替换源码 {id="correct-setsource-function-in-kotlincompiletool-to-replace-sources"}
 
 > **问题**：[KT-59632](https://youtrack.jetbrains.com/issue/KT-59632)
 >
@@ -241,7 +241,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_和_[舒适更新](kotl
 >
 > - 2.2.0：启用新行为
 
-### 弃用 `KotlinCompilationOutput#resourcesDirProvider` 属性
+### 弃用 `KotlinCompilationOutput#resourcesDirProvider` 属性 {id="deprecate-kotlincompilationoutput-resourcesdirprovider-property"}
 
 > **问题**：[KT-70620](https://youtrack.jetbrains.com/issue/KT-70620)
 >
@@ -256,7 +256,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_和_[舒适更新](kotl
 > - 2.1.0：`KotlinCompilationOutput#resourcesDirProvider` 已弃用并报告警告
 > - 2.2.0：将警告升级为错误
 
-### 弃用 `BaseKapt.annotationProcessorOptionProviders` 属性
+### 弃用 `BaseKapt.annotationProcessorOptionProviders` 属性 {id="deprecate-basekapt-annotationprocessoroptionproviders-property"}
 
 > **问题**：[KT-58009](https://youtrack.jetbrains.com/issue/KT-58009)
 >
@@ -270,7 +270,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_和_[舒适更新](kotl
 >
 > - 2.2.0：在 API 中强制执行新类型
 
-### 弃用 `kotlin-android-extensions` 插件
+### 弃用 `kotlin-android-extensions` 插件 {id="deprecate-kotlin-android-extensions-plugin"}
 
 > **问题**：[KT-72341](https://youtrack.jetbrains.com/issue/KT-72341/)
 >
@@ -287,7 +287,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_和_[舒适更新](kotl
 > - 2.2.0：移除插件代码
 > - 2.4.0：移除插件 ID
 
-### 弃用 `kotlinOptions` DSL
+### 弃用 `kotlinOptions` DSL {id="deprecate-kotlinoptions-dsl"}
 
 > **问题**：[KT-54110](https://youtrack.jetbrains.com/issue/KT-54110)
 >
@@ -302,7 +302,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_和_[舒适更新](kotl
 > - 2.0.0：对 `kotlinOptions` DSL 报告警告
 > - 2.2.0：将警告升级为错误，并弃用 `kotlinOptions` 中的所有属性
 
-### 移除 `kotlin.incremental.useClasspathSnapshot` 属性
+### 移除 `kotlin.incremental.useClasspathSnapshot` 属性 {id="remove-kotlin-incremental-useclasspathsnapshot-property"}
 
 > **问题**：[KT-62963](https://youtrack.jetbrains.com/issue/KT-62963)
 >
@@ -317,7 +317,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_和_[舒适更新](kotl
 > - 2.0.20：弃用 `kotlin.incremental.useClasspathSnapshot` 属性并报告警告
 > - 2.2.0：移除该属性
 
-### Kotlin 脚本编写的弃用项
+### Kotlin 脚本编写的弃用项 {id="deprecations-to-kotlin-scripting"}
 
 > **问题**：[KT-71685](https://youtrack.jetbrains.com/issue/KT-71685), [KT-75632](https://youtrack.jetbrains.com/issue/KT-75632/), [KT-76196](https://youtrack.jetbrains.com/issue/KT-76196/)。
 >
@@ -338,7 +338,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_和_[舒适更新](kotl
 > - 2.2.0：要通过 `kotlinc` 使用 REPL，请使用 `-Xrepl` 编译器选项选择加入；弃用 JSR-223，可以通过切换到语言版本 1.9 来恢复支持；弃用 `KotlinScriptMojo` Maven 插件
 > - 2.4.0：移除通过 `KotlinScriptMojo` Maven 插件执行的 Kotlin 脚本
 
-### 弃用消除歧义的分类器属性
+### 弃用消除歧义的分类器属性 {id="deprecate-disambiguation-classifier-properties"}
 
 > **问题**：[KT-58231](https://youtrack.jetbrains.com/issue/KT-58231)
 >
@@ -357,7 +357,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_和_[舒适更新](kotl
 > - 2.1.0：将此警告升级为错误
 > - 2.2.0：移除 Gradle 属性
 
-### 弃用 commonization 参数
+### 弃用 commonization 参数 {id="deprecate-commonization-parameters"}
 
 > **问题**：[KT-75161](https://youtrack.jetbrains.com/issue/KT-75161)
 >
@@ -385,7 +385,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_和_[舒适更新](kotl
 > - 2.2.0：弃用 commonization 参数并报告错误
 > - 2.2.20：移除 commonization 参数
 
-### 弃用对旧版元数据编译的支持
+### 弃用对旧版元数据编译的支持 {id="deprecate-support-for-legacy-metadata-compilation"}
 
 > **问题**：[KT-61817](https://youtrack.jetbrains.com/issue/KT-61817)
 >
@@ -403,7 +403,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_和_[舒适更新](kotl
 >
 > - 2.2.0：从 Kotlin Gradle 插件中移除这些编译器选项
 
-### 弃用 `KotlinCompilation.source` API
+### 弃用 `KotlinCompilation.source` API {id="deprecate-kotlincompilation-source-api"}
 
 > **问题**：[KT-64991](https://youtrack.jetbrains.com/issue/KT-64991)
 >
@@ -419,7 +419,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_和_[舒适更新](kotl
 > - 1.9.20：将此警告升级为错误
 > - 2.2.0：从 Kotlin Gradle 插件中移除 `KotlinCompilation.source`；尝试使用它会导致在构建脚本编译期间出现 "unresolved reference" 错误
 
-### 弃用目标预设 API
+### 弃用目标预设 API {id="deprecate-target-presets-apis"}
 
 > **问题**：[KT-71698](https://youtrack.jetbrains.com/issue/KT-71698)
 >
@@ -439,7 +439,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_和_[舒适更新](kotl
 > - 2.0.0：将此警告升级为错误
 > - 2.2.0：从 Kotlin Gradle 插件的公共 API 中移除预设相关 API；仍然使用它的源码将失败并显示 "unresolved reference" 错误，二进制文件（例如 Gradle 插件）可能会失败并显示链接错误，除非针对最新版本的 Kotlin Gradle 插件重新编译
 
-### 弃用 Apple 目标快捷方式
+### 弃用 Apple 目标快捷方式 {id="deprecate-apple-target-shortcuts"}
 
 > **问题**：[KT-70615](https://youtrack.jetbrains.com/issue/KT-70615)
 >
@@ -455,7 +455,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_和_[舒适更新](kotl
 > - 2.1.0：在使用目标快捷方式时报告错误
 > - 2.2.0：从 Kotlin 多平台 Gradle 插件中移除目标快捷方式 DSL
 
-### 弃用 `publishAllLibraryVariants()` 函数
+### 弃用 `publishAllLibraryVariants()` 函数 {id="deprecate-publishalllibraryvariants-function"}
 
 > **问题**：[KT-60623](https://youtrack.jetbrains.com/issue/KT-60623)
 >
@@ -469,7 +469,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_和_[舒适更新](kotl
 >
 > - 2.2.0：`publishAllLibraryVariants()` 已弃用
 
-### 弃用 `android` 目标
+### 弃用 `android` 目标 {id="deprecate-android-target"}
 
 > **问题**：[KT-71608](https://youtrack.jetbrains.com/issue/KT-71608)
 >
@@ -485,7 +485,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_和_[舒适更新](kotl
 > - 2.1.0：将此警告升级为错误
 > - 2.2.0：从 Kotlin 多平台 Gradle 插件中移除 `android` 目标 DSL
 
-### 弃用 `CInteropProcess` 中的 `konanVersion`
+### 弃用 `CInteropProcess` 中的 `konanVersion` {id="deprecate-konanversion-in-cinteropprocess"}
 
 > **问题**：[KT-71069](https://youtrack.jetbrains.com/issue/KT-71069)
 >
@@ -501,7 +501,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_和_[舒适更新](kotl
 > - 2.2.0：将此警告升级为错误
 > - 2.3.0：从 Kotlin Gradle 插件中移除 `konanVersion` 属性
 
-### 弃用 `CInteropProcess` 中的 `destinationDir`
+### 弃用 `CInteropProcess` 中的 `destinationDir` {id="deprecate-destinationdir-in-cinteropprocess"}
 
 > **问题**：[KT-71068](https://youtrack.jetbrains.com/issue/KT-71068)
 >
@@ -517,7 +517,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_和_[舒适更新](kotl
 > - 2.2.0：将此警告升级为错误
 > - 2.3.0：从 Kotlin Gradle 插件中移除 `destinationDir` 属性
 
-### 弃用 `kotlinArtifacts` API
+### 弃用 `kotlinArtifacts` API {id="deprecate-kotlinartifacts-api"}
 
 > **问题**：[KT-74953](https://youtrack.jetbrains.com/issue/KT-74953)
 >

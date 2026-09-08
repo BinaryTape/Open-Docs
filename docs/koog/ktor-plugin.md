@@ -10,7 +10,7 @@ Koog 自然地融入您的 Ktor 服务器，允许您在两端使用惯用的 Ko
 
 只需安装一次 Koog 插件，在 `application.conf`/YAML 或代码中配置您的 LLM 提供者，然后直接从您的路由中调用 Agent。不再需要跨模块连接 LLM 客户端——您的路由只需请求一个 Agent 即可准备就绪。
 
-## 概览
+## 概览 {id="overview"}
 
 `koog-ktor` 模块为服务器端智能体 (agentic) 开发提供惯用的 Kotlin/Ktor 集成：
 
@@ -21,7 +21,7 @@ Koog 自然地融入您的 Ktor 服务器，允许您在两端使用惯用的 Ko
 - 直接使用 LLM（execute、executeStreaming、moderate）
 - 仅限 JVM 的模型上下文协议 (MCP) 工具集成
 
-## 添加依赖项
+## 添加依赖项 {id="add-dependency"}
 
 ```kotlin
 dependencies {
@@ -29,7 +29,7 @@ dependencies {
 }
 ```
 
-## 快速入门
+## 快速入门 {id="quick-start"}
 
 1) 配置提供者（在 `application.yaml` 或 `application.conf` 中）
 
@@ -100,7 +100,7 @@ fun Application.module() {
 - aiAgent 需要一个具体的模型 (LLModel) —— 按路由或按用途选择。
 - 对于更底层的 LLM 访问，直接使用 llm() (PromptExecutor) 即可。
 
-## 直接从路由使用 LLM
+## 直接从路由使用 LLM {id="direct-llm-usage-from-routes"}
 
 ```kotlin
 post("/llm-chat") {
@@ -162,7 +162,7 @@ post("/moderated-chat") {
 }
 ```
 
-## 代码以编程方式配置（在代码中）
+## 代码以编程方式配置（在代码中） {id="programmatic-configuration-in-code"}
 
 所有的提供者和 Agent 行为都可以通过 install(Koog) {} 进行配置。
 
@@ -210,7 +210,7 @@ install(Koog) {
 }
 ```
 
-## 配置中的模型标识符 (回退)
+## 配置中的模型标识符 (回退) {id="model-identifiers-in-config-fallback"}
 
 在 YAML/CONF 中配置 llm.fallback 时，请使用以下标识符格式：
 
@@ -226,7 +226,7 @@ install(Koog) {
 - 对于 OpenAI，您必须包含类别 (chat, reasoning, costoptimized, audio, embeddings, moderation)。
 - 对于 Ollama，同时支持 `ollama.model` 和 `ollama.<maker>.<model>`。
 
-## MCP 工具（仅限 JVM）
+## MCP 工具（仅限 JVM） {id="mcp-tools-jvm-only"}
 
 在 JVM 上，您可以将来自 MCP 服务器的工具添加到您的 Agent 工具注册表中：
 
@@ -246,7 +246,7 @@ install(Koog) {
     }
 }
 ```
-## 为什么选择 Koog + Ktor？
+## 为什么选择 Koog + Ktor？ {id="why-koog-ktor"}
 
 - 在服务器中使用 Kotlin 优先、类型安全的方式开发 Agent
 - 集中式配置，配合简洁且可测试的路由代码

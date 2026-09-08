@@ -50,13 +50,13 @@ Kotlin 提供以下 Flow 類型：
 > 
 {style="tip"}
 
-## 冷 Flow
+## 冷 Flow {id="cold-flows"}
 
 如同 [sequence](sequences.md)，冷 Flow 是延遲執行的 (lazy)。
 
 冷 Flow 建立器 (builder) 的程式碼區塊直到有收集器收集它時才會執行。每次新的收集都會啟動一次新的 Flow 執行。
 
-### 建立冷 Flow
+### 建立冷 Flow {id="create-a-cold-flow"}
 
 要建立冷 Flow，請使用 [`flow()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/flow.html) 建立器函式。在其區塊內，使用 [`emit()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-flow-collector/emit.html) 函式向收集器發送數值：
 
@@ -102,7 +102,7 @@ fun main() {
 }
 ```
 
-### 收集冷 Flow
+### 收集冷 Flow {id="collect-a-cold-flow"}
 
 要收集冷 Flow，請使用 [`collect()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/collect.html) 函式，這會觸發上游 Flow 的發送。如果您向 `collect()` 傳遞一個 Lambda，它將接收每個發送出的值：
 
@@ -179,7 +179,7 @@ suspend fun main() {
 
 在此範例中，[`CoroutineName`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-name/) 為每個協同程式新增了名稱。您可以使用 `CoroutineName` 進行 [偵錯](coroutine-context-and-dispatchers.md#naming-coroutines-for-debugging)。在這裡，它有助於顯示哪個收集器執行了哪次收集。
 
-### 中間 Flow 運算子
+### 中間 Flow 運算子 {id="intermediate-flow-operators"}
 
 中間運算子對上游 Flow 套用操作並回傳新的下游 Flow。它們是冷執行的，因此即使上游 Flow 是熱的，回傳的 Flow 只有在被收集時才會開始處理數值。
 
@@ -211,7 +211,7 @@ suspend fun main() {
 ```
 {kotlin-runnable="true"}
 
-#### 在 Flow 建立器中呼叫 suspending function
+#### 在 Flow 建立器中呼叫 suspending function {id="call-suspending-functions-inside-a-flow-builder"}
 
 與 sequence 不同，您可以在 `flow()` 建立器函式中呼叫 suspending function：
 
@@ -265,7 +265,7 @@ suspend fun main() {
 
 或者，您可以使用 [`channelFlow()`](#emit-values-concurrently-with-channelflow) 來從多個協同程式發送數值。
 
-#### 使用 `.flowOn()` 更改冷 Flow 的協同程式內文
+#### 使用 `.flowOn()` 更改冷 Flow 的協同程式內文 {id="change-the-coroutine-context-of-a-cold-flow-with-flowon"}
 
 預設情況下，冷 Flow 會在與收集器相同的協同程式內文中執行。
 
@@ -303,7 +303,7 @@ suspend fun main() {
 ```
 {kotlin-runnable="true"}
 
-### 處理 Flow 中的例外
+### 處理 Flow 中的例外 {id="handle-exceptions-in-flows"}
 
 發送器與收集器都可能拋出例外。
 
@@ -350,7 +350,7 @@ suspend fun main() {
 
 當您在 Flow 建立器函式中捕獲到收集器拋出的例外時，請重新拋出它。這能維持例外透明性，並讓 `collect()` 的呼叫者能夠處理該例外。
 
-#### 使用 `.catch()` 運算子處理上游例外
+#### 使用 `.catch()` 運算子處理上游例外 {id="use-the-catch-operator-to-handle-upstream-exceptions"}
 
 要在例外到達收集器之前對其進行處理，請使用 [`.catch()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/catch.html) 運算子。
 
@@ -504,7 +504,7 @@ suspend fun main() {
 
 在此範例中，`.onEach()` 運算子位於 `.catch()` 的上游，因此當 `require()` 檢查對 `'5'` 失敗時，`.catch()` 運算子會處理該例外。
 
-#### 在例外發生後重新啟動上游 Flow
+#### 在例外發生後重新啟動上游 Flow {id="restart-the-upstream-flow-after-an-exception"}
 
 某些操作可能會暫時失敗，例如失去連線的網路請求。對於這些情況，您可以使用 [`.retry()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/retry.html) 運算子在發生例外後重新啟動上游 Flow。
 
@@ -569,7 +569,7 @@ suspend fun main() {
 ```
 {kotlin-runnable="true" validate="false"}
 
-### Flow 取消
+### Flow 取消 {id="flow-cancellation"}
 
 當不再需要結果時（例如請求逾時），Flow 的取消會停止收集過程。
 
@@ -674,7 +674,7 @@ suspend fun main() {
 
 在此範例中，`.myTake()` 函式會從上游 Flow 發送數值，直到所有要求的數值都發送完畢。然後拋出 `CancellationException` 以取消上游 Flow。
 
-### 使用 `channelFlow()` 並行發送數值
+### 使用 `channelFlow()` 並行發送數值 {id="emit-values-concurrently-with-channelflow"}
 
 對於從單個協同程式發送數值的 Flow，`flow()` 建立器函式既簡單又高效。如果您想從多個協同程式並行地向同一個 Flow 發送數值，請使用 [`channelFlow()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/channel-flow.html) 建立器函式。它可以用於漸進式回報結果的並行工作，例如從多個來源載入資料。
 
@@ -762,7 +762,7 @@ suspend fun main() {
 
 使用 `.buffer(0)` 時，每次 `send()` 呼叫都會等待收集器接收數值，因此 `Sending` 與 `Processing` 從一開始就交替進行。
 
-## 熱 Flow
+## 熱 Flow {id="hot-flows"}
 
 熱 Flow 是共享的串流，發送數值的過程獨立於收集器之外。即使沒有活動中的收集器，它們也會持續發送數值，且多個收集器可以從現有的活動串流中收集相同的發送內容，而不是啟動新的執行。
 
@@ -775,7 +775,7 @@ Kotlin 提供兩種熱 Flow 類型：
 * [`SharedFlow`](#create-a-sharedflow) 向多個訂閱者廣播數值。當您需要廣播隨時間發生的事件（如訊息或通知）時，請使用它。
 * [`StateFlow`](#create-a-stateflow) 是一種專門的 `SharedFlow`，始終持有最新的狀態值。當您需要表示隨時間變化的狀態（如 UI 狀態）時，請使用它。
 
-### 建立 `SharedFlow`
+### 建立 `SharedFlow` {id="create-a-sharedflow"}
 
 [`SharedFlow`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-shared-flow/) 是一種熱 Flow，它向訂閱者廣播隨時間發生的發送數值。
 
@@ -914,7 +914,7 @@ suspend fun main() {
 
 這確保了每個協同程式都能到達 `collect()`，訂閱 `messages`，並在 `sendMessageToEveryone()` 發送訊息之前掛起。如果沒有它，當重播快取太小時，收集協同程式可能會啟動較晚而錯過早期的發送內容。
 
-#### 使用顯式支援欄位公開熱 Flow
+#### 使用顯式支援欄位公開熱 Flow {id="use-explicit-backing-fields-to-expose-hot-flows"}
 <primary-label ref="experimental-opt-in"/>
 
 您可以使用 [顯式支援欄位 (explicit backing fields)](whatsnew23.md#explicit-backing-fields) 來公開唯讀的 `SharedFlow`，同時在類別內部保持可變的支援欄位。
@@ -988,7 +988,7 @@ suspend fun main() {
 ```
 {kotlin-runnable="true"}
 
-### 建立 `StateFlow`
+### 建立 `StateFlow` {id="create-a-stateflow"}
 
 [`StateFlow`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-state-flow/) 是一種熱 Flow，它存儲單個狀態值，並在該值被新值替換時發送更新。新訂閱者在開始收集時會立即收到當前值，隨後在每次狀態更新時收到新值。
 
@@ -1225,7 +1225,7 @@ suspend fun main() {
 
 在此範例中，`.update()` 函式原子化地遞增按讚數。這能防止多個協同程式同時呼叫 `like()` 函式時發生更新遺失。
 
-#### 在 `StateFlow` 中存儲累計狀態
+#### 在 `StateFlow` 中存儲累計狀態 {id="store-accumulated-state-in-a-stateflow"}
 
 有時您可能希望訂閱者收到所有先前發送內容的結果，而不僅僅是最新發送的值。
 
@@ -1309,7 +1309,7 @@ suspend fun main() {
 
 由於 `messageHistory` 是 `StateFlow`，訂閱者在開始收集時會收到當前的訊息歷程。之後，每當訊息傳送並導致聊天歷程變更時，他們都會收到一個新列表。
 
-### 將冷 Flow 轉換為熱 Flow
+### 將冷 Flow 轉換為熱 Flow {id="convert-cold-flows-to-hot-flows"}
 
 冷 Flow 會為每個收集器分別執行其上游操作。當多個訂閱者需要來自同一個上游收集的發送內容時，您可以將冷 Flow 轉換為與訂閱者共享該收集的熱 Flow。
 
@@ -1471,7 +1471,7 @@ val lastUpdateFlow: StateFlow<Instant?> =
         )
 ```
 
-### 取消熱 Flow
+### 取消熱 Flow {id="cancel-hot-flows"}
 
 當訂閱者被取消時，熱 Flow 不會停止。
 
@@ -1559,7 +1559,7 @@ suspend fun main() {
 
 `sendMessageToEveryone()` 函式仍會更新 `messageHistory`，因為呼叫它的協同程式並未被取消。因此，`totalMessages.value` 保持最後收集到的數量，而 `chatroom.messageHistory.value.size` 則顯示實際的訊息數量。
 
-### 處理熱 Flow 中的例外
+### 處理熱 Flow 中的例外 {id="handle-exceptions-in-hot-flows"}
 
 在 [冷 Flow](#handle-exceptions-in-flows) 中，除非您先使用 `.catch()` 等運算子處理上游例外，否則例外會傳遞給 `collect()` 的呼叫者。
 

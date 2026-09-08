@@ -5,7 +5,7 @@
 
 目前，Compose Multiplatform 在处理原生视图中的触摸事件时只有一种策略：所有触摸都完全由原生 UI 处理，Compose 完全察觉不到触摸的发生。
 
-## 互操作滚动中的触摸
+## 互操作滚动中的触摸 {id="touches-in-interop-scrolling"}
 
 当互操作区域中的每个触摸都立即发送到基础原生 UI 元素时，容器组合项无法对同一触摸做出反应。这带来的最显而易见的问题是滚动。如果互操作区域位于可滚动容器中，用户可能希望该区域：
 
@@ -25,7 +25,7 @@
 >
 {style="note"}
 
-## 选择触摸处理策略
+## 选择触摸处理策略 {id="choosing-the-strategy-for-touch-processing"}
 <primary-label ref="Experimental"/>
 
 通过 Compose Multiplatform %org.jetbrains.compose%，您还可以尝试使用实验性 API，以便对互操作 UI 进行更精细的控制。
@@ -41,6 +41,6 @@
 * `NonCooperative` 模式使用之前的策略，即 Compose Multiplatform 不处理互操作视图中的任何触摸事件。尽管存在上述一般性问题，但如果您确定互操作触摸永远不需要在 Compose 级别处理，则此模式可能会很有用。
 * 要禁用与原生 UI 的任何交互，请向构造函数传递 `interactionMode = null`。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 了解有关 Compose Multiplatform 中 [UIKit](compose-uikit-integration.md) 和 [SwiftUI](compose-swiftui-integration.md) 集成的更多信息。

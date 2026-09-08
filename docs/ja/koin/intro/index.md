@@ -8,11 +8,11 @@ title: はじめに
 
 Koin は Kotlin 開発者のための軽量な依存性注入フレームワークです。Android アプリ、Kotlin Multiplatform プロジェクト、Ktor を使用したバックエンドサービス、あるいはその他のあらゆる Kotlin アプリケーションを構築している場合でも、Koin は依存性注入をシンプルかつ直感的なものにします。
 
-## なぜ Koin なのか？
+## なぜ Koin なのか？ {id="why-koin"}
 
 Koin は明確な哲学に基づいて設計されました。それは、**「シンプルさ」と「機能性」のどちらかを選ぶ必要はない**ということです。Koin を使えば、その両方が手に入ります。
 
-### DSL とアノテーション - 好きな方を選択可能
+### DSL とアノテーション - 好きな方を選択可能 {id="dsl-annotations-choose-what-you-want"}
 
 Koin はどちらのアプローチでも強力です。クリーンな Kotlin DSL を好みますか？ それなら DSL を使いましょう。アノテーションが好きですか？ それならアノテーションを使いましょう。どちらも第一級市民（ファーストクラス・シチズン）であり、同等に強力です。
 
@@ -24,33 +24,33 @@ Koin はどちらのアプローチでも強力です。クリーンな Kotlin D
 | **安全** | Koin Compiler Plugin によるコンパイル時の安全性 |
 | **ダイナミック** | ランタイムの柔軟性：モジュールの動的ロード、遅延読み込み（Lazy loading）、フィーチャーフラグ |
 
-## どこから始める？
+## どこから始める？ {id="where-to-start"}
 
 あなたの経験レベルに合わせてパスを選択してください：
 
-### 依存性注入（DI）が初めての方
+### 依存性注入（DI）が初めての方 {id="new-to-dependency-injection"}
 
 まずは基本から始めましょう：
 - **[依存性注入とは？](/docs/intro/what-is-dependency-injection)** - コアコンセプトを理解する
 
-### DI は知っているが、Koin は初めての方
+### DI は知っているが、Koin は初めての方 {id="know-di-new-to-koin"}
 
 すぐに Koin の詳細に進みましょう：
 - **[Koin とは？](/docs/intro/what-is-koin)** - Koin の DI へのアプローチを知る
 - **[Koin Compiler Plugin](/docs/intro/koin-compiler-plugin)** - 推奨される、より安全な Koin の使用方法
 
-### Hilt や Dagger から移行する方
+### Hilt や Dagger から移行する方 {id="coming-from-hilt-dagger"}
 
 Koin との比較を確認してください：
 - **[Koin vs Hilt/Dagger](/docs/intro/koin-vs-hilt)** - 違いと移行パスを理解する
 
-### すぐにコードを書きたい方
+### すぐにコードを書きたい方 {id="ready-to-code"}
 
 - **[セットアップガイド](/docs/setup/gradle)** - プロジェクトに Koin を追加する
 - **[チュートリアル](/docs/tutorials/your-first-app)** - 初めての Koin アプリを構築する
 - **[Koin IDE Plugin](https://plugins.jetbrains.com/plugin/26131-koin-dependency-injection-official-)** - Android Studio および IntelliJ IDEA 用の公式プラグインをインストール：コードナビゲーション、ライブセーフティチェック、依存関係グラフの可視化が可能になります
 
-## Koin のアプローチ
+## Koin のアプローチ {id="koin-s-approaches"}
 
 Koin は、依存関係の定義方法に柔軟性を提供します：
 
@@ -63,7 +63,7 @@ Koin は、依存関係の定義方法に柔軟性を提供します：
 
 詳細は [Koin とは？](/docs/intro/what-is-koin) および [Koin Compiler Plugin](/docs/intro/koin-compiler-plugin) をご覧ください。
 
-## プラットフォームのサポート
+## プラットフォームのサポート {id="platform-support"}
 
 Koin は Kotlin が動作するすべての場所で利用可能です：
 
@@ -77,7 +77,7 @@ Koin は Kotlin が動作するすべての場所で利用可能です：
 | **Web (JS/Wasm)** | `koin-core` | ✅ フルサポート |
 | **Ktor** | `koin-ktor` | ✅ フルサポート |
 
-## クイック例
+## クイック例 {id="quick-example"}
 
 Koin のコードがどのようなものか、以下に示します：
 

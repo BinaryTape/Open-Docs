@@ -10,14 +10,14 @@ Compose Hot Reload 帮助你在开发 Compose Multiplatform 项目时，实时�
 
 <img src="KotlinConf-hot-reload.animated.gif" alt="Compose Hot Reload" width="600" preview-src="KotlinConf-hot-reload.png"/>
 
-## 将 Compose Hot Reload 添加到你的项目
+## 将 Compose Hot Reload 添加到你的项目 {id="add-compose-hot-reload-to-your-project"}
 
 可以通过以下两种方式添加 Compose Hot Reload：
 
 * [在 IntelliJ IDEA 或 Android Studio 中从头创建项目](#from-scratch)
 * [向现有项目添加 Gradle 插件](#to-an-existing-project)
 
-### 从头创建
+### 从头创建 {id="from-scratch"}
 
 本节将引导你在 IntelliJ IDEA 和 Android Studio 中创建一个带有桌面目标的多平台项目。项目创建后，系统会自动添加 Compose Hot Reload。
 
@@ -28,7 +28,7 @@ Compose Hot Reload 帮助你在开发 Compose Multiplatform 项目时，实时�
 5. 选择 **Desktop** 目标并点击 **Create**。
    ![使用桌面目标创建多平台项目](create-desktop-project.png){width=600 style="block"}
 
-### 向现有项目添加
+### 向现有项目添加 {id="to-an-existing-project"}
 
 从 Compose Multiplatform 1.10.0 开始，Compose Hot Reload 插件已[捆绑](whats-new-compose-110.md#compose-hot-reload-integration)，并对所有包含**桌面目标**的项目默认启用。
 
@@ -36,7 +36,7 @@ Compose Hot Reload 帮助你在开发 Compose Multiplatform 项目时，实时�
 
 虽然它是默认启用的，但你仍然可以显式声明 Compose Hot Reload 插件以使用特定的旧版本。
 
-#### 早期版本的 Compose Multiplatform {initial-collapse-state="collapsed" collapsible="true"}
+#### 早期版本的 Compose Multiplatform {initial-collapse-state="collapsed" collapsible="true" id="earlier-versions-of-compose-multiplatform"}
 
 对于使用 1.10.0 之前版本的 Compose Multiplatform 的多平台项目，你必须配置桌面目标，然后显式添加 Compose Hot Reload 插件。以下步骤以[使用共享逻辑和 UI 创建应用](compose-multiplatform-create-first-app.md)教程中的项目作为参考。
 
@@ -83,7 +83,7 @@ Compose Hot Reload 帮助你在开发 Compose Multiplatform 项目时，实时�
 
 6. 点击 **Sync Gradle Changes** 按钮以同步 Gradle 文件： ![同步 Gradle 文件](gradle-sync.png){width=50}
 
-## 使用 Compose Hot Reload
+## 使用 Compose Hot Reload {id="use-compose-hot-reload"}
 
 1. 在 `desktopApp` 源集中，打开 `main.kt` 文件并更新 `main()` 函数：
    ```kotlin
@@ -132,7 +132,7 @@ Compose Hot Reload 帮助你在开发 Compose Multiplatform 项目时，实时�
 
 恭喜！你已经见证了 Compose Hot Reload 的实际效果。现在你可以尝试更改文本、图像、格式、 UI 结构等，而无需在每次更改后都重新启动桌面运行配置。
 
-## 适用于 AI 代理的 MCP 服务器
+## 适用于 AI 代理的 MCP 服务器 {id="mcp-server-for-ai-agents"}
 <primary-label ref="Experimental"/>
 
 从 Compose Multiplatform 1.12.0 开始，Compose Hot Reload 包含一个内置的 [模型上下文协议 (MCP)](https://modelcontextprotocol.io/) 服务器。
@@ -142,7 +142,7 @@ MCP 服务器允许 AI 编码代理与正在运行的 Compose 应用程序进行
 这为 AI 代理在编辑 Compose 代码时闭合了反馈循环。
 代理无需依赖你每次编辑后手动检查结果，而是可以自主地迭代你的代码并验证每项更改。
 
-### 连接 AI 代理
+### 连接 AI 代理 {id="connect-an-ai-agent"}
 
 要连接 AI 代理，请将代理的 MCP 客户端配置指向 `hotMcpServer` Gradle 任务。例如，在 `.mcp.json` 中：
 
@@ -162,7 +162,7 @@ MCP 服务器允许 AI 编码代理与正在运行的 Compose 应用程序进行
 }
 ```
 
-### 可用的 MCP 工具
+### 可用的 MCP 工具 {id="available-mcp-tools"}
 
 MCP 服务器公开了一系列代理可以调用的工具，包括：
 
@@ -174,6 +174,6 @@ MCP 服务器公开了一系列代理可以调用的工具，包括：
 
 有关 MCP 工具及其参数的完整列表，请参阅 [Compose Hot Reload README](https://github.com/JetBrains/compose-hot-reload#mcp-server-for-ai-agents)。
 
-## 获取帮助
+## 获取帮助 {id="get-help"}
 
 如果你在使用 Compose Hot Reload 时遇到任何问题，请通过[创建 GitHub 问题](https://github.com/JetBrains/compose-hot-reload/issues)告知我们。

@@ -17,7 +17,7 @@ Compose Multiplatform チームは、AndroidX Navigation ライブラリへの�
 >
 {style="tip"}
 
-## Compose ナビゲーションの基本概念
+## Compose ナビゲーションの基本概念 {id="basic-concepts-of-compose-navigation"}
 
 Navigation ライブラリでは、ナビゲーションのユースケースを以下の概念にマッピングします。
 
@@ -35,7 +35,7 @@ Navigation ライブラリでは、ナビゲーションのユースケースを
 * アプリは、ユーザーの経路をデスティネーションのスタック、すなわち**バックスタック (back stack)** として表現します。デフォルトでは、ユーザーが新しいデスティネーションに移動するたびに、そのデスティネーションがスタックの最上部に追加されます。バックスタックを使用すると、ナビゲーションをより分かりやすくできます。直接あちこちに移動する代わりに、現在のデスティネーションをスタックの最上部からポップして、自動的に前のデスティネーションに戻ることができます。
 * 各デスティネーションには、一連の**ディープリンク (deep links)** を関連付けることができます。これは、アプリがオペレーティング システムからリンクを受け取ったときに、そのデスティネーションに導くべき URI パターンです。
 
-## 基本的なナビゲーションの例
+## 基本的なナビゲーションの例 {id="basic-navigation-example"}
 
 Navigation ライブラリを使用するには、`commonMain` ソースセットに以下の依存関係を追加します。
 
@@ -83,7 +83,7 @@ NavHost(navController = navController, startDestination = Profile) {
 }
 ```
 
-### Navigation ライブラリの主要クラス
+### Navigation ライブラリの主要クラス {id="main-classes-of-the-navigation-library"}
 
 Navigation ライブラリは、以下のコア型を提供します。
 
@@ -93,9 +93,9 @@ Navigation ライブラリは、以下のコア型を提供します。
 
 コア型の機能に加えて、Navigation コンポーネントはアニメーションとトランジション、ディープリンクのサポート、型安全性、`ViewModel` サポート、およびアプリのナビゲーションを処理するためのその他の便利な機能を提供します。
 
-## ナビゲーションのユースケース
+## ナビゲーションのユースケース {id="navigation-use-cases"}
 
-### デスティネーションに移動する
+### デスティネーションに移動する {id="go-to-a-destination"}
 
 デスティネーションに移動するには、`NavController.navigate()` 関数を呼び出します。上記の例を続けると以下のようになります。
 
@@ -105,7 +105,7 @@ Button(onClick = { navController.navigate(Profile) }) {
 }
 ```
 
-### デスティネーションに引数を渡す
+### デスティネーションに引数を渡す {id="pass-arguments-to-a-destination"}
 
 ナビゲーション グラフを設計する際、ルートをパラメータ付きのデータクラスとして定義できます。例えば以下の通りです。
 
@@ -132,7 +132,7 @@ composable<Profile> { backStackEntry ->
 }
 ```
 
-### ナビゲーション時に複雑なデータを取得する
+### ナビゲーション時に複雑なデータを取得する {id="retrieve-complex-data-when-navigating"}
 
 デスティネーション間を移動する際は、必要最小限の情報のみを渡すようにしてください。ファイルや、アプリ全体の論理的な状態を反映する複雑なオブジェクトは、データレイヤーに保存すべきです。ユーザーがデスティネーションに到達した際、UI は信頼できる唯一の情報源 (Single Source of Truth) から実際のデータを読み込むようにします。
 
@@ -146,7 +146,7 @@ composable<Profile> { backStackEntry ->
 
 アプリでデータレイヤーを適切に実装するためのガイダンスについては、[Android のデータレイヤーに関する記事](https://developer.android.com/topic/architecture/data-layer)を参照してください。
 
-### バックスタックを管理する
+### バックスタックを管理する {id="manage-back-stack"}
 
 バックスタックは `NavController` クラスによって制御されます。他のスタックと同様に、`NavController` は新しいアイテムをスタックの最上部にプッシュし、最上部からポップします。
 
@@ -163,7 +163,7 @@ Navigation ライブラリでは、バックスタックの処理に柔軟性が
 
 詳細とユースケースについては、[バックスタックに関する Jetpack Compose ドキュメント](https://developer.android.com/guide/navigation/backstack)を参照してください。
 
-### ディープリンク
+### ディープリンク {id="deep-links"}
 
 Navigation ライブラリを使用すると、特定の URI、アクション、または MIME タイプをデスティネーションに関連付けることができます。この関連付けは**ディープリンク (deep link)** と呼ばれます。
 
@@ -171,7 +171,7 @@ Navigation ライブラリを使用すると、特定の URI、アクション�
 
 ディープリンクの作成、登録、および処理の詳細については、[ディープリンク](compose-navigation-deep-links.md)を参照してください。
 
-### 戻るジェスチャー
+### 戻るジェスチャー {id="back-gesture"}
 
 マルチプラットフォームの Navigation ライブラリは、各プラットフォームでの戻るジェスチャーを前の画面への移動に変換します（例えば、iOS ではシンプルな「戻るスワイプ」、デスクトップでは <shortcut>Esc</shortcut> キー）。
 
@@ -200,7 +200,7 @@ ComposeUIViewController(
 }
 ```
 
-## 代替のナビゲーション ソリューション
+## 代替のナビゲーション ソリューション {id="alternative-navigation-solutions"}
 
 Compose ベースのナビゲーション実装が要件に合わない場合は、検討すべきサードパーティの代替案があります。
 
@@ -214,7 +214,7 @@ Compose ベースのナビゲーション実装が要件に合わない場合は
 
 iOS をターゲットにしており、ナビゲーション UI で [Liquid Glass](https://developer.apple.com/documentation/technologyoverviews/liquid-glass) のようなシステムでレンダリングされるエフェクトを使用したい場合は、画面コンテンツには Compose を使いつつ、[ナビゲーションをネイティブの SwiftUI に移行する](ios-liquid-glass.md)ことを検討してください。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 Compose のナビゲーションについては、Android デベロッパー ポータルで詳しく説明されています。これらのドキュメントでは Android 専用の例が使われていることがありますが、基本的なガイダンスとナビゲーションの原則はマルチプラットフォームでも同じです。
 

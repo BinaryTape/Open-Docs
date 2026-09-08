@@ -13,13 +13,13 @@ title: Kotlin
 このチュートリアルの**アノテーション版（annotations version）**をお探しですか？コンパイル時の検証と自動モジュール検出に Koin Annotations を使用する [Kotlin & Annotations](./kotlin-annotations.md) を確認してください。
 :::
 
-## コードの取得
+## コードの取得 {id="get-the-code"}
 
 :::info
 [ソースコードはGithubで公開されています](https://github.com/InsertKoinIO/koin-getting-started/tree/main/kotlin)
 :::
 
-## セットアップ
+## セットアップ {id="setup"}
 
 まず、以下のように `koin-core` の依存関係が追加されていることを確認してください。
 
@@ -31,13 +31,13 @@ dependencies {
 }
 ```
 
-## アプリケーションの概要
+## アプリケーションの概要 {id="application-overview"}
 
 このアプリケーションのアイデアは、ユーザーのリストを管理し、それを `UserApplication` クラスで表示することです。
 
 > Users -> UserRepository -> UserService -> UserApplication
 
-## 「User」データ
+## 「User」データ {id="the-user-data"}
 
 ユーザーのコレクションを管理します。データクラスは以下の通りです。
 
@@ -67,7 +67,7 @@ class UserRepositoryImpl : UserRepository {
 }
 ```
 
-## Koinモジュール
+## Koinモジュール {id="the-koin-module"}
 
 `module` 関数を使用してKoinモジュールを宣言します。Koinモジュールは、注入するすべてのコンポーネントを定義する場所です。
 
@@ -89,7 +89,7 @@ val appModule = module {
 このチュートリアルでは、コンパイル時に自動ワイヤリング（auto-wiring）を提供する **Koin Compiler Plugin DSL** (`single<T>()`) を使用しています。設定については [Compiler Plugin Setup](/docs/setup/compiler-plugin) を参照してください。
 :::
 
-## UserServiceコンポーネント
+## UserServiceコンポーネント {id="the-userservice-component"}
 
 ユーザー操作を管理するための `UserService` コンポーネントを作成します。
 
@@ -131,7 +131,7 @@ val appModule = module {
 }
 ```
 
-## UserApplicationでの依存関係の注入
+## UserApplicationでの依存関係の注入 {id="injecting-dependencies-in-userapplication"}
 
 `UserApplication` クラスは、Koinからインスタンスを起動（bootstrap）するのに役立ちます。コンストラクタ注入を通じて `UserService` を解決します。
 
@@ -159,7 +159,7 @@ class UserApplication(
 コンストラクタ注入は、Kotlinアプリケーションにおいて依存関係を注入する推奨される方法です。Koinは `UserApplication` を作成する際に、自動的に `UserService` を解決して注入します。
 :::
 
-## Koinの開始
+## Koinの開始 {id="start-koin"}
 
 アプリケーションでKoinを開始し、モジュールに `UserApplication` を追加する必要があります。アプリケーションのメインエントリポイントである `main` 関数で `startKoin()` 関数を呼び出すだけです。
 
@@ -184,7 +184,7 @@ fun main() {
 `startKoin` 内の `modules()` 関数は、指定されたモジュールのリストをロードします。`KoinPlatform.getKoin().get<UserApplication>()` を使用して、Koinから `UserApplication` インスタンスを取得します。
 :::
 
-## Koinモジュール：DSLの比較
+## Koinモジュール：DSLの比較 {id="koin-module-dsl-comparison"}
 
 以下は、**クラシックDSL**（手動ワイヤリング）を使用したKoinモジュールの宣言です。
 

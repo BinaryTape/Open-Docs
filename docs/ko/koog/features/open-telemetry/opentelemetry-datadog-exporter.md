@@ -7,7 +7,7 @@ Koog는 관찰성(observability) 데이터에 대한 오픈 표준인 [OpenTelem
 
 ---
 
-## 설정 지침
+## 설정 지침 {id="setup-instructions"}
 
 1. [https://www.datadoghq.com/](https://www.datadoghq.com/)에서 Datadog 계정을 생성합니다.
 
@@ -33,11 +33,11 @@ export DD_SITE="datadoghq.eu"
 
 <!--- KNIT example-datadog-exporter-01.txt -->
 
-## 구성
+## 구성 {id="configuration"}
 
 Datadog 내보내기를 활성화하려면 **OpenTelemetry 기능(feature)**을 설치하고 [`addDatadogExporter()`](api:agents-features-opentelemetry::ai.koog.agents.features.opentelemetry.integration.datadog.addDatadogExporter)를 호출하세요.
 
-### 기본 예시
+### 기본 예시 {id="basic-example"}
 
 === "Kotlin"
 
@@ -107,7 +107,7 @@ See traces in Datadog LLM Observability");
     ```
     <!--- KNIT exampleDatadogExporterJava01.java -->
 
-## 트레이스 속성 (Trace attributes)
+## 트레이스 속성 (Trace attributes) {id="trace-attributes"}
 
 Koog가 에이전트 활동을 Datadog으로 보낼 때, 이는 *스팬(span)*의 연속으로 수행됩니다. 스팬은 LLM 호출이나 도구 실행과 같은 개별 작업 기록입니다. 관련 스팬들은 하나의 *트레이스(trace)*로 그룹화되며, 이는 시작부터 끝까지 전체 에이전트 실행을 나타냅니다.
 
@@ -119,7 +119,7 @@ Koog가 에이전트 활동을 Datadog으로 보낼 때, 이는 *스팬(span)*�
 - **service.name**: 서비스 또는 애플리케이션 이름
 - **version**: 배포 간의 동작을 비교하는 데 유용한 애플리케이션 버전
 
-### 트레이스 속성을 사용한 예시
+### 트레이스 속성을 사용한 예시 {id="example-with-trace-attributes"}
 
 === "Kotlin"
 
@@ -198,7 +198,7 @@ Koog가 에이전트 활동을 Datadog으로 보낼 때, 이는 *스팬(span)*�
     !!! note
         Java에서 `resourceAttributes`를 설정하는 것은 현재 지원되지 않습니다. 이는 내부 Kotlin 함수가 [`kotlin.time.Duration`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-duration/) 파라미터(값 클래스)를 포함하고 있어, 해당 파라미터 이후의 모든 오버로드에 대해 JVM 이름 망글링(mangling)이 발생하기 때문입니다. `resourceAttributes`가 필요한 경우 위의 Kotlin 예제를 사용하세요.
 
-## 여러 백엔드로 전송하기
+## 여러 백엔드로 전송하기 {id="sending-to-multiple-backends"}
 
 Datadog과 다른 백엔드에 동시에 트레이스를 보내려면, [`addDatadogExporter()`](api:agents-features-opentelemetry::ai.koog.agents.features.opentelemetry.integration.datadog.addDatadogExporter)를 통해 Datadog을 등록하고 [`addSpanExporter()`](api:agents-features-opentelemetry::ai.koog.agents.features.opentelemetry.feature.OpenTelemetryConfig.addSpanExporter)를 통해 두 번째 익스포터를 추가하세요. 각 호출은 독립적인 배치 스팬 프로세서(batch span processor)를 등록하므로 두 백엔드로 병렬로 내보내집니다.
 
@@ -236,7 +236,7 @@ Datadog과 다른 백엔드에 동시에 트레이스를 보내려면, [`addData
     ```
     <!--- KNIT example-datadog-exporter-03.kt -->
 
-## 트레이싱 대상
+## 트레이싱 대상 {id="what-gets-traced"}
 
 Datadog 익스포터는 Koog의 일반 OpenTelemetry 통합과 동일한 활동을 캡처합니다. 캡처되는 스팬의 전체 목록과 LLM 프롬프트 및 응답 콘텐츠를 포함하는 방법은 [트레이싱 대상](index.md#what-gets-traced)을 참조하세요.
 
@@ -244,7 +244,7 @@ Datadog의 OpenTelemetry 지원에 대한 자세한 내용은 [Datadog OTLP API 
 
 ---
 
-## 문제 해결
+## 문제 해결 {id="troubleshooting"}
 
 - **트레이스가 나타나지 않음**: `DD_API_KEY` 및 `DD_SITE`가 올바르게 설정되었는지 확인하세요 ([설정 지침](#setup-instructions) 참조).
 - **인증 오류**: [Organization Settings > API Keys](https://app.datadoghq.com/organization-settings/api-keys)에서 키가 활성 상태인지 확인하세요.

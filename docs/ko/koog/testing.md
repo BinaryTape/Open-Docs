@@ -1,10 +1,10 @@
 # 테스트 (Testing)
 
-## 개요 (Overview)
+## 개요 (Overview) {id="overview"}
 
 테스트 기능은 Koog 프레임워크에서 AI 에이전트 파이프라인(pipeline), 서브그래프(subgraph), 그리고 도구 상호작용을 테스트하기 위한 포괄적인 프레임워크를 제공합니다. 이를 통해 개발자는 모의(mock) LLM(대규모 언어 모델) 실행기, 도구 레지스트리(registry) 및 에이전트 환경을 사용하여 통제된 테스트 환경을 구축할 수 있습니다.
 
-### 목적
+### 목적 {id="purpose"}
 
 이 기능의 주요 목적은 다음과 같은 방법을 통해 에이전트 기반 AI 기능의 테스트를 용이하게 하는 것입니다:
 
@@ -14,9 +14,9 @@
 - 에이전트 노드를 통한 데이터의 올바른 흐름 검증
 - 기대되는 동작에 대한 단언(assertion) 제공
 
-## 설정 및 초기화
+## 설정 및 초기화 {id="configuration-and-initialization"}
 
-### 테스트 의존성 설정
+### 테스트 의존성 설정 {id="setting-up-test-dependencies"}
 
 테스트 환경을 설정하기 전에 다음 의존성을 추가했는지 확인하세요:
 
@@ -35,7 +35,7 @@ dependencies {
 ```
 <!--- KNIT example-testing-01.kt -->
 
-### LLM 응답 모의하기(Mocking)
+### LLM 응답 모의하기(Mocking) {id="mocking-llm-responses"}
 
 테스트의 가장 기본적인 형태는 결정론적(deterministic) 동작을 보장하기 위해 LLM 응답을 모의 처리하는 것입니다. 이는 `MockLLMBuilder` 및 관련 유틸리티를 사용하여 수행할 수 있습니다.
 
@@ -83,7 +83,7 @@ dependencies {
     ```
     <!--- KNIT example-testing-java-01.java -->
 
-### 도구 호출 모의하기(Mocking)
+### 도구 호출 모의하기(Mocking) {id="mocking-tool-calls"}
 
 입력 패턴에 따라 특정 도구를 호출하도록 LLM을 모의 처리할 수 있습니다:
 
@@ -203,7 +203,7 @@ dependencies {
 3. `returns...onArguments`: 정확히 일치하는 인자에 대해 특정 결과를 반환합니다.
 4. `returns...onArgumentsMatching`: 사용자 정의 인자 조건에 따라 결과를 반환합니다.
 
-### 테스트 모드 활성화
+### 테스트 모드 활성화 {id="enabling-testing-mode"}
 
 에이전트에서 테스트 모드를 활성화하려면 `AIAgent` 생성자 블록 내에서 `withTesting()` 함수를 사용하세요:
 
@@ -247,15 +247,15 @@ dependencies {
     ```
     <!--- KNIT example-testing-java-03.java -->
 
-## 고급 테스트
+## 고급 테스트 {id="advanced-testing"}
 
-### 그래프 구조 테스트
+### 그래프 구조 테스트 {id="testing-the-graph-structure"}
 
 상세한 노드 동작과 엣지(edge) 연결을 테스트하기 전에, 에이전트 그래프의 전반적인 구조를 검증하는 것이 중요합니다. 여기에는 필요한 모든 노드가 존재하고 예상되는 서브그래프 내에 제대로 연결되어 있는지 확인하는 것이 포함됩니다.
 
 테스트 기능은 에이전트의 그래프 구조를 테스트하는 포괄적인 방법을 제공합니다. 이 접근 방식은 여러 서브그래프와 상호 연결된 노드가 있는 복잡한 에이전트의 경우 특히 유용합니다.
 
-#### 기본 구조 테스트
+#### 기본 구조 테스트 {id="basic-structure-testing"}
 
 에이전트 그래프의 근본적인 구조를 검증하는 것부터 시작하세요:
 
@@ -324,11 +324,11 @@ dependencies {
     ```
     <!--- KNIT example-testing-java-04.java -->
 
-### 노드 동작 테스트
+### 노드 동작 테스트 {id="testing-node-behavior"}
 
 노드 동작 테스트를 통해 에이전트 그래프의 노드가 주어진 입력에 대해 기대되는 출력을 생성하는지 확인할 수 있습니다. 이는 다양한 시나리오에서 에이전트의 로직이 올바르게 작동하는지 보장하는 데 매우 중요합니다.
 
-#### 기본 노드 테스트
+#### 기본 노드 테스트 {id="basic-node-testing"}
 
 개별 노드에 대한 단순한 입력 및 출력 검증부터 시작하세요:
 
@@ -392,7 +392,7 @@ dependencies {
 1. LLM 노드가 입력으로 `Hello`를 받으면, 단순한 텍스트 메시지로 응답합니다.
 2. `Solve task`를 받으면 도구 호출로 응답합니다.
 
-#### 도구 실행 노드 테스트
+#### 도구 실행 노드 테스트 {id="testing-tool-run-nodes"}
 
 도구를 실행하는 노드도 테스트할 수 있습니다:
 
@@ -473,7 +473,7 @@ dependencies {
 
 이 테스트는 도구 실행 노드가 특정 도구 호출 서명을 받을 때 기대되는 도구 결과를 생성하는지 검증합니다.
 
-#### 고급 노드 테스트
+#### 고급 노드 테스트 {id="advanced-node-testing"}
 
 더 복잡한 시나리오의 경우, 구조화된 입력과 출력을 사용하여 노드를 테스트할 수 있습니다:
 
@@ -644,11 +644,11 @@ dependencies {
 
 이러한 고급 테스트는 노드가 복잡한 데이터 구조를 올바르게 처리하는지 확인하는 데 도움이 되며, 이는 정교한 에이전트 동작에 필수적입니다.
 
-### 엣지(Edge) 연결 테스트
+### 엣지(Edge) 연결 테스트 {id="testing-edge-connections"}
 
 엣지 연결 테스트를 통해 에이전트 그래프가 한 노드의 출력을 적절한 다음 노드로 올바르게 라우팅(routing)하는지 확인할 수 있습니다. 이를 통해 에이전트가 서로 다른 출력을 기반으로 의도된 워크플로 경로를 따르는지 보장합니다.
 
-#### 기본 엣지 테스트
+#### 기본 엣지 테스트 {id="basic-edge-testing"}
 
 단순한 엣지 연결 테스트부터 시작하세요:
 
@@ -717,7 +717,7 @@ dependencies {
 1. LLM 노드가 단순한 텍스트 메시지를 출력하면, 흐름이 `giveFeedback` 노드로 향합니다.
 2. 도구 호출을 출력하면, 흐름이 `callTool` 노드로 향합니다.
 
-#### 조건부 라우팅 테스트
+#### 조건부 라우팅 테스트 {id="testing-conditional-routing"}
 
 출력 내용에 따른 더 복잡한 라우팅 로직을 테스트할 수 있습니다:
 
@@ -773,7 +773,7 @@ dependencies {
     ```
     <!--- KNIT example-testing-java-10.java -->
 
-#### 고급 엣지 테스트
+#### 고급 엣지 테스트 {id="advanced-edge-testing"}
 
 정교한 에이전트의 경우, 도구 결과의 구조화된 데이터를 기반으로 조건부 라우팅을 테스트할 수 있습니다:
 
@@ -900,7 +900,7 @@ dependencies {
 
 이러한 고급 엣지 테스트는 에이전트가 노드 출력의 내용과 구조를 기반으로 올바른 결정을 내리는지 확인하는 데 도움이 되며, 이는 지능적이고 문맥을 인식하는 워크플로를 만드는 데 필수적입니다.
 
-## 전체 테스트 예시
+## 전체 테스트 예시 {id="complete-testing-example"}
 
 다음은 전체 테스트 시나리오를 보여주는 사용자 스토리(user story)입니다:
 
@@ -1174,13 +1174,13 @@ ${it.stackTraceToString()}")
     ```
     <!--- KNIT example-testing-java-14.java -->
 
-## API 참조
+## API 참조 {id="api-reference"}
 
 테스트 기능과 관련된 전체 API 참조는 [agents-test](api:agents-test::) 모듈의 참조 문서를 확인하세요.
 
-## FAQ 및 문제 해결
+## FAQ 및 문제 해결 {id="faq-and-troubleshooting"}
 
-#### 특정 도구 응답을 어떻게 모의 처리(Mock)하나요?
+#### 특정 도구 응답을 어떻게 모의 처리(Mock)하나요? {id="how-do-i-mock-a-specific-tool-response"}
 
 `MockLLMBuilder`에서 `mockTool` 메서드를 사용하세요:
 
@@ -1210,7 +1210,7 @@ ${it.stackTraceToString()}")
     ```
     <!--- KNIT example-testing-java-15.java -->
 
-#### 복잡한 그래프 구조를 어떻게 테스트할 수 있나요?
+#### 복잡한 그래프 구조를 어떻게 테스트할 수 있나요? {id="how-can-i-test-complex-graph-structures"}
 
 서브그래프 단언, `verifySubgraph` 및 노드 참조를 사용하세요:
 
@@ -1268,7 +1268,7 @@ ${it.stackTraceToString()}")
     ```
     <!--- KNIT example-testing-java-16.java -->
 
-#### 입력에 따라 다른 LLM 응답을 어떻게 시뮬레이션하나요?
+#### 입력에 따라 다른 LLM 응답을 어떻게 시뮬레이션하나요? {id="how-do-i-simulate-different-llm-responses-based-on-input"}
 
 패턴 매칭 메서드를 사용하세요:
 
@@ -1309,13 +1309,13 @@ ${it.stackTraceToString()}")
     ```
     <!--- KNIT example-testing-java-17.java -->
 
-### 문제 해결
+### 문제 해결 {id="troubleshooting"}
 
-#### 모의(Mock) 실행기가 항상 기본 응답만 반환합니다.
+#### 모의(Mock) 실행기가 항상 기본 응답만 반환합니다. {id="mock-executor-always-returns-the-default-response"}
 
 패턴 매칭이 올바른지 확인하세요. 패턴은 대소문자를 구분하며 지정된 대로 정확히 일치해야 합니다.
 
-#### 도구 호출이 가로채지지(intercepted) 않습니다.
+#### 도구 호출이 가로채지지(intercepted) 않습니다. {id="tool-calls-are-not-being-intercepted"}
 
 다음을 확인하세요:
 
@@ -1323,7 +1323,7 @@ ${it.stackTraceToString()}")
 2. 도구 이름이 정확히 일치하는지 확인합니다.
 3. 도구 작업(action)이 올바르게 구성되었는지 확인합니다.
 
-#### 그래프 단언이 실패합니다.
+#### 그래프 단언이 실패합니다. {id="graph-assertions-are-failing"}
 
 1. 노드 이름이 올바른지 확인합니다.
 2. 그래프 구조가 예상과 일치하는지 확인합니다.

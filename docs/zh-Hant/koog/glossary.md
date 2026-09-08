@@ -1,6 +1,6 @@
 # 術語表
 
-## 代理 (Agent)
+## 代理 (Agent) {id="agent"}
 
 - **代理 (Agent)**：一種可以與工具互動、處理複雜工作流程並與使用者通訊的 AI 實體。
 
@@ -16,11 +16,11 @@
 
 - **LLM 工作階段 (LLM session)**：與 LLM 互動的結構化方式，包括對話歷程記錄、可用工具以及發出請求的方法。
 
-## 代理工作流程 (Agent workflow)
+## 代理工作流程 (Agent workflow) {id="agent-workflow"}
 
 - **策略 (Strategy)**：為代理定義的工作流程，由順序子圖組成。策略定義了代理如何處理輸入、與工具互動以及產生輸出。策略圖由透過邊連接的節點組成，邊代表節點之間的轉換。
 
-### 策略圖 (Strategy graphs)
+### 策略圖 (Strategy graphs) {id="strategy-graphs"}
 
 - **圖 (Graph)**：定義代理策略工作流程的節點連邊結構。
 
@@ -32,7 +32,7 @@
 
 - **子圖 (Subgraph)**：代理策略中一個獨立的處理單元，擁有自己的一組工具、上下文和職責。
 
-## 工具 (Tools)
+## 工具 (Tools) {id="tools"}
 
 - **工具 (Tool)**：代理可用於執行特定任務或存取外部系統的函式。代理知道可用工具及其引數，但缺乏對其實作細節的瞭解。
 
@@ -44,14 +44,14 @@
 
 - **工具結果 (Tool result)**：執行工具產生的輸出。例如，如果工具是一個方法，結果將是其傳回值。
 
-## 歷程記錄壓縮 (History compression)
+## 歷程記錄壓縮 (History compression) {id="history-compression"}
 
 - **歷程記錄壓縮 (History compression)**：透過應用各種壓縮策略來縮減對話歷程記錄大小以管理權杖 (token) 使用量的過程。若要了解更多，請參閱 [歷程記錄壓縮](history-compression.md)。
 
-## 功能 (Features)
+## 功能 (Features) {id="features"}
 
 - **功能 (Feature)**：擴充並增強 AI 代理功能的元件。
 
-### EventHandler 功能
+### EventHandler 功能 {id="eventhandler-feature"}
 
 - **EventHandler**：一種能夠監控並回應各種代理事件的功能，提供攔截器 (hooks) 用於追蹤代理生命週期、處理錯誤，以及在整個工作流程中處理工具調用。

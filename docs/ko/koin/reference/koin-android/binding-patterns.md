@@ -8,7 +8,7 @@ title: Android 라이브러리 통합
 핵심 정의 유형 및 외부 라이브러리 바인딩 패턴에 대해서는 [정의(Definitions)](/docs/reference/koin-core/definitions)를 참고하세요. 이 페이지는 Android 전용 라이브러리 예제에 초점을 맞춥니다.
 :::
 
-## Retrofit
+## Retrofit {id="retrofit"}
 
 ```kotlin
 interface ApiService {
@@ -68,7 +68,7 @@ class NetworkModule {
 }
 ```
 
-## Room Database
+## Room Database {id="room-database"}
 
 ```kotlin
 @Database(entities = [User::class], version = 1)
@@ -101,7 +101,7 @@ class DatabaseModule {
 }
 ```
 
-## Gson / Serialization
+## Gson / Serialization {id="gson-serialization"}
 
 ```kotlin
 fun createGson(): Gson =
@@ -115,7 +115,7 @@ val serializationModule = module {
 }
 ```
 
-## WorkManager
+## WorkManager {id="workmanager"}
 
 ```kotlin
 class SyncWorker(
@@ -139,9 +139,9 @@ val workModule = module {
 WorkManager 설정을 위해 `koin-androidx-workmanager` 의존성을 사용하세요. 전체 설정은 [WorkManager 통합](/docs/reference/koin-android/workmanager)을 참고하세요.
 :::
 
-## Android Clean Architecture
+## Android Clean Architecture {id="android-clean-architecture"}
 
-### 리포지토리 패턴 (Repository Pattern)
+### 리포지토리 패턴 (Repository Pattern) {id="repository-pattern"}
 
 ```kotlin
 @Singleton
@@ -164,7 +164,7 @@ val dataModule = module {
 }
 ```
 
-### 유스케이스 패턴 (Use Case Pattern)
+### 유스케이스 패턴 (Use Case Pattern) {id="use-case-pattern"}
 
 ```kotlin
 @Factory
@@ -179,7 +179,7 @@ val domainModule = module {
 }
 ```
 
-### SavedStateHandle을 사용한 ViewModel
+### SavedStateHandle을 사용한 ViewModel {id="viewmodel-with-savedstatehandle"}
 
 ```kotlin
 @KoinViewModel
@@ -202,7 +202,7 @@ val viewModelModule = module {
 }
 ```
 
-## 다음 단계
+## 다음 단계 {id="next-steps"}
 
 - **[정의(Definitions)](/docs/reference/koin-core/definitions)** - 핵심 정의 유형
 - **[WorkManager](/docs/reference/koin-android/workmanager)** - 전체 WorkManager 설정

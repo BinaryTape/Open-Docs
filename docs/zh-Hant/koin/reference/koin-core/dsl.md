@@ -4,7 +4,7 @@ title: Koin DSL
 
 Koin DSL 的快速參考。如需詳細指南，請參閱 **[Core - 定義](/docs/reference/koin-core/definitions)** 與 **[Core - 模組](/docs/reference/koin-core/modules)**。
 
-## DSL 做法
+## DSL 做法 {id="dsl-approaches"}
 
 | 做法 | 語法 | 套件 |
 |----------|--------|---------|
@@ -16,11 +16,11 @@ Koin DSL 的快速參考。如需詳細指南，請參閱 **[Core - 定義](/doc
 **編譯器外掛程式 DSL** 提供了自動裝配 (auto-wiring) 與編譯時期安全性。請參閱 [編譯器外掛程式設定](/docs/setup/compiler-plugin)。
 :::
 
-## Application DSL
+## Application DSL {id="application-dsl"}
 
 `KoinApplication` 執行個體代表您配置的 Koin 容器。這讓您可以設定記錄 (logging)、載入屬性並註冊模組。
 
-### 建立 KoinApplication
+### 建立 KoinApplication {id="creating-a-koinapplication"}
 
 可在以下兩種做法中選擇：
 
@@ -40,7 +40,7 @@ startKoin {
 }
 ```
 
-### 配置函式
+### 配置函式 {id="configuration-functions"}
 
 在 `koinApplication` 或 `startKoin` 中，您可以使用：
 
@@ -52,7 +52,7 @@ startKoin {
 * `createEagerInstances()` - 具現化所有標記為 `createdAtStart` 的定義
 * `allowOverride(Boolean)` - 啟用/停用定義覆寫（自 3.1.0 起預設為 true）
 
-### 全域與區域內容 (Context)
+### 全域與區域內容 (Context) {id="global-vs-local-context"}
 
 `koinApplication` 與 `startKoin` 之間的主要區別：
 
@@ -81,7 +81,7 @@ val customKoin = koinApplication {
 val service = customKoin.get<Service>() // 使用特定的執行個體
 ```
 
-### 啟動 Koin
+### 啟動 Koin {id="starting-koin"}
 
 一個完整的 Koin 設定範例：
 
@@ -106,14 +106,14 @@ startKoin {
 }
 ```
 
-## Module DSL
+## Module DSL {id="module-dsl"}
 
 如需全面的模組與定義文件，請參閱：
 - **[定義](/docs/reference/koin-core/definitions)** - 包含 DSL 與註解的所有定義型別
 - **[模組](/docs/reference/koin-core/modules)** - 模組組織與組合
 - **[定義參考](/docs/reference/koin-core/definitions)** - 快速查閱表
 
-### 快速參考
+### 快速參考 {id="quick-reference"}
 
 | 定義 | 經典 Lambda | 經典 Autowire | 編譯器外掛程式 |
 |------------|----------------|------------------|-----------------|
@@ -123,7 +123,7 @@ startKoin {
 | ViewModel | `viewModel { VM(get()) }` | `viewModelOf(::VM)` | `viewModel<VM>()` |
 | 函式構建器 (Function Builder) | `single { fn(get()) }` | — | `single { create(::fn) }` |
 
-### 基本模組
+### 基本模組 {id="basic-module"}
 
 ```kotlin
 val myModule = module {
@@ -133,7 +133,7 @@ val myModule = module {
 }
 ```
 
-### 模組組合
+### 模組組合 {id="module-composition"}
 
 ```kotlin
 val appModule = module {

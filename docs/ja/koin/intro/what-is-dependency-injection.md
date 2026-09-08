@@ -6,11 +6,11 @@ title: 依存性の注入（Dependency Injection）とは？
 
 依存性の注入（Dependency Injection: DI）は、オブジェクトが自身の依存関係を内部で作成するのではなく、外部から受け取るようにするデザインパターンです。これにより、疎結合（loose coupling）、テスト可能性の向上、そしてよりクリーンなコードアーキテクチャが促進されます。
 
-## 依存関係（Dependency）とは？
+## 依存関係（Dependency）とは？ {id="what-is-a-dependency"}
 
 依存関係とは、あるオブジェクトが機能するために必要とする別のオブジェクトのことです。例えば、`Car`（車）が走行するためには `Engine`（エンジン）に依存します。
 
-### 依存性の注入を使用しない場合
+### 依存性の注入を使用しない場合 {id="without-dependency-injection"}
 
 ```kotlin
 class Engine {
@@ -35,7 +35,7 @@ class Car {
 - エンジンの種類（電気、ディーゼルなど）を切り替えるのが難しい
 - `Car` が `Engine` のライフサイクルを制御してしまっている
 
-### 依存性の注入を使用する場合
+### 依存性の注入を使用する場合 {id="with-dependency-injection"}
 
 ```kotlin
 class Car(private val engine: Engine) {  // Engine が注入される
@@ -56,9 +56,9 @@ val electricCar = Car(ElectricEngine())
 - 柔軟性が高く、実装を入れ替えることができる
 - コンストラクタで依存関係が明確に可視化される
 
-## 依存関係を提供するための3つの方法
+## 依存関係を提供するための3つの方法 {id="three-ways-to-provide-dependencies"}
 
-### 1. コンストラクタ注入（推奨）
+### 1. コンストラクタ注入（推奨） {id="1-constructor-injection-recommended"}
 
 依存関係がコンストラクタを通じて渡されます。
 
@@ -93,7 +93,7 @@ val appModule = module {
 コンストラクタ注入は Koin において **推奨される手法** です。これにより、ユニットテストにおいて Koin を必要とせずにコードをテストできるようになります。
 :::
 
-### 2. フィールド注入
+### 2. フィールド注入 {id="2-field-injection"}
 
 依存関係がクラスのプロパティに注入されます。
 
@@ -123,7 +123,7 @@ val presenter: Presenter by inject()
 val presenter: Presenter = get()
 ```
 
-### 3. メソッド注入
+### 3. メソッド注入 {id="3-method-injection"}
 
 依存関係がメソッドを通じて渡されます（あまり一般的ではありません）。
 
@@ -140,9 +140,9 @@ class ReportGenerator {
 - オブジェクトの生存期間中に変化する依存関係
 - コールバックパターン
 
-## 手動 DI vs 自動 DI
+## 手動 DI vs 自動 DI {id="manual-vs-automated-dependency-injection"}
 
-### 手動 DI の問題点
+### 手動 DI の問題点 {id="the-problem-with-manual-di"}
 
 アプリケーションが成長するにつれて、手動での依存関係管理は複雑になります。
 
@@ -171,7 +171,7 @@ class MainActivity : AppCompatActivity() {
 - ライフサイクルの管理（シングルトン、スコープオブジェクトなど）が難しい
 - 中央集権的な設定が存在しない
 
-### コンテナパターン（手動アプローチ）
+### コンテナパターン（手動アプローチ） {id="the-container-pattern-manual-approach"}
 
 開発者はオブジェクト作成を集中管理するためにコンテナを作成することがよくあります。
 
@@ -200,7 +200,7 @@ class MainActivity : AppCompatActivity() {
 - グローバルな状態（シングルトンコンテナ）
 - 複雑なグラフになると依然として反復作業が発生する
 
-### Koin がどのように解決するか
+### Koin がどのように解決するか {id="how-koin-solves-this"}
 
 Koin は、**DSL またはアノテーション** のどちらか好きな方を選択して、依存関係の自動解決を提供します。
 
@@ -239,7 +239,7 @@ class MainActivity : AppCompatActivity() {
 - 型安全な注入
 - 簡単なテストとモジュールの差し替え
 
-## 自動 DI ソリューション
+## 自動 DI ソリューション {id="automated-di-solutions"}
 
 自動化された依存性の注入には、さまざまなアプローチがあります。
 
@@ -257,11 +257,11 @@ class MainActivity : AppCompatActivity() {
 - リフレクションを使用せず、軽量
 - チームに合ったスタイルを選択可能
 
-## サービスロケーター vs 依存性の注入
+## サービスロケーター vs 依存性の注入 {id="service-locator-vs-dependency-injection"}
 
 これらの違いを理解することが重要です。
 
-### サービスロケーターパターン
+### サービスロケーターパターン {id="service-locator-pattern"}
 
 コンポーネントがレジストリに対して能動的に依存関係を要求します。
 
@@ -271,7 +271,7 @@ class UserService : KoinComponent {
 }
 ```
 
-### 依存性の注入パターン
+### 依存性の注入パターン {id="dependency-injection-pattern"}
 
 依存関係が外部から提供されます。
 
@@ -281,7 +281,7 @@ class UserService(
 )
 ```
 
-### 比較
+### 比較 {id="comparison"}
 
 | 項目 | サービスロケーター | 依存性の注入 |
 |--------|----------------|---------------------|
@@ -291,7 +291,7 @@ class UserService(
 | Koin での用法 | `get()`, `by inject()` | Koin モジュールでのコンストラクタ定義 |
 | 適した用途 | Android フレームワーククラス | ビジネスロジック、サービス |
 
-### Koin におけるベストプラクティス
+### Koin におけるベストプラクティス {id="best-practices-with-koin"}
 
 1. ビジネスロジックには **コンストラクタ注入を優先** する:
 
@@ -325,9 +325,9 @@ class UserService : KoinComponent {
 class UserService(private val repository: UserRepository)
 ```
 
-## 依存性の注入のメリット
+## 依存性の注入のメリット {id="benefits-of-dependency-injection"}
 
-### 1. テスト可能性
+### 1. テスト可能性 {id="1-testability"}
 
 DI がないと、テストは困難になります。
 
@@ -352,7 +352,7 @@ fun testGetUser() {
 }
 ```
 
-### 2. 柔軟性
+### 2. 柔軟性 {id="2-flexibility"}
 
 実装を簡単に切り替えることができます。
 
@@ -366,7 +366,7 @@ val testModule = module {
 }
 ```
 
-### 3. コードの整理
+### 3. コードの整理 {id="3-code-organization"}
 
 依存関係の設定を一元管理できます。
 
@@ -390,7 +390,7 @@ startKoin {
 }
 ```
 
-### 4. ライフサイクル管理
+### 4. ライフサイクル管理 {id="4-lifecycle-management"}
 
 Koin がオブジェクトのライフサイクルを処理します。
 
@@ -402,7 +402,7 @@ val appModule = module {
 }
 ```
 
-## まとめ
+## まとめ {id="summary"}
 
 依存性の注入は、以下のことを実現する強力なパターンです。
 - コンポーネントをその依存関係から **分離（デカップリング）** する
@@ -416,7 +416,7 @@ Koin は、以下の方法で Kotlin における DI をシンプルにします
 - コンパイラプラグインによる **コンパイル時の安全性** の提供
 - **リフレクションを一切使用しない** 純粋な Kotlin 実装
 
-## 次のステップ
+## 次のステップ {id="next-steps"}
 
 - **[Koin とは？](/docs/intro/what-is-koin)** - Koin のアプローチについて学ぶ
 - **[Koin コンパイラプラグイン](/docs/intro/koin-compiler-plugin)** - 推奨される、より安全なアプローチ

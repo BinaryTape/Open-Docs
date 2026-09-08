@@ -320,7 +320,7 @@ ${state.draft}")
     <!--- KNIT exampleGoapAgentsJava01.java -->
     
 
-## カスタムコスト関数
+## カスタムコスト関数 {id="custom-cost-functions"}
 
 [A*サーチ]は最適なアクションシーケンスを見つけるための要素としてコストを使用するため、アクションやゴールに対してカスタムコスト関数を定義してプランナーをガイドすることができます。
 
@@ -413,7 +413,7 @@ ${state.draft}")
     ```
     <!--- KNIT exampleGoapAgentsJava02.java -->
 
-## 実際の実行と比較した状態のBelief
+## 実際の実行と比較した状態のBelief {id="state-beliefs-compared-to-actual-execution"}
 
 GOAPは、Belief（楽観的な予測）と実際の実行の概念を区別します。
 

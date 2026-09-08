@@ -767,7 +767,7 @@ Ktorクライアントはコンテンツネゴシエーションをサポート�
 | Gson                  | `import io.ktor.client.features.json.*` |                `import io.ktor.serialization.gson.*` |
 | Jackson               | `import io.ktor.client.features.json.*` |             `import io.ktor.serialization.jackson.*` |
 
-### Bearer認証
+### Bearer認証 {id="bearer-authentication"}
 
 [refreshTokens](client-bearer-auth.md) 関数は、`HttpResponse` ラムダ引数（`it`）の代わりに、[ラムダレシーバー](https://kotlinlang.org/docs/scope-functions.html#context-object-this-or-it)（`this`）として `RefreshTokenParams` インスタンスを使用するようになりました。
 

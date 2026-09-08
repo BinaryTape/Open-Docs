@@ -3,7 +3,7 @@
 提示执行器提供了一种更高级别的抽象，让您可以管理一个或多个 LLM 客户端的生命周期。
 您可以通过统一接口与多个 LLM 提供商协作，从特定提供商的细节中抽象出来，并在它们之间进行动态切换和回退。
 
-## 执行器类型
+## 执行器类型 {id="executor-types"}
 
 Koog 提供了三种主要类型的提示执行器，它们实现了 [`PromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.model.PromptExecutor) 接口：
 
@@ -13,7 +13,7 @@ Koog 提供了三种主要类型的提示执行器，它们实现了 [`PromptExe
 | 多提供商  | [`MultiLLMPromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.llms.MultiLLMPromptExecutor)   | 包装多个 LLM 客户端，并根据 LLM 提供商路由调用。当请求的客户端不可用时，它可以选择性地使用配置的回退提供商和 LLM。如果您的智能体需要在不同提供商的 LLM 之间切换，请使用此执行器。 |
 | 路由         | [`RoutingLLMPromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.llms.RoutingLLMPromptExecutor) | 使用路由策略将请求分发到多个客户端实例中的给定 LLM 模型。使用此执行器可以避免速率限制、提高吞吐量，并通过负载均衡实现故障转移策略。                                               |
 
-## 创建单提供商执行器
+## 创建单提供商执行器 {id="creating-a-single-provider-executor"}
 
 要为特定的 LLM 提供商创建提示执行器，请执行以下操作：
 
@@ -49,7 +49,7 @@ Koog 提供了三种主要类型的提示执行器，它们实现了 [`PromptExe
     ```
     <!--- KNIT example-prompt-executors-java-01.java -->
 
-## 创建多提供商执行器
+## 创建多提供商执行器 {id="creating-a-multi-provider-executor"}
 
 要创建可与多个 LLM 提供商协作的提示执行器，请执行以下操作：
 
@@ -92,7 +92,7 @@ Koog 提供了三种主要类型的提示执行器，它们实现了 [`PromptExe
     ```
     <!--- KNIT example-prompt-executors-java-02.java -->
 
-## 创建路由执行器
+## 创建路由执行器 {id="creating-a-routing-executor"}
 
 !!! warning "实验性 API"
     路由功能处于实验性阶段，可能会在未来的版本中发生变化。
@@ -155,7 +155,7 @@ Koog 提供了三种主要类型的提示执行器，它们实现了 [`PromptExe
 
 您还可以通过创建一个实现 [`LLMClientRouter`](api:prompt-executor-model::ai.koog.prompt.executor.llms.LLMClientRouter) 接口的类来实现自定义路由策略。
 
-## 预定义提示执行器
+## 预定义提示执行器 {id="pre-defined-prompt-executors"}
 
 为了更快地进行设置，Koog 为 Kotlin 和 Java 中的常用提供商提供了现成的执行器实现。
 
@@ -209,7 +209,7 @@ the predefined executors will return a PromptExecutor instance configured with a
     ```
     <!--- KNIT example-prompt-executors-java-04.java -->
 
-## 运行提示
+## 运行提示 {id="running-a-prompt"}
 
 要使用提示执行器运行提示，请执行以下操作：
 
@@ -272,7 +272,7 @@ the predefined executors will return a PromptExecutor instance configured with a
 !!! note
     提示执行器提供了使用各种能力运行提示的方法，例如流式处理、多项选择生成和内容审核。由于提示执行器包装了 LLM 客户端，每个执行器都支持相应客户端的功能。详情请参阅 [LLM 客户端](llm-clients.md)。
 
-## 在提供商之间切换
+## 在提供商之间切换 {id="switching-between-providers"}
 
 当您使用 `MultiLLMPromptExecutor` 与多个 LLM 提供商协作时，可以在它们之间进行切换。过程如下：
 
@@ -362,7 +362,7 @@ the predefined executors will return a PromptExecutor instance configured with a
 
 您可以选择配置回退 LLM 提供商和模型，以便在请求的客户端不可用时使用。有关详情，请参阅[配置回退](#configuring-fallbacks)。
 
-## 配置回退
+## 配置回退 {id="configuring-fallbacks"}
 
 多提供商和路由提示执行器可以配置为：在请求的 LLM 客户端不可用时使用回退 LLM 提供商和模型。
 

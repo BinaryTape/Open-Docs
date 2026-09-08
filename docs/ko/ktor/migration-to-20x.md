@@ -767,7 +767,7 @@ Ktor 클라이언트는 이제 콘텐츠 협상을 지원하며 Ktor 서버와 �
 | Gson                  | `import io.ktor.client.features.json.*` |                `import io.ktor.serialization.gson.*` |
 | Jackson               | `import io.ktor.client.features.json.*` |             `import io.ktor.serialization.jackson.*` |
 
-### Bearer 인증
+### Bearer 인증 {id="bearer-authentication"}
 
 [refreshTokens](client-bearer-auth.md) 함수는 이제 `HttpResponse` 람다 인수(`it`) 대신 `RefreshTokenParams` 인스턴스를 [람다 수신 객체](https://kotlinlang.org/docs/scope-functions.html#context-object-this-or-it)(`this`)로 사용합니다.
 

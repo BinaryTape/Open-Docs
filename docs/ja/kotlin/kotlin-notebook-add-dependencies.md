@@ -38,7 +38,7 @@ Kotlin Notebook の自動補完機能を使用して、利用可能なライブ�
 >
 {style="note"}
 
-## Kotlin DataFrame および Kandy ライブラリを Kotlin Notebook に追加する
+## Kotlin DataFrame および Kandy ライブラリを Kotlin Notebook に追加する {id="add-kotlin-dataframe-and-kandy-libraries-to-your-kotlin-notebook"}
 
 2 つの一般的な Kotlin ライブラリの依存関係を Kotlin Notebook に追加してみましょう。
 * [Kotlin DataFrame ライブラリ](https://kotlin.github.io/dataframe/home.html) を使用すると、Kotlin プロジェクトでデータを自在に操作できます。
@@ -123,7 +123,7 @@ Kotlin Notebook でのこれらのライブラリの追加と活用、おめで�
   </li>
 </list>
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [Kotlin Notebook を共有する](kotlin-notebook-share.md) 方法を学ぶ
 * [Kotlin Notebook への依存関係の追加](https://www.jetbrains.com/help/idea/kotlin-notebook.html#add-dependencies) に関する詳細を見る

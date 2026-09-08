@@ -18,6 +18,6 @@ Dokka 可以生成多种格式的文档，包括其现代化的 [HTML 格式](do
 
 请参阅 [Dokka 使用入门](dokka-get-started.md)开始您的 Dokka 之旅。
 
-## 社区
+## 社区 {id="community"}
 
 Dokka 在 [Kotlin 社区 Slack](https://kotl.in/slack) 中设有专门的 `#dokka` 频道，您可以在那里讨论 Dokka 及其插件以及如何开发它们，并与维护者取得联系。

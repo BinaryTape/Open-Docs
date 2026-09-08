@@ -16,7 +16,7 @@ public record Person (String name, int age) {}
 
 レコードは Kotlin の[データクラス](data-classes.md)に非常によく似ています。
 
-## Kotlin コードからの Java レコードの使用
+## Kotlin コードからの Java レコードの使用 {id="using-java-records-from-kotlin-code"}
 
 Java で宣言されたコンポーネントを持つレコードクラスは、Kotlin のプロパティを持つクラスと同じように使用できます。
 レコードコンポーネントにアクセスするには、[Kotlin のプロパティ](properties.md)と同じように、その名前を使用するだけです：
@@ -26,7 +26,7 @@ val newPerson = Person("Kotlin", 10)
 val firstName = newPerson.name
 ```
 
-## Kotlin でのレコードの宣言
+## Kotlin でのレコードの宣言 {id="declare-records-in-kotlin"}
 
 Kotlin ではデータクラスに対してのみレコードの宣言をサポートしており、そのデータクラスは[要件](#requirements)を満たしている必要があります。
 
@@ -48,7 +48,7 @@ data class Person(val name: String, val age: Int)
 
 データクラスは `equals()`、`hashCode()`、および `toString()` メソッドの実装を提供します。
 
-### 要件
+### 要件 {id="requirements"}
 
 `@JvmRecord` アノテーションを使用してデータクラスを宣言するには、以下の要件を満たす必要があります：
 
@@ -59,13 +59,13 @@ data class Person(val name: String, val age: Int)
 * クラスをローカルクラスにすることはできません。
 * クラスのプライマリコンストラクタは、そのクラス自身と同じ可視性である必要があります。
 
-### JVM レコードの有効化
+### JVM レコードの有効化 {id="enable-jvm-records"}
 
 JVM レコードには、生成される JVM バイトコードのターゲットバージョン 16 以上が必要です。
 
 これを明示的に指定するには、[Gradle](gradle-compiler-options.md#attributes-specific-to-jvm) または [Maven](maven-kotlin-compiler.md#attributes-specific-to-jvm) で `jvmTarget` コンパイラオプションを使用します。
 
-## Kotlin でのレコードコンポーネントへのアノテーション付与
+## Kotlin でのレコードコンポーネントへのアノテーション付与 {id="annotate-record-components-in-kotlin"}
 
 <primary-label ref="experimental-general"/>
 
@@ -84,7 +84,7 @@ data class Person(val name: String, @all:Positive val age: Int)
 * アノテーションをプロパティ、バッキングフィールド、コンストラクタパラメータ、ゲッター、セッターに伝播させます。
 * アノテーションが Java の `RECORD_COMPONENT` をサポートしている場合、レコードコンポーネントにもアノテーションを適用します。
 
-## アノテーションをレコードコンポーネントで動作させる
+## アノテーションをレコードコンポーネントで動作させる {id="make-annotations-work-with-record-components"}
 
 [アノテーション](annotations.md)を Kotlin のプロパティ**および** Java のレコードコンポーネントの両方で使用可能にするには、アノテーション宣言に以下のメタアノテーションを追加します：
 
@@ -101,6 +101,6 @@ annotation class ExampleClass
 
 これで、`@ExampleClass` を Kotlin のクラスやプロパティ、さらには Java のクラスやレコードコンポーネントに適用できるようになります。
 
-## さらに詳しく
+## さらに詳しく {id="further-discussion"}
 
 技術的な詳細と議論については、こちらの [JVM レコードに関する言語提案](https://github.com/Kotlin/KEEP/blob/master/proposals/jvm-records.md) を参照してください。

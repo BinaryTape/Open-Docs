@@ -14,7 +14,7 @@ Koog 為 Kotlin 與 Java 提供了內建工具，協助您快速建立原型並�
 | ListDirectoryTool | `__list_directory__`                | 以階層式樹狀結構列出目錄內容，可選擇控制深度與使用 glob 篩選。                          |
 | WriteFileTool     | `__write_file__`                    | 將文字內容寫入檔案（必要時會建立父目錄）。                                                   |
 
-## 註冊內建工具
+## 註冊內建工具 {id="registering-built-in-tools"}
 
 與任何其他工具一樣，必須將內建工具新增至工具登錄（tool registry）中，代理才能使用。以下是一個範例：
 

@@ -14,14 +14,14 @@ Kotlin 1.5.20 修正了 1.5.0 新功能中發現的問題，並包含各種工�
 >
 {style="tip"}
 
-## Kotlin/JVM
+## Kotlin/JVM {id="kotlin-jvm"}
 
 Kotlin 1.5.20 在 JVM 平台上有以下更新： 
 * [透過 invokedynamic 進行字串連接](#string-concatenation-via-invokedynamic)
 * [支援 JSpecify 可 null 性註解](#support-for-jspecify-nullness-annotations)
 * [支援在同時包含 Kotlin 和 Java 程式碼的模組中呼叫 Java 的 Lombok 產生的方法](#support-for-calling-java-s-lombok-generated-methods-within-modules-that-have-kotlin-and-java-code)
 
-### 透過 invokedynamic 進行字串連接
+### 透過 invokedynamic 進行字串連接 {id="string-concatenation-via-invokedynamic"}
 
 Kotlin 1.5.20 在 JVM 9+ 目標上將字串連接編譯為 [dynamic invocation](https://docs.oracle.com/javase/7/docs/technotes/guides/vm/multiple-language-support.html#invokedynamic) (`invokedynamic`)，從而跟上現代 Java 版本的步伐。更確切地說，它使用 [`StringConcatFactory.makeConcatWithConstants()`](https://docs.oracle.com/javase/9/docs/api/java/lang/invoke/StringConcatFactory.html#makeConcatWithConstants-java.lang.invoke.MethodHandles.Lookup-java.lang.String-java.lang.invoke.MethodType-java.lang.String-java.lang.Object...-) 進行字串連接。
 
@@ -29,7 +29,7 @@ Kotlin 1.5.20 在 JVM 9+ 目標上將字串連接編譯為 [dynamic invocation](
 
 了解如何在 [Gradle](gradle-compiler-options.md)、[Maven](maven-kotlin-compiler.md#specify-compiler-options) 和 [命令列編譯器](compiler-reference.md#compiler-options) 中加入編譯器選項。
 
-### 支援 JSpecify 可 null 性註解
+### 支援 JSpecify 可 null 性註解 {id="support-for-jspecify-nullness-annotations"}
 
 Kotlin 編譯器可以讀取各種類型的 [可 null 性註解](java-interop.md#nullability-annotations)，以便將可 null 性資訊從 Java 傳遞到 Kotlin。1.5.20 版本引入了對 [JSpecify 專案](https://jspecify.dev/) 的支援，該專案包含標準統一的 Java 可 null 性註解集。
 
@@ -60,7 +60,7 @@ fun kotlinFun() = with(JavaClass()) {
 
 [進一步了解 null 安全性和平台型別](java-interop.md#null-safety-and-platform-types)。
 
-### 支援在同時包含 Kotlin 和 Java 程式碼的模組中呼叫 Java 的 Lombok 產生的方法
+### 支援在同時包含 Kotlin 和 Java 程式碼的模組中呼叫 Java 的 Lombok 產生的方法 {id="support-for-calling-java-s-lombok-generated-methods-within-modules-that-have-kotlin-and-java-code"}
 
 > Lombok 編譯器外掛程式是 [實驗性的](components-stability.md)。它可能隨時被刪除或更改。請僅將其用於評估目的。我們非常感謝您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-7112) 上提供回饋。
 >
@@ -81,7 +81,7 @@ Kotlin 1.5.20 引入了實驗性的 [Lombok 編譯器外掛程式](lombok.md)。
 
 [了解如何配置 Lombok 編譯器外掛程式](lombok.md#gradle)。
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 Kotlin/Native 1.5.20 提供新功能的預覽和工具改進：
 
@@ -89,7 +89,7 @@ Kotlin/Native 1.5.20 提供新功能的預覽和工具改進：
 * [編譯器錯誤修正](#compiler-bug-fixes)
 * [提升 Array.copyInto() 在單一陣列內的操作效能](#improved-performance-of-array-copyinto-inside-one-array)
 
-### 選擇性將 KDoc 註解匯出至產生的 Objective-C 標頭檔
+### 選擇性將 KDoc 註解匯出至產生的 Objective-C 標頭檔 {id="opt-in-export-of-kdoc-comments-to-generated-objective-c-headers"}
 
 > 將 KDoc 註解匯出至產生的 Objective-C 標頭檔的功能是 [實驗性的](components-stability.md)。它可能隨時被刪除或更改。需要手動啟用（見下文詳情），且您應僅將其用於評估目的。我們非常感謝您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-38600) 上提供回饋。
 >
@@ -148,32 +148,32 @@ kotlin {
 
 如果您能使用此 [YouTrack 票證](https://youtrack.jetbrains.com/issue/KT-38600) 與我們分享您的回饋，我們將不勝感激。
 
-### 編譯器錯誤修正
+### 編譯器錯誤修正 {id="compiler-bug-fixes"}
 
 Kotlin/Native 編譯器在 1.5.20 中進行了多項錯誤修正。您可以在 [變更日誌](https://github.com/JetBrains/kotlin/releases/tag/v1.5.20) 中找到完整清單。
 
 有一個影響相容性的重要錯誤修正：在先前版本中，包含錯誤 UTF [代理對 (surrogate pair)](https://en.wikipedia.org/wiki/Universal_Character_Set_characters#Surrogates) 的字串常數在編譯期間會丟失其值。現在這些值會被保留。應用程式開發人員可以放心更新到 1.5.20 – 不會發生損壞。但是，使用 1.5.20 編譯的程式庫與早期的編譯器版本不相容。詳情請參閱 [此 YouTrack 問題](https://youtrack.jetbrains.com/issue/KT-33175)。
 
-### 提升 Array.copyInto() 在單一陣列內的操作效能
+### 提升 Array.copyInto() 在單一陣列內的操作效能 {id="improved-performance-of-array-copyinto-inside-one-array"}
 
 我們改進了 `Array.copyInto()` 在來源與目的地為同一個陣列時的運作方式。由於對此使用案例進行了記憶體管理最佳化，現在這類操作的完成速度最高可提升 20 倍（取決於複製的物件數量）。
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
 隨 1.5.20 一起，我們發布了一份指南，將幫助您將專案遷移到 Kotlin/JS 的新 [基於 IR 的後端](js-ir-compiler.md)。
 
-### JS IR 後端的遷移指南
+### JS IR 後端的遷移指南 {id="migration-guide-for-the-js-ir-backend"}
 
 新的 JS IR 後端遷移指南識別了您在遷移過程中可能遇到的問題，並提供了解決方案。如果您發現任何指南中未涵蓋的問題，請向我們的 [問題追蹤器](http://kotl.in/issue) 回報。
 
-## Gradle
+## Gradle {id="gradle"}
 
 Kotlin 1.5.20 引入了以下可以提升 Gradle 體驗的功能：
 
 * [在 kapt 中快取註解處理器的類別載入器](#caching-for-annotation-processors-classloaders-in-kapt)
 * [棄用 `kotlin.parallel.tasks.in.project` 建置屬性](#deprecation-of-the-kotlin-parallel-tasks-in-project-build-property)
 
-### 在 kapt 中快取註解處理器的類別載入器
+### 在 kapt 中快取註解處理器的類別載入器 {id="caching-for-annotation-processors-classloaders-in-kapt"}
 
 > 在 kapt 中快取註解處理器的類別載入器是 [實驗性的](components-stability.md)。它可能隨時被刪除或更改。請僅將其用於評估目的。我們非常感謝您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-28901) 上提供回饋。
 >
@@ -194,19 +194,19 @@ kapt.include.compile.classpath=false
 
 進一步了解 [kapt](kapt.md)。
 
-### 棄用 kotlin.parallel.tasks.in.project 建置屬性
+### 棄用 kotlin.parallel.tasks.in.project 建置屬性 {id="deprecation-of-the-kotlin-parallel-tasks-in-project-build-property"}
 
 在此版本中，Kotlin 並行編譯由 [Gradle 並行執行旗標 `--parallel`](https://docs.gradle.org/current/userguide/performance.html#parallel_execution) 控制。使用此旗標，Gradle 會同步執行任務，提高編譯任務的速度並更有效地利用資源。
 
 您不再需要使用 `kotlin.parallel.tasks.in.project` 屬性。該屬性已被棄用，並將在下一個主要版本中移除。
 
-## 標準程式庫
+## 標準程式庫 {id="standard-library"}
 
 Kotlin 1.5.20 更改了幾個用於處理字元的函式在特定平台上的實作，從而實現了跨平台的統一：
 * [Kotlin/Native 和 Kotlin/JS 的 Char.digitToInt() 支援所有 Unicode 數字](#support-for-all-unicode-digits-in-char-digittoint-in-kotlin-native-and-kotlin-js)。
 * [跨平台統一 Char.isLowerCase()/isUpperCase() 的實作](#unification-of-char-islowercase-isuppercase-implementations-across-platforms)。
 
-### Kotlin/Native 和 Kotlin/JS 的 Char.digitToInt() 支援所有 Unicode 數字
+### Kotlin/Native 和 Kotlin/JS 的 Char.digitToInt() 支援所有 Unicode 數字 {id="support-for-all-unicode-digits-in-char-digittoint-in-kotlin-native-and-kotlin-js"}
 
 [`Char.digitToInt()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/digit-to-int.html) 傳回字元所代表的十進位數字的數值。在 1.5.20 之前，該函式僅在 Kotlin/JVM 上支援所有 Unicode 數字字元：Native 和 JS 平台的實作僅支援 ASCII 數字。
 
@@ -222,7 +222,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.5"}
 
-### 跨平台統一 Char.isLowerCase()/isUpperCase() 的實作
+### 跨平台統一 Char.isLowerCase()/isUpperCase() 的實作 {id="unification-of-char-islowercase-isuppercase-implementations-across-platforms"}
 
 函式 [`Char.isUpperCase()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/is-upper-case.html) 和 [`Char.isLowerCase()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/is-lower-case.html) 根據字元的大小寫傳回布林值。對於 Kotlin/JVM，實作會同時檢查 `General_Category` 和 `Other_Uppercase`/`Other_Lowercase` [Unicode 屬性 (Unicode property)](https://en.wikipedia.org/wiki/Unicode_character_property)。
 

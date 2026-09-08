@@ -8,7 +8,7 @@ status: beta
 
 Koog 透過其自動組態 (auto-configuration) starter 提供無縫的 Spring Boot 整合，只需極少設定即可輕鬆將 AI agent 合併到您的 Spring Boot 應用程式中。
 
-## 總覽
+## 總覽 {id="overview"}
 
 `koog-spring-boot-starter` 會根據您的應用程式屬性自動設定 LLM 用戶端，並提供現成的 bean 用於相依注入。它支援所有主流 LLM 提供者，包括：
 
@@ -20,9 +20,9 @@ Koog 透過其自動組態 (auto-configuration) starter 提供無縫的 Spring B
 - Mistral
 - Ollama
 
-## 快速入門
+## 快速入門 {id="getting-started"}
 
-### 1. 新增相依性
+### 1. 新增相依性 {id="1-add-dependency"}
 
 將 Koog Spring Boot starter 新增至您的 Gradle 組建組態：
 
@@ -48,7 +48,7 @@ dependencies {
 - Kotlin 版本 2.3.10+
 - kotlinx-serialization 版本 1.10.0（即 kotlinx-serialization-core-jvm 與 kotlinx-serialization-json-jvm）
 
-### 2. 設定提供者
+### 2. 設定提供者 {id="2-configure-providers"}
 
 在 `application.properties` 中設定您偏好的 LLM 提供者：
 
@@ -141,7 +141,7 @@ ai:
 | DeepSeek     | `DEEPSEEK_API_KEY`    |
 | Mistral      | `MISTRALAI_API_KEY`   |
 
-### 3. 在您的專案中使用
+### 3. 在您的專案中使用 {id="3-use-in-your-project"}
 
 以下是自動組態執行器在 Spring MVC RestController 中的使用範例。它需要以下條件：
 - spring-boot-starter-web 相依性
@@ -237,8 +237,8 @@ ai:
 
 Spring Framework 透過 bean 名稱 (`anthropicExecutor`) 注入了 Anthropic 的執行器，但您也可以使用 `@Qualifier` 註解來注入多個 `PromptExecutor` bean（請參閱下方的「多個 bean 錯誤」）。
 
-## 進階用法
-### LLM 提供者備援
+## 進階用法 {id="advanced-usage"}
+### LLM 提供者備援 {id="llm-provider-fallback"}
 
 設定多個 LLM 提供者後，您可以透過 `MultiLLMPromptExecutor` 將請求發送到多個 LLM：
 
@@ -335,9 +335,9 @@ Spring Framework 透過 bean 名稱 (`anthropicExecutor`) 注入了 Anthropic �
 
 您也可以註冊自己的 `MultiLLMPromptExecutor` bean 並將 `FallbackPromptExecutorSettings` 傳遞給它。若要覆寫 bean 的自動組態，可以使用 `@Primary` 註解。
 
-## 設定參考
+## 設定參考 {id="configuration-reference"}
 
-### 可用屬性
+### 可用屬性 {id="available-properties"}
 
 | 屬性 | 說明 | Bean 條件 | 預設值 |
 |-------------------------------|---------------------|----------------------------------------|---------------------------------------------|
@@ -355,7 +355,7 @@ Spring Framework 透過 bean 名稱 (`anthropicExecutor`) 注入了 Anthropic �
 | `ai.koog.mistral.base-url`    | Mistral 基礎 URL | 選填 | `https://api.mistral.ai` |
 | `ai.koog.ollama.base-url`     | Ollama 基礎 URL | 選填 | `http://127.0.0.1:11434` |
 
-### Bean 名稱
+### Bean 名稱 {id="bean-names"}
 
 自動組態會建立以下 bean（若已設定）：
 
@@ -368,9 +368,9 @@ Spring Framework 透過 bean 名稱 (`anthropicExecutor`) 注入了 Anthropic �
 - `ollamaExecutor` - Ollama 執行器（需要 `ai.koog.ollama.enabled=true`）
 - `multiLLMPromptExecutor` - MultiLLMPromptExecutor
 
-## 疑難排解
+## 疑難排解 {id="troubleshooting"}
 
-### 常見問題
+### 常見問題 {id="common-issues"}
 
 **錯誤：No qualifying bean of type 'PromptExecutor' available**
 
@@ -415,7 +415,7 @@ Spring Framework 透過 bean 名稱 (`anthropicExecutor`) 注入了 Anthropic �
 
 **解決方案：** 檢查您的環境變數是否已正確設定，且您的 Spring Boot 應用程式可以存取這些變數。
 
-## 最佳實務
+## 最佳實務 {id="best-practices"}
 
 1. **環境變數**：務必使用環境變數來管理 API 金鑰。
 2. **可為 null 的注入**：使用可為 null 的型別來處理未設定提供者的情況。
@@ -424,7 +424,7 @@ Spring Framework 透過 bean 名稱 (`anthropicExecutor`) 注入了 Anthropic �
 5. **測試**：在測試中使用 mock，以避免產生實際的 API 呼叫。
 6. **設定驗證**：在使用執行器之前檢查其是否可用。
 
-## 後續步驟
+## 後續步驟 {id="next-steps"}
 
 - 了解 [基礎 agent](agents/basic-agents.md) 以建置極簡的 AI 工作流程。
 - 探索 [圖形式 agent](agents/graph-based-agents.md) 以處理進階使用案例。

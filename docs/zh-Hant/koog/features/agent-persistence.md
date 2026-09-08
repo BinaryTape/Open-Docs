@@ -7,9 +7,9 @@ Agent 持久化 (Agent Persistence) 是一項為 Koog 架構中的 AI Agent 提�
 - 復原 (Rolling back) 到先前的狀態
 - 在不同工作階段 (session) 之間持久化 Agent 狀態
 
-## 核心概念
+## 核心概念 {id="key-concepts"}
 
-### 檢查點 (Checkpoints)
+### 檢查點 (Checkpoints) {id="checkpoints"}
 
 檢查點會擷取 Agent 在執行過程中特定點的完整狀態，包括：
 
@@ -24,7 +24,7 @@ Agent 持久化 (Agent Persistence) 是一項為 Koog 架構中的 AI Agent 提�
 
 檢查點透過唯一的 ID 進行識別，並與特定的 Agent 關聯。
 
-### `AIAgentStorage` 持久化
+### `AIAgentStorage` 持久化 {id="aiagentstorage-persistence"}
 
 當建立檢查點時，架構會序列化當前保留在 `AIAgentStorage` 中的所有值，並將其包含在檢查點中。
 還原時，這些值將被反序列化，並提供給恢復執行的 Agent，其狀態與建立檢查點時完全相同。
@@ -38,7 +38,7 @@ Agent 持久化 (Agent Persistence) 是一項為 Koog 架構中的 AI Agent 提�
 
 若要了解更多，請參閱 [序列化 (Serialization)](../serialization.md)。
 
-## 安裝
+## 安裝 {id="installation"}
 
 若要使用 Agent 持久化功能，請將其新增至您的 Agent 配置中：
 
@@ -88,7 +88,7 @@ Agent 持久化 (Agent Persistence) 是一項為 Koog 架構中的 AI Agent 提�
     ```
     <!--- KNIT example-agent-persistence-java-01.java -->
 
-## 配置選項
+## 配置選項 {id="configuration-options"}
 
 Agent 持久化功能具有三個主要配置選項：
 
@@ -96,7 +96,7 @@ Agent 持久化功能具有三個主要配置選項：
 - **連續持久化 (Continuous persistence)**：在每個節點執行後自動建立檢查點。
 - **復原策略 (Rollback strategy)**：決定復原到檢查點時將還原哪個狀態。
 
-### 存儲提供者 (Storage provider)
+### 存儲提供者 (Storage provider) {id="storage-provider"}
 
 設定用於儲存與檢索檢查點的存儲提供者：
 
@@ -152,7 +152,7 @@ Agent 持久化功能具有三個主要配置選項：
 您也可以透過實作 `PersistenceStorageProvider` 介面來實作自訂存儲提供者。
 如需更多資訊，請參閱 [自訂存儲提供者](#自訂存儲提供者)。
 
-### 連續持久化 (Continuous persistence)
+### 連續持久化 (Continuous persistence) {id="continuous-persistence"}
 
 連續持久化意味著在每個節點執行後會自動建立檢查點。
 若要停用連續持久化，請使用以下程式碼：
@@ -203,9 +203,9 @@ Agent 持久化功能具有三個主要配置選項：
 
 如果停用了連續持久化，您仍然可以手動建立檢查點。
 
-## 基本用法
+## 基本用法 {id="basic-usage"}
 
-### 建立檢查點
+### 建立檢查點 {id="creating-a-checkpoint"}
 
 若要了解如何在 Agent 執行的特定點建立檢查點，請參閱下方的程式碼範例：
 
@@ -263,7 +263,7 @@ Agent 持久化功能具有三個主要配置選項：
     ```
     <!--- KNIT example-agent-persistence-java-04.java -->
 
-### 從檢查點還原
+### 從檢查點還原 {id="restoring-from-a-checkpoint"}
 
 若要從特定的檢查點還原 Agent 的狀態，請遵循下方的程式碼範例：
 
@@ -303,7 +303,7 @@ Agent 持久化功能具有三個主要配置選項：
     ```
     <!--- KNIT example-agent-persistence-java-05.java -->
 
-#### 復原由工具產生的所有副作用
+#### 復原由工具產生的所有副作用 {id="rolling-back-all-side-effects-produced-by-tools"}
 
 某些工具產生副作用是很常見的。具體而言，當您在後端執行 Agent 時，某些工具可能會執行一些資料庫交易。這會讓您的 Agent 更難以回溯時間。
 
@@ -385,7 +385,7 @@ tool call: createUser "Maria"
     ```
     <!--- KNIT example-agent-persistence-java-06.java -->
 
-### 使用擴充函式
+### 使用擴充函式 {id="using-extension-functions"}
 
 Agent 持久化功能提供了便於處理檢查點的擴充函式：
 
@@ -443,9 +443,9 @@ Agent 持久化功能提供了便於處理檢查點的擴充函式：
     ```
     <!--- KNIT example-agent-persistence-java-07.java -->
 
-## 進階用法
+## 進階用法 {id="advanced-usage"}
 
-### 自訂存儲提供者
+### 自訂存儲提供者 {id="custom-storage-providers"}
 
 您可以透過實作 `PersistenceStorageProvider` 介面來實作自訂存儲提供者：
 
@@ -565,7 +565,7 @@ Agent 持久化功能提供了便於處理檢查點的擴充函式：
     ```
     <!--- KNIT example-agent-persistence-java-09.java -->
 
-### 設定執行點
+### 設定執行點 {id="setting-execution-points"}
 
 為了進行進階控制，您可以直接設定 Agent 的執行點：
 

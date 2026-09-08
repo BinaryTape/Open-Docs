@@ -2,11 +2,11 @@
 
 이 페이지에서는 읽기 및 쓰기 세션 작업 방법, 대화 이력 관리, 언어 모델에 대한 요청 수행 등을 포함하여 LLM 세션에 대한 자세한 정보를 제공합니다.
 
-## 서론
+## 서론 {id="introduction"}
 
 LLM 세션은 언어 모델(LLM)과 상호작용하는 구조화된 방법을 제공하는 핵심 개념입니다. 세션은 대화 이력을 관리하고, LLM에 대한 요청을 처리하며, 도구 실행 및 응답 처리를 위한 일관된 인터페이스를 제공합니다.
 
-## LLM 세션 이해하기
+## LLM 세션 이해하기 {id="understanding-llm-sessions"}
 
 LLM 세션은 언어 모델과 상호작용하기 위한 컨텍스트(context)를 나타냅니다. 세션은 다음 항목들을 캡슐화합니다:
 
@@ -18,7 +18,7 @@ LLM 세션은 언어 모델과 상호작용하기 위한 컨텍스트(context)�
 
 세션은 `AIAgentLLMContext` 클래스에 의해 관리되며, 이 클래스는 읽기 및 쓰기 세션을 생성하는 메서드를 제공합니다.
 
-### 세션 유형
+### 세션 유형 {id="session-types"}
 
 Koog 프레임워크는 두 가지 유형의 세션을 제공합니다:
 
@@ -28,7 +28,7 @@ Koog 프레임워크는 두 가지 유형의 세션을 제공합니다:
 
 핵심적인 차이점은 쓰기 세션은 대화 이력을 수정할 수 있는 반면, 읽기 세션은 수정할 수 없다는 점입니다.
 
-### 세션 생명주기
+### 세션 생명주기 {id="session-lifecycle"}
 
 세션은 정의된 생명주기를 가집니다:
 
@@ -38,9 +38,9 @@ Koog 프레임워크는 두 가지 유형의 세션을 제공합니다:
 
 세션은 `AutoCloseable` 인터페이스를 구현하므로, 예외가 발생하더라도 적절하게 정리(clean up)되도록 보장합니다.
 
-## LLM 세션 작업하기
+## LLM 세션 작업하기 {id="working-with-llm-sessions"}
 
-### 세션 생성하기
+### 세션 생성하기 {id="creating-sessions"}
 
 세션은 `AIAgentLLMContext` 클래스의 메서드를 사용하여 생성됩니다:
 === "Kotlin"
@@ -104,7 +104,7 @@ Koog 프레임워크는 두 가지 유형의 세션을 제공합니다:
 
 이 함수들은 세션의 컨텍스트 내에서 실행되는 람다 블록을 인자로 받습니다. 블록이 완료되면 세션은 자동으로 닫힙니다.
 
-### 세션 범위 및 스레드 안전성
+### 세션 범위 및 스레드 안전성 {id="session-scope-and-thread-safety"}
 
 세션은 스레드 안전성(thread safety)을 보장하기 위해 읽기-쓰기 잠금(read-write lock)을 사용합니다:
 
@@ -114,7 +114,7 @@ Koog 프레임워크는 두 가지 유형의 세션을 제공합니다:
 
 이를 통해 동시 수정으로 인해 대화 이력이 손상되지 않도록 보장합니다.
 
-### 세션 속성 접근하기
+### 세션 속성 접근하기 {id="accessing-session-properties"}
 
 세션 내에서 프롬프트와 도구에 접근할 수 있습니다:
 
@@ -236,9 +236,9 @@ Koog 프레임워크는 두 가지 유형의 세션을 제공합니다:
 
 더 자세한 정보는 [AIAgentLLMReadSession](api:agents-core::ai.koog.agents.core.agent.session.AIAgentLLMReadSession) 및 [AIAgentLLMWriteSession](api:agents-core::ai.koog.agents.core.agent.session.AIAgentLLMWriteSession)에 대한 상세 API 레퍼런스를 참조하세요.
 
-## LLM 요청 수행하기
+## LLM 요청 수행하기 {id="making-llm-requests"}
 
-### 기본 요청 메서드
+### 기본 요청 메서드 {id="basic-request-methods"}
 
 LLM 요청을 수행하기 위해 가장 흔히 사용되는 메서드는 다음과 같습니다:
 
@@ -308,7 +308,7 @@ LLM 요청을 수행하기 위해 가장 흔히 사용되는 메서드는 다음
     ```
     <!--- KNIT exampleSessionsJava04.java -->
 
-### 요청 작동 방식
+### 요청 작동 방식 {id="how-requests-work"}
 
 LLM 요청은 요청 메서드 중 하나를 명시적으로 호출할 때 발생합니다. 이해해야 할 핵심 사항은 다음과 같습니다:
 
@@ -316,7 +316,7 @@ LLM 요청은 요청 메서드 중 하나를 명시적으로 호출할 때 발�
 2. **즉각적 실행**: 요청 메서드를 호출하면 요청이 즉시 수행되며, 응답을 받을 때까지 메서드가 차단(block)됩니다.
 3. **자동 이력 업데이트**: 쓰기 세션에서 응답은 대화 이력에 자동으로 추가됩니다.
 
-### 도구를 사용한 요청 메서드
+### 도구를 사용한 요청 메서드 {id="request-methods-with-tools"}
 
 도구가 활성화된 상태에서 요청을 보낼 때, LLM은 텍스트 응답 대신 도구 호출(tool call)로 응답할 수 있습니다. 요청 메서드는 이를 투명하게 처리합니다:
 
@@ -388,7 +388,7 @@ LLM 요청은 요청 메서드 중 하나를 명시적으로 호출할 때 발�
 
 실제로는 에이전트 그래프가 이러한 라우팅을 자동으로 처리하므로 응답 유형을 수동으로 확인할 필요가 없는 경우가 많습니다.
 
-### 구조화된 및 스트리밍 요청
+### 구조화된 및 스트리밍 요청 {id="structured-and-streaming-requests"}
 
 더 고급 사용 사례를 위해 구조화된 요청 및 스트리밍 요청을 위한 메서드를 제공합니다:
 
@@ -459,9 +459,9 @@ LLM 요청은 요청 메서드 중 하나를 명시적으로 호출할 때 발�
     ```
     <!--- KNIT exampleSessionsJava06.java -->
 
-## 대화 이력 관리하기
+## 대화 이력 관리하기 {id="managing-conversation-history"}
 
-### 프롬프트 업데이트하기
+### 프롬프트 업데이트하기 {id="updating-the-prompt"}
 
 쓰기 세션에서는 `appendPrompt` 메서드를 사용하여 프롬프트(대화 이력)에 메시지를 추가할 수 있습니다:
 
@@ -602,7 +602,7 @@ LLM 요청은 요청 메서드 중 하나를 명시적으로 호출할 때 발�
     ```
     <!--- KNIT exampleSessionsJava08.java -->
 
-### 응답 시 자동 이력 업데이트
+### 응답 시 자동 이력 업데이트 {id="automatic-history-update-on-response"}
 
 쓰기 세션에서 LLM 요청을 수행하면 응답이 대화 이력에 자동으로 추가됩니다:
 
@@ -671,7 +671,7 @@ LLM 요청은 요청 메서드 중 하나를 명시적으로 호출할 때 발�
 
 이 자동 이력 업데이트는 쓰기 세션의 핵심 기능으로, 대화가 자연스럽게 이어지도록 보장합니다.
 
-### 이력 압축
+### 이력 압축 {id="history-compression"}
 
 장기 대화의 경우 이력이 커져서 많은 토큰을 소비할 수 있습니다. 플랫폼은 이력을 압축하기 위한 메서드를 제공합니다:
 
@@ -718,9 +718,9 @@ LLM 요청은 요청 메서드 중 하나를 명시적으로 호출할 때 발�
 
 이력 압축 및 압축 전략에 대한 자세한 내용은 [이력 압축](history-compression.md)을 참조하세요.
 
-## 세션에서 도구 실행하기
+## 세션에서 도구 실행하기 {id="running-tools-in-sessions"}
 
-### 도구 호출하기
+### 도구 호출하기 {id="calling-tools"}
 
 쓰기 세션은 도구를 호출하기 위한 여러 메서드를 제공합니다:
 
@@ -790,7 +790,7 @@ LLM 요청은 요청 메서드 중 하나를 명시적으로 호출할 때 발�
     ```
     <!--- KNIT exampleSessionsJava11.java -->
 
-### 병렬 도구 실행
+### 병렬 도구 실행 {id="parallel-tool-runs"}
 
 여러 도구를 병렬로 실행하기 위해, 쓰기 세션은 `Flow`에 대한 확장 함수를 제공합니다:
 
@@ -848,7 +848,7 @@ LLM 요청은 요청 메서드 중 하나를 명시적으로 호출할 때 발�
 
 이는 대량의 데이터를 효율적으로 처리할 때 유용합니다.
 
-## 권장 사항
+## 권장 사항 {id="best-practices"}
 
 LLM 세션으로 작업할 때는 다음 권장 사항을 따르세요:
 
@@ -868,13 +868,13 @@ LLM 세션으로 작업할 때는 다음 권장 사항을 따르세요:
 
 8. **긴 응답에는 스트리밍 사용**: 응답이 길어질 경우 `requestLLMStreaming`을 사용하여 응답이 도착하는 대로 처리하세요.
 
-## 문제 해결
+## 문제 해결 {id="troubleshooting"}
 
-### 세션이 이미 닫힘 (Session already closed)
+### 세션이 이미 닫힘 (Session already closed) {id="session-already-closed"}
 
 `Cannot use session after it was closed`와 같은 오류가 발생하면 람다 블록이 완료된 후에 세션을 사용하려고 하는 것입니다. 모든 세션 작업이 세션 블록 내에서 수행되는지 확인하세요.
 
-### 이력이 너무 큼 (History too large)
+### 이력이 너무 큼 (History too large) {id="history-too-large"}
 
 이력이 너무 커져서 너무 많은 토큰을 소비하는 경우 이력 압축 기술을 사용하세요:
 
@@ -918,13 +918,13 @@ LLM 세션으로 작업할 때는 다음 권장 사항을 따르세요:
 
 더 자세한 정보는 [이력 압축](history-compression.md)을 참조하세요.
 
-### 도구를 찾을 수 없음 (Tool not found)
+### 도구를 찾을 수 없음 (Tool not found) {id="tool-not-found"}
 
 도구를 찾을 수 없다는 오류가 발생하면 다음 사항을 확인하세요:
 
 - 도구가 도구 레지스트리(tool registry)에 올바르게 등록되었는지 확인합니다.
 - 올바른 도구 이름이나 클래스를 사용하고 있는지 확인합니다.
 
-## API 문서
+## API 문서 {id="api-documentation"}
 
 더 자세한 정보는 [AIAgentLLMSession](api:agents-core::ai.koog.agents.core.agent.session.AIAgentLLMSession) 및 [AIAgentLLMContext](api:agents-core::ai.koog.agents.core.agent.context.AIAgentLLMContext) 전체 레퍼런스를 참조하세요.

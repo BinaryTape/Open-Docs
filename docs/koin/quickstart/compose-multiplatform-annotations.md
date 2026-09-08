@@ -9,13 +9,13 @@ title: Compose Multiplatform 与注解 - 共享 UI
 更新 - 2024-11-12
 :::
 
-## 获取代码
+## 获取代码 {id="get-the-code"}
 
 :::info
 [源代码可在 GitHub 上获取](https://github.com/InsertKoinIO/koin-getting-started/tree/main/compose-annotations)
 :::
 
-## Gradle 设置
+## Gradle 设置 {id="gradle-setup"}
 
 首先，添加 Koin 注解依赖项：
 
@@ -35,7 +35,7 @@ dependencies {
 }
 ```
 
-## 应用程序概览
+## 应用程序概览 {id="application-overview"}
 
 该应用程序从远程 API 获取博物馆艺术品对象并将其显示在列表中。用户可以点击某一项来查看详细信息：
 
@@ -48,11 +48,11 @@ dependencies {
 - Kotlin 协程与 Flow 用于异步操作
 - Navigation Compose 用于路由
 
-## 数据层
+## 数据层 {id="the-data-layer"}
 
 > 所有通用/共享代码都位于 `composeApp` Gradle 项目中
 
-### MuseumObject 模型
+### MuseumObject 模型 {id="museumobject-model"}
 
 博物馆艺术品对象数据类：
 
@@ -74,7 +74,7 @@ data class MuseumObject(
 )
 ```
 
-### MuseumApi - 网络层
+### MuseumApi - 网络层 {id="museumapi-network-layer"}
 
 我们创建一个 API 接口来获取数据：
 
@@ -97,7 +97,7 @@ class KtorMuseumApi(private val client: HttpClient) : MuseumApi {
 }
 ```
 
-### MuseumStorage - 本地缓存
+### MuseumStorage - 本地缓存 {id="museumstorage-local-caching"}
 
 ```kotlin
 interface MuseumStorage {
@@ -124,7 +124,7 @@ class InMemoryMuseumStorage : MuseumStorage {
 }
 ```
 
-### MuseumRepository
+### MuseumRepository {id="museumrepository"}
 
 该仓库在 API 和存储之间进行协调：
 
@@ -160,11 +160,11 @@ class MuseumRepository(
 `@Single(createdAtStart = true)` 注解确保在 Koin 启动时创建该仓库，从而立即触发数据获取。
 :::
 
-## Koin 模块
+## Koin 模块 {id="the-koin-modules"}
 
 我们将依赖项组织到不同的模块中：
 
-### 数据模块
+### 数据模块 {id="data-module"}
 
 ```kotlin
 @Module
@@ -185,7 +185,7 @@ class DataModule {
 
 `@ComponentScan` 注解会自动发现该软件包中所有带有 `@Single` 注解的类 (MuseumApi, MuseumStorage, MuseumRepository)。
 
-### ViewModel 模块
+### ViewModel 模块 {id="viewmodel-module"}
 
 让我们为这两个屏幕创建 ViewModel：
 
@@ -218,7 +218,7 @@ class ViewModelModule
 
 `@KoinViewModel` 注解会自动将这些类注册为 ViewModel 定义，并由 `@ComponentScan` 进行发现。
 
-### 平台特定模块
+### 平台特定模块 {id="platform-specific-module"}
 
 针对平台特定组件 (Android 与 iOS)：
 
@@ -228,7 +228,7 @@ class ViewModelModule
 class PlatformComponentModule
 ```
 
-### 主应用模块
+### 主应用模块 {id="main-app-module"}
 
 合并所有模块：
 
@@ -241,7 +241,7 @@ class AppModule
 * `@Configuration` - 启用通过 `@KoinApplication` 进行的自动模块发现
 * `@Module(includes = [...])` - 声明要包含哪些模块
 
-## Koin 应用程序对象
+## Koin 应用程序对象 {id="koin-application-object"}
 
 创建一个 `@KoinApplication` 对象：
 
@@ -261,7 +261,7 @@ fun initKoin(configuration: KoinAppDeclaration? = null) {
 
 `@KoinApplication` 注解会生成一个 `startKoin()` 扩展函数，该函数会自动加载所有模块。
 
-## 在 Compose 中注入 ViewModel
+## 在 Compose 中注入 ViewModel {id="injecting-viewmodels-in-compose"}
 
 > 所有通用 Compose 应用程序都位于 `composeApp` Gradle 模块的 `commonMain` 中
 
@@ -300,9 +300,9 @@ fun App() {
 `koinViewModel()` 函数会自动检索通过 `@KoinViewModel` 注册的 ViewModel 实例。
 :::
 
-## 启动 Koin
+## 启动 Koin {id="starting-koin"}
 
-### Android 设置
+### Android 设置 {id="android-setup"}
 
 在 Android 中，Koin 从主入口点进行初始化：
 
@@ -311,7 +311,7 @@ fun App() {
 initKoin()
 ```
 
-### iOS 设置
+### iOS 设置 {id="ios-setup"}
 
 > 所有 iOS 应用程序都位于 `iosApp` 文件夹中
 
@@ -338,7 +338,7 @@ Compose UI 的启动方式如下：
 fun MainViewController() = ComposeUIViewController { App() }
 ```
 
-## 注解与编译器插件 DSL 比较
+## 注解与编译器插件 DSL 比较 {id="annotations-vs-compiler-plugin-dsl"}
 
 以下是注解方法与编译器插件 DSL 的对比：
 

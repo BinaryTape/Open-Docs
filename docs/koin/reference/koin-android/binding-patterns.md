@@ -8,7 +8,7 @@ title: Android 库集成
 有关核心定义类型和外部库绑定模式，请参阅 [Definitions](/docs/reference/koin-core/definitions)。本页重点介绍 Android 特有的库示例。
 :::
 
-## Retrofit
+## Retrofit {id="retrofit"}
 
 ```kotlin
 interface ApiService {
@@ -68,7 +68,7 @@ class NetworkModule {
 }
 ```
 
-## Room 数据库
+## Room 数据库 {id="room-database"}
 
 ```kotlin
 @Database(entities = [User::class], version = 1)
@@ -101,7 +101,7 @@ class DatabaseModule {
 }
 ```
 
-## Gson / 序列化
+## Gson / 序列化 {id="gson-serialization"}
 
 ```kotlin
 fun createGson(): Gson =
@@ -115,7 +115,7 @@ val serializationModule = module {
 }
 ```
 
-## WorkManager
+## WorkManager {id="workmanager"}
 
 ```kotlin
 class SyncWorker(
@@ -139,9 +139,9 @@ val workModule = module {
 对于 WorkManager 设置，请使用 `koin-androidx-workmanager` 依赖项。有关完整设置，请参阅 [WorkManager 集成](/docs/reference/koin-android/workmanager)。
 :::
 
-## Android 简洁架构
+## Android 简洁架构 {id="android-clean-architecture"}
 
-### 仓库模式 (Repository Pattern)
+### 仓库模式 (Repository Pattern) {id="repository-pattern"}
 
 ```kotlin
 @Singleton
@@ -164,7 +164,7 @@ val dataModule = module {
 }
 ```
 
-### Use Case 模式
+### Use Case 模式 {id="use-case-pattern"}
 
 ```kotlin
 @Factory
@@ -179,7 +179,7 @@ val domainModule = module {
 }
 ```
 
-### 带 SavedStateHandle 的 ViewModel
+### 带 SavedStateHandle 的 ViewModel {id="viewmodel-with-savedstatehandle"}
 
 ```kotlin
 @KoinViewModel
@@ -202,7 +202,7 @@ val viewModelModule = module {
 }
 ```
 
-## 后续步骤
+## 后续步骤 {id="next-steps"}
 
 - **[Definitions](/docs/reference/koin-core/definitions)** - 核心定义类型
 - **[WorkManager](/docs/reference/koin-android/workmanager)** - 完整的 WorkManager 设置

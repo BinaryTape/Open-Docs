@@ -4,7 +4,7 @@
 
 [GitHub 上の DataFrame の例](https://github.com/Kotlin/dataframe/tree/master/examples/projects)を探索してください。
 
-## 始める前に
+## 始める前に {id="before-you-start"}
 
 > IntelliJ IDEA 2026.2 以降、Kotlin Notebook は IDE に同梱されなくなり、JetBrains による公式サポートも終了します。
 > ソースコードは引き続き [GitHub](https://github.com/Kotlin/kotlin-notebook) で利用可能です。
@@ -24,7 +24,7 @@
    ```
 チュートリアルに従うために、[Gradle](https://kotlin.github.io/dataframe/setupgradle.html) または [Maven](https://kotlin.github.io/dataframe/setupmaven.html) の依存関係として DataFrame を使用することもできます。
 
-## API からデータを取得する
+## API からデータを取得する {id="fetch-data-from-an-api"}
 
 Kotlin DataFrame ライブラリを使用して API からデータを取得するには、[`.read()`](https://kotlin.github.io/dataframe/read.html) 関数を使用します。これは、CSV や JSON などの [ファイルからのデータ取得](data-analysis-work-with-data-sources.md#retrieve-data) と同様です。
 ただし、ウェブベースのソースを扱う場合は、生の API データを構造化された形式に変換するために、追加のフォーマットが必要になる場合があります。
@@ -89,7 +89,7 @@ API キーは [認証情報タブ](https://console.cloud.google.com/apis/credent
    items
    ```
 
-## データのクリーニングと精製
+## データのクリーニングと精製 {id="clean-and-refine-data"}
 
 データのクリーニングと精製は、分析用にデータセットを準備する上で重要なステップです。[Kotlin DataFrame ライブラリ](https://kotlin.github.io/dataframe/home.html) は、これらのタスクのための強力な機能を提供します。[`move`](https://kotlin.github.io/dataframe/move.html)、[`concat`](https://kotlin.github.io/dataframe/concatdf.html)、[`select`](https://kotlin.github.io/dataframe/select.html)、[`parse`](https://kotlin.github.io/dataframe/parse.html)、[`join`](https://kotlin.github.io/dataframe/join.html) といったメソッドは、データの整理や変換に役立ちます。
 
@@ -132,7 +132,7 @@ API キーは [認証情報タブ](https://console.cloud.google.com/apis/credent
 この例は、Kotlin DataFrame のさまざまな関数を使用して、データセットをクリーニング、再構成、および強化する方法を示しています。 
 各ステップはデータを精製するように設計されており、[詳細な分析](#analyze-data-in-kotlin-notebook) に適した状態にします。
 
-## Kotlin Notebook でデータを分析する
+## Kotlin Notebook でデータを分析する {id="analyze-data-in-kotlin-notebook"}
 
 [Kotlin DataFrame ライブラリ](https://kotlin.github.io/dataframe/home.html) の関数を使用して、[データの取得](#fetch-data-from-an-api) と [データのクリーニングと精製](#clean-and-refine-data) が正常に完了したら、次のステップはこの準備されたデータセットを分析して、有意義な洞察を引き出すことです。
 
@@ -182,7 +182,7 @@ API キーは [認証情報タブ](https://console.cloud.google.com/apis/credent
 
 より高度なテクニックについては、[Kotlin DataFrame のドキュメント](https://kotlin.github.io/dataframe/home.html) を参照してください。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [Kandy ライブラリ](https://kotlin.github.io/kandy/examples.html) を使用したデータの視覚化を探索する
 * [Kandy を使用したデータの視覚化](data-analysis-visualization.md) で、データの視覚化に関する追加情報を見つける

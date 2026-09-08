@@ -8,13 +8,13 @@ status: beta
 
 本页面概述了 Koog 智能体框架中 A2A (Agent-to-Agent) 协议的实现。
 
-## 什么是 A2A 协议？
+## 什么是 A2A 协议？ {id="what-is-the-a2a-protocol"}
 
 A2A (Agent-to-Agent) 协议是一种标准化的通信协议，使 AI 智能体能够彼此交互以及与客户端应用程序进行交互。
 它定义了一组方法、消息格式和行为，从而实现一致且可互操作的智能体通信。
 要了解更多信息和 A2A 协议的详细规范，请参阅官方 [A2A 协议网站](https://a2a-protocol.org/latest/)。
 
-## 快速入门
+## 快速入门 {id="getting-started"}
 
 **重要提示**：`koog-agents` 元依赖项中默认**不**包含 A2A 依赖项。
 您必须显式地向项目中添加所需的 A2A 模块。
@@ -25,7 +25,7 @@ A2A (Agent-to-Agent) 协议是一种标准化的通信协议，使 AI 智能体�
 - **对于 A2A 服务器**：请参阅 [A2A 服务器文档](a2a-server.md#dependencies)
 - **对于 Koog 集成**：请参阅 [A2A Koog 集成文档](a2a-koog-integration.md#dependencies)
 
-## 关键 A2A 组件
+## 关键 A2A 组件 {id="key-a2a-components"}
 
 Koog 为客户端和服务器提供了 A2A 协议 v0.3.0 的完整实现，并与 Koog 智能体框架集成：
 

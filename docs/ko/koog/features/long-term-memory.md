@@ -10,7 +10,7 @@ status: beta
 - **Retrieval (검색)** — 메모리 저장소에서 관련 컨텍스트를 가져와 LLM 프롬프트를 보강합니다 (검색 증강 생성 또는 RAG)
 - **Ingestion (수집)** — 나중에 검색할 수 있도록 대화 메시지를 메모리 저장소에 저장합니다
 
-## 빠른 시작 (Quick Start)
+## 빠른 시작 (Quick Start) {id="quick-start"}
 
 === "Kotlin"
 
@@ -58,7 +58,7 @@ status: beta
     Object result = agent.run("우리가 어제 무엇을 논의했지?");
     ```
 
-## 검색 전용 (Retrieval Only - RAG)
+## 검색 전용 (Retrieval Only - RAG) {id="retrieval-only-rag"}
 
 이미 데이터가 채워진 지식 베이스가 있는 경우 수집 없이 검색만 사용하십시오:
 
@@ -87,7 +87,7 @@ status: beta
         .build();
     ```
 
-### 프롬프트 보강 도구 (Prompt Augmenters)
+### 프롬프트 보강 도구 (Prompt Augmenters) {id="prompt-augmenters"}
 
 | 보강 도구 | 동작 |
 |---|---|
@@ -95,7 +95,7 @@ status: beta
 | `UserPromptAugmenter()` | 마지막 사용자 메시지 끝에 검색된 컨텍스트를 별도의 텍스트 파트로 추가합니다 (사용자 메시지가 없으면 아무 작업도 수행하지 않음) |
 | `PromptAugmenter { prompt, context -> ... }` | 람다를 통한 사용자 정의 보강 |
 
-### 검색 쿼리 제공자 (Search Query Providers)
+### 검색 쿼리 제공자 (Search Query Providers) {id="search-query-providers"}
 
 기본적으로 검색 흐름은 마지막 사용자 메시지를 검색 쿼리로 사용합니다. `SearchQueryProvider`를 제공하여 이를 사용자 정의할 수 있습니다:
 
@@ -137,14 +137,14 @@ status: beta
         .build();
     ```
 
-### 검색 전략 (Search Strategies)
+### 검색 전략 (Search Strategies) {id="search-strategies"}
 
 | 전략 | 동작 |
 |-----------------------------------------------------------|--------------------------|
 | `SimilaritySearchStrategy()` | 벡터 유사성 기반 의미론적 검색 — **기본값** |
 | `query -> new SimilaritySearchRequest(query, 20, 0, 0.0, null)` | 람다를 통한 사용자 정의 검색 |
 
-## 수집 전용 (Ingestion Only)
+## 수집 전용 (Ingestion Only) {id="ingestion-only"}
 
 시간이 지남에 따라 메모리 저장소를 구축하려면 검색 없이 수집 기능만 사용하십시오:
 
@@ -178,7 +178,7 @@ status: beta
 
 수집은 에이전트 실행이 완료될 때 한 번 실행됩니다: 최종 누적된 세션 프롬프트/기록이 단일 배치로 설정된 `documentExtractor`에 전달됩니다.
 
-## 자동 동작 비활성화 (Disabling Automatic Behavior)
+## 자동 동작 비활성화 (Disabling Automatic Behavior) {id="disabling-automatic-behavior"}
 
 기본적으로 검색과 수집은 자동으로 실행됩니다 (검색은 각 LLM 호출 전에 실행되고, 수집은 에이전트가 완료될 때 한 번 실행됩니다). 자동 동작을 비활성화하면서도 전략 노드 내부에서 설정된 저장소 및 전략에 액세스할 수 있습니다:
 
@@ -220,7 +220,7 @@ status: beta
 2. **수동 전용 (Manual only)**: `enableAutomaticRetrieval = false` / `enableAutomaticIngestion = false`로 설정하고 그래프 전략 노드에서 저장소와 전략을 사용합니다.
 3. **하이브리드 (Hybrid)**: 자동 수집과 수동 검색을 결합합니다 (또는 그 반대).
 
-## 전략 노드에서 장기 메모리 액세스하기 (Accessing Long-Term Memory from Strategy Nodes)
+## 전략 노드에서 장기 메모리 액세스하기 (Accessing Long-Term Memory from Strategy Nodes) {id="accessing-long-term-memory-from-strategy-nodes"}
 
 전략 노드 내부에서 `withLongTermMemory { }`를 사용하여 직접 검색하거나 레코드를 추가할 수 있습니다:
 
@@ -247,7 +247,7 @@ val myNode by node<String, Unit> {
 }
 ```
 
-## 사용자 정의 문서 추출기 (Custom Document Extractor)
+## 사용자 정의 문서 추출기 (Custom Document Extractor) {id="custom-document-extractor"}
 
 `DocumentExtractor`를 구현하여 저장 전에 메시지가 변환되는 방식을 제어할 수 있습니다:
 
@@ -266,7 +266,7 @@ install(LongTermMemory) {
 }
 ```
 
-## 사용자 정의 저장소 구현하기 (Implementing Custom Storage)
+## 사용자 정의 저장소 구현하기 (Implementing Custom Storage) {id="implementing-custom-storage"}
 
 `SearchStorage` 및/또는 `WriteStorage`를 구현하여 벡터 데이터베이스에 연결할 수 있습니다:
 

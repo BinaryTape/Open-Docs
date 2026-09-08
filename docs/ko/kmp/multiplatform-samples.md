@@ -16,7 +16,7 @@
 [kotlin-multiplatform-sample](https://github.com/topics/kotlin-multiplatform-sample) 토픽을 통해 GitHub에서 더 많은 샘플 프로젝트를 찾을 수 있습니다.
 생태계 전체를 살펴보려면 [kotlin-multiplatform](https://github.com/topics/kotlin-multiplatform) 토픽을 확인해 보세요.
 
-### JetBrains 공식 샘플
+### JetBrains 공식 샘플 {id="jetbrains-official-samples"}
 
 <table>
     
@@ -220,7 +220,7 @@
 
 </table>
 
-### 추천 샘플
+### 추천 샘플 {id="recommended-samples"}
 
 <table>
     
@@ -385,7 +385,7 @@
 
 </table>
 
-### 기타 커뮤니티 샘플
+### 기타 커뮤니티 샘플 {id="other-community-samples"}
 
 <table>
     

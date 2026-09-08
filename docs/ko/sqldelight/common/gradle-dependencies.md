@@ -1,4 +1,4 @@
-## 스키마 의존성 (Schema Dependencies)
+## 스키마 의존성 (Schema Dependencies) {id="schema-dependencies"}
 
 다른 모듈에 대한 스키마 의존성을 지정할 수 있습니다:
 

@@ -16,7 +16,7 @@
 
 Kotlin Multiplatform 마법사로 생성된 코드를 수정하여 `App` composable 내에 현재 날짜를 표시해 보겠습니다. 이를 위해 프로젝트에 새로운 의존성을 추가하고, UI를 개선하고, 각 플랫폼에서 애플리케이션을 다시 실행합니다.
 
-## 새로운 의존성 추가하기
+## 새로운 의존성 추가하기 {id="add-a-new-dependency"}
 
 플랫폼별 라이브러리와 [expect/actual 선언](multiplatform-expect-actual.md)을 사용하여 날짜를 가져올 수도 있습니다. 하지만 Kotlin Multiplatform 라이브러리를 사용할 수 없는 경우에만 이 방식을 사용하는 것을 권장합니다. 이 예제에서는 [kotlinx-datetime](https://github.com/Kotlin/kotlinx-datetime) 라이브러리를 사용할 수 있습니다.
 
@@ -105,7 +105,7 @@ Kotlin Multiplatform 마법사로 생성된 코드를 수정하여 `App` composa
 > 
 {style="note"}
 
-## 사용자 인터페이스 개선하기
+## 사용자 인터페이스 개선하기 {id="enhance-the-user-interface"}
 
 1. `shared/src/commonMain/kotlin/App.kt` 파일을 열고 `App()` composable 뒤에 현재 날짜를 포함하는 문자열을 반환하는 다음 함수를 추가합니다:
 
@@ -160,7 +160,7 @@ Kotlin Multiplatform 마법사로 생성된 코드를 수정하여 `App` composa
 
    ![미해결 참조](compose-unresolved-references.png)
 
-## 애플리케이션 다시 실행하기
+## 애플리케이션 다시 실행하기 {id="rerun-the-application"}
 
 이제 Android, iOS, 데스크톱 및 웹에 대해 동일한 실행 구성을 사용하여 [애플리케이션을 다시 실행](compose-multiplatform-create-first-app.md#run-your-application)할 수 있습니다:
 
@@ -176,13 +176,13 @@ Kotlin Multiplatform 마법사로 생성된 코드를 수정하여 `App` composa
     </TabItem>
 </Tabs>
 
-## 다음 단계
+## 다음 단계 {id="next-step"}
 
 튜토리얼의 다음 부분에서는 새로운 Compose Multiplatform 개념을 배우고 나만의 애플리케이션을 처음부터 만들어 봅니다.
 
 **[다음 단계로 진행하기](compose-multiplatform-new-project.md)**
 
-## 도움 받기
+## 도움 받기 {id="get-help"}
 
 * **Kotlin Slack**. [초대](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)를 받고 [#multiplatform](https://kotlinlang.slack.com/archives/C3PQML5NU) 채널에 가입하세요.
 * **Kotlin 이슈 트래커**. [새로운 이슈를 제보](https://youtrack.jetbrains.com/newIssue?project=KT)하세요.

@@ -2,7 +2,7 @@
 
 您可以通过使用事件处理程序进行日志记录、测试、调试以及扩展代理行为，从而在代理工作流中监控并响应特定事件。
 
-## 特性概览
+## 特性概览 {id="feature-overview"}
 
 EventHandler 特性允许您挂接到各种代理事件。它作为一种事件委托机制，可以：
 
@@ -21,7 +21,7 @@ EventHandler 实体由五种主要处理程序类型组成：
 - 工具调用监听器：在工具即将被调用时发出通知
 - 工具结果监听器：在工具调用完成后处理结果-->
 
-### 安装与配置
+### 安装与配置 {id="installation-and-configuration"}
 
 EventHandler 特性通过 `EventHandler` 类与代理工作流集成，该类提供了一种为不同代理事件注册回调的方法，并且可以作为代理配置中的一个特性进行安装。有关详情，请参阅 [API 参考](api:agents-features-event-handler::ai.koog.agents.features.eventHandler.feature.EventHandler)。
 

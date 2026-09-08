@@ -8,9 +8,9 @@ title: Android 最佳实践
 有关通用模块概念，请参阅 **[模块](/docs/reference/koin-core/modules)**。有关作用域，请参阅 **[作用域](/docs/reference/koin-core/scopes)** 和 **[Android 作用域](/docs/reference/koin-android/scope)**。
 :::
 
-## 内存管理
+## 内存管理 {id="memory-management"}
 
-### 避免 Activity/Fragment 内存泄漏
+### 避免 Activity/Fragment 内存泄漏 {id="avoid-activity-fragment-leaks"}
 
 ```kotlin
 // ❌ 错误 - Activity 内存泄漏
@@ -31,7 +31,7 @@ module {
 }
 ```
 
-### 正确关闭作用域
+### 正确关闭作用域 {id="close-scopes-properly"}
 
 ```kotlin
 // ✅ 正确 - 自动作用域管理
@@ -62,7 +62,7 @@ class MyActivity : AppCompatActivity() {
 }
 ```
 
-### 在长生命周期对象中清除引用
+### 在长生命周期对象中清除引用 {id="clear-references-in-long-lived-objects"}
 
 ```kotlin
 // ❌ 错误 - 持有 UI 引用
@@ -88,9 +88,9 @@ class UserRepository {
 }
 ```
 
-## Android 调试
+## Android 调试 {id="android-debugging"}
 
-### 启用 Android 日志记录器
+### 启用 Android 日志记录器 {id="enable-android-logger"}
 
 ```kotlin
 startKoin {
@@ -100,7 +100,7 @@ startKoin {
 }
 ```
 
-### 在 Debug 构建中验证模块
+### 在 Debug 构建中验证模块 {id="verify-modules-in-debug-builds"}
 
 ```kotlin
 class MyApplication : Application() {
@@ -118,7 +118,7 @@ class MyApplication : Application() {
 }
 ```
 
-### 用于调试的作用域回调
+### 用于调试的作用域回调 {id="scope-callbacks-for-debugging"}
 
 ```kotlin
 class DebugActivity : ScopeActivity() {
@@ -134,9 +134,9 @@ class DebugActivity : ScopeActivity() {
 }
 ```
 
-## 安全最佳实践
+## 安全最佳实践 {id="security-best-practices"}
 
-### 不要在模块中存储机密信息
+### 不要在模块中存储机密信息 {id="don-t-store-secrets-in-modules"}
 
 ```kotlin
 // ❌ 错误 - 硬编码机密信息
@@ -165,13 +165,13 @@ module {
 }
 ```
 
-## 从 Dagger/Hilt 迁移
+## 从 Dagger/Hilt 迁移 {id="migration-from-dagger-hilt"}
 
 :::info
 Koin 支持来自 `jakarta.inject` 的 JSR-330 注解（`@Singleton`、`@Inject`、`@Named`）。您可以继续使用熟悉的注解。请参阅 [JSR-330 兼容性](/docs/reference/koin-android/jsr330)。
 :::
 
-### 注解映射
+### 注解映射 {id="annotation-mapping"}
 
 | Hilt | Koin 注解 |
 |------|------------------|
@@ -183,7 +183,7 @@ Koin 支持来自 `jakarta.inject` 的 JSR-330 注解（`@Singleton`、`@Inject`
 | `@InstallIn(SingletonComponent)` | `@Module` + `@ComponentScan` |
 | `@InstallIn(ActivityComponent)` | `@Scope(ActivityScope::class)` |
 
-### 迁移示例
+### 迁移示例 {id="example-migration"}
 
 ```kotlin
 // 迁移前 (Hilt)
@@ -209,7 +209,7 @@ class UserRepositoryImpl(
 ) : UserRepository
 ```
 
-### 模块迁移
+### 模块迁移 {id="module-migration"}
 
 ```kotlin
 // 迁移前 (Hilt)
@@ -229,7 +229,7 @@ class NetworkModule {
 }
 ```
 
-### 逐步迁移
+### 逐步迁移 {id="gradual-migration"}
 
 ```kotlin
 // 第 1 步：在现有 Hilt 项目中为新功能添加 Koin
@@ -248,7 +248,7 @@ class MigratedRepository(private val api: ApiService) : UserRepository
 // 第 3 步：迁移完成后移除 Hilt
 ```
 
-## 另请参阅
+## 另请参阅 {id="see-also"}
 
 - **[作用域](/docs/reference/koin-core/scopes)** - 核心作用域概念
 - **[Android 作用域](/docs/reference/koin-android/scope)** - Android 生命周期作用域

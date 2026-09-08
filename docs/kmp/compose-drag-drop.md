@@ -7,7 +7,7 @@
 > 
 {style="warning"}
 
-## 特定于平台的数据处理
+## 特定于平台的数据处理 {id="platform-specific-data-handling"}
 
 虽然 `dragAndDropSource` 和 `dragAndDropTarget` 修饰符是公共 API 的一部分，但您需要将传输的数据包装在特定于平台的类型中：
 
@@ -47,7 +47,7 @@
     }
     ```
 
-## 创建拖动源
+## 创建拖动源 {id="creating-a-drag-source"}
 
 要将一个可组合项准备为拖动源，请执行以下操作：
 
@@ -108,7 +108,7 @@ Box(Modifier
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="Box(Modifier.dragAndDropSource"}
 
-## 创建放置目标
+## 创建放置目标 {id="creating-a-drop-target"}
 
 要将一个可组合项准备为拖放目标，请执行以下操作：
 
@@ -189,6 +189,6 @@ Row(
 }
 ```
 
-## 后续步骤
+## 后续步骤 {id="what-s-next"}
 
 要了解有关实现和常见用例的更多详细信息，请参阅 Jetpack Compose 文档中关于相应修饰符的 [拖放](https://developer.android.com/develop/ui/compose/touch-input/user-interactions/drag-and-drop) 文章。

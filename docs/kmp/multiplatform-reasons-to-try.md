@@ -10,7 +10,7 @@
 
 ![在最近两次开发者生态系统调查的受访者中，KMP 的使用率从 2024 年的 7% 增加到 2025 年的 18%](kmp-growth-deveco.svg){width=700}
 
-## 为什么您应该在项目中尝试 Kotlin Multiplatform
+## 为什么您应该在项目中尝试 Kotlin Multiplatform {id="why-you-should-try-kotlin-multiplatform-in-your-projects"}
 
 无论您是希望提高开发效率还是探索新技术，本文都会为您提供帮助。它解释了 Kotlin Multiplatform 的一些实际优势，例如简化开发、支持多个平台以及提供强大的工具生态系统。您还将看到来自真实公司的案例研究。
 
@@ -25,7 +25,7 @@
 9. [Kotlin Multiplatform 提供强大的工具支持](#9-kotlin-multiplatform-provides-powerful-tooling-support)
 10. [Kotlin Multiplatform 拥有庞大且充满支持的社区](#10-kotlin-multiplatform-boasts-a-large-and-supportive-community)
 
-### 1. Kotlin Multiplatform 帮助您避免代码重复
+### 1. Kotlin Multiplatform 帮助您避免代码重复 {id="1-kotlin-multiplatform-helps-you-avoid-code-duplication"}
 
 百度，全球最大的中文搜索引擎，推出了面向年轻受众的应用程序 *Wonder App*。以下是他们在传统应用开发中面临的一些问题：
 
@@ -45,7 +45,7 @@
 
 [![探索真实的 Kotlin Multiplatform 用例](kmp-use-cases-1.svg){width="500"}](https://kotlinlang.org/case-studies/)
 
-### 2. Kotlin Multiplatform 支持广泛的平台列表
+### 2. Kotlin Multiplatform 支持广泛的平台列表 {id="2-kotlin-multiplatform-supports-an-extensive-list-of-platforms"}
 
 Kotlin Multiplatform 的关键优势之一是其对各种平台的广泛支持，使其成为开发者的多功能选择。这些平台包括 Android、iOS、桌面端、Web（JavaScript 和 WebAssembly）以及服务器端（Java 虚拟机）。
 
@@ -61,7 +61,7 @@ Quizlet 团队曾尝试过 JavaScript、React Native、C++、Rust 和 Go 等技�
 
 [![开始使用 Kotlin Multiplatform](get-started-with-kmp.svg){width="500"}](get-started.topic)
 
-### 3. Kotlin 提供了简化的代码共享机制
+### 3. Kotlin 提供了简化的代码共享机制 {id="3-kotlin-provides-simplified-code-sharing-mechanisms"}
 
 在编程语言的世界中，Kotlin 以其务实的方法脱颖而出，这意味着它优先考虑以下特性：
 
@@ -75,7 +75,7 @@ Quizlet 团队曾尝试过 JavaScript、React Native、C++、Rust 和 Go 等技�
 
 关键的一点是，Kotlin 对可读性、复用、互操作性和安全性的强调使该语言成为开发者的引人注目的选择，并提高了他们的生产力。
 
-### 4. Kotlin Multiplatform 允许灵活的多平台开发
+### 4. Kotlin Multiplatform 允许灵活的多平台开发 {id="4-kotlin-multiplatform-allows-for-flexible-multiplatform-development"}
 
 通过 Kotlin Multiplatform，开发者不再需要在原生开发和跨平台开发之间做出艰难选择。他们可以自由选择共享哪些内容以及哪些内容采用原生编写。
 
@@ -95,7 +95,7 @@ Kotlin Multiplatform 让您可以选择适合项目的代码共享程度。
 
 现在，除了平台特定代码外，您几乎可以共享任何内容。
 
-### 5. 通过 Kotlin Multiplatform 解决方案，您可以共享 UI 代码
+### 5. 通过 Kotlin Multiplatform 解决方案，您可以共享 UI 代码 {id="5-with-the-kotlin-multiplatform-solution-you-can-share-ui-code"}
 
 JetBrains 提供了 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/)，这是一个基于 Kotlin 和 Jetpack Compose 的声明式框架，用于跨多个平台共享用户界面，包括 Android（通过 Jetpack Compose）、iOS、桌面端和 Web（Beta）。
 
@@ -105,7 +105,7 @@ JetBrains 提供了 [Compose Multiplatform](https://www.jetbrains.com/lp/compose
 
 [![探索 Compose Multiplatform](explore-compose.svg){width="500"}](https://www.jetbrains.com/compose-multiplatform/)
 
-### 6. 您可以在现有和新项目中使用 Kotlin Multiplatform
+### 6. 您可以在现有和新项目中使用 Kotlin Multiplatform {id="6-you-can-use-kotlin-multiplatform-in-existing-and-new-projects"}
 
 让我们来看看以下两种场景：
 
@@ -117,7 +117,7 @@ JetBrains 提供了 [Compose Multiplatform](https://www.jetbrains.com/lp/compose
 
   *9GAG* 是一个在线平台和社交媒体网站，他们尝试了 Flutter 和 React Native 等不同技术，但最终选择了 Kotlin Multiplatform，这使他们能够统一应用在两个平台上的行为。他们首先创建了一个 Android 应用。然后，他们在 iOS 上将 Kotlin Multiplatform 项目作为依赖项进行调用。
 
-### 7. 通过 Kotlin Multiplatform，您可以开始逐步共享代码
+### 7. 通过 Kotlin Multiplatform，您可以开始逐步共享代码 {id="7-with-kotlin-multiplatform-you-can-start-sharing-your-code-gradually"}
 
 您可以循序渐进地开始，从常量等简单元素开始，逐步迁移电子邮件验证等通用工具。您还可以编写或迁移业务逻辑，例如交易流程或用户身份验证。
 
@@ -125,13 +125,13 @@ JetBrains 提供了 [Compose Multiplatform](https://www.jetbrains.com/lp/compose
 > [查看如何逐步从 Android 迁移到 Kotlin Multiplatform](migrate-from-android.md)。
 {style="note"}
 
-### 8. Kotlin Multiplatform 已被全球公司使用
+### 8. Kotlin Multiplatform 已被全球公司使用 {id="8-kotlin-multiplatform-is-already-used-by-global-companies"}
 
 KMP 已被全球许多大型公司使用，包括 Forbes、Philips、Cash App、Meetup、Autodesk 等等。您可以在 [案例研究页面](https://kotlinlang.org/case-studies/?type=multiplatform) 上阅读他们的所有故事。
 
 2023 年 11 月，JetBrains 宣布 Kotlin Multiplatform 现已进入 Stable (稳定版)，吸引了更多公司和团队对该技术的关注。在 Google I/O 2024 上，Google 宣布 [官方支持使用 Kotlin Multiplatform](https://android-developers.googleblog.com/2024/05/android-support-for-kotlin-multiplatform-to-share-business-logic-across-mobile-web-server-desktop.html) 在 Android 和 iOS 之间共享业务逻辑。
 
-### 9. Kotlin Multiplatform 提供强大的工具支持
+### 9. Kotlin Multiplatform 提供强大的工具支持 {id="9-kotlin-multiplatform-provides-powerful-tooling-support"}
 
 在开发 Kotlin Multiplatform 项目时，您可以利用触手可及的强大工具。
 
@@ -143,7 +143,7 @@ KMP 已被全球许多大型公司使用，包括 Forbes、Philips、Cash App、
 
 * **Xcode**。Apple 的 IDE 可用于创建 Kotlin Multiplatform 应用的 iOS 部分。Xcode 是 iOS 应用开发的标准工具，提供了大量的编码、调试和配置工具。但是，Xcode 仅限 Mac 使用。
 
-### 10. Kotlin Multiplatform 拥有庞大且充满支持的社区
+### 10. Kotlin Multiplatform 拥有庞大且充满支持的社区 {id="10-kotlin-multiplatform-boasts-a-large-and-supportive-community"}
 
 Kotlin 和 Kotlin Multiplatform 拥有一个非常支持的社区。以下是几个您可以找到问题答案的地方。
 
@@ -160,7 +160,7 @@ Kotlin Multiplatform 生态系统正在蓬勃发展。全球众多的 Kotlin 开
 
 如您所见，2021 年出现了明显的上升，且库的数量自那时起一直保持增长。
 
-## 为什么选择 Kotlin Multiplatform 而非其他跨平台技术？
+## 为什么选择 Kotlin Multiplatform 而非其他跨平台技术？ {id="why-choose-kotlin-multiplatform-over-other-cross-platform-technologies"}
 
 在选择 [不同的跨平台解决方案](cross-platform-frameworks.topic) 时，权衡其优缺点至关重要。您还可以探索 Kotlin Multiplatform 与其他技术（包括 [React Native](kotlin-multiplatform-react-native.topic) 和 [Flutter](kotlin-multiplatform-flutter.md)）的并排对比。
 

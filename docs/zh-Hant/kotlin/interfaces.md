@@ -13,7 +13,7 @@ interface MyInterface {
 }
 ```
 
-## 實作介面
+## 實作介面 {id="implementing-interfaces"}
 
 類別或物件可以實作一或多個介面：
 
@@ -25,7 +25,7 @@ class Child : MyInterface {
 }
 ```
 
-## 介面中的屬性
+## 介面中的屬性 {id="properties-in-interfaces"}
 
 您可以在介面中宣告屬性。在介面中宣告的屬性可以是抽象的，或者提供存取子的實作。在介面中宣告的屬性不能有支援欄位，因此在介面中宣告的存取子不能參照它們：
 
@@ -46,7 +46,7 @@ class Child : MyInterface {
 }
 ```
 
-## 介面繼承
+## 介面繼承 {id="interfaces-inheritance"}
 
 介面可以衍生自其他介面，這代表它既可以為其成員提供實作，也可以宣告新的函式與屬性。自然地，實作此類介面的類別只需要定義缺失的實作：
 
@@ -70,7 +70,7 @@ data class Employee(
 ) : Person
 ```
 
-## 解決覆寫衝突
+## 解決覆寫衝突 {id="resolving-overriding-conflicts"}
 
 當您在超型別列表中宣告多個型別時，您可能會繼承同一個方法的多個實作：
 
@@ -105,7 +105,7 @@ class D : A, B {
 
 然而，如果您從 *A* 和 *B* 衍生出 *D*，您需要實作從多個介面繼承的所有方法，並且需要指定 *D* 應該如何實作它們。這條規則既適用於您繼承了單一實作的方法（*bar()*），也適用於您繼承了多個實作的方法（*foo()*）。
 
-## 介面函式的 JVM 預設方法產生
+## 介面函式的 JVM 預設方法產生 {id="jvm-default-method-generation-for-interface-functions"}
 
 在 JVM 上，介面中宣告的函式會編譯為預設方法（default methods）。您可以使用 `-jvm-default` 編譯器選項來控制此行為，其可設定的值如下：
 

@@ -13,7 +13,7 @@ Kotlin 工具链确保每个源集只能访问对其编译到的所有目标都�
 该模板涵盖了最常见的案例。如果你有更高级的项目，可以进行[手动配置](#manual-configuration)。
 这是一种更底层的方法：虽然更灵活，但需要更多的精力。
 
-## 默认层次结构模板
+## 默认层次结构模板 {id="default-hierarchy-template"}
 
 Kotlin Gradle 插件内置了一个默认的[层次结构模板](#see-the-full-hierarchy-template)。
 它包含了一些针对流行用例预定义的中间源集。
@@ -107,7 +107,7 @@ kotlin {
 >
 {style="note"}
 
-### 其他配置
+### 其他配置 {id="additional-configuration"}
 
 你可能需要对默认层次结构模板进行调整。如果你之前通过 `dependsOn` 调用[手动](#manual-configuration)引入了中间源集，这将取消默认层次结构模板的使用，并导致以下警告：
 
@@ -129,13 +129,13 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
 * [在默认层次结构模板中创建额外的源集](#creating-additional-source-sets)
 * [修改由默认层次结构模板创建的源集](#modifying-source-sets)
 
-#### 将手动配置替换为默认层次结构模板
+#### 将手动配置替换为默认层次结构模板 {id="replacing-a-manual-configuration"}
 
 **案例**。你所有的中间源集当前都已由默认层次结构模板涵盖。
 
 **解决方案**。在共享模块的 `build.gradle(.kts)` 文件中，移除所有手动的 `dependsOn()` 调用以及使用 `by creating` 构造的源集。要检查所有默认源集的列表，请参阅[完整层次结构模板](#see-the-full-hierarchy-template)。
 
-#### 创建额外的源集
+#### 创建额外的源集 {id="creating-additional-source-sets"}
 
 **案例**。你想添加默认层次结构模板尚未提供的源集，例如介于 macOS 和 JVM 目标之间的源集。
 
@@ -200,7 +200,7 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
     </TabItem>
     </Tabs>
 
-#### 修改源集
+#### 修改源集 {id="modifying-source-sets"}
 
 **案例**。你已经拥有与模板生成的名称完全相同的源集，但在项目中共享于不同的目标集。例如，`nativeMain` 源集仅在特定于桌面的目标之间共享：`linuxX64`、`mingwX64` 和 `macosArm64`。
 
@@ -217,7 +217,7 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
 >
 {style="tip"}
 
-#### 查看完整层次结构模板 {initial-collapse-state="collapsed" collapsible="true"}
+#### 查看完整层次结构模板 {initial-collapse-state="collapsed" collapsible="true" id="see-the-full-hierarchy-template"}
 
 当你声明项目编译到的目标时，插件会根据指定的从模板中选择共享源集，并在你的项目中创建它们。
 
@@ -227,7 +227,7 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
 >
 {style="tip"}
 
-## 手动配置
+## 手动配置 {id="manual-configuration"}
 
 你可以手动在源集结构中引入中间源。它将保存多个目标的共享代码。
 

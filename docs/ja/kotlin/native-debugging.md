@@ -12,7 +12,7 @@ Kotlin/Native コンパイラは、デバッグ情報を含むバイナリを生
 >
 {style="note"}
 
-## デバッグ情報を含むバイナリの生成
+## デバッグ情報を含むバイナリの生成 {id="generate-binaries-with-debug-information"}
 
 IntelliJ IDEA、Android Studio、または Xcode でデバッグする場合、デバッグ情報を含むバイナリは自動的に生成されます（ビルドが別の設定になっていない限り）。
 
@@ -74,11 +74,11 @@ Process 28473 stopped
 (lldb)
 ```
 
-## ブレークポイントの設定
+## ブレークポイントの設定 {id="set-breakpoints"}
 
 最新のデバッガは、ブレークポイントを設定するためのいくつかの方法を提供しています。ツールごとの詳細は以下の通りです。
 
-### LLDB
+### LLDB {id="lldb"}
 
 * 名前による指定：
 
@@ -111,7 +111,7 @@ Process 28473 stopped
     3.1: where = terminator.kexe`kfun:main(kotlin.Array<kotlin.String>) + 4 at hello.kt:2, address = terminator.kexe[0x00000001000012e4], unresolved, hit count = 0
   ```
 
-### GDB
+### GDB {id="gdb"}
 
 * 正規表現による指定：
 
@@ -145,11 +145,11 @@ Process 28473 stopped
   Breakpoint 3 at 0x100001704: file /Users/minamoto/ws/.git-trees/hello.kt, line 2.
   ```
 
-## ステップ実行の使用
+## ステップ実行の使用 {id="use-stepping"}
 
 関数をステップ実行する操作は、C/C++ プログラムの場合とほぼ同じです。
 
-## 変数の検査
+## 変数の検査 {id="inspect-variables"}
 
 `var` 変数の検査は、プリミティブ型と非プリミティブ型の両方で、特別な設定なしで動作します。
 
@@ -191,7 +191,7 @@ Process 4985 launched: './program.kexe' (x86_64)
 (int32_t) p->x = 1
 ```
 
-## iOS アプリケーションのデバッグ
+## iOS アプリケーションのデバッグ {id="debug-ios-applications"}
 
 iOS アプリケーションのデバッグでは、クラッシュレポートを詳細に分析することが必要な場合があります。クラッシュレポートには通常、メモリアドレスを読み取り可能なソースコードの場所に変換するプロセスである「シンボル化（symbolication）」が必要です。
 
@@ -232,11 +232,11 @@ kotlin {
 
 クラッシュレポートの詳細については、[Apple のドキュメント](https://developer.apple.com/documentation/xcode/diagnosing-issues-using-crash-reports-and-device-logs)を参照してください。
 
-## 既知の問題
+## 既知の問題 {id="known-issues"}
 
 * Python バインディングのパフォーマンス。
 * デバッガツールでの式評価（Expression evaluation）はサポートされておらず、現在のところ実装の予定はありません。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 [iOS コードにおける未処理の Kotlin 例外のクラッシュレポートを改善する方法を学ぶ](native-faq.md#how-do-i-get-better-crash-reports-for-ios)

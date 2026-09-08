@@ -6,7 +6,7 @@ Kotlin에서 필터링 조건은 _프레디케이트(predicates)_로 정의됩�
 표준 라이브러리에는 단일 호출로 컬렉션을 필터링할 수 있는 일련의 확장 함수들이 포함되어 있습니다.
 이 함수들은 원본 컬렉션을 변경하지 않으므로, [가변 및 읽기 전용(mutable and read-only)](collections-overview.md#collection-types) 컬렉션 모두에서 사용할 수 있습니다. 필터링 결과를 활용하려면 변수에 할당하거나 필터링 뒤에 함수를 체이닝해야 합니다.
 
-## 프레디케이트로 필터링
+## 프레디케이트로 필터링 {id="filter-by-predicate"}
 
 가장 기본적인 필터링 함수는 [`filter()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/filter.html)입니다.
 프레디케이트와 함께 호출하면 `filter()`는 그에 일치하는 컬렉션 요소들을 반환합니다.
@@ -80,7 +80,7 @@ fun main() {
     ```
     {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 분할
+## 분할 {id="partition"}
 
 또 다른 필터링 함수인 [`partition()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/partition.html)은 프레디케이트로 컬렉션을 필터링하고, 일치하지 않는 요소들은 별도의 리스트에 유지합니다.
 따라서 반환 값으로 `List`의 `Pair`를 얻게 됩니다. 첫 번째 리스트는 프레디케이트와 일치하는 요소들을 포함하고, 두 번째 리스트는 원본 컬렉션의 나머지 요소들을 포함합니다.
@@ -98,7 +98,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 프레디케이트 테스트
+## 프레디케이트 테스트 {id="test-predicates"}
 
 마지막으로, 컬렉션 요소에 대해 프레디케이트를 단순히 테스트하는 함수들이 있습니다:
 

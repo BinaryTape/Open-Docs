@@ -1,6 +1,6 @@
 # 术语表
 
-## 智能体 (Agent)
+## 智能体 (Agent) {id="agent"}
 
 - **智能体 (Agent)**：一个可以与工具交互、处理复杂工作流并与用户沟通的 AI 实体。
 
@@ -16,11 +16,11 @@
 
 - **LLM 会话 (LLM session)**：与大型语言模型 (LLM) 交互的一种结构化方式，包括对话历史记录、可用工具以及发出请求的方法。
 
-## 智能体工作流 (Agent workflow)
+## 智能体工作流 (Agent workflow) {id="agent-workflow"}
 
 - **策略 (Strategy)**：为智能体定义的由顺序子图组成的工作流。策略定义了智能体如何处理输入、与工具交互以及生成输出。策略图由节点组成，节点之间通过表示节点间转换的边连接。
 
-### 策略图 (Strategy graphs)
+### 策略图 (Strategy graphs) {id="strategy-graphs"}
 
 - **图 (Graph)**：由边连接的节点结构，定义了智能体策略工作流。
 
@@ -32,7 +32,7 @@
 
 - **子图 (Subgraph)**：智能体策略中一个自包含的处理单元，拥有自己的一组工具、上下文和职责。
 
-## 工具 (Tools)
+## 工具 (Tools) {id="tools"}
 
 - **工具 (Tool)**：智能体可以用来执行特定任务或访问外部系统的函数。智能体了解可用工具及其实参，但不知道其实现细节。
 
@@ -44,14 +44,14 @@
 
 - **工具结果 (Tool result)**：运行工具产生的输出。例如，如果工具是一个方法，则结果将是其返回值。
 
-## 历史记录压缩 (History compression)
+## 历史记录压缩 (History compression) {id="history-compression"}
 
 - **历史记录压缩 (History compression)**：通过应用各种压缩策略来减小对话历史记录的大小，从而管理 token 使用量的过程。要了解更多信息，请参阅 [历史记录压缩](history-compression.md)。
 
-## 功能 (Features)
+## 功能 (Features) {id="features"}
 
 - **功能 (Feature)**：扩展和增强 AI 智能体功能的组件。
 
-### EventHandler 功能
+### EventHandler 功能 {id="eventhandler-feature"}
 
 - **EventHandler**：一种能够监控并响应各种智能体事件的功能，提供用于在整个工作流中跟踪智能体生命周期、处理错误以及处理工具调用的钩子 (hook)。

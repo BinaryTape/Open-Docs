@@ -11,7 +11,7 @@
 >
 {style="note"}
 
-## Visual Studio Code에서의 Kotlin
+## Visual Studio Code에서의 Kotlin {id="kotlin-in-visual-studio-code"}
 
 Kotlin Language Server는 [Visual Studio Code](https://code.visualstudio.com/)를 위한 공식 Kotlin 언어 지원을 제공합니다.
 
@@ -21,7 +21,7 @@ Cursor 또는 VSCodium과 같은 VS Code 호환 에디터의 경우, [Open VSX R
 
 **Kotlin by JetBrains** 확장을 활성화하려면, Visual Studio Code에서 Kotlin 프로젝트를 열고 아무 Kotlin 파일이나 여세요.
 
-## 지원 기능
+## 지원 기능 {id="supported-features"}
 
 Kotlin Language Server는 다음과 같은 핵심 언어 기능을 포함합니다:
 
@@ -42,12 +42,12 @@ Kotlin Language Server는 다음과 같은 핵심 언어 기능을 포함합니�
 * 호출 계층 구조(Call hierarchy)
 * 코드 폴딩(Code folding)
 
-## 피드백
+## 피드백 {id="feedback"}
 
 Kotlin Language Server는 활발히 개발 중이며, 특히 알파(Alpha) 단계에서는 여러분의 피드백이 매우 소중합니다.
 
 문제를 발견하거나 개선 사항을 제안하고 싶다면 [Kotlin LSP 저장소](https://github.com/Kotlin/kotlin-lsp)에 보고해 주세요.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [GitHub의 Kotlin Language Server 저장소](https://github.com/Kotlin/kotlin-lsp) 살펴보기

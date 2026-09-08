@@ -18,7 +18,7 @@
 사용자 인터페이스를 빌드하기 위해, 프로젝트의 Android 부분에는 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) 툴킷을 사용하고 iOS 부분에는 [SwiftUI](https://developer.apple.com/xcode/swiftui/)를 사용합니다.
 이들은 모두 선언형 UI 프레임워크이며, UI 구현에서 유사점을 발견할 수 있을 것입니다. 두 경우 모두 데이터를 `phrases` 변수에 저장한 다음, 이를 반복하여 `Text` 항목 리스트를 생성합니다.
 
-## Android 부분 업데이트
+## Android 부분 업데이트 {id="update-the-android-part"}
 
 `androidApp` 모듈은 Android 애플리케이션을 포함하며, 메인 액티비티(activity)를 정의합니다.
 UI 코드는 주로 `sharedUI` 모듈에 포함되어 있으며, Android 앱은 이를 Android 라이브러리로 사용합니다.
@@ -74,7 +74,7 @@ UI는 Compose Multiplatform 프레임워크를 사용하여 구현되었습니�
 
    ![업데이트된 Android 멀티플랫폼 앱의 UI](first-multiplatform-project-on-android-2.png){width=300}
 
-## iOS 부분 업데이트
+## iOS 부분 업데이트 {id="update-the-ios-part"}
 
 `iosApp` 디렉토리는 iOS 애플리케이션으로 빌드됩니다.
 이 모듈은 `sharedLogic` 모듈을 iOS 프레임워크로 의존하며 사용합니다.
@@ -107,24 +107,24 @@ UI는 Compose Multiplatform 프레임워크를 사용하여 구현되었습니�
 
     ![업데이트된 iOS 멀티플랫폼 앱의 UI](first-multiplatform-project-on-ios-2.png){width=350}
 
-## 발생 가능한 문제 및 해결 방법
+## 발생 가능한 문제 및 해결 방법 {id="possible-issues-and-solutions"}
 
-### Xcode가 공유 프레임워크를 호출하는 코드에서 오류를 보고하는 경우
+### Xcode가 공유 프레임워크를 호출하는 코드에서 오류를 보고하는 경우 {id="xcode-reports-errors-in-the-code-calling-the-shared-framework"}
 
 Xcode를 사용 중이라면, Xcode 프로젝트가 여전히 이전 버전의 프레임워크를 사용하고 있을 수 있습니다.
 이를 해결하려면 IntelliJ IDEA로 돌아가서 프로젝트를 다시 빌드하거나 iOS 실행 구성을 시작하세요.
 
-### Xcode가 공유 프레임워크를 임포트할 때 오류를 보고하는 경우
+### Xcode가 공유 프레임워크를 임포트할 때 오류를 보고하는 경우 {id="xcode-reports-an-error-when-importing-the-shared-framework"}
 
 Xcode를 사용 중이라면 캐시된 바이너리를 지워야 할 수도 있습니다. 메인 메뉴에서 **Product | Clean Build Folder**를 선택하여 환경을 초기화해 보세요.
 
-## 다음 단계
+## 다음 단계 {id="next-step"}
 
 튜토리얼의 다음 부분에서는 종속성에 대해 배우고 프로젝트의 기능을 확장하기 위해 서드파티 라이브러리를 추가해 보겠습니다.
 
 **[다음 부분으로 진행하기](multiplatform-dependencies.md)**
 
-## 도움 받기
+## 도움 받기 {id="get-help"}
 
 * **Kotlin Slack**. [초대](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)를 받고 [#multiplatform](https://kotlinlang.slack.com/archives/C3PQML5NU) 채널에 참여하세요.
 * **Kotlin 이슈 트래커**. [새 이슈를 보고](https://youtrack.jetbrains.com/newIssue?project=KT)하세요.

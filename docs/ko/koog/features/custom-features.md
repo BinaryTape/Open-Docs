@@ -4,7 +4,7 @@
 
 Koog에서 기본적으로 제공하는 [기능](index.md) 외에도, 적절한 기능 인터페이스를 확장하여 직접 커스텀 기능을 구현할 수 있습니다. 이 페이지에서는 현재 Koog API를 사용하여 직접 기능을 만들기 위한 기본 구성 요소를 소개합니다.
 
-## 기능 인터페이스
+## 기능 인터페이스 {id="feature-interfaces"}
 
 Koog는 커스텀 기능을 구현하기 위해 확장할 수 있는 다음과 같은 인터페이스를 제공합니다:
 
@@ -15,7 +15,7 @@ Koog는 커스텀 기능을 구현하기 위해 확장할 수 있는 다음과 �
 !!! note
     그래프 기반, 함수형 및 플래너 에이전트에 모두 설치할 수 있는 커스텀 기능을 만들려면 모든 인터페이스를 구현해야 합니다.
 
-## 커스텀 기능 구현하기
+## 커스텀 기능 구현하기 {id="implementing-custom-features"}
 
 커스텀 기능을 구현하려면 다음 단계에 따라 기능 구조를 만들어야 합니다:
 
@@ -107,7 +107,7 @@ val agent = AIAgent(
 ```
 <!--- KNIT example-custom-features-02.kt -->
 
-### 파이프라인 인터셉터
+### 파이프라인 인터셉터 {id="pipeline-interceptors"}
 
 인터셉터는 에이전트 실행 파이프라인에 연결하여 커스텀 로직을 구현할 수 있는 에이전트 생명주기(lifecycle)의 다양한 지점을 나타냅니다. Koog에는 다양한 이벤트를 관찰하는 데 사용할 수 있는 일련의 사전 정의된 인터셉터가 포함되어 있습니다.
 
@@ -146,7 +146,7 @@ LLM 스트리밍 생명주기:
 - `interceptToolCallFailed`: 도구 실행이 실패했을 때 호출됩니다.
 - `interceptToolCallCompleted`: 도구가 (결과와 함께) 완료된 후에 호출됩니다.
 
-#### 그래프 기반 에이전트 전용 인터셉터
+#### 그래프 기반 에이전트 전용 인터셉터 {id="interceptors-specific-to-graph-based-agents"}
 
 다음 인터셉터들은 `AIAgentGraphPipeline`에서만 사용할 수 있으며 노드 및 서브그래프 생명주기 이벤트를 관찰할 수 있게 해줍니다.
 
@@ -164,7 +164,7 @@ LLM 스트리밍 생명주기:
 
 기능이 특정 유형의 이벤트를 처리하려면 해당 파이프라인 인터셉터를 등록해야 합니다.
 
-### 에이전트 이벤트 필터링
+### 에이전트 이벤트 필터링 {id="filtering-agent-events"}
 
 에이전트에 기능을 설치할 때, 기능에 등록된 모든 이벤트를 처리하고 싶지 않을 수 있습니다. 일부 이벤트를 걸러내려면 [FeatureConfig.setEventFilter](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.feature.config/-feature-config/set-event-filter.html) 함수를 사용하여 필터를 적용합니다.
 
@@ -202,7 +202,7 @@ install(MyFeature) {
 ```
 <!--- KNIT example-custom-features-03.kt -->
 
-#### 기능에 대한 이벤트 필터링 비활성화
+#### 기능에 대한 이벤트 필터링 비활성화 {id="disabling-event-filtering-for-a-feature"}
 
 기능 로직이 전체 에이전트 이벤트 구조에 의존하는 경우, 이벤트 필터링이 예기치 않은 동작을 유발할 수 있습니다. 이를 방지하려면 기능을 구현할 때 기능 설정에서 `setEventFilter`를 오버라이드하여 기능을 설치할 때 설정된 커스텀 필터를 무시하도록 하여 이벤트 필터링을 비활성화해야 합니다.
 
@@ -224,7 +224,7 @@ class MyFeatureConfig : FeatureConfig() {
 ```
 <!--- KNIT example-custom-features-04.kt -->
 
-## 예제: 기본 로깅 기능
+## 예제: 기본 로깅 기능 {id="example-a-basic-logging-feature"}
 
 다음 예제는 에이전트 생명주기 이벤트를 기록하는 기본 로깅 기능을 구현하는 방법을 보여줍니다. 이 기능은 그래프 기반, 함수형 및 플래너 에이전트에서 모두 사용할 수 있어야 하므로, 코드 중복을 피하기 위해 모든 에이전트 유형에 공통적인 인터셉터는 `installCommon` 메서드에 구현되었습니다. 개별 에이전트 유형에 특화된 인터셉터는 `installGraphPipeline`, `installFunctionalPipeline` 및 `installPlannerPipeline` 메서드에 구현되었습니다.
 

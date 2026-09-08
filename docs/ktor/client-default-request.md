@@ -136,7 +136,7 @@ defaultRequest {
 }
 ```
 
-### Unix 域套接字
+### Unix 域套接字 {id="unix-domain-sockets"}
 
 > Unix 域套接字仅在 CIO 引擎中受支持。
 >

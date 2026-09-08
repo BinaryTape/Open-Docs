@@ -14,7 +14,7 @@ val s = person.name ?: return
 
 這些運算式的型別是 [Nothing 型別](exceptions.md#the-nothing-type)。
 
-## Break 與 continue 標籤
+## Break 與 continue 標籤 {id="break-and-continue-labels"}
 
 Kotlin 中的任何運算式都可以標記 *標籤* (label)。
 標籤的格式為識別符號後跟 `@` 符號，例如 `abc@` 或 `fooBar@`。要為運算式加上標籤，只需在其前面新增一個標籤即可。
@@ -43,7 +43,7 @@ loop@ for (i in 1..100) {
 >
 {style="note"}
 
-## 返回至標籤
+## 返回至標籤 {id="return-to-labels"}
 
 在 Kotlin 中，函式可以透過函式常值、區域函式和物件運算式進行巢狀。
 限定的 `return` 允許你從外部函式返回。

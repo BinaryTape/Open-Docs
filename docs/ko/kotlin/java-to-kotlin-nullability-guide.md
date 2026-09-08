@@ -13,7 +13,7 @@ Null 포인터 예외가 발생할 확률을 최소화하기 위해 코드를 �
 
 [Kotlin의 null 안전성에 대해 더 알아보기](null-safety.md).
 
-## Nullable 타입 지원
+## Nullable 타입 지원 {id="support-for-nullable-types"}
 
 Kotlin과 Java 타입 시스템의 가장 중요한 차이점은 Kotlin의 명시적인 [nullable 타입](null-safety.md) 지원입니다.
 이는 어떤 변수가 `null` 값을 가질 수 있는지 표시하는 방법입니다.
@@ -88,7 +88,7 @@ fun stringLength(a: String?): Int = a?.length ?: 0
 ```
 {id="get-length-of-null-shorter-kotlin"}
 
-## 플랫폼 타입
+## 플랫폼 타입 {id="platform-types"}
 
 Java에서는 변수가 `null`이 될 수 있는지 여부를 보여주는 어노테이션을 사용할 수 있습니다.
 이러한 어노테이션은 표준 라이브러리의 일부는 아니지만 별도로 추가할 수 있습니다.
@@ -104,7 +104,7 @@ Java 코드에 이러한 어노테이션이 없는 경우, Kotlin은 Java 타입
 
 [null 안전성 및 플랫폼 타입과 관련하여 Java를 Kotlin에서 호출하는 방법](java-interop.md#null-safety-and-platform-types)에 대해 더 자세히 알아보세요.
 
-## 확실히 null이 아닌 타입 지원
+## 확실히 null이 아닌 타입 지원 {id="support-for-definitely-non-nullable-types"}
 
 Kotlin에서 `@NotNull`이 인자로 포함된 Java 메서드를 오버라이드하려면 Kotlin의 확실히 null이 아닌 타입(definitely non-nullable types)이 필요합니다.
 
@@ -132,7 +132,7 @@ interface ArcadeGame<T1> : Game<T1> {
 
 [확실히 null이 아닌 제네릭 타입](generics.md#definitely-non-nullable-types)에 대해 더 자세히 알아보세요.
 
-## 함수 호출 결과 확인
+## 함수 호출 결과 확인 {id="checking-the-result-of-a-function-call"}
 
 null 체크가 필요한 가장 흔한 상황 중 하나는 함수 호출로부터 결과를 얻었을 때입니다.
 
@@ -199,7 +199,7 @@ findOrder()?.customer?.let(::processCustomer)
 ```
 {id="process-customer-with-let-short-kotlin"}
 
-## null 대신 기본값 사용
+## null 대신 기본값 사용 {id="default-values-instead-of-null"}
 
 null 체크는 null 체크가 성공했을 때 [기본값을 설정](functions.md#parameters-with-default-values)하는 것과 결합하여 자주 사용됩니다.
 
@@ -222,7 +222,7 @@ val order = findOrder() ?: Order(Customer("Antonio"))
 ```
 {id="default-value-instead-of-null-kotlin"}
 
-## 값 또는 null을 반환하는 함수
+## 값 또는 null을 반환하는 함수 {id="functions-returning-a-value-or-null"}
 
 Java에서는 리스트 요소를 다룰 때 주의해야 합니다. 요소를 사용하려고 시도하기 전에 항상 해당 인덱스에 요소가 존재하는지 확인해야 합니다.
 
@@ -257,7 +257,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="functions-returning-null-kotlin"}
 
-## 집계 연산
+## 집계 연산 {id="aggregate-operations"}
 
 가장 큰 요소를 가져오거나 요소가 없는 경우 `null`을 가져와야 할 때, Java에서는 [Stream API](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/package-summary.html)를 사용합니다.
 
@@ -280,7 +280,7 @@ println("Max: ${numbers.maxOrNull()}")
 
 [Java와 Kotlin의 컬렉션](java-to-kotlin-collections-guide.md)에 대해 더 자세히 알아보세요.
 
-## 안전한 타입 캐스팅
+## 안전한 타입 캐스팅 {id="casting-types-safely"}
 
 안전하게 타입을 캐스팅해야 할 때, Java에서는 `instanceof` 연산자를 사용한 다음 그것이 잘 작동했는지 확인합니다.
 
@@ -358,7 +358,7 @@ fun getUsername(profile: UserProfile?): String? =
 
 이 버전은 `if` 식을 [안전한 호출 연산자](null-safety.md#safe-call-operator) `?.`로 대체하여, 캐스팅을 시도하기 전에 데이터 프로퍼티에 안전하게 접근합니다.
 
-## 다음 단계는 무엇인가요?
+## 다음 단계는 무엇인가요? {id="what-s-next"}
 
 * 다른 [Kotlin 관용구(idioms)](idioms.md)를 살펴보세요.
 * [Java-to-Kotlin (J2K) 컨버터](mixing-java-kotlin-intellij.md#convert-java-files-to-kotlin)를 사용하여 기존 Java 코드를 Kotlin으로 변환하는 방법을 배워보세요.

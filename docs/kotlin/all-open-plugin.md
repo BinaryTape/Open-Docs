@@ -10,7 +10,7 @@ Kotlin 为 Gradle 和 Maven 都提供了 `all-open` 插件支持，并具有完�
 >
 {style="note"}
 
-## Gradle
+## Gradle {id="gradle"}
 
 在你的 `build.gradle(.kts)` 文件中添加该插件：
 
@@ -74,7 +74,7 @@ class MyClass // 将变为 all-open
 
 `MyFrameworkAnnotation` 被 all-open 元注解 `com.my.Annotation` 注解，因此它也成为了一个 all-open 注解。
 
-## Maven
+## Maven {id="maven"}
 
 在你的 `pom.xml` 文件中添加该插件：
 
@@ -109,7 +109,7 @@ class MyClass // 将变为 all-open
 
 关于 all-open 注解如何工作的详细信息，请参阅 [Gradle 章节](#gradle)。
 
-## Spring 支持
+## Spring 支持 {id="spring-support"}
 
 如果你使用 Spring，可以启用 `kotlin-spring` 编译器插件，而不是手动指定 Spring 注解。`kotlin-spring` 是对 `all-open` 的包装，其行为完全相同。
 
@@ -174,7 +174,7 @@ plugins {
 >
 {style="note"}
 
-## 命令行编译器
+## 命令行编译器 {id="command-line-compiler"}
 
 All-open 编译器插件的 JAR 文件在 Kotlin 编译器的二进制分发版中提供。你可以通过使用 kotlinc 的 `-Xplugin` 选项提供其 JAR 文件的路径来附加该插件：
 

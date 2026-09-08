@@ -43,7 +43,7 @@ config.plugins.push(
 );
 ```
 
-## テスト用 Karma の設定
+## テスト用 Karma の設定 {id="configuring-karma-for-tests"}
 
 テストでは、実行時に WebAssembly バイナリを特定できるようにするために、追加の Karma 設定も必要です。以下をプロジェクトの `karma.config.d` ディレクトリにコピーしてください。
 
@@ -77,7 +77,7 @@ config.files.push({
 });
 ```
 
-## Worker の使用
+## Worker の使用 {id="using-the-worker"}
 
 worker スクリプトは `sqljs.worker.js` という名前で、以下のようにコード内で参照できます。
 

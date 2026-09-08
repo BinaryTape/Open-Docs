@@ -32,7 +32,7 @@ print(
 
 지정된 Maven 의존성(이 예제에서는 `kotlinx-html-jvm`)은 실행 중에 지정된 Maven 저장소 또는 로컬 캐시에서 해결(resolve)되어 스크립트의 나머지 부분에서 사용됩니다.
 
-## 프로젝트 구조
+## 프로젝트 구조 {id="project-structure"}
 
 최소한의 Kotlin 커스텀 스크립팅 프로젝트는 두 부분으로 구성됩니다.
 
@@ -41,11 +41,11 @@ print(
 
 이러한 점을 고려하여 프로젝트를 두 개의 모듈로 나누는 것이 가장 좋습니다.
 
-## 시작하기 전에
+## 시작하기 전에 {id="before-you-start"}
 
 최신 버전의 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)를 다운로드하여 설치하세요.
 
-## 프로젝트 생성하기
+## 프로젝트 생성하기 {id="create-a-project"}
 
 1. IntelliJ IDEA에서 **File** | **New** | **Project**를 선택합니다.
 2. 왼쪽 패널에서 **New Project**를 선택합니다.
@@ -66,7 +66,7 @@ print(
 
 ![Kotlin 커스텀 스크립팅을 위한 루트 프로젝트 생성](script-deps-create-root-project.png){width=700}
 
-## 스크립팅 모듈 추가하기
+## 스크립팅 모듈 추가하기 {id="add-scripting-modules"}
 
 이제 빈 Kotlin/JVM Gradle 프로젝트가 생성되었습니다. 필요한 모듈인 스크립트 정의와 스크립팅 호스트를 추가합니다.
 
@@ -90,7 +90,7 @@ print(
 
 이러한 프로젝트의 예제와 더 많은 Kotlin 스크립팅 예제는 [kotlin-script-examples GitHub 저장소](https://github.com/Kotlin/kotlin-script-examples/tree/master/jvm/basic/jvm-maven-deps)에서 찾을 수 있습니다.
 
-## 스크립트 정의 생성하기
+## 스크립트 정의 생성하기 {id="create-a-script-definition"}
 
 먼저 스크립트 유형을 정의합니다. 개발자가 이 유형의 스크립트에 무엇을 작성할 수 있는지, 그리고 그것이 어떻게 처리될지를 정의합니다. 이 튜토리얼에서는 스크립트 내의 `@Repository` 및 `@DependsOn` 어노테이션 지원이 포함됩니다.
 
@@ -201,7 +201,7 @@ print(
 
    전체 코드는 [여기](https://github.com/Kotlin/kotlin-script-examples/blob/master/jvm/basic/jvm-maven-deps/script/src/main/kotlin/org/jetbrains/kotlin/script/examples/jvm/resolve/maven/scriptDef.kt)에서 볼 수 있습니다.
 
-## 스크립팅 호스트 생성하기
+## 스크립팅 호스트 생성하기 {id="create-a-scripting-host"}
 
 다음 단계는 스크립트 실행을 처리하는 구성 요소인 스크립팅 호스트를 만드는 것입니다.
 
@@ -285,7 +285,7 @@ print(
 
 전체 코드는 [여기](https://github.com/Kotlin/kotlin-script-examples/blob/master/jvm/basic/jvm-maven-deps/host/src/main/kotlin/org/jetbrains/kotlin/script/examples/jvm/resolve/maven/host/host.kt)에서 확인할 수 있습니다.
 
-## 스크립트 실행하기
+## 스크립트 실행하기 {id="run-scripts"}
 
 스크립팅 호스트가 어떻게 작동하는지 확인하려면 실행할 스크립트와 실행 구성을 준비합니다.
 
@@ -331,7 +331,7 @@ print(
 
 첫 실행 시에는 의존성을 해결하는 데 시간이 다소 걸릴 수 있습니다. 이후 실행은 로컬 Maven 저장소에 다운로드된 의존성을 사용하므로 훨씬 빠르게 완료됩니다.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 간단한 Kotlin 스크립팅 프로젝트를 만든 후, 다음 주제들에 대해 더 자세히 알아보세요.
 * [Kotlin 스크립팅 KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/scripting-support.md) 읽기

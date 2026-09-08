@@ -23,9 +23,9 @@ Power-assertプラグインの主な機能：
 * **簡素化されたテスト**: 有益な失敗メッセージを自動的に生成するため、複雑なアサーションライブラリの必要性が減ります。
 * **複数の関数のサポート**: デフォルトでは `assert()` 関数の呼び出しを変換しますが、`require()`、`check()`、`assertTrue()` などの他の関数も変換できます。
 
-## プラグインの適用
+## プラグインの適用 {id="apply-the-plugin"}
 
-### Gradle
+### Gradle {id="gradle"}
 
 Power-assertプラグインを有効にするには、`build.gradle(.kts)` ファイルを次のように設定します：
 
@@ -98,7 +98,7 @@ powerAssert {
 }
 ```
 
-### Maven
+### Maven {id="maven"}
 
 MavenプロジェクトでPower-assertコンパイラプラグインを有効にするには、`pom.xml` ファイルの `kotlin-maven-plugin` の `<plugin>` セクションを更新します：
 
@@ -163,7 +163,7 @@ MavenプロジェクトでPower-assertコンパイラプラグインを有効に
 </configuration>
 ```
 
-## Power-assertプラグインの使用
+## Power-assertプラグインの使用 {id="use-the-power-assert-plugin"}
 
 このセクションでは、Power-assertコンパイラプラグインの使用例を紹介します。
 
@@ -364,7 +364,7 @@ powerAssert {
 </tab>
 </tabs>
 
-### `@PowerAssert` アノテーションが付加された関数
+### `@PowerAssert` アノテーションが付加された関数 {id="powerassert-annotated-functions"}
 
 関数に `@PowerAssert` アノテーションが付加されている場合、Power-assert プラグインはその関数への呼び出しを自動的に変換します。ビルド設定で関数を登録する必要はありません。
 
@@ -402,7 +402,7 @@ check(subject.name == "Kodee")
       Mascot(name=Unknown)
 ```
 
-### assert 関数
+### assert 関数 {id="assert-function"}
 
 `assert()` 関数を使用した以下のテストを考えてみましょう：
 
@@ -482,7 +482,7 @@ assert(person.name.startsWith("A") && person.name.length > 3 && person.age > 20 
        Person(name=Alice, age=10)     Person(name=Alice, age=10)
 ```
 
-### assert 関数以外のサポート
+### assert 関数以外のサポート {id="beyond-assert-function"}
 
 Power-assert プラグインは、デフォルトで変換される `assert` 以外にも、さまざまな関数を変換できます。
 `require()`、`check()`、`assertTrue()`、`assertEqual()` などの関数も、最後のパラメータとして `String` または `() -> String` の値を受け取ることができる形式であれば、変換可能です。
@@ -582,7 +582,7 @@ assert(exampleFunction(2, 3) + exampleFunction(1, 2) == 9)
 ```
 -->
 
-### ソフトアサーション
+### ソフトアサーション {id="soft-assertions"}
 
 Power-assert プラグインはソフトアサーション（Soft assertions）をサポートしています。これは、テストを即座に失敗させるのではなく、アサーションの失敗を収集し、テスト実行の最後にそれらを報告するものです。
 これは、最初の失敗で止まることなく、1回の実行ですべてのアサーションの失敗を確認したい場合に便利です。
@@ -707,11 +707,11 @@ assert(employee.age < 100) { "${employee.name} has an invalid age: ${employee.ag
        Employee(name=Dave, age=150, salary=70000)
 ```
 
-## ライブラリに Power-assert のサポートを追加する
+## ライブラリに Power-assert のサポートを追加する {id="add-support-for-power-assert-to-your-library"}
 
 ライブラリの作者であれば、Power-assert ランタイムライブラリの `@PowerAssert` アノテーションと `CallExplanation` クラスを使用して、自身のライブラリに Power-assert のサポートをそのまま（out-of-the-box）追加できます。
 
-### `@PowerAssert` アノテーション
+### `@PowerAssert` アノテーション {id="the-powerassert-annotation"}
 
 [`@PowerAssert` アノテーション](https://github.com/JetBrains/kotlin/blob/master/plugins/power-assert/power-assert-runtime/src/commonMain/kotlin/kotlin/powerassert/PowerAssert.kt)は、関数を Power-assert 対応としてマークします。ライブラリのユーザーがプロジェクトで Power-assert コンパイラプラグインを使用しており、アノテーションが付加された関数を呼び出すと、追加のビルド設定なしで呼び出しが自動的に変換されます。
 
@@ -777,7 +777,7 @@ assert(employee.age < 100) { "${employee.name} has an invalid age: ${employee.ag
 >
 {style="tip"}
 
-### `CallExplanation` クラス
+### `CallExplanation` クラス {id="the-callexplanation-class"}
 
 [`CallExplanation`](https://github.com/JetBrains/kotlin/blob/master/plugins/power-assert/power-assert-runtime/src/commonMain/kotlin/kotlin/powerassert/CallExplanation.kt) クラスは、中間式の値を含む、呼び出し箇所に関する詳細な情報を提供します。これにより、アサーション失敗時の動的なメッセージレンダリングや、外部ツールとのより良い統合が可能になります。
 
@@ -831,7 +831,7 @@ fun AssertScope<*>.require(condition: Boolean) {
 >
 {style="tip"}
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 サンプルプロジェクトを確認してください：
 

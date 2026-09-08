@@ -4,7 +4,7 @@
 
 이 장에서는 오픈(open) 클래스, 오픈 클래스가 인터페이스와 함께 작동하는 방식, 그리고 Kotlin에서 사용할 수 있는 다른 특별한 유형의 클래스들에 대해 알아봅니다.
 
-## 오픈 클래스 (Open classes)
+## 오픈 클래스 (Open classes) {id="open-classes"}
 
 인터페이스나 추상 클래스를 사용할 수 없는 경우, 클래스를 **open**으로 선언하여 명시적으로 상속 가능하게 만들 수 있습니다.
 이를 위해 클래스 선언 앞에 `open` 키워드를 사용합니다:
@@ -33,13 +33,13 @@ fun main() {
 
 일반적인 클래스 인스턴스를 생성할 때와 마찬가지로, 클래스가 부모 클래스를 상속받는다면 부모 클래스 헤더에 선언된 모든 파라미터를 초기화해야 합니다. 따라서 예제에서 `Car` 클래스의 인스턴스인 `car`는 부모 클래스의 파라미터인 `make`와 `model`을 초기화합니다.
 
-### 상속된 동작 오버라이딩 (Overriding inherited behavior)
+### 상속된 동작 오버라이딩 (Overriding inherited behavior) {id="overriding-inherited-behavior"}
 
 클래스를 상속받으면서 일부 동작을 변경하고 싶다면, 상속된 동작을 오버라이드(override)할 수 있습니다.
 
 기본적으로 부모 클래스의 멤버 함수나 프로퍼티를 오버라이드하는 것은 불가능합니다. 추상 클래스와 마찬가지로 특별한 키워드를 추가해야 합니다.
 
-#### 멤버 함수
+#### 멤버 함수 {id="member-functions"}
 
 부모 클래스의 함수가 오버라이드될 수 있도록 허용하려면, 부모 클래스에서의 함수 선언 앞에 `open` 키워드를 사용합니다:
 
@@ -89,7 +89,7 @@ fun main() {
 * `Car` 클래스에서 `displayInfo()` 함수를 오버라이드하여 문 개수(number of doors)도 함께 출력하도록 합니다.
 * `car1`과 `car2` 인스턴스에서 오버라이드된 `displayInfo()` 함수를 호출합니다.
 
-#### 프로퍼티
+#### 프로퍼티 {id="properties"}
 
 Kotlin에서 `open` 키워드를 사용하여 프로퍼티를 상속 가능하게 만들고 나중에 오버라이드하는 것은 일반적인 관례가 아닙니다. 대부분의 경우 프로퍼티가 기본적으로 상속 가능한 추상 클래스나 인터페이스를 사용합니다.
 
@@ -119,7 +119,7 @@ class Car(make: String, model: String, val numberOfDoors: Int) : Vehicle(make, m
 
 클래스 상속 및 클래스 동작 오버라이딩에 대한 자세한 정보는 [상속(Inheritance)](inheritance.md)을 참조하세요.
 
-### 오픈 클래스와 인터페이스
+### 오픈 클래스와 인터페이스 {id="open-classes-and-interfaces"}
 
 클래스 하나를 상속받는 **동시에** 여러 인터페이스를 구현하는 클래스를 만들 수 있습니다. 이 경우, 콜론 뒤에 부모 클래스를 먼저 선언하고 그 다음에 인터페이스 목록을 나열해야 합니다:
 
@@ -152,11 +152,11 @@ class ElectricCar(
 }
 ```
 
-## 특별한 클래스 (Special classes)
+## 특별한 클래스 (Special classes) {id="special-classes"}
 
 추상 클래스, 오픈 클래스, 데이터 클래스 외에도 Kotlin에는 특정 동작을 제한하거나 작은 객체 생성 시 발생하는 성능 영향을 줄이기 위해 설계된 다양한 목적의 특별한 클래스 유형이 있습니다.
 
-### 봉인된 클래스 (Sealed classes)
+### 봉인된 클래스 (Sealed classes) {id="sealed-classes"}
 
 상속을 제한하고 싶을 때가 있을 수 있습니다. 이때 봉인된(sealed) 클래스를 사용할 수 있습니다. 봉인된 클래스는 [추상 클래스](kotlin-tour-intermediate-classes-interfaces.md#abstract-classes)의 특별한 유형입니다. 클래스를 `sealed`로 선언하면, 동일한 패키지 내에서만 자식 클래스를 만들 수 있습니다. 이 범위 밖에서는 봉인된 클래스를 상속받는 것이 불가능합니다.
 
@@ -207,7 +207,7 @@ fun main() {
 
 봉인된 클래스와 권장되는 사용 사례에 대한 자세한 내용은 [봉인된 클래스와 인터페이스(Sealed classes and interfaces)](sealed-classes.md)를 참조하세요.
 
-### 열거형 클래스 (Enum classes)
+### 열거형 클래스 (Enum classes) {id="enum-classes"}
 
 열거형(enum) 클래스는 클래스 내에서 유한한 고유 값 집합을 표현하고 싶을 때 유용합니다. 열거형 클래스는 열거형 상수를 포함하며, 이 상수들 자체가 열거형 클래스의 인스턴스입니다.
 
@@ -301,7 +301,7 @@ fun main() {
 
 자세한 내용은 [열거형 클래스(Enum classes)](enum-classes.md)를 참조하세요.
 
-### 인라인 값 클래스 (Inline value classes)
+### 인라인 값 클래스 (Inline value classes) {id="inline-value-classes"}
 
 때로는 코드 내에서 클래스로부터 작은 객체를 생성하고 아주 짧은 시간 동안만 사용하고 싶을 때가 있습니다. 이러한 방식은 성능에 영향을 줄 수 있습니다. 인라인 값(inline value) 클래스는 이러한 성능 영향을 피할 수 있는 특별한 유형의 클래스입니다. 단, 인라인 값 클래스는 값만 포함할 수 있습니다.
 
@@ -349,7 +349,7 @@ fun main() {
 
 인라인 값 클래스에 대한 자세한 정보는 [인라인 값 클래스(Inline value classes)](inline-classes.md)를 참조하세요.
 
-## 연습 문제 {completion-point="true"}
+## 연습 문제 {completion-point="true" id="practice"}
 
 ### 연습 문제 1 {initial-collapse-state="collapsed" collapsible="true" id="special-classes-exercise-1"}
 

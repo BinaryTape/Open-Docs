@@ -27,7 +27,7 @@ Kotlin %kotlinEapVersion% 版本已發佈！以下是此 EAP 版本的一些詳�
 >
 {style="tip"}
 
-## 更新到 Kotlin %kotlinEapVersion%
+## 更新到 Kotlin %kotlinEapVersion% {id="update-to-kotlin-kotlineapversion"}
 
 最新版本的 Kotlin 已包含在最新版本的 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Android Studio](https://developer.android.com/studio) 中。
 
@@ -44,11 +44,11 @@ Kotlin %kotlinEapVersion% 版本已發佈！以下是此 EAP 版本的一些詳�
 * [建置工具 API：支援 Kotlin/JS、Kotlin/Wasm 和 Kotlin 元資料](#build-tools-api)
 * [Kotlin 編譯器：獨立的 Kotlin 編譯器映像](#kotlin-compiler-native-image)
 
-## 標準函式庫
+## 標準函式庫 {id="standard-library"}
 
 Kotlin %kotlinEapVersion% 新增了對協同程式堆疊追蹤恢復的支援，並引入了用於檢查集合元素相等性和唯一性的新函式。
 
-### 支援協同程式堆疊追蹤恢復
+### 支援協同程式堆疊追蹤恢復 {id="support-for-coroutine-stack-trace-recovery"}
 <primary-label ref="experimental-opt-in"/>
 <secondary-label ref="standard-library"/>
 
@@ -113,7 +113,7 @@ fun main() {
 
 我們歡迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-86595) 中向我們提供回饋。
 
-### 用於檢查集合元素相等性和唯一性的新函式
+### 用於檢查集合元素相等性和唯一性的新函式 {id="new-functions-to-check-collection-elements-for-equality-and-uniqueness"}
 <primary-label ref="experimental-opt-in"/>
 <secondary-label ref="standard-library"/>
 
@@ -173,14 +173,14 @@ fun main() {
 
 我們歡迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-30270) 中分享您使用這些函式的體驗回饋。
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 Kotlin %kotlinEapVersion% 帶來了新的 Swift 匯出功能（包括對密封類別和跨語言繼承的支援），以及為 SwiftPM 相依性自動產生的 `Package.swift` 檔案。
 
-### 新的 Swift 匯出功能
+### 新的 Swift 匯出功能 {id="new-swift-export-features"}
 <secondary-label ref="native"/>
 
-#### 密封類別
+#### 密封類別 {id="sealed-classes"}
 
 Kotlin %kotlinEapVersion% 在 Swift 匯出中新增了對密封類別（sealed classes）和介面的支援。
 
@@ -220,7 +220,7 @@ let name = switch shape.sealedType() {
 
 由於 `switch` 是窮舉的，如果密封階層中新增了新的子類別，編譯器會警告您，以便您可以立即處理它，而不需要依賴 `default` 情況。
 
-#### Swift 匯出中的跨語言繼承
+#### Swift 匯出中的跨語言繼承 {id="cross-language-inheritance-in-swift-export"}
 
 Kotlin %kotlinEapVersion% 在 Swift 匯出中引入了跨語言繼承支援。
 
@@ -265,18 +265,18 @@ Kotlin %kotlinEapVersion% 在 Swift 匯出中引入了跨語言繼承支援。
 
 如需更多關於 Swift 匯出的詳細資訊，請參閱我們的[文件](native-swift-export.md)。
 
-### 為 SwiftPM 相依性產生的 `Package.swift`
+### 為 SwiftPM 相依性產生的 `Package.swift` {id="generated-package-swift-for-swiftpm-dependencies"}
 <secondary-label ref="native"/>
 
 匯出相依於 SwiftPM 套件的 XCFramework 時，您必須發佈生成的 SwiftPM 套件才能正確解析。為了協助此操作，`assembleSharedXCFramework` Gradle 任務現在會產生一個 `Package.swift` 檔案，以便與 XCFramework 一起散佈。
 
 如需詳細資訊，請參閱 [SwiftPM 匯出頁面](https://kotlinlang.org/docs/multiplatform/multiplatform-spm-export.html)。
 
-## Kotlin/Wasm
+## Kotlin/Wasm {id="kotlin-wasm"}
 
 Kotlin %kotlinEapVersion% 更改了 Kotlin/Wasm 處理 `@JsFun` 宣告中頂層 `require()` 呼叫的方式，使伴隨物件的初始化順序與 JVM 行為一致，並在 Kotlin Gradle 外掛程式中新增了對 Wasmtime 作為 `wasmWasi` 目標執行階段的支援。
 
-### 針對 `@JsFun` 宣告中頂層 `require()` 呼叫的變更
+### 針對 `@JsFun` 宣告中頂層 `require()` 呼叫的變更 {id="changes-to-top-level-require-calls-in-jsfun-declarations"}
 <secondary-label ref="wasm"/>
 
 當 `@JsFun` 宣告使用頂層 `require()` 函式時，Kotlin/Wasm 現在會報錯。
@@ -340,14 +340,14 @@ external fun defineRequire()
 
 如果您遇到任何問題，請在我們的[問題追蹤器](https://youtrack.jetbrains.com/projects/KT/issues/KT-86192)分享您的回饋。
 
-### 改進的伴隨物件初始化順序
+### 改進的伴隨物件初始化順序 {id="improved-companion-object-initialization-order"}
 <secondary-label ref="wasm"/>
 
 Kotlin/Wasm 現在會在子類別伴隨物件之前初始化父類別伴隨物件，與 JVM 行為一致。先前，初始化順序可能會反過來，導致跨平台行為不一致。
 
 此更新改進了跨平台的一致性，並減少了平台特定的類別初始化行為差異。它還能正確處理更深層繼承階層中的伴隨物件初始化，包括中間類別未宣告伴隨物件的情況。
 
-### Kotlin Gradle 外掛程式對 Wasmtime 的支援
+### Kotlin Gradle 外掛程式對 Wasmtime 的支援 {id="support-for-wasmtime-in-the-kotlin-gradle-plugin"}
 <secondary-label ref="wasm"/>
 
 Kotlin %kotlinEapVersion% 引入了對 [Wasmtime](https://docs.wasmtime.dev/) 作為 Kotlin Gradle 外掛程式中 `wasmWasi` 目標執行階段的支援。
@@ -366,11 +366,11 @@ kotlin {
 
 我們歡迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-86633) 中向我們提供回饋。
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
 Kotlin %kotlinEapVersion% 引入了一種新的實驗性 DSL 用於瀏覽器測試，並新增了支援將 suspend lambda 匯出為 JavaScript async 函式的功能。
 
-### 用於瀏覽器測試的新 DSL
+### 用於瀏覽器測試的新 DSL {id="a-new-dsl-for-browser-testing"}
 <primary-label ref="experimental-opt-in"/>
 <secondary-label ref="js"/>
 
@@ -427,7 +427,7 @@ kotlin {
 
 新的 DSL 正在積極開發中。我們歡迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-66897) 中向我們提供回饋。
 
-### 支援將 suspend lambda 匯出為 async 函式
+### 支援將 suspend lambda 匯出為 async 函式 {id="support-for-exporting-suspending-lambdas-as-async-functions"}
 <secondary-label ref="js"/>
 
 在 Kotlin %kotlinEapVersion% 中，您現在可以將 suspend [Lambda 運算式](lambdas.md#lambda-expressions-and-anonymous-functions)匯出為 JavaScript `async` 函式。
@@ -475,9 +475,9 @@ console.log(result); // "done"
 
 如需更多關於 `@JsExport` 註解的資訊，請參閱[我們的文件](js-to-kotlin-interop.md#jsexport-annotation)。
 
-## 建置工具 API
+## 建置工具 API {id="build-tools-api"}
 
-### 支援 Kotlin/JS、Kotlin/Wasm 以及 Kotlin 元資料
+### 支援 Kotlin/JS、Kotlin/Wasm 以及 Kotlin 元資料 {id="support-for-kotlin-js-kotlin-wasm-and-kotlin-metadata"}
 <primary-label ref="experimental-general"/>
 <secondary-label ref="bta"/>
 
@@ -499,7 +499,7 @@ kotlin.metadata.runViaBuildToolsApi=true
 
 如果您對 BTA 提案感興趣或想分享您的回饋，請參閱此 [KEEP](https://github.com/Kotlin/KEEP/blob/build-tools-api/proposals/extensions/build-tools-api.md)。
 
-## Kotlin 編譯器：原生映像
+## Kotlin 編譯器：原生映像 {id="kotlin-compiler-native-image"}
 <primary-label ref="experimental-general"/>
 <secondary-label ref="compiler"/>
 

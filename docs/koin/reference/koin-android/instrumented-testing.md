@@ -2,11 +2,11 @@
 title: Android 仪器化测试
 ---
 
-## 概览
+## 概览 {id="overview"}
 
 仪器化测试在 Android 设备或模拟器上运行，并测试应用与 Android 框架的集成。与您控制 Koin 生命周期的单元测试不同，仪器化测试需要特殊处理，因为 Koin 是由您的 `Application` 类启动的。
 
-### 与单元测试的主要区别
+### 与单元测试的主要区别 {id="key-differences-from-unit-tests"}
 
 | 维度 | 单元测试 | 仪器化测试 |
 |--------|------------|-------------------|
@@ -17,7 +17,7 @@ title: Android 仪器化测试
 | **测试隔离** | 容易（每个测试都重新开始） | 需要仔细设置 |
 | **用例** | 业务逻辑、ViewModel | UI、Android 组件集成 |
 
-### 哪些内容适合仪器化测试
+### 哪些内容适合仪器化测试 {id="what-to-test-with-instrumented-tests"}
 
 ✅ **适合仪器化测试：**
 - UI 行为和交互
@@ -33,23 +33,23 @@ title: Android 仪器化测试
 - 仓库（可以使用模拟对象进行单元测试）
 - 纯 Kotlin 函数
 
-## 测试策略
+## 测试策略 {id="test-strategies"}
 
-### 策略 1：自定义测试 Application
+### 策略 1：自定义测试 Application {id="strategy-1-custom-test-application"}
 
 为测试创建一个单独的 Application 类，并配置测试专用的模块。
 
-### 策略 2：测试规则
+### 策略 2：测试规则 {id="strategy-2-test-rules"}
 
 使用 JUnit 规则来为每个测试类或测试方法配置 Koin。
 
-### 策略 3：模块重写
+### 策略 3：模块重写 {id="strategy-3-module-override"}
 
 保留生产环境的 Application，但针对测试重写特定的定义。
 
 让我们详细探讨每种策略。
 
-## 在自定义 Application 类中重写生产环境模块
+## 在自定义 Application 类中重写生产环境模块 {id="override-production-modules-in-a-custom-application-class"}
 
 与[单元测试](/docs/reference/koin-test/testing)不同（在单元测试中，您实际上是在每个测试类中调用启动 Koin，即 `startKoin` 或 `KoinTestExtension`），在仪器化测试中，Koin 是由您的 `Application` 类启动的。
 
@@ -82,7 +82,7 @@ class InstrumentationTestRunner : AndroidJUnitRunner() {
 testInstrumentationRunner "com.example.myapplication.InstrumentationTestRunner"
 ```
 
-## 使用测试规则重写生产环境模块
+## 使用测试规则重写生产环境模块 {id="override-production-modules-with-a-test-rule"}
 
 如果您需要更高的灵活性，您仍需要创建自定义 `AndroidJUnitRunner`，但不再将 `startKoin { ... }` 放在自定义应用程序中，而是可以将其放在自定义测试规则中，如下所示：
 ```kotlin
@@ -118,9 +118,9 @@ val koinTestRule = KoinTestRule(
 )
 ```
 
-## 模拟 (Mocking) 与虚假对象 (Fakes)
+## 模拟 (Mocking) 与虚假对象 (Fakes) {id="mocking-and-fakes"}
 
-### 使用 `declareMock()`（推荐）
+### 使用 `declareMock()`（推荐） {id="using-declaremock-recommended"}
 
 :::info
 **Koin 4.2+：** 使用 `declareMock()` 在测试中动态快速地模拟依赖项，无需创建单独的测试模块。
@@ -158,7 +158,7 @@ class UserViewModelTest : KoinTest {
 - ✅ 测试代码更简洁
 - ✅ 开箱即用地支持 MockK
 
-### 使用测试替身 (Test Doubles)
+### 使用测试替身 (Test Doubles) {id="using-test-doubles"}
 
 在测试中使用模拟对象或虚假对象替换真实实现：
 
@@ -194,7 +194,7 @@ class FakeUserRepository : UserRepository {
 }
 ```
 
-### 使用 MockK
+### 使用 MockK {id="using-mockk"}
 
 ```kotlin
 // 使用 MockK 的测试模块
@@ -219,7 +219,7 @@ class TestApplication : Application() {
 }
 ```
 
-### 部分模拟 (Partial Mocking)
+### 部分模拟 (Partial Mocking) {id="partial-mocking"}
 
 仅替换特定的依赖项：
 
@@ -236,9 +236,9 @@ val testModule = module {
 }
 ```
 
-## 测试 Activity 和 Fragment
+## 测试 Activity 和 Fragment {id="testing-activities-and-fragments"}
 
-### 使用 Koin 测试 Activity
+### 使用 Koin 测试 Activity {id="testing-activity-with-koin"}
 
 ```kotlin
 @RunWith(AndroidJUnit4::class)
@@ -269,7 +269,7 @@ class LoginActivityTest {
 }
 ```
 
-### 使用 Koin 测试 Fragment
+### 使用 Koin 测试 Fragment {id="testing-fragment-with-koin"}
 
 ```kotlin
 @RunWith(AndroidJUnit4::class)
@@ -300,9 +300,9 @@ class ProfileFragmentTest {
 }
 ```
 
-## 在仪器化测试中测试 ViewModel
+## 在仪器化测试中测试 ViewModel {id="testing-viewmodels-in-instrumented-tests"}
 
-### 在测试中注入 ViewModel
+### 在测试中注入 ViewModel {id="injecting-viewmodel-in-tests"}
 
 ```kotlin
 @RunWith(AndroidJUnit4::class)
@@ -330,7 +330,7 @@ class HomeViewModelTest : KoinTest {
 }
 ```
 
-### 结合 Activity 测试 ViewModel
+### 结合 Activity 测试 ViewModel {id="testing-viewmodel-with-activity"}
 
 ```kotlin
 @Test
@@ -349,9 +349,9 @@ fun testViewModelStateReflectsInUI() {
 }
 ```
 
-## 使用 Jetpack Compose 进行测试
+## 使用 Jetpack Compose 进行测试 {id="testing-with-jetpack-compose"}
 
-### 结合 Koin 进行 Compose UI 测试
+### 结合 Koin 进行 Compose UI 测试 {id="compose-ui-test-with-koin"}
 
 ```kotlin
 @RunWith(AndroidJUnit4::class)
@@ -393,7 +393,7 @@ class LoginScreenTest {
 }
 ```
 
-### 使用 koinViewModel 测试 Composable
+### 使用 koinViewModel 测试 Composable {id="testing-composables-with-koinviewmodel"}
 
 ```kotlin
 @Composable
@@ -417,9 +417,9 @@ fun testHomeScreenDisplaysUser() {
 }
 ```
 
-## 测试作用域 (Scopes)
+## 测试作用域 (Scopes) {id="testing-scopes"}
 
-### 测试 Activity 作用域 (Scope)
+### 测试 Activity 作用域 (Scope) {id="testing-activity-scope"}
 
 ```kotlin
 @RunWith(AndroidJUnit4::class)
@@ -461,7 +461,7 @@ class CheckoutActivityTest {
 }
 ```
 
-### 测试自定义作用域 (Scopes)
+### 测试自定义作用域 (Scopes) {id="testing-custom-scopes"}
 
 ```kotlin
 @Test
@@ -493,9 +493,9 @@ fun testCustomScopeLifecycle() {
 }
 ```
 
-## 测试多模块应用
+## 测试多模块应用 {id="testing-multi-module-apps"}
 
-### 结合功能模块 (Feature Modules) 进行测试
+### 结合功能模块 (Feature Modules) 进行测试 {id="testing-with-feature-modules"}
 
 ```kotlin
 @RunWith(AndroidJUnit4::class)
@@ -535,7 +535,7 @@ class MultiModuleTest {
 }
 ```
 
-### 测试中的模块验证
+### 测试中的模块验证 {id="module-verification-in-tests"}
 
 ```kotlin
 class ModuleVerificationTest {
@@ -557,9 +557,9 @@ class ModuleVerificationTest {
 Koin 编译器插件现在提供编译时依赖项验证，取代了对 `verify()` 和 `checkModules()` 的需求。详见[编译时安全性](/docs/reference/koin-compiler/compile-safety)。
 :::
 
-## 使用 Espresso 进行 UI 测试
+## 使用 Espresso 进行 UI 测试 {id="ui-tests-with-espresso"}
 
-### 完整的 UI 流程测试
+### 完整的 UI 流程测试 {id="complete-ui-flow-test"}
 
 ```kotlin
 @RunWith(AndroidJUnit4::class)
@@ -611,7 +611,7 @@ class CheckoutFlowTest {
 }
 ```
 
-### 测试导航
+### 测试导航 {id="testing-navigation"}
 
 ```kotlin
 @Test
@@ -632,9 +632,9 @@ fun testNavigationWithSharedState() {
 }
 ```
 
-## 测试隔离
+## 测试隔离 {id="test-isolation"}
 
-### 确保测试之间的状态干净
+### 确保测试之间的状态干净 {id="ensuring-clean-state-between-tests"}
 
 ```kotlin
 class KoinIsolationTestRule : TestWatcher() {
@@ -674,7 +674,7 @@ class IsolatedTest {
 }
 ```
 
-### 在测试之间重置虚假对象 (Fakes)
+### 在测试之间重置虚假对象 (Fakes) {id="resetting-fakes-between-tests"}
 
 ```kotlin
 class FakeUserRepository : UserRepository {
@@ -719,9 +719,9 @@ class UserTest {
 }
 ```
 
-## 常见模式
+## 常见模式 {id="common-patterns"}
 
-### 模式 1：共享测试模块
+### 模式 1：共享测试模块 {id="pattern-1-shared-test-module"}
 
 ```kotlin
 // androidTest 软件包中的 TestModules.kt
@@ -756,7 +756,7 @@ val koinTestRule = KoinTestRule(
 )
 ```
 
-### 模式 2：测试专用配置
+### 模式 2：测试专用配置 {id="pattern-2-test-specific-configuration"}
 
 ```kotlin
 class TestConfig {
@@ -782,7 +782,7 @@ val testConfigModule = module {
 }
 ```
 
-### 模式 3：针对每个测试进行重写
+### 模式 3：针对每个测试进行重写 {id="pattern-3-per-test-override"}
 
 ```kotlin
 @RunWith(AndroidJUnit4::class)
@@ -816,9 +816,9 @@ class FlexibleTest : KoinTest {
 }
 ```
 
-## 故障排除
+## 故障排除 {id="troubleshooting"}
 
-### 问题：Koin 已启动
+### 问题：Koin 已启动 {id="issue-koin-already-started"}
 
 **问题：**
 ```
@@ -847,7 +847,7 @@ class SafeKoinTestRule : TestWatcher() {
 }
 ```
 
-### 问题：定义重写未生效
+### 问题：定义重写未生效 {id="issue-definition-override-doesn-t-work"}
 
 **问题：**
 测试定义没有替换生产环境定义。
@@ -867,7 +867,7 @@ val testModule = module {
 }
 ```
 
-### 问题：未找到作用域 (Scope)
+### 问题：未找到作用域 (Scope) {id="issue-scope-not-found"}
 
 **问题：**
 ```
@@ -885,7 +885,7 @@ scenario.onActivity { activity ->
 }
 ```
 
-### 问题：测试互相影响
+### 问题：测试互相影响 {id="issue-tests-affecting-each-other"}
 
 **问题：**
 测试单独运行时通过，但一起运行时失败。
@@ -906,7 +906,7 @@ fun tearDown() {
 }
 ```
 
-### 问题：ViewModel 未更新 UI
+### 问题：ViewModel 未更新 UI {id="issue-viewmodel-not-updating-ui"}
 
 **问题：**
 ViewModel 状态发生了变化，但在测试中 UI 未更新。
@@ -935,9 +935,9 @@ fun testViewModelUpdatesUI() = runTest {
 }
 ```
 
-## 最佳做法
+## 最佳做法 {id="best-practices"}
 
-### 1. 为测试使用内存数据库
+### 1. 为测试使用内存数据库 {id="1-use-in-memory-database-for-tests"}
 
 ```kotlin
 val testDatabaseModule = module {
@@ -950,7 +950,7 @@ val testDatabaseModule = module {
 }
 ```
 
-### 2. 保持测试模块专注
+### 2. 保持测试模块专注 {id="2-keep-test-modules-focused"}
 
 ```kotlin
 // ✅ 推荐 - 专注的测试模块
@@ -965,7 +965,7 @@ val hugeTestModule = module {
 }
 ```
 
-### 3. 共享通用的虚假对象 (Fakes)
+### 3. 共享通用的虚假对象 (Fakes) {id="3-share-common-fakes"}
 
 ```kotlin
 // 创建可重用的测试替身
@@ -980,7 +980,7 @@ object TestDoubles {
 }
 ```
 
-### 4. 测试真实的集成点
+### 4. 测试真实的集成点 {id="4-test-real-integration-points"}
 
 ```kotlin
 // 测试真实的 Room + Repository 集成
@@ -1000,7 +1000,7 @@ fun testDatabaseIntegration() = runTest {
 }
 ```
 
-### 5. 使用描述性的测试名称
+### 5. 使用描述性的测试名称 {id="5-use-descriptive-test-names"}
 
 ```kotlin
 // ✅ 推荐
@@ -1018,7 +1018,7 @@ fun test1()
 fun testLogin()
 ```
 
-## 总结
+## 总结 {id="summary"}
 
 使用 Koin 进行仪器化测试的关键点：
 
@@ -1031,7 +1031,7 @@ fun testLogin()
 - **作用域测试**验证了生命周期绑定的依赖项
 - 使用 Koin 编译器插件进行**模块验证**（编译时）或使用 `verify()`（运行时）可以尽早发现配置错误
 
-## 下一步
+## 下一步 {id="next-steps"}
 
 - **[单元测试](/docs/reference/koin-test/testing)** - 单元测试的测试策略
 - **[模块验证](/docs/reference/koin-test/verify)** - 验证模块配置

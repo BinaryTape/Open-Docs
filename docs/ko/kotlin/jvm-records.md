@@ -16,7 +16,7 @@ public record Person (String name, int age) {}
 
 Records는 Kotlin의 [데이터 클래스](data-classes.md)와 매우 유사합니다.
 
-## Kotlin 코드에서 Java record 사용하기
+## Kotlin 코드에서 Java record 사용하기 {id="using-java-records-from-kotlin-code"}
 
 Java에서 선언된 구성 요소를 가진 record 클래스를 Kotlin에서 프로퍼티가 있는 클래스를 사용하는 것과 동일한 방식으로 사용할 수 있습니다.
 Record 구성 요소에 접근하려면 [Kotlin 프로퍼티](properties.md)와 마찬가지로 이름을 사용하면 됩니다:
@@ -26,7 +26,7 @@ val newPerson = Person("Kotlin", 10)
 val firstName = newPerson.name
 ```
 
-## Kotlin에서 record 선언하기
+## Kotlin에서 record 선언하기 {id="declare-records-in-kotlin"}
 
 Kotlin은 데이터 클래스에 대해서만 record 선언을 지원하며, 해당 데이터 클래스는 [요구 사항](#requirements)을 충족해야 합니다.
 
@@ -48,7 +48,7 @@ data class Person(val name: String, val age: Int)
 
 데이터 클래스는 `equals()`, `hashCode()`, 및 `toString()` 메서드 구현을 제공합니다.
 
-### 요구 사항
+### 요구 사항 {id="requirements"}
 
 `@JvmRecord` 어노테이션이 있는 데이터 클래스를 선언하려면 다음 요구 사항을 충족해야 합니다:
 
@@ -59,13 +59,13 @@ data class Person(val name: String, val age: Int)
 * 클래스는 로컬(local) 클래스일 수 없습니다.
 * 클래스의 기본 생성자는 클래스 자체와 동일한 가시성(visibility)을 가져야 합니다.
 
-### JVM record 활성화하기
+### JVM record 활성화하기 {id="enable-jvm-records"}
 
 JVM record는 생성된 JVM 바이트코드의 타겟 버전이 `16` 이상이어야 합니다.
 
 이를 명시적으로 지정하려면 [Gradle](gradle-compiler-options.md#attributes-specific-to-jvm) 또는 [Maven](maven-kotlin-compiler.md#attributes-specific-to-jvm)에서 `jvmTarget` 컴파일러 옵션을 사용하세요.
 
-## Kotlin에서 record 구성 요소에 어노테이션 달기
+## Kotlin에서 record 구성 요소에 어노테이션 달기 {id="annotate-record-components-in-kotlin"}
 
 <primary-label ref="experimental-general"/>
 
@@ -84,7 +84,7 @@ data class Person(val name: String, @all:Positive val age: Int)
 * 어노테이션을 프로퍼티, 백킹 필드, 생성자 파라미터, getter 및 setter로 전파합니다.
 * 어노테이션이 Java의 `RECORD_COMPONENT`를 지원하는 경우, record 구성 요소에도 어노테이션을 적용합니다.
 
-## 어노테이션을 record 구성 요소와 함께 작동하게 만들기
+## 어노테이션을 record 구성 요소와 함께 작동하게 만들기 {id="make-annotations-work-with-record-components"}
 
 [어노테이션](annotations.md)을 Kotlin 프로퍼티**와** Java record 구성 요소 모두에 사용할 수 있게 하려면 어노테이션 선언에 다음 메타 어노테이션을 추가하세요:
 
@@ -101,6 +101,6 @@ annotation class ExampleClass
 
 이제 Kotlin 클래스와 프로퍼티는 물론, Java 클래스와 record 구성 요소에도 `@ExampleClass`를 적용할 수 있습니다.
 
-## 추가 논의
+## 추가 논의 {id="further-discussion"}
 
 기술적인 세부 사항과 논의에 대해서는 이 [JVM record를 위한 언어 제안(language proposal)](https://github.com/Kotlin/KEEP/blob/master/proposals/jvm-records.md)을 참조하세요.

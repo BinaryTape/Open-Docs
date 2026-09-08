@@ -12,7 +12,7 @@ Kotlin/Native 컴파일러는 디버그 정보가 포함된 바이너리를 생�
 >
 {style="note"}
 
-## 디버그 정보가 포함된 바이너리 생성
+## 디버그 정보가 포함된 바이너리 생성 {id="generate-binaries-with-debug-information"}
 
 IntelliJ IDEA, Android Studio 또는 Xcode에서 디버깅할 때, 디버그 정보가 포함된 바이너리는 자동으로 생성됩니다(빌드가 다르게 구성되지 않은 경우).
 
@@ -74,11 +74,11 @@ Process 28473 stopped
 (lldb)
 ```
 
-## 중단점 설정
+## 중단점 설정 {id="set-breakpoints"}
 
 최신 디버거는 중단점(breakpoint)을 설정하는 여러 가지 방법을 제공합니다. 도구별 상세 방법은 다음과 같습니다:
 
-### LLDB
+### LLDB {id="lldb"}
 
 * 이름으로 설정:
 
@@ -111,7 +111,7 @@ Process 28473 stopped
     3.1: where = terminator.kexe`kfun:main(kotlin.Array<kotlin.String>) + 4 at hello.kt:2, address = terminator.kexe[0x00000001000012e4], unresolved, hit count = 0
   ```
 
-### GDB
+### GDB {id="gdb"}
 
 * 정규표현식으로 설정:
 
@@ -145,11 +145,11 @@ Process 28473 stopped
   Breakpoint 3 at 0x100001704: file /Users/minamoto/ws/.git-trees/hello.kt, line 2.
   ```
 
-## 스테핑 사용
+## 스테핑 사용 {id="use-stepping"}
 
 함수를 단계별로 실행하는 스테핑(stepping)은 C/C++ 프로그램과 거의 동일하게 작동합니다.
 
-## 변수 조사
+## 변수 조사 {id="inspect-variables"}
 
 `var` 변수에 대한 변수 조사(variable inspection)는 프리미티브(primitive) 및 비프리미티브 타입 모두에서 기본적으로 작동합니다:
 
@@ -191,7 +191,7 @@ Process 4985 launched: './program.kexe' (x86_64)
 (int32_t) p->x = 1
 ```
 
-## iOS 애플리케이션 디버깅
+## iOS 애플리케이션 디버깅 {id="debug-ios-applications"}
 
 iOS 애플리케이션을 디버깅할 때 가끔 크래시 리포트를 상세히 분석해야 할 때가 있습니다. 크래시 리포트에는 일반적으로 메모리 주소를 읽을 수 있는 소스 코드 위치로 변환하는 과정인 심볼화(symbolication)가 필요합니다.
 
@@ -232,11 +232,11 @@ kotlin {
 
 크래시 리포트에 대한 자세한 정보는 [Apple 문서](https://developer.apple.com/documentation/xcode/diagnosing-issues-using-crash-reports-and-device-logs)를 참조하세요.
 
-## 알려진 문제
+## 알려진 문제 {id="known-issues"}
 
 * Python 바인딩의 성능 문제.
 * 디버거 도구에서의 식별자 평가(expression evaluation)는 지원되지 않으며, 현재 이를 구현할 계획은 없습니다.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 [iOS 코드에서 처리되지 않은 Kotlin 예외에 대한 크래시 리포트를 개선하는 방법 알아보기](native-faq.md#how-do-i-get-better-crash-reports-for-ios)

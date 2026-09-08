@@ -12,7 +12,7 @@ Android [ViewModel](https://developer.android.com/topic/libraries/architecture/v
 * [選擇要共用多少 ViewModel 和 UI 程式碼](#levels-of-code-sharing)：
   從完全共用的方式到僅共用存儲庫或資料層。
 
-## 設定相依性
+## 設定相依性 {id="set-up-dependencies"}
 
 若要跨平台共用 ViewModel 和 UI：
 
@@ -84,7 +84,7 @@ Android [ViewModel](https://developer.android.com/topic/libraries/architecture/v
      
     詳情請參閱 [`Dispatchers.Main` 文件](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-dispatchers/-main.html)。
 
-## 在通用程式碼中使用 ViewModel
+## 在通用程式碼中使用 ViewModel {id="using-viewmodel-in-common-code"}
 
 Compose Multiplatform 提供了一個通用的 `ViewModelStoreOwner` 實作，因此在通用程式碼中使用 `ViewModel` 類別與 [Android 最佳實務](https://developer.android.com/topic/libraries/architecture/viewmodel#best-practices)並無太大差異。
 
@@ -131,7 +131,7 @@ Compose Multiplatform 提供了一個通用的 `ViewModelStoreOwner` 實作，�
     }
     ```
 
-## ViewModel 限定導覽 3 的作用域
+## ViewModel 限定導覽 3 的作用域 {id="viewmodel-scoping-with-navigation-3"}
 
 在通用程式碼中將 ViewModel 與導覽 3 搭配使用時，
 預設情況下 ViewModel 不會自動限定在導覽項目的作用域內。
@@ -159,7 +159,7 @@ NavDisplay(
 )
 ```
 
-## ViewModel 與相依注入
+## ViewModel 與相依注入 {id="viewmodel-and-dependency-injection"}
 
 相依注入 (DI) 架構允許您根據目前的環境或目標平台，將不同的相依性注入到組件中。
 若要管理 ViewModel，您可以使用 Koin、Metro 或任何其他支援 Kotlin Multiplatform 的 DI 架構。
@@ -167,7 +167,7 @@ NavDisplay(
 有關相依注入使用的進階範例，
 請參閱[共用資料存取層](multiplatform-ktor-sqldelight.md)教學。
 
-### Koin
+### Koin {id="koin"}
 
 Koin 是一個執行時 DI 架構，提供 DSL 或註解來配置您的相依性。
 若要在 Compose ViewModel 中使用 Koin，請新增 `koin-compose-viewmodel` 相依性。
@@ -186,7 +186,7 @@ fun CupcakeApp(
 詳情請參閱 Koin 關於 [ViewModel 支援](https://insert-koin.io/docs/reference/koin-core/viewmodel)
 以及[在 Compose 中注入 ViewModel](https://insert-koin.io/docs/reference/koin-compose/compose-viewmodel) 的文件。
 
-### Metro
+### Metro {id="metro"}
 
 Metro 是一個實作為 Kotlin 編譯器外掛程式的編譯期 DI 架構。
 若要在 Compose ViewModel 中使用 Metro，請新增 `metrox-viewmodel-compose` 相依性。
@@ -205,7 +205,7 @@ fun CupcakeApp(
 詳情請參閱 MetroX 關於 [ViewModel 整合](https://zacsweers.github.io/metro/latest/metrox-viewmodel/)
 以及[在 Compose 中存取 ViewModel](https://zacsweers.github.io/metro/latest/metrox-viewmodel-compose/) 的文件。
 
-## 程式碼共用層級
+## 程式碼共用層級 {id="levels-of-code-sharing"}
 
 您可以選擇要共用程式碼的哪些部分，以及哪些部分保留為平台特定：
 
@@ -217,7 +217,7 @@ fun CupcakeApp(
 以下範例展示了如何在不同程式碼共用層級下使用 ViewModel。
 所有範例皆基於上述介紹的 `OrderViewModel` 類別。
 
-### 共用 ViewModel 與 UI
+### 共用 ViewModel 與 UI {id="shared-viewmodel-and-ui"}
 
 在這種方式中，包括 `ViewModel` 和 UI 在內的所有內容都透過 Compose Multiplatform 共用。
 您只需編寫一次應用程式的 UI 程式碼，它即可在所有平台上運作。
@@ -240,7 +240,7 @@ fun CupcakeApp(
 }
 ```
 
-### 共用 ViewModel 與平台特定 UI
+### 共用 ViewModel 與平台特定 UI {id="shared-viewmodel-and-platform-specific-ui"}
 
 在這種方式中，`ViewModel`（商務邏輯）是共用的，但平台具有原生 UI 實作。
 請在[為 Kotlin Multiplatform 設定 ViewModel](https://developer.android.com/kotlin/multiplatform/viewmodel) 中了解更多資訊。
@@ -273,7 +273,7 @@ fun CupcakeApp(
     ```
     {initial-collapse-state="collapsed" collapsible="true" collapsed-title="api(libs.androidx.lifecycle.viewmodel)"}
 
-#### Android 實作
+#### Android 實作 {id="android-implementation"}
 
 在 Android 上，Jetpack Compose 會自動尋找 `Activity` 提供的 `ViewModelStoreOwner` 並提供 `OrderViewModel`。
 
@@ -294,7 +294,7 @@ fun AndroidCupcakeApp(
 }
 ```
 
-#### iOS 實作
+#### iOS 實作 {id="ios-implementation"}
 
 在 iOS 上，沒有內建的 `ViewModelStoreOwner`，因此必須手動將 ViewModel 的生命週期與 SwiftUI 繫結。
 我們建議使用 [KMP-ObservableViewModel](https://klibs.io/project/rickclephas/KMP-ObservableViewModel) 程式庫，
@@ -367,7 +367,7 @@ fun AndroidCupcakeApp(
     }
    ```
 
-### 共用存儲庫／資料層，平台特定 ViewModel 與 UI
+### 共用存儲庫／資料層，平台特定 ViewModel 與 UI {id="shared-repo-data-layer-platform-specific-viewmodels-and-ui"}
 
 另一個選項是僅共用資料與存儲庫層，同時使用平台特定的 ViewModel 實作。
 這允許您在每個平台上使用原生模式，例如 Android 的 Hilt 相依注入，或 iOS 搭配 Combine 的 `ObservableObject`。
@@ -458,7 +458,7 @@ fun AndroidCupcakeApp(
        }
        ```
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * 查看[完整範例](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/nav_cupcake)。
 * 請參閱[為 Kotlin Multiplatform 設定 ViewModel](https://developer.android.com/kotlin/multiplatform/viewmodel) 以獲取更多以 Android 為核心的指引。

@@ -25,18 +25,18 @@ Kotlin 2.0.0부터 다음 유형의 릴리스를 제공합니다:
 > 
 {style="note"}
 
-## 향후 Kotlin 릴리스 일정
+## 향후 Kotlin 릴리스 일정 {id="upcoming-kotlin-releases"}
 
 향후 안정 버전 Kotlin 릴리스의 대략적인 일정은 다음과 같습니다:
 
 * **2.4.20**: 2026년 9월 예정
 * **2.5.0**: 2026년 12월 예정
 
-## 새로운 Kotlin 버전으로 업데이트
+## 새로운 Kotlin 버전으로 업데이트 {id="update-to-a-new-kotlin-version"}
 
 프로젝트를 새로운 릴리스로 업그레이드하려면 빌드 시스템에서 Kotlin 버전을 업데이트하세요.
 
-### Gradle
+### Gradle {id="gradle"}
 
 Kotlin %kotlinVersion%으로 업데이트하려면 `build.gradle(.kts)` 파일에서 Kotlin Gradle 플러그인 버전을 변경하세요.
 
@@ -79,7 +79,7 @@ plugins {
 > 
 {style="tip"}
 
-### Maven
+### Maven {id="maven"}
 
 Kotlin %kotlinVersion%으로 업데이트하려면 `pom.xml` 파일에서 버전을 변경하세요.
 
@@ -107,11 +107,11 @@ Kotlin %kotlinVersion%으로 업데이트하려면 `pom.xml` 파일에서 버전
 >
 {style="tip"}
 
-## IDE 지원
+## IDE 지원 {id="ide-support"}
 
 Kotlin은 JetBrains에서 개발한 공식 Kotlin 플러그인을 통해 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 및 [Android Studio](https://developer.android.com/kotlin/get-started)에서 별도의 설정 없이 완전한 기능을 지원합니다.
 
-## 표준 라이브러리 보안 지원
+## 표준 라이브러리 보안 지원 {id="standard-library-security-support"}
 
 Kotlin 2.4.0부터 JVM용 Kotlin 표준 라이브러리는 각 릴리스 라인에 대해 18개월의 지원 기간을 가집니다. 언어 릴리스(2._x_._0_)와 그 뒤를 잇는 도구 릴리스(2._x_._20_)는 동일한 릴리스 라인(2._x_)에 속합니다.
 
@@ -150,7 +150,7 @@ JVM용 Kotlin 표준 라이브러리에 영향을 미치는 보안 취약점을 
 > 
 {style="tip"}
 
-## 릴리스 이력
+## 릴리스 이력 {id="release-history"}
 
 다음 표는 이전 Kotlin 릴리스의 세부 정보를 나열합니다.
 

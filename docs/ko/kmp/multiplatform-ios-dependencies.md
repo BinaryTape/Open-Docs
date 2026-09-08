@@ -6,7 +6,7 @@ Apple SDK 의존성(Foundation 또는 Core Bluetooth 등)은 Kotlin Multiplatfor
 
 Kotlin Multiplatform 프로젝트에서 iOS 의존성을 처리하려면, [cinterop 도구](#cinterop-사용하기)를 사용해 관리하거나 [CocoaPods 의존성 관리자](#cocoapods-사용하기)를 사용할 수 있습니다(순수 Swift Pod은 지원되지 않음).
 
-### cinterop 사용하기
+### cinterop 사용하기 {id="with-cinterop"}
 
 cinterop 도구를 사용하여 Objective-C 또는 Swift 선언에 대한 Kotlin 바인딩을 생성할 수 있습니다. 이를 통해 Kotlin 코드에서 해당 선언들을 호출할 수 있게 됩니다.
 
@@ -17,7 +17,7 @@ cinterop 도구를 사용하여 Objective-C 또는 Swift 선언에 대한 Kotlin
 3. cinterop에 이 의존성을 설명하는 특별한 `.def` [정의 파일(definition file)](https://kotlinlang.org/docs/native-definition-file.html)을 생성합니다.
 4. 빌드 중에 바인딩이 생성되도록 빌드 스크립트를 조정합니다.
 
-#### 라이브러리 추가하기
+#### 라이브러리 추가하기 {id="add-a-library"}
 
 1. 라이브러리 소스 코드를 다운로드하고 프로젝트에서 참조할 수 있는 위치에 둡니다.
 2. 라이브러리를 빌드하고(일반적으로 라이브러리 작성자가 빌드 방법 가이드를 제공합니다) 바이너리 경로를 확인합니다.
@@ -108,7 +108,7 @@ import DateTools.*
 >
 {style="tip"}
 
-#### 프레임워크 추가하기
+#### 프레임워크 추가하기 {id="add-a-framework"}
 
 1. 프레임워크 소스 코드를 다운로드하고 프로젝트에서 참조할 수 있는 위치에 둡니다.
 2. 프레임워크를 빌드하고(일반적으로 프레임워크 작성자가 빌드 방법 가이드를 제공합니다) 바이너리 경로를 확인합니다.
@@ -194,7 +194,7 @@ import MyFramework.*
 
 [Swift/Objective-C 상호운용성](https://kotlinlang.org/docs/native-objc-interop.html) 및 [Gradle에서 cinterop 구성하기](multiplatform-dsl-reference.md#cinterops)에 대해 더 자세히 알아보세요.
 
-### CocoaPods 사용하기
+### CocoaPods 사용하기 {id="with-cocoapods"}
 
 1. [초기 CocoaPods 통합 설정](multiplatform-cocoapods-overview.md#set-up-an-environment-to-work-with-cocoapods)을 수행합니다.
 2. 사용하려는 CocoaPods 저장소의 Pod 라이브러리에 대한 의존성을 추가하려면 프로젝트의 `build.gradle(.kts)`에 `pod()` 함수 호출을 포함합니다.
@@ -253,7 +253,7 @@ import cocoapods.SDWebImage.*
 > 
 {style="tip"}
 
-## 다음 단계는?
+## 다음 단계는? {id="what-s-next"}
 
 멀티플랫폼 프로젝트에서 의존성을 추가하는 다른 리소스를 확인하고 다음에 대해 더 자세히 알아보세요:
 

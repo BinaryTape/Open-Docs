@@ -14,7 +14,7 @@ Koog 프레임워크는 MCP 서버와의 통합을 제공하여, MCP 도구를 K
 
 프로토콜에 대해 자세히 알아보려면 [Model Context Protocol](https://modelcontextprotocol.io) 문서를 참조하세요.
 
-## MCP 서버
+## MCP 서버 {id="mcp-servers"}
 
 MCP 서버는 Model Context Protocol을 구현하며 AI 에이전트가 도구 및 서비스와 상호작용할 수 있는 표준화된 방법을 제공합니다.
 
@@ -25,7 +25,7 @@ MCP 서버는 에이전트와 통신하기 위해 다음과 같은 전송 프로
 * 별도의 프로세스로 실행되는 MCP 서버와 통신하는 데 사용되는 **표준 입출력(stdio) 전송 프로토콜**. 예를 들어, Docker 컨테이너나 CLI 도구가 있습니다.
 * HTTP를 통해 MCP 서버와 통신하는 데 사용되는 **서버 전송 이벤트(SSE) 전송 프로토콜** (선택 사항).
 
-## Koog와의 통합
+## Koog와의 통합 {id="integration-with-koog"}
 
 Koog 프레임워크는 `agent-mcp` 모듈에서 제공되는 추가 API 확장과 함께 [MCP SDK](https://github.com/modelcontextprotocol/kotlin-sdk)를 사용하여 MCP와 통합됩니다.
 
@@ -37,7 +37,7 @@ Koog 프레임워크는 `agent-mcp` 모듈에서 제공되는 추가 API 확장�
 * 변환된 도구를 도구 레지스트리에 등록합니다.
 * LLM이 제공한 인자(arguments)를 사용하여 MCP 도구를 호출합니다.
 
-### 주요 구성 요소
+### 주요 구성 요소 {id="key-components"}
 
 Koog의 MCP 통합을 위한 주요 구성 요소는 다음과 같습니다:
 
@@ -47,9 +47,9 @@ Koog의 MCP 통합을 위한 주요 구성 요소는 다음과 같습니다:
 | [`McpToolDescriptorParser`](api:agents-mcp::ai.koog.agents.mcp.McpToolDescriptorParser)                                        | MCP 도구 정의를 Koog 도구 디스크립터 형식으로 파싱합니다.                                          |
 | [`McpToolRegistryProvider`](api:agents-mcp::ai.koog.agents.mcp.McpToolRegistryProvider) | 다양한 전송 메커니즘(stdio, SSE)을 통해 MCP 서버에 연결하는 MCP 도구 레지스트리를 생성합니다. |
 
-## 시작하기
+## 시작하기 {id="getting-started"}
 
-### 1. MCP 연결 설정
+### 1. MCP 연결 설정 {id="1-set-up-an-mcp-connection"}
 
 Koog에서 MCP를 사용하려면 연결을 설정해야 합니다:
 
@@ -58,7 +58,7 @@ Koog에서 MCP를 사용하려면 연결을 설정해야 합니다:
 
 MCP 서버는 에이전트와 통신하기 위해 stdio 및 SSE 전송 메커니즘을 지원하므로, 이 중 하나를 사용하여 연결할 수 있습니다.
 
-#### stdio로 연결
+#### stdio로 연결 {id="connect-with-stdio"}
 
 이 프로토콜은 MCP 서버가 별도의 프로세스로 실행될 때 사용됩니다. 다음은 stdio 전송을 사용하여 MCP 연결을 설정하는 예제입니다:
 
@@ -75,7 +75,7 @@ val transport = McpToolRegistryProvider.defaultStdioTransport(process)
 ```
 <!--- KNIT example-model-context-protocol-01.kt -->
 
-#### SSE로 연결
+#### SSE로 연결 {id="connect-with-sse"}
 
 이 프로토콜은 MCP 서버가 웹 서비스로 실행될 때 사용됩니다. 다음은 SSE 전송을 사용하여 MCP 연결을 설정하는 예제입니다:
 
@@ -88,7 +88,7 @@ val transport = McpToolRegistryProvider.defaultSseTransport("http://localhost:89
 ```
 <!--- KNIT example-model-context-protocol-02.kt -->
 
-### 2. 도구 레지스트리 생성
+### 2. 도구 레지스트리 생성 {id="2-create-a-tool-registry"}
 
 MCP 연결이 설정되면, 다음 방법 중 하나로 MCP 서버의 도구가 포함된 도구 레지스트리를 생성할 수 있습니다:
 
@@ -144,7 +144,7 @@ val toolRegistry = McpToolRegistryProvider.fromClient(
 ```
 <!--- KNIT example-model-context-protocol-04.kt -->
 
-### 3. 에이전트와 통합
+### 3. 에이전트와 통합 {id="3-integrate-with-your-agent"}
 
 Koog 에이전트에서 MCP 도구를 사용하려면 에이전트에 도구 레지스트리를 등록해야 합니다:
 <!--- INCLUDE
@@ -294,9 +294,9 @@ val result = agent.run("Use the MCP tool to perform a task")
 
 [//]: # (<!--- KNIT example-model-context-protocol-07.kt -->)
 
-## 사용 예제
+## 사용 예제 {id="usage-examples"}
 
-### Google Maps MCP 통합
+### Google Maps MCP 통합 {id="google-maps-mcp-integration"}
 
 이 예제는 MCP를 사용하여 지리 데이터를 위한 [Google Maps](https://mcp.so/server/google-maps/modelcontextprotocol) 서버에 연결하는 방법을 보여줍니다:
 
@@ -338,7 +338,7 @@ agent.run("Get elevation of the Jetbrains Office in Munich, Germany?")
 ```
 <!--- KNIT example-model-context-protocol-06.kt -->
 
-### Playwright MCP 통합
+### Playwright MCP 통합 {id="playwright-mcp-integration"}
 
 이 예제는 MCP를 사용하여 웹 자동화를 위한 [Playwright](https://mcp.so/server/playwright-mcp/microsoft) 서버에 연결하는 방법을 보여줍니다:
 

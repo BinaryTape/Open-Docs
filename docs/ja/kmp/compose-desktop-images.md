@@ -7,7 +7,7 @@ undefined
 
 このページの例では、Kotlin と Compose Multiplatform のロゴを使用しています。どちらのロゴも [Kotlin ブランドアセット](https://kotlinlang.org/docs/kotlin-brand-assets.html#kotlin-logo)パッケージの一部として入手可能です。
 
-## リソースからの画像の表示
+## リソースからの画像の表示 {id="displaying-images-from-resources"}
 
 アプリケーションに同梱されている画像を表示するには、プロジェクトの[マルチプラットフォームリソースに追加](compose-multiplatform-resources-setup.md)し、プロジェクトをビルドしてリソースアクセサを生成します。アクセサを `painterResource()` に渡して `Painter` インスタンスを作成し、生成された `Painter` を `Image()` コンポーザブルに渡します。
 
@@ -51,7 +51,7 @@ fun main() = application {
 >
 {style="tip"}
 
-## ファイルシステムまたはネットワークからの画像の読み込み
+## ファイルシステムまたはネットワークからの画像の読み込み {id="loading-images-from-the-file-system-or-the-network"}
 
 アプリケーションの一部ではない画像（ユーザーが選択したファイルや実行時にダウンロードされたもの）は、リソースではありません。これらは任意の JVM API でバイト列として読み取り、リソースライブラリの以下のいずれかの関数を使用してデコードします。
 
@@ -184,7 +184,7 @@ fun <T> AsyncImage(
 >
 {style="tip"}
 
-## ウィンドウアイコンの設定
+## ウィンドウアイコンの設定 {id="setting-the-window-icon"}
 
 画像をウィンドウアイコンとして使用するには、`Window()` コンポーザブルの `icon` パラメータに `Painter` インスタンスを渡します。
 
@@ -227,7 +227,7 @@ fun main() = application {
 
 <img src="compose-desktop-images-window-icon.png" alt="A packaged application and its Dock icon" width="426"/>
 
-### シングルウィンドウアプリケーションのアイコン
+### シングルウィンドウアプリケーションのアイコン {id="single-window-application-icon"}
 
 `singleWindowApplication()` 関数は、コンポジション（composition）の外側で `icon` パラメータを評価するため、`painterResource()` は使用できません。代わりに、`composeResources` ディレクトリ内のファイルパスを受け取る `Res.readBytes()` でリソースを読み込み、それを `BitmapPainter` にデコードします。
 
@@ -250,7 +250,7 @@ fun main() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="val icon = BitmapPainter(iconBytes.decodeToImageBitmap())"}
 
-## トレイアイコンの設定
+## トレイアイコンの設定 {id="setting-the-tray-icon"}
 
 画像を[トレイ](compose-desktop-tray.md)アイコンとして使用するには、`Tray()` コンポーザブルの `icon` パラメータに `Painter` インスタンスを渡します。
 
@@ -302,7 +302,7 @@ macOS では、トレイアイコンはメニューバーに表示されます�
 
 <img src="compose-desktop-images-tray-icon.png" alt="A tray icon in the macOS menu bar" width="430"/>
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [マルチプラットフォームリソース](compose-multiplatform-resources.md)および共通（common）コードからの[アクセス方法](compose-multiplatform-resources-usage.md)について詳しく学ぶ。
 * [システムトレイ](compose-desktop-tray.md)にアプリケーションアイコンを追加する方法を学ぶ。

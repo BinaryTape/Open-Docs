@@ -10,9 +10,9 @@
 > 
 {style="note"}
 
-## 컴파일러 설치
+## 컴파일러 설치 {id="install-the-compiler"}
 
-### 수동 설치
+### 수동 설치 {id="manual-install"}
 
 Kotlin 컴파일러를 수동으로 설치하려면 다음 단계를 따르세요:
 
@@ -24,7 +24,7 @@ Kotlin 컴파일러를 수동으로 설치하려면 다음 단계를 따르세�
 > 
 {style="note"}
 
-### SDKMAN!
+### SDKMAN! {id="sdkman"}
 
 macOS, Linux, Cygwin, FreeBSD, Solaris와 같은 UNIX 기반 시스템에서 Kotlin을 설치하는 더 쉬운 방법은 [SDKMAN!](https://sdkman.io)을 사용하는 것입니다. 이는 Bash 및 ZSH 셸에서도 작동합니다. [SDKMAN! 설치 방법](https://sdkman.io/install)을 확인해 보세요.
 
@@ -34,7 +34,7 @@ SDKMAN!을 통해 Kotlin 컴파일러를 설치하려면 터미널에서 다음 
 sdk install kotlin
 ```
 
-### Homebrew
+### Homebrew {id="homebrew"}
 
 또는 macOS에서 [Homebrew](https://brew.sh/)를 통해 컴파일러를 설치할 수 있습니다:
 
@@ -43,7 +43,7 @@ brew update
 brew install kotlin
 ```
 
-### Snap 패키지
+### Snap 패키지 {id="snap-package"}
 
 Ubuntu 16.04 이상에서 [Snap](https://snapcraft.io/)을 사용하는 경우, 커맨드 라인에서 컴파일러를 설치할 수 있습니다:
 
@@ -51,7 +51,7 @@ Ubuntu 16.04 이상에서 [Snap](https://snapcraft.io/)을 사용하는 경우, 
 sudo snap install --classic kotlin
 ```
 
-## 애플리케이션 생성 및 실행
+## 애플리케이션 생성 및 실행 {id="create-and-run-an-application"}
 
 1. `"Hello, World!"`를 출력하는 간단한 콘솔 JVM 애플리케이션을 Kotlin으로 작성합니다. 
    코드 에디터에서 다음 코드를 포함하는 `hello.kt`라는 새 파일을 만듭니다:
@@ -87,7 +87,7 @@ sudo snap install --classic kotlin
 > 
 {style="note"}
 
-## 라이브러리 컴파일
+## 라이브러리 컴파일 {id="compile-a-library"}
 
 다른 Kotlin 애플리케이션에서 사용할 라이브러리를 개발하는 경우, Kotlin 런타임을 포함하지 않고 **.jar** 파일을 빌드할 수 있습니다:
 
@@ -109,11 +109,11 @@ kotlinr -classpath hello.jar HelloKt
 >
 {style="note"}
 
-## REPL 실행
+## REPL 실행 {id="run-the-repl"}
 
 대화형 셸을 사용하려면 [`-Xrepl` 컴파일러 옵션](compiler-reference.md#xrepl)과 함께 컴파일러를 실행하세요. 이 셸에서는 유효한 모든 Kotlin 코드를 입력하고 그 결과를 즉시 확인할 수 있습니다.
 
-## 스크립트 실행
+## 스크립트 실행 {id="run-scripts"}
 
 Kotlin을 스크립팅 언어로 사용할 수 있습니다.
 Kotlin 스크립트는 최상위 수준의 실행 코드가 포함된 Kotlin 소스 파일(`.kts`)입니다.
@@ -148,6 +148,6 @@ kotlinc -script-templates org.example.CustomScriptDefinition -script custom.scri
 
 추가적인 세부 사항은 [KEEP-75](https://github.com/Kotlin/KEEP/blob/master/proposals/scripting-support.md)를 참조하세요.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 [Kotlin/JVM 기반 콘솔 애플리케이션 생성하기](jvm-get-started.md).

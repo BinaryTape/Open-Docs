@@ -4,7 +4,7 @@ Koog 遵循 [語意化版本](https://semver.org/) (Semantic Versioning)，格�
 
 本架構具備 API 穩定性：一旦發布公開 API，除非進行主要版本升級，否則不會產生破壞性變更。
 
-## 版本組成
+## 版本組成 {id="version-components"}
 
 | 元件 | 名稱 | 格式 | 意義 |
 |-----------|---------|--------|---------|
@@ -12,32 +12,32 @@ Koog 遵循 [語意化版本](https://semver.org/) (Semantic Versioning)，格�
 | `Y` | Minor (次要) | `x.Y.z` | 新增 API 與棄用項；所有現有 API 仍可正常運作 |
 | `Z` | Bugfix (錯誤修正) | `x.y.Z` | 僅包含錯誤修正；無 API 變更 |
 
-### Major (`X`)
+### Major (`X`) {id="major-x"}
 
 - 可能對現有 API 引入破壞性變更。
 - 可能移除舊的 API。
 - 將提供遷移指南。
 - 每年最多發布一次。
 
-### Minor (`Y`)
+### Minor (`Y`) {id="minor-y"}
 
 - 可能新增 API。
 - 可能棄用現有 API (並提供替代方案)，但已棄用的 API 仍具備功能。
 - 無破壞性變更 — 所有基於前一個次要版本編譯的程式碼皆可繼續編譯與運作。
 - 每月最多發布一次。
 
-### Bugfix (`Z`)
+### Bugfix (`Z`) {id="bugfix-z"}
 
 - 僅包含錯誤修正。
 - 無 API 新增、移除或棄用。
 - 每週最多發布一次。
 
-## 棄用政策
+## 棄用政策 {id="deprecation-policy"}
 
 在次要版本 (`Y`) 中棄用的 API 將至少保留至下一個主要版本 (`X`)。
 棄用警告將指明建議的替代方案。
 
-## 穩定模組與 Beta 模組
+## 穩定模組與 Beta 模組 {id="stable-and-beta-modules"}
 
 某些模組被視為實驗性，並以 `-beta` 版本後綴 (例如 `1.2.0-beta`) 而非標準的 `X.Y.Z` 發布。模組處於 beta 階段可能有以下原因：
 
@@ -49,14 +49,14 @@ Koog 遵循 [語意化版本](https://semver.org/) (Semantic Versioning)，格�
 
 版本為 `X.Y.Z` 的穩定模組始終與版本為 `X.Y.Z-beta` 的 beta 模組相容 (反之亦然)。所有模組皆可同步更新。
 
-### Umbrella 模組
+### Umbrella 模組 {id="umbrella-modules"}
 
 | 模組 | 版本 | 內容 |
 |--------|---------|----------|
 | `koog-agents` | `1.2.0` | 所有穩定模組 (遞移性) — 建議的入門起點 |
 | `koog-agents-additions` | `1.2.0-beta` | 大多數 beta/實驗性模組 (獨立的外部整合除外) |
 
-### 模組版本
+### 模組版本 {id="module-versions"}
 
 === "穩定模組 (`1.2.0`)"
     

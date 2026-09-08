@@ -8,7 +8,7 @@
 
 在本指南中，您可以透過多個範例學習如何獲取、調整與處理資料。
 
-## 開始之前
+## 開始之前 {id="before-you-start"}
 
 > 自 IntelliJ IDEA 2026.2 開始，Kotlin Notebook 將不再隨 IDE 隨附，也不再由 JetBrains 正式支援。
 > 原始碼將繼續在 [GitHub](https://github.com/Kotlin/kotlin-notebook) 上提供。
@@ -30,7 +30,7 @@
 
 若要進行本教學，您也可以將 DataFrame 作為 [Gradle](https://kotlin.github.io/dataframe/setupgradle.html) 或 [Maven](https://kotlin.github.io/dataframe/setupmaven.html) 相依性使用。
 
-## 獲取資料
+## 獲取資料 {id="retrieve-data"}
 
 若要將檔案中的資料獲取到您的 Kotlin Notebook 中，請使用 `DataFrame.read()` 函式：
 
@@ -51,7 +51,7 @@ val movies = DataFrame.read("movies.csv", delimiter = ';')
 > 
 {style="tip"}
 
-## 顯示資料
+## 顯示資料 {id="display-data"}
 
 一旦您獲取了資料，就可以將其顯示出來。最簡單的方法是將資料儲存在變數中，然後將其傳回：
 
@@ -66,7 +66,7 @@ jsonDf
 
 您可以使用此檢視來檢查值、確認欄位名稱，並輕鬆了解資料集的狀態。
 
-## 檢查資料結構
+## 檢查資料結構 {id="inspect-data-structure"}
 
 若要深入了解資料的結構或架構，請對您的 DataFrame 變數套用 [`.schema()`](https://kotlin.github.io/dataframe/schema.html) 函式。 
 
@@ -78,7 +78,7 @@ jsonDf
 
 ![可用屬性](auto-completion-data-analysis.png){width=700}
 
-## 調整資料
+## 調整資料 {id="refine-data"}
 
 Kotlin DataFrame 提供了各種調整資料集的操作。 
 例如：[群組](https://kotlin.github.io/dataframe/group.html)、[篩選](https://kotlin.github.io/dataframe/filter.html)、[更新](https://kotlin.github.io/dataframe/update.html)或[新增新欄位](https://kotlin.github.io/dataframe/add.html)。這些函式對於資料分析至關重要，讓您能有效地組織、清理與轉換資料。
@@ -162,7 +162,7 @@ Kotlin DataFrame 提供了各種調整資料集的操作。
 > 
 {style="tip"}
 
-## 匯出資料
+## 匯出資料 {id="export-data"}
 
 在調整資料後，您可以輕鬆地匯出處理後的資料。
 
@@ -198,7 +198,7 @@ refinedMoviesDf
     .openInBrowser()
 ```
 
-## 接續步驟
+## 接續步驟 {id="what-s-next"}
 
 * 使用 [Kandy 程式庫](https://kotlin.github.io/kandy/examples.html)探索資料視覺化
 * 在[使用 Kandy 進行資料視覺化](data-analysis-visualization.md)中尋找有關資料視覺化的更多資訊

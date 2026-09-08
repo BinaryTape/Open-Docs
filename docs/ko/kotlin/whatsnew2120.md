@@ -19,7 +19,7 @@ Kotlin 2.1.20이 출시되었습니다! 주요 하이라이트는 다음과 같�
 >
 {style="tip"}
 
-## IDE 지원
+## IDE 지원 {id="ide-support"}
 
 2.1.20을 지원하는 Kotlin 플러그인은 최신 IntelliJ IDEA 및 Android Studio에 포함되어 있습니다.
 IDE에서 Kotlin 플러그인을 별도로 업데이트할 필요는 없습니다.
@@ -27,15 +27,15 @@ IDE에서 Kotlin 플러그인을 별도로 업데이트할 필요는 없습니�
 
 자세한 내용은 [새 릴리스로 업데이트하기](releases.md#update-to-a-new-kotlin-version)를 참조하세요.
 
-### OSGi 지원 프로젝트에서 Kotlin 아티팩트의 소스 다운로드
+### OSGi 지원 프로젝트에서 Kotlin 아티팩트의 소스 다운로드 {id="download-sources-for-kotlin-artifacts-in-projects-with-osgi-support"}
 
 이제 `kotlin-osgi-bundle` 라이브러리의 모든 종속성 소스가 배포판에 포함됩니다. 이를 통해 IntelliJ IDEA가 이러한 소스를 다운로드하여 Kotlin 심볼에 대한 문서를 제공하고 디버깅 경험을 개선할 수 있습니다.
 
-## Kotlin K2 컴파일러
+## Kotlin K2 컴파일러 {id="kotlin-k2-compiler"}
 
 새로운 Kotlin K2 컴파일러에 대한 플러그인 지원을 지속적으로 개선하고 있습니다. 이번 릴리스에는 새로운 kapt 및 Lombok 플러그인에 대한 업데이트가 포함되었습니다.
 
-### 새로운 기본 kapt 플러그인
+### 새로운 기본 kapt 플러그인 {id="new-default-kapt-plugin"}
 <primary-label ref="beta"/>
 
 Kotlin 2.1.20부터 모든 프로젝트에서 kapt 컴파일러 플러그인의 K2 구현이 기본적으로 활성화됩니다.
@@ -52,7 +52,7 @@ kapt.use.k2=false
 
 문제가 발생하면 [이슈 트래커](https://youtrack.jetbrains.com/issue/KT-71439/K2-kapt-feedback)에 보고해 주세요.
 
-### Lombok 컴파일러 플러그인: `@SuperBuilder` 지원 및 `@Builder` 업데이트
+### Lombok 컴파일러 플러그인: `@SuperBuilder` 지원 및 `@Builder` 업데이트 {id="lombok-compiler-plugin-support-for-superbuilder-and-updates-on-builder"}
 <primary-label ref="experimental-general"/>
 
 [Kotlin Lombok 컴파일러 플러그인](lombok.md)이 이제 `@SuperBuilder` 어노테이션을 지원하여 클래스 계층 구조에 대한 빌더를 더 쉽게 만들 수 있습니다. 이전에는 Kotlin에서 Lombok을 사용하는 개발자가 상속을 다룰 때 빌더를 수동으로 정의해야 했습니다. `@SuperBuilder`를 사용하면 빌더가 슈퍼클래스 필드를 자동으로 상속하므로 객체를 생성할 때 이를 초기화할 수 있습니다.
@@ -64,7 +64,7 @@ kapt.use.k2=false
 
 `@SuperBuilder` 어노테이션에 대한 자세한 내용은 공식 [Lombok 문서](https://projectlombok.org/features/experimental/SuperBuilder)를 참조하세요.
 
-## Kotlin 멀티플랫폼: Gradle의 Application 플러그인을 대체하는 새로운 DSL
+## Kotlin 멀티플랫폼: Gradle의 Application 플러그인을 대체하는 새로운 DSL {id="kotlin-multiplatform-new-dsl-to-replace-gradle-s-application-plugin"}
 <primary-label ref="experimental-opt-in"/>
 
 Gradle 8.7부터 [Application](https://docs.gradle.org/current/userguide/application_plugin.html) 플러그인은 더 이상 Kotlin 멀티플랫폼 Gradle 플러그인과 호환되지 않습니다. Kotlin 2.1.20은 유사한 기능을 제공하기 위한 실험적(Experimental) DSL을 도입했습니다. 새로운 `executable {}` 블록은 JVM 타겟에 대한 실행 태스크 및 Gradle [배포판(distributions)](https://docs.gradle.org/current/userguide/distribution_plugin.html#distribution_plugin)을 구성합니다.
@@ -111,15 +111,15 @@ kotlin {
 
 문제가 발생하면 [이슈 트래커](https://kotl.in/issue)에 보고하거나 [공식 Slack 채널](https://kotlinlang.slack.com/archives/C19FD9681)을 통해 알려주세요.
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
-### Xcode 16.3 지원
+### Xcode 16.3 지원 {id="support-for-xcode-16-3"}
 
 Kotlin **2.1.21**부터 Kotlin/Native 컴파일러는 최신 안정 버전인 Xcode 16.3을 지원합니다. Xcode를 업데이트하고 Apple 운영 체제용 Kotlin 프로젝트 작업을 계속 진행할 수 있습니다.
 
 또한 2.1.21 릴리스는 Kotlin 멀티플랫폼 프로젝트에서 컴파일 실패를 일으켰던 관련 [cinterop 이슈](https://youtrack.jetbrains.com/issue/KT-75781/)를 해결했습니다.
 
-### 새로운 인라이닝 최적화
+### 새로운 인라이닝 최적화 {id="new-inlining-optimization"}
 <primary-label ref="experimental-opt-in"/>
 
 Kotlin 2.1.20은 실제 코드 생성 단계 이전에 수행되는 새로운 인라이닝 최적화 패스(pass)를 도입했습니다.
@@ -136,11 +136,11 @@ Kotlin/Native 컴파일러의 새로운 인라이닝 패스는 표준 LLVM 인�
 
 바이너리 크기가 증가하거나 컴파일 시간이 늘어나는 경우 [YouTrack](https://kotl.in/issue)을 통해 보고해 주세요.
 
-## Kotlin/Wasm
+## Kotlin/Wasm {id="kotlin-wasm"}
 
 이번 릴리스는 Kotlin/Wasm 디버깅 및 프로퍼티 사용성을 개선합니다. 커스텀 포맷터는 이제 개발 빌드에서 기본적으로 작동하며, DWARF 디버깅은 코드 분석을 용이하게 합니다. 또한, Provider API는 Kotlin/Wasm 및 Kotlin/JS에서의 프로퍼티 사용을 단순화합니다.
 
-### 기본적으로 활성화되는 커스텀 포맷터
+### 기본적으로 활성화되는 커스텀 포맷터 {id="custom-formatters-enabled-by-default"}
 
 이전에는 Kotlin/Wasm 코드로 작업할 때 웹 브라우저에서의 디버깅을 개선하기 위해 커스텀 포맷터를 [수동으로 구성](whatsnew21.md#improved-debugging-experience-for-kotlin-wasm)해야 했습니다.
 
@@ -171,7 +171,7 @@ kotlin {
 }
 ```
 
-### Kotlin/Wasm 코드 디버깅을 위한 DWARF 지원
+### Kotlin/Wasm 코드 디버깅을 위한 DWARF 지원 {id="support-for-dwarf-to-debug-kotlin-wasm-code"}
 
 Kotlin 2.1.20은 Kotlin/Wasm에 DWARF(임의 레코드 형식을 사용한 디버깅) 지원을 도입했습니다.
 
@@ -185,7 +185,7 @@ DWARF 지원을 통해 Kotlin/Wasm 애플리케이션을 한 단계씩 실행(st
 -Xwasm-generate-dwarf
 ```
 
-### Kotlin/Wasm 및 Kotlin/JS 프로퍼티에 대한 Provider API 마이그레이션
+### Kotlin/Wasm 및 Kotlin/JS 프로퍼티에 대한 Provider API 마이그레이션 {id="migration-to-provider-api-for-kotlin-wasm-and-kotlin-js-properties"}
 
 이전에는 Kotlin/Wasm 및 Kotlin/JS 확장의 프로퍼티가 가변(`var`)이었으며 빌드 스크립트에서 직접 할당되었습니다:
 
@@ -220,13 +220,13 @@ Provider API는 값이 지연 계산되고 태스크 종속성과 적절하게 �
 
 하지만 Kotlin Gradle 플러그인을 기반으로 하는 플러그인을 유지 관리하고 있고, 해당 플러그인이 `kotlin-dsl`을 적용하지 않는 경우 프로퍼티 할당을 `.set()` 함수를 사용하도록 업데이트해야 합니다.
 
-## Gradle
+## Gradle {id="gradle"}
 
 Kotlin 2.1.20은 Gradle 7.6.3부터 8.11까지 완전한 호환성을 제공합니다. 최신 Gradle 릴리스 버전까지도 사용할 수 있습니다. 다만, 이 경우 사용 중단 경고가 발생할 수 있으며 일부 새로운 Gradle 기능이 작동하지 않을 수 있습니다.
 
 이번 버전의 Kotlin에는 Kotlin Gradle 플러그인과 Gradle의 Isolated Projects 기능 간의 호환성뿐만 아니라 커스텀 Gradle 게시 변체(publication variants)에 대한 지원이 포함되어 있습니다.
 
-### Gradle의 Isolated Projects와 호환되는 Kotlin Gradle 플러그인
+### Gradle의 Isolated Projects와 호환되는 Kotlin Gradle 플러그인 {id="kotlin-gradle-plugins-compatible-with-gradle-s-isolated-projects"}
 <primary-label ref="experimental-opt-in"/>
 
 > 이 기능은 현재 Gradle에서 프리 알파(pre-Alpha) 상태입니다. 현재 JS 및 Wasm 타겟은 지원되지 않습니다.
@@ -252,7 +252,7 @@ kotlin.kmp.isolated-projects.support=disable
 
 이 기능에 대한 의견을 [YouTrack](https://youtrack.jetbrains.com/issue/KT-57279/Support-Gradle-Project-Isolation-Feature-for-Kotlin-Multiplatform)을 통해 공유해 주세요.
 
-### 커스텀 Gradle 게시 변체 추가 지원
+### 커스텀 Gradle 게시 변체 추가 지원 {id="support-for-adding-custom-gradle-publication-variants"}
 <primary-label ref="experimental-opt-in"/>
 
 Kotlin 2.1.20은 커스텀 [Gradle 게시(publication) 변체](https://docs.gradle.org/current/userguide/variant_attributes.html)를 추가하는 기능을 지원합니다. 이 기능은 멀티플랫폼 프로젝트와 JVM을 타겟으로 하는 프로젝트에서 사용할 수 있습니다.
@@ -290,11 +290,11 @@ kotlin {
 >
 {style="tip"}
 
-## 표준 라이브러리
+## 표준 라이브러리 {id="standard-library"}
 
 이번 릴리스는 표준 라이브러리에 공통 원자(atomic) 타입, UUID 지원 개선, 새로운 시간 추적 기능 등 새로운 실험적 기능을 제공합니다.
 
-### 공통 원자(atomic) 타입
+### 공통 원자(atomic) 타입 {id="common-atomic-types"}
 <primary-label ref="experimental-opt-in"/>
 
 Kotlin 2.1.20에서는 표준 라이브러리의 `kotlin.concurrent.atomics` 패키지에 공통 원자 타입을 도입하여 스레드 안전한 연산을 위한 플랫폼 독립적인 공유 코드를 작성할 수 있게 되었습니다. 이를 통해 소스 세트 전반에 걸쳐 원자성에 의존하는 로직을 중복해서 작성할 필요가 없어져 Kotlin 멀티플랫폼 프로젝트의 개발이 단순해집니다.
@@ -362,7 +362,7 @@ fun main() {
 ```
 {validate="false" kotlin-runnable="true" kotlin-min-compiler-version="2.1.20"}
 
-### UUID 파싱, 포맷팅 및 비교의 변화
+### UUID 파싱, 포맷팅 및 비교의 변화 {id="changes-in-uuid-parsing-formatting-and-comparability"}
 <primary-label ref="experimental-opt-in"/>
 
 JetBrains 팀은 [2.0.20에서 표준 라이브러리에 도입된 UUID 지원](whatsnew2020.md#support-for-uuids-in-the-common-kotlin-standard-library)을 지속적으로 개선하고 있습니다.
@@ -409,7 +409,7 @@ fun main() {
 ```
 {validate="false" kotlin-runnable="true" kotlin-min-compiler-version="2.1.20"}
 
-### 새로운 시간 추적 기능
+### 새로운 시간 추적 기능 {id="new-time-tracking-functionality"}
 <primary-label ref="experimental-opt-in"/>
 
 Kotlin 2.1.20부터 표준 라이브러리는 시점(moment in time)을 표현하는 기능을 제공합니다. 이 기능은 이전까지 공식 Kotlin 라이브러리인 [`kotlinx-datetime`](https://kotlinlang.org/api/kotlinx-datetime/)에서만 사용할 수 있었습니다.
@@ -447,11 +447,11 @@ fun main() {
 
 구현에 대한 자세한 내용은 [KEEP 제안서](https://github.com/Kotlin/KEEP/pull/387/files)를 참조하세요.
 
-## Compose 컴파일러
+## Compose 컴파일러 {id="compose-compiler"}
 
 2.1.20에서 Compose 컴파일러는 이전 릴리스에서 도입되었던 `@Composable` 함수에 대한 일부 제한을 완화했습니다. 또한, Compose 컴파일러 Gradle 플러그인이 모든 플랫폼에서 Android와 동일하게 동작하도록 기본적으로 소스 정보를 포함하도록 설정되었습니다.
 
-### open `@Composable` 함수에서 기본값이 있는 파라미터 지원
+### open `@Composable` 함수에서 기본값이 있는 파라미터 지원 {id="support-for-parameters-with-default-values-in-open-composable-functions"}
 
 이전에는 open `@Composable` 함수에서 기본값이 있는 파라미터를 사용하면 컴파일러 출력이 잘못되어 런타임에 크래시가 발생할 수 있었기 때문에 이를 제한했습니다. 이제 근본적인 문제가 해결되었으며, Kotlin 2.1.20 이상을 사용할 때 기본값이 있는 파라미터가 완전히 지원됩니다.
 
@@ -460,35 +460,35 @@ Compose 컴파일러는 [버전 1.5.8](https://developer.android.com/jetpack/and
 * open composable 함수가 Kotlin 버전 2.1.20 이상으로 컴파일되는 경우, 컴파일러는 기본값 파라미터에 대해 올바른 래퍼를 생성합니다. 여기에는 1.5.8 이전 바이너리와 호환되는 래퍼가 포함되어, 하위 라이브러리에서도 이 open 함수를 사용할 수 있습니다.
 * open composable 함수가 2.1.20 미만의 Kotlin 버전으로 컴파일되는 경우, Compose는 호환 모드를 사용하며 이로 인해 런타임 크래시가 발생할 수 있습니다. 호환 모드를 사용하는 경우 컴파일러는 잠재적인 문제를 강조하기 위해 경고를 표시합니다.
 
-### Final 오버라이드 함수에 대한 재시작(restartable) 허용
+### Final 오버라이드 함수에 대한 재시작(restartable) 허용 {id="final-overridden-functions-are-allowed-to-be-restartable"}
 
 가상 함수(`open` 및 `abstract`의 오버라이드, 인터페이스 포함)는 [2.1.0 릴리스에서 재시작 불가능하도록 강제되었습니다](whatsnew21.md#changes-to-open-and-overridden-composable-functions). 이 제한은 이제 final 클래스의 멤버이거나 함수 자체가 `final`인 경우 완화되어, 평소와 같이 재시작되거나 건너뛰기(skipping)가 가능해집니다.
 
 Kotlin 2.1.20으로 업그레이드한 후 해당 함수들의 동작 변화를 관찰할 수 있습니다. 이전 버전의 재시작 불가능한 로직을 강제하려면 함수에 `@NonRestartableComposable` 어노테이션을 적용하세요.
 
-### 공용 API에서 `ComposableSingletons` 제거
+### 공용 API에서 `ComposableSingletons` 제거 {id="composablesingletons-removed-from-public-api"}
 
 `ComposableSingletons`는 Compose 컴파일러가 `@Composable` 람다를 최적화할 때 생성하는 클래스입니다. 파라미터를 캡처하지 않는 람다는 한 번만 할당되어 클래스의 프로퍼티에 캐싱되므로 런타임 중 할당을 줄여줍니다. 이 클래스는 internal 가시성으로 생성되며 일반적으로 파일 내부의 람다 최적화만을 목적으로 합니다.
 
 하지만 이 최적화가 `inline` 함수 바디에도 적용되어 싱글톤 람다 인스턴스가 공용 API로 유출되는 문제가 있었습니다. 이를 해결하기 위해 2.1.20부터 인라인 함수 내부의 `@Composable` 람다는 더 이상 싱글톤으로 최적화되지 않습니다. 동시에 Compose 컴파일러는 이전 모델로 컴파일된 모듈과의 바이너리 호환성을 지원하기 위해 인라인 함수에 대한 싱글톤 클래스와 람다를 계속 생성할 것입니다.
 
-### 기본적으로 포함되는 소스 정보
+### 기본적으로 포함되는 소스 정보 {id="source-information-included-by-default"}
 
 Compose 컴파일러 Gradle 플러그인은 이미 Android에서 [소스 정보 포함](https://kotlinlang.org/api/kotlin-gradle-plugin/compose-compiler-gradle-plugin/org.jetbrains.kotlin.compose.compiler.gradle/-compose-compiler-gradle-plugin-extension/include-source-information.html) 기능이 기본적으로 활성화되어 있습니다. Kotlin 2.1.20부터 이 기능은 모든 플랫폼에서 기본적으로 활성화됩니다.
 
 `freeCompilerArgs`를 사용하여 이 옵션을 직접 설정했는지 확인하세요. 플러그인과 함께 이 방법을 사용하면 옵션이 중복으로 설정되어 빌드가 실패할 수 있습니다.
 
-## 주요 변경 사항 및 사용 중단(Deprecations)
+## 주요 변경 사항 및 사용 중단(Deprecations) {id="breaking-changes-and-deprecations"}
 
 * 향후 예정된 Gradle의 변경 사항에 맞춰 Kotlin 멀티플랫폼의 `withJava()` 함수를 단계적으로 제거하고 있습니다. [Java 소스 세트는 이제 기본적으로 생성됩니다](https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html#java-source-sets-created-by-default). [Java test fixtures](https://docs.gradle.org/current/userguide/java_testing.html#sec:java_test_fixtures) Gradle 플러그인을 사용하는 경우, 호환성 문제를 피하기 위해 즉시 [Kotlin 2.1.21](releases.md#release-history)로 업그레이드하세요.
 * JetBrains 팀은 `kotlin-android-extensions` 플러그인의 사용 중단이 진행 중입니다. 프로젝트에서 이 플러그인을 사용하려고 하면 이제 구성 오류가 발생하며 플러그인 코드가 실행되지 않습니다.
 * 레거시 `kotlin.incremental.classpath.snapshot.enabled` 프로퍼티가 Kotlin Gradle 플러그인에서 제거되었습니다. 이 프로퍼티는 JVM에서 내장 ABI 스냅샷으로 되돌아갈 수 있는 기회를 제공했었습니다. 이제 플러그인은 불필요한 재컴파일을 감지하고 방지하기 위해 다른 방법을 사용하므로 이 프로퍼티는 더 이상 사용되지 않습니다.
 
-## 문서 업데이트
+## 문서 업데이트 {id="documentation-updates"}
 
 Kotlin 문서에 몇 가지 주목할 만한 변경 사항이 있었습니다:
 
-### 개편 및 신규 페이지
+### 개편 및 신규 페이지 {id="revamped-and-new-pages"}
 
 * [Kotlin 로드맵](roadmap.md) – 언어 및 에코시스템 진화에 대한 Kotlin의 업데이트된 우선순위 목록을 확인하세요.
 * [Gradle 모범 사례(Best practices)](gradle-best-practices.md) 페이지 – Gradle 빌드를 최적화하고 성능을 향상시키기 위한 필수 모범 사례를 배워보세요.
@@ -497,13 +497,13 @@ Kotlin 문서에 몇 가지 주목할 만한 변경 사항이 있었습니다:
 * [C와의 상호운용성](native-c-interop.md) – Kotlin의 C 상호운용성에 대한 세부 정보를 살펴보세요.
 * [숫자(Numbers)](numbers.md) – 숫자를 표현하기 위한 다양한 Kotlin 타입에 대해 알아보세요.
 
-### 신규 및 업데이트된 튜토리얼
+### 신규 및 업데이트된 튜토리얼 {id="new-and-updated-tutorials"}
 
 * [Maven Central에 라이브러리 게시](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-libraries.html) – 가장 인기 있는 Maven 저장소에 KMP 라이브러리 아티팩트를 게시하는 방법을 배워보세요.
 * [동적 라이브러리로서의 Kotlin/Native](native-dynamic-libraries.md) – 동적 Kotlin 라이브러리를 생성해 보세요.
 * [Apple 프레임워크로서의 Kotlin/Native](apple-framework.md) – 자신만의 프레임워크를 만들고 macOS 및 iOS의 Swift/Objective-C 애플리케이션에서 Kotlin/Native 코드를 사용해 보세요.
 
-## Kotlin 2.1.20으로 업데이트하는 방법
+## Kotlin 2.1.20으로 업데이트하는 방법 {id="how-to-update-to-kotlin-2-1-20"}
 
 IntelliJ IDEA 2023.3 및 Android Studio Iguana (2023.2.1) Canary 15부터 Kotlin 플러그인은 IDE에 포함된 번들 플러그인으로 제공됩니다. 즉, 더 이상 JetBrains Marketplace에서 플러그인을 설치할 수 없습니다.
 

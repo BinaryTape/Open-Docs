@@ -46,11 +46,11 @@ routing {
 > 
 {style="tip"}
 
-### 连接详情
+### 连接详情 {id="connection-details"}
 
 使用 [`ApplicationRequest.local`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/local.html) 属性可以访问连接详情，例如主机名、端口和方案。
 
-### `X-Forwarded-` 标头
+### `X-Forwarded-` 标头 {id="x-forwarded-headers"}
 
 要获取通过 HTTP 代理或负载均衡器传递的请求信息，请安装 [Forwarded headers](server-forward-headers.md) 插件并使用 [`ApplicationRequest.origin`](https://api.ktor.io/ktor-server-core/io.ktor.server.plugins/origin.html) 属性。
 
@@ -84,7 +84,7 @@ get("/products") {
 
 您还可以使用 [`ApplicationRequest.queryString()`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/query-string.html) 函数获取整个查询字符串。
 
-## 必选请求形参
+## 必选请求形参 {id="required-request-parameters"}
 
 处理请求时，通常会从[路径形参](#path_parameters)、[查询形参](#query_parameters)、[标头](#headers)或 [Cookie](#cookies) 中提取值，并在继续处理请求之前验证它们是否存在。
 
@@ -254,7 +254,7 @@ fun Application.main() {
 }
 ```
 
-#### 默认文件大小限制
+#### 默认文件大小限制 {id="default-file-size-limit"}
 
 默认情况下，可以接收的二进制项和文件项的允许大小限制为 50 MiB。如果接收到的文件或二进制项超过 50 MiB 限制，则会抛出 `IOException`。
 
@@ -266,7 +266,7 @@ val multipartData = call.receiveMultipart(formFieldLimit = 1024 * 1024 * 100)
 
 在此示例中，新限制设置为 100 MiB。
 
-#### 表单字段
+#### 表单字段 {id="form-fields"}
 
 `PartData.FormItem` 代表表单字段，其值可以通过 `value` 属性访问：
 
@@ -278,7 +278,7 @@ when (part) {
 }
 ```
 
-#### 文件上传
+#### 文件上传 {id="file-uploads"}
 
 `PartData.FileItem` 代表文件项。您可以将文件上传作为字节流进行处理：
 
@@ -303,7 +303,7 @@ post("/upload") {
 }
 ```
 
-#### 资源清理
+#### 资源清理 {id="resource-cleanup"}
 
 一旦表单处理完成，每个部分都会使用 `.dispose()` 函数进行处置以释放资源。
 

@@ -6,7 +6,7 @@ title: 고급 패턴
 
 이 가이드는 복잡한 시나리오를 위한 고급 의존성 주입(dependency injection) 패턴을 다룹니다.
 
-## 외부 라이브러리 바인딩
+## 외부 라이브러리 바인딩 {id="external-library-binding"}
 
 어노테이션을 추가할 수 없는 서드파티 라이브러리의 경우, `create()`와 함께 빌더 함수를 사용하세요:
 
@@ -52,9 +52,9 @@ class NetworkModule {
 }
 ```
 
-## 의존성 컬렉션
+## 의존성 컬렉션 {id="collections-of-dependencies"}
 
-### 다중 구현
+### 다중 구현 {id="multiple-implementations"}
 
 한정자(qualifier)를 사용하여 인터페이스의 여러 구현체를 집계합니다:
 
@@ -69,7 +69,7 @@ class PayPalProcessor : PaymentProcessor { ... }
 class CryptoProcessor : PaymentProcessor { ... }
 ```
 
-#### 컴파일러 플러그인 DSL
+#### 컴파일러 플러그인 DSL {id="compiler-plugin-dsl"}
 
 클래스에 `@Named` 한정자 어노테이션을 사용합니다:
 
@@ -101,7 +101,7 @@ val paymentModule = module {
 }
 ```
 
-#### 어노테이션
+#### 어노테이션 {id="annotations"}
 
 ```kotlin
 @Module
@@ -127,7 +127,7 @@ class PaymentModule {
 }
 ```
 
-#### 기존 DSL
+#### 기존 DSL {id="classic-dsl"}
 
 ```kotlin
 val paymentModule = module {
@@ -147,7 +147,7 @@ val paymentModule = module {
 }
 ```
 
-## 제네릭 타입
+## 제네릭 타입 {id="generic-types"}
 
 Koin은 제네릭 타입 정보를 유지합니다:
 
@@ -176,7 +176,7 @@ val userRepo: Repository<User> = get()
 val productRepo: Repository<Product> = get()
 ```
 
-## 프로바이더(Provider) 패턴
+## 프로바이더(Provider) 패턴 {id="provider-pattern"}
 
 런타임 파라미터를 사용하여 객체를 생성해야 하는 경우, 런타임 인스턴스를 위한 팩토리를 만듭니다:
 
@@ -204,7 +204,7 @@ class MyScreen(private val dialogFactory: DialogFactory) {
 }
 ```
 
-## 데코레이터 패턴
+## 데코레이터 패턴 {id="decorator-pattern"}
 
 위임(delegation)을 사용하여 동작을 중첩합니다:
 
@@ -261,7 +261,7 @@ val notificationModule = module {
 }
 ```
 
-## 다음 단계
+## 다음 단계 {id="next-steps"}
 
 - **[정의(Definitions)](/docs/reference/koin-core/definitions)** - 기본 정의 타입
 - **[한정자(Qualifiers)](/docs/reference/koin-core/qualifiers)** - 이름 기반 및 타입 기반 한정자

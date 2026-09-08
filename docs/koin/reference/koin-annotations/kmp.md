@@ -2,7 +2,7 @@
 title: Kotlin Multiplatform
 ---
 
-## 设置
+## 设置 {id="setup"}
 
 Koin 编译器插件简化了 KMP 设置 - 只需应用该插件即可。
 
@@ -25,11 +25,11 @@ kotlin {
 
 就这么简单！不需要针对每个平台进行 KSP 配置。
 
-## 在通用代码中定义定义与模块
+## 在通用代码中定义定义与模块 {id="defining-definitions-and-modules-in-common-code"}
 
 在您的 `commonMain` 源集中，声明您的模块、扫描定义或将函数定义为常规 Kotlin Koin 声明。请参阅 [定义](./definitions) 和 [模块](./modules)。
 
-## 共享模式
+## 共享模式 {id="sharing-patterns"}
 
 在本节中，我们将共同探讨通过定义与模块共享组件的几种方式。
 
@@ -44,7 +44,7 @@ kotlin {
 `expect`/`actual` 类在每个平台上不能拥有不同的构造函数。您需要遵守在通用空间中设计的当前构造函数约定。
 :::
 
-### 为原生实现共享定义
+### 为原生实现共享定义 {id="sharing-definitions-for-native-implementations"}
 
 :::info
 我们的目标是使用“通用模块 + `expect`/`actual` 类定义”进行共享。
@@ -54,7 +54,7 @@ kotlin {
 
 请注意，要使用 `expect`/`actual` 定义，您将使用相同的构造函数（默认构造函数或自定义构造函数）。该构造函数在所有平台上必须保持一致。
 
-#### 扫描 Expect/Actual 定义
+#### 扫描 Expect/Actual 定义 {id="scanning-for-expect-actual-definitions"}
 
 在 `commonMain` 中：
 ```kotlin
@@ -89,7 +89,7 @@ actual class PlatformComponentA {
 }
 ```
 
-#### 声明 Expect/Actual 函数定义
+#### 声明 Expect/Actual 函数定义 {id="declaring-expect-actual-function-definitions"}
 
 在 `commonMain` 中：
 ```kotlin
@@ -125,7 +125,7 @@ actual class PlatformComponentB {
 }
 ```
 
-### 共享具有不同原生约定的定义
+### 共享具有不同原生约定的定义 {id="sharing-definitions-with-different-native-contracts"}
 
 :::info
 我们的目标是使用“`expect`/`actual` 通用模块 + 通用接口 + 原生实现”。
@@ -180,7 +180,7 @@ class PlatformComponentDiOS : PlatformComponentD{
 每当您手动访问 Koin 作用域时，您都在进行动态装配。编译安全性不涵盖此类装配。
 :::
 
-### 通过平台包装器安全地跨平台共享
+### 通过平台包装器安全地跨平台共享 {id="safely-sharing-across-platforms-with-platform-wrapper"}
 
 :::info
 将特定平台组件封装为“平台包装器”。
@@ -268,7 +268,7 @@ actual class PlatformComponentA actual constructor(val ctx : ContextWrapper) {
 }
 ```
 
-### 共享 Expect/Actual 模块 - 依赖原生模块扫描
+### 共享 Expect/Actual 模块 - 依赖原生模块扫描 {id="sharing-expect-actual-module-rely-on-native-module-scanning"}
 
 :::info
 从通用模块依赖原生模块。

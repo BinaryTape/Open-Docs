@@ -17,14 +17,14 @@ Kotlin の EAP バージョンは、以前にリリースされたバージョ�
 * [Gradle で構成する](#configure-in-gradle)
 * [Maven で構成する](#configure-in-maven)
 
-## Gradle で構成する 
+## Gradle で構成する {id="configure-in-gradle"}
 
 このセクションでは、以下を行う方法について説明します。
 
 * [Kotlin バージョンの調整](#adjust-the-kotlin-version)
 * [依存関係のバージョンの調整](#adjust-versions-in-dependencies)
 
-### Kotlin バージョンの調整
+### Kotlin バージョンの調整 {id="adjust-the-kotlin-version"}
 
 `build.gradle(.kts)` 内の `plugins` ブロックで、`KOTLIN-EAP-VERSION` を `%kotlinEapVersion%` などの実際の EAP バージョンに変更します。[利用可能な EAP バージョンはこちらに記載されています](eap.md#build-details)。
 
@@ -63,7 +63,7 @@ repositories {
 </tab>
 </tabs>
 
-### 依存関係のバージョンの調整
+### 依存関係のバージョンの調整 {id="adjust-versions-in-dependencies"}
 
 プロジェクトで kotlinx ライブラリを使用している場合、ライブラリのバージョンが Kotlin の EAP バージョンと互換性がない可能性があります。
 
@@ -100,7 +100,7 @@ dependencies {
 </tab>
 </tabs>
 
-## Maven で構成する
+## Maven で構成する {id="configure-in-maven"}
 
 サンプルの Maven プロジェクト定義で、`KOTLIN-EAP-VERSION` を `%kotlinEapVersion%` などの実際のバージョンに置き換えます。
 [利用可能な EAP バージョンはこちらに記載されています](eap.md#build-details)。
@@ -146,7 +146,7 @@ dependencies {
 </project>
 ```
 
-## 何らかの問題が発生した場合
+## 何らかの問題が発生した場合 {id="if-you-run-into-any-problems"}
 
 * [問題トラッカーである YouTrack](https://kotl.in/issue) に問題を報告してください。
 * [Kotlin Slack の #eap チャンネル](https://app.slack.com/client/T09229ZC6/C0KLZSCHF)でヘルプを求めてください（[招待を受ける](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)）。

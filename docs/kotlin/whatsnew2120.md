@@ -19,7 +19,7 @@ Kotlin 2.1.20 现已发布！以下是主要亮点：
 >
 {style="tip"}
 
-## IDE 支持
+## IDE 支持 {id="ide-support"}
 
 支持 2.1.20 的 Kotlin 插件已捆绑在最新的 IntelliJ IDEA 和 Android Studio 中。
 您无需更新 IDE 中的 Kotlin 插件。
@@ -27,15 +27,15 @@ Kotlin 2.1.20 现已发布！以下是主要亮点：
 
 有关详情，请参阅[更新至新版本](releases.md#update-to-a-new-kotlin-version)。
 
-### 为具有 OSGi 支持的项目下载 Kotlin 构件源码
+### 为具有 OSGi 支持的项目下载 Kotlin 构件源码 {id="download-sources-for-kotlin-artifacts-in-projects-with-osgi-support"}
 
 `kotlin-osgi-bundle` 库的所有依赖项源码现在都已包含在其分发包中。这使得 IntelliJ IDEA 能够下载这些源码，从而为 Kotlin 符号提供文档并改进调试体验。
 
-## Kotlin K2 编译器
+## Kotlin K2 编译器 {id="kotlin-k2-compiler"}
 
 我们正在继续改进新 Kotlin K2 编译器的插件支持。此版本带来了对新 kapt 和 Lombok 插件的更新。
 
-### 新的默认 kapt 插件
+### 新的默认 kapt 插件 {id="new-default-kapt-plugin"}
 <primary-label ref="beta"/>
 
 从 Kotlin 2.1.20 开始，kapt 编译插件的 K2 实现已为所有项目默认启用。
@@ -53,7 +53,7 @@ kapt.use.k2=false
 
 请向我们的[问题跟踪器](https://youtrack.jetbrains.com/issue/KT-71439/K2-kapt-feedback)报告任何问题。
 
-### Lombok 编译器插件：支持 `@SuperBuilder` 以及 `@Builder` 的更新
+### Lombok 编译器插件：支持 `@SuperBuilder` 以及 `@Builder` 的更新 {id="lombok-compiler-plugin-support-for-superbuilder-and-updates-on-builder"}
 <primary-label ref="experimental-general"/>
 
 [Kotlin Lombok 编译器插件](lombok.md)现在支持 `@SuperBuilder` 注解，从而更轻松地为类层次结构创建生成器。以前，在 Kotlin 中使用 Lombok 的开发者在处理继承时必须手动定义生成器。通过使用 `@SuperBuilder`，生成器会自动继承超类字段，允许您在构造对象时初始化它们。
@@ -65,7 +65,7 @@ kapt.use.k2=false
 
 有关 `@SuperBuilder` 注解的更多信息，请参阅官方 [Lombok 文档](https://projectlombok.org/features/experimental/SuperBuilder)。
 
-## Kotlin Multiplatform：用于替代 Gradle Application 插件的新 DSL
+## Kotlin Multiplatform：用于替代 Gradle Application 插件的新 DSL {id="kotlin-multiplatform-new-dsl-to-replace-gradle-s-application-plugin"}
 <primary-label ref="experimental-opt-in"/>
 
 从 Gradle 8.7 开始，[Application](https://docs.gradle.org/current/userguide/application_plugin.html) 插件不再与 Kotlin Multiplatform Gradle 插件兼容。Kotlin 2.1.20 引入了一个实验性 DSL 来实现类似的功能。新的 `executable {}` 代码块为 JVM 目标配置执行任务和 Gradle [分发 (distributions)](https://docs.gradle.org/current/userguide/distribution_plugin.html#distribution_plugin)。
@@ -112,16 +112,16 @@ kotlin {
 
 如果您遇到任何问题，请在我们的[问题跟踪器](https://kotl.in/issue)中报告，或在我们的[公开 Slack 频道](https://kotlinlang.slack.com/archives/C19FD9681)中告知我们。
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
-### 支持 Xcode 16.3
+### 支持 Xcode 16.3 {id="support-for-xcode-16-3"}
 
 从 Kotlin **2.1.21** 开始，Kotlin/Native 编译器支持 Xcode 16.3 —— Xcode 的最新稳定版本。
 欢迎更新您的 Xcode，并继续在适用于 Apple 操作系统的 Kotlin 项目上开展工作。
 
 2.1.21 版本还修复了相关的 [cinterop 问题](https://youtrack.jetbrains.com/issue/KT-75781/)，该问题曾导致 Kotlin Multiplatform 项目中的编译失败。
 
-### 新的内联优化
+### 新的内联优化 {id="new-inlining-optimization"}
 <primary-label ref="experimental-opt-in"/>
 
 Kotlin 2.1.20 引入了一个新的内联优化阶段，该阶段位于实际的代码生成阶段之前。
@@ -138,11 +138,11 @@ Kotlin/Native 编译器中的新内联阶段应该比标准 LLVM 内联器表现
 
 如果您遇到二进制文件大小增加或编译时间延长的情况，请通过 [YouTrack](https://kotl.in/issue) 报告此类问题。
 
-## Kotlin/Wasm
+## Kotlin/Wasm {id="kotlin-wasm"}
 
 此版本改进了 Kotlin/Wasm 的调试和属性用法。自定义格式化程序现在可以在开发构建中开箱即用，而 DWARF 调试则促进了代码检查。此外，Provider API 简化了 Kotlin/Wasm 和 Kotlin/JS 中的属性用法。
 
-### 默认启用自定义格式化程序
+### 默认启用自定义格式化程序 {id="custom-formatters-enabled-by-default"}
 
 以前，您必须[手动配置](whatsnew21.md#improved-debugging-experience-for-kotlin-wasm)自定义格式化程序，以便在处理 Kotlin/Wasm 代码时改进 Web 浏览器中的调试体验。
 
@@ -173,7 +173,7 @@ kotlin {
 }
 ```
 
-### 支持使用 DWARF 调试 Kotlin/Wasm 代码
+### 支持使用 DWARF 调试 Kotlin/Wasm 代码 {id="support-for-dwarf-to-debug-kotlin-wasm-code"}
 
 Kotlin 2.1.20 引入了对 Kotlin/Wasm 中 DWARF（debugging with arbitrary record format）的支持。
 
@@ -186,7 +186,7 @@ DWARF 主要用于在独立的 Wasm 虚拟机 (VM) 中调试 Kotlin/Wasm 应用�
 ```bash
 -Xwasm-generate-dwarf
 ```
-### 向用于 Kotlin/Wasm 和 Kotlin/JS 属性的 Provider API 迁移
+### 向用于 Kotlin/Wasm 和 Kotlin/JS 属性的 Provider API 迁移 {id="migration-to-provider-api-for-kotlin-wasm-and-kotlin-js-properties"}
 
 以前，Kotlin/Wasm 和 Kotlin/JS 扩展中的属性是可变的 (`var`)，并直接在构建脚本中赋值：
 
@@ -221,13 +221,13 @@ Provider API 确保值是延迟计算的，并与任务依赖项正确集成，�
 
 但是，如果您维护基于 Kotlin Gradle 插件的插件，并且您的插件未应用 `kotlin-dsl`，则必须更新属性赋值以使用 `.set()` 函数。
 
-## Gradle
+## Gradle {id="gradle"}
 
 Kotlin 2.1.20 与 Gradle 7.6.3 到 8.11 完全兼容。您也可以使用截至最新发布的 Gradle 版本。但请注意，这样做可能会导致弃用警告，并且某些新的 Gradle 功能可能无法正常工作。
 
 此版本的 Kotlin 包括 Kotlin Gradle 插件与 Gradle 的 Isolated Projects 的兼容性，以及对自定义 Gradle 发布变体的支持。
 
-### Kotlin Gradle 插件与 Gradle 的 Isolated Projects 兼容
+### Kotlin Gradle 插件与 Gradle 的 Isolated Projects 兼容 {id="kotlin-gradle-plugins-compatible-with-gradle-s-isolated-projects"}
 <primary-label ref="experimental-opt-in"/>
 
 > 此功能目前在 Gradle 中处于 pre-Alpha 状态。目前不支持 JS 和 Wasm 目标。
@@ -253,7 +253,7 @@ kotlin.kmp.isolated-projects.support=disable
 
 请在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-57279/Support-Gradle-Project-Isolation-Feature-for-Kotlin-Multiplatform) 中告知我们您对该功能的体验。
 
-### 支持添加自定义 Gradle 发布变体
+### 支持添加自定义 Gradle 发布变体 {id="support-for-adding-custom-gradle-publication-variants"}
 <primary-label ref="experimental-opt-in"/>
 
 Kotlin 2.1.20 引入了对添加自定义 [Gradle 发布变体 (publication variants)](https://docs.gradle.org/current/userguide/variant_attributes.html) 的支持。此功能适用于多平台项目和针对 JVM 的项目。
@@ -292,11 +292,11 @@ kotlin {
 >
 {style="tip"}
 
-## 标准库
+## 标准库 {id="standard-library"}
 
 此版本为标准库带来了新的实验性功能：通用原子类型、改进的 UUID 支持以及新的时间跟踪功能。
 
-### 通用原子类型
+### 通用原子类型 {id="common-atomic-types"}
 <primary-label ref="experimental-opt-in"/>
 
 在 Kotlin 2.1.20 中，我们正在标准库的 `kotlin.concurrent.atomics` 软件包中引入通用原子类型，从而实现用于线程安全操作的共享且平台无关的代码。这通过消除在不同源集中重复依赖原子的逻辑的需求，简化了 Kotlin Multiplatform 项目的开发。
@@ -364,7 +364,7 @@ fun main() {
 ```
 {validate="false" kotlin-runnable="true" kotlin-min-compiler-version="2.1.20"}
 
-### UUID 解析、格式化与可比性变更
+### UUID 解析、格式化与可比性变更 {id="changes-in-uuid-parsing-formatting-and-comparability"}
 <primary-label ref="experimental-opt-in"/>
 
 JetBrains 团队继续改进对 [2.0.20 中引入标准库的 UUID](whatsnew2020.md#support-for-uuids-in-the-common-kotlin-standard-library) 的支持。
@@ -411,7 +411,7 @@ fun main() {
 ```
 {validate="false" kotlin-runnable="true" kotlin-min-compiler-version="2.1.20"}
 
-### 新的时间跟踪功能
+### 新的时间跟踪功能 {id="new-time-tracking-functionality"}
 <primary-label ref="experimental-opt-in"/>
 
 从 Kotlin 2.1.20 开始，标准库提供了表示时间点的能力。此功能以前仅在 Kotlin 官方库 [`kotlinx-datetime`](https://kotlinlang.org/api/kotlinx-datetime/) 中可用。
@@ -449,11 +449,11 @@ fun main() {
 
 有关实现的更多信息，请参阅此 [KEEP 提案](https://github.com/Kotlin/KEEP/pull/387/files)。
 
-## Compose 编译器
+## Compose 编译器 {id="compose-compiler"}
 
 在 2.1.20 中，Compose 编译器放宽了之前版本中对 `@Composable` 函数引入的一些限制。此外，Compose 编译器 Gradle 插件被设置为默认包含源信息，从而使所有平台上的行为与 Android 保持一致。
 
-### 支持在 open `@Composable` 函数中使用带有默认值的形参
+### 支持在 open `@Composable` 函数中使用带有默认值的形参 {id="support-for-parameters-with-default-values-in-open-composable-functions"}
 
 由于之前编译器输出不正确会导致运行时崩溃，编译器限制了在 open `@Composable` 函数中使用带有默认值的形参。根本问题现已解决，当与 Kotlin 2.1.20 或更高版本配合使用时，带有默认值的形参将得到完全支持。
 
@@ -462,35 +462,35 @@ Compose 编译器在 [1.5.8 版本](https://developer.android.com/jetpack/androi
 * 如果一个 open 可组合函数是使用 Kotlin 2.1.20 或更高版本编译的，编译器会为带有默认值的形参生成正确的包装器。这包括与 1.5.8 之前的二进制文件兼容的包装器，这意味着下游库也将能够使用该 open 函数。
 * 如果该 open 可组合函数是使用早于 2.1.20 的 Kotlin 版本编译的，Compose 会使用兼容模式，这可能会导致运行时崩溃。在使用兼容模式时，编译器会发出警告以突出潜在问题。
 
-### 允许将 final 重写函数设为可重新启动 (restartable)
+### 允许将 final 重写函数设为可重新启动 (restartable) {id="final-overridden-functions-are-allowed-to-be-restartable"}
 
 虚拟函数（对 `open` 和 `abstract` 的重写，包括接口）[在 2.1.0 版本中被强制要求不可重新启动](whatsnew21.md#changes-to-open-and-overridden-composable-functions)。现在，对于作为 final 类的成员或其本身为 `final` 的函数，这一限制已放宽——它们将像往常一样被重新启动或跳过。
 
 升级到 Kotlin 2.1.20 后，您可能会观察到受影响函数的一些行为变化。要强制执行上一个版本中的不可重新启动逻辑，请将 `@NonRestartableComposable` 注解应用于该函数。
 
-### `ComposableSingletons` 从公共 API 中移除
+### `ComposableSingletons` 从公共 API 中移除 {id="composablesingletons-removed-from-public-api"}
 
 `ComposableSingletons` 是 Compose 编译器在优化 `@Composable` lambda 时创建的一个类。不捕获任何形参的 lambda 只会被分配一次，并缓存到该类的一个属性中，从而节省运行时的分配开销。该类在生成时具有 internal 可见性，仅旨在用于优化编译单元（通常是一个文件）内部的 lambda。
 
 但是，此优化以前也应用于 `inline` 函数体，导致单例 lambda 实例泄露到公共 API 中。为了解决这个问题，从 2.1.20 开始，内联函数内部的 `@Composable` lambda 不再被优化为单例。同时，Compose 编译器将继续为内联函数生成单例类和 lambda，以支持与根据旧模型编译的模块的二进制兼容性。
 
-### 默认包含源信息
+### 默认包含源信息 {id="source-information-included-by-default"}
 
 Compose 编译器 Gradle 插件在 Android 上已默认启用[包含源信息](https://kotlinlang.org/api/kotlin-gradle-plugin/compose-compiler-gradle-plugin/org.jetbrains.kotlin.compose.compiler.gradle/-compose-compiler-gradle-plugin-extension/include-source-information.html)功能。从 Kotlin 2.1.20 开始，此功能将在所有平台上默认启用。
 
 请记得检查您是否使用了 `freeCompilerArgs` 设置此选项。由于该选项实际上被设置了两次，此方法在与插件一起使用时可能会导致构建失败。
 
-## 破坏性变更与弃用
+## 破坏性变更与弃用 {id="breaking-changes-and-deprecations"}
 
 * 为了使 Kotlin Multiplatform 与 Gradle 即将发生的变更保持一致，我们正在逐步取消 `withJava()` 函数。[Java 源集现在默认创建](https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html#java-source-sets-created-by-default)。如果您使用了 [Java 测试装置 (test fixtures)](https://docs.gradle.org/current/userguide/java_testing.html#sec:java_test_fixtures) Gradle 插件，请直接升级到 [Kotlin 2.1.21](releases.md#release-history) 以避免兼容性问题。
 * JetBrains 团队正在推进 `kotlin-android-extensions` 插件的弃用工作。如果您尝试在项目中使用它，现在会收到配置错误，并且不会执行任何插件代码。
 * `kotlin.incremental.classpath.snapshot.enabled` 旧有属性已从 Kotlin Gradle 插件中移除。该属性曾用于提供回退到 JVM 上内置 ABI 快照的机会。该插件现在使用其他方法来检测和避免不必要的重新编译，从而使该属性过时。
 
-## 文档更新
+## 文档更新 {id="documentation-updates"}
 
 Kotlin 文档进行了一些显著的更改：
 
-### 翻新及新增页面
+### 翻新及新增页面 {id="revamped-and-new-pages"}
 
 * [Kotlin 路线图](roadmap.md) —— 查看有关语言和生态系统演进的 Kotlin 更新优先事项列表。
 * [Gradle 最佳做法](gradle-best-practices.md)页面 —— 学习优化 Gradle 构建和提高性能的基本最佳做法。
@@ -499,13 +499,13 @@ Kotlin 文档进行了一些显著的更改：
 * [与 C 的互操作性](native-c-interop.md) —— 探索 Kotlin 与 C 互操作的细节。
 * [数字](numbers.md) —— 了解用于表示数字的不同 Kotlin 类型。
 
-### 新增及更新的教程
+### 新增及更新的教程 {id="new-and-updated-tutorials"}
 
 * [将您的库发布到 Maven Central](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-libraries.html) —— 了解如何将 KMP 库构件发布到最流行的 Maven 仓库。
 * [作为动态库的 Kotlin/Native](native-dynamic-libraries.md) —— 创建一个动态 Kotlin 库。
 * [作为 Apple 框架的 Kotlin/Native](apple-framework.md) —— 创建您自己的框架，并在 macOS 和 iOS 上的 Swift/Objective-C 应用程序中使用 Kotlin/Native 代码。
 
-## 如何更新到 Kotlin 2.1.20
+## 如何更新到 Kotlin 2.1.20 {id="how-to-update-to-kotlin-2-1-20"}
 
 从 IntelliJ IDEA 2023.3 和 Android Studio Iguana (2023.2.1) Canary 15 开始，Kotlin 插件作为捆绑插件包含在您的 IDE 中。这意味着您无法再从 JetBrains Marketplace 安装该插件。
 

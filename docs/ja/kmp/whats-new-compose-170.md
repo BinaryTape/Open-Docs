@@ -14,7 +14,7 @@
 
 このリリースの変更点の全リストは、[GitHub](https://github.com/JetBrains/compose-multiplatform/blob/master/CHANGELOG.md#170-october-2024) で確認できます。
 
-## 依存関係 (Dependencies)
+## 依存関係 (Dependencies) {id="dependencies"}
 
 * Gradle プラグイン `org.jetbrains.compose` バージョン 1.7.3。以下の Jetpack Compose ライブラリに基づいています：
   * [Runtime 1.7.5](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.7.5)
@@ -26,9 +26,9 @@
 * Navigation ライブラリ `org.jetbrains.androidx.navigation:navigation-*:2.8.0-alpha10`。[Jetpack Navigation 2.8.0](https://developer.android.com/jetpack/androidx/releases/navigation#2.8.0) に基づいています。
 * Material3 Adaptive ライブラリ `org.jetbrains.compose.material3.adaptive:adaptive-*:1.0.0`。[Jetpack Material3 Adaptive 1.0.0](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.0.0) に基づいています。
 
-## 破壊的変更 (Breaking changes)
+## 破壊的変更 (Breaking changes) {id="breaking-changes"}
 
-### 最小 AGP バージョンが 8.1.0 に引き上げられました
+### 最小 AGP バージョンが 8.1.0 に引き上げられました {id="minimum-agp-version-raised-to-8-1-0"}
 
 Compose Multiplatform 1.7.0 で使用されている Jetpack Compose 1.7.0 および Lifecycle 2.8.0 は、いずれも AGP 7 をサポートしていません。
 そのため、Compose Multiplatform 1.7.3 にアップデートする際、AGP の依存関係もアップグレードする必要がある場合があります。
@@ -37,7 +37,7 @@ Compose Multiplatform 1.7.0 で使用されている Jetpack Compose 1.7.0 お�
 >
 {style="note"}
 
-### Java リソース API が非推奨となり、マルチプラットフォームリソースライブラリが推奨されます
+### Java リソース API が非推奨となり、マルチプラットフォームリソースライブラリが推奨されます {id="java-resources-api-is-deprecated-in-favor-of-the-multiplatform-resource-library"}
 
 <!-- TODO additional copy editing -->
 
@@ -48,7 +48,7 @@ Java リソースを Compose Multiplatform で使用し続けることは可能�
 
 引き続き Java リソースにアクセスする必要がある場合は、[プルリクエストで提案されている実装](https://github.com/JetBrains/compose-multiplatform-core/pull/1457)をコピーすることで、Compose Multiplatform 1.7.3 にアップグレードし、可能な限りマルチプラットフォームリソースに切り替えた後でも、コードが動作するようにできます。
 
-### iOS ネイティブ要素におけるタッチ処理の新しいデフォルト動作
+### iOS ネイティブ要素におけるタッチ処理の新しいデフォルト動作 {id="new-default-behavior-for-processing-touch-in-ios-native-elements"}
 
 1.7.3 より前の Compose Multiplatform では、相互運用（interop）UI ビュー内で発生したタッチイベントに応答できなかったため、相互運用ビューがこれらのタッチシーケンスを完全に処理していました。
 
@@ -57,14 +57,14 @@ Compose Multiplatform 1.7.3 では、相互運用タッチシーケンスを処�
 
 詳細については、[このページの iOS セクション](#ios-touch-interop)の説明を参照するか、[この機能のドキュメント](compose-ios-touch.md)をお読みください。
 
-### iOS での最小フレーム持続時間の無効化が必須になりました
+### iOS での最小フレーム持続時間の無効化が必須になりました {id="disabling-minimum-frame-duration-on-ios-is-mandatory"}
 
 開発者が高リフレッシュレートディスプレイに関する出力警告を見落とすことが多く、ユーザーが 120Hz 対応デバイスでスムーズなアニメーションを享受できないケースがありました。
 現在、このチェックを厳格に適用しています。`Info.plist` ファイルに `CADisableMinimumFrameDurationOnPhone` プロパティが存在しないか、`false` に設定されている場合、Compose Multiplatform で構築されたアプリはクラッシュするようになります。
 
 この動作を無効にするには、`ComposeUIViewControllerConfiguration.enforceStrictPlistSanityCheck` プロパティを `false` に設定します。
 
-### デスクトップにおける Modifier.onExternalDrag の非推奨化
+### デスクトップにおける Modifier.onExternalDrag の非推奨化 {id="deprecated-modifier-onexternaldrag-on-desktop"}
 
 <!-- TODO additional copy editing -->
 
@@ -74,16 +74,16 @@ Compose Multiplatform 1.7.3 では、相互運用タッチシーケンスを処�
 Compose Multiplatform 1.7.0 で非推奨の API を使用している場合、非推奨エラーが発生します。
 1.8.0 では `onExternalDrag` 修飾子は完全に削除される予定です。
 
-## プラットフォーム共通 (Across platforms)
+## プラットフォーム共通 (Across platforms) {id="across-platforms"}
 
-### シェアードエレメント遷移 (Shared element transitions)
+### シェアードエレメント遷移 (Shared element transitions) {id="shared-element-transitions"}
 
 Compose Multiplatform で、共通の要素を持つコンポーザブル間でシームレスな遷移を行うための API が提供されました。
 これらの遷移はナビゲーションにおいて便利で、ユーザーが UI の変化の軌跡を追うのに役立ちます。
 
 API の詳細については、[Jetpack Compose のドキュメント](https://developer.android.com/develop/ui/compose/animation/shared-elements)を参照してください。
 
-### 型安全なナビゲーション (Type-safe Navigation)
+### 型安全なナビゲーション (Type-safe Navigation) {id="type-safe-navigation"}
 
 Compose Multiplatform は、ナビゲーションルートに沿ってオブジェクトを渡すための Jetpack Compose の型安全なアプローチを採用しました。
 Navigation 2.8.0 の新しい API により、Compose はナビゲーショングラフにコンパイル時の安全性を提供できます。
@@ -91,9 +91,9 @@ Navigation 2.8.0 の新しい API により、Compose はナビゲーション�
 
 詳細は、[Navigation Compose における型安全性に関する Google のドキュメント](https://developer.android.com/guide/navigation/design/type-safety)を参照してください。
 
-### マルチプラットフォームリソース
+### マルチプラットフォームリソース {id="multiplatform-resources"}
 
-#### Android アセットにパックされたマルチプラットフォームリソース
+#### Android アセットにパックされたマルチプラットフォームリソース {id="resources-packed-into-android-assets"}
 
 すべてのマルチプラットフォームリソースが Android アセットにパックされるようになりました。これにより、Android Studio は Android ソースセット内の Compose Multiplatform コンポーザブルのプレビューを生成できるようになります。
 
@@ -151,15 +151,15 @@ fun App() {
 
 ![composeResources ディレクトリのファイル構造](compose-resources-android-webview.png){width="230"}
 
-#### カスタムリソースディレクトリ
+#### カスタムリソースディレクトリ {id="custom-resource-directories"}
 
 設定 DSL の新しい `customDirectory` 設定を使用すると、[特定のソースセットにカスタムディレクトリを関連付ける](compose-multiplatform-resources-setup.md#custom-resource-directories)ことができます。これにより、例えばダウンロードしたファイルをリソースとして使用することが可能になります。
 
-#### マルチプラットフォームフォントキャッシュ
+#### マルチプラットフォームフォントキャッシュ {id="multiplatform-font-cache"}
 
 Compose Multiplatform は、Android のフォントキャッシュ機能を他のプラットフォームにも導入し、`Font` リソースの過度なバイト読み取りを排除しました。
 
-#### マルチプラットフォームテストリソースのサポート
+#### マルチプラットフォームテストリソースのサポート {id="support-for-multiplatform-test-resources"}
 
 リソースライブラリがプロジェクト内でのテストリソースの使用をサポートするようになりました。これにより、以下のことが可能になります：
 
@@ -167,7 +167,7 @@ Compose Multiplatform は、Android のフォントキャッシュ機能を他�
 * 対応するソースセットでのみ利用可能な生成されたアクセサの使用。
 * テスト実行時のみアプリにテストリソースをパック。
 
-#### 簡単にアクセスできるように文字列 ID にマッピングされたリソース
+#### 簡単にアクセスできるように文字列 ID にマッピングされたリソース {id="resources-mapped-to-string-ids-for-easy-access"}
 
 各タイプのリソースは、そのファイル名でマッピングされます。例えば、`Res.allDrawableResources` プロパティを使用して、すべての `drawable` リソースのマップを取得し、文字列 ID を渡すことで必要なリソースにアクセスできます：
 
@@ -175,7 +175,7 @@ Compose Multiplatform は、Android のフォントキャッシュ機能を他�
 Image(painterResource(Res.allDrawableResources["compose_multiplatform"]!!), null)
 ```
 
-#### バイト配列を ImageBitmap または ImageVector に変換する関数
+#### バイト配列を ImageBitmap または ImageVector に変換する関数 {id="functions-for-converting-byte-arrays-into-imagebitmap-or-imagevector"}
 
 `ByteArray` を画像リソースに変換するための新しい関数が追加されました：
 
@@ -185,9 +185,9 @@ Image(painterResource(Res.allDrawableResources["compose_multiplatform"]!!), null
 
 詳細は [ドキュメント](compose-multiplatform-resources-usage.md#convert-byte-arrays-into-images) を参照してください。
 
-### 新しい共通モジュール
+### 新しい共通モジュール {id="new-common-modules"}
 
-#### material3.adaptive:adaptive*
+#### material3.adaptive:adaptive* {id="material3-adaptive-adaptive"}
 
 Material3 Adaptive モジュールが Compose Multiplatform の共通コードで利用可能になりました。
 これらを使用するには、モジュールの `build.gradle.kts` ファイルで共通ソースセットに対応する依存関係を明示的に追加します：
@@ -200,7 +200,7 @@ commonMain.dependencies {
 }
 ```
 
-#### material3.material3-adaptive-navigation-suite
+#### material3.material3-adaptive-navigation-suite {id="material3-material3-adaptive-navigation-suite"}
 
 Compose で[アダプティブナビゲーションを構築する](https://developer.android.com/develop/ui/compose/layouts/adaptive/build-adaptive-navigation)ために必要な Material3 adaptive navigation suite が、Compose Multiplatform の共通コードで利用可能になりました。
 これを使用するには、モジュールの `build.gradle.kts` ファイルで共通ソースセットに依存関係を明示的に追加します：
@@ -211,7 +211,7 @@ commonMain.dependencies {
 }
 ```
 
-#### material3:material3-window-size-class
+#### material3:material3-window-size-class {id="material3-material3-window-size-class"}
 
 [`WindowSizeClass`](https://developer.android.com/reference/kotlin/androidx/compose/material3/windowsizeclass/package-summary) クラスを使用するには、モジュールの `build.gradle.kts` ファイルで共通ソースセットに `material3-window-size-class` の依存関係を明示的に追加します：
 
@@ -233,7 +233,7 @@ import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 val size = calculateWindowSizeClass()
 ```
 
-#### material-navigation
+#### material-navigation {id="material-navigation"}
 
 `material-navigation` ライブラリが、Compose Multiplatform Navigation に加えて共通コードで利用可能になりました。
 これを使用するには、モジュールの `build.gradle.kts` ファイルで共通ソースセットに以下の明示的な依存関係を追加します：
@@ -245,13 +245,13 @@ commonMain.dependencies {
 }
 ```
 
-### Skia を Milestone 126 にアップデート
+### Skia を Milestone 126 にアップデート {id="skia-updated-to-milestone-126"}
 
 [Skiko](https://github.com/JetBrains/skiko) を通じて Compose Multiplatform で使用されている Skia のバージョンが、Milestone 126 にアップデートされました。
 
 以前に使用されていた Skia のバージョンは Milestone 116 でした。これらのバージョン間で行われた変更は [リリースノート](https://skia.googlesource.com/skia/+/refs/heads/main/RELEASE_NOTES.md#milestone-126) で確認できます。
 
-### GraphicsLayer – 新しい描画 API
+### GraphicsLayer – 新しい描画 API {id="graphicslayer-a-new-drawing-api"}
 
 Jetpack Compose 1.7.0 で追加された新しい描画レイヤーが、Compose Multiplatform でも利用可能になりました。
 
@@ -260,13 +260,13 @@ Jetpack Compose 1.7.0 で追加された新しい描画レイヤーが、Compose
 
 詳細な説明と例については、[リファレンスドキュメント](https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/layer/GraphicsLayer)を参照してください。
 
-### LocalLifecycleOwner が Compose UI から移動
+### LocalLifecycleOwner が Compose UI から移動 {id="locallifecycleowner-moved-out-of-compose-ui"}
 
 `LocalLifecycleOwner` クラスが Compose UI パッケージから Lifecycle パッケージに移動されました。
 
 この変更により、Compose UI とは独立してクラスにアクセスし、その Compose ベースのヘルパー API を呼び出すことができるようになります。ただし、Compose UI バインディングがない場合、`LocalLifecycleOwner` インスタンスはプラットフォーム統合を持たないため、リッスンすべきプラットフォーム固有のイベントは発生しないことに注意してください。
 
-## iOS
+## iOS {id="ios"}
 
 ### Compose Multiplatform とネイティブ iOS 間のタッチ相互運用の改善 {id="ios-touch-interop"}
 
@@ -283,7 +283,7 @@ Compose Multiplatform は、タッチが相互運用ビューに向けられた�
 これにより、相互運用ビューで始まるタッチシーケンスが、Compose Multiplatform がそれを処理する機会を得る前にインターセプトされてしまう状況を防ぐことができます。このような状況は、ユーザー体験を損なう可能性があります。
 例えば、遅延リスト（lazy list）のようなスクロール可能なコンテキストで使用される大きな相互運用ビデオプレーヤーを想像してください。画面の大部分が、Compose Multiplatform が関知しないまま、すべてのタッチをインターセプトするビデオで占められている場合、リストをスクロールするのは困難です。
 
-### ネイティブのパフォーマンス向上
+### ネイティブのパフォーマンス向上 {id="native-performance-improvements"}
 
 <!-- TODO additional copy editing -->
 
@@ -305,9 +305,9 @@ Compose Multiplatform リポジトリで、これらの Compose 固有のベン�
 * [Kotlin/Native パフォーマンスベンチマーク](https://github.com/JetBrains/compose-multiplatform/tree/master/benchmarks/kn-performance)
 * [Kotlin/JVM 対 Kotlin/Native ベンチマーク](https://github.com/JetBrains/compose-multiplatform/tree/master/benchmarks/ios/jvm-vs-kotlin-native)
 
-## デスクトップ (Desktop)
+## デスクトップ (Desktop) {id="desktop"}
 
-### ドラッグ＆ドロップ
+### ドラッグ＆ドロップ {id="drag-and-drop"}
 
 ユーザーが Compose アプリケーションにコンテンツをドラッグしたり、アプリケーションからドラッグしたりできるようにするドラッグ＆ドロップメカニズムが、デスクトップ向けの Compose Multiplatform で実装されました。
 ドラッグ＆ドロップの潜在的なソース（転送元）とデスティネーション（転送先）を指定するには、`dragAndDropSource` および `dragAndDropTarget` 修飾子を使用します。
@@ -318,7 +318,7 @@ Compose Multiplatform リポジトリで、これらの Compose 固有のベン�
 
 一般的なユースケースについては、Jetpack Compose ドキュメントの[専用記事](https://developer.android.com/develop/ui/compose/touch-input/user-interactions/drag-and-drop)を参照してください。
 
-### BasicTextField (BasicTextField2 から改称) をデスクトップで採用
+### BasicTextField (BasicTextField2 から改称) をデスクトップで採用 {id="basictextfield-renamed-from-basictextfield2-adopted-on-desktop"}
 
 Jetpack Compose は `BasicTextField2` コンポーネントを安定版とし、`BasicTextField` に改称しました。
 今回のリリースで、Compose Multiplatform はデスクトップターゲット向けにこの変更を採用しました。安定版 1.7.0 では iOS もカバーする予定です。
@@ -330,16 +330,16 @@ Jetpack Compose は `BasicTextField2` コンポーネントを安定版とし、
 * 視覚的な変換やスタイリングのためのいくつかの新しい API が含まれています。
 * `UndoState` へのアクセスを提供し、フィールドの以前の状態に戻ることができます。
 
-### ComposePanel のレンダリング設定
+### ComposePanel のレンダリング設定 {id="render-settings-for-composepanel"}
 
 `ComposePanel` コンストラクタで新しい `RenderSettings.isVsyncEnabled` パラメータを指定することで、バックエンドのレンダリング実装に対して垂直同期（Vsync）を無効にするようヒントを与えることができます。
 これにより、入力と UI の変化の間の視覚的なレイテンシを短縮できますが、画面のティアリング（引き裂き）が発生する可能性もあります。
 
 デフォルトの動作は変わりません。`ComposePanel` は描画プレゼンテーションを VSync と同期させようとします。
 
-## ウェブ (Web)
+## ウェブ (Web) {id="web"}
 
-### Kotlin/Wasm アプリケーションにおける skiko.js の不要化
+### Kotlin/Wasm アプリケーションにおける skiko.js の不要化 {id="skiko-js-is-redundant-for-kotlin-wasm-applications"}
 
 <!-- TODO additional copy editing -->
 

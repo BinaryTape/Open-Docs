@@ -13,7 +13,7 @@
 
 在 GitHub 上探索 [Kotlin DataFrame SQL 範例](https://github.com/zaleslaw/KotlinDataFrame-SQL-Examples/tree/master/src/main/kotlin)。
 
-## 開始之前
+## 開始之前 {id="before-you-start"}
 
 > 從 IntelliJ IDEA 2026.2 開始，Kotlin Notebook 將不再隨 IDE 封裝，也不再由 JetBrains 正式支援。
 > 原始碼仍可在 [GitHub](https://github.com/Kotlin/kotlin-notebook) 上取得。
@@ -44,7 +44,7 @@
 
 若要依照教學進行，您也可以將 DataFrame 作為 [Gradle](https://kotlin.github.io/dataframe/setupgradle.html) 或 [Maven](https://kotlin.github.io/dataframe/setupmaven.html) 相依性使用。
 
-## 連接到資料庫
+## 連接到資料庫 {id="connect-to-a-database"}
 
 若要連接到資料庫，請使用 `DbConnectionConfig()` 函式建立連線配置：
 
@@ -69,7 +69,7 @@
 >
 {style="tip"}
 
-## 檢查資料庫架構
+## 檢查資料庫架構 {id="inspect-database-schema"}
 
 在載入資料之前，請檢查資料庫架構，以了解您擁有哪些資料表以及其中包含哪些欄位。您可以使用架構來決定要將哪個資料表載入到 DataFrame 中。
 
@@ -85,7 +85,7 @@ dataSchemas.forEach { (tableName, schema) ->
 }
 ```
 
-## 載入資料
+## 載入資料 {id="load-data"}
 
 在檢查資料庫架構並選取資料後，將資料載入到 DataFrame 中。
 
@@ -96,7 +96,7 @@ Kotlin DataFrame 提供兩種從資料庫載入資料的方式：
 
 這兩種方法都會傳回一個 DataFrame，您可以在其中進行檢查、轉換和分析。
 
-### 從資料表載入資料
+### 從資料表載入資料 {id="load-data-from-a-table"}
 
 若要從資料表載入資料，請使用 [`DataFrame.readSqlTable()`](https://kotlin.github.io/dataframe/readsqldatabases.html#reading-specific-tables) 函式。
 
@@ -112,7 +112,7 @@ val moviesDf = DataFrame.readSqlTable(
 moviesDf
 ```
 
-### 使用 SQL 查詢載入資料
+### 使用 SQL 查詢載入資料 {id="load-data-with-an-sql-query"}
 
 若要在資料庫上執行特定的 SQL 查詢，請使用 [`DataFrame.readSqlQuery()`](https://kotlin.github.io/dataframe/readsqldatabases.html#executing-sql-queries) 函式。當您需要在資料庫中載入特定欄位、聯結資料表、篩選資料列或聚合資料時，此方法非常有用。
 
@@ -133,7 +133,7 @@ val tarantinoMoviesDf = DataFrame.readSqlQuery(dbConfig, TARANTINO_FILMS_SQL_QUE
 tarantinoMoviesDf
 ```
 
-## 處理資料
+## 處理資料 {id="process-data"}
 
 將資料庫載入到 DataFrame 後，您可以使用 DataFrame 操作來處理檢索到的資料。
 
@@ -151,7 +151,7 @@ val filteredTarantinoMovies = tarantinoMoviesDf
 filteredTarantinoMovies
 ```
 
-## 分析資料
+## 分析資料 {id="analyze-data"}
 
 使用 [DataFrame 程式庫](https://kotlin.github.io/dataframe/home.html)對資料進行分組、排序和聚合，以便發現並理解資料中的模式。
 
@@ -174,7 +174,7 @@ val top20ActorNames = actorDf
    .take(20)
 ```
 
-## 後續步驟
+## 後續步驟 {id="what-s-next"}
 
 * 使用 [Kandy 程式庫](https://kotlin.github.io/kandy/examples.html)探索資料視覺化
 * 在[使用 Kandy 進行資料視覺化](data-analysis-visualization.md)中尋找關於資料視覺化的更多資訊

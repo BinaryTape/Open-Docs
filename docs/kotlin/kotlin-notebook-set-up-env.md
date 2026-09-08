@@ -9,7 +9,7 @@
 
 在创建第一个 [Kotlin Notebook](kotlin-notebook-overview.md) 之前，您需要先设置环境。
 
-## 设置环境
+## 设置环境 {id="set-up-the-environment"}
 
 Kotlin Notebook 依赖于 [Kotlin Notebook 插件](https://plugins.jetbrains.com/plugin/16340-kotlin-notebook)。
 
@@ -24,7 +24,7 @@ Kotlin Notebook 依赖于 [Kotlin Notebook 插件](https://plugins.jetbrains.com
 
 3. 点击 **确定 (OK)** 以应用更改，并根据提示重启 IDE。
 
-## 下一步
+## 下一步 {id="next-step"}
 
 在教程的下一部分中，您将学习如何创建 Kotlin Notebook。
 

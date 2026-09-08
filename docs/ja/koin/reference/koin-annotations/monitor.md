@@ -4,7 +4,7 @@ title: "@Monitor による Koin の組み込みパフォーマンス・モニタ
 
 `@Monitor` アノテーション（Koin Annotations 2.2.0 以降で利用可能）は、Koin の公式ツール・プラットフォームである [Kotzilla Platform](https://kotzilla.io) を通じて、Koin コンポーネントの自動的なパフォーマンス・モニタリングとトレースを可能にします。
 
-## セットアップ
+## セットアップ {id="setup"}
 
 Kotzilla SDK の依存関係を追加します：
 
@@ -42,7 +42,7 @@ fun initKoin() {
 }
 ```
 
-## 基本的な使い方
+## 基本的な使い方 {id="basic-usage"}
 
 Koin コンポーネントに `@Monitor` を付与するだけです：
 
@@ -58,7 +58,7 @@ class UserService(private val userRepository: UserRepository) {
 }
 ```
 
-## 生成されるコード
+## 生成されるコード {id="generated-code"}
 
 コンパイラは、コンポーネントをラップするプロキシ・クラスを自動的に生成します：
 
@@ -87,7 +87,7 @@ Koin は元のクラスの代わりにプロキシを自動的に使用し、以
 - エラー率とエラーの種類
 - パフォーマンスのボトルネック
 
-## ViewModel のモニタリング
+## ViewModel のモニタリング {id="viewmodels-monitoring"}
 
 UI パフォーマンスを追跡するために、ViewModel をモニタリングします：
 
@@ -99,7 +99,7 @@ class DetailViewModel(private val repository: Repository) : ViewModel() {
 }
 ```
 
-## Kotzilla Platform との統合
+## Kotzilla Platform との統合 {id="kotzilla-platform-integration"}
 
 モニタリング・データは [Kotzilla Platform](https://kotzilla.io) ワークスペースに自動的に送信され、以下を提供します：
 
@@ -124,7 +124,7 @@ class DetailViewModel(private val repository: Repository) : ViewModel() {
 }
 ```
 
-## 要件
+## 要件 {id="requirements"}
 
 - `@Monitor` が付与されたクラスは open である必要があります（`allOpen` プラグインによって自動的に処理されます）
 - 実行時に Kotzilla SDK の依存関係が利用可能である必要があります

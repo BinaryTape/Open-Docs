@@ -9,7 +9,7 @@ Compose Multiplatform 与 [SwiftUI](https://developer.apple.com/swiftui/) 框架
 >
 {style="tip"}
 
-## 在 SwiftUI 应用程序中使用 Compose Multiplatform
+## 在 SwiftUI 应用程序中使用 Compose Multiplatform {id="use-compose-multiplatform-inside-a-swiftui-application"}
 
 要在 SwiftUI 应用程序中使用 Compose Multiplatform，请创建一个 Kotlin 函数 `MainViewController()`，该函数返回 UIKit 中的 [`UIViewController`](https://developer.apple.com/documentation/uikit/uiviewcontroller/) 并包含 Compose Multiplatform 代码：
 
@@ -57,7 +57,7 @@ struct ComposeViewController: UIViewControllerRepresentable {
 如果您想将 Compose Multiplatform 嵌入到现有应用程序中，请在任何使用 SwiftUI 的地方使用 `ComposeView` 结构。
 有关示例，请参阅我们的[示例项目](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/interop/ios-compose-in-swiftui)。
 
-## 在 Compose Multiplatform 中使用 SwiftUI
+## 在 Compose Multiplatform 中使用 SwiftUI {id="use-swiftui-inside-compose-multiplatform"}
 
 要在 Compose Multiplatform 中使用 SwiftUI，请将您的 Swift 代码添加到中间的 [`UIViewController`](https://developer.apple.com/documentation/uikit/uiviewcontroller/) 中。
 目前，您无法直接在 Kotlin 中编写 SwiftUI 结构。相反，您必须在 Swift 中编写它们并将其传递给 Kotlin 函数。
@@ -103,7 +103,7 @@ Main_iosKt.ComposeEntryPointWithUIViewController(createUIViewController: { () ->
 
 在[示例项目](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/interop/ios-swiftui-in-compose)中探索此示例的代码。
 
-### 地图视图
+### 地图视图 {id="map-view"}
 
 您可以使用 SwiftUI 的 [`Map`](https://developer.apple.com/documentation/mapkit/map) 组件在 Compose Multiplatform 中实现地图视图。这允许您的应用显示完全交互式的 SwiftUI 地图。
 
@@ -174,7 +174,7 @@ Main_iosKt.ComposeEntryPointWithUIViewController(createUIViewController: {
 * 使用 `annotationItems` 以声明方式在地图上放置自定义标记。
 * 将 SwiftUI 组件包装在 `UIHostingController` 中，然后将其作为 `UIViewController` 传递给 Compose Multiplatform。
 
-### 相机视图
+### 相机视图 {id="camera-view"}
 
 您可以使用 SwiftUI 和 UIKit 的 [`UIImagePickerController`](https://developer.apple.com/documentation/uikit/uiimagepickercontroller) 在 Compose Multiplatform 中实现相机视图，并将其包装在兼容 SwiftUI 的组件中。这允许您的应用启动系统相机并拍摄照片。
 
@@ -288,7 +288,7 @@ struct CameraPreview: View {
 >
 {style="note"}
 
-### Web 视图
+### Web 视图 {id="web-view"}
 
 您可以通过使用 `UIViewRepresentable` 包装 UIKit 的 [`WKWebView`](https://developer.apple.com/documentation/webkit/wkwebview) 组件，在 Compose Multiplatform 中使用 SwiftUI 实现 Web 视图。这允许您显示具有完整原生渲染的嵌入式 Web 内容。
 
@@ -390,7 +390,7 @@ struct WebViewContainer: View {
 * 使用 `Text` 组件在视图顶部显示当前 URL。
 * 使用 `UIHostingController` 将此组件集成到您的 Compose UI 中。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * 了解如何在使用 Compose 渲染屏幕内容的同时，[使用原生 SwiftUI 导航来实现系统渲染的 Liquid Glass 效果](ios-liquid-glass.md)。
 * 探索 Compose Multiplatform [与 UIKit 框架集成](compose-uikit-integration.md)的方式。

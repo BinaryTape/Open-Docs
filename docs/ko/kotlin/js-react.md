@@ -16,7 +16,7 @@
 >
 {style="note"}
 
-## 시작하기 전에
+## 시작하기 전에 {id="before-you-start"}
 
 1. 최신 버전의 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)를 다운로드하여 설치합니다.
 2. [프로젝트 템플릿](https://github.com/kotlin-hands-on/web-app-react-kotlin-js-gradle)을 복제(clone)하고 IntelliJ IDEA에서 엽니다. 템플릿에는 필요한 모든 구성과 종속성이 포함된 기본 Kotlin 멀티플랫폼 Gradle 프로젝트가 포함되어 있습니다.
@@ -74,7 +74,7 @@
    }
    ```
 
-### 개발 서버 실행
+### 개발 서버 실행 {id="run-the-development-server"}
 
 기본적으로 Kotlin 멀티플랫폼 Gradle 플러그인은 내장된 `webpack-dev-server` 지원 기능을 제공하므로, 수동으로 서버를 설정하지 않고도 IDE에서 애플리케이션을 실행할 수 있습니다.
 
@@ -88,7 +88,7 @@
 
 ![빈 빨간색 페이지](red-page.png){width=700}
 
-### 핫 리로드(Hot Reload) / 연속 모드 활성화
+### 핫 리로드(Hot Reload) / 연속 모드 활성화 {id="enable-hot-reload-continuous-mode"}
 
 변경할 때마다 프로젝트를 수동으로 컴파일하고 실행할 필요가 없도록 _[연속 컴파일(continuous compilation)](dev-server-continuous-compilation.md)_ 모드를 구성합니다. 진행하기 전에 실행 중인 모든 개발 서버 인스턴스를 중지해야 합니다.
 
@@ -116,9 +116,9 @@
 >
 {style="note"}
 
-## 웹 앱 초안 만들기
+## 웹 앱 초안 만들기 {id="create-a-web-app-draft"}
 
-### React로 첫 번째 정적 페이지 추가
+### React로 첫 번째 정적 페이지 추가 {id="add-the-first-static-page-with-react"}
 
 앱에 간단한 메시지를 표시하려면 `Main.kt` 파일의 코드를 다음으로 교체하세요.
 
@@ -155,7 +155,7 @@ fun main() {
 
 ![HTML 페이지 예시](hello-react-js.png){width=700}
 
-### HTML을 Kotlin의 타입 안전한 HTML DSL로 변환
+### HTML을 Kotlin의 타입 안전한 HTML DSL로 변환 {id="convert-html-to-kotlin-s-typesafe-html-dsl"}
 
 React용 Kotlin [래퍼(wrappers)](https://github.com/JetBrains/kotlin-wrappers/blob/master/kotlin-react/README.md)에는 순수 Kotlin 코드로 HTML을 작성할 수 있게 해주는 [도메인 특화 언어(DSL)](type-safe-builders.md)가 포함되어 있습니다. 이런 방식은 JavaScript의 [JSX](https://reactjs.org/docs/introducing-jsx.html)와 유사합니다. 하지만 이 마크업은 Kotlin이므로 자동 완성이나 타입 검사와 같은 정적 타입 언어의 모든 이점을 누릴 수 있습니다.
 
@@ -226,7 +226,7 @@ Kotlin 코드를 복사하여 `main()` 함수 내부의 `Fragment.create()` 함�
 
 ![웹 앱 초안](website-draft.png){width=700}
 
-### 마크업에 Kotlin 구문을 사용하여 비디오 추가
+### 마크업에 Kotlin 구문을 사용하여 비디오 추가 {id="add-videos-using-kotlin-constructs-in-markup"}
 
 이 DSL을 사용하여 Kotlin에서 HTML을 작성하면 몇 가지 장점이 있습니다. 루프(반복문), 조건문, 컬렉션, 문자열 보간과 같은 일반적인 Kotlin 구문을 사용하여 앱을 조작할 수 있습니다.
 
@@ -279,7 +279,7 @@ Kotlin 코드를 복사하여 `main()` 함수 내부의 `Fragment.create()` 함�
 
 브라우저가 다시 로드될 때까지 기다립니다. 레이아웃은 이전과 동일하게 유지되어야 합니다. 루프가 제대로 작동하는지 확인하기 위해 목록에 비디오를 몇 개 더 추가해 볼 수 있습니다.
 
-### 타입 안전한 CSS로 스타일 추가
+### 타입 안전한 CSS로 스타일 추가 {id="add-styles-with-typesafe-css"}
 
 [Emotion](https://emotion.sh/docs/introduction) 라이브러리용 [kotlin-emotion](https://github.com/JetBrains/kotlin-wrappers/blob/master/kotlin-emotion/) 래퍼를 사용하면 동적인 속성을 포함한 CSS 속성을 JavaScript와 함께 HTML 바로 옆에 지정할 수 있습니다. 개념적으로 이는 Kotlin용 [CSS-in-JS](https://reactjs.org/docs/faq-styling.html#what-is-css-in-js)와 유사합니다. DSL을 사용하는 것의 이점은 Kotlin 코드 구문을 사용하여 서식 규칙을 표현할 수 있다는 점입니다.
 
@@ -316,7 +316,7 @@ div {
 
 다른 스타일도 자유롭게 실험해 보세요. 예를 들어 `fontFamily`를 변경하거나 UI에 `color`를 추가할 수 있습니다.
 
-## 앱 컴포넌트 설계
+## 앱 컴포넌트 설계 {id="design-app-components"}
 
 React의 기본 빌드 블록은 _[컴포넌트(components)](https://reactjs.org/docs/components-and-props.html)_라고 불립니다. 컴포넌트 자체도 다른 더 작은 컴포넌트들로 구성될 수 있습니다. 컴포넌트들을 결합하여 애플리케이션을 구축합니다. 컴포넌트를 범용적이고 재사용 가능하게 구조화하면, 코드나 로직을 중복시키지 않고 앱의 여러 부분에서 사용할 수 있습니다.
 
@@ -330,7 +330,7 @@ React의 기본 빌드 블록은 _[컴포넌트(components)](https://reactjs.org
 
 컴포넌트는 특정 기능을 캡슐화합니다. 컴포넌트를 사용하면 소스 코드가 짧아지고 읽고 이해하기 쉬워집니다.
 
-### 메인 컴포넌트 추가
+### 메인 컴포넌트 추가 {id="add-the-main-component"}
 
 애플리케이션의 구조를 만들기 시작하기 위해, 먼저 `root` 요소에 렌더링할 메인 컴포넌트인 `App`을 명시적으로 지정합니다.
 
@@ -374,7 +374,7 @@ React의 기본 빌드 블록은 _[컴포넌트(components)](https://reactjs.org
 
 React 개념에 대한 자세한 내용은 [문서 및 가이드](https://reactjs.org/docs/hello-world.html#how-to-read-this-guide)를 참조하세요.
 
-### 목록 컴포넌트 추출
+### 목록 컴포넌트 추출 {id="extract-a-list-component"}
 
 `watchedVideos`와 `unwatchedVideos` 목록은 각각 비디오 목록을 포함하고 있으므로, 단일 재사용 가능 컴포넌트를 만들고 목록에 표시되는 내용만 조정하는 것이 합리적입니다.
 
@@ -419,7 +419,7 @@ React 개념에 대한 자세한 내용은 [문서 및 가이드](https://reactj
 
    현재로서는 `App` 컴포넌트가 `VideoList` 컴포넌트에 표시되는 내용을 제어할 수 없습니다. 하드코딩되어 있기 때문에 동일한 목록이 두 번 보일 것입니다.
 
-### 컴포넌트 간 데이터 전달을 위한 Props 추가
+### 컴포넌트 간 데이터 전달을 위한 Props 추가 {id="add-props-to-pass-data-between-components"}
 
 `VideoList` 컴포넌트를 재사용할 것이므로, 서로 다른 내용으로 채울 수 있어야 합니다. 컴포넌트의 속성(attribute)으로 아이템 목록을 전달하는 기능을 추가할 수 있습니다. React에서 이러한 속성을 _props_라고 부릅니다. React에서 컴포넌트의 props가 변경되면 프레임워크는 자동으로 컴포넌트를 다시 렌더링합니다.
 
@@ -469,7 +469,7 @@ React 개념에 대한 자세한 내용은 [문서 및 가이드](https://reactj
 
 다시 로드한 후 브라우저를 확인하면 이제 목록이 올바르게 렌더링되는 것을 볼 수 있습니다.
 
-### 목록을 인터랙티브하게 만들기
+### 목록을 인터랙티브하게 만들기 {id="make-the-list-interactive"}
 
 먼저, 사용자가 목록 항목을 클릭할 때 팝업되는 알림 메시지를 추가합니다. `VideoList.kt`에서 현재 비디오와 함께 알림을 트리거하는 `onClick` 핸들러 함수를 추가합니다.
 
@@ -495,7 +495,7 @@ p {
 >
 {style="tip"}
 
-### 값을 유지하기 위한 상태(State) 추가
+### 값을 유지하기 위한 상태(State) 추가 {id="add-state-to-keep-values"}
 
 단순히 사용자에게 알림을 주는 대신, 선택된 비디오를 ▶ 삼각형으로 강조 표시하는 기능을 추가할 수 있습니다. 이를 위해 이 컴포넌트 전용 _상태(state)_를 도입합니다.
 
@@ -544,7 +544,7 @@ p {
 
 브라우저를 확인하고 목록의 항목을 클릭하여 모든 것이 올바르게 작동하는지 확인하세요.
 
-## 컴포넌트 결합
+## 컴포넌트 결합 {id="compose-components"}
 
 현재 두 비디오 목록은 각각 독립적으로 작동합니다. 즉, 각 목록이 선택된 비디오를 따로 추적합니다. 사용자는 플레이어가 하나뿐임에도 불구하고 아직 시청하지 않은 목록과 시청한 목록에서 각각 하나씩, 총 두 개의 비디오를 선택할 수 있습니다.
 
@@ -552,7 +552,7 @@ p {
 
 목록은 자기 내부와 형제 목록 양쪽에서 어떤 비디오가 선택되었는지 추적할 수 없습니다. 그 이유는 선택된 비디오가 _목록_ 상태가 아니라 _애플리케이션_ 상태의 일부이기 때문입니다. 이는 개별 컴포넌트 밖으로 상태를 _끌어올려야(lift)_ 함을 의미합니다.
 
-### 상태 끌어올리기 (Lift state)
+### 상태 끌어올리기 (Lift state) {id="lift-state"}
 
 React는 props가 부모 컴포넌트에서 자식 컴포넌트로만 전달되도록 보장합니다. 이는 컴포넌트들이 서로 강하게 결합되는 것을 방지합니다.
 
@@ -590,7 +590,7 @@ React는 props가 부모 컴포넌트에서 자식 컴포넌트로만 전달되�
    }
    ```
 
-### 핸들러 전달
+### 핸들러 전달 {id="pass-handlers"}
 
 현재는 prop에 값을 할당할 방법이 없으므로, 현재 설정된 방식으로는 `onClick` 함수가 작동하지 않습니다. 부모 컴포넌트의 상태를 변경하려면 다시 상태를 끌어올려야 합니다.
 
@@ -631,9 +631,9 @@ React에서 상태는 항상 부모에서 자식으로 흐릅니다. 따라서 �
 
 브라우저로 돌아가서 비디오를 선택할 때 선택 표시가 중복 없이 두 목록 사이를 오가는지 확인하세요.
 
-## 컴포넌트 추가 추가
+## 컴포넌트 추가 추가 {id="add-more-components"}
 
-### 비디오 플레이어 컴포넌트 추출
+### 비디오 플레이어 컴포넌트 추출 {id="extract-the-video-player-component"}
 
 이제 현재 자리표시자 이미지인 비디오 플레이어를 별도의 독립된 컴포넌트로 만들 수 있습니다. 비디오 플레이어는 강연 제목, 강연자, 그리고 비디오 링크를 알아야 합니다. 이 정보는 이미 각 `Video` 객체에 포함되어 있으므로, 이를 prop으로 전달하고 속성에 액세스할 수 있습니다.
 
@@ -685,7 +685,7 @@ React에서 상태는 항상 부모에서 자식으로 흐릅니다. 따라서 �
 
 이제 목록의 항목을 클릭하면 비디오 플레이어가 나타나고 클릭한 항목의 정보로 채워집니다.
 
-### 버튼 추가 및 연결
+### 버튼 추가 및 연결 {id="add-a-button-and-wire-it"}
 
 사용자가 비디오를 시청함 또는 시청하지 않음으로 표시하고 두 목록 사이를 이동할 수 있도록 `VideoPlayer` 컴포넌트에 버튼을 추가합니다.
 
@@ -722,7 +722,7 @@ React에서 상태는 항상 부모에서 자식으로 흐릅니다. 따라서 �
 
    스타일을 동적으로 변경할 수 있게 해주는 Kotlin CSS DSL의 도움으로, 기본적인 Kotlin `if` 식을 사용하여 버튼의 색상을 변경할 수 있습니다.
 
-### 비디오 목록을 애플리케이션 상태로 이동
+### 비디오 목록을 애플리케이션 상태로 이동 {id="move-video-lists-to-the-application-state"}
 
 이제 `App` 컴포넌트에서 `VideoPlayer` 사용 위치를 조정할 차례입니다. 버튼을 클릭하면 비디오가 시청하지 않은 목록에서 시청한 목록으로, 또는 그 반대로 이동해야 합니다. 이 목록들은 이제 실제로 변경될 수 있으므로, 애플리케이션 상태로 옮깁니다.
 
@@ -765,13 +765,13 @@ React에서 상태는 항상 부모에서 자식으로 흐릅니다. 따라서 �
 
 브라우저로 돌아가 비디오를 선택하고 버튼을 몇 번 눌러보세요. 비디오가 두 목록 사이를 오갈 것입니다.
 
-## npm 패키지 사용
+## npm 패키지 사용 {id="use-packages-from-npm"}
 
 앱을 실용적으로 만들려면 실제로 비디오를 재생하는 비디오 플레이어와 사람들이 콘텐츠를 공유할 수 있도록 돕는 버튼이 필요합니다.
 
 React에는 이러한 기능을 직접 구축하는 대신 사용할 수 있는 기성 컴포넌트가 가득한 풍부한 생태계가 있습니다.
 
-### 비디오 플레이어 컴포넌트 추가
+### 비디오 플레이어 컴포넌트 추가 {id="add-the-video-player-component"}
 
 자리표시자 비디오 컴포넌트를 실제 YouTube 플레이어로 교체하기 위해 npm의 `react-player` 패키지를 사용합니다. 이 패키지는 비디오를 재생할 수 있고 플레이어의 외관을 제어할 수 있게 해줍니다.
 
@@ -838,7 +838,7 @@ React에는 이러한 기능을 직접 구축하는 대신 사용할 수 있는 
    }
    ```
 
-### 소셜 공유 버튼 추가
+### 소셜 공유 버튼 추가 {id="add-social-share-buttons"}
 
 애플리케이션의 콘텐츠를 공유하는 쉬운 방법은 메신저와 이메일을 위한 소셜 공유 버튼을 두는 것입니다. 이를 위해 기성 React 컴포넌트인 [react-share](https://github.com/nygardk/react-share/blob/master/README.md)를 사용할 수 있습니다.
 
@@ -923,13 +923,13 @@ React에는 이러한 기능을 직접 구축하는 대신 사용할 수 있는 
 
 [react-share](https://github.com/nygardk/react-share/blob/master/README.md#features)에서 제공하는 다른 소셜 네트워크용 공유 버튼으로 이 단계를 자유롭게 반복해 보세요.
 
-## 외부 REST API 사용
+## 외부 REST API 사용 {id="use-an-external-rest-api"}
 
 이제 앱의 하드코딩된 데모 데이터를 REST API의 실제 데이터로 교체할 수 있습니다.
 
 이 튜토리얼을 위해 [작은 API](https://my-json-server.typicode.com/kotlin-hands-on/kotlinconf-json/videos/1)가 준비되어 있습니다. 이는 `videos`라는 단일 엔드포인트만 제공하며, 목록의 요소에 접근하기 위해 숫자 파라미터를 받습니다. 브라우저로 API를 방문해 보면 API에서 반환된 객체가 `Video` 객체와 동일한 구조를 가지고 있음을 알 수 있습니다.
 
-### Kotlin에서 JS 기능 사용
+### Kotlin에서 JS 기능 사용 {id="use-js-functionality-from-kotlin"}
 
 브라우저에는 이미 매우 다양한 [Web API](https://developer.mozilla.org/ko/docs/Web/API)가 내장되어 있습니다. Kotlin/JS에는 이러한 API에 대한 래퍼가 기본으로 포함되어 있으므로 Kotlin/JS에서도 이를 사용할 수 있습니다. 한 가지 예로 HTTP 요청을 만드는 데 사용되는 [fetch API](https://developer.mozilla.org/ko/docs/Web/API/Fetch_API)가 있습니다.
 
@@ -950,7 +950,7 @@ dependencies {
 }
 ```
 
-### 직렬화(Serialization) 추가
+### 직렬화(Serialization) 추가 {id="add-serialization"}
 
 외부 API를 호출하면 JSON 형식의 텍스트를 받게 되는데, 이를 작업 가능한 Kotlin 객체로 변환해야 합니다.
 
@@ -984,7 +984,7 @@ dependencies {
    )
    ```
 
-### 비디오 가져오기 (Fetch)
+### 비디오 가져오기 (Fetch) {id="fetch-videos"}
 
 API에서 비디오를 가져오기 위해 `App.kt`(또는 새 파일)에 다음 함수를 추가합니다.
 
@@ -1055,17 +1055,17 @@ suspend fun fetchVideo(id: Int): Video {
 
 코루틴이 어떻게 작동하는지 더 깊이 이해하고 싶다면, [코루틴 튜토리얼](coroutines-and-channels.md)을 확인해 보세요.
 
-## 프로덕션 및 클라우드 배포
+## 프로덕션 및 클라우드 배포 {id="deploy-to-production-and-the-cloud"}
 
 이제 애플리케이션을 클라우드에 게시하여 다른 사람들이 접근할 수 있게 할 차례입니다.
 
-### 프로덕션 빌드 패키징
+### 프로덕션 빌드 패키징 {id="package-a-production-build"}
 
 프로덕션 모드에서 모든 자산을 패키징하려면 IntelliJ IDEA의 도구 창을 통해 Gradle의 `build` 태스크를 실행하거나 `./gradlew build`를 실행하세요. 그러면 DCE(Dead Code Elimination)와 같은 다양한 최적화가 적용된 프로젝트 빌드가 생성됩니다.
 
 빌드가 완료되면 `/build/dist`에서 배포에 필요한 모든 파일을 찾을 수 있습니다. 여기에는 애플리케이션 실행에 필요한 JavaScript 파일, HTML 파일 및 기타 리소스가 포함됩니다. 이 파일들을 정적 HTTP 서버에 두거나, GitHub Pages를 사용하여 서빙하거나, 원하는 클라우드 제공업체에 호스팅할 수 있습니다.
 
-### Heroku에 배포
+### Heroku에 배포 {id="deploy-to-heroku"}
 
 Heroku를 사용하면 자체 도메인으로 접근 가능한 애플리케이션을 매우 간단하게 띄울 수 있습니다. 개발용으로는 무료 티어(free tier)로도 충분할 것입니다.
 
@@ -1126,9 +1126,9 @@ Heroku를 사용하면 자체 도메인으로 접근 가능한 애플리케이�
 >
 {style="note"}
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
-### 추가 기능 더하기 {initial-collapse-state="collapsed" collapsible="true"}
+### 추가 기능 더하기 {initial-collapse-state="collapsed" collapsible="true" id="add-more-features"}
 
 완성된 앱을 시작점으로 삼아 React, Kotlin/JS 등의 영역에서 더 발전된 주제를 탐구할 수 있습니다.
 
@@ -1136,18 +1136,18 @@ Heroku를 사용하면 자체 도메인으로 접근 가능한 애플리케이�
 * **영속성(Persistence)**. 현재 애플리케이션은 페이지를 새로 고칠 때마다 시청자 목록 정보를 잃어버립니다. Kotlin용 웹 프레임워크(예: [Ktor](https://ktor.io/)) 중 하나를 사용하여 자신만의 백엔드를 구축해 보세요. 또는 [클라이언트에 정보를 저장](https://developer.mozilla.org/ko/docs/Web/API/Window/localStorage)하는 방법을 찾아보세요.
 * **복잡한 API**. 수많은 데이터셋과 API가 준비되어 있습니다. 애플리케이션에 온갖 종류의 데이터를 가져올 수 있습니다. 예를 들어 [고양이 사진](https://thecatapi.com/) 시각화 도구나 [저작권 프리 스톡 사진 API](https://unsplash.com/developers)를 활용해 보세요.
 
-### 스타일 개선: 반응형 및 그리드 {initial-collapse-state="collapsed" collapsible="true"}
+### 스타일 개선: 반응형 및 그리드 {initial-collapse-state="collapsed" collapsible="true" id="improve-the-style-responsiveness-and-grids"}
 
 애플리케이션 디자인은 여전히 매우 단순하며 모바일 장치나 좁은 창에서는 보기 좋지 않을 것입니다. 앱을 더 접근성 있게 만들기 위해 CSS DSL을 더 탐구해 보세요.
 
-### 커뮤니티 참여 및 도움받기 {initial-collapse-state="collapsed" collapsible="true"}
+### 커뮤니티 참여 및 도움받기 {initial-collapse-state="collapsed" collapsible="true" id="join-the-community-and-get-help"}
 
 문제를 보고하고 도움을 받는 가장 좋은 방법은 [kotlin-wrappers 이슈 트래커](https://github.com/JetBrains/kotlin-wrappers/issues)입니다. 문제에 대한 티켓을 찾을 수 없다면 자유롭게 새 티켓을 제출하세요. 공식 [Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)에도 참여할 수 있습니다. `#javascript`와 `#react` 채널이 마련되어 있습니다.
 
-### 코루틴에 대해 더 알아보기 {initial-collapse-state="collapsed" collapsible="true"}
+### 코루틴에 대해 더 알아보기 {initial-collapse-state="collapsed" collapsible="true" id="learn-more-about-coroutines"}
 
 동시성 코드를 작성하는 방법에 대해 더 알고 싶다면 [코루틴](coroutines-and-channels.md)에 관한 튜토리얼을 확인하세요.
 
-### React에 대해 더 알아보기 {initial-collapse-state="collapsed" collapsible="true"}
+### React에 대해 더 알아보기 {initial-collapse-state="collapsed" collapsible="true" id="learn-more-about-react"}
 
 이제 기본적인 React 개념과 이것이 Kotlin으로 어떻게 번역되는지 알게 되었습니다. [React 문서](https://react.dev/learn)에 설명된 다른 개념들을 Kotlin으로 변환해 볼 수 있습니다.

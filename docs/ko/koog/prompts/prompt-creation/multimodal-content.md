@@ -18,7 +18,7 @@ Kotlin의 해당 함수나 Java의 메서드를 사용하여 `user` 메시지에
     멀티모달 콘텐츠 지원은 [LLM 제공자](../../llm-providers.md)에 따라 다릅니다.
     지원되는 콘텐츠 유형은 제공자 문서를 확인하세요.
 
-### 자동 구성된 첨부 파일
+### 자동 구성된 첨부 파일 {id="auto-configured-attachments"}
 
 첨부 함수나 메서드에 URL이나 파일 경로를 전달하면, Koog는 파일 확장자를 기반으로 해당 첨부 파라미터를 자동으로 구성합니다.
 
@@ -69,7 +69,7 @@ Kotlin의 해당 함수나 Java의 메서드를 사용하여 `user` 메시지에
 
 Kotlin에서 `+` 연산자는 첨부 파일과 함께 텍스트 콘텐츠를 사용자 메시지에 추가합니다. Java에서는 `ContentPartsBuilder`의 `text()` 메서드를 사용하세요.
 
-### 커스텀 구성된 첨부 파일
+### 커스텀 구성된 첨부 파일 {id="custom-configured-attachments"}
 
 [`ContentPart`](api:prompt-model::ai.koog.prompt.message.ContentPart) 인터페이스를 사용하면 각 첨부 파일의 파라미터를 개별적으로 구성할 수 있습니다.
 
@@ -144,7 +144,7 @@ Koog는 `ContentPart.Attachment` 인터페이스를 구현하는 각 미디어 �
 | `mimeType` | String | `ContentPart.File`인 경우에만 | 제공된 파일의 MIME 타입.<br/>`ContentPart.Image`, `ContentPart.Audio`, `ContentPart.Video`의 경우 기본값은 `<type>/<format>`입니다 (예: `image/png`).<br/>`ContentPart.File`의 경우 명시적으로 제공해야 합니다. |
 | `fileName` | String? | 아니요 | 확장자를 포함한 제공된 파일의 이름. 예: `screenshot.png`. |
 
-#### 첨부 콘텐츠
+#### 첨부 콘텐츠 {id="attachment-content"}
 
 AttachmentContent 인터페이스의 구현체는 LLM에 입력으로 제공되는 콘텐츠의 유형과 소스를 정의합니다:
 
@@ -172,7 +172,7 @@ AttachmentContent 인터페이스의 구현체는 LLM에 입력으로 제공되�
     ```
     <!--- KNIT example-multimodal-content-04.txt -->
 
-### 혼합된 첨부 파일
+### 혼합된 첨부 파일 {id="mixed-attachments"}
 
 서로 다른 유형의 첨부 파일을 별도의 프롬프트나 메시지에 제공하는 것 외에도, 단일 `user()` 메시지에 여러 유형 및 혼합된 유형의 첨부 파일을 제공할 수 있습니다:
 
@@ -228,7 +228,7 @@ AttachmentContent 인터페이스의 구현체는 LLM에 입력으로 제공되�
     ```
     <!--- KNIT example-multimodal-content-java-03.java -->
 
-## 다음 단계
+## 다음 단계 {id="next-steps"}
 
 - 단일 LLM 제공자와 작업하는 경우 [LLM 클라이언트](../llm-clients.md)를 사용하여 프롬프트를 실행하세요.
 - 여러 LLM 제공자와 작업하는 경우 [프롬프트 실행기](../prompt-executors.md)를 사용하여 프롬프트를 실행하세요.

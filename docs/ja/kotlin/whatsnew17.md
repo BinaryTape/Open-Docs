@@ -26,7 +26,7 @@ Kotlin 1.7.0 がリリースされました。このバージョンでは、新�
 >
 {style="tip"}
 
-## JVM 用の新しい Kotlin K2 コンパイラが Alpha に
+## JVM 用の新しい Kotlin K2 コンパイラが Alpha に {id="new-kotlin-k2-compiler-for-the-jvm-in-alpha"}
 
 この Kotlin リリースでは、新しい Kotlin K2 コンパイラの **Alpha** バージョンが導入されます。新しいコンパイラは、新しい言語機能の開発を加速させ、Kotlin がサポートするすべてのプラットフォームを統合し、パフォーマンスを向上させ、コンパイラ拡張のための API を提供することを目的としています。
 
@@ -62,7 +62,7 @@ Kotlin 1.7.0 がリリースされました。このバージョンでは、新�
 
 Kotlin K2 コンパイラでパフォーマンスに関する問題が発生した場合は、[弊社の課題トラッカーに報告](https://kotl.in/issue)をお願いします。
 
-## 言語
+## 言語 {id="language"}
 
 Kotlin 1.7.0 では、委譲による実装（implementation by delegation）のサポートと、型引数用の新しいアンダースコア演算子が導入されました。また、以前のリリースでプレビューとして導入されたいくつかの言語機能が安定化されました。
 
@@ -72,7 +72,7 @@ Kotlin 1.7.0 では、委譲による実装（implementation by delegation）の
 * [安定版のオプトイン要求](#stable-opt-in-requirements)
 * [安定版の絶対非ヌル型](#stable-definitely-non-nullable-types)
 
-### インラインクラスのインライン化された値への委譲による実装を許可
+### インラインクラスのインライン化された値への委譲による実装を許可 {id="allow-implementation-by-delegation-to-an-inlined-value-of-an-inline-class"}
 
 値やクラスインスタンスの軽量なラッパーを作成したい場合、すべてのインターフェースメソッドを手動で実装する必要があります。委譲による実装はこの問題を解決しますが、1.7.0 より前はインラインクラスでは動作しませんでした。この制限が解除されたため、ほとんどの場合でメモリ割り当てを行わない軽量なラッパーを作成できるようになりました。
 
@@ -90,7 +90,7 @@ fun main() {
 }
 ```
 
-### 型引数のアンダースコア演算子
+### 型引数のアンダースコア演算子 {id="underscore-operator-for-type-arguments"}
 
 Kotlin 1.7.0 では、型引数用のアンダースコア演算子 `_` が導入されました。他の型が指定されている場合に、型引数を自動的に推論させるために使用できます。
 
@@ -128,7 +128,7 @@ fun main() {
 >
 {style="note"}
 
-### 安定版のビルダー推論
+### 安定版のビルダー推論 {id="stable-builder-inference"}
 
 ビルダー推論は、ジェネリックなビルダー関数を呼び出す際に役立つ特殊な型の推論です。ラムダ引数内の他の呼び出しに関する型情報を使用して、呼び出しの型引数をコンパイラが推論するのを助けます。
 
@@ -136,13 +136,13 @@ fun main() {
 
 [カスタムジェネリックビルダーの書き方を学ぶ](using-builders-with-builder-inference.md)。
 
-### 安定版のオプトイン要求
+### 安定版のオプトイン要求 {id="stable-opt-in-requirements"}
 
 [オプトイン要求](opt-in-requirements.md)が[安定版（Stable）](components-stability.md)となり、追加のコンパイラ設定が不要になりました。
 
 1.7.0 より前は、警告を避けるためにオプトイン機能自体に `-opt-in=kotlin.RequiresOptIn` 引数が必要でした。現在は不要ですが、他のアノテーションや[モジュール](opt-in-requirements.md#opt-in-a-module)をオプトインするために引き続きコンパイラ引数 `-opt-in` を使用できます。
 
-### 安定版の絶対非ヌル型
+### 安定版の絶対非ヌル型 {id="stable-definitely-non-nullable-types"}
 
 Kotlin 1.7.0 では、絶対非ヌル型（definitely non-nullable types）が[安定版（Stable）](components-stability.md)に昇格しました。これにより、ジェネリックな Java クラスやインターフェースを拡張する際の相互運用性が向上します。
 
@@ -166,7 +166,7 @@ fun main() {
 
 絶対非ヌル型の詳細については、[この KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/definitely-non-nullable-types.md) を参照してください。
 
-## Kotlin/JVM
+## Kotlin/JVM {id="kotlin-jvm"}
 
 このリリースでは、Kotlin/JVM コンパイラのパフォーマンス向上と新しいコンパイラオプションが導入されました。また、関数型インターフェースのコンストラクタに対する呼び出し可能参照が安定版になりました。なお、1.7.0 以降、Kotlin/JVM コンパイルのデフォルトのターゲットバージョンは `1.8` になっています。
 
@@ -175,11 +175,11 @@ fun main() {
 * [安定版の関数型インターフェースコンストラクタへの呼び出し可能参照](#stable-callable-references-to-functional-interface-constructors)
 * [JVM ターゲットバージョン 1.6 の削除](#removed-jvm-target-version-1-6)
 
-### コンパイラのパフォーマンス最適化
+### コンパイラのパフォーマンス最適化 {id="compiler-performance-optimizations"}
 
 Kotlin 1.7.0 では、Kotlin/JVM コンパイラのパフォーマンスが向上しました。弊社のベンチマークによると、コンパイル時間は Kotlin 1.6.0 と比較して[平均で 10% 短縮されました](https://youtrack.jetbrains.com/issue/KT-48233/Switching-to-JVM-IR-backend-increases-compilation-time-by-more-t#focus=Comments-27-6114542.0-0)。インライン関数の使用箇所が多いプロジェクト（例: [`kotlinx.html` を使用しているプロジェクト](https://youtrack.jetbrains.com/issue/KT-51416/Compilation-of-kotlinx-html-DSL-should-still-be-faster)）では、バイトコードの後処理の改善により、コンパイルがより高速になります。
 
-### 新しいコンパイラオプション: -Xjdk-release
+### 新しいコンパイラオプション: -Xjdk-release {id="new-compiler-option-xjdk-release"}
 
 Kotlin 1.7.0 では、新しいコンパイラオプション `-Xjdk-release` が導入されました。このオプションは、[javac のコマンドラインオプション `--release`](http://openjdk.java.net/jeps/247) に似ています。`-Xjdk-release` オプションは、ターゲットのバイトコードバージョンを制御し、クラスパス内の JDK の API を指定された Java バージョンに制限します。例えば、`kotlinc -Xjdk-release=1.8` と指定すると、依存関係にある JDK がバージョン 9 以上であっても、`java.lang.Module` を参照できなくなります。
 
@@ -189,13 +189,13 @@ Kotlin 1.7.0 では、新しいコンパイラオプション `-Xjdk-release` �
 
 フィードバックは[こちらの YouTrack チケット](https://youtrack.jetbrains.com/issue/KT-29974/Add-a-compiler-option-Xjdk-release-similar-to-javac-s-release-to)にお寄せください。
 
-### 安定版の関数型インターフェースコンストラクタへの呼び出し可能参照
+### 安定版の関数型インターフェースコンストラクタへの呼び出し可能参照 {id="stable-callable-references-to-functional-interface-constructors"}
 
 関数型インターフェースのコンストラクタへの[呼び出し可能参照](reflection.md#callable-references)が[安定版（Stable）](components-stability.md)になりました。コンストラクタ関数を持つインターフェースから、呼び出し可能参照を使用した関数型インターフェースへの[移行方法](fun-interfaces.md#migration-from-an-interface-with-constructor-function-to-a-functional-interface)をご確認ください。
 
 問題が見つかった場合は、[YouTrack](https://youtrack.jetbrains.com/newissue?project=kt) に報告してください。
 
-### JVM ターゲットバージョン 1.6 の削除
+### JVM ターゲットバージョン 1.6 の削除 {id="removed-jvm-target-version-1-6"}
 
 Kotlin/JVM コンパイルのデフォルトのターゲットバージョンは `1.8` です。`1.6` ターゲットは削除されました。
 
@@ -205,7 +205,7 @@ JVM ターゲット 1.8 以上に移行してください。各ツールの JVM 
 * [Maven](maven-kotlin-compiler.md#attributes-specific-to-jvm)
 * [コマンドラインコンパイラ](compiler-reference.md#jvm-target-version)
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 Kotlin 1.7.0 には、Objective-C および Swift との相互運用性に関する変更が含まれており、以前のリリースで導入された機能が安定化されました。また、新しいメモリマネージャのパフォーマンス向上やその他のアップデートも含まれています。
 
@@ -217,7 +217,7 @@ Kotlin 1.7.0 には、Objective-C および Swift との相互運用性に関す
 * [CocoaPods 統合の改善](#improved-cocoapods-integration)
 * [Kotlin/Native コンパイラのダウンロード URL のオーバーライド](#overriding-the-kotlin-native-compiler-download-url)
 
-### 新しいメモリマネージャのパフォーマンス向上
+### 新しいメモリマネージャのパフォーマンス向上 {id="performance-improvements-for-the-new-memory-manager"}
 
 > 新しい Kotlin/Native メモリマネージャは [Alpha](components-stability.md) 段階です。
 > 今後、互換性のない変更が行われたり、手動での移行が必要になったりする可能性があります。
@@ -231,7 +231,7 @@ Kotlin 1.7.0 には、Objective-C および Swift との相互運用性に関す
 
 プロジェクトで新しいメモリマネージャを試して動作を確認し、フィードバックを [YouTrack](https://youtrack.jetbrains.com/issue/KT-48525) で共有してください。
 
-### JVM および JS IR バックエンドと統一されたコンパイラプラグイン ABI
+### JVM および JS IR バックエンドと統一されたコンパイラプラグイン ABI {id="unified-compiler-plugin-abi-with-jvm-and-js-ir-backends"}
 
 Kotlin 1.7.0 以降、Kotlin Multiplatform Gradle プラグインは、Kotlin/Native 用に埋め込み可能なコンパイラ jar をデフォルトで使用します。この[機能は 1.6.0 で試験的機能（Experimental）として発表されました](whatsnew16.md#unified-compiler-plugin-abi-with-jvm-and-js-ir-backends)が、現在は安定版となり、すぐに使用できます。
 
@@ -243,7 +243,7 @@ Kotlin 1.7.0 以降、Kotlin Multiplatform Gradle プラグインは、Kotlin/Na
 >
 {style="warning"}
 
-### スタンドアロン Android 実行ファイルのサポート
+### スタンドアロン Android 実行ファイルのサポート {id="support-for-standalone-android-executables"}
 
 Kotlin 1.7.0 は、Android Native ターゲット向けの標準実行ファイルの生成を完全にサポートしています。[1.6.20 で導入されました](whatsnew1620.md#support-for-standalone-android-executables)が、現在はデフォルトで有効になっています。
 
@@ -253,13 +253,13 @@ Kotlin/Native が共有ライブラリを生成していた以前の動作に戻
 binaryOptions["androidProgramType"] = "nativeActivity"
 ```
 
-### Swift async/await との相互運用: KotlinUnit の代わりに Void を返す
+### Swift async/await との相互運用: KotlinUnit の代わりに Void を返す {id="interop-with-swift-async-await-returning-void-instead-of-kotlinunit"}
 
 Kotlin の `suspend` 関数は、Swift で `KotlinUnit` の代わりに `Void` 型を返すようになりました。これは Swift の `async`/`await` との相互運用性が向上した結果です。この機能は [1.6.20 で導入されました](whatsnew1620.md#interop-with-swift-async-await-returning-void-instead-of-kotlinunit)が、今回のリリースでこの動作がデフォルトになりました。
 
 このような関数に対して適切な型を返すために、`kotlin.native.binary.unitSuspendFunctionObjCExport=proper` プロパティを使用する必要はもうありません。
 
-### Objective-C ブリッジを介した未宣言の例外の禁止
+### Objective-C ブリッジを介した未宣言の例外の禁止 {id="prohibited-undeclared-exceptions-through-objective-c-bridges"}
 
 Swift/Objective-C コードから Kotlin コードを呼び出す（またはその逆）際に例外が発生した場合、適切な変換を伴う言語間の例外転送を明示的に許可していない限り（例: `@Throws` アノテーションを使用するなど）、例外が発生したコード側で処理されるべきです。
 
@@ -269,7 +269,7 @@ Swift/Objective-C コードから Kotlin コードを呼び出す（またはそ
 
 `@Throws` アノテーションはこれまで通り機能します。
 
-### CocoaPods 統合の改善
+### CocoaPods 統合の改善 {id="improved-cocoapods-integration"}
 
 Kotlin 1.7.0 以降、プロジェクトに CocoaPods を統合する際に `cocoapods-generate` プラグインをインストールする必要がなくなりました。
 
@@ -279,7 +279,7 @@ Kotlin 1.7.0 以降、プロジェクトに CocoaPods を統合する際に `coc
 
 [CocoaPods 統合の初期セットアップ](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html#set-up-an-environment-to-work-with-cocoapods)方法をご確認ください。
 
-### Kotlin/Native コンパイラのダウンロード URL のオーバーライド
+### Kotlin/Native コンパイラのダウンロード URL のオーバーライド {id="overriding-the-kotlin-native-compiler-download-url"}
 
 Kotlin 1.7.0 以降、Kotlin/Native コンパイラのダウンロード URL をカスタマイズできるようになりました。これは、CI 上で外部リンクが禁止されている場合に便利です。
 
@@ -293,7 +293,7 @@ kotlin.native.distribution.baseDownloadUrl=https://example.com
 >
 {style="note"}
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
 Kotlin/JS は、[JS IR コンパイラバックエンド](js-ir-compiler.md)のさらなる改善や、開発体験を向上させるその他のアップデートが行われています。
 
@@ -303,7 +303,7 @@ Kotlin/JS は、[JS IR コンパイラバックエンド](js-ir-compiler.md)の�
 * [js 式からの JavaScript モジュールの動的ロード](#dynamically-load-javascript-modules-from-js-expressions)
 * [JavaScript テストランナーへの環境変数の指定](#specify-environment-variables-for-javascript-test-runners)
 
-### 新しい IR バックエンドのパフォーマンス向上
+### 新しい IR バックエンドのパフォーマンス向上 {id="performance-improvements-for-the-new-ir-backend"}
 
 このリリースには、開発体験を向上させるいくつかの大きなアップデートが含まれています。
 
@@ -312,7 +312,7 @@ Kotlin/JS は、[JS IR コンパイラバックエンド](js-ir-compiler.md)の�
 * インターフェースの型チェックが桁違いに改善されました。
 * Kotlin がより高品質な JS コードを生成するようになりました。
 
-### IR 使用時のメンバー名の難読化（Minification）
+### IR 使用時のメンバー名の難読化（Minification） {id="minification-for-member-names-when-using-ir"}
 
 Kotlin/JS IR コンパイラは、Kotlin のクラスや関数の関係に関する内部情報を使用して、より効率的な難読化（minification）を適用し、関数、プロパティ、およびクラスの名前を短縮するようになりました。これにより、結果として得られるバンドルされたアプリケーションのサイズが縮小されます。
 
@@ -328,13 +328,13 @@ kotlin {
 }
 ```
 
-### IR バックエンドにおけるポリフィルによる古いブラウザのサポート
+### IR バックエンドにおけるポリフィルによる古いブラウザのサポート {id="support-for-older-browsers-via-polyfills-in-the-ir-backend"}
 
 Kotlin/JS の IR コンパイラバックエンドに、レガシーバックエンドと同じポリフィルが含まれるようになりました。これにより、新しいコンパイラでコンパイルされたコードを、Kotlin 標準ライブラリで使用されている ES2015 のすべてのメソッドをサポートしていない古いブラウザで実行できるようになります。プロジェクトで実際に使用されているポリフィルのみが最終的なバンドルに含まれるため、バンドルサイズへの影響は最小限に抑えられます。
 
 この機能は IR コンパイラを使用する場合にデフォルトで有効になっており、設定の必要はありません。
 
-### js 式からの JavaScript モジュールの動的ロード
+### js 式からの JavaScript モジュールの動的ロード {id="dynamically-load-javascript-modules-from-js-expressions"}
 
 JavaScript モジュールを扱う際、ほとんどのアプリケーションは静的なインポートを使用し、その使用方法は [JavaScript モジュールの統合](js-modules.md)でカバーされています。しかし、Kotlin/JS には、アプリケーションの実行時に JavaScript モジュールを動的にロードするメカズムが欠けていました。
 
@@ -344,7 +344,7 @@ Kotlin 1.7.0 以降、JavaScript の `import` ステートメントが `js` ブ�
 val myPackage = js("import('my-package')")
 ```
 
-### JavaScript テストランナーへの環境変数の指定
+### JavaScript テストランナーへの環境変数の指定 {id="specify-environment-variables-for-javascript-test-runners"}
 
 Node.js のパッケージ解決を調整したり、外部情報を Node.js のテストに渡したりするために、JavaScript テストランナーが使用する環境変数を指定できるようになりました。環境変数を定義するには、ビルドスクリプトの `testTask` ブロック内で `environment()` 関数をキーと値のペアで使用します。
 
@@ -360,7 +360,7 @@ kotlin {
 }
 ```
 
-## 標準ライブラリ
+## 標準ライブラリ {id="standard-library"}
 
 Kotlin 1.7.0 では、標準ライブラリにさまざまな変更と改善が行われました。新しい機能の導入、試験的機能の安定化、および Native、JS、および JVM における名前付きキャプチャグループのサポートの統一が行われています。
 
@@ -373,7 +373,7 @@ Kotlin 1.7.0 では、標準ライブラリにさまざまな変更と改善が�
 * [Java Optional 向けの新しい試験的拡張関数](#new-experimental-extension-functions-for-java-optionals)
 * [JS および Native における名前付きキャプチャグループのサポート](#support-for-named-capturing-groups-in-js-and-native)
 
-### min() および max() コレクション関数が非ヌル型を返すように変更
+### min() および max() コレクション関数が非ヌル型を返すように変更 {id="min-and-max-collection-functions-return-as-non-nullable"}
 
 [Kotlin 1.4.0](whatsnew14.md) では、`min()` および `max()` コレクション関数を `minOrNull()` および `maxOrNull()` に改名しました。これらの新しい名前は、レシーバーコレクションが空の場合に null を返すという動作をより適切に反映しています。また、Kotlin コレクション API 全体で使用されている命名規則とも一致させることができました。
 
@@ -389,7 +389,7 @@ fun main() {
 }
 ```
 
-### 特定のインデックスでの正規表現マッチング
+### 特定のインデックスでの正規表現マッチング {id="regular-expression-matching-at-specific-indices"}
 
 [1.5.30 で導入された](whatsnew1530.md#matching-with-regex-at-a-particular-position) `Regex.matchAt()` および `Regex.matchesAt()` 関数が安定版になりました。これらは、`String` または `CharSequence` の特定の箇所に正規表現が正確に一致するかどうかを確認する手段を提供します。
 
@@ -420,13 +420,13 @@ fun main() {
 
 この [YouTrack 課題](https://youtrack.jetbrains.com/issue/KT-34021) へのフィードバックをお待ちしております。
 
-### 以前の言語および API バージョンのサポート拡張
+### 以前の言語および API バージョンのサポート拡張 {id="extended-support-for-previous-language-and-api-versions"}
 
 幅広い旧バージョンの Kotlin で利用可能なライブラリを開発するライブラリ作成者をサポートし、Kotlin のメジャーリリースの頻度が高まっていることに対応するため、以前の言語および API バージョンのサポートを拡張しました。
 
 Kotlin 1.7.0 では、以前の 2 つではなく 3 つ前までの言語および API バージョンをサポートします。つまり、Kotlin 1.7.0 は、1.4.0 までの Kotlin バージョンをターゲットとしたライブラリの開発をサポートします。後方互換性の詳細については、[互換性オプション](kotlin-evolution-principles.md#compatibility-options)をご覧ください。
 
-### リフレクション経由のアノテーションへのアクセス
+### リフレクション経由のアノテーションへのアクセス {id="access-to-annotations-via-reflection"}
 
 [1.6.0 で初めて導入された](whatsnew16.md#repeatable-annotations-with-runtime-retention-for-1-8-jvm-target) [`KAnnotatedElement.findAnnotations()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect.full/find-annotations.html) 拡張関数が[安定版（Stable）](components-stability.md)になりました。この[リフレクション](reflection.md)関数は、個別に適用されたアノテーションや繰り返されたアノテーションを含め、要素上の指定された型のすべてのアノテーションを返します。
 
@@ -447,7 +447,7 @@ fun main() {
 }
 ```
 
-### 安定版の深層再帰関数
+### 安定版の深層再帰関数 {id="stable-deep-recursive-functions"}
 
 深層再帰関数（Deep recursive functions）は [Kotlin 1.4.0](https://blog.jetbrains.com/kotlin/2020/07/kotlin-1-4-rc-debugging-coroutines/#Defining_deep_recursive_functions_using_coroutines) から試験的機能として利用可能でしたが、Kotlin 1.7.0 で[安定版（Stable）](components-stability.md)になりました。`DeepRecursiveFunction` を使用すると、実際のコールスタックを使用する代わりにヒープ上にスタックを保持する関数を定義できます。これにより、非常に深い再帰計算を実行できます。深層再帰関数を呼び出すには、それを `invoke` します。
 
@@ -475,7 +475,7 @@ fun main() {
 
 再帰の深さが 1000 回を超えるようなコードでは、深層再帰関数の使用を検討してください。
 
-### デフォルトの時間ソース向けのインラインクラスに基づいたタイムマーク
+### デフォルトの時間ソース向けのインラインクラスに基づいたタイムマーク {id="time-marks-based-on-inline-classes-for-default-time-source"}
 
 Kotlin 1.7.0 では、`TimeSource.Monotonic` によって返されるタイムマークをインライン値クラスに変更することで、時間計測機能のパフォーマンスが向上しました。つまり、`markNow()`、`elapsedNow()`、`measureTime()`、および `measureTimedValue()` などの関数を呼び出しても、その `TimeMark` インスタンスのためのラッパークラスが割り当てられません。特にホットパスの一部であるコードを計測する場合、計測によるパフォーマンスへの影響を最小限に抑えることができます。
 
@@ -491,7 +491,7 @@ fun main() {
 >
 {style="note"}
 
-### Java Optional 向けの新しい試験的拡張関数
+### Java Optional 向けの新しい試験的拡張関数 {id="new-experimental-extension-functions-for-java-optionals"}
 
 Kotlin 1.7.0 には、Java の `Optional` クラスの操作を簡素化する新しい便利な関数が含まれています。これらの新しい関数は、JVM 上でオプショナルオブジェクトをアンラップして変換するために使用でき、Java API をより簡潔に扱うのに役立ちます。
 
@@ -540,13 +540,13 @@ println(list)
 
 これらの拡張関数は、Kotlin 1.7.0 で試験的機能（Experimental）として導入されています。`Optional` 拡張の詳細については、[この KEEP](https://github.com/Kotlin/KEEP/pull/291) をご覧ください。いつものように、[Kotlin 課題トラッカー](https://kotl.in/issue) でのフィードバックをお待ちしております。
 
-### JS および Native における名前付きキャプチャグループのサポート
+### JS および Native における名前付きキャプチャグループのサポート {id="support-for-named-capturing-groups-in-js-and-native"}
 
 Kotlin 1.7.0 以降、名前付きキャプチャグループが JVM だけでなく、JS および Native プラットフォームでもサポートされるようになりました。
 
 キャプチャグループに名前を付けるには、正規表現で `(?<name>group)` 構文を使用します。グループに一致したテキストを取得するには、新しく導入された [`MatchGroupCollection.get()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/get.html) 関数を呼び出し、グループ名を渡します。
 
-#### 名前による一致したグループ値の取得
+#### 名前による一致したグループ値の取得 {id="retrieve-matched-group-value-by-name"}
 
 都市の座標を照合するこの例を考えてみましょう。正規表現に一致したグループのコレクションを取得するには、[`groups`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-match-result/groups.html) を使用します。`value` を使用して、グループの内容を番号（インデックス）で取得する場合と名前で取得する場合を比較してください。
 
@@ -560,7 +560,7 @@ fun main() {
 }
 ```
 
-#### 名前付き後方参照
+#### 名前付き後方参照 {id="named-backreferencing"}
 
 グループを参照（バックリファレンス）する際にも、グループ名を使用できるようになりました。後方参照は、以前にキャプチャグループによって一致したのと同じテキストに一致します。これには、正規表現で `\k<name>` 構文を使用します。
 
@@ -573,7 +573,7 @@ fun backRef() {
 }
 ```
 
-#### 置換式での名前付きグループ
+#### 置換式での名前付きグループ {id="named-groups-in-replacement-expressions"}
 
 名前付きグループの参照は、置換式（replacement expressions）でも使用できます。入力内の指定された正規表現のすべての出現箇所を置換式で置き換える [`replace()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/replace.html) 関数と、最初の一致のみを置き換える [`replaceFirst()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/replace-first.html) 関数を考えてみましょう。
 
@@ -588,7 +588,7 @@ fun dateReplace() {
 }
 ```
 
-## Gradle
+## Gradle {id="gradle"}
 
 このリリースでは、新しいビルドレポート、Gradle プラグインバリアントのサポート、kapt の新しい統計情報などが導入されました。
 
@@ -603,7 +603,7 @@ fun dateReplace() {
 * [kotlin.compiler.execution.strategy システムプロパティの非推奨化](#deprecation-of-the-kotlin-compiler-execution-strategy-system-property)
 * [非推奨のオプション、メソッド、およびプラグインの削除](#removal-of-deprecated-options-methods-and-plugins)
 
-### インクリメンタルコンパイルへの新しいアプローチ
+### インクリメンタルコンパイルへの新しいアプローチ {id="a-new-approach-to-incremental-compilation"}
 
 > インクリメンタルコンパイルへの新しいアプローチは[試験的（Experimental）](components-stability.md)です。いつでも廃止または変更される可能性があります。
 > 利用にはオプトインが必要です（詳細は以下を参照）。評価目的でのみ使用することをお勧めします。フィードバックは [YouTrack](https://youtrack.jetbrains.com/issues/KT) でお待ちしております。
@@ -630,7 +630,7 @@ kotlin.incremental.useClasspathSnapshot=true
 
 Kotlin チームは、[Ivan Gavrilovic](https://github.com/gavra0) 氏、[Hung Nguyen](https://github.com/hungvietnguyen) 氏、[Cédric Champeau](https://github.com/melix) 氏、およびその他の外部貢献者の協力に深く感謝いたします。
 
-### Kotlin コンパイラタスクのビルドレポート
+### Kotlin コンパイラタスクのビルドレポート {id="build-reports-for-kotlin-compiler-tasks"}
 
 > Kotlin ビルドレポートは[試験的（Experimental）](components-stability.md)です。いつでも廃止または変更される可能性があります。
 > 利用にはオプトインが必要です（詳細は以下を参照）。評価目的でのみ使用してください。フィードバックは [YouTrack](https://youtrack.jetbrains.com/issues/KT) でお待ちしております。
@@ -670,13 +670,13 @@ kotlin.build.report.output=file
 
 ぜひお客様のインフラでビルドレポートをお試しください。フィードバック、問題の発見、または改善の提案がある場合は、遠慮なく [弊社課題トラッカー](https://youtrack.jetbrains.com/newIssue) に報告してください。ありがとうございます！
 
-### サポート対象最小バージョンの引き上げ
+### サポート対象最小バージョンの引き上げ {id="bumping-minimum-supported-versions"}
 
 Kotlin 1.7.0 以降、サポートされる最小の Gradle バージョンは 6.7.1 になりました。[Gradle プラグインバリアント](#support-for-gradle-plugin-variants)と新しい Gradle API をサポートするために、[バージョンを引き上げる](https://youtrack.jetbrains.com/issue/KT-49733/Bump-minimal-supported-Gradle-version-to-6-7-1)必要がありました。将来的には、Gradle プラグインバリアント機能のおかげで、最小サポートバージョンをそれほど頻繁に引き上げる必要はなくなるはずです。
 
 また、サポートされる最小の Android Gradle プラグイン（AGP）バージョンは 3.6.4 になりました。
 
-### Gradle プラグインバリアントのサポート
+### Gradle プラグインバリアントのサポート {id="support-for-gradle-plugin-variants"}
 
 Gradle 7.0 では、Gradle プラグイン作成者向けの新しい機能である [variants を持つプラグイン（plugins with variants）](https://docs.gradle.org/7.0/userguide/implementing_gradle_plugins.html#plugin-with-variants)が導入されました。この機能により、7.1 未満の Gradle バージョンとの互換性を維持しながら、新しい Gradle 機能のサポートを簡単に追加できるようになります。[Gradle におけるバリアント選択（variant selection）](https://docs.gradle.org/current/userguide/variant_model.html)についての詳細をご覧ください。
 
@@ -699,7 +699,7 @@ Gradle プラグインバリアントを使用すると、異なる Gradle バ�
 
 フィードバックは[こちらの YouTrack チケット](https://youtrack.jetbrains.com/issue/KT-49227/Support-Gradle-plugins-variants)にお寄せください。
 
-### Kotlin Gradle プラグイン API のアップデート
+### Kotlin Gradle プラグイン API のアップデート {id="updates-in-the-kotlin-gradle-plugin-api"}
 
 Kotlin Gradle プラグイン API アーティファクトに、いくつかの改善が行われました。
 
@@ -715,7 +715,7 @@ Kotlin Gradle プラグイン API アーティファクトに、いくつかの�
 
 * Android Gradle プラグインが、それ自体の中で Kotlin コンパイルを設定できるようにするための基礎を整えました。つまり、ビルドに Kotlin Android Gradle プラグインを追加する必要がなくなります。追加されたサポートの詳細については、[Android Gradle Plugin のリリース告知](https://developer.android.com/studio/releases/gradle-plugin)をフォローして確認し、試してみてください！
 
-### plugins API 経由での sam-with-receiver プラグインの利用
+### plugins API 経由での sam-with-receiver プラグインの利用 {id="the-sam-with-receiver-plugin-is-available-via-the-plugins-api"}
 
 [sam-with-receiver コンパイラプラグイン](sam-with-receiver-plugin.md)が、[Gradle plugins DSL](https://docs.gradle.org/current/userguide/plugins.html#sec:plugins_block) 経由で利用可能になりました。
 
@@ -725,7 +725,7 @@ plugins {
 }
 ```
 
-### コンパイルタスクの変更
+### コンパイルタスクの変更 {id="changes-in-compile-tasks"}
 
 このリリースでは、コンパイルタスクに多くの変更が行われました。
 
@@ -739,7 +739,7 @@ plugins {
 
 フィードバックは[こちらの YouTrack チケット](https://youtrack.jetbrains.com/issue/KT-32805)にお寄せください。
 
-### kapt における各アノテーションプロセッサによる生成ファイルの統計情報
+### kapt における各アノテーションプロセッサによる生成ファイルの統計情報 {id="statistics-of-generated-files-by-each-annotation-processor-in-kapt"}
 
 `kotlin-kapt` Gradle プラグインは、既に[各プロセッサのパフォーマンス統計を報告しています](https://github.com/JetBrains/kotlin/pull/4280)。Kotlin 1.7.0 以降、各アノテーションプロセッサによって生成されたファイルの数に関する統計も報告できるようになりました。
 
@@ -776,7 +776,7 @@ plugins {
 
 フィードバックは[こちらの YouTrack チケット](https://youtrack.jetbrains.com/issue/KT-51132/KAPT-Support-reporting-the-number-of-generated-files-by-each-ann)にお寄せください。
 
-### kotlin.compiler.execution.strategy システムプロパティの非推奨化
+### kotlin.compiler.execution.strategy システムプロパティの非推奨化 {id="deprecation-of-the-kotlin-compiler-execution-strategy-system-property"}
 
 Kotlin 1.6.20 では、[Kotlin コンパイラの実行戦略を定義するための新しいプロパティ](whatsnew1620.md#properties-for-defining-kotlin-compiler-execution-strategy)が導入されました。Kotlin 1.7.0 では、新しいプロパティの使用を推奨し、古いシステムプロパティ `kotlin.compiler.execution.strategy` の非推奨サイクルが始まりました。
 
@@ -788,9 +788,9 @@ kotlin.compiler.execution.strategy=out-of-process
 
 また、コンパイルタスクプロパティ `compilerExecutionStrategy` を使用することもできます。詳細については、[コンパイラ実行戦略のページ](compiler-execution-strategy.md)をご覧ください。
 
-### 非推奨のオプション、メソッド、およびプラグインの削除
+### 非推奨のオプション、メソッド、およびプラグインの削除 {id="removal-of-deprecated-options-methods-and-plugins"}
 
-#### useExperimentalAnnotation メソッドの削除
+#### useExperimentalAnnotation メソッドの削除 {id="removal-of-the-useexperimentalannotation-method"}
 
 Kotlin 1.7.0 では、`useExperimentalAnnotation` Gradle メソッドの非推奨サイクルを完了しました。モジュール内で API の使用をオプトインするには、代わりに `optIn()` を使用してください。
 
@@ -806,7 +806,7 @@ sourceSets {
 
 Kotlin における[オプトイン要求](opt-in-requirements.md)の詳細をご覧ください。
 
-#### 非推奨のコンパイラオプションの削除
+#### 非推奨のコンパイラオプションの削除 {id="removal-of-deprecated-compiler-options"}
 
 いくつかのコンパイラオプションの非推奨サイクルを完了しました。
 
@@ -817,7 +817,7 @@ Kotlin における[オプトイン要求](opt-in-requirements.md)の詳細を�
 >
 {style="note"}
 
-#### 非推奨のプラグインの削除
+#### 非推奨のプラグインの削除 {id="removal-of-deprecated-plugins"}
 
 Kotlin 1.4.0 で非推奨となった `kotlin2js` および `kotlin-dce-plugin` プラグインは、このリリースで削除されました。`kotlin2js` の代わりに、新しい `org.jetbrains.kotlin.js` プラグインを使用してください。デッドコード削除（DCE）は、Kotlin/JS Gradle プラグインが適切に設定されていれば動作します。
 
@@ -827,13 +827,13 @@ Kotlin 1.6.0 では、`KotlinGradleSubplugin` クラスの非推奨レベルを 
 >
 {style="tip"}
 
-#### 非推奨の coroutines DSL オプションおよびプロパティの削除
+#### 非推奨の coroutines DSL オプションおよびプロパティの削除 {id="removal-of-the-deprecated-coroutines-dsl-option-and-property"}
 
 非推奨の `kotlin.experimental.coroutines` Gradle DSL オプションと、`gradle.properties` で使用されていた `kotlin.coroutines` プロパティを削除しました。現在は、単に _[サスペンド関数](coroutines-basics.md)_を使用するか、ビルドスクリプトに [`kotlinx.coroutines` 依存関係を追加](gradle-configure-project.md#set-a-dependency-on-a-kotlinx-library)するだけで済みます。
 
 コルーチンの詳細については、[コルーチンガイド](coroutines-guide.md)をご覧ください。
 
-#### ツールチェーン拡張メソッドにおける型キャストの削除
+#### ツールチェーン拡張メソッドにおける型キャストの削除 {id="removal-of-the-type-cast-in-the-toolchain-extension-method"}
 
 Kotlin 1.7.0 より前は、Kotlin DSL で Gradle ツールチェーンを設定する際、`JavaToolchainSpec` クラスへの型キャストが必要でした。
 
@@ -855,9 +855,9 @@ kotlin {
 }
 ```
 
-## Kotlin 1.7.0 への移行
+## Kotlin 1.7.0 への移行 {id="migrating-to-kotlin-1-7-0"}
 
-### Kotlin 1.7.0 のインストール
+### Kotlin 1.7.0 のインストール {id="install-kotlin-1-7-0"}
 
 IntelliJ IDEA 2022.1 および Android Studio Chipmunk (212) は、Kotlin プラグインを 1.7.0 に更新するように自動的に提案します。
 
@@ -867,12 +867,12 @@ IntelliJ IDEA 2022.1 および Android Studio Chipmunk (212) は、Kotlin プラ
 
 新しいコマンドラインコンパイラは、[GitHub リリースページ](https://github.com/JetBrains/kotlin/releases/tag/v1.7.0)からダウンロードできます。
 
-### 既存のプロジェクトの移行、または Kotlin 1.7.0 での新しいプロジェクトの開始
+### 既存のプロジェクトの移行、または Kotlin 1.7.0 での新しいプロジェクトの開始 {id="migrate-existing-or-start-a-new-project-with-kotlin-1-7-0"}
 
 * 既存のプロジェクトを Kotlin 1.7.0 に移行するには、Kotlin のバージョンを `1.7.0` に変更し、Gradle または Maven プロジェクトを再インポートしてください。[Kotlin 1.7.0 へのアップデート方法を学ぶ](releases.md#update-to-a-new-kotlin-version)。
 
 * Kotlin 1.7.0 で新しいプロジェクトを開始するには、Kotlin プラグインを更新し、**File** | **New** | **Project** からプロジェクトウィザードを実行します。
 
-### Kotlin 1.7.0 互換性ガイド
+### Kotlin 1.7.0 互換性ガイド {id="compatibility-guide-for-kotlin-1-7-0"}
 
 Kotlin 1.7.0 は[フィーチャーリリース](kotlin-evolution-principles.md#language-and-tooling-releases)であるため、以前のバージョンの言語で書かれたコードと互換性のない変更が含まれる可能性があります。そのような変更の詳細なリストについては、[Kotlin 1.7.0 互換性ガイド](compatibility-guide-17.md)をご覧ください。

@@ -6,7 +6,7 @@
 
 이 튜토리얼은 독자가 [코루틴](coroutines-guide.md) 개념에 대한 사전 지식이 있다고 가정합니다.
 
-## 코루틴 생성하기
+## 코루틴 생성하기 {id="create-coroutines"}
 
 1. IntelliJ IDEA에서 Kotlin 프로젝트를 엽니다. 프로젝트가 없다면 [하나 생성](jvm-get-started.md#create-a-project)하세요.
 2. Gradle 프로젝트에서 `kotlinx.coroutines` 라이브러리를 사용하려면 `build.gradle(.kts)` 파일에 다음 의존성을 추가하세요:
@@ -65,7 +65,7 @@
 
     ![애플리케이션 빌드](flow-build-project.png)
 
-## 코루틴 디버깅하기
+## 코루틴 디버깅하기 {id="debug-coroutines"}
 
 1. `println()` 함수를 호출하는 줄에 중단점(breakpoints)을 설정합니다:
 
@@ -103,7 +103,7 @@
 
 IntelliJ IDEA 디버거를 사용하면 각 코루틴을 자세히 살펴보고 코드를 디버깅할 수 있습니다.
 
-### 최적화된 변수(Optimized-out variables)
+### 최적화된 변수(Optimized-out variables) {id="optimized-out-variables"}
 
 `suspend` 함수를 사용하면 디버거에서 변수 이름 옆에 "was optimized out"이라는 텍스트가 표시될 수 있습니다.
 

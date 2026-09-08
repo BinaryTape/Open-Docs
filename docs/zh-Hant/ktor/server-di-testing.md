@@ -32,7 +32,7 @@ fun test() = testApplication {
 
 在上述範例中，`loadServices()` 是用於引導應用程式模組的函式 — 例如，註冊路由和服務的函式，等同於 `application.yaml` 中 `modules` 下方列出的內容。
 
-### 在測試中載入配置
+### 在測試中載入配置 {id="loading-configuration-in-tests"}
 
 在測試中使用 `configure()` 即可輕鬆載入配置檔案：
 

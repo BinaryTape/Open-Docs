@@ -1,6 +1,6 @@
 [//]: # (title: Kotlin 演進原則)
 
-## 務實演進原則
+## 務實演進原則 {id="principles-of-pragmatic-evolution"}
 
 > _語言設計是刻在石頭上的，_
 >
@@ -24,7 +24,7 @@ Kotlin 被設計為開發人員的務實工具。談到語言演進時，其務�
 
 **回饋循環**。經歷棄用週期需要付出巨大的努力，因此我們希望儘量減少未來不相容變更的數量。除了運用我們的最佳判斷外，我們相信在現實生活中進行嘗試是驗證設計的最佳方式。在將設計刻在石頭上之前，我們希望它們經過實戰測試。這就是為什麼我們利用一切機會，在語言的正式版本中提供設計的早期版本，但處於以下其中一種「預先穩定」狀態：[Experimental、Alpha 或 Beta](components-stability.md)。這些功能尚不穩定，隨時可能更改，選擇使用（opt-in）它們的使用者是明確表示他們已準備好處理未來的遷移問題。這些使用者提供了無價的回饋，讓我們能據此反覆調整設計，使其堅如夯實。
 
-## 不相容的變更
+## 不相容的變更 {id="incompatible-changes"}
 
 如果在從一個版本更新到另一個版本時，以前可以運行的某些程式碼不再運行，這就是語言中的「不相容變更」（有時稱為「破壞性變更」）。
 在某些情況下，「不再運行」的確切定義可能存在爭議，但它肯定包括以下內容：
@@ -55,7 +55,7 @@ Kotlin 被設計為開發人員的務實工具。談到語言演進時，其務�
 
 在實務中，某些變更無法在編譯期準確偵測，因此無法報告警告，但至少使用者會透過版本 A 的版本說明得知版本 B 將有變更。
 
-### 處理編譯器錯誤
+### 處理編譯器錯誤 {id="dealing-with-compiler-bugs"}
 
 編譯器是複雜的軟體，儘管開發人員付出了最大努力，但仍會存在錯誤。
 那些導致編譯器本身失敗、報告偽錯誤或產生明顯錯誤程式碼的錯誤，雖然令人惱火且通常令人尷尬，但很容易修復，因為修復不構成不相容的變更。
@@ -64,7 +64,7 @@ Kotlin 被設計為開發人員的務實工具。談到語言演進時，其務�
 我們認為，這支持了舒適更新的原則，因為更少的使用者有機會遇到該問題。
 當然，這僅適用於在發佈版本中出現後不久就被發現的錯誤。
 
-## 決策
+## 決策 {id="decision-making"}
 
 [JetBrains](https://jetbrains.com) 是 Kotlin 的原創者，正在社群的幫助下並與 [Kotlin Foundation](https://kotlinfoundation.org/) 協作，推動其發展。
 
@@ -75,7 +75,7 @@ Kotlin 程式語言的所有變更均由 [Lead Language Designer](https://kotlin
 語言委員會 (Language Committee) 就將進行哪些不相容變更，以及應採取哪些確切措施來使使用者更新盡可能無縫銜接做出最終決定。
 在執行此類工作時，它依賴一套 [Language committee guidelines](https://kotlinfoundation.org/language-committee-guidelines/)。
 
-## 語言功能交付
+## 語言功能交付 {id="language-feature-delivery"}
 
 如 [Kotlin 發佈流程](releases.md) 中所述，語言功能會在「語言發佈」(2._x_._0_) 或其隨後的「工具發佈」(2._x_._20_) 中推出。
 
@@ -84,13 +84,13 @@ Kotlin 程式語言的所有變更均由 [Lead Language Designer](https://kotlin
 
 語言發佈通常會增加新功能，將預先穩定功能提升為穩定功能，並可能移除或更改先前已棄用的功能。
 
-### EAP 組建
+### EAP 組建 {id="eap-builds"}
 
 在發佈語言和工具的穩定版本之前，我們會發佈一些名為「EAP」（Early Access Preview，早期體驗體計劃）的預覽組建，以便我們能更快迭代並收集社群回饋。
 語言發佈的 EAP 通常會產生稍後會被穩定編譯器拒絕的二進制檔案，以確保二進制格式中可能存在的錯誤不會超出預覽期。
 最終的版本候選 (Release Candidates，如 RC2 或 RC3) 通常不受此限制。若要了解更多，請參閱 [參與 Kotlin 早期體驗體計劃](eap.md)。
 
-### 預先穩定功能
+### 預先穩定功能 {id="pre-stable-features"}
 
 根據上述的回饋循環原則，我們在公開環境中反覆調整設計，並發佈一些功能處於「預先穩定」狀態且「預期會發生變更」的語言版本。
 這些功能可以隨時增加、更改或移除，且無需事先通知。
@@ -121,11 +121,11 @@ Kotlin 語言功能可以具有以下狀態之一：
 
 [查看 Kotlin 語言提案及其狀態的完整清單](kotlin-language-features-and-proposals.md)。
 
-### 不同組件的狀態
+### 不同組件的狀態 {id="status-of-different-components"}
 
 進一步了解 [Kotlin 中不同組件的穩定狀態](components-stability.md)，例如 Kotlin/JVM、JS 和 Native 編譯器，以及各種程式庫。
 
-## 程式庫
+## 程式庫 {id="libraries"}
 
 沒有生態系統，語言就什麼都不是，因此我們特別注意實現流暢的程式庫演進。
 
@@ -150,18 +150,18 @@ Kotlin 語言功能可以具有以下狀態之一：
 我們根據上述原則為穩定平台演進 Kotlin 標準函式庫 (`kotlin-stdlib`)。
 其 API 合約的變更經歷與語言本身變更相同的程序。
 
-## 編譯器選項
+## 編譯器選項 {id="compiler-options"}
 
 編譯器接受的命令列選項也是一種公開 API，它們也遵循同樣的考慮。
 受支援的選項（那些沒有「-X」或「-XX」前綴的選項）只能在語言發佈中增加，且在移除之前應經過適當的棄用程序。
 「-X」和「-XX」選項是實驗性的，可以隨時增加或移除。
 
-## 相容性工具
+## 相容性工具 {id="compatibility-tools"}
 
 隨著舊有功能被移除和錯誤被修復，原始語言會發生變化，未經適當遷移的舊程式碼可能無法再編譯。
 正常的棄用週期為遷移提供了充裕的時間，即使週期結束且變更在穩定版本中發佈，仍有辦法編譯未遷移的程式碼。
 
-### 相容性選項
+### 相容性選項 {id="compatibility-options"}
 
 我們提供相容性選項，讓新的 Kotlin 版本模擬舊版本的行為以實現相容性：
 
@@ -177,7 +177,7 @@ Kotlin 語言功能可以具有以下狀態之一：
 
 您可以在 [命令列](compiler-reference.md#common-options) 或使用 [Gradle](gradle-compiler-options.md#attributes-common-to-jvm-and-javascript) 或 [Maven](maven-kotlin-compiler.md#specify-compiler-options) 建置工具來設定這些選項。
 
-### 演進二進制格式
+### 演進二進制格式 {id="evolving-the-binary-format"}
 
 原始碼在最壞的情況下可以手動修復，但二進制檔案的遷移要困難得多，這使得回溯相容性在二進制檔案的情況下至關重要。
 對二進制檔案的不相容變更會使更新變得非常不舒適，因此引入時應比原始語言語法變更更加謹慎。
@@ -192,7 +192,7 @@ Kotlin 語言功能可以具有以下狀態之一：
 
 請注意，並非所有目標平台都達到了這種穩定程度，但 Kotlin/JVM 已經達到了。
 
-#### Kotlin klib 二進制檔案
+#### Kotlin klib 二進制檔案 {id="kotlin-klib-binaries"}
 
 Kotlin klib 二進制檔案在 Kotlin 1.9.20 中已達到 [穩定 (Stable)](components-stability.md#stability-levels-explained) 等級。
 然而，您需要牢記一些相容性細節：

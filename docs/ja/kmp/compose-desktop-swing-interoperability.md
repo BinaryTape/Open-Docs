@@ -9,9 +9,9 @@ Compose Multiplatform と Swing の相互運用性は、以下の目的を支援
 
 多くの場合、Compose Multiplatform アプリケーション内で Swing コンポーネントを使用するよりも、不足しているコンポーネントを Compose Multiplatform で直接実装（し、コミュニティに貢献）する方が効果的です。
 
-## Swing 相互運用のユースケースと制限事項
+## Swing 相互運用のユースケースと制限事項 {id="swing-interop-use-cases-and-limitations"}
 
-### Swing アプリ内での Compose Multiplatform コンポーネント
+### Swing アプリ内での Compose Multiplatform コンポーネント {id="compose-multiplatform-component-in-a-swing-app"}
 
 最初のユースケースは、Swing アプリケーションに Compose Multiplatform コンポーネントを追加する場合です。これは、アプリケーションの Compose Multiplatform 部分をレンダリングするための Swing コンポーネントである `ComposePanel` を使用して実現できます。Swing の観点からは、`ComposePanel` は単なる一つの Swing コンポーネントとして扱われます。
 
@@ -29,7 +29,7 @@ Compose Multiplatform と Swing の相互運用性は、以下の目的を支援
 * 複雑なレンダリング領域（アニメーションを含む可能性がある）をアプリケーションに統合する。これは Compose Multiplatform の方がシンプルです。
 * Swing ベースのアプリケーションの複雑な UI 部分を置き換える。Compose Multiplatform は便利なコンポーネントレイアウトシステムと、幅広い組み込みコンポーネント、カスタムコンポーネントを迅速に作成するためのオプションを提供します。
 
-### Compose Multiplatform アプリ内での Swing コンポーネント
+### Compose Multiplatform アプリ内での Swing コンポーネント {id="swing-component-in-a-compose-multiplatform-app"}
 
 もう一つのユースケースは、Swing には存在するが Compose Multiplatform には同等のものがないコンポーネントを使用する必要がある場合です。新しい実装をゼロから作成するのに時間がかかりすぎる場合は、`SwingPanel` を試してください。`SwingPanel` 関数は、Compose Multiplatform コンポーネントの上に配置された Swing コンポーネントのサイズ、位置、レンダリングを管理するラッパーとして機能します。
 
@@ -41,7 +41,7 @@ Compose Multiplatform と Swing の相互運用性は、以下の目的を支援
   
 Compose Multiplatform と Swing は双方向に組み合わせることができ、柔軟な UI 設計が可能です。`ComposePanel` の中に `SwingPanel` を配置し、さらにそれを別の `SwingPanel` の中に配置することもできます。ただし、このようなネストされた組み合わせを使用する前に、潜在的なレンダリングの不具合を考慮してください。コードサンプルについては、[ネストされた `SwingPanel` と `ComposePanel` によるレイアウト](#layout-with-nested-swing-and-compose-multiplatform-components)を参照してください。
 
-## Swing アプリケーションで Compose Multiplatform を使用する
+## Swing アプリケーションで Compose Multiplatform を使用する {id="use-compose-multiplatform-in-a-swing-application"}
 
 `ComposePanel` を使用すると、Swing ベースのアプリケーション内で Compose Multiplatform を使用した UI を作成できます。
 Swing のレイアウトに `ComposePanel` のインスタンスを追加し、`setContent` 内で Composition を定義します。
@@ -167,7 +167,7 @@ fun Counter(text: String, counter: MutableState<Int>) {
 
 <img src="compose-desktop-swing-composepanel.animated.gif" alt="Swingとの統合" preview-src="compose-desktop-swing-composepanel.png" width="799"/>
 
-### 実験的なオフスクリーンレンダリング
+### 実験的なオフスクリーンレンダリング {id="experimental-off-screen-rendering"}
 
 実験的なモードでは、`ComposePanel` を Swing コンポーネント上に直接レンダリングできます。
 これにより、`ComposePanel` が表示、非表示、またはサイズ変更されたときの遷移レンダリングの問題が防止されます。
@@ -203,7 +203,7 @@ val composePanel = ComposePanel(renderSettings = RenderSettings.SwingGraphics)
     }
     ```
 
-### 実験的なポップアップ用の個別ビュー
+### 実験的なポップアップ用の個別ビュー {id="experimental-separate-views-for-popups"}
 
 ツールチップやドロップダウンメニューなどのポップアップ要素が、最初のコンポーザブルキャンバスやアプリウィンドウに制限されないことが重要な場合があります。例えば、コンポーザブルビューが全画面を占有していないが、アラートダイアログを表示する必要がある場合などです。
 
@@ -273,7 +273,7 @@ fun ComposeContent() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="@OptIn(ExperimentalComposeUiApi::class) fun main()"}
 
-## Compose Multiplatform アプリケーションで Swing を使用する
+## Compose Multiplatform アプリケーションで Swing を使用する {id="use-swing-in-a-compose-multiplatform-application"}
 
 `SwingPanel` を使用すると、Compose Multiplatform アプリケーション内で Swing を使用した UI を作成できます。
 `SwingPanel` の `factory` パラメータを使用して、Swing の `JPanel` を作成します。
@@ -370,7 +370,7 @@ fun actionButton(
 
 <img src="compose-desktop-swingpanel.animated.gif" alt="SwingPanel" preview-src="compose-desktop-swingpanel.png" width="600"/>
 
-### Compose の状態変化に合わせて Swing コンポーネントを更新する
+### Compose の状態変化に合わせて Swing コンポーネントを更新する {id="update-swing-components-when-compose-state-changes"}
 
 Swing コンポーネントを最新の状態に保つには、`update: (T) -> Unit` コールバックを提供します。これは、コンポーザブルの状態が変化したり、レイアウトがインフレートされたりするたびに呼び出されます。
 次のコードサンプルは、コンポーザブルの状態が変化するたびに `SwingPanel` 内の Swing コンポーネントを更新する方法を示しています。
@@ -444,7 +444,7 @@ fun main() = application {
 
 <img src="compose-desktop-swinglabel.animated.gif" alt="SwingLabel" preview-src="compose-desktop-swinglabel.png" width="600"/>
 
-### 実験的なインターオペラビリティ・ブレンディング
+### 実験的なインターオペラビリティ・ブレンディング {id="experimental-interop-blending"}
 
 デフォルトでは、`SwingPanel` ラッパーを使用して実装された相互運用ビューは矩形であり、常に最前面（Compose Multiplatform コンポーネントの上）に表示されます。ポップアップ要素を使いやすくするために、実験的なインターオペラビリティ・ブレンディング（interop blending）のサポートを導入しました。
 
@@ -469,7 +469,7 @@ fun main() {
 
 詳細および既知の制限事項については、[GitHub の説明](https://github.com/JetBrains/compose-multiplatform-core/pull/915)を参照してください。
 
-## ネストされた Swing と Compose Multiplatform コンポーネントによるレイアウト
+## ネストされた Swing と Compose Multiplatform コンポーネントによるレイアウト {id="layout-with-nested-swing-and-compose-multiplatform-components"}
 
 相互運用性により、Swing コンポーネントを Compose Multiplatform アプリケーションに追加すること、および Compose Multiplatform コンポーネントを Swing アプリケーションに追加することの両方を組み合わせることができます。複数のコンポーネントをネストし、これらのアプローチを自由に組み合わせたい場合も、このシナリオはサポートされています。
 
@@ -650,6 +650,6 @@ fun SelectableItem(
 
 <img src="compose-desktop-swing-layout.animated.gif" alt="Swing レイアウト" preview-src="compose-desktop-swing-layout.png" width="600"/>
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 [その他のデスクトップ固有のコンポーネント](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop)に関するチュートリアルをご覧ください。

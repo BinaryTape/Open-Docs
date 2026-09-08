@@ -8,7 +8,7 @@ title: Android ライブラリとの統合
 コアの定義タイプや外部ライブラリのバインディングパターンについては、[定義](/docs/reference/koin-core/definitions)を参照してください。このページでは、Android 特有のライブラリの例に焦点を当てています。
 :::
 
-## Retrofit
+## Retrofit {id="retrofit"}
 
 ```kotlin
 interface ApiService {
@@ -68,7 +68,7 @@ class NetworkModule {
 }
 ```
 
-## Room Database
+## Room Database {id="room-database"}
 
 ```kotlin
 @Database(entities = [User::class], version = 1)
@@ -101,7 +101,7 @@ class DatabaseModule {
 }
 ```
 
-## Gson / Serialization
+## Gson / Serialization {id="gson-serialization"}
 
 ```kotlin
 fun createGson(): Gson =
@@ -115,7 +115,7 @@ val serializationModule = module {
 }
 ```
 
-## WorkManager
+## WorkManager {id="workmanager"}
 
 ```kotlin
 class SyncWorker(
@@ -139,9 +139,9 @@ val workModule = module {
 WorkManager のセットアップには、`koin-androidx-workmanager` 依存関係を使用します。完全なセットアップについては、[WorkManager の統合](/docs/reference/koin-android/workmanager)を参照してください。
 :::
 
-## Android クリーンアーキテクチャ (Clean Architecture)
+## Android クリーンアーキテクチャ (Clean Architecture) {id="android-clean-architecture"}
 
-### リポジトリパターン (Repository Pattern)
+### リポジトリパターン (Repository Pattern) {id="repository-pattern"}
 
 ```kotlin
 @Singleton
@@ -164,7 +164,7 @@ val dataModule = module {
 }
 ```
 
-### ユースケースパターン (Use Case Pattern)
+### ユースケースパターン (Use Case Pattern) {id="use-case-pattern"}
 
 ```kotlin
 @Factory
@@ -179,7 +179,7 @@ val domainModule = module {
 }
 ```
 
-### SavedStateHandle を使用した ViewModel
+### SavedStateHandle を使用した ViewModel {id="viewmodel-with-savedstatehandle"}
 
 ```kotlin
 @KoinViewModel
@@ -202,7 +202,7 @@ val viewModelModule = module {
 }
 ```
 
-## 次のステップ
+## 次のステップ {id="next-steps"}
 
 - **[定義](/docs/reference/koin-core/definitions)** - コアの定義タイプ
 - **[WorkManager](/docs/reference/koin-android/workmanager)** - WorkManager の完全なセットアップ

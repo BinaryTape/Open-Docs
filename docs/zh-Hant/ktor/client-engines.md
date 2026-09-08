@@ -600,7 +600,7 @@ CIO 引擎是一個完全非同步且基於協同程式的引擎，可用於 JVM
 
 ## 限制 {id="limitations"}
 
-### HTTP/2 與 WebSockets
+### HTTP/2 與 WebSockets {id="http-2-and-websockets"}
 
 並非所有引擎都支援 HTTP/2 協定。如果引擎支援 HTTP/2，您可以在引擎配置中啟用它。例如，使用 [Java](#java) 引擎。
 
@@ -619,20 +619,20 @@ CIO 引擎是一個完全非同步且基於協同程式的引擎，可用於 JVM
 | `WinHttp` | ✅      | ✅          |
 | `Curl`    | ✅      | ✅          |
 
-### 安全性
+### 安全性 {id="security"}
 
 必須為每個引擎分別配置 [SSL](client-ssl.md)。每個引擎提供其自身的 SSL 配置選項。
 
-### 代理支援
+### 代理支援 {id="proxy-support"}
 
 某些引擎不支援代理。如需完整清單，請參閱
 [代理文件](client-proxy.md#supported_engines)。
 
-### 日誌記錄
+### 日誌記錄 {id="logging"}
 
 [Logging](client-logging.md) 外掛程式根據目標平台提供不同的記錄器類型。
 
-### 超時
+### 超時 {id="timeout"}
 
 [HttpTimeout](client-timeout.md) 外掛程式在某些引擎上存在一些限制。如需完整清單，
 請參閱 [超時限制](client-timeout.md#limitations)。

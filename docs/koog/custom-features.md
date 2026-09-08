@@ -4,7 +4,7 @@
 
 除了 Koog [开箱即用](features-overview.md)提供的功能外，您还可以通过扩展适当的功能接口来实现自己的功能。本页面介绍了使用当前 Koog API 构建自定义功能的基本构建块。
 
-## 功能接口
+## 功能接口 {id="feature-interfaces"}
 
 Koog 提供了以下接口，您可以扩展这些接口来实现自定义功能：
 
@@ -15,7 +15,7 @@ Koog 提供了以下接口，您可以扩展这些接口来实现自定义功能
 !!! note
     要创建一个可以安装在基于图的、函数式的和规划器智能体中的自定义功能，您需要实现所有接口。
 
-## 实现自定义功能
+## 实现自定义功能 {id="implementing-custom-features"}
 
 要实现自定义功能，您需要按照以下步骤创建功能结构：
 
@@ -107,7 +107,7 @@ val agent = AIAgent(
 ```
 <!--- KNIT example-custom-features-02.kt -->
 
-### 流水线拦截器
+### 流水线拦截器 {id="pipeline-interceptors"}
 
 拦截器代表了智能体生命周期中的各个点，您可以挂载到智能体执行流水线中以实现自定义逻辑。Koog 包含一系列预定义的拦截器，可用于观察各种事件。
 
@@ -145,7 +145,7 @@ LLM 流式传输生命周期：
 - `interceptToolCallFailed`：在工具执行失败时调用。
 - `interceptToolCallCompleted`：在工具完成（并返回结果）后调用。
 
-#### 特定于基于图的智能体的拦截器
+#### 特定于基于图的智能体的拦截器 {id="interceptors-specific-to-graph-based-agents"}
 
 以下拦截器仅在 `AIAgentGraphPipeline` 上可用，允许您观察节点和子图的生命周期事件。
 
@@ -163,7 +163,7 @@ LLM 流式传输生命周期：
 
 为了让功能处理特定类型的事件，它需要注册相应的流水线拦截器。
 
-### 过滤智能体事件
+### 过滤智能体事件 {id="filtering-agent-events"}
 
 在智能体中安装功能时，您可能不想处理该功能中注册的所有事件。要过滤掉某些事件，可以使用 [FeatureConfig.setEventFilter](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.feature.config/-feature-config/set-event-filter.html) 函数应用过滤器。
 
@@ -201,7 +201,7 @@ install(MyFeature) {
 ```
 <!--- KNIT example-custom-features-03.kt -->
 
-#### 禁用功能的事件过滤
+#### 禁用功能的事件过滤 {id="disabling-event-filtering-for-a-feature"}
 
 如果您的功能逻辑依赖于完整的智能体事件结构，事件过滤可能会导致意外行为。为了防止这种情况，您需要在实现功能时禁用事件过滤，方法是在功能配置中重写 `setEventFilter`，以忽略安装功能时设置的任何自定义过滤器。
 
@@ -223,7 +223,7 @@ class MyFeatureConfig : FeatureConfig() {
 ```
 <!--- KNIT example-custom-features-04.kt -->
 
-## 示例：一个基础日志记录功能
+## 示例：一个基础日志记录功能 {id="example-a-basic-logging-feature"}
 
 下面的示例展示了如何实现一个记录智能体生命周期事件的基础日志记录功能。由于该功能应适用于基于图的、函数式和规划器智能体，因此所有智能体类型通用的拦截器都在 `installCommon` 方法中实现，以避免代码重复。特定于各个智能体类型的拦截器分别在 `installGraphPipeline`、`installFunctionalPipeline` 和 `installPlannerPipeline` 方法中实现。
 

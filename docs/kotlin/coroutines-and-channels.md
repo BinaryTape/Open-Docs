@@ -20,7 +20,7 @@
 >
 {style="tip"}
 
-## 开始之前
+## 开始之前 {id="before-you-start"}
 
 1. 下载并安装最新版本的 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/index.html)。
 2. 在欢迎界面上选择 **Get from VCS** 或选择 **File | New | Project from Version Control** 来克隆[项目模板](http://github.com/kotlin-hands-on/intro-coroutines)。
@@ -31,7 +31,7 @@
    git clone https://github.com/kotlin-hands-on/intro-coroutines
    ```
 
-### 生成 GitHub 开发者令牌
+### 生成 GitHub 开发者令牌 {id="generate-a-github-developer-token"}
 
 您将在项目中使用 GitHub API。要获得访问权限，请提供您的 GitHub 帐户名以及密码或令牌。如果您启用了双重身份验证，仅需令牌即可。
 
@@ -44,7 +44,7 @@
 2. 不要选择任何作用域。点击页面底部的 **Generate token**。
 3. 复制生成的令牌。
 
-### 运行代码
+### 运行代码 {id="run-the-code"}
 
 该程序会加载给定组织（默认名为 “kotlin”）下所有仓库的贡献者。稍后您将添加逻辑，按贡献次数对用户进行排序。
 
@@ -61,7 +61,7 @@
 
 有多种方法可以实现此逻辑：使用[阻塞请求](#blocking-requests)或[回调](#callbacks)。您将把这些解决方案与使用[协程](#coroutines)的解决方案进行比较，并了解如何使用[通道](#channels)在不同协程之间共享信息。
 
-## 阻塞请求
+## 阻塞请求 {id="blocking-requests"}
 
 您将使用 [Retrofit](https://square.github.io/retrofit/) 库向 GitHub 执行 HTTP 请求。它允许请求给定组织下的仓库列表以及每个仓库的贡献者列表：
 
@@ -152,7 +152,7 @@ interface GitHubService {
     * `updateResults()` 会更新 UI，因此必须始终从 UI 线程调用。
     * 由于 `loadContributorsBlocking()` 也是从 UI 线程调用的，因此 UI 线程被阻塞，UI 冻结。
 
-### 任务 1
+### 任务 1 {id="task-1"}
 
 第一个任务帮助您熟悉任务领域。目前，每个贡献者的名字都会重复多次，参与过的每个项目都会出现一次。实现 `aggregate()` 函数来合并用户，使每个贡献者仅添加一次。`User.contributions` 属性应包含给定用户在 _所有_ 项目中的贡献总数。结果列表应根据贡献次数按降序排序。
 
@@ -168,7 +168,7 @@ interface GitHubService {
 
 ![“kotlin”组织的列表](aggregate.png){width=500}
 
-#### 任务 1 的解决方案 {initial-collapse-state="collapsed" collapsible="true"}
+#### 任务 1 的解决方案 {initial-collapse-state="collapsed" collapsible="true" id="solution-for-task-1"}
 
 1. 要按登录名对用户进行分组，请使用 [`groupBy()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/group-by.html)，它会返回一个从登录名到该用户在不同仓库中所有出现情况的映射。
 2. 对于每个映射条目，计算每个用户的贡献总数，并根据给定名称和贡献总数创建一个 `User` 类的新实例。
@@ -183,7 +183,7 @@ interface GitHubService {
 
 另一种替代方案是使用 [`groupingBy()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/grouping-by.html) 函数而不是 `groupBy()`。
 
-## 回调
+## 回调 {id="callbacks"}
 
 之前的解决方案可以工作，但它会阻塞线程并因此冻结 UI。避免这种情况的一种传统方法是使用 _回调_。
 
@@ -191,7 +191,7 @@ interface GitHubService {
 
 为了使 UI 保持响应，您可以将整个计算移动到单独的线程，或者切换到使用回调而不是阻塞调用的 Retrofit API。
 
-### 使用后台线程
+### 使用后台线程 {id="use-a-background-thread"}
 
 1. 打开 `src/tasks/Request2Background.kt` 查看其实现。首先，整个计算被移动到不同的线程。`thread()` 函数会启动一个新线程：
 
@@ -228,11 +228,11 @@ interface GitHubService {
 
 然而，如果您尝试通过 `BACKGROUND` 选项加载贡献者，您会发现列表已更新但 UI 没有任何变化。
 
-### 任务 2
+### 任务 2 {id="task-2"}
 
 修复 `src/tasks/Request2Background.kt` 中的 `loadContributorsBackground()` 函数，使结果列表显示在 UI 中。
 
-#### 任务 2 的解决方案 {initial-collapse-state="collapsed" collapsible="true"}
+#### 任务 2 的解决方案 {initial-collapse-state="collapsed" collapsible="true" id="solution-for-task-2"}
 
 如果您尝试加载贡献者，您可以在日志中看到贡献者已加载，但结果并未显示。要修复此问题，请对生成的用户列表调用 `updateResults()`：
 
@@ -244,7 +244,7 @@ thread {
 
 确保显式调用回调中传递的逻辑。否则，什么都不会发生。
 
-### 使用 Retrofit 回调 API
+### 使用 Retrofit 回调 API {id="use-the-retrofit-callback-api"}
 
 在之前的解决方案中，整个加载逻辑被移动到了后台线程，但这仍然不是资源的最佳利用方式。所有的加载请求都是按顺序进行的，线程在等待加载结果时被阻塞，而它本可以处理其他任务。具体来说，该线程可以开始加载另一个请求，以便更早地接收整个结果。
 
@@ -289,11 +289,11 @@ fun loadContributorsCallbacks(
 
 思考一下为什么给定的代码没有按预期工作并尝试修复它，或者查看下面的解决方案。
 
-### 任务 3 (可选)
+### 任务 3 (可选) {id="task-3-optional"}
 
 重写 `src/tasks/Request3Callbacks.kt` 文件中的代码，以便显示加载的贡献者列表。
 
-#### 任务 3 的第一次尝试方案 {initial-collapse-state="collapsed" collapsible="true"}
+#### 任务 3 的第一次尝试方案 {initial-collapse-state="collapsed" collapsible="true" id="the-first-attempted-solution-for-task-3"}
 
 在当前的解决方案中，许多请求是并发启动的，这缩短了总加载时间。然而，结果并未加载。这是因为 `updateResults()` 回调在所有加载请求启动后立即被调用，而此时 `allUsers` 列表尚未填充数据。
 
@@ -320,7 +320,7 @@ for ((index, repo) in repos.withIndex()) {   // #1
 
 然而，这段代码也未能实现我们的目标。尝试自己寻找答案，或查看下面的解决方案。
 
-#### 任务 3 的第二次尝试方案 {initial-collapse-state="collapsed" collapsible="true"}
+#### 任务 3 的第二次尝试方案 {initial-collapse-state="collapsed" collapsible="true" id="the-second-attempted-solution-for-task-3"}
 
 由于加载请求是并发启动的，因此无法保证最后一个请求的结果会最后返回。结果可以以任何顺序返回。
 
@@ -348,7 +348,7 @@ for (repo in repos) {
 
 这段代码使用了同步版本的列表和 `AtomicInteger()`，因为通常情况下，无法保证处理 `getRepoContributors()` 请求的不同回调始终从同一个线程调用。
 
-#### 任务 3 的第三次尝试方案 {initial-collapse-state="collapsed" collapsible="true"}
+#### 任务 3 的第三次尝试方案 {initial-collapse-state="collapsed" collapsible="true" id="the-third-attempted-solution-for-task-3"}
 
 一个更好的解决方案是使用 `CountDownLatch` 类。它存储一个由仓库数量初始化的计数器。处理每个仓库后，该计数器都会递减。然后它会一直等待，直到门闩计数减为零，然后再更新结果：
 
@@ -373,7 +373,7 @@ updateResults(allUsers.aggregate())
 >
 {style="tip"}
 
-## 挂起函数
+## 挂起函数 {id="suspending-functions"}
 
 您可以使用挂起函数实现相同的逻辑。不返回 `Call<List<Repo>>`，而是将 API 调用定义为[挂起函数](composing-suspending-functions.md)，如下所示：
 
@@ -410,7 +410,7 @@ interface GitHubService {
 }
 ```
 
-### 任务 4
+### 任务 4 {id="task-4"}
 
 您的任务是更改加载贡献者的函数代码，以便利用两个新的挂起函数 `getOrgRepos()` 和 `getRepoContributors()`。新的 `loadContributorsSuspend()` 函数被标记为 `suspend` 以使用新的 API。
 
@@ -422,7 +422,7 @@ interface GitHubService {
 2. 修改代码，以便使用新的挂起函数来替代返回 `Call` 的函数。
 3. 通过选择 _SUSPEND_ 选项运行程序，并确保在执行 GitHub 请求时 UI 仍能响应。
 
-#### 任务 4 的解决方案 {initial-collapse-state="collapsed" collapsible="true"}
+#### 任务 4 的解决方案 {initial-collapse-state="collapsed" collapsible="true" id="solution-for-task-4"}
 
 将 `.getOrgReposCall(req.org).execute()` 替换为 `.getOrgRepos(req.org)`，并对第二个 "contributors" 请求重复同样的替换：
 
@@ -444,7 +444,7 @@ suspend fun loadContributorsSuspend(service: GitHubService, req: RequestData): L
 * `loadContributorsSuspend()` 应定义为 `suspend` 函数。
 * 您不再需要调用之前返回 `Response` 的 `execute`，因为现在 API 函数直接返回 `Response`。请注意，此细节特定于 Retrofit 库。对于其他库，API 会有所不同，但概念是相同的。
 
-## 协程
+## 协程 {id="coroutines"}
 
 带有挂起函数的代码看起来与 “阻塞” 版本类似。与阻塞版本的主要区别在于，协程不是阻塞线程，而是被挂起：
 
@@ -457,7 +457,7 @@ thread -> coroutine
 >
 {style="note"}
 
-### 启动新协程
+### 启动新协程 {id="starting-a-new-coroutine"}
 
 如果您查看 `src/contributors/Contributors.kt` 中如何使用 `loadContributorsSuspend()`，您可以看到它是在 `launch` 内部被调用的。`launch` 是一个库函数，它接受一个 lambda 表达式作为实参：
 
@@ -506,7 +506,7 @@ launch {
 
 挂起函数公平地对待线程，不会为了 “等待” 而阻塞它。然而，这还没有带来任何并发。
 
-## 并发
+## 并发 {id="concurrency"}
 
 Kotlin 协程比线程消耗的资源少得多。每当您想异步启动新的计算时，都可以创建一个新协程。
 
@@ -569,11 +569,11 @@ fun main() = runBlocking {
 
 总加载时间与 _CALLBACKS_ 版本大致相同，但它不需要任何回调。更重要的是，`async` 显式强调了代码中哪些部分是并发运行的。
 
-### 任务 5
+### 任务 5 {id="task-5"}
 
 在 `Request5Concurrent.kt` 文件中，利用之前的 `loadContributorsSuspend()` 函数实现 `loadContributorsConcurrent()` 函数。
 
-#### 任务 5 的提示 {initial-collapse-state="collapsed" collapsible="true"}
+#### 任务 5 的提示 {initial-collapse-state="collapsed" collapsible="true" id="tip-for-task-5"}
 
 您只能在协程作用域内启动新协程。将内容从 `loadContributorsSuspend()` 复制到 `coroutineScope` 调用中，以便您可以在那里调用 `async` 函数：
 
@@ -597,7 +597,7 @@ val deferreds: List<Deferred<List<User>>> = repos.map { repo ->
 deferreds.awaitAll() // List<List<User>>
 ```
 
-#### 任务 5 的解决方案 {initial-collapse-state="collapsed" collapsible="true"}
+#### 任务 5 的解决方案 {initial-collapse-state="collapsed" collapsible="true" id="solution-for-task-5"}
 
 用 `async` 包装每个 “contributors” 请求，以创建与仓库数量相同的协程。`async` 返回 `Deferred<List<User>>`。这没有问题，因为创建新协程并不非常消耗资源，所以您可以根据需要创建任意多个。
 
@@ -689,7 +689,7 @@ deferreds.awaitAll() // List<List<User>>
 
 3. 运行代码并确保协程是在线程池的线程上执行的。
 
-## 结构化并发
+## 结构化并发 {id="structured-concurrency"}
 
 * _协程作用域_ 负责不同协程之间的结构和父子关系。新协程通常需要在作用域内启动。
 * _协程上下文_ 存储了用于运行给定协程的额外技术信息，例如协程自定义名称或指定协程应调度在哪些线程上的调度器。
@@ -732,7 +732,7 @@ fun main() = runBlocking { /* this: CoroutineScope */
 
 使用 `GlobalScope.async` 时，没有将多个协程绑定到较小作用域的结构。从全局作用域启动的协程都是独立的——它们的寿命仅受整个应用程序寿命的限制。可以存储对从全局作用域启动的协程的引用并等待其完成或显式取消它，但这不会像结构化并发那样自动发生。
 
-### 取消加载贡献者
+### 取消加载贡献者 {id="canceling-the-loading-of-contributors"}
 
 创建两个版本的加载贡献者列表函数。比较当您尝试取消父协程时这两个版本的行为。第一个版本将使用 `coroutineScope` 启动所有子协程，而第二个版本将使用 `GlobalScope`。
 
@@ -852,7 +852,7 @@ job.setUpCancellation()
 
 通过结构化并发，您只需取消父协程，取消操作就会自动传播到所有子协程。
 
-### 使用外部作用域的上下文
+### 使用外部作用域的上下文 {id="using-the-outer-scope-s-context"}
 
 当您在给定作用域内启动新协程时，更容易确保它们都使用相同的上下文运行。如果需要，替换上下文也容易得多。
 
@@ -886,7 +886,7 @@ suspend fun loadContributorsConcurrent(
 >
 {style="tip"}
 
-## 显示进度
+## 显示进度 {id="showing-progress"}
 
 尽管某些仓库的信息加载得很快，但用户只有在加载完所有数据后才能看到结果列表。在此之前，加载图标一直运行显示进度，但没有关于当前状态或已加载哪些贡献者的信息。
 
@@ -922,7 +922,7 @@ launch(Dispatchers.Default) {
 * `updateResults()` 形参在 `loadContributorsProgress()` 中被声明为 `suspend`。在相应的 lambda 实参内部调用 `withContext`（一个 `suspend` 函数）是必要的。
 * `updateResults()` 回调接受一个额外的布尔参数作为实参，用于指定加载是否已完成以及结果是否为最终结果。
 
-### 任务 6
+### 任务 6 {id="task-6"}
 
 在 `Request6Progress.kt` 文件中实现显示中间进度的 `loadContributorsProgress()` 函数。基于 `Request4Suspend.kt` 中的 `loadContributorsSuspend()` 函数。
 
@@ -930,7 +930,7 @@ launch(Dispatchers.Default) {
 * 中间贡献者列表应以 “聚合” 状态显示，而不仅仅是为每个仓库加载的用户列表。
 * 当加载每个新仓库的数据时，应增加每个用户的贡献总数。
 
-#### 任务 6 的解决方案 {initial-collapse-state="collapsed" collapsible="true"}
+#### 任务 6 的解决方案 {initial-collapse-state="collapsed" collapsible="true" id="solution-for-task-6"}
 
 为了以 “聚合” 状态存储已加载贡献者的中间列表，定义一个存储用户列表的 `allUsers` 变量，然后在加载完每个新仓库的贡献者后更新它：
 
@@ -957,7 +957,7 @@ suspend fun loadContributorsProgress(
 }
 ```
 
-#### 连续 vs 并发
+#### 连续 vs 并发 {id="consecutive-vs-concurrent"}
 
 每次请求完成后都会调用 `updateResults()` 回调：
 
@@ -971,7 +971,7 @@ suspend fun loadContributorsProgress(
 
 要增加并发，请使用 _通道_。
 
-## 通道
+## 通道 {id="channels"}
 
 编写带有共享可变状态的代码相当困难且容易出错（例如使用回调的解决方案）。一种更简单的方法是通过通信而不是使用公共可变状态来共享信息。协程之间可以通过 _通道_ 进行通信。
 
@@ -1074,13 +1074,13 @@ fun log(message: Any?) {
 >
 {style="tip"}
 
-### 任务 7
+### 任务 7 {id="task-7"}
 
 在 `src/tasks/Request7Channels.kt` 中，实现 `loadContributorsChannels()` 函数，并发请求所有 GitHub 贡献者并同时显示中间进度。
 
 使用之前的函数，`Request5Concurrent.kt` 中的 `loadContributorsConcurrent()` 和 `Request6Progress.kt` 中的 `loadContributorsProgress()`。
 
-#### 任务 7 的提示 {initial-collapse-state="collapsed" collapsible="true"}
+#### 任务 7 的提示 {initial-collapse-state="collapsed" collapsible="true" id="tip-for-task-7"}
 
 并发接收不同仓库贡献者列表的不同协程可以将所有接收到的结果发送到同一个通道：
 
@@ -1106,7 +1106,7 @@ repeat(repos.size) {
 
 由于 `receive()` 调用是顺序执行的，因此不需要额外的同步。
 
-#### 任务 7 的解决方案 {initial-collapse-state="collapsed" collapsible="true"}
+#### 任务 7 的解决方案 {initial-collapse-state="collapsed" collapsible="true" id="solution-for-task-7"}
 
 与 `loadContributorsProgress()` 函数一样，您可以创建一个 `allUsers` 变量来存储 “所有贡献者” 列表的中间状态。
 从通道接收到的每个新列表都将添加到所有用户列表中。您对结果进行聚合，并使用 `updateResults` 回调更新状态：
@@ -1148,7 +1148,7 @@ suspend fun loadContributorsChannels(
 
 尽管协程和通道都不能完全消除并发带来的复杂性，但当您需要理解发生了什么时，它们会让生活变得更轻松。
 
-## 测试协程
+## 测试协程 {id="testing-coroutines"}
 
 现在让我们测试所有的解决方案，以检查并发协程方案是否比 `suspend` 函数方案更快，并检查通道方案是否比简单的 “进度” 方案更快。
 
@@ -1250,7 +1250,7 @@ compileTestKotlin {
 
 在本教程对应的项目中，编译器实参已添加到 Gradle 脚本中。
 
-### 任务 8
+### 任务 8 {id="task-8"}
 
 重构 `tests/tasks/` 中的以下测试，以使用虚拟时间代替实时时间：
 
@@ -1261,7 +1261,7 @@ compileTestKotlin {
 
 比较应用重构前后的总运行时间。
 
-#### 任务 8 的提示 {initial-collapse-state="collapsed" collapsible="true"}
+#### 任务 8 的提示 {initial-collapse-state="collapsed" collapsible="true" id="tip-for-task-8"}
 
 1. 将 `runBlocking` 调用替换为 `runTest`，并将 `System.currentTimeMillis()` 替换为 `currentTime`：
 
@@ -1278,7 +1278,7 @@ compileTestKotlin {
 2. 取消注释检查精确虚拟时间的断言。
 3. 不要忘记添加 `@UseExperimental(ExperimentalCoroutinesApi::class)`。
 
-#### 任务 8 的解决方案 {initial-collapse-state="collapsed" collapsible="true"}
+#### 任务 8 的解决方案 {initial-collapse-state="collapsed" collapsible="true" id="solution-for-task-8"}
 
 以下是并发和通道情况的解决方案：
 
@@ -1321,7 +1321,7 @@ fun testChannels() = runTest {
 >
 {style="tip"}
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * 观看 KotlinConf 上的 [Asynchronous Programming with Kotlin](https://kotlinconf.com/workshops/) 工作坊。
 * 了解更多关于使用[虚拟时间和实验性测试包](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-test/)的信息。

@@ -8,11 +8,11 @@ status: beta
 
 KoogはA2Aプロトコルとのシームレスな統合を提供し、KoogエージェントをA2Aサーバーとして公開したり、Koogエージェントを他のA2A準拠のエージェントに接続したりすることを可能にします。
 
-## 依存関係
+## 依存関係 {id="dependencies"}
 
 A2AとKoogの統合には、ユースケースに応じて特定のフィーチャー（feature）モジュールが必要です：
 
-### KoogエージェントをA2Aサーバーとして公開する場合
+### KoogエージェントをA2Aサーバーとして公開する場合 {id="for-exposing-koog-agents-as-a2a-servers"}
 
 以下の依存関係を `build.gradle.kts` に追加してください：
 
@@ -29,7 +29,7 @@ dependencies {
 }
 ```
 
-### KoogエージェントをA2Aエージェントに接続する場合
+### KoogエージェントをA2Aエージェントに接続する場合 {id="for-connecting-koog-agents-to-a2a-agents"}
 
 以下の依存関係を `build.gradle.kts` に追加してください：
 
@@ -46,16 +46,16 @@ dependencies {
 }
 ```
 
-## 概要
+## 概要 {id="overview"}
 
 この統合により、主に2つのパターンが可能になります：
 
 1. **KoogエージェントをA2Aサーバーとして公開する** - A2Aプロトコルを介してKoogエージェントを検出・アクセス可能にします。
 2. **KoogエージェントをA2Aエージェントに接続する** - Koogエージェントが他のA2A準拠のエージェントと通信できるようにします。
 
-## KoogエージェントをA2Aサーバーとして公開する
+## KoogエージェントをA2Aサーバーとして公開する {id="exposing-koog-agents-as-a2a-servers"}
 
-### A2Aフィーチャーを使用したKoogエージェントの定義
+### A2Aフィーチャーを使用したKoogエージェントの定義 {id="define-koog-agent-with-a2a-feature"}
 
 まず、Koogエージェントを定義しましょう。エージェントのロジックはさまざまですが、ここではツールを備えた基本的なシングルランエージェントの例を示します。
 このエージェントはユーザーからメッセージを受け取り、それをLLMに転送します。
@@ -186,7 +186,7 @@ private suspend fun A2AAgentServer.sendTaskUpdate(
 }
 ```
 
-## A2AAgentServer フィーチャーの仕組み
+## A2AAgentServer フィーチャーの仕組み {id="a2aagentserver-feature-mechanism"}
 
 `A2AAgentServer` は、KoogエージェントとA2Aプロトコルのシームレスな統合を可能にするKoogエージェントのフィーチャーです。
 `A2AAgentServer` フィーチャーは、`RequestContext` および `SessionEventProcessor` エンティティへのアクセスを提供します。これらは、Koogエージェント内部でA2Aクライアントと通信するために使用されます。
@@ -211,7 +211,7 @@ withA2AAgentServer {
 }
 ```
 
-### A2Aサーバーの起動
+### A2Aサーバーの起動 {id="start-a2a-server"}
 サーバーを実行すると、KoogエージェントはA2Aプロトコルを介して検出およびアクセス可能になります。
 
 ```kotlin
@@ -240,9 +240,9 @@ val transport = HttpJSONRPCServerTransport(server)
 transport.start(engineFactory = Netty, port = 8080, path = "/chat", wait = true)
 ```
 
-## KoogエージェントをA2Aエージェントに接続する
+## KoogエージェントをA2Aエージェントに接続する {id="connecting-koog-agents-to-a2a-agents"}
 
-### A2Aクライアントの作成とA2Aサーバーへの接続
+### A2Aクライアントの作成とA2Aサーバーへの接続 {id="create-a2a-client-and-connect-to-the-a2a-server"}
 
 ```kotlin
 val transport = HttpJSONRPCClientTransport(url = "http://localhost:9999/koog")
@@ -254,7 +254,7 @@ val agentId = "koog"
 client.connect()
 ```
 
-### Koogエージェントの作成とA2AAgentClientフィーチャーへのA2Aクライアントの追加
+### Koogエージェントの作成とA2AAgentClientフィーチャーへのA2Aクライアントの追加 {id="create-koog-agent-and-add-a2a-client-to-a2aagentclient-feature"}
 KoogエージェントからA2Aエージェントに接続するには、A2Aエージェントに接続するためのクライアントAPIを提供する `A2AAgentClient` フィーチャーを使用できます。
 クライアントの仕組みはサーバーと同じです。フィーチャーをインストールし、`RequestContext` と `SessionEventProcessor` とともに `A2AAgentClient` フィーチャーを渡します。
 

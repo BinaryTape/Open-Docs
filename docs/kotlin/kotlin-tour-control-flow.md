@@ -4,7 +4,7 @@
 
 与其他编程语言类似，Kotlin 能够根据一段代码的求值结果是否为 true 来做出决策。这类代码被称为 **条件表达式**。Kotlin 还能创建并遍历循环。
 
-## 条件表达式
+## 条件表达式 {id="conditional-expressions"}
 
 Kotlin 提供了 `if` 和 `when` 来检查条件表达式。 
 
@@ -16,7 +16,7 @@ Kotlin 提供了 `if` 和 `when` 来检查条件表达式。
 > 
 {style="note"}
 
-### If
+### If {id="if"}
 
 要使用 `if`，请在圆括号 `()` 内添加条件表达式，并在花括号 `{}` 内添加结果为 true 时要执行的操作：
 
@@ -53,7 +53,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-if-expression"}
 
-### When
+### When {id="when"}
 
 当条件表达式有多个分支时，请使用 `when`。
 
@@ -156,7 +156,7 @@ fun main() {
 
 在 `when` 中使用主体可以使您的代码更易于阅读和维护。当您在 `when` 表达式中使用主体时，它还能帮助 Kotlin 检查是否涵盖了所有可能的情况。否则，如果您不在 `when` 表达式中使用主体，则需要提供一个 else 分支。
 
-## 条件表达式练习
+## 条件表达式练习 {id="conditional-expressions-practice"}
 
 ### 练习 1 {initial-collapse-state="collapsed" collapsible="true" id="conditional-expressions-exercise-1"}
 
@@ -242,7 +242,7 @@ fun main() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="示例解法" id="kotlin-tour-control-flow-conditional-solution-2"}
 
-## 区间
+## 区间 {id="ranges"}
 
 在讨论循环之前，了解如何构建供循环遍历的区间 (Ranges) 非常有用。
 
@@ -260,11 +260,11 @@ fun main() {
 * `'a'..'d'` 等同于 `'a', 'b', 'c', 'd'`
 * `'z' downTo 's' step 2` 等同于 `'z', 'x', 'v', 't'`
 
-## 循环
+## 循环 {id="loops"}
 
 编程中最常见的两种循环结构是 `for` 和 `while`。使用 `for` 遍历一系列值并执行操作。使用 `while` 继续执行操作，直到满足特定条件为止。
 
-### For
+### For {id="for"}
 
 利用您新学到的区间知识，可以创建一个 `for` 循环，遍历数字 1 到 5 并每次打印该数字。
 
@@ -301,7 +301,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-for-collection-loop"}
 
-### While
+### While {id="while"}
 
 `while` 可以通过两种方式使用：
 
@@ -366,7 +366,7 @@ fun main() {
 
 既然您已经了解了 Kotlin 控制流的基础知识，现在是时候学习如何编写自己的[函数](kotlin-tour-functions.md)了。
 
-## 循环练习 {completion-point="true"}
+## 循环练习 {completion-point="true" id="loops-practice"}
 
 ### 练习 1 {initial-collapse-state="collapsed" collapsible="true" id="loops-exercise-1"}
 

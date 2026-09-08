@@ -6,11 +6,11 @@
 >
 {style="tip"}
 
-## 호환성 확인
+## 호환성 확인 {id="check-the-compatibility"}
 
 새로운 레이아웃은 Android Gradle 플러그인 7.0 이상이 필요하며, Android Studio 2022.3 이상에서 지원됩니다. 사용 중인 Android Gradle 플러그인 버전을 확인하고 필요한 경우 업그레이드하세요.
 
-## Kotlin 소스 세트 이름 변경
+## Kotlin 소스 세트 이름 변경 {id="rename-kotlin-source-sets"}
 
 해당하는 경우, 다음 패턴에 따라 프로젝트의 소스 세트 이름을 변경하세요.
 
@@ -26,7 +26,7 @@
 | test        | androidTest                | android<b>Unit</b>Test         |
 | androidTest | android<b>Android</b>Test  | android<b>Instrumented</b>Test |
 
-## 소스 파일 이동
+## 소스 파일 이동 {id="move-source-files"}
 
 해당하는 경우, 다음 패턴에 따라 소스 파일을 새로운 디렉터리로 이동하세요.
 
@@ -42,7 +42,7 @@
 | test        | src/androidTest/kotlin<br/>src/test/kotlin<br/>src/test/java  | src/android<b>Unit</b>Test/kotlin<br/>src/test/kotlin<br/>src/test/java                           |
 | androidTest | src/android<b>Android</b>Test/kotlin<br/>src/androidTest/java | src/android<b>Instrumented</b>Test/kotlin<br/>src/androidTest/java, <b>src/androidTest/kotlin</b> |
 
-## AndroidManifest.xml 파일 이동
+## AndroidManifest.xml 파일 이동 {id="move-the-androidmanifest-xml-file"}
 
 프로젝트에 `AndroidManifest.xml` 파일이 있는 경우, 다음 패턴에 따라 새로운 디렉터리로 이동하세요.
 
@@ -57,7 +57,7 @@
 | main  | src/main/AndroidManifest.xml  | src/<b>android</b>Main/AndroidManifest.xml  |
 | debug | src/debug/AndroidManifest.xml | src/<b>android</b>Debug/AndroidManifest.xml |
 
-## Android 테스트와 공통(common) 테스트 간의 관계 확인
+## Android 테스트와 공통(common) 테스트 간의 관계 확인 {id="check-the-relationship-between-android-and-common-tests"}
 
 새로운 Android 소스 세트 레이아웃은 Android 인스트루먼티드 테스트(Android-instrumented tests, 새로운 레이아웃에서는 `androidInstrumentedTest`로 이름 변경됨)와 공통 테스트(common tests) 간의 관계를 변경합니다.
 
@@ -81,7 +81,7 @@ kotlin {
 }
 ```
 
-## Android 플레이버(flavors) 구현 조정
+## Android 플레이버(flavors) 구현 조정 {id="adjust-the-implementation-of-android-flavors"}
 
 이전에는 Kotlin Gradle 플러그인이 `debug` 및 `release` 빌드 유형이나 `demo`, `full`과 같은 커스텀 플레이버를 포함하는 Android 소스 세트에 대응하는 소스 세트들을 즉시 생성했습니다.
 덕분에 `val androidDebug by getting { ... }`와 같은 표현식을 사용하여 소스 세트에 접근할 수 있었습니다.

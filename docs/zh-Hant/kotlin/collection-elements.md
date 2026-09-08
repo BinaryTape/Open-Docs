@@ -15,7 +15,7 @@ Kotlin 集合提供了一組用於從集合中擷取單一元素的函式。
 在這種情況下，元素仍然會以某種方式排序，因此依賴元素位置的函式仍然會傳回結果。
 然而，除非呼叫者知道所使用的 `Set` 具體實作，否則這類結果對呼叫者而言是不可預測的。
 
-## 依位置擷取
+## 依位置擷取 {id="retrieve-by-position"}
 
 若要擷取特定位置的元素，可以使用 [`elementAt()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/element-at.html) 函式。
 呼叫它並傳入一個整數作為引數，你將會收到該位置的集合元素。
@@ -70,7 +70,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 依條件擷取
+## 依條件擷取 {id="retrieve-by-condition"}
 
 函式 [`first()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/first.html) 與 [`last()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/last.html)
 也讓你可以在集合中搜尋符合特定謂詞（predicate）的元素。當你呼叫 `first()` 並傳入測試集合元素的謂詞時，你將會收到謂詞產生 `true` 的第一個元素。
@@ -121,7 +121,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 使用選擇器擷取
+## 使用選擇器擷取 {id="retrieve-with-selector"}
 
 如果你在擷取元素前需要先對集合進行對應，可以使用函式 [`firstNotNullOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/first-not-null-of.html)。
 它結合了 2 個動作：
@@ -143,7 +143,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.5"}
 
-## 隨機元素
+## 隨機元素 {id="random-element"}
 
 如果你需要擷取集合中的任意元素，請呼叫 [`random()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/random.html) 函式。
 你可以不帶引數呼叫它，或傳入一個 [`Random`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.random/-random/index.html) 物件作為隨機來源。
@@ -161,7 +161,7 @@ fun main() {
 
 在空集合上，`random()` 會拋出例外。若要改為接收 `null`，請使用 [`randomOrNull()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/random-or-null.html)
 
-## 檢查元素是否存在
+## 檢查元素是否存在 {id="check-element-existence"}
 
 若要檢查集合中是否存在某個元素，請使用 [`contains()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/contains.html) 函式。
 如果集合中存在一個與函式引數 `equals()` 相等的元素，它會傳回 `true`。

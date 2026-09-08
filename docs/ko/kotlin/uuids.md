@@ -13,7 +13,7 @@ UUID 값을 다루려면 `Uuid` 클래스를 사용하세요. 일반 문자열�
 import kotlin.uuid.Uuid
 ```
 
-## UUID 생성하기
+## UUID 생성하기 {id="generate-uuids"}
 
 사용자 또는 데이터베이스 ID와 같은 일반적인 식별자를 위해 무작위 버전 4 UUID를 생성하려면 [`Uuid.random()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.uuid/-uuid/-companion/random.html) 함수를 사용하세요.
 
@@ -95,7 +95,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.3"}
 
-## UUID 파싱하기
+## UUID 파싱하기 {id="parse-uuids"}
 
 UUID 값은 URL 파라미터나 데이터베이스 레코드 등에서 문자열로 표현되는 경우가 많습니다.
 
@@ -159,7 +159,7 @@ fun parseId(input: String): Uuid? {
 }
 ```
 
-## UUID를 문자열로 변환하기
+## UUID를 문자열로 변환하기 {id="convert-uuids-to-strings"}
 
 다음 함수를 사용하여 `Uuid` 값을 `String` 값으로 변환할 수 있습니다.
 
@@ -187,7 +187,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.3"}
 
-## UUID 비교하기
+## UUID 비교하기 {id="compare-uuids"}
 
 `==` 연산자를 사용하여 `Uuid` 값이 같은지 확인할 수 있습니다.
 
@@ -227,7 +227,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.3"}
 
-## 바이너리 표현식 작업하기
+## 바이너리 표현식 작업하기 {id="work-with-binary-representations"}
 
 일부 API, 저장 형식 및 바이너리 프로토콜은 UUID를 문자열로 표현하지 않습니다. 대신 128비트 UUID 값을 다음 중 하나로 저장합니다.
 
@@ -301,7 +301,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.0"}
 
-## UUID 직렬화하기
+## UUID 직렬화하기 {id="serialize-uuids"}
 
 코틀린은 `Uuid` 값에 대한 직렬화를 지원합니다. JSON API나 설정 파일과 같이 코틀린 코드 외부에서 UUID 값을 저장하거나 전송할 때 이를 사용하세요.
 
@@ -333,7 +333,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.3"}
 
-## Java API와 함께 UUID 사용하기
+## Java API와 함께 UUID 사용하기 {id="use-uuids-with-java-apis"}
 
 Java는 UUID를 나타내기 위해 `java.util.UUID` 클래스를 사용합니다. JVM에서 Java API는 이 타입을 받거나 반환할 수 있습니다. `java.util.UUID`와 `kotlin.uuid.Uuid`는 모두 UUID를 나타내지만, 서로 다른 타입입니다.
 

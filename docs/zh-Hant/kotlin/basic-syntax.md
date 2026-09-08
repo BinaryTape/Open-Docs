@@ -4,7 +4,7 @@
 
 您也可以透過 JetBrains Academy 提供的免費 [Kotlin Core 學習路徑](https://hyperskill.org/tracks?category=4&utm_source=jbkotlin_hs&utm_medium=referral&utm_campaign=kotlinlang-docs&utm_content=button_1&utm_term=22.03.23) 來學習所有 Kotlin 的核心知識。
 
-## 套件定義與匯入
+## 套件定義與匯入 {id="package-definition-and-imports"}
 
 套件規格應位於原始碼檔案的頂端：
 
@@ -20,7 +20,7 @@ import kotlin.text.*
 
 請參閱 [套件](packages.md)。
 
-## 程式入口點
+## 程式入口點 {id="program-entry-point"}
 
 Kotlin 應用程式的入口點是 `main` 函式：
 
@@ -40,7 +40,7 @@ fun main(args: Array<String>) {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 列印至標準輸出
+## 列印至標準輸出 {id="print-to-the-standard-output"}
 
 `print` 會將其引數印出至標準輸出：
 
@@ -66,7 +66,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-println"}
 
-## 從標準輸入讀取
+## 從標準輸入讀取 {id="read-from-the-standard-input"}
 
 `readln()` 函式從標準輸入讀取。此函式會將使用者輸入的整行內容讀取為字串。
 
@@ -87,7 +87,7 @@ print(yourWord)
 
 若要了解更多資訊，請參閱 [讀取標準輸入](read-standard-input.md)。
 
-## 函式
+## 函式 {id="functions"}
 
 一個具有兩個 `Int` 參數且傳回型別為 `Int` 的函式：
 
@@ -150,7 +150,7 @@ fun main() {
 
 請參閱 [函式](functions.md)。
 
-## 變數
+## 變數 {id="variables"}
 
 在 Kotlin 中，您可以使用關鍵字 `val` 或 `var` 開頭來宣告變數，後跟變數名稱。
 
@@ -244,7 +244,7 @@ fun main() {
 
 有關宣告屬性的資訊，請參閱 [屬性](properties.md)。
 
-## 建立類別與執行個體
+## 建立類別與執行個體 {id="creating-classes-and-instances"}
 
 要定義類別，請使用 `class` 關鍵字：
 ```kotlin
@@ -284,7 +284,7 @@ class Rectangle(val height: Double, val length: Double): Shape() {
 
 有關建構函式與繼承的更多資訊，請參閱 [類別](classes.md) 以及 [物件與執行個體](object-declarations.md)。
 
-## 註解
+## 註解 {id="comments"}
 
 與大多數現代語言一樣，Kotlin 支援單行（或稱行末）註解與多行（區塊）註解：
 
@@ -305,7 +305,7 @@ Kotlin 中的區塊註解可以巢狀：
 
 請參閱 [編寫 Kotlin 程式碼文件](kotlin-doc.md) 以獲取有關文件註解語法的資訊。
 
-## 字串範本
+## 字串範本 {id="string-templates"}
 
 ```kotlin
 fun main() {
@@ -325,7 +325,7 @@ fun main() {
 
 詳情請參閱 [字串範本](strings.md#string-templates)。
 
-## 條件運算式
+## 條件運算式 {id="conditional-expressions"}
 
 ```kotlin
 //sampleStart
@@ -359,7 +359,7 @@ fun main() {
 
 請參閱 [`if` 運算式](control-flow.md#if-expression)。
 
-## for 迴圈
+## for 迴圈 {id="for-loop"}
 
 ```kotlin
 fun main() {
@@ -389,7 +389,7 @@ fun main() {
 
 請參閱 [for 迴圈](control-flow.md#for-loops)。
 
-## while 迴圈
+## while 迴圈 {id="while-loop"}
 
 ```kotlin
 fun main() {
@@ -407,7 +407,7 @@ fun main() {
 
 請參閱 [while 迴圈](control-flow.md#while-loops)。
 
-## when 運算式
+## when 運算式 {id="when-expression"}
 
 ```kotlin
 //sampleStart
@@ -433,7 +433,7 @@ fun main() {
 
 請參閱 [when 運算式與陳述式](control-flow.md#when-expressions-and-statements)。
 
-## 範圍
+## 範圍 {id="ranges"}
 
 使用 `in` 運算子檢查數字是否在某個範圍內：
 
@@ -500,7 +500,7 @@ fun main() {
 
 請參閱 [範圍與數列](ranges.md)。
 
-## 集合
+## 集合 {id="collections"}
 
 反覆運算一個集合：
 
@@ -549,7 +549,7 @@ fun main() {
 
 請參閱 [集合概覽](collections-overview.md)。
 
-## 可為 Null 的值與 Null 檢查
+## 可為 Null 的值與 Null 檢查 {id="nullable-values-and-null-checks"}
 
 當可能出現 `null` 值時，參照必須明確標記為可為 null。可為 null 的型別名稱末尾帶有 `?`。
 例如：`Int?`。
@@ -630,7 +630,7 @@ fun main() {
 
 請參閱 [Null 安全性](null-safety.md)。
 
-## 型別檢查與自動轉換
+## 型別檢查與自動轉換 {id="type-checks-and-automatic-casts"}
 
 `is` 運算子檢查一個運算式是否為某個型別的執行個體。
 如果對不可變的區域變數或屬性進行了特定型別的檢查，則不需要對其進行明確轉換：

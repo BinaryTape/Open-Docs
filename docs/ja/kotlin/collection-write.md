@@ -4,7 +4,7 @@
 このページでは、`MutableCollection` のすべての実装で利用可能な書き込み操作について説明します。
 `List` および `Map` で利用可能なより具体的な操作については、それぞれ [List専用の操作](list-operations.md) および [Map専用の操作](map-operations.md) を参照してください。
 
-## 要素の追加
+## 要素の追加 {id="adding-elements"}
 
 リストまたはセットに単一の要素を追加するには、[`add()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/add.html) 関数を使用します。指定されたオブジェクトはコレクションの末尾に追加されます。
 
@@ -59,7 +59,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 要素の削除
+## 要素の削除 {id="removing-elements"}
 
 可変コレクションから要素を削除するには、[`remove()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/remove.html) 関数を使用します。
 `remove()` は要素の値を受け取り、その値の出現箇所のうち 1 つを削除します。
@@ -127,7 +127,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 要素の更新
+## 要素の更新 {id="updating-elements"}
 
 リストとマップは、要素を更新するための操作も提供しています。
 これらについては、[List専用の操作](list-operations.md) および [Map専用の操作](map-operations.md) で説明されています。

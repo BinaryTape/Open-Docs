@@ -29,7 +29,7 @@ inline fun <T> lock(lock: Lock, body: () -> T): T { ... }
 
 內嵌可能會導致產生的程式碼量增加。但是，如果您以合理的方式進行（避免內嵌大型函式），它將在效能上得到回報，特別是在迴圈內部的「megamorphic」呼叫點。
 
-## noinline
+## noinline {id="noinline"}
 
 如果您不希望傳遞給內嵌函式的所有 Lambda 都被內嵌，請使用 `noinline` 修飾詞標記某些函式參數：
 
@@ -43,9 +43,9 @@ inline fun foo(inlined: () -> Unit, noinline notInlined: () -> Unit) { ... }
 >
 {style="note"}
 
-## 非區域跳轉運算式
+## 非區域跳轉運算式 {id="non-local-jump-expressions"}
 
-### 回傳
+### 回傳 {id="returns"}
 
 在 Kotlin 中，您只能使用一般的、不帶限定符的 `return` 來退出具名函式或匿名函式。要退出 Lambda，請使用[標籤](returns.md#return-to-labels)。Lambda 內部禁止使用裸 `return`，因為 Lambda 不能使封閉函式 `return`：
 
@@ -107,7 +107,7 @@ inline fun f(crossinline body: () -> Unit) {
 }
 ```
 
-### Break 與 continue
+### Break 與 continue {id="break-and-continue"}
 
 與非區域 `return` 類似，您可以在傳遞給封裝迴圈的內嵌函式的引數 Lambda 中套用 `break` 與 `continue` [跳轉運算式](returns.md)：
 
@@ -124,7 +124,7 @@ fun processList(elements: List<Int>): Boolean {
 }
 ```
 
-## 具體化型別參數
+## 具體化型別參數 {id="reified-type-parameters"}
 
 有時您需要存取作為參數傳遞的型別：
 
@@ -178,7 +178,7 @@ fun main(s: Array<String>) {
 
 普通函式（未標記為 inline）不能具有具體化參數。沒有執行期表示的型別（例如，非具體化型別參數或虛構型別如 `Nothing`）不能用作具體化型別參數的引數。
 
-## 內嵌屬性
+## 內嵌屬性 {id="inline-properties"}
 
 `inline` 修飾詞可用於沒有[支援欄位](properties.md#backing-fields)的屬性存取子。您可以標記個別屬性存取子：
 
@@ -201,7 +201,7 @@ inline var bar: Bar
 
 在呼叫點，內嵌存取子會像一般的內嵌函式一樣被內嵌。
 
-## 公開 API 內嵌函式的限制
+## 公開 API 內嵌函式的限制 {id="restrictions-for-public-api-inline-functions"}
 
 當內嵌函式是 `public` 或 `protected`，但不是 `private` 或 `internal` 宣告的一部分時，它被視為[模組](visibility-modifiers.md#modules)的公開 API。它可以在其他模組中呼叫，並且在這些呼叫點也會被內嵌。
 

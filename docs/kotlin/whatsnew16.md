@@ -12,7 +12,7 @@ Kotlin 1.6.0 引入了新的语言功能、对现有功能的优化和改进，�
 >
 {style="tip"}
 
-## 语言
+## 语言 {id="language"}
 
 Kotlin 1.6.0 为上一个 1.5.30 版本中引入预览的多个语言功能带来了稳定版：
 * [适用于枚举、密封和布尔受体的稳定穷举 when 语句](#stable-exhaustive-when-statements-for-enum-sealed-and-boolean-subjects)
@@ -25,7 +25,7 @@ Kotlin 1.6.0 为上一个 1.5.30 版本中引入预览的多个语言功能带�
 * [构建器推断的变化](#changes-to-builder-inference)
 * [支持类类型形参上的注解](#support-for-annotations-on-class-type-parameters)
 
-### 稳定的穷举 when 语句（适用于枚举、密封和布尔受体）
+### 稳定的穷举 when 语句（适用于枚举、密封和布尔受体） {id="stable-exhaustive-when-statements-for-enum-sealed-and-boolean-subjects"}
 
 一个 _穷举性_ (Exhaustive) [`when`](control-flow.md#when-expressions-and-statements) 语句包含其受体的所有可能类型或值的分支，或者包含某些类型加上一个 `else` 分支。它涵盖了所有可能的情况，使您的代码更安全。
 
@@ -60,7 +60,7 @@ fun sendMessage(contact: Contact, message: String) {
 
 有关此更改及其影响的更详细说明，请参阅[此 YouTrack 工单](https://youtrack.jetbrains.com/issue/KT-47709)。
 
-### 稳定的挂起函数作为超类型
+### 稳定的挂起函数作为超类型 {id="stable-suspending-functions-as-supertypes"}
 
 挂起函数类型的实现已在 Kotlin 1.6.0 中达到[稳定](components-stability.md)。预览版已在 [1.5.30 中提供](whatsnew1530.md#suspending-functions-as-supertypes)。
 
@@ -80,7 +80,7 @@ fun launchOnClick(action: suspend () -> Unit) {}
 * 您不能在超类型列表中混合使用普通函数类型和挂起函数类型。
 * 您不能使用多个挂起函数超类型。
 
-### 稳定的挂起转换
+### 稳定的挂起转换 {id="stable-suspend-conversions"}
 
 Kotlin 1.6.0 引入了从普通函数类型到挂起函数类型的[稳定](components-stability.md)转换。从 1.4.0 开始，该功能支持函数文字和可调用引用。在 1.6.0 中，它适用于任何形式的表达式。作为调用实参，您现在可以传递任何合适的普通函数类型的表达式，即使预期的是挂起函数。编译器将自动执行隐式转换。
 
@@ -96,13 +96,13 @@ fun test(regular: () -> Unit) {
 }
 ```
 
-### 稳定的注解类实例化
+### 稳定的注解类实例化 {id="stable-instantiation-of-annotation-classes"}
 
 Kotlin 1.5.30 [引入了](whatsnew1530.md#instantiation-of-annotation-classes)在 JVM 平台上实例化注解类的实验性支持。在 1.6.0 中，该功能在 Kotlin/JVM 和 Kotlin/JS 中均默认可用。
 
 在[此 KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/annotation-instantiation.md) 中了解有关注解类实例化的更多信息。
 
-### 改进了递归泛型类型的类型推断
+### 改进了递归泛型类型的类型推断 {id="improved-type-inference-for-recursive-generic-types"}
 
 Kotlin 1.5.30 引入了对递归泛型类型推断的改进，允许仅根据相应类型形参的上界来推断其类型实参。该改进曾通过编译器选项提供。在 1.6.0 及更高版本中，它默认启用。
 
@@ -123,7 +123,7 @@ val containerB = PostgreSQLContainer(DockerImageName.parse("postgres:13-alpine")
   .withInitScript("sql/schema.sql")
 ```
 
-### 构建器推断的变化
+### 构建器推断的变化 {id="changes-to-builder-inference"}
 
 构建器推断是一种类型推断风格，在调用泛型构建器函数时非常有用。它可以借助其 lambda 实参内部调用的类型信息来推断调用的类型实参。
 
@@ -139,7 +139,7 @@ val containerB = PostgreSQLContainer(DockerImageName.parse("postgres:13-alpine")
 
 [了解如何编写自定义泛型构建器](using-builders-with-builder-inference.md)。
 
-### 支持类类型形参上的注解
+### 支持类类型形参上的注解 {id="support-for-annotations-on-class-type-parameters"}
 
 对类类型形参上注解的支持如下所示：
 
@@ -156,17 +156,17 @@ class Box<@BoxContent T> {}
 
 了解有关[注解](annotations.md)的更多信息。
 
-## 更长时间地支持之前的 API 版本
+## 更长时间地支持之前的 API 版本 {id="supporting-previous-api-versions-for-a-longer-period"}
 
 从 Kotlin 1.6.0 开始，我们将支持三个之前的 API 版本开发，而不是两个，同时支持当前的稳定版本。目前，我们支持 1.3、1.4、1.5 和 1.6 版本。
 
-## Kotlin/JVM
+## Kotlin/JVM {id="kotlin-jvm"}
 
 对于 Kotlin/JVM，从 1.6.0 开始，编译器可以生成对应于 JVM 17 字节码版本的类。新的语言版本还包括优化的委托属性和可重复注解，这些都在我们的路线图中：
 * [针对 1.8 JVM 目标的具有运行时保留策略的可重复注解](#repeatable-annotations-with-runtime-retention-for-1-8-jvm-target)
 * [优化在给定 KProperty 实例上调用 get/set 的委托属性](#optimize-delegated-properties-which-call-get-set-on-the-given-kproperty-instance)
 
-### 针对 1.8 JVM 目标的具有运行时保留策略的可重复注解
+### 针对 1.8 JVM 目标的具有运行时保留策略的可重复注解 {id="repeatable-annotations-with-runtime-retention-for-1-8-jvm-target"}
 
 Java 8 引入了[可重复注解](https://docs.oracle.com/javase/tutorial/java/annotations/repeating.html)，可以多次应用于单个代码元素。该功能要求 Java 代码中存在两个声明：标记有 [`@java.lang.annotation.Repeatable`](https://docs.oracle.com/javase/8/docs/api/java/lang/annotation/Repeatable.html) 的可重复注解本身，以及用于保存其值的包含注解。
 
@@ -195,7 +195,7 @@ Kotlin 反射现在通过一个新函数 [`KAnnotatedElement.findAnnotations()`]
 
 在[此 KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/repeatable-annotations.md) 中了解有关 Kotlin 可重复注解的更多信息。
 
-### 优化在给定 KProperty 实例上调用 get/set 的委托属性
+### 优化在给定 KProperty 实例上调用 get/set 的委托属性 {id="optimize-delegated-properties-which-call-get-set-on-the-given-kproperty-instance"}
 
 我们通过省略 `$delegate` 字段并生成对引用属性的即时访问，优化了生成的 JVM 字节码。
 
@@ -215,7 +215,7 @@ Kotlin 不再生成 `content$delegate` 字段。`content` 变量的属性访问�
 
 了解有关[委托属性](delegated-properties.md)的更多信息。
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 Kotlin/Native 正在接受多项改进和组件更新，其中一些处于预览状态：
 * [新内存管理器的预览](#preview-of-the-new-memory-manager)
@@ -227,7 +227,7 @@ Kotlin/Native 正在接受多项改进和组件更新，其中一些处于预览
 * [klib 链接失败的详细错误消息](#detailed-error-messages-for-klib-linkage-failures)
 * [重新设计的未处理异常处理 API](#reworked-unhandled-exception-handling-api)
 
-### 新内存管理器的预览
+### 新内存管理器的预览 {id="preview-of-the-new-memory-manager"}
 
 > 新的 Kotlin/Native 内存管理器是[实验性的](components-stability.md)。它可能随时被放弃或更改。需要选择性加入（详见下文），且您应仅将其用于评估目的。我们欢迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-48525) 上提供反馈。
 >
@@ -239,7 +239,7 @@ Kotlin/Native 正在接受多项改进和组件更新，其中一些处于预览
 
 我们最近发布了一篇关于新内存管理器的[博客文章](https://blog.jetbrains.com/kotlin/2021/08/try-the-new-kotlin-native-memory-manager-development-preview/)。阅读它可以了解新内存管理器的当前状态并找到一些示例项目，或者直接跳转到[迁移说明](https://github.com/JetBrains/kotlin/blob/master/kotlin-native/NEW_MM.md)亲自尝试。请检查新内存管理器在您的项目中的运行情况，并在我们的问题跟踪器 [YouTrack](https://youtrack.jetbrains.com/issue/KT-48525) 中分享反馈。
 
-### 对 Xcode 13 的支持
+### 对 Xcode 13 的支持 {id="support-for-xcode-13"}
 
 Kotlin/Native 1.6.0 支持 Xcode 13 —— Xcode 的最新版本。请随意更新您的 Xcode，并继续在您的 Apple 操作系统 Kotlin 项目上工作。
 
@@ -247,11 +247,11 @@ Kotlin/Native 1.6.0 支持 Xcode 13 —— Xcode 的最新版本。请随意更�
 >
 {style="note"}
 
-### 在任何主机上编译 Windows 目标
+### 在任何主机上编译 Windows 目标 {id="compilation-of-windows-targets-on-any-host"}
 
 从 1.6.0 开始，您不需要 Windows 主机来编译 Windows 目标 `mingwX64` 和 `mingwX86`。它们可以在任何支持 Kotlin/Native 的主机上进行编译。
 
-### LLVM 和链接器更新
+### LLVM 和链接器更新 {id="llvm-and-linker-updates"}
 
 我们重新设计了 Kotlin/Native 在后台使用的 LLVM 依赖项。这带来了各种好处，包括：
 * 将 LLVM 版本更新为 11.1.0。
@@ -260,14 +260,14 @@ Kotlin/Native 1.6.0 支持 Xcode 13 —— Xcode 的最新版本。请随意更�
 
 除了 LLVM 更新外，Kotlin/Native 现在为 MingGW 目标使用 [LLD](https://lld.llvm.org/) 链接器（来自 LLVM 项目的链接器）。它比以前使用的 ld.bfd 链接器具有各种优势，并将允许我们提高生成的二进制文件的运行时性能，并支持 MinGW 目标的编译器缓存。请注意，LLD [要求 DLL 链接使用导入库](whatsnew1530.md#deprecation-of-linkage-against-dlls-without-import-libraries-for-mingw-targets)。在[此 Stack Overflow 线程](https://stackoverflow.com/questions/3573475/how-does-the-import-library-work-details/3573527/#3573527)中了解更多信息。
 
-### 性能改进
+### 性能改进 {id="performance-improvements"}
 
 Kotlin/Native 1.6.0 提供了以下性能改进：
 
 * 编译时间：`linuxX64` 和 `iosArm64` 目标默认启用编译器缓存。这加速了调试模式下的大多数编译（第一次除外）。测量显示，在我们的测试项目中速度提高了约 200%。自 Kotlin 1.5.0 以来，这些目标可以通过 [额外的 Gradle 属性](whatsnew15.md#performance-improvements) 使用编译器缓存；您现在可以删除它们了。 
 * 运行时：由于生成的 LLVM 代码经过了优化，使用 `for` 循环遍历数组现在的速度提高了多达 12%。
 
-### 与 JVM 和 JS IR 后端统一的编译器插件 ABI
+### 与 JVM 和 JS IR 后端统一的编译器插件 ABI {id="unified-compiler-plugin-abi-with-jvm-and-js-ir-backends"}
 
 > 为 Kotlin/Native 使用通用 IR 编译器插件 ABI 的选项是[实验性的](components-stability.md)。它可能随时被放弃或更改。需要选择性加入（详见下文），且您应仅将其用于评估目的。我们欢迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-48595) 上提供反馈。
 >
@@ -283,7 +283,7 @@ Kotlin/Native 1.6.0 提供了以下性能改进：
 
 如果您是编译器插件的作者，请尝试此模式并检查它是否适用于您的插件。请注意，根据插件的结构，可能需要迁移步骤。请参阅[此 YouTrack 问题](https://youtrack.jetbrains.com/issue/KT-48595)获取迁移说明，并在评论中留下您的反馈。
 
-### klib 链接失败的详细错误消息
+### klib 链接失败的详细错误消息 {id="detailed-error-messages-for-klib-linkage-failures"}
 
 Kotlin/Native 编译器现在为 klib 链接错误提供详细的错误消息。这些消息现在具有清晰的错误描述，还包括有关可能原因和解决办法的信息。
 
@@ -311,17 +311,17 @@ Kotlin/Native 编译器现在为 klib 链接错误提供详细的错误消息。
     <dependencies tree>
     ```
 
-### 重新设计的未处理异常处理 API
+### 重新设计的未处理异常处理 API {id="reworked-unhandled-exception-handling-api"}
 
 我们统一了整个 Kotlin/Native 运行时中未处理异常的处理方式，并将默认处理作为 `processUnhandledException(throwable: Throwable)` 函数公开，供自定义执行环境（如 `kotlinx.coroutines`）使用。此处理也适用于从 `Worker.executeAfter()` 操作中逃逸的异常，但仅适用于新的 [内存管理器](#preview-of-the-new-memory-manager)。
 
 API 改进也影响了由 `setUnhandledExceptionHook()` 设置的钩子。以前，此类钩子在 Kotlin/Native 运行时使用未处理异常调用钩子后会被重置，并且程序总是在之后立即终止。现在这些钩子可以多次使用，如果您希望程序始终在发生未处理异常时终止，请不要设置未处理异常钩子 (`setUnhandledExceptionHook()`)，或者确保在钩子末尾调用 `terminateWithUnhandledException()`。这将帮助您将异常发送给第三方崩溃报告服务（如 Firebase Crashlytics），然后终止程序。从 `main()` 逃逸的异常和跨越互操作边界的异常将始终终止程序，即使钩子没有调用 `terminateWithUnhandledException()`。
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
 我们正继续致力于稳定 Kotlin/JS 编译器的 IR 后端。Kotlin/JS 现在具有一个 [禁用下载 Node.js 和 Yarn 的选项](#option-to-use-pre-installed-node-js-and-yarn)。
 
-### 选项以使用预安装的 Node.js 和 Yarn
+### 选项以使用预安装的 Node.js 和 Yarn {id="option-to-use-pre-installed-node-js-and-yarn"}
 
 您现在可以在构建 Kotlin/JS 项目时禁用 Node.js 和 Yarn 的下载，并使用主机上已经安装的实例。这对于在没有互联网连接的服务器（如 CI 服务器）上进行构建非常有用。
 
@@ -374,7 +374,7 @@ API 改进也影响了由 `setUnhandledExceptionHook()` 设置的钩子。以前
     </tab>
     </tabs>
 
-## Kotlin Gradle 插件
+## Kotlin Gradle 插件 {id="kotlin-gradle-plugin"}
 
 在 Kotlin 1.6.0 中，我们将 `KotlinGradleSubplugin` 类的弃用级别更改为 'ERROR'。该类曾用于编写编译器插件。在后续版本中，我们将删除此类。请改用 `KotlinCompilerPluginSupportPlugin` 类。
 
@@ -382,7 +382,7 @@ API 改进也影响了由 `setUnhandledExceptionHook()` 设置的钩子。以前
 
 详细了解 Kotlin Gradle 插件中 [当前支持的编译器选项](gradle-compiler-options.md)。
 
-## 标准库
+## 标准库 {id="standard-library"}
 
 新的 1.6.0 版本标准库稳定了实验性功能，引入了新功能，并统一了其在各平台上的行为：
 
@@ -396,7 +396,7 @@ API 改进也影响了由 `setUnhandledExceptionHook()` 设置的钩子。以前
 * [对现有 API 的改进](#improvements-to-the-existing-api)
 * [弃用](#deprecations)
 
-### 新的 readline 函数
+### 新的 readline 函数 {id="new-readline-functions"}
 
 Kotlin 1.6.0 提供了处理标准输入的新函数：[`readln()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io/readln.html) 和 [`readlnOrNull()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io/readln-or-null.html)。
 
@@ -437,7 +437,7 @@ fun main() {
 
 我们计划在未来版本中逐步弃用 `readLine()` 函数。
 
-### 稳定的 typeOf()
+### 稳定的 typeOf() {id="stable-typeof"}
 
 1.6.0 版本带来了[稳定的](components-stability.md) [`typeOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/type-of.html) 函数，完成了一项[主要的路线图项目](https://youtrack.jetbrains.com/issue/KT-45396)。
 
@@ -455,7 +455,7 @@ fun main() {
 }
 ```
 
-### 稳定的集合构建器
+### 稳定的集合构建器 {id="stable-collection-builders"}
 
 在 Kotlin 1.6.0 中，集合构建器函数已提升为[稳定版](components-stability.md)。集合构建器返回的集合现在在其只读状态下是可序列化的。
 
@@ -476,7 +476,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.5" validate="false"}
 
-### 稳定的 Duration API
+### 稳定的 Duration API {id="stable-duration-api"}
 
 用于表示不同时间单位的时间量值的 [Duration](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-duration/) 类已提升为[稳定版](components-stability.md)。在 1.6.0 中，Duration API 进行了以下更改：
 
@@ -505,7 +505,7 @@ fun main() {
   >
   {style="note"}
 
-### 将 Regex 拆分为序列
+### 将 Regex 拆分为序列 {id="splitting-regex-into-a-sequence"}
 
 `Regex.splitToSequence(CharSequence)` 和 `CharSequence.splitToSequence(Regex)` 函数已提升为[稳定版](components-stability.md)。它们围绕给定正则表达式的匹配项拆分字符串，但将结果作为 [序列](sequences.md) 返回，以便对此结果的所有操作都是延迟执行的：
 
@@ -525,7 +525,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.5" validate="false"}
 
-### 整数上的位旋转操作
+### 整数上的位旋转操作 {id="bit-rotation-operations-on-integers"}
 
 在 Kotlin 1.6.0 中，用于位操作的 `rotateLeft()` 和 `rotateRight()` 函数已变为[稳定版](components-stability.md)。这些函数将数字的二进制表示向左或向右旋转指定的位数：
 
@@ -544,7 +544,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.6"}
 
-### JS 中 replace() 和 replaceFirst() 的更改
+### JS 中 replace() 和 replaceFirst() 的更改 {id="changes-for-replace-and-replacefirst-in-js"}
 
 在 Kotlin 1.6.0 之前，当替换字符串包含组引用时，[`replace()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/replace.html) 和 [`replaceFirst()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/replace-first.html) 正则表达式函数在 Java 和 JS 中的行为不同。为了使行为在所有目标平台上保持一致，我们更改了它们在 JS 中的实现。
 
@@ -570,7 +570,7 @@ fun main() {
 
     如果替换字符串必须被视为字面量字符串，您可以使用 [`Regex.escapeReplacement()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/escape-replacement.html)。
 
-### 对现有 API 的改进
+### 对现有 API 的改进 {id="improvements-to-the-existing-api"}
 
 * 1.6.0 版本为 `Comparable.compareTo()` 添加了中缀扩展函数。您现在可以使用中缀形式来比较两个对象的大小：
 
@@ -584,25 +584,25 @@ fun main() {
 * JS 中的 `Regex.replace()` 现在也不是内联的，以统一其在所有平台上的实现。
 * `compareTo()` 和 `equals()` String 函数，以及 `isBlank()` CharSequence 函数现在在 JS 中的行为与在 JVM 上的行为完全相同。以前在涉及非 ASCII 字符时存在偏差。
 
-### 弃用
+### 弃用 {id="deprecations"}
 
 在 Kotlin 1.6.0 中，我们开始对一些仅限 JS 的标准库 API 进行带警告的弃用周期。
 
-#### concat()、match() 和 matches() 字符串函数
+#### concat()、match() 和 matches() 字符串函数 {id="concat-match-and-matches-string-functions"}
 
 * 要将字符串与给定其他对象的字符串表示形式连接，请使用 `plus()` 而不是 `concat()`。
 * 要在输入中查找正则表达式的所有匹配项，请使用 Regex 类的 `findAll()` 而不是 `String.match(regex: String)`。
 * 要检查正则表达式是否匹配整个输入，请使用 Regex 类的 `matches()` 而不是 `String.matches(regex: String)`。
 
-#### 接受比较函数的数组 sort()
+#### 接受比较函数的数组 sort() {id="sort-on-arrays-taking-comparison-functions"}
 
 我们弃用了 `Array<out T>.sort()` 函数以及内联函数 `ByteArray.sort()`、`ShortArray.sort()`、`IntArray.sort()`、`LongArray.sort()`、`FloatArray.sort()`、`DoubleArray.sort()` 和 `CharArray.sort()`，这些函数按照比较函数传递的顺序对数组进行排序。请使用其他标准库函数进行数组排序。
 
 参考 [集合排序](collection-ordering.md) 部分。
 
-## 工具
+## 工具 {id="tools"}
 
-### Kover – 针对 Kotlin 的代码覆盖率工具
+### Kover – 针对 Kotlin 的代码覆盖率工具 {id="kover-a-code-coverage-tool-for-kotlin"}
 
 > Kover Gradle 插件是实验性的。我们欢迎您在 [GitHub](https://github.com/Kotlin/kotlinx-kover/issues) 上提供反馈。
 >
@@ -614,7 +614,7 @@ fun main() {
 
 <video src="https://www.youtube.com/v/jNu5LY9HIbw" title="Kover – 代码覆盖率插件"/>
 
-## 协程 1.6.0-RC
+## 协程 1.6.0-RC {id="coroutines-1-6-0-rc"}
 
 `kotlinx.coroutines` [1.6.0-RC](https://github.com/Kotlin/kotlinx.coroutines/releases/tag/1.6.0-RC) 已经发布，具有多项功能和改进：
 
@@ -626,7 +626,7 @@ fun main() {
 
 在 [更新日志](https://github.com/Kotlin/kotlinx.coroutines/releases/tag/1.6.0-RC) 中了解更多信息。
 
-## 迁移到 Kotlin 1.6.0
+## 迁移到 Kotlin 1.6.0 {id="migrating-to-kotlin-1-6-0"}
 
 IntelliJ IDEA 和 Android Studio 将在 Kotlin 插件 1.6.0 可用时建议更新。
 

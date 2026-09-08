@@ -7,7 +7,7 @@
 >
 {style="tip"}
 
-## 期待宣言と実体宣言のルール
+## 期待宣言と実体宣言のルール {id="rules-for-expected-and-actual-declarations"}
 
 期待宣言と実体宣言を定義するには、以下のルールに従います。
 
@@ -36,13 +36,13 @@ IDE を使用して、期待宣言から実体宣言へ移動することもで�
 
 ![期待宣言から実体宣言への IDE ナビゲーション](expect-actual-gutter.png){width=500}
 
-## 期待宣言と実体宣言を使用するさまざまなアプローチ
+## 期待宣言と実体宣言を使用するさまざまなアプローチ {id="different-approaches-for-using-expected-and-actual-declarations"}
 
 共通コードでプラットフォーム API を操作する方法を提供しつつ、それらにアクセスするという問題を解決するために、expect/actual メカニズムを使用するさまざまなオプションを見ていきましょう。
 
 ユーザーのログイン名と現在のプロセス ID を保持する `Identity` 型を実装する必要がある Kotlin マルチプラットフォームプロジェクトを想定します。このプロジェクトには、アプリケーションを JVM と iOS などのネイティブ環境で動作させるために、`commonMain`、`jvmMain`、および `nativeMain` ソースセットがあります。
 
-### 期待関数と実体関数
+### 期待関数と実体関数 {id="expected-and-actual-functions"}
 
 `Identity` 型とファクトリ関数 `buildIdentity()` を定義できます。これは共通ソースセットで宣言され、プラットフォームソースセットごとに異なる方法で実装されます。
 
@@ -91,7 +91,7 @@ IDE を使用して、期待宣言から実体宣言へ移動することもで�
 >
 {style="note"}
 
-### インターフェースと期待/実体関数
+### インターフェースと期待/実体関数 {id="interfaces-with-expected-and-actual-functions"}
 
 ファクトリ関数が大きくなりすぎる場合は、共通の `Identity` インターフェースを使用し、プラットフォームごとに異なる実装を行うことを検討してください。
 
@@ -133,7 +133,7 @@ IDE を使用して、期待宣言から実体宣言へ移動することもで�
 
 これらのプラットフォーム関数は、プラットフォーム型である `JVMIdentity` および `NativeIdentity` として実装された、プラットフォーム固有の `Identity` インスタンスを返します。
 
-#### 期待プロパティと実体プロパティ
+#### 期待プロパティと実体プロパティ {id="expected-and-actual-properties"}
 
 前の例を変更して、`Identity` を保持する `val` プロパティを期待宣言することもできます。
 
@@ -169,7 +169,7 @@ class NativeIdentity(
 ) : Identity
 ```
 
-#### 期待オブジェクトと実体オブジェクト
+#### 期待オブジェクトと実体オブジェクト {id="expected-and-actual-objects"}
 
 `IdentityBuilder` が各プラットフォームでシングルトンであることが期待される場合、それを期待オブジェクトとして定義し、各プラットフォームで実体化させることができます。
 
@@ -205,7 +205,7 @@ actual object IdentityBuilder {
 }
 ```
 
-#### 依存性の注入 (DI) に関する推奨事項
+#### 依存性の注入 (DI) に関する推奨事項 {id="recommendations-on-dependency-injection"}
 
 疎結合なアーキテクチャを作成するために、多くの Kotlin プロジェクトでは依存性の注入 (DI) フレームワークを採用しています。DI フレームワークを使用すると、現在の環境に基づいてコンポーネントに依存関係を注入できます。
 
@@ -217,7 +217,7 @@ actual object IdentityBuilder {
 
 このアプローチをとれば、インターフェースとファクトリ関数を使用するだけで Kotlin マルチプラットフォームを採用できます。プロジェクトの依存関係を管理するためにすでに DI フレームワークを使用している場合は、プラットフォームの依存関係を管理するためにも同じアプローチを使用することをお勧めします。
 
-### 期待クラスと実体クラス
+### 期待クラスと実体クラス {id="expected-and-actual-classes"}
 
 > 期待クラスと実体クラスは [Beta](supported-platforms.md#general-kotlin-stability-levels) です。
 > ほぼ安定していますが、将来的に移行手順が必要になる可能性があります。
@@ -268,7 +268,7 @@ kotlin {
 }
 ```
 
-#### プラットフォームクラスからの継承
+#### プラットフォームクラスからの継承 {id="inheritance-from-platform-classes"}
 
 クラスに対して `expect` キーワードを使用することが最善のアプローチとなる特殊なケースがあります。例えば、JVM 上にすでに `Identity` 型が存在するとします。
 
@@ -310,7 +310,7 @@ open class Identity {
 
 ここで、`CommonIdentity` 型は、JVM 上の既存の型を活用しつつ、独自の設計とも互換性があります。
 
-#### フレームワークでの応用
+#### フレームワークでの応用 {id="application-in-frameworks"}
 
 フレームワークの開発者にとっても、期待宣言と実体宣言が役立つことがあります。
 
@@ -358,11 +358,11 @@ class MyCommonIdentity : CommonIdentity() {
 
 <!-- 同様のスキームは、Android または iOS 開発用の共通 `ViewModel` を提供するライブラリでも機能します。そのようなライブラリは通常、期待される `CommonViewModel` クラスを提供し、その実際的な Android 側の対応物は Android フレームワークの `ViewModel` クラスを拡張します。この例の詳細については、[プラットフォーム固有の API の使用](multiplatform-connect-to-apis.md#adapting-to-an-existing-hierarchy-using-expected-actual-classes)を参照してください。 -->
 
-## 高度なユースケース
+## 高度なユースケース {id="advanced-use-cases"}
 
 期待宣言と実体宣言に関しては、いくつかの特殊なケースがあります。
 
-### 型エイリアスを使用した実体宣言の充足
+### 型エイリアスを使用した実体宣言の充足 {id="using-type-aliases-to-satisfy-actual-declarations"}
 
 実体宣言の実装をゼロから書く必要はありません。サードパーティライブラリによって提供されるクラスなどの既存の型を使用できます。
 
@@ -398,7 +398,7 @@ actual typealias MyDate = java.time.LocalDate
 
 <!-- このパターンの Android 固有の例については、[プラットフォーム固有の API の使用](multiplatform-connect-to-apis.md#actualizing-an-interface-or-a-class-with-an-existing-platform-class-using-typealiases)を参照してください。 -->
 
-### 実体宣言での可視性の拡大
+### 実体宣言での可視性の拡大 {id="expanded-visibility-in-actual-declarations"}
 
 対応する期待宣言よりも実体実装の可視性（アクセス修飾子）を高くすることができます。これは、共通のクライアントに対して API を公開したくない場合に便利です。
 
@@ -421,7 +421,7 @@ public actual typealias Messenger = MyMessenger
 
 ここでは、internal な期待クラスが、型エイリアスを使用して既存の public な `MyMessenger` を実体実装として持っています。
 
-### 実体化時の列挙型エントリの追加
+### 実体化時の列挙型エントリの追加 {id="additional-enumeration-entries-on-actualization"}
 
 共通ソースセットで列挙型 (enum) が `expect` で宣言されている場合、各プラットフォームモジュールには対応する `actual` 宣言が必要です。これらの宣言には同じ enum 定数が含まれている必要がありますが、追加の定数を含めることもできます。
 
@@ -462,7 +462,7 @@ fun matchOnDepartment(dept: Department) {
 
 <!-- 実体の enum で新しい定数を追加することを禁止したい場合は、この issue [TODO] に投票してください。 -->
 
-### 期待アノテーションクラス
+### 期待アノテーションクラス {id="expected-annotation-classes"}
 
 期待宣言と実体宣言はアノテーションでも使用できます。例えば、`@XmlSerializable` アノテーションを宣言し、各プラットフォームソースセットに対応する実体宣言を持たせることができます。
 
@@ -499,6 +499,6 @@ expect annotation class XmlSerializable()
 
 実体宣言が必要ないプラットフォームで欠落していても、コンパイラはエラーを生成しません。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 プラットフォーム固有の API を使用するためのさまざまな方法に関する一般的な推奨事項については、[プラットフォーム固有の API の使用](multiplatform-connect-to-apis.md)を参照してください。

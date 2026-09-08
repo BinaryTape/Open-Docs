@@ -65,7 +65,7 @@ graph TB
 ```
 <!--- KNIT example-graph-agents-01.txt -->
 
-## 전략 그래프 빌드하기
+## 전략 그래프 빌드하기 {id="build-a-strategy-graph"}
 
 Koog에서는 [`AIAgentGraphStrategyBuilder`](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.builder/-a-i-agent-graph-strategy-builder/index.html)를 사용하여 전략을 구현합니다.
 모든 노드에 입력 및 출력 타입이 있는 것과 마찬가지로,
@@ -197,7 +197,7 @@ Koog에서는 [`AIAgentGraphStrategyBuilder`](https://api.koog.ai/agents/agents-
     ```
     <!--- KNIT example-graph-agents-03.kt -->
 
-## 에이전트 생성 및 실행
+## 에이전트 생성 및 실행 {id="create-and-run-the-agent"}
 
 이 전략으로 에이전트 인스턴스를 생성하고 실행해 보겠습니다.
 
@@ -354,7 +354,7 @@ graph LR
 계산이 정확한지 확인하려면 에이전트에 수학 도구를 제공해야 합니다.
 그러면 LLM은 계산을 결정론적(deterministically)으로 수행하는 도구를 호출하기로 결정할 수 있습니다.
 
-## 도구 추가하기
+## 도구 추가하기 {id="add-tools"}
 
 수학 연산을 수행하기 위한 [도구](../tools/index.md)를 정의하고 [ToolRegistry](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.tools/-tool-registry/index.html)에 추가합니다.
 
@@ -608,7 +608,7 @@ Finally, 123 was added to the result:
 이 출력에 따르면 에이전트는 계산을 올바르게 수행했지만, 모든 연산에 대해 해당 도구를 호출하는 대신 `multiply` 도구만 한 번 호출했습니다.
 시스템 프롬프트에 에이전트의 역할을 설명하고 적절한 도구 사용 지침을 제공함으로써 에이전트를 도울 수 있습니다.
 
-## 시스템 프롬프트 제공하기
+## 시스템 프롬프트 제공하기 {id="provide-a-system-prompt"}
 
 [시스템 프롬프트](../prompts/prompt-creation/index.md#system-message)는 에이전트의 역할과 작업 수행 지침을 정의합니다.
 우리 예제에서는 에이전트가 복잡한 다단계 계산을 처리하는 방법을 설명하는 것이 중요합니다.
@@ -791,7 +791,7 @@ The final result is: 193
 
 보시는 것처럼 이제 에이전트는 각 연산에 대해 적절한 도구를 올바르게 호출하여, 환각(hallucination)된 결과를 낼 위험 없이 계산을 결정론적으로 수행합니다.
 
-## 다음 단계
+## 다음 단계 {id="next-steps"}
 
 - [함수형 에이전트](functional-agents.md) 및 [플래너 에이전트](planner-agents/index.md)와 비교해 보세요.
 - [추가 기능 설치](../features/index.md)를 통해 에이전트를 강화하세요.

@@ -45,7 +45,7 @@ val client = HttpClient(CIO) {
 }
 ```
 
-## 추적 구성
+## 추적 구성 {id="configure-tracing"}
 
 Ktor 클라이언트가 나가는 HTTP 호출에 대해 OpenTelemetry 스팬을 기록하고 내보내는 방식을 사용자 정의할 수 있습니다. 아래 옵션을 사용하여 어떤 요청을 추적할지, 스팬의 이름은 어떻게 지정할지, 어떤 속성을 포함할지, 어떤 헤더를 캡처할지, 스팬 종류(kind)를 어떻게 결정할지 조정할 수 있습니다.
 
@@ -54,7 +54,7 @@ Ktor 클라이언트가 나가는 HTTP 호출에 대해 OpenTelemetry 스팬을 
 undefined
 undefined
 
-### 응답 헤더 캡처
+### 응답 헤더 캡처 {id="capture-response-headers"}
 
 특정 HTTP 응답 헤더를 스팬 속성으로 캡처하려면 `capturedResponseHeaders` 속성을 사용하십시오:
 
@@ -67,6 +67,6 @@ install(%plugin_name%) {
 
 undefined
 
-## 다음 단계
+## 다음 단계 {id="next-steps"}
 
 `%plugin_name%`을 설치하고 구성한 후에는, [`KtorServerTelemetry`](server-opentelemetry.md)를 사용하는 서비스와 같이 텔레메트리가 활성화된 서비스로 요청을 보내 스팬이 생성되고 전파되는지 확인할 수 있습니다. [Jaeger](https://www.jaegertracing.io/), [Zipkin](https://zipkin.io/) 또는 [Grafana Tempo](https://grafana.com/oss/tempo/)와 같은 관측 가능성 백엔드에서 추적의 양쪽 측면을 모두 확인하면 분산 추적이 종단 간(end-to-end)으로 작동하고 있음을 확인할 수 있습니다.

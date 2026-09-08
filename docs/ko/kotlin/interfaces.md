@@ -13,7 +13,7 @@ interface MyInterface {
 }
 ```
 
-## 인터페이스 구현(Implementing interfaces)
+## 인터페이스 구현(Implementing interfaces) {id="implementing-interfaces"}
 
 클래스나 객체는 하나 이상의 인터페이스를 구현할 수 있습니다.
 
@@ -25,7 +25,7 @@ class Child : MyInterface {
 }
 ```
 
-## 인터페이스의 프로퍼티(Properties in interfaces)
+## 인터페이스의 프로퍼티(Properties in interfaces) {id="properties-in-interfaces"}
 
 인터페이스에서 프로퍼티를 선언할 수 있습니다. 인터페이스에 선언된 프로퍼티는 추상적이거나 접근자에 대한 구현을 제공할 수 있습니다. 인터페이스에 선언된 프로퍼티는 뒷받침하는 필드(backing field)를 가질 수 없으므로, 인터페이스에 선언된 접근자는 이를 참조할 수 없습니다.
 
@@ -46,7 +46,7 @@ class Child : MyInterface {
 }
 ```
 
-## 인터페이스 상속(Interfaces Inheritance)
+## 인터페이스 상속(Interfaces Inheritance) {id="interfaces-inheritance"}
 
 인터페이스는 다른 인터페이스로부터 파생될 수 있으며, 이는 상위 인터페이스 멤버에 대한 구현을 제공하거나 새로운 함수와 프로퍼티를 선언할 수 있음을 의미합니다. 당연히 이러한 인터페이스를 구현하는 클래스는 누락된 구현만 정의하면 됩니다.
 
@@ -70,7 +70,7 @@ data class Employee(
 ) : Person
 ```
 
-## 오버라이딩 충돌 해결(Resolving overriding conflicts)
+## 오버라이딩 충돌 해결(Resolving overriding conflicts) {id="resolving-overriding-conflicts"}
 
 상위 타입 목록에 여러 타입을 선언하면, 동일한 메서드에 대해 둘 이상의 구현을 상속받을 수 있습니다.
 
@@ -105,7 +105,7 @@ class D : A, B {
 
 하지만 *A*와 *B*로부터 *D*를 파생시킨다면, 여러 인터페이스로부터 상속받은 모든 메서드를 구현해야 하며, *D*가 이를 구체적으로 어떻게 구현할지 지정해야 합니다. 이 규칙은 단일 구현을 상속받은 메서드(*bar()*)와 여러 구현을 상속받은 메서드(*foo()*) 모두에 적용됩니다.
 
-## 인터페이스 함수에 대한 JVM 디폴트 메서드 생성
+## 인터페이스 함수에 대한 JVM 디폴트 메서드 생성 {id="jvm-default-method-generation-for-interface-functions"}
 
 JVM에서 인터페이스에 선언된 함수는 디폴트 메서드(default method)로 컴파일됩니다.
 다음 값과 함께 `-jvm-default` 컴파일러 옵션을 사용하여 이 동작을 제어할 수 있습니다.

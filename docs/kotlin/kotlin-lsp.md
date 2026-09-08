@@ -11,7 +11,7 @@
 >
 {style="note"}
 
-## Visual Studio Code 中的 Kotlin
+## Visual Studio Code 中的 Kotlin {id="kotlin-in-visual-studio-code"}
 
 Kotlin Language Server 为 [Visual Studio Code](https://code.visualstudio.com/) 提供官方 Kotlin 语言支持。
 
@@ -21,7 +21,7 @@ Kotlin Language Server 为 [Visual Studio Code](https://code.visualstudio.com/) 
 
 要激活 **Kotlin by JetBrains** 扩展程序，请在 Visual Studio Code 中打开一个 Kotlin 项目，然后打开任意 Kotlin 文件。
 
-## 支持的功能
+## 支持的功能 {id="supported-features"}
 
 Kotlin Language Server 包含核心语言功能，例如：
 
@@ -42,12 +42,12 @@ Kotlin Language Server 包含核心语言功能，例如：
 * 调用层次结构
 * 代码折叠
 
-## 反馈
+## 反馈 {id="feedback"}
 
 Kotlin Language Server 正处于积极开发中，Alpha 阶段的反馈尤为宝贵。
 
 如果您遇到问题或想提出改进建议，请在 [Kotlin LSP 仓库](https://github.com/Kotlin/kotlin-lsp)中提交。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * 浏览 [GitHub 上的 Kotlin Language Server 仓库](https://github.com/Kotlin/kotlin-lsp)

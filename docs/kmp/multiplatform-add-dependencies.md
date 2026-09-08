@@ -37,9 +37,9 @@ kotlin {
 </TabItem>
 </Tabs>
 
-## 依赖 Kotlin 库
+## 依赖 Kotlin 库 {id="dependency-on-a-kotlin-library"}
 
-### 标准库
+### 标准库 {id="standard-library"}
 
 每个源集中对标准库 (`stdlib`) 的依赖项会自动添加。标准库的版本与 `kotlin-multiplatform` 插件的版本相同。
 
@@ -47,7 +47,7 @@ kotlin {
 
 了解如何[更改默认行为](https://kotlinlang.org/docs/gradle-configure-project.html#dependency-on-the-standard-library)。
 
-### 测试库
+### 测试库 {id="test-libraries"}
 
 对于多平台测试，可以使用 [`kotlin.test`](https://kotlinlang.org/api/latest/kotlin.test/) API。创建多平台项目时，可以通过在 `commonTest` 中使用单个依赖项来为所有源集添加测试依赖项：
 
@@ -84,7 +84,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-### kotlinx 库
+### kotlinx 库 {id="kotlinx-libraries"}
 
 如果你使用多平台库并需要[依赖共享代码](#library-shared-for-all-source-sets)，请仅在共享源集中设置一次依赖项。使用库的基础工件名称，例如 `kotlinx-coroutines-core`：
 
@@ -156,7 +156,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-## 依赖 Kotlin Multiplatform 库
+## 依赖 Kotlin Multiplatform 库 {id="dependency-on-kotlin-multiplatform-libraries"}
 
 你可以添加对采用了 Kotlin Multiplatform 技术的库（如 [SQLDelight](https://github.com/cashapp/sqldelight)）的依赖项。这些库的作者通常会提供将依赖项添加到项目中的指南。
 
@@ -164,7 +164,7 @@ kotlin {
 >
 {style="tip"}
 
-### 所有源集共享的库
+### 所有源集共享的库 {id="library-shared-for-all-source-sets"}
 
 如果你想在所有源集中使用某个库，可以仅将其添加到通用源集中。Kotlin Multiplatform Gradle 插件会自动将对应部分添加到任何其他源集中。
 
@@ -217,7 +217,7 @@ kotlin {
 > 
 {style="tip"}
 
-### 在特定源集中使用的库
+### 在特定源集中使用的库 {id="library-used-in-specific-source-sets"}
 
 如果你想仅在特定源集中使用多平台库，可以专门为这些源集添加。届时，指定的库声明将仅在这些源集中可用。
 
@@ -282,7 +282,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-## 依赖另一个多平台项目
+## 依赖另一个多平台项目 {id="dependency-on-another-multiplatform-project"}
 
 你可以将一个多平台项目作为依赖项连接到另一个项目。为此，只需将项目依赖项添加到需要它的源集中。如果你想在所有源集中使用该依赖项，请将其添加到通用源集中。在这种情况下，其他源集将自动获取其对应的版本。
 
@@ -327,7 +327,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-## 下一步？
+## 下一步？ {id="what-s-next"}
 
 查看有关在多平台项目中添加依赖项的其他资源，详细了解：
 

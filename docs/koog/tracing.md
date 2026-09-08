@@ -2,7 +2,7 @@
 
 本页面包含有关“跟踪 (Tracing)”功能的详细信息，该功能为 AI 智能体提供了全面的跟踪能力。
 
-## 功能概览
+## 功能概览 {id="feature-overview"}
 
 跟踪功能是一个强大的监控和调试工具，可捕获有关智能体运行的详细信息，包括：
 
@@ -14,16 +14,16 @@
 
 该功能通过拦截智能体流水线中的关键事件并将其转发到可配置的消息处理器来运行。这些处理器可以将跟踪信息输出到各种目的地，例如日志文件或文件系统中的其他类型文件，从而使开发者能够洞察智能体行为并有效地进行故障排除。
 
-### 事件流
+### 事件流 {id="event-flow"}
 
 1. 跟踪功能拦截智能体流水线中的事件。
 2. 根据配置的消息筛选器对事件进行筛选。
 3. 筛选后的事件被传递给注册的消息处理器。
 4. 消息处理器对事件进行格式化并将其输出到各自的目的地。
 
-## 配置与初始化
+## 配置与初始化 {id="configuration-and-initialization"}
 
-### 基本设置
+### 基本设置 {id="basic-setup"}
 
 要使用跟踪功能，您需要：
 
@@ -69,7 +69,7 @@ val agent = AIAgent(
 ```
 <!--- KNIT example-tracing-01.kt -->
 
-### 消息筛选
+### 消息筛选 {id="message-filtering"}
 
 您可以处理所有现有事件，或根据特定标准选择其中一些事件。
 消息筛选器让您可以控制处理哪些事件。这对于关注智能体运行的特定方面非常有用：
@@ -125,7 +125,7 @@ fileWriter.setMessageFilter { message ->
 ```
 <!--- KNIT example-tracing-02.kt -->
 
-### 大容量跟踪
+### 大容量跟踪 {id="large-trace-volumes"}
 
 对于具有复杂策略或长时间运行执行的智能体，跟踪事件的数量可能会非常庞大。请考虑使用以下方法来管理事件量：
 
@@ -133,7 +133,7 @@ fileWriter.setMessageFilter { message ->
 - 实现具有缓冲或采样功能的自定义消息处理器。
 - 对日志文件使用文件轮转 (file rotation)，以防止其增长得过大。
 
-### 依赖关系图
+### 依赖关系图 {id="dependency-graph"}
 
 跟踪功能具有以下依赖项：
 
@@ -175,9 +175,9 @@ Tracing
     └── ToolCallCompletedEvent
 ```
 
-## 示例与快速入门
+## 示例与快速入门 {id="examples-and-quickstarts"}
 
-### 到日志记录器的基本跟踪
+### 到日志记录器的基本跟踪 {id="basic-tracing-to-logger"}
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
@@ -211,9 +211,9 @@ fun main() {
 ```
 <!--- KNIT example-tracing-03.kt -->
 
-## 错误处理与边缘情况
+## 错误处理与边缘情况 {id="error-handling-and-edge-cases"}
 
-### 无消息处理器
+### 无消息处理器 {id="no-message-processors"}
 
 如果没有向跟踪功能添加任何消息处理器，系统将记录一条警告：
 
@@ -223,7 +223,7 @@ Tracing Feature. No feature out stream providers are defined. Trace streaming ha
 
 该功能仍会拦截事件，但它们不会在任何地方被处理或输出。
 
-### 资源管理
+### 资源管理 {id="resource-management"}
 
 消息处理器可能会持有需要正确释放的资源（如文件句柄）。请使用 `use` 扩展函数以确保正确清理：
 
@@ -269,7 +269,7 @@ agent.run(input)
 ```
 <!--- KNIT example-tracing-04.kt -->
 
-### 跟踪特定事件到文件
+### 跟踪特定事件到文件 {id="tracing-specific-events-to-file"}
 
 <!--- INCLUDE
 import ai.koog.agents.core.agent.AIAgent
@@ -321,7 +321,7 @@ install(Tracing) {
 ```
 <!--- KNIT example-tracing-05.kt -->
 
-### 跟踪特定事件到远程端点
+### 跟踪特定事件到远程端点 {id="tracing-specific-events-to-remote-endpoint"}
 
 当您需要通过网络发送事件数据时，可以使用指向远程端点的跟踪。启动后，指向远程端点的跟踪将在指定的端口号上启动一个轻量级服务器，并通过 Kotlin 服务器发送事件 (SSE) 发送事件。
 
@@ -416,7 +416,7 @@ listOf(clientJob).joinAll()
 ```
 <!--- KNIT example-tracing-07.kt -->
 
-## API 文档
+## API 文档 {id="api-documentation"}
 
 跟踪功能遵循模块化架构，具有以下关键组件：
 

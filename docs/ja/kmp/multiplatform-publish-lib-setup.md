@@ -6,7 +6,7 @@
 * Maven Centralリポジトリ。アカウント資格情報の設定、ライブラリメタデータのカスタマイズ、および公開プラグインの設定方法については、[チュートリアル](multiplatform-publish-libraries-to-maven.md)をご覧ください。
 * GitHubリポジトリ。詳細については、GitHubの[GitHub Packages](https://docs.github.com/en/packages)に関するドキュメントを参照してください。
 
-## ローカルMavenリポジトリへの公開
+## ローカルMavenリポジトリへの公開 {id="publishing-to-a-local-maven-repository"}
 
 `maven-publish` Gradleプラグインを使用して、マルチプラットフォームライブラリをローカルMavenリポジトリに公開できます：
 
@@ -33,13 +33,13 @@
 
 `maven-publish` と併用すると、Kotlinプラグインは、現在のホストでビルド可能な各ターゲットに対して公開物（Publication）を自動的に作成します。ただし、Androidターゲットについては、[公開を設定するための追加ステップ](#publish-an-android-library)が必要です。
 
-## 公開物の構造
+## 公開物の構造 {id="structure-of-publications"}
 
 Kotlinマルチプラットフォームライブラリの公開物には、特定のターゲットごとに対応する複数のMaven公開物が含まれます。さらに、ライブラリ全体を表すアンブレラ「ルート（root）」公開物である `kotlinMultiplatform` も公開されます。
 
 共通ソースセット（common source set）に[依存関係](multiplatform-add-dependencies.md)として追加されると、ルート公開物は自動的に適切なプラットフォーム固有のアーティファクトに解決されます。
 
-### ターゲット固有の公開物とルート公開物
+### ターゲット固有の公開物とルート公開物 {id="target-specific-and-root-publications"}
 
 KotlinマルチプラットフォームGradleプラグインは、ターゲットごとに個別の公開物を設定します。
 以下のプロジェクト構成を考えてみましょう：
@@ -78,7 +78,7 @@ kotlin {
 
 * リポジトリで要求される場合、`kotlinMultiplatform` 公開物にはソースやドキュメントのアーティファクトも必要になることがあります。その場合は、公開物のスコープ内で [`artifact()`](https://docs.gradle.org/current/javadoc/org/gradle/api/publish/maven/MavenPublication.html#artifact-java.lang.Object-) を使用してください。
 
-### ライブラリ全体の公開
+### ライブラリ全体の公開 {id="publishing-a-complete-library"}
 
 必要なすべてのアーティファクトを1ステップで公開するには、アンブレラタスクである `publishAllPublicationsTo<MavenRepositoryName>` を使用します。
 例：
@@ -109,12 +109,12 @@ Maven Localに公開する場合は、特別なタスクを使用できます：
 
 これにより、すべてのアーティファクトが利用可能になり、正しく参照されることが保証されます。
 
-## ホストの要件
+## ホストの要件 {id="host-requirements"}
 
 Kotlin/Nativeはクロスコンパイルをサポートしており、任意のホストで必要な `.klib` アーティファクトを生成できます。
 ただし、留意すべきいくつかの制限があります。
 
-### Appleターゲットのコンパイル
+### Appleターゲットのコンパイル {id="compilation-for-apple-targets"}
 
 Appleターゲットを含むプロジェクトの場合、アーティファクトの生成には任意のホストを使用できます。
 ただし、以下の場合には引き続きMacマシンを使用する必要があります：
@@ -123,12 +123,12 @@ Appleターゲットを含むプロジェクトの場合、アーティファク
 * プロジェクトに [CocoaPods 統合](multiplatform-cocoapods-overview.md)が設定されている場合。
 * Appleターゲット向けの[最終バイナリ](multiplatform-build-native-binaries.md)をビルドまたはテストする必要がある場合。
 
-### 公開の重複の回避
+### 公開の重複の回避 {id="duplicating-publications"}
 
 リポジトリ内での公開の重複を避けるため、すべてのアーティファクトを単一のホストから公開してください。
 例えば、Maven Centralは重複した公開を明示的に禁止しており、重複が作成されるとプロセスが失敗します。
 
-## Androidライブラリの公開
+## Androidライブラリの公開 {id="publish-an-android-library"}
 
 Androidライブラリを公開するには、追加の設定が必要です。
 デフォルトでは、Androidライブラリのアーティファクトは公開されません。
@@ -200,7 +200,7 @@ Android Gradle Libraryプラグインでは、ソースセット名を指定し�
   os: ubuntu-latest
 ```
 
-## ソースの公開を無効にする
+## ソースの公開を無効にする {id="disable-sources-publication"}
 
 デフォルトでは、KotlinマルチプラットフォームGradleプラグインは指定されたすべてのターゲットのソース（sources）を公開します。しかし、`shared/build.gradle.kts` ファイルの `withSourcesJar()` APIを使用して、ソースの公開を設定したり無効にしたりできます。
 
@@ -241,13 +241,13 @@ Android Gradle Libraryプラグインでは、ソースセット名を指定し�
   }
   ```
 
-## ライブラリを宣伝する
+## ライブラリを宣伝する {id="promote-your-library"}
 
 あなたのライブラリは、[JetBrainsのマルチプラットフォームライブラリカタログ](https://klibs.io/)に掲載される可能性があります。このカタログは、ターゲットプラットフォームに基づいてKotlinマルチプラットフォームライブラリを簡単に探せるように設計されています。
 
 基準を満たすライブラリは自動的に追加されます。カタログにライブラリが表示されるようにするための詳細については、[FAQ](https://klibs.io/faq) を参照してください。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [KotlinマルチプラットフォームライブラリをMaven Centralリポジトリに公開する方法を学ぶ](multiplatform-publish-libraries-to-maven.md)
 * [Kotlinマルチプラットフォーム向けライブラリ設計のベストプラクティスとヒントについては、ライブラリ作成者向けガイドラインを参照してください](https://kotlinlang.org/docs/api-guidelines-build-for-multiplatform.html)

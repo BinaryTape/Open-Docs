@@ -13,13 +13,13 @@ title: Compose Multiplatform - 공유 UI
 이 튜토리얼의 **어노테이션 버전(annotations version)**을 찾고 계신가요? 컴파일 타임 검증과 자동 모듈 탐색을 위해 Koin 어노테이션을 사용하는 [Compose Multiplatform & Annotations](./compose-multiplatform-annotations.md)를 확인해 보세요.
 :::
 
-## 코드 가져오기
+## 코드 가져오기 {id="get-the-code"}
 
 :::info
 [GitHub에서 소스 코드를 확인할 수 있습니다](https://github.com/InsertKoinIO/koin-getting-started/tree/main/compose)
 :::
 
-## 애플리케이션 개요
+## 애플리케이션 개요 {id="application-overview"}
 
 이 애플리케이션은 원격 API에서 박물관 미술품 객체를 가져와 목록에 표시합니다. 사용자는 항목을 탭하여 상세 정보를 볼 수 있습니다:
 
@@ -32,11 +32,11 @@ title: Compose Multiplatform - 공유 UI
 - 비동기 작업을 위한 Kotlin Coroutines & Flow
 - 라우팅을 위한 Navigation Compose
 
-## 데이터 레이어 (The Data Layer)
+## 데이터 레이어 (The Data Layer) {id="the-data-layer"}
 
 > 모든 공통/공유 코드는 `composeApp` Gradle 프로젝트에 위치합니다.
 
-### MuseumObject 모델
+### MuseumObject 모델 {id="museumobject-model"}
 
 박물관 미술품 객체 데이터 클래스입니다:
 
@@ -58,7 +58,7 @@ data class MuseumObject(
 )
 ```
 
-### MuseumApi - 네트워크 레이어
+### MuseumApi - 네트워크 레이어 {id="museumapi-network-layer"}
 
 메트로폴리탄 미술관 API에서 데이터를 가져오기 위한 API 인터페이스를 생성합니다:
 
@@ -84,7 +84,7 @@ class KtorMuseumApi(private val client: HttpClient) : MuseumApi {
 }
 ```
 
-### MuseumStorage - 로컬 캐싱
+### MuseumStorage - 로컬 캐싱 {id="museumstorage-local-caching"}
 
 박물관 객체를 로컬에 캐싱하기 위한 스토리지 인터페이스를 생성합니다:
 
@@ -112,7 +112,7 @@ class InMemoryMuseumStorage : MuseumStorage {
 }
 ```
 
-### MuseumRepository
+### MuseumRepository {id="museumrepository"}
 
 리포지토리(Repository)는 API와 스토리지 사이를 조율합니다:
 
@@ -143,7 +143,7 @@ class MuseumRepository(
 }
 ```
 
-## 공유 Koin 모듈
+## 공유 Koin 모듈 {id="the-shared-koin-modules"}
 
 Koin 모듈을 선언하려면 `module` 함수를 사용하세요. 더 나은 구조를 위해 의존성을 별도의 모듈로 구성합니다.
 
@@ -151,7 +151,7 @@ Koin 모듈을 선언하려면 `module` 함수를 사용하세요. 더 나은 �
 이 튜토리얼은 컴파일 타임에 오토 와이어링(auto-wiring)을 제공하는 **Koin 컴파일러 플러그인 DSL**(`single<T>()`, `viewModel<T>()`)을 사용합니다. 설정 방법은 [컴파일러 플러그인 설정](/docs/setup/compiler-plugin)을 참조하세요.
 :::
 
-### 데이터 모듈 (Data Module)
+### 데이터 모듈 (Data Module) {id="data-module"}
 
 ```kotlin
 val dataModule = module {
@@ -174,7 +174,7 @@ private fun buildClient(): HttpClient {
 }
 ```
 
-### ViewModel 모듈
+### ViewModel 모듈 {id="viewmodel-module"}
 
 두 개의 화면을 위한 ViewModel을 생성해 보겠습니다:
 
@@ -204,7 +204,7 @@ val viewModelModule = module {
 }
 ```
 
-### 플랫폼별 모듈 (Platform-Specific Module)
+### 플랫폼별 모듈 (Platform-Specific Module) {id="platform-specific-module"}
 
 플랫폼별 컴포넌트(Android vs iOS)를 위한 모듈입니다:
 
@@ -214,7 +214,7 @@ val nativeComponentModule = module {
 }
 ```
 
-### 메인 앱 모듈 (Main App Module)
+### 메인 앱 모듈 (Main App Module) {id="main-app-module"}
 
 모든 모듈을 결합합니다:
 
@@ -228,7 +228,7 @@ val appModule = module {
 Koin 모듈이 잘 구성되었으며, `initKoin()` 함수를 사용하여 Android와 iOS 양측에서 초기화할 수 있습니다.
 :::
 
-## 네이티브 컴포넌트
+## 네이티브 컴포넌트 {id="native-component"}
 
 플랫폼별 정보(Android vs iOS)를 위해 expect/actual 패턴을 사용합니다:
 
@@ -249,7 +249,7 @@ class NativeComponent {
 }
 ```
 
-## Compose에서 ViewModel 주입하기
+## Compose에서 ViewModel 주입하기 {id="injecting-viewmodels-in-compose"}
 
 > 모든 공통 Compose 앱은 `composeApp` Gradle 모듈의 `commonMain`에 위치합니다.
 
@@ -288,7 +288,7 @@ fun App() {
 `koinViewModel()` 함수는 ViewModel 인스턴스를 가져와 Compose 생명주기(lifecycle)에 바인딩합니다.
 :::
 
-## Koin 시작하기
+## Koin 시작하기 {id="starting-koin"}
 
 `initKoin()` 함수로 Koin을 초기화합니다:
 
@@ -304,7 +304,7 @@ fun initKoin(configuration: KoinAppDeclaration? = null) {
 }
 ```
 
-### Android 설정
+### Android 설정 {id="android-setup"}
 
 Android에서는 메인 Activity 또는 Application 클래스에서 Koin을 초기화합니다:
 
@@ -313,7 +313,7 @@ Android에서는 메인 Activity 또는 Application 클래스에서 Koin을 초�
 initKoin()
 ```
 
-### iOS 설정
+### iOS 설정 {id="ios-setup"}
 
 > 모든 iOS 앱은 `iosApp` 폴더에 위치합니다.
 

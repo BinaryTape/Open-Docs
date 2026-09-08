@@ -9,7 +9,7 @@
 >
 {style="note" id="desktop-snippets-intro"}
 
-## 스크롤 수정자(Scroll modifiers)
+## 스크롤 수정자(Scroll modifiers) {id="scroll-modifiers"}
 
 `verticalScroll` 및 `horizontalScroll` 수정자는 콘텐츠의 범위(bounds)가 최대 크기 제약 조건보다 클 때 사용자가 요소를 스크롤할 수 있게 하는 가장 간단한 방법을 제공합니다.
 `verticalScroll` 수정자가 있는 스크롤 가능 컴포넌트에는 `VerticalScrollbar` 컴포저블을, `horizontalScroll` 수정자가 있는 스크롤 가능 컴포넌트에는 `HorizontalScrollbar` 컴포저블을 연결할 수 있습니다:
@@ -101,7 +101,7 @@ fun TextBox(text: String = "Item") {
 
 <img src="compose-desktop-scrollbar.animated.gif" alt="Scrollbar" width="289" preview-src="compose-desktop-scrollbar.png"/>
 
-## Lazy 스크롤 가능 컴포넌트(Lazy scrollable components)
+## Lazy 스크롤 가능 컴포넌트(Lazy scrollable components) {id="lazy-scrollable-components"}
 
 `LazyColumn` 및 `LazyRow`와 같은 Lazy 스크롤 가능 컴포넌트에서도 스크롤바를 사용할 수 있습니다.
 Lazy 컴포넌트는 항목이 필요할 때만 구성(compose)하므로 목록에 많은 항목이 예상될 때 훨씬 더 효율적입니다.
@@ -180,13 +180,13 @@ fun TextBox(text: String = "Item") {
 
 <img src="compose-desktop-lazy-scrollbar.animated.gif" alt="Lazy scrollbar" width="289" preview-src="compose-desktop-lazy-scrollbar.png"/>
 
-## 알려진 제한 사항(Known limitations)
+## 알려진 제한 사항(Known limitations) {id="known-limitations"}
 
 현재 터치스크린, 터치패드 및 트랙패드를 이용한 스크롤은 마우스 이벤트로 처리되어, 글리치(glitch)가 발생하거나 핀치 투 줌(pinch-to-zoom) 기능 부재와 같은 제한 사항이 있을 수 있습니다. 저희는 입력 및 제스처 처리를 지속적으로 개선하고 있으며, 이러한 입력 장치에 대한 네이티브 지원을 도입할 계획입니다:
 
 * 터치스크린 네이티브 지원 ([CMP-1609](https://youtrack.jetbrains.com/issue/CMP-1609/))
 * 터치패드 및 트랙패드 네이티브 지원 ([CMP-1610](https://youtrack.jetbrains.com/issue/CMP-1610/))
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 [다른 데스크톱 컴포넌트](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop)에 대한 튜토리얼을 살펴보세요.

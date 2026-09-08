@@ -4,7 +4,7 @@ JavaScript 原始碼對應檔 (source maps) 提供了由束裝工具或縮減器
 
 Kotlin Multiplatform Gradle 外掛程式會自動為專案組建產生原始碼對應檔，無需任何額外配置即可使用。
 
-## 在瀏覽器中偵錯
+## 在瀏覽器中偵錯 {id="debug-in-browser"}
 
 大多數現代瀏覽器都提供可檢查頁面內容並偵錯其中執行之程式碼的工具。請參閱瀏覽器的說明文件了解更多詳細資訊。
 
@@ -25,7 +25,7 @@ Kotlin Multiplatform Gradle 外掛程式會自動為專案組建產生原始碼�
 現在您可以開始偵錯程式。透過點擊其中一個行號來設定中斷點。
 開發者工具甚至支援在陳述式內設定中斷點。與一般的 JavaScript 程式碼一樣，任何設定的中斷點在頁面重新載入後都會保留。這也使得偵錯在首次載入指令碼時執行的 Kotlin `main()` 方法成為可能。
 
-## 在 IDE 中偵錯
+## 在 IDE 中偵錯 {id="debug-in-the-ide"}
 
 具備 Ultimate 訂閱的 [IntelliJ IDEA](https://www.jetbrains.com/idea/) 提供了一套強大的工具，用於在開發期間偵錯程式碼。
 
@@ -61,7 +61,7 @@ Kotlin Multiplatform Gradle 外掛程式會自動為專案組建產生原始碼�
 >
 {style="note"}
 
-## 在 Node.js 中偵錯
+## 在 Node.js 中偵錯 {id="debug-in-node-js"}
 
 如果您的專案目標是 Node.js，您可以在此執行環境中對其進行偵錯。
 
@@ -71,7 +71,7 @@ Kotlin Multiplatform Gradle 外掛程式會自動為專案組建產生原始碼�
 2. 在專案目錄下的 `build/js/packages/your-module/kotlin/` 目錄中找到 Node.js 的結果 `.js` 檔案。
 3. 按照 [Node.js 偵錯指南](https://nodejs.org/en/docs/guides/debugging-getting-started/#jetbrains-webstorm-2017-1-and-other-jetbrains-ides) 中的說明在 Node.js 中進行偵錯。
 
-## 下一步？
+## 下一步？ {id="what-s-next"}
 
 既然您已了解如何啟動 Kotlin/JS 專案的偵錯工作階段，請學習如何高效地使用偵錯工具：
 
@@ -79,6 +79,6 @@ Kotlin Multiplatform Gradle 外掛程式會自動為專案組建產生原始碼�
 * 熟悉 [IntelliJ IDEA JavaScript 偵錯工具](https://www.jetbrains.com/help/idea/debugging-javascript-in-chrome.html)
 * 了解如何 [在 Node.js 中偵錯](https://nodejs.org/en/docs/guides/debugging-getting-started/)。
 
-## 如果您遇到任何問題
+## 如果您遇到任何問題 {id="if-you-run-into-any-problems"}
 
 如果您在偵錯 Kotlin/JS 時遇到任何問題，請將其回報至我們的問題追蹤器 [YouTrack](https://kotl.in/issue)

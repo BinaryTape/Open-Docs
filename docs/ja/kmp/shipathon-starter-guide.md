@@ -1,12 +1,12 @@
 [//]: # (title: Kotlin Multiplatform スタートガイド)
 
-## どこから始めるか
+## どこから始めるか {id="where-to-start"}
 
 1. Kotlin Multiplatform (KMP) および Compose Multiplatform (CMP) について学びます。
    [これらがどのようなものであるか、その利点とユースケース](kmp-overview.md)を確認してください。
 2. [サンプルプロジェクトで KMP を試して](quickstart.md)、プロジェクトがどのように構成され、異なるプラットフォームでどのように動作するかを確認してください。
 
-## KMP の基本を学ぶ
+## KMP の基本を学ぶ {id="learn-kmp-basics"}
 
 基本事項には以下が含まれます：
 
@@ -25,7 +25,7 @@
 
 <!-- ## \[AI Agents scenario tools TODO\] -->
 
-## コードの共有
+## コードの共有 {id="share-code"}
 
 KMP プロジェクトでコードを共有する方法はいくつかあり、プラットフォーム固有の事項も存在します：
 
@@ -47,7 +47,7 @@ KMP プロジェクトでコードを共有する方法はいくつかあり、�
     * より簡潔な [Swift export](https://kotlinlang.org/docs/native-swift-export.html) アプローチ（現在はアルファ版）について学びます。
     
 
-## エコシステムを探る
+## エコシステムを探る {id="discover-the-ecosystem"}
 
 マルチプラットフォームライブラリの包括的なカタログは [klibs.io](https://klibs.io/) で公開されています：
 
@@ -57,7 +57,7 @@ KMP プロジェクトでコードを共有する方法はいくつかあり、�
     * [SQLDelight / Ktor / kotlinx-serialization / Koin](https://github.com/kotlin-hands-on/kmp-networking-and-data-storage/tree/final) と対応する [チュートリアル](multiplatform-ktor-sqldelight.md)。
     * [元の Android サンプル](https://github.com/android/compose-samples/tree/main/Jetcaster)から移行された[マルチプラットフォーム Jetcaster アプリ](https://github.com/kotlin-hands-on/jetcaster-kmp-migration)。
 
-## KMP ライブラリの作成
+## KMP ライブラリの作成 {id="create-a-kmp-library"}
 
 共有コードをマルチプラットフォームライブラリとしてパッケージ化する場合は、以下のドキュメントページを確認してください：
 
@@ -65,16 +65,16 @@ KMP プロジェクトでコードを共有する方法はいくつかあり、�
 * [KMP ライブラリの公開設定](multiplatform-publish-lib-setup.md)
 * [Maven Central](multiplatform-publish-libraries-to-maven.md) および [npm](multiplatform-publish-libraries-to-npm.md) にアーティファクトを公開するためのチュートリアル
 
-## アーティファクトの公開
+## アーティファクトの公開 {id="publish-the-artifacts"}
 
 * [KMP アプリの公開に関する全般的な記事](multiplatform-publish-apps.md)を読んでください。
 * Apple App Store で必要となる[プライバシーマニフェスト](multiplatform-privacy-manifest.md)についても忘れないでください。
 
-## KMP 開発での AI の活用
+## KMP 開発での AI の活用 {id="using-ai-for-kmp-development"}
 
-### 始める前に
+### 始める前に {id="before-you-start"}
 
-#### Junie への無料アクセスの利用
+#### Junie への無料アクセスの利用 {id="use-the-free-junie-access"}
 
 Junie は JetBrains の AI エージェントです。
 Shipaton の参加者向けに、JetBrains は Junie CLI エージェントの EAP 版への無料アクセスを提供しています。
@@ -82,7 +82,7 @@ Shipaton の参加者向けに、JetBrains は Junie CLI エージェントの E
 
 <a as="button" href="https://surveys.jetbrains.com/s3/Build-with-Junie-at-Shipaton-2026-Application-Form" mode="classic" icon="arrow-right" icon-position="right">Junie へのアクセスをリクエストする</a>
 
-#### AGENTS.md のセットアップとコミット
+#### AGENTS.md のセットアップとコミット {id="set-up-and-commit-agents-md"}
 
 AI エージェントは、慣れないコードベースを調査する際に `AGENTS.md` ファイルを非常に重視します。
 そのため、正確で包括的なコンテキストを提供することで、エージェントの洞察や生成されるコードの品質を顕著に向上させることができます。
@@ -90,16 +90,16 @@ AI エージェントは、慣れないコードベースを調査する際に `
 
 フォーマットの詳細や例については、[AGENTS.md](https://agents.md/) のウェブサイトを確認してください。
 
-#### 便利な MCP サーバーの設定
+#### 便利な MCP サーバーの設定 {id="configure-useful-mcp-servers"}
 
 以下の MCP サーバーは、KMP コンテキストでアプリを構築する AI エージェントにとって有用です：
 
 * [klibs.io](https://github.com/JetBrains/klibs-io/blob/master/integrations/mcp/README.md) サーバー：適切なマルチプラットフォームライブラリを探すのに役立ちます。
 * [Compose Hot Reload](compose-hot-reload.md#mcp-server-for-ai-agents) サーバー：エージェントが UI を迅速に反復して改善できるようにします。
 
-### 機能の構築
+### 機能の構築 {id="build-features"}
 
-#### プランニングモードの活用
+#### プランニングモードの活用 {id="use-planning-mode"}
 
 大規模なタスクや分散作業において、ほとんどのエージェントは**プランニングモード**をサポートしています。これにより、タスクを分解し、本格的なコード生成を開始する前に検証可能な明確なステップバイステップの指示を生成できます。
 
@@ -109,7 +109,7 @@ AI エージェントは、慣れないコードベースを調査する際に `
 * ライブラリの統合
 * 大規模なリファクタリング
 
-#### AI が生成した変更の検証
+#### AI が生成した変更の検証 {id="validate-ai-generated-changes"}
 
 AI 全般の非決定性に加え、Kotlin Multiplatform は包括的なカバーが難しい多面的なコンテキストを導入します。
 例えば、あるプラットフォームでは適切に動作するが、別のプラットフォームでは動作を損なうような変更が実装されることはよくあります。
@@ -120,42 +120,42 @@ AI 全般の非決定性に加え、Kotlin Multiplatform は包括的なカバ�
 * タスク完了と見なす前に、設定されたすべての KMP ターゲットが正常にビルドできることを確認する。
 * プラットフォーム固有の API が共通コード（common code）に漏れ出していないか実装をレビューする：これが原因で、エージェント（および人間）が後の段階でそれらの API を誤って使用してしまう可能性があります。
 
-#### Kotlin AI スキルの活用
+#### Kotlin AI スキルの活用 {id="use-kotlin-ai-skills"}
 
 Kotlin チームは、Kotlin 固有の問題を解決することを目的とした AI スキルを構築および保守しています。
 [スキルリポジトリ](https://github.com/Kotlin/kotlin-agent-skills)を確認し、お使いのエージェントにスキルをインストールしてください。
 
-#### ネイティブ iOS ライブラリ統合のための Swift Package Manager の使用
+#### ネイティブ iOS ライブラリ統合のための Swift Package Manager の使用 {id="use-swift-package-manager-to-integrate-native-ios-libraries"}
 
 マルチプラットフォームライブラリがまだ存在しない iOS 機能については、ネイティブ iOS ライブラリを統合する必要がある場合があります。
 そのような依存関係の構成には、SwiftPM パッケージと[対応する DSL](multiplatform-spm-import.md) を使用することをお勧めします。
 
 Kotlin チームは、[CocoaPods から SwiftPM への移行を目的とした AI スキル](https://github.com/Kotlin/kotlin-agent-skills/tree/main/skills/kotlin-tooling-cocoapods-spm-migration)を保守しており、これは SwiftPM 統合をゼロからセットアップする場合にも役立ちます。
 
-#### エージェント・オーケストレーションのセットアップ
+#### エージェント・オーケストレーションのセットアップ {id="set-up-agent-orchestration"}
 
 JetBrains Air はエージェント・オーケストレーションを提供しており、プロジェクトの異なる部分で複数のエージェントを同時に調整することで、作業をスピードアップさせることができます。
 
 <a as="button" href="https://air.dev/" mode="classic" icon="arrow-right" icon-position="right">Air を試す</a>
 
-### UI の反復的な改善
+### UI の反復的な改善 {id="iterate-on-ui"}
 
-#### Figma を使用した UI デザインと Compose コードの生成
+#### Figma を使用した UI デザインと Compose コードの生成 {id="use-figma-to-generate-ui-designs-and-compose-code"}
 
 [Figma MCP サーバー](https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Figma-MCP-server)は、デザインを Compose コードに変換するのに役立ちます。
 
 UI デザインをゼロから生成する場合は、[Google Stitch](https://stitch.withgoogle.com/) または [Figma Make](https://www.figma.com/make/) を検討してください。
 
-#### Compose UI タスクのエージェントとして Gemini CLI を使用する
+#### Compose UI タスクのエージェントとして Gemini CLI を使用する {id="use-gemini-cli-as-the-agent-for-compose-ui-tasks"}
 
 Google のモデル（[Flash ファミリー](https://ai.google.dev/gemini-api/docs/models#gemini-3-stable)のモデルを含む）を使用して Compose コードを生成すると、一貫して良好な結果が得られることがわかっています。生成速度、トークン消費量、および UI 品質において優れたバランスを提供します。
 
-#### Compose Hot Reload を使用した UI の反復改善
+#### Compose Hot Reload を使用した UI の反復改善 {id="use-compose-hot-reload-to-iterate-on-ui"}
 
 [Compose Hot Reload](compose-hot-reload.md) を使用すると、あなた（またはエージェント）が Compose コードに加えた変更をほぼリアルタイムで UI に反映できます。
 
 エージェントが UI 作業を行えるようにするには、エージェントの設定に [Compose Hot Reload MCP サーバー](compose-hot-reload.md#mcp-server-for-ai-agents)を追加してください。これにより、エージェントがリロードを直接トリガーしたり、スクリーンショットを撮ったり、UI を操作したりすることが可能になります。
 
-## 学習リソースカタログ
+## 学習リソースカタログ {id="learning-resources-catalog"}
 
 前述のすべてのリソースは、より詳細なガイドやサードパーティのコンテンツとともに、[学習リソース](kmp-learning-resources.md)ページにまとめられています。

@@ -11,7 +11,7 @@ Dokka 外掛程式的範圍涵蓋了支援其他程式語言原始碼到奇特�
 
 如果您想學習如何建立 Dokka 外掛程式，請參閱 [開發者指南](https://kotlin.github.io/dokka/%dokkaVersion%/developer_guide/introduction/)。
 
-## 套用 Dokka 外掛程式
+## 套用 Dokka 外掛程式 {id="apply-dokka-plugins"}
 
 Dokka 外掛程式是以獨立的構件形式發佈，因此要套用 Dokka 外掛程式，您只需將其新增為相依性即可。之後，外掛程式會自行擴充 Dokka——無需進一步的操作。
 
@@ -107,7 +107,7 @@ java -jar dokka-cli-%dokkaVersion%.jar \
 </tab>
 </tabs>
 
-## 配置 Dokka 外掛程式
+## 配置 Dokka 外掛程式 {id="configure-dokka-plugins"}
 
 Dokka 外掛程式也可以有自己的配置選項。要查看有哪些可用選項，請諮詢您正在使用的外掛程式文件。
 
@@ -204,7 +204,7 @@ java -jar dokka-cli-%dokkaVersion%.jar \
 </tab>
 </tabs>
 
-## 值得注意的外掛程式
+## 值得注意的外掛程式 {id="notable-plugins"}
 
 以下是一些您可能會覺得有用的著名 Dokka 外掛程式：
 

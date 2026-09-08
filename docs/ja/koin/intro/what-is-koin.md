@@ -4,11 +4,11 @@ title: Koinとは？
 
 # Koinとは？
 
-### 実用的（Pragmatic）なKotlin向け依存性注入フレームワーク - シンプル、かつ強力
+### 実用的（Pragmatic）なKotlin向け依存性注入フレームワーク - シンプル、かつ強力 {id="the-pragmatic-kotlin-dependency-injection-framework-simple-and-powerful"}
 
 Koinは、Kotlin専用に設計された軽量な依存性注入（Dependency Injection: DI）フレームワークです。コード生成やリフレクションに依存する従来のDIフレームワークとは異なり、Koinは2つの強力なアプローチを提供します。クリーンな **Kotlin DSL** と、直感的な **アノテーション** です。チームに最適な方を選択してください。どちらも第一級の機能としてサポートされています。
 
-## Koinの核心となる価値（Core Values）
+## Koinの核心となる価値（Core Values） {id="koin-s-core-values"}
 
 | 価値 | 意味 |
 |-------|---------------|
@@ -18,7 +18,7 @@ Koinは、Kotlin専用に設計された軽量な依存性注入（Dependency In
 | **安全** | Koinコンパイラプラグインによるコンパイル時の安全性。 |
 | **動的** | 実行時の柔軟性：モジュールの動的ロード、遅延ロード、機能フラグ。 |
 
-## 開発者にKoinが選ばれる理由
+## 開発者にKoinが選ばれる理由 {id="why-developers-love-koin"}
 
 - **数分で学習可能** - 複雑な概念はなく、直感的なDSLとシンプルなアノテーション。
 - **コード量の削減** - DSLまたはアノテーション、コンパイラプラグインが依存関係を自動的に接続（オートワイヤリング）します。
@@ -29,11 +29,11 @@ Koinは、Kotlin専用に設計された軽量な依存性注入（Dependency In
 - **柔軟性の維持** - 実行時ベースでありながらパフォーマンスに優れています。動的モジュール、遅延ロード、機能フラグに対応。
 - **IDEサポート** - Android StudioおよびIntelliJ IDEA用の公式プラグイン。定義へのジャンプ、ライブ安全チェック、グラフの可視化。
 
-## 2つのスタイル、1つのフレームワーク - どちらも同様に強力
+## 2つのスタイル、1つのフレームワーク - どちらも同様に強力 {id="two-styles-one-framework-both-equally-powerful"}
 
 Koinは依存関係を定義するための2つのスタイルをサポートしています。どちらも完全な機能の同等性を備えた第一級の機能です。チームに合う方を選択してください。
 
-### DSLスタイル
+### DSLスタイル {id="dsl-style"}
 
 Kotlin DSL構文を使用して依存関係を定義します。
 
@@ -46,7 +46,7 @@ val appModule = module {
 }
 ```
 
-### アノテーションスタイル
+### アノテーションスタイル {id="annotation-style"}
 
 アノテーションを使用して依存関係を定義します。
 
@@ -69,7 +69,7 @@ class UserViewModel(private val repository: UserRepository) : ViewModel()
 
 どちらのスタイルも、コンパイル時の安全性を確保するために **Koinコンパイラプラグイン** によって処理されます。
 
-## よりシンプルなKoinのアノテーション
+## よりシンプルなKoinのアノテーション {id="koin-s-annotations-are-simpler"}
 
 HiltやDaggerを使用したことがあるなら、Koinのアノテーションは儀式（冗長な記述）が少ないことに気づくでしょう。
 
@@ -105,7 +105,7 @@ abstract class AppModule {
 }
 ```
 
-## Koinコンパイラプラグインによる強化
+## Koinコンパイラプラグインによる強化 {id="powered-by-koin-compiler-plugin"}
 
 **Koinコンパイラプラグイン**は、すべての新規プロジェクトでKoinを使用する際に推奨される方法です。
 
@@ -115,7 +115,7 @@ abstract class AppModule {
 - **DSLとアノテーションの両方で動作** - 好きな方を選択可能。
 - **簡単なセットアップ** - 1つのGradleプラグインのみ。
 
-### コンパイラプラグインによるクリーンな構文
+### コンパイラプラグインによるクリーンな構文 {id="cleaner-syntax-with-compiler-plugin"}
 
 | クラシックDSL | コンパイラプラグインDSL |
 |-------------|---------------------|
@@ -126,7 +126,7 @@ abstract class AppModule {
 
 詳細は[Koinコンパイラプラグイン](/docs/intro/koin-compiler-plugin)をご覧ください。
 
-## クラシックDSL（完全サポート）
+## クラシックDSL（完全サポート） {id="classic-dsl-fully-supported"}
 
 クラシックDSLは、すべてのKotlinバージョンで引き続き完全にサポートされています。
 
@@ -154,7 +154,7 @@ val appModule = module {
 クラシックDSLは非推奨ではありません。Koinはこれを使用して完璧に動作します。コンパイラプラグインは、移行の準備ができたときに、その上でコンパイル時解析を追加するものです。
 :::
 
-## Koin AnnotationsがKoinプロジェクトの一部になりました
+## Koin AnnotationsがKoinプロジェクトの一部になりました {id="koin-annotations-is-now-part-of-the-koin-project"}
 
 `koin-annotations`ライブラリ（`@Singleton`、`@Factory`、`@KoinViewModel`、`@Module`、`@ComponentScan`など）は、メインのKoinバージョンとしてリリースされ、完全にサポートされています。これは非推奨では**ありません**。
 
@@ -168,7 +168,7 @@ dependencies {
 
 アノテーションは **Koinコンパイラプラグイン** によって処理されます。[Koinコンパイラプラグイン](/docs/intro/koin-compiler-plugin)および[アノテーションリファレンス](/docs/reference/koin-annotations/start)を参照してください。
 
-## Koin KSPコンパイラはKoinコンパイラプラグインに置き換わり非推奨となりました
+## Koin KSPコンパイラはKoinコンパイラプラグインに置き換わり非推奨となりました {id="koin-ksp-compiler-is-deprecated-in-favor-of-koin-compiler-plugin"}
 
 :::info
 レガシーなKSPプロセッサである`koin-ksp-compiler`は**非推奨（deprecated）**となり、将来のKoinバージョンで削除される予定です。代替となるのは **Koinコンパイラプラグイン** です。これはネイティブなK2コンパイラ統合であり、ファイルの生成がなく、KMP（Kotlin Multiplatform）のセットアップもより簡単になります。
@@ -182,7 +182,7 @@ dependencies {
 
 詳細は[KSPからコンパイラプラグインへの移行](/docs/migration/from-ksp-to-compiler-plugin)をご覧ください。
 
-## 実行時 + コンパイル時の安全性 = 両方の長所を享受
+## 実行時 + コンパイル時の安全性 = 両方の長所を享受 {id="runtime-compile-safe-best-of-both-worlds"}
 
 Koinは**実行時ベースですが、パフォーマンスが高く、コンパイル時にも安全**です。このユニークな組み合わせにより、以下が可能になります。
 
@@ -208,7 +208,7 @@ if (featureEnabled) {
 unloadKoinModules(premiumFeatureModule)
 ```
 
-## Koinはどのような人に向いていますか？
+## Koinはどのような人に向いていますか？ {id="who-is-koin-for"}
 
 Koinは以下のような方に最適です：
 
@@ -218,7 +218,7 @@ Koinは以下のような方に最適です：
 - **拡張が必要なエンタープライズプロジェクト**
 - **DIは複雑であるべきではないと考えているすべての人**
 
-## 次へのステップ
+## 次へのステップ {id="next-steps"}
 
 - **[依存性注入とは？](/docs/intro/what-is-dependency-injection)** - DIの基礎を学ぶ
 - **[Koinコンパイラプラグイン](/docs/intro/koin-compiler-plugin)** - 推奨されるアプローチ

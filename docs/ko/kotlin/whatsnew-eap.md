@@ -27,7 +27,7 @@ Kotlin %kotlinEapVersion% 버전이 출시되었습니다! 이번 EAP 릴리스�
 >
 {style="tip"}
 
-## Kotlin %kotlinEapVersion%으로 업데이트
+## Kotlin %kotlinEapVersion%으로 업데이트 {id="update-to-kotlin-kotlineapversion"}
 
 최신 버전의 Kotlin은 최신 버전의 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 및 [Android Studio](https://developer.android.com/studio)에 포함되어 있습니다.
 
@@ -44,11 +44,11 @@ Kotlin %kotlinEapVersion% 버전이 출시되었습니다! 이번 EAP 릴리스�
 * [빌드 도구 API: Kotlin/JS, Kotlin/Wasm 및 Kotlin 메타데이터 지원](#build-tools-api)
 * [Kotlin 컴파일러: 별도의 Kotlin 컴파일러 이미지](#kotlin-compiler-native-image)
 
-## 표준 라이브러이
+## 표준 라이브러이 {id="standard-library"}
 
 Kotlin %kotlinEapVersion%은 코루틴 스택 추적 복구 지원을 추가하고, 컬렉션 요소의 동등성과 고유성을 확인하기 위한 새로운 함수를 도입합니다.
 
-### 코루틴 스택 추적 복구 지원
+### 코루틴 스택 추적 복구 지원 {id="support-for-coroutine-stack-trace-recovery"}
 <primary-label ref="experimental-opt-in"/>
 <secondary-label ref="standard-library"/>
 
@@ -113,7 +113,7 @@ fun main() {
 
 의견이 있으시면 [YouTrack](https://youtrack.jetbrains.com/issue/KT-86595)을 통해 공유해 주세요.
 
-### 컬렉션 요소의 동등성과 고유성을 확인하는 새로운 함수
+### 컬렉션 요소의 동등성과 고유성을 확인하는 새로운 함수 {id="new-functions-to-check-collection-elements-for-equality-and-uniqueness"}
 <primary-label ref="experimental-opt-in"/>
 <secondary-label ref="standard-library"/>
 
@@ -173,14 +173,14 @@ fun main() {
 
 이 함수들을 사용해 본 경험에 대한 의견을 [YouTrack](https://youtrack.jetbrains.com/issue/KT-30270)을 통해 공유해 주시면 감사하겠습니다.
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 Kotlin %kotlinEapVersion%은 봉인된 클래스(sealed classes) 및 언어 간 상속 지원을 포함한 새로운 Swift 익스포트 기능을 제공하며, SwiftPM 의존성을 위해 `Package.swift` 파일을 자동으로 생성합니다.
 
-### 새로운 Swift 익스포트 기능
+### 새로운 Swift 익스포트 기능 {id="new-swift-export-features"}
 <secondary-label ref="native"/>
 
-#### 봉인된 클래스(Sealed classes)
+#### 봉인된 클래스(Sealed classes) {id="sealed-classes"}
 
 Kotlin %kotlinEapVersion%은 Swift 익스포트에 봉인된 클래스(sealed classes) 및 인터페이스 지원을 추가합니다.
 
@@ -220,7 +220,7 @@ let name = switch shape.sealedType() {
 
 `switch`가 완전하기 때문에, 봉인된 계층 구조에 새로운 하위 클래스가 추가되면 컴파일러가 경고를 보내므로 `default` 케이스에 의존하는 대신 즉시 처리할 수 있습니다.
 
-#### Swift 익스포트의 언어 간 상속
+#### Swift 익스포트의 언어 간 상속 {id="cross-language-inheritance-in-swift-export"}
 
 Kotlin %kotlinEapVersion%은 Swift 익스포트에 언어 간 상속(cross-language inheritance) 지원을 도입합니다.
 
@@ -264,18 +264,18 @@ Kotlin이 Swift 객체를 받으면 이를 일반 인터페이스의 구현처�
 
 Swift 익스포트에 대한 자세한 내용은 [문서](native-swift-export.md)를 참조하세요.
 
-### SwiftPM 의존성을 위해 생성된 `Package.swift`
+### SwiftPM 의존성을 위해 생성된 `Package.swift` {id="generated-package-swift-for-swiftpm-dependencies"}
 <secondary-label ref="native"/>
 
 SwiftPM 패키지에 의존하는 XCFramework를 익스포트할 때, 의존성이 올바르게 해결되려면 결과물인 SwiftPM 패키지를 게시해야 합니다. 이를 돕기 위해 `assembleSharedXCFramework` Gradle 태스크는 이제 XCFramework와 함께 배포할 `Package.swift` 파일을 생성합니다.
 
 자세한 내용은 [SwiftPM 익스포트 페이지](https://kotlinlang.org/docs/multiplatform/multiplatform-spm-export.html)를 참조하세요.
 
-## Kotlin/Wasm
+## Kotlin/Wasm {id="kotlin-wasm"}
 
 Kotlin %kotlinEapVersion%은 Kotlin/Wasm의 `@JsFun` 선언 내 최상위 `require()` 호출 처리 방식을 변경하고, 컴패니언 객체 초기화 순서를 JVM 동작과 정렬하며, Kotlin Gradle 플러그인에서 `wasmWasi` 타겟의 런타임으로 Wasmtime 지원을 추가합니다.
 
-### @JsFun 선언 내 최상위 `require()` 호출 변경
+### @JsFun 선언 내 최상위 `require()` 호출 변경 {id="changes-to-top-level-require-calls-in-jsfun-declarations"}
 <secondary-label ref="wasm"/>
 
 Kotlin/Wasm은 이제 `@JsFun` 선언에서 최상위 `require()` 함수를 사용할 때 에러를 보고합니다.
@@ -339,14 +339,14 @@ external fun defineRequire()
 
 문제가 발생하면 [이슈 트래커](https://youtrack.jetbrains.com/projects/KT/issues/KT-86192)를 통해 의견을 공유해 주세요.
 
-### 컴패니언 객체 초기화 순서 개선
+### 컴패니언 객체 초기화 순서 개선 {id="improved-companion-object-initialization-order"}
 <secondary-label ref="wasm"/>
 
 Kotlin/Wasm은 이제 JVM 동작과 일치하도록 하위 클래스 컴패니언 객체보다 상위 클래스 컴패니언 객체를 먼저 초기화합니다. 이전에는 초기화 순서가 반대로 될 수 있어 플랫폼 간에 일관되지 않은 동작이 발생할 수 있었습니다.
 
 이 업데이트는 플랫폼 간 일관성을 향상시키고 클래스 초기화 동작의 플랫폼별 차이를 줄여줍니다. 또한 중간 클래스가 컴패니언 객체를 선언하지 않은 경우를 포함하여, 더 깊은 상속 계층 구조에서도 컴패니언 객체 초기화를 올바르게 처리할 수 있게 합니다.
 
-### Kotlin Gradle 플러그인의 Wasmtime 지원
+### Kotlin Gradle 플러그인의 Wasmtime 지원 {id="support-for-wasmtime-in-the-kotlin-gradle-plugin"}
 <secondary-label ref="wasm"/>
 
 Kotlin %kotlinEapVersion%은 Kotlin Gradle 플러그인에서 `wasmWasi` 타겟의 런타임으로 [Wasmtime](https://docs.wasmtime.dev/) 지원을 도입합니다.
@@ -365,11 +365,11 @@ kotlin {
 
 의견이 있으시면 [YouTrack](https://youtrack.jetbrains.com/issue/KT-86633)을 통해 공유해 주세요.
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
 Kotlin %kotlinEapVersion%은 브라우저 테스트를 위한 새로운 실험적 DSL을 도입하고 서스펜드 람다(suspending lambdas)를 JavaScript 비동기 함수(async functions)로 익스포트하는 지원을 추가합니다.
 
-### 브라우저 테스트를 위한 새로운 DSL
+### 브라우저 테스트를 위한 새로운 DSL {id="a-new-dsl-for-browser-testing"}
 <primary-label ref="experimental-opt-in"/>
 <secondary-label ref="js"/>
 
@@ -426,7 +426,7 @@ kotlin {
 
 새로운 DSL은 활발히 개발 중입니다. 의견이 있으시면 [YouTrack](https://youtrack.jetbrains.com/issue/KT-66897)을 통해 공유해 주세요.
 
-### 서스펜드 람다를 비동기 함수로 익스포트 지원
+### 서스펜드 람다를 비동기 함수로 익스포트 지원 {id="support-for-exporting-suspending-lambdas-as-async-functions"}
 <secondary-label ref="js"/>
 
 Kotlin %kotlinEapVersion%부터 서스펜드 [람다 표현식(lambda expressions)](lambdas.md#lambda-expressions-and-anonymous-functions)을 JavaScript `async` 함수로 익스포트할 수 있습니다.
@@ -474,9 +474,9 @@ console.log(result); // "done"
 
 `@JsExport` 어노테이션에 대한 자세한 내용은 [문서](js-to-kotlin-interop.md#jsexport-annotation)를 참조하세요.
 
-## 빌드 도구 API
+## 빌드 도구 API {id="build-tools-api"}
 
-### Kotlin/JS, Kotlin/Wasm 및 Kotlin 메타데이터 지원
+### Kotlin/JS, Kotlin/Wasm 및 Kotlin 메타데이터 지원 {id="support-for-kotlin-js-kotlin-wasm-and-kotlin-metadata"}
 <primary-label ref="experimental-general"/>
 <secondary-label ref="bta"/>
 
@@ -498,7 +498,7 @@ Kotlin 2.5.0부터는 Kotlin/JS, Kotlin/Wasm 및 Kotlin 메타데이터에서 BT
 
 BTA 제안에 대해 궁금하거나 의견을 공유하고 싶다면 이 [KEEP](https://github.com/Kotlin/KEEP/blob/build-tools-api/proposals/extensions/build-tools-api.md)을 참조하세요.
 
-## Kotlin 컴파일러: 네이티브 이미지
+## Kotlin 컴파일러: 네이티브 이미지 {id="kotlin-compiler-native-image"}
 <primary-label ref="experimental-general"/>
 <secondary-label ref="compiler"/>
 

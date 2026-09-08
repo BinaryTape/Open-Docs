@@ -36,7 +36,7 @@ data class User(val name: String, val age: Int)
 >
 {style="note"}
 
-## クラスボディで宣言されたプロパティ
+## クラスボディで宣言されたプロパティ {id="properties-declared-in-the-class-body"}
 
 コンパイラは、自動生成される関数のために、プライマリコンストラクタ内で定義されたプロパティのみを使用します。プロパティを生成された実装から除外するには、クラスボディ内で宣言します。
 
@@ -74,7 +74,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## コピー
+## コピー {id="copying"}
 
 `copy()` 関数を使用してオブジェクトをコピーし、一部のプロパティを変更しつつ、残りを変更せずに保持することができます。
 上記の `User` クラスに対するこの関数の実装は、以下のようになります。
@@ -113,7 +113,7 @@ fun main() {
 
 見てわかるように、`duplicate.roles` プロパティを変更すると、両方のプロパティが同じリスト参照を共有しているため、`original.roles` プロパティも変更されます。
 
-## データクラスと分解宣言
+## データクラスと分解宣言 {id="data-classes-and-destructuring-declarations"}
 
 データクラス用に生成された *コンポーネント関数 (component functions)* により、[分解宣言 (destructuring declarations)](destructuring-declarations.md) でそれらを使用することが可能になります。
 
@@ -124,6 +124,6 @@ println("$name, $age years of age")
 // Jane, 35 years of age
 ```
 
-## 標準データクラス
+## 標準データクラス {id="standard-data-classes"}
 
 標準ライブラリは `Pair` クラスと `Triple` クラスを提供しています。しかし、ほとんどの場合、プロパティに意味のある名前を提供してコードを読みやすくするため、名前付きのデータクラスの方が優れた設計上の選択肢となります。

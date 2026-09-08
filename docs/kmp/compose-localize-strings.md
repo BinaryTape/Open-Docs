@@ -5,7 +5,7 @@
 
 要在 Compose Multiplatform 中本地化字符串，您需要为所有支持的语言提供应用程序用户界面元素的翻译文本。Compose Multiplatform 通过提供通用的资源管理库和代码生成功能来简化此过程，以便轻松访问翻译内容。
 
-## 设置翻译目录
+## 设置翻译目录 {id="set-up-translation-directories"}
 
 将所有字符串资源存储在共享源集内专用的 `composeResources` 目录中。
 将默认文本放在 `values` 目录中，并为每种语言创建相应的目录。
@@ -47,7 +47,7 @@ commonMain/composeResources/
 </resources>
 ```
 
-## 生成静态访问类
+## 生成静态访问类 {id="generate-class-for-static-access"}
 
 添加所有翻译后，构建项目以生成一个提供资源访问权限的特殊类。
 Compose Multiplatform 会处理 `composeResources` 中的 `strings.xml` 资源文件，并为每个字符串资源创建静态访问器属性。
@@ -70,7 +70,7 @@ fun MyApp() {
 在上述示例中，`welcome_message` 字符串包含一个用于动态值的占位符 (`%s`)。
 生成的访问器和 `stringResource()` 函数都支持传递此类形参。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * [了解如何管理区域格式](compose-regional-format.md)
 * [阅读关于处理从右到左语言的内容](compose-rtl.md)

@@ -4,7 +4,7 @@ Kotlin 標準函式庫提供了一組用於集合*轉換 (transformations)* 的�
 這些函式根據提供的轉換規則，從現有集合中組建新的集合。
 在本頁中，我們將概述可用的集合轉換函式。
 
-## 映射 (Map)
+## 映射 (Map) {id="map"}
 
 *映射 (mapping)* 轉換會從另一個集合的元素上執行函式的結果來建立一個集合。
 基本的映射函式是 [`map()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/map.html)。
@@ -55,7 +55,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## Zip
+## Zip {id="zip"}
 
 *Zip* 轉換是指從兩個集合中相同位置的元素組建配對 (pairs)。
 在 Kotlin 標準函式庫中，這是透過 [`zip()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/zip.html) 擴充函式完成的。
@@ -114,7 +114,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 關聯 (Associate)
+## 關聯 (Associate) {id="associate"}
 
 *關聯 (Association)* 轉換允許從集合元素以及與其關聯的特定值組建 Map。
 在不同的關聯類型中，元素可以是關聯 Map 中的鍵或值。
@@ -180,7 +180,7 @@ fun parseFullName(fullName: String): FullName {
 
 在這裡，我們首先在元素上呼叫轉換函式，然後從該函式結果的屬性中組建配對。
 
-## 扁平化 (Flatten)
+## 扁平化 (Flatten) {id="flatten"}
 
 如果你操作巢狀集合 (nested collections)，你可能會發現提供對巢狀集合元素進行平坦存取的標準函式庫函式非常有用。
 
@@ -221,7 +221,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 字串表示形式
+## 字串表示形式 {id="string-representation"}
 
 如果你需要以可讀格式獲取集合內容，請使用將集合轉換為字串的函式：[`joinToString()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/join-to-string.html) 和
 [`joinTo()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/join-to.html)。

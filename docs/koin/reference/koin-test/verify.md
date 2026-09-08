@@ -10,7 +10,7 @@ Koin 允许您验证您的配置模块，从而避免在运行时发现依赖项
 请参阅 [编译时安全性](/docs/reference/koin-compiler/compile-safety) 进行迁移。
 :::
 
-## Verify API - 仅限 JVM [3.3+]
+## Verify API - 仅限 JVM [3.3+] {id="verify-api-jvm-only-3-3"}
 
 在 Koin 模块上使用 `verify()` 扩展函数。在底层，这将验证所有构造函数类，并与 Koin 配置进行交叉检查，以了解是否为该依赖项声明了组件。如果失败，该函数将抛出 `MissingKoinDefinitionException`。
 
@@ -46,7 +46,7 @@ class NiaAppModuleCheck {
 
 `verify()` API 运行起来非常轻巧，不需要任何类型的 mock/存根即可在您的配置上运行。
 
-### 使用注入形参进行验证 [4.0+]
+### 使用注入形参进行验证 [4.0+] {id="verifying-with-injected-parameters-4-0"}
 
 当您的配置涉及使用 `parametersOf` 注入对象时，验证将失败，因为您的配置中没有该形参类型的定义。
 但是，您可以定义一个形参类型，以便通过给定的定义 `definition<Type>(Class1::class, Class2::class ...)` 进行注入。
@@ -72,7 +72,7 @@ class ModuleCheck {
 }
 ```
 
-### 类型白名单
+### 类型白名单 {id="type-white-listing"}
 
 我们可以将类型添加为“白名单”。这意味着该类型被认为存在于系统中，可用于任何定义：
 
@@ -91,7 +91,7 @@ class NiaAppModuleCheck {
 }
 ```
 
-### 使用注解进行验证
+### 使用注解进行验证 {id="using-annotations-for-verification"}
 
 来自 `koin-core-annotations` 的注解可以帮助 Koin 推断注入契约并验证配置。相比复杂的 DSL 配置，这有助于识别这些元素：
 
@@ -106,7 +106,7 @@ class ComponentBProvided(@Provided val a: ComponentA)
 
 ---
 
-## CheckModules API（已弃用）
+## CheckModules API（已弃用） {id="checkmodules-api-deprecated"}
 
 :::warning
 `checkModules()` API 自 Koin 4.0 起已弃用。请改用 `verify()`，或迁移到 Koin 编译器插件以获得编译时安全性。
@@ -140,7 +140,7 @@ class CheckModulesTest : KoinTest {
 }
 ```
 
-### CheckModule DSL
+### CheckModule DSL {id="checkmodule-dsl"}
 
 对于任何使用注入形参、属性或动态实例的定义：
 
@@ -149,7 +149,7 @@ class CheckModulesTest : KoinTest {
 * `withParameter<Type>(qualifier){ qualifier -> value }` - 将添加要作为形参注入的 `value` 实例
 * `withProperty(key, value)` - 向 Koin 添加属性
 
-### 使用 JUnit 规则进行 Mocking
+### 使用 JUnit 规则进行 Mocking {id="mocking-with-a-junit-rule"}
 
 要在 `checkModules` 中使用 mock，请提供一个 `MockProviderRule`：
 
@@ -161,7 +161,7 @@ val mockProvider = MockProviderRule.create { clazz ->
 }
 ```
 
-### 验证具有动态行为的模块
+### 验证具有动态行为的模块 {id="verifying-modules-with-dynamic-behavior"}
 
 ```kotlin
 val myModule = module {
@@ -188,7 +188,7 @@ class CheckModulesTest : KoinTest {
 }
 ```
 
-### Android 示例
+### Android 示例 {id="android-example"}
 
 ```kotlin
 class CheckModulesTest {
@@ -213,7 +213,7 @@ class CheckModulesTest {
 }
 ```
 
-### 提供作用域链接
+### 提供作用域链接 {id="providing-scope-links"}
 
 使用 `withScopeLink` 链接作用域：
 
@@ -240,7 +240,7 @@ fun `test DI modules`(){
 
 ---
 
-## 迁移到编译时安全性
+## 迁移到编译时安全性 {id="migration-to-compile-time-safety"}
 
 Koin 编译器插件现在提供编译时依赖项验证，取代了对运行时验证的需求：
 

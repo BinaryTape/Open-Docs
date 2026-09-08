@@ -93,7 +93,7 @@ fun main() {
 > 
 {type="tip"}
 
-## 型別轉換
+## 型別轉換 {id="type-casts"}
 
 在 Kotlin 中，將一個物件的型別轉換為另一種型別稱為 **轉換 (casting)**。
 
@@ -101,7 +101,7 @@ fun main() {
 
 如果您需要明確轉換型別，請使用 `as?` 或 `as` [轉換運算子](#unsafe-cast-operator)。 
 
-## 智慧轉換
+## 智慧轉換 {id="smart-casts"}
 
 編譯器會追蹤不可變值的型別檢查與 [明確轉換](#unsafe-cast-operator)，並自動插入隱式（安全）轉換：
 
@@ -139,7 +139,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-typecasts-smartcast-negative"}
 
-### 控制流程
+### 控制流程 {id="control-flow"}
 
 智慧轉換不僅適用於 `if` 條件表達式，也適用於 [`when` 表達式](control-flow.md#when-expressions-and-statements)：
 
@@ -241,7 +241,7 @@ fun main(){
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-smart-casts-local-variables" validate="false"}
 
-### 邏輯運算子
+### 邏輯運算子 {id="logical-operators"}
 
 如果 `&&` 或 `||` 運算子的左側有型別檢查（一般或否定），編譯器可以在其右側執行智慧轉換：
 
@@ -280,7 +280,7 @@ fun signalCheck(signalStatus: Any) {
 >
 {style="note"}
 
-### 交集型別
+### 交集型別 {id="intersection-types"}
 
 當編譯器透過多個 `&&` 檢查來智慧轉換物件時，它會推斷出一個 [*交集型別 (intersection type)*](https://kotlinlang.org/spec/type-system.html#intersection-types)。
 這是一種內部型別，同時滿足所有已檢查的約束：
@@ -312,7 +312,7 @@ fun describe(animal: Any) {
 fun  <T> T.assertNotNull(): T & Any = this ?: throw IllegalStateException("null value")
 ```
 
-### 內嵌函式
+### 內嵌函式 {id="inline-functions"}
 
 編譯器可以對傳遞給 [內嵌函式](inline-functions.md) 的 Lambda 函式中所擷取的變數進行智慧轉換。
 
@@ -349,7 +349,7 @@ fun runProcessor(): Processor? {
 }
 ```
 
-### 例外處理
+### 例外處理 {id="exception-handling"}
 
 智慧轉換的資訊會傳遞給 `catch` 與 `finally` 區塊。這使得您的程式碼更安全，因為編譯器會追蹤您的物件是否具有可為 null 型別。例如：
 
@@ -385,7 +385,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-smart-casts-exception-handling"}
 
-### 智慧轉換的前提條件
+### 智慧轉換的前提條件 {id="smart-cast-prerequisites"}
 
 智慧轉換僅在編譯器能保證變數在檢查與使用之間不會改變時才有效。它們可以在以下條件下使用：
 
@@ -502,7 +502,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-cast-nullable-types"}
 
-### 向上轉換與向下轉換
+### 向上轉換與向下轉換 {id="up-and-downcasting"}
 
 在 Kotlin 中，您可以將物件轉換為其父型別或子型別。 
 

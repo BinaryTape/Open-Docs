@@ -16,13 +16,13 @@ Kotlin 与 Java 完全互操作，因此您可以逐步将其引入现有的 Jav
 >
 {style="tip"}
 
-## 项目配置
+## 项目配置 {id="project-configuration"}
 
 要将 Kotlin 添加到 Java 项目，您需要根据所使用的构建工具，将项目配置为同时使用 Kotlin 和 Java。
 
 项目配置可确保 Kotlin 和 Java 代码都能正确编译，并能无缝地相互引用。
 
-### Maven
+### Maven {id="maven"}
 
 > 从 **IntelliJ IDEA 2025.3** 开始，当您向基于 Maven 的 Java 项目添加第一个 Kotlin 文件时，IDE 会自动更新您的 `pom.xml` 文件，以包含 Kotlin Maven 插件和标准依赖项。如果您想自定义版本或构建阶段，仍可以手动进行配置。
 >
@@ -64,7 +64,7 @@ Kotlin 与 Java 完全互操作，因此您可以逐步将其引入现有的 Jav
     ./mvnw clean test
     ```
 
-### Gradle
+### Gradle {id="gradle"}
 
 要在 Gradle 项目中同时使用 Kotlin 和 Java，请应用 Kotlin JVM 插件并在您的 `build.gradle.kts` 文件中添加 Kotlin 依赖项：
 
@@ -105,7 +105,7 @@ Kotlin 与 Java 完全互操作，因此您可以逐步将其引入现有的 Jav
     ./gradlew clean test
     ```
 
-## 项目结构
+## 项目结构 {id="project-structure"}
 
 通过此配置，您可以在相同的源目录中混合使用 Java 和 Kotlin 文件：
 
@@ -123,7 +123,7 @@ src/
 
 Kotlin 插件自动识别 `src/main/java` 和 `src/test/java` 目录，因此您可以将 `.kt` 和 `.java` 文件放在相同的目录中。
 
-## 将 Java 文件转换为 Kotlin
+## 将 Java 文件转换为 Kotlin {id="convert-java-files-to-kotlin"}
 
 Kotlin 插件还捆绑了一个 Java 到 Kotlin 转换器 (_J2K_)，可自动将 Java 文件转换为 Kotlin。要对文件使用 J2K，请在其上下文菜单或 IntelliJ IDEA 的 **Code** 菜单中点击 **Convert Java File to Kotlin File**。
 
@@ -131,7 +131,7 @@ Kotlin 插件还捆绑了一个 Java 到 Kotlin 转换器 (_J2K_)，可自动将
 
 虽然转换器并非万无一失，但在将大多数 Java 模板代码转换为 Kotlin 方面表现得相当不错。不过，有时仍需要进行一些手动调整。
 
-## 探索编译器插件 {initial-collapse-state="collapsed" collapsible="true"}
+## 探索编译器插件 {initial-collapse-state="collapsed" collapsible="true" id="explore-compiler-plugins"}
 
 如果您的项目较复杂，使用了 [Spring](https://spring.io/) 或 Java Persistence API (JPA)，可以使用 Kotlin 编译器插件，这些插件会自动使 Kotlin 的语言功能适应框架预期，从而减少模板代码：
 
@@ -143,13 +143,13 @@ Kotlin 插件还捆绑了一个 Java 到 Kotlin 转换器 (_J2K_)，可自动将
   您还可以使用 [`kotlin-jpa`](no-arg-plugin.md#jpa-support) 插件，它是 `no-arg` 的包装器。它会自动指定 no-arg 注解。
 * **[`power-assert`](power-assert.md)** 插件通过为断言提供包含上下文信息的详细失败消息，改进了调试体验。它会显示中间值，并帮助您理解测试失败的原因。
 
-## 下一步
+## 下一步 {id="next-step"}
 
 在 Java 项目中开始使用 Kotlin 的最简单方法是先添加 Kotlin 测试：
 
 [向 Java 项目添加您的第一个 Kotlin 测试](jvm-test-using-junit.md)
 
-### 另请参阅
+### 另请参阅 {id="see-also"}
 
 * [Kotlin 和 Java 互操作性详情](java-to-kotlin-interop.md)
 * [Maven 构建配置参考](maven.md)

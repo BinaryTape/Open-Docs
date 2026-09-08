@@ -12,7 +12,7 @@ Kotlin 1.4.30 提供了新语言功能的预览版本，将 Kotlin/JVM 编译器
 >
 {style="tip"}
 
-## 语言功能
+## 语言功能 {id="language-features"}
 
 Kotlin 1.5.0 将交付新的语言功能——JVM record 支持、密封接口（sealed interfaces）以及稳定版内联类（inline classes）。在 Kotlin 1.4.30 中，您可以在预览模式下尝试这些功能和改进。如果您能在相应的 YouTrack 工单中与我们分享您的反馈，我们将不胜感激，这能让我们在 1.5.0 发布之前解决相关问题。
 
@@ -24,7 +24,7 @@ Kotlin 1.5.0 将交付新的语言功能——JVM record 支持、密封接口�
 
 在[这篇博客文章](https://blog.jetbrains.com/kotlin/2021/02/new-language-features-preview-in-kotlin-1-4-30/)中详细了解新功能预览。
 
-### JVM record 支持
+### JVM record 支持 {id="jvm-records-support"}
 
 > JVM record 功能是[实验性的](components-stability.md)。它可能随时被删除或更改。需要启用（详情见下文），且您应仅将其用于评估目的。我们欢迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-42430) 上提供反馈。
 >
@@ -47,7 +47,7 @@ data class User(val name: String, val age: Int)
 
 在 [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/jvm-records.md) 中详细了解其实现、限制和语法。
 
-### 密封接口
+### 密封接口 {id="sealed-interfaces"}
 
 > 密封接口（Sealed interfaces）是[实验性的](components-stability.md)。它们可能随时被删除或更改。需要启用（详情见下文），且您应仅将其用于评估目的。我们欢迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-42433) 上提供反馈。
 >
@@ -91,7 +91,7 @@ class Rectangle(override val vertices: List<Point>): Fillable, Polygon {
 
 [详细了解密封接口](sealed-classes.md)。
 
-### 包级密封类层次结构
+### 包级密封类层次结构 {id="package-wide-sealed-class-hierarchies"}
 
 > 包级密封类层次结构是[实验性的](components-stability.md)。它们可能随时被删除或更改。需要启用（详情见下文），且您应仅将其用于评估目的。我们欢迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-42433) 上提供反馈。
 >
@@ -105,7 +105,7 @@ class Rectangle(override val vertices: List<Point>): Fillable, Polygon {
 
 [详细了解包级密封类层次结构](sealed-classes.md#inheritance)。
 
-### 改进的内联类
+### 改进的内联类 {id="improved-inline-classes"}
 
 > 内联值类（Inline value classes）处于 [Beta](components-stability.md) 阶段。它们已接近稳定，但未来可能需要迁移步骤。我们将尽力减少您必须进行的更改。我们欢迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-42434) 上提供有关内联类功能的反馈。
 >
@@ -161,9 +161,9 @@ Kotlin 1.4.30 将内联类提升至 Beta 阶段，我们计划在未来的版本
 
 [详细了解内联类](inline-classes.md)。
 
-## Kotlin/JVM
+## Kotlin/JVM {id="kotlin-jvm"}
 
-### JVM IR 编译器后端进入 Beta 阶段
+### JVM IR 编译器后端进入 Beta 阶段 {id="jvm-ir-compiler-backend-reaches-beta"}
 
 Kotlin/JVM 的[基于 IR 的编译器后端](whatsnew14.md#unified-backends-and-extensibility)已进入 Beta 阶段。该后端在 1.4.0 中以 [Alpha](components-stability.md) 形式发布。这是 IR 后端成为 Kotlin/JVM 编译器默认后端之前的最后一个预稳定阶段。
 
@@ -205,23 +205,23 @@ Kotlin/JVM 的[基于 IR 的编译器后端](whatsnew14.md#unified-backends-and-
 
 在[这篇博客文章](https://blog.jetbrains.com/kotlin/2021/02/the-jvm-backend-is-in-beta-let-s-make-it-stable-together/)中详细了解 JVM IR 后端带来的变化。
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
-### 性能改进
+### 性能改进 {id="performance-improvements"}
 
 Kotlin/Native 在 1.4.30 中获得了多项性能改进，从而缩短了编译时间。例如，在 [使用 Kotlin Multiplatform Mobile 进行网络连接和数据存储](https://github.com/kotlin-hands-on/kmm-networking-and-data-storage/tree/final) 示例中，重新构建框架所需的时间从 9.5 秒（1.4.10 版本）减少到 4.5 秒（1.4.30 版本）。
 
-### Apple watchOS 64 位模拟器目标平台
+### Apple watchOS 64 位模拟器目标平台 {id="apple-watchos-64-bit-simulator-target"}
 
 自 7.0 版本起，watchOS 已弃用 x86 模拟器目标平台。为了跟上最新的 watchOS 版本，Kotlin/Native 增加了新的目标平台 `watchosX64`，用于在 64 位架构上运行模拟器。
 
-### 对 Xcode 12.2 库的支持
+### 对 Xcode 12.2 库的支持 {id="support-for-xcode-12-2-libraries"}
 
 我们增加了对 Xcode 12.2 交付的新库的支持。您现在可以从 Kotlin 代码中使用它们。
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
-### 顶层属性的延迟初始化
+### 顶层属性的延迟初始化 {id="lazy-initialization-of-top-level-properties"}
 
 > 顶层属性的延迟初始化是[实验性的](components-stability.md)。它可能随时被删除或更改。需要启用（详情见下文），且您应仅将其用于评估目的。我们欢迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-44320) 上提供反馈。
 >
@@ -233,17 +233,17 @@ Kotlin/JS 的 [IR 后端](js-ir-compiler.md) 正在接收顶层属性延迟初�
 
 要使用延迟初始化，请在使用 JS IR 编译器编译代码时添加 `-Xir-property-lazy-initialization` 编译器选项。
 
-## Gradle 项目改进
+## Gradle 项目改进 {id="gradle-project-improvements"}
 
-### 支持 Gradle 配置缓存
+### 支持 Gradle 配置缓存 {id="support-the-gradle-configuration-cache"}
 
 从 1.4.30 开始，Kotlin Gradle 插件支持 [配置缓存](https://docs.gradle.org/current/userguide/configuration_cache.html)（configuration cache）功能。它加快了构建过程：一旦运行命令，Gradle 就会执行配置阶段并计算任务图。Gradle 会缓存结果并在后续构建中重用它。
 
 要开始使用此功能，您可以 [使用 Gradle 命令](https://docs.gradle.org/current/userguide/configuration_cache.html#config_cache:usage) 或 [设置基于 IntelliJ 的 IDE]( https://docs.gradle.org/current/userguide/configuration_cache.html#config_cache:ide:intellij)。
 
-## 标准库
+## 标准库 {id="standard-library"}
 
-### 与区域性无关的文本大/小写转换 API
+### 与区域性无关的文本大/小写转换 API {id="locale-agnostic-api-for-upper-lowercasing-text"}
 
 > 与区域性无关的 API 功能是[实验性的](components-stability.md)。它可能随时被删除或更改。请仅将其用于评估目的。我们欢迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-42437) 上提供反馈。
 >
@@ -284,7 +284,7 @@ Kotlin 1.4.30 提供了以下替代方案：
 
 在 [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/stdlib/locale-agnostic-string-conversions.md) 中查看文本处理函数的完整变更列表。
 
-### 清晰的 Char 到代码及 Char 到数字转换
+### 清晰的 Char 到代码及 Char 到数字转换 {id="clear-char-to-code-and-char-to-digit-conversions"}
 
 > `Char` 转换的无歧义 API 功能是[实验性的](components-stability.md)。它可能随时被删除或更改。请仅将其用于评估目的。我们欢迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-44333) 上提供反馈。
 >
@@ -322,14 +322,14 @@ Kotlin 1.4.30 提供了以下替代方案：
 
 在 [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/stdlib/char-int-conversions.md) 中查看更多详情。
 
-## 序列化更新
+## 序列化更新 {id="serialization-updates"}
 
 伴随 Kotlin 1.4.30，我们发布了 `kotlinx.serialization` [1.1.0-RC](https://github.com/Kotlin/kotlinx.serialization/releases/tag/v1.1.0-RC)，其中包括一些新功能：
 
 * 内联类序列化支持
 * 无符号原生类型序列化支持
 
-### 内联类序列化支持
+### 内联类序列化支持 {id="inline-classes-serialization-support"}
 
 从 Kotlin 1.4.30 开始，您可以使内联类成为[可序列化的](serialization.md)：
 
@@ -346,7 +346,7 @@ inline class Color(val rgb: Int)
 
 在 `kotlinx.serialization` [文档](https://github.com/Kotlin/kotlinx.serialization/blob/master/docs/inline-classes.md#serializable-inline-classes)中了解更多信息。
 
-### 无符号原生类型序列化支持
+### 无符号原生类型序列化支持 {id="unsigned-primitive-type-serialization-support"}
 
 从 1.4.30 开始，您可以为无符号原生类型（`UInt`、`ULong`、`UByte` 和 `UShort`）使用 [kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization) 的标准 JSON 序列化程序：
 

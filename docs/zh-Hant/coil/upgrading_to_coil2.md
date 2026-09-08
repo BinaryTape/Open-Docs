@@ -2,15 +2,15 @@
 
 本指南簡要說明從 Coil 1.x 升級到 2.x 的主要變更以及處理方式。本升級指南並未涵蓋所有二進位或原始碼不相容的變更，但涵蓋了最重要的部分。
 
-## 最低 API 21
+## 最低 API 21 {id="minimum-api-21"}
 
 Coil 2.x 最低需要 API 21。這也是 Compose 與 OkHttp 4.x 所需的最低 API。
 
-## ImageRequest 預設縮放 (scale)
+## ImageRequest 預設縮放 (scale) {id="imagerequest-default-scale"}
 
 Coil 2.x 將 `ImageRequest` 的預設縮放從 `Scale.FILL` 變更為 `Scale.FIT`。此變更是為了與 `ImageView` 的預設 `ScaleType` 以及 `Image` 的預設 `ContentScale` 保持一致。如果您將 `ImageView` 設定為 `ImageRequest.target`，縮放（Scale）仍會自動偵測。
 
-## Size 重構 (Size refactor)
+## Size 重構 (Size refactor) {id="size-refactor"}
 
 `Size` 的 `width` 與 `height` 現在是兩個 `Dimension` 物件，而非 `Int` 像素值。`Dimension` 可以是像素值或是 `Dimension.Undefined`，後者代表未定義／無界限的約束（constraint）。例如，如果大小為 `Size(400, Dimension.Undefined)`，代表圖片應縮放為寬度 400 像素，而不考慮其高度。您可以使用 `pxOrElse` 擴充方法來獲取像素值（如果存在），否則使用備援值：
 
@@ -23,7 +23,7 @@ if (width > 0) {
 
 此變更旨在改善對具有無界限維度之目標的支援（例如 `View` 的 `ViewGroup.LayoutParams.WRAP_CONTENT` 或 Compose 中的 `Constraints.Infinity`）。
 
-## Compose
+## Compose {id="compose"}
 
 Coil 2.x 大幅重構了 Compose 整合，以增加功能、提升穩定性並優化效能。
 
@@ -64,7 +64,7 @@ Image(
 
 此外，Coil 現在提供了 `AsyncImage` 與 `SubcomposeAsyncImage` 可組合函式，這些函式增加了新功能，並解決了 `rememberAsyncImagePainter` 的一些設計限制。請在此處查看完整的 Compose 文件 [here](compose.md)。
 
-## 磁碟快取 (Disk Cache)
+## 磁碟快取 (Disk Cache) {id="disk-cache"}
 
 Coil 2.x 擁有自己的公開磁碟快取類別，可透過 `imageLoader.diskCache` 存取。Coil 1.x 依賴 OkHttp 的磁碟快取，但現在已不再需要。
 
@@ -102,7 +102,7 @@ ImageLoader.Builder(context)
 
 從 Coil 1.x 升級到 2.x 時，由於內部格式已更改，任何現有的磁碟快取都將被清除。
 
-## 圖片管線重構 (Image pipeline refactor)
+## 圖片管線重構 (Image pipeline refactor) {id="image-pipeline-refactor"}
 
 Coil 2.x 重構了圖片管線類別以使其更具靈活性。以下是主要變更列表：
 
@@ -111,6 +111,6 @@ Coil 2.x 重構了圖片管線類別以使其更具靈活性。以下是主要�
 - 在 `Mapper.map` 的簽章中加入 `Options`。
 - 引入 `Fetcher.Factory` 與 `Decoder.Factory`。使用工廠來判斷特定的 `Fetcher`/`Decoder` 是否適用。如果不適用，則傳回 `null`。
 
-## 移除點陣圖集 (Remove bitmap pooling)
+## 移除點陣圖集 (Remove bitmap pooling) {id="remove-bitmap-pooling"}
 
 Coil 2.x 移除了點陣圖集（bitmap pooling）及其相關類別（`BitmapPool`、`PoolableViewTarget`）。關於移除原因，請參閱[此處](https://github.com/coil-kt/coil/discussions/1186#discussioncomment-2305528)。

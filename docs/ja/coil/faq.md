@@ -2,11 +2,11 @@
 
 FAQにない質問がありますか？ #coil タグが付いた [StackOverflow](https://stackoverflow.com/questions/tagged/coil) を確認するか、[Github discussions](https://github.com/coil-kt/coil/discussions) を検索してください。
 
-## CoilはJavaプロジェクト、またはKotlinとJavaが混在するプロジェクトで使用できますか？
+## CoilはJavaプロジェクト、またはKotlinとJavaが混在するプロジェクトで使用できますか？ {id="can-coil-be-used-with-java-projects-or-mixed-kotlin-java-projects"}
 
 はい！ [こちら](java_compatibility.md)をご覧ください。
 
-## 画像をプリロードするにはどうすればよいですか？
+## 画像をプリロードするにはどうすればよいですか？ {id="how-do-i-preload-an-image"}
 
 ターゲットを指定せずに画像リクエストを開始します。
 
@@ -32,14 +32,14 @@ val request = ImageRequest.Builder(context)
 imageLoader.enqueue(request)
 ```
 
-## ロギングを有効にするにはどうすればよいですか？
+## ロギングを有効にするにはどうすればよいですか？ {id="how-do-i-enable-logging"}
 
 [`ImageLoader`を構築する](getting_started.md#configuring-the-singleton-imageloader)際に、`logger(DebugLogger())` を設定してください。
 
 !!! Note
     `DebugLogger` はデバッグビルドでのみ使用してください。
 
-## Java 8 または Java 11 をターゲットにするにはどうすればよいですか？
+## Java 8 または Java 11 をターゲットにするにはどうすればよいですか？ {id="how-do-i-target-java-8-or-java-11"}
 
 Coilは [Java 8 バイトコード (bytecode)](https://developer.android.com/studio/write/java8-support) を必要とします。これは Android Gradle Plugin `4.2.0` 以降および Kotlin Gradle Plugin `1.5.0` 以降ではデフォルトで有効になっています。これらのプラグインの古いバージョンを使用している場合は、Gradleビルドスクリプトに以下を追加してください。
 
@@ -69,7 +69,7 @@ android {
 }
 ```
 
-## Compose MultiplatformでSkikoのバージョン警告が表示されるのはなぜですか？
+## Compose MultiplatformでSkikoのバージョン警告が表示されるのはなぜですか？ {id="why-do-i-get-a-skiko-version-warning-with-compose-multiplatform"}
 
 Coilが依存しているSkikoのバージョンがCompose Multiplatformのものより古い場合、Compose Multiplatformは次のような警告を表示します。
 
@@ -111,7 +111,7 @@ dependencies {
 }
 ```
 
-## 開発スナップショットを取得するにはどうすればよいですか？
+## 開発スナップショットを取得するにはどうすればよいですか？ {id="how-do-i-get-development-snapshots"}
 
 リポジトリの一覧にスナップショットリポジトリを追加します。
 
@@ -140,7 +140,7 @@ allprojects {
 !!! Note
     スナップショットは、CIをパスした `main` ブランチへの新しいコミットごとにデプロイされます。これらには破壊的変更が含まれる可能性や、不安定な場合があります。自己責任で使用してください。
 
-## CoilでProguardを使用するにはどうすればよいですか？
+## CoilでProguardを使用するにはどうすればよいですか？ {id="how-to-i-use-proguard-with-coil"}
 
 CoilでProguardを使用するには、[設定にこれらのProguardルールを追加してください](https://github.com/coil-kt/coil/blob/main/coil-core/src/jvmMain/resources/META-INF/proguard/proguard-rules.pro)。
 

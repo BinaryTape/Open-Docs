@@ -27,7 +27,7 @@ class OuterClass {
 }
 ```
 
-## 内部クラス
+## 内部クラス {id="inner-classes"}
 
 `inner` マークが付いたネストしたクラスは、外部クラスのメンバにアクセスできます。内部クラスは、外部クラスのオブジェクトへの参照を保持します。
 
@@ -44,7 +44,7 @@ val demo = Outer().Inner().foo() // == 1
 
 内部クラスにおける `this` の曖昧さ回避については、[限定付き this 式](this-expressions.md)を参照してください。
 
-## 匿名内部クラス
+## 匿名内部クラス {id="anonymous-inner-classes"}
 
 匿名内部クラスのインスタンスは、[オブジェクト式](object-declarations.md#object-expressions)を使用して作成されます。
 

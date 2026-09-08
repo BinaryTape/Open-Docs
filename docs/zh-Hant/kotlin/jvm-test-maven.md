@@ -6,17 +6,17 @@ Kotlin 與 Maven 生態系統無縫整合，讓您可以使用業界標準工具
 > 
 {style="tip"}
 
-## 使用 JUnit 建立測試
+## 使用 JUnit 建立測試 {id="create-tests-with-junit"}
 
 [JUnit](https://junit.org/) 是 Kotlin 後端開發的標準測試架構。雖然 Kotlin 支援多個 JUnit 版本，但大多數現代專案應使用 JUnit 6。
 
 若要使用 JUnit 在 Kotlin 中建立測試，請使用來自 `kotlin.test` 或 JUnit 套件的 `@Test` 註解。
 
-### 新增相依性
+### 新增相依性 {id="add-dependency"}
 
 `kotlin-test` 程式庫是開始測試最簡單的方式。它提供了一組通用的斷言，並會自動拉取必要的 JUnit 構件。
 
-#### JUnit 5 及更高版本
+#### JUnit 5 及更高版本 {id="junit-5-and-later"}
 
 對於所有新專案，請使用 `kotlin-test-junit5` 構件。它提供對 JUnit 的完整支援，包括巢狀測試和平行執行等功能。Kotlin/JVM 支援最新的穩定 JUnit 版本：JUnit 6。
 
@@ -37,7 +37,7 @@ Kotlin 與 Maven 生態系統無縫整合，讓您可以使用業界標準工具
 >
 {style="note"}
 
-#### JUnit 4
+#### JUnit 4 {id="junit-4"}
 
 如果您想使用較早版本的 JUnit（例如用於舊版專案），請使用利用 JUnit 4 的 `kotlin-test-junit` 構件：
 
@@ -57,7 +57,7 @@ Kotlin 與 Maven 生態系統無縫整合，讓您可以使用業界標準工具
 >
 {style="tip"}
 
-### 撰寫單元測試
+### 撰寫單元測試 {id="write-unit-tests"}
 
 單元測試驗證程式碼中孤立的部分，例如個別函式或類別。
 依照慣例，單元測試以 `*Test` 後綴命名。例如：
@@ -76,7 +76,7 @@ class OrderServiceTest {
 }
 ```
 
-### 撰寫整合測試
+### 撰寫整合測試 {id="write-integration-tests"}
 
 整合測試驗證組件之間的互動，例如服務與資料庫。
 依照慣例，整合測試以 `*IT` 後綴命名。例如：
@@ -98,11 +98,11 @@ class UserRepositoryIT {
 }
 ```
 
-## 執行測試
+## 執行測試 {id="run-tests"}
 
 在 Maven 專案中，測試執行通常分為兩個外掛程式：Surefire 和 Failsafe，以確保乾淨的建置生命週期。
 
-### 使用 Surefire 外掛程式
+### 使用 Surefire 外掛程式 {id="with-surefire-plugin"}
 
 [Surefire 外掛程式](https://maven.apache.org/surefire/maven-surefire-plugin/)處理*單元測試*。
 它會執行所有遵循 `*Test` 命名模式的 Kotlin 和 Java 測試。
@@ -123,7 +123,7 @@ class UserRepositoryIT {
 mvn test
 ```
 
-### 使用 Failsafe 外掛程式
+### 使用 Failsafe 外掛程式 {id="with-failsafe-plugin"}
 
 [Failsafe 外掛程式](https://maven.apache.org/surefire/maven-failsafe-plugin/)處理*整合測試*。
 它會執行所有遵循 `*IT` 命名模式的 Kotlin 和 Java 測試。
@@ -153,7 +153,7 @@ mvn test
 mvn verify
 ```
 
-## 獲取詳細的失敗訊息
+## 獲取詳細的失敗訊息 {id="get-detailed-failure-messages"}
 
 Kotlin [Power-assert 編譯器外掛程式](power-assert.md)會產生詳細的失敗訊息，顯示斷言中的中間值，並在主控台輸出中提供完整的圖表。
 
@@ -266,7 +266,7 @@ assertEquals(expectedRecord, actualRecord, "設定檔配置不同步")
              UserProfile(id=451, email=admin-dev@company.internal)
 ```
 
-## 探索其他測試架構
+## 探索其他測試架構 {id="explore-other-testing-frameworks"}
 
 除了 JUnit 之外，您還可以使用其他流行的架構，讓 Kotlin 測試更具慣用性且更易讀：
 
@@ -278,7 +278,7 @@ assertEquals(expectedRecord, actualRecord, "設定檔配置不同步")
 | [Kotest](https://github.com/kotest/kotest)                  | Kotlin 的斷言程式庫，提供多種斷言樣式和廣泛的匹配器支援。 |
 | [Strikt](https://github.com/robfletcher/strikt)             | Kotlin 的斷言程式庫，具有型別安全斷言並支援資料類別。 |
 
-## 後續步驟
+## 後續步驟 {id="what-s-next"}
 
 * 探索 [`kotlin.test` 程式庫](https://kotlinlang.org/api/latest/kotlin.test/kotlin.test/)的功能。
 * 進一步了解 [Power-assert 編譯器外掛程式](power-assert.md)。

@@ -20,7 +20,7 @@ LLM 客户端旨在直接与 LLM 提供者交互。
 | [Alibaba](https://www.alibabacloud.com/en?_p_lc=1) β | [DashScopeLLMClient](api:prompt-executor-dashscope-client::ai.koog.prompt.executor.clients.dashscope.DashscopeLLMClient)    | ✓                | ✓         | ✓                    | -          | -          | ✓                                               | OpenAI 兼容的客户端，公开了特定于提供者的参数（`enableSearch`、`parallelToolCalls`、`enableThinking`）。 |
 | [Ollama](https://ollama.com/)                       | [OllamaClient](api:prompt-executor-ollama-client::ai.koog.prompt.executor.ollama.client.OllamaClient)                            | ✓                | ✓         | -                    | ✓          | ✓          | -                                               | 具有模型管理 API 的本地服务器客户端。 |
 
-## 运行 prompt
+## 运行 prompt {id="running-a-prompt"}
 
 要使用 LLM 客户端运行 prompt，请执行以下操作：
 
@@ -105,7 +105,7 @@ LLM 客户端旨在直接与 LLM 提供者交互。
     ```
     <!--- KNIT example-llm-clients-java-01.java -->
 
-## 流式传输响应
+## 流式传输响应 {id="streaming-responses"}
 
 !!! note
     适用于所有 LLM 客户端。
@@ -215,7 +215,7 @@ LLM 客户端旨在直接与 LLM 提供者交互。
     ```
     <!--- KNIT example-llm-clients-java-02.java -->
 
-## 多个选项
+## 多个选项 {id="multiple-choices"}
 
 !!! note
     适用于除 `GoogleLLMClient`、`BedrockLLMClient` 和 `OllamaClient` 之外的所有 LLM 客户端。
@@ -301,7 +301,7 @@ LLM 客户端旨在直接与 LLM 提供者交互。
     ```
     <!--- KNIT example-llm-clients-java-03.java -->
 
-## 列出可用模型
+## 列出可用模型 {id="listing-available-models"}
 
 !!! note
     适用于除 `AnthropicLLMClient`、`BedrockLLMClient` 和 `OllamaClient` 之外的所有 LLM 客户端。
@@ -347,7 +347,7 @@ LLM 客户端旨在直接与 LLM 提供者交互。
     ```
     <!--- KNIT example-llm-clients-java-04.java -->
 
-## 嵌入
+## 嵌入 {id="embeddings"}
 
 !!! note
     适用于 `OpenAILLMClient`、`GoogleLLMClient`、`BedrockLLMClient`、`MistralAILLMClient` 和 `OllamaClient`。
@@ -376,7 +376,7 @@ fun main() = runBlocking {
 ```
 <!--- KNIT example-llm-clients-05.kt -->
 
-## 审核
+## 审核 {id="moderation"}
 
 !!! note
     适用于以下 LLM 客户端：`OpenAILLMClient`、`BedrockLLMClient`、`MistralAILLMClient`、`OllamaClient`。
@@ -429,7 +429,7 @@ fun main() = runBlocking {
     ```
     <!--- KNIT example-llm-clients-java-05.java -->
 
-## 与 prompt 执行器集成
+## 与 prompt 执行器集成 {id="integration-with-prompt-executors"}
 
 [Prompt 执行器](prompt-executors.md)封装了 LLM 客户端，并提供附加功能，如路由、回退以及跨提供者的统一用法。
 推荐在生产环境中使用它们，因为它们在处理多个提供者时提供了灵活性。

@@ -20,7 +20,7 @@ fun demo(source: List<Int>) {
 }
 ```
 
-## Getter 和 Setter
+## Getter 和 Setter {id="getters-and-setters"}
 
 遵循 Java 的 Getter 和 Setter 慣例（名稱以 `get` 開頭的無參數方法和名稱以 `set` 開頭的單參數方法）的方法在 Kotlin 中會表示為屬性。這類屬性也被稱為 *合成屬性*（synthetic properties）。
 `Boolean` 存取子方法（Getter 名稱以 `is` 開頭且 Setter 名稱以 `set` 開頭）會表示為與 Getter 方法名稱相同的屬性。
@@ -43,7 +43,7 @@ fun calendarDemo() {
 
 請注意，如果 Java 類別只有 Setter，它在 Kotlin 中不會顯示為屬性，因為 Kotlin 不支援僅限 Setter 的屬性。
 
-## Java 合成屬性參照
+## Java 合成屬性參照 {id="java-synthetic-property-references"}
 
 > 此功能為 [實驗性](components-stability.md#stability-levels-explained) 功能。它可能隨時被刪除或更改。我們建議您僅出於評估目的使用它。
 >
@@ -82,7 +82,7 @@ val persons = listOf(Person("Jack", 11), Person("Sofie", 12), Person("Peter", 11
         .forEach { person -> println(person.name) }
 ```
 
-### 如何啟用 Java 合成屬性參照 {initial-collapse-state="collapsed" collapsible="true"}
+### 如何啟用 Java 合成屬性參照 {initial-collapse-state="collapsed" collapsible="true" id="how-to-enable-java-synthetic-property-references"}
 
 要啟用此功能，請設定 `-language-version 2.1` 編譯器選項。在 Gradle 專案中，您可以透過在 `build.gradle(.kts)` 中加入以下內容來實現：
 
@@ -120,11 +120,11 @@ tasks
 > 
 {style="note"}
 
-## 傳回 void 的方法
+## 傳回 void 的方法 {id="methods-returning-void"}
 
 如果一個 Java 方法傳回 `void`，那麼在 Kotlin 中呼叫時它將傳回 `Unit`。如果有人使用了該傳回值，Kotlin 編譯器會在呼叫點對其進行指派，因為該值本身是預先確定的（即為 `Unit`）。
 
-## 對於 Kotlin 關鍵字的 Java 識別符進行轉義
+## 對於 Kotlin 關鍵字的 Java 識別符進行轉義 {id="escaping-for-java-identifiers-that-are-keywords-in-kotlin"}
 
 某些 Kotlin 關鍵字在 Java 中是有效的識別符：`in`、`object`、`is` 等。如果 Java 程式庫將 Kotlin 關鍵字用作方法名稱，您仍然可以使用反引號 (`) 字元對其進行轉義後呼叫：
 
@@ -132,7 +132,7 @@ tasks
 foo.`is`(bar)
 ```
 
-## Null 安全性與平台型別
+## Null 安全性與平台型別 {id="null-safety-and-platform-types"}
 
 Java 中的任何參照都可能為 `null`，這使得 Kotlin 對嚴格 null 安全性的要求對於來自 Java 的物件來說變得不切實際。Java 宣告的型別在 Kotlin 中會以不可明確表示的型別處理，稱為 [*平台型別*](https://kotlinlang.org/spec/type-system.html#platform-types)（platform types）。您不能在程式碼中明確地寫下這些不可明確表示的型別。因此，當一個平台值被指派給 Kotlin 變數時，您可以：
 
@@ -163,7 +163,7 @@ val notNull: String = item // 允許，可能在執行時失敗
 
 如果您選擇非 null 型別，編譯器會在指派時發出一個斷言。這可以防止 Kotlin 的非 null 變數持有 null。當您將平台值傳遞給預期非 null 值的 Kotlin 函式以及在其他情況下，也會發出斷言。總體而言，編譯器會盡最大努力防止 null 在程式中廣泛傳播，儘管由於泛型的原因，有時無法完全消除這種情況。
 
-### 平台型別的標記法
+### 平台型別的標記法 {id="notation-for-platform-types"}
 
 如上所述，平台型別不能在程式中明確提及，因此語言中沒有對應的語法。儘管如此，編譯器和 IDE 有時需要顯示它們（例如在錯誤訊息或參數提示中），因此有一種助記標記法：
 
@@ -173,7 +173,7 @@ val notNull: String = item // 允許，可能在執行時失敗
 
 當您在錯誤訊息或 IDE 工具提示中看到此標記法時，請為您的 Kotlin 變數加上明確的型別註解以恢復 null 安全性檢查，或者使用可 null 性註解從原始程式碼消除平台型別。
 
-### 可 null 性註解
+### 可 null 性註解 {id="nullability-annotations"}
 
 具有可 null 性註解的 Java 型別不會表示為平台型別，而是表示為實際的可 null 或非 null Kotlin 型別。編譯器支援多種風格的可 null 性註解，包括：
 
@@ -205,7 +205,7 @@ val notNull: String = item // 允許，可能在執行時失敗
 
 請在 [Kotlin 編譯器原始碼](https://github.com/JetBrains/kotlin/blob/master/core/compiler.common.jvm/src/org/jetbrains/kotlin/load/java/JvmAnnotationNames.kt)中查看受支援的可 null 性註解完整列表。
 
-### 可變性註解
+### 可變性註解 {id="mutability-annotations"}
 
 您可以為 Java 宣告加上可變性註解，以指定傳回的集合在 Kotlin 中是唯讀的還是可變的。如果您將該值指派給具有不同可變性的集合型別，編譯器會回報型別不相符。診斷的嚴重程度取決於具體的可變性註解。
 
@@ -218,7 +218,7 @@ val notNull: String = item // 允許，可能在執行時失敗
 
 請在 [Kotlin 編譯器原始碼](https://github.com/JetBrains/kotlin/blob/master/core/compiler.common.jvm/src/org/jetbrains/kotlin/load/java/JvmAnnotationNames.kt)中查看受支援的可變性註解完整列表。
 
-### 為型別引數與型別參數加上註解
+### 為型別引數與型別參數加上註解 {id="annotating-type-arguments-and-type-parameters"}
 
 您也可以為泛型型別的型別引數和型別參數加上註解，以提供其可 null 性資訊。
 
@@ -226,7 +226,7 @@ val notNull: String = item // 允許，可能在執行時失敗
 >
 {style="note"}
 
-#### 型別引數
+#### 型別引數 {id="type-arguments"}
 
 考慮 Java 宣告中的這些註解：
 
@@ -271,7 +271,7 @@ fun main() {
 
 了解更多關於 [Kotlin 中的 Java 泛型](#java-generics-in-kotlin)。
 
-#### 型別參數
+#### 型別參數 {id="type-parameters"}
 
 預設情況下，Kotlin 和 Java 中普通型別參數的可 null 性都是未定義的。在 Java 中，您可以使用可 null 性註解來指定它。讓我們為 `Base` 類別的型別參數加上註解：
 
@@ -307,7 +307,7 @@ class BaseWithBound<T : Number> {}
 >
 {style="note"}
 
-### JSpecify 支援
+### JSpecify 支援 {id="jspecify-support"}
 
 Kotlin 支援 [JSpecify](https://jspecify.dev/) 可 null 性註解，它為 Java 可 null 性提供了一套統一的註解。JSpecify 允許您為 Java 宣告提供詳細的可 null 性資訊，幫助 Kotlin 在處理 Java 程式碼時保持 null 安全性。
 
@@ -362,7 +362,7 @@ fun test(inventory: InventoryService) {
 > 
 {type="tip"}
 
-### JSR-305 支援
+### JSR-305 支援 {id="jsr-305-support"}
 
 支援使用 [JSR-305](https://jcp.org/en/jsr/detail?id=305) 中定義的 [`@Nonnull`](https://www.javadoc.io/doc/com.google.code.findbugs/jsr305/latest/javax/annotation/Nonnull.html) 註解來表示 Java 型別的可 null 性。
 
@@ -372,7 +372,7 @@ fun test(inventory: InventoryService) {
 
 也支援 [自訂可 null 性限定符 (KEEP-79)](https://github.com/Kotlin/KEEP/blob/master/proposals/jsr-305-custom-nullability-qualifiers.md)（見下文）。
 
-#### 型別限定符別名
+#### 型別限定符別名 {id="type-qualifier-nicknames"}
 
 如果一個註解型別同時被標註了 [`@TypeQualifierNickname`](https://www.javadoc.io/doc/com.google.code.findbugs/jsr305/latest/javax/annotation/meta/TypeQualifierNickname.html) 和 JSR-305 的 `@Nonnull`（或其另一個別名，如 `@CheckForNull`），那麼該註解型別本身就會被用於檢索精確的可 null 性，並且其含義與該可 null 性註解相同：
 
@@ -398,7 +398,7 @@ interface A {
 }
 ```
 
-#### 預設型別限定符
+#### 預設型別限定符 {id="type-qualifier-defaults"}
 
 [`@TypeQualifierDefault`](https://www.javadoc.io/doc/com.google.code.findbugs/jsr305/latest/javax/annotation/meta/TypeQualifierDefault.html) 允許引入註解，當應用這些註解時，可以在被標註元素的範圍內定義預設的可 null 性。
 
@@ -451,7 +451,7 @@ interface A {
 package test;
 ```
 
-#### @UnderMigration 註解
+#### @UnderMigration 註解 {id="undermigration-annotation"}
 
 程式庫維護者可以使用 `@UnderMigration` 註解（在單獨的構件 `kotlin-annotations-jvm` 中提供）來定義可 null 性型別限定符的遷移狀態。
 
@@ -482,7 +482,7 @@ public class Test {}
 
 如果一個預設型別限定符使用了型別限定符別名，且它們都被標註了 `@UnderMigration`，則使用預設型別限定符的狀態。
 
-#### 編譯器配置
+#### 編譯器配置 {id="compiler-configuration"}
 
 可以透過加入帶有以下選項（及其組合）的 `-Xjsr305` 編譯器旗標來配置 JSR-305 檢查：
 
@@ -502,7 +502,7 @@ public class Test {}
 
 預設行為與 `-Xjsr305=warn` 相同。`strict` 值應被視為實驗性的（未來可能會對其加入更多檢查）。
 
-## 對應型別
+## 對應型別 {id="mapped-types"}
 
 Kotlin 對某些 Java 型別進行了特殊處理。這些型別不會從 Java 中「照原樣」載入，而是被 *對應* 到對應的 Kotlin 型別。這種對應僅在編譯時期有意義，執行時的表示形式保持不變。Java 的原始型別會對應到對應的 Kotlin 型別（同時考慮 [平台型別](#null-safety-and-platform-types)）：
 
@@ -570,7 +570,7 @@ Java 的陣列對應如[下文](#java-arrays)所述：
 >
 {style="note"}
 
-## Kotlin 中的 Java 泛型
+## Kotlin 中的 Java 泛型 {id="java-generics-in-kotlin"}
 
 Kotlin 的泛型與 Java 的略有不同（參見 [泛型](generics.md)）。將 Java 型別匯入 Kotlin 時，會進行以下轉換：
 
@@ -589,7 +589,7 @@ if (a is List<Int>) // 錯誤：無法檢查它是否真的是 Int 列表
 if (a is List<*>) // OK：不對列表內容做任何保證
 ```
 
-## Java 陣列
+## Java 陣列 {id="java-arrays"}
 
 與 Java 不同，Kotlin 中的陣列是不變的（invariant）。這意味著 Kotlin 不會讓您將 `Array<String>` 指派給 `Array<Any>`，從而防止了可能的執行時失敗。將子類別的陣列作為超類別的陣列傳遞給 Kotlin 方法也是禁止的，但對於 Java 方法，這透過形式為 `Array<(out) String>!` 的 [平台型別](#null-safety-and-platform-types) 是被允許的。
 
@@ -639,7 +639,7 @@ if (i in array.indices) { // 等同於 (i >= 0 && i < array.size)
 }
 ```
 
-## Java 可變參數 (varargs)
+## Java 可變參數 (varargs) {id="java-varargs"}
 
 Java 類別有時會對使用可變參數（varargs）的方法進行宣告：
 
@@ -660,11 +660,11 @@ val array = intArrayOf(0, 1, 2, 3)
 javaObj.removeIndicesVarArg(*array)
 ```
 
-## 運算子
+## 運算子 {id="operators"}
 
 由於 Java 沒有辦法標記哪些方法適合使用運算子語法，因此 Kotlin 允許將任何具有正確名稱和簽章的 Java 方法用作運算子多載和其他慣例（`invoke()` 等）。不允許使用中綴呼叫（infix call）語法來呼叫 Java 方法。
 
-## 受檢例外 (Checked exceptions)
+## 受檢例外 (Checked exceptions) {id="checked-exceptions"}
 
 在 Kotlin 中，所有 [例外都是非受檢的](exceptions.md)，這意味著編譯器不會強制您擷取其中任何一個。因此，當您呼叫宣告了受檢例外的 Java 方法時，Kotlin 不會強制您執行任何操作：
 
@@ -676,11 +676,11 @@ fun render(list: List<*>, to: Appendable) {
 }
 ```
 
-## 物件方法
+## 物件方法 {id="object-methods"}
 
 當 Java 型別匯入 Kotlin 時，所有 `java.lang.Object` 型別的參照都會轉換為 `Any`。由於 `Any` 不是平台特定的，它僅宣告 `toString()`、`hashCode()` 和 `equals()` 作為其成員，因此為了使 `java.lang.Object` 的其他成員可用，Kotlin 使用了 [擴充函式](extensions.md)。
 
-### `wait()` 和 `notify()`
+### `wait()` 和 `notify()` {id="wait-and-notify"}
 
 在 `Any` 型別的參照上無法使用 `wait()` 和 `notify()` 方法。通常不建議使用它們，而是建議使用 `java.util.concurrent`。
 
@@ -731,7 +731,7 @@ class SimpleBlockingQueue<T>(private val capacity: Int) {
 (foo as java.lang.Object).wait()
 ```
 
-### `getClass()`
+### `getClass()` {id="getclass"}
 
 要取得物件的 Java 類別，請在 [類別參照](reflection.md#class-references) 上使用 `java` 擴充屬性：
 
@@ -745,7 +745,7 @@ val fooClass = foo::class.java
 val fooClass = foo.javaClass
 ```
 
-### `clone()`
+### `clone()` {id="clone"}
 
 要覆寫 `clone()`，您的類別需要擴充 `kotlin.Cloneable`：
 
@@ -757,7 +757,7 @@ class Example : Cloneable {
 
 不要忘記 [Effective Java, 3rd Edition](https://www.oracle.com/technetwork/java/effectivejava-136174.html) 中的第 13 條：*謹慎覆寫 clone*。
 
-### `finalize()`
+### `finalize()` {id="finalize"}
 
 要覆寫 `finalize()`，您只需宣告它即可，不需要使用 `override` 關鍵字：
 
@@ -771,11 +771,11 @@ class C {
 
 根據 Java 的規則，`finalize()` 不得為 `private`。
 
-## 繼承 Java 類別
+## 繼承 Java 類別 {id="inheritance-from-java-classes"}
 
 Kotlin 中的類別最多只能將一個 Java 類別（以及任意數量的 Java 介面）作為超型別。
 
-## 存取 static 成員
+## 存取 static 成員 {id="accessing-static-members"}
 
 Java 類別的 static 成員會為這些類別形成「伴生物件」。您不能將此類「伴生物件」當作值來傳遞，但可以明確存取其成員，例如：
 
@@ -785,7 +785,7 @@ if (Character.isLetter(a)) { ... }
 
 要存取[對應](#mapped-types)到 Kotlin 型別的 Java 型別的 static 成員，請使用 Java 型別的完全限定名稱：`java.lang.Integer.bitCount(foo)`。
 
-## Java 反射
+## Java 反射 {id="java-reflection"}
 
 Java 反射適用於 Kotlin 類別，反之亦然。如上所述，您可以使用 `instance::class.java`、`ClassName::class.java` 或 `instance.javaClass` 透過 `java.lang.Class` 進入 Java 反射。不要為了這個目的而使用 `ClassName.javaClass`，因為它引用的是 `ClassName` 的伴生物件類別，這與 `ClassName.Companion::class.java` 相同，而非 `ClassName::class.java`。
 
@@ -793,7 +793,7 @@ Java 反射適用於 Kotlin 類別，反之亦然。如上所述，您可以使�
 
 其他支援的情況包括為 Kotlin 屬性獲取 Java Getter/Setter 方法或支援欄位、為 Java 欄位獲取 `KProperty`、為 `KFunction` 獲取 Java 方法或建構函式，反之亦然。
 
-## SAM 轉換
+## SAM 轉換 {id="sam-conversions"}
 
 Kotlin 支援對 Java 和 [Kotlin 介面](fun-interfaces.md) 進行 SAM 轉換。對 Java 的這種支援意指 Kotlin 函式常值可以自動轉換為具有單個非預設方法的 Java 介面的實作，只要該介面方法的參數型別與 Kotlin 函式的參數型別相符即可。
 
@@ -821,7 +821,7 @@ executor.execute(Runnable { println("This runs in a thread pool") })
 >
 {style="note"}
 
-## 在 Kotlin 中使用 JNI
+## 在 Kotlin 中使用 JNI {id="using-jni-with-kotlin"}
 
 要宣告一個在原生（C 或 C++）程式碼中實作的函式，您需要用 `external` 修飾符標記它：
 
@@ -841,6 +841,6 @@ var myProperty: String
 
 在幕後，這將建立兩個函式 `getMyProperty` 和 `setMyProperty`，兩者都被標記為 `external`。
 
-## 在 Kotlin 中使用 Lombok 產生的宣告
+## 在 Kotlin 中使用 Lombok 產生的宣告 {id="using-lombok-generated-declarations-in-kotlin"}
 
 您可以在 Kotlin 程式碼中使用 Java 中由 Lombok 產生的宣告。如果您需要在同一個 Java/Kotlin 混合模組中產生並使用這些宣告，您可以在 [Lombok 編譯器外掛程式頁面](lombok.md)了解如何執行此操作。如果您從另一個模組呼叫此類宣告，則不需要使用此外掛程式來編譯該模組。

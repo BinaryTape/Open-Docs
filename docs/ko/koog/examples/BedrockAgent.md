@@ -9,14 +9,14 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Bedr
 
 Koog 프레임워크와 AWS Bedrock 연동을 사용하여 지능형 AI 에이전트를 만드는 종합 가이드에 오신 것을 환영합니다. 이 노트북에서는 자연어 명령을 통해 간단한 스위치 장치를 제어할 수 있는 기능적인 에이전트를 구축하는 과정을 살펴보겠습니다.
 
-## 학습 내용
+## 학습 내용 {id="what-you-ll-learn"}
 
 - Kotlin 어노테이션(annotation)을 사용하여 AI 에이전트를 위한 커스텀 도구(tool)를 정의하는 방법
 - LLM 기반 에이전트를 위한 AWS Bedrock 연동 설정
 - 도구 레지스트리(tool registry) 생성 및 에이전트 연결
 - 명령을 이해하고 실행할 수 있는 대화형 에이전트 구축
 
-## 사전 준비 사항
+## 사전 준비 사항 {id="prerequisites"}
 
 - 적절한 권한이 있는 AWS Bedrock 접근 권한
 - 구성된 AWS 자격 증명 (액세스 키 및 비밀 키)
@@ -203,7 +203,7 @@ runBlocking {
 
     The execution was interrupted
 
-## 무슨 일이 일어났나요? 🎯
+## 무슨 일이 일어났나요? 🎯 {id="what-just-happened"}
 
 에이전트를 실행할 때 배후에서 일어나는 마법은 다음과 같습니다:
 
@@ -215,11 +215,11 @@ runBlocking {
 
 이는 자연어 이해와 프로그래밍 방식의 작업 사이의 원활한 통합이라는 Koog 프레임워크의 핵심적인 힘을 보여줍니다.
 
-## 다음 단계 및 확장
+## 다음 단계 및 확장 {id="next-steps-extensions"}
 
 더 나아가 볼 준비가 되셨나요? 탐구해 볼 수 있는 몇 가지 아이디어입니다:
 
-### 🔧 향상된 도구
+### 🔧 향상된 도구 {id="enhanced-tools"}
 ```kotlin
 @Tool
 @LLMDescription("Sets a timer to automatically turn off the switch after specified seconds")
@@ -230,7 +230,7 @@ fun setAutoOffTimer(seconds: Int): String
 fun getUsageStats(): String
 ```
 
-### 🌐 여러 장치
+### 🌐 여러 장치 {id="multiple-devices"}
 ```kotlin
 class HomeAutomationTools : ToolSet {
     @Tool fun controlLight(room: String, on: Boolean): String
@@ -239,7 +239,7 @@ class HomeAutomationTools : ToolSet {
 }
 ```
 
-### 🧠 메모리 및 컨텍스트
+### 🧠 메모리 및 컨텍스트 {id="memory-context"}
 ```kotlin
 val agent = AIAgent(
     executor = executor,
@@ -251,7 +251,7 @@ val agent = AIAgent(
 )
 ```
 
-### 🔄 고급 워크플로
+### 🔄 고급 워크플로 {id="advanced-workflows"}
 ```kotlin
 // 조건부 로직이 포함된 다단계 워크플로
 @Tool
@@ -259,7 +259,7 @@ val agent = AIAgent(
 fun eveningRoutine(): String
 ```
 
-## 핵심 요약
+## 핵심 요약 {id="key-takeaways"}
 
 ✅ **도구는 함수입니다**: 모든 Kotlin 함수는 에이전트의 기능이 될 수 있습니다.
 ✅ **어노테이션이 동작을 제어합니다**: `@Tool` 및 `@LLMDescription`을 통해 함수를 탐색 가능하게 만듭니다.
@@ -271,7 +271,7 @@ Koog 프레임워크를 사용하면 자연어를 이해하고 실제 작업을 
 
 **즐거운 에이전트 구축 되세요!** 🚀
 
-## 에이전트 테스트
+## 에이전트 테스트 {id="testing-the-agent"}
 
 이제 에이전트가 작동하는 모습을 볼 시간입니다! 에이전트는 이제 자연어 요청을 이해하고 제공된 도구를 사용하여 스위치를 제어할 수 있습니다.
 

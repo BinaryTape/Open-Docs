@@ -303,7 +303,7 @@ get("/logout") {
 
 您可以在此處找到完整範例：[session-cookie-client](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/session-cookie-client)。
 
-## 延遲獲取 session
+## 延遲獲取 session {id="deferred-session-retrieval"}
 
 預設情況下，Ktor 會嘗試為每個包含 session 的請求從存儲中讀取 session，而不論路由是否真的需要它。這種行為可能會導致不必要的開銷 —— 尤其是在使用自訂 session 存儲的應用程式中。
 

@@ -10,7 +10,7 @@
 - 内置预处理器 (preprocessor) 以限制历史记录大小和过滤消息
 - 支持自定义预处理器，用于任意的消息转换
 
-## 添加依赖项
+## 添加依赖项 {id="add-dependencies"}
 
 聊天记忆是一个可选的[功能](../index.md)，默认情况下在 Koog 中不可用。
 要为您的 Koog 智能体实现聊天记忆，请添加 [`ai.koog:agents-features-memory`](https://mvnrepository.com/artifact/ai.koog/agents-features-memory) 的依赖项：
@@ -44,7 +44,7 @@
 !!! note
     `ChatMemory` 功能从 Koog 版本 **0.7.0** 开始提供。
 
-## 启用聊天记忆
+## 启用聊天记忆 {id="enable-chat-memory"}
 
 在创建智能体时，使用 `install()` 方法安装 `ChatMemory`：
 
@@ -100,7 +100,7 @@
         .build();
     ```
 
-## 会话 ID (Session IDs)
+## 会话 ID (Session IDs) {id="session-ids"}
 
 将会话 ID 作为第二个实参传递给 `agent.run()`。
 `ChatMemory` 使用此 ID 来存储和加载对话：
@@ -115,7 +115,7 @@ agent.run("And what about Germany?", "session-1")
 
 不同的会话 ID 会产生完全隔离的历史记录。
 
-## 历史记录提供程序 (History providers)
+## 历史记录提供程序 (History providers) {id="history-providers"}
 
 默认的 `InMemoryChatHistoryProvider` 是线程安全的，但不是持久化的（重启后历史记录会丢失）。
 对于生产环境，请实现您自己的 `ChatHistoryProvider` 来持久化存储消息。
@@ -132,19 +132,19 @@ class MyDatabaseChatHistoryProvider(private val db: Database) : ChatHistoryProvi
 }
 ```
 
-## 预处理器 (Preprocessors)
+## 预处理器 (Preprocessors) {id="preprocessors"}
 
 预处理器在加载时（在智能体看到消息列表之前）和存储时（在保存之前）转换消息列表。
 它们按照您在 `ChatMemory` 功能配置中添加它们的顺序顺序运行。
 
-### 内置预处理器
+### 内置预处理器 {id="built-in-preprocessors"}
 
 | 配置方法 | 预处理器类 | 行为 |
 |--------------------------|------------------------------|---------------------------------------|
 | `windowSize(n)` | `WindowSizePreProcessor` | 仅保留最后 `n` 条消息 |
 | `filterMessages { ... }` | `FilterMessagesPreProcessor` | 保留符合谓词条件的消息 |
 
-### 预处理器的顺序
+### 预处理器的顺序 {id="order-of-preprocessors"}
 
 预处理器顺序执行，每个处理器的输出将作为下一个处理器的输入。
 这意味着顺序至关重要。
@@ -159,7 +159,7 @@ filterMessages { it.content.length <= 100 }
 windowSize(10)
 ```
 
-### 自定义预处理器
+### 自定义预处理器 {id="custom-preprocessors"}
 
 要创建自定义预处理器，请实现 `ChatMemoryPreProcessor` 接口：
 
@@ -183,7 +183,7 @@ install(ChatMemory) {
 }
 ```
 
-## 聊天记忆 vs 智能体持久化
+## 聊天记忆 vs 智能体持久化 {id="chat-memory-vs-agent-persistence"}
 
 `ChatMemory` 将每次 `agent.run()` 调用视为一个原子的、自包含的循环。
 智能体在运行前加载聊天历史记录，并在成功运行后存储它。
@@ -218,14 +218,14 @@ val agent = AIAgent(
 }
 ```
 
-## 最佳做法
+## 最佳做法 {id="best-practices"}
 
 - **始终设置窗口大小 (window size)** 以防止对话无限增长。
 - **仔细安排预处理器的顺序**，因为在窗口化之前过滤与在过滤之前窗口化会产生不同的结果。
 - **使用有意义的会话 ID** 进行历史记录隔离：用户 ID、聊天线程 ID 或 UUID 都是不错的选择。
 - **为生产环境实现持久化提供程序**，因为默认的 `InMemoryChatHistoryProvider` 会在重启时丢失历史记录。
 
-## 后续步骤
+## 后续步骤 {id="next-steps"}
 
 - 了解如何[构建一个带记忆的简单 CLI 聊天循环](chat-agent-with-memory.md)
 - 查看[带记忆的聊天端点](chat-backend-with-memory.md)示例

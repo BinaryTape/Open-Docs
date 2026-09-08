@@ -8,13 +8,13 @@ title: JUnit 測試
 更新 - 2025-01-28
 :::
 
-## 取得程式碼
+## 取得程式碼 {id="get-the-code"}
 
 :::info
 [原始碼可於 GitHub 上取得](https://github.com/InsertKoinIO/koin-getting-started/tree/main/kotlin)
 :::
 
-## Gradle 設定
+## Gradle 設定 {id="gradle-setup"}
 
 首先，如下所示新增 Koin 相依性：
 
@@ -27,7 +27,7 @@ dependencies {
 }
 ```
 
-## 宣告相依性
+## 宣告相依性 {id="declared-dependencies"}
 
 我們重複使用 `koin-core` 快速入門專案，以使用 koin 模組：
 
@@ -39,7 +39,7 @@ val appModule = module {
 }
 ```
 
-## 驗證您的模組
+## 驗證您的模組 {id="verifying-your-modules"}
 
 :::tip
 Koin 編譯器外掛程式現在提供編譯時期相依性驗證，在建置時期即可捕捉缺少的相依性，無需編寫測試程式碼。請參閱 [編譯時期安全性](/docs/reference/koin-compiler/compile-safety)。
@@ -59,7 +59,7 @@ class ModuleVerificationTest : AutoCloseKoinTest() {
 
 如果任何相依性定義無效或缺少任何所需的相依性，此測試將會失敗。
 
-## 使用 KoinTestRule 編寫測試
+## 使用 KoinTestRule 編寫測試 {id="writing-tests-with-kointestrule"}
 
 若要編寫注入相依性的測試，請擴充（extend） `KoinTest` 並使用 `KoinTestRule`：
 
@@ -90,7 +90,7 @@ class UserAppTest : KoinTest {
 
 > 我們使用 `KoinTestRule` 為每個測試啟動/停止我們的 Koin 上下文
 
-## 模擬（Mocking）相依性
+## 模擬（Mocking）相依性 {id="mocking-dependencies"}
 
 您可以在測試中使用 `declareMock` 來模擬相依性。這會將實際實作替換為模擬物件（mock）：
 
@@ -128,7 +128,7 @@ class UserMockTest : KoinTest {
 
 `MockProviderRule` 將 Mockito 設定為模擬架構，而 `declareMock` 則將真實的 `UserRepository` 替換為回傳受控資料的模擬物件。
 
-## 關鍵測試概念
+## 關鍵測試概念 {id="key-testing-concepts"}
 
 | 概念 | 說明 |
 |---------|-------------|
@@ -140,7 +140,7 @@ class UserMockTest : KoinTest {
 | `declareMock<T>()` | 將定義替換為模擬物件 |
 | `by inject<T>()` | 在測試中延遲注入相依性 |
 
-## 延伸閱讀
+## 延伸閱讀 {id="see-also"}
 
 - **[測試參考](/docs/reference/koin-test/testing)** - 完整的測試文件
 - **[模組驗證](/docs/reference/koin-test/verify)** - `verify()` 與 `checkModules()` 的詳細資訊

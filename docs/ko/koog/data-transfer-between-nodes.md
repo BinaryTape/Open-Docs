@@ -1,14 +1,14 @@
-## 개요
+## 개요 {id="overview"}
 
 Koog는 `AIAgentStorage`를 사용하여 데이터를 저장하고 전달하는 방법을 제공합니다. 이는 서로 다른 노드나 서브그래프 간에 데이터를 전달하기 위해 타입 안전(type-safe)한 방식으로 설계된 키-값 스토리지 시스템입니다.
 
 이 스토리지는 에이전트 노드에서 사용할 수 있는 `storage` 속성(`storage: AIAgentStorage`)을 통해 접근할 수 있으며, AI 에이전트 시스템의 서로 다른 컴포넌트 간에 원활한 데이터 공유를 가능하게 합니다.
 
-## 키 및 값 구조
+## 키 및 값 구조 {id="key-and-value-structure"}
 
 키-값 데이터 스토리지 구조는 `AIAgentStorageKey` 데이터 클래스에 의존합니다. `AIAgentStorageKey`에 대한 자세한 내용은 아래 섹션을 참조하세요.
 
-### AIAgentStorageKey
+### AIAgentStorageKey {id="aiagentstoragekey"}
 
 스토리지 내에서 데이터를 저장하고 검색할 때 타입 안전성을 보장하기 위해 타입화된 키 시스템을 사용합니다.
 
@@ -20,11 +20,11 @@ Koog는 `AIAgentStorage`를 사용하여 데이터를 저장하고 전달하는 
 
 - 각 키 인스턴스는 고유합니다. `name`은 고유성을 결정하는 데 사용되지 않으므로, 이름이 같은 키를 여러 개 가질 수 있습니다. 이를 통해 스토리지의 데이터를 실수로 덮어쓸 위험 없이 기존 전략(strategy) 컴포넌트를 재사용할 수 있습니다.
 
-## 사용 예제
+## 사용 예제 {id="usage-examples"}
 
 다음 섹션에서는 스토리지 키를 생성하고 이를 사용하여 데이터를 저장 및 검색하는 실제 예제를 제공합니다.
 
-### 데이터를 나타내는 클래스 정의
+### 데이터를 나타내는 클래스 정의 {id="defining-a-class-that-represents-your-data"}
 
 전달하고자 하는 데이터를 저장하는 첫 번째 단계는 해당 데이터를 나타내는 클래스를 생성하는 것입니다. 다음은 기본적인 사용자 데이터를 포함하는 단순한 클래스의 예입니다.
 
@@ -50,7 +50,7 @@ Koog는 `AIAgentStorage`를 사용하여 데이터를 저장하고 전달하는 
 
 클래스를 정의한 후, 아래 설명에 따라 스토리지 키를 생성하는 데 사용합니다.
 
-### 스토리지 키 생성
+### 스토리지 키 생성 {id="creating-a-storage-key"}
 
 정의된 데이터 구조에 대한 타입화된 스토리지 키를 생성합니다.
 
@@ -92,7 +92,7 @@ Koog는 `AIAgentStorage`를 사용하여 데이터를 저장하고 전달하는 
 
 `createStorageKey` 함수는 식별 및 디버깅 목적으로 사용되는 문자열 파라미터와 값 타입을 나타내는 `TypeToken`을 인자로 받습니다 (Java의 경우이며, Kotlin은 reified 제네릭을 자동으로 사용합니다).
 
-### 데이터 저장
+### 데이터 저장 {id="storing-data"}
 
 생성된 스토리지 키를 사용하여 데이터를 저장하려면 노드 내에서 `storage.set(key: AIAgentStorageKey<T>, value: T)` 메서드를 사용합니다.
 
@@ -146,7 +146,7 @@ Koog는 `AIAgentStorage`를 사용하여 데이터를 저장하고 전달하는 
     ```
     <!--- KNIT exampleDataTransferBetweenNodesJava03.java -->
 
-### 데이터 검색
+### 데이터 검색 {id="retrieving-data"}
 
 데이터를 검색하려면 노드 내에서 `storage.get` 메서드를 사용합니다.
 
@@ -209,7 +209,7 @@ Koog는 `AIAgentStorage`를 사용하여 데이터를 저장하고 전달하는 
     ```
     <!--- KNIT exampleDataTransferBetweenNodesJava04.java -->
 
-## API 문서
+## API 문서 {id="api-documentation"}
 
 `AIAgentStorage` 클래스와 관련된 전체 참조는 [AIAgentStorage](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentStorage)를 확인하세요.
 
@@ -223,7 +223,7 @@ Koog는 `AIAgentStorage`를 사용하여 데이터를 저장하고 전달하는 
 - [set](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentStorage.set)
 - [toMap](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentStorage.toMap)
 
-## 추가 정보
+## 추가 정보 {id="additional-information"}
 
 - `AIAgentStorage`는 스레드 안전(thread-safe)하며, Mutex를 사용하여 동시성 액세스가 올바르게 처리되도록 보장합니다.
 - 값을 검색할 때 타입 캐스팅이 자동으로 처리되어 애플리케이션 전반에서 타입 안전성을 보장합니다.

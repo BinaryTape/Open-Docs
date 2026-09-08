@@ -4,7 +4,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 
 ほとんどの言語変更は、アップデートの変更ログやコンパイラの警告など、他のチャネルですでに発表されていますが、このドキュメントではそれらをすべてまとめ、Kotlin 1.6 から Kotlin 1.7 への移行のための完全なリファレンスを提供します。
 
-## 基本用語
+## 基本用語 {id="basic-terms"}
 
 このドキュメントでは、数種類の互換性について紹介します。
 
@@ -14,10 +14,10 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 
 これらの定義は純粋な Kotlin に対してのみ与えられていることに注意してください。他の言語の観点（例：Java）からの Kotlin コードの互換性は、このドキュメントの範囲外です。
 
-## 言語（Language）
+## 言語（Language） {id="language"}
 
 <!--
-### Title
+### Title {id="title"}
 
 > **Issue**: [KT-NNNNN](https://youtrack.jetbrains.com/issue/KT-NNNNN)
 >
@@ -33,7 +33,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 > - 1.7.0: report an error
 -->
 
-### セーフコールの結果を常に nullable にする
+### セーフコールの結果を常に nullable にする {id="make-safe-call-result-always-nullable"}
 
 > **課題**: [KT-46860](https://youtrack.jetbrains.com/issue/KT-46860)
 >
@@ -50,7 +50,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 > - 1.7.0: セーフコールの結果の型を nullable に変更。  
 > `-XXLanguage:-SafeCallsAreAlwaysNullable` を使用して、一時的に 1.7 以前の動作に戻すことが可能
 
-### 抽象スーパークラスメンバへの super 呼び出しの委譲を禁止する
+### 抽象スーパークラスメンバへの super 呼び出しの委譲を禁止する {id="prohibit-the-delegation-of-super-calls-to-an-abstract-superclass-member"}
 
 > **課題**: [KT-45508](https://youtrack.jetbrains.com/issue/KT-45508), [KT-49017](https://youtrack.jetbrains.com/issue/KT-49017), [KT-38078](https://youtrack.jetbrains.com/issue/KT-38078)
 >
@@ -67,7 +67,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 > - 1.7.0: `-Xjvm-default=all` または `-Xjvm-default=all-compatibility` 互換モードが有効な場合にエラーを報告。プログレッシブモードでエラーを報告
 > - &gt;=1.8.0: すべてのケースでエラーを報告
 
-### 非公開のプライマリコンストラクタで宣言された公開プロパティを介した非公開型の公開を禁止する
+### 非公開のプライマリコンストラクタで宣言された公開プロパティを介した非公開型の公開を禁止する {id="prohibit-exposing-non-public-types-through-public-properties-declared-in-a-non-public-primary-constructor"}
 
 > **課題**: [KT-28078](https://youtrack.jetbrains.com/issue/KT-28078)
 >
@@ -83,7 +83,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 > - 1.6.20: プログレッシブモードでこの警告をエラーに引き上げ
 > - 1.7.0: この警告をエラーに引き上げ
 
-### 列挙型名で修飾された未初期化の enum エントリへのアクセスを禁止する
+### 列挙型名で修飾された未初期化の enum エントリへのアクセスを禁止する {id="prohibit-access-to-uninitialized-enum-entries-qualified-with-the-enum-name"}
 
 > **課題**: [KT-41124](https://youtrack.jetbrains.com/issue/KT-41124)
 >
@@ -97,7 +97,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 >
 > - 1.7.0: 列挙型の静的初期化ブロックから未初期化の enum エントリにアクセスした場合にエラーを報告
 
-### when 条件の分岐やループの条件における複雑な Boolean 式の定数計算を禁止する
+### when 条件の分岐やループの条件における複雑な Boolean 式の定数計算を禁止する {id="prohibit-computing-constant-values-of-complex-boolean-expressions-in-when-condition-branches-and-conditions-of-loops"}
 
 > **課題**: [KT-39883](https://youtrack.jetbrains.com/issue/KT-39883)
 >
@@ -112,7 +112,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 > - 1.5.30: `when` の網羅性やコントロールフローの到達可能性が、`when` 分岐やループ条件内の複雑な定数 Boolean 式に基づいて決定されている場合に警告を報告
 > - 1.7.0: この警告をエラーに引き上げ
 
-### enum、sealed、Boolean を対象とする when ステートメントをデフォルトで網羅的にする
+### enum、sealed、Boolean を対象とする when ステートメントをデフォルトで網羅的にする {id="make-when-statements-with-enum-sealed-and-boolean-subjects-exhaustive-by-default"}
 
 > **課題**: [KT-47709](https://youtrack.jetbrains.com/issue/KT-47709)
 >
@@ -127,7 +127,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 > - 1.6.0: enum、sealed、または Boolean を対象とする `when` ステートメントが網羅的でない場合に警告を導入（プログレッシブモードではエラー）
 > - 1.7.0: この警告をエラーに引き上げ
 
-### when-with-subject における紛らわしい文法を非推奨にする
+### when-with-subject における紛らわしい文法を非推奨にする {id="deprecate-confusing-grammar-in-when-with-subject"}
 
 > **課題**: [KT-48385](https://youtrack.jetbrains.com/issue/KT-48385)
 >
@@ -143,7 +143,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 > - 1.8.0: この警告をエラーに引き上げ
 > - &gt;= 1.8: 非推奨となった一部の構造を新しい言語機能のために転用
 
-### 型の nullability エンハンスメントの改善
+### 型の nullability エンハンスメントの改善 {id="type-nullability-enhancement-improvements"}
 
 > **課題**: [KT-48623](https://youtrack.jetbrains.com/issue/KT-48623)
 >
@@ -159,7 +159,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 > - 1.7.0: Java 型のより正確な nullability を推論。  
 > `-XXLanguage:-TypeEnhancementImprovementsInStrictMode` を使用して、一時的に 1.7 以前の動作に戻すことが可能
 
-### 異なる数値型間での暗黙の強制変換を防止する
+### 異なる数値型間での暗黙の強制変換を防止する {id="prevent-implicit-coercions-between-different-numeric-types"}
 
 > **課題**: [KT-48645](https://youtrack.jetbrains.com/issue/KT-48645)
 >
@@ -176,7 +176,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 > `-Xuse-old-backend` を使用して、一時的に 1.5.30 の修正前の動作に戻すことが可能
 > - &gt;= 1.7.20: 影響を受ける他のケースにおけるダウンキャストの動作を修正
 
-### コンパイラオプション -Xjvm-default の enable および compatibility モードを非推奨にする
+### コンパイラオプション -Xjvm-default の enable および compatibility モードを非推奨にする {id="deprecate-the-enable-and-the-compatibility-modes-of-the-compiler-option-xjvm-default"}
 
 > **課題**: [KT-46329](https://youtrack.jetbrains.com/issue/KT-46329)
 >
@@ -191,7 +191,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 > - 1.6.20: `-Xjvm-default` コンパイラオプションの `enable` および `compatibility` モードに対して警告を導入
 > - &gt;= 1.8.0: この警告をエラーに引き上げ
 
-### 末尾のラムダを持つ suspend という名前の関数呼び出しを禁止する
+### 末尾のラムダを持つ suspend という名前の関数呼び出しを禁止する {id="prohibit-calls-to-functions-named-suspend-with-a-trailing-lambda"}
 
 > **課題**: [KT-22562](https://youtrack.jetbrains.com/issue/KT-22562)
 >
@@ -207,7 +207,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 > - 1.6.0: この警告をエラーに引き上げ
 > - 1.7.0: `{` の前の `suspend` がキーワードとして解析されるように言語文法に変更を導入
 
-### ベースクラスが別のモジュールにある場合、ベースクラスのプロパティに対するスマートキャストを禁止する
+### ベースクラスが別のモジュールにある場合、ベースクラスのプロパティに対するスマートキャストを禁止する {id="prohibit-smart-cast-on-a-base-class-property-if-the-base-class-is-from-another-module"}
 
 > **課題**: [KT-52629](https://youtrack.jetbrains.com/issue/KT-52629)
 >
@@ -223,7 +223,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 > - 1.7.0: この警告をエラーに引き上げ。  
 > `-XXLanguage:-ProhibitSmartcastsOnPropertyFromAlienBaseClass` を使用して、一時的に 1.7 以前の動作に戻すことが可能
 
-### 型推論中に意味のある制約を無視しないようにする
+### 型推論中に意味のある制約を無視しないようにする {id="do-not-neglect-meaningful-constraints-during-type-inference"}
 
 > **課題**: [KT-52668](https://youtrack.jetbrains.com/issue/KT-52668)
 >
@@ -239,9 +239,9 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 > - 1.7.0: すべての制約を考慮するようにし、この警告をエラーに引き上げ。  
 > `-XXLanguage:-ProperTypeInferenceConstraintsProcessing` を使用して、一時的に 1.7 以前の動作に戻すことが可能
 
-## 標準ライブラリ（Standard library）
+## 標準ライブラリ（Standard library） {id="standard-library"}
 
-### コレクションの min および max 関数の戻り型を段階的に non-nullable に変更する
+### コレクションの min および max 関数の戻り型を段階的に non-nullable に変更する {id="gradually-change-the-return-type-of-collection-min-and-max-functions-to-non-nullable"}
 
 > **課題**: [KT-38854](https://youtrack.jetbrains.com/issue/KT-38854)
 >
@@ -258,7 +258,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 > - 1.6.0: 非推奨の関数を公開 API から隠す
 > - 1.7.0: 影響を受ける API を non-nullable な戻り型で再導入
 
-### 浮動小数点配列関数 contains、indexOf、lastIndexOf を非推奨にする
+### 浮動小数点配列関数 contains、indexOf、lastIndexOf を非推奨にする {id="deprecate-floating-point-array-functions-contains-indexof-lastindexof"}
 
 > **課題**: [KT-28753](https://youtrack.jetbrains.com/issue/KT-28753)
 >
@@ -274,7 +274,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 > - 1.6.0: 非推奨レベルをエラーに引き上げ
 > - 1.7.0: 非推奨の関数を公開 API から隠す
 
-### kotlin.dom および kotlin.browser パッケージの宣言を kotlinx.* に移行する
+### kotlin.dom および kotlin.browser パッケージの宣言を kotlinx.* に移行する {id="migrate-declarations-from-kotlin-dom-and-kotlin-browser-packages-to-kotlinx"}
 
 > **課題**: [KT-39330](https://youtrack.jetbrains.com/issue/KT-39330)
 >
@@ -292,7 +292,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 > - &gt;= 1.8: 非推奨の関数を stdlib から削除
 > - &gt;= 1.8: kotlinx.* パッケージの API を別のライブラリに移動
 
-### 一部の JS 専用 API を非推奨にする
+### 一部の JS 専用 API を非推奨にする {id="deprecate-some-js-only-api"}
 
 > **課題**: [KT-48587](https://youtrack.jetbrains.com/issue/KT-48587)
 >
@@ -308,9 +308,9 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 > - 1.8.0: 非推奨レベルをエラーに引き上げ
 > - 1.9.0: 非推奨の関数を公開 API から削除
 
-## ツール（Tools）
+## ツール（Tools） {id="tools"}
 
-### KotlinGradleSubplugin クラスを削除する
+### KotlinGradleSubplugin クラスを削除する {id="remove-kotlingradlesubplugin-class"}
 
 > **課題**: [KT-48831](https://youtrack.jetbrains.com/issue/KT-48831)
 >
@@ -325,7 +325,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 > - 1.6.0: 非推奨レベルをエラーに引き上げ
 > - 1.7.0: 非推奨のクラスを削除
 
-### useIR コンパイラオプションを削除する
+### useIR コンパイラオプションを削除する {id="remove-useir-compiler-option"}
 
 > **課題**: [KT-48847](https://youtrack.jetbrains.com/issue/KT-48847)
 >
@@ -341,7 +341,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 > - 1.6.0: オプションを非表示にする
 > - 1.7.0: 非推奨のオプションを削除
 
-### kapt.use.worker.api Gradle プロパティを非推奨にする
+### kapt.use.worker.api Gradle プロパティを非推奨にする {id="deprecate-kapt-use-worker-api-gradle-property"}
 
 > **課題**: [KT-48826](https://youtrack.jetbrains.com/issue/KT-48826)
 >
@@ -356,7 +356,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 > - 1.6.20: 非推奨レベルを警告に引き上げ
 > - &gt;= 1.8.0: このプロパティを削除
 
-### kotlin.experimental.coroutines Gradle DSL オプションと kotlin.coroutines Gradle プロパティを削除する
+### kotlin.experimental.coroutines Gradle DSL オプションと kotlin.coroutines Gradle プロパティを削除する {id="remove-kotlin-experimental-coroutines-gradle-dsl-option-and-kotlin-coroutines-gradle-property"}
 
 > **課題**: [KT-50494](https://youtrack.jetbrains.com/issue/KT-50494)
 >
@@ -371,7 +371,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 > - 1.6.20: 非推奨レベルを警告に引き上げ
 > - 1.7.0: DSL オプション、それを囲む `experimental` ブロック、およびプロパティを削除
 
-### useExperimentalAnnotation コンパイラオプションを非推奨にする
+### useExperimentalAnnotation コンパイラオプションを非推奨にする {id="deprecate-useexperimentalannotation-compiler-option"}
 
 > **課題**: [KT-47763](https://youtrack.jetbrains.com/issue/KT-47763)
 >
@@ -386,7 +386,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 > - 1.6.0: 非推奨オプションを非表示にする
 > - 1.7.0: 非推奨オプションを削除
 
-### kotlin.compiler.execution.strategy システムプロパティを非推奨にする
+### kotlin.compiler.execution.strategy システムプロパティを非推奨にする {id="deprecate-kotlin-compiler-execution-strategy-system-property"}
 
 > **課題**: [KT-51830](https://youtrack.jetbrains.com/issue/KT-51830)
 >
@@ -401,7 +401,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 > - 1.7.0: 非推奨レベルを警告に引き上げ
 > - &gt; 1.7.0: プロパティを削除
 
-### kotlinOptions.jdkHome コンパイラオプションを削除する
+### kotlinOptions.jdkHome コンパイラオプションを削除する {id="remove-kotlinoptions-jdkhome-compiler-option"}
 
 > **課題**: [KT-46541](https://youtrack.jetbrains.com/issue/KT-46541)
 >
@@ -416,7 +416,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 > - 1.5.30: 非推奨レベルを警告に引き上げ
 > - &gt; 1.7.0: オプションを削除
 
-### noStdlib コンパイラオプションを削除する
+### noStdlib コンパイラオプションを削除する {id="remove-nostdlib-compiler-option"}
 
 > **課題**: [KT-49011](https://youtrack.jetbrains.com/issue/KT-49011)
 >
@@ -431,7 +431,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 > - 1.5.0: 非推奨レベルを警告に引き上げ
 > - 1.7.0: オプションを削除
 
-### kotlin2js および kotlin-dce-plugin プラグインを削除する
+### kotlin2js および kotlin-dce-plugin プラグインを削除する {id="remove-kotlin2js-and-kotlin-dce-plugin-plugins"}
 
 > **課題**: [KT-48276](https://youtrack.jetbrains.com/issue/KT-48276)
 >
@@ -446,7 +446,7 @@ _[言語をモダンに保つ](kotlin-evolution-principles.md)_ および _[快�
 > - 1.4.0: 非推奨レベルを警告に引き上げ
 > - 1.7.0: プラグインを削除
 
-### コンパイルタスクの変更
+### コンパイルタスクの変更 {id="changes-in-compile-tasks"}
 
 > **課題**: [KT-32805](https://youtrack.jetbrains.com/issue/KT-32805)
 >

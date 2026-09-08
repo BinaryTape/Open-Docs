@@ -4,7 +4,7 @@ Kotlin 最初设计时考虑了与 Java 平台的轻松互操作：它将 Java �
 
 然而，JavaScript 是一种动态类型语言，这意味着它在编译时不会检查类型。你可以通过 [dynamic](dynamic-type.md) 类型在 Kotlin 中自由地与 JavaScript 通信。如果你想发挥 Kotlin 类型系统的全部威力，可以为 JavaScript 库创建 external 声明，这些声明将被 Kotlin 编译器和周边工具理解。
 
-## 内联 JavaScript
+## 内联 JavaScript {id="inline-javascript"}
 
 你可以使用 [`js()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.js/js.html) 函数将 JavaScript 代码内联到 Kotlin 代码中：
 
@@ -47,7 +47,7 @@ fun runSumExample() {
 >
 {style="note"}
 
-## `external` 修饰符
+## `external` 修饰符 {id="external-modifier"}
 
 为了告诉 Kotlin 某个声明是用纯 JavaScript 编写的，你应该使用 `external` 修饰符对其进行标记。当编译器看到这样的声明时，它会假定相应类、函数或属性的实现是由外部提供的（由开发者提供或通过 [npm 依赖项](js-project-setup.md#npm-dependencies)提供），因此不会尝试从该声明生成任何 JavaScript 代码。这也是为什么 `external` 声明不能有函数体的原因。例如：
 
@@ -71,7 +71,7 @@ external val window: Window
 
 `external` 修饰符仅允许用于软件包级声明。你不能在非 `external` 类中声明 `external` 成员。
 
-### 声明类的（静态）成员
+### 声明类的（静态）成员 {id="declare-static-members-of-a-class"}
 
 在 JavaScript 中，你可以在原型或类本身上定义成员：
 
@@ -93,7 +93,7 @@ external class MyClass {
 }
 ```
 
-### 声明带有默认值的形参
+### 声明带有默认值的形参 {id="declare-parameters-with-default-values"}
 
 如果你正在为一个带有默认值形参的 JavaScript 函数编写 external 声明，请使用 `definedExternally`。这将默认值的生成委托给 JavaScript 函数本身：
 
@@ -107,7 +107,7 @@ external fun myFunWithOptionalArgs(
 
 有了这个 external 声明，你可以使用一个必选实参和两个可选实参来调用 `myFunWithOptionalArgs`，其中默认值由 `myFunWithOptionalArgs` 的 JavaScript 实现计算。
 
-### 扩展 JavaScript 类
+### 扩展 JavaScript 类 {id="extend-javascript-classes"}
 
 你可以像扩展 Kotlin 类一样轻松扩展 JavaScript 类。只需定义一个 `external open` 类，并由一个非 `external` 类扩展它。例如：
 
@@ -134,7 +134,7 @@ class Bar : Foo() {
 - 你不能重写包含带有默认值形参的函数。
 - 外部类不能扩展非外部类。
 
-### external 接口
+### external 接口 {id="external-interfaces"}
 
 JavaScript 没有接口的概念。当一个函数期望其形参支持 `foo` 和 `bar` 两个方法时，你只需传入一个实际拥有这些方法的对象即可。
 
@@ -190,7 +190,7 @@ External 接口有一些限制：
 
     IntelliJ IDEA 还可以自动生成 `@Suppress` 注解。通过灯泡图标或 Alt-Enter 打开意图菜单，然后点击 “Unchecked cast to external interface” 检查旁边的微小箭头。在这里，你可以选择抑制范围，IDE 将相应地在你的文件中添加注解。
 
-### 转换
+### 转换 {id="casts"}
 
 除了在转换不可行时会抛出 `ClassCastException` 的[“不安全”转换运算符](typecasts.md#unsafe-cast-operator) `as` 之外，Kotlin/JS 还提供了 [`unsafeCast<T>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.js/unsafe-cast.html)。使用 `unsafeCast` 时，在运行时*完全不进行类型检查*。例如，考虑以下两个方法：
 
@@ -212,7 +212,7 @@ function usingAsOperator(s) {
 }
 ```
 
-## 相等
+## 相等 {id="equality"}
 
 与其他平台相比，Kotlin/JS 在相等检查方面具有特定的语义。
 

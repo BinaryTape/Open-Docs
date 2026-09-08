@@ -8,7 +8,7 @@ Compose Multiplatform 建立在 [Jetpack Compose](https://developer.android.com/
 | Windows  | 透過 Java Access Bridge 支援 |
 | Linux    | 不支援 | 
 
-## 在 Windows 上啟用協助工具
+## 在 Windows 上啟用協助工具 {id="enabling-accessibility-on-windows"}
 
 Windows 上的協助工具是透過 Java Access Bridge 提供的，該功能預設為停用。
 若要在 Windows 上開發協助工具功能，請使用以下指令啟用 Java Access Bridge：
@@ -31,7 +31,7 @@ compose.desktop {
 }
 ```
 
-## 範例：具有語意規則的自訂按鈕
+## 範例：具有語意規則的自訂按鈕 {id="example-custom-button-with-semantic-rules"}
 
 讓我們建立一個帶有自訂按鈕的簡單應用程式，並為螢幕閱讀器工具指定說明文字。
 啟用螢幕閱讀器後，您將會聽到按鈕說明中的「Click to increment value」文字：
@@ -88,6 +88,6 @@ fun main() = singleWindowApplication(
 
 如需更多範例，請參閱 [Jetpack Compose 中的協助工具](https://developer.android.com/develop/ui/compose/accessibility) 指南。
 
-## 接下來呢？
+## 接下來呢？ {id="what-s-next"}
 
 探索有關 [其他桌面元件](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop) 的教學。

@@ -2,7 +2,7 @@
 
 모든 유형의 디바이스에서 일관된 사용자 경험을 제공하려면, 앱의 UI를 다양한 디스플레이 크기, 방향(orientation) 및 입력 모드에 맞춰 조정하십시오.
 
-## 적응형 레이아웃 설계하기
+## 적응형 레이아웃 설계하기 {id="designing-adaptive-layouts"}
 
 적응형 레이아웃을 설계할 때는 다음과 같은 주요 가이드라인을 따르십시오:
 
@@ -11,7 +11,7 @@
 * 유연성과 모듈화(modularity)를 위해 복잡한 레이아웃을 재사용 가능한 컴포저블(composables)로 분리하십시오.
 * 화면 밀도와 방향에 맞춰 조정하십시오.
 
-## 창 크기 클래스(Window size classes) 사용하기
+## 창 크기 클래스(Window size classes) 사용하기 {id="using-window-size-classes"}
 
 창 크기 클래스는 적응형 레이아웃을 설계, 개발 및 테스트하는 데 도움이 되도록 다양한 화면 크기를 분류하는 미리 정의된 임계값(중단점(breakpoints)이라고도 함)입니다.
 
@@ -48,7 +48,7 @@ fun MyApp(
 ```
 
 <!--- waiting for a page about @Preview and hot reload
-## 레이아웃 미리보기
+## 레이아웃 미리보기 {id="previewing-layouts"}
 
 세 가지 종류의 @Preview가 있습니다:
 
@@ -57,6 +57,6 @@ fun MyApp(
 * 공통 어노테이션, Android Studio에서도 지원되며 Android에서만 작동하지만 공통 코드에서 사용 가능.
 -->
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 [Jetpack Compose 문서](https://developer.android.com/develop/ui/compose/layouts/adaptive)에서 적응형 레이아웃에 대해 자세히 알아보세요.

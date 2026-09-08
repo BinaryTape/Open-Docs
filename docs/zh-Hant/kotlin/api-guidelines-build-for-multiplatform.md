@@ -9,7 +9,7 @@
 
 以下章節提供的指南可協助您有效地建置 Kotlin Multiplatform 程式庫。
 
-## 擴大觸及範圍
+## 擴大觸及範圍 {id="maximize-your-reach"}
 
 為了讓您的程式庫能作為相依性提供給最多數量的專案，
 請目標支援盡可能多的 Kotlin Multiplatform [目標平台](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#targets)。
@@ -26,7 +26,7 @@
 >
 {style="note"}
 
-## 針對通用程式碼設計 API
+## 針對通用程式碼設計 API {id="design-apis-for-use-from-common-code"}
 
 在建立程式庫時，應將 API 設計為可從通用 Kotlin 程式碼中使用，而不是編寫平台特定的實作。
 
@@ -44,7 +44,7 @@
 >
 {style="tip"}
 
-## 確保跨平台行為一致
+## 確保跨平台行為一致 {id="ensure-consistent-behavior-across-platforms"}
 
 為了確保您的程式庫在所有支援的平台上表現一致，
 多平台程式庫中的 API 應在所有平台上接受相同範圍的有效輸入、執行相同的操作，
@@ -64,7 +64,7 @@
 >
 > {style=”note”}
 
-## 在所有平台上進行測試
+## 在所有平台上進行測試 {id="test-on-all-platforms"}
 
 多平台程式庫可以擁有寫在通用程式碼中的[多平台測試](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-run-tests.html)，並在所有平台上執行。
 定期在您支援的平台上執行此通用測試套件，可確保程式庫的行為正確且一致。
@@ -74,7 +74,7 @@
 
 使用 [`kotlin-test`](https://kotlinlang.org/api/latest/kotlin.test/) 程式庫在通用程式碼中編寫測試，並使用平台特定的測試執行器執行測試。
 
-## 考慮非 Kotlin 使用者
+## 考慮非 Kotlin 使用者 {id="consider-non-kotlin-users"}
 
 Kotlin Multiplatform 在其支援的目標平台上提供與原生 API 和語言的互通性。
 建立 Kotlin Multiplatform 程式庫時，請考慮使用者是否需要從 Kotlin 以外的語言
@@ -84,7 +84,7 @@ Kotlin Multiplatform 在其支援的目標平台上提供與原生 API 和語言
 請將這些型別設計為易於從 Swift 存取。
 [Kotlin-Swift 互通性百科 (Kotlin-Swift interopedia)](https://github.com/kotlin-hands-on/kotlin-swift-interopedia) 提供了有關 Kotlin API 在從 Swift 呼叫時呈現方式的實用洞察。
 
-## 推廣您的程式庫
+## 推廣您的程式庫 {id="promote-your-library"}
 
 您可以將您的程式庫收錄在 [klibs.io](https://klibs.io/)，這是一個讓開發者尋找與評估 Kotlin Multiplatform 程式庫的搜尋平台。
 

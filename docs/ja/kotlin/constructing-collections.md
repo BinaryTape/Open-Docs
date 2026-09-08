@@ -1,6 +1,6 @@
 [//]: # (title: コレクションの作成)
 
-## 要素からの作成
+## 要素からの作成 {id="construct-from-elements"}
 
 コレクションを作成する最も一般的な方法は、標準ライブラリ関数の [`listOf<T>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/list-of.html)、[`setOf<T>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/set-of.html)、[`mutableListOf<T>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/mutable-list-of.html)、[`mutableSetOf<T>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/mutable-set-of.html) を使用することです。
 カンマ区切りのコレクション要素を引数として渡すと、コンパイラは要素の型を自動的に推論します。空のコレクションを作成する場合は、型を明示的に指定してください。
@@ -22,7 +22,7 @@ val numbersMap = mapOf("key1" to 1, "key2" to 2, "key3" to 3, "key4" to 1)
 val numbersMap = mutableMapOf<String, String>().apply { this["one"] = "1"; this["two"] = "2" }
 ```
 
-## コレクションビルダー関数による作成
+## コレクションビルダー関数による作成 {id="create-with-collection-builder-functions"}
 
 コレクションを作成するもう一つの方法は、ビルダー関数（[`buildList()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/build-list.html)、[`buildSet()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/build-set.html)、または [`buildMap()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/build-map.html)）を呼び出すことです。これらは、対応する型の新しいミュータブルなコレクションを作成し、[書き込み操作](collection-write.md)を使用して要素を追加した後、同じ要素を持つ読み取り専用のコレクションを返します。
 
@@ -36,7 +36,7 @@ val map = buildMap { // これは MutableMap<String, Int> です。キーと値�
 println(map) // {a=1, b=0, c=4}
 ```
 
-## 空のコレクション
+## 空のコレクション {id="empty-collections"}
 
 要素を持たないコレクションを作成するための関数、[`emptyList()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/empty-list.html)、[`emptySet()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/empty-set.html)、および [`emptyMap()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/empty-map.html) も用意されています。
 空のコレクションを作成する際は、そのコレクションが保持する要素の型を指定する必要があります。
@@ -45,7 +45,7 @@ println(map) // {a=1, b=0, c=4}
 val empty = emptyList<String>()
 ```
 
-## List の初期化関数
+## List の初期化関数 {id="initializer-functions-for-lists"}
 
 List には、リストのサイズと、インデックスに基づいて要素の値を定義する初期化関数（イニシャライザ）を受け取る、コンストラクタのような関数があります。
 
@@ -59,7 +59,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 具体的な型のコンストラクタ
+## 具体的な型のコンストラクタ {id="concrete-type-constructors"}
 
 `ArrayList` や `LinkedList` などの具体的な型のコレクションを作成するには、それらの型で利用可能なコンストラクタを使用できます。`Set` や `Map` の実装についても、同様のコンストラクタが利用可能です。
 
@@ -68,7 +68,7 @@ val linkedList = LinkedList<String>(listOf("one", "two", "three"))
 val presizedSet = HashSet<Int>(32)
 ```
 
-## コピー
+## コピー {id="copy"}
 
 既存のコレクションと同じ要素を持つコレクションを作成するには、コピー関数を使用できます。標準ライブラリのコレクションコピー関数は、同じ要素への参照を保持するシャローコピー（浅いコピー、shallow copy）を作成します。そのため、コレクションの要素に対して行われた変更は、そのすべてのコピーに反映されます。
 
@@ -134,7 +134,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 他のコレクションに対する関数の呼び出し
+## 他のコレクションに対する関数の呼び出し {id="invoke-functions-on-other-collections"}
 
 他のコレクションに対するさまざまな操作の結果として、新しいコレクションを作成することができます。例えば、リストを [フィルタリング](collection-filtering.md) すると、フィルタに一致する要素の新しいリストが作成されます。
 

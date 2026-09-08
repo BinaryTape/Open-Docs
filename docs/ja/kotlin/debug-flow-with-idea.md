@@ -6,7 +6,7 @@
 
 このチュートリアルは、[コルーチン](coroutines-basics.md)および [Flow](coroutines-flow.md) の概念に関する事前の知識があることを前提としています。
 
-## Kotlin Flow の作成
+## Kotlin Flow の作成 {id="create-a-kotlin-flow"}
 
 低速なエミッター（emitter）と低速なコレクター（collector）を持つ Kotlin [Flow](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/flow.html) を作成します。
 
@@ -79,7 +79,7 @@
 
     ![Build an application](flow-build-project.png)
 
-## コルーチンのデバッグ
+## コルーチンのデバッグ {id="debug-the-coroutine"}
 
 1. `emit()` 関数が呼び出されている行にブレークポイントを設定します。
 
@@ -104,7 +104,7 @@
 
     ![Debug the coroutine](flow-debug-2.png)
 
-### 最適化された変数 (Optimized-out variables)
+### 最適化された変数 (Optimized-out variables) {id="optimized-out-variables"}
 
 `suspend` 関数を使用している場合、デバッガーで変数の名前の横に "was optimized out" というテキストが表示されることがあります。
 
@@ -118,7 +118,7 @@
 >
 {style="warning"}
 
-## 並行して実行されるコルーチンの追加
+## 並行して実行されるコルーチンの追加 {id="add-a-concurrently-running-coroutine"}
 
 1. `src/main/kotlin` の `Main.kt` ファイルを開きます。
 
@@ -139,7 +139,7 @@
 
 3. **Build Project** をクリックしてコードをビルドします。
 
-## 2 つのコルーチンを使用した Kotlin Flow のデバッグ
+## 2 つのコルーチンを使用した Kotlin Flow のデバッグ {id="debug-a-kotlin-flow-with-two-coroutines"}
 
 1. `println(value)` の行に新しいブレークポイントを設定します。
 

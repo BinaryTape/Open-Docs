@@ -10,14 +10,14 @@ Koog 提供檢索增強生成 (RAG) 的建置區塊：嵌入文本、存儲已�
 
 本頁面重點介紹目前的 `rag` 模組中提供哪些功能以及如何使用。
 
-## Koog 目前提供的功能
+## Koog 目前提供的功能 {id="what-koog-provides-today"}
 
 目前對 RAG 的支援分為兩個模組：
 
 - `rag-base`：用於檢索、存儲、搜尋請求、篩選以及檔案/文件提供者的通用抽象
 - `rag-vector`：結合文件嵌入與向量存儲的本機實作
 
-## 使用 EmbeddingStorage 嵌入與檢索文件
+## 使用 EmbeddingStorage 嵌入與檢索文件 {id="embedding-and-retrieving-documents-with-embeddingstorage"}
 
 最完整的開箱即用 RAG 流程使用 `rag-vector` 模組中的 `EmbeddingStorage`。它結合了 `DocumentEmbedder`（將文件轉換為向量）與 `VectorStorageBackend`（將向量持久化）。
 
@@ -101,7 +101,7 @@ Koog 提供檢索增強生成 (RAG) 的建置區塊：嵌入文本、存儲已�
     ```
     <!--- KNIT example-retrieval-augmented-generation-java-01.java -->
 
-## 將相關性搜尋作為 Agent 工具提供（在代理式 RAG 中）
+## 將相關性搜尋作為 Agent 工具提供（在代理式 RAG 中） {id="providing-relevance-search-as-an-agent-tool-in-agentic-rag"}
 
 與其預先將所有檢索到的文件注入到提示詞中，您可以將 RAG 存儲空間公開為 Agent 根據需求呼叫的工具。這讓 Agent 能夠控制何時進行搜尋以及搜尋什麼。
 
@@ -207,20 +207,20 @@ Koog 提供檢索增強生成 (RAG) 的建置區塊：嵌入文本、存儲已�
 
 透過這種方法，Agent 會根據使用者的查詢決定何時呼叫搜尋工具。當 Agent 處理多樣化的請求，且只有其中一部分需要查詢知識庫時，這非常有用。
 
-## 可用的實作
+## 可用的實作 {id="available-implementations"}
 
-### 向量存儲後端
+### 向量存儲後端 {id="vector-storage-backends"}
 
 - `InMemoryVectorStorageBackend`：將向量存儲在記憶體中；適用於測試和原型
 - `FileVectorStorageBackend`：將向量持久化到磁碟，以便在重新啟動後保持持久性
 - `JVMFileVectorStorageBackend`：使用 `java.nio.file.Path` 的 JVM 特定檔案後端
 
-### 文件嵌入器
+### 文件嵌入器 {id="document-embedders"}
 
 - `TextDocumentEmbedder`：通用的文件對文本嵌入器，透過文件與路徑型別進行參數化
 - `JVMTextDocumentEmbedder`：從 `java.nio.file.Path` 讀取檔案的 JVM 特定嵌入器
 
-### 組合存儲實作
+### 組合存儲實作 {id="combined-storage-implementations"}
 
 - `EmbeddingStorage`：組合任何 `DocumentEmbedder` 與任何 `VectorStorageBackend`
 - `InMemoryDocumentEmbeddingStorage`：`EmbeddingStorage` + `InMemoryVectorStorageBackend` 的便利捷徑
@@ -229,7 +229,7 @@ Koog 提供檢索增強生成 (RAG) 的建置區塊：嵌入文本、存儲已�
 - `TextFileDocumentEmbeddingStorage`：文本文件的檔案型存儲
 - `JVMFileEmbeddingStorage`：JVM 文本文件的檔案型存儲
 
-## 目前的限制
+## 目前的限制 {id="current-limitations"}
 
 內建流程對於本機和參考實作非常有用，但目前還不是一個完整的生產環境 RAG 平台。
 
@@ -242,7 +242,7 @@ Koog 提供檢索增強生成 (RAG) 的建置區塊：嵌入文本、存儲已�
 
 如果您正在構建自定義後端，請從 `rag-base` 抽象開始並實作您自己的存儲配接器。
 
-## 選擇從何處開始
+## 選擇從何處開始 {id="choosing-where-to-start"}
 
 在以下情況使用 `rag-vector`：
 
@@ -256,6 +256,6 @@ Koog 提供檢索增強生成 (RAG) 的建置區塊：嵌入文本、存儲已�
 - 您想要整合外部向量資料庫
 - 您想要在另一個 Koog 模組中重用這些抽象
 
-## 另請參閱
+## 另請參閱 {id="see-also"}
 
 - [嵌入](embeddings.md)

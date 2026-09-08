@@ -1,4 +1,4 @@
-## MySQLの型
+## MySQLの型 {id="mysql-types"}
 
 SQLDelightのカラム定義は通常のMySQLのカラム定義と同じですが、生成されるインターフェースにおけるカラムのKotlinの型を指定する[追加のカラム制約](#custom-column-types)をサポートしています。
 

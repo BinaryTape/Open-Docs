@@ -6,7 +6,7 @@
 
 이 튜토리얼은 [코루틴(coroutines)](coroutines-basics.md) 및 [flow](coroutines-flow.md) 개념에 대한 사전 지식이 있다고 가정합니다.
 
-## Kotlin Flow 생성하기
+## Kotlin Flow 생성하기 {id="create-a-kotlin-flow"}
 
 느린 emitter(방출기)와 느린 collector(수집기)를 가진 Kotlin [flow](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/flow.html)를 생성합니다.
 
@@ -79,7 +79,7 @@
 
     ![애플리케이션 빌드](flow-build-project.png)
 
-## 코루틴 디버깅하기
+## 코루틴 디버깅하기 {id="debug-the-coroutine"}
 
 1. `emit()` 함수가 호출되는 라인에 중단점(breakpoint)을 설정합니다.
 
@@ -104,7 +104,7 @@
 
     ![코루틴 디버깅](flow-debug-2.png)
 
-### 최적화되어 제거된 변수 (Optimized-out variables)
+### 최적화되어 제거된 변수 (Optimized-out variables) {id="optimized-out-variables"}
 
 `suspend` 함수를 사용하는 경우, 디버거에서 변수 이름 옆에 "was optimized out"이라는 텍스트가 표시될 수 있습니다.
 
@@ -118,7 +118,7 @@
 >
 {style="warning"}
 
-## 동시 실행 코루틴 추가하기
+## 동시 실행 코루틴 추가하기 {id="add-a-concurrently-running-coroutine"}
 
 1. `src/main/kotlin`에 있는 `Main.kt` 파일을 엽니다.
 
@@ -139,7 +139,7 @@
 
 3. **Build Project**를 클릭하여 코드를 빌드합니다.
 
-## 두 개의 코루틴이 있는 Kotlin Flow 디버깅하기
+## 두 개의 코루틴이 있는 Kotlin Flow 디버깅하기 {id="debug-a-kotlin-flow-with-two-coroutines"}
 
 1. `println(value)`에 새로운 중단점을 설정합니다.
 

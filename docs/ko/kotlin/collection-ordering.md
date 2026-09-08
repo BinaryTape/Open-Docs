@@ -113,7 +113,7 @@ Kotlin 컬렉션 패키지는 자연 순서, 사용자 정의 순서, 그리고 
 이 함수들은 원본 컬렉션의 요소를 요청된 순서대로 포함하는 새로운 컬렉션으로 결과를 반환합니다. 
 [가변(mutable)](collections-overview.md#collection-types) 컬렉션을 제자리(in-place)에서 정렬하는 함수에 대해 알아보려면 [리스트 전용 연산](list-operations.md#sort)을 참조하세요.
 
-## 자연 순서 (Natural order)
+## 자연 순서 (Natural order) {id="natural-order"}
 
 기본 함수인 [`.sorted()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/sorted.html)와 [`.sortedDescending()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/sorted-descending.html)은 자연 순서에 따라 요소를 오름차순 또는 내림차순으로 정렬하여 반환합니다. 
 이 함수들은 `Comparable` 요소들로 구성된 컬렉션에 적용됩니다.
@@ -130,7 +130,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 사용자 정의 순서 (Custom orders)
+## 사용자 정의 순서 (Custom orders) {id="custom-orders"}
  
 사용자 정의 순서로 정렬하거나 비교 불가능한 객체를 정렬하기 위해 [`.sortedBy()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/sorted-by.html)와 [`.sortedByDescending()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/sorted-by-descending.html) 함수가 있습니다. 
 이 함수들은 컬렉션 요소를 `Comparable` 값으로 매핑하는 선택자(selector) 함수를 인자로 받아, 해당 값의 자연 순서대로 컬렉션을 정렬합니다.
@@ -163,7 +163,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 정렬 순서 확인 (Check sorted order)
+## 정렬 순서 확인 (Check sorted order) {id="check-sorted-order"}
 
 요소가 이미 지정된 순서를 따르고 있는지 확인하기 위해 다음과 같은 확장 함수를 사용할 수 있습니다:
 
@@ -219,7 +219,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.4"}
 
-## 역순 (Reverse order)
+## 역순 (Reverse order) {id="reverse-order"}
 
 [`.reversed()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/reversed.html) 함수를 사용하여 컬렉션을 역순으로 가져올 수 있습니다. 
 
@@ -266,7 +266,7 @@ fun main() {
 
 하지만 리스트의 가변 여부를 알 수 없거나 소스가 리스트가 아닌 경우, 결과가 나중에 변경되지 않는 복사본인 `.reversed()`를 사용하는 것이 더 바람직합니다.
 
-## 무작위 순서 (Random order)
+## 무작위 순서 (Random order) {id="random-order"}
 
 마지막으로, 컬렉션 요소를 무작위 순서로 포함하는 새로운 `List`를 반환하는 [`.shuffled()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/shuffled.html) 함수가 있습니다. 
 인자 없이 호출하거나 [`Random`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.random/-random/index.html) 객체를 전달하여 호출할 수 있습니다.

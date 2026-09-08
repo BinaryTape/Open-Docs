@@ -24,11 +24,11 @@ fun generate(toolDescriptor: ToolDescriptor): JsonObject
 ```
 <!--- KNIT example-tool-descriptor-schemer-01.kt -->
 
-## 为什么要使用它
+## 为什么要使用它 {id="why-use-it"}
 
 如果你想在 Kotlin 或 Java 中为现有或新的 LLM 提供者提供自定义架构，请实现此接口以将 Koog 的 `ToolDescriptor` 转换为预期的 JSON Schema 格式。
 
-## 实现示例
+## 实现示例 {id="implementation-example"}
 
 以下是 Kotlin 和 Java 的最小化自定义实现，仅呈现形参类型的子集，以说明如何接入 SPI。实际实现应涵盖所有 `ToolParameterType`（String、Integer、Float、Boolean、Null、Enum、List、Object、AnyOf）。
 
@@ -133,7 +133,7 @@ fun generate(toolDescriptor: ToolDescriptor): JsonObject
     ```
     <!--- KNIT example-tool-descriptor-schemer-java-01.java -->
 
-## 在客户端中使用
+## 在客户端中使用 {id="using-with-a-client"}
 
 通常情况下，你不需要直接调用 schemer。Koog 客户端接受 `ToolDescriptor` 对象列表，并在序列化提供者请求时在内部应用正确的 schemer。
 

@@ -6,7 +6,7 @@ Koog의 모든 LLM 클라이언트는 프레임워크가 프로바이더와 통�
 
 Ktor, JDK `HttpClient`, OkHttp, Spring `WebClient` 등 네 가지 백엔드 팩토리가 기본으로 제공되며, 직접 구현할 수도 있습니다.
 
-## 작동 방식
+## 작동 방식 {id="how-it-works"}
 
 하나의 팩토리가 모든 프로바이더에 작동하므로, 백엔드를 한 번 선택하면 여러 클라이언트에서 사용할 수 있습니다.
 
@@ -69,7 +69,7 @@ Ktor, JDK `HttpClient`, OkHttp, Spring `WebClient` 등 네 가지 백엔드 팩�
     ```
     <!--- KNIT example-http-clients-java-01.java -->
 
-## 지원되는 HTTP 클라이언트 종류
+## 지원되는 HTTP 클라이언트 종류 {id="supported-http-client-flavors"}
 
 | 모듈                                                                    | 참고 사항                                              |
 |-------------------------------------------------------------------------|----------------------------------------------------|
@@ -78,7 +78,7 @@ Ktor, JDK `HttpClient`, OkHttp, Spring `WebClient` 등 네 가지 백엔드 팩�
 | [`http-client-okhttp`](api:http-client-okhttp::)                        | OkHttp를 기반으로 합니다. Android 친화적입니다.                |
 | [`http-client-spring-webclient`](api:http-client-spring-webclient::)    | Spring `WebClient`를 기반으로 합니다.                      |
 
-## 편의 API 및 팩토리 자동 감지
+## 편의 API 및 팩토리 자동 감지 {id="convenience-apis-and-factory-auto-discovery"}
 
 JVM 및 Android에서는 팩토리를 명시적으로 전달하지 않고도 각 LLM 클라이언트를 생성할 수 있습니다.
 
@@ -126,12 +126,12 @@ JVM 및 Android에서는 팩토리를 명시적으로 전달하지 않고도 각
 
 현재 KMP에서는 자동 감지가 지원되지 않으므로, JVM 이외의 환경에서는 이러한 편의 메서드를 사용할 수 없습니다. `commonMain`에서는 `Factory`를 명시적으로 전달하십시오.
 
-### 자동 감지 시 주의사항
+### 자동 감지 시 주의사항 {id="auto-discovery-gotchas"}
 
 - **런타임 클래스패스에 백엔드가 없는 경우** → 첫 번째 확인 시 `IllegalStateException`이 발생합니다. 런타임 클래스패스에 백엔드 모듈을 추가하거나 `Factory`를 명시적으로 전달하십시오.
 - **두 개 이상의 백엔드가 있는 경우** → 동일한 예외가 발생하며, 메시지에는 발견된 프로바이더들의 이름이 표시됩니다. Gradle을 사용하여 하나를 제외한 나머지를 제외(`exclude(module = "http-client-ktor")` 등)하거나 호출 시점에서 `Factory`를 명시적으로 전달하십시오.
 
-## 커스텀 백엔드
+## 커스텀 백엔드 {id="custom-backends"}
 
 `KoogHttpClient.Factory`를 구현하는 모든 클래스를 사용할 수 있습니다. JVM에서 자동 감지가 가능하게 하려면 이를 `ServiceLoader` 프로바이더로 등록하십시오:
 

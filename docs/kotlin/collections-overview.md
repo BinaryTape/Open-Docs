@@ -20,7 +20,7 @@ Kotlin 允许你操作集合，而无需关心其中存储的对象的确切类�
 >
 {style="note"}
 
-## 集合类型
+## 集合类型 {id="collection-types"}
 
 Kotlin 标准库提供了基本集合类型的实现：set、list 和 map。每种集合类型都由一对接口表示：
 
@@ -54,7 +54,7 @@ fun main() {
 
 <video src="https://www.youtube.com/v/F8jj7e-_jFA" title="Kotlin 集合概览"/>
 
-### Collection
+### Collection {id="collection"}
 
 [`Collection<T>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-collection/index.html) 是集合层次结构的根。该接口表示只读集合的共同行为：检索大小、检查条目成员资格等。`Collection` 继承自 `Iterable<T>` 接口，后者定义了迭代元素的操作。你可以将 `Collection` 用作适用于不同集合类型的函数的参数。对于更具体的情况，请使用 `Collection` 的继承者：[`List`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html) 和 [`Set`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-set/index.html)。
 
@@ -93,7 +93,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### List
+### List {id="list"}
 
 [`List<T>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html) 以指定顺序存储元素，并提供对它们的索引访问。索引从零（第一个元素的索引）开始，一直到 `lastIndex`，即 `(list.size - 1)`。
 
@@ -148,7 +148,7 @@ fun main() {
 
 在 Kotlin 中，`MutableList` 的默认实现是 [`ArrayList`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-list/index.html)，你可以将其视为可调大小的数组。
 
-### Set
+### Set {id="set"}
 
 [`Set<T>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-set/index.html) 存储唯一的元素；它们的顺序通常是未定义的。`null` 元素也是唯一的：一个 `Set` 只能包含一个 `null`。如果两个 set 大小相同，并且对于其中一个 set 的每个元素，在另一个 set 中都有一个相等的元素，则这两个 set 相等。
 
@@ -185,7 +185,7 @@ fun main() {
 
 另一种替代实现 —— [`HashSet`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-hash-set/index.html) —— 不对元素顺序做任何保证，因此在其上调用此类函数会返回不可预测的结果。然而，`HashSet` 存储相同数量的元素所需的内存更少。
 
-### Map
+### Map {id="map"}
 
 [`Map<K, V>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html) 并不是 `Collection` 接口的继承者；但它也是一种 Kotlin 集合类型。Map 存储键值对（或条目）；键是唯一的，但不同的键可以与相等的值配对。`Map` 接口提供了特定的函数，例如通过键访问值、搜索键和值等。
 
@@ -235,7 +235,7 @@ fun main() {
 
 `MutableMap` 的默认实现 —— [`LinkedHashMap`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-linked-hash-map/index.html) —— 在迭代 map 时保留元素插入的顺序。反之，另一种实现 —— [`HashMap`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-hash-map/index.html) —— 不对元素顺序做任何保证。
 
-### ArrayDeque
+### ArrayDeque {id="arraydeque"}
 
 [`ArrayDeque<T>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-deque/) 是双端队列的实现，允许你在队列的开头或结尾添加或移除元素。因此，`ArrayDeque` 在 Kotlin 中同时充当了栈和队列数据结构的角色。在幕后，`ArrayDeque` 是使用可调大小的数组实现的，该数组会在需要时自动调整大小：
 

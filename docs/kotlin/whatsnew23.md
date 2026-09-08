@@ -27,7 +27,7 @@ Kotlin 2.3.0 版本正式发布！以下是主要亮点：
 > 
 {style="tip"}
 
-## IDE 支持
+## IDE 支持 {id="ide-support"}
 
 支持 2.3.0 的 Kotlin 插件已捆绑在最新版本的 IntelliJ IDEA 和 Android Studio 中。
 您无需在 IDE 中更新 Kotlin 插件。
@@ -35,11 +35,11 @@ Kotlin 2.3.0 版本正式发布！以下是主要亮点：
 
 有关详细信息，请参阅[更新到新版本](releases.md#update-to-a-new-kotlin-version)。
 
-## 语言
+## 语言 {id="language"}
 
 Kotlin 2.3.0 专注于功能稳定化，引入了一种用于检测未使用返回值的新机制，并改进了上下文相关解析。
 
-### 稳定功能
+### 稳定功能 {id="stable-features"}
 
 在之前的 Kotlin 版本中，有几个新语言功能作为实验性和 Beta 版引入。
 以下功能现已在 Kotlin 2.3.0 中晋升为[稳定版](components-stability.md#stability-levels-explained)：
@@ -47,13 +47,13 @@ Kotlin 2.3.0 专注于功能稳定化，引入了一种用于检测未使用返�
 * [支持嵌套类型别名](whatsnew22.md#support-for-nested-type-aliases)
 * [针对 `when` 表达式的基于数据流的穷举性检查](whatsnew2220.md#data-flow-based-exhaustiveness-checks-for-when-expressions)
 
-### 默认启用的功能
+### 默认启用的功能 {id="features-enabled-by-default"}
 
 在 Kotlin 2.3.0 中，支持[带有显式返回值类型的表达式体中的 `return` 语句](whatsnew2220.md#support-for-return-statements-in-expression-bodies-with-explicit-return-types)现在已默认启用。
 
 [查看 Kotlin 语言功能和提案的完整列表](kotlin-language-features-and-proposals.md)。
 
-### 未使用的返回值检查器
+### 未使用的返回值检查器 {id="unused-return-value-checker"}
 <primary-label ref="experimental-general"/>
 
 Kotlin 2.3.0 引入了未使用的返回值检查器，以帮助防止忽略结果。
@@ -212,7 +212,7 @@ fun main() {
 
 我们欢迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-12719) 中提供反馈。
 
-### 显式支持字段
+### 显式支持字段 {id="explicit-backing-fields"}
 <primary-label ref="experimental-opt-in"/>
 
 Kotlin 2.3.0 引入了显式支持字段——这是一种用于显式声明持有属性值的底层字段的新语法，与现有的隐式支持字段相对。
@@ -290,7 +290,7 @@ kotlin {
 
 我们欢迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-14663) 中提供反馈。
 
-### 上下文相关解析的更改
+### 上下文相关解析的更改 {id="changes-to-context-sensitive-resolution"}
 <primary-label ref="experimental-general"/>
 
 上下文相关解析仍处于[实验性阶段](components-stability.md#stability-levels-explained)，但我们正在根据用户反馈不断改进该功能：
@@ -300,15 +300,15 @@ kotlin {
 
 请在 [KEEP](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0379-context-sensitive-resolution.md) 中查看当前提案的全文。
 
-## Kotlin/JVM：支持 Java 25
+## Kotlin/JVM：支持 Java 25 {id="kotlin-jvm-support-for-java-25"}
 
 从 Kotlin 2.3.0 开始，编译器可以生成包含 Java 25 字节码的类。
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 Kotlin 2.3.0 引入了对 Swift 导出支持以及 C 和 Objective-C 库导入的改进，并增强了发布任务的构建时间。
 
-### 通过 Swift 导出改进互操作性
+### 通过 Swift 导出改进互操作性 {id="improved-interop-through-swift-export"}
 <primary-label ref="experimental-general"/>
 
 Kotlin 2.3.0 通过 Swift 导出进一步改进了 Kotlin 与 Swift 的互操作性，增加了对原生枚举类和可变参数函数参数的支持。
@@ -353,7 +353,7 @@ public func log(messages: Swift.String...)
 >
 {style="note"}
 
-### C 和 Objective-C 库导入进入 Beta 阶段
+### C 和 Objective-C 库导入进入 Beta 阶段 {id="c-and-objective-c-library-import-is-in-beta"}
 <primary-label ref="beta"/>
 
 对在 Kotlin/Native 项目中[导入 C](native-c-interop.md) 和 [Objective-C](native-objc-interop.md) 库的支持目前处于 [Beta](components-stability.md#stability-levels-explained) 阶段。
@@ -369,7 +369,7 @@ public func log(messages: Swift.String...)
 
 有关更多信息，请参阅 [C 和 Objective-C 库导入的稳定性](native-lib-import-stability.md)。
 
-### Objective-C 标头中块类型的默认显式名称
+### Objective-C 标头中块类型的默认显式名称 {id="default-explicit-names-in-block-types-for-objective-c-headers"}
 
 [Kotlin 2.2.20 中引入](whatsnew2220.md#explicit-names-in-block-types-for-objective-c-headers)的 Kotlin 函数类型中的显式形参名称，现在是 Kotlin/Native 项目导出的 Objective-C 标头的默认设置。这些形参名称改进了 Xcode 中的自动补全建议，并有助于避免 Clang 警告。
 
@@ -398,7 +398,7 @@ kotlin.native.binary.objcExportBlockExplicitParameterNames=false
 
 请在 [YouTrack](https://kotl.in/issue) 中报告任何问题。
 
-### 提高发布任务的构建时间
+### 提高发布任务的构建时间 {id="faster-build-time-for-release-tasks"}
 
 Kotlin/Native 在 2.3.0 中获得了多项性能改进。这缩短了 `linkRelease*`（例如 `linkReleaseFrameworkIosArm64`）等发布任务的构建时间。
 
@@ -406,7 +406,7 @@ Kotlin/Native 在 2.3.0 中获得了多项性能改进。这缩短了 `linkRelea
 
 有关提高项目编译时间的更多提示，请参阅[文档](native-improving-compilation-time.md)。
 
-### Apple 目标支持的更改
+### Apple 目标支持的更改 {id="changes-to-apple-target-support"}
 
 Kotlin 2.3.0 提高了 Apple 目标的最低支持版本：
 
@@ -436,11 +436,11 @@ kotlin {
 
 有关更多信息，请参阅 [Kotlin/Native 目标支持](native-target-support.md)。
 
-## Kotlin/Wasm
+## Kotlin/Wasm {id="kotlin-wasm"}
 
 Kotlin 2.3.0 默认启用 Kotlin/Wasm 目标的完全限定名称、`wasmWasi` 目标的新异常处理提案，并引入了 Latin-1 字符的紧凑存储。
 
-### 默认启用完全限定名称
+### 默认启用完全限定名称 {id="fully-qualified-names-enabled-by-default"}
 
 在 Kotlin/Wasm 目标上，完全限定名称 (FQN) 在运行时默认未启用。
 您必须手动启用对 `KClass.qualifiedName` 属性的支持才能使用 FQN。
@@ -454,7 +454,7 @@ Kotlin 2.3.0 默认启用 Kotlin/Wasm 目标的完全限定名称、`wasmWasi` �
 
 得益于编译器优化（通过对 Latin-1 字符串文字使用紧凑存储来减少元数据），此更改不会增加编译后的 Wasm 二进制文件的大小。
 
-### Latin-1 字符的紧凑存储
+### Latin-1 字符的紧凑存储 {id="compact-storage-for-latin-1-characters"}
 
 以前，Kotlin/Wasm 按原样存储字符串文字数据，这意味着每个字符都以 UTF-16 编码。对于仅包含或主要包含 Latin-1 字符的文本，这并不是最优的。
 
@@ -469,7 +469,7 @@ Kotlin 2.3.0 默认启用 Kotlin/Wasm 目标的完全限定名称、`wasmWasi` �
 
 此更改默认启用，无需进一步操作。
 
-### `wasmWasi` 默认启用新的异常处理提案
+### `wasmWasi` 默认启用新的异常处理提案 {id="new-exception-handling-proposal-enabled-by-default-for-wasmwasi"}
 
 以前，Kotlin/Wasm 对所有目标（包括 [`wasmWasi`](wasm-overview.md#kotlin-wasm-and-wasi)）都使用[旧版异常处理提案](https://github.com/WebAssembly/exception-handling/blob/master/proposals/exception-handling/legacy/Exceptions.md)。然而，大多数独立的 WebAssembly 虚拟机 (VM) 正在向[新版本的异常处理提案](https://github.com/WebAssembly/exception-handling/blob/main/proposals/exception-handling/Exceptions.md)看齐。
 
@@ -479,13 +479,13 @@ Kotlin 2.3.0 默认启用 Kotlin/Wasm 目标的完全限定名称、`wasmWasi` �
 
 新的异常处理提案在 [`wasmJs` 目标](wasm-overview.md#kotlin-wasm-and-compose-multiplatform)上仍默认关闭。您可以使用 `-Xwasm-use-new-exception-proposal` 编译器选项手动启用它。
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
 Kotlin 2.3.0 带来了将挂起函数导出到 JavaScript 的实验性支持，以及使用 `BigInt64Array` 类型来表示 Kotlin 的 `LongArray` 类型。
 
 在此版本中，您现在可以以统一的方式访问接口内部的伴生对象，在带有伴生对象的接口中使用 `@JsStatic` 注解，在单个函数和类中使用 `@JsQualifier` 注解，并通过新注解 `@JsExport.Default` 进行默认导出。
 
-### 使用 `JsExport` 导出挂起函数
+### 使用 `JsExport` 导出挂起函数 {id="new-export-of-suspend-function-with-jsexport"}
 <primary-label ref="experimental-opt-in"/>
 
 以前，`@JsExport` 注解不允许将挂起函数（或包含此类函数的类和接口）导出到 JavaScript。您必须手动包装每个挂起函数，这既繁琐又容易出错。
@@ -525,7 +525,7 @@ class Bar extends Foo {
 
 此功能是[实验性功能](components-stability.md#stability-levels-explained)。我们欢迎您在我们的问题跟踪器 [YouTrack](https://youtrack.jetbrains.com/issue/KT-56281/KJS-Cant-export-suspend-functions) 中提供反馈。
 
-### 使用 `BigInt64Array` 类型表示 Kotlin 的 `LongArray` 类型
+### 使用 `BigInt64Array` 类型表示 Kotlin 的 `LongArray` 类型 {id="usage-of-the-bigint64array-type-to-represent-kotlin-s-longarray-type"}
 <primary-label ref="experimental-opt-in"/>
 
 以前，Kotlin/JS 将其 `LongArray` 表示为 JavaScript 的 `Array<bigint>`。这种方法可行，但对于期望使用类型化数组的 JavaScript API 互操作来说并不是理想的。
@@ -549,7 +549,7 @@ kotlin {
 
 此功能是[实验性功能](components-stability.md#stability-levels-explained)。我们欢迎您在我们的问题跟踪器 [YouTrack](https://youtrack.jetbrains.com/issue/KT-79284/Use-BigInt64Array-for-LongArray) 中提供反馈。
 
-### 跨 JS 模块系统的统一伴生对象访问
+### 跨 JS 模块系统的统一伴生对象访问 {id="unified-companion-object-access-across-js-module-systems"}
 
 以前，当您使用 `@JsExport` 注解将带有伴生对象的 Kotlin 接口导出到 JavaScript/TypeScript 时，在 TypeScript 中使用该接口时，ES 模块与其他模块系统的工作方式不同。
 
@@ -606,7 +606,7 @@ KtList.fromJsArray([1, 2, 3])
 
 此功能默认启用。
 
-### 支持带有伴生对象的接口中的 `@JsStatic` 注解
+### 支持带有伴生对象的接口中的 `@JsStatic` 注解 {id="support-for-jsstatic-annotations-in-interfaces-with-companion-objects"}
 
 以前，导出的带有伴生对象的接口内部不允许使用 `@JsStatic` 注解。
 
@@ -641,7 +641,7 @@ Foo.bar()
 
 此功能默认启用。
 
-### 允许在单个函数和类中使用 `@JsQualifier` 注解
+### 允许在单个函数和类中使用 `@JsQualifier` 注解 {id="jsqualifier-annotation-allowed-in-individual-functions-and-classes"}
 
 以前，您只能在文件级应用 `@JsQualifier` 注解，这要求将所有外部 JavaScript (JS) 声明放在单独的文件中。
 
@@ -658,7 +658,7 @@ private external fun jsFun()
 
 此功能默认启用。
 
-### 支持 JavaScript 默认导出
+### 支持 JavaScript 默认导出 {id="support-for-javascript-default-exports"}
 
 以前，Kotlin/JS 无法从 Kotlin 代码生成 JavaScript 的默认导出。相反，Kotlin/JS 仅生成命名导出，例如：
 
@@ -694,7 +694,7 @@ export default HelloWorker;
 
 此功能默认启用。您只需要使用 `@JsExport.Default` 注解。
 
-## Gradle
+## Gradle {id="gradle"}
 
 Kotlin 2.3.0 与 Gradle 7.6.3 至 9.0.0 完全兼容。您也可以使用截至最新发布的 Gradle 版本。但请注意，这样做可能会导致弃用警告，并且某些新的 Gradle 功能可能无法工作。
 
@@ -702,7 +702,7 @@ Kotlin 2.3.0 与 Gradle 7.6.3 至 9.0.0 完全兼容。您也可以使用截至�
 
 Kotlin 2.3.0 还引入了一个用于在 Gradle 项目中注册生成源的新 API。
 
-### 在 Gradle 项目中注册生成源的新 API
+### 在 Gradle 项目中注册生成源的新 API {id="new-api-for-registering-generated-sources-in-gradle-projects"}
 <primary-label ref="experimental-general"/>
 
 Kotlin 2.3.0 在 [`KotlinSourceSet`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-source-set/) 接口中引入了一个新的[实验性](components-stability.md#stability-levels-explained) API，您可以使用它在 Gradle 项目中注册生成源。
@@ -711,11 +711,11 @@ Kotlin 2.3.0 在 [`KotlinSourceSet`](https://kotlinlang.org/api/kotlin-gradle-pl
 
 有关更多信息，请参阅[注册生成源](gradle-configure-project.md#register-generated-sources)。
 
-## 标准库
+## 标准库 {id="standard-library"}
 
 Kotlin 2.3.0 稳定了新的时间跟踪功能 [`kotlin.time.Clock` 和 `kotlin.time.Instant`](whatsnew2120.md#new-time-tracking-functionality)，并对实验性 UUID API 进行了多项改进。
 
-### 改进的 UUID 生成和解析
+### 改进的 UUID 生成和解析 {id="improved-uuid-generation-and-parsing"}
 <primary-label ref="experimental-opt-in"/>
 
 Kotlin 2.3.0 为 UUID API 引入了多项改进，包括：
@@ -762,7 +762,7 @@ kotlin {
 
 我们欢迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-81395) 或相关的 [Slack 频道](https://slack-chats.kotlinlang.org/c/uuid)中提供反馈。
 
-#### 支持在解析无效 UUID 时返回 `null`
+#### 支持在解析无效 UUID 时返回 `null` {id="support-for-returning-null-when-parsing-invalid-uuids"}
 
 Kotlin 2.3.0 引入了从字符串创建 `Uuid` 实例的新函数，如果字符串不是有效的 UUID，这些函数将返回 `null` 而不是抛出异常。
 
@@ -799,7 +799,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-#### 用于生成 v4 和 v7 UUID 的新函数
+#### 用于生成 v4 和 v7 UUID 的新函数 {id="new-functions-to-generate-v4-and-v7-uuids"}
 
 Kotlin 2.3.0 引入了两个用于生成 UUID 的新函数：`Uuid.generateV4()` 和 `Uuid.generateV7()`。
 
@@ -832,7 +832,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-#### 支持为特定时间戳生成 v7 UUID
+#### 支持为特定时间戳生成 v7 UUID {id="support-for-generating-v7-uuids-for-specific-timestamps"}
 
 Kotlin 2.3.0 引入了新的 `Uuid.generateV7NonMonotonicAt()` 函数，您可以使用它为特定时间点生成版本 7 UUID。
 
@@ -861,7 +861,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-## Compose 编译器：针对混淆后的 Android 应用程序的堆栈跟踪
+## Compose 编译器：针对混淆后的 Android 应用程序的堆栈跟踪 {id="compose-compiler-stack-traces-for-minified-android-applications"}
 
 从 Kotlin 2.3.0 开始，当应用程序由 R8 混淆时，编译器会为 Compose 堆栈跟踪输出 ProGuard 映射。这扩展了以前仅在可调试变体中可用的实验性堆栈跟踪功能。
 
@@ -904,7 +904,7 @@ composeCompiler {
 
 请将遇到的任何问题报告给 [Google IssueTracker](https://issuetracker.google.com/issues/new?component=610764&template=1424126)。
 
-## 破坏性更改和弃用
+## 破坏性更改和弃用 {id="breaking-changes-and-deprecations"}
 
 本节重点介绍重要的破坏性更改和弃用。
 如需完整概览，请参阅我们的[兼容性指南](compatibility-guide-23.md)。
@@ -922,7 +922,7 @@ composeCompiler {
 
 * 不再支持 Ant 构建系统。
 
-## 文档更新
+## 文档更新 {id="documentation-updates"}
 
 Kotlin 多平台文档已移动到 kotlinlang.org。现在您可以在一处切换 Kotlin 和 KMP 文档。我们还刷新了语言指南的目录并引入了新的导航。
 
@@ -942,7 +942,7 @@ Kotlin 多平台文档已移动到 kotlinlang.org。现在您可以在一处切�
 * [使用 Kotlin 测试 Java 代码](jvm-test-using-junit.md) – 使用 JUnit 测试混合了 Java 和 Kotlin 的项目。
 * [新的案例研究页面](https://kotlinlang.org/case-studies/) – 了解不同公司如何应用 Kotlin。
 
-## 如何更新到 Kotlin 2.3.0
+## 如何更新到 Kotlin 2.3.0 {id="how-to-update-to-kotlin-2-3-0"}
 
 Kotlin 插件作为捆绑插件在 IntelliJ IDEA 和 Android Studio 中分发。
 

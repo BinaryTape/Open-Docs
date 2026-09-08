@@ -44,7 +44,7 @@ import io.opentelemetry.exporter.otlp.trace.OtlpGrpcSpanExporter
 
 ```
 
-## 設定 OpenTelemetry 匯出器
+## 設定 OpenTelemetry 匯出器 {id="configure-opentelemetry-exporters"}
 
 在下一個資料格中，我們：
 - 建立一個 Koog AIAgent
@@ -75,7 +75,7 @@ val agent = AIAgent(
 }
 ```
 
-## 執行代理程式並在 Jaeger 中查看追蹤
+## 執行代理程式並在 Jaeger 中查看追蹤 {id="run-the-agent-and-view-traces-in-jaeger"}
 
 執行下一個資料格以觸發一個簡單的提示詞。您應該會看到：
 - 來自 LoggingSpanExporter 的主控台 span 記錄
@@ -99,7 +99,7 @@ Check Jaeger UI at http://localhost:16686 to view traces"
 }
 ```
 
-## 清理與疑難排解
+## 清理與疑難排解 {id="cleanup-and-troubleshooting"}
 
 完成後：
 

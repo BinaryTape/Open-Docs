@@ -6,7 +6,7 @@ Kotlin/Native 編譯器使用 [LLVM](https://llvm.org/) 來針對不同目標平
 
 您可以自訂 Kotlin/Native 使用 LLVM 的方式，並調整最佳化階段（optimization passes）清單。
 
-## 檢查組建記錄
+## 檢查組建記錄 {id="examine-the-build-log"}
 
 讓我們看看組建記錄，以了解有多少編譯時間花費在 LLVM 最佳化階段上：
 
@@ -81,7 +81,7 @@ Kotlin/Native 編譯器執行兩個獨立的 LLVM 最佳化序列：模組階段
 
 在上述記錄中，這兩個 LLVM 最佳化分別是 `ModuleBitcodeOptimization` 和 `LTOBitcodeOptimization`。格式化的表格是最佳化的輸出，包含每個階段的耗時。
 
-## 自訂 LLVM 最佳化階段
+## 自訂 LLVM 最佳化階段 {id="customize-llvm-optimization-passes"}
 
 如果上述其中一個階段看起來耗時長得不合理，您可以跳過它。但是，這可能會損害執行期效能，因此事後您應該檢查效能基準測試的效能變化。
 

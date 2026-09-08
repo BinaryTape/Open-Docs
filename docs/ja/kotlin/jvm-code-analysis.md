@@ -4,7 +4,7 @@
 
 コード品質ツールは、コーディング標準の適用、バグの早期検出、テストカバレッジの測定、および Kotlin プロジェクト全体のコード品質の維持に役立ちます。このガイドでは、[ktlint](https://ktlint.github.io/ktlint/latest/)、[detekt](https://detekt.dev/)、[SonarQube](https://www.sonarsource.com/products/sonarqube/)、[SonarCloud](https://www.sonarsource.com/products/sonarcloud/)、[Kover](https://kotlin.github.io/kotlinx-kover/) などの一般的なツールを、Maven または Gradle を使用したバックエンドプロジェクトに統合する方法を紹介します。
 
-## ktlint によるコードフォーマット
+## ktlint によるコードフォーマット {id="code-formatting-with-ktlint"}
 
 [ktlint](https://github.com/ktlint/ktlint) は、追加の設定なしで Kotlin 公式の[コーディング規約](coding-conventions.md)を適用する Kotlin リンターおよびフォーマッターです。
 
@@ -103,7 +103,7 @@ ktlint をプロジェクトに統合するには、以下の手順に従いま�
 
 利用可能な機能やルールの詳細については、[ktlint ドキュメント](https://github.com/ktlint/ktlint/tree/master/documentation)を参照してください。
 
-## detekt によるコード解析
+## detekt によるコード解析 {id="code-analysis-with-detekt"}
 
 [detekt](https://github.com/detekt/detekt) は Kotlin 用の静的コード解析ツールで、コードスメル（code smells）、複雑性の問題、潜在的なバグを検出します。
 
@@ -241,7 +241,7 @@ detekt は、すべてのルール違反を深刻度、ファイルの場所、�
 
 詳細については、[Gradle](https://detekt.dev/docs/intro) および [Maven](https://github.com/Ozsie/detekt-maven-plugin) の detekt ドキュメントを参照してください。
 
-## SonarSource によるコード品質
+## SonarSource によるコード品質 {id="code-quality-with-sonarsource"}
 
 SonarSource の [SonarQube](https://github.com/SonarSource/sonarqube) および [SonarCloud](https://github.com/marketplace/sonarcloud) は、バグ検出、脆弱性スキャン、Web ダッシュボードによるコードカバレッジ追跡など、Kotlin プロジェクト向けの深い静的解析を提供します。
 
@@ -364,7 +364,7 @@ SonarQube でプロジェクトを解析するには、以下の手順に従い�
 
 詳細については、[SonarSource ドキュメント](https://docs.sonarsource.com/)を参照してください。
 
-## Kover によるコードカバレッジ
+## Kover によるコードカバレッジ {id="code-coverage-with-kover"}
 
 [Kover](https://github.com/Kotlin/kotlinx-kover) は、JetBrains 公式の Kotlin 用コードカバレッジツールです。コードのどの行や分岐がテストによってカバーされているかを測定し、人間が読める形式のレポートを生成します。
 
@@ -498,7 +498,7 @@ Kover をプロジェクトに統合するには、以下の手順に従いま�
 
 検証ルールの設定に関する詳細については、[Maven](https://kotlin.github.io/kotlinx-kover/maven-plugin/) および [Gradle](https://kotlin.github.io/kotlinx-kover/gradle-plugin/) の Kover ドキュメントを参照してください。
 
-## その他のツール
+## その他のツール {id="other-tools"}
 
 ktlint、detekt、SonarQube、SonarCloud、Kover の他にも、Kotlin のコード品質を向上させるためのツールを試してみてください。
 
@@ -508,7 +508,7 @@ ktlint、detekt、SonarQube、SonarCloud、Kover の他にも、Kotlin のコー
 | [Semgrep](https://semgrep.dev/docs/)      | カスタムルールをサポートする、高速で軽量な静的解析ツール。Kotlin コードにおけるパターンの強制やアンチパターンの検出に使用できます。 |
 | [PMD](https://docs.pmd-code.org/latest/)  | Kotlin をサポートし（CPD コピペ検出器経由）、一般的なプログラミングの欠陥や重複コードを検出するソースコードアナライザー。 |
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [Maven プロジェクトでのテストの実行](jvm-test-maven.md)
 * [Maven を使用した Kotlin プロジェクトの設定](maven-configure-project.md)

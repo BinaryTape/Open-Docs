@@ -14,7 +14,7 @@
 
 각 컬렉션 타입은 가변(mutable)이거나 읽기 전용(read-only)일 수 있습니다.
 
-## 리스트(List)
+## 리스트(List) {id="list"}
 
 리스트는 아이템이 추가된 순서대로 저장하며, 중복된 아이템을 허용합니다. 
 
@@ -129,7 +129,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-list-add-remove"}
 
-## 셋(Set)
+## 셋(Set) {id="set"}
 
 리스트가 순서가 있고 중복 아이템을 허용하는 것과 달리, 셋은 **순서가 없고** **고유한(unique)** 아이템만 저장합니다.
 
@@ -211,7 +211,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-set-add-remove"}
 
-## 맵(Map)
+## 맵(Map) {id="map"}
 
 맵은 아이템을 키-값(key-value) 쌍으로 저장합니다. 키를 참조하여 값에 접근합니다. 맵은 음식 메뉴판과 같다고 생각할 수 있습니다. 먹고 싶은 음식(키)을 찾으면 가격(값)을 찾을 수 있습니다. 맵은 리스트처럼 숫자 인덱스를 사용하지 않고 값을 찾고 싶을 때 유용합니다.
 
@@ -386,9 +386,9 @@ fun main() {
 
 기본 타입과 컬렉션을 관리하는 방법을 익혔으니, 이제 프로그램에서 사용할 수 있는 [제어 흐름(control flow)](kotlin-tour-control-flow.md)을 살펴볼 차례입니다.
 
-## 연습 문제 {completion-point="true"}
+## 연습 문제 {completion-point="true" id="practice"}
 
-### 연습 문제 1 {initial-collapse-state="collapsed" collapsible="true"}
+### 연습 문제 1 {initial-collapse-state="collapsed" collapsible="true" id="exercise-1"}
 
 "초록색(green)" 숫자 리스트와 "빨간색(red)" 숫자 리스트가 있습니다. 전체 숫자가 몇 개인지 출력하도록 코드를 완성하세요.
 
@@ -413,7 +413,7 @@ fun main() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="해설 예시" id="kotlin-tour-collections-solution-1"}
 
-### 연습 문제 2 {initial-collapse-state="collapsed" collapsible="true"}
+### 연습 문제 2 {initial-collapse-state="collapsed" collapsible="true" id="exercise-2"}
 
 서버에서 지원하는 프로토콜 셋이 있습니다. 사용자가 특정 프로토콜 사용을 요청합니다. 요청된 프로토콜이 지원되는지 여부를 확인하는 프로그램을 완성하세요 (`isSupported`는 불리언 값이어야 합니다).
 
@@ -445,7 +445,7 @@ fun main() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="해설 예시" id="kotlin-tour-collections-solution-2"}
 
-### 연습 문제 3 {initial-collapse-state="collapsed" collapsible="true"}
+### 연습 문제 3 {initial-collapse-state="collapsed" collapsible="true" id="exercise-3"}
 
 정수 1부터 3까지를 각각의 영문 철자와 연결하는 맵을 정의하세요. 이 맵을 사용하여 주어진 숫자의 철자를 출력하세요.
 

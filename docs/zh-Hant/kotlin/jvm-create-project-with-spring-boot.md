@@ -8,7 +8,7 @@
 > 
 {style="note"}
 
-## 開始之前
+## 開始之前 {id="before-you-start"}
 
 下載並安裝最新版本的 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 並使用 Ultimate 訂閱。
 
@@ -16,7 +16,7 @@
 > 
 {style="tip"}
 
-## 建立 Spring Boot 專案
+## 建立 Spring Boot 專案 {id="create-a-spring-boot-project"}
 
 在 IntelliJ IDEA 中使用專案產生器建立新的 Kotlin Spring Boot 專案：
 
@@ -72,7 +72,7 @@
    * 在 `main/kotlin` 資料夾下有屬於該應用程式的套件與類別。
    * 應用程式的進入點是 `DemoApplication.kt` 檔案中的 `main()` 方法。
 
-## 探索專案 Gradle 組建檔案 {initial-collapse-state="collapsed" collapsible="true"}
+## 探索專案 Gradle 組建檔案 {initial-collapse-state="collapsed" collapsible="true" id="explore-the-project-gradle-build-file"}
 
 開啟 `build.gradle.kts` 檔案：這是 Gradle Kotlin 組建指令碼，其中包含應用程式所需的相依性清單。
 
@@ -143,7 +143,7 @@ tasks.withType<Test> {
 
 在 [](gradle-compiler-options.md) 中進一步了解 Kotlin 編譯器選項。
 
-## 探索產生的 Spring Boot 應用程式
+## 探索產生的 Spring Boot 應用程式 {id="explore-the-generated-spring-boot-application"}
 
 開啟 `DemoApplication.kt` 檔案：
 
@@ -188,7 +188,7 @@ fun main(args: Array<String>) {
    </def>
 </deflist>
 
-## 建立控制器
+## 建立控制器 {id="create-a-controller"}
 
 應用程式已準備好執行，但讓我們先更新其邏輯。
 
@@ -241,7 +241,7 @@ class MessageController {
    </def>
 </deflist>
 
-## 執行應用程式
+## 執行應用程式 {id="run-the-application"}
 
 Spring 應用程式現在已準備好執行：
 
@@ -265,7 +265,7 @@ Spring 應用程式現在已準備好執行：
 
     ![Spring 應用程式回應](spring-application-response.png){width=700}
 
-## 下一步
+## 下一步 {id="next-step"}
 
 在本教學的下一部分中，您將學習 Kotlin 資料類別以及如何在應用程式中使用它們。
 

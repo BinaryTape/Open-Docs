@@ -4,7 +4,7 @@ _[保持语言现代](kotlin-evolution-principles.md)_和_[舒适更新](kotlin-
 
 虽然大多数语言更改已经通过其他渠道（如更新日志或编译器警告）公布，但本文档对它们进行了全面总结，为从 Kotlin 1.4 迁移到 Kotlin 1.5 提供了完整的参考。
 
-## 基本术语
+## 基本术语 {id="basic-terms"}
 
 在本文档中，我们介绍了以下几种兼容性：
 
@@ -14,9 +14,9 @@ _[保持语言现代](kotlin-evolution-principles.md)_和_[舒适更新](kotlin-
 
 请记住，这些定义仅针对纯 Kotlin。从其他语言（例如 Java）的角度来看 Kotlin 代码的兼容性不在本文档的讨论范围之内。
 
-## 语言与标准库
+## 语言与标准库 {id="language-and-stdlib"}
 
-### 在签名多态（signature-polymorphic）调用中禁止使用星号操作符
+### 在签名多态（signature-polymorphic）调用中禁止使用星号操作符 {id="forbid-spread-operator-in-signature-polymorphic-calls"}
 
 > **问题**：[KT-35226](https://youtrack.jetbrains.com/issue/KT-35226)
 >
@@ -32,7 +32,7 @@ _[保持语言现代](kotlin-evolution-principles.md)_和_[舒适更新](kotlin-
 > - >= 1.5：将此警告提高为错误，
 >  可以使用 `-XXLanguage:-ProhibitSpreadOnSignaturePolymorphicCall` 暂时恢复到 1.5 之前的行为
 
-### 禁止包含对类不可见（internal/包私有）抽象成员的非抽象类
+### 禁止包含对类不可见（internal/包私有）抽象成员的非抽象类 {id="forbid-non-abstract-classes-containing-abstract-members-invisible-from-that-classes-internal-package-private"}
 
 > **问题**：[KT-27825](https://youtrack.jetbrains.com/issue/KT-27825)
 >
@@ -48,7 +48,7 @@ _[保持语言现代](kotlin-evolution-principles.md)_和_[舒适更新](kotlin-
 > - >= 1.5：将此警告提高为错误，
 >  可以使用 `-XXLanguage:-ProhibitInvisibleAbstractMethodsInSuperclasses` 暂时恢复到 1.5 之前的行为
 
-### 在 JVM 上禁止将基于非具体化（non-reified）类型形参的数组用作具体化（reified）类型实参
+### 在 JVM 上禁止将基于非具体化（non-reified）类型形参的数组用作具体化（reified）类型实参 {id="forbid-using-array-based-on-non-reified-type-parameters-as-reified-type-arguments-on-jvm"}
 
 > **问题**：[KT-31227](https://youtrack.jetbrains.com/issue/KT-31227)
 >
@@ -64,7 +64,7 @@ _[保持语言现代](kotlin-evolution-principles.md)_和_[舒适更新](kotlin-
 > - >= 1.5：将此警告提高为错误，
 >  可以使用 `-XXLanguage:-ProhibitNonReifiedArraysAsReifiedTypeArguments` 暂时恢复到 1.5 之前的行为
 
-### 禁止未委托给主构造函数的枚举类次构造函数
+### 禁止未委托给主构造函数的枚举类次构造函数 {id="forbid-secondary-enum-class-constructors-which-do-not-delegate-to-the-primary-constructor"}
 
 > **问题**：[KT-35870](https://youtrack.jetbrains.com/issue/KT-35870)
 >
@@ -80,7 +80,7 @@ _[保持语言现代](kotlin-evolution-principles.md)_和_[舒适更新](kotlin-
 > - >= 1.5：将此警告提高为错误，
 >  可以使用 `-XXLanguage:-RequiredPrimaryConstructorDelegationCallInEnums` 暂时恢复到 1.5 之前的行为
 
-### 禁止从私有内联函数暴露匿名类型
+### 禁止从私有内联函数暴露匿名类型 {id="forbid-exposing-anonymous-types-from-private-inline-functions"}
 
 > **问题**：[KT-33917](https://youtrack.jetbrains.com/issue/KT-33917)
 >
@@ -96,7 +96,7 @@ _[保持语言现代](kotlin-evolution-principles.md)_和_[舒适更新](kotlin-
 > - >= 1.5：将此警告提高为错误，
 >  可以使用 `-XXLanguage:-ApproximateAnonymousReturnTypesInPrivateInlineFunctions` 暂时恢复到 1.5 之前的行为
 
-### 禁止在带有 SAM 转换的实参之后传递非星号数组
+### 禁止在带有 SAM 转换的实参之后传递非星号数组 {id="forbid-passing-non-spread-arrays-after-arguments-with-sam-conversion"}
 
 > **问题**：[KT-35224](https://youtrack.jetbrains.com/issue/KT-35224)
 >
@@ -112,7 +112,7 @@ _[保持语言现代](kotlin-evolution-principles.md)_和_[舒适更新](kotlin-
 > - >= 1.5：将此警告提高为错误，
 >  可以使用 `-XXLanguage:-ProhibitVarargAsArrayAfterSamArgument` 暂时恢复到 1.5 之前的行为
 
-### 支持下划线命名的 catch 块形参的特殊语义
+### 支持下划线命名的 catch 块形参的特殊语义 {id="support-special-semantics-for-underscore-named-catch-block-parameters"}
 
 > **问题**：[KT-31567](https://youtrack.jetbrains.com/issue/KT-31567)
 >
@@ -128,7 +128,7 @@ _[保持语言现代](kotlin-evolution-principles.md)_和_[舒适更新](kotlin-
 > - >= 1.5：将此警告提高为错误，
 >  可以使用 `-XXLanguage:-ForbidReferencingToUnderscoreNamedParameterOfCatchBlock` 暂时恢复到 1.5 之前的行为
 
-### 将 SAM 转换的实现策略从基于匿名类更改为 invokedynamic
+### 将 SAM 转换的实现策略从基于匿名类更改为 invokedynamic {id="change-implementation-strategy-of-sam-conversion-from-anonymous-class-based-to-invokedynamic"}
 
 > **问题**：[KT-44912](https://youtrack.jetbrains.com/issue/KT-44912)
 >
@@ -143,7 +143,7 @@ _[保持语言现代](kotlin-evolution-principles.md)_和_[舒适更新](kotlin-
 > - 1.5：更改 SAM 转换的实现策略，
 >  可以使用 `-Xsam-conversions=class` 将实现方案恢复为之前使用的方案
 
-### 基于 JVM IR 的后端的性能问题
+### 基于 JVM IR 的后端的性能问题 {id="performance-issues-with-the-jvm-ir-based-backend"}
 
 > **问题**：[KT-48233](https://youtrack.jetbrains.com/issue/KT-48233)
 >
@@ -191,7 +191,7 @@ _[保持语言现代](kotlin-evolution-principles.md)_和_[舒适更新](kotlin-
 >
 > 对此标志的支持将在未来的某个版本中移除。
 
-### 基于 JVM IR 的后端中的新字段排序
+### 基于 JVM IR 的后端中的新字段排序 {id="new-field-sorting-in-the-jvm-ir-based-backend"}
 
 > **问题**：[KT-46378](https://youtrack.jetbrains.com/issue/KT-46378)
 >
@@ -236,7 +236,7 @@ _[保持语言现代](kotlin-evolution-principles.md)_和_[舒适更新](kotlin-
 >
 > 对此标志的支持将在未来的某个版本中移除。
 
-### 为委托表达式中包含泛型调用的委托属性生成为 null 性断言
+### 为委托表达式中包含泛型调用的委托属性生成为 null 性断言 {id="generate-nullability-assertion-for-delegated-properties-with-a-generic-call-in-the-delegate-expression"}
 
 > **问题**：[KT-44304](https://youtrack.jetbrains.com/issue/KT-44304)
 >
@@ -251,7 +251,7 @@ _[保持语言现代](kotlin-evolution-principles.md)_和_[舒适更新](kotlin-
 > - 1.5：为委托属性发出为 null 性断言（详见问题说明），
 >  可以使用 `-Xuse-old-backend` 或 `-language-version 1.4` 暂时恢复到 1.5 之前的行为
 
-### 将带有 @OnlyInputTypes 注解的类型形参调用的警告转为错误
+### 将带有 @OnlyInputTypes 注解的类型形参调用的警告转为错误 {id="turn-warnings-into-errors-for-calls-with-type-parameters-annotated-by-onlyinputtypes"}
 
 > **问题**：[KT-45861](https://youtrack.jetbrains.com/issue/KT-45861)
 >
@@ -267,7 +267,7 @@ _[保持语言现代](kotlin-evolution-principles.md)_和_[舒适更新](kotlin-
 > - >= 1.5：将此警告提高为错误，
 >  可以使用 `-XXLanguage:-StrictOnlyInputTypesChecks` 暂时恢复到 1.5 之前的行为
 
-### 在带有具名可变参数的调用中使用正确的实参执行顺序
+### 在带有具名可变参数的调用中使用正确的实参执行顺序 {id="use-the-correct-order-of-arguments-execution-in-calls-with-named-vararg"}
 
 > **问题**：[KT-17691](https://youtrack.jetbrains.com/issue/KT-17691)
 >
@@ -283,7 +283,7 @@ _[保持语言现代](kotlin-evolution-principles.md)_和_[舒适更新](kotlin-
 > - >= 1.5：将此警告提高为错误，
 >  可以使用 `-XXLanguage:-UseCorrectExecutionOrderForVarargArguments` 暂时恢复到 1.5 之前的行为
 
-### 在运算符函数调用中使用形参的默认值
+### 在运算符函数调用中使用形参的默认值 {id="use-default-value-of-the-parameter-in-operator-functional-calls"}
 
 > **问题**：[KT-42064](https://youtrack.jetbrains.com/issue/KT-42064)
 >
@@ -299,7 +299,7 @@ _[保持语言现代](kotlin-evolution-principles.md)_和_[舒适更新](kotlin-
 > - >= 1.5：行为已更改，
 >  可以使用 `-XXLanguage:-JvmIrEnabledByDefault` 暂时恢复到 1.5 之前的行为
 
-### 如果常规级数也为空，则在 for 循环中产生空的倒序级数
+### 如果常规级数也为空，则在 for 循环中产生空的倒序级数 {id="produce-empty-reversed-progressions-in-for-loops-if-regular-progression-is-also-empty"}
 
 > **问题**：[KT-42533](https://youtrack.jetbrains.com/issue/KT-42533)
 >
@@ -315,7 +315,7 @@ _[保持语言现代](kotlin-evolution-principles.md)_和_[舒适更新](kotlin-
 > - >= 1.5：行为已更改，
 >  可以使用 `-XXLanguage:-JvmIrEnabledByDefault` 暂时恢复到 1.5 之前的行为
 
-### 理顺 Char 到代码（code）以及 Char 到数字（digit）的转换
+### 理顺 Char 到代码（code）以及 Char 到数字（digit）的转换 {id="straighten-char-to-code-and-char-to-digit-conversions-out"}
 
 > **问题**：[KT-23451](https://youtrack.jetbrains.com/issue/KT-23451)
 >
@@ -329,7 +329,7 @@ _[保持语言现代](kotlin-evolution-principles.md)_和_[舒适更新](kotlin-
 >
 > - 1.5：弃用 `Char.toInt()/toShort()/toLong()/toByte()/toDouble()/toFloat()` 以及反向函数如 `Long.toChar()`，并提出替代方案
 
-### kotlin.text 函数中不一致的字符忽略大小写比较
+### kotlin.text 函数中不一致的字符忽略大小写比较 {id="inconsistent-case-insensitive-comparison-of-characters-in-kotlin-text-functions"}
 
 > **问题**：[KT-45496](https://youtrack.jetbrains.com/issue/KT-45496)
 >
@@ -344,7 +344,7 @@ _[保持语言现代](kotlin-evolution-principles.md)_和_[舒适更新](kotlin-
 > - < 1.5：旧行为（详见问题说明）
 > - 1.5：更改 `Char.equals` 函数的行为
 
-### 移除默认区域性敏感的大小写转换 API
+### 移除默认区域性敏感的大小写转换 API {id="remove-default-locale-sensitive-case-conversion-api"}
 
 > **问题**：[KT-43023](https://youtrack.jetbrains.com/issue/KT-43023)
 >
@@ -358,7 +358,7 @@ _[保持语言现代](kotlin-evolution-principles.md)_和_[舒适更新](kotlin-
 >
 > - 1.5：弃用使用默认区域性的案例转换函数（详见问题说明），并提出替代方案
 
-### 逐步将集合 min 和 max 函数的返回值类型更改为不可为空
+### 逐步将集合 min 和 max 函数的返回值类型更改为不可为空 {id="gradually-change-the-return-type-of-collection-min-and-max-functions-to-non-nullable"}
 
 > **问题**：[KT-38854](https://youtrack.jetbrains.com/issue/KT-38854)
 >
@@ -374,7 +374,7 @@ _[保持语言现代](kotlin-evolution-principles.md)_和_[舒适更新](kotlin-
 > - 1.5.0：将受影响 API 的弃用级别提高为错误
 > - >= 1.6：重新引入受影响的 API，但使用不可为空的返回值类型
 
-### 提高浮点类型到 Short 和 Byte 转换的弃用级别
+### 提高浮点类型到 Short 和 Byte 转换的弃用级别 {id="raise-the-deprecation-level-of-conversions-of-floating-point-types-to-short-and-byte"}
 
 > **问题**：[KT-30360](https://youtrack.jetbrains.com/issue/KT-30360)
 >
@@ -389,9 +389,9 @@ _[保持语言现代](kotlin-evolution-principles.md)_和_[舒适更新](kotlin-
 > - 1.4：弃用 `Double.toShort()/toByte()` 和 `Float.toShort()/toByte()` 并提出替代方案
 > - 1.5.0：将弃用级别提高为错误
 
-## 工具
+## 工具 {id="tools"}
 
-### 不要在单个项目中混合多个 kotlin-test 的 JVM 变体
+### 不要在单个项目中混合多个 kotlin-test 的 JVM 变体 {id="do-not-mix-several-jvm-variants-of-kotlin-test-in-a-single-project"}
 
 > **问题**：[KT-40225](https://youtrack.jetbrains.com/issue/KT-40225)
 >

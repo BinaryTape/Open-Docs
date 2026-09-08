@@ -4,7 +4,7 @@
 
 このチュートリアルでは、Compose Multiplatform UI を使用したシンプルな Kotlin Multiplatform アプリを作成して実行する方法を説明します。
 
-## 環境のセットアップ
+## 環境のセットアップ {id="set-up-the-environment"}
 
 まずは IDE と必要なプラグインの準備から始めましょう。
 
@@ -59,7 +59,7 @@
     >
     {style="note"}
 
-## プロジェクトの作成
+## プロジェクトの作成 {id="create-a-project"}
 
 <Tabs>
 <TabItem title= "IntelliJ IDEA">
@@ -109,7 +109,7 @@ IDE ウィザードを使用して、新しい KMP プロジェクトを作成�
 </TabItem>
 </Tabs>
 
-## プリフライトチェックの確認
+## プリフライトチェックの確認 {id="consult-the-preflight-checks"}
 
 **Project Environment Preflight Checks** ツールウィンドウを開くことで、プロジェクトのセットアップにおいて環境上の問題がないか確認できます。
 右側のサイドバーまたは下部バーにあるプリフライトチェックアイコンをクリックしてください。 ![飛行機のアイコンが付いたプロジェクト環境プリフライトチェックアイコン](ide-preflight-checks.png){width="20"}
@@ -121,7 +121,7 @@ IDE ウィザードを使用して、新しい KMP プロジェクトを作成�
 
 ![「preflight」と入力された Search Everywhere メニュー](double-shift-preflight-checks.png){width=600}
 
-## サンプルアプリの実行
+## サンプルアプリの実行 {id="run-the-sample-apps"}
 
 IDE ウィザードで作成されたプロジェクトには、iOS、Android、デスクトップ、およびウェブアプリケーション用の実行構成 (run configurations) と、サーバーアプリを実行するための Gradle タスクが含まれています。
 各プラットフォームの特定の Gradle コマンドは以下の通りです。
@@ -192,9 +192,9 @@ wasmJsBrowserDevelopmentRun
 </TabItem>
 </Tabs>
 
-## トラブルシューティング
+## トラブルシューティング {id="troubleshooting"}
 
-### Java と JDK
+### Java と JDK {id="java-and-jdk"}
 
 Java に関する一般的な問題：
 
@@ -210,20 +210,20 @@ Java に関する一般的な問題：
 * Android Studio で Gradle JDK に関する問題が発生した場合は、正しく構成されているか確認してください。
   **Settings** | **Build, Execution, Deployment** | **Build Tools** | **Gradle** を選択します。
 
-### Android ツール
+### Android ツール {id="android-tools"}
 
 JDK と同様に、`adb` などの Android ツールの起動に問題がある場合は、`ANDROID_HOME/tools`、`ANDROID_HOME/tools/bin`、および `ANDROID_HOME/platform-tools` へのパスが `PATH` 環境変数に追加されていることを確認してください。
 
-### Xcode
+### Xcode {id="xcode"}
 
 iOS の実行構成で実行する仮想デバイスがないと報告されたり、プリフライトチェックが失敗したりする場合は、Xcode を起動して iOS シミュレーターの更新がないか確認してください。
 
-### ヘルプを得る
+### ヘルプを得る {id="get-help"}
 
 * **Kotlin Slack**: [招待](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)を受け取り、[#multiplatform](https://kotlinlang.slack.com/archives/C3PQML5NU) チャンネルに参加してください。
 * **Kotlin Multiplatform Tooling イシュートラッカー**: [新しい問題を報告](https://youtrack.jetbrains.com/newIssue?project=KMT)してください。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 KMP プロジェクトの構造と共有コードの記述について詳しく学びましょう：
 * Compose Multiplatform を使用した共有 UI コードの操作に関するチュートリアルシリーズ：[Compose Multiplatform アプリの作成](compose-multiplatform-create-first-app.md)

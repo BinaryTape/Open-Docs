@@ -28,7 +28,7 @@ val securePassword = Password("Don't try this in production")
 
 これがインラインクラスの主な機能であり、*インライン（inline）* という名前の由来でもあります。クラスのデータがその使用箇所に「インライン化」されます（[インライン関数](inline-functions.md)のコンテンツがコールサイトにインライン化されるのと同様です）。
 
-## メンバ
+## メンバ {id="members"}
 
 インラインクラスは、通常のクラスの一部の機能をサポートしています。具体的には、プロパティや関数の宣言、`init` ブロック、[副コンストラクタ (secondary constructors)](classes.md#secondary-constructors) を持つことが許可されています。
 
@@ -66,7 +66,7 @@ fun main() {
 
 インラインクラスのプロパティは [バッキングフィールド (backing fields)](properties.md#backing-fields) を持つことができません。シンプルな計算プロパティのみを持つことができます（`lateinit` や委譲プロパティは使用できません）。
 
-## 継承
+## 継承 {id="inheritance"}
 
 インラインクラスはインターフェースを継承することができます。
 
@@ -88,7 +88,7 @@ fun main() {
 
 インラインクラスがクラス階層に参加することは禁止されています。つまり、インラインクラスが他のクラスを継承することはできず、常に `final` となります。
 
-## 表現 (Representation)
+## 表現 (Representation) {id="representation"}
 
 生成されたコードにおいて、Kotlin コンパイラは各インラインクラスの**ラッパー (wrapper)** を保持します。インラインクラスのインスタンスは、ランタイムにおいてラッパーまたは基礎となる型のいずれかとして表現されます。これは、`Int` がプリミティブの `int` またはラッパーの `Integer` のいずれかとして[表現](numbers.md#boxing-and-caching-numbers-on-the-jvm)されるのと似ています。
 
@@ -133,7 +133,7 @@ value class UserId<T>(val value: T)
 fun compute(s: UserId<String>) {} // コンパイラは fun compute-<hashcode>(s: Any?) を生成する
 ```
 
-### マングリング (Mangling)
+### マングリング (Mangling) {id="mangling"}
 
 インラインクラスはその基礎となる型にコンパイルされるため、予期しないプラットフォームシグネチャの衝突など、さまざまな不明瞭なエラーが発生する可能性があります。
 
@@ -150,7 +150,7 @@ fun compute(x: UInt) { }
 
 このような問題を軽減するために、インラインクラスを使用する関数は、関数名に安定したハッシュコードを追加することで**マングリング**されます。したがって、`fun compute(x: UInt)` は `public final void compute-<hashcode>(int x)` として表現され、衝突の問題が解決されます。
 
-### Java コードからの呼び出し
+### Java コードからの呼び出し {id="calling-from-java-code"}
 
 Java コードからインラインクラスを受け取る関数を呼び出すことができます。そのためには、マングリングを手動で無効にする必要があります。関数宣言の前に `@JvmName` アノテーションを追加します。
 
@@ -166,7 +166,7 @@ fun compute(x: UInt) { }
 
 デフォルトでは、Kotlin はインラインクラスを**アンボックス化された表現**を使用してコンパイルするため、Java からアクセスするのが困難です。Java からアクセス可能な**ボックス化された表現**にインラインクラスをコンパイルする方法については、[Java から Kotlin を呼び出す](java-to-kotlin-interop.md#inline-value-classes) ガイドを参照してください。
 
-## インラインクラスと型エイリアスの比較
+## インラインクラスと型エイリアスの比較 {id="inline-classes-vs-type-aliases"}
 
 一見すると、インラインクラスは[型エイリアス (type aliases)](type-aliases.md) に非常によく似ています。どちらも新しい型を導入するように見え、どちらもランタイムでは基礎となる型として表現されます。
 
@@ -198,7 +198,7 @@ fun main() {
 }
 ```
 
-## インラインクラスと委譲
+## インラインクラスと委譲 {id="inline-classes-and-delegation"}
 
 インターフェースを使用する場合、インラインクラスのインライン化された値への委譲による実装が許可されています。
 

@@ -6,7 +6,7 @@ title: 다이나믹 모듈
 
 Koin은 Composable 생명주기에 연결된 모듈을 동적으로 로드하고 언로드할 수 있는 API를 제공합니다. 이는 기능 모듈(feature modules), 지연 로딩(lazy loading), 그리고 온디맨드(on-demand) 의존성을 처리할 때 유용합니다.
 
-## rememberKoinModules
+## rememberKoinModules {id="rememberkoinmodules"}
 
 Composable이 컴포지션(composition)에 진입할 때 Koin 모듈을 로드합니다:
 
@@ -25,7 +25,7 @@ fun FeatureScreen() {
 }
 ```
 
-### 여러 모듈 사용
+### 여러 모듈 사용 {id="multiple-modules"}
 
 ```kotlin
 @Composable
@@ -38,7 +38,7 @@ fun FeatureScreen() {
 }
 ```
 
-### 모듈 언로드
+### 모듈 언로드 {id="unloading-modules"}
 
 모듈이 언로드되는 시점을 제어할 수 있습니다:
 
@@ -58,9 +58,9 @@ fun FeatureScreen() {
 | `unloadOnForgotten` | Composable이 컴포지션에서 제거될 때 |
 | `unloadOnAbandoned` | 컴포지션이 실패하거나 중단(abandoned)될 때 |
 
-## 활용 사례 (Use Cases)
+## 활용 사례 (Use Cases) {id="use-cases"}
 
-### 기능 모듈 (Feature Modules)
+### 기능 모듈 (Feature Modules) {id="feature-modules"}
 
 기능별 의존성을 필요에 따라 로드합니다:
 
@@ -81,7 +81,7 @@ fun CheckoutScreen() {
 }
 ```
 
-### 지연 기능 로딩 (Lazy Feature Loading)
+### 지연 기능 로딩 (Lazy Feature Loading) {id="lazy-feature-loading"}
 
 네비게이션과 결합하여 기능을 지연 로딩할 수 있습니다:
 
@@ -103,7 +103,7 @@ NavHost(navController, startDestination = "home") {
 }
 ```
 
-### 디버그/프리뷰 모듈 (Debug/Preview Modules)
+### 디버그/프리뷰 모듈 (Debug/Preview Modules) {id="debug-preview-modules"}
 
 프리뷰를 위해 구현체를 교체할 수 있습니다:
 
@@ -120,7 +120,7 @@ fun FeatureScreenPreview() {
 }
 ```
 
-### 조건부 모듈 (Conditional Modules)
+### 조건부 모듈 (Conditional Modules) {id="conditional-modules"}
 
 조건에 따라 모듈을 로드합니다:
 
@@ -135,7 +135,7 @@ fun App(isDebug: Boolean) {
 }
 ```
 
-## Lazy Modules와 함께 사용
+## Lazy Modules와 함께 사용 {id="with-lazy-modules"}
 
 더 나은 성능을 위해 Koin의 `lazyModule` 로딩과 결합할 수 있습니다:
 
@@ -154,7 +154,7 @@ fun FeatureScreen() {
 }
 ```
 
-## 권장 사항 (Best Practices)
+## 권장 사항 (Best Practices) {id="best-practices"}
 
 1. **`unloadOnForgotten = true` 사용** - 메모리 누수를 방지합니다.
    ```kotlin
@@ -172,7 +172,7 @@ fun FeatureScreen() {
 
 5. **순환 의존성 방지** - 기능 모듈끼리는 서로 의존하지 않아야 합니다.
 
-## 다음 단계
+## 다음 단계 {id="next-steps"}
 
 - **[Compose의 Scope](/docs/reference/koin-compose/compose-scopes)** - Scope API
 - **[Compose 개요](/docs/reference/koin-compose/compose)** - 설정 및 기본 주입

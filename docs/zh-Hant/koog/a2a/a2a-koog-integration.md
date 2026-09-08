@@ -8,11 +8,11 @@ status: beta
 
 Koog 提供與 A2A 協定的無縫整合，允許您將 Koog 代理公開為 A2A 伺服器，並將 Koog 代理連線至其他符合 A2A 規範的代理。
 
-## 相依性
+## 相依性 {id="dependencies"}
 
 A2A Koog 整合需要根據您的使用案例使用特定的功能模組：
 
-### 將 Koog 代理公開為 A2A 伺服器
+### 將 Koog 代理公開為 A2A 伺服器 {id="for-exposing-koog-agents-as-a2a-servers"}
 
 將這些相依性新增至您的 `build.gradle.kts`：
 
@@ -29,7 +29,7 @@ dependencies {
 }
 ```
 
-### 將 Koog 代理連線至 A2A 代理
+### 將 Koog 代理連線至 A2A 代理 {id="for-connecting-koog-agents-to-a2a-agents"}
 
 將這些相依性新增至您的 `build.gradle.kts`：
 
@@ -46,16 +46,16 @@ dependencies {
 }
 ```
 
-## 概覽
+## 概覽 {id="overview"}
 
 此整合支援兩種主要模式：
 
 1. **將 Koog 代理公開為 A2A 伺服器** - 讓您的 Koog 代理可透過 A2A 協定被探索和存取
 2. **將 Koog 代理連線至 A2A 代理** - 讓您的 Koog 代理能與其他符合 A2A 規範的代理進行通訊
 
-## 將 Koog 代理公開為 A2A 伺服器
+## 將 Koog 代理公開為 A2A 伺服器 {id="exposing-koog-agents-as-a2a-servers"}
 
-### 定義具備 A2A 功能的 Koog 代理
+### 定義具備 A2A 功能的 Koog 代理 {id="define-koog-agent-with-a2a-feature"}
 
 我們先定義一個 Koog 代理。代理的邏輯可以有所不同，但這裡有一個包含工具的基本單次執行代理範例。
 代理接收來自使用者的訊息，並將其轉發給 llm。
@@ -186,7 +186,7 @@ private suspend fun A2AAgentServer.sendTaskUpdate(
 }
 ```
 
-## A2AAgentServer 功能機制
+## A2AAgentServer 功能機制 {id="a2aagentserver-feature-mechanism"}
 
 `A2AAgentServer` 是一個 Koog 代理功能，可實現 Koog 代理與 A2A 協定之間的無縫整合。
 `A2AAgentServer` 功能提供對 `RequestContext` 和 `SessionEventProcessor` 實體的存取，這些實體用於在 Koog 代理內部與 A2A 用戶端進行通訊。
@@ -211,7 +211,7 @@ withA2AAgentServer {
 }
 ```
 
-### 啟動 A2A 伺服器
+### 啟動 A2A 伺服器 {id="start-a2a-server"}
 執行伺服器後，Koog 代理將可透過 A2A 協定被探索和存取。
 
 ```kotlin
@@ -240,9 +240,9 @@ val transport = HttpJSONRPCServerTransport(server)
 transport.start(engineFactory = Netty, port = 8080, path = "/chat", wait = true)
 ```
 
-## 將 Koog 代理連線至 A2A 代理
+## 將 Koog 代理連線至 A2A 代理 {id="connecting-koog-agents-to-a2a-agents"}
 
-### 建立 A2A 用戶端並連線至 A2A 伺服器
+### 建立 A2A 用戶端並連線至 A2A 伺服器 {id="create-a2a-client-and-connect-to-the-a2a-server"}
 
 ```kotlin
 val transport = HttpJSONRPCClientTransport(url = "http://localhost:9999/koog")
@@ -254,7 +254,7 @@ val agentId = "koog"
 client.connect()
 ```
 
-### 建立 Koog 代理並將 A2A 用戶端新增至 A2AAgentClient 功能
+### 建立 Koog 代理並將 A2A 用戶端新增至 A2AAgentClient 功能 {id="create-koog-agent-and-add-a2a-client-to-a2aagentclient-feature"}
 要從您的 Koog 代理連線至 A2A 代理，您可以使用 A2AAgentClient 功能，它提供了一個用於連線至 A2A 代理的用戶端 API。
 用戶端的原理與伺服器相同：您安裝該功能並傳入 `A2AAgentClient` 功能以及 `RequestContext` 和 `SessionEventProcessor`。
 

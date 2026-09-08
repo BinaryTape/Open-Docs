@@ -3,7 +3,7 @@
 プロンプトエグゼキューターは、1つまたは複数のLLMクライアントのライフサイクルを管理できるようにする高レベルの抽象化を提供します。
 統一されたインターフェースを通じて複数のLLMプロバイダーを利用でき、プロバイダー固有の詳細を抽象化しながら、プロバイダー間の動的な切り替えやフォールバックを行うことができます。
 
-## エグゼキューターの種類
+## エグゼキューターの種類 {id="executor-types"}
 
 Koogは、[`PromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.model.PromptExecutor) インターフェースを実装する3つの主要なプロンプトエグゼキューターを提供しています。
 
@@ -13,7 +13,7 @@ Koogは、[`PromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.
 | マルチプロバイダー | [`MultiLLMPromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.llms.MultiLLMPromptExecutor)   | 複数のLLMクライアントをラップし、LLMプロバイダーに基づいて呼び出しをルーティングします。リクエストされたクライアントが利用できない場合に、オプションで設定されたフォールバックプロバイダーとLLMを使用できます。エージェントが異なるプロバイダーのLLMを切り替える必要がある場合に、このエグゼキューターを使用します。 |
 | ルーティング | [`RoutingLLMPromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.llms.RoutingLLMPromptExecutor) | ルーティング戦略を使用して、特定のLLMモデルへのリクエストを複数のクライアントインスタンスに分散します。レート制限の回避、スループットの向上、ロードバランシングによるフェイルオーバー戦略の実装を行う場合に、このエグゼキューターを使用します。 |
 
-## シングルプロバイダーエグゼキューターの作成
+## シングルプロバイダーエグゼキューターの作成 {id="creating-a-single-provider-executor"}
 
 特定のLLMプロバイダー向けのプロンプトエグゼキューターを作成するには、以下の手順を実行します。
 
@@ -49,7 +49,7 @@ Koogは、[`PromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.
     ```
     <!--- KNIT example-prompt-executors-java-01.java -->
 
-## マルチプロバイダーエグゼキューターの作成
+## マルチプロバイダーエグゼキューターの作成 {id="creating-a-multi-provider-executor"}
 
 複数のLLMプロバイダーで動作するプロンプトエグゼキューターを作成するには、以下の手順を実行します。
 
@@ -92,7 +92,7 @@ Koogは、[`PromptExecutor`](api:prompt-executor-model::ai.koog.prompt.executor.
     ```
     <!--- KNIT example-prompt-executors-java-02.java -->
 
-## ルーティングエグゼキューターの作成
+## ルーティングエグゼキューターの作成 {id="creating-a-routing-executor"}
 
 !!! warning "実験的API"
     ルーティング機能は実験的であり、将来のリリースで変更される可能性があります。
@@ -155,7 +155,7 @@ Anthropicモデルへのリクエストは、ラウンドロビンがプロバ�
 
 [`LLMClientRouter`](api:prompt-executor-model::ai.koog.prompt.executor.llms.LLMClientRouter) インターフェースを実装するクラスを作成することで、カスタムルーティング戦略を実装することもできます。
 
-## 定義済みプロンプトエグゼキューター
+## 定義済みプロンプトエグゼキューター {id="pre-defined-prompt-executors"}
 
 セットアップを迅速に行うために、KoogはKotlinとJavaの両方で一般的なプロバイダー向けのすぐに使用できるエグゼキューターの実装を提供しています。
 
@@ -208,7 +208,7 @@ Anthropicモデルへのリクエストは、ラウンドロビンがプロバ�
     ```
     <!--- KNIT example-prompt-executors-java-04.java -->
 
-## プロンプトの実行
+## プロンプトの実行 {id="running-a-prompt"}
 
 プロンプトエグゼキューターを使用してプロンプトを実行するには、以下の手順を実行します。
 
@@ -273,7 +273,7 @@ Anthropicモデルへのリクエストは、ラウンドロビンがプロバ�
     プロンプトエグゼキューターはLLMクライアントをラップしているため、各エグゼキューターは対応するクライアントの機能をサポートします。
     詳細については、[LLMクライアント](llm-clients.md) を参照してください。
 
-## プロバイダー間の切り替え
+## プロバイダー間の切り替え {id="switching-between-providers"}
 
 `MultiLLMPromptExecutor` を使用して複数のLLMプロバイダーを扱う場合、それらを切り替えることができます。
 プロセスは以下の通りです。
@@ -366,7 +366,7 @@ Anthropicモデルへのリクエストは、ラウンドロビンがプロバ�
 オプションで、リクエストされたクライアントが利用できない場合に使用するフォールバックLLMプロバイダーとモデルを構成できます。
 詳細については、[フォールバックの構成](#configuring-fallbacks) を参照してください。
 
-## フォールバックの構成
+## フォールバックの構成 {id="configuring-fallbacks"}
 
 マルチプロバイダーおよびルーティングプロンプトエグゼキューターは、リクエストされたLLMクライアントが利用できない場合にフォールバックLLMプロバイダーとモデルを使用するように構成できます。
 

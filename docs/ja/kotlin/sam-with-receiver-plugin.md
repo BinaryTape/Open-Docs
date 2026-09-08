@@ -25,7 +25,7 @@ fun test(context: TaskContext) {
 }
 ```
 
-## Gradle
+## Gradle {id="gradle"}
 
 使用方法は [all-open](all-open-plugin.md) や [no-arg](no-arg-plugin.md) と同様ですが、sam-with-receiver には組み込みのプリセットがなく、特別に処理するアノテーションのリストを独自に指定する必要がある点が異なります。
 
@@ -58,7 +58,7 @@ samWithReceiver {
 }
 ```
 
-## Maven
+## Maven {id="maven"}
 
 ```xml
 <plugin>
@@ -88,7 +88,7 @@ samWithReceiver {
 </plugin>
 ```
 
-## コマンドラインコンパイラ
+## コマンドラインコンパイラ {id="command-line-compiler"}
 
 コンパイラプラグインのクラスパスにプラグインのJARファイルを追加し、sam-with-receiverアノテーションのリストを指定します：
 

@@ -36,7 +36,7 @@ val driver: SqlDriver = NativeSqliteDriver(Database.Schema, "test.db")
 
 {% include 'common/index_queries.md' %}
 
-## 読み取り接続プール (Reader Connection Pools)
+## 読み取り接続プール (Reader Connection Pools) {id="reader-connection-pools"}
 
 ディスクデータベースでは、（オプションで）複数の読み取り接続を持つことができます。読み取りプールを構成するには、`NativeSqliteDriver` の各種コンストラクタに `maxReaderConnections` パラメータを渡します。
 

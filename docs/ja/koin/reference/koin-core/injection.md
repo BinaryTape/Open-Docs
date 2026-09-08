@@ -6,7 +6,7 @@ title: 依存関係の取得
 
 このガイドでは、さまざまなコンテキストで Koin から依存関係を取得する方法について説明します。
 
-## アプローチ
+## アプローチ {id="approaches"}
 
 | アプローチ | 使用場面 | 例 |
 |----------|-------------|---------|
@@ -18,7 +18,7 @@ title: 依存関係の取得
 **ベストプラクティス：** テストのしやすさを向上させるため、コンストラクタ注入または関数注入を優先してください。フィールド注入は、クラスの生成を制御できない場合（Activity や Fragment など）にのみ使用してください。
 :::
 
-## コンストラクタ注入（推奨）
+## コンストラクタ注入（推奨） {id="constructor-injection-recommended"}
 
 依存関係はコンストラクタで宣言され、Koin によって解決されます：
 
@@ -44,11 +44,11 @@ val appModule = module {
 
 Koin はすべてのコンストラクタパラメータを自動的に解決します。
 
-## 関数注入
+## 関数注入 {id="function-injection"}
 
 カスタムの生成ロジックが必要な場合は、関数を使用してインスタンスを作成します：
 
-### コンパイラプラグイン DSL
+### コンパイラプラグイン DSL {id="compiler-plugin-dsl"}
 
 ```kotlin
 fun createHttpClient(dataSource: DataSource): HttpClient {
@@ -64,7 +64,7 @@ val appModule = module {
 }
 ```
 
-### アノテーション
+### アノテーション {id="annotations"}
 
 ```kotlin
 @Module
@@ -85,9 +85,9 @@ class NetworkModule {
 - 複雑な初期化ロジックが必要な場合
 - ビルダーや DSL を構成する必要がある場合
 
-## フィールド注入
+## フィールド注入 {id="field-injection"}
 
-### `by inject()` による遅延注入
+### `by inject()` による遅延注入 {id="lazy-injection-with-by-inject"}
 
 最初にアクセスされたときにインスタンスを作成します：
 
@@ -99,7 +99,7 @@ class MyActivity : AppCompatActivity() {
 }
 ```
 
-### `get()` による即時注入
+### `get()` による即時注入 {id="eager-injection-with-get"}
 
 インスタンスを即座に作成します：
 
@@ -110,14 +110,14 @@ class MyActivity : AppCompatActivity() {
 }
 ```
 
-### 比較
+### 比較 {id="comparison"}
 
 | メソッド | 作成タイミング | スレッドセーフティ |
 |--------|--------------|---------------|
 | `by inject()` | 初回アクセス時 | スレッドセーフな遅延初期化 |
 | `get()` | 即座 | 直接呼び出し |
 
-## KoinComponent
+## KoinComponent {id="koincomponent"}
 
 依存関係を注入する必要があるが、Android コンポーネントではないクラスの場合：
 
@@ -136,9 +136,9 @@ class MyHelper : KoinComponent {
 ビジネスロジッククラスでの `KoinComponent` の使用は避けてください。Koin への密結合が生じます。代わりにコンストラクタ注入を優先してください。
 :::
 
-## プラットフォーム固有の注入
+## プラットフォーム固有の注入 {id="platform-specific-injection"}
 
-### Android
+### Android {id="android"}
 
 Activity や Fragment には組み込みのサポートがあります：
 
@@ -160,7 +160,7 @@ class UserFragment : Fragment() {
 }
 ```
 
-### Compose
+### Compose {id="compose"}
 
 ```kotlin
 @Composable
@@ -176,7 +176,7 @@ fun UserScreen() {
 }
 ```
 
-### Ktor
+### Ktor {id="ktor"}
 
 ```kotlin
 fun Route.userRoutes() {
@@ -188,11 +188,11 @@ fun Route.userRoutes() {
 }
 ```
 
-## クオリファイアによる注入
+## クオリファイアによる注入 {id="injection-with-qualifiers"}
 
 同じ型の定義が複数ある場合は、クオリファイア (Qualifier) を使用してそれらを区別します。
 
-### 文字列クオリファイア (String Qualifier)
+### 文字列クオリファイア (String Qualifier) {id="string-qualifier"}
 
 | DSL | アノテーション |
 |-----|------------|
@@ -221,7 +221,7 @@ class LocalDatabase : Database
 class RemoteDatabase : Database
 ```
 
-### 型クオリファイア (Type Qualifier)
+### 型クオリファイア (Type Qualifier) {id="type-qualifier"}
 
 コンパイル時の安全性を確保するために、型（クラス、オブジェクト、または列挙型）をクオリファイアとして使用します：
 
@@ -256,7 +256,7 @@ class LocalDatabase : Database
 class RemoteDatabase : Database
 ```
 
-### Compose での使用
+### Compose での使用 {id="in-compose"}
 
 ```kotlin
 @Composable
@@ -269,11 +269,11 @@ fun MyScreen() {
 }
 ```
 
-## パラメータを伴う注入
+## パラメータを伴う注入 {id="injection-with-parameters"}
 
 注入時にパラメータを渡します：
 
-### 定義
+### 定義 {id="definition"}
 
 ```kotlin
 @Factory
@@ -286,7 +286,7 @@ class UserPresenter(
 factory<UserPresenter>()
 ```
 
-### 注入
+### 注入 {id="injection"}
 
 ```kotlin
 // by inject()
@@ -305,7 +305,7 @@ fun UserScreen(userId: String) {
 }
 ```
 
-### 複数のパラメータ
+### 複数のパラメータ {id="multiple-parameters"}
 
 ```kotlin
 @Factory
@@ -318,7 +318,7 @@ class OrderPresenter(
 val presenter = get<OrderPresenter> { parametersOf("user123", "order456") }
 ```
 
-## Koin への直接アクセス
+## Koin への直接アクセス {id="direct-koin-access"}
 
 必要に応じて Koin インスタンスに直接アクセスします：
 
@@ -335,7 +335,7 @@ class MyClass : KoinComponent {
 }
 ```
 
-## Null 許容の注入 (Nullable Injection)
+## Null 許容の注入 (Nullable Injection) {id="nullable-injection"}
 
 オプションの依存関係の場合：
 
@@ -349,9 +349,9 @@ class MyClass : KoinComponent {
 }
 ```
 
-## さまざまなコンテキストでの注入
+## さまざまなコンテキストでの注入 {id="injection-in-different-contexts"}
 
-### ViewModel 内
+### ViewModel 内 {id="in-viewmodel"}
 
 ```kotlin
 class UserViewModel(
@@ -362,7 +362,7 @@ class UserViewModel(
 }
 ```
 
-### Service 内
+### Service 内 {id="in-service"}
 
 ```kotlin
 class MyService : Service() {
@@ -375,7 +375,7 @@ class MyService : Service() {
 }
 ```
 
-### BroadcastReceiver 内
+### BroadcastReceiver 内 {id="in-broadcastreceiver"}
 
 ```kotlin
 class MyReceiver : BroadcastReceiver(), KoinComponent {
@@ -387,7 +387,7 @@ class MyReceiver : BroadcastReceiver(), KoinComponent {
 }
 ```
 
-### WorkManager Worker 内
+### WorkManager Worker 内 {id="in-workmanager-worker"}
 
 ```kotlin
 class MyWorker(
@@ -408,9 +408,9 @@ val workerModule = module {
 }
 ```
 
-## ベストプラクティス
+## ベストプラクティス {id="best-practices"}
 
-### 推奨 (DO): ビジネスロジックにはコンストラクタ注入を使用する
+### 推奨 (DO): ビジネスロジックにはコンストラクタ注入を使用する {id="do-constructor-injection-for-business-logic"}
 
 ```kotlin
 // 良い例 - Koin なしでテスト可能
@@ -433,7 +433,7 @@ fun testCreateUser() {
 }
 ```
 
-### 推奨 (DO): フレームワーククラスにはフィールド注入を使用する
+### 推奨 (DO): フレームワーククラスにはフィールド注入を使用する {id="do-field-injection-for-framework-classes"}
 
 ```kotlin
 // 良い例 - Activity の生成は Android によって制御される
@@ -442,7 +442,7 @@ class MainActivity : AppCompatActivity() {
 }
 ```
 
-### 非推奨 (DON'T): ビジネスロジックで KoinComponent を使用する
+### 非推奨 (DON'T): ビジネスロジックで KoinComponent を使用する {id="don-t-koincomponent-in-business-logic"}
 
 ```kotlin
 // 悪い例 - Koin への密結合
@@ -454,7 +454,7 @@ class UserService : KoinComponent {
 class UserService(private val repository: UserRepository)
 ```
 
-### 非推奨 (DON'T): コンストラクタ内で get() を使用する
+### 非推奨 (DON'T): コンストラクタ内で get() を使用する {id="don-t-get-in-constructors"}
 
 ```kotlin
 // 悪い例 - コンストラクタ内でのサイドエフェクト
@@ -466,7 +466,7 @@ class MyService(
 class MyService(private val repo: UserRepository)
 ```
 
-## 次のステップ
+## 次のステップ {id="next-steps"}
 
 - **[スコープ (Scopes)](/docs/reference/koin-core/scopes)** - 依存関係のライフサイクル管理
 - **[Android 向け Koin](/docs/integrations/android/index)** - Android 特有の注入

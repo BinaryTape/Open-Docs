@@ -1,4 +1,4 @@
-## SQLite の型
+## SQLite の型 {id="sqlite-types"}
 
 SQLDelight の列定義は通常の SQLite の列定義と同じですが、生成されるインターフェースにおける列の Kotlin 型を指定する[追加の列制約](#custom-column-types)をサポートしています。
 
@@ -11,7 +11,7 @@ CREATE TABLE some_types (
 );
 ```
 
-## プリミティブ型
+## プリミティブ型 {id="primitives"}
 
 利便性のためにプリミティブ型を適合させるための兄弟モジュールです。
 

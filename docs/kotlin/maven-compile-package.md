@@ -2,7 +2,7 @@
 
 要使用 Maven 打包您的 Kotlin 应用程序，您可以创建一个标准 JAR 文件，或者创建一个包含其所有依赖项的自包含 (fat) JAR 文件。打包应用程序允许您分发它，并在任何安装了 Java 运行时环境 (JRE) 的计算机上运行。
 
-## 创建 JAR 文件
+## 创建 JAR 文件 {id="create-jar-files"}
 
 要创建一个仅包含模块代码的小型 JAR 文件，请在 Maven `pom.xml` 文件的 `<build><plugins>` 下包含以下内容，其中 `main.class` 已定义为一个属性并指向 Kotlin 或 Java 的主类：
 
@@ -22,7 +22,7 @@
 </plugin>
 ```
 
-## 创建自包含的 JAR 文件
+## 创建自包含的 JAR 文件 {id="create-self-contained-jar-files"}
 
 要创建一个包含模块代码及其依赖项的自包含 JAR 文件，请在 Maven `pom.xml` 文件的 `<build><plugins>` 下包含以下内容，其中 `main.class` 已定义为一个属性并指向 Kotlin 或 Java 的主类：
 

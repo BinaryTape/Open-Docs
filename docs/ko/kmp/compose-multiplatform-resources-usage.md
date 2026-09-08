@@ -26,7 +26,7 @@
   [외부 라이브러리에서](#accessing-multiplatform-resources-from-external-libraries), 
   [원격 파일](#remote-files), 그리고 [Java 리소스](#using-java-resources).
 
-## 생성된 클래스 임포트하기
+## 생성된 클래스 임포트하기 {id="importing-the-generated-class"}
 
 준비된 리소스를 사용하려면 생성된 클래스를 임포트하세요. 예를 들면 다음과 같습니다:
 
@@ -41,7 +41,7 @@ import project.shared.generated.resources.example_image
 * `Res`는 생성된 클래스의 기본 이름입니다.
 * `example_image`는 `composeResources/drawable` 디렉터리에 있는 이미지 파일의 이름입니다 (예: `example_image.png`).
 
-## 접근자 클래스 생성 커스터마이징
+## 접근자 클래스 생성 커스터마이징 {id="customizing-accessor-class-generation"}
 
 Gradle 설정을 사용하여 생성된 `Res` 클래스를 필요에 맞게 커스터마이징할 수 있습니다.
 
@@ -60,9 +60,9 @@ compose.resources {
 * `packageOfResClass`를 사용하면 생성된 `Res` 클래스를 특정 패키지에 할당할 수 있습니다(코드 내 액세스 및 최종 아티팩트에서의 격리 목적). 기본적으로 Compose Multiplatform은 클래스에 `{group name}.{module name}.generated.resources` 패키지를 할당합니다.
 * `generateResClass`를 `always`로 설정하면 프로젝트가 무조건 `Res` 클래스를 생성하도록 합니다. 이는 리소스 라이브러리가 전이적(transitively)으로만 사용 가능할 때 유용할 수 있습니다. 기본적으로 Compose Multiplatform은 현재 프로젝트가 리소스 라이브러리에 대해 명시적인 `implementation` 또는 `api` 의존성을 가질 때만 `Res` 클래스를 생성하는 `auto` 값을 사용합니다.
 
-## 리소스 사용법
+## 리소스 사용법 {id="resource-usage"}
 
-### 이미지 (Images)
+### 이미지 (Images) {id="images"}
 
 드로어블 리소스에 단순 이미지, 래스터화된 이미지 또는 XML 벡터로 액세스할 수 있습니다.
 SVG 이미지는 Android를 **제외한** 모든 플랫폼에서 지원됩니다.
@@ -102,7 +102,7 @@ Image(
 )
 ```
 
-#### 캔버스에 이미지 그리기
+#### 캔버스에 이미지 그리기 {id="drawing-images-on-a-canvas"}
 
 `Image()` 컴포저블을 사용하여 표시하는 대신 리소스 이미지를 직접 그리려면, `ImageBitmap` 또는 `ImageVector`로 로드한 후 `DrawScope`에서 사용하세요:
 
@@ -127,7 +127,7 @@ Canvas(modifier = Modifier.fillMaxSize()) {
 }
 ```
 
-### 아이콘 (Icons)
+### 아이콘 (Icons) {id="icons"}
 
 Material Symbols 라이브러리의 벡터 Android XML 아이콘을 사용할 수 있습니다:
 
@@ -180,7 +180,7 @@ Image(
 )
 ```
 
-### 문자열 (Strings)
+### 문자열 (Strings) {id="strings"}
 
 모든 문자열 리소스를 `composeResources/values` 디렉터리의 XML 파일에 저장하세요.
 각 파일의 각 항목에 대해 정적 접근자가 생성됩니다.
@@ -190,7 +190,7 @@ Compose Multiplatform은 XML 파일에 직접 문자열 리소스, 문자열 배
 
 다양한 로케일에 대해 문자열을 현지화하는 방법에 대한 자세한 내용은 [문자열 현지화 가이드](compose-localize-strings.md)를 참조하세요.
 
-#### 단순 문자열 (Simple strings)
+#### 단순 문자열 (Simple strings) {id="simple-strings"}
 
 단순 문자열을 저장하려면 XML에 `<string>` 요소를 추가하세요:
 
@@ -255,7 +255,7 @@ coroutineScope.launch {
 >
 {style="note"}
 
-#### 문자열 템플릿 (String templates)
+#### 문자열 템플릿 (String templates) {id="string-templates"}
 
 현재 문자열 리소스의 인자에 대해서는 기본적인 지원을 제공합니다.
 템플릿을 만들 때 `%<number>` 형식을 사용하여 문자열 내에 인자를 배치하고, `$d` 또는 `$s` 접미사를 포함하여 그것이 단순 텍스트가 아닌 변수 자리표시자(placeholder)임을 나타내세요.
@@ -286,7 +286,7 @@ Text(stringResource(Res.string.str_template, "User_name", 100.1f))
 > 
 {style="note"}
 
-#### 문자열 배열 (String arrays)
+#### 문자열 배열 (String arrays) {id="string-arrays"}
 
 관련된 문자열들을 배열로 그룹화하고 `List<String>` 객체로 자동 액세스할 수 있습니다:
 
@@ -349,7 +349,7 @@ coroutineScope.launch {
 >
 {style="note"}
 
-#### 복수형 (Plurals)
+#### 복수형 (Plurals) {id="plurals"}
 
 UI에서 수량을 표시할 때, 프로그램적으로 연관 없는 문자열을 여러 개 만들지 않고도 동일한 항목의 수에 따른 문법적 일치(한 권의 _책(book)_, 여러 권의 _책들(books)_ 등)를 지원하고 싶을 수 있습니다.
 
@@ -426,7 +426,7 @@ coroutineScope.launch {
 >
 {style="note"}
 
-### 폰트 (Fonts)
+### 폰트 (Fonts) {id="fonts"}
 
 커스텀 폰트를 `composeResources/font` 디렉터리에 저장하세요.
 Compose Multiplatform은 모든 플랫폼에서 TTF, OTF, TTC 및 가변 폰트(variable font) 형식을 지원합니다. WOFF 및 WOFF2는 웹 및 macOS에서만 사용할 수 있습니다.
@@ -484,7 +484,7 @@ private fun InterTypography(): Typography {
 
 사용되는 폰트를 완전히 제어해야 하는 경우, 특정 폰트를 번들로 묶고 [preload API](compose-web-resources.md#preload-resources-using-the-compose-multiplatform-preload-api)를 사용하여 수동으로 등록하세요.
 
-### 원시 파일 (Raw files)
+### 원시 파일 (Raw files) {id="raw-files"}
 
 원시 파일을 바이트 배열로 로드하려면 `Res.readBytes(path)` 함수를 사용하세요:
 
@@ -521,7 +521,7 @@ coroutineScope.launch {
 </TabItem>
 </Tabs>
 
-#### 바이트 배열을 이미지로 변환하기
+#### 바이트 배열을 이미지로 변환하기 {id="convert-byte-arrays-into-images"}
 
 읽고 있는 파일이 비트맵(JPEG, PNG, BMP, WEBP) 또는 XML 벡터 이미지인 경우, 다음 함수를 사용하여 `Image()` 컴포저블에 적합한 `ImageBitmap` 또는 `ImageVector` 객체로 변환할 수 있습니다.
 
@@ -542,7 +542,7 @@ Android를 제외한 모든 플랫폼에서 SVG 파일을 `Painter` 객체로 �
 Image(bytes.decodeToSvgPainter(LocalDensity.current), null)
 ```
 
-### 리소스 및 문자열 ID를 위한 생성된 맵
+### 리소스 및 문자열 ID를 위한 생성된 맵 {id="generated-maps-for-resources-and-string-ids"}
 
 액세스 편의를 위해 Compose Multiplatform은 리소스를 문자열 ID와 매핑합니다. 파일 이름을 키로 사용하여 액세스할 수 있습니다:
 
@@ -560,7 +560,7 @@ val Res.allFontResources: Map<String, FontResource>
 Image(painterResource(Res.allDrawableResources["compose_multiplatform"]!!), null)
 ```
 
-### Compose Multiplatform 리소스를 Android 에셋으로 사용하기
+### Compose Multiplatform 리소스를 Android 에셋으로 사용하기 {id="compose-multiplatform-resources-as-android-assets"}
 
 Compose Multiplatform 1.7.0부터 모든 멀티플랫폼 리소스는 Android 에셋(assets)으로 패키징됩니다. 이를 통해 Android Studio가 Android 소스 세트의 Compose Multiplatform 컴포저블에 대한 프리뷰를 생성할 수 있습니다.
 
@@ -618,9 +618,9 @@ fun App() {
 
 ![composeResources 디렉터리의 파일 구조](compose-resources-android-webview.png){width="230"}
 
-## 다른 라이브러리 및 리소스와의 상호작용
+## 다른 라이브러리 및 리소스와의 상호작용 {id="interaction-with-other-libraries-and-resources"}
 
-### 외부 라이브러리에서 멀티플랫폼 리소스에 액세스하기
+### 외부 라이브러리에서 멀티플랫폼 리소스에 액세스하기 {id="accessing-multiplatform-resources-from-external-libraries"}
 
 프로젝트에 포함된 다른 라이브러리를 사용하여 멀티플랫폼 리소스를 처리하려는 경우, 플랫폼별 파일 경로를 이러한 다른 API에 전달할 수 있습니다.
 플랫폼별 경로를 얻으려면 리소스에 대한 프로젝트 경로와 함께 `Res.getUri()` 함수를 호출하세요:
@@ -633,7 +633,7 @@ val uri = Res.getUri("files/my_video.mp4")
 
 Android 전용 용도의 경우, 멀티플랫폼 리소스는 [Android 에셋으로도 패키징됩니다](#compose-multiplatform-resources-as-android-assets).
 
-### 원격 파일 (Remote files)
+### 원격 파일 (Remote files) {id="remote-files"}
 
 리소스 라이브러리의 맥락에서, 애플리케이션의 일부인 파일만 리소스로 간주됩니다.
 
@@ -647,7 +647,7 @@ Android 전용 용도의 경우, 멀티플랫폼 리소스는 [Android 에셋으
 
 이미지를 직접 다운로드하거나 바이트를 읽는 경우, 리소스 라이브러리의 [디코딩 함수](#convert-byte-arrays-into-images)를 사용하여 이미지로 변환하세요. 데스크톱 애플리케이션에서 네트워크 이미지를 로드하는 예시는 [데스크톱용 Compose Multiplatform에서 이미지 사용하기](compose-desktop-images.md#loading-images-from-the-file-system-or-the-network) 튜토리얼을 참조하세요.
 
-### Java 리소스 사용하기
+### Java 리소스 사용하기 {id="using-java-resources"}
 
 Compose Multiplatform에서 Java 리소스를 사용할 수 있지만, 프레임워크에서 제공하는 확장 기능(생성된 접근자, 멀티모듈 지원, 현지화 등)의 혜택을 받을 수 없습니다. 이러한 잠재력을 활용하려면 멀티플랫폼 리소스 라이브러리로 완전히 전환하는 것을 고려해 보세요.
 
@@ -687,7 +687,7 @@ private fun readResourceBytes(resourcePath: String) =
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="internal fun painterResource(resourcePath: String): Painter"}
 
-## 다음 단계는?
+## 다음 단계는? {id="what-s-next"}
 
 * iOS, Android 및 데스크톱을 타겟으로 하는 Compose Multiplatform 프로젝트에서 리소스를 처리하는 방법을 보여주는 공식 [데모 프로젝트](https://github.com/JetBrains/compose-multiplatform/tree/master/components/resources/demo)를 확인해 보세요.
 * 인앱 테마 및 언어와 같은 애플리케이션의 [리소스 환경(resource environment)](compose-resource-environment.md)을 관리하는 방법을 알아보세요.

@@ -2,7 +2,7 @@
 
 為在所有類型的裝置上提供一致的使用者體驗，請讓您的應用程式 UI 適應不同的顯示尺寸、螢幕方向和輸入模式。
 
-## 設計自適應配置
+## 設計自適應配置 {id="designing-adaptive-layouts"}
 
 設計自適應配置時，請遵循以下關鍵準則：
 
@@ -11,7 +11,7 @@
 *   將複雜的配置拆分為可重複使用的 composable，以提高彈性和模組化。
 *   針對螢幕密度和方向進行調整。
 
-## 使用視窗大小類別
+## 使用視窗大小類別 {id="using-window-size-classes"}
 
 視窗大小類別是預定義的閾值，也稱為中斷點 (breakpoint)，用於對不同的螢幕尺寸進行分類，以協助您設計、開發和測試自適應配置。
 
@@ -48,7 +48,7 @@ fun MyApp(
 ```
 
 <!--- waiting for a page about @Preview and hot reload
-## 預覽配置
+## 預覽配置 {id="previewing-layouts"}
 
 我們有三種不同的 @Preview：
 
@@ -57,6 +57,6 @@ fun MyApp(
 * 共用註解，Android Studio 也支援，僅適用於 Android，但來自共用程式碼。
 -->
 
-## 接續步驟
+## 接續步驟 {id="what-s-next"}
 
 在 [Jetpack Compose 文件](https://developer.android.com/develop/ui/compose/layouts/adaptive) 中進一步了解自適應配置。

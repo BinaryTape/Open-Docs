@@ -7,7 +7,7 @@ Expect 与 actual 声明允许您从 Kotlin Multiplatform 模块中访问特定�
 >
 {style="tip"}
 
-## Expect 与 actual 声明的规则
+## Expect 与 actual 声明的规则 {id="rules-for-expected-and-actual-declarations"}
 
 要定义 expect 与 actual 声明，请遵循以下规则：
 
@@ -36,13 +36,13 @@ IDE 会协助处理常见问题，包括：
 
 ![从预期声明到实际声明的 IDE 导航](expect-actual-gutter.png){width=500}
 
-## 使用 expect 与 actual 声明的不同方法
+## 使用 expect 与 actual 声明的不同方法 {id="different-approaches-for-using-expected-and-actual-declarations"}
 
 让我们探索使用 expect/actual 机制来解决访问平台 API 问题、同时仍提供在通用代码中操作它们的方法的不同选项。
 
 考虑一个 Kotlin Multiplatform 项目，您需要实现 `Identity` 类型，该类型应包含用户的登录名和当前进程 ID。该项目具有 `commonMain`、`jvmMain` 和 `nativeMain` 源集，以使应用程序在 JVM 和 iOS 等原生环境中运行。
 
-### 预期函数与实际函数
+### 预期函数与实际函数 {id="expected-and-actual-functions"}
 
 您可以定义一个 `Identity` 类型和一个工厂函数 `buildIdentity()`，该函数在通用源集中声明，并在平台源集中以不同方式实现：
 
@@ -91,7 +91,7 @@ IDE 会协助处理常见问题，包括：
 >
 {style="note"}
 
-### 带有预期函数与实际函数的接口
+### 带有预期函数与实际函数的接口 {id="interfaces-with-expected-and-actual-functions"}
 
 如果工厂函数变得太大，请考虑使用通用的 `Identity` 接口，并在不同平台上以不同方式实现它。
 
@@ -133,7 +133,7 @@ IDE 会协助处理常见问题，包括：
 
 这些平台函数返回特定于平台的 `Identity` 实例，它们分别实现为 `JVMIdentity` 和 `NativeIdentity` 平台类型。
 
-#### 预期属性与实际属性
+#### 预期属性与实际属性 {id="expected-and-actual-properties"}
 
 您可以修改前面的示例，并预期一个 `val` 属性来存储 `Identity`。
 
@@ -169,7 +169,7 @@ class NativeIdentity(
 ) : Identity
 ```
 
-#### 预期对象与实际对象
+#### 预期对象与实际对象 {id="expected-and-actual-objects"}
 
 当 `IdentityBuilder` 在每个平台上预期为单例时，您可以将其定义为 `expect object`，并让平台将其实现为 `actual object`：
 
@@ -205,7 +205,7 @@ actual object IdentityBuilder {
 }
 ```
 
-#### 关于依赖注入的建议
+#### 关于依赖注入的建议 {id="recommendations-on-dependency-injection"}
 
 为了创建松耦合架构，许多 Kotlin 项目采用了依赖注入 (DI) 框架。DI 框架允许根据当前环境将依赖项注入组件。
 
@@ -217,7 +217,7 @@ actual object IdentityBuilder {
 
 通过这种方法，您可以简单地通过使用接口和工厂函数来采用 Kotlin Multiplatform。如果您已经在项目中使用 DI 框架来管理依赖项，我们建议使用相同的方法来管理平台依赖项。
 
-### 预期类与实际类
+### 预期类与实际类 {id="expected-and-actual-classes"}
 
 > 预期类与实际类处于 [Beta](supported-platforms.md#general-kotlin-stability-levels) 阶段。
 > 它们已经接近稳定，但在未来可能需要迁移步骤。
@@ -268,7 +268,7 @@ kotlin {
 }
 ```
 
-#### 继承自平台类
+#### 继承自平台类 {id="inheritance-from-platform-classes"}
 
 在某些特殊情况下，在类中使用 `expect` 关键字可能是最佳方法。假设 `Identity` 类型在 JVM 上已经存在：
 
@@ -310,7 +310,7 @@ open class Identity {
 
 在这里，`CommonIdentity` 类型与您自己的设计兼容，同时利用了 JVM 上现有的类型。
 
-#### 在框架中的应用
+#### 在框架中的应用 {id="application-in-frameworks"}
 
 作为框架作者，您可能还会发现 expect 与 actual 声明对您的框架很有用。
 
@@ -361,11 +361,11 @@ typically provides an expected `CommonViewModel` class whose actual Android coun
 from the Android framework. See [Use platform-specific APIs](multiplatform-connect-to-apis.md#adapting-to-an-existing-hierarchy-using-expected-actual-classes)
 for a detailed description of this example. -->
 
-## 高级用例
+## 高级用例 {id="advanced-use-cases"}
 
 关于 expect 与 actual 声明，还有一些特殊情况。
 
-### 使用类型别名满足实际声明
+### 使用类型别名满足实际声明 {id="using-type-aliases-to-satisfy-actual-declarations"}
 
 实际声明的实现不必从头开始编写。它可以是一个现有的类型，例如由第三方库提供的类。
 
@@ -402,7 +402,7 @@ actual typealias MyDate = java.time.LocalDate
 <!-- See [Using platform-specific APIs](multiplatform-connect-to-apis.md#actualizing-an-interface-or-a-class-with-an-existing-platform-class-using-typealiases)
 for an Android-specific example of this pattern. -->
 
-### 实际声明中扩展的可见性
+### 实际声明中扩展的可见性 {id="expanded-visibility-in-actual-declarations"}
 
 您可以使实际实现的可见性高于相应的预期声明。如果您不想向通用客户端公开您的 API 为 public，这将非常有用。
 
@@ -425,7 +425,7 @@ public actual typealias Messenger = MyMessenger
 
 在这里，一个 internal 预期类通过类型别名拥有一个使用现有 public `MyMessenger` 的实际实现。
 
-### 实现时的附加枚举项
+### 实现时的附加枚举项 {id="additional-enumeration-entries-on-actualization"}
 
 当在通用源集中使用 `expect` 声明枚举时，每个平台模块都应有一个相应的 `actual` 声明。这些声明必须包含相同的枚举常量，但它们也可以包含额外的常量。
 
@@ -466,7 +466,7 @@ fun matchOnDepartment(dept: Department) {
 
 <!-- If you'd like to forbid adding new constants in the actual enum, please vote for this issue [TODO]. -->
 
-### 预期注解类
+### 预期注解类 {id="expected-annotation-classes"}
 
 Expect 与 actual 声明可以与注解一起使用。例如，您可以声明一个 `@XmlSerializable` 注解，它在每个平台源集中必须有一个对应的实际声明：
 
@@ -503,6 +503,6 @@ expect annotation class XmlSerializable()
 
 如果某个平台上缺少实际声明且该平台不需要它，编译器将不会生成错误。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 有关使用特定于平台的 API 的不同方式的常规建议，请参阅[使用特定于平台的 API](multiplatform-connect-to-apis.md)。

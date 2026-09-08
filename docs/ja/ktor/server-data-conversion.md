@@ -88,7 +88,7 @@ Ktorサーバーの %plugin_name% プラグインを使用すると、値のリ�
       }
   ```
 
-## サービスへのアクセス
+## サービスへのアクセス {id="access-the-service"}
 
 {id="service"}
 
@@ -103,7 +103,7 @@ val dataConversion = application.conversionService
 * `fromValues(values: List<String>, type: TypeInfo)` コールバック関数は、文字列のリストとしての `values` と、値を変換する先の `TypeInfo` を受け取り、デコードされた値を返します。
 * `toValues(value: Any?)` コールバック関数は、任意の値を受け取り、それを表す文字列のリストを返します。
 
-## 例
+## 例 {id="example"}
 
 次の例では、`LocalDate` 型のコンバーターが定義され、値をシリアライズおよびデシリアライズするように構成されています。`encode` 関数が呼び出されると、サービスは `SimpleDateFormat` を使用して値を変換し、フォーマットされた値を含むリストを返します。
 `decode` 関数が呼び出されると、サービスは日付を `LocalDate` としてフォーマットして返します。

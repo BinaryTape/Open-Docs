@@ -13,7 +13,7 @@
 
 이 질문들에 대한 답변은 프로젝트에 가장 적합한 구성을 선택하는 데 도움이 될 것입니다.
 
-## Kotlin Multiplatform 모듈을 iOS 앱에 연결하기
+## Kotlin Multiplatform 모듈을 iOS 앱에 연결하기 {id="connect-a-kotlin-multiplatform-module-to-an-ios-app"}
 
 iOS 앱에서 Kotlin Multiplatform 공유 모듈을 사용하려면, 먼저 이 공유 모듈에서 [iOS 프레임워크](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPFrameworks/Concepts/WhatAreFrameworks.html)를 생성해야 합니다. 그런 다음 이를 iOS 프로젝트에 의존성으로 추가해야 합니다.
 
@@ -24,11 +24,11 @@ iOS 앱에서 Kotlin Multiplatform 공유 모듈을 사용하려면, 먼저 이 
 
 iOS 통합을 위한 모든 가용한 옵션을 검토하려면 [iOS 통합 방법](multiplatform-ios-integration-overview.md)을 참조하세요.
 
-## 모듈 구성
+## 모듈 구성 {id="module-configurations"}
 
 Kotlin Multiplatform 프로젝트에서 사용할 수 있는 두 가지 모듈 구성 옵션이 있습니다: 단일 모듈 또는 여러 개의 공유 모듈입니다.
 
-### 단일 공유 모듈
+### 단일 공유 모듈 {id="single-shared-module"}
 
 가장 간단한 모듈 구성은 프로젝트에 단 하나의 공유 Kotlin Multiplatform 모듈만 포함하는 것입니다:
 
@@ -61,7 +61,7 @@ Android 앱은 공유 Kotlin Multiplatform 모듈을 일반적인 Kotlin 모듈�
 
 </table>
 
-### 여러 개의 공유 모듈
+### 여러 개의 공유 모듈 {id="several-shared-modules"}
 
 공유 모듈이 커지면 기능(feature) 모듈로 나누는 것이 좋습니다. 이는 단일 모듈 사용 시 발생할 수 있는 확장성 문제를 방지하는 데 도움이 됩니다.
 
@@ -112,7 +112,7 @@ Android 앱은 일관성을 위해 엄브렐러 모듈에 의존하거나, 개�
 >
 {style="tip"}
 
-#### 왜 엄브렐러 프레임워크가 필요한가요? {initial-collapse-state="collapsed" collapsible="true"}
+#### 왜 엄브렐러 프레임워크가 필요한가요? {initial-collapse-state="collapsed" collapsible="true" id="why-do-you-need-an-umbrella-framework"}
 
 서로 다른 Kotlin Multiplatform 공유 모듈에서 생성된 여러 프레임워크를 iOS 앱에 포함하는 것이 가능하긴 하지만, 이 방법은 권장하지 않습니다. Kotlin Multiplatform 모듈이 프레임워크로 컴파일될 때, 결과 프레임워크에는 모든 의존성이 포함됩니다. 둘 이상의 모듈이 동일한 의존성을 사용하고 iOS에 별도의 프레임워크로 노출되는 경우, Kotlin/Native 컴파일러는 의존성을 중복시킵니다.
 
@@ -122,11 +122,11 @@ Kotlin은 공통 프레임워크 의존성을 생성하지 않는데, 그 이유
 
 이 문제의 해결책은 엄브렐러 프레임워크를 사용하는 것입니다. 이는 중복된 의존성으로 인해 iOS 앱이 비대해지는 것을 방지하고, 결과 아티팩트를 최적화하는 데 도움을 주며, 의존성 간의 불호환성으로 인한 문제를 제거합니다.
 
-## 저장소 구성
+## 저장소 구성 {id="repository-configurations"}
 
 기존 또는 새로운 Kotlin Multiplatform 프로젝트에서 하나의 저장소 또는 여러 저장소의 조합을 사용하는 다양한 저장소 구성 옵션이 있습니다.
 
-### 모노레포: 모든 것을 하나의 저장소에
+### 모노레포: 모든 것을 하나의 저장소에 {id="monorepo-everything-in-one-repository"}
 
 일반적인 저장소 구성을 모노레포(monorepo) 구성이라고 합니다. 이 방식은 Kotlin Multiplatform 샘플 및 튜토리얼에서 사용됩니다. 이 경우 저장소에는 Android 및 iOS 앱뿐만 아니라 엄브렐러 모듈을 포함한 공유 모듈들이 포함됩니다:
 
@@ -165,7 +165,7 @@ Kotlin은 공통 프레임워크 의존성을 생성하지 않는데, 그 이유
 
 기존 Android 및 iOS 앱이 이미 서로 다른 저장소에 저장되어 있는 경우, 이들을 병합하는 대신 Kotlin Multiplatform 부분을 Android 저장소나 별도의 저장소에 추가할 수 있습니다.
 
-### 두 개의 저장소: Android + 공유 | iOS
+### 두 개의 저장소: Android + 공유 | iOS {id="two-repositories-android-shared-ios"}
 
 또 다른 프로젝트 구성은 두 개의 저장소를 갖는 것입니다. 이 경우 Kotlin Multiplatform 저장소에는 Android 앱과 엄브렐러 모듈을 포함한 공유 모듈이 포함되며, Xcode 프로젝트에는 iOS 앱이 포함됩니다:
 
@@ -173,7 +173,7 @@ Kotlin은 공통 프레임워크 의존성을 생성하지 않는데, 그 이유
 
 Android 및 iOS 앱은 별도로 버전을 관리할 수 있으며, 공유 모듈은 Android 앱과 함께 버전이 관리됩니다.
 
-### 세 개의 저장소: Android | iOS | 공유
+### 세 개의 저장소: Android | iOS | 공유 {id="three-repositories-android-ios-shared"}
 
 또 다른 옵션은 Kotlin Multiplatform 모듈을 위한 별도의 저장소를 갖는 것입니다. 이 경우 Android 및 iOS 앱은 별도의 저장소에 저장되며, 프로젝트의 공유 코드는 여러 기능 모듈과 iOS를 위한 엄브렐러 모듈을 포함할 수 있습니다:
 
@@ -185,7 +185,7 @@ Android 아티팩트를 별도로 게시하는 것은 Kotlin Multiplatform 모�
 
 Android와 iOS 팀 모두가 동일한 버전의 아티팩트를 사용할 때, 그들은 동일한 버전 상태(version parity)에서 운영됩니다. 팀 관점에서 이는 공유 Kotlin Multiplatform 코드가 Android 개발자의 "소유"라는 인상을 피하게 해줍니다. 기능 개발을 위해 이미 버전이 관리되는 내부 Kotlin 및 Swift 패키지를 게시하고 있는 대규모 프로젝트의 경우, 공유 Kotlin 아티팩트를 게시하는 것은 기존 워크플로의 일부가 됩니다.
 
-### 다중 저장소: Android | iOS | 다수 라이브러리
+### 다중 저장소: Android | iOS | 다수 라이브러리 {id="many-repositories-android-ios-multiple-libraries"}
 
 여러 플랫폼의 여러 앱 간에 기능을 공유해야 하는 경우, Kotlin Multiplatform 코드가 포함된 여러 저장소를 갖는 것을 선호할 수 있습니다. 예를 들어, 제품 전체에서 공통으로 사용되는 로깅 라이브러리를 자체 버전을 가진 별도의 저장소에 저장할 수 있습니다.
 
@@ -195,11 +195,11 @@ Android와 iOS 팀 모두가 동일한 버전의 아티팩트를 사용할 때, 
 
 여기서 각 라이브러리는 Android 또는 JVM 플랫폼을 위해서도 버전을 관리하고 게시해야 합니다. 앱과 각 라이브러리는 별도로 버전을 관리할 수 있습니다.
 
-## 코드 공유 워크플로
+## 코드 공유 워크플로 {id="code-sharing-workflow"}
 
 iOS 앱은 Kotlin Multiplatform 공유 모듈에서 생성된 프레임워크를 _로컬_ 또는 _원격_ 의존성으로 사용할 수 있습니다. iOS 빌드에서 프레임워크에 대한 로컬 경로를 제공하여 로컬 의존성을 사용할 수 있습니다. 이 경우 프레임워크를 게시할 필요가 없습니다. 또는 프레임워크가 포함된 아티팩트를 어딘가에 게시하고, 다른 써드파티 의존성처럼 iOS 앱이 이를 원격 의존성으로 사용하게 할 수 있습니다.
 
-### 로컬: 소스 배포
+### 로컬: 소스 배포 {id="local-source-distribution"}
 
 로컬 배포는 iOS 앱이 게시 과정 없이 Kotlin Multiplatform 모듈 프레임워크를 사용하는 방식입니다. iOS 앱은 프레임워크를 직접 통합하거나 CocoaPods를 사용하여 통합할 수 있습니다.
 
@@ -240,7 +240,7 @@ iOS 앱은 Kotlin Multiplatform 공유 모듈에서 생성된 프레임워크를
 
 </table>
 
-### 원격: 아티팩트 배포
+### 원격: 아티팩트 배포 {id="remote-artifact-distribution"}
 
 원격 배포는 프레임워크 아티팩트가 Swift Package Manager 또는 CocoaPod으로 게시되고 iOS 앱에서 이를 사용하는 것을 의미합니다. Android 앱은 바이너리 의존성을 로컬 또는 원격으로 사용할 수 있습니다.
 
@@ -272,7 +272,7 @@ iOS 앱은 Kotlin Multiplatform 공유 모듈에서 생성된 프레임워크를
 
 </table>
 
-#### 로컬 개발을 위한 로컬 의존성 설정하기
+#### 로컬 개발을 위한 로컬 의존성 설정하기 {id="setting-up-a-local-dependency-for-local-development"}
 
 많은 팀이 Kotlin Multiplatform 기술을 채택할 때 iOS 개발자의 개발 프로세스를 동일하게 유지하기 위해 원격 배포 워크플로를 선택합니다. 하지만 이 워크플로에서는 Kotlin Multiplatform 코드를 변경하기가 어렵습니다. 저희는 Kotlin Multiplatform 모듈에서 생성된 프레임워크에 대한 로컬 의존성을 갖는 추가적인 "로컬 개발" 워크플로를 설정할 것을 권장합니다.
 

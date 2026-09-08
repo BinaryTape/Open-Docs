@@ -24,7 +24,7 @@ fun main() {
 
 `Derived` 的超型別清單中的 `by` 子句表示 `b` 將在內部儲存於 `Derived` 物件中，且編譯器會產生 `Base` 的所有方法並轉發給 `b`。
 
-## 覆寫透過委派實作的介面成員
+## 覆寫透過委派實作的介面成員 {id="overriding-a-member-of-an-interface-implemented-by-delegation"}
 
 [覆寫](inheritance.md#overriding-methods) 的運作方式如你預期：編譯器會使用你的 `override` 實作，而非委派物件中的實作。如果你想在 `Derived` 中加入 `override fun printMessage() { print("abc") }`，當呼叫 `printMessage` 時，程式會印出 *abc* 而非 *10*：
 

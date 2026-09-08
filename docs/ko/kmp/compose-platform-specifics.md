@@ -4,7 +4,7 @@ Compose Multiplatform은 서로 다른 플랫폼에서 가능한 한 동일하�
 이 페이지에서는 Compose Multiplatform으로 여러 플랫폼을 위한 공통 UI 코드를 작성할 때 예상되는,
 피할 수 없는 차이점이나 일시적인 절충안에 대해 알아볼 수 있습니다.
 
-## 프로젝트 구조
+## 프로젝트 구조 {id="project-structure"}
 
 타겟팅하는 플랫폼에 관계없이, 각 플랫폼에는 전용 엔트리 포인트(entry point)가 필요합니다:
 
@@ -17,9 +17,9 @@ Compose Multiplatform은 서로 다른 플랫폼에서 가능한 한 동일하�
 직접 구현하기 전에, 모든 사용 가능한 Kotlin 멀티플랫폼 라이브러리를 종합적으로 카탈로그화하는 것을 목표로 하는 JetBrains 프로젝트인 [klibs.io](https://klibs.io/)를 확인해 보세요.
 네트워크 코드, 데이터베이스, 코루틴 등을 위한 라이브러리가 이미 준비되어 있습니다.
 
-## 입력 방식
+## 입력 방식 {id="input-methods"}
 
-### 소프트웨어 키보드
+### 소프트웨어 키보드 {id="software-keyboards"}
 
 각 플랫폼은 텍스트 필드가 활성화될 때 키보드가 나타나는 방식을 포함하여 소프트웨어 키보드를 약간씩 다르게 처리할 수 있습니다.
 
@@ -27,26 +27,26 @@ Compose Multiplatform은 [Compose 윈도우 인셋(window insets) 방식](https:
 구현 방식에 따라 iOS에서 소프트웨어 키보드의 위치가 약간 다를 수 있습니다.
 두 플랫폼 모두에서 키보드가 중요한 UI 요소를 가리지 않는지 확인하십시오.
 
-### 터치 및 마우스 지원
+### 터치 및 마우스 지원 {id="touch-and-mouse-support"}
 
 현재 데스크톱 구현은 모든 포인터 조작을 마우스 제스처로 해석하므로 멀티터치 제스처를 지원하지 않습니다.
 예를 들어, 일반적인 핀치 투 줌(pinch-to-zoom) 제스처는 두 개의 터치를 동시에 처리해야 하므로 데스크톱용 Compose Multiplatform으로는 구현할 수 없습니다.
 
-## UI 동작 및 외형
+## UI 동작 및 외형 {id="ui-behavior-and-appearance"}
 
-### 플랫폼 전용 기능
+### 플랫폼 전용 기능 {id="platform-specific-functionality"}
 
 일부 공통 UI 요소는 Compose Multiplatform에서 다루지 않으며 프레임워크를 사용하여 커스텀할 수 없습니다.
 따라서 플랫폼마다 다르게 보일 수 있음을 예상해야 합니다.
 
 네이티브 팝업 뷰가 그 예입니다. Compose Multiplatform 텍스트 필드에서 텍스트를 선택할 때, **복사(Copy)** 또는 **번역(Translate)**과 같은 기본 권장 작업은 앱이 실행 중인 플랫폼에 따라 다르게 나타납니다.
 
-### 스크롤 물리 효과
+### 스크롤 물리 효과 {id="scroll-physics"}
 
 Android 및 iOS의 경우, 스크롤의 느낌이 해당 플랫폼에 맞춰져 있습니다.
 데스크톱의 경우, 스크롤 지원은 마우스 휠로 제한됩니다 ([터치 및 마우스 지원](#touch-and-mouse-support)에서 언급된 바와 같습니다).
 
-### 인터롭 뷰 (Interop views)
+### 인터롭 뷰 (Interop views) {id="interop-views"}
 
 공통 컴포저블 내에 네이티브 뷰를 삽입하거나 그 반대의 작업을 수행하려면, Compose Multiplatform에서 지원하는 플랫폼별 메커니즘을 숙지해야 합니다.
 
@@ -54,7 +54,7 @@ iOS의 경우, [SwiftUI](compose-swiftui-integration.md) 및 [UIKit](compose-uik
 
 데스크톱의 경우, Compose Multiplatform은 [Swing 상호 운용성](compose-desktop-swing-interoperability.md)을 지원합니다.
 
-### 뒤로 가기 제스처
+### 뒤로 가기 제스처 {id="back-gesture"}
 
 Android 기기는 기본적으로 뒤로 가기 제스처를 지원하며, 모든 화면은 어떤 방식으로든 **뒤로 가기** 버튼에 반응합니다.
 
@@ -65,7 +65,7 @@ iOS용 Compose Multiplatform은 Android 기능을 모방하기 위해 기본적�
 
 자세한 내용은 [이 섹션](compose-navigation.md#back-gesture)을 참조하십시오.
 
-### 텍스트
+### 텍스트 {id="text"}
 
 텍스트의 경우, Compose Multiplatform은 서로 다른 플랫폼 간의 픽셀 단위 일치를 보장하지 않습니다.
 
@@ -76,7 +76,7 @@ iOS용 Compose Multiplatform은 Android 기능을 모방하기 위해 기본적�
 그러나 픽셀 차이로 인해 스크린샷 테스트 등에서 문제가 발생할 수 있습니다.
 
 <!-- this should be covered in benchmarking, not as a baseline Compose Multiplatform limitation 
-### Initial performance
+### Initial performance {id="initial-performance"}
 
 On iOS, you may notice a delay in the initial performance of individual screens compared to Android.
 This can happen because Compose Multiplatform compiles UI shaders on demand.
@@ -86,16 +86,16 @@ This issue affects only the first launch of each screen.
 Once all necessary shaders are cached, subsequent launches are not delayed by compilation.
 -->
 
-## 개발자 경험
+## 개발자 경험 {id="developer-experience"}
 
-### 프리뷰 (Previews)
+### 프리뷰 (Previews) {id="previews"}
 
 *프리뷰(Previews)*는 IntelliJ IDEA 및 Android Studio에서 공유 UI 코드와 함께 렌더링될 수 있는, `@Preview` 어노테이션이 달린 컴포저블의 레이아웃 프레젠테이션입니다.
 
 프리뷰를 사용하려면 명시적인 의존성이 포함된 특정 프로젝트 구성이 필요합니다.
 프로젝트에서 프리뷰를 활성화하는 방법은 [Compose UI 프리뷰](compose-previews.md)를 참조하십시오.
 
-### 핫 리로드 (Hot reload)
+### 핫 리로드 (Hot reload) {id="hot-reload"}
 
 *핫 리로드(Hot reload)*는 추가 입력 없이 코드 변경 사항을 즉시 앱에 반영하는 기능을 말합니다.
 Compose Multiplatform에서 핫 리로드 기능은 JVM(데스크톱) 타겟에서만 사용할 수 있습니다.
@@ -103,7 +103,7 @@ Compose Multiplatform에서 핫 리로드 기능은 JVM(데스크톱) 타겟에�
 
 자세한 내용은 [Compose 핫 리로드](compose-hot-reload.md) 문서를 참조하십시오.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 다음 구성 요소에 대한 Compose Multiplatform 구현에 대해 자세히 알아보세요:
   * [리소스 (Resources)](compose-multiplatform-resources.md)

@@ -8,7 +8,7 @@
 
 您可以通过访问我们的 [Maven 示例](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/examples/maven)项目来试用 Dokka 并了解如何为 Maven 项目进行配置。
 
-## 应用 Dokka
+## 应用 Dokka {id="apply-dokka"}
 
 要应用 Dokka，您需要在 POM 文件的 `plugins` 部分中添加 `dokka-maven-plugin`：
 
@@ -32,7 +32,7 @@
 </build>
 ```
 
-## 生成文档
+## 生成文档 {id="generate-documentation"}
 
 Maven 插件提供了以下目标：
 
@@ -40,14 +40,14 @@ Maven 插件提供了以下目标：
 |---------------|----------------------------------------------------------------------------------------|
 | `dokka:dokka` | 在应用 Dokka 插件的情况下生成文档。默认格式为 [HTML](dokka-html.md)。 |
 
-### 实验性功能
+### 实验性功能 {id="experimental"}
 
 | **目标**           | **说明**                                                                             |
 |--------------------|---------------------------------------------------------------------------------------------|
 | `dokka:javadoc`    | 以 [Javadoc](dokka-javadoc.md) 格式生成文档。                                    |
 | `dokka:javadocJar` | 生成一个包含 [Javadoc](dokka-javadoc.md) 格式文档的 `javadoc.jar` 文件。 |
 
-### 其他输出格式
+### 其他输出格式 {id="other-output-formats"}
 
 默认情况下，Dokka 的 Maven 插件会以 [HTML](dokka-html.md) 输出格式构建文档。
 
@@ -76,7 +76,7 @@ Maven 插件提供了以下目标：
 
 要了解关于 Dokka 插件的更多信息，请参阅 [Dokka 插件](dokka-plugins.md)。
 
-## 构建 javadoc.jar
+## 构建 javadoc.jar {id="build-javadoc-jar"}
 
 如果您想将库发布到仓库，可能需要提供一个包含库 API 参考文档的 `javadoc.jar` 文件。
 
@@ -123,7 +123,7 @@ mvn dokka:dokka jar:jar@dokka-jar
 >
 {style="tip"}
 
-## 配置示例
+## 配置示例 {id="configuration-example"}
 
 Maven 的插件配置块可用于配置 Dokka。
 
@@ -140,13 +140,13 @@ Maven 的插件配置块可用于配置 Dokka。
 </plugin>
 ```
 
-## 配置选项
+## 配置选项 {id="configuration-options"}
 
 Dokka 拥有许多配置选项，可根据您和读者的体验进行量身定制。
 
 下面是一些示例以及每个配置部分的详细说明。您还可以在页面底部找到应用了[所有配置选项](#complete-configuration)的示例。
 
-### 通用配置
+### 通用配置 {id="general-configuration"}
 
 ```xml
 <plugin>
@@ -370,7 +370,7 @@ Dokka 拥有许多配置选项，可根据您和读者的体验进行量身定�
     </def>
 </deflist>
 
-### 源链接配置
+### 源链接配置 {id="source-link-configuration"}
 
 `sourceLinks` 配置块允许您为每个签名添加一个 `source` 链接，该链接指向带有特定行号的 `url`。（行号可通过设置 `lineSuffix` 来配置）。
 
@@ -427,7 +427,7 @@ Dokka 拥有许多配置选项，可根据您和读者的体验进行量身定�
     </def>
 </deflist>
 
-### 外部文档链接配置
+### 外部文档链接配置 {id="external-documentation-links-configuration"}
 
 `externalDocumentationLinks` 块允许创建指向依赖项外部托管文档的链接。
 
@@ -472,7 +472,7 @@ Dokka 拥有许多配置选项，可根据您和读者的体验进行量身定�
     </def>
 </deflist>
 
-### 软件包选项
+### 软件包选项 {id="package-options"}
 
 `perPackageOptions` 配置块允许为 `matchingRegex` 匹配的特定软件包设置某些选项。
 
@@ -532,7 +532,7 @@ Dokka 拥有许多配置选项，可根据您和读者的体验进行量身定�
     </def>
 </deflist>
 
-### 完整配置
+### 完整配置 {id="complete-configuration"}
 
 在下方您可以看到同时应用了所有可能配置选项的示例。
 

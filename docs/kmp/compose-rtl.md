@@ -2,7 +2,7 @@
 
 Compose Multiplatform 支持从右到左 (RTL) 的语言，例如阿拉伯语、希伯来语和波斯语。该框架会自动处理大多数 RTL 需求，并在使用 RTL 语言时根据系统的区域设置调整布局、对齐方式和文本输入行为。
 
-## 布局镜像
+## 布局镜像 {id="layout-mirroring"}
 
 当系统区域设置为 RTL 语言时，Compose Multiplatform 会自动镜像大多数 UI 组件。调整包括对内边距 (padding)、对齐方式和组件位置的更改：
 
@@ -18,7 +18,7 @@ Compose Multiplatform 支持从右到左 (RTL) 的语言，例如阿拉伯语、
 *   **按钮定位**  
     常见的 UI 模式（例如 **Cancel**（取消）和 **Confirm**（确认）按钮的位置）会根据 RTL 的习惯进行调整。
 
-## 强制布局方向
+## 强制布局方向 {id="forcing-layout-direction"}
 
 您可能需要保持某些 UI 元素（如 logo 或图标）的原始方向，而不受布局方向的影响。您可以为整个应用或单个组件显式设置布局方向，从而覆盖系统基于区域设置的默认布局行为。
 
@@ -35,20 +35,20 @@ Hello world")
 }
 ```
 
-## 在 RTL 布局中处理文本输入
+## 在 RTL 布局中处理文本输入 {id="handling-text-input-in-rtl-layouts"}
 
 Compose Multiplatform 支持 RTL 布局中的各种文本输入场景，包括混合方向内容、特殊字符、数字和表情符号。
 
 当您设计支持 RTL 布局的应用时，请考虑以下方面。测试这些方面可以帮助您识别潜在的本地化问题。
 
-### 光标行为
+### 光标行为 {id="cursor-behavior"}
 
 光标在 RTL 布局中的行为应符合直觉，并与字符的逻辑方向对齐。例如：
 
 *   在输入阿拉伯语时，光标从右向左移动，但插入 LTR 内容时则遵循从左到右的行为。
 *   文本选择、删除和插入等操作遵循文本的自然方向流。
 
-### 双向文本 (BiDi)
+### 双向文本 (BiDi) {id="bidi-text"}
 
 Compose Multiplatform 使用 [Unicode 双向算法](https://www.w3.org/International/articles/inline-bidi-markup/uba-basics)来管理和渲染双向 (BiDi) 文本，使标点符号和数字对齐。
 
@@ -139,7 +139,7 @@ internal fun TextField(
 
 Compose Multiplatform 还确保了复杂 BiDi 案例中的正确对齐和间距，包括多行换行和 BiDi 内容的嵌套。
 
-### 数字和表情符号
+### 数字和表情符号 {id="numbers-and-emojis"}
 
 数字应根据周围文本的方向一致地显示。东阿拉伯数字在 RTL 文本中自然对齐，西阿拉伯数字遵循典型的 LTR 行为。
 
@@ -227,7 +227,7 @@ internal fun TextField(
 
 <img src="compose-rtl-emoji.png" alt="数字和表情符号" width="600"/>
 
-## Web 目标的字体
+## Web 目标的字体 {id="fonts-for-web-targets"}
 
 Web 目标缺少用于渲染某些区域设置（如阿拉伯语和中文）字符的内置字体。为了解决这个问题，您需要将自定义回退字体添加到资源并预加载它们，因为它们不会自动启用。
 
@@ -251,11 +251,11 @@ LaunchedEffect(Unit) {
 
 有关预加载 Web 目标资源的详细信息，请参阅关于 [preload API](compose-web-resources.md#preload-resources-using-the-compose-multiplatform-preload-api) 的章节。
 
-## RTL 布局中的无障碍
+## RTL 布局中的无障碍 {id="accessibility-in-rtl-layouts"}
 
 Compose Multiplatform 支持 RTL 布局的无障碍功能，包括为屏幕阅读器提供正确的文本方向和顺序，以及处理手势。
 
-### 屏幕阅读器
+### 屏幕阅读器 {id="screen-readers"}
 
 屏幕阅读器会自动适应 RTL 布局，为用户保持逻辑阅读顺序：
 
@@ -264,7 +264,7 @@ Compose Multiplatform 支持 RTL 布局的无障碍功能，包括为屏幕阅�
 
 在复杂的布局中，有必要定义遍历语义，以确保屏幕阅读器具有正确的阅读顺序。
 
-### 基于焦点的导航
+### 基于焦点的导航 {id="focus-based-navigation"}
 
 RTL 布局中的焦点导航遵循布局的镜像结构：
 
@@ -275,7 +275,7 @@ RTL 布局中的焦点导航遵循布局的镜像结构：
 
 有关如何定义遍历语义和设置遍历索引的详细信息，请参阅[无障碍](compose-accessibility.md#traversal-order)章节。
 
-## 已知问题
+## 已知问题 {id="known-issues"}
 
 我们一直在改进对 RTL 语言的支持，并计划解决以下已知问题：
 

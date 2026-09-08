@@ -4,11 +4,11 @@
 
 Gradle을 최대한 활용하는 것은 빌드 관리 및 대기 시간을 줄이고 코딩에 더 많은 시간을 할애하는 데 필수적입니다. 여기서는 프로젝트 **구성(organizing)**과 **최적화(optimizing)**라는 두 가지 핵심 영역으로 나뉜 모범 사례 세트를 제공합니다.
 
-## 구성 (Organize)
+## 구성 (Organize) {id="organize"}
 
 이 섹션에서는 명확성, 유지 관리성 및 확장성을 개선하기 위해 Gradle 프로젝트를 구조화하는 방법에 중점을 둡니다.
 
-### Kotlin DSL 사용
+### Kotlin DSL 사용 {id="use-kotlin-dsl"}
 
 전통적인 Groovy DSL 대신 Kotlin DSL을 사용하세요. 다른 언어를 배울 필요가 없으며 강타입(strict typing)의 이점을 얻을 수 있습니다. 강타입을 통해 IDE는 리팩터링 및 자동 완성에 대한 더 나은 지원을 제공하여 개발 효율성을 높여줍니다.
 
@@ -16,7 +16,7 @@ Gradle을 최대한 활용하는 것은 빌드 관리 및 대기 시간을 줄�
 
 Kotlin DSL이 Gradle 빌드의 기본값이 된 것에 관한 Gradle의 [블로그](https://blog.gradle.org/kotlin-dsl-is-now-the-default-for-new-gradle-builds)를 읽어보세요.
 
-### 버전 카탈로그 사용
+### 버전 카탈로그 사용 {id="use-a-version-catalog"}
 
 의존성 관리를 중앙 집중화하기 위해 `libs.versions.toml` 파일에서 버전 카탈로그를 사용하세요. 이를 통해 여러 프로젝트에서 버전, 라이브러리 및 플러그인을 일관되게 정의하고 재사용할 수 있습니다.
 
@@ -38,7 +38,7 @@ dependencies {
 
 Gradle 문서의 [의존성 관리 기초(Dependency management basics)](https://docs.gradle.org/current/userguide/dependency_management_basics.html#version_catalog)에서 자세히 알아보세요.
 
-### 컨벤션 플러그인 사용
+### 컨벤션 플러그인 사용 {id="use-convention-plugins"}
 
 <primary-label ref="advanced"/>
 
@@ -48,17 +48,17 @@ Gradle 문서의 [의존성 관리 기초(Dependency management basics)](https:/
 
 Gradle 문서의 [컨벤션 플러그인(Convention plugins)](https://docs.gradle.org/current/userguide/custom_plugins.html#sec:convention_plugins)에서 자세히 알아보세요.
 
-## 최적화 (Optimize)
+## 최적화 (Optimize) {id="optimize"}
 
 이 섹션에서는 Gradle 빌드의 성능과 효율성을 높이기 위한 전략을 제공합니다.
 
-### 로컬 빌드 캐시 사용
+### 로컬 빌드 캐시 사용 {id="use-local-build-cache"}
 
 다른 빌드에서 생성된 출력물을 재사용하여 시간을 절약하려면 로컬 빌드 캐시를 사용하세요. 빌드 캐시는 이미 생성한 이전 빌드의 출력물을 가져올 수 있습니다.
 
 Gradle 문서의 [빌드 캐시(Build cache)](https://docs.gradle.org/current/userguide/build_cache.html)에서 자세히 알아보세요.
 
-### 구성 캐시 사용
+### 구성 캐시 사용 {id="use-configuration-cache"}
 
 > 구성 캐시(configuration cache)는 아직 모든 핵심 Gradle 플러그인을 지원하지 않습니다. 최신 정보는 Gradle의 [지원 플러그인 표](https://docs.gradle.org/current/userguide/configuration_cache_status.html#config_cache:plugins:core)를 참조하세요.
 >
@@ -70,7 +70,7 @@ Gradle 문서의 [빌드 캐시(Build cache)](https://docs.gradle.org/current/us
 
 구성 캐시에 대해 [Gradle 문서](https://docs.gradle.org/current/userguide/configuration_cache.html)에서 자세히 알아보세요.
 
-### 멀티 타겟 빌드 시간 개선
+### 멀티 타겟 빌드 시간 개선 {id="improve-build-times-for-multiple-targets"}
 
 멀티플랫폼 프로젝트에 여러 타겟이 포함된 경우, `build` 및 `assemble`과 같은 태스크가 각 타겟에 대해 동일한 코드를 여러 번 컴파일하여 컴파일 시간이 길어질 수 있습니다.
 
@@ -78,13 +78,13 @@ Gradle 문서의 [빌드 캐시(Build cache)](https://docs.gradle.org/current/us
 
 자세한 내용은 [컴파일 시간 개선을 위한 팁](native-improving-compilation-time.md#gradle-configuration)을 참조하세요.
 
-### kapt에서 KSP로 마이그레이션
+### kapt에서 KSP로 마이그레이션 {id="migrate-from-kapt-to-ksp"}
 
 [kapt](kapt.md) 컴파일러 플러그인에 의존하는 라이브러리를 사용 중이라면, 대신 [Kotlin Symbol Processing (KSP) API](ksp-overview.md) 사용으로 전환할 수 있는지 확인하세요. KSP API는 어노테이션 처리 시간을 줄여 빌드 성능을 향상시킵니다. KSP는 중간 Java 스텁(stub)을 생성하지 않고 소스 코드를 직접 처리하므로 kapt보다 빠르고 효율적입니다.
 
 마이그레이션 단계에 대한 안내는 [마이그레이션 가이드](ksp-kapt-migration.md)를 참조하세요.
 
-### 모듈화 사용
+### 모듈화 사용 {id="use-modularization"}
 
 <primary-label ref="advanced"/>
 
@@ -106,14 +106,14 @@ Gradle 문서의 [빌드 캐시(Build cache)](https://docs.gradle.org/current/us
 
 Gradle 문서의 [Gradle로 프로젝트 구조화하기](https://docs.gradle.org/current/userguide/multi_project_builds.html)에서 자세히 알아보세요.
 
-### CI/CD 설정
+### CI/CD 설정 {id="set-up-ci-cd"}
 <primary-label ref="advanced"/>
 
 증분 빌드(incremental builds) 및 의존성 캐싱을 사용하여 빌드 시간을 크게 단축하려면 CI/CD 프로세스를 설정하세요. 이러한 이점을 얻으려면 영구 저장소를 추가하거나 원격 빌드 캐시를 사용하세요. [GitHub](https://github.com/features/actions)와 같은 일부 제공업체는 이 서비스를 거의 즉시 사용할 수 있도록 제공하므로 이 프로세스가 오래 걸릴 필요는 없습니다.
 
 Gradle 커뮤니티 쿡북의 [지속적 통합(CI) 시스템에서 Gradle 사용하기](https://cookbook.gradle.org/ci/)를 살펴보세요.
 
-### 원격 빌드 캐시 사용
+### 원격 빌드 캐시 사용 {id="use-remote-build-cache"}
 <primary-label ref="advanced"/>
 
 [로컬 빌드 캐시](#use-local-build-cache)와 마찬가지로, 원격 빌드 캐시는 다른 빌드의 출력을 재사용하여 시간을 절약하는 데 도움이 됩니다. 단순히 마지막 빌드뿐만 아니라 이전에 누군가가 실행한 모든 빌드의 태스크 출력물을 가져올 수 있습니다.

@@ -8,11 +8,11 @@ title: Androidのスコープ
 コアスコープの概念については、[スコープ](/docs/reference/koin-core/scopes)を参照してください。
 :::
 
-## 概要
+## 概要 {id="overview"}
 
 Koinのスコープを使用すると、Androidコンポーネントのライフサイクルに合わせて依存関係のライフサイクルを管理できます。これにより、メモリリークを防ぎ、適切なリソース管理を確実に行うことができます。
 
-### スコープの階層
+### スコープの階層 {id="scope-hierarchy"}
 
 | スコープの種類 | 生存期間 | 画面回転後も保持されるか | DSL | アノテーション |
 |------------|----------|-------------------|-----|------------|
@@ -22,7 +22,7 @@ Koinのスコープを使用すると、Androidコンポーネントのライフ
 | **Fragment** | Fragmentのライフサイクル | ❌ いいえ | `fragmentScope { }` | `@FragmentScope` |
 | **ViewModel** | ViewModelのライフサイクル | ✅ はい | `viewModelScope { }` | `@ViewModelScope` |
 
-### スコープの関係性
+### スコープの関係性 {id="scope-relationships"}
 
 ```
 Application Scope (single { })
@@ -37,9 +37,9 @@ Application Scope (single { })
 **重要な原則:** 子スコープは親スコープの定義にアクセスできますが、その逆はできません。
 :::
 
-## スコープされた依存関係の宣言
+## スコープされた依存関係の宣言 {id="declaring-scoped-dependencies"}
 
-### コンパイラプラグインDSL
+### コンパイラプラグインDSL {id="compiler-plugin-dsl"}
 
 ```kotlin
 val appModule = module {
@@ -62,7 +62,7 @@ val appModule = module {
 }
 ```
 
-### アノテーション
+### アノテーション {id="annotations"}
 
 ```kotlin
 // Activityスコープ
@@ -89,7 +89,7 @@ class UserCache
 class UserViewModel(private val cache: UserCache) : ViewModel()
 ```
 
-### 従来のDSL
+### 従来のDSL {id="classic-dsl"}
 
 ```kotlin
 val appModule = module {
@@ -109,9 +109,9 @@ val appModule = module {
 }
 ```
 
-## Androidコンポーネントでのスコープの使用
+## Androidコンポーネントでのスコープの使用 {id="using-scopes-in-android-components"}
 
-### Activityスコープ
+### Activityスコープ {id="activity-scope"}
 
 ```kotlin
 class MyActivity : AppCompatActivity(), AndroidScopeComponent {
@@ -134,7 +134,7 @@ class MyActivity : ScopeActivity() {
 }
 ```
 
-### Activityリテインスコープ
+### Activityリテインスコープ {id="activity-retained-scope"}
 
 設定変更（回転、テーマの変更など）後も保持されます：
 
@@ -157,7 +157,7 @@ class MyActivity : RetainedScopeActivity() {
 }
 ```
 
-### Fragmentスコープ
+### Fragmentスコープ {id="fragment-scope"}
 
 Fragmentスコープは自動的に親Activityのスコープにリンクされます：
 
@@ -183,9 +183,9 @@ class MyFragment : ScopeFragment() {
 }
 ```
 
-## 型ベース vs アーキタイプスコープ
+## 型ベース vs アーキタイプスコープ {id="type-based-vs-archetype-scopes"}
 
-### アーキタイプスコープ (推奨)
+### アーキタイプスコープ (推奨) {id="archetype-scope-recommended"}
 
 任意のActivity/Fragmentで動作する汎用的なスコープです：
 
@@ -206,7 +206,7 @@ class ActivityB : ScopeActivity() {
 }
 ```
 
-### 型ベースのスコープ
+### 型ベースのスコープ {id="type-based-scope"}
 
 特定のクラスに紐付いたスコープです：
 
@@ -224,7 +224,7 @@ class MyActivity : AppCompatActivity(), AndroidScopeComponent {
 }
 ```
 
-## ViewModelスコープ
+## ViewModelスコープ {id="viewmodel-scope"}
 
 ViewModelは（メモリリークを防ぐために）ActivityやFragmentのスコープにアクセスできません。スコープされた依存関係にはViewModelスコープを使用してください：
 
@@ -254,9 +254,9 @@ class UserViewModel(
 
 ViewModelスコープの詳細な使用方法については、[スコープ - ViewModelスコープ](/docs/reference/koin-core/scopes#viewmodel-scope)を参照してください。
 
-## スコープのライフサイクル
+## スコープのライフサイクル {id="scope-lifecycle"}
 
-### スコープ終了の処理
+### スコープ終了の処理 {id="handling-scope-close"}
 
 スコープが破棄される前にクリーンアップを実行するには、`onCloseScope()` をオーバーライドします：
 
@@ -276,7 +276,7 @@ class MyActivity : AppCompatActivity(), AndroidScopeComponent {
 `onDestroy()` 内でスコープにアクセスしないでください。その時点ですでにスコープは閉じられています。
 :::
 
-## スコープのリンク
+## スコープのリンク {id="scope-links"}
 
 カスタムスコープを使用して、コンポーネント間でインスタンスを共有します：
 
@@ -303,7 +303,7 @@ class MyActivity : ScopeActivity() {
 }
 ```
 
-## クイックリファレンス
+## クイックリファレンス {id="quick-reference"}
 
 | コンポーネント | デリゲート | ベースクラス |
 |-----------|----------|------------|
@@ -318,7 +318,7 @@ class MyActivity : ScopeActivity() {
 | `fragmentScope` | ❌ いいえ | Fragment固有のPresenter |
 | `viewModelScope` | ✅ はい | ViewModelの依存関係 |
 
-## ベストプラクティス
+## ベストプラクティス {id="best-practices"}
 
 1. **アーキタイプを使用する** - 再利用性のために、`scope<MyActivity> { }` よりも `activityScope { }` を優先してください。
 2. **回転時はリテインを使用する** - 画面回転後も保持すべき状態には `activityRetainedScope` を使用してください。
@@ -326,7 +326,7 @@ class MyActivity : ScopeActivity() {
 4. **カスタムスコープを閉じる** - 手動で作成したスコープは必ず閉じてください。
 5. **onCloseScopeを使用する** - スコープ破棄前のクリーンアップに使用してください。
 
-## 次のステップ
+## 次のステップ {id="next-steps"}
 
 - **[コアスコープ](/docs/reference/koin-core/scopes)** - スコープの基本とViewModelスコープ
 - **[ViewModel](/docs/reference/koin-android/viewmodel)** - ViewModelの注入

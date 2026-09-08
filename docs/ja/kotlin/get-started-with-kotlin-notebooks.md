@@ -18,7 +18,7 @@
    <img src="icon-3.svg" width="20" alt="Third step"/> <a href="kotlin-notebook-add-dependencies.md">Kotlin Notebook に依存関係を追加する</a><br/>
 </p>
 
-## 次のステップ
+## 次のステップ {id="next-step"}
 
 まずは、Kotlin Notebook を使用するための環境をセットアップすることから始めましょう：
 

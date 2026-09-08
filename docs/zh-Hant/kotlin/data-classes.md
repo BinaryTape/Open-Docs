@@ -36,7 +36,7 @@ data class User(val name: String, val age: Int)
 >
 {style="note"}
 
-## 在類別主體中宣告的屬性
+## 在類別主體中宣告的屬性 {id="properties-declared-in-the-class-body"}
 
 編譯器僅使用在主建構函數內部定義的屬性來產生自動產生的函式。若要從產生的實作中排除某個屬性，請將其宣告在類別主體中：
 
@@ -73,7 +73,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 複製
+## 複製 {id="copying"}
 
 使用 `copy()` 函式來複製物件，這讓您可以修改 *某些* 屬性，同時保持其餘屬性不變。上述 `User` 類別的此函式實作如下：
 
@@ -111,7 +111,7 @@ fun main() {
 
 如您所見，修改 `duplicate.roles` 屬性也會變更 `original.roles` 屬性，因為這兩個屬性共享相同的列表參照。
 
-## 資料類別與解構宣告
+## 資料類別與解構宣告 {id="data-classes-and-destructuring-declarations"}
 
 為資料類別產生的 *組件函式 (Component functions)* 使得在 [解構宣告](destructuring-declarations.md) 中使用它們成為可能：
 
@@ -122,6 +122,6 @@ println("$name, $age years of age")
 // Jane, 35 years of age
 ```
 
-## 標準資料類別
+## 標準資料類別 {id="standard-data-classes"}
 
 標準函式庫提供了 `Pair` 和 `Triple` 類別。但在大多數情況下，具名的資料類別是更好的設計選擇，因為它們透過為屬性提供有意義的名稱來提高程式碼的可讀性。

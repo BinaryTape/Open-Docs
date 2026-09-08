@@ -26,7 +26,7 @@ Kotlin 1.7.0이 출시되었습니다. 이번 버전에서는 새로운 Kotlin/J
 >
 {style="tip"}
 
-## JVM을 위한 새로운 Kotlin K2 컴파일러 알파
+## JVM을 위한 새로운 Kotlin K2 컴파일러 알파 {id="new-kotlin-k2-compiler-for-the-jvm-in-alpha"}
 
 이번 Kotlin 릴리스에서는 새로운 Kotlin K2 컴파일러의 **알파(Alpha)** 버전을 소개합니다. 새로운 컴파일러의 목표는 새로운 언어 기능 개발 속도를 높이고, Kotlin이 지원하는 모든 플랫폼을 통합하며, 성능을 개선하고 컴파일러 확장을 위한 API를 제공하는 것입니다.
 
@@ -62,7 +62,7 @@ Kotlin 1.7.0이 출시되었습니다. 이번 버전에서는 새로운 Kotlin/J
 
 Kotlin K2 컴파일러 사용 중 성능 이슈가 발생하면 [이슈 트래커에 보고해 주시기 바랍니다](https://kotl.in/issue).
 
-## 언어 (Language)
+## 언어 (Language) {id="language"}
 
 Kotlin 1.7.0에서는 위임에 의한 구현 지원과 타입 인자를 위한 새로운 언더스코어 연산자가 도입되었습니다. 또한 이전 릴리스에서 프리뷰로 도입되었던 몇 가지 언어 기능이 안정화되었습니다:
 
@@ -72,7 +72,7 @@ Kotlin 1.7.0에서는 위임에 의한 구현 지원과 타입 인자를 위한 
 * [안정화된 옵트인(Opt-in) 요구사항](#stable-opt-in-requirements)
 * [안정화된 확정적 null 불가 타입(Definitely non-nullable types)](#stable-definitely-non-nullable-types)
 
-### 인라인 클래스의 인라인 값으로 위임하여 구현 허용
+### 인라인 클래스의 인라인 값으로 위임하여 구현 허용 {id="allow-implementation-by-delegation-to-an-inlined-value-of-an-inline-class"}
 
 값이나 클래스 인스턴스에 대한 가벼운 래퍼를 만들고 싶을 때, 모든 인터페이스 메서드를 직접 구현해야 했습니다. 위임에 의한 구현(Implementation by delegation)이 이 문제를 해결해 주지만, 1.7.0 이전에는 인라인 클래스에서 작동하지 않았습니다. 이제 이 제한이 제거되어 대부분의 경우 메모리를 할당하지 않는 가벼운 래퍼를 만들 수 있습니다.
 
@@ -90,7 +90,7 @@ fun main() {
 }
 ```
 
-### 타입 인자를 위한 언더스코어 연산자
+### 타입 인자를 위한 언더스코어 연산자 {id="underscore-operator-for-type-arguments"}
 
 Kotlin 1.7.0에서는 타입 인자를 위한 언더스코어 연산자 `_`가 도입되었습니다. 다른 타입이 명시되었을 때 특정 타입 인자를 자동으로 추론하도록 하는 데 사용할 수 있습니다.
 
@@ -128,7 +128,7 @@ fun main() {
 >
 {style="note"}
 
-### 안정화된 빌더 추론
+### 안정화된 빌더 추론 {id="stable-builder-inference"}
 
 빌더 추론(Builder inference)은 제네릭 빌더 함수를 호출할 때 유용한 특수한 타입 추론 방식입니다. 이는 컴파일러가 람다 인자 내부의 다른 호출 정보를 사용하여 해당 호출의 타입 인자를 추론하도록 도와줍니다.
 
@@ -136,13 +136,13 @@ fun main() {
 
 [커스텀 제네릭 빌더 작성 방법 알아보기](using-builders-with-builder-inference.md).
 
-### 안정화된 옵트인 요구사항
+### 안정화된 옵트인 요구사항 {id="stable-opt-in-requirements"}
 
 [옵트인(Opt-in) 요구사항](opt-in-requirements.md)이 이제 [안정화(Stable)](components-stability.md)되었으며 추가적인 컴파일러 설정이 필요하지 않습니다.
 
 1.7.0 이전에는 옵트인 기능 자체를 사용할 때 경고를 피하기 위해 `-opt-in=kotlin.RequiresOptIn` 인자가 필요했습니다. 이제는 더 이상 필요하지 않습니다. 다만, 여전히 다른 어노테이션이나 [모듈 전체](opt-in-requirements.md#opt-in-a-module)에 대해 옵트인을 적용하기 위해 `-opt-in` 컴파일러 인자를 사용할 수 있습니다.
 
-### 안정화된 확정적 null 불가 타입
+### 안정화된 확정적 null 불가 타입 {id="stable-definitely-non-nullable-types"}
 
 Kotlin 1.7.0에서는 확정적 null 불가 타입(Definitely non-nullable types)이 [안정화](components-stability.md) 단계로 승격되었습니다. 이는 제네릭 Java 클래스와 인터페이스를 확장할 때 더 나은 상호운용성을 제공합니다.
 
@@ -166,7 +166,7 @@ fun main() {
 
 확정적 null 불가 타입에 대해 자세히 알아보려면 [이 KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/definitely-non-nullable-types.md)을 확인하세요.
 
-## Kotlin/JVM
+## Kotlin/JVM {id="kotlin-jvm"}
 
 이번 릴리스에서는 Kotlin/JVM 컴파일러의 성능 향상과 새로운 컴파일러 옵션이 도입되었습니다. 또한 함수형 인터페이스 생성자에 대한 호출 가능 참조(callable references)가 안정화되었습니다. 1.7.0부터 Kotlin/JVM 컴파일의 기본 타겟 버전은 `1.8`입니다.
 
@@ -175,11 +175,11 @@ fun main() {
 * [안정화된 함수형 인터페이스 생성자 호출 가능 참조](#stable-callable-references-to-functional-interface-constructors)
 * [JVM 타겟 버전 1.6 제거](#removed-jvm-target-version-1-6)
 
-### 컴파일러 성능 최적화
+### 컴파일러 성능 최적화 {id="compiler-performance-optimizations"}
 
 Kotlin 1.7.0에서는 Kotlin/JVM 컴파일러의 성능이 개선되었습니다. 벤치마크 결과에 따르면, Kotlin 1.6.0에 비해 컴파일 시간이 [평균 10% 감소](https://youtrack.jetbrains.com/issue/KT-48233/Switching-to-JVM-IR-backend-increases-compilation-time-by-more-t#focus=Comments-27-6114542.0-0)했습니다. 인라인 함수를 많이 사용하는 프로젝트(예: [`kotlinx.html`을 사용하는 프로젝트](https://youtrack.jetbrains.com/issue/KT-51416/Compilation-of-kotlinx-html-DSL-should-still-be-faster))는 바이트코드 후처리(postprocessing) 개선 덕분에 컴파일 속도가 더 빨라질 것입니다.
 
-### 새로운 컴파일러 옵션: -Xjdk-release
+### 새로운 컴파일러 옵션: -Xjdk-release {id="new-compiler-option-xjdk-release"}
 
 Kotlin 1.7.0은 새로운 컴파일러 옵션인 `-Xjdk-release`를 제공합니다. 이 옵션은 [javac의 명령줄 `--release` 옵션](http://openjdk.java.net/jeps/247)과 유사합니다. `-Xjdk-release` 옵션은 타겟 바이트코드 버전을 제어하고 클래스패스에 있는 JDK의 API를 지정된 Java 버전으로 제한합니다. 예를 들어, `kotlinc -Xjdk-release=1.8`은 의존성에 포함된 JDK 버전이 9 이상이더라도 `java.lang.Module` 참조를 허용하지 않습니다.
 
@@ -189,13 +189,13 @@ Kotlin 1.7.0은 새로운 컴파일러 옵션인 `-Xjdk-release`를 제공합니
 
 이에 대한 의견은 [이 YouTrack 티켓](https://youtrack.jetbrains.com/issue/KT-29974/Add-a-compiler-option-Xjdk-release-similar-to-javac-s-release-to)에 남겨주세요.
 
-### 안정화된 함수형 인터페이스 생성자 호출 가능 참조
+### 안정화된 함수형 인터페이스 생성자 호출 가능 참조 {id="stable-callable-references-to-functional-interface-constructors"}
 
 함수형 인터페이스 생성자에 대한 [호출 가능 참조(Callable references)](reflection.md#callable-references)가 이제 [안정화](components-stability.md)되었습니다. 호출 가능 참조를 사용하여 생성자 함수가 있는 인터페이스에서 [함수형 인터페이스로 마이그레이션](fun-interfaces.md#migration-from-an-interface-with-constructor-function-to-a-functional-interface)하는 방법을 알아보세요.
 
 발견된 문제는 [YouTrack](https://youtrack.jetbrains.com/newissue?project=kt)에 보고해 주세요.
 
-### JVM 타겟 버전 1.6 제거
+### JVM 타겟 버전 1.6 제거 {id="removed-jvm-target-version-1-6"}
 
 Kotlin/JVM 컴파일의 기본 타겟 버전은 `1.8`입니다. `1.6` 타겟은 제거되었습니다.
 
@@ -205,7 +205,7 @@ JVM 타겟 1.8 이상으로 마이그레이션하세요. 다음 도구들에 대
 * [Maven](maven-kotlin-compiler.md#attributes-specific-to-jvm)
 * [명령줄 컴파일러](compiler-reference.md#jvm-target-version)
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 Kotlin 1.7.0에는 Objective-C 및 Swift 상호운용성 변경 사항이 포함되었으며 이전 릴리스에서 도입된 기능들이 안정화되었습니다. 또한 다른 업데이트와 함께 새로운 메모리 매니저의 성능 향상을 가져왔습니다:
 
@@ -217,7 +217,7 @@ Kotlin 1.7.0에는 Objective-C 및 Swift 상호운용성 변경 사항이 포함
 * [CocoaPods 통합 개선](#improved-cocoapods-integration)
 * [Kotlin/Native 컴파일러 다운로드 URL 재정의](#overriding-the-kotlin-native-compiler-download-url)
 
-### 새로운 메모리 매니저 성능 향상
+### 새로운 메모리 매니저 성능 향상 {id="performance-improvements-for-the-new-memory-manager"}
 
 > 새로운 Kotlin/Native 메모리 매니저는 [알파(Alpha)](components-stability.md) 단계에 있습니다.
 > 향후 호환되지 않게 변경될 수 있으며 수동 마이그레이션이 필요할 수 있습니다.
@@ -231,7 +231,7 @@ Kotlin 1.7.0에는 Objective-C 및 Swift 상호운용성 변경 사항이 포함
 
 프로젝트에서 새로운 메모리 매니저를 사용하여 어떻게 작동하는지 확인하고, [YouTrack](https://youtrack.jetbrains.com/issue/KT-48525)을 통해 피드백을 공유해 주세요.
 
-### JVM 및 JS IR 백엔드와 통합된 컴파일러 플러그인 ABI
+### JVM 및 JS IR 백엔드와 통합된 컴파일러 플러그인 ABI {id="unified-compiler-plugin-abi-with-jvm-and-js-ir-backends"}
 
 Kotlin 1.7.0부터 Kotlin 멀티플랫폼 Gradle 플러그인은 기본적으로 Kotlin/Native를 위해 임베디드 가능한 컴파일러 jar를 사용합니다. 이 [기능은 1.6.0에서 실험적(Experimental)으로 발표](whatsnew16.md#unified-compiler-plugin-abi-with-jvm-and-js-ir-backends)되었으며, 이제 안정화되어 바로 사용할 수 있습니다.
 
@@ -243,7 +243,7 @@ Kotlin 1.7.0부터 Kotlin 멀티플랫폼 Gradle 플러그인은 기본적으로
 >
 {style="warning"}
 
-### Android 독립 실행파일 지원
+### Android 독립 실행파일 지원 {id="support-for-standalone-android-executables"}
 
 Kotlin 1.7.0은 Android Native 타겟을 위한 표준 실행파일 생성을 완벽하게 지원합니다. 이는 [1.6.20에서 도입](whatsnew1620.md#support-for-standalone-android-executables)되었으며, 이제 기본으로 활성화됩니다.
 
@@ -253,13 +253,13 @@ Kotlin/Native가 공유 라이브러리를 생성하던 이전 동작으로 되�
 binaryOptions["androidProgramType"] = "nativeActivity"
 ```
 
-### Swift async/await 상호운용성: KotlinUnit 대신 Void 반환
+### Swift async/await 상호운용성: KotlinUnit 대신 Void 반환 {id="interop-with-swift-async-await-returning-void-instead-of-kotlinunit"}
 
 Kotlin의 `suspend` 함수가 이제 Swift에서 `KotlinUnit` 대신 `Void` 타입을 반환합니다. 이는 Swift의 `async`/`await`와의 상호운용성이 개선된 결과입니다. 이 기능은 [1.6.20에서 도입](whatsnew1620.md#interop-with-swift-async-await-returning-void-instead-of-kotlinunit)되었으며, 이번 릴리스부터 이 동작이 기본으로 활성화됩니다.
 
 이러한 함수들에 대해 적절한 타입을 반환하기 위해 더 이상 `kotlin.native.binary.unitSuspendFunctionObjCExport=proper` 속성을 사용할 필요가 없습니다.
 
-### Objective-C 브리지를 통한 선언되지 않은 예외 금지
+### Objective-C 브리지를 통한 선언되지 않은 예외 금지 {id="prohibited-undeclared-exceptions-through-objective-c-bridges"}
 
 Swift/Objective-C 코드에서 Kotlin 코드를 호출하거나 그 반대의 경우, 코드에서 예외가 발생하면 적절한 변환을 통해 언어 간 예외 전달을 명시적으로 허용한 경우(예: `@Throws` 어노테이션 사용)가 아닌 한 해당 예외가 발생한 코드에서 처리되어야 합니다.
 
@@ -269,7 +269,7 @@ Swift/Objective-C 코드에서 Kotlin 코드를 호출하거나 그 반대의 �
 
 `@Throws` 어노테이션은 이전과 동일하게 작동합니다.
 
-### CocoaPods 통합 개선
+### CocoaPods 통합 개선 {id="improved-cocoapods-integration"}
 
 Kotlin 1.7.0부터 프로젝트에 CocoaPods를 통합할 때 더 이상 `cocoapods-generate` 플러그인을 설치할 필요가 없습니다.
 
@@ -279,7 +279,7 @@ Kotlin 1.7.0부터 프로젝트에 CocoaPods를 통합할 때 더 이상 `cocoap
 
 [기본 CocoaPods 통합 설정 방법](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html#set-up-an-environment-to-work-with-cocoapods)을 확인해 보세요.
 
-### Kotlin/Native 컴파일러 다운로드 URL 재정의
+### Kotlin/Native 컴파일러 다운로드 URL 재정의 {id="overriding-the-kotlin-native-compiler-download-url"}
 
 Kotlin 1.7.0부터 Kotlin/Native 컴파일러의 다운로드 URL을 커스텀할 수 있습니다. 이는 CI에서 외부 링크가 금지된 경우에 유용합니다.
 
@@ -293,7 +293,7 @@ kotlin.native.distribution.baseDownloadUrl=https://example.com
 >
 {style="note"}
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
 Kotlin/JS는 [JS IR 컴파일러 백엔드](js-ir-compiler.md)에 대한 추가적인 개선과 개발 경험을 향상시킬 수 있는 다른 업데이트들을 포함하고 있습니다:
 
@@ -303,7 +303,7 @@ Kotlin/JS는 [JS IR 컴파일러 백엔드](js-ir-compiler.md)에 대한 추가�
 * [js 표현식에서 JavaScript 모듈 동적 로드](#dynamically-load-javascript-modules-from-js-expressions)
 * [JavaScript 테스트 러너를 위한 환경 변수 지정](#specify-environment-variables-for-javascript-test-runners)
 
-### 새로운 IR 백엔드 성능 향상
+### 새로운 IR 백엔드 성능 향상 {id="performance-improvements-for-the-new-ir-backend"}
 
 이번 릴리스에는 개발 경험을 향상시킬 몇 가지 주요 업데이트가 포함되어 있습니다:
 
@@ -312,7 +312,7 @@ Kotlin/JS는 [JS IR 컴파일러 백엔드](js-ir-compiler.md)에 대한 추가�
 * 인터페이스에 대한 타입 체크 성능이 대폭 향상되었습니다.
 * Kotlin이 더 높은 품질의 JS 코드를 생성합니다.
 
-### IR 사용 시 멤버 이름 축소(Minification)
+### IR 사용 시 멤버 이름 축소(Minification) {id="minification-for-member-names-when-using-ir"}
 
 Kotlin/JS IR 컴파일러는 이제 Kotlin 클래스와 함수의 관계에 대한 내부 정보를 사용하여 더 효율적인 축소(Minification)를 적용하며, 함수, 프로퍼티, 클래스의 이름을 짧게 만듭니다. 이를 통해 결과물인 번들 애플리케이션의 크기가 줄어듭니다.
 
@@ -328,13 +328,13 @@ kotlin {
 }
 ```
 
-### IR 백엔드에서 폴리필을 통한 구형 브라우저 지원
+### IR 백엔드에서 폴리필을 통한 구형 브라우저 지원 {id="support-for-older-browsers-via-polyfills-in-the-ir-backend"}
 
 Kotlin/JS용 IR 컴파일러 백엔드에 레거시 백엔드와 동일한 폴리필(polyfills)이 포함되었습니다. 이를 통해 새로운 컴파일러로 컴파일된 코드가 Kotlin 표준 라이브러리에서 사용하는 ES2015의 모든 메서드를 지원하지 않는 구형 브라우저에서도 실행될 수 있습니다. 프로젝트에서 실제로 사용되는 폴리필만 최종 번들에 포함되므로 번들 크기에 미치는 영향을 최소화합니다.
 
 이 기능은 IR 컴파일러 사용 시 기본으로 활성화되며 별도의 설정이 필요하지 않습니다.
 
-### js 표현식에서 JavaScript 모듈 동적 로드
+### js 표현식에서 JavaScript 모듈 동적 로드 {id="dynamically-load-javascript-modules-from-js-expressions"}
 
 JavaScript 모듈을 작업할 때 대부분의 애플리케이션은 정적 임포트를 사용하며, 이는 [JavaScript 모듈 통합](js-modules.md)에서 다룹니다. 하지만 Kotlin/JS에는 런타임에 JavaScript 모듈을 동적으로 로드하는 메커니즘이 부족했습니다.
 
@@ -344,7 +344,7 @@ Kotlin 1.7.0부터 `js` 블록 내에서 JavaScript의 `import` 구문을 지원
 val myPackage = js("import('my-package')")
 ```
 
-### JavaScript 테스트 러너를 위한 환경 변수 지정
+### JavaScript 테스트 러너를 위한 환경 변수 지정 {id="specify-environment-variables-for-javascript-test-runners"}
 
 Node.js 패키지 확인을 조정하거나 Node.js 테스트에 외부 정보를 전달하기 위해, 이제 JavaScript 테스트 러너가 사용하는 환경 변수를 지정할 수 있습니다. 환경 변수를 정의하려면 빌드 스크립트의 `testTask` 블록 내에서 키-값 쌍과 함께 `environment()` 함수를 사용하세요:
 
@@ -360,7 +360,7 @@ kotlin {
 }
 ```
 
-## 표준 라이브러리 (Standard library)
+## 표준 라이브러리 (Standard library) {id="standard-library"}
 
 Kotlin 1.7.0에서 표준 라이브러리는 다양한 변화와 개선을 거쳤습니다. 새로운 기능을 도입하고 실험적인 기능을 안정화하며, Native, JS, JVM에 대해 이름이 지정된 캡처 그룹(named capturing groups) 지원을 통합했습니다:
 
@@ -373,7 +373,7 @@ Kotlin 1.7.0에서 표준 라이브러리는 다양한 변화와 개선을 거�
 * [Java Optional을 위한 새로운 실험적 확장 함수](#new-experimental-extension-functions-for-java-optionals)
 * [JS 및 Native에서 이름이 지정된 캡처 그룹 지원](#support-for-named-capturing-groups-in-js-and-native)
 
-### min() 및 max() 컬렉션 함수가 null 불가 타입 반환
+### min() 및 max() 컬렉션 함수가 null 불가 타입 반환 {id="min-and-max-collection-functions-return-as-non-nullable"}
 
 [Kotlin 1.4.0](whatsnew14.md)에서 `min()` 및 `max()` 컬렉션 함수를 `minOrNull()` 및 `maxOrNull()`로 이름을 변경했습니다. 이 새로운 이름은 수신자 컬렉션이 비어 있는 경우 null을 반환하는 동작을 더 잘 반영합니다. 또한 Kotlin 컬렉션 API 전체에서 사용되는 명명 규칙과 함수의 동작을 일치시키는 데 도움이 되었습니다.
 
@@ -389,7 +389,7 @@ fun main() {
 }
 ```
 
-### 특정 인덱스에서의 정규식 매칭
+### 특정 인덱스에서의 정규식 매칭 {id="regular-expression-matching-at-specific-indices"}
 
 [1.5.30에서 도입된](whatsnew1530.md#matching-with-regex-at-a-particular-position) `Regex.matchAt()` 및 `Regex.matchesAt()` 함수가 이제 안정화되었습니다. 이 함수들은 `String` 또는 `CharSequence`의 특정 위치에서 정규식이 정확히 일치하는지 확인할 수 있는 방법을 제공합니다.
 
@@ -420,13 +420,13 @@ fun main() {
 
 이 [YouTrack 이슈](https://youtrack.jetbrains.com/issue/KT-34021)에 대한 의견을 주시면 감사하겠습니다.
 
-### 이전 언어 및 API 버전에 대한 지원 확대
+### 이전 언어 및 API 버전에 대한 지원 확대 {id="extended-support-for-previous-language-and-api-versions"}
 
 다양한 이전 버전의 Kotlin에서 사용할 수 있는 라이브러리를 개발하는 라이브러리 제작자를 지원하고, Kotlin 메이저 릴릴스 주기가 빨라진 것에 대응하기 위해, 이전 언어 및 API 버전에 대한 지원을 확대했습니다.
 
 Kotlin 1.7.0부터는 이전 2개 버전이 아닌 3개 버전의 언어 및 API 버전을 지원합니다. 즉, Kotlin 1.7.0은 Kotlin 1.4.0 버전까지 타겟팅하는 라이브러리 개발을 지원합니다. 하위 호환성에 대한 자세한 내용은 [호환성 옵션](kotlin-evolution-principles.md#compatibility-options)을 참조하세요.
 
-### 리플렉션을 통한 어노테이션 접근
+### 리플렉션을 통한 어노테이션 접근 {id="access-to-annotations-via-reflection"}
 
 [1.6.0에서 처음 도입된](whatsnew16.md#repeatable-annotations-with-runtime-retention-for-1-8-jvm-target) [`KAnnotatedElement.findAnnotations()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect.full/find-annotations.html) 확장 함수가 이제 [안정화](components-stability.md)되었습니다. 이 [리플렉션](reflection.md) 함수는 개별적으로 적용된 어노테이션과 반복된 어노테이션을 모두 포함하여 요소에 있는 특정 타입의 모든 어노테이션을 반환합니다.
 
@@ -447,7 +447,7 @@ fun main() {
 }
 ```
 
-### 안정화된 깊은 재귀 함수
+### 안정화된 깊은 재귀 함수 {id="stable-deep-recursive-functions"}
 
 깊은 재귀 함수(Deep recursive functions)는 [Kotlin 1.4.0](https://blog.jetbrains.com/kotlin/2020/07/kotlin-1-4-rc-debugging-coroutines/#Defining_deep_recursive_functions_using_coroutines)부터 실험적 기능으로 제공되었으며, Kotlin 1.7.0에서 [안정화](components-stability.md)되었습니다. `DeepRecursiveFunction`을 사용하면 실제 호출 스택을 사용하는 대신 힙(heap)에 스택을 유지하는 함수를 정의할 수 있습니다. 이를 통해 매우 깊은 재귀 계산을 실행할 수 있습니다. 깊은 재귀 함수를 호출하려면 `invoke`를 사용하세요.
 
@@ -475,7 +475,7 @@ fun main() {
 
 재귀 깊이가 1,000회 이상인 코드에서 깊은 재귀 함수를 사용하는 것을 고려해 보세요.
 
-### 기본 시간 소스를 위한 인라인 클래스 기반 타임 마크
+### 기본 시간 소스를 위한 인라인 클래스 기반 타임 마크 {id="time-marks-based-on-inline-classes-for-default-time-source"}
 
 Kotlin 1.7.0은 `TimeSource.Monotonic`에 의해 반환되는 타임 마크(time marks)를 인라인 값 클래스로 변경하여 시간 측정 기능의 성능을 개선했습니다. 즉, `markNow()`, `elapsedNow()`, `measureTime()`, `measureTimedValue()`와 같은 함수를 호출할 때 `TimeMark` 인스턴스를 위한 래퍼 클래스를 할당하지 않습니다. 특히 핫 패스(hot path)의 일부인 코드를 측정할 때 측정으로 인한 성능 영향을 최소화하는 데 도움이 될 수 있습니다.
 
@@ -491,7 +491,7 @@ fun main() {
 >
 {style="note"}
 
-### Java Optional을 위한 새로운 실험적 확장 함수
+### Java Optional을 위한 새로운 실험적 확장 함수 {id="new-experimental-extension-functions-for-java-optionals"}
 
 Kotlin 1.7.0에는 Java의 `Optional` 클래스 작업을 단순화하는 새로운 편의 함수들이 추가되었습니다. 이 새로운 함수들은 JVM에서 선택적 객체를 언랩(unwrap)하고 변환하는 데 사용될 수 있으며 Java API를 더 간결하게 다룰 수 있도록 돕습니다.
 
@@ -540,13 +540,13 @@ println(list)
 
 이러한 확장 함수들은 Kotlin 1.7.0에서 실험적(Experimental) 기능으로 도입되었습니다. `Optional` 확장에 대해 더 자세히 알아보려면 [이 KEEP](https://github.com/Kotlin/KEEP/pull/291)을 확인하세요. 언제나 그렇듯이 [Kotlin 이슈 트래커](https://kotl.in/issue)를 통한 피드백을 환영합니다.
 
-### JS 및 Native에서 이름이 지정된 캡처 그룹 지원
+### JS 및 Native에서 이름이 지정된 캡처 그룹 지원 {id="support-for-named-capturing-groups-in-js-and-native"}
 
 Kotlin 1.7.0부터 이름이 지정된 캡처 그룹(named capturing groups)이 JVM뿐만 아니라 JS 및 Native 플랫폼에서도 지원됩니다.
 
 캡처 그룹에 이름을 부여하려면 정규식에서 `(?<name>group)` 구문을 사용하세요. 그룹에 매칭된 텍스트를 가져오려면 새로 도입된 [`MatchGroupCollection.get()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/get.html) 함수를 호출하고 그룹 이름을 전달하면 됩니다.
 
-#### 이름으로 매칭된 그룹 값 검색
+#### 이름으로 매칭된 그룹 값 검색 {id="retrieve-matched-group-value-by-name"}
 
 도시 좌표 매칭 예제를 살펴보겠습니다. 정규식에 의해 매칭된 그룹 컬렉션을 얻으려면 [`groups`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-match-result/groups.html)를 사용합니다. 그룹의 내용을 번호(인덱스)로 가져오는 것과 `value`를 사용하여 이름으로 가져오는 것을 비교해 보세요:
 
@@ -560,7 +560,7 @@ fun main() {
 }
 ```
 
-#### 이름이 지정된 역참조 (Named backreferencing)
+#### 이름이 지정된 역참조 (Named backreferencing) {id="named-backreferencing"}
 
 이제 그룹을 역참조(backreferencing)할 때도 그룹 이름을 사용할 수 있습니다. 역참조는 이전에 캡처 그룹에 의해 매칭된 것과 동일한 텍스트를 매칭합니다. 이를 위해 정규식에서 `\k<name>` 구문을 사용하세요:
 
@@ -573,7 +573,7 @@ fun backRef() {
 }
 ```
 
-#### 치환 표현식에서의 이름이 지정된 그룹
+#### 치환 표현식에서의 이름이 지정된 그룹 {id="named-groups-in-replacement-expressions"}
 
 이름이 지정된 그룹 참조는 치환 표현식(replacement expressions)과 함께 사용할 수 있습니다. 입력값 내에서 지정된 정규식과 일치하는 모든 항목을 치환 표현식으로 바꾸는 [`replace()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/replace.html) 함수와 첫 번째 매칭 항목만 바꾸는 [`replaceFirst()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/replace-first.html) 함수가 있습니다.
 
@@ -588,7 +588,7 @@ fun dateReplace() {
 }
 ```
 
-## Gradle
+## Gradle {id="gradle"}
 
 이번 릴리스에서는 새로운 빌드 리포트, Gradle 플러그인 변형 지원, kapt의 새로운 통계 등 많은 기능이 도입되었습니다:
 
@@ -603,7 +603,7 @@ fun dateReplace() {
 * [kotlin.compiler.execution.strategy 시스템 속성 사용 중단](#deprecation-of-the-kotlin-compiler-execution-strategy-system-property)
 * [사용 중단된 옵션, 메서드 및 플러그인 제거](#removal-of-deprecated-options-methods-and-plugins)
 
-### 증분 컴파일에 대한 새로운 접근 방식
+### 증분 컴파일에 대한 새로운 접근 방식 {id="a-new-approach-to-incremental-compilation"}
 
 > 증분 컴파일에 대한 새로운 접근 방식은 [실험적(Experimental)](components-stability.md) 단계에 있습니다. 언제든지 삭제되거나 변경될 수 있습니다. 옵트인이 필요합니다(아래 상세 내용 참조). 평가 목적으로만 사용하는 것을 권장하며, [YouTrack](https://youtrack.jetbrains.com/issues/KT)을 통한 피드백을 부탁드립니다.
 >
@@ -629,7 +629,7 @@ kotlin.incremental.useClasspathSnapshot=true
 
 Kotlin 팀은 도움을 주신 [Ivan Gavrilovic](https://github.com/gavra0), [Hung Nguyen](https://github.com/hungvietnguyen), [Cédric Champeau](https://github.com/melix) 및 다른 외부 기여자분들께 깊은 감사를 드립니다.
 
-### Kotlin 컴파일러 태스크를 위한 빌드 리포트
+### Kotlin 컴파일러 태스크를 위한 빌드 리포트 {id="build-reports-for-kotlin-compiler-tasks"}
 
 > Kotlin 빌드 리포트는 [실험적(Experimental)](components-stability.md) 단계에 있습니다. 언제든지 삭제되거나 변경될 수 있습니다. 옵트인이 필요합니다(아래 상세 내용 참조). 평가 목적으로만 사용해 보세요. [YouTrack](https://youtrack.jetbrains.com/issues/KT)을 통한 피드백을 환영합니다.
 >
@@ -668,13 +668,13 @@ kotlin.build.report.output=file
 
 여러분의 인프라에서 빌드 리포트를 사용해 보시기 바랍니다. 피드백이 있거나 이슈가 발생하거나 개선 사항을 제안하고 싶다면 주저하지 말고 [이슈 트래커](https://youtrack.jetbrains.com/newIssue)에 보고해 주세요. 감사합니다!
 
-### 최소 지원 버전 상향
+### 최소 지원 버전 상향 {id="bumping-minimum-supported-versions"}
 
 Kotlin 1.7.0부터 최소 지원 Gradle 버전은 6.7.1입니다. [Gradle 플러그인 변형(variants)](#support-for-gradle-plugin-variants)과 새로운 Gradle API를 지원하기 위해 [버전을 높여야 했습니다](https://youtrack.jetbrains.com/issue/KT-49733/Bump-minimal-supported-Gradle-version-to-6-7-1). 향후 Gradle 플러그인 변형 기능 덕분에 최소 지원 버전을 자주 높일 필요가 없을 것입니다.
 
 또한, 최소 지원 Android Gradle 플러그인 버전은 이제 3.6.4입니다.
 
-### Gradle 플러그인 변형(variants) 지원
+### Gradle 플러그인 변형(variants) 지원 {id="support-for-gradle-plugin-variants"}
 
 Gradle 7.0에서는 Gradle 플러그인 작성자를 위해 [변형이 있는 플러그인(plugins with variants)](https://docs.gradle.org/7.0/userguide/implementing_gradle_plugins.html#plugin-with-variants)이라는 새로운 기능을 도입했습니다. 이 기능을 사용하면 7.1 미만 Gradle 버전과의 호환성을 유지하면서 새로운 Gradle 기능에 대한 지원을 더 쉽게 추가할 수 있습니다. [Gradle의 변형 선택(variant selection)](https://docs.gradle.org/current/userguide/variant_model.html)에 대해 자세히 알아보세요.
 
@@ -697,7 +697,7 @@ Gradle 플러그인 변형을 사용하여 서로 다른 Gradle 버전에 대해
 
 [이 YouTrack 티켓](https://youtrack.jetbrains.com/issue/KT-49227/Support-Gradle-plugins-variants)에 피드백을 남겨주세요.
 
-### Kotlin Gradle 플러그인 API 업데이트
+### Kotlin Gradle 플러그인 API 업데이트 {id="updates-in-the-kotlin-gradle-plugin-api"}
 
 Kotlin Gradle 플러그 API 아티팩트가 몇 가지 개선되었습니다:
 
@@ -714,7 +714,7 @@ Kotlin Gradle 플러그 API 아티팩트가 몇 가지 개선되었습니다:
 * Android Gradle 플러그인이 내부적으로 Kotlin 컴파일을 구성할 수 있도록 토대를 마련했습니다. 즉, 빌드에 Kotlin Android Gradle 플러그인을 직접 추가할 필요가 없게 될 것입니다.
   추가된 지원에 대해 알아보고 사용해 보려면 [Android Gradle 플러그인 출시 공지](https://developer.android.com/studio/releases/gradle-plugin)를 팔로우하세요!
 
-### 플러그인 API를 통해 sam-with-receiver 플러그인 사용 가능
+### 플러그인 API를 통해 sam-with-receiver 플러그인 사용 가능 {id="the-sam-with-receiver-plugin-is-available-via-the-plugins-api"}
 
 이제 [sam-with-receiver 컴파일러 플러그인](sam-with-receiver-plugin.md)을 [Gradle plugins DSL](https://docs.gradle.org/current/userguide/plugins.html#sec:plugins_block)을 통해 사용할 수 있습니다:
 
@@ -724,7 +724,7 @@ plugins {
 }
 ```
 
-### 컴파일 태스크 변경 사항
+### 컴파일 태스크 변경 사항 {id="changes-in-compile-tasks"}
 
 이번 릴리스에서 컴파일 태스크에 많은 변경 사항이 있었습니다:
 
@@ -738,7 +738,7 @@ plugins {
 
 이에 대한 피드백은 [이 YouTrack 티켓](https://youtrack.jetbrains.com/issue/KT-32805)에 남겨주세요.
 
-### kapt에서 각 어노테이션 프로세서별 생성 파일 통계 제공
+### kapt에서 각 어노테이션 프로세서별 생성 파일 통계 제공 {id="statistics-of-generated-files-by-each-annotation-processor-in-kapt"}
 
 `kotlin-kapt` Gradle 플러그인은 이미 [각 프로세서의 성능 통계를 보고](https://github.com/JetBrains/kotlin/pull/4280)하고 있습니다. Kotlin 1.7.0부터는 각 어노테이션 프로세서가 생성한 파일 수에 대한 통계도 보고할 수 있습니다.
 
@@ -775,7 +775,7 @@ plugins {
 
 [이 YouTrack 티켓](https://youtrack.jetbrains.com/issue/KT-51132/KAPT-Support-reporting-the-number-of-generated-files-by-each-ann)에 피드백을 남겨주세요.
 
-### kotlin.compiler.execution.strategy 시스템 속성 사용 중단
+### kotlin.compiler.execution.strategy 시스템 속성 사용 중단 {id="deprecation-of-the-kotlin-compiler-execution-strategy-system-property"}
 
 Kotlin 1.6.20에서는 [Kotlin 컴파일러 실행 전략 정의를 위한 새로운 속성](whatsnew1620.md#properties-for-defining-kotlin-compiler-execution-strategy)을 도입했습니다. Kotlin 1.7.0에서는 새로운 속성 사용을 권장하며 기존 시스템 속성인 `kotlin.compiler.execution.strategy`에 대한 사용 중단 주기가 시작되었습니다.
 
@@ -787,9 +787,9 @@ kotlin.compiler.execution.strategy=out-of-process
 
 컴파일 태스크 속성인 `compilerExecutionStrategy`를 사용할 수도 있습니다. 이에 대한 자세한 내용은 [컴파일러 실행 전략 페이지](compiler-execution-strategy.md)에서 확인하세요.
 
-### 사용 중단된 옵션, 메서드 및 플러그인 제거
+### 사용 중단된 옵션, 메서드 및 플러그인 제거 {id="removal-of-deprecated-options-methods-and-plugins"}
 
-#### useExperimentalAnnotation 메서드 제거
+#### useExperimentalAnnotation 메서드 제거 {id="removal-of-the-useexperimentalannotation-method"}
 
 Kotlin 1.7.0에서는 `useExperimentalAnnotation` Gradle 메서드에 대한 사용 중단 주기가 완료되었습니다. 모듈에서 특정 API를 사용하도록 옵트인하려면 대신 `optIn()`을 사용하세요.
 
@@ -805,7 +805,7 @@ sourceSets {
 
 Kotlin의 [옵트인 요구사항](opt-in-requirements.md)에 대해 더 자세히 알아보세요.
 
-#### 사용 중단된 컴파일러 옵션 제거
+#### 사용 중단된 컴파일러 옵션 제거 {id="removal-of-deprecated-compiler-options"}
 
 몇 가지 컴파일러 옵션에 대한 사용 중단 주기를 완료했습니다:
 
@@ -816,7 +816,7 @@ Kotlin의 [옵트인 요구사항](opt-in-requirements.md)에 대해 더 자세�
 >
 {style="note"}
 
-#### 사용 중단된 플러그인 제거
+#### 사용 중단된 플러그인 제거 {id="removal-of-deprecated-plugins"}
 
 Kotlin 1.4.0에서 `kotlin2js` 및 `kotlin-dce-plugin` 플러그인이 사용 중단되었으며 이번 릴리스에서 제거되었습니다. `kotlin2js` 대신 새로운 `org.jetbrains.kotlin.js` 플러그인을 사용하세요. 데드 코드 제거(DCE)는 Kotlin/JS Gradle 플러그인이 적절히 구성되었을 때 작동합니다.
 
@@ -826,13 +826,13 @@ Kotlin 1.6.0에서는 `KotlinGradleSubplugin` 클래스의 사용 중단 수준�
 >
 {style="tip"}
 
-#### 사용 중단된 coroutines DSL 옵션 및 속성 제거
+#### 사용 중단된 coroutines DSL 옵션 및 속성 제거 {id="removal-of-the-deprecated-coroutines-dsl-option-and-property"}
 
 사용 중단된 `kotlin.experimental.coroutines` Gradle DSL 옵션과 `gradle.properties`에서 사용되던 `kotlin.coroutines` 속성을 제거했습니다. 이제 _[일시 중단 함수(suspending functions)](coroutines-basics.md)_를 사용하거나 빌드 스크립트에 [`kotlinx.coroutines` 의존성을 추가](gradle-configure-project.md#set-a-dependency-on-a-kotlinx-library)하기만 하면 됩니다.
 
 [코루틴 가이드](coroutines-guide.md)에서 코루틴에 대해 더 자세히 알아보세요.
 
-#### toolchain 확장 메서드의 타입 캐스트 제거
+#### toolchain 확장 메서드의 타입 캐스트 제거 {id="removal-of-the-type-cast-in-the-toolchain-extension-method"}
 
 Kotlin 1.7.0 이전에는 Kotlin DSL로 Gradle 툴체인을 구성할 때 `JavaToolchainSpec` 클래스로 타입 캐스트를 해야 했습니다:
 
@@ -854,9 +854,9 @@ kotlin {
 }
 ```
 
-## Kotlin 1.7.0으로 마이그레이션하기
+## Kotlin 1.7.0으로 마이그레이션하기 {id="migrating-to-kotlin-1-7-0"}
 
-### Kotlin 1.7.0 설치하기
+### Kotlin 1.7.0 설치하기 {id="install-kotlin-1-7-0"}
 
 IntelliJ IDEA 2022.1 및 Android Studio Chipmunk (212)는 자동으로 Kotlin 플러그인을 1.7.0으로 업데이트하도록 제안합니다.
 
@@ -866,12 +866,12 @@ IntelliJ IDEA 2022.1 및 Android Studio Chipmunk (212)는 자동으로 Kotlin �
 
 새로운 명령줄 컴파일러는 [GitHub 릴리스 페이지](https://github.com/JetBrains/kotlin/releases/tag/v1.7.0)에서 다운로드할 수 있습니다.
 
-### 기존 프로젝트 마이그레이션 또는 Kotlin 1.7.0으로 새 프로젝트 시작하기
+### 기존 프로젝트 마이그레이션 또는 Kotlin 1.7.0으로 새 프로젝트 시작하기 {id="migrate-existing-or-start-a-new-project-with-kotlin-1-7-0"}
 
 * 기존 프로젝트를 Kotlin 1.7.0으로 마이그레이션하려면 Kotlin 버전을 `1.7.0`으로 변경하고 Gradle 또는 Maven 프로젝트를 다시 임포트(reimport)하세요. [Kotlin 1.7.0으로 업데이트하는 방법](releases.md#update-to-a-new-kotlin-version)을 알아보세요.
 
 * Kotlin 1.7.0으로 새 프로젝트를 시작하려면 Kotlin 플러그인을 업데이트하고 **File** | **New** | **Project**에서 프로젝트 위저드(Project Wizard)를 실행하세요.
 
-### Kotlin 1.7.0 호환성 가이드
+### Kotlin 1.7.0 호환성 가이드 {id="compatibility-guide-for-kotlin-1-7-0"}
 
 Kotlin 1.7.0은 [기능 릴리스(feature release)](kotlin-evolution-principles.md#language-and-tooling-releases)이므로 이전 버전의 언어로 작성된 코드와 호환되지 않는 변경 사항이 포함될 수 있습니다. 이러한 변경 사항의 상세 목록은 [Kotlin 1.7.0 호환성 가이드](compatibility-guide-17.md)에서 확인하세요.

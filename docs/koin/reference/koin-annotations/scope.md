@@ -4,7 +4,7 @@ title: Koin Annotations 中的作用域
 
 在使用定义和模块时，您可能需要为特定的空间和时间分辨率定义作用域。
 
-## 使用 @Scope 定义作用域
+## 使用 @Scope 定义作用域 {id="defining-a-scope-with-scope"}
 
 Koin 允许使用作用域。请参阅 [Koin 作用域](/docs/reference/koin-core/scopes) 部分以了解更多基础细节。 
 
@@ -37,7 +37,7 @@ class MyScopeClass
 >}
 >```
 
-## 使用 @Scoped 在作用域中添加定义
+## 使用 @Scoped 在作用域中添加定义 {id="adding-a-definition-in-a-scope-with-scoped"}
 
 要在作用域（无论是否使用注解定义）内声明一个定义，只需为类标记 `@Scope` 和 `@Scoped` 注解：
 
@@ -59,7 +59,7 @@ scope<named("my_scope_name")> {
   您需要同时使用这两个注解来指示所需的作用域空间（使用 `@Scope`）和要定义的组件类型（使用 `@Scoped`）。
 :::
 
-## 作用域中的依赖项解析
+## 作用域中的依赖项解析 {id="dependency-resolution-from-a-scope"}
 
 在作用域定义中，您可以解析来自内部作用域和父作用域的任何定义。
 
@@ -86,7 +86,7 @@ class MyOtherScopedComponent(
 组件 `MySingle` 在根节点中被定义为 `single` 定义。`MyScopedComponent` 和 `MyOtherScopedComponent` 定义在作用域 "my_scope_name" 中。
 来自 `MyScopedComponent` 的依赖项解析正在访问带有 `MySingle` 实例的 Koin 根节点，以及来自当前 "my_scope_name" 作用域的 `MyOtherScopedComponent` 作用域实例。
 
-## 使用 @ScopeId 在作用域外解析（自 1.3.0 起）
+## 使用 @ScopeId 在作用域外解析（自 1.3.0 起） {id="resolving-outside-a-scope-with-scopeid-since-1-3-0"}
 
 您可能需要从另一个作用域中解析一个您的作用域无法直接访问的组件。为此，您需要使用 `@ScopeId` 注解标记您的依赖项，以告知 Koin 在给定作用域 ID 的作用域中查找此依赖项。
 
@@ -120,15 +120,15 @@ factory { Myfactory(getScope("my_scope_id").get()) }
   `MyScopedComponent` 组件需要在作用域部分中定义，并且需要使用 ID "my_scope_id" 创建一个作用域实例。 
 :::
 
-## 作用域原型注解
+## 作用域原型注解 {id="scope-archetype-annotations"}
 
 Koin Annotations 为常见的作用域模式提供了预定义的作用域原型注解，从而无需手动声明作用域类型。这些注解在单个注解中结合了作用域声明和组件定义。
 
-### Android 作用域原型
+### Android 作用域原型 {id="android-scope-archetypes"}
 
 对于 Android 开发，您可以使用这些预定义的作用域注解：
 
-#### @ActivityScope
+#### @ActivityScope {id="activityscope"}
 
 在 Activity 作用域中声明组件：
 
@@ -146,7 +146,7 @@ activityScope {
 
 **用法：** 标记的类旨在与 Activity 以及 `activityScope` 函数配合使用以激活作用域。
 
-#### @ActivityRetainedScope
+#### @ActivityRetainedScope {id="activityretainedscope"}
 
 在 Activity Retained 作用域（在配置更改后依然存在）中声明组件：
 
@@ -164,7 +164,7 @@ activityRetainedScope {
 
 **用法：** 标记的类旨在与 Activity 以及 `activityRetainedScope` 函数配合使用以激活作用域。
 
-#### @FragmentScope
+#### @FragmentScope {id="fragmentscope"}
 
 在 Fragment 作用域中声明组件：
 
@@ -182,9 +182,9 @@ fragmentScope {
 
 **用法：** 标记的类旨在与 Fragment 以及 `fragmentScope` 函数配合使用以激活作用域。
 
-### 核心作用域原型
+### 核心作用域原型 {id="core-scope-archetypes"}
 
-#### @ViewModelScope
+#### @ViewModelScope {id="viewmodelscope"}
 
 在 ViewModel 作用域中声明组件。此注解**兼容 Kotlin Multiplatform (KMP)**，适用于 Android ViewModel 和 Compose Multiplatform ViewModel：
 
@@ -211,7 +211,7 @@ viewModelScope {
 
 **KMP 支持：** 在使用 ViewModel 的所有 Kotlin Multiplatform 目标（包括 Android、iOS、桌面和 Web 平台）上无缝工作。
 
-### 使用作用域原型
+### 使用作用域原型 {id="using-scope-archetypes"}
 
 作用域原型注解可与常规 Koin 作用域无缝配合：
 
@@ -231,7 +231,7 @@ class FragmentService(
 )
 ```
 
-### 与函数定义结合使用
+### 与函数定义结合使用 {id="combining-with-function-definitions"}
 
 作用域原型也可以用于模块内的函数：
 

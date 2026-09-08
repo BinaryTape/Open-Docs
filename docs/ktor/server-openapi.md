@@ -93,7 +93,7 @@ routing {
 
 该插件首先在应用程序资源中查找规范。如果未找到，它将尝试使用 `java.io.File` 从文件系统中加载它。
 
-## 生成运行时 OpenAPI 元数据
+## 生成运行时 OpenAPI 元数据 {id="generate-runtime-openapi-metadata"}
 
 您可以不依赖静态文件，而是使用由 OpenAPI 编译器插件和路由注解生成的元数据，在运行时生成 OpenAPI 规范。
 

@@ -9,13 +9,13 @@ title: Kotlin とアノテーション
 更新 - 2024-11-12
 :::
 
-## コードの取得
+## コードの取得 {id="get-the-code"}
 
 :::info
 [ソースコードは GitHub で公開されています](https://github.com/InsertKoinIO/koin-getting-started/tree/main/kotlin-annotations)
 :::
 
-## セットアップ
+## セットアップ {id="setup"}
 
 まず、以下のように Koin アノテーションの依存関係が追加されていることを確認してください。
 
@@ -34,13 +34,13 @@ dependencies {
 }
 ```
 
-## アプリケーションの概要
+## アプリケーションの概要 {id="application-overview"}
 
 このアプリケーションの目的は、ユーザーのリストを管理し、それを `UserApplication` クラスで表示することです。
 
 > Users -> UserRepository -> UserService -> UserApplication
 
-## "User" データ
+## "User" データ {id="the-user-data"}
 
 User のコレクションを管理します。データクラスは以下の通りです。
 
@@ -75,7 +75,7 @@ class UserRepositoryImpl : UserRepository {
 このプロジェクトでは、シングルトンコンポーネントを宣言するために Koin の `@Singleton` アノテーション（`org.koin.core.annotation` 由来）を使用しています。
 :::
 
-## Koin モジュール
+## Koin モジュール {id="the-koin-module"}
 
 `@Module` アノテーションを使用して Koin モジュールを宣言します。
 
@@ -99,7 +99,7 @@ class UserRepositoryImpl : UserRepository {
 }
 ```
 
-## UserService コンポーネント
+## UserService コンポーネント {id="the-userservice-component"}
 
 ユーザー操作を管理する `UserService` コンポーネントを作成します。
 
@@ -135,7 +135,7 @@ class UserServiceImpl(
 
 `UserService` を `@Singleton` アノテーションで宣言します。
 
-## UserApplication
+## UserApplication {id="the-userapplication"}
 
 `UserApplication` クラスは、コンストラクタ注入を使用して `UserService` を受け取ります。
 
@@ -161,7 +161,7 @@ class UserApplication(
 コンストラクタ注入は、依存関係を注入するための推奨される方法です。Koin は `UserApplication` を作成する際、自動的に `UserService` を解決して注入します。
 :::
 
-## Koin アプリケーションオブジェクト
+## Koin アプリケーションオブジェクト {id="koin-application-object"}
 
 Koin のアノテーションベースの設定のエントリーポイントを示すために、`@KoinApplication` オブジェクトを作成します。
 
@@ -172,7 +172,7 @@ object KoinUserApplication
 
 `@KoinApplication` アノテーションは KSP プロセッサと連携し、このオブジェクトに対して `startKoin()` 拡張関数を生成します。
 
-## Koin の開始
+## Koin の開始 {id="start-koin"}
 
 アプリケーションで Koin を開始する必要があります。アプリケーションのメインエントリーポイントで、生成された `startKoin()` 関数を呼び出すだけです。
 
@@ -194,7 +194,7 @@ fun main() {
 モジュールに `@Configuration` を付与し、`@KoinApplication` アノテーションを使用することで、KSP を介してコンパイル時にすべてのアノテーション付き依存関係を自動的に検出し、ロードします。
 :::
 
-## アノテーション vs Compiler Plugin DSL
+## アノテーション vs Compiler Plugin DSL {id="annotations-vs-compiler-plugin-dsl"}
 
 アノテーションベースの設定と Compiler Plugin DSL の比較は以下の通りです。
 

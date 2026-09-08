@@ -21,7 +21,7 @@ Maven 是一个构建系统，可帮助管理仅限 Kotlin 或 Kotlin-Java 混�
 >
 {style="tip"}
 
-## 后续步骤？
+## 后续步骤？ {id="what-s-next"}
 
 * 使用 [`power-assert` 插件](power-assert.md#maven)**提升调试体验**。
 * 使用 [`kover-maven-plugin`](https://kotlin.github.io/kotlinx-kover/maven-plugin/)**衡量测试覆盖率并生成报告**。

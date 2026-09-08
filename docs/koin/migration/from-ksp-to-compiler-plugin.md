@@ -10,7 +10,7 @@ title: 将 Koin 注解从 KSP 迁移到编译器插件
 **您的注解保持完全不变。** 只有构建配置和 Koin 启动代码需要更改。
 :::
 
-## 有何不同？
+## 有何不同？ {id="what-s-different"}
 
 | 维度 | KSP 处理 | 编译器插件 |
 |--------|----------------|-----------------|
@@ -21,14 +21,14 @@ title: 将 Koin 注解从 KSP 迁移到编译器插件
 | **Koin 启动** | `modules(AppModule().module)` | `startKoin<MyApp>()` |
 | **未来支持** | 已弃用 | 活跃开发中 |
 
-## 要求
+## 要求 {id="requirements"}
 
 - **Kotlin 2.3.20+**（需要 K2 编译器）
 - **Gradle 8.x+**
 
-## 迁移步骤
+## 迁移步骤 {id="migration-steps"}
 
-### 第 1 步：更新 Kotlin 版本
+### 第 1 步：更新 Kotlin 版本 {id="step-1-update-kotlin-version"}
 
 编译器插件需要 Kotlin 2.3.20+：
 
@@ -39,7 +39,7 @@ plugins {
 }
 ```
 
-### 第 2 步：更新版本目录
+### 第 2 步：更新版本目录 {id="step-2-update-version-catalog"}
 
 **之前 (KSP)：**
 ```toml
@@ -75,7 +75,7 @@ koin-compiler = { id = "io.insert-koin.compiler.plugin", version.ref = "koin-plu
 `koin-annotations` 现在是 Koin 主项目的一部分，并使用与 `koin-core` 相同的版本。
 :::
 
-### 第 3 步：更新构建配置
+### 第 3 步：更新构建配置 {id="step-3-update-build-configuration"}
 
 **之前 (KSP)：**
 ```kotlin
@@ -113,7 +113,7 @@ koinCompiler {
 }
 ```
 
-### 第 4 步：更新 Koin 启动代码
+### 第 4 步：更新 Koin 启动代码 {id="step-4-update-koin-startup"}
 
 这是主要的程序代码更改。KSP 方法使用生成的 `.module` 扩展，而编译器插件将 `@KoinApplication` 与类型化 API 结合使用。
 
@@ -149,7 +149,7 @@ fun main() {
 }
 ```
 
-#### Android 示例
+#### Android 示例 {id="android-example"}
 
 **之前 (KSP)：**
 ```kotlin
@@ -181,7 +181,7 @@ class MyApplication : Application() {
 }
 ```
 
-### 第 5 步：清理
+### 第 5 步：清理 {id="step-5-clean-up"}
 
 删除 KSP 生成的文件并重新构建：
 
@@ -190,7 +190,7 @@ rm -rf build/generated/ksp
 ./gradlew clean build
 ```
 
-## 注解保持不变
+## 注解保持不变 {id="annotations-stay-the-same"}
 
 您所有带注解的类都保持不变：
 
@@ -212,7 +212,7 @@ class AppModule
 
 所有注解的工作方式完全相同。请参阅 **[注解参考](/docs/reference/koin-annotations/definitions)** 以获取完整列表。
 
-### 导入更改：`@KoinViewModel`
+### 导入更改：`@KoinViewModel` {id="import-change-koinviewmodel"}
 
 `@KoinViewModel` 注解的包路径已更改：
 
@@ -224,7 +224,7 @@ import org.koin.android.annotation.KoinViewModel
 import org.koin.core.annotation.KoinViewModel
 ```
 
-### 顶级函数定义（新）
+### 顶级函数定义（新） {id="top-level-function-definitions-new"}
 
 编译器插件支持对顶级函数使用注解，并可通过 `@ComponentScan` 发现：
 
@@ -242,7 +242,7 @@ class AppModule
 
 函数返回值类型决定绑定类型。函数形参作为依赖项注入。
 
-## DSL 语法更改
+## DSL 语法更改 {id="dsl-syntax-changes"}
 
 如果您在注解的同时使用 Koin DSL 模块，编译器插件会引入更简洁的语法：
 
@@ -285,7 +285,7 @@ val dbModule = module {
 编译器插件 DSL 位于 **`org.koin.plugin.module.dsl`** 包中。经典 DSL 仍保留在 `org.koin.dsl` 中。
 :::
 
-## 跨模块发现
+## 跨模块发现 {id="cross-module-discovery"}
 
 使用 `@Configuration` 在 Gradle 模块之间进行自动模块发现：
 
@@ -303,7 +303,7 @@ object MyApp
 startKoin<MyApp>()  // FeatureModule 会被自动包含
 ```
 
-## KMP 迁移
+## KMP 迁移 {id="kmp-migration"}
 
 编译器插件极大地简化了 KMP 设置。
 
@@ -351,32 +351,32 @@ kotlin {
 }
 ```
 
-## 类型化启动 API
+## 类型化启动 API {id="typed-startup-apis"}
 
 编译器插件提供了类型化 API：`startKoin<T>()`、`koinApplication<T>()`、`koinConfiguration<T>()`。
 
 详情请参阅 **[使用注解启动](/docs/reference/koin-annotations/start)**。
 
-## 配置标签（新）
+## 配置标签（新） {id="configuration-labels-new"}
 
 编译器插件为条件模块加载增加了配置标签。
 
 详情请参阅 **[模块 - 配置](/docs/reference/koin-annotations/modules)**。
 
-## 编译器插件选项
+## 编译器插件选项 {id="compiler-plugin-options"}
 
 请参阅 **[编译器插件选项](/docs/reference/koin-annotations/options)** 以获取所有配置选项。
 
-## 故障排除
+## 故障排除 {id="troubleshooting"}
 
-### 移除 KSP 后构建失败
+### 移除 KSP 后构建失败 {id="build-fails-after-removing-ksp"}
 
 1. `./gradlew clean`
 2. `rm -rf build/generated/ksp`
 3. 使 IDE 缓存失效
 4. 重新构建
 
-### 未检测到注解
+### 未检测到注解 {id="annotations-not-detected"}
 
 启用日志记录：
 ```kotlin
@@ -385,13 +385,13 @@ koinCompiler {
 }
 ```
 
-### 运行时缺失依赖项
+### 运行时缺失依赖项 {id="missing-dependencies-at-runtime"}
 
 1. 检查 `@ComponentScan` 包
 2. 验证 `@KoinApplication(modules = [...])` 中的模块
 3. 对于外部依赖项使用 `@Provided`
 
-## 迁移核对清单
+## 迁移核对清单 {id="migration-checklist"}
 
 - [ ] 将 Kotlin 更新到 2.3.20+
 - [ ] 将 Koin 更新到 4.2.0+
@@ -406,7 +406,7 @@ koinCompiler {
 - [ ] 移除 `import org.koin.ksp.generated.*`
 - [ ] 执行 Clean 并重新构建 (`rm -rf build/generated/ksp && ./gradlew clean build`)
 
-## 另请参阅
+## 另请参阅 {id="see-also"}
 
 - **[编译器插件设置](/docs/setup/compiler-plugin)** - 完整设置指南
 - **[注解参考](/docs/reference/koin-annotations/start)** - 所有注解

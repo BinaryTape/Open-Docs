@@ -5,7 +5,7 @@
 
 以下是一些來自社群的 Kotlin/JS Web 架構：
 
-## Kobweb
+## Kobweb {id="kobweb"}
 
 [Kobweb](https://kobweb.varabyte.com/) 是一個使用 [Compose HTML](https://github.com/JetBrains/compose-multiplatform?tab=readme-ov-file#compose-html) 建立網站和 Web 應用程式的 Kotlin 架構。它支援即時重新載入以進行快速開發。受到 [Next.js](https://nextjs.org/) 的啟發，Kobweb 提倡一種用於新增小工具、配置和頁面的標準結構。
 
@@ -17,7 +17,7 @@ Kobweb 還支援透過產生頁面快照來匯出網站，以利於 SEO 和自�
 
 有關該架構的更新和討論，請加入 [Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) 中的 [#kobweb](https://kotlinlang.slack.com/archives/C04RTD72RQ8) 和 [#compose-web](https://kotlinlang.slack.com/archives/C01F2HV7868) 頻道。
 
-## Kilua
+## Kilua {id="kilua"}
 
 [Kilua](https://kilua.dev/) 是一個建置在 [Compose Runtime](https://developer.android.com/jetpack/androidx/releases/compose-runtime) 之上的可組合 Web 架構，與 [compose-html](https://github.com/JetBrains/compose-multiplatform#compose-html) 程式庫相似。與 compose-html 不同，Kilua 同時支援 Kotlin/Wasm 和 Kotlin/JS 目標。
 
@@ -29,7 +29,7 @@ Kilua 是 [KVision](https://kvision.io) 架構的繼任者。Kilua 的設計旨�
 
 有關該架構的更新和討論，請加入 [Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) 中的 [#kilua](https://kotlinlang.slack.com/archives/C06UAH52PA7) 頻道。
 
-## Summon
+## Summon {id="summon"}
 
 [Summon](https://summon.yousef.codes/) 是一個 Kotlin Multiplatform 前端架構，用於在 JVM、Kotlin/JS 和 Kotlin/Wasm 上建置高效能應用程式。它支援基於組建的 UI 開發、一流的伺服器端渲染 (SSR) 與 HTML 串流，以及可編譯為純淨 CSS 的修飾符驅動樣式設定。
 
@@ -37,7 +37,7 @@ Summon 還專注於感知執行時的組建，以實現無障礙功能和進階�
 
 有關詳細資訊和範例，請參閱 [Summon 文件](https://summon.yousef.codes/docs)。
 
-## Kinetica
+## Kinetica {id="kinetica"}
 
 [Kinetica](https://kinetica.heapy.io/) 是一個 Kotlin UI 架構，專注於 Web 應用程式的實際成效：透過伺服器渲染實現快速的初始頁面傳遞、對 SEO 友好的 HTML 輸出，以及在頁面載入後平滑銜接到互動式用戶端 UI。它還支援無頭測試，這有助於團隊在不依賴完整瀏覽器環境的情況下，快速且可靠地測試 UI 行為。
 
@@ -45,7 +45,7 @@ Kinetica 開箱即用，包含路由、表單和持久化模組，讓團隊能�
 
 有關詳細資訊和範例，請參閱 [Kinetica 文件](https://kinetica.heapy.io/docs/getting-started)。
 
-## Kotlin React
+## Kotlin React {id="kotlin-react"}
 
 [React](https://react.dev/) 是一個基於組建的程式庫，廣泛用於 Web 和原生使用者介面。它擁有龐大的組建生態系統、學習材料和活躍的社群。
 
@@ -53,7 +53,7 @@ Kinetica 開箱即用，包含路由、表單和持久化模組，讓團隊能�
 
 有關該程式庫的更新和討論，請加入 [Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) 中的 [#react](https://kotlinlang.slack.com/messages/react) 和 [#javascript](https://kotlinlang.slack.com/archives/C0B8L3U69) 頻道。
 
-## KVision
+## KVision {id="kvision"}
 
 [KVision](https://kvision.io) 是一個物件導向的 Web 架構，用於透過現成的 UI 組建來建置 Kotlin/JS 應用程式。這些組建可以作為您應用程式使用者介面的基礎構件。
 
@@ -63,7 +63,7 @@ Kinetica 開箱即用，包含路由、表單和持久化模組，讓團隊能�
 
 有關該架構的更新和討論，請加入 [Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) 中的 [#kvision](https://kotlinlang.slack.com/messages/kvision) 和 [#javascript](https://kotlinlang.slack.com/archives/C0B8L3U69) 頻道。
 
-## fritz2
+## fritz2 {id="fritz2"}
 
 [fritz2](https://www.fritz2.dev) 是一個用於建置回應式 Web 使用者介面的獨立架構。它提供自己的型別安全 DSL 用於建置和渲染 HTML 元素，並使用 Kotlin 的協同程式和 flow 來定義組建及其資料繫結。
 
@@ -73,7 +73,7 @@ fritz2 開箱即用，提供狀態管理、驗證、路由等功能。它還能�
 
 有關該架構的更新和討論，請加入 [Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) 中的 [#fritz2](https://kotlinlang.slack.com/messages/fritz2) 和 [#javascript](https://kotlinlang.slack.com/archives/C0B8L3U69) 頻道。
 
-## Doodle
+## Doodle {id="doodle"}
 
 [Doodle](https://nacular.github.io/doodle/) 是一個用於 Kotlin/JS 的向量式 UI 架構。Doodle 應用程式利用瀏覽器的圖形能力來繪製使用者介面，而不是依賴於 DOM（文件物件模型）、CSS 或 JavaScript。這種方法讓您能夠控制任意 UI 元件、向量形狀、漸層和自訂視覺化效果的渲染。
 

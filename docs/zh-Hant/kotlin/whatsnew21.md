@@ -21,7 +21,7 @@ Kotlin 2.1.0 正式發佈！以下是主要的重點內容：
 >
 {style="tip"}
 
-## IDE 支援
+## IDE 支援 {id="ide-support"}
 
 支援 2.1.0 的 Kotlin 外掛程式已隨附於最新版本的 IntelliJ IDEA 和 Android Studio 中。
 您不需要在 IDE 中更新 Kotlin 外掛程式。
@@ -29,7 +29,7 @@ Kotlin 2.1.0 正式發佈！以下是主要的重點內容：
 
 詳情請參閱 [更新至新的 Kotlin 版本](releases.md#update-to-a-new-kotlin-version)。
 
-## 語言
+## 語言 {id="language"}
 
 在發佈了帶有 K2 編譯器的 Kotlin 2.0.0 之後，JetBrains 團隊正專注於透過新特性來改進語言。
 在此版本中，我們很高興宣佈幾項新的語言設計改進。
@@ -54,7 +54,7 @@ Kotlin 2.1.0 正式發佈！以下是主要的重點內容：
 * [](#improved-overload-resolution-for-functions-with-generic-types)
 * [](#improved-exhaustiveness-checks-for-when-expressions-with-sealed-classes)
 
-### 具有主體的 when 中的防護條件
+### 具有主體的 when 中的防護條件 {id="guard-conditions-in-when-with-a-subject"}
 
 > 此特性處於 [預覽階段](kotlin-evolution-principles.md#pre-stable-features)，
 > 且需要選擇性啟用 (opt-in)（詳見下文）。
@@ -115,7 +115,7 @@ kotlin {
 }
 ```
 
-### 非區域 break 與 continue
+### 非區域 break 與 continue {id="non-local-break-and-continue"}
 
 > 此特性處於 [預覽階段](kotlin-evolution-principles.md#pre-stable-features)，
 > 且需要選擇性啟用 (opt-in)（詳見下文）。
@@ -165,7 +165,7 @@ kotlin {
 如果您在使用非區域 `break` 與 `continue`時遇到任何問題， 
 請回報至我們的 [問題追蹤器](https://youtrack.jetbrains.com/issue/KT-1436)。
 
-### 多錢符號字串插值
+### 多錢符號字串插值 {id="multi-dollar-string-interpolation"}
 
 > 此特性處於 [預覽階段](kotlin-evolution-principles.md#pre-stable-features)，
 > 且需要選擇性啟用 (opt-in)（詳見下文）。
@@ -224,7 +224,7 @@ kotlin {
 如果您的程式碼已經使用帶有單個錢符號的標準字串插值，則無需更改。
 每當您在字串中需要錢符號常值時，您可以使用 `$`。
 
-### 支援要求選擇性啟用以擴展 API
+### 支援要求選擇性啟用以擴展 API {id="support-for-requiring-opt-in-to-extend-apis"}
 
 Kotlin 2.1.0 引入了 [`@SubclassOptInRequired`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-subclass-opt-in-required/) 註解，
 這允許程式庫作者在使用者實作實驗性介面或繼承實驗性類別之前，要求明確的選擇性啟用 (opt-in)。
@@ -263,7 +263,7 @@ interface MyImplementation: CoreLibraryApi
 請查看 `kotlinx.coroutines` 程式庫中的 [`SharedFlow`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-shared-flow/)
 介面。
 
-### 改進具有泛型型別的函式的多載解析
+### 改進具有泛型型別的函式的多載解析 {id="improved-overload-resolution-for-functions-with-generic-types"}
 
 以前，如果您為一個函式提供了多個多載，其中一些具有泛型型別的數值參數，
 而另一些在相同位置具有函式型別，解析行為有時可能會不一致。
@@ -306,7 +306,7 @@ fun test(kvs: KeyValueStore<String, Int>) {
 此項變更使成員函數和擴充方法的行為保持一致，
 並且在 Kotlin 2.1.0 中預設啟用。
 
-### 改進帶有密封類別的 when 運算式的窮舉性檢查
+### 改進帶有密封類別的 when 運算式的窮舉性檢查 {id="improved-exhaustiveness-checks-for-when-expressions-with-sealed-classes"}
 
 在以前版本的 Kotlin 中，編譯器要求在具有密封上界 (sealed upper bounds) 的型別參數的 `when`
 運算式中提供 `else` 分支，即使 `sealed class` 階層結構中的所有情況都已涵蓋也是如此。
@@ -328,12 +328,12 @@ fun <T : Result> render(result: T) = when (result) {
 }
 ```
 
-## Kotlin K2 編譯器
+## Kotlin K2 編譯器 {id="kotlin-k2-compiler"}
 
 隨着 Kotlin 2.1.0 的發佈，K2 編譯器現在在 [處理編譯器檢查](#extra-compiler-checks)
 和 [警告](#global-warning-suppression) 時提供了更多靈活性，並 [改進了對 kapt 外掛程式的支援](#improved-k2-kapt-implementation)。
 
-### 額外編譯器檢查
+### 額外編譯器檢查 {id="extra-compiler-checks"}
 
 在 Kotlin 2.1.0 中，您現在可以在 K2 編譯器中啟用額外的檢查。
 這些是額外的宣告、運算式和型別檢查，通常對編譯來說不是至關重要的，
@@ -374,7 +374,7 @@ kotlin {
 有關如何定義和使用編譯器選項的更多資訊，
 請參閱 [Kotlin Gradle 外掛程式中的編譯器選項](gradle-compiler-options.md)。
 
-### 全域警告隱藏
+### 全域警告隱藏 {id="global-warning-suppression"}
 
 在 2.1.0 中，Kotlin 編譯器獲得了一個強烈要求的特性——全域隱藏警告的能力。
 
@@ -431,7 +431,7 @@ kotlin {
    </tab>
    </tabs>
 
-### 改進 K2 kapt 實作
+### 改進 K2 kapt 實作 {id="improved-k2-kapt-implementation"}
 
 > K2 編譯器的 kapt 外掛程式 (K2 kapt) 處於 [Alpha](components-stability.md#stability-levels-explained) 階段。
 > 它可能隨時會發生變化。
@@ -461,12 +461,12 @@ kapt.use.k2=true
 
 我們非常感謝您在新的實作穩定之前提供 [回饋](https://youtrack.jetbrains.com/issue/KT-71439/K2-kapt-feedback)。
 
-### 解決無正負號型別與非原始型別之間的多載衝突
+### 解決無正負號型別與非原始型別之間的多載衝突 {id="resolution-for-overload-conflicts-between-unsigned-and-non-primitive-types"}
 
 此版本解決了在先前版本中，當函式針對無正負號型別和非原始型別進行多載時可能發生的解析多載衝突問題，
 如下列範例所示：
 
-#### 多載的擴充方法
+#### 多載的擴充方法 {id="overloaded-extension-functions"}
 
 ```kotlin
 fun Any.doStuff() = "Any"
@@ -480,7 +480,7 @@ fun main() {
 
 在早期版本中，呼叫 `uByte.doStuff()` 會導致歧義，因為 `Any` 和 `UByte` 的擴充都適用。
 
-#### 多載的頂層函式
+#### 多載的頂層函式 {id="overloaded-top-level-functions"}
 
 ```kotlin
 fun doStuff(value: Any) = "Any"
@@ -495,11 +495,11 @@ fun main() {
 同樣地，對 `doStuff(uByte)` 的呼叫也是歧義的，因為編譯器無法決定要使用 `Any` 還是 `UByte` 版本。
 從 2.1.0 開始，編譯器現在能正確處理這些情況，透過優先考慮更具體的型別（在此案例中為 `UByte`）來消除歧義。
 
-## Kotlin/JVM
+## Kotlin/JVM {id="kotlin-jvm"}
 
 從 2.1.0 版本開始，編譯器可以產生包含 Java 23 機器碼的類別。
 
-### 將 JSpecify 可 null 性不符診斷的嚴重等級變更為 strict
+### 將 JSpecify 可 null 性不符診斷的嚴重等級變更為 strict {id="change-of-jspecify-nullability-mismatch-diagnostics-severity-to-strict"}
 
 Kotlin 2.1.0 強制嚴格處理來自 `org.jspecify.annotations` 的可 null 性註解，
 改進了 Java 互通性的型別安全性。
@@ -555,14 +555,14 @@ fun test(sjc: SomeJavaClass) {
 
 更多資訊請參閱 [可 null 性註解](java-interop.md#nullability-annotations)。
 
-## Kotlin Multiplatform
+## Kotlin Multiplatform {id="kotlin-multiplatform"}
 
 Kotlin 2.1.0 引入了 [Swift 匯出的基礎支援](#basic-support-for-swift-export)，並使
 [發佈 Kotlin Multiplatform 程式庫更加容易](#ability-to-publish-kotlin-libraries-from-any-host)。
 它還專注於 Gradle 相關的改進，使 [配置編譯器選項的新 DSL](#new-gradle-dsl-for-compiler-options-in-multiplatform-projects-promoted-to-stable) 趨於穩定，
 並帶來了 [Isolated Projects 特性的預覽](#preview-gradle-s-isolated-projects-in-kotlin-multiplatform)。
 
-### 用於多平台專案編譯器選項的新 Gradle DSL 進入穩定版
+### 用於多平台專案編譯器選項的新 Gradle DSL 進入穩定版 {id="new-gradle-dsl-for-compiler-options-in-multiplatform-projects-promoted-to-stable"}
 
 在 Kotlin 2.0.0 中，[我們引入了新的實驗性 Gradle DSL](whatsnew20.md#new-gradle-dsl-for-compiler-options-in-multiplatform-projects)
 來簡化多平台專案中的編譯器選項配置。
@@ -576,7 +576,7 @@ Kotlin 2.1.0 引入了 [Swift 匯出的基礎支援](#basic-support-for-swift-ex
 要進一步了解不同層級以及如何在它們之間配置編譯器選項， 
 請參閱 [編譯器選項](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#compiler-options)。
 
-### 預覽 Gradle 在 Kotlin Multiplatform 中的 Isolated Projects 特性
+### 預覽 Gradle 在 Kotlin Multiplatform 中的 Isolated Projects 特性 {id="preview-gradle-s-isolated-projects-in-kotlin-multiplatform"}
 
 > 此特性處於 [實驗性階段](components-stability.md#stability-levels-explained)，目前在 Gradle 中處於 pre-Alpha 狀態。
 > 僅配合 Gradle 8.10 版本使用，且僅用於評估目的。該特性可能隨時被捨棄或更改。
@@ -611,7 +611,7 @@ Gradle 的 Isolated Projects 特性透過「隔離」各個 Gradle 專案的配�
   要啟用 Isolated Projects 特性，請 [設定系統屬性](https://docs.gradle.org/current/userguide/isolated_projects.html#how_do_i_use_it)。
   在這種情況下，您不需要在專案中為 Kotlin Gradle 外掛程式加入 Gradle 屬性。
 
-### Swift 匯出的基礎支援
+### Swift 匯出的基礎支援 {id="basic-support-for-swift-export"}
 
 > 此特性目前處於開發早期階段。它可能隨時被捨棄或更改。
 > 需要選擇性啟用 (opt-in)（詳見下文），且您應僅將其用於評估目的。
@@ -663,7 +663,7 @@ kotlin {
 
 編譯器會自動產生所有必要的檔案（包括 `swiftmodule` 檔案、靜態 `a` 程式庫、以及標頭檔與 `modulemap` 檔案），並將它們複製到應用程式的組建目錄中，您可以從 Xcode 存取這些檔案。
 
-#### 如何啟用 Swift 匯出
+#### 如何啟用 Swift 匯出 {id="how-to-enable-swift-export"}
 
 請記住，此特性目前僅處於開發的早期階段。
 
@@ -689,12 +689,12 @@ Swift 匯出目前適用於使用 [直接整合](https://kotlinlang.org/docs/mul
 
    ![加入 Swift 匯出指令碼](xcode-swift-export-run-script-phase.png){width=700}
 
-#### 針對 Swift 匯出留下回饋
+#### 針對 Swift 匯出留下回饋 {id="leave-feedback-on-swift-export"}
 
 我們計劃在未來的 Kotlin 版本中擴展並穩定 Swift 匯出支援。
 請在 [此 YouTrack 問題](https://youtrack.jetbrains.com/issue/KT-64572) 留下您的回饋。
 
-### 從任何主機發佈 Kotlin 程式庫的能力
+### 從任何主機發佈 Kotlin 程式庫的能力 {id="ability-to-publish-kotlin-libraries-from-any-host"}
 
 > 此特性目前處於 [實驗性階段](components-stability.md#stability-levels-explained)。
 > 需要選擇性啟用 (opt-in)（詳見下文），且您應僅將其用於評估目的。
@@ -710,7 +710,7 @@ Kotlin 2.1.0 取消了這項限制，增加了對交叉編譯的支援。
 現在您可以使用任何 [受支援的主機](native-target-support.md#hosts) 來產生 `.klib` 成品，
 這應能大幅簡化 Kotlin 與 Kotlin Multiplatform 程式庫的發佈流程。
 
-#### 如何啟用從任何主機發佈程式庫
+#### 如何啟用從任何主機發佈程式庫 {id="how-to-enable-publishing-libraries-from-any-host"}
 
 要在專案中嘗試交叉編譯，請在 `gradle.properties` 檔案中加入以下二進制選項：
 
@@ -725,14 +725,14 @@ kotlin.native.enableKlibsCrossCompilation=true
 * 您的專案中設定了 [CocoaPods 整合](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html)。
 * 您需要為 Apple 目標編譯或測試 [最終二進位檔](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html)。
 
-#### 針對從任何主機發佈程式庫留下回饋
+#### 針對從任何主機發佈程式庫留下回饋 {id="leave-feedback-on-publishing-libraries-from-any-host"}
 
 我們計劃在未來的 Kotlin 版本中穩定此特性並進一步改進程式庫發佈。
 請在我們的問題追蹤器 [YouTrack](https://youtrack.jetbrains.com/issue/KT-71290) 留下您的回饋。
 
 更多資訊請參閱 [發佈多平台程式庫](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-lib-setup.html)。
 
-### 支援非打包 klib
+### 支援非打包 klib {id="support-for-non-packed-klibs"}
 
 Kotlin 2.1.0 讓產生非打包 (non-packed) 的 `.klib` 檔案成品變為可能。
 這讓您可以選擇直接配置對 klib 的相依性，而不是先解包它們。
@@ -744,7 +744,7 @@ Kotlin 2.1.0 讓產生非打包 (non-packed) 的 `.klib` 檔案成品變為可�
 我們的效能基準測試顯示，在具有 1 個連結任務和 10 個編譯任務的專案中（該專案組建了一個依賴於 9 個簡化專案的單個原生可執行二進位檔），總建置時間大約提升了 3%。
 然而，對建置時間的實際影響取決於子專案的數量及其各自的大小。
 
-#### 如何設定您的專案
+#### 如何設定您的專案 {id="how-to-set-up-your-project"}
 
 預設情況下，Kotlin 編譯和連結任務現在已配置為使用新的非打包成品。
 
@@ -777,7 +777,7 @@ val resolvableConfiguration = configurations.resolvable("resolvable") {
 
 我們誠摯歡迎您在 [YouTrack](https://kotl.in/issue) 提供關於此特性的回饋。
 
-### 進一步棄用舊的 `android` 目標
+### 進一步棄用舊的 `android` 目標 {id="further-deprecation-of-old-android-target"}
 
 在 Kotlin 2.1.0 中，針對舊 `android` 目標名稱的棄用警告已提升為錯誤。
 
@@ -789,7 +789,7 @@ val resolvableConfiguration = configurations.resolvable("resolvable") {
 
 更多資訊請參閱 [Kotlin Multiplatform 相容性指南](https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html#rename-of-android-target-to-androidtarget)。
 
-### 停止支援宣告多個相同型別的目標
+### 停止支援宣告多個相同型別的目標 {id="dropped-support-for-declaring-multiple-targets-of-the-same-type"}
 
 在 Kotlin 2.1.0 之前，您可以在多平台專案中宣告多個相同型別的目標。
 然而，這使得區分目標以及有效地支援共享原始碼集 (source set) 變得很具有挑戰性。
@@ -802,12 +802,12 @@ Kotlin 1.9.20 對於在多平台專案中宣告多個相同型別目標的情況
 要進一步了解為何 Kotlin/JS 目標可以豁免，
 請參閱 [YouTrack 中的此問題](https://youtrack.jetbrains.com/issue/KT-47038/KJS-MPP-Split-JS-target-into-JsBrowser-and-JsNode)。
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 Kotlin 2.1.0 包含了對 [`iosArm64` 目標支援的升級](#iosarm64-promoted-to-tier-1)、
 [改進了 cinterop 快取程序](#changes-to-caching-in-cinterop) 以及其他更新。
 
-### iosArm64 提升至第一層級 (Tier 1)
+### iosArm64 提升至第一層級 (Tier 1) {id="iosarm64-promoted-to-tier-1"}
 
 對於 [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform/get-started.html) 開發至關重要的 `iosArm64` 目標已被提升至第一層級 (Tier 1)。這是 Kotlin/Native 編譯器中的最高支援層級。
 
@@ -816,7 +816,7 @@ Kotlin 2.1.0 包含了對 [`iosArm64` 目標支援的升級](#iosarm64-promoted-
 
 有關目標層級的更多資訊，請參閱 [Kotlin/Native 目標支援](native-target-support.md)。
 
-### LLVM 更新從 11.1.0 至 16.0.0
+### LLVM 更新從 11.1.0 至 16.0.0 {id="llvm-update-from-11-1-0-to-16-0-0"}
 
 在 Kotlin 2.1.0 中，我們將 LLVM 從 11.1.0 版本更新至 16.0.0。
 新版本包含了錯誤修正和安全性更新。
@@ -827,7 +827,7 @@ Kotlin 2.1.0 包含了對 [`iosArm64` 目標支援的升級](#iosarm64-promoted-
 
 此項更新應該不會影響您的程式碼，但如果您遇到任何問題，請回報至我們的 [問題追蹤器](http://kotl.in/issue)。
 
-### cinterop 快取的變更
+### cinterop 快取的變更 {id="changes-to-caching-in-cinterop"}
 
 在 Kotlin 2.1.0 中，我們正對 cinterop 快取程序進行變更。它不再具有
 [`CacheableTask`](https://docs.gradle.org/current/javadoc/org/gradle/api/tasks/CacheableTask.html) 註解型別。
@@ -838,7 +838,7 @@ Kotlin 2.1.0 包含了對 [`iosArm64` 目標支援的升級](#iosarm64-promoted-
 檢查無法偵測到 [定義檔 (definition file)](native-definition-file.md) 中指定的標頭檔變更的問題，
 進而防止建置系統重新編譯程式碼。
 
-### 棄用 mimalloc 記憶體分配器
+### 棄用 mimalloc 記憶體分配器 {id="deprecation-of-the-mimalloc-memory-allocator"}
 
 早在 Kotlin 1.9.0 中，我們就引入了新的記憶體分配器，隨後在 Kotlin 1.9.20 中將其設為預設。
 新的分配器旨在提高垃圾收集效率並提升 Kotlin/Native 記憶體管理器的執行時期效能。
@@ -852,11 +852,11 @@ Kotlin 2.1.0 包含了對 [`iosArm64` 目標支援的升級](#iosarm64-promoted-
 有關 Kotlin 中記憶體分配器和垃圾收集的更多資訊，
 請參閱 [Kotlin/Native 記憶體管理](native-memory-manager.md)。
 
-## Kotlin/Wasm
+## Kotlin/Wasm {id="kotlin-wasm"}
 
 Kotlin/Wasm 獲得了多項更新以及 [對增量編譯的支援](#support-for-incremental-compilation)。
 
-### 支援增量編譯
+### 支援增量編譯 {id="support-for-incremental-compilation"}
 
 以前，當您更改 Kotlin 程式碼中的某些內容時，Kotlin/Wasm 工具鏈必須重新編譯整個程式碼庫。
 
@@ -878,7 +878,7 @@ kotlin.incremental.wasm=true
 並 [分享您的回饋](https://youtrack.jetbrains.com/issue/KT-72158/Kotlin-Wasm-incremental-compilation-feedback)。
 您的見解將有助於使此特性儘早趨於穩定並預設啟用。
 
-### 瀏覽器 API 已移動至 kotlinx-browser 獨立程式庫
+### 瀏覽器 API 已移動至 kotlinx-browser 獨立程式庫 {id="browser-apis-moved-to-the-kotlinx-browser-stand-alone-library"}
 
 以前，Web API 的宣告和相關目標公用程式是 Kotlin/Wasm 標準程式庫的一部分。
 
@@ -901,7 +901,7 @@ val wasmJsMain by getting {
 }
 ```
 
-### 改進 Kotlin/Wasm 的偵錯體驗
+### 改進 Kotlin/Wasm 的偵錯體驗 {id="improved-debugging-experience-for-kotlin-wasm"}
 
 以前，在網頁瀏覽器中偵錯 Kotlin/Wasm 程式碼時，您可能會在偵錯介面中遇到
 變數值的低階表示形式。這通常使得追蹤應用程式目前狀態變得具有挑戰性。
@@ -943,14 +943,14 @@ val wasmJsMain by getting {
 
      ![在 Firefox 中啟用自訂格式化程式](wasm-custom-formatters-firefox.png){width=700}
 
-### 縮減 Kotlin/Wasm 二進位檔大小
+### 縮減 Kotlin/Wasm 二進位檔大小 {id="reduced-size-of-kotlin-wasm-binaries"}
 
 由正式發佈組建產生的 Wasm 二進位檔大小將縮減高達 30%，
 且您可能會看到一些效能改進。
 這是因為 `--closed-world`、`--type-ssa` 和 `--type-merging`
 這幾項 Binaryen 選項現在被認為對所有 Kotlin/Wasm 專案都是安全可用的，並且預設啟用。
 
-### 改進 Kotlin/Wasm 中的 JavaScript 陣列互通性
+### 改進 Kotlin/Wasm 中的 JavaScript 陣列互通性 {id="improved-javascript-array-interoperability-in-kotlin-wasm"}
 
 雖然 Kotlin/Wasm 的標準程式庫提供了用於 JavaScript 陣列的 `JsArray<T>` 型別，
 但曾沒有直接的方法可以將 `JsArray<T>` 轉換為 Kotlin 的原生 `Array` 或 `List` 型別。
@@ -993,7 +993,7 @@ import org.khronos.webgl.*
     val kotlinIntArray: IntArray = jsInt32Array.toIntArray()
 ```
 
-### 支援在 Kotlin/Wasm 中存取 JavaScript 例外詳情
+### 支援在 Kotlin/Wasm 中存取 JavaScript 例外詳情 {id="support-for-accessing-javascript-exception-details-in-kotlin-wasm"}
 
 以前，當 Kotlin/Wasm 中發生 JavaScript 例外時， 
 `JsException` 型別僅提供一般訊息，而沒有來自原始 JavaScript 錯誤的詳細資訊。
@@ -1051,7 +1051,7 @@ fun main() {
 啟用了 `-Xwasm-attach-js-exception` 選項後，`JsException` 會提供來自 JavaScript 錯誤的具體詳情。
 如果不啟用該選項，`JsException` 僅會包含一條一般訊息，說明在執行 JavaScript 程式碼時拋出了例外。
 
-### 棄用預設匯出
+### 棄用預設匯出 {id="deprecation-of-default-exports"}
 
 作為向命名匯出 (named exports) 遷移的一環，
 先前在 JavaScript 中對 Kotlin/Wasm 匯出使用預設匯入 (default import) 時，會向主控台印出錯誤訊息。
@@ -1068,7 +1068,7 @@ fun main() {
 
 **在 2.1.0 版本中：** 預設匯入的使用已完全移除。
 
-### 子專案特定的 Node.js 設定
+### 子專案特定的 Node.js 設定 {id="subproject-specific-node-js-settings"}
 
 您可以透過為 `rootProject` 定義 `NodeJsRootPlugin` 類別的屬性來配置專案的 Node.js 設定。
 在 2.1.0 中，您可以使用新類別 `NodeJsPlugin` 為每個子專案配置這些設定。
@@ -1094,9 +1094,9 @@ allprojects {
 
 您也可以使用 Gradle 慣例外掛程式 (convention plugins) 將設定套用至特定的子專案集。
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
-### 支援屬性中的非識別符字元
+### 支援屬性中的非識別符字元 {id="support-for-non-identifier-characters-in-properties"}
 
 Kotlin/JS 以前不允許在帶有反引號的 [測試方法名稱](coding-conventions.md#names-for-test-methods) 中使用空格。
 
@@ -1150,7 +1150,7 @@ fun main() {
 }
 ```
 
-### 支援產生 ES2015 箭頭函式
+### 支援產生 ES2015 箭頭函式 {id="support-for-generating-es2015-arrow-functions"}
 
 在 Kotlin 2.1.0 中，Kotlin/JS 引入了對產生 ES2015 箭頭函式（例如 `(a, b) => expression`）而非匿名函式的支援。
 
@@ -1163,7 +1163,7 @@ fun main() {
 
 進一步了解 [官方文件中的 ES2015 (ECMAScript 2015, ES6)](https://262.ecma-international.org/6.0/)。
 
-## Gradle 改進
+## Gradle 改進 {id="gradle-improvements"}
 
 Kotlin 2.1.0 與 Gradle 7.6.3 至 8.6 版完全相容。
 同時也支援 Gradle 8.7 至 8.10 版，僅有一個例外：
@@ -1176,15 +1176,15 @@ Kotlin 2.1.0 與 Gradle 7.6.3 至 8.6 版完全相容。
 您也可以使用最新發佈版本的 Gradle，
 但請記住，如果您這樣做，可能會遇到棄用警告，或者某些新的 Gradle 特性可能無法運作。
 
-### 支援的最低 AGP 版本提升至 7.3.1
+### 支援的最低 AGP 版本提升至 7.3.1 {id="minimum-supported-agp-version-bumped-to-7-3-1"}
 
 從 Kotlin 2.1.0 開始，支援的最低 Android Gradle 外掛程式版本為 7.3.1。
 
-### 支援的最低 Gradle 版本提升至 7.6.3
+### 支援的最低 Gradle 版本提升至 7.6.3 {id="minimum-supported-gradle-version-bumped-to-7-6-3"}
 
 從 Kotlin 2.1.0 開始，支援的最低 Gradle 版本為 7.6.3。
 
-### 用於 Kotlin Gradle 外掛程式擴充的新 API
+### 用於 Kotlin Gradle 外掛程式擴充的新 API {id="new-api-for-kotlin-gradle-plugin-extensions"}
 
 Kotlin 2.1.0 引入了一個新的 API，使建立用於組建 Kotlin Gradle 外掛程式的自定義外掛程式變得更加容易。
 此項變更棄用了 `KotlinTopLevelExtension` 和 `KotlinTopLevelExtensionConfig`
@@ -1233,7 +1233,7 @@ configure<KotlinJvmExtension> {
 
 您可以以完全相同的方式使用 `KotlinAndroidExtension`。
 
-### 從 Kotlin Gradle 外掛程式 API 中隱藏編譯器符號
+### 從 Kotlin Gradle 外掛程式 API 中隱藏編譯器符號 {id="compiler-symbols-hidden-from-the-kotlin-gradle-plugin-api"}
 
 以前，KGP 在其執行時期相依性中包含了 `org.jetbrains.kotlin:kotlin-compiler-embeddable`，
 這使得內部編譯器符號在組建指令碼類別路徑中可用。
@@ -1250,7 +1250,7 @@ configure<KotlinJvmExtension> {
 作為長期解決方案，如果您是使用 `org.jetbrains.kotlin:kotlin-compiler-embeddable` 類別的外掛程式作者，我們建議在獨立的類別載入器 (classloader) 中執行它們。
 例如，您可以使用帶有類別載入器或處理序隔離的 [Gradle Workers API](https://docs.gradle.org/current/userguide/worker_api.html) 來實現。
 
-#### 使用 Gradle Workers API
+#### 使用 Gradle Workers API {id="using-the-gradle-workers-api"}
 
 此範例演示瞭如何在產生 Gradle 外掛程式的專案中安全地使用 Kotlin 編譯器。
 首先，在組建指令碼中加入一個僅編譯 (compile-only) 的相依性。
@@ -1326,9 +1326,9 @@ abstract class MyPlugin: Plugin<Project> {
 }
 ```
 
-## Compose 編譯器更新
+## Compose 編譯器更新 {id="compose-compiler-updates"}
 
-### 支援多個穩定性組態檔案
+### 支援多個穩定性組態檔案 {id="support-for-multiple-stability-configuration-files"}
 
 Compose 編譯器可以解釋多個穩定性組態檔案，
 但 Compose 編譯器 Gradle 外掛程式的 `stabilityConfigurationFile` 選項之前僅允許
@@ -1350,7 +1350,7 @@ composeCompiler {
 }
 ```
 
-### 可暫停的組合 (Pausable composition)
+### 可暫停的組合 (Pausable composition) {id="pausable-composition"}
 
 可暫停的組合 (Pausable composition) 是一項新的實驗性特性，它改變了編譯器產生可跳過函式的方式。 
 啟用了此特性後，組合 (composition) 可以在執行時期於跳過點被暫停，
@@ -1374,7 +1374,7 @@ composeCompiler {
 >
 {style="note"}
 
-### 開放與覆寫的 @Composable 函式的變更
+### 開放與覆寫的 @Composable 函式的變更 {id="changes-to-open-and-overridden-composable-functions"}
 
 虛擬（open、abstract 和覆寫）的 `@Composable` 函式不再具有可重啟性 (restartable)。
 可重啟組群的程式碼產生先前產生的呼叫在 [配合繼承時無法正常運作](https://issuetracker.google.com/329477544) ，
@@ -1384,7 +1384,7 @@ composeCompiler {
 每當其狀態失效時，執行時期會改為重新組合其父項 composable。
 如果您的程式碼對重新組合很敏感，您可能會注意到執行時期行為的變化。
 
-### 效能改進
+### 效能改進 {id="performance-improvements"}
 
 Compose 編譯器過去會建立模組 IR 的完整副本來轉換 `@Composable` 型別。
 除了在複製與 Compose 無關的元素時增加記憶體消耗外，
@@ -1392,9 +1392,9 @@ Compose 編譯器過去會建立模組 IR 的完整副本來轉換 `@Composable`
 
 此項複製操作已被移除，可能縮短編譯時間。
 
-## 標準程式庫
+## 標準程式庫 {id="standard-library"}
 
-### 標準程式庫 API 棄用嚴重等級的變更
+### 標準程式庫 API 棄用嚴重等級的變更 {id="changes-to-the-deprecation-severity-of-standard-library-apis"}
 
 在 Kotlin 2.1.0 中，我們將多個標準程式庫 API 的棄用嚴重等級從警告 (warning) 提升為錯誤 (error)。
 如果您的程式碼依賴這些 API，您需要對其進行更新以確保相容性。
@@ -1428,7 +1428,7 @@ Compose 編譯器過去會建立模組 IR 的完整副本來轉換 `@Composable`
 
 有關此版本中受影響 API 的完整清單，請參閱 [KT-71628](https://youtrack.jetbrains.com/issue/KT-71628) YouTrack 問題。
 
-### 穩定版的 java.nio.file.Path 檔案樹走訪擴充方法
+### 穩定版的 java.nio.file.Path 檔案樹走訪擴充方法 {id="stable-file-tree-traversal-extensions-for-java-nio-file-path"}
 
 Kotlin 1.7.20 引入了用於 `java.nio.file.Path` 類別的實驗性 [擴充方法](extensions.md#extension-functions)，
 允許您走訪檔案樹。
@@ -1538,11 +1538,11 @@ fun traverseFileTree() {
 }
 ```
 
-## 文件更新
+## 文件更新 {id="documentation-updates"}
 
 Kotlin 文件已進行了一些值得注意的更改：
 
-### 語言概念
+### 語言概念 {id="language-concepts"}
 
 * 改進了 [Null 安全性](null-safety.md) 頁面 – 了解如何在程式碼中安全地處理 `null` 值。
 * 改進了 [物件宣告與運算式](object-declarations.md) 頁面 –
@@ -1553,17 +1553,17 @@ Kotlin 文件已進行了一些值得注意的更改：
   以及 [Kotlin 語言特性與提案](kotlin-language-features-and-proposals.md) 頁面 – 
   了解 Kotlin 的計畫、正在進行的開發以及指導原則。
 
-### Compose 編譯器
+### Compose 編譯器 {id="compose-compiler"}
 
 * [Compose 編譯器文件](compose-compiler-migration-guide.md) 現在位於「編譯器與外掛程式」章節中 –
   了解 Compose 編譯器、編譯器選項以及遷移步驟。
 
-### API 參照
+### API 參照 {id="api-references"}
 
 * 新的 [Kotlin Gradle 外掛程式 API 參照](https://kotlinlang.org/api/kotlin-gradle-plugin) –
   探索 Kotlin Gradle 外掛程式與 Compose 編譯器 Gradle 外掛程式的 API 參照。
 
-### 多平台開發
+### 多平台開發 {id="multiplatform-development"}
 
 * 新的 [為多平台建立 Kotlin 程式庫](https://kotlinlang.org/docs/api-guidelines-build-for-multiplatform.html) 頁面 –
   了解如何為 Kotlin Multiplatform 設計您的 Kotlin 程式庫。
@@ -1573,17 +1573,17 @@ Kotlin 文件已進行了一些值得注意的更改：
 * [WASI 入門](wasm-wasi.md) –
   了解如何在各種 WebAssembly 虛擬機中使用 WASI 執行簡單的 Kotlin/Wasm 應用程式。
 
-### 工具
+### 工具 {id="tooling"}
 
 * [新的 Dokka 遷移指南](dokka-migration.md) – 了解如何遷移至 Dokka Gradle 外掛程式 v2。
 
-## Kotlin 2.1.0 相容性指南
+## Kotlin 2.1.0 相容性指南 {id="compatibility-guide-for-kotlin-2-1-0"}
 
 Kotlin 2.1.0 是一個特性版本，因此
 可能會帶來與您為早期語言版本編寫的程式碼不相容的變更。
 請在 [Kotlin 2.1.0 相容性指南](compatibility-guide-21.md) 中找到這些變更的詳細清單。
 
-## 安裝 Kotlin 2.1.0
+## 安裝 Kotlin 2.1.0 {id="install-kotlin-2-1-0"}
 
 從 IntelliJ IDEA 2023.3 和 Android Studio Iguana (2023.2.1) Canary 15 開始，Kotlin 外掛程式作為
 隨附外掛程式包含在您的 IDE 中。這意味著您無法再從 JetBrains Marketplace 安裝該外掛程式。

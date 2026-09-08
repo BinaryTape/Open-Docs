@@ -10,7 +10,7 @@ Koin 提供了多个用于在 Compose 应用程序中注入 ViewModel 的 API。
 关于在模块中声明 ViewModel，请参阅 [核心 ViewModel](/docs/reference/koin-core/viewmodel)。本页面重点介绍在 Compose 中获取 ViewModel。
 :::
 
-## 设置
+## 设置 {id="setup"}
 
 ```kotlin
 // Compose Multiplatform (或 Android)
@@ -27,9 +27,9 @@ implementation("io.insert-koin:koin-compose-viewmodel-navigation:$koin_version")
 所有 ViewModel API 都包含在 `koin-compose-viewmodel` 中。`koin-androidx-compose` 软件包会自动包含它。
 :::
 
-## 声明 ViewModel
+## 声明 ViewModel {id="declaring-viewmodels"}
 
-### 编译器插件 DSL
+### 编译器插件 DSL {id="compiler-plugin-dsl"}
 
 ```kotlin
 class UserViewModel(
@@ -41,7 +41,7 @@ val appModule = module {
 }
 ```
 
-### 注解
+### 注解 {id="annotations"}
 
 ```kotlin
 @KoinViewModel
@@ -50,7 +50,7 @@ class UserViewModel(
 ) : ViewModel()
 ```
 
-### 经典 DSL
+### 经典 DSL {id="classic-dsl"}
 
 ```kotlin
 val appModule = module {
@@ -60,9 +60,9 @@ val appModule = module {
 }
 ```
 
-## ViewModel 注入 API
+## ViewModel 注入 API {id="viewmodel-injection-apis"}
 
-### koinViewModel() - 基础注入
+### koinViewModel() - 基础注入 {id="koinviewmodel-basic-injection"}
 
 在 Compose 中注入 ViewModel 的主要 API：
 
@@ -86,7 +86,7 @@ fun UserScreen(
 }
 ```
 
-### koinNavViewModel() - 包含导航实参
+### koinNavViewModel() - 包含导航实参 {id="koinnavviewmodel-with-navigation-arguments"}
 
 使用 Navigation Compose 时，使用 `koinNavViewModel()` 通过 `SavedStateHandle` 自动接收导航实参：
 
@@ -113,7 +113,7 @@ fun DetailScreen(
 }
 ```
 
-### koinActivityViewModel() - Activity 作用域 (Android)
+### koinActivityViewModel() - Activity 作用域 (Android) {id="koinactivityviewmodel-activity-scoped-android"}
 
 在同一 Activity 内的所有 Composable 之间共享一个 ViewModel：
 
@@ -135,7 +135,7 @@ fun ScreenB() {
 从 4.1 版本开始在 `koin-androidx-compose` 中可用。
 :::
 
-### sharedKoinViewModel() - 导航图作用域
+### sharedKoinViewModel() - 导航图作用域 {id="sharedkoinviewmodel-navigation-graph-scoped"}
 
 在导航图中共享 ViewModel（实验性）：
 
@@ -153,9 +153,9 @@ navigation<Route.BookGraph>(startDestination = Route.BookList) {
 }
 ```
 
-## 带参数的 ViewModel
+## 带参数的 ViewModel {id="viewmodel-with-parameters"}
 
-### 使用 @InjectedParam
+### 使用 @InjectedParam {id="using-injectedparam"}
 
 使用 `@InjectedParam` 标记运行时参数：
 
@@ -195,7 +195,7 @@ fun DetailScreen(newsId: String) {
 
 `key` 确保每个唯一的 `newsId` 都能获得自己的 ViewModel 实例，这对于可能以不同实参存在于返回栈中的屏幕非常重要。
 
-### 带参数的经典 DSL
+### 带参数的经典 DSL {id="classic-dsl-with-parameters"}
 
 ```kotlin
 val appModule = module {
@@ -208,7 +208,7 @@ val appModule = module {
 }
 ```
 
-## SavedStateHandle
+## SavedStateHandle {id="savedstatehandle"}
 
 Koin 自动为 ViewModel 提供 `SavedStateHandle`：
 
@@ -236,7 +236,7 @@ val appModule = module {
 根据上下文，`SavedStateHandle` 从 ViewModel `CreationExtras` 或导航 `BackStackEntry` 中注入。
 :::
 
-## ViewModel 作用域
+## ViewModel 作用域 {id="viewmodel-scope"}
 
 使用 `viewModelScope` 将依赖项限定在 ViewModel 生命周期内：
 
@@ -282,7 +282,7 @@ val appModule = module {
 在 `viewModelScope { }` 内声明 ViewModel 需要在 Koin 配置中启用 `options(viewModelScopeFactory())` —— 否则 `koinViewModel()` 会失败并提示 `No definition found … on scope '['_root_']'`。有关详情，请参阅 [ViewModel 作用域](/docs/reference/koin-core/viewmodel#viewmodel-scope)。
 :::
 
-## 快速参考
+## 快速参考 {id="quick-reference"}
 
 | API | 用例 | 软件包 |
 |-----|----------|---------|
@@ -291,7 +291,7 @@ val appModule = module {
 | `koinActivityViewModel()` | 在 Activity 间共享 (Android) | `koin-androidx-compose` |
 | `sharedKoinViewModel()` | 在导航图中共享 | `koin-compose-viewmodel-navigation` |
 
-## 最佳实践
+## 最佳实践 {id="best-practices"}
 
 1. **注入为默认形参** —— 实现脱离 Koin 的测试
    ```kotlin
@@ -313,7 +313,7 @@ val appModule = module {
    Button(onClick = { vm.doSomething() })
    ```
 
-## 下一步
+## 下一步 {id="next-steps"}
 
 - **[Compose 生命周期](/docs/reference/koin-compose/compose-lifecycle)** —— 状态与重组
 - **[核心 ViewModel](/docs/reference/koin-core/viewmodel)** —— ViewModel 声明 DSL

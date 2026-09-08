@@ -6,7 +6,7 @@ title: Navigation 3
 
 Koin 提供與 [AndroidX Navigation 3](https://developer.android.com/guide/navigation/navigation-3) 的整合，實現具備相依注入的型別安全多平台導覽。
 
-## 什麼是 Navigation 3？
+## 什麼是 Navigation 3？ {id="what-is-navigation-3"}
 
 Navigation 3 是 Jetpack 的新導覽程式庫，專為 Compose 設計：
 
@@ -15,9 +15,9 @@ Navigation 3 是 Jetpack 的新導覽程式庫，專為 Compose 設計：
 - **自適應佈局** - 同時顯示多個目的地（清單-詳細資訊）
 - **自動動畫** - 內建轉換支援
 
-## 設定
+## 設定 {id="setup"}
 
-### 多平台專案
+### 多平台專案 {id="multiplatform-projects"}
 
 ```kotlin
 // shared/build.gradle.kts
@@ -27,7 +27,7 @@ commonMain.dependencies {
 }
 ```
 
-### 僅限 Android 的專案
+### 僅限 Android 的專案 {id="android-only-projects"}
 
 ```kotlin
 dependencies {
@@ -44,7 +44,7 @@ plugins {
 }
 ```
 
-### 平台支援
+### 平台支援 {id="platform-support"}
 
 | 平台 | 狀態 |
 |----------|--------|
@@ -53,9 +53,9 @@ plugins {
 | Desktop | 完整支援 |
 | Web | 完整支援 |
 
-## 核心概念
+## 核心概念 {id="core-concepts"}
 
-### 以 Kotlin 類別表示路由
+### 以 Kotlin 類別表示路由 {id="routes-as-kotlin-classes"}
 
 使用 `@Serializable` 定義型別安全路由：
 
@@ -73,7 +73,7 @@ data class DetailRoute(val itemId: String)
 data class SettingsRoute(val section: String? = null)
 ```
 
-### 返回堆疊
+### 返回堆疊 {id="back-stack"}
 
 Navigation 3 使用簡單的基於清單的返回堆疊：
 
@@ -91,7 +91,7 @@ backStack.add(DetailRoute("123"))
 backStack.removeLastOrNull()
 ```
 
-### NavDisplay
+### NavDisplay {id="navdisplay"}
 
 `NavDisplay` 渲染帶有動畫的返回堆疊：
 
@@ -103,9 +103,9 @@ NavDisplay(
 )
 ```
 
-## Koin 整合
+## Koin 整合 {id="koin-integration"}
 
-### 宣告導覽項目
+### 宣告導覽項目 {id="declaring-navigation-entries"}
 
 在您的模組中使用 `navigation<T>` DSL：
 
@@ -134,7 +134,7 @@ val appModule = module {
 }
 ```
 
-### 使用 koinEntryProvider
+### 使用 koinEntryProvider {id="using-koinentryprovider"}
 
 從 Koin 檢索所有導覽項目：
 
@@ -177,7 +177,7 @@ NavDisplay(
 （同樣地，`val entryProvider: EntryProvider<Route> = koinEntryProvider()` —— 型別引數會從預期型別中推論出來。）
 :::
 
-### 完整範例
+### 完整範例 {id="complete-example"}
 
 ```kotlin
 // 路由
@@ -259,7 +259,7 @@ class MainActivity : ComponentActivity(), AndroidScopeComponent {
 }
 ```
 
-## 作用域導覽
+## 作用域導覽 {id="scoped-navigation"}
 
 在 Koin 作用域內宣告導覽項目：
 
@@ -291,9 +291,9 @@ val appModule = module {
 }
 ```
 
-## ViewModel 整合
+## ViewModel 整合 {id="viewmodel-integration"}
 
-### 搭配導覽引數
+### 搭配導覽引數 {id="with-navigation-arguments"}
 
 將路由資料傳遞給 ViewModel：
 
@@ -319,7 +319,7 @@ val appModule = module {
 }
 ```
 
-### 搭配項目裝飾器
+### 搭配項目裝飾器 {id="with-entry-decorators"}
 
 使用裝飾器來保留 ViewModel 狀態：
 
@@ -342,9 +342,9 @@ NavDisplay(
 )
 ```
 
-## 動畫
+## 動畫 {id="animations"}
 
-### 預設轉換
+### 預設轉換 {id="default-transitions"}
 
 ```kotlin
 NavDisplay(
@@ -364,7 +364,7 @@ NavDisplay(
 )
 ```
 
-### 針對個別路由的動畫
+### 針對個別路由的動畫 {id="per-route-animations"}
 
 ```kotlin
 navigation<ModalRoute>(
@@ -380,9 +380,9 @@ navigation<ModalRoute>(
 }
 ```
 
-## 自適應佈局
+## 自適應佈局 {id="adaptive-layouts"}
 
-### 清單-詳細資訊模式
+### 清單-詳細資訊模式 {id="list-detail-pattern"}
 
 為自適應佈局使用場景策略：
 
@@ -413,7 +413,7 @@ fun App() {
 }
 ```
 
-### 搭配 Koin 模組
+### 搭配 Koin 模組 {id="with-koin-modules"}
 
 ```kotlin
 val appModule = module {
@@ -433,9 +433,9 @@ val appModule = module {
 }
 ```
 
-## Android 擴充功能
+## Android 擴充功能 {id="android-extensions"}
 
-### 延遲項目提供者 (Lazy Entry Provider)
+### 延遲項目提供者 (Lazy Entry Provider) {id="lazy-entry-provider"}
 
 ```kotlin
 class MainActivity : ComponentActivity() {
@@ -457,7 +457,7 @@ class MainActivity : ComponentActivity() {
 }
 ```
 
-### 立即項目提供者 (Eager Entry Provider)
+### 立即項目提供者 (Eager Entry Provider) {id="eager-entry-provider"}
 
 ```kotlin
 class MainActivity : ComponentActivity() {
@@ -477,16 +477,16 @@ class MainActivity : ComponentActivity() {
 }
 ```
 
-## API 參考
+## API 參考 {id="api-reference"}
 
-### DSL 函式
+### DSL 函式 {id="dsl-functions"}
 
 | 函式 | 說明 |
 |----------|-------------|
 | `Module.navigation<T> { }` | 在模組層級宣告導覽項目 |
 | `ScopeDSL.navigation<T> { }` | 在作用域內宣告導覽項目 |
 
-### Composable 函式
+### Composable 函式 {id="composable-functions"}
 
 | 函式 | 說明 |
 |----------|-------------|
@@ -499,9 +499,9 @@ class MainActivity : ComponentActivity() {
 | `entryProvider<T>()` | 延遲項目提供者委派 |
 | `getEntryProvider<T>()` | 立即項目提供者 |
 
-## 從 Navigation 2.x 遷移
+## 從 Navigation 2.x 遷移 {id="migration-from-navigation-2-x"}
 
-### 之前 (Navigation 2.x)
+### 之前 (Navigation 2.x) {id="before-navigation-2-x"}
 
 ```kotlin
 NavHost(navController, startDestination = "home") {
@@ -515,7 +515,7 @@ NavHost(navController, startDestination = "home") {
 }
 ```
 
-### 之後 (Navigation 3)
+### 之後 (Navigation 3) {id="after-navigation-3"}
 
 ```kotlin
 // 型別安全路由
@@ -539,7 +539,7 @@ NavDisplay(
 )
 ```
 
-## 資源
+## 資源 {id="resources"}
 
 - [Navigation 3 官方指南](https://developer.android.com/guide/navigation/navigation-3)
 - [Nav3 Recipes 儲存庫](https://github.com/android/nav3-recipes)

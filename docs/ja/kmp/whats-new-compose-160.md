@@ -11,7 +11,7 @@ Compose Multiplatform 1.6.0 リリースの主なハイライトは以下の通�
 * [安定版での Kotlin/Wasm アーティファクト](#kotlin-wasm-artifacts-available-in-stable-versions-of-the-framework)
 * [既知の問題：不足している依存関係](#known-issues-missing-dependencies)
 
-## 依存関係 (Dependencies)
+## 依存関係 (Dependencies) {id="dependencies"}
 
 このバージョンの Compose Multiplatform は、以下の Jetpack Compose ライブラリに基づいています：
 
@@ -22,9 +22,9 @@ Compose Multiplatform 1.6.0 リリースの主なハイライトは以下の通�
 * [Material 1.6.1](https://developer.android.com/jetpack/androidx/releases/compose-material#1.6.1)
 * [Material3 1.2.0](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.2.0)
 
-## 破壊的変更 (Breaking changes)
+## 破壊的変更 (Breaking changes) {id="breaking-changes"}
 
-### lineHeight が設定されたテキストのパディングがデフォルトでトリミングされるように
+### lineHeight が設定されたテキストのパディングがデフォルトでトリミングされるように {id="padding-for-text-with-lineheight-set-trimmed-by-default"}
 
 [LineHeightStyle.Trim](https://developer.android.com/reference/kotlin/androidx/compose/ui/text/style/LineHeightStyle.Trim) のサポートが追加されたことで、Compose Multiplatform はテキストパディングのトリミング方法において Android と動作が一致するようになりました。
 詳細は [プルリクエスト](https://github.com/JetBrains/compose-multiplatform-core/pull/897) を参照してください。
@@ -35,7 +35,7 @@ Compose Multiplatform 1.6.0 リリースの主なハイライトは以下の通�
 * デフォルトの行高スタイル（line height style）が `Trim.None` および `Alignment.Center` に変更されました。Compose Multiplatform は `LineHeightStyle.Trim` をサポートし、デフォルト値として `Trim.None` を実装します。
 * `Typography` の `TextStyle` に明示的な `lineHeight` が追加されました。これにより、[次の破壊的変更](#using-fontsize-in-materialtheme-requires-lineheight) が発生します。
 
-### MaterialTheme で fontSize を使用する場合に lineHeight が必要に
+### MaterialTheme で fontSize を使用する場合に lineHeight が必要に {id="using-fontsize-in-materialtheme-requires-lineheight"}
 
 > これは `material` コンポーネントにのみ影響します。`material3` にはすでにこの制限がありました。
 >
@@ -50,13 +50,13 @@ Jetpack Compose では現在、フォントサイズを直接設定しないこ�
 >
 {style="tip"}
 
-### リソース管理の新しいアプローチ
+### リソース管理の新しいアプローチ {id="new-approach-to-resource-organization"}
 
 Compose Multiplatform 1.6.0 のプレビュー版でリソース API を使用していた場合は、[最新バージョンのドキュメント](compose-multiplatform-resources.md) を確認してください。1.6.0-beta01 では、プロジェクトコードからリソースを利用できるようにするための、プロジェクトフォルダ内でのリソースファイルの保存方法が変更されました。
 
-## 全プラットフォーム共通 (Across platforms)
+## 全プラットフォーム共通 (Across platforms) {id="across-platforms"}
 
-### 改善されたリソース API (全プラットフォーム)
+### 改善されたリソース API (全プラットフォーム) {id="improved-resources-api-all-platforms"}
 
 新しい実験的（Experimental）な API により、文字列とフォントのサポートが追加され、共通の（common）Kotlin コードでより快適にリソースを共有・アクセスできるようになりました：
 
@@ -68,7 +68,7 @@ Compose Multiplatform 1.6.0 のプレビュー版でリソース API を使用�
 
 リソース修飾子（qualifiers）の詳細や、新しいリソース API のより詳細な概要については、[画像とリソース](compose-multiplatform-resources.md) を参照してください。
 
-### UI テスト API (実験的、全プラットフォーム)
+### UI テスト API (実験的、全プラットフォーム) {id="ui-testing-api-experimental-all-platforms"}
 
 デスクトップと Android で既に利用可能だった Compose Multiplatform による UI テスト用の実験的 API が、全プラットフォームをサポートするようになりました。フレームワークがサポートするすべてのプラットフォームにおいて、アプリケーションの UI の動作を検証する共通テスト（common tests）を記述し、実行できます。この API は、Jetpack Compose と同じ finder、assertion、action、matcher を使用します。
 
@@ -78,9 +78,9 @@ Compose Multiplatform 1.6.0 のプレビュー版でリソース API を使用�
 
 セットアップ手順とテスト例については、[Compose Multiplatform UI のテスト](compose-test.md) を参照してください。
 
-### Jetpack Compose および Material 3 からの変更 (全プラットフォーム)
+### Jetpack Compose および Material 3 からの変更 (全プラットフォーム) {id="changes-from-jetpack-compose-and-material-3-all-platforms"}
 
-#### Jetpack Compose 1.6.1
+#### Jetpack Compose 1.6.1 {id="jetpack-compose-1-6-1"}
 
 Jetpack Compose の最新リリースの統合により、すべてのプラットフォームでパフォーマンスにプラスの影響があります。詳細は、[Android Developers Blog の発表](https://android-developers.googleblog.com/2024/01/whats-new-in-jetpack-compose-january-24-release.html) を参照してください。
 
@@ -96,7 +96,7 @@ Compose Multiplatform にまだ移植されていない Jetpack Compose の機�
 
 JetBrains チームは、今後のバージョンの Compose Multiplatform でこれらの機能を採用できるよう取り組んでいます。
 
-#### Compose Material 3 1.2.0
+#### Compose Material 3 1.2.0 {id="compose-material-3-1-2-0"}
 
 リリースのハイライト：
 * 単一選択および複数選択が可能な新しい実験的コンポーネント `Segmented Button`。
@@ -106,13 +106,13 @@ JetBrains チームは、今後のバージョンの Compose Multiplatform で�
 
 Material 3 の変更の詳細については、[Material Design Blog のリリース記事](https://material.io/blog/material-3-compose-1-2) を参照してください。
 
-### ポップアップ、ダイアログ、ドロップダウンのための個別のプラットフォームビュー (iOS、デスクトップ)
+### ポップアップ、ダイアログ、ドロップダウンのための個別のプラットフォームビュー (iOS、デスクトップ) {id="separate-platform-views-for-popups-dialogs-and-dropdowns-ios-desktop"}
 
 ポップアップ要素（ツールチップやドロップダウンメニューなど）が、最初の Composable キャンバスやアプリウィンドウによって制限されないことが重要な場合があります。これは、Composable ビューが画面全体を占めていないものの、アラートダイアログを表示する必要がある場合に特に重要になります。1.6.0 では、これを確実に行う方法が導入されました。
 
 なお、ポップアップやダイアログは、自身の境界の外側に何かを描画すること（例えば、最前面のコンテナの影など）は依然としてできないことに注意してください。
 
-#### iOS (安定版)
+#### iOS (安定版) {id="ios-stable"}
 
 iOS では、この機能はデフォルトで有効になっています。
 以前の動作に戻すには、`platformLayers` パラメータを `false` に設定します：
@@ -127,7 +127,7 @@ ComposeUIViewController(
 }
 ```
 
-#### デスクトップ (実験的)
+#### デスクトップ (実験的) {id="desktop-experimental"}
 
 デスクトップでこの機能を使用するには、`compose.layers.type` システムプロパティを設定します。サポートされている値：
 * `WINDOW`: `Popup` および `Dialog` コンポーネントを、装飾のない（undecorated）独立したウィンドウとして作成します。
@@ -175,7 +175,7 @@ fun ComposeContent() {
 
 ![親パネルの境界外に表示されるダイアログ](compose-desktop-separate-dialog.png){width=700}
 
-### テキスト装飾のラインスタイルのサポート (iOS、デスクトップ、ウェブ)
+### テキスト装飾のラインスタイルのサポート (iOS、デスクトップ、ウェブ) {id="support-for-text-decoration-line-styles-ios-desktop-web"}
 
 Compose Multiplatform で、`PlatformTextStyle` クラスを使用してテキストの下線スタイルを設定できるようになりました。
 
@@ -199,7 +199,7 @@ Text(
 
 実線（solid）、2本の実線（double-width solid）、点線（dotted）、破線（dashed）、波線（wavy）のラインスタイルを使用できます。利用可能なすべてのオプションは [ソースコード](https://github.com/JetBrains/compose-multiplatform-core/blob/jb-main/compose/ui/ui-text/src/skikoMain/kotlin/androidx/compose/ui/text/TextDecorationLineStyle.kt#L21) で確認できます。
 
-### システムにインストールされたフォントへのアクセス (iOS、デスクトップ、ウェブ)
+### システムにインストールされたフォントへのアクセス (iOS、デスクトップ、ウェブ) {id="accessing-fonts-installed-on-the-system-ios-desktop-web"}
 
 Compose Multiplatform アプリからシステムにインストールされているフォントにアクセスできるようになりました。`SystemFont` クラスを使用して、適切なフォントスタイルとフォントウェイトでフォントをロードします：
 
@@ -217,9 +217,9 @@ FontFamily(SystemFont("Webdings"))
 FontFamily("Menlo")
 ```
 
-## iOS
+## iOS {id="ios"}
 
-### アクセシビリティのサポート
+### アクセシビリティのサポート {id="accessibility-support"}
 
 iOS 向けの Compose Multiplatform で、障害を持つ人々がネイティブの iOS UI と同等の快適さで Compose UI を操作できるようになりました：
 
@@ -230,7 +230,7 @@ iOS 向けの Compose Multiplatform で、障害を持つ人々がネイティ�
 
 実装とカスタマイズ API の詳細については、[iOS アクセシビリティ機能のサポート](compose-ios-accessibility.md) を参照してください。
 
-### Composable ビューの不透明度の変更
+### Composable ビューの不透明度の変更 {id="changing-opacity-for-composable-view"}
 
 `ComposeUIViewController` クラスに、ビューの背景の不透明度を透明に変更するための構成オプションが追加されました。
 
@@ -250,25 +250,25 @@ val appController = ComposeUIViewController(configure = {
 
 ![Compose opaque = false デモ](compose-opaque-property.png){width=700}
 
-### SelectionContainer 内のテキストをダブルタップおよびトリプルタップで選択
+### SelectionContainer 内のテキストをダブルタップおよびトリプルタップで選択 {id="selecting-text-in-selectioncontainer-by-double-and-triple-tap"}
 
 以前は、iOS 向けの Compose Multiplatform では、テキスト入力フィールド内でのみマルチタップによるテキスト選択が可能でした。今回の更新により、`SelectionContainer` 内の `Text` コンポーネントに表示されるテキストについても、ダブルタップおよびトリプルタップのジェスチャーによる選択が動作するようになりました。
 
-### UIViewController との相互運用
+### UIViewController との相互運用 {id="interop-with-uiviewcontroller"}
 
 `UIView` として実装されていない一部のネイティブ API（例えば `UITabBarController` や `UINavigationController`）は、[既存の相互運用メカニズム](compose-uikit-integration.md) を使用して Compose Multiplatform UI に埋め込むことができませんでした。
 
 今回、Compose Multiplatform は `UIKitViewController` 関数を実装し、ネイティブの iOS ビューコントローラを Compose UI 内に埋め込めるようにしました。
 
-### テキストフィールドでのロングタップ/シングルタップによるネイティブ風のキャレット動作
+### テキストフィールドでのロングタップ/シングルタップによるネイティブ風のキャレット動作 {id="native-like-caret-behavior-by-long-single-taps-in-text-fields"}
 
 Compose Multiplatform は、テキストフィールドにおけるキャレットの挙動において、ネイティブ iOS の動作により近づきました：
 * テキストフィールド内をシングルタップした後のキャレット位置が、より正確に決定されるようになりました。
 * テキストフィールド内でのロングタップとドラッグにより、Android のように選択モードに入るのではなく、カーソルが移動するようになりました。
 
-## デスクトップ (Desktop)
+## デスクトップ (Desktop) {id="desktop"}
 
-### 改善された相互運用ブレンディングの実験的サポート
+### 改善された相互運用ブレンディングの実験的サポート {id="experimental-support-of-improved-interop-blending"}
 
 以前は、`SwingPanel` ラッパーを使用して実装された相互運用ビューは常に矩形であり、常に Compose Multiplatform コンポーネントの手前に表示されていました。そのため、ポップアップ要素（ドロップダウンメニュー、トースト通知）の使用が困難でした。新しい実装によりこの問題が解決され、以下のユースケースで Swing を活用できるようになりました。
 
@@ -293,9 +293,9 @@ Compose Multiplatform は、テキストフィールドにおけるキャレッ�
 
 既知の制限事項と追加の詳細は、[プルリクエストの説明](https://github.com/JetBrains/compose-multiplatform-core/pull/915) を参照してください。
 
-## ウェブ (Web)
+## ウェブ (Web) {id="web"}
 
-### 安定版フレームワークで Kotlin/Wasm アーティファクトが利用可能に
+### 安定版フレームワークで Kotlin/Wasm アーティファクトが利用可能に {id="kotlin-wasm-artifacts-available-in-stable-versions-of-the-framework"}
 
 Compose Multiplatform の安定版が Kotlin/Wasm ターゲットをサポートするようになりました。1.6.0 に切り替えた後は、依存関係リストで `compose-ui` ライブラリの特定の `dev-wasm` バージョンを指定する必要はありません。
 
@@ -303,7 +303,7 @@ Compose Multiplatform の安定版が Kotlin/Wasm ターゲットをサポート
 >
 {style="warning"}
 
-## 既知の問題：不足している依存関係
+## 既知の問題：不足している依存関係 {id="known-issues-missing-dependencies"}
 
 デフォルトのプロジェクト構成では、いくつかのライブラリが不足する可能性があります：
 

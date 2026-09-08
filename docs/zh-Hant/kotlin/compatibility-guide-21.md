@@ -4,7 +4,7 @@
 
 雖然大多數語言變更已透過其他管道（如更新日誌或編譯器警告）發佈，但本文檔對其進行了全面總結，為從 Kotlin 2.0 遷移至 Kotlin 2.1 提供完整參考。
 
-## 基本術語
+## 基本術語 {id="basic-terms"}
 
 在本文檔中，我們介紹了幾種相容性：
 
@@ -14,9 +14,9 @@
 
 請記住，這些定義僅針對純 Kotlin。從其他語言角度（例如 Java）看 Kotlin 程式碼的相容性不在本文檔的討論範圍之內。
 
-## 語言
+## 語言 {id="language"}
 
-### 移除語言版本 1.4 和 1.5
+### 移除語言版本 1.4 和 1.5 {id="remove-language-versions-1-4-and-1-5"}
 
 > **問題**：[KT-60521](https://youtrack.jetbrains.com/issue/KT-60521)
 >
@@ -32,7 +32,7 @@
 > - 1.9.0：針對語言版本 1.5 回報警告
 > - 2.1.0：針對語言版本 1.6 和 1.7 回報警告；將語言版本 1.4 和 1.5 的警告提升為錯誤
 
-### 變更 Kotlin/Native 上的 typeOf() 函式行為
+### 變更 Kotlin/Native 上的 typeOf() 函式行為 {id="change-the-typeof-function-behavior-on-kotlin-native"}
 
 > **問題**：[KT-70754](https://youtrack.jetbrains.com/issue/KT-70754)
 >
@@ -46,7 +46,7 @@
 >
 > - 2.1.0：對齊 Kotlin/Native 上的 `typeOf()` 函式行為
 
-### 禁止透過型別參數約束公開型別
+### 禁止透過型別參數約束公開型別 {id="prohibit-exposing-types-through-type-parameters-bounds"}
 
 > **問題**：[KT-69653](https://youtrack.jetbrains.com/issue/KT-69653)
 >
@@ -61,7 +61,7 @@
 > - 2.1.0：針對透過可見性較低的型別參數約束公開型別的情況回報警告
 > - 2.2.0：將警告提升為錯誤
 
-### 禁止同時繼承同名的抽象 var 屬性與 val 屬性
+### 禁止同時繼承同名的抽象 var 屬性與 val 屬性 {id="prohibit-inheriting-an-abstract-var-property-and-a-val-property-with-the-same-name"}
 
 > **問題**：[KT-58659](https://youtrack.jetbrains.com/issue/KT-58659)
 >
@@ -76,7 +76,7 @@
 > - 2.1.0：當類別從介面繼承抽象 `var` 屬性且從基底類別繼承同名 `val` 屬性時，回報警告（或在漸進模式下回報錯誤）
 > - 2.2.0：將警告提升為錯誤
 
-### 存取未初始化的列舉項目時回報錯誤
+### 存取未初始化的列舉項目時回報錯誤 {id="report-error-when-accessing-uninitialized-enum-entries"}
 
 > **問題**：[KT-68451](https://youtrack.jetbrains.com/issue/KT-68451)
 >
@@ -90,7 +90,7 @@
 >
 > - 2.1.0：存取未初始化的列舉項目時回報錯誤
 
-### K2 智慧轉換傳遞的變更
+### K2 智慧轉換傳遞的變更 {id="changes-in-k2-smart-cast-propagation"}
 
 > **問題**：[KTLC-34](https://youtrack.jetbrains.com/issue/KTLC-34)
 >
@@ -104,7 +104,7 @@
 >
 > - 2.1.0：啟用新行為
 
-### 修正 Java 子類別中成員擴充屬性覆寫的處理
+### 修正 Java 子類別中成員擴充屬性覆寫的處理 {id="correct-the-handling-of-member-extension-property-overrides-in-java-subclasses"}
 
 > **問題**：[KTLC-35](https://youtrack.jetbrains.com/issue/KTLC-35)
 >
@@ -118,7 +118,7 @@
 >
 > - 2.1.0：啟用新行為
 
-### 修正覆寫 protected val 的 var 屬性之 getter 與 setter 可見性對齊
+### 修正覆寫 protected val 的 var 屬性之 getter 與 setter 可見性對齊 {id="correct-visibility-alignment-for-getters-and-setters-of-var-properties-overriding-a-protected-val"}
 
 > **問題**：[KTLC-36](https://youtrack.jetbrains.com/issue/KTLC-36)
 >
@@ -132,7 +132,7 @@
 >
 > - 2.1.0：在 K2 中強制要求 getter 與 setter 的可見性一致；K1 不受影響
 
-### 將 JSpecify 可 null 性不匹配診斷的嚴重程度提升為錯誤
+### 將 JSpecify 可 null 性不匹配診斷的嚴重程度提升為錯誤 {id="raise-severity-of-jspecify-nullability-mismatch-diagnostics-to-errors"}
 
 > **問題**：[KTLC-11](https://youtrack.jetbrains.com/issue/KTLC-11)
 >
@@ -149,7 +149,7 @@
 > - 2.0.0：增加對 `@NonNull` 註解的支援
 > - 2.1.0：將 JSpecify 註解的預設模式變更為 `strict`，將警告轉換為錯誤；使用 `-Xnullability-annotations=@org.jspecify.annotations:warning` 或 `-Xnullability-annotations=@org.jspecify.annotations:ignore` 可覆寫預設行為
 
-### 變更多載解析，在模糊情況下優先選擇擴充函式而非 invoke 呼叫
+### 變更多載解析，在模糊情況下優先選擇擴充函式而非 invoke 呼叫 {id="change-overload-resolution-to-prioritize-extension-functions-over-invoke-calls-in-ambiguous-cases"}
 
 > **問題**：[KTLC-37](https://youtrack.jetbrains.com/issue/KTLC-37)
 >
@@ -163,7 +163,7 @@
 >
 > - 2.1.0：變更多載解析，針對具有匹配簽章的擴充函式，一致地優先選擇擴充函式而非 `invoke` 呼叫；此變更僅在重新編譯後生效，不影響預先編譯的二進位檔
 
-### 禁止在 JDK 函式介面的 SAM 建構函式中從 Lambda 回傳可為 null 的值
+### 禁止在 JDK 函式介面的 SAM 建構函式中從 Lambda 回傳可為 null 的值 {id="prohibit-returning-nullable-values-from-lambdas-in-sam-constructors-of-jdk-function-interfaces"}
 
 > **問題**：[KTLC-42](https://youtrack.jetbrains.com/issue/KTLC-42)
 >
@@ -178,7 +178,7 @@
 > - 2.0.0：針對 JDK 函式介面 SAM 建構函式中的可為 null 回傳值回報棄用警告
 > - 2.1.0：預設啟用新行為
 
-### 修正 Kotlin/Native 中私有成員與公有成員衝突的處理
+### 修正 Kotlin/Native 中私有成員與公有成員衝突的處理 {id="correct-handling-of-private-members-conflicting-with-public-members-in-kotlin-native"}
 
 > **問題**：[KTLC-43](https://youtrack.jetbrains.com/issue/KTLC-43)
 >
@@ -192,7 +192,7 @@
 >
 > - 2.1.0：Kotlin/Native 中的私有函式與屬性不再覆寫或影響基底類別中的公有成員，與 JVM 行為一致
 
-### 禁止在公有內嵌函式中存取私有運算子函式
+### 禁止在公有內嵌函式中存取私有運算子函式 {id="forbid-access-to-private-operator-functions-in-public-inline-functions"}
 
 > **問題**：[KTLC-71](https://youtrack.jetbrains.com/issue/KTLC-71)
 >
@@ -207,7 +207,7 @@
 > - 2.0.0：針對在公有內嵌函式中存取私有運算子函式的行為回報棄用警告
 > - 2.1.0：將警告提升為錯誤
 
-### 禁止向帶有 @UnsafeVariance 註解的不變性參數傳遞無效引數
+### 禁止向帶有 @UnsafeVariance 註解的不變性參數傳遞無效引數 {id="prohibit-passing-invalid-arguments-to-invariant-parameters-annotated-with-unsafevariance"}
 
 > **問題**：[KTLC-72](https://youtrack.jetbrains.com/issue/KTLC-72)
 >
@@ -221,7 +221,7 @@
 >
 > - 2.1.0：啟用新行為
 
-### 針對警告等級 Java 型別的錯誤等級可為 null 引數回報可 null 性錯誤
+### 針對警告等級 Java 型別的錯誤等級可為 null 引數回報可 null 性錯誤 {id="report-nullability-errors-for-error-level-nullable-arguments-of-warning-level-java-types"}
 
 > **問題**：[KTLC-100](https://youtrack.jetbrains.com/issue/KTLC-100)
 >
@@ -236,7 +236,7 @@
 > - 2.0.0：針對具有更嚴格型別引數的 Java 方法中的可 null 性不匹配回報棄用警告
 > - 2.1.0：將警告提升為錯誤
 
-### 回報無法存取型別的隱式用法
+### 回報無法存取型別的隱式用法 {id="report-implicit-usages-of-inaccessible-types"}
 
 > **問題**：[KTLC-3](https://youtrack.jetbrains.com/issue/KTLC-3)
 >
@@ -252,9 +252,9 @@
 > - 2.1.0：針對具有無法存取之非泛型參數或接收者的函式常值，將警告提升為錯誤
 > - 2.2.0：針對具有無法存取型別引數的型別，將警告提升為錯誤
 
-## 標準函式庫
+## 標準函式庫 {id="standard-library"}
 
-### 棄用 Char 和 String 的區域設定敏感大小寫轉換函式
+### 棄用 Char 和 String 的區域設定敏感大小寫轉換函式 {id="deprecate-locale-sensitive-case-conversion-functions-for-char-and-string"}
 
 > **問題**：[KT-43023](https://youtrack.jetbrains.com/issue/KT-43023)
 >
@@ -272,7 +272,7 @@
 > - 1.5.0：回報警告以棄用區域設定敏感的大小寫轉換函式
 > - 2.1.0：將警告提升為錯誤
 
-### 移除 kotlin-stdlib-common JAR 構件
+### 移除 kotlin-stdlib-common JAR 構件 {id="remove-kotlin-stdlib-common-jar-artifact"}
 
 > **問題**：[KT-62159](https://youtrack.jetbrains.com/issue/KT-62159)
 >
@@ -286,7 +286,7 @@
 >
 > - 2.1.0：棄用並移除 `kotlin-stdlib-common.jar` 構件
 
-### 棄用 appendln() 以改用 appendLine()
+### 棄用 appendln() 以改用 appendLine() {id="deprecate-appendln-in-favor-of-appendline"}
 
 > **問題**：[KTLC-27](https://youtrack.jetbrains.com/issue/KTLC-27)
 >
@@ -301,7 +301,7 @@
 > - 1.4.0：`appendln()` 函式已棄用；使用時回報警告
 > - 2.1.0：將警告提升為錯誤
 
-### 棄用 Kotlin/Native 中與凍結相關的 API
+### 棄用 Kotlin/Native 中與凍結相關的 API {id="deprecate-freezing-related-apis-in-kotlin-native"}
 
 > **問題**：[KT-69545](https://youtrack.jetbrains.com/issue/KT-69545)
 >
@@ -316,7 +316,7 @@
 > - 1.7.20：回報警告以棄用凍結相關 API
 > - 2.1.0：將警告提升為錯誤
 
-### 變更 Map.Entry 行為，在結構性修改時快速失敗
+### 變更 Map.Entry 行為，在結構性修改時快速失敗 {id="change-map-entry-behavior-to-fail-fast-on-structural-modification"}
 
 > **問題**：[KTLC-23](https://youtrack.jetbrains.com/issue/KTLC-23)
 >
@@ -330,9 +330,9 @@
 >
 > - 2.1.0：偵測到 Map 結構性修改時拋出例外
 
-## 工具
+## 工具 {id="tools"}
 
-### 棄用 KotlinCompilationOutput#resourcesDirProvider
+### 棄用 KotlinCompilationOutput#resourcesDirProvider {id="deprecate-kotlincompilationoutput-resourcesdirprovider"}
 
 > **問題**：[KT-69255](https://youtrack.jetbrains.com/issue/KT-69255)
 >
@@ -346,7 +346,7 @@
 >
 > - 2.1.0：`KotlinCompilationOutput#resourcesDirProvider` 已棄用
 
-### 棄用 registerKotlinJvmCompileTask(taskName, moduleName) 函式
+### 棄用 registerKotlinJvmCompileTask(taskName, moduleName) 函式 {id="deprecate-registerkotlinjvmcompiletask-taskname-modulename-function"}
 
 > **問題**：[KT-69927](https://youtrack.jetbrains.com/issue/KT-69927)
 >
@@ -360,7 +360,7 @@
 >
 > - 2.1.0：`registerKotlinJvmCompileTask(taskName, moduleName)` 函式已棄用
 
-### 棄用 registerKaptGenerateStubsTask(taskName) 函式
+### 棄用 registerKaptGenerateStubsTask(taskName) 函式 {id="deprecate-registerkaptgeneratestubstask-taskname-function"}
 
 > **問題**：[KT-70383](https://youtrack.jetbrains.com/issue/KT-70383)
 >
@@ -374,7 +374,7 @@
 >
 > - 2.1.0：`registerKaptGenerateStubsTask(taskName)` 函式已棄用
 
-### 棄用 KotlinTopLevelExtension 和 KotlinTopLevelExtensionConfig 介面
+### 棄用 KotlinTopLevelExtension 和 KotlinTopLevelExtensionConfig 介面 {id="deprecate-kotlintoplevelextension-and-kotlintoplevelextensionconfig-interfaces"}
 
 > **問題**：[KT-71602](https://youtrack.jetbrains.com/issue/KT-71602)
 >
@@ -388,7 +388,7 @@
 >
 > - 2.1.0：`KotlinTopLevelExtension` 和 `KotlinTopLevelExtensionConfig` 介面已棄用
 
-### 從組建執行階段相依性中移除 kotlin-compiler-embeddable
+### 從組建執行階段相依性中移除 kotlin-compiler-embeddable {id="remove-kotlin-compiler-embeddable-from-build-runtime-dependencies"}
 
 > **問題**：[KT-61706](https://youtrack.jetbrains.com/issue/KT-61706)
 >
@@ -403,7 +403,7 @@
 > - 2.1.0：針對使用 `kotlin-compiler-embeddable` 的情況回報警告
 > - 2.2.0：將警告提升為錯誤
 
-### 從 Kotlin Gradle 外掛程式 API 中隱藏編譯器符號
+### 從 Kotlin Gradle 外掛程式 API 中隱藏編譯器符號 {id="hide-compiler-symbols-from-the-kotlin-gradle-plugin-api"}
 
 > **問題**：[KT-70251](https://youtrack.jetbrains.com/issue/KT-70251)
 >
@@ -418,7 +418,7 @@
 > - 2.1.0：針對存取這些符號的情況回報警告
 > - 2.2.0：將警告提升為錯誤
 
-### 新增對多個穩定性組態檔案的支援
+### 新增對多個穩定性組態檔案的支援 {id="add-support-for-multiple-stability-configuration-files"}
 
 > **問題**：[KT-68345](https://youtrack.jetbrains.com/issue/KT-68345)
 >
@@ -432,7 +432,7 @@
 >
 > - 2.1.0：`stabilityConfigurationFile` 屬性已棄用
 
-### 移除已棄用的平台外掛程式 ID
+### 移除已棄用的平台外掛程式 ID {id="remove-deprecated-platform-plugin-ids"}
 
 > **問題**：[KT-65565](https://youtrack.jetbrains.com/issue/KT-65565)
 >

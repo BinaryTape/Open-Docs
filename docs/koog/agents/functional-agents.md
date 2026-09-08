@@ -18,7 +18,7 @@
 
 本页介绍了如何实现功能型策略，以便为您的代理快速构建某些自定义逻辑的原型。
 
-## 创建最小功能型代理
+## 创建最小功能型代理 {id="create-a-minimal-functional-agent"}
 
 要创建一个最小功能型代理，请使用与[基础代理](basic-agents.md)相同的 [`AIAgent`](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.agent/-a-i-agent/index.html) 接口，并向其传递一个 [`AIAgentFunctionalStrategy`](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.agent/-a-i-agent-functional-strategy/index.html) 实例。
 您可以定义一个功能型策略，该策略接收输入并返回输出，进行一次 LLM 调用，然后从响应中返回助手消息的内容。
@@ -88,7 +88,7 @@ The answer to 12 × 9 is 108.
 ```
 <!--- KNIT example-functional-agent-01.txt -->
 
-## 进行顺序 LLM 调用
+## 进行顺序 LLM 调用 {id="make-sequential-llm-calls"}
 
 您可以扩展之前的策略以进行多次顺序 LLM 调用：
 
@@ -163,7 +163,7 @@ To calculate the product of 12 and 9, we multiply these two numbers together.
 ```
 <!--- KNIT example-functional-agent-02.txt -->
 
-## 添加工具
+## 添加工具 {id="add-tools"}
 
 在许多情况下，功能型代理需要完成特定任务，例如读取和写入数据、调用 API 或执行其他确定性操作。
 在 Koog 中，您将此类功能公开为[工具](../tools/index.md)，并让 LLM 决定何时调用它们。
@@ -305,6 +305,6 @@ The result of multiplying 3 by 4 is 12. Multiplying 12 by 5 gives us a final ans
 ```
 <!--- KNIT example-functional-agent-03.txt -->
 
-## 后续步骤
+## 后续步骤 {id="next-steps"}
 
 - 了解如何创建[基于图的代理](graph-based-agents.md)

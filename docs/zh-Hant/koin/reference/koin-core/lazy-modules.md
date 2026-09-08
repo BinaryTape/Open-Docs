@@ -8,7 +8,7 @@ title: 延遲模組與背景載入
 本頁面使用 **Koin 編譯器外掛程式 DSL** (`single<T>()`)。請參閱 [編譯器外掛程式設定](/docs/setup/compiler-plugin) 以進行配置。
 :::
 
-## 什麼是延遲模組？
+## 什麼是延遲模組？ {id="what-are-lazy-modules"}
 
 延遲模組會延遲模組註冊和執行個體建立，直到明確載入為止。它們特別適用於：
 
@@ -17,7 +17,7 @@ title: 延遲模組與背景載入
 - **條件式功能** - 僅在需要時載入模組。
 - **背景初始化** - 非同步載入非關鍵模組。
 
-## 定義延遲模組
+## 定義延遲模組 {id="defining-lazy-modules"}
 
 使用 `lazyModule` 函式建立延遲模組：
 
@@ -34,7 +34,7 @@ val databaseModule = lazyModule {
 }
 ```
 
-### 組合延遲模組
+### 組合延遲模組 {id="composing-lazy-modules"}
 
 延遲模組與一般模組一樣支援 `includes()`：
 
@@ -53,11 +53,11 @@ val featureModule = lazyModule {
 延遲模組在透過 `lazyModules()` 函式載入之前，不會分配任何資源。
 :::
 
-## 載入延遲模組
+## 載入延遲模組 {id="loading-lazy-modules"}
 
 在您的 Koin 配置中使用 `lazyModules()` 載入延遲模組。
 
-### 基本載入
+### 基本載入 {id="basic-loading"}
 
 ```kotlin
 val analyticsModule = lazyModule {
@@ -77,7 +77,7 @@ startKoin {
 }
 ```
 
-### 平行載入 (4.2.0+)
+### 平行載入 (4.2.0+) {id="parallel-loading-4-2-0"}
 
 自 4.2.0 版本起，多個延遲模組會**平行**載入，每個模組都在自己的協同程式中執行：
 
@@ -100,9 +100,9 @@ startKoin {
 | 3 個模組 @ 每個 100ms | 300ms | ~100ms |
 | 10 個模組 @ 每個 100ms | 1000ms | ~100ms |
 
-### 等待完成
+### 等待完成 {id="waiting-for-completion"}
 
-#### 所有平台：`waitAllStartJobs()`
+#### 所有平台：`waitAllStartJobs()` {id="all-platforms-waitallstartjobs"}
 
 ```kotlin
 startKoin {
@@ -122,7 +122,7 @@ val service = koin.get<AnalyticsService>()
 - **JVM/Native**：使用 `runBlocking` 進行真正的阻塞。
 - **JS**：使用 `GlobalScope.promise`（非真正阻塞，會記錄警告）。
 
-#### 僅限 JVM：`runOnKoinStarted()`
+#### 僅限 JVM：`runOnKoinStarted()` {id="jvm-only-runonkoinstarted"}
 
 ```kotlin
 startKoin {
@@ -136,7 +136,7 @@ KoinPlatform.getKoin().runOnKoinStarted { koin ->
 }
 ```
 
-#### 暫停替代方案：`awaitAllStartJobs()`
+#### 暫停替代方案：`awaitAllStartJobs()` {id="suspending-alternative-awaitallstartjobs"}
 
 適用於協同程式上下文或不支援阻塞的平台：
 
@@ -154,7 +154,7 @@ suspend fun initializeApp() {
 }
 ```
 
-## 自訂發送器
+## 自訂發送器 {id="custom-dispatchers"}
 
 控制在哪個發送器（dispatcher）上執行延遲模組載入：
 
@@ -180,7 +180,7 @@ startKoin {
 如果未指定，預設發送器為 `Dispatchers.Default`。
 :::
 
-## 實際範例
+## 實際範例 {id="real-world-example"}
 
 ```kotlin
 // 核心模組 - 立即載入
@@ -235,9 +235,9 @@ class MyApp : Application() {
 }
 ```
 
-## 重要限制
+## 重要限制 {id="important-limitations"}
 
-### 避免交叉相依
+### 避免交叉相依 {id="avoid-cross-dependencies"}
 
 延遲模組與一般模組應保持獨立。不要建立從一般模組到延遲模組的相依性：
 
@@ -277,15 +277,15 @@ startKoin {
 Koin 目前不會驗證一般模組與延遲模組之間的相依性。請確保一般模組不依賴於延遲模組的定義。
 :::
 
-### 最佳實務：載入順序
+### 最佳實務：載入順序 {id="best-practice-load-order"}
 
 1. **立即模組** - 啟動時需要的關鍵服務。
 2. **延遲模組** - 非關鍵、可延後的服務。
 3. **必要時等待** - 在存取延遲定義之前，使用 `waitAllStartJobs()`。
 
-## 何時使用延遲模組
+## 何時使用延遲模組 {id="when-to-use-lazy-modules"}
 
-### 適合的使用案例
+### 適合的使用案例 {id="good-use-cases"}
 
 - **分析／追蹤** - 並非核心功能所需。
 - **損毀報告** - 可以在背景初始化。
@@ -293,13 +293,13 @@ Koin 目前不會驗證一般模組與延遲模組之間的相依性。請確保
 - **資料庫／網路** - 可以延後的重量級初始化。
 - **大型應用程式** - 將啟動負載拆分到不同執行緒。
 
-### 不建議使用
+### 不建議使用 {id="not-recommended"}
 
 - **核心服務** - 立即需要的關鍵相依性。
 - **小型應用程式** - 額外開銷可能會超過其收益。
 - **緊密耦合的模組** - 當模組之間有許多交叉相依時。
 
-## API 參考
+## API 參考 {id="api-reference"}
 
 | 函式 | 平台 | 描述 |
 |----------|----------|-------------|
@@ -308,7 +308,7 @@ Koin 目前不會驗證一般模組與延遲模組之間的相依性。請確保
 | `awaitAllStartJobs()` | 全部 | 暫停直到所有延遲模組載入完成 |
 | `runOnKoinStarted()` | 僅限 JVM | 載入完成後的回呼 |
 
-## 延伸閱讀
+## 延伸閱讀 {id="see-also"}
 
 - **[模組](/docs/reference/koin-core/modules)** - 使用 `includes()` 進行模組組合
 - **[定義](/docs/reference/koin-core/definitions)** - 積極 vs 延遲單例

@@ -1,4 +1,4 @@
-## 概要
+## 概要 {id="overview"}
 
 ノードの並列実行により、複数のAIエージェントノードを同時に実行できるようになり、パフォーマンスの向上と複雑なワークフローの実現が可能になります。この機能は、特に以下のような場合に役立ちます：
 
@@ -6,22 +6,22 @@
 - 複数の独立した操作を並列に実行する場合
 - 複数のソリューションを生成して比較する、競争型の評価パターンを実装する場合
 
-## 主要コンポーネント
+## 主要コンポーネント {id="key-components"}
 
 Koogにおけるノードの並列実行は、以下のメソッドとデータ構造で構成されています。
 
-### メソッド
+### メソッド {id="methods"}
 
 - `parallel()`: 複数のノードを並列に実行し、その結果を収集します。
 
-### データ構造
+### データ構造 {id="data-structures"}
 
 - `ParallelResult`: 並列ノード実行の完了した結果を表します。
 - `NodeExecutionResult`: ノード実行の出力とコンテキストを含みます。
 
-## 基本的な使い方
+## 基本的な使い方 {id="basic-usage"}
 
-### ノードの並列実行
+### ノードの並列実行 {id="running-nodes-in-parallel"}
 
 ノードの並列実行を開始するには、以下の形式で `parallel` メソッドを使用します：
 
@@ -80,7 +80,7 @@ val calc by parallel<String, Int>(
 
 上記のコードは、`nodeCalcTokens`、`nodeCalcSymbols`、および `nodeCalcWords` ノードを並列に実行し、最大値を持つ結果を返します。
 
-### マージ戦略
+### マージ戦略 {id="merge-strategies"}
 
 ノードを並列に実行した後、結果をどのようにマージするかを指定する必要があります。Koogは以下のマージ戦略を提供しています：
 
@@ -89,7 +89,7 @@ val calc by parallel<String, Int>(
 - `selectByIndex()`: 選択関数から返されるインデックスに基づいて結果を選択します。
 - `fold()`: 演算関数を使用して、結果を単一の値に畳み込みます。
 
-#### selectBy
+#### selectBy {id="selectby"}
 
 述語関数に基づいて結果を選択します：
 
@@ -120,7 +120,7 @@ val nodeSelectJoke by parallel<String, String>(
 
 これは、「programmer」という単語を含む最初のジョークを選択します。
 
-#### selectByMax
+#### selectByMax {id="selectbymax"}
 
 比較関数に基づいて最大値を持つ結果を選択します：
 
@@ -151,7 +151,7 @@ val nodeLongestJoke by parallel<String, String>(
 
 これは、最大長のジョークを選択します。
 
-#### selectByIndex
+#### selectByIndex {id="selectbyindex"}
 
 選択関数から返されるインデックスに基づいて結果を選択します：
 
@@ -200,7 +200,7 @@ val nodeBestJoke by parallel<String, String>(
 
 これは、別のLLM呼び出しを使用して、最適なジョークのインデックスを決定します。
 
-#### fold
+#### fold {id="fold"}
 
 演算関数を使用して、結果を単一の値に畳み込みます：
 
@@ -233,7 +233,7 @@ $joke" }
 
 これは、すべてのジョークを1つの文字列に結合します。
 
-## 例：ベストジョークエージェント
+## 例：ベストジョークエージェント {id="example-best-joke-agent"}
 
 以下は、並列実行を使用して異なるLLMモデルからジョークを生成し、最適なものを選択する完全な例です：
 
@@ -333,7 +333,7 @@ $joke" }.joinToString("
 ```
 <!--- KNIT example-parallel-node-execution-07.kt -->
 
-## ベストプラクティス
+## ベストプラクティス {id="best-practices"}
 
 1. **リソース制約の考慮**: ノードを並列に実行する場合、特に複数のLLM API呼び出しを同時に行う際は、リソースの使用量に注意してください。
 
@@ -345,7 +345,7 @@ $joke" }.joinToString("
     - 条件に基づいてフィルタリングするには、`selectBy` を使用します。
     - 集約には、`fold` を使用してすべての結果を複合的な出力に結合します。
 
-## パフォーマンスに関する考慮事項
+## パフォーマンスに関する考慮事項 {id="performance-considerations"}
 
 並列実行はスループットを大幅に向上させることができますが、いくつかのオーバーヘッドが伴います：
 

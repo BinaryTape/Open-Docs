@@ -3,7 +3,7 @@
 A2Aクライアントを使用すると、ネットワーク経由でA2A準拠のエージェントと通信できます。
 これは[A2Aプロトコル仕様](https://a2a-protocol.org/latest/specification/)の完全な実装を提供し、エージェントの検出、メッセージ交換、タスク管理、およびリアルタイムのストリーミングレスポンスを処理します。
 
-## 依存関係
+## 依存関係 {id="dependencies"}
 
 プロジェクトでA2Aクライアントを使用するには、以下の依存関係を `build.gradle.kts` に追加してください：
 
@@ -20,14 +20,14 @@ dependencies {
 }
 ```
 
-## 概要
+## 概要 {id="overview"}
 
 A2Aクライアントは、アプリケーションとA2A準拠のエージェント間のブリッジ（架け橋）として機能します。
 プロトコルへの準拠を維持し、堅牢なセッション管理を提供しながら、通信ライフサイクル全体をオーケストレートします。
 
-## コアコンポーネント
+## コアコンポーネント {id="core-components"}
 
-### A2AClient
+### A2AClient {id="a2aclient"}
 
 完全なA2Aプロトコルを実装するメインクライアントクラスです。以下の役割を担う中心的なコーディネーターとして機能します：
 
@@ -50,12 +50,12 @@ A2Aクライアントは、アプリケーションとA2A準拠のエージェ�
 * `cancelTask` メソッド - エージェントがキャンセルをサポートしている場合、実行中のタスクをキャンセルします。
 * `cachedAgentCard` メソッド - ネットワークリクエストを行わずにキャッシュされたエージェントカードを取得します。`connect` がまだ呼び出されていない場合は null を返します。
 
-### ClientTransport
+### ClientTransport {id="clienttransport"}
 
 `ClientTransport` インターフェースは、A2Aクライアントがプロトコルロジックを管理する一方で、低レベルのネットワーク通信を処理します。
 トランスポート固有の詳細を抽象化し、異なるプロトコルをシームレスに使用できるようにします。
 
-#### HTTP JSON-RPCトランスポート
+#### HTTP JSON-RPCトランスポート {id="http-json-rpc-transport"}
 
 A2Aエージェントで最も一般的なトランスポートです：
 
@@ -73,12 +73,12 @@ val transport = HttpJSONRPCClientTransport(
 )
 ```
 
-### AgentCardResolver
+### AgentCardResolver {id="agentcardresolver"}
 
 `AgentCardResolver` インターフェースは、エージェントのメタデータと機能を取得します。
 さまざまなソースからのエージェント検出を可能にし、最適なパフォーマンスのためのキャッシング戦略をサポートします。
 
-#### URL Agent Card Resolver
+#### URL Agent Card Resolver {id="url-agent-card-resolver"}
 
 A2Aの慣習に従い、HTTPエンドポイントからエージェントカードを取得します：
 
@@ -90,9 +90,9 @@ val agentCardResolver = UrlAgentCardResolver(
 )
 ```
 
-## クイックスタート
+## クイックスタート {id="quickstart"}
 
-### 1. クライアントの作成
+### 1. クライアントの作成 {id="1-create-the-client"}
 
 トランスポートとエージェントカードリゾルバーを定義し、クライアントを作成します。
 
@@ -112,7 +112,7 @@ val agentCardResolver = UrlAgentCardResolver(
 val client = A2AClient(transport, agentCardResolver)
 ```
 
-### 2. 接続と検出
+### 2. 接続と検出 {id="2-connect-and-discover"}
 
 エージェントに接続してそのカードを取得します。
 エージェントのカードを取得することで、その機能を照会し、他の操作（例：ストリーミングをサポートしているかどうかの確認など）を実行できるようになります。
@@ -126,7 +126,7 @@ println("Connected to: ${agentCard.name}")
 println("Supports streaming: ${agentCard.capabilities.streaming}")
 ```
 
-### 3. メッセージの送信
+### 3. メッセージの送信 {id="3-send-messages"}
 
 エージェントにメッセージを送信し、単一のレスポンスを受け取ります。
 レスポンスは、エージェントが直接応答した場合はメッセージになり、エージェントがタスクを実行している場合はタスクイベントになります。
@@ -159,7 +159,7 @@ Task completed")
 }
 ```
 
-### 4. メッセージのストリーミング送信
+### 4. メッセージのストリーミング送信 {id="4-send-messages-streaming"}
 
 A2Aクライアントは、リアルタイム通信のためのストリーミングレスポンスをサポートしています。
 単一のレスポンスを受け取る代わりに、メッセージとタスクの更新を含むイベントの `Flow` を返します。
@@ -190,7 +190,7 @@ Task completed")
 }
 ```
 
-### 5. タスクの管理
+### 5. タスクの管理 {id="5-manage-tasks"}
 
 A2Aクライアントは、ステータスの照会やキャンセルを行うことで、サーバータスクを制御するメソッドを提供します。
 

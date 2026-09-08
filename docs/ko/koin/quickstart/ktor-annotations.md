@@ -10,13 +10,13 @@ title: Ktor 및 어노테이션(Annotations)
 업데이트 - 2024-10-21
 :::
 
-## 코드 가져오기
+## 코드 가져오기 {id="get-the-code"}
 
 :::info
 [GitHub에서 소스 코드를 확인할 수 있습니다](https://github.com/InsertKoinIO/koin-getting-started/tree/main/ktor-annotations)
 :::
 
-## Gradle 설정
+## Gradle 설정 {id="gradle-setup"}
 
 먼저, 다음과 같이 Koin 의존성을 추가합니다:
 
@@ -36,13 +36,13 @@ dependencies {
 }
 ```
 
-## 애플리케이션 개요
+## 애플리케이션 개요 {id="application-overview"}
 
 이 애플리케이션의 컨셉은 사용자 목록을 관리하고 이를 `UserApplication` 클래스에 표시하는 것입니다:
 
 > Users -> UserRepository -> UserService -> UserApplication
 
-## "User" 데이터
+## "User" 데이터 {id="the-user-data"}
 
 사용자 컬렉션을 관리할 것입니다. 데이터 클래스는 다음과 같습니다:
 
@@ -73,7 +73,7 @@ class UserRepositoryImpl : UserRepository {
 }
 ```
 
-## Koin 모듈
+## Koin 모듈 {id="the-koin-module"}
 
 지정된 Kotlin 클래스에서 Koin 모듈을 선언하려면 `@Module` 어노테이션을 사용합니다. Koin 모듈은 주입할 모든 컴포넌트를 정의하는 곳입니다.
 
@@ -99,7 +99,7 @@ class AppModule
 class UserRepositoryImpl : UserRepository
 ```
 
-## UserService 컴포넌트
+## UserService 컴포넌트 {id="the-userservice-component"}
 
 사용자 작업을 관리하기 위한 `UserService` 컴포넌트를 작성해 보겠습니다:
 
@@ -135,7 +135,7 @@ class UserServiceImpl(
 
 `@Singleton` 어노테이션을 사용하여 `UserService`를 선언합니다.
 
-## HTTP 컨트롤러 및 Koin 애플리케이션
+## HTTP 컨트롤러 및 Koin 애플리케이션 {id="http-controller-and-koin-application"}
 
 마지막으로, `@KoinApplication` 객체를 생성하고 HTTP 루트(Route)를 구성해야 합니다.
 
@@ -146,7 +146,7 @@ object KoinUserApplication
 
 `@KoinApplication` 어노테이션은 이 객체를 Koin의 어노테이션 기반 설정의 진입점(entry point)으로 표시합니다. KSP 프로세서는 Koin을 초기화할 때 `withConfiguration<T>()`와 함께 사용할 수 있는 구성을 생성합니다.
 
-## 시작 및 주입
+## 시작 및 주입 {id="start-and-inject"}
 
 이제 생성된 설정을 사용하여 Ktor 애플리케이션에서 Koin을 구성해 봅시다:
 

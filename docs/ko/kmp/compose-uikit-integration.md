@@ -9,7 +9,7 @@ UIKit 애플리케이션 내에 Compose Multiplatform을 임베드할 수 있을
 >
 {style="tip"}
 
-## UIKit 애플리케이션 내에서 Compose Multiplatform 사용하기
+## UIKit 애플리케이션 내에서 Compose Multiplatform 사용하기 {id="use-compose-multiplatform-inside-a-uikit-application"}
 
 UIKit 애플리케이션 내에서 Compose Multiplatform을 사용하려면, 임의의 [컨테이너 뷰 컨트롤러(container view controller)](https://developer.apple.com/documentation/uikit/view_controllers)에 Compose Multiplatform 코드를 추가하세요. 이 예제에서는 `UITabBarController` 클래스 내에서 Compose Multiplatform을 사용합니다.
 
@@ -43,11 +43,11 @@ tabBarController.tabBar.items?[1].title = "UIKit"
 
 이 코드는 [샘플 프로젝트](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/interop/ios-compose-in-uikit)에서 자세히 살펴볼 수 있습니다.
 
-## Compose Multiplatform 내에서 UIKit 사용하기
+## Compose Multiplatform 내에서 UIKit 사용하기 {id="use-uikit-inside-compose-multiplatform"}
 
 Compose Multiplatform 내에서 UIKit 요소를 사용하려면, Compose Multiplatform에서 제공하는 [UIKitView](https://github.com/JetBrains/compose-multiplatform-core/blob/47c012bfe2d4570fb08432253298b8e2b6e38ade/compose/ui/ui/src/uikitMain/kotlin/androidx/compose/ui/interop/UIKitView.uikit.kt)에 사용하려는 UIKit 요소를 추가하세요. 이 코드는 순수하게 Kotlin으로 작성하거나 Swift를 함께 사용할 수도 있습니다.
 
-### 지도 뷰 (Map view)
+### 지도 뷰 (Map view) {id="map-view"}
 
 UIKit의 [`MKMapView`](https://developer.apple.com/documentation/mapkit/mkmapview) 컴포넌트를 사용하여 Compose Multiplatform에서 지도 뷰를 구현할 수 있습니다. Compose Multiplatform의 `Modifier.size()` 또는 `Modifier.fillMaxSize()` 함수를 사용하여 컴포넌트 크기를 설정하세요.
 
@@ -106,7 +106,7 @@ fun UseUITextField(modifier: Modifier = Modifier) {
 
 이 예제의 코드는 [샘플 프로젝트](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/interop/ios-uikit-in-compose)에서 확인할 수 있습니다.
 
-### 카메라 뷰 (Camera view)
+### 카메라 뷰 (Camera view) {id="camera-view"}
 
 UIKit의 [`AVCaptureSession`](https://developer.apple.com/documentation/avfoundation/avcapturesession) 및 [`AVCaptureVideoPreviewLayer`](https://developer.apple.com/documentation/avfoundation/avcapturevideopreviewlayer) 컴포넌트를 사용하여 Compose Multiplatform에서 카메라 뷰를 구현할 수 있습니다.
 
@@ -254,7 +254,7 @@ fun RealDeviceCamera(
 
 이 예제의 전체 코드는 [ImageViewer 샘플 프로젝트](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/imageviewer)에서 확인할 수 있습니다.
 
-### 웹 뷰 (Web view)
+### 웹 뷰 (Web view) {id="web-view"}
 
 UIKit의 [`WKWebView`](https://developer.apple.com/documentation/webkit/wkwebview) 컴포넌트를 사용하여 Compose Multiplatform에서 웹 뷰를 구현할 수 있습니다. 이를 통해 애플리케이션 UI 내에서 웹 콘텐츠를 표시하고 상호 작용할 수 있습니다. Compose Multiplatform의 `Modifier.size()` 또는 `Modifier.fillMaxSize()` 함수를 사용하여 컴포넌트 크기를 설정하세요.
 
@@ -317,6 +317,6 @@ fun WebViewWithDelegate(
 * 델리게이트를 통해 내비게이션 변경 사항을 관찰하고 `onNavigationChange` 콜백을 통해 현재 URL을 전달합니다.
 * `update` 파라미터를 사용하여 요청된 URL의 변경 사항을 관찰하고 그에 따라 웹 페이지를 다시 로드합니다.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 Compose Multiplatform이 [SwiftUI 프레임워크와 통합되는 방식](compose-swiftui-integration.md)에 대해서도 알아볼 수 있습니다.

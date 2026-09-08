@@ -18,7 +18,7 @@
 您已经创建并调整了您的第一个 Kotlin Multiplatform 项目！
 现在让我们学习如何向第三方库添加依赖项，这对于构建成功的跨平台应用程序至关重要。
 
-## 依赖项类型
+## 依赖项类型 {id="dependency-types"}
 
 在 Kotlin Multiplatform 项目中，您可以使用两种类型的依赖项：
 
@@ -34,7 +34,7 @@
 
 对于这两种类型的依赖项，您都可以使用本地和外部仓库。
 
-## 添加多平台依赖项
+## 添加多平台依赖项 {id="add-a-multiplatform-dependency"}
 
 > 如果您有开发 Android 应用的经验，添加多平台依赖项与在普通 Android 项目中添加 Gradle 依赖项类似。唯一的区别是您需要将其添加到特定的源集，而不是整个模块。
 >
@@ -67,7 +67,7 @@
 
 3. 选择 **Build | Sync Project with Gradle Files** 菜单项，或点击构建脚本编辑器中的 **Sync Gradle Changes** 按钮来同步 Gradle 文件： ![同步 Gradle 文件](gradle-sync.png){width=50}
 
-## 调用 kotlinx-datetime API
+## 调用 kotlinx-datetime API {id="call-a-kotlinx-datetime-api"}
 
 添加依赖项后，您可以向公共代码添加日期和时间计算逻辑：
 
@@ -103,19 +103,19 @@
 
 ![更新后的带有外部依赖项的移动多平台应用](first-multiplatform-project-3.png){width=600}
 
-## 下一步
+## 下一步 {id="next-step"}
 
 在教程的下一部分，您将向项目添加更多依赖项和更复杂的逻辑。
 
 **[继续下一步](multiplatform-upgrade-app.md)**
 
-### 另请参阅
+### 另请参阅 {id="see-also"}
 
 * 了解如何处理各种多平台依赖项：[Kotlin 库、Kotlin Multiplatform 库和其他多平台项目](multiplatform-add-dependencies.md)。
 * 了解如何[添加 Android 依赖项](multiplatform-android-dependencies.md)以及[在使用或不使用 CocoaPods 的情况下添加 iOS 依赖项](multiplatform-ios-dependencies.md)，以便在平台特定的源集中使用。
 * 查看示例项目中[如何使用 Android 和 iOS 库](multiplatform-samples.md)的示例。
 
-## 获取帮助
+## 获取帮助 {id="get-help"}
 
 * **Kotlin Slack**。获取[邀请](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)并加入 [#multiplatform](https://kotlinlang.slack.com/archives/C3PQML5NU) 频道。
 * **Kotlin 问题跟踪器**。[报告新问题](https://youtrack.jetbrains.com/newIssue?project=KT)。

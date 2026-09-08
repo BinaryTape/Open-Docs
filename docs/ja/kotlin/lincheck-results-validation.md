@@ -3,7 +3,7 @@
 
 並行データ構造向けに生成されたシナリオを実行した後、Lincheckは指定された検証モデル（例：線形化可能性（linearizability））に照らして結果を検証し、オプションでユーザー提供のバリデーション関数を使用してデータ構造の最終状態をチェックします。
 
-## 検証 (Verification)
+## 検証 (Verification) {id="verification"}
 
 検証プロセス中、Lincheckは並行実行と同じ結果が得られるような、並行シナリオ内の操作のシーケンシャル（逐次）実行を見つけようと試みます。
 
@@ -11,7 +11,7 @@
 
 [検証モデル](#検証モデル)によっては、シーケンシャルな実行に追加の制限が課される場合があります。検証プロパティに一致するシーケンシャルな実行で、観測された結果を再現できるものがない場合、Lincheckはエラーを報告します。
 
-### シーケンシャル仕様 (Sequential specification)
+### シーケンシャル仕様 (Sequential specification) {id="sequential-specification"}
 
 デフォルトでは、検証プロセス中にLincheckは「並行」データ構造の操作を使用してシーケンシャルな実行を構築します。
 
@@ -64,7 +64,7 @@ class SequentialQueue {
 }
 ```
 
-### 検証モデル
+### 検証モデル {id="verification-models"}
 
 デフォルトでは、Lincheckは線形化可能性（linearizability）モデルに対して並行実行の結果を検証します。
 別の検証モデルを適用するには、`verifierClass` オプションを使用します：
@@ -93,7 +93,7 @@ Lincheckは以下の検証クラス（verifier classes）を提供していま�
 
 * `SerializabilityVerifier` – 直列化可能性（serializability）モデルを使用します。このモデルでは、"happens-before" 制約に関係なく、並行実行と同じ結果をもたらす「何らかの」シーケンシャルな実行（任意の順序）が存在すれば、その並行実行は有効であるとみなされます。これは、並行操作の相対的な順序が重要ではない構造体に使用できます。
 
-#### 直列化可能性と線形化可能性の比較
+#### 直列化可能性と線形化可能性の比較 {id="compare-serializability-and-linearizability"}
 
 2つのモデルの違いを理解するために、データ構造が直列化可能（serializable）ではあるが線形化可能（linearizable）ではない例を見てみましょう：
 
@@ -205,7 +205,7 @@ Lincheckは以下の検証クラス（verifier classes）を提供していま�
 
    Lincheckは検証中に `put()` 操作を並べ替えることができないため（元の実行順序の制約があるため）、線形化可能性の制限に準拠したシーケンシャルな実行を見つけることができません。その結果、テストは失敗します。
 
-## バリデーション (Validation)
+## バリデーション (Validation) {id="validation"}
 
 デフォルトでは、Lincheckは生成されたシナリオの実行後に、並行データ構造の状態を検証しません。
 最終状態をチェックするには、テストクラス内のバリデーション関数に `@Validate` アノテーションを使用します：
@@ -223,7 +223,7 @@ fun validate() {
 * 引数を受け取らない。
 * データ構造が無効な状態にある場合に例外をスローする。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [引数生成制約の設定](lincheck-argument-generation-constraints.md)
 * [操作実行の設定](lincheck-operation-execution-options.md)

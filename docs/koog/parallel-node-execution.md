@@ -1,4 +1,4 @@
-## 概览
+## 概览 {id="overview"}
 
 并行节点执行允许您同时运行多个 AI 智能体节点，从而提高性能并支持复杂的工作流。此功能在以下情况下特别有用：
 
@@ -6,22 +6,22 @@
 - 并行执行多个独立的操作
 - 实现竞争性评估模式，即生成多个解决方案然后进行比较
 
-## 核心组件
+## 核心组件 {id="key-components"}
 
 Koog 中的并行节点执行由下述方法和数据结构组成。
 
-### 方法
+### 方法 {id="methods"}
 
 - `parallel()`：并行执行多个节点并收集其结果。
 
-### 数据结构
+### 数据结构 {id="data-structures"}
 
 - `ParallelResult`：表示并行节点执行的已完成结果。
 - `NodeExecutionResult`：包含节点执行的输出和上下文。
 
-## 基本用法
+## 基本用法 {id="basic-usage"}
 
-### 并行运行节点
+### 并行运行节点 {id="running-nodes-in-parallel"}
 
 要启动节点的并行执行，请按照以下格式使用 `parallel` 方法：
 
@@ -80,7 +80,7 @@ val calc by parallel<String, Int>(
 
 上述代码并行运行 `nodeCalcTokens`、`nodeCalcSymbols` 和 `nodeCalcWords` 节点，并返回具有最大值的结果。
 
-### 合并策略
+### 合并策略 {id="merge-strategies"}
 
 并行执行节点后，您需要指定如何合并结果。Koog 提供以下合并策略：
 
@@ -89,7 +89,7 @@ val calc by parallel<String, Int>(
 - `selectByIndex()`：根据选择函数返回的索引选择结果。
 - `fold()`：使用操作函数将结果折叠为单个值。
 
-#### selectBy
+#### selectBy {id="selectby"}
 
 根据谓词函数选择结果：
 
@@ -120,7 +120,7 @@ val nodeSelectJoke by parallel<String, String>(
 
 这将选择第一个包含 "programmer" 单词的笑话。
 
-#### selectByMax
+#### selectByMax {id="selectbymax"}
 
 根据比较函数选择具有最大值的结果：
 
@@ -151,7 +151,7 @@ val nodeLongestJoke by parallel<String, String>(
 
 这将选择长度最长的笑话。
 
-#### selectByIndex
+#### selectByIndex {id="selectbyindex"}
 
 根据选择函数返回的索引选择结果：
 
@@ -200,7 +200,7 @@ val nodeBestJoke by parallel<String, String>(
 
 这将使用另一个 LLM 调用来确定最佳笑话的索引。
 
-#### fold
+#### fold {id="fold"}
 
 使用操作函数将结果折叠为单个值：
 
@@ -233,7 +233,7 @@ $joke" }
 
 这将把所有笑话组合成一个字符串。
 
-## 示例：最佳笑话智能体
+## 示例：最佳笑话智能体 {id="example-best-joke-agent"}
 
 这里是一个完整的示例，它使用并行执行从不同的 LLM 模型生成笑话并选择最佳笑话：
 
@@ -333,7 +333,7 @@ $joke" }.joinToString("
 ```
 <!--- KNIT example-parallel-node-execution-07.kt -->
 
-## 最佳实践
+## 最佳实践 {id="best-practices"}
 
 1. **考虑资源约束**：并行执行节点时，请注意资源使用情况，特别是在同时进行多个 LLM API 调用时。
 
@@ -345,7 +345,7 @@ $joke" }.joinToString("
     - 对于根据条件进行过滤，使用 `selectBy`
     - 对于聚合，使用 `fold` 将所有结果组合成复合输出
 
-## 性能注意事项
+## 性能注意事项 {id="performance-considerations"}
 
 并行执行可以显著提高吞吐量，但也带来了一些开销：
 

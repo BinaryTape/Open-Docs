@@ -6,9 +6,9 @@ title: 疑難排解
 
 本指南涵蓋了偵錯、常見錯誤以及應避免的反面模式。
 
-## 循環相依性
+## 循環相依性 {id="circular-dependencies"}
 
-### 問題
+### 問題 {id="problem"}
 
 ```kotlin
 // 循環相依性
@@ -25,7 +25,7 @@ module {
 [Koin 編譯器外掛程式](/docs/reference/koin-compiler/compile-safety) 會在編譯期間（A2/A3 階段）偵測到循環相依性 — 無需等待執行階段。若未使用該外掛程式，此循環將在啟動時因執行階段錯誤而失敗。
 :::
 
-### 解決方案 1：延遲注入
+### 解決方案 1：延遲注入 {id="solution-1-lazy-injection"}
 
 使用延遲解析來打破循環：
 
@@ -44,7 +44,7 @@ module {
 }
 ```
 
-### 解決方案 2：提取共用相依性
+### 解決方案 2：提取共用相依性 {id="solution-2-extract-shared-dependency"}
 
 透過重構移除循環（建議做法）：
 
@@ -60,7 +60,7 @@ class ServiceA(private val shared: SharedService)
 class ServiceB(private val shared: SharedService)
 ```
 
-### 解決方案 3：使用介面
+### 解決方案 3：使用介面 {id="solution-3-use-an-interface"}
 
 ```kotlin
 interface ServiceBContract {
@@ -74,9 +74,9 @@ class ServiceA(private val serviceB: ServiceBContract)
 class ServiceB(private val serviceA: ServiceA) : ServiceBContract
 ```
 
-## 偵錯
+## 偵錯 {id="debugging"}
 
-### 啟用記錄
+### 啟用記錄 {id="enable-logging"}
 
 ```kotlin
 startKoin {
@@ -87,7 +87,7 @@ startKoin {
 }
 ```
 
-### 使用 `verify()` 驗證模組
+### 使用 `verify()` 驗證模組 {id="verify-modules-with-verify"}
 
 驗證所有定義是否都能被解析：
 
@@ -103,7 +103,7 @@ fun `verify all modules`() {
 Koin 編譯器外掛程式現在提供編譯期相依性驗證，取代了對 `verify()` 和 `checkModules()` 的需求。請參閱 [Compile-Time Safety](/docs/reference/koin-compiler/compile-safety)。
 :::
 
-## 常見錯誤
+## 常見錯誤 {id="common-errors"}
 
 **遺失定義：**
 ```
@@ -129,9 +129,9 @@ Multiple definitions found for type 'ApiClient'
 ```
 修正：使用限定詞區分不同定義
 
-## 常見的反面模式
+## 常見的反面模式 {id="common-anti-patterns"}
 
-### 1. 過度使用服務定位器 (Service Locator)
+### 1. 過度使用服務定位器 (Service Locator) {id="1-service-locator-overuse"}
 
 ```kotlin
 // 差 - 服務定位器模式
@@ -152,7 +152,7 @@ class UserViewModel(
 }
 ```
 
-### 2. 全能模組 (God Modules)
+### 2. 全能模組 (God Modules) {id="2-god-modules"}
 
 ```kotlin
 // 差 - 所有內容都在同一個模組
@@ -166,7 +166,7 @@ val networkModule = module { /* ... */ }
 val homeModule = module { /* ... */ }
 ```
 
-### 3. 過度使用限定詞
+### 3. 過度使用限定詞 {id="3-excessive-qualifiers"}
 
 ```kotlin
 // 差 - 為不同型別使用限定詞
@@ -182,7 +182,7 @@ module {
 }
 ```
 
-### 4. 混合關注點
+### 4. 混合關注點 {id="4-mixing-concerns"}
 
 ```kotlin
 // 差 - 模組中的副作用
@@ -199,7 +199,7 @@ module {
 }
 ```
 
-### 5. 隱藏相依性
+### 5. 隱藏相依性 {id="5-hidden-dependencies"}
 
 ```kotlin
 // 差 - 相依性隱藏在內部
@@ -211,7 +211,7 @@ class UserService {
 class UserService(private val api: ApiClient)
 ```
 
-## 最佳實務摘要
+## 最佳實務摘要 {id="best-practices-summary"}
 
 1. **優先使用建構函式注入** - 避免在類別內部呼叫 `get()`
 2. **使用 Koin 編譯器外掛程式** - 在編譯期捕獲遺失的定義（或在測試中使用 `verify()`）
@@ -219,7 +219,7 @@ class UserService(private val api: ApiClient)
 4. **避免循環相依性** - 重構或使用延遲注入
 5. **謹慎使用限定詞** - 僅當同一型別有多個執行個體時使用
 
-## 後續步驟
+## 後續步驟 {id="next-steps"}
 
 - **[Modules](/docs/reference/koin-core/modules)** - 模組組織
 - **[Testing](/docs/reference/koin-test/testing)** - 使用 Koin 進行測試

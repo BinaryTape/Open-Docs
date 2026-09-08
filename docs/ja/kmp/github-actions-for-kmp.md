@@ -14,7 +14,7 @@ CIを使用して、共通テストの実行や、iOS、Android、デスクト�
 * [JavaとGradleをセットアップする再利用可能な複合アクション（Composite Action）](#create-a-composite-action-for-gradle-setup)
 * `main` ブランチへのプッシュまたはプルリクエストのたびにテストを実行し、プラットフォーム固有のビルドをトリガーする[メインのGitHub Actionsワークフロー](#define-the-build-workflow)
 
-## Gradleセットアップ用の複合アクションを作成する
+## Gradleセットアップ用の複合アクションを作成する {id="create-a-composite-action-for-gradle-setup"}
 
 ジョブ間でJavaとGradleの設定を同期させるために、[複合アクション（Composite Action）](https://docs.github.com/en/actions/tutorials/create-actions/create-a-composite-action)を作成します。
 このアクションをワークフローのジョブで再利用することで、すべてのビルドで同じ設定が使用されるようになります。
@@ -37,7 +37,7 @@ runs:
       uses: gradle/actions/setup-gradle@v5.0.0
 ```
 
-## ビルドワークフローを定義する
+## ビルドワークフローを定義する {id="define-the-build-workflow"}
 
 ワークフローがいつ実行されるかを定義し、Gradleのオプションを設定します。
 
@@ -64,7 +64,7 @@ env:
 
 これで、テストを実行してアプリケーションのアーティファクトをビルドするジョブを追加できます。
 
-### 共通テストを実行する
+### 共通テストを実行する {id="run-shared-tests"}
 
 このジョブは、`jvmTest` Gradleタスクを使用してテストを実行し、全プラットフォーム向けのアプリをビルドする前に変更を検証します。
 
@@ -99,7 +99,7 @@ jobs:
 
 テストが実行されたら、ワークフローはアプリケーションのアーティファクトをビルドする必要があります。
 
-### Androidデバッグパッケージをビルドする
+### Androidデバッグパッケージをビルドする {id="build-the-android-debug-package"}
 
 このジョブは、`:mobile:assembleDebug` Gradleタスクを使用してAndroidデバッグAPKをビルドします。
 
@@ -134,7 +134,7 @@ jobs:
           path: mobile/build/outputs/apk/debug/*.apk
 ```
 
-### iOSシミュレーターアプリケーションをビルドする
+### iOSシミュレーターアプリケーションをビルドする {id="build-the-ios-simulator-application"}
 
 このジョブは、アプリへの適切な署名を避けるために、iOSシミュレーターをターゲットにします。
 アプリケーションは `xcodebuild` を使用してビルドされます。
@@ -179,7 +179,7 @@ jobs:
           path: build/Build/Products/Debug-iphonesimulator/*
 ```
 
-## CIをプッシュしてテストする
+## CIをプッシュしてテストする {id="push-and-test-your-ci"}
 
 CIワークフローは、ワークフロー設定を `main` ブランチにプッシュするか、これらの設定ファイルを含むプルリクエストを作成したときに初めてトリガーされます。
 
@@ -187,7 +187,7 @@ CIワークフローは、ワークフロー設定を `main` ブランチにプ�
 
 ワークフローを手動でトリガーすることもできることを覚えておいてください。左側のアクション一覧からワークフローを選択し、**Run workflow** をクリックします。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 完全なCI設定の例については、[Jetcaster サンプル](https://github.com/kotlin-hands-on/jetcaster-kmp-migration/tree/main/.github)を参照してください。これには、macOS、Windows、Linux向けのデスクトップJVMアプリケーションをビルドするジョブも含まれています。
 

@@ -42,7 +42,7 @@
     }
     ```
 
-## 建立驅動程式執行個體
+## 建立驅動程式執行個體 {id="constructing-driver-instances"}
 
 建立一個共用的工廠類別或方法來取得 `SqlDriver` 執行個體。
 

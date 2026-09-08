@@ -10,7 +10,7 @@ Kotlin Multiplatform Gradle 插件使你能够使用诸如控制应用程序打�
 >
 {style="tip"}
 
-## Kotlin/JS 的用例
+## Kotlin/JS 的用例 {id="use-cases-for-kotlin-js"}
 
 以下是使用 Kotlin/JS 的一些常见方式：
 
@@ -47,13 +47,13 @@ Kotlin Multiplatform Gradle 插件使你能够使用诸如控制应用程序打�
 
 Kotlin/JS 还兼容最常见的模块系统：[ESM](https://tc39.es/ecma262/#sec-modules)、[CommonJS](https://nodejs.org/api/modules.html#modules-commonjs-modules)、[UMD](https://github.com/umdjs/umd) 和 [AMD](https://github.com/amdjs/amdjs-api)。这允许你以结构化的方式[生产和使用模块](js-modules.md)，并与 JavaScript 生态系统集成。
 
-### 分享你的用例
+### 分享你的用例 {id="share-your-use-cases"}
 
 [Kotlin/JS 用例](#use-cases-for-kotlin-js)中的列表并未列举详尽。欢迎尝试不同的方法，并找到最适合你项目的方案。
 
 欢迎在 [Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) 的 [#javascript](https://kotlinlang.slack.com/archives/C0B8L3U69) 频道中与 Kotlin/JS 社区分享你的用例、经验和问题。
 
-## 开始使用 Kotlin/JS
+## 开始使用 Kotlin/JS {id="get-started-with-kotlin-js"}
 
 探索开始使用 Kotlin/JS 的基础知识和初步步骤：
 
@@ -65,7 +65,7 @@ Kotlin/JS 还兼容最常见的模块系统：[ESM](https://tc39.es/ecma262/#sec
 
 <a href="js-get-started.md" as="button" mode="rock" icon="arrow-right" icon-position="right">开始使用 Kotlin/JS</a>
 
-## Kotlin/JS 示例项目
+## Kotlin/JS 示例项目 {id="sample-projects-for-kotlin-js"}
 
 下表列出了一组示例项目，演示了各种 Kotlin/JS 用例、架构和代码共享策略：
 
@@ -77,17 +77,17 @@ Kotlin/JS 还兼容最常见的模块系统：[ESM](https://tc39.es/ecma262/#sec
 | [在 Android、iOS 和 Web 之间共享简单逻辑](https://github.com/Kotlin/kmp-logic-sharing-simple-example/#readme) | 包含一个使用 Kotlin 构建具有通用逻辑的项目模板，该逻辑可在 Android ([Jetpack Compose](https://developer.android.com/compose))、iOS ([SwiftUI](https://developer.apple.com/tutorials/swiftui/)) 和 Web ([React](https://react.dev/)) 的平台原生 UI 应用程序中使用。 |
 | [全栈协作待办事项列表](https://github.com/kotlin-hands-on/jvm-js-fullstack/#readme) | 展示了如何使用带有 JS 和 JVM 目标的 Kotlin Multiplatform 创建一个用于协作工作的待办事项列表应用程序。后端使用 [Ktor](https://ktor.io/)，前端使用 Kotlin/JS 和 React。 |
 
-## Kotlin/JS 框架
+## Kotlin/JS 框架 {id="kotlin-js-frameworks"}
 
 Kotlin/JS 框架通过提供现成的组件、路由、状态管理和其他工具来构建现代 Web 应用程序，从而简化了 Web 开发。
 
 [查看由不同作者编写的 Kotlin/JS 可用框架](js-frameworks.md)。
 
-## 加入 Kotlin/JS 社区
+## 加入 Kotlin/JS 社区 {id="join-the-kotlin-js-community"}
 
 你可以加入官方 [Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) 中的 [#javascript](https://kotlinlang.slack.com/archives/C0B8L3U69) 频道，与社区和 Kotlin/JS 团队交流。
 
-## 后续步骤
+## 后续步骤 {id="what-s-next"}
 
 * [设置 Kotlin/JS 项目](js-project-setup.md)
 * [运行 Kotlin/JS 项目](running-kotlin-js.md)

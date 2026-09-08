@@ -6,7 +6,7 @@ Kotlin/Native 编译器使用 [LLVM](https://llvm.org/) 来优化并为不同的
 
 您可以自定义 Kotlin/Native 使用 LLVM 的方式，并调整优化 pass 列表。
 
-## 查看构建日志
+## 查看构建日志 {id="examine-the-build-log"}
 
 让我们查看构建日志，以了解 LLVM 优化 pass 在编译过程中占用了多少时间：
 
@@ -81,7 +81,7 @@ Kotlin/Native 编译器运行两个独立的 LLVM 优化序列：模块 pass 和
 
 在上面的日志中，两个 LLVM 优化分别是 `ModuleBitcodeOptimization` 和 `LTOBitcodeOptimization`。格式化的表格是优化的输出，包含了每个 pass 的耗时。
 
-## 自定义 LLVM 优化 pass
+## 自定义 LLVM 优化 pass {id="customize-llvm-optimization-passes"}
 
 如果上述某个 pass 耗时过长得不合理，您可以将其跳过。但是，这可能会损害运行时性能，因此您应该在操作后检查基准测试性能的变化。
 

@@ -26,13 +26,13 @@ kotlin {
 >
 {style="tip"}
 
-## 狀態與事件
+## 狀態與事件 {id="states-and-events"}
 
 生命週期狀態與事件的流程（與 [Jetpack 生命週期](https://developer.android.com/topic/libraries/architecture/lifecycle) 相同）：
 
 ![生命週期圖示](lifecycle-states.svg){width="700"}
 
-## 生命週期實作
+## 生命週期實作 {id="lifecycle-implementation"}
 
 Composable 通常不需要唯一的生命週期：一個通用的 `LifecycleOwner` 為所有互連的實體提供生命週期。預設情況下，Compose Multiplatform 建立的所有 Composable 都共用相同的生命週期 —— 它們可以訂閱其事件、參照生命週期狀態等等。
 
@@ -47,9 +47,9 @@ Composable 通常不需要唯一的生命週期：一個通用的 `LifecycleOwne
 * 在 [導覽與路由](compose-navigation-routing.md) 中了解生命週期在導覽元件中是如何運作的。
 * 在 [通用 ViewModel](compose-viewmodel.md) 頁面中進一步了解多平台 ViewModel 實作。
 
-## 將 Android 生命週期對應到其他平台
+## 將 Android 生命週期對應到其他平台 {id="mapping-android-lifecycle-to-other-platforms"}
 
-### iOS
+### iOS {id="ios"}
 
 | 原生事件與通知                                   | 生命週期事件          | 生命週期狀態變更                |
 |-----------------------------------------|-----------------|-------------------------|
@@ -61,7 +61,7 @@ Composable 通常不需要唯一的生命週期：一個通用的 `LifecycleOwne
 | `willEnterForeground`                   | `ON_START`      | `CREATED` → `STARTED`   |
 | `viewControllerDidLeaveWindowHierarchy` | `ON_DESTROY`    | `CREATED` → `DESTROYED` |
 
-### Web
+### Web {id="web"}
 
 由於 Wasm 目標的限制，生命週期：
 
@@ -75,7 +75,7 @@ Composable 通常不需要唯一的生命週期：一個通用的 `LifecycleOwne
 | `blur`                                   | `ON_PAUSE`      | `RESUMED` → `STARTED`  |
 | `visibilitychange` (停止可見)                 | `ON_STOP`       | `STARTED` → `CREATED`  |
 
-### 桌面
+### 桌面 {id="desktop"}
 
 | Swing 接聽程式回呼           | 生命週期事件          | 生命週期狀態變更                |
 |--------------------------|-----------------|-------------------------|

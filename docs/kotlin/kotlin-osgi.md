@@ -2,7 +2,7 @@
 
 要在您的 Kotlin 项目中启用 Kotlin [OSGi](https://www.osgi.org/) 支持，请包含 `kotlin-osgi-bundle` 而不是常规的 Kotlin 库。建议移除 `kotlin-runtime`、`kotlin-stdlib` 和 `kotlin-reflect` 依赖项，因为 `kotlin-osgi-bundle` 已经包含了所有这些内容。在包含外部 Kotlin 库的情况下，您也应该予以注意。大多数常规 Kotlin 依赖项并未适配 OSGi，因此您不应使用它们，并应将它们从项目中移除。
 
-## Maven
+## Maven {id="maven"}
 
 要将 Kotlin OSGi 捆绑包包含到 Maven 项目中：
 
@@ -33,7 +33,7 @@
 </dependency>
 ```
 
-## Gradle
+## Gradle {id="gradle"}
 
 要将 `kotlin-osgi-bundle` 包含到 Gradle 项目中：
 
@@ -85,8 +85,8 @@ dependencies {
 </tab>
 </tabs>
 
-## 常见问题解答
+## 常见问题解答 {id="faq"}
 
-### 为什么不直接向所有 Kotlin 库添加所需的清单选项
+### 为什么不直接向所有 Kotlin 库添加所需的清单选项 {id="why-not-just-add-required-manifest-options-to-all-kotlin-libraries"}
 
 尽管这是提供 OSGi 支持的首选方式，但由于无法轻易消除的所谓[“软件包拆分”问题](https://docs.osgi.org/specification/osgi.core/7.0.0/framework.module.html#d0e5999)，遗憾的是目前无法做到这一点，且目前尚未计划进行如此重大的更改。虽然有 `Require-Bundle` 功能，但它也不是最佳选择，且不建议使用。因此，决定为 OSGi 创建一个单独的构件。

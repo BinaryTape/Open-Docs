@@ -8,7 +8,7 @@ Koin 提供了一种自动装配 DSL，允许您直接指向类构造函数并�
 如果您正在使用 **Koin 编译器插件**，请考虑使用 [编译器插件 DSL](/docs/setup/compiler-plugin)，它提供了类似的自动装配功能，并具有额外的编译时安全性。
 :::
 
-## 经典自动装配 DSL
+## 经典自动装配 DSL {id="classic-autowire-dsl"}
 
 对于具有以下依赖项的给定类 `ClassA`：
 
@@ -40,7 +40,7 @@ module {
 您的构造函数将自动填充所有必需的依赖项。请避免使用默认值，因为 Koin 会尝试解析所有形参。
 :::
 
-## 与编译器插件 DSL 的对比
+## 与编译器插件 DSL 的对比 {id="comparison-with-compiler-plugin-dsl"}
 
 | 经典自动装配 | 编译器插件 |
 |------------------|-----------------|
@@ -51,7 +51,7 @@ module {
 
 编译器插件 DSL 提供了相同的自动装配能力，并增加了额外的编译时验证。
 
-## 可用关键字
+## 可用关键字 {id="available-keywords"}
 
 以下自动装配关键字可用于从构造函数构建您的定义：
 
@@ -63,7 +63,7 @@ module {
 请务必不要在您的构造函数中使用任何默认值，因为 Koin 会尝试用其填充每个形参。
 :::
 
-## DSL 选项
+## DSL 选项 {id="dsl-options"}
 
 任何自动装配 DSL 定义也可以在 lambda 中开启一些选项：
 
@@ -94,7 +94,7 @@ module {
 }
 ```
 
-## 注入参数
+## 注入参数 {id="injected-parameters"}
 
 使用自动装配 DSL 声明，您仍然可以使用注入参数。Koin 将在注入参数和当前依赖项中查找，以尝试注入您的构造函数。
 
@@ -119,7 +119,7 @@ val id = "a_factory_id"
 val factory = koin.get<MyFactory> { parametersOf(id)}
 ```
 
-## 基于反射的 DSL（自 3.2 起已弃用）
+## 基于反射的 DSL（自 3.2 起已弃用） {id="reflection-based-dsl-deprecated-since-3-2"}
 
 :::caution
 Koin 反射 DSL 现已弃用。请使用上文中的 Koin 自动装配 DSL。

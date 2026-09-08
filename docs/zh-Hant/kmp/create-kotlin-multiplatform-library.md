@@ -11,11 +11,11 @@
 
 本教學基於我們的 [多平台程式庫樣板 (multiplatform library template)](https://github.com/Kotlin/multiplatform-library-template)，這是一個包含產生費氏數列 (Fibonacci sequence) 函式的簡單程式庫。
 
-## 設定環境
+## 設定環境 {id="set-up-the-environment"}
 
 [安裝所有必要的工具並將其更新至最新版本](quickstart.md)。
 
-## 建立專案
+## 建立專案 {id="create-a-project"}
 
 1. 在 IntelliJ IDEA 中，選取 **File** | **New** | **Project from Version Control**。
 2. 輸入 [多平台程式庫樣板專案](https://github.com/Kotlin/multiplatform-library-template) 的 URL：
@@ -26,7 +26,7 @@
    
 3. 點擊 **Clone**。
 
-## 檢查專案結構
+## 檢查專案結構 {id="examine-the-project-structure"}
 
 Kotlin Multiplatform 程式庫樣板專案為開發 Kotlin Multiplatform 程式庫提供了基礎結構。此樣板有助於建立可在各種平台上運行的程式庫。
 
@@ -83,13 +83,13 @@ actual val secondElement: Int = 2
 
 其他平台遵循相同的模式，僅在 `firstElement` 與 `secondElement` 屬性的值上有所變化。
 
-## 新增一個新平台
+## 新增一個新平台 {id="add-a-new-platform"}
 
 既然您已熟悉樣板中共享程式碼與平台特定程式碼的運作方式，讓我們透過新增對額外平台的支援來擴充專案。
 
 透過使用 [`expect`/`actual` 機制](multiplatform-connect-to-apis.md#expected-and-actual-functions-and-properties)來配置對 [Kotlin/Wasm](https://kotlinlang.org/docs/wasm-overview.html) 平台的支援，然後為 `firstElement` 與 `secondElement` 屬性實作平台特定的功能。
 
-### 將 Kotlin/Wasm 目標新增至您的專案
+### 將 Kotlin/Wasm 目標新增至您的專案 {id="add-the-kotlin-wasm-target-to-your-project"}
 
 1. 在 `library/build.gradle.kts` 檔案中，新增 Kotlin/Wasm 目標 (`wasmJs`) 與原始碼集：
 
@@ -113,7 +113,7 @@ actual val secondElement: Int = 2
 
 2. 點擊出現在組建檔案中的 **Sync Gradle Changes** 圖示 (![Gradle 同步圖示](gradle-sync-icon.png){width=30}{type="joined"}) 來同步 Gradle 檔案。或者，點擊 Gradle 工具視窗中的重新整理按鈕。
 
-### 為 Wasm 建立平台特定程式碼
+### 為 Wasm 建立平台特定程式碼 {id="create-platform-specific-code-for-wasm"}
 
 新增 Wasm 目標後，您需要一個 Wasm 目錄來存放 `firstElement` 與 `secondElement` 的平台特定實作：
 
@@ -135,7 +135,7 @@ actual val secondElement: Int = 2
 
     這段程式碼設定了一個 Wasm 特定的實作，將 `firstElement` 的 `actual` 值定義為 `3`，將 `secondElement` 定義為 `5`。
 
-### 組建專案
+### 組建專案 {id="build-the-project"}
 
 確保您的專案在新平台上能正確編譯：
 
@@ -152,7 +152,7 @@ actual val secondElement: Int = 2
 
 您可以在 **Build** 工具視窗中看到成功的輸出。 
 
-## 將您的程式庫發佈到本機 Maven 存儲庫
+## 將您的程式庫發佈到本機 Maven 存儲庫 {id="publish-your-library-to-the-local-maven-repository"}
 
 您的多平台程式庫已準備好在本地發佈，以便您可以在同一部電腦上的其他專案中使用它。
 
@@ -194,7 +194,7 @@ actual val secondElement: Int = 2
 
 要找到您發佈的產物，請使用您的檔案管理員或終端，並導覽至 `~\.m2\repository\io\github\kotlin\library\1.0.0\` 目錄。
 
-## 將您的程式庫作為相依性新增至另一個專案中
+## 將您的程式庫作為相依性新增至另一個專案中 {id="add-your-library-as-a-dependency-in-another-project"}
 
 將多平台程式庫發佈到本機 Maven 存儲庫後，您就可以在同一部電腦上的其他 Kotlin 專案中使用它。
 
@@ -238,7 +238,7 @@ val seq = generateFibi()
 println(seq.elementAt(3))
 ```
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 我們鼓勵您進一步探索多平台開發：
 

@@ -120,6 +120,6 @@ Koog는 두 가지 간단한 플래너를 제공합니다:
     ```
      <!--- KNIT exampleLLMBasedPlannerJava01.java -->
 
-## 다음 단계
+## 다음 단계 {id="next-steps"}
 
 - [GOAP 에이전트](goap-agents.md)에 대해 알아보기

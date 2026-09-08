@@ -27,7 +27,7 @@ class OuterClass {
 }
 ```
 
-## 內部類別
+## 內部類別 {id="inner-classes"}
 
 標記為 `inner` 的巢狀類別可以存取其外部類別的成員。內部類別會持有其外部類別物件的參照：
 
@@ -44,7 +44,7 @@ val demo = Outer().Inner().foo() // == 1
 
 請參閱 [限定 `this` 運算式](this-expressions.md) 以了解內部類別中 `this` 的消歧義（disambiguation）。
 
-## 匿名內部類別
+## 匿名內部類別 {id="anonymous-inner-classes"}
 
 匿名內部類別的執行個體是使用 [物件運算式](object-declarations.md#object-expressions) 建立的：
 

@@ -5,7 +5,7 @@ SQLDelight 2.0은 Gradle 플러그인과 런타임 API에 몇 가지 브레이�
 이 페이지에서는 이러한 브레이킹 체인지와 이에 대응하는 2.0의 새로운 방식들을 나열합니다.
 새로운 기능 및 기타 변경 사항에 대한 전체 목록은 [변경 로그(changelog)](../changelog)를 참조하세요.
 
-## 새로운 패키지 이름 및 아티팩트 그룹
+## 새로운 패키지 이름 및 아티팩트 그룹 {id="new-package-name-and-artifact-group"}
 
 모든 `com.squareup.sqldelight` 인스턴스를 `app.cash.sqldelight`로 교체해야 합니다.
 
@@ -34,7 +34,7 @@ dependencies {
 +import app.cash.sqldelight.db.SqlDriver
 ```
 
-## Gradle 설정 변경 사항
+## Gradle 설정 변경 사항 {id="gradle-configuration-changes"}
 
 * SQLDelight 2.0은 빌드 시 Java 11을, 런타임에는 Java 8을 요구합니다.
 * SQLDelight 설정 API는 이제 데이터베이스 관리를 위해 관리형 속성(managed properties)과 `DomainObjectCollection`을 사용합니다.
@@ -123,7 +123,7 @@ dependencies {
 
     현재 지원되는 dialect는 `mysql-dialect`, `postgresql-dialect`, `hsql-dialect`, `sqlite-3-18-dialect`, `sqlite-3-24-dialect`, `sqlite-3-25-dialect`, `sqlite-3-30-dialect`, `sqlite-3-35-dialect`, 그리고 `sqlite-3-38-dialect`입니다.
 
-## 런타임 변경 사항
+## 런타임 변경 사항 {id="runtime-changes"}
 
 * 이제 `.sq` 및 `.sqm` 파일에 기본 타입(primitive types)을 임포트해야 합니다.
 

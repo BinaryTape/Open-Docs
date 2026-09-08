@@ -44,7 +44,7 @@ config.plugins.push(
 );
 ```
 
-## 为测试配置 Karma
+## 为测试配置 Karma {id="configuring-karma-for-tests"}
 
 对于测试，还需要一些额外的 Karma 配置，以便在运行时可以找到 WebAssembly 二进制文件。将以下内容复制到你项目的 `karma.config.d` 目录中。
 
@@ -78,7 +78,7 @@ config.files.push({
 });
 ```
 
-## 使用 Worker
+## 使用 Worker {id="using-the-worker"}
 
 worker 脚本名为 `sqljs.worker.js`，可以在代码中像这样引用：
 

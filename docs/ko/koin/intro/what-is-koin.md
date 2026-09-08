@@ -4,11 +4,11 @@ title: Koin이란 무엇인가요?
 
 # Koin이란 무엇인가요?
 
-### 실용적인 Kotlin 의존성 주입(DI) 프레임워크 - 단순하면서도 강력합니다
+### 실용적인 Kotlin 의존성 주입(DI) 프레임워크 - 단순하면서도 강력합니다 {id="the-pragmatic-kotlin-dependency-injection-framework-simple-and-powerful"}
 
 Koin은 Kotlin을 위해 특별히 설계된 경량 의존성 주입(Dependency Injection, DI) 프레임워크입니다. 코드 생성이나 리플렉션(reflection)에 의존하는 기존 DI 프레임워크와 달리, Koin은 두 가지 강력한 방식을 제공합니다: 깔끔한 **Kotlin DSL**과 직관적인 **애노테이션(Annotations)**입니다. 팀의 성격에 맞는 방식을 선택하세요 - 두 방식 모두 최고 수준으로 지원(first-class citizens)됩니다.
 
-## Koin의 핵심 가치
+## Koin의 핵심 가치 {id="koin-s-core-values"}
 
 | 가치 | 의미 |
 |-------|---------------|
@@ -18,7 +18,7 @@ Koin은 Kotlin을 위해 특별히 설계된 경량 의존성 주입(Dependency 
 | **안전성(Safe)** | Koin 컴파일러 플러그인을 통한 컴파일 타임 안전성을 보장합니다. |
 | **동적 유연성(Dynamic)** | 런타임 유연성: 모듈 동적 로드, 지연 로딩(lazy loading), 기능 플래그(feature flags) 등을 지원합니다. |
 
-## 개발자들이 Koin을 사랑하는 이유
+## 개발자들이 Koin을 사랑하는 이유 {id="why-developers-love-koin"}
 
 - **몇 분 만에 익히기** - 복잡한 개념 없이 직관적인 DSL과 단순한 애노테이션만으로 충분합니다.
 - **더 적은 코드 작성** - DSL이나 애노테이션을 사용하면 컴파일러 플러그인이 의존성을 자동으로 연결해 줍니다.
@@ -29,11 +29,11 @@ Koin은 Kotlin을 위해 특별히 설계된 경량 의존성 주입(Dependency 
 - **유연성 유지** - 런타임 기반이면서도 성능이 뛰어납니다. 동적 모듈, 지연 로딩, 기능 플래그를 지원합니다.
 - **IDE 지원** - Android Studio 및 IntelliJ IDEA용 공식 플러그인 제공 — 정의 이동, 실시간 안전성 체크, 그래프 시각화가 가능합니다.
 
-## 두 가지 스타일, 하나의 프레임워크 - 모두 강력함
+## 두 가지 스타일, 하나의 프레임워크 - 모두 강력함 {id="two-styles-one-framework-both-equally-powerful"}
 
 Koin은 의존성을 정의하는 두 가지 스타일을 지원합니다. 두 방식 모두 모든 기능을 동등하게 지원하는 일급 객체(first-class citizens)입니다. 팀에 적합한 방식을 선택하세요.
 
-### DSL 스타일
+### DSL 스타일 {id="dsl-style"}
 
 Kotlin DSL 구문을 사용하여 의존성을 정의합니다.
 
@@ -46,7 +46,7 @@ val appModule = module {
 }
 ```
 
-### 애노테이션 스타일
+### 애노테이션 스타일 {id="annotation-style"}
 
 애노테이션을 사용하여 의존성을 정의합니다.
 
@@ -69,7 +69,7 @@ class UserViewModel(private val repository: UserRepository) : ViewModel()
 
 두 스타일 모두 컴파일 타임 안전성을 위해 **Koin 컴파일러 플러그인(Koin Compiler Plugin)**에 의해 처리됩니다.
 
-## 더 간단한 Koin의 애노테이션
+## 더 간단한 Koin의 애노테이션 {id="koin-s-annotations-are-simpler"}
 
 Hilt나 Dagger를 사용해 보셨다면, Koin 애노테이션이 훨씬 적은 절차적 코드(ceremony)를 요구한다는 점을 느끼실 것입니다.
 
@@ -105,7 +105,7 @@ abstract class AppModule {
 }
 ```
 
-## Koin 컴파일러 플러그인 기반
+## Koin 컴파일러 플러그인 기반 {id="powered-by-koin-compiler-plugin"}
 
 **Koin 컴파일러 플러그인(Koin Compiler Plugin)**은 모든 신규 프로젝트에 권장되는 Koin 사용 방식입니다.
 
@@ -115,7 +115,7 @@ abstract class AppModule {
 - **DSL과 애노테이션 모두 지원** - 선택은 여러분의 몫입니다.
 - **간단한 설정** - 단 하나의 Gradle 플러그인으로 충분합니다.
 
-### 컴파일러 플러그인을 통한 더 깔끔한 구문
+### 컴파일러 플러그인을 통한 더 깔끔한 구문 {id="cleaner-syntax-with-compiler-plugin"}
 
 | 기존 DSL (Classic DSL) | 컴파일러 플러그인 DSL |
 |-------------|---------------------|
@@ -126,7 +126,7 @@ abstract class AppModule {
 
 더 자세한 내용은 [Koin 컴파일러 플러그인](/docs/intro/koin-compiler-plugin)에서 확인하세요.
 
-## 클래식 DSL (완전 지원)
+## 클래식 DSL (완전 지원) {id="classic-dsl-fully-supported"}
 
 클래식 DSL은 모든 Kotlin 버전에 대해 계속해서 완전히 지원됩니다.
 
@@ -154,7 +154,7 @@ val appModule = module {
 클래식 DSL은 지원 중단(deprecated)되지 않았습니다. Koin은 이 방식과 완벽하게 작동합니다. 컴파일러 플러그인은 마이그레이션 준비가 되었을 때 컴파일 타임 분석 기능을 추가로 제공해 줍니다.
 :::
 
-## Koin Annotations는 이제 Koin 프로젝트의 일부입니다
+## Koin Annotations는 이제 Koin 프로젝트의 일부입니다 {id="koin-annotations-is-now-part-of-the-koin-project"}
 
 `@Singleton`, `@Factory`, `@KoinViewModel`, `@Module`, `@ComponentScan` 등을 포함한 `koin-annotations` 라이브러리는 메인 Koin 버전과 함께 릴리스되며 완전히 지원됩니다. 이 또한 지원 중단되지 **않았습니다**.
 
@@ -168,7 +168,7 @@ dependencies {
 
 여러분의 애노테이션은 **Koin 컴파일러 플러그인**에 의해 처리됩니다 — [Koin 컴파일러 플러그인](/docs/intro/koin-compiler-plugin) 및 [애노테이션 레퍼런스](/docs/reference/koin-annotations/start)를 참조하세요.
 
-## Koin KSP 컴파일러는 Koin 컴파일러 플러그인으로 대체되어 지원 중단되었습니다
+## Koin KSP 컴파일러는 Koin 컴파일러 플러그인으로 대체되어 지원 중단되었습니다 {id="koin-ksp-compiler-is-deprecated-in-favor-of-koin-compiler-plugin"}
 
 :::info
 기존의 KSP 프로세서인 `koin-ksp-compiler`는 **지원 중단(deprecated)**되었으며 향후 Koin 버전에서 제거될 예정입니다. 대체 기술은 **Koin 컴파일러 플러그인**입니다 — 네이티브 K2 컴파일러 통합, 생성 파일 없음, 더 간단한 KMP 설정이 특징입니다.
@@ -182,7 +182,7 @@ dependencies {
 
 [KSP에서 컴파일러 플러그인으로 마이그레이션하기](/docs/migration/from-ksp-to-compiler-plugin)를 확인하세요.
 
-## 런타임 유연성 + 컴파일 안전성 = 두 세계의 장점 결합
+## 런타임 유연성 + 컴파일 안전성 = 두 세계의 장점 결합 {id="runtime-compile-safe-best-of-both-worlds"}
 
 Koin은 **런타임 기반이면서도 성능이 뛰어나고 컴파일 시 안전**합니다. 이 독특한 조합은 다음을 가능하게 합니다:
 
@@ -208,7 +208,7 @@ if (featureEnabled) {
 unloadKoinModules(premiumFeatureModule)
 ```
 
-## Koin은 누구를 위한 것인가요?
+## Koin은 누구를 위한 것인가요? {id="who-is-koin-for"}
 
 Koin은 다음과 같은 경우에 이상적입니다:
 
@@ -218,7 +218,7 @@ Koin은 다음과 같은 경우에 이상적입니다:
 - **엔터프라이즈 프로젝트** - 확장이 필요한 대규모 프로젝트
 - **DI가 복잡해서는 안 된다고 믿는 모든 이들**
 
-## 다음 단계
+## 다음 단계 {id="next-steps"}
 
 - **[의존성 주입이란 무엇인가요?](/docs/intro/what-is-dependency-injection)** - DI의 기본 개념 익히기
 - **[Koin 컴파일러 플러그인](/docs/intro/koin-compiler-plugin)** - 권장되는 접근 방식

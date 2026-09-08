@@ -6,7 +6,7 @@
 
 このチュートリアルは、[コルーチン](coroutines-guide.md)の概念に関する予備知識があることを前提としています。
 
-## コルーチンの作成
+## コルーチンの作成 {id="create-coroutines"}
 
 1. IntelliJ IDEA で Kotlin プロジェクトを開きます。プロジェクトがない場合は、[作成してください](jvm-get-started.md#create-a-project)。
 2. Gradle プロジェクトで `kotlinx.coroutines` ライブラリを使用するには、以下の依存関係を `build.gradle(.kts)` に追加します。
@@ -65,7 +65,7 @@
 
     ![アプリケーションをビルドする](flow-build-project.png)
 
-## コルーチンのデバッグ
+## コルーチンのデバッグ {id="debug-coroutines"}
 
 1. `println()` 関数が呼び出されている行にブレークポイントを設定します：
 
@@ -103,7 +103,7 @@
 
 IntelliJ IDEA デバッガーを使用すると、各コルーチンをさらに深く掘り下げてコードをデバッグできます。
 
-### 最適化により除外された変数 (Optimized-out variables)
+### 最適化により除外された変数 (Optimized-out variables) {id="optimized-out-variables"}
 
 `suspend` 関数を使用している場合、デバッガーで変数名の横に "was optimized out" というテキストが表示されることがあります。
 

@@ -5,7 +5,7 @@
 
 目前，Compose Multiplatform 處理原生視圖中觸控事件的策略只有一種：所有觸控都完全由原生 UI 處理，Compose 完全不知道觸控發生過。
 
-## interop 捲動中的觸控
+## interop 捲動中的觸控 {id="touches-in-interop-scrolling"}
 
 當 interop 區域中的每個觸控立即傳送到下層的原生 UI 元件時，容器 composable 無法對同一個觸控做出反應。
 這所呈現出的最顯著問題是捲動。如果 interop 區域位於可捲動的容器中，使用者可能會預期該區域：
@@ -28,7 +28,7 @@
 >
 {style="note"}
 
-## 選擇觸控處理策略
+## 選擇觸控處理策略 {id="choosing-the-strategy-for-touch-processing"}
 <primary-label ref="Experimental"/>
 
 透過 Compose Multiplatform %org.jetbrains.compose%，您還可以嘗試實驗性 API，以對 interop UI 進行更精細的控制。
@@ -45,6 +45,6 @@
 * `NonCooperative` 模式使用之前的策略，在該策略中，Compose Multiplatform 不處理 interop 視圖中的任何觸控事件。儘管存在上述一般問題，如果您確定 interop 觸控永遠不需要在 Compose 層級處理，則此模式可能會很有用。
 * 若要停用與原生 UI 的任何互動，請將 `interactionMode = null` 傳遞給建構函式。
 
-## 接下來要做什麼？
+## 接下來要做什麼？ {id="what-s-next"}
 
 進一步了解 Compose Multiplatform 中的 [UIKit](compose-uikit-integration.md) 和 [SwiftUI](compose-swiftui-integration.md) 整合。

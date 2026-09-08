@@ -4,7 +4,7 @@ title: Koin for Ktor
 
 `koin-ktor` 模块为 Ktor 应用程序提供依赖注入集成，可与 Ktor 内置的 DI 系统协同工作。
 
-## 为什么在 Ktor 中使用 Koin？
+## 为什么在 Ktor 中使用 Koin？ {id="why-koin-for-ktor"}
 
 Ktor 3.4+ 包含了一个内置的 DI 系统。以下是两者的对比：
 
@@ -20,7 +20,7 @@ Ktor 3.4+ 包含了一个内置的 DI 系统。以下是两者的对比：
 | 基于注解的组件 | 否 | 是 |
 | 编译器插件验证 | 否 | 是 |
 
-### Ktor DI 的局限性
+### Ktor DI 的局限性 {id="ktor-di-limitations"}
 
 - **无作用域设置** - 不支持请求作用域或自定义作用域，仅支持带清理顺序的类单例行为。
 - **无基于注解的组件** - 不支持像 Koin Annotations 那样的 `@Singleton`、`@Factory` 组件扫描。
@@ -38,7 +38,7 @@ Ktor 3.4+ 包含了一个内置的 DI 系统。以下是两者的对比：
 - 没有作用域需求
 - 仅有基础的限定符需求
 
-## 设置
+## 设置 {id="setup"}
 
 添加 Koin Ktor 依赖项：
 
@@ -49,11 +49,11 @@ dependencies {
 }
 ```
 
-## 声明依赖项
+## 声明依赖项 {id="declaring-dependencies"}
 
 Koin 支持多种 DSL 方式。
 
-### 编译器插件 DSL
+### 编译器插件 DSL {id="compiler-plugin-dsl"}
 
 最简单的语法：
 
@@ -64,7 +64,7 @@ val appModule = module {
 }
 ```
 
-### 注解
+### 注解 {id="annotations"}
 
 类似于 Spring 且带有编译时验证：
 
@@ -80,7 +80,7 @@ class UserRepositoryImpl : UserRepository
 class UserService(private val repository: UserRepository)
 ```
 
-### 经典 DSL
+### 经典 DSL {id="classic-dsl"}
 
 使用构造函数引用：
 
@@ -91,7 +91,7 @@ val appModule = module {
 }
 ```
 
-## 安装 Koin 插件
+## 安装 Koin 插件 {id="installing-the-koin-plugin"}
 
 在您的 `Application` 模块中安装 Koin：
 
@@ -104,7 +104,7 @@ fun Application.main() {
 }
 ```
 
-### 完整配置
+### 完整配置 {id="complete-configuration"}
 
 ```kotlin
 fun Application.main() {
@@ -121,11 +121,11 @@ fun Application.main() {
 }
 ```
 
-## 依赖注入
+## 依赖注入 {id="dependency-injection"}
 
 Koin 为 Ktor 的核心类型提供了扩展函数。
 
-### 注入点
+### 注入点 {id="injection-points"}
 
 `inject()` 和 `get()` 可用于：
 - `Application`
@@ -133,7 +133,7 @@ Koin 为 Ktor 的核心类型提供了扩展函数。
 - `Routing`
 - `ApplicationCall`（在路由处理程序内）
 
-### 应用级
+### 应用级 {id="application-level"}
 
 ```kotlin
 fun Application.main() {
@@ -148,7 +148,7 @@ fun Application.main() {
 }
 ```
 
-### 路由级
+### 路由级 {id="route-level"}
 
 ```kotlin
 fun Route.customerRoutes() {
@@ -166,7 +166,7 @@ fun Route.customerRoutes() {
 }
 ```
 
-### 请求处理程序
+### 请求处理程序 {id="request-handler"}
 
 ```kotlin
 routing {
@@ -178,7 +178,7 @@ routing {
 }
 ```
 
-## Ktor 事件
+## Ktor 事件 {id="ktor-events"}
 
 监听 Koin 生命周期事件：
 
@@ -206,7 +206,7 @@ fun Application.main() {
 }
 ```
 
-## 快速参考
+## 快速参考 {id="quick-reference"}
 
 | 函数 | 描述 |
 |----------|-------------|
@@ -216,7 +216,7 @@ fun Application.main() {
 | `koinModule { }` | 声明内联模块 |
 | `koinModules(...)` | 加载现有模块 |
 
-## 文档
+## 文档 {id="documentation"}
 
 | 主题 | 描述 |
 |-------|-------------|
@@ -225,7 +225,7 @@ fun Application.main() {
 | **[测试](/docs/reference/koin-ktor/ktor-testing)** | 使用 Koin 测试 Ktor |
 | **[隔离上下文](/docs/reference/koin-ktor/ktor-isolated)** | 隔离的 Koin 实例 |
 
-## 相关内容
+## 相关内容 {id="related"}
 
 - **[教程：Ktor](/docs/quickstart/ktor)** – 分步教程
 - **[教程：在 Ktor 中使用注解](/docs/quickstart/ktor-annotations)** – 注解教程

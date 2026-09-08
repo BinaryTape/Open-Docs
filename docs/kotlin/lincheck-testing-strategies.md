@@ -5,7 +5,7 @@ Lincheck 提供了两种用于测试并发数据结构的策略：模型检查�
 
 在本文中，您将了解这些策略之间的区别，以及在选择测试策略时需要注意的事项。
 
-## 模型检查
+## 模型检查 {id="model-checking"}
 
 通过模型检查，Lincheck 会模拟可能的线程交错，并报告那些导致错误行为的交错。
 
@@ -32,7 +32,7 @@ fun modelCheckingTest() = ModelCheckingOptions()
 {style=”tip”}
 -->
 
-## 压力测试
+## 压力测试 {id="stress-testing"}
 
 通过压力测试，Lincheck 会多次执行每个场景，以增加发现错误的机会。
 
@@ -47,7 +47,7 @@ fun stressTest() = StressOptions()
 与模型检查不同，Lincheck 不会控制或跟踪线程切换。这使得压力测试速度更快，且不需要 Lincheck 对内存模型做出任何假设。
 然而，对于压力测试，测试是不可复现的，且 Lincheck 无法提供执行跟踪。
 
-## 选择策略
+## 选择策略 {id="choose-a-strategy"}
 
 在选择策略时，请考虑以下几点：
 
@@ -93,11 +93,11 @@ fun stressTest() = StressOptions()
     </tr>
 </table>
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 了解如何通过自定义场景生成、启用停滞执行检测以及为库提供线程安全保证来[配置测试策略](lincheck-testing-strategies-options.md)。
 
-## 另请参阅
+## 另请参阅 {id="see-also"}
 
 * [生成操作实参](lincheck-argument-generation-constraints.md)
 * [配置操作执行选项](lincheck-operation-execution-options.md)

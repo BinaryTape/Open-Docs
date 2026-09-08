@@ -7,9 +7,9 @@
 - 이전 상태로 롤백(Rolling back)
 - 세션 간 에이전트 상태 유지
 
-## 핵심 개념 (Key concepts)
+## 핵심 개념 (Key concepts) {id="key-concepts"}
 
-### 체크포인트 (Checkpoints)
+### 체크포인트 (Checkpoints) {id="checkpoints"}
 
 체크포인트는 실행 중 특정 시점의 에이전트 전체 상태를 캡처하며, 다음 내용을 포함합니다.
 
@@ -24,7 +24,7 @@
 
 체크포인트는 고유 ID로 식별되며 특정 에이전트와 연결됩니다.
 
-### `AIAgentStorage` 지속성 (`AIAgentStorage` persistence)
+### `AIAgentStorage` 지속성 (`AIAgentStorage` persistence) {id="aiagentstorage-persistence"}
 
 체크포인트가 생성될 때, 프레임워크는 현재 `AIAgentStorage`에 저장된 모든 값을 직렬화하여 체크포인트에 포함합니다.
 복원 시, 해당 값들은 역직렬화되어 체크포인트 시점의 상태 그대로 재개된 에이전트에서 사용할 수 있게 됩니다.
@@ -38,7 +38,7 @@
 
 자세한 내용은 [직렬화(Serialization)](../serialization.md)를 참조하세요.
 
-## 설치 (Installation)
+## 설치 (Installation) {id="installation"}
 
 에이전트 지속성 기능을 사용하려면 에이전트 설정에 추가하세요.
 
@@ -88,7 +88,7 @@
     ```
     <!--- KNIT example-agent-persistence-java-01.java -->
 
-## 설정 옵션 (Configuration options)
+## 설정 옵션 (Configuration options) {id="configuration-options"}
 
 에이전트 지속성 기능에는 세 가지 주요 설정 옵션이 있습니다.
 
@@ -96,7 +96,7 @@
 - **연속 지속성 (Continuous persistence)**: 각 노드가 실행된 후 체크포인트를 자동으로 생성합니다.
 - **롤백 전략 (Rollback strategy)**: 체크포인트로 롤백할 때 복원할 상태를 결정합니다.
 
-### 스토리지 프로바이더 (Storage provider)
+### 스토리지 프로바이더 (Storage provider) {id="storage-provider"}
 
 체크포인트를 저장하고 검색하는 데 사용할 스토리지 프로바이더를 설정합니다.
 
@@ -152,7 +152,7 @@
 또한 `PersistenceStorageProvider` 인터페이스를 구현하여 사용자 정의 스토리지 프로바이더를 만들 수도 있습니다.
 자세한 내용은 [사용자 정의 스토리지 프로바이더](#사용자-정의-스토리지-프로바이더)를 참조하세요.
 
-### 연속 지속성 (Continuous persistence)
+### 연속 지속성 (Continuous persistence) {id="continuous-persistence"}
 
 연속 지속성은 각 노드가 실행된 후 체크포인트가 자동으로 생성됨을 의미합니다.
 연속 지속성을 비활성화하려면 아래 코드를 사용하세요.
@@ -203,9 +203,9 @@
 
 연속 지속성이 비활성화된 경우에도 수동으로 체크포인트를 생성할 수 있습니다.
 
-## 기본 사용법 (Basic usage)
+## 기본 사용법 (Basic usage) {id="basic-usage"}
 
-### 체크포인트 생성하기
+### 체크포인트 생성하기 {id="creating-a-checkpoint"}
 
 에이전트 실행 중 특정 시점에 체크포인트를 생성하는 방법은 아래 코드 샘플을 참조하세요.
 
@@ -263,7 +263,7 @@
     ```
     <!--- KNIT example-agent-persistence-java-04.java -->
 
-### 체크포인트에서 복원하기
+### 체크포인트에서 복원하기 {id="restoring-from-a-checkpoint"}
 
 특정 체크포인트에서 에이전트의 상태를 복원하려면 아래 코드 샘플을 따르세요.
 
@@ -303,7 +303,7 @@
     ```
     <!--- KNIT example-agent-persistence-java-05.java -->
 
-#### 도구에 의해 발생한 모든 부수 효과 롤백하기
+#### 도구에 의해 발생한 모든 부수 효과 롤백하기 {id="rolling-back-all-side-effects-produced-by-tools"}
 
 일부 도구가 부수 효과(side-effects)를 생성하는 것은 매우 흔한 일입니다. 특히 백엔드에서 에이전트를 실행할 때 일부 도구는 데이터베이스 트랜잭션을 수행할 수 있습니다. 이는 에이전트가 과거로 되돌아가는 것을 훨씬 어렵게 만듭니다.
 
@@ -385,7 +385,7 @@ Koog Persistence를 사용하면 `Persistence` 기능 설정에 `RollbackToolReg
     ```
     <!--- KNIT example-agent-persistence-java-06.java -->
 
-### 확장 함수 사용하기
+### 확장 함수 사용하기 {id="using-extension-functions"}
 
 에이전트 지속성 기능은 체크포인트 작업을 위한 편리한 확장 함수를 제공합니다.
 
@@ -443,9 +443,9 @@ Koog Persistence를 사용하면 `Persistence` 기능 설정에 `RollbackToolReg
     ```
     <!--- KNIT example-agent-persistence-java-07.java -->
 
-## 고급 사용법 (Advanced usage)
+## 고급 사용법 (Advanced usage) {id="advanced-usage"}
 
-### 사용자 정의 스토리지 프로바이더 (Custom storage providers)
+### 사용자 정의 스토리지 프로바이더 (Custom storage providers) {id="custom-storage-providers"}
 
 `PersistenceStorageProvider` 인터페이스를 구현하여 사용자 정의 스토리지 프로바이더를 만들 수 있습니다.
 
@@ -565,7 +565,7 @@ Koog Persistence를 사용하면 `Persistence` 기능 설정에 `RollbackToolReg
     ```
     <!--- KNIT example-agent-persistence-java-09.java -->
 
-### 실행 지점 설정 (Setting execution points)
+### 실행 지점 설정 (Setting execution points) {id="setting-execution-points"}
 
 고급 제어를 위해 에이전트의 실행 지점을 직접 설정할 수 있습니다.
 

@@ -1,4 +1,4 @@
-## バインド引数 (Bind Args)
+## バインド引数 (Bind Args) {id="bind-args"}
 
 `.sq` ファイルは、[SQLiteのバインド引数](https://www.sqlite.org/c3ref/bind_blob.html)を含め、SQLiteと全く同じ構文を使用します。ステートメントにバインド引数が含まれている場合、関連するメソッドは対応する引数を必要とします。
 

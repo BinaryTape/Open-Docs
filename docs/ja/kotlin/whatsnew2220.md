@@ -29,18 +29,18 @@ Kotlin 2.2.20 がリリースされました。Web 開発に関する重要な�
 >
 {style="tip"}
 
-## IDE サポート
+## IDE サポート {id="ide-support"}
 
 Kotlin 2.2.20 をサポートする Kotlin プラグインは、IntelliJ IDEA および Android Studio の最新バージョンにバンドルされています。
 アップデートするには、ビルドスクリプトの Kotlin バージョンを 2.2.20 に変更するだけです。
 
 詳細は [新しいリリースへのアップデート](releases.md#update-to-a-new-kotlin-version) をご覧ください。
 
-## 言語
+## 言語 {id="language"}
 
 Kotlin 2.2.20 では、Kotlin 2.3.0 で計画されている今後の言語機能を試すことができます。これには、[`suspend` 関数型のオーバーロードにラムダを渡す際のオーバーロード解決の改善](#improved-overload-resolution-for-lambdas-with-suspend-function-types) や、[明示的な戻り値の型を持つ式本体（expression bodies）での `return` ステートメントのサポート](#support-for-return-statements-in-expression-bodies-with-explicit-return-types) が含まれます。また、このリリースには、[`when` 式の網羅性チェックの改善](#data-flow-based-exhaustiveness-checks-for-when-expressions)、[reified な `Throwable` キャッチ](#support-for-reified-types-in-catch-clauses)、および [Kotlin コントラクト（Contracts）の改善](#improved-kotlin-contracts) も含まれています。
 
-### suspend 関数型のオーバーロードに対するラムダのオーバーロード解決の改善
+### suspend 関数型のオーバーロードに対するラムダのオーバーロード解決の改善 {id="improved-overload-resolution-for-lambdas-with-suspend-function-types"}
 
 以前は、通常の関数型と `suspend` 関数型の両方で関数をオーバーロードすると、ラムダを渡す際に曖昧さによるエラーが発生していました。明示的な型キャストでこのエラーを回避できましたが、コンパイラが誤って `No cast needed`（キャストは不要です）という警告を報告していました。
 
@@ -87,7 +87,7 @@ kotlin {
 
 フィードバックは、課題トラッカーの [YouTrack](https://youtrack.jetbrains.com/issue/KT-23610) でお待ちしております。
 
-### 明示的な戻り値の型を持つ式本体での `return` ステートメントのサポート
+### 明示的な戻り値の型を持つ式本体での `return` ステートメントのサポート {id="support-for-return-statements-in-expression-bodies-with-explicit-return-types"}
 
 以前は、式本体（expression body）で `return` を使用すると、関数の戻り値の型が `Nothing` と推論される可能性があるため、コンパイラエラーが発生していました。
 
@@ -141,7 +141,7 @@ kotlin {
 
 フィードバックは、課題トラッカーの [YouTrack](https://youtrack.jetbrains.com/issue/KT-76926) でお待ちしております。
 
-### when 式におけるデータフローに基づく網羅性チェック
+### when 式におけるデータフローに基づく網羅性チェック {id="data-flow-based-exhaustiveness-checks-for-when-expressions"}
 <primary-label ref="experimental-opt-in"/>
 
 Kotlin 2.2.20 では、`when` 式に対する**データフローに基づく**網羅性チェックが導入されました。
@@ -176,7 +176,7 @@ kotlin {
 }
 ```
 
-### catch 句での reified 型のサポート
+### catch 句での reified 型のサポート {id="support-for-reified-types-in-catch-clauses"}
 <primary-label ref="experimental-opt-in"/>
 
 Kotlin 2.2.20 では、`inline` 関数の `catch` 句で [reified（具現化）されたジェネリック型パラメータ](inline-functions.md#reified-type-parameters) を使用できるようになりました。
@@ -217,7 +217,7 @@ kotlin {
 
 Kotlin チームは、外部コントリビューターの [Iven Krall](https://github.com/kralliv) 氏の貢献に感謝します。
 
-### Kotlin コントラクトの改善
+### Kotlin コントラクトの改善 {id="improved-kotlin-contracts"}
 <primary-label ref="experimental-opt-in"/>
 
 Kotlin 2.2.20 では、[Kotlin コントラクト（Contracts）](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.contracts/contract.html) に以下のようないくつかの改善が導入されました。
@@ -233,7 +233,7 @@ Kotlin 2.2.20 では、[Kotlin コントラクト（Contracts）](https://kotlin
 
 フィードバックは [課題トラッカー](https://kotl.in/issue) でお待ちしております。
 
-#### コントラクト型アサーションにおけるジェネリクスのサポート
+#### コントラクト型アサーションにおけるジェネリクスのサポート {id="support-for-generics-in-contract-type-assertions"}
 
 ジェネリック型に対して型アサーションを行うコントラクトを記述できるようになりました。
 
@@ -272,7 +272,7 @@ kotlin {
 }
 ```
 
-#### プロパティアクセサおよび特定の演算子関数内でのコントラクトのサポート
+#### プロパティアクセサおよび特定の演算子関数内でのコントラクトのサポート {id="support-for-contracts-inside-property-accessors-and-specific-operator-functions"}
 
 プロパティアクセサや特定の演算子関数の中でコントラクトを定義できるようになりました。
 これにより、より多くの種類の宣言でコントラクトを使用できるようになり、柔軟性が向上します。
@@ -346,7 +346,7 @@ kotlin {
 }
 ```
 
-#### コントラクトにおける `returnsNotNull()` 関数のサポート
+#### コントラクトにおける `returnsNotNull()` 関数のサポート {id="support-for-the-returnsnotnull-function-in-contracts"}
 
 Kotlin 2.2.20 では、コントラクト用の [`returnsNotNull()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.contracts/-contract-builder/returns-not-null.html) 関数が導入されました。
 この関数を使用すると、特定の条件が満たされたときに関数が非 null の値を返すことを保証できます。
@@ -387,7 +387,7 @@ kotlin {
 }
 ```
 
-#### 新しい `holdsIn` キーワード
+#### 新しい `holdsIn` キーワード {id="new-holdsin-keyword"}
 
 Kotlin 2.2.20 では、コントラクトに新しい [`holdsIn`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.contracts/-contract-builder/holds-in.html) キーワードが導入されました。
 これを使用すると、特定のラムダ内で boolean 条件が `true` であると見なされることを保証できます。これにより、コントラクトを使用した条件付きスマートキャストを含む DSL を構築できます。
@@ -432,7 +432,7 @@ kotlin {
 }
 ```
 
-## Kotlin/JVM: `when` 式での `invokedynamic` のサポート
+## Kotlin/JVM: `when` 式での `invokedynamic` のサポート {id="kotlin-jvm-support-invokedynamic-with-when-expressions"}
 <primary-label ref="experimental-opt-in"/> 
 
 Kotlin 2.2.20 では、`when` 式を `invokedynamic` でコンパイルできるようになりました。以前は、複数の型チェックを伴う `when` 式は、バイトコード上では `instanceof` チェックの長いチェーンにコンパイルされていました。
@@ -483,11 +483,11 @@ kotlin {
 
 この機能は [実験的（Experimental）](components-stability.md#stability-levels-explained) です。フィードバックは課題トラッカー [YouTrack](https://youtrack.jetbrains.com/issue/KT-65688) でお待ちしております。
 
-## Kotlin Multiplatform
+## Kotlin Multiplatform {id="kotlin-multiplatform"}
 
 Kotlin 2.2.20 では、Kotlin Multiplatform に重要な変更が導入されました。Swift export がデフォルトで利用可能になり、新しい共有ソースセットが登場し、共通の依存関係を管理するための新しいアプローチを試すことができます。
 
-### Swift export がデフォルトで利用可能
+### Swift export がデフォルトで利用可能 {id="swift-export-available-by-default"}
 <primary-label ref="experimental-general"/> 
 
 Kotlin 2.2.20 では、Swift export の実験的サポートが導入されました。これにより、Kotlin ソースを直接エクスポートし、Swift から Kotlin コードを慣用的（idiomatic）に呼び出すことができ、Objective-C ヘッダーの必要性がなくなります。
@@ -504,7 +504,7 @@ Kotlin 2.2.20 では、Swift export の実験的サポートが導入されま�
 * **フラット化されたパッケージ構造**: Kotlin のパッケージを Swift の列挙型（enum）に変換し、生成された Swift コードからパッケージプレフィックスを取り除くことができます。
 * **モジュール名のカスタマイズ**: Kotlin プロジェクトの Gradle 設定で、結果として生成される Swift モジュール名をカスタマイズできます。
 
-#### Swift export を有効にする方法
+#### Swift export を有効にする方法 {id="how-to-enable-swift-export"}
 
 この機能は現在 [実験的（Experimental）](components-stability.md#stability-levels-explained) であり、iOS フレームワークを Xcode プロジェクトに接続するために [直接統合（direct integration）](https://kotlinlang.org/docs/multiplatform/multiplatform-direct-integration.html) を使用しているプロジェクトでのみ動作します。これは、IntelliJ IDEA の Kotlin Multiplatform プラグインまたは [Web ウィザード](https://kmp.jetbrains.com/) で作成されたマルチプラットフォームプロジェクトの標準的な構成です。
 
@@ -530,7 +530,7 @@ Swift export を試すには、Xcode プロジェクトを構成してくださ�
 
 Swift export の詳細については、[ドキュメント](native-swift-export.md) をご覧ください。
 
-#### フィードバックのお願い
+#### フィードバックのお願い {id="leave-feedback"}
 
 今後の Kotlin リリースでは、Swift export サポートを拡大し、段階的に安定化させる予定です。Kotlin 2.2.20 以降は、特にコルーチンやフローに関する Kotlin と Swift 間の相互運用性の向上に重点を置く予定です。
 
@@ -539,7 +539,7 @@ Swift export のサポートは、Kotlin Multiplatform にとって大きな変�
 * Kotlin Slack で開発チームに直接連絡する – [招待を受ける](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up?_gl=1*ju6cbn*_ga*MTA3MTk5NDkzMC4xNjQ2MDY3MDU4*_ga_9J976DJZ68*MTY1ODMzNzA3OS4xMDAuMS4xNjU4MzQwODEwLjYw) して [#swift-export](https://kotlinlang.slack.com/archives/C073GUW6WN9) チャンネルに参加してください。
 * Swift export で直面した問題については、[YouTrack](https://kotl.in/issue) で報告してください。
 
-### js および wasmJs ターゲット用の共有ソースセット
+### js および wasmJs ターゲット用の共有ソースセット {id="shared-source-set-for-js-and-wasmjs-targets"}
 
 以前は、Kotlin Multiplatform にはデフォルトで JavaScript (`js`) と WebAssembly (`wasmJs`) の Web ターゲット用の共有ソースセットが含まれていませんでした。`js` と `wasmJs` の間でコードを共有するには、カスタムソースセットを手動で設定するか、`js` 用と `wasmJs` 用の 2 か所にコードを記述する必要がありました。例えば：
 
@@ -617,7 +617,7 @@ kotlin {
 
 デフォルトの階層を使用する前に、カスタム共有ソースセットを持つプロジェクトがある場合や、`js("web")` ターゲットの名前を変更している場合に発生する可能性のある競合について慎重に検討してください。これらの競合を解決するには、競合するソースセットやターゲットの名前を変更するか、デフォルトの階層を使用しないようにしてください。
 
-### Kotlin ライブラリの安定したクロスプラットフォーム・コンパイル
+### Kotlin ライブラリの安定したクロスプラットフォーム・コンパイル {id="stable-cross-platform-compilation-for-kotlin-libraries"}
 
 Kotlin 2.2.20 は、重要な [ロードマップ項目](https://youtrack.jetbrains.com/issue/KT-71290) を完了し、Kotlin ライブラリのクロスプラットフォーム・コンパイルを安定化させました。
 
@@ -633,7 +633,7 @@ Kotlin ライブラリを公開するための `.klib` アーティファクト�
 
 マルチプラットフォーム・ライブラリの公開に関する詳細については、[ドキュメント](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-lib-setup.html) を参照してください。
 
-### 共通の依存関係を宣言するための新しいアプローチ
+### 共通の依存関係を宣言するための新しいアプローチ {id="new-approach-for-declaring-common-dependencies"}
 <primary-label ref="experimental-opt-in"/>
 
 Gradle を使用したマルチプラットフォーム・プロジェクトのセットアップを簡素化するために、Gradle 8.8 以上を使用している場合、Kotlin 2.2.20 では `kotlin {}` ブロック内のトップレベルの `dependencies {}` ブロックを使用して共通の依存関係を宣言できるようになりました。これらの依存関係は、`commonMain` ソースセットで宣言されているかのように動作します。この機能は、Kotlin/JVM および Android 専用プロジェクトで使用する依存関係ブロックと同様に機能し、Kotlin Multiplatform でも [実験的（Experimental）](components-stability.md#stability-levels-explained) として導入されました。
@@ -653,7 +653,7 @@ kotlin {
 
 この機能に関するフィードバックは [YouTrack](https://youtrack.jetbrains.com/issue/KT-76446) でお待ちしております。
 
-### 依存関係におけるターゲット・サポートの新しい診断
+### 依存関係におけるターゲット・サポートの新しい診断 {id="new-diagnostic-for-target-support-in-dependencies"}
 
 Kotlin 2.2.20 より前は、ビルドスクリプト内の依存関係がソースセットで必要なすべてのターゲットをサポートしていない場合、Gradle が生成するエラーメッセージでは問題の理解が困難でした。
 
@@ -666,15 +666,15 @@ Kotlin 2.2.20 では、各依存関係がどのターゲットをサポートし
 | `kotlin.kmp.eagerUnresolvedDependenciesDiagnostic=false` | メタデータのコンパイルとインポートの時のみ診断を実行する      |
 | `kotlin.kmp.unresolvedDependenciesDiagnostic=false`      | 診断を完全に無効にする                                   |
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 このリリースでは、Xcode 26 のサポート、Objective-C/Swift との相互運用性の改善、デバッグ、および新しいバイナリオプションが提供されます。
 
-### Xcode 26 のサポート
+### Xcode 26 のサポート {id="support-for-xcode-26"}
 
 Kotlin 2.2.2**1** 以降、Kotlin/Native コンパイラは Xcode 26（Xcode の最新の安定版）をサポートします。Xcode をアップデートして最新の API にアクセスし、Apple オペレーティングシステム向けの Kotlin プロジェクトの作業を継続できます。
 
-### バイナリにおけるスタックカナリアのサポート
+### バイナリにおけるスタックカナリアのサポート {id="support-for-stack-canaries-in-binaries"}
 
 Kotlin 2.2.20 以降、Kotlin は生成される Kotlin/Native バイナリにおけるスタックカナリア（stack canaries）のサポートを追加しました。スタック保護の一環として、このセキュリティ機能はスタックスマッシングを防ぎ、一般的なアプリケーションの脆弱性を軽減します。Swift や Objective-C ではすでに利用可能でしたが、Kotlin でもサポートされるようになりました。
 
@@ -693,7 +693,7 @@ kotlin.native.binary.stackProtector=yes
 
 スタック保護を有効にすると、場合によってはパフォーマンスに影響が出る可能性があることに注意してください。
 
-### リリースバイナリのバイナリサイズの縮小
+### リリースバイナリのバイナリサイズの縮小 {id="smaller-binary-size-for-release-binaries"}
 <primary-label ref="experimental-opt-in"/> 
 
 Kotlin 2.2.20 では、リリースバイナリのサイズを縮小するのに役立つ `smallBinary` オプションが導入されました。この新しいオプションは、LLVM コンパイルフェーズ中のコンパイラのデフォルト最適化引数として実質的に `-Oz` を設定します。
@@ -708,7 +708,7 @@ kotlin.native.binary.smallBinary=true
 
 Kotlin チームは、この機能の実装を支援してくれた [Troels Lund](https://github.com/troelsbjerre) 氏に感謝します。
 
-### デバッガーのオブジェクトサマリーの改善
+### デバッガーのオブジェクトサマリーの改善 {id="improved-debugger-object-summaries"}
 
 Kotlin/Native は、LLDB や GDB などのデバッガーツールに対して、より明確なオブジェクトサマリーを生成するようになりました。これにより、生成されたデバッグ情報の可読性が向上し、デバッグ体験が合理化されます。
 
@@ -741,7 +741,7 @@ Kotlin チームは、この機能の実装を支援してくれた [Nikita Naza
 
 Kotlin/Native でのデバッグの詳細については、[ドキュメント](native-debugging.md) を参照してください。
 
-### Objective-C ヘッダーのブロック型における明示的な名前
+### Objective-C ヘッダーのブロック型における明示的な名前 {id="explicit-names-in-block-types-for-objective-c-headers"}
 
 Kotlin 2.2.20 では、Kotlin/Native プロジェクトからエクスポートされる Objective-C ヘッダーにおいて、Kotlin の関数型に明示的なパラメータ名を追加するオプションが導入されました。パラメータ名により、Xcode でのオートコンプリートの提案が改善され、Clang の警告を回避するのに役立ちます。
 
@@ -789,7 +789,7 @@ kotlin.native.binary.objcExportBlockExplicitParameterNames=true
 
 Kotlin チームは、この機能を実装してくれた [Yijie Jiang](https://github.com/edisongz) 氏に感謝します。
 
-### Kotlin/Native 配布サイズの削減
+### Kotlin/Native 配布サイズの削減 {id="reduced-size-of-kotlin-native-distribution"}
 
 これまでの Kotlin/Native 配布物には、コンパイラコードを含む 2 つの JAR ファイルが含まれていました：
 
@@ -807,7 +807,7 @@ Kotlin 2.2.20 以降、`kotlin-native.jar` は公開されなくなりました�
 
 詳細については、[YouTrack 課題](https://kotl.in/KT-51301) を参照してください。
 
-### Objective-C ヘッダーへの KDoc エクスポートのデフォルト化
+### Objective-C ヘッダーへの KDoc エクスポートのデフォルト化 {id="exporting-kdocs-to-objective-c-headers-by-default"}
 
 Kotlin/Native の最終バイナリのコンパイル中に Objective-C ヘッダーを生成する際、[KDoc](kotlin-doc.md) コメントがデフォルトでエクスポートされるようになりました。
 
@@ -835,7 +835,7 @@ kotlin {
 
 詳細については、[公式ドキュメント](native-objc-interop.md#provide-documentation-with-kdoc-comments) を参照してください。
 
-### x86_64 Apple ターゲットの非推奨化
+### x86_64 Apple ターゲットの非推奨化 {id="deprecation-of-x8664-apple-targets"}
 
 Apple 数年前に Intel チップを搭載したデバイスの製造を停止し、[先日](https://www.youtube.com/live/51iONeETSng?t=3288s)、macOS Tahoe 26 が Intel ベースのアーキテクチャをサポートする最後の OS バージョンになると発表しました。
 
@@ -852,11 +852,11 @@ Kotlin 2.2.20 から 2.4.0 のリリースサイクルの間に、すべての `
 
 サポートティアの詳細については、[Kotlin/Native ターゲットサポート](native-target-support.md) を参照してください。
 
-## Kotlin/Wasm
+## Kotlin/Wasm {id="kotlin-wasm"}
 
 Kotlin/Wasm は Beta になり、分離された npm 依存関係、[JavaScript 相互運用における例外処理の改善](#improved-exception-handling-in-kotlin-wasm-and-javascript-interop)、[設定なしでのブラウザデバッグのサポート](#support-for-debugging-in-browsers-without-configuration)などの改善とともに、より高い安定性を提供します。
 
-### 分離された npm 依存関係
+### 分離された npm 依存関係 {id="separated-npm-dependencies"}
 
 以前の Kotlin/Wasm プロジェクトでは、Kotlin ツールチェーンの依存関係とあなた自身の依存関係の両方を含むすべての [npm](https://www.npmjs.com/) 依存関係が、プロジェクトフォルダ内にまとめてインストールされていました。また、それらはプロジェクトのロックファイル（`package-lock.json` または `yarn.lock`）にまとめて記録されていました。
 
@@ -878,7 +878,7 @@ Kotlin 2.2.20 からは、Kotlin ツールチェーンの npm 依存関係はプ
 
 この変更は `wasm-js` ターゲットではデフォルトで有効になっています。`js` ターゲットについては、この変更はまだ実装されていません。将来のリリースで実装する計画はありますが、Kotlin 2.2.20 における `js` ターゲットの npm 依存関係の動作は以前と同じままです。
 
-### Kotlin/Wasm と JavaScript 相互運用における例外処理の改善
+### Kotlin/Wasm と JavaScript 相互運用における例外処理の改善 {id="improved-exception-handling-in-kotlin-wasm-and-javascript-interop"}
 
 以前の Kotlin では、JavaScript (JS) で投げられ、Kotlin/Wasm コードに渡される例外（エラー）を理解するのに困難がありました。
 
@@ -898,7 +898,7 @@ Kotlin 2.2.20 から、両方向で例外のデベロッパーエクスペリエ
 
 古いブラウザでは、例外処理の動作は変わりません。
 
-### 設定なしでのブラウザデバッグのサポート
+### 設定なしでのブラウザデバッグのサポート {id="support-for-debugging-in-browsers-without-configuration"}
 
 以前は、ブラウザがデバッグに必要な Kotlin/Wasm プロジェクトのソースに自動的にアクセスすることができませんでした。ブラウザで Kotlin/Wasm アプリケーションをデバッグするには、`build.gradle(.kts)` ファイルに以下のスニペットを追加して、これらのソースを提供するためにビルドを手動で設定する必要がありました：
 
@@ -916,7 +916,7 @@ Kotlin 2.2.20 以降、[最新のブラウザ](wasm-configuration.md#browser-ver
 
 ブラウザでのデバッグは、すべての Gradle `*DevRun` タスクでデフォルトで有効になっています。これらのタスクはアプリケーションだけでなくそのソースファイルも提供するため、ローカル開発にのみ使用し、ソースが公開されてしまうクラウドや本番環境では実行しないでください。
 
-#### デバッグ中の繰り返しのリロードへの対処
+#### デバッグ中の繰り返しのリロードへの対処 {id="handle-repeated-reloads-during-debugging"}
 
 ソースをデフォルトで提供すると、[Kotlin のコンパイルとバンドルが完了する前に、ブラウザでアプリケーションが繰り返しリロードされる](https://youtrack.jetbrains.com/issue/KT-80582/Multiple-reloads-when-using-webpack-dev-server-after-2.2.20-Beta2#focus=Comments-27-12596427.0-0) 原因になることがあります。
 回避策として、Kotlin ソースファイルを無視し、提供される静的ファイルの監視を無効にするように webpack 設定を調整してください。プロジェクトのルートにある `webpack.config.d` ディレクトリに、以下の内容の `.js` ファイルを追加します：
@@ -939,7 +939,7 @@ if (config.devServer) {
 }
 ```
 
-### 空の `yarn.lock` ファイルの排除
+### 空の `yarn.lock` ファイルの排除 {id="elimination-of-empty-yarn-lock-files"}
 
 以前の Kotlin Gradle プラグイン (KGP) は、Kotlin ツールチェーンが必要とする npm パッケージや、プロジェクトや使用ライブラリから既存の [npm](https://www.npmjs.com/) 依存関係に関する情報を含む `yarn.lock` ファイルを自動的に生成していました。
 
@@ -951,7 +951,7 @@ KGP は npm 依存関係が追加されたときに `yarn.lock` ファイルを�
 
 この動作を設定するために追加の手順は必要ありません。Kotlin 2.2.20 以降の Kotlin/Wasm プロジェクトにデフォルトで適用されます。
 
-### 完全修飾クラス名における新しいコンパイラエラー
+### 完全修飾クラス名における新しいコンパイラエラー {id="new-compiler-error-in-fully-qualified-class-names"}
 
 Kotlin/Wasm では、アプリケーションのサイズ増大を避けるため、コンパイラは生成されたバイナリにクラスの完全修飾名 (FQN) をデフォルトで保存しません。
 
@@ -978,11 +978,11 @@ kotlin {
 >
 {style="note"}
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
 Kotlin 2.2.20 では、Kotlin の `Long` 型を表現するために `BigInt` 型を使用することをサポートし、エクスポートされた宣言で `Long` を利用できるようになりました。さらに、Node.js 引数をクリーンアップするための DSL 関数が追加されました。
 
-### Kotlin の `Long` 型を表現するための `BigInt` 型の使用
+### Kotlin の `Long` 型を表現するための `BigInt` 型の使用 {id="usage-of-the-bigint-type-to-represent-kotlin-s-long-type"}
 <primary-label ref="experimental-opt-in"/>
 
 ES2020 標準以前、JavaScript (JS) は 53 ビットを超える正確な整数のためのプリミティブ型をサポートしていませんでした。
@@ -1008,7 +1008,7 @@ kotlin {
 
 この機能は [実験的（Experimental）](components-stability.md#stability-levels-explained) です。フィードバックは課題トラッカー [YouTrack](https://youtrack.jetbrains.com/issue/KT-57128) でお待ちしております。
 
-#### エクスポートされた宣言における `Long` の使用
+#### エクスポートされた宣言における `Long` の使用 {id="usage-of-long-in-exported-declarations"}
 
 Kotlin/JS がカスタムの `Long` 表現を使用していたため、JavaScript から Kotlin の `Long` を操作するための直接的な方法を提供することは困難でした。その結果、`Long` 型を使用する Kotlin コードを JavaScript にエクスポートすることはできませんでした。この問題は、関数のパラメータ、クラスのプロパティ、コンストラクタなど、`Long` を使用するすべてのコードに影響を与えていました。
 
@@ -1031,7 +1031,7 @@ Kotlin の `Long` 型が JavaScript の `BigInt` 型にコンパイルできる�
 
 2. `BigInt` 型を有効にします。有効化の方法については、[Kotlin の `Long` 型を表現するための `BigInt` 型の使用](#usage-of-the-bigint-type-to-represent-kotlin-s-long-type) を参照してください。
 
-### 引数を整理するための新しい DSL 関数
+### 引数を整理するための新しい DSL 関数 {id="new-dsl-function-for-cleaner-arguments"}
 
 Kotlin/JS アプリケーションを Node.js で実行する際、プログラムに渡される引数 (`args`) には通常以下が含まれていました：
 
@@ -1074,11 +1074,11 @@ kotlin {
 }
 ```
 
-## Gradle
+## Gradle {id="gradle"}
 
 Kotlin 2.2.20 では、Gradle ビルドレポートの Kotlin/Native タスクに新しいコンパイラパフォーマンス指標が追加され、インクリメンタル・コンパイルの使い勝手が向上しました。
 
-### Kotlin/Native タスクのビルドレポートにおける新しいコンパイラパフォーマンス指標
+### Kotlin/Native タスクのビルドレポートにおける新しいコンパイラパフォーマンス指標 {id="new-compiler-performance-metrics-in-build-reports-for-kotlin-native-tasks"}
 
 Kotlin 1.7.0 では、コンパイラのパフォーマンスを追跡しやすくするために [ビルドレポート](gradle-compilation-and-caches.md#build-reports) を導入しました。それ以来、これらのレポートをより詳細にし、パフォーマンスの問題を調査するのに役立つよう、さらに多くの指標を追加してきました。
 
@@ -1086,7 +1086,7 @@ Kotlin 2.2.20 では、ビルドレポートに Kotlin/Native タスクのコン
 
 ビルドレポートの詳細と設定方法については、[ビルドレポートを有効にする](gradle-compilation-and-caches.md#enabling-build-reports) を参照してください。
 
-### Kotlin/JVM のインクリメンタル・コンパイル改善のプレビュー
+### Kotlin/JVM のインクリメンタル・コンパイル改善のプレビュー {id="preview-improved-incremental-compilation-for-kotlin-jvm"}
 <primary-label ref="experimental-general"/>
 
 Kotlin 2.0.0 では、最適化されたフロントエンドを備えた新しい K2 コンパイラが導入されました。Kotlin 2.2.20 では、この新しいフロントエンドを使用して、Kotlin/JVM の特定の複雑なインクリメンタル・コンパイル・シナリオにおけるパフォーマンスを向上させることで、これをさらに発展させています。
@@ -1101,23 +1101,23 @@ kotlin.incremental.jvm.fir=true
 
 この機能に関するフィードバックは [YouTrack](https://youtrack.jetbrains.com/issue/KT-72822) でお待ちしております。
 
-### インクリメンタル・コンパイルによるインライン関数のラムダの変更の検知
+### インクリメンタル・コンパイルによるインライン関数のラムダの変更の検知 {id="incremental-compilation-detects-changes-in-lambdas-of-inline-functions"}
 
 Kotlin 2.2.20 以前は、インクリメンタル・コンパイルを有効にしてインライン関数内のラムダのロジックを変更しても、コンパイラは他のモジュールにあるそのインライン関数の呼び出し元を再コンパイルしませんでした。その結果、それらの呼び出し元は古いバージョンのラムダを使用し続け、予期せぬ動作を引き起こす可能性がありました。
 
 Kotlin 2.2.20 では、コンパイラがインライン関数のラムダの変更を検出し、その呼び出し元を自動的に再コンパイルするようになりました。
 
-### ライブラリ公開のための改善
+### ライブラリ公開のための改善 {id="improvements-for-library-publication"}
 
 Kotlin 2.2.20 では、ライブラリの公開を容易にする新しい Gradle タスクが追加されました。これらのタスクは、キーペアの生成、公開キーのアップロード、および Maven Central リポジトリにアップロードする前に検証プロセスが成功することを確認するためのローカルチェックの実行を支援します。
 
 公開プロセスの一環としてこれらのタスクを使用する方法の詳細については、[ライブラリを Maven Central に公開する](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-libraries.html) を参照してください。
 
-#### PGP キーの生成とアップロードのための新しい Gradle タスク
+#### PGP キーの生成とアップロードのための新しい Gradle タスク {id="new-gradle-tasks-for-generating-and-uploading-pgp-keys"}
 
 Kotlin 2.2.20 以前、マルチプラットフォーム・ライブラリを Maven Central リポジトリに公開する場合、公開物に署名するためのキーペアを生成するために `gpg` のようなサードパーティプログラムをインストールする必要がありました。現在、Kotlin Gradle プラグインにはキーペアの生成と公開キーのアップロードを可能にする Gradle タスクが付属しているため、別のプログラムをインストールする必要はありません。
 
-##### キーペアの生成
+##### キーペアの生成 {id="generate-a-key-pair"}
 
 `generatePgpKeys` タスクはキーペアを生成します。これを実行する際、秘密鍵ストアのパスワードとあなたの名前を以下の形式で提供する必要があります：
 
@@ -1131,7 +1131,7 @@ Kotlin 2.2.20 以前、マルチプラットフォーム・ライブラリを Ma
 > 
 {style="warning"}
 
-##### 公開キーのアップロード
+##### 公開キーのアップロード {id="upload-the-public-key"}
 
 `uploadPublicPgpKey` タスクは、公開キーを Ubuntu のキーサーバー `keyserver.ubuntu.com` にアップロードします。実行時に、`.asc` 形式の公開キーへのパスを指定してください：
 
@@ -1139,7 +1139,7 @@ Kotlin 2.2.20 以前、マルチプラットフォーム・ライブラリを Ma
 ./gradlew uploadPublicPgpKey --keyring /path_to/build/pgp/public_KEY_ID.asc
 ```
 
-#### 検証をローカルでテストするための新しい Gradle タスク
+#### 検証をローカルでテストするための新しい Gradle タスク {id="new-gradle-tasks-to-test-verification-locally"}
 
 Kotlin 2.2.20 では、ライブラリを Maven Central リポジトリにアップロードする前に検証をローカルでテストするための Gradle タスクも追加されました。
 
@@ -1161,7 +1161,7 @@ Kotlin Gradle プラグインを Gradle の [Signing Plugin](https://docs.gradle
 
 `checkPomFileFor<PUBLICATION_NAME>Publication` タスクは、`pom.xml` ファイルが Maven Central の [要件](https://central.sonatype.org/publish/requirements/#required-pom-metadata) を満たしているかを確認します。満たしていない場合、タスクは `pom.xml` ファイルのどの部分が準拠していないかに関する詳細とともにエラーを返します。
 
-## Maven: `kotlin-maven-plugin` における Kotlin デーモンのサポート
+## Maven: `kotlin-maven-plugin` における Kotlin デーモンのサポート {id="maven-support-for-the-kotlin-daemon-in-the-kotlin-maven-plugin"}
 
 Kotlin 2.2.20 では、[Kotlin 2.2.0 で導入されたビルドツール API](whatsnew22.md#new-experimental-build-tools-api) をさらに一歩進め、`kotlin-maven-plugin` における [Kotlin デーモン](kotlin-daemon.md) のサポートを追加しました。Kotlin デーモンを使用すると、Kotlin コンパイラは別の隔離されたプロセスで実行され、他の Maven プラグインによるシステムプロパティの上書きを防止します。例についてはこちらの [YouTrack 課題](https://youtrack.jetbrains.com/issue/KT-43894/Maven-Windows-error-RuntimeException-Could-not-find-installation-home-path) をご覧ください。
 
@@ -1181,15 +1181,15 @@ Kotlin 2.2.20 では、Kotlin デーモンのデフォルトの JVM 引数をカ
 </properties>
 ```
 
-## Kotlin コンパイラオプションの新しい共通スキーマ
+## Kotlin コンパイラオプションの新しい共通スキーマ {id="new-common-schema-for-kotlin-compiler-options"}
 
 Kotlin 2.2.20 では、[`org.jetbrains.kotlin:kotlin-compiler-arguments-description`](https://central.sonatype.com/artifact/org.jetbrains.kotlin/kotlin-compiler-arguments-description) の下で公開されるすべてのコンパイラオプションの共通スキーマが導入されました。このアーティファクトには、すべてのコンパイラオプションのコード表現と JSON 同等物（JVM 以外のコンシューマー向け）、それらの説明、および各オプションが導入または安定化されたバージョンなどのメタデータが含まれています。このスキーマを使用して、オプションのカスタムビューを生成したり、必要に応じて分析したりできます。
 
-## 標準ライブラリ
+## 標準ライブラリ {id="standard-library"}
 
 このリリースでは、標準ライブラリに新しい実験的機能が導入されました。Kotlin/JS でのインターフェース型識別のためのリフレクションサポート、一般的なアトミック型向けの更新関数、および配列リサイズのための `copyOf()` オーバーロードです。
 
-### Kotlin/JS でのリフレクションを介したインターフェース型の識別のサポート
+### Kotlin/JS でのリフレクションを介したインターフェース型の識別のサポート {id="support-for-identifying-interface-types-through-reflection-in-kotlin-js"}
 <primary-label ref="experimental-opt-in"/>
 
 Kotlin 2.2.20 では、[実験的 (Experimental)](components-stability.md#stability-levels-explained) な [`KClass.isInterface`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.reflect/-k-class/is-interface.html) プロパティが Kotlin/JS 標準ライブラリに追加されました。
@@ -1208,7 +1208,7 @@ fun inspect(klass: KClass<*>) {
 
 フィードバックは課題トラッカー [YouTrack](https://youtrack.jetbrains.com/issue/KT-78581) でお待ちしております。
 
-### 一般的なアトミック型向けの新しい更新関数
+### 一般的なアトミック型向けの新しい更新関数 {id="new-update-functions-for-common-atomic-types"}
 <primary-label ref="experimental-opt-in"/>
 
 Kotlin 2.2.20 では、一般的なアトミック型およびそれらに対応する配列の要素を更新するための、新しい実験的関数が導入されました。各関数は、これらの更新関数のいずれかを使用してアトミックに新しい値を計算し、現在の値を置き換えます。戻り値は使用する関数によって異なります：
@@ -1258,7 +1258,7 @@ fun main() {
 
 フィードバックは課題トラッカー [YouTrack](https://youtrack.jetbrains.com/issue/KT-76389) でお待ちしております。
 
-### 配列に対する `copyOf()` オーバーロードのサポート
+### 配列に対する `copyOf()` オーバーロードのサポート {id="support-for-copyof-overloads-for-arrays"}
 <primary-label ref="experimental-opt-in"/>
 
 Kotlin 2.2.20 では、[`copyOf()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/copy-of.html) 関数の実験的なオーバーロードが導入されました。これは、ジェネリック型 `Array<T>` の配列およびすべてのプリミティブ配列型で利用可能です。
@@ -1282,17 +1282,17 @@ fun main() {
 
 フィードバックは [課題トラッカー](https://youtrack.jetbrains.com/issue/KT-70984) でお待ちしております。
 
-## Compose コンパイラ
+## Compose コンパイラ {id="compose-compiler"}
 
 このリリースでは、Compose コンパイラに新しい警告が追加され、ビルド指標の出力が読みやすくなるよう改善されました。
 
-### デフォルトパラメータの言語バージョン制限
+### デフォルトパラメータの言語バージョン制限 {id="language-version-restrictions-for-default-parameters"}
 
 本リリースでは、抽象（abstract）またはオープン（open）な composable 関数におけるデフォルトパラメータをサポートするために必要な言語バージョンよりも低い言語バージョンがコンパイルに指定されている場合、Compose コンパイラがエラーを報告するようになりました。
 
 デフォルトパラメータは、抽象関数の場合は Kotlin 2.1.0 から、オープン関数の場合は Kotlin 2.2.0 から Compose コンパイラでサポートされています。新しいバージョンの Compose コンパイラを使用しながら古い Kotlin 言語バージョンをターゲットにする場合、言語バージョンがそれらをサポートしていなくても、抽象またはオープン関数のデフォルトパラメータがパブリック API に表示される可能性があることに、ライブラリ開発者は注意する必要があります。
 
-### K2 コンパイラにおける Composable ターゲットの警告
+### K2 コンパイラにおける Composable ターゲットの警告 {id="composable-target-warnings-for-the-k2-compiler"}
 
 本リリースでは、K2 コンパイラを使用する際の [`@ComposableTarget`](https://developer.android.com/reference/kotlin/androidx/compose/runtime/ComposableTarget) の不一致に関する警告が追加されました。
 
@@ -1307,19 +1307,19 @@ fun main() {
   }
 }
 ```
-### ビルド指標における完全修飾名
+### ビルド指標における完全修飾名 {id="fully-qualified-names-in-build-metrics"}
 
 ビルド指標で報告されるクラス名と関数名が完全修飾（fully qualified）されるようになり、異なるパッケージにある同名の宣言を区別しやすくなりました。
 
 さらに、ビルド指標にはデフォルトパラメータからの複雑な式のダンプが含まれなくなり、読みやすくなりました。
 
-## 破壊的変更と非推奨
+## 破壊的変更と非推奨 {id="breaking-changes-and-deprecations"}
 
 このセクションでは、注目すべき重要な破壊的変更と非推奨事項をハイライトします：
 
 * [kapt](kapt.md) コンパイラプラグインは、デフォルトで K2 コンパイラを使用するようになりました。その結果、プラグインが K2 コンパイラを使用するかどうかを制御する `kapt.use.k2` プロパティは非推奨となりました。K2 コンパイラの使用をオプトアウトするためにこのプロパティを `false` に設定すると、Gradle は警告を表示します。
 
-## ドキュメントの更新
+## ドキュメントの更新 {id="documentation-updates"}
 
 Kotlin ドキュメントには、いくつかの注目すべき変更が加えられました：
 
@@ -1340,7 +1340,7 @@ Kotlin ドキュメントには、いくつかの注目すべき変更が加え�
   * [カスタム型マッピング](https://www.jetbrains.com/help/exposed/custom-type-mapping.html)
 * [HTMX 統合](https://ktor.io/docs/htmx-integration.html) – Ktor がどのように HTMX に対して実験的でファーストクラスのサポートを提供しているかを学びます。
 
-## Kotlin 2.2.20 へのアップデート方法
+## Kotlin 2.2.20 へのアップデート方法 {id="how-to-update-to-kotlin-2-2-20"}
 
 Kotlin プラグインは、IntelliJ IDEA および Android Studio のバンドルプラグインとして配布されています。
 

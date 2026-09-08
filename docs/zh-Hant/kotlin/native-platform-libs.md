@@ -6,7 +6,7 @@
 
 然而，編譯器發行版中的平台庫僅僅是原生庫的包裝函式與繫結。這意味著你需要在本機電腦上自行安裝原生庫本身（`.so`、`.a`、`.dylib`、`.dll` 等）。
 
-## POSIX 繫結
+## POSIX 繫結 {id="posix-bindings"}
 
 Kotlin 為所有基於 UNIX 和 Windows 的目標（包括 Android 和 iOS）提供 POSIX 平台程式庫。這些平台庫包含對該平台實作的繫結，並遵循 [POSIX 標準](https://en.wikipedia.org/wiki/POSIX)。
 
@@ -32,7 +32,7 @@ import platform.posix.*
 
 POSIX 平台程式庫不適用於 [WebAssembly](wasm-overview.md) 目標。
 
-## 熱門原生庫
+## 熱門原生庫 {id="popular-native-libraries"}
 
 Kotlin/Native 為各種不同平台上常用的熱門原生庫提供繫結，例如 OpenGL、zlib 和 Foundation。
 
@@ -75,6 +75,6 @@ Kotlin/Native 為各種不同平台上常用的熱門原生庫提供繫結，例
 > 
 {style="tip"}
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 [進一步了解與 Swift/Objective-C 的互通性](native-objc-interop.md)

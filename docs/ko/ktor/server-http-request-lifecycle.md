@@ -84,6 +84,6 @@ fun Application.module() {
 
 > 전체 예제는 [%example_name%](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%)에서 확인할 수 있습니다.
 
-## 제한 사항
+## 제한 사항 {id="limitations"}
 
 이 플러그인은 `CIO` 및 `Netty` 엔진에서만 전적으로 지원됩니다. 서블릿 기반 엔진(또는 기타 지원되지 않는 엔진)은 클라이언트 연결 끊김을 안정적으로 감지할 수 없습니다. 취소는 서버가 응답을 쓰려고 시도할 때만 감지될 수 있습니다.

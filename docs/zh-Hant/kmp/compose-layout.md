@@ -2,7 +2,7 @@
 
 若要在 Compose Multiplatform 中有效地構建使用者介面，瞭解佈局建構的核心概念至關重要，包括核心原則、佈局階段，以及用於組織 UI 的常用元件與工具。
 
-## 可組合函式
+## 可組合函式 {id="composable-functions"}
 
 您可以透過定義一組可組合函式來構建使用者介面。這些函式接收資料並發佈 UI 元件。`@Composable` 註解會告知 Compose 編譯器該函式會將資料轉換為 UI。
 
@@ -15,7 +15,7 @@ fun Greeting(name: String) {
 }
 ```
 
-## Column、Row 與 Box
+## Column、Row 與 Box {id="column-row-and-box"}
 
 若要組織您的佈局，可以使用以下基本建構區塊：
 
@@ -36,7 +36,7 @@ fun Greeting(name: String) {
     }
     ```
 
-## 修飾符
+## 修飾符 {id="modifiers"}
 
 修飾符允許您以宣告方式裝飾或調整可組合項目的行為。
 透過控制尺寸、對齊、內距、互動行為等，修飾符對於自訂佈局和互動至關重要。
@@ -55,7 +55,7 @@ fun ModifierExample() {
 
 在 [](compose-layout-modifiers.md) 中了解更多資訊。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * 若要深入了解佈局，請參閱 [Jetpack Compose 文件](https://developer.android.com/develop/ui/compose/layouts)。
 * 瞭解元件的 [生命週期](compose-lifecycle.md)。

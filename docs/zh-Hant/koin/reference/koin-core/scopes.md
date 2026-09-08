@@ -6,7 +6,7 @@ title: Scopes
 
 Scopes 控制相依性的生命週期。本指南涵蓋如何定義、建立與管理 scope。
 
-## 了解 Scopes
+## 了解 Scopes {id="understanding-scopes"}
 
 | Scope 型別 | 生命週期 | 範例 |
 |------------|-----------|---------|
@@ -14,16 +14,16 @@ Scopes 控制相依性的生命週期。本指南涵蓋如何定義、建立與�
 | **Factory** | 每次請求 | Presenter, Use Case |
 | **Scoped** | 每個 scope | 與 Activity 繫結、與 Session 繫結 |
 
-## 何時使用 Scopes
+## 何時使用 Scopes {id="when-to-use-scopes"}
 
 在以下情況下使用 scope：
 - 執行個體的存活時間比 factory 長，但比單例短。
 - 在特定內容（Activity、Fragment、Session）中共享狀態。
 - 在內容結束時自動進行清理。
 
-## 定義 Scoped 定義
+## 定義 Scoped 定義 {id="defining-scoped-definitions"}
 
-### DSL
+### DSL {id="dsl"}
 
 ```kotlin
 val appModule = module {
@@ -41,7 +41,7 @@ val appModule = module {
 }
 ```
 
-### 註解 (Annotation)
+### 註解 (Annotation) {id="annotations"}
 
 | 註解 | DSL 等效項 | 用途 |
 |------------|----------------|---------|
@@ -79,9 +79,9 @@ class RetainedPresenter
 class FragmentPresenter
 ```
 
-## 建立與使用 Scopes
+## 建立與使用 Scopes {id="creating-and-using-scopes"}
 
-### 手動管理 Scope
+### 手動管理 Scope {id="manual-scope-management"}
 
 ```kotlin
 // 建立一個 scope
@@ -95,7 +95,7 @@ val prefs: UserPreferences = myScope.get()
 myScope.close()
 ```
 
-### Android Activity Scope
+### Android Activity Scope {id="android-activity-scope"}
 
 ```kotlin
 class MyActivity : AppCompatActivity(), AndroidScopeComponent {
@@ -112,7 +112,7 @@ class MyActivity : AppCompatActivity(), AndroidScopeComponent {
 }
 ```
 
-### Android Fragment Scope
+### Android Fragment Scope {id="android-fragment-scope"}
 
 ```kotlin
 class MyFragment : Fragment(), AndroidScopeComponent {
@@ -123,9 +123,9 @@ class MyFragment : Fragment(), AndroidScopeComponent {
 }
 ```
 
-## Scope 型別
+## Scope 型別 {id="scope-types"}
 
-### 基於型別的 Scope
+### 基於型別的 Scope {id="type-based-scope"}
 
 ```kotlin
 scope<MyActivity> {
@@ -135,7 +135,7 @@ scope<MyActivity> {
 
 該 scope 由型別 `MyActivity` 識別。此 scope 僅由 `MyActivity` 觸發，而 `activityScope` 則是通用型。
 
-### 具名 Scope
+### 具名 Scope {id="named-scope"}
 
 ```kotlin
 scope(named("user_session")) {
@@ -145,7 +145,7 @@ scope(named("user_session")) {
 
 當 scope 未與特定型別繫結時使用。
 
-### 基於限定詞 (Qualifier) 的 Scope
+### 基於限定詞 (Qualifier) 的 Scope {id="qualifier-based-scope"}
 
 ```kotlin
 scope(named<MyQualifier>()) {
@@ -153,11 +153,11 @@ scope(named<MyQualifier>()) {
 }
 ```
 
-## Scope 原型 (Scope Archetypes)
+## Scope 原型 (Scope Archetypes) {id="scope-archetypes"}
 
 Koin 為常見的 Android scope 模式提供了專用 DSL。這些原型簡化了 ViewModel、Activity 和 Fragment 的 scope 定義。
 
-### ViewModel Scope
+### ViewModel Scope {id="viewmodel-scope"}
 
 定義與 ViewModel 生命週期繫結的相依性：
 
@@ -180,7 +180,7 @@ class UserViewModel(
 ) : ViewModel()
 ```
 
-### Activity Scope
+### Activity Scope {id="activity-scope"}
 
 定義與 Activity 生命週期繫結的相依性：
 
@@ -193,7 +193,7 @@ val appModule = module {
 }
 ```
 
-### Fragment Scope
+### Fragment Scope {id="fragment-scope"}
 
 定義與 Fragment 生命週期繫結的相依性：
 
@@ -205,7 +205,7 @@ val appModule = module {
 }
 ```
 
-### 比較
+### 比較 {id="comparison"}
 
 | 原型 | DSL | 註解 | 生命週期 |
 |-----------|-----|------------|-----------|
@@ -218,7 +218,7 @@ val appModule = module {
 Scope 原型自 Koin 4.0+ 起提供。與為常見 Android 元件手動定義 `scope<T> { }` 相比，它們提供了更簡潔的語法。
 :::
 
-## Scope 連結 (Scope Linking)
+## Scope 連結 (Scope Linking) {id="scope-linking"}
 
 連結 scope 以存取父層 scope 定義：
 
@@ -253,7 +253,7 @@ class UserFragment : Fragment(), AndroidScopeComponent {
 }
 ```
 
-## Scope 來源 (Scope Source)
+## Scope 來源 (Scope Source) {id="scope-source"}
 
 注入能感知其 scope 的相依性：
 
@@ -271,7 +271,7 @@ scope<MyActivity> {
 }
 ```
 
-## Scope 執行個體 ID
+## Scope 執行個體 ID {id="scope-instance-id"}
 
 每個 scope 執行個體都有一個唯一的 ID：
 
@@ -284,9 +284,9 @@ val scope2 = getKoin().createScope("scope_2", named("session"))
 scope1.get<SessionData>() !== scope2.get<SessionData>()
 ```
 
-## 存取 Scoped 執行個體
+## 存取 Scoped 執行個體 {id="accessing-scoped-instances"}
 
-### 從 Scope 內部
+### 從 Scope 內部 {id="from-within-scope"}
 
 ```kotlin
 class MyActivity : AppCompatActivity(), AndroidScopeComponent {
@@ -297,7 +297,7 @@ class MyActivity : AppCompatActivity(), AndroidScopeComponent {
 }
 ```
 
-### 從 Scope 外部
+### 從 Scope 外部 {id="from-outside-scope"}
 
 ```kotlin
 // 取得或建立 scope
@@ -307,7 +307,7 @@ val myScope = getKoin().getOrCreateScope("my_id", named("session"))
 val session: SessionData = myScope.get()
 ```
 
-### 在 Compose 中
+### 在 Compose 中 {id="in-compose"}
 
 ```kotlin
 @Composable
@@ -320,9 +320,9 @@ fun MyScreen() {
 }
 ```
 
-## Scope 生命週期
+## Scope 生命週期 {id="scope-lifecycle"}
 
-### 關閉 Scopes
+### 關閉 Scopes {id="closing-scopes"}
 
 當 scope 關閉時：
 1. 所有 scoped 執行個體都會被釋放。
@@ -342,7 +342,7 @@ scope.close()  // SessionData 執行個體被釋放
 // scope.get<SessionData>()  // 錯誤：Scope 已關閉
 ```
 
-### onClose 回呼
+### onClose 回呼 {id="onclose-callback"}
 
 ```kotlin
 scope(named("session")) {
@@ -354,9 +354,9 @@ scope(named("session")) {
 }
 ```
 
-## 常見模式
+## 常見模式 {id="common-patterns"}
 
-### Session Scope
+### Session Scope {id="session-scope"}
 
 ```kotlin
 val appModule = module {
@@ -380,7 +380,7 @@ fun onLogout(userId: String) {
 }
 ```
 
-### Feature Scope (功能作用域)
+### Feature Scope (功能作用域) {id="feature-scope"}
 
 ```kotlin
 val appModule = module {
@@ -402,7 +402,7 @@ class CheckoutActivity : AppCompatActivity(), AndroidScopeComponent {
 }
 ```
 
-## 最佳實務
+## 最佳實務 {id="best-practices"}
 
 1. **謹慎使用單例** - 僅用於真正應用程式層級的相依性。
 2. **共用狀態的 Scope** - 當多個元件需要同一個執行個體時。
@@ -410,7 +410,7 @@ class CheckoutActivity : AppCompatActivity(), AndroidScopeComponent {
 4. **保持 scope 專注** - 不要把所有東西都放在同一個 scope 中。
 5. **使用 Android scope 元件** - 以實現自動化生命週期管理。
 
-## 下一步
+## 下一步 {id="next-steps"}
 
 - **[Android 版 Koin](/docs/integrations/android/android-scopes)** - Android 特定的 scope
 - **[Compose 版 Koin](/docs/integrations/compose/compose-modules)** - Compose 中的 scope

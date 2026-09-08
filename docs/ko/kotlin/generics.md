@@ -20,12 +20,12 @@ val box: Box<Int> = Box<Int>(1)
 val box = Box(1) // 1은 Int 타입이므로, 컴파일러는 이것이 Box<Int>임을 추론합니다.
 ```
 
-## 가변성 (Variance)
+## 가변성 (Variance) {id="variance"}
 
 Java 타입 시스템에서 가장 까다로운 측면 중 하나는 와일드카드 타입([Java 제네릭 FAQ](http://www.angelikalanger.com/GenericsFAQ/JavaGenericsFAQ.html) 참조)입니다.
 Kotlin에는 와일드카드가 없습니다. 대신 Kotlin에는 선언 지점 가변성(declaration-site variance)과 타입 프로젝션(type projections)이 있습니다.
 
-### Java의 가변성과 와일드카드
+### Java의 가변성과 와일드카드 {id="variance-and-wildcards-in-java"}
 
 Java에 왜 이 신비로운 와일드카드가 필요한지 생각해 봅시다. 먼저, Java의 제네릭 타입은 _불변(invariant)_입니다. 즉, `List<String>`은 `List<Object>`의 하위 타입이 _아닙니다_. 만약 `List`가 불변이 아니었다면, 다음 코드가 컴파일은 되지만 런타임에 예외를 발생시켰을 것이므로 Java의 배열보다 나을 것이 없었을 것입니다:
 
@@ -95,7 +95,7 @@ Joshua Bloch는 그의 저서 [Effective Java, 3rd Edition](http://www.oracle.co
 >
 {style="note"}
 
-### 선언 지점 가변성 (Declaration-site variance)
+### 선언 지점 가변성 (Declaration-site variance) {id="declaration-site-variance"}
 
 `T`를 매개변수로 받는 메서드는 없고 `T`를 반환하는 메서드만 있는 제네릭 인터페이스 `Source<T>`가 있다고 가정해 봅시다:
 
@@ -157,9 +157,9 @@ _in_과 _out_이라는 단어는 자명해 보이며(이미 C#에서 오랫동�
 
 **[존재론적(Existential)](https://en.wikipedia.org/wiki/Existentialism) 변환: Consumer는 in, Producer는 out!** :-)
 
-## 타입 프로젝션 (Type projections)
+## 타입 프로젝션 (Type projections) {id="type-projections"}
 
-### 사용 지점 가변성: 타입 프로젝션
+### 사용 지점 가변성: 타입 프로젝션 {id="use-site-variance-type-projections"}
 
 타입 매개변수 `T`를 `out`으로 선언하고 사용 지점에서 하위 타입 지정과 관련된 문제를 피하는 것은 매우 쉽지만, 어떤 클래스들은 실제로 `T`를 반환하는 것으로만 제한될 수 _없습니다_!
 대표적인 예가 `Array`입니다:
@@ -208,7 +208,7 @@ fun fill(dest: Array<in String>, value: String) { ... }
 
 `Array<in String>`은 Java의 `Array<? super String>`에 대응합니다. 즉, `fill()` 함수에 `String` 배열, `CharSequence` 배열 또는 `Object` 배열을 전달할 수 있음을 의미합니다.
 
-### 스타 프로젝션 (Star-projections)
+### 스타 프로젝션 (Star-projections) {id="star-projections"}
 
 때로는 타입 인자에 대해 전혀 모르는 상태에서 안전한 방식으로 사용하고 싶을 때가 있습니다. 여기서 안전한 방식이란 제네릭 타입의 프로젝션을 정의하여, 해당 제네릭 타입의 모든 구체적인 인스턴스화가 해당 프로젝션의 하위 타입이 되도록 하는 것입니다.
 
@@ -229,7 +229,7 @@ Kotlin은 이를 위해 소위 _스타 프로젝션(star-projection)_ 구문을 
 >
 {style="note"}
 
-### 캡처된 타입 (Captured types)
+### 캡처된 타입 (Captured types) {id="captured-types"}
 
 `out T` 또는 `in T`와 같은 타입 프로젝션을 사용할 때, 컴파일러는 내부적으로 알려지지 않은 구체적인 타입을 [*캡처된 타입(captured type)*](https://kotlinlang.org/spec/type-system.html#type-capturing)으로 표현합니다. 캡처된 타입은 상위 및 하위 바운드가 알려진 알려지지 않은 타입입니다.
 
@@ -263,7 +263,7 @@ array.set(0, "New value")
 * `get()` 작업의 경우, 컴파일러는 캡처된 타입을 상위 바운드인 `CharSequence`로 근사하고, `item`의 타입을 `CharSequence`로 추론합니다.
 * `set()` 작업의 경우, 캡처된 타입의 하위 바운드가 `Nothing`입니다. `Nothing`은 인스턴스가 없으므로 프로젝션된 타입에 값을 쓰는 것은 타입 안전하지 않으며 오류가 발생합니다.
 
-## 제네릭 함수
+## 제네릭 함수 {id="generic-functions"}
 
 클래스만이 타입 매개변수를 가질 수 있는 선언은 아닙니다. 함수도 가질 수 있습니다. 타입 매개변수는 함수 이름 _앞_에 위치합니다:
 
@@ -289,11 +289,11 @@ val l = singletonList<Int>(1)
 val l = singletonList(1)
 ```
 
-## 제네릭 제약 (Generic constraints)
+## 제네릭 제약 (Generic constraints) {id="generic-constraints"}
 
 주어진 타입 매개변수에 대입될 수 있는 모든 가능한 타입의 집합은 _제네릭 제약_에 의해 제한될 수 있습니다.
 
-### 상위 바운드 (Upper bounds)
+### 상위 바운드 (Upper bounds) {id="upper-bounds"}
 
 가장 일반적인 제약 유형은 Java의 `extends` 키워드에 해당하는 _상위 바운드(upper bound)_입니다:
 
@@ -321,7 +321,7 @@ fun <T> copyWhenGreater(list: List<T>, threshold: T): List<String>
 
 전달된 타입은 `where` 절의 모든 조건을 동시에 만족해야 합니다. 위 예제에서 `T` 타입은 `CharSequence`와 `Comparable`을 _모두_ 구현해야 합니다.
 
-## 확정적 비 null 타입 (Definitely non-nullable types)
+## 확정적 비 null 타입 (Definitely non-nullable types) {id="definitely-non-nullable-types"}
 
 제네릭 Java 클래스 및 인터페이스와의 상호운용성을 쉽게 하기 위해, Kotlin은 제네릭 타입 매개변수를 **확정적 비 null(definitely non-nullable)**로 선언하는 것을 지원합니다.
 
@@ -353,13 +353,13 @@ interface ArcadeGame<T1> : Game<T1> {
 
 Kotlin만 사용하는 경우에는 Kotlin의 타입 추론이 이를 자동으로 처리해주므로 확정적 비 null 타입을 명시적으로 선언할 일이 거의 없습니다.
 
-## 타입 소거 (Type erasure)
+## 타입 소거 (Type erasure) {id="type-erasure"}
 
 Kotlin이 제네릭 선언 사용에 대해 수행하는 타입 안전성 검사는 컴파일 시점에 이루어집니다.
 런타임에 제네릭 타입의 인스턴스는 실제 타입 인자에 대한 정보를 보유하지 않습니다.
 타입 정보가 _소거(erased)_되었다고 말합니다. 예를 들어, `Foo<Bar>`와 `Foo<Baz?>`의 인스턴스는 단순히 `Foo<*>`로 소거됩니다.
 
-### 제네릭 타입 검사 및 캐스트
+### 제네릭 타입 검사 및 캐스트 {id="generics-type-checks-and-casts"}
 
 타입 소거로 인해 런타임에 제네릭 타입의 인스턴스가 특정 타입 인자로 생성되었는지 확인하는 일반적인 방법은 없으며, 컴파일러는 `ints is List<Int>` 또는 `list is T`(타입 매개변수)와 같은 `is` 검사를 금지합니다. 그러나 스타 프로젝션된 타입에 대해서는 인스턴스를 검사할 수 있습니다:
 
@@ -413,7 +413,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 검사되지 않은 캐스트 (Unchecked casts)
+### 검사되지 않은 캐스트 (Unchecked casts) {id="unchecked-casts"}
 
 `foo as List<String>`과 같이 구체적인 타입 인자가 있는 제네릭 타입으로의 타입 캐스트는 런타임에 검사할 수 없습니다.  
 이러한 검사되지 않은 캐스트는 상위 수준의 프로그램 로직에 의해 타입 안전성이 함축되어 있지만 컴파일러가 직접 추론할 수 없을 때 사용될 수 있습니다. 아래 예제를 참조하세요.
@@ -449,7 +449,7 @@ inline fun <reified T> List<*>.asListOfType(): List<T>? =
 >
 {style="note"}
 
-## 타입 인자를 위한 언더스코어 연산자
+## 타입 인자를 위한 언더스코어 연산자 {id="underscore-operator-for-type-arguments"}
 
 타입 인자에 언더스코어 연산자 `_`를 사용할 수 있습니다. 다른 타입들이 명시적으로 지정되었을 때 인자의 타입을 자동으로 추론하도록 하려면 이를 사용하세요:
 

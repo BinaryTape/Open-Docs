@@ -10,9 +10,9 @@
 
 因此，序列可以让你避免构建中间步骤的结果，从而提高整个集合处理链的性能。然而，序列的延迟性质会增加一些开销，在处理较小的集合或进行较简单的计算时，这些开销可能会很显著。因此，你应该同时考虑 `Sequence` 和 `Iterable`，并决定哪一个更适合你的情况。
 
-## 构造
+## 构造 {id="construct"}
 
-### 从元素构造
+### 从元素构造 {id="from-elements"}
 
 要创建一个序列，请调用 [`sequenceOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/sequence-of.html) 函数，并将元素列为其参数。
 
@@ -20,7 +20,7 @@
 val numbersSequence = sequenceOf("four", "three", "two", "one")
 ```
 
-### 从 Iterable 构造
+### 从 Iterable 构造 {id="from-an-iterable"}
 
 如果你已经有一个 `Iterable` 对象（如 `List` 或 `Set`），你可以通过调用 [`asSequence()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/as-sequence.html) 从中创建一个序列。
 
@@ -30,7 +30,7 @@ val numbersSequence = numbers.asSequence()
 
 ```
 
-### 从函数构造
+### 从函数构造 {id="from-a-function"}
 
 创建序列的另一种方法是通过计算其元素的函数来构建它。
 要基于函数构建序列，请调用 [`generateSequence()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/generate-sequence.html)，并将此函数作为参数。或者，你可以将第一个元素指定为显式值或函数调用的结果。
@@ -61,7 +61,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 从分块构造
+### 从分块构造 {id="from-chunks"}
 
 最后，还有一个函数可以让你逐个或按任意大小的分块产生序列元素 —— 即 [`sequence()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/sequence.html) 函数。
 该函数接受一个包含 [`yield()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence-scope/yield.html) 和 [`yieldAll()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence-scope/yield-all.html) 函数调用的 lambda 表达式。
@@ -82,7 +82,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 序列操作
+## 序列操作 {id="sequence-operations"}
 
 序列操作根据其状态要求可以分为以下几组：
 
@@ -94,11 +94,11 @@ fun main() {
 
 序列可以多次迭代；但是，某些序列实现可能会限制自己只能迭代一次。这在它们的文档中会特别提到。
 
-## 序列处理示例
+## 序列处理示例 {id="sequence-processing-example"}
 
 让我们通过一个例子来看看 `Iterable` 和 `Sequence` 之间的区别。
 
-### Iterable
+### Iterable {id="iterable"}
 
 假设你有一个单词列表。下面的代码过滤长度超过三个字符的单词，并打印前四个此类单词的长度。
 
@@ -124,7 +124,7 @@ fun main() {
 
 ![列表处理](list-processing.svg)
 
-### 序列
+### 序列 {id="sequence"}
 
 现在让我们用序列编写相同的内容：
 

@@ -13,7 +13,7 @@
 
 [GitHubにあるKotlin DataFrame SQLの例](https://github.com/zaleslaw/KotlinDataFrame-SQL-Examples/tree/master/src/main/kotlin)を参照してください。
 
-## 始める前に
+## 始める前に {id="before-you-start"}
 
 > IntelliJ IDEA 2026.2以降、Kotlin NotebookはIDEに同梱されなくなり、JetBrainsによる公式サポートも終了します。
 > ソースコードは引き続き[GitHub](https://github.com/Kotlin/kotlin-notebook)で利用可能です。
@@ -44,7 +44,7 @@
 
 このチュートリアルに従うために、DataFrameを[Gradle](https://kotlin.github.io/dataframe/setupgradle.html)または[Maven](https://kotlin.github.io/dataframe/setupmaven.html)の依存関係として使用することもできます。
 
-## データベースへの接続
+## データベースへの接続 {id="connect-to-a-database"}
 
 データベースに接続するには、`DbConnectionConfig()`関数を使用して接続設定を作成します。
 
@@ -69,7 +69,7 @@
 >
 {style="tip"}
 
-## データベーススキーマの検査
+## データベーススキーマの検査 {id="inspect-database-schema"}
 
 データを読み込む前に、データベーススキーマを検査して、どのようなテーブルがあり、どのような列が含まれているかを把握します。スキーマを確認することで、どのテーブルをDataFrameに読み込むかを決定できます。
 
@@ -85,7 +85,7 @@ dataSchemas.forEach { (tableName, schema) ->
 }
 ```
 
-## データの読み込み
+## データの読み込み {id="load-data"}
 
 データベーススキーマを検査してデータを選択したら、そのデータをDataFrameに読み込みます。
 
@@ -96,7 +96,7 @@ Kotlin DataFrameは、データベースからデータを読み込むための2
 
 どちらのアプローチも、Kotlin Notebookで検査、変換、分析が可能なDataFrameを返します。
 
-### テーブルからデータを読み込む
+### テーブルからデータを読み込む {id="load-data-from-a-table"}
 
 テーブルからデータを読み込むには、[`DataFrame.readSqlTable()`](https://kotlin.github.io/dataframe/readsqldatabases.html#reading-specific-tables)関数を使用します。
 
@@ -112,7 +112,7 @@ val moviesDf = DataFrame.readSqlTable(
 moviesDf
 ```
 
-### SQLクエリでデータを読み込む
+### SQLクエリでデータを読み込む {id="load-data-with-an-sql-query"}
 
 データベースに対して特定のSQLクエリを実行するには、[`DataFrame.readSqlQuery()`](https://kotlin.github.io/dataframe/readsqldatabases.html#executing-sql-queries)関数を使用します。
 このアプローチは、特定の列の読み込み、テーブルの結合、行のフィルタリング、またはデータベース内でのデータの集計が必要な場合に便利です。
@@ -135,7 +135,7 @@ val tarantinoMoviesDf = DataFrame.readSqlQuery(dbConfig, TARANTINO_FILMS_SQL_QUE
 tarantinoMoviesDf
 ```
 
-## データの処理
+## データの処理 {id="process-data"}
 
 データベースをDataFrameに読み込んだ後、DataFrameの操作を使用して取得したデータを処理できます。
 
@@ -153,7 +153,7 @@ val filteredTarantinoMovies = tarantinoMoviesDf
 filteredTarantinoMovies
 ```
 
-## データの分析
+## データの分析 {id="analyze-data"}
 
 [DataFrameライブラリ](https://kotlin.github.io/dataframe/home.html)を使用して、データのグループ化、ソート、集計を行い、データ内のパターンを発見し理解することができます。
 
@@ -176,7 +176,7 @@ val top20ActorNames = actorDf
    .take(20)
 ```
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [Kandyライブラリ](https://kotlin.github.io/kandy/examples.html)を使用したデータの可視化を試す
 * [Kandyを使用したデータの可視化](data-analysis-visualization.md)でデータの可視化に関する追加情報を見つける

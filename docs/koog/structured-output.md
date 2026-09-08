@@ -1,13 +1,13 @@
 # 结构化输出
 
-## 简介
+## 简介 {id="introduction"}
 
 结构化输出 API 提供了一种方式，确保大语言模型 (LLM) 的响应符合特定的数据结构。
 这对于构建可靠的 AI 应用程序至关重要，因为在这类程序中，您需要可预测、格式良好的数据，而非自由格式的文本。
 
 本页面将说明如何使用此 API 定义数据结构、生成架构 (schema) 以及向 LLM 请求结构化响应。
 
-## 关键组件与概念
+## 关键组件与概念 {id="key-components-and-concepts"}
 
 结构化输出 API 由几个关键组件组成：
 
@@ -16,11 +16,11 @@
 3. **结构化 LLM 请求**：向 LLM 请求符合定义结构的响应的方法。
 4. **响应处理**：处理和验证结构化响应。
 
-## 定义数据结构
+## 定义数据结构 {id="defining-data-structures"}
 
 使用结构化输出 API 的第一步是使用 Kotlin 数据类定义您的数据结构。
 
-### 基础结构
+### 基础结构 {id="basic-structure"}
 
 <!--- INCLUDE
 import ai.koog.agents.core.tools.annotations.LLMDescription
@@ -42,17 +42,17 @@ data class WeatherForecast(
 ```
 <!--- KNIT example-structured-data-01.kt -->
 
-### 关键注解
+### 关键注解 {id="key-annotations"}
 
 - `@Serializable`：kotlinx.serialization 处理该类所必需的。
 - `@SerialName`：指定序列化时使用的名称。
 - `@LLMDescription`：为 LLM 提供类的描述。对于字段注解，请使用 `@property:LLMDescription`。
 
-### 支持的功能
+### 支持的功能 {id="supported-features"}
 
 该 API 支持广泛的数据结构功能：
 
-#### 嵌套类
+#### 嵌套类 {id="nested-classes"}
 
 <!--- INCLUDE
 import ai.koog.agents.core.tools.annotations.LLMDescription
@@ -79,7 +79,7 @@ data class WeatherForecast(
 ```
 <!--- KNIT example-structured-data-02.kt -->
 
-#### 集合（列表和映射）
+#### 集合（列表和映射） {id="collections-lists-and-maps"}
 
 <!--- INCLUDE
 import ai.koog.agents.core.tools.annotations.LLMDescription
@@ -106,7 +106,7 @@ data class WeatherForecast(
 ```
 <!--- KNIT example-structured-data-03.kt -->
 
-#### 枚举
+#### 枚举 {id="enums"}
 
 <!--- INCLUDE
 import kotlinx.serialization.SerialName
@@ -119,7 +119,7 @@ enum class Pollution { Low, Medium, High }
 ```
 <!--- KNIT example-structured-data-04.kt -->
 
-#### 使用密封类的多态
+#### 使用密封类的多态 {id="polymorphism-with-sealed-classes"}
 
 <!--- INCLUDE
 import ai.koog.agents.core.tools.annotations.LLMDescription
@@ -158,7 +158,7 @@ sealed class WeatherAlert {
 ```
 <!--- KNIT example-structured-data-05.kt -->
 
-### 提供示例
+### 提供示例 {id="providing-examples"}
 
 您可以提供示例来帮助 LLM 理解预期的格式：
 
@@ -190,7 +190,7 @@ val exampleForecasts = listOf(
 ```
 <!--- KNIT example-structured-data-06.kt -->
 
-## 请求结构化响应
+## 请求结构化响应 {id="requesting-structured-responses"}
 
 在 Koog 中，您可以在三个主要层级使用结构化输出：
 
@@ -198,7 +198,7 @@ val exampleForecasts = listOf(
 2. **智能体 LLM 上下文层**：在智能体会话中用于对话上下文
 3. **节点层**：创建具有结构化输出能力的可复用智能体节点
 
-### 第 1 层：提示词执行器
+### 第 1 层：提示词执行器 {id="layer-1-prompt-executor"}
 
 提示词执行器层提供了进行结构化 LLM 调用最直接的方式。对于单个独立的请求，请使用 `executeStructured` 方法：
 
@@ -270,7 +270,7 @@ val structuredResponse = promptExecutor.executeStructured<WeatherForecast>(
 
 该方法返回一个 `Result<StructuredResponse<T>>`，其中包含成功解析的结构化数据或错误。
 
-### 第 2 层：智能体 LLM 上下文
+### 第 2 层：智能体 LLM 上下文 {id="layer-2-agent-llm-context"}
 
 智能体 LLM 上下文层允许您在智能体会话中请求结构化响应。这对于构建在流程中特定点需要结构化数据的对话智能体非常有用。
 
@@ -313,7 +313,7 @@ val structuredResponse = llm.writeSession {
 
 修复过程会迭代地将解析错误传递给辅助模型，该模型会尝试纠正 JSON，同时保留原始数据并进行最小限度的更改。
 
-#### 与智能体策略集成
+#### 与智能体策略集成 {id="integrating-with-agent-strategies"}
 
 您可以将结构化数据处理集成到您的智能体策略中：
 
@@ -353,7 +353,7 @@ val agentStrategy = strategy<String, String>("weather-forecast") {
 ```
 <!--- KNIT example-structured-data-09.kt -->
 
-### 第 3 层：节点层
+### 第 3 层：节点层 {id="layer-3-node-layer"}
 
 节点层为智能体工作流中的结构化输出提供了最高级别的抽象。使用 `nodeLLMRequestStructured` 创建处理结构化数据的可复用智能体节点。
 
@@ -363,7 +363,7 @@ val agentStrategy = strategy<String, String>("weather-forecast") {
 - 向 LLM 请求结构化输出
 - 返回 `Result<StructuredResponse<MyStruct>>`
 
-#### 节点层示例
+#### 节点层示例 {id="node-layer-example"}
 
 <!--- INCLUDE
 import ai.koog.agents.core.dsl.builder.strategy
@@ -413,7 +413,7 @@ val agentStrategy = strategy<Unit, String>("weather-forecast") {
 ```
 <!--- KNIT example-structured-data-10.kt -->
 
-#### 完整代码示例
+#### 完整代码示例 {id="full-code-sample"}
 
 以下是使用结构化输出 API 的完整示例：
 
@@ -518,12 +518,12 @@ fun main(): Unit = runBlocking {
 ```
 <!--- KNIT example-structured-data-11.kt -->
 
-## 高级用法
+## 高级用法 {id="advanced-usage"}
 
 上述示例展示了根据模型能力自动选择最佳结构化输出方案的简化 API。
 为了更好地控制结构化输出过程，您可以使用带有手动架构创建和供应商特定配置的高级 API。
 
-### 手动架构创建与配置
+### 手动架构创建与配置 {id="manual-schema-creation-and-configuration"}
 
 除了依赖自动架构生成外，您还可以使用 `JsonStructure.create` 显式创建架构，并通过 `StructuredOutput` 类手动配置结构化输出行为。
 
@@ -600,7 +600,7 @@ val structuredResponse = promptExecutor.executeStructured(
 ```
 <!--- KNIT example-structured-data-12.kt -->
 
-### 架构生成器
+### 架构生成器 {id="schema-generators"}
 
 根据您的需求，可以使用不同的架构生成器：
 
@@ -608,7 +608,7 @@ val structuredResponse = promptExecutor.executeStructured(
 - **BasicJsonSchemaGenerator**：不带多态支持的简化架构，与更多模型兼容。
 - **供应商特定生成器**：针对特定 LLM 供应商（OpenAI、Anthropic、Google 等）优化的架构。
 
-### 跨层级用法
+### 跨层级用法 {id="usage-across-all-layers"}
 
 高级配置在 API 的所有三个层级中保持一致。方法名称保持不变，仅参数从简单参数变为更高级的 `StructuredRequestConfig`：
 
@@ -618,7 +618,7 @@ val structuredResponse = promptExecutor.executeStructured(
 
 对于大多数用例，建议使用简化 API（仅使用 `examples` 和 `fixingParser` 参数），而高级 API 则在需要额外控制时提供支持。
 
-## 最佳做法
+## 最佳做法 {id="best-practices"}
 
 1. **使用清晰的描述**：使用 `@LLMDescription` 注解提供清晰详细的描述，帮助 LLM 理解预期数据。
 

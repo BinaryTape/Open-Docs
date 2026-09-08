@@ -11,7 +11,7 @@
 * [尝试最新的语言版本](#trying-the-latest-language-version)
 * [构建报告](#build-reports)
 
-## 增量编译
+## 增量编译 {id="incremental-compilation"}
 
 Kotlin Gradle 插件支持增量编译，该功能对 Kotlin/JVM 和 Kotlin/JS 项目默认启用。
 增量编译会跟踪构建之间类路径中文件的更改，从而仅编译受这些更改影响的文件。
@@ -50,14 +50,14 @@ Kotlin Gradle 插件支持增量编译，该功能对 Kotlin/JVM 和 Kotlin/JS �
 要了解有关我们当前增量编译方法的工作原理及其与之前方法的比较的更多信息，
 请参阅我们的[博客文章](https://blog.jetbrains.com/kotlin/2022/07/a-new-approach-to-incremental-compilation-in-kotlin/)。
 
-## Gradle 构建缓存支持
+## Gradle 构建缓存支持 {id="gradle-build-cache-support"}
 
 Kotlin 插件使用 [Gradle 构建缓存](https://docs.gradle.org/current/userguide/build_cache.html)，该缓存存储构建输出以便在未来的构建中重用。
 
 要禁用所有 Kotlin 任务的缓存，请将系统属性 `kotlin.caching.enabled` 设置为 `false`
 （使用参数 `-Dkotlin.caching.enabled=false` 运行构建）。
 
-## Gradle 配置缓存支持
+## Gradle 配置缓存支持 {id="gradle-configuration-cache-support"}
 
 Kotlin 插件使用 [Gradle 配置缓存](https://docs.gradle.org/current/userguide/configuration_cache.html)，
 通过为后续构建重用配置阶段的结果来加快构建过程。
@@ -65,7 +65,7 @@ Kotlin 插件使用 [Gradle 配置缓存](https://docs.gradle.org/current/usergu
 请参阅 [Gradle 文档](https://docs.gradle.org/current/userguide/configuration_cache.html#config_cache:usage)
 了解如何启用配置缓存。在您启用此功能后，Kotlin Gradle 插件会自动开始使用它。
 
-## Kotlin 守护进程及其在 Gradle 中的使用
+## Kotlin 守护进程及其在 Gradle 中的使用 {id="the-kotlin-daemon-and-how-to-use-it-with-gradle"}
 
 [Kotlin 守护进程](kotlin-daemon.md)：
 * 与 Gradle 守护进程一起运行以编译项目。
@@ -76,7 +76,7 @@ Kotlin 守护进程会随 Gradle 守护进程停止，或者在没有 Kotlin 编
 
 Kotlin 守护进程使用与 Gradle 守护进程相同的 JDK。
 
-### 设置 Kotlin 守护进程的 JVM 参数
+### 设置 Kotlin 守护进程的 JVM 参数 {id="setting-kotlin-daemon-s-jvm-arguments"}
 
 以下每种设置参数的方法都会覆盖其之前的方法：
 * [Gradle 守护进程参数继承](#gradle-daemon-arguments-inheritance)
@@ -85,7 +85,7 @@ Kotlin 守护进程使用与 Gradle 守护进程相同的 JDK。
 * [`kotlin` 扩展](#kotlin-extension)
 * [特定任务定义](#specific-task-definition)
 
-#### Gradle 守护进程参数继承
+#### Gradle 守护进程参数继承 {id="gradle-daemon-arguments-inheritance"}
 
 默认情况下，Kotlin 守护进程从 Gradle 守护进程继承一组特定的参数，但会使用直接为 Kotlin 守护进程指定的任何 JVM 参数覆盖它们。例如，如果您在 `gradle.properties` 文件中添加以下 JVM 参数：
 
@@ -103,7 +103,7 @@ org.gradle.jvmargs=-Xmx1500m -Xms500m -XX:MaxMetaspaceSize=1g
 >
 {style="note"}
 
-#### kotlin.daemon.jvm.options 系统属性
+#### kotlin.daemon.jvm.options 系统属性 {id="kotlin-daemon-jvm-options-system-property"}
 
 如果 Gradle 守护进程的 JVM 参数具有 `kotlin.daemon.jvm.options` 系统属性 —— 请在 `gradle.properties` 文件中使用它：
 
@@ -125,7 +125,7 @@ org.gradle.jvmargs=-Dkotlin.daemon.jvm.options=-Xmx1500m,Xms500m
 >
 {style="warning"}
 
-#### kotlin.daemon.jvmargs 属性
+#### kotlin.daemon.jvmargs 属性 {id="kotlin-daemon-jvmargs-property"}
 
 您可以在 `gradle.properties` 文件中添加 `kotlin.daemon.jvmargs` 属性：
 
@@ -139,7 +139,7 @@ kotlin.daemon.jvmargs=-Xmx1500m -Xms500m
 -Xmx1500m -XX:ReservedCodeCacheSize=320m -Xms500m
 ```
 
-#### kotlin 扩展
+#### kotlin 扩展 {id="kotlin-extension"}
 
 您可以在 `kotlin` 扩展中指定参数：
 
@@ -164,7 +164,7 @@ kotlin {
 </tab>
 </tabs>
 
-#### 特定任务定义
+#### 特定任务定义 {id="specific-task-definition"}
 
 您可以为特定任务指定参数：
 
@@ -193,7 +193,7 @@ tasks.withType(CompileUsingKotlinDaemon).configureEach { task ->
 >
 {style="note"}
 
-### Kotlin 守护进程在使用 JVM 参数时的行为
+### Kotlin 守护进程在使用 JVM 参数时的行为 {id="kotlin-daemon-s-behavior-with-jvm-arguments"}
 
 在配置 Kotlin 守护进程的 JVM 参数时，请注意：
 
@@ -223,7 +223,7 @@ Kotlin 守护进程具有以下默认 JVM 参数：
 >
 {style="note"}
 
-## 回退到之前的编译器
+## 回退到之前的编译器 {id="rolling-back-to-the-previous-compiler"}
 
 从 Kotlin 2.0.0 开始，默认使用 K2 编译器。
 
@@ -236,7 +236,7 @@ Kotlin 守护进程具有以下默认 JVM 参数：
 
 要了解有关 K2 编译器优势的更多信息，请参阅 [K2 编译器迁移指南](k2-compiler-migration-guide.md)。
 
-## 尝试最新的语言版本
+## 尝试最新的语言版本 {id="trying-the-latest-language-version"}
 
 从 Kotlin 2.0.0 开始，要尝试最新的语言版本，请在您的 `gradle.properties` 文件中设置 `kotlin.experimental.tryNext` 属性。当您使用此属性时，Kotlin Gradle 插件会将语言版本增加到比您 Kotlin 版本的默认值高一个级别的版本。例如，在 Kotlin 2.0.0 中，默认语言版本是 2.0，因此该属性会将语言版本配置为 2.1。
 
@@ -248,7 +248,7 @@ Kotlin 守护进程具有以下默认 JVM 参数：
 
 在[构建报告](#build-reports)中，您可以找到用于编译每个任务的语言版本。
 
-## 构建报告
+## 构建报告 {id="build-reports"}
 
 构建报告包含不同编译阶段的持续时间以及编译无法增量的任何原因。
 当编译时间太长或对于同一项目不同时，请使用构建报告来调查性能问题。
@@ -263,7 +263,7 @@ Kotlin 构建报告比 [Gradle 构建扫描](https://scans.gradle.com/)（其粒
 
 了解[如何阅读构建报告](https://blog.jetbrains.com/kotlin/2022/06/introducing-kotlin-build-reports/#how_to_read_build_reports)以及 [JetBrains 如何使用构建报告](https://blog.jetbrains.com/kotlin/2022/06/introducing-kotlin-build-reports/#how_we_use_build_reports_in_jetbrains)。
 
-### 启用构建报告
+### 启用构建报告 {id="enabling-build-reports"}
 
 要启用构建报告，请在 `gradle.properties` 中声明保存构建报告输出的位置：
 
@@ -319,7 +319,7 @@ kotlin.build.report.http.include_git_branch.name=true|false
 kotlin.build.report.include_compiler_arguments=true|false
 ```
 
-### 自定义值的限制
+### 自定义值的限制 {id="limit-of-custom-values"}
 
 为了收集构建扫描统计信息，Kotlin 构建报告使用了 [Gradle 的自定义值](https://docs.gradle.org/enterprise/tutorials/extending-build-scans/)。
 您和不同的 Gradle 插件都可以向自定义值写入数据。自定义值的数量有限制。
@@ -337,7 +337,7 @@ Maximum number of custom values (1,000) exceeded
 kotlin.build.report.build_scan.custom_values_limit=500
 ```
 
-### 关闭项目和系统属性的收集
+### 关闭项目和系统属性的收集 {id="switching-off-collecting-project-and-system-properties"}
 
 HTTP 构建统计日志可能包含一些项目和系统属性。这些属性可以改变构建行为，因此在构建统计中记录它们很有用。
 这些属性可能会存储敏感数据，例如密码或项目的完整路径。
@@ -348,7 +348,7 @@ HTTP 构建统计日志可能包含一些项目和系统属性。这些属性可
 > 
 {style="note"}
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 详细了解：
 * [Gradle 基础知识与特性](https://docs.gradle.org/current/userguide/userguide.html)。

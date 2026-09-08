@@ -5,7 +5,7 @@ Compose Multiplatform 릴리스는 Kotlin 및 Jetpack Compose 릴리스와 별�
 
 Compose Multiplatform은 Kotlin Multiplatform을 기반으로 구축되었으므로, [Kotlin Multiplatform 호환성 가이드](multiplatform-compatibility-guide.md)에 나열된 Kotlin Multiplatform Gradle 플러그인, Gradle, Android Gradle 플러그인(Android Gradle Plugin) 및 Xcode와의 버전 호환성 영향도 받습니다.
 
-## 지원되는 플랫폼
+## 지원되는 플랫폼 {id="supported-platforms"}
 
 Compose Multiplatform %org.jetbrains.compose%은 다음 플랫폼을 지원합니다:
 
@@ -22,7 +22,7 @@ Compose Multiplatform %org.jetbrains.compose%은 다음 플랫폼을 지원합�
 > 
 {style="note"}
 
-## Kotlin 호환성
+## Kotlin 호환성 {id="kotlin-compatibility"}
 
 최신 Compose Multiplatform은 항상 최신 버전의 Kotlin과 호환됩니다.
 버전을 수동으로 맞출 필요가 없습니다.
@@ -41,7 +41,7 @@ Compose Multiplatform 1.8.0부터 UI 프레임워크는 K2 컴파일러로 완�
 모든 종속성이 업데이트될 때까지 하위 호환성 문제에 대한 해결책으로 Gradle 빌드 파일에서 [`disableNativeCache`](multiplatform-dsl-reference.md#binaries) DSL을 사용하여 Gradle 캐시를 끌 수 있습니다.
 이는 이전 라이브러리와의 호환성을 보장하지만 컴파일 시간이 늘어납니다.
 
-## 데스크톱용 Compose Multiplatform 릴리스의 제한 사항
+## 데스크톱용 Compose Multiplatform 릴리스의 제한 사항 {id="limitations-of-compose-multiplatform-for-desktop-releases"}
 
 데스크톱용 Compose Multiplatform은 [Skia](https://skia.org/) 바인딩에서 사용하는 메모리 관리 방식 때문에 JDK 11 이상만 지원합니다.
 
@@ -49,7 +49,7 @@ Compose Multiplatform 1.8.0부터 UI 프레임워크는 K2 컴파일러로 완�
 * [`jpackage`](https://docs.oracle.com/en/java/javase/17/docs/specs/man/jpackage.html)의 제한으로 인해 네이티브 배포판 패키징에는 JDK 17 이상만 지원됩니다.
 * macOS에서 키보드 레이아웃을 전환할 때 OpenJDK 11.0.12에서 발생하는 알려진 [이슈](https://github.com/JetBrains/compose-multiplatform/issues/940)가 있습니다. 이 이슈는 OpenJDK 11.0.15에서는 재현되지 않습니다.
 
-## Jetpack Compose 및 Compose Multiplatform 릴리스 주기
+## Jetpack Compose 및 Compose Multiplatform 릴리스 주기 {id="jetpack-compose-and-compose-multiplatform-release-cycles"}
 
 Compose Multiplatform은 Google에서 개발한 Android용 프레임워크인 [Jetpack Compose](https://developer.android.com/jetpack/compose)와 많은 코드를 공유합니다. 공통 코드가 적절하게 테스트되고 안정화될 수 있도록 Compose Multiplatform의 릴리스 주기를 Jetpack Compose의 릴리스 주기에 맞추고 있습니다.
 
@@ -62,7 +62,7 @@ Compose Multiplatform은 Google에서 개발한 Android용 프레임워크인 [J
 
 Compose Multiplatform 릴리스와 Jetpack Compose 릴리스 사이의 간격은 보통 1~3개월입니다.
 
-### Compose Multiplatform 개발 버전
+### Compose Multiplatform 개발 버전 {id="development-versions-of-compose-multiplatform"}
 
 정식 릴리스 사이의 업데이트를 테스트하기 위해 Compose Multiplatform 컴파일러 플러그인의 개발 버전(예: `1.8.2+dev2544`)이 정해진 일정 없이 빌드됩니다.
 
@@ -73,7 +73,7 @@ Compose Multiplatform 릴리스와 Jetpack Compose 릴리스 사이의 간격은
 maven("https://redirector.kotlinlang.org/maven/compose-dev")
 ```
 
-### 사용된 Jetpack Compose 아티팩트
+### 사용된 Jetpack Compose 아티팩트 {id="jetpack-compose-artifacts-used"}
 
 Android용 애플리케이션을 빌드할 때 Compose Multiplatform은 Google에서 게시한 아티팩트(artifacts)를 사용합니다.
 

@@ -1,10 +1,10 @@
 # 测试
 
-## 概述
+## 概述 {id="overview"}
 
 测试功能为 Koog 框架中的 AI 代理流水线、子图以及工具交互提供了一个全面的测试框架。它使开发者能够使用模拟 (Mock) LLM（大语言模型）执行器、工具库和代理环境来创建受控的测试环境。
 
-### 目的
+### 目的 {id="purpose"}
 
 此功能的主要目的是通过以下方式促进基于代理的 AI 功能的测试：
 
@@ -14,9 +14,9 @@
 - 验证数据在代理节点间的正确流向
 - 为预期行为提供断言
 
-## 配置与初始化
+## 配置与初始化 {id="configuration-and-initialization"}
 
-### 设置测试依赖项
+### 设置测试依赖项 {id="setting-up-test-dependencies"}
 
 在设置测试环境之前，请确保已添加以下依赖项：
 
@@ -35,7 +35,7 @@ dependencies {
 ```
 <!--- KNIT example-testing-01.kt -->
 
-### 模拟 LLM 响应
+### 模拟 LLM 响应 {id="mocking-llm-responses"}
 
 测试的基本形式涉及模拟 LLM 响应以确保行为的确定性。您可以使用 `MockLLMBuilder` 和相关实用程序来执行此操作。
 
@@ -83,7 +83,7 @@ dependencies {
     ```
     <!--- KNIT example-testing-java-01.java -->
 
-### 模拟工具调用
+### 模拟工具调用 {id="mocking-tool-calls"}
 
 您可以根据输入模式模拟 LLM 调用特定的工具：
 
@@ -203,7 +203,7 @@ dependencies {
 3. `returns...onArguments`：为精确匹配的实参返回特定结果。
 4. `returns...onArgumentsMatching`：根据自定义实参条件返回结果。
 
-### 启用测试模式
+### 启用测试模式 {id="enabling-testing-mode"}
 
 要在代理上启用测试模式，请在 AIAgent 构造函数块中使用 `withTesting()` 函数：
 
@@ -247,15 +247,15 @@ dependencies {
     ```
     <!--- KNIT example-testing-java-03.java -->
 
-## 高级测试
+## 高级测试 {id="advanced-testing"}
 
-### 测试图结构
+### 测试图结构 {id="testing-the-graph-structure"}
 
 在测试详细的节点行为和边连接之前，验证代理图的整体结构非常重要。这包括检查所有必需的节点是否存在，并已在预期的子图中正确连接。
 
 测试功能提供了一种全面的方式来测试代理的图结构。对于具有多个子图和互连节点的复杂代理，这种方法特别有价值。
 
-#### 基础结构测试
+#### 基础结构测试 {id="basic-structure-testing"}
 
 从验证代理图的基础结构开始：
 
@@ -324,12 +324,12 @@ dependencies {
     ```
     <!--- KNIT example-testing-java-04.java -->
 
-### 测试节点行为
+### 测试节点行为 {id="testing-node-behavior"}
 
 节点行为测试允许您验证代理图中的节点是否针对给定输入产生了预期输出。
 这对于确保代理逻辑在不同场景下正常运行至关重要。
 
-#### 基础节点测试
+#### 基础节点测试 {id="basic-node-testing"}
 
 从对单个节点进行简单的输入和输出验证开始：
 
@@ -393,7 +393,7 @@ dependencies {
 1. 当 LLM 节点接收到 `Hello` 作为输入时，它以简单的文本消息作为响应。
 2. 当接收到 `Solve task` 时，它以工具调用作为响应。
 
-#### 测试工具运行节点
+#### 测试工具运行节点 {id="testing-tool-run-nodes"}
 
 您还可以测试运行工具的节点：
 
@@ -474,7 +474,7 @@ dependencies {
 
 这验证了当工具执行节点收到特定的工具调用签名时，它会产生预期的工具结果。
 
-#### 高级节点测试
+#### 高级节点测试 {id="advanced-node-testing"}
 
 对于更复杂的场景，您可以测试具有结构化输入和输出的节点：
 
@@ -645,11 +645,11 @@ dependencies {
 
 这些高级测试有助于确保您的节点能够正确处理复杂的数据结构，这对于精密的代理行为至关重要。
 
-### 测试边连接
+### 测试边连接 {id="testing-edge-connections"}
 
 边连接测试允许您验证代理图是否正确地将一个节点的输出路由到适当的下一个节点。这可以确保您的代理根据不同的输出遵循预期的工作流路径。
 
-#### 基础边测试
+#### 基础边测试 {id="basic-edge-testing"}
 
 从简单的边连接测试开始：
 
@@ -718,7 +718,7 @@ dependencies {
 1. 当 LLM 节点输出简单的文本消息时，流程将定向到 `giveFeedback` 节点。
 2. 当它输出工具调用时，流程将定向到 `callTool` 节点。
 
-#### 测试条件路由
+#### 测试条件路由 {id="testing-conditional-routing"}
 
 您可以根据输出内容测试更复杂的路由逻辑：
 
@@ -774,7 +774,7 @@ dependencies {
     ```
     <!--- KNIT example-testing-java-10.java -->
 
-#### 高级边测试
+#### 高级边测试 {id="advanced-edge-testing"}
 
 对于复杂的代理，您可以根据工具结果中的结构化数据测试条件路由：
 
@@ -901,7 +901,7 @@ dependencies {
 
 这些高级边测试有助于确保您的代理根据节点输出的内容和结构做出正确的决策，这对于创建智能且具有上下文感知能力的工作流至关重要。
 
-## 完整测试示例
+## 完整测试示例 {id="complete-testing-example"}
 
 这是一个展示完整测试场景的用户情景：
 
@@ -1175,13 +1175,13 @@ ${it.stackTraceToString()}")
     ```
     <!--- KNIT example-testing-java-14.java -->
 
-## API 参考
+## API 参考 {id="api-reference"}
 
 有关与测试功能相关的完整 API 参考，请参阅 [agents-test](api:agents-test::) 模块的参考文档。
 
-## 常见问题解答与故障排除
+## 常见问题解答与故障排除 {id="faq-and-troubleshooting"}
 
-#### 如何模拟特定的工具响应？
+#### 如何模拟特定的工具响应？ {id="how-do-i-mock-a-specific-tool-response"}
 
 使用 `MockLLMBuilder` 中的 `mockTool` 方法：
 
@@ -1211,7 +1211,7 @@ ${it.stackTraceToString()}")
     ```
     <!--- KNIT example-testing-java-15.java -->
 
-#### 如何测试复杂的图结构？
+#### 如何测试复杂的图结构？ {id="how-can-i-test-complex-graph-structures"}
 
 使用子图断言、`verifySubgraph` 和节点引用：
 
@@ -1269,7 +1269,7 @@ ${it.stackTraceToString()}")
     ```
     <!--- KNIT example-testing-java-16.java -->
 
-#### 如何根据输入模拟不同的 LLM 响应？
+#### 如何根据输入模拟不同的 LLM 响应？ {id="how-do-i-simulate-different-llm-responses-based-on-input"}
 
 使用模式匹配方法：
 
@@ -1310,13 +1310,13 @@ ${it.stackTraceToString()}")
     ```
     <!--- KNIT example-testing-java-17.java -->
 
-### 故障排除
+### 故障排除 {id="troubleshooting"}
 
-#### 模拟执行器总是返回默认响应
+#### 模拟执行器总是返回默认响应 {id="mock-executor-always-returns-the-default-response"}
 
 检查您的模式匹配是否正确。模式区分大小写，且必须与指定的完全匹配。
 
-#### 工具调用未被拦截
+#### 工具调用未被拦截 {id="tool-calls-are-not-being-intercepted"}
 
 确保：
 
@@ -1324,7 +1324,7 @@ ${it.stackTraceToString()}")
 2. 工具名称完全匹配。
 3. 工具操作配置正确。
 
-#### 图断言失败
+#### 图断言失败 {id="graph-assertions-are-failing"}
 
 1. 验证节点名称是否正确。
 2. 检查图结构是否符合您的预期。

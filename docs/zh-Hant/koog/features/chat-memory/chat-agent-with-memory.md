@@ -35,7 +35,7 @@ graph TB
     agent --"Agent response"--> print --> read
 ```
 
-## 程式碼
+## 程式碼 {id="code"}
 
 ??? note "先決條件"
 
@@ -153,7 +153,7 @@ graph TB
     }
     ```
 
-## 實作細節
+## 實作細節 {id="implementation-details"}
 
 `agent.run()` 的第二個引數是用來識別和區分進行中對話的 [工作階段 ID](index.md#session-ids)。在我們的範例中，它是固定的，因為一次只有一個對話。在實際應用程式中，您可以例如為與同一個使用者相關的對話設定個別唯一的 ID。
 
@@ -161,7 +161,7 @@ graph TB
 
 `windowSize(20)` [前置處理器](index.md#preprocessors) 可確保限制上下文大小：代理僅儲存最多 20 則最近的訊息。如果沒有這個設定，提示詞的大小可能會超過內容限制。
 
-## 範例階段
+## 範例階段 {id="example-session"}
 
 ```
 You: My name is Alice.

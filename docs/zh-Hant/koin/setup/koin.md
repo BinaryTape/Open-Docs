@@ -4,7 +4,7 @@ title: Koin
 
 在專案中設定 Koin 所需的一切
 
-## 目前版本
+## 目前版本 {id="current-versions"}
 
 您可以在 [Maven Central](https://central.sonatype.com/search?q=io.insert-koin+koin-core&sort=name) 上找到所有的 Koin 軟件包。
 
@@ -13,7 +13,7 @@ title: Koin
 - Koin 穩定版 [![Maven Central](https://img.shields.io/maven-central/v/io.insert-koin/koin-core?label=stable)](https://mvnrepository.com/artifact/io.insert-koin/koin-core)
 - Koin 最新版本 [![Maven Central](https://img.shields.io/maven-central/v/io.insert-koin/koin-core)](https://mvnrepository.com/artifact/io.insert-koin/koin-core)
 
-## Koin BOM (推薦)
+## Koin BOM (推薦) {id="koin-bom-recommended"}
 
 :::info
 **最佳實務**：使用 Koin 產品清單 (BOM) 來一致地管理所有 Koin 程式庫版本。這是所有專案推薦的做法。
@@ -21,7 +21,7 @@ title: Koin
 
 Koin 產品清單 (BOM) 讓您只需指定 BOM 的版本，即可管理所有的 Koin 程式庫版本。BOM 本身包含了不同 Koin 程式庫穩定版本的連結，並確保它們能良好地協作。在應用程式中使用 BOM 時，您不需要在 Koin 程式庫相依性本身新增任何版本。當您更新 BOM 版本時，您正在使用的所有庫都會自動更新至其新版本。
 
-### 搭配版本目錄使用 BOM (推薦)
+### 搭配版本目錄使用 BOM (推薦) {id="using-bom-with-version-catalogs-recommended"}
 
 在您的 `gradle/libs.versions.toml` 中：
 
@@ -50,7 +50,7 @@ dependencies {
 }
 ```
 
-### 不使用版本目錄的情況下使用 BOM
+### 不使用版本目錄的情況下使用 BOM {id="using-bom-without-version-catalogs"}
 
 ```kotlin
 dependencies {
@@ -71,9 +71,9 @@ dependencies {
 }
 ```
 
-## 特定平台設定
+## 特定平台設定 {id="platform-specific-setup"}
 
-### Kotlin
+### Kotlin {id="kotlin"}
 
 將 Koin BOM 與 `koin-core` 相依性新增至您的應用程式：
 
@@ -119,7 +119,7 @@ dependencies {
 **後續步驟**：繼續閱讀 [Kotlin 應用程式教學](/docs/quickstart/kotlin) 或探索 [核心功能](/docs/reference/koin-core/dsl)。
 :::
 
-### Android
+### Android {id="android"}
 
 將 `koin-android` 相依性新增至您的 Android 應用程式：
 
@@ -165,7 +165,7 @@ dependencies {
 **後續步驟**：繼續閱讀 [Android 應用程式教學](/docs/quickstart/android-viewmodel) 或參閱 [在 Android 上啟動 Koin](/docs/reference/koin-android/start) 以了解詳細的整合方式。
 :::
 
-### Jetpack Compose 或 Compose Multiplatform
+### Jetpack Compose 或 Compose Multiplatform {id="jetpack-compose-or-compose-multiplatform"}
 
 針對 **Compose Multiplatform** (Android, iOS, Desktop, Web)，請新增這些相依性：
 
@@ -205,7 +205,7 @@ Navigation 3 處於 alpha 階段。詳情請參閱 [Navigation 3 整合](/docs/r
 **後續步驟**：繼續閱讀 [Compose 教學](/docs/quickstart/android-compose) 或參閱 [Koin Compose](/docs/reference/koin-compose/compose) 以了解詳細的整合方式。
 :::
 
-### Kotlin Multiplatform
+### Kotlin Multiplatform {id="kotlin-multiplatform"}
 
 在您的 `shared/build.gradle.kts` 中，將 `koin-core` 相依性新增至 commonMain：
 
@@ -228,7 +228,7 @@ kotlin {
 **後續步驟**：參閱 [搭配 Koin 使用 Kotlin Multiplatform](/docs/reference/koin-mp/kmp) 以了解特定平台設定、expect/actual 模式及架構指南。
 :::
 
-### Ktor
+### Ktor {id="ktor"}
 
 將 `koin-ktor` 相依性新增至您的 Ktor 應用程式：
 
@@ -257,7 +257,7 @@ fun Application.main() {
 **後續步驟**：繼續閱讀 [Ktor 應用程式教學](/docs/quickstart/ktor) 或參閱 [Ktor 整合](/docs/reference/koin-ktor/ktor) 以了解詳細設定。
 :::
 
-## 替代方案：直接指定版本
+## 替代方案：直接指定版本 {id="alternative-direct-version-specification"}
 
 如果您偏好不使用 BOM，可以為每個相依性直接指定版本：
 

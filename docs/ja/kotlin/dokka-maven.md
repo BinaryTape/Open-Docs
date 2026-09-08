@@ -8,7 +8,7 @@ Mavenベースのプロジェクトのドキュメントを生成するには、
 
 [Mavenサンプル](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/examples/maven)プロジェクトを参照して、Dokkaの設定方法を試すことができます。
 
-## Dokkaの適用
+## Dokkaの適用 {id="apply-dokka"}
 
 Dokkaを適用するには、POMファイルの `plugins` セクションに `dokka-maven-plugin` を追加する必要があります。
 
@@ -32,7 +32,7 @@ Dokkaを適用するには、POMファイルの `plugins` セクションに `do
 </build>
 ```
 
-## ドキュメントの生成
+## ドキュメントの生成 {id="generate-documentation"}
 
 Mavenプラグインでは、以下のゴール（goal）が提供されています。
 
@@ -40,14 +40,14 @@ Mavenプラグインでは、以下のゴール（goal）が提供されてい�
 |---------------|----------------------------------------------------------------------------------------|
 | `dokka:dokka` | Dokkaプラグインを適用してドキュメントを生成します。デフォルトは [HTML](dokka-html.md) 形式です。 |
 
-### 実験的機能
+### 実験的機能 {id="experimental"}
 
 | **ゴール**           | **説明**                                                                             |
 |--------------------|---------------------------------------------------------------------------------------------|
 | `dokka:javadoc`    | [Javadoc](dokka-javadoc.md) 形式でドキュメントを生成します。                                    |
 | `dokka:javadocJar` | [Javadoc](dokka-javadoc.md) 形式のドキュメントを含む `javadoc.jar` ファイルを生成します。 |
 
-### その他の出力形式
+### その他の出力形式 {id="other-output-formats"}
 
 デフォルトでは、DokkaのMavenプラグインは [HTML](dokka-html.md) 出力形式でドキュメントをビルドします。
 
@@ -76,7 +76,7 @@ Mavenプラグインでは、以下のゴール（goal）が提供されてい�
 
 Dokkaプラグインの詳細については、[Dokkaプラグイン](dokka-plugins.md) を参照してください。
 
-## javadoc.jar のビルド
+## javadoc.jar のビルド {id="build-javadoc-jar"}
 
 ライブラリをリポジトリに公開する場合、ライブラリのAPIリファレンスドキュメントを含む `javadoc.jar` ファイルの提供が必要になることがあります。
 
@@ -123,7 +123,7 @@ mvn dokka:dokka jar:jar@dokka-jar
 >
 {style="tip"}
 
-## 設定例
+## 設定例 {id="configuration-example"}
 
 Mavenのプラグイン設定ブロックを使用して、Dokkaを設定できます。
 
@@ -140,13 +140,13 @@ Mavenのプラグイン設定ブロックを使用して、Dokkaを設定でき�
 </plugin>
 ```
 
-## 設定オプション
+## 設定オプション {id="configuration-options"}
 
 Dokkaには、あなたや読者の体験をカスタマイズするための多くの設定オプションがあります。
 
 以下に、各設定セクションの例と詳細な説明を示します。また、ページの下部には[すべての設定オプション](#complete-configuration)を適用した例もあります。
 
-### 一般設定
+### 一般設定 {id="general-configuration"}
 
 ```xml
 <plugin>
@@ -375,7 +375,7 @@ Dokkaには、あなたや読者の体験をカスタマイズするための多
     </def>
 </deflist>
 
-### ソースリンク設定
+### ソースリンク設定 {id="source-link-configuration"}
 
 `sourceLinks` 設定ブロックを使用すると、各シグネチャに特定の行番号を持つ `url` への `source` リンクを追加できます。（行番号は `lineSuffix` を設定することでカスタマイズ可能です）。
 
@@ -431,7 +431,7 @@ Dokkaには、あなたや読者の体験をカスタマイズするための多
     </def>
 </deflist>
 
-### 外部ドキュメントリンク設定
+### 外部ドキュメントリンク設定 {id="external-documentation-links-configuration"}
 
 `externalDocumentationLinks` ブロックを使用すると、依存関係の外部でホストされているドキュメントへのリンクを作成できます。
 
@@ -476,7 +476,7 @@ Dokkaには、あなたや読者の体験をカスタマイズするための多
     </def>
 </deflist>
 
-### パッケージオプション
+### パッケージオプション {id="package-options"}
 
 `perPackageOptions` 設定ブロックでは、`matchingRegex` に一致する特定のパッケージに対してオプションを設定できます。
 
@@ -537,7 +537,7 @@ Dokkaには、あなたや読者の体験をカスタマイズするための多
     </def>
 </deflist>
 
-### すべての設定を適用した例
+### すべての設定を適用した例 {id="complete-configuration"}
 
 以下に、可能なすべての設定オプションを同時に適用した例を示します。
 

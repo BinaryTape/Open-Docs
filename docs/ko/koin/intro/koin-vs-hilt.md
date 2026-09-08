@@ -10,7 +10,7 @@ title: Koin vs Hilt/Dagger
 Koin은 **DSL과 어노테이션(Annotations)**을 모두 지원하므로 팀에 적합한 방식을 선택할 수 있습니다. 두 방식 모두 동일한 컴파일러 플러그인(Compiler Plugin)을 기반으로 하며 동등하게 강력한 기능을 제공합니다. 이 비교에서는 Hilt와의 공정한 비교를 위해 어노테이션 예시를 보여주지만, Koin의 DSL은 더 적은 보일러플레이트(boilerplate)로 동일한 기능을 제공합니다.
 :::
 
-## 철학의 차이 (Philosophy Differences)
+## 철학의 차이 (Philosophy Differences) {id="philosophy-differences"}
 
 | 측면 | Koin | Hilt/Dagger |
 |--------|------|-------------|
@@ -21,7 +21,7 @@ Koin은 **DSL과 어노테이션(Annotations)**을 모두 지원하므로 팀에
 | **컴파일 안전성** | ✅ 컴파일러 플러그인 사용 시 | ✅ 항상 지원 |
 | **런타임 유연성** | ✅ 동적 기능 (Dynamic features) | ❌ 정적 기능만 제공 |
 
-## 어노테이션 비교 (Annotation Comparison)
+## 어노테이션 비교 (Annotation Comparison) {id="annotation-comparison"}
 
 Koin은 어노테이션조차 더 단순합니다.
 
@@ -34,9 +34,9 @@ Koin은 어노테이션조차 더 단순합니다.
 | **외부 라이브러리 제공** | `@Singleton fun provide()` | `@Module` 내의 `@Provides` + `@InstallIn` |
 | **ViewModel** | `@KoinViewModel class MyVM` | `@HiltViewModel class MyVM @Inject constructor` |
 
-## 코드 비교 (Code Comparison)
+## 코드 비교 (Code Comparison) {id="code-comparison"}
 
-### 단순 싱글톤 (Simple Singleton)
+### 단순 싱글톤 (Simple Singleton) {id="simple-singleton"}
 
 **Koin:**
 ```kotlin
@@ -61,7 +61,7 @@ abstract class AppModule {
 }
 ```
 
-### 인터페이스 바인딩 (Interface Binding)
+### 인터페이스 바인딩 (Interface Binding) {id="interface-binding"}
 
 **Koin - 자동 방식:**
 ```kotlin
@@ -84,7 +84,7 @@ abstract class RepositoryModule {
 }
 ```
 
-### 멀티 모듈 앱 (Multi-Module Apps)
+### 멀티 모듈 앱 (Multi-Module Apps) {id="multi-module-apps"}
 
 **Koin - 모듈 자동 탐색:**
 ```kotlin
@@ -122,7 +122,7 @@ class ProfileModule { ... }
 class MyApp  // 여전히 모든 곳에 올바른 @InstallIn이 필요합니다.
 ```
 
-### ViewModel
+### ViewModel {id="viewmodel"}
 
 **Koin:**
 ```kotlin
@@ -154,7 +154,7 @@ val viewModel: UserViewModel by viewModels()
 val viewModel: UserViewModel = hiltViewModel()
 ```
 
-### 외부 라이브러리 제공 (Providing Third-Party Libraries)
+### 외부 라이브러리 제공 (Providing Third-Party Libraries) {id="providing-third-party-libraries"}
 
 **Koin:**
 ```kotlin
@@ -189,7 +189,7 @@ object NetworkModule {
 }
 ```
 
-## 동적 기능: Koin만의 고유한 장점
+## 동적 기능: Koin만의 고유한 장점 {id="dynamic-features-koin-s-unique-advantage"}
 
 Koin은 **런타임 기반이면서도 성능이 뛰어나고 컴파일 안전성**을 보장합니다. 이를 통해 Hilt가 제공할 수 없는 동적 기능들을 사용할 수 있습니다.
 
@@ -203,7 +203,7 @@ Koin은 **런타임 기반이면서도 성능이 뛰어나고 컴파일 안전�
 | A/B 테스트 구현 | ✅ 런타임 스왑 | ⚠️ 컴파일 타임에만 가능 |
 | 동적 구성 (Configuration) | ✅ 지원됨 | ❌ 불가, 다시 컴파일해야 함 |
 
-### 예시: 동적 모듈 로딩 (Dynamic Module Loading)
+### 예시: 동적 모듈 로딩 (Dynamic Module Loading) {id="example-dynamic-module-loading"}
 
 ```kotlin
 // KOIN - 동적 모듈 로딩
@@ -226,7 +226,7 @@ startKoin {
 
 **이것은 Hilt에서는 불가능합니다.** 모든 의존성이 컴파일 타임에 연결되기 때문입니다.
 
-### 예시: 피처 플래그 (Feature Flags)
+### 예시: 피처 플래그 (Feature Flags) {id="example-feature-flags"}
 
 ```kotlin
 // KOIN - 런타임에 구현체 교체
@@ -245,13 +245,13 @@ fun updateApiImplementation(useNew: Boolean) {
 }
 ```
 
-## 설정 비교 (Setup Comparison)
+## 설정 비교 (Setup Comparison) {id="setup-comparison"}
 
-### Koin 설정
+### Koin 설정 {id="koin-setup"}
 
 자세한 지침은 **[컴파일러 플러그인 설정 가이드](/docs/setup/compiler-plugin)**를 참조하세요.
 
-### Hilt 설정
+### Hilt 설정 {id="hilt-setup"}
 
 ```kotlin
 // settings.gradle.kts
@@ -271,9 +271,9 @@ dependencies {
 }
 ```
 
-## 에러 메시지 (Error Messages)
+## 에러 메시지 (Error Messages) {id="error-messages"}
 
-### Koin
+### Koin {id="koin"}
 
 ```
 org.koin.core.error.NoBeanDefFoundException:
@@ -283,7 +283,7 @@ Check your module definitions.
 
 명확하며 문제의 원인을 직접적으로 가리킵니다.
 
-### Hilt/Dagger
+### Hilt/Dagger {id="hilt-dagger"}
 
 ```
 error: [Dagger/MissingBinding] com.app.UserRepository cannot be provided
@@ -298,9 +298,9 @@ com.app.UserActivity is injected at
 
 내용이 길며 컴포넌트 그래프에 대한 이해가 필요합니다.
 
-## 선택 기준 (When to Choose Each)
+## 선택 기준 (When to Choose Each) {id="when-to-choose-each"}
 
-### 다음과 같은 경우 Koin을 선택하세요:
+### 다음과 같은 경우 Koin을 선택하세요: {id="choose-koin-when"}
 
 - **생산성과 단순성**을 중요하게 생각할 때
 - **런타임 유연성**(동적 모듈, 피처 플래그 등)이 필요할 때
@@ -309,17 +309,17 @@ com.app.UserActivity is injected at
 - **적은 보일러플레이트 코드**를 선호할 때
 - **더 쉬운 디버깅**을 원할 때
 
-### 다음과 같은 경우 Hilt를 선택하세요:
+### 다음과 같은 경우 Hilt를 선택하세요: {id="choose-hilt-when"}
 
 - 팀이 **이미 Dagger에 익숙할** 때
 - **구글 우선 생태계(Google-first ecosystem)**와의 호환성이 필요할 때
 - **Dagger만의 특정 기능**이 필요할 때
 
-## Hilt에서 Koin으로 마이그레이션 (Migration from Hilt to Koin)
+## Hilt에서 Koin으로 마이그레이션 (Migration from Hilt to Koin) {id="migration-from-hilt-to-koin"}
 
 마이그레이션을 고려 중이라면 다음을 참고하세요:
 
-### 개념 매핑 (Concept Mapping)
+### 개념 매핑 (Concept Mapping) {id="concept-mapping"}
 
 | Hilt | Koin |
 |------|------|
@@ -331,7 +331,7 @@ com.app.UserActivity is injected at
 | `@InstallIn(SingletonComponent)` | `@Configuration` |
 | 함수에 붙은 `@Provides` | 함수에 붙은 `@Factory` |
 
-### 점진적 마이그레이션
+### 점진적 마이그레이션 {id="gradual-migration"}
 
 점진적으로 마이그레이션할 수 있습니다:
 
@@ -342,7 +342,7 @@ com.app.UserActivity is injected at
 
 자세한 단계는 [Hilt에서 마이그레이션하기](/docs/migration/from-hilt)를 참조하세요.
 
-## 요약
+## 요약 {id="summary"}
 
 **Koin: 단순하면서도 강력함**
 
@@ -353,7 +353,7 @@ com.app.UserActivity is injected at
 
 안전성과 단순성 사이에서 고민할 필요가 없습니다. Koin과 함께라면 두 가지 모두를 얻을 수 있습니다.
 
-## 다음 단계
+## 다음 단계 {id="next-steps"}
 
 - **[Koin이란 무엇인가요?](/docs/intro/what-is-koin)** - Koin에 대해 더 알아보기
 - **[설정 가이드](/docs/setup/gradle)** - 프로젝트에 Koin 추가하기

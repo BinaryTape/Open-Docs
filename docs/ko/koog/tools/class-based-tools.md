@@ -10,7 +10,7 @@ Kotlin에서 이 방식을 사용하면 파라미터, 메타데이터, 실행 �
 !!! note
     이 API는 Kotlin용 멀티플랫폼입니다. Java 도구는 어노테이션 기반 메서드를 사용하여 구현되며 리플렉션을 통해 등록됩니다. 이를 통해 Kotlin에서는 여러 플랫폼에서 동일한 도구를 사용할 수 있으며, Java는 완전한 JVM 상호운용성을 제공합니다.
 
-## 도구 구현 (Tool implementation)
+## 도구 구현 (Tool implementation) {id="tool-implementation"}
 
 Koog 프레임워크는 도구 구현을 위해 다음과 같은 접근 방식을 제공합니다:
 
@@ -25,7 +25,7 @@ Java의 경우:
 
 * 리플렉션 기반 등록과 함께 어노테이션 기반 메서드(`@Tool` 및 `@LLMDescription`)를 사용합니다. Java에서 Kotlin의 `Tool` 또는 `SimpleTool`을 상속하는 것은 suspend 함수 제한으로 인해 지원되지 않으므로, 이것이 Java 상호운용성을 위한 권장 방식입니다.
 
-### Tool 클래스 (Kotlin)
+### Tool 클래스 (Kotlin) {id="tool-class-kotlin"}
 
 [`Tool<Args, Result>`](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool/index.html) 추상 클래스는 Kotlin에서 도구를 만들기 위한 베이스 클래스입니다.
 이를 통해 특정 인자 타입(`Args`)을 허용하고 다양한 타입의 결과(`Result`)를 반환하는 도구를 만들 수 있습니다.
@@ -47,7 +47,7 @@ Java의 경우:
 !!! tip
     LLM이 도구를 제대로 이해하고 사용할 수 있도록 도구에 명확한 설명과 잘 정의된 파라미터 이름을 지정해야 합니다. Kotlin에서는 `descriptor` 속성을 사용하고, Java에서는 `@LLMDescription` 어노테이션을 사용하세요.
 
-#### 사용 예시
+#### 사용 예시 {id="usage-example"}
 
 다음은 숫자 결과를 반환하는 `Tool` 클래스를 사용한 커스텀 도구 구현 예시입니다.
 
@@ -95,7 +95,7 @@ Java의 경우:
 
 자세한 내용은 [API 레퍼런스](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool/index.html)를 참조하세요.
 
-#### 도구에서 에이전트 컨텍스트 읽기
+#### 도구에서 에이전트 컨텍스트 읽기 {id="reading-the-agent-context-from-a-tool"}
 
 에이전트의 전체 상태(LLM 컨텍스트, 실행 ID, 구성, 저장소 등)가 필요한 도구는 `Tool<Args, Result>` 대신 `AgentContextAwareTool<Args, Result>`를 확장합니다. 프레임워크는 호출을 구동하는 라이브 `AIAgentContext`를 주입하며, 도구는 인자 스키마에서 이를 읽는 대신 타입이 지정된 파라미터로 이를 받습니다.
 
@@ -135,7 +135,7 @@ Java의 경우:
 
 `AgentContextAwareTool`은 프레임워크가 도구를 대신하여 관리하는 호출별 `ToolCallMetadata` 사이드 채널을 통해 프레임워크에 의해 디스패치됩니다. 에이전트 실행 외부에서 이러한 도구를 호출하면 `AIAgentContext`가 주입되지 않았으므로 `IllegalStateException`이 발생합니다. 프로덕션 코드는 항상 `ContextualAgentEnvironment`를 거쳐야 하며, 유닛 테스트에서는 `ToolCallMetadata.of(AgentContextAwareTool.AgentContextKey to context)`를 통해 컨텍스트를 명시적으로 제공할 수 있습니다.
 
-#### 원시 호출별 메타데이터 읽기
+#### 원시 호출별 메타데이터 읽기 {id="reading-raw-per-call-metadata"}
 
 일부 도구는 에이전트 컨텍스트가 *아닌* 호출자 또는 기능이 제공한 항목(예: 관측 가능성 기능에서 제공하는 분산 추적 스팬 ID)을 읽고자 할 수 있습니다. 이러한 도구는 전체 `ToolCallMetadata` 가방을 노출하는 `ToolBase<Args, Result>`를 직접 확장합니다.
 
@@ -176,7 +176,7 @@ Java의 경우:
 
 `Tool<Args, Result>`를 확장하고 `execute(args)`를 오버라이드하는 기존 도구는 변경 없이 계속 작동합니다. 프레임워크는 동일한 경로를 통해 이들을 디스패치하고 모든 `ToolCallMetadata`를 폐기합니다. 메타데이터 기능을 사용하려면 `AgentContextAwareTool`(타입이 지정된 컨텍스트 액세스) 또는 `ToolBase`(원시 가방 액세스)로 전환하세요.
 
-### SimpleTool 클래스 (Kotlin)
+### SimpleTool 클래스 (Kotlin) {id="simpletool-class-kotlin"}
 
 [`SimpleTool<Args>`](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-simple-tool/index.html) 추상 클래스는 `Tool<Args, ToolResult.Text>`를 확장하며 텍스트 결과를 반환하는 도구 생성을 단순화합니다.
 
@@ -236,11 +236,11 @@ Java의 경우:
     ```
     <!--- KNIT example-class-based-tools-02.kt -->
 
-### 어노테이션 기반 메서드 (Java)
+### 어노테이션 기반 메서드 (Java) {id="annotation-based-methods-java"}
 
 Java에서 도구를 구현하려면 `Tool` 또는 `SimpleTool`을 상속하는 대신 `@Tool` 및 `@LLMDescription`과 함께 어노테이션 기반 메서드를 사용하세요. Koog는 리플렉션을 통해 직렬화 및 등록을 자동으로 처리합니다. 구현에 대해 자세히 알아보려면 아래의 Java 예시를 참조하세요.
 
-#### 사용 예시
+#### 사용 예시 {id="usage-examples"}
 
 이것은 Kotlin의 `Tool` 클래스를 사용하는 것과 동일한 Java 도구 구현 예시입니다.
 
@@ -320,7 +320,7 @@ Java에서 도구를 구현하려면 `Tool` 또는 `SimpleTool`을 상속하는 
     ```
     <!--- KNIT example-class-based-tools-java-02.java -->
 
-### LLM에 커스텀 형식으로 도구 결과 전송
+### LLM에 커스텀 형식으로 도구 결과 전송 {id="sending-tool-result-to-llm-in-custom-format"}
 
 Kotlin의 경우:
 
@@ -333,7 +333,7 @@ Java의 경우:
 
 어노테이션이 지정된 메서드에서 직접 서식 있는 텍스트(예: 마크다운)를 `String`으로 반환합니다. 프레임워크가 이를 자동으로 처리합니다.
 
-#### 예시
+#### 예시 {id="example"}
 
 다음은 Kotlin과 Java 모두에서 커스텀 서식 출력을 보여주는 예시입니다.
 

@@ -9,7 +9,7 @@
 > 
 {style="tip"}
 
-## 宣告屬性
+## 宣告屬性 {id="declaring-properties"}
 
 屬性可以是可變的 (`var`) 或唯讀的 (`val`)。
 您可以將它們宣告為 `.kt` 檔案中的頂層屬性。可以將頂層屬性想像成屬於某個 **套件** 的全域變數：
@@ -111,7 +111,7 @@ var allByDefault    // 錯誤：屬性必須初始化。
 ```
 {validate="false"}
 
-## 自訂 getter 與 setter
+## 自訂 getter 與 setter {id="custom-getters-and-setters"}
 
 根據預設，Kotlin 會自動產生 getter 和 setter。當您需要額外邏輯（例如驗證、格式化或基於其他屬性的計算）時，可以定義自己的自訂存取子。
 
@@ -163,7 +163,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-custom-setter"}
 
-### 變更可見性或加入註解
+### 變更可見性或加入註解 {id="changing-visibility-or-adding-annotations"}
 
 在 Kotlin 中，您可以變更存取子的可見性或加入 [註解](annotations.md)，而無需替換預設實作。您不需要在花括號 `{}` 主體內進行這些變更。
 
@@ -230,7 +230,7 @@ fun main() {
 
 此範例使用 [反射](reflection.md) 來顯示 getter 和 setter 上存在哪些註解。
 
-## 支援欄位
+## 支援欄位 {id="backing-fields"}
 
 當需要將值儲存在記憶體中時，編譯器會自動為屬性產生支援欄位（backing field）。
 
@@ -271,7 +271,7 @@ val isEmpty: Boolean
     get() = this.size == 0
 ```
 
-### 明確支援欄位
+### 明確支援欄位 {id="explicit-backing-fields"}
 
 有時您可能需要更靈活的功能。例如，如果您有一個 API，希望在內部能夠修改屬性，但在外部則不能。在這種情況下，您可以使用 **明確支援欄位**（explicit backing field）。
 
@@ -318,7 +318,7 @@ val items: List<String>
 
 在 `ShoppingCart` 類別的範例中，編譯器將 `items` 屬性智慧轉換為 `MutableList<String>` 型別，因此類別可以透過 `add()` 和 `remove()` 函式向購物車加入或移除項目。在類別外部，編譯器使用公共屬性型別 `List<String>`，因此 API 使用者只能讀取 `items` 清單中的內容。
 
-#### 限制
+#### 限制 {id="limitations"}
 
 要使用明確支援欄位，屬性及其支援欄位本身必須遵循特定規則。屬性僅在滿足以下條件時才能擁有明確支援欄位：
 
@@ -332,7 +332,7 @@ val items: List<String>
 
 您可以透過改用支援屬性來規避這些限制。
 
-### 支援屬性
+### 支援屬性 {id="backing-properties"}
 
 如果明確支援欄位不符合您的使用案例，您可以嘗試使用一種稱為 **支援屬性**（backing property）的編碼模式。
 
@@ -370,7 +370,7 @@ fun main() {
 
 在此範例中，`UserDirectory` 類別具有一個唯讀的 `users` 屬性，用於列出目錄中的每個使用者。`_users` 變數是包含實際清單的私有支援屬性。公共 `users` 屬性的 getter 在傳回項目之前會對其進行排序。
 
-## 編譯期常數
+## 編譯期常數 {id="compile-time-constants"}
 
 如果唯讀屬性的值在編譯時期就已知，請使用 `const` 修飾符將其標記為 _編譯期常數_。編譯期常數會在編譯時進行內嵌（inline），因此每個參照都會被替換為其實際值。由於不需要呼叫 getter，因此存取效率更高：
 
@@ -398,7 +398,7 @@ const val SUBSYSTEM_DEPRECATED: String = "This subsystem is deprecated"
 @Deprecated(SUBSYSTEM_DEPRECATED) fun processLegacyOrders() { ... }
 ```
 
-## 延遲初始化屬性與變數
+## 延遲初始化屬性與變數 {id="late-initialized-properties-and-variables"}
 
 通常，您必須在建構函式中初始化屬性。然而，這並不總是方便。例如，您可能透過相依注入或在單元測試的 setup 方法中初始化屬性。
 
@@ -482,11 +482,11 @@ fun main() {
 
 只有在您的程式碼中已經可以存取該屬性時，才能對其使用 `isInitialized`。該屬性必須宣告在同一個類別、外層類別中，或者是同一個檔案中的頂層屬性。
 
-## 覆寫屬性
+## 覆寫屬性 {id="overriding-properties"}
 
 請參閱 [覆寫屬性](inheritance.md#overriding-properties)。
 
-## 委託屬性
+## 委託屬性 {id="delegated-properties"}
 
 為了重複使用邏輯並減少程式碼重複，您可以將取得和設定屬性的職責委託給另一個獨立物件。
 

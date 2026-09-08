@@ -8,7 +8,7 @@
 
 Kotlin Multiplatform Gradle 플러그인에 대한 정보는 [DSL 레퍼런스](multiplatform-dsl-reference.md) 및 [호환성 가이드](multiplatform-compatibility-guide.md)를 참조하세요.
 
-## 최신 릴리스로 업데이트
+## 최신 릴리스로 업데이트 {id="update-to-the-latest-release"}
 
 새로운 Kotlin Multiplatform 플러그인 릴리스가 출시되면 IDE에서 즉시 업데이트를 제안합니다. 제안을 수락하면 플러그인이 최신 버전으로 업데이트됩니다. 플러그인 설치를 완료하려면 IDE를 다시 시작하세요.
 
@@ -20,7 +20,7 @@ Kotlin Multiplatform Gradle 플러그인에 대한 정보는 [DSL 레퍼런스](
 >
 {style="note"}
 
-## 릴리스 상세 정보
+## 릴리스 상세 정보 {id="release-details"}
 
 다음 표는 Kotlin Multiplatform IDE 플러그인의 릴리스 목록입니다: 
 

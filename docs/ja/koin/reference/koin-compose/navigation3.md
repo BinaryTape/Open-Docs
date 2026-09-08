@@ -6,7 +6,7 @@ title: Navigation 3
 
 Koin は、依存関係の注入（DI）を備えた、型安全でマルチプラットフォームなナビゲーションのために [AndroidX Navigation 3](https://developer.android.com/guide/navigation/navigation-3) との統合を提供します。
 
-## Navigation 3 とは？
+## Navigation 3 とは？ {id="what-is-navigation-3"}
 
 Navigation 3 は、Compose 専用に設計された Jetpack の新しいナビゲーションライブラリです。
 
@@ -15,9 +15,9 @@ Navigation 3 は、Compose 専用に設計された Jetpack の新しいナビ�
 - **適応型レイアウト（Adaptive layouts）** - 複数の目的地を同時に表示します（リスト/詳細など）。
 - **自動アニメーション** - トランジション（遷移）のサポートが組み込まれています。
 
-## セットアップ
+## セットアップ {id="setup"}
 
-### マルチプラットフォームプロジェクト
+### マルチプラットフォームプロジェクト {id="multiplatform-projects"}
 
 ```kotlin
 // shared/build.gradle.kts
@@ -27,7 +27,7 @@ commonMain.dependencies {
 }
 ```
 
-### Android 専用プロジェクト
+### Android 専用プロジェクト {id="android-only-projects"}
 
 ```kotlin
 dependencies {
@@ -44,7 +44,7 @@ plugins {
 }
 ```
 
-### プラットフォームのサポート状況
+### プラットフォームのサポート状況 {id="platform-support"}
 
 | プラットフォーム | ステータス |
 |----------|--------|
@@ -53,9 +53,9 @@ plugins {
 | Desktop | フルサポート |
 | Web | フルサポート |
 
-## 基本概念
+## 基本概念 {id="core-concepts"}
 
-### Kotlin クラスとしてのルート
+### Kotlin クラスとしてのルート {id="routes-as-kotlin-classes"}
 
 `@Serializable` を使用して、型安全なルートを定義します：
 
@@ -73,7 +73,7 @@ data class DetailRoute(val itemId: String)
 data class SettingsRoute(val section: String? = null)
 ```
 
-### バックスタック
+### バックスタック {id="back-stack"}
 
 Navigation 3 は、シンプルなリストベースのバックスタックを使用します：
 
@@ -91,7 +91,7 @@ backStack.add(DetailRoute("123"))
 backStack.removeLastOrNull()
 ```
 
-### NavDisplay
+### NavDisplay {id="navdisplay"}
 
 `NavDisplay` は、アニメーションを伴ってバックスタックをレンダリングします：
 
@@ -103,9 +103,9 @@ NavDisplay(
 )
 ```
 
-## Koin との統合
+## Koin との統合 {id="koin-integration"}
 
-### ナビゲーションエントリーの宣言
+### ナビゲーションエントリーの宣言 {id="declaring-navigation-entries"}
 
 モジュール内で `navigation<T>` DSL を使用します：
 
@@ -134,7 +134,7 @@ val appModule = module {
 }
 ```
 
-### koinEntryProvider の使用
+### koinEntryProvider の使用 {id="using-koinentryprovider"}
 
 Koin から集約されたすべてのナビゲーションエントリーを取得します：
 
@@ -177,7 +177,7 @@ NavDisplay(
 （同様に、`val entryProvider: EntryProvider<Route> = koinEntryProvider()` とすることも可能です。この場合、型引数は期待される型から推論されます。）
 :::
 
-### 完全な例
+### 完全な例 {id="complete-example"}
 
 ```kotlin
 // ルート
@@ -259,7 +259,7 @@ class MainActivity : ComponentActivity(), AndroidScopeComponent {
 }
 ```
 
-## スコープ付きナビゲーション
+## スコープ付きナビゲーション {id="scoped-navigation"}
 
 Koin スコープ内でナビゲーションエントリーを宣言します：
 
@@ -291,9 +291,9 @@ val appModule = module {
 }
 ```
 
-## ViewModel との統合
+## ViewModel との統合 {id="viewmodel-integration"}
 
-### ナビゲーション引数を使用する場合
+### ナビゲーション引数を使用する場合 {id="with-navigation-arguments"}
 
 ルートのデータを ViewModel に渡します：
 
@@ -319,7 +319,7 @@ val appModule = module {
 }
 ```
 
-### エントリーデコレーター（Entry Decorators）を使用する場合
+### エントリーデコレーター（Entry Decorators）を使用する場合 {id="with-entry-decorators"}
 
 ViewModel の状態保持のためにデコレーターを使用します：
 
@@ -342,9 +342,9 @@ NavDisplay(
 )
 ```
 
-## アニメーション
+## アニメーション {id="animations"}
 
-### デフォルトのトランジション
+### デフォルトのトランジション {id="default-transitions"}
 
 ```kotlin
 NavDisplay(
@@ -364,7 +364,7 @@ NavDisplay(
 )
 ```
 
-### ルートごとのアニメーション
+### ルートごとのアニメーション {id="per-route-animations"}
 
 ```kotlin
 navigation<ModalRoute>(
@@ -380,9 +380,9 @@ navigation<ModalRoute>(
 }
 ```
 
-## 適応型レイアウト (Adaptive Layouts)
+## 適応型レイアウト (Adaptive Layouts) {id="adaptive-layouts"}
 
-### リスト/詳細パターン
+### リスト/詳細パターン {id="list-detail-pattern"}
 
 適応型レイアウトにはシーン戦略（scene strategies）を使用します：
 
@@ -413,7 +413,7 @@ fun App() {
 }
 ```
 
-### Koin モジュールを使用する場合
+### Koin モジュールを使用する場合 {id="with-koin-modules"}
 
 ```kotlin
 val appModule = module {
@@ -433,9 +433,9 @@ val appModule = module {
 }
 ```
 
-## Android 拡張機能
+## Android 拡張機能 {id="android-extensions"}
 
-### 遅延エントリープロバイダー (Lazy Entry Provider)
+### 遅延エントリープロバイダー (Lazy Entry Provider) {id="lazy-entry-provider"}
 
 ```kotlin
 class MainActivity : ComponentActivity() {
@@ -457,7 +457,7 @@ class MainActivity : ComponentActivity() {
 }
 ```
 
-### 即時エントリープロバイダー (Eager Entry Provider)
+### 即時エントリープロバイダー (Eager Entry Provider) {id="eager-entry-provider"}
 
 ```kotlin
 class MainActivity : ComponentActivity() {
@@ -477,16 +477,16 @@ class MainActivity : ComponentActivity() {
 }
 ```
 
-## API リファレンス
+## API リファレンス {id="api-reference"}
 
-### DSL 関数
+### DSL 関数 {id="dsl-functions"}
 
 | 関数 | 説明 |
 |----------|-------------|
 | `Module.navigation<T> { }` | モジュールレベルでナビゲーションエントリーを宣言します |
 | `ScopeDSL.navigation<T> { }` | スコープ内でナビゲーションエントリーを宣言します |
 
-### Composable 関数
+### Composable 関数 {id="composable-functions"}
 
 | 関数 | 説明 |
 |----------|-------------|
@@ -499,9 +499,9 @@ class MainActivity : ComponentActivity() {
 | `entryProvider<T>()` | 遅延エントリープロバイダーのデリゲート |
 | `getEntryProvider<T>()` | 即時エントリープロバイダー |
 
-## Navigation 2.x からの移行
+## Navigation 2.x からの移行 {id="migration-from-navigation-2-x"}
 
-### 以前 (Navigation 2.x)
+### 以前 (Navigation 2.x) {id="before-navigation-2-x"}
 
 ```kotlin
 NavHost(navController, startDestination = "home") {
@@ -515,7 +515,7 @@ NavHost(navController, startDestination = "home") {
 }
 ```
 
-### 以降 (Navigation 3)
+### 以降 (Navigation 3) {id="after-navigation-3"}
 
 ```kotlin
 // 型安全なルート
@@ -539,7 +539,7 @@ NavDisplay(
 )
 ```
 
-## リソース
+## リソース {id="resources"}
 
 - [Navigation 3 公式ガイド](https://developer.android.com/guide/navigation/navigation-3)
 - [Nav3 レシピリポジトリ](https://github.com/android/nav3-recipes)

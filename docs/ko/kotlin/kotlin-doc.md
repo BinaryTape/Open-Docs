@@ -7,7 +7,7 @@ Kotlin 코드를 문서화하는 데 사용되는 언어(Java의 Javadoc에 해�
 >
 {style="note"}
 
-## KDoc 구문
+## KDoc 구문 {id="kdoc-syntax"}
 
 Javadoc과 마찬가지로 KDoc 주석은 `/**`로 시작해서 `*/`로 끝납니다. 주석의 모든 줄은 별표(`*`)로 시작할 수 있으며, 이 별표는 주석 내용의 일부로 간주되지 않습니다.
 
@@ -36,11 +36,11 @@ class Group<T>(val name: String) {
 }
 ```
 
-### 블록 태그
+### 블록 태그 {id="block-tags"}
 
 KDoc은 현재 다음과 같은 블록 태그를 지원합니다.
 
-### @param _name_
+### @param _name_ {id="param-name"}
 
 함수의 값 매개변수(value parameter) 또는 클래스, 프로퍼티, 함수의 타입 매개변수(type parameter)를 문서화합니다.
 원하는 경우 매개변수 이름을 설명과 더 잘 구분하기 위해 매개변수 이름을 대괄호로 묶을 수 있습니다. 따라서 다음 두 구문은 동일합니다.
@@ -50,43 +50,43 @@ KDoc은 현재 다음과 같은 블록 태그를 지원합니다.
 @param[name] description.
 ```
 
-### @return
+### @return {id="return"}
 
 함수의 반환 값을 문서화합니다.
 
-### @constructor
+### @constructor {id="constructor"}
 
 클래스의 주 생성자(primary constructor)를 문서화합니다.
 
-### @receiver
+### @receiver {id="receiver"}
 
 확장 함수의 수신객체(receiver)를 문서화합니다.
 
-### @property _name_
+### @property _name_ {id="property-name"}
 
 지정된 이름을 가진 클래스의 프로퍼티를 문서화합니다. 이 태그는 주 생성자에 선언된 프로퍼티를 문서화할 때 유용하며, 프로퍼티 정의 바로 앞에 문서 주석을 넣기 어색한 경우에 사용할 수 있습니다.
 
-### @throws _class_, @exception _class_
+### @throws _class_, @exception _class_ {id="throws-class-exception-class"}
 
 메서드에서 발생할 수 있는 예외를 문서화합니다. Kotlin에는 체크 예외(checked exception)가 없으므로 발생 가능한 모든 예외를 문서화할 의무는 없지만, 클래스 사용자에게 유용한 정보를 제공할 때 이 태그를 사용할 수 있습니다.
 
-### @sample _identifier_
+### @sample _identifier_ {id="sample-identifier"}
 
 현재 요소의 문서에 지정된 정규화된 이름(qualified name)을 가진 함수의 본문을 포함하여, 해당 요소의 사용 예시를 보여줍니다.
 
-### @see _identifier_
+### @see _identifier_ {id="see-identifier"}
 
 문서의 **See also** 블록에 지정된 클래스나 메서드에 대한 링크를 추가합니다.
 
-### @author
+### @author {id="author"}
 
 문서화 중인 요소의 작성자를 지정합니다.
 
-### @since
+### @since {id="since"}
 
 문서화 중인 요소가 도입된 소프트웨어 버전을 지정합니다.
 
-### @suppress
+### @suppress {id="suppress"}
 
 생성된 문서에서 해당 요소를 제외합니다. 모듈의 공식 API의 일부는 아니지만 외부에서 볼 수 있어야 하는 요소에 사용할 수 있습니다.
 
@@ -94,11 +94,11 @@ KDoc은 현재 다음과 같은 블록 태그를 지원합니다.
 >
 {style="note"}
 
-## 인라인 마크업
+## 인라인 마크업 {id="inline-markup"}
 
 인라인 마크업을 위해 KDoc은 일반적인 [Markdown](https://daringfireball.net/projects/markdown/syntax) 구문을 사용하며, 코드 내의 다른 요소를 연결하기 위한 약식 구문을 지원하도록 확장되었습니다.
 
-### 요소 링크
+### 요소 링크 {id="links-to-elements"}
 
 다른 요소(클래스, 메서드, 프로퍼티 또는 매개변수)로 링크하려면 해당 이름을 대괄호 안에 넣으세요.
 
@@ -122,7 +122,7 @@ KDoc은 현재 다음과 같은 블록 태그를 지원합니다.
 
 KDoc에는 링크에서 오버로드된 멤버를 확인하기 위한 구문이 따로 없습니다. Kotlin의 문서 생성 도구는 함수의 모든 오버로드에 대한 문서를 같은 페이지에 배치하므로, 링크가 작동하기 위해 특정 오버로드 함수를 식별할 필요는 없습니다.
 
-### 외부 링크
+### 외부 링크 {id="external-links"}
 
 외부 링크를 추가하려면 일반적인 Markdown 구문을 사용하세요.
 
@@ -130,6 +130,6 @@ KDoc에는 링크에서 오버로드된 멤버를 확인하기 위한 구문이 
 KDoc 구문에 대한 자세한 내용은 [KDoc](<example-URL>)을 참고하세요.
 ```
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 Kotlin의 문서 생성 도구인 [Dokka](dokka-introduction.md)를 사용하는 방법을 알아보세요.

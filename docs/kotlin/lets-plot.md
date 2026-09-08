@@ -8,7 +8,7 @@ LPK 针对各种平台，包括 [Kotlin/JS](js-overview.md)、[JVM 的 Swing](ht
 
 本教程演示了如何在 IntelliJ IDEA 中使用 LPK 和 [Kotlin DataFrame](https://kotlin.github.io/dataframe/home.html) 库创建不同的图表类型。
 
-## 开始之前
+## 开始之前 {id="before-you-start"}
 
 > 从 IntelliJ IDEA 2026.2 开始，Kotlin Notebook 将不再随 IDE 内置，也不再由 JetBrains 提供官方支持。
 > 源代码将继续在 [GitHub](https://github.com/Kotlin/kotlin-notebook) 上提供。
@@ -29,7 +29,7 @@ LPK 针对各种平台，包括 [Kotlin/JS](js-overview.md)、[JVM 的 Swing](ht
 
 要按照本教程进行操作，您还可以将 DataFrame 作为 [Gradle](https://kotlin.github.io/dataframe/setupgradle.html) 或 [Maven](https://kotlin.github.io/dataframe/setupmaven.html) 依赖项使用。
 
-## 准备数据
+## 准备数据 {id="prepare-the-data"}
 
 让我们创建一个 DataFrame，用于存储柏林 (Berlin)、马德里 (Madrid) 和加拉加斯 (Caracas) 这三个城市的月平均气温模拟数据。
 
@@ -71,7 +71,7 @@ df.head(4)
 val data = df.toMap()
 ```
 
-## 创建散点图
+## 创建散点图 {id="create-a-scatter-plot"}
 
 让我们使用 LPK 库创建一个散点图。
 
@@ -88,7 +88,7 @@ scatterPlot
 
 ![散点图](lets-plot-scatter.svg){width=600}
 
-## 创建箱形图
+## 创建箱形图 {id="create-a-box-plot"}
 
 让我们在箱形图中可视化[数据](#准备数据)。使用 LPK 库中的 [`geomBoxplot()`](https://lets-plot.org/kotlin/api-reference/-lets--plot--kotlin/org.jetbrains.letsPlot.geom/geom-boxplot.html) 函数生成图表，并使用 [`scaleFillManual()`](https://lets-plot.org/kotlin/api-reference/-lets--plot--kotlin/org.jetbrains.letsPlot.scale/scale-fill-manual.html) 函数[自定义](https://lets-plot.org/kotlin/aesthetics.html#point-shapes)颜色：
 
@@ -104,11 +104,11 @@ boxPlot
 
 ![箱形图](box-plot.svg){width=600}
 
-## 创建 2D 密度图
+## 创建 2D 密度图 {id="create-a-2d-density-plot"}
 
 现在，让我们创建一个 2D 密度图来可视化一些随机数据的分布和浓度。
 
-### 为 2D 密度图准备数据
+### 为 2D 密度图准备数据 {id="prepare-the-data-for-the-2d-density-plot"}
 
 1. 导入处理数据并生成图表所需的依赖项：
 
@@ -163,7 +163,7 @@ boxPlot
    )
    ```
 
-### 生成 2D 密度图
+### 生成 2D 密度图 {id="generate-the-2d-density-plot"}
 
 使用上一步中的 `Map` 创建一个带有背景散点图 (`geomPoint`) 的 2D 密度图 (`geomDensity2D`)，以便更好地可视化数据点和离群值。您可以使用 [`scaleColorGradient()`](https://lets-plot.org/kotlin/api-reference/-lets--plot--kotlin/org.jetbrains.letsPlot.scale/scale-color-gradient.html) 函数来自定义颜色比例：
 
@@ -181,7 +181,7 @@ densityPlot
 
 ![2D 密度图](2d-density-plot.svg){width=600}
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * 在 [Lets-Plot for Kotlin 文档](https://lets-plot.org/kotlin/charts.html)中探索更多图表示例。
 * 查看 Lets-Plot for Kotlin 的 [API 参考](https://lets-plot.org/kotlin/api-reference/)。

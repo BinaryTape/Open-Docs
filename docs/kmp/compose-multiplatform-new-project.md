@@ -24,7 +24,7 @@
 >
 {style="note"}
 
-## 奠定基础
+## 奠定基础 {id="lay-the-foundation"}
 
 首先，实现一个新的 `App()` 可组合项：
 
@@ -95,7 +95,7 @@
 
    ![Compose 实时重新加载 (Hot Reload)](compose-hot-reload-resize.gif)
 
-## 支持用户输入
+## 支持用户输入 {id="support-user-input"}
 
 现在让用户输入城市名称以查看该位置的时间。实现此目的最简单的方法是添加一个 `TextField` 可组合项：
 
@@ -141,7 +141,7 @@
     </TabItem>
 </Tabs>
 
-## 计算时间
+## 计算时间 {id="calculate-time"}
 
 下一步是使用给定的输入来计算时间。为此，创建一个 `currentTimeAt()` 函数：
 
@@ -210,7 +210,7 @@
     </TabItem>
 </Tabs>
 
-## 改进样式
+## 改进样式 {id="improve-the-style"}
 
 应用运行正常，但其外观存在问题。可组合项之间的间距可以更好，时间消息也可以渲染得更突出。
 
@@ -272,7 +272,7 @@
     </TabItem>
 </Tabs>
 
-## 重构 UI
+## 重构 UI {id="refactor-the-ui"}
 
 应用运行正常，但容易受到拼写错误的影响。例如，如果用户输入 "Franse" 而不是 "France"，应用将无法处理该输入。最好是让用户从预定义的列表中选择国家。
 
@@ -368,7 +368,7 @@
 >
 {style="note"}
 
-## 引入图片
+## 引入图片 {id="introduce-images"}
 
 国家名称列表可以运行，但用户体验不佳。
 你可以通过在国家名称旁边添加国旗图片来改进列表。
@@ -490,7 +490,7 @@ Compose 跨平台提供了一个库，用于通过所有平台的公共代码访
 >
 {style="note"}
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 我们鼓励你进一步探索多平台开发并尝试更多项目：
 

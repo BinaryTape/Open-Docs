@@ -13,7 +13,7 @@
 * [結構與聯合型別如何對應](#mapping-struct-and-union-c-types)
 * [如何從 Kotlin 使用結構與聯合型別](#use-struct-and-union-types-from-kotlin)
 
-## 對應 C 結構與聯合型別
+## 對應 C 結構與聯合型別 {id="mapping-struct-and-union-c-types"}
 
 為了理解 Kotlin 如何對應結構與聯合型別，讓我們在 C 中宣告它們，並檢查它們在 Kotlin 中如何表示。
 
@@ -43,7 +43,7 @@ void union_by_pointer(MyUnion* u) {}
 
 `interop.def` 檔案提供了編譯、執行或在 IDE 中開啟應用程式所需的一切。
 
-## 檢查為 C 程式庫產生的 Kotlin API
+## 檢查為 C 程式庫產生的 Kotlin API {id="inspect-generated-kotlin-apis-for-a-c-library"}
 
 讓我們看看 C 結構與聯合型別如何對應到 Kotlin/Native 並更新您的專案：
 
@@ -130,7 +130,7 @@ void union_by_pointer(MyUnion* u) {}
 
 產生的 API 包含 `CValue<T>` 與 `CValuesRef<T>` 的完全限定套件名稱，反映了它們在 `kotlinx.cinterop` 中的位置。`CValue<T>` 代表按值傳遞的結構參數，而 `CValuesRef<T>?` 則用於傳遞指向結構或聯合的指標。
 
-## 從 Kotlin 使用結構與聯合型別
+## 從 Kotlin 使用結構與聯合型別 {id="use-struct-and-union-types-from-kotlin"}
 
 由於有了產生的 API，從 Kotlin 使用 C 結構與聯合型別非常直觀。唯一的問題是如何建立這些型別的新執行個體。
 
@@ -138,7 +138,7 @@ void union_by_pointer(MyUnion* u) {}
 
 Kotlin 提供了一個方便的 API 來建立並操作這些型別。讓我們探索如何在實務中使用它。
 
-### 建立 CValue&lt;T&gt;
+### 建立 CValue&lt;T&gt; {id="create-a-cvalue-lt-t-gt"}
 
 `CValue<T>` 型別用於將按值傳遞的參數傳遞給 C 函式呼叫。使用 `cValue` 函式來建立 `CValue<T>` 執行個體。該函式需要一個 [具有接收器的 Lambda 函式](lambdas.md#function-literals-with-receiver) 來就地初始化底層的 C 型別。該函式的宣告如下：
 
@@ -171,7 +171,7 @@ fun callValue() {
 }
 ```
 
-### 將結構與聯合建立為 CValuesRef&lt;T&gt;
+### 將結構與聯合建立為 CValuesRef&lt;T&gt; {id="create-struct-and-union-as-cvaluesref-lt-t-gt"}
 
 `CValuesRef<T>` 型別在 Kotlin 中用於傳遞 C 函式的指標型別參數。若要在原生記憶體中分配 `MyStruct` 與 `MyUnion`，請在 `kotlinx.cinterop.NativePlacement` 型別上使用以下擴充方法：
 
@@ -219,7 +219,7 @@ fun callRef() {
 
 由於記憶體是在 `memScoped {}` 區塊內管理的，它會在區塊結束時自動釋放。請避免在此作用域之外使用指標，以防止存取已釋放的記憶體。如果您需要更長期的分配（例如，為了在 C 程式庫中快取），請考慮使用 `Arena()` 或 `nativeHeap`。
 
-### CValue&lt;T&gt; 與 CValuesRef&lt;T&gt; 之間的轉換
+### CValue&lt;T&gt; 與 CValuesRef&lt;T&gt; 之間的轉換 {id="conversion-between-cvalue-lt-t-gt-and-cvaluesref-lt-t-gt"}
 
 有時您需要在一次函式呼叫中按值傳遞結構，然後在另一次呼叫中按引用傳遞相同的結構。
 
@@ -267,7 +267,7 @@ fun callMix_value() {
 }
 ```
 
-## 更新 Kotlin 程式碼
+## 更新 Kotlin 程式碼 {id="update-kotlin-code"}
 
 既然您已經學習了如何在 Kotlin 程式碼中使用 C 宣告，請嘗試在您的專案中使用它們。`hello.kt` 檔案中的最終程式碼可能如下所示：
 
@@ -312,7 +312,7 @@ fun main() {
 ./gradlew runDebugExecutableMacosArm64
 ```
 
-## 下一步
+## 下一步 {id="next-step"}
 
 在本系列的下一部分中，您將學習函式指標如何在 Kotlin 與 C 之間進行對應：
 
@@ -325,6 +325,6 @@ fun main() {
   </li>
 </list>
 
-### 延伸閱讀
+### 延伸閱讀 {id="see-also"}
 
 在涵蓋更多進階案例的 [與 C 互通](native-c-interop.md) 文件中了解更多資訊。

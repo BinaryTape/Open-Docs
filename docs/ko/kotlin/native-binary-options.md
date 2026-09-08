@@ -2,11 +2,11 @@
 
 이 페이지에서는 Kotlin/Native [최종 바이너리](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html)를 구성하는 데 사용할 수 있는 유용한 Kotlin/Native 바이너리 옵션 목록과 프로젝트에서 바이너리 옵션을 설정하는 방법을 설명합니다.
 
-## 활성화 방법
+## 활성화 방법 {id="how-to-enable"}
 
 `gradle.properties` 파일, 빌드 파일에서 바이너리 옵션을 활성화하거나 컴파일러 인수로 전달할 수 있습니다.
 
-### Gradle 속성에서 설정
+### Gradle 속성에서 설정 {id="in-gradle-properties"}
 
 프로젝트의 `gradle.properties` 파일에서 `kotlin.native.binary` 속성을 사용하여 바이너리 옵션을 설정할 수 있습니다. 예를 들면 다음과 같습니다:
 
@@ -14,7 +14,7 @@
 kotlin.native.binary.latin1Strings=true
 ```
 
-### 빌드 파일에서 설정
+### 빌드 파일에서 설정 {id="in-your-build-file"}
 
 `build.gradle.kts` 파일에서 프로젝트의 바이너리 옵션을 설정할 수 있습니다:
 
@@ -46,7 +46,7 @@ kotlin.native.binary.latin1Strings=true
   }
   ```
 
-### 커맨드 라인 컴파일러에서 설정
+### 커맨드 라인 컴파일러에서 설정 {id="in-the-command-line-compiler"}
 
 [Kotlin/Native 컴파일러](native-get-started.md#using-the-command-line-compiler)를 실행할 때 커맨드 라인에서 직접 `-Xbinary=$option=$value`를 사용하여 바이너리 옵션을 전달할 수 있습니다.
 예를 들면 다음과 같습니다:
@@ -55,7 +55,7 @@ kotlin.native.binary.latin1Strings=true
 kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
 ```
 
-## 바이너리 옵션
+## 바이너리 옵션 {id="binary-options"}
 
 > 아래 표는 기존의 모든 옵션을 나열한 것이 아니며, 가장 주목할 만한 옵션들만 포함하고 있습니다.
 >
@@ -331,6 +331,6 @@ kotlinc-native main.kt -Xbinary=enableSafepointSignposts=true
 > 
 {style="tip"}
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 [최종 네이티브 바이너리 빌드](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html) 방법을 알아보세요.

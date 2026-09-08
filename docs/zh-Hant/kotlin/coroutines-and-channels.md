@@ -20,7 +20,7 @@
 >
 {style="tip"}
 
-## 在您開始之前
+## 在您開始之前 {id="before-you-start"}
 
 1. 下載並安裝最新版本的 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/index.html)。
 2. 在歡迎畫面選擇 **Get from VCS** 或選取 **File | New | Project from Version Control** 來複製 [專案樣板](http://github.com/kotlin-hands-on/intro-coroutines)。
@@ -31,7 +31,7 @@
    git clone https://github.com/kotlin-hands-on/intro-coroutines
    ```
 
-### 產生 GitHub 開發者權杖
+### 產生 GitHub 開發者權杖 {id="generate-a-github-developer-token"}
 
 您將在專案中使用 GitHub API。若要獲得存取權限，請提供您的 GitHub 帳戶名稱以及密碼或權杖（token）。如果您啟用了雙重身份驗證，使用權杖就足夠了。
 
@@ -44,7 +44,7 @@
 2. 不要勾選任何作用域（scope）。點擊頁面底部的 **Generate token**。
 3. 複製產生的權杖。
 
-### 執行程式碼
+### 執行程式碼 {id="run-the-code"}
 
 該程式會載入給定組織（預設名稱為「kotlin」）下所有存儲庫的貢獻者。稍後您將加入邏輯，根據使用者的貢獻次數進行排序。
 
@@ -61,7 +61,7 @@
 
 實作此邏輯有不同的方式：使用 [阻塞請求](#blocking-requests) 或 [回呼](#callbacks)。您將把這些解決方案與使用 [協同程式](#coroutines) 的解決方案進行比較，並查看如何使用 [管道](#channels) 在不同協同程式之間共享資訊。
 
-## 阻塞請求
+## 阻塞請求 {id="blocking-requests"}
 
 您將使用 [Retrofit](https://square.github.io/retrofit/) 程式庫對 GitHub 執行 HTTP 請求。它允許請求給定組織下的存儲庫列表以及每個存儲庫的貢獻者列表：
 
@@ -152,7 +152,7 @@ interface GitHubService {
     * `updateResults()` 會更新 UI，因此它必須始終從 UI 執行緒呼叫。
     * 由於 `loadContributorsBlocking()` 也是從 UI 執行緒呼叫的，因此 UI 執行緒會變得阻塞，UI 也會隨之凍結。
 
-### 任務 1
+### 任務 1 {id="task-1"}
 
 第一個任務幫助您熟悉任務領域。目前，每個貢獻者的名稱會重複出現多次，每參加一個專案就會出現一次。實作 `aggregate()` 函式來合併使用者，使每個貢獻者僅被加入一次。`User.contributions` 屬性應包含該使用者在「所有」專案中的貢獻總數。產生的列表應根據貢獻次數降冪排序。
 
@@ -168,7 +168,7 @@ interface GitHubService {
 
 ![kotlin 組織的列表](aggregate.png){width=500}
 
-#### 任務 1 的解答 {initial-collapse-state="collapsed" collapsible="true"}
+#### 任務 1 的解答 {initial-collapse-state="collapsed" collapsible="true" id="solution-for-task-1"}
 
 1. 若要按登入名稱分組使用者，請使用 [`groupBy()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/group-by.html)，它會回傳一個從登入名稱到該使用者在不同存儲庫中所有出現情況的對應表（map）。
 2. 對於每個 map 項目，計算每位使用者的總貢獻次數，並根據給定名稱和總貢獻次數建立一個新的 `User` 類別執行個體。
@@ -183,7 +183,7 @@ interface GitHubService {
 
 另一種解決方案是使用 [`groupingBy()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/grouping-by.html) 函式來取代 `groupBy()`。
 
-## 回呼
+## 回呼 {id="callbacks"}
 
 之前的解決方案雖然可行，但會阻塞執行緒並導致 UI 凍結。避免這種情況的一種傳統方法是使用「回呼（callback）」。
 
@@ -191,7 +191,7 @@ interface GitHubService {
 
 為了讓 UI 保持回應，您可以將整個計算移動到一個單獨的執行緒，或者切換到使用回呼而非阻塞呼叫的 Retrofit API。
 
-### 使用背景執行緒
+### 使用背景執行緒 {id="use-a-background-thread"}
 
 1. 開啟 `src/tasks/Request2Background.kt` 並查看其實作。首先，整個計算被移動到不同的執行緒。`thread()` 函式會啟動一個新執行緒：
 
@@ -228,11 +228,11 @@ interface GitHubService {
 
 然而，如果您嘗試透過 `BACKGROUND` 選項載入貢獻者，您會發現列表雖然更新了，但沒有顯示任何內容。
 
-### 任務 2
+### 任務 2 {id="task-2"}
 
 修正 `src/tasks/Request2Background.kt` 中的 `loadContributorsBackground()` 函式，以便在 UI 中顯示結果列表。
 
-#### 任務 2 的解答 {initial-collapse-state="collapsed" collapsible="true"}
+#### 任務 2 的解答 {initial-collapse-state="collapsed" collapsible="true" id="solution-for-task-2"}
 
 如果您嘗試載入貢獻者，您可以在日誌中看到貢獻者已載入，但結果未顯示。要修正此問題，請對產生的使用者列表呼叫 `updateResults()`：
 
@@ -244,7 +244,7 @@ thread {
 
 請務必明確呼叫回呼中傳遞的邏輯。否則什麼都不會發生。
 
-### 使用 Retrofit 回呼 API
+### 使用 Retrofit 回呼 API {id="use-the-retrofit-callback-api"}
 
 在之前的解決方案中，雖然將整個載入邏輯移動到了背景執行緒，但這仍然不是資源的最佳利用方式。所有的載入請求都是循序進行的，且執行緒在等待載入結果時是被阻塞的，而它本可以處理其他任務。具體來說，執行緒本可以開始載入另一個請求，以便更早獲得完整結果。
 
@@ -289,11 +289,11 @@ fun loadContributorsCallbacks(
 
 思考一下為什麼給定的程式碼沒有如預期運作，並嘗試修復它，或者查看下面的解決方案。
 
-### 任務 3 (選修)
+### 任務 3 (選修) {id="task-3-optional"}
 
 重寫 `src/tasks/Request3Callbacks.kt` 檔案中的程式碼，以便顯示載入的貢獻者列表。
 
-#### 任務 3 的第一次嘗試解決方案 {initial-collapse-state="collapsed" collapsible="true"}
+#### 任務 3 的第一次嘗試解決方案 {initial-collapse-state="collapsed" collapsible="true" id="the-first-attempted-solution-for-task-3"}
 
 在目前的解決方案中，許多請求是並行啟動的，這減少了總載入時間。然而，結果並未載入。這是因為 `updateResults()` 回呼在所有載入請求啟動後立即被呼叫，此時 `allUsers` 列表尚未填入資料。
 
@@ -320,7 +320,7 @@ for ((index, repo) in repos.withIndex()) {   // #1
 
 然而，這段程式碼也無法達到我們的目標。嘗試自己找出答案，或查看下面的解決方案。
 
-#### 任務 3 的第二次嘗試解決方案 {initial-collapse-state="collapsed" collapsible="true"}
+#### 任務 3 的第二次嘗試解決方案 {initial-collapse-state="collapsed" collapsible="true" id="the-second-attempted-solution-for-task-3"}
 
 由於載入請求是並行啟動的，因此無法保證最後一個請求的結果會最後到達。結果可以按任何順序返回。
 
@@ -348,7 +348,7 @@ for (repo in repos) {
 
 這段程式碼使用了列表的同步版本和 `AtomicInteger()`，因為一般來說，無法保證處理 `getRepoContributors()` 請求的不同回呼總是在同一個執行緒中呼叫。
 
-#### 任務 3 的第三次嘗試解決方案 {initial-collapse-state="collapsed" collapsible="true"}
+#### 任務 3 的第三次嘗試解決方案 {initial-collapse-state="collapsed" collapsible="true" id="the-third-attempted-solution-for-task-3"}
 
 更好的解決方案是使用 `CountDownLatch` 類別。它儲存一個以存儲庫數量初始化的計數器。處理完每個存儲庫後，該計數器會遞減。然後它會等待計數器減至零，再更新結果：
 
@@ -373,7 +373,7 @@ updateResults(allUsers.aggregate())
 >
 {style="tip"}
 
-## 暫停函式
+## 暫停函式 {id="suspending-functions"}
 
 您可以使用暫停函式實作相同的邏輯。定義 API 呼叫為 [暫停函式](composing-suspending-functions.md)，而不是回傳 `Call<List<Repo>>`，如下所示：
 
@@ -410,7 +410,7 @@ interface GitHubService {
 }
 ```
 
-### 任務 4
+### 任務 4 {id="task-4"}
 
 您的任務是更改載入貢獻者的函式程式碼，以使用兩個新的暫停函式：`getOrgRepos()` 和 `getRepoContributors()`。新的 `loadContributorsSuspend()` 函式被標記為 `suspend` 以使用新的 API。
 
@@ -422,7 +422,7 @@ interface GitHubService {
 2. 修改程式碼，以便使用新的暫停函式來取代那些回傳 `Call` 的函式。
 3. 透過選擇 _SUSPEND_ 選項執行程式，並確保在執行 GitHub 請求時 UI 仍然具有回應。
 
-#### 任務 4 的解答 {initial-collapse-state="collapsed" collapsible="true"}
+#### 任務 4 的解答 {initial-collapse-state="collapsed" collapsible="true" id="solution-for-task-4"}
 
 將 `.getOrgReposCall(req.org).execute()` 替換為 `.getOrgRepos(req.org)`，並對第二個 "contributors" 請求重複相同的替換：
 
@@ -444,7 +444,7 @@ suspend fun loadContributorsSuspend(service: GitHubService, req: RequestData): L
 * `loadContributorsSuspend()` 應定義為 `suspend` 函式。
 * 您不再需要呼叫之前回傳 `Response` 的 `execute`，因為現在 API 函式會直接回傳 `Response`。請注意，此細節特定於 Retrofit 程式庫。對於其他程式庫，API 會有所不同，但概念是一樣的。
 
-## 協同程式
+## 協同程式 {id="coroutines"}
 
 使用暫停函式的程式碼看起來與「阻塞」版本相似。與阻塞版本的主要區別在於，協同程式是被暫停，而不是阻塞執行緒：
 
@@ -457,7 +457,7 @@ thread -> coroutine
 >
 {style="note"}
 
-### 啟動新的協同程式
+### 啟動新的協同程式 {id="starting-a-new-coroutine"}
 
 如果您查看 `src/contributors/Contributors.kt` 中如何使用 `loadContributorsSuspend()`，您可以看到它是在 `launch` 內部被呼叫的。`launch` 是一個程式庫函式，它接受一個 Lambda 作為引數：
 
@@ -506,7 +506,7 @@ launch {
 
 暫停函式公平地對待執行緒，不會為了「等待」而阻塞它。然而，這還沒有帶來任何並行性。
 
-## 並行
+## 並行 {id="concurrency"}
 
 Kotlin 協同程式比執行緒更節省資源。每當您想要非同步啟動新的計算時，可以改為建立一個新的協同程式。
 
@@ -569,11 +569,11 @@ fun main() = runBlocking {
 
 總載入時間與 _CALLBACKS_ 版本大約相同，但它不需要任何回呼。此外，`async` 在程式碼中明確強調了哪些部分是並行執行的。
 
-### 任務 5
+### 任務 5 {id="task-5"}
 
 在 `Request5Concurrent.kt` 檔案中，使用先前的 `loadContributorsSuspend()` 函式實作 `loadContributorsConcurrent()` 函式。
 
-#### 任務 5 的提示 {initial-collapse-state="collapsed" collapsible="true"}
+#### 任務 5 的提示 {initial-collapse-state="collapsed" collapsible="true" id="tip-for-task-5"}
 
 您只能在協同程式作用域內啟動新的協同程式。將 `loadContributorsSuspend()` 中的內容複製到 `coroutineScope` 呼叫中，以便在那裡呼叫 `async` 函式：
 
@@ -597,7 +597,7 @@ val deferreds: List<Deferred<List<User>>> = repos.map { repo ->
 deferreds.awaitAll() // List<List<User>>
 ```
 
-#### 任務 5 的解答 {initial-collapse-state="collapsed" collapsible="true"}
+#### 任務 5 的解答 {initial-collapse-state="collapsed" collapsible="true" id="solution-for-task-5"}
 
 將每個 "contributors" 請求包裝在 `async` 中，以建立與存儲庫數量一樣多的協同程式。`async` 回傳 `Deferred<List<User>>`。這不是問題，因為建立新的協同程式並不太消耗資源，所以您可以根據需要建立任意多個。
 
@@ -689,7 +689,7 @@ deferreds.awaitAll() // List<List<User>>
 
 3. 執行程式碼並確保協同程式在執行緒池中的執行緒上執行。
 
-## 結構化並行
+## 結構化並行 {id="structured-concurrency"}
 
 * **協同程式作用域 (coroutine scope)** 負責不同協同程式之間的結構和父子關係。新的協同程式通常需要在作用域內啟動。
 * **協同程式上下文 (coroutine context)** 儲存用於執行給定協同程式的額外技術資訊，例如協同程式自訂名稱，或指定協同程式應排定在哪些執行緒上的排程器。
@@ -732,7 +732,7 @@ fun main() = runBlocking { /* this: CoroutineScope */
 
 使用 `GlobalScope.async` 時，沒有結構將多個協同程式綁定到一個較小的作用域。從全域作用域啟動的協同程式都是獨立的 —— 它們的生命週期僅受整個應用程式生命週期的限制。雖然可以儲存對從全域作用域啟動的協同程式的參照，並等待其完成或明確取消它，但這不會像結構化並行那樣自動發生。
 
-### 取消貢獻者的載入
+### 取消貢獻者的載入 {id="canceling-the-loading-of-contributors"}
 
 建立兩個版本的載入貢獻者列表函式。比較當您嘗試取消父協同程式時這兩個版本的行為。第一個版本將使用 `coroutineScope` 來啟動所有子協同程式，而第二個版本將使用 `GlobalScope`。
 
@@ -851,7 +851,7 @@ job.setUpCancellation()
 
 有了結構化並行，您只需要取消父協同程式，取消就會自動傳遞給所有子協同程式。
 
-### 使用外部作用域的上下文
+### 使用外部作用域的上下文 {id="using-the-outer-scope-s-context"}
 
 當您在給定作用域內啟動新的協同程式時，更容易確保所有協同程式都以相同的上下文執行。如果需要，替換上下文也會容易得多。
 
@@ -885,7 +885,7 @@ suspend fun loadContributorsConcurrent(
 >
 {style="tip"}
 
-## 顯示進度
+## 顯示進度 {id="showing-progress"}
 
 儘管某些存儲庫的資訊載入速度相當快，但使用者只有在所有資料載入後才能看到結果列表。在此之前，載入器圖示會一直轉動顯示進度，但沒有關於目前狀態或已載入哪些貢獻者的資訊。
 
@@ -921,7 +921,7 @@ launch(Dispatchers.Default) {
 * `updateResults()` 參數在 `loadContributorsProgress()` 中被宣告為 `suspend`。必須在對應的 Lambda 引數中呼叫 `withContext`，它是一個 `suspend` 函式。
 * `updateResults()` 回呼接受一個額外的布林參數作為引數，指定載入是否已完成以及結果是否為最終結果。
 
-### 任務 6
+### 任務 6 {id="task-6"}
 
 在 `Request6Progress.kt` 檔案中，實作顯示中間進度的 `loadContributorsProgress()` 函式。以 `Request4Suspend.kt` 中的 `loadContributorsSuspend()` 函式為基礎。
 
@@ -929,7 +929,7 @@ launch(Dispatchers.Default) {
 * 中間貢獻者列表應以「聚合」狀態顯示，而不僅僅是為每個存儲庫載入的使用者列表。
 * 載入每個新存儲庫的資料後，每位使用者的總貢獻數應增加。
 
-#### 任務 6 的解答 {initial-collapse-state="collapsed" collapsible="true"}
+#### 任務 6 的解答 {initial-collapse-state="collapsed" collapsible="true" id="solution-for-task-6"}
 
 要以「聚合」狀態儲存已載入貢獻者的中間列表，定義一個儲存使用者列表的 `allUsers` 變數，然後在載入每個新存儲庫的貢獻者後更新它：
 
@@ -956,7 +956,7 @@ suspend fun loadContributorsProgress(
 }
 ```
 
-#### 連續 vs 並行
+#### 連續 vs 並行 {id="consecutive-vs-concurrent"}
 
 在每個請求完成後都會呼叫 `updateResults()` 回呼：
 
@@ -970,7 +970,7 @@ suspend fun loadContributorsProgress(
 
 若要加入並行，請使用「管道 (channel)」。
 
-## 管道
+## 管道 {id="channels"}
 
 使用共享可變狀態編寫程式碼非常困難且容易出錯（就像使用回呼的解決方案一樣）。一種更簡單的方法是透過通訊而不是使用共同的可變狀態來共享資訊。協同程式可以透過 **管道 (channels)** 相互通訊。
 
@@ -1071,13 +1071,13 @@ fun log(message: Any?) {
 >
 {style="tip"}
 
-### 任務 7
+### 任務 7 {id="task-7"}
 
 在 `src/tasks/Request7Channels.kt` 中，實作 `loadContributorsChannels()` 函式，該函式同時並行請求所有 GitHub 貢獻者並顯示中間進度。
 
 使用先前的函式：`Request5Concurrent.kt` 中的 `loadContributorsConcurrent()` 以及 `Request6Progress.kt` 中的 `loadContributorsProgress()`。
 
-#### 任務 7 的提示 {initial-collapse-state="collapsed" collapsible="true"}
+#### 任務 7 的提示 {initial-collapse-state="collapsed" collapsible="true" id="tip-for-task-7"}
 
 為不同存儲庫並行接收貢獻者列表的不同協同程式可以將所有收到的結果發送到同一個管道中：
 
@@ -1103,7 +1103,7 @@ repeat(repos.size) {
 
 由於 `receive()` 呼叫是循序的，因此不需要額外的同步。
 
-#### 任務 7 的解答 {initial-collapse-state="collapsed" collapsible="true"}
+#### 任務 7 的解答 {initial-collapse-state="collapsed" collapsible="true" id="solution-for-task-7"}
 
 與 `loadContributorsProgress()` 函式一樣，您可以建立一個 `allUsers` 變數來儲存「所有貢獻者」列表的中間狀態。從管道收到的每個新列表都會加入到所有使用者的列表中。您聚合結果並使用 `updateResults` 回呼更新狀態：
 
@@ -1144,7 +1144,7 @@ suspend fun loadContributorsChannels(
 
 雖然協同程式和管道都不能完全消除並行帶來的複雜性，但當您需要理解發生了什麼事時，它們會讓您的生活更輕鬆。
 
-## 測試協同程式
+## 測試協同程式 {id="testing-coroutines"}
 
 現在讓我們測試所有解決方案，以確認使用並行協同程式的解決方案比使用 `suspend` 函式的解決方案更快，並檢查使用管道的解決方案是否比簡單的「進度」版本更快。
 
@@ -1243,7 +1243,7 @@ compileTestKotlin {
 
 在本教學對應的專案中，編譯器引數已經加入 Gradle 指令碼中。
 
-### 任務 8
+### 任務 8 {id="task-8"}
 
 重構 `tests/tasks/` 中的下列測試，改用虛擬時間而非實際時間：
 
@@ -1254,7 +1254,7 @@ compileTestKotlin {
 
 比較套用重構前後的總執行時間。
 
-#### 任務 8 的提示 {initial-collapse-state="collapsed" collapsible="true"}
+#### 任務 8 的提示 {initial-collapse-state="collapsed" collapsible="true" id="tip-for-task-8"}
 
 1. 將 `runBlocking` 調用替換為 `runTest`，並將 `System.currentTimeMillis()` 替換為 `currentTime`：
 
@@ -1271,7 +1271,7 @@ compileTestKotlin {
 2. 取消檢查精確虛擬時間的斷言註解。
 3. 不要忘記加入 `@UseExperimental(ExperimentalCoroutinesApi::class)`。
 
-#### 任務 8 的解答 {initial-collapse-state="collapsed" collapsible="true"}
+#### 任務 8 的解答 {initial-collapse-state="collapsed" collapsible="true" id="solution-for-task-8"}
 
 以下是並行和管道情況的解決方案：
 
@@ -1314,7 +1314,7 @@ fun testChannels() = runTest {
 >
 {style="tip"}
 
-## 接下來的步驟
+## 接下來的步驟 {id="what-s-next"}
 
 * 查看 KotlinConf 的 [Asynchronous Programming with Kotlin](https://kotlinconf.com/workshops/) 工作坊。
 * 進一步了解如何使用 [虛擬時間和實驗性測試套件](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-test/)。

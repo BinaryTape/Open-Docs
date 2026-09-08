@@ -5,19 +5,19 @@ Koog는 JetBrains 수준의 품질로 실제 문제를 해결하기 위해 설�
 
 Koog의 주된 핵심은 신뢰성입니다. 즉, 까다로운 엔터프라이즈 환경에서 자신 있게 사용할 수 있는 AI 에이전트를 구현할 수 있게 해줍니다.
 
-## JVM 및 Kotlin 애플리케이션과의 통합
+## JVM 및 Kotlin 애플리케이션과의 통합 {id="integration-with-java-and-kotlin-applications"}
 
 Koog는 Kotlin 개발자를 위해 특별히 설계된 Kotlin 도메인 특화 언어(DSL)와 함께 Java 사용자를 위한 fluent Java API를 제공합니다.
 동일한 프레임워크가 두 JVM 언어 모두에서 네이티브한 느낌을 제공하므로, Kotlin 및 Java 기반 애플리케이션에 원활하게 통합되는 동시에 생산성을 크게 향상시키고 전반적인 개발자 경험을 개선합니다.
 
-## JetBrains 제품을 통한 실무 검증
+## JetBrains 제품을 통한 실무 검증 {id="real-world-validation-with-jetbrains-products"}
 
 Koog는 내부 AI 에이전트를 포함한 여러 JetBrains 제품의 기반이 됩니다.
 이러한 실무 통합을 통해 Koog는 실제 사용 사례에 대해 지속적으로 테스트되고 개선되며 검증됩니다.
 Koog는 광범위한 피드백과 실제 제품 시나리오에서 얻은 통찰력을 바탕으로 실무에서 효과적인 기능에 집중합니다.
 이러한 통합은 Koog를 다른 프레임워크와 차별화하는 강점을 제공합니다.
 
-## 즉시 사용 가능한 고급 솔루션
+## 즉시 사용 가능한 고급 솔루션 {id="advanced-solutions-available-out-of-the-box"}
 
 Koog에는 에이전트 시스템(agentic systems) 개발을 단순화하고 가속화하기 위해 사전 구축된 조합 가능한 솔루션이 포함되어 있으며, 이는 기본 컴포넌트만 제공하는 프레임워크와 차별화되는 점입니다:
 
@@ -28,7 +28,7 @@ Koog에는 에이전트 시스템(agentic systems) 개발을 단순화하고 가
 * **원활한 LLM 전환.** 기존 대화 히스토리를 잃지 않고 언제든지 새로운 도구 세트를 가진 다른 거대 언어 모델(LLM)로 대화를 전환할 수 있습니다. Koog는 히스토리를 자동으로 다시 작성하고 사용 불가능한 도구를 처리하여 원활한 전환과 자연스러운 상호작용 흐름을 가능하게 합니다.
 * **강력한 재시도 컴포넌트.** Koog에는 에이전트 시스템 내의 모든 작업 집합을 감싸고 구성 가능한 조건이 충족될 때까지 재시도할 수 있는 재시도 메커니즘이 포함되어 있습니다. 각 시도에 대해 피드백을 제공하고 조정하여 신뢰할 수 있는 결과를 보장할 수 있습니다. LLM 호출이 타임아웃되거나, 도구가 예상대로 작동하지 않거나, 네트워크 문제가 발생하는 경우에도 Koog는 에이전트가 탄력성을 유지하고 일시적인 오류 상황에서도 효과적으로 작동하도록 보장합니다. 더 자세한 기술적 내용은 [Retry functionality](https://docs.koog.ai/history-compression/)를 확인하세요.
 
-## 광범위한 통합, 멀티플랫폼 지원, 향상된 관측성
+## 광범위한 통합, 멀티플랫폼 지원, 향상된 관측성 {id="broad-integration-multiplatform-support-enhanced-observability"}
 
 Koog는 다양한 플랫폼과 환경에서 에이전트 애플리케이션의 개발 및 배포를 지원합니다:
 
@@ -40,7 +40,7 @@ Koog는 다양한 플랫폼과 환경에서 에이전트 애플리케이션의 �
 * **광범위한 AI 통합**. Koog는 OpenAI, Anthropic, Google, DeepSeek, Mistral, Alibaba를 포함한 주요 LLM 제공업체는 물론 Bedrock과 같은 엔터프라이즈급 AI 클라우드와 통합됩니다. 또한 Ollama와 같은 로컬 모델도 지원합니다. 사용 가능한 제공업체의 전체 목록은 [LLM providers](https://docs.koog.ai/llm-providers/)를 참조하세요.
 * **OpenTelemetry 지원**. Koog는 AI 애플리케이션의 모니터링 및 디버깅을 위해 [W&B Weave](https://wandb.ai/site/weave/), [Langfuse](https://langfuse.com/) 및 [DataDog](https://www.datadoghq.com/)와 같은 인기 있는 관측성(observability) 제공업체와 즉시 사용 가능한 통합을 제공합니다. 기본 OpenTelemetry 지원을 통해 시스템에서 이미 사용 중인 것과 동일한 도구를 사용하여 에이전트를 추적(trace), 로깅 및 측정할 수 있습니다. 자세한 내용은 [OpenTelemetry](https://docs.koog.ai/opentelemetry-support/)를 참조하세요.
 
-## ML 엔지니어 및 제품 팀과의 협업
+## ML 엔지니어 및 제품 팀과의 협업 {id="collaboration-with-ml-engineers-and-product-teams"}
 
 Koog의 고유한 장점은 JetBrains ML 엔지니어 및 제품 팀과의 직접적인 협업입니다.
 이를 통해 Koog로 구축된 기능이 단순히 이론에 그치지 않고 실제 제품 요구 사항을 바탕으로 테스트되고 개선되도록 보장합니다.
@@ -50,13 +50,13 @@ Koog의 고유한 장점은 JetBrains ML 엔지니어 및 제품 팀과의 직�
 * 독특한 히스토리 압축 전략과 같이 제품 개발을 통해 발견되고 검증된 **입증된 엔지니어링 접근 방식**. 자세한 내용은 [이 상세 기사](https://blog.jetbrains.com/ai/2025/07/when-tool-calling-becomes-an-addiction-debugging-llm-patterns-in-koog/)에서 확인할 수 있습니다.
 * Koog가 효율성을 유지하고 진화하는 요구 사항에 적응할 수 있도록 돕는 **지속적인 개선**.
 
-## 개발자 커뮤니티에 대한 헌신
+## 개발자 커뮤니티에 대한 헌신 {id="commitment-to-the-developer-community"}
 
 Koog 팀은 강력한 개발자 커뮤니티를 구축하는 데 깊이 전념하고 있습니다.
 적극적으로 피드백을 수집하고 반영함으로써, Koog는 개발자의 요구를 효과적으로 충족하도록 진화하고 있습니다.
 저희는 개발자에게 힘을 실어주기 위해 다양한 AI 아키텍처에 대한 지원, 포괄적인 벤치마크, 상세한 사용 사례 가이드 및 교육 리소스를 적극적으로 확장하고 있습니다.
 
-## 시작하기
+## 시작하기 {id="where-to-start"}
 
 * [Overview](index.md)에서 Koog의 기능을 살펴보세요.
 * [Quickstart](quickstart.md) 가이드를 통해 첫 번째 Koog 에이전트를 구축해 보세요.

@@ -8,7 +8,7 @@ status: beta
 
 Koog는 Amazon Bedrock AgentCore 서비스에서 에이전트를 실행하기 위한 통합 기능을 제공합니다.
 
-## Amazon Bedrock AgentCore Runtime
+## Amazon Bedrock AgentCore Runtime {id="amazon-bedrock-agentcore-runtime"}
 
 `koog-bedrock-agentcore-runtime` 모듈은 [Amazon Bedrock AgentCore Runtime](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime.html) HTTP 계약을 통해 Koog 에이전트를 노출하는 Ktor 라우트 설치 프로그램(route installer)을 제공합니다. 이 모듈은 설정된 Ktor 라우트를 기준으로 다음 엔드포인트를 설치합니다:
 
@@ -17,7 +17,7 @@ Koog는 Amazon Bedrock AgentCore 서비스에서 에이전트를 실행하기 �
 
 이 모듈은 타이핑된(typed) JSON 핸들러뿐만 아니라 텍스트, 바이너리, 멀티파트(multipart), 스트리밍 페이로드를 지원합니다. 호출 핸들러(Invocation handlers)는 Ktor `RoutingContext`에서 실행되므로, `koog-ktor` 플러그인이 설치된 경우 `aiAgent()`와 같은 Koog 라우팅 확장 기능을 사용할 수 있습니다.
 
-### 의존성 추가
+### 의존성 추가 {id="add-the-dependency"}
 
 Gradle 빌드에 AgentCore 런타임 모듈을 추가하세요:
 
@@ -29,7 +29,7 @@ dependencies {
 
 이 모듈은 JVM 17 이상, Kotlin 2.x, Ktor 3.x가 필요합니다.
 
-### 런타임 라우트 설치
+### 런타임 라우트 설치 {id="install-the-runtime-routes"}
 
 다음 예제는 Koog와 Ktor 콘텐츠 협상(content negotiation)을 설치한 후, 타이핑된 JSON 호출 핸들러를 노출하는 방법을 보여줍니다:
 
@@ -81,7 +81,7 @@ fun Application.module() {
 
 타이핑된 핸들러는 요청 역직렬화(deserialization)와 응답 직렬화(serialization)를 Ktor의 `ContentNegotiation` 플러그인에 위임합니다. 호스트 애플리케이션은 JSON 요청 및 응답을 위한 `json()`과 같이 허용하는 미디어 유형에 대한 변환기를 설치해야 합니다. 서버 엔진, 포트 및 기타 애플리케이션 플러그인 또한 호스트 애플리케이션의 제어 하에 유지됩니다.
 
-### 다양한 페이로드 유형 처리
+### 다양한 페이로드 유형 처리 {id="handle-different-payload-types"}
 
 JSON이 아닌 페이로드나 멀티모달 응답의 경우, 통합 `handler`를 구성하세요. 이 핸들러는 `InvocationInput`과 `AgentCoreContext`를 수신하고 `InvocationResult`를 반환합니다:
 
@@ -111,7 +111,7 @@ routing {
 
 스트리밍 응답은 직접 작성되며 Ktor의 `SSE` 플러그인이 필요하지 않습니다.
 
-### 요청 처리 구성
+### 요청 처리 구성 {id="configure-request-handling"}
 
 `AgentCoreRuntimeConfig`는 다음 옵션을 제공합니다:
 
@@ -126,7 +126,7 @@ routing {
 
 `Content-Length` 헤더가 없는 요청은 `maxRequestBytes`에 대해 사전 확인되지 않으며, 기본 서버 엔진의 제한이 계속 적용됩니다.
 
-### 상태 및 백그라운드 작업 모니터링
+### 상태 및 백그라운드 작업 모니터링 {id="monitor-health-and-background-tasks"}
 
 `/ping` 엔드포인트는 다음을 반환합니다:
 
@@ -138,7 +138,7 @@ routing {
 
 속도 제한(Rate limiting) 또한 호스트 애플리케이션에 의해 제어됩니다. Ktor의 `RateLimit` 플러그인을 전역으로 설치하거나 `agentCoreRuntime` 라우트를 명명된 `rateLimit` 블록으로 감싸 원하는 정책을 적용하세요.
 
-## Amazon Bedrock AgentCore Memory
+## Amazon Bedrock AgentCore Memory {id="amazon-bedrock-agentcore-memory"}
 
 Koog는 두 가지 방식으로 [Amazon Bedrock AgentCore Memory](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/memory.html)와 통합됩니다:
 
@@ -147,7 +147,7 @@ Koog는 두 가지 방식으로 [Amazon Bedrock AgentCore Memory](https://docs.a
 
 두 통합 모두 JVM 17 이상과 AgentCore 메모리 리소스가 필요합니다. 표준 AWS SDK 자격 증명 및 리전 공급자 체인을 통해 AWS 자격 증명과 리전을 설정하세요.
 
-### 의존성 추가
+### 의존성 추가 {id="add-the-dependencies"}
 
 Gradle 빌드에 하나 또는 두 메모리 통합 모듈을 모두 추가하세요:
 
@@ -160,7 +160,7 @@ dependencies {
 
 두 모듈 모두 공개 API에서 사용하는 Kotlin용 AWS SDK `BedrockAgentCoreClient`를 노출합니다. 장기 메모리(Long-term memory)는 메모리 전략 탐색을 위한 `BedrockAgentCoreControlClient`도 노출합니다.
 
-### 대화 기록 유지
+### 대화 기록 유지 {id="persist-conversational-history"}
 
 `AgentcoreChatHistoryProvider`는 AgentCore의 `createEvent` 및 `listEvents` API를 사용하여 Koog의 `ChatHistoryProvider`를 구현합니다. `ChatMemory` 기능을 통해 이를 설치하세요:
 
@@ -192,7 +192,7 @@ val result = agent.run(
 
 공급자는 일반 텍스트 형태의 `Message.User` 및 `Message.Assistant` 메시지를 저장합니다. AgentCore에서 로드된 메시지는 메타데이터에 이벤트 ID를 포함하고 있으므로, 전체 기록을 다시 저장할 때 공급자가 새 메시지만 저장할 수 있습니다. 시스템, 도구, 추론 및 텍스트가 아닌 콘텐츠는 기본적으로 건너뜁니다. 대신 이를 거부하려면 `ignoreUnsupportedValues = false`로 설정하세요. `listEvents` 페이지네이션을 제어하려면 `pageSize`를 사용하고, 로드되는 이벤트 수를 제한하려면 `totalEventsLimit`를 사용하세요.
 
-### 장기 메모리 검색
+### 장기 메모리 검색 {id="retrieve-long-term-memory"}
 
 `LongTermMemory`는 각 LLM 요청 전에 하나 이상의 AgentCore 메모리 전략을 쿼리할 수 있습니다. `agentcore` DSL은 복합 검색(composite retrieval)을 생성하므로, 단일 블록에서 여러 전략 유형과 네임스페이스 범위를 결합할 수 있습니다:
 
@@ -242,7 +242,7 @@ Actor 범위 메모리의 경우 `/strategies/{strategyId}/actors/{actorId}/`, �
 
 기본 `AgentcorePromptAugmenter`는 시맨틱, 기본 설정, 에피소드 및 성찰 레코드를 시스템 메시지에 배치합니다. 요약 레코드는 최신 사용자 메시지에 추가됩니다. 다른 Koog `PromptAugmenter`를 사용하려면 블록에서 `augmenter`를 설정하세요.
 
-### 구성된 메모리 전략 탐색
+### 구성된 메모리 전략 탐색 {id="discover-configured-memory-strategies"}
 
 전략 ID나 네임스페이스 템플릿을 하드코딩하지 않아야 하는 경우, AWS `BedrockAgentCoreControlClient`와 함께 `AgentcoreStrategyDiscovery`를 사용한 다음 그 결과를 `agentcoreDiscovered`에 전달하세요. 탐색 DSL은 메모리 리소스에 대해 반환된 모든 지원 전략을 구성하며, 검색 제한, 점수, 필터 및 네임스페이스 패턴을 재정의하거나 개별 전략을 제외할 수 있게 해줍니다. 탐색된 세트에 요약 또는 에피소드형 전략이 포함된 경우 `sessionId`가 필요합니다.
 

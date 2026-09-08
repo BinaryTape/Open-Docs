@@ -8,11 +8,11 @@ title: Android 作用域
 有关核心作用域概念，请参阅 [作用域](/docs/reference/koin-core/scopes)。
 :::
 
-## 概览
+## 概览 {id="overview"}
 
 Koin 中的作用域允许您管理依赖项的生命周期，以匹配 Android 组件的生命周期。这可以防止内存泄漏并确保正确的资源管理。
 
-### 作用域层次结构
+### 作用域层次结构 {id="scope-hierarchy"}
 
 | 作用域类型 | 生命周期 | 在旋转后存续 | DSL | 注解 |
 |------------|----------|-------------------|-----|------------|
@@ -22,7 +22,7 @@ Koin 中的作用域允许您管理依赖项的生命周期，以匹配 Android 
 | **Fragment** | Fragment 生命周期 | ❌ 否 | `fragmentScope { }` | `@FragmentScope` |
 | **ViewModel** | ViewModel 生命周期 | ✅ 是 | `viewModelScope { }` | `@ViewModelScope` |
 
-### 作用域关系
+### 作用域关系 {id="scope-relationships"}
 
 ```
 应用程序作用域 (single { })
@@ -37,9 +37,9 @@ Koin 中的作用域允许您管理依赖项的生命周期，以匹配 Android 
 **核心原则：** 子作用域可以访问父作用域的定义，但反之则不行。
 :::
 
-## 声明作用域依赖项
+## 声明作用域依赖项 {id="declaring-scoped-dependencies"}
 
-### 编译器插件 DSL
+### 编译器插件 DSL {id="compiler-plugin-dsl"}
 
 ```kotlin
 val appModule = module {
@@ -62,7 +62,7 @@ val appModule = module {
 }
 ```
 
-### 注解
+### 注解 {id="annotations"}
 
 ```kotlin
 // Activity 作用域
@@ -89,7 +89,7 @@ class UserCache
 class UserViewModel(private val cache: UserCache) : ViewModel()
 ```
 
-### 经典 DSL
+### 经典 DSL {id="classic-dsl"}
 
 ```kotlin
 val appModule = module {
@@ -109,9 +109,9 @@ val appModule = module {
 }
 ```
 
-## 在 Android 组件中使用作用域
+## 在 Android 组件中使用作用域 {id="using-scopes-in-android-components"}
 
-### Activity 作用域
+### Activity 作用域 {id="activity-scope"}
 
 ```kotlin
 class MyActivity : AppCompatActivity(), AndroidScopeComponent {
@@ -134,7 +134,7 @@ class MyActivity : ScopeActivity() {
 }
 ```
 
-### Activity 保留作用域
+### Activity 保留作用域 {id="activity-retained-scope"}
 
 在配置更改（旋转、主题更改）后存续：
 
@@ -157,7 +157,7 @@ class MyActivity : RetainedScopeActivity() {
 }
 ```
 
-### Fragment 作用域
+### Fragment 作用域 {id="fragment-scope"}
 
 Fragment 作用域会自动链接到父 Activity 作用域：
 
@@ -183,9 +183,9 @@ class MyFragment : ScopeFragment() {
 }
 ```
 
-## 基于类型的作用域 vs 原型作用域
+## 基于类型的作用域 vs 原型作用域 {id="type-based-vs-archetype-scopes"}
 
-### 原型作用域 (推荐)
+### 原型作用域 (推荐) {id="archetype-scope-recommended"}
 
 适用于任何 Activity/Fragment 的通用作用域：
 
@@ -206,7 +206,7 @@ class ActivityB : ScopeActivity() {
 }
 ```
 
-### 基于类型的作用域
+### 基于类型的作用域 {id="type-based-scope"}
 
 绑定到特定类的工作作用域：
 
@@ -224,7 +224,7 @@ class MyActivity : AppCompatActivity(), AndroidScopeComponent {
 }
 ```
 
-## ViewModel 作用域
+## ViewModel 作用域 {id="viewmodel-scope"}
 
 ViewModel 无法访问 Activity 或 Fragment 作用域（以防止内存泄漏）。请为作用域内依赖项使用 ViewModel 作用域：
 
@@ -254,9 +254,9 @@ class UserViewModel(
 
 有关详细的 ViewModel 作用域用法，请参阅 [作用域 - ViewModel 作用域](/docs/reference/koin-core/scopes#viewmodel-scope)。
 
-## 作用域生命周期
+## 作用域生命周期 {id="scope-lifecycle"}
 
-### 处理作用域关闭
+### 处理作用域关闭 {id="handling-scope-close"}
 
 重写 `onCloseScope()` 以在作用域销毁之前运行清理代码：
 
@@ -276,7 +276,7 @@ class MyActivity : AppCompatActivity(), AndroidScopeComponent {
 不要在 `onDestroy()` 中访问作用域 - 该作用域在此时已经关闭。
 :::
 
-## 作用域链接
+## 作用域链接 {id="scope-links"}
 
 在具有自定义作用域的组件之间共享实例：
 
@@ -303,7 +303,7 @@ class MyActivity : ScopeActivity() {
 }
 ```
 
-## 快速参考
+## 快速参考 {id="quick-reference"}
 
 | 组件 | 委托 | 基类 |
 |-----------|----------|------------|
@@ -318,7 +318,7 @@ class MyActivity : ScopeActivity() {
 | `fragmentScope` | ❌ 否 | Fragment 特定的 Presenter |
 | `viewModelScope` | ✅ 是 | ViewModel 依赖项 |
 
-## 最佳做法
+## 最佳做法 {id="best-practices"}
 
 1. **使用原型** - 优先使用 `activityScope { }` 而非 `scope<MyActivity> { }` 以提高可重用性。
 2. **为旋转保留** - 对应该在旋转后存续的状态使用 `activityRetainedScope`。
@@ -326,7 +326,7 @@ class MyActivity : ScopeActivity() {
 4. **关闭自定义作用域** - 始终手动关闭手动创建的作用域。
 5. **使用 onCloseScope** - 用于在作用域销毁前进行清理。
 
-## 下一步
+## 下一步 {id="next-steps"}
 
 - **[核心作用域](/docs/reference/koin-core/scopes)** - 作用域基础和 ViewModel 作用域
 - **[ViewModel](/docs/reference/koin-android/viewmodel)** - ViewModel 注入

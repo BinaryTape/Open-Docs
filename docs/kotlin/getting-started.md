@@ -10,12 +10,12 @@ Kotlin 是一种现代编程语言，具有简洁、多平台以及与 Java 和�
 
 <a href="kotlin-tour-welcome.md" as="button" mode="classic" icon="arrow-right" icon-position="right">开始 Kotlin 导览</a>
 
-## 安装 Kotlin
+## 安装 Kotlin {id="install-kotlin"}
 
 每个 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Android Studio](https://developer.android.com/studio) 版本中都包含 Kotlin。
 下载并安装其中一个 IDE 即可开始使用 Kotlin。
 
-## 选择你的 Kotlin 使用场景
+## 选择你的 Kotlin 使用场景 {id="choose-your-kotlin-use-case"}
  
 <tabs>
 
@@ -84,7 +84,7 @@ Kotlin 是一种现代编程语言，具有简洁、多平台以及与 Java 和�
 
 </tabs>
 
-## 获取支持
+## 获取支持 {id="get-support"}
 
 如果你遇到任何困难或问题，请在 ![Slack](slack.svg){width=25}{type="joined"} Slack 中寻求帮助：[获取邀请](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)，或在我们的 [问题跟踪器](https://youtrack.jetbrains.com/issues/KT) 中报告问题。
 

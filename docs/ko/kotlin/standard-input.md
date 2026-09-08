@@ -7,7 +7,7 @@
 
 표준 입력(standard input)으로부터 데이터를 읽기 위해 Java는 `Scanner` 클래스를 제공합니다. Kotlin은 표준 입력으로부터 읽는 두 가지 주요 방법을 제공합니다: Java와 유사한 `Scanner` 클래스와 `readln()` 함수입니다.
 
-## Java Scanner를 사용하여 표준 입력 읽기
+## Java Scanner를 사용하여 표준 입력 읽기 {id="read-from-the-standard-input-with-java-scanner"}
 
 Java에서 표준 입력은 일반적으로 `System.in` 객체를 통해 접근합니다. `Scanner` 클래스를 임포트하고, 객체를 생성한 후, `.nextLine()` 및 `.nextInt()`와 같은 메서드를 사용하여 다양한 데이터 타입을 읽어야 합니다.
 
@@ -36,7 +36,7 @@ public class Main {
 }
 ```
 
-### Kotlin에서 Java Scanner 사용하기
+### Kotlin에서 Java Scanner 사용하기 {id="use-java-scanner-in-kotlin"}
 
 Kotlin은 Java 라이브러리와의 상호운용성(interoperability) 덕분에, 별도의 설정 없이 Kotlin 코드에서 Java Scanner를 바로 사용할 수 있습니다.
 
@@ -81,7 +81,7 @@ Java Scanner로 입력을 읽을 때 유용한 다른 메서드로는 `.hasNext(
 >
 {style="note"}
 
-## readln()을 사용하여 표준 입력 읽기
+## readln()을 사용하여 표준 입력 읽기 {id="read-from-the-standard-input-with-readln"}
 
 Kotlin에는 Java Scanner 외에도 `readln()` 함수가 있습니다. 이는 입력을 읽는 가장 간단한 방법입니다. 이 함수는 표준 입력에서 텍스트 한 줄을 읽어 문자열로 반환합니다.
 

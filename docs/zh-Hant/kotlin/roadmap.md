@@ -13,7 +13,7 @@
 
 歡迎來到 Kotlin 發展藍圖！在此您可以搶先了解 JetBrains 團隊的優先事項。
 
-## 關鍵優先事項
+## 關鍵優先事項 {id="key-priorities"}
 
 此發展藍圖的目標是為您提供整體概觀。
 以下是我們的關鍵關注領域——我們致力於交付的最重要方向：
@@ -23,7 +23,7 @@
 * **保持中立**：不論開發人員使用的工具或目標平台為何，皆提供支援。
 * **第三方生態系統作者的體驗**：簡化 Kotlin 程式庫、工具與架構的開發與發佈流程。
 
-## 依子系統劃分的 Kotlin 發展藍圖
+## 依子系統劃分的 Kotlin 發展藍圖 {id="kotlin-roadmap-by-subsystem"}
 
 <!-- To view the biggest projects we're working on, see the [Roadmap details](#roadmap-details) table. -->
 
@@ -129,9 +129,9 @@ Visit the [roadmap board in our issue tracker YouTrack](https://youtrack.jetbrai
 > 
 {style="note"}
 
-## 自 2026 年 2 月以來的變更
+## 自 2026 年 2 月以來的變更 {id="what-s-changed-since-february-2026"}
 
-### 已完成項目
+### 已完成項目 {id="completed-items"}
 
 我們已**完成**上一個發展藍圖中的以下項目：
 
@@ -147,7 +147,7 @@ Visit the [roadmap board in our issue tracker YouTrack](https://youtrack.jetbrai
 * ✅ 生態系統：[為標準程式庫的安全性修正引入 18 個月的支援週期](https://youtrack.jetbrains.com/issue/KT-83525)
 * ✅ 生態系統：[為 Exposed 建立遷移 Gradle 外掛程式](https://youtrack.jetbrains.com/issue/EXPOSED-755)
 
-### 新增項目
+### 新增項目 {id="new-items"}
 
 我們已在發展藍圖中**新增**以下項目：
 
@@ -163,7 +163,7 @@ Visit the [roadmap board in our issue tracker YouTrack](https://youtrack.jetbrai
 * 🆕 工具支援：[Kotlin 工具鏈：進入 Kotlin 的單一入口點](https://youtrack.jetbrains.com/issue/KTC-5718)
 * 🆕 生態系統：[為 Kotlin 標準程式庫 (stdlib) 型別實作一等公民等級的 JPA/Hibernate 支援](https://youtrack.jetbrains.com/issue/KT-88665)
 
-### 已移除項目
+### 已移除項目 {id="removed-items"}
 
 我們已從發展藍圖中**移除**以下項目：
 

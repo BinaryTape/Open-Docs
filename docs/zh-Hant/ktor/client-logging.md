@@ -23,7 +23,7 @@ Ktor 提供了使用 [Logging](https://api.ktor.io/ktor-client-logging/io.ktor.c
 
 > 在伺服器端，Ktor 為應用程式日誌記錄提供 [Logging](server-logging.md) 外掛程式，並為記錄用戶端請求提供 [CallLogging](server-call-logging.md) 外掛程式。
 
-## JVM
+## JVM {id="jvm"}
 
 <snippet id="jvm-logging">
   <p>
@@ -54,7 +54,7 @@ Ktor 提供了使用 [Logging](https://api.ktor.io/ktor-client-logging/io.ktor.c
   </Tabs>
 </snippet>
 
-### Android
+### Android {id="android"}
 
 <p>
     在 Android 上，我們建議使用 SLF4J Android 程式庫：
@@ -71,11 +71,11 @@ Ktor 提供了使用 [Logging](https://api.ktor.io/ktor-client-logging/io.ktor.c
     </TabItem>
 </Tabs>
 
-## Native
+## Native {id="native"}
 
 對於 [Native 目標](client-engines.md#native)，`Logging` 外掛程式提供了一個將所有內容列印到標準輸出串流 (`STDOUT`) 的日誌記錄器。
 
-## 多平台
+## 多平台 {id="multiplatform"}
 
 在 [多平台專案](client-create-multiplatform-application.md) 中，您可以指定 [自訂日誌記錄器](#custom_logger)，例如 [Napier](https://github.com/AAkira/Napier)。
 

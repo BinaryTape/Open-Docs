@@ -5,7 +5,7 @@ Kotlin은 강력하고 유연한 데이터 시각화를 위한 올인원 솔루�
 
 이 튜토리얼에서는 [Kandy](https://kotlin.github.io/kandy/welcome.html) 및 [Kotlin DataFrame](https://kotlin.github.io/dataframe/home.html) 라이브러리를 사용하여 IntelliJ IDEA에서 다양한 차트 유형을 만드는 방법을 보여줍니다.
 
-## 시작하기 전에
+## 시작하기 전에 {id="before-you-start"}
 
 > IntelliJ IDEA 2026.2부터 Kotlin Notebook은 더 이상 IDE에 번들로 제공되지 않으며 JetBrains에서 공식적으로 지원하지 않습니다.
 > 소스 코드는 [GitHub](https://github.com/Kotlin/kotlin-notebook)에서 계속 이용할 수 있습니다.
@@ -28,7 +28,7 @@ Kotlin은 강력하고 유연한 데이터 시각화를 위한 올인원 솔루�
 
 이 튜토리얼을 따라 하기 위해 DataFrame을 [Gradle](https://kotlin.github.io/dataframe/setupgradle.html) 또는 [Maven](https://kotlin.github.io/dataframe/setupmaven.html) 의존성으로 사용할 수도 있습니다.
 
-## DataFrame 생성
+## DataFrame 생성 {id="create-a-dataframe"}
 
 시작하기 위해 시각화할 데이터를 포함하는 DataFrame(데이터프레임)을 생성해 보겠습니다. 이 DataFrame은 베를린, 마드리드, 카라카스 세 도시의 월별 평균 기온 시뮬레이션 수치를 저장합니다.
 
@@ -75,7 +75,7 @@ df.head(4) // 처음 4개 행을 반환합니다.
 >
 {style="tip"}
 
-## 선형 차트 생성
+## 선형 차트 생성 {id="create-a-line-chart"}
 
 이전 섹션에서 만든 `df` DataFrame을 사용하여 선형 차트(line chart)를 만들어 보겠습니다:
 
@@ -109,7 +109,7 @@ df.plot {
 
 ![Line chart](visualization-line-chart.svg){width=600}
 
-## 포인트 차트 생성
+## 포인트 차트 생성 {id="create-a-points-chart"}
 
 이제 `df` DataFrame을 포인트(산점도, scatter) 차트로 시각화해 보겠습니다:
 
@@ -148,7 +148,7 @@ df.plot {
 
 ![Points chart](visualization-points-chart.svg){width=600}
 
-## 막대 차트 생성
+## 막대 차트 생성 {id="create-a-bar-chart"}
 
 마지막으로 각 도시별 막대 차트(bar chart)를 만들어 보겠습니다:
 
@@ -181,7 +181,7 @@ df.groupBy { City }.plot {
 
 ![Bar chart](visualization-bar-chart.svg){width=600}
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [Kandy 라이브러리 문서](https://kotlin.github.io/kandy/examples.html)에서 더 많은 차트 예제를 살펴보세요.
 * [Lets-Plot 라이브러리 문서](lets-plot.md)에서 더 고급 플로팅(plotting) 옵션을 살펴보세요.

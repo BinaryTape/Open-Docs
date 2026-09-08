@@ -8,17 +8,17 @@ _發布日期：2018 年 10 月 29 日_
 >
 {style="tip"}
 
-## 協同程式正式發布
+## 協同程式正式發布 {id="coroutines-release"}
 
 經過長時間且廣泛的實戰測試，協同程式（coroutines）現在正式發布了！這意味著從 Kotlin 1.3 開始，語言支援和 API 已[完全穩定](components-stability.md)。請查看新的[協同程式概覽](coroutines-overview.md)頁面。
 
 Kotlin 1.3 在 `suspend` 函式上引入了可呼叫參照，並在反射 API 中支援協同程式。
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 Kotlin 1.3 繼續改進並完善 Native 目標。詳情請參閱 [Kotlin/Native 概覽](native-overview.md)。
 
-## 多平台專案
+## 多平台專案 {id="multiplatform-projects"}
 
 在 1.3 中，我們完全重構了多平台專案（multiplatform projects）的模型，以提高表達力和靈活性，並使共享通用程式碼更加容易。此外，Kotlin/Native 現在也作為支援的目標之一！
 
@@ -32,7 +32,7 @@ Kotlin 1.3 繼續改進並完善 Native 目標。詳情請參閱 [Kotlin/Native 
 
 欲了解更多資訊，請參閱[多平台程式設計文件](https://kotlinlang.org/docs/multiplatform/get-started.html)。
 
-## 契約
+## 契約 {id="contracts"}
 
 Kotlin 編譯器執行廣泛的靜態分析以提供警告並減少樣板程式碼。其中最顯著的功能之一是智慧轉換（smartcasts）——能夠根據執行的型別檢查自動執行轉換：
 
@@ -93,7 +93,7 @@ fun foo() {
 }
 ```
 
-### 標準函式庫中的契約
+### 標準函式庫中的契約 {id="contracts-in-stdlib"}
 
 `stdlib` 已經使用了契約，這帶來了上述分析的改進。這部分契約是**穩定**的，這意味著您現在就可以從改進的分析中受益，而無需任何額外的選用（opt-ins）：
 
@@ -112,7 +112,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 自訂契約
+### 自訂契約 {id="custom-contracts"}
 
 可以為您自己的函式宣告契約，但此功能是**實驗性的**，因為目前的語法處於早期原型階段，極有可能會發生變化。另外請注意，目前 Kotlin 編譯器不會驗證契約，因此編寫正確且合理的契約是程式設計師的責任。
 
@@ -129,7 +129,7 @@ fun String?.isNullOrEmpty(): Boolean {
 
 有關語法詳情以及相容性通知，請參閱 [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/kotlin-contracts.md)。
 
-## 將 when 主體擷取到變數中
+## 將 when 主體擷取到變數中 {id="capturing-when-subject-in-a-variable"}
 
 在 Kotlin 1.3 中，現在可以將 `when` 的主體擷取到變數中：
 
@@ -143,7 +143,7 @@ fun Request.getBody() =
 
 雖然以前也可以在 `when` 之前提取此變數，但 `when` 中的 `val` 將其作用域正確限制在 `when` 的主體內，從而防止命名空間污染。[在此處查看關於 `when` 的完整文件](control-flow.md#when-expressions-and-statements)。
 
-## 介面伴隨物件中的 @JvmStatic 和 @JvmField
+## 介面伴隨物件中的 @JvmStatic 和 @JvmField {id="jvmstatic-and-jvmfield-in-companions-of-interfaces"}
 
 在 Kotlin 1.3 中，可以使用註解 `@JvmStatic` 和 `@JvmField` 標記介面的 `companion` 物件成員。在類別檔案中，此類成員將被提升到對應的介面並標記為 `static`。
 
@@ -174,7 +174,7 @@ interface Foo {
 }
 ```
 
-## 註解類別中的巢狀宣告
+## 註解類別中的巢狀宣告 {id="nested-declarations-in-annotation-classes"}
 
 在 Kotlin 1.3 中，註解可以擁有巢狀類別、介面、物件和伴隨物件：
 
@@ -191,7 +191,7 @@ annotation class Foo {
 }
 ```
 
-## 無參數的 main
+## 無參數的 main {id="parameterless-main"}
 
 按照慣例，Kotlin 程式的入口點是一個簽章如 `main(args: Array<String>)` 的函式，其中 `args` 代表傳遞給程式的命令列引數。然而，並非每個應用程式都支援命令列引數，因此這個參數通常最終未被使用。
 
@@ -204,7 +204,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 具有大參數個數的函式
+## 具有大參數個數的函式 {id="functions-with-big-arity"}
 
 在 Kotlin 中，泛型類別代表函式型別，這些類別接受不同數量的參數：`Function0<R>`、`Function1<P0, R>`、`Function2<P0, P1, R>` 等。這種方法存在一個問題，即這個清單是有限的，目前以 `Function22` 結尾。
 
@@ -216,7 +216,7 @@ fun trueEnterpriseComesToKotlin(block: (Any, Any, ... /* 還有 42 個 */, Any) 
 }
 ```
 
-## 漸進模式
+## 漸進模式 {id="progressive-mode"}
 
 Kotlin 非常重視程式碼的穩定性和回溯相容性：Kotlin 相容性政策規定，重大變更（例如，使以前編譯正常的程式碼現在無法編譯的變更）只能在主要版本（**1.2**、**1.3** 等）中引入。
 
@@ -229,7 +229,7 @@ Kotlin 非常重視程式碼的穩定性和回溯相容性：Kotlin 相容性政
 
 啟用漸進模式可能需要您重寫一些程式碼，但負擔不應太大——在漸進模式下啟用的所有修正都是經過仔細挑选、審核並提供工具遷移協助的。我們預期漸進模式對於任何主動維護且快速更新到最新語言版本的程式碼庫來說都是一個不錯的選擇。
 
-## 內嵌類別
+## 內嵌類別 {id="inline-classes"}
 
 >內嵌類別（inline classes）目前處於 [Alpha](components-stability.md) 階段。它們可能會發生不相容的變更，並在未來需要手動遷移。
 > 我們歡迎您在 [YouTrack](https://youtrack.jetbrains.com/issues/KT) 中提供回饋。
@@ -260,7 +260,7 @@ fun main() {
 
 詳情請參閱內嵌類別的[參考資料](inline-classes.md)。
 
-## 無符號整數
+## 無符號整數 {id="unsigned-integers"}
 
 > 無符號整數（unsigned integers）目前處於 [Beta](components-stability.md) 階段。
 > 它們的實作已趨於穩定，但未來可能需要遷移步驟。
@@ -304,7 +304,7 @@ println("x: $x, y: $y, z: $z, range: $range")
 
 詳情請參閱[參考資料](unsigned-integer-types.md)。
 
-## @JvmDefault
+## @JvmDefault {id="jvmdefault"}
 
 >`@JvmDefault` 目前是[實驗性的](components-stability.md)。它隨時可能被刪除或更改。
 > 僅將其用於評估目的。我們歡迎您在 [YouTrack](https://youtrack.jetbrains.com/issues/KT) 中提供回饋。
@@ -328,9 +328,9 @@ interface Foo {
 >
 {style="warning"}
 
-## 標準函式庫
+## 標準函式庫 {id="standard-library"}
 
-### 多平台隨機數
+### 多平台隨機數 {id="multiplatform-random"}
 
 在 Kotlin 1.3 之前，沒有統一的方法在所有平台上生成隨機數——我們必須求助於平台特定的解決方案，如 JVM 上的 `java.util.Random`。此版本透過引入類別 `kotlin.random.Random` 解決了這個問題，該類別在所有平台上都可用：
 
@@ -346,11 +346,11 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### isNullOrEmpty 與 orEmpty 擴充功能
+### isNullOrEmpty 與 orEmpty 擴充功能 {id="isnullorempty-and-orempty-extensions"}
 
 某些型別的 `isNullOrEmpty` 和 `orEmpty` 擴充功能已存在於標準函式庫中。第一個在接收者為 `null` 或為空時回傳 `true`，第二個在接收者為 `null` 時回退到空實體。Kotlin 1.3 在集合、映射和物件陣列上提供了類似的擴充功能。
 
-### 在兩個現有陣列之間複製元素
+### 在兩個現有陣列之間複製元素 {id="copy-elements-between-two-existing-arrays"}
 
 針對現有陣列型別（包括無符號陣列）的 `array.copyInto(targetArray, targetOffset, startIndex, endIndex)` 函式，使得在純 Kotlin 中實作基於陣列的容器變得更加容易。
 
@@ -368,7 +368,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### associateWith
+### associateWith {id="associatewith"}
 
 擁有鍵列表並希望透過將每個鍵與某個值關聯來建立映射是非常常見的情況。以前可以透過 `associate { it to getValue(it) }` 函式來實現，但現在我們引入了一個更高效且更易於探索的替代方案：`keys.associateWith { getValue(it) }`。
 
@@ -382,7 +382,7 @@ fun main() {
 }
 ```
 
-### ifEmpty 與 ifBlank 函式
+### ifEmpty 與 ifBlank 函式 {id="ifempty-and-ifblank-functions"}
 
 集合、映射、物件陣列、字元序列和序列現在擁有 `ifEmpty` 函式，它允許指定一個回退值，如果接收者為空，則將使用該值代替接收者：
 
@@ -417,24 +417,24 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 反射中的密封類別
+### 反射中的密封類別 {id="sealed-classes-in-reflection"}
 
 我們為 `kotlin-reflect` 增加了一個新的 API，可用於列舉 `sealed` 類別的所有直接子型別，即 `KClass.sealedSubclasses`。
 
-### 較小的變更
+### 較小的變更 {id="smaller-changes"}
 
 * `Boolean` 型別現在有了伴隨物件。
 * `Any?.hashCode()` 擴充功能，對 `null` 回傳 0。
 * `Char` 現在提供 `MIN_VALUE` 和 `MAX_VALUE` 常數。
 * 基本型別伴隨物件中的 `SIZE_BYTES` 和 `SIZE_BITS` 常數。
 
-## 工具
+## 工具 {id="tooling"}
 
-### IDE 中的程式碼風格支援
+### IDE 中的程式碼風格支援 {id="code-style-support-in-ide"}
 
 Kotlin 1.3 在 IntelliJ IDEA 中引入了對[建議程式碼風格](coding-conventions.md)的支援。請查看[此頁面](code-style-migration-guide.md)了解遷移指南。
 
-### kotlinx.serialization
+### kotlinx.serialization {id="kotlinx-serialization"}
 
 [kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization) 是一個為 Kotlin 提供多平台物件（反）序列化支援的程式庫。之前它是一個獨立的專案，但從 Kotlin 1.3 開始，它與 Kotlin 編譯器發行版一起提供，與其他編譯器外掛程式地位相同。主要區別在於您不需要手動關注序列化 IDE 外掛程式是否與您使用的 Kotlin IDE 外掛程式版本相容：現在 Kotlin IDE 外掛程式已經包含了序列化功能！
 
@@ -444,7 +444,7 @@ Kotlin 1.3 在 IntelliJ IDEA 中引入了對[建議程式碼風格](coding-conve
 >
 {style="warning"}
 
-### 指令碼更新
+### 指令碼更新 {id="scripting-update"}
 
 >指令碼編寫（Scripting）目前是[實驗性的](components-stability.md)。它隨時可能被刪除或更改。
 > 僅將其用於評估目的。我們歡迎您在 [YouTrack](https://youtrack.jetbrains.com/issues/KT) 中提供回饋。
@@ -455,7 +455,7 @@ Kotlin 1.3 繼續發展並改進指令碼 API，引入了一些對指令碼自�
 
 欲了解更多詳情，請參閱 [KEEP-75](https://github.com/Kotlin/KEEP/blob/master/proposals/scripting-support.md)。
 
-### 暫存檔支援
+### 暫存檔支援 {id="scratches-support"}
 
 Kotlin 1.3 引入了對可執行 Kotlin *暫存檔（scratch files）*的支援。*暫存檔*是一個副檔名為 .kts 的 Kotlin 指令碼檔案，您可以直接在編輯器中執行並取得評估結果。
 

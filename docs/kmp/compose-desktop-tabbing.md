@@ -3,7 +3,7 @@
 
 在 Compose Multiplatform 桌面端中，您可以使用 <shortcut>Tab</shortcut> 快捷键导航到下一个组件，使用 <shortcut>Shift+Tab</shortcut> 导航到上一个组件。
 
-## 默认 Tab 键导航
+## 默认 Tab 键导航 {id="default-tab-navigation"}
 
 默认情况下，Tab 键导航允许用户按照组件出现的顺序在可获得焦点的组件之间移动。此功能默认启用，不需要任何额外代码。
 
@@ -56,7 +56,7 @@ fun main() = application {
 
 <img src="compose-desktop-tab-navigation-default.animated.gif" alt="Default tab order" width="450" preview-src="compose-desktop-tab-navigation-default.png"/>
 
-## 自定义可获得焦点的组件
+## 自定义可获得焦点的组件 {id="custom-focusable-components"}
 
 要将默认不可聚焦的组件包含在 Tab 键顺序中，请应用 `focusable()` 修饰符。
 
@@ -176,7 +176,7 @@ fun FocusableBox(
 
 <img src="compose-desktop-tab-navigation-custom-focusable.animated.gif" alt="A custom focusable component" width="450" preview-src="compose-desktop-tab-navigation-custom-focusable.png"/>
 
-## 自定义 Tab 键顺序
+## 自定义 Tab 键顺序 {id="custom-tab-order"}
 
 要按非出现顺序移动焦点，请结合使用两个修饰符：
 
@@ -242,7 +242,7 @@ fun main() = application {
 
 <img src="compose-desktop-tab-navigation-custom-order.animated.gif" alt="Custom tab order" width="450" preview-src="compose-desktop-tab-navigation-custom-order.png"/>
 
-## 通过代码移动焦点
+## 通过代码移动焦点 {id="moving-focus-from-code"}
 
 要在没有用户交互的情况下使组件获得焦点，请使用 `focusRequester()` 修饰符将 `FocusRequester` 附加到可聚焦组件，并调用 `FocusRequester.requestFocus()`。如果该组件[默认不可聚焦](#自定义可获得焦点的组件)，则应在 `focusRequester()` *之后*应用 `focusable()` 修饰符。
 
@@ -319,7 +319,7 @@ fun main() = application {
 
 <img src="compose-desktop-tab-navigation-move-focus-from-code.animated.gif" alt="Moving focus from code" width="450" preview-src="compose-desktop-tab-navigation-move-focus-from-code.png"/>
 
-### 组件出现时使其获得焦点
+### 组件出现时使其获得焦点 {id="focusing-a-component-when-it-appears"}
 
 表单和对话框通常会立即聚焦到第一个输入，以便用户无需使用鼠标即可开始输入。在此用例中，请从 `LaunchedEffect(Unit)` 块请求焦点，该块在组件进入组合（composition）后运行一次。
 
@@ -381,7 +381,7 @@ fun main() = application {
 
 <img src="compose-desktop-tab-navigation-focus-on-appearance.animated.gif" alt="Focus text field on appearance" width="450" preview-src="compose-desktop-tab-navigation-focus-on-appearance.png"/>
 
-## 从多行文本字段中移动焦点
+## 从多行文本字段中移动焦点 {id="moving-focus-from-multiline-text-fields"}
 
 在多行文本字段中，按 <shortcut>Tab</shortcut> 键会插入制表符，而不是将焦点移动到下一个组件：
 
@@ -448,7 +448,7 @@ fun Modifier.moveFocusOnTab(): Modifier {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="fun Modifier.moveFocusOnTab() { focusManager.moveFocus("}
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * 详细了解如何处理[键盘事件](compose-desktop-keyboard.md)。
 * 了解[不同平台上的无障碍支持](compose-desktop-accessibility.md)。

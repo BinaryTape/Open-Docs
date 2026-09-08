@@ -7,7 +7,7 @@
 
 사용자의 웹 스크래핑 요구 사항에 맞춰 조정할 수 있는 최소한의 실질적인 에이전트 + 도구 설정을 중심으로, 간단하고 재현 가능한 상태를 유지하며 진행하겠습니다.
 
-## 사전 요구 사항
+## 사전 요구 사항 {id="prerequisites"}
 
 - 환경 변수로 내보낸 OpenAI API 키: `OPENAI_API_KEY`
 - 환경 변수로 내보낸 Bright Data API 토큰: `BRIGHT_DATA_API_TOKEN`
@@ -16,7 +16,7 @@
 
 **팁**: Bright Data MCP 서버는 복잡한 웹사이트, CAPTCHA 및 봇 방지 조치를 처리할 수 있는 엔터프라이즈급 웹 스크래핑 도구에 대한 액세스를 제공합니다.
 
-## 1) API 자격 증명 설정
+## 1) API 자격 증명 설정 {id="1-set-up-your-api-credentials"}
 
 비밀 정보를 안전하게 유지하고 코드에 포함하지 않기 위해 환경 변수에서 두 API 키를 읽어옵니다.
 
@@ -28,7 +28,7 @@ val brightDataToken = System.getenv("BRIGHT_DATA_API_TOKEN")
     ?: error("BRIGHT_DATA_API_TOKEN 환경 변수가 설정되지 않았습니다.")
 ```
 
-## 2) Bright Data의 The Web MCP 서버 시작
+## 2) Bright Data의 The Web MCP 서버 시작 {id="2-start-the-web-mcp-server-by-bright-data"}
 
 `npx`를 사용하여 Bright Data의 MCP 서버를 실행하고 API 토큰으로 구성합니다. 서버는 Model Context Protocol을 통해 웹 스크래핑 기능을 노출합니다.
 
@@ -49,7 +49,7 @@ val process = processBuilder.start()
 Thread.sleep(2000)
 ```
 
-## 3) Koog에서 연결 및 에이전트 생성
+## 3) Koog에서 연결 및 에이전트 생성 {id="3-connect-from-koog-and-create-the-agent"}
 
 OpenAI 실행기(executor)를 사용하여 Koog `AIAgent`를 빌드하고, STDIO 트랜스포트를 통해 도구 레지스트리(tool registry)를 Bright Data MCP 서버에 연결합니다. 그런 다음 사용 가능한 도구를 탐색하고 웹 스크래핑 작업을 실행합니다.
 
@@ -99,7 +99,7 @@ try {
 }
 ```
 
-## 4) 전체 코드 예제
+## 4) 전체 코드 예제 {id="4-complete-code-example"}
 
 Bright Data의 The Web MCP를 사용한 웹 스크래핑을 보여주는 전체 작동 예제는 다음과 같습니다.
 
@@ -198,14 +198,14 @@ fun main() = runBlocking {
 }
 ```
 
-## 문제 해결
+## 문제 해결 {id="troubleshooting"}
 
 - **연결 문제**: 에이전트가 MCP 서버에 연결할 수 없는 경우, `npx @brightdata/mcp`를 통해 Bright Data MCP 패키지가 제대로 설치되었는지 확인하세요.
 - **API 토큰 오류**: `BRIGHT_DATA_API_TOKEN`이 유효하고 웹 스크래핑에 필요한 권한이 있는지 다시 확인하세요.
 - **OpenAI 인증**: `OPENAI_API_KEY` 환경 변수가 올바르게 설정되었고 API 키가 유효한지 확인하세요.
 - **프로세스 시간 초과**: 서버 시작 시간이 더 오래 걸리는 경우 `Thread.sleep(2000)` 시간을 늘리세요.
 
-## 다음 단계
+## 다음 단계 {id="next-steps"}
 
 - **다양한 쿼리 탐색**: 다른 웹사이트를 스크래핑하거나 다양한 주제를 검색해 보세요.
 - **사용자 정의 도구 통합**: Bright Data의 웹 스크래핑 기능과 함께 고유한 도구를 추가해 보세요.
@@ -213,7 +213,7 @@ fun main() = runBlocking {
 - **데이터 처리**: 스크래핑된 데이터를 다른 Koog 에이전트와 결합하여 분석 및 통찰력을 도출해 보세요.
 - **프로덕션 배포**: 자동화된 웹 데이터 수집을 위해 이 패턴을 애플리케이션에 통합해 보세요.
 
-## 배운 내용
+## 배운 내용 {id="what-you-ve-learned"}
 
 이 튜토리얼에서는 다음 내용을 시연했습니다:
 - Bright Data의 The Web MCP 설정 및 구성 방법

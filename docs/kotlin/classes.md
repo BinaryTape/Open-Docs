@@ -59,7 +59,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="class-with-header-and-body"}
 
-## 创建实例
+## 创建实例 {id="creating-instances"}
 
 当你将类作为蓝图来构建程序中可使用的真实对象时，就创建了一个实例。
 
@@ -118,7 +118,7 @@ fun main() {
 
 有关创建嵌套类、内部类和匿名内部类实例的信息，请参阅 [嵌套类](nested-classes.md) 章节。
 
-## 构造函数与初始化块
+## 构造函数与初始化块 {id="constructors-and-initializer-blocks"}
 
 当你创建一个类实例时，你会调用它的一个构造函数。Kotlin 中的一个类可以有一个 [_主构造函数_](#primary-constructor) 和一个或多个 [_次构造函数_](#secondary-constructors)。
 
@@ -126,7 +126,7 @@ fun main() {
 
 主构造函数和次构造函数都是可选的，但一个类必须至少有一个构造函数。
 
-### 主构造函数
+### 主构造函数 {id="primary-constructor"}
 
 主构造函数在实例 [创建时](#creating-instances) 设置其初始状态。
 
@@ -239,7 +239,7 @@ class Person(
 ) { /*...*/ }
 ```
 
-### 初始化块
+### 初始化块 {id="initializer-blocks"}
 
 主构造函数初始化类并设置其属性。在大多数情况下，你可以使用简单的代码来处理。
 
@@ -309,7 +309,7 @@ class Person(val age: Int) {
 }
 ```
 
-### 次构造函数
+### 次构造函数 {id="secondary-constructors"}
 
 在 Kotlin 中，次构造函数是类在主构造函数之外可以拥有的额外构造函数。当你需要多种方式来初始化类或为了 [Java 互操作性](java-to-kotlin-interop.md) 时，次构造函数非常有用。
 
@@ -407,7 +407,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="class-delegation-sequence"}
 
-### 不带构造函数的类
+### 不带构造函数的类 {id="classes-without-constructors"}
 
 没有声明任何构造函数（主构造函数或次构造函数）的类具有一个隐式的无参主构造函数：
 
@@ -442,13 +442,13 @@ class Person private constructor() { /*...*/ }
 >
 {style="note"}
 
-## 继承
+## 继承 {id="inheritance"}
 
 Kotlin 中的类继承允许你从现有类（基类）创建一个新类（派生类），继承其属性和函数，同时添加或修改行为。
 
 有关继承层次结构以及如何使用 `open` 关键字的详细信息，请参阅 [继承](inheritance.md) 章节。
 
-## 抽象类
+## 抽象类 {id="abstract-classes"}
 
 在 Kotlin 中，抽象类是不能直接实例化的类。它们旨在被定义其实际行为的其他类继承。这种行为被称为 _实现_。
 
@@ -509,7 +509,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="abstract-class"}
 
-## 伴生对象
+## 伴生对象 {id="companion-objects"}
 
 在 Kotlin 中，每个类都可以有一个 [伴生对象](object-declarations.md#companion-objects)。伴生对象是一种对象声明，允许你使用类名访问其成员，而无需创建类实例。
 

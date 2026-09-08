@@ -11,7 +11,7 @@
 * [可重用的複合 GitHub 操作，用於設定 Java 與 Gradle](#create-a-composite-action-for-gradle-setup)
 * [主要 GitHub Actions 工作流](#define-the-build-workflow)，在每次推送或提取要求到 `main` 分支時執行測試並觸發特定平台的建置。
 
-## 建立用於 Gradle 設定的複合操作
+## 建立用於 Gradle 設定的複合操作 {id="create-a-composite-action-for-gradle-setup"}
 
 建立一個 [複合操作](https://docs.github.com/en/actions/tutorials/create-actions/create-a-composite-action) 以在不同工作 (job) 之間同步 Java 與 Gradle 的配置。您將在工作流工作中重用此操作，以確保所有建置都使用相同的配置。
 
@@ -32,7 +32,7 @@ runs:
       uses: gradle/actions/setup-gradle@v5.0.0
 ```
 
-## 定義建置工作流
+## 定義建置工作流 {id="define-the-build-workflow"}
 
 定義工作流的執行時機並設定 Gradle 選項：
 
@@ -59,7 +59,7 @@ env:
 
 現在您可以新增工作來執行測試並建立應用程式建置產物。
 
-### 執行共用測試
+### 執行共用測試 {id="run-shared-tests"}
 
 此工作使用 `jvmTest` Gradle 任務執行測試，以便在為所有平台建置應用程式之前驗證變更：
 
@@ -94,7 +94,7 @@ jobs:
 
 執行測試後，工作流應建置應用程式產物。
 
-### 建置 Android 偵錯套件
+### 建置 Android 偵錯套件 {id="build-the-android-debug-package"}
 
 此工作使用 `:mobile:assembleDebug` Gradle 任務建置 Android 偵錯 APK：
 
@@ -129,7 +129,7 @@ jobs:
           path: mobile/build/outputs/apk/debug/*.apk
 ```
 
-### 建置 iOS 模擬器應用程式
+### 建置 iOS 模擬器應用程式 {id="build-the-ios-simulator-application"}
 
 此工作以 iOS 模擬器 (Simulator) 為目標，以避免必須對應用程式進行正確簽署。該應用程式使用 `xcodebuild` 進行建置：
 
@@ -173,7 +173,7 @@ jobs:
           path: build/Build/Products/Debug-iphonesimulator/*
 ```
 
-## 推送並測試您的 CI
+## 推送並測試您的 CI {id="push-and-test-your-ci"}
 
 當您將工作流配置推送到 `main` 分支或使用這些設定檔建立提取要求時，CI 工作流將首次被觸發。
 
@@ -181,7 +181,7 @@ jobs:
 
 請記住，您也可以手動觸發工作流：在左側的操作列表中選擇該工作流，然後點擊 **Run workflow**。
 
-## 後續步驟
+## 後續步驟 {id="what-s-next"}
 
 如需完整的 CI 配置範例，請參閱 [Jetcaster 範例](https://github.com/kotlin-hands-on/jetcaster-kmp-migration/tree/main/.github)，該範例還包含為 macOS、Windows 和 Linux 建置桌面 JVM 應用程式的工作。
 

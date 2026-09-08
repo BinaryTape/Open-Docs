@@ -11,7 +11,7 @@ CocoaPods 依存関係を持つ KMP モジュールがあり、[SwiftPM イン�
 すべての AI ツールと同様に、Junie も間違いを犯す可能性があります。
 手動で移行したい場合は、[Kotlin Multiplatform プロジェクトを CocoaPods から SwiftPM 依存関係に切り替える](multiplatform-cocoapods-spm-migration.md)を参照してください。
 
-## Junie CLI のセットアップ
+## Junie CLI のセットアップ {id="set-up-junie-cli"}
 
 ターミナルで、Junie CLI をインストールします。
 
@@ -29,7 +29,7 @@ junie
 
 [認証オプション](https://junie.jetbrains.com/docs/junie-cli.html#step-3-authenticate)の詳細については、Junie のドキュメントを参照してください。
 
-## AI スキルのインストール
+## AI スキルのインストール {id="install-the-ai-skill"}
 
 ターミナルでプロジェクトディレクトリに移動し、対応する Kotlin AI スキルをインストールします。
 <!-- Stable Junie CLI will support extensions soon https://junie.jetbrains.com/docs/junie-cli-extensions.html -->
@@ -45,7 +45,7 @@ npx skills add Kotlin/kotlin-agent-skills
 ダイアログで、`kotlin-tooling-cocoapods-spm-migration` スキルと、それをインストールするエージェントとして Junie を選択します。
 スコープを尋ねられたら、スキルの範囲を現在のプロジェクトに限定するために `Project` を選択します。
 
-## 移行の開始
+## 移行の開始 {id="start-the-migration"}
 
 開始する前に、プロジェクトが Git などの VCS を使用していることを確認してください。
 これは、初期状態から各イテレーション後の変更を確認するために重要です。
@@ -65,7 +65,7 @@ npx skills add Kotlin/kotlin-agent-skills
    
 Junie は、インストールしたスキルがそのタスクに適していることを認識し、移行プロセスを開始します。
 
-## 変更の確認とテスト
+## 変更の確認とテスト {id="review-and-test-the-changes"}
 
 プロジェクトの Git 履歴で、Junie によって行われたすべての変更を確認します。
 Git クライアントのサイドバイサイド（左右比較）差分ビューアーを使用して、行われた変更を簡単に確認してください。
@@ -85,7 +85,7 @@ Git クライアントのサイドバイサイド（左右比較）差分ビュ�
 > 
 {style="tip"}
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * `main` ブランチで CocoaPods を使用し、`spm-import` ブランチで SwiftPM を使用しているこれらのサンプルプロジェクトを確認してください。
     * [Firebase サンプル](https://github.com/Kotlin/kmp-with-cocoapods-firebase-sample/)

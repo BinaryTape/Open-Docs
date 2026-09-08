@@ -10,7 +10,7 @@ status: beta
 - **Retrieval (検索)** — メモリストレージからの関連するコンテキストを使用してLLMプロンプトを拡張します（検索拡張生成、Retrieval-Augmented Generation または RAG）。
 - **Ingestion (取り込み)** — 将来の検索のために、会話メッセージをメモリストレージに永続化します。
 
-## クイックスタート
+## クイックスタート {id="quick-start"}
 
 === "Kotlin"
 
@@ -58,7 +58,7 @@ status: beta
     Object result = agent.run("昨日は何を話しましたか？");
     ```
 
-## Retrievalのみ (RAG)
+## Retrievalのみ (RAG) {id="retrieval-only-rag"}
 
 すでにデータが投入済みの知識ベースがある場合は、取り込み（Ingestion）なしで検索（Retrieval）のみを使用します。
 
@@ -87,7 +87,7 @@ status: beta
         .build();
     ```
 
-### Prompt Augmenters (プロンプト拡張機能)
+### Prompt Augmenters (プロンプト拡張機能) {id="prompt-augmenters"}
 
 | Augmenter | 動作 |
 |---|---|
@@ -95,7 +95,7 @@ status: beta
 | `UserPromptAugmenter()` | 最後のユーザーメッセージの末尾に、追加のテキストパートとして取得したコンテキストを追加します（ユーザーメッセージがない場合は何もしません）。 |
 | `PromptAugmenter { prompt, context -> ... }` | ラムダによるカスタム拡張。 |
 
-### Search Query Providers (検索クエリプロバイダー)
+### Search Query Providers (検索クエリプロバイダー) {id="search-query-providers"}
 
 デフォルトでは、検索フローは最後のユーザーメッセージを検索クエリとして使用します。`SearchQueryProvider`を指定することで、これをカスタマイズできます。
 
@@ -137,14 +137,14 @@ status: beta
         .build();
     ```
 
-### Search Strategies (検索戦略)
+### Search Strategies (検索戦略) {id="search-strategies"}
 
 | Strategy                                                  | 動作                 |
 |-----------------------------------------------------------|--------------------------|
 | `SimilaritySearchStrategy()`                              | ベクトル類似性によるセマンティック検索 — **デフォルト** |
 | `query -> new SimilaritySearchRequest(query, 20, 0, 0.0, null)` | ラムダによるカスタム検索 |
 
-## Ingestionのみ
+## Ingestionのみ {id="ingestion-only"}
 
 RetrievalなしでIngestionのみを使用して、時間の経過とともにメモリストレージを構築します。
 
@@ -178,7 +178,7 @@ RetrievalなしでIngestionのみを使用して、時間の経過とともに�
 
 取り込み（Ingestion）は、エージェントの実行完了時に一度だけ実行されます。最終的に蓄積されたセッションのプロンプト/履歴が、単一のバッチとして設定済みの`documentExtractor`に渡されます。
 
-## 自動動作の無効化
+## 自動動作の無効化 {id="disabling-automatic-behavior"}
 
 デフォルトでは、検索と取り込みは自動的に実行されます（検索は各LLM呼び出しの前に実行され、取り込みはエージェントの完了時に一度実行されます）。自動動作を無効にしながらも、ストラテジーノード内から設定済みのストレージや戦略にアクセスできるようにすることが可能です。
 
@@ -220,7 +220,7 @@ RetrievalなしでIngestionのみを使用して、時間の経過とともに�
 2. **マニュアルのみ**: `enableAutomaticRetrieval = false` / `enableAutomaticIngestion = false` を設定し、グラフのストラテジーノード内でストレージや戦略を使用します。
 3. **ハイブリッド**: 自動取り込みと手動検索を組み合わせる（またはその逆）。
 
-## ストラテジーノードからの長期メモリへのアクセス
+## ストラテジーノードからの長期メモリへのアクセス {id="accessing-long-term-memory-from-strategy-nodes"}
 
 ストラテジーノード内で `withLongTermMemory { }` を使用して、レコードの検索や追加を直接行います。
 
@@ -247,7 +247,7 @@ val myNode by node<String, Unit> {
 }
 ```
 
-## カスタムドキュメント抽出機能 (Custom Document Extractor)
+## カスタムドキュメント抽出機能 (Custom Document Extractor) {id="custom-document-extractor"}
 
 保存前にメッセージがどのように変換されるかを制御するには、`DocumentExtractor`を実装します。
 
@@ -266,7 +266,7 @@ install(LongTermMemory) {
 }
 ```
 
-## カスタムストレージの実装
+## カスタムストレージの実装 {id="implementing-custom-storage"}
 
 独自のベクトルデータベースに接続するには、`SearchStorage` または `WriteStorage`（あるいはその両方）を実装します。
 

@@ -6,16 +6,16 @@ title: 隔离上下文
 
 Koin 的隔离上下文允许你运行一个独立的 Koin 实例，它不会干扰宿主应用程序的 Koin 配置。这对于 SDK、库和白标应用至关重要。
 
-## 使用场景
+## 使用场景 {id="use-cases"}
 
 - **SDK 开发** - 你的 SDK 拥有自己的依赖项，且不会影响宿主应用。
 - **白标应用** - 具有不同配置的多个应用变体。
 - **测试** - 隔离的测试配置。
 - **功能模块** - 带有其自身 DI 的独立功能模块。
 
-## 创建一个隔离上下文
+## 创建一个隔离上下文 {id="creating-an-isolated-context"}
 
-### 定义上下文持有者
+### 定义上下文持有者 {id="define-the-context-holder"}
 
 创建一个对象来持有你的隔离 Koin 实例：
 
@@ -35,7 +35,7 @@ object MySDKKoinContext {
 }
 ```
 
-### SDK 模块示例
+### SDK 模块示例 {id="sdk-module-example"}
 
 ```kotlin
 val sdkCoreModule = module {
@@ -53,9 +53,9 @@ val sdkRepositoryModule = module {
 }
 ```
 
-## 在 Compose 中使用
+## 在 Compose 中使用 {id="using-with-compose"}
 
-### KoinIsolatedContext
+### KoinIsolatedContext {id="koinisolatedcontext"}
 
 用 `KoinIsolatedContext` 包装你 SDK 的 Compose UI：
 
@@ -81,7 +81,7 @@ private fun SDKContent() {
 }
 ```
 
-### 嵌套上下文
+### 嵌套上下文 {id="nested-contexts"}
 
 你可以嵌套隔离上下文：
 
@@ -105,9 +105,9 @@ fun HostApp() {
 }
 ```
 
-## 生命周期管理
+## 生命周期管理 {id="lifecycle-management"}
 
-### 手动初始化
+### 手动初始化 {id="manual-initialization"}
 
 在需要时初始化你的 SDK 上下文：
 
@@ -136,7 +136,7 @@ object MySDK {
 }
 ```
 
-### 结合手动生命周期使用
+### 结合手动生命周期使用 {id="usage-with-manual-lifecycle"}
 
 ```kotlin
 // 宿主应用初始化 SDK
@@ -169,7 +169,7 @@ fun SDKFeature() {
 }
 ```
 
-## 同时访问两个上下文
+## 同时访问两个上下文 {id="accessing-both-contexts"}
 
 有时你需要同时访问宿主和 SDK 的依赖项：
 
@@ -192,7 +192,7 @@ fun BridgeScreen() {
 }
 ```
 
-## 完整 SDK 示例
+## 完整 SDK 示例 {id="complete-sdk-example"}
 
 ```kotlin
 // SDK 公共 API
@@ -274,7 +274,7 @@ fun CheckoutScreen() {
 }
 ```
 
-## 最佳实践
+## 最佳实践 {id="best-practices"}
 
 1. **及早初始化** - 在 Compose 渲染之前设置隔离上下文。
 
@@ -286,7 +286,7 @@ fun CheckoutScreen() {
 
 5. **记录初始化文档** - 向宿主应用开发者明确 SDK 的设置要求。
 
-## 后续步骤
+## 后续步骤 {id="next-steps"}
 
 - **[Compose 概览](/docs/reference/koin-compose/compose)** - 基础 Compose 设置
 - **[上下文隔离](/docs/reference/koin-core/context-isolation)** - 核心隔离概念

@@ -10,9 +10,9 @@ Kotlin 표준 라이브러리에는 컬렉션과 함께 또 다른 타입인 _�
 
 따라서 시퀀스를 사용하면 중간 단계의 결과물을 생성하지 않아도 되므로 전체 컬렉션 처리 체인의 성능을 향상시킬 수 있습니다. 하지만 시퀀스의 지연 특성으로 인해 약간의 오버헤드가 발생하며, 이는 작은 컬렉션을 처리하거나 간단한 계산을 수행할 때 유의미할 수 있습니다. 그러므로 `Sequence`와 `Iterable`을 모두 고려하여 자신의 사례에 더 적합한 것을 결정해야 합니다.
 
-## 생성 (Construct)
+## 생성 (Construct) {id="construct"}
 
-### 요소로부터 생성
+### 요소로부터 생성 {id="from-elements"}
 
 시퀀스를 생성하려면 [`sequenceOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/sequence-of.html) 함수를 호출하고 요소를 인자로 나열합니다.
 
@@ -20,7 +20,7 @@ Kotlin 표준 라이브러리에는 컬렉션과 함께 또 다른 타입인 _�
 val numbersSequence = sequenceOf("four", "three", "two", "one")
 ```
 
-### Iterable로부터 생성
+### Iterable로부터 생성 {id="from-an-iterable"}
 
 이미 `Iterable` 객체(`List`나 `Set` 등)가 있다면, [`asSequence()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/as-sequence.html)를 호출하여 시퀀스를 생성할 수 있습니다.
 
@@ -30,7 +30,7 @@ val numbersSequence = numbers.asSequence()
 
 ```
 
-### 함수로부터 생성
+### 함수로부터 생성 {id="from-a-function"}
 
 시퀀스를 생성하는 또 다른 방법은 요소를 계산하는 함수를 사용하여 빌드하는 것입니다.
 함수를 기반으로 시퀀스를 빌드하려면, 해당 함수를 인자로 하여 [`generateSequence()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/generate-sequence.html)를 호출합니다. 선택적으로 첫 번째 요소를 명시적인 값이나 함수 호출의 결과로 지정할 수 있습니다.
@@ -61,7 +61,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 청크로부터 생성
+### 청크로부터 생성 {id="from-chunks"}
 
 마지막으로, 요소를 하나씩 또는 임의의 크기의 청크(chunks)로 생성할 수 있게 해주는 [`sequence()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/sequence.html) 함수가 있습니다.
 이 함수는 [`yield()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence-scope/yield.html)와 [`yieldAll()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence-scope/yield-all.html) 함수 호출을 포함하는 람다 표현식을 인자로 받습니다.
@@ -82,7 +82,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 시퀀스 연산
+## 시퀀스 연산 {id="sequence-operations"}
 
 시퀀스 연산은 상태 요구 사항에 따라 다음과 같은 그룹으로 분류할 수 있습니다:
 
@@ -94,11 +94,11 @@ fun main() {
 
 시퀀스는 여러 번 반복될 수 있습니다. 그러나 일부 시퀀스 구현은 단 한 번만 반복되도록 제한될 수 있으며, 이는 해당 문서에 별도로 명시되어 있습니다.
 
-## 시퀀스 처리 예시
+## 시퀀스 처리 예시 {id="sequence-processing-example"}
 
 예시를 통해 `Iterable`과 `Sequence`의 차이점을 살펴보겠습니다.
 
-### Iterable
+### Iterable {id="iterable"}
 
 단어 리스트가 있다고 가정해 보겠습니다. 아래 코드는 3글자보다 긴 단어를 필터링하고, 처음 4개의 해당 단어의 길이를 출력합니다.
 
@@ -124,7 +124,7 @@ fun main() {
 
 ![리스트 처리](list-processing.svg)
 
-### Sequence
+### Sequence {id="sequence"}
 
 이제 시퀀스로 동일한 내용을 작성해 보겠습니다.
 

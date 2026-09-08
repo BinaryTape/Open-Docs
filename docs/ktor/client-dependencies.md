@@ -175,7 +175,7 @@ sourceSets {
 
 有关特定引擎所需依赖项的完整列表，请参阅[添加引擎依赖项](client-engines.md#dependencies)。
 
-### 日志依赖项
+### 日志依赖项 {id="logging-dependency"}
 
   <p>
     在 JVM 上，Ktor 使用 Simple Logging Facade for Java
@@ -213,7 +213,7 @@ Ktor 允许您使用默认情况下不可用的附加客户端功能（[插件](
 
 > 对于多平台项目，应将插件依赖项添加到 `commonMain` 源集中。请注意，某些插件可能对特定平台有[限制](client-engines.md#limitations)。
 
-## 确保 Ktor 版本一致性
+## 确保 Ktor 版本一致性 {id="ensure-ktor-version-consistency"}
 
 <chapter title="使用 Ktor BOM 依赖项">
 

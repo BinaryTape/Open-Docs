@@ -19,7 +19,7 @@ Kotlinマルチプラットフォームプロジェクトは、アーティフ�
 
 全ターゲットまたは特定のターゲットで利用可能な[コンパイルパラメータのリスト](multiplatform-dsl-reference.md#compilation-parameters)および[コンパイラオプション](https://kotlinlang.org/docs/gradle-compiler-options.html)を参照してください。
 
-## 全てのコンパイルを設定する
+## 全てのコンパイルを設定する {id="configure-all-compilations"}
 
 この例では、全てのターゲットで共通のコンパイラオプションを設定します：
 
@@ -48,7 +48,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-## 1つのターゲットのコンパイルを設定する
+## 1つのターゲットのコンパイルを設定する {id="configure-compilations-for-one-target"}
 
 <Tabs group="build-script">
 <TabItem title="Kotlin" group-key="kotlin">
@@ -79,7 +79,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-## 特定のコンパイルを1つ設定する
+## 特定のコンパイルを1つ設定する {id="configure-one-compilation"}
 
 <Tabs group="build-script">
 <TabItem title="Kotlin" group-key="kotlin">
@@ -118,7 +118,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-## カスタムコンパイルを作成する
+## カスタムコンパイルを作成する {id="create-a-custom-compilation"}
 
 プロダクションコードやユニットテスト以外（例：統合テストやパフォーマンス性能テスト）をコンパイルする必要がある場合は、カスタムコンパイルを作成します。
 
@@ -193,7 +193,7 @@ kotlin {
 > 
 {style="tip"}
 
-## JVM用のコンパイル
+## JVM用のコンパイル {id="compilation-for-jvm"}
 
 マルチプラットフォームプロジェクトで `jvm` ターゲットを宣言すると、Kotlin Multiplatform Gradleプラグインは自動的にJavaソースセットを作成し、JVMターゲットのコンパイルに含めます。
 
@@ -270,7 +270,7 @@ kotlin {
 
 このターゲットはKotlin Multiplatform Gradleプラグインによってパブリッシュ（公開）されるため、Javaプラグイン固有の手順は必要ありません。
 
-## ネイティブ言語との相互運用を設定する
+## ネイティブ言語との相互運用を設定する {id="configure-interop-with-native-languages"}
 
 Kotlinは[ネイティブ言語との相互運用性（Interop）](https://kotlinlang.org/docs/native-overview.html)を提供しており、特定のコンパイルに対してこれを設定するためのDSLを備えています。
 
@@ -359,7 +359,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-## Android用のコンパイル 
+## Android用のコンパイル {id="compilation-for-android"}
  
 Androidターゲット用にデフォルトで作成されるコンパイルは、[Androidビルドバリアント](https://developer.android.com/build/build-variants)に関連付けられています。各ビルドバリアントに対して、同じ名前でKotlinコンパイルが作成されます。
 
@@ -380,7 +380,7 @@ dependencies {
 }
 ```
 
-## ソースセット階層のコンパイル 
+## ソースセット階層のコンパイル {id="compilation-of-the-source-set-hierarchy"}
 
 Kotlinは `dependsOn` 関係を使用して[ソースセット階層](multiplatform-share-on-platforms.md#share-code-on-similar-platforms)を構築できます。
 
@@ -400,7 +400,7 @@ Kotlinは `dependsOn` 関係を使用して[ソースセット階層](multiplatf
 * `jvmMain` は、`commonMain` が使用しているすべての実験的アノテーションを使用する必要があります。
 * `apiVersion`、バグ修正言語機能、および `progressiveMode` は任意に設定できます。
 
-## GradleのIsolated Projects機能を設定する
+## GradleのIsolated Projects機能を設定する {id="configure-isolated-projects-feature-in-gradle"}
 
 > この機能は[試験的（Experimental）](supported-platforms.md#general-kotlin-stability-levels)であり、現在はGradleにおいてプレアルファ（pre-alpha）の状態です。Gradle バージョン 8.10 以降でのみ使用し、評価目的のみに留めてください。この機能はいつでも削除または変更される可能性があります。
 > [YouTrack](https://youtrack.jetbrains.com/issue/KT-57279/Support-Gradle-Project-Isolation-Feature-for-Kotlin-Multiplatform) でのフィードバックをお待ちしております。使用にはオプトインが必要です（詳細は以下を参照）。

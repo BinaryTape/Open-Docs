@@ -4,7 +4,7 @@
 
 除了自身的库之外，Kotlin 与 Java 具有 100% 的互操作性。这种互操作性有助于利用整个经过实践检验且性能卓越的 Java 库生态系统。凭借这一优势，在处理 [Kotlin 数据项目](data-analysis-overview.md) 时，您可以轻松使用 Kotlin 库或 Java 库。
 
-## Kotlin 库
+## Kotlin 库 {id="kotlin-libraries"}
 
 <table>
   <tr>
@@ -162,7 +162,7 @@
   </tr>
 </table>
 
-## Java 库
+## Java 库 {id="java-libraries"}
 
 由于 Kotlin 提供了与 Java 的顶级互操作性，因此您可以在 Kotlin 代码中使用 Java 库执行数据任务。以下是此类库的一些示例：
 

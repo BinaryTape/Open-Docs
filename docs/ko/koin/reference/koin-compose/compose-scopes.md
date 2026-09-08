@@ -6,7 +6,7 @@ title: Compose에서의 스코프 (Scopes in Compose)
 
 Koin은 단순한 Composable 바인딩 스코프부터 네비게이션과 통합된 스코프까지, Compose 애플리케이션 내에서 스코프를 관리하기 위한 여러 API를 제공합니다.
 
-## KoinScope
+## KoinScope {id="koinscope"}
 
 Composable의 생명주기(lifecycle)에 연결된 Koin 스코프를 생성합니다.
 
@@ -35,7 +35,7 @@ fun FeatureContent() {
 
 Composable이 컴포지션을 벗어날 때(`onForgotten` 또는 `onAbandoned` 시) 스코프는 자동으로 닫힙니다.
 
-## KoinNavigationScope
+## KoinNavigationScope {id="koinnavigationscope"}
 
 네비게이션 백 스택 항목(navigation back stack entry)에 연결된 스코프를 생성합니다.
 
@@ -75,7 +75,7 @@ fun DetailScreen() {
 `koin-compose-viewmodel-navigation` 패키지가 필요합니다.
 :::
 
-### navigationScope DSL
+### navigationScope DSL {id="navigationscope-dsl"}
 
 모듈에서 네비게이션 스코프가 지정된 의존성을 정의합니다.
 
@@ -92,7 +92,7 @@ val appModule = module {
 
 이 방식은 `KoinNavigationScope()`와 함께 사용하기 위해 `NavBackStackEntry`로 한정된(qualified) 스코프를 생성합니다.
 
-## UnboundKoinScope
+## UnboundKoinScope {id="unboundkoinscope"}
 
 생명주기 바인딩 없이 외부에서 관리되는 스코프를 제공합니다.
 
@@ -130,7 +130,7 @@ fun MyFeature(externalScope: Scope, onClose: () -> Unit) {
 }
 ```
 
-## currentKoinScope
+## currentKoinScope {id="currentkoinscope"}
 
 컴포지션에서 현재 Koin 스코프를 가져옵니다.
 
@@ -146,7 +146,7 @@ fun MyScreen() {
 
 이는 `LocalKoinScopeContext`에서 스코프를 검색합니다. `koinInject()`가 사용하는 기본 스코프이기도 합니다.
 
-## rememberKoinScope
+## rememberKoinScope {id="rememberkoinscope"}
 
 자동 생명주기 관리와 함께 리컴포지션 전반에 걸쳐 Koin 스코프를 기억(remember)합니다.
 
@@ -162,9 +162,9 @@ fun FeatureScreen() {
 }
 ```
 
-## Android 전용 스코프 (Android-Specific Scopes)
+## Android 전용 스코프 (Android-Specific Scopes) {id="android-specific-scopes"}
 
-### KoinActivityScope
+### KoinActivityScope {id="koinactivityscope"}
 
 Composable 계층 구조에 Activity 스코프를 제공합니다.
 
@@ -190,7 +190,7 @@ fun MainScreen() {
 }
 ```
 
-### KoinFragmentScope
+### KoinFragmentScope {id="koinfragmentscope"}
 
 Composable 계층 구조에 Fragment 스코프를 제공합니다.
 
@@ -210,7 +210,7 @@ class MyFragment : Fragment(), AndroidScopeComponent {
 }
 ```
 
-### koinActivityInject
+### koinActivityInject {id="koinactivityinject"}
 
 어떤 Composable 내에서든 Activity 스코프의 의존성을 주입받습니다.
 
@@ -228,7 +228,7 @@ fun DeepNestedScreen() {
 }
 ```
 
-## 스코프 비교 (Scope Comparison)
+## 스코프 비교 (Scope Comparison) {id="scope-comparison"}
 
 | API | 생명주기 (Lifecycle) | 사용 사례 (Use Case) |
 |-----|-----------|----------|
@@ -238,9 +238,9 @@ fun DeepNestedScreen() {
 | `KoinActivityScope` | Activity | Activity 전체 범위 의존성 |
 | `KoinFragmentScope` | Fragment | Fragment 전체 범위 의존성 |
 
-## 사용 사례 (Use Cases)
+## 사용 사례 (Use Cases) {id="use-cases"}
 
-### 화면별 네비게이션 스코프 (Per-Screen Navigation Scopes)
+### 화면별 네비게이션 스코프 (Per-Screen Navigation Scopes) {id="per-screen-navigation-scopes"}
 
 각 화면이 자신만의 스코프를 가집니다.
 
@@ -266,7 +266,7 @@ NavHost(navController, startDestination = "list") {
 }
 ```
 
-### 세션 스코프 데이터 (Session-Scoped Data)
+### 세션 스코프 데이터 (Session-Scoped Data) {id="session-scoped-data"}
 
 세션 내의 여러 화면에서 데이터를 공유합니다.
 
@@ -295,7 +295,7 @@ fun CartScreen() {
 }
 ```
 
-### 공유 ViewModel 스코프 (Shared ViewModel Scope)
+### 공유 ViewModel 스코프 (Shared ViewModel Scope) {id="shared-viewmodel-scope"}
 
 관련된 여러 화면에서 ViewModel과 그 의존성을 공유합니다.
 
@@ -326,7 +326,7 @@ fun CartScreen() {
 }
 ```
 
-## 권장 사항 (Best Practices)
+## 권장 사항 (Best Practices) {id="best-practices"}
 
 1. **화면별 의존성에는 `KoinNavigationScope`를 사용하세요** - 네비게이션과 함께 생명주기가 자동으로 관리됩니다.
 
@@ -345,7 +345,7 @@ fun CartScreen() {
 
 5. **복잡한 상태 관리를 위해 ViewModel과 결합하세요** - 스코프는 공유 상태를 보유하고, ViewModel은 UI 로직을 처리합니다.
 
-## 다음 단계
+## 다음 단계 {id="next-steps"}
 
 - **[동적 모듈 (Dynamic Modules)](/docs/reference/koin-compose/compose-modules)** - 모듈을 동적으로 로드하기
 - **[Compose 개요 (Compose Overview)](/docs/reference/koin-compose/compose)** - 설정 및 기본 주입

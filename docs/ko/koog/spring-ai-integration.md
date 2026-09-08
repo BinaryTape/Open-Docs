@@ -9,7 +9,7 @@ status: beta
 Koog는 Spring AI의 추상화와 Koog 에이전트 프레임워크를 연결하는 Spring AI 통합 스타터를 제공합니다.
 이미 모델 접근, 메모리 또는 벡터 저장소를 위해 Spring AI를 사용하고 있다면, 기존 Spring AI 설정을 교체하지 않고도 Koog를 그 위에 얹어 사용할 수 있습니다.
 
-## `koog-spring-boot-starter`와의 차이점
+## `koog-spring-boot-starter`와의 차이점 {id="how-it-differs-from-koog-spring-boot-starter"}
 
 | | `koog-spring-boot-starter` | `koog-spring-ai` 스타터 |
 |---|---|---|
@@ -20,7 +20,7 @@ Koog는 Spring AI의 추상화와 Koog 에이전트 프레임워크를 연결하
 두 방식은 독립적입니다.
 직접적인 Koog 스타터 접근 방식은 [Spring Boot 통합](spring-boot.md)을 참조하세요.
 
-## 사용 가능한 스타터
+## 사용 가능한 스타터 {id="available-starters"}
 
 | 모듈 | 용도 |
 |---|---|
@@ -32,7 +32,7 @@ Koog는 Spring AI의 추상화와 Koog 에이전트 프레임워크를 연결하
 각 스타터는 자체 자동 설정(auto-configuration)과 설정 속성을 가진 독립적인 Spring Boot 스타터입니다.
 하나의 스타터만 사용하거나 동일한 애플리케이션에서 여러 스타터를 조합하여 사용할 수 있습니다.
 
-## 디스패처 타입 (Dispatcher Types)
+## 디스패처 타입 (Dispatcher Types) {id="dispatcher-types"}
 
 네 가지 스타터 모두 동일한 디스패처 설정 패턴을 지원합니다:
 
@@ -42,9 +42,9 @@ Koog는 Spring AI의 추상화와 Koog 에이전트 프레임워크를 연결하
 
 특히 Spring Boot 가상 스레드(virtual threads)를 사용하는 경우 일반적으로 `AUTO`가 가장 간단한 선택입니다.
 
-## Chat Model 스타터
+## Chat Model 스타터 {id="chat-model-starter"}
 
-### 개요
+### 개요 {id="overview"}
 
 `koog-spring-ai-starter-model-chat` 스타터는 Spring AI의 채팅 모델 추상화와 Koog 에이전트 프레임워크를 연결합니다.
 다음을 자동으로 설정합니다:
@@ -54,7 +54,7 @@ Koog는 Spring AI의 추상화와 Koog 에이전트 프레임워크를 연결하
 
 도구(Tools)는 항상 Koog 에이전트 프레임워크에 의해 실행됩니다. Spring AI는 도구 정의 및 스키마(schema)만 전달받습니다.
 
-### 의존성 추가
+### 의존성 추가 {id="add-dependency"}
 
 Spring AI 채팅 모델 스타터와 함께 의존성을 추가합니다:
 
@@ -89,13 +89,13 @@ Spring AI 채팅 모델 스타터와 함께 의존성을 추가합니다:
     </dependencies>
     ```
 
-### 지원되는 제공자
+### 지원되는 제공자 {id="available-providers"}
 
 이 스타터는 Spring AI가 `ChatModel`을 생성하는 모든 제공자와 함께 작동하며, 다음을 포함합니다:
 Anthropic, Azure OpenAI, Bedrock Converse, DeepSeek, Google GenAI, HuggingFace, MiniMax,
 Mistral AI, OCI GenAI, Ollama, OpenAI, Vertex AI, ZhiPu AI.
 
-### 설정
+### 설정 {id="configure"}
 
 해당하는 Spring AI 스타터를 통해 제공자를 설정한 다음, 필요한 경우 Koog 속성을 추가하세요:
 
@@ -111,7 +111,7 @@ koog.spring.ai.chat.dispatcher.type=AUTO
 단일 `ChatModel` 빈이 있는 경우 모든 것이 자동으로 작동합니다.
 어댑터가 이를 Koog `LLMClient`로 감싸고 즉시 사용 가능한 `PromptExecutor`를 생성합니다.
 
-### 사용 예시
+### 사용 예시 {id="usage-example"}
 
 `PromptExecutor`를 주입받아 Koog 에이전트를 실행하는 데 사용하세요:
 
@@ -168,7 +168,7 @@ koog.spring.ai.chat.dispatcher.type=AUTO
 
 또는 고유한 `PromptExecutor` 빈을 제공하여 자동 설정된 빈을 완전히 대체할 수 있습니다.
 
-### 설정 속성 (`koog.spring.ai.chat`)
+### 설정 속성 (`koog.spring.ai.chat`) {id="configuration-properties-koog-spring-ai-chat"}
 
 | 속성 | 타입 | 기본값 | 설명 |
 |---|---|---|---|
@@ -179,7 +179,7 @@ koog.spring.ai.chat.dispatcher.type=AUTO
 | `dispatcher.type` | `AUTO` / `IO` | `AUTO` | 블로킹 모델 호출을 위한 디스패처 |
 | `dispatcher.parallelism` | `Int` | `0` (= 제한 없음) | `IO` 디스패처의 최대 동시성 |
 
-### 다중 모델 컨텍스트
+### 다중 모델 컨텍스트 {id="multi-model-contexts"}
 
 여러 개의 `ChatModel` 또는 `ModerationModel` 빈이 등록된 경우, 사용할 빈을 지정하세요:
 
@@ -190,7 +190,7 @@ koog.spring.ai.chat.moderation-model-bean-name=openAiModerationModel
 
 선택자가 없으면 자동 설정은 후보가 하나만 존재할 때만 활성화됩니다.
 
-### 확장 포인트
+### 확장 포인트 {id="extension-points"}
 
 - **`ChatOptionsCustomizer`**: 이 인터페이스를 구현하는 Spring 빈을 등록하여 `ChatOptions`를 커스터마이징할 수 있습니다.
 
@@ -215,7 +215,7 @@ koog.spring.ai.chat.moderation-model-bean-name=openAiModerationModel
 - **커스텀 `LLMClient`**: 고유한 `LLMClient` 빈을 등록할 수 있습니다. `springAiChatModelLLMClient`라는 이름의 빈을 교체하지 않는 한, 자동 설정된 어댑터와 함께 구성됩니다.
 - **커스텀 `PromptExecutor`**: 고유한 `PromptExecutor` 빈을 등록하여 자동 설정된 `MultiLLMPromptExecutor`를 대체할 수 있습니다.
 
-## Embedding Model Starter
+## Embedding Model Starter {id="embedding-model-starter"}
 
 ### 개요
 
@@ -333,7 +333,7 @@ koog.spring.ai.embedding.dispatcher.type=AUTO
 
 또는 고유한 `LLMEmbeddingProvider` 빈을 제공하여 자동 설정된 어댑터를 완전히 대체할 수 있습니다.
 
-### 설정 속성 (`koog.spring.ai.embedding`)
+### 설정 속성 (`koog.spring.ai.embedding`) {id="configuration-properties-koog-spring-ai-embedding"}
 
 | 속성 | 타입 | 기본값 | 설명 |
 |---|---|---|---|
@@ -356,7 +356,7 @@ koog.spring.ai.embedding.embedding-model-bean-name=openAiEmbeddingModel
 
 - **커스텀 `LLMEmbeddingProvider`**: 고유한 빈을 등록하여 자동 설정된 어댑터를 완전히 대체할 수 있습니다.
 
-## Chat Memory 스타터
+## Chat Memory 스타터 {id="chat-memory-starter"}
 
 ### 개요
 
@@ -367,7 +367,7 @@ koog.spring.ai.embedding.embedding-model-bean-name=openAiEmbeddingModel
 
 이 스타터는 텍스트 전용 대화 영속성을 제공하며, 전체 Koog 실행 상태 영속성은 제공하지 않습니다.
 
-### 텍스트 전용 규약
+### 텍스트 전용 규약 {id="text-only-contract"}
 
 플레인 텍스트 형태의 `System`, `User`, `Assistant` 메시지만 영속화됩니다.
 다음 항목들은 저장 시 자동으로 제외(drop)됩니다:
@@ -468,7 +468,7 @@ koog.spring.ai.chat-memory.dispatcher.type=AUTO
     }
     ```
 
-### 설정 속성 (`koog.spring.ai.chat-memory`)
+### 설정 속성 (`koog.spring.ai.chat-memory`) {id="configuration-properties-koog-spring-ai-chat-memory"}
 
 | 속성 | 타입 | 기본값 | 설명 |
 |---|---|---|---|
@@ -477,7 +477,7 @@ koog.spring.ai.chat-memory.dispatcher.type=AUTO
 | `dispatcher.type` | `AUTO` / `IO` | `AUTO` | 블로킹 리포지토리 호출을 위한 디스패처 |
 | `dispatcher.parallelism` | `Int` | `0` (= 제한 없음) | `IO` 디스패처의 최대 동시성 |
 
-### 다중 리포지토리 컨텍스트
+### 다중 리포지토리 컨텍스트 {id="multi-repository-contexts"}
 
 여러 개의 `ChatMemoryRepository` 빈이 등록된 경우, 사용할 빈을 지정하세요:
 
@@ -487,14 +487,14 @@ koog.spring.ai.chat-memory.chat-memory-repository-bean-name=jdbcChatMemoryReposi
 
 선택자가 없으면 자동 설정은 후보가 하나만 존재할 때만 활성화됩니다.
 
-### 현재 제한 사항
+### 현재 제한 사항 {id="current-limitations"}
 
 - 텍스트 대화 기록만 영속화됩니다.
 - 도구 호출, 도구 결과, 추론 메시지 및 첨부 파일은 영속화되지 않습니다.
 - 로드 시 Spring AI `TOOL` 메시지는 무시됩니다.
 - 메시지 메타데이터는 라운드 트립 과정에서 보존되지 않습니다.
 
-## Vector Store 스타터
+## Vector Store 스타터 {id="vector-store-starter"}
 
 ### 개요
 
@@ -599,7 +599,7 @@ koog.spring.ai.vectorstore.dispatcher.type=AUTO
     }
     ```
 
-### 설정 속성 (`koog.spring.ai.vectorstore`)
+### 설정 속성 (`koog.spring.ai.vectorstore`) {id="configuration-properties-koog-spring-ai-vectorstore"}
 
 | 속성 | 타입 | 기본값 | 설명 |
 |---|---|---|---|
@@ -608,7 +608,7 @@ koog.spring.ai.vectorstore.dispatcher.type=AUTO
 | `dispatcher.type` | `AUTO` / `IO` | `AUTO` | 블로킹 벡터 저장소 호출을 위한 디스패처 |
 | `dispatcher.parallelism` | `Int` | `0` (= 제한 없음) | `IO` 디스패처의 최대 동시성 |
 
-### 다중 저장소 컨텍스트
+### 다중 저장소 컨텍스트 {id="multi-store-contexts"}
 
 여러 개의 `VectorStore` 빈이 등록된 경우, 사용할 빈을 지정하세요:
 
@@ -628,7 +628,7 @@ koog.spring.ai.vectorstore.vector-store-bean-name=pgVectorStore
 - 네임스페이스 스코핑(Namespace scoping)은 구현되지 않았습니다.
 - 메타데이터 값은 `String`, `Number`, `Boolean`과 같은 기본 타입(primitive values)이어야 합니다.
 
-## 다음 단계
+## 다음 단계 {id="next-steps"}
 
 - 최소한의 AI 워크플로우 구축을 위한 [기본 에이전트](agents/basic-agents.md) 알아보기
 - 고급 유스케이스를 위한 [그래프 기반 에이전트](agents/graph-based-agents.md) 탐색하기

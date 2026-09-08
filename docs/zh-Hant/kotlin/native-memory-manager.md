@@ -5,7 +5,7 @@ Kotlin/Native 使用與 JVM、Go 等主流技術類似的現代記憶體管理�
 * 物件儲存於共享堆積中，並可從任何執行緒存取。
 * 定期執行追蹤式垃圾回收（Tracing garbage collection），以回收無法從「根」（roots，如區域變數與全域變數）到達的物件。
 
-## 垃圾回收器
+## 垃圾回收器 {id="garbage-collector"}
 
 Kotlin/Native 的垃圾回收（GC）演算法正持續演進。目前，它的運作方式是並行標記清除（CMS）回收器，且不將堆積分為世代（generations）。
 
@@ -25,11 +25,11 @@ GC 會在多個執行緒（包括應用程式執行緒、GC 執行緒以及選�
 kotlin.native.binary.gc=pmcs
 ```
 
-### 手動啟用垃圾回收
+### 手動啟用垃圾回收 {id="enable-garbage-collection-manually"}
 
 若要強制啟動垃圾回收器，請呼叫 `kotlin.native.internal.GC.collect()`。此方法會觸發新的回收並等待其完成。
 
-### 監控 GC 效能
+### 監控 GC 效能 {id="monitor-gc-performance"}
 
 要監控 GC 效能，您可以查看其記錄並診斷問題。若要啟用記錄，請在您的 Gradle 建置指令碼中設定以下編譯器選項：
 
@@ -58,7 +58,7 @@ kotlin.native.binary.gc=pmcs
 
    在此，最下方圖表上的每個藍色區塊代表一個獨立的 signpost 事件，即一次 GC 暫停。
 
-### 停用垃圾回收
+### 停用垃圾回收 {id="disable-garbage-collection"}
 
 建議保持 GC 啟用。然而，在某些情況下您可以將其停用，例如為了測試目的，或者如果您遇到問題且程式是短時間執行的。若要停用，請在您的 `gradle.properties` 檔案中設定以下二進位選項：
 
@@ -70,7 +70,7 @@ kotlin.native.binary.gc=noop
 >
 {style="warning"}
 
-## 記憶體消耗
+## 記憶體消耗 {id="memory-consumption"}
 
 Kotlin/Native 使用自己的[記憶體分配器](https://github.com/JetBrains/kotlin/blob/master/kotlin-native/runtime/src/alloc/custom/README.md)。它將系統記憶體劃分為頁面（pages），允許按連續順序進行獨立清除。每次分配都會成為頁面內的一個記憶體區塊，頁面會追蹤區塊大小。不同類型的頁面針對各種分配大小進行了優化。記憶體區塊的連續排列確保了對所有已分配區塊的高效反覆運算。
 
@@ -80,11 +80,11 @@ Kotlin/Native 記憶體分配器內建了防止記憶體分配突發尖峰的保
 
 您可以自行監控記憶體消耗、檢查記憶體洩漏並調整記憶體消耗。
 
-### 監控記憶體消耗
+### 監控記憶體消耗 {id="monitor-memory-consumption"}
 
 要偵錯記憶體問題，您可以檢查記憶體管理器指標。此外，也可以在 Apple 平台上追蹤 Kotlin 的記憶體消耗。
 
-#### 檢查記憶體洩漏
+#### 檢查記憶體洩漏 {id="check-for-memory-leaks"}
 
 若要存取記憶體管理器指標，請呼叫 `kotlin.native.internal.GC.lastGCInfo()`。此方法會傳回垃圾回收器最後一次執行的統計數據。這些統計數據可用於：
 
@@ -121,7 +121,7 @@ fun test() {
 }
 ```
 
-#### 在 Apple 平台上追蹤記憶體消耗
+#### 在 Apple 平台上追蹤記憶體消耗 {id="track-memory-consumption-on-apple-platforms"}
 
 在 Apple 平台上偵錯記憶體問題時，您可以查看 Kotlin 程式碼保留了多少記憶體。Kotlin 的部分會標記一個識別符，並可以透過 Xcode Instruments 中的 VM Tracker 等工具進行追蹤。
 
@@ -139,15 +139,15 @@ fun test() {
 
   如果您設定 [`kotlin.native.binary.pagedAllocator=false`](#disable-allocator-paging) Gradle 屬性，則記憶體會改為按物件進行保留。
 
-### 調整記憶體消耗
+### 調整記憶體消耗 {id="adjust-memory-consumption"}
 
 如果您遇到異常高的記憶體消耗，請嘗試以下解決方案：
 
-#### 更新 Kotlin
+#### 更新 Kotlin {id="update-kotlin"}
 
 將 Kotlin 更新到最新版本。我們不斷在改進記憶體管理器，因此即使只是簡單的編譯器更新也可能改善記憶體消耗。
 
-#### 停用分配器分頁 
+#### 停用分配器分頁 {id="disable-allocator-paging"}
 <primary-label ref="experimental-opt-in"/>
 
 您可以停用分配的分頁（緩衝），讓記憶體分配器按物件保留記憶體。在某些情況下，這可能有助於滿足嚴格的記憶體限制，或減少應用程式啟動時的記憶體消耗。
@@ -162,7 +162,7 @@ kotlin.native.binary.pagedAllocator=false
 > 
 {style="note"}
 
-#### 啟用 Latin-1 字串支援
+#### 啟用 Latin-1 字串支援 {id="enable-support-for-latin-1-strings"}
 <primary-label ref="experimental-opt-in"/>
 
 預設情況下，Kotlin 中的字串使用 UTF-16 編碼儲存，每個字元由兩個位元組表示。在某些情況下，這會導致字串在二進位檔案中佔用的空間是原始碼的兩倍，讀取資料時佔用的記憶體也是兩倍。
@@ -183,7 +183,7 @@ kotlin.native.binary.latin1Strings=true
 
 如果以上選項都沒有幫助，請在 [YouTrack](https://kotl.in/issue) 中建立問題。
 
-## 背景執行單元測試
+## 背景執行單元測試 {id="unit-tests-in-the-background"}
 
 在單元測試中，沒有任何機制會處理主執行緒佇列，因此除非已進行模擬（mock），否則請勿使用 `Dispatchers.Main`。可以使用 `kotlinx-coroutines-test` 中的 `Dispatchers.setMain` 來進行模擬。
 
@@ -211,7 +211,7 @@ fun mainBackground(args: Array<String>) {
 
 然後，使用 `-e testlauncher.mainBackground` 編譯器選項來編譯測試二進位檔。
 
-## 後續步驟
+## 後續步驟 {id="what-s-next"}
 
 * [從舊版記憶體管理器遷移](native-migration-guide.md)
 * [查看與 Swift/Objective-C ARC 整合的細節](native-arc-integration.md)

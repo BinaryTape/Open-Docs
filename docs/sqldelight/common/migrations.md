@@ -16,7 +16,7 @@ src
 
 如果驱动程序支持，迁移将在事务中运行。您不应在迁移中使用 `BEGIN/END TRANSACTION`，因为这可能会导致某些驱动程序崩溃。
 
-## 版本管理
+## 版本管理 {id="versioning"}
 
 架构的第一个版本是 1。迁移文件的命名方式为 `<version to upgrade from>.sqm`。要迁移到版本 2，请将迁移语句放入 `1.sqm` 中：
 
@@ -27,7 +27,7 @@ ALTER TABLE hockeyPlayer ADD COLUMN draft_order INTEGER;
 
 这些 SQL 语句由 `Database.Schema.migrate()` 方法运行。迁移文件位于与 `.sq` 文件相同的源集中。
 
-## 验证迁移
+## 验证迁移 {id="verifying-migrations"}
 
 `verifySqlDelightMigration` 任务将添加到 Gradle 项目中，并作为 `check` 任务的一部分运行。对于 SQLDelight 源集（例如 `src/main/sqldelight`）中名为 `<version number>.db` 的任何 `.db` 文件，它将应用从 `<version number>.sqm` 开始的所有迁移，并确认迁移产生的数据库具有最新的架构。
 
@@ -35,7 +35,7 @@ ALTER TABLE hockeyPlayer ADD COLUMN draft_order INTEGER;
 
 大多数用例只需一个代表数据库初始版本架构的 `1.db` 文件即可。允许拥有多个 `.db` 文件，但这将导致每个 `.db` 文件都要应用其各自的迁移，从而导致大量不必要的工作。
 
-## 代码迁移
+## 代码迁移 {id="code-migrations"}
 
 如果您从代码运行迁移并希望执行数据迁移，可以使用 `Database.Schema.migrate` API：
 

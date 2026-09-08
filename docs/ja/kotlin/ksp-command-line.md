@@ -15,7 +15,7 @@ java -cp <classpath> <mainclass> <options> <processor>
 | `<options>`   | KSP のコマンドラインオプション。                   |
 | `<processor>` | プロセッサ JAR へのパス。                          |
 
-## クラスパス
+## クラスパス {id="classpath"}
 
 Gradle プラグインとは異なり、`java` コマンドは依存関係を自動的に解決しません。KSP ランタイム JAR とその依存関係をクラスパスに指定する必要があります。
 
@@ -33,7 +33,7 @@ Gradle プラグインとは異なり、`java` コマンドは依存関係を自
 
 * [`kotlinx-coroutines-core-jvm-%coroutinesVersion%.jar`](https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-core-jvm)
 
-## メインクラス
+## メインクラス {id="main-class"}
 
 KSP は JVM アプリケーションであるため、起動するメインクラスを指定する必要があります。KSP は、サポートされているプラットフォームごとに異なるエントリポイントを提供しています。
 
@@ -71,7 +71,7 @@ com.google.devtools.ksp.cmdline.KSPJvmMain \
 path/to/processor.jar
 ```
 
-## オプション
+## オプション {id="options"}
 
 コマンドラインから実行する場合、KSP には以下のオプションが必要です。
 
@@ -91,7 +91,7 @@ path/to/processor.jar
 | `-resource-output-dir=<path>` | 生成されたリソース用のディレクトリ。                                                                                                 |
 | `<processor>`                 | プロセッサのクラスパス。                                                                                                             |
 
-### その他の便利なオプション
+### その他の便利なオプション {id="other-useful-options"}
 
 * `-libraries=<path>`: ソースファイルによって参照される依存関係を解決するために使用されるクラスパス。通常はモジュールのコンパイルクラスパスです。
 

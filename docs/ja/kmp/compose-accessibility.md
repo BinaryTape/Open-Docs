@@ -4,7 +4,7 @@ Compose Multiplatformは、セマンティックプロパティ、アクセシ�
 
 このフレームワークにより、[欧州アクセシビリティ法](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32019L0882) (EAA) および [Web Content Accessibility Guidelines](https://www.w3.org/TR/WCAG21/) (WCAG) の要件に準拠したアプリケーションを設計できます。
 
-## セマンティックプロパティ
+## セマンティックプロパティ {id="semantic-properties"}
 
 アクセシビリティ、オートフィル、テストなどのサービスにコンテキストを提供するために、セマンティックプロパティを使用してコンポーネントの意味と役割を定義できます。
 
@@ -38,7 +38,7 @@ Compose Multiplatformは、セマンティックプロパティ、アクセシ�
 
 セマンティックプロパティの完全なリストについては、[`SemanticsProperties`](https://developer.android.com/reference/kotlin/androidx/compose/ui/semantics/SemanticsProperties) の Jetpack Compose API リファレンスを参照してください。
 
-## トラバース順序
+## トラバース順序 {id="traversal-order"}
 
 デフォルトでは、スクリーンリーダーは左から右、上から下へとレイアウトに従って、固定された順序でUI要素をナビゲートします。しかし、複雑なレイアウトの場合、スクリーンリーダーが正しい読み上げ順序を自動的に判断できないことがあります。これは、含まれるビューのスクロールやズームをサポートするテーブルやネストされたビューなどのコンテナビューを持つレイアウトにおいて極めて重要です。
 
@@ -69,7 +69,7 @@ fun FloatingBox() {
 }
 ```
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 iOS向けのアクセシビリティ機能について詳しく学ぶ：
 

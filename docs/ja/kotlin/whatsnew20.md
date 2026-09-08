@@ -26,7 +26,7 @@ Kotlin 2.0 は JetBrains チームにとって大きな節目となります。�
 >
 {style="tip"}
 
-## IDE サポート
+## IDE サポート {id="ide-support"}
 
 Kotlin 2.0.0 をサポートする Kotlin プラグインは、最新の IntelliJ IDEA および Android Studio にバンドルされています。
 IDE の Kotlin プラグインを更新する必要はありません。
@@ -35,7 +35,7 @@ IDE の Kotlin プラグインを更新する必要はありません。
 * IntelliJ IDEA による Kotlin K2 コンパイラのサポートの詳細については、[IDE でのサポート](#support-in-ides)を参照してください。
 * IntelliJ IDEA による Kotlin サポートの全般的な詳細については、[Kotlin のリリース](releases.md#ide-support)を参照してください。
 
-## Kotlin K2 コンパイラ
+## Kotlin K2 コンパイラ {id="kotlin-k2-compiler"}
 
 K2 コンパイラへの道のりは長いものでしたが、ついに JetBrains チームはその安定化（stabilization）を発表します。
 Kotlin 2.0.0 では、新しい Kotlin K2 コンパイラがデフォルトで使用され、JVM、Native、Wasm、JS のすべてのターゲットプラットフォームで [Stable](components-stability.md)（安定）となりました。新しいコンパイラは、大幅なパフォーマンスの向上をもたらし、新しい言語機能の開発を加速させ、Kotlin がサポートするすべてのプラットフォームを統合し、マルチプラットフォームプロジェクトにより優れたアーキテクチャを提供します。
@@ -51,7 +51,7 @@ JetBrains チームは、選定されたユーザープロジェクトおよび�
 
 <video src="https://www.youtube.com/v/tAGJ5zJXJ7w" title="Kotlin Language Features in 2.0 and Beyond"/>
 
-### 現在の K2 コンパイラの制限事項
+### 現在の K2 コンパイラの制限事項 {id="current-k2-compiler-limitations"}
 
 Gradle プロジェクトで K2 を有効にする場合、8.3 未満の Gradle バージョンを使用しているプロジェクトでは、以下のケースで制限が生じる可能性があります。
 
@@ -79,7 +79,7 @@ Gradle プロジェクトで K2 を有効にする場合、8.3 未満の Gradle 
 
 * プロジェクトの Gradle バージョンを 8.3 以降に更新する。
 
-### スマートキャストの改善
+### スマートキャストの改善 {id="smart-cast-improvements"}
 
 Kotlin コンパイラは、特定のケースにおいてオブジェクトを自動的に特定の型にキャストすることができ、明示的なキャストの手間を省くことができます。これは[スマートキャスト](typecasts.md#smart-casts)と呼ばれます。
 Kotlin K2 コンパイラでは、以前よりもさらに多くのシナリオでスマートキャストが実行されるようになりました。
@@ -93,7 +93,7 @@ Kotlin 2.0.0 では、以下の領域でスマートキャストに関連する�
 * [例外処理](#exception-handling)
 * [インクリメントおよびデクリメント演算子](#increment-and-decrement-operators)
 
-#### ローカル変数と以降のスコープ
+#### ローカル変数と以降のスコープ {id="local-variables-and-further-scopes"}
 
 以前は、変数が `if` 条件内で `null` ではないと評価された場合、その変数はスマートキャストされました。その変数に関する情報は、`if` ブロックのスコープ内で以降も共有されていました。
 
@@ -131,7 +131,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-smart-casts-k2-local-variables" validate="false"}
 
-#### 論理 or 演算子による型チェック
+#### 論理 or 演算子による型チェック {id="type-checks-with-logical-or-operator"}
 
 Kotlin 2.0.0 では、オブジェクトの型チェックを `or` 演算子（`||`）で組み合わせた場合、それらの最も近い共通のスーパータイプ（closest common supertype）へのスマートキャストが行われます。この変更以前は、常に `Any` 型にスマートキャストされていました。
 
@@ -166,7 +166,7 @@ fun signalCheck(signalStatus: Any) {
 >
 {style="note"}
 
-#### インライン関数
+#### インライン関数 {id="inline-functions"}
 
 Kotlin 2.0.0 では、K2 コンパイラはインライン関数を従来とは異なる方法で扱い、他のコンパイラ解析と組み合わせて、スマートキャストが安全かどうかを判断できるようになりました。
 
@@ -208,7 +208,7 @@ fun runProcessor(): Processor? {
 }
 ```
 
-#### 関数型のプロパティ
+#### 関数型のプロパティ {id="properties-with-function-types"}
 
 以前のバージョンの Kotlin には、関数型を持つクラスプロパティがスマートキャストされないというバグがありました。Kotlin 2.0.0 および K2 コンパイラでこの動作を修正しました。例：
 
@@ -249,7 +249,7 @@ class Holder(val provider: Provider?, val processor: Processor?) {
 }
 ```
 
-#### 例外処理
+#### 例外処理 {id="exception-handling"}
 
 Kotlin 2.0.0 では、スマートキャスト情報を `catch` および `finally` ブロックに引き継げるように例外処理の改善を行いました。この変更により、コンパイラがオブジェクトが null 許容型であるかどうかを追跡し続けるため、コードがより安全になります。例：
 
@@ -289,7 +289,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-smart-casts-k2-exception-handling"}
 
-#### インクリメントおよびデクリメント演算子
+#### インクリメントおよびデクリメント演算子 {id="increment-and-decrement-operators"}
 
 Kotlin 2.0.0 より前では、コンパイラはインクリメントまたはデクリメント演算子を使用した後にオブジェクトの型が変わる可能性があることを理解していませんでした。コンパイラがオブジェクトの型を正確に追跡できなかったため、コードで未解決の参照エラーが発生することがありました。Kotlin 2.0.0 では、これが修正されました。
 
@@ -340,14 +340,14 @@ fun main(input: Rho) {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-smart-casts-k2-increment-decrement-operators" validate="false"}
 
-### Kotlin Multiplatform の改善
+### Kotlin Multiplatform の改善 {id="kotlin-multiplatform-improvements"}
 
 Kotlin 2.0.0 では、K2 コンパイラにおける Kotlin Multiplatform 関連の改善が以下の領域で行われました。
 
 * [コンパイル時における共通ソースとプラットフォームソースの分離](#separation-of-common-and-platform-sources-during-compilation)
 * [expected 宣言と actual 宣言における異なる可視性レベル](#different-visibility-levels-of-expected-and-actual-declarations)
 
-#### コンパイル時における共通ソースとプラットフォームソースの分離
+#### コンパイル時における共通ソースとプラットフォームソースの分離 {id="separation-of-common-and-platform-sources-during-compilation"}
 
 以前の Kotlin コンパイラの設計では、コンパイル時に共通ソースセットとプラットフォームソースセットを分離しておくことができませんでした。その結果、共通コードがプラットフォームコードにアクセスできてしまい、プラットフォーム間で動作が異なる原因となっていました。さらに、共通コードからのいくつかのコンパイラ設定や依存関係がプラットフォームコードに漏洩していました。
 
@@ -435,7 +435,7 @@ actual class Identity {
 Expected class 'expect class Identity : Any' does not have default constructor
 ```
 
-##### 解決の振る舞いが変わらない場合
+##### 解決の振る舞いが変わらない場合 {id="when-resolution-behavior-doesn-t-change"}
 
 新しいコンパイルスキームへの移行はまだ進行中であるため、同じソースセット内にない関数を呼び出す場合、解決の振る舞いは以前と同じです。この違いは、主に共通コードでマルチプラットフォームライブラリのオーバーロードを使用する場合に気づくでしょう。
 
@@ -484,7 +484,7 @@ fun whichFun(x: Int) = println("platform function")
 
 将来的には、これらの残りのケースも新しいコンパイルスキームとより一貫性のあるものになる予定です。
 
-#### expected 宣言と actual 宣言における異なる可視性レベル
+#### expected 宣言と actual 宣言における異なる可視性レベル {id="different-visibility-levels-of-expected-and-actual-declarations"}
 
 Kotlin 2.0.0 より前では、Kotlin Multiplatform プロジェクトで [expected 宣言と actual 宣言](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html)を使用する場合、それらは同じ[可視性レベル](visibility-modifiers.md)である必要がありました。
 Kotlin 2.0.0 では、actual 宣言が expected 宣言よりも **寛容（more permissive）** である場合に限り、異なる可視性レベルをサポートするようになりました。例：
@@ -505,7 +505,7 @@ class Expanded                                  // デフォルトで public、
                                                 // これは internal より寛容
 ```
 
-### コンパイラプラグインのサポート
+### コンパイラプラグインのサポート {id="compiler-plugins-support"}
 
 現在、Kotlin K2 コンパイラは以下の Kotlin コンパイラプラグインをサポートしています。
 
@@ -530,7 +530,7 @@ class Expanded                                  // デフォルトで public、
 >
 {style="tip"}
 
-### 実験的な Kotlin Power-assert コンパイラプラグイン
+### 実験的な Kotlin Power-assert コンパイラプラグイン {id="experimental-kotlin-power-assert-compiler-plugin"}
 
 > Kotlin Power-assert プラグインは [Experimental](components-stability.md#stability-levels-explained)（実験的）です。
 > いつでも変更される可能性があります。
@@ -578,15 +578,15 @@ powerAssert {
 
 詳細は、[ドキュメントの Kotlin Power-assert プラグイン](power-assert.md)を参照してください。
 
-### Kotlin K2 コンパイラを有効にする方法
+### Kotlin K2 コンパイラを有効にする方法 {id="how-to-enable-the-kotlin-k2-compiler"}
 
 Kotlin 2.0.0 以降、Kotlin K2 コンパイラはデフォルトで有効になっています。追加のアクションは不要です。
 
-### Kotlin Playground で Kotlin K2 コンパイラを試す
+### Kotlin Playground で Kotlin K2 コンパイラを試す {id="try-the-kotlin-k2-compiler-in-kotlin-playground"}
 
 Kotlin Playground は 2.0.0 リリースをサポートしています。[ぜひチェックしてください！](https://pl.kotl.in/czuoQprce)
 
-### IDE でのサポート
+### IDE でのサポート {id="support-in-ides"}
 
 デフォルトでは、IntelliJ IDEA と Android Studio は依然としてコード解析、コード補完、ハイライト、その他の IDE 関連機能に以前のコンパイラを使用しています。IDE で完全な Kotlin 2.0 体験を得るには、K2 モードを有効にしてください。
 
@@ -599,14 +599,14 @@ K2 モードを有効にした後、コンパイラの動作変更により IDE 
 * K2 モードの詳細は、[ブログ記事](https://blog.jetbrains.com/idea/2024/11/k2-mode-becomes-stable/)をご覧ください。
 * K2 モードに関するフィードバックを積極的に募集しています。[パブリック Slack チャンネル](https://kotlinlang.slack.com/archives/C0B8H786P)で意見を共有してください。
 
-### 新しい K2 コンパイラへのフィードバックをお願いします
+### 新しい K2 コンパイラへのフィードバックをお願いします {id="leave-your-feedback-on-the-new-k2-compiler"}
 
 皆様からのフィードバックをお待ちしております！
 
 * 新しい K2 コンパイラで直面した問題は、[弊社の課題トラッカー](https://kotl.in/issue)に報告してください。
 * [「Send usage statistics」（使用統計を送信する）オプションを有効](https://www.jetbrains.com/help/idea/settings-usage-statistics.html)にして、JetBrains が K2 の使用に関する匿名データを収集できるようにしてください。
 
-## Kotlin/JVM
+## Kotlin/JVM {id="kotlin-jvm"}
 
 バージョン 2.0.0 以降、コンパイラは Java 22 バイトコードを含むクラスを生成できるようになりました。
 また、このバージョンでは以下の変更も行われています。
@@ -614,7 +614,7 @@ K2 モードを有効にした後、コンパイラの動作変更により IDE 
 * [invokedynamic を使用したラムダ関数の生成](#generation-of-lambda-functions-using-invokedynamic)
 * [kotlinx-metadata-jvm ライブラリが Stable に](#the-kotlinx-metadata-jvm-library-is-stable)
 
-### invokedynamic を使用したラムダ関数の生成
+### invokedynamic を使用したラムダ関数の生成 {id="generation-of-lambda-functions-using-invokedynamic"}
 
 Kotlin 2.0.0 では、`invokedynamic` を使用してラムダ関数を生成する新しいデフォルト方法が導入されました。この変更により、従来の匿名クラス生成と比較して、アプリケーションのバイナリサイズが削減されます。
 
@@ -643,7 +643,7 @@ fun main() {
 * 特定のラムダに `@JvmSerializableLambda` をアノテーションする。
 * コンパイラオプション `-Xlambdas=class` を使用して、モジュール内のすべてのラムダをレガシーな方法で生成する。
 
-### kotlinx-metadata-jvm ライブラリが Stable に
+### kotlinx-metadata-jvm ライブラリが Stable に {id="the-kotlinx-metadata-jvm-library-is-stable"}
 
 Kotlin 2.0.0 では、`kotlinx-metadata-jvm` ライブラリが [Stable](components-stability.md#stability-levels-explained) になりました。ライブラリが `kotlin` パッケージと座標に変更されたため、現在は `kotlin-metadata-jvm`（"x" なし）として提供されています。
 
@@ -653,7 +653,7 @@ Kotlin 2.0.0 では、`kotlinx-metadata-jvm` ライブラリが [Stable](compone
 
 <!-- `kotlinx-metadata-jvm` ライブラリの詳細は、[ドキュメント](kotlin-metadata-jvm.md)を参照してください。 -->
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 このバージョンでは、以下の変更が行われています。
 
@@ -663,7 +663,7 @@ Kotlin 2.0.0 では、`kotlinx-metadata-jvm` ライブラリが [Stable](compone
 * [Kotlin/Native への標準ライブラリおよびプラットフォームの依存関係の明示的な追加](#explicitly-added-standard-library-and-platform-dependencies-to-kotlin-native)
 * [Gradle 構成キャッシュにおけるタスクエラー](#tasks-error-in-gradle-configuration-cache)
 
-### Apple プラットフォームにおける signpost を使用した GC パフォーマンス監視
+### Apple プラットフォームにおける signpost を使用した GC パフォーマンス監視 {id="monitoring-gc-performance-with-signposts-on-apple-platforms"}
 
 以前は、Kotlin/Native のガベージコレクタ（GC）のパフォーマンスを監視するにはログを確認するしかありませんでした。しかし、これらのログは iOS アプリのパフォーマンス調査に人気のツールキットである Xcode Instruments と統合されていませんでした。
 
@@ -671,7 +671,7 @@ Kotlin 2.0.0 以降、GC は Instruments で利用可能な signpost を使用�
 
 詳細は、[ドキュメントの GC パフォーマンス分析](native-memory-manager.md#monitor-gc-performance)を参照してください。
 
-### Objective-C メソッドとの競合の解決
+### Objective-C メソッドとの競合の解決 {id="resolving-conflicts-with-objective-c-methods"}
 
 Objective-C のメソッドは、名前は異なりますが引数の数と型が同じである場合があります。例えば、[`locationManager:didEnterRegion:`](https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423560-locationmanager?language=objc) と [`locationManager:didExitRegion:`](https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423630-locationmanager?language=objc) です。Kotlin では、これらのメソッドは同じシグネチャを持つため、これらを使用しようとすると conflicting overloads（オーバーロードの競合）エラーが発生します。
 
@@ -681,19 +681,19 @@ Objective-C のメソッドは、名前は異なりますが引数の数と型�
 
 このアノテーションを適用することは、一般的なエラー抑制よりも安全です。このアノテーションは、サポートおよびテストされている Objective-C メソッドのオーバーライドの場合にのみ使用できますが、一般的な抑制は重要なエラーを隠してしまい、知らぬ間に壊れたコードを生む可能性があります。
 
-### コンパイラ引数のログレベルの変更
+### コンパイラ引数のログレベルの変更 {id="changed-log-level-for-compiler-arguments"}
 
 本リリースでは、`compile`、`link`、`cinterop` などの Kotlin/Native Gradle タスクにおけるコンパイラ引数のログレベルが `info` から `debug` に変更されました。
 
 デフォルト値が `debug` になったことで、ログレベルは他の Gradle コンパイルタスクと一貫性を保ち、すべてのコンパイラ引数を含む詳細なデバッグ情報が提供されるようになります。
 
-### Kotlin/Native への標準ライブラリおよびプラットフォームの依存関係の明示的な追加
+### Kotlin/Native への標準ライブラリおよびプラットフォームの依存関係の明示的な追加 {id="explicitly-added-standard-library-and-platform-dependencies-to-kotlin-native"}
 
 以前は、Kotlin/Native コンパイラが標準ライブラリとプラットフォームの依存関係を暗黙的に解決していたため、Kotlin ターゲット間で Kotlin Gradle プラグインの動作に矛盾が生じていました。
 
 今後は、各 Kotlin/Native Gradle コンパイルにおいて、`compileDependencyFiles` [コンパイルパラメータ](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#compilation-parameters)を介して、標準ライブラリとプラットフォームの依存関係をコンパイル時のライブラリパスに明示的に含めるようになります。
 
-### Gradle 構成キャッシュにおけるタスクエラー
+### Gradle 構成キャッシュにおけるタスクエラー {id="tasks-error-in-gradle-configuration-cache"}
 
 Kotlin 2.0.0 以降、以下のようなメッセージを伴う構成キャッシュエラーに遭遇することがあります。
 `invocation of Task.project at execution time is unsupported`
@@ -706,7 +706,7 @@ Kotlin 2.0.0 以降、以下のようなメッセージを伴う構成キャッ�
 
 正確な原因がエラーレポートに明記されていないため、[Gradle チームはレポートを修正するためにこの問題にすでに取り組んでいます](https://github.com/gradle/gradle/issues/21290)。
 
-## Kotlin/Wasm
+## Kotlin/Wasm {id="kotlin-wasm"}
 
 Kotlin 2.0.0 では、パフォーマンスと JavaScript との相互運用性が向上しました。
 
@@ -718,7 +718,7 @@ Kotlin 2.0.0 では、パフォーマンスと JavaScript との相互運用性�
 * [新しい例外処理プロポーザルがオプションとしてサポート](#new-exception-handling-proposal-is-now-supported-as-an-option)
 * [`withWasm()` 関数が JS と WASI バリアントに分割](#the-withwasm-function-is-split-into-js-and-wasi-variants)
 
-### Binaryen を使用したデフォルトのプロダクションビルド最適化
+### Binaryen を使用したデフォルトのプロダクションビルド最適化 {id="optimized-production-builds-by-default-using-binaryen"}
 
 Kotlin/Wasm ツールチェーンは、以前の手動セットアップのアプローチとは異なり、すべてのプロジェクトのプロダクションコンパイル時に [Binaryen](https://github.com/WebAssembly/binaryen) ツールを適用するようになりました。弊社の見積もりでは、これによりランタイムパフォーマンスが向上し、プロジェクトのバイナリサイズが削減されます。
 
@@ -726,7 +726,7 @@ Kotlin/Wasm ツールチェーンは、以前の手動セットアップのア�
 >
 {style="note"}
 
-### 名前付きエクスポートのサポート
+### 名前付きエクスポートのサポート {id="support-for-named-export"}
 
 以前は、Kotlin/Wasm からエクスポートされたすべての宣言は、デフォルトエクスポート（default export）を使用して JavaScript にインポートされていました。
 
@@ -752,7 +752,7 @@ import { add } from "./index.mjs"
 
 名前付きエクスポートにより、Kotlin モジュールと JavaScript モジュール間でのコード共有が容易になります。可読性が向上し、モジュール間の依存関係の管理に役立ちます。
 
-### @JsExport 関数における符号なしプリミティブ型のサポート
+### @JsExport 関数における符号なしプリミティブ型のサポート {id="support-for-unsigned-primitive-types-in-functions-with-jsexport"}
 
 Kotlin 2.0.0 以降、外部宣言や、Kotlin/Wasm 関数を JavaScript コードで利用可能にする `@JsExport` アノテーションが付いた関数内で[符号なしプリミティブ型](unsigned-integer-types.md)を使用できるようになりました。
 
@@ -760,7 +760,7 @@ Kotlin 2.0.0 以降、外部宣言や、Kotlin/Wasm 関数を JavaScript コー�
 
 Kotlin/Wasm と JavaScript の相互運用性の詳細は、[ドキュメント](wasm-js-interop.md#use-javascript-code-in-kotlin)を参照してください。
 
-### Kotlin/Wasm における TypeScript 宣言ファイルの生成
+### Kotlin/Wasm における TypeScript 宣言ファイルの生成 {id="generation-of-typescript-declaration-files-in-kotlin-wasm"}
 
 > Kotlin/Wasm における TypeScript 宣言ファイルの生成は [Experimental](components-stability.md#stability-levels-explained)（実験的）です。
 > いつでも削除または変更される可能性があります。
@@ -784,7 +784,7 @@ kotlin {
 }
 ```
 
-### JavaScript 例外のキャッチのサポート
+### JavaScript 例外のキャッチのサポート {id="support-for-catching-javascript-exceptions"}
 
 以前は、Kotlin/Wasm コードで JavaScript の例外をキャッチできなかったため、プログラムの JavaScript 側から発生するエラーの処理が困難でした。
 
@@ -792,7 +792,7 @@ Kotlin 2.0.0 では、Kotlin/Wasm 内で JavaScript の例外をキャッチす�
 
 さらに、例外に関係なくコードを実行するのに役立つ `finally` ブロックも正しく動作します。JavaScript 例外のキャッチのサポートを導入する一方で、コールスタックなどの JavaScript 例外が発生した際の追加情報は提供されません。ただし、[これらの実装については現在取り組んでいます](https://youtrack.jetbrains.com/issue/KT-68185/WasmJs-Attach-js-exception-object-to-JsException)。
 
-### 新しい例外処理プロポーザルがオプションとしてサポート
+### 新しい例外処理プロポーザルがオプションとしてサポート {id="new-exception-handling-proposal-is-now-supported-as-an-option"}
 
 本リリースでは、Kotlin/Wasm 内で WebAssembly の新しいバージョンの[例外処理プロポーザル](https://github.com/WebAssembly/exception-handling/blob/main/proposals/exception-handling/Exceptions.md)のサポートを導入します。
 
@@ -800,13 +800,13 @@ Kotlin 2.0.0 では、Kotlin/Wasm 内で JavaScript の例外をキャッチす�
 
 デフォルトではオフになっている `-Xwasm-use-new-exception-proposal` コンパイラオプションを使用して、新しい例外処理プロポーザルを有効にしてください。
 
-### withWasm() 関数が JS と WASI バリアントに分割
+### withWasm() 関数が JS と WASI バリアントに分割 {id="the-withwasm-function-is-split-into-js-and-wasi-variants"}
 
 以前の階層テンプレートで Wasm ターゲットを提供していた `withWasm()` 関数は非推奨となり、特化した `withWasmJs()` と `withWasmWasi()` 関数に置き換わりました。
 
 これにより、ツリー定義内の異なるグループ間で WASI と JS ターゲットを分けることができるようになります。
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
 その他の変更に加えて、このバージョンでは現代的な JS コンパイルが Kotlin に導入され、ES2015 標準のより多くの機能がサポートされます。
 
@@ -821,7 +821,7 @@ Kotlin 2.0.0 では、Kotlin/Wasm 内で JavaScript の例外をキャッチす�
 * [コンパイルタスクの変更](#changes-to-compilation-tasks)
 * [レガシーな Kotlin/JS JAR アーティファクトの廃止](#discontinuing-legacy-kotlin-js-jar-artifacts)
 
-### 新しいコンパイルターゲット
+### 新しいコンパイルターゲット {id="new-compilation-target"}
 
 Kotlin 2.0.0 では、Kotlin/JS に新しいコンパイルターゲット `es2015` を追加しました。これは、Kotlin でサポートされているすべての ES2015 機能を一度に有効にする新しい方法です。
 
@@ -839,7 +839,7 @@ kotlin {
 
 新しいターゲットは、[ES クラスとモジュール](whatsnew19.md#experimental-support-for-es2015-classes-and-modules)および新しくサポートされた [ES ジェネレータ](#suspend-functions-as-es2015-generators)を自動的に有効にします。
 
-### ES2015 ジェネレータとしての suspend 関数
+### ES2015 ジェネレータとしての suspend 関数 {id="suspend-functions-as-es2015-generators"}
 
 本リリースでは、[suspend 関数](composing-suspending-functions.md)をコンパイルするための ES2015 ジェネレータの [Experimental](components-stability.md#stability-levels-explained)（実験的）サポートを導入しました。
 
@@ -847,7 +847,7 @@ kotlin {
 
 [ES2015 (ECMAScript 2015, ES6) の詳細は公式ドキュメントを参照してください](https://262.ecma-international.org/6.0/)。
 
-### main 関数への引数の受け渡し
+### main 関数への引数の受け渡し {id="passing-arguments-to-the-main-function"}
 
 Kotlin 2.0.0 以降、`main()` 関数の `args` のソースを指定できるようになりました。この機能により、コマンドラインの操作や引数の受け渡しが容易になります。
 
@@ -877,7 +877,7 @@ kotlin {
 }
 ```
 
-### Kotlin/JS プロジェクトのファイルごとのコンパイル
+### Kotlin/JS プロジェクトのファイルごとのコンパイル {id="per-file-compilation-for-kotlin-js-projects"}
 
 Kotlin 2.0.0 では、Kotlin/JS プロジェクトの出力に関する新しい粒度のオプションが導入されました。各 Kotlin ファイルに対して 1 つの JavaScript ファイルを生成する、ファイルごとのコンパイルを設定できるようになりました。これにより、最終的なバンドルサイズの大幅な最適化とプログラムのロード時間の短縮に役立ちます。
 
@@ -906,7 +906,7 @@ Kotlin 2.0.0 では、Kotlin/JS プロジェクトの出力に関する新しい
    kotlin.js.ir.output.granularity=per-file // `per-module` がデフォルト
    ```
 
-### コレクションの相互運用性の向上
+### コレクションの相互運用性の向上 {id="improved-collection-interoperability"}
 
 Kotlin 2.0.0 以降、シグネチャ内に Kotlin コレクション型を持つ宣言を JavaScript（および TypeScript）にエクスポートできるようになりました。これは `Set`、`Map`、`List` の各コレクション型と、それらに対応するミュータブルな型に適用されます。
 
@@ -942,13 +942,13 @@ const allMyFriendNames = me.friends
 >
 {style="note"}
 
-### createInstance() のサポート
+### createInstance() のサポート {id="support-for-createinstance"}
 
 Kotlin 2.0.0 以降、Kotlin/JS ターゲットから [`createInstance()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect.full/create-instance.html) 関数を使用できるようになりました。以前は JVM 上でのみ利用可能でした。
 
 [KClass](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/) インターフェースのこの関数は、指定されたクラスの新しいインスタンスを作成します。これは、Kotlin クラスへのランタイム参照を取得する際に役立ちます。
 
-### 型安全なプレーン JavaScript オブジェクトのサポート
+### 型安全なプレーン JavaScript オブジェクトのサポート {id="support-for-type-safe-plain-javascript-objects"}
 
 > `js-plain-objects` プラグインは [Experimental](components-stability.md#stability-levels-explained)（実験的）です。
 > いつでも削除または変更される可能性があります。`js-plain-objects` プラグインは K2 コンパイラ **のみ** をサポートします。
@@ -1043,7 +1043,7 @@ plugins {
 </tab>
 </tabs>
 
-### npm パッケージマネージャーのサポート
+### npm パッケージマネージャーのサポート {id="support-for-npm-package-manager"}
 
 以前は、Kotlin Multiplatform Gradle プラグインが npm 依存関係をダウンロードおよびインストールするために [Yarn](https://yarnpkg.com/lang/en/) をパッケージマネージャーとして使用することしかできませんでした。Kotlin 2.0.0 からは、代わりに [npm](https://www.npmjs.com/) をパッケージマネージャーとして使用できます。npm をパッケージマネージャーとして使用することで、セットアップ中に管理するツールを 1 つ減らすことができます。
 
@@ -1053,7 +1053,7 @@ plugins {
 kotlin.js.yarn = false
 ```
 
-### コンパイルタスクの変更
+### コンパイルタスクの変更 {id="changes-to-compilation-tasks"}
 
 以前は、`webpack` タスクと `distributeResources` コンパイルタスクの両方が同じディレクトリをターゲットにしていました。さらに、`distribution` タスクも出力ディレクトリとして `dist` を宣言していました。これにより出力が重複し、コンパイル警告が発生していました。
 
@@ -1063,11 +1063,11 @@ kotlin.js.yarn = false
 * `distributeResources` タスクは完全に削除されました。
 * `distribution` タスクは `Copy` 型になり、`dist` フォルダをターゲットにするようになりました。
 
-### レガシーな Kotlin/JS JAR アーティファクトの廃止
+### レガシーな Kotlin/JS JAR アーティファクトの廃止 {id="discontinuing-legacy-kotlin-js-jar-artifacts"}
 
 Kotlin 2.0.0 以降、Kotlin 配布物には拡張子が `.jar` のレガシーな Kotlin/JS アーティファクトが含まれなくなりました。レガシーアーティファクトはサポートされていない古い Kotlin/JS コンパイラで使用されていましたが、`klib` 形式を使用する IR コンパイラでは不要です。
 
-## Gradle の改善
+## Gradle の改善 {id="gradle-improvements"}
 
 Kotlin 2.0.0 は、Gradle 6.8.3 から 8.5 までと完全な互換性があります。最新の Gradle リリースまでのバージョンも使用できますが、その場合は非推奨の警告が表示されたり、一部の新しい Gradle 機能が動作しなかったりする可能性があることに注意してください。
 
@@ -1087,7 +1087,7 @@ Kotlin 2.0.0 は、Gradle 6.8.3 から 8.5 までと完全な互換性があり�
 * [kapt 構成がスーパー構成からアノテーションプロセッサを継承](#kapt-configurations-inherit-annotation-processors-from-superconfigurations)
 * [Kotlin Gradle プラグインが非推奨の Gradle コンベンションを使用しなくなった](#kotlin-gradle-plugin-no-longer-uses-deprecated-gradle-conventions)
 
-### マルチプラットフォームプロジェクトのコンパイラオプション用の新しい Gradle DSL
+### マルチプラットフォームプロジェクトのコンパイラオプション用の新しい Gradle DSL {id="new-gradle-dsl-for-compiler-options-in-multiplatform-projects"}
 
 > この機能は [Experimental](components-stability.md#stability-levels-explained)（実験的）です。いつでも削除または変更される可能性があります。評価目的でのみ使用してください。[YouTrack](https://kotl.in/issue) でのフィードバックをお待ちしております。
 >
@@ -1132,7 +1132,7 @@ kotlin {
 
 この DSL をコンパイラオプション設定の推奨アプローチにする予定ですので、マルチプラットフォームプロジェクトで新しい DSL を試して、[YouTrack](https://kotl.in/issue) にフィードバックをお寄せください。
 
-### 新しい Compose コンパイラ Gradle プラグイン
+### 新しい Compose コンパイラ Gradle プラグイン {id="new-compose-compiler-gradle-plugin"}
 
 コンポーザブルを Kotlin コードに変換する Jetpack Compose コンパイラが、Kotlin リポジトリに統合されました。これにより、Compose コンパイラが常に Kotlin と同時にリリースされるようになるため、Compose プロジェクトの Kotlin 2.0.0 への移行が容易になります。また、Compose コンパイラのバージョンも 2.0.0 に引き上げられます。
 
@@ -1140,7 +1140,7 @@ kotlin {
 
 この変更の詳細は、[Compose コンパイラ](https://kotlinlang.org/docs/multiplatform/compose-compiler.html)のドキュメントを参照してください。
 
-### JVM および Android 公開ライブラリを区別するための新しい属性
+### JVM および Android 公開ライブラリを区別するための新しい属性 {id="new-attribute-to-distinguish-jvm-and-android-published-libraries"}
 
 Kotlin 2.0.0 以降、[`org.gradle.jvm.environment`](https://docs.gradle.org/current/userguide/variant_attributes.html#sub:jvm_default_attributes) Gradle 属性がすべての Kotlin バリアントでデフォルトで公開されます。
 
@@ -1154,7 +1154,7 @@ Kotlin 2.0.0 以降、[`org.gradle.jvm.environment`](https://docs.gradle.org/cur
 kotlin.publishJvmEnvironmentAttribute=false
 ```
 
-### Kotlin/Native における CInteropProcess の Gradle 依存関係処理の改善
+### Kotlin/Native における CInteropProcess の Gradle 依存関係処理の改善 {id="improved-gradle-dependency-handling-for-cinteropprocess-in-kotlin-native"}
 
 本リリースでは、Kotlin/Native プロジェクトにおける Gradle タスクの依存関係管理を改善するため、`defFile` プロパティの処理を強化しました。
 
@@ -1222,7 +1222,7 @@ kotlin {
 >
 {style="warning"}
 
-### Gradle における可視性の変更
+### Gradle における可視性の変更 {id="visibility-changes-in-gradle"}
 
 > この変更は Kotlin DSL ユーザーにのみ影響します。
 >
@@ -1283,7 +1283,7 @@ kotlin {
 
 この変更に関するフィードバックをお待ちしております！[#gradle Slack チャンネル](https://kotlinlang.slack.com/archives/C19FD9681)で Kotlin 開発者に直接コメントをお寄せください。[Slack 招待はこちら](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)。
 
-### Gradle プロジェクトにおける Kotlin データ用の新しいディレクトリ
+### Gradle プロジェクトにおける Kotlin データ用の新しいディレクトリ {id="new-directory-for-kotlin-data-in-gradle-projects"}
 
 > `.kotlin` ディレクトリをバージョン管理にコミットしないでください。
 > 例えば、Git を使用している場合は、プロジェクトの `.gitignore` ファイルに `.kotlin` を追加してください。
@@ -1303,7 +1303,7 @@ Kotlin 1.8.20 では、Kotlin Gradle プラグインはデータを Gradle プ�
 
 これらのプロパティを有効にするには、プロジェクトの `gradle.properties` ファイルに追加してください。
 
-### 必要に応じた Kotlin/Native コンパイラのダウンロード
+### 必要に応じた Kotlin/Native コンパイラのダウンロード {id="kotlin-native-compiler-downloaded-when-needed"}
 
 Kotlin 2.0.0 より前では、マルチプラットフォームプロジェクトの Gradle ビルドスクリプトに [Kotlin/Native ターゲット](native-target-support.md)が構成されている場合、Gradle は常に [構成フェーズ](https://docs.gradle.org/current/userguide/build_lifecycle.html#sec:configuration) で Kotlin/Native コンパイラをダウンロードしていました。
 
@@ -1331,7 +1331,7 @@ kotlin.native.distribution.downloadFromMaven=false
 
 問題がある場合は、弊社の課題トラッカー [YouTrack](https://kotl.in/issue) に報告してください。デフォルトの動作を変更するこれらの Gradle プロパティは両方とも一時的なものであり、将来のリリースで削除される予定です。
 
-### コンパイラオプション定義の古い方法の非推奨化
+### コンパイラオプション定義の古い方法の非推奨化 {id="deprecated-old-ways-of-defining-compiler-options"}
 
 本リリースでは、コンパイラオプションの設定方法を引き続き洗練させています。これにより、異なる方法間の曖昧さを解消し、プロジェクト構成をよりシンプルにするはずです。
 
@@ -1368,11 +1368,11 @@ Kotlin 2.0.0 以降、以下のコンパイラオプションを指定するた�
 
 Kotlin Gradle プラグインでのコンパイラオプションの指定方法の詳細は、[オプションの定義方法](gradle-compiler-options.md#how-to-define-options)を参照してください。
 
-### 最小サポート AGP バージョンの引き上げ
+### 最小サポート AGP バージョンの引き上げ {id="bumped-minimum-supported-agp-version"}
 
 Kotlin 2.0.0 以降、サポートされる Android Gradle プラグインの最小バージョンは 7.1.3 となりました。
 
-### 最新の言語バージョンを試すための新しい Gradle プロパティ
+### 最新の言語バージョンを試すための新しい Gradle プロパティ {id="new-gradle-property-for-trying-the-latest-language-version"}
 
 Kotlin 2.0.0 より前は、新しい K2 コンパイラを試すために `kotlin.experimental.tryK2` という Gradle プロパティがありました。Kotlin 2.0.0 で K2 コンパイラがデフォルトで有効になったため、このプロパティを、プロジェクトで最新の言語バージョンを試すために使用できる新しい形式 `kotlin.experimental.tryNext` に進化させることにしました。`gradle.properties` ファイルでこのプロパティを使用すると、Kotlin Gradle プラグインは、使用している Kotlin バージョンのデフォルト値よりも 1 つ上の言語バージョンに引き上げます。例えば、Kotlin 2.0.0 ではデフォルトの言語バージョンは 2.0 なので、このプロパティは言語バージョン 2.1 を構成します。
 
@@ -1387,7 +1387,7 @@ Kotlin 2.0.0 より前は、新しい K2 コンパイラを試すために `kotl
 
 ビルドレポートを有効にする方法とその内容の詳細は、[ビルドレポート](gradle-compilation-and-caches.md#build-reports)を参照してください。
 
-### ビルドレポート用の新しい JSON 出力形式
+### ビルドレポート用の新しい JSON 出力形式 {id="new-json-output-format-for-build-reports"}
 
 Kotlin 1.7.0 では、コンパイラのパフォーマンスを追跡しやすくするためにビルドレポートを導入しました。時間の経過とともに、パフォーマンス問題の調査時により詳細で役立つ情報を提供できるよう、より多くのメトリクスを追加してきました。以前は、ローカルファイルの出力形式は `*.txt` 形式のみでした。Kotlin 2.0.0 では、他のツールを使用した分析をさらに容易にするために、JSON 出力形式をサポートしました。
 
@@ -1448,7 +1448,7 @@ kotlin.build.report.json.directory=my/directory/path
     }
 ```
 
-### kapt 構成がスーパー構成からアノテーションプロセッサを継承
+### kapt 構成がスーパー構成からアノテーションプロセッサを継承 {id="kapt-configurations-inherit-annotation-processors-from-superconfigurations"}
 
 Kotlin 2.0.0 より前では、別の Gradle 構成で共通のアノテーションプロセッサセットを定義し、サブプロジェクトの kapt 固有の構成でこの構成を拡張しようとすると、kapt はアノテーションプロセッサを見つけられず、アノテーション処理をスキップしていました。Kotlin 2.0.0 では、kapt はアノテーションプロセッサに対する間接的な依存関係があることを正常に検出できます。
 
@@ -1468,11 +1468,11 @@ dependencies {
 
 [実装](https://github.com/JetBrains/kotlin/pull/5198)を担当してくださった Christoph Loy 氏に感謝します。
 
-### Kotlin Gradle プラグインが非推奨の Gradle コンベンションを使用しなくなった
+### Kotlin Gradle プラグインが非推奨の Gradle コンベンションを使用しなくなった {id="kotlin-gradle-plugin-no-longer-uses-deprecated-gradle-conventions"}
 
 Kotlin 2.0.0 より前では、Gradle 8.2 以上を使用している場合、Kotlin Gradle プラグインが Gradle 8.2 で非推奨となった Gradle コンベンションを誤って使用していました。これにより、Gradle がビルドの非推奨を報告していました。Kotlin 2.0.0 では、Gradle 8.2 以上を使用している場合にこれらの非推奨警告が発生しないように、Kotlin Gradle プラグインが更新されました。
 
-## 標準ライブラリ
+## 標準ライブラリ {id="standard-library"}
 
 本リリースでは、Kotlin 標準ライブラリの安定性がさらに向上し、既存のさらに多くの関数がすべてのプラットフォームで共通（common）になりました。
 
@@ -1482,7 +1482,7 @@ Kotlin 2.0.0 より前では、Gradle 8.2 以上を使用している場合、Ko
 * [共通の protected 関数 AbstractMutableList.removeRange](#common-protected-function-abstractmutablelist-removerange)
 * [共通の String.toCharArray(destination)](#common-string-tochararray-destination-function)
 
-### enum class の values ジェネリック関数の Stable な代替
+### enum class の values ジェネリック関数の Stable な代替 {id="stable-replacement-of-the-enum-class-values-generic-function"}
 
 Kotlin 2.0.0 では、`enumEntries<T>()` 関数が [Stable](components-stability.md#stability-levels-explained) になりました。
 `enumEntries<T>()` 関数は、ジェネリックな `enumValues<T>()` 関数の代替となるものです。新しい関数は、指定された列挙型 `T` のすべての列挙エントリのリストを返します。列挙クラスの `entries` プロパティは以前に導入され、合成された `values()` 関数の代替として安定化されました。`entries` プロパティの詳細は、[What's new in Kotlin 1.8.20](whatsnew1820.md#a-modern-and-performant-replacement-of-the-enum-class-values-function) を参照してください。
@@ -1504,7 +1504,7 @@ printAllValues<RGB>()
 // RED, GREEN, BLUE
 ```
 
-### AutoCloseable インターフェースの Stable 化
+### AutoCloseable インターフェースの Stable 化 {id="stable-autocloseable-interface"}
 
 Kotlin 2.0.0 では、共通の [`AutoCloseable`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-auto-closeable/) インターフェースが [Stable](components-stability.md#stability-levels-explained) になりました。これにより、リソースを簡単に閉じることができ、いくつかの便利な関数が含まれています。
 
@@ -1549,7 +1549,7 @@ fun writeBooksTo(writer: XMLWriter) {
 }
 ```
 
-### 共通の protected プロパティ AbstractMutableList.modCount
+### 共通の protected プロパティ AbstractMutableList.modCount {id="common-protected-property-abstractmutablelist-modcount"}
 
 本リリースでは、`AbstractMutableList` インターフェースの [`modCount`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-abstract-mutable-list/mod-count.html) `protected` プロパティが共通（common）になりました。以前は、`modCount` プロパティは各プラットフォームで利用可能でしたが、共通ターゲットでは利用できませんでした。今後は、`AbstractMutableList` のカスタム実装を作成し、共通コードでこのプロパティにアクセスできるようになります。
 
@@ -1557,13 +1557,13 @@ fun writeBooksTo(writer: XMLWriter) {
 
 カスタムリストを実装する際に、`modCount` プロパティを使用して同時変更（concurrent modification）を登録・検出できます。
 
-### 共通の protected 関数 AbstractMutableList.removeRange
+### 共通の protected 関数 AbstractMutableList.removeRange {id="common-protected-function-abstractmutablelist-removerange"}
 
 本リリースでは、`AbstractMutableList` インターフェースの [`removeRange()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-abstract-mutable-list/remove-range.html) `protected` 関数が共通（common）になりました。以前は、各プラットフォームで利用可能でしたが、共通ターゲットでは利用できませんでした。今後は、`AbstractMutableList` のカスタム実装を作成し、共通コードでこの関数をオーバーライドできるようになります。
 
 この関数は、指定された範囲に従ってリストから要素を削除します。この関数をオーバーライドすることで、カスタム実装を活用し、リスト操作のパフォーマンスを向上させることができます。
 
-### 共通の String.toCharArray(destination) 関数
+### 共通の String.toCharArray(destination) 関数 {id="common-string-tochararray-destination-function"}
 
 本リリースでは、共通の [`String.toCharArray(destination)`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/to-char-array.html) 関数が導入されました。以前は JVM 上でのみ利用可能でした。
 
@@ -1585,7 +1585,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-## Kotlin 2.0.0 のインストール
+## Kotlin 2.0.0 のインストール {id="install-kotlin-2-0-0"}
 
 IntelliJ IDEA 2023.3 および Android Studio Iguana (2023.2.1) Canary 15 以降、Kotlin プラグインは IDE に含まれるバンドルプラグインとして配布されています。つまり、JetBrains Marketplace からプラグインをインストールすることはできなくなりました。
 

@@ -20,13 +20,13 @@ Kotlinスクラッチを作成するには、**File** | **New** | **Scratch File
 
 ![Run scratch](scratch-run.png){width=700}
 
-### インタラクティブモード (Interactive mode)
+### インタラクティブモード (Interactive mode) {id="interactive-mode"}
 
 IDEはスクラッチのコードを自動的に実行できます。タイピングを止めたらすぐに実行結果を確認するには、**Interactive mode** をオンにします。
 
 ![Scratch interactive mode](scratch-interactive.png){width=700}
 
-### モジュールの使用
+### モジュールの使用 {id="use-modules"}
 
 スクラッチでは、Kotlinプロジェクトのクラスや関数を使用できます。
 
@@ -37,11 +37,11 @@ IDEはスクラッチのコードを自動的に実行できます。タイピ�
 
 ![Scratch select module](scratch-select-module.png){width=700}
 
-## ブラウザ: Kotlin Playground
+## ブラウザ: Kotlin Playground {id="browser-kotlin-playground"}
 
 [Kotlin Playground](https://play.kotlinlang.org/) は、ブラウザ上でKotlinコードを記述、実行、共有するためのオンラインアプリケーションです。
 
-### コードの記述と編集
+### コードの記述と編集 {id="write-and-edit-code"}
 
 Playgroundのエディタ領域では、ソースファイルと同じようにコードを記述できます：
 * 自身のクラス、関数、トップレベルの宣言を任意の順序で追加できます。
@@ -53,7 +53,7 @@ Playgroundのエディタ領域では、ソースファイルと同じように�
 
 Playgroundはコードをハイライトし、入力に合わせてコード補完の候補を表示します。標準ライブラリおよび [`kotlinx.coroutines`](coroutines-overview.md) からの宣言を自動的にインポートします。
 
-### 実行環境の選択
+### 実行環境の選択 {id="choose-execution-environment"}
 
 Playgroundでは、実行環境をカスタマイズする方法が用意されています：
 * 利用可能な [将来のバージョンのプレビュー](eap.md) を含む、複数のKotlinバージョン。
@@ -65,7 +65,7 @@ JSバックエンドの場合、生成されたJSコードを確認すること�
 
 ![Playground: generated JS](playground-generated-js.png){width=700}
 
-### オンラインでのコード共有
+### オンラインでのコード共有 {id="share-code-online"}
 
 Playgroundを使用してコードを他の人と共有できます。**Copy link** をクリックして、コードを見せたい相手に送信してください。
 
@@ -73,7 +73,7 @@ Playgroundのコードスニペットを他のWebサイトに埋め込んだり�
 
 ![Playground: share code](playground-share.png){width=700}
 
-## コマンドライン: ki shell
+## コマンドライン: ki shell {id="command-line-ki-shell"}
 
 [ki shell](https://github.com/Kotlin/kotlin-interactive-shell) (*Kotlin Interactive Shell*) は、ターミナルでKotlinコードを実行するためのコマンドラインユーティリティです。Linux、macOS、Windowsで利用可能です。
 
@@ -86,7 +86,7 @@ ki shellは、基本的なコード評価機能に加えて、以下のような
 
 詳細については、[ki shellのGitHubリポジトリ](https://github.com/Kotlin/kotlin-interactive-shell) を参照してください。
 
-### ki shellのインストールと実行
+### ki shellのインストールと実行 {id="install-and-run-ki-shell"}
 
 ki shellをインストールするには、[GitHub](https://github.com/Kotlin/kotlin-interactive-shell) から最新バージョンをダウンロードし、任意のディレクトリに解凍します。
 
@@ -100,7 +100,7 @@ ki shellを起動するには、LinuxおよびmacOSでは `bin/ki.sh`（Homebrew
 
 シェルが起動したら、すぐにターミナルでKotlinコードの記述を開始できます。`:help`（または `:h`）と入力すると、ki shellで使用可能なコマンドが表示されます。
 
-### コード補完とハイライト
+### コード補完とハイライト {id="code-completion-and-highlighting"}
 
 ki shellは、**Tab** キーを押すとコード補完の候補を表示します。また、入力中に構文ハイライトも提供します。この機能は `:syntax off` と入力することで無効にできます。
 
@@ -110,13 +110,13 @@ ki shellは、**Tab** キーを押すとコード補完の候補を表示しま�
 
 ![ki shell results](ki-shell-results.png){width=700}
 
-### 式の型の確認
+### 式の型の確認 {id="check-an-expression-s-type"}
 
 複雑な式やよく知らないAPIの場合、ki shellは式の型を表示する `:type`（または `:t`）コマンドを提供します：
 
 ![ki shell type](ki-shell-type.png){width=700}
 
-### コードの読み込み
+### コードの読み込み {id="load-code"}
 
 必要なコードが別の場所に保存されている場合、それを読み込んでki shellで使用する方法が2つあります：
 * `:load`（または `:l`）コマンドでソースファイルを読み込む。
@@ -126,7 +126,7 @@ ki shellは、**Tab** キーを押すとコード補完の候補を表示しま�
 
 `ls` コマンドは、使用可能なシンボル（変数と関数）を表示します。
 
-### 外部依存関係の追加
+### 外部依存関係の追加 {id="add-external-dependencies"}
 
 標準ライブラリに加えて、ki shellは外部依存関係もサポートしています。これにより、プロジェクト全体を作成することなく、サードパーティのライブラリを試すことができます。
 

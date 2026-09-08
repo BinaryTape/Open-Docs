@@ -13,7 +13,7 @@
 
 您还可以使用 Kotlin Metadata JVM 库来检查各种声明属性（如可见性或 modality），或者生成元数据并将其嵌入到 `.class` 文件中。
 
-## 在项目中添加库
+## 在项目中添加库 {id="add-the-library-to-your-project"}
 
 要在项目中包含 Kotlin Metadata JVM 库，请根据您的构建工具添加相应的依赖项配置。
 
@@ -22,7 +22,7 @@
 > 
 {style="note"}
 
-### Gradle
+### Gradle {id="gradle"}
 
 将以下依赖项添加到您的 `build.gradle(.kts)` 文件中：
 
@@ -56,7 +56,7 @@ dependencies {
 </tab>
 </tabs>
 
-### Maven
+### Maven {id="maven"}
 
 将以下依赖项添加到您的 `pom.xml` 文件中。
 
@@ -73,7 +73,7 @@ dependencies {
 </project>
 ```
 
-## 读取并解析元数据
+## 读取并解析元数据 {id="read-and-parse-metadata"}
 
 `kotlin-metadata-jvm` 库从编译后的 Kotlin `.class` 文件中提取结构化信息，例如类名、可见性和签名。
 您可以将其用于需要分析编译后的 Kotlin 声明的项目。
@@ -173,7 +173,7 @@ fun main() {
 }
 ```
 
-### 在元数据中写入和读取注解
+### 在元数据中写入和读取注解 {id="write-and-read-annotations-in-metadata"}
 
 Kotlin 在字节码和 Kotlin 元数据中都存储注解。如果您使用 `kotlin-metadata-jvm` 库来读取或写入注解，您处理的是它们的元数据表示形式。
 
@@ -216,7 +216,7 @@ fun main() {
 }
 ```
 
-### 从字节码中提取元数据
+### 从字节码中提取元数据 {id="extract-metadata-from-bytecode"}
 
 虽然您可以使用反射来检索元数据，但另一种方法是使用字节码操作框架（如 [ASM](https://asm.ow2.io/)）从字节码中提取它。
 
@@ -307,7 +307,7 @@ fun main() {
 }
 ```
 
-## 修改元数据
+## 修改元数据 {id="modify-metadata"}
 
 当使用 [ProGuard](https://github.com/Guardsquare/proguard) 等工具来缩减和优化字节码时，某些声明可能会从 `.class` 文件中移除。ProGuard 会自动更新元数据以保持其与修改后的字节码一致。
 
@@ -374,7 +374,7 @@ fun main() {
 > 
 {style="tip"}
 
-## 从零开始创建元数据
+## 从零开始创建元数据 {id="create-metadata-from-scratch"}
 
 要使用 Kotlin Metadata JVM 库从零开始为 Kotlin 类文件创建元数据：
 
@@ -451,7 +451,7 @@ fun main() {
 > 
 {style="tip"}
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * [查看 Kotlin Metadata JVM 库的 API 参考](https://kotlinlang.org/api/kotlinx-metadata-jvm/)。
 * [访问 Kotlin Metadata JVM GitHub 仓库](https://github.com/JetBrains/kotlin/tree/master/libraries/kotlinx-metadata/jvm)。

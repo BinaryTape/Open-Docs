@@ -4,7 +4,7 @@
 
 ![Kotlin Multiplatform](kotlin-multiplatform.svg){width=700}
 
-## 学习核心概念
+## 学习核心概念 {id="learn-key-concepts"}
 
 Kotlin Multiplatform 允许你在不同平台（无论是移动端、Web 端还是桌面端）之间共享代码。代码编译到的平台由 *目标 (target)* 列表定义。
 
@@ -19,7 +19,7 @@ Kotlin Multiplatform 允许你在不同平台（无论是移动端、Web 端还�
 * [Kotlin Multiplatform 项目结构基础](multiplatform-discover-project.md)
 * [多平台项目结构的高级概念](multiplatform-advanced-project-structure.md)
 
-## 使用代码共享机制
+## 使用代码共享机制 {id="use-code-sharing-mechanisms"}
 
 有时在相似目标的子集之间共享代码会更方便。Kotlin Multiplatform 提供了一种通过*默认层次结构模板*简化其创建的方法。它包含一个预定义的中间源集列表，这些源集是根据你在项目中指定的目标创建的。
 
@@ -31,7 +31,7 @@ Kotlin Multiplatform 允许你在不同平台（无论是移动端、Web 端还�
 * [expect 和 actual 声明](multiplatform-expect-actual.md)
 * [分层项目结构](multiplatform-hierarchy.md)
 
-## 添加依赖项
+## 添加依赖项 {id="add-dependencies"}
 
 Kotlin Multiplatform 项目可以依赖外部库和其他多平台项目。对于通用代码，你可以在通用源集中添加对多平台库的依赖项。Kotlin 会自动解析并为其他源集添加适当的特定于平台的的部分。如果只需要特定于平台的 API，请将依赖项添加到对应的源集中。
 
@@ -43,7 +43,7 @@ Kotlin Multiplatform 项目可以依赖外部库和其他多平台项目。对�
 * [添加对 Android 库的依赖项](multiplatform-android-dependencies.md)
 * [添加对 iOS 库的依赖项](multiplatform-ios-dependencies.md)
 
-## 设置与 iOS 的集成
+## 设置与 iOS 的集成 {id="set-up-integration-with-ios"}
 
 如果你的多平台项目以 iOS 为目标，你可以设置 Kotlin Multiplatform 共享模块与 iOS 应用的集成。
 
@@ -54,7 +54,7 @@ Kotlin Multiplatform 项目可以依赖外部库和其他多平台项目。对�
 
 有关此主题的更多详情，请参阅 [iOS 集成方法](multiplatform-ios-integration-overview.md)。
 
-## 配置编译
+## 配置编译 {id="configure-compilations"}
 
 每个目标都可以为不同目的拥有多个编译，通常用于生产或测试，但你也可以定义自定义编译。
 
@@ -62,7 +62,7 @@ Kotlin Multiplatform 项目可以依赖外部库和其他多平台项目。对�
 
 有关此主题的更多详情，请参阅[配置编译](multiplatform-configure-compilations.md)。
 
-## 构建最终二进制文件
+## 构建最终二进制文件 {id="build-final-binaries"}
 
 默认情况下，目标会被编译为 `.klib` 工件，它可以被 Kotlin/Native 本身作为依赖项使用，但不能作为原生库执行或使用。然而，Kotlin Multiplatform 提供了额外的机制来构建最终的原生二进制文件。
 
@@ -70,7 +70,7 @@ Kotlin Multiplatform 项目可以依赖外部库和其他多平台项目。对�
 
 有关此主题的更多详情，请参阅[构建原生二进制文件](multiplatform-build-native-binaries.md)。
 
-## 创建多平台库
+## 创建多平台库 {id="create-multiplatform-libraries"}
 
 你可以创建一个包含通用代码及其针对 JVM、Web 和原生平台特定实现的多平台库。
 
@@ -78,7 +78,7 @@ Kotlin Multiplatform 项目可以依赖外部库和其他多平台项目。对�
 
 有关此主题的更多详情，请参阅[发布多平台库](multiplatform-publish-lib-setup.md)。
 
-## 参考
+## 参考 {id="reference"}
 
 * [Kotlin Multiplatform Gradle 插件的 DSL 参考](multiplatform-dsl-reference.md)
 * [Kotlin Multiplatform 兼容性指南](multiplatform-compatibility-guide.md)

@@ -8,13 +8,13 @@ title: JUnit テスト
 更新 - 2025-01-28
 :::
 
-## コードの取得
+## コードの取得 {id="get-the-code"}
 
 :::info
 [ソースコードは GitHub で公開されています](https://github.com/InsertKoinIO/koin-getting-started/tree/main/kotlin)
 :::
 
-## Gradle の設定
+## Gradle の設定 {id="gradle-setup"}
 
 まず、以下のように Koin の依存関係を追加します。
 
@@ -27,7 +27,7 @@ dependencies {
 }
 ```
 
-## 宣言された依存関係
+## 宣言された依存関係 {id="declared-dependencies"}
 
 `koin-core` の入門プロジェクトを再利用して、Koin モジュールを使用します。
 
@@ -39,7 +39,7 @@ val appModule = module {
 }
 ```
 
-## モジュールの検証
+## モジュールの検証 {id="verifying-your-modules"}
 
 :::tip
 Koin Compiler Plugin がコンパイル時の依存関係検証を提供し、テストコードを書かなくてもビルド時に不足している依存関係を検出できるようになりました。[コンパイル時の安全性 (Compile-Time Safety)](/docs/reference/koin-compiler/compile-safety) を参照してください。
@@ -59,7 +59,7 @@ class ModuleVerificationTest : AutoCloseKoinTest() {
 
 依存関係の定義が無効な場合や、必要な依存関係が不足している場合、このテストは失敗します。
 
-## KoinTestRule を使用したテストの作成
+## KoinTestRule を使用したテストの作成 {id="writing-tests-with-kointestrule"}
 
 依存関係を注入するテストを作成するには、`KoinTest` を継承し、`KoinTestRule` を使用します。
 
@@ -90,7 +90,7 @@ class UserAppTest : KoinTest {
 
 > Koin の `KoinTestRule` ルールを使用して、各テストで Koin コンテキストの開始と停止を行います。
 
-## 依存関係のモック
+## 依存関係のモック {id="mocking-dependencies"}
 
 `declareMock` を使用して、テスト内の依存関係をモック化できます。これにより、実際の実装がモックに置き換えられます。
 
@@ -128,7 +128,7 @@ class UserMockTest : KoinTest {
 
 `MockProviderRule` は Mockito をモックフレームワークとして設定し、`declareMock` は実際の `UserRepository` を制御されたデータを返すモックに置き換えます。
 
-## テストの主要な概念
+## テストの主要な概念 {id="key-testing-concepts"}
 
 | 概念 | 説明 |
 |---------|-------------|
@@ -140,7 +140,7 @@ class UserMockTest : KoinTest {
 | `declareMock<T>()` | 定義をモックに置き換える |
 | `by inject<T>()` | テスト内で依存関係を遅延注入 (lazy inject) する |
 
-## 関連項目
+## 関連項目 {id="see-also"}
 
 - **[テストリファレンス](/docs/reference/koin-test/testing)** - 完全なテストドキュメント
 - **[モジュールの検証](/docs/reference/koin-test/verify)** - `verify()` および `checkModules()` の詳細

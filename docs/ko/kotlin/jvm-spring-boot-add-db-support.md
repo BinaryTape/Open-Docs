@@ -6,7 +6,7 @@
 JVM 애플리케이션에서는 JDBC를 사용하여 데이터베이스와 상호 작용합니다.
 편의를 위해 Spring 프레임워크는 JDBC 사용을 단순화하고 일반적인 오류를 방지하는 데 도움이 되는 `JdbcTemplate` 클래스를 제공합니다.
 
-## 데이터베이스 지원 추가
+## 데이터베이스 지원 추가 {id="add-database-support"}
 
 Spring 프레임워크 기반 애플리케이션의 일반적인 관행은 소위 _서비스(service)_ 계층 내에 데이터베이스 액세스 로직을 구현하는 것입니다. 이곳은 비즈니스 로직이 위치하는 곳입니다.
 Spring에서는 해당 클래스가 애플리케이션의 서비스 계층에 속함을 암시하기 위해 클래스에 `@Service` 어노테이션을 표시해야 합니다.
@@ -72,7 +72,7 @@ class MessageService(private val db: JdbcTemplate) {
    </def>
 </deflist>
 
-## MessageController 클래스 업데이트
+## MessageController 클래스 업데이트 {id="update-the-messagecontroller-class"}
 
 새로운 `MessageService` 클래스를 사용하도록 `MessageController.kt`를 업데이트합니다.
 
@@ -112,7 +112,7 @@ class MessageController(private val service: MessageService) {
    </def>
 </deflist>
 
-## MessageService 클래스 업데이트
+## MessageService 클래스 업데이트 {id="update-the-messageservice-class"}
 
 `Message` 클래스의 `id`는 널이 가능한 String으로 선언되었습니다.
 
@@ -157,7 +157,7 @@ class MessageService(private val db: JdbcTemplate) {
 
 애플리케이션 코드가 데이터베이스와 연동될 준비가 되었습니다. 이제 데이터 소스를 구성해야 합니다.
 
-## 데이터베이스 구성
+## 데이터베이스 구성 {id="configure-the-database"}
 
 애플리케이션에서 데이터베이스를 구성합니다.
 
@@ -192,7 +192,7 @@ class MessageService(private val db: JdbcTemplate) {
    이 설정들은 Spring Boot 애플리케이션에서 데이터베이스를 활성화합니다.  
    공통 애플리케이션 속성의 전체 목록은 [Spring 문서](https://docs.spring.io/spring-boot/appendix/application-properties/index.html)를 참조하세요.
 
-## HTTP 요청을 통해 데이터베이스에 메시지 추가
+## HTTP 요청을 통해 데이터베이스에 메시지 추가 {id="add-messages-to-database-via-http-request"}
 
 이전에 생성한 엔드포인트와 작업하려면 HTTP 클라이언트를 사용해야 합니다. IntelliJ IDEA에서는 내장된 HTTP 클라이언트를 사용하세요.
 
@@ -240,7 +240,7 @@ class MessageService(private val db: JdbcTemplate) {
 
    ![GET 요청 실행](execute-get-requests.png){width=700}
 
-### 요청을 실행하는 대안적인 방법 {initial-collapse-state="collapsed" collapsible="true"}
+### 요청을 실행하는 대안적인 방법 {initial-collapse-state="collapsed" collapsible="true" id="alternative-way-to-execute-requests"}
 
 다른 HTTP 클라이언트나 cURL 명령줄 도구를 사용할 수도 있습니다. 예를 들어, 터미널에서 다음 명령을 실행하여 동일한 결과를 얻을 수 있습니다.
 
@@ -254,7 +254,7 @@ curl -X POST --location "http://localhost:8080" -H "Content-Type: application/js
 curl -X GET --location "http://localhost:8080"
 ```
 
-## ID로 메시지 조회
+## ID로 메시지 조회 {id="retrieve-messages-by-id"}
 
 ID별로 개별 메시지를 조회하도록 애플리케이션의 기능을 확장합니다.
 
@@ -454,7 +454,7 @@ class MessageController(private val service: MessageService) {
 ```
 {initial-collapse-state="collapsed" collapsible="true"}
 
-## 애플리케이션 실행
+## 애플리케이션 실행 {id="run-the-application"}
 
 Spring 애플리케이션을 실행할 준비가 되었습니다.
 
@@ -484,7 +484,7 @@ Spring 애플리케이션을 실행할 준비가 되었습니다.
 
     ![ID로 메시지 조회](retrieve-message-by-its-id.png){width=700}
 
-## 다음 단계
+## 다음 단계 {id="next-step"}
 
 마지막 단계에서는 Spring Data를 사용하여 더 대중적인 방식으로 데이터베이스에 연결하는 방법을 보여줍니다. 
 

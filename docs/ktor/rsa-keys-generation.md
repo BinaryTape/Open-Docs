@@ -27,7 +27,7 @@ RS256 是 RSA 加密算法的一部分，它利用 SHA-256 进行哈希处理，
 </p>
 </warning>
 
-## 生成 RSA 私钥
+## 生成 RSA 私钥 {id="generating-an-rsa-private-key"}
 
 要生成私钥，您可以使用 OpenSSL、`ssh-keygen` 或您选择的其他用于创建身份验证密钥对的工具。出于演示目的，我们将使用 OpenSSL。
 
@@ -63,7 +63,7 @@ RS256 是 RSA 加密算法的一部分，它利用 SHA-256 进行哈希处理，
 
 有了公钥，您现在可以派生其指数和模数值。
 
-## 提取模数和指数属性
+## 提取模数和指数属性 {id="extracting-the-modulus-exponent-attributes"}
 
 现在您已经有了密钥对，您需要提取公钥的 `e`（指数）和 `n`（模数）属性，以便在 `jwks.json` 文件中使用它们。这需要以下步骤：
 
@@ -100,11 +100,11 @@ Exponent: 65537 (0x10001)
 </p>
 </warning>
 
-## 转换并编码模数和指数属性
+## 转换并编码模数和指数属性 {id="converting-and-encoding-the-modulus-and-exponent-attributes"}
 
 在上一步中，您提取了 `jwks.json` 文件所需的 `n` 和 `e` 属性。但是，它们是十六进制格式。您现在需要将指数和模数的十六进制表示转换为它们各自的 [Base64URL](https://en.wikipedia.org/wiki/Base64#URL_applications) 编码。
 
-### 指数
+### 指数 {id="exponent"}
 
 指数属性的十六进制值为 `0x10001`。要将该值转换为 Base64URL，请使用以下命令：
 
@@ -130,7 +130,7 @@ AQAB
 
 指数的 Base64URL 编码值为 `AQAB`，在这种情况下不需要进一步处理。在其他情况下，您可能需要按照下一步所示使用 `tr` 命令。
 
-### 模数
+### 模数 {id="modulus"}
 
 对于 `n` 属性，您将使用 `tr` 实用程序进一步处理模数的十六进制表示。
 
@@ -169,7 +169,7 @@ tfJaLrzXILUg1U3N1KV8yJr92GHn5OtYZR7qWk1Mc4cy4JGjklYup7weMjBD9f3bBVoIsiUVX6xNcYIr
 
 通过正确利用 `tr` 命令，模数字段已被编码为可在 `jwks.json` 文件中使用的 Base64URL 字符串。
 
-## 填充 jwks.json 文件
+## 填充 jwks.json 文件 {id="populating-the-jwks-json-file"}
 
 在之前的步骤中，您收集了以下必要信息：
 
@@ -198,7 +198,7 @@ tfJaLrzXILUg1U3N1KV8yJr92GHn5OtYZR7qWk1Mc4cy4JGjklYup7weMjBD9f3bBVoIsiUVX6xNcYIr
 
 剩下的唯一步骤是指定您的私钥，以便您的 Ktor 项目可以将其用于身份验证。
 
-## 定义私钥
+## 定义私钥 {id="defining-the-private-key"}
 
 设置好公钥信息后，最后一步是让您的 Ktor 项目能够访问您的私钥。
 

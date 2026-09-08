@@ -19,7 +19,7 @@ Kotlin 2.0.20 正式发布！此版本包含针对 Kotlin 2.0.0 的性能改进�
 >
 {style="tip"}
 
-## IDE 支持
+## IDE 支持 {id="ide-support"}
 
 支持 2.0.20 的 Kotlin 插件已打包在最新的 IntelliJ IDEA 和 Android Studio 中。
 您无需在 IDE 中更新 Kotlin 插件。
@@ -27,11 +27,11 @@ Kotlin 2.0.20 正式发布！此版本包含针对 Kotlin 2.0.0 的性能改进�
 
 有关详细信息，请参阅[更新至新版本](releases.md#update-to-a-new-kotlin-version)。
 
-## 语言
+## 语言 {id="language"}
 
 Kotlin 2.0.20 开始引入一些变更，以提高 data class 的一致性，并取代实验性的 context receiver 功能。
 
-### Data class copy 函数将具有与构造函数相同的可见性
+### Data class copy 函数将具有与构造函数相同的可见性 {id="data-class-copy-function-to-have-the-same-visibility-as-constructor"}
 
 目前，如果您使用 `private` 构造函数创建 data class，则自动生成的 `copy()` 函数并不具有相同的可见性。这可能会在以后的代码中引发问题。在未来的 Kotlin 版本中，我们将引入 `copy()` 函数的默认可见性与构造函数相同的行为。此变更将逐步引入，以帮助您尽可能顺利地迁移代码。
 
@@ -66,7 +66,7 @@ fun main() {
 可以使用 `-Xconsistent-data-class-copy-visibility` 编译器选项。
 此选项的效果等同于在模块中的所有 data class 上添加 `@ConsistentCopyVisibility` 注解。
 
-### 逐步用 context parameter 替换 context receiver
+### 逐步用 context parameter 替换 context receiver {id="phased-replacement-of-context-receivers-with-context-parameters"}
 
 在 Kotlin 1.6.20 中，我们将 [context receiver](whatsnew1620.md#prototype-of-context-receivers-for-kotlin-jvm) 作为一项[实验性 (Experimental)](components-stability.md#stability-levels-explained)功能引入。在听取了社区反馈后，我们决定不再继续采用这种方法，而是改用另一个方向。
 
@@ -159,11 +159,11 @@ fun someFunction() {
 
 或者，您可以等到编译器支持 context parameter 的 Kotlin 版本发布。请注意，context parameter 最初将作为实验性功能引入。
 
-## Kotlin Multiplatform
+## Kotlin Multiplatform {id="kotlin-multiplatform"}
 
 Kotlin 2.0.20 改进了多平台项目中的源集管理，并由于 Gradle 最近的变更，弃用了与某些 Gradle Java 插件的兼容性。
 
-### 来自默认目标层次结构的源集静态访问器
+### 来自默认目标层次结构的源集静态访问器 {id="static-accessors-for-source-sets-from-the-default-target-hierarchy"}
 
 自 Kotlin 1.9.20 起，[默认层次结构模板](https://kotlinlang.org/docs/multiplatform/multiplatform-hierarchy.html#default-hierarchy-template)会自动应用于所有 Kotlin Multiplatform 项目。
 对于默认层次结构模板中的所有源集，Kotlin Gradle 插件都提供了类型安全访问器。
@@ -199,7 +199,7 @@ kotlin {
 
 详细了解 [Kotlin Multiplatform 中的层次项目结构](https://kotlinlang.org/docs/multiplatform/multiplatform-hierarchy.html)。
 
-### 弃用 Kotlin Multiplatform Gradle 插件与 Gradle Java 插件的兼容性
+### 弃用 Kotlin Multiplatform Gradle 插件与 Gradle Java 插件的兼容性 {id="deprecated-compatibility-with-kotlin-multiplatform-gradle-plugin-and-gradle-java-plugins"}
 
 在 Kotlin 2.0.20 中，当您在同一个项目中同时应用 Kotlin Multiplatform Gradle 插件和以下任何 Gradle Java 插件时，我们会引入弃用警告：[Java](https://docs.gradle.org/current/userguide/java_plugin.html)、[Java Library](https://docs.gradle.org/current/userguide/java_library_plugin.html) 和 [Application](https://docs.gradle.org/current/userguide/application_plugin.html)。
 当多平台项目中的另一个 Gradle 插件应用了 Gradle Java 插件时，也会出现该警告。
@@ -294,11 +294,11 @@ dependencies {
 
 您的父项目现在已设置为可以同时使用这两个插件。
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 Kotlin/Native 在垃圾回收器以及从 Swift/Objective-C 调用 Kotlin 挂起函数方面获得了改进。
 
-### 垃圾回收器中的并发标记
+### 垃圾回收器中的并发标记 {id="concurrent-marking-in-garbage-collector"}
 
 在 Kotlin 2.0.20 中，JetBrains 团队在提高 Kotlin/Native 运行时性能方面又迈出了一步。
 我们在垃圾回收器 (GC) 中添加了对并发标记的实验性支持。
@@ -308,7 +308,7 @@ Kotlin/Native 在垃圾回收器以及从 Swift/Objective-C 调用 Kotlin 挂起
 现在，垃圾回收的标记阶段可以与应用程序线程同时运行。
 这应该会显著缩短 GC 暂停时间，并有助于提高应用程序的响应能力。
 
-#### 如何启用
+#### 如何启用 {id="how-to-enable"}
 
 此功能目前处于[实验性 (Experimental)](components-stability.md#stability-levels-explained)。
 要启用它，请在您的 `gradle.properties` 文件中设置以下选项：
@@ -319,7 +319,7 @@ kotlin.native.binary.gc=cms
 
 请向我们的问题跟踪器 [YouTrack](https://kotl.in/issue) 报告任何问题。
 
-### 移除了对 bitcode 嵌入的支持
+### 移除了对 bitcode 嵌入的支持 {id="support-for-bitcode-embedding-removed"}
 
 从 Kotlin 2.0.20 开始，Kotlin/Native 编译器不再支持 bitcode 嵌入。
 Bitcode 嵌入在 Xcode 14 中被弃用，并在 Xcode 15 中针对所有 Apple 目标被移除。
@@ -328,7 +328,7 @@ Bitcode 嵌入在 Xcode 14 中被弃用，并在 Xcode 15 中针对所有 Apple 
 
 如果您仍在使用较早版本的 Xcode 但希望升级到 Kotlin 2.0.20，请在您的 Xcode 项目中禁用 bitcode 嵌入。
 
-### 通过 signpost 监控 GC 性能的变更
+### 通过 signpost 监控 GC 性能的变更 {id="changes-to-gc-performance-monitoring-with-signposts"}
 
 Kotlin 2.0.0 实现了通过 Xcode Instruments 监控 Kotlin/Native 垃圾回收器 (GC) 性能的功能。Instruments 包含 signpost 工具，可以将 GC 暂停显示为事件。
 这在检查 iOS 应用程序中与 GC 相关的卡顿时非常有用。
@@ -342,17 +342,17 @@ Kotlin 2.0.0 实现了通过 Xcode Instruments 监控 Kotlin/Native 垃圾回收
 
 在[文档](native-memory-manager.md#monitor-gc-performance)中详细了解 GC 性能分析。
 
-### 在非主线程上从 Swift/Objective-C 调用 Kotlin 挂起函数的能力
+### 在非主线程上从 Swift/Objective-C 调用 Kotlin 挂起函数的能力 {id="ability-to-call-kotlin-suspending-functions-from-swift-objective-c-on-non-main-threads"}
 
 以前，Kotlin/Native 有一个默认限制，即限制从 Swift 和 Objective-C 调用 Kotlin 挂起函数的能力只能在主线程上进行。Kotlin 2.0.20 取消了这一限制，允许您在任何线程上从 Swift/Objective-C 运行 Kotlin `suspend` 函数。
 
 如果您之前通过 `kotlin.native.binary.objcExportSuspendFunctionLaunchThreadRestriction=none` 二进制选项更改了非主线程的默认行为，现在可以将其从 `gradle.properties` 文件中移除。
 
-## Kotlin/Wasm
+## Kotlin/Wasm {id="kotlin-wasm"}
 
 在 Kotlin 2.0.20 中，Kotlin/Wasm 继续向具名导出 (named exports) 迁移，并重新放置了 `@ExperimentalWasmDsl` 注解。
 
-### 默认导出用法错误
+### 默认导出用法错误 {id="error-in-default-export-usage"}
 
 作为向具名导出迁移的一部分，之前在 JavaScript 中对 Kotlin/Wasm 导出项使用默认导入 (default import) 时，控制台会打印一条警告消息。
 
@@ -368,7 +368,7 @@ Do not use default import. Use the corresponding named import instead.
 * **在 2.0.20 版本中**：发生错误，要求使用对应的具名导入。
 * **在 2.1.0 版本中**：完全移除对默认导入的使用。
 
-### ExperimentalWasmDsl 注解的新位置
+### ExperimentalWasmDsl 注解的新位置 {id="new-location-of-experimentalwasmdsl-annotation"}
 
 以前，WebAssembly (Wasm) 功能的 `@ExperimentalWasmDsl` 注解位于 Kotlin Gradle 插件的以下位置：
 
@@ -397,11 +397,11 @@ import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.targets.js.dsl.*
 ```
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
 Kotlin/JS 引入了一些实验性功能，以支持 JavaScript 中的静态成员以及从 JavaScript 创建 Kotlin 集合。
 
-### 在 JavaScript 中支持使用 Kotlin 静态成员
+### 在 JavaScript 中支持使用 Kotlin 静态成员 {id="support-for-using-kotlin-static-members-in-javascript"}
 
 > 此功能是[实验性 (Experimental)](components-stability.md#stability-levels-explained)的。它可能随时被放弃或更改。
 > 请仅将其用于评估目的。我们欢迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-18891/JS-provide-a-way-to-declare-static-members-JsStatic) 上提供反馈。
@@ -433,7 +433,7 @@ C.Companion.callNonStatic(); // 唯一有效的方式
 
 也可以将 `@JsStatic` 注解应用于对象或伴生对象的属性，使其 getter 和 setter 方法成为该对象或包含伴生对象的类中的静态成员。
 
-### 从 JavaScript 创建 Kotlin 集合的能力
+### 从 JavaScript 创建 Kotlin 集合的能力 {id="ability-to-create-kotlin-collections-from-javascript"}
 
 > 此功能是[实验性 (Experimental)](components-stability.md#stability-levels-explained)的。它可能随时被放弃或更改。
 > 请仅将其用于评估目的。我们欢迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-69133/Kotlin-JS-Add-support-for-collection-instantiation-in-JavaScript) 上提供反馈。
@@ -468,7 +468,7 @@ consumeMutableMap(
 
 此功能适用于 `Set`、`Map` 和 `List` Kotlin 集合类型及其对应的可变版本。
 
-## Gradle
+## Gradle {id="gradle"}
 
 Kotlin 2.0.20 与 Gradle 6.8.3 到 8.6 完全兼容。Gradle 8.7 和 8.8 也受支持，只有一个例外：如果您使用 Kotlin Multiplatform Gradle 插件，您可能会在多平台项目中调用 JVM 目标中的 `withJava()` 函数时看到弃用警告。我们计划尽快修复此问题。
 
@@ -478,7 +478,7 @@ Kotlin 2.0.20 与 Gradle 6.8.3 到 8.6 完全兼容。Gradle 8.7 和 8.8 也受�
 
 此版本带来了一些变更，例如开始弃用基于 JVM 历史文件的旧增量编译方法，以及一种在项目之间共享 JVM 构件的新方法。
 
-### 弃用基于 JVM 历史文件的增量编译
+### 弃用基于 JVM 历史文件的增量编译 {id="deprecated-incremental-compilation-based-on-jvm-history-files"}
 
 在 Kotlin 2.0.20 中，基于 JVM 历史文件的增量编译方法已被弃用，取而代之的是自 Kotlin 1.8.20 起默认启用的新增量编译方法。
 
@@ -489,7 +489,7 @@ Kotlin 2.0.20 与 Gradle 6.8.3 到 8.6 完全兼容。Gradle 8.7 和 8.8 也受�
 `kotlin.incremental.useClasspathSnapshot` Gradle 属性在 Kotlin 2.0.20 中被弃用。
 因此，如果您使用它来关闭该功能，将会看到弃用警告。
 
-### 将 Gradle 项目间的 JVM 构件作为类文件共享的选项
+### 将 Gradle 项目间的 JVM 构件作为类文件共享的选项 {id="option-to-share-jvm-artifacts-between-projects-as-class-files"}
 
 > 此功能是[实验性 (Experimental)](components-stability.md#stability-levels-explained)的。
 > 它可能随时被放弃或更改。请仅将其用于评估目的。
@@ -525,7 +525,7 @@ kotlin.jvm.addClassesVariant=true
 我们欢迎您对这种新方法提供反馈。您在使用它时是否注意到了性能提升？
 请通过在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-61861/Gradle-Kotlin-compilations-depend-on-packed-artifacts) 中添加评论来告诉我们。
 
-### 使 Kotlin Gradle 插件的依赖行为与 java-test-fixtures 插件对齐
+### 使 Kotlin Gradle 插件的依赖行为与 java-test-fixtures 插件对齐 {id="aligned-dependency-behavior-of-kotlin-gradle-plugin-with-java-test-fixtures-plugin"}
 
 在 Kotlin 2.0.20 之前，如果您在项目中使用 [`java-test-fixtures` 插件](https://docs.gradle.org/current/userguide/java_testing.html#sec:java_test_fixtures)，Gradle 和 Kotlin Gradle 插件在依赖项传播方式上存在差异。
 
@@ -543,7 +543,7 @@ Kotlin Gradle 插件传播了以下依赖项：
 作为此变更的结果，`test` 和 `testFixtures` 源集中的某些依赖项可能不再可访问。
 如果发生这种情况，请将依赖项声明类型从 `implementation` 更改为 `api`，或者在受影响的源集上添加新的依赖项声明。
 
-### 为极少数编译任务缺少构件依赖项的情况添加了任务依赖
+### 为极少数编译任务缺少构件依赖项的情况添加了任务依赖 {id="added-task-dependency-for-rare-cases-when-the-compile-task-lacks-one-on-an-artifact"}
 
 在 2.0.20 之前，我们发现存在编译任务缺少其某个构件输入的任务依赖项的情况。这意味着依赖的编译任务结果是不稳定的，因为构件有时能及时生成，有时则不能。
 
@@ -573,18 +573,18 @@ kotlin.build.archivesTaskOutputAsFriendModule=false
 
 有关更多信息，请参阅 [YouTrack](https://youtrack.jetbrains.com/issue/KT-69330) 中的问题。
 
-## Compose 编译器
+## Compose 编译器 {id="compose-compiler"}
 
 在 Kotlin 2.0.20 中，Compose 编译器获得了一些改进。
 
-### 修复了 2.0.0 中引入的不必要重组问题
+### 修复了 2.0.0 中引入的不必要重组问题 {id="fix-for-the-unnecessary-recompositions-issue-introduced-in-2-0-0"}
 
 Compose 编译器 2.0.0 存在一个问题，即在具有非 JVM 目标的多平台项目中，它有时会错误地推断类型的稳定性。这可能会导致不必要的（甚至是无限的）重组。我们强烈建议将针对 Kotlin 2.0.0 的 Compose 应用更新至 2.0.10 或更高版本。
 
 如果您的应用是使用 Compose 编译器 2.0.10 或更高版本构建的，但使用了使用 2.0.0 版本构建的依赖项，这些旧依赖项仍可能导致重组问题。
 为了防止这种情况，请将您的依赖项更新为使用与您的应用相同的 Compose 编译器构建的版本。
 
-### 配置编译器选项的新方式
+### 配置编译器选项的新方式 {id="new-way-to-configure-compiler-options"}
 
 我们引入了一种新的选项配置机制，以避免顶层参数的频繁变动。
 对于 Compose 编译器团队来说，通过为 `composeCompiler {}` 块创建或移除顶层条目来测试功能是比较困难的。
@@ -613,7 +613,7 @@ composeCompiler {
 
 我们欢迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-68651/Compose-provide-a-single-place-in-extension-to-configure-all-compose-flags) 上对这种新方法提供任何反馈。
 
-### 默认启用强跳过模式
+### 默认启用强跳过模式 {id="strong-skipping-mode-enabled-by-default"}
 
 Compose 编译器的强跳过模式 (strong skipping mode) 现在默认启用。
 
@@ -623,18 +623,18 @@ Compose 编译器的强跳过模式 (strong skipping mode) 现在默认启用。
 
 有关更多详细信息，请参阅[强跳过模式文档](https://developer.android.com/develop/ui/compose/performance/stability/strongskipping)。
 
-### 默认启用组合跟踪标记
+### 默认启用组合跟踪标记 {id="composition-trace-markers-enabled-by-default"}
 
 在 Compose 编译器 Gradle 插件中，`includeTraceMarkers` 选项现在默认设置为 `true`，以匹配编译器插件中的默认值。这允许您在 Android Studio 系统跟踪分析器中查看 composable 函数。有关组合跟踪 (composition tracing) 的详细信息，请参阅这篇 [Android Developers 博客文章](https://medium.com/androiddevelopers/jetpack-compose-composition-tracing-9ec2b3aea535)。
 
-### 非跳过组优化
+### 非跳过组优化 {id="non-skipping-group-optimizations"}
 
 此版本包含一个新的编译器选项：启用后，不可跳过且不可重启的 composable 函数将不再在函数体周围生成组 (group)。这会减少内存分配，从而提高性能。
 此选项是实验性的，默认禁用，但可以通过 `OptimizeNonSkippingGroups` 功能标志启用，如[上文](#new-way-to-configure-compiler-options)所示。
 
 该功能标志现在已准备好进行更广泛的测试。启用该功能时发现的任何问题都可以在 [Google 问题跟踪器](https://goo.gle/compose-feedback)上提交。
 
-### 支持抽象 composable 函数中的默认参数
+### 支持抽象 composable 函数中的默认参数 {id="support-for-default-parameters-in-abstract-composable-functions"}
 
 您现在可以向抽象 composable 函数添加默认参数。
 
@@ -651,11 +651,11 @@ abstract class Composables {
 
 2.0.20 中仍然限制 open composable 函数的默认参数。此限制将在未来的版本中解决。
 
-## 标准库
+## 标准库 {id="standard-library"}
 
 标准库现在将通用唯一标识符 (UUID) 作为一项实验性功能支持，并包含对 Base64 解码的一些变更。
 
-### Kotlin 公共标准库中对 UUID 的支持
+### Kotlin 公共标准库中对 UUID 的支持 {id="support-for-uuids-in-the-common-kotlin-standard-library"}
 
 > 此功能是[实验性 (Experimental)](components-stability.md#stability-levels-explained)的。
 > 要开启此功能，请使用 `@ExperimentalUuidApi` 注解或编译器选项 `-opt-in=kotlin.uuid.ExperimentalUuidApi`。
@@ -725,7 +725,7 @@ UUID 的一些示例用例包括：
 * 生成 Web 会话标识符。
 * 任何需要唯一标识或跟踪的场景。
 
-### HexFormat 中添加对 minLength 的支持
+### HexFormat 中添加对 minLength 的支持 {id="support-for-minlength-in-hexformat"}
 
 > [`HexFormat`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-hex-format/) 类及其属性是[实验性 (Experimental)](components-stability.md#stability-levels-explained)的。
 > 要开启此功能，请使用 `@OptIn(ExperimentalStdlibApi::class)` 注解或编译器选项 `-opt-in=kotlin.ExperimentalStdlibApi`。
@@ -748,7 +748,7 @@ fun main() {
 
 `minLength` 属性不影响解析。但是，如果多余的前导位是零，解析现在允许十六进制字符串的位数多于该类型的宽度。
 
-### Base64 解码器行为的变更
+### Base64 解码器行为的变更 {id="changes-to-the-base64-s-decoder-behavior"}
 
 > [`Base64` 类](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io.encoding/-base64/)及其相关功能是[实验性 (Experimental)](components-stability.md#stability-levels-explained)的。
 > 要开启此功能，请使用 `@OptIn(ExperimentalEncodingApi::class)` 注解或编译器选项 `-opt-in=kotlin.io.encoding.ExperimentalEncodingApi`。
@@ -760,11 +760,11 @@ Kotlin 2.0.20 中对 Base64 解码器的行为引入了两项变更：
 * [Base64 解码器现在要求填充 (padding)](#the-base64-decoder-now-requires-padding)
 * [添加了用于填充配置的 `withPadding` 函数](#withpadding-function-for-padding-configuration)
 
-#### Base64 解码器现在要求填充
+#### Base64 解码器现在要求填充 {id="the-base64-decoder-now-requires-padding"}
 
 Base64 编码器现在默认添加填充，而解码器在解码时要求填充并禁止非零填充位。
 
-#### 用于填充配置的 withPadding 函数
+#### 用于填充配置的 withPadding 函数 {id="withpadding-function-for-padding-configuration"}
 
 引入了一个新的 `.withPadding()` 函数，让用户能够控制 Base64 编码和解码的填充行为：
 
@@ -816,7 +816,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-2-0-20-base64-decoder" validate="false"}
 
-## 文档更新
+## 文档更新 {id="documentation-updates"}
 
 Kotlin 文档进行了一些显著的变更：
 
@@ -827,7 +827,7 @@ Kotlin 文档进行了一些显著的变更：
 * 改进了[与 Swift/Objective-C 的互操作性页面](native-objc-interop.md) - 了解如何在 Swift/Objective-C 代码中使用 Kotlin 声明，以及在 Kotlin 代码中使用 Objective-C 声明。
 * 改进了 [Swift 软件包导出设置页面](https://kotlinlang.org/docs/multiplatform/multiplatform-spm-export.html) - 了解如何设置可由 Swift 软件包管理器依赖项使用的 Kotlin/Native 输出。
 
-## 安装 Kotlin 2.0.20
+## 安装 Kotlin 2.0.20 {id="install-kotlin-2-0-20"}
 
 从 IntelliJ IDEA 2023.3 和 Android Studio Iguana (2023.2.1) Canary 15 开始，Kotlin 插件作为 IDE 中包含的捆绑插件分发。这意味着您无法再从 JetBrains Marketplace 安装该插件。
 

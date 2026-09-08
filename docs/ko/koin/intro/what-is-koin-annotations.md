@@ -4,13 +4,13 @@ title: Koin Annotations란 무엇인가요?
 
 # Koin Annotations란 무엇인가요?
 
-### 친숙한 어노테이션 스타일 — 메인 Koin 프로젝트의 일부
+### 친숙한 어노테이션 스타일 — 메인 Koin 프로젝트의 일부 {id="familiar-annotation-style-part-of-the-main-koin-project"}
 
 **Koin Annotations**는 Koin에서 의존성을 정의하기 위한 어노테이션 기반 방식입니다. Kotlin DSL보다 `@Singleton`, `@Factory`, `@KoinViewModel`과 같은 스타일을 선호하신다면 이 방식이 적합합니다.
 
 이것은 **메인 Koin 프로젝트의 일부**로, 동일한 GitHub 저장소, 동일한 출시 주기, 동일한 Koin 버전 및 동일한 유지관리자가 관리합니다. 사이드 프로젝트나 커뮤니티 포크, 별개의 프레임워크가 아닙니다. DSL과 마찬가지로 컴파일 타임 안전성을 위해 **Koin Compiler Plugin**에 의해 처리됩니다.
 
-## 핵심 요약
+## 핵심 요약 {id="in-a-nutshell"}
 
 ```kotlin
 @Singleton
@@ -26,7 +26,7 @@ class AppModule
 
 핵심은 간단합니다. 클래스에 어노테이션을 달고 모듈을 선언하면, 빌드 타임에 Koin Compiler Plugin이 나머지를 연결해 줍니다.
 
-## 메인 Koin 프로젝트의 일부
+## 메인 Koin 프로젝트의 일부 {id="part-of-the-main-koin-project"}
 
 `koin-annotations` 라이브러리는 **메인 Koin 프로젝트의 일부**입니다. `koin-core`와 동일한 저장소에 있으며, 동일한 출시 주기를 따르는 **동일한 Koin 버전**으로 제공되고 Koin BOM(Bill of Materials)에 포함됩니다.
 
@@ -45,7 +45,7 @@ dependencies {
 - **버전이 동기화되어 유지됨** — `koin-core`와 `koin-annotations`의 버전은 항상 일치합니다.
 - **DSL과 완전한 기능 동일성** — DSL로 할 수 있는 모든 작업은 어노테이션으로도 가능합니다.
 
-## 이제 Koin Compiler Plugin으로 구동됩니다
+## 이제 Koin Compiler Plugin으로 구동됩니다 {id="now-powered-by-the-koin-compiler-plugin"}
 
 Koin Annotations는 Kotlin 컴파일러와 직접 통합되는 네이티브 **Kotlin Compiler Plugin (K2)**인 **Koin Compiler Plugin**에 의해 처리됩니다. KSP도 없고, 커밋해야 할 생성된 파일도 없으며, 추가적인 처리 단계도 필요 없습니다.
 
@@ -58,7 +58,7 @@ Koin Annotations는 Kotlin 컴파일러와 직접 통합되는 네이티브 **Ko
 
 어떻게 작동하고 무엇을 생성하는지에 대한 자세한 내용은 [Koin Compiler Plugin](/docs/intro/koin-compiler-plugin)을 참조하세요.
 
-## koin-ksp-compiler 지원 중단(Deprecated)
+## koin-ksp-compiler 지원 중단(Deprecated) {id="koin-ksp-compiler-is-deprecated"}
 
 :::warning
 기존의 KSP 프로세서인 `koin-ksp-compiler`는 **지원 중단(deprecated)**되었으며, 향후 Koin 버전에서 제거될 예정입니다.
@@ -72,7 +72,7 @@ Koin Annotations는 Kotlin 컴파일러와 직접 통합되는 네이티브 **Ko
 
 단계별 안내는 [KSP에서 Compiler Plugin으로 마이그레이션하기](/docs/migration/from-ksp-to-compiler-plugin)를 참조하세요.
 
-## 어노테이션을 선택해야 하는 경우
+## 어노테이션을 선택해야 하는 경우 {id="when-to-choose-annotations"}
 
 어노테이션과 DSL 모두 일급 시민입니다. 다음과 같은 경우 어노테이션을 선택하세요:
 
@@ -82,7 +82,7 @@ Koin Annotations는 Kotlin 컴파일러와 직접 통합되는 네이티브 **Ko
 
 Kotlin 네이티브 방식의 코드 전용 스타일을 선호한다면 DSL을 선택하세요. 또한 동일한 프로젝트에서 **두 방식을 혼합**하여 사용할 수도 있습니다. 두 방식 모두 동일한 Compiler Plugin에 의해 처리됩니다.
 
-## 다음 단계
+## 다음 단계 {id="next-steps"}
 
 - **[Koin Compiler Plugin](/docs/intro/koin-compiler-plugin)** — 플러그인이 어노테이션을 구동하는 방식
 - **[어노테이션 레퍼런스](/docs/reference/koin-annotations/start)** — 전체 어노테이션 카탈로그 및 패턴

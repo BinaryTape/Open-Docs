@@ -4,7 +4,7 @@ title: Koin 시작하기 레퍼런스
 
 Koin 시작을 위한 빠른 참조 가이드입니다. 자세한 가이드는 **[Core - Koin 시작하기](/docs/reference/koin-core/starting-koin)**를 참조하세요.
 
-## 시작 메서드
+## 시작 메서드 {id="starting-methods"}
 
 | 메서드 | 사용 사례 |
 |--------|----------|
@@ -13,7 +13,7 @@ Koin 시작을 위한 빠른 참조 가이드입니다. 자세한 가이드는 *
 | `koinConfiguration { }` | Compose, Ktor를 위한 설정 |
 | `startKoin<T>()` | 컴파일러 플러그인을 사용한 타입 기반 시작 |
 
-## 기본 시작
+## 기본 시작 {id="basic-startup"}
 
 ```kotlin
 startKoin {
@@ -21,7 +21,7 @@ startKoin {
 }
 ```
 
-## 전체 설정
+## 전체 설정 {id="complete-configuration"}
 
 ```kotlin
 startKoin {
@@ -36,7 +36,7 @@ startKoin {
 }
 ```
 
-## 설정 옵션
+## 설정 옵션 {id="configuration-options"}
 
 | 옵션 | 설명 |
 |--------|-------------|
@@ -49,7 +49,7 @@ startKoin {
 | `createEagerInstances()` | 모든 `createdAtStart` 싱글톤 생성 |
 | `allowOverride()` | 정의(definition) 오버라이딩 활성화/비활성화 |
 
-## 타입 기반 시작 (컴파일러 플러그인)
+## 타입 기반 시작 (컴파일러 플러그인) {id="typed-startup-compiler-plugin"}
 
 [Koin 컴파일러 플러그인](/docs/setup/compiler-plugin) 및 `@KoinApplication`이 필요합니다:
 
@@ -66,7 +66,7 @@ startKoin<MyApp> {
 }
 ```
 
-## 동적 모듈 관리
+## 동적 모듈 관리 {id="dynamic-module-management"}
 
 ```kotlin
 // 시작 후 로드
@@ -76,7 +76,7 @@ loadKoinModules(featureModule)
 unloadKoinModules(featureModule)
 ```
 
-## Koin 중지
+## Koin 중지 {id="stopping-koin"}
 
 ```kotlin
 stopKoin()  // 전역 인스턴스 중지
@@ -85,7 +85,7 @@ stopKoin()  // 전역 인스턴스 중지
 koinApp.close()
 ```
 
-## 로깅
+## 로깅 {id="logging"}
 
 | 로거 | 플랫폼 | 설명 |
 |--------|----------|-------------|
@@ -100,7 +100,7 @@ startKoin {
 }
 ```
 
-## 프로퍼티
+## 프로퍼티 {id="properties"}
 
 ```kotlin
 startKoin {
@@ -115,9 +115,9 @@ single {
 }
 ```
 
-## 플랫폼별 예시
+## 플랫폼별 예시 {id="platform-examples"}
 
-### Android
+### Android {id="android"}
 
 ```kotlin
 class MainApplication : Application() {
@@ -132,7 +132,7 @@ class MainApplication : Application() {
 }
 ```
 
-### Compose
+### Compose {id="compose"}
 
 ```kotlin
 @Composable
@@ -145,7 +145,7 @@ fun App() {
 }
 ```
 
-### Ktor
+### Ktor {id="ktor"}
 
 ```kotlin
 fun Application.module() {
@@ -156,7 +156,7 @@ fun Application.module() {
 }
 ```
 
-## 참고 항목
+## 참고 항목 {id="see-also"}
 
 - **[Core - Koin 시작하기](/docs/reference/koin-core/starting-koin)** - 전체 가이드
 - **[Lazy Modules](/docs/reference/koin-core/lazy-modules)** - 백그라운드 로딩

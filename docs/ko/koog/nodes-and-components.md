@@ -63,9 +63,9 @@ graph LR
 
 더 자세한 정보는 Kotlin의 경우 [node()](api:agents-core::ai.koog.agents.core.dsl.builder.node)를, Java의 경우 [AIAgentNode.builder()](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentNode.Companion.builder)를 참조하세요.
 
-## 유틸리티 노드
+## 유틸리티 노드 {id="utility-nodes"}
 
-### 패스스루(Pass-through) 노드
+### 패스스루(Pass-through) 노드 {id="pass-through-node"}
 
 아무 작업도 수행하지 않고 입력을 그대로 출력으로 반환하는 간단한 패스스루 노드입니다. 자세한 내용은 Kotlin의 경우 [nodeDoNothing](api:agents-core::ai.koog.agents.core.dsl.extension.nodeDoNothing)을, Java의 경우 [AIAgentNode.doNothing()](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentNode.Companion.doNothing)을 참조하세요.
 
@@ -137,9 +137,9 @@ graph LR
     ```
     <!--- KNIT exampleNodesAndComponentsJava02.java -->
 
-## LLM 노드
+## LLM 노드 {id="llm-nodes"}
 
-### 프롬프트 준비 노드
+### 프롬프트 준비 노드 {id="prompt-preparation-node"}
 
 **제공된 프롬프트 빌더를 사용하여 LLM 프롬프트에 메시지를 추가하는 노드입니다.
 실제 LLM 요청을 보내기 전에 대화 컨텍스트를 수정하는 데 유용합니다.** 자세한 내용은 Kotlin의 경우 [nodeAppendPrompt](api:agents-core::ai.koog.agents.core.dsl.extension.nodeAppendPrompt)를, Java의 경우 [AIAgentNode.appendPrompt()](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentNodeBuilderWithInput.appendPrompt)를 참조하세요.
@@ -248,7 +248,7 @@ graph LR
     ```
     <!--- KNIT exampleNodesAndComponentsJava03.java -->
 
-### 도구 전용 노드
+### 도구 전용 노드 {id="tool-only-node"}
 
 LLM 프롬프트에 사용자 메시지를 추가하고, LLM이 오직 도구만 호출할 수 있는 응답을 받는 노드입니다. 자세한 내용은 Kotlin의 경우 [nodeLLMSendMessageOnlyCallingTools](api:agents-core::ai.koog.agents.core.dsl.extension.nodeLLMSendMessageOnlyCallingTools)를, Java의 경우 [AIAgentNode.llmSendMessageOnlyCallingTools()](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentNode.Companion.llmSendMessageOnlyCallingTools)를 참조하세요.
 
@@ -267,7 +267,7 @@ graph LR
 ```
 <!--- KNIT example-nodes-and-component-04.txt -->
 
-### 특정 도구 사용 강제 노드
+### 특정 도구 사용 강제 노드 {id="forced-single-tool-use-node"}
 
 LLM 프롬프트에 사용자 메시지를 추가하고 LLM이 특정 도구를 반드시 사용하도록 강제하는 노드입니다. 자세한 내용은 Kotlin의 경우 [nodeLLMSendMessageForceOneTool](api:agents-core::ai.koog.agents.core.dsl.extension.nodeLLMSendMessageForceOneTool)을, Java의 경우 [AIAgentNode.llmSendMessageForceOneTool()](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentNode.Companion.llmSendMessageForceOneTool)을 참조하세요.
 
@@ -286,7 +286,7 @@ graph LR
 ```
 <!--- KNIT example-nodes-and-component-05.txt -->
 
-### LLM 요청 노드
+### LLM 요청 노드 {id="llm-request-node"}
 
 LLM 프롬프트에 사용자 메시지를 추가하고 선택적인 도구 사용과 함께 응답을 받는 노드입니다. 노드 구성에 따라 메시지 처리 중에 도구 호출을 허용할지 여부가 결정됩니다. 자세한 내용은 Kotlin의 경우 [nodeLLMRequest](api:agents-core::ai.koog.agents.core.dsl.extension.nodeLLMRequest)를, Java의 경우 [AIAgentNode.llmRequest()](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentNode.Companion.llmRequest)를 참조하세요.
 
@@ -361,7 +361,7 @@ graph LR
     ```
     <!--- KNIT exampleNodesAndComponentsJava04.java -->
 
-### 구조화된 응답 LLM 요청 노드
+### 구조화된 응답 LLM 요청 노드 {id="llm-request-node-with-structured-response"}
 
 LLM 프롬프트에 사용자 메시지를 추가하고 에러 수정 기능이 포함된 구조화된 데이터를 LLM에 요청하는 노드입니다. 자세한 내용은 Kotlin의 경우 [nodeLLMRequestStructured](api:agents-core::ai.koog.agents.core.dsl.extension.nodeLLMRequestStructured)를, Java의 경우 [AIAgentNode.llmRequestStructured()](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentNode.Companion.llmRequestStructured)를 참조하세요.
 
@@ -380,7 +380,7 @@ graph LR
 ```
 <!--- KNIT example-nodes-and-component-07.txt -->
 
-### 스트리밍 응답 LLM 요청 노드
+### 스트리밍 응답 LLM 요청 노드 {id="llm-request-node-with-streaming-response"}
 
 LLM 프롬프트에 사용자 메시지를 추가하고, 스트림 데이터 변환 유무와 관계없이 LLM 응답을 스트리밍하는 노드입니다. 자세한 내용은 Kotlin의 경우 [nodeLLMRequestStreaming](api:agents-core::ai.koog.agents.core.dsl.extension.nodeLLMRequestStreaming)을, Java의 경우 [AIAgentNode.llmRequestStreaming()](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentNode.Companion.llmRequestStreaming)을 참조하세요.
 
@@ -399,7 +399,7 @@ graph LR
 ```
 <!--- KNIT example-nodes-and-component-08.txt -->
 
-### 다중 응답 LLM 요청 노드
+### 다중 응답 LLM 요청 노드 {id="llm-request-node-with-multiple-responses"}
 
 LLM 프롬프트에 사용자 메시지를 추가하고 도구 호출이 활성화된 상태에서 여러 LLM 응답을 받는 노드입니다. 자세한 내용은 Kotlin의 경우 [nodeLLMRequest](api:agents-core::ai.koog.agents.core.dsl.extension.nodeLLMRequest)를, Java의 경우 [AIAgentNode.llmRequest()](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentNode.Companion.llmRequest)를 참조하세요.
 
@@ -476,7 +476,7 @@ graph LR
     ```
     <!--- KNIT exampleNodesAndComponentsJava05.java -->
 
-### 히스토리 압축 노드
+### 히스토리 압축 노드 {id="history-compression-node"}
 
 현재 LLM 프롬프트(메시지 히스토리)를 요약(TL;DR)으로 압축하여 메시지를 간결한 요약으로 대체하는 노드입니다. 히스토리를 압축하여 토큰 사용량을 줄임으로써 긴 대화를 관리하는 데 유용합니다. 자세한 내용은 Kotlin의 경우 [nodeLLMCompressHistory](api:agents-core::ai.koog.agents.core.dsl.extension.nodeLLMCompressHistory)를, Java의 경우 [AIAgentNode.llmCompressHistory()](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentNode.Companion.llmCompressHistory)를 참조하세요.
 
@@ -558,9 +558,9 @@ graph LR
     ```
     <!--- KNIT exampleNodesAndComponentsJava06.java -->
 
-## 도구 노드
+## 도구 노드 {id="tool-nodes"}
 
-### 도구 실행 노드
+### 도구 실행 노드 {id="tool-execution-node"}
 
 단일 도구 호출을 실행하고 그 결과를 반환하는 노드입니다. 이 노드는 LLM이 요청한 도구 호출을 처리하는 데 사용됩니다. 자세한 내용은 Kotlin의 경우 [nodeExecuteTool](api:agents-core::ai.koog.agents.core.dsl.extension.nodeExecuteTool)을, Java의 경우 [AIAgentNode.executeTool()](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentNode.Companion.executeTool)을 참조하세요.
 
@@ -637,7 +637,7 @@ graph LR
     ```
     <!--- KNIT exampleNodesAndComponentsJava07.java -->
 
-### 도구 결과 후속 조치 노드
+### 도구 결과 후속 조치 노드 {id="tool-result-follow-up-node"}
 
 프롬프트에 도구 결과를 추가하고 LLM 응답을 요청하는 노드입니다. 자세한 내용은 Kotlin의 경우 [nodeLLMSendToolResult](api:agents-core::ai.koog.agents.core.dsl.extension.nodeLLMSendToolResult)를, Java의 경우 [AIAgentNode.llmSendToolResult()](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentNode.Companion.llmSendToolResult)를 참조하세요.
 
@@ -706,7 +706,7 @@ graph LR
     ```
     <!--- KNIT exampleNodesAndComponentsJava08.java -->
 
-### 다중 도구 실행 노드
+### 다중 도구 실행 노드 {id="multi-tool-execution-node"}
 
 여러 도구 호출을 실행하는 노드입니다. 이러한 호출은 선택적으로 병렬 실행될 수 있습니다. 자세한 내용은 Kotlin의 경우 [nodeExecuteMultipleTools](api:agents-core::ai.koog.agents.core.dsl.extension.nodeExecuteMultipleTools)를, Java의 경우 [AIAgentNode.executeMultipleTools()](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentNode.Companion.executeMultipleTools)를 참조하세요.
 
@@ -784,7 +784,7 @@ graph LR
     ```
     <!--- KNIT exampleNodesAndComponentsJava09.java -->
 
-### 다중 도구 결과 후속 조치 노드
+### 다중 도구 결과 후속 조치 노드 {id="multiple-tool-result-follow-up-node"}
 
 프롬프트에 여러 도구 결과를 추가하고 여러 LLM 응답을 받는 노드입니다. 자세한 내용은 Kotlin의 경우 [nodeLLMSendMultipleToolResults](api:agents-core::ai.koog.agents.core.dsl.extension.nodeLLMSendMultipleToolResults)를, Java의 경우 [AIAgentNode.llmSendMultipleToolResults()](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentNode.Companion.llmSendMultipleToolResults)를 참조하세요.
 
@@ -854,7 +854,7 @@ graph LR
     ```
     <!--- KNIT exampleNodesAndComponentsJava10.java -->
 
-## 노드 출력 변환
+## 노드 출력 변환 {id="node-output-transformation"}
 
 프레임워크는 Kotlin에서 출력에 변환을 적용하는 변환된 버전의 노드를 만들 수 있는 `transform` 확장 함수를 제공합니다. Java에서는 명시적 변환이 포함된 중간 노드를 생성하여 동일한 결과를 얻을 수 있습니다. 이는 기존 노드의 기능은 유지하면서 노드의 출력을 다른 타입이나 형식으로 변환해야 할 때 유용합니다.
 
@@ -876,7 +876,7 @@ graph LR
 ```
 <!--- KNIT example-nodes-and-component-15.txt -->
 
-### 노드 변환
+### 노드 변환 {id="node-transformation"}
 
 Kotlin에서 [transform()](api:agents-core::ai.koog.agents.core.dsl.builder.AIAgentNodeDelegate.transform) 함수는 원래 노드를 래핑하고 출력에 변환 함수를 적용하는 새로운 `AIAgentNodeDelegate`를 생성합니다. Java에서는 `AIAgentNode.builder()`와 명시적 타입 파라미터를 사용하여 변환 로직이 포함된 노드를 수동으로 구성해야 합니다.
 
@@ -904,7 +904,7 @@ Kotlin에서 [transform()](api:agents-core::ai.koog.agents.core.dsl.builder.AIAg
     ```
     <!--- KNIT example-nodes-and-component-java-01.java -->
 
-#### 커스텀 노드 변환
+#### 커스텀 노드 변환 {id="custom-node-transformation"}
 
 커스텀 노드의 출력을 다른 데이터 타입으로 변환합니다:
 
@@ -965,7 +965,7 @@ Kotlin에서 [transform()](api:agents-core::ai.koog.agents.core.dsl.builder.AIAg
     ```
     <!--- KNIT exampleNodesAndComponentsJava11.java -->
 
-#### 내장 노드 변환
+#### 내장 노드 변환 {id="built-in-node-transformation"}
 
 `nodeLLMRequest` (Kotlin) 또는 `AIAgentNode.llmRequest()` (Java)와 같은 내장 노드의 출력을 변환합니다:
 
@@ -1034,7 +1034,7 @@ Kotlin에서 [transform()](api:agents-core::ai.koog.agents.core.dsl.builder.AIAg
     ```
     <!--- KNIT exampleNodesAndComponentsJava12.java -->
 
-## 사전에 정의된 서브그래프
+## 사전에 정의된 서브그래프 {id="predefined-subgraphs"}
 
 프레임워크는 자주 사용되는 패턴과 워크플로를 캡슐화한 사전에 정의된 서브그래프를 제공합니다. 이러한 서브그래프는 베이스 노드와 에지의 생성을 자동으로 처리하여 복잡한 에이전트 전략의 개발을 단순화합니다. API는 Kotlin과 Java 간에 일관되게 유지되며, Kotlin은 DSL 함수를 사용하고 Java는 빌더 메서드를 사용합니다.
 
@@ -1044,7 +1044,7 @@ Kotlin에서 [transform()](api:agents-core::ai.koog.agents.core.dsl.builder.AIAg
 2. 작업 실행.
 3. 작업 결과 검증. 결과가 올바르지 않으면 피드백 메시지와 함께 2단계로 돌아가 조정 수행.
 
-### 작업 실행 서브그래프
+### 작업 실행 서브그래프 {id="task-execution-subgraph"}
 
 제공된 도구를 사용하여 특정 작업을 수행하고 구조화된 결과를 반환하는 서브그래프입니다. 다중 응답 LLM 상호작용(어시스턴트가 도구 호출과 섞인 여러 응답을 생성할 수 있음)을 지원하며 도구 호출의 실행 방식을 제어할 수 있습니다. Kotlin에서는 [subgraphWithTask()](api:agents-core::ai.koog.agents.ext.agent.subgraphWithTask)를 사용하고, Java에서는 [AIAgentSubgraph.builder().withTask()](api:agents-core::ai.koog.agents.core.agent.entity.TypedAIAgentSubgraphBuilder.withTask)를 사용합니다.
 
@@ -1133,7 +1133,7 @@ API를 사용하면 다음과 같은 선택적 파라미터로 실행을 세밀�
     ```
     <!--- KNIT exampleNodesAndComponentsJava13.java -->
 
-### 검증 기능 포함 작업 실행 서브그래프
+### 검증 기능 포함 작업 실행 서브그래프 {id="task-execution-subgraph-with-verification"}
 
 작업이 올바르게 수행되었는지 검증하고 발생한 문제에 대한 세부 정보를 제공하는 `subgraphWithTask`의 특수 버전입니다. 이 서브그래프는 유효성 검사 또는 품질 체크가 필요한 워크플로에 유용합니다. Kotlin에서는 [subgraphWithVerification()](api:agents-core::ai.koog.agents.ext.agent.subgraphWithVerification)을 사용하고, Java에서는 `AIAgentSubgraph.builder().withVerification()`을 사용합니다.
 
@@ -1225,14 +1225,14 @@ API를 사용하면 다음과 같은 선택적 파라미터로 실행을 세밀�
     ```
     <!--- KNIT exampleNodesAndComponentsJava14.java -->
 
-## 사전에 정의된 전략 및 공통 전략 패턴
+## 사전에 정의된 전략 및 공통 전략 패턴 {id="predefined-strategies-and-common-strategy-patterns"}
 
 Koog는 다양한 노드를 결합한 사전에 정의된 전략들을 제공합니다.
 노드들은 에지를 사용하여 연결되어 작업 흐름을 정의하며, 각 에지를 따를 시점을 지정하는 조건이 포함됩니다.
 
 필요에 따라 이러한 전략들을 에이전트 워크플로에 통합할 수 있습니다.
 
-### 단회 실행 전략 (Single run strategy)
+### 단회 실행 전략 (Single run strategy) {id="single-run-strategy"}
 
 단회 실행 전략은 에이전트가 입력을 한 번 처리하고 결과를 반환하는 비대화형 유스케이스를 위해 설계되었습니다.
 
@@ -1324,7 +1324,7 @@ Koog는 다양한 노드를 결합한 사전에 정의된 전략들을 제공합
     ```
     <!--- KNIT exampleNodesAndComponentsJava15.java -->
 
-### 도구 기반 전략 (Tool-based strategy)
+### 도구 기반 전략 (Tool-based strategy) {id="tool-based-strategy"}
 
 도구 기반 전략은 특정 작업을 수행하기 위해 도구에 크게 의존하는 워크플로를 위해 설계되었습니다.
 일반적으로 LLM의 결정에 따라 도구를 실행하고 결과를 처리합니다.
@@ -1448,7 +1448,7 @@ Koog는 다양한 노드를 결합한 사전에 정의된 전략들을 제공합
     ```
     <!--- KNIT exampleNodesAndComponentsJava16.java -->
 
-### 스트리밍 데이터 전략 (Streaming data strategy)
+### 스트리밍 데이터 전략 (Streaming data strategy) {id="streaming-data-strategy"}
 
 스트리밍 데이터 전략은 LLM으로부터 스트리밍 데이터를 처리하기 위해 설계되었습니다. 일반적으로 스트리밍 데이터를 요청하고, 이를 처리하며, 필요한 경우 처리된 데이터를 사용하여 도구를 호출합니다.
 

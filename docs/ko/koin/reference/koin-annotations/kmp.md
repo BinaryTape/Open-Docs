@@ -2,7 +2,7 @@
 title: Kotlin 멀티플랫폼
 ---
 
-## 설정
+## 설정 {id="setup"}
 
 Koin 컴파일러 플러그인은 KMP 설정을 간소화합니다. 플러그인을 적용하기만 하면 됩니다.
 
@@ -25,11 +25,11 @@ kotlin {
 
 이게 전부입니다! 플랫폼별 KSP 구성이 필요하지 않습니다.
 
-## 공통 코드에서 정의 및 모듈 정의하기
+## 공통 코드에서 정의 및 모듈 정의하기 {id="defining-definitions-and-modules-in-common-code"}
 
 `commonMain` 소스 세트에서 모듈을 선언하거나, 정의(definition)를 스캔하거나, 일반적인 Kotlin Koin 선언과 같이 함수를 정의하세요. [정의(Definitions)](./definitions) 및 [모듈(Modules)](./modules) 섹션을 참조하세요.
 
-## 공유 패턴
+## 공유 패턴 {id="sharing-patterns"}
 
 이 섹션에서는 정의와 모듈을 사용하여 컴포넌트를 공유하는 몇 가지 방법을 함께 살펴보겠습니다.
 
@@ -44,7 +44,7 @@ expect/actual 구현을 통해 정의를 공유하거나, expect/actual을 통�
 Expect/Actual 클래스는 플랫폼별로 서로 다른 생성자를 가질 수 없습니다. 공통 공간(common space)에서 설계된 현재 생성자 규약을 준수해야 합니다.
 :::
 
-### 네이티브 구현을 위한 정의 공유
+### 네이티브 구현을 위한 정의 공유 {id="sharing-definitions-for-native-implementations"}
 
 :::info
 이 방식은 공통 모듈(Common Module) + Expect/Actual 클래스 정의를 통한 공유를 목표로 합니다.
@@ -54,7 +54,7 @@ Expect/Actual 클래스는 플랫폼별로 서로 다른 생성자를 가질 수
 
 `expect/actual` 정의를 사용하려면 동일한 생성자를 사용해야 한다는 점에 유의하세요 (기본 생성자든 커스텀 생성자든 상관없음). 이 생성자는 모든 플랫폼에서 동일해야 합니다.
 
-#### Expect/Actual 정의 스캐닝
+#### Expect/Actual 정의 스캐닝 {id="scanning-for-expect-actual-definitions"}
 
 commonMain에서:
 ```kotlin
@@ -89,7 +89,7 @@ actual class PlatformComponentA {
 }
 ```
 
-#### Expect/Actual 함수 정의 선언
+#### Expect/Actual 함수 정의 선언 {id="declaring-expect-actual-function-definitions"}
 
 commonMain에서:
 ```kotlin
@@ -125,7 +125,7 @@ actual class PlatformComponentB {
 }
 ```
 
-### 서로 다른 네이티브 규약을 가진 정의 공유
+### 서로 다른 네이티브 규약을 가진 정의 공유 {id="sharing-definitions-with-different-native-contracts"}
 
 :::info
 이 방식은 Expect/Actual 공통 모듈 + 공통 인터페이스 + 네이티브 구현체를 목표로 합니다.
@@ -180,7 +180,7 @@ class PlatformComponentDiOS : PlatformComponentD{
 Koin 스코프에 수동으로 액세스할 때마다 동적 와이어링(dynamic wiring)을 수행하게 됩니다. 컴파일 안정성(Compile safety)은 이러한 와이어링을 보장하지 않습니다.
 :::
 
-### 플랫폼 래퍼를 통한 안전한 플랫폼 간 공유
+### 플랫폼 래퍼를 통한 안전한 플랫폼 간 공유 {id="safely-sharing-across-platforms-with-platform-wrapper"}
 
 :::info
 특정 플랫폼 컴포넌트를 "플랫폼 래퍼(platform wrapper)"로 감쌉니다.
@@ -268,7 +268,7 @@ actual class PlatformComponentA actual constructor(val ctx : ContextWrapper) {
 }
 ```
 
-### Expect/Actual 모듈 공유 - 네이티브 모듈 스캐닝 활용
+### Expect/Actual 모듈 공유 - 네이티브 모듈 스캐닝 활용 {id="sharing-expect-actual-module-rely-on-native-module-scanning"}
 
 :::info
 공통 모듈에서 네이티브 모듈에 의존합니다.

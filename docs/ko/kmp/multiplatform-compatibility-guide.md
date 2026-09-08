@@ -15,7 +15,7 @@
 * Kotlin 1.7.0에서 Kotlin 1.9.0으로 업그레이드할 때, [Kotlin 1.9.0](#kotlin-1-9-0-1-9-25) 및 [Kotlin 1.7.0−1.8.22](#kotlin-1-7-0-1-8-22) 모두에서 적용된 호환되지 않는 변경 사항을 확인하세요.
 * Kotlin 1.9.0에서 Kotlin 2.0.0으로 업그레이드할 때, [Kotlin 2.0.0](#kotlin-2-0-0-and-later) 및 [Kotlin 1.9.0−1.9.25](#kotlin-1-9-0-1-9-25) 모두에서 적용된 호환되지 않는 변경 사항을 확인하세요. 
 
-## 버전 호환성
+## 버전 호환성 {id="version-compatibility"}
 
 프로젝트를 구성할 때, 특정 버전의 코틀린 멀티플랫폼 Gradle 플러그인(프로젝트의 Kotlin 버전과 동일)과 Gradle, Xcode 및 Android Gradle 플러그인(AGP) 버전 간의 호환성을 확인하세요.
 
@@ -42,11 +42,11 @@
 >
 {style="warning"}
 
-## Kotlin 2.0.0 이상
+## Kotlin 2.0.0 이상 {id="kotlin-2-0-0-and-later"}
 
 이 섹션에서는 Kotlin 2.0.0−%kotlinVersion%에서 지원 중단 주기가 종료되어 효력이 발생하는 호환되지 않는 변경 사항을 다룹니다.
 
-### Android 타겟을 위한 Google 플러그인으로 마이그레이션
+### Android 타겟을 위한 Google 플러그인으로 마이그레이션 {id="migrate-to-google-s-plugin-for-android-targets"}
 
 **변경 사항**
 
@@ -72,7 +72,7 @@ Kotlin 2.3.0은 코틀린 멀티플랫폼 프로젝트에서 `androidTarget` 이
 * 2.3.0: 새로운 Android 플러그인 사용 가능, 코틀린 멀티플랫폼 프로젝트에서 `androidTarget` 이름 사용 시 지원 중단 경고 도입
 * 2.3.10: 코틀린 멀티플랫폼 프로젝트에서 `androidTarget` 이름 사용 시의 지원 중단 경고를 되돌림(revert)
 
-### 비트코드 임베딩 지원 중단
+### 비트코드 임베딩 지원 중단 {id="deprecated-bitcode-embedding"}
 
 **변경 사항**
 
@@ -91,7 +91,7 @@ Kotlin 2.3.0은 코틀린 멀티플랫폼 프로젝트에서 `androidTarget` 이
 * 2.2.0: 경고가 오류로 격상됨
 * 2.3.0: `embedBitcode` DSL 제거 
 
-### Java 소스 세트 기본 생성
+### Java 소스 세트 기본 생성 {id="java-source-sets-created-by-default"}
 
 **변경 사항**
 
@@ -131,7 +131,7 @@ Kotlin 2.1.20과 8.7보다 높은 버전의 Gradle에서 [Java test fixtures](ht
 * Gradle 9.0: 이 경고를 오류로 격상
 * 2.1.20: Gradle 버전에 관계없이 `withJava()` 함수 사용 시 지원 중단 경고 도입
 
-### 여러 개의 유사한 타겟 선언
+### 여러 개의 유사한 타겟 선언 {id="declaring-several-similar-targets"}
 
 **변경 사항**
 
@@ -250,7 +250,7 @@ Ktor 기반 및 OkHttp 기반 구현이 _동일한 Gradle 프로젝트_에 있�
 * 1.9.20: 코틀린 멀티플랫폼 프로젝트에서 여러 개의 유사한 타겟이 사용될 때 지원 중단 경고 도입
 * 2.1.0: 이러한 경우 오류를 보고함(Kotlin/JS 타겟 제외). 이 예외에 대해 자세히 알아보려면 [YouTrack 이슈](https://youtrack.jetbrains.com/issue/KT-47038/KJS-MPP-Split-JS-target-into-JsBrowser-and-JsNode)를 확인하세요.
 
-### 레거시 모드로 게시된 멀티플랫폼 라이브러리에 대한 지원 중단
+### 레거시 모드로 게시된 멀티플랫폼 라이브러리에 대한 지원 중단 {id="deprecated-support-of-multiplatform-libraries-published-in-legacy-mode"}
 
 **변경 사항**
 
@@ -280,7 +280,7 @@ Kotlin 팀은 생태계의 마이그레이션을 돕고자 하므로, 문제가 
 * 2.0.0: 레거시 라이브러리에 대한 종속성에 대한 경고를 오류로 격상
 * &gt;2.0.0: 레거시 라이브러리에 대한 종속성 지원 제거, 이러한 종속성을 사용하면 빌드 실패가 발생할 수 있음
 
-### 계층적 구조 지원을 위한 Gradle 속성 지원 중단
+### 계층적 구조 지원을 위한 Gradle 속성 지원 중단 {id="deprecated-gradle-properties-for-hierarchical-structure-support"}
 
 **변경 사항**
 
@@ -318,7 +318,7 @@ Kotlin 1.6.20부터 Kotlin 툴체인의 기본 동작에 이러한 속성들이 
 
 이러한 속성을 제거한 후 드물게 문제가 발생하는 경우, [YouTrack에 이슈](https://kotl.in/issue)를 생성해 주세요.
 
-### 타겟 프리셋 API 지원 중단
+### 타겟 프리셋 API 지원 중단 {id="deprecated-target-presets-api"}
 
 **변경 사항**
 
@@ -361,7 +361,7 @@ Kotlin 1.6.20부터 Kotlin 툴체인의 기본 동작에 이러한 속성들이 
 * 2.0.0: 이 경고를 오류로 격상
 * 2.2.0: 코틀린 Gradle 플러그인의 공개 API에서 프리셋 관련 API 제거. 이를 여전히 사용하는 소스는 빌드 스크립트 컴파일 중에 "unresolved reference" 오류와 함께 실패하며, 바이너리(예: Gradle 플러그인)는 최신 버전의 코틀린 Gradle 플러그인에 대해 다시 컴파일되지 않는 한 링크 오류와 함께 실패할 수 있음
 
-### Apple 타겟 단축키 지원 중단
+### Apple 타겟 단축키 지원 중단 {id="deprecated-apple-target-shortcuts"}
 
 **변경 사항**
 
@@ -387,7 +387,7 @@ Kotlin 1.6.20부터 Kotlin 툴체인의 기본 동작에 이러한 속성들이 
 * 2.1.0: 타겟 단축키 사용 시 오류 보고
 * 2.2.0: 코틀린 멀티플랫폼 Gradle 플러그인에서 타겟 단축키 DSL 제거
 
-### Kotlin 업그레이드 후 iOS 프레임워크 버전 오류
+### Kotlin 업그레이드 후 iOS 프레임워크 버전 오류 {id="incorrect-version-of-ios-framework-after-kotlin-upgrade"}
 
 **문제점**
 
@@ -412,11 +412,11 @@ Kotlin 2.0.10에서 이 문제를 해결할 계획입니다. [Kotlin 초기 액�
 
 자세한 내용은 [YouTrack의 관련 이슈](https://youtrack.jetbrains.com/issue/KT-68257)를 참조하세요.
 
-## Kotlin 1.9.0−1.9.25
+## Kotlin 1.9.0−1.9.25 {id="kotlin-1-9-0-1-9-25"}
 
 이 섹션에서는 Kotlin 1.9.0−1.9.25에서 지원 중단 주기가 종료되어 효력이 발생하는 호환되지 않는 변경 사항을 다룹니다.
 
-### Kotlin 컴파일에 Kotlin 소스 세트를 직접 추가하는 API 제거 {initial-collapse-state="collapsed" collapsible="true"}
+### Kotlin 컴파일에 Kotlin 소스 세트를 직접 추가하는 API 제거 {initial-collapse-state="collapsed" collapsible="true" id="removed-api-for-adding-kotlin-source-sets-directly-to-the-kotlin-compilation"}
 
 **변경 사항**
 
@@ -487,7 +487,7 @@ kotlin {
 * 1.9.20: 이 경고를 오류로 격상
 * 2.3.0: 코틀린 Gradle 플러그인에서 `KotlinCompilation.source` 제거. 이를 사용하려고 하면 빌드 스크립트 컴파일 중에 "unresolved reference" 오류 발생
 
-### `kotlin-js` Gradle 플러그인에서 `kotlin-multiplatform` Gradle 플러그인으로 마이그레이션 {initial-collapse-state="collapsed" collapsible="true"}
+### `kotlin-js` Gradle 플러그인에서 `kotlin-multiplatform` Gradle 플러그인으로 마이그레이션 {initial-collapse-state="collapsed" collapsible="true" id="migration-from-kotlin-js-gradle-plugin-to-kotlin-multiplatform-gradle-plugin"}
 
 **변경 사항**
 
@@ -612,7 +612,7 @@ Kotlin 1.9.0부터 `kotlin-js` Gradle 플러그인이 지원 중단되었습니�
 * 1.9.0: `kotlin-js` 플러그인을 사용하면 지원 중단 경고가 생성됩니다.
 * 2.4.0: [이 경고를 오류로 격상합니다.](https://youtrack.jetbrains.com/issue/KT-59305)
 
-### 지원 중단된 `jvmWithJava` 프리셋 {initial-collapse-state="collapsed" collapsible="true"}
+### 지원 중단된 `jvmWithJava` 프리셋 {initial-collapse-state="collapsed" collapsible="true" id="deprecated-jvmwithjava-preset"}
 
 **변경 사항**
 
@@ -641,7 +641,7 @@ Kotlin 1.9.0부터 `kotlin-js` Gradle 플러그인이 지원 중단되었습니�
 >
 {style="note"}
 
-### 지원 중단된 레거시 Android 소스 세트 레이아웃 {initial-collapse-state="collapsed" collapsible="true"}
+### 지원 중단된 레거시 Android 소스 세트 레이아웃 {initial-collapse-state="collapsed" collapsible="true" id="deprecated-legacy-android-source-set-layout"}
 
 **변경 사항**
 
@@ -655,7 +655,7 @@ Kotlin 1.9.0부터 [새로운 Android 소스 세트 레이아웃](multiplatform-
 * 1.9.20: 이 경고를 오류로 격상. 오류는 억제할 수 **없음**
 * 2.4.0: 레거시 Android 소스 세트 레이아웃에 대한 지원을 제거하고, [`kotlin.mpp.androidSourceSetLayoutVersion=1` Gradle 속성을 제거합니다.](https://youtrack.jetbrains.com/issue/KT-82265)
 
-### 커스텀 `dependsOn`을 가진 `commonMain` 및 `commonTest` 지원 중단 {initial-collapse-state="collapsed" collapsible="true"}
+### 커스텀 `dependsOn`을 가진 `commonMain` 및 `commonTest` 지원 중단 {initial-collapse-state="collapsed" collapsible="true" id="deprecated-commonmain-and-commontest-with-custom-dependson"}
 
 **변경 사항**
 
@@ -684,7 +684,7 @@ Kotlin 1.9.0부터 [새로운 Android 소스 세트 레이아웃](multiplatform-
 * 1.9.0: `commonMain`에서 `dependsOn` 사용 시 경고 보고
 * &gt;=1.9.20: `commonMain` 또는 `commonTest`에서 `dependsOn` 사용 시 오류 보고
 
-### 전방 선언(Forward declarations)에 대한 새로운 접근 방식 {initial-collapse-state="collapsed" collapsible="true"}
+### 전방 선언(Forward declarations)에 대한 새로운 접근 방식 {initial-collapse-state="collapsed" collapsible="true" id="new-approach-to-forward-declarations"}
 
 **변경 사항**
 
@@ -742,11 +742,11 @@ JetBrains 팀은 동작을 더 예측 가능하게 만들기 위해 Kotlin의 �
 
 Kotlin 1.9.20부터 해당 C 및 Objective-C 전방 선언으로/로부터 명시적으로 캐스트를 수행해야 합니다. 또한 이제 특별한 패키지를 통해서만 전방 선언을 임포트할 수 있습니다.
 
-## Kotlin 1.7.0−1.8.22
+## Kotlin 1.7.0−1.8.22 {id="kotlin-1-7-0-1-8-22"}
 
 이 섹션에서는 Kotlin 1.7.0−1.8.22에서 지원 중단 주기가 종료되어 효력이 발생하는 호환되지 않는 변경 사항을 다룹니다.
 
-### 코틀린 멀티플랫폼 Gradle 플러그인과 Gradle Java 플러그인 간의 지원 중단된 호환성 {initial-collapse-state="collapsed" collapsible="true"}
+### 코틀린 멀티플랫폼 Gradle 플러그인과 Gradle Java 플러그인 간의 지원 중단된 호환성 {initial-collapse-state="collapsed" collapsible="true" id="deprecated-compatibility-with-kotlin-multiplatform-gradle-plugin-and-gradle-java-plugins"}
 
 **변경 사항**
 
@@ -842,7 +842,7 @@ dependencies {
 
 이제 상위 프로젝트가 두 플러그인과 함께 작동하도록 설정되었습니다.
 
-### 자동 생성된 타겟에 대한 새로운 접근 방식 {initial-collapse-state="collapsed" collapsible="true"}
+### 자동 생성된 타겟에 대한 새로운 접근 방식 {initial-collapse-state="collapsed" collapsible="true" id="new-approach-to-auto-generated-targets"}
 
 **변경 사항**
 
@@ -877,7 +877,7 @@ Kotlin 1.7.20부터 `kotlin.targets {}` 블록 내에서 타겟 접근자를 사
 
 자세한 내용은 [YouTrack의 관련 이슈](https://youtrack.jetbrains.com/issue/KT-47047)를 참조하세요.
 
-### Gradle 입력 및 출력 컴파일 태스크의 변경 사항 {initial-collapse-state="collapsed" collapsible="true"}
+### Gradle 입력 및 출력 컴파일 태스크의 변경 사항 {initial-collapse-state="collapsed" collapsible="true" id="changes-in-gradle-input-and-output-compile-tasks"}
 
 **변경 사항**
 
@@ -900,7 +900,7 @@ Kotlin 1.7.20부터 입력을 사용할 수 없고, 출력이 교체되며, `cla
 
 자세한 내용은 [YouTrack의 관련 이슈](https://youtrack.jetbrains.com/issue/KT-32805)를 참조하세요.
 
-### 컴파일 종속성을 위한 새로운 구성 이름 {initial-collapse-state="collapsed" collapsible="true"}
+### 컴파일 종속성을 위한 새로운 구성 이름 {initial-collapse-state="collapsed" collapsible="true" id="new-configuration-names-for-dependencies-on-the-compilation"}
 
 **변경 사항**
 

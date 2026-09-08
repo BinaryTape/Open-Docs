@@ -21,9 +21,9 @@ Power-assert 外掛程式的主要特性：
 * **簡化測試**：自動產生具備豐富資訊的失敗訊息，減少對複雜斷言程式庫的需求。
 * **支援多個函式**：預設情況下，它會轉換 `assert()` 函式呼叫，但也可以轉換其他函式，例如 `require()`、`check()` 和 `assertTrue()`。
 
-## 套用外掛程式
+## 套用外掛程式 {id="apply-the-plugin"}
 
-### Gradle
+### Gradle {id="gradle"}
 
 若要啟用 Power-assert 外掛程式，請按照以下方式設定您的 `build.gradle(.kts)` 檔案：
 
@@ -95,7 +95,7 @@ powerAssert {
 }
 ```
 
-### Maven
+### Maven {id="maven"}
 
 若要在 Maven 專案中啟用 Power-assert 編譯器外掛程式，請更新 `pom.xml` 檔案中 `kotlin-maven-plugin` 的 `<plugin>` 區段：
 
@@ -158,7 +158,7 @@ powerAssert {
 </configuration>
 ```
 
-## 使用 Power-assert 外掛程式
+## 使用 Power-assert 外掛程式 {id="use-the-power-assert-plugin"}
 
 本節提供使用 Power-assert 編譯器外掛程式的範例。
 
@@ -359,7 +359,7 @@ powerAssert {
 </tab>
 </tabs>
 
-### `@PowerAssert` 註解函式
+### `@PowerAssert` 註解函式 {id="powerassert-annotated-functions"}
 
 如果函式使用了 `@PowerAssert` 註解，Power-assert 外掛程式會自動轉換對該函式的呼叫。您無需在組建組態中註冊該函式。
 
@@ -397,7 +397,7 @@ check(subject.name == "Kodee")
       Mascot(name=Unknown)
 ```
 
-### Assert 函式
+### Assert 函式 {id="assert-function"}
 
 考慮以下使用 `assert()` 函式的測試：
 
@@ -476,7 +476,7 @@ assert(person.name.startsWith("A") && person.name.length > 3 && person.age > 20 
        Person(name=Alice, age=10)     Person(name=Alice, age=10)
 ```
 
-### 超越 assert 函式
+### 超越 assert 函式 {id="beyond-assert-function"}
 
 Power-assert 外掛程式可以轉換除預設轉換的 `assert` 以外的各種函式。像 `require()`、`check()`、`assertTrue()`、`assertEqual()` 等函式，如果它們的形式允許將 `String` 或 `() -> String` 值作為最後一個參數，也可以被轉換。
 
@@ -573,7 +573,7 @@ assert(exampleFunction(2, 3) + exampleFunction(1, 2) == 9)
 ```
 -->
 
-### 軟斷言 (Soft assertions)
+### 軟斷言 (Soft assertions) {id="soft-assertions"}
 
 Power-assert 外掛程式支援軟斷言，它不會立即讓測試失敗，而是收集斷言失敗並在測試執行結束時回報。當您希望在單次執行中查看所有斷言失敗而不停止在第一個失敗點時，這非常有用。
 
@@ -697,11 +697,11 @@ assert(employee.age < 100) { "${employee.name} has an invalid age: ${employee.ag
        Employee(name=Dave, age=150, salary=70000)
 ```
 
-## 為您的程式庫加入 Power-assert 支援
+## 為您的程式庫加入 Power-assert 支援 {id="add-support-for-power-assert-to-your-library"}
 
 如果您是程式庫作者，可以使用 Power-assert 執行時程式庫中的 `@PowerAssert` 註解和 `CallExplanation` 類別，為您的程式庫加入開箱即用的 Power-assert 支援。
 
-### `@PowerAssert` 註解
+### `@PowerAssert` 註解 {id="the-powerassert-annotation"}
 
 [`@PowerAssert` 註解](https://github.com/JetBrains/kotlin/blob/master/plugins/power-assert/power-assert-runtime/src/commonMain/kotlin/kotlin/powerassert/PowerAssert.kt) 將函式標記為具備 Power-assert 能力。如果您程式庫的使用者在他們的專案中啟用了 Power-assert 編譯器外掛程式，並呼叫了您帶有註解的函式，這些呼叫將會被自動轉換，無需額外的組建組態。
 
@@ -767,7 +767,7 @@ assert(employee.age < 100) { "${employee.name} has an invalid age: ${employee.ag
 >
 {style="tip"}
 
-### `CallExplanation` 類別
+### `CallExplanation` 類別 {id="the-callexplanation-class"}
 
 [`CallExplanation`](https://github.com/JetBrains/kotlin/blob/master/plugins/power-assert/power-assert-runtime/src/commonMain/kotlin/kotlin/powerassert/CallExplanation.kt) 類別提供有關呼叫點的詳細資訊，包含中間運算式的值。這實現了斷言失敗的動態訊息呈現，並能更好地與外部工具整合。
 
@@ -821,7 +821,7 @@ fun AssertScope<*>.require(condition: Boolean) {
 >
 {style="tip"}
 
-## 接下來的步驟
+## 接下來的步驟 {id="what-s-next"}
 
 瀏覽我們的範例專案：
 

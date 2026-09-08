@@ -1,4 +1,4 @@
-## 自訂欄位型別
+## 自訂欄位型別 {id="custom-column-types"}
 
 如果您想將欄位檢索為自訂型別，可以指定一個 Kotlin 型別：
 
@@ -32,7 +32,7 @@ val queryWrapper: Database = Database(
 )
 ```
 
-## 列舉
+## 列舉 {id="enums"}
 
 為了方便起見，SQLDelight 執行階段包含一個 `ColumnAdapter`，用於將列舉儲存為 `String` 資料。
 
@@ -53,7 +53,7 @@ val queryWrapper: Database = Database(
 )
 ```
 
-## 值型別
+## 值型別 {id="value-types"}
 
 如果需要，SQLDelight 可以為欄位產生一個值型別，用以封裝底層的資料庫型別：
 

@@ -28,7 +28,7 @@ Kotlin 2.4.0 がリリースされました！主なハイライトは以下の�
 >
 {style="tip"}
 
-## Kotlin 2.4.0 へのアップデート
+## Kotlin 2.4.0 へのアップデート {id="update-to-kotlin-2-4-0"}
 
 Kotlin の最新バージョンは、[IntelliJ IDEA](https://www.jetbrains.com/idea/download/) および [Android Studio](https://developer.android.com/studio) の最新バージョンに含まれています。
 
@@ -64,11 +64,11 @@ Kotlin の最新バージョンは、[IntelliJ IDEA](https://www.jetbrains.com/i
 * [Swift export が Alpha に昇格し、並行処理のサポートが向上](#swift-export-goes-alpha-with-improved-concurrency-support)
 * [WebAssembly コンポーネントモデルのサポート](#support-for-the-webassembly-component-model)
 
-## 言語
+## 言語 {id="language"}
 
 Kotlin 2.4.0 では、コンテキストパラメータ、明示的なバッキングフィールド、およびアノテーションの使用箇所ターゲット機能が[安定（Stable）](components-stability.md#stability-levels-explained)に昇格しました。また、本リリースでは[コンテキストパラメータに対する明示的なコンテキスト引数](#explicit-context-arguments-for-context-parameters)が導入されています。
 
-### 安定した機能
+### 安定した機能 {id="stable-features"}
 <secondary-label ref="language"/>
 
 Kotlin 2.2.0 および 2.3.0 では、いくつかの言語機能が[実験的（Experimental）](components-stability.md#stability-levels-explained)として導入されました。本リリースで、以下の言語機能が[安定（Stable）](components-stability.md#stability-levels-explained)になったことをお知らせします。
@@ -80,7 +80,7 @@ Kotlin 2.2.0 および 2.3.0 では、いくつかの言語機能が[実験的�
 
 [Kotlin 言語デザインの機能とプロポーザルの全リストを確認する](kotlin-language-features-and-proposals.md)。
 
-### インポートの最後のセグメントに対する非推奨警告の廃止
+### インポートの最後のセグメントに対する非推奨警告の廃止 {id="no-more-deprecation-warnings-on-the-last-segments-of-imports"}
 <secondary-label ref="language"/>
 
 以前の Kotlin バージョンでは、非推奨（deprecated）のクラスをインポートすると、呼び出し箇所だけでなく、インポートディレクティブ自体でも非推奨エラーが報告されていました。インポート時の非推奨エラーを抑制する方法がなかったため、ファイル全体で非推奨レポートを抑制したり、スターインポートを使用したりして回避していたかもしれません。
@@ -89,7 +89,7 @@ Kotlin 2.2.0 および 2.3.0 では、いくつかの言語機能が[実験的�
 
 詳細については、[KT-30155](https://youtrack.jetbrains.com/issue/KT-30155) を参照してください。
 
-### コンテキストパラメータに対する明示的なコンテキスト引数
+### コンテキストパラメータに対する明示的なコンテキスト引数 {id="explicit-context-arguments-for-context-parameters"}
 <primary-label ref="experimental-opt-in"/>
 
 <secondary-label ref="language"/>
@@ -166,7 +166,7 @@ kotlin {
 
 詳細については、この機能の [KEEP](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0448-explicit-context-arguments.md) を参照してください。
 
-### コレクションリテラルのサポート
+### コレクションリテラルのサポート {id="support-for-collection-literals"}
 <primary-label ref="experimental-opt-in"/>
 
 <secondary-label ref="language"/>
@@ -272,7 +272,7 @@ kotlin {
 
 詳細については、この機能の [KEEP](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0416-collection-literals.md) を参照してください。
 
-### コンパイル時定数の改善
+### コンパイル時定数の改善 {id="improved-compile-time-constants"}
 <primary-label ref="experimental-opt-in"/>
 
 <secondary-label ref="language"/>
@@ -322,7 +322,7 @@ kotlin {
 
 詳細については、この機能の [KEEP](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0444-improve-compile-time-constants.md) を参照してください。
 
-### 高階関数に対する未使用の結果チェックの改善
+### 高階関数に対する未使用の結果チェックの改善 {id="improved-unused-result-checks-for-higher-order-functions"}
 <primary-label ref="experimental-opt-in"/>
 
 <secondary-label ref="language"/>
@@ -404,7 +404,7 @@ kotlin {
 </tab> 
 </tabs>
 
-### オプションパラメータのバージョンベースのオーバーロードを生成する新しい `@IntroducedAt` アノテーション
+### オプションパラメータのバージョンベースのオーバーロードを生成する新しい `@IntroducedAt` アノテーション {id="new-introducedat-annotation-to-generate-version-based-overloads-for-optional-parameters"}
 <primary-label ref="experimental-opt-in"/>
 
 <secondary-label ref="language"/>
@@ -437,11 +437,11 @@ fun Button(
 
 `@IntroducedAt` と `@JvmOverloads` の両方がオーバーロードを生成するため、これらを併用するとオーバーロードの衝突が発生する可能性があります。両方のアノテーションを使用した場合、コンパイラは警告を報告します。警告を抑制した場合、コンパイラは `@IntroducedAt` アノテーションから生成されたオーバーロードを優先します。
 
-## 標準ライブラリ
+## 標準ライブラリ {id="standard-library"}
 
 Kotlin 2.4.0 では、共通 Kotlin 標準ライブラリにおける UUID のサポートが安定化しました。また、JVM 上で符号なし整数を `BigInteger` に変換するための新しい拡張関数や、ソート順序をチェックするためのサポートも追加されました。
 
-### 共通 Kotlin 標準ライブラリでの安定した UUID API
+### 共通 Kotlin 標準ライブラリでの安定した UUID API {id="stable-uuid-api-in-the-common-kotlin-standard-library"}
 <secondary-label ref="standard-library"/>
 
 Kotlin 2.0.20 では、[UUID を生成するためのクラス](whatsnew2020.md#support-for-uuids-in-the-common-kotlin-standard-library)（Universally Unique Identifiers）が導入され、Kotlin と Java の UUID 間の変換サポートが追加されました。その後のリリースで、以下のサポートを追加することで、この実験的機能は段階的に改善されました。
@@ -454,7 +454,7 @@ Kotlin 2.4.0 では、[`kotlin.uuid.Uuid` API](https://kotlinlang.org/api/core/k
 
 UUID の操作方法に関する詳細は、[UUIDs](uuids.md) を参照してください。
 
-### ソート順序チェックのサポート
+### ソート順序チェックのサポート {id="support-for-checking-sorted-order"}
 <secondary-label ref="standard-library"/>
 
 Kotlin 2.4.0 では、Iterable、配列、および Sequence におけるソート順序をチェックするための新しい拡張関数が追加されました。
@@ -490,7 +490,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.4.0-Beta2" id="kotlin-2-4-0-check-sorted-order"}
 
-### JVM 上で符号なし整数を `BigInteger` に変換するための新しい API
+### JVM 上で符号なし整数を `BigInteger` に変換するための新しい API {id="new-api-for-converting-unsigned-integers-to-biginteger-on-the-jvm"}
 <secondary-label ref="standard-library"/>
 
 Kotlin 2.4.0 では、JVM 上に `UInt.toBigInteger()` および `ULong.toBigInteger()` 拡張関数が導入されました。
@@ -515,7 +515,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.4.0-Beta2" id="kotlin-2-4-0-convert-unsigned-int"}
 
-### null 値と存在しないキーを区別するための新しいマップフォールバック関数
+### null 値と存在しないキーを区別するための新しいマップフォールバック関数 {id="new-map-fallback-functions-to-distinguish-null-values-and-missing-keys"}
 <primary-label ref="experimental-opt-in"/>
 
 <secondary-label ref="standard-library"/>
@@ -595,28 +595,28 @@ fun main() {
 
 [YouTrack](https://youtrack.jetbrains.com/issue/KT-67337) でのフィードバックをお待ちしております。
 
-## Kotlin/JVM
+## Kotlin/JVM {id="kotlin-jvm"}
 
 Kotlin 2.4.0 では、新しい Java バージョンのサポートと、メタデータ内のアノテーションのデフォルト有効化が行われました。
 
-### Java 26 のサポート
+### Java 26 のサポート {id="support-for-java-26"}
 <secondary-label ref="jvm"/>
 
 Kotlin 2.4.0 以降、コンパイラは Java 26 バイトコードを含むクラスを生成できるようになりました。
 
-### メタデータ内のアノテーションをデフォルトで有効化
+### メタデータ内のアノテーションをデフォルトで有効化 {id="annotations-in-metadata-enabled-by-default"}
 <secondary-label ref="jvm"/>
 
 Kotlin 2.2.0 の Kotlin Metadata JVM ライブラリにおいて、[Kotlin メタデータに格納されたアノテーションの読み取りサポートが導入されました](whatsnew22.md#support-for-reading-and-writing-annotations-in-kotlin-metadata)。このサポートにより、Kotlin コンパイラはアノテーションを JVM バイトコードと共にメタデータに書き込み、Kotlin Metadata JVM ライブラリからアクセス可能にします。その結果、アノテーションプロセッサやその他のツールは、リフレクションを使用したりソースコードを修正したりすることなく、メタデータレベルでこれらのアノテーションを理解および操作できるようになります。
 
 Kotlin 2.4.0 では、このサポートがデフォルトで有効になっています。
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 Kotlin 2.4.0 以降、[Swift export が Alpha に昇格しました](#swift-export-goes-alpha-with-improved-concurrency-support)。
 本リリースでは、[Swift パッケージのインポート](#swift-package-import)、Xcode 26.4 のサポート、メモリ消費の改善、およびガベージコレクションの改善も行われています。
 
-### ガベージコレクタにおけるコンカレント・マークのデフォルト化
+### ガベージコレクタにおけるコンカレント・マークのデフォルト化 {id="default-concurrent-marking-in-garbage-collector"}
 <secondary-label ref="native"/>
 
 Kotlin 2.0.20 において、Kotlin チームはコンカレント・マーク・アンド・スイープ・ガベージコレクタ (CMS GC) の [実験的なサポートを導入しました](whatsnew2020.md#concurrent-marking-in-garbage-collector)。ユーザーからのフィードバック対応とデグレードの修正を経て、Kotlin 2.4.0 より CMS をデフォルトで有効にする準備が整いました。
@@ -633,7 +633,7 @@ kotlin.native.binary.gc=pmcs
 
 Kotlin/Native のガベージコレクタに関する詳細は、[ドキュメント](native-memory-manager.md#garbage-collector)を参照してください。
 
-### 脱仮想化（devirtualization）分析中のメモリ消費量の削減
+### 脱仮想化（devirtualization）分析中のメモリ消費量の削減 {id="reduced-memory-consumption-during-devirtualization-analysis"}
 <secondary-label ref="native"/>
 
 以前は、脱仮想化（devirtualization）分析は Kotlin/Native コンパイラにおいて最もメモリを消費するフェーズの一つでした。特に、大規模なプロジェクトにおいて、リンク・リリース・タスクが過剰なメモリを消費していました。
@@ -642,21 +642,21 @@ Kotlin 2.4.0 では、リンク・リリース・タスク中のピークメモ�
 
 EAP ユーザーの一人によるベンチマークによると、改善された脱仮想化分析により、リンク・リリース・タスクのメモリ消費量が半分に削減され、少なくとも 13 GB の節約になりました。
 
-### Xcode 26.4 のサポート
+### Xcode 26.4 のサポート {id="support-for-xcode-26-4"}
 <secondary-label ref="native"/>
 
 Kotlin 2.4.0 以降、Kotlin/Native コンパイラは Xcode の最新安定バージョンの一つである Xcode 26.4 をサポートします。
 
 Xcode をアップデートして最新の API にアクセスし、Apple オペレーティングシステム向けの Kotlin プロジェクトの作業を継続できるようになります。
 
-### LLVM のバージョン 21 へのアップデート
+### LLVM のバージョン 21 へのアップデート {id="llvm-update-to-version-21"}
 <secondary-label ref="native"/>
 
 Kotlin 2.4.0 では、LLVM をバージョン 19 から 21 にアップデートしました。新しいバージョンにはパフォーマンスの向上が含まれており、Kotlin/Native コンパイラを最新の状態に保つのに役立ちます。
 
 このアップデートはコードに影響を与えないはずですが、問題が発生した場合は [Issue Tracker](http://kotl.in/issue) に報告してください。
 
-### Apple ターゲットサポートの変更
+### Apple ターゲットサポートの変更 {id="changes-to-apple-target-support"}
 <secondary-label ref="native"/>
 
 Kotlin 2.4.0 では、Apple ターゲットのデフォルトの最小サポートバージョンが引き上げられました。
@@ -680,7 +680,7 @@ kotlin {
 }
 ```
 
-### Swift export が並行処理のサポート向上と共に Alpha に昇格
+### Swift export が並行処理のサポート向上と共に Alpha に昇格 {id="swift-export-goes-alpha-with-improved-concurrency-support"}
 <primary-label ref="alpha"/>
 
 <secondary-label ref="native"/>
@@ -688,7 +688,7 @@ kotlin {
 Kotlin 2.4.0 以降、Swift export を通じた Swift との Kotlin の相互運用性が正式に Alpha になりました！
 本リリースでは、並行処理（Concurrency）のサポートに大きな改善が加えられ、Swift export にネイティブで直接的な構造化された並行処理（Structured Concurrency）が追加されたほか、`kotlinx.coroutines` の Flow を Swift にエクスポートできるようになりました。
 
-#### 構造化された並行処理のサポート
+#### 構造化された並行処理のサポート {id="support-for-structured-concurrency"}
 Swift から Kotlin の Suspend コードをシームレスに呼び出せるようになりました。Kotlin の [`suspend` 関数](composing-suspending-functions.md) および Suspend 関数型は、Swift のイディオマティックな `async` 対応版としてエクスポートされます。
 
 ```kotlin
@@ -703,7 +703,7 @@ suspend fun hello(): String {
 // Swift
 let msg = try await hello()
 ```
-#### Flow 型の Swift へのエクスポート
+#### Flow 型の Swift へのエクスポート {id="export-of-flow-types-to-swift"}
 
 このアップデートでは、`kotlinx.coroutines` の Flow を Swift にエクスポートするサポートも追加されました。`kotlinx.coroutines` の Flow は、並行して生成および消費できる非同期のデータストリームを表します。これらは、データベースの更新、ネットワークリクエスト、または UI イベントの監視などのリアクティブプログラミングパターンで一般的に使用されます。
 
@@ -729,7 +729,7 @@ for try await element in flowOfStrings().asAsyncSequence() {
 
 Swift export に関する詳細は、[ドキュメント](native-swift-export.md)を参照してください。
 
-### Swift パッケージのインポート
+### Swift パッケージのインポート {id="swift-package-import"}
 <primary-label ref="experimental-general"/>
 
 <secondary-label ref="native"/>
@@ -755,11 +755,11 @@ kotlin {
 
 プロジェクトが CocoaPods 依存関係に依存している場合は、現在のセットアップを Swift パッケージを使用するように移行できます。KMP ツールはこのユースケースを考慮しており、プロジェクトの自動再構成を支援します。詳細は、[CocoaPods 移行ガイド](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-spm-migration.html)を参照してください。
 
-## Kotlin/Wasm
+## Kotlin/Wasm {id="kotlin-wasm"}
 
 Kotlin 2.4.0 では、Kotlin/Wasm のインクリメンタルコンパイルがデフォルトで有効になり、WebAssembly コンポーネントモデルのサポートが導入されました。
 
-### インクリメンタルコンパイルをデフォルトで有効化
+### インクリメンタルコンパイルをデフォルトで有効化 {id="incremental-compilation-enabled-by-default"}
 <secondary-label ref="wasm"/>
 
 Kotlin/Wasm は Kotlin 2.1.0 でインクリメンタルコンパイルを導入しました。Kotlin 2.4.0 以降、これは[安定（Stable）](components-stability.md#stability-levels-explained)になり、デフォルトで有効になっています。この機能により、コンパイラは最近の変更の影響を受けたファイルのみを再ビルドするため、ビルド時間が大幅に短縮されます。
@@ -773,14 +773,14 @@ kotlin.incremental.wasm=false
 
 問題が発生した場合は、[YouTrack](https://kotl.in/issue) に報告してください。
 
-### Chrome DevTools における内部変数の表示改善
+### Chrome DevTools における内部変数の表示改善 {id="improved-display-of-internal-variables-in-chrome-devtools"}
 <secondary-label ref="wasm"/>
 
 Kotlin 2.4.0 では、一時的な変数、合成（synthetic）変数、および内部変数をユーザー定義変数と区別しやすくすることで、Chrome DevTools における Kotlin/Wasm のデバッグ体験を向上させました。
 
 Kotlin コンパイラおよび Compose などのコンパイラプラグインは、これらの変数を生成することがあります。これらはデフォルトで `~` プレフィックスを使用するようになり、Chrome DevTools が名前でソートする際にまとめてグループ化され、変数リストの末尾に移動されます。
 
-### WebAssembly コンポーネントモデルのサポート
+### WebAssembly コンポーネントモデルのサポート {id="support-for-the-webassembly-component-model"}
 <primary-label ref="experimental-general"/>
 
 <secondary-label ref="wasm"/>
@@ -793,11 +793,11 @@ Kotlin/Wasm は Kotlin 2.4.0 において、[WebAssembly コンポーネント�
 
 [YouTrack](https://youtrack.jetbrains.com/issue/KT-64569/Kotlin-Wasm-Support-Component-Model) でフィードバックを共有してください。
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
 Kotlin 2.4.0 では、JavaScript/TypeScript へのエクスポート機能がさらに強化され、値クラス、インターフェース、型の変性（variance）のエクスポート、および JS コードのインライン化時における ES2015 機能がサポートされました。
 
-### JavaScript/TypeScript への値クラスのエクスポートのサポート
+### JavaScript/TypeScript への値クラスのエクスポートのサポート {id="support-for-value-class-export-to-javascript-typescript"}
 <secondary-label ref="js"/>
 
 以前は、通常の Kotlin クラスのみが JavaScript/TypeScript にエクスポート可能でした。
@@ -834,7 +834,7 @@ console.log(await auth.login(new Email("not-an-email")));
 
 詳細は、[`@JsExport` アノテーション](js-to-kotlin-interop.md#jsexport-annotation) を参照してください。
 
-### JS コードのインライン化時における ES2015 機能のサポート
+### JS コードのインライン化時における ES2015 機能のサポート {id="support-for-es2015-features-when-inlining-js-code"}
 <secondary-label ref="js"/>
 
 Kotlin 2.4.0 以降、JavaScript コードのインライン化において [ES2015 機能](js-project-setup.md#support-for-es2015-features) を完全にサポートするようになりました。
@@ -869,7 +869,7 @@ fun spreadExample(): dynamic = js("""
 
 JavaScript コードのインライン化に関する詳細は、[ドキュメント](js-interop.md#inline-javascript) を参照してください。
 
-### TypeScript へのエクスポート時に型の変性を保持
+### TypeScript へのエクスポート時に型の変性を保持 {id="preserve-type-variance-when-exporting-to-typescript"}
 <secondary-label ref="js"/>
 
 以前は、型を TypeScript にエクスポートする際、ジェネリックな位置における Kotlin の [変性（variance）](generics.md#variance) 情報が失われていました。
@@ -904,7 +904,7 @@ export interface Consumer<in T> {
 }
 ```
 
-### インターフェースのエクスポートの改善
+### インターフェースのエクスポートの改善 {id="improved-interface-export-to-javascript-typescript"}
 <secondary-label ref="js"/>
 
 Kotlin 2.4.0 では、Kotlin インターフェースを JavaScript/TypeScript にエクスポートするのがより便利になりました。
@@ -952,7 +952,7 @@ TypeScript が Kotlin インターフェースを通常の TypeScript インタ�
 >
 {type="note"}
 
-### インターフェースのエクスポートに関する制限の緩和
+### インターフェースのエクスポートに関する制限の緩和 {id="lifting-restrictions-on-exporting-interfaces"}
 <primary-label ref="experimental-general"/>
 
 <secondary-label ref="js"/>
@@ -974,17 +974,17 @@ interface Identity {
 
 詳細は、[`@JsExport` アノテーション](js-to-kotlin-interop.md#jsexport-annotation) を参照してください。
 
-## Gradle
+## Gradle {id="gradle"}
 
 Kotlin 2.4.0 は、Gradle 7.6.3 から 9.5.0 までと完全に互換性があります。最新の Gradle リリースまでのバージョンも使用できますが、非推奨の警告が表示されたり、一部の新しい Gradle 機能が動作しなかったりする可能性があることに注意してください。
 また、Kotlin 2.4.0 では、プラットフォーム間でのデフォルトモジュール名の一貫性向上や、Kotlin/JVM の Problems API へのコンパイラメッセージの書き込みなどの改善も行われています。
 
-### 最小サポート AGP バージョンの引き上げ（8.5.2）
+### 最小サポート AGP バージョンの引き上げ（8.5.2） {id="minimum-supported-agp-version-bumped-to-8-5-2"}
 <secondary-label ref="gradle"/>
 
 Kotlin 2.4.0 以降、サポートされる最小の Android Gradle plugin バージョンは 8.5.2 になりました。
 
-### プラットフォーム間での一貫したモジュール名
+### プラットフォーム間での一貫したモジュール名 {id="consistent-module-names-across-platforms"}
 <secondary-label ref="gradle"/>
 
 Kotlin 2.4.0 より前は、デフォルトのモジュール名がプラットフォームごとに異なっていました。この不整合は名前の衝突や解決の問題を引き起こす可能性がありました。Kotlin 2.4.0 では、すべてのプラットフォームでデフォルト名を `{group}:{project_name}` に標準化しました。
@@ -1007,18 +1007,18 @@ kotlin {
 }
 ```
 
-### Kotlin/JVM のコンパイラメッセージを Problems API に書き込み
+### Kotlin/JVM のコンパイラメッセージを Problems API に書き込み {id="compiler-messages-written-to-problems-api-for-kotlin-jvm"}
 <secondary-label ref="gradle"/>
 
 Kotlin 2.2.0 において、Kotlin Gradle plugin (KGP) は、Gradle の CLI と IntelliJ IDEA の両方で一貫した体験を提供するために、[Gradle の Problems API](https://docs.gradle.org/current/userguide/reporting_problems.html) への診断レポートを開始しました。
 
 Kotlin 2.4.0 では、プラグインは Kotlin/JVM のコンパイラメッセージも Problems API に書き込むようになり、API がすべてのログとメッセージの単一ソースになることに一歩近づきました。
 
-## Maven
+## Maven {id="maven"}
 
 Kotlin 2.4.0 では、Maven Toolchains のサポートと、Java および JVM ターゲットバージョンの自動調整により、プロジェクト構成がさらに容易になりました。
 
-### Java と JVM ターゲットバージョンの自動調整
+### Java と JVM ターゲットバージョンの自動調整 {id="automatic-alignment-between-java-and-jvm-target-versions"}
 <secondary-label ref="maven"/>
 
 プロジェクト構成を簡素化し互換性の問題を回避するために、Kotlin Maven plugin は、プロジェクトで構成された Java コンパイラバージョンと JVM ターゲットバージョンを自動的に調整するようになりました。
@@ -1068,7 +1068,7 @@ Kotlin 2.4.0 では、Maven Toolchains のサポートと、Java および JVM �
 
 自動プロジェクト構成に関する詳細は、[ドキュメント](maven-configure-project.md#jvm-target-version) を参照してください。
 
-### Maven Toolchains のサポート
+### Maven Toolchains のサポート {id="support-for-maven-toolchains"}
 <secondary-label ref="maven"/>
 
 Kotlin 2.4.0 では、Kotlin Maven plugin に [Maven Toolchains](https://maven.apache.org/guides/mini/guide-using-toolchains.html) のサポートが導入されました。
@@ -1110,7 +1110,7 @@ JDK バージョンを設定するさまざまな方法の優先順位に注意�
 
 Kotlin Maven プロジェクトの構成に関する詳細は、[ドキュメント](maven-configure-project.md) を参照してください。
 
-## ビルドツール API
+## ビルドツール API {id="build-tools-api"}
 <secondary-label ref="bta"/>
 
 Kotlin 2.4.0 では、ビルドツール API (Build Tools API, BTA) に多くの改善が加えられました。BTA は以下の通りです。
@@ -1136,11 +1136,11 @@ Kotlin 2.4.0 では、ビルドツール API (Build Tools API, BTA) に多くの
   }
   ```
 
-## Kotlin コンパイラ
+## Kotlin コンパイラ {id="kotlin-compiler"}
 
 Kotlin 2.4.0 では、`.klib` コンパイル中に同じモジュール内で宣言されたインライン関数に対して、より一貫した動作が含まれています。
 
-### klib コンパイル中のモジュール内関数インライン化の整合性向上
+### klib コンパイル中のモジュール内関数インライン化の整合性向上 {id="consistent-intra-module-function-inlining-during-klib-compilation"}
 <secondary-label ref="compiler"/>
 
 以前は、[関数インライン化](inline-functions.md) の動作は Kotlin プラットフォームごとに異なっていました。JetBrains チームは、同じ互換性保証を確実にするために、サポートされているすべてのプラットフォームでこれを統一することに取り組んでいます。
@@ -1201,7 +1201,7 @@ fun main() {
 
 フィードバックを共有し、[YouTrack](https://kotl.in/issue) に問題を報告してください。
 
-### Kotlin コンパイラ間での一貫した部分ライブラリリンケージ
+### Kotlin コンパイラ間での一貫した部分ライブラリリンケージ {id="consistent-partial-library-linkage-across-kotlin-compilers"}
 <secondary-label ref="compiler"/>
 
 Kotlin 1.9.0 では、Kotlin/Native および Kotlin/JS コンパイラの両方で部分ライブラリリンケージ（partial library linkage）がデフォルトで有効になり、Kotlin 2.0.0 では Kotlin/Wasm がそれに続きました。この機能により、コンパイラは Kotlin ライブラリにおけるリンケージの問題を Kotlin/JVM と一貫して処理するようになります。
@@ -1236,11 +1236,11 @@ kotlin {
 
 この機能で問題が発生した場合は、[Issue Tracker](https://kotl.in/issue) に報告してください。
 
-## Kotlin コンパイラプラグイン
+## Kotlin コンパイラプラグイン {id="kotlin-compiler-plugins"}
 
 Kotlin 2.4.0 では、Kotlin のコンパイラプラグインにも注目すべきアップデートがありました。kapt プラグインはコンパイルクラスパスから不要なアノテーションプロセッサを除外できるようになり、Power-assert プラグインは新しいランタイムライブラリを通じて簡素化された構成を提供します。
 
-### kapt: コンパイルクラスパスからアノテーションプロセッサを除外
+### kapt: コンパイルクラスパスからアノテーションプロセッサを除外 {id="kapt-exclude-annotation-processors-from-compile-classpath"}
 
 Kotlin 2.4.0 では、Kotlin Gradle plugin と同様に、アノテーションプロセッサの検出のための `includeCompileClasspath` 構成オプションのサポートが追加されました。新しいオプションにより、不要なアノテーションプロセッサをコンパイルクラスパスから除外できます。
 
@@ -1277,7 +1277,7 @@ Kotlin 2.4.0 では、Kotlin Gradle plugin と同様に、アノテーション�
 
 kapt の構成に関する詳細は、[ドキュメント](kapt.md) を参照してください。
 
-### Power-assert: 新しいランタイムライブラリ
+### Power-assert: 新しいランタイムライブラリ {id="power-assert-new-runtime-library"}
 
 Kotlin 2.4.0 では、新しいランタイムライブラリにより、Power-assert 対応の関数がより見つけやすくなり、構成も容易になりました。
 
@@ -1294,11 +1294,11 @@ Kotlin 2.4.0 では、新しいランタイムライブラリにより、Power-a
 
 詳細は、[ドキュメント](power-assert.md#use-the-power-assert-plugin) を参照してください。
 
-## Compose コンパイラ
+## Compose コンパイラ {id="compose-compiler"}
 
 Kotlin 2.4.0 の Compose コンパイラは、より一貫したインクリメンタルコンパイルを提供し、いくつかの機能フラグの非推奨サイクルを進めています。
 
-### 内部宣言に対する一貫したインクリメンタルコンパイル
+### 内部宣言に対する一貫したインクリメンタルコンパイル {id="consistent-incremental-compilation-for-internal-declarations"}
 <secondary-label ref="compose-compiler"/>
 
 Kotlin 2.4.0 以降、Compose コンパイラはより一貫したインクリメンタルコンパイルを提供します。異なるファイル間での内部（internal）型の安定性が実行時に推論されるようになりました。これにより、クラスの使用箇所が再コンパイルされない場合でも、Compose は推論された安定性数値を更新できます。
@@ -1307,7 +1307,7 @@ Kotlin 2.4.0 以降、Compose コンパイラはより一貫したインクリ�
 
 このアップデートは最終的な安定性数値を変更しないため、`@Composable` 関数の動作は変わりません。
 
-### 機能フラグの非推奨
+### 機能フラグの非推奨 {id="feature-flag-deprecations"}
 <secondary-label ref="compose-compiler"/>
 
 Kotlin 2.4.0 では、安定（Stable）に昇格しデフォルトで有効になった実験的な機能フラグの非推奨サイクルを進めています。
@@ -1315,7 +1315,7 @@ Kotlin 2.4.0 では、安定（Stable）に昇格しデフォルトで有効に�
 * `StrongSkipping`、`IntrinsicRemember`、および関連する DSL プロパティは `DeprecationLevel.ERROR` に引き上げられました。これらは Kotlin 2.5.0 で削除される予定です。
 * `OptimizeNonSkippingGroups` および `PausableComposition` は非推奨になりました。これらは Kotlin 2.6.0 で削除される予定です。
 
-## 破壊的変更と非推奨
+## 破壊的変更と非推奨 {id="breaking-changes-and-deprecations"}
 
 このセクションでは、重要な破壊的変更と非推奨事項をハイライトします。完全な概要については、[互換性ガイド](compatibility-guide-24.md) を参照してください。
 
@@ -1323,7 +1323,7 @@ Kotlin 2.4.0 では、安定（Stable）に昇格しデフォルトで有効に�
 * Kotlin 2.4.0 では、Kotlin Gradle plugin におけるバイナリ互換性検証の DSL を合理化し、一部を非推奨にしました。最新の DSL については、[Kotlin Gradle plugin におけるバイナリ互換性検証](gradle-binary-compatibility-validation.md) を参照してください。
 * [`KotlinScriptMojo` Maven プラグインによる Kotlin スクリプト実行のサポートが削除されました](compatibility-guide-22.md#deprecations-to-kotlin-scripting)。
 
-## ドキュメントの更新
+## ドキュメントの更新 {id="documentation-updates"}
 Kotlin エコシステムにおいて、以下のドキュメント変更を行いました。
 
 * [Compose Multiplatform アプリにおける Liquid Glass](https://kotlinlang.org/docs/multiplatform/ios-liquid-glass.html) – iOS アプリを完全に Compose 主導のナビゲーションから、iOS 26 Liquid Glass スタイリングを使用したネイティブ SwiftUI ナビゲーションに移行。

@@ -67,7 +67,7 @@ println(doubles)
 >
 {style="note"}
 
-## 안전하게 표준 입력 처리하기
+## 안전하게 표준 입력 처리하기 {id="handle-standard-input-safely"}
 
 `.toIntOrNull()` 함수를 사용하여 사용자 입력을 문자열에서 정수로 안전하게 변환할 수 있습니다. 이 함수는 변환에 성공하면 정수를 반환합니다. 하지만 입력이 정수의 유효한 표현이 아닌 경우 `null`을 반환합니다:
 

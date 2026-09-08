@@ -4,7 +4,7 @@
 
 Kotlin 非常适合开发服务器端应用程序。借助 Kotlin，您可以编写简洁且具有表现力的代码，同时保持与现有基于 Java 的技术栈的完全兼容性。
 
-## 入门
+## 入门 {id="get-started"}
 
 Kotlin 支持将大型代码库从 Java 逐步迁移到 Kotlin。您可以开始用 Kotlin 编写测试或新的生产代码，同时保留项目的其他 Java 部分。
 
@@ -12,25 +12,25 @@ Kotlin 支持将大型代码库从 Java 逐步迁移到 Kotlin。您可以开始
 
 <a href="mixing-java-kotlin-intellij.md" as="button" mode="rock" icon="arrow-right" icon-position="right">将 Kotlin 引入您的 Java 项目</a>
 
-## 探索框架
+## 探索框架 {id="explore-frameworks"}
 
 Kotlin 与所有基于 Java 的框架完全兼容，因此您可以在沿用熟悉的技术栈的同时，从 Kotlin 语法中获益。除了出色的 IDE 支持外，Kotlin 还提供针对特定框架的工具支持，例如 IntelliJ IDEA Ultimate 订阅中对 Spring 和 Ktor 的支持。
 
-### Spring
+### Spring {id="spring"}
 
 [Spring](https://spring.io) 利用 Kotlin 的语言功能提供更简洁的 API。
 [在线项目生成器](https://start.spring.io/#!language=kotlin)允许您快速生成一个新的 Kotlin 项目。
 
 <a href="jvm-get-started-spring-boot.md" as="button" mode="rock" icon="arrow-right" icon-position="right">开始使用 Spring Boot 和 Kotlin</a>
 
-### Ktor
+### Ktor {id="ktor"}
 
 [Ktor](https://github.com/kotlin/ktor) 是由 JetBrains 构建的框架，用于在 Kotlin 中创建 Web 应用程序。
 它利用协程实现高可扩展性，并提供易于使用且惯用的 API。
 
 <a href="https://ktor.io/docs/server-create-a-new-project.html" as="button" mode="rock" icon="arrow-right" icon-position="right">创建一个新的 Ktor 项目</a>
 
-### 其他框架
+### 其他框架 {id="other-frameworks"}
 
 以下是 Kotlin 的其他一些后端框架示例：
 
@@ -43,7 +43,7 @@ Kotlin 与所有基于 Java 的框架完全兼容，因此您可以在沿用熟�
 | [http4k](https://http4k.org/)                          | 一个用纯 Kotlin 编写的、占用空间极小的函数式工具包，用于 Kotlin HTTP 应用程序。http4k 提供了[支持 CLI 的工具箱](https://toolbox.http4k.org)以生成完整的项目模板，以及一个基于 Web 的[项目向导](https://toolbox.http4k.org/project)，用于通过选定的后端、模块和构建工具引导一个可运行的 http4k 应用程序。 |
 | [Javalin](https://javalin.io)                          | 一个非常轻量级的 Kotlin 和 Java Web 框架，支持 WebSockets、HTTP2 和异步请求。 |
 
-## 部署您的应用程序
+## 部署您的应用程序 {id="deploy-your-applications"}
 
 Kotlin 应用程序可以部署到任何支持 Java Web 应用程序的主机，包括 Amazon Web Services (AWS)、Google Cloud Platform (GCP) 等。
 
@@ -51,13 +51,13 @@ Kotlin 应用程序可以部署到任何支持 Java Web 应用程序的主机，
 * **Ktor** 允许您将 Kotlin 应用程序发布到各种云提供商。例如，您可以按照 Ktor 教程详细了解如何部署到 [Google App Engine](https://ktor.io/docs/google-app-engine.html) 和其他服务。
 * **Spring** 应用程序也与大多数主流云提供商兼容。请参阅[官方 Spring 文档](https://docs.spring.io/spring-boot/how-to/deployment/cloud.html)中关于如何将 Spring Boot 应用程序部署到云端的内容。
 
-## 加入社区
+## 加入社区 {id="join-the-community"}
 
 * ![Slack](slack.svg){width=25}{type="joined"} **Kotlin Slack**: [获取邀请](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)并加入 [#spring](https://kotlinlang.slack.com/archives/C0B8ZTWE4) 和 [#server](https://kotlinlang.slack.com/archives/C0B8RC352) 频道
 * ![Stack Overflow](stackoverflow.svg){width=25}{type="joined"} **Stack Overflow**: 订阅 [“kotlin”](https://stackoverflow.com/questions/tagged/kotlin)、[“spring-kotlin”](https://stackoverflow.com/questions/tagged/spring-kotlin) 或 [“ktor”](https://stackoverflow.com/questions/tagged/ktor) 标签
 * ![YouTube](youtube.svg){width=25}{type="joined"} **Kotlin YouTube 频道**: 订阅并观看关于 [Kotlin 与 Spring](https://www.youtube.com/playlist?list=PLlFc5cFwUnmxOJL0GSSZ1Vot4KL2Vwe7x) 的视频
 
-## 下一步
+## 下一步 {id="next-steps"}
 
 * [了解如何使用 Kotlin 和 JUnit 测试您的 Java Maven 项目](jvm-test-using-junit.md)
 * [探索如何使用 Ktor 构建异步服务器应用程序](https://ktor.io/docs/server-create-a-new-project.html)

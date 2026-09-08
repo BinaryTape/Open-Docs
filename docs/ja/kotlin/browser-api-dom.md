@@ -56,7 +56,7 @@ kotlin {
 </tab>
 </tabs>
 
-## DOMとの操作
+## DOMとの操作 {id="interaction-with-the-dom"}
 
 ドキュメントオブジェクトモデル (DOM) を操作するには、変数 `document` を使用できます。例えば、このオブジェクトを通じてウェブサイトの背景色を設定できます。
 
@@ -87,6 +87,6 @@ email.value = "hadi@jetbrains.com"
 
 この `input` 要素を参照するのと同様に、ページ上の他の要素にもアクセスし、適切な型にキャストすることができます。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 DOM 内の要素を簡潔な方法で作成および構築する方法については、[タイプセーフ HTML DSL](typesafe-html-dsl.md) を確認してください。

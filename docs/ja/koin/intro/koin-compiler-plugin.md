@@ -6,7 +6,7 @@ title: Koinコンパイラプラグイン
 
 **Koinコンパイラプラグイン**は、すべての新しいKotlin 2.xプロジェクトで推奨されるアプローチです。これは、**DSLとアノテーション**の両方でオートワイヤリング、コンパイル時の安全性、およびよりクリーンな構文を支えるネイティブのKotlinコンパイラプラグインです。
 
-## コンパイラプラグインとは？
+## コンパイラプラグインとは？ {id="what-is-the-compiler-plugin"}
 
 Koinコンパイラプラグインは、KSPやアノテーションプロセッシングではなく、**ネイティブのKotlinコンパイラプラグイン (K2)** です。Kotlinコンパイラと直接統合することで、以下の機能を提供します。
 
@@ -15,9 +15,9 @@ Koinコンパイラプラグインは、KSPやアノテーションプロセッ�
 - **DSLとアノテーションの両方に対応** - 好みのスタイルを選択できます
 - **可視ファイルの生成なし** - プロジェクト構造をクリーンに保ちます
 
-## なぜコンパイラプラグインを使用するのか？
+## なぜコンパイラプラグインを使用するのか？ {id="why-use-the-compiler-plugin"}
 
-### 1. より安全なコード
+### 1. より安全なコード {id="1-safer-code"}
 
 プラグインがコンストラクタの依存関係を自動検出するため、手動による配線ミスを減らすことができます。
 
@@ -33,7 +33,7 @@ val appModule = module {
 }
 ```
 
-### 2. よりクリーンな構文
+### 2. よりクリーンな構文 {id="2-cleaner-syntax"}
 
 ボイラープレートが減り、可読性が向上します。
 
@@ -46,7 +46,7 @@ val appModule = module {
 | `scopedOf(::MyPresenter)` | `scoped<MyPresenter>()` |
 | `workerOf(::MyWorker)` | `worker<MyWorker>()` |
 
-### 3. コンパイル時の安全性
+### 3. コンパイル時の安全性 {id="3-compile-time-safety"}
 
 Koinコンパイラプラグインは、DSLとアノテーションの両方に対して**コンパイル時の依存関係検証**を提供します。
 
@@ -58,7 +58,7 @@ Koinコンパイラプラグインは、DSLとアノテーションの両方に�
 
 詳細は [Compile-Time Safety](/docs/reference/koin-compiler/compile-safety) を参照してください。
 
-### 4. DSLとアノテーション - 両方とも同様に強力
+### 4. DSLとアノテーション - 両方とも同様に強力 {id="4-dsl-annotations-both-equally-powerful"}
 
 どちらのスタイルでもお好みのものを使用できます。同じプラグインが同一の機能を提供します。
 
@@ -101,9 +101,9 @@ class UserRepository(private val database: Database)
 class UserViewModel(private val repository: UserRepository) : ViewModel()
 ```
 
-## はじめに
+## はじめに {id="getting-started"}
 
-### セットアップ
+### セットアップ {id="setup"}
 
 プロジェクトにコンパイラプラグインを追加します。
 
@@ -111,7 +111,7 @@ class UserViewModel(private val repository: UserRepository) : ViewModel()
 詳細な手順については、**[コンパイラプラグイン セットアップガイド](/docs/setup/compiler-plugin)**を参照してください。
 :::
 
-### コンパイラプラグインDSLの使用
+### コンパイラプラグインDSLの使用 {id="using-the-compiler-plugin-dsl"}
 
 コンパイラプラグインのパッケージからインポートします。
 
@@ -131,7 +131,7 @@ val appModule = module {
 コンパイラプラグインDSLは `org.koin.plugin.module.dsl` にあります。従来のDSLは引き続き `org.koin.dsl` にあります。
 :::
 
-### アノテーションの使用
+### アノテーションの使用 {id="using-annotations"}
 
 アノテーションは以前と同じように機能します。
 
@@ -156,18 +156,18 @@ class UserViewModel(private val repository: UserRepository) : ViewModel()
 class AppModule
 ```
 
-## 仕組み
+## 仕組み {id="how-it-works"}
 
 コンパイラプラグインは2つのフェーズで動作します。
 
-### 1. FIRフェーズ (解析)
+### 1. FIRフェーズ (解析) {id="1-fir-phase-analysis"}
 
 Frontend Intermediate Representation (FIR) フェーズでは、プラグインは以下のことを行います。
 - モジュール定義の解析
 - コンストラクタ引数の検出
 - 依存関係宣言の検証
 
-### 2. IRフェーズ (変換)
+### 2. IRフェーズ (変換) {id="2-ir-phase-transformation"}
 
 Intermediate Representation (IR) フェーズでは、プラグインは以下のことを行います。
 - 各引数に対して適切な `get()` 呼び出しを生成
@@ -175,7 +175,7 @@ Intermediate Representation (IR) フェーズでは、プラグインは以下�
 - 注入パラメータ (`@InjectedParam`) の処理
 - Null許容型および Lazy 型の処理
 
-### 生成される内容
+### 生成される内容 {id="what-gets-generated"}
 
 以下のように記述すると：
 
@@ -210,9 +210,9 @@ class MyService(
 - Lazy: `inject()`
 - InjectedParam: `params.get()`
 
-## コンパイラプラグインDSLリファレンス
+## コンパイラプラグインDSLリファレンス {id="compiler-plugin-dsl-reference"}
 
-### 定義タイプ
+### 定義タイプ {id="definition-types"}
 
 ```kotlin
 import org.koin.plugin.module.dsl.*
@@ -237,7 +237,7 @@ val appModule = module {
 }
 ```
 
-### `create()` による安全なインスタンス作成
+### `create()` による安全なインスタンス作成 {id="safe-instance-creation-with-create"}
 
 定義ラムダ内で `create(::T)` を使用すると、自動解決されたコンストラクタ依存関係を持つインスタンスを安全に構築できます。
 
@@ -249,7 +249,7 @@ val appModule = module {
 
 コンパイラプラグインは `create(::MyService)` を `MyService(get(), get(), ...)` に変換し、すべてのコンストラクタ引数をオートワイヤリングします。
 
-### 限定子 (Qualifiers) の使用
+### 限定子 (Qualifiers) の使用 {id="with-qualifiers"}
 
 クラスに `@Named` を使用して限定子を定義し、引数に `@Named` を使用してどの依存関係を注入するかを指定します。
 
@@ -296,7 +296,7 @@ class SyncService(
 )
 ```
 
-### パラメータの使用
+### パラメータの使用 {id="with-parameters"}
 
 クラス内で `@InjectedParam` を使用して、注入時に渡されるパラメータをマークします。
 
@@ -316,7 +316,7 @@ val appModule = module {
 val presenter: UserPresenter = get { parametersOf("user123") }
 ```
 
-### インターフェースのバインド
+### インターフェースのバインド {id="interface-binding"}
 
 ```kotlin
 val appModule = module {
@@ -330,9 +330,9 @@ val appModule = module {
 }
 ```
 
-## アノテーションリファレンス
+## アノテーションリファレンス {id="annotations-reference"}
 
-### 定義アノテーション
+### 定義アノテーション {id="definition-annotations"}
 
 | アノテーション | 説明 |
 |------------|-------------|
@@ -342,7 +342,7 @@ val appModule = module {
 | `@KoinViewModel` | Android ViewModel |
 | `@KoinWorker` | Android WorkManager Worker |
 
-### 引数アノテーション
+### 引数アノテーション {id="parameter-annotations"}
 
 | アノテーション | 説明 |
 |------------|-------------|
@@ -351,7 +351,7 @@ val appModule = module {
 | `@Property("key")` | Koinプロパティ値 |
 | `@Provided` | 外部依存関係 (検証をスキップ) |
 
-### モジュールアノテーション
+### モジュールアノテーション {id="module-annotations"}
 
 | アノテーション | 説明 |
 |------------|-------------|
@@ -359,7 +359,7 @@ val appModule = module {
 | `@ComponentScan("package")` | アノテーション付きクラスのパッケージスキャン |
 | `@Configuration` | 自動検出されるモジュール |
 
-## アプローチの比較
+## アプローチの比較 {id="comparison-approaches"}
 
 | アプローチ | ステータス | パッケージ | 構文 |
 |----------|--------|---------|--------|
@@ -368,34 +368,34 @@ val appModule = module {
 | **従来のDSL** | フルサポート | `org.koin.dsl` | `singleOf(::MyService)`, `single { MyService(get()) }`, `viewModelOf(::MyVM)` |
 | **KSPプロセッサ** | 非推奨 | `koin-ksp-compiler` | Koinアノテーション用のレガシープロセッサ。アノテーションは共通ですが、**コンパイラプラグインへ移行してください ⚠️** |
 
-### コンパイラプラグインDSL (推奨)
+### コンパイラプラグインDSL (推奨) {id="compiler-plugin-dsl-recommended"}
 
 - 依存関係を自動検出
 - コンパイル時の解析
 - 最もクリーンな構文
 
-### コンパイラプラグイン・アノテーション (推奨)
+### コンパイラプラグイン・アノテーション (推奨) {id="compiler-plugin-annotations-recommended"}
 
 - 依存関係を自動検出
 - コンパイル時の解析
 - 馴染みのあるアノテーションスタイル
 
-### 従来のDSL (フルサポート)
+### 従来のDSL (フルサポート) {id="classic-dsl-fully-supported"}
 
 - 任意のKotlinバージョンで動作
 - 配線の完全な制御
 - 準備ができたらプラグインDSLに移行可能
 
-### KSPプロセッサ `koin-ksp-compiler` (非推奨)
+### KSPプロセッサ `koin-ksp-compiler` (非推奨) {id="ksp-processor-koin-ksp-compiler-deprecated"}
 
 - `koin-annotations` ライブラリ自体は**非推奨ではありません**。現在はKoinプロジェクトの一部です。
 - レガシーなKSPベースのプロセッサ (`koin-ksp-compiler`) のみが非推奨です。
 - Koinコンパイラプラグインに移行してください。アノテーションはそのままで機能します。
 - `koin-ksp-compiler` は将来のKoinバージョンで削除される予定です。
 
-## 移行
+## 移行 {id="migration"}
 
-### 従来のDSLからの移行
+### 従来のDSLからの移行 {id="from-classic-dsl"}
 
 従来のDSLを使用している場合、移行は任意ですが推奨されます。
 
@@ -406,7 +406,7 @@ val appModule = module {
 
 コンパイル時の安全な構文については、[コンパイラプラグインDSLリファレンス](/docs/setup/compiler-plugin#dsl-style)を参照してください。
 
-### KSPプロセッサ (`koin-ksp-compiler`) からの移行
+### KSPプロセッサ (`koin-ksp-compiler`) からの移行 {id="from-the-ksp-processor-koin-ksp-compiler"}
 
 レガシーなKSPプロセッサでKoinアノテーションを使用している場合、今すぐ移行することをお勧めします。
 
@@ -417,12 +417,12 @@ val appModule = module {
 
 [Migrating from KSP to Compiler Plugin](/docs/migration/from-ksp-to-compiler-plugin) を参照してください。
 
-## 要件
+## 要件 {id="requirements"}
 
 - **Kotlin 2.x** (K2コンパイラ)
 - Gradle 8.x以上
 
-## 設定オプション
+## 設定オプション {id="configuration-options"}
 
 ```kotlin
 // build.gradle.kts
@@ -431,7 +431,7 @@ koinCompiler {
 }
 ```
 
-## 従来のDSL：引き続きフルサポート
+## 従来のDSL：引き続きフルサポート {id="classic-dsl-still-fully-supported"}
 
 コンパイラプラグインは従来のDSLを置き換えるものではなく、その上に解析と生成の機能を追加するものです。従来のDSLは引き続き完全にサポートされます。
 
@@ -451,7 +451,7 @@ val appModule = module {
 - 条件付きのインスタンス化
 - Kotlin 1.xとの後方互換性
 
-## 次のステップ
+## 次のステップ {id="next-steps"}
 
 - **[セットアップガイド](/docs/setup/compiler-plugin)** - 詳細なセットアップ手順
 - **[DSLリファレンス](/docs/reference/dsl-reference)** - DSLの完全なドキュメント

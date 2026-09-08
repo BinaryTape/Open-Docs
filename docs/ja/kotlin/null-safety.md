@@ -24,7 +24,7 @@ KotlinでNPEが発生する可能性がある唯一の原因は以下の通り�
 >
 {style="tip"}
 
-## Null許容型と非null型
+## Null許容型と非null型 {id="nullable-types-and-non-nullable-types"}
 
 Kotlinの型システムは、`null` を保持できる型（nullable types）と保持できない型（non-nullable types）を区別します。例えば、通常の `String` 型の変数は `null` を保持できません。
 
@@ -106,7 +106,7 @@ fun main() {
 
 詳細と `null` 処理のツールやテクニックの例については、次のセクションを読んでください。
 
-## if条件式によるnullチェック
+## if条件式によるnullチェック {id="check-for-null-with-the-if-conditional"}
 
 nullableな型を扱うときは、NPEを避けるためにnull許容性を安全に処理する必要があります。一つの方法は、`if` 条件式を使用して明示的にnull許容性をチェックすることです。
 
@@ -151,7 +151,7 @@ fun main() {
 
 上記の例は、[スマートキャストの前提条件](typecasts.md#smart-cast-prerequisites)と同様に、コンパイラがチェックとその使用の間に `b` が変更されないことを保証できる場合にのみ機能することに注意してください。
 
-## 安全呼び出し演算子
+## 安全呼び出し演算子 {id="safe-call-operator"}
 
 安全呼び出し（safe call）演算子 `?.` を使用すると、null許容性をより短い形式で安全に処理できます。オブジェクトが `null` の場合、`?.` 演算子はNPEをスローする代わりに、単に `null` を返します。
 
@@ -202,7 +202,7 @@ if (person != null && person.department != null) {
 }
 ```
 
-## エルビス演算子
+## エルビス演算子 {id="elvis-operator"}
 
 nullableな型を扱うとき、`null` かどうかをチェックして代替値を提供できます。例えば、`b` が `null` でなければ `b.length` にアクセスし、そうでなければ代替値を返すようにします：
 
@@ -250,7 +250,7 @@ fun foo(node: Node): String? {
 }
 ```
 
-## 非nullアサーション演算子
+## 非nullアサーション演算子 {id="not-null-assertion-operator"}
 
 非nullアサーション演算子 `!!` は、あらゆる値を非null型に変換します。
 
@@ -290,7 +290,7 @@ fun main() {
 
 `!!` 演算子は、ある値が `null` ではなくNPEが発生する可能性がないと確信しているが、特定のルールのためにコンパイラがそれを保証できない場合に特に便利です。そのような場合、`!!` 演算子を使用して、値が `null` ではないことを明示的にコンパイラに伝えることができます。
 
-## Nullableレシーバー
+## Nullableレシーバー {id="nullable-receiver"}
 
 [nullableなレシーバー型](extensions.md#nullable-receivers)を持つ拡張関数を使用することができ、これにより `null` になる可能性のある変数に対してこれらの関数を呼び出すことができます。
 
@@ -341,7 +341,7 @@ data class Person(val name: String)
 
 `?.` 演算子を使用すると、`null` になる可能性のあるオブジェクトのプロパティや関数にアクセスしつつ、潜在的な `null` 値を安全に処理できます。
 
-## Let関数
+## Let関数 {id="let-function"}
 
 `null` 値を処理し、非null型に対してのみ操作を実行するには、安全呼び出し演算子 `?.` を [`let` 関数](scope-functions.md#let) と組み合わせて使用できます。
 
@@ -364,7 +364,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-## 安全なキャスト
+## 安全なキャスト {id="safe-casts"}
 
 Kotlinにおける通常の[型キャスト](typecasts.md#unsafe-cast-operator)演算子は `as` 演算子です。しかし、通常のキャストでは、オブジェクトが対象の型でない場合に例外が発生する可能性があります。
 
@@ -392,7 +392,7 @@ fun main() {
 
 上記のコードでは、`a` は `Int` ではないためキャストが安全に失敗し、`null` が出力されます。また、`String?` 型には一致するため、安全なキャストが成功し、`"Hello, Kotlin!"` が出力されます。
 
-## Nullable型のコレクション
+## Nullable型のコレクション {id="collections-of-a-nullable-type"}
 
 nullableな要素のコレクションがあり、非nullの要素だけを保持したい場合は、`filterNotNull()` 関数を使用します。
 
@@ -412,7 +412,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [JavaとKotlinにおけるnull許容性の扱い方](java-to-kotlin-nullability-guide.md)を学ぶ。
 * [確実に非nullな型（definitely non-nullable types）](generics.md#definitely-non-nullable-types)であるジェネリック型について学ぶ。

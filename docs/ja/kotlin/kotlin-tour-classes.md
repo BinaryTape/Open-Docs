@@ -11,7 +11,7 @@ Kotlinは、クラスとオブジェクトによるオブジェクト指向プ�
 class Customer
 ```
 
-## プロパティ
+## プロパティ {id="properties"}
 
 クラスのオブジェクトの特性は、プロパティとして宣言できます。クラスのプロパティは以下の場所で宣言できます：
 
@@ -43,7 +43,7 @@ class Contact(val id: Int, var email: String = "example@gmail.com") {
 }
 ```
 
-## インスタンスの作成
+## インスタンスの作成 {id="create-instance"}
 
 クラスからオブジェクトを作成するには、コンストラクタを使用してクラスの**インスタンス**を宣言します。
 
@@ -68,7 +68,7 @@ fun main() {
 
 Kotlinのクラスは、自分で定義したものを含め、複数のコンストラクタを持つことができます。複数のコンストラクタを宣言する方法の詳細については、[コンストラクタ](classes.md#constructors-and-initializer-blocks)を参照してください。
 
-## プロパティへのアクセス
+## プロパティへのアクセス {id="access-properties"}
 
 インスタンスのプロパティにアクセスするには、インスタンス名の後にピリオド `.` を付け、その後にプロパティ名を書きます：
 
@@ -100,7 +100,7 @@ fun main() {
 >
 {style="tip"}
 
-## メンバ関数
+## メンバ関数 {id="member-functions"}
 
 オブジェクトの特性としてプロパティを宣言するだけでなく、**メンバ関数**でオブジェクトの振る舞いを定義することもできます。
 
@@ -122,7 +122,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-member-function"}
 
-## データクラス
+## データクラス {id="data-classes"}
 
 Kotlinには、データの保存に特に便利な**データクラス**（data classes）があります。データクラスは通常のクラスと同じ機能を持ちますが、追加のメンバ関数が自動的に備わっています。これらのメンバ関数を使用すると、インスタンスを読みやすい形式で出力したり、クラスのインスタンス同士を比較したり、インスタンスをコピーしたりといったことが簡単にできます。これらの関数は自動的に利用可能になるため、各クラスごとに同じようなボイラープレートコード（定型的なコード）を書く手間が省けます。
 
@@ -148,7 +148,7 @@ Kotlinコンパイラは、メンバ関数を生成する際、[プライマリ�
 * [インスタンスの比較](#compare-instances)
 * [インスタンスのコピー](#copy-instance)
 
-### 文字列として出力
+### 文字列として出力 {id="print-as-string"}
 
 クラスインスタンスを読みやすい文字列で出力するには、`toString()` 関数を明示的に呼び出すか、`println()` や `print()` 関数を使用します。これらの関数は内部で自動的に `toString()` を呼び出します。
 
@@ -169,7 +169,7 @@ fun main() {
 
 これは、デバッグやログの作成時に特に便利です。
 
-### インスタンスの比較
+### インスタンスの比較 {id="compare-instances"}
 
 データクラスのインスタンスを比較するには、等価演算子 `==` を使用します：
 
@@ -194,7 +194,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-data-classes-compare-instances"}
 
-### インスタンスのコピー
+### インスタンスのコピー {id="copy-instance"}
 
 データクラスのインスタンスの正確なコピーを作成するには、そのインスタンスで `copy()` 関数を呼び出します。
 
@@ -231,9 +231,9 @@ fun main() {
 
 このツアーの最後の章は、Kotlinの [Null安全](kotlin-tour-null-safety.md)についてです。
 
-## 練習問題 {completion-point="true"}
+## 練習問題 {completion-point="true" id="practice"}
 
-### 演習 1 {initial-collapse-state="collapsed" collapsible="true"}
+### 演習 1 {initial-collapse-state="collapsed" collapsible="true" id="exercise-1"}
 
 2つのプロパティ（名前用のプロパティと給与用のプロパティ）を持つデータクラス `Employee` を定義してください。給与のプロパティは、年末に昇給できるように可変（mutable）にしてください。`main` 関数はこのデータクラスの使用例を示しています。
 
@@ -263,7 +263,7 @@ fun main() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="解答例" id="kotlin-tour-classes-solution-1"}
 
-### 演習 2 {initial-collapse-state="collapsed" collapsible="true"}
+### 演習 2 {initial-collapse-state="collapsed" collapsible="true" id="exercise-2"}
 
 このコードをコンパイルするために必要な、追加のデータクラスを宣言してください。
 
@@ -300,7 +300,7 @@ fun main() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="解答例" id="kotlin-tour-classes-solution-2"}
 
-### 演習 3 {initial-collapse-state="collapsed" collapsible="true"}
+### 演習 3 {initial-collapse-state="collapsed" collapsible="true" id="exercise-3"}
 
 コードをテストするために、ランダムな従業員を作成できるジェネレーターが必要です。候補となる名前の固定リスト（クラスボディ内）を持つ `RandomEmployeeGenerator` クラスを定義してください。最小給与と最大給与（クラスヘッダー内）でクラスを設定できるようにします。クラスボディ内に `generateEmployee()` 関数を定義してください。ここでも、`main` 関数はこのクラスの使用例を示しています。
 

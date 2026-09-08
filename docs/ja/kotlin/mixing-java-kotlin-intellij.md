@@ -16,13 +16,13 @@ KotlinはJavaと完全に相互運用可能であるため、すべてを書き�
 >
 {style="tip"}
 
-## プロジェクトの構成
+## プロジェクトの構成 {id="project-configuration"}
 
 JavaプロジェクトにKotlinを追加するには、使用するビルドツールに応じて、KotlinとJavaの両方を使用するようにプロジェクトを構成する必要があります。
 
 プロジェクトを構成することで、KotlinとJavaの両方のコードが適切にコンパイルされ、相互にシームレスに参照できるようになります。
 
-### Maven
+### Maven {id="maven"}
 
 > **IntelliJ IDEA 2025.3** 以降、MavenベースのJavaプロジェクトに最初のKotlinファイルを追加すると、IDEは自動的に `pom.xml` ファイルを更新してKotlin Mavenプラグインと標準の依存関係を含めます。バージョンのカスタマイズやビルドフェーズの調整が必要な場合は、手動で構成することもできます。
 >
@@ -64,7 +64,7 @@ MavenプロジェクトでKotlinとJavaを併用するには、`pom.xml` ファ�
     ./mvnw clean test
     ```
 
-### Gradle
+### Gradle {id="gradle"}
 
 GradleプロジェクトでKotlinとJavaを併用するには、`build.gradle.kts` ファイルにKotlin JVMプラグインを適用し、Kotlinの依存関係を追加します：
 
@@ -105,7 +105,7 @@ GradleプロジェクトでKotlinとJavaを併用するには、`build.gradle.kt
     ./gradlew clean test
     ```
 
-## プロジェクト構造
+## プロジェクト構造 {id="project-structure"}
 
 この構成により、同じソースディレクトリ内にJavaファイルとKotlinファイルを混在させることができます：
 
@@ -123,7 +123,7 @@ src/
 
 Kotlinプラグインは `src/main/java` と `src/test/java` の両方のディレクトリを自動的に認識するため、`.kt` ファイルと `.java` ファイルを同じディレクトリに保持できます。
 
-## JavaファイルをKotlinに変換する
+## JavaファイルをKotlinに変換する {id="convert-java-files-to-kotlin"}
 
 Kotlinプラグインには、JavaファイルをKotlinに自動的に変換するJava to Kotlinコンバーター（_J2K_）も同梱されています。ファイルに対してJ2Kを使用するには、そのファイルのコンテキストメニューまたはIntelliJ IDEAの **Code** メニューで **Convert Java File to Kotlin File** をクリックします。
 
@@ -131,7 +131,7 @@ Kotlinプラグインには、JavaファイルをKotlinに自動的に変換す�
 
 このコンバーターは万能ではありませんが、JavaからKotlinへのほとんどのボイラープレートコードの変換において、かなり優れた働きをします。ただし、場合によっては手動での微調整が必要になることがあります。
 
-## コンパイラプラグインを詳しく見る {initial-collapse-state="collapsed" collapsible="true"}
+## コンパイラプラグインを詳しく見る {initial-collapse-state="collapsed" collapsible="true" id="explore-compiler-plugins"}
 
 [Spring](https://spring.io/) や Java Persistence API (JPA) を使用するより複雑なプロジェクトがある場合は、Kotlin の言語機能をフレームワークの期待に自動的に適合させ、ボイラープレートを削減する Kotlin コンパイラプラグインを使用できます：
 
@@ -143,13 +143,13 @@ Kotlinプラグインには、JavaファイルをKotlinに自動的に変換す�
   [`kotlin-jpa`](no-arg-plugin.md#jpa-support) プラグインも使用できます。これは `no-arg` の上に構築されたラッパーであり、no-arg アノテーションを自動的に指定します。
 * **[`power-assert`](power-assert.md)** プラグインは、アサーションに対してコンテキスト情報を含む詳細な失敗メッセージを提供することで、デバッグ体験を向上させます。中間値を表示し、テストが失敗した理由を理解するのに役立ちます。
 
-## 次のステップ
+## 次のステップ {id="next-step"}
 
 JavaプロジェクトでKotlinを使い始める最も簡単な方法は、最初にKotlinのテストを追加することです：
 
 [Javaプロジェクトに最初のKotlinテストを追加する](jvm-test-using-junit.md)
 
-### 関連項目
+### 関連項目 {id="see-also"}
 
 * [KotlinとJavaの相互運用性の詳細](java-to-kotlin-interop.md)
 * [Mavenビルド構成リファレンス](maven.md)

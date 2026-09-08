@@ -6,7 +6,7 @@
 
 これにより、Kotlin または Java の観点からは引数なしコンストラクタがない場合でも、Java Persistence API (JPA) がクラスをインスタンス化できるようになります（[以下](#jpa-サポート)の `kotlin-jpa` プラグインの説明を参照してください）。
 
-## Kotlin ファイル内での記述
+## Kotlin ファイル内での記述 {id="in-your-kotlin-file"}
 
 引数なしコンストラクタが必要なコードをマークするために、新しいアノテーションを追加します：
 
@@ -16,7 +16,7 @@ package com.my
 annotation class Annotation
 ```
 
-## Gradle
+## Gradle {id="gradle"}
 
 Gradle の plugins DSL を使用してプラグインを追加します：
 
@@ -57,7 +57,7 @@ noArg {
 }
 ```
 
-## Maven
+## Maven {id="maven"}
 
 ```xml
 <plugin>
@@ -88,7 +88,7 @@ noArg {
 </plugin>
 ```
 
-## JPA サポート
+## JPA サポート {id="jpa-support"}
 
 `all-open` の上にラップされた `kotlin-spring` プラグインと同様に、`kotlin-jpa` は `no-arg` の上にラップされています。このプラグインは、[`@Entity`](https://docs.oracle.com/javaee/7/api/javax/persistence/Entity.html)、[`@Embeddable`](https://docs.oracle.com/javaee/7/api/javax/persistence/Embeddable.html)、および [`@MappedSuperclass`](https://docs.oracle.com/javaee/7/api/javax/persistence/MappedSuperclass.html) を *no-arg* アノテーションとして自動的に指定します。
 
@@ -123,7 +123,7 @@ Maven では、`jpa` プラグインを有効にします：
 </compilerPlugins>
 ```
 
-## コマンドラインコンパイラ
+## コマンドラインコンパイラ {id="command-line-compiler"}
 
 コンパイラプラグインのクラスパスにプラグインの JAR ファイルを追加し、アノテーションまたはプリセットを指定します：
 

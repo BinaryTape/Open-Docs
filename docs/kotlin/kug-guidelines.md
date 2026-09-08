@@ -14,7 +14,7 @@ KUG 聚会的格式没有限制。它们可以以最适合社区的任何方式�
 >
 {style="note"}
 
-## 如何运行 KUG？
+## 如何运行 KUG？ {id="how-to-run-a-kug"}
 
 * 为了增强小组凝聚力并防止沟通误解，我们建议每个城市限设一个 KUG。查看 [KUG 列表](https://kotlinlang.org/community/user-groups/)以了解您所在的地区是否已有 KUG。
 * 使用官方 KUG 徽标和品牌。查看[品牌指南](kotlin-brand-assets.md#kotlin-user-group-brand-assets)。
@@ -27,7 +27,7 @@ KUG 聚会的格式没有限制。它们可以以最适合社区的任何方式�
 
 有疑问？[联系我们](mailto:kug@jetbrains.com)
 
-## JetBrains 对 KUG 的支持
+## JetBrains 对 KUG 的支持 {id="support-for-kugs-from-jetbrains"}
 
 每 3 个月至少举办 1 次聚会的活跃 KUG 可以申请[社区支持计划](https://www.jetbrains.com/community/user-groups/)，其中包括：
 * 官方 KUG 品牌宣传。
@@ -36,7 +36,7 @@ KUG 聚会的格式没有限制。它们可以以最适合社区的任何方式�
 * 对 Kotlin 活动和宣传活动的优先支持。
 * 协助为您的活动招募 Kotlin 演讲者。
 
-## JetBrains 对其他技术社区的支持
+## JetBrains 对其他技术社区的支持 {id="support-from-jetbrains-for-other-tech-communities"}
 
 如果您组织任何其他技术社区，也可以申请支持。通过这样做，您可能会获得：
 * 用于在聚会上抽奖的 JetBrains 产品免费许可证。

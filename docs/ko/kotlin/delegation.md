@@ -24,7 +24,7 @@ fun main() {
 
 `Derived`의 상위 타입 목록에 있는 `by` 절은 `b`가 `Derived` 객체 내부에 저장되며, 컴파일러가 `Base`의 모든 메서드를 `b`로 전달(forward)하도록 생성할 것임을 나타냅니다.
 
-## 위임으로 구현된 인터페이스 멤버 오버라이딩하기
+## 위임으로 구현된 인터페이스 멤버 오버라이딩하기 {id="overriding-a-member-of-an-interface-implemented-by-delegation"}
 
 [오버라이딩(Overrides)](inheritance.md#overriding-methods)은 예상한 대로 작동합니다. 컴파일러는 위임 객체에 있는 구현 대신 사용자가 작성한 `override` 구현을 사용합니다. 만약 `Derived`에 `override fun printMessage() { print("abc") }`를 추가하면, `printMessage`가 호출될 때 프로그램은 *10* 대신 *abc*를 출력합니다:
 

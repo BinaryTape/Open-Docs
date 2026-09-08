@@ -29,7 +29,7 @@ val securePassword = Password("Don't try this in production")
 
 這是內嵌類別的主要特性，也是 *inline（內嵌）* 這個名稱的靈感來源：類別的資料會被 *內嵌* 到其使用處（類似於 [內嵌函式](inline-functions.md) 的內容被內嵌到呼叫點的方式）。
 
-## 成員
+## 成員 {id="members"}
 
 內嵌類別支援一般類別的部分功能。特別是，它們允許宣告屬性和函式、擁有 `init` 區塊和 [次建構函數](classes.md#secondary-constructors)：
 
@@ -67,7 +67,7 @@ fun main() {
 
 內嵌類別的屬性不能有 [支援欄位](properties.md#backing-fields)。它們只能有簡單的可計算屬性（不能有 `lateinit` 或委派屬性）。
 
-## 繼承
+## 繼承 {id="inheritance"}
 
 內嵌類別允許繼承自介面：
 
@@ -89,7 +89,7 @@ fun main() {
 
 禁止內嵌類別參與類別階層結構。這意味著內嵌類別不能擴充其他類別，且一律為 `final`。
 
-## 表示方式 (Representation)
+## 表示方式 (Representation) {id="representation"}
 
 在產生的程式碼中，Kotlin 編譯器會為每個內嵌類別保留一個 *包裝器（wrapper）*。內嵌類別執行個體在執行時可以表示為包裝器或底層型別。這與 `Int` 可以被 [表示](numbers.md#boxing-and-caching-numbers-on-the-jvm) 為基本型別 `int` 或包裝器 `Integer` 的方式類似。
 
@@ -133,7 +133,7 @@ value class UserId<T>(val value: T)
 fun compute(s: UserId<String>) {} // 編譯器產生 fun compute-<hashcode>(s: Any?)
 ```
 
-### 名稱修飾 (Mangling)
+### 名稱修飾 (Mangling) {id="mangling"}
 
 由於內嵌類別會被編譯為其底層型別，這可能會導致各種隱晦的錯誤，例如非預期的平台簽章衝突：
 
@@ -150,7 +150,7 @@ fun compute(x: UInt) { }
 
 為了緩解這類問題，使用內嵌類別的函式會透過在函式名稱中加入一些穩定的雜湊碼來進行 *名稱修飾（mangled）*。因此，`fun compute(x: UInt)` 將被表示為 `public final void compute-<hashcode>(int x)`，這解決了衝突問題。
 
-### 從 Java 程式碼呼叫
+### 從 Java 程式碼呼叫 {id="calling-from-java-code"}
 
 你可以從 Java 程式碼呼叫接受內嵌類別的函式。若要執行此操作，你應該手動停用名稱修飾：在函式宣告前加上 `@JvmName` 註解：
 
@@ -167,7 +167,7 @@ fun compute(x: UInt) { }
 預設情況下，Kotlin 使用 **未裝箱表示方式（unboxed representations）** 編譯內嵌類別，這使得它們難以從 Java 存取。
 要了解如何將內嵌類別編譯為可從 Java 存取的 **裝箱表示方式（boxed representations）**，請參閱 [從 Java 呼叫 Kotlin](java-to-kotlin-interop.md#inline-value-classes) 指南。
 
-## 內嵌類別 vs 型別別名
+## 內嵌類別 vs 型別別名 {id="inline-classes-vs-type-aliases"}
 
 乍看之下，內嵌類別似乎與 [型別別名](type-aliases.md) 非常相似。確實，兩者看起來都引入了新型別，且在執行時都會被表示為底層型別。
 
@@ -199,7 +199,7 @@ fun main() {
 }
 ```
 
-## 內嵌類別與委派
+## 內嵌類別與委派 {id="inline-classes-and-delegation"}
 
 在介面中，允許透過委派給內嵌類別的內嵌值來進行實作：
 

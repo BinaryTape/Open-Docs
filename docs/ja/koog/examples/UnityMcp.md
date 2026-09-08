@@ -25,7 +25,7 @@ lateinit var process: Process
 
 ```
 
-## 1) OpenAI APIキーの提供
+## 1) OpenAI APIキーの提供 {id="1-provide-your-openai-api-key"}
 シークレットをノートブックに含めないようにするため、`OPENAI_API_KEY` 環境変数からAPIキーを読み取ります。
 
 ```kotlin
@@ -33,7 +33,7 @@ val token = System.getenv("OPENAI_API_KEY") ?: error("OPENAI_API_KEY environment
 val executor = simpleOpenAIExecutor(token)
 ```
 
-## 2) Unityエージェントの設定
+## 2) Unityエージェントの設定 {id="2-configure-the-unity-agent"}
 Unity用のコンパクトなシステムプロンプトとエージェント設定を定義します。
 
 ```kotlin
@@ -52,7 +52,7 @@ val agentConfig = AIAgentConfig(
 
 ```
 
-## 3) Unity MCPサーバーの起動
+## 3) Unity MCPサーバーの起動 {id="3-start-the-unity-mcp-server"}
 UnityプロジェクトのディレクトリからUnity MCPサーバーを起動し、標準入出力（stdio）経由で接続します。
 
 ```kotlin
@@ -64,7 +64,7 @@ val process = ProcessBuilder(
 ).start()
 ```
 
-## 4) Koogからの接続とエージェントの実行
+## 4) Koogからの接続とエージェントの実行 {id="4-connect-from-koog-and-run-the-agent"}
 Unity MCPサーバーからツールを検出し、小規模な「プラン優先（plan-first）」戦略を構築し、ツールのみを使用して開いているシーンを変更するエージェントを実行します。
 
 ```kotlin
@@ -139,7 +139,7 @@ description:" + it.descriptor
 }
 ```
 
-## 5) MCPプロセスの終了
+## 5) MCPプロセスの終了 {id="5-shut-down-the-mcp-process"}
 実行の最後には、必ず外部のUnity MCPサーバープロセスをクリーンアップしてください。
 
 ```kotlin

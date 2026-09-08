@@ -6,7 +6,7 @@ title: 模組
 
 Koin 模組是組織相依注入配置的建置區塊。
 
-## 什麼是模組？
+## 什麼是模組？ {id="what-is-a-module"}
 
 模組是群組相關定義的邏輯容器：
 
@@ -24,9 +24,9 @@ val appModule = module {
 - 跨內容**重複使用**配置
 - 在模組化專案中**控制可見性**
 
-## 建立模組
+## 建立模組 {id="creating-modules"}
 
-### 使用編譯器外掛程式 DSL
+### 使用編譯器外掛程式 DSL {id="with-compiler-plugin-dsl"}
 
 ```kotlin
 import org.koin.plugin.module.dsl.*
@@ -42,7 +42,7 @@ val databaseModule = module {
 }
 ```
 
-### 使用註解
+### 使用註解 {id="with-annotations"}
 
 ```kotlin
 @Module
@@ -54,7 +54,7 @@ class NetworkModule
 class DatabaseModule
 ```
 
-### 使用經典 DSL
+### 使用經典 DSL {id="with-classic-dsl"}
 
 ```kotlin
 val networkModule = module {
@@ -63,7 +63,7 @@ val networkModule = module {
 }
 ```
 
-## 使用多個模組
+## 使用多個模組 {id="using-multiple-modules"}
 
 相依性可以參考來自其他模組的定義：
 
@@ -93,7 +93,7 @@ Koin 會自動解析所有已載入模組間的相依性。不需要明確匯入
 雖然直接列出模組是可行的，但建議考慮使用 [`includes()`](#使用-includes-組合模組) 將您的模組組織成階層結構，以獲得更好的結構與最佳化載入。
 :::
 
-## 使用 `includes()` 組合模組
+## 使用 `includes()` 組合模組 {id="module-composition-with-includes"}
 
 `includes()` 函式是組織模組的**推薦方式**。它提供：
 
@@ -132,7 +132,7 @@ startKoin {
 }
 ```
 
-### `includes()` 如何最佳化載入
+### `includes()` 如何最佳化載入 {id="how-includes-optimizes-loading"}
 
 當模組被多次包含時，Koin 僅會載入它們一次：
 
@@ -161,7 +161,7 @@ startKoin {
 }
 ```
 
-### 多模組專案
+### 多模組專案 {id="multi-module-projects"}
 
 使用可見性修飾詞來控制公開的內容：
 
@@ -188,9 +188,9 @@ startKoin {
 }
 ```
 
-## 模組覆寫
+## 模組覆寫 {id="module-override"}
 
-### 預設行為
+### 預設行為 {id="default-behavior"}
 
 預設情況下，**最後載入的定義優先**：
 
@@ -208,7 +208,7 @@ startKoin {
 }
 ```
 
-### 嚴格模式
+### 嚴格模式 {id="strict-mode"}
 
 在生產環境中停用覆寫：
 
@@ -219,7 +219,7 @@ startKoin {
 }
 ```
 
-### 明確覆寫
+### 明確覆寫 {id="explicit-override"}
 
 在嚴格模式下允許特定覆寫：
 
@@ -234,7 +234,7 @@ startKoin {
 }
 ```
 
-## 立即模組建立
+## 立即模組建立 {id="eager-module-creation"}
 
 在啟動時立即建立單例（Singleton）：
 
@@ -245,7 +245,7 @@ val coreModule = module(createdAtStart = true) {
 }
 ```
 
-## 參數化模組
+## 參數化模組 {id="parameterized-modules"}
 
 動態建立模組：
 
@@ -261,7 +261,7 @@ startKoin {
 }
 ```
 
-## 策略模式
+## 策略模式 {id="strategy-pattern"}
 
 使用模組來交換實作：
 
@@ -290,7 +290,7 @@ startKoin {
 }
 ```
 
-## 註解式模組
+## 註解式模組 {id="annotated-modules"}
 
 Koin 支援基於註解的模組配置，作為 DSL 的替代方案。
 
@@ -318,9 +318,9 @@ class AppModule
 如需完整的註解式模組文件，請參閱 [註解參考 - 模組](/docs/reference/koin-annotations/modules)。
 :::
 
-## 最佳實務
+## 最佳實務 {id="best-practices"}
 
-### 組織
+### 組織 {id="organization"}
 
 1. **依功能/層級群組**
    ```kotlin
@@ -348,7 +348,7 @@ class AppModule
 
 3. **保持模組專注** - 每個模組僅負擔單一職責
 
-### 命名
+### 命名 {id="naming"}
 
 - 使用描述性名稱：`networkModule`、`userFeatureModule`
 - 將相關內容群組：`authDataModule`、`authDomainModule`
@@ -359,7 +359,7 @@ class AppModule
 2. **實作模組使用 `private`/`internal`**
 3. **將共享模組置於 `:core`**
 
-## 後續步驟
+## 後續步驟 {id="next-steps"}
 
 - **[定義](/docs/reference/koin-core/definitions)** - 建立定義
 - **[限定符](/docs/reference/koin-core/qualifiers)** - 具名與型別限定符

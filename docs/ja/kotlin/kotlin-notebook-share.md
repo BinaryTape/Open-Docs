@@ -19,7 +19,7 @@ Kotlinノートブックを共有するために、以下のプラットフォ�
   例については、[Kotlin DataFrameのサンプルGitHubリポジトリ](https://github.com/Kotlin/dataframe/blob/master/examples/notebooks/titanic/Titanic.ipynb)を参照してください。
   ![GitHub Notebook example](github-notebook.png){width=700}
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [Kandyライブラリ](data-analysis-visualization.md)を使用したデータの可視化を探索する
 * [データソースの操作](data-analysis-work-with-data-sources.md)で、ファイル、Webソース、またはデータベースからのデータ取得について学ぶ

@@ -37,9 +37,9 @@ kotlin {
 </TabItem>
 </Tabs>
 
-## Kotlin 程式庫的相依性
+## Kotlin 程式庫的相依性 {id="dependency-on-a-kotlin-library"}
 
-### 標準程式庫
+### 標準程式庫 {id="standard-library"}
 
 每個原始碼集都會自動新增對標準程式庫 (`stdlib`) 的相依性。標準程式庫的版本與 `kotlin-multiplatform` 外掛程式的版本相同。
 
@@ -47,7 +47,7 @@ kotlin {
 
 了解如何[變更預設行為](https://kotlinlang.org/docs/gradle-configure-project.html#dependency-on-the-standard-library)。
 
-### 測試程式庫
+### 測試程式庫 {id="test-libraries"}
 
 對於多平台測試，可以使用 [`kotlin.test`](https://kotlinlang.org/api/latest/kotlin.test/) API。當您建立多平台專案時，可以透過在 `commonTest` 中使用單一相依性，將測試相依性新增至所有原始碼集：
 
@@ -84,7 +84,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-### kotlinx 程式庫
+### kotlinx 程式庫 {id="kotlinx-libraries"}
 
 如果您使用多平台程式庫並需要[依賴共享程式碼](#library-shared-for-all-source-sets)，請僅在共享原始碼集中設定一次相依性。使用程式庫基礎構件名稱，例如 `kotlinx-coroutines-core`：
 
@@ -156,7 +156,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-## Kotlin 多平台程式庫的相依性
+## Kotlin 多平台程式庫的相依性 {id="dependency-on-kotlin-multiplatform-libraries"}
 
 您可以新增已採用 Kotlin 多平台技術之程式庫的相依性，例如 [SQLDelight](https://github.com/cashapp/sqldelight)。這些程式庫的作者通常會提供將其相依性新增至專案的指南。
 
@@ -164,7 +164,7 @@ kotlin {
 >
 {style="tip"}
 
-### 為所有原始碼集共享的程式庫
+### 為所有原始碼集共享的程式庫 {id="library-shared-for-all-source-sets"}
 
 如果您想在所有原始碼集中使用某個程式庫，可以僅將其新增至通用原始碼集。Kotlin 多平台 Gradle 外掛程式會自動將對應的部分新增至任何其他原始碼集。
 
@@ -217,7 +217,7 @@ kotlin {
 > 
 {style="tip"}
 
-### 在特定原始碼集中使用的程式庫
+### 在特定原始碼集中使用的程式庫 {id="library-used-in-specific-source-sets"}
 
 如果您只想在特定的原始碼集中使用多平台程式庫，可以僅將其新增至這些原始碼集。指定的程式庫宣告將僅在這些原始碼集中可用。
 
@@ -282,7 +282,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-## 對另一個多平台專案的相依性
+## 對另一個多平台專案的相依性 {id="dependency-on-another-multiplatform-project"}
 
 您可以將一個多平台專案作為相依性連接到另一個專案。為此，只需在需要的原始碼集中新增專案相依性即可。如果您想在所有原始碼集中使用該相依性，請將其新增至通用原始碼集。在這種情況下，其他原始碼集將自動獲取其對應的版本。
 
@@ -327,7 +327,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-## 下一步？
+## 下一步？ {id="what-s-next"}
 
 查看關於在多平台專案中新增相依性的其他資源，並進一步了解：
 

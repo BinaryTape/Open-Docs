@@ -3,7 +3,7 @@
 Kotlin Multiplatform Gradle プラグインは、Kotlin Multiplatform プロジェクトを作成するためのツールです。
 ここでは、その内容のリファレンスを提供します。Kotlin Multiplatform プロジェクトの Gradle ビルドスクリプトを記述する際の備忘録として活用してください。[Kotlin Multiplatform プロジェクトの概念、作成および設定方法](multiplatform-discover-project.md)については、リンク先で学習できます。
 
-## ID とバージョン
+## ID とバージョン {id="id-and-version"}
 
 Kotlin Multiplatform Gradle プラグインの完全修飾名は `org.jetbrains.kotlin.multiplatform` です。
 Kotlin Gradle DSL を使用する場合、`kotlin("multiplatform")` でプラグインを適用できます。
@@ -30,7 +30,7 @@ plugins {
 </TabItem>
 </Tabs>
 
-## トップレベルブロック
+## トップレベルブロック {id="top-level-blocks"}
 
 `kotlin {}` は、Gradle ビルドスクリプトにおけるマルチプラットフォームプロジェクト設定のトップレベルブロックです。
 `kotlin {}` 内には、以下のブロックを記述できます。
@@ -43,7 +43,7 @@ plugins {
 | `compilerOptions`    | すべてのターゲットおよび共有ソースセットのデフォルトとして使用される、共通の拡張レベル [コンパイラオプション](#コンパイラオプション) を指定します。 |
 | `dependencies`       | [共通の依存関係](#トップレベルでの依存関係の設定) を設定します。（実験的機能）                                              |
 
-## ターゲット
+## ターゲット {id="targets"}
 
 *ターゲット（target）* は、サポートされているプラットフォームのいずれかに向けたソフトウェアのコンパイル、テスト、およびパッケージ化を担当するビルドの一部です。Kotlin は各プラットフォーム向けのターゲットを提供しており、特定のターゲット向けにコードをコンパイルするよう Kotlin に指示できます。[ターゲットの設定](multiplatform-discover-project.md#targets)についての詳細をご覧ください。
 
@@ -135,7 +135,7 @@ kotlin {
 
 各ターゲットは、1 つ以上の [コンパイル](#コンパイル) を持つことができます。
 
-### 共通ターゲット設定
+### 共通ターゲット設定 {id="common-target-configuration"}
 
 どのターゲットブロック内でも、以下の宣言を使用できます。
 
@@ -146,7 +146,7 @@ kotlin {
 | `components`        | Gradle パブリケーションの設定に使用されるコンポーネント。                                                                                                                                             |
 | `compilerOptions`   | ターゲットに使用される [コンパイラオプション](#コンパイラオプション)。この宣言は、[トップレベル](multiplatform-dsl-reference.md#top-level-blocks) で設定された `compilerOptions {}` を上書きします。 |
 
-### Web ターゲット
+### Web ターゲット {id="web-targets"}
 
 `js {}` ブロックは Kotlin/JS ターゲットの設定を記述し、`wasmJs {}` ブロックは JavaScript と相互運用可能な Kotlin/Wasm ターゲットの設定を記述します。ターゲットの実行環境に応じて、以下の 2 つのブロックのいずれかを含めることができます。
 
@@ -170,7 +170,7 @@ kotlin {
 
 すべての Web ターゲット（`js`、`wasmJs`、`wasmWasi`）は、`binaries.executable()` 呼び出しもサポートしています。これは、実行可能ファイルを生成するように Kotlin コンパイラに明示的に指示するものです。詳細については、Kotlin/JS ドキュメントの [実行環境](https://kotlinlang.org/docs/js-project-setup.html#execution-environments) を参照してください。
 
-#### Browser
+#### Browser {id="browser"}
 
 `browser {}` には、以下の設定ブロックを含めることができます。
 
@@ -193,7 +193,7 @@ kotlin {
 }
 ```
 
-#### Node.js
+#### Node.js {id="node-js"}
 
 `nodejs {}` には、テストおよび実行タスクの設定を含めることができます。
 
@@ -211,7 +211,7 @@ kotlin {
 }
 ```
 
-### Native ターゲット
+### Native ターゲット {id="native-targets"}
 
 Native ターゲットでは、以下の特定のブロックが利用可能です。
 
@@ -220,7 +220,7 @@ Native ターゲットでは、以下の特定のブロックが利用可能で�
 | `binaries`  | 生成する [バイナリ](#バイナリ) の設定。       |
 | `cinterops` | [C ライブラリとのインターオペラビリティ（相互運用）](#cinterops) の設定。 |
 
-#### バイナリ
+#### バイナリ {id="binaries"}
 
 以下の種類のバイナリがあります。
 
@@ -349,7 +349,7 @@ binaries {
 
 [Native バイナリのビルド](multiplatform-build-native-binaries.md) についての詳細をご覧ください。
 
-#### Cinterops
+#### Cinterops {id="cinterops"}
 
 `cinterops` は、Native ライブラリとのインターオペラビリティに関する記述のコレクションです。
 ライブラリとのインターオペラビリティを提供するには、`cinterops` にエントリを追加し、そのパラメータを定義します。
@@ -440,7 +440,7 @@ kotlin {
 
 cinterop のその他のプロパティについては、[定義ファイル（Definition file）](https://kotlinlang.org/docs/native-definition-file.html#properties) を参照してください。
 
-### Android ターゲット
+### Android ターゲット {id="android-targets"}
 
 Kotlin Multiplatform Gradle プラグインには、Android ターゲットの [ビルドバリアント（build variants）](https://developer.android.com/studio/build/build-variants) を設定するのに役立つ特定の関数があります。
 
@@ -463,13 +463,13 @@ kotlin {
 >
 {style="note"}
 
-## ソースセット
+## ソースセット {id="source-sets"}
 
 `sourceSets {}` ブロックはプロジェクトのソースセットを記述します。ソースセットには、リソースや依存関係とともに、一緒にコンパイルされる Kotlin ソースファイルが含まれます。
 
 マルチプラットフォームプロジェクトには、そのターゲットのための [定義済み](#定義済みソースセット) ソースセットが含まれています。また、開発者は必要に応じて [カスタム](#カスタムソースセット) ソースセットを作成することもできます。
 
-### 定義済みソースセット
+### 定義済みソースセット {id="predefined-source-sets"}
 
 定義済みソースセットは、マルチプラットフォームプロジェクトの作成時に自動的に設定されます。
 利用可能な定義済みソースセットは以下の通りです。
@@ -509,7 +509,7 @@ kotlin {
 
 [ソースセット](multiplatform-discover-project.md#source-sets) についての詳細をご覧ください。
 
-### カスタムソースセット
+### カスタムソースセット {id="custom-source-sets"}
 
 カスタムソースセットは、プロジェクトの開発者が手動で作成します。
 カスタムソースセットを作成するには、`sourceSets` セクション内にその名前のセクションを追加します。
@@ -544,7 +544,7 @@ kotlin {
 
 新しく作成されたソースセットは、他のソースセットと接続されていないことに注意してください。プロジェクトのコンパイルで使用するには、[他のソースセットと接続](multiplatform-hierarchy.md#manual-configuration) する必要があります。
 
-### ソースセットパラメータ
+### ソースセットパラメータ {id="source-set-parameters"}
 
 ソースセットの設定は、`sourceSets {}` 内の対応するブロックに保存されます。ソースセットには以下のパラメータがあります。
 
@@ -597,7 +597,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-## コンパイル
+## コンパイル {id="compilations"}
 
 ターゲットは、製品用やテスト用など、1 つ以上のコンパイルを持つことができます。ターゲットの作成時に自動的に追加される [定義済みコンパイル](#定義済みコンパイル) があります。さらに [カスタムコンパイル](#カスタムコンパイル) を作成することもできます。
 
@@ -606,7 +606,7 @@ kotlin {
 
 [コンパイルの設定](multiplatform-configure-compilations.md) についての詳細をご覧ください。
 
-### 定義済みコンパイル
+### 定義済みコンパイル {id="predefined-compilations"}
 
 定義済みコンパイルは、Android ターゲットを除くプロジェクトの各ターゲットに対して自動的に作成されます。
 利用可能な定義済みコンパイルは以下の通りです。
@@ -646,7 +646,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-### カスタムコンパイル
+### カスタムコンパイル {id="custom-compilations"}
 
 定義済みコンパイルに加えて、独自のカスタムコンパイルを作成できます。
 そのためには、新しいコンパイルと `main` コンパイルの間に [`associateWith`](https://kotlinlang.org/docs/gradle-configure-project.html#associate-compiler-tasks) 関係を設定します。Kotlin Gradle DSL を使用している場合は、カスタムコンパイルに `by creating` を付けます。
@@ -714,7 +714,7 @@ kotlin {
 
 [カスタムコンパイルを作成](multiplatform-configure-compilations.md#create-a-custom-compilation) する方法についての詳細をご覧ください。
 
-### コンパイルパラメータ
+### コンパイルパラメータ {id="compilation-parameters"}
 
 コンパイルには以下のパラメータがあります。
 
@@ -789,7 +789,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-## コンパイラオプション
+## コンパイラオプション {id="compiler-options"}
 
 プロジェクトのコンパイラオプションは、3 つの異なるレベルで設定できます。
 
@@ -811,7 +811,7 @@ kotlin {
 
 利用可能なコンパイラオプションのリストについては、[すべてのコンパイラオプション](https://kotlinlang.org/docs/gradle-compiler-options.html#all-compiler-options) を参照してください。
 
-### 拡張レベル
+### 拡張レベル {id="extension-level"}
 
 プロジェクト内のすべてのターゲットに対してコンパイラオプションを設定するには、トップレベルの `compilerOptions {}` ブロックを使用します。
 
@@ -842,7 +842,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-### ターゲットレベル
+### ターゲットレベル {id="target-level"}
 
 プロジェクト内の特定のターゲットに対してコンパイラオプションを設定するには、ターゲットブロック内の `compilerOptions {}` ブロックを使用します。
 
@@ -877,7 +877,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-### コンパイル単位レベル
+### コンパイル単位レベル {id="compilation-unit-level"}
 
 特定のタスクに対してコンパイラオプションを設定するには、タスク内の `compilerOptions {}` ブロックを使用します。
 
@@ -947,11 +947,11 @@ kotlin {
 </TabItem>
 </Tabs>
 
-### `kotlinOptions {}` から `compilerOptions {}` への移行 {collapsible="true"}
+### `kotlinOptions {}` から `compilerOptions {}` への移行 {collapsible="true" id="migrate-from-kotlinoptions-to-compileroptions"}
 
 Kotlin 2.2.0 より前は、`kotlinOptions {}` ブロックを使用してコンパイラオプションを設定できました。Kotlin 2.2.0 で `kotlinOptions {}` ブロックが非推奨になったため、代わりにビルドスクリプトで `compilerOptions {}` ブロックを使用する必要があります。詳細については、[`kotlinOptions{}` から `compilerOptions{}` への移行](https://kotlinlang.org/docs/gradle-compiler-options.html#migrate-from-kotlinoptions-to-compileroptions) を参照してください。
 
-## 依存関係
+## 依存関係 {id="dependencies"}
 
 ソースセット宣言の `dependencies {}` ブロックには、そのソースセットの依存関係が含まれます。
 
@@ -1014,7 +1014,7 @@ kotlin {
 さらに、ソースセットは互いに依存して階層を形成することができます。
 この場合、[`dependsOn()`](#ソースセットパラメータ) 関係が使用されます。
 
-### トップレベルでの依存関係の設定
+### トップレベルでの依存関係の設定 {id="configure-dependencies-at-the-top-level"}
 <primary-label ref="Experimental"/>
 
 トップレベルの `dependencies {}` ブロックを使用して、共通の依存関係を設定できます。ここで宣言された依存関係は、`commonMain` または `commonTest` ソースセットに追加された場合と同様に動作します。
@@ -1051,7 +1051,7 @@ kotlin {
 
 この機能に関するフィードバックは [YouTrack](https://youtrack.jetbrains.com/issue/KT-76446) で共有できます。
 
-## 言語設定
+## 言語設定 {id="language-settings"}
 
 ソースセット内の `languageSettings {}` ブロックは、プロジェクトの解析とコンパイルの特定の側面を定義します。`languageSettings {}` ブロックは、特に共有ソースセットに適用される設定を構成する場合にのみ使用してください。それ以外のすべてのケースでは、拡張またはターゲットレベルで [コンパイラオプションを設定](#コンパイラオプション) するために `compilerOptions {}` ブロックを使用してください。
 

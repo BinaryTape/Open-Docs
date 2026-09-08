@@ -7,7 +7,7 @@
 * [主题](#theme)
 * [分辨率密度](#density)
 
-## 区域性
+## 区域性 {id="locale"}
 
 每个平台对语言和地区等区域性设置的处理方式各不相同。作为一种临时解决方法，在实现通用的公共 API 之前，您需要在共享代码中定义一个通用入口点。然后，使用平台特定 API 为每个平台提供相应的声明：
 
@@ -164,7 +164,7 @@
     </html>
     ```  
 
-## 主题 
+## 主题 {id="theme"}
 
 Compose Multiplatform 通过 `isSystemInDarkTheme()` 定义当前主题。各平台对主题的处理方式各不相同：
 
@@ -271,7 +271,7 @@ fun AppEnvironment(content: @Composable () -> Unit) {
 }
 ```
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * 详细了解 [资源限定符](compose-multiplatform-resources-setup.md#qualifiers)。
 * 了解如何 [本地化资源](compose-localize-strings.md)。

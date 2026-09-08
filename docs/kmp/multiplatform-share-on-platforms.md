@@ -7,7 +7,7 @@
 
 如果您需要从共享代码访问平台特定的 API，请使用 Kotlin 的 [预期声明与实际声明](multiplatform-expect-actual.md) 机制。
 
-## 在所有平台上共享代码
+## 在所有平台上共享代码 {id="share-code-on-all-platforms"}
 
 如果您拥有适用于所有平台的通用业务逻辑，则无需为每个平台编写相同的代码 —— 只需在 common 源集中共享即可。
 
@@ -19,7 +19,7 @@
 
 如果您需要从共享代码访问平台特定的 API，请使用 Kotlin 的 [预期声明与实际声明](multiplatform-expect-actual.md) 机制。
 
-## 在相似平台上共享代码
+## 在相似平台上共享代码 {id="share-code-on-similar-platforms"}
 
 您经常需要创建多个原生目标，这些目标可能会重用大量通用逻辑和第三方 API。
 
@@ -34,7 +34,7 @@
 
 详细了解 [在库中共享代码](#share-code-in-libraries) 和 [连接平台特定库](#connect-platform-specific-libraries)。
 
-## 在库中共享代码
+## 在库中共享代码 {id="share-code-in-libraries"}
 
 得益于层次结构项目结构，库也可以为目标的子集提供通用 API。当 [库发布](multiplatform-publish-lib-setup.md) 时，其中间源集的 API 会与项目结构信息一起嵌入到库工件中。当您使用该库时，项目的中间源集仅访问该库中对每个源集的目标可用的 API。
 
@@ -44,13 +44,13 @@
 
 `concurrent` 源集声明了 `runBlocking` 函数，并为 JVM 和原生目标进行编译。一旦 `kotlinx.coroutines` 库使用层次结构项目结构完成更新和发布，您就可以依赖它，并从 JVM 和原生目标共享的源集中调用 `runBlocking`，因为它匹配库中 `concurrent` 源集的“目标签名”。
 
-## 连接平台特定库
+## 连接平台特定库 {id="connect-platform-specific-libraries"}
 
 为了在不受平台特定依赖项限制的情况下共享更多原生代码，请使用 [平台库](https://kotlinlang.org/docs/native-platform-libs.html)，如 Foundation、UIKit 和 POSIX。这些库随 Kotlin/Native 一起提供，并且默认在共享源集中可用。
 
 此外，如果您在项目中使用 [Kotlin CocoaPods Gradle](multiplatform-cocoapods-overview.md) 插件，则可以处理通过 [`cinterop` 机制](https://kotlinlang.org/docs/native-c-interop.html) 使用的第三方原生库。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * [阅读关于 Kotlin 的预期声明与实际声明机制](multiplatform-expect-actual.md)
 * [详细了解层次结构项目结构](multiplatform-hierarchy.md)

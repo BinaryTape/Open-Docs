@@ -6,7 +6,7 @@
 >
 {style="note"}
 
-## JVM 依赖项
+## JVM 依赖项 {id="jvm-dependency"}
 
 在 JVM 平台上，Kotlin 编译器分发包将使用反射功能所需的运行时组件作为一个单独的构件 `kotlin-reflect.jar` 包含在内。这样做是为了减少不使用反射功能的应用程序所需的运行时库大小。
 
@@ -48,7 +48,7 @@
 
 如果您不使用 Gradle 或 Maven，请确保您的项目类路径中包含 `kotlin-reflect.jar`。在其他受支持的情况下（使用命令行编译器的 IntelliJ IDEA 项目），它会被默认添加。在命令行编译器中，您可以使用 `-no-reflect` 编译器选项从类路径中排除 `kotlin-reflect.jar`。
 
-## 类引用
+## 类引用 {id="class-references"}
 
 最基本的反射功能是获取 Kotlin 类的运行时引用。要获取静态已知的 Kotlin 类的引用，可以使用**类文字**语法：
 
@@ -62,7 +62,7 @@ val c = MyClass::class
 >
 {style="note"}
 
-### 绑定的类引用
+### 绑定的类引用 {id="bound-class-references"}
 
 通过使用对象作为接收者，您可以使用相同的 `::class` 语法获取特定对象所属类的引用：
 
@@ -73,13 +73,13 @@ assert(widget is GoodWidget) { "Bad widget: ${widget::class.qualifiedName}" }
 
 无论接收者表达式的类型（`Widget`）如何，您都将获得该对象确切类的引用，例如 `GoodWidget` 或 `BadWidget`。
 
-## 可调用引用
+## 可调用引用 {id="callable-references"}
 
 对函数、属性和构造函数的引用也可以被调用，或用作[函数类型](lambdas.md#function-types)的实例。
 
 所有可调用引用的共同超类型是 [`KCallable<out R>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-callable/index.html)，其中 `R` 是返回值类型。对于属性，它是属性类型；对于构造函数，它是所构造的类型。
 
-### 函数引用
+### 函数引用 {id="function-references"}
 
 当您拥有如下声明的具名函数时，可以直接调用它（`isOdd(5)`）：
 
@@ -134,7 +134,7 @@ val predicate: (String) -> Boolean = ::isOdd   // 引用 isOdd(x: String)
 val isEmptyStringList: List<String>.() -> Boolean = List<String>::isEmpty
 ```
 
-#### 示例：函数组合
+#### 示例：函数组合 {id="example-function-composition"}
 
 考虑以下函数：
 
@@ -166,7 +166,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 属性引用
+### 属性引用 {id="property-references"}
 
 要在 Kotlin 中将属性作为一等对象访问，请使用 `::` 运算符：
 
@@ -230,7 +230,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 与 Java 反射的互操作性
+### 与 Java 反射的互操作性 {id="interoperability-with-java-reflection"}
 
 在 JVM 平台上，标准库包含反射类的扩展，这些扩展提供了与 Java 反射对象的映射（请参阅包 `kotlin.reflect.jvm`）。例如，要查找支持字段或作为 Kotlin 属性 getter 的 Java 方法，您可以编写如下代码：
 
@@ -251,7 +251,7 @@ fun main() {
 fun getKClass(o: Any): KClass<Any> = o.javaClass.kotlin
 ```
 
-### 构造函数引用
+### 构造函数引用 {id="constructor-references"}
 
 可以像引用方法和属性一样引用构造函数。只要程序预期一个函数类型对象，且该对象接受与构造函数相同的参数并返回相应类型的对象，您就可以使用构造函数引用。通过使用 `::` 运算符并添加类名来引用构造函数。考虑以下预期一个不含参数且返回类型为 `Foo` 的函数参数的函数：
 
@@ -271,7 +271,7 @@ function(::Foo)
 
 根据参数数量的不同，构造函数的可调用引用被归类为 [`KFunction<out R>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-function/index.html) 的子类型之一。
 
-### 绑定的函数与属性引用
+### 绑定的函数与属性引用 {id="bound-function-and-property-references"}
 
 您可以引用特定对象的实例方法：
 
@@ -323,7 +323,7 @@ fun main() {
 
 您不需要将 `this` 指定为接收者：`this::foo` 与 `::foo` 是等效的。
 
-### 绑定的构造函数引用
+### 绑定的构造函数引用 {id="bound-constructor-references"}
 
 通过提供外部类的实例，可以获得[内部类](nested-classes.md#inner-classes)构造函数的绑定可调用引用：
 

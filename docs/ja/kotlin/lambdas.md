@@ -4,7 +4,7 @@ Kotlinの関数は[ファーストクラス（第一級）](https://en.wikipedia
 
 これを容易にするために、静的型付けプログラミング言語であるKotlinは、関数を表すための一連の[関数型](#function-types)を使用し、[ラムダ式](#lambda-expressions-and-anonymous-functions)などの特殊な言語構造を提供しています。
 
-## 高階関数
+## 高階関数 {id="higher-order-functions"}
 
 高階関数（Higher-order function）とは、関数をパラメータとして受け取るか、または関数を戻り値として返す関数のことです。
 
@@ -55,7 +55,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-## 関数型
+## 関数型 {id="function-types"}
 
 Kotlinは、関数を扱う宣言のために `(Int) -> String` のような関数型（Function types）を使用します： `val onClick: () -> Unit = ...`
 
@@ -83,7 +83,7 @@ Kotlinは、関数を扱う宣言のために `(Int) -> String` のような関�
 typealias ClickHandler = (Button, ClickEvent) -> Unit
 ```
 
-### 関数型のインスタンス化
+### 関数型のインスタンス化 {id="instantiating-a-function-type"}
 
 関数型のインスタンスを取得する方法はいくつかあります。
 
@@ -139,7 +139,7 @@ fun main() {
 >
 {style="note"}
 
-### 関数型インスタンスの呼び出し
+### 関数型インスタンスの呼び出し {id="invoking-a-function-type-instance"}
 
 関数型の値は、その [`invoke(...)` 演算子](operator-overloading.md#invoke-operator)を使用して呼び出すことができます： `f.invoke(x)` または単に `f(x)`。
 
@@ -165,11 +165,11 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-### インライン関数
+### インライン関数 {id="inline-functions"}
 
 高階関数において、柔軟な制御フローを提供する[インライン関数](inline-functions.md)を使用することが有益な場合があります。
 
-## ラムダ式と匿名関数
+## ラムダ式と匿名関数 {id="lambda-expressions-and-anonymous-functions"}
 
 ラムダ式と匿名関数は *関数リテラル* です。関数リテラルとは、宣言されるのではなく、式として即座に渡される関数のことです。以下の例を考えてみましょう。
 
@@ -190,7 +190,7 @@ fun compare(a: String, b: String): Boolean = a.length < b.length
 val suspendingTask = suspend { doSuspendingWork() }
 ```
 
-### ラムダ式の構文
+### ラムダ式の構文 {id="lambda-expression-syntax"}
 
 ラムダ式の完全な構文形式は以下の通りです。
 
@@ -209,7 +209,7 @@ val sum: (Int, Int) -> Int = { x: Int, y: Int -> x + y }
 val sum = { x: Int, y: Int -> x + y }
 ```
 
-### 末尾のラムダを渡す
+### 末尾のラムダを渡す {id="passing-trailing-lambdas"}
 
 Kotlinの慣習として、関数の最後のパラメータが関数である場合、引数として渡されるラムダ式を括弧の外側に配置することができます。
 
@@ -225,7 +225,7 @@ val product = items.fold(1) { acc, e -> acc * e }
 run { println("...") }
 ```
 
-### it: 単一パラメータの暗黙の名前
+### it: 単一パラメータの暗黙の名前 {id="it-implicit-name-of-a-single-parameter"}
 
 ラムダ式がパラメータを1つしか持たないことは非常によくあります。
 
@@ -235,7 +235,7 @@ run { println("...") }
 ints.filter { it > 0 } // このリテラルは '(it: Int) -> Boolean' 型です
 ```
 
-### ラムダ式からの戻り値
+### ラムダ式からの戻り値 {id="returning-a-value-from-a-lambda-expression"}
 
 [修飾付き return](returns.md#return-to-labels) 構文を使用して、ラムダから明示的に値を返すことができます。
 そうでない場合は、最後の式の値が暗黙的に返されます。
@@ -260,7 +260,7 @@ ints.filter {
 strings.filter { it.length == 5 }.sortedBy { it }.map { it.uppercase() }
 ```
 
-### 未使用変数のためのアンダースコア
+### 未使用変数のためのアンダースコア {id="underscore-for-unused-variables"}
 
 ラムダのパラメータが使用されない場合は、名前の代わりにアンダースコアを置くことができます。
 
@@ -268,11 +268,11 @@ strings.filter { it.length == 5 }.sortedBy { it }.map { it.uppercase() }
 map.forEach { (_, value) -> println("$value!") }
 ```
 
-### ラムダでの分解
+### ラムダでの分解 {id="destructuring-in-lambdas"}
 
 ラムダでの分解（デストラクチャリング）については、[分解宣言](destructuring-declarations.md#destructuring-in-lambdas)の一部として説明されています。
 
-### 匿名関数
+### 匿名関数 {id="anonymous-functions"}
 
 上記のラムダ式構文には、関数の戻り値の型を指定する機能が欠けています。ほとんどの場合、戻り値の型は自動的に推論できるため、これは不要です。しかし、明示的に指定する必要がある場合は、代替の構文である *匿名関数（anonymous function）* を使用できます。
 
@@ -302,7 +302,7 @@ ints.filter(fun(item) = item > 0)
 
 ラムダ式と匿名関数のもう一つの違いは、[非ローカルリターン（non-local returns）](inline-functions.md#returns)の動作です。ラベルのない `return` ステートメントは、常に `fun` キーワードで宣言された関数から戻ります。これは、ラムダ式内の `return` は囲んでいる関数から戻るのに対し、匿名関数内の `return` は匿名関数自体から戻ることを意味します。
 
-### クロージャ
+### クロージャ {id="closures"}
 
 ラムダ式や匿名関数（ならびに[ローカル関数](functions.md#local-functions)や[オブジェクト式](object-declarations.md#object-expressions)）は、その *クロージャ*（外側のスコープで宣言された変数を含む）にアクセスできます。クロージャにキャプチャされた変数は、ラムダ内で変更可能です。
 
@@ -314,7 +314,7 @@ ints.filter { it > 0 }.forEach {
 print(sum)
 ```
 
-### レシーバー付き関数リテラル
+### レシーバー付き関数リテラル {id="function-literals-with-receiver"}
 
 `A.(B) -> C` のようなレシーバー付き[関数型](#function-types)は、特別な形式の関数リテラル、すなわち「レシーバー付き関数リテラル」を使用してインスタンス化できます。
 

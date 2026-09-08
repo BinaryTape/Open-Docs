@@ -12,9 +12,9 @@
 * 빌드에 서명하고 [TestFlight](https://developer.apple.com/testflight/)에 게시합니다.
 * 월별 빌드 시간 및 저장소 용량이 제공되는 무료 시작 티어를 제공합니다.
 
-## TeamCity 파이프라인 생성하기
+## TeamCity 파이프라인 생성하기 {id="create-the-teamcity-pipeline"}
 
-### IDE에서 CI 설정 시작하기
+### IDE에서 CI 설정 시작하기 {id="start-ci-setup-from-the-ide"}
 
 1. 프로젝트 변경 사항을 커밋하고 푸시하세요. CI가 아직 구성되지 않은 경우, Kotlin Multiplatform IDE 플러그인에 CI 설정을 시작하라는 툴팁이 표시됩니다.
 2. **Configure CI**를 클릭합니다.
@@ -29,7 +29,7 @@
 
 4. IDE에 **Pipeline is ready**가 표시되면 초기 파이프라인 구성이 완료된 것입니다. **Continue**를 클릭하고, 안내에 따라 IDE가 생성된 파일을 Git에 추가하도록 허용하세요. 이 파일들은 저장소에 커밋하기 전까지 로컬에 유지됩니다.
 
-### TeamCity Cloud 워크스페이스 생성 또는 연결하기
+### TeamCity Cloud 워크스페이스 생성 또는 연결하기 {id="create-or-connect-a-teamcity-cloud-workspace"}
 
 TeamCity가 호스팅된 macOS 에이전트에서 빌드를 실행하려면 Cloud 워크스페이스가 필요합니다.
 
@@ -46,7 +46,7 @@ TeamCity가 호스팅된 macOS 에이전트에서 빌드를 실행하려면 Clou
 
 TeamCity가 워크스페이스를 생성하거나 연결하고 빌드 환경을 준비합니다. 이 과정은 대개 30초 이내에 완료됩니다.
 
-## iOS 앱 빌드하기
+## iOS 앱 빌드하기 {id="build-the-ios-app"}
 
 워크스페이스가 준비되면 IDE가 자동으로 **TeamCity** 탭을 열고 첫 빌드를 시작합니다.
 
@@ -56,11 +56,11 @@ TeamCity가 워크스페이스를 생성하거나 연결하고 빌드 환경을 
 
 자동화된 빌드가 성공하면 **Publish to TestFlight**를 클릭하여 서명 및 배포를 구성합니다.
 
-## Apple 서명 및 TestFlight 구성하기
+## Apple 서명 및 TestFlight 구성하기 {id="configure-apple-signing-and-testflight"}
 
 TestFlight에 빌드를 업로드하려면 TeamCity에 App Store Connect 및 Apple 코드 서명(code signing)을 위한 자격 증명이 필요합니다.
 
-### App Store Connect API 키 생성하기
+### App Store Connect API 키 생성하기 {id="create-an-app-store-connect-api-key"}
 
 1. [App Store Connect](https://appstoreconnect.apple.com/)에 로그인합니다.
 2. **사용자 및 액세스(Users and Access)**로 이동하여 **키(Keys)**를 선택합니다.
@@ -70,7 +70,7 @@ TestFlight에 빌드를 업로드하려면 TeamCity에 App Store Connect 및 App
 
 `.p8` 파일은 한 번만 다운로드할 수 있으므로 안전하게 보관하세요.
 
-### Apple 배포 인증서 내보내기
+### Apple 배포 인증서 내보내기 {id="export-an-apple-distribution-certificate"}
 
 1. Xcode의 **Settings** | **Accounts**로 이동하거나 [Apple Developer Portal](https://developer.apple.com/account/)을 열어 Apple 배포(Distribution) 인증서를 생성하거나 찾습니다.
 2. Mac에서 **키체인 접근(Keychain Access)**을 열고 **내 인증서** 탭에서 해당 인증서를 찾습니다.
@@ -81,7 +81,7 @@ TestFlight에 빌드를 업로드하려면 TeamCity에 App Store Connect 및 App
 >
 {style="note"}
 
-### IDE에서 Apple 자격 증명 추가하기
+### IDE에서 Apple 자격 증명 추가하기 {id="add-apple-credentials-in-the-ide"}
 
 IDE로 돌아와 **Add Apple signing credentials** 양식을 작성합니다. TeamCity는 이 값들을 안전한 배포 자격 증명으로 저장하며, 프로젝트 소스 파일에는 추가되지 않습니다.
 
@@ -95,7 +95,7 @@ IDE로 돌아와 **Add Apple signing credentials** 양식을 작성합니다. Te
 | **.p12 password** | 인증서를 내보낼 때 지정한 비밀번호입니다.                                                                                                 |
 {style="none"}
 
-### 첫 빌드를 TestFlight에 업로드하기
+### 첫 빌드를 TestFlight에 업로드하기 {id="upload-the-first-build-to-testflight"}
 
 자격 증명을 추가하면 파이프라인에 서명 및 배포 단계가 포함됩니다.
 
@@ -103,9 +103,9 @@ IDE로 돌아와 **Add Apple signing credentials** 양식을 작성합니다. Te
     TeamCity가 파이프라인을 다시 실행하고, 서명된 iOS 빌드를 생성하여 App Store Connect에 업로드합니다.
 2. App Store Connect 또는 TestFlight를 열어 빌드가 나타나는지 확인합니다.
 
-## 빌드 및 게시 자동화하기
+## 빌드 및 게시 자동화하기 {id="automate-builds-and-publishing"}
 
-### 저장소 연결하기
+### 저장소 연결하기 {id="connect-the-repository"}
 
 이 프로세스를 자동화하려면 GitHub 저장소를 TeamCity에 연결하여 푸시할 때마다 새로운 빌드가 트리거되도록 설정해야 합니다.
 
@@ -114,7 +114,7 @@ IDE로 돌아와 **Add Apple signing credentials** 양식을 작성합니다. Te
 
 이제 구성된 브랜치에 변경 사항을 푸시할 때마다 TeamCity가 파이프라인을 트리거합니다.
 
-### 파이프라인 확인하기
+### 파이프라인 확인하기 {id="verify-the-pipeline"}
 
 이제 iOS 배포 파이프라인이 준비되었습니다! 설정된 브랜치에 푸시할 때마다 TeamCity는 다음 과정을 수행합니다:
 
@@ -130,7 +130,7 @@ IDE로 돌아와 **Add Apple signing credentials** 양식을 작성합니다. Te
 
 이제부터 코드를 푸시하기만 하면 나머지는 TeamCity가 알아서 처리합니다.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * 설정을 더 자세히 커스터마이징하려면 [TeamCity Cloud 파이프라인](https://www.jetbrains.com/help/teamcity/cloud/create-and-edit-pipelines.html)에 대해 읽어보세요. 더 많은 프로젝트를 생성하고 빌드 에이전트 요구 사항을 설정하는 등의 작업을 할 수 있습니다.
 * [멀티플랫폼 앱을 게시하는 방법](multiplatform-publish-apps.md)을 알아보세요.

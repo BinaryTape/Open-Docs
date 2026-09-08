@@ -18,7 +18,7 @@ val imageLoader = ImageLoader.Builder(context)
     .build()
 ```
 
-## Interceptors
+## Interceptors {id="interceptors"}
 
 Interceptor（インターセプター）を使用すると、`ImageLoader`の画像エンジンのリクエストを監視、変換、ショートサーキット（処理の打ち切り）、またはリトライできます。たとえば、次のようにカスタムキャッシュレイヤーを追加できます。
 
@@ -46,7 +46,7 @@ Interceptorは、`ImageLoader`のイメージパイプラインをカスタム�
 
 詳細については、[Interceptor](/coil/api/coil-core/coil3.intercept/-interceptor)を参照してください。
 
-## Mappers
+## Mappers {id="mappers"}
 
 Mapper（マッパー）を使用すると、カスタムデータ型のサポートを追加できます。たとえば、サーバーから次のようなモデルを取得するとします。
 
@@ -79,13 +79,13 @@ imageLoader.enqueue(request)
 
 詳細については、[Mapper](/coil/api/coil-core/coil3.map/-mapper)を参照してください。
 
-## Keyers
+## Keyers {id="keyers"}
 
 Keyer（キーヤー）は、データをキャッシュキーの一部に変換します。この値は、リクエストの出力が`MemoryCache`に書き込まれる際に`MemoryCache.Key.key`として使用されます。
 
 詳細については、[Keyers](/coil/api/coil-core/coil3.key/-keyer)を参照してください。
 
-## Fetchers
+## Fetchers {id="fetchers"}
 
 Fetcher（フェッチャー）は、データ（URL、URI、Fileなど）を`ImageSource`または`Image`に変換します。通常、入力データを`Decoder`で処理可能な形式に変換します。このインターフェースを使用して、カスタムフェッチメカニズム（Cronet、カスタムURIスキームなど）のサポートを追加します。
 
@@ -94,13 +94,13 @@ Fetcher（フェッチャー）は、データ（URL、URI、Fileなど）を`Im
 !!! Note
     カスタムデータ型を使用する`Fetcher`を追加する場合は、その結果をメモリキャッシュ可能にするために、カスタムの`Keyer`も提供する必要があります。たとえば、`Fetcher.Factory<MyDataType>`には`Keyer<MyDataType>`を追加する必要があります。
 
-## Decoders
+## Decoders {id="decoders"}
 
 Decoder（デコーダー）は、`ImageSource`を読み取り、`Image`を返します。このインターフェースを使用して、カスタムファイル形式（GIF、SVG、TIFFなど）のサポートを追加します。
 
 詳細については、[Decoder](/coil/api/coil-core/coil3.decode/-decoder)を参照してください。
 
-## Custom ImageLoader and ImageRequest properties
+## Custom ImageLoader and ImageRequest properties {id="custom-imageloader-and-imagerequest-properties"}
 
 Coilは、`Extras`を通じて`ImageRequest`や`ImageLoader`にカスタムデータを添付することをサポートしています。`Extras`は、`Extras.Key`を介して参照される拡張プロパティのマップです。
 
@@ -161,7 +161,7 @@ AsyncImage(
 
 [Coil自体もこのパターンを使用](https://github.com/coil-kt/coil/blob/main/coil-gif/src/main/java/coil3/gif/imageRequests.kt)しており、`coil-gif`やその他の拡張ライブラリにおいて、GIF用のカスタムリクエストプロパティなどをサポートしています。
 
-## Chaining components
+## Chaining components {id="chaining-components"}
 
 Coilのイメージローダーコンポーネントの便利な特性は、内部的にチェイン（連結）できることです。たとえば、読み込む画像URLを取得するためにネットワークリクエストを実行する必要があるとします。
 

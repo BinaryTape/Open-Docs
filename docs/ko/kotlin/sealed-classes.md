@@ -26,7 +26,7 @@
 >
 {style="tip"}
 
-## 봉인된 클래스 또는 인터페이스 선언하기
+## 봉인된 클래스 또는 인터페이스 선언하기 {id="declare-a-sealed-class-or-interface"}
 
 봉인된 클래스 또는 인터페이스를 선언하려면 `sealed` 수정자를 사용하세요:
 
@@ -56,7 +56,7 @@ object RuntimeError : Error
 
 ![봉인된 클래스 및 인터페이스의 계층 구조 일러스트레이션](sealed-classes-interfaces.svg){width=700}
 
-### 생성자
+### 생성자 {id="constructors"}
 
 봉인된 클래스 자체는 항상 [추상 클래스(abstract class)](classes.md#abstract-classes)이며, 결과적으로 직접 인스턴스화할 수 없습니다. 
 그러나 생성자를 포함하거나 상속받을 수 있습니다. 이 생성자들은 봉인된 클래스 자체의 인스턴스를 생성하기 위한 것이 아니라 
@@ -111,7 +111,7 @@ sealed class IOError {
 }
 ```
 
-## 상속
+## 상속 {id="inheritance"}
 
 봉인된 클래스와 인터페이스의 직계 하위 클래스는 반드시 동일한 패키지 내에서 선언되어야 합니다. 
 이들은 최상위(top-level)에 있거나 다른 이름이 있는 클래스, 인터페이스, 객체 내부에 중첩될 수 있습니다. 
@@ -147,7 +147,7 @@ sealed class IOError(): Error
 open class CustomError(): Error
 ```
 
-### 멀티플랫폼 프로젝트에서의 상속
+### 멀티플랫폼 프로젝트에서의 상속 {id="inheritance-in-multiplatform-projects"}
 
 [멀티플랫폼 프로젝트](https://kotlinlang.org/docs/multiplatform/get-started.html)에는 상속 제한이 하나 더 있습니다. 
 봉인된 클래스의 직계 하위 클래스는 동일한 [소스 세트(source set)](https://kotlinlang.org/docs/multiplatform/multiplatform-discover-project.html#source-sets)에 있어야 합니다. 
@@ -159,7 +159,7 @@ open class CustomError(): Error
 
 [멀티플랫폼 프로젝트의 계층 구조에 대해 자세히 알아보기](https://kotlinlang.org/docs/multiplatform/multiplatform-hierarchy.html). 
 
-## when 표현식과 함께 봉인된 클래스 사용하기
+## when 표현식과 함께 봉인된 클래스 사용하기 {id="use-sealed-classes-with-when-expression"}
 
 봉인된 클래스를 사용하는 핵심적인 이점은 [`when`](control-flow.md#when-expressions-and-statements) 표현식에서 사용할 때 나타납니다. 
 봉인된 클래스와 함께 `when` 표현식을 사용하면, Kotlin 컴파일러가 모든 가능한 사례가 처리되었는지 망라적으로(exhaustively) 확인할 수 있습니다. 
@@ -211,11 +211,11 @@ fun main() {
 >
 {style="note"}
 
-## 사용 사례 시나리오
+## 사용 사례 시나리오 {id="use-case-scenarios"}
 
 봉인된 클래스와 인터페이스가 특히 유용할 수 있는 몇 가지 실제 시나리오를 살펴보겠습니다.
 
-### UI 애플리케이션의 상태 관리
+### UI 애플리케이션의 상태 관리 {id="state-management-in-ui-applications"}
 
 봉인된 클래스를 사용하여 애플리케이션의 다양한 UI 상태를 표현할 수 있습니다. 
 이 접근 방식은 UI 변경 사항을 구조적이고 안전하게 처리할 수 있게 해줍니다. 
@@ -237,7 +237,7 @@ fun updateUI(state: UIState) {
 }
 ```
 
-### 결제 수단 처리
+### 결제 수단 처리 {id="payment-method-handling"}
 
 실제 비즈니스 애플리케이션에서 다양한 결제 수단을 효율적으로 처리하는 것은 공통적인 요구 사항입니다. 
 봉인된 클래스를 `when` 표현식과 함께 사용하여 이러한 비즈니스 로직을 구현할 수 있습니다. 
@@ -265,7 +265,7 @@ fun processPayment(payment: Payment) {
 `processPayment()` 함수는 다양한 결제 수단을 처리하는 방법을 보여줍니다. 
 이 방식은 가능한 모든 결제 타입을 고려하도록 보장하며, 향후 새로운 결제 수단이 추가되어도 시스템이 유연하게 유지되도록 합니다.
 
-### API 요청-응답 처리
+### API 요청-응답 처리 {id="api-request-response-handling"}
 
 봉인된 클래스와 인터페이스를 사용하여 API 요청 및 응답을 처리하는 사용자 인증 시스템을 구현할 수 있습니다. 
 이 사용자 인증 시스템에는 로그인 및 로그아웃 기능이 있습니다. 
@@ -351,6 +351,6 @@ fun main() {
 }
 ```
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 [Kotlin의 상속](inheritance.md)에 대해 더 자세히 알아보세요.

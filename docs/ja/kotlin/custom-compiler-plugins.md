@@ -12,7 +12,7 @@
 
 それでも必要なものが見つからない場合は、カスタムコンパイラプラグインを作成できます。ただし、KotlinコンパイラプラグインAPIは**不安定**であることに注意してください。新しいコンパイラのリリースごとに破壊的変更が導入されるため、メンテナンスには継続的かつ多大な労力を投じる必要があります。
 
-### Kotlinコンパイラとコンパイラプラグイン
+### Kotlinコンパイラとコンパイラプラグイン {id="the-kotlin-compiler-and-compiler-plugins"}
 
 <p></p> <!-- workaround for MRK057: Paragraph can only contain inline elements-->
 <list columns="2">
@@ -44,7 +44,7 @@
 
 [Kotlin serializationプラグイン](https://github.com/Kotlin/kotlinx.serialization)が良い例です。このプラグインのフロントエンド部分は、コンパニオンオブジェクトとシリアライザー関数を追加し、名前の衝突を防ぐためのチェックを行います。バックエンド部分は、`KSerializer` オブジェクトを通じて目的のシリアライズ動作を実装します。
 
-### Kotlinコンパイラプラグインのテンプレート
+### Kotlinコンパイラプラグインのテンプレート {id="kotlin-compiler-plugin-template"}
 
 カスタムコンパイラプラグインの作成を開始するには、[Kotlin compiler plugin template](https://github.com/Kotlin/compiler-plugin-template) を使用できます。
 その後、フロントエンドおよびバックエンドのプラグインAPIから拡張ポイントを登録します。
@@ -53,7 +53,7 @@
 > 
 {style="note"}
 
-### フロントエンドプラグインAPI
+### フロントエンドプラグインAPI {id="frontend-plugin-api"}
 
 フロントエンドプラグインAPIは、フロントエンド中間表現 (FIR: frontend intermediate representation) とも呼ばれ、解決（Resolution）をカスタマイズするための以下の専用拡張ポイントを備えています。
 
@@ -68,7 +68,7 @@
 | [`FirSupertypeGenerationExtension`](https://github.com/JetBrains/kotlin/blob/master/compiler/fir/resolve/src/org/jetbrains/kotlin/fir/extensions/FirSupertypeGenerationExtension.kt)         | 既存のクラスに新しいスーパータイプを追加します。                                                |
 | [`FirTypeAttributeExtension`]( https://github.com/JetBrains/kotlin/blob/master/compiler/fir/tree/src/org/jetbrains/kotlin/fir/extensions/FirTypeAttributeExtension.kt)                       | 型アノテーションに基づいて、特定の型に特別な属性を追加します。                |
 
-#### IDEとの統合
+#### IDEとの統合 {id="ide-integration"}
 
 解決方法の変更は、コードのハイライティングやサジェスチョン（提案）などのIDEの動作に影響を与えるため、プラグインがIDEと互換性を持っていることが重要です。IntelliJ IDEAおよびAndroid Studioの各バージョンには、開発バージョンのKotlinコンパイラが含まれています。このバージョンはIDE固有のものであり、リリースされたKotlinコンパイラとバイナリ互換性がありません。
 その結果、IDEをアップデートする際には、動作を維持するためにコンパイラプラグインもアップデートする必要があります。このような理由から、コミュニティ製のプラグインはデフォルトではロードされません。
@@ -77,7 +77,7 @@
 
 Kotlinコンパイラプラグイン用の開発キット（devkit）が利用可能になれば、複数のIDEバージョンのサポートが容易になる可能性があります。この機能に興味がある場合は、[イシュートラッカー](https://youtrack.jetbrains.com/issue/KT-82617)でフィードバックを共有してください。
 
-### バックエンドプラグインAPI
+### バックエンドプラグインAPI {id="backend-plugin-api"}
 
 > バックエンドプラグインの開発は、IDEやデバッガのパフォーマンスを低下させずに正しく行うことが難しいため、変更は慎重かつ控えめに行ってください。
 > 
@@ -88,12 +88,12 @@ Kotlinコンパイラプラグイン用の開発キット（devkit）が利用�
 
 この拡張ポイントを通じて行われた変更は、コンパイラによって**チェックされません**。このステージにおけるコンパイラの期待を壊さないように注意する必要があります。例えば、誤って無効な型、正しくない関数参照、あるいは適切なスコープ外の参照を導入してしまう可能性があります。
 
-#### バックエンドプラグインのコードを調べる
+#### バックエンドプラグインのコードを調べる {id="explore-backend-plugin-code"}
 
 Kotlin serializationプラグインのコードを調べることで、バックエンドプラグインのコンパイラコードが実際にどのようなものかを確認できます。
 例えば、[`SerializableCompanionIrGenerator.kt`](https://github.com/JetBrains/kotlin/blob/master/plugins/kotlinx-serialization/kotlinx-serialization.backend/src/org/jetbrains/kotlinx/serialization/compiler/backend/ir/SerializerIrGenerator.kt) は、主要なシリアライザーメンバーの欠落しているボディを補完します。一つの例として [`generateChildSerializersGetter()`](https://github.com/JetBrains/kotlin/blob/9cfa558902abc13d245c825717026af63ef82dd2/plugins/kotlinx-serialization/kotlinx-serialization.backend/src/org/jetbrains/kotlinx/serialization/compiler/backend/ir/SerializerIrGenerator.kt#L242) 関数があり、これは `KSerializer` 式のリストを収集して配列で返します。
 
-#### バックエンドプラグインコードの問題を確認する
+#### バックエンドプラグインコードの問題を確認する {id="check-your-backend-plugin-code-for-problems"}
 
 バックエンドプラグインコードの問題は、次の3つの方法で確認できます。
 
@@ -109,7 +109,7 @@ Kotlin serializationプラグインのコードを調べることで、バック
 
     `convertToIr.kt` ファイル内の `convertToIrAndActualize()` 関数にブレークポイントを追加し、コンパイラをデバッグモードで実行することで、コンパイル中のより詳細な情報を取得できます。
 
-### プラグインのテスト
+### プラグインのテスト {id="test-your-plugin"}
 
 プラグインを実装したら、徹底的にテストしてください。[Kotlin compiler plugin template](https://github.com/Kotlin/compiler-plugin-template) は、[Kotlin compiler test framework](https://github.com/JetBrains/kotlin/blob/master/compiler/test-infrastructure/ReadMe.md) を使用するように既にセットアップされています。
 テストは以下のディレクトリに追加できます。
@@ -127,6 +127,6 @@ Kotlin serializationプラグインのコードを調べることで、バック
 
 これらのファイルを使用して、生成された差分の中に意図しない変更が含まれていないかを確認できます。問題がなければ、新しいダンプファイルが最新の「ゴールデンファイル（golden files）」、つまり将来の変更と比較するための承認済みで信頼できるソースとなります。
 
-### ヘルプを得る
+### ヘルプを得る {id="get-help"}
 
 カスタムコンパイラプラグインの開発で問題が発生した場合は、[Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) の [#compiler](https://slack-chats.kotlinlang.org/c/compiler) チャンネルに問い合わせてください。解決を保証することはできませんが、可能な限りお手伝いします。

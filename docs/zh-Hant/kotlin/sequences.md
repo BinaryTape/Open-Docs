@@ -10,9 +10,9 @@
 
 因此，`Sequence` 可讓您避免建置中間步驟的結果，進而提高整個 `collection` 處理鏈的效能。然而，`Sequence` 的延遲特性會增加一些開銷，這在處理較小的 `collection` 或進行較簡單的計算時可能很顯著。因此，您應該同時考慮 `Sequence` 與 `Iterable` 並決定哪一個更適合您的情況。
 
-## 建置 (Construct)
+## 建置 (Construct) {id="construct"}
 
-### 來自元素
+### 來自元素 {id="from-elements"}
 
 要建立 `Sequence`，請呼叫 [`sequenceOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/sequence-of.html) 函式，並將元素列為其引數。
 
@@ -20,7 +20,7 @@
 val numbersSequence = sequenceOf("four", "three", "two", "one")
 ```
 
-### 來自 Iterable
+### 來自 Iterable {id="from-an-iterable"}
 
 如果您已經有一個 `Iterable` 物件（例如 `List` 或 `Set`），您可以透過呼叫 [`asSequence()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/as-sequence.html) 來為其建立 `Sequence`。
 
@@ -30,7 +30,7 @@ val numbersSequence = numbers.asSequence()
 
 ```
 
-### 來自函式
+### 來自函式 {id="from-a-function"}
 
 建立 `Sequence` 的另一種方法是使用計算其元素的函式來建構。
 要基於函式建構 `Sequence`，請呼叫 [`generateSequence()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/generate-sequence.html)，並將此函式作為引數。您可以選擇性地將第一個元素指定為明確的值或函式呼叫的結果。
@@ -61,7 +61,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 來自區塊 (chunks)
+### 來自區塊 (chunks) {id="from-chunks"}
 
 最後，還有一個函式可以讓您逐個或按任意大小的區塊產生 `Sequence` 元素 — 即 [`sequence()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/sequence.html) 函式。
 此函式接受一個 Lambda 運算式，其中包含對 [`yield()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence-scope/yield.html) 和 [`yieldAll()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence-scope/yield-all.html) 函式的呼叫。
@@ -82,7 +82,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## Sequence 操作
+## Sequence 操作 {id="sequence-operations"}
 
 `Sequence` 操作根據其狀態需求可分為以下幾組：
 
@@ -93,11 +93,11 @@ fun main() {
 
 `Sequence` 可以多次疊代；但是，某些 `Sequence` 實作可能會限制自己只能疊代一次。這在它們的文件中會特別註明。
 
-## Sequence 處理範例
+## Sequence 處理範例 {id="sequence-processing-example"}
 
 讓我們透過一個範例來看看 `Iterable` 與 `Sequence` 之間的區別。
 
-### Iterable
+### Iterable {id="iterable"}
 
 假設您有一個單字清單。下面的程式碼會篩選長度超過三個字元的單字，並印出前四個此類單字的長度。
 

@@ -9,7 +9,7 @@ Kotlin の各リリースには、サポートされているターゲット（J
 
 また、[コマンドラインコンパイラの使用](command-line.md)チュートリアルで説明されているように、コマンドラインから手動で Kotlin コンパイラを実行することもできます。
 
-## オプションの定義方法
+## オプションの定義方法 {id="how-to-define-options"}
 
 Kotlin コンパイラには、コンパイルプロセスをカスタマイズするための多数のオプションがあります。
 
@@ -39,7 +39,7 @@ JVM および JS/WASM タスクの場合はログ内で `"Kotlin compiler args:"
 >
 {style="tip"}
 
-### 拡張レベル
+### 拡張レベル {id="extension-level"}
 
 トップレベルの `compilerOptions {}` ブロックで、すべてのターゲットと共有ソースセットに共通のコンパイラオプションを設定できます：
 
@@ -51,7 +51,7 @@ kotlin {
 }
 ```
 
-### ターゲットレベル
+### ターゲットレベル {id="target-level"}
 
 `target {}` ブロック内の `compilerOptions {}` ブロックで、JVM/Android ターゲットのコンパイラオプションを設定できます：
 
@@ -67,7 +67,7 @@ kotlin {
 
 Kotlin マルチプラットフォームプロジェクトでは、特定のターゲット内でコンパイラオプションを設定できます。例えば、`jvm { compilerOptions {}}` です。詳細については、[マルチプラットフォーム Gradle DSL リファレンス](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html)を参照してください。
 
-### コンパイル単位レベル
+### コンパイル単位レベル {id="compilation-unit-level"}
 
 タスク設定内の `compilerOptions {}` ブロックで、特定のコンパイル単位またはタスクのコンパイラオプションを設定できます：
 
@@ -122,7 +122,7 @@ tasks.named('compileKotlin', org.jetbrains.kotlin.gradle.tasks.KotlinCompilation
 </tab>
 </tabs>
 
-### `kotlinOptions {}` から `compilerOptions {}` への移行 {initial-collapse-state="collapsed" collapsible="true"}
+### `kotlinOptions {}` から `compilerOptions {}` への移行 {initial-collapse-state="collapsed" collapsible="true" id="migrate-from-kotlinoptions-to-compileroptions"}
 
 Kotlin 2.2.0 より前は、`kotlinOptions {}` ブロックを使用してコンパイラオプションを設定できました。`kotlinOptions {}` ブロックは Kotlin 2.0.0 から非推奨（deprecated）となっているため、このセクションではビルドスクリプトを `compilerOptions {}` ブロックを使用するように移行するためのガイドと推奨事項を提供します：
 
@@ -130,7 +130,7 @@ Kotlin 2.2.0 より前は、`kotlinOptions {}` ブロックを使用してコン
 * [`android.kotlinOptions` からの移行](#migrate-away-from-android-kotlinoptions)
 * [`freeCompilerArgs` の移行](#migrate-freecompilerargs)
 
-#### コンパイラオプションの中央集約と型の使用
+#### コンパイラオプションの中央集約と型の使用 {id="centralize-compiler-options-and-use-types"}
 
 可能な限り、[拡張レベル](#extension-level)でコンパイラオプションを設定し、[コンパイル単位レベル](#compilation-unit-level)で特定のタスクに対してそれらを上書きしてください。
 
@@ -234,7 +234,7 @@ tasks.named("compileKotlin", KotlinJvmCompile).configure {
 </tab>
 </tabs>
 
-#### `android.kotlinOptions` からの移行
+#### `android.kotlinOptions` からの移行 {id="migrate-away-from-android-kotlinoptions"}
 
 ビルドスクリプトで以前に `android.kotlinOptions` を使用していた場合は、代わりに `kotlin.compilerOptions` に移行してください。これは拡張レベルまたはターゲットレベルのいずれかで行います。
 
@@ -395,7 +395,7 @@ kotlin {
 </tab>
 </tabs>
 
-#### `freeCompilerArgs` の移行
+#### `freeCompilerArgs` の移行 {id="migrate-freecompilerargs"}
 
 * すべての `+=` 操作を `add()` または `addAll()` 関数に置き換えてください。
 * `-opt-in` コンパイラオプションを使用している場合は、[KGP API リファレンス](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/)に専用の DSL が既に用意されていないか確認し、あればそれを使用してください。
@@ -466,7 +466,7 @@ kotlin {
 </tab>
 </tabs>
 
-## JVM をターゲットにする
+## JVM をターゲットにする {id="target-the-jvm"}
 
 [前述のとおり](#how-to-define-options)、JVM/Android プロジェクトのコンパイラオプションは、拡張、ターゲット、およびコンパイル単位レベル（タスク）で定義できます。
 
@@ -479,7 +479,7 @@ kotlin {
 * `kotlin.compilerOptions` は、プロジェクト内のすべての Kotlin コンパイルタスクを設定します。
 * `tasks.named<KotlinJvmCompile>("compileKotlin") { }`（または `tasks.withType<KotlinJvmCompile>().configureEach { }`）のアプローチを使用して、`kotlin.compilerOptions` DSL によって適用された設定を上書きできます。
 
-## JavaScript をターゲットにする
+## JavaScript をターゲットにする {id="target-javascript"}
 
 JavaScript のコンパイルタスクは、プロダクションコード用が `compileKotlinJs`、テストコード用が `compileTestKotlinJs`、カスタムソースセット用が `compile<Name>KotlinJs` と呼ばれます。
 
@@ -520,7 +520,7 @@ JS ターゲットには `Kotlin2JsCompile` を、共通（common）ターゲッ
 
 ターミナルで `gradlew tasks --all` コマンドを実行し、`Other tasks` グループ内の `compile*KotlinJS` タスク名を検索することで、JavaScript のコンパイルタスクの一覧を確認できます。
 
-## すべての Kotlin コンパイルタスク
+## すべての Kotlin コンパイルタスク {id="all-kotlin-compilation-tasks"}
 
 プロジェクト内のすべての Kotlin コンパイルタスクを設定することも可能です：
 
@@ -551,11 +551,11 @@ tasks.named('compileKotlin', KotlinCompilationTask) {
 </tab>
 </tabs>
 
-## すべてのコンパイラオプション
+## すべてのコンパイラオプション {id="all-compiler-options"}
 
 Gradle コンパイラのオプションの完全なリストは以下のとおりです：
 
-### 共通属性
+### 共通属性 {id="common-attributes"}
 
 | 名前 | 説明 | 設定可能な値 | デフォルト値 |
 |-------------------|------------------------------------------------------------------------------------------------------------------------------------------|---------------------------|---------------|
@@ -563,7 +563,7 @@ Gradle コンパイラのオプションの完全なリストは以下のとお�
 | `progressiveMode` | [プログレッシブコンパイラモード](whatsnew13.md#progressive-mode)を有効にします | `true`, `false`           | `false`       |
 | `extraWarnings`   | 有効な場合、警告を出力する[追加の宣言、式、および型のコンパイラチェック](whatsnew21.md#extra-compiler-checks)を有効にします | `true`, `false`           | `false`       |
 
-### JVM 固有の属性
+### JVM 固有の属性 {id="attributes-specific-to-jvm"}
 
 | 名前 | 説明 | 設定可能な値 | デフォルト値 |
 |---------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------|-----------------------------|
@@ -573,7 +573,7 @@ Gradle コンパイラのオプションの完全なリストは以下のとお�
 | `jvmTargetValidationMode` | <list><li>Kotlin と Java 間の [JVM ターゲットの互換性](gradle-configure-project.md#check-for-jvm-target-compatibility-of-related-compile-tasks)の検証</li><li>`KotlinCompile` 型のタスク用のプロパティ。</li></list> | `WARNING`, `ERROR`, `IGNORE` | `ERROR` |
 | `jvmDefault`              | インターフェースで宣言された関数を JVM 上のデフォルトメソッドにコンパイルする方法を制御します | `ENABLE`, `NO_COMPATIBILITY`, `DISABLE` | `ENABLE` |
 
-### JVM と JavaScript に共通の属性
+### JVM と JavaScript に共通の属性 {id="attributes-common-to-jvm-and-javascript"}
 
 | 名前 | 説明 | 設定可能な値 | デフォルト値 |
 |-----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------|---------------|
@@ -588,7 +588,7 @@ Gradle コンパイラのオプションの完全なリストは以下のとお�
 >
 {style="warning"}
 
-#### freeCompilerArgs を介した追加引数の使用例 {initial-collapse-state="collapsed" collapsible="true"}
+#### freeCompilerArgs を介した追加引数の使用例 {initial-collapse-state="collapsed" collapsible="true" id="example-of-additional-arguments-usage-via-freecompilerargs"}
 
 追加の（実験的なものを含む）コンパイラ引数を提供するには、`freeCompilerArgs` 属性を使用します。
 この属性に単一の引数または引数のリストを追加できます：
@@ -655,7 +655,7 @@ tasks.named('compileKotlin', KotlinCompilationTask) {
 >
 {style="tip"} 
 
-#### languageVersion の設定例 {initial-collapse-state="collapsed" collapsible="true"}
+#### languageVersion の設定例 {initial-collapse-state="collapsed" collapsible="true" id="example-of-setting-languageversion"}
 
 言語バージョンを設定するには、次の構文を使用します：
 
@@ -687,7 +687,7 @@ tasks
 
 また、[コンパイラオプションの型](#types-for-compiler-options)も参照してください。
 
-### JavaScript 固有の属性
+### JavaScript 固有の属性 {id="attributes-specific-to-javascript"}
 
 | 名前 | 説明 | 設定可能な値 | デフォルト値 |
 |---|---|---|---|
@@ -701,7 +701,7 @@ tasks
 | `target` | 特定の ECMA バージョン用の JS ファイルを生成します | `"es5"`, `"es2015"` | `"es5"` |
 | `useEsClasses` | 生成された JavaScript コードで ES2015 クラスを使用できるようにします。ES2015 ターゲットを使用する場合はデフォルトで有効になります | | `null` |
 
-### コンパイラオプションの型
+### コンパイラオプションの型 {id="types-for-compiler-options"}
 
 一部の `compilerOptions` では、`String` 型の代わりに新しい型が使用されます：
 
@@ -714,7 +714,7 @@ tasks
 | `sourceMapEmbedSources` | [`JsSourceMapEmbedMode`](https://github.com/JetBrains/kotlin/blob/master/libraries/tools/kotlin-gradle-compiler-types/src/generated/kotlin/org/jetbrains/kotlin/gradle/dsl/JsSourceMapEmbedMode.kt) | `compilerOptions.sourceMapEmbedSources.set(JsSourceMapEmbedMode.SOURCE_MAP_SOURCE_CONTENT_INLINING)` |
 | `sourceMapNamesPolicy` | [`JsSourceMapNamesPolicy`](https://github.com/JetBrains/kotlin/blob/master/libraries/tools/kotlin-gradle-compiler-types/src/generated/kotlin/org/jetbrains/kotlin/gradle/dsl/JsSourceMapNamesPolicy.kt) | `compilerOptions.sourceMapNamesPolicy.set(JsSourceMapNamesPolicy.SOURCE_MAP_NAMES_POLICY_FQ_NAMES)` |
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 以下についてさらに詳しく学習してください：
 * [Kotlin マルチプラットフォーム DSL リファレンス](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html)

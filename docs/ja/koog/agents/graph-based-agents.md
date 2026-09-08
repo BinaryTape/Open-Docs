@@ -65,7 +65,7 @@ graph TB
 ```
 <!--- KNIT example-graph-agents-01.txt -->
 
-## ストラテジーグラフを構築する
+## ストラテジーグラフを構築する {id="build-a-strategy-graph"}
 
 Koogでは、[`AIAgentGraphStrategyBuilder`](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.builder/-a-i-agent-graph-strategy-builder/index.html)を使用して戦略を実装します。
 各ノードに入力型と出力型があるのと同様に、
@@ -197,7 +197,7 @@ Koogでは、[`AIAgentGraphStrategyBuilder`](https://api.koog.ai/agents/agents-c
     ```
     <!--- KNIT example-graph-agents-03.kt -->
 
-## エージェントを作成して実行する
+## エージェントを作成して実行する {id="create-and-run-the-agent"}
 
 この戦略を使用してエージェントインスタンスを作成し、実行してみましょう：
 
@@ -354,7 +354,7 @@ graph LR
 計算が正確であることを保証するために、エージェントに数学ツールを提供する必要があります。
 そうすれば、LLMは決定論的に計算を実行するツールを呼び出すように判断できるようになります。
 
-## ツールを追加する
+## ツールを追加する {id="add-tools"}
 
 数学演算を実行するための[ツール](../tools/index.md)を定義し、それらを[ToolRegistry](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool-registry/index.html)に追加します：
 
@@ -608,7 +608,7 @@ Finally, 123 was added to the result:
 この出力によると、エージェントは正しく計算を行っていますが、すべての演算に対して対応するツールを呼び出すのではなく、`multiply`ツールを1回だけ呼び出しています。
 システムプロンプトでエージェントの役割を説明し、適切なツールの使用手順を提供することで、エージェントを助けることができます。
 
-## システムプロンプトを提供する
+## システムプロンプトを提供する {id="provide-a-system-prompt"}
 
 [システムプロンプト](../prompts/prompt-creation/index.md#system-message)は、エージェントの役割とタスク実行の手順を定義します。
 今回の例では、エージェントが複雑な多段階の計算をどのように処理すべきかを記述することが重要です：
@@ -791,7 +791,7 @@ The final result is: 193
 
 見ての通り、エージェントは各演算に対して適切なツールを正しく呼び出すようになり、ハルシネーション（もっともらしい嘘）による結果のリスクを回避し、決定論的に計算を実行できるようになりました。
 
-## 次のステップ
+## 次のステップ {id="next-steps"}
 
 - [関数型エージェント](functional-agents.md)や[プランナーエージェント](planner-agents/index.md)と比較する
 - [機能のインストール](../features/index.md)でエージェントを強化する

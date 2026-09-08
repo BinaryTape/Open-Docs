@@ -22,7 +22,7 @@ Kotlin 支持两种使用注解处理器的方式：
 
     目前，KSP 仅提供对 Gradle 的官方支持。建议在编写自定义处理器以及配合 [Dagger](https://dagger.dev/) 等 KSP 兼容库使用时选择它。
 
-## 将 kapt 与 Java 注解处理器配合使用
+## 将 kapt 与 Java 注解处理器配合使用 {id="use-kapt-with-java-annotation-processors"}
 
 [kapt](kapt.md) 允许你在 Kotlin 项目中使用现有的 Java 注解处理器，而无需对处理器本身进行任何更改。
 
@@ -141,11 +141,11 @@ Kotlin 支持两种使用注解处理器的方式：
     }
     ```
 
-## 在 Gradle 项目中使用 KSP
+## 在 Gradle 项目中使用 KSP {id="use-ksp-in-gradle-projects"}
 
 通过 [KSP](ksp-overview.md)，你可以在 Gradle 项目中使用现有的注解处理器，并创建根据源代码中的注解生成代码的自定义处理器。
 
-### 将 KSP 与 Java 注解处理器配合使用
+### 将 KSP 与 Java 注解处理器配合使用 {id="use-ksp-with-java-annotation-processors"}
 
 对于 Gradle 项目，请将 KSP 与兼容的注解处理器配合使用。KSP 比 kapt 更快，并且可以原生理解 Kotlin 特有的功能。查看 [已经支持 KSP 的库列表](ksp-overview.md#supported-libraries)。
 
@@ -235,7 +235,7 @@ Kotlin 支持两种使用注解处理器的方式：
 
 有关 Dagger 对 KSP 支持的更多信息，请参阅其 [文档](https://dagger.dev/dev-guide/ksp.html)。
 
-### 创建你自己的注解处理器
+### 创建你自己的注解处理器 {id="create-your-own-annotation-processor"}
 
 你可以使用 KSP API 编写自己的注解处理器，以便在编译时生成代码。一个新处理器需要三个模块：
 
@@ -245,7 +245,7 @@ Kotlin 支持两种使用注解处理器的方式：
 
 有关完整的逐步操作说明，请参阅 [KSP 快速入门](ksp-quickstart.md#create-your-own-processor)。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 *   [详细了解 kapt 配置](kapt.md)
 *   [开始使用 KSP](ksp-quickstart.md)

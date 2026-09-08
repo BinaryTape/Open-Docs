@@ -26,7 +26,7 @@ Kotlin 2.0 是 JetBrains 团队的一个巨大里程碑。此版本是 KotlinCon
 >
 {style="tip"}
 
-## IDE 支持
+## IDE 支持 {id="ide-support"}
 
 支持 Kotlin 2.0.0 的 Kotlin 插件已捆绑在最新的 IntelliJ IDEA 和 Android Studio 中。
 您不需要更新 IDE 中的 Kotlin 插件。
@@ -35,7 +35,7 @@ Kotlin 2.0 是 JetBrains 团队的一个巨大里程碑。此版本是 KotlinCon
 * 有关 IntelliJ IDEA 对 Kotlin K2 编译器支持的详细信息，请参阅[在 IDE 中的支持](#support-in-ides)。
 * 有关 IntelliJ IDEA 对 Kotlin 支持的更多详细信息，请参阅 [Kotlin 发布版本](releases.md#ide-support)。
 
-## Kotlin K2 编译器
+## Kotlin K2 编译器 {id="kotlin-k2-compiler"}
 
 通往 K2 编译器之路漫长而艰辛，但现在 JetBrains 团队终于可以宣布其进入稳定阶段。
 在 Kotlin 2.0.0 中，默认使用新的 Kotlin K2 编译器，并且它在所有目标平台（JVM、Native、Wasm 和 JS）上都已达到 [稳定](components-stability.md) 状态。新编译器带来了显著的性能提升，加快了新语言功能的开发速度，统一了 Kotlin 支持的所有平台，并为多平台项目提供了更好的架构。
@@ -51,7 +51,7 @@ JetBrains 团队通过成功编译来自选定用户和内部项目的 1000 万�
 
 <video src="https://www.youtube.com/v/tAGJ5zJXJ7w" title="Kotlin Language Features in 2.0 and Beyond"/>
 
-### 当前 K2 编译器的局限性
+### 当前 K2 编译器的局限性 {id="current-k2-compiler-limitations"}
 
 在您的 Gradle 项目中启用 K2 存在某些局限性，在以下情况下可能会影响使用 8.3 以下 Gradle 版本的项目：
 
@@ -79,7 +79,7 @@ JetBrains 团队通过成功编译来自选定用户和内部项目的 1000 万�
 
 * 将项目中的 Gradle 版本更新为 8.3 或更高版本。
 
-### 智能转换改进
+### 智能转换改进 {id="smart-cast-improvements"}
 
 Kotlin 编译器可以在特定情况下自动将对象转换为某种类型，为您省去显式转换的麻烦。这被称为[智能转换 (smart casting)](typecasts.md#smart-casts)。
 Kotlin K2 编译器现在比以前在更多场景中执行智能转换。
@@ -93,7 +93,7 @@ Kotlin K2 编译器现在比以前在更多场景中执行智能转换。
 * [异常处理](#exception-handling)
 * [自增与自减运算符](#increment-and-decrement-operators)
 
-#### 局部变量及其后的作用域
+#### 局部变量及其后的作用域 {id="local-variables-and-further-scopes"}
 
 以前，如果变量在 `if` 条件内被评估为非 `null`，则该变量将被智能转换。有关该变量的信息随后将在 `if` 块的作用域内进一步共享。
 
@@ -132,7 +132,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-smart-casts-k2-local-variables" validate="false"}
 
-#### 带有逻辑或运算符的类型检查
+#### 带有逻辑或运算符的类型检查 {id="type-checks-with-logical-or-operator"}
 
 在 Kotlin 2.0.0 中，如果您使用 `or` 运算符 (`||`) 组合对象的类型检查，则会智能转换为它们最近的公共超类型。在此更改之前，总是智能转换为 `Any` 类型。
 
@@ -166,7 +166,7 @@ fun signalCheck(signalStatus: Any) {
 >
 {style="note"}
 
-#### 内联函数
+#### 内联函数 {id="inline-functions"}
 
 在 Kotlin 2.0.0 中，K2 编译器以不同方式处理内联函数，结合其他编译器分析，使其能够确定智能转换是否安全。
 
@@ -208,7 +208,7 @@ fun runProcessor(): Processor? {
 }
 ```
 
-#### 具有函数类型的属性
+#### 具有函数类型的属性 {id="properties-with-function-types"}
 
 在以前的 Kotlin 版本中，存在一个错误，导致具有函数类型的类属性无法进行智能转换。我们在 Kotlin 2.0.0 和 K2 编译器中修复了此行为。例如：
 
@@ -249,7 +249,7 @@ class Holder(val provider: Provider?, val processor: Processor?) {
 }
 ```
 
-#### 异常处理
+#### 异常处理 {id="exception-handling"}
 
 在 Kotlin 2.0.0 中，我们对异常处理进行了改进，以便智能转换信息可以传递给 `catch` 和 `finally` 块。此更改使您的代码更安全，因为编译器会跟踪您的对象是否具有可空类型。例如：
 
@@ -289,7 +289,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-smart-casts-k2-exception-handling"}
 
-#### 自增与自减运算符
+#### 自增与自减运算符 {id="increment-and-decrement-operators"}
 
 在 Kotlin 2.0.0 之前，编译器无法理解在使用自增或自减运算符后对象的类型可能会发生变化。由于编译器无法准确跟踪对象类型，您的代码可能会导致未解析的引用错误。在 Kotlin 2.0.0 中，这已被修复：
 
@@ -342,14 +342,14 @@ fun main(input: Rho) {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-smart-casts-k2-increment-decrement-operators" validate="false"}
 
-### Kotlin Multiplatform 改进
+### Kotlin Multiplatform 改进 {id="kotlin-multiplatform-improvements"}
 
 在 Kotlin 2.0.0 中，我们对 K2 编译器中与 Kotlin Multiplatform 相关的以下领域进行了改进：
 
 * [编译期间公共源集与平台源集的分离](#separation-of-common-and-platform-sources-during-compilation)
 * [预期声明与实际声明的不同可见性级别](#different-visibility-levels-of-expected-and-actual-declarations)
 
-#### 编译期间公共源集与平台源集的分离
+#### 编译期间公共源集与平台源集的分离 {id="separation-of-common-and-platform-sources-during-compilation"}
 
 以前，Kotlin 编译器的设计使其无法在编译时保持公共源集和平台源集的分离。结果，公共代码可以访问平台代码，从而导致不同平台之间的行为不一致。此外，来自公共代码的一些编译器设置和依赖项曾经会泄漏到平台代码中。
 
@@ -436,7 +436,7 @@ actual class Identity {
 Expected class 'expect class Identity : Any' does not have default constructor
 ```
 
-##### 何时解析行为不改变
+##### 何时解析行为不改变 {id="when-resolution-behavior-doesn-t-change"}
 
 我们仍在迁移到新编译方案的过程中，因此当您调用不在同一源集内的函数时，解析行为仍然相同。当您在公共代码中使用来自多平台库的重载时，您会主要注意到这种差异。
 
@@ -485,7 +485,7 @@ fun whichFun(x: Int) = println("platform function")
 
 将来，这些剩余的情况将与新编译方案更加一致。
 
-#### 预期声明与实际声明的不同可见性级别
+#### 预期声明与实际声明的不同可见性级别 {id="different-visibility-levels-of-expected-and-actual-declarations"}
 
 在 Kotlin 2.0.0 之前，如果您在 Kotlin Multiplatform 项目中使用 [预期声明与实际声明](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html)，它们必须具有相同的 [可见性级别](visibility-modifiers.md)。
 Kotlin 2.0.0 现在也支持不同的可见性级别，但**仅当**实际声明比预期声明更具宽松性时。例如：
@@ -506,7 +506,7 @@ class Expanded                                  // 默认可见性为 public，
                                                 // 更加宽松
 ```
 
-### 编译器插件支持
+### 编译器插件支持 {id="compiler-plugins-support"}
 
 目前，Kotlin K2 编译器支持以下 Kotlin 编译器插件：
 
@@ -531,7 +531,7 @@ class Expanded                                  // 默认可见性为 public，
 >
 {style="tip"}
 
-### 实验性 Kotlin Power-assert 编译器插件
+### 实验性 Kotlin Power-assert 编译器插件 {id="experimental-kotlin-power-assert-compiler-plugin"}
 
 > Kotlin Power-assert 插件处于 [实验性](components-stability.md#stability-levels-explained) 阶段。
 > 它可能随时被更改。
@@ -579,15 +579,15 @@ powerAssert {
 
 在 [文档中了解有关 Kotlin Power-assert 插件的更多信息](power-assert.md)。
 
-### 如何启用 Kotlin K2 编译器
+### 如何启用 Kotlin K2 编译器 {id="how-to-enable-the-kotlin-k2-compiler"}
 
 从 Kotlin 2.0.0 开始，默认启用 Kotlin K2 编译器。不需要任何额外操作。
 
-### 在 Kotlin Playground 中尝试 Kotlin K2 编译器
+### 在 Kotlin Playground 中尝试 Kotlin K2 编译器 {id="try-the-kotlin-k2-compiler-in-kotlin-playground"}
 
 Kotlin Playground 支持 2.0.0 版本。[快来试试吧！](https://pl.kotl.in/czuoQprce)
 
-### 在 IDE 中的支持
+### 在 IDE 中的支持 {id="support-in-ides"}
 
 默认情况下，IntelliJ IDEA 和 Android Studio 仍使用以前的编译器进行代码分析、代码补全、高亮显示和其他 IDE 相关功能。要获得 IDE 中的完整 Kotlin 2.0 体验，请启用 K2 模式。
 
@@ -600,14 +600,14 @@ Kotlin Playground 支持 2.0.0 版本。[快来试试吧！](https://pl.kotl.in/
 * 在[我们的博客](https://blog.jetbrains.com/idea/2024/11/k2-mode-becomes-stable/)中了解更多关于 K2 模式的信息。
 * 我们正在积极收集有关 K2 模式的反馈，请在我们的 [公共 Slack 频道](https://kotlinlang.slack.com/archives/C0B8H786P) 中分享您的想法。
 
-### 留下您对新 K2 编译器的反馈
+### 留下您对新 K2 编译器的反馈 {id="leave-your-feedback-on-the-new-k2-compiler"}
 
 我们将感谢您的任何反馈！
 
 * 在 [我们的问题跟踪器](https://kotl.in/issue) 中报告您在使用新 K2 编译器时遇到的任何问题。
 * [启用“发送使用情况统计信息”选项](https://www.jetbrains.com/help/idea/settings-usage-statistics.html)，允许 JetBrains 收集有关 K2 使用情况的匿名数据。
 
-## Kotlin/JVM
+## Kotlin/JVM {id="kotlin-jvm"}
 
 从 2.0.0 版本开始，编译器可以生成包含 Java 22 字节码的类。
 此版本还带来了以下变化：
@@ -615,7 +615,7 @@ Kotlin Playground 支持 2.0.0 版本。[快来试试吧！](https://pl.kotl.in/
 * [使用 invokedynamic 生成 lambda 函数](#generation-of-lambda-functions-using-invokedynamic)
 * [kotlinx-metadata-jvm 库现已稳定](#the-kotlinx-metadata-jvm-library-is-stable)
 
-### 使用 invokedynamic 生成 lambda 函数
+### 使用 invokedynamic 生成 lambda 函数 {id="generation-of-lambda-functions-using-invokedynamic"}
 
 Kotlin 2.0.0 引入了一种使用 `invokedynamic` 生成 lambda 函数的新默认方法。与传统的匿名类生成相比，此更改减小了应用程序的二进制大小。
 
@@ -644,7 +644,7 @@ fun main() {
 * 使用 `@JvmSerializableLambda` 注解特定的 lambda。
 * 使用编译器选项 `-Xlambdas=class` 使用旧方法生成模块中的所有 lambda。
 
-### kotlinx-metadata-jvm 库已稳定
+### kotlinx-metadata-jvm 库已稳定 {id="the-kotlinx-metadata-jvm-library-is-stable"}
 
 在 Kotlin 2.0.0 中，`kotlinx-metadata-jvm` 库已达到 [稳定](components-stability.md#stability-levels-explained) 状态。现在该库已更改为 `kotlin` 软件包和坐标，您可以将其作为 `kotlin-metadata-jvm`（不带 "x"）找到。
 
@@ -654,7 +654,7 @@ fun main() {
 
 <!-- 在 [文档](kotlin-metadata-jvm.md) 中了解有关 `kotlinx-metadata-jvm` 库的更多信息。 -->
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 此版本带来了以下变化：
 
@@ -664,7 +664,7 @@ fun main() {
 * [显式向 Kotlin/Native 添加了标准库和平台依赖项](#explicitly-added-standard-library-and-platform-dependencies-to-kotlin-native)
 * [Gradle 配置缓存中的任务错误](#tasks-error-in-gradle-configuration-cache)
 
-### 在 Apple 平台上通过 signpost 监控 GC 性能
+### 在 Apple 平台上通过 signpost 监控 GC 性能 {id="monitoring-gc-performance-with-signposts-on-apple-platforms"}
 
 以前，只能通过查看日志来监控 Kotlin/Native 垃圾回收 (GC) 的性能。但是，这些日志未与 Xcode Instruments 集成，Xcode Instruments 是一个用于调查 iOS 应用性能问题的流行工具集。
 
@@ -672,7 +672,7 @@ fun main() {
 
 在 [文档](native-memory-manager.md#monitor-gc-performance) 中了解有关 GC 性能分析的更多信息。
 
-### 解决 Objective-C 方法的冲突
+### 解决 Objective-C 方法的冲突 {id="resolving-conflicts-with-objective-c-methods"}
 
 Objective-C 方法可以具有不同的名称，但具有相同数量和类型的形参。例如，[`locationManager:didEnterRegion:`](https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423560-locationmanager?language=objc) 和 [`locationManager:didExitRegion:`](https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423630-locationmanager?language=objc)。在 Kotlin 中，这些方法具有相同的签名，因此尝试使用它们会触发冲突的重载错误。
 
@@ -682,19 +682,19 @@ Objective-C 方法可以具有不同的名称，但具有相同数量和类型�
 
 应用此注解也比常规错误抑制更安全。此注解只能在重写 Objective-C 方法的情况下使用（这些方法受支持并经过测试），而常规抑制可能会隐藏重要的错误并导致静默损坏的代码。
 
-### 更改了编译器参数的日志级别
+### 更改了编译器参数的日志级别 {id="changed-log-level-for-compiler-arguments"}
 
 在此版本中，Kotlin/Native Gradle 任务（如 `compile`、`link` 和 `cinterop`）中编译器参数的日志级别已从 `info` 更改为 `debug`。
 
 将 `debug` 作为其默认值后，日志级别与其他 Gradle 编译任务保持一致，并提供详细的调试信息，包括所有编译器参数。
 
-### 显式向 Kotlin/Native 添加了标准库和平台依赖项
+### 显式向 Kotlin/Native 添加了标准库和平台依赖项 {id="explicitly-added-standard-library-and-platform-dependencies-to-kotlin-native"}
 
 以前，Kotlin/Native 编译器隐式解析标准库和平台依赖项，这导致 Kotlin Gradle 插件在不同 Kotlin 目标上的工作方式不一致。
 
 现在，每个 Kotlin/Native Gradle 编译都通过 `compileDependencyFiles` [编译参数](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#compilation-parameters)在其编译时库路径中显式包含标准库和平台依赖项。
 
-### Gradle 配置缓存中的任务错误
+### Gradle 配置缓存中的任务错误 {id="tasks-error-in-gradle-configuration-cache"}
 
 自 Kotlin 2.0.0 起，您可能会遇到配置缓存错误，消息指示：
 `invocation of Task.project at execution time is unsupported`。
@@ -707,7 +707,7 @@ Objective-C 方法可以具有不同的名称，但具有相同数量和类型�
 
 由于错误报告中未明确说明准确原因，[Gradle 团队已经在处理该问题以修复报告](https://github.com/gradle/gradle/issues/21290)。
 
-## Kotlin/Wasm
+## Kotlin/Wasm {id="kotlin-wasm"}
 
 Kotlin 2.0.0 提高了性能以及与 JavaScript 的互操作性：
 
@@ -719,7 +719,7 @@ Kotlin 2.0.0 提高了性能以及与 JavaScript 的互操作性：
 * [新的异常处理提议现已作为选项受支持](#new-exception-handling-proposal-is-now-supported-as-an-option)
 * [`withWasm()` 函数被拆分为 JS 和 WASI 变体](#the-withwasm-function-is-split-into-js-and-wasi-variants)
 
-### 默认使用 Binaryen 优化生产构建
+### 默认使用 Binaryen 优化生产构建 {id="optimized-production-builds-by-default-using-binaryen"}
 
 Kotlin/Wasm 工具链现在在生产编译期间对所有项目应用 [Binaryen](https://github.com/WebAssembly/binaryen) 工具，而不是之前的手动设置方法。根据我们的评估，它应该会提高运行时性能并减小项目的二进制大小。
 
@@ -727,7 +727,7 @@ Kotlin/Wasm 工具链现在在生产编译期间对所有项目应用 [Binaryen]
 >
 {style="note"}
 
-### 支持命名导出
+### 支持命名导出 {id="support-for-named-export"}
 
 以前，从 Kotlin/Wasm 导出的所有声明都使用默认导出导入到 JavaScript 中：
 
@@ -753,7 +753,7 @@ import { add } from "./index.mjs"
 
 命名导出使得在 Kotlin 和 JavaScript 模块之间共享代码变得更加容易。它们提高了可读性并帮助您管理模块之间的依赖关系。
 
-### 支持在带有 @JsExport 的函数中使用无符号原始类型
+### 支持在带有 @JsExport 的函数中使用无符号原始类型 {id="support-for-unsigned-primitive-types-in-functions-with-jsexport"}
 
 从 Kotlin 2.0.0 开始，您可以在外部声明和带有 `@JsExport` 注解的函数中使用[无符号原始类型](unsigned-integer-types.md)，该注解使 Kotlin/Wasm 函数在 JavaScript 代码中可用。
 
@@ -761,7 +761,7 @@ import { add } from "./index.mjs"
 
 有关 Kotlin/Wasm 与 JavaScript 互操作性的更多信息，请参阅 [文档](wasm-js-interop.md#use-javascript-code-in-kotlin)。
 
-### 在 Kotlin/Wasm 中生成 TypeScript 声明文件
+### 在 Kotlin/Wasm 中生成 TypeScript 声明文件 {id="generation-of-typescript-declaration-files-in-kotlin-wasm"}
 
 > 在 Kotlin/Wasm 中生成 TypeScript 声明文件处于 [实验性](components-stability.md#stability-levels-explained) 阶段。
 > 它可能随时被弃用或更改。
@@ -785,7 +785,7 @@ kotlin {
 }
 ```
 
-### 支持捕获 JavaScript 异常
+### 支持捕获 JavaScript 异常 {id="support-for-catching-javascript-exceptions"}
 
 以前，Kotlin/Wasm 代码无法捕获 JavaScript 异常，这使得处理源自程序 JavaScript 侧的错误变得困难。
 
@@ -793,7 +793,7 @@ kotlin {
 
 此外，无论是否发生异常都有助于执行代码的 `finally` 块也能正常工作。虽然我们引入了捕获 JavaScript 异常的支持，但在发生 JavaScript 异常（如调用堆栈）时不会提供额外信息。但是，[我们正在致力于这些实现](https://youtrack.jetbrains.com/issue/KT-68185/WasmJs-Attach-js-exception-object-to-JsException)。
 
-### 新的异常处理提议现已作为选项受支持
+### 新的异常处理提议现已作为选项受支持 {id="new-exception-handling-proposal-is-now-supported-as-an-option"}
 
 在此版本中，我们引入了对 Kotlin/Wasm 中 WebAssembly 新版本 [异常处理提议](https://github.com/WebAssembly/exception-handling/blob/main/proposals/exception-handling/Exceptions.md) 的支持。
 
@@ -801,13 +801,13 @@ kotlin {
 
 通过使用 `-Xwasm-use-new-exception-proposal` 编译器选项激活新的异常处理提议，该选项默认关闭。
 
-### withWasm() 函数被拆分为 JS 和 WASI 变体
+### withWasm() 函数被拆分为 JS 和 WASI 变体 {id="the-withwasm-function-is-split-into-js-and-wasi-variants"}
 
 以前为层次结构模板提供 Wasm 目标的 `withWasm()` 函数已被弃用，取而代之的是专门的 `withWasmJs()` 和 `withWasmWasi()` 函数。
 
 现在您可以将 WASI 和 JS 目标在树定义中的不同组之间分开。
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
 在其他变化中，此版本为 Kotlin 带来了现代 JS 编译，支持来自 ES2015 标准的更多功能：
 
@@ -822,7 +822,7 @@ kotlin {
 * [编译任务的变更](#changes-to-compilation-tasks)
 * [停止旧版 Kotlin/JS JAR 构件](#discontinuing-legacy-kotlin-js-jar-artifacts)
 
-### 新编译目标
+### 新编译目标 {id="new-compilation-target"}
 
 在 Kotlin 2.0.0 中，我们为 Kotlin/JS 添加了一个新的编译目标 `es2015`。这是您一次性启用 Kotlin 中支持的所有 ES2015 功能的新方法。
 
@@ -840,7 +840,7 @@ kotlin {
 
 新目标会自动开启 [ES 类和模块](whatsnew19.md#experimental-support-for-es2015-classes-and-modules) 以及新支持的 [ES 生成器](#suspend-functions-as-es2015-generators)。
 
-### 作为 ES2015 生成器的挂起函数
+### 作为 ES2015 生成器的挂起函数 {id="suspend-functions-as-es2015-generators"}
 
 此版本引入了对使用 ES2015 生成器编译 [挂起函数 (suspend functions)](composing-suspending-functions.md) 的 [实验性](components-stability.md#stability-levels-explained) 支持。
 
@@ -848,7 +848,7 @@ kotlin {
 
 [在官方文档中详细了解 ES2015 (ECMAScript 2015, ES6)](https://262.ecma-international.org/6.0/)。
 
-### 向 main 函数传递参数
+### 向 main 函数传递参数 {id="passing-arguments-to-the-main-function"}
 
 从 Kotlin 2.0.0 开始，您可以为 `main()` 函数指定 `args` 的来源。此功能使得使用命令行并传递参数变得更加容易。
 
@@ -878,7 +878,7 @@ kotlin {
 }
 ```
 
-### Kotlin/JS 项目的逐文件编译
+### Kotlin/JS 项目的逐文件编译 {id="per-file-compilation-for-kotlin-js-projects"}
 
 Kotlin 2.0.0 为 Kotlin/JS 项目输出引入了一个新的粒度选项。您现在可以设置逐文件编译，为每个 Kotlin 文件生成一个 JavaScript 文件。这有助于显著优化最终包的大小并缩短程序的加载时间。
 
@@ -907,7 +907,7 @@ Kotlin 2.0.0 为 Kotlin/JS 项目输出引入了一个新的粒度选项。您�
    kotlin.js.ir.output.granularity=per-file // `per-module` 是默认值
    ```
 
-### 改进的集合互操作性
+### 改进的集合互操作性 {id="improved-collection-interoperability"}
 
 从 Kotlin 2.0.0 开始，可以将签名中带有 Kotlin 集合类型的声明导出到 JavaScript（和 TypeScript）。这适用于 `Set`、`Map` 和 `List` 集合类型及其可变对应类型。
 
@@ -943,13 +943,13 @@ const allMyFriendNames = me.friends
 >
 {style="note"}
 
-### 支持 createInstance()
+### 支持 createInstance() {id="support-for-createinstance"}
 
 从 Kotlin 2.0.0 开始，您可以使用 Kotlin/JS 目标中的 [`createInstance()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect.full/create-instance.html) 函数。以前，它仅在 JVM 上可用。
 
 来自 [KClass](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/) 接口的此函数创建指定类的新实例，这对于获取 Kotlin 类的运行时引用非常有用。
 
-### 支持类型安全的普通 JavaScript 对象
+### 支持类型安全的普通 JavaScript 对象 {id="support-for-type-safe-plain-javascript-objects"}
 
 > `js-plain-objects` 插件处于 [实验性](components-stability.md#stability-levels-explained) 阶段。
 > 它可能随时被弃用或更改。`js-plain-objects` 插件**仅**支持 K2 编译器。
@@ -1044,7 +1044,7 @@ plugins {
 </tab>
 </tabs>
 
-### 支持 npm 软件包管理器
+### 支持 npm 软件包管理器 {id="support-for-npm-package-manager"}
 
 以前，Kotlin Multiplatform Gradle 插件只能使用 [Yarn](https://yarnpkg.com/lang/en/) 作为软件包管理器来下载和安装 npm 依赖项。从 Kotlin 2.0.0 开始，您可以改用 [npm](https://www.npmjs.com/) 作为软件包管理器。使用 npm 作为软件包管理器意味着您在设置期间可以少管理一个工具。
 
@@ -1054,7 +1054,7 @@ plugins {
 kotlin.js.yarn = false
 ```
 
-### 编译任务的变更
+### 编译任务的变更 {id="changes-to-compilation-tasks"}
 
 以前，`webpack` 和 `distributeResources` 编译任务都以相同的目录为目标。此外，`distribution` 任务也将 `dist` 声明为其输出目录。这导致输出重叠并产生编译警告。
 
@@ -1064,11 +1064,11 @@ kotlin.js.yarn = false
 * `distributeResources` 任务已完全移除。
 * `distribution` 任务现在具有 `Copy` 类型并以 `dist` 文件夹为目标。
 
-### 停止旧版 Kotlin/JS JAR 构件
+### 停止旧版 Kotlin/JS JAR 构件 {id="discontinuing-legacy-kotlin-js-jar-artifacts"}
 
 从 Kotlin 2.0.0 开始，Kotlin 发行版不再包含具有 `.jar` 扩展名的旧版 Kotlin/JS 构件。旧版构件用于不受支持的旧 Kotlin/JS 编译器，对于使用 `klib` 格式的 IR 编译器来说是不必要的。
 
-## Gradle 改进
+## Gradle 改进 {id="gradle-improvements"}
 
 Kotlin 2.0.0 与 Gradle 6.8.3 至 8.5 完全兼容。您也可以使用最新的 Gradle 发布版本，但如果这样做，请记住您可能会遇到弃用警告，或者某些新的 Gradle 功能可能无法使用。
 
@@ -1088,7 +1088,7 @@ Kotlin 2.0.0 与 Gradle 6.8.3 至 8.5 完全兼容。您也可以使用最新的
 * [kapt 配置从超配置继承注解处理器](#kapt-configurations-inherit-annotation-processors-from-superconfigurations)
 * [Kotlin Gradle 插件不再使用弃用的 Gradle 约定](#kotlin-gradle-plugin-no-longer-uses-deprecated-gradle-conventions)
 
-### 多平台项目中用于编译器选项的新 Gradle DSL
+### 多平台项目中用于编译器选项的新 Gradle DSL {id="new-gradle-dsl-for-compiler-options-in-multiplatform-projects"}
 
 > 此功能处于 [实验性](components-stability.md#stability-levels-explained) 阶段。它可能随时被弃用或更改。请仅出于评估目的使用它。我们将在 [YouTrack](https://kotl.in/issue) 中感谢您对此的反馈。
 >
@@ -1133,7 +1133,7 @@ kotlin {
 
 我们鼓励您在多平台项目中尝试新 DSL，并在 [YouTrack](https://kotl.in/issue) 中留下反馈，因为我们计划将此 DSL 作为配置编译器选项的推荐方法。
 
-### 新的 Compose 编译器 Gradle 插件
+### 新的 Compose 编译器 Gradle 插件 {id="new-compose-compiler-gradle-plugin"}
 
 Jetpack Compose 编译器（将可组合项转换为 Kotlin 代码）现在已合并到 Kotlin 仓库中。这将有助于将 Compose 项目过渡到 Kotlin 2.0.0，因为 Compose 编译器将始终与 Kotlin 同时发货。这也将 Compose 编译器版本提升到 2.0.0。
 
@@ -1141,7 +1141,7 @@ Jetpack Compose 编译器（将可组合项转换为 Kotlin 代码）现在已�
 
 要了解有关此更改的更多信息并查看迁移说明，请参阅 [Compose 编译器](https://kotlinlang.org/docs/multiplatform/compose-compiler.html) 文档。
 
-### 用于区分 JVM 和 Android 发布库的新属性
+### 用于区分 JVM 和 Android 发布库的新属性 {id="new-attribute-to-distinguish-jvm-and-android-published-libraries"}
 
 从 Kotlin 2.0.0 开始，[`org.gradle.jvm.environment`](https://docs.gradle.org/current/userguide/variant_attributes.html#sub:jvm_default_attributes) Gradle 属性默认随所有 Kotlin 变体一起发布。
 
@@ -1155,7 +1155,7 @@ Jetpack Compose 编译器（将可组合项转换为 Kotlin 代码）现在已�
 kotlin.publishJvmEnvironmentAttribute=false
 ```
 
-### 改进了 Kotlin/Native 中 CInteropProcess 的 Gradle 依赖项处理
+### 改进了 Kotlin/Native 中 CInteropProcess 的 Gradle 依赖项处理 {id="improved-gradle-dependency-handling-for-cinteropprocess-in-kotlin-native"}
 
 在此版本中，我们增强了对 `defFile` 属性的处理，以确保在 Kotlin/Native 项目中更好的 Gradle 任务依赖管理。
 
@@ -1223,7 +1223,7 @@ kotlin {
 >
 {style="warning"}
 
-### Gradle 中的可见性变化
+### Gradle 中的可见性变化 {id="visibility-changes-in-gradle"}
 
 > 此更改仅影响 Kotlin DSL 用户。
 >
@@ -1283,7 +1283,7 @@ kotlin {
 
 我们将感谢您对这一变化的反馈！请直接在我们的 [#gradle Slack 频道](https://kotlinlang.slack.com/archives/C19FD9681) 向 Kotlin 开发者分享您的评论。[获取 Slack 邀请](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)。
 
-### Gradle 项目中 Kotlin 数据的新目录
+### Gradle 项目中 Kotlin 数据的新目录 {id="new-directory-for-kotlin-data-in-gradle-projects"}
 
 > 不要将 `.kotlin` 目录提交到版本控制。
 > 例如，如果您使用 Git，请将 `.kotlin` 添加到项目的 `.gitignore` 文件中。
@@ -1303,7 +1303,7 @@ kotlin {
 
 将这些属性添加到项目中的 `gradle.properties` 文件中以使其生效。
 
-### 在需要时下载 Kotlin/Native 编译器
+### 在需要时下载 Kotlin/Native 编译器 {id="kotlin-native-compiler-downloaded-when-needed"}
 
 在 Kotlin 2.0.0 之前，如果您在多平台项目的 Gradle 构建脚本中配置了 [Kotlin/Native 目标](native-target-support.md)，Gradle 总是会在 [配置阶段](https://docs.gradle.org/current/userguide/build_lifecycle.html#sec:configuration) 下载 Kotlin/Native 编译器。
 
@@ -1331,7 +1331,7 @@ kotlin.native.distribution.downloadFromMaven=false
 
 请向我们的问题跟踪器 [YouTrack](https://kotl.in/issue) 报告任何问题。这两个更改默认行为的 Gradle 属性都是临时的，将在未来的版本中移除。
 
-### 弃用定义编译器选项的旧方法
+### 弃用定义编译器选项的旧方法 {id="deprecated-old-ways-of-defining-compiler-options"}
 
 在此版本中，我们继续完善编译器选项的设置方式。它应该可以解决不同方法之间的歧义，并使项目配置更加直接。
 
@@ -1368,11 +1368,11 @@ kotlin.native.distribution.downloadFromMaven=false
 
 有关如何在 Kotlin Gradle 插件中指定编译器选项的更多信息，请参阅 [如何定义选项](gradle-compiler-options.md#how-to-define-options)。
 
-### 提高了支持的最低 AGP 版本
+### 提高了支持的最低 AGP 版本 {id="bumped-minimum-supported-agp-version"}
 
 从 Kotlin 2.0.0 开始，支持的最低 Android Gradle 插件版本为 7.1.3。
 
-### 用于尝试最新语言版本的新 Gradle 属性
+### 用于尝试最新语言版本的新 Gradle 属性 {id="new-gradle-property-for-trying-the-latest-language-version"}
 
 在 Kotlin 2.0.0 之前，我们有以下 Gradle 属性来尝试新的 K2 编译器：`kotlin.experimental.tryK2`。现在 K2 编译器在 Kotlin 2.0.0 中已默认启用，我们决定将此属性演变为一种新形式，您可以使用它在项目中尝试最新的语言版本：`kotlin.experimental.tryNext`。当您在 `gradle.properties` 文件中使用此属性时，Kotlin Gradle 插件会将语言版本增加到比您的 Kotlin 版本的默认值高一个级别。例如，在 Kotlin 2.0.0 中，默认语言版本为 2.0，因此该属性会配置语言版本 2.1。
 
@@ -1387,7 +1387,7 @@ kotlin.native.distribution.downloadFromMaven=false
 
 要详细了解如何启用构建报告及其内容，请参阅 [构建报告](gradle-compilation-and-caches.md#build-reports)。
 
-### 构建报告的新 JSON 输出格式
+### 构建报告的新 JSON 输出格式 {id="new-json-output-format-for-build-reports"}
 
 在 Kotlin 1.7.0 中，我们引入了构建报告以帮助跟踪编译器性能。随着时间的推移，我们添加了更多指标，使这些报告在调查性能问题时更加详细和有用。以前，本地文件的唯一输出格式是 `*.txt` 格式。在 Kotlin 2.0.0 中，我们支持 JSON 输出格式，以便更轻松地使用其他工具进行分析。
 
@@ -1448,7 +1448,7 @@ kotlin.build.report.json.directory=my/directory/path
     }
 ```
 
-### kapt 配置从超配置继承注解处理器
+### kapt 配置从超配置继承注解处理器 {id="kapt-configurations-inherit-annotation-processors-from-superconfigurations"}
 
 在 Kotlin 2.0.0 之前，如果您想在单独的 Gradle 配置中定义一组公共的注解处理器，并在子项目的 kapt 特定配置中扩展此配置，kapt 会跳过注解处理，因为它找不到任何注解处理器。在 Kotlin 2.0.0 中，kapt 可以成功检测到您的注解处理器上存在间接依赖。
 
@@ -1468,11 +1468,11 @@ dependencies {
 
 感谢 Christoph Loy 的 [实现](https://github.com/JetBrains/kotlin/pull/5198)！
 
-### Kotlin Gradle 插件不再使用弃用的 Gradle 约定
+### Kotlin Gradle 插件不再使用弃用的 Gradle 约定 {id="kotlin-gradle-plugin-no-longer-uses-deprecated-gradle-conventions"}
 
 在 Kotlin 2.0.0 之前，如果您使用 Gradle 8.2 或更高版本，Kotlin Gradle 插件会错误地使用在 Gradle 8.2 中已弃用的 Gradle 约定。这导致 Gradle 报告构建弃用。在 Kotlin 2.0.0 中，Kotlin Gradle 插件已更新，在您使用 Gradle 8.2 或更高版本时不再触发这些弃用警告。
 
-## 标准库
+## 标准库 {id="standard-library"}
 
 此版本为 Kotlin 标准库带来了进一步的稳定性，并使更多现有函数在所有平台上通用：
 
@@ -1482,7 +1482,7 @@ dependencies {
 * [通用的受保护函数 AbstractMutableList.removeRange](#common-protected-function-abstractmutablelist-removerange)
 * [通用的 String.toCharArray(destination)](#common-string-tochararray-destination-function)
 
-### 稳定替代 enum 类 values 泛型函数的方法
+### 稳定替代 enum 类 values 泛型函数的方法 {id="stable-replacement-of-the-enum-class-values-generic-function"}
 
 在 Kotlin 2.0.0 中，`enumEntries<T>()` 函数达到 [稳定](components-stability.md#stability-levels-explained) 状态。`enumEntries<T>()` 函数是泛型 `enumValues<T>()` 函数的替代品。新函数返回给定枚举类型 `T` 的所有枚举条目的列表。之前引入并稳定了枚举类的 `entries` 属性，以替代合成的 `values()` 函数。有关条目属性的更多信息，请参阅 [Kotlin 1.8.20 的最新变化](whatsnew1820.md#a-modern-and-performant-replacement-of-the-enum-class-values-function)。
 
@@ -1503,7 +1503,7 @@ printAllValues<RGB>()
 // RED, GREEN, BLUE
 ```
 
-### 稳定的 AutoCloseable 接口
+### 稳定的 AutoCloseable 接口 {id="stable-autocloseable-interface"}
 
 在 Kotlin 2.0.0 中，通用的 [`AutoCloseable`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-auto-closeable/) 接口达到 [稳定](components-stability.md#stability-levels-explained) 状态。它允许您轻松关闭资源，并包含两个有用的函数：
 
@@ -1548,7 +1548,7 @@ fun writeBooksTo(writer: XMLWriter) {
 }
 ```
 
-### 通用的受保护属性 AbstractMutableList.modCount
+### 通用的受保护属性 AbstractMutableList.modCount {id="common-protected-property-abstractmutablelist-modcount"}
 
 在此版本中，`AbstractMutableList` 接口的 [`modCount`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-abstract-mutable-list/mod-count.html) `protected` 属性变得通用。以前，`modCount` 属性在每个平台上都可用，但不在通用目标上可用。现在，您可以创建 `AbstractMutableList` 的自定义实现并在通用代码中访问该属性。
 
@@ -1556,13 +1556,13 @@ fun writeBooksTo(writer: XMLWriter) {
 
 在实现自定义列表时，您可以使用 `modCount` 属性来注册和检测并发修改。
 
-### 通用的受保护函数 AbstractMutableList.removeRange
+### 通用的受保护函数 AbstractMutableList.removeRange {id="common-protected-function-abstractmutablelist-removerange"}
 
 在此版本中，`AbstractMutableList` 接口的 [`removeRange()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-abstract-mutable-list/remove-range.html) `protected` 函数变得通用。以前，它在每个平台上都可用，但不在通用目标上可用。现在，您可以创建 `AbstractMutableList` 的自定义实现并在通用代码中重写该函数。
 
 该函数按照指定的范围从此列表中移除元素。通过重写此函数，您可以利用自定义实现并提高列表操作的性能。
 
-### 通用的 String.toCharArray(destination) 函数
+### 通用的 String.toCharArray(destination) 函数 {id="common-string-tochararray-destination-function"}
 
 此版本引入了通用的 [`String.toCharArray(destination)`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/to-char-array.html) 函数。以前，它仅在 JVM 上可用。
 
@@ -1584,7 +1584,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-## 安装 Kotlin 2.0.0
+## 安装 Kotlin 2.0.0 {id="install-kotlin-2-0-0"}
 
 从 IntelliJ IDEA 2023.3 和 Android Studio Iguana (2023.2.1) Canary 15 开始，Kotlin 插件作为捆绑插件包含在您的 IDE 中。这意味着您无法再从 JetBrains Marketplace 安装该插件。
 

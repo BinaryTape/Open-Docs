@@ -15,7 +15,7 @@
 取消操作通过 [`Job`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/) 句柄进行，该句柄表示协程的生命周期及其父子关系。
 `Job` 允许您检查协程是否处于活跃状态，并允许您按照[结构化并发](coroutines-basics.md#coroutine-scope-and-structured-concurrency)的定义取消该协程及其所有子协程。
 
-## 取消协程
+## 取消协程 {id="cancel-coroutines"}
 
 当在协程的 `Job` 句柄上调用 [`cancel()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/cancel.html) 函数时，该协程将被取消。
 [协程构建器函数](coroutines-basics.md#coroutine-builder-functions)（例如 [`.launch()`](coroutines-basics.md#coroutinescope-launch)）会返回一个 `Job`。[`.async()`](coroutines-basics.md#coroutinescope-async) 函数返回一个 [`Deferred`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-deferred/)，它实现了 `Job` 并支持相同的取消行为。
@@ -97,7 +97,7 @@ deferred.cancel()
 >
 {style="warning"}
 
-### 取消传播
+### 取消传播 {id="cancellation-propagation"}
 
 [结构化并发](coroutines-basics.md#coroutine-scope-and-structured-concurrency)确保取消一个协程也会取消其所有的子协程。
 这可以防止子协程在父协程被取消后继续工作。
@@ -158,7 +158,7 @@ parentJob.cancel()
 
 在本节中，您可以了解添加[挂起点](#suspension-points-and-cancellation)（例如调用 [yield()](#the-yield-suspending-function) 函数）如何让协程响应取消。
 
-### 挂起点与取消
+### 挂起点与取消 {id="suspension-points-and-cancellation"}
 
 当协程被取消时，它会继续运行，直到到达代码中可能发生挂起的点，也称为 *挂起点*。
 如果协程在该处挂起，挂起函数会检查它是否已被取消。
@@ -222,7 +222,7 @@ println("All child jobs completed!")
 >
 {style="tip"}
 
-### `yield()` 挂起函数
+### `yield()` 挂起函数 {id="the-yield-suspending-function"}
 
 如果一个协程不挂起，其他协程就无法在同一个线程上运行，直到它完成。
 因此，不挂起的协程在该线程上按顺序运行。
@@ -265,7 +265,7 @@ runBlocking {
 
 在此示例中，每个协程都使用 `yield()` 以在迭代之间让其他协程运行。
 
-### 显式检查取消
+### 显式检查取消 {id="check-for-cancellation-explicitly"}
 
 您可以显式检查取消，这让长时间运行的代码可以在不挂起的情况下响应取消。
 不挂起的长时间运行的协程可能会阻止同一线程上的其他协程运行，直到它完成。
@@ -276,7 +276,7 @@ runBlocking {
 *   [`isActive`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/is-active.html) 属性在协程被取消时返回 `false`。
 *   [`ensureActive()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/ensure-active.html) 函数在协程被取消时抛出 `CancellationException`。
 
-### 在取消协程时中断阻塞代码
+### 在取消协程时中断阻塞代码 {id="interrupt-blocking-code-when-coroutines-are-canceled"}
 
 在 JVM 上，某些阻塞函数（例如 `Thread.sleep()` 或 `BlockingQueue.take()`）会阻塞当前线程。
 这些阻塞函数可以被中断，从而使它们提前停止。
@@ -319,7 +319,7 @@ withContext(Dispatchers.Default) {
 ```
 {kotlin-runnable="true" id="interrupt-cancellation-example"}
 
-## 取消协程时安全地处理值
+## 取消协程时安全地处理值 {id="handle-values-safely-when-canceling-coroutines"}
 
 当一个挂起的协程被取消时，它会抛出 `CancellationException` 并恢复运行，而不是返回任何值，即使这些值已经可用。
 这种行为被称为 *即时取消*。
@@ -430,7 +430,7 @@ class ScreenWithFileContents(private val scope: CoroutineScope) {
 
 在此示例中，将 `BufferedReader` 存储在变量中并在 `finally` 块中关闭它，可确保即使协程被取消也能释放资源。
 
-### 运行不可取消的代码块
+### 运行不可取消的代码块 {id="run-non-cancelable-blocks"}
 
 您可以防止取消操作影响协程的某些部分。
 为此，请将 [`NonCancellable`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-non-cancellable/) 作为参数传递给 `withContext()` 协程构建器函数。
@@ -484,7 +484,7 @@ suspend fun main() {
 ```
 {kotlin-runnable="true" id="noncancellable-blocks-example"}
 
-## 超时
+## 超时 {id="timeout"}
 
 超时允许您在指定持续时间后自动取消协程。
 您可以使用它来停止耗时过长的操作。

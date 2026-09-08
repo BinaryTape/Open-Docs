@@ -6,17 +6,17 @@ Kotlin은 Maven 생태계와 원활하게 통합되어, 업계 표준 도구를 
 > 
 {style="tip"}
 
-## JUnit으로 테스트 만들기
+## JUnit으로 테스트 만들기 {id="create-tests-with-junit"}
 
 [JUnit](https://junit.org/)은 Kotlin 백엔드 개발을 위한 표준 테스팅 프레임워크입니다. Kotlin은 여러 JUnit 버전을 지원하지만, 대부분의 최신 프로젝트에서는 JUnit 6를 사용해야 합니다.
 
 JUnit을 사용하여 Kotlin에서 테스트를 만들려면 `kotlin.test` 또는 JUnit 패키지의 `@Test` 어노테이션을 사용하세요.
 
-### 의존성 추가
+### 의존성 추가 {id="add-dependency"}
 
 `kotlin-test` 라이브러리는 시작하는 가장 쉬운 방법입니다. 이 라이브러리는 공통 단언(assertions) 세트를 제공하며 필요한 JUnit 아티팩트를 자동으로 가져옵니다.
 
-#### JUnit 5 및 이후 버전
+#### JUnit 5 및 이후 버전 {id="junit-5-and-later"}
 
 모든 새 프로젝트에는 `kotlin-test-junit5` 아티팩트를 사용하세요. 이 아티팩트는 중첩 테스트(nested tests) 및 병렬 실행과 같은 기능을 포함하여 JUnit에 대한 완전한 지원을 제공합니다. Kotlin/JVM은 최신 안정화 버전인 JUnit 6를 지원합니다.
 
@@ -37,7 +37,7 @@ JUnit을 사용하여 Kotlin에서 테스트를 만들려면 `kotlin.test` 또�
 >
 {style="note"}
 
-#### JUnit 4
+#### JUnit 4 {id="junit-4"}
 
 레거시 프로젝트와 같이 이전 버전의 JUnit을 사용하려는 경우, JUnit 4를 활용하는 `kotlin-test-junit` 아티팩트를 사용하세요:
 
@@ -57,7 +57,7 @@ JUnit을 사용하여 Kotlin에서 테스트를 만들려면 `kotlin.test` 또�
 >
 {style="tip"}
 
-### 단위 테스트 작성하기
+### 단위 테스트 작성하기 {id="write-unit-tests"}
 
 단위 테스트(Unit tests)는 개별 함수나 클래스와 같이 코드의 격리된 부분을 검증합니다. 
 관례적으로 단위 테스트 이름에는 `*Test` 접미사를 붙입니다. 예시:
@@ -76,7 +76,7 @@ class OrderServiceTest {
 }
 ```
 
-### 통합 테스트 작성하기
+### 통합 테스트 작성하기 {id="write-integration-tests"}
 
 통합 테스트(Integration tests)는 서비스와 데이터베이스 등 컴포넌트 간의 상호작용을 검증합니다. 
 관례적으로 통합 테스트 이름에는 `*IT` 접미사를 붙입니다. 예시:
@@ -98,11 +98,11 @@ class UserRepositoryIT {
 }
 ```
 
-## 테스트 실행하기
+## 테스트 실행하기 {id="run-tests"}
 
 Maven 프로젝트에서 테스트 실행은 일반적으로 빌드 수명 주기를 깔끔하게 유지하기 위해 Surefire와 Failsafe 두 가지 플러그인으로 나뉩니다.
 
-### Surefire 플러그인 사용
+### Surefire 플러그인 사용 {id="with-surefire-plugin"}
 
 [Surefire 플러그인](https://maven.apache.org/surefire/maven-surefire-plugin/)은 _단위 테스트_를 처리합니다. 
 이 플러그인은 `*Test` 명명 패턴을 따르는 모든 Kotlin 및 Java 테스트를 실행합니다.
@@ -123,7 +123,7 @@ Maven 프로젝트에서 테스트 실행은 일반적으로 빌드 수명 주�
 mvn test
 ```
 
-### Failsafe 플러그인 사용
+### Failsafe 플러그인 사용 {id="with-failsafe-plugin"}
 
 [Failsafe 플러그인](https://maven.apache.org/surefire/maven-failsafe-plugin/)은 _통합 테스트_를 처리합니다. 
 이 플러그인은 `*IT` 명명 패턴을 따르는 모든 Kotlin 및 Java 테스트를 실행합니다.
@@ -153,7 +153,7 @@ Surefire와 달리 Failsafe는 `integration-test` 단계에서 테스트가 실�
 mvn verify
 ```
 
-## 상세한 실패 메시지 확인하기
+## 상세한 실패 메시지 확인하기 {id="get-detailed-failure-messages"}
 
 Kotlin [Power-assert 컴파일러 플러그인](power-assert.md)은 단언(assertions)의 중간 값을 보여주는 상세한 실패 메시지를 생성하여 콘솔 출력에서 전체 다이어그램을 제공합니다.
 
@@ -266,7 +266,7 @@ assertEquals(expectedRecord, actualRecord, "Profile configurations out of sync")
              UserProfile(id=451, email=admin-dev@company.internal)
 ```
 
-## 다른 테스팅 프레임워크 살펴보기
+## 다른 테스팅 프레임워크 살펴보기 {id="explore-other-testing-frameworks"}
 
 JUnit 외에도 Kotlin 테스트를 더 관용적(idiomatic)이고 읽기 쉽게 만들어주는 다른 인기 있는 프레임워크를 사용할 수 있습니다:
 
@@ -278,7 +278,7 @@ JUnit 외에도 Kotlin 테스트를 더 관용적(idiomatic)이고 읽기 쉽게
 | [Kotest](https://github.com/kotest/kotest)                  | 여러 단언 스타일과 광범위한 매처(matcher) 지원을 제공하는 Kotlin용 단언 라이브러리입니다. |
 | [Strikt](https://github.com/robfletcher/strikt)             | 타입 안전한 단언과 데이터 클래스 지원을 제공하는 Kotlin용 단언 라이브러리입니다. |
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [`kotlin.test` 라이브러리](https://kotlinlang.org/api/latest/kotlin.test/kotlin.test/)의 기능을 살펴보세요.
 * [Power-assert 컴파일러 플러그인](power-assert.md)에 대해 자세히 알아보세요.

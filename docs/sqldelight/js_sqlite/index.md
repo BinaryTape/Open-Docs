@@ -35,13 +35,13 @@ Web Worker 驱动程序允许 SQLDelight 与运行在 [Web Worker] 中的 SQL �
 !!! info
     Web Worker 驱动程序仅与浏览器目标兼容。 
 
-## 配置 Web Worker
+## 配置 Web Worker {id="configuring-a-web-worker"}
 
 SQLDelight 的 Web Worker 驱动程序并不绑定到特定的 Worker 实现。相反，该驱动程序使用标准消息集与 Worker 通信。SQLDelight 提供了一个使用 [SQL.js] 的 Worker 实现。
 
 有关在项目中进行设置的详细信息，请参阅 [SQL.js Worker] 页面；有关实现自定义 Worker 的详细信息，请参阅 [Custom Workers] 页面。
 
-## 使用 Web Worker
+## 使用 Web Worker {id="using-a-web-worker"}
 
 创建 Web Worker 驱动程序实例时，您必须传递一个对 Web Worker 的引用，该 Worker 将用于处理所有 SQL 操作。`Worker` 构造函数接受指向 Worker 脚本的 `URL` 对象。
 
@@ -60,7 +60,7 @@ val driver = WebWorkerDriver(
 
 从这里开始，您可以像使用任何其他 SQLDelight 驱动程序一样使用该驱动程序。
 
-## 使用查询
+## 使用查询 {id="using-queries"}
 
 {% include 'common/index_queries.md' %}
 

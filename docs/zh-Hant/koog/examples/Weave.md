@@ -13,7 +13,7 @@ Weave UI 中查看豐富的追蹤。
 
 若要了解背景資訊，請參閱 Weave OpenTelemetry 文件：https://weave-docs.wandb.ai/guides/tracking/otel/
 
-## 前提條件
+## 前提條件 {id="prerequisites"}
 
 在執行範例之前，請確保您擁有：
 
@@ -32,7 +32,7 @@ export WEAVE_PROJECT_NAME=koog-tracing
 export OPENAI_API_KEY=...
 ```
 
-## 筆記本設定
+## 筆記本設定 {id="notebook-setup"}
 
 我們使用最新的 Kotlin Jupyter 描述符。如果您已將 Koog 預先配置為 `%use` 外掛程式，
 您可以取消註解下方的行。
@@ -43,7 +43,7 @@ export OPENAI_API_KEY=...
 
 ```
 
-## 建立 agent 並啟用 Weave 執行緒
+## 建立 agent 並啟用 Weave 執行緒 {id="create-an-agent-and-enable-weave-tracing"}
 
 我們建構一個極簡的 `AIAgent` 並安裝帶有 Weave 匯出器的 `OpenTelemetry` 功能。
 匯出器會使用您的環境設定將 OTLP Span 傳送到 Weave：
@@ -75,7 +75,7 @@ val agent = AIAgent(
 
 ```
 
-## 執行 agent 並在 Weave 中查看追蹤
+## 執行 agent 並在 Weave 中查看追蹤 {id="run-the-agent-and-view-traces-in-weave"}
 
 執行一個簡單的提示詞。完成後，開啟印出的連結以在 Weave 中查看追蹤。
 您應該會看到 agent 執行、模型呼叫以及其他受檢測操作的 Span。
@@ -93,7 +93,7 @@ See traces on https://wandb.ai/$entity/$projectName/weave/traces"
 
 ```
 
-## 疑難排解
+## 疑難排解 {id="troubleshooting"}
 
 - 如果您沒有看到追蹤，請檢查您的環境中是否已設定 `WEAVE_API_KEY`、`WEAVE_ENTITY` 和 `WEAVE_PROJECT_NAME`。
 - 確保您的網路允許向 Weave 的 OTLP 端點發送傳出 HTTPS 請求。

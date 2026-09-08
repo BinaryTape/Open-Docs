@@ -5,7 +5,7 @@ Compose Multiplatform for desktop では、以下の 2 つの異なるスコー�
 * フォーカスされている要素に基づいたイベントハンドラー。
 * ウィンドウスコープのイベントハンドラー。
 
-## フォーカスされたコンポーネントにおけるイベント
+## フォーカスされたコンポーネントにおけるイベント {id="events-in-a-focused-component"}
 
 このアプローチでは、キーボードのキーを押すと、現在フォーカスされているコンポーネントのイベントハンドラーがトリガーされます。
 
@@ -69,7 +69,7 @@ fun main() = singleWindowApplication (title = "Key events") {
 
 <img src="compose-desktop-key-focus.animated.gif" alt="Keyboard events in a focused component" width="600" preview-src="compose-desktop-key-focus.png"/>
 
-## ウィンドウスコープにおけるイベント
+## ウィンドウスコープにおけるイベント {id="events-in-a-window-scope"}
 
 現在のウィンドウ内で常にアクティブなキーボードイベントハンドラーを定義するには、`Window`、`singleWindowApplication`、および `Dialog` 関数で使用可能な `onPreviewKeyEvent` および `onKeyEvent` パラメーターを使用します。
 これらは、イベントが消費されなかった場合のディスパッチ方法が異なります。`onPreviewKeyEvent` はイベントを最初の子要素にディスパッチし、`onKeyEvent` はコンポーザブルの親にディスパッチします。通常、画面全体のキーボードショートカットも実装できるため、イベントをインターセプトするには `onPreviewKeyEvent` が好まれます。
@@ -161,7 +161,7 @@ fun App() {
 
 <img src="compose-desktop-key-window.animated.gif" alt="Keyboard events in a window scope" width="600" preview-src="compose-desktop-key-window.png"/>
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * 詳細は [API リファレンス](https://developer.android.com/reference/kotlin/androidx/compose/ui/input/key/package-summary#keyinputfilter)を参照してください。
 * [その他のデスクトップコンポーネント](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop)に関するチュートリアルを確認してください。

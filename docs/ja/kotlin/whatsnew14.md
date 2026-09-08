@@ -11,7 +11,7 @@ Kotlin 1.4.0 では、[品質とパフォーマンスに重点を置き](https:/
 >
 {style="tip"}
 
-## 言語機能と改善
+## 言語機能と改善 {id="language-features-and-improvements"}
 
 Kotlin 1.4.0 には、さまざまな言語機能と改善が含まれています。主なものは以下の通りです：
 
@@ -22,7 +22,7 @@ Kotlin 1.4.0 には、さまざまな言語機能と改善が含まれていま�
 * [呼び出し可能参照（Callable reference）の改善](#callable-reference-improvements)
 * [ループ内の when の中での break と continue](#using-break-and-continue-inside-when-expressions-included-in-loops)
 
-### Kotlin インターフェースの SAM 変換
+### Kotlin インターフェースの SAM 変換 {id="sam-conversions-for-kotlin-interfaces"}
 
 Kotlin 1.4.0 より前は、SAM（Single Abstract Method：単一抽象メソッド）変換は [Kotlin から Java のメソッドや Java インターフェースを扱う場合](java-interop.md#sam-conversions)にのみ適用できました。今後は、Kotlin インターフェースに対しても SAM 変換を使用できるようになります。
 これを行うには、Kotlin インターフェースを `fun` 修飾子で明示的に関数型インターフェースとしてマークします。
@@ -44,7 +44,7 @@ fun main() {
 
 [Kotlin の関数型インターフェースと SAM 変換についての詳細はこちら](fun-interfaces.md)。
 
-### ライブラリ作者向けの明示的 API モード
+### ライブラリ作者向けの明示的 API モード {id="explicit-api-mode-for-library-authors"}
 
 Kotlin コンパイラは、ライブラリ作者向けに *明示的 API モード（explicit API mode）* を提供します。このモードでは、コンパイラはライブラリの API をより明確で一貫したものにするための追加のチェックを実行します。ライブラリの公開 API に公開される宣言に対して、以下の要件が追加されます：
 
@@ -107,7 +107,7 @@ kotlin {
 
 [明示的 API モードの詳細については KEEP を参照してください](https://github.com/Kotlin/KEEP/blob/master/proposals/explicit-api-mode.md)。
 
-### 名前付き引数と位置引数の混用
+### 名前付き引数と位置引数の混用 {id="mixing-named-and-positional-arguments"}
 
 Kotlin 1.3 では、[名前付き引数](functions.md#named-arguments)を使用して関数を呼び出す際、最初の名前付き引数よりも前に、名前のないすべての引数（位置引数）を配置する必要がありました。例えば、`f(1, y = 2)` は呼び出せますが、`f(x = 1, 2)` は呼び出せませんでした。
 
@@ -128,7 +128,7 @@ fun reformat(
 reformat("This is a String!", uppercaseFirstLetter = false , '-')
 ```
 
-### 末尾のカンマ（Trailing comma）
+### 末尾のカンマ（Trailing comma） {id="trailing-comma"}
 
 Kotlin 1.4 から、引数リストやパラメータリスト、`when` のエントリ、非構造化宣言のコンポーネントなどの列挙において、末尾にカンマを追加できるようになりました。
 末尾のカンマを使用すると、カンマを追加したり削除したりすることなく、新しい項目を追加したり順序を変更したりできます。
@@ -153,7 +153,7 @@ val colors = listOf(
 )
 ```
 
-### 呼び出し可能参照（Callable reference）の改善
+### 呼び出し可能参照（Callable reference）の改善 {id="callable-reference-improvements"}
 
 Kotlin 1.4 では、呼び出し可能参照を使用できるケースが増えました：
 
@@ -162,7 +162,7 @@ Kotlin 1.4 では、呼び出し可能参照を使用できるケースが増え
 * 関数の引数の数に基づいて適応する参照
 * 呼び出し可能参照に対するサスペンド変換
 
-#### デフォルト値を持つパラメータを含む関数への参照
+#### デフォルト値を持つパラメータを含む関数への参照 {id="references-to-functions-that-include-parameters-with-default-values"}
 
 デフォルト値を持つパラメータを含む関数に対しても、呼び出し可能参照を使用できるようになりました。関数 `foo` への呼び出し可能参照が引数を取らない場合、デフォルト値 `0` が使用されます。
 
@@ -184,7 +184,7 @@ fun main() {
 fun applyInt(func: (Int) -> String): String = func(0) 
 ```
 
-#### Unit を返す関数内での関数参照
+#### Unit を返す関数内での関数参照 {id="function-references-in-unit-returning-functions"}
 
 Kotlin 1.4 では、任意の型を返す関数への呼び出し可能参照を、`Unit` を返す関数内で使用できます。Kotlin 1.4 より前は、このケースではラムダ引数しか使用できませんでした。今後は、ラムダ引数と呼び出し可能参照の両方が使用可能です。
 
@@ -198,7 +198,7 @@ fun main() {
 }
 ```
 
-#### 関数の引数の数に基づいて適応する参照
+#### 関数の引数の数に基づいて適応する参照 {id="references-that-adapt-based-on-the-number-of-arguments-in-a-function"}
 
 可変長引数（`vararg`）を渡す際に、関数の呼び出し可能参照を適応させることができるようになりました。渡された引数リストの最後に、同じ型のパラメータをいくつでも渡すことができます。
 
@@ -216,7 +216,7 @@ fun test() {
 }
 ```
 
-#### 呼び出し可能参照に対するサスペンド変換
+#### 呼び出し可能参照に対するサスペンド変換 {id="suspend-conversion-on-callable-references"}
 
 ラムダに対するサスペンド変換（suspend conversion）に加えて、Kotlin 1.4.0 からは呼び出し可能参照に対してもサスペンド変換がサポートされます。
 
@@ -230,7 +230,7 @@ fun test() {
 }
 ```
 
-### ループ内の when の中での break と continue
+### ループ内の when の中での break と continue {id="using-break-and-continue-inside-when-expressions-included-in-loops"}
 
 Kotlin 1.3 では、ループ内に含まれる `when` 式の中で、ラベルなしの `break` と `continue` を使用することはできませんでした。その理由は、これらのキーワードが `when` 式における将来的な [フォールスルー（fall-through）動作](https://en.wikipedia.org/wiki/Switch_statement#Fallthrough) のために予約されていたからです。
 
@@ -264,14 +264,14 @@ fun test(xs: List<Int>) {
 
 `when` 内部のフォールスルー動作については、今後の設計課題となっています。
 
-## IDE の新ツール
+## IDE の新ツール {id="new-tools-in-the-ide"}
 
 Kotlin 1.4 では、IntelliJ IDEA で Kotlin 開発を簡素化するための新しいツールを使用できます：
 
 * [新しい柔軟な Project Wizard](#new-flexible-project-wizard)
 * [コルーチンデバッガ](#coroutine-debugger)
 
-### 新しい柔軟な Project Wizard
+### 新しい柔軟な Project Wizard {id="new-flexible-project-wizard"}
 
 新しい柔軟な Kotlin Project Wizard を使用すると、UI なしでは構成が難しいマルチプラットフォームプロジェクトを含む、さまざまな種類の Kotlin プロジェクトを簡単に作成および構成できます。
 
@@ -299,7 +299,7 @@ Kotlin 1.4 では、IntelliJ IDEA で Kotlin 開発を簡素化するための�
 * [React 用の Kotlin/JS アプリケーションの作成](js-react.md)
 * [Kotlin/Native アプリケーションの作成](native-get-started.md)
 
-### コルーチンデバッガ
+### コルーチンデバッガ {id="coroutine-debugger"}
 
 多くの人がすでに非同期プログラミングに [コルーチン](coroutines-guide.md) を使用しています。
 しかし、デバッグに関しては、Kotlin 1.4 より前のコルーチンの扱いは非常に苦痛でした。コルーチンはスレッド間をジャンプするため、特定のコルーチンが何をしているかを理解したり、そのコンテキストを確認したりするのが困難でした。場合によっては、ブレークポイントを越えたステップ実行が単に機能しないこともありました。その結果、コルーチンを使用したコードをデバッグするには、ロギングや推測に頼らざるを得ませんでした。
@@ -325,14 +325,14 @@ Kotlin 1.4 では、Kotlin プラグインに搭載された新機能により�
 
 コルーチンのデバッグの詳細については、[このブログ記事](https://blog.jetbrains.com/kotlin/2020/07/kotlin-1-4-rc-debugging-coroutines/) および [IntelliJ IDEA ドキュメント](https://www.jetbrains.com/help/idea/debug-kotlin-coroutines.html) を参照してください。
 
-## 新しいコンパイラ
+## 新しいコンパイラ {id="new-compiler"}
 
 新しい Kotlin コンパイラは非常に高速になる予定です。サポートされているすべてのプラットフォームを統合し、コンパイラ拡張のための API を提供します。これは長期的なプロジェクトであり、Kotlin 1.4.0 ですでにいくつかのステップを完了しました：
 
 * [新しく、より強力な型推論アルゴリズム](#new-more-powerful-type-inference-algorithm) がデフォルトで有効になりました。
 * [新しい JVM および JS IR バックエンド](#unified-backends-and-extensibility)。安定化次第、デフォルトになる予定です。
 
-### 新しく、より強力な型推論アルゴリズム
+### 新しく、より強力な型推論アルゴリズム {id="new-more-powerful-type-inference-algorithm"}
 
 Kotlin 1.4 では、新しく、より強力な型推論アルゴリズムが使用されています。この新しいアルゴリズムは、Kotlin 1.3 でもコンパイラオプションを指定することで試用可能でしたが、今回からデフォルトで使用されます。新しいアルゴリズムで修正された問題の完全なリストは [YouTrack](https://youtrack.jetbrains.com/issues/KT?q=Tag:%20fixed-in-new-inference%20) で確認できます。ここでは、最も顕著な改善点のいくつかを紹介します：
 
@@ -343,7 +343,7 @@ Kotlin 1.4 では、新しく、より強力な型推論アルゴリズムが使
 * [異なる引数を持つ Java インターフェースの SAM 変換](#sam-conversion-for-java-interfaces-with-different-arguments)
 * [Kotlin における Java SAM インターフェース](#java-sam-interfaces-in-kotlin)
 
-#### 型が自動的に推論されるケースの増加
+#### 型が自動的に推論されるケースの増加 {id="more-cases-where-type-is-inferred-automatically"}
 
 新しい推論アルゴリズムは、古いアルゴリズムでは明示的な指定が必要だった多くのケースで型を推論します。例えば、次の例では、ラムダパラメータ `it` の型が正しく `String?` と推論されます：
 
@@ -366,7 +366,7 @@ fun main() {
 
 Kotlin 1.3 では、これを動作させるために明示的なラムダパラメータを導入するか、`to` を明示的なジェネリック引数を持つ `Pair` コンストラクタに置き換える必要がありました。
 
-#### ラムダの最後の式に対するスマートキャスト
+#### ラムダの最後の式に対するスマートキャスト {id="smart-casts-for-a-lambda-s-last-expression"}
 
 Kotlin 1.3 では、期待される型を指定しない限り、ラムダ内の最後の式はスマートキャストされませんでした。したがって、次の例では、Kotlin 1.3 は `result` 変数の型を `String?` と推論します：
 
@@ -385,7 +385,7 @@ Kotlin 1.4 では、新しい推論アルゴリズムのおかげで、ラムダ
 
 Kotlin 1.3 では、このようなケースを動作させるために明示的なキャスト（`!!` または `as String` のような型キャスト）を追加する必要があることが多かったのですが、今後はこれらのキャストは不要になります。
 
-#### 呼び出し可能参照に対するスマートキャスト
+#### 呼び出し可能参照に対するスマートキャスト {id="smart-casts-for-callable-references"}
 
 Kotlin 1.3 では、スマートキャストされた型のメンバー参照にアクセスすることはできませんでした。Kotlin 1.4 では可能になります：
 
@@ -423,7 +423,7 @@ fun main() {
 
 animal 変数が特定の型 `Cat` および `Dog` にスマートキャストされた後、異なるメンバー参照 `animal::meow` および `animal::woof` を使用できます。型チェックの後、サブタイプに対応するメンバー参照にアクセスできます。
 
-#### 委譲プロパティの推論の改善
+#### 委譲プロパティの推論の改善 {id="better-inference-for-delegated-properties"}
 
 委譲プロパティの型は、`by` キーワードの後に続く委譲式の分析中には考慮されていませんでした。例えば、以前は次のコードはコンパイルされませんでしたが、コンパイラは `old` および `new` パラメータの型を正しく `String?` と推論するようになりました：
 
@@ -440,7 +440,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.4"}
 
-#### 異なる引数を持つ Java インターフェースの SAM 変換
+#### 異なる引数を持つ Java インターフェースの SAM 変換 {id="sam-conversion-for-java-interfaces-with-different-arguments"}
 
 Kotlin は最初から Java インターフェースの SAM 変換をサポートしていましたが、サポートされていないケースが 1 つあり、既存の Java ライブラリを扱う際に不便なことがありました。2 つの SAM インターフェースをパラメータとして受け取る Java メソッドを呼び出した場合、両方の引数がラムダであるか、あるいは両方が通常のオブジェクトである必要がありました。一方の引数をラムダとして、もう一方をオブジェクトとして渡すことはできませんでした。
 
@@ -460,7 +460,7 @@ fun test(r1: Runnable) {
 }
 ```
 
-#### Kotlin における Java SAM インターフェース
+#### Kotlin における Java SAM インターフェース {id="java-sam-interfaces-in-kotlin"}
 
 Kotlin 1.4 では、Kotlin 内で Java SAM インターフェースを使用し、それに対して SAM 変換を適用できます。
 
@@ -476,7 +476,7 @@ fun test() {
 
 Kotlin 1.3 では、SAM 変換を実行するためには、上記の関数 `foo` を Java コードで宣言する必要がありました。
 
-### 統合されたバックエンドと拡張性
+### 統合されたバックエンドと拡張性 {id="unified-backends-and-extensibility"}
 
 Kotlin には、実行ファイルを生成する 3 つのバックエンドがあります：Kotlin/JVM、Kotlin/JS、および Kotlin/Native。Kotlin/JVM と Kotlin/JS は、それぞれ独立して開発されたため、多くのコードを共有していません。Kotlin/Native は、Kotlin コードの中間表現（IR）を中心に構築された新しいインフラストラクチャに基づいています。
 
@@ -486,7 +486,7 @@ Kotlin には、実行ファイルを生成する 3 つのバックエンドが�
 
 現在 Alpha 段階にある新しい [JVM IR](#new-jvm-ir-backend) および [JS IR](#new-js-ir-backend) バックエンドを使用し、フィードバックをお寄せいただくことをお勧めします。
 
-## Kotlin/JVM
+## Kotlin/JVM {id="kotlin-jvm"}
 
 Kotlin 1.4.0 には、以下のような多くの JVM 固有の改善が含まれています：
 
@@ -495,7 +495,7 @@ Kotlin 1.4.0 には、以下のような多くの JVM 固有の改善が含ま�
 * [null チェックのための統合された例外タイプ](#unified-exception-type-for-null-checks)
 * [JVM バイトコードにおける型アノテーション](#type-annotations-in-the-jvm-bytecode)
 
-### 新しい JVM IR バックエンド
+### 新しい JVM IR バックエンド {id="new-jvm-ir-backend"}
 
 Kotlin/JS と同様に、Kotlin/JVM も [統合 IR バックエンド](#unified-backends-and-extensibility) に移行しています。これにより、ほとんどの機能とバグ修正をすべてのプラットフォームに対して一度に実装できるようになります。また、すべてのプラットフォームで動作するマルチプラットフォーム拡張を作成することで、この恩恵を受けることもできるようになります。
 
@@ -520,7 +520,7 @@ kotlinOptions.useIR = true
 >
 {style="note"}
 
-### デフォルトメソッド生成の新しいモード
+### デフォルトメソッド生成の新しいモード {id="new-modes-for-generating-default-methods"}
 
 Kotlin コードをターゲット JVM 1.8 以上にコンパイルする場合、Kotlin インターフェースの非抽象メソッドを Java の `default` メソッドにコンパイルできます。この目的のために、そのようなメソッドをマークするための `@JvmDefault` アノテーションと、このアノテーションの処理を有効にする `-Xjvm-default` コンパイラオプションを含むメカニズムがありました。
 
@@ -528,7 +528,7 @@ Kotlin コードをターゲット JVM 1.8 以上にコンパイルする場合�
 
 Java インターフェース相互運用におけるデフォルトメソッドの詳細については、[相互運用ドキュメント](java-to-kotlin-interop.md#default-methods-in-interfaces) および [このブログ記事](https://blog.jetbrains.com/kotlin/2020/07/kotlin-1-4-m3-generating-default-methods-in-interfaces/) を参照してください。
 
-### null チェックのための統合された例外タイプ
+### null チェックのための統合された例外タイプ {id="unified-exception-type-for-null-checks"}
 
 Kotlin 1.4.0 から、すべてのランタイム null チェックは、`KotlinNullPointerException`、`IllegalStateException`、`IllegalArgumentException`、および `TypeCastException` の代わりに `java.lang.NullPointerException` をスローするようになります。これは、`!!` 演算子、メソッド前文でのパラメータ null チェック、プラットフォーム型の式の null チェック、および非 null 型を伴う `as` 演算子に適用されます。
 `lateinit` の null チェックや、`checkNotNull` や `requireNotNull` のような明示的なライブラリ関数の呼び出しには適用されません。
@@ -537,7 +537,7 @@ Kotlin 1.4.0 から、すべてのランタイム null チェックは、`Kotlin
 
 開発者の観点からは、状況はそれほど変わりません。Kotlin コードは以前と同じエラーメッセージを伴う例外をスローします。例外の型は変わりますが、渡される情報は同じままです。
 
-### JVM バイトコードにおける型アノテーション
+### JVM バイトコードにおける型アノテーション {id="type-annotations-in-the-jvm-bytecode"}
 
 Kotlin は JVM バイトコード（ターゲットバージョン 1.8+）で型アノテーションを生成できるようになり、実行時に Java リフレクションで利用できるようになりました。
 バイトコードで型アノテーションを出力するには、次の手順に従います：
@@ -564,14 +564,14 @@ class A {
 }
 ```
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
 JS プラットフォームにおいて、Kotlin 1.4.0 は以下の改善を提供します：
 
 - [新しい Gradle DSL](#new-gradle-dsl)
 - [新しい JS IR バックエンド](#new-js-ir-backend)
 
-### 新しい Gradle DSL
+### 新しい Gradle DSL {id="new-gradle-dsl"}
 
 `kotlin.js` Gradle プラグインには調整された Gradle DSL が付属しており、多くの新しい構成オプションを提供し、`kotlin-multiplatform` プラグインで使用される DSL とより密接に整合しています。主な変更点は以下の通りです：
 
@@ -580,7 +580,7 @@ JS プラットフォームにおいて、Kotlin 1.4.0 は以下の改善を提�
 - npm 依存関係の管理の改善。必須のバージョン番号または [semver](https://docs.npmjs.com/about-semantic-versioning) バージョン範囲、および `devNpm`、`optionalNpm`、`peerNpm` を使用した *development*、*peer*、*optional* な npm 依存関係のサポート。[Gradle から直接 npm パッケージの依存関係を管理する方法についてはこちら](js-project-setup.md#npm-dependencies)。
 - Kotlin 外部宣言のジェネレータである [Dukat](https://github.com/Kotlin/dukat) との連携強化。外部宣言をビルド時に生成したり、Gradle タスクを介して手動で生成したりできるようになりました。
 
-### 新しい JS IR バックエンド
+### 新しい JS IR バックエンド {id="new-js-ir-backend"}
 
 [Kotlin/JS 用の IR バックエンド](js-ir-compiler.md)（現在は [Alpha](components-stability.md) の安定性）は、デッドコード削除（DCE）による生成コードサイズの削減や、JavaScript および TypeScript との相互運用の改善などに焦点を当てた、Kotlin/JS ターゲット固有の新しい機能を提供します。
 
@@ -603,7 +603,7 @@ kotlin {
 
 [Kotlin/JS IR コンパイラバックエンドで使用可能な機能の詳細はこちら](js-ir-compiler.md)。
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 1.4.0 では、Kotlin/Native に以下を含む非常に多くの新機能と改善が追加されました：
 
@@ -614,7 +614,7 @@ kotlin {
 * [パフォーマンスの向上](#performance-improvements)
 * [CocoaPods 依存関係の管理の簡素化](#simplified-management-of-cocoapods-dependencies)
 
-### Swift および Objective-C での Kotlin のサスペンド関数のサポート
+### Swift および Objective-C での Kotlin のサスペンド関数のサポート {id="support-for-kotlin-s-suspending-functions-in-swift-and-objective-c"}
 
 1.4.0 では、Swift および Objective-C におけるサスペンド関数の基本的なサポートを追加しました。Kotlin モジュールを Apple フレームワークにコンパイルすると、サスペンド関数はコールバック付きの関数（Swift/Objective-C の用語では `completionHandler`）として利用可能になります。生成されたフレームワークのヘッダーにそのような関数がある場合、Swift または Objective-C コードからそれらを呼び出したり、オーバーライドしたりすることもできます。
 
@@ -638,7 +638,7 @@ queryData(id: 17) { result, error in
 
 [Swift および Objective-C でのサスペンド関数の使用についての詳細はこちら](native-objc-interop.md)。
 
-### Objective-C ジェネリクスをデフォルトでサポート
+### Objective-C ジェネリクスをデフォルトでサポート {id="objective-c-generics-support-by-default"}
 
 以前のバージョンの Kotlin では、Objective-C 相互運用におけるジェネリクスの実験的サポートを提供していました。1.4.0 から、Kotlin/Native はデフォルトで Kotlin コードからジェネリクスを含む Apple フレームワークを生成します。場合によっては、これにより Kotlin フレームワークを呼び出す既存の Objective-C または Swift コードが壊れる可能性があります。ジェネリクスなしでフレームワークヘッダーを出力するには、`-Xno-objc-generics` コンパイラオプションを追加します。
 
@@ -654,7 +654,7 @@ kotlin {
 
 [Objective-C との相互運用に関するドキュメント](native-objc-interop.md#generics) に記載されているすべての詳細と制限事項は依然として有効であることに注意してください。
 
-### Objective-C/Swift 相互運用における例外処理
+### Objective-C/Swift 相互運用における例外処理 {id="exception-handling-in-objective-c-swift-interop"}
 
 1.4.0 では、例外の変換方法に関して、Kotlin から生成される Swift API を若干変更しました。Kotlin と Swift ではエラー処理に根本的な違いがあります。すべての Kotlin の例外は非チェック（unchecked）ですが、Swift にはチェックされる（checked）エラーしかありません。したがって、Swift コードに期待される例外を認識させるには、Kotlin 関数に `@Throws` アノテーションを付け、潜在的な例外クラスのリストを指定する必要があります。
 
@@ -662,7 +662,7 @@ Swift または Objective-C フレームワークにコンパイルする場合�
 
 以前は、`RuntimeException` および `Error` 以外の例外は `NSError` として伝播されていました。今後はこの動作が変わります。`NSError` は、`@Throws` アノテーションのパラメータとして指定されたクラスのインスタンス（またはそのサブクラス）である例外に対してのみスローされます。Swift/Objective-C に到達した他の Kotlin 例外は未処理と見なされ、プログラムの終了を引き起こします。
 
-### Apple ターゲットでリリースの .dSYM をデフォルトで生成
+### Apple ターゲットでリリースの .dSYM をデフォルトで生成 {id="generate-release-dsyms-on-apple-targets-by-default"}
 
 1.4.0 から、Kotlin/Native コンパイラはデフォルトで Darwin プラットフォーム上のリリースバイナリに対して [デバッグシンボルファイル](https://developer.apple.com/documentation/xcode/building_your_app_to_include_debugging_information)（`.dSYM`）を生成します。これは `-Xadd-light-debug=disable` コンパイラオプションで無効にできます。他のプラットフォームでは、このオプションはデフォルトで無効になっています。Gradle でこのオプションを切り替えるには、以下を使用します：
 
@@ -678,7 +678,7 @@ kotlin {
 
 [クラッシュレポートのシンボル化についての詳細はこちら](native-debugging.md#debug-ios-applications)。
 
-### パフォーマンスの向上
+### パフォーマンスの向上 {id="performance-improvements"}
 
 Kotlin/Native は、開発プロセスと実行の両方をスピードアップする多くのパフォーマンス向上を受けました。以下にいくつかの例を挙げます：
 
@@ -690,7 +690,7 @@ Kotlin/Native は、開発プロセスと実行の両方をスピードアップ
 
 - 1.3.70 では、Kotlin/Native コンパイルのパフォーマンスを向上させるための 2 つの新機能（[プロジェクト依存関係のキャッシュと Gradle デーモンからのコンパイラの実行](https://blog.jetbrains.com/kotlin/2020/03/kotlin-1-3-70-released/#kotlin-native)）を導入しました。それ以来、数多くの問題を修正し、これらの機能の全体的な安定性を向上させてきました。
 
-### CocoaPods 依存関係の管理の簡素化
+### CocoaPods 依存関係の管理の簡素化 {id="simplified-management-of-cocoapods-dependencies"}
 
 以前は、プロジェクトを依存関係マネージャー CocoaPods と統合すると、プロジェクトの iOS、macOS、watchOS、または tvOS 部分を Xcode でのみビルドでき、マルチプラットフォームプロジェクトの他の部分とは切り離されていました。他の部分は IntelliJ IDEA でビルドできました。
 
@@ -708,7 +708,7 @@ Kotlin/Native は、開発プロセスと実行の両方をスピードアップ
 
 [依存関係の追加方法はこちら](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-libraries.html)。
 
-## Kotlin マルチプラットフォーム
+## Kotlin マルチプラットフォーム {id="kotlin-multiplatform"}
 
 > マルチプラットフォームプロジェクトのサポートは [Alpha](components-stability.md) 段階です。将来的に互換性のない変更が行われ、手動での移行が必要になる可能性があります。
 > [YouTrack](https://youtrack.jetbrains.com/issues/KT) でのフィードバックをお待ちしております。
@@ -725,7 +725,7 @@ Kotlin/Native は、開発プロセスと実行の両方をスピードアップ
 >
 {style="note"}
 
-### 階層的なプロジェクト構造による複数のターゲットでのコード共有
+### 階層的なプロジェクト構造による複数のターゲットでのコード共有 {id="sharing-code-in-several-targets-with-the-hierarchical-project-structure"}
 
 新しい階層的なプロジェクト構造のサポートにより、[マルチプラットフォームプロジェクト](https://kotlinlang.org/docs/multiplatform/multiplatform-discover-project.html) 内の [複数のプラットフォーム](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#targets) 間でコードを共有できます。
 
@@ -804,7 +804,7 @@ kotlin {
 
 階層的なプロジェクト構造のおかげで、ライブラリはターゲットのサブセットに対して共通の API を提供することもできます。[ライブラリでのコード共有についての詳細はこちら](https://kotlinlang.org/docs/multiplatform/multiplatform-share-on-platforms.html#share-code-in-libraries)。
 
-### 階層構造でのネイティブライブラリの活用
+### 階層構造でのネイティブライブラリの活用 {id="leveraging-native-libs-in-the-hierarchical-structure"}
 
 複数のネイティブターゲット間で共有されるソースセットで、Foundation、UIKit、POSIX などのプラットフォーム依存のライブラリを使用できます。これにより、プラットフォーム固有の依存関係に制限されることなく、より多くのネイティブコードを共有できるようになります。
 
@@ -812,7 +812,7 @@ kotlin {
 
 [プラットフォーム依存ライブラリの使用についての詳細はこちら](https://kotlinlang.org/docs/multiplatform/multiplatform-share-on-platforms.html#connect-platform-specific-libraries)。
 
-### 依存関係の指定を 1 回に集約
+### 依存関係の指定を 1 回に集約 {id="specifying-dependencies-only-once"}
 
 今後は、同じライブラリの異なるバリアントへの依存関係を、使用される共有ソースセットとプラットフォーム固有のソースセットでそれぞれ指定する代わりに、共有ソースセットで 1 回だけ依存関係を指定するだけでよくなります。
 
@@ -859,7 +859,7 @@ kotlin {
 
 [依存関係の構成についての詳細はこちら](gradle-configure-project.md#configure-dependencies)。
 
-## Gradle プロジェクトの改善
+## Gradle プロジェクトの改善 {id="gradle-project-improvements"}
 
 [Kotlin マルチプラットフォーム](#kotlin-multiplatform)、[Kotlin/JVM](#kotlin-jvm)、[Kotlin/Native](#kotlin-native)、[Kotlin/JS](#kotlin-js) に固有の Gradle プロジェクトの機能と改善以外にも、すべての Kotlin Gradle プロジェクトに適用されるいくつかの変更があります：
 
@@ -867,7 +867,7 @@ kotlin {
 * [Kotlin プロジェクトには最近のバージョンの Gradle が必要です](#minimum-gradle-version-for-kotlin-projects)
 * [IDE での Kotlin Gradle DSL のサポート強化](#improved-gradle-kts-support-in-the-ide)
 
-### 標準ライブラリへの依存関係がデフォルトで追加されるようになりました
+### 標準ライブラリへの依存関係がデフォルトで追加されるようになりました {id="dependency-on-the-standard-library-added-by-default"}
 
 マルチプラットフォームプロジェクトを含む、いかなる Kotlin Gradle プロジェクトにおいても、`stdlib` ライブラリへの依存関係を宣言する必要がなくなりました。依存関係はデフォルトで追加されます。
 
@@ -877,11 +877,11 @@ kotlin {
 
 [デフォルトの動作を変更する方法はこちら](gradle-configure-project.md#dependency-on-the-standard-library)。
 
-### Kotlin プロジェクトの最小 Gradle バージョン
+### Kotlin プロジェクトの最小 Gradle バージョン {id="minimum-gradle-version-for-kotlin-projects"}
 
 Kotlin プロジェクトで新機能を楽しむには、Gradle を [最新バージョン](https://gradle.org/releases/) にアップデートしてください。マルチプラットフォームプロジェクトには Gradle 6.0 以降が必要で、その他の Kotlin プロジェクトは Gradle 5.4 以降で動作します。
 
-### IDE における *.gradle.kts サポートの向上
+### IDE における *.gradle.kts サポートの向上 {id="improved-gradle-kts-support-in-the-ide"}
 
 1.4.0 では、Gradle Kotlin DSL スクリプト（`*.gradle.kts` ファイル）の IDE サポートの改善を継続しました。新バージョンでの変更点は以下の通りです：
 
@@ -907,7 +907,7 @@ Kotlin プロジェクトで新機能を楽しむには、Gradle を [最新バ�
 
 - *エラーレポートの改善*。以前は、Gradle デーモンからのエラーは個別のログファイルでしか確認できませんでした。今後は、Gradle デーモンがエラーに関するすべての情報を直接返し、Build ツールウィンドウに表示します。これにより、時間と労力の両方を節約できます。
 
-## 標準ライブラリ
+## 標準ライブラリ {id="standard-library"}
 
 1.4.0 における Kotlin 標準ライブラリの最も重要な変更点のリストは以下の通りです：
 
@@ -923,7 +923,7 @@ Kotlin プロジェクトで新機能を楽しむには、Gradle を [最新バ�
 - [非推奨（Deprecations）](#deprecations)
 - [非推奨となった実験的コルーチンの除外](#exclusion-of-the-deprecated-experimental-coroutines)
 
-### 共通の例外処理 API
+### 共通の例外処理 API {id="common-exception-processing-api"}
 
 以下の API 要素が共通ライブラリ（common library）に移動されました：
 
@@ -931,9 +931,9 @@ Kotlin プロジェクトで新機能を楽しむには、Gradle を [最新バ�
 * `Throwable.addSuppressed()` 関数：例外を届けるために抑制された例外を指定できるようにします。`Throwable.suppressedExceptions` プロパティは、すべての抑制された例外のリストを返します。
 * `@Throws` アノテーション：関数がプラットフォームメソッド（JVM または Native）にコンパイルされる際にチェックされる例外タイプをリストアップします。
 
-### 配列とコレクションの新関数
+### 配列とコレクションの新関数 {id="new-functions-for-arrays-and-collections"}
 
-#### コレクション
+#### コレクション {id="collections"}
 
 1.4.0 では、標準ライブラリに **コレクション** を扱うための便利な関数が多数含まれています：
 
@@ -1072,7 +1072,7 @@ Kotlin プロジェクトで新機能を楽しむには、Gradle を [最新バ�
 
 * ミュータブルリストから要素を削除するためのショートカットとしての `removeFirst()` および `removeLast()`、およびそれらの `*orNull()` 版。
 
-#### 配列
+#### 配列 {id="arrays"}
 
 異なるコンテナ型を扱う際の一貫した体験を提供するため、**配列** 用の新関数も追加しました：
 
@@ -1118,7 +1118,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.4"}
 
-#### ArrayDeque
+#### ArrayDeque {id="arraydeque"}
 
 また、両端キューの実装である `ArrayDeque` クラスを追加しました。
 両端キューを使用すると、キューの先頭または末尾の両方で要素を追加または削除することが、償却定数時間で可能になります。コード内でキュー（queue）やスタック（stack）が必要な場合に、デフォルトで両端キューを使用できます。
@@ -1143,7 +1143,7 @@ fun main() {
 
 `ArrayDeque` の実装は、内部でサイズ変更可能な配列を使用しています。循環バッファである `Array` に内容を保存し、その `Array` がいっぱいになった場合にのみサイズを変更します。
 
-### 文字列操作のための関数
+### 文字列操作のための関数 {id="functions-for-string-manipulations"}
 
 1.4.0 の標準ライブラリには、文字列操作用の API に関する多くの改善が含まれています：
 
@@ -1178,7 +1178,7 @@ fun main() {
     ```
     {kotlin-runnable="true" kotlin-min-compiler-version="1.4"}
 
-### ビット操作
+### ビット操作 {id="bit-operations"}
 
 ビット操作用の新しい関数：
 * `countOneBits()` 
@@ -1200,7 +1200,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.4"}
 
-### 委譲プロパティの改善
+### 委譲プロパティの改善 {id="delegated-properties-improvements"}
 
 1.4.0 では、Kotlin における委譲プロパティの体験を向上させるための新機能を追加しました：
 - プロパティを別のプロパティに委譲できるようになりました。
@@ -1211,7 +1211,7 @@ fun main() {
 
 [委譲プロパティの詳細についてはこちら](delegated-properties.md)。
 
-### KType から Java の Type への変換
+### KType から Java の Type への変換 {id="converting-from-ktype-to-java-type"}
 
 stdlib の新しい拡張プロパティ `KType.javaType`（現在は実験的）を使用すると、`kotlin-reflect` 依存関係をすべて使用することなく、Kotlin の型から `java.lang.reflect.Type` を取得できます。
 
@@ -1239,11 +1239,11 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.4"}
 
-### Kotlin リフレクション用の Proguard 設定
+### Kotlin リフレクション用の Proguard 設定 {id="proguard-configurations-for-kotlin-reflection"}
 
 1.4.0 から、Kotlin Reflection 用の Proguard/R8 設定を `kotlin-reflect.jar` に埋め込みました。これにより、R8 または Proguard を使用するほとんどの Android プロジェクトは、追加の構成なしで kotlin-reflect で動作するはずです。kotlin-reflect 内部用の Proguard ルールをコピー＆ペーストする必要はもうありません。ただし、リフレクションの対象となるすべての API は引き続き明示的にリストアップする必要があることに注意してください。
 
-### 既存 API の改善
+### 既存 API の改善 {id="improving-the-existing-api"}
 
 * いくつかの関数が null レシーバーで動作するようになりました。例：
     * 文字列の `toBoolean()`
@@ -1255,34 +1255,34 @@ fun main() {
 
 * `maxOf()` および `minOf()` トップレベル関数が、可変長引数（`vararg`）を受け取れるようになりました。
 
-### stdlib アーティファクトの module-info 記述子
+### stdlib アーティファクトの module-info 記述子 {id="module-info-descriptors-for-stdlib-artifacts"}
 
 Kotlin 1.4.0 は、デフォルトの標準ライブラリのアーティファクトに `module-info.java` モジュール情報を追加します。これにより、アプリに必要なプラットフォームモジュールのみを含むカスタム Java ランタイムイメージを生成する [jlink ツール](https://docs.oracle.com/en/java/javase/11/tools/jlink.html) でそれらを使用できるようになります。
 以前から Kotlin 標準ライブラリのアーティファクトで jlink を使用できましたが、そのためには "modular" 分類子を持つ別のアーティファクトを使用する必要があり、セットアップ全体が簡単ではありませんでした。
 Android では、module-info を持つ jar ファイルを正しく処理できる Android Gradle プラグイン バージョン 3.2 以降を使用していることを確認してください。
 
-### 非推奨（Deprecations）
+### 非推奨（Deprecations） {id="deprecations"}
 
-#### Double および Float の toShort() と toByte()
+#### Double および Float の toShort() と toByte() {id="toshort-and-tobyte-of-double-and-float"}
 
 値の範囲が狭く、変数のサイズが小さいため、予期しない結果につながる可能性があるため、`Double` および `Float` の `toShort()` および `toByte()` 関数を非推奨にしました。
 
 浮動小数点数を `Byte` または `Short` に変換するには、2 段階の変換を使用してください：まず `Int` に変換し、次にターゲットの型に再度変換します。
 
-#### 浮動小数点配列に対する contains()、indexOf()、および lastIndexOf()
+#### 浮動小数点配列に対する contains()、indexOf()、および lastIndexOf() {id="contains-indexof-and-lastindexof-on-floating-point-arrays"}
 
 `FloatArray` および `DoubleArray` の `contains()`、`indexOf()`、および `lastIndexOf()` 拡張関数は、[IEEE 754](https://en.wikipedia.org/wiki/IEEE_754) 標準の等価性を使用しており、一部の境界ケースで全順序の等価性と矛盾するため、非推奨にしました。詳細は [こちらの issue](https://youtrack.jetbrains.com/issue/KT-28753) を参照してください。
 
-#### min() および max() コレクション関数
+#### min() および max() コレクション関数 {id="min-and-max-collection-functions"}
 
 空のコレクションに対して `null` を返すという動作をより適切に反映させるため、`min()` および `max()` コレクション関数を非推奨にし、`minOrNull()` および `maxOrNull()` に置き換えました。
 詳細は [こちらの issue](https://youtrack.jetbrains.com/issue/KT-38854) を参照してください。
 
-### 非推奨となった実験的コルーチンの除外
+### 非推奨となった実験的コルーチンの除外 {id="exclusion-of-the-deprecated-experimental-coroutines"}
 
 `kotlin.coroutines.experimental` API は、1.3.0 で kotlin.coroutines を支持して非推奨になりました。1.4.0 では、標準ライブラリから削除することで `kotlin.coroutines.experimental` の非推奨サイクルを完了します。引き続き JVM でこれを使用する方のために、すべての実験的コルーチン API を含む互換性アーティファクト `kotlin-coroutines-experimental-compat.jar` を提供しています。これは Maven に公開されており、標準ライブラリと共に Kotlin 配布物に含まれています。
 
-## 安定した JSON シリアル化
+## 安定した JSON シリアル化 {id="stable-json-serialization"}
 
 Kotlin 1.4.0 と共に、[kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization) の最初の安定バージョンである 1.0.0-RC を出荷します。今回、`kotlinx-serialization-core`（以前は `kotlinx-serialization-runtime` と呼ばれていました）の JSON シリアル化 API が安定したことを宣言します。他のシリアル化形式用のライブラリは、コアライブラリの高度な部分と同様に、引き続き実験的なままです。
 
@@ -1294,7 +1294,7 @@ JSON シリアル化用の API を大幅に刷新し、より一貫性があり�
 >
 {style="note"}
 
-## スクリプティングと REPL
+## スクリプティングと REPL {id="scripting-and-repl"}
 
 1.4.0 では、Kotlin でのスクリプティングにおいて、他のアップデートと共に、多くの機能的およびパフォーマンス上の改善の恩恵を受けることができます。主な変更点は以下の通りです：
 
@@ -1305,24 +1305,24 @@ JSON シリアル化用の API を大幅に刷新し、より一貫性があり�
 
 Kotlin でのスクリプティングをよりよく知っていただくために、[サンプルのプロジェクト](https://github.com/Kotlin/kotlin-script-examples) を用意しました。これには、標準スクリプト（`*.main.kts`）の例や、Kotlin Scripting API およびカスタムスクリプト定義の使用例が含まれています。ぜひ試してみて、[issue トラッカー](https://youtrack.jetbrains.com/issues/KT) を通じてフィードバックをお寄せください。
 
-### 新しい依存関係解決 API
+### 新しい依存関係解決 API {id="new-dependencies-resolution-api"}
 
 1.4.0 では、外部依存関係（Maven アーティファクトなど）を解決するための新しい API と、その実装を導入しました。この API は、新しいアーティファクトである `kotlin-scripting-dependencies` および `kotlin-scripting-dependencies-maven` で公開されています。`kotlin-script-util` ライブラリの以前の依存関係解決機能は、現在非推奨となっています。
 
-### 新しい REPL API
+### 新しい REPL API {id="new-repl-api"}
 
 新しい実験的な REPL API が Kotlin Scripting API の一部になりました。公開されたアーティファクトにはいくつかの実装もあり、コード補完などの高度な機能を持つものもあります。この API は [Kotlin Jupyter カーネル](https://blog.jetbrains.com/kotlin/2020/05/kotlin-kernel-for-jupyter-notebook-v0-8/) で使用されており、独自のカスタムシェルや REPL で試すことができます。
 
-### コンパイル済みスクリプトのキャッシュ
+### コンパイル済みスクリプトのキャッシュ {id="compiled-scripts-cache"}
 
 Kotlin Scripting API は、コンパイル済みスクリプトのキャッシュを実装する機能を提供するようになり、変更されていないスクリプトのその後の実行を大幅に高速化できるようになりました。デフォルトの高度なスクリプト実装である `kotlin-main-kts` には、すでに独自のキャッシュがあります。
 
-### アーティファクトの名称変更
+### アーティファクトの名称変更 {id="artifacts-renaming"}
 
 アーティファクト名に関する混乱を避けるため、`kotlin-scripting-jsr223-embeddable` および `kotlin-scripting-jvm-host-embeddable` を単に `kotlin-scripting-jsr223` および `kotlin-scripting-jvm-host` に変更しました。これらのアーティファクトは `kotlin-compiler-embeddable` アーティファクトに依存しており、使用上の競合を避けるためにバンドルされたサードパーティライブラリをシェーディング（遮蔽）しています。この改名により、（一般的に安全な）`kotlin-compiler-embeddable` の使用をスクリプティングアーティファクトのデフォルトにします。
 何らかの理由で、シェーディングされていない `kotlin-compiler` に依存するアーティファクトが必要な場合は、`kotlin-scripting-jsr223-unshaded` のように `-unshaded` サフィックスが付いたアーティファクトバージョンを使用してください。この改名は、直接使用されることが想定されているスクリプティングアーティファクトにのみ影響し、他のアーティファクトの名前は変わりません。
 
-## Kotlin 1.4.0 への移行
+## Kotlin 1.4.0 への移行 {id="migrating-to-kotlin-1-4-0"}
 
 Kotlin プラグインの移行ツールは、プロジェクトを以前のバージョンの Kotlin から 1.4.0 に移行するのを助けます。
 

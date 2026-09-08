@@ -3,7 +3,7 @@
 
 Lincheck 支持测试策略的各种配置选项，包括场景生成、停滞执行检测、验证等。
 
-## 如何启用选项
+## 如何启用选项 {id="how-to-enable-options"}
 
 要为测试策略启用选项，请在策略类中进行设置：
 
@@ -14,7 +14,7 @@ fun modelCheckingTest() = ModelCheckingOptions()
     .check(this::class)
 ```
 
-## 场景最小化
+## 场景最小化 {id="scenario-minimization"}
 
 默认情况下，Lincheck 会尝试通过移除不改变测试行为的操作来最小化失败场景。
 
@@ -47,7 +47,7 @@ fun modelCheckingTest() = ModelCheckingOptions()
 </code-block>
 </compare>
 
-## 场景生成
+## 场景生成 {id="scenario-generation"}
 
 | 选项 | 默认值 | 描述 |
 |---------------------------|---------------|---------------------------------------------------------------------------------------------------------------------------------------------|
@@ -59,7 +59,7 @@ fun modelCheckingTest() = ModelCheckingOptions()
 | `actorsAfter`             | `5`           | 在场景并行部分之后调用的操作数量。 |
 | `customScenarios`         | –             | [自定义并发场景](#defining-a-custom-scenario)列表。自定义场景会在随机生成的场景之前执行。 |
 
-### 定义自定义场景
+### 定义自定义场景 {id="defining-a-custom-scenario"}
 
 Lincheck 使用一种[领域专用语言](https://kotlinlang.org/docs/type-safe-builders.html)来定义自定义场景：
 
@@ -94,7 +94,7 @@ fun test() = StressOptions()
 
 操作使用 `actor(function, arg1, arg2, ...)` 函数定义。单个块内的操作按顺序执行。
 
-## 停滞执行检测
+## 停滞执行检测 {id="stalled-execution-detection"}
 
 <table>
 <tr><td>选项</td><td>默认值</td><td>描述</td></tr>
@@ -116,7 +116,7 @@ fun test() = StressOptions()
         此选项仅适用于 <a href="lincheck-testing-strategies.md#model-checking">模型检查</a>。</td></tr>
 </table>
 
-## 循环中的线程切换
+## 循环中的线程切换 {id="thread-switching-in-loops"}
 
 <table><tr><td>选项</td><td>默认值</td><td>描述</td></tr>
 <tr>
@@ -128,7 +128,7 @@ fun test() = StressOptions()
         此选项仅适用于 <a href="lincheck-testing-strategies.md#model-checking">模型检查</a>。</td></tr>
 </table>
 
-## 验证
+## 验证 {id="verification"}
 
 <table>
 <tr><td>选项</td><td>默认值</td><td>描述</td></tr>
@@ -149,7 +149,7 @@ fun test() = StressOptions()
 </tr>
 </table>
 
-## 进度保证
+## 进度保证 {id="progress-guarantees"}
 
 <table><tr><td>选项</td><td>默认值</td><td>描述</td></tr>
 <tr>
@@ -159,7 +159,7 @@ fun test() = StressOptions()
         此选项仅适用于 <a href="lincheck-testing-strategies.md#model-checking">模型检查</a>。</td></tr>
 </table>
 
-## 库分析
+## 库分析 {id="library-analysis"}
 
 <table>
 <tr><td>选项</td><td>默认值</td><td>描述</td></tr>
@@ -175,7 +175,7 @@ fun test() = StressOptions()
         此选项仅适用于 <a href="lincheck-testing-strategies.md#model-checking">模型检查</a>。</td></tr>
 </table>
 
-### 定义保证
+### 定义保证 {id="defining-a-guarantee"}
 
 要定义保证，请使用构建器链：先选择类，然后选择方法，最后选择保证类型。
 
@@ -215,11 +215,11 @@ fun modelCheckingTest() = ModelCheckingOptions()
 
      对于与分析无关的方法（例如日志或调试实用程序），请使用 `ignore()`。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 了解如何为 Lincheck 执行场景中使用的操作[配置实参生成](lincheck-argument-generation-constraints.md)。
 
-## 相关阅读
+## 相关阅读 {id="see-also"}
 
 * [配置操作执行选项](lincheck-operation-execution-options.md)
 * [检查非阻塞进度保证](lincheck-progress-guarantees.md)

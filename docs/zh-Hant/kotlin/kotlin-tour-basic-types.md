@@ -85,9 +85,9 @@ fun main() {
 
 現在你已經知道如何宣告基本型別，接著該來學習[集合](kotlin-tour-collections.md)了。
 
-## 練習 {completion-point="true"}
+## 練習 {completion-point="true" id="practice"}
 
-### 練習題 {initial-collapse-state="collapsed" collapsible="true"}
+### 練習題 {initial-collapse-state="collapsed" collapsible="true" id="exercise"}
 
 為每個變數明確宣告正確的型別：
 

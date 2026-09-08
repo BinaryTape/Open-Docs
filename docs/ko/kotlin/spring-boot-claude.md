@@ -11,7 +11,7 @@ AI의 도움 없이 직접 앱을 만들고 싶다면, [Kotlin과 Spring Boot로
 > 
 {style="note"}
 
-## 환경 설정
+## 환경 설정 {id="set-up-the-environment"}
 
 > 이 튜토리얼은 JetBrains AI Assistant를 통해 Claude를 사용하지만, 터미널에서 Claude Code를 사용하여 튜토리얼 단계를 진행할 수도 있습니다.
 >
@@ -24,7 +24,7 @@ AI의 도움 없이 직접 앱을 만들고 싶다면, [Kotlin과 Spring Boot로
    * [API 키 사용](https://www.jetbrains.com/help/ai-assistant/activate-agents.html#activate-claude-agent-with-api-key)
    * [Anthropic Console 사용](https://www.jetbrains.com/help/ai-assistant/activate-agents.html#activate-agent-with-provider-specific-method)
 
-## 프로젝트 생성
+## 프로젝트 생성 {id="create-a-project"}
 
 > [Spring의 웹 기반 프로젝트 생성기](https://start.spring.io/#!language=kotlin&type=gradle-project-kotlin)를 사용하여 Spring Boot 프로젝트를 생성할 수도 있습니다.
 >
@@ -64,7 +64,7 @@ IntelliJ IDEA에서 새 Spring Boot 프로젝트를 생성합니다.
 
    IDE가 새 프로젝트를 생성하고 엽니다. 프로젝트 종속성을 다운로드하고 임포트하는 데 시간이 다소 걸릴 수 있습니다.
 
-## 개발 계획 수립
+## 개발 계획 수립 {id="create-a-development-plan"}
 
 프로젝트에서 다음을 수행합니다.
 
@@ -107,7 +107,7 @@ IntelliJ IDEA에서 새 Spring Boot 프로젝트를 생성합니다.
 
 6. Claude가 **기획 모드(Plan Mode)**를 종료하고 작업을 시작합니다. 작업이 완료될 때까지 기다리세요.
 
-## 커밋 검토
+## 커밋 검토 {id="review-the-commits"}
 
 앱을 실행하기 전에 생성된 변경 사항을 주의 깊게 검토하세요.
 
@@ -116,7 +116,7 @@ IntelliJ IDEA에서 새 Spring Boot 프로젝트를 생성합니다.
 
 ![사이드 바이 사이드 뷰어](side-by-side-viewer.png){width=800}
 
-## 앱 실행
+## 앱 실행 {id="run-the-app"}
 
 변경 사항이 만족스러우면 앱을 실행합니다.
 
@@ -140,11 +140,11 @@ IntelliJ IDEA에서 새 Spring Boot 프로젝트를 생성합니다.
    >
    {style="tip"}
 
-## 앱 테스트
+## 앱 테스트 {id="test-the-app"}
 
 이제 앱을 테스트할 차례입니다.
 
-### UI 수동 테스트
+### UI 수동 테스트 {id="test-the-ui-manually"}
 
 UI 기능 테스트부터 시작해 보세요. 몇 가지 간단한 동작을 시도해 봅니다.
 
@@ -156,7 +156,7 @@ UI 기능 테스트부터 시작해 보세요. 몇 가지 간단한 동작을 �
 
 이러한 동작 중 작동하지 않는 것이 있으면 Claude에게 문제를 조사하고 해결해 달라는 새 프롬프트를 보냅니다.
 
-### 유닛 테스트 실행
+### 유닛 테스트 실행 {id="run-unit-tests"}
 
 Claude는 일부 테스트도 자동으로 생성합니다. 다음 명령을 실행하여 모든 테스트가 통과하는지 확인합니다.
 
@@ -168,7 +168,7 @@ Claude는 일부 테스트도 자동으로 생성합니다. 다음 명령을 실
 
 테스트가 작동하지 않으면 Claude에게 문제를 조사하고 해결해 달라는 새 프롬프트를 보냅니다.
 
-## 기능 개선
+## 기능 개선 {id="make-refinements"}
 
 초기 작업이 완료되었으므로 이제 기능을 개선할 수 있습니다. 예를 들어, 사용자가 목록에서 직접 할 일을 수정할 수 있도록 UI를 개선해 보겠습니다.
 
@@ -186,7 +186,7 @@ Claude는 일부 테스트도 자동으로 생성합니다. 다음 명령을 실
 
 축하합니다! IntelliJ IDEA에서 직접 Claude를 사용하여 Kotlin Spring Boot 애플리케이션을 기획, 구축, 테스트 및 개선했습니다.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [](kotlin-ai-skills.md)에 대해 알아보기
 * [Junie와 Kotlin AI 기술](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-spm-migration-ai.html) 사용에 관한 튜토리얼 확인하기

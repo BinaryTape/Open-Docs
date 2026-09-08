@@ -23,17 +23,17 @@
 > 
 {style="note"}
 
-## 範例程式庫
+## 範例程式庫 {id="sample-library"}
 
 在本教學中，您將使用 [fibonacci](https://github.com/Kotlin/multiplatform-library-template/) 程式庫作為範例。您可以參考該存儲庫的程式碼來查看發佈設定是如何運作的。
 
 如果您想重複使用該程式碼，您 **必須將所有範例值替換為** 您專案特定的值。
 
-## 準備帳戶與憑據
+## 準備帳戶與憑據 {id="prepare-accounts-and-credentials"}
 
 要開始發佈到 Maven Central，請在 [Maven Central](https://central.sonatype.com/) 入口網站登入（或建立新帳戶）。
 
-### 選擇並驗證命名空間
+### 選擇並驗證命名空間 {id="choose-and-verify-a-namespace"}
 
 您需要一個經過驗證的命名空間，以便在 Maven Central 上唯一識別您程式庫的產物。
 
@@ -72,7 +72,7 @@ Maven 產物由其座標（coordinates）來識別，例如 `com.example:fibonac
 </TabItem>
 </Tabs>
 
-#### 產生金鑰對
+#### 產生金鑰對 {id="generate-a-key-pair"}
 
 在向 Maven Central 發佈內容之前，您需要使用 [PGP 簽名](https://central.sonatype.org/publish/requirements/gpg/)對您的產物進行簽名，這允許使用者驗證產物的來源。
 
@@ -188,7 +188,7 @@ brew install gpg
 </TabItem>
 </Tabs>
 
-#### 上傳公鑰
+#### 上傳公鑰 {id="upload-the-public-key"}
 
 您需要[將公鑰上傳到 keyserver](https://central.sonatype.org/publish/requirements/gpg/#distributing-your-public-key)，以便 Maven Central 接受它。有多個可用的金鑰伺服器，我們使用 `keyserver.ubuntu.com` 作為預設選擇。
 
@@ -233,9 +233,9 @@ gpg --armor --export-secret-keys F175482952A225BFC4A07A715EE6B5F76620B385CE > ke
 </TabItem>
 </Tabs>
 
-## 配置專案
+## 配置專案 {id="configure-the-project"}
 
-### 準備您的程式庫專案
+### 準備您的程式庫專案 {id="prepare-your-library-project"}
 
 如果您是從範本專案開始開發程式庫，現在是將專案中的任何預設名稱更改為與您自己的程式庫名稱相符的好時機。這包括您的程式庫模組名稱以及頂層 `build.gradle.kts` 檔案中的根專案名稱。
 
@@ -249,7 +249,7 @@ android {
 }
 ```
 
-### 設定發佈外掛程式
+### 設定發佈外掛程式 {id="set-up-the-publishing-plugin"}
 
 本教學使用 [vanniktech/gradle-maven-publish-plugin](https://github.com/vanniktech/gradle-maven-publish-plugin) 來協助發佈到 Maven Central。您可以在[此處](https://vanniktech.github.io/gradle-maven-publish-plugin/#advantages-over-maven-publish)閱讀更多關於該外掛程式優點的資訊。請參閱[外掛程式文件](https://vanniktech.github.io/gradle-maven-publish-plugin/central/)以了解更多關於其用法和可用配置選項的資訊。
 
@@ -318,11 +318,11 @@ mavenPublishing {
 * [開發者資訊](https://central.sonatype.org/publish/requirements/#developer-information)：列出程式庫的作者。
 * [SCM (原始碼管理) 資訊](https://central.sonatype.org/publish/requirements/#scm-information)：指定程式庫原始碼的代管位置。
 
-### 執行本機檢查
+### 執行本機檢查 {id="run-local-checks"}
 
 在發佈到 Maven Central 之前，最好先在本機檢查您的專案配置是否正確。
 
-#### 在本機檢查簽名
+#### 在本機檢查簽名 {id="check-signing-locally"}
 
 藉由執行以下指令來驗證您的金鑰是否已正確配置用於簽名：
 
@@ -334,7 +334,7 @@ mavenPublishing {
 
 如果任務報告錯誤，請查看輸出以獲取有關如何修復它的詳細資訊。
 
-#### 在本機檢查 `pom.xml` 檔案
+#### 在本機檢查 `pom.xml` 檔案 {id="check-the-pom-xml-file-locally"}
 
 要將您的程式庫發佈到 Maven Central，`pom.xml` 檔案必須符合 Maven Central 的[要求](https://central.sonatype.org/publish/requirements/#required-pom-metadata)。
 
@@ -352,9 +352,9 @@ mavenPublishing {
 
 如果任務報告錯誤，請查看輸出以獲取有關如何修復它的詳細資訊。
 
-## 使用持續整合發佈到 Maven Central
+## 使用持續整合發佈到 Maven Central {id="publish-to-maven-central-using-continuous-integration"}
 
-### 產生使用者權杖
+### 產生使用者權杖 {id="generate-the-user-token"}
 
 您需要 Maven 存取權杖，以便 Maven Central 授權您的發佈請求。開啟 [Setup Token-Based Authentication](https://central.sonatype.com/usertoken) 頁面並點擊 **Generate User Token** 按鈕。
 
@@ -368,7 +368,7 @@ mavenPublishing {
 </server>
 ```
 
-### 將秘密新增至 GitHub
+### 將秘密新增至 GitHub {id="add-secrets-to-github"}
 
 要在 GitHub Action 工作流中使用發佈所需的金鑰和憑據，同時保持它們私密，您需要將這些值存儲為秘密（secrets）。
 
@@ -384,7 +384,7 @@ mavenPublishing {
 
 您將在下一步的 CI 配置中使用這些秘密的名稱。
 
-### 將 GitHub Actions 工作流新增至您的專案
+### 將 GitHub Actions 工作流新增至您的專案 {id="add-a-github-actions-workflow-to-your-project"}
 
 您可以設定持續整合來自動建置和發佈您的程式庫。我們將以 [GitHub Actions](https://docs.github.com/en/actions) 為例。
 
@@ -431,7 +431,7 @@ jobs:
 
 此操作需要您的簽名詳細資訊和您的 Maven Central 憑據，這些資訊是您建立為[存儲庫秘密](#add-secrets-to-github)的。工作流配置會自動將這些秘密轉換為環境變數，使其可用於 Gradle 建置過程。
 
-### 在 GitHub 上建立發佈
+### 在 GitHub 上建立發佈 {id="create-a-release-on-github"}
 
 設定好工作流和秘密後，您現在可以準備[建立發佈](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository#creating-a-release)，這將觸發程式庫的發佈。
 
@@ -467,7 +467,7 @@ jobs:
 
 要在驗證部署後自動發佈產物，請將工作流中的 `publishToMavenCentral` 任務替換為 `publishAndReleaseToMavenCentral`。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * [進一步了解如何設定多平台程式庫發佈及相關要求](multiplatform-publish-lib-setup.md)
 * [在您的 README 中新增 shield.io 徽章](https://shields.io/badges/maven-central-version)

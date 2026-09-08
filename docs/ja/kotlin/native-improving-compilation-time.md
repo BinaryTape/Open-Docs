@@ -6,17 +6,17 @@ Kotlin/Nativeコンパイラは、パフォーマンスを向上させるため�
 
 Kotlin/Nativeのコンパイルプロセスを高速化するためのヒントを以下に示します。
 
-## 一般的な推奨事項
+## 一般的な推奨事項 {id="general-recommendations"}
 
-### 最新バージョンのKotlinを使用する
+### 最新バージョンのKotlinを使用する {id="use-the-latest-version-of-kotlin"}
 
 これにより、常に最新のパフォーマンス改善を享受できます。最新のKotlinバージョンは %kotlinVersion% です。
 
-### 巨大なクラスの作成を避ける
+### 巨大なクラスの作成を避ける {id="avoid-creating-huge-classes"}
 
 実行時のコンパイルやロードに時間がかかる巨大なクラスの作成は避けてください。
 
-### ダウンロードおよびキャッシュされたコンポーネントをビルド間で保持する
+### ダウンロードおよびキャッシュされたコンポーネントをビルド間で保持する {id="preserve-downloaded-and-cached-components-between-builds"}
 
 プロジェクトをコンパイルする際、Kotlin/Nativeは必要なコンポーネントをダウンロードし、作業結果の一部を `$USER_HOME/.konan` ディレクトリにキャッシュします。コンパイラは次回のコンパイルでこのディレクトリを使用し、完了までの時間を短縮します。
 
@@ -24,19 +24,19 @@ Kotlin/Nativeのコンパイルプロセスを高速化するためのヒント�
 
 あるいは、`cinterop` および `konanc` ツールを介して、`-Xkonan-data-dir` コンパイラオプションを使用してディレクトリのカスタムパスを構成することもできます。
 
-## Gradleの設定
+## Gradleの設定 {id="gradle-configuration"}
 
 Gradleでの最初のコンパイルは、依存関係のダウンロード、キャッシュの構築、追加のステップの実行が必要になるため、通常、その後のコンパイルよりも時間がかかります。実際のコンパイル時間を正確に把握するには、プロジェクトを少なくとも2回ビルドする必要があります。
 
 コンパイルパフォーマンスを向上させるためのGradle構成の推奨事項を以下に示します。
 
-### Gradleのヒープサイズを増やす
+### Gradleのヒープサイズを増やす {id="increase-gradle-heap-size"}
 
 [Gradleのヒープサイズ](https://docs.gradle.org/current/userguide/performance.html#adjust_the_daemons_heap_size)を増やすには、`gradle.properties` ファイルに `org.gradle.jvmargs=-Xmx3g` を追加してください。
 
 [並列ビルド（parallel builds）](https://docs.gradle.org/current/userguide/performance.html#parallel_execution)を使用する場合は、`org.gradle.workers.max` プロパティまたは `--max-workers` コマンドラインオプションを使用して、適切なワーカー数を選択する必要があるかもしれません。デフォルト値はCPUプロセッサの数です。
 
-### 必要なバイナリのみをビルドする
+### 必要なバイナリのみをビルドする {id="build-only-necessary-binaries"}
 
 本当に必要でない限り、`build` や `assemble` などのプロジェクト全体をビルドするGradleタスクを実行しないでください。これらのタスクは同じコードを複数回ビルドするため、コンパイル時間が増加します。IntelliJ IDEAからのテスト実行やXcodeからのアプリ起動などの典型的なケースでは、Kotlinツールは不要なタスクの実行を回避します。
 
@@ -47,7 +47,7 @@ Gradleでの最初のコンパイルは、依存関係のダウンロード、�
 
   しかし、ローカル開発中は、使用しているプラットフォーム専用の `.framework` ファイルのみをビルドする方が高速です。プラットフォーム固有のフレームワークをビルドするには、[embedAndSignAppleFrameworkForXcode](https://kotlinlang.org/docs/multiplatform/multiplatform-direct-integration.html#connect-the-framework-to-your-project) タスクを使用してください。
 
-### 必要なターゲットのみに対してビルドする
+### 必要なターゲットのみに対してビルドする {id="build-only-for-necessary-targets"}
 
 上記の推奨事項と同様に、すべてのネイティブプラットフォーム用のバイナリを一度にビルドしないでください。例えば、[XCFramework](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html#build-xcframeworks) をコンパイル（`*XCFramework` タスクを使用）すると、すべてのターゲットに対して同じコードがビルドされるため、単一のターゲットに対してビルドするよりも比例して時間がかかります。
 
@@ -58,7 +58,7 @@ Gradleでの最初のコンパイルは、依存関係のダウンロード、�
 >
 {style="tip"}
 
-### 不要なリリースバイナリをビルドしない
+### 不要なリリースバイナリをビルドしない {id="don-t-build-unnecessary-release-binaries"}
 
 Kotlin/Nativeは、[デバッグとリリースの2つのビルドモード](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html#declare-binaries)をサポートしています。リリースは高度に最適化されており、これには多くの時間がかかります。リリースバイナリのコンパイルは、デバッグバイナリよりも桁違いに時間がかかります。
 
@@ -68,33 +68,33 @@ Kotlin/Nativeは、[デバッグとリリースの2つのビルドモード](htt
 >
 {style="tip"}
 
-### リリースバイナリのサイズを削減する
+### リリースバイナリのサイズを削減する {id="enable-caches-for-release-binaries"}
 <primary-label ref="experimental-opt-in"/>
 
 リリースバイナリのサイズを削減し、ビルド時間を改善するには、[バイナリオプションを有効にする](native-binary-options.md#how-to-enable) `smallBinary` を試してください。
 
 これにより、LLVMコンパイルフェーズにおいて、コンパイラのデフォルトの最適化引数として `-Oz` が実質的に設定されます。このオプションはまだ[試験的（Experimental）](components-stability.md#stability-levels-explained)であり、場合によっては実行時のパフォーマンスに影響を与える可能性があります。
 
-### Gradleデーモンを無効にしない
+### Gradleデーモンを無効にしない {id="reduce-the-size-of-release-binaries"}
 
 正当な理由がない限り、[Gradleデーモン](https://docs.gradle.org/current/userguide/gradle_daemon.html)を無効にしないでください。デフォルトでは、[Kotlin/NativeはGradleデーモンから実行されます](https://blog.jetbrains.com/kotlin/2020/03/kotlin-1-3-70-released/#kotlin-native)。これが有効な場合、同じJVMプロセスが使用され、コンパイルごとにウォームアップする必要がありません。
 
-### 推移的エクスポートを使用しない
+### 推移的エクスポートを使用しない {id="don-t-use-transitive-export"}
 
 [`transitiveExport = true`](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html#export-dependencies-to-binaries) を使用すると、多くの場合でデッドコード削除（dead code elimination）が無効になるため、コンパイラは大量の未使用コードを処理しなければならなくなります。これによりコンパイル時間が増加します。代わりに、必要なプロジェクトや依存関係をエクスポートするには、`export` メソッドを明示的に使用してください。
 
-### モジュールのエクスポートを控えめにする
+### モジュールのエクスポートを控えめにする {id="don-t-export-modules-too-much"}
 
 不要な[モジュールのエクスポート](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html#export-dependencies-to-binaries)は避けてください。エクスポートされた各モジュールは、コンパイル時間とバイナリサイズに悪影響を及ぼします。
 
-### Gradleビルドキャッシュを使用する
+### Gradleビルドキャッシュを使用する {id="use-gradle-build-caching"}
 
 Gradleの[ビルドキャッシュ](https://docs.gradle.org/current/userguide/build_cache.html)機能を有効にします。
 
 * **ローカルビルドキャッシュ**: ローカルキャッシングを行うには、`gradle.properties` ファイルに `org.gradle.caching=true` を追加するか、コマンドラインで `--build-cache` オプションを付けてビルドを実行します。
 * **リモートビルドキャッシュ**: 継続的インテグレーション環境向けに[リモートビルドキャッシュを構成する](https://docs.gradle.org/current/userguide/build_cache.html#sec:build_cache_configure_remote)方法を確認してください。
 
-### Gradle構成キャッシュを使用する
+### Gradle構成キャッシュを使用する {id="use-gradle-configuration-cache"}
 
 Gradleの[構成キャッシュ（configuration cache）](https://docs.gradle.org/current/userguide/configuration_cache.html)は、構成フェーズの結果をキャッシュすることでビルドパフォーマンスを向上させます。また、単一プロジェクト内での独立したタスクの並列実行を可能にし、暗黙的に `org.gradle.parallel` プロパティを有効にして、異なるプロジェクト間のタスクを[並列実行](https://docs.gradle.org/current/userguide/performance.html#sec:enable_parallel_execution)できるようにします。
 
@@ -104,7 +104,7 @@ Gradle構成キャッシュを使用するには、`gradle.properties` ファイ
 >
 {style="note"}
 
-### 以前に無効にした機能を有効にする
+### 以前に無効にした機能を有効にする {id="enable-previously-disabled-features"}
 
 Gradleデーモンやコンパイラキャッシュを無効にするKotlin/Nativeオプションがあります。
 
@@ -113,7 +113,7 @@ Gradleデーモンやコンパイラキャッシュを無効にするKotlin/Nati
 
 以前にこれらの機能で問題が発生し、これらの行を `gradle.properties` ファイルやGradleビルドファイルに追加していた場合は、それらを削除してビルドが正常に完了するか確認してください。これらのプロパティは、すでに修正された問題を回避するために以前に追加されたものである可能性があります。
 
-### klibアーティファクトのインクリメンタルコンパイルを試す
+### klibアーティファクトのインクリメンタルコンパイルを試す {id="try-incremental-compilation-of-klib-artifacts"}
 <primary-label ref="experimental-opt-in"/>
 
 インクリメンタルコンパイルを使用すると、プロジェクトモジュールによって生成された `klib` アーティファクトの一部のみが変更された場合、`klib` のその部分だけがバイナリに再コンパイルされます。
@@ -126,11 +126,11 @@ kotlin.incremental.native=true
 
 問題が発生した場合は、[YouTrackで課題を作成](https://kotl.in/issue)してください。
 
-## Windowsの設定
+## Windowsの設定 {id="windows-configuration"}
 
 Windows セキュリティが Kotlin/Native コンパイラを低速化させることがあります。デフォルトで `%\USERPROFILE%` にある `.konan` ディレクトリを Windows セキュリティの除外リストに追加することで、これを回避できます。[Windows セキュリティに除外設定を追加する](https://support.microsoft.com/en-us/windows/add-an-exclusion-to-windows-security-811816c0-4dfd-af4a-47e4-c301afe13b26)方法を確認してください。
 
-## LLVMの設定
+## LLVMの設定 {id="llvm-configuration"}
 <primary-label ref="advanced"/>
 
 上記のヒントでコンパイル時間が改善されない場合は、[LLVMバックエンドのカスタマイズ](native-llvm-passes.md)を検討してください。

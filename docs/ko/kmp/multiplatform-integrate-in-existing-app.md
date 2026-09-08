@@ -12,7 +12,7 @@
 >
 {style="tip"}
 
-## 개발 환경 준비하기
+## 개발 환경 준비하기 {id="prepare-an-environment-for-development"}
 
 1. 퀵스타트 가이드의 지침에 따라 [Kotlin 멀티플랫폼 개발을 위한 환경 설정](quickstart.md#set-up-the-environment)을 완료하세요.
 
@@ -32,7 +32,7 @@
 
    ![Project 뷰](switch-to-project.png){width="513"}
 
-## 코드를 크로스 플랫폼으로 만들기
+## 코드를 크로스 플랫폼으로 만들기 {id="make-your-code-cross-platform"}
 
 코드를 크로스 플랫폼으로 만들기 위해 다음 단계를 따릅니다.
 
@@ -43,7 +43,7 @@
 5. [비즈니스 로직을 크로스 플랫폼으로 만들기](#make-the-business-logic-cross-platform)
 6. [Android에서 크로스 플랫폼 애플리케이션 실행하기](#run-your-cross-platform-application-on-android)
 
-### 크로스 플랫폼으로 만들 코드 결정하기
+### 크로스 플랫폼으로 만들 코드 결정하기 {id="decide-what-code-to-make-cross-platform"}
 
 Android 애플리케이션의 코드 중 어떤 코드를 iOS와 공유하고 어떤 코드를 네이티브로 유지할지 결정합니다. 간단한 규칙은 다음과 같습니다: 가능한 한 많이 재사용하고 싶은 부분을 공유하세요. 비즈니스 로직은 Android와 iOS 모두에서 동일한 경우가 많으므로 재사용하기에 아주 좋은 후보입니다.
 
@@ -51,7 +51,7 @@ Android 애플리케이션의 코드 중 어떤 코드를 iOS와 공유하고 �
 
 ![공유할 비즈니스 로직](business-logic-to-share.png){width=366}
 
-### 크로스 플랫폼 코드를 위한 공유 모듈 생성하기
+### 크로스 플랫폼 코드를 위한 공유 모듈 생성하기 {id="create-a-shared-module-for-cross-platform-code"}
 
 iOS와 Android 모두에서 사용되는 크로스 플랫폼 코드는 공유 모듈에 저장됩니다. Android Studio와 IntelliJ IDEA는 모두 Kotlin 멀티플랫폼을 위한 공유 모듈 생성 마법사(wizard)를 제공합니다.
 
@@ -101,7 +101,7 @@ iOS와 Android 모두에서 사용되는 크로스 플랫폼 코드는 공유 �
     }
     ```
    
-### 공유 모듈에 코드 추가하기
+### 공유 모듈에 코드 추가하기 {id="add-code-to-the-shared-module"}
 
 이제 공유 모듈이 생겼으므로, `shared/src/commonMain/kotlin/com.jetbrains.simplelogin.shared` 디렉터리에 공유할 공통 코드를 추가합니다.
 
@@ -162,7 +162,7 @@ iOS와 Android 모두에서 사용되는 크로스 플랫폼 코드는 공유 �
 
 이제 플랫폼 이름 속성을 가진 플랫폼별 객체를 반환하는 공통 `getPlatform()` 함수가 준비되었습니다.
 
-### Android 애플리케이션에 공유 모듈 의존성 추가하기
+### Android 애플리케이션에 공유 모듈 의존성 추가하기 {id="add-a-dependency-on-the-shared-module-to-your-android-application"}
 
 Android 애플리케이션에서 크로스 플랫폼 코드를 사용하려면, 공유 모듈을 애플리케이션에 연결하고 비즈니스 로직 코드를 그곳으로 이동시킨 후 해당 코드를 크로스 플랫폼으로 만들어야 합니다.
 
@@ -198,7 +198,7 @@ Android 애플리케이션에서 크로스 플랫폼 코드를 사용하려면, 
 
    ![공유 모듈의 인사말](shared-module-greeting.png){width="700"}
 
-### 비즈니스 로직을 크로스 플랫폼으로 만들기
+### 비즈니스 로직을 크로스 플랫폼으로 만들기 {id="make-the-business-logic-cross-platform"}
 
 이제 비즈니스 로직 코드를 Kotlin 멀티플랫폼 공유 모듈의 `commonMain` 소스 세트로 추출할 수 있습니다. 이를 통해 Android와 iOS 모두에서 코드를 사용할 수 있게 됩니다.
 
@@ -216,7 +216,7 @@ Android 애플리케이션에서 크로스 플랫폼 코드를 사용하려면, 
 
 4. Android 전용 코드를 크로스 플랫폼 Kotlin 코드로 교체하거나, [expected 및 actual 선언](multiplatform-connect-to-apis.md)을 사용하여 Android 전용 API에 연결함으로써 이를 제거합니다. 자세한 내용은 다음 섹션을 참조하세요.
 
-   #### Android 전용 코드를 크로스 플랫폼 코드로 교체 {initial-collapse-state="collapsed" collapsible="true"}
+   #### Android 전용 코드를 크로스 플랫폼 코드로 교체 {initial-collapse-state="collapsed" collapsible="true" id="replace-android-specific-code-with-cross-platform-code"}
    
    코드가 Android와 iOS 모두에서 잘 작동하도록 하려면, 이동된 `data` 디렉터리 내의 모든 JVM 의존성을 가능한 한 Kotlin 의존성으로 교체합니다.
 
@@ -267,7 +267,7 @@ Android 애플리케이션에서 크로스 플랫폼 코드를 사용하려면, 
        import java.io.IOException
        ```
 
-   #### 플랫폼별 UUID 생성 구현 {initial-collapse-state="collapsed" collapsible="true"}
+   #### 플랫폼별 UUID 생성 구현 {initial-collapse-state="collapsed" collapsible="true" id="implement-platform-specific-uuid-generation"}
    
    `LoginDataSource` 클래스에서 `fakeUser`를 위한 범용 고유 식별자(UUID)는 iOS에서 사용할 수 없는 `java.util.UUID` 클래스를 사용하여 생성됩니다.
    
@@ -321,13 +321,13 @@ Android 애플리케이션에서 크로스 플랫폼 코드를 사용하려면, 
    
 이제 Kotlin은 Android와 iOS에서 각 플랫폼별 UUID 구현을 사용하게 됩니다.
 
-### Android에서 크로스 플랫폼 애플리케이션 실행하기
+### Android에서 크로스 플랫폼 애플리케이션 실행하기 {id="run-your-cross-platform-application-on-android"}
 
 `app` 실행 구성을 실행하여 Android 앱이 이전처럼 잘 작동하는지 확인합니다.
 
 ![Android 로그인 애플리케이션](android-login.png){width=300}
 
-## 크로스 플랫폼 애플리케이션을 iOS에서 동작하게 만들기
+## 크로스 플랫폼 애플리케이션을 iOS에서 동작하게 만들기 {id="make-your-cross-platform-application-work-on-ios"}
 
 Android 애플리케이션을 크로스 플랫폼으로 만들었으므로, 이제 iOS 애플리케이션을 생성하고 그 안에서 공유 비즈니스 로직을 재사용할 수 있습니다.
 
@@ -336,7 +336,7 @@ Android 애플리케이션을 크로스 플랫폼으로 만들었으므로, 이�
 3. [Android Studio에서 iOS 실행 구성 설정하기](#set-up-an-ios-run-configuration-in-android-studio)
 4. [iOS 프로젝트에서 공유 모듈 사용하기](#use-the-shared-module-in-the-ios-project)
 
-### Xcode에서 iOS 프로젝트 생성하기
+### Xcode에서 iOS 프로젝트 생성하기 {id="create-an-ios-project-in-xcode"}
 
 1. Xcode에서 **File** | **New** | **Project**를 클릭합니다.
 2. 대화 상자에서 **iOS** 탭으로 전환합니다.
@@ -363,7 +363,7 @@ Android 애플리케이션을 크로스 플랫폼으로 만들었으므로, 이�
 
    ![Android Studio에서 이름이 변경된 iOS 프로젝트 디렉터리](ios-directory-renamed-in-as.png){width=194}
 
-### KMP 프레임워크를 사용하도록 iOS 프로젝트 구성하기
+### KMP 프레임워크를 사용하도록 iOS 프로젝트 구성하기 {id="configure-the-ios-project-to-use-a-kmp-framework"}
 
 iOS 앱과 Kotlin 멀티플랫폼에 의해 빌드된 프레임워크 간의 통합을 직접 설정할 수 있습니다.
 
@@ -424,7 +424,7 @@ iOS 앱과 Kotlin 멀티플랫폼에 의해 빌드된 프레임워크 간의 통
     > 
     {style="note"}
 
-### Android Studio에서 iOS 실행 구성 설정하기
+### Android Studio에서 iOS 실행 구성 설정하기 {id="set-up-an-ios-run-configuration-in-android-studio"}
 
 Xcode 설정이 올바른지 확인했다면 Android Studio로 돌아갑니다.
 
@@ -436,7 +436,7 @@ Xcode 설정이 올바른지 확인했다면 Android Studio로 돌아갑니다.
 
    ![실행 구성 목록의 iOS 실행 구성](ios-run-configuration-simplelogin.png)
 
-### iOS 프로젝트에서 공유 모듈 사용하기
+### iOS 프로젝트에서 공유 모듈 사용하기 {id="use-the-shared-module-in-the-ios-project"}
 
 `shared/build.gradle.kts` 파일은 각 iOS 타겟에 대한 `binaries.framework.baseName` 속성을 `sharedKit`으로 정의합니다. 이것이 iOS 앱에서 사용할 수 있도록 Kotlin 멀티플랫폼이 빌드하는 프레임워크의 이름입니다.
 
@@ -491,7 +491,7 @@ Xcode 설정이 올바른지 확인했다면 Android Studio로 돌아갑니다.
 
    ![간단한 로그인 애플리케이션](xcode-iphone-login.png){width=300}
 
-## 결과 확인 – 로직을 한 번만 업데이트하세요
+## 결과 확인 – 로직을 한 번만 업데이트하세요 {id="enjoy-the-results-update-the-logic-only-once"}
 
 이제 애플리케이션이 크로스 플랫폼이 되었습니다. `shared` 모듈에서 비즈니스 로직을 업데이트하면 Android와 iOS 모두에서 결과를 볼 수 있습니다.
 
@@ -519,11 +519,11 @@ Xcode 설정이 올바른지 확인했다면 Android Studio로 돌아갑니다.
 
 이 [튜토리얼의 최종 코드](https://github.com/Kotlin/kmp-integration-sample/tree/final)를 검토할 수 있습니다.
 
-## 그 외 무엇을 공유할 수 있을까요?
+## 그 외 무엇을 공유할 수 있을까요? {id="what-else-to-share"}
 
 애플리케이션의 비즈니스 로직을 공유했지만, 애플리케이션의 다른 레이어도 공유하도록 결정할 수 있습니다. 예를 들어, `ViewModel` 클래스 코드는 [Android](https://github.com/Kotlin/kmp-integration-sample/blob/final/app/src/main/java/com/jetbrains/simplelogin/androidapp/ui/login/LoginViewModel.kt)와 [iOS 애플리케이션](https://github.com/Kotlin/kmp-integration-sample/blob/final/iosApp/SimpleLoginIOS/ContentView.swift#L84)에서 거의 동일하며, 모바일 애플리케이션이 동일한 프레젠테이션 레이어를 가져야 한다면 이를 공유할 수 있습니다.
 
-## 다음 단계는?
+## 다음 단계는? {id="what-s-next"}
 
 Android 애플리케이션을 크로스 플랫폼으로 만들었다면 다음 단계로 진행할 수 있습니다.
 

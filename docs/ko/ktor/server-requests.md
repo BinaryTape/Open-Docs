@@ -46,11 +46,11 @@ routing {
 > 
 {style="tip"}
 
-### 연결 세부 정보(Connection details)
+### 연결 세부 정보(Connection details) {id="connection-details"}
 
 호스트 이름, 포트, 스키마 등과 같은 연결 세부 정보에 접근하려면 [`ApplicationRequest.local`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/local.html) 속성을 사용하세요.
 
-### `X-Forwarded-` 헤더
+### `X-Forwarded-` 헤더 {id="x-forwarded-headers"}
 
 HTTP 프록시나 로드 밸런서를 통해 전달된 요청에 대한 정보를 가져오려면, [Forwarded headers](server-forward-headers.md) 플러그인을 설치하고 [`ApplicationRequest.origin`](https://api.ktor.io/ktor-server-core/io.ktor.server.plugins/origin.html) 속성을 사용하세요.
 
@@ -84,7 +84,7 @@ get("/products") {
 
 [`ApplicationRequest.queryString()`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/query-string.html) 함수를 사용하여 전체 쿼리 문자열을 가져올 수도 있습니다.
 
-## 필수 요청 파라미터
+## 필수 요청 파라미터 {id="required-request-parameters"}
 
 요청을 처리할 때, [경로 파라미터](#path_parameters), [쿼리 파라미터](#query_parameters), [헤더](#headers) 또는 [쿠키](#cookies)에서 값을 추출하고 요청 처리를 계속하기 전에 해당 값이 존재하는지 검증하는 것이 일반적입니다.
 
@@ -254,7 +254,7 @@ fun Application.main() {
 }
 ```
 
-#### 기본 파일 크기 제한
+#### 기본 파일 크기 제한 {id="default-file-size-limit"}
 
 기본적으로 수신 가능한 바이너리 및 파일 항목의 허용 크기는 50MiB로 제한됩니다. 수신된 파일 또는 바이너리 항목이 50MiB 제한을 초과하면 `IOException`이 발생합니다.
 
@@ -266,7 +266,7 @@ val multipartData = call.receiveMultipart(formFieldLimit = 1024 * 1024 * 100)
 
 이 예제에서 새로운 제한은 100MiB로 설정되었습니다.
 
-#### 폼 필드
+#### 폼 필드 {id="form-fields"}
 
 `PartData.FormItem`은 폼 필드를 나타내며, `value` 속성을 통해 해당 값에 접근할 수 있습니다:
 
@@ -278,7 +278,7 @@ when (part) {
 }
 ```
 
-#### 파일 업로드
+#### 파일 업로드 {id="file-uploads"}
 
 `PartData.FileItem`은 파일 항목을 나타냅니다. 파일 업로드를 바이트 스트림으로 처리할 수 있습니다:
 
@@ -303,7 +303,7 @@ post("/upload") {
 }
 ```
 
-#### 리소스 정리
+#### 리소스 정리 {id="resource-cleanup"}
 
 폼 처리가 완료되면 리소스를 해제하기 위해 `.dispose()` 함수를 사용하여 각 파트를 폐기(dispose)합니다.
 

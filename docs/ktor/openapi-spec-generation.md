@@ -33,7 +33,7 @@ Ktor 支持在运行时从一个或多个文档源构建 OpenAPI 规范。
 >
 {style="note"}
 
-## 添加依赖项
+## 添加依赖项 {id="add-dependencies"}
 
 * 要启用 OpenAPI 元数据生成，请在您的项目中应用 Ktor 编译器插件。
 
@@ -199,7 +199,7 @@ ktor {
 }
 ```
 
-### 配置选项
+### 配置选项 {id="configuration-options"}
 
 <deflist>
 <def>
@@ -216,7 +216,7 @@ ktor {
 </def>
 </deflist>
 
-### 路由结构分析
+### 路由结构分析 {id="routing-structure-analysis"}
 
 Ktor 编译器插件会分析您的服务器路由 DSL 以确定 API 的结构形状。此分析仅基于路由声明，不会检查路由处理程序的内容。
 
@@ -237,7 +237,7 @@ routing {
 
 由于请求参数、请求体和响应是在路由 lambda 内部处理的，因此编译器无法仅凭路由结构推断出完整的 OpenAPI 描述。为了丰富生成的元数据，Ktor 支持基于常见请求处理模式的[注解](#annotate-routes)和[自动推断](#code-inference)。
 
-### 代码推断
+### 代码推断 {id="code-inference"}
 
 当启用代码推断时，编译器插件会识别常见的 Ktor 使用模式并自动生成等效的运行时注解。
 
@@ -255,7 +255,7 @@ routing {
 
 推断会尽可能跟踪提取的函数，并尝试为典型的请求和响应流程生成一致的文档。
 
-#### 为端点禁用推断
+#### 为端点禁用推断 {id="disable-inference-for-an-endpoint"}
 
 如果推断为特定端点生成了错误的元数据，您可以通过添加 `ignore` 标记来排除它：
 
@@ -303,7 +303,7 @@ get("/{id}") {
 }
 ```
 
-#### 格式规则
+#### 格式规则 {id="formatting-rules"}
 
 - 关键字必须出现在行首。
 - 冒号（`:`）将关键字与其值分隔开。
@@ -325,7 +325,7 @@ get("/{id}") {
  */
 ```
 
-#### 支持的注释字段
+#### 支持的注释字段 {id="supported-comment-fields"}
 
 | 标签 | 格式 | 描述 |
 |----------------|-------------------------------------------------|----------------------------------|
@@ -392,7 +392,7 @@ get("/{id}") {
 
 运行时注解会与编译器生成的元数据以及基于注释的元数据合并。当同一个 OpenAPI 字段由多个来源定义时，运行时注解提供的值具有[最高优先级](#metadata-precedence)。
 
-## 在 OpenAPI 规范中隐藏路由
+## 在 OpenAPI 规范中隐藏路由 {id="hide-routes-from-the-openapi-specification"}
 
 要将某个路由及其子路由从生成的 OpenAPI 文档中排除，请使用 `Route.hide()` 函数：
 
@@ -407,11 +407,11 @@ get("/routes") {
 
 OpenAPI 和 Swagger UI 插件会自动调用 `.hide()`，因此它们的路由会从生成的文档中排除。
 
-## 架构推断
+## 架构推断 {id="schema-inference"}
 
 Ktor 在构建 OpenAPI 规范时会自动为请求和响应类型生成 JSON 架构。默认情况下，架构是从数据类上的 `kotlinx-serialization` 描述符通过类型引用推断出来的。这使得大多数常见数据模型无需额外工作即可被记录。
 
-### 通过注解自定义架构
+### 通过注解自定义架构 {id="customize-schemas-with-annotations"}
 
 您可以通过在数据类中添加 [`@JsonSchema`](https://api.ktor.io/ktor-openapi-schema/io.ktor.openapi/-json-schema/index.html) 注解来覆盖自动生成的 JSON 架构字段。这允许您添加描述、将字段标记为必填等：
 
@@ -423,7 +423,7 @@ data class Article(
 )
 ```
 
-### 使用基于反射的架构推断
+### 使用基于反射的架构推断 {id="use-reflection-based-schema-inference"}
 
 对于使用 Jackson 或 Gson 而非 `kotlinx-serialization` 的项目，您可以使用基于反射的架构推断。为此，请在 OpenAPI 或 SwaggerUI 插件的 `Routing` 源中设置 `schemaInference` 字段：
 
@@ -438,7 +438,7 @@ openAPI("docs") {
 }
 ```
 
-### 自定义反射行为
+### 自定义反射行为 {id="customize-reflection-behavior"}
 
 您可以提供一个自定义的 `SchemaReflectionAdapter` 来处理不被直接支持的注解或命名约定。
 
@@ -464,7 +464,7 @@ ReflectionJsonSchemaInference(object : SchemaReflectionAdapter {
 
 有关可用属性的完整列表，请参阅 [`JsonSchema` API 文档](https://api.ktor.io/ktor-openapi-schema/io.ktor.openapi/-json-schema/index.html)。
 
-## 生成并提供规范
+## 生成并提供规范 {id="generate-and-serve-the-specification"}
 
 OpenAPI 规范在运行时根据运行时路由注解和编译器插件生成的元数据进行组装。
 
@@ -473,7 +473,7 @@ OpenAPI 规范在运行时根据运行时路由注解和编译器插件生成的
 - [手动组装并提供 OpenAPI 文档](#assemble-and-serve-the-specification)。
 - 使用 [OpenAPI](server-openapi.md) 或 [SwaggerUI](server-swagger-ui.md) 插件来提供规范和交互式文档。
 
-### 组装并提供规范
+### 组装并提供规范 {id="assemble-and-serve-the-specification"}
 
 要在运行时组装完整的 OpenAPI 文档，请创建一个 `OpenApiDoc` 实例并提供应包含在规范中的路由。
 
@@ -503,7 +503,7 @@ OpenAPI 规范在运行时根据运行时路由注解和编译器插件生成的
 >
 {style="note"}
 
-### 提供交互式文档
+### 提供交互式文档 {id="serve-interactive-documentation"}
 
 要通过交互式 UI 公开 OpenAPI 规范，请使用 [OpenAPI](server-openapi.md) 和 [Swagger UI](server-swagger-ui.md) 插件。
 
@@ -524,7 +524,7 @@ swaggerUI("/swaggerUI") {
 }
 ```
 
-### 元数据优先级
+### 元数据优先级 {id="metadata-precedence"}
 
 最终的 OpenAPI 规范在运行时通过合并来自多个源的元数据来组装。
 

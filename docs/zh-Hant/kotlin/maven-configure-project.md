@@ -4,7 +4,7 @@
 
 目前僅支援 Maven v3。
 
-## 自動設定
+## 自動設定 {id="automatic-configuration"}
 
 您可以使用 `<extensions>` 選項簡化混合 Java-Kotlin 專案以及純 Kotlin 專案中的 Maven 設定。這種方法可以節省您的時間，因為您不需要手動設定 Maven 編譯器外掛程式。
 
@@ -79,7 +79,7 @@
 </build>
 ```
 
-### JVM 目標版本
+### JVM 目標版本 {id="jvm-target-version"}
 
 `<extensions>` 選項可確保 Kotlin 與 Maven 編譯器以相同的位元組碼版本為目標。
 
@@ -95,7 +95,7 @@ graph TD
     B --> C
 ```
 
-#### Kotlin 編譯器版本
+#### Kotlin 編譯器版本 {id="kotlin-compiler-versions"}
 
 如果專案中定義了 `kotlin.compiler.jdkRelease` 或 `kotlin.compiler.jvmTarget` 屬性，則該版本具有優先權。
 
@@ -110,7 +110,7 @@ graph TD
 >
 {style="note"}
 
-#### Maven 編譯器版本
+#### Maven 編譯器版本 {id="maven-compiler-versions"}
 
 * If neither the `kotlin.compiler.jdkRelease` nor the `kotlin.compiler.jvmTarget` option is set, the plugin takes
   the `maven.compiler.release` version.
@@ -131,13 +131,13 @@ graph TD
 >
 {style="note"}
 
-## 手動設定
+## 手動設定 {id="manual-configuration"}
 
 若不啟用 Kotlin Maven 外掛程式中的 `<extensions>`，您需要手動配置專案以確保原始碼正確編譯。
 
 您可以配置您的 Maven 專案來編譯 [Java 與 Kotlin 原始碼的組合](#compile-kotlin-and-java-sources) 或 [純 Kotlin 原始碼](#compile-kotlin-only-sources)。
 
-### 編譯 Kotlin 與 Java 原始碼
+### 編譯 Kotlin 與 Java 原始碼 {id="compile-kotlin-and-java-sources"}
 
 若要編譯同時包含 Kotlin 與 Java 原始檔的專案，請確保 Kotlin 編譯器在 Java 編譯器之前執行。
 
@@ -244,7 +244,7 @@ Maven 根據兩個主要因素決定外掛程式執行順序：
 
 如需更多關於 Maven 如何處理外掛程式執行的詳細資訊，請參閱 Maven 官方文件中的 [預設外掛程式執行 ID 指南](https://maven.apache.org/guides/mini/guide-default-execution-ids.html)。
 
-### 編譯純 Kotlin 原始碼
+### 編譯純 Kotlin 原始碼 {id="compile-kotlin-only-sources"}
 
 若要編譯僅包含 Kotlin 原始檔的專案，請宣告原始碼根目錄並配置 Kotlin Maven 外掛程式：
 
@@ -285,7 +285,7 @@ Maven 根據兩個主要因素決定外掛程式執行順序：
     </build>
     ```
 
-### 設定 JDK 版本
+### 設定 JDK 版本 {id="set-jdk-version"}
 
 Kotlin 支援 [Maven 工具鏈 (Toolchains)](https://maven.apache.org/guides/mini/guide-using-toolchains.html)，可協助您管理組建中的 JDK 版本。
 
@@ -336,7 +336,7 @@ graph TD
 >
 {style="note"}
 
-## 配置 Java 模組 (JPMS)
+## 配置 Java 模組 (JPMS) {id="configure-java-modules-jpms"}
 
 Kotlin Maven 外掛程式支援 [Java 平台模組系統 (JPMS)](https://dev.java/learn/modules/)，因此您可以將 Kotlin 程式碼與 `module-info.java` 描述符一起編譯，並像其他 Java 模組一樣使用產生的模組。
 
@@ -361,6 +361,6 @@ module org.example.myapp {
 * 對於模組，Kotlin 檔案中的封裝名稱必須與 `module-info.java` 中的封裝名稱相符，以避免 `Package is empty or does not exist` 組建失敗。
 * `pom.xml` 建置檔案應配置為 [Kotlin 在 Java 之前編譯](#compile-kotlin-and-java-sources)。如果您使用 [自動專案配置](#automatic-configuration)，`<extensions>` 選項已經確保了這一點。
 
-## 接下來要做什麼？
+## 接下來要做什麼？ {id="what-s-next"}
 
 [在您的 Kotlin Maven 專案中設定相依性](maven-set-dependencies.md)

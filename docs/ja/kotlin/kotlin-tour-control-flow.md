@@ -4,7 +4,7 @@
 
 他のプログラミング言語と同様に、Kotlinはコードの一部が真（true）と評価されるかどうかに基づいて決定を下すことができます。このようなコードの一部を**条件式 (conditional expressions)**と呼びます。また、Kotlinはループを作成して反復処理を行うこともできます。
 
-## 条件式
+## 条件式 {id="conditional-expressions"}
 
 Kotlinは条件式をチェックするために `if` と `when` を提供しています。 
 
@@ -16,7 +16,7 @@ Kotlinは条件式をチェックするために `if` と `when` を提供して
 > 
 {style="note"}
 
-### If
+### If {id="if"}
 
 `if` を使用するには、丸括弧 `()` 内に条件式を追加し、結果が真の場合に実行するアクションを波括弧 `{}` 内に追加します：
 
@@ -53,7 +53,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-if-expression"}
 
-### When
+### When {id="when"}
 
 複数の分岐を持つ条件式がある場合は `when` を使用します。
 
@@ -156,7 +156,7 @@ fun main() {
 
 対象を指定して `when` を使用すると、コードの読みやすさとメンテナンス性が向上します。また、`when` 式で対象を使用すると、Kotlin がすべての考えられるケースがカバーされているか（網羅性）をチェックするのにも役立ちます。対象を使用せずに `when` 式を書く場合は、`else` 分岐を提供する必要があります。
 
-## 条件式の練習
+## 条件式の練習 {id="conditional-expressions-practice"}
 
 ### 演習 1 {initial-collapse-state="collapsed" collapsible="true" id="conditional-expressions-exercise-1"}
 
@@ -241,7 +241,7 @@ fun main() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="解答例" id="kotlin-tour-control-flow-conditional-solution-2"}
 
-## 範囲 (Ranges)
+## 範囲 (Ranges) {id="ranges"}
 
 ループについて話す前に、ループが反復処理を行うための範囲（レンジ）を作成する方法を知っておくと便利です。
 
@@ -258,11 +258,11 @@ Kotlin で範囲を作成する最も一般的な方法は、`..` 演算子を�
 * `'a'..'d'` は `'a', 'b', 'c', 'd'` と同等
 * `'z' downTo 's' step 2` は `'z', 'x', 'v', 't'` と同等
 
-## ループ
+## ループ {id="loops"}
 
 プログラミングにおける最も一般的な2つのループ構造は `for` と `while` です。一連の値に対して反復処理を行いアクションを実行するには `for` を使用します。特定の条件が満たされるまでアクションを継続するには `while` を使用します。
 
-### For
+### For {id="for"}
 
 範囲に関する知識を活かして、1から5までの数字を反復し、毎回その数字を出力する `for` ループを作成できます。
 
@@ -299,7 +299,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-for-collection-loop"}
 
-### While
+### While {id="while"}
 
 `while` は2つの方法で使用できます：
 
@@ -364,7 +364,7 @@ fun main() {
 
 Kotlin のコントロールフローの基本を学んだので、次は自分自身の[関数](kotlin-tour-functions.md)を書く方法を学びましょう。
 
-## ループの練習 {completion-point="true"}
+## ループの練習 {completion-point="true" id="loops-practice"}
 
 ### 演習 1 {initial-collapse-state="collapsed" collapsible="true" id="loops-exercise-1"}
 

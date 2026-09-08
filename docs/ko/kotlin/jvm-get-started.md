@@ -6,7 +6,7 @@
 
 시작하려면 먼저 최신 버전의 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)를 다운로드하여 설치하세요.
 
-## 프로젝트 생성
+## 프로젝트 생성 {id="create-a-project"}
 
 1. IntelliJ IDEA에서 **File** | **New** | **Project**를 선택합니다.
 2. 왼쪽 리스트에서 **Kotlin**을 선택합니다.
@@ -60,7 +60,7 @@
     > 
     {style="note"}
 
-## 애플리케이션 작성
+## 애플리케이션 작성 {id="create-an-application"}
 
 1. `src/main/kotlin` 폴더의 `Main.kt` 파일을 엽니다.  
    `src` 디렉터리에는 Kotlin 소스 파일과 리소스가 들어 있습니다. `Main.kt` 파일에는 `Hello, Kotlin!` 및 반복문 이터레이터 값을 여러 줄 출력하는 샘플 코드가 포함되어 있습니다.
@@ -82,7 +82,7 @@
    }
    ```
 
-## 애플리케이션 실행
+## 애플리케이션 실행 {id="run-the-application"}
 
 이제 애플리케이션을 실행할 준비가 되었습니다. 가장 쉬운 방법은 거터(gutter)에 있는 녹색 **Run** 아이콘을 클릭하고 **Run 'MainKt'**를 선택하는 것입니다.
 
@@ -98,7 +98,7 @@
 
 축하합니다! 첫 번째 Kotlin 애플리케이션을 성공적으로 실행했습니다.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 애플리케이션을 만들어 보았으니 이제 Kotlin 문법을 더 깊이 있게 살펴볼 수 있습니다.
 

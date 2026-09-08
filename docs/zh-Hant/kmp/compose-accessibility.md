@@ -4,7 +4,7 @@ Compose Multiplatform 提供了符合無障礙標準所需的核心功能，例�
 
 此架構讓開發者能設計出符合 [歐洲無障礙法案](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32019L0882) (EAA) 與 [網頁內容無障礙指標](https://www.w3.org/TR/WCAG21/) (WCAG) 要求的應用程式。
 
-## 語義屬性
+## 語義屬性 {id="semantic-properties"}
 
 為了給輔助功能、自動填寫和測試等服務提供上下文，您可以使用語義屬性來定義組件的意義與角色。
 
@@ -38,7 +38,7 @@ Compose Multiplatform 提供了符合無障礙標準所需的核心功能，例�
 
 若要查看語義屬性的完整列表，請參閱 Jetpack Compose API 參考文件中的 [`SemanticsProperties`](https://developer.android.com/reference/kotlin/androidx/compose/ui/semantics/SemanticsProperties)。
 
-## 遍歷順序
+## 遍歷順序 {id="traversal-order"}
 
 預設情況下，螢幕閱讀器會按照固定的順序瀏覽 UI 元素，遵循其佈局由左至右、由上至下進行。然而，對於複雜的佈局，螢幕閱讀器可能無法自動判斷正確的閱讀順序。這對於包含容器視圖（例如支援捲動和縮放其內含視圖的表格和巢狀視圖）的佈局至關重要。
 
@@ -69,7 +69,7 @@ fun FloatingBox() {
 }
 ```
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 進一步了解 iOS 的無障礙功能：
 

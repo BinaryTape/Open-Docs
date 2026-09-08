@@ -17,7 +17,7 @@
 
 애플리케이션 설정 파일에서 [의존성 주입(DI) 플러그인](server-dependency-injection.md)을 구성할 수 있습니다. 이 설정은 전역적으로 의존성 해결(resolution) 동작에 영향을 미치며 등록된 모든 의존성에 적용됩니다.
 
-### 의존성 키 매핑 (Dependency key mapping)
+### 의존성 키 매핑 (Dependency key mapping) {id="dependency-key-mapping"}
 
 `ktor.di.keyMapping` 속성은 의존성 해결 중에 의존성 키가 일반화(generalized)되고 일치(matched)되는 방식을 정의합니다. 이는 요청된 타입을 해결할 때 어떤 등록된 의존성이 호환 가능한 것으로 간주될지를 결정합니다.
 
@@ -29,7 +29,7 @@ ktor:
 
 위의 예제는 DI 플러그인에서 사용하는 기본 키 매핑과 일치합니다.
 
-#### 사용 가능한 키 매핑 옵션
+#### 사용 가능한 키 매핑 옵션 {id="available-key-mapping-options"}
 
 <deflist>
 <def>
@@ -59,7 +59,7 @@ ktor:
 </def>
 </deflist>
 
-#### 키 매핑 옵션 조합
+#### 키 매핑 옵션 조합 {id="combine-key-mapping-options"}
 
 집합 연산자인 `*`(교집합), `+`(합집합) 및 `()`(그룹화)를 사용하여 키 매핑 옵션을 조합할 수 있습니다.
 
@@ -73,7 +73,7 @@ ktor:
 
 이 조합은 표현식에 포함되지 않았으므로 `Collection?`으로는 해결되지 않습니다.
 
-### 충돌 해결 정책 (Conflict resolution policy)
+### 충돌 해결 정책 (Conflict resolution policy) {id="conflict-resolution-policy"}
 
 `ktor.di.conflictPolicy` 속성은 동일한 의존성 키에 대해 여러 프로바이더가 등록되었을 때 DI 컨테이너가 어떻게 동작할지를 제어합니다.
 
@@ -83,7 +83,7 @@ ktor:
     conflictPolicy: Default
 ```
 
-#### 사용 가능한 정책
+#### 사용 가능한 정책 {id="available-policies"}
 
 <deflist>
 <def>

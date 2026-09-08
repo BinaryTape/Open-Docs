@@ -6,7 +6,7 @@
 Kotlin 支持不同的构建工具，因此如果您使用的是 Maven 或 Gradle 等标准工具，设置 Kotlin 项目的过程与集成这些工具的任何其他语言或库没有什么不同。
 在使用 IntelliJ IDEA 内部构建系统时，会存在一些细微的要求和差异，TeamCity 也支持该系统。
 
-## Gradle 和 Maven
+## Gradle 和 Maven {id="gradle-and-maven"}
 
 如果使用 Maven 或 Gradle，设置过程非常简单。只需要定义构建步骤即可。
 例如，如果使用 Gradle，只需为运行器类型定义所需的参数，例如步骤名称和需要执行的 Gradle 任务。
@@ -17,20 +17,20 @@ Kotlin 支持不同的构建工具，因此如果您使用的是 Maven 或 Gradl
 
 如果使用 Maven，同样的配置也适用。唯一的区别是运行器类型将是 Maven。
 
-## IntelliJ IDEA 构建系统
+## IntelliJ IDEA 构建系统 {id="intellij-idea-build-system"}
 
 如果在 TeamCity 中使用 IntelliJ IDEA 构建系统，请确保 IntelliJ IDEA 使用的 Kotlin 版本与 TeamCity 运行的版本相同。您可能需要下载特定版本的 Kotlin 插件并将其安装在 TeamCity 上。
 
 幸运的是，已经有一个现成的元运行器 (meta-runner) 可以处理大部分手动工作。如果您不熟悉 TeamCity 元运行器的概念，请查看[文档](https://www.jetbrains.com/help/teamcity/working-with-meta-runner.html)。它们是一种非常简单且强大且无需编写插件即可引入自定义运行器的方法。
 
-### 下载并安装元运行器
+### 下载并安装元运行器 {id="download-and-install-the-meta-runner"}
 
 Kotlin 的元运行器可在 [GitHub](https://github.com/jonnyzzz/Kotlin.TeamCity) 上找到。
 下载该元运行器并从 TeamCity 用户界面导入
 
 <img src="teamcity-metarunner.png" alt="Meta-runner" width="700"/>
 
-### 设置 Kotlin 编译器获取步骤
+### 设置 Kotlin 编译器获取步骤 {id="setup-kotlin-compiler-fetching-step"}
 
 基本上，此步骤仅限于定义步骤名称和所需的 Kotlin 版本。可以使用标签 (Tags)。
 
@@ -38,7 +38,7 @@ Kotlin 的元运行器可在 [GitHub](https://github.com/jonnyzzz/Kotlin.TeamCit
 
 运行器将根据 IntelliJ IDEA 项目的路径设置，将属性 `system.path.macro.KOTLIN.BUNDLED` 的值设置为正确的值。但是，此值需要在 TeamCity 中定义（并且可以设置为任何值）。因此，您需要将其定义为系统变量。
 
-### 设置 Kotlin 编译步骤
+### 设置 Kotlin 编译步骤 {id="setup-kotlin-compilation-step"}
 
 最后一步是定义项目的实际编译，它使用标准的 IntelliJ IDEA 运行器类型。
 
@@ -46,6 +46,6 @@ Kotlin 的元运行器可在 [GitHub](https://github.com/jonnyzzz/Kotlin.TeamCit
 
 至此，我们的项目现在应该可以构建并生成相应的构件。
 
-## 其他 CI 服务器
+## 其他 CI 服务器 {id="other-ci-servers"}
 
 如果使用 TeamCity 以外的持续集成工具，只要它支持任何构建工具或调用命令行工具，就应该可以编译 Kotlin 并将自动化作为 CI 流程的一部分。

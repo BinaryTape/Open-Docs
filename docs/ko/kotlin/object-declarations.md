@@ -15,7 +15,7 @@ Kotlin에서 객체(object)를 사용하면 클래스를 정의하고 그 인스
 * **기존 클래스 동작을 일시적으로 수정:** 새로운 서브클래스를 만들 필요 없이 기존 클래스의 동작을 수정하고 싶은 경우입니다. 예를 들어, 특정 작업을 위해 객체에 일시적인 기능을 추가하는 경우가 있습니다.
 * **타입 안전(Type-safe) 설계가 필요한 경우:** 객체 표현식을 사용하여 인터페이스나 [추상 클래스(abstract classes)](classes.md#abstract-classes)의 일회성 구현이 필요한 경우입니다. 이는 버튼 클릭 핸들러와 같은 시나리오에서 유용할 수 있습니다.
 
-## 객체 선언
+## 객체 선언 {id="object-declarations"}
 {id="object-declarations-overview"}
 
 Kotlin에서는 `object` 키워드 뒤에 이름을 붙이는 객체 선언을 통해 객체의 단일 인스턴스를 생성할 수 있습니다.
@@ -94,7 +94,7 @@ val myObject = object MySingleton {
 ```
 객체 선언은 로컬(local)일 수 없습니다. 즉, 함수 내부에 직접 중첩될 수 없습니다. 하지만 다른 객체 선언이나 내부(inner) 클래스가 아닌 클래스에는 중첩될 수 있습니다.
 
-### 데이터 객체
+### 데이터 객체 {id="data-objects"}
 
 Kotlin에서 일반적인 객체 선언을 출력하면, 문자열 표현에는 `object`의 이름과 해시값이 모두 포함됩니다:
 
@@ -174,14 +174,14 @@ fun createInstanceViaReflection(): MySingleton {
 
 생성된 `hashCode()` 함수는 `equals()` 함수와 일관되게 동작하므로, `data object`의 모든 런타임 인스턴스는 동일한 해시 코드를 갖습니다.
 
-#### 데이터 객체와 데이터 클래스의 차이점
+#### 데이터 객체와 데이터 클래스의 차이점 {id="differences-between-data-objects-and-data-classes"}
 
 `data object`와 `data class` 선언은 종종 함께 사용되며 몇 가지 유사점이 있지만, `data object`를 위해서는 생성되지 않는 함수들이 있습니다:
 
 * `copy()` 함수가 없습니다. `data object` 선언은 싱글톤으로 사용되도록 설계되었기 때문에 `copy()` 함수가 생성되지 않습니다. 싱글톤은 클래스의 인스턴스화를 단일 인스턴스로 제한하는데, 복사본 생성을 허용하면 이 원칙이 깨지게 됩니다.
 * `componentN()` 함수가 없습니다. 데이터 클래스와 달리 `data object`에는 데이터 프로퍼티가 없습니다. 데이터 프로퍼티가 없는 객체를 구조 분해(destructure)하려는 시도는 의미가 없으므로 `componentN()` 함수가 생성되지 않습니다.
 
-#### 봉인된 계층 구조에서 데이터 객체 사용하기
+#### 봉인된 계층 구조에서 데이터 객체 사용하기 {id="use-data-objects-with-sealed-hierarchies"}
 
 데이터 객체 선언은 [봉인된 클래스 또는 봉인된 인터페이스(sealed classes or sealed interfaces)](sealed-classes.md)와 같은 봉인된 계층 구조에서 특히 유용합니다.
 이를 통해 객체와 함께 정의했을 수 있는 다른 데이터 클래스들과 대칭성을 유지할 수 있습니다.
@@ -203,7 +203,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="data-objects-sealed-hierarchies"}
 
-### 동반 객체
+### 동반 객체 {id="companion-objects"}
 
 _동반 객체(Companion objects)_를 사용하면 클래스 수준의 함수와 프로퍼티를 정의할 수 있습니다.
 이를 통해 팩토리 메서드를 만들거나, 상수를 보유하거나, 공유 유틸리티에 접근하는 것이 쉬워집니다.
@@ -330,12 +330,12 @@ fun main() {
 
 다만 JVM에서는 `@JvmStatic` 어노테이션을 사용하여 동반 객체의 멤버를 실제 정적 메서드 및 필드로 생성할 수 있습니다. 자세한 내용은 [Java 상호운용성](java-to-kotlin-interop.md#static-fields) 섹션을 참고하세요.
 
-## 객체 표현식
+## 객체 표현식 {id="object-expressions"}
 
 객체 표현식은 클래스를 선언하고 그 클래스의 인스턴스를 생성하지만, 둘 다에 이름을 붙이지는 않습니다.
 이러한 클래스는 일회성 사용에 유용합니다. 처음부터 새로 만들 수도 있고, 기존 클래스를 상속하거나 인터페이스를 구현할 수도 있습니다. 이러한 클래스의 인스턴스는 이름이 아닌 표현식으로 정의되기 때문에 _익명 객체(anonymous objects)_라고도 부릅니다.
 
-### 처음부터 익명 객체 생성하기
+### 처음부터 익명 객체 생성하기 {id="create-anonymous-objects-from-scratch"}
 
 객체 표현식은 `object` 키워드로 시작합니다.
 
@@ -359,7 +359,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="object-expression-object"}
 
-### 상위 타입으로부터 익명 객체 상속받기
+### 상위 타입으로부터 익명 객체 상속받기 {id="inherit-anonymous-objects-from-supertypes"}
 
 특정 타입(들)을 상속받는 익명 객체를 생성하려면, `object`와 콜론 `:` 뒤에 해당 타입을 지정하세요.
 그런 다음 해당 클래스를 [상속](inheritance.md)하는 것처럼 이 클래스의 멤버를 구현하거나 오버라이드합니다:
@@ -414,7 +414,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="object-expression-anonymous-object"}
 
-### 익명 객체를 반환 및 값 타입으로 사용하기
+### 익명 객체를 반환 및 값 타입으로 사용하기 {id="use-anonymous-objects-as-return-and-value-types"}
 
 로컬 함수나 [`private`](visibility-modifiers.md#packages) 함수 또는 프로퍼티에서 익명 객체를 반환할 때, 해당 함수나 프로퍼티를 통해 익명 객체의 모든 멤버에 접근할 수 있습니다:
 
@@ -508,7 +508,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="object-expression-object-override"}
 
-### 익명 객체에서 변수 접근하기
+### 익명 객체에서 변수 접근하기 {id="access-variables-from-anonymous-objects"}
 
 객체 표현식 내부의 코드는 해당 표현식을 감싸는 스코프(enclosing scope)의 변수에 접근할 수 있습니다:
 
@@ -535,7 +535,7 @@ fun countClicks(window: JComponent) {
 }
 ```
 
-## 객체 선언과 표현식의 동작 차이
+## 객체 선언과 표현식의 동작 차이 {id="behavior-difference-between-object-declarations-and-expressions"}
 
 객체 선언과 객체 표현식 사이에는 초기화 동작의 차이가 있습니다:
 

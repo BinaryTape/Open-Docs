@@ -7,7 +7,7 @@
 * [佈景主題](#theme)
 * [解析度密度](#density)
 
-## 地區設定
+## 地區設定 {id="locale"}
 
 每個平台處理地區設定（如語言和地區）的方式各不相同。作為臨時解決方案，在實作通用的公開 API 之前，您需要在共用程式碼中定義一個通用的進入點。然後，使用平台特定的 API 為每個平台提供對應的宣告：
 
@@ -164,7 +164,7 @@
     </html>
     ```  
 
-## 佈景主題 
+## 佈景主題 {id="theme"}
 
 Compose Multiplatform 透過 `isSystemInDarkTheme()` 定義目前的佈景主題。不同平台的佈景主題處理方式各不相同：
 
@@ -271,7 +271,7 @@ fun AppEnvironment(content: @Composable () -> Unit) {
 }
 ```
 
-## 接下來？
+## 接下來？ {id="what-s-next"}
 
 * 進一步了解[資源限定詞](compose-multiplatform-resources-setup.md#qualifiers)的詳細資訊。
 * 了解如何[在地化資源](compose-localize-strings.md)。

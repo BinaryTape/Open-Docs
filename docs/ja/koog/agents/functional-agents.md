@@ -18,7 +18,7 @@
 
 このページでは、エージェントのカスタムロジックを迅速にプロトタイプするための関数型戦略の実装方法について説明します。
 
-## 最小限の関数型エージェントを作成する
+## 最小限の関数型エージェントを作成する {id="create-a-minimal-functional-agent"}
 
 最小限の関数型エージェントを作成するには、[基本エージェント](basic-agents.md)と同じ[`AIAgent`](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.agent/-a-i-agent/index.html)インターフェースを使用し、[`AIAgentFunctionalStrategy`](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.agent/-a-i-agent-functional-strategy/index.html)のインスタンスを渡します。
 入力を受け取り出力を返し、1回のLLM呼び出しを行い、レスポンスからアシスタントメッセージの内容を返す関数型戦略を定義できます。
@@ -88,7 +88,7 @@ The answer to 12 × 9 is 108.
 ```
 <!--- KNIT example-functional-agent-01.txt -->
 
-## 連続したLLM呼び出しを行う
+## 連続したLLM呼び出しを行う {id="make-sequential-llm-calls"}
 
 前述の戦略を拡張して、複数のLLM呼び出しを連続して行うことができます。
 
@@ -163,7 +163,7 @@ To calculate the product of 12 and 9, we multiply these two numbers together.
 ```
 <!--- KNIT example-functional-agent-02.txt -->
 
-## ツールの追加
+## ツールの追加 {id="add-tools"}
 
 多くの場合、関数型エージェントはデータの読み書き、APIの呼び出し、その他の決定論的な操作など、特定のタスクを完了させる必要があります。
 Koogでは、このような機能を[ツール](../tools/index.md)として公開し、いつ呼び出すかをLLMに判断させます。
@@ -305,6 +305,6 @@ The result of multiplying 3 by 4 is 12. Multiplying 12 by 5 gives us a final ans
 ```
 <!--- KNIT example-functional-agent-03.txt -->
 
-## 次のステップ
+## 次のステップ {id="next-steps"}
 
 - [グラフベースのエージェント](graph-based-agents.md)の作成方法を学ぶ

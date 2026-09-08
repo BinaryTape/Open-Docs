@@ -7,7 +7,7 @@
 
 標準入力から読み取るために、Javaは`Scanner`クラスを提供しています。Kotlinでは、標準入力から読み取るための主な方法として、Javaと同様の`Scanner`クラスと`readln()`関数の2つが用意されています。
 
-## Java Scannerを使用して標準入力から読み取る
+## Java Scannerを使用して標準入力から読み取る {id="read-from-the-standard-input-with-java-scanner"}
 
 Javaでは、通常`System.in`オブジェクトを介して標準入力にアクセスします。`Scanner`クラスをインポートしてオブジェクトを作成し、`.nextLine()`や`.nextInt()`などのメソッドを使用してさまざまなデータ型を読み取ります。
 
@@ -36,7 +36,7 @@ public class Main {
 }
 ```
 
-### KotlinでJava Scannerを使用する
+### KotlinでJava Scannerを使用する {id="use-java-scanner-in-kotlin"}
 
 KotlinはJavaライブラリとの相互運用性を備えているため、特別な設定なしでKotlinコードからJava Scannerにアクセスできます。
 
@@ -82,7 +82,7 @@ Java Scannerで入力を読み取る際に便利なその他のメソッドと�
 >
 {style="note"}
 
-## readln() を使用して標準入力から読み取る
+## readln() を使用して標準入力から読み取る {id="read-from-the-standard-input-with-readln"}
 
 Kotlinには、Java Scannerのほかに `readln()` 関数があります。これは入力を読み取るための最も簡単な方法です。この関数は標準入力からテキストを1行読み取り、それを文字列として返します。
 

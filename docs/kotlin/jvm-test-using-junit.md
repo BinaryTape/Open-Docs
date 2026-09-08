@@ -17,7 +17,7 @@ Kotlin 与 Java 完全互操作，这意味着您可以使用 Kotlin 为 Java �
 >
 {style="note"}
 
-## 配置项目
+## 配置项目 {id="configure-the-project"}
 
 1. 在您的 IDE 中，从版本控制系统中克隆示例项目：
 
@@ -128,7 +128,7 @@ Kotlin 与 Java 完全互操作，这意味着您可以使用 Kotlin 为 Java �
 
 有关构建文件设置的更多详细说明，请参阅[项目配置](mixing-java-kotlin-intellij.md#project-configuration)。
 
-## 添加您的第一个 Kotlin 测试
+## 添加您的第一个 Kotlin 测试 {id="add-your-first-kotlin-test"}
 
 位于 `initial/src/test/java` 中的 `TodoItemTest.java` 测试已经验证了应用的基础功能：项目创建、默认值、唯一 ID 和状态更改。
 
@@ -252,7 +252,7 @@ Kotlin 与 Java 完全互操作，这意味着您可以使用 Kotlin 为 Java �
 >
 {style="tip"}
 
-## 运行测试
+## 运行测试 {id="run-tests"}
 
 运行 Java 和 Kotlin 测试以验证您的项目是否按预期工作：
 
@@ -300,6 +300,6 @@ Kotlin 与 Java 完全互操作，这意味着您可以使用 Kotlin 为 Java �
 >
 {style="tip"}
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 详细了解[使用 Maven 测试 Kotlin 项目](jvm-test-maven.md)。

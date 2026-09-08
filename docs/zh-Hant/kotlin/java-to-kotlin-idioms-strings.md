@@ -4,7 +4,7 @@
 
 本指南包含如何在 Java 和 Kotlin 中執行典型字串任務的範例。它將幫助您從 Java 遷移到 Kotlin，並以正統的 Kotlin 方式編寫程式碼。
 
-## 連接字串
+## 連接字串 {id="concatenate-strings"}
 
 在 Java 中，您可以透過以下方式完成：
 
@@ -33,7 +33,7 @@ fun main() {
 您可以透過用花括號將複雜的運算式括起來，來插值該運算式的值，例如 `${name.length}`。
 若要了解更多資訊，請參閱[字串範本](strings.md#string-templates)。
 
-## 組建字串
+## 組建字串 {id="build-a-string"}
 
 在 Java 中，您可以使用 [StringBuilder](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/StringBuilder.html)：
 
@@ -72,7 +72,7 @@ fun main() {
 
 進一步了解 [Lambda 編碼慣例](coding-conventions.md#lambdas)。
 
-## 從集合項目建立字串
+## 從集合項目建立字串 {id="create-a-string-from-collection-items"}
 
 在 Java 中，您使用 [Stream API](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/stream/package-summary.html) 
 來過濾、映射，然後收集項目：
@@ -112,7 +112,7 @@ fun main() {
 
 進一步了解 [joinToString()](collection-transformations.md#string-representation) 的用法。
 
-## 如果字串為空則設定預設值
+## 如果字串為空則設定預設值 {id="set-default-value-if-the-string-is-blank"}
 
 在 Java 中，您可以使用[三元運算子](https://en.wikipedia.org/wiki/%3F:)：
 
@@ -149,7 +149,7 @@ fun getName(): String =
 ```
 {kotlin-runnable="true" id="set-default-value-if-blank-kotlin"}
 
-## 替換字串開頭和結尾的字元
+## 替換字串開頭和結尾的字元 {id="replace-characters-at-the-beginning-and-end-of-a-string"}
 
 在 Java 中，您可以使用 [replaceAll()](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#replaceAll(java.lang.String,java.lang.String)) 函式。
 在此案例中，`replaceAll()` 函式接受正規表示式 `^##` 和 `##$`，分別定義以 `##` 開頭和結尾的字串：
@@ -176,7 +176,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="replace-characters-kotlin"}
 
-## 替換出現之處
+## 替換出現之處 {id="replace-occurrences"}
 
 在 Java 中，您可以使用 [Pattern](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/regex/Pattern.html) 和 [Matcher](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/regex/Matcher.html) 類別，例如用來混淆某些資料：
 
@@ -208,7 +208,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="replace-occurrences-kotlin"}
 
-## 分割字串
+## 分割字串 {id="split-a-string"}
 
 在 Java 中，要使用點字元 (`.`) 分割字串，您需要使用轉義（`\\`）。
 這是因為 `String` 類別的 [split()](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#split(java.lang.String)) 函式接受正規表示式作為引數：
@@ -233,7 +233,7 @@ fun main() {
 
 如果您需要使用正規表示式進行分割，請使用接受 `Regex` 作為參數的 `split()` 多載版本。
 
-## 取得子字串
+## 取得子字串 {id="take-a-substring"}
 
 在 Java 中，您可以使用 [substring()](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#substring(int)) 函式，它接受一個包含起始字元的起始索引，從該處開始取得子字串。
 若要取得該字元之後的子字串，您需要增加索引值：
@@ -274,7 +274,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="take-substring-after-last-kotlin"}
 
-## 使用多行字串
+## 使用多行字串 {id="use-multiline-strings"}
 
 在 Java 15 之前，有多種建立多行字串的方法。例如，使用 `String` 類別的 [join()](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#join(java.lang.CharSequence,java.lang.CharSequence...)) 函式：
 
@@ -346,7 +346,7 @@ fun main() {
 
 進一步了解[多行字串](coding-conventions.md#strings)。
 
-## 下一步？
+## 下一步？ {id="what-s-next"}
 
 * 瀏覽其他 [Kotlin 慣用語](idioms.md)。
 * 了解如何使用 [Java 到 Kotlin 轉換器](mixing-java-kotlin-intellij.md#convert-java-files-to-kotlin)將現有的 Java 程式碼轉換為 Kotlin。

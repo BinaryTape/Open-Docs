@@ -7,7 +7,7 @@
 * [テーマ](#theme)
 * [解像度密度（Density）](#density)
 
-## ロケール
+## ロケール {id="locale"}
 
 各プラットフォームで、言語や地域などのロケール設定の処理方法は異なります。共通のパブリック API が実装されるまでの暫定的な回避策として、共有コード内に共通のエントリポイントを定義する必要があります。その後、プラットフォーム固有の API を使用して、各プラットフォームに対応する宣言を提供します：
 
@@ -165,7 +165,7 @@
     </html>
     ```  
 
-## テーマ 
+## テーマ {id="theme"}
 
 Compose Multiplatform は、`isSystemInDarkTheme()` を介して現在のテーマを定義します。テーマの処理はプラットフォームによって異なります：
 
@@ -272,7 +272,7 @@ fun AppEnvironment(content: @Composable () -> Unit) {
 }
 ```
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [リソース修飾子（Qualifiers）](compose-multiplatform-resources-setup.md#qualifiers)の詳細を確認する。
 * [リソースをローカライズする](compose-localize-strings.md)方法を学ぶ。

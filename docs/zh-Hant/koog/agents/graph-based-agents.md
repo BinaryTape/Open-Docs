@@ -65,7 +65,7 @@ graph TB
 ```
 <!--- KNIT example-graph-agents-01.txt -->
 
-## 組建策略圖
+## 組建策略圖 {id="build-a-strategy-graph"}
 
 在 Koog 中，您可以使用 [`AIAgentGraphStrategyBuilder`](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.builder/-a-i-agent-graph-strategy-builder/index.html) 來實作策略。
 就像每個節點都有輸入和輸出型別一樣，
@@ -198,7 +198,7 @@ graph TB
     ```
     <!--- KNIT example-graph-agents-03.kt -->
 
-## 建立並執行代理
+## 建立並執行代理 {id="create-and-run-the-agent"}
 
 讓我們使用此策略建立一個代理執行個體並執行它：
 
@@ -352,7 +352,7 @@ graph LR
 
 儘管在這種情況下結果是正確的，但答案將取決於底層 LLM 的算術能力。為了確保計算準確，我們應該為代理提供數學工具。這樣一來，LLM 就能夠決定呼叫工具來以確定性的方式執行計算。
 
-## 新增工具
+## 新增工具 {id="add-tools"}
 
 定義用於執行數學運算的 [工具](../tools/index.md)，並將其新增至 [ToolRegistry](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool-registry/index.html)：
 
@@ -605,7 +605,7 @@ Finally, 123 was added to the result:
 
 根據此輸出，代理正確地執行了計算，但它只呼叫了一次 `multiply` 工具，而不是針對每個運算呼叫對應的工具。我們可以透過描述代理的角色並在系統提示中提供使用適當工具的指令來協助代理。
 
-## 提供系統提示
+## 提供系統提示 {id="provide-a-system-prompt"}
 
 [系統提示](../prompts/prompt-creation/index.md#system-message) 定義了代理的角色以及執行任務的指令。在我們的範例中，描述代理應如何處理複雜的多步驟計算非常重要：
 
@@ -787,7 +787,7 @@ The final result is: 193
 
 如您所見，代理現在能正確地為每個運算呼叫適當的工具，確保其以確定性的方式執行計算，而不是冒著產生幻覺結果的風險。
 
-## 後續步驟
+## 後續步驟 {id="next-steps"}
 
 - 與 [功能型代理](functional-agents.md) 和 [規劃型代理](planner-agents/index.md) 進行比較
 - 透過 [安裝功能](../features/index.md) 來增強您的代理

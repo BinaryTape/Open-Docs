@@ -7,7 +7,7 @@
 
 Boolean 値は、はい・いいえで答える質問を返す関数や、`while`、`if`、`when` の条件式で使用します。
 
-## Boolean 変数の宣言
+## Boolean 変数の宣言 {id="declare-a-boolean-variable"}
 
 Boolean 変数を宣言するには、`true` または `false` を代入します。
 
@@ -29,7 +29,7 @@ val isEnabled: Boolean? = null
 >
 {style="note"}
 
-## Boolean 値の生成
+## Boolean 値の生成 {id="produce-boolean-values"}
 
 比較式や関数を使用して Boolean 値を生成できます：
 
@@ -64,11 +64,11 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## Boolean の演算
+## Boolean の演算 {id="boolean-operations"}
 
 Kotlin は、Boolean 値を扱うための演算子や中置関数を提供しています。これらを使用して、Boolean 値を反転させたり、複数の Boolean 値を組み合わせて 1 つの結果にしたりできます。
 
-### 否定 (NOT)
+### 否定 (NOT) {id="negation-not"}
 
 NOT 演算子は Boolean 値を反転させます。
 
@@ -79,7 +79,7 @@ val isOn = true
 val isOff = !isOn // isOff は false
 ```
 
-### 論理積 (AND)
+### 論理積 (AND) {id="logical-and"}
 
 AND 演算子は、両方のオペランドが `true` の場合にのみ `true` を返します。
 
@@ -97,7 +97,7 @@ val d = true && true  // true
 >
 {style="note"}
 
-### 論理和 (OR)
+### 論理和 (OR) {id="logical-or"}
 
 OR 演算子は、少なくとも一方のオペランドが `true` であれば `true` を返します。
 
@@ -115,7 +115,7 @@ val d = true || true   // true
 >
 {style="note"}
 
-### 排他的論理和 (XOR)
+### 排他的論理和 (XOR) {id="exclusive-or-xor"}
 
 排他的論理和（XOR）演算は、オペランドが異なる値を持つ場合に `true` を返します。
 
@@ -134,7 +134,7 @@ val d = true xor true   // false
 >
 {style="note"}
 
-## 演算子の優先順位
+## 演算子の優先順位 {id="operator-precedence"}
 
 式に複数の論理演算が含まれており、評価順序を指定する括弧がない場合、Kotlin は優先順位ルールを適用します。優先順位の高い演算は、優先順位の低い演算よりも前に評価されます。
 
@@ -169,11 +169,11 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false"}
 
-## 条件式での Boolean
+## 条件式での Boolean {id="boolean-in-conditions"}
 
 [`if`](control-flow.md#if-式)、[`when`](control-flow.md#when-式と文)、および [`while`](control-flow.md#while-ループ) は Boolean 式を評価してプログラムのフローを制御します。
 
-### if 式
+### if 式 {id="if-expressions"}
 
 ```kotlin
 fun main() {
@@ -193,7 +193,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### when 式
+### when 式 {id="when-expressions"}
 
 ```kotlin
 fun main() {
@@ -210,7 +210,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### while ループ
+### while ループ {id="while-loops"}
 
 ```kotlin
 fun main() {

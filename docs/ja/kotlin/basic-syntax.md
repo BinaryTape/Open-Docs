@@ -4,7 +4,7 @@
 
 JetBrains Academyによる無料の[Kotlin Core track](https://hyperskill.org/tracks?category=4&utm_source=jbkotlin_hs&utm_medium=referral&utm_campaign=kotlinlang-docs&utm_content=button_1&utm_term=22.03.23)で、Kotlinの必須事項をすべて学ぶこともできます。
 
-## パッケージ定義とインポート
+## パッケージ定義とインポート {id="package-definition-and-imports"}
 
 パッケージの指定はソースファイルの先頭に記述する必要があります：
 
@@ -20,7 +20,7 @@ import kotlin.text.*
 
 [パッケージ](packages.md)を参照してください。
 
-## プログラムのエントリポイント
+## プログラムのエントリポイント {id="program-entry-point"}
 
 Kotlinアプリケーションのエントリポイントは `main` 関数です：
 
@@ -40,7 +40,7 @@ fun main(args: Array<String>) {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 標準出力への出力
+## 標準出力への出力 {id="print-to-the-standard-output"}
 
 `print` は引数を標準出力に出力します：
 
@@ -66,7 +66,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-basic-syntax-println"}
 
-## 標準入力からの読み込み
+## 標準入力からの読み込み {id="read-from-the-standard-input"}
 
 `readln()` 関数は標準入力から読み込みます。この関数は、ユーザーが入力した行全体を文字列として読み込みます。
 
@@ -87,7 +87,7 @@ print(yourWord)
 
 詳細は、[標準入力の読み込み](read-standard-input.md)を参照してください。
 
-## 関数
+## 関数 {id="functions"}
 
 2つの `Int` 型パラメータを持ち、`Int` 型を返す関数：
 
@@ -150,7 +150,7 @@ fun main() {
 
 [関数](functions.md)を参照してください。
 
-## 変数
+## 変数 {id="variables"}
 
 Kotlinでは、キーワード `val` または `var` で始まり、その後に変数名を続けて変数を宣言します。
 
@@ -244,7 +244,7 @@ fun main() {
 
 プロパティの宣言に関する詳細は、[プロパティ](properties.md)を参照してください。
 
-## クラスとインスタンスの作成
+## クラスとインスタンスの作成 {id="creating-classes-and-instances"}
 
 クラスを定義するには、`class` キーワードを使用します：
 ```kotlin
@@ -284,7 +284,7 @@ class Rectangle(val height: Double, val length: Double): Shape() {
 
 コンストラクタと継承の詳細については、[クラス](classes.md)および[オブジェクトとインスタンス](object-declarations.md)を参照してください。
 
-## コメント
+## コメント {id="comments"}
 
 ほとんどの現代的な言語と同様に、Kotlinは単一行（または行末）コメントと複数行（ブロック）コメントをサポートしています：
 
@@ -305,7 +305,7 @@ Kotlinのブロックコメントはネスト（入れ子）にできます：
 
 ドキュメントコメントの構文については、[Kotlinコードのドキュメント化](kotlin-doc.md)を参照してください。
 
-## 文字列テンプレート
+## 文字列テンプレート {id="string-templates"}
 
 ```kotlin
 fun main() {
@@ -325,7 +325,7 @@ fun main() {
 
 詳細は[文字列テンプレート](strings.md#string-templates)を参照してください。
 
-## 条件式
+## 条件式 {id="conditional-expressions"}
 
 ```kotlin
 //sampleStart
@@ -359,7 +359,7 @@ fun main() {
 
 [`if` 式](control-flow.md#if-expression)を参照してください。
 
-## for ループ
+## for ループ {id="for-loop"}
 
 ```kotlin
 fun main() {
@@ -389,7 +389,7 @@ fun main() {
 
 [for ループ](control-flow.md#for-loops)を参照してください。
 
-## while ループ
+## while ループ {id="while-loop"}
 
 ```kotlin
 fun main() {
@@ -407,7 +407,7 @@ fun main() {
 
 [while ループ](control-flow.md#while-loops)を参照してください。
 
-## when 式
+## when 式 {id="when-expression"}
 
 ```kotlin
 //sampleStart
@@ -433,7 +433,7 @@ fun main() {
 
 [when 式と文](control-flow.md#when-expressions-and-statements)を参照してください。
 
-## 範囲（Range）
+## 範囲（Range） {id="ranges"}
 
 `in` 演算子を使用して、数値が範囲内にあるかどうかを確認します：
 
@@ -500,7 +500,7 @@ fun main() {
 
 [範囲と数列](ranges.md)を参照してください。
 
-## コレクション
+## コレクション {id="collections"}
 
 コレクションに対して繰り返し処理を行います：
 
@@ -549,7 +549,7 @@ fun main() {
 
 [コレクションの概要](collections-overview.md)を参照してください。
 
-## Null許容値とNullチェック
+## Null許容値とNullチェック {id="nullable-values-and-null-checks"}
 
 `null` 値を許容する場合は、参照を明示的にNull許容（nullable）としてマークする必要があります。Null許容型の名前には末尾に `?` が付きます。例えば、`Int?` です。
 
@@ -629,7 +629,7 @@ fun main() {
 
 [Null安全](null-safety.md)を参照してください。
 
-## 型チェックと自動キャスト
+## 型チェックと自動キャスト {id="type-checks-and-automatic-casts"}
 
 `is` 演算子は、式がある型のインスタンスであるかどうかをチェックします。
 不変なローカル変数やプロパティが特定の型であるかチェックされた場合、明示的にキャストする必要はありません：

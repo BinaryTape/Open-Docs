@@ -4,7 +4,7 @@ title: Koin 组件
 
 `KoinComponent` 提供了一个 API，用于从模块定义之外的 Koin 容器中检索实例。这对于无法使用构造函数注入的类非常有用，例如 Android Activity 或框架类。
 
-## 什么是 KoinComponent？
+## 什么是 KoinComponent？ {id="what-is-koincomponent"}
 
 `KoinComponent` 是一个接口，它让任何类都能访问 Koin 容器 API。它提供了无需构造函数注入即可检索实例的函数。
 
@@ -12,9 +12,9 @@ title: Koin 组件
 **尽可能优先使用构造函数注入。** 仅在无法在模块中声明的类（框架类、UI 组件等）中使用 `KoinComponent`。构造函数注入更清晰、更易于测试，并且不会将你的代码与 Koin 耦合。
 :::
 
-## 基本用法
+## 基本用法 {id="basic-usage"}
 
-### 创建 Koin 组件
+### 创建 Koin 组件 {id="creating-a-koin-component"}
 
 为你的类标记 `KoinComponent` 接口：
 
@@ -50,7 +50,7 @@ class MyComponent : KoinComponent {
 }
 ```
 
-### 可用函数
+### 可用函数 {id="available-functions"}
 
 一旦你实现 `KoinComponent`，你就可以访问：
 
@@ -62,9 +62,9 @@ class MyComponent : KoinComponent {
 | `setProperty()` | 设置配置属性 |
 | `getKoin()` | 访问 Koin 实例 |
 
-## 检索实例
+## 检索实例 {id="retrieving-instances"}
 
-### 预先检索 vs 延迟检索
+### 预先检索 vs 延迟检索 {id="eager-vs-lazy-retrieval"}
 
 **使用 `get()` 进行预先检索：**
 ```kotlin
@@ -94,7 +94,7 @@ class MyComponent : KoinComponent {
 对于可能并不总是需要的属性，请使用 `by inject()`。它会将实例创建推迟到首次访问时。
 :::
 
-### 何时使用各函数
+### 何时使用各函数 {id="when-to-use-each"}
 
 | 使用 `get()` | 使用 `by inject()` |
 |-------------|-------------------|
@@ -102,7 +102,7 @@ class MyComponent : KoinComponent {
 | 简单、直接的访问 | 需要延迟初始化 |
 | 在函数中构建对象 | 声明类属性 |
 
-## 限定符
+## 限定符 {id="qualifiers"}
 
 使用限定符检索命名定义：
 
@@ -123,7 +123,7 @@ class DataManager : KoinComponent {
 }
 ```
 
-### 限定符类型
+### 限定符类型 {id="qualifier-types"}
 
 **字符串限定符：**
 ```kotlin
@@ -142,7 +142,7 @@ enum class Environment { DEV, PROD }
 val service = get<ApiService>(named(Environment.PROD))
 ```
 
-## 注入参数
+## 注入参数 {id="injection-parameters"}
 
 在检索实例时传递运行时参数：
 
@@ -173,11 +173,11 @@ class ProfileScreen : KoinComponent {
 }
 ```
 
-## 属性
+## 属性 {id="properties"}
 
 从组件中访问和修改 Koin 属性：
 
-### 获取属性
+### 获取属性 {id="get-properties"}
 
 ```kotlin
 class ApiClientFactory : KoinComponent {
@@ -187,7 +187,7 @@ class ApiClientFactory : KoinComponent {
 }
 ```
 
-### 设置属性
+### 设置属性 {id="set-properties"}
 
 ```kotlin
 class ConfigManager : KoinComponent {
@@ -201,14 +201,14 @@ class ConfigManager : KoinComponent {
 }
 ```
 
-### 属性生命周期
+### 属性生命周期 {id="property-lifecycle"}
 
 使用 `setProperty()` 设置的属性：
 - 对所有组件可用
 - 在 Koin 实例生命周期内持续存在
 - 在调用 `stopKoin()` 时重置
 
-## 访问 Koin 实例
+## 访问 Koin 实例 {id="accessing-the-koin-instance"}
 
 直接访问 `Koin` 容器：
 
@@ -229,9 +229,9 @@ class AdvancedComponent : KoinComponent {
 }
 ```
 
-## 实际示例
+## 实际示例 {id="real-world-examples"}
 
-### Android Activity（推荐做法）
+### Android Activity（推荐做法） {id="android-activity-recommended-approach"}
 
 :::info
 Android Activity **不需要 KoinComponent**。请使用 Koin Android 扩展程序：
@@ -261,7 +261,7 @@ class MainActivity : AppCompatActivity(), KoinComponent {
 }
 ```
 
-### Android Fragment（推荐做法）
+### Android Fragment（推荐做法） {id="android-fragment-recommended-approach"}
 
 ```kotlin
 // ✅ 推荐 - 不需要 KoinComponent
@@ -276,7 +276,7 @@ class UserFragment : Fragment() {
 }
 ```
 
-### 自定义 Android View（需要 KoinComponent）
+### 自定义 Android View（需要 KoinComponent） {id="custom-android-view-koincomponent-needed"}
 
 ```kotlin
 // ✅ 此处适合使用 KoinComponent
@@ -296,7 +296,7 @@ class CustomChartView @JvmOverloads constructor(
 }
 ```
 
-### 控制台应用程序
+### 控制台应用程序 {id="console-application"}
 
 ```kotlin
 class ConsoleApp : KoinComponent {
@@ -321,7 +321,7 @@ fun main() {
 }
 ```
 
-### Kotlin 多平台公共代码
+### Kotlin 多平台公共代码 {id="kotlin-multiplatform-common-code"}
 
 ```kotlin
 // 跨平台工作的公共代码
@@ -335,9 +335,9 @@ class FeatureManager : KoinComponent {
 }
 ```
 
-## 何时使用 KoinComponent
+## 何时使用 KoinComponent {id="when-to-use-koincomponent"}
 
-### 理想的使用场景
+### 理想的使用场景 {id="good-use-cases"}
 
 在以下情况使用 `KoinComponent`：
 
@@ -351,7 +351,7 @@ class FeatureManager : KoinComponent {
 **Android 开发者：** Activity、Fragment 和 Service 拥有专用的 Koin 扩展程序，**不需要 KoinComponent**。可以直接使用 `by inject()` 和 `by viewModel()`，而无需实现该接口。详见 [Android 注入](/docs/reference/koin-android/get-instances)。
 :::
 
-### 避免在以下情况使用
+### 避免在以下情况使用 {id="avoid-using-for"}
 
 不要在以下情况使用 `KoinComponent`：
 
@@ -361,9 +361,9 @@ class FeatureManager : KoinComponent {
 - **领域层** - 用例、领域模型
 - **新代码** - 优先在模块中通过构造函数注入进行声明
 
-## 最佳做法
+## 最佳做法 {id="best-practices"}
 
-### 优先使用构造函数注入
+### 优先使用构造函数注入 {id="prefer-constructor-injection"}
 
 ```kotlin
 // ❌ 避免 - 在业务逻辑中使用 KoinComponent
@@ -390,7 +390,7 @@ module {
 }
 ```
 
-### 为可选依赖项使用延迟注入
+### 为可选依赖项使用延迟注入 {id="use-lazy-injection-for-optional-dependencies"}
 
 ```kotlin
 class FeatureController : KoinComponent {
@@ -408,7 +408,7 @@ class FeatureController : KoinComponent {
 }
 ```
 
-### 限制 KoinComponent 作用域
+### 限制 KoinComponent 作用域 {id="limit-koincomponent-scope"}
 
 ```kotlin
 // ❌ 糟糕 - 太多组件直接使用 Koin
@@ -436,7 +436,7 @@ class RepositoryA(private val db: Database)
 class RepositoryB(private val db: Database)
 ```
 
-### 不要过度使用 getProperty
+### 不要过度使用 getProperty {id="don-t-overuse-getproperty"}
 
 ```kotlin
 // ❌ 避免 - 随处检索属性
@@ -468,7 +468,7 @@ module {
 }
 ```
 
-## 测试
+## 测试 {id="testing"}
 
 测试组件时，你可以重写 Koin 配置：
 
@@ -498,7 +498,7 @@ fun testComponent() {
 }
 ```
 
-## 另请参阅
+## 另请参阅 {id="see-also"}
 
 - [启动 Koin](/docs/reference/koin-core/start-koin) - 初始化 Koin
 - [定义](/docs/reference/koin-core/definitions) - 创建定义

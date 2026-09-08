@@ -10,7 +10,7 @@ status: beta
 - **检索 (Retrieval)** — 使用来自存储的相关上下文增强 LLM 提示词（检索增强生成或 RAG）
 - **摄取 (Ingestion)** — 将对话消息持久化到存储中以便将来检索
 
-## 快速入门
+## 快速入门 {id="quick-start"}
 
 === "Kotlin"
 
@@ -58,7 +58,7 @@ status: beta
     Object result = agent.run("What did we discuss yesterday?");
     ```
 
-## 仅检索 (RAG)
+## 仅检索 (RAG) {id="retrieval-only-rag"}
 
 当您拥有预填充的知识库时，可以使用检索而不开启摄取：
 
@@ -87,7 +87,7 @@ status: beta
         .build();
     ```
 
-### 提示词增强器 (Prompt Augmenters)
+### 提示词增强器 (Prompt Augmenters) {id="prompt-augmenters"}
 
 | 增强器 | 行为 |
 |---|---|
@@ -95,7 +95,7 @@ status: beta
 | `UserPromptAugmenter()` | 在最后一条用户消息的末尾添加检索到的上下文作为额外的文本部分（如果没有用户消息则为无操作） |
 | `PromptAugmenter { prompt, context -> ... }` | 通过 lambda表达式进行自定义增强 |
 
-### 搜索查询提供程序 (Search Query Providers)
+### 搜索查询提供程序 (Search Query Providers) {id="search-query-providers"}
 
 默认情况下，检索流程使用最后一条用户消息作为搜索查询。您可以通过提供 `SearchQueryProvider` 来自定义此行为：
 
@@ -137,14 +137,14 @@ status: beta
         .build();
     ```
 
-### 搜索策略 (Search Strategies)
+### 搜索策略 (Search Strategies) {id="search-strategies"}
 
 | 策略 | 行为 |
 |-----------------------------------------------------------|--------------------------|
 | `SimilaritySearchStrategy()` | 向量相似度语义搜索 — **默认** |
 | `query -> new SimilaritySearchRequest(query, 20, 0, 0.0, null)` | 通过 lambda表达式进行自定义搜索 |
 
-## 仅摄取
+## 仅摄取 {id="ingestion-only"}
 
 使用摄取而不开启检索，可以随时间推移构建记忆存储：
 
@@ -178,7 +178,7 @@ status: beta
 
 摄取在智能体运行完成时执行一次：最终累积的会话提示词/历史记录将作为单个批次传递给配置的 `documentExtractor`。
 
-## 禁用自动行为
+## 禁用自动行为 {id="disabling-automatic-behavior"}
 
 默认情况下，检索和摄取是自动运行的（检索在每次 LLM 调用之前运行；摄取在智能体完成时运行一次）。您可以禁用自动行为，同时仍然可以从策略节点内部访问配置好的存储和策略：
 
@@ -220,7 +220,7 @@ status: beta
 2. **仅手动**：设置 `enableAutomaticRetrieval = false` / `enableAutomaticIngestion = false`，并在图策略节点中使用存储和策略。
 3. **混合**：将自动摄取与手动检索相结合（反之亦然）。
 
-## 从策略节点访问长期记忆
+## 从策略节点访问长期记忆 {id="accessing-long-term-memory-from-strategy-nodes"}
 
 在策略节点内使用 `withLongTermMemory { }` 直接搜索或添加记录：
 
@@ -247,7 +247,7 @@ val myNode by node<String, Unit> {
 }
 ```
 
-## 自定义文档提取器
+## 自定义文档提取器 {id="custom-document-extractor"}
 
 实现 `DocumentExtractor` 以控制消息在存储前的转换方式：
 
@@ -266,7 +266,7 @@ install(LongTermMemory) {
 }
 ```
 
-## 实现自定义存储
+## 实现自定义存储 {id="implementing-custom-storage"}
 
 实现 `SearchStorage` 和/或 `WriteStorage` 以连接到您的向量数据库：
 

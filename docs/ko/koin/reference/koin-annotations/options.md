@@ -4,7 +4,7 @@ title: 컴파일러 플러그인 옵션
 
 Koin 컴파일러 플러그인은 동작을 커스터마이징하기 위한 구성 옵션을 지원합니다.
 
-## 구성
+## 구성 {id="configuration"}
 
 `build.gradle.kts`에서 컴파일러 플러그인을 구성합니다:
 
@@ -19,9 +19,9 @@ koinCompiler {
 }
 ```
 
-## 사용 가능한 옵션
+## 사용 가능한 옵션 {id="available-options"}
 
-### userLogs
+### userLogs {id="userlogs"}
 
 - **타입**: Boolean
 - **기본값**: `false`
@@ -34,7 +34,7 @@ koinCompiler {
 }
 ```
 
-### debugLogs
+### debugLogs {id="debuglogs"}
 
 - **타입**: Boolean
 - **기본값**: `false`
@@ -47,7 +47,7 @@ koinCompiler {
 }
 ```
 
-### compileSafety
+### compileSafety {id="compilesafety"}
 
 - **타입**: Boolean
 - **기본값**: `true`
@@ -62,7 +62,7 @@ koinCompiler {
 
 검증되는 내용에 대한 자세한 내용은 [컴파일 시간 안전성(Compile-Time Safety)](/docs/reference/koin-compiler/compile-safety)을 참조하세요.
 
-### strictSafety
+### strictSafety {id="strictsafety"}
 
 - **타입**: Boolean
 - **기본값**: 자동 감지(`startKoin`, `koinApplication` 또는 `@KoinApplication`을 포함하는 어그리게이터(aggregator) 모듈에서 활성화됨)
@@ -81,7 +81,7 @@ koinCompiler {
 
 `compileSafety = false`인 경우에는 효과가 없습니다. 배경 지식은 [koin-compiler-plugin issue #32](https://github.com/InsertKoinIO/koin-compiler-plugin/issues/32)를 참조하세요.
 
-### skipDefaultValues
+### skipDefaultValues {id="skipdefaultvalues"}
 
 - **타입**: Boolean
 - **기본값**: `true`
@@ -94,7 +94,7 @@ koinCompiler {
 }
 ```
 
-### unsafeDslChecks
+### unsafeDslChecks {id="unsafedslchecks"}
 
 - **타입**: Boolean
 - **기본값**: `true`
@@ -107,7 +107,7 @@ koinCompiler {
 }
 ```
 
-## 전체 예시
+## 전체 예시 {id="complete-example"}
 
 ```kotlin
 // build.gradle.kts
@@ -125,7 +125,7 @@ koinCompiler {
 }
 ```
 
-## 권장 사항 (Best Practices)
+## 권장 사항 (Best Practices) {id="best-practices"}
 
 - 컴파일 시간 의존성 검증을 위해 **`compileSafety`를 활성화된 상태(기본값)로 유지**하세요.
 - **`strictSafety`를 자동 감지 상태로 두세요.** 감지기가 어그리게이터를 놓치거나 어그리게이터가 아닌 파일에서 잘못 작동하는 경우에만 재정의하세요.
@@ -134,7 +134,7 @@ koinCompiler {
 - 더 안전한 DSL 사용을 위해 **`unsafeDslChecks`를 활성화된 상태(기본값)로 유지**하세요.
 - 플러그인 문제를 해결할 때만 **`debugLogs`를 사용**하세요.
 
-## 참고 항목
+## 참고 항목 {id="see-also"}
 
 - **[컴파일 시간 안전성 (Compile-Time Safety)](/docs/reference/koin-compiler/compile-safety)** - 검증되는 내용 및 방법
 - **[컴파일러 플러그인 설정 (Compiler Plugin Setup)](/docs/setup/compiler-plugin)** - 전체 설정 가이드

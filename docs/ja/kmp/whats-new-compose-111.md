@@ -9,9 +9,9 @@
 変更点の完全なリストは [GitHub](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.11.0) で確認できます。
 このリリースの特定のコンポーネントバージョンは、[依存関係](#dependencies) セクションに記載されています。
 
-## 破壊的変更および非推奨化
+## 破壊的変更および非推奨化 {id="breaking-changes-and-deprecations"}
 
-### Android 以外のターゲット向け Shader ラッパー
+### Android 以外のターゲット向け Shader ラッパー {id="shader-wrapper-for-non-android-targets"}
 
 Android 以外のターゲットにおいて、`Shader` 型が `org.jetbrains.skia.Shader` の `actual typealias` から、Compose 固有のラッパークラスへとリファクタリングされました。この変更により、共通 API が Skia/Skiko への直接的な依存から切り離されます。
 
@@ -21,24 +21,24 @@ Android 以外のターゲットにおいて、`Shader` 型が `org.jetbrains.sk
 * Compose の `Shader` から低レベルの Skia 型にアクセスするには、拡張プロパティ `Shader.skiaShader` を使用します。
 * `Shader` API に依存するサードパーティライブラリを使用している場合は、それらをより新しい互換バージョンのものに更新してください。
 
-### Kotlin の最小バージョンの引き上げ
+### Kotlin の最小バージョンの引き上げ {id="minimum-kotlin-version-increased"}
 
 プロジェクトに native または web ターゲットが含まれている場合、最新の機能を利用するには Kotlin 2.3.10 へのアップグレードが必要です。
 
-### iOS ターゲット의 サポートに関する変更
+### iOS ターゲット의 サポートに関する変更 {id="changes-to-ios-target-support"}
 
 Compose Multiplatform は、Kotlin で非推奨となった Apple x86_64 ターゲットのサポートを終了しました。これに伴い、`iosX64` および `macosX64` ターゲットはすべてのモジュールから完全に削除されました。
 
 また、サポートされる iOS の最小バージョンを 13.0 から 14.0 に引き上げました。
 
-### 非推奨化
+### 非推奨化 {id="deprecations"}
 
 * Compose Multiplatform 1.9.0 において、HTML 要素を Web アプリケーションにシームレスに統合するための [`WebElementView`](https://kotlinlang.org/docs/multiplatform/whats-new-compose-190.html#new-api-for-embedding-html-content) コンポーザブルを[導入しました](https://kotlinlang.org/docs/multiplatform/whats-new-compose-190.html#new-api-for-embedding-html-content)。検討の結果、この名称がやや不明瞭であったため、HTML 専用の目的をより適切に反映するように `HtmlElementView` へと名称変更されました。`WebElementView` バージョンは `HtmlElementView` に代わり非推奨となりました。
 * `Key.Home` は、マッピングが正しくなかったため非推奨となりました。キーボードナビゲーションには `Key.MoveHome` を、システムレベルのアクションには `Key.SystemHome` を使用してください。
 
-## プラットフォーム共通
+## プラットフォーム共通 {id="across-platforms"}
 
-### Compose UI テスト v2
+### Compose UI テスト v2 {id="compose-ui-tests-v2"}
 
 Compose Multiplatform は、Android 以外のターゲットにおいて [v2 `ComposeUiTest` API](https://developer.android.com/develop/ui/compose/testing/migrate-v2) のサポートを導入しました。これらの新しい API では、デフォルトのテストディスパッチャーとして `UnconfinedTestDispatcher` の代わりに `StandardTestDispatcher` を使用します。この変更により、コルーチンがイベントキューに基づいて順番に実行されるようになり、テストの信頼性が向上し、本番環境の動作との整合性が高まります。
 
@@ -46,16 +46,16 @@ Compose Multiplatform は、Android 以外のターゲットにおいて [v2 `Co
 
 以前提供されていた `runComposeUiTest`、`runSkikoComposeUiTest`、`runDesktopComposeUiTest` などのテスト API は、v2 バージョンへの移行に伴い非推奨となりました。
 
-### Skia を Milestone 144 にアップデート
+### Skia を Milestone 144 にアップデート {id="skia-updated-to-milestone-144"}
 
 Skiko を通じて Compose Multiplatform で使用されている Skia のバージョンが Milestone 144 にアップデートされました。
 
 以前使用されていた Skia のバージョンは Milestone 138 でした。
 これらのバージョン間で行われた変更については、[リリースノート](https://skia.googlesource.com/skia/+/refs/heads/chrome/m144/RELEASE_NOTES.md)で確認できます。
 
-## iOS
+## iOS {id="ios"}
 
-### ネイティブテキスト入力
+### ネイティブテキスト入力 {id="native-text-input"}
 <primary-label ref="Experimental"/>
 
 Compose Multiplatform は、ネイティブの iOS `UIView` を使用して、`UITextInput` および `UIKeyInput` プロトコル経由で入力を管理する新しいテキスト入力実装を導入しました。これにより、正確なキャレット移動、ネイティブジェスチャー、ネイティブの選択処理、および `Autofill`（オートフィル）、`Translate`（翻訳）、`Search`（検索）などの項目を含むシステムコンテキストメニューなど、完全にネイティブな iOS のテキスト編集動作が可能になります。この新しいアプローチは、ネイティブ iOS の外観と操作感（Look and Feel）に合わせると同時に、将来の Apple のアップデートとの互換性も向上させます。
@@ -78,15 +78,15 @@ BasicTextField(
 
 新しいネイティブテキスト入力は `BasicTextField(TextFieldValue)` と `BasicTextField(TextFieldState)` の両方の API をサポートしており、`isNewContextMenuEnabled` フラグを介して有効化される新しいコンテキストメニュー API とも互換性があります。
 
-### コンカレントレンダリングがデフォルトで有効に
+### コンカレントレンダリングがデフォルトで有効に {id="concurrent-rendering-enabled-by-default"}
 
 Compose Multiplatform 1.8.0 において、レンダリングタスクを専用のレンダースレッドにオフロードする機能を、オプトインの実験的機能として[導入しました](whats-new-compose-180.md#opt-in-concurrent-rendering)。
 
 Compose Multiplatform 1.11.0 より、コンカレントレンダリングがデフォルトで有効になります。
 
-## Web
+## Web {id="web"}
 
-### Web ターゲットでのスクロールがネイティブ UI と同等に
+### Web ターゲットでのスクロールがネイティブ UI と同等に {id="scroll-on-web-targets-brought-in-line-with-native-ui"}
 
 Compose Multiplatform において、Web 上のスクロールパフォーマンスはネイティブ UI に比べて遅れていました。1.11.0 リリースでは、タッチ処理において多くのリファクタリングと修正が行われ、Compose Web アプリのスクロールが他の利用可能なターゲットと同等の水準になりました。これらの改善の効果は、[KotlinConf アプリの最新 Web バージョン](https://jetbrains.github.io/kotlinconf-app/)で確認できます。
 
@@ -94,7 +94,7 @@ Compose Multiplatform において、Web 上のスクロールパフォーマン
 
 修正のリスト、および改善に関する説明とデモは、イシュー [CMP-9727](https://youtrack.jetbrains.com/issue/CMP-9727) で入手可能です。
 
-## 依存関係
+## 依存関係 {id="dependencies"}
 
 | ライブラリ | Maven 座標 | ベースとなる Jetpack バージョン |
 |--------------------|------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|

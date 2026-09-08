@@ -19,7 +19,7 @@ Kotlin 多平台專案使用編譯來產生產物。每個目標（target）可�
 
 請參閱可用於所有或特定目標的[編譯參數列表](multiplatform-dsl-reference.md#compilation-parameters)與[編譯器選項](https://kotlinlang.org/docs/gradle-compiler-options.html)。
 
-## 設定所有編譯
+## 設定所有編譯 {id="configure-all-compilations"}
 
 此範例設定了一個適用於所有目標的通用編譯器選項：
 
@@ -48,7 +48,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-## 設定單一目標的編譯
+## 設定單一目標的編譯 {id="configure-compilations-for-one-target"}
 
 <Tabs group="build-script">
 <TabItem title="Kotlin" group-key="kotlin">
@@ -79,7 +79,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-## 設定特定編譯
+## 設定特定編譯 {id="configure-one-compilation"}
 
 <Tabs group="build-script">
 <TabItem title="Kotlin" group-key="kotlin">
@@ -118,7 +118,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-## 建立自訂編譯
+## 建立自訂編譯 {id="create-a-custom-compilation"}
 
 如果您需要編譯生產環境程式碼和單元測試以外的內容，例如整合測試或效能測試，請建立自訂編譯。
 
@@ -193,7 +193,7 @@ kotlin {
 > 
 {style="tip"}
 
-## JVM 的編譯
+## JVM 的編譯 {id="compilation-for-jvm"}
 
 當您在多平台專案中宣告 `jvm` 目標時，Kotlin Multiplatform Gradle 外掛程式會自動建立 Java 原始碼集並將其包含在 JVM 目標的編譯中。
 
@@ -270,7 +270,7 @@ kotlin {
 
 此目標由 Kotlin Multiplatform Gradle 外掛程式發佈，不需要特定於 Java 外掛程式的步驟。
 
-## 設定與原生語言的互通性
+## 設定與原生語言的互通性 {id="configure-interop-with-native-languages"}
 
 Kotlin 提供[與原生語言的互通性](https://kotlinlang.org/docs/native-overview.html)，並提供 DSL 來為特定編譯設定此功能。
 
@@ -359,7 +359,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-## Android 的編譯
+## Android 的編譯 {id="compilation-for-android"}
  
 預設情況下，為 Android 目標建立的編譯與 [Android 建置變體](https://developer.android.com/build/build-variants) 綁定：對於每個建置變體，都會建立一個同名的 Kotlin 編譯。
 
@@ -379,7 +379,7 @@ dependencies {
 }
 ```
 
-## 原始碼集階層結構的編譯 
+## 原始碼集階層結構的編譯 {id="compilation-of-the-source-set-hierarchy"}
 
 Kotlin 可以透過 `dependsOn` 關係建構 [原始碼集階層結構](multiplatform-share-on-platforms.md#share-code-on-similar-platforms)。
 
@@ -399,7 +399,7 @@ Kotlin 可以透過 `dependsOn` 關係建構 [原始碼集階層結構](multipla
 * `jvmMain` 應使用 `commonMain` 使用的所有實驗性註解。
 * `apiVersion`、錯誤修正語言特性和 `progressiveMode` 可以任意設定。
 
-## 在 Gradle 中配置 Isolated Projects 特性
+## 在 Gradle 中配置 Isolated Projects 特性 {id="configure-isolated-projects-feature-in-gradle"}
 
 > 此特性處於 [實驗性](supported-platforms.md#general-kotlin-stability-levels) 階段，目前在 Gradle 中處於 pre-alpha 狀態。請僅在 Gradle 8.10 或更高版本中使用，且僅用於評估目的。該特性隨時可能被刪除或更改。我們歡迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-57279/Support-Gradle-Project-Isolation-Feature-for-Kotlin-Multiplatform) 上提供意見回饋。需要手動啟用（詳情見下文）。
 > 

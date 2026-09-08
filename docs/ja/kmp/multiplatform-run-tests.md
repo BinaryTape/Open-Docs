@@ -22,9 +22,9 @@
 >
 {style="tip"}
 
-## シンプルなマルチプラットフォームプロジェクトのテスト
+## シンプルなマルチプラットフォームプロジェクトのテスト {id="test-a-simple-multiplatform-project"}
 
-### プロジェクトの作成
+### プロジェクトの作成 {id="create-a-project"}
 
 1. [クイックスタート](quickstart.md)の指示に従って、[Kotlin Multiplatform 開発のための環境をセットアップ](quickstart.md#set-up-the-environment)してください。
 2. IntelliJ IDEA で、**File** | **New** | **Project** を選択します。
@@ -40,7 +40,7 @@
 
    ![シンプルなマルチプラットフォームプロジェクトの作成](create-test-multiplatform-project.png){width=800}
 
-### コードの記述
+### コードの記述 {id="write-code"}
 
 `sharedLogic/src/commonMain/kotlin` ディレクトリに、新しい `common.example.search` パッケージを作成します。
 このパッケージに、以下の関数を含む Kotlin ファイル `Grep.kt` を作成します。
@@ -55,7 +55,7 @@ fun grep(lines: List<String>, pattern: String, action: (String) -> Unit) {
 
 この関数は、[UNIX の `grep` コマンド](https://en.wikipedia.org/wiki/Grep)に似せて設計されています。ここでは、この関数はテキストの各行、正規表現として使用されるパターン、および行がパターンに一致するたびに呼び出される関数を引数に取ります。
 
-### テストの追加
+### テストの追加 {id="add-tests"}
 
 次に、共通コードをテストしましょう。不可欠な部分は、[`kotlin.test`](https://kotlinlang.org/api/latest/kotlin.test/) API ライブラリを依存関係として持つ、共通テスト用のソースセットです。
 
@@ -220,7 +220,7 @@ expect fun determineCurrentRuntime(): CurrentRuntime
 
 この関数は、サポートされているプラットフォームごとに個別の実装を持つ必要があります。そうでない場合、ビルドは失敗します。各プラットフォームでこの関数を実装すると同時に、テストも提供する必要があります。Android と iOS 用に作成してみましょう。
 
-#### Android の場合
+#### Android の場合 {id="for-android"}
 
 1. `androidMain/kotlin` ディレクトリに、新しい `org.kmp.testing` パッケージを作成します。
 2. このパッケージに `AndroidRuntime.kt` ファイルを作成し、期待される `determineCurrentRuntime()` 関数の実際の（actual）実装で更新します。
@@ -264,7 +264,7 @@ Android 固有のテストがローカル JVM 上で実行されるのは、奇�
 
 プロジェクトには他のタイプのテストを追加することもできます。インストゥルメンテーションテストについては、この [Touchlab ガイド](https://touchlab.co/understanding-and-configuring-your-kmm-test-suite/)を参照してください。
 
-#### iOS の場合
+#### iOS の場合 {id="for-ios"}
 
 1. `iosMain/kotlin` ディレクトリに、新しい `org.kmp.testing` ディレクトリを作成します。
 2. このディレクトリに `IOSRuntime.kt` ファイルを作成し、期待される `determineCurrentRuntime()` 関数の実際の（actual）実装で更新します。
@@ -302,7 +302,7 @@ Android 固有のテストがローカル JVM 上で実行されるのは、奇�
     }
     ```
 
-### 複数のテストを実行してレポートを分析する
+### 複数のテストを実行してレポートを分析する {id="run-multiple-tests-and-analyze-reports"}
 
 現段階で、共通、Android、および iOS 実装のコードとそのテストが揃いました。プロジェクトのディレクトリ構造は以下のようになっているはずです。
 
@@ -323,7 +323,7 @@ Android 固有のテストがローカル JVM 上で実行されるのは、奇�
 
 ![マルチプラットフォームテストの HTML レポート](multiplatform-test-report.png){width=700}
 
-## マルチプラットフォームプロジェクトでテストを使用するためのルール
+## マルチプラットフォームプロジェクトでテストを使用するためのルール {id="rules-for-using-tests-in-multiplatform-projects"}
 
 これで、Kotlin Multiplatform アプリケーションでテストを作成、構成、および実行することができました。今後のプロジェクトでテストを扱う際は、以下の点に注意してください。
 
@@ -336,7 +336,7 @@ Android 固有のテストがローカル JVM 上で実行されるのは、奇�
 * テストは IDE からも Gradle タスクからも実行できます。
 * テストを実行すると、HTML テストレポートが自動的に生成されます。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [マルチプラットフォームプロジェクトの構造を理解する](multiplatform-discover-project.md)で、プロジェクトのレイアウトを確認してください。
 * Kotlin エコシステムによって提供されている別のマルチプラットフォームテストフレームワークである [Kotest](https://kotest.io/) をチェックしてください。Kotest ではさまざまなスタイルでテストを記述でき、通常のテストを補完するアプローチをサポートしています。これには、[データ駆動型](https://kotest.io/docs/framework/datatesting/data-driven-testing.html)や[プロパティベース](https://kotest.io/docs/proptest/property-based-testing.html)のテストが含まれます。

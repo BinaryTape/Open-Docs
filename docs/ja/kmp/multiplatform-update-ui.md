@@ -18,7 +18,7 @@
 ユーザーインターフェースを構築するには、プロジェクトの Android 部分には [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) ツールキットを使用し、iOS 部分には [SwiftUI](https://developer.apple.com/xcode/swiftui/) を使用します。
 これらはどちらも宣言的 UI フレームワーク (declarative UI frameworks) であり、UI 実装に類似点があることがわかります。どちらの場合も、データを `phrases` 変数に格納し、後でそれを反復処理して `Text` アイテムのリストを作成します。
 
-## Android 部分を更新する
+## Android 部分を更新する {id="update-the-android-part"}
 
 `androidApp` モジュールには Android アプリケーションが含まれており、そのメインアクティビティを定義します。UI コードの大部分は `sharedUI` モジュールに含まれており、Android アプリはこれを Android ライブラリとして使用します。UI は Compose Multiplatform フレームワークを使用して実装されています。
 
@@ -72,7 +72,7 @@
 
    ![Android マルチプラットフォームアプリの更新された UI](first-multiplatform-project-on-android-2.png){width=300}
 
-## iOS 部分を更新する
+## iOS 部分を更新する {id="update-the-ios-part"}
 
 `iosApp` ディレクトリは iOS アプリケーションとしてビルドされます。これは `sharedLogic` モジュールを iOS フレームワークとして依存・使用します。アプリの UI は Swift で記述されています。
 
@@ -103,23 +103,23 @@
 
     ![iOS マルチプラットフォームアプリの更新された UI](first-multiplatform-project-on-ios-2.png){width=350}
 
-## 発生する可能性のある問題と解決策
+## 発生する可能性のある問題と解決策 {id="possible-issues-and-solutions"}
 
-### Xcode が共有フレームワークを呼び出すコードでエラーを報告する
+### Xcode が共有フレームワークを呼び出すコードでエラーを報告する {id="xcode-reports-errors-in-the-code-calling-the-shared-framework"}
 
 Xcode で作業している場合、Xcode プロジェクトが古いバージョンのフレームワークを使用している可能性があります。これを解決するには、IntelliJ IDEA に戻ってプロジェクトを再ビルドするか、iOS の実行構成を開始してください。
 
-### Xcode が共有フレームワークのインポート時にエラーを報告する
+### Xcode が共有フレームワークのインポート時にエラーを報告する {id="xcode-reports-an-error-when-importing-the-shared-framework"}
 
 Xcode を使用している場合、キャッシュされたバイナリをクリアする必要がある場合があります。メインメニューで **Product | Clean Build Folder** を選択して、環境のリセットを試みてください。
 
-## 次のステップ
+## 次のステップ {id="next-step"}
 
 チュートリアルの次のパートでは、依存関係について学び、サードパーティライブラリを追加してプロジェクトの機能を拡張します。
 
 **[次のパートへ進む](multiplatform-dependencies.md)**
 
-## ヘルプを得る
+## ヘルプを得る {id="get-help"}
 
 * **Kotlin Slack**: [招待](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)を受けて、[#multiplatform](https://kotlinlang.slack.com/archives/C3PQML5NU) チャンネルに参加してください。
 * **Kotlin イシュートラッカー**: [新しい問題を報告](https://youtrack.jetbrains.com/newIssue?project=KT)してください。

@@ -8,7 +8,7 @@ Compose Multiplatformは[Jetpack Compose](https://developer.android.com/jackpack
 | Windows  | Java Access Bridge経由で対応 |
 | Linux    | 未対応                    | 
 
-## Windowsでのアクセシビリティの有効化
+## Windowsでのアクセシビリティの有効化 {id="enabling-accessibility-on-windows"}
 
 Windows上のアクセシビリティはJava Access Bridgeを介して提供されますが、これはデフォルトで無効になっています。
 Windowsでアクセシビリティ機能を開発するには、次のコマンドを使用してJava Access Bridgeを有効にします。
@@ -31,7 +31,7 @@ compose.desktop {
 }
 ```
 
-## 例：セマンティックルールを使用したカスタムボタン
+## 例：セマンティックルールを使用したカスタムボタン {id="example-custom-button-with-semantic-rules"}
 
 カスタムボタンを持つシンプルなアプリを作成し、スクリーンリーダーツール向けの説明テキストを指定してみましょう。
 スクリーンリーダーを有効にすると、ボタンの説明から「Click to increment value」というテキストが読み上げられます。
@@ -87,6 +87,6 @@ Windowsでは、[JAWS](https://www.freedomscientific.com/Products/Blindness/JAWS
 
 その他の例については、[Accessibility in Jetpack Compose](https://developer.android.com/develop/ui/compose/accessibility) ガイドを参照してください。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 [その他のデスクトップコンポーネント](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop)に関するチュートリアルを確認してください。

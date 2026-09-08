@@ -11,7 +11,7 @@ fun main() {
 
 根据目标平台的不同，首次运行代码可能需要一些特定于平台的额外设置。
 
-## 运行 Node.js 目标
+## 运行 Node.js 目标 {id="run-the-node-js-target"}
 
 当使用 Kotlin/JS 以 Node.js 为目标时，你可以直接执行 `jsNodeDevelopmentRun` Gradle 任务。
 例如，可以通过命令行使用 Gradle 包装器来完成：
@@ -29,7 +29,7 @@ fun main() {
 
 ![在 IntelliJ IDEA 的 Kotlin 多平台项目中执行 JS 目标](cli-output.png){width=700}
 
-## 运行浏览器目标
+## 运行浏览器目标 {id="run-the-browser-target"}
 
 以浏览器为目标时，你的项目需要有一个 HTML 页面。当你开发应用程序时，该页面将由开发服务器提供服务，并且应该嵌入你编译后的 Kotlin/JS 文件。
 创建并填充 HTML 文件 `/src/jsMain/resources/index.html`：

@@ -8,7 +8,7 @@
 - [CommonJS](http://wiki.commonjs.org/wiki/Modules/1.1)，廣泛用於 Node.js/npm（`require` 函式和 `module.exports` 物件）。
 - Plain。不針對任何模組系統進行編譯。您可以在全域作用域中透過模組名稱存取模組。
 
-## 瀏覽器目標
+## 瀏覽器目標 {id="browser-targets"}
 
 如果您打算在網頁瀏覽器環境中執行程式碼，並希望使用 UMD 以外的模組系統，您可以在 `webpackTask` 組建組態區塊中指定所需的模組類型。例如，要切換到 CommonJS，請使用：
 
@@ -28,11 +28,11 @@ kotlin {
 
 Webpack 提供兩種不同形式的 CommonJS：`commonjs` 與 `commonjs2`，這會影響您宣告的可用方式。在大多數情況下，您可能需要 `commonjs2`，它會將 `module.exports` 語法新增到產生的程式庫中。或者，您也可以選擇 `commonjs` 選項，它嚴格遵循 CommonJS 規範。若要進一步了解 `commonjs` 與 `commonjs2` 之間的差異，請參閱 [Webpack 存儲庫](https://github.com/webpack/webpack/issues/1114)。
 
-## JavaScript 程式庫與 Node.js 檔案
+## JavaScript 程式庫與 Node.js 檔案 {id="javascript-libraries-and-node-js-files"}
 
 如果您正在建立用於 JavaScript 或 Node.js 環境的程式庫，且想要使用不同的模組系統，則指令會略有不同。
 
-### 選擇目標模組系統
+### 選擇目標模組系統 {id="choose-the-target-module-system"}
 
 要選擇目標模組系統，請在 Gradle 建置指令碼中設定 `moduleKind` 編譯器選項：
 
@@ -74,7 +74,7 @@ kotlin {
 }
 ```
 
-## @JsModule 註解
+## @JsModule 註解 {id="jsmodule-annotation"}
 
 要告訴 Kotlin 某個 `external` 類別、軟件包、函式或屬性是 JavaScript 模組，您可以使用 `@JsModule` 註解。假設您有一個名為「hello」的 CommonJS 模組：
 
@@ -89,7 +89,7 @@ module.exports.sayHello = function (name) { alert("Hello, " + name); }
 external fun sayHello(name: String)
 ```
 
-### 應用 @JsModule 於軟件包
+### 應用 @JsModule 於軟件包 {id="apply-jsmodule-to-packages"}
 
 某些 JavaScript 程式庫匯出軟件包（命名空間）而不是函式和類別。就 JavaScript 而言，這是一個具有類別、函式和屬性等成員的物件。將這些軟件包作為 Kotlin 物件匯入通常看起來不自然。編譯器可以使用以下表示法將匯入的 JavaScript 軟件包對應到 Kotlin 軟件包：
 
@@ -124,7 +124,7 @@ external fun foo()
 fun bar() = "!" + foo() + "!" // 此處發生錯誤
 ```
 
-### 匯入更深層的軟件包階層
+### 匯入更深層的軟件包階層 {id="import-deeper-package-hierarchies"}
 
 在前面的範例中，JavaScript 模組匯出單個軟件包。然而，某些 JavaScript 程式庫會從一個模組中匯出多個軟件包。Kotlin 也支援這種情況，但您必須為匯入的每個軟件包宣告一個新的 `.kt` 檔案。
 
@@ -168,7 +168,7 @@ package extlib.pkg2
 external fun baz()
 ```
 
-### @JsNonModule 註解
+### @JsNonModule 註解 {id="jsnonmodule-annotation"}
 
 當宣告標記為 `@JsModule` 時，如果您未將其編譯為 JavaScript 模組，則無法在 Kotlin 程式碼中使用它。通常，開發者會同時以 JavaScript 模組和可下載的 `.js` 檔案形式分發他們的程式庫，您可以將後者複製到專案的靜態資源中並透過 `<script>` 標籤包含。要告訴 Kotlin 在非模組環境中使用 `@JsModule` 宣告是沒問題的，請新增 `@JsNonModule` 註解。例如，考慮以下 JavaScript 程式碼：
 
@@ -189,6 +189,6 @@ if (module && module.exports) {
 external fun sayHello(name: String)
 ```
 
-### Kotlin 標準函式庫使用的模組系統
+### Kotlin 標準函式庫使用的模組系統 {id="module-system-used-by-the-kotlin-standard-library"}
 
 Kotlin 隨 Kotlin/JS 標準函式庫以單個檔案形式分發，該檔案本身被編譯為 UMD 模組，因此您可以將其與上述任何模組系統一起使用。對於 Kotlin/JS 的大多數使用案例，建議在 Gradle 相依性中使用 `kotlin-stdlib-js`，它在 NPM 上也可以作為 [`kotlin`](https://www.npmjs.com/package/kotlin) 軟件包使用。

@@ -5,7 +5,7 @@
 * 基于焦点元素的事件处理程序。
 * 窗口范围内的事件处理程序。
 
-## 焦点组件中的事件
+## 焦点组件中的事件 {id="events-in-a-focused-component"}
 
 这种方法意味着在键盘上按下按键会触发当前焦点组件的事件处理程序。
 
@@ -67,7 +67,7 @@ fun main() = singleWindowApplication (title = "Key events") {
 
 <img src="compose-desktop-key-focus.animated.gif" alt="焦点组件中的键盘事件" width="600" preview-src="compose-desktop-key-focus.png"/>
 
-## 窗口范围内的事件
+## 窗口范围内的事件 {id="events-in-a-window-scope"}
 
 要定义在当前窗口中始终处于活跃状态的键盘事件处理程序，请使用 `Window`、`singleWindowApplication` 和 `Dialog` 函数中提供的 `onPreviewKeyEvent` 和 `onKeyEvent` 参数。它们的区别在于当事件未被消耗时如何进行分发：`onPreviewKeyEvent` 将事件分发给它的第一个子项，而 `onKeyEvent` 则将事件分发给该可组合项的父项。通常，拦截事件首选 `onPreviewKeyEvent`，因为它甚至可以实现全屏范围的键盘快捷键。
 
@@ -157,7 +157,7 @@ fun App() {
 
 <img src="compose-desktop-key-window.animated.gif" alt="窗口范围内的键盘事件" width="600" preview-src="compose-desktop-key-window.png"/>
 
-## 下一步？
+## 下一步？ {id="what-s-next"}
 
 * 请参阅 [API 参考](https://developer.android.com/reference/kotlin/androidx/compose/ui/input/key/package-summary#keyinputfilter) 了解详情。
 * 探索关于 [其他桌面组件](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop) 的教程。

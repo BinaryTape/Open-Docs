@@ -11,7 +11,7 @@ Dokka Gradle 플러그인(DGP)은 프로젝트를 위한 기본 자동 구성을
 
 [Gradle 예제 프로젝트](https://github.com/Kotlin/dokka/tree/2.0.0/examples/gradle-v2)에서 Dokka를 직접 실행해 보고 다양한 프로젝트에 맞게 구성하는 방법을 살펴볼 수 있습니다.
 
-## 지원 버전
+## 지원 버전 {id="supported-versions"}
 
 프로젝트가 다음 최소 버전 요구 사항을 충족하는지 확인하세요:
 
@@ -21,7 +21,7 @@ Dokka Gradle 플러그인(DGP)은 프로젝트를 위한 기본 자동 구성을
 | [Android Gradle 플러그인](https://developer.android.com/build/agp-upgrade-assistant) | 7.0 이상       |
 | [Kotlin Gradle 플러그인](https://kotlinlang.org/docs/gradle-configure-project.html) | 1.9 이상       |
 
-## Dokka 적용
+## Dokka 적용 {id="apply-dokka"}
 
 Dokka Gradle 플러그인을 적용하는 권장 방법은 [plugins 블록](https://docs.gradle.org/current/userguide/plugins.html#sec:plugins_block)을 사용하는 것입니다. 프로젝트의 `build.gradle.kts` 파일에 있는 `plugins {}` 블록에 추가하세요:
 
@@ -54,14 +54,14 @@ plugins {
 >
 {style="tip"}
 
-## 빌드 캐시 및 구성 캐시 활성화
+## 빌드 캐시 및 구성 캐시 활성화 {id="enable-build-cache-and-configuration-cache"}
 
 DGP는 Gradle 빌드 캐시(build cache)와 구성 캐시(configuration cache)를 지원하여 빌드 성능을 향상시킵니다.
 
 * 빌드 캐시를 활성화하려면 [Gradle 빌드 캐시 문서](https://docs.gradle.org/current/userguide/build_cache.html#sec:build_cache_enable)의 지침을 따르세요.
 * 구성 캐시를 활성화하려면 [Gradle 구성 캐시 문서](https://docs.gradle.org/current/userguide/configuration_cache.html#config_cache:usage:enable)의 지침을 따르세요.
 
-## 문서 생성
+## 문서 생성 {id="generate-documentation"}
 
 Dokka Gradle 플러그인에는 [HTML](dokka-html.md) 및 [Javadoc](dokka-javadoc.md) 출력 형식이 기본적으로 내장되어 있습니다.
 
@@ -77,7 +77,7 @@ Dokka Gradle 플러그인에는 [HTML](dokka-html.md) 및 [Javadoc](dokka-javado
 * 기본적으로 문서 출력 형식은 HTML입니다. [적절한 플러그인을 추가](#문서-출력-형식-구성)하여 Javadoc을 생성하거나 HTML과 Javadoc 형식을 모두 생성할 수도 있습니다.
 * 생성된 문서는 단일 및 멀티 프로젝트 빌드 모두에서 자동으로 `build/dokka/html` 디렉토리에 저장됩니다. [위치(`outputDirectory`)를 변경](dokka-gradle-configuration-options.md#general-configuration)할 수 있습니다.
 
-### 문서 출력 형식 구성
+### 문서 출력 형식 구성 {id="configure-documentation-output-format"}
 
 > Javadoc 출력 형식은 [Alpha](https://kotlinlang.org/docs/components-stability.html#stability-levels-explained) 상태입니다. 사용 시 버그가 발생하거나 마이그레이션 문제가 있을 수 있습니다. Javadoc을 입력으로 받는 도구와의 성공적인 통합은 보장되지 않습니다. 사용 시 주의하시기 바랍니다.
 >
@@ -115,7 +115,7 @@ API 문서를 HTML, Javadoc 또는 두 형식 동시에 생성하도록 선택�
 
 IntelliJ IDEA를 사용 중이라면 `dokkaGenerateHtml` Gradle 태스크가 보일 수 있습니다. 이 태스크는 단순히 `dokkaGeneratePublicationHtml`의 별칭(alias)입니다. 두 태스크는 완전히 동일한 작업을 수행합니다.
 
-### 멀티 프로젝트 빌드에서 문서 출력 통합
+### 멀티 프로젝트 빌드에서 문서 출력 통합 {id="aggregate-documentation-output-in-multi-project-builds"}
 
 Dokka는 여러 서브프로젝트의 문서를 하나의 출력물이나 퍼블리케이션(publication)으로 통합(aggregate)할 수 있습니다.
 
@@ -149,7 +149,7 @@ dependencies {
 
 자세한 내용은 [멀티 프로젝트 예제](https://github.com/Kotlin/dokka/tree/2.0.0/examples/gradle-v2/multimodule-example)를 참고하세요.
 
-#### 통합 문서의 디렉토리 구조
+#### 통합 문서의 디렉토리 구조 {id="directory-of-aggregated-documentation"}
 
 DGP가 서브프로젝트를 통합할 때, 각 서브프로젝트는 통합된 문서 내에 자신만의 하위 디렉토리를 갖습니다. DGP는 전체 프로젝트 구조를 유지함으로써 각 서브프로젝트가 고유한 디렉토리를 갖도록 보장합니다.
 
@@ -176,7 +176,7 @@ dokka {
 
 이 구성은 `:turbo-lib:maths` 모듈에 대해 생성된 문서가 `turbo-lib/build/dokka/html/maths/`에 생성되도록 변경합니다.
 
-## javadoc.jar 빌드
+## javadoc.jar 빌드 {id="build-javadoc-jar"}
 
 라이브러리를 저장소에 배포하려는 경우, 라이브러리의 API 참조 문서가 포함된 `javadoc.jar` 파일을 제공해야 할 수도 있습니다.
 
@@ -229,7 +229,7 @@ tasks.register('dokkaJavadocJar', Jar) {
 >
 {style="tip"}
 
-## 구성 예제
+## 구성 예제 {id="configuration-examples"}
 
 프로젝트 유형에 따라 Dokka를 적용하고 구성하는 방식이 약간씩 다릅니다. 하지만 [구성 옵션](dokka-gradle-configuration-options.md) 자체는 프로젝트 유형에 관계없이 동일합니다.
 
@@ -237,7 +237,7 @@ tasks.register('dokkaJavadocJar', Jar) {
 
 서브프로젝트와 여러 개의 중첩된 `build.gradle.kts` 또는 `build.gradle` 파일이 있는 더 복잡한 빌드의 경우, [멀티 프로젝트 구성](#멀티-프로젝트-구성)을 참조하세요.
 
-### 단일 프로젝트 구성
+### 단일 프로젝트 구성 {id="single-project-configuration"}
 
 단일 프로젝트 빌드는 일반적으로 프로젝트 루트에 `build.gradle.kts` 또는 `build.gradle` 파일이 하나만 있습니다. 단일 플랫폼이거나 멀티플랫폼일 수 있으며 일반적으로 다음과 같은 구조를 갖습니다:
 
@@ -369,7 +369,7 @@ dokka {
 
 이 구성은 프로젝트에 Dokka를 적용하고, 문서 출력 디렉토리를 설정하며, 기본 소스 세트를 정의합니다. 동일한 `dokka {}` 블록 내에 사용자 정의 에셋(assets), 가시성 필터 또는 플러그인 구성을 추가하여 더 확장할 수 있습니다. 자세한 내용은 [구성 옵션](dokka-gradle-configuration-options.md)을 참조하세요.
 
-### 멀티 프로젝트 구성
+### 멀티 프로젝트 구성 {id="multi-project-configuration"}
 
 [멀티 프로젝트 빌드](https://docs.gradle.org/current/userguide/multi_project_builds.html)는 일반적으로 여러 개의 중첩된 `build.gradle.kts` 파일을 포함하며 다음과 유사한 구조를 갖습니다:
 
@@ -432,11 +432,11 @@ dokka {
 >
 {style="tip"}
 
-#### 컨벤션 플러그인을 통한 공유 구성
+#### 컨벤션 플러그인을 통한 공유 구성 {id="shared-configuration-via-a-convention-plugin"}
 
 컨벤션 플러그인을 설정하고 서브프로젝트에 적용하려면 다음 단계를 따르세요.
 
-##### buildSrc 디렉토리 설정
+##### buildSrc 디렉토리 설정 {id="set-up-the-buildsrc-directory"}
 
 1. 프로젝트 루트에 다음 두 파일을 포함하는 `buildSrc` 디렉토리를 생성합니다:
 
@@ -466,7 +466,7 @@ dokka {
     }   
     ```
 
-##### Dokka 컨벤션 플러그인 설정
+##### Dokka 컨벤션 플러그인 설정 {id="set-up-the-dokka-convention-plugin"}
 
 `buildSrc` 디렉토리를 설정한 후, Dokka 컨벤션 플러그인을 설정합니다:
 
@@ -485,7 +485,7 @@ dokka {
 
    `dokka {}` 블록 내에 모든 서브프로젝트에 공통으로 적용될 공유 Dokka [구성](dokka-gradle-configuration-options.md)을 추가해야 합니다. 또한 Dokka 버전을 지정할 필요가 없습니다. 버전은 이미 `buildSrc/build.gradle.kts` 파일에 설정되어 있습니다.
 
-##### 서브프로젝트에 컨벤션 플러그인 적용
+##### 서브프로젝트에 컨벤션 플러그인 적용 {id="apply-the-convention-plugin-to-your-subprojects"}
 
 각 서브프로젝트의 `build.gradle.kts` 파일에 Dokka 컨벤션 플러그인을 추가하여 적용합니다:
 
@@ -495,7 +495,7 @@ plugins {
 }
 ```
 
-#### 수동 구성
+#### 수동 구성 {id="manual-configuration"}
 
 프로젝트에서 컨벤션 플러그인을 사용하지 않는 경우, 각 서브프로젝트에 동일한 `dokka {}` 블록을 수동으로 복사하여 동일한 Dokka 구성 패턴을 재사용할 수 있습니다:
 
@@ -509,7 +509,7 @@ plugins {
 
 2. 각 서브프로젝트의 `dokka {}` 블록에서 공유 구성을 선언합니다. 구성을 중앙 집중화하는 컨벤션 플러그인이 없으므로 서브프로젝트 간에 원하는 구성을 중복해서 작성합니다. 자세한 내용은 [구성 옵션](dokka-gradle-configuration-options.md)을 참조하세요.
 
-#### 상위 프로젝트 구성
+#### 상위 프로젝트 구성 {id="parent-project-configuration"}
 
 멀티 프로젝트 빌드에서는 전체 문서에 적용되는 설정을 루트 프로젝트에서 구성할 수 있습니다. 여기에는 출력 형식, 출력 디렉토리, 문서 서브프로젝트 이름 정의, 모든 서브프로젝트의 문서 통합 및 기타 [구성 옵션](dokka-gradle-configuration-options.md)이 포함될 수 있습니다:
 

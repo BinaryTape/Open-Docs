@@ -10,7 +10,7 @@ title: 生命周期与状态
 本指南与 [Android 官方 Compose 生命周期文档](https://developer.android.com/develop/ui/compose/lifecycle) 保持一致。
 :::
 
-## Compose 生命周期概览
+## Compose 生命周期概览 {id="compose-lifecycle-overview"}
 
 一个 Composable 函数具有三个生命周期事件：
 
@@ -20,9 +20,9 @@ title: 生命周期与状态
 
 Koin 的 Compose API 旨在与该生命周期高效协作。
 
-## 注入与重组
+## 注入与重组 {id="injection-and-recomposition"}
 
-### koinInject() 的工作原理
+### koinInject() 的工作原理 {id="how-koininject-works"}
 
 `koinInject()` 从 Koin 获取实例，并在多次重组中**记住 (remember)** 它们：
 
@@ -37,7 +37,7 @@ fun MyScreen() {
 }
 ```
 
-### 注入时机
+### 注入时机 {id="injection-timing"}
 
 应在 **Composable 函数级别**注入依赖项，而不是在回调内部：
 
@@ -60,7 +60,7 @@ fun MyScreen() {
 }
 ```
 
-### 带形参的性能
+### 带形参的性能 {id="performance-with-parameters"}
 
 当在 `koinInject` 中使用形参时，首选显式形参形式：
 
@@ -79,9 +79,9 @@ fun MyScreen(userId: String) {
 }
 ```
 
-## 使用 Koin 进行状态管理
+## 使用 Koin 进行状态管理 {id="state-management-with-koin"}
 
-### StateFlow 与 collectAsState
+### StateFlow 与 collectAsState {id="stateflow-and-collectasstate"}
 
 使用 Koin 进行响应式 UI 开发的标准模式：
 
@@ -118,7 +118,7 @@ fun UserScreen(
 }
 ```
 
-### 直接注入仓库 (Repository)
+### 直接注入仓库 (Repository) {id="direct-repository-injection"}
 
 对于较简单的场景，直接注入仓库：
 
@@ -142,7 +142,7 @@ fun UserListScreen() {
 }
 ```
 
-### remember() 与 koinInject()
+### remember() 与 koinInject() {id="remember-vs-koininject"}
 
 因地制宜，使用正确的工具：
 
@@ -163,9 +163,9 @@ fun MyScreen() {
 }
 ```
 
-## 使用 Koin 处理副作用 (Side Effects)
+## 使用 Koin 处理副作用 (Side Effects) {id="side-effects-with-koin"}
 
-### LaunchedEffect
+### LaunchedEffect {id="launchedeffect"}
 
 在进入组合或键 (key) 更改时执行挂起代码：
 
@@ -184,7 +184,7 @@ fun UserDetailScreen(userId: String) {
 }
 ```
 
-### DisposableEffect
+### DisposableEffect {id="disposableeffect"}
 
 在离开组合时清理资源：
 
@@ -205,7 +205,7 @@ fun EventScreen() {
 }
 ```
 
-### SideEffect
+### SideEffect {id="sideeffect"}
 
 在每次成功的重组后执行非挂起副作用：
 
@@ -220,9 +220,9 @@ fun AnalyticsScreen(screenName: String) {
 }
 ```
 
-## 稳定性与跳过
+## 稳定性与跳过 {id="stability-and-skipping"}
 
-### 理解稳定类型
+### 理解稳定类型 {id="understanding-stable-types"}
 
 当输入未发生变化时，Compose 可以跳过重组。为了实现这一点，形参类型必须是**稳定 (stable)** 的：
 
@@ -242,7 +242,7 @@ fun UserCard(
 )
 ```
 
-### Koin 注入与稳定性
+### Koin 注入与稳定性 {id="koin-injections-and-stability"}
 
 Koin 注入被视为稳定的，因为它们返回相同的实例（对于单例）或已被记住：
 
@@ -257,9 +257,9 @@ fun MyScreen() {
 }
 ```
 
-## 传递形参 vs 注入
+## 传递形参 vs 注入 {id="passing-parameters-vs-injection"}
 
-### 决策指南
+### 决策指南 {id="decision-guide"}
 
 | 作为形参传递 | 使用 Koin 注入 |
 |-------------------|------------------|
@@ -268,7 +268,7 @@ fun MyScreen() {
 | 导航实参 | 业务逻辑（用例） |
 | 父级提供的数据 | ViewModels |
 
-### 示例模式
+### 示例模式 {id="example-pattern"}
 
 ```kotlin
 // userId 会变化 - 作为形参传递
@@ -297,9 +297,9 @@ fun ProfileContent(user: User) {
 }
 ```
 
-## 最佳做法
+## 最佳做法 {id="best-practices"}
 
-### 1. 在顶层注入
+### 1. 在顶层注入 {id="1-inject-at-the-top-level"}
 
 ```kotlin
 @Composable
@@ -316,7 +316,7 @@ fun FeatureScreen() {
 }
 ```
 
-### 2. 保持子 Composable 纯净
+### 2. 保持子 Composable 纯净 {id="2-keep-child-composables-pure"}
 
 ```kotlin
 // 纯净 - 将所有数据作为形参接收
@@ -330,7 +330,7 @@ fun UserCard(
 }
 ```
 
-### 3. 为复杂状态使用 ViewModel
+### 3. 为复杂状态使用 ViewModel {id="3-use-viewmodel-for-complex-state"}
 
 ```kotlin
 // 在 ViewModel 中进行复杂的状态管理
@@ -353,7 +353,7 @@ class SearchViewModel(
 }
 ```
 
-### 4. 避免在循环中注入
+### 4. 避免在循环中注入 {id="4-avoid-injection-in-loops"}
 
 ```kotlin
 @Composable
@@ -370,7 +370,7 @@ fun UserList(userIds: List<String>) {
 }
 ```
 
-## 后续步骤
+## 后续步骤 {id="next-steps"}
 
 - **[Compose 中的 ViewModel](/docs/reference/koin-compose/compose-viewmodel)** - ViewModel API
 - **[动态模块](/docs/reference/koin-compose/compose-modules)** - 模块加载/卸载

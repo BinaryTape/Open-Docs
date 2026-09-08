@@ -23,9 +23,9 @@ Power-assert 插件的主要特性：
 * **简化测试**：自动生成详实的失败消息，减少了对复杂断言库的需求。
 * **支持多个函数**：默认情况下，它会转换 `assert()` 函数调用，但也可以转换其他函数，例如 `require()`、`check()` 和 `assertTrue()`。
 
-## 应用插件
+## 应用插件 {id="apply-the-plugin"}
 
-### Gradle
+### Gradle {id="gradle"}
 
 要启用 Power-assert 插件，请按如下方式配置您的 `build.gradle(.kts)` 文件：
 
@@ -98,7 +98,7 @@ powerAssert {
 }
 ```
 
-### Maven
+### Maven {id="maven"}
 
 要在 Maven 项目中启用 Power-assert 编译器插件，请更新 `pom.xml` 文件中 `kotlin-maven-plugin` 的 `<plugin>` 部分：
 
@@ -163,7 +163,7 @@ powerAssert {
 </configuration>
 ```
 
-## 使用 Power-assert 插件
+## 使用 Power-assert 插件 {id="use-the-power-assert-plugin"}
 
 本节提供使用 Power-assert 编译器插件的示例。
 
@@ -364,7 +364,7 @@ powerAssert {
 </tab>
 </tabs>
 
-### 使用 `@PowerAssert` 注解的函数
+### 使用 `@PowerAssert` 注解的函数 {id="powerassert-annotated-functions"}
 
 如果一个函数使用了 `@PowerAssert` 注解，Power-assert 插件会自动转换对它的调用。
 您不需要在构建配置中注册该函数。
@@ -403,7 +403,7 @@ check(subject.name == "Kodee")
       Mascot(name=Unknown)
 ```
 
-### Assert 函数
+### Assert 函数 {id="assert-function"}
 
 考虑以下使用 `assert()` 函数的测试：
 
@@ -483,7 +483,7 @@ assert(person.name.startsWith("A") && person.name.length > 3 && person.age > 20 
        Person(name=Alice, age=10)     Person(name=Alice, age=10)
 ```
 
-### 除 assert 函数之外
+### 除 assert 函数之外 {id="beyond-assert-function"}
 
 Power-assert 插件可以转换除默认转换的 `assert` 之外的各种函数。
 像 `require()`、`check()`、`assertTrue()`、`assertEqual()` 等函数，如果它们的格式允许将 `String` 或 `() -> String` 值作为最后一个参数，也可以被转换。
@@ -583,7 +583,7 @@ assert(exampleFunction(2, 3) + exampleFunction(1, 2) == 9)
 ```
 -->
 
-### 软断言
+### 软断言 {id="soft-assertions"}
 
 Power-assert 插件支持软断言，它不会立即导致测试失败，而是收集断言失败并在测试运行结束时报告。
 当您希望在单次运行中查看所有断言失败而不在第一次失败时停止时，这很有用。
@@ -708,11 +708,11 @@ assert(employee.age < 100) { "${employee.name} has an invalid age: ${employee.ag
        Employee(name=Dave, age=150, salary=70000)
 ```
 
-## 为您的库添加对 Power-assert 的支持
+## 为您的库添加对 Power-assert 的支持 {id="add-support-for-power-assert-to-your-library"}
 
 如果您是库作者，可以使用 Power-assert 运行时库中的 `@PowerAssert` 注解和 `CallExplanation` 类为您的库添加开箱即用的 Power-assert 支持。
 
-### `@PowerAssert` 注解
+### `@PowerAssert` 注解 {id="the-powerassert-annotation"}
 
 [`@PowerAssert` 注解](https://github.com/JetBrains/kotlin/blob/master/plugins/power-assert/power-assert-runtime/src/commonMain/kotlin/kotlin/powerassert/PowerAssert.kt)将一个函数标记为支持 Power-assert。如果您的库用户在其项目中使用 Power-assert 编译器插件并调用您的注解函数，则无需额外的构建配置即可自动转换这些调用。
 
@@ -778,7 +778,7 @@ assert(employee.age < 100) { "${employee.name} has an invalid age: ${employee.ag
 >
 {style="tip"}
 
-### `CallExplanation` 类
+### `CallExplanation` 类 {id="the-callexplanation-class"}
 
 [`CallExplanation`](https://github.com/JetBrains/kotlin/blob/master/plugins/power-assert/power-assert-runtime/src/commonMain/kotlin/kotlin/powerassert/CallExplanation.kt) 类提供有关调用站点的详细信息，包括中间表达式值。这实现了断言失败消息的动态渲染，并能更好地与外部工具集成。
 
@@ -832,7 +832,7 @@ fun AssertScope<*>.require(condition: Boolean) {
 >
 {style="tip"}
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 浏览我们的示例项目：
 

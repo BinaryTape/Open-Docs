@@ -8,7 +8,7 @@ title: 從 Hilt 遷移到 Koin
 如需完整的真實案例，請查看 [Now in Android 遷移實例](https://blog.insert-koin.io/migrating-now-in-android-to-koin-annotations-2-3-67d252dbb97d)，該案例展示了擁有 30 個 Gradle 模組的 Google 生產級新聞應用程式如何從 Hilt 遷移到 Koin Annotations。
 :::
 
-## 為什麼要遷移到 Koin？
+## 為什麼要遷移到 Koin？ {id="why-migrate-to-koin"}
 
 **Koin 的主要優勢：**
 
@@ -19,9 +19,9 @@ title: 從 Hilt 遷移到 Koin
 - **多模組友善** – 不需要 `@EntryPoint` 介面。
 - **支援 JSR-330** – 現有的 `@Inject` 建構函式無需修改即可運作。
 
-## 快速參考：Hilt vs Koin
+## 快速參考：Hilt vs Koin {id="quick-reference-hilt-vs-koin"}
 
-### 註解對應
+### 註解對應 {id="annotation-mappings"}
 
 | Hilt | Koin DSL | Koin Annotations |
 |------|------------------------------------------|-----------------------------------------------------------------------------------------------------|
@@ -37,7 +37,7 @@ title: 從 Hilt 遷移到 Koin
 | `@ApplicationContext` | 自動 Context 注入 | 自動 Context 注入 |
 | `@EntryPoint` | 不需要 | 不需要 |
 
-### 作用域 (Scope) 對應
+### 作用域 (Scope) 對應 {id="scope-mappings"}
 
 | Hilt 作用域 | Koin DSL | Koin Annotations | 備註 |
 |------------|----------|------------------|-------|
@@ -46,9 +46,9 @@ title: 從 Hilt 遷移到 Koin
 | `@ViewModelScoped` | `viewModelScope { scoped { } }` | `@ViewModelScope` | 繫結至 ViewModel 生命週期 |
 | `@ActivityRetainedScoped` | `activityRetainedScope { scoped { } }` | `@ActivityRetainedScope` | 在組態變更後繼續存在 |
 
-## 遷移步驟
+## 遷移步驟 {id="migration-steps"}
 
-### 步驟 1：更新相依性
+### 步驟 1：更新相依性 {id="step-1-update-dependencies"}
 
 **移除 Hilt 相依性：**
 
@@ -80,7 +80,7 @@ dependencies {
 }
 ```
 
-### 步驟 2：應用程式設定
+### 步驟 2：應用程式設定 {id="step-2-application-setup"}
 
 **Hilt：**
 
@@ -125,7 +125,7 @@ class MyApplication : Application() {
 使用 `@KoinApplication` 時，如果模組被標記為 `@Configuration`，系統會自動發現這些模組。您也可以使用 `modules` 屬性明確包含模組：`@KoinApplication(modules = [AppModule::class])`。
 :::
 
-### 步驟 3：遷移模組
+### 步驟 3：遷移模組 {id="step-3-migrate-modules"}
 
 **Hilt：**
 
@@ -211,7 +211,7 @@ class NetworkModule {
 }
 ```
 
-### 步驟 4：遷移 ViewModel
+### 步驟 4：遷移 ViewModel {id="step-4-migrate-viewmodels"}
 
 **Hilt：**
 
@@ -274,7 +274,7 @@ fun MyScreen() {
 `viewModelOf` 這個 DSL 函式使用了建構函式參數自動裝配 (autowiring)。`SavedStateHandle` 會由 Koin 自動提供，因此您不需要明確傳遞它。這是 Koin 自動裝配 DSL 的一部分，它簡化了 ViewModel 的定義。
 :::
 
-### 步驟 5：遷移 Activity 與 Fragment
+### 步驟 5：遷移 Activity 與 Fragment {id="step-5-migrate-activities-and-fragments"}
 
 **Hilt：**
 
@@ -311,7 +311,7 @@ class MainActivity : ComponentActivity() {
 使用 Koin 時，您不需要 `@AndroidEntryPoint` – 只要使用 `by inject()` 或 `by viewModel()` 屬性委託即可。
 :::
 
-### 步驟 6：遷移介面繫結
+### 步驟 6：遷移介面繫結 {id="step-6-migrate-interface-bindings"}
 
 **Hilt：**
 
@@ -373,7 +373,7 @@ class MyRepositoryImpl(
 當一個類別實作介面時，Koin Annotations 會自動偵測介面繫結。當您需要明確指定多個介面或控制繫結行為時，請使用 `binds` 屬性。
 :::
 
-### 步驟 7：遷移限定符 (Qualifiers)
+### 步驟 7：遷移限定符 (Qualifiers) {id="step-7-migrate-qualifiers"}
 
 **Hilt：**
 
@@ -474,7 +474,7 @@ class MyRepository @Inject constructor(
 Koin Annotations 完全支援 JSR-330 `@Qualifier` 註解！這是一個標準的 Java/Kotlin DI 註解（非 Hilt 專屬），因此您在遷移期間可以保持現有的限定符註解不變。DSL 也支援使用 `named<T>()` 代替基於字串的 `named("string")` 來實作型別安全限定符。
 :::
 
-### 步驟 8：遷移 Compose 整合
+### 步驟 8：遷移 Compose 整合 {id="step-8-migrate-compose-integration"}
 
 **Hilt：**
 
@@ -501,7 +501,7 @@ fun MyScreen(
 }
 ```
 
-### 步驟 9：遷移測試
+### 步驟 9：遷移測試 {id="step-9-migrate-testing"}
 
 **Hilt：**
 
@@ -553,16 +553,16 @@ class MyTest : KoinTest {
 }
 ```
 
-## 多模組專案
+## 多模組專案 {id="multi-module-projects"}
 
-### Hilt 方式
+### Hilt 方式 {id="hilt-approach"}
 
 使用 Hilt，您需要：
 - `@InstallIn` 來指定元件階層
 - `@EntryPoint` 介面用於跨模組存取
 - 複雜的元件相依性
 
-### Koin 方式
+### Koin 方式 {id="koin-approach"}
 
 使用 Koin：
 - 每個模組宣告自己的 Koin 模組
@@ -599,9 +599,9 @@ class MyApplication : Application() {
 
 詳情請參閱 [多模組架構](/docs/reference/koin-android/multi-module)。
 
-## 常見模式
+## 常見模式 {id="common-patterns"}
 
-### 建構函式注入 (JSR-330)
+### 建構函式注入 (JSR-330) {id="constructor-injection-jsr-330"}
 
 最大的優勢之一：**現有的 `@Inject` 建構函式可以與 Koin Annotations 搭配運作！**
 
@@ -627,7 +627,7 @@ class MyRepository @Inject constructor(
 }
 ```
 
-### 輔助注入 (AssistedInject)
+### 輔助注入 (AssistedInject) {id="assistedinject"}
 
 **Hilt：**
 
@@ -660,7 +660,7 @@ val appModule = module {
 val viewModel: MyViewModel by viewModel { parametersOf("user123") }
 ```
 
-### 延遲注入 (Lazy Injection)
+### 延遲注入 (Lazy Injection) {id="lazy-injection"}
 
 **Hilt：**
 
@@ -679,7 +679,7 @@ private val heavyService: HeavyService by inject()
 private val heavyService: Lazy<HeavyService> by lazy { get() }
 ```
 
-## 遷移檢查表
+## 遷移檢查表 {id="migration-checklist"}
 
 使用此檢查表來追蹤您的遷移進度：
 
@@ -720,9 +720,9 @@ private val heavyService: Lazy<HeavyService> by lazy { get() }
   - [ ] 測試應用程式內的相依性注入
   - [ ] 驗證無執行期崩潰
 
-## 疑難排解
+## 疑難排解 {id="troubleshooting"}
 
-### "No definition found for X"
+### "No definition found for X" {id="no-definition-found-for-x"}
 
 **問題**：Koin 找不到該型別的定義。
 
@@ -731,7 +731,7 @@ private val heavyService: Lazy<HeavyService> by lazy { get() }
 - 檢查定義是否存在（使用 `single { }` 或 `factory { }`）。
 - 驗證是否指定了正確的型別。
 
-### "DefinitionOverrideException"
+### "DefinitionOverrideException" {id="definitionoverrideexception"}
 
 **問題**：同一個型別有多個定義。
 
@@ -739,7 +739,7 @@ private val heavyService: Lazy<HeavyService> by lazy { get() }
 - 使用限定符：`single(named("qualifier")) { }`
 - 啟用覆寫：`startKoin { allowOverride(true) }`
 
-### 循環相依 (Circular Dependencies)
+### 循環相依 (Circular Dependencies) {id="circular-dependencies"}
 
 **問題**：兩個類別互相依賴。
 
@@ -748,13 +748,13 @@ private val heavyService: Lazy<HeavyService> by lazy { get() }
 - 重構以移除循環相依。
 - 使用作用域來打破循環。
 
-## 其他資源
+## 其他資源 {id="additional-resources"}
 
 - **真實案例遷移**：[將 Now in Android 遷移至 Koin](https://blog.insert-koin.io/migrating-now-in-android-to-koin-annotations-2-3-67d252dbb97d)
 - **Koin 文件**：[快速入門](/docs/setup/koin)
 - **Koin Annotations**：[Android 註解指南](/docs/quickstart/android-annotations)
 
-## 需要協助？
+## 需要協助？ {id="need-help"}
 
 - **GitHub Discussions**：在 [Koin 儲存庫](https://github.com/InsertKoinIO/koin/discussions) 中提問。
 - **Slack**：加入 Slack 上的 Koin 社群。

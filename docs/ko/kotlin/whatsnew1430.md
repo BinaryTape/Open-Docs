@@ -12,7 +12,7 @@ Kotlin 1.4.30은 새로운 언어 기능의 프리뷰 버전을 제공하며, Ko
 >
 {style="tip"}
 
-## 언어 기능 (Language features)
+## 언어 기능 (Language features) {id="language-features"}
 
 Kotlin 1.5.0에서는 JVM 레코드(records) 지원, 봉인된 인터페이스(sealed interfaces), 안정화된 인라인 클래스(Stable inline classes) 등 새로운 언어 기능이 제공될 예정입니다. Kotlin 1.4.30에서는 이러한 기능과 개선 사항을 프리뷰 모드로 사용해 볼 수 있습니다. 해당 YouTrack 티켓을 통해 피드백을 공유해 주시면 1.5.0 출시 전에 문제를 해결하는 데 큰 도움이 됩니다.
 
@@ -24,7 +24,7 @@ Kotlin 1.5.0에서는 JVM 레코드(records) 지원, 봉인된 인터페이스(s
 
 새로운 기능 프리뷰에 대한 자세한 내용은 [이 블로그 포스트](https://blog.jetbrains.com/kotlin/2021/02/new-language-features-preview-in-kotlin-1-4-30/)에서 확인할 수 있습니다.
 
-### JVM 레코드 지원
+### JVM 레코드 지원 {id="jvm-records-support"}
 
 > JVM 레코드 기능은 [실험적(Experimental)](components-stability.md)입니다. 이 기능은 언제든지 중단되거나 변경될 수 있습니다. 명시적인 동의(Opt-in)가 필요하며(아래 상세 내용 참조), 평가 목적으로만 사용해야 합니다. [YouTrack](https://youtrack.jetbrains.com/issue/KT-42430)을 통한 여러분의 피드백을 기다리고 있습니다.
 >
@@ -47,7 +47,7 @@ JVM 레코드 지원 작업은 계속 진행 중이며, 이 [YouTrack 티켓](ht
 
 구현, 제한 사항 및 구문에 대한 자세한 내용은 [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/jvm-records.md)에서 확인할 수 있습니다.
 
-### 봉인된 인터페이스
+### 봉인된 인터페이스 {id="sealed-interfaces"}
 
 > 봉인된 인터페이스(Sealed interfaces)는 [실험적(Experimental)](components-stability.md)입니다. 이 기능은 언제든지 중단되거나 변경될 수 있습니다. 명시적인 동의(Opt-in)가 필요하며(아래 상세 내용 참조), 평가 목적으로만 사용해야 합니다. [YouTrack](https://youtrack.jetbrains.com/issue/KT-42433)을 통한 여러분의 피드백을 기다리고 있습니다.
 >
@@ -91,7 +91,7 @@ class Rectangle(override val vertices: List<Point>): Fillable, Polygon {
 
 [봉인된 인터페이스에 대해 더 알아보기](sealed-classes.md).
 
-### 패키지 전체의 봉인된 클래스 계층 구조
+### 패키지 전체의 봉인된 클래스 계층 구조 {id="package-wide-sealed-class-hierarchies"}
 
 > 패키지 전체의 봉인된 클래스 계층 구조(Package-wide hierarchies of sealed classes)는 [실험적(Experimental)](components-stability.md)입니다. 이 기능은 언제든지 중단되거나 변경될 수 있습니다. 명시적인 동의(Opt-in)가 필요하며(아래 상세 내용 참조), 평가 목적으로만 사용해야 합니다. [YouTrack](https://youtrack.jetbrains.com/issue/KT-42433)을 통한 여러분의 피드백을 기다리고 있습니다.
 >
@@ -105,7 +105,7 @@ class Rectangle(override val vertices: List<Point>): Fillable, Polygon {
 
 [패키지 전체의 봉인된 클래스 계층 구조에 대해 더 알아보기](sealed-classes.md#inheritance).
 
-### 개선된 인라인 클래스
+### 개선된 인라인 클래스 {id="improved-inline-classes"}
 
 > 인라인 값 클래스(Inline value classes)는 [베타(Beta)](components-stability.md) 단계입니다. 거의 안정적이지만 미래에 마이그레이션 단계가 필요할 수 있습니다. 변경 사항을 최소화하기 위해 최선을 다할 것입니다. 인라인 클래스 기능에 대한 피드백을 [YouTrack](https://youtrack.jetbrains.com/issue/KT-42434)에 공유해 주세요.
 >
@@ -162,9 +162,9 @@ Kotlin 1.4.30은 인라인 클래스를 베타 단계로 승격시켰으며, 향
 
 [인라인 클래스에 대해 더 알아보기](inline-classes.md).
 
-## Kotlin/JVM
+## Kotlin/JVM {id="kotlin-jvm"}
 
-### JVM IR 컴파일러 백엔드 베타 도달
+### JVM IR 컴파일러 백엔드 베타 도달 {id="jvm-ir-compiler-backend-reaches-beta"}
 
 1.4.0에서 [알파(Alpha)](components-stability.md)로 선보였던 Kotlin/JVM용 [IR 기반 컴파일러 백엔드](whatsnew14.md#unified-backends-and-extensibility)가 베타(Beta) 단계에 도달했습니다. 이는 IR 백엔드가 Kotlin/JVM 컴파일러의 기본값이 되기 전 마지막 프리-스테이블(pre-stable) 단계입니다.
 
@@ -206,23 +206,23 @@ Kotlin 1.4.30은 인라인 클래스를 베타 단계로 승격시켰으며, 향
 
 JVM IR 백엔드가 가져오는 변화에 대한 자세한 내용은 [이 블로그 포스트](https://blog.jetbrains.com/kotlin/2021/02/the-jvm-backend-is-in-beta-let-s-make-it-stable-together/)를 참조하세요.
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
-### 성능 개선
+### 성능 개선 {id="performance-improvements"}
 
 Kotlin/Native는 1.4.30에서 다양한 성능 개선을 이루어 컴파일 시간이 단축되었습니다. 예를 들어, [Networking and data storage with Kotlin Multiplatform Mobile](https://github.com/kotlin-hands-on/kmm-networking-and-data-storage/tree/final) 샘플에서 프레임워크를 다시 빌드하는 데 걸리는 시간이 9.5초(1.4.10 기준)에서 4.5초(1.4.30 기준)로 감소했습니다.
 
-### Apple watchOS 64비트 시뮬레이터 타겟
+### Apple watchOS 64비트 시뮬레이터 타겟 {id="apple-watchos-64-bit-simulator-target"}
 
 7.0 버전부터 watchOS에서 x86 시뮬레이터 타겟이 사용 중단되었습니다. 최신 watchOS 버전에 발맞추기 위해 Kotlin/Native는 64비트 아키텍처에서 시뮬레이터를 실행하기 위한 새로운 타겟인 `watchosX64`를 추가했습니다.
 
-### Xcode 12.2 라이브러리 지원
+### Xcode 12.2 라이브러리 지원 {id="support-for-xcode-12-2-libraries"}
 
 Xcode 12.2와 함께 제공되는 새로운 라이브러리에 대한 지원을 추가했습니다. 이제 Kotlin 코드에서 이를 사용할 수 있습니다.
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
-### 최상위 프로퍼티의 지연 초기화
+### 최상위 프로퍼티의 지연 초기화 {id="lazy-initialization-of-top-level-properties"}
 
 > 최상위 프로퍼티의 지연 초기화(Lazy initialization)는 [실험적(Experimental)](components-stability.md)입니다. 이 기능은 언제든지 중단되거나 변경될 수 있습니다. 명시적인 동의(Opt-in)가 필요하며(아래 상세 내용 참조), 평가 목적으로만 사용해야 합니다. [YouTrack](https://youtrack.jetbrains.com/issue/KT-44320)을 통한 여러분의 피드백을 기다리고 있습니다.
 >
@@ -234,17 +234,17 @@ Kotlin/JS용 [IR 백엔드](js-ir-compiler.md)에 최상위 프로퍼티(top-lev
 
 지연 초기화를 사용하려면 JS IR 컴파일러로 코드를 컴파일할 때 `-Xir-property-lazy-initialization` 컴파일러 옵션을 추가하세요.
 
-## Gradle 프로젝트 개선 사항
+## Gradle 프로젝트 개선 사항 {id="gradle-project-improvements"}
 
-### Gradle 구성 캐시 지원
+### Gradle 구성 캐시 지원 {id="support-the-gradle-configuration-cache"}
 
 1.4.30부터 Kotlin Gradle 플러그인은 [구성 캐시(configuration cache)](https://docs.gradle.org/current/userguide/configuration_cache.html) 기능을 지원합니다. 이는 빌드 프로세스의 속도를 높여줍니다. 명령을 실행하면 Gradle이 구성 단계를 수행하고 태스크 그래프를 계산합니다. Gradle은 그 결과를 캐시하고 이후 빌드에서 이를 재사용합니다.
 
 이 기능을 사용하려면 [Gradle 명령을 사용](https://docs.gradle.org/current/userguide/configuration_cache.html#config_cache:usage)하거나 [IntelliJ 기반 IDE를 설정](https://docs.gradle.org/current/userguide/configuration_cache.html#config_cache:ide:intellij)하면 됩니다.
 
-## 표준 라이브러리 (Standard library)
+## 표준 라이브러리 (Standard library) {id="standard-library"}
 
-### 대/소문자 변환을 위한 로캘 중립적 API
+### 대/소문자 변환을 위한 로캘 중립적 API {id="locale-agnostic-api-for-upper-lowercasing-text"}
 
 > 로캘 중립적(locale-agnostic) API 기능은 [실험적(Experimental)](components-stability.md)입니다. 이 기능은 언제든지 중단되거나 변경될 수 있습니다. 평가 목적으로만 사용하세요. [YouTrack](https://youtrack.jetbrains.com/issue/KT-42437)을 통한 여러분의 피드백을 기다리고 있습니다.
 >
@@ -285,7 +285,7 @@ Kotlin 1.4.30은 다음과 같은 대안을 제공합니다:
 
 텍스트 처리 함수의 전체 변경 목록은 [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/stdlib/locale-agnostic-string-conversions.md)에서 확인할 수 있습니다.
 
-### 명확한 Char-to-code 및 Char-to-digit 변환
+### 명확한 Char-to-code 및 Char-to-digit 변환 {id="clear-char-to-code-and-char-to-digit-conversions"}
 
 > `Char` 변환을 위한 명확한 API 기능은 [실험적(Experimental)](components-stability.md)입니다. 이 기능은 언제든지 중단되거나 변경될 수 있습니다. 평가 목적으로만 사용하세요. [YouTrack](https://youtrack.jetbrains.com/issue/KT-44333)을 통한 여러분의 피드백을 기다리고 있습니다.
 >
@@ -323,14 +323,14 @@ Kotlin 1.4.30은 다음과 같은 대안을 제공합니다:
 
 자세한 내용은 [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/stdlib/char-int-conversions.md)에서 확인하세요.
 
-## Serialization 업데이트
+## Serialization 업데이트 {id="serialization-updates"}
 
 Kotlin 1.4.30과 함께 몇 가지 새로운 기능을 포함한 `kotlinx.serialization` [1.1.0-RC](https://github.com/Kotlin/kotlinx.serialization/releases/tag/v1.1.0-RC)를 출시합니다.
 
 * 인라인 클래스 직렬화 지원
 * 부호 없는 프리미티브 타입(Unsigned primitive type) 직렬화 지원
 
-### 인라인 클래스 직렬화 지원
+### 인라인 클래스 직렬화 지원 {id="inline-classes-serialization-support"}
 
 Kotlin 1.4.30부터 인라인 클래스를 [직렬화 가능(serializable)](serialization.md)하게 만들 수 있습니다:
 
@@ -347,7 +347,7 @@ inline class Color(val rgb: Int)
 
 자세한 내용은 `kotlinx.serialization` [문서](https://github.com/Kotlin/kotlinx.serialization/blob/master/docs/inline-classes.md#serializable-inline-classes)에서 확인하세요.
 
-### 부호 없는 프리미티브 타입 직렬화 지원
+### 부호 없는 프리미티브 타입 직렬화 지원 {id="unsigned-primitive-type-serialization-support"}
 
 1.4.30부터 부호 없는 프리미티브 타입인 `UInt`, `ULong`, `UByte`, `UShort`에 대해 [kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization)의 표준 JSON 직렬화기(serializers)를 사용할 수 있습니다:
 

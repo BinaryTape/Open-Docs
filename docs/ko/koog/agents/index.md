@@ -15,7 +15,7 @@ Koog 에이전트는 다음과 같은 핵심 개념을 중심으로 구축됩니
 
     최소한의 에이전트를 생성하고 실행하는 방법에 대한 정보는 [퀵스타트](../quickstart.md)를 참조하세요.
 
-## Agent types
+## Agent types {id="agent-types"}
 
 수행해야 하는 작업에 따라 Koog는 여러 에이전트 유형을 제공합니다:
 
@@ -24,7 +24,7 @@ Koog 에이전트는 다음과 같은 핵심 개념을 중심으로 구축됩니
 - [함수형 에이전트(Functional agents)](functional-agents.md)는 에이전트의 컨텍스트에 접근할 수 있는 함수로서 커스텀 로직을 신속하게 프로토타이핑할 수 있게 해줍니다.
 - [플래너 에이전트(Planner agents)](planner-agents/index.md)는 원하는 최종 상태에 도달할 때까지 반복적인 사이클을 통해 다단계 작업을 자율적으로 계획하고 실행할 수 있습니다.
 
-## Agent configuration
+## Agent configuration {id="agent-configuration"}
 
 에이전트 설정(Agent configuration)은 초기 프롬프트, 언어 모델, 반복 횟수 제한을 포함한 에이전트의 실행 파라미터를 정의합니다.
 

@@ -51,7 +51,7 @@ fun main() {
 > 
 {style="note"}
 
-## 命名引數
+## 命名引數 {id="named-arguments"}
 
 為了使程式碼簡潔，呼叫函式時可以不包含參數名稱。然而，包含參數名稱確實能讓程式碼更容易閱讀。這稱為使用 **命名引數**。如果您包含參數名稱，則可以按任意順序撰寫參數。
 
@@ -72,7 +72,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-named-arguments-function"}
 
-## 預設參數值
+## 預設參數值 {id="default-parameter-values"}
 
 您可以為函式參數定義預設值。呼叫函式時，可以省略任何具有預設值的參數。要宣告預設值，請在型別後使用指派運算子 `=`:
 
@@ -100,7 +100,7 @@ fun main() {
 >
 {style="note"}
 
-## 不具傳回值的函式
+## 不具傳回值的函式 {id="functions-without-return"}
 
 如果您的函式不傳回有用的值，則其傳回型別為 `Unit`。`Unit` 是一種只有一個值 — `Unit` 的型別。您不必在函式主體中明確宣告傳回 `Unit`。這意味著您不必使用 `return` 關鍵字或宣告傳回型別：
 
@@ -117,7 +117,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-unit-function"}
 
-## 單一運算式函式
+## 單一運算式函式 {id="single-expression-functions"}
 
 為了使程式碼更簡潔，您可以使用單一運算式函式。例如，`sum()` 函式可以縮短：
 
@@ -151,7 +151,7 @@ fun main() {
 > 
 {style="note"}
 
-## 函式中的提前回傳
+## 函式中的提前回傳 {id="early-returns-in-functions"}
 
 要停止函式中的程式碼處理到某一點之後，請使用 `return` 關鍵字。此範例使用 `if`，如果條件運算式為真，則提前從函式中傳回：
 
@@ -189,7 +189,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-function-early-return"}
 
-## 函式練習
+## 函式練習 {id="functions-practice"}
 
 ### 練習 1 {initial-collapse-state="collapsed" collapsible="true" id="functions-exercise-1"}
 
@@ -293,7 +293,7 @@ fun main() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="範例解答" id="kotlin-tour-functions-solution-3"}
 
-## Lambda 運算式
+## Lambda 運算式 {id="lambda-expressions"}
 
 Kotlin 允許您透過使用 Lambda 運算式來撰寫更簡潔的函式程式碼。
 
@@ -350,7 +350,7 @@ Lambda 運算式可以透過多種方式使用。您可以：
 * [從函式傳回 Lambda 運算式](#return-from-a-function)
 * [單獨叫用 Lambda 運算式](#invoke-separately)
 
-### 傳遞給另一個函式
+### 傳遞給另一個函式 {id="pass-to-another-function"}
 
 將 Lambda 運算式傳遞給函式的一個很好的例子是，在集合上使用 [`.filter()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/filter.html) 函式：
 
@@ -418,7 +418,7 @@ fun main() {
 * `{ x -> x * 2 }` 取得列表的每個元素並傳回該元素乘以 2。
 * `{ x -> x * 3 }` 取得列表的每個元素並傳回該元素乘以 3。
 
-### 函式型別
+### 函式型別 {id="function-types"}
 
 在您可以從函式傳回 Lambda 運算式之前，您首先需要了解 **函式型別**。
 
@@ -453,7 +453,7 @@ fun main() {
 >
 {style="note"}
 
-### 從函式傳回
+### 從函式傳回 {id="return-from-a-function"}
 
 Lambda 運算式可以從函式傳回。為了讓編譯器了解 Lambda 運算式傳回的型別，您必須宣告一個函式型別。
 
@@ -479,7 +479,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-lambda-return-from-function"}
 
-### 單獨叫用
+### 單獨叫用 {id="invoke-separately"}
 
 Lambda 運算式可以單獨叫用，方法是在花括號 `{}` 後添加圓括號 `()` 並在圓括號內包含任何參數：
 
@@ -493,7 +493,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-lambda-standalone"}
 
-### 尾隨 Lambda
+### 尾隨 Lambda {id="trailing-lambdas"}
 
 如您所見，如果 Lambda 運算式是唯一的函式參數，您可以省略函式圓括號 `()`。如果 Lambda 運算式作為函式的最後一個參數傳遞，則該運算式可以寫在函式圓括號 `()` 之外。在這兩種情況下，這種語法都稱為 **尾隨 Lambda**。
 
@@ -517,7 +517,7 @@ fun main() {
 
 我們導覽的下一步是了解 Kotlin 中的 [類別](kotlin-tour-classes.md)。
 
-## Lambda 運算式練習 {completion-point="true"}
+## Lambda 運算式練習 {completion-point="true" id="lambda-expressions-practice"}
 
 ### 練習 1 {initial-collapse-state="collapsed" collapsible="true" id="lambdas-exercise-1"}
 

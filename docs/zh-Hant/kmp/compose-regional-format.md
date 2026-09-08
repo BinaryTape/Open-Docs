@@ -4,7 +4,7 @@
 這些包括數字、日期、時間和貨幣的格式化。
 這些模式由系統的地區設定或在應用程式中設定的自訂地區設定決定，確保跨平台資料顯示的一致性。
 
-## 地區格式化模式
+## 地區格式化模式 {id="locale-formatting-patterns"}
 
 Compose Multiplatform 中的格式化遵循特定平台的地區設定慣例：
 
@@ -60,7 +60,7 @@ fun RegionalFormatExample() {
 }
 ```
 
-## 確保格式一致
+## 確保格式一致 {id="ensure-consistent-formatting"}
 
 雖然目前沒有用於統一多平台解決方案的通用 API，但在大多數情況下格式化行為仍然是一致的。
 若要確保所有支援地區的格式化皆正確：
@@ -68,6 +68,6 @@ fun RegionalFormatExample() {
 * 測試邊緣情況，例如大數值、負值或零。
 * 在所有目標平台上驗證所有支援地區設定的格式化。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 進一步了解如何管理應用程式的 [資源環境](compose-resource-environment.md)，例如應用程式內的佈景主題和語言。

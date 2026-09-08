@@ -208,7 +208,7 @@ fun html(init: HTML.() -> Unit): HTML {
 ```
 {collapsible="true" collapsed-title="示例输出"}
 
-## 工作原理
+## 工作原理 {id="how-it-works"}
 
 假设你需要在一个 Kotlin 中实现一个类型安全构建器。
 首先，定义你想要构建的模型。在这种情况下，你需要为 HTML 标签建模。
@@ -324,7 +324,7 @@ operator fun String.unaryPlus() {
 
 所有这些都定义在 `com.example.html` 软件包中，该软件包已在上述构建器示例的顶部导入。在最后一节中，你可以阅读该软件包的完整定义。
 
-## 作用域控制：@DslMarker
+## 作用域控制：@DslMarker {id="scope-control-dslmarker"}
 
 在使用 DSL 时，可能会遇到上下文内可以调用的函数过多的问题。
 你可以在 lambda 内部调用每个可用的 [隐式接收者](lambdas.md#function-literals-with-receiver) 的方法，从而导致不一致的结果，例如在另一个 `head` 内部定义 `head` 标签：
@@ -468,7 +468,7 @@ fun test(head: HtmlTag, extraInfo: HtmlTag) {
 }
 ```
 
-### com.example.html 软件包的完整定义
+### com.example.html 软件包的完整定义 {id="full-definition-of-the-com-example-html-package"}
 
 以下是 `com.example.html` 软件包的定义方式（仅包含上述示例中使用的元素）。
 它构建了一个 HTML 树。它大量使用了 [扩展函数](extensions.md) 和 [带接收者的 lambda](lambdas.md#function-literals-with-receiver)。

@@ -9,7 +9,7 @@ API 정의는 [KSP GitHub 저장소](https://github.com/google/ksp/tree/main/api
 >
 {style="note"}
 
-## 타입 및 해소 (Type and resolution)
+## 타입 및 해소 (Type and resolution) {id="type-and-resolution"}
 
 해소(resolution)는 기본 API 구현 비용의 대부분을 차지합니다. 따라서 타입 참조(type reference)는 (몇 가지 예외를 제외하고) 프로세서에 의해 명시적으로 해소되도록 설계되었습니다. `KSFunctionDeclaration.returnType`이나 `KSAnnotation.annotationType`과 같이 _타입(type)_이 참조될 때, 이는 항상 애노테이션과 수정자(modifier)를 가진 `KSReferenceElement`인 `KSTypeReference`가 됩니다.
 

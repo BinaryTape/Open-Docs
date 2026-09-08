@@ -14,7 +14,7 @@
 * [KotlinでCの文字列を読み取る](#read-c-strings-in-kotlin)
 * [Cの文字列バイトをKotlinの文字列として受け取る](#receive-c-string-bytes-from-kotlin)
 
-## Cの文字列を扱う
+## Cの文字列を扱う {id="working-with-c-strings"}
 
 Cには専用の文字列型はありません。メソッドのシグネチャやドキュメントから、特定のコンテキストにおいて `char *` がCの文字列を表しているかどうかを判断する必要があります。
 
@@ -62,7 +62,7 @@ KotlinとCの間で文字列がどのようにマッピングされるかを理�
 
 `interop.def` ファイルは、アプリケーションのコンパイル、実行、またはIDEでの展開に必要なすべての情報を提供します。
 
-## Cライブラリ用に生成されたKotlin APIを確認する
+## Cライブラリ用に生成されたKotlin APIを確認する {id="inspect-generated-kotlin-apis-for-a-c-library"}
 
 Cの文字列宣言がKotlin/Nativeにどのようにマッピングされるか見てみましょう：
 
@@ -94,7 +94,7 @@ Cの文字列宣言がKotlin/Nativeにどのようにマッピングされるか
 
 生成されたKotlinの宣言では、`str` は `CValuesRef<ByteVarOf<Byte>>?` として定義されています。この型はNullable（ヌル許容）であるため、引数の値として `null` を渡すことができます。
 
-## Kotlinの文字列をCに渡す
+## Kotlinの文字列をCに渡す {id="pass-kotlin-strings-to-c"}
 
 KotlinからAPIを使用してみましょう。まず `pass_string()` 関数を呼び出します：
 
@@ -112,7 +112,7 @@ fun passStringToC() {
 
 `String.cstr` [拡張プロパティ](extensions.md#extension-properties) のおかげで、Kotlinの文字列をCに渡すのは簡単です。UTF-16文字を含むケースには `String.wcstr` プロパティもあります。
 
-## KotlinでCの文字列を読み取る
+## KotlinでCの文字列を読み取る {id="read-c-strings-in-kotlin"}
 
 次に、`return_string()` 関数から返された `char *` を受け取り、それをKotlinの文字列に変換します：
 
@@ -140,7 +140,7 @@ fun CPointer<ShortVarOf<Short>>.toKStringFromUtf16(): String // UTF-16エンコ�
 fun CPointer<IntVarOf<Int>>.toKStringFromUtf32(): String // UTF-32エンコードされた文字列を変換
 ```
 
-## Cの文字列バイトをKotlinの文字列として受け取る
+## Cの文字列バイトをKotlinの文字列として受け取る {id="receive-c-string-bytes-from-kotlin"}
 
 今回は、`copy_string()` C関数を使用して、指定されたバッファにC의 文字列を書き込みます。この関数は2つの引数を取ります：文字列が書き込まれるメモリ位置へのポインタと、許可されるバッファサイズです。
 
@@ -168,7 +168,7 @@ fun sendString() {
 
 ここでは、まずネイティブポインタをC関数に渡しています。[`.usePinned()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/use-pinned.html) 拡張関数は、バイト配列のネイティブメモリアドレスを一時的にピン留め（固定）します。C関数はそのバイト配列にデータを書き込みます。もう一つの拡張関数である `ByteArray.decodeToString()` は、UTF-8エンコーディングを想定してバイト配列をKotlinの文字列に変換します。
 
-## Kotlinコードの更新
+## Kotlinコードの更新 {id="update-kotlin-code"}
 
 KotlinコードでCの宣言を使用する方法を学んだので、これらをプロジェクトで使用してみましょう。最終的な `hello.kt` ファイルのコードは以下のようになります：
  
@@ -208,6 +208,6 @@ fun main() {
   </li>
 </list>
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 より高度なシナリオをカバーしている [Cとの相互運用性](native-c-interop.md) ドキュメントで詳細を確認してください。

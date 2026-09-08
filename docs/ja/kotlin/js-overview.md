@@ -10,7 +10,7 @@ Kotlin Multiplatform Gradleプラグインを使用すると、アプリケー�
 >
 {style="tip"}
 
-## Kotlin/JSのユースケース
+## Kotlin/JSのユースケース {id="use-cases-for-kotlin-js"}
 
 Kotlin/JSの一般的な活用方法は以下の通りです。
 
@@ -47,13 +47,13 @@ Kotlinコードからサードパーティライブラリを使用するには�
 
 Kotlin/JSは、[ESM](https://tc39.es/ecma262/#sec-modules)、[CommonJS](https://nodejs.org/api/modules.html#modules-commonjs-modules)、[UMD](https://github.com/umdjs/umd)、[AMD](https://github.com/amdjs/amdjs-api)といった主要なモジュールシステムとも互換性があります。これにより、構造化された方法で[モジュールを作成および利用](js-modules.md)し、JavaScriptエコシステムと統合できます。
 
-### ユースケースの共有
+### ユースケースの共有 {id="share-your-use-cases"}
 
 [Kotlin/JSのユースケース](#kotlinjsのユースケース)に挙げたリストがすべてではありません。さまざまなアプローチを試して、あなたのプロジェクトに最適な方法を見つけてください。
 
 あなたのユースケース、経験、質問などは、[Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)の[#javascript](https://kotlinlang.slack.com/archives/C0B8L3U69)チャンネルでKotlin/JSコミュニティと共有してください。
 
-## Kotlin/JSを始める
+## Kotlin/JSを始める {id="get-started-with-kotlin-js"}
 
 Kotlin/JSでの開発を始めるための基本事項と最初のステップを確認しましょう。
 
@@ -65,7 +65,7 @@ Kotlin/JSを自分で試してみませんか？
 
 <a href="js-get-started.md" as="button" mode="rock" icon="arrow-right" icon-position="right">Kotlin/JSを始める</a>
 
-## Kotlin/JSのサンプルプロジェクト
+## Kotlin/JSのサンプルプロジェクト {id="sample-projects-for-kotlin-js"}
 
 以下の表は、さまざまなKotlin/JSのユースケース、アーキテクチャ、およびコード共有戦略を示すサンプルプロジェクトのリストです。
 
@@ -77,17 +77,17 @@ Kotlin/JSを自分で試してみませんか？
 | [Simple logic sharing between Android, iOS, and web](https://github.com/Kotlin/kmp-logic-sharing-simple-example/#readme) | Kotlinで共通ロジックを構築し、それをAndroid（[Jetpack Compose](https://developer.android.com/compose)）、iOS（[SwiftUI](https://developer.apple.com/tutorials/swiftui/)）、Web（[React](https://react.dev/)）の各プラットフォームネイティブUIアプリケーションで利用するためのテンプレートが含まれています。 |
 | [Full-stack collaborative to-do list](https://github.com/kotlin-hands-on/jvm-js-fullstack/#readme) | JSとJVMターゲットを持つKotlin Multiplatformを使用して、共同作業用のToDoリストアプリケーションを作成する方法を示します。バックエンドには[Ktor](https://ktor.io/)、フロントエンドにはReactを用いたKotlin/JSを使用しています。 |
 
-## Kotlin/JSフレームワーク
+## Kotlin/JSフレームワーク {id="kotlin-js-frameworks"}
 
 Kotlin/JSフレームワークは、モダンなWebアプリケーションを構築するためのコンポーネント、ルーティング、状態管理、その他のツールを提供することで、Web開発を簡素化します。
 
 [さまざまな作者によって作成された、Kotlin/JSで利用可能なフレームワークを確認してください](js-frameworks.md)。
 
-## Kotlin/JSコミュニティに参加する
+## Kotlin/JSコミュニティに参加する {id="join-the-kotlin-js-community"}
 
 公式の[Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)にある[#javascript](https://kotlinlang.slack.com/archives/C0B8L3U69)チャンネルに参加して、コミュニティやKotlin/JSチームとチャットできます。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [Kotlin/JSプロジェクトの設定](js-project-setup.md)
 * [Kotlin/JSプロジェクトの実行](running-kotlin-js.md)

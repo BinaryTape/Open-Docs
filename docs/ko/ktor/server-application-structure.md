@@ -13,7 +13,7 @@ Ktor 애플리케이션은 프로젝트 규모, 도메인 복잡성 및 배포 �
 > 이 페이지는 애플리케이션 수준의 구조에 초점을 맞춥니다. 라우트 구성에 대한 자세한 내용은 [라우팅 구성(Routing organization)](server-routing-organization.md)을 참조하세요.
 >
 
-## 기본 프로젝트 구조
+## 기본 프로젝트 구조 {id="default-project-structure"}
 
 [Ktor 프로젝트 생성기(Ktor project generator)](https://start.ktor.io/)를 사용하여 Ktor 프로젝트를 생성하면, 결과 프로젝트는 단일 모듈 구조를 사용합니다. 이 레이아웃은 최소한의 구성으로 Ktor 애플리케이션을 빠르게 시작하고 실행할 수 있도록 설계되었습니다.
 
@@ -181,7 +181,7 @@ server/                               // Ktor 서버 애플리케이션 (도메�
 └─ Orders.kt                          // 주문 HTTP 라우트
 ```
 
-### 도메인 계층
+### 도메인 계층 {id="domain-layer"}
 
 도메인 계층은 Ktor와 독립적으로 유지됩니다. 다음과 같은 요소를 통해 비즈니스 규칙을 정의합니다.
 
@@ -239,7 +239,7 @@ data class CustomerContactAdded(
 ```
 이러한 요소들은 함께 인프라 세부 사항을 분리하면서도 풍부한 도메인 모델을 지원합니다.
 
-### 애플리케이션 및 라우팅 계층
+### 애플리케이션 및 라우팅 계층 {id="application-and-routing-layer"}
 
 로직과 상태를 모두 관리하는 서비스를 주입하여 각 도메인을 자체 라우트 파일 또는 모듈 함수를 통해 노출합니다.
 
@@ -307,7 +307,7 @@ service-order/
 
 이 구조에서 각 서비스는 격리된 도메인 조각을 소유하고 내부적으로 모듈화된 상태를 유지하며 서비스 검색(service discovery), 메트릭 및 외부 설정과 통합됩니다.
 
-### 진입점(Entry points)
+### 진입점(Entry points) {id="entry-points"}
 
 Ktor는 다음과 같은 미리 만들어진 엔진 진입점을 제공합니다.
 
@@ -319,7 +319,7 @@ io.ktor.server.cio.EngineMain
 
 애플리케이션 모듈은 모든 소스 파일에서 정의할 수 있으며 [설정(configuration)](server-configuration-file.topic)에 따라 엔진에 의해 로드됩니다.
 
-### 모듈리스(Modulith) 배포
+### 모듈리스(Modulith) 배포 {id="modulith-deployment"}
 
 완전히 독립적인 마이크로서비스 대신, 서비스를 나타내는 여러 Gradle 모듈을 독립적으로 패키징하되 단일 Ktor 애플리케이션에서 함께 배포할 수 있습니다. 이 접근 방식을 흔히 모듈리스(modulith)라고 합니다.
 

@@ -4,7 +4,7 @@ title: Koin
 
 プロジェクトにKoinをセットアップするために必要なすべてのこと
 
-## 現在のバージョン
+## 現在のバージョン {id="current-versions"}
 
 すべてのKoinパッケージは [Maven Central](https://central.sonatype.com/search?q=io.insert-koin+koin-core&sort=name) で確認できます。
 
@@ -13,7 +13,7 @@ title: Koin
 - Koin 安定版 [![Maven Central](https://img.shields.io/maven-central/v/io.insert-koin/koin-core?label=stable)](https://mvnrepository.com/artifact/io.insert-koin/koin-core)
 - Koin 最新版 [![Maven Central](https://img.shields.io/maven-central/v/io.insert-koin/koin-core)](https://mvnrepository.com/artifact/io.insert-koin/koin-core)
 
-## Koin BOM (推奨)
+## Koin BOM (推奨) {id="koin-bom-recommended"}
 
 :::info
 **ベストプラクティス**: すべてのKoinライブラリのバージョンを一貫して管理するために、Koin BOM（Bill of Materials）を使用してください。これはすべてのプロジェクトで推奨される方法です。
@@ -21,7 +21,7 @@ title: Koin
 
 KoinのBOM（Bill of Materials）を使用すると、BOMのバージョンを指定するだけで、すべてのKoinライブラリのバージョンを管理できます。BOM自体が、相互に適切に動作するさまざまなKoinライブラリの安定版へのリンクを保持しています。アプリでBOMを使用する場合、各Koinライブラリの依存関係に個別のバージョンを追加する必要はありません。BOMのバージョンを更新すると、使用しているすべてのライブラリが自動的に新しいバージョンに更新されます。
 
-### バージョンカタログ（Version Catalogs）で BOM を使用する (推奨)
+### バージョンカタログ（Version Catalogs）で BOM を使用する (推奨) {id="using-bom-with-version-catalogs-recommended"}
 
 `gradle/libs.versions.toml` 内：
 
@@ -50,7 +50,7 @@ dependencies {
 }
 ```
 
-### バージョンカタログを使用せずに BOM を使用する
+### バージョンカタログを使用せずに BOM を使用する {id="using-bom-without-version-catalogs"}
 
 ```kotlin
 dependencies {
@@ -71,9 +71,9 @@ dependencies {
 }
 ```
 
-## プラットフォーム固有のセットアップ
+## プラットフォーム固有のセットアップ {id="platform-specific-setup"}
 
-### Kotlin
+### Kotlin {id="kotlin"}
 
 アプリケーションに Koin BOM と `koin-core` の依存関係を追加します：
 
@@ -119,7 +119,7 @@ dependencies {
 **次のステップ**: [Kotlinアプリ チュートリアル](/docs/quickstart/kotlin) に進むか、[コア機能](/docs/reference/koin-core/dsl) を参照してください。
 :::
 
-### Android
+### Android {id="android"}
 
 Androidアプリケーションに `koin-android` の依存関係を追加します：
 
@@ -165,7 +165,7 @@ dependencies {
 **次のステップ**: [Androidアプリ チュートリアル](/docs/quickstart/android-viewmodel) に進むか、統合の詳細について [AndroidでのKoinの開始](/docs/reference/koin-android/start) を参照してください。
 :::
 
-### Jetpack Compose または Compose Multiplatform
+### Jetpack Compose または Compose Multiplatform {id="jetpack-compose-or-compose-multiplatform"}
 
 **Compose Multiplatform** (Android, iOS, Desktop, Web) の場合は、以下の依存関係を追加します：
 
@@ -205,7 +205,7 @@ Navigation 3 はアルファ版です。詳細は [Navigation 3 統合](/docs/re
 **次のステップ**: [Compose チュートリアル](/docs/quickstart/android-compose) に進むか、統合の詳細について [Koin Compose](/docs/reference/koin-compose/compose) を参照してください。
 :::
 
-### Kotlin Multiplatform
+### Kotlin Multiplatform {id="kotlin-multiplatform"}
 
 `shared/build.gradle.kts` で、`commonMain` に `koin-core` の依存関係を追加します：
 
@@ -228,7 +228,7 @@ kotlin {
 **次のステップ**: プラットフォーム固有のセットアップ、expect/actual パターン、およびアーキテクチャのガイダンスについては、[Kotlin Multiplatform with Koin](/docs/reference/koin-mp/kmp) を参照してください。
 :::
 
-### Ktor
+### Ktor {id="ktor"}
 
 Ktorアプリケーションに `koin-ktor` の依存関係を追加します：
 
@@ -257,7 +257,7 @@ fun Application.main() {
 **次のステップ**: [Ktorアプリ チュートリアル](/docs/quickstart/ktor) に進むか、セットアップの詳細について [Ktor 統合](/docs/reference/koin-ktor/ktor) を参照してください。
 :::
 
-## 代替案：バージョンの直接指定
+## 代替案：バージョンの直接指定 {id="alternative-direct-version-specification"}
 
 BOMを使用したくない場合は、各依存関係のバージョンを直接指定できます：
 

@@ -4,7 +4,7 @@
 기본 설정, 에러 처리 및 상태 관리에 대한 모범 사례를 따르면 라이브러리의 무결성과 품질을 유지하면서 
 사용자에게 원활한 경험을 제공할 수 있습니다.
 
-## 기본적으로 올바르게 동작하게 하기
+## 기본적으로 올바르게 동작하게 하기 {id="do-the-right-thing-by-default"}
 
 라이브러리는 각 사용 사례에 대한 "해피 패스(happy path)"를 예측하고 그에 따라 기본 설정을 제공해야 합니다.
 사용자가 라이브러리를 올바르게 작동시키기 위해 기본값을 직접 제공할 필요가 없어야 합니다.
@@ -23,7 +23,7 @@ val response: HttpResponse = client.get("https://ktor.io/")
 사용 사례에 명확한 "해피 패스"가 없거나, 매개변수에 기본값이 있어야 하지만 논란의 여지가 없는 옵션이 없다면, 
 이는 요구사항 분석에 결함이 있음을 나타낼 가능성이 높습니다.
 
-## 확장의 기회 제공하기
+## 확장의 기회 제공하기 {id="allow-opportunities-for-extension"}
 
 올바른 선택을 예측할 수 없는 경우, 사용자가 선호하는 방식을 지정할 수 있도록 하세요.
 라이브러리는 또한 사용자가 자신만의 방식을 제공하거나 서드파티 확장을 사용할 수 있도록 허용해야 합니다.
@@ -48,7 +48,7 @@ val client = HttpClient(CIO) {
 라이브러리 제작자는 [확장을 고려한 설계](api-guidelines-readability.md#use-extension-functions-and-properties)를 하고, 
 라이브러리 타입이 명확한 핵심 개념을 갖도록 함으로써 이를 더 쉽게 만들 수 있습니다.
 
-## 원치 않거나 유효하지 않은 확장 방지하기
+## 원치 않거나 유효하지 않은 확장 방지하기 {id="prevent-unwanted-and-invalid-extensions"}
 
 사용자가 원래 설계를 위반하거나 문제 도메인의 규칙 내에서 불가능한 방식으로 라이브러리를 확장할 수 없어야 합니다.
 
@@ -72,7 +72,7 @@ object JsonNull : JsonElement
 봉인된 타입은 또한 컴파일러가 `else` 문 없이도 `when` 표현식이 모든 경우를 다루는지(exhaustive) 확인할 수 있게 하여 
 가독성과 일관성을 향상시킵니다.
 
-## 가변 상태 노출 피하기
+## 가변 상태 노출 피하기 {id="avoid-exposing-mutable-state"}
 
 여러 값을 관리할 때, API는 가능하면 읽기 전용 컬렉션을 받거나 반환해야 합니다.
 가변(mutable) 컬렉션은 스레드 안전하지 않으며 라이브러리에 복잡성과 예측 불가능성을 초래합니다.
@@ -107,7 +107,7 @@ fun main() {
 }
 ```
 
-## 입력 및 상태 검증하기
+## 입력 및 상태 검증하기 {id="validate-inputs-and-state"}
 
 구현이 진행되기 전에 입력과 기존 상태를 검증하여 라이브러리가 올바르게 사용되는지 확인하세요.
 입력을 검증하려면 [`require`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/require.html) 함수를 사용하고, 기존 상태를 검증하려면 [`check`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/check.html) 함수를 사용하세요.
@@ -153,7 +153,7 @@ class ShoppingCart {
 }
 ```
 
-## 다음 단계
+## 다음 단계 {id="next-step"}
 
 가이드의 다음 파트에서는 디버깅 용이성(debuggability)에 대해 알아봅니다.
 

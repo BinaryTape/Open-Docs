@@ -6,12 +6,12 @@
 - [聊天代理策略](#chat-agent-strategy)
 - [ReAct 策略](#react-strategy)
 
-## 聊天代理策略
+## 聊天代理策略 {id="chat-agent-strategy"}
 
 聊天代理策略（Chat agent strategy）旨在执行聊天交互流程。
 它协调不同阶段、节点和工具之间的交互，以类聊天的方式处理用户输入、执行工具并提供响应。
 
-### 概览
+### 概览 {id="overview"}
 
 聊天代理策略实现了一种模式，在此模式下代理执行以下操作：
 
@@ -23,7 +23,7 @@
 
 这种方法创建了一个对话式界面，代理可以使用工具来满足用户请求。
 
-### 设置与依赖项
+### 设置与依赖项 {id="setup-and-dependencies"}
 
 Koog 中聊天代理策略的实现是通过 `chatAgentStrategy` 函数完成的。要使该函数在您的代理代码中可用，请添加以下依赖项导入：
 
@@ -85,7 +85,7 @@ ai.koog.agents.ext.agent.chatAgentStrategy
     ```
     <!--- KNIT examplePredefinedStrategiesJava01.java -->
 
-### 何时使用聊天代理策略
+### 何时使用聊天代理策略 {id="when-to-use-the-chat-agent-strategy"}
 
 聊天代理策略特别适用于：
 
@@ -94,7 +94,7 @@ ai.koog.agents.ext.agent.chatAgentStrategy
 - 实现需要访问外部系统或数据的聊天机器人
 - 想要强制使用工具而非纯文本响应的场景
 
-### 示例
+### 示例 {id="example"}
 
 以下是一个实现预定义聊天代理策略 (`chatAgentStrategy`) 以及代理可能使用的工具的 AI 代理代码示例：
 
@@ -186,7 +186,7 @@ ai.koog.agents.ext.agent.chatAgentStrategy
     ```
     <!--- KNIT examplePredefinedStrategiesJava02.java -->
 
-## ReAct 策略
+## ReAct 策略 {id="react-strategy"}
 
 ReAct (Reasoning and Acting) 策略是一种 AI 代理策略，它在推理和执行阶段之间交替，以动态处理任务并请求大语言模型 (LLM) 的输出。
 
@@ -201,7 +201,7 @@ ReAct 策略实现了一种模式，在此模式下代理执行以下操作：
 
 这种方法结合了推理（逐步思考问题）和行动（执行工具以收集信息或执行操作）的优势。
 
-### 流程图
+### 流程图 {id="flow-diagram"}
 
 以下是 ReAct 策略的流程图：
 
@@ -273,7 +273,7 @@ Koog 中 ReAct 策略的实现是通过 `reActStrategy` 函数完成的。
     ```
     
 
-### 形参
+### 形参 {id="parameters"}
 
 `reActStrategy` 函数接受以下形参：
 
@@ -282,15 +282,15 @@ Koog 中 ReAct 策略的实现是通过 `reActStrategy` 函数完成的。
 | `reasoningInterval` | Int    | 1        | 指定推理步骤的间隔。必须大于 0。                         |
 | `name`              | String | `re_act` | 策略的名称。                                   |
 
-### 示例用例
+### 示例用例 {id="example-use-case"}
 
 以下是 ReAct 策略如何与简单的银行代理配合工作的示例：
 
-#### 1. 用户输入
+#### 1. 用户输入 {id="1-user-input"}
 
 用户发送初始提示词。例如，这可以是一个问题，如 `How much did I spend last month?`（上个月我花了多少钱？）。
 
-#### 2. 推理
+#### 2. 推理 {id="2-reasoning"}
 
 代理通过获取用户输入和推理提示词来执行初始推理。推理过程可能如下所示：
 
@@ -302,7 +302,7 @@ Koog 中 ReAct 策略的实现是通过 `reActStrategy` 函数完成的。
 ```
 <!--- KNIT example-predefined-strategies-02.txt -->
 
-#### 3. 行动与执行，第一阶段
+#### 3. 行动与执行，第一阶段 {id="3-action-and-execution-phase-1"}
 
 根据代理在上一步中定义的行动项，它运行一个工具来获取上个月的所有交易记录。
 
@@ -325,7 +325,7 @@ Koog 中 ReAct 策略的实现是通过 `reActStrategy` 函数完成的。
 ```
 <!--- KNIT example-predefined-strategies-04.txt -->
 
-#### 4. 推理
+#### 4. 推理 {id="4-reasoning"}
 
 利用工具返回的结果，代理再次进行推理，以确定其流程中的后续步骤：
 
@@ -336,7 +336,7 @@ Koog 中 ReAct 策略的实现是通过 `reActStrategy` 函数完成的。
 ```
 <!--- KNIT example-predefined-strategies-05.txt -->
 
-#### 5. 行动与执行，第二阶段
+#### 5. 行动与执行，第二阶段 {id="5-action-and-execution-phase-2"}
 
 根据之前的推理步骤，代理调用 `calculate_sum` 工具，该工具对作为工具实参提供的金额进行求和。由于推理还产生了从交易中移除正数金额的行动点，因此作为工具实参提供的金额仅为负数金额：
 
@@ -352,7 +352,7 @@ Koog 中 ReAct 策略的实现是通过 `reActStrategy` 函数完成的。
 ```
 <!--- KNIT example-predefined-strategies-07.txt -->
 
-#### 6. 最终响应
+#### 6. 最终响应 {id="6-final-response"}
 
 代理返回包含计算出的总和的最终响应（助手消息）：
 
@@ -361,7 +361,7 @@ Koog 中 ReAct 策略的实现是通过 `reActStrategy` 函数完成的。
 ```
 <!--- KNIT example-predefined-strategies-08.txt -->
 
-### 何时使用 ReAct 策略
+### 何时使用 ReAct 策略 {id="when-to-use-the-react-strategy"}
 
 ReAct 策略特别适用于：
 

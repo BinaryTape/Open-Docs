@@ -15,7 +15,7 @@ Kotlinのコレクションには、コレクションから単一の要素を�
 そのような場合でも、要素は何らかの形で順序付けられているため、要素の位置に依存する関数は結果を返します。
 ただし、使用されている`Set`の具体的な実装を知らない限り、そのような結果は呼び出し元にとって予測不能です。
 
-## 位置による取得
+## 位置による取得 {id="retrieve-by-position"}
 
 特定の順序（位置）にある要素を取得するために、[`elementAt()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/element-at.html)関数があります。
 整数を引数として呼び出すと、指定された位置にあるコレクションの要素が返されます。
@@ -69,7 +69,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 条件による取得
+## 条件による取得 {id="retrieve-by-condition"}
 
 関数 [`first()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/first.html) および [`last()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/last.html)
 を使用すると、指定された述語（predicate）に一致する要素をコレクションから検索することもできます。
@@ -121,7 +121,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## セレクターによる取得
+## セレクターによる取得 {id="retrieve-with-selector"}
 
 要素を取得する前にコレクションをマップ（変換）する必要がある場合は、[`firstNotNullOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/first-not-null-of.html) という関数があります。
 これは以下の2つのアクションを組み合わせたものです：
@@ -143,7 +143,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.5"}
 
-## ランダムな要素
+## ランダムな要素 {id="random-element"}
 
 コレクションの任意の要素を取得する必要がある場合は、[`random()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/random.html) 関数を呼び出します。
 引数なしで呼び出すことも、乱数生成のソースとして [`Random`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.random/-random/index.html) オブジェクトを指定して呼び出すこともできます。
@@ -161,7 +161,7 @@ fun main() {
 
 空のコレクションに対して `random()` を呼び出すと、例外がスローされます。代わりに `null` を受け取るには、[`randomOrNull()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/random-or-null.html) を使用してください。
 
-## 要素の存在確認
+## 要素の存在確認 {id="check-element-existence"}
 
 コレクション内に要素が存在するかどうかを確認するには、[`contains()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/contains.html) 関数を使用します。
 引数と `equals()` になるコレクション要素がある場合に `true` を返します。

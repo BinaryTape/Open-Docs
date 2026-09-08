@@ -6,11 +6,11 @@ Koin Compiler Pluginは、コンパイル時に依存関係グラフを検証し
 
 これは、`verify()` や `checkModules()` といった実行時の検証ツールに代わるものです。コンパイルが通れば、動作が保証されます。
 
-## 仕組み
+## 仕組み {id="how-it-works"}
 
 プラグインは、コンパイル中に以下の3つのレベルでグラフを検証します。
 
-### A2 — モジュール単位（早期フィードバック）
+### A2 — モジュール単位（早期フィードバック） {id="a2-per-module-early-feedback"}
 
 各モジュールの定義が、可視性のある定義（そのモジュール自身の定義、明示的にインクルードされたモジュール、および `@Configuration` ラベルを共有する兄弟モジュール）に対してチェックされます。
 
@@ -49,7 +49,7 @@ class ServiceModule         // Service(repo: Repository) → エラー
 - `T` が提供されていない `Lazy<T>`
 - `@Provided` がマークされていない外部依存関係
 
-### A3 — フルグラフ（完全な保証）
+### A3 — フルグラフ（完全な保証） {id="a3-full-graph-complete-guarantee"}
 
 `startKoin<T>()` において、すべてのソースからの全モジュールが組み立てられ、完全なグラフが検証されます。A2では確認できなかった、モジュール間の依存関係やJARからの定義など、すべてがここでチェックされます。
 
@@ -63,7 +63,7 @@ startKoin<MyApp> { }
 
 A3では、グラフの一部である場合のDSL定義（`single<T>()`、`factory<T>()` など）も検証されます。
 
-### A4 — コールサイトの検証
+### A4 — コールサイトの検証 {id="a4-call-site-validation"}
 
 コードベース内のすべての `koinViewModel<T>()`、`get<T>()`、`inject<T>()` の呼び出しがインターセプトされます。プラグインはターゲットの型、ファイル、行、列をキャプチャし、組み立てられたグラフ内に `T` が存在するかをチェックします。
 
@@ -82,7 +82,7 @@ class MyFragment : Fragment() {
 
 **モジュールを跨ぐコールサイト:** 機能（feature）モジュールが `koinViewModel<T>()` を呼び出しているが、フルグラフへの可視性がない場合、プラグインはコールサイトのヒント（hint）を生成します。アプリモジュールがコンパイルされる際に、依存関係にあるJARからこれらのヒントを見つけ出し、完全なグラフに対して検証を行います。
 
-## 検証される内容
+## 検証される内容 {id="what-gets-validated"}
 
 | シナリオ | 結果 |
 |----------|--------|
@@ -102,7 +102,7 @@ class MyFragment : Fragment() {
 | Android フレームワークの型 (例: `Context`) | OK — ハードコードされたホワイトリスト |
 | 循環参照 (A → B → A) | **エラー** — A2/A3 のグラフ探索中に検出 |
 
-## アノテーションによる安全性
+## アノテーションによる安全性 {id="safety-with-annotations"}
 
 クラスにアノテーションを付け、それらをモジュールに整理することで、コンパイラがすべてを検証します。
 
@@ -151,7 +151,7 @@ class CoreModule
 class FeatureModule  // CoreModule の定義を参照可能
 ```
 
-## DSL による安全性
+## DSL による安全性 {id="safety-with-dsl"}
 
 コンパイラプラグインは DSL 定義も検証します。`single<T>()`、`factory<T>()`、または `viewModel<T>()` を記述すると、プラグインはその呼び出しをインターセプトし、コンストラクタを自動でワイヤリング（接続）し、すべてのパラメータを検証します。
 
@@ -179,7 +179,7 @@ val appModule = module {
 
 DSL 定義は A3 検証（フルグラフ）および A4 検証（コールサイト）に参加します。`startKoin { modules(appModule) }` を使用すると、プラグインは組み立てられたグラフに対してすべての DSL 定義を検証します。
 
-## 両方のスタイルの併用
+## 両方のスタイルの併用 {id="both-styles-together"}
 
 同じプロジェクト内でアノテーションと DSL を混在させることができます。両方は同じ検証グラフに集約されます。
 
@@ -193,7 +193,7 @@ val featureModule = module {
 }
 ```
 
-## エラーメッセージ
+## エラーメッセージ {id="error-messages"}
 
 エラーは、欠落している型、それを必要としている定義、およびどのモジュールにあるかを報告します。
 
@@ -221,11 +221,11 @@ val featureModule = module {
   → file: UserScreen.kt, line: 12, column: 5
 ```
 
-## 禁止されている定義
+## 禁止されている定義 {id="forbidden-definitions"}
 
 一部の戻り値の型は Koin を通じて意味のある解決ができず、コンパイル時に拒否されます。
 
-### KOIN-D007: suspend `fun interface` を返す `@Factory`
+### KOIN-D007: suspend `fun interface` を返す `@Factory` {id="koin-d007-factory-returning-a-suspend-fun-interface"}
 
 suspend `fun interface` を拡張する型を返す `@Factory` は、Koin の同期的な `get<T>()` API を通じて呼び出すことができません。プラグインはこれをコンパイル時にブロックします。
 
@@ -239,7 +239,7 @@ fun provideTask(): AsyncTask = AsyncTask { ... }
 
 通常のインターフェースにリファクタリングするか、suspend メソッドを持つクラスを通じて suspend 操作を公開してください。
 
-## ジェネリック DSL 型
+## ジェネリック DSL 型 {id="generic-dsl-types"}
 
 実行時の Koin は、**型消去された生のクラス (erased raw class)** に基づいて定義を解決します。型パラメータはルックアップキーの一部ではありません。コンパイル時の安全性もこれに従います。`get<Box<X>>()` の呼び出しはグラフ内の任意の `Box<*>` プロバイダーに対して検証され、2つの `single<Box<A>>()` / `single<Box<B>>()` 宣言は衝突します（生のクラスが同じで、クオリファイアがないため）。
 
@@ -256,7 +256,7 @@ koin.get<Box<String>>() // → 同じ登録を返す (型消去のため)
 
 生のクラスで検証することにより、DSL 定義が置換されていない型パラメータを保持していた場合に iOS ビルドをクラッシュさせていた Kotlin/Native の klib シグネチャ・マングリングの失敗も回避できます。
 
-### ジェネリックインスタンスの識別: ジェネリックパラメータによる型クオリファイア
+### ジェネリックインスタンスの識別: ジェネリックパラメータによる型クオリファイア {id="discriminating-generic-instances-type-qualifier-on-the-generic-parameter"}
 
 同じジェネリッククラスの複数のインスタンスが共存する必要がある場合の慣用的なパターンは、**具体的なラッパー型**を登録し、**ジェネリックパラメータから派生した型クオリファイア**（`named<T>()`）を使用することです。これは `koin-compose-navigation3` が内部で行っていることで、各ナビゲーションルートをそのルート型に関連付けています。
 
@@ -287,7 +287,7 @@ koin.get<EntryProviderInstaller>(named<HomeRoute>())
 
 ジェネリックのインスタンス化を区別する必要がある場合は、直接 `single<Box<X>>()` を使用するよりも、常にこのパターンを優先してください。
 
-## スコープパラメータの注入
+## スコープパラメータの注入 {id="scope-parameter-injection"}
 
 `org.koin.core.scope.Scope` 型のパラメータには、自動的にスコープのレシーバーが注入されます。アノテーションは不要です。スコープを注入することで動的なルックアップが可能になるため、検証はスキップされます。
 
@@ -299,7 +299,7 @@ class ScopedService(val scope: Scope) {
 // 生成内容: ScopedService(scope) — スコープのレシーバーを直接渡す
 ```
 
-## 名前付きスコープの解決: `@ScopeId`
+## 名前付きスコープの解決: `@ScopeId` {id="named-scope-resolution-scopeid"}
 
 現在のスコープではなく、名前付き Koin スコープから依存関係を解決するには `@ScopeId` を使用します。スコープは実行時に解決されるため、検証はスキップされます。
 
@@ -316,7 +316,7 @@ class ProfileService(@ScopeId(name = "user_session") val session: UserSession)
 | 文字列名 | `@ScopeId(name = "user_session")` | `"user_session"` |
 | 型参照 | `@ScopeId(UserSessionScope::class)` | 完全修飾クラス名 (FQ class name) |
 
-## プロパティの検証
+## プロパティの検証 {id="property-validation"}
 
 `@Property("key")` パラメータは Koin プロパティ（起動時に `properties()` 経由で設定）から解決されます。`@PropertyValue("key")` によるデフォルト値が存在しない場合、プラグインはコンパイル時に警告を表示します。
 
@@ -334,7 +334,7 @@ class Other(@Property("missing.key") val value: String)
 // (コンパイル自体は可能 — プロパティは実行時に提供される可能性があるため)
 ```
 
-## 外部の型: `@Provided`
+## 外部の型: `@Provided` {id="external-types-provided"}
 
 一部の型は、実行時にプラットフォームや外部フレームワークによって提供され、Koin の定義として宣言されることはありません。これらを検証から除外するには、`@Provided` をマークします。
 
@@ -377,7 +377,7 @@ class PaymentProcessor(@Provided val paymentGateway: PaymentGateway)
 - `androidx.lifecycle.SavedStateHandle`
 - `androidx.work.WorkerParameters`
 
-## デフォルト値と skipDefaultValues
+## デフォルト値と skipDefaultValues {id="default-values-and-skipdefaultvalues"}
 
 `skipDefaultValues` が有効な場合（デフォルト）、Kotlin のデフォルト値を持つパラメータは、DI コンテナから解決される代わりにデフォルト値を使用します。
 
@@ -408,7 +408,7 @@ class ApiClient(
 
 `skipDefaultValues = false` に設定すると、Kotlin のデフォルト値を無視して、すべてのパラメータを常に DI コンテナから注入します。
 
-## 設定
+## 設定 {id="configuration"}
 
 コンパイル時の安全性はデフォルトで有効になっています。無効にするには以下のように記述します。
 
@@ -434,7 +434,7 @@ koinCompiler {
 フルグラフパス（A3）は、アグリゲーターの `compileKotlin` でのみ実行されます。K2 における Kotlin のインクリメンタルコンパイルは、`module { }` ラムダ内の DSL の変更や、`@ComponentScan` パッケージに新しく追加されたクラスを追跡しません。そのため、グラフが変更された場合でもアグリゲーターが UP-TO-DATE とマークされる可能性があります。プラグインは、検出されたアグリゲーターモジュールで [`strictSafety`](/docs/reference/koin-annotations/options#strictsafety) を自動的に有効にし、A3 の再実行を強制します。ライブラリや機能モジュールは、完全なインクリメンタル状態を維持します。
 :::
 
-## verify() / checkModules() からの移行
+## verify() / checkModules() からの移行 {id="migrating-from-verify-checkmodules"}
 
 コンパイラプラグインは、実行時の検証を置き換えます。検証テストを削除することができます。
 
@@ -447,7 +447,7 @@ koinCompiler {
 
 コンパイラはビルドのたびに検証を行うため、テストコードは不要になります。
 
-## 関連項目
+## 関連項目 {id="see-also"}
 
 - **[Compiler Plugin Options](/docs/reference/koin-annotations/options)** - すべての設定オプション
 - **[Compiler Plugin Setup](/docs/setup/compiler-plugin)** - インストールガイド

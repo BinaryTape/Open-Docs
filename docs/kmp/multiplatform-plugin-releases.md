@@ -9,7 +9,7 @@
 
 有关 Kotlin Multiplatform Gradle 插件的信息，请参阅其 [DSL 参考](multiplatform-dsl-reference.md)和[兼容性指南](multiplatform-compatibility-guide.md)。
 
-## 更新到最新版本
+## 更新到最新版本 {id="update-to-the-latest-release"}
 
 当有新的 Kotlin Multiplatform 插件版本可用时，您的 IDE 会建议更新。
 如果您接受建议，插件将更新到最新版本。
@@ -25,7 +25,7 @@
 >
 {style="note"}
 
-## 发布详细信息
+## 发布详细信息 {id="release-details"}
 
 下表列出了 Kotlin Multiplatform IDE 插件的发布版本：
 

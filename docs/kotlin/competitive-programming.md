@@ -6,7 +6,7 @@
 
 要了解更多关于如何在 IntelliJ IDEA 中创建 Kotlin 项目的信息，请参阅[创建控制台应用](jvm-get-started.md)教程。在算法竞赛中，通常会创建一个项目，并将每个问题的解法编写在单个源文件中。
 
-## 简单示例：Reachable Numbers 问题
+## 简单示例：Reachable Numbers 问题 {id="simple-example-reachable-numbers-problem"}
 
 让我们来看一个具体的例子。
 
@@ -99,7 +99,7 @@ private fun readInt() = readStr().toInt() // 读取单个整数
 
 请注意此处 `private` [可见性修饰符](visibility-modifiers.md)的使用。虽然可见性修饰符的概念与算法竞赛完全无关，但它允许你基于相同的模板放置多个解题文件，而不会因同一软件包中存在冲突的公共声明而报错。
 
-## 函数式操作符示例：Long Number 问题
+## 函数式操作符示例：Long Number 问题 {id="functional-operators-example-long-number-problem"}
 
 对于更复杂的问题，Kotlin 丰富的集合函数式操作库就排上了用场，它可以最大限度地减少模板代码，并将代码转换为线性、自顶向下且自左向右的流式数据转换流水线。例如，[Problem B: Long Number](https://codeforces.com/contest/1157/problem/B) 问题采用简单的贪心算法即可实现，并且可以使用这种风格编写，无需使用单个可变变量：
 
@@ -194,7 +194,7 @@ val fl = readInts()
 
 请注意，在算法竞赛中，通常给变量起的名字比工业编程实践中常见的名字要短，因为代码只需编写一次，此后不再维护。然而，这些名称通常仍然具有助记性 —— `a` 表示数组，`i`、`j` 等表示索引，`r` 和 `c` 表示表中的行号和列号，`x` 和 `y` 表示坐标等。将输入数据保持与题目说明中给出的名称一致会更容易。但是，更复杂的问题需要更多的代码，这会导致使用更长的自解释变量和函数名称。
 
-## 更多提示和技巧
+## 更多提示和技巧 {id="more-tips-and-tricks"}
 
 算法竞赛题目通常有如下输入：
 
@@ -216,7 +216,7 @@ println(a.joinToString("
 ")) // 将数组/列表的每个元素打印在单独的一行
 ```
 
-## 学习 Kotlin
+## 学习 Kotlin {id="learning-kotlin"}
 
 Kotlin 易于学习，特别是对于那些已经了解 Java 的人来说。针对软件开发者的 Kotlin 基本语法简短介绍可以直接在网站的参考部分找到，从[基本语法](basic-syntax.md)开始。
 

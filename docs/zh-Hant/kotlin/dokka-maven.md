@@ -8,7 +8,7 @@
 
 您可以透過造訪我們的 [Maven 範例](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/examples/maven)專案，來動手實踐 Dokka 並了解如何為 Maven 專案進行配置。
 
-## 套用 Dokka
+## 套用 Dokka {id="apply-dokka"}
 
 要套用 Dokka，您需要將 `dokka-maven-plugin` 新增到 POM 檔案的 `plugins` 區段中：
 
@@ -32,7 +32,7 @@
 </build>
 ```
 
-## 產生文件
+## 產生文件 {id="generate-documentation"}
 
 Maven 外掛程式提供了以下目標 (goals)：
 
@@ -40,14 +40,14 @@ Maven 外掛程式提供了以下目標 (goals)：
 |---------------|----------------------------------------------------------------------------------------|
 | `dokka:dokka` | 產生已套用 Dokka 外掛程式的文件。預設為 [HTML](dokka-html.md) 格式。 |
 
-### 實驗性
+### 實驗性 {id="experimental"}
 
 | **目標** | **說明** |
 |--------------------|---------------------------------------------------------------------------------------------|
 | `dokka:javadoc`    | 產生 [Javadoc](dokka-javadoc.md) 格式的文件。 |
 | `dokka:javadocJar` | 產生包含 [Javadoc](dokka-javadoc.md) 格式文件的 `javadoc.jar` 檔案。 |
 
-### 其他輸出格式
+### 其他輸出格式 {id="other-output-formats"}
 
 預設情況下，Dokka 的 Maven 外掛程式會以 [HTML](dokka-html.md) 輸出格式建置文件。
 
@@ -76,7 +76,7 @@ Maven 外掛程式提供了以下目標 (goals)：
 
 若要進一步了解 Dokka 外掛程式，請參閱 [Dokka 外掛程式](dokka-plugins.md)。
 
-## 建置 javadoc.jar
+## 建置 javadoc.jar {id="build-javadoc-jar"}
 
 如果您想將程式庫發布到存儲庫，您可能需要提供一個包含程式庫 API 參考文件的 `javadoc.jar` 檔案。
 
@@ -123,7 +123,7 @@ mvn dokka:dokka jar:jar@dokka-jar
 >
 {style="tip"}
 
-## 配置範例
+## 配置範例 {id="configuration-example"}
 
 Maven 的外掛程式配置區塊可用於配置 Dokka。
 
@@ -140,13 +140,13 @@ Maven 的外掛程式配置區塊可用於配置 Dokka。
 </plugin>
 ```
 
-## 配置選項
+## 配置選項 {id="configuration-options"}
 
 Dokka 具有許多配置選項，可量身打造您和讀者的體驗。
 
 以下是一些範例以及每個配置區段的詳細說明。您也可以在頁面底部找到套用了[所有配置選項](#complete-configuration)的範例。
 
-### 一般配置
+### 一般配置 {id="general-configuration"}
 
 ```xml
 <plugin>
@@ -374,7 +374,7 @@ Dokka 具有許多配置選項，可量身打造您和讀者的體驗。
     </def>
 </deflist>
 
-### 原始碼連結配置
+### 原始碼連結配置 {id="source-link-configuration"}
 
 `sourceLinks` 配置區塊允許您為每個簽章新增一個 `source` 連結，
 該連結指向具有特定行號的 `url`。（行號可以透過設定 `lineSuffix` 來配置）。
@@ -434,7 +434,7 @@ Dokka 具有許多配置選項，可量身打造您和讀者的體驗。
     </def>
 </deflist>
 
-### 外部文件連結配置
+### 外部文件連結配置 {id="external-documentation-links-configuration"}
 
 `externalDocumentationLinks` 區塊允許建立指向相依項外部託管文件的連結。
 
@@ -479,7 +479,7 @@ Dokka 具有許多配置選項，可量身打造您和讀者的體驗。
     </def>
 </deflist>
 
-### 套件選項
+### 套件選項 {id="package-options"}
 
 `perPackageOptions` 配置區塊允許為由 `matchingRegex` 匹配的特定套件設定一些選項。
 
@@ -540,7 +540,7 @@ Dokka 具有許多配置選項，可量身打造您和讀者的體驗。
     </def>
 </deflist>
 
-### 完整配置
+### 完整配置 {id="complete-configuration"}
 
 在下方您可以看到同時套用了所有可能的配置選項。
 

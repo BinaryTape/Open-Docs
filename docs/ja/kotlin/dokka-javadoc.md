@@ -16,7 +16,7 @@ Javadoc ツールによって生成される HTML ページを視覚的に模倣
 
 Javadoc 出力形式は [Dokka プラグイン](dokka-plugins.md)として実装されており、Dokka チームによってメンテナンスされています。これはオープンソースであり、ソースコードは [GitHub](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/dokka-subprojects/plugin-javadoc) で公開されています。
 
-## Javadoc ドキュメントの生成
+## Javadoc ドキュメントの生成 {id="generate-javadoc-documentation"}
 
 > Dokka は、マルチプロジェクトビルドまたは Kotlin マルチプラットフォームプロジェクトにおける Javadoc 形式をサポートしていません。
 >

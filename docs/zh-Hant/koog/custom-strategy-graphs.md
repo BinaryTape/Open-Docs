@@ -4,7 +4,7 @@
 
 建立策略圖可讓您根據特定需求調整代理人的行為，無論您是要建置簡單的聊天機器人、複雜的資料處理管線，還是介於兩者之間的任何應用。
 
-## 策略圖架構
+## 策略圖架構 {id="strategy-graph-architecture"}
 
 從高層級來看，策略圖由以下組件組成：
 
@@ -16,9 +16,9 @@
 策略圖始於名為 `nodeStart` 的特殊節點，並終於 `nodeFinish`。
 這些節點之間的路徑由圖中指定的邊和條件決定。
 
-## 策略圖組件
+## 策略圖組件 {id="strategy-graph-components"}
 
-### 節點
+### 節點 {id="nodes"}
 
 節點是策略圖的建置基礎。每個節點代表一個特定的操作。
 
@@ -26,7 +26,7 @@ Koog 架構提供了預定義節點，也允許您使用 `node` 函式建立自�
 
 欲了解詳情，請參閱[預定義節點與組件](nodes-and-components.md)以及[自訂節點](custom-nodes.md)。
 
-### 邊
+### 邊 {id="edges"}
 
 邊連接節點並定義策略圖中的操作流程。
 邊是使用 `edge` 函式和 `forwardTo` 中綴函式建立的：
@@ -80,7 +80,7 @@ Koog 架構提供了預定義節點，也允許您使用 `node` 函式建立自�
     ```
     <!--- KNIT exampleCustomStrategyGraphsJava01.java -->
 
-#### 條件
+#### 條件 {id="conditions"}
 
 條件決定何時遵循策略圖中的特定邊。這裡有幾種常見的條件類型：
 
@@ -151,7 +151,7 @@ Koog 架構提供了預定義節點，也允許您使用 `node` 函式建立自�
     ```
     <!--- KNIT exampleCustomStrategyGraphsJava02.java -->
 
-### 子圖
+### 子圖 {id="subgraphs"}
 
 子圖是策略圖中的各個部分，使用自己的一組工具和內容進行操作。
 策略圖可以包含多個子圖。每個子圖都使用 `subgraph` 函式定義：
@@ -273,7 +273,7 @@ Koog 架構提供了預定義節點，也允許您使用 `node` 函式建立自�
     ```
     <!--- KNIT exampleCustomStrategyGraphsJava04.java -->
 
-## 基本策略圖建立
+## 基本策略圖建立 {id="basic-strategy-graph-creation"}
 
 基本策略圖的操作方式如下： 
 
@@ -377,7 +377,7 @@ Koog 架構提供了預定義節點，也允許您使用 `node` 函式建立自�
     ```
     <!--- KNIT exampleCustomStrategyGraphsJava05.java -->
 
-## 視覺化策略圖 
+## 視覺化策略圖 {id="visualizing-strategy-graph"}
 
 在 JVM 上，您可以為策略圖產生 [Mermaid 狀態圖 (Mermaid state diagram)](https://mermaid.js.org/syntax/stateDiagram.html)。
 
@@ -461,13 +461,13 @@ stateDiagram
 ```
 <!--- KNIT example-custom-strategy-graphs-01.txt -->
 
-## 進階策略技巧
+## 進階策略技巧 {id="advanced-strategy-techniques"}
 
-### 歷程記錄壓縮
+### 歷程記錄壓縮 {id="history-compression"}
 
 對於長時間運行的對話，歷程記錄可能會變得龐大並消耗大量 Token。欲了解如何壓縮歷程記錄，請參閱[歷程記錄壓縮](history-compression.md)。
 
-### 並行工具執行
+### 並行工具執行 {id="parallel-tool-execution"}
 
 對於需要並行執行多個工具的工作流程，可以使用 `nodeExecuteTools` 節點並設定 `parallel = true`：
 
@@ -510,7 +510,7 @@ parseMarkdownStreamToBooks(markdownStream).toParallelToolCallsRaw(BookTool::clas
 
 欲了解更多資訊，請參閱[工具](tools/index.md#parallel-tool-calls)。 
 
-### 並行節點執行 
+### 並行節點執行 {id="parallel-node-execution"}
 
 並行節點執行可讓您同時執行多個節點，從而提高效能並實現複雜的工作流程。
 
@@ -544,7 +544,7 @@ val calc by parallel<String, Int>(
 
 欲了解更多關於並行節點執行的資訊和詳細參考，請參閱[並行節點執行](parallel-node-execution.md)。
 
-### 條件分支
+### 條件分支 {id="conditional-branching"}
 
 對於需要根據某些條件採取不同路徑的複雜工作流程，您可以使用條件分支：
 
@@ -582,7 +582,7 @@ edge(
 ```
 <!--- KNIT example-custom-strategy-graphs-10.kt -->
 
-## 最佳實務
+## 最佳實務 {id="best-practices"}
 
 建立自訂策略圖時，請遵循以下最佳實務：
 
@@ -595,9 +595,9 @@ edge(
 - 對於長時間運行的對話，使用歷程記錄壓縮來減少 Token 使用量。
 - 使用子圖來組織您的圖表並管理工具存取。
 
-## 使用範例
+## 使用範例 {id="usage-examples"}
 
-### 語氣分析策略
+### 語氣分析策略 {id="tone-analysis-strategy"}
 
 語氣分析策略是一個很好的基於工具且包含歷程記錄壓縮的策略範例：
 
@@ -679,11 +679,11 @@ fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentGraphStrategy
 6. 若 LLM 呼叫另一個工具，策略會執行它。
 7. 若 LLM 回覆訊息，策略會結束流程。
 
-## 疑難排解
+## 疑難排解 {id="troubleshooting"}
 
 在建立自訂策略圖時，您可能會遇到一些常見問題。這裡有一些疑難排解提示：
 
-### 圖表無法到達結束節點
+### 圖表無法到達結束節點 {id="graph-fails-to-reach-the-finish-node"}
 
 如果您的圖表未到達結束節點，請檢查以下各項：
 
@@ -691,14 +691,14 @@ fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentGraphStrategy
 - 您的條件是否過於嚴苛，導致無法遵循某些邊。
 - 圖表中是否存在沒有結束條件的循環。
 
-### 工具呼叫未執行
+### 工具呼叫未執行 {id="tool-calls-are-not-running"}
 
 如果工具呼叫未執行，請檢查以下各項：
 
 - 工具是否已在工具註冊表中正確註冊。
 - 從 LLM 節點到工具執行節點的邊是否具有正確的條件 (`onToolCall { true }`)。
 
-### 歷程記錄變得太大
+### 歷程記錄變得太大 {id="history-gets-too-large"}
 
 如果您的歷程記錄變得太大並消耗過多 Token，請考慮以下各項：
 
@@ -706,7 +706,7 @@ fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentGraphStrategy
 - 使用條件檢查歷程記錄的大小，並在過大時進行壓縮。
 - 使用更激進的壓縮策略（例如：使用較小 N 值的 `FromLastNMessages`）。
 
-### 圖表行為不如預期
+### 圖表行為不如預期 {id="graph-behaves-unexpectedly"}
 
 如果您的圖表採取了非預期的分支，請檢查以下各項：
 
@@ -714,7 +714,7 @@ fun toneStrategy(name: String, toolRegistry: ToolRegistry): AIAgentGraphStrategy
 - 條件是否按預期順序進行評估（邊是按定義順序檢查的）。
 - 您是否不小心用更通用的條件覆蓋了特定條件。
 
-### 出現效能問題
+### 出現效能問題 {id="performance-issues-occur"}
 
 如果您的圖表出現效能問題，請考慮以下各項：
 

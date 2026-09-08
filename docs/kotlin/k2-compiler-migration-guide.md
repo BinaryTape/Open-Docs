@@ -23,7 +23,7 @@
 >
 {style="note"}
 
-## 性能改进
+## 性能改进 {id="performance-improvements"}
 
 为了评估 K2 编译器的性能，我们在两个开源项目上运行了性能测试：[Anki-Android](https://github.com/ankidroid/Anki-Android) 和 [Exposed](https://github.com/JetBrains/Exposed)。以下是我们发现的关键性能改进：
 
@@ -33,11 +33,11 @@
 
 有关这些改进的更多细节，以及了解更多关于我们如何分析 K2 编译器性能的信息，请参阅我们的[博客文章](https://blog.jetbrains.com/kotlin/2024/04/k2-compiler-performance-benchmarks-and-how-to-measure-them-on-your-projects/)。
 
-## 语言功能改进
+## 语言功能改进 {id="language-feature-improvements"}
 
 Kotlin K2 编译器改进了与[智能转换](#smart-casts)和 [Kotlin Multiplatform](#kotlin-multiplatform) 相关的语言功能。
 
-### 智能转换
+### 智能转换 {id="smart-casts"}
 
 Kotlin 编译器可以在特定情况下自动将对象转换为某种类型，为您免去显式指定类型的麻烦。这被称为[智能转换](typecasts.md#smart-casts)。Kotlin K2 编译器现在在比以前更多的场景中执行智能转换。
 
@@ -50,7 +50,7 @@ Kotlin 编译器可以在特定情况下自动将对象转换为某种类型，�
 * [异常处理](#exception-handling)
 * [自增和自减运算符](#increment-and-decrement-operators)
 
-#### 局部变量和后续作用域
+#### 局部变量和后续作用域 {id="local-variables-and-further-scopes"}
 
 以前，如果一个变量在 `if` 条件内被评估为非 `null`，该变量将被智能转换。关于该变量的信息随后会在 `if` 块的作用域内进一步共享。
 
@@ -89,7 +89,7 @@ fun main(){
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-smart-casts-k2-local-variables" validate="false"}
 
-#### 使用逻辑 or 运算符进行类型检查
+#### 使用逻辑 or 运算符进行类型检查 {id="type-checks-with-the-logical-or-operator"}
 
 在 Kotlin 2.0.0 中，如果您使用 `or` 运算符 (`||`) 组合对象的类型检查，系统会将它们智能转换为最接近的公共超类型。在此更改之前，智能转换总是转换为 `Any` 类型。
 
@@ -123,7 +123,7 @@ fun signalCheck(signalStatus: Any) {
 >
 {style="note"}
 
-#### 内联函数
+#### 内联函数 {id="inline-functions"}
 
 在 Kotlin 2.0.0 中，K2 编译器以不同方式处理内联函数，使其能够结合其他编译器分析来确定进行智能转换是否安全。
 
@@ -165,7 +165,7 @@ fun runProcessor(): Processor? {
 }
 ```
 
-#### 包含函数类型的属性
+#### 包含函数类型的属性 {id="properties-with-function-types"}
 
 在之前的 Kotlin 版本中，存在一个错误，即包含函数类型的类属性不会被智能转换。我们在 Kotlin 2.0.0 和 K2 编译器中修复了这一行为。例如：
 
@@ -206,7 +206,7 @@ class Holder(val provider: Provider?, val processor: Processor?) {
 }
 ```
 
-#### 异常处理
+#### 异常处理 {id="exception-handling"}
 
 在 Kotlin 2.0.0 中，我们改进了异常处理，使得智能转换信息可以传递给 `catch` 和 `finally` 块。此更改使您的代码更安全，因为编译器会跟踪您的对象是否具有可为 null 类型。例如：
 
@@ -245,7 +245,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-smart-casts-k2-exception-handling"}
 
-#### 自增和自减运算符
+#### 自增和自减运算符 {id="increment-and-decrement-operators"}
 
 在 Kotlin 2.0.0 之前，编译器不理解对象类型在使用了自增或自减运算符后可能会发生变化。由于编译器无法准确跟踪对象类型，您的代码可能会导致未解析的引用错误。在 Kotlin 2.0.0 中，这已被修复：
 
@@ -298,14 +298,14 @@ fun main(input: Rho) {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-smart-casts-k2-increment-decrement-operators" validate="false"}
 
-### Kotlin Multiplatform
+### Kotlin Multiplatform {id="kotlin-multiplatform"}
 
 K2 编译器在以下领域改进了与 Kotlin Multiplatform 相关的语言功能：
 
 * [编译期间公共源集和平台源集的分离](#separation-of-common-and-platform-sources-during-compilation)
 * [预期声明和实际声明的不同可见性级别](#different-visibility-levels-of-expected-and-actual-declarations)
 
-#### 编译期间公共源集和平台源集的分离
+#### 编译期间公共源集和平台源集的分离 {id="separation-of-common-and-platform-sources-during-compilation"}
 
 以前，Kotlin 编译器的设计使其无法在编译时保持公共源集和平台源集的分离。结果，公共代码可以访问平台代码，从而导致不同平台之间的行为不一致。此外，来自公共代码的一些编译器设置和依赖项以前会泄露到平台代码中。
 
@@ -390,7 +390,7 @@ actual class Identity {
 Expected class 'expect class Identity : Any' does not have default constructor
 ```
 
-##### 解析行为不发生变化的情况
+##### 解析行为不发生变化的情况 {id="when-resolution-behavior-doesn-t-change"}
 
 我们仍处于向新编译方案迁移的过程中，因此当您调用不在同一源集内的函数时，解析行为仍然保持不变。您会主要在公共代码中使用来自多平台库的重载时注意到这种差异。
 
@@ -439,7 +439,7 @@ fun whichFun(x: Int) = println("platform function")
 
 将来，这些剩余情况将与新编译方案更加一致。
 
-#### 预期声明和实际声明的不同可见性级别
+#### 预期声明和实际声明的不同可见性级别 {id="different-visibility-levels-of-expected-and-actual-declarations"}
 
 在 Kotlin 2.0.0 之前，如果您在 Kotlin Multiplatform 项目中使用[预期声明和实际声明](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html)，它们必须具有相同的[可见性级别](visibility-modifiers.md)。Kotlin 2.0.0 现在也支持不同的可见性级别，但**仅当**实际声明比预期声明更具包容性 (more permissive) 时。例如：
 
@@ -459,17 +459,17 @@ class Expanded                                  // 默认为 public 可见性，
                                                 // 这更具包容性
 ```
 
-## 如何启用 Kotlin K2 编译器
+## 如何启用 Kotlin K2 编译器 {id="how-to-enable-the-kotlin-k2-compiler"}
 
 从 Kotlin 2.0.0 开始，Kotlin K2 编译器已默认启用。
 
 要升级 Kotlin 版本，请在您的 [Gradle](gradle-configure-project.md#apply-the-plugin) 和 [Maven](maven-configure-project.md) 构建脚本中将其更改为 2.0.0 或更高版本。
 
-### 在 Gradle 中使用 Kotlin 构建报告
+### 在 Gradle 中使用 Kotlin 构建报告 {id="use-kotlin-build-reports-with-gradle"}
 
 Kotlin [构建报告](gradle-compilation-and-caches.md#build-reports)提供了关于 Kotlin 编译器任务在不同编译阶段所花费时间的信息，以及使用了哪个编译器和 Kotlin 版本，以及编译是否为增量编译。这些构建报告对于评估构建性能非常有用。与 [Gradle 构建扫描](https://scans.gradle.com/)相比，它们提供了更多关于 Kotlin 编译流水线的洞察，因为它们为您提供了所有 Gradle 任务性能的概览。
 
-#### 如何启用构建报告
+#### 如何启用构建报告 {id="how-to-enable-build-reports"}
 
 要启用构建报告，请在您的 `gradle.properties` 文件中声明您希望保存构建报告输出的位置：
 
@@ -489,16 +489,16 @@ kotlin.build.report.output=file
 
 有关构建报告功能的更多信息，请参阅[构建报告](gradle-compilation-and-caches.md#build-reports)。
 
-## IDE 支持
+## IDE 支持 {id="support-in-ides"}
 
 IntelliJ IDEA 和 Android Studio 均完全支持 K2 编译器，并默认使用它来改进代码分析、代码补全和高亮显示。
 您不需要进行任何配置。请更新到最新版本以体验其优势。
 
-## 在 Kotlin Playground 中尝试 Kotlin K2 编译器
+## 在 Kotlin Playground 中尝试 Kotlin K2 编译器 {id="try-the-kotlin-k2-compiler-in-the-kotlin-playground"}
 
 Kotlin Playground 支持 Kotlin 2.0.0 及更高版本。[快来看看吧！](https://pl.kotl.in/czuoQprce)
 
-## 如何回退到之前的编译器
+## 如何回退到之前的编译器 {id="how-to-roll-back-to-the-previous-compiler"}
 
 要在 Kotlin 2.0.0–2.3.21 中使用之前的编译器，请执行以下任一操作：
 
@@ -509,7 +509,7 @@ Kotlin Playground 支持 Kotlin 2.0.0 及更高版本。[快来看看吧！](htt
 
 从 Kotlin 2.4.0 开始，您将无法回退到之前的编译器。
 
-## 变化
+## 变化 {id="changes"}
 
 随着新前端的引入，Kotlin 编译器经历了几处变化。让我们先重点介绍影响您代码的最重要修改，解释发生了什么变化，并详细说明今后的最佳做法。如果您想了解更多信息，我们将这些变化按[主题领域](#per-subject-area)进行了组织，以便您进一步阅读。
 
@@ -522,7 +522,7 @@ Kotlin Playground 支持 Kotlin 2.0.0 及更高版本。[快来看看吧！](htt
 * [改进了 Java 原生数组的 null 安全性](#improved-null-safety-for-java-primitive-arrays)
 * [预期类中抽象成员的更严格规则](#stricter-rules-for-abstract-members-in-expected-classes)
 
-### 带有支持字段的 open 属性必须立即初始化
+### 带有支持字段的 open 属性必须立即初始化 {id="immediate-initialization-of-open-properties-with-backing-fields"}
 
 **发生了什么变化？**
 
@@ -562,7 +562,7 @@ class Derived : Base() {
 
 有关更多信息，请参阅 [YouTrack 中的相应问题](https://youtrack.jetbrains.com/issue/KT-57555)。
 
-### 弃用在投影接收者上的合成 Setter
+### 弃用在投影接收者上的合成 Setter {id="deprecated-synthetics-setter-on-a-projected-receiver"}
 
 **发生了什么变化？**
 
@@ -605,7 +605,7 @@ fun exampleFunction(starProjected: Container<*>, inProjected: Container<in Numbe
 
 有关更多信息，请参阅 [YouTrack 中的相应问题](https://youtrack.jetbrains.com/issue/KT-54309)。
 
-### 禁止使用不可访问的泛型类型
+### 禁止使用不可访问的泛型类型 {id="forbidden-use-of-inaccessible-generic-types"}
 
 **发生了什么变化？**
 
@@ -757,7 +757,7 @@ fun test() {
 
 有关更多信息，请参阅 [YouTrack 中的相应问题](https://youtrack.jetbrains.com/issue/KT-64474)。
 
-### 同名的 Kotlin 属性和 Java 字段具有一致的解析顺序
+### 同名的 Kotlin 属性和 Java 字段具有一致的解析顺序 {id="consistent-resolution-order-of-kotlin-properties-and-java-fields-with-the-same-name"}
 
 **发生了什么变化？**
 
@@ -853,7 +853,7 @@ fun main() {
 
 有关更多信息，请参阅 [YouTrack 中的相应问题](https://youtrack.jetbrains.com/issue/KT-55017)。
 
-### 改进了 Java 原生数组的 null 安全性
+### 改进了 Java 原生数组的 null 安全性 {id="improved-null-safety-for-java-primitive-arrays"}
 
 **发生了什么变化？**
 
@@ -897,7 +897,7 @@ dataService.fetchData()[0]
 
 有关更多信息，请参阅 [YouTrack 中的相应问题](https://youtrack.jetbrains.com/issue/KT-54521)。
 
-### 预期类中抽象成员的更严格规则
+### 预期类中抽象成员的更严格规则 {id="stricter-rules-for-abstract-members-in-expected-classes"}
 
 > 预期声明和实际类处于 [Beta](components-stability.md#stability-levels-explained) 阶段。
 > 它们已基本稳定，但您将来可能需要执行迁移步骤。
@@ -955,11 +955,11 @@ actual open class PlatformFileSystem : FileSystem {
 
 有关更多信息，请参阅 [YouTrack](https://youtrack.jetbrains.com/issue/KT-59739/K2-MPP-reports-ABSTRACTMEMBERNOTIMPLEMENTED-for-inheritor-in-common-code-when-the-implementation-is-located-in-the-actual) 中的相应问题。
 
-### 按主题领域
+### 按主题领域 {id="per-subject-area"}
 
 这些主题领域列出了不太可能影响您的代码的变化，但提供了相关 YouTrack 问题的链接以供进一步阅读。问题 ID 旁边带有星号 (*) 的变化在本节开头已有说明。
 
-#### 类型推断 {initial-collapse-state="collapsed" collapsible="true"}
+#### 类型推断 {initial-collapse-state="collapsed" collapsible="true" id="type-inference"}
 
 | 问题 ID | 标题 |
 |-----------------------------------------------------------|------------------------------------------------------------------------------------------------------------|
@@ -980,7 +980,7 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-65750](https://youtrack.jetbrains.com/issue/KT-65750) | 更改返回值类型的自增和加法运算符必须影响智能转换 |
 | [KT-65349](https://youtrack.jetbrains.com/issue/KT-65349) | [LC] K2：在 K1 正常工作的一些情况下，显式指定变量类型会破坏绑定的智能转换 |
 
-#### 泛型 {initial-collapse-state="collapsed" collapsible="true"}
+#### 泛型 {initial-collapse-state="collapsed" collapsible="true" id="generics"}
 
 | 问题 ID | 标题 |
 |------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -998,7 +998,7 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-64966](https://youtrack.jetbrains.com/issue/KT-64966) | 禁止对泛型形参使用错误类型的泛型委托构造函数调用 |
 | [KT-65712](https://youtrack.jetbrains.com/issue/KT-65712) | 当上界为捕获类型时，报告遗漏的上界冲突 |
 
-#### 解析 {initial-collapse-state="collapsed" collapsible="true"}
+#### 解析 {initial-collapse-state="collapsed" collapsible="true" id="resolution"}
 
 | 问题 ID | 标题 |
 |------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -1014,7 +1014,7 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-64431](https://youtrack.jetbrains.com/issue/KT-64431) | K2：禁止在导入中使用类型别名作为限定符 |
 | [KT-56520](https://youtrack.jetbrains.com/issue/KT-56520) | K1/K2：对在较低级别具有歧义的类型引用，其解析塔工作不正确 |
 
-#### 可见性 {initial-collapse-state="collapsed" collapsible="true"}
+#### 可见性 {initial-collapse-state="collapsed" collapsible="true" id="visibility"}
 
 | 问题 ID | 标题 |
 |-------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
@@ -1029,7 +1029,7 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-65004](https://youtrack.jetbrains.com/issue/KT-65004) | K1：重写受保护 val 的 var 的 Setter 被生成为 public |
 | [KT-64972](https://youtrack.jetbrains.com/issue/KT-64972) | 禁止在 Kotlin/Native 的链接时通过私有成员进行重写 |
 
-#### 注解 {initial-collapse-state="collapsed" collapsible="true"}
+#### 注解 {initial-collapse-state="collapsed" collapsible="true" id="annotations"}
 
 | 问题 ID | 标题 |
 |-----------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
@@ -1043,7 +1043,7 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-63389](https://youtrack.jetbrains.com/issue/KT-63389) | K2：在包装在 `()?` 中的类型的兼容注解上报告 `WRONG_ANNOTATION_TARGET` |
 | [KT-63388](https://youtrack.jetbrains.com/issue/KT-63388) | K2：在 catch 形参类型的注解上报告 `WRONG_ANNOTATION_TARGET` |
 
-#### Null 安全性 {initial-collapse-state="collapsed" collapsible="true"}
+#### Null 安全性 {initial-collapse-state="collapsed" collapsible="true" id="null-safety"}
 
 | 问题 ID | 标题 |
 |------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
@@ -1054,7 +1054,7 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-62998](https://youtrack.jetbrains.com/issue/KT-62998) | 禁止将可为 null 的值分配给非 null Java 字段作为不安全赋值的选择器 |
 | [KT-63209](https://youtrack.jetbrains.com/issue/KT-63209) | 针对警告级别 Java 类型的错误级别可为 null 的实参报告遗漏的错误 |
 
-#### Java 互操作性 {initial-collapse-state="collapsed" collapsible="true"}
+#### Java 互操作性 {initial-collapse-state="collapsed" collapsible="true" id="java-interoperability"}
 
 | 问题 ID | 标题 |
 |-----------------------------------------------------------|------------------------------------------------------------------------------------------------------------|
@@ -1064,7 +1064,7 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-66220](https://youtrack.jetbrains.com/issue/KT-66220) | 将 Java 可变实参方法传递给内联函数会导致运行时的数组之数组，而不仅仅是数组 |
 | [KT-66204](https://youtrack.jetbrains.com/issue/KT-66204) | 允许在 K-J-K 层次结构中重写内部成员 |
 
-#### 属性 {initial-collapse-state="collapsed" collapsible="true"}
+#### 属性 {initial-collapse-state="collapsed" collapsible="true" id="properties"}
 
 | 问题 ID | 标题 |
 |------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
@@ -1074,7 +1074,7 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-57290](https://youtrack.jetbrains.com/issue/KT-57290) | 弃用对来自不可见派生类的基类属性的智能转换（如果基类来自另一个模块） |
 | [KT-62661](https://youtrack.jetbrains.com/issue/KT-62661) | K2：针对数据类属性遗漏了 OPT_IN_USAGE_ERROR |
 
-#### 控制流 {initial-collapse-state="collapsed" collapsible="true"}
+#### 控制流 {initial-collapse-state="collapsed" collapsible="true" id="control-flow"}
 
 | 问题 ID | 标题 |
 |-----------------------------------------------------------|--------------------------------------------------------------------------------------------|
@@ -1083,7 +1083,7 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-42995](https://youtrack.jetbrains.com/issue/KT-42995) | 在具有作用域函数初始化的 try/catch 块中误报 "VAL_REASSIGNMENT" |
 | [KT-65724](https://youtrack.jetbrains.com/issue/KT-65724) | 将数据流信息从 try 块传递到 catch 和 finally 块 |
 
-#### 枚举类 {initial-collapse-state="collapsed" collapsible="true"}
+#### 枚举类 {initial-collapse-state="collapsed" collapsible="true" id="enum-classes"}
 
 | 问题 ID | 标题 |
 |-----------------------------------------------------------|----------------------------------------------------------------------------------------------|
@@ -1092,7 +1092,7 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-52802](https://youtrack.jetbrains.com/issue/KT-52802) | 报告属性/字段和枚举项之间解析的歧义 |
 | [KT-47310](https://youtrack.jetbrains.com/issue/KT-47310) | 当伴生属性相对于枚举项被首选时，更改限定符解析行为 |
 
-#### 函数式 (SAM) 接口 {initial-collapse-state="collapsed" collapsible="true"}
+#### 函数式 (SAM) 接口 {initial-collapse-state="collapsed" collapsible="true" id="functional-sam-interfaces"}
 
 | 问题 ID | 标题 |
 |-----------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
@@ -1100,14 +1100,14 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-57014](https://youtrack.jetbrains.com/issue/KT-57014) | 禁止从 JDK 函数接口的 SAM 构造函数的 lambda 返回具有不正确为 null 性的值 |
 | [KT-64342](https://youtrack.jetbrains.com/issue/KT-64342) | 可调用引用的形参类型的 SAM 转换会导致 CCE |
 
-#### 伴生对象 {initial-collapse-state="collapsed" collapsible="true"}
+#### 伴生对象 {initial-collapse-state="collapsed" collapsible="true" id="companion-object"}
 
 | 问题 ID | 标题 |
 |-----------------------------------------------------------|--------------------------------------------------------------------------|
 | [KT-54316](https://youtrack.jetbrains.com/issue/KT-54316) | 伴生对象成员的调用外引用具有无效签名 |
 | [KT-47313](https://youtrack.jetbrains.com/issue/KT-47313) | 当 V 有伴生对象时更改 (V)::foo 引用解析 |
 
-#### 其他 {initial-collapse-state="collapsed" collapsible="true"}
+#### 其他 {initial-collapse-state="collapsed" collapsible="true" id="miscellaneous"}
 
 | 问题 ID | 标题 |
 |------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
@@ -1122,7 +1122,7 @@ actual open class PlatformFileSystem : FileSystem {
 | [KT-65682](https://youtrack.jetbrains.com/issue/KT-65682) | [LC] 弃用 `header`/`impl` 关键字 |
 | [KT-45375](https://youtrack.jetbrains.com/issue/KT-45375) | 默认通过 invokedynamic + LambdaMetafactory 生成所有 Kotlin lambda |
 
-## 与 Kotlin 版本的兼容性
+## 与 Kotlin 版本的兼容性 {id="compatibility-with-kotlin-releases"}
 
 以下 Kotlin 版本支持新的 K2 编译器：
 
@@ -1133,13 +1133,13 @@ actual open class PlatformFileSystem : FileSystem {
 | 1.9.0–1.9.10 | JVM 为 Beta |
 | 1.7.0–1.8.22 | Alpha |
 
-## 与 Kotlin 库的兼容性
+## 与 Kotlin 库的兼容性 {id="compatibility-with-kotlin-libraries"}
 
 如果您使用 Kotlin/JVM，K2 编译器可与使用任何版本的 Kotlin 编译的库配合使用。
 
 如果您使用 Kotlin Multiplatform，K2 编译器保证可与使用 Kotlin 1.9.20 及更高版本编译的库配合使用。
 
-## 编译器插件支持
+## 编译器插件支持 {id="compiler-plugins-support"}
 
 目前，Kotlin K2 编译器支持以下 Kotlin 编译器插件：
 
@@ -1164,7 +1164,7 @@ actual open class PlatformFileSystem : FileSystem {
 >
 {style="tip"}
 
-### 升级您的自定义编译器插件
+### 升级您的自定义编译器插件 {id="upgrade-your-custom-compiler-plugins"}
 
 > 自定义编译器插件使用的是插件 API，该 API 是[实验性的](components-stability.md#stability-levels-explained)。因此，API 随时可能发生变化，我们无法保证向后兼容性。
 >
@@ -1172,11 +1172,11 @@ actual open class PlatformFileSystem : FileSystem {
 
 根据您的自定义插件类型，升级过程有两条路线。
 
-#### 仅限后端的编译器插件
+#### 仅限后端的编译器插件 {id="backend-only-compiler-plugins"}
 
 如果您的插件仅实现 `IrGenerationExtension` 扩展点，则其升级过程与任何其他新的编译器版本相同。检查您使用的 API 是否有任何更改，并在必要时进行更改。
 
-#### 后端和前端编译器插件
+#### 后端和前端编译器插件 {id="backend-and-frontend-compiler-plugins"}
 
 如果您的插件使用与前端相关的扩展点，则需要使用新的 K2 编译器 API 重写该插件。有关新 API 的介绍，请参阅 [FIR 插件 API](https://github.com/JetBrains/kotlin/blob/master/docs/fir/fir-plugins.md)。
 
@@ -1184,7 +1184,7 @@ actual open class PlatformFileSystem : FileSystem {
 >
 {style="note"}
 
-## 分享您对新 K2 编译器的反馈
+## 分享您对新 K2 编译器的反馈 {id="share-your-feedback-on-the-new-k2-compiler"}
 
 我们将不胜感激您提供的任何反馈！
 

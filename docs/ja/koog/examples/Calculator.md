@@ -16,7 +16,7 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Calc
 
 API は整理された慣習的な Kotlin 形式に保ち、予測可能な結果を返し、ゼロ除算のようなエッジケースを適切に処理します。
 
-## セットアップ
+## セットアップ {id="setup"}
 
 Koog が利用可能な Kotlin Notebook 環境を想定しています。
 LLM エグゼキュータを提供します。
@@ -31,7 +31,7 @@ val OPENAI_API_KEY = System.getenv("OPENAI_API_KEY")
 val executor = simpleOpenAIExecutor(OPENAI_API_KEY)
 ```
 
-## 計算機ツール
+## 計算機ツール {id="calculator-tools"}
 
 ツールは、明確なコントラクトを持つ小規模で純粋な関数です。
 精度を高めるために `Double` を使用し、出力を一貫した形式でフォーマットします。
@@ -80,7 +80,7 @@ class CalculatorTools : ToolSet {
 }
 ```
 
-## ツールレジストリ
+## ツールレジストリ {id="tool-registry"}
 
 ツールを公開します（対話とロギングのための 2 つの組み込みツールも含まれます）。
 
@@ -92,7 +92,7 @@ val toolRegistry = ToolRegistry {
 }
 ```
 
-## 戦略：複数のツール呼び出し（オプションの圧縮機能付き）
+## 戦略：複数のツール呼び出し（オプションの圧縮機能付き） {id="strategy-multiple-tool-calls-with-optional-compression"}
 
 この戦略により、LLM は一度に**複数のツール呼び出し**（例：`plus`、`minus`、`multiply`、`divide`）を提案し、その結果をまとめて送り返すことができます。
 トークン使用量が大きくなりすぎた場合は、継続する前にツール実行結果の履歴を**圧縮**します。
@@ -139,7 +139,7 @@ object CalculatorStrategy {
 }
 ```
 
-## エージェントの設定
+## エージェントの設定 {id="agent-configuration"}
 
 ツール利用を重視した最小限のプロンプトが効果的です。決定論的な計算を行うために、temperature（温度）を低く設定します。
 
@@ -176,7 +176,7 @@ val agent = AIAgent(
 }
 ```
 
-## 試してみる
+## 試してみる {id="try-it"}
 
 エージェントは式を並列のツール呼び出しに分解し、きれいにフォーマットされた結果を返します。
 
@@ -199,7 +199,7 @@ runBlocking {
 
     The result of the expression \((10 + 20) * (5 + 5) / (2 - 11)\) is approximately \(-33.33\).
 
-## 並列呼び出しの強制を試す
+## 並列呼び出しの強制を試す {id="try-forcing-parallel-calls"}
 
 必要なすべてのツールを一度に呼び出すようモデルに依頼します。
 正しい計画と安定した実行が確認できるはずです。
@@ -219,7 +219,7 @@ runBlocking {
 
     The result of \((10 + 20) * (5 + 5) / (2 - 11)\) is approximately \(-3.33\).
 
-## Ollama での実行
+## Ollama での実行 {id="running-with-ollama"}
 
 ローカルでの推論を好む場合は、エグゼキュータとモデルを入れ替えます。
 

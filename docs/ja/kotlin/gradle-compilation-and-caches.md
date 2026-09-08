@@ -11,7 +11,7 @@
 * [最新の言語バージョンの試行](#trying-the-latest-language-version)
 * [ビルドレポート](#build-reports)
 
-## 増分コンパイル
+## 増分コンパイル {id="incremental-compilation"}
 
 Kotlin Gradle プラグインは増分コンパイル（incremental compilation）をサポートしており、Kotlin/JVM および Kotlin/JS プロジェクトではデフォルトで有効になっています。
 増分コンパイルは、ビルド間でクラスパス内のファイルの変更を追跡し、それらの変更によって影響を受けるファイルのみをコンパイルします。
@@ -48,20 +48,20 @@ ABI の一部が変更されると、Kotlin コンパイラは変更されたク
 
 現在の増分コンパイルアプローチの仕組みや以前のアプローチとの比較についての詳細は、こちらの[ブログ記事](https://blog.jetbrains.com/kotlin/2022/07/a-new-approach-to-incremental-compilation-in-kotlin/)を参照してください。
 
-## Gradle ビルドキャッシュのサポート
+## Gradle ビルドキャッシュのサポート {id="gradle-build-cache-support"}
 
 Kotlin プラグインは [Gradle ビルドキャッシュ](https://docs.gradle.org/current/userguide/build_cache.html)を使用します。これは、将来のビルドで再利用するためにビルド出力を保存するものです。
 
 すべての Kotlin タスクでキャッシュを無効にするには、システムプロパティ `kotlin.caching.enabled` を `false` に設定します（引数 `-Dkotlin.caching.enabled=false` を付けてビルドを実行します）。
 
-## Gradle コンフィギュレーションキャッシュのサポート
+## Gradle コンフィギュレーションキャッシュのサポート {id="gradle-configuration-cache-support"}
 
 Kotlin プラグインは [Gradle コンフィギュレーションキャッシュ](https://docs.gradle.org/current/userguide/configuration_cache.html)を使用します。
 これにより、以降のビルドでコンフィギュレーションフェーズの結果を再利用することで、ビルドプロセスを高速化します。
 
 コンフィギュレーションキャッシュを有効にする方法については、[Gradle のドキュメント](https://docs.gradle.org/current/userguide/configuration_cache.html#config_cache:usage)を参照してください。この機能を有効にすると、Kotlin Gradle プラグインは自動的にそれを使用し始めます。
 
-## Kotlin デーモンと Gradle での使用方法
+## Kotlin デーモンと Gradle での使用方法 {id="the-kotlin-daemon-and-how-to-use-it-with-gradle"}
 
 [Kotlin デーモン](kotlin-daemon.md)は以下の通り動作します：
 * プロジェクトをコンパイルするために、Gradle デーモンと共に実行されます。
@@ -72,7 +72,7 @@ Kotlin デーモンは、Gradle デーモンが停止したとき、または Ko
 
 Kotlin デーモンは、Gradle デーモンと同じ JDK を使用します。
 
-### Kotlin デーモンの JVM 引数の設定
+### Kotlin デーモンの JVM 引数の設定 {id="setting-kotlin-daemon-s-jvm-arguments"}
 
 引数を設定する以下の各方法は、それより前に設定されたものを上書きします：
 * [Gradle デーモン引数の継承](#gradle-daemon-arguments-inheritance)
@@ -81,7 +81,7 @@ Kotlin デーモンは、Gradle デーモンと同じ JDK を使用します。
 * [`kotlin` 拡張](#kotlin-extension)
 * [特定のタスク定義](#specific-task-definition)
 
-#### Gradle デーモン引数の継承
+#### Gradle デーモン引数の継承 {id="gradle-daemon-arguments-inheritance"}
 
 デフォルトでは、Kotlin デーモンは Gradle デーモンから特定の引数セットを継承しますが、Kotlin デーモンに直接指定された JVM 引数がある場合はそれで上書きします。例えば、`gradle.properties` ファイルに以下の JVM 引数を追加した場合：
 
@@ -99,7 +99,7 @@ org.gradle.jvmargs=-Xmx1500m -Xms500m -XX:MaxMetaspaceSize=1g
 >
 {style="note"}
 
-#### kotlin.daemon.jvm.options システムプロパティ
+#### kotlin.daemon.jvm.options システムプロパティ {id="kotlin-daemon-jvm-options-system-property"}
 
 Gradle デーモンの JVM 引数に `kotlin.daemon.jvm.options` システムプロパティがある場合は、`gradle.properties` ファイルでそれを使用します：
 
@@ -121,7 +121,7 @@ org.gradle.jvmargs=-Dkotlin.daemon.jvm.options=-Xmx1500m,Xms500m
 >
 {style="warning"}
 
-#### kotlin.daemon.jvmargs プロパティ
+#### kotlin.daemon.jvmargs プロパティ {id="kotlin-daemon-jvmargs-property"}
 
 `gradle.properties` ファイルに `kotlin.daemon.jvmargs` プロパティを追加できます：
 
@@ -135,7 +135,7 @@ kotlin.daemon.jvmargs=-Xmx1500m -Xms500m
 -Xmx1500m -XX:ReservedCodeCacheSize=320m -Xms500m
 ```
 
-#### kotlin 拡張
+#### kotlin 拡張 {id="kotlin-extension"}
 
 `kotlin` 拡張で引数を指定できます：
 
@@ -160,7 +160,7 @@ kotlin {
 </tab>
 </tabs>
 
-#### 特定のタスク定義
+#### 特定のタスク定義 {id="specific-task-definition"}
 
 特定のタスクに対して引数を指定できます：
 
@@ -189,7 +189,7 @@ tasks.withType(CompileUsingKotlinDaemon).configureEach { task ->
 >
 {style="note"}
 
-### Kotlin デーモンの JVM 引数に関する動作
+### Kotlin デーモンの JVM 引数に関する動作 {id="kotlin-daemon-s-behavior-with-jvm-arguments"}
 
 Kotlin デーモンの JVM 引数を設定する際は、以下の点に注意してください：
 
@@ -219,7 +219,7 @@ Kotlin デーモンには、以下のデフォルト JVM 引数があります�
 >
 {style="note"}
 
-## 以前のコンパイラへのロールバック
+## 以前のコンパイラへのロールバック {id="rolling-back-to-the-previous-compiler"}
 
 Kotlin 2.0.0 以降、K2 コンパイラがデフォルトで使用されます。
 
@@ -232,7 +232,7 @@ Kotlin 2.0.0 以降で以前のコンパイラを使用するには、以下の�
 
 K2 コンパイラの利点についての詳細は、[K2 コンパイラ移行ガイド](k2-compiler-migration-guide.md)を参照してください。
 
-## 最新の言語バージョンの試行
+## 最新の言語バージョンの試行 {id="trying-the-latest-language-version"}
 
 Kotlin 2.0.0 以降、最新の言語バージョンを試すには、`gradle.properties` ファイルで `kotlin.experimental.tryNext` プロパティを設定してください。
 このプロパティを使用すると、Kotlin Gradle プラグインは言語バージョンを、お使いの Kotlin バージョンのデフォルト値より一つ上のものに引き上げます。
@@ -246,7 +246,7 @@ Kotlin 2.0.0 以降、最新の言語バージョンを試すには、`gradle.pr
 
 [ビルドレポート](#build-reports)で、各タスクのコンパイルに使用された言語バージョンを確認できます。
 
-## ビルドレポート
+## ビルドレポート {id="build-reports"}
 
 ビルドレポートには、さまざまなコンパイルフェーズの所要時間や、コンパイルが増分にならなかった理由が含まれます。
 コンパイル時間が長すぎる場合や、同じプロジェクトでも時間が異なる場合など、パフォーマンスの問題を調査するためにビルドレポートを使用してください。
@@ -261,7 +261,7 @@ Kotlin ビルドレポートは、単一の Gradle タスクを最小単位と�
 
 [ビルドレポートの読み方](https://blog.jetbrains.com/kotlin/2022/06/introducing-kotlin-build-reports/#how_to_read_build_reports)および [JetBrains におけるビルドレポートの活用方法](https://blog.jetbrains.com/kotlin/2022/06/introducing-kotlin-build-reports/#how_we_use_build_reports_in_jetbrains)について詳細を確認してください。
 
-### ビルドレポートの有効化
+### ビルドレポートの有効化 {id="enabling-build-reports"}
 
 ビルドレポートを有効にするには、`gradle.properties` でビルドレポートの出力先を宣言します：
 
@@ -317,7 +317,7 @@ kotlin.build.report.http.include_git_branch.name=true|false
 kotlin.build.report.include_compiler_arguments=true|false
 ```
 
-### カスタム値の制限
+### カスタム値の制限 {id="limit-of-custom-values"}
 
 ビルドスキャンの統計情報を収集するために、Kotlin ビルドレポートは [Gradle のカスタム値](https://docs.gradle.org/enterprise/tutorials/extending-build-scans/)を使用します。
 ユーザー自身と、さまざまな Gradle プラグインの両方がカスタム値にデータを書き込むことができます。カスタム値の数には制限があります。
@@ -335,7 +335,7 @@ Kotlin プラグインが生成するカスタム値の数を減らすには、`
 kotlin.build.report.build_scan.custom_values_limit=500
 ```
 
-### プロジェクトおよびシステムプロパティの収集の停止
+### プロジェクトおよびシステムプロパティの収集の停止 {id="switching-off-collecting-project-and-system-properties"}
 
 HTTP ビルド統計ログには、一部のプロジェクトおよびシステムプロパティが含まれる場合があります。これらのプロパティはビルドの動作を変更する可能性があるため、ビルド統計にログを記録しておくと便利です。
 ただし、これらのプロパティにはパスワードやプロジェクトのフルパスなどの機密データが含まれている可能性があります。
@@ -346,7 +346,7 @@ HTTP ビルド統計ログには、一部のプロジェクトおよびシステ
 > 
 {style="note"}
 
-## 次に学ぶこと
+## 次に学ぶこと {id="what-s-next"}
 
 以下について詳細を確認してください：
 * [Gradle の基本と詳細](https://docs.gradle.org/current/userguide/userguide.html)

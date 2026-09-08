@@ -23,11 +23,11 @@
 * 处理嵌入框架的代码签名过程。
 * 确保 Kotlin 框架中的代码更改能反映在 Xcode 的 iOS 应用中。
 
-## 如何设置
+## 如何设置 {id="how-to-set-up"}
 
 如果您当前正在使用 CocoaPods 插件连接 Kotlin 框架，请先进行迁移。如果您的项目没有 CocoaPods 依赖项，请[跳过此步骤](#connect-the-framework-to-your-project)。
 
-### 从 CocoaPods 插件迁移
+### 从 CocoaPods 插件迁移 {id="migrate-from-the-cocoapods-plugin"}
 
 要从 CocoaPods 插件迁移：
 
@@ -99,6 +99,6 @@
 >
 {style="note"}
 
-## 下一步是什么？
+## 下一步是什么？ {id="what-s-next"}
 
 在使用 Swift 软件包管理器时，您也可以利用本地集成。[了解如何在本地包中添加对 Kotlin 框架的依赖项](multiplatform-spm-local-integration.md)。

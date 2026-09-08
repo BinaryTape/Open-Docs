@@ -38,7 +38,7 @@
 >
 {style="note"}
 
-## 為您的 Kotlin Notebook 新增 Kotlin DataFrame 和 Kandy 程式庫
+## 為您的 Kotlin Notebook 新增 Kotlin DataFrame 和 Kandy 程式庫 {id="add-kotlin-dataframe-and-kandy-libraries-to-your-kotlin-notebook"}
 
 讓我們為您的 Kotlin Notebook 新增兩個熱門的 Kotlin 程式庫相依性：
 * [Kotlin DataFrame 程式庫](https://kotlin.github.io/dataframe/home.html) 讓您能夠在 Kotlin 專案中操作資料。您可以使用它從 [API](data-analysis-work-with-api.md)、[SQL 資料庫](data-analysis-connect-to-db.md) 以及 [各種檔案格式](data-analysis-work-with-data-sources.md)（如 CSV 或 JSON）擷取資料。
@@ -122,7 +122,7 @@
   </li>
 </list>
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * 學習如何 [分享您的 Kotlin Notebook](kotlin-notebook-share.md)
 * 參閱有關 [為您的 Kotlin Notebook 新增相依性](https://www.jetbrains.com/help/idea/kotlin-notebook.html#add-dependencies) 的更多詳細資訊

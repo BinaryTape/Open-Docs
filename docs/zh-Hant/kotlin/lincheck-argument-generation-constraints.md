@@ -47,7 +47,7 @@
 | ---------------------------------- |
 ```
 
-## 產生器型別
+## 產生器型別 {id="generator-types"}
 
 Lincheck 提供以下引數產生器型別：
 
@@ -149,11 +149,11 @@ Lincheck 提供以下引數產生器型別：
     </tr>
 </table>
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 了解如何在 Lincheck 中[將特定操作限制在單一執行緒](lincheck-operation-execution-options.md)。
 
-## 另請參閱
+## 另請參閱 {id="see-also"}
 
 * [檢查非阻塞進度保證](lincheck-progress-guarantees.md)
 * [定義演算法的序列化規格](lincheck-results-validation.md)

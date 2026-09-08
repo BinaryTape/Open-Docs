@@ -49,7 +49,7 @@ fun main() {
 
 범위 지정 함수들 사이에는 많은 유사점이 있기 때문에 사용 사례에 맞는 적절한 함수를 선택하는 것이 까다로울 수 있습니다. 선택은 주로 의도와 프로젝트의 사용 일관성에 달려 있습니다. 아래에서는 범위 지정 함수 간의 차이점과 관례에 대해 자세히 설명합니다.
 
-## 함수 선택
+## 함수 선택 {id="function-selection"}
 
 목적에 맞는 적절한 범위 지정 함수를 선택하는 데 도움이 되도록 주요 차이점을 요약한 표를 제공합니다.
 
@@ -78,13 +78,13 @@ fun main() {
 
 범위 지정 함수가 코드를 더 간결하게 만들 수 있지만 과도하게 사용하지 마십시오. 코드를 읽기 어렵게 만들고 오류를 유발할 수 있습니다. 또한 범위 지정 함수를 중첩해서 사용하지 않는 것을 권장하며, 체이닝(chaining) 시에는 현재 컨텍스트 객체와 `this` 또는 `it`의 값을 혼동하기 쉬우므로 주의해야 합니다.
 
-## 차이점
+## 차이점 {id="distinctions"}
 
 범위 지정 함수는 본질적으로 유사하기 때문에 이들 간의 차이점을 이해하는 것이 중요합니다. 각 범위 지정 함수 사이에는 두 가지 주요 차이점이 있습니다:
 * 컨텍스트 객체를 참조하는 방식.
 * 반환 값.
 
-### 컨텍스트 객체: this 또는 it
+### 컨텍스트 객체: this 또는 it {id="context-object-this-or-it"}
 
 범위 지정 함수에 전달된 람다 내부에서 컨텍스트 객체는 실제 이름 대신 짧은 참조로 사용할 수 있습니다. 각 범위 지정 함수는 컨텍스트 객체를 참조하기 위해 람다 [수신 객체(receiver)](lambdas.md#function-literals-with-receiver)(`this`) 또는 람다 인자(`it`) 중 하나의 방식을 사용합니다. 두 방식 모두 동일한 기능을 제공하므로, 각 사용 사례에 따른 장단점을 설명하고 사용 권장 사항을 제공합니다.
 
@@ -105,7 +105,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-#### this
+#### this {id="this"}
 
 `run`, `with`, `apply`는 컨텍스트 객체를 람다 [수신 객체](lambdas.md#function-literals-with-receiver)로 참조하며, 키워드 `this`를 사용합니다. 따라서 이들의 람다 내에서는 일반적인 클래스 함수에서처럼 객체를 사용할 수 있습니다.
 
@@ -126,7 +126,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-#### it
+#### it {id="it"}
 
 반면 `let`과 `also`는 컨텍스트 객체를 람다 [인자](lambdas.md#lambda-expression-syntax)로 참조합니다. 인자 이름을 지정하지 않으면 암시적인 기본 이름인 `it`으로 객체에 접근합니다. `it`은 `this`보다 짧으며 `it`을 사용한 표현식은 대개 읽기 쉽습니다.
 
@@ -178,7 +178,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 반환 값
+### 반환 값 {id="return-value"}
 
 범위 지정 함수는 반환하는 결과에 따라 다음과 같이 나뉩니다:
 * `apply`와 `also`는 컨텍스트 객체를 반환합니다.
@@ -186,7 +186,7 @@ fun main() {
 
 코드에서 다음에 수행할 작업에 따라 어떤 반환 값을 원하는지 신중하게 고려해야 합니다. 이는 사용할 최적의 범위 지정 함수를 선택하는 데 도움이 됩니다.
 
-#### 컨텍스트 객체
+#### 컨텍스트 객체 {id="context-object"}
 
 `apply`와 `also`의 반환 값은 컨텍스트 객체 자신입니다. 따라서 이들은 _부수적인 단계(side steps)_로 호출 체인에 포함될 수 있습니다. 즉, 동일한 객체에 대해 함수 호출을 연달아 계속 체이닝할 수 있습니다.
 
@@ -231,7 +231,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-#### 람다 결과
+#### 람다 결과 {id="lambda-result"}
 
 `let`, `run`, `with`는 람다 결과를 반환합니다. 따라서 결과를 변수에 할당하거나, 결과에 대해 연산을 체이닝하는 등의 용도로 사용할 수 있습니다.
 
@@ -266,11 +266,11 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 함수들
+## 함수들 {id="functions"}
 
 사용 사례에 맞는 적절한 범위 지정 함수를 선택하는 데 도움이 되도록 각 함수를 상세히 설명하고 사용 권장 사항을 제공합니다. 기술적으로 범위 지정 함수는 많은 경우 서로 교체 가능하므로, 아래 예시들은 사용 관례를 보여줍니다.
 
-### let
+### let {id="let"}
 
 - **컨텍스트 객체**는 인자(`it`)로 사용할 수 있습니다.
 - **반환 값**은 람다 결과입니다.
@@ -350,7 +350,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### with
+### with {id="with"}
 
 - **컨텍스트 객체**는 수신 객체(`this`)로 사용할 수 있습니다.
 - **반환 값**은 람다 결과입니다.
@@ -388,7 +388,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### run
+### run {id="run"}
 
 - **컨텍스트 객체**는 수신 객체(`this`)로 사용할 수 있습니다.
 - **반환 값**은 람다 결과입니다.
@@ -445,7 +445,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### apply
+### apply {id="apply"}
 
 - **컨텍스트 객체**는 수신 객체(`this`)로 사용할 수 있습니다.
 - **반환 값**은 객체 자신입니다.
@@ -469,7 +469,7 @@ fun main() {
 
 `apply`의 또 다른 사용 사례는 더 복잡한 처리를 위해 다중 호출 체인에 `apply`를 포함시키는 것입니다.
 
-### also
+### also {id="also"}
 
 - **컨텍스트 객체**는 인자(`it`)로 사용할 수 있습니다.
 - **반환 값**은 객체 자신입니다.
@@ -490,7 +490,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## takeIf 및 takeUnless
+## takeIf 및 takeUnless {id="takeif-and-takeunless"}
 
 범위 지정 함수 외에도 표준 라이브러리에는 [`takeIf`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/take-if.html)와 [`takeUnless`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/take-unless.html) 함수가 포함되어 있습니다. 이 함수들을 사용하면 호출 체인에 객체 상태 확인을 포함시킬 수 있습니다.
 

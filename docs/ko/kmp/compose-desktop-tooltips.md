@@ -76,6 +76,6 @@ fun main() = singleWindowApplication(
 
 <img src="compose-desktop-tooltips.animated.gif" alt="Tooltips" width="288" preview-src="compose-desktop-tooltips.png"/>
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 [다른 데스크톱 컴포넌트](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop)에 대한 튜토리얼을 살펴보세요.

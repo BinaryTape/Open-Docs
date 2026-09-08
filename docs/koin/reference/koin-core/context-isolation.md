@@ -8,13 +8,13 @@ title: 上下文隔离
 有关一般 Koin 设置，请参阅 **[启动 Koin](/docs/reference/koin-core/starting-koin)**。
 :::
 
-## 何时使用上下文隔离
+## 何时使用上下文隔离 {id="when-to-use-context-isolation"}
 
 - **SDK/库开发** —— 你的库在内部使用 Koin
 - **避免冲突** —— 宿主应用也可能使用 Koin
 - **封装** —— 保持你的 DI 容器为私有
 
-## 创建隔离上下文
+## 创建隔离上下文 {id="creating-an-isolated-context"}
 
 不要使用 `startKoin`（它会在 `GlobalContext` 中注册），而是使用 `koinApplication`：
 
@@ -35,7 +35,7 @@ val sdkModule = module {
 }
 ```
 
-## 自定义 KoinComponent
+## 自定义 KoinComponent {id="custom-koincomponent"}
 
 创建一个使用你隔离上下文的自定义 `KoinComponent`：
 
@@ -51,7 +51,7 @@ class MySdkClass : SdkKoinComponent {
 }
 ```
 
-## 测试隔离上下文
+## 测试隔离上下文 {id="testing-isolated-context"}
 
 在测试中重写 `getKoin()` 以使用隔离上下文：
 
@@ -74,7 +74,7 @@ class SdkTest : KoinTest {
 }
 ```
 
-## 另请参阅
+## 另请参阅 {id="see-also"}
 
 - **[启动 Koin](/docs/reference/koin-core/starting-koin)** —— 标准 Koin 设置
 - **[Compose 上下文隔离](/docs/reference/koin-compose/isolated-context)** —— Compose 应用中的隔离

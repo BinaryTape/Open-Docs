@@ -4,7 +4,7 @@
 
 通过本教程，您将学习如何构建并运行一个带 Compose Multiplatform UI 的简单 Kotlin Multiplatform 应用。
 
-## 设置环境
+## 设置环境 {id="set-up-the-environment"}
 
 首先从 IDE 和必要的插件开始：
 
@@ -59,7 +59,7 @@
     >
     {style="note"}
 
-## 创建项目 
+## 创建项目 {id="create-a-project"}
 
 <Tabs>
 <TabItem title= "IntelliJ IDEA">
@@ -109,7 +109,7 @@
 </TabItem>
 </Tabs>
 
-## 查看预检
+## 查看预检 {id="consult-the-preflight-checks"}
 
 您可以通过打开 **Project Environment Preflight Checks** 工具窗口，确保项目设置没有环境问题：
 点击右侧边栏或底部栏上的预检图标 ![带飞机的项目环境预检图标](ide-preflight-checks.png){width="20"}
@@ -121,7 +121,7 @@
 
 ![输入了“preflight”一词的随处搜索菜单](double-shift-preflight-checks.png){width=600}
 
-## 运行示例应用
+## 运行示例应用 {id="run-the-sample-apps"}
 
 IDE 向导创建的项目包含为 iOS、Android、桌面和 Web 应用程序生成的运行配置，以及用于运行服务器应用的 Gradle 任务。下面列出了每个平台的具体 Gradle 命令。
 
@@ -190,9 +190,9 @@ wasmJsBrowserDevelopmentRun
 </TabItem>
 </Tabs>
 
-## 故障排除
+## 故障排除 {id="troubleshooting"}
 
-### Java 和 JDK
+### Java 和 JDK {id="java-and-jdk"}
 
 Java 的常见问题：
 
@@ -207,20 +207,20 @@ Java 的常见问题：
     * 将 `JAVA_HOME` 内 `bin` 文件夹的路径添加到 `PATH` 变量中，以便在终端中使用 JDK 中包含的工具。
 * 如果在 Android Studio 中遇到 Gradle JDK 问题，请确保其配置正确：选择 **Settings** | **Build, Execution, Deployment** | **Build Tools** | **Gradle**。
 
-### Android 工具
+### Android 工具 {id="android-tools"}
 
 与 JDK 相同，如果您在启动 `adb` 等 Android 工具时遇到困难，请确保 `ANDROID_HOME/tools`、`ANDROID_HOME/tools/bin` 和 `ANDROID_HOME/platform-tools` 的路径已添加到您的 `PATH` 环境变量中。
 
-### Xcode
+### Xcode {id="xcode"}
 
 如果您的 iOS 运行配置报告没有可运行的虚拟设备，或者预检失败，请务必启动 Xcode 并查看 iOS 模拟器是否有任何更新。
 
-### 获取帮助
+### 获取帮助 {id="get-help"}
 
 * **Kotlin Slack**。获取[邀请](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)并加入 [#multiplatform](https://kotlinlang.slack.com/archives/C3PQML5NU) 频道。
 * **Kotlin Multiplatform 工具问题跟踪器**。[报告新问题](https://youtrack.jetbrains.com/newIssue?project=KMT)。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 详细了解 KMP 项目的结构以及编写共享代码：
 * 关于使用 Compose Multiplatform 处理共享 UI 代码的一系列教程：[创建您的 Compose Multiplatform 应用](compose-multiplatform-create-first-app.md)

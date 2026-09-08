@@ -47,7 +47,7 @@ Koogの**ストリーミングAPI**を使用すると、**LLMの出力を逐次�
 
 プレーンテキストの抽出、フレームの `Message.Response` オブジェクトへの変換、および**分割されたツール呼び出しを安全に結合する**ためのヘルパーが提供されています。
 
-## APIの概要
+## APIの概要 {id="api-overview"}
 
 ストリーミングを使用すると、以下のことが可能になります：
 
@@ -59,7 +59,7 @@ Koogの**ストリーミングAPI**を使用すると、**LLMの出力を逐次�
 
 **フレーム**自体を操作することも、フレームから派生した**プレーンテキスト**を操作することもできます。
 
-### デルタフレーム vs コンプリートフレーム
+### デルタフレーム vs コンプリートフレーム {id="delta-vs-complete-frames"}
 
 ストリーミングAPIでは、2種類のフレームを区別します：
 
@@ -70,9 +70,9 @@ Koogの**ストリーミングAPI**を使用すると、**LLMの出力を逐次�
 通常、UIの更新にはデルタフレームを使用し、最終的な構造化データの抽出にはコンプリートフレームを使用します。
 
 ---
-## 使い方
+## 使い方 {id="usage"}
 
-### フレームを直接操作する
+### フレームを直接操作する {id="working-with-frames-directly"}
 
 これは最も一般的なアプローチであり、各フレームの種類に反応します。
 
@@ -278,7 +278,7 @@ Tool call: " + toolCall.getName()
     ```
     <!--- KNIT exampleStreamingApiJava02.java -->
 
-### 推論フレームの操作
+### 推論フレームの操作 {id="working-with-reasoning-frames"}
 
 推論をサポートするモデル（Claude Sonnet 4.5やGPT-o1など）は、ストリーミング中に推論フレームを出力します。推論プロセスとその要約の両方にアクセスできます：
 
@@ -411,7 +411,7 @@ Complete reasoning: "
     ```
     <!--- KNIT exampleStreamingApiReasoningJava01.java -->
 
-### 生のテキストストリーム（派生）の操作
+### 生のテキストストリーム（派生）の操作 {id="working-with-a-raw-text-stream-derived"}
 
 `Flow<String>` を期待する既存のストリーミングパーサーがある場合は、`filterTextOnly()` を介してテキストチャンクを派生させるか、`collectText()` でそれらを収集します。
 
@@ -502,7 +502,7 @@ $fullText")
     ```
     <!--- KNIT exampleStreamingApiJava03.java -->
 
-### イベントハンドラーでのストリームイベントのリスニング
+### イベントハンドラーでのストリームイベントのリスニング {id="listening-to-stream-events-in-event-handlers"}
 
 [エージェントイベントハンドラー](features/agent-event-handlers.md)でストリームイベントをリスニングできます。
 
@@ -593,7 +593,7 @@ Using " + ctx.getToolName() + " with " + ctx.getToolArgs() + "... ");
     ```
     <!--- KNIT exampleStreamingApiJava04.java -->
 
-### フレームから `Message.Response` への変換
+### フレームから `Message.Response` への変換 {id="converting-frames-to-message-response"}
 
 収集されたフレームのリストを標準のメッセージオブジェクトに変換できます：
 
@@ -602,9 +602,9 @@ Using " + ctx.getToolName() + " with " + ctx.getToolArgs() + "... ");
 - `toToolCallMessages()` — ツール呼び出しフレームから `MessagePart.Tool.Call` を抽出します
 - `toMessageResponses()` — すべてのコンプリートフレームを対応する `Message.Response` オブジェクトに変換します
 
-## 例
+## 例 {id="examples"}
 
-### ストリーミング中の構造化データ（Markdownの例）
+### ストリーミング中の構造化データ（Markdownの例） {id="structured-data-while-streaming-markdown-example"}
 
 生の文字列ストリームを操作することも可能ですが、通常は[構造化データ](structured-output.md)を操作する方が便利です。
 
@@ -615,7 +615,7 @@ Using " + ctx.getToolName() + " with " + ctx.getToolArgs() + "... ");
 
 以下のセクションでは、構造化データのストリーム処理に関連するステップバイステップの手順とコードサンプルを提供します。
 
-#### 1. データ構造の定義
+#### 1. データ構造の定義 {id="1-define-your-data-structure"}
 
 まず、構造化データを表すデータクラスを定義します：
 
@@ -649,7 +649,7 @@ Using " + ctx.getToolName() + " with " + ctx.getToolArgs() + "... ");
     ```
     <!--- KNIT exampleStreamingApiJava05.java -->
 
-#### 2. Markdown構造の定義
+#### 2. Markdown構造の定義 {id="2-define-the-markdown-structure"}
 
 `MarkdownStructureDefinition` クラスを使用して、Markdown内でデータがどのように構造化されるかを指定する定義を作成します：
 
@@ -697,7 +697,7 @@ Using " + ctx.getToolName() + " with " + ctx.getToolArgs() + "... ");
     ```
     <!--- KNIT exampleStreamingApiJava06.java -->
 
-#### 3. データ構造用のパーサーの作成
+#### 3. データ構造用のパーサーの作成 {id="3-create-a-parser-for-your-data-structure"}
 
 `markdownStreamingParser` は、さまざまなMarkdown要素に対していくつかのハンドラーを提供します：
 
@@ -813,7 +813,7 @@ Using " + ctx.getToolName() + " with " + ctx.getToolArgs() + "... ");
     ```
     <!--- KNIT exampleStreamingApiJava08.java -->
 
-#### 4. エージェント戦略でパーサーを使用する
+#### 4. エージェント戦略でパーサーを使用する {id="4-use-the-parser-in-your-agent-strategy"}
 
 === "Kotlin"
 
@@ -866,12 +866,12 @@ Using " + ctx.getToolName() + " with " + ctx.getToolArgs() + "... ");
     ```
     <!--- KNIT exampleStreamingApiJava09.java -->
 
-### 高度な使用法：ツールを使用したストリーミング
+### 高度な使用法：ツールを使用したストリーミング {id="advanced-usage-streaming-with-tools"}
 
 ストリーミングAPIをツールと組み合わせて使用し、データが到着するたびに処理することもできます。
 以下のセクションでは、ツールを定義し、それをストリーミングデータで使用する方法について、簡単なステップバイステップガイドを提供します。
 
-### 1. データ構造用のツールを定義する
+### 1. データ構造用のツールを定義する {id="1-define-a-tool-for-your-data-structure"}
 
 === "Kotlin"
 
@@ -931,7 +931,7 @@ Using " + ctx.getToolName() + " with " + ctx.getToolArgs() + "... ");
     ```
     <!--- KNIT exampleStreamingApiJava10.java -->
 
-### 2. ストリーミングデータでツールを使用する
+### 2. ストリーミングデータでツールを使用する {id="2-use-the-tool-with-streaming-data"}
 
 === "Kotlin"
 
@@ -1043,7 +1043,7 @@ Using " + ctx.getToolName() + " with " + ctx.getToolArgs() + "... ");
     ```
     <!--- KNIT exampleStreamingApiJava11.java -->
 
-### 3. エージェント設定にツールを登録する
+### 3. エージェント設定にツールを登録する {id="3-register-the-tool-in-your-agent-configuration"}
 
 === "Kotlin"
 
@@ -1103,7 +1103,7 @@ Using " + ctx.getToolName() + " with " + ctx.getToolArgs() + "... ");
     ```
     <!--- KNIT exampleStreamingApiJava12.java -->
 
-## ベストプラクティス
+## ベストプラクティス {id="best-practices"}
 
 1. **明確な構造を定義する**: データに対して、明確で曖昧さのないMarkdown構造を作成します。
 

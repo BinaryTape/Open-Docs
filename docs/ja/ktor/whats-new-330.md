@@ -11,7 +11,7 @@ Ktor 3.3.0 では、サーバー、クライアント、およびツール全体
 * [HTTP/2 cleartext (h2c) のサポート](#http2-h2c-support)
 * [実験的な WebRTC クライアント](#webrtc-client)
 
-## Ktor Server
+## Ktor Server {id="ktor-server"}
 
 ### 静的リソース向けのカスタムフォールバック {id="custom-fallback"}
 
@@ -34,7 +34,7 @@ staticFiles("/files", File("textFiles")) {
 }
 ```
 
-### 静的コンテンツの LastModified および ETag ヘッダー
+### 静的コンテンツの LastModified および ETag ヘッダー {id="lastmodified-and-etag-headers-for-static-content"}
 
 Ktor 3.3.0 では、静的リソースに対する `ETag` および `LastModified` ヘッダーのサポートが導入されました。[`ConditionalHeaders`](server-conditional-headers.md) プラグインがインストールされている場合、条件付きヘッダーを処理して、前回のクエストからコンテンツが変更されていない場合にボディの送信を回避できます。
 
@@ -55,7 +55,7 @@ staticFiles("/filesWithStrongGeneratedEtag", File("files")) {
 }
 ```
 
-### 開発モードのオートリロードに関する制限事項
+### 開発モードのオートリロードに関する制限事項 {id="development-mode-auto-reload-limitations"}
 
 Ktor 3.2.0 で導入された [suspend モジュール関数のサポート](whats-new-320.md#suspendable-module-functions) により、ブロッキングなモジュール参照を使用するアプリケーションでオートリロードが機能しなくなるリグレッションが発生しました。
 
@@ -83,9 +83,9 @@ Ktor 3.3.0 では、Netty エンジンにおいて HTTP/2 over cleartext (h2c) �
 
 h2c を有効にするには、エンジン設定で `enableH2c` フラグを true に設定します。詳細については、[TLS なしの HTTP/2](server-http2.md#http-2-without-tls) を参照してください。
 
-## Ktor Client
+## Ktor Client {id="ktor-client"}
 
-### SSE レスポンスボディのバッファリング
+### SSE レスポンスボディのバッファリング {id="sse-response-body-buffer"}
 
 これまで、SSE のエラー発生後に `response.bodyAsText()` を呼び出そうとすると、二重消費（double-consume）の問題により失敗していました。
 
@@ -181,15 +181,15 @@ val answer = channel.receiveText()
 
 使用方法や制限事項の詳細については、[WebRTC クライアント](client-webrtc.md) のドキュメントを参照してください。
 
-### Updated OkHttp version
+### Updated OkHttp version {id="updated-okhttp-version"}
 
 Ktor 3.3.0 では、Ktor クライアントの `OkHttp` エンジンが OkHttp 5.1.0（以前は 4.12.0）を使用するようにアップグレードされました。このメジャーバージョンの更新により、OkHttp と直接やり取りするプロジェクトでは API の変更が発生する可能性があります。そのようなプロジェクトでは互換性を確認してください。
 
-### Unified OkHttp SSE session
+### Unified OkHttp SSE session {id="unified-okhttp-sse-session"}
 
 OkHttp エンジンは、Server-Sent Events (SSE) に標準 API を使用するようになり、以前導入された `OkHttpSSESession` に取って代わりました。この変更により、すべてのクライアントエンジンで SSE の処理が統一され、OkHttp 固有の実装による制限が解消されました。
 
-## Gradle plugin
+## Gradle plugin {id="gradle-plugin"}
 
 ### OpenAPI 仕様の生成 {id="openapi-spec-gen"}
 <primary-label ref="experimental"/>
@@ -204,7 +204,7 @@ Ktor 3.3.0 では、Gradle プラグインとコンパイラプラグインを�
     - セキュリティ、説明、非推奨、および外部リンク
 - `call.receive()` および `call.respond()` からリクエストボディとレスポンスボディを推論します。
 
-#### OpenAPI 仕様の生成
+#### OpenAPI 仕様の生成 {id="generate-the-openapi-specification"}
 
 Ktor のルートと KDoc アノテーションから OpenAPI 仕様ファイルを生成するには、次のコマンドを使用します。
 
@@ -212,7 +212,7 @@ Ktor のルートと KDoc アノテーションから OpenAPI 仕様ファイル
 ./gradlew buildOpenApi
 ```
 
-#### 仕様の提供
+#### 仕様の提供 {id="serve-the-specification"}
 
 生成された仕様を実行時に利用可能にするには、[OpenAPI](server-openapi.md) または [SwaggerUI](server-swagger-ui.md) プラグインを使用できます。
 
@@ -226,9 +226,9 @@ routing {
 
 この機能の詳細については、[OpenAPI 仕様の生成](openapi-spec-generation.md) を参照してください。
 
-## Shared
+## Shared {id="shared"}
 
-### Updated Jetty version
+### Updated Jetty version {id="updated-jetty-version"}
 
 Jetty のサーバーおよびクライアントエンジンが Jetty 12 を使用するようにアップグレードされました。ほとんどのアプリケーションにおいて、このアップグレードは完全な後方互換性がありますが、クライアントおよびサーバーのコードは内部的に更新された Jetty API を利用するようになります。
 

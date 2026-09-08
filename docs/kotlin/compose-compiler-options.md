@@ -29,7 +29,7 @@ composeCompiler {
 >
 {style="warning"}
 
-## 特性标志的用途和用法
+## 特性标志的用途和用法 {id="purpose-and-use-of-feature-flags"}
 
 特性标志被组织成一组单独的选项，以便在不断推出和弃用新标志时，最大限度地减少对顶级属性的更改。
 

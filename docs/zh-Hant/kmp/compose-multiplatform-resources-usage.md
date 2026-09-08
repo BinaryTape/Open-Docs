@@ -26,7 +26,7 @@
   [來自外部程式庫](#accessing-multiplatform-resources-from-external-libraries)、
   [遠端檔案](#remote-files) 以及 [Java 資源](#using-java-resources)。
 
-## 匯入產生的類別
+## 匯入產生的類別 {id="importing-the-generated-class"}
 
 若要使用準備好的資源，請匯入產生的類別，例如：
 
@@ -41,7 +41,7 @@ import project.shared.generated.resources.example_image
 * `Res` 是產生類別的預設名稱
 * `example_image` 是 `composeResources/drawable` 目錄中圖像檔案的名稱（例如 `example_image.png`）。
 
-## 自訂存取子類別生成
+## 自訂存取子類別生成 {id="customizing-accessor-class-generation"}
 
 您可以使用 Gradle 設定來根據需求自訂產生的 `Res` 類別。
 
@@ -60,9 +60,9 @@ compose.resources {
 * `packageOfResClass` 允許您將產生的 `Res` 類別指派給特定套件（以便在程式碼中存取，以及在最終產物中進行隔離）。預設情況下，Compose Multiplatform 會將 `{group name}.{module name}.generated.resources` 套件指派給該類別。
 * `generateResClass` 設置為 `always` 會使專案無條件地產生 `Res` 類別。當資源程式庫僅透過遞移 (transitively) 方式可用時，這很有用。預設情況下，Compose Multiplatform 使用 `auto` 值，僅當目前專案對資源程式庫有明確的 `implementation` 或 `api` 相依性時，才會產生 `Res` 類別。
 
-## 資源用法
+## 資源用法 {id="resource-usage"}
 
-### 圖像
+### 圖像 {id="images"}
 
 您可以將可繪製資源作為簡單圖像、點陣化圖像或 XML 向量來存取。
 SVG 圖像在 **除 Android 以外** 的所有平台均受支援。
@@ -102,7 +102,7 @@ Image(
 )
 ```
 
-#### 在畫布上繪製圖像
+#### 在畫布上繪製圖像 {id="drawing-images-on-a-canvas"}
 
 若要自行繪製資源圖像，而不是使用 `Image()` 可組合項顯示它，請將其載入為 `ImageBitmap` 或 `ImageVector` 並在 `DrawScope` 中使用：
 
@@ -127,7 +127,7 @@ Canvas(modifier = Modifier.fillMaxSize()) {
 }
 ```
 
-### 圖示
+### 圖示 {id="icons"}
 
 您可以使用來自 Material Symbols 程式庫的向量 Android XML 圖示：
 
@@ -180,7 +180,7 @@ Image(
 )
 ```
 
-### 字串
+### 字串 {id="strings"}
 
 將所有字串資源儲存在 `composeResources/values` 目錄下的 XML 檔案中。
 每個檔案中的每個項目都會產生一個靜態存取子。
@@ -190,7 +190,7 @@ Compose Multiplatform 支援類 Emmet 的縮寫語法，可直接在 XML 檔案�
 
 關於如何為不同區域設定進行字串在地化的更多資訊，請參閱 [字串在地化指南](compose-localize-strings.md)。
 
-#### 簡單字串
+#### 簡單字串 {id="simple-strings"}
 
 要儲存簡單字串，請在 XML 中加入 `<string>` 元素：
 
@@ -255,7 +255,7 @@ coroutineScope.launch {
 >
 {style="note"}
 
-#### 字串範本
+#### 字串範本 {id="string-templates"}
 
 目前，字串資源對引數 (arguments) 提供基本支援。
 建立範本時，請使用 `%<number>` 格式在字串中放置引數，並包含 `$d` 或 `$s` 後綴以指示它是變數占位符而非簡單文字。
@@ -286,7 +286,7 @@ Text(stringResource(Res.string.str_template, "User_name", 100.1f))
 > 
 {style="note"}
 
-#### 字串陣列
+#### 字串陣列 {id="string-arrays"}
 
 您可以將相關字串分組到一個陣列中，並自動將其作為 `List<String>` 物件存取：
 
@@ -349,7 +349,7 @@ coroutineScope.launch {
 >
 {style="note"}
 
-#### 複數 (Plurals)
+#### 複數 (Plurals) {id="plurals"}
 
 當您的 UI 顯示某物的數量時，您可能希望支援不同數量（一個 _book_、多個 _books_ 等）的語法一致性，而無需建立程式碼上無關的字串。
 
@@ -426,7 +426,7 @@ coroutineScope.launch {
 >
 {style="note"}
 
-### 字型
+### 字型 {id="fonts"}
 
 將自訂字型儲存在 `composeResources/font` 目錄中。
 Compose Multiplatform 在所有平台上支援 TTF、OTF、TTC 和可變字型格式。
@@ -485,7 +485,7 @@ private fun InterTypography(): Typography {
 
 如果您需要完全控制所使用的字型，請組合特定字型並使用 [預載 API](compose-web-resources.md#preload-resources-using-the-compose-multiplatform-preload-api) 手動註冊。
 
-### 原始檔案 (Raw files)
+### 原始檔案 (Raw files) {id="raw-files"}
 
 要將任何原始檔案載入為位元組陣列，請使用 `Res.readBytes(path)` 函式：
 
@@ -522,7 +522,7 @@ coroutineScope.launch {
 </TabItem>
 </Tabs>
 
-#### 將位元組陣列轉換為圖像
+#### 將位元組陣列轉換為圖像 {id="convert-byte-arrays-into-images"}
 
 如果您讀取的檔案是點陣圖（JPEG、PNG、BMP、WEBP）或 XML 向量圖像，您可以使用以下函式將其轉換為適用於 `Image()` 可組合項的 `ImageBitmap` 或 `ImageVector` 物件。
 
@@ -543,7 +543,7 @@ Image(bytes.decodeToImageVector(LocalDensity.current), null)
 Image(bytes.decodeToSvgPainter(LocalDensity.current), null)
 ```
 
-### 產生的資源與字串 ID 對應表
+### 產生的資源與字串 ID 對應表 {id="generated-maps-for-resources-and-string-ids"}
 
 為了方便存取，Compose Multiplatform 還將資源與字串 ID 進行了對應。您可以使用檔案名稱作為鍵 (key) 來存取它們：
 
@@ -561,7 +561,7 @@ val Res.allFontResources: Map<String, FontResource>
 Image(painterResource(Res.allDrawableResources["compose_multiplatform"]!!), null)
 ```
 
-### Compose Multiplatform 資源作為 Android assets
+### Compose Multiplatform 資源作為 Android assets {id="compose-multiplatform-resources-as-android-assets"}
 
 從 Compose Multiplatform 1.7.0 開始，所有多平台資源都會打包到 Android assets 中。這使得 Android Studio 能夠為 Android 原始碼集中的 Compose Multiplatform 可組合項產生預覽。
 
@@ -619,9 +619,9 @@ fun App() {
 
 ![composeResources 目錄的檔案結構](compose-resources-android-webview.png){width="230"}
 
-## 與其他程式庫和資源的互動
+## 與其他程式庫和資源的互動 {id="interaction-with-other-libraries-and-resources"}
 
-### 從外部程式庫存取多平台資源
+### 從外部程式庫存取多平台資源 {id="accessing-multiplatform-resources-from-external-libraries"}
 
 如果您想使用專案中包含的其他程式庫來處理多平台資源，您可以將平台特定的檔案路徑傳遞給這些其他 API。
 要獲取平台特定的路徑，請使用資源的專案路徑呼叫 `Res.getUri()` 函式：
@@ -634,7 +634,7 @@ val uri = Res.getUri("files/my_video.mp4")
 
 對於 Android 特定用途，多平台資源也會 [打包為 Android assets](#compose-multiplatform-resources-as-android-assets)。
 
-### 遠端檔案
+### 遠端檔案 {id="remote-files"}
 
 在資源程式庫的語境下，只有作為應用程式一部分的檔案才被視為資源。
 
@@ -648,7 +648,7 @@ val uri = Res.getUri("files/my_video.mp4")
 
 如果您自行下載或讀取圖像的位元組，請使用資源庫的 [解碼函式](#convert-byte-arrays-into-images) 將其轉換為圖像。如需在桌面應用程式中從網路載入圖像的範例，請參閱 [桌面版 Compose Multiplatform 使用圖像教學](compose-desktop-images.md#loading-images-from-the-file-system-or-the-network)。
 
-### 使用 Java 資源
+### 使用 Java 資源 {id="using-java-resources"}
 
 雖然您可以在 Compose Multiplatform 中使用 Java 資源，但它們無法享受架構提供的擴展功能：產生的存取子、多模組支援、在地化等等。
 請考慮完全過渡到多平台資源程式庫以發揮這些潛力。
@@ -690,7 +690,7 @@ private fun readResourceBytes(resourcePath: String) =
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="internal fun painterResource(resourcePath: String): Painter"}
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * 查看官方 [展示專案](https://github.com/JetBrains/compose-multiplatform/tree/master/components/resources/demo)，該專案展示了如何在針對 iOS、Android 和桌面的 Compose Multiplatform 專案中處理資源。
 * 了解如何管理應用程式的 [資源環境](compose-resource-environment.md)，例如應用程式內的佈景主題和語言。

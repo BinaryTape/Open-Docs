@@ -16,11 +16,11 @@
 >
 {style="note"}
 
-## 在 Java 與 Kotlin 中相同的操作
+## 在 Java 與 Kotlin 中相同的操作 {id="operations-that-are-the-same-in-java-and-kotlin"}
 
 在 Kotlin 中，集合上的許多操作與 Java 中的對應操作看起來完全相同。
 
-### List、Set、Queue 與 Deque 的操作
+### List、Set、Queue 與 Deque 的操作 {id="operations-on-lists-sets-queues-and-deques"}
 
 | 描述 | 常用操作 | 更多 Kotlin 替代方案 |
 |------------------------------------------------------------|-------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -33,7 +33,7 @@
 | 從集合獲取 Stream | `stream()` | Kotlin 有自己的方式來處理 Stream：[序列 (sequences)](#sequences) 以及 [`map()`](collection-filtering.md) 和 [`filter()`](#filter-elements) 等方法。 |
 | 從集合獲取反覆運算器 | `iterator()` | |
 
-### Map 的操作
+### Map 的操作 {id="operations-on-maps"}
 
 | 描述 | 常用操作 | 更多 Kotlin 替代方案 |
 |-----------------------------------------------------|----------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -46,7 +46,7 @@
 | 從 Map 中移除所有元素 | `clear()` | |
 | 從 Map 獲取 Stream | 在 entries、keys 或 values 上使用 `stream()` | |
 
-### 僅適用於 List 的操作
+### 僅適用於 List 的操作 {id="operations-that-exist-only-for-lists"}
 
 | 描述 | 常用操作 | 更多 Kotlin 替代方案 |
 |----------------------------------|--------------------------|----------------------------------------------------------------------|
@@ -56,9 +56,9 @@
 | 擷取子清單 | `subList()` | |
 | 替換一個或多個元素 | `set()`, `replaceAll()` | 使用索引運算子代替 `set()`：`list[index] = value`。 |
 
-## 有所不同的操作
+## 有所不同的操作 {id="operations-that-differ-a-bit"}
 
-### 適用於任何集合類型的操作
+### 適用於任何集合類型的操作 {id="operations-on-any-collection-type"}
 
 | 描述 | Java | Kotlin |
 |----------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -78,7 +78,7 @@
 
 若要在 Map 上執行上述所有操作，您首先需要獲取 Map 的 `entrySet`。
 
-### List 的操作
+### List 的操作 {id="operations-on-lists"}
 
 | 描述 | Java | Kotlin |
 |--------------------------------------------------|------------------------------------|-----------------------------------------------------------------------------------------------|
@@ -88,7 +88,7 @@
 | 以特定值填充清單的所有元素 | `Collections.fill()` | [`fill()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/fill.html) |
 | 從清單中獲取不重複的元素 | `stream().distinct().toList()` | [`distinct()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/distinct.html) |
 
-## 僅存在於 Java 標準函式庫之外的操作
+## 僅存在於 Java 標準函式庫之外的操作 {id="operations-that-don-t-exist-in-java-s-standard-library"}
 
 * [`zip()`, `unzip()`](collection-transformations.md) – 轉換集合。
 * [`aggregate()`](collection-grouping.md) – 依條件分組。
@@ -100,7 +100,7 @@
 
 <video src="https://www.youtube.com/v/N4CpLxGJlq0" title="進階集合操作"/>
 
-## 可變性
+## 可變性 {id="mutability"}
 
 在 Java 中，存在可變集合：
 
@@ -148,7 +148,7 @@ val immutableNumbers = listOf("one", "two")
 
 在 [Kotlin 編碼慣例](coding-conventions.md#immutability)頁面閱讀更多關於不可變性的內容。
 
-## 共變性
+## 共變性 {id="covariance"}
 
 在 Java 中，您不能將具有衍生型別的集合傳遞給接收基底型別集合的函式。
 例如，如果 `Rectangle` 繼承自 `Shape`，您不能將 `Rectangle` 元素的集合傳遞給接收 `Shape` 元素集合的函式。
@@ -196,7 +196,7 @@ fun main() {
 
 在此閱讀更多關於[集合型別](collections-overview.md#collection-types)的資訊。
 
-## 範圍與數列
+## 範圍與數列 {id="ranges-and-progressions"}
 
 在 Kotlin 中，您可以使用[範圍 (ranges)](ranges.md) 來建立區間。例如，`Version(1, 11)..Version(1, 30)` 包含從 `1.11` 到 `1.30` 的所有版本。
 您可以使用 `in` 運算子檢查您的版本是否在該範圍內：`Version(0, 9) in versionRange`。
@@ -266,7 +266,7 @@ fun main() {
 
 一旦您需要排除其中一個邊界，例如檢查版本是否大於或等於 (`>=`) 最小版本且小於 (`<`) 最大版本時，這些包含邊界的範圍將無效。
 
-## 多重準則比較
+## 多重準則比較 {id="comparison-by-several-criteria"}
 
 在 Java 中，要根據多個準則比較物件，您可以使用來自 [`Comparator`](https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html) 介面的 [`comparing()`](https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#comparing-java.util.function.Function-) 
 和 [`thenComparingX()`](https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#thenComparing-java.util.Comparator-) 函式。
@@ -322,7 +322,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="comparison-kotlin"}
 
-## 序列
+## 序列 {id="sequences"}
 
 在 Java 中，您可以透過這種方式產生數字序列：
 
@@ -353,7 +353,7 @@ fun main() {
 序列可以減少執行某些過濾操作所需的步驟數。
 請參閱[序列處理範例](sequences.md#sequence-processing-example)，它展示了 `Iterable` 和 `Sequence` 之間的區別。
 
-## 從清單中移除元素
+## 從清單中移除元素 {id="removal-of-elements-from-a-list"}
 
 在 Java 中，[`remove()`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html#remove(int)) 函式接收要移除元素的索引。
 
@@ -393,7 +393,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="remove-elements-kotlin"}
 
-## 遍歷 Map
+## 遍歷 Map {id="traverse-a-map"}
 
 在 Java 中，您可以透過 [`forEach`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html#forEach(java.util.function.BiConsumer)) 遍歷 Map：
 
@@ -415,7 +415,7 @@ numbers.forEach { (k, v) -> println("Key = $k, Value = $v") }
 ```
 {id="traverse-map-kotlin"}
 
-## 獲取可能為空的集合的第一個和最後一個項目
+## 獲取可能為空的集合的第一個和最後一個項目 {id="get-the-first-and-the-last-items-of-a-possibly-empty-collection"}
 
 在 Java 中，您可以藉由檢查集合大小並使用索引來安全地獲取第一個和最後一個項目：
 
@@ -456,7 +456,7 @@ val theFreshestEmail = emails.lastOrNull() ?: ""
 ```
 {id="get-first-last-kotlin"}
 
-## 從清單建立 Set
+## 從清單建立 Set {id="create-a-set-from-a-list"}
 
 在 Java 中，要從 [`List`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html) 建立 [`Set`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html)，您可以使用 [`Set.copyOf`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html#copyOf(java.util.Collection)) 函式：
 
@@ -484,7 +484,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="list-to-set-kotlin"}
 
-## 分組元素
+## 分組元素 {id="group-elements"}
 
 在 Java 中，您可以使用 [Collectors](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/Collectors.html) 函式 `groupingBy()` 來分組元素：
 
@@ -525,7 +525,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="group-elements-kotlin"}
 
-## 過濾元素
+## 過濾元素 {id="filter-elements"}
 
 在 Java 中，要從集合中過濾元素，您需要使用 [Stream API](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/package-summary.html)。
 Stream API 具有「中間 (intermediate)」操作和「終端 (terminal)」操作。`filter()` 是一個中間操作，它回傳一個 Stream。
@@ -561,7 +561,7 @@ fun main() {
 
 在此進一步了解[過濾 Map](map-operations.md#filter)。
 
-### 按型別過濾元素
+### 按型別過濾元素 {id="filter-elements-by-type"}
 
 在 Java 中，要按型別過濾元素並對其執行操作，您需要使用 [`instanceof`](https://docs.oracle.com/en/java/javase/17/language/pattern-matching-instanceof-operator.html) 運算子檢查其型別，然後進行型別轉換：
 
@@ -598,7 +598,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="filter-by-type-kotlin"}
 
-### 測試述句
+### 測試述句 {id="test-predicates"}
 
 有些任務需要您檢查是否所有、沒有或任何元素滿足某個條件。
 在 Java 中，您可以透過 [Stream API](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/package-summary.html) 函式 [`allMatch()`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/Stream.html#allMatch(java.util.function.Predicate))、
@@ -633,9 +633,9 @@ fun main() {
 
 進一步了解[測試述句](collection-filtering.md#test-predicates)。
 
-## 集合轉換操作
+## 集合轉換操作 {id="collection-transformation-operations"}
 
-### Zip 元素
+### Zip 元素 {id="zip-elements"}
 
 在 Java 中，您可以透過同時在兩個集合上反覆運算，從兩個集合中相同位置的元素建立配對：
 
@@ -679,7 +679,7 @@ fun main() {
 >
 {style="note"}
 
-### 關聯元素
+### 關聯元素 {id="associate-elements"}
 
 在 Java 中，您可以使用 [Stream API](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/package-summary.html) 將元素與特徵關聯起來：
 
@@ -707,7 +707,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="associate-elements-kotlin"}
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * 造訪 [Kotlin Koans](koans.md) – 透過完成練習來學習 Kotlin 語法。每個練習都是作為失敗的單元測試建立的，您的任務是讓它通過測試。
 * 瀏覽其他 [Kotlin 慣用法](idioms.md)。

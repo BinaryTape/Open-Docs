@@ -4,7 +4,7 @@
 
 ![Kotlin Multiplatform](kotlin-multiplatform.svg){width=700}
 
-## 學習核心概念
+## 學習核心概念 {id="learn-key-concepts"}
 
 Kotlin Multiplatform 讓你可以在不同平台之間共享程式碼，無論是行動裝置、Web 還是桌面端。程式碼編譯到的平台是由目標 (targets) 清單定義的。
 
@@ -19,7 +19,7 @@ Kotlin Multiplatform 讓你可以在不同平台之間共享程式碼，無論�
 * [Kotlin Multiplatform 專案結構基礎](multiplatform-discover-project.md)
 * [多平台專案結構的高級概念](multiplatform-advanced-project-structure.md)
 
-## 使用程式碼共享機制
+## 使用程式碼共享機制 {id="use-code-sharing-mechanisms"}
 
 有時在相似目標的子集之間共享程式碼會更方便。Kotlin Multiplatform 提供了一種透過*預設階層樣板*來簡化其建立的方法。它包含一個預先定義的中間原始碼集清單，這些原始碼集是根據你在專案中指定的目標建立的。
 
@@ -31,7 +31,7 @@ Kotlin Multiplatform 讓你可以在不同平台之間共享程式碼，無論�
 * [預期宣告與實際宣告](multiplatform-expect-actual.md)
 * [階層式專案結構](multiplatform-hierarchy.md)
 
-## 新增相依性
+## 新增相依性 {id="add-dependencies"}
 
 Kotlin Multiplatform 專案可以依賴外部程式庫和其他多平台專案。對於共通程式碼，你可以在共通原始碼集中新增對多平台程式庫的相依性。Kotlin 會自動解析並將適當的平台特定部分新增到其他原始碼集中。如果只需要平台特定的 API，請將相依性新增到對應的原始碼集中。
 
@@ -43,7 +43,7 @@ Kotlin Multiplatform 專案可以依賴外部程式庫和其他多平台專案�
 * [新增 Android 程式庫的相依性](multiplatform-android-dependencies.md)
 * [新增 iOS 程式庫的相依性](multiplatform-ios-dependencies.md)
 
-## 設定與 iOS 的整合
+## 設定與 iOS 的整合 {id="set-up-integration-with-ios"}
 
 如果你的多平台專案目標是 iOS，你可以設定 Kotlin Multiplatform 共享模組與你的 iOS 應用程式的整合。
 
@@ -54,7 +54,7 @@ Kotlin Multiplatform 專案可以依賴外部程式庫和其他多平台專案�
 
 有關此主題的更多詳細資訊，請參閱 [iOS 整合方法](multiplatform-ios-integration-overview.md)。
 
-## 配置編譯
+## 配置編譯 {id="configure-compilations"}
 
 每個目標可以有多個用於不同用途的編譯，通常用於生產或測試，但你也可以定義自訂編譯。
 
@@ -62,7 +62,7 @@ Kotlin Multiplatform 專案可以依賴外部程式庫和其他多平台專案�
 
 有關此主題的更多詳細資訊，請參閱[配置編譯](multiplatform-configure-compilations.md)。
 
-## 組建最終二進制檔
+## 組建最終二進制檔 {id="build-final-binaries"}
 
 預設情況下，目標會編譯為 `.klib` 構件，它可以被 Kotlin/Native 本身作為相依性使用，但不能被執行或作為原生程式庫使用。然而，Kotlin Multiplatform 提供了額外的機制來組建最終的原生二進制檔。
 
@@ -70,7 +70,7 @@ Kotlin Multiplatform 專案可以依賴外部程式庫和其他多平台專案�
 
 有關此主題的更多詳細資訊，請參閱[組建原生二進制檔](multiplatform-build-native-binaries.md)。
 
-## 建立多平台程式庫
+## 建立多平台程式庫 {id="create-multiplatform-libraries"}
 
 你可以建立一個包含共通程式碼及其針對 JVM、Web 和原生平台之特定實作的多平台程式庫。
 
@@ -78,7 +78,7 @@ Kotlin Multiplatform 專案可以依賴外部程式庫和其他多平台專案�
 
 有關此主題的更多詳細資訊，請參閱[發佈多平台程式庫](multiplatform-publish-lib-setup.md)。
 
-## 參考
+## 參考 {id="reference"}
 
 * [Kotlin Multiplatform Gradle 外掛程式的 DSL 參考](multiplatform-dsl-reference.md)
 * [Kotlin Multiplatform 相容性指南](multiplatform-compatibility-guide.md)

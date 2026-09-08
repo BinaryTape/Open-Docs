@@ -14,7 +14,7 @@
 * [Kotlin에서 C 문자열 읽기](#read-c-strings-in-kotlin)
 * [C 문자열 바이트를 Kotlin 문자열로 수신하기](#receive-c-string-bytes-from-kotlin)
 
-## C 문자열 작업하기
+## C 문자열 작업하기 {id="working-with-c-strings"}
 
 C에는 전용 문자열 타입이 없습니다. 메서드 시그니처나 문서를 통해 특정 컨텍스트에서 주어진 `char *`가 C 문자열을 나타내는지 식별해야 합니다.
 
@@ -62,7 +62,7 @@ Kotlin과 C 사이에서 문자열이 어떻게 매핑되는지 이해하기 위
 
 `interop.def` 파일은 애플리케이션을 컴파일, 실행하거나 IDE에서 여는 데 필요한 모든 것을 제공합니다.
 
-## C 라이브러리에 대해 생성된 Kotlin API 검사하기
+## C 라이브러리에 대해 생성된 Kotlin API 검사하기 {id="inspect-generated-kotlin-apis-for-a-c-library"}
 
 C 문자열 선언이 Kotlin/Native로 어떻게 매핑되는지 살펴보겠습니다:
 
@@ -94,7 +94,7 @@ C 문자열 선언이 Kotlin/Native로 어떻게 매핑되는지 살펴보겠습
 
 생성된 Kotlin 선언에서 `str`은 `CValuesRef<ByteVarOf<Byte>>?`로 정의됩니다. 이 타입은 null 허용(nullable)이므로 인자 값으로 `null`을 전달할 수 있습니다.
 
-## Kotlin 문자열을 C로 전달하기
+## Kotlin 문자열을 C로 전달하기 {id="pass-kotlin-strings-to-c"}
 
 Kotlin에서 API를 사용해 보겠습니다. 먼저 `pass_string()` 함수를 호출합니다:
 
@@ -112,7 +112,7 @@ fun passStringToC() {
 
 `String.cstr` [확장 프로퍼티](extensions.md#extension-properties) 덕분에 Kotlin 문자열을 C로 전달하는 것은 매우 간단합니다. UTF-16 문자가 포함된 경우에는 `String.wcstr` 프로퍼티를 사용할 수도 있습니다.
 
-## Kotlin에서 C 문자열 읽기
+## Kotlin에서 C 문자열 읽기 {id="read-c-strings-in-kotlin"}
 
 이제 `return_string()` 함수에서 반환된 `char *`를 가져와 Kotlin 문자열로 변환해 보겠습니다:
 
@@ -140,7 +140,7 @@ fun CPointer<ShortVarOf<Short>>.toKStringFromUtf16(): String // UTF-16 인코딩
 fun CPointer<IntVarOf<Int>>.toKStringFromUtf32(): String // UTF-32 인코딩된 문자열을 변환
 ```
 
-## Kotlin에서 C 문자열 바이트 수신하기
+## Kotlin에서 C 문자열 바이트 수신하기 {id="receive-c-string-bytes-from-kotlin"}
 
 이번에는 `copy_string()` C 함수를 사용하여 지정된 버퍼에 C 문자열을 써보겠습니다. 이 함수는 두 개의 인자를 받습니다: 문자열이 작성될 메모리 위치에 대한 포인터와 허용된 버퍼 크기입니다.
 
@@ -168,7 +168,7 @@ fun sendString() {
 
 여기서는 먼저 네이티브 포인터가 C 함수로 전달됩니다. [`.usePinned()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/use-pinned.html) 확장 함수는 바이트 배열의 네이티브 메모리 주소를 일시적으로 고정(pin)합니다. C 함수는 바이트 배열을 데이터로 채웁니다. 또 다른 확장 함수인 `ByteArray.decodeToString()`은 UTF-8 인코딩을 가정하여 바이트 배열을 Kotlin 문자열로 변환합니다.
 
-## Kotlin 코드 업데이트
+## Kotlin 코드 업데이트 {id="update-kotlin-code"}
 
 이제 Kotlin 코드에서 C 선언을 사용하는 방법을 배웠으므로, 이를 프로젝트에 적용해 보세요. 최종 `hello.kt` 파일의 코드는 다음과 같을 것입니다:
  
@@ -208,6 +208,6 @@ fun main() {
   </li>
 </list>
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 더욱 고급 시나리오를 다루는 [C와의 상호운용성(Interoperability with C)](native-c-interop.md) 문서에서 더 자세한 내용을 알아보세요.

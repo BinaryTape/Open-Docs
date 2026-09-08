@@ -17,7 +17,7 @@ Kotlin은 Java와 완전히 상호 운용 가능하므로, Kotlin을 사용하�
 >
 {style="note"}
 
-## 프로젝트 구성하기
+## 프로젝트 구성하기 {id="configure-the-project"}
 
 1. IDE에서 버전 관리 시스템을 통해 예제 프로젝트를 클론합니다:
 
@@ -128,7 +128,7 @@ Kotlin은 Java와 완전히 상호 운용 가능하므로, Kotlin을 사용하�
 
 빌드 파일 설정에 대한 자세한 내용은 [프로젝트 구성](mixing-java-kotlin-intellij.md#project-configuration)을 참고하세요.
 
-## 첫 번째 Kotlin 테스트 추가하기
+## 첫 번째 Kotlin 테스트 추가하기 {id="add-your-first-kotlin-test"}
 
 `initial/src/test/java`에 있는 `TodoItemTest.java` 테스트는 이미 항목 생성, 기본값, 고유 ID 및 상태 변경과 같은 앱의 기본 사항을 검증하고 있습니다.
 
@@ -252,7 +252,7 @@ Kotlin은 Java와 완전히 상호 운용 가능하므로, Kotlin을 사용하�
 >
 {style="tip"}
 
-## 테스트 실행하기
+## 테스트 실행하기 {id="run-tests"}
 
 프로젝트가 예상대로 작동하는지 확인하기 위해 Java와 Kotlin 테스트를 모두 실행합니다:
 
@@ -301,6 +301,6 @@ Kotlin은 Java와 완전히 상호 운용 가능하므로, Kotlin을 사용하�
 >
 {style="tip"}
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 [Maven으로 Kotlin 프로젝트 테스트하기](jvm-test-maven.md)에 대해 자세히 알아보세요.

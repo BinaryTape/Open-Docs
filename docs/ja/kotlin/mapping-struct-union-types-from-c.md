@@ -13,7 +13,7 @@
 * [構造体および共用体型がどのようにマッピングされるか](#mapping-struct-and-union-c-types)
 * [Kotlinから構造体および共用体型を使用する方法](#use-struct-and-union-types-from-kotlin)
 
-## Cの構造体および共用体型のマッピング
+## Cの構造体および共用体型のマッピング {id="mapping-struct-and-union-c-types"}
 
 Kotlinが構造体（struct）および共用体（union）型をどのようにマッピングするかを理解するために、それらをCで宣言し、Kotlinでどのように表現されるかを確認してみましょう。
 
@@ -43,7 +43,7 @@ void union_by_pointer(MyUnion* u) {}
 
 `interop.def` ファイルには、アプリケーションをコンパイル、実行、またはIDEで開くために必要なすべての情報が含まれています。
 
-## Cライブラリ用に生成されたKotlin APIの確認
+## Cライブラリ用に生成されたKotlin APIの確認 {id="inspect-generated-kotlin-apis-for-a-c-library"}
 
 Cの構造体および共用体型がKotlin/Nativeにどのようにマッピングされるかを確認し、プロジェクトを更新しましょう：
 
@@ -130,7 +130,7 @@ Cの構造体および共用体型がKotlin/Nativeにどのようにマッピン
 
 生成されたAPIには、`CValue<T>` と `CValuesRef<T>` の完全修飾パッケージ名が含まれており、これらが `kotlinx.cinterop` に配置されていることを示しています。`CValue<T>` は値渡しの構造体パラメータを表し、`CValuesRef<T>?` は構造体または共用体へのポインタを渡すために使用されます。
 
-## Kotlinから構造体および共用体型を使用する
+## Kotlinから構造体および共用体型を使用する {id="use-struct-and-union-types-from-kotlin"}
 
 生成されたAPIのおかげで、KotlinからCの構造体および共用体型を使用するのは簡単です。唯一の問題は、これらの型の新しいインスタンスをどのように作成するかです。
 
@@ -138,7 +138,7 @@ Cの構造体および共用体型がKotlin/Nativeにどのようにマッピン
 
 Kotlinは、これらの型を作成し操作するための便利なAPIを提供しています。実際にどのように使用するか見ていきましょう。
 
-### CValue&lt;T&gt; の作成
+### CValue&lt;T&gt; の作成 {id="create-a-cvalue-lt-t-gt"}
 
 `CValue<T>` 型は、C関数の呼び出しに値渡しのパラメータを渡すために使用されます。`CValue<T>` インスタンスを作成するには、`cValue` 関数を使用します。この関数は、基盤となるC型をその場で初期化するために、[レシーバ付きラムダ関数](lambdas.md#function-literals-with-receiver)を必要とします。関数は次のように宣言されています：
 
@@ -171,7 +171,7 @@ fun callValue() {
 }
 ```
 
-### CValuesRef&lt;T&gt; として構造体と共用体を作成する
+### CValuesRef&lt;T&gt; として構造体と共用体を作成する {id="create-struct-and-union-as-cvaluesref-lt-t-gt"}
 
 `CValuesRef<T>` 型は、KotlinでC関数のポインタ型パラメータを渡すために使用されます。ネイティブメモリに `MyStruct` および `MyUnion` を割り当てるには、`kotlinx.cinterop.NativePlacement` 型の以下の拡張関数を使用します：
 
@@ -219,7 +219,7 @@ fun callRef() {
 
 メモリは `memScoped {}` ブロック内で管理されるため、ブロックの最後で自動的に解放されます。解放されたメモリへのアクセスを防ぐため、このスコープ外でポインタを使用しないでください。より長寿命の割り当てが必要な場合（例えば、Cライブラリでのキャッシュ用など）は、`Arena()` または `nativeHeap` の使用を検討してください。
 
-### CValue&lt;T&gt; と CValuesRef&lt;T&gt; の間の変換
+### CValue&lt;T&gt; と CValuesRef&lt;T&gt; の間の変換 {id="conversion-between-cvalue-lt-t-gt-and-cvaluesref-lt-t-gt"}
 
 ある関数呼び出しでは構造体を値として渡し、別の呼び出しでは同じ構造体を参照として渡す必要がある場合があります。
 
@@ -267,7 +267,7 @@ fun callMix_value() {
 }
 ```
 
-## Kotlinコードの更新
+## Kotlinコードの更新 {id="update-kotlin-code"}
 
 KotlinコードでCの宣言を使用する方法を学んだので、プロジェクトでそれらを使用してみましょう。`hello.kt` ファイルの最終的なコードは次のようになります：
 
@@ -312,7 +312,7 @@ fun main() {
 ./gradlew runDebugExecutableMacosArm64
 ```
 
-## 次のステップ
+## 次のステップ {id="next-step"}
 
 シリーズの次のパートでは、KotlinとCの間で関数ポインタがどのようにマッピングされるかを学びます：
 
@@ -325,6 +325,6 @@ fun main() {
   </li>
 </list>
 
-### 関連項目
+### 関連項目 {id="see-also"}
 
 より高度なシナリオをカバーしている [Cとの相互運用性 (Interoperability with C)](native-c-interop.md) ドキュメントで詳細を学ぶことができます。

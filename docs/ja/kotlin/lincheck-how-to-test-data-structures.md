@@ -63,7 +63,7 @@ class Counter {
     | -------------------- |
     ```
 
-## テストプロセス
+## テストプロセス {id="the-testing-process"}
 
 データ構造をテストするとき、Lincheck は実行シナリオのリストを生成し、それらを実行して結果を分析します。
 
@@ -89,7 +89,7 @@ class Counter {
 
    このステップでは、[検証関数（validation function）](lincheck-results-validation.md)が提供されている場合、Lincheck は構造の検証も行うことができます。
 
-## 例：Treiber スタック構造の実装をテストする
+## 例：Treiber スタック構造の実装をテストする {id="example-test-an-implementation-of-a-treiber-stack-structure"}
 
 以下の *不正確な* [Treiber スタック](https://en.wikipedia.org/wiki/Treiber_stack)の実装を考えてみましょう。
 
@@ -212,11 +212,11 @@ Lincheck を使用してこの構造をテストし、注入されたバグが�
    }
    ```
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 Lincheck で利用可能な[テスト戦略](lincheck-testing-strategies.md)について学びましょう。
 
-## 関連項目
+## 関連項目 {id="see-also"}
 
 * [操作引数の生成](lincheck-argument-generation-constraints.md)
 * [操作実行オプションの設定](lincheck-operation-execution-options.md)

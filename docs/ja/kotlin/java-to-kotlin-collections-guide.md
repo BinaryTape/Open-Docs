@@ -16,11 +16,11 @@
 >
 {style="note"}
 
-## JavaとKotlinで同じ操作
+## JavaとKotlinで同じ操作 {id="operations-that-are-the-same-in-java-and-kotlin"}
 
 Kotlinには、Javaの対応するものとまったく同じように見えるコレクション操作が数多くあります。
 
-### List、Set、Queue、Dequeに対する操作
+### List、Set、Queue、Dequeに対する操作 {id="operations-on-lists-sets-queues-and-deques"}
 
 | 説明 | 一般的な操作 | よりKotlinらしい代替案 |
 |-------------|-----------|---------------------|
@@ -33,7 +33,7 @@ Kotlinには、Javaの対応するものとまったく同じように見える�
 | コレクションからストリームを取得 | `stream()` | Kotlinにはストリームを処理するための独自の方法があります：[シーケンス](#sequences)や、[`map()`](collection-filtering.md) や [`filter()`](#filter-elements) のようなメソッドです。 |
 | コレクションからイテレータを取得 | `iterator()` | |
 
-### Mapに対する操作
+### Mapに対する操作 {id="operations-on-maps"}
 
 | 説明 | 一般的な操作 | よりKotlinらしい代替案 |
 |-------------|-----------|---------------------|
@@ -46,7 +46,7 @@ Kotlinには、Javaの対応するものとまったく同じように見える�
 | Mapからすべての要素を削除 | `clear()` | |
 | Mapからストリームを取得 | エントリ、キー、または値に対する `stream()` | |
 
-### Listにのみ存在する操作
+### Listにのみ存在する操作 {id="operations-that-exist-only-for-lists"}
 
 | 説明 | 一般的な操作 | よりKotlinらしい代替案 |
 |-------------|-----------|---------------------|
@@ -56,9 +56,9 @@ Kotlinには、Javaの対応するものとまったく同じように見える�
 | サブリストの取得 | `subList()` | |
 | 要素の置換 | `set()`, `replaceAll()` | `set()` の代わりにインデックス演算子を使用します： `list[index] = value` |
 
-## 少し異なる操作
+## 少し異なる操作 {id="operations-that-differ-a-bit"}
 
-### すべてのコレクション型に対する操作
+### すべてのコレクション型に対する操作 {id="operations-on-any-collection-type"}
 
 | 説明 | Java | Kotlin |
 |-------------|------|--------|
@@ -78,7 +78,7 @@ Kotlinには、Javaの対応するものとまったく同じように見える�
 
 Mapに対して上記のすべての操作を実行するには、まずMapの `entrySet` を取得する必要があります。
 
-### Listに対する操作
+### Listに対する操作 {id="operations-on-lists"}
 
 | 説明 | Java | Kotlin |
 |-------------|------|--------|
@@ -88,7 +88,7 @@ Mapに対して上記のすべての操作を実行するには、まずMapの `
 | リストのすべての要素を特定の値で埋める | `Collections.fill()` | [`fill()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/fill.html) |
 | リストから一意の要素を取得する | `stream().distinct().toList()` | [`distinct()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/distinct.html) |
 
-## Javaの標準ライブラリには存在しない操作
+## Javaの標準ライブラリには存在しない操作 {id="operations-that-don-t-exist-in-java-s-standard-library"}
 
 * [`zip()`, `unzip()`](collection-transformations.md) – コレクションを変換します。
 * [`aggregate()`](collection-grouping.md) – 条件でグループ化します。
@@ -100,7 +100,7 @@ Mapに対して上記のすべての操作を実行するには、まずMapの `
 
 <video src="https://www.youtube.com/v/N4CpLxGJlq0" title="高度なコレクション操作"/>
 
-## ミュータビリティ（可変性）
+## ミュータビリティ（可変性） {id="mutability"}
 
 Javaには、ミュータブル（可変）なコレクションがあります：
 
@@ -148,7 +148,7 @@ val immutableNumbers = listOf("one", "two")
 
 不変性についての詳細は、[Kotlinコーディング規約](coding-conventions.md#immutability)のページを読んでください。
 
-## 共変性（Covariance）
+## 共変性（Covariance） {id="covariance"}
 
 Javaでは、子孫型のコレクションを、祖先型のコレクションを受け取る関数に渡すことはできません。
 例えば、`Rectangle` が `Shape` を継承している場合、`Rectangle` 要素のコレクションを `Shape` 要素のコレクションを受け取る関数に渡すことはできません。
@@ -195,7 +195,7 @@ fun main() {
 
 [コレクション型](collections-overview.md#collection-types)についての詳細はこちらを読んでください。
 
-## 範囲（Range）と進行（Progression）
+## 範囲（Range）と進行（Progression） {id="ranges-and-progressions"}
 
 Kotlinでは、[範囲（Range）](ranges.md)を使用して区間を作成できます。例えば、`Version(1, 11)..Version(1, 30)` には `1.11` から `1.30` までのすべてのバージョンが含まれます。
 `in` 演算子を使用して、特定のバージョンが範囲内にあるかどうかを確認できます：`Version(0, 9) in versionRange`。
@@ -265,7 +265,7 @@ fun main() {
 
 「バージョンが最小バージョン以上（`>=`）かつ最大バージョン未満（`<`）」であるかどうかを確認する場合など、境界のいずれかを除外する必要がある場合、これらの包含的な範囲は役に立ちません。
 
-## 複数の基準による比較
+## 複数の基準による比較 {id="comparison-by-several-criteria"}
 
 Javaでオブジェクトを複数の基準で比較するには、[`Comparator`](https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html) インターフェースの [`comparing()`](https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#comparing-java.util.function.Function-) および [`thenComparingX()`](https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#thenComparing-java.util.Comparator-) 関数を使用できます。
 例えば、名前と年齢で人を比較する場合：
@@ -320,7 +320,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="comparison-kotlin"}
 
-## シーケンス（Sequences）
+## シーケンス（Sequences） {id="sequences"}
 
 Javaでは、次のように数値のシーケンスを生成できます。
 
@@ -351,7 +351,7 @@ fun main() {
 シーケンスは、一部のフィルタリング操作を実行するために必要なステップ数を減らすことができます。
 `Iterable` と `Sequence` の違いを示す [シーケンス処理の例](sequences.md#sequence-processing-example) を参照してください。
 
-## リストからの要素の削除
+## リストからの要素の削除 {id="removal-of-elements-from-a-list"}
 
 Javaの [`remove()`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html#remove(int)) 関数は、削除する要素のインデックスを受け取ります。
 
@@ -390,7 +390,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="remove-elements-kotlin"}
 
-## Mapのトラバース（走査）
+## Mapのトラバース（走査） {id="traverse-a-map"}
 
 Javaでは、[`forEach`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html#forEach(java.util.function.BiConsumer)) を介してMapを走査できます。
 
@@ -412,7 +412,7 @@ numbers.forEach { (k, v) -> println("Key = $k, Value = $v") }
 ```
 {id="traverse-map-kotlin"}
 
-## 空である可能性のあるコレクションの最初と最後のアイテムを取得する
+## 空である可能性のあるコレクションの最初と最後のアイテムを取得する {id="get-the-first-and-the-last-items-of-a-possibly-empty-collection"}
 
 Javaでは、コレクションのサイズを確認し、インデックスを使用することで、最初と最後のアイテムを安全に取得できます。
 
@@ -454,7 +454,7 @@ val theFreshestEmail = emails.lastOrNull() ?: ""
 ```
 {id="get-first-last-kotlin"}
 
-## リストからセットを作成する
+## リストからセットを作成する {id="create-a-set-from-a-list"}
 
 Javaで [`List`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html) から [`Set`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html) を作成するには、[`Set.copyOf`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html#copyOf(java.util.Collection)) 関数を使用できます。
 
@@ -482,7 +482,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="list-to-set-kotlin"}
 
-## 要素のグループ化
+## 要素のグループ化 {id="group-elements"}
 
 Javaでは、[Collectors](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/Collectors.html) 関数 `groupingBy()` を使用して要素をグループ化できます。
 
@@ -523,7 +523,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="group-elements-kotlin"}
 
-## 要素のフィルタリング
+## 要素のフィルタリング {id="filter-elements"}
 
 Javaでコレクションから要素をフィルタリングするには、[Stream API](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/package-summary.html) を使用する必要があります。
 Stream APIには `intermediate`（中間）操作と `terminal`（終端）操作があります。`filter()` は中間操作であり、ストリームを返します。
@@ -559,7 +559,7 @@ fun main() {
 
 [Mapのフィルタリング](map-operations.md#filter)についての詳細はこちら。
 
-### 型による要素のフィルタリング
+### 型による要素のフィルタリング {id="filter-elements-by-type"}
 
 Javaで型によって要素をフィルタリングし、それらに対してアクションを実行するには、[`instanceof`](https://docs.oracle.com/en/java/javase/17/language/pattern-matching-instanceof-operator.html) 演算子で型を確認してから型キャストを行う必要があります。
 
@@ -596,7 +596,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="filter-by-type-kotlin"}
 
-### 述語のテスト
+### 述語のテスト {id="test-predicates"}
 
 一部のタスクでは、すべて、なし、または任意の要素が条件を満たすかどうかを確認する必要があります。
 Javaでは、[Stream API](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/package-summary.html) 関数である [`allMatch()`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/Stream.html#allMatch(java.util.function.Predicate))、[`noneMatch()`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/Stream.html#noneMatch(java.util.function.Predicate))、および [`anyMatch()`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/Stream.html#anyMatch(java.util.function.Predicate)) を介してこれらすべてのチェックを実行できます。
@@ -629,9 +629,9 @@ fun main() {
 
 [述語のテスト](collection-filtering.md#test-predicates)についての詳細。
 
-## コレクション変換操作
+## コレクション変換操作 {id="collection-transformation-operations"}
 
-### 要素の結合（Zip）
+### 要素の結合（Zip） {id="zip-elements"}
 
 Javaでは、2つのコレクションの同じ位置にある要素から、それらを同時に反復処理することでペアを作成できます。
 
@@ -675,7 +675,7 @@ fun main() {
 >
 {style="note"}
 
-### 要素の関連付け（Associate）
+### 要素の関連付け（Associate） {id="associate-elements"}
 
 Javaでは、[Stream API](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/package-summary.html) を使用して要素を特性に関連付けることができます。
 
@@ -703,7 +703,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="associate-elements-kotlin"}
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [Kotlin Koans](koans.md) にアクセスする – Kotlinの構文を学ぶための練習問題を完了してください。各練習問題は失敗するユニットテストとして作成されており、あなたの仕事はそれをパスさせることです。
 * 他の [Kotlinのイディオム](idioms.md) を調べる。

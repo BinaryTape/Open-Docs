@@ -2,7 +2,7 @@
 
 Kotlin 标准库包含用于获取集合部分的扩展函数。这些函数提供了多种方式来为结果集合选择元素：显式列出它们的位置、指定结果大小等。
 
-## Slice
+## Slice {id="slice"}
 
 [`slice()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/slice.html) 返回具有给定索引的集合元素列表。索引可以作为[区间](ranges.md)或整数值的集合进行传递。
 
@@ -19,7 +19,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## Take 与 drop
+## Take 与 drop {id="take-and-drop"}
 
 要从第一个元素开始获取指定数量的元素，请使用 [`take()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/take.html) 函数。要获取最后的元素，请使用 [`takeLast()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/take-last.html)。当调用的数量大于集合大小时，这两个函数都会返回整个集合。
 
@@ -60,7 +60,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## Chunked
+## Chunked {id="chunked"}
 
 要将集合拆分为给定大小的部分，请使用 [`chunked()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/chunked.html) 函数。`chunked()` 接受一个参数——块的大小——并返回由该大小的 `List` 组成的 `List`。第一个块从第一个元素开始并包含 `size` 个元素，第二个块包含接下来的 `size` 个元素，依此类推。最后一个块的大小可能较小。
 
@@ -88,7 +88,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## Windowed
+## Windowed {id="windowed"}
 
 你可以获取给定大小的集合元素的所有可能范围。获取它们的函数称为 [`windowed()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/windowed.html)：它返回一个元素范围列表，就像你通过给定大小的滑动窗口查看集合一样。与 `chunked()` 不同，`windowed()` 返回从 *每个* 集合元素开始的元素范围（窗口）。所有窗口都作为单个 `List` 的元素返回。
 

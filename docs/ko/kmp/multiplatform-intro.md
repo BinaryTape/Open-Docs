@@ -4,7 +4,7 @@
 
 ![Kotlin Multiplatform](kotlin-multiplatform.svg){width=700}
 
-## 핵심 개념 학습
+## 핵심 개념 학습 {id="learn-key-concepts"}
 
 Kotlin Multiplatform은 모바일, 웹, 데스크톱 등 다양한 플랫폼 간에 코드를 공유할 수 있게 해줍니다. 코드가 컴파일되는 플랫폼은 *타겟(targets)* 목록에 의해 정의됩니다.
 
@@ -19,7 +19,7 @@ Kotlin Multiplatform은 모바일, 웹, 데스크톱 등 다양한 플랫폼 간
 * [Kotlin Multiplatform 프로젝트 구조의 기본](multiplatform-discover-project.md)
 * [멀티플랫폼 프로젝트 구조의 심화 개념](multiplatform-advanced-project-structure.md)
 
-## 코드 공유 메커니즘 사용
+## 코드 공유 메커니즘 사용 {id="use-code-sharing-mechanisms"}
 
 때로는 유사한 타겟의 하위 집합 간에 코드를 공유하는 것이 더 편리할 때가 있습니다. Kotlin Multiplatform은 *기본 계층 구조 템플릿(default hierarchy template)*을 통해 이들의 생성을 간소화하는 방법을 제공합니다. 여기에는 프로젝트에 지정한 타겟을 기반으로 생성되는 미리 정의된 중간 소스 세트 목록이 포함됩니다.
 
@@ -31,7 +31,7 @@ Kotlin Multiplatform은 모바일, 웹, 데스크톱 등 다양한 플랫폼 간
 * [기대 및 실제 선언(Expected and actual declarations)](multiplatform-expect-actual.md)
 * [계층적 프로젝트 구조](multiplatform-hierarchy.md)
 
-## 의존성 추가
+## 의존성 추가 {id="add-dependencies"}
 
 Kotlin Multiplatform 프로젝트는 외부 라이브러리와 다른 멀티플랫폼 프로젝트에 의존할 수 있습니다. 공통 코드의 경우, 공통 소스 세트에 멀티플랫폼 라이브러리에 대한 의존성을 추가할 수 있습니다. Kotlin은 다른 소스 세트에 적절한 플랫폼별 파트를 자동으로 확인하고 추가합니다. 플랫폼 전용 API만 필요한 경우에는 해당 소스 세트에 의존성을 추가하세요.
 
@@ -43,7 +43,7 @@ Kotlin Multiplatform 프로젝트에 Android 전용 의존성을 추가하는 �
 * [Android 라이브러리에 의존성 추가](multiplatform-android-dependencies.md)
 * [iOS 라이브러리에 의존성 추가](multiplatform-ios-dependencies.md)
 
-## iOS 통합 설정
+## iOS 통합 설정 {id="set-up-integration-with-ios"}
 
 멀티플랫폼 프로젝트가 iOS를 타겟으로 하는 경우, Kotlin Multiplatform 공유 모듈과 iOS 앱의 통합을 설정할 수 있습니다.
 
@@ -54,7 +54,7 @@ Kotlin Multiplatform 프로젝트에 Android 전용 의존성을 추가하는 �
 
 이 주제에 대한 자세한 내용은 [iOS 통합 방법](multiplatform-ios-integration-overview.md)을 참조하세요.
 
-## 컴파일 구성
+## 컴파일 구성 {id="configure-compilations"}
 
 모든 타겟은 일반적으로 프로덕션 또는 테스트를 위한 다양한 목적의 여러 컴파일을 가질 수 있으며, 사용자 정의 컴파일을 정의할 수도 있습니다.
 
@@ -62,7 +62,7 @@ Kotlin Multiplatform을 사용하면 프로젝트의 모든 컴파일을 구성�
 
 이 주제에 대한 자세한 내용은 [컴파일 구성](multiplatform-configure-compilations.md)을 참조하세요.
 
-## 최종 바이너리 빌드
+## 최종 바이너리 빌드 {id="build-final-binaries"}
 
 기본적으로 타겟은 `.klib` 아티팩트로 컴파일되며, 이는 Kotlin/Native 자체에서 의존성으로 사용할 수 있지만 실행하거나 네이티브 라이브러리로 사용할 수는 없습니다. 하지만 Kotlin Multiplatform은 최종 네이티브 바이너리를 빌드하기 위한 추가 메커니즘을 제공합니다.
 
@@ -70,7 +70,7 @@ Kotlin Multiplatform을 사용하면 프로젝트의 모든 컴파일을 구성�
 
 이 주제에 대한 자세한 내용은 [네이티브 바이너리 빌드](multiplatform-build-native-binaries.md)를 참조하세요.
 
-## 멀티플랫폼 라이브러리 만들기
+## 멀티플랫폼 라이브러리 만들기 {id="create-multiplatform-libraries"}
 
 공통 코드와 JVM, 웹, 네이티브 플랫폼을 위한 플랫폼별 구현이 포함된 멀티플랫폼 라이브러리를 만들 수 있습니다.
 
@@ -78,7 +78,7 @@ Kotlin Multiplatform 라이브러리를 배포하려면 Gradle 빌드 스크립�
 
 이 주제에 대한 자세한 내용은 [멀티플랫폼 라이브러리 배포](multiplatform-publish-lib-setup.md)를 참조하세요.
 
-## 참고 자료
+## 참고 자료 {id="reference"}
 
 * [Kotlin Multiplatform Gradle 플러그인용 DSL 레퍼런스](multiplatform-dsl-reference.md)
 * [Kotlin Multiplatform 호환성 가이드](multiplatform-compatibility-guide.md)

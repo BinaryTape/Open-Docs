@@ -4,7 +4,7 @@
 
 여기에 포함되지 않은 일반적인 사용 사례가 있나요? 새로운 섹션과 함께 PR을 자유롭게 제출해 주세요.
 
-## Palette
+## Palette {id="palette"}
 
 [Palette](https://developer.android.com/training/material/palette-colors?hl=en)를 사용하면 이미지에서 주요 색상을 추출할 수 있습니다. `Palette`를 생성하려면 이미지의 `Bitmap`에 접근해야 합니다. 이는 다음과 같은 방법으로 수행할 수 있습니다.
 
@@ -25,7 +25,7 @@ imageView.load("https://example.com/image.jpg") {
 }
 ```
 
-## 메모리 캐시 키를 플레이스홀더로 사용하기
+## 메모리 캐시 키를 플레이스홀더로 사용하기 {id="using-a-memory-cache-key-as-a-placeholder"}
 
 이전 요청의 `MemoryCache.Key`를 후속 요청의 플레이스홀더(placeholder)로 사용하는 것은, 두 이미지는 동일하지만 서로 다른 크기로 로드되는 경우 유용할 수 있습니다. 예를 들어, 첫 번째 요청에서 이미지를 100x100으로 로드하고 두 번째 요청에서 500x500으로 로드한다면, 첫 번째 이미지를 두 번째 요청의 동기식 플레이스홀더로 사용할 수 있습니다.
 
@@ -51,7 +51,7 @@ detailImageView.load("https://example.com/image.jpg") {
 }
 ```
 
-## Compose AnimatedContent
+## Compose AnimatedContent {id="compose-animatedcontent"}
 
 `rememberAsyncImagePainter`와 `AnimatedContent`를 사용하여 플레이스홀더와 로드된 이미지 사이의 애니메이션을 적용할 수 있습니다.
 
@@ -94,7 +94,7 @@ AnimatedContent(
 
 참고: `AnimatedContent`는 Painter 크로스페이드보다 훨씬 비용이 많이 들며 애니메이션이 끝날 때까지 이전 이미지를 메모리에 유지합니다. 지연 목록(lazy lists)이나 단순한 페이드 효과에는 `ImageRequest.Builder.crossfade`를 사용하는 것이 좋습니다.
 
-## 공유 요소 전환 (Shared Element Transitions)
+## 공유 요소 전환 (Shared Element Transitions) {id="shared-element-transitions"}
 
 [공유 요소 전환(Shared element transitions)](https://developer.android.com/training/transitions/start-activity)을 사용하면 `Activity`와 `Fragment` 간에 애니메이션을 적용할 수 있습니다. Coil과 함께 작동하도록 하기 위한 몇 가지 권장 사항은 다음과 같습니다:
 
@@ -106,7 +106,7 @@ AnimatedContent(
 
 Compose를 사용하시나요? [`AsyncImage`로 공유 요소 전환을 수행하는 방법은 이 문서](https://www.tunjid.com/articles/animating-contentscale-during-image-shared-element-transitions-65fba03537c67f8df0161c31)를 확인하세요.
 
-## 리모트 뷰 (Remote Views)
+## 리모트 뷰 (Remote Views) {id="remote-views"}
 
 Coil은 [`RemoteViews`](https://developer.android.com/reference/android/widget/RemoteViews)를 위한 `Target`을 기본적으로 제공하지 않지만, 다음과 같이 직접 만들 수 있습니다:
 
@@ -141,7 +141,7 @@ val request = ImageRequest.Builder(context)
 imageLoader.enqueue(request)
 ```
 
-## Painter 변형하기 (Transforming Painters)
+## Painter 변형하기 (Transforming Painters) {id="transforming-painters"}
 
 `AsyncImage`와 `AsyncImagePainter` 모두 `Painter`를 허용하는 `placeholder`/`error`/`fallback` 인수를 가지고 있습니다. Painter는 컴포저블을 사용하는 것보다 유연성은 떨어지지만, Coil이 서브컴포지션(subcomposition)을 사용할 필요가 없기 때문에 더 빠릅니다. 하지만 원하는 UI를 얻기 위해 painter에 인셋(inset), 스트레치(stretch), 틴트(tint)를 적용하거나 변형해야 할 수도 있습니다. 이를 구현하려면 [이 Gist를 프로젝트에 복사](https://gist.github.com/colinrtwhite/c2966e0b8584b4cdf0a5b05786b20ae1)하고 다음과 같이 painter를 감싸세요:
 
@@ -173,7 +173,7 @@ AsyncImage(
 )
 ```
 
-## 요청 변형하기 (Transforming Requests)
+## 요청 변형하기 (Transforming Requests) {id="transforming-requests"}
 
 이미지를 가져오는 데 사용되는 HTTP 요청을 변형해야 할 수도 있습니다. 이 예제에서는 [인터셉터(Interceptor)](https://coil-kt.github.io/coil/api/coil-core/coil3.intercept/-interceptor)를 사용하여 요청 URL에 `width` 및 `height` 쿼리 파라미터를 추가해 보겠습니다.
 

@@ -16,7 +16,7 @@
 >
 {style="tip"}
 
-## dependsOn 및 소스 세트 계층 구조
+## dependsOn 및 소스 세트 계층 구조 {id="dependson-and-source-set-hierarchies"}
 
 일반적으로는 _종속성(dependencies)_을 직접 다루게 되며 `dependsOn` 관계를 직접 다루는 일은 드뭅니다. 하지만 `dependsOn`을 살펴보는 것은 Kotlin 멀티플랫폼 프로젝트가 내부적으로 어떻게 작동하는지 이해하는 데 매우 중요합니다.
 
@@ -55,7 +55,7 @@ kotlin {
 
 발행된 라이브러리나 다른 Gradle 프로젝트에 대한 일반적인 종속성을 선언하는 데 `dependsOn`을 사용할 수 없습니다. 예를 들어, `commonMain`이 `kotlinx-coroutines-core` 라이브러리의 `commonMain`에 의존하도록 설정하거나 `commonTest.dependsOn(commonMain)`을 호출할 수 없습니다.
 
-### 사용자 정의 소스 세트 선언
+### 사용자 정의 소스 세트 선언 {id="declaring-custom-source-sets"}
 
 경우에 따라 프로젝트에 사용자 정의 중간 소스 세트가 필요할 수 있습니다.
 JVM, JS, Linux로 컴파일되는 프로젝트에서 JVM과 JS 간에만 일부 소스를 공유하고 싶은 경우를 가정해 보겠습니다. 이 경우 [멀티플랫폼 프로젝트 구조의 기초](multiplatform-discover-project.md)에서 설명한 대로 이 타겟 쌍에 대한 특정 소스 세트를 찾아야 합니다.
@@ -116,7 +116,7 @@ kotlin {
 >
 {style="note"}
 
-## 다른 라이브러리 또는 프로젝트에 대한 종속성
+## 다른 라이브러리 또는 프로젝트에 대한 종속성 {id="dependencies-on-other-libraries-or-projects"}
 
 멀티플랫폼 프로젝트에서는 발행된 라이브러리나 다른 Gradle 프로젝트에 대해 일반적인 종속성을 설정할 수 있습니다.
 
@@ -191,7 +191,7 @@ kotlin {
 
    ![공통 코드에서 JVM 전용 API 사용 시 오류](dependency-resolution-error.png){width=700}
 
-### 소스 세트 간 공통 종속성 버전 정렬
+### 소스 세트 간 공통 종속성 버전 정렬 {id="aligning-versions-of-common-dependencies-across-source-sets"}
 
 Kotlin 멀티플랫폼 프로젝트에서 공통 소스 세트는 klib을 생성하기 위해, 그리고 구성된 각 [컴파일(compilation)](multiplatform-configure-compilations.md)의 일부로서 여러 번 컴파일됩니다. 일관된 바이너리를 생성하기 위해 공통 코드는 매번 동일한 버전의 멀티플랫폼 종속성을 대상으로 컴파일되어야 합니다. Kotlin Gradle 플러그인은 이러한 종속성을 정렬하여 각 소스 세트에 대해 유효한 종속성 버전이 동일하도록 보장합니다.
 
@@ -207,7 +207,7 @@ Kotlin 멀티플랫폼 프로젝트에서 공통 소스 세트는 klib을 생성
 
 ![메인 소스 세트와 별도로 종속성을 해결하는 테스트 소스 세트](test-main-source-set-dependency-alignment.svg)
 
-## 컴파일 (Compilations)
+## 컴파일 (Compilations) {id="compilations"}
 
 단일 플랫폼 프로젝트와 달리 Kotlin 멀티플랫폼 프로젝트는 모든 아티팩트를 빌드하기 위해 여러 번의 컴파일러 실행이 필요합니다. 각 컴파일러 실행은 하나의 _Kotlin 컴파일(Kotlin compilation)_입니다.
 

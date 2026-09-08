@@ -10,14 +10,14 @@ _Kotlin 编译器执行策略_ 定义了 Kotlin 编译器的运行位置。
 | [Kotlin daemon](kotlin-daemon.md) | 在其自身的守护进程中运行   | Gradle 和 Maven 中*默认且最快的策略*。该守护进程可以在不同的构建系统进程和多个并行编译之间共享。                        |
 | 进程内 (In process)                        | 在构建工具的进程中运行 | 从内存管理的角度来看，这是最简单的策略，但它与在同一进程中运行的其他逻辑的隔离性较差，因为它共享状态（例如 JVM 系统属性）。 |
 
-## 在 Gradle 中配置
+## 在 Gradle 中配置 {id="configure-in-gradle"}
 
 您可以使用以下属性之一来定义 Kotlin 编译器执行策略：
 
 * `kotlin.compiler.execution.strategy` Gradle 属性。
 * `compilerExecutionStrategy` 编译任务属性。
 
-### 使用 Gradle 属性
+### 使用 Gradle 属性 {id="use-the-gradle-property"}
 
 `kotlin.compiler.execution.strategy` 属性的可选值为：
 
@@ -30,7 +30,7 @@ _Kotlin 编译器执行策略_ 定义了 Kotlin 编译器的运行位置。
 kotlin.compiler.execution.strategy=in-process
 ```
 
-### 使用编译任务属性
+### 使用编译任务属性 {id="use-the-compile-task-property"}
 
 `compilerExecutionStrategy` 任务属性的优先级高于 `kotlin.compiler.execution.strategy` Gradle 属性。
 
@@ -73,7 +73,7 @@ tasks.withType(CompileUsingKotlinDaemon)
 </tab>
 </tabs>
 
-### 回退策略
+### 回退策略 {id="fallback-strategy"}
 
 如果与 Kotlin daemon 的通信失败，编译器将回退到“进程内 (In process)”策略。
 
@@ -124,6 +124,6 @@ tasks.named("compileKotlin").configure {
 
 如果内存不足以运行编译，日志中会显示相关消息。
 
-## 在 Maven 中配置
+## 在 Maven 中配置 {id="configure-in-maven"}
 
 <include from ="maven-kotlin-compiler.md" element-id="maven-configure-execution-strategy"/>

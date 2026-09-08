@@ -5,12 +5,12 @@ Kotlin 표준 라이브러리는 특정 API 요소를 사용하는 데 있어 �
 
 사용자를 보호하기 위해, 컴파일러는 이러한 조건에 대해 경고를 표시하며 API를 사용하기 전에 옵트인할 것을 요구합니다.
 
-## API 옵트인
+## API 옵트인 {id="opt-in-to-api"}
 
 라이브러리 작성자가 자신의 라이브러리 API 선언을 **[옵트인 요구 사항](#api-사용-시-옵트인-요구하기)**으로 표시한 경우, 코드에서 이를 사용하려면 명시적인 동의를 제공해야 합니다.
 옵트인에는 여러 가지 방법이 있으며, 상황에 가장 적합한 방식을 선택하는 것이 좋습니다.
 
-### 국소적으로 옵트인(Opt in locally)
+### 국소적으로 옵트인(Opt in locally) {id="opt-in-locally"}
 
 코드에서 특정 API 요소를 사용할 때 옵트인하려면, 실험적 API 마커에 대한 참조와 함께 [`@OptIn`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-opt-in/) 어노테이션을 사용하세요. 예를 들어, 옵트인이 필요한 `DateProvider` 클래스를 사용하려는 경우를 가정해 보겠습니다.
 
@@ -59,7 +59,7 @@ fun displayDate() {
 
 옵트인 요구 사항은 전파되지 않으므로, 다른 사용자가 자신도 모르게 실험적 API를 사용할 수 있습니다. 이를 방지하려면 옵트인 요구 사항을 전파하는 것이 더 안전합니다.
 
-#### 옵트인 요구 사항 전파
+#### 옵트인 요구 사항 전파 {id="propagate-opt-in-requirements"}
 
 라이브러리와 같이 서드파티가 사용할 용도의 코드에서 API를 사용하는 경우, 해당 API의 옵트인 요구 사항을 자신의 API로도 전파할 수 있습니다. 이를 위해 해당 라이브러리에서 사용한 것과 동일한 **[옵트인 요구 사항 어노테이션](#옵트인-요구-사항-어노테이션-생성)**으로 자신의 선언을 마킹합니다.
 
@@ -134,7 +134,7 @@ fun displayDate() {
 }
 ```
 
-#### 여러 API에 옵트인하기
+#### 여러 API에 옵트인하기 {id="opt-in-to-multiple-apis"}
 
 여러 API에 옵트인하려면, 해당 API들의 모든 옵트인 요구 사항 어노테이션을 선언에 추가하세요. 예를 들면 다음과 같습니다.
 
@@ -149,7 +149,7 @@ fun displayDate() {
 @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
 ```
 
-### 파일 전체 옵트인
+### 파일 전체 옵트인 {id="opt-in-a-file"}
 
 파일 내의 모든 함수와 클래스에 대해 옵트인이 필요한 API를 사용하려면, 패키지 지정 및 임포트 문 앞에 파일 레벨 어노테이션인 `@file:OptIn`을 추가하세요.
 
@@ -158,7 +158,7 @@ fun displayDate() {
  @file:OptIn(MyDateTime::class)
  ```
 
-### 모듈 전체 옵트인
+### 모듈 전체 옵트인 {id="opt-in-a-module"}
 
 > `-opt-in` 컴파일러 옵션은 Kotlin 1.6.0부터 사용할 수 있습니다. 이전 Kotlin 버전에서는 `-Xopt-in`을 사용하세요.
 >
@@ -246,7 +246,7 @@ Maven의 경우 다음과 같이 사용합니다.
 
 모듈 레벨에서 여러 API에 옵트인하려면, 모듈에서 사용되는 각 옵트인 요구 사항 마커에 대해 위에서 설명한 인자를 각각 추가하세요.
 
-### 클래스 또는 인터페이스 상속 시 옵트인
+### 클래스 또는 인터페이스 상속 시 옵트인 {id="opt-in-to-inherit-from-a-class-or-interface"}
 
 때로는 라이브러리 작성자가 API를 제공하지만, 사용자가 이를 확장(extend)하기 전에 명시적으로 옵트인하도록 요구하고 싶을 때가 있습니다. 예를 들어, 라이브러리 API가 사용하기에는 안정적이지만 상속하기에는 안정적이지 않을 수 있습니다. 향후 새로운 추상 함수가 추가되어 확장될 수 있기 때문입니다. 라이브러리 작성자는 [open](inheritance.md) 또는 [추상 클래스](classes.md#abstract-classes) 및 [비함수형 인터페이스(non-functional interfaces)](interfaces.md)를 [`@SubclassOptInRequired`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-subclass-opt-in-required/) 어노테이션으로 마킹하여 이를 강제할 수 있습니다.
 
@@ -309,11 +309,11 @@ interface SomeImplementation : CoreLibraryApi
 interface SomeImplementation : CoreLibraryApi
 ```
 
-## API 사용 시 옵트인 요구하기
+## API 사용 시 옵트인 요구하기 {id="require-opt-in-to-use-api"}
 
 라이브러리 사용자가 API를 사용하기 전에 옵트인하도록 요구할 수 있습니다. 또한, 옵트인 요구 사항을 제거하기로 결정할 때까지 API 사용에 관한 특별한 조건에 대해 사용자에게 알릴 수 있습니다.
 
-### 옵트인 요구 사항 어노테이션 생성
+### 옵트인 요구 사항 어노테이션 생성 {id="create-opt-in-requirement-annotations"}
 
 모듈의 API 사용에 옵트인을 요구하려면, **옵트인 요구 사항 어노테이션**으로 사용할 어노테이션 클래스를 만듭니다. 이 클래스는 반드시 [`@RequiresOptIn`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-requires-opt-in/) 어노테이션이 지정되어야 합니다.
 
@@ -348,7 +348,7 @@ annotation class ExperimentalDateTime
 
 옵트인이 필요한 여러 독립적인 기능을 게시하는 경우, 각 기능에 대해 어노테이션을 별도로 선언하세요. 이렇게 하면 클라이언트가 명시적으로 수락한 기능만 사용할 수 있으므로 API 사용이 더 안전해집니다. 또한 기능별로 옵트인 요구 사항을 독립적으로 제거할 수 있으므로 API 유지 관리가 더 쉬워집니다.
 
-### API 요소 마킹하기
+### API 요소 마킹하기 {id="mark-api-elements"}
 
 API 요소를 사용하는 데 옵트인을 요구하려면, 해당 선언에 옵트인 요구 사항 어노테이션을 추가하세요.
 
@@ -365,7 +365,7 @@ fun getTime(): Time {}
 * 속성(property) 자체에만 어노테이션을 달 수 있으며, 속성의 배킹 필드(backing field)나 게터(getter)에는 달 수 없습니다.
 * 지역 변수나 값 매개변수(value parameter)에는 어노테이션을 달 수 없습니다.
 
-## API 확장 시 옵트인 요구하기
+## API 확장 시 옵트인 요구하기 {id="require-opt-in-to-extend-api"}
 
 API의 어떤 특정 부분을 사용할 수 있고 확장할 수 있는지에 대해 더 세밀하게 제어하고 싶을 때가 있을 수 있습니다. 예를 들어, 사용하기에는 안정적이지만 다음과 같은 경우의 API가 있습니다.
 
@@ -393,7 +393,7 @@ interface CoreLibraryApi
 
 API에서 `@SubclassOptInRequired` 어노테이션을 사용하는 실제 사례는 `kotlinx.coroutines` 라이브러리의 [`SharedFlow`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-shared-flow/) 인터페이스를 확인해 보세요.
 
-## 정식 출시 전 API의 옵트인 요구 사항
+## 정식 출시 전 API의 옵트인 요구 사항 {id="opt-in-requirements-for-pre-stable-apis"}
 
 아직 안정화되지 않은 기능에 대해 옵트인 요구 사항을 사용하는 경우, 클라이언트 코드가 깨지지 않도록 API 졸업(graduation)을 신중하게 처리하세요.
 

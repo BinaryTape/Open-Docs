@@ -150,7 +150,7 @@ compose.desktop {
 
 ## 配布プロパティの指定方法 {id="specifying-distribution-properties"}
 
-### パッケージバージョン
+### パッケージバージョン {id="package-version"}
 
 ネイティブ配布パッケージには、特定のパッケージバージョンが必要です。
 パッケージバージョンを指定するには、以下の DSL プロパティを使用できます。これらは優先度の高い順に並んでいます。
@@ -283,7 +283,7 @@ compose.desktop {
 
 </table>
 
-### JDK バージョン
+### JDK バージョン {id="jdk-version"}
 
 このプラグインは `jpackage` を使用します。これには [JDK 17](https://openjdk.java.net/projects/jdk/17/) 以上の JDK バージョンが必要です。
 JDK バージョンを指定するときは、以下の要件の少なくとも 1 つを満たしていることを確認してください。
@@ -299,7 +299,7 @@ JDK バージョンを指定するときは、以下の要件の少なくとも 
   }
   ```
 
-### 出力ディレクトリ
+### 出力ディレクトリ {id="output-directory"}
 
 ネイティブ配布用にカスタム出力ディレクトリを使用するには、以下に示すように `outputBaseDir` プロパティを設定します。
 
@@ -313,7 +313,7 @@ compose.desktop {
 }
 ```
 
-### ランチャープロパティ
+### ランチャープロパティ {id="launcher-properties"}
 
 アプリケーションの起動プロセスを調整するために、以下のプロパティをカスタマイズできます。
 
@@ -356,7 +356,7 @@ compose.desktop {
 }
 ```
 
-### メタデータ
+### メタデータ {id="metadata"}
 
 `nativeDistributions` DSL ブロック内で、以下のプロパティを設定できます。
 
@@ -433,18 +433,18 @@ compose.desktop {
 
 リソースをパッケージ化してロードするには、Compose Multiplatform リソースライブラリ、JVM リソースロードを使用するか、パッケージ化されたアプリケーションにファイルを追加します。
 
-### リソースライブラリ
+### リソースライブラリ {id="resources-library"}
 
 プロジェクトのリソースをセットアップする最も簡単な方法は、リソースライブラリを使用することです。
 リソースライブラリを使用すると、サポートされているすべてのプラットフォームにわたる共通コードからリソースにアクセスできます。
 詳細については、[マルチプラットフォームリソース](compose-multiplatform-resources.md) を参照してください。
 
-### JVM リソースロード
+### JVM リソースロード {id="jvm-resource-loading"}
 
 デスクトップ用の Compose Multiplatform は JVM プラットフォーム上で動作するため、`java.lang.Class` API を使用して `.jar` ファイルからリソースをロードできます。`src/main/resources` ディレクトリ内のファイルには、[`Class::getResource`](https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Class.html#getResource(java.lang.String))
 または [`Class::getResourceAsStream`](https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Class.html#getResourceAsStream(java.lang.String)) を介してアクセスできます。
 
-### パッケージ化されたアプリケーションへのファイルの追加
+### パッケージ化されたアプリケーションへのファイルの追加 {id="adding-files-to-packaged-application"}
 
 `.jar` ファイルからリソースをロードするのがあまり実用的でない場合があります。たとえば、ターゲット固有のアセットがあり、macOS パッケージには含めるが Windows パッケージには含めたくないファイルがある場合などです。
 
@@ -865,18 +865,18 @@ compose.desktop {
 
 ## macOS 固有の設定 {id="macos-specific-configuration"}
 
-### macOS での署名と公証
+### macOS での署名と公証 {id="signing-and-notarization-on-macos"}
 
 最新の macOS バージョンでは、インターネットからダウンロードした署名されていないアプリケーションの実行を許可していません。そのようなアプリケーションを実行しようとすると、次のエラーが発生します：「"YourApp"は壊れているため開けません。ディスクイメージを取り出す必要があります。」
 
 アプリケーションに署名して公証する方法については、こちらの [チュートリアル](https://github.com/JetBrains/compose-multiplatform/blob/master/tutorials/Signing_and_notarization_on_macOS/README.md) を参照してください。
 
-### macOS での Information property list
+### macOS での Information property list {id="information-property-list-on-macos"}
 
 DSL は重要なプラットフォーム固有のカスタマイズをサポートしていますが、提供されている機能だけでは不十分な場合があります。
 DSL で表現されていない `Info.plist` の値を指定する必要がある場合は、回避策として生の XML スニペットを含めることができます。この XML はアプリケーションの `Info.plist` に追加されます。
 
-#### 例：ディープリンク
+#### 例：ディープリンク {id="example-deep-linking"}
 
 1. `build.gradle.kts` ファイルでカスタム URL スキームを定義します。
 
@@ -1111,6 +1111,6 @@ ProGuard 処理後にのみ発生する問題に遭遇した場合は、カス�
 
 ProGuard ルールと設定オプションの完全なリストについては、Guardsquare の [ProGuard マニュアル](https://www.guardsquare.com/manual/configuration/usage) を参照してください。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 [デスクトップコンポーネント](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop) に関するチュートリアルをご覧ください。

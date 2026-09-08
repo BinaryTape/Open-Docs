@@ -2,7 +2,7 @@
 
 [`List`](collections-overview.md#list) 是 Kotlin 中最受歡迎的內建集合類型。透過索引存取 List 中的元素，為 List 提供了強大的操作功能。
 
-## 透過索引檢索元素
+## 透過索引檢索元素 {id="retrieve-elements-by-index"}
 
 List 支援所有常見的元素檢索操作：`elementAt()`、`first()`、`last()` 以及[檢索單一元素](collection-elements.md)中列出的其他操作。
 對於 List 來說，其特點在於對元素的索引存取，因此讀取元素最簡單的方法是透過索引檢索。
@@ -29,7 +29,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 檢索 List 部分內容
+## 檢索 List 部分內容 {id="retrieve-list-parts"}
 
 除了[檢索集合部分](collection-parts.md)的常見操作外，List 還提供了 [`subList()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/sub-list.html)
 函式，該函式會將指定元素範圍以 List 形式傳回一個檢視。
@@ -46,9 +46,9 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 尋找元素位置
+## 尋找元素位置 {id="find-element-positions"}
 
-### 線性搜尋
+### 線性搜尋 {id="linear-search"}
 
 在任何 List 中，您都可以使用 [`indexOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/index-of.html) 和 [`lastIndexOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/last-index-of.html) 函式來尋找元素的位置。
 它們會傳回 List 中與給定引數相等之元素的第一個和最後一個位置。
@@ -83,7 +83,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 已排序 List 中的二分搜尋
+### 已排序 List 中的二分搜尋 {id="binary-search-in-sorted-lists"}
 
 在 List 中搜尋元素還有另一種方法 —— [二分搜尋](https://en.wikipedia.org/wiki/Binary_search_algorithm)。
 它的執行速度顯著快於其他內建搜尋函式，但*要求 List 必須根據某種排序（自然排序或函式參數中提供的其他排序）以遞增順序[排序](collection-ordering.md)*。
@@ -112,7 +112,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-#### Comparator 二分搜尋
+#### Comparator 二分搜尋 {id="comparator-binary-search"}
 
 當 List 元素不具備 `Comparable` 特性時，您應該提供一個 [`Comparator`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-comparator/) 用於二分搜尋。
 List 必須根據此 `Comparator` 以遞增順序排序。讓我們看一個範例：
@@ -152,7 +152,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-#### 比較二分搜尋
+#### 比較二分搜尋 {id="comparison-binary-search"}
 
 透過 *比較 (comparison)* 函式進行二分搜尋，讓您無需提供明確的搜尋值即可尋找元素。
 相反地，它接受一個將元素對應到 `Int` 值的比較函式，並搜尋該函式傳回零的元素。
@@ -181,12 +181,12 @@ fun main() {
 
 Comparator 和比較二分搜尋也都可以針對 List 範圍執行。
 
-## List 寫入操作
+## List 寫入操作 {id="list-write-operations"}
 
 除了[集合寫入操作](collection-write.md)中描述的集合修改操作外，[可變](collections-overview.md#collection-types) List 還支援特定的寫入操作。
 此類操作使用索引存取元素，以擴充 List 的修改能力。
 
-### 新增
+### 新增 {id="add"}
 
 要將元素新增到 List 中的特定位置，請使用 [`add()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/add.html)
 和 [`addAll()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/add-all.html)，並提供元素插入的位置作為額外引數。
@@ -205,7 +205,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 更新
+### 更新 {id="update"}
 
 List 還提供了一個用於取代給定位置元素的函式 —— [`set()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/set.html)
 及其運算子形式 `[]`。`set()` 不會改變其他元素的索引。
@@ -236,7 +236,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 移除
+### 移除 {id="remove"}
 
 要從 List 中移除特定位置的元素，請使用 [`removeAt()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/remove-at.html)
 函式並將位置作為引數傳遞。
@@ -254,7 +254,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 排序
+### 排序 {id="sort"}
 
 在[集合排序](collection-ordering.md)中，我們描述了以特定順序檢索集合元素的作業。
 對於可變 List，標準函式庫提供了類似的擴充函式，可以原地（in-place）執行相同的排序操作。

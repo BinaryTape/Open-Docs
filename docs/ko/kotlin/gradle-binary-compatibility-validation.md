@@ -10,7 +10,7 @@
 
 Kotlin Gradle 플러그인은 바이너리 호환성 검증 기능을 포함하고 있습니다. 이 플러그인은 현재 코드에서 응용 프로그램 이진 인터페이스(ABI, Application Binary Interface) 덤프를 생성하고 이를 이전 덤프와 비교하여 차이점을 강조 표시합니다. 이러한 변경 사항을 검토하여 잠재적으로 바이너리 호환되지 않는 수정을 찾아내고 이를 해결하기 위한 조치를 취할 수 있습니다.
 
-## 활성화 방법
+## 활성화 방법 {id="how-to-enable"}
 
 바이너리 호환성 검증을 활성화하려면 `build.gradle.kts` 파일에 `abiValidation {}` 블록을 추가하세요. 별도의 사용자 정의 설정이 필요 없는 경우, 대신 `abiValidation()` 함수를 사용할 수 있습니다.
 
@@ -38,7 +38,7 @@ kotlin {
 
 KGP는 필요한 Gradle 태스크를 생성합니다. 프로젝트에 바이너리 호환성을 확인하려는 모듈이 여러 개인 경우, 각 모듈을 별도로 구성하세요.
 
-## 바이너리 호환성 문제 확인
+## 바이너리 호환성 문제 확인 {id="check-for-binary-compatibility-issues"}
 
 코드를 변경한 후 잠재적인 바이너리 비호환 문제를 확인하려면, IntelliJ IDEA에서 `checkKotlinAbi` Gradle 태스크를 실행하거나 프로젝트 디렉토리에서 다음 명령을 사용하세요.
 
@@ -50,7 +50,7 @@ KGP는 필요한 Gradle 태스크를 생성합니다. 프로젝트에 바이너�
 
 기본적으로 프로젝트에서 [바이너리 호환성 검증이 활성화](#활성화-방법)된 상태에서 `check` 태스크를 실행하면 Gradle은 `checkKotlinAbi` 태스크도 함께 실행합니다. 
 
-## 참조 ABI 덤프 업데이트
+## 참조 ABI 덤프 업데이트 {id="update-reference-abi-dump"}
 
 Gradle이 최신 변경 사항을 확인하는 데 사용하는 참조 ABI 덤프를 업데이트하려면, IntelliJ IDEA에서 `updateKotlinAbi` 태스크를 실행하거나 프로젝트 디렉토리에서 다음 명령을 사용하세요.
 
@@ -60,7 +60,7 @@ Gradle이 최신 변경 사항을 확인하는 데 사용하는 참조 ABI 덤�
 
 변경 사항이 이전 버전과의 바이너리 호환성을 유지한다는 확신이 들 때만 참조 덤프를 업데이트하세요.
 
-## 필터 구성
+## 필터 구성 {id="configure-filters"}
 
 ABI 덤프에 포함할 클래스, 프로퍼티 및 함수를 제어하기 위해 필터를 정의할 수 있습니다. `filters {}` 블록을 사용하여 각각 `excluded {}` 및 `included {}` 블록으로 제외 및 포함 규칙을 추가하세요.
 
@@ -137,7 +137,7 @@ kotlin {
 
 필터링에 대한 자세한 내용은 [Kotlin Gradle 플러그인 API 레퍼런스](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.dsl.abi/-abi-filters-spec/)를 참조하세요.
 
-## 지원되지 않는 타겟에 대한 추론된 변경 방지
+## 지원되지 않는 타겟에 대한 추론된 변경 방지 {id="prevent-inferred-changes-for-unsupported-targets"}
 
 멀티플랫폼 프로젝트에서 호스트 시스템이 모든 타겟을 컴파일할 수 없는 경우, Kotlin Gradle 플러그인은 사용 가능한 타겟으로부터 ABI 변경 사항을 추론하려고 시도합니다. 이는 나중에 더 많은 타겟을 지원하는 호스트로 전환할 때 발생할 수 있는 잘못된 실패를 방지하는 데 도움이 됩니다.
 
@@ -171,7 +171,7 @@ kotlin {
 
 타겟이 지원되지 않고 추론이 비활성화된 경우, 완전한 ABI 덤프를 생성할 수 없으므로 `checkKotlinAbi` 태스크가 실패합니다. 바이너리 비호환 변경 사항을 놓칠 위험을 감수하기보다 태스크가 실패하는 것을 선호하는 경우 이 동작이 유용할 수 있습니다.
 
-## `maven-publish` 플러그인의 발행물(publications) 포함
+## `maven-publish` 플러그인의 발행물(publications) 포함 {id="include-publications-from-the-maven-publish-plugin"}
 
 기본적으로 바이너리 호환성 검증은 Kotlin 컴파일 출력을 사용하여 ABI 덤프를 생성합니다. 이 때문에 생성된 ABI 덤프가 최종 발행된 아티팩트(artifact)를 반영하지 못할 수 있습니다. 예를 들어, [`maven-publish` 플러그인](https://docs.gradle.org/current/userguide/publishing_maven.html)을 사용하는 경우 재배치(relocation)와 같은 후처리 단계가 컴파일 후에 아티팩트를 수정할 수 있습니다.
 

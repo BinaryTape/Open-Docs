@@ -10,11 +10,11 @@ title: Koin Annotations を使い始める
 
 Koin Annotations を使用すると、クラスにアノテーションを付与することで定義（definitions）を宣言できます。Koin コンパイラプラグインはこれらのアノテーションを処理し、基盤となるすべての Koin DSL をコンパイル時に自動生成します。
 
-## はじめに (Getting Started)
+## はじめに (Getting Started) {id="getting-started"}
 
 Koin に詳しくない場合は、まず [Koin Getting Started](https://insert-koin.io/docs/quickstart/kotlin/) をご覧ください。
 
-### セットアップ (Setup)
+### セットアップ (Setup) {id="setup"}
 
 プロジェクトに Koin コンパイラプラグインを追加します。詳細な手順については、[Compiler Plugin Setup](/docs/setup/compiler-plugin) を参照してください。
 
@@ -30,7 +30,7 @@ dependencies {
 }
 ```
 
-### コンポーネントへのアノテーション付与
+### コンポーネントへのアノテーション付与 {id="annotating-components"}
 
 コンポーネントに定義アノテーション（definition annotations）でタグを付けます：
 
@@ -45,7 +45,7 @@ class MyService(val repository: MyRepository)
 class MyUseCase(val service: MyService)
 ```
 
-### モジュールの宣言
+### モジュールの宣言 {id="declaring-modules"}
 
 定義を整理するためのモジュールを作成します：
 
@@ -55,7 +55,7 @@ class MyUseCase(val service: MyService)
 class AppModule
 ```
 
-### Koin の開始
+### Koin の開始 {id="starting-koin"}
 
 型付けされたスタートアップ API（typed startup API）と共に `@KoinApplication` を使用します：
 
@@ -73,7 +73,7 @@ fun main() {
 }
 ```
 
-## 設定ラベル (Configuration Labels)
+## 設定ラベル (Configuration Labels) {id="configuration-labels"}
 
 ラベルに基づいてロードされるモジュールを作成するために `@Configuration` を使用します：
 
@@ -105,7 +105,7 @@ fun main() {
 }
 ```
 
-## 型付けされたスタートアップ API (Typed Startup APIs)
+## 型付けされたスタートアップ API (Typed Startup APIs) {id="typed-startup-apis"}
 
 コンパイラプラグインは、Koin を開始するための型付けされた API を提供します：
 
@@ -120,7 +120,7 @@ fun main() {
 
 ここで `T` は、`@KoinApplication`（スタートアップ API 用）または `@Module`（モジュールロード API 用）が付与されたクラスです。
 
-### 個別モジュールのロード
+### 個別モジュールのロード {id="loading-individual-modules"}
 
 `@KoinApplication` を使用せずに、`@Module` クラスを直接ロードすることもできます：
 
@@ -140,11 +140,11 @@ val koinTestRule = KoinTestRule.create {
 }
 ```
 
-## コンパイル時の安全性 (Compile-Time Safety)
+## コンパイル時の安全性 (Compile-Time Safety) {id="compile-time-safety"}
 
 コンパイラプラグインは、コンパイル時に Koin 設定を検証し、すべての依存関係が宣言され、アクセス可能であることをチェックします。
 
-### @Provided によるバイパス
+### @Provided によるバイパス {id="bypass-with-provided"}
 
 依存関係が外部から提供されていることを示すには、`@Provided` を使用します：
 
@@ -155,11 +155,11 @@ class ExternalComponent  // 別の場所で宣言されている
 class MyPresenter(@Provided val external: ExternalComponent)
 ```
 
-## コンパイラプラグインのオプション
+## コンパイラプラグインのオプション {id="compiler-plugin-options"}
 
 すべての設定オプションについては、**[Compiler Plugin Options](/docs/reference/koin-annotations/options)** を参照してください。
 
-## ProGuard ルール
+## ProGuard ルール {id="proguard-rules"}
 
 ProGuard/R8 を使用した SDK 開発の場合：
 
@@ -171,7 +171,7 @@ ProGuard/R8 を使用した SDK 開発の場合：
 -keep @org.koin.core.annotation.* class * { *; }
 ```
 
-## 関連項目
+## 関連項目 {id="see-also"}
 
 - **[Compiler Plugin Setup](/docs/setup/compiler-plugin)** - 完全なセットアップガイド
 - **[Definitions](/docs/reference/koin-annotations/definitions)** - すべての定義アノテーション

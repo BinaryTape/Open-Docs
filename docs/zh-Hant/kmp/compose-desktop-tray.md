@@ -5,7 +5,7 @@
 
 undefined
 
-## 系統匣
+## 系統匣 {id="system-tray"}
 
 使用 `Tray()` composable 將應用程式圖示新增至系統匣。`Tray()` 可在 `application()` 函式的作用域（scope）內使用，因此可以與應用程式視窗一起呼叫，或是單獨呼叫。
 
@@ -117,7 +117,7 @@ object TrayIcon : Painter() {
 
 並非每個桌面環境都有系統匣。如果平台不支援，`Tray()` 會將錯誤輸出到標準錯誤流（standard error stream），而不是擲回例外狀況（exception）。在應用程式中顯示與系統匣相關的選項之前，請檢查 `isTraySupported` 屬性。
 
-### 無視窗的系統匣
+### 無視窗的系統匣 {id="tray-without-a-window"}
 
 應用程式不需要視窗也能擁有系統匣圖示。如果僅呼叫 `Tray()` 函式，應用程式將完全在系統匣中執行：
 
@@ -153,7 +153,7 @@ object TrayIcon : Painter() {
 
 因為沒有可關閉的視窗，所以應從功能表項目中呼叫 `exitApplication()`。
 
-## 通知
+## 通知 {id="notifications"}
 
 若要傳送系統通知，請使用 `rememberNotification()` 建立通知，並將其傳遞給 `TrayState.sendNotification()`，如[系統匣範例](#system-tray)所示。通知是透過傳遞給 `Tray()` composable 的 `TrayState` 進行傳送的。如果該狀態未附加到系統匣，通知將會遺失。
 
@@ -165,7 +165,7 @@ object TrayIcon : Painter() {
 >
 {style="note"}
 
-## 接下來
+## 接下來 {id="what-s-next"}
 
 * 了解如何為視窗新增 [功能表列](compose-desktop-menu-bar.md)。
 * 探索關於 [其他桌面組建](compose-desktop-components.md) 的教學。

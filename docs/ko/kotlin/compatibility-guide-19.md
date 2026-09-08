@@ -4,7 +4,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 
 대부분의 언어 변경 사항은 업데이트 변경 로그나 컴파일러 경고와 같은 다른 채널을 통해 이미 발표되었지만, 이 문서는 Kotlin 1.8에서 Kotlin 1.9로의 마이그레이션을 위한 완전한 참조를 제공하기 위해 이들을 모두 요약합니다.
 
-## 기본 용어
+## 기본 용어 {id="basic-terms"}
 
 이 문서에서는 몇 가지 종류의 호환성을 소개합니다.
 
@@ -14,10 +14,10 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 
 이러한 정의는 순수 Kotlin에 대해서만 제공된다는 점을 기억하세요. 다른 언어 관점(예: Java)에서의 Kotlin 코드 호환성은 이 문서의 범위를 벗어납니다.
 
-## 언어
+## 언어 {id="language"}
 
 <!--
-### Title
+### Title {id="title"}
 
 > **Issue**: [KT-NNNNN](https://youtrack.jetbrains.com/issue/KT-NNNNN)
 >
@@ -33,7 +33,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.8.0: raise the warning to an error
 -->
 
-### 언어 버전 1.3 지원 제거
+### 언어 버전 1.3 지원 제거 {id="remove-language-version-1-3"}
 
 > **이슈**: [KT-61111](https://youtrack.jetbrains.com/issue/KT-61111/Remove-language-version-1.3)
 >
@@ -48,7 +48,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.6.0: 경고 보고
 > - 1.9.0: 경고를 에러로 격상
 
-### 상위 인터페이스 타입이 함수 리터럴인 경우 super 생성자 호출 금지
+### 상위 인터페이스 타입이 함수 리터럴인 경우 super 생성자 호출 금지 {id="prohibit-super-constructor-call-when-the-super-interface-type-is-a-function-literal"}
 
 > **이슈**: [KT-46344](https://youtrack.jetbrains.com/issue/KT-46344)
 >
@@ -62,7 +62,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > * 1.7.0: 경고 보고 (또는 프로그레시브 모드에서 에러 보고)
 > * 1.9.0: 경고를 에러로 격상
 
-### 애노테이션 파라미터 타입의 순환 참조 금지
+### 애노테이션 파라미터 타입의 순환 참조 금지 {id="prohibit-cycles-in-annotation-parameter-types"}
 
 > **이슈**: [KT-47932](https://youtrack.jetbrains.com/issue/KT-47932)
 >
@@ -77,7 +77,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > * 1.7.0: 애노테이션 파라미터 타입의 순환 참조에 대해 경고 보고 (또는 프로그레시브 모드에서 에러 보고)
 > * 1.9.0: 경고를 에러로 격상, `-XXLanguage:-ProhibitCyclesInAnnotations`를 사용하여 임시로 1.9 이전 동작으로 되돌릴 수 있음
 
-### 파라미터가 없는 함수 타입에 @ExtensionFunctionType 애노테이션 사용 금지
+### 파라미터가 없는 함수 타입에 @ExtensionFunctionType 애노테이션 사용 금지 {id="prohibit-use-of-extensionfunctiontype-annotation-on-function-types-with-no-parameters"}
 
 > **이슈**: [KT-43527](https://youtrack.jetbrains.com/issue/KT-43527)
 >
@@ -91,7 +91,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > * 1.7.0: 함수 타입이 아닌 타입에 대한 애노테이션은 경고 보고, 함수 타입**인** 타입에 대한 애노테이션은 에러 보고
 > * 1.9.0: 함수 타입에 대한 경고를 에러로 격상
 
-### 할당 시 Java 필드 타입 불일치 금지
+### 할당 시 Java 필드 타입 불일치 금지 {id="prohibit-java-field-type-mismatch-on-assignment"}
 
 > **이슈**: [KT-48994](https://youtrack.jetbrains.com/issue/KT-48994)
 >
@@ -105,7 +105,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > * 1.6.0: 프로젝션된 Java 필드 타입이 할당된 값의 타입과 일치하지 않을 때 경고 보고 (또는 프로그레시브 모드에서 에러 보고)
 > * 1.9.0: 경고를 에러로 격상, `-XXLanguage:-RefineTypeCheckingOnAssignmentsToJavaFields`를 사용하여 임시로 1.9 이전 동작으로 되돌릴 수 있음
 
-### 플랫폼 타입의 null 허용 여부 단언 예외 시 소스 코드 발췌문 제외
+### 플랫폼 타입의 null 허용 여부 단언 예외 시 소스 코드 발췌문 제외 {id="no-source-code-excerpts-in-platform-type-nullability-assertion-exceptions"}
 
 > **이슈**: [KT-57570](https://youtrack.jetbrains.com/issue/KT-57570)
 >
@@ -120,7 +120,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 >  * < 1.9.0: 식의 null 체크에 의해 생성된 예외 메시지에 소스 코드 발췌문이 포함됨
 >  * 1.9.0: 식의 null 체크에 의해 생성된 예외 메시지에 메서드 또는 필드 이름만 포함됨, `-XXLanguage:-NoSourceCodeInNotNullAssertionExceptions`를 사용하여 임시로 1.9 이전 동작으로 되돌릴 수 있음
 
-### 추상 상위 클래스 멤버로의 super 호출 위임 금지
+### 추상 상위 클래스 멤버로의 super 호출 위임 금지 {id="prohibit-the-delegation-of-super-calls-to-an-abstract-superclass-member"}
 
 > **이슈**: [KT-45508](https://youtrack.jetbrains.com/issue/KT-45508), [KT-49017](https://youtrack.jetbrains.com/issue/KT-49017), [KT-38078](https://youtrack.jetbrains.com/issue/KT-38078)
 >
@@ -138,7 +138,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.8.0: 상위 클래스로부터 오버라이드되지 않은 추상 메서드를 가진 구체 클래스를 선언하는 경우 및 `Any` 메서드의 super 호출이 상위 클래스에서 추상으로 오버라이드된 경우 에러 보고
 > - 1.9.0: 상위 클래스의 추상 메서드에 대한 명시적 super 호출을 포함하여 영향을 받는 모든 사례에서 에러 보고
 
-### 대상(subject)이 있는 when의 혼란스러운 문법 사용 중단
+### 대상(subject)이 있는 when의 혼란스러운 문법 사용 중단 {id="deprecate-confusing-grammar-in-when-with-subject"}
 
 > **이슈**: [KT-48385](https://youtrack.jetbrains.com/issue/KT-48385)
 >
@@ -154,7 +154,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.8.0: 이 경고를 에러로 격상, `-XXLanguage:-ProhibitConfusingSyntaxInWhenBranches`를 사용하여 임시로 1.8 이전 동작으로 되돌릴 수 있음
 > - &gt;= 2.1: 사용 중단된 일부 구조를 새로운 언어 기능을 위해 재사용
 
-### 서로 다른 숫자 타입 간의 암시적 강제 변환 방지
+### 서로 다른 숫자 타입 간의 암시적 강제 변환 방지 {id="prevent-implicit-coercions-between-different-numeric-types"}
 
 > **이슈**: [KT-48645](https://youtrack.jetbrains.com/issue/KT-48645)
 >
@@ -170,7 +170,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.5.30: 생성된 프로퍼티 위임 접근자(delegate accessors)에서의 다운캐스트 동작 수정, `-Xuse-old-backend`를 사용하여 임시로 1.5.30 수정 전 동작으로 되돌릴 수 있음
 > - &gt;= 2.0: 영향을 받는 다른 사례에서의 다운캐스트 동작 수정
 
-### 제네릭 타입 별칭 사용 시 상한 위반 금지 (타입 별칭의 타입 파라미터가 별칭 대상 타입의 타입 인자의 제네릭 타입 인자로 사용되는 경우)
+### 제네릭 타입 별칭 사용 시 상한 위반 금지 (타입 별칭의 타입 파라미터가 별칭 대상 타입의 타입 인자의 제네릭 타입 인자로 사용되는 경우) {id="prohibit-upper-bound-violation-in-a-generic-type-alias-usage-a-type-parameter-used-in-a-generic-type-argument-of-a-type-argument-of-the-aliased-type"}
 
 > **이슈**: [KT-54066](https://youtrack.jetbrains.com/issue/KT-54066)
 >
@@ -185,7 +185,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.8.0: 제네릭 타입 별칭 사용 시 타입 인자가 별칭 대상 타입의 해당 타입 파라미터의 상한 제약을 위반하는 경우 경고 보고
 > - 2.0.0: 경고를 에러로 격상
 
-### 공개 시그니처에서 로컬 타입을 추론할 때 null 허용 여부 유지
+### 공개 시그니처에서 로컬 타입을 추론할 때 null 허용 여부 유지 {id="keep-nullability-when-approximating-local-types-in-public-signatures"}
 
 > **이슈**: [KT-53982](https://youtrack.jetbrains.com/issue/KT-53982)
 >
@@ -201,7 +201,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.8.0: 선언이 null을 허용해야 함에도 null을 허용하지 않는 타입으로 추론될 때 경고를 보고하고, 사용자에게 타입을 명시적으로 지정하도록 권고
 > - 2.0.0: null 허용 타입을 null 허용 상위 타입으로 근사화, `-XXLanguage:-KeepNullabilityWhenApproximatingLocalType`을 사용하여 임시로 2.0 이전 동작으로 되돌릴 수 있음
 
-### 오버라이드를 통한 사용 중단(deprecation) 전파 중단
+### 오버라이드를 통한 사용 중단(deprecation) 전파 중단 {id="do-not-propagate-deprecation-through-overrides"}
 
 > **이슈**: [KT-47902](https://youtrack.jetbrains.com/issue/KT-47902)
 >
@@ -216,7 +216,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.6.20: 향후 동작 변경 메시지와 함께 이 경고를 무시하거나 사용 중단된 멤버의 오버라이드에 명시적으로 `@Deprecated` 애노테이션을 작성하라는 경고 보고
 > - 1.9.0: 오버라이드된 멤버로의 사용 중단 상태 전파 중단. 이 변경 사항은 프로그레시브 모드에서도 즉시 적용됨
 
-### 애노테이션 클래스의 파라미터 선언 외에 컬렉션 리터럴 사용 금지
+### 애노테이션 클래스의 파라미터 선언 외에 컬렉션 리터럴 사용 금지 {id="prohibit-using-collection-literals-in-annotation-classes-anywhere-except-their-parameters-declaration"}
 
 > **이슈**: [KT-39041](https://youtrack.jetbrains.com/issue/KT-39041)
 >
@@ -232,7 +232,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.7.0: 애노테이션 클래스의 중첩된 객체 내 배열 리터럴에 대해 경고 보고 (또는 프로그레시브 모드에서 에러 보고)
 > - 1.9.0: 경고를 에러로 격상
 
-### 기본값 식에서 파라미터의 전방 참조(forward referencing) 금지
+### 기본값 식에서 파라미터의 전방 참조(forward referencing) 금지 {id="prohibit-forward-referencing-of-parameters-in-default-value-expressions"}
 
 > **이슈**: [KT-25694](https://youtrack.jetbrains.com/issue/KT-25694)
 >
@@ -247,7 +247,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.7.0: 기본값이 있는 파라미터가 자신보다 앞에 오는 다른 파라미터의 기본값에서 참조될 때 경고 보고 (또는 프로그레시브 모드에서 에러 보고)
 > - 1.9.0: 경고를 에러로 격상, `-XXLanguage:-ProhibitIllegalValueParameterUsageInDefaultArguments`를 사용하여 임시로 1.9 이전 동작으로 되돌릴 수 있음
 
-### 인라인 함수 파라미터에 대한 확장 호출 금지
+### 인라인 함수 파라미터에 대한 확장 호출 금지 {id="prohibit-extension-calls-on-inline-functional-parameters"}
 
 > **이슈**: [KT-52502](https://youtrack.jetbrains.com/issue/KT-52502)
 >
@@ -263,7 +263,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.7.20: 인라인 함수 파라미터에 대한 인라인 확장 호출에 대해 경고 보고 (또는 프로그레시브 모드에서 에러 보고)
 > - 1.9.0: 경고를 에러로 격상
 
-### 익명 함수 인자를 가진 suspend라는 이름의 중위(infix) 함수 호출 금지
+### 익명 함수 인자를 가진 suspend라는 이름의 중위(infix) 함수 호출 금지 {id="prohibit-calls-to-infix-functions-named-suspend-with-an-anonymous-function-argument"}
 
 > **이슈**: [KT-49264](https://youtrack.jetbrains.com/issue/KT-49264)
 >
@@ -279,7 +279,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.9.0: 경고를 에러로 격상, `-XXLanguage:-ModifierNonBuiltinSuspendFunError`를 사용하여 임시로 1.9 이전 동작으로 되돌릴 수 있음
 > - TODO: 파서가 `suspend fun` 토큰 시퀀스를 해석하는 방식 변경
 
-### 내부 클래스에서 캡처된 타입 파라미터를 가변성(variance)에 어긋나게 사용하는 것 금지
+### 내부 클래스에서 캡처된 타입 파라미터를 가변성(variance)에 어긋나게 사용하는 것 금지 {id="prohibit-using-captured-type-parameters-in-inner-classes-against-their-variance"}
 
 > **이슈**: [KT-50947](https://youtrack.jetbrains.com/issue/KT-50947)
 >
@@ -294,7 +294,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.7.0: 외부 클래스의 타입 파라미터 사용 위치가 해당 파라미터의 가변성 규칙을 위반할 때 경고 보고 (또는 프로그레시브 모드에서 에러 보고)
 > - 1.9.0: 경고를 에러로 격상, `-XXLanguage:-ReportTypeVarianceConflictOnQualifierArguments`를 사용하여 임시로 1.9 이전 동작으로 되돌릴 수 있음
 
-### 복합 할당 연산자에서 명시적 반환 타입이 없는 함수의 재귀 호출 금지
+### 복합 할당 연산자에서 명시적 반환 타입이 없는 함수의 재귀 호출 금지 {id="prohibit-recursive-call-of-a-function-without-explicit-return-type-in-compound-assignment-operators"}
 
 > **이슈**: [KT-48546](https://youtrack.jetbrains.com/issue/KT-48546)
 >
@@ -309,7 +309,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.7.0: 명시적으로 반환 타입이 지정되지 않은 함수가 해당 함수 본문의 복합 할당 연산자 인자에서 재귀적으로 호출될 때 경고 보고 (또는 프로그레시브 모드에서 에러 보고)
 > - 1.9.0: 경고를 에러로 격상
 
-### null 허용 경계가 있는 Kotlin 제네릭 파라미터가 제공되고 @NotNull T가 기대되는 비안전(unsound) 호출 금지
+### null 허용 경계가 있는 Kotlin 제네릭 파라미터가 제공되고 @NotNull T가 기대되는 비안전(unsound) 호출 금지 {id="prohibit-unsound-calls-with-expected-notnull-t-and-given-kotlin-generic-parameter-with-nullable-bound"}
 
 > **이슈**: [KT-36770](https://youtrack.jetbrains.com/issue/KT-36770)
 >
@@ -324,7 +324,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.5.20: null을 허용하지 않는 타입이 기대되는 곳에 제약이 없는 제네릭 타입 파라미터가 전달될 때 경고 보고
 > - 1.9.0: 위의 경고 대신 타입 불일치(type mismatch) 에러 보고, `-XXLanguage:-ProhibitUsingNullableTypeParameterAgainstNotNullAnnotated`를 사용하여 임시로 1.8 이전 동작으로 되돌릴 수 있음
 
-### 열거형 항목 초기화 식에서 해당 열거형 클래스의 동반 객체(companion object) 멤버 접근 금지
+### 열거형 항목 초기화 식에서 해당 열거형 클래스의 동반 객체(companion object) 멤버 접근 금지 {id="prohibit-access-to-members-of-a-companion-of-an-enum-class-from-entry-initializers-of-this-enum"}
 
 > **이슈**: [KT-49110](https://youtrack.jetbrains.com/issue/KT-49110)
 >
@@ -339,7 +339,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.6.20: 그러한 동반 객체 멤버 접근에 대해 경고 보고 (또는 프로그레시브 모드에서 에러 보고)
 > - 1.9.0: 경고를 에러로 격상, `-XXLanguage:-ProhibitAccessToEnumCompanionMembersInEnumConstructorCall`을 사용하여 임시로 1.8 이전 동작으로 되돌릴 수 있음
 
-### Enum.declaringClass 합성 프로퍼티 사용 중단 및 제거
+### Enum.declaringClass 합성 프로퍼티 사용 중단 및 제거 {id="deprecate-and-remove-enum-declaringclass-synthetic-property"}
 
 > **이슈**: [KT-49653](https://youtrack.jetbrains.com/issue/KT-49653)
 >
@@ -355,7 +355,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.9.0: 경고를 에러로 격상, `-XXLanguage:-ProhibitEnumDeclaringClass`를 사용하여 임시로 1.9 이전 동작으로 되돌릴 수 있음
 > - 2.0.0: `declaringClass` 합성 프로퍼티 제거
 
-### 컴파일러 옵션 -Xjvm-default의 enable 및 compatibility 모드 사용 중단
+### 컴파일러 옵션 -Xjvm-default의 enable 및 compatibility 모드 사용 중단 {id="deprecate-enable-and-compatibility-modes-of-the-compiler-option-xjvm-default"}
 
 > **이슈**: [KT-46329](https://youtrack.jetbrains.com/issue/KT-46329), [KT-54746](https://youtrack.jetbrains.com/issue/KT-54746)
 >
@@ -370,7 +370,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.6.20: `-Xjvm-default` 컴파일러 옵션의 `enable` 및 `compatibility` 모드에 대해 경고 도입
 > - 1.9.0: 이 경고를 에러로 격상
 
-### 빌더 추론 컨텍스트에서 타입 변수가 상한으로 암시적 추론되는 것 금지
+### 빌더 추론 컨텍스트에서 타입 변수가 상한으로 암시적 추론되는 것 금지 {id="prohibit-implicit-inferring-a-type-variable-into-an-upper-bound-in-the-builder-inference-context"}
 
 > **이슈**: [KT-47986](https://youtrack.jetbrains.com/issue/KT-47986)
 >
@@ -385,9 +385,9 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.7.20: 사용 지점 타입 정보가 없는 상황에서 타입 파라미터가 선언된 상한으로 추론될 때 경고 보고 (또는 프로그레시브 모드에서 에러 보고)
 > - 2.0.0: 경고를 에러로 격상
 
-## 표준 라이브러리
+## 표준 라이브러리 {id="standard-library"}
 
-### Range/Progression이 Collection을 구현함에 따라 발생할 수 있는 오버로드 해소(overload resolution) 변경 경고
+### Range/Progression이 Collection을 구현함에 따라 발생할 수 있는 오버로드 해소(overload resolution) 변경 경고 {id="warn-about-potential-overload-resolution-change-when-range-progression-starts-implementing-collection"}
 
 > **이슈**: [KT-49276](https://youtrack.jetbrains.com/issue/KT-49276)
 >
@@ -403,7 +403,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.8.0: 이 경고를 에러로 격상
 > - 2.1.0: 에러 보고를 중단하고 progression에 `Collection` 인터페이스를 구현하여, 영향을 받는 사례에서 오버로드 해소 결과를 변경
 
-### kotlin.dom 및 kotlin.browser 패키지의 선언을 kotlinx.*로 마이그레이션
+### kotlin.dom 및 kotlin.browser 패키지의 선언을 kotlinx.*로 마이그레이션 {id="migrate-declarations-from-kotlin-dom-and-kotlin-browser-packages-to-kotlinx"}
 
 > **이슈**: [KT-39330](https://youtrack.jetbrains.com/issue/KT-39330)
 >
@@ -421,7 +421,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.8.20: JS-IR 타겟의 stdlib에서 사용 중단된 함수 제거
 > - &gt;= 2.0: kotlinx.* 패키지의 API를 별도의 라이브러리로 이동
 
-### 일부 JS 전용 API 사용 중단
+### 일부 JS 전용 API 사용 중단 {id="deprecate-some-js-only-api"}
 
 > **이슈**: [KT-48587](https://youtrack.jetbrains.com/issue/KT-48587)
 >
@@ -437,9 +437,9 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.9.0: 사용 중단 수준을 에러로 격상
 > - &gt;=2.0: 공개 API에서 사용 중단된 함수 제거
 
-## 도구
+## 도구 {id="tools"}
 
-### Gradle 설정에서 enableEndorsedLibs 플래그 제거
+### Gradle 설정에서 enableEndorsedLibs 플래그 제거 {id="remove-enableendorsedlibs-flag-from-gradle-setup"}
 
 > **이슈**: [KT-54098](https://youtrack.jetbrains.com/issue/KT-54098)
 >
@@ -454,7 +454,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - < 1.9.0: Gradle 설정에서 `enableEndorsedLibs` 플래그가 지원됨
 > - 1.9.0: Gradle 설정에서 `enableEndorsedLibs` 플래그가 지원되지 **않음**
 
-### Gradle 컨벤션 제거
+### Gradle 컨벤션 제거 {id="remove-gradle-conventions"}
 
 > **이슈**: [KT-52976](https://youtrack.jetbrains.com/issue/KT-52976)
 >
@@ -469,7 +469,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.7.20: Gradle 컨벤션 사용 중단
 > - 1.9.0: Gradle 컨벤션 제거
 
-### KotlinCompile 태스크의 classpath 프로퍼티 제거
+### KotlinCompile 태스크의 classpath 프로퍼티 제거 {id="remove-classpath-property-of-kotlincompile-task"}
 
 > **이슈**: [KT-53748](https://youtrack.jetbrains.com/issue/KT-53748)
 >
@@ -485,7 +485,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.8.0: 사용 중단 수준을 에러로 격상
 > - 1.9.0: 공개 API에서 사용 중단된 함수 제거
 
-### kotlin.internal.single.build.metrics.file 프로퍼티 사용 중단
+### kotlin.internal.single.build.metrics.file 프로퍼티 사용 중단 {id="deprecate-kotlin-internal-single-build-metrics-file-property"}
 
 > **이슈**: [KT-53357](https://youtrack.jetbrains.com/issue/KT-53357)
 >

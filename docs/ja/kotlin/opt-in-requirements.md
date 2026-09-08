@@ -5,12 +5,12 @@ Kotlin標準ライブラリは、特定のAPI要素の使用に対して明示�
 
 ユーザーを保護するため、コンパイラはこれらの条件について警告を発し、APIを使用する前にオプトインすることを要求します。
 
-## APIへのオプトイン
+## APIへのオプトイン {id="opt-in-to-api"}
 
 ライブラリの作者がライブラリのAPIにある宣言を **[オプトインが必要](#require-opt-in-to-use-api)** としてマークしている場合、コード内でそれを使用する前に明示的な同意を与える必要があります。
 オプトインにはいくつかの方法があります。状況に最も適したアプローチを選択することをお勧めします。
 
-### ローカルでのオプトイン
+### ローカルでのオプトイン {id="opt-in-locally"}
 
 コード内で特定のAPI要素を使用する際に、その要素に対してのみオプトインするには、実験的なAPIマーカーへの参照を指定した [`@OptIn`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-opt-in/) アノテーションを使用します。例えば、オプトインが必要な `DateProvider` クラスを使用したいとします。
 
@@ -59,7 +59,7 @@ fun displayDate() {
 
 オプトインの要求は伝播されないため、他のユーザーが知らないうちに実験的なAPIを使用してしまう可能性があります。これを避けるには、オプトイン要求を伝播させる方が安全です。
 
-#### オプトイン要求の伝播
+#### オプトイン要求の伝播 {id="propagate-opt-in-requirements"}
 
 ライブラリ内など、サードパーティによる使用を想定したコードでAPIを使用する場合、そのオプトイン要求を自身のAPIにも伝播させることができます。これを行うには、ライブラリで使用されているものと同じ **[オプトイン要求アノテーション](#create-opt-in-requirement-annotations)** で自身の宣言をマークします。
 
@@ -135,7 +135,7 @@ fun displayDate() {
 }
 ```
 
-#### 複数のAPIへのオプトイン
+#### 複数のAPIへのオプトイン {id="opt-in-to-multiple-apis"}
 
 複数のAPIに対してオプトインするには、宣言をそれらすべてのオプトイン要求アノテーションでマークします。例：
 
@@ -150,7 +150,7 @@ fun displayDate() {
 @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
 ```
 
-### ファイル単位のオプトイン
+### ファイル単位のオプトイン {id="opt-in-a-file"}
 
 ファイル内のすべての関数およびクラスに対してオプトインが必要なAPIを使用するには、ファイルの先頭（パッケージ指定およびインポートの前）にファイルレベルのアノテーション `@file:OptIn` を追加します。
 
@@ -159,7 +159,7 @@ fun displayDate() {
  @file:OptIn(MyDateTime::class)
  ```
 
-### モジュール単位のオプトイン
+### モジュール単位のオプトイン {id="opt-in-a-module"}
 
 > `-opt-in` コンパイラオプションは Kotlin 1.6.0 以降で利用可能です。それより前の Kotlin バージョンでは、`-Xopt-in` を使用してください。
 >
@@ -249,7 +249,7 @@ Mavenの場合は、以下を使用します。
 
 モジュールレベルで複数のAPIに対してオプトインするには、モジュールで使用されている各オプトイン要求マーカーに対して、上述の引数を1つずつ追加します。
 
-### クラスやインターフェースの継承におけるオプトイン
+### クラスやインターフェースの継承におけるオプトイン {id="opt-in-to-inherit-from-a-class-or-interface"}
 
 ライブラリの作者がAPIを提供しつつも、ユーザーがそれを拡張（継承）する前に明示的なオプトインを要求したい場合があります。
 例えば、ライブラリのAPIは使用に関しては安定していても、将来的に新しい抽象関数が追加される可能性があるため、継承に関しては安定していないといったケースです。
@@ -314,11 +314,11 @@ interface SomeImplementation : CoreLibraryApi
 interface SomeImplementation : CoreLibraryApi
 ```
 
-## API利用にオプトインを要求する
+## API利用にオプトインを要求する {id="require-opt-in-to-use-api"}
 
 ライブラリのユーザーがAPIを使用できるようになる前に、オプトインを要求することができます。さらに、オプトイン要求を削除することを決定するまで、APIを使用するための特別な条件についてユーザーに通知することもできます。
 
-### オプトイン要求アノテーションの作成
+### オプトイン要求アノテーションの作成 {id="create-opt-in-requirement-annotations"}
 
 モジュールのAPIの使用にオプトインを要求するには、**オプトイン要求アノテーション**として使用するアノテーションクラスを作成します。
 このクラスには [`@RequiresOptIn`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-requires-opt-in/) アノテーションを付ける必要があります。
@@ -356,7 +356,7 @@ annotation class ExperimentalDateTime
 これにより、クライアントは明示的に受け入れた機能のみを使用できるようになるため、APIの使用がより安全になります。
 これは、機能ごとに独立してオプトイン要求を削除できることも意味し、APIの保守が容易になります。
 
-### API要素のマーク
+### API要素のマーク {id="mark-api-elements"}
 
 API要素にオプトインを要求するには、その宣言にオプトイン要求アノテーションを付けます。
 
@@ -373,7 +373,7 @@ fun getTime(): Time {}
 * プロパティのバッキングフィールドやゲッターにアノテーションを付けることはできません。プロパティ自体にのみ可能です。
 * ローカル変数や値パラメータにアノテーションを付けることはできません。
 
-## API拡張にオプトインを要求する
+## API拡張にオプトインを要求する {id="require-opt-in-to-extend-api"}
 
 APIのどの特定の部分が使用可能で拡張可能であるかについて、よりきめ細かな制御を行いたい場合があります。例えば、使用に関しては安定しているが、以下のようなAPIがある場合です：
 
@@ -401,7 +401,7 @@ interface CoreLibraryApi
 
 APIで `@SubclassOptInRequired` アノテーションを使用する方法の実際の例については、`kotlinx.coroutines` ライブラリの [`SharedFlow`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-shared-flow/) インターフェースを確認してください。
 
-## 安定版前APIのオプトイン要求
+## 安定版前APIのオプトイン要求 {id="opt-in-requirements-for-pre-stable-apis"}
 
 まだ安定していない機能に対してオプトイン要求を使用する場合は、クライアントコードを壊さないように、APIの卒業（安定版への移行）を慎重に扱ってください。
 

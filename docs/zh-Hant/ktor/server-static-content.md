@@ -208,7 +208,7 @@ staticResources("/", "static"){
 
 在此範例中，當請求 `/index` 時，Ktor 會搜尋 `/index.html` 並服務找到的內容。
 
-### 自訂備援
+### 自訂備援 {id="custom-fallback"}
 
 要配置找不到請求的靜態資源時的自訂備援行為，請使用 `fallback()` 函式。
 透過 `fallback()`，您可以檢查請求的路徑並決定如何回應。例如，您可以重新導向到另一個資源、傳回特定的 HTTP 狀態，或是服務替代檔案。

@@ -2,9 +2,9 @@
 
 為了進行更多自訂，您可以使用 Gradle DSL 明確宣告資料庫。
 
-## SQLDelight 配置
+## SQLDelight 配置 {id="sqldelight-configuration"}
 
-### `databases`
+### `databases` {id="databases"}
 
 資料庫的容器。設定 SQLDelight 以指定的名稱建立每個資料庫。
 
@@ -31,7 +31,7 @@
 
 ----
 
-### `linkSqlite`
+### `linkSqlite` {id="linksqlite"}
 
 類型：`Property<Boolean>`
 
@@ -54,9 +54,9 @@
     linkSqlite = true
     ```
 
-## 資料庫配置
+## 資料庫配置 {id="database-configuration"}
 
-### `packageName`
+### `packageName` {id="packagename"}
 
 類型：`Property<String>`
 
@@ -73,7 +73,7 @@
 
 ----
 
-### `srcDirs`
+### `srcDirs` {id="srcdirs"}
 
 類型：`ConfigurableFileCollection`
 
@@ -90,7 +90,7 @@
     srcDirs = ['src/main/sqldelight']
     ```
 
-#### `srcDirs(vararg objects: Any)`
+#### `srcDirs(vararg objects: Any)` {id="srcdirs-vararg-objects-any"}
 
 外掛程式將在其中尋找您的 `.sq` 和 `.sqm` 檔案的物件集合。
 
@@ -105,7 +105,7 @@
 
 ----
 
-### `schemaOutputDirectory`
+### `schemaOutputDirectory` {id="schemaoutputdirectory"}
 
 類型：`DirectoryProperty`
 
@@ -126,7 +126,7 @@
 
 ----
 
-### `dependency`
+### `dependency` {id="dependency"}
 
 類型：`Project`
 
@@ -143,7 +143,7 @@
 
 ----
 
-### `dialect`
+### `dialect` {id="dialect"}
 
 類型：`String` 或 `Provider<MinimalExternalModuleDependency>`
 
@@ -181,7 +181,7 @@
 
 ----
 
-### `verifyMigrations`
+### `verifyMigrations` {id="verifymigrations"}
 
 類型：`Property<Boolean>`
 
@@ -200,7 +200,7 @@
 
 ----
 
-### `treatNullAsUnknownForEquality`
+### `treatNullAsUnknownForEquality` {id="treatnullasunknownforequality"}
 
 類型：`Property<Boolean>`
 
@@ -219,7 +219,7 @@
 
 ----
 
-### `generateAsync`
+### `generateAsync` {id="generateasync"}
 
 類型：`Property<Boolean>`
 
@@ -238,7 +238,7 @@
 
 ----
 
-### `deriveSchemaFromMigrations`
+### `deriveSchemaFromMigrations` {id="deriveschemafrommigrations"}
 
 類型：`Property<Boolean>`
 
@@ -258,7 +258,7 @@
 
 ----
 
-### `expandSelectStar`
+### `expandSelectStar` {id="expandselectstar"}
 
 類型：`Property<Boolean>`
 
@@ -290,7 +290,7 @@ SELECT * FROM hockey_player;
 
 ----
 
-### `codegenExcludedColumns`
+### `codegenExcludedColumns` {id="codegenexcludedcolumns"}
 
 類型：`SetProperty<String>`
 

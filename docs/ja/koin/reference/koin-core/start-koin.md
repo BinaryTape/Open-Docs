@@ -4,7 +4,7 @@ title: Koin 開始リファレンス
 
 Koin の開始に関するクイックリファレンスです。詳細なガイドについては、**[コア - Koin の開始](/docs/reference/koin-core/starting-koin)** を参照してください。
 
-## 開始メソッド
+## 開始メソッド {id="starting-methods"}
 
 | メソッド | ユースケース |
 |--------|----------|
@@ -13,7 +13,7 @@ Koin の開始に関するクイックリファレンスです。詳細なガイ
 | `koinConfiguration { }` | Compose、Ktor 用の設定 |
 | `startKoin<T>()` | コンパイラプラグインを使用した型指定による起動 |
 
-## 基本的な開始方法
+## 基本的な開始方法 {id="basic-startup"}
 
 ```kotlin
 startKoin {
@@ -21,7 +21,7 @@ startKoin {
 }
 ```
 
-## 完全な設定例
+## 完全な設定例 {id="complete-configuration"}
 
 ```kotlin
 startKoin {
@@ -36,7 +36,7 @@ startKoin {
 }
 ```
 
-## 設定オプション
+## 設定オプション {id="configuration-options"}
 
 | オプション | 説明 |
 |--------|-------------|
@@ -49,7 +49,7 @@ startKoin {
 | `createEagerInstances()` | すべての `createdAtStart` シングルトンを作成 |
 | `allowOverride()` | 定義のオーバーライドの有効化/無効化 |
 
-## 型指定による起動 (コンパイラプラグイン)
+## 型指定による起動 (コンパイラプラグイン) {id="typed-startup-compiler-plugin"}
 
 [Koin コンパイラプラグイン](/docs/setup/compiler-plugin) と `@KoinApplication` が必要です：
 
@@ -66,7 +66,7 @@ startKoin<MyApp> {
 }
 ```
 
-## 動的なモジュール管理
+## 動的なモジュール管理 {id="dynamic-module-management"}
 
 ```kotlin
 // 開始後にロード
@@ -76,7 +76,7 @@ loadKoinModules(featureModule)
 unloadKoinModules(featureModule)
 ```
 
-## Koin の停止
+## Koin の停止 {id="stopping-koin"}
 
 ```kotlin
 stopKoin()  // グローバルインスタンス
@@ -85,7 +85,7 @@ stopKoin()  // グローバルインスタンス
 koinApp.close()
 ```
 
-## ロギング
+## ロギング {id="logging"}
 
 | ロガー | プラットフォーム | 説明 |
 |--------|----------|-------------|
@@ -100,7 +100,7 @@ startKoin {
 }
 ```
 
-## プロパティ
+## プロパティ {id="properties"}
 
 ```kotlin
 startKoin {
@@ -115,9 +115,9 @@ single {
 }
 ```
 
-## プラットフォーム別の例
+## プラットフォーム別の例 {id="platform-examples"}
 
-### Android
+### Android {id="android"}
 
 ```kotlin
 class MainApplication : Application() {
@@ -132,7 +132,7 @@ class MainApplication : Application() {
 }
 ```
 
-### Compose
+### Compose {id="compose"}
 
 ```kotlin
 @Composable
@@ -145,7 +145,7 @@ fun App() {
 }
 ```
 
-### Ktor
+### Ktor {id="ktor"}
 
 ```kotlin
 fun Application.module() {
@@ -156,7 +156,7 @@ fun Application.module() {
 }
 ```
 
-## 関連項目
+## 関連項目 {id="see-also"}
 
 - **[コア - Koin の開始](/docs/reference/koin-core/starting-koin)** - 完全なガイド
 - **[Lazy モジュール](/docs/reference/koin-core/lazy-modules)** - バックグラウンドロード

@@ -7,7 +7,7 @@ JetBrains 為以下 IDE 與程式碼編輯器提供官方 Kotlin 支援：[Intel
 
 其他 IDE 與程式碼編輯器僅有 Kotlin 社群支援的外掛程式。
 
-## IntelliJ IDEA
+## IntelliJ IDEA {id="intellij-idea"}
 
 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 是一款專為 JVM 語言（如 Kotlin 與 Java）設計的 IDE，旨在極大化開發者生產力。
 它透過提供智慧的程式碼補全、靜態程式碼分析與重構作業，為您處理常規且重複性的任務。
@@ -19,7 +19,7 @@ Kotlin 外掛程式隨每個 IntelliJ IDEA 版本一併提供。
 
 若要進一步了解 IntelliJ IDEA，請參閱[官方文件](https://www.jetbrains.com/help/idea/discover-intellij-idea.html)。
 
-## Android Studio
+## Android Studio {id="android-studio"}
 
 [Android Studio](https://developer.android.com/studio) 是 Android 應用程式開發的官方 IDE，基於 [IntelliJ IDEA](https://www.jetbrains.com/idea/)。
 除了 IntelliJ 強大的程式碼編輯器與開發者工具之外，Android Studio 還提供了更多功能，可提升您在建置 Android 應用程式時的生產力。
@@ -28,7 +28,7 @@ Kotlin 外掛程式隨每個 Android Studio 版本一併提供。
 
 若要進一步了解 Android Studio，請參閱[官方文件](https://developer.android.com/studio/intro)。
 
-## Visual Studio Code
+## Visual Studio Code {id="visual-studio-code"}
 <primary-label ref="alpha"/>
 
 [Visual Studio Code](https://code.visualstudio.com/) 是一款擁有眾多擴充套件的程式碼編輯器，其中包括[官方的 Kotlin by JetBrains 擴充套件](https://marketplace.visualstudio.com/items?itemName=JetBrains.kotlin-server)。
@@ -37,20 +37,20 @@ Kotlin 外掛程式隨每個 Android Studio 版本一併提供。
 
 欲了解更多資訊，請參閱 [Kotlin 語言伺服器與 Visual Studio Code](kotlin-lsp.md#kotlin-in-visual-studio-code)。
 
-## 其他 IDE 支援
+## 其他 IDE 支援 {id="other-ides-support"}
 
 JetBrains 不為其他 IDE 提供官方 Kotlin 外掛程式。
 您可以在其他程式碼編輯器中使用 [Kotlin 語言伺服器](kotlin-lsp.md)。
 
 若要在沒有 IDE 相關功能（例如程式碼格式化、偵錯工具、重構）的文字編輯器中使用 Kotlin，您可以從 Kotlin [GitHub Releases](%kotlinLatestUrl%) 下載最新的 Kotlin 命令列編譯器 (`kotlin-compiler-%kotlinVersion%.zip`) 並[手動安裝](command-line.md#manual-install)。此外，您也可以使用封裝管理員，例如 [Homebrew](command-line.md#homebrew)、 [SDKMAN!](command-line.md#sdkman) 與 [Snap package](command-line.md#snap-package)。
 
-## 與 Kotlin 語言版本的相容性
+## 與 Kotlin 語言版本的相容性 {id="compatibility-with-the-kotlin-language-versions"}
 
 對於 IntelliJ IDEA 與 Android Studio，Kotlin 外掛程式隨每個版本一併提供。
 當發佈新的 Kotlin 版本時，這些工具會自動建議將 Kotlin 更新至最新版本。
 請在 [Kotlin 版本發佈](releases.md#ide-support)中查看最新支援的語言版本。
 
-## 下一步？
+## 下一步？ {id="what-s-next"}
 
 * [在 IntelliJ IDEA 中建立主控台應用程式](jvm-get-started.md)
 * [使用 IntelliJ IDEA 或 Android Studio 建立您的第一個跨平台行動應用程式](https://kotlinlang.org/docs/multiplatform/multiplatform-create-first-app.html)

@@ -59,7 +59,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="class-with-header-and-body"}
 
-## 인스턴스 생성하기
+## 인스턴스 생성하기 {id="creating-instances"}
 
 인스턴스는 클래스를 청사진으로 사용하여 프로그램에서 실제로 작업할 객체를 구축할 때 생성됩니다.
 
@@ -118,7 +118,7 @@ fun main() {
 
 중첩 클래스, 내부 클래스 및 익명 내부 클래스의 인스턴스 생성에 대한 정보는 [중첩 클래스(Nested classes)](nested-classes.md) 섹션을 참조하세요.
 
-## 생성자와 초기화 블록
+## 생성자와 초기화 블록 {id="constructors-and-initializer-blocks"}
 
 클래스 인스턴스를 생성할 때 해당 클래스의 생성자 중 하나를 호출합니다. 코틀린의 클래스는 하나의 [_주 생성자(primary constructor)_](#primary-constructor)와 하나 이상의 [_부 생성자(secondary constructors)_](#secondary-constructors)를 가질 수 있습니다.
 
@@ -126,7 +126,7 @@ fun main() {
 
 주 생성자와 부 생성자 모두 선택 사항이지만, 클래스에는 적어도 하나의 생성자가 있어야 합니다.
 
-### 주 생성자
+### 주 생성자 {id="primary-constructor"}
 
 주 생성자는 인스턴스가 [생성될 때](#creating-instances) 초기 상태를 설정합니다.
 
@@ -239,7 +239,7 @@ class Person(
 ) { /*...*/ }
 ```
 
-### 초기화 블록
+### 초기화 블록 {id="initializer-blocks"}
 
 주 생성자는 클래스를 초기화하고 프로퍼티를 설정합니다. 대부분의 경우 간단한 코드로 이를 처리할 수 있습니다.
 
@@ -309,7 +309,7 @@ class Person(val age: Int) {
 }
 ```
 
-### 부 생성자
+### 부 생성자 {id="secondary-constructors"}
 
 코틀린에서 부 생성자는 클래스가 주 생성자 외에 가질 수 있는 추가 생성자입니다. 부 생성자는 클래스를 초기화하는 여러 방법이 필요하거나 [자바 상호운용성(Java interoperability)](java-to-kotlin-interop.md)을 위해 유용합니다.
 
@@ -407,7 +407,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="class-delegation-sequence"}
 
-### 생성자가 없는 클래스
+### 생성자가 없는 클래스 {id="classes-without-constructors"}
 
 주 생성자나 부 생성자를 선언하지 않은 클래스는 파라미터가 없는 암시적 주 생성자를 가집니다.
 
@@ -442,13 +442,13 @@ class Person private constructor() { /*...*/ }
 >
 {style="note"}
 
-## 상속
+## 상속 {id="inheritance"}
 
 코틀린의 클래스 상속을 사용하면 기존 클래스(기본 클래스)에서 새로운 클래스(파생 클래스)를 만들어 프로퍼티와 함수를 상속받으면서 동작을 추가하거나 수정할 수 있습니다.
 
 상속 계층 구조와 `open` 키워드 사용 방법에 대한 자세한 정보는 [상속(Inheritance)](inheritance.md) 섹션을 참조하세요.
 
-## 추상 클래스
+## 추상 클래스 {id="abstract-classes"}
 
 코틀린에서 추상 클래스는 직접 인스턴스화할 수 없는 클래스입니다. 추상 클래스는 실제 동작을 정의하는 다른 클래스에 의해 상속되도록 설계되었습니다. 이러한 동작 정의를 _구현(implementation)_이라고 합니다.
 
@@ -509,7 +509,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="abstract-class"}
 
-## 동반 객체
+## 동반 객체 {id="companion-objects"}
 
 코틀린에서 각 클래스는 하나의 [동반 객체(companion object)](object-declarations.md#companion-objects)를 가질 수 있습니다. 동반 객체는 클래스 인스턴스를 생성하지 않고 클래스 이름을 사용하여 해당 멤버에 접근할 수 있게 해주는 객체 선언의 한 종류입니다.
 

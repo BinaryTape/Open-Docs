@@ -8,7 +8,7 @@
 > 
 {style="note"}
 
-## 始める前に
+## 始める前に {id="before-you-start"}
 
 最新バージョンの [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) をダウンロードしてインストールし、Ultimateサブスクリプションを使用してください。
 
@@ -16,7 +16,7 @@
 > 
 {style="tip"}
 
-## Spring Bootプロジェクトの作成
+## Spring Bootプロジェクトの作成 {id="create-a-spring-boot-project"}
 
 IntelliJ IDEAのプロジェクトウィザードを使用して、Kotlinによる新しいSpring Bootプロジェクトを作成します。
 
@@ -72,7 +72,7 @@ IntelliJ IDEAのプロジェクトウィザードを使用して、Kotlinによ�
    * `main/kotlin` フォルダの下に、アプリケーションに属するパッケージとクラスがあります。
    * アプリケーションの開始点は、`DemoApplication.kt` ファイルの `main()` メソッドです。
 
-## プロジェクトのGradleビルドファイルを調べる {initial-collapse-state="collapsed" collapsible="true"}
+## プロジェクトのGradleビルドファイルを調べる {initial-collapse-state="collapsed" collapsible="true" id="explore-the-project-gradle-build-file"}
 
 `build.gradle.kts` ファイルを開きます。これはGradleのKotlinビルドスクリプトで、アプリケーションに必要な依存関係のリストが含まれています。
 
@@ -143,7 +143,7 @@ tasks.withType<Test> {
 
 Kotlinコンパイラオプションの詳細については、[](gradle-compiler-options.md) を参照してください。
 
-## 生成されたSpring Bootアプリケーションを調べる
+## 生成されたSpring Bootアプリケーションを調べる {id="explore-the-generated-spring-boot-application"}
 
 `DemoApplication.kt` ファイルを開きます。
 
@@ -182,7 +182,7 @@ fun main(args: Array<String>) {
    </def>
 </deflist>
 
-## コントローラーの作成
+## コントローラーの作成 {id="create-a-controller"}
 
 アプリケーションを実行する準備はできていますが、先にロジックを更新しましょう。
 
@@ -235,7 +235,7 @@ class MessageController {
    </def>
 </deflist>
 
-## アプリケーションの実行
+## アプリケーションの実行 {id="run-the-application"}
 
 Springアプリケーションを実行する準備が整いました。
 
@@ -259,7 +259,7 @@ Springアプリケーションを実行する準備が整いました。
 
     ![Springアプリケーションのレスポンス](spring-application-response.png){width=700}
 
-## 次のステップ
+## 次のステップ {id="next-step"}
 
 チュートリアルの次のパートでは、Kotlinのデータクラスと、それをアプリケーションでどのように使用できるかについて学びます。
 

@@ -1,4 +1,4 @@
-## Flow
+## Flow {id="flow"}
 
 要将查询作为 Flow 使用，请依赖协程 (Coroutines) 扩展制品并使用其提供的扩展方法：
 

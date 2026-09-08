@@ -13,7 +13,7 @@
 > 
 {style="note"}
 
-## 在專案中加入 KSP 外掛程式
+## 在專案中加入 KSP 外掛程式 {id="add-the-ksp-plugin-to-your-project"}
 
 在專案級別的 `build.gradle(.kts)` 檔案中的 `plugins {}` 區塊加入 KSP：
 
@@ -42,7 +42,7 @@ plugins {
 > 
 {style="tip"}
 
-## 更新您的處理器
+## 更新您的處理器 {id="update-your-processor"}
 
 找到使用您想要遷移的處理器的模組。在該模組的 `build.gradle(.kts)` 檔案中：
 
@@ -105,7 +105,7 @@ plugins {
 > 
 {style="note"}
 
-## 移除 kapt 外掛程式
+## 移除 kapt 外掛程式 {id="remove-the-kapt-plugin"}
 
 在將所有處理器遷移到 KSP 後，您可以安全地從所有建置檔案中移除 kapt 外掛程式：
 
@@ -134,7 +134,7 @@ plugins {
 
 刪除所有剩餘的 kapt 配置（如果有的話）。
 
-## 下一步？
+## 下一步？ {id="what-s-next"}
 
 * 在 [KSP 入門指南](ksp-quickstart.md#create-your-own-processor) 中學習如何製作您自己的基於 KSP 的註解處理器。
 * 在 [KSP 存儲庫](https://github.com/google/ksp/tree/main/examples) 中探索使用 KSP 的範例專案。

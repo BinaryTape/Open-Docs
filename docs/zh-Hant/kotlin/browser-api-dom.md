@@ -56,7 +56,7 @@ kotlin {
 </tab>
 </tabs>
 
-## 與 DOM 互動
+## 與 DOM 互動 {id="interaction-with-the-dom"}
 
 若要與 DOM（文件物件模型）互動，您可以使用 `document` 變數。例如，您可以透過此物件設定網站的背景顏色：
 
@@ -87,6 +87,6 @@ email.value = "hadi@jetbrains.com"
 
 就像您參照此 `input` 元素一樣，您可以存取頁面上的其他元素，並將其轉換為適當的型別。
 
-## 下一步？
+## 下一步？ {id="what-s-next"}
 
 若要了解如何以簡潔的方式在 DOM 中建立和建構元素，請參閱 [型別安全 HTML DSL](typesafe-html-dsl.md)。

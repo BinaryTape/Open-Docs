@@ -69,13 +69,13 @@ val response: HttpResponse = client.get("https://ktor.io/docs/welcome.html")
 
 Ktor 클라이언트를 사용하면 여러 가지 방법으로 요청 URL을 설정할 수 있습니다:
 
-### 전체 URL 문자열 전달
+### 전체 URL 문자열 전달 {id="pass-the-entire-url-string"}
 
 ```kotlin
 val response: HttpResponse = client.get("https://ktor.io/docs/welcome.html")
 ```
 
-### URL 구성 요소 개별 설정
+### URL 구성 요소 개별 설정 {id="configure-url-components-separately"}
 
 ```kotlin
 client.get {
@@ -135,7 +135,7 @@ client.get("https://ktor.io") {
 
 기본적으로 `fragment`는 URL 프래그먼트를 [인코딩][percent_encoding]합니다. 인코딩을 비활성화하려면 대신 `encodedFragment()`를 사용하세요.
 
-## Unix 도메인 소켓 지정
+## Unix 도메인 소켓 지정 {id="specify-a-unix-domain-socket"}
 
 > Unix 도메인 소켓은 CIO 엔진에서만 지원됩니다.
 > Ktor 서버에서 Unix 소켓을 사용하려면 그에 맞춰 [서버를 설정](server-configuration-code.topic#cio-code)하세요.
@@ -162,7 +162,7 @@ HTTP 메서드, 헤더, 쿠키 등 다양한 요청 파라미터를 지정할 �
 
 여러 가지 방법으로 요청에 헤더를 추가할 수 있습니다:
 
-#### 여러 헤더 추가
+#### 여러 헤더 추가 {id="add-multiple-headers"}
 
 [`headers`](https://api.ktor.io/ktor-client-core/io.ktor.client.request/headers.html) 함수를 사용하면 한 번에 여러 헤더를 추가할 수 있습니다:
 
@@ -197,11 +197,11 @@ client.get("https://ktor.io") {
         }
 ```
 
-#### 단일 헤더 추가
+#### 단일 헤더 추가 {id="add-a-single-header"}
 
 [`header`](https://api.ktor.io/ktor-client-core/io.ktor.client.request/header.html) 함수를 사용하면 단일 헤더를 추가할 수 있습니다.
 
-#### 인증을 위해 basicAuth 또는 bearerAuth 사용
+#### 인증을 위해 basicAuth 또는 bearerAuth 사용 {id="use-basicauth-or-bearerauth-for-authorization"}
 
 `basicAuth` 및 `bearerAuth` 함수는 해당 HTTP 스키마와 함께 `Authorization` 헤더를 추가합니다.
 
@@ -290,7 +290,7 @@ val response: HttpResponse = client.submitForm(
 
 두 접근 방식 모두 [`formData {}`](https://api.ktor.io/ktor-client-core/io.ktor.client.request.forms/form-data.html) 함수를 사용하여 폼 데이터를 구축해야 합니다.
 
-#### `.submitFormWithBinaryData()` 사용하기
+#### `.submitFormWithBinaryData()` 사용하기 {id="using-submitformwithbinarydata"}
 
 `.submitFormWithBinaryData()` 함수는 경계를 자동으로 생성하며, 파일 콘텐츠가 `.readBytes()`를 통해 메모리로 안전하게 읽어올 수 있을 만큼 작은 간단한 사용 사례에 적합합니다.
 
@@ -311,7 +311,7 @@ val response: HttpResponse = client.submitForm(
 
 전체 예제는 [client-upload](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-upload)를 참조하세요.
 
-#### `MultiPartFormDataContent` 사용하기
+#### `MultiPartFormDataContent` 사용하기 {id="using-multipartformdatacontent"}
 
 대용량 또는 동적 콘텐츠를 효율적으로 스트리밍하려면 `InputProvider`와 함께 `MultiPartFormDataContent`를 사용할 수 있습니다. `InputProvider`를 사용하면 파일 데이터를 메모리에 전부 로드하지 않고 버퍼링된 스트림으로 공급할 수 있어 대용량 파일에 적합합니다. `MultiPartFormDataContent`를 사용하면 `onUpload` 콜백을 통해 업로드 진행 상황을 모니터링할 수도 있습니다.
 

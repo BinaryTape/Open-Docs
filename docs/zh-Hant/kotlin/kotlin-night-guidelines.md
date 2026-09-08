@@ -6,7 +6,7 @@ Kotlin Night 是一種聚會 (meetup)，包含 3-4 場關於 Kotlin 或相關技
 > 
 {style="note"}
 
-## 活動指引
+## 活動指引 {id="event-guidelines"}
 
 * 請使用我們提供的 [品牌素材](kotlin-brand-assets.md#kotlin-night-brand-assets)。讓所有活動和素材保持相同風格，將有助於維持 Kotlin Night 體驗的一致性。
 * Kotlin Night 應為免費活動。可收取少量費用以支應開銷，但應保持其非營利性質。
@@ -16,7 +16,7 @@ Kotlin Night 是一種聚會 (meetup)，包含 3-4 場關於 Kotlin 或相關技
 * 演講應以 Kotlin 為主，不應專注於行銷或銷售。
 * 活動可視情況提供食物和飲料。
 
-## 活動需求
+## 活動需求 {id="event-requirements"}
 
 JetBrains 非常樂意支援您的 Kotlin Night 活動。因為我們希望所有活動都能提供同樣高品質的體驗，我們需要主辦單位確保滿足一些基本需求，以獲得 JetBrains 的支援。作為主辦單位，您需負責活動的以下方面：
 
@@ -33,7 +33,7 @@ JetBrains 非常樂意支援您的 Kotlin Night 活動。因為我們希望所�
 4. 活動結束後向 JetBrains 提供活動素材
     * 我們很榮幸能在 [kotlinlang.org](https://kotlinlang.org/community/talks.html) 發布您的活動，如果您能提供投影片和影片素材以供後續發布，我們將不勝感激。
 
-## JetBrains 支援
+## JetBrains 支援 {id="jetbrains-support"}
 
 JetBrains 提供的支援包括：
 

@@ -4,7 +4,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 
 대부분의 언어 변경 사항은 업데이트 변경 로그나 컴파일러 경고와 같은 다른 채널을 통해 이미 발표되었지만, 이 문서는 이를 모두 요약하여 코틀린 1.4에서 코틀린 1.5로의 마이그레이션을 위한 완전한 참조를 제공합니다.
 
-## 기본 용어
+## 기본 용어 {id="basic-terms"}
 
 이 문서에서는 여러 종류의 호환성을 소개합니다:
 
@@ -14,9 +14,9 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 
 이러한 정의는 순수 코틀린에 대해서만 적용된다는 점에 유의하세요. 다른 언어(예: Java)의 관점에서 본 코틀린 코드의 호환성은 이 문서의 범위를 벗어납니다.
 
-## 언어 및 표준 라이브러리(stdlib)
+## 언어 및 표준 라이브러리(stdlib) {id="language-and-stdlib"}
 
-### 시그니처 폴리모픽 호출에서 스프레드 연산자 사용 금지
+### 시그니처 폴리모픽 호출에서 스프레드 연산자 사용 금지 {id="forbid-spread-operator-in-signature-polymorphic-calls"}
 
 > **이슈**: [KT-35226](https://youtrack.jetbrains.com/issue/KT-35226)
 >
@@ -32,7 +32,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 1.5 이상: 이 경고를 에러로 격상합니다.
 >  `-XXLanguage:-ProhibitSpreadOnSignaturePolymorphicCall`을 사용하여 일시적으로 1.5 이전의 동작으로 되돌릴 수 있습니다.
 
-### 해당 클래스에서 보이지 않는 추상 멤버(internal/package-private)를 포함하는 비추상 클래스 금지
+### 해당 클래스에서 보이지 않는 추상 멤버(internal/package-private)를 포함하는 비추상 클래스 금지 {id="forbid-non-abstract-classes-containing-abstract-members-invisible-from-that-classes-internal-package-private"}
 
 > **이슈**: [KT-27825](https://youtrack.jetbrains.com/issue/KT-27825)
 >
@@ -48,7 +48,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 1.5 이상: 이 경고를 에러로 격상합니다.
 >  `-XXLanguage:-ProhibitInvisibleAbstractMethodsInSuperclasses`를 사용하여 일시적으로 1.5 이전의 동작으로 되돌릴 수 있습니다.
 
-### JVM에서 실체화되지 않은 타입 파라미터를 기반으로 한 배열을 실체화된 타입 인자로 사용하는 것 금지
+### JVM에서 실체화되지 않은 타입 파라미터를 기반으로 한 배열을 실체화된 타입 인자로 사용하는 것 금지 {id="forbid-using-array-based-on-non-reified-type-parameters-as-reified-type-arguments-on-jvm"}
 
 > **이슈**: [KT-31227](https://youtrack.jetbrains.com/issue/KT-31227)
 >
@@ -64,7 +64,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 1.5 이상: 이 경고를 에러로 격상합니다.
 >  `-XXLanguage:-ProhibitNonReifiedArraysAsReifiedTypeArguments`를 사용하여 일시적으로 1.5 이전의 동작으로 되돌릴 수 있습니다.
 
-### 기본 생성자로 위임하지 않는 열거형 클래스의 보조 생성자 금지
+### 기본 생성자로 위임하지 않는 열거형 클래스의 보조 생성자 금지 {id="forbid-secondary-enum-class-constructors-which-do-not-delegate-to-the-primary-constructor"}
 
 > **이슈**: [KT-35870](https://youtrack.jetbrains.com/issue/KT-35870)
 >
@@ -80,7 +80,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 1.5 이상: 이 경고를 에러로 격상합니다.
 >  `-XXLanguage:-RequiredPrimaryConstructorDelegationCallInEnums`를 사용하여 일시적으로 1.5 이전의 동작으로 되돌릴 수 있습니다.
 
-### private 인라인 함수에서 익명 타입 노출 금지
+### private 인라인 함수에서 익명 타입 노출 금지 {id="forbid-exposing-anonymous-types-from-private-inline-functions"}
 
 > **이슈**: [KT-33917](https://youtrack.jetbrains.com/issue/KT-33917)
 >
@@ -96,7 +96,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 1.5 이상: 이 경고를 에러로 격상합니다.
 >  `-XXLanguage:-ApproximateAnonymousReturnTypesInPrivateInlineFunctions`를 사용하여 일시적으로 1.5 이전의 동작으로 되돌릴 수 있습니다.
 
-### SAM 변환 인자 뒤에 스프레드되지 않은 배열을 전달하는 것 금지
+### SAM 변환 인자 뒤에 스프레드되지 않은 배열을 전달하는 것 금지 {id="forbid-passing-non-spread-arrays-after-arguments-with-sam-conversion"}
 
 > **이슈**: [KT-35224](https://youtrack.jetbrains.com/issue/KT-35224)
 >
@@ -112,7 +112,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 1.5 이상: 이 경고를 에러로 격상합니다.
 >  `-XXLanguage:-ProhibitVarargAsArrayAfterSamArgument`를 사용하여 일시적으로 1.5 이전의 동작으로 되돌릴 수 있습니다.
 
-### 언더스코어로 명명된 catch 블록 파라미터에 대한 특수 시맨틱 지원
+### 언더스코어로 명명된 catch 블록 파라미터에 대한 특수 시맨틱 지원 {id="support-special-semantics-for-underscore-named-catch-block-parameters"}
 
 > **이슈**: [KT-31567](https://youtrack.jetbrains.com/issue/KT-31567)
 >
@@ -128,7 +128,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 1.5 이상: 이 경고를 에러로 격상합니다.
 >  `-XXLanguage:-ForbidReferencingToUnderscoreNamedParameterOfCatchBlock`을 사용하여 일시적으로 1.5 이전의 동작으로 되돌릴 수 있습니다.
 
-### SAM 변환 구현 전략을 익명 클래스 기반에서 invokedynamic으로 변경
+### SAM 변환 구현 전략을 익명 클래스 기반에서 invokedynamic으로 변경 {id="change-implementation-strategy-of-sam-conversion-from-anonymous-class-based-to-invokedynamic"}
 
 > **이슈**: [KT-44912](https://youtrack.jetbrains.com/issue/KT-44912)
 >
@@ -143,7 +143,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 1.5: SAM 변환의 구현 전략을 변경합니다.
 >  `-Xsam-conversions=class`를 사용하여 이전의 구현 방식으로 되돌릴 수 있습니다.
 
-### JVM IR 기반 백엔드 관련 성능 문제
+### JVM IR 기반 백엔드 관련 성능 문제 {id="performance-issues-with-the-jvm-ir-based-backend"}
 
 > **이슈**: [KT-48233](https://youtrack.jetbrains.com/issue/KT-48233)
 >
@@ -190,7 +190,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 >
 > 이 플래그에 대한 지원은 향후 릴리스 중 하나에서 제거될 예정입니다.
 
-### JVM IR 기반 백엔드의 새로운 필드 정렬 방식
+### JVM IR 기반 백엔드의 새로운 필드 정렬 방식 {id="new-field-sorting-in-the-jvm-ir-based-backend"}
 
 > **이슈**: [KT-46378](https://youtrack.jetbrains.com/issue/KT-46378)
 >
@@ -235,7 +235,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 >
 > 이 플래그에 대한 지원은 향후 릴리스 중 하나에서 제거될 예정입니다.
 
-### 델리게이트 표현식에 제네릭 호출이 있는 위임된 속성에 대해 널 가능성 단언 생성
+### 델리게이트 표현식에 제네릭 호출이 있는 위임된 속성에 대해 널 가능성 단언 생성 {id="generate-nullability-assertion-for-delegated-properties-with-a-generic-call-in-the-delegate-expression"}
 
 > **이슈**: [KT-44304](https://youtrack.jetbrains.com/issue/KT-44304)
 >
@@ -250,7 +250,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 1.5: 위임된 속성에 대해 널 가능성 단언을 생성합니다(자세한 내용은 이슈 참조).
 >  `-Xuse-old-backend` 또는 `-language-version 1.4`를 사용하여 일시적으로 1.5 이전의 동작으로 되돌릴 수 있습니다.
 
-### @OnlyInputTypes 어노테이션이 붙은 타입 파라미터 호출에 대한 경고를 에러로 전환
+### @OnlyInputTypes 어노테이션이 붙은 타입 파라미터 호출에 대한 경고를 에러로 전환 {id="turn-warnings-into-errors-for-calls-with-type-parameters-annotated-by-onlyinputtypes"}
 
 > **이슈**: [KT-45861](https://youtrack.jetbrains.com/issue/KT-45861)
 >
@@ -266,7 +266,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 1.5 이상: 이 경고를 에러로 격상합니다.
 >  `-XXLanguage:-StrictOnlyInputTypesChecks`를 사용하여 일시적으로 1.5 이전의 동작으로 되돌릴 수 있습니다.
 
-### 이름 붙은 가변 인자 호출 시 올바른 인자 실행 순서 사용
+### 이름 붙은 가변 인자 호출 시 올바른 인자 실행 순서 사용 {id="use-the-correct-order-of-arguments-execution-in-calls-with-named-vararg"}
 
 > **이슈**: [KT-17691](https://youtrack.jetbrains.com/issue/KT-17691)
 >
@@ -282,7 +282,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 1.5 이상: 이 경고를 에러로 격상합니다.
 >  `-XXLanguage:-UseCorrectExecutionOrderForVarargArguments`를 사용하여 일시적으로 1.5 이전의 동작으로 되돌릴 수 있습니다.
 
-### 연산자 함수 호출에서 파라미터의 기본값 사용
+### 연산자 함수 호출에서 파라미터의 기본값 사용 {id="use-default-value-of-the-parameter-in-operator-functional-calls"}
 
 > **이슈**: [KT-42064](https://youtrack.jetbrains.com/issue/KT-42064)
 >
@@ -298,7 +298,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 1.5 이상: 동작이 변경됩니다.
 >  `-XXLanguage:-JvmIrEnabledByDefault`를 사용하여 일시적으로 1.5 이전의 동작으로 되돌릴 수 있습니다.
 
-### 정방향 진행이 비어 있는 경우 for 루프에서 빈 역방향 진행 생성
+### 정방향 진행이 비어 있는 경우 for 루프에서 빈 역방향 진행 생성 {id="produce-empty-reversed-progressions-in-for-loops-if-regular-progression-is-also-empty"}
 
 > **이슈**: [KT-42533](https://youtrack.jetbrains.com/issue/KT-42533)
 >
@@ -314,7 +314,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 1.5 이상: 동작이 변경됩니다.
 >  `-XXLanguage:-JvmIrEnabledByDefault`를 사용하여 일시적으로 1.5 이전의 동작으로 되돌릴 수 있습니다.
 
-### Char를 코드로, Char를 숫자로 변환하는 방식 정리
+### Char를 코드로, Char를 숫자로 변환하는 방식 정리 {id="straighten-char-to-code-and-char-to-digit-conversions-out"}
 
 > **이슈**: [KT-23451](https://youtrack.jetbrains.com/issue/KT-23451)
 >
@@ -328,7 +328,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 >
 > - 1.5: `Char.toInt()/toShort()/toLong()/toByte()/toDouble()/toFloat()` 및 `Long.toChar()`와 같은 역방향 함수를 지원 중단하고 대체제를 제안합니다.
 
-### kotlin.text 함수에서 일관성 없는 대소문자 무시 문자 비교
+### kotlin.text 함수에서 일관성 없는 대소문자 무시 문자 비교 {id="inconsistent-case-insensitive-comparison-of-characters-in-kotlin-text-functions"}
 
 > **이슈**: [KT-45496](https://youtrack.jetbrains.com/issue/KT-45496)
 >
@@ -343,7 +343,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 1.5 미만: 이전 동작이 유지됩니다(자세한 내용은 이슈 참조).
 > - 1.5: `Char.equals` 함수의 동작이 변경됩니다.
 
-### 기본 로케일 민감 대소문자 변환 API 제거
+### 기본 로케일 민감 대소문자 변환 API 제거 {id="remove-default-locale-sensitive-case-conversion-api"}
 
 > **이슈**: [KT-43023](https://youtrack.jetbrains.com/issue/KT-43023)
 >
@@ -357,7 +357,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 >
 > - 1.5: 기본 로케일을 사용하는 대소문자 변환 함수를 지원 중단하고(자세한 내용은 이슈 참조) 대체제를 제안합니다.
 
-### 컬렉션 min 및 max 함수의 반환 타입을 단계적으로 null 불가능하게 변경
+### 컬렉션 min 및 max 함수의 반환 타입을 단계적으로 null 불가능하게 변경 {id="gradually-change-the-return-type-of-collection-min-and-max-functions-to-non-nullable"}
 
 > **이슈**: [KT-38854](https://youtrack.jetbrains.com/issue/KT-38854)
 >
@@ -373,7 +373,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 1.5.0: 해당 API의 지원 중단 수준을 에러(error)로 격상합니다.
 > - 1.6 이상: 해당 API를 null 불가능한 반환 타입으로 다시 도입합니다.
 
-### 부동 소수점 타입의 Short 및 Byte 변환 지원 중단 수준 격상
+### 부동 소수점 타입의 Short 및 Byte 변환 지원 중단 수준 격상 {id="raise-the-deprecation-level-of-conversions-of-floating-point-types-to-short-and-byte"}
 
 > **이슈**: [KT-30360](https://youtrack.jetbrains.com/issue/KT-30360)
 >
@@ -388,9 +388,9 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 1.4: `Double.toShort()/toByte()` 및 `Float.toShort()/toByte()`를 지원 중단하고 대체제를 제안합니다.
 > - 1.5.0: 지원 중단 수준을 에러로 격상합니다.
 
-## 도구
+## 도구 {id="tools"}
 
-### 단일 프로젝트에서 여러 JVM 변체의 kotlin-test를 혼용하지 마십시오.
+### 단일 프로젝트에서 여러 JVM 변체의 kotlin-test를 혼용하지 마십시오. {id="do-not-mix-several-jvm-variants-of-kotlin-test-in-a-single-project"}
 
 > **이슈**: [KT-40225](https://youtrack.jetbrains.com/issue/KT-40225)
 >

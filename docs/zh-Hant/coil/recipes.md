@@ -4,7 +4,7 @@
 
 看到未涵蓋的常見使用案例嗎？歡迎提交包含新章節的 PR。
 
-## Palette
+## Palette {id="palette"}
 
 [Palette](https://developer.android.com/training/material/palette-colors?hl=en) 允許您從影像中擷取顯著色彩。要建立 `Palette`，您需要存取影像的 `Bitmap`。這可以透過多種方式完成：
 
@@ -25,7 +25,7 @@ imageView.load("https://example.com/image.jpg") {
 }
 ```
 
-## 使用記憶體快取金鑰作為占位符號
+## 使用記憶體快取金鑰作為占位符號 {id="using-a-memory-cache-key-as-a-placeholder"}
 
 如果兩張影像相同但載入尺寸不同，將前一次請求的 `MemoryCache.Key` 用作後續請求的占位符號會非常有用。例如，如果第一個請求以 100x100 載入影像，而第二個請求以 500x500 載入影像，我們可以使用第一張影像作為第二個請求的同步占位符號。
 
@@ -51,7 +51,7 @@ detailImageView.load("https://example.com/image.jpg") {
 }
 ```
 
-## Compose AnimatedContent
+## Compose AnimatedContent {id="compose-animatedcontent"}
 
 使用 `rememberAsyncImagePainter` 和 `AnimatedContent` 在占位符號與載入的影像之間製作動畫：
 
@@ -94,7 +94,7 @@ AnimatedContent(
 
 注意：`AnimatedContent` 的開銷比 painter 淡入淡出 (crossfade) 高得多，且會將舊影像保留在記憶體中直到動畫結束。在延遲列表 (lazy lists) 中或對於簡單的淡入淡出，建議優先使用 `ImageRequest.Builder.crossfade`。
 
-## 共享元素過渡
+## 共享元素過渡 {id="shared-element-transitions"}
 
 [共享元素過渡 (Shared element transitions)](https://developer.android.com/training/transitions/start-activity) 允許您在 `Activities` 和 `Fragments` 之間製作動畫。以下是關於如何讓它們與 Coil 搭配運作的一些建議：
 
@@ -106,7 +106,7 @@ AnimatedContent(
 
 正在使用 Compose？[查看這篇文章了解如何使用 `AsyncImage` 執行共享元素過渡](https://www.tunjid.com/articles/animating-contentscale-during-image-shared-element-transitions-65fba03537c67f8df0161c31)。
 
-## Remote Views
+## Remote Views {id="remote-views"}
 
 Coil 並未直接提供 [`RemoteViews`](https://developer.android.com/reference/android/widget/RemoteViews) 的 `Target`，但您可以像這樣建立一個：
 
@@ -141,7 +141,7 @@ val request = ImageRequest.Builder(context)
 imageLoader.enqueue(request)
 ```
 
-## 轉換 Painter
+## 轉換 Painter {id="transforming-painters"}
 
 `AsyncImage` 和 `AsyncImagePainter` 都有接受 `Painter` 的 `placeholder`/`error`/`fallback` 引數。Painter 比起使用 composable 的彈性較低，但速度更快，因為 Coil 不需要使用子組合 (subcomposition)。即便如此，為了獲得所需的 UI，可能仍需要對 Painter 進行內切 (inset)、拉伸、著色或轉換。要達成此目的，請[將此 Gist 複製到您的專案中](https://gist.github.com/colinrtwhite/c2966e0b8584b4cdf0a5b05786b20ae1)並像這樣包裝 Painter：
 
@@ -173,7 +173,7 @@ AsyncImage(
 )
 ```
 
-## 轉換請求
+## 轉換請求 {id="transforming-requests"}
 
 您可能需要轉換用於獲取影像的 HTTP 請求。在此範例中，我們將使用 [Interceptor](https://coil-kt.github.io/coil/api/coil-core/coil3.intercept/-interceptor) 將 `width` 和 `height` 查詢參數附加到請求 URL。
 

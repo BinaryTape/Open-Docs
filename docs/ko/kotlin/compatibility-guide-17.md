@@ -4,7 +4,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 
 대부분의 언어 변경 사항은 업데이트 변경 로그나 컴파일러 경고와 같은 다른 채널을 통해 이미 발표되었지만, 이 문서는 코틀린 1.6에서 코틀린 1.7로 마이그레이션하기 위한 완전한 참고 자료를 제공하기 위해 모든 내용을 요약하고 있습니다.
 
-## 기본 용어
+## 기본 용어 {id="basic-terms"}
 
 이 문서에서는 몇 가지 종류의 호환성을 소개합니다.
 
@@ -14,10 +14,10 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 
 이러한 정의는 순수 코틀린에 대해서만 적용된다는 점을 기억하세요. 다른 언어 관점(예: Java)에서의 코틀린 코드 호환성은 이 문서의 범위를 벗어납니다.
 
-## 언어(Language)
+## 언어(Language) {id="language"}
 
 <!--
-### Title
+### Title {id="title"}
 
 > **Issue**: [KT-NNNNN](https://youtrack.jetbrains.com/issue/KT-NNNNN)
 >
@@ -33,7 +33,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.7.0: report an error
 -->
 
-### 세이프 콜 결과의 타입을 항상 nullable로 변경
+### 세이프 콜 결과의 타입을 항상 nullable로 변경 {id="make-safe-call-result-always-nullable"}
 
 > **이슈**: [KT-46860](https://youtrack.jetbrains.com/issue/KT-46860)
 >
@@ -50,7 +50,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.7.0: 세이프 콜 결과의 타입을 nullable로 변경합니다.  
 > `-XXLanguage:-SafeCallsAreAlwaysNullable`을 사용하여 코틀린 1.7 이전의 동작으로 일시적으로 되돌릴 수 있습니다.
 
-### 추상 상위 클래스 멤버로의 super 호출 위임 금지
+### 추상 상위 클래스 멤버로의 super 호출 위임 금지 {id="prohibit-the-delegation-of-super-calls-to-an-abstract-superclass-member"}
 
 > **이슈**: [KT-45508](https://youtrack.jetbrains.com/issue/KT-45508), [KT-49017](https://youtrack.jetbrains.com/issue/KT-49017), [KT-38078](https://youtrack.jetbrains.com/issue/KT-38078)
 >
@@ -67,7 +67,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.7.0: `-Xjvm-default=all` 또는 `-Xjvm-default=all-compatibility` 호환 모드가 활성화된 경우 에러를 리포트합니다. 프로그레시브 모드(progressive mode)에서 에러를 리포트합니다.
 > - 1.8.0 이상: 모든 경우에 에러를 리포트합니다.
 
-### 비공개(non-public) 기본 생성자에 선언된 공개(public) 프로퍼티를 통한 비공개 타입 노출 금지
+### 비공개(non-public) 기본 생성자에 선언된 공개(public) 프로퍼티를 통한 비공개 타입 노출 금지 {id="prohibit-exposing-non-public-types-through-public-properties-declared-in-a-non-public-primary-constructor"}
 
 > **이슈**: [KT-28078](https://youtrack.jetbrains.com/issue/KT-28078)
 >
@@ -83,7 +83,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.6.20: 프로그레시브 모드에서 이 경고를 에러로 격상합니다.
 > - 1.7.0: 이 경고를 에러로 격상합니다.
 
-### 열거형 이름을 통해 한정된 초기화되지 않은 enum 엔트리에 대한 액세스 금지
+### 열거형 이름을 통해 한정된 초기화되지 않은 enum 엔트리에 대한 액세스 금지 {id="prohibit-access-to-uninitialized-enum-entries-qualified-with-the-enum-name"}
 
 > **이슈**: [KT-41124](https://youtrack.jetbrains.com/issue/KT-41124)
 >
@@ -97,7 +97,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 >
 > - 1.7.0: enum 정적 초기화 블록에서 초기화되지 않은 enum 엔트리에 액세스할 때 에러를 리포트합니다.
 
-### when 조건 분기 및 루프 조건에서 복잡한 불리언 표현식의 상수 값 계산 금지
+### when 조건 분기 및 루프 조건에서 복잡한 불리언 표현식의 상수 값 계산 금지 {id="prohibit-computing-constant-values-of-complex-boolean-expressions-in-when-condition-branches-and-conditions-of-loops"}
 
 > **이슈**: [KT-39883](https://youtrack.jetbrains.com/issue/KT-39883)
 >
@@ -112,7 +112,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.5.30: `when`의 망라성 또는 제어 흐름 도달 가능성이 `when` 분기나 루프 조건의 복잡한 상수 불리언 표현식을 기반으로 결정될 때 경고를 리포트합니다.
 > - 1.7.0: 이 경고를 에러로 격상합니다.
 
-### enum, sealed, Boolean 대상의 when 문을 기본적으로 망라적으로 변경
+### enum, sealed, Boolean 대상의 when 문을 기본적으로 망라적으로 변경 {id="make-when-statements-with-enum-sealed-and-boolean-subjects-exhaustive-by-default"}
 
 > **이슈**: [KT-47709](https://youtrack.jetbrains.com/issue/KT-47709)
 >
@@ -127,7 +127,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.6.0: enum, sealed 또는 Boolean 대상의 `when` 문이 망라적이지 않은 경우 경고를 도입합니다 (프로그레시브 모드에서는 에러).
 > - 1.7.0: 이 경고를 에러로 격상합니다.
 
-### when-with-subject의 혼란스러운 문법 지원 중단
+### when-with-subject의 혼란스러운 문법 지원 중단 {id="deprecate-confusing-grammar-in-when-with-subject"}
 
 > **이슈**: [KT-48385](https://youtrack.jetbrains.com/issue/KT-48385)
 >
@@ -143,7 +143,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.8.0: 이 경고를 에러로 격상합니다.
 > - 1.8 이상: 일부 지원 중단된 구조를 새로운 언어 기능을 위해 재사용합니다.
 
-### 타입 널 허용성(nullability) 개선 사항
+### 타입 널 허용성(nullability) 개선 사항 {id="type-nullability-enhancement-improvements"}
 
 > **이슈**: [KT-48623](https://youtrack.jetbrains.com/issue/KT-48623)
 >
@@ -159,7 +159,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.7.0: Java 타입의 더 정밀한 널 허용성을 추론합니다.  
 > `-XXLanguage:-TypeEnhancementImprovementsInStrictMode`를 사용하여 코틀린 1.7 이전의 동작으로 일시적으로 되돌릴 수 있습니다.
 
-### 서로 다른 숫자 타입 간의 암시적 강제 변환 방지
+### 서로 다른 숫자 타입 간의 암시적 강제 변환 방지 {id="prevent-implicit-coercions-between-different-numeric-types"}
 
 > **이슈**: [KT-48645](https://youtrack.jetbrains.com/issue/KT-48645)
 >
@@ -176,7 +176,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > `-Xuse-old-backend`를 사용하여 1.5.30 수정 이전의 동작으로 일시적으로 되돌릴 수 있습니다.
 > - 1.7.20 이상: 영향을 받는 다른 케이스의 다운캐스트 동작을 수정합니다.
 
-### 컴파일러 옵션 -Xjvm-default의 enable 및 compatibility 모드 지원 중단
+### 컴파일러 옵션 -Xjvm-default의 enable 및 compatibility 모드 지원 중단 {id="deprecate-the-enable-and-the-compatibility-modes-of-the-compiler-option-xjvm-default"}
 
 > **이슈**: [KT-46329](https://youtrack.jetbrains.com/issue/KT-46329)
 >
@@ -191,7 +191,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.6.20: `-Xjvm-default` 컴파일러 옵션의 `enable` 및 `compatibility` 모드에 대해 경고를 도입합니다.
 > - 1.8.0 이상: 이 경고를 에러로 격상합니다.
 
-### 후행 람다를 사용하는 suspend라는 이름의 함수 호출 금지
+### 후행 람다를 사용하는 suspend라는 이름의 함수 호출 금지 {id="prohibit-calls-to-functions-named-suspend-with-a-trailing-lambda"}
 
 > **이슈**: [KT-22562](https://youtrack.jetbrains.com/issue/KT-22562)
 >
@@ -207,7 +207,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.6.0: 이 경고를 에러로 격상합니다.
 > - 1.7.0: `{` 앞의 `suspend`가 키워드로 파싱되도록 언어 문법을 변경합니다.
 
-### 기본 클래스가 다른 모듈에 있는 경우 기본 클래스 프로퍼티에 대한 스마트 캐스트 금지
+### 기본 클래스가 다른 모듈에 있는 경우 기본 클래스 프로퍼티에 대한 스마트 캐스트 금지 {id="prohibit-smart-cast-on-a-base-class-property-if-the-base-class-is-from-another-module"}
 
 > **이슈**: [KT-52629](https://youtrack.jetbrains.com/issue/KT-52629)
 >
@@ -223,7 +223,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.7.0: 이 경고를 에러로 격상합니다.  
 > `-XXLanguage:-ProhibitSmartcastsOnPropertyFromAlienBaseClass`를 사용하여 코틀린 1.7 이전의 동작으로 일시적으로 되돌릴 수 있습니다.
 
-### 타입 추론 중 의미 있는 제약 조건 무시 금지
+### 타입 추론 중 의미 있는 제약 조건 무시 금지 {id="do-not-neglect-meaningful-constraints-during-type-inference"}
 
 > **이슈**: [KT-52668](https://youtrack.jetbrains.com/issue/KT-52668)
 >
@@ -239,9 +239,9 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.7.0: 모든 제약 조건을 고려하여 이 경고를 에러로 격상합니다.  
 > `-XXLanguage:-ProperTypeInferenceConstraintsProcessing`을 사용하여 코틀린 1.7 이전의 동작으로 일시적으로 되돌릴 수 있습니다.
 
-## 표준 라이브러리(Standard library)
+## 표준 라이브러리(Standard library) {id="standard-library"}
 
-### 컬렉션 min 및 max 함수의 반환 타입을 단계적으로 non-nullable로 변경
+### 컬렉션 min 및 max 함수의 반환 타입을 단계적으로 non-nullable로 변경 {id="gradually-change-the-return-type-of-collection-min-and-max-functions-to-non-nullable"}
 
 > **이슈**: [KT-38854](https://youtrack.jetbrains.com/issue/KT-38854)
 >
@@ -258,7 +258,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.6.0: 지원 중단된 함수를 공개 API에서 숨깁니다.
 > - 1.7.0: 영향을 받는 API를 non-nullable 반환 타입으로 다시 도입합니다.
 
-### 부동 소수점 배열 함수 지원 중단: contains, indexOf, lastIndexOf
+### 부동 소수점 배열 함수 지원 중단: contains, indexOf, lastIndexOf {id="deprecate-floating-point-array-functions-contains-indexof-lastindexof"}
 
 > **이슈**: [KT-28753](https://youtrack.jetbrains.com/issue/KT-28753)
 >
@@ -274,7 +274,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.6.0: 지원 중단 수준을 에러로 격상합니다.
 > - 1.7.0: 지원 중단된 함수를 공개 API에서 숨깁니다.
 
-### kotlin.dom 및 kotlin.browser 패키지의 선언을 kotlinx.*로 마이그레이션
+### kotlin.dom 및 kotlin.browser 패키지의 선언을 kotlinx.*로 마이그레이션 {id="migrate-declarations-from-kotlin-dom-and-kotlin-browser-packages-to-kotlinx"}
 
 > **이슈**: [KT-39330](https://youtrack.jetbrains.com/issue/KT-39330)
 >
@@ -292,7 +292,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.8 이상: stdlib에서 지원 중단된 함수를 제거합니다.
 > - 1.8 이상: kotlinx.* 패키지의 API를 별도의 라이브러리로 이동합니다.
 
-### 일부 JS 전용 API 지원 중단
+### 일부 JS 전용 API 지원 중단 {id="deprecate-some-js-only-api"}
 
 > **이슈**: [KT-48587](https://youtrack.jetbrains.com/issue/KT-48587)
 >
@@ -308,9 +308,9 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.8.0: 지원 중단 수준을 에러로 격상합니다.
 > - 1.9.0: 공개 API에서 지원 중단된 함수를 제거합니다.
 
-## 도구(Tools)
+## 도구(Tools) {id="tools"}
 
-### KotlinGradleSubplugin 클래스 제거
+### KotlinGradleSubplugin 클래스 제거 {id="remove-kotlingradlesubplugin-class"}
 
 > **이슈**: [KT-48831](https://youtrack.jetbrains.com/issue/KT-48831)
 >
@@ -325,7 +325,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.6.0: 지원 중단 수준을 에러로 격상합니다.
 > - 1.7.0: 지원 중단된 클래스를 제거합니다.
 
-### useIR 컴파일러 옵션 제거
+### useIR 컴파일러 옵션 제거 {id="remove-useir-compiler-option"}
 
 > **이슈**: [KT-48847](https://youtrack.jetbrains.com/issue/KT-48847)
 >
@@ -341,7 +341,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.6.0: 옵션을 숨깁니다.
 > - 1.7.0: 지원 중단된 옵션을 제거합니다.
 
-### kapt.use.worker.api Gradle 프로퍼티 지원 중단
+### kapt.use.worker.api Gradle 프로퍼티 지원 중단 {id="deprecate-kapt-use-worker-api-gradle-property"}
 
 > **이슈**: [KT-48826](https://youtrack.jetbrains.com/issue/KT-48826)
 >
@@ -356,7 +356,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.6.20: 지원 중단 수준을 경고로 격상합니다.
 > - 1.8.0 이상: 이 프로퍼티를 제거합니다.
 
-### kotlin.experimental.coroutines Gradle DSL 옵션 및 kotlin.coroutines Gradle 프로퍼티 제거
+### kotlin.experimental.coroutines Gradle DSL 옵션 및 kotlin.coroutines Gradle 프로퍼티 제거 {id="remove-kotlin-experimental-coroutines-gradle-dsl-option-and-kotlin-coroutines-gradle-property"}
 
 > **이슈**: [KT-50494](https://youtrack.jetbrains.com/issue/KT-50494)
 >
@@ -371,7 +371,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.6.20: 지원 중단 수준을 경고로 격상합니다.
 > - 1.7.0: DSL 옵션, 이를 감싸는 `experimental` 블록 및 해당 프로퍼티를 제거합니다.
 
-### useExperimentalAnnotation 컴파일러 옵션 지원 중단
+### useExperimentalAnnotation 컴파일러 옵션 지원 중단 {id="deprecate-useexperimentalannotation-compiler-option"}
 
 > **이슈**: [KT-47763](https://youtrack.jetbrains.com/issue/KT-47763)
 >
@@ -386,7 +386,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.6.0: 지원 중단 옵션을 숨깁니다.
 > - 1.7.0: 지원 중단된 옵션을 제거합니다.
 
-### kotlin.compiler.execution.strategy 시스템 프로퍼티 지원 중단
+### kotlin.compiler.execution.strategy 시스템 프로퍼티 지원 중단 {id="deprecate-kotlin-compiler-execution-strategy-system-property"}
 
 > **이슈**: [KT-51830](https://youtrack.jetbrains.com/issue/KT-51830)
 >
@@ -401,7 +401,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.7.0: 지원 중단 수준을 경고로 격상합니다.
 > - 1.7.0 초과: 프로퍼티를 제거합니다.
 
-### kotlinOptions.jdkHome 컴파일러 옵션 제거
+### kotlinOptions.jdkHome 컴파일러 옵션 제거 {id="remove-kotlinoptions-jdkhome-compiler-option"}
 
 > **이슈**: [KT-46541](https://youtrack.jetbrains.com/issue/KT-46541)
 >
@@ -416,7 +416,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.5.30: 지원 중단 수준을 경고로 격상합니다.
 > - 1.7.0 초과: 옵션을 제거합니다.
 
-### noStdlib 컴파일러 옵션 제거
+### noStdlib 컴파일러 옵션 제거 {id="remove-nostdlib-compiler-option"}
 
 > **이슈**: [KT-49011](https://youtrack.jetbrains.com/issue/KT-49011)
 >
@@ -431,7 +431,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.5.0: 지원 중단 수준을 경고로 격상합니다.
 > - 1.7.0: 옵션을 제거합니다.
 
-### kotlin2js 및 kotlin-dce-plugin 플러그인 제거
+### kotlin2js 및 kotlin-dce-plugin 플러그인 제거 {id="remove-kotlin2js-and-kotlin-dce-plugin-plugins"}
 
 > **이슈**: [KT-48276](https://youtrack.jetbrains.com/issue/KT-48276)
 >
@@ -447,7 +447,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_와 _[편안한 �
 > - 1.4.0: 지원 중단 수준을 경고로 격상합니다.
 > - 1.7.0: 플러그인을 제거합니다.
 
-### 컴파일 태스크 변경 사항
+### 컴파일 태스크 변경 사항 {id="changes-in-compile-tasks"}
 
 > **이슈**: [KT-32805](https://youtrack.jetbrains.com/issue/KT-32805)
 >

@@ -8,9 +8,9 @@ title: 多模块 Android 应用
 有关核心模块概念（`includes()`、组织方式、重写），请参阅 [模块](/docs/reference/koin-core/modules)。
 :::
 
-## Android 应用程序设置
+## Android 应用程序设置 {id="android-application-setup"}
 
-### 使用注解
+### 使用注解 {id="with-annotations"}
 
 ```kotlin
 @KoinApplication(AppModule::class)
@@ -30,7 +30,7 @@ class MyApplication : Application() {
 class AppModule
 ```
 
-### 使用 DSL
+### 使用 DSL {id="with-dsl"}
 
 ```kotlin
 class MyApplication : Application() {
@@ -55,7 +55,7 @@ val appModule = module {
 }
 ```
 
-## 功能模块示例
+## 功能模块示例 {id="feature-module-example"}
 
 ```kotlin
 // :feature:login 模块
@@ -82,7 +82,7 @@ val loginModule = module {
 }
 ```
 
-## 动态功能加载
+## 动态功能加载 {id="dynamic-feature-loading"}
 
 根据 Activity 生命周期按需加载功能模块：
 
@@ -101,7 +101,7 @@ class FeatureActivity : AppCompatActivity() {
 }
 ```
 
-## Koin 与 Hilt 对比
+## Koin 与 Hilt 对比 {id="koin-vs-hilt-comparison"}
 
 | Hilt | Koin |
 |------|------|
@@ -115,9 +115,9 @@ class FeatureActivity : AppCompatActivity() {
 **Koin 优势：** 不需要 `@EntryPoint` 接口。只要加载了所有模块，依赖项就会在模块间自动解析。
 :::
 
-## Android 测试
+## Android 测试 {id="android-testing"}
 
-### 隔离测试模块
+### 隔离测试模块 {id="test-module-in-isolation"}
 
 ```kotlin
 class LoginViewModelTest : KoinTest {
@@ -142,7 +142,7 @@ class LoginViewModelTest : KoinTest {
 }
 ```
 
-### 验证所有模块
+### 验证所有模块 {id="verify-all-modules"}
 
 :::tip
 Koin 编译器插件现在可以在编译时验证完整的依赖图，从而取代了运行时验证的需求。请参阅 [编译时安全](/docs/reference/koin-compiler/compile-safety)。
@@ -160,7 +160,7 @@ class ModuleCheckTest : KoinTest {
 }
 ```
 
-## 另请参阅
+## 另请参阅 {id="see-also"}
 
 - **[模块](/docs/reference/koin-core/modules)** - 包含 `includes()` 的核心模块概念
 - **[Android 模块加载](/docs/reference/koin-android/modules-android)** - 动态模块加载

@@ -1,4 +1,4 @@
-## カスタムカラム型
+## カスタムカラム型 {id="custom-column-types"}
 
 カラムをカスタム型として取得したい場合は、次のように Kotlin の型を指定できます：
 
@@ -32,7 +32,7 @@ val queryWrapper: Database = Database(
 )
 ```
 
-## Enum
+## Enum {id="enums"}
 
 利便性のために、SQLDelight のランタイムには Enum を `String` データとして保存するための `ColumnAdapter` が含まれています。
 
@@ -53,7 +53,7 @@ val queryWrapper: Database = Database(
 )
 ```
 
-## Value types
+## Value types {id="value-types"}
 
 SQLDelight は、リクエストに応じて、基になるデータベースの型をラップする Value type（値型）をカラムに対して生成できます：
 

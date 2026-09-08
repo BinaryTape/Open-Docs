@@ -4,7 +4,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 
 대부분의 언어 변경 사항은 이미 업데이트 변경 로그나 컴파일러 경고와 같은 다른 채널을 통해 공지되었지만, 이 문서는 이를 모두 요약하여 Kotlin 2.2에서 Kotlin 2.3으로의 마이그레이션을 위한 완전한 참조를 제공합니다. 또한 이 문서에는 도구 관련 변경 사항에 대한 정보도 포함되어 있습니다.
 
-## 기본 용어
+## 기본 용어 {id="basic-terms"}
 
 이 문서에서는 다음과 같은 몇 가지 호환성 유형을 소개합니다:
 
@@ -14,9 +14,9 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 
 이러한 정의는 순수 Kotlin에 대해서만 정의된 것임을 유념하십시오. 다른 언어 관점(예: Java)에서의 Kotlin 코드 호환성은 이 문서의 범위를 벗어납니다.
 
-## 언어(Language)
+## 언어(Language) {id="language"}
 
-### `-language-version` 1.8 및 1.9 지원 중단
+### `-language-version` 1.8 및 1.9 지원 중단 {id="drop-support-in-language-version-for-1-8-and-1-9"}
 
 > **이슈**: [KT-76343](https://youtrack.jetbrains.com/issue/KT-76343), [KT-76344](https://youtrack.jetbrains.com/issue/KT-76344).
 >
@@ -31,7 +31,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 2.2.0: `-language-version`에 1.8 및 1.9 버전을 사용할 때 경고 보고
 > - 2.3.0: 모든 플랫폼에서 1.8 버전에 대해, JVM 이외의 플랫폼에서 1.9 버전에 대해 `-language-version` 사용 시 경고를 오류로 격상
 
-### 타입 별칭(typealias)이 있는 추론된 타입에 대해 상한 제약 위반 오류 보고
+### 타입 별칭(typealias)이 있는 추론된 타입에 대해 상한 제약 위반 오류 보고 {id="report-upper-bound-constraint-violation-errors-for-inferred-types-with-typealiases"}
 
 > **이슈**: [KTLC-287](https://youtrack.jetbrains.com/issue/KTLC-287)
 >
@@ -46,7 +46,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 2.2.20: 암시적 타입 인자의 제약 위반에 대해 지원 중단 경고 보고
 > - 2.3.0: 암시적 타입 인자에 대한 `UPPER_BOUND_VIOLATED` 경고를 오류로 격상
 
-### `inline` 및 `crossinline` 람다에 `@JvmSerializableLambda` 어노테이션 사용 금지
+### `inline` 및 `crossinline` 람다에 `@JvmSerializableLambda` 어노테이션 사용 금지 {id="prohibit-jvmserializablelambda-annotation-on-inline-and-crossinline-lambdas"}
 
 > **이슈**: [KTLC-9](https://youtrack.jetbrains.com/issue/KTLC-9)
 >
@@ -61,7 +61,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 2.1.20: `inline` 및 `crossinline` 람다에 `@JvmSerializableLambda`가 적용된 경우 경고 보고
 > - 2.3.0: 경고를 오류로 격상. 이 변경 사항은 점진적(progressive) 모드에서 활성화할 수 있습니다.
 
-### 제네릭 시그니처가 일치하지 않는 경우 Kotlin 인터페이스를 Java 클래스에 위임하는 것을 금지
+### 제네릭 시그니처가 일치하지 않는 경우 Kotlin 인터페이스를 Java 클래스에 위임하는 것을 금지 {id="prohibit-delegating-a-kotlin-interface-to-a-java-class-when-the-generic-signatures-don-t-match"}
 
 > **이슈**: [KTLC-267](https://youtrack.jetbrains.com/issue/KTLC-267)
 >
@@ -76,7 +76,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 2.1.20: 경고 보고
 > - 2.3.0: 경고를 오류로 격상
 
-### 명시적 반환 타입이 없는 식 본문 함수에서 `return` 사용 지원 중단
+### 명시적 반환 타입이 없는 식 본문 함수에서 `return` 사용 지원 중단 {id="deprecate-use-of-return-in-expression-bodied-functions-without-explicit-return-type"}
 
 > **이슈**: [KTLC-288](https://youtrack.jetbrains.com/issue/KTLC-288)
 >
@@ -91,7 +91,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 2.3.0: 경고 보고
 > - 2.4.0: 경고를 오류로 격상
 
-### 타입 별칭을 통해 도입된 널 허용(nullable) 상위 타입으로부터의 상속 금지
+### 타입 별칭을 통해 도입된 널 허용(nullable) 상위 타입으로부터의 상속 금지 {id="prohibit-inheritance-from-nullable-supertypes-introduced-via-typealias"}
 
 > **이슈**: [KTLC-279](https://youtrack.jetbrains.com/issue/KTLC-279)
 >
@@ -106,7 +106,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 2.2.0: 경고 보고
 > - 2.3.0: 경고를 오류로 격상
 
-### 최상위 람다 및 호출 인자에 대한 제네릭 시그니처 생성 통합
+### 최상위 람다 및 호출 인자에 대한 제네릭 시그니처 생성 통합 {id="unify-generic-signature-generation-for-top-level-lambdas-and-call-arguments"}
 
 > **이슈**: [KTLC-277](https://youtrack.jetbrains.com/issue/KTLC-277)
 >
@@ -120,7 +120,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 >
 > - 2.3.0: 새로운 동작 도입. 점진적 모드에서는 적용되지 않음.
 
-### 실체화된(reified) 타입 파라미터가 교차 타입(intersection types)으로 추론되는 것을 금지
+### 실체화된(reified) 타입 파라미터가 교차 타입(intersection types)으로 추론되는 것을 금지 {id="prohibit-reified-type-parameters-from-being-inferred-as-intersection-types"}
 
 > **이슈**: [KTLC-13](https://youtrack.jetbrains.com/issue/KTLC-13)
 >
@@ -135,7 +135,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 2.1.0: 실체화된 타입 파라미터가 교차 타입으로 추론될 때 경고 보고
 > - 2.3.0: 경고를 오류로 격상
 
-### 타입 파라미터 제약을 통한 낮은 가시성 타입 노출 금지
+### 타입 파라미터 제약을 통한 낮은 가시성 타입 노출 금지 {id="prohibit-exposing-less-visible-types-through-type-parameter-bounds"}
 
 > **이슈**: [KTLC-275](https://youtrack.jetbrains.com/issue/KTLC-275)
 >
@@ -150,9 +150,9 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 2.1.0: 문제가 되는 타입 파라미터 제약에 대해 경고 보고
 > - 2.3.0: 경고를 오류로 격상
 
-## 표준 라이브러리(Standard library)
+## 표준 라이브러리(Standard library) {id="standard-library"}
 
-### Char-to-number 변환 지원 중단 및 명시적인 digit 및 code API 도입
+### Char-to-number 변환 지원 중단 및 명시적인 digit 및 code API 도입 {id="deprecate-char-to-number-conversions-and-introduce-explicit-digit-and-code-apis"}
 
 > **이슈**: [KTLC-321](https://youtrack.jetbrains.com/issue/KTLC-321)
 >
@@ -168,7 +168,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 1.5.0: 새로운 함수를 안정(Stable) 상태로 승격. 기존 함수에 대해 대체 제안과 함께 경고 보고
 > - 2.3.0: 경고를 오류로 격상
 
-### `Number.toChar()` 함수 지원 중단
+### `Number.toChar()` 함수 지원 중단 {id="deprecate-number-tochar-function"}
 
 > **이슈**: [KT-56822](https://youtrack.jetbrains.com/issue/KT-56822)
 >
@@ -183,7 +183,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 1.9.0: `Number.toChar()` 함수 사용 시 경고 보고
 > - 2.3.0: 경고를 오류로 격상
 
-### `String.subSequence(start, end)` 함수 지원 중단
+### `String.subSequence(start, end)` 함수 지원 중단 {id="deprecate-string-subsequence-start-end-function"}
 
 > **이슈**: [KTLC-282](https://youtrack.jetbrains.com/issue/KTLC-282)
 >
@@ -198,7 +198,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 1.0: `String.subSequence(start, end)` 사용 시 경고 보고
 > - 2.3.0: 경고를 오류로 격상
 
-### `kotlin.io.createTempDirectory()` 및 `kotlin.io.createTempFile()` 함수 지원 중단
+### `kotlin.io.createTempDirectory()` 및 `kotlin.io.createTempFile()` 함수 지원 중단 {id="deprecate-kotlin-io-createtempdirectory-and-kotlin-io-createtempfile-functions"}
 
 > **이슈**: [KTLC-281](https://youtrack.jetbrains.com/issue/KTLC-281)
 >
@@ -213,7 +213,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 1.4.20: `kotlin.io.createTempDirectory()` 및 `kotlin.io.createTempFile()` 함수 사용 시 경고 보고
 > - 2.3.0: 경고를 오류로 격상
 
-### `InputStream.readBytes(Int)` 함수 숨김(Hide)
+### `InputStream.readBytes(Int)` 함수 숨김(Hide) {id="hide-inputstream-readbytes-int-function"}
 
 > **이슈**: [KTLC-280](https://youtrack.jetbrains.com/issue/KTLC-280)
 >
@@ -229,7 +229,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 1.5.0: 경고를 오류로 격상
 > - 2.3.0: 함수 숨김
 
-### Kotlin/Native 스택 트레이스 출력을 다른 플랫폼과 통일
+### Kotlin/Native 스택 트레이스 출력을 다른 플랫폼과 통일 {id="unify-kotlin-native-stack-trace-printing-with-other-platforms"}
 
 > **이슈**: [KT-81431](https://youtrack.jetbrains.com/issue/KT-81431)
 >
@@ -243,7 +243,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 >
 > - 2.3.20: Kotlin/Native 예외 스택 트레이스 포맷을 다른 Kotlin 플랫폼과 통일
 
-### `Iterable<T>.intersect()` 및 `Iterable<T>.subtract()` 동작 수정
+### `Iterable<T>.intersect()` 및 `Iterable<T>.subtract()` 동작 수정 {id="correct-iterable-t-intersect-and-iterable-t-subtract-behavior"}
 
 > **이슈**: [KTLC-268](https://youtrack.jetbrains.com/issue/KTLC-268)
 >
@@ -257,9 +257,9 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 >
 > - 2.3.0: 새로운 동작 활성화
 
-## 도구(Tools)
+## 도구(Tools) {id="tools"}
 
-### `kotlin-dsl` 및 `kotlin("jvm")` 플러그인 사용 시 지원되지 않는 KGP 버전 경고
+### `kotlin-dsl` 및 `kotlin("jvm")` 플러그인 사용 시 지원되지 않는 KGP 버전 경고 {id="unsupported-kgp-version-warning-when-using-kotlin-dsl-and-kotlin-jvm-plugins"}
 
 > **이슈**: [KT-79851](https://youtrack.jetbrains.com/issue/KT-79851)
 >
@@ -290,7 +290,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 >
 > - 2.3.0: `kotlin-dsl` 플러그인이 컴파일러의 호환되지 않는 언어 또는 API 버전과 함께 사용되는 경우를 감지하는 진단(diagnostic) 도입
 
-### AGP 버전 9.0.0 이상에서 `kotlin-android` 플러그인 지원 중단
+### AGP 버전 9.0.0 이상에서 `kotlin-android` 플러그인 지원 중단 {id="deprecate-kotlin-android-plugin-for-agp-versions-9-0-0-and-later"}
 
 > **이슈**: [KT-81199](https://youtrack.jetbrains.com/issue/KT-81199)
 >
@@ -304,7 +304,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 >
 > - 2.3.0: `kotlin-android` 플러그인이 AGP 버전 9.0.0 이상에서 사용되고, `android.builtInKotlin` 및 `android.newDsl=false` Gradle 속성이 모두 `false`로 설정된 경우 경고 보고
 
-### `testApi` 구성 지원 중단
+### `testApi` 구성 지원 중단 {id="deprecate-testapi-configuration"}
 
 > **이슈**: [KT-63285](https://youtrack.jetbrains.com/issue/KT-63285)
 >
@@ -323,7 +323,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 >
 > - 2.3.0: 경고 보고
 
-### `createTestExecutionSpec()` 함수 지원 중단
+### `createTestExecutionSpec()` 함수 지원 중단 {id="deprecate-createtestexecutionspec-function"}
 
 > **이슈**: [KT-75449](https://youtrack.jetbrains.com/issue/KT-75449)
 >
@@ -339,7 +339,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 2.3.0: 경고를 오류로 격상
 > - 2.4.0: 함수 제거
 
-### `closureTo()`, `createResultSet()`, 및 `KotlinToolingVersionOrNull()` 함수 제거
+### `closureTo()`, `createResultSet()`, 및 `KotlinToolingVersionOrNull()` 함수 제거 {id="remove-closureto-createresultset-and-kotlintoolingversionornull-functions"}
 
 > **이슈**: [KT-64273](https://youtrack.jetbrains.com/issue/KT-64273)
 >
@@ -354,7 +354,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 1.7.20: 오류 보고
 > - 2.3.0: 함수 제거
 
-### `ExtrasProperty` API 지원 중단
+### `ExtrasProperty` API 지원 중단 {id="deprecate-the-extrasproperty-api"}
 
 > **이슈**: [KT-74915](https://youtrack.jetbrains.com/issue/KT-74915)
 >
@@ -370,7 +370,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 2.1.0: 경고를 오류로 격상
 > - 2.3.0: API를 내부용으로 변경
 
-### `KotlinCompilation`의 `HasKotlinDependencies` 지원 중단
+### `KotlinCompilation`의 `HasKotlinDependencies` 지원 중단 {id="deprecate-haskotlindependencies-in-kotlincompilation"}
 
 > **이슈**: [KT-67290](https://youtrack.jetbrains.com/issue/KT-67290)
 >
@@ -384,7 +384,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 >
 > - 2.3.0: 경고 보고
 
-### npm 및 Yarn 패키지 관리자 내부 함수 및 속성 지원 중단
+### npm 및 Yarn 패키지 관리자 내부 함수 및 속성 지원 중단 {id="deprecate-npm-and-yarn-package-manager-internal-functions-and-properties"}
 
 > **이슈**: [KT-81009](https://youtrack.jetbrains.com/issue/KT-81009)
 >
@@ -410,7 +410,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 2.3.0: 경고를 오류로 격상
 > - 2.4.0: 함수 및 속성 제거
 
-### PhantomJS 지원 중단
+### PhantomJS 지원 중단 {id="deprecate-support-for-phantomjs"}
 
 > **이슈**: [KT-76019](https://youtrack.jetbrains.com/issue/KT-76019)
 >
@@ -424,7 +424,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 >
 > - 2.3.0: 경고 보고
 
-### 테스트 실행 또는 JavaScript 런타임을 설정하는 클래스의 서브클래싱 금지
+### 테스트 실행 또는 JavaScript 런타임을 설정하는 클래스의 서브클래싱 금지 {id="prohibit-subclassing-of-classes-that-set-up-test-runs-or-javascript-runtime"}
 
 > **이슈**: [KT-75869](https://youtrack.jetbrains.com/issue/KT-75869), [KT-81007](https://youtrack.jetbrains.com/issue/KT-81007)
 >
@@ -453,7 +453,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 2.3.0: 경고를 오류로 격상
 > - 2.4.0: API 제거
 
-### `ExperimentalWasmDsl` 어노테이션 클래스 지원 중단
+### `ExperimentalWasmDsl` 어노테이션 클래스 지원 중단 {id="deprecate-experimentalwasmdsl-annotation-class"}
 
 > **이슈**: [KT-81005](https://youtrack.jetbrains.com/issue/KT-81005)
 >
@@ -469,7 +469,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 2.3.0: 경고를 오류로 격상
 > - 2.4.0: 어노테이션 클래스 제거
 
-### `ExperimentalDceDsl` 어노테이션 클래스 지원 중단
+### `ExperimentalDceDsl` 어노테이션 클래스 지원 중단 {id="deprecate-experimentaldcedsl-annotation-class"}
 
 > **이슈**: [KT-81008](https://youtrack.jetbrains.com/issue/KT-81008)
 >
@@ -485,7 +485,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 2.3.0: 경고를 오류로 격상
 > - 2.4.0: 어노테이션 클래스 제거
 
-### JavaScript 유틸리티 지원 중단
+### JavaScript 유틸리티 지원 중단 {id="deprecate-javascript-utilities"}
 
 > **이슈**: [KT-81010](https://youtrack.jetbrains.com/issue/KT-81010)
 >
@@ -510,7 +510,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 2.3.0: 경고를 오류로 격상
 > - 2.4.0: API 제거
 
-### 마이그레이션된 D8 및 Binaryen 속성 지원 중단
+### 마이그레이션된 D8 및 Binaryen 속성 지원 중단 {id="deprecate-migrated-d8-and-binaryen-properties"}
 
 > **이슈**: [KT-81006](https://youtrack.jetbrains.com/issue/KT-81006)
 >
@@ -535,7 +535,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 2.3.0: 경고를 오류로 격상
 > - 2.4.0: 속성 제거
 
-### `NodeJsExec` DSL의 `create()` 함수 지원 중단
+### `NodeJsExec` DSL의 `create()` 함수 지원 중단 {id="deprecate-create-function-in-nodejsexec-dsl"}
 
 > **이슈**: [KT-81004](https://youtrack.jetbrains.com/issue/KT-81004)
 >
@@ -551,7 +551,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 2.3.0: 경고를 오류로 격상
 > - 2.4.0: 함수 제거
 
-### `kotlinOptions` DSL 속성 지원 중단
+### `kotlinOptions` DSL 속성 지원 중단 {id="deprecate-properties-in-kotlinoptions-dsl"}
 
 > **이슈**: [KT-76720](https://youtrack.jetbrains.com/issue/KT-76720)
 >
@@ -567,7 +567,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 2.2.0: 경고를 오류로 격상하고 `kotlinOptions`의 모든 속성을 지원 중단
 > - 2.3.0: `kotlinOptions`의 모든 속성에 대해 경고를 오류로 격상
 
-### `kotlinArtifacts` API 지원 중단
+### `kotlinArtifacts` API 지원 중단 {id="deprecate-kotlinartifacts-api"}
 
 > **이슈**: [KT-77066](https://youtrack.jetbrains.com/issue/KT-77066)
 >
@@ -583,7 +583,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 2.3.0: 이 경고를 오류로 격상
 > - 2.4.0: API 제거
 
-### `kotlin.mpp.resourcesResolutionStrategy` Gradle 속성 제거
+### `kotlin.mpp.resourcesResolutionStrategy` Gradle 속성 제거 {id="remove-kotlin-mpp-resourcesresolutionstrategy-gradle-property"}
 
 > **이슈**: [KT-74955](https://youtrack.jetbrains.com/issue/KT-74955)
 >
@@ -598,7 +598,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 2.2.0: 설정 시점 진단(configuration-time diagnostic) 보고
 > - 2.3.0: Gradle 속성 제거
 
-### 이전 모드의 멀티플랫폼 IDE 임포트 지원 중단
+### 이전 모드의 멀티플랫폼 IDE 임포트 지원 중단 {id="deprecated-old-mode-of-multiplatform-ide-import"}
 
 > **이슈**: [KT-61127](https://youtrack.jetbrains.com/issue/KT-61127)
 >
@@ -612,7 +612,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 >
 > - 2.3.0: `kotlin.mpp.import.enableKgpDependencyResolution=false` Gradle 속성 사용 시 경고 보고
 
-### 정밀 컴파일 백업을 비활성화하는 속성 제거
+### 정밀 컴파일 백업을 비활성화하는 속성 제거 {id="remove-properties-to-disable-precise-compilation-backup"}
 
 > **이슈**: [KT-81038](https://youtrack.jetbrains.com/issue/KT-81038)
 >
@@ -627,7 +627,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 2.1.20: 경고 보고
 > - 2.3.0: 속성 제거
 
-### `CInteropProcess`의 `destinationDir` 지원 중단
+### `CInteropProcess`의 `destinationDir` 지원 중단 {id="deprecate-destinationdir-in-cinteropprocess"}
 
 > **이슈**: [KT-74910](https://youtrack.jetbrains.com/issue/KT-74910)
 >
@@ -643,7 +643,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 2.2.0: 이 경고를 오류로 격상
 > - 2.3.0: `destinationDir` 속성 숨김
 
-### `CInteropProcess`의 `konanVersion` 지원 중단
+### `CInteropProcess`의 `konanVersion` 지원 중단 {id="deprecate-konanversion-in-cinteropprocess"}
 
 > **이슈**: [KT-74911](https://youtrack.jetbrains.com/issue/KT-74911)
 >
@@ -659,7 +659,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 2.2.0: 이 경고를 오류로 격상
 > - 2.3.0: `konanVersion` 속성 숨김
 
-### `KotlinCompile.classpathSnapshotProperties` 속성 제거
+### `KotlinCompile.classpathSnapshotProperties` 속성 제거 {id="remove-kotlincompile-classpathsnapshotproperties-properties"}
 
 > **이슈**: [KT-76177](https://youtrack.jetbrains.com/issue/KT-76177)
 >
@@ -677,7 +677,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 2.2.0: `kotlin.incremental.useClasspathSnapshot` 속성 제거
 > - 2.3.0: `KotlinCompile.classpathSnapshotProperties.useClasspathSnapshot` 및 `KotlinCompile.classpathSnapshotProperties.classpath` 속성 제거
 
-### `getPluginArtifactForNative()` 함수 지원 중단
+### `getPluginArtifactForNative()` 함수 지원 중단 {id="deprecate-getpluginartifactfornative-function"}
 
 > **이슈**: [KT-78870](https://youtrack.jetbrains.com/issue/KT-78870)
 >
@@ -693,7 +693,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 2.3.0: 경고를 오류로 격상
 > - 2.4.0: 함수 제거
 
-### 모든 생성된 소스를 등록하는 방식 변경
+### 모든 생성된 소스를 등록하는 방식 변경 {id="change-the-approach-to-registering-all-generated-sources"}
 
 > **이슈**: [KT-45161](https://youtrack.jetbrains.com/issue/KT-45161)
 >
@@ -707,7 +707,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > * 생성된 소스를 등록하려면 [`generatedKotlin`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-source-set/generated-kotlin.html) 속성을 사용하십시오.
 > * 생성되지 않은 소스를 포함한 모든 소스에 액세스하려면 [`allKotlinSources`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-source-set/all-kotlin-sources.html) 속성을 사용하십시오.
 
-### `kotlin.publishJvmEnvironmentAttribute` 속성 지원 중단
+### `kotlin.publishJvmEnvironmentAttribute` 속성 지원 중단 {id="deprecate-kotlin-publishjvmenvironmentattribute-property"}
 
 > **이슈**: [KT-83678](https://youtrack.jetbrains.com/issue/KT-83678)
 >
@@ -722,7 +722,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 2.3.20: 경고 보고
 > - 2.4.0: 속성 제거
 
-### `CleanableStore` 인터페이스 및 `CleanDataTask` 클래스 지원 중단
+### `CleanableStore` 인터페이스 및 `CleanDataTask` 클래스 지원 중단 {id="deprecate-cleanablestore-interface-and-cleandatatask-class"}
 
 > **이슈**: [KT-78104](https://youtrack.jetbrains.com/issue/KT-78104)
 >
@@ -736,7 +736,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 >
 > - 2.3.20: 경고 보고
 
-### `kotlin.kmp.isolated-projects.support` Gradle 속성 지원 중단
+### `kotlin.kmp.isolated-projects.support` Gradle 속성 지원 중단 {id="deprecate-kotlin-kmp-isolated-projects-support-gradle-property"}
 
 > **이슈**: [KT-79257](https://youtrack.jetbrains.com/issue/KT-79257)
 >
@@ -750,7 +750,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 >
 > - 2.3.20: 경고 보고
 
-### `kotlin.mpp.enableKotlinToolingMetadataArtifact` Gradle 속성 지원 중단
+### `kotlin.mpp.enableKotlinToolingMetadataArtifact` Gradle 속성 지원 중단 {id="deprecate-kotlin-mpp-enablekotlintoolingmetadataartifact-gradle-property"}
 
 > **이슈**: [KT-79924](https://youtrack.jetbrains.com/issue/KT-79924)
 >
@@ -765,7 +765,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 2.3.20: 경고 보고
 > - 2.4.0: 지원 제거
 
-### `LanguageSettings.enableLanguageFeature` DSL 지원 중단
+### `LanguageSettings.enableLanguageFeature` DSL 지원 중단 {id="deprecate-languagesettings-enablelanguagefeature-dsl"}
 
 > **이슈**: [KT-82323](https://youtrack.jetbrains.com/issue/KT-82323), [KT-82847](https://youtrack.jetbrains.com/issue/KT-82847)
 >
@@ -780,7 +780,7 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 2.3.20: `LanguageSettings.enableLanguageFeature` 사용 시 경고 보고
 > - 2.4.0: 경고를 오류로 격상
 
-### "프로세스 외부(out of process)" 컴파일러 실행 전략 지원 중단
+### "프로세스 외부(out of process)" 컴파일러 실행 전략 지원 중단 {id="deprecate-out-of-process-compiler-execution-strategy"}
 
 > **이슈**: [KT-83125](https://youtrack.jetbrains.com/issue/KT-83125)
 >
@@ -795,9 +795,9 @@ _[언어의 현대성 유지](kotlin-evolution-principles.md)_ 및 _[편안한 �
 > - 2.3.20: 경고 보고
 > - 2.4.0: "프로세스 외부(out of process)" 컴파일러 실행 전략 제거
 
-## 빌드 도구 제거(Build tool removal)
+## 빌드 도구 제거(Build tool removal) {id="build-tool-removal"}
 
-### Ant 지원 제거
+### Ant 지원 제거 {id="remove-support-for-ant"}
 
 > **이슈**: [KT-75875](https://youtrack.jetbrains.com/issue/KT-75875)
 >

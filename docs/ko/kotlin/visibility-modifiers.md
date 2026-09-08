@@ -8,7 +8,7 @@ Kotlin에는 `private`, `protected`, `internal`, `public`의 네 가지 가시�
 
 이 페이지에서는 수정자가 다양한 선언 범위에 어떻게 적용되는지 알아봅니다.
 
-## 패키지
+## 패키지 {id="packages"}
 
 함수, 프로퍼티, 클래스, 객체 및 인터페이스는 패키지 바로 아래의 "최상위(top-level)"에 직접 선언할 수 있습니다.
 
@@ -43,7 +43,7 @@ public var bar: Int = 5 // 프로퍼티가 모든 곳에서 보임
 internal val baz = 6    // 동일한 모듈 내부에서 보임
 ```
 
-## 클래스 멤버
+## 클래스 멤버 {id="class-members"}
 
 클래스 내부에 선언된 멤버의 경우:
 
@@ -88,7 +88,7 @@ class Unrelated(o: Outer) {
 }
 ```
 
-### 생성자
+### 생성자 {id="constructors"}
 
 클래스의 기본 생성자(primary constructor)의 가시성을 지정하려면 다음 구문을 사용하세요.
 
@@ -104,11 +104,11 @@ class C private constructor(a: Int) { ... }
 
 봉인된 클래스(sealed classes)의 생성자는 기본적으로 `protected`입니다. 자세한 정보는 [봉인된 클래스](sealed-classes.md#constructors)를 참조하세요.
 
-### 지역 선언
+### 지역 선언 {id="local-declarations"}
 
 지역 변수, 함수 및 클래스는 가시성 수정자를 가질 수 없습니다.
 
-## 모듈
+## 모듈 {id="modules"}
 
 `internal` 가시성 수정자는 멤버가 동일한 모듈 내에서 보임을 의미합니다. 더 구체적으로, 모듈은 함께 컴파일되는 Kotlin 파일 집합을 말하며, 예를 들면 다음과 같습니다.
 

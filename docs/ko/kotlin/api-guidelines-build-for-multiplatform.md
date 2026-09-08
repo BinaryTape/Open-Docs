@@ -9,7 +9,7 @@ Kotlin 라이브러리를 만들 때는 [Kotlin 멀티플랫폼 지원을 포함
 
 다음 섹션에서는 Kotlin 멀티플랫폼 라이브러리를 효과적으로 구축하는 데 도움이 되는 가이드라인을 제공합니다.
 
-## 도달 범위 극대화하기
+## 도달 범위 극대화하기 {id="maximize-your-reach"}
 
 라이브러리를 최대한 많은 프로젝트에서 의존성으로 사용할 수 있도록 하려면, 가능한 한 많은 Kotlin 멀티플랫폼 [타겟 플랫폼](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#targets)을 지원하는 것을 목표로 하세요.
 
@@ -21,7 +21,7 @@ Kotlin 라이브러리를 만들 때는 [Kotlin 멀티플랫폼 지원을 포함
 >
 {style="note"}
 
-## 공통 코드에서 사용할 수 있도록 API 설계하기
+## 공통 코드에서 사용할 수 있도록 API 설계하기 {id="design-apis-for-use-from-common-code"}
 
 라이브러리를 만들 때는 플랫폼별 구현을 작성하는 대신, 공통(common) Kotlin 코드에서 사용할 수 있도록 API를 설계하세요.
 
@@ -37,7 +37,7 @@ Kotlin 라이브러리를 만들 때는 [Kotlin 멀티플랫폼 지원을 포함
 >
 {style="tip"}
 
-## 플랫폼 간 일관된 동작 보장하기
+## 플랫폼 간 일관된 동작 보장하기 {id="ensure-consistent-behavior-across-platforms"}
 
 라이브러리가 지원되는 모든 플랫폼에서 일관되게 동작하도록 하려면, 멀티플랫폼 라이브러리의 API는 모든 플랫폼에서 동일한 범위의 유효한 입력을 허용하고, 동일한 작업을 수행하며, 동일한 결과를 반환해야 합니다. 마찬가지로 라이브러리는 모든 플랫폼에서 유효하지 않은 입력을 일관되게 처리하고 에러를 보고하거나 예외를 던져야 합니다.
 
@@ -51,7 +51,7 @@ API가 플랫폼 간에 일관되게 동작하면 `commonMain` 소스 세트에�
 >
 > {style=”note”}
 
-## 모든 플랫폼에서 테스트하기
+## 모든 플랫폼에서 테스트하기 {id="test-on-all-platforms"}
 
 멀티플랫폼 라이브러리는 모든 플랫폼에서 실행되는 공통 코드로 작성된 [멀티플랫폼 테스트](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-run-tests.html)를 가질 수 있습니다. 지원하는 플랫폼에서 이 공통 테스트 스위트를 정기적으로 실행하면 라이브러리가 정확하고 일관되게 동작하는지 확인할 수 있습니다.
 
@@ -59,13 +59,13 @@ API가 플랫폼 간에 일관되게 동작하면 `commonMain` 소스 세트에�
 
 [`kotlin-test`](https://kotlinlang.org/api/latest/kotlin.test/) 라이브러리를 사용하여 공통 코드에서 테스트를 작성하고 플랫폼별 테스트 러너로 실행하세요.
 
-## Kotlin 이외의 사용자 고려하기
+## Kotlin 이외의 사용자 고려하기 {id="consider-non-kotlin-users"}
 
 Kotlin 멀티플랫폼은 지원하는 타겟 플랫폼 전반에서 네이티브 API 및 언어와의 상호 운용성을 제공합니다. Kotlin 멀티플랫폼 라이브러리를 만들 때, 사용자가 Kotlin 이외의 언어에서 라이브러리의 타입과 선언을 사용해야 할 필요가 있는지 고려하세요.
 
 예를 들어, 라이브러리의 일부 타입이 상호 운용성을 통해 Swift 코드에 노출된다면, 해당 타입들을 Swift에서 쉽게 접근할 수 있도록 설계하세요. [Kotlin-Swift interopedia](https://github.com/kotlin-hands-on/kotlin-swift-interopedia)는 Swift에서 호출될 때 Kotlin API가 어떻게 보이는지에 대한 유용한 통찰을 제공합니다.
 
-## 라이브러리 홍보하기
+## 라이브러리 홍보하기 {id="promote-your-library"}
 
 개발자들이 Kotlin 멀티플랫폼 라이브러리를 발견하고 평가하는 검색 플랫폼인 [klibs.io](https://klibs.io/)에 여러분의 라이브러리를 소개할 수 있습니다.
 

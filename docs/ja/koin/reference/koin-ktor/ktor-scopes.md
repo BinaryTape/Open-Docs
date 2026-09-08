@@ -6,7 +6,7 @@ title: リクエストスコープ (Request Scopes)
 
 リクエストスコープは、単一の HTTP リクエストの間だけ存続するインスタンスを作成します。これは、リクエスト固有のデータや処理に最適です。
 
-## リクエストスコープのコンポーネントの宣言
+## リクエストスコープのコンポーネントの宣言 {id="declaring-request-scoped-components"}
 
 `requestScope` を使用して、リクエストのライフサイクルに紐付いたコンポーネントを宣言します。
 
@@ -24,7 +24,7 @@ val appModule = module {
 }
 ```
 
-## リクエストスコープのコンポーネントへのアクセス
+## リクエストスコープのコンポーネントへのアクセス {id="accessing-request-scoped-components"}
 
 リクエストスコープの依存関係を解決するには、`call.scope.get()` を使用します。
 
@@ -49,7 +49,7 @@ routing {
 }
 ```
 
-## ApplicationCall のインジェクション
+## ApplicationCall のインジェクション {id="injecting-applicationcall"}
 
 リクエストスコープのコンポーネントは、`ApplicationCall` を自動的にインジェクトできます。
 
@@ -73,7 +73,7 @@ class UserSessionHandler(private val call: ApplicationCall) {
 }
 ```
 
-## スコープのライフサイクルコールバック
+## スコープのライフサイクルコールバック {id="scope-lifecycle-callbacks"}
 
 scoped 定義に `onClose` コールバックを付加することで、リクエストスコープが終了したときにクリーンアップ処理を実行できます。`onClose` は定義に対する中置関数 (infix function) であり（`requestScope { }` 内のブロックではありません）、インスタンスパラメータは Null 許容型 (`T?`) です。
 
@@ -106,11 +106,11 @@ Koin のスコープ DSL では、定義ごとに `onClose` を提供してい�
 リクエストスコープは **各 HTTP リクエストごとに作成および破棄されます**。インスタンスはリクエスト間で共有されないため、スレッドセーフが確保され、状態のリーク（state leakage）を防ぐことができます。
 :::
 
-## Ktor でのモジュールの宣言
+## Ktor でのモジュールの宣言 {id="declaring-modules-in-ktor"}
 
 Koin は、Ktor アプリケーション内で直接モジュールを宣言するための便利な関数を提供しています。
 
-### koinModule の使用
+### koinModule の使用 {id="using-koinmodule"}
 
 モジュールをインラインで宣言します。
 
@@ -127,7 +127,7 @@ fun Application.configureRouting() {
 }
 ```
 
-### koinModules の使用
+### koinModules の使用 {id="using-koinmodules"}
 
 既存の複数のモジュールをロードします。
 
@@ -145,7 +145,7 @@ fun Application.configureCustomerFeature() {
 }
 ```
 
-## モジュール化されたアプリケーション構造
+## モジュール化されたアプリケーション構造 {id="modular-application-structure"}
 
 機能ごとに Ktor アプリを整理します。
 
@@ -190,7 +190,7 @@ fun Application.module() {
 }
 ```
 
-## アノテーションを使用したリクエストスコープ
+## アノテーションを使用したリクエストスコープ {id="request-scope-with-annotations"}
 
 リクエストスコープのコンポーネントにアノテーションを使用します。
 
@@ -203,7 +203,7 @@ class RequestLogger(private val call: ApplicationCall) {
 }
 ```
 
-## 完全な例
+## 完全な例 {id="complete-example"}
 
 ```kotlin
 val appModule = module {
@@ -238,7 +238,7 @@ fun Application.module() {
 }
 ```
 
-## API リファレンス
+## API リファレンス {id="api-reference"}
 
 | 関数 | 説明 |
 |----------|-------------|
@@ -248,7 +248,7 @@ fun Application.module() {
 | `koinModule { }` | インラインモジュールを宣言する |
 | `koinModules(...)` | 既存のモジュールをロードする |
 
-## 関連項目
+## 関連項目 {id="see-also"}
 
 - **[Koin for Ktor](/docs/reference/koin-ktor/ktor)** - Ktor のメインドキュメント
 - **[スコープ (Scopes)](/docs/reference/koin-core/scopes)** - コアスコープの概念

@@ -119,7 +119,7 @@ install(Auth) {
 
 이 경우, 클라이언트는 영역 정보가 포함된 `WWW-Authenticate` 응답 헤더를 기반으로 필요한 제공자를 선택합니다.
 
-## 제공자 선택
+## 제공자 선택 {id="provider-selection"}
 
 서버가 `401 Unauthorized`를 반환하면, 클라이언트는 `WWW-Authenticate` 응답 헤더를 기반으로 인증 제공자를 선택합니다. 이 헤더는 서버가 수용하는 인증 스킴을 명시합니다.
 
@@ -131,7 +131,7 @@ install(Auth) {
 
 [Basic](client-basic-auth.md) 및 [Bearer](client-bearer-auth.md) 인증 제공자는 내부적인 자격 증명(credential) 또는 토큰 캐시를 유지합니다. 이 캐시를 통해 클라이언트는 매 요청마다 인증 데이터를 다시 로드하는 대신 이전에 로드된 데이터를 재사용할 수 있어, 자격 증명이 변경될 때의 제어권을 유지하면서도 성능을 향상시킬 수 있습니다.
 
-### 인증 제공자 접근하기
+### 인증 제공자 접근하기 {id="accessing-authentication-providers"}
 
 클라이언트 세션 중에 인증 상태를 동적으로 업데이트해야 하는 경우, `authProvider` 확장 함수를 사용하여 특정 제공자에 접근할 수 있습니다:
 
@@ -147,7 +147,7 @@ val providers = client.authProviders
 
 이러한 유틸리티를 사용하면 프로그래밍 방식으로 제공자를 검사하거나 캐시된 토큰을 삭제할 수 있습니다.
 
-### 캐시된 토큰 삭제하기
+### 캐시된 토큰 삭제하기 {id="clearing-cached-tokens"}
 
 단일 제공자에 대해 캐시된 자격 증명을 삭제하려면 `.clearToken()` 함수를 사용합니다:
 
@@ -177,7 +177,7 @@ fun logout() {
 }
 ```
 
-### 캐싱 동작 제어하기
+### 캐싱 동작 제어하기 {id="controlling-caching-behavior"}
 
 Basic 및 Bearer 인증 제공자 모두 `cacheTokens` 옵션을 사용하여 요청 간에 토큰이나 자격 증명을 캐시할지 여부를 제어할 수 있습니다.
 

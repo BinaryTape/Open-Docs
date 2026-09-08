@@ -10,7 +10,7 @@ fun interface KRunnable {
 }
 ```
 
-## SAM 转换
+## SAM 转换 {id="sam-conversions"}
 
 对于函数式接口，你可以使用 SAM 转换，通过使用 [lambda表达式](lambdas.md#lambda-expressions-and-anonymous-functions) 来使代码更简洁、更具可读性。
 
@@ -59,7 +59,7 @@ fun main() {
 
 你还可以使用 [针对 Java 接口的 SAM 转换](java-interop.md#sam-conversions)。
 
-## 从带有构造函数的接口迁移到函数式接口
+## 从带有构造函数的接口迁移到函数式接口 {id="migration-from-an-interface-with-constructor-function-to-a-functional-interface"}
 
 从 1.6.20 开始，Kotlin 支持对函数式接口构造函数的 [可调用引用](reflection.md#callable-references)，这增加了一种源码兼容的方式，用于从带有构造函数的接口迁移到函数式接口。考虑以下代码：
 
@@ -94,7 +94,7 @@ documentsStorage.addPrinter(::Printer)
 fun Printer(...) {...}
 ```
 
-## 函数式接口 vs. 类型别名
+## 函数式接口 vs. 类型别名 {id="functional-interfaces-vs-type-aliases"}
 
 你也可以简单地使用针对函数类型的 [类型别名](type-aliases.md) 来重写上述内容：
 

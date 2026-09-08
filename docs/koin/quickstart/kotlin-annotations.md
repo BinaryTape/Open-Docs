@@ -9,13 +9,13 @@ title: Kotlin 与注解
 更新 - 2024-11-12
 :::
 
-## 获取代码
+## 获取代码 {id="get-the-code"}
 
 :::info
 [源代码可在 GitHub 上获取](https://github.com/InsertKoinIO/koin-getting-started/tree/main/kotlin-annotations)
 :::
 
-## 设置
+## 设置 {id="setup"}
 
 首先，检查 Koin 注解依赖项是否已按如下方式添加：
 
@@ -34,13 +34,13 @@ dependencies {
 }
 ```
 
-## 应用程序概览
+## 应用程序概览 {id="application-overview"}
 
 该应用程序的设计思路是管理用户列表，并将其显示在我们的 `UserApplication` 类中：
 
 > Users -> UserRepository -> UserService -> UserApplication
 
-## “User”数据
+## “User”数据 {id="the-user-data"}
 
 我们将管理一个 User 集合。以下是数据类：
 
@@ -75,7 +75,7 @@ class UserRepositoryImpl : UserRepository {
 该项目使用 Koin 的 `@Singleton` 注解（来自 `org.koin.core.annotation`）来声明单例组件。
 :::
 
-## Koin 模块
+## Koin 模块 {id="the-koin-module"}
 
 使用 `@Module` 注解来声明一个 Koin 模块：
 
@@ -99,7 +99,7 @@ class UserRepositoryImpl : UserRepository {
 }
 ```
 
-## UserService 组件
+## UserService 组件 {id="the-userservice-component"}
 
 让我们编写 UserService 组件来管理用户操作：
 
@@ -135,7 +135,7 @@ class UserServiceImpl(
 
 我们使用 `@Singleton` 注解来声明 `UserService`。
 
-## UserApplication
+## UserApplication {id="the-userapplication"}
 
 `UserApplication` 类使用构造函数注入来接收 `UserService`：
 
@@ -161,7 +161,7 @@ class UserApplication(
 构造函数注入是注入依赖项的首选方式。Koin 在创建 `UserApplication` 时会自动解析并注入 `UserService`。
 :::
 
-## Koin 应用程序对象
+## Koin 应用程序对象 {id="koin-application-object"}
 
 创建一个 `@KoinApplication` 对象，以标记 Koin 基于注解配置的入口点：
 
@@ -172,7 +172,7 @@ object KoinUserApplication
 
 `@KoinApplication` 注解与 KSP 处理器协同工作，为该对象生成 `startKoin()` 扩展函数。
 
-## 启动 Koin
+## 启动 Koin {id="start-koin"}
 
 我们需要随应用程序一起启动 Koin。只需在应用程序的 main 入口点调用生成的 `startKoin()` 函数：
 
@@ -194,7 +194,7 @@ fun main() {
 带有 `@Configuration` 的模块上的 `@KoinApplication` 注解会通过 KSP 在编译时自动发现并加载所有带有注解的依赖项。
 :::
 
-## 注解 vs 编译器插件 DSL
+## 注解 vs 编译器插件 DSL {id="annotations-vs-compiler-plugin-dsl"}
 
 以下是基于注解的配置与编译器插件 DSL 的对比：
 

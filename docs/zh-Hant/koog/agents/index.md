@@ -18,7 +18,7 @@ Koog Agent 是圍繞以下核心概念建構的：
 
     有關建立與執行最簡 Agent 的資訊，請參閱 [快速入門](../quickstart.md)。
 
-## Agent 類型
+## Agent 類型 {id="agent-types"}
 
 根據您需要執行的任務，Koog 提供了多種 Agent 類型：
 
@@ -28,7 +28,7 @@ Koog Agent 是圍繞以下核心概念建構的：
 - [函數式 Agent (Functional agents)](functional-agents.md) 讓您能快速將自訂邏輯原型化為一個可存取 Agent 上下文的函式。
 - [規劃器 Agent (Planner agents)](planner-agents/index.md) 可以透過疊代週期自主規劃並執行多步驟任務，直到達到所需的最終狀態。
 
-## Agent 配置
+## Agent 配置 {id="agent-configuration"}
 
 Agent 配置 (configuration) 定義了 Agent 的執行參數，
 包括初始 Prompt、語言模型和疊代限制。

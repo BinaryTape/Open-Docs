@@ -24,7 +24,7 @@
 
 以降のセクションでは、これらの特性をさらに深く掘り下げ、ライブラリのユーザーに可能な限り最高の体験を提供する方法について、実践的なアドバイスを提供します。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [精神的負荷の最小化](api-guidelines-minimizing-mental-complexity.md) で、精神的負荷を最小限に抑えるための戦略を確認してください。
 * [後方互換性](api-guidelines-backward-compatibility.md) で、後方互換性の維持について学んでください。

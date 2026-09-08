@@ -6,14 +6,14 @@ title: Isolated Context
 
 `KoinIsolated`プラグインは、グローバルの Koin インスタンスとは別に、アイソレートされた（隔離された）コンテキストで Koin を実行します。これは、テスト、マルチテナントアプリケーション、および複数の Koin インスタンスの実行に役立ちます。
 
-## Isolated Context を使用すべきケース
+## Isolated Context を使用すべきケース {id="when-to-use-isolated-context"}
 
 - **テスト** - 各テストが独自のアイソレートされた Koin インスタンスを取得します。
 - **マルチテナントアプリケーション** - テナントごとに異なる構成を使用します。
 - **プラグイン/モジュールシステム** - 独自の依存関係を持つ独立したモジュール。
 - **組み込み Ktor サーバー** - 同じ JVM 内で複数の Ktor インスタンスを実行します。
 
-## 基本設定
+## 基本設定 {id="basic-setup"}
 
 `Koin`の代わりに`KoinIsolated`をインストールします：
 
@@ -26,9 +26,9 @@ fun Application.main() {
 }
 ```
 
-## Global Context と Isolated Context の比較
+## Global Context と Isolated Context の比較 {id="global-vs-isolated-context"}
 
-### Global Context（デフォルト）
+### Global Context（デフォルト） {id="global-context-default"}
 
 ```kotlin
 // GlobalContext を使用 - アプリケーション全体で共有されます
@@ -56,7 +56,7 @@ install(KoinIsolated) {
 `KoinIsolated`を使用する場合、`GlobalContext`を介して Koin にアクセスすることはできません。すべてのインジェクションは、`inject()`または`get()`を使用して Ktor アプリケーションのスコープ内で行う必要があります。
 :::
 
-## 完全な例
+## 完全な例 {id="complete-example"}
 
 ```kotlin
 val appModule = module {
@@ -92,7 +92,7 @@ fun Application.main() {
 }
 ```
 
-## DI Bridge との使用
+## DI Bridge との使用 {id="with-di-bridge"}
 
 アイソレートされたコンテキストは、Ktor DI Bridge もサポートしています：
 
@@ -127,7 +127,7 @@ val appModule = module {
 }
 ```
 
-## Isolated Context を使用したテスト
+## Isolated Context を使用したテスト {id="testing-with-isolated-context"}
 
 アイソレートされたコンテキストは、特にテストに役立ちます：
 
@@ -155,7 +155,7 @@ val testModule = module {
 }
 ```
 
-### テストの並列実行
+### テストの並列実行 {id="parallel-test-execution"}
 
 アイソレートされたコンテキストを使用すると、干渉することなくテストを並列で実行できます：
 
@@ -183,7 +183,7 @@ class ParallelTests {
 }
 ```
 
-## 複数の Ktor サーバー
+## 複数の Ktor サーバー {id="multiple-ktor-servers"}
 
 独立した Koin インスタンスを使用して複数の Ktor サーバーを実行します：
 
@@ -211,7 +211,7 @@ fun main() {
 }
 ```
 
-## ライフサイクル
+## ライフサイクル {id="lifecycle"}
 
 アイソレートされた Koin インスタンスは、Ktor アプリケーションのライフサイクルに従います：
 
@@ -233,7 +233,7 @@ fun Application.main() {
 }
 ```
 
-## Isolated Koin インスタンスへのアクセス
+## Isolated Koin インスタンスへのアクセス {id="accessing-the-isolated-koin-instance"}
 
 Ktor アプリケーション内では、アイソレートされた Koin インスタンスにアクセスできます：
 
@@ -251,20 +251,20 @@ fun Application.main() {
 }
 ```
 
-## Isolated Context を使用すべきでないケース
+## Isolated Context を使用すべきでないケース {id="when-not-to-use-isolated-context"}
 
 - **単一の Ktor アプリケーション** - Global Context の方がシンプルです。
 - **モジュール間で共有される依存関係** - Global Context を使用すると共有が容易になります。
 - **Koin にアクセスするバックグラウンドジョブ** - これらには GlobalContext が必要です。
 
-## ベストプラクティス
+## ベストプラクティス {id="best-practices"}
 
 1. **テストに使用する** - アイソレートされたコンテキストはテスト間の干渉を防ぎます。
 2. **マルチテナントに使用する** - テナントごとに異なる構成を持つことができます。
 3. **シンプルなアプリでは避ける** - ほとんどのユースケースでは Global Context の方がシンプルです。
 4. **選択理由をドキュメント化する** - なぜアイソレートされたコンテキストが使用されているのかを明確にします。
 
-## 関連項目
+## 関連項目 {id="see-also"}
 
 - **[Ktor Integration](/docs/reference/koin-ktor/ktor)** - メインの Ktor ドキュメント
 - **[Context Isolation](/docs/reference/koin-core/context-isolation)** - コアのアイソレーション（分離）の概念

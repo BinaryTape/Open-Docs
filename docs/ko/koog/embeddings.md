@@ -2,21 +2,21 @@
 
 `embeddings` 모듈은 텍스트와 코드의 임베딩을 생성하고 비교하는 기능을 제공합니다. 임베딩은 의미론적 의미를 포착하는 벡터 표현(vector representations)으로, 효율적인 유사도 비교를 가능하게 합니다.
 
-## 개요 (Overview)
+## 개요 (Overview) {id="overview"}
 
 이 모듈은 두 가지 주요 구성 요소로 이루어져 있습니다:
 
 1. **embeddings-base**: 임베딩을 위한 핵심 인터페이스 및 데이터 구조.
 2. **embeddings-llm**: 로컬 임베딩 생성을 위해 Ollama를 사용하는 구현체.
 
-## 시작하기 (Getting started)
+## 시작하기 (Getting started) {id="getting-started"}
 
 다음 섹션에는 다음과 같은 방식으로 임베딩을 사용하는 기본적인 예제가 포함되어 있습니다:
 
 - Ollama를 통한 로컬 임베딩 모델 사용
 - OpenAI 임베딩 모델 사용
 
-### 로컬 임베딩 (Local embeddings)
+### 로컬 임베딩 (Local embeddings) {id="local-embeddings"}
 
 로컬 모델과 함께 임베딩 기능을 사용하려면 시스템에 Ollama가 설치되어 실행 중이어야 합니다.
 설치 및 실행 지침은 [공식 Ollama GitHub 저장소](https://github.com/ollama/ollama)를 참조하세요.
@@ -54,7 +54,7 @@ Ollama 임베딩 모델을 사용하려면 다음 전제 조건을 확인하세�
 
     `<ollama-model-id>`를 특정 모델의 Ollama 식별자로 바꿉니다. 사용 가능한 임베딩 모델 및 식별자에 대한 자세한 내용은 [Ollama 모델 개요(#ollama-models-overview)]를 참조하세요.
 
-### Ollama 모델 개요 (Ollama models overview)
+### Ollama 모델 개요 (Ollama models overview) {id="ollama-models-overview"}
 
 다음 표는 사용 가능한 Ollama 임베딩 모델에 대한 개요를 제공합니다.
 
@@ -68,7 +68,7 @@ Ollama 임베딩 모델을 사용하려면 다음 전제 조건을 확인하세�
 
 이 모델들에 대한 자세한 정보는 Ollama의 [Embedding Models](https://ollama.com/blog/embedding-models) 블로그 포스트를 참조하세요.
 
-### 모델 선택하기 (Choosing a model)
+### 모델 선택하기 (Choosing a model) {id="choosing-a-model"}
 
 요구 사항에 따라 어떤 Ollama 임베딩 모델을 선택할지에 대한 일반적인 팁은 다음과 같습니다:
 
@@ -78,7 +78,7 @@ Ollama 임베딩 모델을 사용하려면 다음 전제 조건을 확인하세�
 - (품질을 일부 희생하더라도) 효율성을 극대화하려면, `ALL_MINILM`을 사용하세요.
 - 고차원 임베딩이 필요한 경우, `MXBAI_EMBED_LARGE`를 사용하세요.
 
-## OpenAI 임베딩 (OpenAI embeddings)
+## OpenAI 임베딩 (OpenAI embeddings) {id="openai-embeddings"}
 
 OpenAI 임베딩 모델을 사용하여 임베딩을 생성하려면, 아래 예제에 표시된 대로 `OpenAILLMClient` 인스턴스의 `embed` 메서드를 사용하세요.
 
@@ -103,7 +103,7 @@ suspend fun openAIEmbed(text: String) {
 ```
 <!--- KNIT example-embeddings-02.kt -->
 
-## AWS Bedrock 임베딩 (AWS Bedrock embeddings)
+## AWS Bedrock 임베딩 (AWS Bedrock embeddings) {id="aws-bedrock-embeddings"}
 
 AWS Bedrock 임베딩 모델을 사용하여 임베딩을 생성하려면, `BedrockLLMClient` 인스턴스의 `embed` 메서드와 선택한 모델을 사용하세요. 예제:
 
@@ -140,7 +140,7 @@ suspend fun bedrockEmbed(text: String) {
 ```
 <!--- KNIT example-embeddings-03.kt -->
 
-### 지원되는 AWS Bedrock 임베딩 모델 (Supported AWS Bedrock embedding models)
+### 지원되는 AWS Bedrock 임베딩 모델 (Supported AWS Bedrock embedding models) {id="supported-aws-bedrock-embedding-models"}
 
 | 제공업체 | 모델 이름                   | 모델 ID                       | 입력 | 출력    | 차원 | 컨텍스트 길이 | 비고                                                                                                 |
 |----------|------------------------------|--------------------------------|-------|-----------|------------|----------------|-------------------------------------------------------------------------------------------------------|
@@ -151,11 +151,11 @@ suspend fun bedrockEmbed(text: String) {
 
 > 최신 모델 지원 정보는 [AWS Bedrock 지원 모델 문서](https://docs.aws.amazon.com/bedrock/latest/userguide/models-supported.html)를 참조하세요.
 
-## 예제 (Examples)
+## 예제 (Examples) {id="examples"}
 
 다음 예제는 임베딩을 사용하여 코드를 텍스트 또는 다른 코드 스니펫과 비교하는 방법을 보여줍니다.
 
-### 코드와 텍스트 비교 (Code-to-text comparison)
+### 코드와 텍스트 비교 (Code-to-text comparison) {id="code-to-text-comparison"}
 
 코드 스니펫을 자연어 설명과 비교하여 의미론적 일치를 찾습니다:
 
@@ -197,7 +197,7 @@ suspend fun compareCodeToText(embedder: Embedder) { // Embedder 타입
 ```
 <!--- KNIT example-embeddings-04.kt -->
 
-### 코드 간 비교 (Code-to-code comparison)
+### 코드 간 비교 (Code-to-code comparison) {id="code-to-code-comparison"}
 
 구문(syntax) 차이에 관계없이 의미론적 유사성을 찾기 위해 코드 스니펫을 비교합니다:
 
@@ -259,7 +259,7 @@ suspend fun compareCodeToCode(embedder: Embedder) { // Embedder 타입
 ```
 <!--- KNIT example-embeddings-05.kt -->
 
-## API 문서 (API documentation)
+## API 문서 (API documentation) {id="api-documentation"}
 
 임베딩과 관련된 전체 API 참조는 다음 모듈의 참조 문서를 확인하세요:
 

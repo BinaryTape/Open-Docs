@@ -20,7 +20,7 @@ LLM 用戶端旨在與 LLM 供應商進行直接互動。
 | [Alibaba](https://www.alibabacloud.com/en?_p_lc=1) β | [DashScopeLLMClient](api:prompt-executor-dashscope-client::ai.koog.prompt.executor.clients.dashscope.DashscopeLLMClient)      | ✓                | ✓         | ✓                    | -          | -          | ✓                                               | 相容於 OpenAI 的用戶端，並公開供應商專屬參數 (`enableSearch`、`parallelToolCalls`、`enableThinking`)。 |
 | [Ollama](https://ollama.com/)                       | [OllamaClient](api:prompt-executor-ollama-client::ai.koog.prompt.executor.ollama.client.OllamaClient)                            | ✓                | ✓         | -                    | ✓          | ✓          | -                                               | 具備模型管理 API 的本機伺服器用戶端。                                                                             |
 
-## 執行 prompt
+## 執行 prompt {id="running-a-prompt"}
 
 若要使用 LLM 用戶端執行 prompt，請執行以下操作：
 
@@ -105,7 +105,7 @@ LLM 用戶端旨在與 LLM 供應商進行直接互動。
     ```
     <!--- KNIT example-llm-clients-java-01.java -->
 
-## 串流回應
+## 串流回應 {id="streaming-responses"}
 
 !!! note
     適用於所有 LLM 用戶端。
@@ -215,7 +215,7 @@ Tool call: " + toolCall.getName());
     ```
     <!--- KNIT example-llm-clients-java-02.java -->
 
-## 多個選項
+## 多個選項 {id="multiple-choices"}
 
 !!! note
     適用於除 `GoogleLLMClient`、`BedrockLLMClient` 和 `OllamaClient` 之外的所有 LLM 用戶端
@@ -301,7 +301,7 @@ Tool call: " + toolCall.getName());
     ```
     <!--- KNIT example-llm-clients-java-03.java -->
 
-## 列出可用模型
+## 列出可用模型 {id="listing-available-models"}
 
 !!! note
     適用於除 `AnthropicLLMClient`、`BedrockLLMClient` 和 `OllamaClient` 之外的所有 LLM 用戶端。
@@ -347,7 +347,7 @@ Tool call: " + toolCall.getName());
     ```
     <!--- KNIT example-llm-clients-java-04.java -->
 
-## 嵌入 (Embeddings)
+## 嵌入 (Embeddings) {id="embeddings"}
 
 !!! note
     適用於 `OpenAILLMClient`、`GoogleLLMClient`、`BedrockLLMClient`、`MistralAILLMClient` 和 `OllamaClient`。
@@ -376,7 +376,7 @@ fun main() = runBlocking {
 ```
 <!--- KNIT example-llm-clients-05.kt -->
 
-## 審核 (Moderation)
+## 審核 (Moderation) {id="moderation"}
 
 !!! note
     適用於以下 LLM 用戶端：`OpenAILLMClient`、`BedrockLLMClient`、`MistralAILLMClient`、`OllamaClient`。
@@ -429,7 +429,7 @@ fun main() = runBlocking {
     ```
     <!--- KNIT example-llm-clients-java-05.java -->
 
-## 與 prompt executor 整合
+## 與 prompt executor 整合 {id="integration-with-prompt-executors"}
 
 [Prompt executors](prompt-executors.md) 封裝了 LLM 用戶端並提供額外的功能，例如路由、備援以及跨供應商的統一用法。
 建議在生產環境中使用它們，因為它們在處理多個供應商時提供了靈活性。

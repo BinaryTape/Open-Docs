@@ -8,11 +8,11 @@
 * 编写您的第一个并发测试并使用 Lincheck 运行它。
 * 创建一个并发数据结构，并使用两种测试策略通过 Lincheck 对其进行测试。
 
-## 创建项目
+## 创建项目 {id="create-a-project"}
 
 在 IntelliJ IDEA 中打开一个现有的 Kotlin 项目或[创建一个新项目](https://kotlinlang.org/docs/jvm-get-started.html)。
 
-## 添加依赖项
+## 添加依赖项 {id="add-dependencies"}
 
 要在项目中使用 Lincheck，请将相应的依赖项添加到您的构建配置中：
 
@@ -72,7 +72,7 @@ dependencies {
 </tab>
 </tabs>
 
-## 编写您的第一个测试
+## 编写您的第一个测试 {id="write-your-first-test"}
 
 对于基本的并发测试，请创建一个测试函数，其中描述应在每个线程中执行的操作以及预期的断言。Lincheck 使用[模型检查](lincheck-testing-strategies.md#model-checking)探索程序可能的线程交替，并在出现错误行为时提供错误报告。
 
@@ -147,7 +147,7 @@ dependencies {
             </def>
     </deflist>
 
-## 为数据结构编写测试
+## 为数据结构编写测试 {id="write-a-test-for-a-data-structure"}
 
 除了基本的并发测试外，Lincheck 还支持一种[声明式方法](lincheck-how-to-test-data-structures.md)来测试并发数据结构。
 
@@ -227,6 +227,6 @@ dependencies {
     | ------------------------ |
     ```
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 了解 Lincheck 中[测试并发数据结构的声明式方法](lincheck-how-to-test-data-structures.md)。

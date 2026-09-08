@@ -6,7 +6,7 @@ iOSにおいて、Compose MultiplatformはネイティブのUIKitおよびSwiftU
 現在、Compose Multiplatformにはネイティブビューでのタッチイベントを処理するための戦略が1つだけあります。
 すべてのタッチは完全にネイティブUIによって処理され、Compose側ではそれらが発生したことをまったく認識しません。
 
-## 相互運用スクロールにおけるタッチ
+## 相互運用スクロールにおけるタッチ {id="touches-in-interop-scrolling"}
 
 相互運用エリア内の各タッチが基盤となるネイティブUI要素に即座に送信されると、コンテナとなるComposableは同じタッチに反応できません。
 これが引き起こす最も明らかな問題はスクロールです。相互運用エリアがスクロール可能なコンテナ内にある場合、ユーザーはそのエリアに対して以下のような動作を期待するでしょう。
@@ -30,7 +30,7 @@ iOSにおいて、Compose MultiplatformはネイティブのUIKitおよびSwiftU
 >
 {style="note"}
 
-## タッチ処理戦略の選択
+## タッチ処理戦略の選択 {id="choosing-the-strategy-for-touch-processing"}
 <primary-label ref="Experimental"/>
 
 Compose Multiplatform %org.jetbrains.compose% では、相互運用UIをより詳細に制御するための実験的なAPIを試すこともできます。
@@ -49,6 +49,6 @@ Compose Multiplatform %org.jetbrains.compose% では、相互運用UIをより�
   上述のような一般的な問題はありますが、相互運用のタッチをComposeレベルで処理する必要がまったくないと確信できる場合には、このモードが役立ちます。
 * ネイティブUIとのあらゆるインタラクションを無効にするには、コンストラクタに `interactionMode = null` を渡します。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 Compose Multiplatformにおける [UIKit](compose-uikit-integration.md) および [SwiftUI](compose-swiftui-integration.md) との統合について詳細を確認してください。

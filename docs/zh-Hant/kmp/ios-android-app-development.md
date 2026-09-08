@@ -20,7 +20,7 @@
 
 [![探索 Kotlin Multiplatform](discover-kmp.svg){width="700" style="block"}](https://www.jetbrains.com/kotlin-multiplatform/)
 
-## 團隊在分別開發 iOS 與 Android 時面臨的 11 種痛苦
+## 團隊在分別開發 iOS 與 Android 時面臨的 11 種痛苦 {id="11-pains-teams-face-when-developing-for-ios-and-android-separately"}
 
 無論團隊多麼有經驗，同時為 Android 和 iOS 進行建置時，注定會遇到以下至少幾個問題：
 
@@ -38,11 +38,11 @@
 
 幸運的是，在緩解這些問題方面，您有多種跨平台技術可以選擇——每一種都有其自身的優點，但也有一定的限制。
 
-## 跨平台開發來救援
+## 跨平台開發來救援 {id="cross-platform-development-to-the-rescue"}
 
 跨平台行動開發透過在平台間共用程式碼，減少了 iOS 和 Android 應用程式中的重複工作。不同的方法提供不同的權衡、彈性和原生整合。如需更深入的介紹，請參閱我們關於[什麼是跨平台行動開發](cross-platform-mobile-development.topic)的總覽。
 
-### 基於 Web 的與混合解決方案
+### 基於 Web 的與混合解決方案 {id="web-based-and-hybrid-solutions"}
 
 這些解決方案允許專注於 Web 的團隊存取現有的 JavaScript、CSS 和瀏覽器工具，從而降低學習曲線並加速早期工作。重複使用程式碼的能力是一個顯著的優勢，因為單一程式碼庫可以跨多個平台，且重複工作極少。反覆運算週期通常很快，允許團隊在沒有應用程式商店延遲的情況下發佈更新，且 UI 改進通常需要的工程精力顯著減少。
 
@@ -50,13 +50,13 @@
 
 隨著時間推移，渲染、回應能力和原生整合方面的限制可能會累積，導致難以消除的技術債。
 
-### 跨平台架構
+### 跨平台架構 {id="cross-platform-frameworks"}
 
 React Native 和 Flutter 等跨平台架構旨在透過提供在 iOS 和 Android 上執行的共用 UI 層來減少碎片化。它們透過共用的 UI 邏輯、熱重載以及由大型外掛程式生態系統支援的豐富元件庫，協助團隊改善功能對等、加速原型設計並減少重複工作。
 
 其權衡是在原生平台之上增加了一個抽象層。隨著作業系統版本的演進，該層可能會引入新的失效點、參差不齊的程式庫品質，以及在整合原生 API 或效能關鍵功能時的額外複雜性。如需深入了解廣泛使用的選項，請參閱我們對一些[最受歡迎的跨平台應用程式開發架構](cross-platform-frameworks.topic)的總覽。
 
-### Kotlin Multiplatform：使用 Compose Multiplatform 共用程式碼與 UI
+### Kotlin Multiplatform：使用 Compose Multiplatform 共用程式碼與 UI {id="kotlin-multiplatform-shared-code-and-uis-with-compose-multiplatform"}
 
 Kotlin Multiplatform 是來自 JetBrains 的開源技術，可讓您在 Android、iOS、桌面、Web 和伺服器之間共用程式碼，同時保留原生開發的優點。
 
@@ -73,7 +73,7 @@ Kotlin Multiplatform 是來自 JetBrains 的開源技術，可讓您在 Android�
 
 ![Compose Multiplatform 基準測試](compose-multiplatform-benchmarks.png){width="700"}
 
-### Kotlin Multiplatform 特別有用的情境
+### Kotlin Multiplatform 特別有用的情境 {id="scenarios-where-kotlin-multiplatform-is-particularly-helpful"}
 
 Kotlin Multiplatform 可以處理[廣泛的專案](use-cases-examples.md)，從使用 Compose Multiplatform 建置的 MVP 到具有複雜架構的大規模商業應用程式。它的彈性允許團隊選擇要發佈多少程式碼，而不需要他們遵循「全有或全無」的策略。這種多功能性使 KMP 成為希望整合邏輯同時保留平台特定層級，並確保其 UI 具有原生感的組織的絕佳替代方案。
 
@@ -101,21 +101,21 @@ KMP 透過重複使用現有的程式碼庫，同時保持原生效能和 UI 彈
 
 KMP 將共用的 Kotlin 程式碼編譯為平台特定的二進制檔案，與原生專案無縫整合。它支援平台 API 並提供原生與跨平台 UI 之間的彈性，使其成為 SDK 開發的理想選擇。平台團隊可以使用各自的語言（例如 Swift）便利地與 Kotlin Multiplatform 程式庫進行介面連接。
 
-## 如何為您的 iOS 與 Android 專案選擇合適的跨平台技術
+## 如何為您的 iOS 與 Android 專案選擇合適的跨平台技術 {id="how-to-choose-the-right-cross-platform-technology-for-your-ios-and-android-project"}
 
-### 確定您的主要需求
+### 確定您的主要需求 {id="identify-your-primary-requirements"}
 
 從規劃產品的核心開始。它是否需要極其流暢的動畫、硬體級的功能或近乎即時的效能？
 
 透過儘早定義這些需求，您可以為選擇技術建立一個指引，自然地支援您想要提供的體驗——從而避免以後需要繁瑣融通方案的架構。
 
-### 考量您團隊目前的職能
+### 考量您團隊目前的職能 {id="consider-your-team-s-current-competencies"}
 
 架構的有效性取決於使用它的團隊。如果您的工程師在特定技術上投入很大，選擇一款能夠補足其能力的產品可以保持高昂的士氣並使引導過程迅速。例如，如果您的團隊已經擁有強大的 Kotlin 專業知識，採用 Kotlin Multiplatform 可以讓他們在平台間發揮既有技能，減少摩擦並加速交付。
 
 另一方面，強迫團隊進入未知領域可能會減慢進度、造成緊張並導致技術錯誤。將解決方案與目前的技能組對齊可以保留動力並縮短產生影響力的時間。
 
-### 評估生態系統
+### 評估生態系統 {id="evaluate-the-ecosystem"}
 
 每個架構都依賴其環境來運作。高品質的程式庫可以減少重建核心組件的需求。頻繁的更新，特別是那些與作業系統升級同步的更新，表示專案穩健且可行。
 
@@ -123,14 +123,14 @@ KMP 將共用的 Kotlin 程式碼編譯為平台特定的二進制檔案，與�
 
 行動應用程式很少是獨立運行的；它們依賴分析工具、支付提供商、驗證 SDK 和裝置功能。請檢查您正在考慮的架構是否針對您所需的服務擁有可靠、維護良好的外掛程式。在某些領域支援不足會導致需要融通方案、脆弱的整合或需要編寫新的原生模組，從而降低跨平台程式設計的優點。
 
-### 評估與原生 API 的互動
+### 評估與原生 API 的互動 {id="evaluate-interaction-with-native-apis"}
 
 並非所有架構都能同樣良好地與原生 API 通訊。有些提供深度且文件齊全的橋接器，以整潔且安全的方式暴露低階功能。其他則顯著依賴第三方外掛程式或需要新的原生模組，這增加了複雜性。
 了解這些整合路徑有多麼無縫、可靠且具適應性是至關重要的。這可以確保未來的功能不會受到架構限制的束縛。
 
 例如，Kotlin Multiplatform 允許團隊在不犧牲原生效能的情況下在平台間共用邏輯。它還允許直接從 Kotlin 無縫存取所有可用的裝置 SDK，而不需要您編寫任何適配器或橋接函式。
 
-### 檢查效能基準測試
+### 檢查效能基準測試 {id="check-performance-benchmarks"}
 
 徹底檢查基準測試資料，特別是冷啟動時間、壓力下的 UI 回應性以及整體的記憶體消耗。有些架構擅長建立簡單的介面，但在處理動畫、手勢或大型資料集時會感到吃力。測試實際的效能指標可以協助您防止應用程式遇到實際裝置和高流量情況時出現意外。
 
@@ -140,18 +140,18 @@ KMP 將共用的 Kotlin 程式碼編譯為平台特定的二進制檔案，與�
 * 捲動效能在高刷新率裝置上也能與 SwiftUI 並駕齊驅。
 * 與具有相同 UI 邏輯和資源的完全原生 SwiftUI 應用程式相比，Compose Multiplatform 僅為 iOS 應用程式的大小增加了約 9 MB。
 
-### 學習曲線
+### 學習曲線 {id="learning-curve"}
 
 評估關於某個架構的可用學習資源的數量和品質。
 例如，Kotlin Multiplatform 開發人員可以使用豐富的教育材料庫——[這裡有一個總覽](kmp-learning-resources.md)。
 
-### 評估擁有成本
+### 評估擁有成本 {id="assess-the-cost-of-ownership"}
 
 除了初始開發外，每個架構都伴隨著隱形成本。人才可用性會影響招聘延遲和薪資。自訂外掛程式可能需要在開發不完善的程式庫中建置和維護。
 
 從選定的架構遷移走可能會具有挑戰性，特別是如果架構決策將您的應用程式與其內部機制綁定在一起。評估整體的生命週期成本使您能夠做出經得起時間考驗且經濟合理的選擇。
 
-### 審查真實案例研究
+### 審查真實案例研究 {id="review-real-world-case-studies"}
 
 案例研究展示了架構在真實世界壓力下如何運作，例如規模化問題、效能瓶頸、團隊程序和意料之外的限制。開發與您類似應用程式的團隊可以提供相關洞察，因此案例研究可以揭示技術文件本身可能無法揭示的模糊領域。它們還能協助您了解技術在擁有大量使用者和開發人員的複雜應用程式中擴展得如何。
 
@@ -165,13 +165,13 @@ KMP 將共用的 Kotlin 程式碼編譯為平台特定的二進制檔案，與�
 
 [![探索真實的 Kotlin Multiplatform 使用案例](kmp-use-cases-1.svg){width="700" style="block"}](https://www.jetbrains.com/help/kotlin-multiplatform-dev/case-studies.html)
 
-### 考慮支援組織以確保長久性
+### 考慮支援組織以確保長久性 {id="consider-the-supporting-organization-to-ensure-longevity"}
 
 架構的長期健康狀況反映了支持它的組織的穩定性。強大的支持通常意指持續的投入、頻繁的修訂以及與產業趨勢的對齊。
 
 潛在架構的藍圖提供了該架構走向的預覽——以及該路徑是否與您的專案演進一致。選擇一個具有長期前景的工具可以防止您的員工依賴過時的技術。
 
-## 結論
+## 結論 {id="conclusion"}
 
 為 iOS 和 Android 進行建置不再需要感覺像是在應付兩個獨立的世界。現代跨平台解決方案讓團隊能夠在保持原生品質的同時，進行協作、專注並移動得更快。無論您是共用一部分功能還是共用所有程式碼，這些工具都提供了各種技術來匹配不同的產品現實和團隊能力。
 

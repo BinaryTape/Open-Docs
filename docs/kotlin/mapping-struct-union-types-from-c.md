@@ -13,7 +13,7 @@
 * [struct 和 union 类型如何映射](#mapping-struct-and-union-c-types)
 * [如何在 Kotlin 中使用 struct 和 union 类型](#use-struct-and-union-types-from-kotlin)
 
-## 映射 C 语言中的 struct 和 union 类型
+## 映射 C 语言中的 struct 和 union 类型 {id="mapping-struct-and-union-c-types"}
 
 为了理解 Kotlin 如何映射 struct 和 union 类型，我们先在 C 中声明它们，并检查它们在 Kotlin 中是如何表示的。
 
@@ -43,7 +43,7 @@ void union_by_pointer(MyUnion* u) {}
 
 `interop.def` 文件提供了在 IDE 中编译、运行或打开应用程序所需的一切。
 
-## 检查为 C 库生成的 Kotlin API
+## 检查为 C 库生成的 Kotlin API {id="inspect-generated-kotlin-apis-for-a-c-library"}
 
 让我们看看 C struct 和 union 类型是如何映射到 Kotlin/Native 的，并更新你的项目：
 
@@ -130,7 +130,7 @@ void union_by_pointer(MyUnion* u) {}
 
 生成的 API 包含 `CValue<T>` 和 `CValuesRef<T>` 的完全限定包名，反映了它们在 `kotlinx.cinterop` 中的位置。`CValue<T>` 表示按值传递的结构体形参，而 `CValuesRef<T>?` 则用于传递指向结构体或 union 的指针。
 
-## 如何在 Kotlin 中使用 struct 和 union 类型
+## 如何在 Kotlin 中使用 struct 和 union 类型 {id="use-struct-and-union-types-from-kotlin"}
 
 得益于生成的 API，在 Kotlin 中使用 C struct 和 union 类型非常直接。唯一的问题是如何创建这些类型的新实例。
 
@@ -138,7 +138,7 @@ void union_by_pointer(MyUnion* u) {}
 
 Kotlin 提供了一个便捷的 API 来创建和使用这些类型。让我们看看如何在实践中使用它。
 
-### 创建 CValue&lt;T&gt;
+### 创建 CValue&lt;T&gt; {id="create-a-cvalue-lt-t-gt"}
 
 `CValue<T>` 类型用于向 C 函数调用传递按值形参。使用 `cValue` 函数来创建 `CValue<T>` 实例。该函数需要一个[带有接收者的 lambda 函数](lambdas.md#function-literals-with-receiver)来原地初始化底层的 C 类型。该函数的声明如下：
 
@@ -171,7 +171,7 @@ fun callValue() {
 }
 ```
 
-### 将 struct 和 union 创建为 CValuesRef&lt;T&gt;
+### 将 struct 和 union 创建为 CValuesRef&lt;T&gt; {id="create-struct-and-union-as-cvaluesref-lt-t-gt"}
 
 在 Kotlin 中，`CValuesRef<T>` 类型用于传递 C 函数的指针类型形参。要在原生内存中分配 `MyStruct` 和 `MyUnion`，请对 `kotlinx.cinterop.NativePlacement` 类型使用以下扩展函数：
 
@@ -219,7 +219,7 @@ fun callRef() {
 
 由于内存是在 `memScoped {}` 块内管理的，它会在块结束时自动释放。避免在此作用域之外使用指针，以防止访问已释放的内存。如果你需要更长周期的分配（例如用于 C 库中的缓存），请考虑使用 `Arena()` 或 `nativeHeap`。
 
-### CValue&lt;T&gt; 与 CValuesRef&lt;T&gt; 之间的转换
+### CValue&lt;T&gt; 与 CValuesRef&lt;T&gt; 之间的转换 {id="conversion-between-cvalue-lt-t-gt-and-cvaluesref-lt-t-gt"}
 
 有时你需要在一次函数调用中将结构体作为值传递，然后在另一次调用中将同一个结构体作为引用传递。
 
@@ -267,7 +267,7 @@ fun callMix_value() {
 }
 ```
 
-## 更新 Kotlin 代码
+## 更新 Kotlin 代码 {id="update-kotlin-code"}
 
 既然你已经学习了如何在 Kotlin 代码中使用 C 声明，请尝试在你的项目中使用它们。`hello.kt` 文件中的最终代码可能如下所示：
 
@@ -312,7 +312,7 @@ fun main() {
 ./gradlew runDebugExecutableMacosArm64
 ```
 
-## 下一步
+## 下一步 {id="next-step"}
 
 在本系列的下一部分中，你将学习如何在 Kotlin 和 C 之间映射函数指针：
 
@@ -325,6 +325,6 @@ fun main() {
   </li>
 </list>
 
-### 另请参阅
+### 另请参阅 {id="see-also"}
 
 在[与 C 互操作](native-c-interop.md)文档中了解更多信息，该文档涵盖了更多高级场景。

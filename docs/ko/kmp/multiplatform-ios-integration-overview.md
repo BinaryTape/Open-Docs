@@ -8,11 +8,11 @@ Kotlin Multiplatform 공유 모듈을 iOS 앱에 통합할 수 있습니다. 이
 
 최종 애플리케이션의 코드베이스를 공유 코드베이스와 명시적으로 분리하려면 원격 통합을 설정하세요. 이 경우 공유 코드는 일반적인 서드파티 의존성처럼 최종 애플리케이션에 통합됩니다.
 
-## 로컬 통합
+## 로컬 통합 {id="local-integration"}
 
 로컬 설정에는 두 가지 주요 통합 옵션이 있습니다. 특별한 스크립트를 통한 직접 통합을 사용하여 Kotlin 빌드를 iOS 빌드의 일부로 만들 수 있습니다. Kotlin Multiplatform 프로젝트에 Pod 의존성이 있는 경우 CocoaPods 통합 방식을 사용하세요.
 
-### 직접 통합
+### 직접 통합 {id="direct-integration"}
 
 Xcode 프로젝트에 특별한 스크립트를 추가하여 Kotlin Multiplatform 프로젝트의 iOS 프레임워크를 직접 연결할 수 있습니다. 이 스크립트는 프로젝트 빌드 설정의 빌드 단계(build phase)에 통합됩니다.
 
@@ -22,7 +22,7 @@ Xcode 프로젝트에 특별한 스크립트를 추가하여 Kotlin Multiplatfor
 
 자세한 내용은 [직접 통합](multiplatform-direct-integration.md)을 참고하세요.
 
-### 로컬 패키지를 사용한 SwiftPM 통합
+### 로컬 패키지를 사용한 SwiftPM 통합 {id="swiftpm-integration-with-a-local-package"}
 
 KMP iOS 프레임워크는 [Swift 패키지 매니저(Swift Package Manager)](https://docs.swift.org/swiftpm/documentation/packagemanagerdocs/)를 통해 로컬 Swift 패키지에 의존할 수 있습니다.
 
@@ -33,7 +33,7 @@ KMP iOS 프레임워크는 [Swift 패키지 매니저(Swift Package Manager)](ht
 
 프로젝트에 로컬 Swift 패키지 의존성을 추가하는 방법은 [Swift 패키지를 의존성으로 추가하기](multiplatform-spm-import.md#importing-local-swift-packages)를 참고하세요.
 
-### 로컬 podspec을 사용한 CocoaPods 통합
+### 로컬 podspec을 사용한 CocoaPods 통합 {id="cocoapods-integration-with-a-local-podspec"}
 
 Swift 및 Objective-C 프로젝트에서 널리 사용되는 의존성 관리자인 [CocoaPods](https://cocoapods.org/)를 통해 Kotlin Multiplatform 프로젝트의 iOS 프레임워크를 연결할 수 있습니다.
 
@@ -44,17 +44,17 @@ Swift 및 Objective-C 프로젝트에서 널리 사용되는 의존성 관리자
 
 로컬 CocoaPods 의존성을 사용하는 워크플로를 설정하려면 [CocoaPods 개요 및 설정](multiplatform-cocoapods-overview.md)을 참고하세요.
 
-## 원격 통합
+## 원격 통합 {id="remote-integration"}
 
 원격 통합의 경우, 프로젝트에서 Swift 패키지 매니저(SwiftPM) 또는 CocoaPods 의존성 관리자를 사용하여 Kotlin Multiplatform 프로젝트의 iOS 프레임워크를 연결할 수 있습니다.
 
-### XCFrameworks를 사용한 SwiftPM
+### XCFrameworks를 사용한 SwiftPM {id="swiftpm-with-xcframeworks"}
 
 XCFramework를 Kotlin Multiplatform 프로젝트에서 내보내거나, 원격 Swift 패키지를 KMP 프로젝트의 의존성으로 임포트할 수 있습니다:
 * XCFramework로 Swift 패키지를 만들고 배포하는 방법에 대한 지침은 [Swift 패키지 내보내기 설정](multiplatform-spm-export.md)을 참고하세요.
 * Swift 패키지를 의존성으로 추가하는 방법은 [Swift PM 임포트 문서](multiplatform-spm-import.md)를 참고하세요.
 
-### XCFrameworks를 사용한 CocoaPods 통합
+### XCFrameworks를 사용한 CocoaPods 통합 {id="cocoapods-integration-with-xcframeworks"}
 
 Kotlin CocoaPods Gradle 플러그인으로 XCFramework를 빌드한 다음, CocoaPods를 통해 프로젝트의 공유 부분을 모바일 앱과 별도로 배포할 수 있습니다.
 

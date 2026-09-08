@@ -22,7 +22,7 @@ Kotlinプロジェクト全体をPodの依存関係として使用できます�
 >
 {style="note"}
 
-## 1つのターゲットを持つXcodeプロジェクト
+## 1つのターゲットを持つXcodeプロジェクト {id="xcode-project-with-one-target"}
 
 1つのターゲットを持つXcodeプロジェクトで、KotlinプロジェクトをPodの依存関係として使用するには：
 
@@ -73,7 +73,7 @@ Kotlinプロジェクト全体をPodの依存関係として使用できます�
 8. `.xcodeproj` を閉じ、代わりに新しい `.xcworkspace` ファイルを開きます。これにより、プロジェクトの依存関係に関する問題を回避できます。
 9. IntelliJ IDEAで **Build** | **Reload All Gradle Projects** を実行します（Android Studioの場合は **File** | **Sync Project with Gradle Files**）。これにより、プロジェクトが再インポートされます。
 
-## 複数のターゲットを持つXcodeプロジェクト
+## 複数のターゲットを持つXcodeプロジェクト {id="xcode-project-with-several-targets"}
 
 複数のターゲットを持つXcodeプロジェクトで、KotlinプロジェクトをPodの依存関係として使用するには：
 
@@ -132,7 +132,7 @@ Kotlinプロジェクト全体をPodの依存関係として使用できます�
 8. `.xcodeproj` を閉じ、代わりに新しい `.xcworkspace` ファイルを開きます。これにより、プロジェクトの依存関係に関する問題を回避できます。
 9. IntelliJ IDEAで **Build** | **Reload All Gradle Projects** を実行します（Android Studioの場合は **File** | **Sync Project with Gradle Files**）。これにより、プロジェクトが再インポートされます。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [KotlinプロジェクトにPodライブラリの依存関係を追加する](multiplatform-cocoapods-libraries.md)
 * [iOSプロジェクトにフレームワークを接続する方法を確認する](multiplatform-direct-integration.md)

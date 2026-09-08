@@ -4,7 +4,7 @@ JavaScript 源代码映射 (source maps) 提供了打包器或压缩器生成的
 
 Kotlin 多平台 Gradle 插件会自动为项目构建生成源代码映射，无需任何额外配置即可使用。
 
-## 在浏览器中调试
+## 在浏览器中调试 {id="debug-in-browser"}
 
 大多数现代浏览器都提供了允许检查页面内容并调试其上运行的代码的工具。有关更多详细信息，请参阅浏览器的文档。
 
@@ -23,7 +23,7 @@ Kotlin 多平台 Gradle 插件会自动为项目构建生成源代码映射，�
 
 您现在可以开始调试程序了。点击其中一个行号即可设置断点。开发人员工具甚至支持在语句内设置断点。与常规 JavaScript 代码一样，设置的任何断点都将在页面重新加载后保持。这也可以调试在首次加载脚本时执行的 Kotlin `main()` 方法。
 
-## 在 IDE 中调试
+## 在 IDE 中调试 {id="debug-in-the-ide"}
 
 [IntelliJ IDEA](https://www.jetbrains.com/idea/) Ultimate 订阅提供了一套强大的工具，用于在开发过程中调试代码。
 
@@ -59,7 +59,7 @@ Kotlin 多平台 Gradle 插件会自动为项目构建生成源代码映射，�
 >
 {style="note"}
 
-## 在 Node.js 中调试
+## 在 Node.js 中调试 {id="debug-in-node-js"}
 
 如果您的项目以 Node.js 为目标，您可以在此运行时中对其进行调试。
 
@@ -69,7 +69,7 @@ Kotlin 多平台 Gradle 插件会自动为项目构建生成源代码映射，�
 2. 在项目目录下的 `build/js/packages/your-module/kotlin/` 目录中找到生成的针对 Node.js 的 `.js` 文件。
 3. 按照 [Node.js 调试指南](https://nodejs.org/en/docs/guides/debugging-getting-started/#jetbrains-webstorm-2017-1-and-other-jetbrains-ides)中的说明在 Node.js 中对其进行调试。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 既然您已经知道如何启动 Kotlin/JS 项目的调试会话，请学习如何高效地使用调试工具：
 
@@ -77,6 +77,6 @@ Kotlin 多平台 Gradle 插件会自动为项目构建生成源代码映射，�
 * 熟悉 [IntelliJ IDEA JavaScript 调试器](https://www.jetbrains.com/help/idea/debugging-javascript-in-chrome.html)
 * 了解如何[在 Node.js 中调试](https://nodejs.org/en/docs/guides/debugging-getting-started/)。
 
-## 如果遇到任何问题
+## 如果遇到任何问题 {id="if-you-run-into-any-problems"}
 
 如果您在调试 Kotlin/JS 时遇到任何问题，请将其报告给我们的问题跟踪器 [YouTrack](https://kotl.in/issue)

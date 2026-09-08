@@ -6,7 +6,7 @@ title: 限定詞
 
 限定詞允許您在 Koin 模組中區分相同型別的多個定義。
 
-## 什麼時候需要限定詞
+## 什麼時候需要限定詞 {id="when-you-need-qualifiers"}
 
 您在以下情況需要限定詞：
 - 您有同一個介面的多種實作
@@ -21,11 +21,11 @@ val networkModule = module {
 }
 ```
 
-## 具名限定詞 (Named Qualifiers)
+## 具名限定詞 (Named Qualifiers) {id="named-qualifiers"}
 
 使用 `named()` 來區分定義：
 
-### 定義
+### 定義 {id="defining"}
 
 ```kotlin
 import org.koin.core.qualifier.named
@@ -45,7 +45,7 @@ val networkModule = module {
 }
 ```
 
-### 注入
+### 注入 {id="injecting"}
 
 ```kotlin
 // 在模組定義中
@@ -64,7 +64,7 @@ class MyService : KoinComponent {
 }
 ```
 
-### 搭配註解
+### 搭配註解 {id="with-annotations"}
 
 ```kotlin
 import org.koin.core.annotation.Named
@@ -89,9 +89,9 @@ class ApiService(
 對於編譯器外掛程式 DSL 和經典 DSL 自動裝配 (`singleOf`、`factoryOf`)，限定詞無法自動解析。當定義需要限定詞時，請使用搭配 Lambda 的經典 DSL 或註解。
 :::
 
-## 型別安全限定詞
+## 型別安全限定詞 {id="type-safe-qualifiers"}
 
-### 使用型別
+### 使用型別 {id="using-types"}
 
 將任何型別搭配 `named<T>()` 作為限定詞使用：
 
@@ -118,7 +118,7 @@ val networkModule = module {
 val client: OkHttpClient = get(named<EncryptedClient>())
 ```
 
-### 使用列舉 (Enums)
+### 使用列舉 (Enums) {id="using-enums"}
 
 為了獲得更好的 IDE 支援，請使用列舉：
 
@@ -152,7 +152,7 @@ val client: OkHttpClient = get(named(NetworkClient.ENCRYPTED))
 - 沒有字串拼寫錯誤
 - IDE 自動補全與重構支援
 
-## JSR-330 @Qualifier
+## JSR-330 @Qualifier {id="jsr-330-qualifier"}
 
 Koin 支援標準的 JSR-330 `@Qualifier` 註解：
 
@@ -179,9 +179,9 @@ class MyRepository(
 )
 ```
 
-## 常見使用案例
+## 常見使用案例 {id="common-use-cases"}
 
-### 多個 API 版本
+### 多個 API 版本 {id="multiple-api-versions"}
 
 ```kotlin
 val networkModule = module {
@@ -199,7 +199,7 @@ val networkModule = module {
 }
 ```
 
-### 不同的超時配置
+### 不同的超時配置 {id="different-timeout-configurations"}
 
 ```kotlin
 val networkModule = module {
@@ -217,7 +217,7 @@ val networkModule = module {
 }
 ```
 
-### 環境配置
+### 環境配置 {id="environment-configurations"}
 
 ```kotlin
 val configModule = module {
@@ -236,9 +236,9 @@ val configModule = module {
 }
 ```
 
-## 最佳實務
+## 最佳實務 {id="best-practices"}
 
-### 1. 謹慎使用限定詞
+### 1. 謹慎使用限定詞 {id="1-use-qualifiers-sparingly"}
 
 ```kotlin
 // 佳 - 僅在必要時使用限定詞
@@ -255,7 +255,7 @@ val appModule = module {
 }
 ```
 
-### 2. 優先考慮型別區分
+### 2. 優先考慮型別區分 {id="2-prefer-type-differentiation"}
 
 ```kotlin
 // 較佳 - 使用不同的型別
@@ -271,7 +271,7 @@ val networkModule = module {
 }
 ```
 
-### 3. 避免限定詞鏈
+### 3. 避免限定詞鏈 {id="3-avoid-qualifier-chains"}
 
 ```kotlin
 // 差 - 複雜的限定詞相依性
@@ -289,7 +289,7 @@ val goodModule = module {
 }
 ```
 
-### 4. 為限定詞編寫文件
+### 4. 為限定詞編寫文件 {id="4-document-qualifiers"}
 
 ```kotlin
 val networkModule = module {
@@ -301,9 +301,9 @@ val networkModule = module {
 }
 ```
 
-## 命名慣例
+## 命名慣例 {id="naming-conventions"}
 
-### 基於字串
+### 基於字串 {id="string-based"}
 
 ```kotlin
 // 佳 - 具描述性，小寫並使用底線
@@ -315,7 +315,7 @@ single(named("api_v2")) { ... }
 single(named("client1")) { ... }  // "1" 代表什麼意思？
 ```
 
-### 基於列舉 (Enum-Based)
+### 基於列舉 (Enum-Based) {id="enum-based"}
 
 ```kotlin
 // 佳 - 清晰的列舉名稱
@@ -330,9 +330,9 @@ enum class ApiVersion {
 }
 ```
 
-## 常見陷阱
+## 常見陷阱 {id="common-pitfalls"}
 
-### 注入時忘記限定詞
+### 注入時忘記限定詞 {id="forgetting-qualifiers-on-injection"}
 
 ```kotlin
 val module = module {
@@ -347,7 +347,7 @@ val repoModule = module {
 }
 ```
 
-### 限定詞名稱不符
+### 限定詞名稱不符 {id="mismatched-qualifier-names"}
 
 ```kotlin
 val module = module {
@@ -365,7 +365,7 @@ val repoModule = module {
 
 請使用列舉限定詞來避免拼寫錯誤！
 
-## 後續步驟
+## 後續步驟 {id="next-steps"}
 
 - **[定義](/docs/reference/koin-core/definitions)** - 定義型別與繫結
 - **[模組](/docs/reference/koin-core/modules)** - 模組組織

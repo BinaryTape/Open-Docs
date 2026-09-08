@@ -17,9 +17,9 @@ class OrdersList: IndexedContainer {
 }
 ```
 
-## 一元運算
+## 一元運算 {id="unary-operations"}
 
-### 一元前置運算子
+### 一元前置運算子 {id="unary-prefix-operators"}
 
 | 運算式 | 轉換為 |
 |------------|------------------|
@@ -53,7 +53,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-### 遞增與遞減
+### 遞增與遞減 {id="increments-and-decrements"}
 
 | 運算式 | 轉換為 |
 |------------|-----------------------|
@@ -81,9 +81,9 @@ fun main() {
 * 將 `a.inc()` 的結果指派給 `a`。
 * 傳回 `a` 的新值作為運算式的結果。
 
-## 二元運算
+## 二元運算 {id="binary-operations"}
 
-### 算術運算子 
+### 算術運算子 {id="arithmetic-operators"}
 
 | 運算式 | 轉換為 |
 |------------|-------------------|
@@ -107,7 +107,7 @@ data class Counter(val dayIndex: Int) {
 }
 ```
 
-### in 運算子
+### in 運算子 {id="in-operator"}
 
 | 運算式 | 轉換為 |
 |------------|------------------|
@@ -116,7 +116,7 @@ data class Counter(val dayIndex: Int) {
 
 對於 `in` 和 `!in`，程序相同，但引數的順序是反過來的。
 
-### 索引存取運算子
+### 索引存取運算子 {id="indexed-access-operator"}
 
 | 運算式 | 轉換為 |
 |-------------------------|---------------------------|
@@ -129,7 +129,7 @@ data class Counter(val dayIndex: Int) {
 
 方括號會轉換為帶有相應數量引數的 `get` 和 `set` 呼叫。
 
-### invoke 運算子
+### invoke 運算子 {id="invoke-operator"}
 
 | 運算式 | 轉換為 |
 |---------------------|----------------------------|
@@ -140,7 +140,7 @@ data class Counter(val dayIndex: Int) {
 
 圓括號會轉換為帶有相應數量引數的 `invoke` 呼叫。
 
-### 複合指派
+### 複合指派 {id="augmented-assignments"}
 
 | 運算式 | 轉換為 |
 |------------|--------------------|
@@ -162,7 +162,7 @@ data class Counter(val dayIndex: Int) {
 >
 {style="note"}
 
-### 相等與不等運算子
+### 相等與不等運算子 {id="equality-and-inequality-operators"}
 
 | 運算式 | 轉換為 |
 |------------|-----------------------------------|
@@ -177,7 +177,7 @@ data class Counter(val dayIndex: Int) {
 >
 {style="note"}
 
-### 比較運算子
+### 比較運算子 {id="comparison-operators"}
 
 | 運算式 | 轉換為 |
 |------------|-----------------------|
@@ -188,10 +188,10 @@ data class Counter(val dayIndex: Int) {
 
 所有比較都會轉換為對 `compareTo` 的呼叫，該函數必須回傳 `Int`。
 
-### 屬性委託運算子
+### 屬性委託運算子 {id="property-delegation-operators"}
 
 `provideDelegate`、`getValue` 和 `setValue` 運算子函數在[委託屬性](delegated-properties.md)中有所描述。
 
-## 具名函數的中置呼叫
+## 具名函數的中置呼叫 {id="infix-calls-for-named-functions"}
 
 你可以透過使用[中置函數呼叫](functions.md#infix-notation)來模擬自訂的中置運算。

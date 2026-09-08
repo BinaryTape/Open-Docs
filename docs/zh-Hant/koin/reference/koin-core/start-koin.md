@@ -4,7 +4,7 @@ title: 啟動 Koin 參考
 
 啟動 Koin 的快速參考。如需詳細指南，請參閱 **[核心 - 啟動 Koin](/docs/reference/koin-core/starting-koin)**。
 
-## 啟動方法
+## 啟動方法 {id="starting-methods"}
 
 | 方法 | 使用案例 |
 |--------|----------|
@@ -13,7 +13,7 @@ title: 啟動 Koin 參考
 | `koinConfiguration { }` | 用於 Compose、Ktor 的配置 |
 | `startKoin<T>()` | 使用編譯器外掛程式的強型別啟動 |
 
-## 基本啟動
+## 基本啟動 {id="basic-startup"}
 
 ```kotlin
 startKoin {
@@ -21,7 +21,7 @@ startKoin {
 }
 ```
 
-## 完整配置
+## 完整配置 {id="complete-configuration"}
 
 ```kotlin
 startKoin {
@@ -36,7 +36,7 @@ startKoin {
 }
 ```
 
-## 配置選項
+## 配置選項 {id="configuration-options"}
 
 | 選項 | 說明 |
 |--------|-------------|
@@ -49,7 +49,7 @@ startKoin {
 | `createEagerInstances()` | 建立所有 `createdAtStart` 單例執行個體 |
 | `allowOverride()` | 啟用/停用定義覆寫 |
 
-## 強型別啟動（編譯器外掛程式）
+## 強型別啟動（編譯器外掛程式） {id="typed-startup-compiler-plugin"}
 
 需要 [Koin 編譯器外掛程式](/docs/setup/compiler-plugin) 與 `@KoinApplication`：
 
@@ -66,7 +66,7 @@ startKoin<MyApp> {
 }
 ```
 
-## 動態模組管理
+## 動態模組管理 {id="dynamic-module-management"}
 
 ```kotlin
 // 啟動後載入
@@ -76,7 +76,7 @@ loadKoinModules(featureModule)
 unloadKoinModules(featureModule)
 ```
 
-## 停止 Koin
+## 停止 Koin {id="stopping-koin"}
 
 ```kotlin
 stopKoin()  // 全域執行個體
@@ -85,7 +85,7 @@ stopKoin()  // 全域執行個體
 koinApp.close()
 ```
 
-## 記錄
+## 記錄 {id="logging"}
 
 | Logger | 平台 | 說明 |
 |--------|----------|-------------|
@@ -100,7 +100,7 @@ startKoin {
 }
 ```
 
-## 屬性
+## 屬性 {id="properties"}
 
 ```kotlin
 startKoin {
@@ -115,9 +115,9 @@ single {
 }
 ```
 
-## 平台範例
+## 平台範例 {id="platform-examples"}
 
-### Android
+### Android {id="android"}
 
 ```kotlin
 class MainApplication : Application() {
@@ -132,7 +132,7 @@ class MainApplication : Application() {
 }
 ```
 
-### Compose
+### Compose {id="compose"}
 
 ```kotlin
 @Composable
@@ -145,7 +145,7 @@ fun App() {
 }
 ```
 
-### Ktor
+### Ktor {id="ktor"}
 
 ```kotlin
 fun Application.module() {
@@ -156,7 +156,7 @@ fun Application.module() {
 }
 ```
 
-## 另請參閱
+## 另請參閱 {id="see-also"}
 
 - **[核心 - 啟動 Koin](/docs/reference/koin-core/starting-koin)** - 完整指南
 - **[延遲模組](/docs/reference/koin-core/lazy-modules)** - 背景載入

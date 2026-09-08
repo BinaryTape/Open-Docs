@@ -16,7 +16,7 @@ Dokka 的 Javadoc 輸出格式在外觀上與 Java 的 [Javadoc HTML 格式](htt
 
 Javadoc 輸出格式是以 [Dokka 外掛程式](dokka-plugins.md) 的形式實作，並由 Dokka 團隊維護。它是開源的，您可以在 [GitHub](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/dokka-subprojects/plugin-javadoc) 上找到原始碼。
 
-## 產生 Javadoc 文件
+## 產生 Javadoc 文件 {id="generate-javadoc-documentation"}
 
 > Dokka 不支援多專案組建或 Kotlin Multiplatform 專案的 Javadoc 格式。
 >

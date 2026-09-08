@@ -8,7 +8,7 @@ Android、iOS、桌面 (desktop) 和 Web。
 >
 {style="tip"}
 
-## 主要變更
+## 主要變更 {id="key-changes"}
 
 Navigation 3 不僅僅是程式庫的新版本 —— 在許多方面，它完全是一個新的程式庫。
 若要進一步了解這次重新設計背後的理念，請參閱 [Android 開發者部落格文章](https://android-developers.googleblog.com/2025/05/announcing-jetpack-navigation-3-for-compose.html)。
@@ -21,7 +21,7 @@ Navigation 3 的主要變更包括：
 
 在 [Android 文件](https://developer.android.com/guide/navigation/navigation-3)中進一步了解 Navigation 3 的一般設計。
 
-## 相依性設定
+## 相依性設定 {id="dependencies-setup"}
 
 若要嘗試 Navigation 3 的多平台實作，請將以下相依性新增至您的版本目錄：
 
@@ -62,7 +62,7 @@ navigation3-browser = { module = "com.github.terrakok:navigation3-browser", vers
 瀏覽器歷程導覽預計將在未來版本的基礎多平台 Navigation 3 程式庫中支援。
 請在 [CMP-8924](https://youtrack.jetbrains.com/projects/CMP/issues/CMP-8924/Integrate-Browser-History-with-Nav3) 中追蹤進度。
 
-## 多平台支援
+## 多平台支援 {id="multiplatform-support"}
 
 Navigation 3 與 Compose 緊密結合，允許 Android 導覽實作在通用 Compose Multiplatform 程式碼中以最小的變動運作。
 為了支援 Web 和 iOS 等非 JVM 平台，您唯一需要做的就是實作[目的地金鑰的多型序列化](#polymorphic-serialization-for-destination-keys)。 
@@ -71,7 +71,7 @@ Navigation 3 與 Compose 緊密結合，允許 Android 導覽實作在通用 Com
 * [包含 Navigation 3 技巧的原始 Android 存儲庫](https://github.com/android/nav3-recipes)
 * [包含大部分相同技巧的 Compose Multiplatform 專案](https://github.com/terrakok/nav3-recipes)
 
-### 目的地金鑰的多型序列化
+### 目的地金鑰的多型序列化 {id="polymorphic-serialization-for-destination-keys"}
 
 在 Android 上，Navigation 3 依賴基於反射的序列化，這在針對 iOS 等非 JVM 平台時是不可用的。
 為了處理此限制，程式庫為 `rememberNavBackStack()` 函式提供了兩個多載：
@@ -110,11 +110,11 @@ fun BasicDslActivity() {
 }
 ```
 
-### 建議的序列化方法
+### 建議的序列化方法 {id="recommended-serialization-approaches"}
 
 在實作多平台導覽時，您需要選擇如何組織和序列化您的路由定義。根據您專案的複雜程度和模組化程度，請使用以下三種模式之一。
 
-#### 使用密封型別的單一模組
+#### 使用密封型別的單一模組 {id="single-module-with-sealed-type"}
 
 對於所有路由都存在於單一模組的小型專案，請使用 `sealed interface`。這是最直接的方法，因為 Kotlin 序列化會自動處理階層結構：
 
@@ -148,7 +148,7 @@ private val config = SavedStateConfiguration {
 val backStack = rememberNavBackStack(config, RouteA)
 ```
 
-#### 包含聚合密封型別的多模組
+#### 包含聚合密封型別的多模組 {id="multi-module-with-aggregated-sealed-types"}
 
 對於路由定義在多個模組中的更複雜專案，您可以為每個模組定義一個密封型別。然後，在 `app` 模組中使用 `subclassesOfSealed()` 函式聚合它們的序列化器。
 
@@ -177,7 +177,7 @@ val backStack = rememberNavBackStack(config, RouteA1)
 
 透過相依注入 (DI)，您還可以動態使用 DI 容器將每個模組的密封型別序列化器收集到 `Set<KSerializer>` 中。
 
-#### 包含個別路由註冊的多模組
+#### 包含個別路由註冊的多模組 {id="multi-module-with-individual-route-registration"}
 
 如果您的路由無法分組為密封型別，您可以手動組合來自不同模組的 `SerializersModule` 執行個體。
 
@@ -213,7 +213,7 @@ val backStack = rememberNavBackStack(config, RouteA1)
 
 這種方法提供了高度的靈活性和解耦，儘管它需要更多的手動維護。與[包含聚合密封型別的多模組](#multi-module-with-aggregated-sealed-types)方法類似，您可以使用 DI 動態組合序列化器清單，這可以提高靈活性。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 Android 開發者入口網站對 Navigation 3 進行了深入探討。雖然部分文件使用了 Android 特定的範例，但核心概念和導覽原則在所有平台上都保持一致：
 

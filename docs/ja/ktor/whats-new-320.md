@@ -11,9 +11,9 @@ _[リリース日: 2025年6月12日](releases.md#release-details)_
 * [第一級の HTMX サポート](#htmx-integration)
 * [suspend 可能なモジュール関数](#suspendable-module-functions)
 
-## Ktor Server
+## Ktor Server {id="ktor-server"}
 
-### suspend 可能なモジュール関数
+### suspend 可能なモジュール関数 {id="suspendable-module-functions"}
 
 Ktor 3.2.0 より、[アプリケーションモジュール](server-modules.md)で suspend 関数がサポートされました。
 
@@ -39,7 +39,7 @@ suspend fun Application.installEvents() {
 }
 ```
 
-#### モジュールの並行読み込み
+#### モジュールの並行読み込み {id="concurrent-module-loading"}
 
 `ktor.application.startup = concurrent` という Gradle プロパティを追加することで、モジュールの並行読み込みを選択することもできます。
 これにより、すべてのアプリケーションモジュールが独立して起動するため、1 つのモジュールが中断（suspend）しても、他のモジュールはブロックされません。
@@ -47,7 +47,7 @@ suspend fun Application.installEvents() {
 
 詳細については、[並行モジュール](server-modules.md#concurrent-modules)を参照してください。
 
-### 設定ファイルのデシリアライズ
+### 設定ファイルのデシリアライズ {id="configuration-file-deserialization"}
 
 Ktor 3.2.0 では、`Application` クラスの新しい `.property()` 拡張関数による型指定された設定の読み込みが導入されました。構造化された設定セクションを Kotlin のデータクラスに直接デシリアライズできるようになりました。
 
@@ -71,7 +71,7 @@ database:
 
 この機能は HOCON と YAML の両方の設定フォーマットをサポートしており、デシリアライズには `kotlinx.serialization` を使用します。
 
-### `ApplicationTestBuilder` の `client` が構成可能に
+### `ApplicationTestBuilder` の `client` が構成可能に {id="applicationtestbuilder-has-a-configurable-client"}
 
 Ktor 3.2.0 より、`ApplicationTestBuilder` クラスの `client` プロパティが可変（mutable）になりました。以前は読み取り専用でした。
 この変更により、独自のテストクライアントを構成し、`ApplicationTestBuilder` クラスが利用可能な場所であればどこでも再利用できるようになります。例えば、拡張関数内からクライアントにアクセスできます：
@@ -105,7 +105,7 @@ private fun ApplicationTestBuilder.auth(token: AuthToken) {
 }
 ```
 
-### 依存性の注入 (DI)
+### 依存性の注入 (DI) {id="dependency-injection"}
 
 Ktor 3.2.0 では依存性の注入（DI）のサポートが導入され、設定ファイルやアプリケーションコードから直接、依存関係の管理と接続が容易になりました。新しい DI プラグインは、依存関係の解決を簡素化し、非同期読み込みをサポートし、自動クリーンアップを提供し、テストとスムーズに統合されます。
 
@@ -125,7 +125,7 @@ DI を使用するには、ビルドスクリプトに `%artifact_name%` アー�
     </TabItem>
 </Tabs>
 
-#### 基本的な依存関係の登録
+#### 基本的な依存関係の登録 {id="basic-dependency-registration"}
 
 ラムダ、関数参照、またはコンストラクタ参照を使用して依存関係を登録できます：
 
@@ -144,7 +144,7 @@ dependencies {
 }
 ```
 
-#### 設定ベースの依存関係の登録
+#### 設定ベースの依存関係の登録 {id="configuration-based-dependency-registration"}
 
 設定ファイル内のクラスパス参照を使用して、宣言的に依存関係を構成できます。これは関数参照とクラス参照の両方をサポートしています：
 
@@ -171,9 +171,9 @@ class UserRepository(val db: Database) {
 
 引数は `@Property` や `@Named` などのアノテーションを通じて自動的に解決されます。
 
-#### 依存関係の解決と注入
+#### 依存関係の解決と注入 {id="dependency-resolution-and-injection"}
 
-##### 依存関係の解決
+##### 依存関係の解決 {id="resolving-dependencies"}
 
 依存関係を解決するには、プロパティ委譲または直接解決を使用できます：
 
@@ -185,7 +185,7 @@ val service: GreetingService by dependencies
 val service = dependencies.resolve<GreetingService>()
 ```
 
-##### 非同期の依存関係解決
+##### 非同期の依存関係解決 {id="asynchronous-dependency-resolution"}
 
 非同期読み込みをサポートするために、サスペンド関数を使用できます：
 
@@ -203,7 +203,7 @@ suspend fun Application.loadEventsConnection() {
 
 DI プラグインは、すべての依存関係が準備できるまで `resolve()` 呼び出しを自動的にサスペンドします。
 
-##### アプリケーションモジュールへの注入
+##### アプリケーションモジュールへの注入 {id="injecting-into-application-modules"}
 
 モジュールパラメータを指定することで、アプリケーションモジュールに依存関係を直接注入できます。Ktor は DI コンテナからそれらを解決します：
 
@@ -232,7 +232,7 @@ fun Application.userRepository(@Named("mongo") database: Database) {
 }
 ```
 
-##### プロパティと設定の注入
+##### プロパティと設定の注入 {id="property-and-configuration-injection"}
 
 `@Property` を使用して、設定値を直接注入します：
 
@@ -251,7 +251,7 @@ val connection: Connection = application.property("connection")
 
 詳細および高度な使用法については、[依存性の注入](server-dependency-injection.md)を参照してください。
 
-### `testApplication` 内でのアプリケーションインスタンスへのアクセス
+### `testApplication` 内でのアプリケーションインスタンスへのアクセス {id="access-the-application-instance-in-testapplication"}
 
 `ApplicationTestBuilder.application` プロパティを使用して、`testApplication {}` ブロックから実行中の `Application` インスタンスに直接アクセスできるようになりました。
 
@@ -295,9 +295,9 @@ ktor {
 }
 ```
 
-## Ktor Client
+## Ktor Client {id="ktor-client"}
 
-### `SaveBodyPlugin` と `HttpRequestBuilder.skipSavingBody()` が非推奨に
+### `SaveBodyPlugin` と `HttpRequestBuilder.skipSavingBody()` が非推奨に {id="savebodyplugin-and-httprequestbuilder-skipsavingbody-are-deprecated"}
 
 Ktor 3.2.0 より前は、`SaveBodyPlugin` がデフォルトでインストールされていました。これはレスポンスボディ全体をメモリにキャッシュし、複数回のアクセスを可能にしていました。レスポンスボディを保存しないようにするには、プラグインを明示的に無効にする必要がありました。
 
@@ -323,7 +323,7 @@ client.prepareGet("/some-file").execute { response ->
 
 このアプローチではレスポンスを直接ストリーミングし、ボディがメモリに保存されるのを防ぎます。
 
-### `.wrapWithContent()` および `.wrap()` 拡張関数が非推奨に
+### `.wrapWithContent()` および `.wrap()` 拡張関数が非推奨に {id="the-wrapwithcontent-and-wrap-extension-functions-are-deprecated"}
 
 Ktor 3.2.0 では、新しい `.replaceResponse()` 関数の導入に伴い、[`.wrapWithContent()`](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins.observer/wrap-with-content.html) および [`.wrap()`](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins.observer/wrap.html) 拡張関数が非推奨となりました。
 
@@ -353,7 +353,7 @@ call.replaceResponse {
 }
 ```
 
-### 解決された IP アドレスへのアクセス
+### 解決された IP アドレスへのアクセス {id="access-resolved-ip-address"}
 
 `io.ktor.network.sockets.InetSocketAddress` インスタンスで新しい `.resolveAddress()` 関数を使用できるようになりました。
 この関数を使用すると、関連付けられたホストの解決済み生の IP アドレスを取得できます：
@@ -367,7 +367,7 @@ val rawAddress = address.resolveAddress()
 返される `ByteArray` のサイズは IP バージョンによって異なります。IPv4 アドレスの場合は 4 バイト、IPv6 アドレスの場合は 16 バイトになります。
 JS および Wasm プラットフォームでは、`.resolveAddress()` は常に `null` を返します。
 
-### HTTP キャッシュのクリア
+### HTTP キャッシュのクリア {id="http-cache-clearing"}
 
 必要に応じてキャッシュされた HTTP レスポンスをクリアするために、[`CacheStorage`](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins.cache.storage/-cache-storage/index.html) の新しいメソッドを使用できるようになりました。
 
@@ -376,9 +376,9 @@ JS および Wasm プラットフォームでは、`.resolveAddress()` は常に
 
 これらのメソッドにより、キャッシュの無効化や、古くなったレスポンスまたは特定のキャッシュされたレスポンスの管理をより詳細に制御できるようになります。
 
-## Shared
+## Shared {id="shared"}
 
-### HTMX 統合
+### HTMX 統合 {id="htmx-integration"}
 
 Ktor 3.2.0 では、`hx-get` や `hx-swap` などの HTML 属性を介して動的なインタラクションを可能にするモダンな JavaScript ライブラリである [HTMX](https://htmx.org/) の実験的サポートが導入されました。Ktor の HTMX 統合は以下を提供します：
 
@@ -397,7 +397,7 @@ Ktor の HTMX サポートは、以下の 3 つの実験的モジュールで利
 すべての API は `@ExperimentalKtorApi` でマークされており、`@OptIn(ExperimentalKtorApi::class)` によるオプトインが必要です。
 詳細については、[HTMX 統合](htmx-integration.md)を参照してください。
 
-### Unix ドメインソケット
+### Unix ドメインソケット {id="unix-domain-sockets"}
 
 3.2.0 では、Unix ドメインソケットに接続するように Ktor クライアントを設定したり、そのようなソケットをリッスンするように Ktor サーバーを設定したりできます。
 現在、Unix ドメインソケットは CIO エンジンでのみサポートされています。
@@ -428,7 +428,7 @@ val response: HttpResponse = client.get("/") {
 
 [デフォルトリクエスト](client-default-request.md#unix-domain-sockets)で Unix ドメインソケットを使用することもできます。
 
-### ヘッダーとパラメータ構築のための新しい `.appendAll()` オーバーロード
+### ヘッダーとパラメータ構築のための新しい `.appendAll()` オーバーロード {id="new-appendall-overloads-for-building-headers-and-parameters"}
 
 [`StringValuesBuilder.appendAll()`](https://api.ktor.io/ktor-utils/io.ktor.util/append-all.html) 関数に、`Map` または `vararg Pair` を受け取る新しいオーバーロードが追加されました。これにより、1 回の呼び出しで複数の値を追加でき、ヘッダー、URL パラメータ、その他の `StringValues` ベースのコレクションの構築が簡素化されます。
 
@@ -446,9 +446,9 @@ val headers = buildHeaders {
 }
 ```
 
-## インフラストラクチャ
+## インフラストラクチャ {id="infrastructure"}
 
-### 公開されたバージョンカタログ
+### 公開されたバージョンカタログ {id="published-version-catalog"}
 
 このリリースにより、公式に[公開されたバージョンカタログ](server-dependencies.topic#using-version-catalog)を使用して、すべての Ktor 依存関係を単一のソースから管理できるようになりました。これにより、依存関係で Ktor のバージョンを手動で宣言する必要がなくなります。
 
@@ -481,9 +481,9 @@ dependencies {
 </TabItem>
 </Tabs>
 
-## Gradle プラグイン
+## Gradle プラグイン {id="gradle-plugin"}
 
-### 開発モードの有効化
+### 開発モードの有効化 {id="enabling-development-mode"}
 
 Ktor 3.2.0 では、開発モードの有効化が簡素化されました。以前は、開発モードを有効にするには `application` ブロックで明示的な構成が必要でした。現在は、`ktor.development` プロパティを使用して、動的または明示的に有効にできます：
 

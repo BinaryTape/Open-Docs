@@ -9,7 +9,7 @@
 
 <a as="button" href="https://klibs.io" mode="classic" icon="arrow-right" icon-position="right">瀏覽多平台程式庫</a>
 
-## AI 工作流中的 klibs.io
+## AI 工作流中的 klibs.io {id="klibs-io-in-your-ai-workflow"}
 
 透過提供的 MCP 介面和現成的代理指令，將 klibs.io 整合到你的 AI 工作流中：
 
@@ -34,7 +34,7 @@
     * 可比較的替代方案。
     ```
   
-## 請參閱
+## 請參閱 {id="see-also"}
 
 請參閱 [klibs.io 常見問題](https://klibs.io/faq)以獲取更多資訊：
 * 程式庫如何被索引和排名，

@@ -46,11 +46,11 @@ routing {
 > 
 {style="tip"}
 
-### 接続の詳細
+### 接続の詳細 {id="connection-details"}
 
 ホスト名、ポート、スキームなどの接続の詳細にアクセスするには、[`ApplicationRequest.local`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/-application-request/local.html)プロパティを使用します。
 
-### `X-Forwarded-` ヘッダー
+### `X-Forwarded-` ヘッダー {id="x-forwarded-headers"}
 
 HTTPプロキシまたはロードバランサーを経由したリクエストに関する情報を取得するには、[Forwarded headers](server-forward-headers.md)プラグインをインストールし、[`ApplicationRequest.origin`](https://api.ktor.io/ktor-server-core/io.ktor.server.plugins/origin.html)プロパティを使用します。
 
@@ -84,7 +84,7 @@ get("/products") {
 
 また、[`ApplicationRequest.queryString()`](https://api.ktor.io/ktor-server-core/io.ktor.server.request/query-string.html)関数を使用してクエリ文字列全体を取得することもできます。
 
-## 必須のリクエストパラメータ
+## 必須のリクエストパラメータ {id="required-request-parameters"}
 
 リクエストを処理する際、[パスパラメータ](#path_parameters)、[クエリパラメータ](#query_parameters)、[ヘッダー](#headers)、または[Cookie](#cookies)から値を取得し、リクエスト処理を続行する前にそれらが存在することを確認するのが一般的です。
 
@@ -255,7 +255,7 @@ fun Application.main() {
 }
 ```
 
-#### デフォルトのファイルサイズ制限
+#### デフォルトのファイルサイズ制限 {id="default-file-size-limit"}
 
 デフォルトでは、受信可能なバイナリおよびファイル項目の許容サイズは50MiBに制限されています。受信したファイルまたはバイナリ項目が50MiBの制限を超えると、`IOException`がスローされます。
 
@@ -267,7 +267,7 @@ val multipartData = call.receiveMultipart(formFieldLimit = 1024 * 1024 * 100)
 
 この例では、新しい制限が100MiBに設定されています。
 
-#### フォームフィールド
+#### フォームフィールド {id="form-fields"}
 
 `PartData.FormItem`はフォームフィールドを表し、その値は`value`プロパティを介してアクセスできます。
 
@@ -279,7 +279,7 @@ when (part) {
 }
 ```
 
-#### ファイルアップロード
+#### ファイルアップロード {id="file-uploads"}
 
 `PartData.FileItem`はファイル項目を表します。ファイルアップロードをバイトストリームとして処理できます。
 
@@ -304,7 +304,7 @@ post("/upload") {
 }
 ```
 
-#### リソースのクリーンアップ
+#### リソースのクリーンアップ {id="resource-cleanup"}
 
 フォームの処理が完了したら、リソースを解放するために`.dispose()`関数を使用して各パートを破棄します。
 

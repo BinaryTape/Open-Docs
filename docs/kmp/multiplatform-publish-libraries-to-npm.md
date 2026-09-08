@@ -13,25 +13,25 @@
 
 在本教程中，我们使用 GitHub 托管项目，并利用 GitHub Actions 运行 CI。
 
-## 示例库
+## 示例库 {id="sample-library"}
 
 您可以参考 [示例库项目](https://github.com/Kotlin/kotlin-multiplatform-web-library) 来跟随教程并查看运行配置。
 
 如果您复用这些代码，请确保**将所有示例值替换**为您项目的具体值。
 
-## 准备帐号和凭据
+## 准备帐号和凭据 {id="prepare-accounts-and-credentials"}
 
 要发布到 npm，您需要[在 npm 门户登录](https://www.npmjs.com/login)。
 
 在本教程中，您将需要一个组织和访问令牌来配置手动发布。
 
-### 创建一个简单的组织
+### 创建一个简单的组织 {id="create-a-simple-organization"}
 
 在本教程中，我们将库发布在 npm 组织下，以避免命名冲突。
 
 要创建新组织，请参考 [npm 文档](https://docs.npmjs.com/creating-an-organization)。
 
-### 生成访问令牌
+### 生成访问令牌 {id="generate-an-access-token"}
 
 要手动发布到 npm，您需要一个访问令牌，该令牌允许在您新创建的组织下发布软件包。
 要生成此类令牌，请参考 [npm 指南](https://docs.npmjs.com/creating-and-viewing-access-tokens)。
@@ -40,7 +40,7 @@
 * 启用 **Bypass two-factor authentication (2FA)**（绕过双重身份验证）选项。
 * 将令牌的常规权限和组织权限都设置为 **Read and write**（读写）。
 
-## 配置库项目
+## 配置库项目 {id="configure-the-library-project"}
 
 如果您使用[示例项目](https://github.com/Kotlin/kotlin-multiplatform-web-library)，
 请在发布前更新默认名称。
@@ -51,7 +51,7 @@
 
 设置好名称后，请按照以下步骤设置发布。
 
-### 设置发布插件
+### 设置发布插件 {id="set-up-the-publishing-plugin"}
 
 本教程使用官方的 [npm-publish 插件](https://github.com/Kotlin/npm-publish) 来辅助发布到 npm。
 要详细了解该插件和可用的配置选项，请参阅[插件文档](https://npm-publish.petuska.dev)。
@@ -137,7 +137,7 @@
   * 可以省略 `packageName` 参数，以使用模块名称作为默认值。
 * `packageJson {}` 代码块包含各种元数据。
 
-## 手动发布
+## 手动发布 {id="publish-manually"}
 
 当您仍在尝试项目结构，或者想要自己实现发布自动化时，手动发布非常有用。
 
@@ -153,7 +153,7 @@ NPM_TOKEN=YOUR_ACCESS_TOKEN ./gradlew :shared:publishJsPackageToNpmjsRegistry
 
 ![在 npm 上发布的库](published-on-npm.png){width=700}
 
-### 故障排除
+### 故障排除 {id="troubleshooting"}
 
 手动发布过程中经常会出现的几点问题：
 
@@ -161,14 +161,14 @@ NPM_TOKEN=YOUR_ACCESS_TOKEN ./gradlew :shared:publishJsPackageToNpmjsRegistry
   如果软件包已使用相同或更早的版本发布过，npm 将发布失败。
 * 为限定组织作用域的软件包生成令牌时，请确保同时设置了常规权限**和**组织权限。
 
-## 使用持续集成 (CI) 发布
+## 使用持续集成 (CI) 发布 {id="publish-using-continuous-integration-ci"}
 
 npm 的受信任发布者 (Trusted Publishers) 机制允许您使用 OpenID Connect 快速设置 CI。
 这种方法可以完全避免生成和维护令牌。
 
 在此示例中，我们将使用 [GitHub Actions](https://docs.github.com/en/actions) 设置工作流。
 
-### 创建 GitHub Actions 工作流文件
+### 创建 GitHub Actions 工作流文件 {id="create-a-github-actions-workflow-file"}
 
 创建 `.github/workflows/publish.yml` 文件来配置 GitHub 操作：
 
@@ -212,7 +212,7 @@ jobs:
 > 
 {style="tip"}
 
-### 将 GitHub Actions 设置为受信任的发布者
+### 将 GitHub Actions 设置为受信任的发布者 {id="set-up-github-actions-as-your-trusted-publisher"}
 
 既然已经发布了工作流，您可以使用 GitHub 操作将 [受信任的发布者](https://docs.npmjs.com/trusted-publishers) 添加到您的 npm 软件包中：
 
@@ -233,7 +233,7 @@ jobs:
 
 创建好的连接随后会列在软件包设置的 **Trusted Publishers** 部分，这意味着具有指定坐标的工作流现在已被授权发布到 npm。
 
-### 在 GitHub 上创建版本
+### 在 GitHub 上创建版本 {id="create-a-release-on-github"}
 
 完成工作流和受信任发布者连接的设置后，您现在可以通过[创建 GitHub 发布 (release)](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository#creating-a-release) 来触发发布：
 
@@ -263,7 +263,7 @@ jobs:
 
 ![通过 CI/CD 在 npm 上发布第二个版本](published-second-version-on-npm.png){width=700}
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * [在您的 README 中添加 shield.io 徽章](https://shields.io/badges/npm-version)
 * [使用 Dokka 生成 API 文档](https://kotl.in/dokka)

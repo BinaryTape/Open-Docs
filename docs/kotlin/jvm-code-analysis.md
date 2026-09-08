@@ -4,7 +4,7 @@
 
 代码质量工具可帮助您强制执行编码标准、及早发现错误、衡量测试覆盖率，并在整个 Kotlin 项目中维护代码质量。本指南将介绍如何将 [ktlint](https://ktlint.github.io/ktlint/latest/)、[detekt](https://detekt.dev/)、[SonarQube](https://www.sonarsource.com/products/sonarqube/)、[SonarCloud](https://www.sonarsource.com/products/sonarcloud/) 和 [Kover](https://kotlin.github.io/kotlinx-kover/) 等常用工具集成到基于 Maven 或 Gradle 的后端项目中。
 
-## 使用 ktlint 进行代码格式化
+## 使用 ktlint 进行代码格式化 {id="code-formatting-with-ktlint"}
 
 [ktlint](https://github.com/ktlint/ktlint) 是一个 Kotlin Linter 和格式化程序，无需额外配置即可强制执行官方 Kotlin [编码约定](coding-conventions.md)。
 
@@ -103,7 +103,7 @@ ktlint 会检查缩进、运算符周围的空格、导入排序和尾随逗号�
 
 有关可用功能和规则的更多信息，请参阅 [ktlint 文档](https://github.com/ktlint/ktlint/tree/master/documentation)。
 
-## 使用 detekt 进行代码分析
+## 使用 detekt 进行代码分析 {id="code-analysis-with-detekt"}
 
 [detekt](https://github.com/detekt/detekt) 是一个用于 Kotlin 的静态代码分析工具，可以检测代码异味、复杂度问题和潜在错误。
 
@@ -241,7 +241,7 @@ detekt 会生成一份报告，列出所有违反规则的情况，包括其严�
 
 有关更多信息，请参阅适用于 [Gradle](https://detekt.dev/docs/intro) 和 [Maven](https://github.com/Ozsie/detekt-maven-plugin) 的 detekt 文档。
 
-## 使用 SonarSource 保证代码质量
+## 使用 SonarSource 保证代码质量 {id="code-quality-with-sonarsource"}
 
 来自 SonarSource 的 [SonarQube](https://github.com/SonarSource/sonarqube) 和 [SonarCloud](https://github.com/marketplace/sonarcloud) 为 Kotlin 项目提供深层静态分析，包括错误检测、漏洞扫描以及通过 Web 仪表板进行的测试覆盖率跟踪。
 
@@ -364,7 +364,7 @@ detekt 会生成一份报告，列出所有违反规则的情况，包括其严�
 
 有关更多信息，请参阅 [SonarSource 文档](https://docs.sonarsource.com/)。
 
-## 使用 Kover 进行代码覆盖率分析
+## 使用 Kover 进行代码覆盖率分析 {id="code-coverage-with-kover"}
 
 [Kover](https://github.com/Kotlin/kotlinx-kover) 是 JetBrains 官方推出的 Kotlin 代码覆盖率工具。它能测量代码中哪些行和分支被测试覆盖，并生成人类可读的报告。
 
@@ -498,7 +498,7 @@ detekt 会生成一份报告，列出所有违反规则的情况，包括其严�
 
 有关配置验证规则的更多信息，请参阅适用于 [Maven](https://kotlin.github.io/kotlinx-kover/maven-plugin/) 和 [Gradle](https://kotlin.github.io/kotlinx-kover/gradle-plugin/) 的 Kover 文档。
 
-## 其他工具
+## 其他工具 {id="other-tools"}
 
 除了 ktlint、detekt、SonarQube、SonarCloud 和 Kover，您还可以尝试其他工具来提高 Kotlin 代码质量：
 
@@ -508,7 +508,7 @@ detekt 会生成一份报告，列出所有违反规则的情况，包括其严�
 | [Semgrep](https://semgrep.dev/docs/)      | 快速、轻量级的静态分析工具，支持自定义规则。可用于在 Kotlin 代码中强制执行特定模式或检测反模式。  |
 | [PMD](https://docs.pmd-code.org/latest/)  | 源代码分析器，支持 Kotlin（通过其 CPD 复制粘贴检测器），可检测常见的编程缺陷和重复代码。        |
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * [在 Maven 项目中运行测试](jvm-test-maven.md)
 * [使用 Maven 配置 Kotlin 项目](maven-configure-project.md)

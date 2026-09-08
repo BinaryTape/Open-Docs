@@ -13,7 +13,7 @@ Gradle은 빌드 프로세스를 자동화하고 관리하는 것을 도와주�
 * [증분 컴파일(Incremental compilation), 캐시 지원, 빌드 보고서 및 Kotlin 데몬](gradle-compilation-and-caches.md).
 * [Gradle 플러그인 변형(variants) 지원](gradle-plugin-variants.md).
 
-## 다음 단계는?
+## 다음 단계는? {id="what-s-next"}
 
 다음에 대해 알아보세요:
 * **Gradle Kotlin DSL**. [Gradle Kotlin DSL](https://docs.gradle.org/current/userguide/kotlin_dsl.html)은 빌드 스크립트를 빠르고 효율적으로 작성하는 데 사용할 수 있는 도메인 특화 언어(domain specific language)입니다.

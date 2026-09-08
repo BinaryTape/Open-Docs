@@ -10,7 +10,7 @@ title: Koin vs Hilt/Dagger
 Koin 同時支援 **DSL 與註解 (Annotations)** — 請選擇適合您團隊的方式。兩者均為一等公民，功能同樣強大，且均由相同的編譯器外掛程式驅動。此比較顯示了註解範例，以便與 Hilt 進行公平比較，但 Koin 的 DSL 以更少的樣板程式碼提供了同等的功能。
 :::
 
-## 哲學差異
+## 哲學差異 {id="philosophy-differences"}
 
 | 面向 | Koin | Hilt/Dagger |
 |--------|------|-------------|
@@ -21,7 +21,7 @@ Koin 同時支援 **DSL 與註解 (Annotations)** — 請選擇適合您團隊�
 | **編譯期安全性** | ✅ 搭配編譯器外掛程式 | ✅ 始終具備 |
 | **執行時彈性** | ✅ 動態功能 | ❌ 僅限靜態 |
 
-## 註解比較
+## 註解比較 {id="annotation-comparison"}
 
 即使是註解，在 Koin 中也更為簡單：
 
@@ -34,9 +34,9 @@ Koin 同時支援 **DSL 與註解 (Annotations)** — 請選擇適合您團隊�
 | **提供第三方庫** | `@Singleton fun provide()` | `@Module` 中的 `@Provides` + `@InstallIn` |
 | **ViewModel** | `@KoinViewModel class MyVM` | `@HiltViewModel class MyVM @Inject constructor` |
 
-## 程式碼比較
+## 程式碼比較 {id="code-comparison"}
 
-### 簡單的 Singleton
+### 簡單的 Singleton {id="simple-singleton"}
 
 **Koin：**
 ```kotlin
@@ -61,7 +61,7 @@ abstract class AppModule {
 }
 ```
 
-### 介面繫結
+### 介面繫結 {id="interface-binding"}
 
 **Koin — 自動：**
 ```kotlin
@@ -84,7 +84,7 @@ abstract class RepositoryModule {
 }
 ```
 
-### 多模組應用程式
+### 多模組應用程式 {id="multi-module-apps"}
 
 **Koin — 模組自動探索：**
 ```kotlin
@@ -122,7 +122,7 @@ class ProfileModule { ... }
 class MyApp  // 到處仍需正確的 @InstallIn
 ```
 
-### ViewModel
+### ViewModel {id="viewmodel"}
 
 **Koin：**
 ```kotlin
@@ -154,7 +154,7 @@ val viewModel: UserViewModel by viewModels()
 val viewModel: UserViewModel = hiltViewModel()
 ```
 
-### 提供第三方程式庫
+### 提供第三方程式庫 {id="providing-third-party-libraries"}
 
 **Koin：**
 ```kotlin
@@ -189,7 +189,7 @@ object NetworkModule {
 }
 ```
 
-## 動態功能：Koin 的獨特優勢
+## 動態功能：Koin 的獨特優勢 {id="dynamic-features-koin-s-unique-advantage"}
 
 Koin 是 **基於執行時 (runtime-based) 的，但具備高效能且編譯期安全**。這實現了 Hilt 無法提供的動態功能：
 
@@ -203,7 +203,7 @@ Koin 是 **基於執行時 (runtime-based) 的，但具備高效能且編譯期�
 | A/B 測試實作 | ✅ 執行時切換 | ⚠️ 僅限編譯期 |
 | 動態配置 | ✅ 支援 | ❌ 否，必須重新編譯 |
 
-### 範例：動態模組載入
+### 範例：動態模組載入 {id="example-dynamic-module-loading"}
 
 ```kotlin
 // KOIN - 動態模組載入
@@ -226,7 +226,7 @@ startKoin {
 
 **這在 Hilt 中是不可能的** — 所有相依性都在編譯時期完成連接。
 
-### 範例：功能旗標
+### 範例：功能旗標 {id="example-feature-flags"}
 
 ```kotlin
 // KOIN - 在執行時切換實作
@@ -245,13 +245,13 @@ fun updateApiImplementation(useNew: Boolean) {
 }
 ```
 
-## 設定比較
+## 設定比較 {id="setup-comparison"}
 
-### Koin 設定
+### Koin 設定 {id="koin-setup"}
 
 請參閱 **[編譯器外掛程式設定指南](/docs/setup/compiler-plugin)** 以取得詳細說明。
 
-### Hilt 設定
+### Hilt 設定 {id="hilt-setup"}
 
 ```kotlin
 // settings.gradle.kts
@@ -271,9 +271,9 @@ dependencies {
 }
 ```
 
-## 錯誤訊息
+## 錯誤訊息 {id="error-messages"}
 
-### Koin
+### Koin {id="koin"}
 
 ```
 org.koin.core.error.NoBeanDefFoundException:
@@ -283,7 +283,7 @@ Check your module definitions.
 
 清晰，直接指向問題所在。
 
-### Hilt/Dagger
+### Hilt/Dagger {id="hilt-dagger"}
 
 ```
 error: [Dagger/MissingBinding] com.app.UserRepository cannot be provided
@@ -298,9 +298,9 @@ com.app.UserActivity is injected at
 
 較長，且需要理解組建圖 (component graph)。
 
-## 如何選擇
+## 如何選擇 {id="when-to-choose-each"}
 
-### 選擇 Koin 的時機：
+### 選擇 Koin 的時機： {id="choose-koin-when"}
 
 - 您重視 **生產力與簡潔性**
 - 您需要 **執行時彈性**（動態模組、功能旗標）
@@ -309,17 +309,17 @@ com.app.UserActivity is injected at
 - 您偏好 **較少的樣板程式碼**
 - 您想要 **更輕鬆的偵錯**
 
-### 選擇 Hilt 的時機：
+### 選擇 Hilt 的時機： {id="choose-hilt-when"}
 
 - 您的團隊 **已經熟悉 Dagger**
 - 您需要 **Google 優先的生態系統** 相容性
 - 您需要 **Dagger 的特定功能**
 
-## 從 Hilt 遷移到 Koin
+## 從 Hilt 遷移到 Koin {id="migration-from-hilt-to-koin"}
 
 如果您正在考慮遷移：
 
-### 概念對應
+### 概念對應 {id="concept-mapping"}
 
 | Hilt | Koin |
 |------|------|
@@ -331,7 +331,7 @@ com.app.UserActivity is injected at
 | `@InstallIn(SingletonComponent)` | `@Configuration` |
 | 函式上的 `@Provides` | 函式上的 `@Factory` |
 
-### 漸進式遷移
+### 漸進式遷移 {id="gradual-migration"}
 
 您可以進行增量遷移：
 
@@ -342,7 +342,7 @@ com.app.UserActivity is injected at
 
 請參閱 [從 Hilt 遷移](/docs/migration/from-hilt) 以了解詳細步驟。
 
-## 總結
+## 總結 {id="summary"}
 
 **Koin：簡潔且強大**
 
@@ -353,7 +353,7 @@ com.app.UserActivity is injected at
 
 您不必在安全性與簡潔性之間做出選擇。使用 Koin，您可以兩者兼得。
 
-## 後續步驟
+## 後續步驟 {id="next-steps"}
 
 - **[什麼是 Koin？](/docs/intro/what-is-koin)** — 進一步了解 Koin
 - **[設定指南](/docs/setup/gradle)** — 將 Koin 新增至您的專案

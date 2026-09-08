@@ -13,7 +13,7 @@ JVMおよびKotlin/Nativeにおいて、コルーチンのようなすべての�
 
 コルーチンとスレッドの違いについての詳細は、[コルーチンとJVMスレッドの比較](#comparing-coroutines-and-jvm-threads)を参照してください。
 
-## 中断関数 (Suspending functions)
+## 中断関数 (Suspending functions) {id="suspending-functions"}
 
 コルーチンの最も基本的な構成要素は「中断関数（suspending function）」です。
 これにより、実行中の操作を一時停止（ポーズ）させ、コードの構造に影響を与えることなく後で再開させることができます。
@@ -50,7 +50,7 @@ suspend fun greet() {
 
 `suspend` キーワードは Kotlin 言語のコア部分ですが、コルーチンの機能の多くは [`kotlinx.coroutines`](https://github.com/Kotlin/kotlinx.coroutines) ライブラリを通じて提供されています。
 
-## プロジェクトに kotlinx.coroutines ライブラリを追加する
+## プロジェクトに kotlinx.coroutines ライブラリを追加する {id="add-the-kotlinx-coroutines-library-to-your-project"}
 
 プロジェクトに `kotlinx.coroutines` ライブラリを含めるには、使用しているビルドツールに基づいて、対応する依存関係の設定を追加してください。
 
@@ -102,7 +102,7 @@ dependencies {
 </tab>
 </tabs>
 
-## 初めてのコルーチンを作成する
+## 初めてのコルーチンを作成する {id="create-your-first-coroutines"}
 
 > このページの例では、コルーチンビルダー関数である `CoroutineScope.launch()` や `CoroutineScope.async()` に対して、明示的な `this` 式を使用しています。
 > これらのコルーチンビルダーは `CoroutineScope` の[拡張関数](extensions.md)であり、`this` 式はレシーバーとしての現在の `CoroutineScope` を参照します。
@@ -296,7 +296,7 @@ suspend fun main() {
 この例では[ディスパッチャ](#coroutine-dispatchers)が指定されていないため、`coroutineScope()` ブロック内の `CoroutineScope.launch()` ビルダー関数は現在のコンテキストを継承します。
 そのコンテキストに指定されたディスパッチャがない場合、`CoroutineScope.launch()` は共有スレッドプール上で実行される `Dispatchers.Default` を使用します。
 
-### コルーチンスコープからコルーチンビルダーを抽出する
+### コルーチンスコープからコルーチンビルダーを抽出する {id="extract-coroutine-builders-from-the-coroutine-scope"}
 
 場合によっては、[`CoroutineScope.launch()`](#coroutinescope-launch) などのコルーチンビルダーの呼び出しを別の関数に抽出したいことがあります。
 
@@ -352,7 +352,7 @@ fun launchAll() {
 
 この例では、`launchAll()` 関数は `suspend` キーワードを必要としません。なぜなら、現在の `CoroutineScope` 内でコルーチンを開始し、すぐに復帰するだけだからです。関数が戻る前に一時停止し、その後再開することが理にかなっている場合にのみ、関数に `suspend` を付けてください。
 
-## コルーチンビルダー関数
+## コルーチンビルダー関数 {id="coroutine-builder-functions"}
 
 コルーチンビルダー関数とは、実行するコルーチンを定義する `suspend` [ラムダ](lambdas.md)を受け取る関数のことです。
 以下にいくつかの例を挙げます。
@@ -367,7 +367,7 @@ fun launchAll() {
 これは既存のスコープであっても、`coroutineScope()`、[`runBlocking()`](#runblocking)、または [`withContext()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/with-context.html#) のようなヘルパー関数で作成したものであっても構いません。
 各ビルダーは、コルーチンがどのように開始され、その結果とどのように対話するかを定義します。
 
-### `CoroutineScope.launch()`
+### `CoroutineScope.launch()` {id="coroutinescope-launch"}
 
 [`CoroutineScope.launch()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/launch.html#) コルーチンビルダー関数は、`CoroutineScope` の拡張関数です。
 これは既存の[コルーチンスコープ](#coroutine-scope-and-structured-concurrency)内で、スコープの残りの部分をブロックすることなく新しいコルーチンを開始します。
@@ -410,7 +410,7 @@ suspend fun performBackgroundWork() = coroutineScope { // this: CoroutineScope
 > 
 {style="tip"}
 
-### `CoroutineScope.async()`
+### `CoroutineScope.async()` {id="coroutinescope-async"}
 
 [`CoroutineScope.async()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/async.html) コルーチンビルダー関数は、`CoroutineScope` の拡張関数です。
 これは既存の[コルーチンスコープ](#coroutine-scope-and-structured-concurrency)内で並行計算を開始し、最終的な結果を表す [`Deferred`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-deferred/) ハンドルを返します。
@@ -444,7 +444,7 @@ suspend fun main() = withContext(Dispatchers.Default) { // this: CoroutineScope
 ```
 {kotlin-runnable="true"}
 
-### `runBlocking()`
+### `runBlocking()` {id="runblocking"}
 
 [`runBlocking()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/run-blocking.html) コルーチンビルダー関数は、コルーチンスコープを作成し、そのスコープ内で開始されたコルーチンが終了するまで現在の[スレッド](#comparing-coroutines-and-jvm-threads)をブロックします。
 
@@ -474,7 +474,7 @@ suspend fun myReadItem(): Int {
 }
 ```
 
-## コルーチンディスパッチャ
+## コルーチンディスパッチャ {id="coroutine-dispatchers"}
 
 [_コルーチンディスパッチャ（coroutine dispatcher）_](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-dispatchers/#) は、コルーチンが実行に使用するスレッドまたはスレッドプールを制御します。
 コルーチンは常に単一のスレッドに関連付けられているわけではありません。
@@ -546,7 +546,7 @@ suspend fun main() = withContext(Dispatchers.Default) { // this: CoroutineScope
 
 コルーチンディスパッチャとその用途（[`Dispatchers.IO`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-dispatchers/-i-o.html) や [`Dispatchers.Main`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-dispatchers/-main.html) などの他のディスパッチャを含む）についての詳細は、[コルーチンコンテキストとディスパッチャ](coroutine-context-and-dispatchers.md)を参照してください。
 
-## コルーチンとJVMスレッドの比較
+## コルーチンとJVMスレッドの比較 {id="comparing-coroutines-and-jvm-threads"}
 
 コルーチンは JVM 上のスレッドのようにコードを並行して実行する中断可能な計算ですが、内部の仕組みは異なります。
 
@@ -610,7 +610,7 @@ fun main() {
 
 オペレーティングシステム、JDK バージョン、および設定によっては、JVM スレッド版はメモリ不足エラー（out-of-memory error）をスローしたり、一度に実行するスレッドが多すぎるのを避けるためにスレッドの作成を遅くしたりすることがあります。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * 中断関数の組み合わせについての詳細は、[中断関数の構成](composing-suspending-functions.md) をご覧ください。
 * コルーチンのキャンセル方法とタイムアウトの処理については、[キャンセルとタイムアウト](coroutines-cancellation.md) をご覧ください。

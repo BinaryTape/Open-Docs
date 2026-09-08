@@ -18,7 +18,7 @@
 
 이 페이지에서는 에이전트를 위한 커스텀 로직을 빠르게 프로토타이핑하기 위해 함수형 전략을 구현하는 방법을 설명합니다.
 
-## 최소한의 함수형 에이전트 생성하기
+## 최소한의 함수형 에이전트 생성하기 {id="create-a-minimal-functional-agent"}
 
 최소한의 함수형 에이전트를 만들려면, [기본 에이전트](basic-agents.md)와 동일하게 [`AIAgent`](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.agent/-a-i-agent/index.html) 인터페이스를 사용하고 [`AIAgentFunctionalStrategy`](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.agent/-a-i-agent-functional-strategy/index.html) 인스턴스를 전달합니다.
 입력을 받아 출력을 반환하고, 한 번의 LLM 호출을 수행한 후 응답에서 어시스턴트 메시지의 내용을 반환하는 함수형 전략을 정의할 수 있습니다.
@@ -88,7 +88,7 @@ The answer to 12 × 9 is 108.
 ```
 <!--- KNIT example-functional-agent-01.txt -->
 
-## 순차적 LLM 호출하기
+## 순차적 LLM 호출하기 {id="make-sequential-llm-calls"}
 
 이전 전략을 확장하여 여러 번의 순차적인 LLM 호출을 수행할 수 있습니다:
 
@@ -163,7 +163,7 @@ To calculate the product of 12 and 9, we multiply these two numbers together.
 ```
 <!--- KNIT example-functional-agent-02.txt -->
 
-## 도구 추가하기
+## 도구 추가하기 {id="add-tools"}
 
 많은 경우, 함수형 에이전트는 데이터 읽기 및 쓰기, API 호출 또는 기타 결정론적 작업 수행과 같은 특정 작업을 완료해야 합니다.
 Koog에서는 이러한 기능을 [도구(tools)](../tools/index.md)로 노출하고 LLM이 이를 호출할 시점을 결정하게 할 수 있습니다.
@@ -305,6 +305,6 @@ The result of multiplying 3 by 4 is 12. Multiplying 12 by 5 gives us a final ans
 ```
 <!--- KNIT example-functional-agent-03.txt -->
 
-## 다음 단계
+## 다음 단계 {id="next-steps"}
 
 - [그래프 기반 에이전트(graph-based agents)](graph-based-agents.md)를 만드는 방법 알아보기

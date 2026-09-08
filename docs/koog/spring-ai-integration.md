@@ -9,7 +9,7 @@ status: beta
 Koog 提供了 Spring AI 集成 Starter，将 Spring AI 的抽象与 Koog 代理框架连接起来。
 如果您已经使用 Spring AI 进行模型访问、内存或矢量存储，这些 Starter 允许您在不替换现有 Spring AI 配置的情况下，在之上接入 Koog。
 
-## 与 `koog-spring-boot-starter` 的区别
+## 与 `koog-spring-boot-starter` 的区别 {id="how-it-differs-from-koog-spring-boot-starter"}
 
 | | `koog-spring-boot-starter` | `koog-spring-ai` Starter |
 |---|---|---|
@@ -20,7 +20,7 @@ Koog 提供了 Spring AI 集成 Starter，将 Spring AI 的抽象与 Koog 代理
 这两种方法是相互独立的。
 有关直接使用 Koog Starter 的方法，请参阅 [Spring Boot 集成](spring-boot.md)。
 
-## 可用 Starter
+## 可用 Starter {id="available-starters"}
 
 | 模块 | 用途 |
 |---|---|
@@ -32,7 +32,7 @@ Koog 提供了 Spring AI 集成 Starter，将 Spring AI 的抽象与 Koog 代理
 每个 Starter 都是一个独立的 Spring Boot Starter，拥有自己的自动配置和配置属性。
 您可以只使用一个 Starter，也可以在同一个应用程序中组合使用多个。
 
-## 调度器类型
+## 调度器类型 {id="dispatcher-types"}
 
 所有四个 Starter 都支持相同的调度器配置模式：
 
@@ -42,9 +42,9 @@ Koog 提供了 Spring AI 集成 Starter，将 Spring AI 的抽象与 Koog 代理
 
 `AUTO` 通常是最简单的选择，特别是当您使用 Spring Boot 虚拟线程时。
 
-## 聊天模型 Starter
+## 聊天模型 Starter {id="chat-model-starter"}
 
-### 概览
+### 概览 {id="overview"}
 
 `koog-spring-ai-starter-model-chat` Starter 将 Spring AI 的聊天模型抽象与 Koog 代理框架连接起来。
 它会自动配置：
@@ -54,7 +54,7 @@ Koog 提供了 Spring AI 集成 Starter，将 Spring AI 的抽象与 Koog 代理
 
 工具始终由 Koog 代理框架执行。Spring AI 仅接收工具定义和架构 (schema)。
 
-### 添加依赖项
+### 添加依赖项 {id="add-dependency"}
 
 在添加任何 Spring AI 聊天模型 Starter 的同时添加此依赖项：
 
@@ -89,13 +89,13 @@ Koog 提供了 Spring AI 集成 Starter，将 Spring AI 的抽象与 Koog 代理
     </dependencies>
     ```
 
-### 支持的提供商
+### 支持的提供商 {id="available-providers"}
 
 该 Starter 适用于 Spring AI 为其创建 `ChatModel` 的任何提供商，包括：
 Anthropic、Azure OpenAI、Bedrock Converse、DeepSeek、Google GenAI、HuggingFace、MiniMax、
 Mistral AI、OCI GenAI、Ollama、OpenAI、Vertex AI 和 ZhiPu AI。
 
-### 配置
+### 配置 {id="configure"}
 
 通过匹配的 Spring AI Starter 配置您的提供商，然后根据需要添加 Koog 属性：
 
@@ -111,7 +111,7 @@ koog.spring.ai.chat.dispatcher.type=AUTO
 如果您只有一个 `ChatModel` Bean，一切都会自动工作。
 适配器会将其包装到 Koog `LLMClient` 中，并创建一个开箱即用的 `PromptExecutor`。
 
-### 使用示例
+### 使用示例 {id="usage-example"}
 
 注入 `PromptExecutor` 并使用它运行 Koog 代理：
 
@@ -168,7 +168,7 @@ koog.spring.ai.chat.dispatcher.type=AUTO
 
 或者提供您自己的 `PromptExecutor` Bean 以完全覆盖自动配置的 Bean。
 
-### 配置属性 (`koog.spring.ai.chat`)
+### 配置属性 (`koog.spring.ai.chat`) {id="configuration-properties-koog-spring-ai-chat"}
 
 | 属性 | 类型 | 默认值 | 描述 |
 |---|---|---|---|
@@ -179,7 +179,7 @@ koog.spring.ai.chat.dispatcher.type=AUTO
 | `dispatcher.type` | `AUTO` / `IO` | `AUTO` | 用于阻塞模型调用的调度器 |
 | `dispatcher.parallelism` | `Int` | `0` (= 无限制) | `IO` 调度器的最大并发数 |
 
-### 多模型上下文
+### 多模型上下文 {id="multi-model-contexts"}
 
 当注册了多个 `ChatModel` 或 `ModerationModel` Bean 时，请指定要使用的 Bean：
 
@@ -190,7 +190,7 @@ koog.spring.ai.chat.moderation-model-bean-name=openAiModerationModel
 
 如果没有选择器，自动配置仅在存在单个候选对象时才会激活。
 
-### 扩展点
+### 扩展点 {id="extension-points"}
 
 - **`ChatOptionsCustomizer`**：注册一个实现此接口的 Spring Bean 以自定义 `ChatOptions`
 
@@ -215,7 +215,7 @@ koog.spring.ai.chat.moderation-model-bean-name=openAiModerationModel
 - **自定义 `LLMClient`**：注册您自己的 `LLMClient` Bean。除非您替换名为 `springAiChatModelLLMClient` 的 Bean，否则它将与自动配置的适配器组合在一起。
 - **自定义 `PromptExecutor`**：注册您自己的 `PromptExecutor` Bean 以覆盖自动配置的 `MultiLLMPromptExecutor`。
 
-## 嵌入模型 Starter
+## 嵌入模型 Starter {id="embedding-model-starter"}
 
 ### 概览
 
@@ -333,7 +333,7 @@ koog.spring.ai.embedding.dispatcher.type=AUTO
 
 或者提供您自己的 `LLMEmbeddingProvider` Bean 以完全覆盖自动配置的适配器。
 
-### 配置属性 (`koog.spring.ai.embedding`)
+### 配置属性 (`koog.spring.ai.embedding`) {id="configuration-properties-koog-spring-ai-embedding"}
 
 | 属性 | 类型 | 默认值 | 描述 |
 |---|---|---|---|
@@ -356,7 +356,7 @@ koog.spring.ai.embedding.embedding-model-bean-name=openAiEmbeddingModel
 
 - **自定义 `LLMEmbeddingProvider`**：注册您自己的 Bean 以完全覆盖自动配置的适配器。
 
-## 聊天内存 Starter
+## 聊天内存 Starter {id="chat-memory-starter"}
 
 ### 概览
 
@@ -367,7 +367,7 @@ koog.spring.ai.embedding.embedding-model-bean-name=openAiEmbeddingModel
 
 此 Starter 仅提供文本对话持久化，不提供完整的 Koog 执行状态持久化。
 
-### 仅限文本的约定
+### 仅限文本的约定 {id="text-only-contract"}
 
 仅持久化纯文本的 `System`、`User` 和 `Assistant` 消息。
 以下内容在存储时会被静默丢弃：
@@ -469,7 +469,7 @@ koog.spring.ai.chat-memory.dispatcher.type=AUTO
     }
     ```
 
-### 配置属性 (`koog.spring.ai.chat-memory`)
+### 配置属性 (`koog.spring.ai.chat-memory`) {id="configuration-properties-koog-spring-ai-chat-memory"}
 
 | 属性 | 类型 | 默认值 | 描述 |
 |---|---|---|---|
@@ -478,7 +478,7 @@ koog.spring.ai.chat-memory.dispatcher.type=AUTO
 | `dispatcher.type` | `AUTO` / `IO` | `AUTO` | 用于阻塞仓库调用的调度器 |
 | `dispatcher.parallelism` | `Int` | `0` (= 无限制) | `IO` 调度器的最大并发数 |
 
-### 多仓库上下文
+### 多仓库上下文 {id="multi-repository-contexts"}
 
 当注册了多个 `ChatMemoryRepository` Bean 时，请指定要使用的 Bean：
 
@@ -488,14 +488,14 @@ koog.spring.ai.chat-memory.chat-memory-repository-bean-name=jdbcChatMemoryReposi
 
 如果没有选择器，自动配置仅在存在单个候选对象时才会激活。
 
-### 当前限制
+### 当前限制 {id="current-limitations"}
 
 - 仅持久化文本对话历史记录
 - 不持久化工具调用、工具结果、推理消息和附件
 - 加载时跳过 Spring AI `TOOL` 消息
 - 往返过程中不保留消息元数据
 
-## 矢量存储 Starter
+## 矢量存储 Starter {id="vector-store-starter"}
 
 ### 概览
 
@@ -602,7 +602,7 @@ koog.spring.ai.vectorstore.dispatcher.type=AUTO
     }
     ```
 
-### 配置属性 (`koog.spring.ai.vectorstore`)
+### 配置属性 (`koog.spring.ai.vectorstore`) {id="configuration-properties-koog-spring-ai-vectorstore"}
 
 | 属性 | 类型 | 默认值 | 描述 |
 |---|---|---|---|
@@ -611,7 +611,7 @@ koog.spring.ai.vectorstore.dispatcher.type=AUTO
 | `dispatcher.type` | `AUTO` / `IO` | `AUTO` | 用于阻塞矢量存储调用的调度器 |
 | `dispatcher.parallelism` | `Int` | `0` (= 无限制) | `IO` 调度器的最大并发数 |
 
-### 多存储上下文
+### 多存储上下文 {id="multi-store-contexts"}
 
 当注册了多个 `VectorStore` Bean 时，请指定要使用的 Bean：
 
@@ -631,7 +631,7 @@ koog.spring.ai.vectorstore.vector-store-bean-name=pgVectorStore
 - 未实现命名空间作用域 (Namespace scoping)
 - 元数据值必须是基本类型，如 `String`、`Number` 或 `Boolean`
 
-## 后续步骤
+## 后续步骤 {id="next-steps"}
 
 - 了解 [基础代理](agents/basic-agents.md) 以构建最小化 AI 工作流
 - 探索用于高级用例的 [基于图的代理](agents/graph-based-agents.md)

@@ -11,7 +11,7 @@ fun main() {
 
 타겟 플랫폼에 따라 코드를 처음 실행할 때 플랫폼별 추가 설정이 필요할 수 있습니다.
 
-## Node.js 타겟 실행
+## Node.js 타겟 실행 {id="run-the-node-js-target"}
 
 Kotlin/JS로 Node.js를 타겟팅할 때는 `jsNodeDevelopmentRun` Gradle 태스크를 실행하기만 하면 됩니다. 
 예를 들어 Gradle 래퍼를 사용하는 커맨드 라인을 통해 이 작업을 수행할 수 있습니다.
@@ -29,7 +29,7 @@ IntelliJ IDEA를 사용하는 경우 Gradle 도구 창에서 `jsNodeDevelopmentR
 
 ![IntelliJ IDEA에서 Kotlin 멀티플랫폼 프로젝트의 JS 타겟 실행](cli-output.png){width=700}
 
-## 브라우저 타겟 실행
+## 브라우저 타겟 실행 {id="run-the-browser-target"}
 
 브라우저를 타겟팅할 때는 프로젝트에 HTML 페이지가 있어야 합니다. 이 페이지는 애플리케이션 작업을 수행하는 동안 개발 서버에서 제공되며, 컴파일된 Kotlin/JS 파일을 포함해야 합니다.
 `/src/jsMain/resources/index.html` HTML 파일을 생성하고 채웁니다.

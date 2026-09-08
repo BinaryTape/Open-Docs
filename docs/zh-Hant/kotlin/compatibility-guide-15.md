@@ -4,7 +4,7 @@
 
 雖然大多數語言變更已透過其他管道（如更新變更記錄或編譯器警告）發佈，但本文彙整了所有變更，為從 Kotlin 1.4 遷移到 Kotlin 1.5 提供完整的參考。
 
-## 基本術語
+## 基本術語 {id="basic-terms"}
 
 在本文中，我們介紹了幾種相容性：
 
@@ -14,9 +14,9 @@
 
 請記住，這些定義僅針對純 Kotlin 給出。從其他語言視角（例如 Java）看 Kotlin 程式碼的相容性不在本文討論範圍內。
 
-## 語言與標準函式庫 (stdlib)
+## 語言與標準函式庫 (stdlib) {id="language-and-stdlib"}
 
-### 禁止在簽章多型 (signature-polymorphic) 呼叫中使用展開運算子
+### 禁止在簽章多型 (signature-polymorphic) 呼叫中使用展開運算子 {id="forbid-spread-operator-in-signature-polymorphic-calls"}
 
 > **問題**：[KT-35226](https://youtrack.jetbrains.com/issue/KT-35226)
 >
@@ -32,7 +32,7 @@
 > - &gt;= 1.5：將此警告提升為錯誤，
 >  可以使用 `-XXLanguage:-ProhibitSpreadOnSignaturePolymorphicCall` 暫時恢復為 1.5 之前的行為
 
-### 禁止非抽象類別包含對該類別不可見（internal/套件私有）的抽象成員
+### 禁止非抽象類別包含對該類別不可見（internal/套件私有）的抽象成員 {id="forbid-non-abstract-classes-containing-abstract-members-invisible-from-that-classes-internal-package-private"}
 
 > **問題**：[KT-27825](https://youtrack.jetbrains.com/issue/KT-27825)
 >
@@ -48,7 +48,7 @@
 > - &gt;= 1.5：將此警告提升為錯誤，
 >  可以使用 `-XXLanguage:-ProhibitInvisibleAbstractMethodsInSuperclasses` 暫時恢復為 1.5 之前的行為
 
-### 禁止在 JVM 上將基於非 reified 型別參數的陣列用作 reified 型別引數
+### 禁止在 JVM 上將基於非 reified 型別參數的陣列用作 reified 型別引數 {id="forbid-using-array-based-on-non-reified-type-parameters-as-reified-type-arguments-on-jvm"}
 
 > **問題**：[KT-31227](https://youtrack.jetbrains.com/issue/KT-31227)
 >
@@ -64,7 +64,7 @@
 > - &gt;= 1.5：將此警告提升為錯誤，
 >  可以使用 `-XXLanguage:-ProhibitNonReifiedArraysAsReifiedTypeArguments` 暫時恢復為 1.5 之前的行為
 
-### 禁止不委派給主建構函數的列舉類別次要建構函式
+### 禁止不委派給主建構函數的列舉類別次要建構函式 {id="forbid-secondary-enum-class-constructors-which-do-not-delegate-to-the-primary-constructor"}
 
 > **問題**：[KT-35870](https://youtrack.jetbrains.com/issue/KT-35870)
 >
@@ -80,7 +80,7 @@
 > - &gt;= 1.5：將此警告提升為錯誤，
 >  可以使用 `-XXLanguage:-RequiredPrimaryConstructorDelegationCallInEnums` 暫時恢復為 1.5 之前的行為
 
-### 禁止從私有 inline 函式中暴露匿名型別
+### 禁止從私有 inline 函式中暴露匿名型別 {id="forbid-exposing-anonymous-types-from-private-inline-functions"}
 
 > **問題**：[KT-33917](https://youtrack.jetbrains.com/issue/KT-33917)
 >
@@ -96,7 +96,7 @@
 > - &gt;= 1.5：將此警告提升為錯誤，
 >  可以使用 `-XXLanguage:-ApproximateAnonymousReturnTypesInPrivateInlineFunctions` 暫時恢復為 1.5 之前的行為
 
-### 禁止在具有 SAM 轉換的引數之後傳遞非展開陣列
+### 禁止在具有 SAM 轉換的引數之後傳遞非展開陣列 {id="forbid-passing-non-spread-arrays-after-arguments-with-sam-conversion"}
 
 > **問題**：[KT-35224](https://youtrack.jetbrains.com/issue/KT-35224)
 >
@@ -112,7 +112,7 @@
 > - &gt;= 1.5：將此警告提升為錯誤，
 >  可以使用 `-XXLanguage:-ProhibitVarargAsArrayAfterSamArgument` 暫時恢復為 1.5 之前的行為
 
-### 支援以底線命名的 catch 區塊參數之特殊語意
+### 支援以底線命名的 catch 區塊參數之特殊語意 {id="support-special-semantics-for-underscore-named-catch-block-parameters"}
 
 > **問題**：[KT-31567](https://youtrack.jetbrains.com/issue/KT-31567)
 >
@@ -128,7 +128,7 @@
 > - &gt;= 1.5：將此警告提升為錯誤，
 >  可以使用 `-XXLanguage:-ForbidReferencingToUnderscoreNamedParameterOfCatchBlock` 暫時恢復為 1.5 之前的行為
 
-### 將 SAM 轉換的實作策略從基於匿名類別更改為 invokedynamic
+### 將 SAM 轉換的實作策略從基於匿名類別更改為 invokedynamic {id="change-implementation-strategy-of-sam-conversion-from-anonymous-class-based-to-invokedynamic"}
 
 > **問題**：[KT-44912](https://youtrack.jetbrains.com/issue/KT-44912)
 >
@@ -143,7 +143,7 @@
 > - 1.5：變更 SAM 轉換的實作策略，
 >  可以使用 `-Xsam-conversions=class` 將實作方案還原為以前使用的方案
 
-### JVM 基於 IR 的後端效能問題
+### JVM 基於 IR 的後端效能問題 {id="performance-issues-with-the-jvm-ir-based-backend"}
 
 > **問題**：[KT-48233](https://youtrack.jetbrains.com/issue/KT-48233)
 >
@@ -190,7 +190,7 @@
 >
 > 對此標記的支援將在未來的某個版本中移除。
 
-### JVM 基於 IR 的後端中的新欄位排序
+### JVM 基於 IR 的後端中的新欄位排序 {id="new-field-sorting-in-the-jvm-ir-based-backend"}
 
 > **問題**：[KT-46378](https://youtrack.jetbrains.com/issue/KT-46378)
 >
@@ -235,7 +235,7 @@
 >
 > 對此標記的支援將在未來的某個版本中移除。
 
-### 為委派運算式中具有泛型呼叫的委派屬性產生可 null 性斷言
+### 為委派運算式中具有泛型呼叫的委派屬性產生可 null 性斷言 {id="generate-nullability-assertion-for-delegated-properties-with-a-generic-call-in-the-delegate-expression"}
 
 > **問題**：[KT-44304](https://youtrack.jetbrains.com/issue/KT-44304)
 >
@@ -250,7 +250,7 @@
 > - 1.5：為委派屬性發出可 null 性斷言（詳情見該問題），
 >  可以使用 `-Xuse-old-backend` 或 `-language-version 1.4` 暫時恢復為 1.5 之前的行為
 
-### 針對使用 @OnlyInputTypes 註解型別參數的呼叫，將警告轉為錯誤
+### 針對使用 @OnlyInputTypes 註解型別參數的呼叫，將警告轉為錯誤 {id="turn-warnings-into-errors-for-calls-with-type-parameters-annotated-by-onlyinputtypes"}
 
 > **問題**：[KT-45861](https://youtrack.jetbrains.com/issue/KT-45861)
 >
@@ -266,7 +266,7 @@
 > - &gt;= 1.5：將此警告提升為錯誤，
 >  可以使用 `-XXLanguage:-StrictOnlyInputTypesChecks` 暫時恢復為 1.5 之前的行為
 
-### 在具有具名可變參數 (vararg) 的呼叫中使用正確的引數執行順序
+### 在具有具名可變參數 (vararg) 的呼叫中使用正確的引數執行順序 {id="use-the-correct-order-of-arguments-execution-in-calls-with-named-vararg"}
 
 > **問題**：[KT-17691](https://youtrack.jetbrains.com/issue/KT-17691)
 >
@@ -282,7 +282,7 @@
 > - &gt;= 1.5：將此警告提升為錯誤，
 >  可以使用 `-XXLanguage:-UseCorrectExecutionOrderForVarargArguments` 暫時恢復為 1.5 之前的行為
 
-### 在運算子功能性呼叫中使用參數的預設值
+### 在運算子功能性呼叫中使用參數的預設值 {id="use-default-value-of-the-parameter-in-operator-functional-calls"}
 
 > **問題**：[KT-42064](https://youtrack.jetbrains.com/issue/KT-42064)
 >
@@ -298,7 +298,7 @@
 > - &gt;= 1.5：行為已變更，
 >  可以使用 `-XXLanguage:-JvmIrEnabledByDefault` 暫時恢復為 1.5 之前的行為
 
-### 如果一般數列為空，則在 for 迴圈中產生空的反向數列
+### 如果一般數列為空，則在 for 迴圈中產生空的反向數列 {id="produce-empty-reversed-progressions-in-for-loops-if-regular-progression-is-also-empty"}
 
 > **問題**：[KT-42533](https://youtrack.jetbrains.com/issue/KT-42533)
 >
@@ -314,7 +314,7 @@
 > - &gt;= 1.5：行為已變更，
 >  可以使用 `-XXLanguage:-JvmIrEnabledByDefault` 暫時恢復為 1.5 之前的行為
 
-### 理順 Char 到代碼 (Char-to-code) 與 Char 到數字 (Char-to-digit) 的轉換
+### 理順 Char 到代碼 (Char-to-code) 與 Char 到數字 (Char-to-digit) 的轉換 {id="straighten-char-to-code-and-char-to-digit-conversions-out"}
 
 > **問題**：[KT-23451](https://youtrack.jetbrains.com/issue/KT-23451)
 >
@@ -328,7 +328,7 @@
 >
 > - 1.5：棄用 `Char.toInt()/toShort()/toLong()/toByte()/toDouble()/toFloat()` 以及反向函式如 `Long.toChar()`，並提供替代方案 
 
-### kotlin.text 函式中字元的大小寫不區分比較不一致
+### kotlin.text 函式中字元的大小寫不區分比較不一致 {id="inconsistent-case-insensitive-comparison-of-characters-in-kotlin-text-functions"}
 
 > **問題**：[KT-45496](https://youtrack.jetbrains.com/issue/KT-45496)
 >
@@ -343,7 +343,7 @@
 > - < 1.5：舊行為（詳情見該問題）
 > - 1.5：變更 `Char.equals` 函式的行為 
 
-### 移除預設區域設定敏感 (locale-sensitive) 的大小寫轉換 API
+### 移除預設區域設定敏感 (locale-sensitive) 的大小寫轉換 API {id="remove-default-locale-sensitive-case-conversion-api"}
 
 > **問題**：[KT-43023](https://youtrack.jetbrains.com/issue/KT-43023)
 >
@@ -357,7 +357,7 @@
 >
 > - 1.5：棄用使用預設區域設定的大小寫轉換函式（詳情見該問題），並提供替代方案 
 
-### 逐漸將集合 min 與 max 函式的傳回型別更改為不可為 null
+### 逐漸將集合 min 與 max 函式的傳回型別更改為不可為 null {id="gradually-change-the-return-type-of-collection-min-and-max-functions-to-non-nullable"}
 
 > **問題**：[KT-38854](https://youtrack.jetbrains.com/issue/KT-38854)
 >
@@ -373,7 +373,7 @@
 > - 1.5.0：將受影響 API 的棄用層級提高到錯誤
 > - &gt;=1.6：重新引入受影響的 API，但具有不可為 null 的傳回型別
 
-### 提高浮點型別轉換為 Short 與 Byte 的棄用層級
+### 提高浮點型別轉換為 Short 與 Byte 的棄用層級 {id="raise-the-deprecation-level-of-conversions-of-floating-point-types-to-short-and-byte"}
 
 > **問題**：[KT-30360](https://youtrack.jetbrains.com/issue/KT-30360)
 >
@@ -388,9 +388,9 @@
 > - 1.4：棄用 `Double.toShort()/toByte()` 與 `Float.toShort()/toByte()` 並提供替代方案
 > - 1.5.0：將棄用層級提高到錯誤
 
-## 工具
+## 工具 {id="tools"}
 
-### 不要在單個專案中混合多個 JVM 變體的 kotlin-test
+### 不要在單個專案中混合多個 JVM 變體的 kotlin-test {id="do-not-mix-several-jvm-variants-of-kotlin-test-in-a-single-project"}
 
 > **問題**：[KT-40225](https://youtrack.jetbrains.com/issue/KT-40225)
 >

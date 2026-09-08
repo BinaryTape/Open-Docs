@@ -6,7 +6,7 @@ Compose Multiplatform 桌面端提供了多种用于管理窗口的功能。您�
 
 另请参阅新的实验性 [窗口与对话框 API v2](#window-and-dialog-api-v2)。
 
-## 打开和关闭窗口
+## 打开和关闭窗口 {id="open-and-close-windows"}
 
 您可以使用 `Window()` 函数来创建一个常规窗口。要将其置于可组合作用域中，请在 `application` 入口点中使用 `Window()`：
 
@@ -48,7 +48,7 @@ fun main() = application {
 
 <img src="compose-window-properties.animated.gif" alt="Window properties: change title" preview-src="compose-window-properties.png" width="600"/>
 
-### 添加条件
+### 添加条件 {id="add-conditions"}
 
 您还可以使用简单的 `if` 条件来打开和关闭窗口。在以下代码示例中，应用窗口在完成任务后会自动关闭：
 
@@ -93,7 +93,7 @@ fun main() = application {
 
 <img src="compose-window-condition.animated.gif" alt="Windows with conditions" preview-src="compose-window-condition.png" width="600"/>
 
-### 在关闭时请求确认
+### 在关闭时请求确认 {id="ask-for-confirmation-on-close"}
 
 如果您想在应用退出时使用自定义逻辑（例如显示对话框），可以使用 `onCloseRequest` 回调重写关闭操作。
 在以下代码示例中，我们不再使用命令式方法（`window.close()`），而是使用声明式方法，并响应状态更改（`isOpen = false`）来关闭窗口。
@@ -138,7 +138,7 @@ fun main() = application {
 
 <img src="compose-window-ask-to-close.animated.gif" alt="Close with confirmation" preview-src="compose-window-ask-to-close.png" width="600"/>
 
-## 创建单窗口应用
+## 创建单窗口应用 {id="create-a-single-window-application"}
 
 对于只有一个顶层窗口的简单应用程序，您不需要包含 `Window()` 可组合项的完整 `application` 入口点 —— `singleWindowApplication()` 函数将两者包装在单次调用中：
 
@@ -152,7 +152,7 @@ fun main() = singleWindowApplication {
 
 如果需要多个顶层窗口、自定义关闭逻辑或在运行时更改窗口属性，请在 `application` 入口点中使用 [`Window()` 可组合项](#open-and-close-windows)。
 
-## 管理窗口状态
+## 管理窗口状态 {id="manage-window-state"}
 
 `WindowState` 类持有窗口放置、当前位置和尺寸。
 placement 属性允许您指定窗口在屏幕上的放置方式：浮动、最大化/最小化或全屏。
@@ -235,7 +235,7 @@ fun main() = application {
 
 <img src="compose-window-minimize.animated.gif" alt="Changing the state" preview-src="compose-window-minimize.png" width="600"/>
 
-### 自适应窗口内容尺寸
+### 自适应窗口内容尺寸 {id="adapt-window-size-to-its-content"}
 
 要在不提前提供维度的情况下根据内容确定窗口大小，请将窗口的一个或两个维度设置为 `Dp.Unspecified`。
 Compose Multiplatform 会自动调整初始窗口大小以适应您的内容：
@@ -276,7 +276,7 @@ fun main() = application {
 
 <img src="compose-window-adaptive-size.png" alt="Adaptive window size" width="451"/>
 
-### 监听状态更改
+### 监听状态更改 {id="listen-to-state-changes"}
 
 如果您需要对状态更改做出反应并将值发送到应用程序的非组合部分（例如写入数据库），可以使用 `snapshotFlow()` 函数。
 该函数会捕获可组合项状态的当前值。
@@ -320,7 +320,7 @@ private fun onWindowRelocate(position: WindowPosition) {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="LaunchedEffect(state) { snapshotFlow { state.size } .onEach(::onWindowResize)"}
 
-## 管理多个窗口
+## 管理多个窗口 {id="manage-multiple-windows"}
 
 要管理多个窗口，您可以为应用程序状态创建一个单独的类，并响应 `mutableStateListOf` 的更改来打开或关闭窗口：
 
@@ -395,7 +395,7 @@ private class MyWindowState(
 
 有关更复杂的示例，请参阅 [Code Viewer](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/codeviewer) 示例。
 
-## 显示对话框
+## 显示对话框 {id="show-dialogs"}
 
 您可以使用 `DialogWindow()` 可组合项来显示一个带有自己标题栏的独立操作系统级窗口。
 这对于确认、文件选择器或用户在继续操作前必须完成的任何交互都非常有用。
@@ -462,7 +462,7 @@ fun main() = application {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="if (isDialogOpen) { DialogWindow( ... ) }"}
 
-## 将窗口隐藏到系统托盘
+## 将窗口隐藏到系统托盘 {id="hide-windows-to-the-system-tray"}
 
 默认情况下，关闭窗口会退出应用程序。要改为将窗口隐藏到系统托盘或菜单栏，您可以拦截 `onCloseRequest` 以更改窗口的可视性状态。
 
@@ -528,7 +528,7 @@ object TrayIcon : Painter() {
 
 <img src="compose-window-hide-tray.animated.gif" alt="Hide instead of closing" preview-src="compose-window-hide-tray.png" width="600"/>
 
-## 使窗口区域可拖动
+## 使窗口区域可拖动 {id="make-window-areas-draggable"}
 
 要为无装饰窗口添加自定义可拖动标题栏或使整个窗口可拖动，可以使用 `WindowDraggableArea()` 可组合项：
 
@@ -585,7 +585,7 @@ private fun WindowScope.AppWindowTitleBar() = WindowDraggableArea {
 
 <img src="compose-window-draggable-area.animated.gif" alt="Draggable area" preview-src="compose-window-draggable-area.png" width="600"/>
 
-## 创建透明窗口
+## 创建透明窗口 {id="create-transparent-windows"}
 
 要创建透明窗口，请向 `Window()` 函数传递两个参数：`transparent=true` 和 `undecorated=true`。
 窗口必须是无装饰的，因为无法对透明窗口进行装饰。
@@ -632,7 +632,7 @@ fun main() = application {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="Modifier.fillMaxSize().padding(5.dp).shadow(3.dp, RoundedCornerShape(20.dp))"}
 
-## 使用 Swing 组件
+## 使用 Swing 组件 {id="use-swing-components"}
 
 Compose Multiplatform 桌面端在底层使用 Swing，因此您可以直接使用 Swing 创建窗口：
 
@@ -728,7 +728,7 @@ private fun FileDialog(
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="@Composable private fun FileDialog( parent: Frame? = null, "}
 
-## 窗口与对话框 API v2
+## 窗口与对话框 API v2 {id="window-and-dialog-api-v2"}
 <primary-label ref="Experimental"/>
 
 从 Compose Multiplatform 1.12.0 开始，重新设计的 `WindowState` 和 `DialogState` 类可在 `androidx.compose.ui.window.v2` 子包中使用。
@@ -739,7 +739,7 @@ v2 窗口和对话框 API 将请求状态与观察窗口管理器实际应用的
 
 v2 API 与本页其余部分描述的现有 API 并存，因此您可以按照自己的节奏迁移各个窗口。
 
-### 指定并观察状态
+### 指定并观察状态 {id="specify-and-observe-state"}
 
 v2 API 显式地将指定所需状态与观察实际状态分离开来。
 
@@ -809,7 +809,7 @@ if (windowState.isInitialized) {
 
 同样的异步模型也可通过 `DialogState` 和 `rememberDialogState()` 用于对话框。
 
-### 选择屏幕
+### 选择屏幕 {id="choose-a-screen"}
 
 您可以通过向 `rememberWindowState()` 传递 `initialScreenProvider` 或稍后调用 `WindowState.requestScreen()` 来请求窗口应出现的屏幕。
 窗口实际放置的屏幕可以通过 `WindowState.screenId` 观察。
@@ -823,7 +823,7 @@ windowState.requestScreen {
 }
 ```
 
-### 指定位置
+### 指定位置 {id="specify-position"}
 
 要更改窗口位置，请向 `rememberWindowState()` 传递 `initialBoundsProvider` 或稍后调用 `WindowState.requestBounds()`。
 窗口的实际边界可以通过 `WindowState.bounds` 观察。
@@ -857,7 +857,7 @@ v2 API 使用 `WindowPositionProvider` 获取有关屏幕和父窗口几何形�
     )
     ```
 
-### 指定尺寸
+### 指定尺寸 {id="specify-size"}
 
 尺寸也是窗口边界的一部分，因此它通过相同的 `initialBoundsProvider`/`WindowState.requestBounds()` 机制进行配置。
 
@@ -900,6 +900,6 @@ DialogWindow(
 }
 ```
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 探索关于[其他桌面组件](compose-desktop-components.md)的教程。

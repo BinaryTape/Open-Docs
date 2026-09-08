@@ -4,7 +4,7 @@ title: コンパイラプラグインオプション
 
 Koin コンパイラプラグインは、その動作をカスタマイズするための設定オプションをサポートしています。
 
-## 設定
+## 設定 {id="configuration"}
 
 `build.gradle.kts` でコンパイラプラグインを構成します：
 
@@ -19,9 +19,9 @@ koinCompiler {
 }
 ```
 
-## 利用可能なオプション
+## 利用可能なオプション {id="available-options"}
 
-### userLogs
+### userLogs {id="userlogs"}
 
 - **型**: Boolean
 - **デフォルト**: `false`
@@ -34,7 +34,7 @@ koinCompiler {
 }
 ```
 
-### debugLogs
+### debugLogs {id="debuglogs"}
 
 - **型**: Boolean
 - **デフォルト**: `false`
@@ -47,7 +47,7 @@ koinCompiler {
 }
 ```
 
-### compileSafety
+### compileSafety {id="compilesafety"}
 
 - **型**: Boolean
 - **デフォルト**: `true`
@@ -62,7 +62,7 @@ koinCompiler {
 
 検証対象の詳細については、[コンパイル時の安全性](/docs/reference/koin-compiler/compile-safety)を参照してください。
 
-### strictSafety
+### strictSafety {id="strictsafety"}
 
 - **型**: Boolean
 - **デフォルト**: 自動検出（`startKoin`、`koinApplication`、または `@KoinApplication` を含むアグリゲーターモジュールで有効になります）
@@ -81,7 +81,7 @@ koinCompiler {
 
 `compileSafety = false` の場合は効果がありません。背景については [koin-compiler-plugin issue #32](https://github.com/InsertKoinIO/koin-compiler-plugin/issues/32) を参照してください。
 
-### skipDefaultValues
+### skipDefaultValues {id="skipdefaultvalues"}
 
 - **型**: Boolean
 - **デフォルト**: `true`
@@ -94,7 +94,7 @@ koinCompiler {
 }
 ```
 
-### unsafeDslChecks
+### unsafeDslChecks {id="unsafedslchecks"}
 
 - **型**: Boolean
 - **デフォルト**: `true`
@@ -107,7 +107,7 @@ koinCompiler {
 }
 ```
 
-## 完全な例
+## 完全な例 {id="complete-example"}
 
 ```kotlin
 // build.gradle.kts
@@ -125,7 +125,7 @@ koinCompiler {
 }
 ```
 
-## ベストプラクティス
+## ベストプラクティス {id="best-practices"}
 
 - コンパイル時の依存関係検証のために、**`compileSafety` を有効**（デフォルト）のままにする。
 - **`strictSafety` は自動検出のまま**にする。検出器がアグリゲーターを見逃したり、アグリゲーター以外のファイルで誤動作したりする場合のみオーバーライドする。
@@ -134,7 +134,7 @@ koinCompiler {
 - より安全な DSL の使用のために、**`unsafeDslChecks` を有効**（デフォルト）のままにする。
 - **`debugLogs` はプラグインの問題をトラブルシューティングする場合のみ**使用する。
 
-## 関連項目
+## 関連項目 {id="see-also"}
 
 - **[コンパイル時の安全性](/docs/reference/koin-compiler/compile-safety)** — 何がどのように検証されるか
 - **[コンパイラプラグインのセットアップ](/docs/setup/compiler-plugin)** — 完全なセットアップガイド

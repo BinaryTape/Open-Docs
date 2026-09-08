@@ -11,7 +11,7 @@
 class Customer
 ```
 
-## 프로퍼티
+## 프로퍼티 {id="properties"}
 
 클래스 객체의 특성은 프로퍼티(property)에 선언될 수 있습니다. 다음과 같이 클래스 프로퍼티를 선언할 수 있습니다:
 
@@ -43,7 +43,7 @@ class Contact(val id: Int, var email: String = "example@gmail.com") {
 }
 ```
 
-## 인스턴스 생성
+## 인스턴스 생성 {id="create-instance"}
 
 클래스에서 객체를 생성하려면 **생성자(constructor)**를 사용하여 클래스 **인스턴스(instance)**를 선언합니다.
 
@@ -68,7 +68,7 @@ fun main() {
 
 코틀린 클래스는 직접 정의한 것을 포함하여 여러 개의 생성자를 가질 수 있습니다. 여러 생성자를 선언하는 방법에 대해 더 알고 싶다면 [생성자](classes.md#constructors-and-initializer-blocks)를 참조하세요.
 
-## 프로퍼티 접근
+## 프로퍼티 접근 {id="access-properties"}
 
 인스턴스의 프로퍼티에 접근하려면 인스턴스 이름 뒤에 마침표 `.`를 찍고 프로퍼티 이름을 적습니다:
 
@@ -100,7 +100,7 @@ fun main() {
 >
 {style="tip"}
 
-## 멤버 함수
+## 멤버 함수 {id="member-functions"}
 
 객체의 특성으로 프로퍼티를 선언하는 것 외에도, 멤버 함수를 통해 객체의 동작을 정의할 수 있습니다.
 
@@ -122,7 +122,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-member-function"}
 
-## 데이터 클래스
+## 데이터 클래스 {id="data-classes"}
 
 코틀린에는 데이터를 저장하는 데 특히 유용한 **데이터 클래스(data classes)**가 있습니다. 데이터 클래스는 일반 클래스와 동일한 기능을 가지지만, 추가적인 멤버 함수들이 자동으로 생성되어 제공됩니다. 이러한 멤버 함수들을 통해 인스턴스를 읽기 쉬운 출력으로 출력하거나, 클래스 인스턴스 간의 비교, 인스턴스 복사 등을 쉽게 할 수 있습니다. 이러한 함수들이 자동으로 제공되므로 각 클래스마다 동일한 상용구 코드(boilerplate code)를 작성하는 데 시간을 들일 필요가 없습니다.
 
@@ -148,7 +148,7 @@ data class User(val name: String, val id: Int)
 * [인스턴스 비교](#compare-instances)
 * [인스턴스 복사](#copy-instance)
 
-### 문자열로 출력
+### 문자열로 출력 {id="print-as-string"}
 
 클래스 인스턴스를 읽기 쉬운 문자열로 출력하려면 `toString()` 함수를 명시적으로 호출하거나, 자동으로 `toString()`을 호출해 주는 출력 함수(`println()` 및 `print()`)를 사용할 수 있습니다:
 
@@ -169,7 +169,7 @@ fun main() {
 
 이 기능은 디버깅을 하거나 로그를 생성할 때 특히 유용합니다.
 
-### 인스턴스 비교
+### 인스턴스 비교 {id="compare-instances"}
 
 데이터 클래스 인스턴스를 비교하려면 동등 연산자 `==`를 사용합니다:
 
@@ -194,7 +194,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-data-classes-compare-instances"}
 
-### 인스턴스 복사
+### 인스턴스 복사 {id="copy-instance"}
 
 데이터 클래스 인스턴스의 정확한 복사본을 만들려면 인스턴스에서 `copy()` 함수를 호출합니다.
 
@@ -231,9 +231,9 @@ fun main() {
 
 이 튜토리얼의 마지막 장은 코틀린의 [널 안전성(null safety)](kotlin-tour-null-safety.md)에 관한 내용입니다.
 
-## 연습 문제
+## 연습 문제 {id="practice"}
 
-### 연습 문제 1 {initial-collapse-state="collapsed" collapsible="true"}
+### 연습 문제 1 {initial-collapse-state="collapsed" collapsible="true" id="exercise-1"}
 
 이름을 위한 프로퍼티와 급여를 위한 프로퍼티 두 개를 가진 데이터 클래스 `Employee`를 정의하세요. 급여 프로퍼티는 변경 가능(mutable)해야 합니다. 그렇지 않으면 연말에 급여 인상을 받을 수 없습니다! `main` 함수는 이 데이터 클래스를 사용하는 방법을 보여줍니다.
 
@@ -263,7 +263,7 @@ fun main() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="모범 답안" id="kotlin-tour-classes-solution-1"}
 
-### 연습 문제 2 {initial-collapse-state="collapsed" collapsible="true"}
+### 연습 문제 2 {initial-collapse-state="collapsed" collapsible="true" id="exercise-2"}
 
 이 코드가 컴파일되는 데 필요한 추가적인 데이터 클래스들을 선언하세요.
 
@@ -300,7 +300,7 @@ fun main() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="모범 답안" id="kotlin-tour-classes-solution-2"}
 
-### 연습 문제 3 {initial-collapse-state="collapsed" collapsible="true"}
+### 연습 문제 3 {initial-collapse-state="collapsed" collapsible="true" id="exercise-3"}
 
 코드를 테스트하기 위해 무작위 직원을 생성할 수 있는 생성기가 필요합니다. 고정된 이름 리스트를 가진 `RandomEmployeeGenerator` 클래스를 정의하세요(클래스 본문 내부에 작성). 최소 및 최대 급여를 설정할 수 있도록 클래스를 구성하세요(클래스 헤더 내부에 작성). 클래스 본문에 `generateEmployee()` 함수를 정의하세요. 이번에도 `main` 함수는 이 클래스를 사용하는 방법을 보여줍니다.
 

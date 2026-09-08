@@ -3,7 +3,7 @@
 Kotlin/Native 提供了 [匯入 C](native-c-interop.md) 與 [Objective-C](native-objc-interop.md) 程式庫的能力。
 您也可以採用折衷方案，將純 [Swift 庫](#swift-library-import) 匯入到您的 Kotlin/Native 專案中。
 
-## C 與 Objective-C 程式庫匯入的穩定性
+## C 與 Objective-C 程式庫匯入的穩定性 {id="stability-of-c-and-objective-c-library-import"}
 <primary-label ref="beta"/>
 
 目前匯入 C 與 Objective-C 程式庫的支援處於 [Beta](components-stability.md#kotlin-native) 階段。
@@ -17,7 +17,7 @@ Kotlin/Native 提供了 [匯入 C](native-c-interop.md) 與 [Objective-C](native
 
 這兩種原生庫具有不同的相容性細節。
 
-### 平台庫
+### 平台庫 {id="platform-libraries"}
 
 [_平台庫_](native-platform-libs.md) 隨 Kotlin/Native 編譯器一起提供。因此，在專案中使用不同版本的 Kotlin 會導致獲得不同版本的平台庫。對於 Apple 目標（如 iOS），平台庫是根據特定編譯器版本支援的 Xcode 版本產生的。
 
@@ -36,7 +36,7 @@ Xcode SDK 隨附的原生庫 API 會隨每個 Xcode 版本而改變。即使這�
 
 平台庫破壞性變更的另一個潛在原因是將原生 API 轉換為 Kotlin 的演算法發生了變化。在這種情況下，JetBrains 團隊也會盡合理努力避免破壞性變更。
 
-#### 從平台庫使用新的 Objective-C 類別
+#### 從平台庫使用新的 Objective-C 類別 {id="using-new-objective-c-classes-from-platform-libraries"}
 
 Kotlin 編譯器不會阻止您使用在部署目標中不可用的 Objective-C 類別。
 
@@ -44,11 +44,11 @@ Kotlin 編譯器不會阻止您使用在部署目標中不可用的 Objective-C 
 
 如需更多詳細資訊，請參閱 [強連結 (Strong linking)](native-objc-interop.md#strong-linking)。
 
-### 第三方庫
+### 第三方庫 {id="third-party-libraries"}
 
 除了系統平台庫之外，Kotlin/Native 還允許匯入第三方原生庫。例如，您可以使用 [CocoaPods 整合](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html) 或設定 [cinterops 配置](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#cinterops)。
 
-#### 匯入 Xcode 版本不符的程式庫
+#### 匯入 Xcode 版本不符的程式庫 {id="importing-libraries-with-mismatched-xcode-version"}
 
 匯入第三方原生庫可能會導致與不同 Xcode 版本的相容性問題。
 
@@ -60,11 +60,11 @@ Kotlin 編譯器不會阻止您使用在部署目標中不可用的 Objective-C 
 
 使用較新或較舊的 Xcode 版本通常是可行的，但可能會導致問題，通常會影響第三方原生庫的匯入。
 
-##### Xcode 版本比建議版本新
+##### Xcode 版本比建議版本新 {id="xcode-version-is-newer-than-recommended"}
 
 使用比建議版本新的 Xcode 版本可能會破壞某些 Kotlin 特性。匯入第三方原生庫受此影響最大。在使用不支援的 Xcode 版本時，它通常完全無法運作。
 
-##### Xcode 版本比建議版本舊
+##### Xcode 版本比建議版本舊 {id="xcode-version-is-older-than-recommended"}
 
 通常，Kotlin 與較舊的 Xcode 版本配合良好。可能會偶爾出現問題，最常導致：
 
@@ -73,7 +73,7 @@ Kotlin 編譯器不會阻止您使用在部署目標中不可用的 Objective-C 
 
 如果您的 Kotlin 庫使用較舊的 Xcode 版本成功編譯，除非您[在 Kotlin 庫 API 中使用了第三方庫的型別](#using-native-types-in-library-api)，否則可以安全發佈。
 
-#### 使用傳遞性第三方原生相依性
+#### 使用傳遞性第三方原生相依性 {id="using-a-transitive-third-party-native-dependency"}
 
 當您專案中的某個 Kotlin 庫匯入第三方原生庫作為其編譯實作的一部分時，您的專案也會獲得該原生庫的存取權限。這是因為 Kotlin/Native 不區分 `api` 與 `implementation` 相依性類型，因此原生庫最終總是成為 `api` 相依性。
 
@@ -81,7 +81,7 @@ Kotlin 編譯器不會阻止您使用在部署目標中不可用的 Objective-C 
 
 因此，請直接為同一個原生庫配置互通性，而不是依賴傳遞相依性。為此，請為該原生庫使用另一個套件名稱，類似於[使用自訂套件名稱](#use-custom-package-name)以防止相容性問題。
 
-#### 在程式庫 API 中使用原生型別
+#### 在程式庫 API 中使用原生型別 {id="using-native-types-in-library-api"}
 
 如果您發佈 Kotlin 庫，請小心在程式庫 API 中使用原生型別。為了修正相容性與其他問題，預計未來會破壞此類用法，這將影響您的程式庫使用者。
 
@@ -99,11 +99,11 @@ internal fun createUIViewController(): UIViewController
 public fun getDate(): String = NSDate().toString()
 ```
 
-#### 發佈使用第三方庫的程式庫
+#### 發佈使用第三方庫的程式庫 {id="publishing-a-library-that-uses-third-party-library"}
 
 如果您發佈使用第三方原生庫的 Kotlin 庫，可以採取以下幾項措施來避免相容性問題。
 
-##### 使用自訂套件名稱
+##### 使用自訂套件名稱 {id="use-custom-package-name"}
 
 為第三方原生庫使用自訂套件名稱可能有助於防止相容性問題。
 
@@ -116,7 +116,7 @@ public fun getDate(): String = NSDate().toString()
 * 透過 CocoaPods 整合匯入原生庫時，在 Gradle 組建腳本的 `pod {}` 區塊中使用 [`packageName`](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-dsl-reference.html#pod-function) 屬性。
 * 使用 `cinterops` 配置匯入原生庫時，在配置區塊中使用 [`packageName`](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#cinterops) 屬性。
 
-##### 檢查與舊版 Kotlin 版本的相容性
+##### 檢查與舊版 Kotlin 版本的相容性 {id="check-compatibility-with-older-kotlin-versions"}
 
 發佈 Kotlin 庫時，第三方原生庫的使用可能會影響程式庫與其他 Kotlin 版本的相容性，特別是：
 
@@ -128,17 +128,17 @@ public fun getDate(): String = NSDate().toString()
 
   在 Kotlin 庫中使用原生庫通常不應影響其回溯相容性。但它增加了更多編譯器錯誤影響相容性的可能性。
 
-##### 避免嵌入靜態庫
+##### 避免嵌入靜態庫 {id="avoid-embedding-static-libraries"}
 
 匯入原生庫時，可以使用 `-staticLibrary` 編譯器選項或 `.def` 檔案中的 `staticLibraries` 屬性來包含相關聯的 [靜態庫](native-definition-file.md#include-a-static-library)（`.a` 檔案）。在這種情況下，您的程式庫使用者不需要處理原生相依性與連結器選項。
 
 然而，無法以任何方式配置所包含靜態庫的使用：既不能排除也不能替換（取代）它。因此，使用者將無法解決與其他包含相同靜態庫的 Kotlin 庫之間的潛在衝突，也無法調整其版本。
 
-### 原生庫支援的演進
+### 原生庫支援的演進 {id="evolution-of-native-library-support"}
 
 目前，在 Kotlin 專案中使用 C 與 Objective-C 可能會導致相容性問題；本指南列出了其中的一些問題。為了修正這些問題，未來可能需要進行一些破壞性變更，這本身也會導致相容性問題。
 
-## Swift 程式庫匯入
+## Swift 程式庫匯入 {id="swift-library-import"}
 
 Kotlin/Native 不支援直接匯入純 Swift 庫。但是，有幾種方法可以解決這個問題。
 

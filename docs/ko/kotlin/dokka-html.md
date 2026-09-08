@@ -17,7 +17,7 @@ HTML 출력 형식의 예시는 다음 문서를 확인하세요:
 * [OkHttp](https://square.github.io/okhttp/5.x/okhttp/okhttp3/)
 * [Gradle](https://docs.gradle.org/current/kotlin-dsl/index.html)
 
-## HTML 문서 생성
+## HTML 문서 생성 {id="generate-html-documentation"}
 
 출력 형식으로서의 HTML은 모든 러너(runner)에서 지원됩니다. HTML 문서를 생성하려면 빌드 도구 또는 러너에 따라 다음 단계를 따르세요:
 
@@ -42,7 +42,7 @@ HTML 출력 형식의 예시는 다음 문서를 확인하세요:
 >
 {style="note"}
 
-## 설정
+## 설정 {id="configuration"}
 
 HTML 형식은 Dokka의 기본 형식입니다. 다음 옵션을 사용하여 설정할 수 있습니다:
 
@@ -143,7 +143,7 @@ java -jar dokka-cli-%dokkaVersion%.jar \
 </tab>
 </tabs>
 
-### 설정 옵션
+### 설정 옵션 {id="configuration-options"}
 
 아래 표에는 가능한 모든 설정 옵션과 그 용도가 포함되어 있습니다:
 
@@ -158,11 +158,11 @@ java -jar dokka-cli-%dokkaVersion%.jar \
 
 Dokka 플러그인 설정에 대한 자세한 내용은 [Dokka 플러그인 설정](dokka-plugins.md#configure-dokka-plugins)을 참조하세요.
 
-## 커스터마이징
+## 커스터마이징 {id="customization"}
 
 문서에 고유한 룩앤필(look and feel)을 추가할 수 있도록 HTML 형식은 다양한 커스터마이징 옵션을 지원합니다.
 
-### 스타일 커스터마이징
+### 스타일 커스터마이징 {id="customize-styles"}
 
 `customStyleSheets` [설정 옵션](#configuration)을 사용하여 자신만의 스타일시트를 사용할 수 있습니다. 이 스타일시트는 모든 페이지에 적용됩니다.
 
@@ -176,7 +176,7 @@ Dokka 플러그인 설정에 대한 자세한 내용은 [Dokka 플러그인 설�
 
 Dokka의 모든 스타일시트 소스 코드는 [GitHub에서 확인 가능](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/dokka-subprojects/plugin-base/src/main/resources/dokka/styles)합니다.
 
-### 에셋 커스터마이징
+### 에셋 커스터마이징 {id="customize-assets"}
 
 `customAssets` [설정 옵](#configuration)션을 사용하여 문서와 함께 번들로 제공될 자신만의 이미지를 제공할 수 있습니다.
 
@@ -192,7 +192,7 @@ customAssets.from("example.png", "example2.png")
 
 Dokka에서 사용되는 모든 이미지는 [GitHub](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/dokka-subprojects/plugin-base/src/main/resources/dokka/images)에서 찾을 수 있습니다.
 
-### 로고 변경
+### 로고 변경 {id="change-the-logo"}
 
 로고를 커스터마이징하려면 먼저 `logo-icon.svg`에 대해 [자신만의 에셋을 제공](#customize-assets)하는 것부터 시작할 수 있습니다.
 
@@ -202,11 +202,11 @@ Dokka에서 사용되는 모든 이미지는 [GitHub](https://github.com/Kotlin/
 
 지원되는 최대 로고 크기는 너비 120픽셀, 높이 36픽셀입니다. 더 큰 이미지를 사용하면 자동으로 크기가 조정됩니다.
 
-### 푸터 수정
+### 푸터 수정 {id="modify-the-footer"}
 
 `footerMessage` [설정 옵션](#configuration)을 사용하여 푸터의 텍스트를 수정할 수 있습니다.
 
-### 템플릿
+### 템플릿 {id="templates"}
 
 Dokka는 문서 페이지 생성에 사용되는 [FreeMarker](https://freemarker.apache.org/) 템플릿을 수정할 수 있는 기능을 제공합니다.
 
@@ -227,7 +227,7 @@ Dokka의 모든 템플릿 소스 코드는 [GitHub에서 확인 가능](https://
 
 `templatesDir` [설정 옵션](#configuration)을 사용하여 모든 템플릿을 재정의할 수 있습니다. Dokka는 지정된 디렉터리 내에서 정확한 템플릿 이름을 검색합니다. 사용자 정의 템플릿을 찾지 못하면 기본 템플릿을 사용합니다.
 
-#### 변수
+#### 변수 {id="variables"}
 
 모든 템플릿 내에서 다음 변수를 사용할 수 있습니다:
 
@@ -247,7 +247,7 @@ Dokka의 모든 템플릿 소스 코드는 [GitHub에서 확인 가능](https://
 </@template_cmd>
 ```
 
-#### 지시문
+#### 지시문 {id="directives"}
 
 다음과 같이 Dokka에서 정의한 [지시문(directives)](https://freemarker.apache.org/docs/ref_directive_userDefined.html)을 사용할 수도 있습니다:
 

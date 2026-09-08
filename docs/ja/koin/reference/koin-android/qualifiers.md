@@ -8,11 +8,11 @@ title: Android の Context と Qualifier
 一般的な Qualifier の概念（named、型安全、enum、JSR-330）については、[Qualifiers](/docs/reference/koin-core/qualifiers) を参照してください。
 :::
 
-## Android Context - Qualifier は不要
+## Android Context - Qualifier は不要 {id="android-context-no-qualifiers-needed"}
 
 Hilt とは異なり、Koin は Qualifier を必要とせずに Android の Context を自動的に提供します。
 
-### Koin による Context の解決
+### Koin による Context の解決 {id="koin-s-context-resolution"}
 
 ```kotlin
 val androidModule = module {
@@ -31,7 +31,7 @@ val androidModule = module {
 }
 ```
 
-### @ApplicationContext や @ActivityContext は不要
+### @ApplicationContext や @ActivityContext は不要 {id="no-applicationcontext-or-activitycontext"}
 
 **Hilt では以下が必要です：**
 ```kotlin
@@ -56,7 +56,7 @@ val appModule = module {
 **Koin の利点:** `androidContext()` 関数は常に Application context を提供します。Application context と Activity context を区別するための Qualifier は必要ありません。
 :::
 
-## Activity Context が必要な場合
+## Activity Context が必要な場合 {id="when-you-need-activity-context"}
 
 Activity context が必要な場合は、それを注入（Inject）するのではなく、直接使用してください。
 
@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
 **ベストプラクティス:** Activity context を生存期間の長いオブジェクトに注入しないでください。これはメモリリークの原因となります。Activity よりも長く生存する依存関係には、Application context（`androidContext()`）を使用してください。
 :::
 
-## Qualifier を使用した Android の依存関係
+## Qualifier を使用した Android の依存関係 {id="qualified-android-dependencies"}
 
 Android 特有の依存関係に対して複数の構成が必要な場合：
 
@@ -105,7 +105,7 @@ val databaseModule = module {
 }
 ```
 
-## 次のステップ
+## 次のステップ {id="next-steps"}
 
 - **[Qualifiers](/docs/reference/koin-core/qualifiers)** - Qualifier に関する完全なドキュメント
 - **[Android Best Practices](/docs/reference/koin-android/best-practices)** - メモリ管理

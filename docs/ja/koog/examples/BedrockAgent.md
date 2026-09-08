@@ -9,14 +9,14 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Bedr
 
 KoogフレームワークとAWS Bedrockの統合を使用して、インテリジェントなAIエージェントを作成するための包括的なガイドへようこそ。このノートブックでは、自然言語のコマンドを通じてシンプルなスイッチデバイスを制御できる、実用的なエージェントの構築手順を説明します。
 
-## 学習内容
+## 学習内容 {id="what-you-ll-learn"}
 
 - Kotlinのアノテーションを使用してAIエージェント用のカスタムツールを定義する方法
 - LLM駆動型エージェントのためのAWS Bedrock統合の設定
 - ツールレジストリ（Tool Registry）の作成とエージェントへの接続
 - コマンドを理解し実行できるインタラクティブなエージェントの構築
 
-## 事前準備
+## 事前準備 {id="prerequisites"}
 
 - 適切な権限を持つAWS Bedrockへのアクセス権
 - 設定済みのAWS認証情報（アクセスキーとシークレットキー）
@@ -203,7 +203,7 @@ runBlocking {
 
     実行が中断されました
 
-## 何が起きたのか？ 🎯
+## 何が起きたのか？ 🎯 {id="what-just-happened"}
 
 エージェントを実行すると、舞台裏では以下のような魔法が起こっています：
 
@@ -215,11 +215,11 @@ runBlocking {
 
 これは、自然言語理解とプログラムによるアクションのシームレスな統合という、Koogフレームワークの核心的なパワーを示しています。
 
-## 次のステップと拡張
+## 次のステップと拡張 {id="next-steps-extensions"}
 
 さらに進める準備はできましたか？以下に探索のためのアイデアをいくつか挙げます：
 
-### 🔧 強化されたツール
+### 🔧 強化されたツール {id="enhanced-tools"}
 ```kotlin
 @Tool
 @LLMDescription("指定された秒数後にスイッチを自動的にオフにするタイマーを設定します")
@@ -230,7 +230,7 @@ fun setAutoOffTimer(seconds: Int): String
 fun getUsageStats(): String
 ```
 
-### 🌐 複数のデバイス
+### 🌐 複数のデバイス {id="multiple-devices"}
 ```kotlin
 class HomeAutomationTools : ToolSet {
     @Tool fun controlLight(room: String, on: Boolean): String
@@ -239,7 +239,7 @@ class HomeAutomationTools : ToolSet {
 }
 ```
 
-### 🧠 メモリとコンテキスト
+### 🧠 メモリとコンテキスト {id="memory-context"}
 ```kotlin
 val agent = AIAgent(
     executor = executor,
@@ -251,7 +251,7 @@ val agent = AIAgent(
 )
 ```
 
-### 🔄 高度なワークフロー
+### 🔄 高度なワークフロー {id="advanced-workflows"}
 ```kotlin
 // 条件付きロジックを含むマルチステップのワークフロー
 @Tool
@@ -259,7 +259,7 @@ val agent = AIAgent(
 fun eveningRoutine(): String
 ```
 
-## 主なポイント
+## 主なポイント {id="key-takeaways"}
 
 ✅ **ツールは関数である**: どのようなKotlin関数もエージェントの能力になり得ます。
 ✅ **アノテーションが動作を駆動する**: `@Tool` と `@LLMDescription` によって関数が発見可能になります。
@@ -271,7 +271,7 @@ Koogフレームワークを使用すると、自然言語を理解し、現実�
 
 **ハッピー・エージェント・ビルディング！** 🚀
 
-## エージェントのテスト
+## エージェントのテスト {id="testing-the-agent"}
 
 エージェントの動作を確認する時間です！エージェントは自然言語のリクエストを理解し、提供されたツールを使用してスイッチを制御できるようになりました。
 

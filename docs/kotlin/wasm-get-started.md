@@ -4,7 +4,7 @@
 
 本教程演示如何在 IntelliJ IDEA 中运行包含 [](wasm-overview.md) 的 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) 应用，并生成可以作为网站发布的工件。
 
-## 创建项目
+## 创建项目 {id="create-a-project"}
 
 1. [设置 Kotlin Multiplatform 开发环境](https://kotlinlang.org/docs/multiplatform/quickstart.html#set-up-the-environment)。
 2. 在 IntelliJ IDEA 中，选择 **File | New | Project**。
@@ -28,7 +28,7 @@
 
    ![Kotlin Multiplatform 向导](wasm-kmp-wizard.png){width=600}
 
-## 运行应用程序
+## 运行应用程序 {id="run-the-application"}
 
 1. 项目加载后，在运行配置列表中选择 **webApp [wasmJs]** 并点击 **Run**。
 
@@ -46,7 +46,7 @@
     
     ![浏览器中的 Compose 应用](wasm-composeapp-browser.png){width=600}
 
-## 生成工件
+## 生成工件 {id="generate-artifacts"}
 
 生成项目的工件以在网站上发布：
 
@@ -69,7 +69,7 @@
 
 ![工件目录](wasm-composeapp-directory.png){width=400}
 
-## 发布应用程序
+## 发布应用程序 {id="publish-the-application"}
 
 使用生成的工件部署您的 Kotlin/Wasm 应用程序。选择您偏好的发布选项，并按照说明进行操作：
 
@@ -83,7 +83,7 @@
 
    恭喜！您已经发布了工件。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * [了解如何使用 Compose Multiplatform 在 iOS 和 Android 之间共享 UI](https://kotlinlang.org/docs/multiplatform/compose-multiplatform-create-first-app.html)
 * 尝试更多 Kotlin/Wasm 示例：

@@ -10,7 +10,7 @@ Kotlin Toolchain을 사용하면 JVM, Android, iOS, macOS, Windows, Linux에서 
 >
 {style="warning"}
 
-## Kotlin Toolchain의 작동 원리
+## Kotlin Toolchain의 작동 원리 {id="how-kotlin-toolchain-works"}
 
 Kotlin Toolchain은 독립형 CLI 애플리케이션이며, YAML 파일을 사용하여 프로젝트를 구성할 수 있습니다.
 
@@ -51,13 +51,13 @@ settings:
 * `$compose` 네임스페이스는 모든 선택적 Compose 모듈에 대한 접근을 제공하는 내장 라이브러리 카탈로그입니다.
 * `@platform` 한정자는 의존성 및 설정을 포함한 플랫폼별 섹션을 표시합니다.
 
-## Kotlin Toolchain 사용해 보기
+## Kotlin Toolchain 사용해 보기 {id="try-kotlin-toolchain"}
 
 직접 사용해 보려면 Kotlin Toolchain의 [시작 가이드(Getting Started guide)](https://kotlin-toolchain.org/dev/getting-started/)를 확인해 보세요.
 
 의견이 있으시면 언제든지 [이슈 트래커(issue tracker)](https://jb.gg/amper-issues)에 제출해 주세요. 여러분의 의견은 Kotlin Toolchain의 미래를 만드는 데 도움이 됩니다.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 <!---
 * [JetBrains 블로그](https://blog.jetbrains.com/blog/2023/11/09/amper-improving-the-build-tooling-user-experience)를 확인하여

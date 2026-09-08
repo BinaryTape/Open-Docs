@@ -29,7 +29,7 @@ composeCompiler {
 >
 {style="warning"}
 
-## 功能旗標的目的與用途
+## 功能旗標的目的與用途 {id="purpose-and-use-of-feature-flags"}
 
 功能旗標被組織成一組獨立的選項，以在不斷推出新旗標或棄用舊旗標時，盡可能減少對頂層屬性的變動。
 

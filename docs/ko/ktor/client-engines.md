@@ -564,7 +564,7 @@ CIO 엔진은 JVM, Android, Native, JavaScript 및 WebAssembly JavaScript(WasmJs
 
 ## 제한 사항 {id="limitations"}
 
-### HTTP/2 및 WebSocket
+### HTTP/2 및 WebSocket {id="http-2-and-websockets"}
 
 모든 엔진이 HTTP/2 프로토콜을 지원하는 것은 아닙니다. 엔진이 HTTP/2를 지원하는 경우 엔진 설정에서 활성화할 수 있습니다. 예를 들어, [Java](#java) 엔진이 있습니다.
 
@@ -583,19 +583,19 @@ CIO 엔진은 JVM, Android, Native, JavaScript 및 WebAssembly JavaScript(WasmJs
 | `WinHttp` | ✅      | ✅          |
 | `Curl`    | ✅      | ✅          |
 
-### 보안
+### 보안 {id="security"}
 
 [SSL](client-ssl.md)은 엔진별로 설정해야 합니다. 각 엔진은 고유한 SSL 설정 옵션을 제공합니다.
 
-### 프록시 지원
+### 프록시 지원 {id="proxy-support"}
 
 일부 엔진은 프록시를 지원하지 않습니다. 전체 목록은 [프록시 문서](client-proxy.md#supported_engines)를 참조하세요.
 
-### 로깅
+### 로깅 {id="logging"}
 
 [Logging](client-logging.md) 플러그인은 타겟 플랫폼에 따라 다양한 로거 타입을 제공합니다.
 
-### 타임아웃
+### 타임아웃 {id="timeout"}
 
 [HttpTimeout](client-timeout.md) 플러그인은 특정 엔진에서 일부 제한 사항이 있습니다. 전체 목록은 [타임아웃 제한 사항](client-timeout.md#limitations)을 참조하세요.
 

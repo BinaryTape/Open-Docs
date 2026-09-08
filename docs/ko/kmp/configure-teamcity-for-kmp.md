@@ -12,7 +12,7 @@ TeamCity는 모든 주요 VCS 제공업체(GitHub, GitLab, Bitbucket, Azure DevO
 
 이 튜토리얼은 [JetCaster KMP 샘플](https://github.com/kotlin-hands-on/jetcaster-kmp-migration/)을 기반으로 합니다.
 
-## 새 프로젝트 생성
+## 새 프로젝트 생성 {id="create-a-new-project"}
 
 모든 TeamCity 워크플로는 프로젝트(Project)에서 시작됩니다. 프로젝트는 실제 CI/CD 루틴을 실행하는 빌드 구성(Build configuration) 및 파이프라인(Pipeline), 클라우드 에이전트를 구동하는 데 사용되는 클라우드 프로필, 하위 객체와 공유되는 파라미터 등의 엔티티를 소유합니다.
 
@@ -52,7 +52,7 @@ TeamCity는 모든 주요 VCS 제공업체(GitHub, GitLab, Bitbucket, Azure DevO
 
    파이프라인이 리포지토리의 모든 브랜치를 추적하고, `main`을 기본 브랜치로 사용하며, 리포지토리에 변경 사항이 커밋될 때마다 자동으로 새로운 실행을 트리거하도록 기본 설정을 그대로 둡니다.
 
-## 파이프라인 잡 추가
+## 파이프라인 잡 추가 {id="add-pipeline-jobs"}
 
 파이프라인이 준비되면 TeamCity가 해당 설정 페이지로 이동합니다. 왼쪽 상단 모서리에 있는 토글을 사용하여 시각적 에디터와 코드 에디터 사이를 전환할 수 있습니다.
 
@@ -62,7 +62,7 @@ TeamCity 파이프라인은 잡(Job)으로 구성되며, 잡은 연속적으로 
 
 TeamCity UI에서 잡 타일을 클릭하여 설정을 편집하거나, 잡 아래의 어두운 영역을 클릭하여 전역 파이프라인 설정을 수정할 수 있습니다.
 
-### 공통 파이프라인 설정
+### 공통 파이프라인 설정 {id="common-pipeline-settings"}
 
 이 튜토리얼에서는 전역 파이프라인 옵션을 설정할 필요가 없습니다. 다음과 같이 파이프라인 내의 모든 잡에 영향을 미치는 설정에 대한 자세한 정보는 [이 문서](https://www.jetbrains.com/help/teamcity/pipeline-settings.html)를 참조하세요.
 
@@ -70,7 +70,7 @@ TeamCity UI에서 잡 타일을 클릭하여 설정을 편집하거나, 잡 아�
 * **Repository** — 서로 다른 VCS 호스팅 제공업체의 여러 리포지토리를 체크아웃하고 처리할 수 있습니다.
 * **Integrations** — 외부 NPM 및 Docker 레지스트리를 연결할 수 있습니다. 공개 Docker Hub 이미지 내부에서 빌드 스텝을 실행하려는 경우, 파이프라인이 익명 풀(pull)에 대한 Docker Hub의 속도 제한을 초과할 정도로 자주 실행되지 않는 한 해당 통합을 구성할 필요는 없습니다.
 
-### 에이전트 설정
+### 에이전트 설정 {id="agent-settings"}
 
 빌드 작업은 베어메탈 또는 클라우드 머신에 설치된 빌드 에이전트(Build agents)에 의해 처리됩니다. 이 머신들에는 해당 빌드 작업에 필요한 모든 도구가 설치되어 있어야 합니다. 예를 들어, 이 파이프라인의 Job 2에는 Android SDK가 필요하며, Job 3은 Xcode를 사용하여 iOS 버전의 앱을 빌드합니다.
 
@@ -79,7 +79,7 @@ TeamCity UI에서 잡 타일을 클릭하여 설정을 편집하거나, 잡 아�
 
 이 튜토리얼에서 잡은 필요한 도구가 설치된 에이전트에만 할당되도록 에이전트 요구 사항(Agent requirements)을 지정합니다.
 
-### 공유 테스트 실행
+### 공유 테스트 실행 {id="run-shared-tests"}
 
 YAML 파이프라인 에디터로 전환하고 다음 마크업을 붙여넣어 첫 번째 잡을 설정합니다.
 
@@ -116,7 +116,7 @@ jobs:
 
 추가 정보는 [Job settings](https://www.jetbrains.com/help/teamcity/job-settings.html) 및 [Gradle build step](https://www.jetbrains.com/help/teamcity/gradle.html)을 참조하세요.
 
-### Android 디버그 패키지 빌드
+### Android 디버그 패키지 빌드 {id="build-the-android-debug-package"}
 
 파이프라인 YAML을 다음과 같이 수정합니다.
 
@@ -148,7 +148,7 @@ jobs:
 * `requirement` 블록은 이 잡이 Android SDK가 설치된 에이전트에만 할당되도록 보장합니다. 
 * `dependencies` 섹션은 이 잡이 `Job1`이 성공적으로 완료된 후에만 시작되도록 보장합니다.
 
-### iOS 시뮬레이터 애플리케이션 빌드
+### iOS 시뮬레이터 애플리케이션 빌드 {id="build-the-ios-simulator-application"}
 
 마지막 단계로, 파이프라인 YAML에 다음 마크업을 추가합니다.
 
@@ -186,7 +186,7 @@ jobs:
 >
 {style="tip"}
 
-## 파이프라인 실행
+## 파이프라인 실행 {id="run-the-pipeline"}
 
 오른쪽 상단 모서리에 있는 **Save and Run**을 클릭하여 워크플로를 시작합니다. 
 잡이 완료되면 게시된 모든 아티팩트를 빌드 로그 옆의 **Artifacts** 탭에서 확인할 수 있습니다.
@@ -197,7 +197,7 @@ jobs:
 
 <img src="teamcity-kmp-tests.png" alt="TeamCity tests" width="450"/>
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 이 샘플을 계속 수정하여 더 많은 이점을 얻을 수 있습니다.
 

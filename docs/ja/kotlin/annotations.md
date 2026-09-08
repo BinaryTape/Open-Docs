@@ -8,7 +8,7 @@
 >
 {style="tip"}
 
-## 宣言 (Declaration)
+## 宣言 (Declaration) {id="declaration"}
 
 アノテーションは特殊なクラスの一種です。アノテーションを宣言するには、クラス宣言の前に `annotation` キーワードを使用します。
 
@@ -32,7 +32,7 @@ annotation class Fancy
 annotation class Fancy
 ```
 
-## 使用法 (Usage)
+## 使用法 (Usage) {id="usage"}
 
 ```kotlin
 @Fancy class Foo {
@@ -57,7 +57,7 @@ class Foo {
 }
 ```
 
-## コンストラクタ (Constructors)
+## コンストラクタ (Constructors) {id="constructors"}
 
 アノテーションはパラメータを受け取るコンストラクタを持つことができます。
 
@@ -101,7 +101,7 @@ annotation class Ann(val arg1: KClass<*>, val arg2: KClass<out Any>)
 @Ann(String::class, Int::class) class MyClass
 ```
 
-## インスタンス化 (Instantiation)
+## インスタンス化 (Instantiation) {id="instantiation"}
 
 Java では、アノテーション型はインターフェースの一種であるため、それを実装してインスタンスを使用することができます。このメカニズムに代わる方法として、Kotlin では任意のコード内でアノテーションクラスのコンストラクタを呼び出し、得られたインスタンスを同様に使用することができます。
 
@@ -120,7 +120,7 @@ fun main(args: Array<String>) {
 
 アノテーションクラスのインスタンス化の詳細については、[この KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/annotation-instantiation.md) を参照してください。
 
-## ラムダ式 (Lambdas)
+## ラムダ式 (Lambdas) {id="lambdas"}
 
 アノテーションはラムダ式にも使用できます。アノテーションは、ラムダのボディが生成される `invoke()` メソッドに適用されます。これは、並行性制御にアノテーションを使用する [Quasar](https://docs.paralleluniverse.co/quasar/) のようなフレームワークで役立ちます。
 
@@ -130,7 +130,7 @@ annotation class Suspendable
 val f = @Suspendable { Fiber.sleep(10) }
 ```
 
-## ユースサイトターゲット (Annotation use-site targets)
+## ユースサイトターゲット (Annotation use-site targets) {id="annotation-use-site-targets"}
 
 プロパティやプライマリコンストラクタのパラメータにアノテーションを付ける際、対応する Kotlin 要素から複数の Java 要素が生成されます。そのため、生成された Java バイトコード内ではアノテーションが付与される可能性のある場所が複数存在します。アノテーションをどのように生成するかを正確に指定するには、以下の構文を使用します。
 
@@ -177,7 +177,7 @@ class Example {
   * `setparam` (プロパティセッターのパラメータ)
   * `delegate` (委譲プロパティのデリゲートインスタンスを保持するフィールド)
 
-### ユースサイトターゲットが指定されていない場合のデフォルト
+### ユースサイトターゲットが指定されていない場合のデフォルト {id="defaults-when-no-use-site-targets-are-specified"}
 
 ユースサイトターゲットを指定しない場合、コンパイラは使用されているアノテーションの `@Target` アノテーションに従ってターゲットを選択します。適用可能なターゲットが複数ある場合、コンパイラは以下の順序で 1 つ以上のターゲットを選択します：
 
@@ -215,7 +215,7 @@ data class User(val username: String,
 * プライマリコンストラクタで宣言されていない。
 * カスタムのゲッターやセッターを持たないため、コンパイラがバッキングフィールドを生成する。
 
-### `all` メタターゲット
+### `all` メタターゲット {id="all-meta-target"}
 
 `all` ターゲットを使用すると、同じアノテーションをパラメータやプロパティ、フィールドだけでなく、対応するゲッターやセッターにも簡単に適用できるようになります。
 
@@ -252,7 +252,7 @@ data class User(
 
 `all` メタターゲットは、プライマリコンストラクタの内外を問わず、あらゆるプロパティで使用できます。
 
-#### 制限事項
+#### 制限事項 {id="limitations"}
 
 `all` ターゲットにはいくつかの制限があります：
 
@@ -264,7 +264,7 @@ data class User(
     ```
 * [委譲プロパティ (delegated properties)](delegated-properties.md) には使用できません。
 
-## Java アノテーション
+## Java アノテーション {id="java-annotations"}
 
 Java のアノテーションは、Kotlin と 100% の互換性があります。
 
@@ -314,7 +314,7 @@ public @interface AnnWithValue {
 @AnnWithValue("abc") class C
 ```
 
-### アノテーションパラメータとしての配列
+### アノテーションパラメータとしての配列 {id="arrays-as-annotation-parameters"}
 
 Java の `value` 引数が配列型である場合、Kotlin では `vararg` パラメータになります：
 
@@ -344,7 +344,7 @@ public @interface AnnWithArrayMethod {
 class C
 ```
 
-### アノテーションインスタンス의 プロパティへのアクセス
+### アノテーションインスタンス의 プロパティへのアクセス {id="accessing-properties-of-an-annotation-instance"}
 
 アノテーションインスタンスの値は、Kotlin コードからはプロパティとして公開されます。
 
@@ -362,13 +362,13 @@ fun foo(ann: Ann) {
 }
 ```
 
-### JVM 1.8+ アノテーションターゲットを生成しない機能
+### JVM 1.8+ アノテーションターゲットを生成しない機能 {id="ability-to-not-generate-jvm-1-8-annotation-targets"}
 
 Kotlin アノテーションのターゲットに `TYPE` が含まれている場合、そのアノテーションは Java アノテーションターゲットのリストにおいて `java.lang.annotation.ElementType.TYPE_USE` にマッピングされます。これは、Kotlin の `TYPE_PARAMETER` ターゲットが Java の `java.lang.annotation.ElementType.TYPE_PARAMETER` ターゲットにマッピングされるのと同じです。これは、API レベルが 26 未満の Android クライアントにおいて、API にこれらのターゲットが含まれていないため、問題となることがあります。
 
 `TYPE_USE` および `TYPE_PARAMETER` アノテーションターゲットの生成を避けるには、新しいコンパイラ引数 `-Xno-new-java-annotation-targets` を使用してください。
 
-## 繰り返し可能なアノテーション (Repeatable annotations)
+## 繰り返し可能なアノテーション (Repeatable annotations) {id="repeatable-annotations"}
 
 [Java と同様に](https://docs.oracle.com/javase/tutorial/java/annotations/repeating.html)、Kotlin には単一のコード要素に複数回適用できる「繰り返し可能なアノテーション」があります。アノテーションを繰り返し可能にするには、その宣言に [`@kotlin.annotation.Repeatable`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.annotation/-repeatable/) メタアノテーションを付与します。これにより、Kotlin と Java の両方で繰り返し可能になります。Java の繰り返し可能なアノテーションも Kotlin 側からサポートされています。
 

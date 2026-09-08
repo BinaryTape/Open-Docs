@@ -4,11 +4,11 @@ title: Android ViewModel
 
 이 페이지는 Android 전용 ViewModel 기능을 다룹니다. 핵심 ViewModel DSL 및 멀티플랫폼 지원에 대해서는 [ViewModel](/docs/reference/koin-core/viewmodel)을 참조하세요.
 
-## 개요
+## 개요 {id="overview"}
 
 [ViewModels](https://developer.android.com/topic/libraries/architecture/viewmodel)는 구성 변경(configuration changes)에도 유지되고 UI 관련 데이터를 관리하도록 설계된 아키텍처 컴포넌트입니다. Koin은 생명주기를 인식하는 주입(lifecycle-aware injection)을 통해 ViewModel에 대한 특별한 지원을 제공합니다.
 
-### 주요 개념
+### 주요 개념 {id="key-concepts"}
 
 - **구성 변경에도 유지됨** - ViewModel은 화면 회전 및 테마 변경 시에도 유지됩니다.
 - **생명주기에 스코프 지정** - Activity, Fragment 또는 Navigation Graph 생명주기에 연결됩니다.
@@ -19,7 +19,7 @@ title: Android ViewModel
 **멀티플랫폼 ViewModel** - Koin ViewModel DSL은 `koin-core-viewmodel`을 통해 완전한 멀티플랫폼을 지원합니다. Compose Multiplatform의 경우, [Compose ViewModel](/docs/reference/koin-compose/compose#viewmodel-for-composable)을 참조하세요.
 :::
 
-### ViewModel 스코프 제한 사항
+### ViewModel 스코프 제한 사항 {id="viewmodel-scope-limitations"}
 
 :::warning
 **중요:** ViewModel은 루트 Koin 스코프를 기준으로 생성되며, Activity 또는 Fragment 스코프의 의존성에 **접근할 수 없습니다**. 이는 ViewModel이 Activity나 Fragment보다 더 오래 생존하기 때문에 메모리 누수를 방지하기 위함입니다.
@@ -27,9 +27,9 @@ title: Android ViewModel
 **ViewModel에서 스코프 의존성이 필요하신가요?** [ViewModel 스코프](/docs/reference/koin-core/scopes#viewmodel-scope)를 사용하여 ViewModel의 생명주기에 연결된 전용 스코프를 생성하세요.
 :::
 
-## ViewModel 선언하기
+## ViewModel 선언하기 {id="declaring-viewmodels"}
 
-### 컴파일러 플러그인 DSL
+### 컴파일러 플러그인 DSL {id="compiler-plugin-dsl"}
 
 ```kotlin
 val appModule = module {
@@ -38,7 +38,7 @@ val appModule = module {
 }
 ```
 
-### 애노테이션
+### 애노테이션 {id="annotations"}
 
 ```kotlin
 @KoinViewModel
@@ -52,7 +52,7 @@ class UserViewModel(
 ) : ViewModel()
 ```
 
-### 클래식 DSL
+### 클래식 DSL {id="classic-dsl"}
 
 ```kotlin
 val appModule = module {
@@ -64,7 +64,7 @@ val appModule = module {
 }
 ```
 
-## ViewModel 주입하기
+## ViewModel 주입하기 {id="injecting-viewmodels"}
 
 `Activity`, `Fragment` 또는 `Service`에서 다음을 사용하세요:
 
@@ -82,7 +82,7 @@ class DetailActivity : AppCompatActivity() {
 }
 ```
 
-## 공유 ViewModel (Activity)
+## 공유 ViewModel (Activity) {id="shared-viewmodel-activity"}
 
 Fragment와 해당 호스트 Activity 간에 ViewModel을 공유합니다:
 
@@ -105,7 +105,7 @@ class WeatherListFragment : Fragment() {
 }
 ```
 
-## 파라미터 전달하기
+## 파라미터 전달하기 {id="passing-parameters"}
 
 ### 컴파일러 플러그인 DSL
 
@@ -143,7 +143,7 @@ val appModule = module {
 }
 ```
 
-### 주입 시점
+### 주입 시점 {id="injection-site"}
 
 ```kotlin
 class DetailActivity : AppCompatActivity() {
@@ -155,7 +155,7 @@ class DetailActivity : AppCompatActivity() {
 }
 ```
 
-## SavedStateHandle
+## SavedStateHandle {id="savedstatehandle"}
 
 ViewModel 생성자에 `SavedStateHandle`을 추가하면 Koin이 자동으로 주입합니다:
 
@@ -169,7 +169,7 @@ class MyStateViewModel(
 ) : ViewModel()
 ```
 
-### DSL
+### DSL {id="dsl"}
 
 ```kotlin
 class MyStateViewModel(
@@ -184,7 +184,7 @@ val appModule = module {
 }
 ```
 
-### 사용법
+### 사용법 {id="usage"}
 
 ```kotlin
 class DetailActivity : AppCompatActivity() {
@@ -197,7 +197,7 @@ class DetailActivity : AppCompatActivity() {
 모든 `stateViewModel` 함수는 지원 중단(deprecated)되었습니다. 일반 `viewModel` 함수를 사용하세요. `SavedStateHandle`은 자동으로 주입됩니다.
 :::
 
-## Navigation Graph ViewModel
+## Navigation Graph ViewModel {id="navigation-graph-viewmodel"}
 
 ViewModel의 범위를 Navigation 그래프로 제한합니다:
 
@@ -214,7 +214,7 @@ class NavFragment : Fragment() {
 - 그래프 내의 모든 Fragment에서 공유됨
 - Navigation 그래프가 팝(pop)될 때 소멸됨
 
-## 스코프 의존성을 가진 ViewModel
+## 스코프 의존성을 가진 ViewModel {id="viewmodel-with-scoped-dependencies"}
 
 ViewModel에 고유한 스코프 의존성이 필요한 경우 [ViewModel 스코프](/docs/reference/koin-core/scopes#viewmodel-scope)를 사용하세요:
 
@@ -242,7 +242,7 @@ class UserViewModel(
 ) : ViewModel()
 ```
 
-## ViewModel 제네릭 API
+## ViewModel 제네릭 API {id="viewmodel-generic-api"}
 
 고급 사용 사례를 위해 Koin은 하위 수준의 API를 제공합니다:
 
@@ -257,7 +257,7 @@ val viewModel = viewModelForClass(
 )
 ```
 
-## Java 호환성
+## Java 호환성 {id="java-compatibility"}
 
 호환성(compat) 의존성을 추가하세요:
 
@@ -271,7 +271,7 @@ implementation "io.insert-koin:koin-android-compat:$koin_version"
 MyViewModel viewModel = ViewModelCompat.getViewModel(this, MyViewModel.class);
 ```
 
-## 빠른 참조
+## 빠른 참조 {id="quick-reference"}
 
 | 작업 | 코드 |
 |--------|------|
@@ -282,7 +282,7 @@ MyViewModel viewModel = ViewModelCompat.getViewModel(this, MyViewModel.class);
 | Navigation 그래프 스코프 | `by koinNavGraphViewModel(R.id.graph)` |
 | SavedStateHandle과 함께 사용 | 생성자에 추가만 하면 됨 |
 
-## 다음 단계
+## 다음 단계 {id="next-steps"}
 
 - **[핵심 ViewModel](/docs/reference/koin-core/viewmodel)** - 멀티플랫폼 ViewModel DSL
 - **[스코프](/docs/reference/koin-core/scopes#viewmodel-scope)** - 스코프 의존성을 위한 ViewModel 스코프

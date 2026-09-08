@@ -9,7 +9,7 @@
 >
 {style="note" id="desktop-snippets-intro"}
 
-## 捲動修飾符
+## 捲動修飾符 {id="scroll-modifiers"}
 
 `verticalScroll` 與 `horizontalScroll` 修飾符提供了最簡單的方法，讓使用者可以在內容邊界大於其最大尺寸限制時捲動元素。
 您可以將 `VerticalScrollbar` 可組合項附加到具有 `verticalScroll` 修飾符的可捲動組建，並將 `HorizontalScrollbar` 可組合項附加到具有 `horizontalScroll` 修飾符的可捲動組建：
@@ -101,7 +101,7 @@ fun TextBox(text: String = "Item") {
 
 <img src="compose-desktop-scrollbar.animated.gif" alt="Scrollbar" width="289" preview-src="compose-desktop-scrollbar.png"/>
 
-## Lazy 可捲動組建
+## Lazy 可捲動組建 {id="lazy-scrollable-components"}
 
 您也可以在 `LazyColumn` 與 `LazyRow` 等 Lazy 可捲動組建中使用捲軸。當您預期清單中有很多項目時，Lazy 組建會更有效率，因為它們僅在需要時才組成項目。
 
@@ -179,13 +179,13 @@ fun TextBox(text: String = "Item") {
 
 <img src="compose-desktop-lazy-scrollbar.animated.gif" alt="Lazy scrollbar" width="289" preview-src="compose-desktop-lazy-scrollbar.png"/>
 
-## 已知限制
+## 已知限制 {id="known-limitations"}
 
 目前，使用觸控螢幕、觸控板和追蹤板進行捲動會被視為滑鼠事件，這可能會導致故障以及缺乏兩指撥動縮放 (pinch-to-zoom) 等限制。我們正在持續改進輸入與手勢處理，並計劃為這些輸入裝置引進原生支援：
 
 * 原生支援觸控螢幕 ([CMP-1609](https://youtrack.jetbrains.com/issue/CMP-1609/))
 * 原生支援觸控板與追蹤板 ([CMP-1610](https://youtrack.jetbrains.com/issue/CMP-1610/))
 
-## 下一步？
+## 下一步？ {id="what-s-next"}
 
 探索關於 [其他桌面組建](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop) 的教學。

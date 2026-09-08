@@ -12,11 +12,11 @@
    <img src="icon-4.svg" width="20" alt="第四步"/> <a href="jvm-spring-boot-using-crudrepository.md">使用 Spring Data CrudRepository 进行数据库访问</a><br/>
 </p>
 
-## 下一步
+## 下一步 {id="next-step"}
 
 <a href="jvm-create-project-with-spring-boot.md" as="button" mode="classic" icon="arrow-right" icon-position="right">开始</a>
 
-### 另请参阅
+### 另请参阅 {id="see-also"}
 
 如果你喜欢使用 AI 智能体，请尝试我们的教程：[使用 Spring Boot 和 Claude 创建任务管理器应用程序](spring-boot-claude.md)。
 

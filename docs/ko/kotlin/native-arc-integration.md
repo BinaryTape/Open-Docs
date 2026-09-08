@@ -4,9 +4,9 @@ Kotlin과 Objective-C는 서로 다른 메모리 관리 전략을 사용합니�
 
 이러한 전략 간의 통합은 보통 매끄럽게 이루어지며 일반적으로 추가적인 작업이 필요하지 않습니다. 하지만 유의해야 할 몇 가지 세부 사항이 있습니다.
 
-## 스레드(Threads)
+## 스레드(Threads) {id="threads"}
 
-### 디이니셜라이저(Deinitializers)
+### 디이니셜라이저(Deinitializers) {id="deinitializers"}
 
 Swift/Objective-C 객체가 메인 스레드에서 Kotlin으로 전달된 경우, 해당 객체와 이 객체가 참조하는 객체들에 대한 디이니셜라이제이션(Deinitialization)은 메인 스레드에서 호출됩니다. 예를 들면 다음과 같습니다.
 
@@ -53,7 +53,7 @@ deinit on <_NSMainThread: 0x600003bc0000>{number = 1, name = main}
 
 특별한 GC 스레드는 Objective-C 런타임을 준수하며, 이는 런 루프(run loop)를 가지고 있고 오토릴리즈 풀(autorelease pool)을 비운다는(drain) 것을 의미합니다.
 
-### 완료 핸들러(Completion handlers)
+### 완료 핸들러(Completion handlers) {id="completion-handlers"}
 
 Swift에서 Kotlin의 서스펜드 함수(suspending function)를 호출할 때, 완료 핸들러(completion handler)는 메인 스레드가 아닌 다른 스레드에서 호출될 수 있습니다. 예를 들면 다음과 같습니다.
 
@@ -88,9 +88,9 @@ World!
 Running completion handler on <NSThread: 0x600001b45bc0>{number = 7, name = (null)}
 ```
 
-## 가비지 컬렉션 및 생명주기
+## 가비지 컬렉션 및 생명주기 {id="garbage-collection-and-lifecycle"}
 
-### 객체 회수(Object reclamation)
+### 객체 회수(Object reclamation) {id="object-reclamation"}
 
 객체는 가비지 컬렉션 중에만 회수됩니다. 이는 Kotlin/Native와의 상호운용성 경계(interop boundaries)를 넘나드는 Swift/Objective-C 객체에도 적용됩니다. 예를 들면 다음과 같습니다.
 
@@ -138,7 +138,7 @@ kotlinTest finished
 SwiftExample deinit
 ```
 
-### Objective-C 객체 생명주기
+### Objective-C 객체 생명주기 {id="objective-c-objects-lifecycle"}
 
 Objective-C 객체가 예상보다 오래 유지되어 때때로 성능 문제를 일으킬 수 있습니다. 예를 들어, 오래 실행되는 루프 내의 각 반복문에서 상호운용성 경계를 넘나드는 여러 임시 객체를 생성하는 경우입니다.
 
@@ -163,7 +163,7 @@ fun steadyMemoryUsage() {
 }
 ```
 
-### Swift 및 Kotlin 객체 체인의 가비지 컬렉션
+### Swift 및 Kotlin 객체 체인의 가비지 컬렉션 {id="garbage-collection-of-swift-and-kotlin-objects-chains"}
 
 다음 예시를 살펴보겠습니다.
 
@@ -231,7 +231,7 @@ func test() {
 
 Swift 및 Objective-C 객체의 디이니셜라이제이션은 GC 사이클 이후에 발생하므로, 이 네 객체를 수집하는 데 두 번의 GC 사이클이 필요합니다. 이러한 제약은 `deinit`에서 임의의 코드를 호출할 수 있고, 여기에는 GC 일시 중단(pause) 중에는 실행될 수 없는 Kotlin 코드가 포함될 수 있기 때문에 발생합니다.
 
-### 순환 참조(Retain cycles)
+### 순환 참조(Retain cycles) {id="retain-cycles"}
 
 _순환 참조(retain cycle)_에서는 여러 객체가 강한 참조를 사용하여 서로를 순환적으로 참조합니다.
 
@@ -256,7 +256,7 @@ graph TD
 
 안타깝게도 현재 Kotlin/Native 코드에서 순환 참조를 자동으로 감지하는 특별한 도구는 제공되지 않습니다. 순환 참조를 피하려면 [약한 참조(weak) 또는 미소유 참조(unowned)](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/automaticreferencecounting/#Resolving-Strong-Reference-Cycles-Between-Class-Instances)를 사용하세요.
 
-## 백그라운드 상태 및 앱 익스텐션 지원
+## 백그라운드 상태 및 앱 익스텐션 지원 {id="support-for-background-state-and-app-extensions"}
 
 현재의 메모리 매니저는 기본적으로 애플리케이션 상태를 추적하지 않으며, [앱 익스텐션(App Extensions)](https://developer.apple.com/app-extensions/)과 즉시 통합되지 않습니다.
 
@@ -268,6 +268,6 @@ kotlin.native.binary.appStateTracking=enabled
 
 이 옵션을 활성화하면 애플리케이션이 백그라운드에 있을 때 타이머 기반의 가비지 컬렉터 호출을 끕니다. 따라서 메모리 소비가 너무 높아질 때만 GC가 호출됩니다.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 [Swift/Objective-C 상호운용성](native-objc-interop.md)에 대해 더 자세히 알아보세요.

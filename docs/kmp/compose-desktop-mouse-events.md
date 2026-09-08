@@ -4,7 +4,7 @@
 
 undefined
 
-## 点击监听器 (Click listeners)
+## 点击监听器 (Click listeners) {id="click-listeners"}
 
 点击监听器在 Compose Multiplatform for Android 和 Compose Multiplatform for desktop 中均可用，因此您的代码可以在两个平台上运行。
 例如，以下是使用 `onClick`、`onDoubleClick` 和 `onLongClick` 修饰符设置简单点击监听器的方法：
@@ -62,7 +62,7 @@ fun main() = singleWindowApplication(title = "Mouse clicks") {
 
 `combinedClickable` 修饰符仅支持主按钮（鼠标左键）和触摸事件。如果您需要以不同方式处理按钮，请参阅 [`Modifier.onClick`](#onclick-handlers) 部分。
 
-## 移动监听器 (Move listeners)
+## 移动监听器 (Move listeners) {id="move-listeners"}
 
 > `onPointerEvent` 修饰符处于 [实验性](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) 阶段。需要选择加入（详情见下文），且您应仅将其用于评估目的。
 > 有关 [稳定](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) 的 API，请参阅 [`Modifier.pointerInput`](#listening-for-raw-events-in-common-code-via-pointerinput)。
@@ -106,7 +106,7 @@ fun main() = singleWindowApplication(title = "Mouse move listeners") {
 
 <img src="compose-mouse-move-listeners.animated.gif" alt="Mouse move listeners" width="600" preview-src="compose-mouse-move-listeners.png"/>
 
-## 进入监听器 (Enter listeners)
+## 进入监听器 (Enter listeners) {id="enter-listeners"}
 
 > `onPointerEvent` 修饰符处于 [实验性](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) 阶段。需要选择加入（详情见下文），且您应仅将其用于评估目的。
 > 有关 [稳定](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) 的 API，请参阅 [`Modifier.pointerInput`](#listening-for-raw-events-in-common-code-via-pointerinput)。
@@ -162,7 +162,7 @@ fun main() = singleWindowApplication(title = "Mouse enter listeners") {
 
 <img src="compose-mouse-enter-listeners.animated.gif" alt="Mouse enter listeners" width="600" preview-src="compose-mouse-enter-listeners.png"/>
 
-## 滚动监听器 (Scroll listeners)
+## 滚动监听器 (Scroll listeners) {id="scroll-listeners"}
 
 > `onPointerEvent` 修饰符处于 [实验性](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) 阶段。需要选择加入（详情见下文），且您应仅将其用于评估目的。
 > 有关 [稳定](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) 的 API，请参阅 [`Modifier.pointerInput`](#listening-for-raw-events-in-common-code-via-pointerinput)。
@@ -325,7 +325,7 @@ RMB + Alt") }
 
 <img src="compose-onclick-modifier.animated.gif" alt="Modifier.onClick" width="600" preview-src="compose-onclick-modifier.png"/>
 
-## 实验性 onDrag 修饰符
+## 实验性 onDrag 修饰符 {id="experimental-ondrag-modifier"}
 
 > `onDrag` 修饰符处于 [实验性](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) 阶段且仅在桌面项目中受支持。需要选择加入（详情见下文），且您应仅将其用于评估目的。
 >
@@ -464,7 +464,7 @@ fun main() = singleWindowApplication(title = "Drag") {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="Modifier.pointerInput(Unit) { detectDragGestures(matcher = PointerMatcher.Primary)"}
 
-## 通过 Swing 互操作性访问原始 AWT 事件
+## 通过 Swing 互操作性访问原始 AWT 事件 {id="accessing-raw-awt-events-with-swing-interoperability"}
 
 > `onPointerEvent` 修饰符处于 [实验性](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) 阶段。需要选择加入（详情见下文），且您应仅将其用于评估目的。
 > 有关 [稳定](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) 的 API，请参阅 [`Modifier.pointerInput`](#listening-for-raw-events-in-common-code-via-pointerinput)。
@@ -509,7 +509,7 @@ fun main() = singleWindowApplication(title = "Raw AWT events") {
 
 <img src="compose-raw-awt-events.animated.gif" alt="Swing interoperability" width="600" preview-src="compose-raw-awt-events.png"/>
 
-## 在公共代码中通过 pointerInput 监听原始事件
+## 在公共代码中通过 pointerInput 监听原始事件 {id="listening-for-raw-events-in-common-code-via-pointerinput"}
 
 在上面的代码片段中，我们使用了 `Modifier.onPointerEvent` 函数，这是一个订阅某种指针事件类型的辅助函数。它是 `Modifier.pointerInput` 函数的一种新的简短变体。它目前处于实验性阶段且仅限桌面端，因此您无法在公共代码中使用它。
 
@@ -556,6 +556,6 @@ fun main() = singleWindowApplication(title = "Raw events via Modifier.pointerInp
 
 <img src="compose-raw-events.animated.gif" alt="Raw events via Modifier.pointerInput" width="600" preview-src="compose-raw-events.png"/>
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 探索有关 [其他桌面组件](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop) 的教程。

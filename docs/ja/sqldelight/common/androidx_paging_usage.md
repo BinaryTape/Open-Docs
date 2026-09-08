@@ -1,6 +1,6 @@
 SQLDelightは、データのページングのために、オフセットベースのページングとキーセットページングの2つのメソッドを提供しています。
 
-## オフセットベースのページング (Offset Based Paging)
+## オフセットベースのページング (Offset Based Paging) {id="offset-based-paging"}
 
 オフセットページングは、`OFFSET`句と`LIMIT`句を使用してページングの結果を取得します。オフセットベースのページングを実行する`PagingSource`を作成するには、件数取得（count）クエリとページングクエリの両方が必要です。
 
@@ -27,7 +27,7 @@ val pagingSource: PagingSource = QueryPagingSource(
 
 コンテキストが指定されていない場合、デフォルトでクエリは`Dispatchers.IO`上で実行されます。クエリの実行にRxJavaの`Scheduler`を使用したい場合は、[`Scheduler.asCoroutineDispatcher`](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-rx2/kotlinx.coroutines.rx2/io.reactivex.-scheduler/as-coroutine-dispatcher.html)拡張関数を使用してください。
 
-## キーセットページング (Keyset Paging)
+## キーセットページング (Keyset Paging) {id="keyset-paging"}
 
 オフセットページングはシンプルでメンテナンスが容易です。しかし、残念ながら大規模なデータセットではパフォーマンスが低下します。SQLステートメントの`OFFSET`句は、実際にはSQLクエリですでに実行された行を単に破棄するだけです。そのため、`OFFSET`の数が増えるにつれて、クエリの実行にかかる時間も増加します。これを克服するために、SQLDelightは`PagingSource`の「キーセットページング (keyset paging)」の実装を提供しています。データセット全体をクエリして最初の`OFFSET`要素を非効率に破棄するのではなく、キーセットページングはユニークな列を使用してクエリの範囲を制限します。これによりパフォーマンスは向上しますが、開発者のメンテナンス負荷は高くなります。
 

@@ -2,7 +2,7 @@
 
 导航是 UI 应用程序的关键部分，允许用户在应用的不同屏幕之间移动。Compose Multiplatform 采用了 [Jetpack Compose 的导航方式](https://developer.android.com/guide/navigation/design#frameworks)。
 
-## 设置
+## 设置 {id="setup"}
 
 要使用导航库，请将以下依赖项添加到您的 `commonMain` 源集：
 
@@ -21,7 +21,7 @@ kotlin {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="org.jetbrains.androidx.navigation:navigation-compose:%org.jetbrains.androidx.navigation%"}
 
-## 示例项目
+## 示例项目 {id="sample-project"}
 
 要查看 Compose Multiplatform 导航库的实际应用，请查看 [nav_cupcake 项目](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/nav_cupcake)，该项目由 [Navigate between screens with Compose](https://developer.android.com/codelabs/basic-android-kotlin-compose-navigation#0) Android codelab 转换而来。有关更复杂的示例，请参阅官方 [KotlinConf](https://github.com/JetBrains/kotlinconf-app) 应用程序。
 
@@ -34,7 +34,7 @@ kotlin {
 
 每个返回栈条目（导航图中包含的每个导航路由）都实现了 `LifecycleOwner` 接口。在应用的不同屏幕之间切换会导致其状态从 `RESUMED` 变为 `STARTED` 并返回。`RESUMED` 也被称为 “settled”：当新屏幕准备就绪并处于活跃状态时，导航被认为已完成。有关 Compose Multiplatform 中当前实现的详细信息，请参阅 [Lifecycle](compose-lifecycle.md) 页面。
 
-## Web 应用中的浏览器导航支持
+## Web 应用中的浏览器导航支持 {id="support-for-browser-navigation-in-web-apps"}
 <primary-label ref="Experimental"/>
 
 Compose Multiplatform for web 完全支持通用的导航库 API，并允许您的应用接收来自浏览器的导航输入。用户可以使用浏览器中的**返回**和**前进**按钮在浏览器历史记录中反映的导航路由之间移动，也可以使用地址栏来了解自己所处的位置并直接前往目的地。
@@ -91,7 +91,7 @@ fun main() {
 `<app package>.<serializable type>/<argument1>/<argument2>`。
 例如：`example.org#org.example.app.StartScreen/123/Alice%2520Smith`。
 
-### 自定义路由与 URL 之间的相互转换
+### 自定义路由与 URL 之间的相互转换 {id="customize-translating-routes-into-urls-and-back"}
 
 由于 Compose Multiplatform 应用是单页应用，框架会操作地址栏以模仿常规的 Web 导航。如果您希望提高 URL 的可读性并将实现与 URL 模式隔离，可以直接为屏幕指定名称，或者为目的地路由开发完全自定义的处理逻辑：
 
@@ -104,7 +104,7 @@ fun main() {
     ```
 * 要完全构建每个 URL，可以使用可选的 `getBackStackEntryRoute` lambda 表达式。
 
-#### 完全自定义 URL
+#### 完全自定义 URL {id="full-url-customization"}
 
 要实现完全自定义的路由到 URL 的转换： 
 

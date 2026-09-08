@@ -1,4 +1,4 @@
-## SQLite 类型
+## SQLite 类型 {id="sqlite-types"}
 
 SQLDelight 的列定义与常规 SQLite 列定义相同，但支持一个[额外列约束](#custom-column-types)，用于在生成的接口中指定该列的 Kotlin 类型。
 
@@ -11,7 +11,7 @@ CREATE TABLE some_types (
 );
 ```
 
-## 基元
+## 基元 {id="primitives"}
 
 一个为您的便利而对基元进行适配的兄弟模块。
 

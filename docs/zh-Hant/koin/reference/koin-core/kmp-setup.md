@@ -10,7 +10,7 @@ Koin 為 Kotlin Multiplatform (KMP) 專案提供一等公民支援。本指南�
 關於定義類型 (Single、Factory、ViewModel) 以及三種宣告方式 (編譯器外掛程式 DSL、註解、經典 DSL)，請參閱 [定義](/docs/reference/koin-core/definitions)。
 :::
 
-## 支援的平台
+## 支援的平台 {id="supported-platforms"}
 
 | 平台 | 狀態 |
 |----------|--------|
@@ -23,9 +23,9 @@ Koin 為 Kotlin Multiplatform (KMP) 專案提供一等公民支援。本指南�
 | Linux | ✅ 完全支援 |
 | Windows | ✅ 完全支援 |
 
-## 相依性設定
+## 相依性設定 {id="dependencies-setup"}
 
-### shared/build.gradle.kts
+### shared/build.gradle.kts {id="shared-build-gradle-kts"}
 
 ```kotlin
 plugins {
@@ -58,7 +58,7 @@ kotlin {
 }
 ```
 
-### 搭配 Compose Multiplatform
+### 搭配 Compose Multiplatform {id="with-compose-multiplatform"}
 
 ```kotlin
 kotlin {
@@ -73,7 +73,7 @@ kotlin {
 }
 ```
 
-## 專案結構
+## 專案結構 {id="project-structure"}
 
 ```
 project/
@@ -101,9 +101,9 @@ project/
     └── iOSApp.swift
 ```
 
-## 共用模組定義
+## 共用模組定義 {id="common-module-definition"}
 
-### commonMain/kotlin/di/KoinModules.kt
+### commonMain/kotlin/di/KoinModules.kt {id="commonmain-kotlin-di-koinmodules-kt"}
 
 ```kotlin
 import org.koin.dsl.module
@@ -123,11 +123,11 @@ expect val platformModule: Module
 推薦在共用模組中使用編譯器外掛程式 DSL (`single<Type>()`)。它需要編譯器外掛程式，但能提供最簡潔的語法，且無需為每個平台進行 KSP 配置。
 :::
 
-## 平台特定模組
+## 平台特定模組 {id="platform-specific-modules"}
 
 平台模組可以使用任何方式。此處展示了包含 Lambda 的經典 DSL，適用於需要自訂建構邏輯的情況。
 
-### androidMain/kotlin/di/PlatformModule.android.kt
+### androidMain/kotlin/di/PlatformModule.android.kt {id="androidmain-kotlin-di-platformmodule-android-kt"}
 
 ```kotlin
 import org.koin.dsl.module
@@ -139,7 +139,7 @@ actual val platformModule = module {
 }
 ```
 
-### iosMain/kotlin/di/PlatformModule.ios.kt
+### iosMain/kotlin/di/PlatformModule.ios.kt {id="iosmain-kotlin-di-platformmodule-ios-kt"}
 
 ```kotlin
 import org.koin.dsl.module
@@ -151,9 +151,9 @@ actual val platformModule = module {
 }
 ```
 
-## 共用初始化
+## 共用初始化 {id="shared-initialization"}
 
-### commonMain/kotlin/di/KoinInit.kt
+### commonMain/kotlin/di/KoinInit.kt {id="commonmain-kotlin-di-koininit-kt"}
 
 ```kotlin
 import org.koin.core.context.startKoin
@@ -170,9 +170,9 @@ fun initKoin(config: KoinAppDeclaration? = null): KoinApplication {
 }
 ```
 
-## 平台入口點
+## 平台入口點 {id="platform-entry-points"}
 
-### Android
+### Android {id="android"}
 
 ```kotlin
 // androidApp/src/main/kotlin/MainApplication.kt
@@ -188,7 +188,7 @@ class MainApplication : Application() {
 }
 ```
 
-### iOS
+### iOS {id="ios"}
 
 ```kotlin
 // shared/src/iosMain/kotlin/di/KoinInitIos.kt
@@ -215,7 +215,7 @@ struct iOSApp: App {
 }
 ```
 
-### JVM
+### JVM {id="jvm"}
 
 ```kotlin
 fun main() {
@@ -227,7 +227,7 @@ fun main() {
 }
 ```
 
-## KMP 中的 DSL 方式
+## KMP 中的 DSL 方式 {id="dsl-approaches-in-kmp"}
 
 | 方式 | 使用時機 |
 |----------|-------------|
@@ -239,14 +239,14 @@ fun main() {
 **編譯器外掛程式 DSL** 與 **註解** 適用於各處。僅在需要自訂建構邏輯時，才使用 **包含 Lambda 的經典 DSL**。詳情請參閱 [編譯器外掛程式設定](/docs/setup/compiler-plugin)。
 :::
 
-## 最佳實務
+## 最佳實務 {id="best-practices"}
 
 1. **將共用程式碼放在 commonMain** — 商業邏輯、存儲庫 (Repository)、使用案例 (Use Case)
 2. **針對平台特性使用 expect/actual** — 檔案系統、裝置 API、平台函式庫
 3. **依平台初始化 Koin** — 每個平台都有其入口點
 4. **保持平台模組極簡** — 僅保留真正與平台相關的內容
 
-## 後續步驟
+## 後續步驟 {id="next-steps"}
 
 - **[共用模式](/docs/reference/koin-core/kmp-shared-modules)** — 模組組織、expect/actual 模式
 - **[ViewModel](/docs/reference/koin-core/viewmodel)** — Multiplatform ViewModel

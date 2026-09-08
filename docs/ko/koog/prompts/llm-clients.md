@@ -20,7 +20,7 @@ LLM 클라이언트는 LLM 프로바이더(LLM provider)와 직접 상호작용�
 | [Alibaba](https://www.alibabacloud.com/en?_p_lc=1) β | [DashScopeLLMClient](api:prompt-executor-dashscope-client::ai.koog.prompt.executor.clients.dashscope.DashscopeLLMClient)    | ✓                | ✓         | ✓                    | -          | -          | ✓                                               | 프로바이더 전용 파라미터(`enableSearch`, `parallelToolCalls`, `enableThinking`)를 제공하는 OpenAI 호환 클라이언트. |
 | [Ollama](https://ollama.com/)                       | [OllamaClient](api:prompt-executor-ollama-client::ai.koog.prompt.executor.ollama.client.OllamaClient)                            | ✓                | ✓         | -                    | ✓          | ✓          | -                                               | 모델 관리 API를 포함한 로컬 서버 클라이언트. |
 
-## 프롬프트 실행하기
+## 프롬프트 실행하기 {id="running-a-prompt"}
 
 LLM 클라이언트를 사용하여 프롬프트를 실행하려면 다음 단계를 수행하세요.
 
@@ -105,7 +105,7 @@ LLM 클라이언트를 사용하여 프롬프트를 실행하려면 다음 단�
     ```
     <!--- KNIT example-llm-clients-java-01.java -->
 
-## 응답 스트리밍
+## 응답 스트리밍 {id="streaming-responses"}
 
 !!! note
     모든 LLM 클라이언트에서 사용 가능합니다.
@@ -215,7 +215,7 @@ Tool call: " + toolCall.getName());
     ```
     <!--- KNIT example-llm-clients-java-02.java -->
 
-## 다중 선택
+## 다중 선택 {id="multiple-choices"}
 
 !!! note
     `GoogleLLMClient`, `BedrockLLMClient`, `OllamaClient`를 제외한 모든 LLM 클라이언트에서 사용 가능합니다.
@@ -301,7 +301,7 @@ Tool call: " + toolCall.getName());
     ```
     <!--- KNIT example-llm-clients-java-03.java -->
 
-## 사용 가능한 모델 목록 조회
+## 사용 가능한 모델 목록 조회 {id="listing-available-models"}
 
 !!! note
     `AnthropicLLMClient`, `BedrockLLMClient`, `OllamaClient`를 제외한 모든 LLM 클라이언트에서 사용 가능합니다.
@@ -347,7 +347,7 @@ LLM 클라이언트가 지원하는 사용 가능한 모델 ID 목록을 가져�
     ```
     <!--- KNIT example-llm-clients-java-04.java -->
 
-## 임베딩
+## 임베딩 {id="embeddings"}
 
 !!! note
     `OpenAILLMClient`, `GoogleLLMClient`, `BedrockLLMClient`, `MistralAILLMClient`, `OllamaClient`에서 사용 가능합니다.
@@ -376,7 +376,7 @@ fun main() = runBlocking {
 ```
 <!--- KNIT example-llm-clients-05.kt -->
 
-## 모더레이션
+## 모더레이션 {id="moderation"}
 
 !!! note
     다음 LLM 클라이언트에서 사용 가능합니다: `OpenAILLMClient`, `BedrockLLMClient`, `MistralAILLMClient`, `OllamaClient`.
@@ -429,7 +429,7 @@ fun main() = runBlocking {
     ```
     <!--- KNIT example-llm-clients-java-05.java -->
 
-## 프롬프트 실행기와의 통합
+## 프롬프트 실행기와의 통합 {id="integration-with-prompt-executors"}
 
 [프롬프트 실행기(Prompt executors)](prompt-executors.md)는 LLM 클라이언트를 래핑하여 라우팅, 폴백(fallback), 프로바이더 간 통합 사용과 같은 추가 기능을 제공합니다.
 여러 프로바이더를 사용할 때 유연성을 제공하므로 프로덕션 환경에서는 프롬프트 실행기를 사용하는 것이 권장됩니다.

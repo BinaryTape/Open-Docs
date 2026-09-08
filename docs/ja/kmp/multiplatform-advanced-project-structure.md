@@ -16,7 +16,7 @@
 >
 {style="tip"}
 
-## dependsOn とソースセット階層
+## dependsOn とソースセット階層 {id="dependson-and-source-set-hierarchies"}
 
 通常は *依存関係（dependencies）* を扱うことになり、*`dependsOn`* 関係を直接扱うことはありません。しかし、Kotlin Multiplatformプロジェクトが内部でどのように機能するかを理解するためには、`dependsOn` を調べることが不可欠です。
 
@@ -55,7 +55,7 @@ kotlin {
 
 パブリッシュされたライブラリや別のGradleプロジェクトに対する通常の依存関係を宣言するために `dependsOn` を使用することはできません。例えば、`commonMain` が `kotlinx-coroutines-core` ライブラリの `commonMain` に依存するように設定したり、`commonTest.dependsOn(commonMain)` を呼び出したりすることはできません。
 
-### カスタムソースセットの宣言
+### カスタムソースセットの宣言 {id="declaring-custom-source-sets"}
 
 場合によっては、プロジェクトにカスタムの中間ソースセットが必要になることがあります。
 JVM、JS、Linuxにコンパイルするプロジェクトがあり、JVMとJSの間だけで一部のソースを共有したい場合を考えてみましょう。この場合、[マルチプラットフォームプロジェクト構造の基本](multiplatform-discover-project.md)で説明されているように、このターゲットのペアに特定のソースセットを見つける必要があります。
@@ -116,7 +116,7 @@ kotlin {
 >
 {style="note"}
 
-## 他のライブラリやプロジェクトへの依存関係
+## 他のライブラリやプロジェクトへの依存関係 {id="dependencies-on-other-libraries-or-projects"}
 
 マルチプラットフォームプロジェクトでは、パブリッシュされたライブラリまたは別のGradleプロジェクトに対して通常の依存関係をセットアップできます。
 
@@ -191,7 +191,7 @@ kotlin {
 
    ![Error on JVM-specific API in common code](dependency-resolution-error.png){width=700}
 
-### ソースセット間での共通の依存関係バージョンの調整
+### ソースセット間での共通の依存関係バージョンの調整 {id="aligning-versions-of-common-dependencies-across-source-sets"}
 
 Kotlin Multiplatformプロジェクトでは、共通ソースセットは klib を生成するため、および構成された各[コンパイル](multiplatform-configure-compilations.md)の一部として数回コンパイルされます。一貫したバイナリを生成するには、共通コードは毎回同じバージョンのマルチプラットフォーム依存関係に対してコンパイルされる必要があります。Kotlin Gradleプラグインはこれらの依存関係を調整（アライン）し、有効な依存関係バージョンが各ソースセットで同じになるようにします。
 
@@ -208,7 +208,7 @@ Kotlin Multiplatformプロジェクトでは、共通ソースセットは klib 
 
 ![Test source sets resolving dependencies separately from the main source sets](test-main-source-set-dependency-alignment.svg)
 
-## コンパイル (Compilations)
+## コンパイル (Compilations) {id="compilations"}
 
 単一プラットフォームのプロジェクトとは異なり、Kotlin Multiplatformプロジェクトではすべてのアーティファクトをビルドするために複数のコンパイラ起動が必要です。各コンパイラの起動は、*Kotlinコンパイル (Kotlin compilation)* です。
 

@@ -41,7 +41,7 @@ val client = HttpClient(CIO) {
 }
 ```
 
-### 加载令牌
+### 加载令牌 {id="load-tokens"}
 
 使用 `loadTokens {}` 回调来提供初始访问令牌和刷新令牌。通常，此回调从本地存储中加载缓存的令牌，并将其作为 `BearerTokens` 实例返回。
 
@@ -63,7 +63,7 @@ GET http://localhost:8080/
 Authorization: Bearer abc123
 ```
 
-### 刷新令牌
+### 刷新令牌 {id="refresh-tokens"}
 
 使用 `refreshTokens {}` 回调来定义当当前访问令牌失效时，客户端如何获取新令牌：
 
@@ -93,7 +93,7 @@ install(Auth) {
 >
 {style="tip"}
 
-### 在不等待 401 的情况下发送凭据
+### 在不等待 401 的情况下发送凭据 {id="send-credentials-without-waiting-for-401"}
 
 默认情况下，客户端仅在收到 `401 Unauthorized` 响应后才发送凭据。
 
@@ -112,7 +112,7 @@ install(Auth) {
 }
 ```
 
-### 缓存令牌
+### 缓存令牌 {id="cache-tokens"}
 
 使用 `cacheTokens` 属性控制是否在请求之间缓存 bearer token。
 

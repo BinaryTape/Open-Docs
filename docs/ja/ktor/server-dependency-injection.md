@@ -21,7 +21,7 @@
 
 Ktorは、サービスや設定オブジェクトを一度登録するだけでアプリケーション全体でアクセスできるようにする、組み込みのDIプラグインを提供しています。これらの依存関係は、一貫性のある型安全な方法で、[モジュール](server-di-dependency-resolution.md#inject-into-modules)、プラグイン、ルート、その他のKtorコンポーネントに注入できます。このプラグインはKtorアプリケーションのライフサイクルと統合されており、スコープ設定、構造化された構成、[リソースの自動管理](server-di-resource-lifecycle-management.md)をサポートしているため、アプリケーションレベルのサービスの整理とメンテナンスが容易になります。
 
-## 依存関係の追加
+## 依存関係の追加 {id="add-dependencies"}
 
 DIを使用するには、ビルドスクリプトに `%artifact_name%` アーティファクトを含めます。
 
@@ -37,7 +37,7 @@ DIを使用するには、ビルドスクリプトに `%artifact_name%` アー�
     </TabItem>
 </Tabs>
 
-## Ktorにおける依存性注入の仕組み
+## Ktorにおける依存性注入の仕組み {id="how-dependency-injection-works-in-ktor"}
 
 Ktorにおいて、依存性注入は密接に関連する2つのステップで構成される、単一の統合されたプロセスです。
 
@@ -48,7 +48,7 @@ Ktorにおいて、依存性注入は密接に関連する2つのステップで
 
 アプリケーションで依存性注入の使用を開始するには、まず[依存関係の登録](server-di-dependency-registration.md)から始めてください。依存関係が宣言されたら、[依存関係の解決](server-di-dependency-resolution.md)に進みます。
 
-## サポートされている機能
+## サポートされている機能 {id="supported-features"}
 
 DIプラグインは、一般的なアプリケーションのニーズをカバーすることを目的としたさまざまな機能をサポートしています。
 
@@ -58,7 +58,7 @@ DIプラグインは、一般的なアプリケーションのニーズをカバ
 * [非同期の依存関係の解決](server-di-dependency-resolution.md#async-dependency-resolution)
 * [自動およびカスタムのリソースライフサイクル管理](server-di-resource-lifecycle-management.md)
 
-## 設定とライフサイクルの動作
+## 設定とライフサイクルの動作 {id="configuration-and-lifecycle-behavior"}
 
 DIコンテナの動作は、設定オプションを使用してカスタマイズできます。これらのオプションにより、依存関係キーの一致方法、競合の処理方法、および高度なシナリオにおける解決の動作を制御できます。
 
@@ -66,7 +66,7 @@ DIコンテナの動作は、設定オプションを使用してカスタマイ
 
 リソースのクリーンアップとシャットダウンの動作については、[リソースのライフサイクル管理](server-di-resource-lifecycle-management.md)を参照してください。
 
-## 依存性注入を使用したテスト
+## 依存性注入を使用したテスト {id="testing-with-dependency-injection"}
 
 DIプラグインはKtorのテストユーティリティと統合されており、テスト環境での依存関係のオーバーライド、設定の読み込み、競合動作の制御をサポートしています。
 

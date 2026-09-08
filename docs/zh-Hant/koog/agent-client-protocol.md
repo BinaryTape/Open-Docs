@@ -11,7 +11,7 @@ Agent Client Protocol (ACP) 是一種開源的標準化協定，讓用戶端應�
 
 若要了解更多資訊，請參閱 [Agent Client Protocol] 文件。
 
-## 與 Koog 整合
+## 與 Koog 整合 {id="integration-with-koog"}
 
 Koog 架構透過 [ACP Kotlin SDK] 搭配額外的 API 擴充功能與 ACP 整合。
 此整合提供：
@@ -25,7 +25,7 @@ Koog 架構透過 [ACP Kotlin SDK] 搭配額外的 API 擴充功能與 ACP 整�
 
     由於 [ACP Kotlin SDK] 是 JVM 特有的，因此 ACP 整合目前僅適用於 JVM 平台。
 
-### 新增相依性
+### 新增相依性 {id="add-dependencies"}
 
 ACP 支援是一個選用的 [功能 (feature)](features/index.md)，預設情況下 Koog 不提供。
 若要為您的 Koog 代理實作 ACP，請新增 [ai.koog:agents-features-acp](https://mvnrepository.com/artifact/ai.koog/agents-features-acp) 的相依性，該模組本身相依於 [com.agentclientprotocol:acp](https://mvnrepository.com/artifact/com.agentclientprotocol/acp)。
@@ -38,7 +38,7 @@ dependencies {
 }
 ```
 
-### 為 Koog 代理啟用 ACP
+### 為 Koog 代理啟用 ACP {id="enable-acp-for-a-koog-agent"}
 
 若要將 Koog 代理的內部 [事件系統](agent-events.md) 與 ACP 協定連接，請安裝 `ai.koog.agents.features.acp.AcpAgent` 功能 (feature)。
 安裝後，它會監聽生命週期事件（如工具呼叫或 LLM 回應）並將其傳送至 ACP 用戶端。
@@ -77,7 +77,7 @@ val agent = AIAgent(
 
 此代理必須在下一章所述的 ACP 工作階段範圍內執行。
 
-### 實作啟用 ACP 的代理
+### 實作啟用 ACP 的代理 {id="implement-an-acp-enabled-agent"}
 
 若要將您的 Koog 代理連接至 ACP 用戶端，請實作來自 [ACP Kotlin SDK](https://github.com/agentclientprotocol/kotlin-sdk) 的兩個核心介面：
 
@@ -236,20 +236,20 @@ val agent = AIAgent(
     ```
     <!--- KNIT example-agent-client-protocol-03.kt -->
 
-## 事件串流
+## 事件串流 {id="event-streaming"}
 
 範例中的 `AgentSession` 定義了一個傳回事件 `channelFlow` 的 `prompt()` 函式。
 接著您安裝 `AcpAgent` 功能 (feature)，並將 `this@channelFlow` 作為 `eventsProducer`。
 這讓您能從不同的協同程式傳送事件。
 
-## 執行同步
+## 執行同步 {id="execution-synchronization"}
 
 範例中的 `AgentSession` 使用互斥鎖 (mutex) 來同步對代理執行個體的存取，因為在先前的執行完成之前，ACP 不應觸發新的代理執行。
 為此，建立並執行代理的操作會發生在為定義的互斥鎖所設的 `withLock` 範圍內。
 
 您也在 `channelFlow` 範圍內以延遲工作 `agentJob` 的方式非同步執行代理，以確保代理不會被過早取消。
 
-## 處理 ACP 用戶端輸入
+## 處理 ACP 用戶端輸入 {id="handling-acp-client-input"}
 
 ACP 用戶端將使用者輸入作為 [`ContentBlock`](https://agentclientprotocol.com/protocol/schema#contentblock) 物件清單傳送。
 若要在 Koog 中處理這些內容，請使用 `List<ContentBlock>.toKoogMessage()` 擴充函式將 ACP 內容區塊轉換為 [`Message.User`](api:prompt-model::ai.koog.prompt.message.Message.User)，並將其附加到您的 [代理提示](prompts/index.md)。
@@ -279,7 +279,7 @@ private fun Prompt.appendPrompt(content: List<ContentBlock>): Prompt {
 
 若要了解更多資訊，請參閱 [轉換訊息](#converting-messages)。
 
-## 轉換訊息
+## 轉換訊息 {id="converting-messages"}
 
 `agents-features-acp` 模組提供了擴充函式，可在 Koog 的內部訊息型別與 [ACP 內容區塊](https://agentclientprotocol.com/protocol/content) 之間進行無縫轉換。
 
@@ -293,7 +293,7 @@ private fun Prompt.appendPrompt(content: List<ContentBlock>): Prompt {
 - `Message.Response.toAcpEvents()`：將 [`Message.Response`](api:prompt-model::ai.koog.prompt.message.Message.Response) 轉換為 ACP 工作階段更新事件清單
 - `ContentPart.toAcpContentBlock()`：將 [`ContentPart`](api:prompt-model::ai.koog.prompt.message.ContentPart) 轉換為單個 ACP 內容區塊
 
-## 處理代理通知
+## 處理代理通知 {id="handling-agent-notifications"}
 
 預設情況下，`setDefaultNotifications` 設為 `true`，且啟用 ACP 的代理會自動處理以下通知：
 
@@ -322,7 +322,7 @@ private fun Prompt.appendPrompt(content: List<ContentBlock>): Prompt {
 
 如果您想要自訂通知處理，請將 `setDefaultNotifications = false` 並根據規範處理代理事件。
 
-## 傳送自訂事件
+## 傳送自訂事件 {id="sending-custom-events"}
 
 除了自動通知外，您可以在代理執行期間的任何時間點，使用 `withAcpAgent` 區塊內的 `sendEvent` 向 ACP 用戶端傳送自訂事件。
 這對於進度更新、自訂狀態訊息或計畫更新非常有用。
@@ -380,11 +380,11 @@ val strategy = strategy<Unit, Unit>("my-strategy") {
 ```
 <!--- KNIT example-agent-client-protocol-06.kt -->
 
-## 範例
+## 範例 {id="examples"}
 
 您可以在 Koog 存儲庫的 [/examples](https://github.com/JetBrains/koog/tree/develop/examples/) 下找到 Koog 代理的運作範例。
 
-### 執行基於主控台的 ACP 用戶端
+### 執行基於主控台的 ACP 用戶端 {id="running-a-console-based-acp-client"}
 
 此範例執行一個基於主控台的 ACP 用戶端，該用戶端與一個簡單的 Koog 代理互動。
 
@@ -397,7 +397,7 @@ val strategy = strategy<Unit, Unit>("my-strategy") {
     ```
 5. 觀察主控台中的事件追蹤，它顯示了 Koog 事件如何轉換為 ACP 事件並傳送至用戶端。
 
-### 將啟用 ACP 的 Koog 代理連接至 JetBrains IDE
+### 將啟用 ACP 的 Koog 代理連接至 JetBrains IDE {id="connecting-an-acp-enabled-koog-agent-to-a-jetbrains-ide"}
 
 此範例示範如何建立一個啟用 ACP 的代理並連接至 IntelliJ IDEA。
 

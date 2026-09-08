@@ -33,7 +33,7 @@ Ktorは、1つ以上のドキュメントソースから実行時にOpenAPI仕�
 >
 {style="note"}
 
-## 依存関係の追加
+## 依存関係の追加 {id="add-dependencies"}
 
 * OpenAPIメタデータの生成を有効にするには、プロジェクトにKtorコンパイラプラグインを適用します。
 
@@ -200,7 +200,7 @@ ktor {
 }
 ```
 
-### 設定オプション
+### 設定オプション {id="configuration-options"}
 
 <deflist>
 <def>
@@ -219,7 +219,7 @@ OpenAPIルートアノテーションコードの生成を有効または無効�
 </def>
 </deflist>
 
-### ルーティング構造の分析
+### ルーティング構造の分析 {id="routing-structure-analysis"}
 
 Ktorコンパイラプラグインは、サーバーのルーティングDSLを分析して、APIの構造的な形状を決定します。この分析はルート宣言のみに基づいて行われ、ルートハンドラーの内容は検査されません。
 
@@ -240,7 +240,7 @@ routing {
 
 リクエストパラメータ、ボディ、レスポンスはルートラムダの内部で処理されるため、コンパイラはルーティング構造だけから完全なOpenAPI記述を推論することはできません。生成されるメタデータを充実させるために、Ktorは[アノテーション](#annotate-routes)と、一般的なリクエスト処理パターンに基づく[自動推論](#code-inference)をサポートしています。
 
-### コード推論
+### コード推論 {id="code-inference"}
 
 コード推論が有効な場合、コンパイラプラグインは一般的なKtorの使用パターンを認識し、同等の実行時アノテーションを自動的に生成します。
 
@@ -258,7 +258,7 @@ routing {
 
 推論は可能な限り抽出された関数を追跡し、典型的なリクエストおよびレスポンスフローに対して一貫したドキュメントを生成しようとします。
 
-#### 特定のエンドポイントの推論を無効にする
+#### 特定のエンドポイントの推論を無効にする {id="disable-inference-for-an-endpoint"}
 
 特定のエンドポイントに対して推論が正しくないメタデータを生成する場合、`ignore`マーカーを追加することで除外できます：
 
@@ -306,7 +306,7 @@ get("/{id}") {
 }
 ```
 
-#### フォーマットルール
+#### フォーマットルール {id="formatting-rules"}
 
 - キーワードは行の先頭にある必要があります。
 - コロン（`:`）がキーワードと値を区切ります。
@@ -328,7 +328,7 @@ get("/{id}") {
  */
 ```
 
-#### サポートされているコメントフィールド
+#### サポートされているコメントフィールド {id="supported-comment-fields"}
 
 | タグ            | フォーマット                                          | 説明                      |
 |----------------|-------------------------------------------------|----------------------------------|
@@ -397,7 +397,7 @@ get("/{id}") {
 実行時アノテーションは、コンパイラによって生成されたメタデータおよびコメントベースのメタデータとマージされます。
 同じOpenAPIフィールドが複数のソースで定義されている場合、実行時アノテーションによって提供される値が[優先](#metadata-precedence)されます。
 
-## OpenAPI仕様からルートを隠す
+## OpenAPI仕様からルートを隠す {id="hide-routes-from-the-openapi-specification"}
 
 生成されるOpenAPIドキュメントからルートとその子を除外するには、`Route.hide()`関数を使用します：
 
@@ -412,11 +412,11 @@ get("/routes") {
 
 OpenAPIおよびSwagger UIプラグインは自動的に`.hide()`を呼び出すため、それらのルートは結果のドキュメントから除外されます。
 
-## スキーマ推論
+## スキーマ推論 {id="schema-inference"}
 
 Ktorは、OpenAPI仕様を構築する際に、リクエストおよびレスポンス型のJSONスキーマを自動的に生成します。デフォルトでは、データクラス上の`kotlinx-serialization`記述子を使用した型参照からスキーマが推論されます。これにより、追加の労力をかけずに、ほとんどの一般的なデータモデルをドキュメント化できます。
 
-### アノテーションによるスキーマのカスタマイズ
+### アノテーションによるスキーマのカスタマイズ {id="customize-schemas-with-annotations"}
 
 データクラスに[`@JsonSchema`](https://api.ktor.io/ktor-openapi-schema/io.ktor.openapi/-json-schema/index.html)アノテーションを追加することで、自動生成されたJSONスキーマフィールドをオーバーライドできます。これにより、説明の追加やフィールドの必須化などを行うことができます。
 
@@ -428,7 +428,7 @@ data class Article(
 )
 ```
 
-### リフレクションベースのスキーマ推論の使用
+### リフレクションベースのスキーマ推論の使用 {id="use-reflection-based-schema-inference"}
 
 `kotlinx-serialization`の代わりにJacksonやGsonを使用しているプロジェクトでは、リフレクションベースのスキーマ推論を使用できます。そのためには、OpenAPIまたはSwaggerUIプラグインの`Routing`ソースにある`schemaInference`フィールドを設定します。
 
@@ -443,7 +443,7 @@ openAPI("docs") {
 }
 ```
 
-### リフレクションの動作のカスタマイズ
+### リフレクションの動作のカスタマイズ {id="customize-reflection-behavior"}
 
 カスタムの`SchemaReflectionAdapter`を提供して、直接サポートされていないアノテーションや命名規則を処理できます。
 
@@ -469,7 +469,7 @@ ReflectionJsonSchemaInference(object : SchemaReflectionAdapter {
 
 利用可能なプロパティの完全なリストについては、[`JsonSchema` APIドキュメント](https://api.ktor.io/ktor-openapi-schema/io.ktor.openapi/-json-schema/index.html)を参照してください。
 
-## 仕様の生成と提供
+## 仕様の生成と提供 {id="generate-and-serve-the-specification"}
 
 OpenAPI仕様は、実行時ルートアノテーションとコンパイラプラグインによって生成されたメタデータから実行時に組み立てられます。
 
@@ -478,7 +478,7 @@ OpenAPI仕様は、実行時ルートアノテーションとコンパイラプ�
 - [OpenAPIドキュメントを手動で組み立てて提供する](#assemble-and-serve-the-specification)。
 - [OpenAPI](server-openapi.md)または[SwaggerUI](server-swagger-ui.md)プラグインを使用して、仕様とインタラクティブなドキュメントを提供する。
 
-### 仕様の組み立てと提供
+### 仕様の組み立てと提供 {id="assemble-and-serve-the-specification"}
 
 実行時に完全なOpenAPIドキュメントを組み立てるには、`OpenApiDoc`インスタンスを作成し、仕様に含めるべきルートを提供します。
 
@@ -508,7 +508,7 @@ OpenAPI仕様は、実行時ルートアノテーションとコンパイラプ�
 >
 {style="note"}
 
-### インタラクティブなドキュメントの提供
+### インタラクティブなドキュメントの提供 {id="serve-interactive-documentation"}
 
 インタラクティブなUIを通じてOpenAPI仕様を公開するには、[OpenAPI](server-openapi.md)および[Swagger UI](server-swagger-ui.md)プラグインを使用します。
 
@@ -530,7 +530,7 @@ swaggerUI("/swaggerUI") {
 }
 ```
 
-### メタデータの優先順位
+### メタデータの優先順位 {id="metadata-precedence"}
 
 最終的なOpenAPI仕様は、複数のソースから提供されたメタデータをマージすることによって実行時に組み立てられます。
 

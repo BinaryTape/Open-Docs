@@ -17,9 +17,9 @@ fun addEntryToMap(baseMap: Map<String, Number>, additionalEntry: Pair<String, In
 
 這裡沒有足夠的型別資訊以一般方式推論型別引數，但產生器型別推論可以分析 Lambda 引數內部的呼叫。根據 `putAll()` 與 `put()` 呼叫的型別資訊，編譯器可以自動將 `buildMap()` 呼叫的型別引數推論為 `String` 與 `Number`。產生器型別推論允許在使用泛型產生器時省略型別引數。
 
-## 撰寫您自己的產生器
+## 撰寫您自己的產生器 {id="writing-your-own-builders"}
 
-### 啟用產生器型別推論的需求
+### 啟用產生器型別推論的需求 {id="requirements-for-enabling-builder-inference"}
 
 > 在 Kotlin 1.7.0 之前，為產生器函式啟用產生器型別推論需要使用 `-Xenable-builder-inference` 編譯器選項。在 1.7.0 中，此選項預設為啟用。
 >
@@ -69,7 +69,7 @@ fun addEntryToMap(baseMap: Map<String, Number>, additionalEntry: Pair<String, In
    }
    ```
 
-### 支援的特性
+### 支援的特性 {id="supported-features"}
 
 產生器型別推論支援： 
 * 推論多個型別引數
@@ -117,9 +117,9 @@ fun addEntryToMap(baseMap: Map<String, Number>, additionalEntry: Pair<String, In
   }
   ```
 
-## 產生器型別推論的運作方式
+## 產生器型別推論的運作方式 {id="how-builder-inference-works"}
 
-### 延遲型別變數
+### 延遲型別變數 {id="postponed-type-variables"}
 
 產生器型別推論是以 *延遲型別變數*（postponed type variables）的方式運作，這些變數在產生器型別推論分析期間出現在產生器 Lambda 內部。延遲型別變數是正在推論過程中的型別引數型別。編譯器使用它來收集有關該型別引數的型別資訊。
 
@@ -146,7 +146,7 @@ val result = buildList {
 
 請注意，您始終可以呼叫 `equals()`、`hashCode()` 與 `toString()` 函式，並使用延遲型別變數作為接收者。
 
-### 貢獻至產生器型別推論結果
+### 貢獻至產生器型別推論結果 {id="contributing-to-builder-inference-results"}
 
 產生器型別推論可以收集多種有助於分析結果的型別資訊。它會考慮：
 * 在 Lambda 接收者上呼叫使用型別參數型別的方法

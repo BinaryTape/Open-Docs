@@ -20,7 +20,7 @@ Kotlin 1.5.30 提供了語言更新，包括未來變更的預覽、平台支援
 >
 {style="tip"}
 
-## 語言特性
+## 語言特性 {id="language-features"}
 
 Kotlin 1.5.30 展示了未來語言變更的預覽，並對選擇性使用需求機制和型別推論進行了改進：
 * [針對密封和布林受詞的窮舉 when 陳述式](#exhaustive-when-statements-for-sealed-and-boolean-subjects)
@@ -30,7 +30,7 @@ Kotlin 1.5.30 展示了未來語言變更的預覽，並對選擇性使用需求
 * [遞迴泛型型別的型別推論改進](#improvements-to-type-inference-for-recursive-generic-types)
 * [消除建置器推論限制](#eliminating-builder-inference-restrictions)
 
-### 針對密封和布林受詞的窮舉 when 陳述式
+### 針對密封和布林受詞的窮舉 when 陳述式 {id="exhaustive-when-statements-for-sealed-and-boolean-subjects"}
 
 > 支援密封（窮舉）when 陳述式目前處於 [實驗性](components-stability.md) 階段。它隨時可能被捨棄或更改。
 > 需要選擇性使用（請參閱下方詳細資訊），且您應僅出於評估目的使用它。我們歡迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-12380) 提供回饋。
@@ -101,7 +101,7 @@ kotlin {
 </tab>
 </tabs>
 
-### 將掛起函式作為超型別
+### 將掛起函式作為超型別 {id="suspending-functions-as-supertypes"}
 
 > 支援將掛起函式作為超型別目前處於 [實驗性](components-stability.md) 階段。它隨時可能被捨棄或更改。
 > 需要選擇性使用（請參閱下方詳細資訊），且您應僅出於評估目的使用它。我們歡迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-18707) 提供回饋。
@@ -151,7 +151,7 @@ kotlin {
 * 您不能混合普通功能型別和 `suspend` 功能型別作為超型別。這是因為 JVM 後端中 `suspend` 功能型別的實作細節。它們在其中被表示為帶有標記介面的普通功能型別。由於標記介面的原因，無法辨別哪些超介面是掛起的，哪些是普通的。
 * 您不能使用多個 `suspend` 功能型別作為超型別。如果存在型別檢查，您也不能使用多個普通功能型別作為超型別。
 
-### 對實驗性 API 的隱式用法要求選擇性使用
+### 對實驗性 API 的隱式用法要求選擇性使用 {id="requiring-opt-in-on-implicit-usages-of-experimental-apis"}
 
 > 選擇性使用需求機制目前處於 [實驗性](components-stability.md) 階段。
 > 它隨時可能更改。[查看如何選擇性使用](opt-in-requirements.md)。
@@ -187,7 +187,7 @@ fun getDate(): Date {
 
 了解更多關於 [選擇性使用需求](opt-in-requirements.md)。
 
-### 對不同目標使用選擇性使用需求註解的變更
+### 對不同目標使用選擇性使用需求註解的變更 {id="changes-to-using-opt-in-requirement-annotations-with-different-targets"}
 
 > 選擇性使用需求機制目前處於 [實驗性](components-stability.md) 階段。
 > 它隨時可能更改。[查看如何選擇性使用](opt-in-requirements.md)。
@@ -203,7 +203,7 @@ Kotlin 1.5.30 提出了在不同 [目標](https://kotlinlang.org/api/latest/jvm/
 
 了解更多關於 [選擇性使用需求](opt-in-requirements.md)。
 
-### 遞迴泛型型別的型別推論改進
+### 遞迴泛型型別的型別推論改進 {id="improvements-to-type-inference-for-recursive-generic-types"}
 
 在 Kotlin 和 Java 中，您可以定義遞迴泛型型別，即在其型別參數中引用自身的型別。在 Kotlin 1.5.30 中，如果它是遞迴泛型，Kotlin 編譯器可以僅根據對應型別參數的上界來推論型別引數。這使得建立各種遞迴泛型型別模式成為可能，這些模式在 Java 中常用於製作建置器 API。
 
@@ -226,7 +226,7 @@ val containerB = PostgreSQLContainer(DockerImageName.parse("postgres:13-alpine")
 
 您可以透過傳遞 `-Xself-upper-bound-inference` 或 `-language-version 1.6` 編譯器選項來啟用這些改進。請參閱 [此 YouTrack 票證](https://youtrack.jetbrains.com/issue/KT-40804) 中其他新支援的使用案例範例。
 
-### 消除建置器推論限制
+### 消除建置器推論限制 {id="eliminating-builder-inference-restrictions"}
 
 建置器推論是一種特殊的型別推論，它允許您根據 Lambda 引數內其他呼叫的型別資訊來推論該呼叫的型別引數。當呼叫泛型建置器函式（如 [`buildList()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/build-list.html) 或 [`sequence()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/sequence.html)）時，這非常有用：`buildList { add("string") }`。
 
@@ -256,7 +256,7 @@ val map = buildMap {
 
 此外，您也可以透過 `-language-version 1.6` 編譯器選項啟用此功能。
 
-## Kotlin/JVM
+## Kotlin/JVM {id="kotlin-jvm"}
 
 在 Kotlin 1.5.30 中，Kotlin/JVM 獲得了以下功能：
 * [註解類別的具現化](#instantiation-of-annotation-classes)
@@ -264,7 +264,7 @@ val map = buildMap {
 
 有關 JVM 平台上 Kotlin Gradle 外掛程式的更新，請參閱 [Gradle](#gradle) 章節。
 
-### 註解類別的具現化
+### 註解類別的具現化 {id="instantiation-of-annotation-classes"}
 
 > 註解類別的具現化目前處於 [實驗性](components-stability.md) 階段。它隨時可能被捨棄或更改。
 > 需要選擇性使用（請參閱下方詳細資訊），且您應僅出於評估目的使用它。我們歡迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-45395) 提供回饋。
@@ -290,7 +290,7 @@ fun main(args: Array<String>) {
 
 在 [此 KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/annotation-instantiation.md) 中了解更多關於註解類別具現化的資訊。
 
-### 改進的可 null 性註解支援配置
+### 改進的可 null 性註解支援配置 {id="improved-nullability-annotation-support-configuration"}
 
 Kotlin 編譯器可以讀取各種類型的 [可 null 性註解](java-interop.md#nullability-annotations)，以從 Java 取得可 null 性資訊。此資訊允許它在呼叫 Java 程式碼時，於 Kotlin 中回報可 null 性不符。
 
@@ -303,7 +303,7 @@ Kotlin 編譯器可以讀取各種類型的 [可 null 性註解](java-interop.md
 
 以下範例顯示如何為新支援的 [RxJava](https://github.com/ReactiveX/RxJava) 3 可 null 性註解啟用錯誤回報：`-Xnullability-annotations=@io.reactivex.rxjava3.annotations:strict`。請注意，所有此類可 null 性不符預設皆為警告。
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 Kotlin/Native 獲得了多項變更與改進：
 * [Apple 晶片支援](#apple-silicon-support)
@@ -312,7 +312,7 @@ Kotlin/Native 獲得了多項變更與改進：
 * [改進的物件與隨伴物件的 Swift/Objective-C 對應](#improved-swift-objective-c-mapping-for-objects-and-companion-objects)
 * [棄用 MinGW 目標中不含匯入程式庫的 DLL 連結](#deprecation-of-linkage-against-dlls-without-import-libraries-for-mingw-targets)
 
-### Apple 晶片支援
+### Apple 晶片支援 {id="apple-silicon-support"}
 
 Kotlin 1.5.30 引入了對 [Apple 晶片](https://support.apple.com/en-us/HT211814) 的原生支援。
 
@@ -329,9 +329,9 @@ Kotlin 1.5.30 引入了對 [Apple 晶片](https://support.apple.com/en-us/HT2118
 請注意，在 1.5.30 中，我們僅在 `kotlin-multiplatform` Gradle 外掛程式中提供對 Apple 晶片目標的基本支援。特別是，新的模擬器目標未包含在 `ios`、`tvos` 和 `watchos` 目標捷徑中。
 我們將繼續致力於改善新目標的使用者體驗。
 
-### 改進的 CocoaPods Gradle 外掛程式 Kotlin DSL
+### 改進的 CocoaPods Gradle 外掛程式 Kotlin DSL {id="improved-kotlin-dsl-for-the-cocoapods-gradle-plugin"}
 
-#### Kotlin/Native 框架的新參數
+#### Kotlin/Native 框架的新參數 {id="new-parameters-for-kotlin-native-frameworks"}
 
 Kotlin 1.5.30 為 Kotlin/Native 框架引入了改進的 CocoaPods Gradle 外掛程式 DSL。除了框架名稱外，您還可以在 Pod 配置中指定其他參數：
 * 指定框架的動態或靜態版本
@@ -361,7 +361,7 @@ cocoapods {
 }
 ```
 
-#### 支援 Xcode 配置的自訂名稱
+#### 支援 Xcode 配置的自訂名稱 {id="support-custom-names-for-xcode-configuration"}
 
 Kotlin CocoaPods Gradle 外掛程式支援 Xcode 組建組態中的自訂名稱。如果您在 Xcode 中對組建組態使用特殊名稱（例如 `Staging`），這也會有所幫助。
 
@@ -381,7 +381,7 @@ cocoapods {
 >
 {style="note"}
 
-### 與 Swift 5.5 async/await 的實驗性互通性
+### 與 Swift 5.5 async/await 的實驗性互通性 {id="experimental-interoperability-with-swift-5-5-async-await"}
 
 > 與 Swift async/await 的並行互通性目前處於 [實驗性](components-stability.md) 階段。它隨時可能被捨棄或更改。
 > 您應僅出於評估目的使用它。我們歡迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-47610) 提供回饋。
@@ -394,7 +394,7 @@ cocoapods {
 
 請注意，此功能是實驗性的，未來可能會受到 Kotlin 和 Swift 變更的影響編譯器。目前，我們提供此功能的預覽，該預覽具有某些限制，我們渴望聽到您的想法。了解其目前狀態並在 [此 YouTrack 問題](https://youtrack.jetbrains.com/issue/KT-47610) 中留下您的回饋。
 
-### 改進的物件與隨伴物件的 Swift/Objective-C 對應
+### 改進的物件與隨伴物件的 Swift/Objective-C 對應 {id="improved-swift-objective-c-mapping-for-objects-and-companion-objects"}
 
 現在可以以對原生 iOS 開發人員更直觀的方式取得物件和隨伴物件。例如，如果您在 Kotlin 中有以下物件：
 
@@ -421,7 +421,7 @@ MyClass.Companion.shared
 
 進一步了解 [Swift/Objective-C 互通性](native-objc-interop.md)。
 
-### 棄用 MinGW 目標中不含匯入程式庫的 DLL 連結
+### 棄用 MinGW 目標中不含匯入程式庫的 DLL 連結 {id="deprecation-of-linkage-against-dlls-without-import-libraries-for-mingw-targets"}
 
 [LLD](https://lld.llvm.org/) 是 LLVM 專案中的一個連結器，我們計劃開始在 Kotlin/Native 中為 MinGW 目標使用它，因為它比預設的 ld.bfd 具有更多優點——主要是更好的效能。
 
@@ -429,14 +429,14 @@ MyClass.Companion.shared
 
 請在 [此 YouTrack 問題](https://youtrack.jetbrains.com/issue/KT-47605) 中分享您對轉換至 LLD 連結器的想法與疑慮。
 
-## Kotlin Multiplatform
+## Kotlin Multiplatform {id="kotlin-multiplatform"}
 
 1.5.30 為 Kotlin Multiplatform 帶來了以下顯著更新：
 * [能夠在共用的原生程式碼中使用自訂 cinterop 程式庫](#ability-to-use-custom-cinterop-libraries-in-shared-native-code)
 * [支援 XCFrameworks](#support-for-xcframeworks)
 * [Android 構件的新預設發佈設定](#new-default-publishing-setup-for-android-artifacts)
 
-### 能夠在共用的原生程式碼中使用自訂 cinterop 程式庫
+### 能夠在共用的原生程式碼中使用自訂 cinterop 程式庫 {id="ability-to-use-custom-cinterop-libraries-in-shared-native-code"}
 
 Kotlin Multiplatform 提供了一個 [選項](https://kotlinlang.org/docs/multiplatform/multiplatform-share-on-platforms.html#connect-platform-specific-libraries)，讓您在共用來源集中使用平台相關的互通程式庫。在 1.5.30 之前，這僅適用於 Kotlin/Native 發行版隨附的 [平台程式庫](native-platform-libs.md)。從 1.5.30 開始，您可以將其與自訂 `cinterop` 程式庫搭配使用。要啟用此功能，請在您的 `gradle.properties` 中加入 `kotlin.mpp.enableCInteropCommonization=true` 屬性：
 
@@ -446,7 +446,7 @@ kotlin.native.enableDependencyPropagation=false
 kotlin.mpp.enableCInteropCommonization=true
 ```
 
-### 支援 XCFrameworks
+### 支援 XCFrameworks {id="support-for-xcframeworks"}
 
 所有 Kotlin Multiplatform 專案現在都可以將 XCFrameworks 作為輸出格式。Apple 引入了 XCFrameworks 作為通用（fat）框架的替代品。透過 XCFrameworks，您可以：
 * 在單一組合包中收集所有目標平台和架構的邏輯。
@@ -534,7 +534,7 @@ kotlin {
 
 在 [此 WWDC 影片](https://developer.apple.com/videos/play/wwdc2019/416/) 中了解更多關於 XCFrameworks 的資訊。
 
-### Android 構件的新預設發佈設定
+### Android 構件的新預設發佈設定 {id="new-default-publishing-setup-for-android-artifacts"}
 
 使用 `maven-publish` Gradle 外掛程式，您可以透過在建置指令碼中指定 [Android 變體（variant）](https://developer.android.com/studio/build/build-variants) 名稱，[為 Android 目標發佈多平台程式庫](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-lib-setup.html#publish-an-android-library)。Kotlin Gradle 外掛程式將自動產生發佈內容。
 
@@ -544,31 +544,31 @@ kotlin {
 
 要退出並為所有變體保留建置類型屬性，您可以設定此 Gradle 屬性：`kotlin.android.buildTypeAttribute.keep=true`。
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
 Kotlin/JS 1.5.30 帶來了兩項主要改進：
 * [JS IR 編譯器後端進入 Beta 階段](#js-ir-compiler-backend-reaches-beta)
 * [使用 Kotlin/JS IR 後端的應用程式擁有更好的偵錯體驗](#better-debugging-experience-for-applications-with-the-kotlin-js-ir-backend)
 
-### JS IR 編譯器後端進入 Beta 階段
+### JS IR 編譯器後端進入 Beta 階段 {id="js-ir-compiler-backend-reaches-beta"}
 
 Kotlin/JS 的 [基於 IR 的編譯器後端](whatsnew14.md#unified-backends-and-extensibility)（在 1.4.0 中以 [Alpha](components-stability.md) 引入）已達到 Beta 階段。
 
 先前，我們發佈了 JS IR 後端遷移指南，以幫助您將專案遷移至新後端。現在，我們向您介紹 [Kotlin/JS Inspection Pack](https://plugins.jetbrains.com/plugin/17183-kotlin-js-inspection-pack/) IDE 外掛程式，它直接在 IntelliJ IDEA 中顯示所需的變更。
 
-### 使用 Kotlin/JS IR 後端的應用程式擁有更好的偵錯體驗
+### 使用 Kotlin/JS IR 後端的應用程式擁有更好的偵錯體驗 {id="better-debugging-experience-for-applications-with-the-kotlin-js-ir-backend"}
 
 Kotlin 1.5.30 為 Kotlin/JS IR 後端帶來了 JavaScript 原始碼對應檔產生功能。這將在啟用 IR 後端時改善 Kotlin/JS 偵錯體驗，提供完整的偵錯支援，包括中斷點、單步執行，以及具有正確原始碼參照的可讀堆疊追蹤。
 
 了解如何 [在瀏覽器或 IntelliJ IDEA 中偵錯 Kotlin/JS](js-debugging.md)。
 
-## Gradle
+## Gradle {id="gradle"}
 
 作為我們 [改善 Kotlin Gradle 外掛程式使用者體驗](https://youtrack.jetbrains.com/issue/KT-45778) 使命的一部分，我們實作了以下功能：
 * [支援 Java 工具鏈](#support-for-java-toolchains)，這包括 [針對較舊 Gradle 版本使用 `UsesKotlinJavaToolchain` 介面指定 JDK 主目錄的能力](#ability-to-specify-jdk-home-with-useskotlinjavatoolchain-interface)
 * [更簡單的方式來明確指定 Kotlin 精靈程序的 JVM 引數](#easier-way-to-explicitly-specify-kotlin-daemon-jvm-arguments)
 
-### 支援 Java 工具鏈
+### 支援 Java 工具鏈 {id="support-for-java-toolchains"}
 
 Gradle 6.7 引入了 [「Java 工具鏈支援」](https://docs.gradle.org/current/userguide/toolchains.html) 功能。
 使用此功能，您可以：
@@ -632,7 +632,7 @@ java {
 
 對於 Gradle 6.1 到 6.6 版本，[請使用 `UsesKotlinJavaToolchain` 介面來設定 JDK 主目錄](#ability-to-specify-jdk-home-with-useskotlinjavatoolchain-interface)。
 
-### 能夠使用 UsesKotlinJavaToolchain 介面指定 JDK 主目錄
+### 能夠使用 UsesKotlinJavaToolchain 介面指定 JDK 主目錄 {id="ability-to-specify-jdk-home-with-useskotlinjavatoolchain-interface"}
 
 所有支援透過 [`kotlinOptions`](gradle-compiler-options.md) 設定 JDK 的 Kotlin 任務現在都實作了 `UsesKotlinJavaToolchain` 介面。要設定 JDK 主目錄，請放入您的 JDK 路徑並替換 `<JDK_VERSION>` 占位符：
 
@@ -671,7 +671,7 @@ project.tasks
 
 使用此功能時請注意，[kapt 任務背景工作執行緒](kapt.md#run-kapt-tasks-in-parallel) 將僅使用 [行程隔離模式](https://docs.gradle.org/current/userguide/worker_api.html#changing_the_isolation_mode)，且 `kapt.workers.isolation` 屬性將被忽略。
 
-### 更簡單的方式來明確指定 Kotlin 精靈程序 JVM 引數
+### 更簡單的方式來明確指定 Kotlin 精靈程序 JVM 引數 {id="easier-way-to-explicitly-specify-kotlin-daemon-jvm-arguments"}
 
 在 Kotlin 1.5.30 中，針對 Kotlin 精靈程序（Kotlin daemon）的 JVM 引數有新的邏輯。以下列表中的每個選項都會覆寫其之前的選項：
 
@@ -751,7 +751,7 @@ project.tasks
 
 有關 Kotlin 精靈程序的更多資訊，請參閱 [Kotlin 精靈程序及其與 Gradle 的搭配使用](gradle-compilation-and-caches.md#the-kotlin-daemon-and-how-to-use-it-with-gradle)。
 
-## 標準函式庫
+## 標準函式庫 {id="standard-library"}
 
 Kotlin 1.5.30 為標準函式庫的 `Duration` 和 `Regex` API 帶來了改進：
 * [變更 `Duration.toString()` 輸出](#changing-duration-tostring-output)
@@ -759,7 +759,7 @@ Kotlin 1.5.30 為標準函式庫的 `Duration` 和 `Regex` API 帶來了改進�
 * [在特定位置使用 Regex 進行配對](#matching-with-regex-at-a-particular-position)
 * [將 Regex 分割為序列](#splitting-regex-to-a-sequence)
 
-### 變更 Duration.toString() 輸出
+### 變更 Duration.toString() 輸出 {id="changing-duration-tostring-output"}
 
 > Duration API 目前處於 [實驗性](components-stability.md) 階段。它隨時可能被捨棄或更改。
 > 請僅出於評估目的使用它。我們歡迎您在 [YouTrack](https://youtrack.jetbrains.com/issues/KT) 提供回饋。
@@ -790,7 +790,7 @@ Duration.milliseconds(25.12).toString()|`25.1ms`|`25.12ms`|
 >
 {style="note"}
 
-### 從字串解析 Duration
+### 從字串解析 Duration {id="parsing-duration-from-string"}
 
 > Duration API 目前處於 [實驗性](components-stability.md) 階段。它隨時可能被捨棄或更改。
 > 請僅出於評估目的使用它。我們歡迎您在 [此問題](https://github.com/Kotlin/KEEP/issues/190) 提供回饋。
@@ -847,7 +847,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.5" validate="false"}
 
-### 在特定位置使用 Regex 進行配對
+### 在特定位置使用 Regex 進行配對 {id="matching-with-regex-at-a-particular-position"}
 
 > `Regex.matchAt()` 和 `Regex.matchesAt()` 函式目前處於 [實驗性](components-stability.md) 階段。它們隨時可能被捨棄或更改。
 > 請僅出於評估目的使用它們。我們歡迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-34021) 提供回饋。
@@ -885,7 +885,7 @@ fun main(){
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.5" validate="false"}
 
-### 將 Regex 分割為序列
+### 將 Regex 分割為序列 {id="splitting-regex-to-a-sequence"}
 
 > `Regex.splitToSequence()` 和 `CharSequence.splitToSequence(Regex)` 函式目前處於 [實驗性](components-stability.md) 階段。它們隨時可能被捨棄或更改。
 > 請僅出於評估目的使用它們。我們歡迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-23351) 提供回饋。
@@ -915,7 +915,7 @@ fun main(){
 ```
 {kotlin-runnable="false"}
 
-## Serialization 1.3.0-RC
+## Serialization 1.3.0-RC {id="serialization-1-3-0-rc"}
 
 `kotlinx.serialization` [1.3.0-RC](https://github.com/Kotlin/kotlinx.serialization/releases/tag/v1.3.0-RC) 已經發佈，帶來了新的 JSON 序列化功能：
 * Java IO 流序列化

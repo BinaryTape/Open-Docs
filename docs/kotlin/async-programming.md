@@ -12,7 +12,7 @@
 
 在解释什么是协程之前，让我们简要回顾一下其他一些解决方案。
 
-## 线程
+## 线程 {id="threading"}
 
 到目前为止，线程可能是防止应用程序阻塞最广为人知的方法。
 
@@ -36,7 +36,7 @@ fun preparePost(): Token {
 * 线程并非始终可用。某些平台（如 JavaScript）甚至不支持线程。
 * 线程并不简单。在多线程编程中，调试线程和避免竞态条件是我们经常遇到的问题。
 
-## 回调
+## 回调 {id="callbacks"}
 
 使用回调，其思想是将一个函数作为参数传递给另一个函数，并在处理完成后调用该函数。
 
@@ -62,7 +62,7 @@ fun preparePostAsync(callback: (Token) -> Unit) {
 
 回调在 JavaScript 等事件循环架构中非常常见，但即使在那，人们通常也已经转向使用其他方法，如 promise 或 Reactive Extensions。
 
-## future、promise 及其他
+## future、promise 及其他 {id="futures-promises-and-others"}
 
 future 或 promise（根据语言或平台的不同，可能会使用其他术语）背后的思想是，当我们发起调用时，我们得到一个“承诺”，即在某个时间点该调用将返回一个 `Promise` 对象，然后我们可以对其进行操作。
 
@@ -91,7 +91,7 @@ fun preparePostAsync(): Promise<Token> {
 * 特定的返回值类型。返回值类型不再是我们需要的实际数据，而是返回一个必须进行内省的新类型 `Promise`。
 * 错误处理可能很复杂。错误的传播和链式传递并不总是直观的。
 
-## Reactive Extensions
+## Reactive Extensions {id="reactive-extensions"}
 
 Reactive Extensions (Rx) 是由 [Erik Meijer](https://en.wikipedia.org/wiki/Erik_Meijer_(computer_scientist)) 引入 C# 的。虽然它在 .NET 平台上确实得到了应用，但直到 Netflix 将其移植到 Java 并命名为 RxJava 后，它才真正成为主流。从那时起，针对各种平台（包括 JavaScript (RxJS)）提供了大量的移植版本。
 
@@ -105,7 +105,7 @@ Rx 背后的思想是转向所谓的“可观察流”，即我们现在将数�
 
 此外，Rx 确实引入了一种更佳的错误处理方法。
 
-## 协程
+## 协程 {id="coroutines"}
 
 Kotlin 处理异步代码的方法是使用协程，即由于可挂起的计算这一概念，也就是说一个函数可以在某个点挂起执行并在稍后恢复。
 

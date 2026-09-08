@@ -20,12 +20,12 @@ val box: Box<Int> = Box<Int>(1)
 val box = Box(1) // 1 的型別為 Int，因此編譯器會推斷出它是 Box<Int>
 ```
 
-## 變異 (Variance)
+## 變異 (Variance) {id="variance"}
 
 Java 型別系統中最棘手的面向之一是萬用字元型別 (wildcard types)（請參閱 [Java Generics FAQ](http://www.angelikalanger.com/GenericsFAQ/JavaGenericsFAQ.html)）。
 Kotlin 沒有這些。相反地，Kotlin 擁有宣告處變異 (declaration-site variance) 與型別投影 (type projections)。
 
-### Java 中的變異與萬用字元
+### Java 中的變異與萬用字元 {id="variance-and-wildcards-in-java"}
 
 讓我們思考一下為什麼 Java 需要這些神秘的萬用字元。首先，Java 中的泛型型別是*不變的 (invariant)*，
 這意味著 `List<String>` *不是* `List<Object>` 的子型別。如果 `List` 不是*不變的*，它將
@@ -108,7 +108,7 @@ Joshua Bloch 在他的著作 [Effective Java, 3rd Edition](http://www.oracle.com
 >
 {style="note"}
 
-### 宣告處變異 (Declaration-site variance)
+### 宣告處變異 (Declaration-site variance) {id="declaration-site-variance"}
 
 假設有一個泛型介面 `Source<T>`，它沒有任何以 `T` 作為參數的方法，只有回傳 `T` 的方法：
 
@@ -177,9 +177,9 @@ fun demo(x: Comparable<Number>) {
 
 **[存在主義](https://en.wikipedia.org/wiki/Existentialism) 轉型：Consumer in, Producer out!** :-)
 
-## 型別投影 (Type projections)
+## 型別投影 (Type projections) {id="type-projections"}
 
-### 使用處變異：型別投影
+### 使用處變異：型別投影 {id="use-site-variance-type-projections"}
 
 將型別參數 `T` 宣告為 `out` 並避免在使用處出現子型別化問題非常容易，
 但有些類別實際上*無法*被限制為僅回傳 `T`！
@@ -234,7 +234,7 @@ fun fill(dest: Array<in String>, value: String) { ... }
 `Array<in String>` 對應於 Java 的 `Array<? super String>`。這意味著你可以將 `String` 陣列、`CharSequence` 陣列
 或 `Object` 陣列傳遞給 `fill()` 函式。
 
-### 星號投影 (Star-projections)
+### 星號投影 (Star-projections) {id="star-projections"}
 
 有時你想要表示你對型別引數一無所知，但仍想以安全的方式使用它。
 這裡的安全方式是定義泛型型別的投影，使得該泛型型別的每個具體具現化都將是該投影的子型別。
@@ -259,7 +259,7 @@ Kotlin 為此提供了所謂的*星號投影*語法：
 >
 {style="note"}
 
-### 捕獲型別 (Captured types)
+### 捕獲型別 (Captured types) {id="captured-types"}
 
 當你使用型別投影（例如 `out T` 或 `in T`）時，編譯器會在內部將未知的具體型別表示為一個 [捕獲型別 (captured type)](https://kotlinlang.org/spec/type-system.html#type-capturing)。捕獲型別是一種具有已知上限和下限的未知型別。
 
@@ -292,7 +292,7 @@ array.set(0, "New value")
 * 對於 `get()` 操作，編譯器將捕獲型別近似為其上限 `CharSequence`，並將 `item` 的型別推論為 `CharSequence`。
 * 對於 `set()` 操作，捕獲型別的下限為 `Nothing`。由於 `Nothing` 沒有執行個體，因此向投影型別寫入值是不安全的，會導致錯誤。
 
-## 泛型函式
+## 泛型函式 {id="generic-functions"}
 
 不僅僅是類別可以擁有型別參數，函式也可以。型別參數放在函式名稱*之前*：
 
@@ -318,11 +318,11 @@ val l = singletonList<Int>(1)
 val l = singletonList(1)
 ```
 
-## 泛型約束
+## 泛型約束 {id="generic-constraints"}
 
 可以取代給定型別參數的所有可能型別的集合，可能會受到*泛型約束*的限制。
 
-### 上限 (Upper bounds)
+### 上限 (Upper bounds) {id="upper-bounds"}
 
 最常見的約束類型是*上限*，這對應於 Java 的 `extends` 關鍵字：
 
@@ -351,7 +351,7 @@ fun <T> copyWhenGreater(list: List<T>, threshold: T): List<String>
 傳遞的型別必須同時滿足 `where` 子句的所有條件。在上述範例中，`T` 型別
 必須*同時*實作 `CharSequence` 和 `Comparable`。
 
-## 絕對不可為 null 型別 (Definitely non-nullable types)
+## 絕對不可為 null 型別 (Definitely non-nullable types) {id="definitely-non-nullable-types"}
 
 為了讓與泛型 Java 類別和介面的互通更加容易，Kotlin 支援將泛型型別參數宣告為
 **絕對不可為 null**。 
@@ -385,14 +385,14 @@ interface ArcadeGame<T1> : Game<T1> {
 當僅使用 Kotlin 開發時，你不太需要顯式宣告絕對不可為 null 型別，因為 
 Kotlin 的型別推論會為你處理好這一切。
 
-## 型別擦除 (Type erasure)
+## 型別擦除 (Type erasure) {id="type-erasure"}
 
 Kotlin 對泛型宣告使用所執行的型別安全檢查是在編譯期完成的。
 在執行期，泛型型別的執行個體不持有關於其實際型別引數的任何資訊。
 該型別資訊被稱為被*擦除*了。例如，`Foo<Bar>` 和 `Foo<Baz?>` 的執行個體都會被擦除為
 僅僅是 `Foo<*>`。
 
-### 泛型型別檢查與轉換
+### 泛型型別檢查與轉換 {id="generics-type-checks-and-casts"}
 
 由於型別擦除的存在，在執行期沒有通用的方法來檢查一個泛型型別的執行個體是否是使用某些型別引數建立的，
 且編譯器禁止此類 `is` 檢查，例如
@@ -452,7 +452,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 未經檢查的轉換 (Unchecked casts)
+### 未經檢查的轉換 (Unchecked casts) {id="unchecked-casts"}
 
 針對具有具體型別引數的泛型型別轉換（例如 `foo as List<String>`）在執行期無法進行檢查。  
 當高層級程式邏輯隱含了型別安全，但編譯器無法直接推論時，
@@ -496,7 +496,7 @@ inline fun <reified T> List<*>.asListOfType(): List<T>? =
 >
 {style="note"}
 
-## 型別引數的底線運算子
+## 型別引數的底線運算子 {id="underscore-operator-for-type-arguments"}
 
 底線運算子 `_` 可用於型別引數。當明確指定其他型別時，使用它來自動推論該引數的型別：
 

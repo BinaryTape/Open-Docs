@@ -18,7 +18,7 @@
 為了建置使用者介面，您將在專案的 Android 部分使用 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) 工具組，並在 iOS 部分使用 [SwiftUI](https://developer.apple.com/xcode/swiftui/)。
 這兩者都是宣告式 UI 架構，您會看到 UI 實作上的相似之處。在這兩種情況下，您都會將資料儲存在 `phrases` 變數中，隨後對其進行反覆運算以產生 `Text` 項目列表。
 
-## 更新 Android 部分
+## 更新 Android 部分 {id="update-the-android-part"}
 
 `androidApp` 模組包含一個 Android 應用程式並定義其主 Activity。
 UI 程式碼大部分包含在 `sharedUI` 模組中，Android 應用程式將其作為 Android 程式庫使用。
@@ -74,7 +74,7 @@ UI 使用 Compose Multiplatform 架構實作。
 
    ![更新後的 Android 多平台應用程式 UI](first-multiplatform-project-on-android-2.png){width=300}
 
-## 更新 iOS 部分
+## 更新 iOS 部分 {id="update-the-ios-part"}
 
 `iosApp` 目錄會編譯為一個 iOS 應用程式。
 它相依於並將 `sharedLogic` 模組作為 iOS 架構使用。
@@ -107,24 +107,24 @@ UI 使用 Compose Multiplatform 架構實作。
 
     ![更新後的 iOS 多平台應用程式 UI](first-multiplatform-project-on-ios-2.png){width=350}
 
-## 可能的問題與解決方案
+## 可能的問題與解決方案 {id="possible-issues-and-solutions"}
 
-### Xcode 在呼叫共用框架的程式碼中回報錯誤
+### Xcode 在呼叫共用框架的程式碼中回報錯誤 {id="xcode-reports-errors-in-the-code-calling-the-shared-framework"}
 
 如果您正在使用 Xcode，您的 Xcode 專案可能仍在使用舊版本的框架。
 要解決此問題，請返回 IntelliJ IDEA 並重新建置專案，或啟動 iOS 執行配置。
 
-### Xcode 在匯入共用框架時回報錯誤
+### Xcode 在匯入共用框架時回報錯誤 {id="xcode-reports-an-error-when-importing-the-shared-framework"}
 
 如果您正在使用 Xcode，可能需要清除快取的二進位檔案：嘗試透過在主選單中選擇 **Product | Clean Build Folder** 來重設環境。
 
-## 下一步
+## 下一步 {id="next-step"}
 
 在教學的下一部分中，您將學習關於相依性的知識，並新增一個第三方函式庫以擴充專案的功能。
 
 **[繼續下一步](multiplatform-dependencies.md)**
 
-## 取得協助
+## 取得協助 {id="get-help"}
 
 * **Kotlin Slack**。取得[邀請](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)並加入 [#multiplatform](https://kotlinlang.slack.com/archives/C3PQML5NU) 頻道。
 * **Kotlin 問題追蹤器**。[回報新問題](https://youtrack.jetbrains.com/newIssue?project=KT)。

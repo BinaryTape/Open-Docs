@@ -6,7 +6,7 @@ title: クオリファイア
 
 クオリファイアを使用すると、Koinモジュール内にある同じ型の複数の定義を区別することができます。
 
-## クオリファイアが必要な場合
+## クオリファイアが必要な場合 {id="when-you-need-qualifiers"}
 
 以下のような場合にクオリファイアが必要になります：
 - 同じインターフェースの複数の実装がある場合
@@ -21,11 +21,11 @@ val networkModule = module {
 }
 ```
 
-## 名前付きクオリファイア (Named Qualifiers)
+## 名前付きクオリファイア (Named Qualifiers) {id="named-qualifiers"}
 
 `named()` を使用して定義を区別します：
 
-### 定義方法
+### 定義方法 {id="defining"}
 
 ```kotlin
 import org.koin.core.qualifier.named
@@ -45,7 +45,7 @@ val networkModule = module {
 }
 ```
 
-### 注入方法
+### 注入方法 {id="injecting"}
 
 ```kotlin
 // モジュール定義内での使用
@@ -64,7 +64,7 @@ class MyService : KoinComponent {
 }
 ```
 
-### アノテーションでの使用
+### アノテーションでの使用 {id="with-annotations"}
 
 ```kotlin
 import org.koin.core.annotation.Named
@@ -89,9 +89,9 @@ class ApiService(
 コンパイラプラグインDSLおよびClassic DSLの自動ワイヤリング（`singleOf`、`factoryOf`）では、クオリファイアを自動的に解決することはできません。クオリファイアが必要な定義には、ラムダを使用したClassic DSLまたはアノテーションを使用してください。
 :::
 
-## 型安全なクオリファイア (Type-Safe Qualifiers)
+## 型安全なクオリファイア (Type-Safe Qualifiers) {id="type-safe-qualifiers"}
 
-### 型の使用
+### 型の使用 {id="using-types"}
 
 任意の型をクオリファイアとして `named<T>()` で使用できます：
 
@@ -118,7 +118,7 @@ val networkModule = module {
 val client: OkHttpClient = get(named<EncryptedClient>())
 ```
 
-### Enum の使用
+### Enum の使用 {id="using-enums"}
 
 IDEのサポートをより活用するために、Enumを使用できます：
 
@@ -152,7 +152,7 @@ val client: OkHttpClient = get(named(NetworkClient.ENCRYPTED))
 - 文字列のタイポの排除
 - IDEのオートコンプリートとリファクタリングのサポート
 
-## JSR-330 @Qualifier
+## JSR-330 @Qualifier {id="jsr-330-qualifier"}
 
 Koinは標準の JSR-330 `@Qualifier` アノテーションをサポートしています：
 
@@ -179,9 +179,9 @@ class MyRepository(
 )
 ```
 
-## 一般的なユースケース
+## 一般的なユースケース {id="common-use-cases"}
 
-### 複数のAPIバージョン
+### 複数のAPIバージョン {id="multiple-api-versions"}
 
 ```kotlin
 val networkModule = module {
@@ -199,7 +199,7 @@ val networkModule = module {
 }
 ```
 
-### 異なるタイムアウト設定
+### 異なるタイムアウト設定 {id="different-timeout-configurations"}
 
 ```kotlin
 val networkModule = module {
@@ -217,7 +217,7 @@ val networkModule = module {
 }
 ```
 
-### 環境ごとの設定
+### 環境ごとの設定 {id="environment-configurations"}
 
 ```kotlin
 val configModule = module {
@@ -236,9 +236,9 @@ val configModule = module {
 }
 ```
 
-## ベストプラクティス
+## ベストプラクティス {id="best-practices"}
 
-### 1. クオリファイアの使用は控えめにする
+### 1. クオリファイアの使用は控えめにする {id="1-use-qualifiers-sparingly"}
 
 ```kotlin
 // 良い例 - 必要な場合のみクオリファイアを使用
@@ -255,7 +255,7 @@ val appModule = module {
 }
 ```
 
-### 2. 型による区別を優先する
+### 2. 型による区別を優先する {id="2-prefer-type-differentiation"}
 
 ```kotlin
 // より良い例 - 異なる型を使用する
@@ -271,7 +271,7 @@ val networkModule = module {
 }
 ```
 
-### 3. クオリファイアの連鎖を避ける
+### 3. クオリファイアの連鎖を避ける {id="3-avoid-qualifier-chains"}
 
 ```kotlin
 // 悪い例 - 複雑なクオリファイアの依存関係
@@ -289,7 +289,7 @@ val goodModule = module {
 }
 ```
 
-### 4. クオリファイアをドキュメント化する
+### 4. クオリファイアをドキュメント化する {id="4-document-qualifiers"}
 
 ```kotlin
 val networkModule = module {
@@ -301,9 +301,9 @@ val networkModule = module {
 }
 ```
 
-## 命名規則
+## 命名規則 {id="naming-conventions"}
 
-### 文字列ベース
+### 文字列ベース {id="string-based"}
 
 ```kotlin
 // 良い例 - 内容が分かりやすく、スネークケースの小文字
@@ -315,7 +315,7 @@ single(named("api_v2")) { ... }
 single(named("client1")) { ... }  // "1" が何を意味するのか不明
 ```
 
-### Enumベース
+### Enumベース {id="enum-based"}
 
 ```kotlin
 // 良い例 - 明確な Enum 名
@@ -330,9 +330,9 @@ enum class ApiVersion {
 }
 ```
 
-## よくある落とし穴
+## よくある落とし穴 {id="common-pitfalls"}
 
-### 注入時にクオリファイアを忘れる
+### 注入時にクオリファイアを忘れる {id="forgetting-qualifiers-on-injection"}
 
 ```kotlin
 val module = module {
@@ -347,7 +347,7 @@ val repoModule = module {
 }
 ```
 
-### クオリファイア名の不一致
+### クオリファイア名の不一致 {id="mismatched-qualifier-names"}
 
 ```kotlin
 val module = module {
@@ -365,7 +365,7 @@ val repoModule = module {
 
 タイポを避けるために、Enumクオリファイアを使用しましょう！
 
-## 次のステップ
+## 次のステップ {id="next-steps"}
 
 - **[定義 (Definitions)](/docs/reference/koin-core/definitions)** - 定義の種類とバインディング
 - **[モジュール (Modules)](/docs/reference/koin-core/modules)** - モジュールの構成

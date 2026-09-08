@@ -32,7 +32,7 @@ print(
 
 指定されたMaven依存関係（この例では `kotlinx-html-jvm`）は、実行中に指定されたMavenリポジトリまたはローカルキャッシュから解決され、スクリプトの残りの部分で使用されます。
 
-## プロジェクト構造
+## プロジェクト構造 {id="project-structure"}
 
 最小限のKotlinカスタムスクリプティングプロジェクトは、2つのパートで構成されます：
 
@@ -41,11 +41,11 @@ print(
 
 これらを踏まえ、プロジェクトを2つのモジュールに分割するのが最善です。
 
-## 始める前に
+## 始める前に {id="before-you-start"}
 
 最新バージョンの [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) をダウンロードしてインストールしてください。
 
-## プロジェクトの作成
+## プロジェクトの作成 {id="create-a-project"}
 
 1. IntelliJ IDEAで、**File** | **New** | **Project** を選択します。
 2. 左側のパネルで、**New Project** を選択します。
@@ -66,7 +66,7 @@ print(
 
 ![カスタムKotlinスクリプティング用のルートプロジェクトを作成する](script-deps-create-root-project.png){width=700}
 
-## スクリプティングモジュールの追加
+## スクリプティングモジュールの追加 {id="add-scripting-modules"}
 
 これで空のKotlin/JVM Gradleプロジェクトが作成されました。必要なモジュール、スクリプト定義、およびスクリプティングホストを追加します：
 
@@ -90,7 +90,7 @@ print(
 
 このようなプロジェクトの例や、その他のKotlinスクリプティングの例は、[kotlin-script-examples GitHubリポジトリ](https://github.com/Kotlin/kotlin-script-examples/tree/master/jvm/basic/jvm-maven-deps)で見つけることができます。
 
-## スクリプト定義の作成
+## スクリプト定義の作成 {id="create-a-script-definition"}
 
 まず、スクリプトのタイプを定義します。開発者がこのタイプのスクリプトに何を記述できるか、そしてそれがどのように処理されるかを定義します。このチュートリアルでは、スクリプト内での `@Repository` および `@DependsOn` アノテーションのサポートを含めます。
 
@@ -201,7 +201,7 @@ print(
 
    完全なコードは [こちら](https://github.com/Kotlin/kotlin-script-examples/blob/master/jvm/basic/jvm-maven-deps/script/src/main/kotlin/org/jetbrains/kotlin/script/examples/jvm/resolve/maven/scriptDef.kt) にあります。
 
-## スクリプティングホストの作成
+## スクリプティングホストの作成 {id="create-a-scripting-host"}
 
 次のステップは、スクリプトの実行を処理するコンポーネントであるスクリプティングホストの作成です。
 
@@ -285,7 +285,7 @@ print(
 
 完全なコードは [こちら](https://github.com/Kotlin/kotlin-script-examples/blob/master/jvm/basic/jvm-maven-deps/host/src/main/kotlin/org/jetbrains/kotlin/script/examples/jvm/resolve/maven/host/host.kt) にあります。
 
-## スクリプトの実行
+## スクリプトの実行 {id="run-scripts"}
 
 スクリプティングホストがどのように動作するかを確認するために、実行するスクリプトと実行構成を準備します。
 
@@ -331,7 +331,7 @@ print(
 
 初回の実行では依存関係の解決に時間がかかる場合があります。2回目以降の実行は、ローカルのMavenリポジトリからダウンロード済みの依存関係が使用されるため、はるかに速くなります。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 シンプルなKotlinスクリプティングプロジェクトを作成したら、このトピックに関する詳細情報を確認してください：
 * [Kotlin scripting KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/scripting-support.md) を読む

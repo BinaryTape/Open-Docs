@@ -22,7 +22,7 @@
 >
 {style="note"}
 
-## 具有一个目标的 Xcode 项目
+## 具有一个目标的 Xcode 项目 {id="xcode-project-with-one-target"}
 
 要在具有一个目标的 Xcode 项目中将 Kotlin 项目作为 Pod 依赖项使用：
 
@@ -73,7 +73,7 @@
 8. 关闭您的 `.xcodeproj` 并改为打开新的 `.xcworkspace` 文件。通过这种方式，您可以避免项目依赖项的问题。
 9. 在 IntelliJ IDEA 中运行 **Build** | **Reload All Gradle Projects**（或在 Android Studio 中运行 **File** | **Sync Project with Gradle Files**）以重新导入项目。
 
-## 具有多个目标的 Xcode 项目
+## 具有多个目标的 Xcode 项目 {id="xcode-project-with-several-targets"}
 
 要在具有多个目标的 Xcode 项目中将 Kotlin 项目作为 Pod 依赖项使用：
 
@@ -132,7 +132,7 @@
 8. 关闭您的 `.xcodeproj` 并改为打开新的 `.xcworkspace` 文件。通过这种方式，您可以避免项目依赖项的问题。
 9. 在 IntelliJ IDEA 中运行 **Build** | **Reload All Gradle Projects**（或在 Android Studio 中运行 **File** | **Sync Project with Gradle Files**）以重新导入项目。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * [在您的 Kotlin 项目中添加对 Pod 库的依赖项](multiplatform-cocoapods-libraries.md)
 * [查看如何将框架连接到您的 iOS 项目](multiplatform-direct-integration.md)

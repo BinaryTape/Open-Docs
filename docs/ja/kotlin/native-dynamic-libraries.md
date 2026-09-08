@@ -26,7 +26,7 @@ Kotlin/Native の高度な C 相互運用性（interop）関連の使用法と�
 >
 {style="note"}
 
-## Kotlin ライブラリの作成
+## Kotlin ライブラリの作成 {id="create-a-kotlin-library"}
 
 Kotlin/Native コンパイラは、Kotlin コードからダイナミックライブラリを生成できます。通常、ダイナミックライブラリには `.h` ヘッダーファイルが付属しており、これを使用して C からコンパイルされたコードを呼び出します。
 
@@ -159,7 +159,7 @@ Kotlin ライブラリを作成し、それを C プログラムから使用し�
 
 Kotlin/Native コンパイラは、すべてのプラットフォームに対して同じルールを使用して `.h` ファイルを生成します。Kotlin ライブラリの C API を確認してみましょう。
 
-## 生成されたヘッダーファイル
+## 生成されたヘッダーファイル {id="generated-header-file"}
 
 Kotlin/Native の宣言がどのように C 関数にマッピングされるかを確認してみましょう。
 
@@ -253,7 +253,7 @@ C において、`typedef struct { ... } TYPE_NAME` 構文は構造体を宣言�
 
 C は名前空間をサポートしていないため、Kotlin/Native コンパイラは、既存のネイティブプロジェクト内の他のシンボルとの衝突を避けるために長い名前を生成します。
 
-### サービスランタイム関数
+### サービスランタイム関数 {id="service-runtime-functions"}
 
 `libnative_ExportedSymbols` 構造体は、Kotlin/Native およびライブラリによって提供されるすべての関数を定義します。
 パッケージを模倣するために、入れ子になった無名構造体を多用しています。`libnative_` プレフィックスはライブラリ名に由来します。
@@ -307,7 +307,7 @@ libnative_KULong (*getNonNullValueOfULong)(libnative_kref_kotlin_ULong);
 >
 {style="tip"}
 
-### ライブラリの関数
+### ライブラリの関数 {id="your-library-functions"}
 
 ライブラリで使用される個別の構造体宣言を見てみましょう。`libnative_kref_example` フィールドは、`libnative_kref.` プレフィックスを付けて、Kotlin コードのパッケージ構造を模倣しています：
 
@@ -351,7 +351,7 @@ Kotlin の `object Object` は `libnative_kref_example_Object` としてアク�
 
 グローバル関数 `forFloats`、`forIntegers`、および `strings` は、`libnative_kref_example` 無名構造体内の関数ポインタに変換されます。
 
-### エントリポイント
+### エントリポイント {id="entry-point"}
 
 API がどのように作成されるかがわかったので、`libnative_ExportedSymbols` 構造体の初期化が開始点となります。それでは、`libnative_api.h` の最後の部分を見てみましょう：
 
@@ -365,7 +365,7 @@ extern libnative_ExportedSymbols* libnative_symbols(void);
 >
 {style="note"}
 
-## C から生成されたヘッダーを使用する
+## C から生成されたヘッダーを使用する {id="use-generated-headers-from-c"}
 
 C から生成されたヘッダーを使用するのは簡単です。ライブラリディレクトリに、以下のコードを含む `main.c` ファイルを作成します：
 
@@ -400,9 +400,9 @@ out:%s
 }
 ```
 
-## プロジェクトのコンパイルと実行
+## プロジェクトのコンパイルと実行 {id="compile-and-run-the-project"}
 
-### macOS の場合
+### macOS の場合 {id="on-macos"}
 
 C コードをコンパイルし、ダイナミックライブラリとリンクするには、ライブラリディレクトリに移動して以下のコマンドを実行します：
 
@@ -412,7 +412,7 @@ clang main.c libnative.dylib
 
 コンパイラは `a.out` という実行ファイルを生成します。これを実行して、C ライブラリから Kotlin コードを実行します。
 
-### Linux の場合
+### Linux の場合 {id="on-linux"}
 
 C コードをコンパイルし、ダイナミックライブラリとリンクするには、ライブラリディレクトリに移動して以下のコマンドを実行します：
 
@@ -422,7 +422,7 @@ gcc main.c libnative.so
 
 コンパイラは `a.out` という実行ファイルを生成します。これを実行して、C ライブラリから Kotlin コードを実行します。Linux では、アプリケーションが現在のフォルダから `libnative.so` ライブラリをロードできるように、`LD_LIBRARY_PATH` に `.` を含める必要があります。
 
-### Windows の場合
+### Windows の場合 {id="on-windows"}
 
 まず、x64_64 ターゲットをサポートする Microsoft Visual C++ コンパイラをインストールする必要があります。
 
@@ -446,7 +446,7 @@ Windows では、スタティックライブラリのラッパーを生成する
 
    このコマンドは `main.exe` ファイルを生成し、実行することができます。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [Swift/Objective-C との相互運用性について詳しく学ぶ](native-objc-interop.md)
 * [Apple フレームワークとしての Kotlin/Native チュートリアルを確認する](apple-framework.md)

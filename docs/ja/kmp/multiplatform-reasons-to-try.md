@@ -10,7 +10,7 @@
 
 ![直近2回のDeveloper Ecosystem調査の回答者の間で、KMPの利用率は2024年の7%から2025年には18%に増加しました](kmp-growth-deveco.svg){width=700}
 
-## プロジェクトで Kotlin Multiplatform を試すべき理由
+## プロジェクトで Kotlin Multiplatform を試すべき理由 {id="why-you-should-try-kotlin-multiplatform-in-your-projects"}
 
 開発をより効率的にしたいと考えている場合でも、新しいテクノロジーを探索したいと考えている場合でも、この記事は役に立つでしょう。
 開発の効率化、マルチプラットフォームのサポート、強力なツールエコシステムなど、Kotlin Multiplatform の実用的な利点のいくつかについて説明します。また、実際の企業のケーススタディも紹介します。
@@ -26,7 +26,7 @@
 9. [Kotlin Multiplatform は強力なツールサポートを提供する](#9-kotlin-multiplatform-provides-powerful-tooling-support)
 10. [Kotlin Multiplatform は大規模で協力的なコミュニティを誇っている](#10-kotlin-multiplatform-boasts-a-large-and-supportive-community)
 
-### 1. Kotlin Multiplatform はコードの重複を避けるのに役立つ
+### 1. Kotlin Multiplatform はコードの重複を避けるのに役立つ {id="1-kotlin-multiplatform-helps-you-avoid-code-duplication"}
 
 中国最大の検索エンジンである Baidu は、若年層をターゲットにしたアプリケーション *Wonder App* をリリースしました。従来のアプリ開発で彼らが直面した問題の一部を以下に挙げます。
 
@@ -46,7 +46,7 @@ Baidu チームは Kotlin Multiplatform の実験を決定し、まずはデー�
 
 [![Kotlin Multiplatform の実際のユースケースを探索する](kmp-use-cases-1.svg){width="500"}](https://kotlinlang.org/case-studies/)
 
-### 2. Kotlin Multiplatform は広範なプラットフォームをサポートしている
+### 2. Kotlin Multiplatform は広範なプラットフォームをサポートしている {id="2-kotlin-multiplatform-supports-an-extensive-list-of-platforms"}
 
 Kotlin Multiplatform の主な利点の 1 つは、さまざまなプラットフォームにわたる広範なサポートであり、開発者にとって多用途な選択肢となっています。
 これらのプラットフォームには、Android、iOS、デスクトップ、Web (JavaScript および WebAssembly)、サーバー (Java Virtual Machine) が含まれます。
@@ -64,7 +64,7 @@ Quizlet チームは JavaScript、React Native、C++、Rust、Go などのテク
 
 [![Kotlin Multiplatform を始める](get-started-with-kmp.svg){width="500"}](get-started.topic)
 
-### 3. Kotlin は簡素化されたコード共有メカニズムを提供する
+### 3. Kotlin は簡素化されたコード共有メカニズムを提供する {id="3-kotlin-provides-simplified-code-sharing-mechanisms"}
 
 プログラミング言語の世界において、Kotlin はその実用的なアプローチで際立っています。つまり、以下の機能を優先しています。
 
@@ -78,7 +78,7 @@ Quizlet チームは JavaScript、React Native、C++、Rust、Go などのテク
 
 重要なポイントは、Kotlin が読みやすさ、再利用、相互運用性、安全性を重視していることが、この言語を開発者にとって魅力的な選択肢にし、生産性を向上させているということです。
 
-### 4. Kotlin Multiplatform は柔軟なマルチプラットフォーム開発を可能にする
+### 4. Kotlin Multiplatform は柔軟なマルチプラットフォーム開発を可能にする {id="4-kotlin-multiplatform-allows-for-flexible-multiplatform-development"}
 
 Kotlin Multiplatform を使用すると、開発者はネイティブ開発かクロスプラットフォーム開発かを選択する必要がなくなります。何を共有し、何をネイティブで書くかを自分で選ぶことができます。
 
@@ -98,7 +98,7 @@ Kotlin Multiplatform では、プロジェクトに適したコード共有の�
 
 今では、プラットフォーム固有のコードを除いて、ほとんど何でも共有できます。
 
-### 5. Kotlin Multiplatform ソリューションにより UI コードを共有できる
+### 5. Kotlin Multiplatform ソリューションにより UI コードを共有できる {id="5-with-the-kotlin-multiplatform-solution-you-can-share-ui-code"}
 
 JetBrains は、Kotlin と Jetpack Compose に基づいて、Android (Jetpack Compose 経由)、iOS、デスクトップ、Web (Beta) を含む複数のプラットフォームでユーザーインターフェースを共有するための宣言型フレームワークである [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) を提供しています。
 
@@ -108,7 +108,7 @@ Eコマース企業に特化したラストマイル物流プラットフォー�
 
 [![Compose Multiplatform を探索する](explore-compose.svg){width="500"}](https://www.jetbrains.com/compose-multiplatform/)
 
-### 6. 既存および新規のプロジェクトで Kotlin Multiplatform を使用できる
+### 6. 既存および新規のプロジェクトで Kotlin Multiplatform を使用できる {id="6-you-can-use-kotlin-multiplatform-in-existing-and-new-projects"}
 
 次の 2 つのシナリオを見てみましょう。
 
@@ -120,7 +120,7 @@ Eコマース企業に特化したラストマイル物流プラットフォー�
 
   オンラインプラットフォームおよびソーシャルメディアウェブサイトである *9GAG* は、Flutter や React Native など、さまざまなテクノロジーを試しましたが、最終的に Kotlin Multiplatform を選択しました。これにより、両方のプラットフォームでアプリの動作を一致させることができました。彼らはまず Android アプリを作成することから始めました。その後、iOS で依存関係として Kotlin Multiplatform プロジェクトを利用しました。
 
-### 7. Kotlin Multiplatform を使用すると、段階的にコード共有を開始できる
+### 7. Kotlin Multiplatform を使用すると、段階的にコード共有を開始できる {id="7-with-kotlin-multiplatform-you-can-start-sharing-your-code-gradually"}
 
 定数のような単純な要素から始めて、メールバリデーションのような共通のユーティリティを徐々に移行するなど、インクリメンタルに開始できます。また、トランザクションプロセスやユーザー認証などのビジネスロジックを記述または移行することもできます。
 
@@ -128,13 +128,13 @@ Eコマース企業に特化したラストマイル物流プラットフォー�
 > [Android から Kotlin Multiplatform に段階的に移行する方法を確認する](migrate-from-android.md)。
 {style="note"}
 
-### 8. Kotlin Multiplatform はすでにグローバル企業で使用されている
+### 8. Kotlin Multiplatform はすでにグローバル企業で使用されている {id="8-kotlin-multiplatform-is-already-used-by-global-companies"}
 
 KMP は、Forbes、Philips、Cash App、Meetup、Autodesk を含む、世界中の多くの大企業ですでに使用されています。彼らのストーリーはすべて [ケーススタディページ](https://kotlinlang.org/case-studies/?type=multiplatform) で読むことができます。
 
 2023 年 11 月、JetBrains は Kotlin Multiplatform が Stable（安定版）になったことを発表し、より多くの企業やチームの関心を集めました。Google I/O 2024 では、Google が Android と iOS の間でビジネスロジックを共有するための [Kotlin Multiplatform の使用を公式にサポート](https://android-developers.googleblog.com/2024/05/android-support-for-kotlin-multiplatform-to-share-business-logic-across-mobile-web-server-desktop.html) することを発表しました。
 
-### 9. Kotlin Multiplatform は強力なツールサポートを提供する
+### 9. Kotlin Multiplatform は強力なツールサポートを提供する {id="9-kotlin-multiplatform-provides-powerful-tooling-support"}
 
 Kotlin Multiplatform プロジェクトを作業する際、強力なツールをすぐに利用できます。
 
@@ -146,7 +146,7 @@ Kotlin Multiplatform プロジェクトを作業する際、強力なツール�
 
 * **Xcode**。Apple の IDE は、Kotlin Multiplatform アプリの iOS 部分を作成するために使用できます。Xcode は iOS アプリ開発の標準であり、コーディング、デバッグ、設定のための豊富なツールを提供しています。ただし、Xcode は Mac 専用です。
 
-### 10. Kotlin Multiplatform は大規模で協力的なコミュニティを誇っている
+### 10. Kotlin Multiplatform は大規模で協力的なコミュニティを誇っている {id="10-kotlin-multiplatform-boasts-a-large-and-supportive-community"}
 
 Kotlin と Kotlin Multiplatform には、非常に協力的なコミュニティがあります。疑問に対する答えを見つけることができる場所をいくつか紹介します。
 
@@ -163,7 +163,7 @@ Kotlin Multiplatform のエコシステムは繁栄しています。世界中�
 
 ご覧のとおり、2021 年に明らかな上昇があり、それ以降ライブラリの数は増え続けています。
 
-## なぜ他のクロスプラットフォームテクノロジーではなく Kotlin Multiplatform を選ぶのか？
+## なぜ他のクロスプラットフォームテクノロジーではなく Kotlin Multiplatform を選ぶのか？ {id="why-choose-kotlin-multiplatform-over-other-cross-platform-technologies"}
 
 [異なるクロスプラットフォームソリューション](cross-platform-frameworks.topic) を選択する際は、そのメリットとデメリットの両方を検討することが不可欠です。また、[React Native](kotlin-multiplatform-react-native.topic) や [Flutter](kotlin-multiplatform-flutter.md) などの他のテクノロジーと Kotlin Multiplatform を並べて比較することもできます。
 

@@ -4,7 +4,7 @@
 
 在本章節中，您將學習如何將接收者與另一種函式型別——Lambda 運算式結合使用，以及它們如何幫助您建立領域特定語言 (DSL)。
 
-## 帶接收者的 Lambda 運算式
+## 帶接收者的 Lambda 運算式 {id="lambda-expressions-with-receiver"}
 
 在初級教學中，您已經學習了如何使用 [Lambda 運算式](kotlin-tour-functions.md#lambda-expressions)。Lambda 運算式也可以擁有一個接收者。
 在這種情況下，Lambda 運算式可以存取接收者的任何成員函數或屬性，而無需在每次呼叫時都明確指定接收者。沒有了這些額外的參考，您的程式碼會更容易閱讀且更易於維護。
@@ -145,7 +145,7 @@ Kotlin 生態系統中有許多此設計模式的範例，例如標準函式庫�
 >
 {style="tip"}
 
-## 練習 {completion-point="true"}
+## 練習 {completion-point="true" id="practice"}
 
 ### 練習 1 {initial-collapse-state="collapsed" collapsible="true" id="lambda-receivers-exercise-1"}
 

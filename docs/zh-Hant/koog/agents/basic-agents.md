@@ -20,7 +20,7 @@ Agent 將執行工具並將結果回傳給 LLM。
 
     此頁面上的範例假設您已設定 `OPENAI_API_KEY` 環境變數。
 
-## 建立最簡 Agent
+## 建立最簡 Agent {id="create-a-minimal-agent"}
 
 若要建立最基本的 Agent，請具現化 [`AIAgent`](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.agent/-a-i-agent/index.html)
 並為 [prompt 執行器](../prompts/prompt-executors.md)提供一個 [語言模型](../model-capabilities.md#creating-a-model-llmodel-configuration)：
@@ -97,7 +97,7 @@ Agent 將傳回通用的回答，例如：
 ```
 <!--- KNIT example-basic-01.txt -->
 
-## 加入系統 prompt
+## 加入系統 prompt {id="add-a-system-prompt"}
 
 提供 [系統訊息](../prompts/prompt-creation/index.md#system-message) 來定義 Agent 的角色，
 以及與任務相關的目的、內容和指令。
@@ -149,7 +149,7 @@ Agent 將傳回通用的回答，例如：
 ```
 <!--- KNIT example-basic-02.txt -->
 
-## 配置 LLM 輸出
+## 配置 LLM 輸出 {id="configure-llm-output"}
 
 您可以直接向 Agent 建構函式 (Kotlin) 或透過 builder 方法 (Java) 提供一些 [LLM 參數](../llm-parameters.md#llm-parameter-reference)，
 以自訂 LLM 的行為。
@@ -224,7 +224,7 @@ Agent 將傳回通用的回答，例如：
     ```
     <!--- KNIT example-basic-05.txt -->
 
-## 加入工具
+## 加入工具 {id="add-tools"}
 
 Agent 可以使用 [工具](../tools/index.md) 來執行特定任務。
 
@@ -355,7 +355,7 @@ Doge 迷因的範例可能包括：
 ```
 <!--- KNIT example-basic-06.txt -->
 
-## 調整 Agent 迭代次數
+## 調整 Agent 迭代次數 {id="adjust-agent-iterations"}
 
 為了避免無限迴圈，Koog 允許任何 Agent 執行有限次數的步驟（預設為 50 次）。
 如果您預期 Agent 需要更多步驟（例如工具呼叫和 LLM 請求），請使用 `maxIterations` 參數來增加此限制；
@@ -452,7 +452,7 @@ Doge 迷因的範例可能包括：
     您也可以將其定義並作為單獨的配置物件傳遞。
     如需更多資訊，請參閱 [Agent 配置](index.md#agent-configuration)。
 
-## 處理 Agent 執行期間的事件
+## 處理 Agent 執行期間的事件 {id="handle-events-during-agent-runtime"}
 
 為了協助測試和偵錯，以及為鏈式 Agent 互動建立掛鉤 (hook)，
 Koog 提供了 [EventHandler](https://api.koog.ai/agents/agents-features/agents-features-event-handler/ai.koog.agents.features.eventHandler.feature/-event-handler/index.html) 功能。
@@ -568,6 +568,6 @@ Tool called: askUser with args {"question":"Which meme would you like me to expl
 
 如需更多關於 Koog Agent 功能的資訊，請參閱 [功能](../features/index.md)。
 
-## 後續步驟
+## 後續步驟 {id="next-steps"}
 
 - 進一步了解如何建置 [基於圖的 Agent](graph-based-agents.md) 與 [功能性 Agent](functional-agents.md)

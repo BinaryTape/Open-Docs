@@ -2,7 +2,7 @@
 
 在您的桌面專案中，您可以監聽各種滑鼠事件，例如點擊、移動、捲動，或是進入與離開輸入區域。
 
-## 點擊監聽器
+## 點擊監聽器 {id="click-listeners"}
 
 點擊監聽器在 Compose Multiplatform for Android 與 Compose Multiplatform for desktop 中皆可使用，因此您的程式碼將能在這兩個平台運作。
 例如，以下是如何使用 `onClick`、`onDoubleClick` 與 `onLongClick` 修飾符來設定簡單的點擊監聽器：
@@ -60,7 +60,7 @@ fun main() = singleWindowApplication(title = "Mouse clicks") {
 
 `combinedClickable` 修飾符僅支援主要按鈕（滑鼠左鍵）與觸控事件。如果您需要以不同方式處理按鈕，請參閱 [`Modifier.onClick`](#onclick-handlers) 章節。
 
-## 移動監聽器
+## 移動監聽器 {id="move-listeners"}
 
 > `onPointerEvent` 修飾符目前處於 [實驗性（Experimental）](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) 階段。需明確聲明使用（Opt-in，詳情見下文），且您應僅將其用於評估目的。
 > 如需 [穩定（Stable）](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) 的 API，請參閱 [`Modifier.pointerInput`](#listening-for-raw-events-in-common-code-via-pointerinput)。
@@ -104,7 +104,7 @@ fun main() = singleWindowApplication(title = "Mouse move listeners") {
 
 <img src="compose-mouse-move-listeners.animated.gif" alt="Mouse move listeners" width="600" preview-src="compose-mouse-move-listeners.png"/>
 
-## 進入監聽器
+## 進入監聽器 {id="enter-listeners"}
 
 > `onPointerEvent` 修飾符目前處於 [實驗性（Experimental）](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) 階段。需明確聲明使用（Opt-in，詳情見下文），且您應僅將其用於評估目的。
 > 如需 [穩定（Stable）](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) 的 API，請參閱 [`Modifier.pointerInput`](#listening-for-raw-events-in-common-code-via-pointerinput)。
@@ -160,7 +160,7 @@ fun main() = singleWindowApplication(title = "Mouse enter listeners") {
 
 <img src="compose-mouse-enter-listeners.animated.gif" alt="Mouse enter listeners" width="600" preview-src="compose-mouse-enter-listeners.png"/>
 
-## 捲動監聽器
+## 捲動監聽器 {id="scroll-listeners"}
 
 > `onPointerEvent` 修飾符目前處於 [實驗性（Experimental）](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) 階段。需明確聲明使用（Opt-in，詳情見下文），且您應僅將其用於評估目的。
 > 如需 [穩定（Stable）](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) 的 API，請參閱 [`Modifier.pointerInput`](#listening-for-raw-events-in-common-code-via-pointerinput)。
@@ -323,7 +323,7 @@ RMB + Alt") }
 
 <img src="compose-onclick-modifier.animated.gif" alt="Modifier.onClick" width="600" preview-src="compose-onclick-modifier.png"/>
 
-## 實驗性 onDrag 修飾符
+## 實驗性 onDrag 修飾符 {id="experimental-ondrag-modifier"}
 
 > `onDrag` 修飾符目前處於 [實驗性（Experimental）](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) 階段，且僅在桌面專案中受支援。需明確聲明使用（Opt-in，詳情見下文），且您應僅將其用於評估目的。
 >
@@ -462,7 +462,7 @@ fun main() = singleWindowApplication(title = "Drag") {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="Modifier.pointerInput(Unit) { detectDragGestures(matcher = PointerMatcher.Primary)"}
 
-## 透過 Swing 互通性存取原始 AWT 事件
+## 透過 Swing 互通性存取原始 AWT 事件 {id="accessing-raw-awt-events-with-swing-interoperability"}
 
 > `onPointerEvent` 修飾符目前處於 [實驗性（Experimental）](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) 階段。需明確聲明使用（Opt-in，詳情見下文），且您應僅將其用於評估目的。
 > 如需 [穩定（Stable）](supported-platforms.md#compose-multiplatform-ui-framework-stability-levels) 的 API，請參閱 [`Modifier.pointerInput`](#listening-for-raw-events-in-common-code-via-pointerinput)。
@@ -507,7 +507,7 @@ fun main() = singleWindowApplication(title = "Raw AWT events") {
 
 <img src="compose-raw-awt-events.animated.gif" alt="Swing interoperability" width="600" preview-src="compose-raw-awt-events.png"/>
 
-## 透過 pointerInput 在共用程式碼中監聽原始事件
+## 透過 pointerInput 在共用程式碼中監聽原始事件 {id="listening-for-raw-events-in-common-code-via-pointerinput"}
 
 在上述程式碼片段中，我們使用了 `Modifier.onPointerEvent` 函式，這是一個訂閱特定類型指標事件的輔助函式。它是 `Modifier.pointerInput` 函式的一個較新且簡短的變體。目前它處於實驗性階段且僅限桌面平台使用，因此您無法在共用程式碼中使用它。
 
@@ -554,6 +554,6 @@ fun main() = singleWindowApplication(title = "Raw events via Modifier.pointerInp
 
 <img src="compose-raw-events.animated.gif" alt="Raw events via Modifier.pointerInput" width="600" preview-src="compose-raw-events.png"/>
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 探索關於 [其他桌面組件](https://github.com/JetBrains/compose-multiplatform/tree/master/tutorials#desktop) 的教學。

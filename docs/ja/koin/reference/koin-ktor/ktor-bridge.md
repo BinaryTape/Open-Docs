@@ -10,7 +10,7 @@ Koin 4.2+ は、設定可能なブリッジを介して、**Ktor 3.4+** の組�
 Ktor DIブリッジは、KoinとKtor DIの間の双方向の依存性解決を可能にする実験的機能です。
 :::
 
-## ブリッジの設定
+## ブリッジの設定 {id="bridge-configuration"}
 
 双方向の依存性解決を有効にするには、`bridge { }` DSLを使用します。
 
@@ -34,14 +34,14 @@ fun Application.module() {
 }
 ```
 
-## ブリッジのオプション
+## ブリッジのオプション {id="bridge-options"}
 
 | オプション | 説明 |
 |--------|-------------|
 | `ktorToKoin()` | Ktorの `by dependencies` デリゲートを使用してKoinから解決できるようにします |
 | `koinToKtor()` | Koinの `inject()` や `get()` を使用してKtor DIから解決できるようにします |
 
-## ktorToKoin() の使用
+## ktorToKoin() の使用 {id="using-ktortokoin"}
 
 Ktorの `by dependencies` デリゲートを使用してKoinの依存関係を解決します。
 
@@ -66,7 +66,7 @@ fun Application.module() {
 }
 ```
 
-## koinToKtor() の使用
+## koinToKtor() の使用 {id="using-kointoktor"}
 
 Koinの `inject()` を使用してKtor DIの依存関係を解決します。
 
@@ -94,7 +94,7 @@ fun Application.module() {
 }
 ```
 
-## 双方向のフルサンプル
+## 双方向のフルサンプル {id="full-bidirectional-example"}
 
 最大限の柔軟性を得るために、両方の方向を有効にします。
 
@@ -135,7 +135,7 @@ fun Application.module() {
 }
 ```
 
-## アーキテクチャパターン
+## アーキテクチャパターン {id="architecture-pattern"}
 
 インフラストラクチャをアプリケーションロジックから分離します。
 
@@ -172,14 +172,14 @@ val appModule = module {
 }
 ```
 
-## ベストプラクティス
+## ベストプラクティス {id="best-practices"}
 
 1. **インフラストラクチャはKtor DIに** - データベース接続、設定、外部クライアントなど。
 2. **ビジネスロジックはKoinに** - リポジトリ、サービス、ユースケースなど。
 3. **必要な方向のみを有効にする** - 必要な場合を除き、両方ではなく `koinToKtor()` のみを使用することを検討してください。
 4. **境界を文書化する** - どのシステムがどの依存関係を所有しているかを明確にします。
 
-## 隔離されたコンテキスト（Isolated Context）での使用
+## 隔離されたコンテキスト（Isolated Context）での使用 {id="with-isolated-context"}
 
 ブリッジは `KoinIsolated` でも動作します。
 
@@ -201,7 +201,7 @@ fun Application.module() {
 }
 ```
 
-## 関連項目
+## 関連項目 {id="see-also"}
 
 - **[Koin for Ktor](/docs/reference/koin-ktor/ktor)** - Ktorのメインドキュメント
 - **[Isolated Context](/docs/reference/koin-ktor/ktor-isolated)** - 隔離されたKoinインスタンス

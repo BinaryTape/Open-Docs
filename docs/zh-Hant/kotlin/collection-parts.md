@@ -2,7 +2,7 @@
 
 Kotlin 標準函式庫包含用於獲取集合部分內容的擴充函式。這些函式提供了多種方式來選擇結果集合的元素：明確列出它們的位置、指定結果大小等。 
 
-## Slice
+## Slice {id="slice"}
 
 [`slice()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/slice.html) 會傳回具有指定索引的集合元素列表。索引可以作為 [範圍 (range)](ranges.md) 或整數值的集合傳遞。 
 
@@ -19,7 +19,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## Take 與 drop
+## Take 與 drop {id="take-and-drop"}
 
 若要從第一個元素開始獲取指定數量的元素，請使用 [`take()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/take.html) 函式。若要獲取最後幾個元素，請使用 [`takeLast()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/take-last.html)。當呼叫時傳入的數字大於集合大小時，這兩個函式都會傳回整個集合。  
 
@@ -60,7 +60,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## Chunked
+## Chunked {id="chunked"}
 
 若要將集合拆分為給定大小的部分，請使用 [`chunked()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/chunked.html) 函式。`chunked()` 接受單個引數——區塊 (chunk) 的大小——並傳回一個由該大小的 `List` 組成的 `List`。第一個區塊從第一個元素開始並包含 `size` 個元素，第二個區塊包含接下來的 `size` 個元素，依此類推。最後一個區塊的大小可能較小。 
 
@@ -88,7 +88,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## Windowed
+## Windowed {id="windowed"}
 
 您可以獲取集合元素中所有給定大小的可能範圍。獲取它們的函式稱為 [`windowed()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/windowed.html)：它會傳回一個元素範圍列表，就像您透過給定大小的滑動視窗觀察集合時所看到的那樣。與 `chunked()` 不同，`windowed()` 傳回從*每個*集合元素開始的元素範圍（視窗）。所有的視窗都作為單個 `List` 的元素傳回。
 

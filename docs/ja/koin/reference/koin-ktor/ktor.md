@@ -4,7 +4,7 @@ title: Ktor 用 Koin
 
 `koin-ktor` モジュールは、Ktor アプリケーションに依存性の注入（Dependency Injection）の統合を提供し、Ktor 組み込みの DI システムと連携して動作します。
 
-## なぜ Ktor で Koin を使うのか？
+## なぜ Ktor で Koin を使うのか？ {id="why-koin-for-ktor"}
 
 Ktor 3.4 以降には DI システムが組み込まれています。以下にそれらの比較を示します。
 
@@ -20,7 +20,7 @@ Ktor 3.4 以降には DI システムが組み込まれています。以下に�
 | アノテーションベースのコンポーネント | 非対応 | 対応 |
 | コンパイラプラグインによる検証 | 非対応 | 対応 |
 
-### Ktor DI の制限事項
+### Ktor DI の制限事項 {id="ktor-di-limitations"}
 
 - **スコープ機能なし** - リクエストスコープやカスタムスコープはなく、クリーンアップ順序を伴うシングルトンのような動作のみです。
 - **アノテーションベースのコンポーネントなし** - Koin Annotations のような `@Singleton` や `@Factory` によるコンポーネントスキャンはありません。
@@ -38,7 +38,7 @@ Ktor 3.4 以降には DI システムが組み込まれています。以下に�
 - スコープの要件がない場合
 - 基本的なクォリファイアのみが必要な場合
 
-## セットアップ
+## セットアップ {id="setup"}
 
 Koin Ktor の依存関係を追加します。
 
@@ -49,11 +49,11 @@ dependencies {
 }
 ```
 
-## 依存関係の宣言
+## 依存関係の宣言 {id="declaring-dependencies"}
 
 Koin は複数の DSL アプローチをサポートしています。
 
-### コンパイラプラグイン DSL
+### コンパイラプラグイン DSL {id="compiler-plugin-dsl"}
 
 最もシンプルな構文です。
 
@@ -64,7 +64,7 @@ val appModule = module {
 }
 ```
 
-### アノテーション
+### アノテーション {id="annotations"}
 
 コンパイル時の検証を備えた Spring 風の記述です。
 
@@ -80,7 +80,7 @@ class UserRepositoryImpl : UserRepository
 class UserService(private val repository: UserRepository)
 ```
 
-### クラシック DSL
+### クラシック DSL {id="classic-dsl"}
 
 コンストラクタ参照を使用します。
 
@@ -91,7 +91,7 @@ val appModule = module {
 }
 ```
 
-## Koin プラグインのインストール
+## Koin プラグインのインストール {id="installing-the-koin-plugin"}
 
 `Application` モジュールで Koin をインストールします。
 
@@ -104,7 +104,7 @@ fun Application.main() {
 }
 ```
 
-### 完全な設定例
+### 完全な設定例 {id="complete-configuration"}
 
 ```kotlin
 fun Application.main() {
@@ -121,11 +121,11 @@ fun Application.main() {
 }
 ```
 
-## 依存性の注入
+## 依存性の注入 {id="dependency-injection"}
 
 Koin は Ktor のコアタイプに対して拡張関数を提供します。
 
-### 注入ポイント
+### 注入ポイント {id="injection-points"}
 
 `inject()` および `get()` は以下で利用可能です。
 - `Application`
@@ -133,7 +133,7 @@ Koin は Ktor のコアタイプに対して拡張関数を提供します。
 - `Routing`
 - `ApplicationCall` (ルートハンドラ内)
 
-### アプリケーションレベル
+### アプリケーションレベル {id="application-level"}
 
 ```kotlin
 fun Application.main() {
@@ -148,7 +148,7 @@ fun Application.main() {
 }
 ```
 
-### ルートレベル
+### ルートレベル {id="route-level"}
 
 ```kotlin
 fun Route.customerRoutes() {
@@ -166,7 +166,7 @@ fun Route.customerRoutes() {
 }
 ```
 
-### リクエストハンドラ
+### リクエストハンドラ {id="request-handler"}
 
 ```kotlin
 routing {
@@ -178,7 +178,7 @@ routing {
 }
 ```
 
-## Ktor イベント
+## Ktor イベント {id="ktor-events"}
 
 Koin のライフサイクルイベントを監視できます。
 
@@ -206,7 +206,7 @@ fun Application.main() {
 }
 ```
 
-## クイックリファレンス
+## クイックリファレンス {id="quick-reference"}
 
 | 関数 | 説明 |
 |----------|-------------|
@@ -216,7 +216,7 @@ fun Application.main() {
 | `koinModule { }` | インラインモジュールを宣言する |
 | `koinModules(...)` | 既存のモジュールをロードする |
 
-## ドキュメント
+## ドキュメント {id="documentation"}
 
 | トピック | 説明 |
 |-------|-------------|
@@ -225,7 +225,7 @@ fun Application.main() {
 | **[テスト](/docs/reference/koin-ktor/ktor-testing)** | Koin を使用した Ktor のテスト |
 | **[隔離されたコンテキスト](/docs/reference/koin-ktor/ktor-isolated)** | 隔離された Koin インスタンス |
 
-## 関連情報
+## 関連情報 {id="related"}
 
 - **[チュートリアル: Ktor](/docs/quickstart/ktor)** - ステップバイステップのチュートリアル
 - **[チュートリアル: Ktor (アノテーション編)](/docs/quickstart/ktor-annotations)** - アノテーションのチュートリアル

@@ -6,7 +6,7 @@ title: 请求作用域
 
 请求作用域创建的实例仅在单个 HTTP 请求期间存续，非常适合处理特定于请求的数据和处理过程。
 
-## 声明请求作用域组件
+## 声明请求作用域组件 {id="declaring-request-scoped-components"}
 
 使用 `requestScope` 声明绑定到请求生命周期的组件：
 
@@ -24,7 +24,7 @@ val appModule = module {
 }
 ```
 
-## 访问请求作用域组件
+## 访问请求作用域组件 {id="accessing-request-scoped-components"}
 
 使用 `call.scope.get()` 来解析请求作用域的依赖项：
 
@@ -49,7 +49,7 @@ routing {
 }
 ```
 
-## 注入 ApplicationCall
+## 注入 ApplicationCall {id="injecting-applicationcall"}
 
 请求作用域组件可以自动注入 `ApplicationCall`：
 
@@ -73,7 +73,7 @@ class UserSessionHandler(private val call: ApplicationCall) {
 }
 ```
 
-## 作用域生命周期回调
+## 作用域生命周期回调 {id="scope-lifecycle-callbacks"}
 
 为作用域定义附加 `onClose` 回调，以便在请求作用域关闭时运行清理操作。`onClose` 是定义上的中缀函数（而不是 `requestScope { }` 内部的一个块），且实例参数是可空的 (`T?`)：
 
@@ -106,11 +106,11 @@ Koin 的作用域 DSL 针对每个定义公开了 `onClose`；没有 `onCreate` 
 请求作用域会**为每个 HTTP 请求创建并销毁**。实例不会在请求之间共享，从而确保线程安全并防止状态泄漏。
 :::
 
-## 在 Ktor 中声明模块
+## 在 Ktor 中声明模块 {id="declaring-modules-in-ktor"}
 
 Koin 提供了便捷的函数，可以直接在 Ktor 应用程序中声明模块。
 
-### 使用 koinModule
+### 使用 koinModule {id="using-koinmodule"}
 
 内联声明模块：
 
@@ -127,7 +127,7 @@ fun Application.configureRouting() {
 }
 ```
 
-### 使用 koinModules
+### 使用 koinModules {id="using-koinmodules"}
 
 加载多个现有模块：
 
@@ -145,7 +145,7 @@ fun Application.configureCustomerFeature() {
 }
 ```
 
-## 模块化应用程序结构
+## 模块化应用程序结构 {id="modular-application-structure"}
 
 按功能组织您的 Ktor 应用：
 
@@ -190,7 +190,7 @@ fun Application.module() {
 }
 ```
 
-## 在请求作用域中使用注解
+## 在请求作用域中使用注解 {id="request-scope-with-annotations"}
 
 为请求作用域组件使用注解：
 
@@ -203,7 +203,7 @@ class RequestLogger(private val call: ApplicationCall) {
 }
 ```
 
-## 完整示例
+## 完整示例 {id="complete-example"}
 
 ```kotlin
 val appModule = module {
@@ -238,7 +238,7 @@ fun Application.module() {
 }
 ```
 
-## API 参考
+## API 参考 {id="api-reference"}
 
 | 函数 | 描述 |
 |----------|-------------|
@@ -248,7 +248,7 @@ fun Application.module() {
 | `koinModule { }` | 声明内联模块 |
 | `koinModules(...)` | 加载现有模块 |
 
-## 另请参阅
+## 另请参阅 {id="see-also"}
 
 - **[Koin for Ktor](/docs/reference/koin-ktor/ktor)** - Ktor 主文档
 - **[作用域](/docs/reference/koin-core/scopes)** - 核心作用域概念

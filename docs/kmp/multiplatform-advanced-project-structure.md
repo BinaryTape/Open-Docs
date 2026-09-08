@@ -16,7 +16,7 @@
 >
 {style="tip"}
 
-## dependsOn 与源集层次结构
+## dependsOn 与源集层次结构 {id="dependson-and-source-set-hierarchies"}
 
 通常，你会处理的是 *依赖项 (dependencies)*，而不是 *`dependsOn`* 关系。然而，研究 `dependsOn` 对于理解 Kotlin 多平台项目在底层的运行机制至关重要。
 
@@ -55,7 +55,7 @@ kotlin {
 
 你不能使用 `dependsOn` 来声明对已发布的库或另一个 Gradle 项目的常规依赖项。例如，你不能将 `commonMain` 设置为依赖于 `kotlinx-coroutines-core` 库的 `commonMain`，也不能调用 `commonTest.dependsOn(commonMain)`。
 
-### 声明自定义源集
+### 声明自定义源集 {id="declaring-custom-source-sets"}
 
 在某些情况下，你可能需要在项目中拥有自定义的中间源集。
 假设一个项目要编译到 JVM、JS 和 Linux，而你只想在 JVM 和 JS 之间共享某些源代码。在这种情况下，你应该为这对目标寻找一个特定的源集，如[多平台项目结构的基础知识](multiplatform-discover-project.md)中所述。
@@ -116,7 +116,7 @@ kotlin {
 >
 {style="note"}
 
-## 对其他库或项目的依赖项
+## 对其他库或项目的依赖项 {id="dependencies-on-other-libraries-or-projects"}
 
 在多平台项目中，你可以设置对已发布库或另一个 Gradle 项目的常规依赖项。
 
@@ -191,7 +191,7 @@ kotlin {
 
    ![通用代码中 JVM 特定 API 的错误](dependency-resolution-error.png){width=700}
 
-### 对齐跨源集的通用依赖项版本
+### 对齐跨源集的通用依赖项版本 {id="aligning-versions-of-common-dependencies-across-source-sets"}
 
 在 Kotlin 多平台项目中，通用源集会被编译多次以生成 klib，并作为每个配置的[编译](multiplatform-configure-compilations.md)的一部分。为了产生一致的二进制文件，每次编译通用代码时都应使用相同版本的多平台依赖项。Kotlin Gradle 插件有助于对齐这些依赖项，确保每个源集的有效依赖项版本相同。
 
@@ -208,7 +208,7 @@ kotlin {
 
 ![测试源集的依赖项解析与主源集分开进行](test-main-source-set-dependency-alignment.svg)
 
-## 编译 (Compilations)
+## 编译 (Compilations) {id="compilations"}
 
 与单平台项目不同，Kotlin 多平台项目需要多次启动编译器来构建所有工件。每次编译器启动都是一次 *Kotlin 编译*。
 

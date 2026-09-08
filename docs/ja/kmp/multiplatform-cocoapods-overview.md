@@ -19,7 +19,7 @@ Pod の依存関係は IntelliJ IDEA または Android Studio で直接管理で
 
 Xcode が必要になるのは、Swift/Objective-C コードを変更する場合や、Apple のシミュレーターまたは実機でアプリケーションを実行する場合のみです。Xcode で作業するには、まず [Podfile を更新](#update-podfile-for-xcode)してください。
 
-## CocoaPods を使用するための環境構築
+## CocoaPods を使用するための環境構築 {id="set-up-an-environment-to-work-with-cocoapods"}
 
 お好みのインストールツールを使用して、[CocoaPods 依存関係マネージャー](https://cocoapods.org/)をインストールします：
 
@@ -96,7 +96,7 @@ sudo gem install cocoapods
 
 インストール中に問題が発生した場合は、[考えられる問題と解決策](#possible-issues-and-solutions)セクションを確認してください。
 
-## プロジェクトの作成
+## プロジェクトの作成 {id="create-a-project"}
 
 CocoaPods 環境が整ったら、Kotlin マルチプラットフォームプロジェクトを Pod と連携するように構成できます。以下の手順は、新しく生成されたプロジェクトでの構成方法を示しています：
 
@@ -123,7 +123,7 @@ CocoaPods 環境が整ったら、Kotlin マルチプラットフォームプロ
 
 これで、[Kotlin マルチプラットフォームプロジェクトで CocoaPods を構成する](#configure-the-project)準備が整いました。
 
-## プロジェクトの構成
+## プロジェクトの構成 {id="configure-the-project"}
 
 マルチプラットフォームプロジェクトで Kotlin CocoaPods Gradle プラグインを構成するには：
 
@@ -196,7 +196,7 @@ CocoaPods 環境が整ったら、Kotlin マルチプラットフォームプロ
 
 `Podspec` ファイルには、出力フレームワークへのパスと、Xcode プロジェクトのビルドプロセス中におけるこのフレームワークのビルドを自動化するスクリプトフェーズが含まれます。
 
-## Xcode 用に Podfile を更新する
+## Xcode 用に Podfile を更新する {id="update-podfile-for-xcode"}
 
 Kotlin プロジェクトを Xcode プロジェクトにインポートする場合：
 
@@ -234,22 +234,22 @@ Kotlin プロジェクトを Xcode プロジェクトにインポートする場
 
 Podfile でこれらの変更を行わないと、`podInstall` タスクが失敗し、CocoaPods プラグインがログにエラーメッセージを表示します。
 
-## 考えられる問題と解決策
+## 考えられる問題と解決策 {id="possible-issues-and-solutions"}
 
-### CocoaPods のインストール {initial-collapse-state="collapsed" collapsible="true"}
+### CocoaPods のインストール {initial-collapse-state="collapsed" collapsible="true" id="cocoapods-installation"}
 
-#### Ruby のインストール
+#### Ruby のインストール {id="ruby-installation"}
 
 CocoaPods は Ruby で構築されており、macOS で利用可能なデフォルトの Ruby を使用してインストールできます。Ruby 1.9 以降には、[CocoaPods 依存関係マネージャー](https://guides.cocoapods.org/using/getting-started.html#installation)のインストールを支援する RubyGems パッケージ管理フレームワークが組み込まれています。
 
 CocoaPods のインストールや動作に問題が発生した場合は、[このガイド](https://www.ruby-lang.org/en/documentation/installation/)に従って Ruby をインストールするか、[RubyGems の Web サイト](https://rubygems.org/pages/download/)を参照してフレームワークをインストールしてください。
 
-#### バージョンの互換性
+#### バージョンの互換性 {id="version-compatibility"}
 
 最新の Kotlin バージョンの使用を推奨します。
 この CocoaPods セットアップに必要な最小バージョンは 1.7.0 です。
 
-### Xcode 使用時のビルドエラー {initial-collapse-state="collapsed" collapsible="true"}
+### Xcode 使用時のビルドエラー {initial-collapse-state="collapsed" collapsible="true" id="build-errors-when-using-xcode"}
 
 CocoaPods のインストール状況によっては、Xcode でビルドエラーが発生することがあります。通常、Kotlin Gradle プラグインは `PATH` 内の `pod` 実行ファイルを見つけますが、環境によってこれが一致しない場合があります。
 
@@ -267,11 +267,11 @@ CocoaPods のインストールパスを明示的に設定するには、プロ�
     echo -e "kotlin.apple.cocoapods.bin=$(which pod)" >> local.properties
     ```
 
-### モジュールまたはフレームワークが見つからない {initial-collapse-state="collapsed" collapsible="true"}
+### モジュールまたはフレームワークが見つからない {initial-collapse-state="collapsed" collapsible="true" id="module-or-framework-not-found"}
 
 Pod をインストールする際、[C interop](https://kotlinlang.org/docs/native-c-interop.html) の問題に関連して `module 'SomeSDK' not found` や `framework 'SomeFramework' not found` というエラーが発生することがあります。このようなエラーを解決するには、以下の解決策を試してください：
 
-#### パッケージの更新
+#### パッケージの更新 {id="update-packages"}
 
 インストールツールとインストール済みのパッケージ（gem）を更新します：
 
@@ -336,7 +336,7 @@ Pod をインストールする際、[C interop](https://kotlinlang.org/docs/nat
 </TabItem>
 </Tabs>
 
-#### フレームワーク名の指定 
+#### フレームワーク名の指定 {id="specify-the-framework-name"}
 
 1. ダウンロードされた Pod ディレクトリ `[shared_module_name]/build/cocoapods/synthetic/IOS/Pods/...` 内で `module.modulemap` ファイルを探します。
 2. モジュール内のフレームワーク名を確認します（例：`SDWebImageMapKit {}`）。フレームワーク名が Pod 名と一致しない場合は、明示的に指定してください：
@@ -347,7 +347,7 @@ Pod をインストールする際、[C interop](https://kotlinlang.org/docs/nat
     }
     ```
 
-#### ヘッダーの指定
+#### ヘッダーの指定 {id="specify-headers"}
 
 `pod("NearbyMessages")` のように、Pod に `.modulemap` ファイルが含まれていない場合は、メインヘッダーを明示的に指定します：
 
@@ -360,7 +360,7 @@ pod("NearbyMessages") {
 
 詳細については [CocoaPods のドキュメント](https://guides.cocoapods.org/)を確認してください。解決しない場合は、[YouTrack](https://youtrack.jetbrains.com/newissue?project=kt) で問題を報告してください。
 
-### アプリバンドル内のリソースが見つからない {initial-collapse-state="collapsed" collapsible="true"}
+### アプリバンドル内のリソースが見つからない {initial-collapse-state="collapsed" collapsible="true" id="missing-resources-in-the-app-bundle"}
 
 iOS アプリのビルドには成功するが起動時にクラッシュする場合、またはカスタムフォントや画像などのリソースが最終的な `.ipa` パッケージに含まれていない場合、Pod とプロジェクトの統合方法に問題がある可能性があります。
 
@@ -373,7 +373,7 @@ open iosApp/iosApp.xcworkspace
 
 **問題が発生する理由**: クリーンなプロジェクト（例えば、リポジトリをクローンした後や CI/CD パイプラインで作業している場合）でネイティブの `pod install` コマンドを実行すると、リソースディレクトリがまだ作成されていません。Compose Multiplatform Gradle プラグインは、生成された `.podspec` ファイル内でリソースの場所を指定しています（`spec.resources = ['build/compose/cocoapods/compose-resources']`）。しかし、そのパスはビルド後にのみ存在します。その結果、CocoaPods は存在しないディレクトリを無視し、これらのリソースを含めずに Xcode プロジェクトを構成します。プロジェクトがビルドされリソースが生成されても、Xcode はそれらを最終的なバンドルにコピーしません。
 
-### Rsync エラー {initial-collapse-state="collapsed" collapsible="true"}
+### Rsync エラー {initial-collapse-state="collapsed" collapsible="true" id="rsync-error"}
 
 `rsync error: some files could not be transferred` というエラーが発生することがあります。これは、Xcode のアプリケーションターゲットでユーザースクリプトのサンドボックス化が有効になっている場合に発生する[既知の問題](https://github.com/CocoaPods/CocoaPods/issues/11946)です。
 
@@ -389,7 +389,7 @@ open iosApp/iosApp.xcworkspace
     ./gradlew --stop
     ```
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [Kotlin プロジェクトに Pod ライブラリへの依存関係を追加する](multiplatform-cocoapods-libraries.md)
 * [Kotlin プロジェクトと Xcode プロジェクトの間の依存関係を設定する](multiplatform-cocoapods-xcode.md)

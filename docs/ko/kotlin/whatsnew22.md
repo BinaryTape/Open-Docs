@@ -25,7 +25,7 @@ Kotlin 언어 진화(Language Evolution) 팀이 새로운 기능에 대해 토�
 >
 {style="tip"}
 
-## IDE 지원
+## IDE 지원 {id="ide-support"}
 
 Kotlin 2.2.0을 지원하는 Kotlin 플러그인은 IntelliJ IDEA 및 Android Studio 최신 버전에 포함되어 있습니다.
 IDE에서 Kotlin 플러그인을 별도로 업데이트할 필요는 없습니다.
@@ -33,12 +33,12 @@ IDE에서 Kotlin 플러그인을 별도로 업데이트할 필요는 없습니�
 
 자세한 내용은 [새 릴리스로 업데이트](releases.md#update-to-a-new-kotlin-version)를 참조하세요.
 
-## 언어
+## 언어 {id="language"}
 
 이번 릴리스에서는 가드 조건(guard conditions), 비로컬 `break` 및 `continue`, 멀티 달러 보간법이 [안정화(Stable)](components-stability.md#stability-levels-explained) 단계로 [격상](#stable-features-guard-conditions-non-local-break-and-continue-and-multi-dollar-interpolation)되었습니다.
 또한, [컨텍스트 파라미터](#preview-of-context-parameters) 및 [컨텍스트 민감형 해석(context-sensitive resolution)](#preview-of-context-sensitive-resolution)과 같은 몇 가지 기능이 프리뷰로 도입되었습니다.
 
-### 컨텍스트 파라미터 프리뷰
+### 컨텍스트 파라미터 프리뷰 {id="preview-of-context-parameters"}
 <primary-label ref="experimental-general"/> 
 
 컨텍스트 파라미터(context parameters)를 사용하면 함수와 프로퍼티가 주변 컨텍스트에서 암시적으로 사용 가능한 의존성을 선언할 수 있습니다.
@@ -51,7 +51,7 @@ IDE에서 Kotlin 플러그인을 별도로 업데이트할 필요는 없습니�
 
 Kotlin의 컨텍스트 파라미터는 단순화된 의존성 주입(DI), 개선된 DSL 설계, 스코프 기반 연산을 통해 의존성 관리를 크게 개선합니다. 자세한 내용은 해당 기능의 [KEEP](https://github.com/Kotlin/KEEP/blob/context-parameters/proposals/context-parameters.md)을 참조하세요.
 
-#### 컨텍스트 파라미터 선언 방법
+#### 컨텍스트 파라미터 선언 방법 {id="how-to-declare-context-parameters"}
 
 프로퍼티와 함수에 대한 컨텍스트 파라미터는 `context` 키워드 뒤에 `name: Type` 형식의 파라미터 목록을 사용하여 선언할 수 있습니다. 다음은 `UserService` 인터페이스에 대한 의존성을 사용하는 예시입니다:
 
@@ -87,7 +87,7 @@ fun logWelcome() {
 }
 ```
 
-#### 컨텍스트 파라미터 활성화 방법
+#### 컨텍스트 파라미터 활성화 방법 {id="how-to-enable-context-parameters"}
 
 프로젝트에서 컨텍스트 파라미터를 활성화하려면 커맨드 라인에서 다음 컴파일러 옵션을 사용하세요:
 
@@ -110,11 +110,11 @@ kotlin {
 >
 {style="warning"}
 
-#### 의견 공유
+#### 의견 공유 {id="leave-your-feedback"}
 
 이 기능은 향후 Kotlin 릴리스에서 안정화되고 개선될 예정입니다. 이슈 트래커인 [YouTrack](https://youtrack.jetbrains.com/issue/KT-10468/Context-Parameters-expanding-extension-receivers-to-work-with-scopes)을 통해 의견을 보내주시면 감사하겠습니다.
 
-### 컨텍스트 민감형 해석 프리뷰
+### 컨텍스트 민감형 해석 프리뷰 {id="preview-of-context-sensitive-resolution"}
 <primary-label ref="experimental-general"/> 
 
 Kotlin 2.2.0은 컨텍스트 민감형 해석(context-sensitive resolution)의 구현체를 프리뷰로 도입했습니다.
@@ -187,12 +187,12 @@ kotlin {
 
 이 기능은 향후 Kotlin 릴리스에서 안정화되고 개선될 예정이며, 이슈 트래커인 [YouTrack](https://youtrack.jetbrains.com/issue/KT-16768/Context-sensitive-resolution)을 통해 피드백을 기다리고 있습니다.
 
-### 어노테이션 사용 지점 대상을 위한 기능 프리뷰
+### 어노테이션 사용 지점 대상을 위한 기능 프리뷰 {id="preview-of-features-for-annotation-use-site-targets"}
 <primary-label ref="experimental-general"/>
 
 Kotlin 2.2.0은 어노테이션 사용 지점 대상(annotation use-site targets) 작업을 더욱 편리하게 만드는 몇 가지 기능을 도입했습니다.
 
-#### 프로퍼티를 위한 `@all` 메타 타겟
+#### 프로퍼티를 위한 `@all` 메타 타겟 {id="all-meta-target-for-properties"}
 <primary-label ref="experimental-general"/>
 
 Kotlin에서는 선언의 특정 부분에 어노테이션을 붙일 수 있으며, 이를 [사용 지점 대상(use-site targets)](annotations.md#annotation-use-site-targets)이라고 합니다.
@@ -272,7 +272,7 @@ kotlin {
 이 기능은 프리뷰 단계입니다. 발생하는 문제는 이슈 트래커인 [YouTrack](https://kotl.in/issue)에 보고해 주세요.
 `@all` 메타 타겟에 대한 자세한 정보는 [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/annotation-target-in-properties.md) 제안서를 읽어보세요.
 
-#### 사용 지점 어노테이션 대상을 위한 새로운 기본값 규칙
+#### 사용 지점 어노테이션 대상을 위한 새로운 기본값 규칙 {id="new-defaulting-rules-for-use-site-annotation-targets"}
 <primary-label ref="experimental-general"/>
 
 Kotlin 2.2.0은 파라미터, 필드 및 프로퍼티로 어노테이션을 전파하기 위한 새로운 기본값 규칙을 도입했습니다. 
@@ -320,7 +320,7 @@ kotlin {
 이 기능은 프리뷰 단계입니다. 발생하는 문제는 이슈 트래커인 [YouTrack](https://kotl.in/issue)에 보고해 주세요.
 어노테이션 사용 지점 대상을 위한 새로운 기본값 규칙에 대한 자세한 정보는 [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/annotation-target-in-properties.md) 제안서를 읽어보세요.
 
-### 중첩된 타입 별칭 지원
+### 중첩된 타입 별칭 지원 {id="support-for-nested-type-aliases"}
 <primary-label ref="beta"/>
 
 Kotlin 2.2.0은 다른 선언 내부에 타입 별칭(type alias)을 정의하는 기능에 대한 지원을 추가했습니다.
@@ -345,7 +345,7 @@ class Dijkstra {
 
 중첩된 타입 별칭은 캡슐화를 개선하고 패키지 수준의 복잡함을 줄이며 내부 구현을 단순화하여 더 깨끗하고 유지 관리하기 쉬운 코드를 작성할 수 있게 해줍니다.
 
-#### 중첩된 타입 별칭 활성화 방법
+#### 중첩된 타입 별칭 활성화 방법 {id="how-to-enable-nested-type-aliases"}
 
 프로젝트에서 중첩된 타입 별칭을 활성화하려면 커맨드 라인에서 다음 컴파일러 옵션을 사용하세요:
 
@@ -364,11 +364,11 @@ kotlin {
 }
 ```
 
-#### 의견 공유
+#### 의견 공유 {id="share-your-feedback"}
 
 중첩된 타입 별칭은 현재 [Beta](components-stability.md#stability-levels-explained) 단계입니다. 발생하는 문제는 이슈 트래커인 [YouTrack](https://kotl.in/issue)에 보고해 주세요. 이 기능에 대한 자세한 정보는 [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/nested-typealias.md) 제안서를 읽어보세요.
 
-### 안정화된 기능: 가드 조건, 비로컬 `break` 및 `continue`, 멀티 달러 보간법
+### 안정화된 기능: 가드 조건, 비로컬 `break` 및 `continue`, 멀티 달러 보간법 {id="stable-features-guard-conditions-non-local-break-and-continue-and-multi-dollar-interpolation"}
 
 Kotlin 2.1.0에서는 몇 가지 새로운 언어 기능이 프리뷰로 도입되었습니다.
 이번 릴리스에서 다음 언어 기능이 [안정화(Stable)](components-stability.md#stability-levels-explained)되었음을 알려드립니다:
@@ -379,7 +379,7 @@ Kotlin 2.1.0에서는 몇 가지 새로운 언어 기능이 프리뷰로 도입�
 
 [전체 Kotlin 언어 설계 기능 및 제안 목록 보기](kotlin-language-features-and-proposals.md).
 
-## Kotlin 컴파일러: 컴파일러 경고의 통합 관리
+## Kotlin 컴파일러: 컴파일러 경고의 통합 관리 {id="kotlin-compiler-unified-management-of-compiler-warnings"}
 <primary-label ref="experimental-general"/>
 
 Kotlin 2.2.0은 새로운 컴파일러 옵션인 `-Xwarning-level`을 도입했습니다. 이는 Kotlin 프로젝트에서 컴파일러 경고를 관리하는 통합된 방식을 제공하기 위해 설계되었습니다.
@@ -388,7 +388,7 @@ Kotlin 2.2.0은 새로운 컴파일러 옵션인 `-Xwarning-level`을 도입했�
 
 새로운 솔루션을 사용하면 일반적인 규칙을 재정의하고 일관된 방식으로 특정 진단을 제외할 수 있습니다.
 
-### 적용 방법
+### 적용 방법 {id="how-to-apply"}
 
 새로운 컴파일러 옵션의 구문은 다음과 같습니다:
 
@@ -402,11 +402,11 @@ Kotlin 2.2.0은 새로운 컴파일러 옵션인 `-Xwarning-level`을 도입했�
 
 새로운 컴파일러 옵션으로는 오직 _경고(warnings)_의 심각도 수준만 구성할 수 있다는 점에 유의하세요.
 
-### 사용 사례
+### 사용 사례 {id="use-cases"}
 
 새로운 솔루션을 사용하면 일반 규칙과 특정 규칙을 결합하여 프로젝트의 경고 보고를 더 세밀하게 조정할 수 있습니다. 사용 사례를 선택하세요:
 
-#### 경고 억제
+#### 경고 억제 {id="suppress-warnings"}
 
 | 명령어                                             | 설명                                                   |
 |---------------------------------------------------|--------------------------------------------------------|
@@ -414,7 +414,7 @@ Kotlin 2.2.0은 새로운 컴파일러 옵션인 `-Xwarning-level`을 도입했�
 | `-Xwarning-level=DIAGNOSTIC_NAME:disabled`        | 지정된 경고만 억제합니다.                                 |
 | `-nowarn -Xwarning-level=DIAGNOSTIC_NAME:warning` | 지정된 경고를 제외한 모든 경고를 억제합니다.                  |
 
-#### 경고를 오류로 격상
+#### 경고를 오류로 격상 {id="raise-warnings-to-errors"}
 
 | 명령어                                             | 설명                                                         |
 |---------------------------------------------------|--------------------------------------------------------------|
@@ -422,7 +422,7 @@ Kotlin 2.2.0은 새로운 컴파일러 옵션인 `-Xwarning-level`을 도입했�
 | `-Xwarning-level=DIAGNOSTIC_NAME:error`           | 지정된 경고만 오류로 격상시킵니다.                             |
 | `-Werror -Xwarning-level=DIAGNOSTIC_NAME:warning` | 지정된 경고를 제외한 모든 경고를 오류로 격상시킵니다.           |
 
-#### 추가 컴파일러 경고 활성화
+#### 추가 컴파일러 경고 활성화 {id="enable-additional-compiler-warnings"}
 
 | 명령어                                             | 설명                                                                                                 |
 |----------------------------------------------------|------------------------------------------------------------------------------------------------------|
@@ -430,19 +430,19 @@ Kotlin 2.2.0은 새로운 컴파일러 옵션인 `-Xwarning-level`을 도입했�
 | `-Xwarning-level=DIAGNOSTIC_NAME:warning`          | 지정된 추가 컴파일러 검사만 활성화합니다.                                                   |
 | `-Wextra -Xwarning-level=DIAGNOSTIC_NAME:disabled` | 지정된 검사를 제외한 모든 추가 검사를 활성화합니다.                                         |
 
-#### 경고 목록
+#### 경고 목록 {id="warning-lists"}
 
 일반 규칙에서 제외하고 싶은 경고가 많다면, [`@argfile`](compiler-reference.md#argfile)을 통해 별도의 파일에 나열할 수 있습니다.
 
-### 의견 공유
+### 의견 공유 {id="leave-feedback"}
 
 이 새로운 컴파일러 옵션은 아직 [실험적(Experimental)](components-stability.md#stability-levels-explained) 단계입니다. 발생하는 문제는 이슈 트래커인 [YouTrack](https://kotl.in/issue)에 보고해 주세요.
 
-## Kotlin/JVM
+## Kotlin/JVM {id="kotlin-jvm"}
 
 Kotlin 2.2.0은 JVM에 많은 업데이트를 가져왔습니다. 컴파일러는 이제 Java 24 바이트코드를 지원하며 인터페이스 함수의 기본 메서드 생성 방식에 변경 사항을 도입했습니다. 또한 이번 릴리스는 Kotlin 메타데이터의 어노테이션 작업을 단순화하고, 인라인 값 클래스를 사용한 Java 상호 운용성을 개선하며, JVM 레코드 어노테이션에 대한 더 나은 지원을 포함합니다.
 
-### 인터페이스 함수의 기본 메서드 생성 방식 변경
+### 인터페이스 함수의 기본 메서드 생성 방식 변경 {id="changes-to-default-method-generation-for-interface-functions"}
 
 Kotlin 2.2.0부터 별도로 구성하지 않는 한 인터페이스에 선언된 함수는 JVM 기본 메서드(default methods)로 컴파일됩니다. 이 변경 사항은 구현이 있는 Kotlin 인터페이스 함수가 바이트코드로 컴파일되는 방식에 영향을 미칩니다.
 
@@ -465,7 +465,7 @@ kotlin {
 }
 ```
 
-### Kotlin 메타데이터의 어노테이션 읽기 및 쓰기 지원
+### Kotlin 메타데이터의 어노테이션 읽기 및 쓰기 지원 {id="support-for-reading-and-writing-annotations-in-kotlin-metadata"}
 <primary-label ref="experimental-general"/>
 
 이전에는 리플렉션이나 바이트코드 분석을 사용하여 컴파일된 JVM 클래스 파일에서 어노테이션을 읽고, 시그니처를 기반으로 메타데이터 항목과 수동으로 일치시켜야 했습니다. 이 프로세스는 특히 오버로드된 함수의 경우 오류가 발생하기 쉬웠습니다.
@@ -534,7 +534,7 @@ fun main() {
 >
 {style="warning"}
 
-### 인라인 값 클래스를 사용한 Java 상호 운용성 개선
+### 인라인 값 클래스를 사용한 Java 상호 운용성 개선 {id="improved-java-interop-with-inline-value-classes"}
 <primary-label ref="experimental-general"/>
 
 Kotlin 2.2.0은 새로운 실험적 어노테이션인 [`@JvmExposeBoxed`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-expose-boxed/)를 도입했습니다. 이 어노테이션은 Java에서 [인라인 값 클래스(inline value classes)](inline-classes.md)를 더 쉽게 사용할 수 있게 해줍니다.
@@ -592,7 +592,7 @@ MyInt output = ExampleKt.timesTwoBoxed(input);
 
 `@JvmExposedBoxed` 어노테이션의 작동 방식과 해결하는 문제에 대한 자세한 설명은 [KEEP](https://github.com/Kotlin/KEEP/blob/jvm-expose-boxed/proposals/jvm-expose-boxed.md) 제안서를 참조하세요.
 
-### JVM 레코드 어노테이션 지원 개선
+### JVM 레코드 어노테이션 지원 개선 {id="improved-support-for-annotating-jvm-records"}
 
 Kotlin은 Kotlin 1.5.0부터 [JVM 레코드(JVM records)](jvm-records.md)를 지원해 왔습니다. 이제 Kotlin 2.2.0은 특히 Java의 [`RECORD_COMPONENT`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/annotation/ElementType.html#RECORD_COMPONENT) 타겟과 관련하여 레코드 컴포넌트의 어노테이션 처리 방식을 개선했습니다.
 
@@ -624,11 +624,11 @@ data class Person(val name: String, @all:Positive val age: Int)
 * 어노테이션을 프로퍼티, 백킹 필, 생성자 파라미터 및 게터로 전파합니다.
 * 어노테이션이 Java의 `RECORD_COMPONENT`를 지원하는 경우, 어노테이션을 레코드 컴포넌트에도 적용합니다.
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 2.2.0부터 Kotlin/Native는 LLVM 19를 사용합니다. 이번 릴리스에서는 메모리 소비를 추적하고 조정하도록 설계된 몇 가지 실험적 기능도 제공됩니다.
 
-### 객체별 메모리 할당
+### 객체별 메모리 할당 {id="per-object-memory-allocation"}
 <primary-label ref="experimental-opt-in"/>
 
 Kotlin/Native의 [메모리 할당자(memory allocator)](https://github.com/JetBrains/kotlin/blob/master/kotlin-native/runtime/src/alloc/custom/README.md)는 이제 객체별로 메모리를 예약할 수 있습니다. 어떤 경우에는 이것이 엄격한 메모리 제한을 충족하거나 애플리케이션 시작 시 메모리 소비를 줄이는 데 도움이 될 수 있습니다.
@@ -643,7 +643,7 @@ kotlin.native.binary.pagedAllocator=false
 
 문제가 발생하면 이슈 트래커인 [YouTrack](https://kotl.in/issue)에 보고해 주세요.
 
-### 런타임 시 Latin-1 인코딩 문자열 지원
+### 런타임 시 Latin-1 인코딩 문자열 지원 {id="support-for-latin-1-encoded-strings-at-runtime"}
 <primary-label ref="experimental-opt-in"/>
 
 Kotlin은 이제 [JVM](https://openjdk.org/jeps/254)과 유사하게 Latin-1 인코딩 문자열을 지원합니다. 이는 애플리케이션의 바이너리 크기를 줄이고 메모리 소비를 조정하는 데 도움이 될 것입니다.
@@ -652,14 +652,14 @@ Kotlin은 이제 [JVM](https://openjdk.org/jeps/254)과 유사하게 Latin-1 인
 
 반면, [Latin-1 (ISO 8859-1)](https://en.wikipedia.org/wiki/ISO/IEC_8859-1) 인코딩은 처음 256개의 유니코드 문자를 각각 1바이트로 표현합니다. Latin-1 지원이 활성화되면 모든 문자가 해당 범위 내에 있는 한 문자열은 Latin-1 인코딩으로 저장됩니다. 그렇지 않으면 기본 UTF-16 인코딩이 사용됩니다.
 
-#### Latin-1 지원 활성화 방법
+#### Latin-1 지원 활성화 방법 {id="how-to-enable-latin-1-support"}
 
 이 기능은 현재 [실험적(Experimental)](components-stability.md#stability-levels-explained) 단계입니다. 이를 활성화하려면 `gradle.properties` 파일에 다음 옵션을 설정하세요:
 
 ```none
 kotlin.native.binary.latin1Strings=true
 ```
-#### 알려진 문제
+#### 알려진 문제 {id="known-issues"}
 
 이 기능이 실험적 단계인 동안에는 cinterop 확장 함수인 [`String.pin`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/pin.html), [`String.usePinned`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/use-pinned.html), 및 [`String.refTo`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlinx.cinterop/ref-to.html)의 효율성이 떨어집니다. 각 호출 시 UTF-16으로 자동 문자열 변환이 트리거될 수 있습니다.
 
@@ -667,7 +667,7 @@ Kotlin 팀은 이 기능을 구현해 주신 Google의 동료분들과 특히 [S
 
 Kotlin의 메모리 소비에 대한 자세한 정보는 [문서](native-memory-manager.md#memory-consumption)를 참조하세요.
 
-### Apple 플랫폼에서의 메모리 소비 추적 개선
+### Apple 플랫폼에서의 메모리 소비 추적 개선 {id="improved-tracking-of-memory-consumption-on-apple-platforms"}
 
 Kotlin 2.2.0부터 Kotlin 코드에 의해 할당된 메모리에 이제 태그가 지정됩니다. 이는 Apple 플랫폼에서 메모리 문제를 디버깅하는 데 도움이 될 수 있습니다.
 
@@ -689,24 +689,24 @@ Kotlin 2.2.0부터 Kotlin 코드에 의해 할당된 메모리에 이제 태그�
 
 Kotlin의 메모리 소비에 대한 자세한 정보는 [문서](native-memory-manager.md#memory-consumption)를 참조하세요.
 
-### LLVM 업데이트 (16에서 19로)
+### LLVM 업데이트 (16에서 19로) {id="llvm-update-from-16-to-19"}
 
 Kotlin 2.2.0에서는 LLVM 버전을 16에서 19로 업데이트했습니다.
 새 버전에는 성능 향상, 버그 수정 및 보안 업데이트가 포함되어 있습니다.
 
 이 업데이트가 코드에 영향을 미치지는 않겠지만, 문제가 발생하면 [이슈 트래커](http://kotl.in/issue)에 보고해 주세요.
 
-### Windows 7 타겟 지원 중단
+### Windows 7 타겟 지원 중단 {id="windows-7-target-deprecated"}
 
 Kotlin 2.2.0부터 최소 지원 Windows 버전이 Windows 7에서 Windows 10으로 상향되었습니다. Microsoft가 2025년 1월에 Windows 7에 대한 지원을 종료했기 때문에, 저희도 이 구식 타겟을 지원 중단(deprecate)하기로 결정했습니다.
 
 자세한 내용은 [](native-target-support.md)를 참조하세요.
 
-## Kotlin/Wasm
+## Kotlin/Wasm {id="kotlin-wasm"}
 
 이번 릴리스에서는 [Wasm 타겟의 빌드 인프라가 JavaScript 타겟에서 분리되었습니다](#build-infrastructure-for-wasm-target-separated-from-javascript-target). 또한 이제 [Binaryen 도구를 프로젝트 또는 모듈별로 구성](#per-project-binaryen-configuration)할 수 있습니다.
 
-### Wasm 타겟의 빌드 인프라를 JavaScript 타겟에서 분리
+### Wasm 타겟의 빌드 인프라를 JavaScript 타겟에서 분리 {id="build-infrastructure-for-wasm-target-separated-from-javascript-target"}
 
 이전에는 `wasmJs` 타겟이 `js` 타겟과 동일한 인프라를 공유했습니다. 결과적으로 두 타겟 모두 동일한 디렉토리(`build/js`)에 위치했으며 동일한 NPM 태스크 및 구성을 사용했습니다.
 
@@ -736,7 +736,7 @@ Wasm을 위한 새로운 NPM 관련 태스크가 도입되었으며, 기존 Java
 
 이 변경 사항은 기본적으로 활성화되어 있으며 추가 설정이 필요하지 않습니다.
 
-### 프로젝트별 Binaryen 구성
+### 프로젝트별 Binaryen 구성 {id="per-project-binaryen-configuration"}
 
 Kotlin/Wasm에서 [프로덕션 빌드를 최적화](whatsnew20.md#optimized-production-builds-by-default-using-binaryen)하기 위해 사용되는 Binaryen 도구는 이전에는 루트 프로젝트에서 한 번만 구성되었습니다.
 
@@ -746,11 +746,11 @@ Kotlin/Wasm에서 [프로덕션 빌드를 최적화](whatsnew20.md#optimized-pro
 
 이 기능은 기본적으로 활성화되어 있습니다. 그러나 Binaryen에 대한 커스텀 구성이 있는 경우, 이제 루트 프로젝트뿐만 아니라 각 프로젝트별로 적용해야 합니다.
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
 이번 릴리스는 [`@JsPlainObject` 인터페이스의 `copy()` 함수](#fix-for-copy-in-jsplainobject-interfaces), [`@JsModule` 어노테이션이 있는 파일의 타입 별칭](#support-for-type-aliases-in-files-with-jsmodule-annotation) 및 기타 Kotlin/JS 기능을 개선합니다.
 
-### `@JsPlainObject` 인터페이스의 `copy()` 수정
+### `@JsPlainObject` 인터페이스의 `copy()` 수정 {id="fix-for-copy-in-jsplainobject-interfaces"}
 
 Kotlin/JS에는 `@JsPlainObject` 어노테이션이 붙은 인터페이스를 위한 `copy()` 함수를 도입한 `js-plain-objects`라는 실험적 플러그인이 있습니다. 객체를 조작하기 위해 `copy()` 함수를 사용할 수 있습니다.
 
@@ -777,7 +777,7 @@ fun main() {
 이 변경으로 상속 계층 구조의 충돌이 해결되고 모호함이 제거되었습니다.
 Kotlin 2.2.0부터 기본적으로 활성화됩니다.
 
-### `@JsModule` 어노테이션이 있는 파일에서 타입 별칭 지원
+### `@JsModule` 어노테이션이 있는 파일에서 타입 별칭 지원 {id="support-for-type-aliases-in-files-with-jsmodule-annotation"}
 
 이전에는 JavaScript 모듈에서 선언을 가져오기 위해 `@JsModule` 어노테이션이 붙은 파일은 외부(external) 선언으로만 제한되었습니다. 즉, 이러한 파일에서는 `typealias`를 선언할 수 없었습니다.
 
@@ -793,7 +793,7 @@ typealias SomeClass = Any
 
 `@JsModule`이 있는 파일에서의 타입 별칭 지원은 기본적으로 활성화됩니다.
 
-### 멀티플랫폼 `expect` 선언에서 `@JsExport` 지원
+### 멀티플랫폼 `expect` 선언에서 `@JsExport` 지원 {id="support-for-jsexport-in-multiplatform-expect-declarations"}
 
 Kotlin Multiplatform 프로젝트에서 [`expect/actual` 메커니즘](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html)을 사용할 때, 공통(common) 코드의 `expect` 선언에 `@JsExport` 어노테이션을 사용할 수 없었습니다.
 
@@ -829,7 +829,7 @@ JavaScript 소스 세트의 대응하는 `actual` 구현에도 `@JsExport`를 �
 
 이 변경 사항은 기본적으로 활성화되어 있습니다.
 
-### `Promise<Unit>` 타입에 `@JsExport` 사용 가능
+### `Promise<Unit>` 타입에 `@JsExport` 사용 가능 {id="ability-to-use-jsexport-with-the-promise-unit-type"}
 
 이전에는 `@JsExport` 어노테이션과 함께 `Promise<Unit>` 타입을 반환하는 함수를 내보내려고 하면 Kotlin 컴파일러에서 오류가 발생했습니다.
 
@@ -854,13 +854,13 @@ fun fooUnit(): Promise<Unit> = GlobalScope.promise {
 
 이 변경 사항은 Kotlin/JS 상호 운용 모델에서 불필요한 제한을 제거합니다. 이 수정 사항은 기본적으로 활성화되어 있습니다.
 
-## Gradle
+## Gradle {id="gradle"}
 
 Kotlin 2.2.0은 Gradle 7.6.3부터 8.14까지 완벽하게 호환됩니다. 최신 Gradle 릴리스 버전까지도 사용할 수 있습니다. 그러나 이 경우 지원 중단(deprecation) 경고가 발생할 수 있으며 일부 새로운 Gradle 기능이 작동하지 않을 수 있습니다.
 
 이번 릴리스에서 Kotlin Gradle 플러그인은 진단 기능이 몇 가지 개선되었습니다. 또한 [바이너리 호환성 검증](#binary-compatibility-validation-included-in-kotlin-gradle-plugin)의 실험적 통합을 도입하여 라이브러리 작업을 더 쉽게 만들어 줍니다.
 
-### Kotlin Gradle 플러그인에 바이너리 호환성 검증 포함
+### Kotlin Gradle 플러그인에 바이너리 호환성 검증 포함 {id="binary-compatibility-validation-included-in-kotlin-gradle-plugin"}
 <primary-label ref="experimental-general"/>
 
 라이브러리 버전 간의 바이너리 호환성을 더 쉽게 확인할 수 있도록, [바이너리 호환성 검증 도구(binary compatibility validator)](https://github.com/Kotlin/binary-compatibility-validator)의 기능을 Kotlin Gradle 플러그인(KGP)으로 옮기는 실험을 진행 중입니다. 토이 프로젝트에서 사용해 볼 수 있지만, 아직 프로덕션 환경에서 사용하는 것은 권장하지 않습니다.
@@ -892,7 +892,7 @@ kotlin {
 
 이 태스크는 현재 코드에서 애플리케이션 바이너리 인터페이스(ABI) 덤프를 UTF-8 텍스트 파일로 생성합니다. 그런 다음 태스크는 새 덤프를 이전 릴리스의 덤프와 비교합니다. 차이점이 발견되면 오류로 보고합니다. 오류를 검토한 후 변경 사항을 수용하기로 결정했다면, `updateLegacyAbi` Gradle 태스크를 실행하여 기준 ABI 덤프를 업데이트할 수 있습니다.
 
-#### 클래스 필터링
+#### 클래스 필터링 {id="filter-classes"}
 
 이 기능을 사용하면 ABI 덤프에서 클래스를 필터링할 수 있습니다. 이름이나 이름의 일부, 또는 해당 클래스를 표시하는 어노테이션(또는 어노테이션 이름의 일부)으로 클래스를 명시적으로 포함하거나 제외할 수 있습니다.
 
@@ -910,7 +910,7 @@ kotlin {
 
 [KGP API 레퍼런스](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.dsl.abi/)를 탐색하여 바이너리 호환성 검증 도구 구성에 대해 자세히 알아보세요.
 
-#### 멀티플랫폼 제한 사항
+#### 멀티플랫폼 제한 사항 {id="multiplatform-limitations"}
 
 멀티플랫폼 프로젝트에서 호스트가 모든 타겟에 대한 교차 컴파일(cross-compilation)을 지원하지 않는 경우, KGP는 다른 타겟의 ABI 덤프를 확인하여 지원되지 않는 타겟의 ABI 변경 사항을 유추하려고 시도합니다. 이 접근 방식은 나중에 모든 타겟을 컴파일할 수 있는 호스트로 전환할 때 잘못된 검증 실패를 방지하는 데 도움이 됩니다.
 
@@ -930,7 +930,7 @@ kotlin {
 
 하지만 프로젝트에 지원되지 않는 타겟이 있는 경우, `checkLegacyAbi` 태스크가 ABI 덤프를 생성할 수 없어 실패하게 됩니다. 다른 타겟에서 유추된 ABI 변경으로 인해 호환되지 않는 변경 사항을 놓치는 것보다 검사가 실패하는 것이 더 중요한 경우 이러한 동작이 바람직할 수 있습니다.
 
-### Kotlin Gradle 플러그인을 위한 콘솔 리치 출력 지원
+### Kotlin Gradle 플러그인을 위한 콘솔 리치 출력 지원 {id="support-for-rich-output-in-console-for-kotlin-gradle-plugin"}
 
 Kotlin 2.2.0에서는 Gradle 빌드 프로세스 중에 콘솔에서 색상 및 기타 리치 출력(rich output)을 지원하여 보고된 진단 내용을 더 쉽게 읽고 이해할 수 있게 되었습니다.
 
@@ -946,7 +946,7 @@ org.gradle.console=plain
 
 이 프로퍼티와 옵션에 대한 자세한 정보는 [로그 형식 맞춤 설정](https://docs.gradle.org/current/userguide/command_line_interface.html#sec:command_line_customizing_log_format)에 대한 Gradle 문서를 참조하세요.
 
-### KGP 진단 내 Problems API 통합
+### KGP 진단 내 Problems API 통합 {id="integration-of-problems-api-within-kgp-diagnostics"}
 
 이전에는 Kotlin Gradle 플러그인(KGP)이 경고 및 오류와 같은 진단 내용을 콘솔이나 로그에 일반 텍스트 출력으로만 보고할 수 있었습니다.
 
@@ -957,7 +957,7 @@ org.gradle.console=plain
 이 통합은 Gradle 8.6 이상에서 기본적으로 활성화됩니다.
 API가 계속 발전하고 있으므로 최신 개선 사항을 활용하려면 최신 Gradle 버전을 사용하세요.
 
-### `--warning-mode`와 KGP 호환성
+### `--warning-mode`와 KGP 호환성 {id="kgp-compatibility-with-warning-mode"}
 
 Kotlin Gradle 플러그인(KGP) 진단은 고정된 심각도 수준을 사용하여 문제를 보고했으므로, Gradle의 [`--warning-mode` 커맨드 라인 옵션](https://docs.gradle.org/current/userguide/command_line_interface.html#sec:command_line_warnings)이 KGP의 오류 표시 방식에 영향을 미치지 않았습니다.
 
@@ -976,7 +976,7 @@ Kotlin Gradle 플러그인(KGP) 진단은 고정된 심각도 수준을 사용�
 kotlin.internal.diagnostics.ignoreWarningMode=true
 ```
 
-## 새로운 실험적 빌드 도구 API
+## 새로운 실험적 빌드 도구 API {id="new-experimental-build-tools-api"}
 <primary-label ref="experimental-general"/>
 
 Kotlin은 Gradle, Maven, Amper 등 다양한 빌드 시스템과 함께 사용할 수 있습니다. 그러나 증분 컴파일, Kotlin 컴파일러 플러그인과의 호환성, 데몬, Kotlin Multiplatform과 같은 전체 기능 세트를 지원하도록 각 시스템에 Kotlin을 통합하려면 상당한 노력이 필요합니다.
@@ -1002,7 +1002,7 @@ KGP의 경우, BTA를 사용하면 이미 다음과 같은 이점이 있습니�
 * [개선된 "인 프로세스(in process)" 컴파일러 실행 전략](#improved-in-process-compiler-execution-strategy)
 * [Kotlin에서 서로 다른 컴파일러 버전을 구성할 수 있는 더 큰 유연성](#flexibility-to-configure-different-compiler-versions-from-kotlin)
 
-### 개선된 "인 프로세스(in process)" 컴파일러 실행 전략
+### 개선된 "인 프로세스(in process)" 컴파일러 실행 전략 {id="improved-in-process-compiler-execution-strategy"}
 
 KGP는 세 가지 [Kotlin 컴파일러 실행 전략](compiler-execution-strategy.md)을 지원합니다. Gradle 데몬 프로세스 내부에서 컴파일러를 실행하는 "인 프로세스(in process)" 전략은 이전에는 증분 컴파일을 지원하지 않았습니다.
 
@@ -1012,7 +1012,7 @@ KGP는 세 가지 [Kotlin 컴파일러 실행 전략](compiler-execution-strateg
 kotlin.compiler.execution.strategy=in-process
 ```
 
-### Kotlin에서 서로 다른 컴파일러 버전을 구성할 수 있는 유연성
+### Kotlin에서 서로 다른 컴파일러 버전을 구성할 수 있는 유연성 {id="flexibility-to-configure-different-compiler-versions-from-kotlin"}
 
 빌드 스크립트의 지원 중단 사항을 처리하면서도 새로운 언어 기능을 시도해 보기 위해 KGP는 이전 버전으로 유지하면서 코드에서는 최신 Kotlin 컴파일러 버전을 사용하고 싶을 때가 있습니다. 또는 KGP 버전은 업데이트하고 싶지만 이전 Kotlin 컴파일러 버전은 유지하고 싶을 수도 있습니다.
 
@@ -1048,11 +1048,11 @@ BTA는 KGP 및 Kotlin 컴파일러 버전을 이전 3개의 메이저 버전과 
 
 이러한 플러그인으로 BTA를 시도해 보고 전용 YouTrack 티켓([KGP](https://youtrack.jetbrains.com/issue/KT-56574) 및 [Maven 플러그인](https://youtrack.jetbrains.com/issue/KT-73012))을 통해 의견을 보내주세요.
 
-## 표준 라이브러리
+## 표준 라이브러리 {id="standard-library"}
 
 Kotlin 2.2.0에서 [`Base64` API](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.io.encoding/-base64/) 및 [`HexFormat` API](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/-hex-format/)가 이제 [안정화(Stable)](components-stability.md#stability-levels-explained)되었습니다.
 
-### 안정화된 Base64 인코딩 및 디코딩
+### 안정화된 Base64 인코딩 및 디코딩 {id="stable-base64-encoding-and-decoding"}
 
 Kotlin 1.8.20에서 [Base64 인코딩 및 디코딩에 대한 실험적 지원](whatsnew1820.md#support-for-base64-encoding)이 도입되었습니다.
 Kotlin 2.2.0에서 [Base64 API](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.io.encoding/-base64/)는 이제 [안정화(Stable)](components-stability.md#stability-levels-explained)되었으며, 이번 릴리스에 추가된 새로운 `Base64.Pem`을 포함하여 4가지 인코딩 스키마를 포함합니다:
@@ -1108,7 +1108,7 @@ fun main() {
 }
 ```
 
-### `HexFormat` API를 사용한 안정화된 16진수 파싱 및 포맷팅
+### `HexFormat` API를 사용한 안정화된 16진수 파싱 및 포맷팅 {id="stable-hexadecimal-parsing-and-formatting-with-the-hexformat-api"}
 
 [Kotlin 1.9.0](whatsnew19.md#new-hexformat-class-to-format-and-parse-hexadecimals)에서 도입된 [`HexFormat` API](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/-hex-format/)가 이제 [안정화(Stable)](components-stability.md#stability-levels-explained)되었습니다.
 숫자 값과 16진수 문자열 간의 변환에 사용할 수 있습니다.
@@ -1126,11 +1126,11 @@ fun main() {
 
 자세한 내용은 [16진수 포맷팅 및 파싱을 위한 새로운 HexFormat 클래스](whatsnew19.md#new-hexformat-class-to-format-and-parse-hexadecimals)를 참조하세요.
 
-## Compose 컴파일러
+## Compose 컴파일러 {id="compose-compiler"}
 
 이번 릴리스에서 Compose 컴파일러는 컴포저블 함수 참조(composable function references) 지원을 도입하고 여러 기능 플래그에 대한 기본값을 변경합니다.
 
-### `@Composable` 함수 참조 지원
+### `@Composable` 함수 참조 지원 {id="support-for-composable-function-references"}
 
 Compose 컴파일러는 Kotlin 2.2.0 릴리스부터 컴포저블 함수 참조의 선언 및 사용을 지원합니다:
 
@@ -1144,7 +1144,7 @@ val content: @Composable (String) -> Unit = ::Text
 
 컴포저블 함수 참조는 런타임 시 컴포저블 람다 객체와 약간 다르게 동작합니다. 특히, 컴포저블 람다는 `ComposableLambda` 클래스를 확장하여 스키핑(skipping)에 대한 더 세밀한 제어를 가능하게 합니다. 함수 참조는 `KCallable` 인터페이스를 구현해야 하므로 동일한 최적화를 적용할 수 없습니다.
 
-### `PausableComposition` 기능 플래그 기본 활성화
+### `PausableComposition` 기능 플래그 기본 활성화 {id="pausablecomposition-feature-flag-enabled-by-default"}
 
 `PausableComposition` 기능 플래그가 Kotlin 2.2.0부터 기본적으로 활성화됩니다. 이 플래그는 재시작 가능한(restartable) 함수에 대한 Compose 컴파일러 출력을 조정하여 런타임이 스키핑 동작을 강제할 수 있도록 함으로써, 각 함수를 건너뛰어 효과적으로 컴퍼지션을 일시 중지할 수 있게 합니다. 이를 통해 무거운 컴퍼지션을 프레임 사이에 나눌 수 있으며, 이는 향후 릴리스의 프리페칭(prefetching)에 사용될 예정입니다.
 
@@ -1157,7 +1157,7 @@ composeCompiler {
 }
 ```
 
-### `OptimizeNonSkippingGroups` 기능 플래그 기본 활성화
+### `OptimizeNonSkippingGroups` 기능 플래그 기본 활성화 {id="optimizenonskippinggroups-feature-flag-enabled-by-default"}
 
 `OptimizeNonSkippingGroups` 기능 플래그가 Kotlin 2.2.0부터 기본적으로 활성화됩니다. 이 최적화는 스키핑하지 않는 컴포저블 함수에 대해 생성된 그룹 호출을 제거하여 런타임 성능을 향상시킵니다. 
 런타임 시 눈에 띄는 동작 변경은 없을 것입니다.
@@ -1172,12 +1172,12 @@ composeCompiler {
 }
 ```
 
-### 지원 중단된 기능 플래그
+### 지원 중단된 기능 플래그 {id="deprecated-feature-flags"}
 
 `StrongSkipping` 및 `IntrinsicRemember` 기능 플래그는 이제 지원 중단(deprecated)되었으며 향후 릴리스에서 제거될 예정입니다. 
 이러한 기능 플래그를 비활성화해야 하는 문제가 발생하면 [Jetpack Compose 이슈 트래커](https://issuetracker.google.com/issues/new?component=610764&template=1424126)에 보고해 주세요.
 
-## 주요 변경 사항 및 지원 중단
+## 주요 변경 사항 및 지원 중단 {id="breaking-changes-and-deprecations"}
 
 이 섹션에서는 주목할 만한 주요 변경 사항 및 지원 중단 사항을 강조합니다. 이번 릴리스의 모든 주요 변경 사항 및 지원 중단 사항에 대한 전체 개요는 [호환성 가이드](compatibility-guide-22.md)를 참조하세요.
 
@@ -1217,13 +1217,13 @@ composeCompiler {
 * 지원 중단된 `destinationDir` 프로퍼티를 사용하면 이제 [오류가 발생합니다](compatibility-guide-22.md#deprecate-destinationdir-in-cinteropprocess). 
   대신 `CInteropProcess.destinationDirectory.set()`을 사용하세요.
 
-## 문서 업데이트
+## 문서 업데이트 {id="documentation-updates"}
 
 이번 릴리스에서는 Kotlin Multiplatform 문서를 [KMP 포털](https://kotlinlang.org/docs/multiplatform/get-started.html)로 마이그레이션하는 등 주목할 만한 문서 변경 사항이 있습니다. 
 
 또한 새로운 페이지와 튜토리얼을 제작하고 기존 문서를 개편했습니다. 
 
-### 신규 및 개편된 튜토리얼
+### 신규 및 개편된 튜토리얼 {id="new-and-revamped-tutorials"}
 
 * [Kotlin 중급 투어](kotlin-tour-welcome.md) – Kotlin에 대한 이해를 한 단계 더 높여보세요. 확장 함수, 인터페이스, 클래스 등을 언제 사용해야 하는지 배워봅니다.
 * [Spring AI를 사용하는 Kotlin 앱 빌드](spring-ai-guide.md) – OpenAI와 벡터 데이터베이스를 사용하여 질문에 답하는 Kotlin 앱을 만드는 방법을 배워보세요.
@@ -1234,7 +1234,7 @@ composeCompiler {
 * [Ktor 및 Kotlin Multiplatform으로 풀스택 애플리케이션 빌드](https://ktor.io/docs/full-stack-development-with-kotlin-multiplatform.html) – 이 튜토리얼은 이제 Fleet 대신 IntelliJ IDEA를 사용하며, Material 3와 최신 버전의 Ktor 및 Kotlin을 사용합니다.
 * [Compose Multiplatform 앱에서 로컬 리소스 환경 관리](https://kotlinlang.org/docs/multiplatform/compose-resource-environment.html) – 앱 내 테마 및 언어와 같은 애플리케이션의 리소스 환경을 관리하는 방법을 배워보세요.
 
-### 신규 및 개편된 페이지
+### 신규 및 개편된 페이지 {id="new-and-revamped-pages"}
 
 * [AI를 위한 Kotlin 개요](kotlin-ai-apps-development-overview.md) – AI 기반 애플리케이션 구축을 위한 Kotlin의 역량을 확인해 보세요.
 * [Dokka 마이그레이션 가이드](https://kotlinlang.org/docs/dokka-migration.html) – Dokka Gradle 플러그인 v2로 마이그레이션하는 방법을 배워보세요.
@@ -1247,7 +1247,7 @@ composeCompiler {
 * [Compose Hot Reload](https://kotlinlang.org/docs/multiplatform/compose-hot-reload.html) – 데스크톱 타겟에서 Compose Hot Reload를 사용하는 방법과 기존 프로젝트에 추가하는 방법을 배워보세요.
 * [Exposed 마이그레이션](https://www.jetbrains.com/help/exposed/migrations.html) – 데이터베이스 스키마 변경 관리를 위해 Exposed가 제공하는 도구에 대해 알아보세요.
 
-## Kotlin 2.2.0으로 업데이트하는 방법
+## Kotlin 2.2.0으로 업데이트하는 방법 {id="how-to-update-to-kotlin-2-2-0"}
 
 Kotlin 플러그인은 IntelliJ IDEA 및 Android Studio에 번들 플러그인으로 제공됩니다.
 

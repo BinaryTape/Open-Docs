@@ -4,7 +4,7 @@
 
 이 튜토리얼에서는 IntelliJ IDEA와 브라우저를 사용하여 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/)으로 빌드된 Kotlin/Wasm 애플리케이션을 디버그하는 방법을 설명합니다.
 
-## 시작하기 전에
+## 시작하기 전에 {id="before-you-start"}
 
 1. [Kotlin 멀티플랫폼 개발을 위한 환경을 설정](https://kotlinlang.org/docs/multiplatform/quickstart.html#set-up-the-environment)하세요.
 2. 지침에 따라 [Kotlin/Wasm을 타겟으로 하는 Kotlin 멀티플랫폼 프로젝트를 생성](wasm-get-started.md#create-a-project)하세요.
@@ -14,7 +14,7 @@
 >
 {style="note"}
 
-## IntelliJ IDEA에서 디버그하기
+## IntelliJ IDEA에서 디버그하기 {id="debug-in-intellij-idea"}
 
 생성한 Kotlin 멀티플랫폼 프로젝트에는 Kotlin/Wasm 기반의 Compose Multiplatform 애플리케이션이 포함되어 있습니다. 별도의 추가 설정 없이 IntelliJ IDEA에서 이 애플리케이션을 바로 디버그할 수 있습니다.
 
@@ -39,7 +39,7 @@
 
    ![Compose 앱 디버거](wasm-debug-pane.png){width=600}
 
-### 애플리케이션 검사하기
+### 애플리케이션 검사하기 {id="inspect-your-application"}
 
 > [브라우저에서 디버깅](#debug-in-your-browser)하는 경우에도 동일한 단계로 애플리케이션을 검사할 수 있습니다.
 >
@@ -59,7 +59,7 @@
 4. 코드를 변경하고 애플리케이션을 다시 실행하여 어떻게 작동하는지 확인하세요.
 5. 디버깅이 끝나면 중단점이 있는 줄 번호를 다시 클릭하여 중단점을 제거합니다.
 
-## 브라우저에서 디버그하기
+## 브라우저에서 디버그하기 {id="debug-in-your-browser"}
 
 별도의 추가 설정 없이 브라우저에서도 이 Compose Multiplatform 애플리케이션을 디버그할 수 있습니다. 
 
@@ -87,7 +87,7 @@
 
    ![Call Stack 확인](wasm-debug-scope.png){width=450}
 
-### 사용자 정의 포맷터(Custom formatters) 사용하기
+### 사용자 정의 포맷터(Custom formatters) 사용하기 {id="use-custom-formatters"}
 
 사용자 정의 포맷터를 사용하면 브라우저에서 Kotlin/Wasm 코드를 디버깅할 때 변수 값을 더 사용자 친화적이고 이해하기 쉬운 방식으로 표시하고 찾을 수 있습니다.
 
@@ -118,14 +118,14 @@ kotlin {
 }
 ```
 
-## 의견 보내기
+## 의견 보내기 {id="leave-feedback"}
 
 디버깅 경험에 대한 어떠한 피드백도 환영합니다!
 
 * ![Slack](slack.svg){width=25}{type="joined"} Slack: [Slack 초대 링크](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)를 통해 가입하고 [#webassembly](https://kotlinlang.slack.com/archives/CDFP59223) 채널에서 개발자들에게 직접 피드백을 전달해 주세요.
 * [YouTrack](https://youtrack.jetbrains.com/issue/KT-56492)에 피드백을 남겨주세요.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * 이 [YouTube 동영상](https://www.youtube.com/watch?v=t3FUWfJWrjU&t=2703s)에서 실제 Kotlin/Wasm 디버깅을 확인해 보세요.
 * 더 많은 Kotlin/Wasm 예제를 살펴보세요:

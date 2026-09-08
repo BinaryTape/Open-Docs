@@ -2,7 +2,7 @@
 
 本文档提供了所有 Koin 注解及其形参、行为和用法示例的详尽清单。
 
-## 目录
+## 目录 {id="table-of-contents"}
 
 - [定义注解](#definition-annotations)
   - [@Single](#single)
@@ -42,9 +42,9 @@
 
 ---
 
-## 定义注解
+## 定义注解 {id="definition-annotations"}
 
-### @Single / @Singleton
+### @Single / @Singleton {id="single-singleton"}
 
 **软件包：** `org.koin.core.annotation`
 
@@ -84,7 +84,7 @@ class MyClass(val d : MyDependency)
 
 ---
 
-### @Factory
+### @Factory {id="factory"}
 
 **软件包：** `org.koin.core.annotation`
 
@@ -111,7 +111,7 @@ factory { MyClass(get()) }
 
 ---
 
-### @Scoped
+### @Scoped {id="scoped"}
 
 **软件包：** `org.koin.core.annotation`
 
@@ -136,9 +136,9 @@ class MyClass(val d : MyDependency)
 
 ---
 
-## 作用域注解
+## 作用域注解 {id="scope-annotations"}
 
-### @Scope
+### @Scope {id="scope"}
 
 **软件包：** `org.koin.core.annotation`
 
@@ -174,7 +174,7 @@ class MyClass(val d : MyDependency)
 
 ---
 
-### @ViewModelScope
+### @ViewModelScope {id="viewmodelscope"}
 
 **软件包：** `org.koin.core.annotation`
 
@@ -205,7 +205,7 @@ viewModelScope {
 
 ---
 
-### @ActivityScope
+### @ActivityScope {id="activityscope"}
 
 **软件包：** `org.koin.android.annotation`
 
@@ -236,7 +236,7 @@ activityScope {
 
 ---
 
-### @ActivityRetainedScope
+### @ActivityRetainedScope {id="activityretainedscope"}
 
 **软件包：** `org.koin.android.annotation`
 
@@ -267,7 +267,7 @@ activityRetainedScope {
 
 ---
 
-### @FragmentScope
+### @FragmentScope {id="fragmentscope"}
 
 **软件包：** `org.koin.android.annotation`
 
@@ -298,7 +298,7 @@ fragmentScope {
 
 ---
 
-### @ScopeId
+### @ScopeId {id="scopeid"}
 
 **软件包：** `org.koin.core.annotation`
 
@@ -332,9 +332,9 @@ class MyClass(@ScopeId(MyScope::class) val d : MyDependency)
 
 ---
 
-## ViewModel 与 Android 特定注解
+## ViewModel 与 Android 特定注解 {id="viewmodel-android-specific-annotations"}
 
-### @KoinViewModel
+### @KoinViewModel {id="koinviewmodel"}
 
 **软件包：** `org.koin.android.annotation`
 
@@ -375,7 +375,7 @@ viewModel { MyViewModel(get()) }
 
 ---
 
-### @KoinWorker
+### @KoinWorker {id="koinworker"}
 
 **软件包：** `org.koin.android.annotation`
 
@@ -397,9 +397,9 @@ class MyWorker() : Worker()
 
 ---
 
-## 限定符注解
+## 限定符注解 {id="qualifier-annotations"}
 
-### @Named
+### @Named {id="named"}
 
 **软件包：** `org.koin.core.annotation`
 
@@ -436,7 +436,7 @@ class MyClass(val d : MyDependency)
 
 ---
 
-### @Qualifier
+### @Qualifier {id="qualifier"}
 
 **软件包：** `org.koin.core.annotation`
 
@@ -460,9 +460,9 @@ class MyClass(val d : MyDependency)
 
 ---
 
-## 形参注解
+## 形参注解 {id="parameter-annotations"}
 
-### @InjectedParam
+### @InjectedParam {id="injectedparam"}
 
 **软件包：** `org.koin.core.annotation`
 
@@ -493,7 +493,7 @@ val instance = koin.get<MyClass> { parametersOf(42) }
 
 ---
 
-### @Property
+### @Property {id="property"}
 
 **软件包：** `org.koin.core.annotation`
 
@@ -534,7 +534,7 @@ factory { MyClass(getProperty("name", defaultName)) }
 
 ---
 
-### @PropertyValue
+### @PropertyValue {id="propertyvalue"}
 
 **软件包：** `org.koin.core.annotation`
 
@@ -564,9 +564,9 @@ factory { MyClass(getProperty("name", defaultName)) }
 
 ---
 
-## 安全注解
+## 安全注解 {id="safety-annotations"}
 
-### @Provided
+### @Provided {id="provided"}
 
 **软件包：** `org.koin.core.annotation`
 
@@ -604,9 +604,9 @@ class PaymentProcessor(@Provided val gateway: PaymentGateway)
 
 ---
 
-## 模块与应用注解
+## 模块与应用注解 {id="module-application-annotations"}
 
-### @Module
+### @Module {id="module"}
 
 **软件包：** `org.koin.core.annotation`
 
@@ -648,7 +648,7 @@ class MyModule {
 
 ---
 
-### @ComponentScan
+### @ComponentScan {id="componentscan"}
 
 **软件包：** `org.koin.core.annotation`
 
@@ -700,7 +700,7 @@ class MyApp
 
 ---
 
-### @Configuration
+### @Configuration {id="configuration"}
 
 **软件包：** `org.koin.core.annotation`
 
@@ -742,7 +742,7 @@ class MyModule
 
 ---
 
-### @KoinApplication
+### @KoinApplication {id="koinapplication"}
 
 **软件包：** `org.koin.core.annotation`
 
@@ -794,9 +794,9 @@ MyApp.startKoin {
 
 ---
 
-## 监控注解
+## 监控注解 {id="monitoring-annotations"}
 
-### @Monitor
+### @Monitor {id="monitor"}
 
 **软件包：** `org.koin.core.annotation`
 
@@ -833,11 +833,11 @@ class UserService(private val userRepository: UserRepository) {
 
 ---
 
-## 元注解（内部）
+## 元注解（内部） {id="meta-annotations-internal"}
 
 这些注解仅供 Koin 编译器和代码生成内部使用。
 
-### @ExternalDefinition
+### @ExternalDefinition {id="externaldefinition"}
 
 **软件包：** `org.koin.meta.annotations`
 
@@ -850,7 +850,7 @@ class UserService(private val userRepository: UserRepository) {
 
 ---
 
-### @MetaDefinition
+### @MetaDefinition {id="metadefinition"}
 
 **软件包：** `org.koin.meta.annotations`
 
@@ -868,7 +868,7 @@ class UserService(private val userRepository: UserRepository) {
 
 ---
 
-### @MetaModule
+### @MetaModule {id="metamodule"}
 
 **软件包：** `org.koin.meta.annotations`
 
@@ -885,7 +885,7 @@ class UserService(private val userRepository: UserRepository) {
 
 ---
 
-### @MetaApplication
+### @MetaApplication {id="metaapplication"}
 
 **软件包：** `org.koin.meta.annotations`
 
@@ -900,7 +900,7 @@ class UserService(private val userRepository: UserRepository) {
 
 ---
 
-## 摘要表
+## 摘要表 {id="summary-table"}
 
 | 注解 | 软件包 | 用途 | 常见用例 |
 |------------|---------|---------|-----------------|

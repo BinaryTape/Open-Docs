@@ -9,11 +9,11 @@ Compose 编译器通过一个 Gradle 插件进行补充，该插件简化了设�
 要在项目中使用新的 Compose 编译器插件，请将其应用于每个使用 Compose 的模块。
 继续阅读以了解有关如何[迁移 Jetpack Compose 项目](#migrating-a-jetpack-compose-project)的详情。对于 Compose Multiplatform 项目，请参阅[多平台迁移指南](https://kotlinlang.org/docs/multiplatform/compose-compiler.html#migrating-a-compose-multiplatform-project)。
 
-## 迁移 Jetpack Compose 项目
+## 迁移 Jetpack Compose 项目 {id="migrating-a-jetpack-compose-project"}
 
 从 1.9 迁移到 Kotlin 2.0.0 或更高版本时，应根据处理 Compose 编译器的方式调整项目配置。我们建议使用 Kotlin Gradle 插件和 Compose 编译器 Gradle 插件来自动进行配置管理。
 
-### 使用 Gradle 插件管理 Compose 编译器
+### 使用 Gradle 插件管理 Compose 编译器 {id="managing-the-compose-compiler-with-gradle-plugins"}
 
 对于 Android 模块：
 
@@ -57,14 +57,14 @@ Compose 编译器通过一个 Gradle 插件进行补充，该插件简化了设�
 
 5. 如果您直接引用 Compose 编译器构件，可以移除这些引用，让 Gradle 插件来处理相关事务。
 
-### 在不使用 Gradle 插件的情况下使用 Compose 编译器
+### 在不使用 Gradle 插件的情况下使用 Compose 编译器 {id="using-compose-compiler-without-gradle-plugins"}
 
 如果您不使用 Gradle 插件来管理 Compose 编译器，请更新项目中对旧 Maven 构件的所有直接引用：
 
 * 将 `androidx.compose.compiler:compiler` 更改为 `org.jetbrains.kotlin:kotlin-compose-compiler-plugin-embeddable`
 * 将 `androidx.compose.compiler:compiler-hosted` 更改为 `org.jetbrains.kotlin:kotlin-compose-compiler-plugin`
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * 查看 [Google 的公告](https://android-developers.googleblog.com/2024/04/jetpack-compose-compiler-moving-to-kotlin-repository.html)，了解有关 Compose 编译器移至 Kotlin 仓库的信息。
 * 如果您正使用 Jetpack Compose 构建 Android 应用，请查看我们的[关于如何使其成为多平台的指南](https://kotlinlang.org/docs/multiplatform/multiplatform-integrate-in-existing-app.html)。

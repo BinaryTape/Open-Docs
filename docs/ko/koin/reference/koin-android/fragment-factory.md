@@ -8,15 +8,15 @@ Koin은 Fragment에서 생성자 주입(constructor injection)을 가능하게 �
 Fragment Factory는 DSL만 사용합니다. 어노테이션(Annotation) 및 컴파일러 플러그인(Compiler Plugin) DSL 지원은 아직 제공되지 않습니다.
 :::
 
-## 설정
+## 설정 {id="setup"}
 
-### 의존성 추가
+### 의존성 추가 {id="add-dependency"}
 
 ```groovy
 implementation "io.insert-koin:koin-android:$koin_version"
 ```
 
-### Fragment Factory 설정
+### Fragment Factory 설정 {id="configure-fragment-factory"}
 
 Koin 설정에서 프래그먼트 팩토리를 활성화합니다:
 
@@ -28,7 +28,7 @@ startKoin {
 }
 ```
 
-## Fragment 선언
+## Fragment 선언 {id="declaring-fragments"}
 
 `fragment` DSL 키워드와 함께 생성자 주입을 사용합니다:
 
@@ -43,9 +43,9 @@ val appModule = module {
 }
 ```
 
-## Fragment 사용
+## Fragment 사용 {id="using-fragments"}
 
-### Activity에서 설정
+### Activity에서 설정 {id="setup-in-activity"}
 
 `super.onCreate()`를 호출하기 **전**에 `setupKoinFragmentFactory()`를 호출하세요:
 
@@ -62,7 +62,7 @@ class MyActivity : AppCompatActivity() {
 }
 ```
 
-### Fragment 추가
+### Fragment 추가 {id="add-fragment"}
 
 구체화된(reified) 확장 함수를 사용합니다:
 
@@ -84,7 +84,7 @@ supportFragmentManager.beginTransaction()
     .commit()
 ```
 
-## Scope와 함께 Fragment Factory 사용
+## Scope와 함께 Fragment Factory 사용 {id="fragment-factory-with-scopes"}
 
 Fragment에서 Activity 스코프(Activity-scoped) 의존성을 사용하려면 다음과 같이 합니다:
 
@@ -113,7 +113,7 @@ class MyActivity : AppCompatActivity(), AndroidScopeComponent {
 }
 ```
 
-## 빠른 참조
+## 빠른 참조 {id="quick-reference"}
 
 | 작업 | 코드 |
 |--------|------|
@@ -122,7 +122,7 @@ class MyActivity : AppCompatActivity(), AndroidScopeComponent {
 | 스코프와 함께 설정 | `setupKoinFragmentFactory(scope)` |
 | Fragment 추가 | `.replace<MyFragment>(R.id.container)` |
 
-## 다음 단계
+## 다음 단계 {id="next-steps"}
 
 - **[AndroidX Fragment](https://developer.android.com/guide/fragments)** - 공식 Fragment 문서
 - **[Scopes](/docs/reference/koin-android/scope)** - Android 스코프

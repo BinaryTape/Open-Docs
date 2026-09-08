@@ -16,7 +16,7 @@
 
 Kotlin Multiplatform ウィザードで作成されたサンプルコンポーザブルを詳しく見てみましょう。まず、共通の UI を実装し、すべてのプラットフォームで使用できるコンポーザブル `App()` 関数があります。次に、各プラットフォームでこの UI を起動するプラットフォーム固有のコードがあります。
 
-## Composable 関数の実装
+## Composable 関数の実装 {id="implementing-composable-functions"}
 
 `shared/src/commonMain/kotlin/App.kt` ファイルにある `App()` 関数を見てみましょう。
 
@@ -43,7 +43,7 @@ undefined
 修飾子は `Modifier` 型のメソッドを使用して作成されます。これらのメソッドをチェーンすると、各呼び出しが前の呼び出しから返された `Modifier` を変更できるため、順序が重要になります。
 詳細は [Compose Multiplatform の修飾子の概要](https://kotlinlang.org/docs/multiplatform/compose-layout-modifiers.html#built-in-modifiers) および広範な [Jetpack Compose の修飾子のドキュメント](https://developer.android.com/jetpack/compose/modifiers) を参照してください。
 
-## 状態の管理
+## 状態の管理 {id="managing-the-state"}
 
 読み込まれた画像には永続的な性質があります。つまり、ユーザーがボタンをクリックしない限り、再構成（recompositions）をまたいでも表示または非表示の状態が一定に保たれる必要があります。
 `App()` コンポーザブル内の `showContent` プロパティは `mutableStateOf()` 関数を使用して構築されています。これは、観察（observe）可能な状態オブジェクトであることを意味します。
@@ -60,7 +60,7 @@ var showContent by remember { mutableStateOf(false) }
 イベントハンドラーが `showContent` プロパティの値を反転させます。
 その結果、親の `AnimatedVisibility()` コンポーザブルが `showContent` を観察しているため、`Greeting().greet()` の呼び出しとともに画像が表示または非表示になります。
 
-## 各プラットフォームでの UI の起動
+## 各プラットフォームでの UI の起動 {id="launching-ui-on-different-platforms"}
 
 `App()` 関数は、プラットフォームごとに異なる方法で実行されます。
 
@@ -71,7 +71,7 @@ var showContent by remember { mutableStateOf(false) }
 
 それぞれを見ていきましょう。
 
-### Android の場合
+### Android の場合 {id="on-android"}
 
 Android の場合は、`androidApp/src/main/kotlin` にある `MainActivity.kt` ファイルを開きます。
 
@@ -90,7 +90,7 @@ class MainActivity : ComponentActivity() {
 
 これは、共通コードで宣言された `App()` コンポーザブルを呼び出す、`MainActivity` と呼ばれる [Android アクティビティ](https://developer.android.com/guide/components/activities/intro-activities) です。
 
-### iOS の場合
+### iOS の場合 {id="on-ios"}
 
 iOS の場合は、`shared/src/iosMain/kotlin` にある `MainViewController.kt` ファイルを開きます。
 
@@ -100,7 +100,7 @@ fun MainViewController() = ComposeUIViewController { App() }
 
 これは、Android のアクティビティと同じ役割を果たす [ビューコントローラー](https://developer.apple.com/documentation/uikit/view_controllers) です。iOS と Android の両方の型が、共通コードの `App()` コンポーザブルを単に呼び出していることに注目してください。
 
-### デスクトップの場合
+### デスクトップの場合 {id="on-desktop"}
 
 デスクトップの場合は、`desktopApp/src/main/kotlin` にある `main.kt` ファイルを確認します。
 
@@ -121,7 +121,7 @@ fun main() = application {
 
 この例では、`App()` 関数はパラメータを受け取りません。より大規模なアプリケーションでは、通常、プラットフォーム固有の依存関係をパラメータとして渡します。これらの依存関係は、手動で記述するか、依存関係注入（DI）ライブラリを使用して渡されます。
 
-### Web の場合
+### Web の場合 {id="on-web"}
 
 `webApp/src/webMain/kotlin/` ディレクトリにある `main.kt` ファイル内の `main()` 関数を見てみましょう。
 
@@ -139,13 +139,13 @@ fun main() {
 * Web アプリは、`ComposeViewport` 関数のパラメータとして指定されたコンテナに挿入されます。
 * `App()` 関数は、Jetpack Compose を使用してアプリケーションの UI コンポーネントを構築する責任があります。
 
-## 次のステップ
+## 次のステップ {id="next-step"}
 
 チュートリアルの次のパートでは、プロジェクトに依存関係を追加し、ユーザーインターフェースを変更します。
 
 **[次のパートへ進む](compose-multiplatform-modify-project.md)**
 
-## ヘルプを得る
+## ヘルプを得る {id="get-help"}
 
 * **Kotlin Slack**: [招待](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)を受け取って、[#multiplatform](https://kotlinlang.slack.com/archives/C3PQML5NU) チャンネルに参加してください。
 * **Kotlin イシュートラッカー**: [新しい問題を報告](https://youtrack.jetbrains.com/newIssue?project=KT)してください。

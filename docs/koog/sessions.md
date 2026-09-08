@@ -2,11 +2,11 @@
 
 本页面提供了有关 LLM 会话的详细信息，包括如何使用读取和写入会话、管理对话历史记录以及向语言模型发起请求。
 
-## 简介
+## 简介 {id="introduction"}
 
 LLM 会话是一个基本概念，它提供了一种与语言模型 (LLM) 交互的结构化方式。它们管理对话历史记录，处理对 LLM 的请求，并为运行工具和处理响应提供一致的接口。
 
-## 理解 LLM 会话
+## 理解 LLM 会话 {id="understanding-llm-sessions"}
 
 LLM 会话代表了与语言模型交互的上下文。它封装了：
 
@@ -18,7 +18,7 @@ LLM 会话代表了与语言模型交互的上下文。它封装了：
 
 会话由 `AIAgentLLMContext` 类管理，该类提供了创建读取和写入会话的方法。
 
-### 会话类型
+### 会话类型 {id="session-types"}
 
 Koog 框架提供了两种类型的会话：
 
@@ -28,7 +28,7 @@ Koog 框架提供了两种类型的会话：
 
 核心区别在于写入会话可以修改对话历史记录，而读取会话则不能。
 
-### 会话生命周期
+### 会话生命周期 {id="session-lifecycle"}
 
 会话具有定义的生命周期：
 
@@ -38,9 +38,9 @@ Koog 框架提供了两种类型的会话：
 
 会话实现了 `AutoCloseable` 接口，确保即使发生异常也能被正确清理。
 
-## 使用 LLM 会话
+## 使用 LLM 会话 {id="working-with-llm-sessions"}
 
-### 创建会话
+### 创建会话 {id="creating-sessions"}
 
 会话是使用 `AIAgentLLMContext` 类的方法创建的：
 === "Kotlin"
@@ -104,7 +104,7 @@ Koog 框架提供了两种类型的会话：
 
 这些函数接收一个在会话上下文中运行的 lambda 块。当该块完成时，会话会自动关闭。
 
-### 会话作用域与线程安全
+### 会话作用域与线程安全 {id="session-scope-and-thread-safety"}
 
 会话使用读写锁来确保线程安全：
 
@@ -114,7 +114,7 @@ Koog 框架提供了两种类型的会话：
 
 这确保了对话历史记录不会因并发修改而损坏。
 
-### 访问会话属性
+### 访问会话属性 {id="accessing-session-properties"}
 
 在会话中，你可以访问 prompt 和工具：
 
@@ -236,9 +236,9 @@ Koog 框架提供了两种类型的会话：
 
 有关更多信息，请参阅 [AIAgentLLMReadSession](api:agents-core::ai.koog.agents.core.agent.session.AIAgentLLMReadSession) 和 [AIAgentLLMWriteSession](api:agents-core::ai.koog.agents.core.agent.session.AIAgentLLMWriteSession) 的详细 API 参考。
 
-## 发起 LLM 请求
+## 发起 LLM 请求 {id="making-llm-requests"}
 
-### 基础请求方法
+### 基础请求方法 {id="basic-request-methods"}
 
 最常用的发起 LLM 请求的方法是：
 
@@ -308,7 +308,7 @@ Koog 框架提供了两种类型的会话：
     ```
     <!--- KNIT exampleSessionsJava04.java -->
 
-### 请求如何工作
+### 请求如何工作 {id="how-requests-work"}
 
 当你显式调用其中一个请求方法时，就会发起 LLM 请求。需要理解的关键点有：
 
@@ -316,7 +316,7 @@ Koog 框架提供了两种类型的会话：
 2. **立即执行**：当你调用请求方法时，请求会立即发起，并且该方法会阻塞，直到收到响应。
 3. **自动历史记录更新**：在写入会话中，响应会自动添加到对话历史记录中。
 
-### 带有工具的请求方法
+### 带有工具的请求方法 {id="request-methods-with-tools"}
 
 在启用工具的情况下发起请求时，LLM 可能会返回工具调用而非文本响应。请求方法会透明地处理这一点：
 
@@ -388,7 +388,7 @@ Koog 框架提供了两种类型的会话：
 
 在实践中，你通常不需要手动检查响应类型，因为代理图会自动处理此路由。
 
-### 结构化与流式请求
+### 结构化与流式请求 {id="structured-and-streaming-requests"}
 
 对于更高级的用例，平台提供了结构化和流式请求的方法：
 
@@ -459,9 +459,9 @@ Koog 框架提供了两种类型的会话：
     ```
     <!--- KNIT exampleSessionsJava06.java -->
 
-## 管理对话历史记录
+## 管理对话历史记录 {id="managing-conversation-history"}
 
-### 更新 prompt
+### 更新 prompt {id="updating-the-prompt"}
 
 在写入会话中，你可以使用 `appendPrompt` 方法向 prompt（对话历史记录）添加消息：
 
@@ -602,7 +602,7 @@ Koog 框架提供了两种类型的会话：
     ```
     <!--- KNIT exampleSessionsJava08.java -->
 
-### 响应时的自动历史记录更新
+### 响应时的自动历史记录更新 {id="automatic-history-update-on-response"}
 
 当你在写入会话中发起 LLM 请求时，响应会自动添加到对话历史记录中：
 
@@ -671,7 +671,7 @@ Koog 框架提供了两种类型的会话：
 
 这种自动历史记录更新是写入会话的核心特性，确保了对话的自然流转。
 
-### 历史记录压缩
+### 历史记录压缩 {id="history-compression"}
 
 对于长期运行的对话，历史记录可能会变得很大并消耗大量 token。平台提供了压缩历史记录的方法：
 
@@ -718,9 +718,9 @@ Koog 框架提供了两种类型的会话：
 
 有关历史记录压缩和压缩策略的更多信息，请参阅[历史记录压缩](history-compression.md)。
 
-## 在会话中运行工具
+## 在会话中运行工具 {id="running-tools-in-sessions"}
 
-### 调用工具
+### 调用工具 {id="calling-tools"}
 
 写入会话提供了几种调用工具的方法：
 
@@ -790,7 +790,7 @@ Koog 框架提供了两种类型的会话：
     ```
     <!--- KNIT exampleSessionsJava11.java -->
 
-### 并行工具运行
+### 并行工具运行 {id="parallel-tool-runs"}
 
 为了并行运行多个工具，写入会话在 `Flow` 上提供了扩展函数：
 
@@ -848,7 +848,7 @@ Koog 框架提供了两种类型的会话：
 
 这对于高效处理大量数据非常有用。
 
-## 最佳做法
+## 最佳做法 {id="best-practices"}
 
 使用 LLM 会话时，请遵循以下最佳做法：
 
@@ -868,13 +868,13 @@ Koog 框架提供了两种类型的会话：
 
 8. **为长响应使用流式传输**：对于长响应，请使用 `requestLLMStreaming` 以在响应到达时对其进行处理。
 
-## 故障排除
+## 故障排除 {id="troubleshooting"}
 
-### 会话已关闭
+### 会话已关闭 {id="session-already-closed"}
 
 如果你看到类似 `Cannot use session after it was closed` 的错误，说明你正尝试在 lambda 块完成后使用会话。请确保所有会话操作都在会话块内执行。
 
-### 历史记录过大
+### 历史记录过大 {id="history-too-large"}
 
 如果你的历史记录变得太大并消耗过多的 token，请使用历史记录压缩技术：
 
@@ -918,13 +918,13 @@ Koog 框架提供了两种类型的会话：
 
 有关更多信息，请参阅[历史记录压缩](history-compression.md)
 
-### 找不到工具
+### 找不到工具 {id="tool-not-found"}
 
 如果你看到有关找不到工具的错误，请检查：
 
 - 工具是否已在工具注册表中正确注册。
 - 你使用的是否为正确的工具名称或类。
 
-## API 文档
+## API 文档 {id="api-documentation"}
 
 有关更多信息，请参阅完整的 [AIAgentLLMSession](api:agents-core::ai.koog.agents.core.agent.session.AIAgentLLMSession) 和 [AIAgentLLMContext](api:agents-core::ai.koog.agents.core.agent.context.AIAgentLLMContext) 参考。

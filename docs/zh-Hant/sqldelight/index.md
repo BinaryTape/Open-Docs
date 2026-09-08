@@ -20,7 +20,7 @@ CREATE TABLE hockey_player (
 
 ---
 
-## 支援的方言與平台
+## 支援的方言與平台 {id="supported-dialects-and-platforms"}
 
 SQLDelight 支援多種 SQL 方言和平台。
 
@@ -56,7 +56,7 @@ SQLDelight 支援多種 SQL 方言和平台。
 </div>
 </div>
 
-### 第三方方言
+### 第三方方言 {id="third-party-dialects"}
 
 <div class="cash-grid" markdown="1">
 <div class="cash-grid-item" markdown="1">
@@ -76,7 +76,7 @@ SQLDelight 支援多種 SQL 方言和平台。
 </div>
 </div>
 
-## 快照
+## 快照 {id="snapshots"}
 
 開發版本的快照（包括 IDE 外掛程式 zip 檔）可在 [Central Portal 快照儲存庫](https://central.sonatype.com/repository/maven-snapshots)中取得。請注意，2.0.0+ 的 SNAPSHOT 座標皆為 `app.cash.sqldelight`，而非 `com.squareup.sqldelight`。
 

@@ -4,7 +4,7 @@ Kotlin Multiplatform 讓您可以為各種平台建立應用程式並跨平台�
 
 本頁面包含相關資訊，可協助您識別哪些平台符合您的專案需求，並詳細說明其穩定性等級。
 
-## Kotlin 一般穩定性等級
+## Kotlin 一般穩定性等級 {id="general-kotlin-stability-levels"}
 
 以下是 Kotlin 穩定性等級及其含義的快速指南：
 
@@ -28,7 +28,7 @@ Kotlin Multiplatform 讓您可以為各種平台建立應用程式並跨平台�
 
 * 它已完成。我們將根據嚴格的 [後向相容性規則](https://kotlinfoundation.org/language-committee-guidelines/) 對其進行演進。
 
-### Kotlin Multiplatform 核心技術的目前平台穩定性等級
+### Kotlin Multiplatform 核心技術的目前平台穩定性等級 {id="current-platform-stability-levels-for-the-core-kotlin-multiplatform-technology"}
 
 以下是 Kotlin Multiplatform 核心技術目前的平台穩定性等級：
 
@@ -46,7 +46,7 @@ Kotlin Multiplatform 讓您可以為各種平台建立應用程式並跨平台�
 * Kotlin Multiplatform 支援的原生平台比此處列出的更多。若要了解每個平台的支援程度，請參閱 [Kotlin/Native 目標支援](https://kotlinlang.org/docs/native-target-support.html)。
 * 有關 Kotlin Multiplatform 等 Kotlin 元件穩定性等級的更多資訊，請參閱 [Kotlin 元件的目前穩定性](https://kotlinlang.org/docs/components-stability.html#current-stability-of-kotlin-components)。
 
-## Compose Multiplatform UI 架構穩定性等級
+## Compose Multiplatform UI 架構穩定性等級 {id="compose-multiplatform-ui-framework-stability-levels"}
 
 以下是 Compose Multiplatform UI 架構平台穩定性等級及其含義的快速指南：
 
@@ -71,7 +71,7 @@ Kotlin Multiplatform 讓您可以為各種平台建立應用程式並跨平台�
 * 該架構提供了全面的 API 介面，讓您可以編寫美觀、正式環境就緒的應用程式，而不會在架構本身遇到效能或其他問題。
 * API 破壞性變更只能在正式發佈棄用公告 2 個版本後進行。
 
-### Compose Multiplatform UI 架構目前的平台穩定性等級
+### Compose Multiplatform UI 架構目前的平台穩定性等級 {id="current-platform-stability-levels-for-compose-multiplatform-ui-framework"}
 
 | 平台                      | 穩定性等級      |
 |--------------------------|-----------------|
@@ -80,6 +80,6 @@ Kotlin Multiplatform 讓您可以為各種平台建立應用程式並跨平台�
 | 桌面 (JVM)               | Stable          |
 | 基於 Kotlin/Wasm 的 Web   | Beta            |
 
-## 接續步驟
+## 接續步驟 {id="what-s-next"}
 
 請參閱 [推薦的 IDE](recommended-ides.md)，了解在不同的平台組合中，哪款 IDE 更適合您的程式碼共享場景。

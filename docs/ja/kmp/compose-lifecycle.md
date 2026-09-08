@@ -26,13 +26,13 @@ kotlin {
 >
 {style="tip"}
 
-## 状態とイベント
+## 状態とイベント {id="states-and-events"}
 
 ライフサイクルの状態とイベントのフロー（[Jetpack のライフサイクル](https://developer.android.com/topic/libraries/architecture/lifecycle)と同じです）：
 
 ![ライフサイクルの図](lifecycle-states.svg){width="700"}
 
-## ライフサイクルの実装
+## ライフサイクルの実装 {id="lifecycle-implementation"}
 
 通常、コンポーザブルに固有のライフサイクルは必要ありません。共通の `LifecycleOwner` が、相互に関連するすべてのエンティティにライフサイクルを提供します。デフォルトでは、Compose Multiplatform によって作成されたすべてのコンポーザブルは同じライフサイクルを共有します。これにより、イベントをサブスクライブしたり、ライフサイクル状態を参照したりすることができます。
 
@@ -48,9 +48,9 @@ kotlin {
 * ナビゲーションコンポーネントでのライフサイクルの仕組みについては、[ナビゲーションとルーティング](compose-navigation-routing.md)で確認してください。
 * マルチプラットフォームの ViewModel 実装の詳細については、[共通 ViewModel](compose-viewmodel.md) ページを参照してください。
 
-## Android ライフサイクルの他プラットフォームへのマッピング
+## Android ライフサイクルの他プラットフォームへのマッピング {id="mapping-android-lifecycle-to-other-platforms"}
 
-### iOS
+### iOS {id="ios"}
 
 | ネイティブのイベントと通知                      | ライフサイクルイベント | ライフサイクル状態の変化      |
 |-----------------------------------------|-----------------|-------------------------|
@@ -62,7 +62,7 @@ kotlin {
 | `willEnterForeground`                   | `ON_START`      | `CREATED` → `STARTED`   |
 | `viewControllerDidLeaveWindowHierarchy` | `ON_DESTROY`    | `CREATED` → `DESTROYED` |
 
-### Web
+### Web {id="web"}
 
 Wasm ターゲットの制限により、ライフサイクルは以下のようになります：
 
@@ -76,7 +76,7 @@ Wasm ターゲットの制限により、ライフサイクルは以下のよう
 | `blur`                                   | `ON_PAUSE`      | `RESUMED` → `STARTED`  |
 | `visibilitychange` (非表示状態になる)      | `ON_STOP`       | `STARTED` → `CREATED`  |
 
-### デスクトップ
+### デスクトップ {id="desktop"}
 
 | Swing リスナーのコールバック | ライフサイクルイベント | ライフサイクル状態の変化      |
 |--------------------------|-----------------|-------------------------|

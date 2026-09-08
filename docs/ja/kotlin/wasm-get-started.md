@@ -4,7 +4,7 @@
 
 このチュートリアルでは、IntelliJ IDEA で [](wasm-overview.md) を使用した [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) アプリを実行し、ウェブサイトとして公開するためのアーティファクトを生成する方法を解説します。
 
-## プロジェクトの作成
+## プロジェクトの作成 {id="create-a-project"}
 
 1. [Kotlin Multiplatform 開発のための環境設定](https://kotlinlang.org/docs/multiplatform/quickstart.html#set-up-the-environment)を行ってください。
 2. IntelliJ IDEA で、**File | New | Project** を選択します。
@@ -30,7 +30,7 @@
 
    ![Kotlin Multiplatform wizard](wasm-kmp-wizard.png){width=600}
 
-## アプリケーションの実行
+## アプリケーションの実行 {id="run-the-application"}
 
 1. プロジェクトがロードされたら、実行構成のリストから **webApp [wasmJs]** を選択し、**Run** をクリックします。
 
@@ -50,7 +50,7 @@
     
     ![Compose app in browser](wasm-composeapp-browser.png){width=600}
 
-## アーティファクトの生成
+## アーティファクトの生成 {id="generate-artifacts"}
 
 ウェブサイトで公開するためのプロジェクトのアーティファクトを生成します。
 
@@ -75,7 +75,7 @@
 
 ![Artifacts directory](wasm-composeapp-directory.png){width=400}
 
-## アプリケーションの公開
+## アプリケーションの公開 {id="publish-the-application"}
 
 生成されたアーティファクトを使用して、Kotlin/Wasm アプリケーションをデプロイします。
 お好みの公開オプションを選択し、手順に従ってアーティファクトをデプロイしてください。
@@ -90,7 +90,7 @@
 
    おめでとうございます！アーティファクトが公開されました。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [Compose Multiplatform を使用して iOS と Android 間で UI を共有する方法を学ぶ](https://kotlinlang.org/docs/multiplatform/compose-multiplatform-create-first-app.html)
 * 他の Kotlin/Wasm の例を試してみる:

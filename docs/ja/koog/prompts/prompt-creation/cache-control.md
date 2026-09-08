@@ -8,11 +8,11 @@
 
 Koogは、**Anthropic** と **Amazon Bedrock** のプロンプト・キャッシング制御をサポートしています。
 
-## Anthropic
+## Anthropic {id="anthropic"}
 
 Anthropicは、プロンプト・キャッシングに対して2つの補完的なアプローチをサポートしています。
 
-### 自動キャッシング（リクエスト・レベル）
+### 自動キャッシング（リクエスト・レベル） {id="automatic-caching-request-level"}
 
 [`AnthropicParams`](../../llm-parameters.md) の `cacheControl` プロパティを設定し、それをプロンプトに渡します。
 Anthropicは、個々のメッセージに注釈を付ける必要なく、リクエスト内の最後のキャッシュ可能なブロックに自動的にキャッシュ・ブレークポイントを配置します。
@@ -73,11 +73,11 @@ Anthropicは、個々のメッセージに注釈を付ける必要なく、リ�
     ```
     <!--- KNIT example-cache-control-java-01.java -->
 
-### 手動キャッシング（ブロック・レベル）
+### 手動キャッシング（ブロック・レベル） {id="manual-caching-block-level"}
 
 個々のメッセージやツール定義に `cacheControl` 引数を付与することで、特定の位置にキャッシュ・ブレークポイントを配置します。注釈を付けたブロックまでのすべてがキャッシングの対象となります。
 
-#### システムメッセージ
+#### システムメッセージ {id="system-messages"}
 
 === "Kotlin"
 
@@ -124,7 +124,7 @@ Anthropicは、個々のメッセージに注釈を付ける必要なく、リ�
     ```
     <!--- KNIT example-cache-control-java-02.java -->
 
-#### ユーザーおよびアシスタントメッセージ
+#### ユーザーおよびアシスタントメッセージ {id="user-and-assistant-messages"}
 
 === "Kotlin"
 
@@ -176,7 +176,7 @@ Anthropicは、個々のメッセージに注釈を付ける必要なく、リ�
     ```
     <!--- KNIT example-cache-control-java-03.java -->
 
-#### ツール定義
+#### ツール定義 {id="tool-definitions"}
 
 ツールリストが多くのリクエストにわたって固定されている場合、最後のツール定義をキャッシュすることで、すべてのツールスキーマがまとめてキャッシュされます。
 
@@ -224,7 +224,7 @@ Anthropicは、個々のメッセージに注釈を付ける必要なく、リ�
     ```
     <!--- KNIT example-cache-control-java-04.java -->
 
-### キャッシュTTLオプション
+### キャッシュTTLオプション {id="cache-ttl-options"}
 
 | オプション | TTL | 価格倍率 |
 | :--- | :--- | :--- |
@@ -234,7 +234,7 @@ Anthropicは、個々のメッセージに注釈を付ける必要なく、リ�
 キャッシュの書き込みは通常の入力トークンよりも高いレートで課金されますが、キャッシュの読み取りは安価になります。
 現在の価格設定については、[Anthropicのプロンプト・キャッシング・ドキュメント](https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching)を参照してください。
 
-### キャッシュ使用状況のモニタリング
+### キャッシュ使用状況のモニタリング {id="monitoring-cache-usage"}
 
 Anthropicは、レスポンスの使用統計（usage）でキャッシュ統計をレポートします。これらは生のAPIレスポンスを介してアクセス可能であり、トレーシングやロギング機能を通じて観察できます。
 
@@ -243,7 +243,7 @@ Anthropicは、レスポンスの使用統計（usage）でキャッシュ統計
 | `cacheReadInputTokens` | 既存のキャッシュエントリから読み取られたトークン |
 | `cacheCreationInputTokens` | 新しいキャッシュエントリに書き込まれたトークン |
 
-### 自動キャッシングとブロック・レベル・キャッシングの組み合わせ
+### 自動キャッシングとブロック・レベル・キャッシングの組み合わせ {id="combining-automatic-and-block-level-caching"}
 
 両方のモードを同時に使用できます。ブロック・レベルの `cacheControl` マーカーによりブレークポイントの位置を細かく制御でき、`AnthropicParams` のリクエスト・レベルの `cacheControl` により会話の末尾を自動的に処理できます。
 
@@ -292,7 +292,7 @@ Anthropicは、レスポンスの使用統計（usage）でキャッシュ統計
 
 ---
 
-## Amazon Bedrock
+## Amazon Bedrock {id="amazon-bedrock"}
 
 Amazon Bedrockは、Converse APIを介したブロック・レベル・キャッシング・モデルを使用します。
 メッセージまたはツールに `cacheControl` が設定されると、Bedrockは注釈を付けた要素の直後に `CachePoint` ブロックを挿入します。
@@ -469,7 +469,7 @@ Amazon Bedrockは、Converse APIを介したブロック・レベル・キャッ
 
 ---
 
-## キャッシング戦略の選択
+## キャッシング戦略の選択 {id="choosing-a-caching-strategy"}
 
 | 状況 | 推奨されるアプローチ |
 | :--- | :--- |

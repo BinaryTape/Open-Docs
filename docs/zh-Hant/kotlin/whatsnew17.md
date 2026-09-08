@@ -26,7 +26,7 @@ Kotlin 1.7.0 正式發佈。此版本揭曉了新 Kotlin/JVM K2 編譯器的 Alp
 >
 {style="tip"}
 
-## 新的 Kotlin K2 編譯器 (JVM) 進入 Alpha 階段
+## 新的 Kotlin K2 編譯器 (JVM) 進入 Alpha 階段 {id="new-kotlin-k2-compiler-for-the-jvm-in-alpha"}
 
 此 Kotlin 版本引入了新 Kotlin K2 編譯器的 **Alpha** 版本。新編譯器的目標是加速新語言特性的開發、統一 Kotlin 支援的所有平台、帶來效能提升，並為編譯器擴充套件提供 API。
 
@@ -62,7 +62,7 @@ Kotlin 1.7.0 正式發佈。此版本揭曉了新 Kotlin/JVM K2 編譯器的 Alp
 
 如果您在使用 Kotlin K2 編譯器時遇到任何效能問題，請 [回報至我們的問題追蹤器](https://kotl.in/issue)。
 
-## 語言
+## 語言 {id="language"}
 
 Kotlin 1.7.0 引入了對透過委任實作的支援，以及用於型別引數的新底線運算子。它還穩定了先前版本中作為預覽引入的幾項語言特性：
 
@@ -72,7 +72,7 @@ Kotlin 1.7.0 引入了對透過委任實作的支援，以及用於型別引數�
 * [穩定版 opt-in 需求](#stable-opt-in-requirements)
 * [穩定版絕對不可為 null 型別](#stable-definitely-non-nullable-types)
 
-### 允許透過委任實作內嵌類別的內嵌值
+### 允許透過委任實作內嵌類別的內嵌值 {id="allow-implementation-by-delegation-to-an-inlined-value-of-an-inline-class"}
 
 如果您想為某個值或類別執行個體建立輕量級包裝函式，則必須手動實作所有介面方法。透過委任實作解決了這個問題，但在 1.7.0 之前它不支援內嵌類別。此限制現已移除，因此您現在可以建立輕量級包裝函式，在大多數情況下不會分配記憶體。
 
@@ -90,7 +90,7 @@ fun main() {
 }
 ```
 
-### 型別引數的底線運算子
+### 型別引數的底線運算子 {id="underscore-operator-for-type-arguments"}
 
 Kotlin 1.7.0 為型別引數引入了底線運算子 `_`。當指定其他型別時，您可以使用它來自動推論型別引數：
 
@@ -128,7 +128,7 @@ fun main() {
 >
 {style="note"}
 
-### 穩定版建構器推論
+### 穩定版建構器推論 {id="stable-builder-inference"}
 
 建構器推論是一種特殊的型別推論，在呼叫泛型建構器函式時非常有用。它透過使用其 Lambda 引數內其他呼叫的型別資訊，來協助編譯器推論該呼叫的型別引數。
 
@@ -136,13 +136,13 @@ fun main() {
 
 [了解如何撰寫自訂泛型建構器](using-builders-with-builder-inference.md)。
 
-### 穩定版 opt-in 需求
+### 穩定版 opt-in 需求 {id="stable-opt-in-requirements"}
 
 [Opt-in 需求](opt-in-requirements.md) 現在已進入 [穩定版](components-stability.md)，不再需要額外的編譯器配置。
 
 在 1.7.0 之前，opt-in 功能本身需要引數 `-opt-in=kotlin.RequiresOptIn` 以避免警告。現在不再需要此引數；但是，您仍可以使用編譯器引數 `-opt-in` 來為其他註解或 [模組](opt-in-requirements.md#opt-in-a-module) 啟用 opt-in。
 
-### 穩定版絕對不可為 null 型別
+### 穩定版絕對不可為 null 型別 {id="stable-definitely-non-nullable-types"}
 
 在 Kotlin 1.7.0 中，絕對不可為 null 型別已提升為 [穩定版](components-stability.md)。它們在擴充泛型 Java 類別和介面時提供了更好的互通性。
 
@@ -166,7 +166,7 @@ fun main() {
 
 在 [此 KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/definitely-non-nullable-types.md) 中了解更多關於絕對不可為 null 型別的資訊。
 
-## Kotlin/JVM
+## Kotlin/JVM {id="kotlin-jvm"}
 
 此版本為 Kotlin/JVM 編譯器帶來了效能提升和新的編譯器選項。此外，指向函數式介面建構函式的可呼叫參照已成為穩定版。請注意，自 1.7.0 起，Kotlin/JVM 編譯的預設目標版本為 `1.8`。
 
@@ -175,11 +175,11 @@ fun main() {
 * [穩定版指向函數式介面建構函式的可呼叫參照](#stable-callable-references-to-functional-interface-constructors)
 * [移除了 JVM 目標版本 1.6](#removed-jvm-target-version-1-6)
 
-### 編譯器效能最佳化
+### 編譯器效能最佳化 {id="compiler-performance-optimizations"}
 
 Kotlin 1.7.0 引入了 Kotlin/JVM 編譯器的效能提升。根據我們的基準測試，與 Kotlin 1.6.0 相比，編譯時間 [平均減少了 10%](https://youtrack.jetbrains.com/issue/KT-48233/Switching-to-JVM-IR-backend-increases-compilation-time-by-more-t#focus=Comments-27-6114542.0-0)。大量使用內嵌函式的專案，例如 [使用 `kotlinx.html` 的專案](https://youtrack.jetbrains.com/issue/KT-51416/Compilation-of-kotlinx-html-DSL-should-still-be-faster)，由於位元組碼後處理的改進，編譯速度將會更快。
 
-### 新編譯器選項：-Xjdk-release
+### 新編譯器選項：-Xjdk-release {id="new-compiler-option-xjdk-release"}
 
 Kotlin 1.7.0 提供了一個新的編譯器選項 `-Xjdk-release`。此選項與 [javac 的命令列 `--release` 選項](http://openjdk.java.net/jeps/247) 類似。`-Xjdk-release` 選項控制目標位元組碼版本，並將 classpath 中 JDK 的 API 限制為指定的 Java 版本。例如，`kotlinc -Xjdk-release=1.8` 將不允許參照 `java.lang.Module`，即使依賴項中的 JDK 版本為 9 或更高。
 
@@ -189,13 +189,13 @@ Kotlin 1.7.0 提供了一個新的編譯器選項 `-Xjdk-release`。此選項與
 
 請在 [此 YouTrack 票證](https://youtrack.jetbrains.com/issue/KT-29974/Add-a-compiler-option-Xjdk-release-similar-to-javac-s-release-to) 上留下您的回饋。
 
-### 穩定版指向函數式介面建構函式的可呼叫參照
+### 穩定版指向函數式介面建構函式的可呼叫參照 {id="stable-callable-references-to-functional-interface-constructors"}
 
 [可呼叫參照](reflection.md#callable-references) 指向函數式介面建構函式現在已進入 [穩定版](components-stability.md)。了解如何使用可呼叫參照從具有建構函式函式的介面 [遷移](fun-interfaces.md#migration-from-an-interface-with-constructor-function-to-a-functional-interface) 到函數式介面。
 
 請在 [YouTrack](https://youtrack.jetbrains.com/newissue?project=kt) 中回報您發現的任何問題。
 
-### 移除了 JVM 目標版本 1.6
+### 移除了 JVM 目標版本 1.6 {id="removed-jvm-target-version-1-6"}
 
 Kotlin/JVM 編譯的預設目標版本為 `1.8`。`1.6` 目標已移除。
 
@@ -205,7 +205,7 @@ Kotlin/JVM 編譯的預設目標版本為 `1.8`。`1.6` 目標已移除。
 * [Maven](maven-kotlin-compiler.md#attributes-specific-to-jvm)
 * [命令列編譯器](compiler-reference.md#jvm-target-version)
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 Kotlin 1.7.0 包含對 Objective-C 和 Swift 互通性的變更，並穩定了先前版本中引入的功能。它還為新記憶體管理員帶來了效能提升以及其他更新：
 
@@ -217,7 +217,7 @@ Kotlin 1.7.0 包含對 Objective-C 和 Swift 互通性的變更，並穩定了�
 * [改進的 CocoaPods 整合](#improved-cocoapods-integration)
 * [覆寫 Kotlin/Native 編譯器下載 URL](#overriding-the-kotlin-native-compiler-download-url)
 
-### 新記憶體管理員的效能提升
+### 新記憶體管理員的效能提升 {id="performance-improvements-for-the-new-memory-manager"}
 
 > 新的 Kotlin/Native 記憶體管理員處於 [Alpha](components-stability.md) 階段。
 > 未來可能會發生不相容的變更並需要手動遷移。
@@ -231,7 +231,7 @@ Kotlin 1.7.0 包含對 Objective-C 和 Swift 互通性的變更，並穩定了�
 
 請嘗試在您的專案中使用新的記憶體管理員，看看它的運作情況，並在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-48525) 中與我們分享您的回饋。
 
-### 與 JVM 和 JS IR 後端統一的編譯器外掛程式 ABI
+### 與 JVM 和 JS IR 後端統一的編譯器外掛程式 ABI {id="unified-compiler-plugin-abi-with-jvm-and-js-ir-backends"}
 
 從 Kotlin 1.7.0 開始， Kotlin Multiplatform Gradle 外掛程式預設為 Kotlin/Native 使用可嵌入的編譯器 jar。此 [功能在 1.6.0 中宣佈](whatsnew16.md#unified-compiler-plugin-abi-with-jvm-and-js-ir-backends) 為實驗性功能，現在已成為穩定版並可供使用。
 
@@ -243,7 +243,7 @@ Kotlin 1.7.0 包含對 Objective-C 和 Swift 互通性的變更，並穩定了�
 >
 {style="warning"}
 
-### 支援獨立的 Android 可執行檔
+### 支援獨立的 Android 可執行檔 {id="support-for-standalone-android-executables"}
 
 Kotlin 1.7.0 全面支援為 Android Native 目標產生標準可執行檔。此功能在 [1.6.20 中引入](whatsnew1620.md#support-for-standalone-android-executables)，現在已預設啟用。
 
@@ -253,13 +253,13 @@ Kotlin 1.7.0 全面支援為 Android Native 目標產生標準可執行檔。此
 binaryOptions["androidProgramType"] = "nativeActivity"
 ```
 
-### 與 Swift async/await 的互通性：回傳 Void 而非 KotlinUnit
+### 與 Swift async/await 的互通性：回傳 Void 而非 KotlinUnit {id="interop-with-swift-async-await-returning-void-instead-of-kotlinunit"}
 
 Kotlin `suspend` 函式在 Swift 中現在回傳 `Void` 型別而非 `KotlinUnit`。這是與 Swift 的 `async`/`await` 改進互通性的結果。此功能在 [1.6.20 中引入](whatsnew1620.md#interop-with-swift-async-await-returning-void-instead-of-kotlinunit)，且此版本預設啟用了此行為。
 
 您不再需要使用 `kotlin.native.binary.unitSuspendFunctionObjCExport=proper` 屬性來為此類函式回傳正確的型別。
 
-### 禁止透過 Objective-C 橋接傳遞未宣告的例外
+### 禁止透過 Objective-C 橋接傳遞未宣告的例外 {id="prohibited-undeclared-exceptions-through-objective-c-bridges"}
 
 當您從 Swift/Objective-C 程式碼呼叫 Kotlin 程式碼（反之亦然）且該程式碼拋出例外時，除非您特別允許在具有正確轉換的語言之間轉發例外（例如，使用 `@Throws` 註解），否則該例外應由發生例外的程式碼處理。
 
@@ -269,7 +269,7 @@ Kotlin `suspend` 函式在 Swift 中現在回傳 `Void` 型別而非 `KotlinUnit
 
 `@Throws` 註解繼續像以前一樣運作。
 
-### 改進的 CocoaPods 整合
+### 改進的 CocoaPods 整合 {id="improved-cocoapods-integration"}
 
 從 Kotlin 1.7.0 開始，如果您想在專案中整合 CocoaPods，不再需要安裝 `cocoapods-generate` 外掛程式。
 
@@ -279,7 +279,7 @@ Kotlin `suspend` 函式在 Swift 中現在回傳 `Void` 型別而非 `KotlinUnit
 
 了解如何設定 [初始 CocoaPods 整合](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html#set-up-an-environment-to-work-with-cocoapods)。
 
-### 覆寫 Kotlin/Native 編譯器下載 URL
+### 覆寫 Kotlin/Native 編譯器下載 URL {id="overriding-the-kotlin-native-compiler-download-url"}
 
 從 Kotlin 1.7.0 開始，您可以自訂 Kotlin/Native 編譯器的下載 URL。當 CI 上禁止外部連結時，這非常有用。
 
@@ -293,7 +293,7 @@ kotlin.native.distribution.baseDownloadUrl=https://example.com
 >
 {style="note"}
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
 Kotlin/JS 的 [JS IR 編譯器後端](js-ir-compiler.md) 正在接受進一步改進，並隨附其他更新，可提升您的開發體驗：
 
@@ -303,7 +303,7 @@ Kotlin/JS 的 [JS IR 編譯器後端](js-ir-compiler.md) 正在接受進一步�
 * [從 js 運算式動態載入 JavaScript 模組](#dynamically-load-javascript-modules-from-js-expressions)
 * [為 JavaScript 測試執行器指定環境變數](#specify-environment-variables-for-javascript-test-runners)
 
-### 新 IR 後端的效能提升
+### 新 IR 後端的效能提升 {id="performance-improvements-for-the-new-ir-backend"}
 
 此版本包含一些重大更新，應能改善您的開發體驗：
 
@@ -312,7 +312,7 @@ Kotlin/JS 的 [JS IR 編譯器後端](js-ir-compiler.md) 正在接受進一步�
 * 介面的型別檢查效能提升了幾個數量級。
 * Kotlin 產生更高品質的 JS 程式碼。
 
-### 使用 IR 時縮減成員名稱 (Minification)
+### 使用 IR 時縮減成員名稱 (Minification) {id="minification-for-member-names-when-using-ir"}
 
 Kotlin/JS IR 編譯器現在使用其關於 Kotlin 類別和函式關係的內部資訊來應用更有效的名稱縮減，縮短函式、屬性和類別的名稱。這縮小了生成的產物應用程式體積。
 
@@ -328,13 +328,13 @@ kotlin {
 }
 ```
 
-### 透過 IR 後端中的填充功能 (Polyfills) 支援舊版瀏覽器
+### 透過 IR 後端中的填充功能 (Polyfills) 支援舊版瀏覽器 {id="support-for-older-browsers-via-polyfills-in-the-ir-backend"}
 
 Kotlin/JS 的 IR 編譯器後端現在包含與舊版後端相同的填充功能 (polyfills)。這允許使用新編譯器編譯的程式碼在不支援 Kotlin 標準程式庫所使用的 ES2015 所有方法的舊版瀏覽器中執行。只有專案實際使用的那些填充功能才會包含在最終產物中，這將其對產物大小的潛在影響降至最低。
 
 使用 IR 編譯器時，此功能預設啟用，您無需配置它。
 
-### 從 js 運算式動態載入 JavaScript 模組
+### 從 js 運算式動態載入 JavaScript 模組 {id="dynamically-load-javascript-modules-from-js-expressions"}
 
 在處理 JavaScript 模組時，大多數應用程式使用靜態匯入，其用法已在 [JavaScript 模組整合](js-modules.md) 中涵蓋。然而，Kotlin/JS 缺少一種在應用程式執行時動態載入 JavaScript 模組的機制。
 
@@ -344,7 +344,7 @@ Kotlin/JS 的 IR 編譯器後端現在包含與舊版後端相同的填充功能
 val myPackage = js("import('my-package')")
 ```
 
-### 為 JavaScript 測試執行器指定環境變數
+### 為 JavaScript 測試執行器指定環境變數 {id="specify-environment-variables-for-javascript-test-runners"}
 
 要調整 Node.js 套件解析或將外部資訊傳遞給 Node.js 測試，您現在可以指定 JavaScript 測試執行器使用的環境變數。要定義環境變數，請在建置指令碼的 `testTask` 區塊內使用帶有鍵值對的 `environment()` 函式：
 
@@ -360,7 +360,7 @@ kotlin {
 }
 ```
 
-## 標準程式庫
+## 標準程式庫 {id="standard-library"}
 
 在 Kotlin 1.7.0 中，標準程式庫經歷了一系列的變更和改進。它們引入了新特性，穩定了實驗性特性，並統一了對 Native、JS 和 JVM 的具名擷取群組支援：
 
@@ -373,7 +373,7 @@ kotlin {
 * [用於 Java Optional 的新實驗性擴充函式](#new-experimental-extension-functions-for-java-optionals)
 * [支援 JS 和 Native 中的具名擷取群組](#support-for-named-capturing-groups-in-js-and-native)
 
-### min() 與 max() 集合函式傳回非 null 值
+### min() 與 max() 集合函式傳回非 null 值 {id="min-and-max-collection-functions-return-as-non-nullable"}
 
 在 [Kotlin 1.4.0](whatsnew14.md) 中，我們將 `min()` 和 `max()` 集合函式重新命名為 `minOrNull()` 和 `maxOrNull()`。這些新名稱更好地反映了它們的行為——如果接收端集合為空，則傳回 null。這也有助於使函式的行為與整個 Kotlin 集合 API 中使用的命名慣例保持一致。
 
@@ -389,7 +389,7 @@ fun main() {
 }
 ```
 
-### 特定索引處的正規表示式比對
+### 特定索引處的正規表示式比對 {id="regular-expression-matching-at-specific-indices"}
 
 [1.5.30 中引入](whatsnew1530.md#matching-with-regex-at-a-particular-position) 的 `Regex.matchAt()` 和 `Regex.matchesAt()` 函式現在已成為穩定版。它們提供了一種方法來檢查正規表示式是否在 `String` 或 `CharSequence` 的特定位置完全匹配。
 
@@ -420,13 +420,13 @@ fun main() {
 
 我們歡迎您在 [此 YouTrack 問題](https://youtrack.jetbrains.com/issue/KT-34021) 上提供回饋。
 
-### 對先前語言和 API 版本的擴展支援
+### 對先前語言和 API 版本的擴展支援 {id="extended-support-for-previous-language-and-api-versions"}
 
 為了支援開發旨在用於各種先前 Kotlin 版本的程式庫作者，並應對 Kotlin 主要版本發佈頻率的增加，我們擴展了對先前語言和 API 版本的支援。
 
 從 Kotlin 1.7.0 開始，我們支援三個先前的語言和 API 版本，而不是兩個。這意味著 Kotlin 1.7.0 支援開發目標版本低至 1.4.0 的程式庫。有關回溯相容性的更多資訊，請參閱 [相容性選項](kotlin-evolution-principles.md#compatibility-options)。
 
-### 透過反射存取註解
+### 透過反射存取註解 {id="access-to-annotations-via-reflection"}
 
 首次在 [1.6.0 中引入](whatsnew16.md#repeatable-annotations-with-runtime-retention-for-1-8-jvm-target) 的 [`KAnnotatedElement.findAnnotations()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect.full/find-annotations.html) 擴充函式現在已進入 [穩定版](components-stability.md)。此 [反射](reflection.md) 函式回傳元素上指定型別的所有註解，包括個別套用的註解和重複註解。
 
@@ -447,7 +447,7 @@ fun main() {
 }
 ```
 
-### 穩定版深層遞迴函式
+### 穩定版深層遞迴函式 {id="stable-deep-recursive-functions"}
 
 深層遞迴函式自 [Kotlin 1.4.0](https://blog.jetbrains.com/kotlin/2020/07/kotlin-1-4-rc-debugging-coroutines/#Defining_deep_recursive_functions_using_coroutines) 起作為實驗性功能提供，現在它們在 Kotlin 1.7.0 中已進入 [穩定版](components-stability.md)。使用 `DeepRecursiveFunction`，您可以定義一個將其堆疊保留在堆積 (heap) 上而非使用實際呼叫堆疊的函式。這允許您執行非常深層的遞迴計算。要呼叫深層遞迴函式，請 `invoke` 它。
 
@@ -475,7 +475,7 @@ fun main() {
 
 當您的遞迴深度超過 1000 次呼叫時，請考慮在程式碼中使用深層遞迴函式。
 
-### 基於內嵌類別的時間標記（用於預設時間源）
+### 基於內嵌類別的時間標記（用於預設時間源） {id="time-marks-based-on-inline-classes-for-default-time-source"}
 
 Kotlin 1.7.0 藉由將 `TimeSource.Monotonic` 回傳的時間標記更改為內嵌值類別，改進了時間測量功能的效能。這意指呼叫如 `markNow()`、`elapsedNow()`、`measureTime()` 和 `measureTimedValue()` 等函式時，不會為其 `TimeMark` 執行個體分配包裝類別。特別是在測量處於熱點路徑中的程式碼時，這有助於最大程度地減少測量對效能的影響：
 
@@ -491,7 +491,7 @@ fun main() {
 >
 {style="note"}
 
-### 用於 Java Optional 的新實驗性擴充函式
+### 用於 Java Optional 的新實驗性擴充函式 {id="new-experimental-extension-functions-for-java-optionals"}
 
 Kotlin 1.7.0 附帶了新的便捷函式，簡化了在 Java 中處理 `Optional` 類別的工作。這些新函式可用於在 JVM 上解包和轉換選用物件，並有助於使處理 Java API 更加簡潔。
 
@@ -540,13 +540,13 @@ println(list)
 
 這些擴充函式在 Kotlin 1.7.0 中作為實驗性功能引入。您可以在 [此 KEEP](https://github.com/Kotlin/KEEP/pull/291) 中了解更多關於 `Optional` 擴充的資訊。一如既往，我們歡迎您在 [Kotlin 問題追蹤器](https://kotl.in/issue) 中提供回饋。
 
-### 支援 JS 和 Native 中的具名擷取群組
+### 支援 JS 和 Native 中的具名擷取群組 {id="support-for-named-capturing-groups-in-js-and-native"}
 
 從 Kotlin 1.7.0 開始，具名擷取群組不僅在 JVM 上受支援，在 JS 和 Native 平台上也受支援。
 
 要為擷取群組命名，請在正規表示式中使用 (`?<name>group`) 語法。要獲取群組比對到的文字，請呼叫新引入的 [`MatchGroupCollection.get()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/get.html) 函式並傳入群組名稱。
 
-#### 透過名稱擷取比對到的群組值
+#### 透過名稱擷取比對到的群組值 {id="retrieve-matched-group-value-by-name"}
 
 考慮這個比對城市座標的範例。要獲取正規表示式比對到的群組集合，請使用 [`groups`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-match-result/groups.html)。比較透過編號（索引）和透過名稱使用 `value` 來擷取群組內容：
 
@@ -560,7 +560,7 @@ fun main() {
 }
 ```
 
-#### 具名反向參照
+#### 具名反向參照 {id="named-backreferencing"}
 
 您現在還可以在反向參照群組時使用群組名稱。反向參照會比對與先前擷取群組比對到的相同文字。對此，請在正規表示式中使用 `\k<name>` 語法：
 
@@ -573,7 +573,7 @@ fun backRef() {
 }
 ```
 
-#### 具名群組在取代運算式中
+#### 具名群組在取代運算式中 {id="named-groups-in-replacement-expressions"}
 
 具名群組參照可用於取代運算式。考慮 [`replace()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/replace.html) 函式，它將輸入中所有指定的正規表示式出現處替換為取代運算式，以及 [`replaceFirst()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/replace-first.html) 函式，它僅交換第一個比對項。
 
@@ -588,7 +588,7 @@ fun dateReplace() {
 }
 ```
 
-## Gradle
+## Gradle {id="gradle"}
 
 此版本引入了新的建置報告、對 Gradle 外掛程式變體的支援、kapt 中的新統計資訊等等：
 
@@ -603,7 +603,7 @@ fun dateReplace() {
 * [棄用 kotlin.compiler.execution.strategy 系統屬性](#deprecation-of-the-kotlin-compiler-execution-strategy-system-property)
 * [移除棄用的選項、方法和外掛程式](#removal-of-deprecated-options-methods-and-plugins)
 
-### 增量編譯的新方法
+### 增量編譯的新方法 {id="a-new-approach-to-incremental-compilation"}
 
 > 增量編譯的新方法處於 [實驗性](components-stability.md) 階段。它隨時可能被捨棄或更改。
 > 需要 opt-in（詳見下文）。我們鼓勵您僅出於評估目的使用它，我們歡迎您在 [YouTrack](https://youtrack.jetbrains.com/issues/KT) 中提供回饋。
@@ -630,7 +630,7 @@ kotlin.incremental.useClasspathSnapshot=true
 
 Kotlin 團隊非常感謝 [Ivan Gavrilovic](https://github.com/gavra0)、[Hung Nguyen](https://github.com/hungvietnguyen)、[Cédric Champeau](https://github.com/melix) 以及其他外部貢獻者的幫助。
 
-### Kotlin 編譯任務的建置報告
+### Kotlin 編譯任務的建置報告 {id="build-reports-for-kotlin-compiler-tasks"}
 
 > Kotlin 建置報告處於 [實驗性](components-stability.md) 階段。它們隨時可能被捨棄或更改。
 > 需要 opt-in（詳見下文）。僅出於評估目的使用它們。我們歡迎您在 [YouTrack](https://youtrack.jetbrains.com/issues/KT) 中對其提供回饋。
@@ -670,13 +670,13 @@ kotlin.build.report.output=file
 
 歡迎您在基礎設施中嘗試使用建置報告。如果您有任何回饋、遇到任何問題或想提出改進建議，請隨時在我們的 [問題追蹤器](https://youtrack.jetbrains.com/newIssue) 中回報。謝謝！
 
-### 提升最低受支援版本
+### 提升最低受支援版本 {id="bumping-minimum-supported-versions"}
 
 從 Kotlin 1.7.0 開始，最低受支援的 Gradle 版本為 6.7.1。我們必須 [提升版本](https://youtrack.jetbrains.com/issue/KT-49733/Bump-minimal-supported-Gradle-version-to-6-7-1) 以支援 [Gradle 外掛程式變體](#support-for-gradle-plugin-variants) 和新的 Gradle API。未來，得益於 Gradle 外掛程式變體特性，我們應該不需要如此頻繁地提升最低受支援版本。
 
 此外，最低受支援的 Android Gradle 外掛程式版本現在為 3.6.4。
 
-### 支援 Gradle 外掛程式變體
+### 支援 Gradle 外掛程式變體 {id="support-for-gradle-plugin-variants"}
 
 Gradle 7.0 為 Gradle 外掛程式作者引入了一項新功能——[帶有變體的外掛程式](https://docs.gradle.org/7.0/userguide/implementing_gradle_plugins.html#plugin-with-variants)。此功能使得在保持對 7.1 以下 Gradle 版本相容性的同時，更容易增加對新 Gradle 特性的支援。了解更多關於 [Gradle 中的變體選擇](https://docs.gradle.org/current/userguide/variant_model.html)。
 
@@ -699,7 +699,7 @@ Gradle 7.0 為 Gradle 外掛程式作者引入了一項新功能——[帶有變
 
 請在 [此 YouTrack 票證](https://youtrack.jetbrains.com/issue/KT-49227/Support-Gradle-plugins-variants) 上留下您的回饋。
 
-### Kotlin Gradle 外掛程式 API 的更新
+### Kotlin Gradle 外掛程式 API 的更新 {id="updates-in-the-kotlin-gradle-plugin-api"}
 
 Kotlin Gradle 外掛程式 API 構件經歷了多項改進：
 
@@ -715,7 +715,7 @@ Kotlin Gradle 外掛程式 API 構件經歷了多項改進：
 
 * 我們為 Android Gradle 外掛程式在其內部配置 Kotlin 編譯奠定了基礎，這意指您將不需要在組建中加入 Kotlin Android Gradle 外掛程式。請關注 [Android Gradle 外掛程式發佈公告](https://developer.android.com/studio/releases/gradle-plugin) 以了解新增的支援並嘗試一下！
 
-### 可透過外掛程式 API 使用 sam-with-receiver 外掛程式
+### 可透過外掛程式 API 使用 sam-with-receiver 外掛程式 {id="the-sam-with-receiver-plugin-is-available-via-the-plugins-api"}
 
 [sam-with-receiver 編譯器外掛程式](sam-with-receiver-plugin.md) 現在可透過 [Gradle 外掛程式 DSL](https://docs.gradle.org/current/userguide/plugins.html#sec:plugins_block) 取得：
 
@@ -725,7 +725,7 @@ plugins {
 }
 ```
 
-### 編譯任務的變更
+### 編譯任務的變更 {id="changes-in-compile-tasks"}
 
 編譯任務在此版本中經歷了許多變更：
 
@@ -739,7 +739,7 @@ plugins {
 
 請在 [此 YouTrack 票證](https://youtrack.jetbrains.com/issue/KT-32805) 中留下您的回饋。
 
-### kapt 中每個註解處理器產生檔案的統計資訊
+### kapt 中每個註解處理器產生檔案的統計資訊 {id="statistics-of-generated-files-by-each-annotation-processor-in-kapt"}
 
 `kotlin-kapt` Gradle 外掛程式已經 [回報每個處理器的效能統計資訊](https://github.com/JetBrains/kotlin/pull/4280)。從 Kotlin 1.7.0 開始，它還可以回報每個註解處理器產生的檔案數量的統計資訊。
 
@@ -776,7 +776,7 @@ plugins {
 
 請在 [此 YouTrack 票證](https://youtrack.jetbrains.com/issue/KT-51132/KAPT-Support-reporting-the-number-of-generated-files-by-each-ann) 上留下您的回饋。
 
-### 棄用 kotlin.compiler.execution.strategy 系統屬性
+### 棄用 kotlin.compiler.execution.strategy 系統屬性 {id="deprecation-of-the-kotlin-compiler-execution-strategy-system-property"}
 
 Kotlin 1.6.20 [引入了用於定義 Kotlin 編譯器執行策略的新屬性](whatsnew1620.md#properties-for-defining-kotlin-compiler-execution-strategy)。在 Kotlin 1.7.0 中，舊的系統屬性 `kotlin.compiler.execution.strategy` 已開始棄用週期，轉而使用新屬性。
 
@@ -788,9 +788,9 @@ kotlin.compiler.execution.strategy=out-of-process
 
 您也可以使用編譯任務屬性 `compilerExecutionStrategy`。在 [編譯器執行策略頁面](compiler-execution-strategy.md) 上了解更多相關資訊。
 
-### 移除棄用的選項、方法和外掛程式
+### 移除棄用的選項、方法和外掛程式 {id="removal-of-deprecated-options-methods-and-plugins"}
 
-#### 移除 useExperimentalAnnotation 方法
+#### 移除 useExperimentalAnnotation 方法 {id="removal-of-the-useexperimentalannotation-method"}
 
 在 Kotlin 1.7.0 中，我們完成了 `useExperimentalAnnotation` Gradle 方法的棄用週期。請改用 `optIn()` 以在模組中啟用某個 API 的 opt-in。
 
@@ -806,7 +806,7 @@ sourceSets {
 
 了解更多關於 Kotlin 中的 [opt-in 需求](opt-in-requirements.md) 資訊。
 
-#### 移除棄用的編譯器選項
+#### 移除棄用的編譯器選項 {id="removal-of-deprecated-compiler-options"}
 
 我們已經完成了幾個編譯器選項的棄用週期：
 
@@ -817,7 +817,7 @@ sourceSets {
 >
 {style="note"}
 
-#### 移除棄用的外掛程式
+#### 移除棄用的外掛程式 {id="removal-of-deprecated-plugins"}
 
 在 Kotlin 1.4.0 中，`kotlin2js` 和 `kotlin-dce-plugin` 外掛程式被棄用，並在此版本中被移除。請使用新的 `org.jetbrains.kotlin.js` 外掛程式來代替 `kotlin2js`。無效程式碼消除 (DCE) 即可運作，當 Kotlin/JS Gradle 外掛程式配置正確時。
 
@@ -827,13 +827,13 @@ sourceSets {
 >
 {style="tip"}
 
-#### 移除棄用的協同程式 DSL 選項和屬性
+#### 移除棄用的協同程式 DSL 選項和屬性 {id="removal-of-the-deprecated-coroutines-dsl-option-and-property"}
 
 我們移除了棄用的 `kotlin.experimental.coroutines` Gradle DSL 選項以及在 `gradle.properties` 中使用的 `kotlin.coroutines` 屬性。現在您可以直接使用 _[暫停函式](coroutines-basics.md)_ 或在組建指令碼中 [加入 `kotlinx.coroutines` 相依性](gradle-configure-project.md#set-a-dependency-on-a-kotlinx-library) 到您的組建指令碼中。
 
 在 [協同程式指南](coroutines-guide.md) 中了解更多關於協同程式的資訊。
 
-#### 移除工具鏈擴充方法中的型別轉換
+#### 移除工具鏈擴充方法中的型別轉換 {id="removal-of-the-type-cast-in-the-toolchain-extension-method"}
 
 在 Kotlin 1.7.0 之前，使用 Kotlin DSL 配置 Gradle 工具鏈時，必須將其轉換為 `JavaToolchainSpec` 類別：
 
@@ -855,9 +855,9 @@ kotlin {
 }
 ```
 
-## 遷移至 Kotlin 1.7.0
+## 遷移至 Kotlin 1.7.0 {id="migrating-to-kotlin-1-7-0"}
 
-### 安裝 Kotlin 1.7.0
+### 安裝 Kotlin 1.7.0 {id="install-kotlin-1-7-0"}
 
 IntelliJ IDEA 2022.1 和 Android Studio Chipmunk (212) 會自動建議將 Kotlin 外掛程式更新至 1.7.0。
 
@@ -867,12 +867,12 @@ IntelliJ IDEA 2022.1 和 Android Studio Chipmunk (212) 會自動建議將 Kotlin
 
 新的命令列編譯器可在 [GitHub 發佈頁面](https://github.com/JetBrains/kotlin/releases/tag/v1.7.0) 下載。
 
-### 遷移現有專案或使用 Kotlin 1.7.0 開始新專案
+### 遷移現有專案或使用 Kotlin 1.7.0 開始新專案 {id="migrate-existing-or-start-a-new-project-with-kotlin-1-7-0"}
 
 * 要將現有專案遷移至 Kotlin 1.7.0，請將 Kotlin 版本更改為 `1.7.0` 並重新匯入您的 Gradle 或 Maven 專案。[了解如何更新至 Kotlin 1.7.0](releases.md#update-to-a-new-kotlin-version)。
 
 * 要使用 Kotlin 1.7.0 開始新專案，請更新 Kotlin 外掛程式並從 **File** | **New** | **Project** 執行專案精靈。
 
-### Kotlin 1.7.0 相容性指南
+### Kotlin 1.7.0 相容性指南 {id="compatibility-guide-for-kotlin-1-7-0"}
 
 Kotlin 1.7.0 是一個 [特性版本](kotlin-evolution-principles.md#language-and-tooling-releases)，因此可能會帶來與您為早期版本的語言編寫的程式碼不相容的變更。在 [Kotlin 1.7.0 相容性指南](compatibility-guide-17.md) 中查找此類變更的詳細清單。

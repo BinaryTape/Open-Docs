@@ -4,7 +4,7 @@
 
 言語の変更の多くは、アップデートの変更ログやコンパイラの警告など他のチャネルですでに発表されていますが、このドキュメントではそれらをすべてまとめ、Kotlin 1.3 から Kotlin 1.4 への移行のための完全なリファレンスを提供します。
 
-## 基本用語
+## 基本用語 {id="basic-terms"}
 
 このドキュメントでは、いくつかの種類の互換性を紹介します：
 
@@ -14,9 +14,9 @@
 
 これらの定義は純粋な Kotlin に対してのみ与えられていることに注意してください。他の言語（Java など）の観点からの Kotlin コードの互換性は、このドキュメントの範囲外です。
 
-## 言語および標準ライブラリ (stdlib)
+## 言語および標準ライブラリ (stdlib) {id="language-and-stdlib"}
 
-### in 中置演算子と ConcurrentHashMap における予期しない動作
+### in 中置演算子と ConcurrentHashMap における予期しない動作 {id="unexpected-behavior-with-in-infix-operator-and-concurrenthashmap"}
 
 > **課題**: [KT-18053](https://youtrack.jetbrains.com/issue/KT-18053)
 > 
@@ -32,7 +32,7 @@
 > - >= 1.4: この警告をエラーに格上げ。
 >  `-XXLanguage:-ProhibitConcurrentHashMapContains` を使用して、一時的に 1.4 以前の動作に戻すことが可能
 
-### public インラインメンバー内での protected メンバーへのアクセスの禁止
+### public インラインメンバー内での protected メンバーへのアクセスの禁止 {id="prohibit-access-to-protected-members-inside-public-inline-members"}
 
 > **課題**: [KT-21178](https://youtrack.jetbrains.com/issue/KT-21178)
 > 
@@ -48,7 +48,7 @@
 > - 1.4: この警告をエラーに格上げ。
 >  `-XXLanguage:-ProhibitProtectedCallFromInline` を使用して、一時的に 1.4 以前の動作に戻すことが可能
 
-### 暗黙のレシーバーを伴う呼び出しに対するコントラクト (Contracts)
+### 暗黙のレシーバーを伴う呼び出しに対するコントラクト (Contracts) {id="contracts-on-calls-with-implicit-receivers"}
 
 > **課題**: [KT-28672](https://youtrack.jetbrains.com/issue/KT-28672)
 > 
@@ -64,7 +64,7 @@
 > - >= 1.4: 動作が変更。
 >  `-XXLanguage:-ContractsOnCallsWithImplicitReceiver` を使用して、一時的に 1.4 以前の動作に戻すことが可能
 
-### 浮動小数点数比較の不一致な動作
+### 浮動小数点数比較の不一致な動作 {id="inconsistent-behavior-of-floating-point-number-comparisons"}
 
 > **課題**: [KT-22723](https://youtrack.jetbrains.com/issue/KT-22723)
 > 
@@ -80,7 +80,7 @@
 > - >= 1.4: 動作が変更。
 >  `-XXLanguage:-ProperIeee754Comparisons` を使用して、一時的に 1.4 以前の動作に戻すことが可能
 
-### ジェネリックなラムダの最後の式でスマートキャストが効かない
+### ジェネリックなラムダの最後の式でスマートキャストが効かない {id="no-smart-cast-on-the-last-expression-in-a-generic-lambda"}
 
 > **課題**: [KT-15020](https://youtrack.jetbrains.com/issue/KT-15020)
 > 
@@ -96,7 +96,7 @@
 > - >= 1.4: 動作が変更。
 > `-XXLanguage:-NewInference` を使用して、一時的に 1.4 以前の動作に戻すことが可能。このフラグはいくつかの新しい言語機能も無効にすることに注意してください。
 
-### 結果を Unit に強制するためのラムダ引数の順序への依存の解消
+### 結果を Unit に強制するためのラムダ引数の順序への依存の解消 {id="do-not-depend-on-the-order-of-lambda-arguments-to-coerce-result-to-unit"}
 
 > **課題**: [KT-36045](https://youtrack.jetbrains.com/issue/KT-36045)
 > 
@@ -112,7 +112,7 @@
 > - >= 1.4: 動作が変更。
 > `-XXLanguage:-NewInference` を使用して、一時的に 1.4 以前の動作に戻すことが可能。このフラグはいくつかの新しい言語機能も無効にすることに注意してください。
 
-### raw 型と整数リテラル型の間の誤った共通スーパータイプによる不健全なコード
+### raw 型と整数リテラル型の間の誤った共通スーパータイプによる不健全なコード {id="wrong-common-supertype-between-raw-and-integer-literal-type-leads-to-unsound-code"}
 
 > **課題**: [KT-35681](https://youtrack.jetbrains.com/issue/KT-35681)
 > 
@@ -128,7 +128,7 @@
 > - >= 1.4: 動作が変更。
 > `-XXLanguage:-NewInference` を使用して、一時的に 1.4 以前の動作に戻すことが可能。このフラグはいくつかの新しい言語機能も無効にすることに注意してください。
 
-### 複数の等しい型変数が異なる型でインスタンス化されることによる型安全性の問題
+### 複数の等しい型変数が異なる型でインスタンス化されることによる型安全性の問題 {id="type-safety-problem-because-several-equal-type-variables-are-instantiated-with-a-different-types"}
 
 > **課題**: [KT-35679](https://youtrack.jetbrains.com/issue/KT-35679)
 > 
@@ -144,7 +144,7 @@
 > - >= 1.4: 動作が変更。
 > `-XXLanguage:-NewInference` を使用して、一時的に 1.4 以前の動作に戻すことが可能。このフラグはいくつかの新しい言語機能も無効にすることに注意してください。
 
-### 交差型 (intersection types) の誤ったサブタイピングによる型安全性の問題
+### 交差型 (intersection types) の誤ったサブタイピングによる型安全性の問題 {id="type-safety-problem-because-of-incorrect-subtyping-for-intersection-types"}
 
 > **課題**: [KT-22474](https://youtrack.jetbrains.com/issue/KT-22474)
 > 
@@ -160,7 +160,7 @@
 > - >= 1.4: 動作が変更。
 > `-XXLanguage:-NewInference` を使用して、一時的に 1.4 以前の動作に戻すことが可能。このフラグはいくつかの新しい言語機能も無効にすることに注意してください。
 
-### ラムダ内の空の when 式で型不一致が発生しない
+### ラムダ内の空の when 式で型不一致が発生しない {id="no-type-mismatch-with-an-empty-when-expression-inside-lambda"}
 
 > **課題**: [KT-17995](https://youtrack.jetbrains.com/issue/KT-17995)
 > 
@@ -176,7 +176,7 @@
 > - >= 1.4: 動作が変更。
 > `-XXLanguage:-NewInference` を使用して、一時的に 1.4 以前の動作に戻すことが可能。このフラグはいくつかの新しい言語機能も無効にすることに注意してください。
 
-### 早期リターンがあり、戻り値の候補に整数リテラルが含まれるラムダで戻り型が Any と推論される
+### 早期リターンがあり、戻り値の候補に整数リテラルが含まれるラムダで戻り型が Any と推論される {id="return-type-any-inferred-for-lambda-with-early-return-with-integer-literal-in-one-of-possible-return-values"}
 
 > **課題**: [KT-20226](https://youtrack.jetbrains.com/issue/KT-20226)
 > 
@@ -192,7 +192,7 @@
 > - >= 1.4: 動作が変更。
 > `-XXLanguage:-NewInference` を使用して、一時的に 1.4 以前の動作に戻すことが可能。このフラグはいくつかの新しい言語機能も無効にすることに注意してください。
 
-### 再帰的な型を持つスター投影の適切なキャプチャ
+### 再帰的な型を持つスター投影の適切なキャプチャ {id="proper-capturing-of-star-projections-with-recursive-types"}
 
 > **課題**: [KT-33012](https://youtrack.jetbrains.com/issue/KT-33012)
 > 
@@ -208,7 +208,7 @@
 > - >= 1.4: 動作が変更。
 > `-XXLanguage:-NewInference` を使用して、一時的に 1.4 以前の動作に戻すことが可能。このフラグはいくつかの新しい言語機能も無効にすることに注意してください。
 
-### 非適切な型 (non-proper type) と柔軟な型 (flexible type) の共通スーパータイプ計算が誤った結果を招く
+### 非適切な型 (non-proper type) と柔軟な型 (flexible type) の共通スーパータイプ計算が誤った結果を招く {id="common-supertype-calculation-with-non-proper-type-and-flexible-one-leads-to-incorrect-results"}
 
 > **課題**: [KT-37054](https://youtrack.jetbrains.com/issue/KT-37054)
 > 
@@ -224,7 +224,7 @@
 > - >= 1.4: 動作が変更。
 > `-XXLanguage:-NewInference` を使用して、一時的に 1.4 以前の動作に戻すことが可能。このフラグはいくつかの新しい言語機能も無効にすることに注意してください。
 
-### null 許容型の型引数に対するキャプチャ変換の欠如による型安全性の問題
+### null 許容型の型引数に対するキャプチャ変換の欠如による型安全性の問題 {id="type-safety-problem-because-of-lack-of-captured-conversion-against-nullable-type-argument"}
 
 > **課題**: [KT-35487](https://youtrack.jetbrains.com/issue/KT-35487)
 > 
@@ -240,7 +240,7 @@
 > - >= 1.4: 動作が変更。
 > `-XXLanguage:-NewInference` を使用して、一時的に 1.4 以前の動作に戻すことが可能。このフラグはいくつかの新しい言語機能も無効にすることに注意してください。
 
-### 非検査キャスト後の共変型に対する交差型の保持
+### 非検査キャスト後の共変型に対する交差型の保持 {id="preserve-intersection-type-for-covariant-types-after-unchecked-cast"}
  
 > **課題**: [KT-37280](https://youtrack.jetbrains.com/issue/KT-37280)
 > 
@@ -256,7 +256,7 @@
 > - >= 1.4: 動作が変更。
 > `-XXLanguage:-NewInference` を使用して、一時的に 1.4 以前の動作に戻すことが可能。このフラグはいくつかの新しい言語機能も無効にすることに注意してください。
 
-### this 式の使用によるビルダー推論からの型変数の漏洩
+### this 式の使用によるビルダー推論からの型変数の漏洩 {id="type-variable-leaks-from-builder-inference-because-of-using-this-expression"}
  
 > **課題**: [KT-32126](https://youtrack.jetbrains.com/issue/KT-32126)
 > 
@@ -272,7 +272,7 @@
 > - >= 1.4: 動作が変更。
 > `-XXLanguage:-NewInference` を使用して、一時的に 1.4 以前の動作に戻すことが可能。このフラグはいくつかの新しい言語機能も無効にすることに注意してください。
 
-### null 許容型の型引数を持つ反変型に対する誤ったオーバーロード解決
+### null 許容型の型引数を持つ反変型に対する誤ったオーバーロード解決 {id="wrong-overload-resolution-for-contravariant-types-with-nullable-type-arguments"}
  
 > **課題**: [KT-31670](https://youtrack.jetbrains.com/issue/KT-31670)
 > 
@@ -288,7 +288,7 @@
 > - >= 1.4: 動作が変更。
 > `-XXLanguage:-NewInference` を使用して、一時的に 1.4 以前の動作に戻すことが可能。このフラグはいくつかの新しい言語機能も無効にすることに注意してください。
 
-### ネストされていない再帰的制約を伴うビルダー推論
+### ネストされていない再帰的制約を伴うビルダー推論 {id="builder-inference-with-non-nested-recursive-constraints"}
  
 > **課題**: [KT-34975](https://youtrack.jetbrains.com/issue/KT-34975)
 > 
@@ -304,7 +304,7 @@
 > - >= 1.4: 動作が変更。
 > `-XXLanguage:-NewInference` を使用して、一時的に 1.4 以前の動作に戻すことが可能。このフラグはいくつかの新しい言語機能も無効にすることに注意してください。
 
-### 型変数の早すぎる固定による矛盾した制約システム
+### 型変数の早すぎる固定による矛盾した制約システム {id="eager-type-variable-fixation-leads-to-a-contradictory-constraint-system"}
  
 > **課題**: [KT-25175](https://youtrack.jetbrains.com/issue/KT-25175)
 > 
@@ -320,7 +320,7 @@
 > - >= 1.4: 動作が変更。
 > `-XXLanguage:-NewInference` を使用して、一時的に 1.4 以前の動作に戻すことが可能。このフラグはいくつかの新しい言語機能も無効にすることに注意してください。
 
-### open 関数に対する tailrec 修飾子の禁止
+### open 関数に対する tailrec 修飾子の禁止 {id="prohibit-tailrec-modifier-on-open-functions"}
 
 > **課題**: [KT-18541](https://youtrack.jetbrains.com/issue/KT-18541)
 > 
@@ -335,7 +335,7 @@
 > - < 1.4: `open` と `tailrec` 修飾子が共存する関数に対して警告を報告（progressive モードではエラー）。
 > - >= 1.4: この警告をエラーに格上げ。
 
-### コンパニオンオブジェクトの INSTANCE フィールドがコンパニオンオブジェクトクラス自体よりも可視性が高い
+### コンパニオンオブジェクトの INSTANCE フィールドがコンパニオンオブジェクトクラス自体よりも可視性が高い {id="the-instance-field-of-a-companion-object-more-visible-than-the-companion-object-class-itself"}
 
 > **課題**: [KT-11567](https://youtrack.jetbrains.com/issue/KT-11567)
 > 
@@ -350,7 +350,7 @@
 > - < 1.4: コンパイラは非推奨フラグ付きでオブジェクトの `INSTANCE` を生成
 > - >= 1.4: コンパニオンオブジェクトの `INSTANCE` フィールドが適切な可視性を持つようになる
 
-### return の前に挿入された外部 finally ブロックが、finally のない内部 try ブロックの catch 範囲から除外されない
+### return の前に挿入された外部 finally ブロックが、finally のない内部 try ブロックの catch 範囲から除外されない {id="outer-finally-block-inserted-before-return-is-not-excluded-from-the-catch-interval-of-the-inner-try-block-without-finally"}
 
 > **課題**: [KT-31923](https://youtrack.jetbrains.com/issue/KT-31923)
 > 
@@ -366,7 +366,7 @@
 > - >= 1.4: 動作が変更。
 >  `-XXLanguage:-ProperFinally` を使用して、一時的に 1.4 以前の動作に戻すことが可能
 
-### 共変およびジェネリック特化されたオーバーライドの戻り値の型として、インラインクラスのボックス化されたバージョンを使用する
+### 共変およびジェネリック特化されたオーバーライドの戻り値の型として、インラインクラスのボックス化されたバージョンを使用する {id="use-the-boxed-version-of-an-inline-class-in-return-type-position-for-covariant-and-generic-specialized-overrides"}
 
 > **課題**: [KT-30419](https://youtrack.jetbrains.com/issue/KT-30419)
 > 
@@ -381,7 +381,7 @@
 > - < 1.4: 旧来の動作（詳細は課題を参照）
 > - >= 1.4: 動作が変更
 
-### Kotlin インターフェースへの委譲を使用する際に、JVM バイトコードでチェック済み例外を宣言しない
+### Kotlin インターフェースへの委譲を使用する際に、JVM バイトコードでチェック済み例外を宣言しない {id="do-not-declare-checked-exceptions-in-jvm-bytecode-when-using-delegation-to-kotlin-interfaces"}
 
 > **課題**: [KT-35834](https://youtrack.jetbrains.com/issue/KT-35834)
 > 
@@ -397,7 +397,7 @@
 > - >= 1.4: 動作が変更。
 >  `-XXLanguage:-DoNotGenerateThrowsForDelegatedKotlinMembers` を使用して、一時的に 1.4 以前の動作に戻すことが可能
 
-### 引数が別の配列にラップされるのを避けるため、単一の可変長引数パラメーターを持つメソッドへのシグネチャポリモーフィックな呼び出しの動作を変更
+### 引数が別の配列にラップされるのを避けるため、単一の可変長引数パラメーターを持つメソッドへのシグネチャポリモーフィックな呼び出しの動作を変更 {id="changed-behavior-of-signature-polymorphic-calls-to-methods-with-a-single-vararg-parameter-to-avoid-wrapping-the-argument-into-another-array"}
 
 > **課題**: [KT-35469](https://youtrack.jetbrains.com/issue/KT-35469)
 > 
@@ -412,7 +412,7 @@
 > - < 1.4: 旧来の動作（詳細は課題を参照）
 > - >= 1.4: 動作が変更
 
-### KClass がジェネリックパラメーターとして使用される際のアノテーション内の誤ったジェネリックシグネチャ
+### KClass がジェネリックパラメーターとして使用される際のアノテーション内の誤ったジェネリックシグネチャ {id="incorrect-generic-signature-in-annotations-when-kclass-is-used-as-a-generic-parameter"}
 
 > **課題**: [KT-35207](https://youtrack.jetbrains.com/issue/KT-35207)
 > 
@@ -427,7 +427,7 @@
 > - < 1.4: 旧来の動作（詳細は課題を参照）
 > - >= 1.4: 動作が変更
 
-### シグネチャポリモーフィックな呼び出しでのスプレッド演算子の禁止
+### シグネチャポリモーフィックな呼び出しでのスプレッド演算子の禁止 {id="forbid-spread-operator-in-signature-polymorphic-calls"}
 
 > **課題**: [KT-35226](https://youtrack.jetbrains.com/issue/KT-35226)
 > 
@@ -443,7 +443,7 @@
 > - >= 1.5: この警告をエラーに格上げ。
 > `-XXLanguage:-ProhibitSpreadOnSignaturePolymorphicCall` を使用して、一時的に 1.4 以前の動作に戻すことが可能
 
-### 末尾再帰最適化された関数のデフォルト値の初期化順序の変更
+### 末尾再帰最適化された関数のデフォルト値の初期化順序の変更 {id="change-initialization-order-of-default-values-for-tail-recursive-optimized-functions"}
 
 > **課題**: [KT-31540](https://youtrack.jetbrains.com/issue/KT-31540)
 > 
@@ -459,7 +459,7 @@
 > - >= 1.4: 動作が変更。
 >  `-XXLanguage:-ProperComputationOrderOfTailrecDefaultParameters` を使用して、一時的に 1.4 以前の動作に戻すことが可能
 
-### 非 const val に対して ConstantValue 属性を生成しない
+### 非 const val に対して ConstantValue 属性を生成しない {id="do-not-generate-constantvalue-attribute-for-non-const-vals"}
 
 > **課題**: [KT-16615](https://youtrack.jetbrains.com/issue/KT-16615)
 > 
@@ -475,7 +475,7 @@
 > - >= 1.4: 動作が変更。
 >  `-XXLanguage:-NoConstantValueAttributeForNonConstVals` を使用して、一時的に 1.4 以前の動作に戻すことが可能
 
-### open メソッド上の @JvmOverloads に対して生成されるオーバーロードを final にする
+### open メソッド上の @JvmOverloads に対して生成されるオーバーロードを final にする {id="generated-overloads-for-jvmoverloads-on-open-methods-should-be-final"}
 
 > **課題**: [KT-33240](https://youtrack.jetbrains.com/issue/KT-33240)
 > 
@@ -491,7 +491,7 @@
 > - >= 1.4: 動作が変更。
 >  `-XXLanguage:-GenerateJvmOverloadsAsFinal` を使用して、一時的に 1.4 以前の動作に戻すことが可能
 
-### kotlin.Result を返すラムダが、アンボックス化された値ではなくボックス化された値を返すようになる
+### kotlin.Result を返すラムダが、アンボックス化された値ではなくボックス化された値を返すようになる {id="lambdas-returning-kotlin-result-now-return-boxed-value-instead-of-unboxed"}
 
 > **課題**: [KT-39198](https://youtrack.jetbrains.com/issue/KT-39198)
 > 
@@ -506,7 +506,7 @@
 > - < 1.4: 旧来の動作（詳細は課題を参照）
 > - >= 1.4: 動作が変更
 
-### Null チェックからの例外の統一
+### Null チェックからの例外の統一 {id="unify-exceptions-from-null-checks"}
 
 > **課題**: [KT-22275](https://youtrack.jetbrains.com/issue/KT-22275)
 > 
@@ -522,7 +522,7 @@
 > - >= 1.4: すべての実行時 Null チェックが `java.lang.NullPointerException` をスローするようになります。
 >   `-Xno-unified-null-checks` を使用して、一時的に 1.4 以前の動作に戻すことが可能
 
-### 配列/リスト操作（contains, indexOf, lastIndexOf）における浮動小数点値の比較：IEEE 754 または全順序 (total order)
+### 配列/リスト操作（contains, indexOf, lastIndexOf）における浮動小数点値の比較：IEEE 754 または全順序 (total order) {id="comparing-floating-point-values-in-array-list-operations-contains-indexof-lastindexof-ieee-754-or-total-order"}
 
 > **課題**: [KT-28753](https://youtrack.jetbrains.com/issue/KT-28753)
 > 
@@ -537,7 +537,7 @@
 > - < 1.4: 旧来の動作（詳細は課題を参照）
 > - >= 1.4: 動作が変更
 
-### コレクションの min および max 関数の戻り値を段階的に null 非許容に変更
+### コレクションの min および max 関数の戻り値を段階的に null 非許容に変更 {id="gradually-change-the-return-type-of-collection-min-and-max-functions-to-non-nullable"}
 
 > **課題**: [KT-38854](https://youtrack.jetbrains.com/issue/KT-38854)
 > 
@@ -553,7 +553,7 @@
 > - 1.5.x: 影響を受ける API の非推奨レベルをエラーに格上げ
 > - >= 1.6: 影響を受ける API を null 非許容の戻り値型で再導入
 
-### appendln を非推奨とし、appendLine を推奨
+### appendln を非推奨とし、appendLine を推奨 {id="deprecate-appendln-in-favor-of-appendline"}
 
 > **課題**: [KT-38754](https://youtrack.jetbrains.com/issue/KT-38754)
 > 
@@ -568,7 +568,7 @@
 > - 1.4: `appendln` の代替として `appendLine` 関数を導入し、`appendln` を非推奨化
 > - >= 1.5: 非推奨レベルをエラーに格上げ
 
-### 浮動小数点型から Short および Byte への変換の非推奨化
+### 浮動小数点型から Short および Byte への変換の非推奨化 {id="deprecate-conversions-of-floating-point-types-to-short-and-byte"}
 
 > **課題**: [KT-30360](https://youtrack.jetbrains.com/issue/KT-30360)
 > 
@@ -583,7 +583,7 @@
 > - 1.4: `Double.toShort()/toByte()` および `Float.toShort()/toByte()` を非推奨とし、代替案を提案
 > - >= 1.5: 非推奨レベルをエラーに格上げ
 
-### 無効な startIndex に対して Regex.findAll でフェイルファストする
+### 無効な startIndex に対して Regex.findAll でフェイルファストする {id="fail-fast-in-regex-findall-on-an-invalid-startindex"}
 
 > **課題**: [KT-28356](https://youtrack.jetbrains.com/issue/KT-28356)
 > 
@@ -598,7 +598,7 @@
 > - < 1.4: 旧来の動作（詳細は課題を参照）
 > - >= 1.4: 動作が変更
 
-### 非推奨の kotlin.coroutines.experimental の削除
+### 非推奨の kotlin.coroutines.experimental の削除 {id="remove-deprecated-kotlin-coroutines-experimental"}
 
 > **課題**: [KT-36083](https://youtrack.jetbrains.com/issue/KT-36083)
 > 
@@ -613,7 +613,7 @@
 > - < 1.4: `kotlin.coroutines.experimental` は `ERROR` レベルで非推奨
 > - >= 1.4: `kotlin.coroutines.experimental` が stdlib から削除。JVM では、別途互換性アーティファクトが提供されます（詳細は課題を参照）。
 
-### 非推奨の mod 演算子の削除
+### 非推奨の mod 演算子の削除 {id="remove-deprecated-mod-operator"}
 
 > **課題**: [KT-26654](https://youtrack.jetbrains.com/issue/KT-26654)
 > 
@@ -628,7 +628,7 @@
 > - < 1.4: `mod` は `ERROR` レベルで非推奨
 > - >= 1.4: `mod` が stdlib から削除
 
-### Throwable.addSuppressed メンバーを隠し、代わりに追加された拡張関数を優先する
+### Throwable.addSuppressed メンバーを隠し、代わりに追加された拡張関数を優先する {id="hide-throwable-addsuppressed-member-and-prefer-extension-instead"}
 
 > **課題**: [KT-38777](https://youtrack.jetbrains.com/issue/KT-38777)
 > 
@@ -643,7 +643,7 @@
 > - < 1.4: 旧来の動作（詳細は課題を参照）
 > - >= 1.4: 動作が変更
 
-### capitalize が二重音字 (digraphs) をタイトルケースに変換するように変更
+### capitalize が二重音字 (digraphs) をタイトルケースに変換するように変更 {id="capitalize-should-convert-digraphs-to-title-case"}
 
 > **課題**: [KT-38817](https://youtrack.jetbrains.com/issue/KT-38817)
 > 
@@ -658,9 +658,9 @@
 > - < 1.4: 二重音字は大文字（`Ǆ`）で大文字化される
 > - >= 1.4: 二重音字はタイトルケース（`ǅ`）で大文字化される
 
-## ツール
+## ツール {id="tools"}
 
-### Windows では区切り文字を含むコンパイラ引数をダブルクォートで囲む必要がある
+### Windows では区切り文字を含むコンパイラ引数をダブルクォートで囲む必要がある {id="compiler-arguments-with-delimiter-characters-must-be-passed-in-double-quotes-on-windows"}
 
 > **課題**: [KT-41309](https://youtrack.jetbrains.com/issue/KT-41309)
 > 
@@ -675,7 +675,7 @@
 > - < 1.4: すべてのコンパイラ引数はクォートなしで渡される
 > - >= 1.4: 区切り文字（空白、`=`、`;`、`,`）を含むコンパイラ引数にはダブルクォート（`"`）が必要
 
-### KAPT：プロパティの合成 $annotations() メソッドの名前が変更された
+### KAPT：プロパティの合成 $annotations() メソッドの名前が変更された {id="kapt-names-of-synthetic-annotations-methods-for-properties-have-changed"}
 
 > **課題**: [KT-36926](https://youtrack.jetbrains.com/issue/KT-36926)
 > 

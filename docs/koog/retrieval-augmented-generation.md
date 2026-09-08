@@ -10,14 +10,14 @@ Koog 提供了检索增强生成 (RAG) 的构建块：嵌入文本、存储嵌�
 
 本页重点介绍当前 `rag` 模块中的可用功能以及如何使用它们。
 
-## Koog 当前提供的功能
+## Koog 当前提供的功能 {id="what-koog-provides-today"}
 
 当前的 RAG 支持分为两个模块：
 
 - `rag-base`: 检索、存储、搜索请求、过滤以及文件/文档提供程序的通用抽象
 - `rag-vector`: 将文档嵌入与矢量存储相结合的本地实现
 
-## 使用 EmbeddingStorage 嵌入和检索文档
+## 使用 EmbeddingStorage 嵌入和检索文档 {id="embedding-and-retrieving-documents-with-embeddingstorage"}
 
 最完整的开箱即用 RAG 流程使用了 `rag-vector` 模块中的 `EmbeddingStorage`。它将 `DocumentEmbedder`（将文档转换为矢量）与 `VectorStorageBackend`（持久化矢量）结合在一起。
 
@@ -101,7 +101,7 @@ Koog 提供了检索增强生成 (RAG) 的构建块：嵌入文本、存储嵌�
     ```
     <!--- KNIT example-retrieval-augmented-generation-java-01.java -->
 
-## 将相关性搜索作为智能体工具提供（在智能体 RAG 中）
+## 将相关性搜索作为智能体工具提供（在智能体 RAG 中） {id="providing-relevance-search-as-an-agent-tool-in-agentic-rag"}
 
 与其预先将所有检索到的文档注入到提示词中，您可以将 RAG 存储公开为智能体根据需要调用的工具。这使智能体能够控制何时搜索以及搜索什么内容。
 
@@ -207,20 +207,20 @@ Koog 提供了检索增强生成 (RAG) 的构建块：嵌入文本、存储嵌�
 
 通过这种方法，智能体会根据用户的查询决定何时调用搜索工具。当智能体处理各种各样的请求，且只有其中一部分需要查询知识库时，这种方式非常有用。
 
-## 可用实现
+## 可用实现 {id="available-implementations"}
 
-### 矢量存储后端
+### 矢量存储后端 {id="vector-storage-backends"}
 
 - `InMemoryVectorStorageBackend`: 在内存中存储矢量；适用于测试和原型设计
 - `FileVectorStorageBackend`: 将矢量持久化到磁盘，以便在重启后保持耐用性
 - `JVMFileVectorStorageBackend`: 使用 `java.nio.file.Path` 的 JVM 特定文件型后端
 
-### 文档嵌入器
+### 文档嵌入器 {id="document-embedders"}
 
 - `TextDocumentEmbedder`: 通用的文档到文本嵌入器，由文档和路径类型参数化
 - `JVMTextDocumentEmbedder`: 从 `java.nio.file.Path` 读取文件的 JVM 特定嵌入器
 
-### 组合存储实现
+### 组合存储实现 {id="combined-storage-implementations"}
 
 - `EmbeddingStorage`: 将任何 `DocumentEmbedder` 与任何 `VectorStorageBackend` 组合
 - `InMemoryDocumentEmbeddingStorage`: `EmbeddingStorage` + `InMemoryVectorStorageBackend` 的便捷快捷方式
@@ -229,7 +229,7 @@ Koog 提供了检索增强生成 (RAG) 的构建块：嵌入文本、存储嵌�
 - `TextFileDocumentEmbeddingStorage`: 文本文档的基于文件的存储
 - `JVMFileEmbeddingStorage`: 文本文档的 JVM 基于文件的存储
 
-## 当前限制
+## 当前限制 {id="current-limitations"}
 
 内置流程对于本地和参考实现很有用，但它还不是一个完整的生产级 RAG 平台。
 
@@ -242,7 +242,7 @@ Koog 提供了检索增强生成 (RAG) 的构建块：嵌入文本、存储嵌�
 
 如果您正在构建自定义后端，请从 `rag-base` 抽象开始并实现您自己的存储适配器。
 
-## 选择从哪里开始
+## 选择从哪里开始 {id="choosing-where-to-start"}
 
 在以下情况下使用 `rag-vector`：
 
@@ -256,6 +256,6 @@ Koog 提供了检索增强生成 (RAG) 的构建块：嵌入文本、存储嵌�
 - 您想集成外部矢量数据库
 - 您想在另一个 Koog 模块中重用这些抽象
 
-## 另请参阅
+## 另请参阅 {id="see-also"}
 
 - [嵌入](embeddings.md)

@@ -88,7 +88,7 @@ Ktor 서버용 %plugin_name% 플러그인을 사용하면 값 목록을 직렬�
       }
   ```
 
-## 서비스 접근하기
+## 서비스 접근하기 {id="access-the-service"}
 
 {id="service"}
 
@@ -103,7 +103,7 @@ val dataConversion = application.conversionService
 * `fromValues(values: List<String>, type: TypeInfo)` 콜백 함수는 문자열 목록인 `values`와 변환할 대상인 `TypeInfo`를 인자로 받아 디코딩된 값을 반환합니다.
 * `toValues(value: Any?)` 콜백 함수는 임의의 값을 인자로 받아 이를 나타내는 문자열 목록을 반환합니다.
 
-## 예제
+## 예제 {id="example"}
 
 다음 예제에서는 `LocalDate` 타입에 대한 컨버터가 정의되어 값들을 직렬화 및 역직렬화하도록 설정되었습니다. `encode` 함수가 호출되면 서비스는 `SimpleDateFormat`을 사용하여 값을 변환하고 포맷된 값이 포함된 목록을 반환합니다.
 `decode` 함수가 호출되면 서비스는 날짜를 `LocalDate`로 포맷하여 반환합니다.

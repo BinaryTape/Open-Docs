@@ -9,7 +9,7 @@
 > 
 {style="tip"}
 
-## 프로퍼티 선언하기
+## 프로퍼티 선언하기 {id="declaring-properties"}
 
 프로퍼티는 가변(`var`)이거나 읽기 전용(`val`)일 수 있습니다.
 `.kt` 파일에서 최상위 프로퍼티로 선언할 수 있습니다. 최상위 프로퍼티는 특정 패키지에 속하는 전역 변수라고 생각하면 됩니다.
@@ -111,7 +111,7 @@ var allByDefault    // 오류: 프로퍼티는 반드시 초기화되어야 합�
 ```
 {validate="false"}
 
-## 커스텀 게터와 세터
+## 커스텀 게터와 세터 {id="custom-getters-and-setters"}
 
 기본적으로 코틀린은 게터와 세터를 자동으로 생성합니다. 유효성 검사, 포맷팅 또는 다른 프로퍼티를 기반으로 한 계산과 같이 추가적인 로직이 필요한 경우 자신만의 커스텀 접근자를 정의할 수 있습니다.
 
@@ -162,7 +162,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-custom-setter"}
 
-### 가시성 변경 또는 어노테이션 추가
+### 가시성 변경 또는 어노테이션 추가 {id="changing-visibility-or-adding-annotations"}
 
 코틀린에서는 기본 구현을 대체하지 않고도 접근자의 가시성을 변경하거나 [어노테이션](annotations.md)을 추가할 수 있습니다. 이러한 변경을 위해 본문 `{}`을 만들 필요는 없습니다.
 
@@ -229,7 +229,7 @@ fun main() {
 
 이 예제는 [리플렉션](reflection.md)을 사용하여 게터와 세터에 어떤 어노테이션이 있는지 보여줍니다.
 
-## 보조 필드 (Backing fields)
+## 보조 필드 (Backing fields) {id="backing-fields"}
 
 컴파일러는 메모리에 값을 저장해야 할 때 프로퍼티에 대한 보조 필드(backing field)를 자동으로 생성합니다.
 
@@ -270,7 +270,7 @@ val isEmpty: Boolean
     get() = this.size == 0
 ```
 
-### 명시적 보조 필드 (Explicit backing fields)
+### 명시적 보조 필드 (Explicit backing fields) {id="explicit-backing-fields"}
 
 때로는 더 많은 유연성이 필요할 수 있습니다. 예를 들어, 프로퍼티를 내부적으로는 수정할 수 있지만 외부에서는 수정할 수 없게 하고 싶은 API가 있는 경우입니다. 이러한 경우 _명시적 보조 필드(explicit backing field)_를 사용할 수 있습니다.
 
@@ -317,7 +317,7 @@ val items: List<String>
 
 `ShoppingCart` 클래스의 예제에서 컴파일러는 `items` 프로퍼티를 `MutableList<String>` 타입으로 스마트 캐스트하므로, 클래스는 `add()` 및 `remove()` 함수를 통해 카트에 항목을 추가하거나 제거할 수 있습니다. 클래스 외부에서 컴파일러는 공개 프로퍼티 타입인 `List<String>`을 사용하므로, API 사용자는 `items` 리스트에 담긴 내용만 읽을 수 있습니다.
 
-#### 제한 사항
+#### 제한 사항 {id="limitations"}
 
 명시적 보조 필드를 사용하려면 해당 프로퍼티와 보조 필드 자체가 특정 규칙을 따라야 합니다. 프로퍼티는 다음과 같은 경우에만 명시적 보조 필드를 가질 수 있습니다.
 
@@ -331,7 +331,7 @@ val items: List<String>
 
 이러한 제한 사항을 피하려면 대신 보조 프로퍼티를 사용할 수 있습니다.
 
-### 보조 프로퍼티 (Backing properties)
+### 보조 프로퍼티 (Backing properties) {id="backing-properties"}
 
 명시적 보조 필드가 사용 사례에 맞지 않는 경우, _보조 프로퍼티(backing property)_라고 불리는 코딩 패턴을 사용할 수 있습니다.
 
@@ -369,7 +369,7 @@ fun main() {
 
 이 예제에서 `UserDirectory` 클래스는 디렉터리의 모든 사용자를 나열하는 읽기 전용 `users` 프로퍼티를 가집니다. `_users` 변수는 실제 리스트를 포함하는 비공개(private) 보조 프로퍼티입니다. 공개 `users` 프로퍼티의 게터는 항목을 반환하기 전에 정렬합니다.
 
-## 컴파일 시간 상수
+## 컴파일 시간 상수 {id="compile-time-constants"}
 
 읽기 전용 프로퍼티의 값을 컴파일 시간에 알 수 있다면, `const` 수정자를 사용하여 _컴파일 시간 상수(compile-time constant)_로 표시하세요. 컴파일 시간 상수는 컴파일 시점에 인라인(inline)화되므로, 각 참조가 실제 값으로 대체됩니다. 게터가 호출되지 않기 때문에 더 효율적으로 액세스할 수 있습니다.
 
@@ -397,7 +397,7 @@ const val SUBSYSTEM_DEPRECATED: String = "이 서브시스템은 사용 중단�
 @Deprecated(SUBSYSTEM_DEPRECATED) fun processLegacyOrders() { ... }
 ```
 
-## 지연 초기화 프로퍼티 및 변수
+## 지연 초기화 프로퍼티 및 변수 {id="late-initialized-properties-and-variables"}
 
 일반적으로 프로퍼티는 생성자에서 초기화해야 합니다. 하지만 이것이 항상 편리한 것은 아닙니다. 예를 들어, 의존성 주입을 통해 프로퍼티를 초기화하거나 유닛 테스트의 설정 메서드 내에서 초기화할 수도 있습니다.
 
@@ -481,11 +481,11 @@ fun main() {
 
 코드에서 해당 프로퍼티에 이미 액세스할 수 있는 경우에만 `isInitialized`를 사용할 수 있습니다. 프로퍼티는 동일한 클래스, 외부 클래스에 선언되어 있거나 동일한 파일의 최상위 프로퍼티로 선언되어 있어야 합니다.
 
-## 프로퍼티 오버라이딩
+## 프로퍼티 오버라이딩 {id="overriding-properties"}
 
 [프로퍼티 오버라이딩](inheritance.md#overriding-properties)을 참조하세요.
 
-## 위임 프로퍼티 (Delegated properties)
+## 위임 프로퍼티 (Delegated properties) {id="delegated-properties"}
 
 로직을 재사용하고 코드 중복을 줄이기 위해, 프로퍼티의 게터와 세터 책임을 별개의 객체에 위임할 수 있습니다.
 

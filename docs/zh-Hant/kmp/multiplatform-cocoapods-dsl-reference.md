@@ -13,7 +13,7 @@ Kotlin CocoaPods Gradle 外掛程式是用於建立 Podspec 檔案的工具。�
 
 本 DSL 參考列出了 Kotlin CocoaPods Gradle 外掛程式的主要區塊、函式和屬性，供您在設定 CocoaPods 整合時使用。
 
-## 啟用外掛程式
+## 啟用外掛程式 {id="enable-the-plugin"}
 
 若要套用 CocoaPods 外掛程式，請將以下幾行增加到 `build.gradle(.kts)` 檔案中：
 
@@ -26,7 +26,7 @@ plugins {
 
 外掛程式版本與 [Kotlin 發佈版本](https://kotlinlang.org/docs/releases.html)一致。最新的穩定版本為 %kotlinVersion%。
 
-## `cocoapods {}` 區塊
+## `cocoapods {}` 區塊 {id="cocoapods-block"}
 
 `cocoapods {}` 區塊是 CocoaPods 配置的頂層區塊。它包含有關 Pod 的一般資訊，包括必要的資訊（如 Pod 版本、摘要和首頁）以及選用功能。
 
@@ -51,7 +51,7 @@ plugins {
 | `pod()`                               | 將 CocoaPods 相依性增加到從此專案建置的 Pod。                                                                                                                                                                                  |
 | `specRepos`                           | 使用 `url()` 增加規格存儲庫。當使用私有 Pod 作為相依性時，這是必需的。如需更多資訊，請參閱 [CocoaPods 文件](https://guides.cocoapods.org/making/private-cocoapods.html)。 |
 
-### 目標
+### 目標 {id="targets"}
 
 | iOS                 | macOS        | tvOS                 | watchOS                 |
 |---------------------|--------------|----------------------|-------------------------|
@@ -89,7 +89,7 @@ kotlin {
 }
 ```
 
-### `framework {}` 區塊
+### `framework {}` 區塊 {id="framework-block"}
 
 `framework {}` 區塊巢狀於 `cocoapods` 內部，用於配置從專案建置的 Pod 的架構屬性。
 
@@ -117,7 +117,7 @@ kotlin {
 }
 ```
 
-## `pod()` 函式
+## `pod()` 函式 {id="pod-function"}
 
 `pod()` 函式呼叫會將 CocoaPods 相依性增加到從此專案建置的 Pod 中。每個相依性都需要個別的函式呼叫。
 
@@ -153,7 +153,7 @@ kotlin {
 }
 ```
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * [在 Kotlin Gradle 外掛程式存儲庫中查看 Kotlin DSL 的完整語法](https://github.com/JetBrains/kotlin/blob/master/libraries/tools/kotlin-gradle-plugin/src/common/kotlin/org/jetbrains/kotlin/gradle/targets/native/cocoapods/CocoapodsExtension.kt)
 * [在您的 Kotlin 專案中增加 Pod 程式庫的相依性](multiplatform-cocoapods-libraries.md)

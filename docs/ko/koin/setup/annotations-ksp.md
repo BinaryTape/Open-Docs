@@ -12,7 +12,7 @@ title: KSP 프로세서 설정 (사용 중단됨)
 **사용 중인 어노테이션은 그대로 유지됩니다** — 빌드 설정만 변경됩니다. 아래의 [마이그레이션 가이드](#migration-to-koin-compiler-plugin)를 참조하세요.
 :::
 
-## 왜 마이그레이션해야 하나요?
+## 왜 마이그레이션해야 하나요? {id="why-migrate"}
 
 | 항목 | KSP 프로세서 (`koin-ksp-compiler`) | Koin 컴파일러 플러그인 |
 |--------|-------------------------------------|----------------------|
@@ -22,18 +22,18 @@ title: KSP 프로세서 설정 (사용 중단됨)
 | **향후 지원** | ⚠️ 사용 중단됨 | ✅ 활발히 개발 중 |
 | **사용자 코드** | ⚠️ 생성된 확장 함수 사용 | Kotlin 컴파일러 플러그인 전용 API 사용 |
 
-## KSP 프로세서를 사용하는 경우 (임시)
+## KSP 프로세서를 사용하는 경우 (임시) {id="when-to-use-the-ksp-processor-temporary"}
 
 다음과 같은 경우에만 제한적으로 `koin-ksp-compiler`를 사용하세요:
 - Kotlin 1.x 버전에 머물러 있는 경우 (업그레이드 권장)
 - 마이그레이션 중간 단계라 아직 전환할 수 없는 경우
 - 특정 KSP 요구 사항이 있는 경우
 
-## 현재 KSP 프로세서 설정 (참조용)
+## 현재 KSP 프로세서 설정 (참조용) {id="current-ksp-processor-setup-reference"}
 
 KSP 프로세서를 반드시 사용해야 하는 경우의 설정 방법은 다음과 같습니다:
 
-### Gradle 설정
+### Gradle 설정 {id="gradle-setup"}
 
 ```kotlin
 // build.gradle.kts
@@ -49,7 +49,7 @@ dependencies {
 }
 ```
 
-### 버전 호환성
+### 버전 호환성 {id="version-compatibility"}
 
 | Koin Annotations | KSP 버전 | Kotlin 버전 |
 |------------------|-------------|----------------|
@@ -58,7 +58,7 @@ dependencies {
 | 2.1/2.2 | 2.1/2.2 | 2.1/2.2 |
 | 2.3 | 2.3 | 버전 무관 |
 
-### 기본 사용법
+### 기본 사용법 {id="basic-usage"}
 
 ```kotlin
 @Single
@@ -77,7 +77,7 @@ fun main() {
 }
 ```
 
-### KSP 옵션
+### KSP 옵션 {id="ksp-options"}
 
 ```kotlin
 // build.gradle.kts
@@ -90,7 +90,7 @@ ksp {
 이 KSP 기반 컴파일 타임 체크는 **Koin 컴파일러 플러그인**의 네이티브 컴파일 타임 안정성으로 대체되었습니다. [컴파일 타임 안정성](/docs/reference/koin-compiler/compile-safety) 및 [컴파일러 플러그인 설정](/docs/setup/compiler-plugin)을 참조하세요.
 :::
 
-### KMP 설정 (복잡함)
+### KMP 설정 (복잡함) {id="kmp-setup-complex"}
 
 ```kotlin
 // shared/build.gradle.kts
@@ -116,9 +116,9 @@ dependencies {
 }
 ```
 
-## Koin 컴파일러 플러그인으로 마이그레이션
+## Koin 컴파일러 플러그인으로 마이그레이션 {id="migration-to-koin-compiler-plugin"}
 
-### 1단계: Kotlin 업데이트
+### 1단계: Kotlin 업데이트 {id="step-1-update-kotlin"}
 
 Kotlin 2.3.20+ 버전을 사용 중인지 확인하세요:
 
@@ -129,7 +129,7 @@ plugins {
 }
 ```
 
-### 2단계: KSP 제거
+### 2단계: KSP 제거 {id="step-2-remove-ksp"}
 
 KSP 플러그인 및 의존성을 제거합니다:
 
@@ -144,11 +144,11 @@ dependencies {
 }
 ```
 
-### 3단계: 컴파일러 플러그인 추가
+### 3단계: 컴파일러 플러그인 추가 {id="step-3-add-compiler-plugin"}
 
 자세한 지침은 **[컴파일러 플러그인 설정 가이드](/docs/setup/compiler-plugin)**를 참조하세요.
 
-### 4단계: 기존 코드 유지
+### 4단계: 기존 코드 유지 {id="step-4-keep-your-code"}
 
 **사용 중인 어노테이션은 정확히 그대로 유지됩니다 👍**
 
@@ -168,7 +168,7 @@ class MyViewModel(val service: MyService)
 class AppModule
 ```
 
-### 5단계: Koin 시작 코드 업데이트
+### 5단계: Koin 시작 코드 업데이트 {id="step-5-update-koin-startup"}
 
 컴파일러 플러그인을 사용하면 **생성된 코드가 사용되지 않습니다**. 생성된 확장 함수를 타입 지정(typed) API로 교체하세요:
 
@@ -203,7 +203,7 @@ startKoin<MyApp> {
 
 여기서 `T`는 `@KoinApplication` 어노테이션이 달린 클래스입니다.
 
-### 6단계: 정리
+### 6단계: 정리 {id="step-6-clean-up"}
 
 생성된 파일들을 삭제합니다:
 
@@ -213,7 +213,7 @@ rm -rf build/generated/ksp
 
 프로젝트를 다시 빌드(Rebuild)하세요.
 
-### 그대로 유지되는 항목
+### 그대로 유지되는 항목 {id="what-stays-the-same"}
 
 | 어노테이션 | 상태 |
 |------------|--------|
@@ -229,7 +229,7 @@ rm -rf build/generated/ksp
 | `@ComponentScan` | ✅ 동일 |
 | `@Configuration` | ✅ 동일 |
 
-### 변경되는 항목
+### 변경되는 항목 {id="what-changes"}
 
 | 항목 | KSP 프로세서 | Koin 컴파일러 플러그인 |
 |--------|---------------|----------------------|
@@ -240,20 +240,20 @@ rm -rf build/generated/ksp
 | Koin 시작 방식 | `modules(AppModule().module)` | `startKoin<MyApp>()` |
 | KMP 설정 | 플랫폼별 KSP 설정 | 플러그인 설정만으로 가능 |
 
-## 타임라인
+## 타임라인 {id="timeline"}
 
 :::warning
 `koin-ksp-compiler` 프로세서는 향후 Koin 버전에서 삭제될 예정입니다. 가능한 한 빨리 Koin 컴파일러 플러그인으로 마이그레이션하는 것을 권장합니다. `koin-annotations` 라이브러리와 `@Singleton` / `@Factory` / `@Module` 어노테이션은 사라지지 않으며, 이제 Koin 컴파일러 플러그인에 의해 처리됩니다.
 :::
 
-## 도움말
+## 도움말 {id="help"}
 
 마이그레이션 중 문제에 부딪히면 다음을 확인하세요:
 - [트러블슈팅](/docs/reference/troubleshooting) 확인
 - [Slack](https://kotlinlang.slack.com/messages/koin/)에서 질문하기
 - [GitHub](https://github.com/InsertKoinIO/koin)에 이슈 등록
 
-## 다음 단계
+## 다음 단계 {id="next-steps"}
 
 - **[마이그레이션 가이드](/docs/migration/from-ksp-to-compiler-plugin)** - 컴파일러 플러그인으로의 단계별 마이그레이션
 - **[컴파일러 플러그인 설정](/docs/setup/compiler-plugin)** - 전체 설정 가이드

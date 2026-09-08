@@ -44,7 +44,7 @@ Ktor 中的 WebRTC 用戶端可在多平台專案中實現即時點對點通訊�
     </TabItem>
 </Tabs>
 
-## 建立用戶端
+## 建立用戶端 {id="create-a-client"}
 
 建立 `WebRtcClient` 時，請根據您的目標平台選擇引擎：
 
@@ -90,7 +90,7 @@ val iosClient = WebRtcClient(IosWebRtc) {
 </TabItem>
 </Tabs>
 
-## 建立連線並協商 SDP
+## 建立連線並協商 SDP {id="create-a-connection-and-negotiate-sdp"}
 
 建立 `WebRtcClient` 後，下一步是建立對等連線。
 對等連線是管理兩個用戶端之間即時通訊的核心物件。
@@ -150,11 +150,11 @@ callee.awaitIceGatheringComplete()
 > 
 {style="note"}
 
-## 使用資料通道
+## 使用資料通道 {id="use-a-data-channel"}
 
 WebRTC 支援資料通道，讓對等端可以交換任意訊息。這對於聊天、多人遊戲、協作工具或用戶端之間的任何低延遲訊息傳遞非常有用。
 
-### 建立通道
+### 建立通道 {id="creating-a-channel"}
 
 要在其中一側建立通道，請使用 `.createDataChannel()` 方法：
 
@@ -176,7 +176,7 @@ scope.launch {
 }
 ```
 
-### 傳送與接收訊息
+### 傳送與接收訊息 {id="sending-and-receiving-messages"}
 
 通道使用類似於 `Channel` 的 API，這對 Kotlin 開發人員來說非常熟悉：
 
@@ -188,11 +188,11 @@ scope.launch { channel.send("hello") }
 scope.launch { println("收到： " + channel.receiveText()) }
 ```
 
-## 新增與觀察媒體軌道
+## 新增與觀察媒體軌道 {id="add-and-observe-media-tracks"}
 
 除了資料通道外，WebRTC 還支援音訊和影片的媒體軌道。這讓您可以建立影片通話或螢幕共享等應用程式。
 
-### 建立本地軌道
+### 建立本地軌道 {id="creating-local-tracks"}
 
 您可以向本地裝置（麥克風、相機）請求音訊或影片軌道：
 
@@ -215,7 +215,7 @@ pc.addTrack(video)
 > `WebRtcClient`、`WebRtcPeerConnection`、`WebRtcMedia.Track` 以及其他介面皆為 `AutoCloseable`。請務必在不再需要時呼叫 `close()` 方法以釋放資源。
 {style="note"}
 
-### 接收遠端軌道
+### 接收遠端軌道 {id="receiving-remote-tracks"}
 
 您也可以監聽遠端媒體軌道：
 
@@ -230,7 +230,7 @@ scope.launch {
 }
 ```
 
-## 特定平台的邏輯
+## 特定平台的邏輯 {id="platform-specific-logic"}
 
 此 API 提供了高階抽象，但在某些使用案例下可能需要存取特定平台的 API。您可以使用 `.getNative()` 擴充函式來獲取底層實作。除 iOS 上的 `WebRTC-SDK` CocoaPod 外，特定平台的程式庫均作為傳遞性程式庫公開。
 
@@ -327,7 +327,7 @@ audio.enable(false)
 > 這些程式碼片段可以與 Compose Multiplatform 搭配使用，但未考慮其生命週期。有關完整的整合方式，請參閱 [Ktor Chat](https://github.com/ktorio/ktor-chat) 範例。
 {style="note"}
 
-## 限制
+## 限制 {id="limitations"}
 
 WebRTC 用戶端目前處於實驗階段，並具有以下限制：
 

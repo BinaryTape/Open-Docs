@@ -23,7 +23,7 @@ Podへの依存関係を追加するには、共有モジュールの `build.gra
 >
 {style="note"}
 
-## CocoaPodsリポジトリから
+## CocoaPodsリポジトリから {id="from-the-cocoapods-repository"}
 
 CocoaPodsリポジトリにあるPodライブラリへの依存関係を追加するには：
 
@@ -63,7 +63,7 @@ Kotlinコードからこれらの依存関係を使用するには、パッケ�
 import cocoapods.SDWebImage.*
 ```
 
-## ローカルに保存されているライブラリ
+## ローカルに保存されているライブラリ {id="on-a-locally-stored-library"}
 
 ローカルに保存されているPodライブラリへの依存関係を追加するには：
 
@@ -120,7 +120,7 @@ import cocoapods.subspec_dependency.*
 import cocoapods.SDWebImage.*
 ```
 
-## カスタムGitリポジトリから
+## カスタムGitリポジトリから {id="from-a-custom-git-repository"}
 
 カスタムGitリポジトリにあるPodライブラリへの依存関係を追加するには：
 
@@ -183,7 +183,7 @@ import cocoapods.JSONModel.*
 import cocoapods.CocoaLumberjack.*
 ```
 
-## カスタムPodspecリポジトリから
+## カスタムPodspecリポジトリから {id="from-a-custom-podspec-repository"}
 
 カスタムPodspecリポジトリにあるPodライブラリへの依存関係を追加するには：
 
@@ -225,7 +225,7 @@ Kotlinコードからこれらの依存関係を使用するには、パッケ�
 import cocoapods.example.*
 ```
 
-## カスタムcinteropオプションを使用する場合
+## カスタムcinteropオプションを使用する場合 {id="with-custom-cinterop-options"}
 
 カスタムcinteropオプションを使用してPodライブラリへの依存関係を追加するには：
 
@@ -276,7 +276,7 @@ import FirebaseAuthWrapper.Auth
 import FirebaseAuthWrapper.User
 ```
 
-### @importディレクティブを含むObjective-Cヘッダーのサポート
+### @importディレクティブを含むObjective-Cヘッダーのサポート {id="support-for-objective-c-headers-with-import-directives"}
 
 > この機能は[実験的](supported-platforms.md#general-kotlin-stability-levels)です。
 > いつでも廃止または変更される可能性があります。評価目的でのみ使用してください。
@@ -306,7 +306,7 @@ kotlin {
 }
 ```
 
-### 依存するPod間でKotlin cinteropを共有する
+### 依存するPod間でKotlin cinteropを共有する {id="share-kotlin-cinterop-between-dependent-pods"}
 
 `pod()` 関数を使用して複数のPodへの依存関係を追加する場合、PodのAPI間に依存関係があると問題が発生することがあります。
 
@@ -328,7 +328,7 @@ printImageInfo(loadImage())
 
 このケースでcinterop間の正しい依存関係を設定していない場合、`WebImage` 型が異なるcinteropファイル（結果として異なるパッケージ）から取得されるため、コードは無効になります。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [KotlinプロジェクトとXcodeプロジェクト間の依存関係を設定する](multiplatform-cocoapods-xcode.md)
 * [CocoaPods GradleプラグインDSLリファレンスの全文を見る](multiplatform-cocoapods-dsl-reference.md)

@@ -10,7 +10,7 @@
 
 Kotlin/Native 编译器生成的二进制文件可能包含第三方代码、数据或衍生作品。这意味着如果你分发 Kotlin/Native 编译的最终二进制文件，应始终在二进制分发版中包含必要的 [许可证文件](https://kotlinlang.org/docs/native-binary-licenses.html)。
 
-## 声明二进制文件
+## 声明二进制文件 {id="declare-binaries"}
 
 使用以下工厂方法来声明 `binaries` 集合中的元素。
 
@@ -117,7 +117,7 @@ binaries {
 
 第一个参数设置了名称前缀，这是二进制文件的默认名称。例如，对于 Windows，上述代码会生成 `foo.exe` 和 `bar.exe` 文件。你还可以使用名称前缀在 [构建脚本中访问二进制文件](#access-binaries)。
 
-## 访问二进制文件
+## 访问二进制文件 {id="access-binaries"}
 
 你可以访问二进制文件以对其进行 [配置](multiplatform-dsl-reference.md#native-targets) 或获取其属性（例如，输出文件的路径）。
 
@@ -198,7 +198,7 @@ binaries.findExecutable('foo', DEBUG)
 </TabItem>
 </Tabs>
 
-## 将依赖项导出到二进制文件
+## 将依赖项导出到二进制文件 {id="export-dependencies-to-binaries"}
 
 在构建 Objective-C 框架或原生库（共享或静态）时，你可能不仅需要打包当前项目的类，还需要打包其依赖项的类。使用 `export` 方法指定要导出到二进制文件的依赖项。
 
@@ -308,7 +308,7 @@ binaries {
 </TabItem>
 </Tabs>
 
-## 构建通用框架
+## 构建通用框架 {id="build-universal-frameworks"}
 
 默认情况下，Kotlin/Native 生成的 Objective-C 框架仅支持一个平台。但是，你可以使用 [`lipo` 工具](https://llvm.org/docs/CommandGuide/llvm-lipo.html) 将此类框架合并为单个通用（胖）二进制文件。此操作对于 32 位和 64 位 iOS 框架特别有意义。在这种情况下，你可以在 32 位和 64 位设备上使用生成的通用框架。
 
@@ -381,7 +381,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-## 构建 XCFramework
+## 构建 XCFramework {id="build-xcframeworks"}
 
 所有 Kotlin 多平台项目都可以使用 XCFramework 作为输出，在单个 bundle 中收集所有目标平台和架构的逻辑。与 [通用（胖）框架](#build-universal-frameworks) 不同，在将应用程序发布到 App Store 之前，你不需要删除所有不需要的架构。
 
@@ -454,7 +454,7 @@ undefined
 >
 {style="warning"}
 
-## 自定义 Info.plist 文件
+## 自定义 Info.plist 文件 {id="customize-the-info-plist-file"}
 
 在生成框架时，Kotlin/Native 编译器会生成信息属性列表文件 `Info.plist`。你可以使用相应的二进制选项自定义其属性：
 

@@ -23,17 +23,17 @@
 > 
 {style="note"}
 
-## 示例库
+## 示例库 {id="sample-library"}
 
 在本教程中，您将使用 [fibonacci](https://github.com/Kotlin/multiplatform-library-template/) 库作为示例。您可以参考该仓库的代码来查看发布配置的工作原理。
 
 如果您想复用这些代码，您**必须将所有示例值替换为**特定于您项目的值。
 
-## 准备帐户和凭据
+## 准备帐户和凭据 {id="prepare-accounts-and-credentials"}
 
 要开始发布到 Maven Central，请在 [Maven Central](https://central.sonatype.com/) 门户登录（或创建新帐户）。
 
-### 选择并验证命名空间
+### 选择并验证命名空间 {id="choose-and-verify-a-namespace"}
 
 您需要一个经过验证的命名空间，以便在 Maven Central 上唯一标识您库的构件。
 
@@ -72,7 +72,7 @@ Maven 构件通过其[坐标](https://central.sonatype.org/publish/requirements/
 </TabItem>
 </Tabs>
 
-#### 生成密钥对
+#### 生成密钥对 {id="generate-a-key-pair"}
 
 在向 Maven Central 发布内容之前，您需要使用 [PGP 签名](https://central.sonatype.org/publish/requirements/gpg/)对您的构件进行签名，这允许用户验证构件的来源。
 
@@ -188,7 +188,7 @@ brew install gpg
 </TabItem>
 </Tabs>
 
-#### 上传公钥
+#### 上传公钥 {id="upload-the-public-key"}
 
 您需要[将公钥上传到密钥服务器](https://central.sonatype.org/publish/requirements/gpg/#distributing-your-public-key)，以便它被 Maven Central 接受。有多个可用的密钥服务器，让我们使用 `keyserver.ubuntu.com` 作为默认选择。
 
@@ -233,9 +233,9 @@ gpg --armor --export-secret-keys F175482952A225BFC4A07A715EE6B5F76620B385CE > ke
 </TabItem>
 </Tabs>
 
-## 配置项目
+## 配置项目 {id="configure-the-project"}
 
-### 准备您的库项目
+### 准备您的库项目 {id="prepare-your-library-project"}
 
 如果您是从模板项目开始开发库的，那么现在是更改项目中任何默认名称以匹配您自己库名称的好时机。这包括库模块的名称以及顶级 `build.gradle.kts` 文件中根项目的名称。
 
@@ -249,7 +249,7 @@ android {
 }
 ```
 
-### 设置发布插件
+### 设置发布插件 {id="set-up-the-publishing-plugin"}
 
 本教程使用 [vanniktech/gradle-maven-publish-plugin](https://github.com/vanniktech/gradle-maven-publish-plugin) 来辅助发布到 Maven Central。您可以在此处阅读有关该插件优势的[更多信息](https://vanniktech.github.io/gradle-maven-publish-plugin/#advantages-over-maven-publish)。请参阅[插件文档](https://vanniktech.github.io/gradle-maven-publish-plugin/central/)，详细了解其用法和可用的配置选项。
 
@@ -318,11 +318,11 @@ mavenPublishing {
 * [开发者信息](https://central.sonatype.org/publish/requirements/#developer-information)：列出库的作者。
 * [SCM (源代码管理) 信息](https://central.sonatype.org/publish/requirements/#scm-information)：指定库源代码托管的位置。
 
-### 运行本地检查
+### 运行本地检查 {id="run-local-checks"}
 
 在发布到 Maven Central 之前，最好在本地检查项目配置是否正确。
 
-#### 本地检查签名
+#### 本地检查签名 {id="check-signing-locally"}
 
 通过运行以下命令验证您的密钥是否已正确配置用于签名：
 
@@ -334,7 +334,7 @@ mavenPublishing {
 
 如果任务报告错误，请查看输出以获取有关如何修复错误的详细信息。
 
-#### 本地检查 `pom.xml` 文件
+#### 本地检查 `pom.xml` 文件 {id="check-the-pom-xml-file-locally"}
 
 要将库发布到 Maven Central，`pom.xml` 文件必须符合 Maven Central 的[要求](https://central.sonatype.org/publish/requirements/#required-pom-metadata)。
 
@@ -352,9 +352,9 @@ mavenPublishing {
 
 如果任务报告错误，请查看输出以获取有关如何修复错误的详细信息。
 
-## 使用持续集成发布到 Maven Central
+## 使用持续集成发布到 Maven Central {id="publish-to-maven-central-using-continuous-integration"}
 
-### 生成用户令牌
+### 生成用户令牌 {id="generate-the-user-token"}
 
 您需要一个 Maven 访问令牌，以便 Maven Central 授权您的发布请求。打开 [Setup Token-Based Authentication](https://central.sonatype.com/usertoken) 页面，点击 **Generate User Token** 按钮。
 
@@ -368,7 +368,7 @@ mavenPublishing {
 </server>
 ```
 
-### 向 GitHub 添加机密 (Secrets)
+### 向 GitHub 添加机密 (Secrets) {id="add-secrets-to-github"}
 
 要在 GitHub Action 工作流中使用发布所需的密钥和凭据同时保持其私密性，您需要将这些值存储为机密 (Secrets)。
 
@@ -384,7 +384,7 @@ mavenPublishing {
 
 您将在下一步的 CI 配置中使用这些机密的名称。
 
-### 将 GitHub Actions 工作流添加到项目中
+### 将 GitHub Actions 工作流添加到项目中 {id="add-a-github-actions-workflow-to-your-project"}
 
 您可以设置持续集成来自动构建并发布您的库。我们将以 [GitHub Actions](https://docs.github.com/en/actions) 为例。
 
@@ -433,7 +433,7 @@ jobs:
 
 工作流配置会自动将这些机密传输到环境变量中，使其可供 Gradle 构建过程使用。
 
-### 在 GitHub 上创建版本
+### 在 GitHub 上创建版本 {id="create-a-release-on-github"}
 
 设置好工作流和机密后，您现在可以[创建版本](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository#creating-a-release)，这将触发库的发布。
 
@@ -469,7 +469,7 @@ jobs:
 
 要在验证部署后自动发布构件，请将工作流中的 `publishToMavenCentral` 任务替换为 `publishAndReleaseToMavenCentral`。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * [详细了解设置多平台库发布和要求](multiplatform-publish-lib-setup.md)
 * [将 shield.io 徽章添加到您的 README 中](https://shields.io/badges/maven-central-version)

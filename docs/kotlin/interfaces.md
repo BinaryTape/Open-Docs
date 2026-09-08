@@ -13,7 +13,7 @@ interface MyInterface {
 }
 ```
 
-## 实现接口
+## 实现接口 {id="implementing-interfaces"}
 
 类或对象可以实现一个或多个接口：
 
@@ -25,7 +25,7 @@ class Child : MyInterface {
 }
 ```
 
-## 接口中的属性
+## 接口中的属性 {id="properties-in-interfaces"}
 
 你可以在接口中声明属性。接口中声明的属性要么是抽象的，要么提供访问器的实现。在接口中声明的属性不能有支持字段，因此在接口中声明的访问器不能引用它们：
 
@@ -46,7 +46,7 @@ class Child : MyInterface {
 }
 ```
 
-## 接口继承
+## 接口继承 {id="interfaces-inheritance"}
 
 接口可以派生自其他接口，这意味着它既可以为这些接口的成员提供实现，也可以声明新的函数和属性。很自然地，实现此类接口的类只需定义缺失的实现即可：
 
@@ -70,7 +70,7 @@ data class Employee(
 ) : Person
 ```
 
-## 解决重写冲突
+## 解决重写冲突 {id="resolving-overriding-conflicts"}
 
 当你在超类型列表中声明多个类型时，你可能会继承同一个方法的多个实现：
 
@@ -105,7 +105,7 @@ class D : A, B {
 
 然而，如果你从 *A* 和 *B* 派生出 *D*，你需要实现从多个接口继承的所有方法，并且需要指定 *D* 应该如何实现它们。这条规则既适用于你继承了单个实现的方法 (*bar()*)，也适用于你继承了多个实现的方法 (*foo()*)。
 
-## 为接口函数生成 JVM 默认方法
+## 为接口函数生成 JVM 默认方法 {id="jvm-default-method-generation-for-interface-functions"}
 
 在 JVM 上，接口中声明的函数会被编译为默认方法。你可以使用 `-jvm-default` 编译器选项并通过以下值来控制此行为：
 

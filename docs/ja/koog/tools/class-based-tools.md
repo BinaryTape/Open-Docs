@@ -10,7 +10,7 @@ Kotlinでのこのアプローチでは、パラメータ、メタデータ、�
 !!! note
     このAPIはKotlin向けにマルチプラットフォーム対応しています。Javaのツールは、アノテーションベースの手法で実装され、リフレクションを介して登録されます。これにより、Kotlinでは異なるプラットフォーム間で同じツールを使用でき、Javaでは完全なJVM相互運用性が提供されます。
 
-## ツールの実装
+## ツールの実装 {id="tool-implementation"}
 
 Koogフレームワークは、ツールを実装するための以下のアプローチを提供します。
 
@@ -25,7 +25,7 @@ Javaの場合：
 
 * アノテーションベースのメソッド（`@Tool` および `@LLMDescription`）とリフレクションベースの登録を使用する。JavaからKotlinの `Tool` や `SimpleTool` をサブクラス化することは、`suspend` 関数の制限によりサポートされていないため、これがJava相互運用に推奨されるアプローチです。
 
-### Toolクラス (Kotlin)
+### Toolクラス (Kotlin) {id="tool-class-kotlin"}
 
 [`Tool<Args, Result>`](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool/index.html) 抽象クラスは、Kotlinでツールを作成するためのベースクラスです。
 これにより、特定の引数型（`Args`）を受け取り、さまざまな型（`Result`）の結果を返すツールを作成できます。
@@ -47,7 +47,7 @@ Javaの場合：
 !!! tip
     LLMがツールを正しく理解し使用できるように、ツールには明確な説明と適切に定義されたパラメータ名を付けるようにしてください。Kotlinでは `descriptor` プロパティを、Javaでは `@LLMDescription` アノテーションを使用します。
 
-#### 使用例
+#### 使用例 {id="usage-example"}
 
 以下は、数値の結果を返す `Tool` クラスを使用したカスタムツールの実装例です。
 
@@ -95,7 +95,7 @@ Javaの場合：
 
 詳細については、[APIリファレンス](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool/index.html) を参照してください。
 
-#### ツールからエージェントコンテキストを読み取る
+#### ツールからエージェントコンテキストを読み取る {id="reading-the-agent-context-from-a-tool"}
 
 エージェントの完全な状態（LLMコンテキスト、実行ID、設定、ストレージなど）を必要とするツールは、`Tool<Args, Result>` の代わりに `AgentContextAwareTool<Args, Result>` を継承します。フレームワークは呼び出しを駆動するライブな `AIAgentContext` を注入し、ツールはそれを引数スキーマから読み取るのではなく、型指定されたパラメータとして受け取ります。
 
@@ -135,7 +135,7 @@ Javaの場合：
 
 `AgentContextAwareTool` は、フレームワークがツールの代わりに管理する呼び出しごとの `ToolCallMetadata` サイドチャネルを介して、フレームワークによってディスパッチされます。エージェントの実行以外でこのようなツールを呼び出すと、`AIAgentContext` が注入されないため `IllegalStateException` がスローされます。本番コードは常に `ContextualAgentEnvironment` を経由する必要があり、ユニットテストでは `ToolCallMetadata.of(AgentContextAwareTool.AgentContextKey to context)` を介してコンテキストを明示的に指定できます。
 
-#### 呼び出しごとの生メタデータを読み取る
+#### 呼び出しごとの生メタデータを読み取る {id="reading-raw-per-call-metadata"}
 
 少数のツールでは、エージェントコンテキスト *ではない*、呼び出し元または機能によって提供されたエントリを読み取る必要がある場合があります（例えば、オブザーバビリティ機能によって提供された分散トレーシングのスパンIDなど）。これらのツールは `ToolBase<Args, Result>` を直接継承し、完全な `ToolCallMetadata` バッグを公開します。
 
@@ -176,7 +176,7 @@ Javaの場合：
 
 `Tool<Args, Result>` を継承して `execute(args)` をオーバーライドしている既存のツールは、変更なしで引き続き機能します。フレームワークはそれらを同じパスでディスパッチし、`ToolCallMetadata` を破棄します。メタデータをオプトインするには、`AgentContextAwareTool`（型指定されたコンテキストアクセス）または `ToolBase`（生のバッグアクセス）に切り替えてください。
 
-### SimpleToolクラス (Kotlin)
+### SimpleToolクラス (Kotlin) {id="simpletool-class-kotlin"}
 
 [`SimpleTool<Args>`](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-simple-tool/index.html) 抽象クラスは `Tool<Args, ToolResult.Text>` を継承しており、テキストの結果を返すツールの作成を簡素化します。
 
@@ -236,11 +236,11 @@ Javaの場合：
     ```
     <!--- KNIT example-class-based-tools-02.kt -->
 
-### アノテーションベースのメソッド (Java)
+### アノテーションベースのメソッド (Java) {id="annotation-based-methods-java"}
 
 Javaでツールを実装する場合、`Tool` や `SimpleTool` をサブクラス化する代わりに、`@Tool` および `@LLMDescription` を使用したアノテーションベースのメソッドを使用します。Koogはリフレクションを通じてシリアライズと登録を自動的に処理します。実装の詳細については、以下のJavaの例を参照してください。
 
-#### 使用例
+#### 使用例 {id="usage-examples"}
 
 これは、Kotlinの `Tool` クラスを使用する場合と同等の、Javaでのツール実装の例です。
 
@@ -320,7 +320,7 @@ Javaでツールを実装する場合、`Tool` や `SimpleTool` をサブクラ�
     ```
     <!--- KNIT example-class-based-tools-java-02.java -->
 
-### カスタムフォーマットでのLLMへのツール結果の送信
+### カスタムフォーマットでのLLMへのツール結果の送信 {id="sending-tool-result-to-llm-in-custom-format"}
 
 Kotlinの場合：
 
@@ -333,7 +333,7 @@ Javaの場合：
 
 アノテーションを付けたメソッドから、フォーマットされたテキスト（Markdownなど）を `String` として直接返します。フレームワークがこれを自動的に処理します。
 
-#### 例
+#### 例 {id="example"}
 
 以下は、KotlinとJavaの両方でカスタムフォーマットされた出力を示す例です。
 

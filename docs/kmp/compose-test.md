@@ -7,17 +7,17 @@ Compose Multiplatform 中的 UI 测试使用与 Jetpack Compose 测试 API 相�
 >
 {style="warning"}
 
-## Compose Multiplatform 测试与 Jetpack Compose 的区别
+## Compose Multiplatform 测试与 Jetpack Compose 的区别 {id="how-compose-multiplatform-testing-is-different-from-jetpack-compose"}
 
 Compose Multiplatform 公共测试 API 不依赖于 JUnit 的 `TestRule` 类。相反，您需要调用 `runComposeUiTest` 函数，并在 `ComposeUiTest` 接收者上调用测试函数。
 
 不过，基于 JUnit 的 API 可用于[桌面目标](compose-desktop-ui-testing.md)。
 
-## 使用 Compose Multiplatform 编写和运行测试
+## 使用 Compose Multiplatform 编写和运行测试 {id="writing-and-running-tests-with-compose-multiplatform"}
 
 首先，将测试源集和必要的依赖项添加到模块中。然后，编写并运行示例测试，并尝试对其进行自定义。
 
-### 创建测试源集并将测试库添加到依赖项
+### 创建测试源集并将测试库添加到依赖项 {id="create-the-test-source-set-and-add-the-testing-library-to-dependencies"}
 
 为了提供具体的示例，本页面的说明遵循 [Kotlin Multiplatform 向导](https://kmp.jetbrains.com/) 生成的项目结构。如果您要在现有项目中添加测试，可能需要将路径和命令中的 `shared` 替换为您正在测试的模块名称。
 
@@ -102,7 +102,7 @@ kotlin {
 
 现在，您已经准备好为 Compose Multiplatform UI 编写并运行公共测试了。
 
-### 编写并运行公共测试
+### 编写并运行公共测试 {id="write-and-run-common-tests"}
 
 在 `shared/src/commonTest/kotlin/<package>` 目录中，创建一个名为 `ExampleTest.kt` 的文件，并将以下代码复制到其中：
 
@@ -199,7 +199,7 @@ class ExampleTest {
 </TabItem>
 </Tabs>
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 现在您已经掌握了 Compose Multiplatform UI 测试，您可能还想查看更多与测试相关的资源：
 * 有关 Kotlin Multiplatform 项目中测试的总体概述，请参阅[了解基本项目结构](multiplatform-discover-project.md#integration-with-tests)和[测试多平台应用](multiplatform-run-tests.md)教程。

@@ -6,9 +6,9 @@ title: 测试
 
 测试使用 Koin 进行依赖注入的 Ktor 应用程序的最佳实践。
 
-## 测试配置
+## 测试配置 {id="test-configuration"}
 
-### 基础测试设置
+### 基础测试设置 {id="basic-test-setup"}
 
 ```kotlin
 class UserServiceTest : KoinTest {
@@ -33,7 +33,7 @@ val testModule = module {
 }
 ```
 
-## 使用 Ktor testApplication 进行测试
+## 使用 Ktor testApplication 进行测试 {id="testing-with-ktor-testapplication"}
 
 ```kotlin
 class ApplicationTest {
@@ -54,7 +54,7 @@ class ApplicationTest {
 }
 ```
 
-## 为测试使用隔离上下文
+## 为测试使用隔离上下文 {id="using-isolated-context-for-tests"}
 
 每个测试都会获得其自己的隔离 Koin 实例：
 
@@ -76,7 +76,7 @@ class UserRoutesTest {
 }
 ```
 
-### 并行测试执行
+### 并行测试执行 {id="parallel-test-execution"}
 
 使用隔离上下文，测试可以并行运行而不会相互干扰：
 
@@ -104,7 +104,7 @@ class ParallelTests {
 }
 ```
 
-## 模块验证
+## 模块验证 {id="module-verification"}
 
 在编译时使用注解或在测试时验证模块：
 
@@ -117,7 +117,7 @@ class ModuleVerificationTest : KoinTest {
 }
 ```
 
-### 使用额外类型
+### 使用额外类型 {id="with-extra-types"}
 
 ```kotlin
 @Test
@@ -131,9 +131,9 @@ fun `verify modules with extra types`() {
 }
 ```
 
-## 模拟依赖项
+## 模拟依赖项 {id="mocking-dependencies"}
 
-### 使用测试模块
+### 使用测试模块 {id="using-test-modules"}
 
 ```kotlin
 val productionModule = module {
@@ -147,7 +147,7 @@ val testModule = module {
 }
 ```
 
-### 使用 Mockk
+### 使用 Mockk {id="using-mockk"}
 
 ```kotlin
 class UserServiceTest : KoinTest {
@@ -175,7 +175,7 @@ class UserServiceTest : KoinTest {
 }
 ```
 
-## 测试请求作用域
+## 测试请求作用域 {id="testing-request-scopes"}
 
 ```kotlin
 class RequestScopeTest {
@@ -207,7 +207,7 @@ class RequestScopeTest {
 }
 ```
 
-## 使用 DI 桥接进行测试
+## 使用 DI 桥接进行测试 {id="testing-with-di-bridge"}
 
 ```kotlin
 class BridgeTest {
@@ -235,7 +235,7 @@ class BridgeTest {
 }
 ```
 
-## 完整测试示例
+## 完整测试示例 {id="complete-test-example"}
 
 ```kotlin
 class UserApiTest : KoinTest {
@@ -305,7 +305,7 @@ val testModule = module {
 }
 ```
 
-## 最佳实践
+## 最佳实践 {id="best-practices"}
 
 1. **使用隔离上下文** - 防止测试干扰。
 2. **创建测试模块** - 使用模拟对象覆盖生产依赖项。
@@ -313,7 +313,7 @@ val testModule = module {
 4. **清理** - 使用全局上下文的测试应在之后停止 Koin。
 5. **并行安全** - 使用 `KoinIsolated` 进行并行测试执行。
 
-## 另请参阅
+## 另请参阅 {id="see-also"}
 
 - **[Ktor 版 Koin](/docs/reference/koin-ktor/ktor)** - Ktor 主文档
 - **[隔离上下文](/docs/reference/koin-ktor/ktor-isolated)** - 隔离的 Koin 实例

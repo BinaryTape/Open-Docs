@@ -8,7 +8,7 @@
 
 예-아니오 질문에 답하는 함수나 `while`, `if`, `when` 조건문에서 `Boolean` 값을 사용하세요.
 
-## `Boolean` 변수 선언
+## `Boolean` 변수 선언 {id="declare-a-boolean-variable"}
 
 `Boolean` 변수를 선언하려면 `true` 또는 `false`를 할당하세요.
 
@@ -30,7 +30,7 @@ val isEnabled: Boolean? = null
 >
 {style="note"}
 
-## `Boolean` 값 생성
+## `Boolean` 값 생성 {id="produce-boolean-values"}
 
 비교 식이나 함수를 사용하여 `Boolean` 값을 생성할 수 있습니다:
 
@@ -65,12 +65,12 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## `Boolean` 연산
+## `Boolean` 연산 {id="boolean-operations"}
 
 Kotlin은 `Boolean` 값을 다루기 위한 연산자와 중위(infix) 함수를 제공합니다.
 이를 사용해 `Boolean` 값을 반전시키거나 여러 `Boolean` 값을 하나의 결과로 결합할 수 있습니다.
 
-### 부정 (NOT)
+### 부정 (NOT) {id="negation-not"}
 
 NOT 연산자는 `Boolean` 값을 반전시킵니다.
 
@@ -81,7 +81,7 @@ val isOn = true
 val isOff = !isOn // isOff는 false
 ```
 
-### 논리곱 (AND)
+### 논리곱 (AND) {id="logical-and"}
 
 AND 연산자는 두 피연산자가 모두 `true`인 경우에만 `true`를 반환합니다.
 
@@ -99,7 +99,7 @@ val d = true && true  // true
 >
 {style="note"}
 
-### 논리합 (OR)
+### 논리합 (OR) {id="logical-or"}
 
 OR 연산자는 피연산자 중 하나 이상이 `true`이면 `true`를 반환합니다.
 
@@ -117,7 +117,7 @@ val d = true || true   // true
 >
 {style="note"}
 
-### 배타적 논리합 (XOR)
+### 배타적 논리합 (XOR) {id="exclusive-or-xor"}
 
 배타적 논리합(XOR) 연산은 피연산자의 값이 서로 다를 때 `true`를 반환합니다.
 
@@ -136,7 +136,7 @@ val d = true xor true   // false
 >
 {style="note"}
 
-## 연산자 우선순위
+## 연산자 우선순위 {id="operator-precedence"}
 
 식에 여러 논리 연산이 포함되어 있고 평가 순서를 지정하는 괄호가 없는 경우,
 Kotlin은 우선순위 규칙을 적용합니다. 우선순위가 높은 연산이
@@ -173,12 +173,12 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" validate="false"}
 
-## 조건문의 `Boolean`
+## 조건문의 `Boolean` {id="boolean-in-conditions"}
 
 [`if`](control-flow.md#if-expression), [`when`](control-flow.md#when-expressions-and-statements),
 그리고 [`while`](control-flow.md#while-loops)은 `Boolean` 식을 평가하여 프로그램의 흐름을 제어합니다.
 
-### `if` 식
+### `if` 식 {id="if-expressions"}
 
 ```kotlin
 fun main() {
@@ -198,7 +198,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### `when` 식
+### `when` 식 {id="when-expressions"}
 
 ```kotlin
 fun main() {
@@ -215,7 +215,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### `while` 루프
+### `while` 루프 {id="while-loops"}
 
 ```kotlin
 fun main() {

@@ -4,7 +4,7 @@
 
 이 장에서는 객체 선언(object declarations)을 살펴보며 클래스에 대한 이해를 넓혀보겠습니다. 이 지식은 프로젝트 전반에서 동작을 효율적으로 관리하는 데 도움이 될 것입니다.
 
-## 객체 선언
+## 객체 선언 {id="object-declarations"}
 
 Kotlin에서는 **객체 선언**을 사용하여 단일 인스턴스만 갖는 클래스를 선언할 수 있습니다. 어떤 의미에서는 클래스를 선언함과 동시에 단일 인스턴스를 _동시에_ 생성하는 것입니다. 객체 선언은 프로그램의 단일 참조 지점으로 사용하거나 시스템 전체의 동작을 조정하기 위한 클래스를 만들 때 유용합니다.
 
@@ -61,7 +61,7 @@ fun main(){
 >
 {style="note"}
 
-#### 데이터 객체
+#### 데이터 객체 {id="data-objects"}
 
 객체 선언의 내용을 더 쉽게 출력할 수 있도록 Kotlin에는 **데이터 객체(data objects)**가 있습니다. 입문 과정에서 배운 데이터 클래스와 마찬가지로, 데이터 객체에는 자동으로 `toString()` 및 `equals()`와 같은 추가 멤버 함수가 포함됩니다.
 
@@ -95,7 +95,7 @@ fun main() {
 
 데이터 객체에 대한 자세한 정보는 [](object-declarations.md#data-objects)를 참조하세요.
 
-#### 컴패니언 객체
+#### 컴패니언 객체 {id="companion-objects"}
 
 Kotlin에서 클래스는 **컴패니언(companion)** 객체를 가질 수 있습니다. 클래스당 단 **하나**의 컴패니언 객체만 가질 수 있습니다. 컴패니언 객체는 해당 클래스가 처음 참조될 때 생성됩니다.
 
@@ -136,7 +136,7 @@ fun main() {
 
 자세한 정보는 [](object-declarations.md#companion-objects)를 참조하세요.
 
-## 연습 문제 {completion-point="true"}
+## 연습 문제 {completion-point="true" id="practice"}
 
 ### 연습 문제 1 {initial-collapse-state="collapsed" collapsible="true" id="objects-exercise-1"}
 

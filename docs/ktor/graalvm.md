@@ -17,19 +17,19 @@ Ktor 服务器应用程序可以利用 [GraalVM](https://graalvm.org) 为不同�
 
 目前，想要利用 GraalVM 的 Ktor 服务器应用程序必须使用 CIO 作为 [应用程序引擎](server-engines.md)。
 
-## 为 GraalVM 做准备
+## 为 GraalVM 做准备 {id="prepare-for-graalvm"}
 
 除了安装 GraalVM 并将安装目录添加到系统路径之外，你还需要准备好你的应用程序，以便捆绑所有依赖项，即你需要创建一个 fat jar。
 
-### 反射配置
+### 反射配置 {id="reflection-configuration"}
 
 对于使用反射的应用程序，GraalVM 有 [一些要求](https://www.graalvm.org/22.1/reference-manual/native-image/Reflection/)，而 Ktor 正是这种情况。它要求你为其提供一个包含特定类型信息的 [JSON 文件](https://github.com/ktorio/ktor-samples/blob/main/graalvm/src/main/resources/META-INF/native-image/reflect-config.json)。然后将此配置文件作为参数传递给 `native-image` 工具。
 
-## 执行 `native-image` 工具
+## 执行 `native-image` 工具 {id="execute-the-native-image-tool"}
 
 一旦 fat jar 准备就绪，唯一需要的步骤就是使用 `native-image` 命令行工具创建原生镜像。这也可以通过 [Gradle 插件](https://graalvm.github.io/native-build-tools/0.9.8/gradle-plugin.html) 来完成。你可以在[此处](https://github.com/ktorio/ktor-samples/blob/main/graalvm/build.gradle.kts)查看 `build.gradle.kts` 文件的示例。但是，请注意，某些选项可能会根据所使用的依赖项、项目的软件包名称等而有所不同。
 
-## 运行生成的二进制文件
+## 运行生成的二进制文件 {id="run-the-resulting-binary"}
 
 如果 shell 脚本执行时没有任何错误，你应该会得到一个原生应用程序，在本示例中名为 `graal-server`。执行它将启动 Ktor 服务器，响应地址为 `https://0.0.0.0:8080`。
 

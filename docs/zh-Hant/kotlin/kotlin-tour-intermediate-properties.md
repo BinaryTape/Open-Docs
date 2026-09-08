@@ -4,7 +4,7 @@
 
 在初學者導覽中，您學習了如何使用屬性來宣告類別執行個體的特性，以及如何存取它們。本章節將深入探討 Kotlin 中屬性的運作方式，並探索您可以在程式碼中使用的其他方式。
 
-## 支援欄位 (Backing fields)
+## 支援欄位 (Backing fields) {id="backing-fields"}
 
 在 Kotlin 中，屬性具有預設的 `get()` 和 `set()` 函式（稱為屬性存取子），用於處理值的檢索和修改。雖然這些預設函式在程式碼中不明顯可見，但編譯器會自動產生它們，以便在後台管理屬性存取。這些存取子使用 **支援欄位** 來儲存實際的屬性值。
 
@@ -94,7 +94,7 @@ fun main() {
 
 欲了解更多資訊，請參閱 [支援欄位](properties.md#backing-fields)。
 
-## 擴充屬性 (Extension properties)
+## 擴充屬性 (Extension properties) {id="extension-properties"}
 
 就像擴充函式一樣，也存在擴充屬性。擴充屬性允許您在不修改原始碼的情況下，向現有類別新增屬性。然而，Kotlin 中的擴充屬性 **不** 具有支援欄位。這意味著您需要自行撰寫 `get()` 和 `set()` 函式。此外，由於缺乏支援欄位，這意味著它們無法持有任何狀態。
 
@@ -139,7 +139,7 @@ fun main() {
 
 就像擴充函式一樣，Kotlin 標準函式庫廣泛使用了擴充屬性。例如，請參閱 `CharSequence` 的 [`lastIndex` 屬性](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/last-index.html)。
 
-## 委派屬性 (Delegated properties)
+## 委派屬性 (Delegated properties) {id="delegated-properties"}
 
 您已經在[類別與介面](kotlin-tour-intermediate-classes-interfaces.md#delegation)章節中了解過委派。您也可以對屬性使用委派，將其屬性存取子委派給另一個物件。當您對儲存屬性有更複雜的需求，而簡單的支援欄位無法處理時（例如將值儲存在資料庫資料表、瀏覽器工作階段或 Map 中），這非常有用。使用委派屬性還能減少樣板程式碼，因為獲取和設定屬性的邏輯僅包含在您委派給的物件中。
 
@@ -248,11 +248,11 @@ fun main() {
 
 請注意，在 `getValue()` 函式中，`thisRef` 參數的型別從 `Any?` 型別縮小為物件型別：`User`。這是為了讓編譯器可以存取 `User` 類別的 `firstName` 和 `lastName` 屬性。
 
-### 標準委派
+### 標準委派 {id="standard-delegates"}
 
 Kotlin 標準函式庫提供了一些有用的委派，因此您不一定總是需要從頭開始建立自己的委派。如果您使用這些委派之一，則不需要定義 `getValue()` 和 `setValue()` 函式，因為標準函式庫會自動提供它們。
 
-#### 延遲載入屬性 (Lazy properties)
+#### 延遲載入屬性 (Lazy properties) {id="lazy-properties"}
 
 要僅在屬性首次被存取時才初始化它，請使用延遲載入屬性。標準函式庫提供了 `Lazy` 介面用於委派。
 
@@ -314,7 +314,7 @@ fun main() {
 
 欲了解更多資訊，請參閱 [延遲載入屬性](delegated-properties.md#lazy-properties)。
 
-#### 可觀察屬性 (Observable properties)
+#### 可觀察屬性 (Observable properties) {id="observable-properties"}
 
 要監控屬性值是否發生變化，請使用可觀察屬性。當您想要偵測屬性值的變更並利用此資訊來觸發反應時，可觀察屬性非常有用。標準函式庫提供了 `Delegates` 物件用於委派。
 
@@ -365,7 +365,7 @@ fun main() {
 
 欲了解更多資訊，請參閱 [可觀察屬性](delegated-properties.md#observable-properties)。
 
-## 練習 {completion-point="true"}
+## 練習 {completion-point="true" id="practice"}
 
 ### 練習 1 {initial-collapse-state="collapsed" collapsible="true" id="properties-exercise-1"}
 

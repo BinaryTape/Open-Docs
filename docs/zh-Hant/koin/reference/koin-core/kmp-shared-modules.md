@@ -10,7 +10,7 @@ title: 共享模式
 對於基本 KMP 設定，請參閱 [KMP Setup](/docs/reference/koin-core/kmp-setup)。對於定義類型，請參閱 [Definitions](/docs/reference/koin-core/definitions)。
 :::
 
-## 共用模組模式 (The Shared Module Pattern)
+## 共用模組模式 (The Shared Module Pattern) {id="the-shared-module-pattern"}
 
 建立一個可由各個平台擴充的通用初始化函式：
 
@@ -29,11 +29,11 @@ fun initKoin(config: KoinAppDeclaration? = null): KoinApplication {
 }
 ```
 
-## 模組組織
+## 模組組織 {id="module-organization"}
 
 範例使用編譯器外掛程式 DSL。你也可以使用註解或經典 DSL。
 
-### 依層級 (By Layer)
+### 依層級 (By Layer) {id="by-layer"}
 
 ```kotlin
 // commonMain/kotlin/di/modules/
@@ -58,7 +58,7 @@ val sharedModule = module {
 }
 ```
 
-### 依功能 (By Feature)
+### 依功能 (By Feature) {id="by-feature"}
 
 ```kotlin
 // 使用者功能
@@ -83,11 +83,11 @@ val orderModule = module {
 }
 ```
 
-## 平台擴充
+## 平台擴充 {id="platform-extensions"}
 
 當需要自訂建構邏輯時，平台模組會使用帶有 Lambda 的經典 DSL。
 
-### Android 擴充
+### Android 擴充 {id="android-extension"}
 
 ```kotlin
 // androidMain/kotlin/di/KoinAndroid.kt
@@ -106,7 +106,7 @@ val androidModule = module {
 }
 ```
 
-### iOS 擴充
+### iOS 擴充 {id="ios-extension"}
 
 ```kotlin
 // iosMain/kotlin/di/KoinIos.kt
@@ -123,7 +123,7 @@ val iosModule = module {
 }
 ```
 
-### Desktop 擴充
+### Desktop 擴充 {id="desktop-extension"}
 
 ```kotlin
 // desktopMain/kotlin/di/KoinDesktop.kt
@@ -140,16 +140,16 @@ val desktopModule = module {
 }
 ```
 
-## Expect/Actual 模組模式
+## Expect/Actual 模組模式 {id="expect-actual-module-pattern"}
 
-### 通用宣告
+### 通用宣告 {id="common-definition"}
 
 ```kotlin
 // commonMain/kotlin/di/PlatformModule.kt
 expect val platformModule: Module
 ```
 
-### 平台實作
+### 平台實作 {id="platform-implementations"}
 
 ```kotlin
 // androidMain
@@ -174,11 +174,11 @@ actual val platformModule = module {
 }
 ```
 
-## Compose Multiplatform
+## Compose Multiplatform {id="compose-multiplatform"}
 
 關於多平台 ViewModel，請參閱 [ViewModel](/docs/reference/koin-core/viewmodel)。
 
-### 共享 ViewModel
+### 共享 ViewModel {id="shared-viewmodel"}
 
 ```kotlin
 // commonMain
@@ -197,7 +197,7 @@ class UserViewModel(
 }
 ```
 
-### 共享 UI
+### 共享 UI {id="shared-ui"}
 
 ```kotlin
 // commonMain
@@ -215,11 +215,11 @@ fun UserScreen(
 }
 ```
 
-## 測試
+## 測試 {id="testing"}
 
 關於 KMP 測試模式，請參閱 [Testing](/docs/reference/koin-test/testing)。
 
-## 最佳實務
+## 最佳實務 {id="best-practices"}
 
 1. **單一初始化函式** - 在 commonMain 中僅使用一個 `initKoin()`。
 2. **透過設定進行平台擴充** - 使用 `includes(config)` 模式。
@@ -228,7 +228,7 @@ fun UserScreen(
 5. **針對工廠使用 expect/actual** - 處理平台特定的執行個體建立。
 6. **在 commonTest 中測試** - 大多數測試都可以共享。
 
-## 後續步驟
+## 後續步驟 {id="next-steps"}
 
 - **[KMP Setup](/docs/reference/koin-core/kmp-setup)** - 基本 KMP 組態
 - **[ViewModel](/docs/reference/koin-core/viewmodel)** - 多平台 ViewModel

@@ -13,7 +13,7 @@ Gradle 是一款建構系統，可協助自動化與管理您的組建程序。�
 * [增量編譯、快取支援、組建報告和 Kotlin 守護程序 (daemon)](gradle-compilation-and-caches.md)。
 * [支援 Gradle 外掛程式變體](gradle-plugin-variants.md)。
 
-## 接下步該做什麼？
+## 接下步該做什麼？ {id="what-s-next"}
 
 了解以下內容：
 * **Gradle Kotlin DSL**。[Gradle Kotlin DSL](https://docs.gradle.org/current/userguide/kotlin_dsl.html) 是一種領域特定語言，您可以用它來快速且高效地編寫組建指令碼。

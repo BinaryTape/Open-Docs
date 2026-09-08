@@ -4,7 +4,7 @@ Kotlin Multiplatform 允许您为各种平台创建应用程序并在这些平�
 
 本页包含的信息可帮助您确定哪些平台符合您的项目需求，并提供其稳定性水平的详细信息。
 
-## Kotlin 常规稳定性水平
+## Kotlin 常规稳定性水平 {id="general-kotlin-stability-levels"}
 
 以下是 Kotlin 稳定性水平及其含义的快速指南：
 
@@ -28,7 +28,7 @@ Kotlin Multiplatform 允许您为各种平台创建应用程序并在这些平�
 
 * 它已完成。我们将根据严格的[向后兼容性规则](https://kotlinfoundation.org/language-committee-guidelines/)对其进行演进。
 
-### 核心 Kotlin Multiplatform 技术的当前平台稳定性水平
+### 核心 Kotlin Multiplatform 技术的当前平台稳定性水平 {id="current-platform-stability-levels-for-the-core-kotlin-multiplatform-technology"}
 
 以下是核心 Kotlin Multiplatform 技术的当前平台稳定性水平：
 
@@ -46,7 +46,7 @@ Kotlin Multiplatform 允许您为各种平台创建应用程序并在这些平�
 * Kotlin Multiplatform 支持的原生平台比此处列出的更多。要了解每个平台的具体支持级别，请参阅 [Kotlin/Native 目标支持](https://kotlinlang.org/docs/native-target-support.html)。
 * 有关 Kotlin Multiplatform 等 Kotlin 组件稳定性水平的更多信息，请参阅 [Kotlin 组件的当前稳定性](https://kotlinlang.org/docs/components-stability.html#current-stability-of-kotlin-components)。
 
-## Compose Multiplatform UI 框架稳定性水平
+## Compose Multiplatform UI 框架稳定性水平 {id="compose-multiplatform-ui-framework-stability-levels"}
 
 以下是 Compose Multiplatform UI 框架的平台稳定性水平及其含义的快速指南：
 
@@ -71,7 +71,7 @@ Kotlin Multiplatform 允许您为各种平台创建应用程序并在这些平�
 * 框架提供了全面的 API 表面，允许您编写美观、生产就绪的应用程序，而不会在框架本身中遇到性能或其他问题。
 * 只有在官方发布弃用公告 2 个版本后，才能进行破坏 API 的变更。
 
-### Compose Multiplatform UI 框架的当前平台稳定性水平
+### Compose Multiplatform UI 框架的当前平台稳定性水平 {id="current-platform-stability-levels-for-compose-multiplatform-ui-framework"}
 
 | 平台                       | 稳定性水平 |
 |--------------------------|--------|
@@ -80,6 +80,6 @@ Kotlin Multiplatform 允许您为各种平台创建应用程序并在这些平�
 | Desktop (JVM)            | 稳定     |
 | 基于 Kotlin/Wasm 的 Web     | Beta   |
 
-## 后续步骤
+## 后续步骤 {id="what-s-next"}
 
 请参阅[推荐的 IDE](recommended-ides.md)，了解在不同的平台组合中，哪种 IDE 更适合您的代码共享方案。

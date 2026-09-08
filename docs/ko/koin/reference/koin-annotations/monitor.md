@@ -4,7 +4,7 @@ title: "@Monitor를 사용한 Koin 내장 성능 모니터링"
 
 `@Monitor` 어노테이션(Koin Annotations 2.2.0부터 사용 가능)은 Koin의 공식 툴링 플랫폼인 [Kotzilla Platform](https://kotzilla.io)을 통해 Koin 컴포넌트에 대한 자동 성능 모니터링 및 트레이싱을 활성화합니다.
 
-## 설정
+## 설정 {id="setup"}
 
 Kotzilla SDK 의존성을 추가합니다:
 
@@ -42,7 +42,7 @@ fun initKoin() {
 }
 ```
 
-## 기본 사용법
+## 기본 사용법 {id="basic-usage"}
 
 Koin 컴포넌트에 `@Monitor` 어노테이션을 추가하기만 하면 됩니다:
 
@@ -58,7 +58,7 @@ class UserService(private val userRepository: UserRepository) {
 }
 ```
 
-## 생성된 코드
+## 생성된 코드 {id="generated-code"}
 
 컴파일러는 컴포넌트를 래핑하는 프록시 클래스를 자동으로 생성합니다:
 
@@ -87,7 +87,7 @@ Koin은 원본 클래스 대신 프록시를 자동으로 사용하며, 다음 �
 - 오류 발생률 및 유형
 - 성능 병목 현상
 
-## ViewModels 모니터링
+## ViewModels 모니터링 {id="viewmodels-monitoring"}
 
 UI 성능을 추적하려면 ViewModel을 모니터링하세요:
 
@@ -99,7 +99,7 @@ class DetailViewModel(private val repository: Repository) : ViewModel() {
 }
 ```
 
-## Kotzilla Platform 연동
+## Kotzilla Platform 연동 {id="kotzilla-platform-integration"}
 
 모니터링 데이터는 [Kotzilla Platform](https://kotzilla.io) 워크스페이스로 자동 전송되어 다음 기능을 제공합니다:
 
@@ -124,7 +124,7 @@ class DetailViewModel(private val repository: Repository) : ViewModel() {
 }
 ```
 
-## 요구 사항
+## 요구 사항 {id="requirements"}
 
 - `@Monitor`가 선언된 클래스는 반드시 open이어야 합니다 (`allOpen` 플러그인에 의해 자동 처리됨).
 - 런타임에 Kotzilla SDK 의존성을 사용할 수 있어야 합니다.

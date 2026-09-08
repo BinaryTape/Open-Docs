@@ -118,7 +118,7 @@ install(Auth) {
 
 在这种情况下，客户端会根据包含该领域的 `WWW-Authenticate` 响应头选择必要的提供程序。
 
-## 提供程序选择
+## 提供程序选择 {id="provider-selection"}
 
 当服务器返回 `401 Unauthorized` 时，客户端会根据 `WWW-Authenticate` 响应头选择身份验证提供程序。该响应头指定了服务器接受哪些身份验证方案。
 
@@ -130,7 +130,7 @@ install(Auth) {
 
 [basic](client-basic-auth.md) 和 [bearer](client-bearer-auth.md) 身份验证提供程序维护着一个内部凭据或令牌缓存。该缓存允许客户端重复使用先前加载的身份验证数据，而不是为每个请求重新加载，从而在保持对凭据更改的完全控制的同时提高性能。
 
-### 访问身份验证提供程序
+### 访问身份验证提供程序 {id="accessing-authentication-providers"}
 
 当在客户端会话期间需要动态更新身份验证状态时，您可以使用 `authProvider` 扩展访问特定的提供程序：
 
@@ -146,7 +146,7 @@ val providers = client.authProviders
 
 这些工具允许您以编程方式检查提供程序或清除缓存的令牌。
 
-### 清除缓存的令牌
+### 清除缓存的令牌 {id="clearing-cached-tokens"}
 
 要清除单个提供程序的缓存凭据，请使用 `.clearToken()` 函数：
 
@@ -176,7 +176,7 @@ fun logout() {
 }
 ```
 
-### 控制缓存行为
+### 控制缓存行为 {id="controlling-caching-behavior"}
 
 Basic 和 Bearer 身份验证提供程序都允许您使用 `cacheTokens` 选项来控制是否在请求之间缓存令牌或凭据。
 

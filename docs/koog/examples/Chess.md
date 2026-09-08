@@ -9,7 +9,7 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Ches
 
 本教程演示了如何使用 Koog 框架构建一个智能国际象棋智能体。我们将探讨关键概念，包括工具集成、智能体策略、内存优化以及交互式 AI 决策。
 
-## 你将学到
+## 你将学到 {id="what-you-ll-learn"}
 
 - 如何为复杂游戏建模领域专用数据结构
 - 创建智能体可用于与环境交互的自定义工具
@@ -17,7 +17,7 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Ches
 - 构建具有选项选择功能的交互式 AI 系统
 - 针对回合制游戏优化智能体性能
 
-## 设置
+## 设置 {id="setup"}
 
 首先，让我们导入 Koog 框架并设置开发环境：
 
@@ -26,11 +26,11 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Ches
 %use koog
 ```
 
-## 建模国际象棋领域
+## 建模国际象棋领域 {id="modeling-the-chess-domain"}
 
 对于任何游戏 AI 来说，创建一个强大的领域模型都是必不可少的。在国际象棋中，我们需要表示玩家、棋子及其关系。让我们从定义核心数据结构开始：
 
-### 核心枚举和类型
+### 核心枚举和类型 {id="core-enums-and-types"}
 
 ```kotlin
 enum class Player {
@@ -65,7 +65,7 @@ enum class Side {
 
 `Side` 枚举有助于区分王翼和后翼的易位动作。
 
-### 棋子和位置建模
+### 棋子和位置建模 {id="piece-and-position-modeling"}
 
 ```kotlin
 data class Piece(val pieceType: PieceType, val player: Player) {
@@ -135,9 +135,9 @@ class ChessBoard {
 
 `Piece` 数据类将棋子类型与其所有者结合在一起，在视觉表示中，白方棋子使用大写字母，黑方棋子使用小写字母。`Position` 类封装了国际象棋坐标（例如 "e4"），并内置了验证功能。
 
-## 游戏状态管理
+## 游戏状态管理 {id="game-state-management"}
 
-### ChessBoard 实现
+### ChessBoard 实现 {id="chessboard-implementation"}
 
 `ChessBoard` 类管理 8×8 网格和棋子位置。关键的设计决策包括：
 
@@ -145,7 +145,7 @@ class ChessBoard {
 - **视觉显示**：`toString()` 方法提供了一个清晰的 ASCII 表示，带有行号和列字母。
 - **位置映射**：在国际象棋记谱法 (a1-h8) 和内部数组索引之间进行转换。
 
-### ChessGame 逻辑
+### ChessGame 逻辑 {id="chessgame-logic"}
 
 ```kotlin
 /**
@@ -238,9 +238,9 @@ class ChessGame {
 
 `moveNotation` 字符串为 AI 智能体提供了关于可接受着法格式的清晰文档。
 
-## 与 Koog 框架集成
+## 与 Koog 框架集成 {id="integrating-with-koog-framework"}
 
-### 创建自定义工具
+### 创建自定义工具 {id="creating-custom-tools"}
 
 ```kotlin
 import kotlinx.serialization.Serializable
@@ -287,9 +287,9 @@ ${game.currentPlayer()} to move! Make the move!"
 - **反馈循环**：返回当前的棋盘状态并提示下一位玩家，从而维持对话流。
 - **错误处理**：依赖游戏类进行着法验证和错误报告。
 
-## 智能体策略设计
+## 智能体策略设计 {id="agent-strategy-design"}
 
-### 内存优化技术
+### 内存优化技术 {id="memory-optimization-technique"}
 
 ```kotlin
 import ai.koog.agents.core.environment.ReceivedToolResult
@@ -354,7 +354,7 @@ val strategy = strategy<String, String>("chess_strategy") {
 
 这种策略确保了高效、有状态的游戏进行，同时保持了对话的连贯性。
 
-### 设置 AI 智能体
+### 设置 AI 智能体 {id="setting-up-the-ai-agent"}
 
 ```kotlin
 val baseExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY"))
@@ -367,7 +367,7 @@ val baseExecutor = simpleOpenAIExecutor(System.getenv("OPENAI_API_KEY"))
 - 执行器会自动处理身份验证和 API 通信。
 - 可针对不同的 LLM 提供商使用不同的执行器类型。
 
-### 智能体组装
+### 智能体组装 {id="agent-assembly"}
 
 ```kotlin
 val game = ChessGame()
@@ -408,7 +408,7 @@ val agent = AIAgent(
 - 将消息传递限制为仅限认输或宣布将死。
 - 创建专注、以游戏为导向的行为。
 
-### 运行基础智能体
+### 运行基础智能体 {id="running-the-basic-agent"}
 
 ```kotlin
 import kotlinx.coroutines.runBlocking
@@ -478,11 +478,11 @@ runBlocking {
 
 这个基础智能体是自主运行的，会自动进行移动。游戏输出显示了 AI 在与自己对弈时的着法序列和棋盘状态。
 
-## 高级功能：交互式选项选择
+## 高级功能：交互式选项选择 {id="advanced-feature-interactive-choice-selection"}
 
 接下来的章节演示了一种更复杂的方法，用户可以通过从多个 AI 生成的着法中进行选择，参与到 AI 的决策过程中。
 
-### 自定义选项选择策略
+### 自定义选项选择策略 {id="custom-choice-selection-strategy"}
 
 ```kotlin
 import ai.koog.agents.core.feature.choice.ChoiceSelectionStrategy
@@ -542,7 +542,7 @@ class AskUserChoiceSelectionStrategy(
 - 训练和调试场景。
 - 教学演示。
 
-### 带有选项选择的增强策略
+### 带有选项选择的增强策略 {id="enhanced-strategy-with-choice-selection"}
 
 ```kotlin
 inline fun <reified T> AIAgentSubgraphBuilderBase<*, *>.nodeTrimHistory(
@@ -595,7 +595,7 @@ val promptExecutor = PromptExecutorWithChoiceSelection(baseExecutor, askChoiceSt
 - **上下文感知显示**：显示最后一个工具调用的内容，而不是完整的提示词。
 - **更高的温度**：增加到 1.0 以获得更多样化的着法选项。
 
-### 高级策略：手动选项选择
+### 高级策略：手动选项选择 {id="advanced-strategy-manual-choice-selection"}
 
 ```kotlin
 val game = ChessGame()
@@ -636,7 +636,7 @@ val agent = AIAgent(
 - **灵活性**：可以与其他智能体功能结合使用。
 - **透明度**：用户可以清楚地看到 AI 正在考虑的内容。
 
-### 运行交互式智能体
+### 运行交互式智能体 {id="running-interactive-agents"}
 
 ```kotlin
 println("Chess Game started!")
@@ -837,11 +837,11 @@ runBlocking {
 2. **用户选择**：用户输入数字 1-3 来选择他们喜欢的着法。
 3. **游戏继续**：执行所选着法，游戏继续进行。
 
-## 结论
+## 结论 {id="conclusion"}
 
 本教程演示了使用 Koog 框架构建智能智能体的几个关键方面：
 
-### 关键要点
+### 关键要点 {id="key-takeaways"}
 
 1. **领域建模**：结构良好的数据模型对于复杂应用至关重要。
 2. **工具集成**：自定义工具使智能体能够有效地与外部系统交互。
@@ -849,7 +849,7 @@ runBlocking {
 4. **策略图**：Koog 基于图的方法提供了灵活的控制流。
 5. **交互式 AI**：选项选择实现了人机协作和透明度。
 
-### 探索的框架特性
+### 探索的框架特性 {id="framework-features-explored"}
 
 - ✅ 自定义工具创建与集成
 - ✅ 智能体策略设计与基于图的控制流

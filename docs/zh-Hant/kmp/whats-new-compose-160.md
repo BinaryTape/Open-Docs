@@ -11,7 +11,7 @@
 * [穩定版本中的 Kotlin/Wasm 構件](#kotlin-wasm-artifacts-available-in-stable-versions-of-the-framework)
 * [已知問題：缺少相依性](#known-issues-missing-dependencies)
 
-## 相依性
+## 相依性 {id="dependencies"}
 
 此版本的 Compose Multiplatform 基於以下 Jetpack Compose 程式庫：
 
@@ -22,9 +22,9 @@
 * [Material 1.6.1](https://developer.android.com/jetpack/androidx/releases/compose-material#1.6.1)
 * [Material3 1.2.0](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.2.0)
 
-## 重大變更
+## 重大變更 {id="breaking-changes"}
 
-### 預設裁切設定了 lineHeight 的文字內距
+### 預設裁切設定了 lineHeight 的文字內距 {id="padding-for-text-with-lineheight-set-trimmed-by-default"}
 
 隨著對 [LineHeightStyle.Trim](https://developer.android.com/reference/kotlin/androidx/compose/ui/text/style/LineHeightStyle.Trim) 支援的加入，
 Compose Multiplatform 在文字內距 (padding) 裁切方式上與 Android 保持一致。
@@ -37,7 +37,7 @@ Compose Multiplatform 在文字內距 (padding) 裁切方式上與 Android 保�
   `LineHeightStyle.Trim` 並將 `Trim.None` 作為預設值實作。
 * 在 `Typography` 的 `TextStyle` 中加入了明確的 `lineHeight`，這導致了[下一個重大變更](#using-fontsize-in-materialtheme-requires-lineheight)。
 
-### 在 MaterialTheme 中使用 fontSize 時需要 lineHeight
+### 在 MaterialTheme 中使用 fontSize 時需要 lineHeight {id="using-fontsize-in-materialtheme-requires-lineheight"}
 
 > 這僅影響 `material` 組件。`material3` 已經有此限制。
 >
@@ -53,14 +53,14 @@ Jetpack Compose 現在[建議](https://issuetracker.google.com/issues/321872412)
 >
 {style="tip"}
 
-### 資源組織的新方法
+### 資源組織的新方法 {id="new-approach-to-resource-organization"}
 
 如果您一直在 Compose Multiplatform 1.6.0 的預覽版本中使用資源 API，請熟悉
 [目前版本的說明文件](compose-multiplatform-resources.md)：1.6.0-beta01 更改了資源檔案在專案資料夾中的儲存方式，以便專案程式碼可以存取。
 
-## 跨平台
+## 跨平台 {id="across-platforms"}
 
-### 改進的資源 API（所有平台）
+### 改進的資源 API（所有平台） {id="improved-resources-api-all-platforms"}
 
 新的實驗性 API 加入了對字串和字型的支援，並讓您能在通用 Kotlin 中更舒適地共享和存取資源：
 
@@ -73,7 +73,7 @@ Jetpack Compose 現在[建議](https://issuetracker.google.com/issues/321872412)
 若要進一步了解資源限定詞，以及新資源 API 的更深入概述，
 請參閱[圖片與資源](compose-multiplatform-resources.md)。
 
-### UI 測試 API（實驗性，所有平台）
+### UI 測試 API（實驗性，所有平台） {id="ui-testing-api-experimental-all-platforms"}
 
 Compose Multiplatform 的 UI 測試實驗性 API（先前已在桌面和 Android 上提供）現在支援所有平台。您可以編寫並執行通用測試，以驗證您的應用程式 UI 在該架構支援的各個平台上的行為。此 API 使用與 Jetpack Compose 相同的尋找器、斷言、操作和比對器。
 
@@ -83,9 +83,9 @@ Compose Multiplatform 的 UI 測試實驗性 API（先前已在桌面和 Android
 
 有關設定說明和測試範例，請參閱[測試 Compose Multiplatform UI](compose-test.md)。
 
-### 來自 Jetpack Compose 和 Material 3 的變更（所有平台）
+### 來自 Jetpack Compose 和 Material 3 的變更（所有平台） {id="changes-from-jetpack-compose-and-material-3-all-platforms"}
 
-#### Jetpack Compose 1.6.1
+#### Jetpack Compose 1.6.1 {id="jetpack-compose-1-6-1"}
 
 合併 Jetpack Compose 的最新版本對所有平台的效能都有正面影響。詳情請參閱
 [Android 開發者部落格上的公告](https://android-developers.googleblog.com/2024/01/whats-new-in-jetpack-compose-january-24-release.html)。
@@ -103,7 +103,7 @@ Compose Multiplatform 的 UI 測試實驗性 API（先前已在桌面和 Android
 
 JetBrains 團隊正在努力在未來的 Compose Multiplatform 版本中採用這些功能。
 
-#### Compose Material 3 1.2.0
+#### Compose Material 3 1.2.0 {id="compose-material-3-1-2-0"}
 
 版本亮點：
 * 新的實驗性組件 `Segmented Button`，具有單選和多選功能。
@@ -114,13 +114,13 @@ JetBrains 團隊正在努力在未來的 Compose Multiplatform 版本中採用�
 
 有關 Material 3 變更的更多詳細資訊，請參閱 [Material Design 部落格上的發佈文章](https://material.io/blog/material-3-compose-1-2)。
 
-### 快顯視窗、對話方塊和下拉式功能表的獨立平台檢視（iOS、桌面）
+### 快顯視窗、對話方塊和下拉式功能表的獨立平台檢視（iOS、桌面） {id="separate-platform-views-for-popups-dialogs-and-dropdowns-ios-desktop"}
 
 有時，快顯元素（例如工具提示和下拉式功能表）不被初始 Composable 畫布或應用程式視窗限制是很重要的。如果 Composable 檢視不佔滿全螢幕但需要產生警示對話方塊，這點就顯得尤為重要。在 1.6.0 中，有一種方法可以可靠地實現這一點。
 
 請注意，快顯視窗和對話方塊仍然無法在其自身邊界之外繪製任何內容（例如，最頂層容器的陰影）。
 
-#### iOS（穩定版）
+#### iOS（穩定版） {id="ios-stable"}
 
 在 iOS 上，此功能預設為啟用。
 若要切換回舊行為，請將 `platformLayers` 參數設定為 `false`：
@@ -135,7 +135,7 @@ ComposeUIViewController(
 }
 ```
 
-#### 桌面（實驗性）
+#### 桌面（實驗性） {id="desktop-experimental"}
 
 若要在桌面上使用此功能，請設定 `compose.layers.type`
 系統屬性。支援的值：
@@ -185,7 +185,7 @@ fun ComposeContent() {
 
 ![父面板邊界外的對話方塊](compose-desktop-separate-dialog.png){width=700}
 
-### 文字裝飾線樣式支援（iOS、桌面、Web）
+### 文字裝飾線樣式支援（iOS、桌面、Web） {id="support-for-text-decoration-line-styles-ios-desktop-web"}
 
 Compose Multiplatform 現在允許使用 `PlatformTextStyle` 類別為文字設定底線樣式。
 
@@ -210,7 +210,7 @@ Text(
 您可以使用實線、雙倍寬度實線、點線、虛線和波浪線樣式。請在
 [原始碼](https://github.com/JetBrains/compose-multiplatform-core/blob/jb-main/compose/ui/ui-text/src/skikoMain/kotlin/androidx/compose/ui/text/TextDecorationLineStyle.kt#L21)中查看所有可用選項。
 
-### 存取系統上安裝的字型（iOS、桌面、Web）
+### 存取系統上安裝的字型（iOS、桌面、Web） {id="accessing-fonts-installed-on-the-system-ios-desktop-web"}
 
 您現在可以從 Compose Multiplatform 應用程式存取系統上安裝的字型：使用 `SystemFont` 類別載入具有適當字型樣式和字型粗細的字型：
 
@@ -229,9 +229,9 @@ FontFamily(SystemFont("Webdings"))
 FontFamily("Menlo")
 ```
 
-## iOS
+## iOS {id="ios"}
 
-### 輔助功能支援
+### 輔助功能支援 {id="accessibility-support"}
 
 適用於 iOS 的 Compose Multiplatform 現在允許身心障礙人士以與原生 iOS UI 相同的舒適度與 Compose UI 進行互動：
 
@@ -242,7 +242,7 @@ FontFamily("Menlo")
 
 有關實作和自訂 API 的詳細資訊，請參閱 [iOS 輔助功能支援](compose-ios-accessibility.md)。
 
-### 變更 Composable 檢視的透明度
+### 變更 Composable 檢視的透明度 {id="changing-opacity-for-composable-view"}
 
 `ComposeUIViewController` 類別現在多了一個配置選項，可以將檢視背景的透明度更改為透明。
 
@@ -262,25 +262,25 @@ val appController = ComposeUIViewController(configure = {
 
 ![Compose opaque = false 演示](compose-opaque-property.png){width=700}
 
-### 透過按兩下或連按三下選取 SelectionContainer 中的文字
+### 透過按兩下或連按三下選取 SelectionContainer 中的文字 {id="selecting-text-in-selectioncontainer-by-double-and-triple-tap"}
 
 以前，適用於 iOS 的 Compose Multiplatform 僅允許使用者在文字輸入欄位中透過多次點擊選取文字。現在，按兩下和連按三下手勢也適用於選取 `SelectionContainer` 內部 `Text` 組件中顯示的文字。
 
-### 與 UIViewController 互通
+### 與 UIViewController 互通 {id="interop-with-uiviewcontroller"}
 
 某些未實作為 `UIView` 的原生 API（例如 `UITabBarController` 或 `UINavigationController`）無法使用 [現有的互通機制](compose-uikit-integration.md) 嵌入到 Compose Multiplatform UI 中。
 
 現在，Compose Multiplatform 實作了 `UIKitViewController` 函式，允許您在 Compose UI 中嵌入原生 iOS 檢視控制器。
 
-### 文字欄位中透過長按/單擊實現類似原生的插入符號行為
+### 文字欄位中透過長按/單擊實現類似原生的插入符號行為 {id="native-like-caret-behavior-by-long-single-taps-in-text-fields"}
 
 Compose Multiplatform 現在更接近 iOS 原生的文字欄位插入符號 (caret) 行為：
 * 單擊文字欄位後，插入符號的位置確定更加精確。
 * 在文字欄位中長按並拖動會導致游標移動，而不是像 Android 那樣進入選取模式。
 
-## 桌面
+## 桌面 {id="desktop"}
 
-### 改進互通混合的實驗性支援
+### 改進互通混合的實驗性支援 {id="experimental-support-of-improved-interop-blending"}
 
 過去，使用 `SwingPanel` 包裝函式實作的互通檢視始終是矩形的，並且始終位於前景，處於任何 Compose Multiplatform 組件之上。這使得任何快顯元素（下拉式功能表、浮動通知）的使用都具有挑戰性。透過新的實作，此問題已得到解決，您現在可以在以下使用案例中依賴 Swing：
 
@@ -306,9 +306,9 @@ Compose Multiplatform 現在更接近 iOS 原生的文字欄位插入符號 (car
 
 請參閱[提取要求的說明](https://github.com/JetBrains/compose-multiplatform-core/pull/915)中的已知限制和其他詳細資訊。
 
-## Web
+## Web {id="web"}
 
-### 框架穩定版本中提供 Kotlin/Wasm 構件
+### 框架穩定版本中提供 Kotlin/Wasm 構件 {id="kotlin-wasm-artifacts-available-in-stable-versions-of-the-framework"}
 
 Compose Multiplatform 的穩定版本現在支援 Kotlin/Wasm 目標。在您切換到 1.6.0 後，您不需要在相依性清單中指定特定的 `dev-wasm` 版本的 `compose-ui` 程式庫。
 
@@ -316,7 +316,7 @@ Compose Multiplatform 的穩定版本現在支援 Kotlin/Wasm 目標。在您切
 >
 {style="warning"}
 
-## 已知問題：缺少相依性
+## 已知問題：缺少相依性 {id="known-issues-missing-dependencies"}
 
 在預設專案配置下，可能會缺少幾個程式庫：
 

@@ -6,7 +6,7 @@ title: Koin for Compose
 
 Koin 為 Jetpack Compose 與 Compose Multiplatform 應用程式提供完整的支援，並配有專用的相依性注入軟件包。
 
-## 軟件包總覽 (Packages Overview)
+## 軟件包總覽 (Packages Overview) {id="packages-overview"}
 
 | 軟件包 | 使用案例 |
 |---------|----------|
@@ -20,7 +20,7 @@ Koin 為 Jetpack Compose 與 Compose Multiplatform 應用程式提供完整的�
 所有 Compose API 皆定義於 `koin-compose` 與 `koin-compose-viewmodel`。`koin-androidx-compose` 軟件包是一個便利的包裝函式，為 Android 專案同時包含了兩者。
 :::
 
-### 我該選用哪個軟件包？
+### 我該選用哪個軟件包？ {id="which-package-should-i-use"}
 
 **對於純 Android 專案：**
 ```kotlin
@@ -46,7 +46,7 @@ commonMain.dependencies {
 }
 ```
 
-## 平台支援 (Platform Support)
+## 平台支援 (Platform Support) {id="platform-support"}
 
 | 平台 | Compose 類型 | 狀態 |
 |----------|-------------|--------|
@@ -55,9 +55,9 @@ commonMain.dependencies {
 | Desktop | Compose Desktop | 完整支援 |
 | Web | Compose for Web | 實驗性 |
 
-## 啟動 Koin
+## 啟動 Koin {id="starting-koin"}
 
-### 選項 1：startKoin (僅限 Android 或外部設定)
+### 選項 1：startKoin (僅限 Android 或外部設定) {id="option-1-startkoin-android-only-or-external-setup"}
 
 在 Compose 外部初始化 Koin 以獲得完整控制權：
 
@@ -83,7 +83,7 @@ fun App() {
 
 **適用時機：** 您需要對 Koin 生命週期、自訂配置或與其他架構的整合進行完整控制。
 
-### 選項 2：KoinApplication (由 Compose 管理)
+### 選項 2：KoinApplication (由 Compose 管理) {id="option-2-koinapplication-compose-managed"}
 
 讓 Compose 自動處理 Koin 設定：
 
@@ -112,9 +112,9 @@ fun App() {
 `KoinMultiplatformApplication` 已被棄用。請改用帶有 `koinConfiguration` 的 `KoinApplication`。
 :::
 
-## 基礎注入
+## 基礎注入 {id="basic-injection"}
 
-### koinInject() - 取得相依性
+### koinInject() - 取得相依性 {id="koininject-get-dependencies"}
 
 注入任何由 Koin 管理的相依性：
 
@@ -137,7 +137,7 @@ fun UserScreen(
 }
 ```
 
-### koinViewModel() - 取得 ViewModel
+### koinViewModel() - 取得 ViewModel {id="koinviewmodel-get-viewmodels"}
 
 注入具備適當生命週期管理的 ViewModel：
 
@@ -153,7 +153,7 @@ fun UserScreen() {
 請參閱 [Compose 中的 ViewModel](/docs/reference/koin-compose/compose-viewmodel) 以了解所有 ViewModel API。
 :::
 
-### 搭配參數使用
+### 搭配參數使用 {id="with-parameters"}
 
 傳遞執行時參數：
 
@@ -177,9 +177,9 @@ fun DetailScreen(itemId: String) {
 }
 ```
 
-## 定義模組
+## 定義模組 {id="defining-modules"}
 
-### 編譯器外掛程式 DSL
+### 編譯器外掛程式 DSL {id="compiler-plugin-dsl"}
 
 ```kotlin
 val appModule = module {
@@ -188,7 +188,7 @@ val appModule = module {
 }
 ```
 
-### 註解 (Annotations)
+### 註解 (Annotations) {id="annotations"}
 
 ```kotlin
 @Singleton
@@ -200,7 +200,7 @@ class UserViewModel(
 ) : ViewModel()
 ```
 
-### 傳統 DSL
+### 傳統 DSL {id="classic-dsl"}
 
 ```kotlin
 val appModule = module {
@@ -209,7 +209,7 @@ val appModule = module {
 }
 ```
 
-## 快速參考 (Quick Reference)
+## 快速參考 (Quick Reference) {id="quick-reference"}
 
 | 函式 | 用途 |
 |----------|---------|
@@ -220,7 +220,7 @@ val appModule = module {
 | `rememberKoinModules()` | 隨組合載入模組 |
 | `KoinScope {}` | 建立作用域上下文 |
 
-## 文件
+## 文件 {id="documentation"}
 
 | 主題 | 說明 |
 |-------|-------------|
@@ -232,7 +232,7 @@ val appModule = module {
 | **[隔離上下文](/docs/reference/koin-compose/isolated-context)** | SDK 隔離 |
 | **[Navigation 3](/docs/reference/koin-compose/navigation3)** | 型別安全導覽 (多平台) |
 
-## 相關內容
+## 相關內容 {id="related"}
 
 - **[核心 ViewModel](/docs/reference/koin-core/viewmodel)** - ViewModel 宣告 DSL
 - **[Android ViewModel](/docs/reference/koin-android/viewmodel)** - Android 特定功能

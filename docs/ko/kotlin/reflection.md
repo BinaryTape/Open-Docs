@@ -7,7 +7,7 @@ Kotlin에서 함수와 프로퍼티는 일급 객체(first-class citizens)이며
 >
 {style="note"}
 
-## JVM 의존성
+## JVM 의존성 {id="jvm-dependency"}
 
 JVM 플랫폼에서 Kotlin 컴파일러 배포판에는 리플렉션 기능을 사용하는 데 필요한 런타임 컴포넌트가 `kotlin-reflect.jar`라는 별도의 아티팩트로 포함되어 있습니다. 이는 리플렉션 기능을 사용하지 않는 애플리케이션의 런타임 라이브러리 크기를 줄이기 위함입니다.
 
@@ -50,7 +50,7 @@ Gradle이나 Maven 프로젝트에서 리플렉션을 사용하려면 `kotlin-re
 Gradle이나 Maven을 사용하지 않는 경우, 프로젝트의 클래스패스(classpath)에 `kotlin-reflect.jar`가 포함되어 있는지 확인하세요.
 그 외 지원되는 경우(커맨드 라인 컴파일러를 사용하는 IntelliJ IDEA 프로젝트)에는 기본적으로 추가됩니다. 커맨드 라인 컴파일러에서는 `-no-reflect` 컴파일러 옵션을 사용하여 클래스패스에서 `kotlin-reflect.jar`를 제외할 수 있습니다.
 
-## 클래스 참조(Class references)
+## 클래스 참조(Class references) {id="class-references"}
 
 가장 기본적인 리플렉션 기능은 Kotlin 클래스에 대한 런타임 참조를 얻는 것입니다. 정적으로 알고 있는 Kotlin 클래스의 참조를 얻으려면 _클래스 리터럴(class literal)_ 구문을 사용합니다.
 
@@ -64,7 +64,7 @@ val c = MyClass::class
 >
 {style="note"}
 
-### 바인딩된 클래스 참조(Bound class references)
+### 바인딩된 클래스 참조(Bound class references) {id="bound-class-references"}
 
 객체를 수신 객체로 사용하여 동일한 `::class` 구문으로 특정 객체의 클래스 참조를 얻을 수 있습니다.
 
@@ -75,13 +75,13 @@ assert(widget is GoodWidget) { "Bad widget: ${widget::class.qualifiedName}" }
 
 수신 객체 표현식의 타입(`Widget`)에 관계없이 `GoodWidget` 또는 `BadWidget`과 같이 해당 객체의 실제 클래스에 대한 참조를 얻게 됩니다.
 
-## 호출 가능 참조(Callable references)
+## 호출 가능 참조(Callable references) {id="callable-references"}
 
 함수, 프로퍼티, 생성자에 대한 참조는 호출하거나 [함수 타입](lambdas.md#function-types)의 인스턴스로 사용할 수 있습니다.
 
 모든 호출 가능 참조의 공통 상위 타입은 [`KCallable<out R>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-callable/index.html)이며, 여기서 `R`은 반환 값의 타입입니다. 프로퍼티의 경우 프로퍼티 타입이고, 생성자의 경우 생성된 타입입니다.
 
-### 함수 참조(Function references)
+### 함수 참조(Function references) {id="function-references"}
 
 아래와 같이 선언된 명명된 함수가 있을 때, 이를 직접 호출할 수 있습니다(`isOdd(5)`).
 
@@ -137,7 +137,7 @@ val predicate: (String) -> Boolean = ::isOdd   // isOdd(x: String)을 참조함
 val isEmptyStringList: List<String>.() -> Boolean = List<String>::isEmpty
 ```
 
-#### 예시: 함수 합성(function composition)
+#### 예시: 함수 합성(function composition) {id="example-function-composition"}
 
 다음 함수를 살펴보세요.
 
@@ -170,7 +170,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 프로퍼티 참조(Property references)
+### 프로퍼티 참조(Property references) {id="property-references"}
 
 Kotlin에서 프로퍼티를 일급 객체로 다루려면 `::` 연산자를 사용합니다.
 
@@ -234,7 +234,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### Java 리플렉션과의 상호운용성
+### Java 리플렉션과의 상호운용성 {id="interoperability-with-java-reflection"}
 
 JVM 플랫폼에서 표준 라이브러리에는 Java 리플렉션 객체와의 매핑을 제공하는 리플렉션 클래스용 확장 기능이 포함되어 있습니다(`kotlin.reflect.jvm` 패키지 참조).
 예를 들어, Kotlin 프로퍼티의 게터 역할을 하는 Java 메서드나 지원 필드(backing field)를 찾으려면 다음과 같이 작성할 수 있습니다.
@@ -256,7 +256,7 @@ Java 클래스에 대응하는 Kotlin 클래스를 얻으려면 `.kotlin` 확장
 fun getKClass(o: Any): KClass<Any> = o.javaClass.kotlin
 ```
 
-### 생성자 참조(Constructor references)
+### 생성자 참조(Constructor references) {id="constructor-references"}
 
 생성자는 메서드나 프로퍼티처럼 참조될 수 있습니다. 생성자와 동일한 파라미터를 받고 해당 타입의 객체를 반환하는 함수 타입 객체가 필요한 곳이면 어디에서나 생성자 참조를 사용할 수 있습니다.
 생성자는 `::` 연산자를 사용하고 클래스 이름을 추가하여 참조합니다. 파라미터가 없고 반환 타입이 `Foo`인 함수 파라미터를 기대하는 다음 함수를 고려해 보세요.
@@ -277,7 +277,7 @@ function(::Foo)
 
 생성자에 대한 호출 가능 참조는 파라미터 개수에 따라 [`KFunction<out R>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-function/index.html) 하위 타입 중 하나로 타입이 지정됩니다.
 
-### 바인딩된 함수 및 프로퍼티 참조(Bound function and property references)
+### 바인딩된 함수 및 프로퍼티 참조(Bound function and property references) {id="bound-function-and-property-references"}
 
 특정 객체의 인스턴스 메서드를 참조할 수 있습니다.
 
@@ -332,7 +332,7 @@ fun main() {
 
 수신 객체로 `this`를 지정할 필요는 없습니다. `this::foo`와 `::foo`는 동일합니다.
 
-### 바인딩된 생성자 참조(Bound constructor references)
+### 바인딩된 생성자 참조(Bound constructor references) {id="bound-constructor-references"}
 
 [내부 클래스(inner class)](nested-classes.md#inner-classes)의 생성자에 대한 바인딩된 호출 가능 참조는 외부 클래스의 인스턴스를 제공하여 얻을 수 있습니다.
 

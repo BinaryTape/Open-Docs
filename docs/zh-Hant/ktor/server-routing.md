@@ -148,7 +148,7 @@ routing {
 ```
 透過此路由定義，任何指向以 `/hello` 結尾路徑的傳入請求（例如 `/foo/hello`、`/bar/baz/hello` 等）都將被比對。
 
-#### 在處理常式中存取路徑部分
+#### 在處理常式中存取路徑部分 {id="accessing-path-parts-in-handler"}
 
 在正規表示式中，具名群組（named groups）是一種擷取字串中符合模式的特定部分並為其指定名稱的方法。
 語法 `(?<name>pattern)` 用於定義具名群組，其中 `name` 是群組的名稱，而 `pattern` 是比對該群組的正規表示式模式。

@@ -4,7 +4,7 @@ title: 왜 Koin인가요?
 
 Koin은 모든 Kotlin 애플리케이션(멀티플랫폼, 안드로이드, 백엔드 등)에 의존성 주입(dependency injection)을 통합하는 쉽고 효율적인 방법을 제공합니다.
 
-## Koin의 목표
+## Koin의 목표 {id="goals-of-koin"}
 
 Koin의 목표는 다음과 같습니다:
 - 스마트한 API로 의존성 주입 인프라 **단순화(Simplify)**
@@ -14,9 +14,9 @@ Koin의 목표는 다음과 같습니다:
 
 ---
 
-## 간단히 살펴보는 Koin
+## 간단히 살펴보는 Koin {id="koin-in-a-nutshell"}
 
-### Kotlin 개발을 쉽고 생산적으로 만들기
+### Kotlin 개발을 쉽고 생산적으로 만들기 {id="making-your-kotlin-development-easy-and-productive"}
 
 Koin은 도구가 아닌 앱에 집중할 수 있게 해주는 스마트한 Kotlin 의존성 주입 라이브러리입니다.
 
@@ -45,9 +45,9 @@ fun main() {
 
 ---
 
-## 플랫폼 지원
+## 플랫폼 지원 {id="platform-support"}
 
-### 안드로이드 지원
+### 안드로이드 지원 {id="ready-for-android"}
 
 Kotlin 언어 덕분에 Koin은 안드로이드 플랫폼을 확장하며 기존 플랫폼의 일부로서 새로운 기능을 제공합니다.
 
@@ -79,7 +79,7 @@ class MyActivity : AppCompatActivity() {
 **더 알아보기**: [안드로이드에서 Koin 시작하기](/docs/reference/koin-android/start)
 :::
 
-### Kotlin 멀티플랫폼 지원
+### Kotlin 멀티플랫폼 지원 {id="powering-kotlin-multiplatform"}
 
 모바일 플랫폼 간의 코드 공유는 Kotlin 멀티플랫폼(Kotlin Multiplatform)의 주요 유스케이스 중 하나입니다. Kotlin Multiplatform Mobile을 사용하면 크로스 플랫폼 모바일 애플리케이션을 빌드하고 안드로이드와 iOS 간에 공통 코드를 공유할 수 있습니다.
 
@@ -89,17 +89,17 @@ Koin은 멀티플랫폼 의존성 주입을 제공하며 네이티브 모바일 
 **더 알아보기**: [Koin을 이용한 Kotlin 멀티플랫폼](/docs/reference/koin-mp/kmp)
 :::
 
-### 성능 및 생산성
+### 성능 및 생산성 {id="performances-and-productivity"}
 
 Koin은 사용 및 실행 측면에서 직관적으로 설계된 순수(pure) Kotlin 프레임워크입니다. 사용이 간편하며 컴파일 시간에 영향을 주지 않고, 추가적인 플러그인 설정도 필요하지 않습니다.
 
 ---
 
-## Koin: 의존성 주입 프레임워크
+## Koin: 의존성 주입 프레임워크 {id="koin-a-dependency-injection-framework"}
 
 Koin은 Kotlin을 위한 인기 있는 의존성 주입(DI) 프레임워크로, 최소한의 보일러플레이트(boilerplate) 코드로 애플리케이션의 의존성을 관리할 수 있는 현대적이고 가벼운 솔루션을 제공합니다.
 
-### 의존성 주입 vs 서비스 로케이터
+### 의존성 주입 vs 서비스 로케이터 {id="dependency-injection-vs-service-locator"}
 
 Koin은 서비스 로케이터(service locator) 패턴과 유사해 보일 수 있지만, 이를 구분 짓는 주요 차이점이 있습니다:
 
@@ -117,7 +117,7 @@ Koin은 서비스 로케이터(service locator) 패턴과 유사해 보일 수 �
 **의존성 주입(Dependency Injection)**: 이와 대조적으로, Koin은 순수 의존성 주입 프레임워크입니다. Koin을 사용하면 모듈에 의존성을 선언하고, Koin이 객체의 생성과 연결을 처리합니다. 각자의 스코프(scope)를 가진 독립적인 모듈을 여러 개 생성할 수 있어 의존성 관리가 더 모듈화되고 잠재적인 충돌을 피할 수 있습니다.
 :::
 
-### Koin의 접근 방식: 유연성과 모범 사례의 조화
+### Koin의 접근 방식: 유연성과 모범 사례의 조화 {id="koin-s-approach-a-blend-of-flexibility-and-best-practices"}
 
 Koin은 DI와 서비스 로케이터 패턴을 모두 지원하여 개발자에게 유연성을 제공합니다. 하지만 의존성을 생성자 파라미터로 전달하는 DI, 특히 **생성자 주입(constructor injection)**의 사용을 **강력히 권장**합니다. 이 방식은 테스트 가능성을 높이고 코드 파악을 더 쉽게 만듭니다.
 
@@ -146,11 +146,11 @@ Koin의 디자인 철학은 단순함과 설정의 용이성에 중점을 두면
 
 ---
 
-## 투명성 및 디자인 개요
+## 투명성 및 디자인 개요 {id="transparency-and-design-overview"}
 
 Koin은 의존성 주입(DI)과 서비스 로케이터(SL) 패턴을 모두 지원하는 다재다능한 제어 역전(Inversion of Control, IoC) 컨테이너로 설계되었습니다. Koin이 어떻게 작동하는지 명확히 이해하고 이를 효과적으로 사용할 수 있도록 다음 측면들을 살펴보겠습니다:
 
-### Koin이 DI와 SL의 균형을 맞추는 방법
+### Koin이 DI와 SL의 균형을 맞추는 방법 {id="how-koin-balances-di-and-sl"}
 
 Koin은 DI와 SL의 요소를 결합하고 있으며, 이는 프레임워크 사용 방식에 영향을 줄 수 있습니다:
 
@@ -160,7 +160,7 @@ Koin은 DI와 SL의 요소를 결합하고 있으며, 이는 프레임워크 사
 
 3. **안드로이드 컴포넌트에서의 SL:** 안드로이드 개발에서 Koin은 설정의 편의를 위해 `Application` 및 `Activity`와 같은 컴포넌트 내부에서 SL을 내부적으로 자주 사용합니다. 이 시점부터 Koin은 더 구조화된 방식으로 의존성을 관리하기 위해 DI, 특히 생성자 주입을 권장합니다. 하지만 이는 강제 사항이 아니며, 개발자는 필요한 경우 SL을 사용할 수 있는 유연성을 갖습니다.
 
-### 이것이 중요한 이유
+### 이것이 중요한 이유 {id="why-this-matters-to-you"}
 
 DI와 SL의 차이를 이해하면 애플리케이션의 의존성을 효과적으로 관리하는 데 도움이 됩니다:
 
@@ -182,11 +182,11 @@ Koin은 편의를 위해(특히 안드로이드 컴포넌트에서) SL을 지원
 
 ---
 
-## Koin 최대한 활용하기
+## Koin 최대한 활용하기 {id="making-the-most-of-koin"}
 
 Koin을 효과적으로 사용하려면 다음을 따르세요:
 
-### 1. 모범 사례 따르기
+### 1. 모범 사례 따르기 {id="1-follow-best-practices"}
 
 의존성 관리의 모범 사례에 맞춰 가능한 한 **생성자 주입**을 사용하세요. 이 방식은 테스트 가능성과 유지보수성을 향상시킵니다.
 
@@ -205,15 +205,15 @@ class UserService : KoinComponent {
 }
 ```
 
-### 2. Koin의 유연성 활용
+### 2. Koin의 유연성 활용 {id="2-leverage-koin-s-flexibility"}
 
 설정을 단순화하는 시나리오에서는 Koin의 SL 지원을 활용하되, 핵심 애플리케이션 의존성 관리에는 DI를 사용하는 것을 목표로 하세요.
 
-### 3. 문서 및 예제 참조
+### 3. 문서 및 예제 참조 {id="3-refer-to-documentation-and-examples"}
 
 프로젝트의 요구사항에 따라 DI와 SL을 적절하게 구성하고 사용하는 방법을 이해하기 위해 Koin의 문서와 예제를 검토하세요.
 
-### 4. 스코프를 현명하게 사용하기
+### 4. 스코프를 현명하게 사용하기 {id="4-use-scopes-wisely"}
 
 Koin의 스코프(scope) 기능을 사용하면 애플리케이션의 특정 부분에 대한 의존성을 격리할 수 있습니다:
 
@@ -231,21 +231,21 @@ module {
 
 ---
 
-## 다음 단계
+## 다음 단계 {id="next-steps"}
 
 시작할 준비가 되셨나요? 플랫폼을 선택하세요:
 
-### 설정 가이드
+### 설정 가이드 {id="setup-guides"}
 - [Koin 설정](/docs/setup/koin) - 모든 플랫폼을 위한 Gradle 설정
 - [Koin 어노테이션 설정](/docs/setup/annotations) - 어노테이션 기반 DI를 위한 KSP 설정
 
-### 시작하기 튜토리얼
+### 시작하기 튜토리얼 {id="getting-started-tutorials"}
 - [Android와 ViewModel](/docs/quickstart/android-viewmodel) - Koin으로 안드로이드 앱 빌드 시작하기
 - [Jetpack Compose](/docs/quickstart/android-compose) - Compose UI와 Koin 함께 사용하기
 - [Kotlin 멀티플랫폼](/docs/reference/koin-mp/kmp) - 플랫폼 간 코드 공유
 - [Ktor 백엔드](/docs/quickstart/ktor) - 서버 애플리케이션 빌드
 
-### 핵심 개념
+### 핵심 개념 {id="core-concepts"}
 - [의존성 주입 기초](/docs/intro/what-is-dependency-injection) - 기본적인 DI 개념
 - [핵심 기능](/docs/reference/koin-core/dsl) - Koin DSL 및 모듈 시스템
 - [안드로이드 통합](/docs/reference/koin-android/start) - 안드로이드 전용 기능

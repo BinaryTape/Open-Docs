@@ -22,7 +22,7 @@ Pod 의존성을 추가하려면 공유 모듈의 `build.gradle(.kts)` 파일에
 >
 {style="note"}
 
-## CocoaPods 저장소에서 추가
+## CocoaPods 저장소에서 추가 {id="from-the-cocoapods-repository"}
 
 CocoaPods 저장소에 있는 Pod 라이브러리에 의존성을 추가하려면 다음을 수행하세요:
 
@@ -61,7 +61,7 @@ Kotlin 코드에서 이러한 의존성을 사용하려면 `cocoapods.<library-n
 import cocoapods.SDWebImage.*
 ```
 
-## 로컬에 저장된 라이브러리 사용
+## 로컬에 저장된 라이브러리 사용 {id="on-a-locally-stored-library"}
 
 로컬에 저장된 Pod 라이브러리에 의존성을 추가하려면 다음을 수행하세요:
 
@@ -117,7 +117,7 @@ import cocoapods.subspec_dependency.*
 import cocoapods.SDWebImage.*
 ```
 
-## 커스텀 Git 저장소에서 추가
+## 커스텀 Git 저장소에서 추가 {id="from-a-custom-git-repository"}
 
 커스텀 Git 저장소에 있는 Pod 라이브러리에 의존성을 추가하려면 다음을 수행하세요:
 
@@ -179,7 +179,7 @@ import cocoapods.JSONModel.*
 import cocoapods.CocoaLumberjack.*
 ```
 
-## 커스텀 Podspec 저장소에서 추가
+## 커스텀 Podspec 저장소에서 추가 {id="from-a-custom-podspec-repository"}
 
 커스텀 Podspec 저장소에 있는 Pod 라이브러리에 의존성을 추가하려면 다음을 수행하세요:
 
@@ -221,7 +221,7 @@ Kotlin 코드에서 이러한 의존성을 사용하려면 `cocoapods.<library-n
 import cocoapods.example.*
 ```
 
-## 커스텀 cinterop 옵션 사용
+## 커스텀 cinterop 옵션 사용 {id="with-custom-cinterop-options"}
 
 커스텀 cinterop 옵션을 사용하여 Pod 라이브러리에 의존성을 추가하려면 다음을 수행하세요:
 
@@ -272,7 +272,7 @@ import FirebaseAuthWrapper.Auth
 import FirebaseAuthWrapper.User
 ```
 
-### @import 디렉티브를 포함한 Objective-C 헤더 지원
+### @import 디렉티브를 포함한 Objective-C 헤더 지원 {id="support-for-objective-c-headers-with-import-directives"}
 
 > 이 기능은 [실험적(Experimental)](supported-platforms.md#general-kotlin-stability-levels)입니다. 
 > 언제든지 제거되거나 변경될 수 있습니다. 평가 목적으로만 사용하세요. 
@@ -302,7 +302,7 @@ kotlin {
 }
 ```
 
-### 의존 관계에 있는 Pod 간 Kotlin cinterop 공유
+### 의존 관계에 있는 Pod 간 Kotlin cinterop 공유 {id="share-kotlin-cinterop-between-dependent-pods"}
 
 `pod()` 함수를 사용하여 여러 Pod 의존성을 추가할 때, Pod들의 API 사이에 의존 관계가 있으면 문제가 발생할 수 있습니다.
 
@@ -323,7 +323,7 @@ printImageInfo(loadImage())
 
 이 경우 cinterop 간의 올바른 의존성을 구성하지 않으면, `WebImage` 타입이 서로 다른 cinterop 파일(결과적으로 서로 다른 패키지)에서 제공되므로 코드가 유효하지 않게 됩니다.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [Kotlin 프로젝트와 Xcode 프로젝트 간의 의존성 설정](multiplatform-cocoapods-xcode.md)
 * [CocoaPods Gradle 플러그인 DSL 전체 레퍼런스 보기](multiplatform-cocoapods-dsl-reference.md)

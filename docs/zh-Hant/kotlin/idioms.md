@@ -2,7 +2,7 @@
 
 這裡收集了 Kotlin 中常見且常用的各種習慣用法。如果你有喜歡的習慣用法，歡迎透過傳送 [提取要求 (PR)](pull-request.md) 來貢獻。
 
-## 建立 DTO (POJO/POCO)
+## 建立 DTO (POJO/POCO) {id="create-dtos-pojos-pocos"}
 
 ```kotlin
 data class Customer(val name: String, val email: String)
@@ -17,13 +17,13 @@ data class Customer(val name: String, val email: String)
 * `copy()`
 * 所有屬性的 `component1()`、`component2()` 等（請參閱 [資料類別](data-classes.md)）
 
-## 函式參數的預設值
+## 函式參數的預設值 {id="default-values-for-function-parameters"}
 
 ```kotlin
 fun foo(a: Int = 0, b: String = "") { ... }
 ```
 
-## 篩選清單
+## 篩選清單 {id="filter-a-list"}
 
 ```kotlin
 val positives = list.filter { x -> x > 0 }
@@ -37,7 +37,7 @@ val positives = list.filter { it > 0 }
 
 進一步了解 [Java 與 Kotlin 篩選之間的差異](java-to-kotlin-collections-guide.md#filter-elements)。
 
-## 檢查集合中是否存在某個元素
+## 檢查集合中是否存在某個元素 {id="check-the-presence-of-an-element-in-a-collection"}
 
 ```kotlin
 if ("john@example.com" in emailsList) { ... }
@@ -45,7 +45,7 @@ if ("john@example.com" in emailsList) { ... }
 if ("jane@example.com" !in emailsList) { ... }
 ```
 
-## 字串插值
+## 字串插值 {id="string-interpolation"}
 
 ```kotlin
 println("Name $name")
@@ -53,7 +53,7 @@ println("Name $name")
 
 進一步了解 [Java 與 Kotlin 字串連接之間的差異](java-to-kotlin-idioms-strings.md#concatenate-strings)。
 
-## 安全地讀取標準輸入
+## 安全地讀取標準輸入 {id="read-standard-input-safely"}
 
 ```kotlin
 // 讀取一個字串，如果輸入無法轉換為整數（例如：Hi there!），則傳回 null
@@ -69,7 +69,7 @@ println(correctInt)
 
 若要了解更多資訊，請參閱 [讀取標準輸入](read-standard-input.md)。
 
-## 執行個體檢查
+## 執行個體檢查 {id="instance-checks"}
 
 ```kotlin
 when (x) {
@@ -79,26 +79,26 @@ when (x) {
 }
 ```
 
-## 唯讀清單
+## 唯讀清單 {id="read-only-list"}
 
 ```kotlin
 val list = listOf("a", "b", "c")
 ```
 
-## 唯讀 Map
+## 唯讀 Map {id="read-only-map"}
 
 ```kotlin
 val map = mapOf("a" to 1, "b" to 2, "c" to 3)
 ```
 
-## 存取 Map 項目
+## 存取 Map 項目 {id="access-a-map-entry"}
 
 ```kotlin
 println(map["key"])
 map["key"] = value
 ```
 
-## 遍歷 Map 或成對清單
+## 遍歷 Map 或成對清單 {id="traverse-a-map-or-a-list-of-pairs"}
 
 ```kotlin
 for ((k, v) in map) {
@@ -108,7 +108,7 @@ for ((k, v) in map) {
 
 `k` 和 `v` 可以是任何方便的名稱，例如 `name` 和 `age`。
 
-## 在範圍內疊代
+## 在範圍內疊代 {id="iterate-over-a-range"}
 
 ```kotlin
 for (i in 1..100) { ... }  // 閉合範圍：包含 100
@@ -118,7 +118,7 @@ for (x in 10 downTo 1) { ... }
 (1..10).forEach { ... }
 ```
 
-## 延遲屬性
+## 延遲屬性 {id="lazy-property"}
 
 ```kotlin
 val p: String by lazy { // 僅在首次存取時計算值
@@ -126,7 +126,7 @@ val p: String by lazy { // 僅在首次存取時計算值
 }
 ```
 
-## 擴充函式
+## 擴充函式 {id="extension-functions"}
 
 ```kotlin
 fun String.spaceToCamelCase() { ... }
@@ -134,7 +134,7 @@ fun String.spaceToCamelCase() { ... }
 "Convert this to camelcase".spaceToCamelCase()
 ```
 
-## 建立單例
+## 建立單例 {id="create-a-singleton"}
 
 ```kotlin
 object Resource {
@@ -142,7 +142,7 @@ object Resource {
 }
 ```
 
-## 使用內聯值類別以實現型別安全的值
+## 使用內聯值類別以實現型別安全的值 {id="use-inline-value-classes-for-type-safe-values"}
 
 ```kotlin
 @JvmInline
@@ -158,7 +158,7 @@ value class CustomerId(private val id: String)
 >
 {style="note"}
 
-## 具現化抽象類別
+## 具現化抽象類別 {id="instantiate-an-abstract-class"}
 
 ```kotlin
 abstract class MyAbstractClass {
@@ -179,7 +179,7 @@ fun main() {
 }
 ```
 
-## If-not-null 簡寫
+## If-not-null 簡寫 {id="if-not-null-shorthand"}
 
 ```kotlin
 val files = File("Test").listFiles()
@@ -187,7 +187,7 @@ val files = File("Test").listFiles()
 println(files?.size) // 如果 files 不為 null，則列印大小
 ```
 
-## If-not-null-else 簡寫
+## If-not-null-else 簡寫 {id="if-not-null-else-shorthand"}
 
 ```kotlin
 val files = File("Test").listFiles()
@@ -203,14 +203,14 @@ val filesSize = files?.size ?: run {
 println(filesSize)
 ```
 
-## 如果為 null 則執行運算式
+## 如果為 null 則執行運算式 {id="execute-an-expression-if-null"}
 
 ```kotlin
 val values = ...
 val email = values["email"] ?: throw IllegalStateException("Email is missing!")
 ```
 
-## 從可能為空的集合中獲取第一個項目
+## 從可能為空的集合中獲取第一個項目 {id="get-first-item-of-a-possibly-empty-collection"}
 
 ```kotlin
 val emails = ... // 可能為空
@@ -219,7 +219,7 @@ val mainEmail = emails.firstOrNull() ?: ""
 
 進一步了解 [Java 與 Kotlin 獲取第一個項目之間的差異](java-to-kotlin-collections-guide.md#get-the-first-and-the-last-items-of-a-possibly-empty-collection)。
 
-## 如果不為 null 則執行
+## 如果不為 null 則執行 {id="execute-if-not-null"}
 
 ```kotlin
 val value = ...
@@ -229,7 +229,7 @@ value?.let {
 }
 ```
 
-## 如果不為 null 則映射可為 null 的值
+## 如果不為 null 則映射可為 null 的值 {id="map-nullable-value-if-not-null"}
 
 ```kotlin
 val value = ...
@@ -238,7 +238,7 @@ val mapped = value?.let { transformValue(it) } ?: defaultValue
 // 如果值或轉換結果為 null，則傳回 defaultValue。
 ```
 
-## 在 when 陳述式中傳回
+## 在 when 陳述式中傳回 {id="return-on-when-statement"}
 
 ```kotlin
 fun transform(color: String): Int {
@@ -251,7 +251,7 @@ fun transform(color: String): Int {
 }
 ```
 
-## try-catch 運算式
+## try-catch 運算式 {id="try-catch-expression"}
 
 ```kotlin
 fun test() {
@@ -265,7 +265,7 @@ fun test() {
 }
 ```
 
-## if 運算式
+## if 運算式 {id="if-expression"}
 
 ```kotlin
 val y = if (x == 1) {
@@ -277,7 +277,7 @@ val y = if (x == 1) {
 }
 ```
 
-## 傳回 Unit 的方法之生成器風格用法
+## 傳回 Unit 的方法之生成器風格用法 {id="builder-style-usage-of-methods-that-return-unit"}
 
 ```kotlin
 fun arrayOfMinusOnes(size: Int): IntArray {
@@ -285,7 +285,7 @@ fun arrayOfMinusOnes(size: Int): IntArray {
 }
 ```
 
-## 單運算式函式
+## 單運算式函式 {id="single-expression-functions"}
 
 ```kotlin
 fun theAnswer() = 42
@@ -310,7 +310,7 @@ fun transform(color: String): Int = when (color) {
 }
 ```
 
-## 在物件執行個體上呼叫多個方法 (with)
+## 在物件執行個體上呼叫多個方法 (with) {id="call-multiple-methods-on-an-object-instance-with"}
 
 ```kotlin
 class Turtle {
@@ -331,7 +331,7 @@ with(myTurtle) { // 畫一個 100 像素的正方形
 }
 ```
 
-## 設定物件屬性 (apply)
+## 設定物件屬性 (apply) {id="configure-properties-of-an-object-apply"}
 
 ```kotlin
 val myRectangle = Rectangle().apply {
@@ -343,7 +343,7 @@ val myRectangle = Rectangle().apply {
 
 這對於設定不在物件建構函式中的屬性非常有用。
 
-## Java 7 的 try-with-resources
+## Java 7 的 try-with-resources {id="java-7-s-try-with-resources"}
 
 ```kotlin
 val stream = Files.newInputStream(Paths.get("/some/file.txt"))
@@ -352,7 +352,7 @@ stream.buffered().reader().use { reader ->
 }
 ```
 
-## 需要泛型型別資訊的泛型函式
+## 需要泛型型別資訊的泛型函式 {id="generic-function-that-requires-the-generic-type-information"}
 
 ```kotlin
 //  public final class Gson {
@@ -363,7 +363,7 @@ stream.buffered().reader().use { reader ->
 inline fun <reified T: Any> Gson.fromJson(json: JsonElement): T = this.fromJson(json, T::class.java)
 ```
 
-## 交換兩個變數
+## 交換兩個變數 {id="swap-two-variables"}
 
 ```kotlin
 var a = 1
@@ -371,7 +371,7 @@ var b = 2
 a = b.also { b = a }
 ```
 
-## 將程式碼標記為未完成 (TODO)
+## 將程式碼標記為未完成 (TODO) {id="mark-code-as-incomplete-todo"}
  
 Kotlin 的標準函式庫有一個 `TODO()` 函式，它始終會拋出 `NotImplementedError`。
 其傳回型別為 `Nothing`，因此無論預期型別為何都可以使用。
@@ -383,7 +383,7 @@ fun calcTaxes(): BigDecimal = TODO("正在等待會計部門的回饋")
 
 IntelliJ IDEA 的 Kotlin 外掛程式能夠理解 `TODO()` 的語意，並自動在 TODO 工具視窗中加入程式碼指標。
 
-## 下一步？
+## 下一步？ {id="what-s-next"}
 
 * 使用慣用的 Kotlin 風格解決 [Advent of Code 謎題](advent-of-code.md)。
 * 了解如何 [在 Java 與 Kotlin 中執行字串的典型任務](java-to-kotlin-idioms-strings.md)。

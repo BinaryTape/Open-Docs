@@ -6,7 +6,7 @@ Kotlinの *拡張 (extensions)* を使用すると、継承や *Decorator* の�
 
 重要な点として、拡張は拡張対象のクラスやインターフェースを実際に変更するわけではありません。拡張を定義しても、新しいメンバーを追加することにはなりません。同じ構文を使用して、新しい関数を呼び出せるようにしたり、新しいプロパティにアクセスできるようにしたりするだけです。
 
-## レシーバー (Receivers)
+## レシーバー (Receivers) {id="receivers"}
 
 拡張は常にレシーバーに対して呼び出されます。レシーバーは、拡張されるクラスまたはインターフェースと同じ型である必要があります。
 拡張を使用するには、レシーバーの後に `.` と関数名またはプロパティ名を付けます。
@@ -32,7 +32,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-extension-function-stringbuilder"}
 
-## 拡張関数 (Extension functions)
+## 拡張関数 (Extension functions) {id="extension-functions"}
 
 独自の拡張関数を作成する前に、探しているものがすでにKotlinの [標準ライブラリ](https://kotlinlang.org/api/core/kotlin-stdlib/) に用意されていないか確認してください。
 標準ライブラリには、以下のような便利な拡張関数が多く提供されています：
@@ -108,7 +108,7 @@ fun main() {
 
 `.mostVoted()` 関数は、呼び出されたマップのキーと値のペアを反復処理し、[`maxByOrNull()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/max-by-or-null.html) 関数を使用して、最も高い値を持つペアのキーを返します。マップが空の場合、`maxByOrNull()` 関数は `null` を返します。`mostVoted()` 関数は安全な呼び出し `?.` を使用して、`maxByOrNull()` 関数が null 以外の値を返したときにのみ `key` プロパティにアクセスします。
 
-### ジェネリックな拡張関数 (Generic extension functions)
+### ジェネリックな拡張関数 (Generic extension functions) {id="generic-extension-functions"}
 
 ジェネリックな拡張関数を作成するには、レシーバー型の式で利用できるように、関数名の前にジェネリック型パラメータを宣言します。この例では、`.endpoints()` 関数が `List<T>` を拡張しており、`T` は任意の型にすることができます：
 
@@ -136,7 +136,7 @@ fun main() {
 
 ジェネリクスの詳細については、[ジェネリック関数](generics.md) を参照してください。
 
-### Null許容なレシーバー (Nullable receivers)
+### Null許容なレシーバー (Nullable receivers) {id="nullable-receivers"}
 
 Null許容（nullable）なレシーバー型を持つ拡張関数を定義することもできます。これにより、変数の値が null であっても、その変数に対して拡張関数を呼び出すことができます。レシーバーが `null` の場合、`this` も `null` になります。関数内では、null 許容性を正しく処理するようにしてください。たとえば、関数本体の中で `this == null` チェックを行ったり、[安全な呼び出し `?.`](null-safety.md#safe-call-operator) や [Elvis演算子 `?:`](null-safety.md#elvis-operator) を使用したりします。
 
@@ -165,7 +165,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-extension-function-nullable-receiver"}
 
-### 拡張関数かメンバー関数か？
+### 拡張関数かメンバー関数か？ {id="extension-or-member-functions"}
 
 拡張関数とメンバー関数の呼び出しは同じ表記ですが、コンパイラはどちらを使用するかをどのように判断するのでしょうか？
 拡張関数は *静的に* ディスパッチされます。つまり、コンパイラはコンパイル時のレシーバー型に基づいて、どの関数を呼び出すかを決定します。例：
@@ -233,7 +233,7 @@ fun main() {
 
 この例では、`Int` が `.printFunctionType()` 関数に渡されているため、コンパイラはシグネチャが一致する拡張関数を選択します。コンパイラは引数を取らないメンバー関数を無視します。
 
-### 匿名拡張関数 (Anonymous extension functions)
+### 匿名拡張関数 (Anonymous extension functions) {id="anonymous-extension-functions"}
 
 名前を付けずに拡張関数を定義することもできます。これは、グローバルな名前空間を汚したくない場合や、拡張の振る舞いをパラメータとして渡したい場合に便利です。
 
@@ -274,7 +274,7 @@ fun main() {
 
 詳細については、[ラムダ式と匿名関数](lambdas.md) を参照してください。
 
-## 拡張プロパティ (Extension properties)
+## 拡張プロパティ (Extension properties) {id="extension-properties"}
 
 Kotlinは拡張プロパティをサポートしています。これは、作業中のクラスを汚すことなく、データ変換を行ったりUI表示ヘルパーを作成したりするのに役立ちます。
 
@@ -335,7 +335,7 @@ fun main() {
 
 この例では、ゲッターは [Elvis演算子](null-safety.md#elvis-operator) を使用して、`houseNumbers` マップにハウス番号が存在すればそれを返し、存在しなければ `1` を返します。ゲッターとセッターの書き方の詳細については、[カスタムゲッターとセッター](properties.md#custom-getters-and-setters) を参照してください。
 
-## コンパニオンオブジェクトの拡張 (Companion object extensions)
+## コンパニオンオブジェクトの拡張 (Companion object extensions) {id="companion-object-extensions"}
 
 クラスに [コンパニオンオブジェクト](object-declarations.md#companion-objects) が定義されている場合、そのコンパニオンオブジェクトに対しても拡張関数やプロパティを定義できます。コンパニオンオブジェクトの通常のメンバーと同様に、クラス名のみを修飾子として使用して呼び出すことができます。コンパイラはデフォルトでコンパニオンオブジェクトを `Companion` と命名します：
 
@@ -355,7 +355,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-extension-function-companion-object"}
 
-## メンバーとしての拡張の宣言 (Declaring extensions as members)
+## メンバーとしての拡張の宣言 (Declaring extensions as members) {id="declaring-extensions-as-members"}
 
 あるクラスの中で別のクラスの拡張を宣言できます。このような拡張には、複数の *暗黙のレシーバー (implicit receivers)* が存在します。暗黙のレシーバーとは、[`this`](this-expressions.md#qualified-this) で修飾しなくてもメンバーにアクセスできるオブジェクトのことです：
 
@@ -415,7 +415,7 @@ class Connection {
 }
 ```
 
-### メンバー拡張のオーバーライド (Overriding member extensions)
+### メンバー拡張のオーバーライド (Overriding member extensions) {id="overriding-member-extensions"}
 
 メンバー拡張を `open` として宣言し、サブクラスでオーバーライドすることができます。これは、各サブクラスで拡張の振る舞いをカスタマイズしたい場合に便利です。コンパイラは各レシーバー型を異なる方法で処理します：
 
@@ -480,7 +480,7 @@ fun main() {
 
 ディスパッチレシーバーは仮想ディスパッチを使用して実行時に解決されるため、`main()` 関数内の動作は追いやすくなっています。驚くかもしれないのは、`Admin` インスタンスに対して `notify()` 関数を呼び出したとき、コンパイラが宣言された型 `user: User` に基づいて拡張を選択することです。これは、拡張レシーバーを静的に解決するためです。
 
-## 拡張と可視性修飾子 (Extensions and visibility modifiers)
+## 拡張と可視性修飾子 (Extensions and visibility modifiers) {id="extensions-and-visibility-modifiers"}
 
 拡張は、他のクラスのメンバーとして宣言された拡張を含め、同じスコープで宣言された通常の関数と同じ [可視性修飾子 (visibility modifiers)](visibility-modifiers.md) を使用します。
 
@@ -545,7 +545,7 @@ internal fun String.parseJson(): Map<String, Any> {
 }
 ```
 
-## 拡張のスコープ (Scope of extensions)
+## 拡張のスコープ (Scope of extensions) {id="scope-of-extensions"}
 
 ほとんどの場合、拡張はパッケージ直下のトップレベルで定義します：
 

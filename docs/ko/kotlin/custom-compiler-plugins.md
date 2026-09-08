@@ -12,7 +12,7 @@
 
 그럼에도 불구하고 필요한 것을 찾을 수 없다면 커스텀 컴파일러 플러그인을 만들 수 있습니다. Kotlin 컴파일러 플러그인 API는 **불안정(unstable)**하다는 점에 유의하세요. 새로운 컴파일러 릴리스마다 호환성을 깨뜨리는 변경 사항이 도입되므로, 이를 유지 관리하기 위해 지속적으로 상당한 노력을 기울여야 합니다.
 
-### Kotlin 컴파일러와 컴파일러 플러그인
+### Kotlin 컴파일러와 컴파일러 플러그인 {id="the-kotlin-compiler-and-compiler-plugins"}
 
 <p></p> <!-- workaround for MRK057: Paragraph can only contain inline elements-->
 <list columns="2">
@@ -43,7 +43,7 @@
 
 [Kotlin serialization 플러그인](https://github.com/Kotlin/kotlinx.serialization)이 좋은 예입니다. 이 플러그인의 프론트엔드 파트는 컴패니언 객체(companion object)와 시리얼라이저 함수를 추가하고 이름 충돌을 방지하기 위한 체크를 수행합니다. 백엔드 파트는 `KSerializer` 객체를 통해 원하는 직렬화 동작을 구현합니다.
 
-### Kotlin 컴파일러 플러그인 템플릿
+### Kotlin 컴파일러 플러그인 템플릿 {id="kotlin-compiler-plugin-template"}
 
 커스텀 컴파일러 플러그인 작성을 시작하려면 [Kotlin 컴파일러 플러그인 템플릿](https://github.com/Kotlin/compiler-plugin-template)을 사용할 수 있습니다. 그런 다음 프론트엔드 및 백엔드 플러그인 API에서 확장 포인트(extension points)를 등록합니다.
 
@@ -51,7 +51,7 @@
 > 
 {style="note"}
 
-### 프론트엔드 플러그인 API
+### 프론트엔드 플러그인 API {id="frontend-plugin-api"}
 
 프론트엔드 플러그인 API(프론트엔드 중간 표현 또는 FIR이라고도 함)는 리졸브 과정을 커스텀하기 위해 다음과 같은 특화된 확장 포인트를 제공합니다.
 
@@ -66,7 +66,7 @@
 | [`FirSupertypeGenerationExtension`](https://github.com/JetBrains/kotlin/blob/master/compiler/fir/resolve/src/org/jetbrains/kotlin/fir/extensions/FirSupertypeGenerationExtension.kt)         | 기존 클래스에 새로운 상위 타입(supertype)을 추가합니다. |
 | [`FirTypeAttributeExtension`]( https://github.com/JetBrains/kotlin/blob/master/compiler/fir/tree/src/org/jetbrains/kotlin/fir/extensions/FirTypeAttributeExtension.kt)                       | 타입 어노테이션에 기반하여 특정 타입에 특별한 속성을 추가합니다. |
 
-#### IDE 통합
+#### IDE 통합 {id="ide-integration"}
 
 리졸브의 변경 사항은 코드 하이라이팅 및 제안과 같은 IDE 동작에 영향을 미치므로, 플러그인이 IDE와 호환되는 것이 중요합니다. IntelliJ IDEA 및 Android Studio의 각 버전에는 Kotlin 컴파일러의 개발 버전이 포함되어 있습니다. 이 버전은 해당 IDE에 종속적이며 정식 출시된 Kotlin 컴파일러와 바이너리 호환성이 없습니다. 결과적으로 IDE를 업데이트할 때 플러그인이 계속 작동하도록 컴파일러 플러그인도 업데이트해야 합니다. 이러한 이유로 커뮤니티 플러그인은 기본적으로 로드되지 않습니다.
 
@@ -74,7 +74,7 @@
 
 Kotlin 컴파일러 플러그인용 devkit이 제공된다면 여러 IDE 버전을 지원하는 것이 더 쉬워질 수 있습니다. 이 기능에 관심이 있다면 [이슈 트래커](https://youtrack.jetbrains.com/issue/KT-82617)에서 의견을 공유해 주세요.
 
-### 백엔드 플러그인 API
+### 백엔드 플러그인 API {id="backend-plugin-api"}
 
 > 백엔드 플러그인 개발은 IDE나 디버거 성능을 저하시키지 않고 올바르게 수행하기 어렵기 때문에, 변경 사항을 적용할 때 주의를 기울이고 보수적으로 접근해야 합니다.
 > 
@@ -84,11 +84,11 @@ Kotlin 컴파일러 플러그인용 devkit이 제공된다면 여러 IDE 버전�
 
 이 확장 포인트를 통한 변경 사항은 컴파일러에 의해 **체크되지 않습니다**. 변경 사항이 이 단계에서 컴파일러의 기대치를 깨뜨리지 않는지 직접 확인해야 합니다. 예를 들어, 실수로 유효하지 않은 타입을 도입하거나, 잘못된 함수 참조를 만들거나, 올바른 스코프를 벗어난 참조를 만들 수 있습니다.
 
-#### 백엔드 플러그인 코드 탐색하기
+#### 백엔드 플러그인 코드 탐색하기 {id="explore-backend-plugin-code"}
 
 Kotlin serialization 플러그인 코드를 살펴보면 실제 백엔드 플러그인 컴파일러 코드가 어떻게 생겼는지 확인할 수 있습니다. 예를 들어, [`SerializableCompanionIrGenerator.kt`](https://github.com/JetBrains/kotlin/blob/master/plugins/kotlinx-serialization/kotlinx-serialization.backend/src/org/jetbrains/kotlinx/serialization/compiler/backend/ir/SerializerIrGenerator.kt)는 핵심 시리얼라이저 멤버에서 누락된 본문을 채워 넣습니다. 한 가지 예로 [`generateChildSerializersGetter()`](https://github.com/JetBrains/kotlin/blob/9cfa558902abc13d245c825717026af63ef82dd2/plugins/kotlinx-serialization/kotlinx-serialization.backend/src/org/jetbrains/kotlinx/serialization/compiler/backend/ir/SerializerIrGenerator.kt#L242) 함수가 있는데, 이 함수는 `KSerializer` 표현식 목록을 수집하여 배열로 반환합니다.
 
-#### 백엔드 플러그인 코드의 문제점 확인하기
+#### 백엔드 플러그인 코드의 문제점 확인하기 {id="check-your-backend-plugin-code-for-problems"}
 
 백엔드 플러그인 코드의 문제를 세 가지 방법으로 확인할 수 있습니다.
 
@@ -104,7 +104,7 @@ Kotlin serialization 플러그인 코드를 살펴보면 실제 백엔드 플러
 
     `convertToIr.kt` 파일의 `convertToIrAndActualize()` 함수에 중단점(breakpoint)을 추가하고 디버그 모드에서 컴파일러를 실행하여 컴파일 중에 더 상세한 정보를 얻습니다.
 
-### 플러그인 테스트
+### 플러그인 테스트 {id="test-your-plugin"}
 
 플러그인을 구현한 후에는 철저히 테스트하세요. [Kotlin 컴파일러 플러그인 템플릿](https://github.com/Kotlin/compiler-plugin-template)은 이미 [Kotlin 컴파일러 테스트 프레임워크](https://github.com/JetBrains/kotlin/blob/master/compiler/test-infrastructure/ReadMe.md)를 사용하도록 설정되어 있습니다. 다음 디렉토리에 테스트를 추가할 수 있습니다.
 
@@ -121,6 +121,6 @@ Kotlin serialization 플러그인 코드를 살펴보면 실제 백엔드 플러
 
 이 파일들을 사용하여 생성된 diff에 의도하지 않은 변경 사항이 있는지 확인할 수 있습니다. 문제가 없다면 새로운 덤프 파일이 최신 _골든(golden)_ 파일이 됩니다. 이는 향후 변경 사항과 비교할 수 있는 승인되고 신뢰할 수 있는 소스가 됩니다.
 
-### 도움 받기
+### 도움 받기 {id="get-help"}
 
 커스텀 컴파일러 플러그인을 개발하다가 문제에 부딪히면 [Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)의 [#compiler](https://slack-chats.kotlinlang.org/c/compiler) 채널에 문의해 주세요. 해결을 보장할 수는 없지만 가능한 한 도움을 드리기 위해 노력하겠습니다.

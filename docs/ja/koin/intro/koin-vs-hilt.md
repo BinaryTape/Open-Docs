@@ -10,7 +10,7 @@ title: Koin 対 Hilt/Dagger
 Koin は **DSL とアノテーション** の両方をサポートしています。チームに合った方を選択してください。どちらも第一級市民（first-class citizens）であり、同じコンパイラプラグインによって同等に強力な機能が提供されます。この比較では、Hilt と公平に比較するためにアノテーションの例を示しますが、Koin の DSL はさらに少ないボイラープレートで同等の機能を提供します。
 :::
 
-## 哲学の違い
+## 哲学の違い {id="philosophy-differences"}
 
 | 項目 | Koin | Hilt/Dagger |
 |--------|------|-------------|
@@ -21,7 +21,7 @@ Koin は **DSL とアノテーション** の両方をサポートしていま�
 | **コンパイル時の安全性** | ✅ コンパイラプラグインを使用 | ✅ 常に確保 |
 | **実行時の柔軟性** | ✅ 動的な機能 | ❌ 静的な構成のみ |
 
-## アノテーションの比較
+## アノテーションの比較 {id="annotation-comparison"}
 
 Koin ではアノテーションさえもよりシンプルです：
 
@@ -34,9 +34,9 @@ Koin ではアノテーションさえもよりシンプルです：
 | **サードパーティ製の提供** | `@Singleton fun provide()` | `@Module` 内の `@Provides` + `@InstallIn` |
 | **ViewModel** | `@KoinViewModel class MyVM` | `@HiltViewModel class MyVM @Inject constructor` |
 
-## コードの比較
+## コードの比較 {id="code-comparison"}
 
-### シンプルなシングルトン
+### シンプルなシングルトン {id="simple-singleton"}
 
 **Koin:**
 ```kotlin
@@ -61,7 +61,7 @@ abstract class AppModule {
 }
 ```
 
-### インターフェースのバインディング
+### インターフェースのバインディング {id="interface-binding"}
 
 **Koin - 自動:**
 ```kotlin
@@ -84,7 +84,7 @@ abstract class RepositoryModule {
 }
 ```
 
-### マルチモジュールアプリ
+### マルチモジュールアプリ {id="multi-module-apps"}
 
 **Koin - モジュールの自動検出:**
 ```kotlin
@@ -122,7 +122,7 @@ class ProfileModule { ... }
 class MyApp  // いたるところで正しい @InstallIn が必要です
 ```
 
-### ViewModel
+### ViewModel {id="viewmodel"}
 
 **Koin:**
 ```kotlin
@@ -154,7 +154,7 @@ val viewModel: UserViewModel by viewModels()
 val viewModel: UserViewModel = hiltViewModel()
 ```
 
-### サードパーティ製ライブラリの提供
+### サードパーティ製ライブラリの提供 {id="providing-third-party-libraries"}
 
 **Koin:**
 ```kotlin
@@ -189,7 +189,7 @@ object NetworkModule {
 }
 ```
 
-## 動的な機能：Koin 独自の強み
+## 動的な機能：Koin 独自の強み {id="dynamic-features-koin-s-unique-advantage"}
 
 Koin は **実行時（runtime）ベースですが、パフォーマンスに優れ、コンパイル時の安全性も確保されています**。これにより、Hilt では提供できない動的な機能が可能になります。
 
@@ -203,7 +203,7 @@ Koin は **実行時（runtime）ベースですが、パフォーマンスに�
 | A/B テストの実装 | ✅ 実行時の入れ替え | ⚠️ コンパイル時のみ |
 | 動的な構成 | ✅ サポート済み | ❌ 不可、再コンパイルが必要 |
 
-### 例：動的なモジュールロード
+### 例：動的なモジュールロード {id="example-dynamic-module-loading"}
 
 ```kotlin
 // KOIN - 動的なモジュールロード
@@ -226,7 +226,7 @@ startKoin {
 
 **これは Hilt では不可能です**。すべての依存関係はコンパイル時に接続されます。
 
-### 例：フィーチャーフラグ
+### 例：フィーチャーフラグ {id="example-feature-flags"}
 
 ```kotlin
 // KOIN - 実行時に実装を切り替える
@@ -245,13 +245,13 @@ fun updateApiImplementation(useNew: Boolean) {
 }
 ```
 
-## セットアップの比較
+## セットアップの比較 {id="setup-comparison"}
 
-### Koin のセットアップ
+### Koin のセットアップ {id="koin-setup"}
 
 詳細な手順については、**[コンパイラプラグインセットアップガイド](/docs/setup/compiler-plugin)**を参照してください。
 
-### Hilt のセットアップ
+### Hilt のセットアップ {id="hilt-setup"}
 
 ```kotlin
 // settings.gradle.kts
@@ -271,9 +271,9 @@ dependencies {
 }
 ```
 
-## エラーメッセージ
+## エラーメッセージ {id="error-messages"}
 
-### Koin
+### Koin {id="koin"}
 
 ```
 org.koin.core.error.NoBeanDefFoundException:
@@ -283,7 +283,7 @@ Check your module definitions.
 
 明確で、問題の箇所を直接示します。
 
-### Hilt/Dagger
+### Hilt/Dagger {id="hilt-dagger"}
 
 ```
 error: [Dagger/MissingBinding] com.app.UserRepository cannot be provided
@@ -298,9 +298,9 @@ com.app.UserActivity is injected at
 
 より長く、コンポーネントグラフを理解する必要があります。
 
-## どちらを選ぶべきか
+## どちらを選ぶべきか {id="when-to-choose-each"}
 
-### 次のような場合は Koin を選択してください：
+### 次のような場合は Koin を選択してください： {id="choose-koin-when"}
 
 - **生産性とシンプルさ**を重視する場合
 - **実行時の柔軟性**（動的なモジュール、フィーチャーフラグ）が必要な場合
@@ -309,17 +309,17 @@ com.app.UserActivity is injected at
 - **ボイラープレートを減らしたい**場合
 - **デバッグを容易に**したい場合
 
-### 次のような場合は Hilt を選択してください：
+### 次のような場合は Hilt を選択してください： {id="choose-hilt-when"}
 
 - チームが**すでに Dagger を熟知している**場合
 - **Google 第一のエコシステム**との互換性が必要な場合
 - **Dagger 特有の機能**が必要な場合
 
-## Hilt から Koin への移行
+## Hilt から Koin への移行 {id="migration-from-hilt-to-koin"}
 
 移行を検討している場合：
 
-### コンセプトのマッピング
+### コンセプトのマッピング {id="concept-mapping"}
 
 | Hilt | Koin |
 |------|------|
@@ -331,7 +331,7 @@ com.app.UserActivity is injected at
 | `@InstallIn(SingletonComponent)` | `@Configuration` |
 | 関数に対する `@Provides` | 関数に対する `@Factory` |
 
-### 段階的な移行
+### 段階的な移行 {id="gradual-migration"}
 
 段階的に移行することができます：
 
@@ -342,7 +342,7 @@ com.app.UserActivity is injected at
 
 詳細な手順については、[Hilt からの移行](/docs/migration/from-hilt)を参照してください。
 
-## まとめ
+## まとめ {id="summary"}
 
 **Koin: シンプルかつ強力**
 
@@ -353,7 +353,7 @@ com.app.UserActivity is injected at
 
 安全性とシンプルさのどちらかを選ぶ必要はありません。Koin なら、その両方が手に入ります。
 
-## 次のステップ
+## 次のステップ {id="next-steps"}
 
 - **[Koin とは？](/docs/intro/what-is-koin)** - Koin について詳しく学ぶ
 - **[セットアップガイド](/docs/setup/gradle)** - プロジェクトに Koin を追加する

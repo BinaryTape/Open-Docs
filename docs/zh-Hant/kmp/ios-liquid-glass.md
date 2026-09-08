@@ -27,7 +27,7 @@
 
 為求簡化，我們將遷移應用程式的雙標籤頁版本（**Schedule** 與 **Info**），但此模式可擴展至任何數量的標籤頁。
 
-## 遷移計畫
+## 遷移計畫 {id="migration-plan"}
 
 在具有完全共用 UI 程式碼的 Compose Multiplatform 設定中，單一 `ComposeUIViewController` 負責整個 iOS UI：標籤頁、導航堆疊、返回手勢與畫面內容。
 Compose Multiplatform 在 iOS 上的導航轉換設計旨在提供原生感，但某些平台級特性（例如 iOS 26 的 Liquid Glass 標籤列樣式）僅能透過原生 iOS 組件取得。
@@ -78,7 +78,7 @@ ContentView
 
 * [建置 SwiftUI 導航層](#build-the-swiftui-navigation-layer)，使用原生的 `TabView` 與 `NavigationStack` 檢視，以及嵌入 Compose 畫面的橋接器。
 
-## 為路由新增標題元資料
+## 為路由新增標題元資料 {id="add-title-metadata-to-routes"}
 
 在 iOS 上，每個目的地都有一個顯示在導航列中的標題，也會出現在長按返回按鈕時顯示的返回堆疊中。
 我們將標題直接儲存在路由物件上，使每個路由都能自我描述，讓 Swift 無需與 Kotlin 進行來回通訊即可讀取標題。
@@ -127,7 +127,7 @@ ContentView
     }
     ```
 
-## 為 iOS 入口點新增導航回呼
+## 為 iOS 入口點新增導航回呼 {id="add-navigation-callbacks-to-the-ios-entry-point"}
 
 `App()` 是 iOS 呼叫的 Kotlin 入口點。為了讓 Swift 驅動導航，它需要一種方式來執行三件事：
 
@@ -158,7 +158,7 @@ fun App(
 
 如需完整實作，請參閱 [`App.kt`](https://github.com/JetBrains/kotlinconf-app/blob/3982334f1c3712fb959f0d20b563d6c8b81e9bbd/app/shared/src/commonMain/kotlin/org/jetbrains/kotlinconf/App.kt)。
 
-## 在 Compose 層級攔截導航
+## 在 Compose 層級攔截導航 {id="intercept-navigation-at-the-compose-level"}
 
 現在 `App()` 已公開導航回呼，`NavHost` 需要使用它們。
 每當詳細資料路由出現在 Compose 的返回堆疊時，將其交給 Swift 並立即從 Compose 中移除。
@@ -211,12 +211,12 @@ internal fun NavHost(
 
 如需完整檔案，請參閱 [`NavHost.kt`](https://github.com/JetBrains/kotlinconf-app/blob/3982334f1c3712fb959f0d20b563d6c8b81e9bbd/app/shared/src/commonMain/kotlin/org/jetbrains/kotlinconf/navigation/NavHost.kt)。
 
-## 為 iOS 建置獨立的畫面轉譯器
+## 為 iOS 建置獨立的畫面轉譯器 {id="build-a-standalone-screen-renderer-for-ios"}
 
 當 SwiftUI 擁有 `NavigationStack` 時，Compose 只需要渲染每個畫面的內容。
 `NavHost` 是為了管理返回堆疊、轉換與生命週期而組建的，因此我們需要一個更簡單的入口點來渲染單一路由。
 
-### 新增扁平的畫面轉譯器
+### 新增扁平的畫面轉譯器 {id="add-a-flat-screen-renderer"}
 
 `ScreenContent` 就是那個更簡單的入口點：一個扁平的 `when` 運算式，將單一詳細資料路由對應到其可組合項，且自身不帶導航狀態。
 標籤頁根目錄仍由完整的 `App()` / `NavHost` 處理。
@@ -260,7 +260,7 @@ fun ScreenContent(
 
 標題不會出現在此函式中：它們已在[為路由新增標題元資料](#add-title-metadata-to-routes)步驟中附加到路由物件，因此 Swift 端在配置其導航列時可以直接從每個路由中讀取它們。
 
-### 向 Compose 指示 SwiftUI 擁有導航
+### 向 Compose 指示 SwiftUI 擁有導航 {id="signal-to-compose-that-swiftui-owns-navigation"}
 
 `ScreenContent` 在 SwiftUI 渲染導航列與返回按鈕的內容中執行。
 自行繪製標題列或返回按鈕的 Compose 畫面必須跳過這些部分。
@@ -273,7 +273,7 @@ fun ScreenContent(
 val LocalUseNativeNavigation = staticCompositionLocalOf { false }
 ```
 
-### 為 iOS 包裝轉譯器
+### 為 iOS 包裝轉譯器 {id="wrap-the-renderer-for-ios"}
 
 `ScreenContent` 會渲染路由，但它需要一個包裝器來設定與 `App()` 通常設定相同的佈景主題、相依注入以及應用程式範圍的 `CompositionLocal` 值。
 
@@ -307,7 +307,7 @@ internal fun SingleScreenApp(
 }
 ```
 
-### 將旗標套用於標籤頁根目錄
+### 將旗標套用於標籤頁根目錄 {id="apply-the-flag-to-tab-roots"}
 
 標籤頁根目錄仍透過常規的 `NavHost` 處理，因此它們也需要遵循 `LocalUseNativeNavigation` 的值。
 請根據原生導航回呼是否處於活動狀態來提供該值。
@@ -343,7 +343,7 @@ CompositionLocalProvider(LocalUseNativeNavigation provides useNativeNavigation) 
 如需完整實作，請參閱 [`NavHost.kt`](https://github.com/JetBrains/kotlinconf-app/blob/3982334f1c3712fb959f0d20b563d6c8b81e9bbd/app/shared/src/commonMain/kotlin/org/jetbrains/kotlinconf/navigation/NavHost.kt)
 與 [`SingleScreenApp.kt`](https://github.com/JetBrains/kotlinconf-app/blob/3982334f1c3712fb959f0d20b563d6c8b81e9bbd/app/shared/src/iosMain/kotlin/org/jetbrains/kotlinconf/SingleScreenApp.kt)。
 
-## 隱藏 Compose 內建的導航 UI
+## 隱藏 Compose 內建的導航 UI {id="hide-compose-s-built-in-navigation-ui"}
 
 在 SwiftUI 渲染導航 UI 的地方設定了 `LocalUseNativeNavigation` 後，個別畫面現在需要讀取它並隱藏自己的標題列與返回按鈕。
 否則，使用者會看到兩個疊加的標題列與兩個衝突的返回按鈕。
@@ -363,7 +363,7 @@ if (!useNativeNavigation) {
 
 如需完整實作，請參閱 [`BaseScreens.kt`](https://github.com/JetBrains/kotlinconf-app/blob/3982334f1c3712fb959f0d20b563d6c8b81e9bbd/app/shared/src/commonMain/kotlin/org/jetbrains/kotlinconf/BaseScreens.kt)。
 
-## 公開新的 iOS 入口點
+## 公開新的 iOS 入口點 {id="expose-new-ios-entry-points"}
 
 若要從 SwiftUI 組建新的導航結構，請公開三個 Kotlin 入口點：
 兩個 `MainViewController` 的多載與一個 `ScreenViewController`。
@@ -421,7 +421,7 @@ if (!useNativeNavigation) {
 
 如需完整實作，請參閱 [`main.ios.kt`](https://github.com/JetBrains/kotlinconf-app/blob/3982334f1c3712fb959f0d20b563d6c8b81e9bbd/app/shared/src/iosMain/kotlin/org/jetbrains/kotlinconf/main.ios.kt)。
 
-### 替代方案：跳過 SwiftUI 並從 Kotlin 驅動 UIKit {collapsible="true"}
+### 替代方案：跳過 SwiftUI 並從 Kotlin 驅動 UIKit {collapsible="true" id="alternative-skip-swiftui-and-drive-uikit-from-kotlin"}
 
 上述入口點是專為 SwiftUI `TabView` 與 `NavigationStack` 設計的。
 在底層，SwiftUI 使用 `UITabBarController` 與 `UINavigationController` 來實作這些視圖，而 iOS 26 上的 Liquid Glass 會套用於原生的標籤列與導航列，無論您是在 SwiftUI 中宣告它們，還是在 UIKit 中配置它們。
@@ -475,7 +475,7 @@ expect class ScheduleCoordinator() {
 
 有關在 `UITabBarController` 內部使用 Compose 的詳細資訊，請參閱 [與 UIKit 框架整合](compose-uikit-integration.md)。
 
-## 建置 SwiftUI 導航層
+## 建置 SwiftUI 導航層 {id="build-the-swiftui-navigation-layer"}
 
 這是遷移的 iOS 端。先前步驟中所有的 Kotlin 變更都是為了此處發生的事情做準備：一個帶有各標籤頁 `NavigationStack` 的 SwiftUI `TabView`，這些堆疊將 Compose 檢視作為其目的地。
 若要建置此結構，請完成以下步驟：
@@ -490,7 +490,7 @@ expect class ScheduleCoordinator() {
 請注意，此章節中的程式碼均未直接套用 Liquid Glass 效果。
 iOS 26 會為原生的 `TabView` 與 `NavigationStack` 檢視自動渲染 Liquid Glass，因此使用它們就足以啟用此效果。
 
-### 讓 Kotlin 路由在 `NavigationStack` 中可用
+### 讓 Kotlin 路由在 `NavigationStack` 中可用 {id="make-kotlin-routes-usable-in-navigationstack"}
 
 `NavigationStack` 要求其路徑元素必須符合 `Hashable` 與 `Identifiable` 協定。
 為了滿足 Kotlin 密封介面的要求，請將 `AppRoute` 包裝在 Swift `struct` 中。
@@ -515,7 +515,7 @@ struct RouteWrapper: Hashable, Identifiable {
 兩次推入相同的路由必須建立兩個不同的堆疊項目，以符合預期的導航行為。
 為了實現這一點，識別是基於 UUID 而非路由的值。
 
-### 追蹤標籤頁與導航狀態
+### 追蹤標籤頁與導航狀態 {id="track-tab-and-navigation-state"}
 
 每個標籤頁都有自己的導航堆疊，應用程式會追蹤目前選取的是哪個標籤頁。
 新增兩個 `@Observable` 類別來處理此問題：
@@ -569,7 +569,7 @@ class AppNavigationCoordinator {
 `AppNavigationCoordinator` 針對本教學中使用的雙標籤頁版本進行了簡化。
 如需完整版本，請參閱 [`ContentView.swift`](https://github.com/JetBrains/kotlinconf-app/blob/b451d80301c50097d4cf5050d865829b49d07c8e/app/iosApp/iosApp/ContentView.swift)。
 
-### 將 Compose 畫面嵌入為 SwiftUI 檢視
+### 將 Compose 畫面嵌入為 SwiftUI 檢視 {id="embed-compose-screens-as-swiftui-views"}
 
 兩個 `UIViewControllerRepresentable` 型別將來自[公開新的 iOS 入口點](#expose-new-ios-entry-points)步驟的 Kotlin 入口點連接到 SwiftUI：
 一個用於標籤頁根目錄，一個用於詳細資料畫面。
@@ -636,7 +636,7 @@ struct DetailComposeView: UIViewControllerRepresentable {
 }
 ```
 
-### 在每個標籤頁內設定導航
+### 在每個標籤頁內設定導航 {id="set-up-navigation-within-each-tab"}
 
 在標籤頁層級，`NavigationStack` 使用 Compose 標籤頁內容作為其根檢視，並將詳細資料畫面渲染為目的地。
 
@@ -680,7 +680,7 @@ struct TabContentView: View {
 }
 ```
 
-### 建置標籤列
+### 建置標籤列 {id="build-the-tab-bar"}
 
 最上層容器是一個 `TabView`，每個最上層路由都有一個 `Tab`。
 `.tabBarMinimizeBehavior(.automatic)` 修飾符使標籤列能夠懸浮並在捲動時最小化。
@@ -729,7 +729,7 @@ struct NativeNavContentView: View {
 
 半透明感、深度與懸浮標籤列皆由 iOS 26 套用 — 無需額外的樣式程式碼。
 
-### 在較舊的 iOS 版本上備援
+### 在較舊的 iOS 版本上備援 {id="fall-back-on-older-ios-versions"}
 
 Liquid Glass 與新的 `TabView` API 僅限 iOS 26。
 在舊版本上，應用程式會回退到之前的 Compose 驅動設定。
@@ -750,7 +750,7 @@ struct ContentView: View {
 
 參閱完整檔案：[`ContentView.swift`](https://github.com/JetBrains/kotlinconf-app/blob/3982334f1c3712fb959f0d20b563d6c8b81e9bbd/app/iosApp/iosApp/ContentView.swift)。
 
-## 替代方法
+## 替代方法 {id="alternative-approaches"}
 
 本教學中的遷移偏好原生 SwiftUI 導航，這讓您能開箱即用地獲得 Liquid Glass 與其他系統行為。
 若此方法不適合您的專案，請考慮以下替代方案之一：
@@ -763,7 +763,7 @@ struct ContentView: View {
 * **僅 Compose 導航並模擬 Liquid Glass 效果**。完全在 Compose 中渲染，並以視覺方式模擬 Liquid Glass，例如使用 [AndroidLiquidGlass](https://klibs.io/project/Kyant0/AndroidLiquidGlass) 或 [Liquid](https://klibs.io/project/FletchMcKee/liquid) 等程式庫。
   此方法將所有 UI 保留在 Compose 側，視覺效果雖然相似，但與系統 Liquid Glass 並不完全相同。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * 查看已套用 Liquid Glass 效果的 [官方 KotlinConf 應用程式](https://github.com/JetBrains/kotlinconf-app/tree/lg-nav)。
 * 參閱 [採用 Liquid Glass](https://developer.apple.com/documentation/TechnologyOverviews/adopting-liquid-glass)，這是 Apple 對新材質的概述與採用檢查表。

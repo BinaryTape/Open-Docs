@@ -10,17 +10,17 @@ title: KMP の高度なパターン
 基本的なセットアップについては [KMP セットアップ](/docs/reference/koin-core/kmp-setup)を、モジュールの構成については [共有パターン](/docs/reference/koin-core/kmp-shared-modules)を、ViewModel については [ViewModel](/docs/reference/koin-core/viewmodel) を参照してください。
 :::
 
-## ソースプロジェクト
+## ソースプロジェクト {id="source-project"}
 
 :::info
 Kotlin Multiplatform プロジェクトはこちらにあります: https://github.com/InsertKoinIO/hello-kmp
 :::
 
-## 高度な expect/actual パターン
+## 高度な expect/actual パターン {id="advanced-expect-actual-patterns"}
 
 基本的な `expect val platformModule: Module` パターンに加えて、プラットフォーム固有のコードに対する高度なアプローチをいくつか紹介します。
 
-### パターン 1: expect/actual クラス
+### パターン 1: expect/actual クラス {id="pattern-1-expect-actual-classes"}
 
 プラットフォーム固有の API（Android の Context、iOS の UIDevice など）が必要な場合に使用します：
 
@@ -45,7 +45,7 @@ actual fun createPlatformModule() = module {
 }
 ```
 
-### パターン 2: インターフェース + プラットフォームの実装
+### パターン 2: インターフェース + プラットフォームの実装 {id="pattern-2-interface-platform-implementations"}
 
 プラットフォームごとに異なる実装を注入したい場合に使用します：
 
@@ -78,7 +78,7 @@ val iosModule = module {
 }
 ```
 
-### パターン 3: アノテーションを使用した expect モジュール
+### パターン 3: アノテーションを使用した expect モジュール {id="pattern-3-expect-module-with-annotations"}
 
 expect/actual とアノテーションを組み合わせて、コードをよりクリーンにします：
 
@@ -108,11 +108,11 @@ actual val platformModule = IosPlatformModule().module
 - **expect モジュール**: 複雑なプラットフォーム固有の依存関係グラフに使用します。
 :::
 
-## 共有コード内での Android Context
+## 共有コード内での Android Context {id="android-context-in-shared-code"}
 
 共有コード内で Android の `Context` にアクセスすることは、よくあるニーズです。推奨されるパターンは次のとおりです：
 
-### ContextWrapper パターン
+### ContextWrapper パターン {id="contextwrapper-pattern"}
 
 ```kotlin
 // commonMain - ラッパーインターフェース
@@ -160,9 +160,9 @@ val sharedModule = module {
 純粋な共有ロジックの場合は、`when` 文を使用するよりも、プラットフォームの操作をインターフェースに抽象化することを優先してください。
 :::
 
-## アーキテクチャパターン
+## アーキテクチャパターン {id="architecture-patterns"}
 
-### Ktor を使用したリポジトリパターン
+### Ktor を使用したリポジトリパターン {id="repository-pattern-with-ktor"}
 
 ```kotlin
 // commonMain
@@ -195,7 +195,7 @@ val dataModule = module {
 }
 ```
 
-### ネットワークレイヤー (Ktor + Koin)
+### ネットワークレイヤー (Ktor + Koin) {id="network-layer-ktor-koin"}
 
 ```kotlin
 // commonMain
@@ -218,7 +218,7 @@ val networkModule = module {
 }
 ```
 
-### データベースレイヤー (SqlDelight)
+### データベースレイヤー (SqlDelight) {id="database-layer-sqldelight"}
 
 ```kotlin
 // commonMain
@@ -247,9 +247,9 @@ actual class DriverFactory {
 }
 ```
 
-## KMP モジュールのテスト
+## KMP モジュールのテスト {id="testing-kmp-modules"}
 
-### 共有モジュールのユニットテスト
+### 共有モジュールのユニットテスト {id="unit-testing-shared-modules"}
 
 ```kotlin
 // commonTest
@@ -275,7 +275,7 @@ class UserRepositoryTest : KoinTest {
 }
 ```
 
-### プラットフォーム固有の依存関係を伴うテスト
+### プラットフォーム固有の依存関係を伴うテスト {id="testing-with-platform-specific-dependencies"}
 
 ```kotlin
 // commonTest
@@ -312,9 +312,9 @@ class PlatformDependentTest : KoinTest {
 }
 ```
 
-## よくある落とし穴
+## よくある落とし穴 {id="common-pitfalls"}
 
-### 推奨 (DO): テスト可能な共有コードのためにインターフェースを使用する
+### 推奨 (DO): テスト可能な共有コードのためにインターフェースを使用する {id="do-use-interfaces-for-testable-shared-code"}
 
 ```kotlin
 // 良い例 - テスト可能
@@ -327,7 +327,7 @@ val sharedModule = module {
 }
 ```
 
-### 非推奨 (DON'T): ビジネスロジックに expect クラスを使用しない
+### 非推奨 (DON'T): ビジネスロジックに expect クラスを使用しない {id="don-t-use-expect-classes-for-business-logic"}
 
 ```kotlin
 // 悪い例 - テストが困難で、プラットフォームとの結合が強すぎる
@@ -336,7 +336,7 @@ expect class Logger {
 }
 ```
 
-### 推奨 (DO): プラットフォームモジュールを分離しておく
+### 推奨 (DO): プラットフォームモジュールを分離しておく {id="do-keep-platform-modules-separate"}
 
 ```kotlin
 // 良い例 - 明確な分離
@@ -347,7 +347,7 @@ fun initKoin() {
 }
 ```
 
-### 非推奨 (DON'T): 共有モジュール内にプラットフォーム固有のコードを混ぜない
+### 非推奨 (DON'T): 共有モジュール内にプラットフォーム固有のコードを混ぜない {id="don-t-mix-platform-specific-code-in-shared-modules"}
 
 ```kotlin
 // 悪い例 - commonMain 内にプラットフォーム固有のコードがある
@@ -358,7 +358,7 @@ val sharedModule = module {
 }
 ```
 
-### 推奨 (DO): 大規模なアプリでは遅延（lazy）モジュールを使用する
+### 推奨 (DO): 大規模なアプリでは遅延（lazy）モジュールを使用する {id="do-use-lazy-modules-for-large-apps"}
 
 ```kotlin
 // 良い例 - 起動の最適化
@@ -372,7 +372,7 @@ startKoin {
 }
 ```
 
-### 非推奨 (DON'T): スコープのクローズを忘れない
+### 非推奨 (DON'T): スコープのクローズを忘れない {id="don-t-forget-to-close-scopes"}
 
 ```kotlin
 // 悪い例 - メモリリーク
@@ -391,7 +391,7 @@ class FeatureScreen : KoinComponent {
 }
 ```
 
-## デスクトッププラットフォームの統合
+## デスクトッププラットフォームの統合 {id="desktop-platform-integration"}
 
 JVM デスクトップアプリ（Compose Desktop）の場合：
 
@@ -416,7 +416,7 @@ val desktopModule = module {
 }
 ```
 
-## Web プラットフォームの統合（実験的）
+## Web プラットフォームの統合（実験的） {id="web-platform-integration-experimental"}
 
 Kotlin/JS および Kotlin/WASM の場合：
 
@@ -442,9 +442,9 @@ val webModule = module {
 WASM サポートは実験的です。一部の機能が期待通りに動作しない場合があります。
 :::
 
-## iOS Swift 相互運用
+## iOS Swift 相互運用 {id="ios-swift-interop"}
 
-### Swift のための KoinComponent
+### Swift のための KoinComponent {id="koincomponent-for-swift"}
 
 ```kotlin
 // shared/src/iosMain/kotlin/Helper.kt
@@ -466,7 +466,7 @@ struct ContentView: View {
 }
 ```
 
-### Swift からの依存関係の宣言
+### Swift からの依存関係の宣言 {id="declaring-dependencies-from-swift"}
 
 Swift のクラスのみを Koin に登録する必要がある場合など、Swift から直接依存関係を宣言する必要がある場合があります。`declare` 関数と Kotlin/Native の相互運用機能を組み合わせて、Objective-C の型を Kotlin の `KClass` に解決することで実現できます。
 
@@ -513,7 +513,7 @@ koin.declareFromSwift(
 オリジナルの提案： [@SarahDelCastillo](https://github.com/InsertKoinIO/koin/issues/1108#issuecomment-3645990426)
 :::
 
-### スレッドに関する考慮事項
+### スレッドに関する考慮事項 {id="threading-considerations"}
 
 iOS やその他の Native ターゲットでは、Koin インスタンスは新しいメモリモデルとシームレスに動作します：
 
@@ -525,7 +525,7 @@ iOS やその他の Native ターゲットでは、Koin インスタンスは新
 新しい Kotlin/Native メモリモデル（Kotlin 1.7.20 以降でデフォルト）により、Koin の使用が大幅に簡素化されました。
 :::
 
-## 次のステップ
+## 次のステップ {id="next-steps"}
 
 - **[KMP セットアップ](/docs/reference/koin-core/kmp-setup)** - 基本的な KMP 設定
 - **[共有パターン](/docs/reference/koin-core/kmp-shared-modules)** - モジュールの構成

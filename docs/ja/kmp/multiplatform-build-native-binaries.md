@@ -10,7 +10,7 @@
 
 Kotlin/Native コンパイラによって生成されるバイナリには、サードパーティのコード、データ、または派生物が含まれる場合があります。つまり、Kotlin/Native でコンパイルされた最終的なバイナリを配布する場合は、バイナリ配布物に常に必要な [ライセンスファイル](https://kotlinlang.org/docs/native-binary-licenses.html) を含める必要があります。
 
-## バイナリの宣言
+## バイナリの宣言 {id="declare-binaries"}
 
 `binaries` コレクションの要素を宣言するには、以下のファクトリメソッドを使用します。
 
@@ -117,7 +117,7 @@ binaries {
 
 最初の引数は名前のプレフィックスを設定し、これがバイナリファイルのデフォルト名になります。例えば、Windows の場合、このコードは `foo.exe` と `bar.exe` というファイルを生成します。また、この名前のプレフィックスを使用して、[ビルドスクリプト内でバイナリにアクセス](#access-binaries) することもできます。
 
-## バイナリへのアクセス
+## バイナリへのアクセス {id="access-binaries"}
 
 バイナリにアクセスして [設定](multiplatform-dsl-reference.md#native-targets) を行ったり、プロパティ（出力ファイルへのパスなど）を取得したりできます。
 
@@ -198,7 +198,7 @@ binaries.findExecutable('foo', DEBUG)
 </TabItem>
 </Tabs>
 
-## 依存関係をバイナリにエクスポートする
+## 依存関係をバイナリにエクスポートする {id="export-dependencies-to-binaries"}
 
 Objective-C フレームワークやネイティブライブラリ（共有または静的）をビルドする際、現在のプロジェクトのクラスだけでなく、その依存関係のクラスもパックする必要がある場合があります。`export` メソッドを使用して、どの依存関係をバイナリにエクスポートするかを指定します。
 
@@ -308,7 +308,7 @@ binaries {
 </TabItem>
 </Tabs>
 
-## ユニバーサルフレームワークのビルド
+## ユニバーサルフレームワークのビルド {id="build-universal-frameworks"}
 
 デフォルトでは、Kotlin/Native によって生成される Objective-C フレームワークは 1 つのプラットフォームのみをサポートします。しかし、[`lipo` ツール](https://llvm.org/docs/CommandGuide/llvm-lipo.html) を使用して、このようなフレームワークを単一のユニバーサル（ファット）バイナリにマージすることができます。この操作は、特に 32 ビットおよび 64 ビットの iOS フレームワークで意味があります。この場合、結果として得られるユニバーサルフレームワークを 32 ビットと 64 ビットの両方のデバイスで使用できます。
 
@@ -381,7 +381,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-## XCFrameworks のビルド
+## XCFrameworks のビルド {id="build-xcframeworks"}
 
 すべての Kotlin マルチプラットフォームプロジェクトは、すべてのターゲットプラットフォームとアーキテクチャのロジックを単一のバンドルにまとめる出力として XCFrameworks を使用できます。[ユニバーサル（ファット）フレームワーク](#build-universal-frameworks) とは異なり、アプリケーションを App Store に公開する前に不要なアーキテクチャをすべて削除する必要はありません。
 
@@ -454,7 +454,7 @@ undefined
 >
 {style="warning"}
 
-## Info.plist ファイルのカスタマイズ
+## Info.plist ファイルのカスタマイズ {id="customize-the-info-plist-file"}
 
 フレームワークを生成する際、Kotlin/Native コンパイラは情報プロパティリストファイル `Info.plist` を生成します。対応するバイナリオプションを使用して、そのプロパティをカスタマイズできます。
 

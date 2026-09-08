@@ -2,7 +2,7 @@
 
 Kotlin 프로젝트에서 [OSGi](https://www.osgi.org/) 지원을 활성화하려면 일반적인 Kotlin 라이브러리 대신 `kotlin-osgi-bundle`을 포함하세요. `kotlin-osgi-bundle`에 이미 모든 라이브러리가 포함되어 있으므로 `kotlin-runtime`, `kotlin-stdlib`, `kotlin-reflect` 의존성은 제거하는 것이 좋습니다. 외부 Kotlin 라이브러리가 포함되는 경우에도 주의를 기울여야 합니다. 대부분의 일반적인 Kotlin 의존성은 OSGi를 지원하지 않으므로, 이를 사용하지 말아야 하며 프로젝트에서 제거해야 합니다.
 
-## Maven
+## Maven {id="maven"}
 
 Maven 프로젝트에 Kotlin OSGi 번들을 포함하려면 다음과 같이 설정합니다:
 
@@ -33,7 +33,7 @@ Maven 프로젝트에 Kotlin OSGi 번들을 포함하려면 다음과 같이 설
 </dependency>
 ```
 
-## Gradle
+## Gradle {id="gradle"}
 
 Gradle 프로젝트에 `kotlin-osgi-bundle`을 포함하려면 다음과 같이 설정합니다:
 
@@ -85,8 +85,8 @@ dependencies {
 </tab>
 </tabs>
 
-## FAQ
+## FAQ {id="faq"}
 
-### 왜 모든 Kotlin 라이브러리에 필요한 매니페스트 옵션을 추가하지 않나요?
+### 왜 모든 Kotlin 라이브러리에 필요한 매니페스트 옵션을 추가하지 않나요? {id="why-not-just-add-required-manifest-options-to-all-kotlin-libraries"}
 
 그것이 OSGi 지원을 제공하는 가장 선호되는 방법임에도 불구하고, 안타깝게도 현재로서는 쉽게 해결할 수 없는 소위 ["패키지 분할(package split)" 문제](https://docs.osgi.org/specification/osgi.core/7.0.0/framework.module.html#d0e5999)로 인해 불가능하며, 현재 이러한 큰 변화는 계획되어 있지 않습니다. `Require-Bundle` 기능이 있긴 하지만 이 또한 최선의 옵션이 아니며 사용이 권장되지 않습니다. 따라서 OSGi를 위한 별도의 아티팩트를 만들기로 결정되었습니다.

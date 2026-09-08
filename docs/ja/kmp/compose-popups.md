@@ -12,7 +12,7 @@ Compose Multiplatformのダイアログは、フォーカスを取得し、コ�
 ユーザーを中断させ、続行する前に決定を求める必要がある場合（例えば、確認、アラート、短いフォームへの反応など）は、[`Dialog()`](https://developer.android.com/reference/kotlin/androidx/compose/ui/window/Dialog.composable) を使用してください。デスクトップでの個別のOSレベルのダイアログについては、[`DialogWindow()`](compose-desktop-top-level-windows-management.md#show-dialogs) を参照してください。
 ドロップダウン、ツールチップ、メニューなど、現在のウィンドウ内のコンポーネントに固定されたままの、軽量でブロッキングしないオーバーレイには、`Popup()` を使用してください。
 
-## ポップアップの配置
+## ポップアップの配置 {id="position-a-popup"}
 
 ポップアップを配置するには、`alignment` と `offset` を使用するか、アンカー配置のためのカスタム `PopupPositionProvider` を使用します。
 
@@ -89,7 +89,7 @@ Column(Modifier.padding(24.dp)) {
 }
 ```
 
-## 動作のカスタマイズ
+## 動作のカスタマイズ {id="customize-behavior"}
 
 `PopupProperties` を使用すると、ポップアップのフォーカスと破棄の処理方法を制御できます：
 
@@ -101,7 +101,7 @@ Column(Modifier.padding(24.dp)) {
 ただし、一部のプロパティは共通ソースセットでは利用できません。
 例えば、`usePlatformInsets` はiOSで利用可能で、ポップアップのコンテンツをプラットフォームのインセット（セーフエリア）内に制限します。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 APIの詳細については、Jetpack Composeドキュメントのリファレンスを参照してください：
 * [`Popup()`](https://developer.android.com/reference/kotlin/androidx/compose/ui/window/Popup.composable)

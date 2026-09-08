@@ -5,7 +5,7 @@ Koog は、メッセージタイプ、その順序、および内容を制御し
 * **Kotlin** ユーザー向けには、型安全な Kotlin DSL を通じて提供されます。
 * **Java** ユーザー向けには、流れるようなビルダー API (fluent builder API) を通じて提供されます。
 
-## 基本構造
+## 基本構造 {id="basic-structure"}
 
 Kotlin の `prompt()` 関数または Java の `Prompt.builder()` は、一意の ID とメッセージのリストを持つ Prompt オブジェクトを作成します。
 
@@ -37,7 +37,7 @@ Kotlin の `prompt()` 関数または Java の `Prompt.builder()` は、一意�
     ```
     <!--- KNIT example-creating-prompts-java-01.java -->
 
-## メッセージタイプ
+## メッセージタイプ {id="message-types"}
 
 Kotlin DSL と Java ビルダー API は以下のメッセージタイプをサポートしており、それぞれが会話における特定の役割に対応しています。
 
@@ -84,7 +84,7 @@ Kotlin DSL と Java ビルダー API は以下のメッセージタイプをサ�
     ```
     <!--- KNIT example-creating-prompts-java-02.java -->
 
-### システムメッセージ
+### システムメッセージ {id="system-message"}
 
 システムメッセージは、LLM の振る舞いを定義し、会話全体のコンテキストを設定します。
 モデルの役割、トーンの指定、応答に関するガイドラインや制約の提供、および応答例の提示が可能です。
@@ -119,7 +119,7 @@ Kotlin DSL と Java ビルダー API は以下のメッセージタイプをサ�
     ```
     <!--- KNIT example-creating-prompts-java-03.java -->
 
-### ユーザーメッセージ
+### ユーザーメッセージ {id="user-messages"}
 
 ユーザーメッセージは、ユーザーからの入力を表します。
 ユーザーメッセージを作成するには、`user()` Kotlin 関数または Java メソッドの引数として文字列を渡します。
@@ -157,7 +157,7 @@ Kotlin DSL と Java ビルダー API は以下のメッセージタイプをサ�
 ほとんどのユーザーメッセージはプレーンテキストを含みますが、画像、音声、ビデオ、ドキュメントなどのマルチモーダルコンテンツを含めることもできます。
 詳細と例については、[マルチモーダルコンテンツ](multimodal-content.md)を参照してください。
 
-### アシスタントメッセージ
+### アシスタントメッセージ {id="assistant-messages"}
 
 アシスタントメッセージは LLM の応答を表します。これは、将来の同様のやり取りにおけるフューショット学習、会話の継続、または期待される出力構造を示すために使用できます。
 
@@ -221,7 +221,7 @@ Kotlin DSL と Java ビルダー API は以下のメッセージタイプをサ�
     ```
     <!--- KNIT example-creating-prompts-java-05.java -->
 
-### ツールメッセージ
+### ツールメッセージ {id="tool-messages"}
 
 ツールメッセージは、ツール呼び出しとその結果を表します。これは、ツール呼び出しの履歴を事前に埋めるために使用できます。
 
@@ -284,7 +284,7 @@ Kotlin DSL と Java ビルダー API は以下のメッセージタイプをサ�
     ```
     <!--- KNIT example-creating-prompts-java-06.java -->
 
-## テキストメッセージビルダー
+## テキストメッセージビルダー {id="text-message-builders"}
 
 !!! warning "警告"
     テキストメッセージビルダーは Kotlin でのみ利用可能です。
@@ -358,7 +358,7 @@ Kotlin DSL と Java ビルダー API は以下のメッセージタイプをサ�
 !!! tip
     テキスト構築関数を XML や Markdown ビルダーと組み合わせて使用することも可能です。
 
-## プロンプトのパラメータ
+## プロンプトのパラメータ {id="prompt-parameters"}
 
 プロンプトは、LLM の振る舞いを制御するパラメータを構成することでカスタマイズできます。
 
@@ -427,7 +427,7 @@ Kotlin DSL と Java ビルダー API は以下のメッセージタイプをサ�
 
 詳細については、[LLM パラメータ](../../llm-parameters.md)を参照してください。
 
-## 既存のプロンプトの拡張
+## 既存のプロンプトの拡張 {id="extending-existing-prompts"}
 
 既存のプロンプトを引数として、Kotlin の `prompt()` 関数または Java の `Prompt.builder()` を呼び出すことで、既存のプロンプトを拡張できます。
 
@@ -473,7 +473,7 @@ Kotlin DSL と Java ビルダー API は以下のメッセージタイプをサ�
 
 これにより、`basePrompt` のすべてのメッセージと、新しいユーザーメッセージを含む新しいプロンプトが作成されます。
 
-## 次のステップ
+## 次のステップ {id="next-steps"}
 
 - [マルチモーダルコンテンツ](multimodal-content.md)の扱い方を学ぶ。
 - 単一の LLM プロバイダーを使用する場合は、[LLM クライアント](../llm-clients.md)でプロンプトを実行する。

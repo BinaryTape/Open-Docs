@@ -24,7 +24,7 @@ fun main() {
 
 `Derived` のスーパータイプリストにある `by` 句は、`b` が `Derived` オブジェクトの内部に格納され、コンパイラが `Base` のすべてのメソッドを `b` へ転送するように生成することを表します。
 
-## 委譲によって実装されたインターフェースのメンバのオーバーライド
+## 委譲によって実装されたインターフェースのメンバのオーバーライド {id="overriding-a-member-of-an-interface-implemented-by-delegation"}
 
 [オーバーライド](inheritance.md#overriding-methods)は期待通りに動作します。コンパイラは委譲先オブジェクト内の実装ではなく、あなたの `override` 実装を使用します。`Derived` に `override fun printMessage() { print("abc") }` を追加した場合、`printMessage` が呼び出されると、プログラムは *10* ではなく *abc* を出力します。
 

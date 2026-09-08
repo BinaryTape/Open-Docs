@@ -25,7 +25,7 @@ Compose Multiplatform Gradleプラグインが、プラットフォーム固有�
 このアプローチにより、その依存関係を持つKotlin Multiplatform (KMP) プロジェクトから生成されたAndroidアプリは、オリジナルのAndroid Navigationライブラリを使用します。
 一方でiOSアプリは、JetBrainsによってビルドされた対応するiOSライブラリを使用します。
 
-## マルチプラットフォームプロジェクトで利用可能なComposeパッケージ
+## マルチプラットフォームプロジェクトで利用可能なComposeパッケージ {id="compose-packages-available-for-multiplatform-projects"}
 
 ベースとなるComposeライブラリのうち、基本的な `androidx.compose.runtime` は完全にマルチプラットフォーム化されています。
 （[以前使用されていた](whats-new-compose-190.md#multiplatform-targets-in-androidx-compose-runtime-runtime) `org.jetbrains.compose.runtime` アーティファクトは、現在はエイリアスとして機能します。）
@@ -37,7 +37,7 @@ Compose Multiplatform Gradleプラグインが、プラットフォーム固有�
      そのため、`material3` エイリアスの代わりに直接依存関係を指定することもできます。例えば、EAP版を使用する場合などがこれに当たります。
    * スタンドアロンアーティファクトとしてのMaterial 3 Adaptiveライブラリ（`org.jetbrains.compose.material3.adaptive:adaptive*`）
 
-## 追加のマルチプラットフォームライブラリ
+## 追加のマルチプラットフォームライブラリ {id="additional-multiplatform-libraries"}
 
 Composeアプリの構築に必要な機能の中にはAndroidXの範囲外のものがあるため、JetBrainsはそれらをCompose Multiplatformにバンドルされたマルチプラットフォームライブラリとして実装しています。例えば：
 

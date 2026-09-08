@@ -2,7 +2,7 @@
 
 KotlinアプリケーションをMavenでパッケージ化するには、標準のJARファイル、またはすべての依存関係を含む自己完結型（fat）JARファイルを作成できます。アプリケーションをパッケージ化することで、Java Runtime Environment (JRE) がインストールされている任意のマシンで配布および実行できるようになります。
 
-## JARファイルの作成
+## JARファイルの作成 {id="create-jar-files"}
 
 モジュールのコードのみを含む小さなJARファイルを作成するには、Mavenの`pom.xml`ファイルの`<build><plugins>`の下に以下を含めます。ここで`main.class`はプロパティとして定義され、メインのKotlinまたはJavaクラスを指します。
 
@@ -22,7 +22,7 @@ KotlinアプリケーションをMavenでパッケージ化するには、標準
 </plugin>
 ```
 
-## 自己完結型JARファイルの作成
+## 自己完結型JARファイルの作成 {id="create-self-contained-jar-files"}
 
 モジュールのコードとその依存関係を含む、自己完結型のJARファイルを作成するには、Mavenの`pom.xml`ファイルの`<build><plugins>`の下に以下を含めます。ここで`main.class`はプロパティとして定義され、メインのKotlinまたはJavaクラスを指します。
 

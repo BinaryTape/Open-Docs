@@ -1,6 +1,6 @@
 [//]: # (title: 推薦的 IDE 與程式碼編輯器)
 
-## IntelliJ IDEA 與 Android Studio
+## IntelliJ IDEA 與 Android Studio {id="intellij-idea-and-android-studio"}
 
 [IntelliJ IDEA](https://www.jetbrains.com/idea/) 提供完整的 Kotlin Multiplatform 支援。
 [Android Studio](https://developer.android.com/studio) 是另一個穩定的 Kotlin Multiplatform 解決方案。
@@ -21,13 +21,13 @@
   整合日誌與設定的 IDE 整合，以及
   量身定制的 IDE 操作與工具列，讓整體體驗更加流暢。
 
-## Xcode
+## Xcode {id="xcode"}
 
 如果您在 Kotlin Multiplatform 專案中的目標平台包含 iOS，則需要在電腦上安裝 [Xcode](https://developer.apple.com/xcode/)，
 以便編寫 iOS 特定程式碼並執行 iOS 應用程式。
 
 若要將您的應用程式上傳至 App Store Connect，請使用 Xcode 16 或更高版本進行組建。
 
-## 其他 IDE 與程式碼編輯器
+## 其他 IDE 與程式碼編輯器 {id="other-ides-and-code-editors"}
 
 如果基本的 Kotlin Multiplatform 支援對您而言已經足夠，您可以使用任何支援 Kotlin 的 IDE。

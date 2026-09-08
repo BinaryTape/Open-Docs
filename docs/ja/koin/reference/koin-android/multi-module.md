@@ -8,9 +8,9 @@ title: マルチモジュールAndroidアプリ
 モジュールの中心的な概念（`includes()`、構成、オーバーライド）については、[Modules](/docs/reference/koin-core/modules)を参照してください。
 :::
 
-## Androidアプリケーションのセットアップ
+## Androidアプリケーションのセットアップ {id="android-application-setup"}
 
-### アノテーションを使用する場合
+### アノテーションを使用する場合 {id="with-annotations"}
 
 ```kotlin
 @KoinApplication(AppModule::class)
@@ -30,7 +30,7 @@ class MyApplication : Application() {
 class AppModule
 ```
 
-### DSLを使用する場合
+### DSLを使用する場合 {id="with-dsl"}
 
 ```kotlin
 class MyApplication : Application() {
@@ -55,7 +55,7 @@ val appModule = module {
 }
 ```
 
-## フィーチャーモジュールの例
+## フィーチャーモジュールの例 {id="feature-module-example"}
 
 ```kotlin
 // :feature:login モジュール
@@ -82,7 +82,7 @@ val loginModule = module {
 }
 ```
 
-## 動的なフィーチャーのロード
+## 動的なフィーチャーのロード {id="dynamic-feature-loading"}
 
 Activityのライフサイクルに合わせて、必要に応じて（オンデマンドで）フィーチャーモジュールをロードします。
 
@@ -101,7 +101,7 @@ class FeatureActivity : AppCompatActivity() {
 }
 ```
 
-## KoinとHiltの比較
+## KoinとHiltの比較 {id="koin-vs-hilt-comparison"}
 
 | Hilt | Koin |
 |------|------|
@@ -115,9 +115,9 @@ class FeatureActivity : AppCompatActivity() {
 **Koinの利点:** `@EntryPoint` インターフェースは不要です。すべてのモジュールがロードされている限り、依存関係はモジュールをまたいで自動的に解決されます。
 :::
 
-## Androidでのテスト
+## Androidでのテスト {id="android-testing"}
 
-### モジュールを単体でテストする
+### モジュールを単体でテストする {id="test-module-in-isolation"}
 
 ```kotlin
 class LoginViewModelTest : KoinTest {
@@ -142,7 +142,7 @@ class LoginViewModelTest : KoinTest {
 }
 ```
 
-### すべてのモジュールを検証する
+### すべてのモジュールを検証する {id="verify-all-modules"}
 
 :::tip
 Koinコンパイラプラグインは、コンパイル時に完全な依存関係グラフを検証するようになったため、ランタイムでの検証が不要になりました。[Compile-Time Safety](/docs/reference/koin-compiler/compile-safety) を参照してください。
@@ -160,7 +160,7 @@ class ModuleCheckTest : KoinTest {
 }
 ```
 
-## 関連項目
+## 関連項目 {id="see-also"}
 
 - **[Modules](/docs/reference/koin-core/modules)** - `includes()` を使用したコアモジュールの概念
 - **[Android Module Loading](/docs/reference/koin-android/modules-android)** - 動的なモジュールのロード

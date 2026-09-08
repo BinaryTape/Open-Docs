@@ -25,7 +25,7 @@ Kotlin 1.9.0 版本已發佈，用於 JVM 的 K2 編譯器目前處於 **Beta** 
 >
 {style="tip"}
 
-## IDE 支援
+## IDE 支援 {id="ide-support"}
 
 支援 1.9.0 的 Kotlin 外掛程式適用於：
 
@@ -42,14 +42,14 @@ Kotlin 1.9.0 外掛程式將包含在 IntelliJ IDEA 2023.2 的即將發佈版本
 >
 {style="warning"}
 
-## 新的 Kotlin K2 編譯器更新
+## 新的 Kotlin K2 編譯器更新 {id="new-kotlin-k2-compiler-updates"}
 
 JetBrains 的 Kotlin 團隊持續穩定 K2 編譯器，1.9.0 版本引入了進一步的進展。
 用於 JVM 的 K2 編譯器目前處於 **Beta** 階段。
 
 現在也對 Kotlin/Native 和多平台專案提供了基礎支援。
 
-### kapt 編譯器外掛程式與 K2 編譯器的相容性
+### kapt 編譯器外掛程式與 K2 編譯器的相容性 {id="compatibility-of-the-kapt-compiler-plugin-with-the-k2-compiler"}
 
 您可以在專案中將 [kapt 外掛程式](kapt.md)與 K2 編譯器一起使用，但有一些限制。 
 儘管將 `languageVersion` 設定為 `2.0`，kapt 編譯器外掛程式仍然使用舊的編譯器。
@@ -63,7 +63,7 @@ JetBrains 的 Kotlin 團隊持續穩定 K2 編譯器，1.9.0 版本引入了進�
 
 如果您在將 kapt 與 K2 編譯器一起使用時遇到任何問題，請回報至我們的[問題追蹤器](http://kotl.in/issue)。
 
-### 在您的專案中嘗試 K2 編譯器
+### 在您的專案中嘗試 K2 編譯器 {id="try-the-k2-compiler-in-your-project"}
 
 從 1.9.0 開始直到 Kotlin 2.0 發佈之前，您可以透過在 `gradle.properties` 檔案中加入 `kotlin.experimental.tryK2=true` Gradle 屬性來輕鬆測試 K2 編譯器。您也可以執行以下指令：
 
@@ -80,7 +80,7 @@ JetBrains 的 Kotlin 團隊持續穩定 K2 編譯器，1.9.0 版本引入了進�
 ##### 100% (2/2) tasks have been compiled with Kotlin 2.0 #####
 ```
 
-### Gradle 建置報告
+### Gradle 建置報告 {id="gradle-build-reports"}
 
 [Gradle 建置報告](gradle-compilation-and-caches.md#build-reports)現在會顯示是使用當前編譯器還是 K2 編譯器來編譯程式碼。在 Kotlin 1.9.0 中，您可以在您的 [Gradle 建置掃描](https://scans.gradle.com/)中看到此資訊：
 
@@ -99,7 +99,7 @@ Task info:
 >
 {style="note"}
 
-### 當前 K2 編譯器的限制
+### 當前 K2 編譯器的限制 {id="current-k2-compiler-limitations"}
 
 在您的 Gradle 專案中啟用 K2 存在某些限制，這些限制在以下情況下可能會影響使用 Gradle 8.3 以下版本的專案：
 
@@ -123,7 +123,7 @@ kotlin {
 
 * 當 Gradle 8.3 版本可用時，更新您專案中的 Gradle 版本。
 
-### 留下您對新 K2 編譯器的回饋
+### 留下您對新 K2 編譯器的回饋 {id="leave-your-feedback-on-the-new-k2-compiler"}
 
 我們非常感謝您的任何回饋！
 
@@ -131,14 +131,14 @@ kotlin {
 * 在[我們的問題追蹤器](https://kotl.in/issue)上回報您在使用新 K2 編譯器時遇到的任何問題。
 * [啟用 **傳送使用統計資料** 選項](https://www.jetbrains.com/help/idea/settings-usage-statistics.html)以允許 JetBrains 收集有關 K2 使用情況的匿名數據。
 
-## 語言
+## 語言 {id="language"}
 
 在 Kotlin 1.9.0 中，我們正在穩定一些先前引入的新語言特性：
 * [取代 enum 類別的 values 函式](#stable-replacement-of-the-enum-class-values-function)
 * [Data object 與 data class 的對稱性](#stable-data-objects-for-symmetry-with-data-classes)
 * [支援在內聯值類別中包含主體的次要建構函式](#support-for-secondary-constructors-with-bodies-in-inline-value-classes)
 
-### 穩定取代 enum 類別的 values 函式
+### 穩定取代 enum 類別的 values 函式 {id="stable-replacement-of-the-enum-class-values-function"}
 
 在 1.8.20 中，引入了 enum 類別的 `entries` 屬性作為實驗性功能。`entries` 屬性是合成的 `values()` 函式的現代化且高效的替代方案。在 1.9.0 中，`entries` 屬性已進入穩定階段。
 
@@ -159,7 +159,7 @@ fun findByRgb(rgb: String): Color? = Color.entries.find { it.rgb == rgb }
 
 有關 enum 類別 `entries` 屬性的更多資訊，請參閱 [Kotlin 1.8.20 的新功能](whatsnew1820.md#a-modern-and-performant-replacement-of-the-enum-class-values-function)。
 
-### 穩定 Data object 以與 data class 對稱
+### 穩定 Data object 以與 data class 對稱 {id="stable-data-objects-for-symmetry-with-data-classes"}
 
 在 [Kotlin 1.8.20](whatsnew1820.md#preview-of-data-objects-for-symmetry-with-data-classes) 中引入的 `data object` 宣告現在已穩定。這包括為與 `data class` 對稱而新增的函式：`toString()`、`equals()` 和 `hashCode()`。
 
@@ -180,7 +180,7 @@ fun main() {
 
 有關更多資訊，請參閱 [Kotlin 1.8.20 的新功能](whatsnew1820.md#preview-of-data-objects-for-symmetry-with-data-classes)。
 
-### 支援在內聯值類別中包含主體的次要建構函式
+### 支援在內聯值類別中包含主體的次要建構函式 {id="support-for-secondary-constructors-with-bodies-in-inline-value-classes"}
 
 從 Kotlin 1.9.0 開始，在[內聯值類別](inline-classes.md)中使用包含主體的次要建構函式已預設可用：
 
@@ -207,17 +207,17 @@ value class Person(private val fullName: String) {
 
 隨著 Kotlin 的發展，這些問題得到了解決。Kotlin 1.4.30 取消了對 `init` 區塊的限制，隨後 Kotlin 1.8.20 提供了包含主體的次要建構函式的預覽。現在它們已預設可用。在 [此 KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/inline-classes.md) 中了解更多關於 Kotlin 內聯類別的發展。
 
-## Kotlin/JVM
+## Kotlin/JVM {id="kotlin-jvm"}
 
 從 1.9.0 版本開始，編譯器可以產生位元組碼版本對應於 JVM 20 的類別。此外，持續棄用 `JvmDefault` 註解和舊有的 `-Xjvm-default` 模式。
 
-### 棄用 JvmDefault 註解與舊有 -Xjvm-default 模式
+### 棄用 JvmDefault 註解與舊有 -Xjvm-default 模式 {id="deprecation-of-jvmdefault-annotation-and-legacy-xjvm-default-modes"}
 
 從 Kotlin 1.5 開始，`JvmDefault` 註解的使用已被棄用，轉而使用較新的 `-Xjvm-default` 模式：`all` 和 `all-compatibility`。隨著 Kotlin 1.4 引入 `JvmDefaultWithoutCompatibility` 和 Kotlin 1.6 引入 `JvmDefaultWithCompatibility`，這些模式提供了對 `DefaultImpls` 類別產生的全面控制，確保與舊版 Kotlin 程式碼的無縫相容性。
 
 因此在 Kotlin 1.9.0 中，`JvmDefault` 註解不再具有任何意義，並已被標記為棄用，這將導致錯誤。它最終將從 Kotlin 中移除。
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 除了其他改進之外，此版本還為 [Kotlin/Native 記憶體管理員](native-memory-manager.md)帶來了進一步的進展，這將增強其穩健性和效能：
 
@@ -227,7 +227,7 @@ value class Person(private val fullName: String) {
 * [能夠為 Kotlin/Native 中的 iOS 模擬器測試設定獨立模式](#ability-to-configure-standalone-mode-for-ios-simulator-tests-in-kotlin-native)
 * [Kotlin/Native 中的程式庫連結](#library-linkage-in-kotlin-native)
 
-### 自訂記憶體分配器預覽
+### 自訂記憶體分配器預覽 {id="preview-of-custom-memory-allocator"}
 
 Kotlin 1.9.0 引入了自訂記憶體分配器的預覽。其分配系統提高了 [Kotlin/Native 記憶體管理員](native-memory-manager.md)的執行時效能。
 
@@ -245,7 +245,7 @@ Kotlin/Native 當前的物件分配系統使用通用分配器，該分配器不
 
 有關新分配器設計的更多資訊，請參閱此 [README](https://github.com/JetBrains/kotlin/blob/master/kotlin-native/runtime/src/alloc/custom/README.md)。
 
-#### 如何啟用
+#### 如何啟用 {id="how-to-enable"}
 
 加入 `-Xallocator=custom` 編譯器選項：
 
@@ -264,11 +264,11 @@ kotlin {
 ```
 {validate="false"}
 
-#### 留下回饋
+#### 留下回饋 {id="leave-feedback"}
 
 我們非常感謝您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-55364/Implement-custom-allocator-for-Kotlin-Native) 中提供回饋，以改進自訂分配器。
 
-### 主執行緒上的 Objective-C 或 Swift 物件釋放鉤子
+### 主執行緒上的 Objective-C 或 Swift 物件釋放鉤子 {id="objective-c-or-swift-object-deallocation-hook-on-the-main-thread"}
 
 從 Kotlin 1.9.0 開始，如果 Objective-C 或 Swift 物件是在主執行緒傳遞給 Kotlin 的，則會在主執行緒呼叫該物件的釋放鉤子（deallocation hook）。[Kotlin/Native 記憶體管理員](native-memory-manager.md)以前處理 Objective-C 物件參照的方式可能會導致記憶體洩漏。我們相信新的行為應該會提高記憶體管理員的穩健性。
 
@@ -278,7 +278,7 @@ kotlin {
 
 由於主執行緒上物件的鉤子通常預期在那裡被呼叫，因此 Kotlin/Native 執行時現在也會在主執行緒上呼叫 `objc_release`。這應該涵蓋了 Objective-C 物件在主執行緒上傳遞給 Kotlin 的情況，並在那裡建立了一個 Kotlin 同儕物件。這僅在處理主分派隊列（main dispatch queue）時有效，這對於常規 UI 應用程式來說是常見情況。當不是主隊列或物件是在非主執行緒上傳遞給 Kotlin 時，`objc_release` 會像以前一樣在特殊的 GC 執行緒上呼叫。
 
-#### 如何選擇退出
+#### 如何選擇退出 {id="how-to-opt-out"}
 
 如果您遇到問題，可以在 `gradle.properties` 檔案中使用以下選項停用此行為：
 
@@ -288,7 +288,7 @@ kotlin.native.binary.objcDisposeOnMain=false
 
 如有此類情況，請隨時回報至[我們的問題追蹤器](https://kotl.in/issue)。
 
-### 在 Kotlin/Native 中存取常數值時不進行物件初始化
+### 在 Kotlin/Native 中存取常數值時不進行物件初始化 {id="no-object-initialization-when-accessing-constant-values-in-kotlin-native"}
 
 從 Kotlin 1.9.0 開始，Kotlin/Native 後端在存取 `const val` 欄位時不會初始化物件：
 
@@ -311,7 +311,7 @@ fun main() {
 
 此行為現在與 Kotlin/JVM 統一，在 Kotlin/JVM 中，實作與 Java 一致，且在這種情況下永遠不會初始化物件。得益於此變更，您也可以預期 Kotlin/Native 專案中的一些效能改進。
 
-### 能夠為 Kotlin/Native 中的 iOS 模擬器測試設定獨立模式
+### 能夠為 Kotlin/Native 中的 iOS 模擬器測試設定獨立模式 {id="ability-to-configure-standalone-mode-for-ios-simulator-tests-in-kotlin-native"}
 
 預設情況下，當執行 Kotlin/Native 的 iOS 模擬器測試時，會使用 `--standalone` 旗標來避免手動啟動和關閉模擬器。在 1.9.0 中，您現在可以透過 `standalone` 屬性在 Gradle 任務中設定是否使用此旗標。預設情況下，使用 `--standalone` 旗標，因此啟用了獨立模式。
 
@@ -332,7 +332,7 @@ tasks.withType<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimu
 >
 {style="warning"}
 
-### Kotlin/Native 中的程式庫連結
+### Kotlin/Native 中的程式庫連結 {id="library-linkage-in-kotlin-native"}
 
 從 Kotlin 1.9.0 開始， Kotlin/Native 編譯器處理 Kotlin 程式庫中的連結問題的方式與 Kotlin/JVM 相同。如果一個第三方 Kotlin 程式庫的作者對另一個第三方 Kotlin 程式庫所使用的實驗性 API 進行了不相容的更改，您可能會遇到此類問題。
 
@@ -377,7 +377,7 @@ kotlin {
 ```
 {validate="false"}
 
-### C 互通性隱式整數轉換的編譯器選項
+### C 互通性隱式整數轉換的編譯器選項 {id="compiler-option-for-c-interop-implicit-integer-conversions"}
 
 我們為 C 互通性引入了一個編譯器選項，允許您使用隱式整數轉換。經過仔細考慮，我們引入此編譯器選項是為了防止無意中使用，因為此功能仍有改進空間，我們的目標是提供最高品質的 API。
 
@@ -406,7 +406,7 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinNativeCompile>().configur
 ```
 {validate="false"}
 
-## Kotlin 多平台
+## Kotlin 多平台 {id="kotlin-multiplatform"}
 
 Kotlin 多平台在 1.9.0 中獲得了一些值得注意的更新，旨在改進您的開發人員體驗：
 
@@ -414,7 +414,7 @@ Kotlin 多平台在 1.9.0 中獲得了一些值得注意的更新，旨在改進
 * [預設啟用的新 Android 原始碼集佈局](#new-android-source-set-layout-enabled-by-default)
 * [多平台專案中 Gradle 組態快取的預覽](#preview-of-the-gradle-configuration-cache)
 
-### Android 目標支援的變更
+### Android 目標支援的變更 {id="changes-to-android-target-support"}
 
 我們繼續努力穩定 Kotlin 多平台。一個關鍵步驟是為 Android 目標提供一流的支援。我們很高興地宣佈，未來 Google 的 Android 團隊將提供其專屬的 Gradle 外掛程式，以支援 Kotlin 多平台中的 Android。
 
@@ -422,7 +422,7 @@ Kotlin 多平台在 1.9.0 中獲得了一些值得注意的更新，旨在改進
 
 Google 外掛程式將成為在多平台專案中處理 Android 的首選方式。當它準備就緒時，我們將提供必要的遷移說明，以便您可以像以前一樣使用簡短的 `android` 名稱。
 
-### 預設啟用的新 Android 原始碼集佈局
+### 預設啟用的新 Android 原始碼集佈局 {id="new-android-source-set-layout-enabled-by-default"}
 
 從 Kotlin 1.9.0 開始，新的 Android 原始碼集佈局已成為預設。它取代了以前的目錄命名方案，該方案在多方面都容易令人困惑。新佈局具有多項優點：
 
@@ -432,7 +432,7 @@ Google 外掛程式將成為在多平台專案中處理 Android 的首選方式�
 
 新佈局需要 Android Gradle Plugin 7.0 或更高版本，並在 Android Studio 2022.3 及更高版本中受支援。請參閱我們的[遷移指南](https://kotlinlang.org/docs/multiplatform/multiplatform-android-layout.html)以在您的 `build.gradle(.kts)` 檔案中進行必要的變更。
 
-### Gradle 組態快取預覽
+### Gradle 組態快取預覽 {id="preview-of-the-gradle-configuration-cache"}
 
 <p id="preview-of-gradle-configuration-cache">Kotlin 1.9.0 在多平台程式庫中支援 <a href="https://docs.gradle.org/current/userguide/configuration_cache.html">Gradle 組態快取</a>。如果您是程式庫作者，現在已經可以從改進的建置效能中受益。</p>
 
@@ -442,11 +442,11 @@ Gradle 組態快取透過為後續建置重用組態階段的結果來加速建�
 >
 {style="note"}
 
-## Kotlin/Wasm
+## Kotlin/Wasm {id="kotlin-wasm"}
 
 Kotlin 團隊繼續對新的 Kotlin/Wasm 目標進行實驗。此版本引入了多項效能和[尺寸相關的最佳化](#size-related-optimizations)，以及 [JavaScript 互通性的更新](#updates-in-javascript-interop)。
 
-### 尺寸相關的最佳化
+### 尺寸相關的最佳化 {id="size-related-optimizations"}
 
 Kotlin 1.9.0 為 WebAssembly (Wasm) 專案引入了顯著的尺寸改進。比較兩個 "Hello World" 專案，Kotlin 1.9.0 中的 Wasm 程式碼佔用空間現在比 Kotlin 1.8.20 小了 10 倍以上。
 
@@ -454,17 +454,17 @@ Kotlin 1.9.0 為 WebAssembly (Wasm) 專案引入了顯著的尺寸改進。比�
 
 這些尺寸最佳化使得在使用 Kotlin 程式碼針對 Wasm 平台時，資源利用更高效且效能更佳。
 
-### JavaScript 互通性更新
+### JavaScript 互通性更新 {id="updates-in-javascript-interop"}
 
 本次 Kotlin 更新引入了 Kotlin/Wasm 專案中 Kotlin 與 JavaScript 互通性的變更。由於 Kotlin/Wasm 是一項[實驗性](components-stability.md#stability-levels-explained)功能，其互通性存在某些限制。
 
-#### 限制 Dynamic 型別
+#### 限制 Dynamic 型別 {id="restriction-of-dynamic-types"}
 
 從 1.9.0 版本開始，Kotlin 不再支援在 Kotlin/Wasm 中使用 `Dynamic` 型別。這已被棄用，轉而使用新的通用 `JsAny` 型別，這有利於 JavaScript 互通性。
 
 有關更多詳細資訊，請參閱 [Kotlin/Wasm 與 JavaScript 的互通性](wasm-js-interop.md)文件。
 
-#### 限制非外部型別
+#### 限制非外部型別 {id="restriction-of-non-external-types"}
 
 在與 JavaScript 相互傳遞值時，Kotlin/Wasm 支援特定 Kotlin 靜態型別的轉換。這些受支援的型別包括：
 
@@ -478,7 +478,7 @@ Kotlin 1.9.0 為 WebAssembly (Wasm) 專案引入了顯著的尺寸改進。比�
 
 有關更多詳細資訊，請參閱 [Kotlin/Wasm 與 JavaScript 的互通性](wasm-js-interop.md)文件。
 
-### Kotlin Playground 中的 Kotlin/Wasm
+### Kotlin Playground 中的 Kotlin/Wasm {id="kotlin-wasm-in-kotlin-playground"}
 
 Kotlin Playground 支援 Kotlin/Wasm 目標。
 您可以編寫、執行和分享針對 Kotlin/Wasm 的 Kotlin 程式碼。[快來看看吧！](https://pl.kotl.in/HDFAvimga)
@@ -516,7 +516,7 @@ fun computeAck(m: Int, n: Int) {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-whats-new-1-9-0-kotlin-wasm-playground"}
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
 此版本引入了 Kotlin/JS 的更新，包括移除了舊的 Kotlin/JS 編譯器、Kotlin/JS Gradle 外掛程式棄用，以及對 ES2015 的實驗性支援：
 
@@ -531,13 +531,13 @@ fun computeAck(m: Int, n: Int) {
 >
 {style="note"}
 
-### 移除舊的 Kotlin/JS 編譯器
+### 移除舊的 Kotlin/JS 編譯器 {id="removal-of-the-old-kotlin-js-compiler"}
 
 在 Kotlin 1.8.0 中，我們[宣佈](whatsnew18.md#stable-js-ir-compiler-backend)基於 IR 的後端已穩定。從那時起，不指定編譯器已成為錯誤，而使用舊編譯器會導致警告。
 
 在 Kotlin 1.9.0 中，使用舊後端會導致錯誤。請遷移到 IR 編譯器。
 
-### 棄用 Kotlin/JS Gradle 外掛程式
+### 棄用 Kotlin/JS Gradle 外掛程式 {id="deprecation-of-the-kotlin-js-gradle-plugin"}
 
 從 Kotlin 1.9.0 開始，`kotlin-js` Gradle 外掛程式已被棄用。我們鼓勵您改用具有 `js()` 目標的 `kotlin-multiplatform` Gradle 外掛程式。
 
@@ -545,7 +545,7 @@ Kotlin/JS Gradle 外掛程式的功能本質上與 `kotlin-multiplatform` 外掛
 
 有關遷移說明，請參閱我們的 [Kotlin 多平台相容性指南](https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html#migration-from-kotlin-js-gradle-plugin-to-kotlin-multiplatform-gradle-plugin)。如果您發現指南中未涵蓋的任何問題，請回報至我們的[問題追蹤器](http://kotl.in/issue)。
 
-### 棄用 external enum
+### 棄用 external enum {id="deprecation-of-external-enum"}
 
 在 Kotlin 1.9.0 中，由於靜態 enum 成員（如 `entries`）無法存在於 Kotlin 之外的問題，將棄用 external enum。我們建議改用具有物件子類別的外部密封類別（external sealed class）：
 
@@ -565,7 +565,7 @@ external sealed class ExternalEnum {
 
 從 Kotlin 1.9.0 開始，使用 external enum 將被標記為棄用。我們鼓勵您更新程式碼以使用建議的外部密封類別實作，以確保相容性和未來維護。
 
-### 對 ES2015 類別和模組的實驗性支援
+### 對 ES2015 類別和模組的實驗性支援 {id="experimental-support-for-es2015-classes-and-modules"}
 
 此版本引入了對 ES2015 模組和產生 ES2015 類別的[實驗性](components-stability.md#stability-levels-explained)支援：
 * 模組提供了一種簡化程式碼庫並提高可維護性的方法。
@@ -593,7 +593,7 @@ tasks.withType<KotlinJsCompile>().configureEach {
 
 [在官方文件中進一步了解 ES2015 (ECMAScript 2015, ES6)](https://262.ecma-international.org/6.0/)。
 
-### 更改了 JS 生產發佈內容的預設目的地
+### 更改了 JS 生產發佈內容的預設目的地 {id="changed-default-destination-of-js-production-distribution"}
 
 在 Kotlin 1.9.0 之前，發佈目標目錄為 `build/distributions`。然而，這是 Gradle 封存檔案的通用目錄。為了解決這個問題，我們在 Kotlin 1.9.0 中將預設發佈目標目錄更改為：`build/dist/<targetName>/<binaryName>`。
 
@@ -603,13 +603,13 @@ tasks.withType<KotlinJsCompile>().configureEach {
 >
 {style="warning"}
 
-### 從 stdlib-js 中擷取 org.w3c 宣告
+### 從 stdlib-js 中擷取 org.w3c 宣告 {id="extract-org-w3c-declarations-from-stdlib-js"}
 
 自 Kotlin 1.9.0 起，`stdlib-js` 不再包含 `org.w3c` 宣告。相反，這些宣告已被移至一個單獨的 Gradle 相依性。當您將 Kotlin 多平台 Gradle 外掛程式加入 `build.gradle.kts` 檔案時，這些宣告將自動包含在您的專案中，類似於標準函式庫。
 
 不需要任何手動操作或遷移。必要的調整將自動處理。
 
-## Gradle
+## Gradle {id="gradle"}
 
 Kotlin 1.9.0 帶來了新的 Gradle 編譯器選項以及更多內容：
 
@@ -622,18 +622,18 @@ Kotlin 1.9.0 帶來了新的 Gradle 編譯器選項以及更多內容：
 * [kapt 不會導致任務提前建立](#kapt-doesn-t-cause-eager-task-creation-in-gradle)
 * [JVM 目標驗證模式的程式化組態](#programmatic-configuration-of-the-jvm-target-validation-mode)
 
-### 移除了 classpath 屬性
+### 移除了 classpath 屬性 {id="removed-classpath-property"}
 
 在 Kotlin 1.7.0 中，我們宣佈開始 `KotlinCompile` 任務屬性 `classpath` 的棄用週期。在 Kotlin 1.8.0 中，棄用級別已提升為 `ERROR`。在此版本中，我們終於移除了 `classpath` 屬性。現在所有編譯任務都應使用 `libraries` 輸入來獲取編譯所需的程式庫清單。
 
-### 新的編譯器選項
+### 新的編譯器選項 {id="new-compiler-options"}
 
 Kotlin Gradle 外掛程式現在為選擇加入 (opt-in) 和編譯器的漸進模式 (progressive mode) 提供了新屬性。
 
 * 要選擇加入新 API，現在可以使用 `optIn` 屬性並傳遞字串列表，例如：`optIn.set(listOf(a, b, c))`。
 * 要啟用漸進模式，請使用 `progressiveMode.set(true)`。
 
-### Kotlin/JVM 的專案級編譯器選項
+### Kotlin/JVM 的專案級編譯器選項 {id="project-level-compiler-options-for-kotlin-jvm"}
 
 從 Kotlin 1.9.0 開始，在 `kotlin` 設定區塊中提供了一個新的 `compilerOptions` 區塊：
 
@@ -662,7 +662,7 @@ android {
 * 如果在專案層級設定了 `moduleName`，其值在傳遞給編譯器時可能會發生變化。這不適用於 `main` 編譯，但對於其他類型（例如測試原始碼），Kotlin Gradle 外掛程式會加入 `_test` 後綴。
 * `tasks.withType<KotlinJvmCompile>().configureEach {}`（或 `tasks.named<KotlinJvmCompile>("compileKotlin") { }`）內部的組態會覆寫 `kotlin.compilerOptions` 和 `android.kotlinOptions`。
 
-### Kotlin/Native 模組名稱的編譯器選項
+### Kotlin/Native 模組名稱的編譯器選項 {id="compiler-option-for-kotlin-native-module-name"}
 
 Kotlin/Native [`module-name`](compiler-reference.md#module-name-name-native) 編譯器選項現在可以在 Kotlin Gradle 外掛程式中輕鬆使用。
 
@@ -695,7 +695,7 @@ tasks.named("compileKotlinLinuxX64", org.jetbrains.kotlin.gradle.tasks.KotlinNat
 </tab>
 </tabs>
 
-### 官方 Kotlin 程式庫的獨立編譯器外掛程式
+### 官方 Kotlin 程式庫的獨立編譯器外掛程式 {id="separate-compiler-plugins-for-official-kotlin-libraries"}
 
 Kotlin 1.9.0 為其官方程式庫引入了獨立的編譯器外掛程式。以前，編譯器外掛程式被內嵌在相應的 Gradle 外掛程式中。如果編譯器外掛程式是針對比 Gradle 建置的 Kotlin 執行時版本更高的 Kotlin 版本編譯的，這可能會導致相容性問題。
 
@@ -714,13 +714,13 @@ Kotlin 1.9.0 為其官方程式庫引入了獨立的編譯器外掛程式。以�
 
 Gradle 會將這些外掛程式作為編譯器引數加入。您不需要對現有專案進行任何更改。
 
-### 提升了最低支援版本
+### 提升了最低支援版本 {id="incremented-minimum-supported-version"}
 
 從 Kotlin 1.9.0 開始，最低支援的 Android Gradle plugin 版本為 4.2.2。
 
 請參閱我們文件中的 [Kotlin Gradle 外掛程式與可用 Gradle 版本的相容性](gradle-configure-project.md#apply-the-plugin)。
 
-### kapt 不會導致 Gradle 任務提前建立
+### kapt 不會導致 Gradle 任務提前建立 {id="kapt-doesn-t-cause-eager-task-creation-in-gradle"}
 
 在 1.9.0 之前，[kapt 編譯器外掛程式](kapt.md)透過請求已設定的 Kotlin 編譯任務實例來導致任務提前建立（eager task creation）。此行為已在 Kotlin 1.9.0 中修正。如果您為 `build.gradle.kts` 檔案使用預設組態，則您的設定不受此更改影響。
 
@@ -743,7 +743,7 @@ Gradle 會將這些外掛程式作為編譯器引數加入。您不需要對現�
 
 有關更多資訊，請參閱我們的 [YouTrack 票證](https://youtrack.jetbrains.com/issue/KT-54468/KAPT-Gradle-plugin-causes-eager-task-creation)。
 
-### JVM 目標驗證模式的程式化組態
+### JVM 目標驗證模式的程式化組態 {id="programmatic-configuration-of-the-jvm-target-validation-mode"}
 
 在 Kotlin 1.9.0 之前，只有一種方法可以調整偵測 Kotlin 與 Java 之間的 JVM 目標不相容性。您必須在整個專案的 `gradle.properties` 中設定 `kotlin.jvm.target.validation.mode=ERROR`。
 
@@ -756,7 +756,7 @@ tasks.named<org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile>("compileKotlin")
 ```
 {validate="false"}
 
-## 標準函式庫
+## 標準函式庫 {id="standard-library"}
 
 Kotlin 1.9.0 為標準函式庫帶來了一些重大的改進：
 * [`..<` 運算子](#stable-operator-for-open-ended-ranges) 和 [Time API](#stable-time-api) 已穩定。
@@ -765,7 +765,7 @@ Kotlin 1.9.0 為標準函式庫帶來了一些重大的改進：
 * [現在有一個 **通用** 函式可依名稱獲取正則表示式捕獲群組](#new-common-function-to-get-regex-capture-group-by-name)
 * [引入了 `HexFormat` 類別來格式化和解析十六進位值](#new-hexformat-class-to-format-and-parse-hexadecimals)
 
-### 用於開放式範圍的穩定 ..< 運算子
+### 用於開放式範圍的穩定 ..< 運算子 {id="stable-operator-for-open-ended-ranges"}
 
 在 [Kotlin 1.7.20](whatsnew1720.md#preview-of-the-operator-for-creating-open-ended-ranges) 中引入並在 1.8.0 中穩定的用於開放式範圍（open-ended ranges）的新 `..<` 運算子，其標準函式庫中處理開放式範圍的 API 在 1.9.0 中也已穩定。
 
@@ -805,7 +805,7 @@ fun main() {
 
 有關使用此運算子可以做什麼的更多資訊，請參閱 [Kotlin 1.7.20 的新功能](whatsnew1720.md#preview-of-the-operator-for-creating-open-ended-ranges)。
 
-### 穩定 Time API
+### 穩定 Time API {id="stable-time-api"}
 
 自 1.3.50 起，我們預覽了新的時間測量 API。該 API 的持續時間（duration）部分在 1.6.0 中已穩定。在 1.9.0 中，剩餘的時間測量 API 已穩定。
 
@@ -818,7 +818,7 @@ fun main() {
 * 檢查自特定時間點以來經過了多少時間。
 * 檢查當前時間是否已超過特定時間點。
 
-#### 測量程式碼執行時間
+#### 測量程式碼執行時間 {id="measure-code-execution-time"}
 
 要測量執行一段程式碼所需的時間，請使用 [`measureTime`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/measure-time.html) 內嵌函式。
 
@@ -833,7 +833,7 @@ object RealtimeMonotonicTimeSource : AbstractLongTimeSource(DurationUnit.NANOSEC
 ```
 {validate="false"}
 
-#### 標記並測量時間差異
+#### 標記並測量時間差異 {id="mark-and-measure-differences-in-time"}
 
 要標記特定時間點，請使用 [`TimeSource`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-time-source/) 介面和 [`markNow()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-time-source/mark-now.html) 函式來建立 [`TimeMark`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-time-mark/)。要測量來自同一時間源的 `TimeMark` 之間的差異，請使用減法運算子 (`-`)：
 
@@ -883,7 +883,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-whats-new-time-passednow"}
 
-### Kotlin/Native 標準函式庫的穩定之路
+### Kotlin/Native 標準函式庫的穩定之路 {id="the-kotlin-native-standard-library-s-journey-towards-stabilization"}
 
 隨著我們 Kotlin/Native 標準函式庫的不斷成長，我們認為現在是進行全面審查以確保其符合我們高標準的時候了。作為其中的一部分，我們仔細審查了 **每一個** 現有的公開簽章。對於每個簽章，我們考慮它是否：
 
@@ -915,7 +915,7 @@ fun main() {
 * 我們將 [`BitSet`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.native/-bit-set/) 類別標記為過時。
 * 我們將 `kotlin.native.internal` 套件中的所有 `public` API 標記為 `private` 或將其移至其他套件。
 
-#### 明確的 C 互通性穩定保證
+#### 明確的 C 互通性穩定保證 {id="explicit-c-interoperability-stability-guarantees"}
 
 為了保持 API 的高品質，我們決定將 [`kotlinx.cinterop`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlinx.cinterop/) 設為實驗性。雖然 `kotlinx.cinterop` 已經過徹底的測試和驗證，但在我們滿意到足以使其穩定之前，仍有改進空間。我們建議您使用此 API 進行互通，但盡量將其使用限制在專案中的特定區域。這將使您在我們開始演進此 API 以使其穩定時，更容易進行遷移。
 
@@ -929,7 +929,7 @@ fun main() {
 
 我們非常感謝您的任何回饋！您可以直接在該[票證](https://youtrack.jetbrains.com/issue/KT-57728)下留言提供您的回饋。
 
-### 穩定 @Volatile 註解
+### 穩定 @Volatile 註解 {id="stable-volatile-annotation"}
 
 如果您使用 `@Volatile` 註解一個 `var` 屬性，則支援欄位會被標記，以便對此欄位的任何讀取或寫入都是原子的，且寫入始終對其他執行緒可見。
 
@@ -939,7 +939,7 @@ fun main() {
 
 在 1.9.0 中，`kotlin.concurrent.Volatile` 已穩定。如果您在多平台專案中使用 `kotlin.jvm.Volatile`，我們建議您遷移到 `kotlin.concurrent.Volatile`。
 
-### 新的通用函式，可依名稱獲取正則表示式捕獲群組
+### 新的通用函式，可依名稱獲取正則表示式捕獲群組 {id="new-common-function-to-get-regex-capture-group-by-name"}
 
 在 1.9.0 之前，每個平台都有其自己的擴充，用於從正則表示式比對中依其名稱獲取捕獲群組。然而，並沒有通用的函式。在 Kotlin 1.8.0 之前不可能有通用函式，因為標準函式庫仍然支援 JVM 目標 1.6 和 1.7。
 
@@ -963,7 +963,7 @@ fun main() {
 ```
 {validate="false"}
 
-### 新的路徑工具，用於建立父目錄
+### 新的路徑工具，用於建立父目錄 {id="new-path-utility-to-create-parent-directories"}
 
 在 1.9.0 中有一個新的 `createParentDirectories()` 擴充函式，您可以使用它建立一個包含所有必要父目錄的新檔案。當您將檔案路徑提供給 `createParentDirectories()` 時，它會檢查父目錄是否已存在。如果已存在，則不執行任何操作。但是，如果不存在，它會為您建立它們。
 
@@ -977,7 +977,7 @@ sourcePath.copyToRecursively(
  ```
 {validate="false"}
 
-### 新的 HexFormat 類別來格式化和解析十六進位值
+### 新的 HexFormat 類別來格式化和解析十六進位值 {id="new-hexformat-class-to-format-and-parse-hexadecimals"}
 
 > 新的 `HexFormat` 類別及其相關擴充函式是 [實驗性](components-stability.md#stability-levels-explained) 功能，要使用它們，您可以選擇加入 `@OptIn(ExperimentalStdlibApi::class)` 或編譯器引數 `-opt-in=kotlin.ExperimentalStdlibApi`。
 >
@@ -1041,7 +1041,7 @@ println("0x3a".hexToInt(HexFormat { number.prefix = "0x" })) // "58"
 ```
 {validate="false"}
 
-## 文件更新
+## 文件更新 {id="documentation-updates"}
 
 Kotlin 文件已進行了一些值得注意的更改：
 * [Kotlin 之旅](kotlin-tour-welcome.md) – 透過包含理論和實作的章節學習 Kotlin 程式語言的基礎知識。
@@ -1049,9 +1049,9 @@ Kotlin 文件已進行了一些值得注意的更改：
 * [Kotlin 多平台相容性指南](https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html) – 了解您在開發 Kotlin 多平台專案時可能遇到的不相容更改。
 * [Kotlin Wasm](wasm-overview.md) – 了解 Kotlin/Wasm 以及如何在您的 Kotlin 多平台專案中使用它。
 
-## 安裝 Kotlin 1.9.0
+## 安裝 Kotlin 1.9.0 {id="install-kotlin-1-9-0"}
 
-### 檢查 IDE 版本
+### 檢查 IDE 版本 {id="check-the-ide-version"}
 
 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 2022.3.3 和 2023.1.1 會自動建議將 Kotlin 外掛程式更新為 1.9.0 版本。IntelliJ IDEA 2023.2 將包含 Kotlin 1.9.0 外掛程式。
 
@@ -1059,7 +1059,7 @@ Android Studio Giraffe (223) 和 Hedgehog (231) 將在即將發佈的版本中�
 
 新的命令列編譯器可在 [GitHub 發佈頁面](https://github.com/JetBrains/kotlin/releases/tag/v1.9.0)上下載。
 
-### 設定 Gradle 設定
+### 設定 Gradle 設定 {id="configure-gradle-settings"}
 
 要下載 Kotlin 構件和相依性，請更新您的 `settings.gradle(.kts)` 檔案以使用 Maven Central 儲存庫：
 
@@ -1075,6 +1075,6 @@ pluginManagement {
 
 如果未指定儲存庫，Gradle 會使用已淘汰的 JCenter 儲存庫，這可能會導致 Kotlin 構件出現問題。
 
-## Kotlin 1.9.0 相容性指南
+## Kotlin 1.9.0 相容性指南 {id="compatibility-guide-for-kotlin-1-9-0"}
 
 Kotlin 1.9.0 是一個[特性發佈版本](kotlin-evolution-principles.md#language-and-tooling-releases)，因此可能會帶來與您為該語言早期版本編寫的程式碼不相容的更改。在 [Kotlin 1.9.0 相容性指南](compatibility-guide-19.md)中尋找這些更改的詳細清單。

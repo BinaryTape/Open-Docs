@@ -50,14 +50,14 @@ Kotlin 提供以下流类型：
 > 
 {style="tip"}
 
-## 冷流
+## 冷流 {id="cold-flows"}
 
 与 [序列 (sequence)](sequences.md) 一样，冷流也是惰性的。
 
 冷流构建器的代码块直到被收集器收集时才会运行。
 每个新的收集器都会启动流的一次新执行。
 
-### 创建冷流
+### 创建冷流 {id="create-a-cold-flow"}
 
 要创建冷流，请使用 [`flow()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/flow.html) 构建器函数。
 在其代码块内，使用 [`emit()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-flow-collector/emit.html) 函数向收集器发射数值：
@@ -105,7 +105,7 @@ fun main() {
 }
 ```
 
-### 收集冷流
+### 收集冷流 {id="collect-a-cold-flow"}
 
 要收集冷流，请使用 [`collect()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/collect.html) 函数，它会触发来自上游流的发射。
 如果您向 `collect()` 传递一个 lambda，它会接收每个发射的数值：
@@ -185,7 +185,7 @@ suspend fun main() {
 在此示例中，[`CoroutineName`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-name/) 为每个协程添加了一个名称。
 您可以将 `CoroutineName` 用于 [调试](coroutine-context-and-dispatchers.md#naming-coroutines-for-debugging)。在这里，它有助于显示哪个收集器运行了哪次收集操作。
 
-### 中间流操作符
+### 中间流操作符 {id="intermediate-flow-operators"}
 
 中间操作符对上游流应用操作并返回一个新的下游流。
 它们是冷的，因此即使上游流是热的，返回的流在被收集之前也不会开始处理数值。
@@ -219,7 +219,7 @@ suspend fun main() {
 ```
 {kotlin-runnable="true"}
 
-#### 在流构建器内调用挂起函数
+#### 在流构建器内调用挂起函数 {id="call-suspending-functions-inside-a-flow-builder"}
 
 与序列不同，您可以在 `flow()` 构建器函数内部调用挂起函数：
 
@@ -274,7 +274,7 @@ suspend fun main() {
 
 或者，您可以使用 [`channelFlow()`](#emit-values-concurrently-with-channelflow) 从多个协程并发发射数值。
 
-#### 使用 `.flowOn()` 更改冷流的协程上下文
+#### 使用 `.flowOn()` 更改冷流的协程上下文 {id="change-the-coroutine-context-of-a-cold-flow-with-flowon"}
 
 默认情况下，冷流在与收集器相同的协程上下文中运行。
 
@@ -314,7 +314,7 @@ suspend fun main() {
 ```
 {kotlin-runnable="true"}
 
-### 处理流中的异常
+### 处理流中的异常 {id="handle-exceptions-in-flows"}
 
 发射器和收集器都可以抛出异常。
 
@@ -363,7 +363,7 @@ suspend fun main() {
 当您在流构建器函数内部捕获由收集器抛出的异常时，请重新抛出它。
 这保持了异常透明性，并让 `collect()` 的调用者处理该异常。
 
-#### 使用 `.catch()` 操作符处理上游异常
+#### 使用 `.catch()` 操作符处理上游异常 {id="use-the-catch-operator-to-handle-upstream-exceptions"}
 
 要在异常到达收集器之前处理它们，请使用 [`.catch()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/catch.html) 操作符。
 
@@ -523,7 +523,7 @@ suspend fun main() {
 
 在此示例中，`.onEach()` 操作符位于 `.catch()` 的上游，因此当 `'5'` 的 `require()` 检查失败时，`.catch()` 操作符会处理该异常。
 
-#### 异常发生后重启上游流
+#### 异常发生后重启上游流 {id="restart-the-upstream-flow-after-an-exception"}
 
 某些操作可能会暂时失败，例如丢失连接的网络请求。
 对于这些情况，您可以使用 [`.retry()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/retry.html) 操作符在发生异常后重启上游流。
@@ -590,7 +590,7 @@ suspend fun main() {
 ```
 {kotlin-runnable="true" validate="false"}
 
-### 流取消
+### 流取消 {id="flow-cancellation"}
 
 当不再需要结果（例如请求超时）时，流取消操作会停止收集。
 
@@ -699,7 +699,7 @@ suspend fun main() {
 在此示例中，`.myTake()` 函数从上游流发射数值，直到发射了所有请求的数值。
 然后它抛出一个 `CancellationException` 来取消上游流。
 
-### 使用 `channelFlow()` 并发发射数值
+### 使用 `channelFlow()` 并发发射数值 {id="emit-values-concurrently-with-channelflow"}
 
 对于从一个协程发射数值的流，`flow()` 构建器函数简单且高效。
 如果您想从多个协程并发发射数值到同一个流中，请使用 [`channelFlow()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/channel-flow.html) 构建器函数。
@@ -794,7 +794,7 @@ suspend fun main() {
 
 使用 `.buffer(0)` 时，每个 `send()` 调用都会等待，直到收集器可以接收该数值，因此 `Sending` 和 `Processing` 从一开始就交替进行。
 
-## 热流
+## 热流 {id="hot-flows"}
 
 热流是共享流，它们独立于收集器发射数值。
 即使没有活跃的收集器，它们也会持续发射数值，并且多个收集器可以从已经活跃的流中收集相同的发射内容，而不是启动新的执行。
@@ -808,7 +808,7 @@ Kotlin 提供两种热流类型：
 * [`SharedFlow`](#create-a-sharedflow)：向多个订阅者广播数值。当您需要广播随时间发生的事件（如消息或通知）时，请使用它。
 * [`StateFlow`](#create-a-stateflow)：是一种专门的 `SharedFlow`，它始终持有最新的状态值。当您需要表示随时间变化的状态（如 UI 状态）时，请使用它。
 
-### 创建 `SharedFlow`
+### 创建 `SharedFlow` {id="create-a-sharedflow"}
 
 [`SharedFlow`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-shared-flow/) 是一种热流，它向其订阅者广播随时间发生的发射值。
 
@@ -952,7 +952,7 @@ suspend fun main() {
 这确保了每个协程在 `sendMessageToEveryone()` 发射消息之前都能到达 `collect()`，订阅 `messages` 并挂起。
 如果没有它，如果重播缓存太小，收集协程可能会在稍后启动并错过较早的发射内容。
 
-#### 使用显式支持字段暴露热流
+#### 使用显式支持字段暴露热流 {id="use-explicit-backing-fields-to-expose-hot-flows"}
 <primary-label ref="experimental-opt-in"/>
 
 您可以使用 [显式支持字段 (explicit backing fields)](whatsnew23.md#explicit-backing-fields) 来暴露只读的 `SharedFlow`，同时在类内部保持一个可变的支持字段。
@@ -1028,7 +1028,7 @@ suspend fun main() {
 ```
 {kotlin-runnable="true"}
 
-### 创建 `StateFlow`
+### 创建 `StateFlow` {id="create-a-stateflow"}
 
 [`StateFlow`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-state-flow/) 是一种热流，它存储单个状态值，并在该值被新值替换时发射更新。
 新订阅者一旦开始收集就会收到当前值，然后在每次状态更新时收到新值。
@@ -1274,7 +1274,7 @@ suspend fun main() {
 在此示例中，`.update()` 函数原子地增加点赞数。
 这可以防止多个协程同时调用 `like()` 函数时丢失更新。
 
-#### 在 `StateFlow` 中存储累积状态
+#### 在 `StateFlow` 中存储累积状态 {id="store-accumulated-state-in-a-stateflow"}
 
 有时您可能希望订阅者接收所有先前发射的结果，而不仅仅是最后发射的值。
 
@@ -1363,7 +1363,7 @@ suspend fun main() {
 由于 `messageHistory` 是一个 `StateFlow`，订阅者在开始收集时会收到当前的消息历史记录。
 在那之后，每次发送消息（这会改变聊天记录）时，他们都会收到一个新列表。
 
-### 将冷流转换为热流
+### 将冷流转换为热流 {id="convert-cold-flows-to-hot-flows"}
 
 冷流会为每个收集器单独运行其上游操作。
 当多个订阅者需要来自同一个上游收集的发射内容时，您可以将冷流转换为热流，从而与其订阅者共享该收集操作。
@@ -1530,7 +1530,7 @@ val lastUpdateFlow: StateFlow<Instant?> =
         )
 ```
 
-### 取消热流
+### 取消热流 {id="cancel-hot-flows"}
 
 当订阅者被取消时，热流不会停止。
 
@@ -1621,7 +1621,7 @@ suspend fun main() {
 `sendMessageToEveryone()` 函数仍然更新 `messageHistory`，因为调用它的协程没有被取消。
 结果，`totalMessages.value` 保持最后收集的大小，而 `chatroom.messageHistory.value.size` 显示实际的消息数量。
 
-### 处理热流中的异常
+### 处理热流中的异常 {id="handle-exceptions-in-hot-flows"}
 
 在 [冷流](#handle-exceptions-in-flows) 中，除非您使用 `.catch()` 等操作符先处理上游异常，否则异常会传播给 `collect()` 的调用者。
 

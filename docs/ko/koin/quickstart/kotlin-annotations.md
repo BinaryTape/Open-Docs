@@ -9,13 +9,13 @@ title: Kotlin & 어노테이션
 업데이트 - 2024-11-12
 :::
 
-## 코드 가져오기
+## 코드 가져오기 {id="get-the-code"}
 
 :::info
 [소스 코드는 GitHub에서 확인할 수 있습니다](https://github.com/InsertKoinIO/koin-getting-started/tree/main/kotlin-annotations)
 :::
 
-## 설정
+## 설정 {id="setup"}
 
 먼저, 다음과 같이 Koin 어노테이션 의존성이 추가되었는지 확인하세요:
 
@@ -34,13 +34,13 @@ dependencies {
 }
 ```
 
-## 애플리케이션 개요
+## 애플리케이션 개요 {id="application-overview"}
 
 이 애플리케이션의 아이디어는 사용자 목록을 관리하고 이를 `UserApplication` 클래스에 표시하는 것입니다:
 
 > Users -> UserRepository -> UserService -> UserApplication
 
-## "User" 데이터
+## "User" 데이터 {id="the-user-data"}
 
 사용자 컬렉션을 관리할 것입니다. 다음은 데이터 클래스입니다:
 
@@ -75,7 +75,7 @@ class UserRepositoryImpl : UserRepository {
 이 프로젝트는 싱글톤(singleton) 컴포넌트를 선언하기 위해 Koin의 `@Singleton` 어노테이션(`org.koin.core.annotation` 패키지)을 사용합니다.
 :::
 
-## Koin 모듈
+## Koin 모듈 {id="the-koin-module"}
 
 Koin 모듈을 선언하려면 `@Module` 어노테이션을 사용하세요:
 
@@ -99,7 +99,7 @@ class UserRepositoryImpl : UserRepository {
 }
 ```
 
-## UserService 컴포넌트
+## UserService 컴포넌트 {id="the-userservice-component"}
 
 사용자 작업을 관리하는 `UserService` 컴포넌트를 작성해 봅시다:
 
@@ -135,7 +135,7 @@ class UserServiceImpl(
 
 `@Singleton` 어노테이션으로 `UserService`를 선언합니다.
 
-## UserApplication
+## UserApplication {id="the-userapplication"}
 
 `UserApplication` 클래스는 생성자 주입(constructor injection)을 사용하여 `UserService`를 전달받습니다:
 
@@ -161,7 +161,7 @@ class UserApplication(
 생성자 주입은 의존성을 주입하는 권장되는 방법입니다. Koin은 `UserApplication`을 생성할 때 `UserService`를 자동으로 해결(resolve)하고 주입합니다.
 :::
 
-## Koin Application 객체
+## Koin Application 객체 {id="koin-application-object"}
 
 Koin의 어노테이션 기반 구성을 위한 진입점(entry point)을 표시하기 위해 `@KoinApplication` 객체를 생성합니다:
 
@@ -172,7 +172,7 @@ object KoinUserApplication
 
 `@KoinApplication` 어노테이션은 KSP 프로세서와 함께 작동하여 이 객체에 대한 `startKoin()` 확장 함수를 생성합니다.
 
-## Koin 시작하기
+## Koin 시작하기 {id="start-koin"}
 
 애플리케이션과 함께 Koin을 시작해야 합니다. 애플리케이션의 메인 진입점에서 생성된 `startKoin()` 함수를 호출하기만 하면 됩니다:
 
@@ -194,7 +194,7 @@ fun main() {
 모듈의 `@Configuration`과 함께 사용된 `@KoinApplication` 어노테이션은 KSP를 통해 컴파일 타임에 어노테이션이 달린 모든 의존성을 자동으로 탐색하고 로드합니다.
 :::
 
-## 어노테이션 vs 컴파일러 플러그인 DSL
+## 어노테이션 vs 컴파일러 플러그인 DSL {id="annotations-vs-compiler-plugin-dsl"}
 
 어노테이션 기반 구성과 컴파일러 플러그인(Compiler Plugin) DSL을 비교하면 다음과 같습니다:
 

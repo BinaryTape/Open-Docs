@@ -9,13 +9,13 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Lang
 
 此筆記本展示如何使用 OpenTelemetry 將 Koog Agent 追蹤匯出至您的 Langfuse 執行個體。您將設定環境變數、執行一個簡單的 Agent，然後在 Langfuse 中檢查 span 和追蹤。
 
-## 您將學到什麼
+## 您將學到什麼 {id="what-you-ll-learn"}
 
 - Koog 如何與 OpenTelemetry 整合以發送追蹤
 - 如何透過環境變數配置 Langfuse 匯出器
 - 如何執行 Agent 並在 Langfuse 中查看其追蹤
 
-## 前提條件
+## 前提條件 {id="prerequisites"}
 
 - 一個 Langfuse 專案（主機 URL、公鑰、私鑰）
 - 用於 LLM 執行器的 OpenAI API 金鑰
@@ -63,7 +63,7 @@ val agent = AIAgent(
 }
 ```
 
-## 配置 Agent 與 Langfuse 匯出器
+## 配置 Agent 與 Langfuse 匯出器 {id="configure-the-agent-and-langfuse-exporter"}
 
 在下一個資料格中，我們：
 
@@ -86,11 +86,11 @@ See traces on the Langfuse instance"
 
 ```
 
-## 執行 Agent 並查看追蹤
+## 執行 Agent 並查看追蹤 {id="run-the-agent-and-view-traces"}
 
 執行下一個資料格以觸發簡單的提示詞。這將產生匯出到您 Langfuse 專案的 span。
 
-### 在 Langfuse 中查看哪裡
+### 在 Langfuse 中查看哪裡 {id="where-to-look-in-langfuse"}
 
 1. 開啟您的 Langfuse 儀表板並選擇您的專案
 2. 導覽至 Traces/Spans 檢視
@@ -100,7 +100,7 @@ See traces on the Langfuse instance"
    - LLM 請求／回應元資料
    - 錯誤（如果有）
 
-### 疑難排解
+### 疑難排解 {id="troubleshooting"}
 
 - 沒有顯示追蹤？
   - 再次檢查 LANGFUSE_HOST、LANGFUSE_PUBLIC_KEY、LANGFUSE_SECRET_KEY

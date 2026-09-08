@@ -13,7 +13,7 @@
 > 
 {style="note"}
 
-## 프로젝트에 KSP 플러그인 추가하기
+## 프로젝트에 KSP 플러그인 추가하기 {id="add-the-ksp-plugin-to-your-project"}
 
 프로젝트 수준의 `build.gradle(.kts)` 파일에 있는 `plugins {}` 블록에 KSP를 추가하세요:
 
@@ -42,7 +42,7 @@ plugins {
 > 
 {style="tip"}
 
-## 프로세서 업데이트하기
+## 프로세서 업데이트하기 {id="update-your-processor"}
 
 마이그레이션하려는 프로세서를 사용하는 모듈을 찾으세요. 해당 모듈의 `build.gradle(.kts)` 파일에서 다음을 수행합니다:
 
@@ -105,7 +105,7 @@ plugins {
 > 
 {style="note"}
 
-## kapt 플러그인 제거하기
+## kapt 플러그인 제거하기 {id="remove-the-kapt-plugin"}
 
 모든 프로세서를 KSP로 마이그레이션한 후에는 모든 빌드 파일에서 kapt 플러그인을 안전하게 제거할 수 있습니다:
 
@@ -134,7 +134,7 @@ plugins {
 
 남아 있는 kapt 설정이 있다면 삭제하세요.
 
-## 다음 단계는?
+## 다음 단계는? {id="what-s-next"}
 
 * [KSP 시작하기](ksp-quickstart.md#create-your-own-processor)에서 나만의 KSP 기반 어노테이션 프로세서를 만드는 방법을 배워보세요.
 * [KSP 저장소](https://github.com/google/ksp/tree/main/examples)에서 KSP를 사용하는 예제 프로젝트를 살펴보세요.

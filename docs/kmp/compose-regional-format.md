@@ -4,7 +4,7 @@
 这些模式包括数字、日期、时间和货币的格式设置。
 这些模式由系统的区域设置或在应用程序中设置的自定义区域设置决定，确保了跨平台数据展示的一致性。
 
-## 区域设置格式设置模式
+## 区域设置格式设置模式 {id="locale-formatting-patterns"}
 
 Compose Multiplatform 中的格式设置遵循针对以下内容的平台特定区域设置约定：
 
@@ -60,7 +60,7 @@ fun RegionalFormatExample() {
 }
 ```
 
-## 确保一致的格式设置
+## 确保一致的格式设置 {id="ensure-consistent-formatting"}
 
 虽然目前还没有针对统一多平台解决方案的通用 API，但在大多数情况下格式设置行为仍保持一致。
 为确保所有支持的区域都能正确格式化：
@@ -68,6 +68,6 @@ fun RegionalFormatExample() {
 * 测试边缘情况，如大数字、负值或零。
 * 验证所有目标平台上所有受支持区域设置的格式设置。
 
-## 后续步骤
+## 后续步骤 {id="what-s-next"}
 
 详细了解如何管理应用程序的[资源环境](compose-resource-environment.md)，例如应用内主题和语言。

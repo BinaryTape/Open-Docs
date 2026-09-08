@@ -27,7 +27,7 @@ SwiftUI가 프로젝트에 적합하지 않은 경우, [대안 접근 방식](#�
 
 단순화를 위해 앱의 두 가지 탭 버전(**Schedule** 및 **Info**)을 마이그레이션하겠지만, 동일한 패턴을 모든 수의 탭으로 확장할 수 있습니다.
 
-## 마이그레이션 계획
+## 마이그레이션 계획 {id="migration-plan"}
 
 UI 코드가 완전히 공유되는 Compose Multiplatform 설정에서는 단일 `ComposeUIViewController`가 iOS UI 전체(탭, 내비게이션 스택, 뒤로 가기 제스처, 화면 콘텐츠)를 책임집니다. 
 Compose Multiplatform의 iOS 내비게이션 전환은 네이티브처럼 느껴지도록 설계되었지만, iOS 26의 리퀴드 글래스 탭 바 스타일과 같은 일부 플랫폼 수준 기능은 네이티브 iOS 컴포넌트를 통해서만 사용할 수 있습니다.
@@ -78,7 +78,7 @@ ContentView
 
 * [SwiftUI 내비게이션 레이어 구축](#build-the-swiftui-navigation-layer): 네이티브 `TabView` 및 `NavigationStack` 뷰와 Compose 화면을 임베딩하는 브릿지를 구축합니다.
 
-## 경로에 제목 메타데이터 추가
+## 경로에 제목 메타데이터 추가 {id="add-title-metadata-to-routes"}
 
 iOS에서는 각 대상에 내비게이션 바에 표시될 제목이 있으며, 뒤로 가기 버튼을 길게 눌렀을 때 나타나는 백 스택에도 제목이 표시됩니다.
 제목을 경로 객체에 직접 저장하여 각 경로가 스스로를 설명하게 하면, Swift가 Kotlin과의 왕복 통신 없이도 제목을 읽을 수 있습니다.
@@ -125,7 +125,7 @@ iOS에서는 각 대상에 내비게이션 바에 표시될 제목이 있으며,
     }
     ```
 
-## iOS 진입점에 내비게이션 콜백 추가
+## iOS 진입점에 내비게이션 콜백 추가 {id="add-navigation-callbacks-to-the-ios-entry-point"}
 
 `App()`은 iOS가 호출하는 Kotlin 진입점입니다. Swift가 내비게이션을 주도하도록 하려면 다음 세 가지를 수행할 방법이 필요합니다.
 
@@ -156,7 +156,7 @@ fun App(
 
 전체 구현은 [`App.kt`](https://github.com/JetBrains/kotlinconf-app/blob/3982334f1c3712fb959f0d20b563d6c8b81e9bbd/app/shared/src/commonMain/kotlin/org/jetbrains/kotlinconf/App.kt)를 참조하세요.
 
-## Compose 수준에서 내비게이션 가로채기
+## Compose 수준에서 내비게이션 가로채기 {id="intercept-navigation-at-the-compose-level"}
 
 이제 `App()`이 내비게이션 콜백을 노출하므로 `NavHost`에서 이를 사용해야 합니다. 
 상세 경로가 Compose의 백 스택에 나타날 때마다 이를 Swift로 넘기고 즉시 Compose에서 제거합니다. 이렇게 하면 Compose는 Swift에서 호출될 때만 상세 화면을 렌더링하게 됩니다.
@@ -208,12 +208,12 @@ internal fun NavHost(
 
 전체 파일은 [`NavHost.kt`](https://github.com/JetBrains/kotlinconf-app/blob/3982334f1c3712fb959f0d20b563d6c8b81e9bbd/app/shared/src/commonMain/kotlin/org/jetbrains/kotlinconf/navigation/NavHost.kt)를 참조하세요.
 
-## iOS용 독립 실행형 화면 렌더러 구축
+## iOS용 독립 실행형 화면 렌더러 구축 {id="build-a-standalone-screen-renderer-for-ios"}
 
 SwiftUI가 `NavigationStack`을 소유하면 Compose는 각 화면의 콘텐츠만 렌더링하면 됩니다.
 `NavHost`는 백 스택, 전환 및 생명주기를 관리하도록 빌드되었으므로 단일 경로를 렌더링하기 위한 더 단순한 진입점이 필요합니다.
 
-### 평면형 화면 렌더러 추가
+### 평면형 화면 렌더러 추가 {id="add-a-flat-screen-renderer"}
 
 `ScreenContent`는 그 단순한 진입점입니다. 자체 내비게이션 상태 없이 단일 상세 경로를 해당 컴포저블에 매핑하는 평면형 `when` 표현식입니다. 탭 루트는 여전히 전체 `App()` / `NavHost`에 의해 처리됩니다.
 SwiftUI는 각 대상에 대해 별도의 뷰 컨트롤러를 생성하며, 각 뷰 컨트롤러는 단일 `ScreenContent` 호출을 호스팅합니다.
@@ -256,7 +256,7 @@ fun ScreenContent(
 
 이 함수에는 제목이 나타나지 않습니다. 제목은 [경로에 제목 메타데이터 추가](#add-title-metadata-to-routes) 단계에서 경로 객체에 이미 연결되었으므로, Swift 측에서 내비게이션 바를 구성할 때 각 경로에서 직접 제목을 읽을 수 있습니다.
 
-### SwiftUI가 내비게이션을 소유하고 있음을 Compose에 신호 보내기
+### SwiftUI가 내비게이션을 소유하고 있음을 Compose에 신호 보내기 {id="signal-to-compose-that-swiftui-owns-navigation"}
 
 `ScreenContent`는 SwiftUI가 내비게이션 바와 뒤로 가기 버튼을 렌더링하는 컨텍스트에서 실행됩니다. 자체 제목 표시줄이나 뒤로 가기 버튼을 그리는 Compose 화면은 이를 건너뛰어야 합니다.
 
@@ -268,7 +268,7 @@ fun ScreenContent(
 val LocalUseNativeNavigation = staticCompositionLocalOf { false }
 ```
 
-### iOS용 렌더러 감싸기
+### iOS용 렌더러 감싸기 {id="wrap-the-renderer-for-ios"}
 
 `ScreenContent`는 경로를 렌더링하지만, `App()`이 일반적으로 설정하는 것과 동일한 테마, 의존성 주입 및 앱 전역 `CompositionLocal` 값을 설정하는 래퍼가 필요합니다.
 
@@ -302,7 +302,7 @@ internal fun SingleScreenApp(
 }
 ```
 
-### 탭 루트에 플래그 적용
+### 탭 루트에 플래그 적용 {id="apply-the-flag-to-tab-roots"}
 
 탭 루트는 여전히 일반적인 `NavHost`를 통과하므로, 이들도 `LocalUseNativeNavigation` 값을 준수해야 합니다.
 네이티브 내비게이션 콜백이 활성화되어 있는지 여부에 따라 이를 제공합니다.
@@ -338,7 +338,7 @@ CompositionLocalProvider(LocalUseNativeNavigation provides useNativeNavigation) 
 전체 구현은 [`NavHost.kt`](https://github.com/JetBrains/kotlinconf-app/blob/3982334f1c3712fb959f0d20b563d6c8b81e9bbd/app/shared/src/commonMain/kotlin/org/jetbrains/kotlinconf/navigation/NavHost.kt)
 및 [`SingleScreenApp.kt`](https://github.com/JetBrains/kotlinconf-app/blob/3982334f1c3712fb959f0d20b563d6c8b81e9bbd/app/shared/src/iosMain/kotlin/org/jetbrains/kotlinconf/SingleScreenApp.kt)를 참조하세요.
 
-## Compose의 기본 내비게이션 UI 숨기기
+## Compose의 기본 내비게이션 UI 숨기기 {id="hide-compose-s-built-in-navigation-ui"}
 
 SwiftUI가 내비게이션 UI를 렌더링하는 곳마다 `LocalUseNativeNavigation`이 설정되어 있으므로, 이제 개별 화면은 이를 읽고 자체 제목 표시줄과 뒤로 가기 버튼을 숨겨야 합니다. 그렇지 않으면 사용자는 서로 겹쳐진 두 개의 제목 표시줄과 두 개의 뒤로 가기 버튼을 보게 됩니다.
 
@@ -357,7 +357,7 @@ if (!useNativeNavigation) {
 
 전체 구현은 [`BaseScreens.kt`](https://github.com/JetBrains/kotlinconf-app/blob/3982334f1c3712fb959f0d20b563d6c8b81e9bbd/app/shared/src/commonMain/kotlin/org/jetbrains/kotlinconf/BaseScreens.kt)를 참조하세요.
 
-## 새로운 iOS 진입점 노출
+## 새로운 iOS 진입점 노출 {id="expose-new-ios-entry-points"}
 
 SwiftUI에서 새로운 내비게이션 구조를 빌드하기 위해 세 가지 Kotlin 진입점을 노출합니다:
 두 개의 `MainViewController` 오버로드와 하나의 `ScreenViewController`입니다.
@@ -415,7 +415,7 @@ SwiftUI에서 새로운 내비게이션 구조를 빌드하기 위해 세 가지
 
 전체 구현은 [`main.ios.kt`](https://github.com/JetBrains/kotlinconf-app/blob/3982334f1c3712fb959f0d20b563d6c8b81e9bbd/app/shared/src/iosMain/kotlin/org/jetbrains/kotlinconf/main.ios.kt)를 참조하세요.
 
-### 대안: SwiftUI를 건너뛰고 Kotlin에서 UIKit 구동하기 {collapsible="true"}
+### 대안: SwiftUI를 건너뛰고 Kotlin에서 UIKit 구동하기 {collapsible="true" id="alternative-skip-swiftui-and-drive-uikit-from-kotlin"}
 
 위의 진입점들은 SwiftUI `TabView` 및 `NavigationStack`을 위해 설계되었습니다. 
 내부적으로 SwiftUI는 `UITabBarController`와 `UINavigationController`를 사용하여 이러한 뷰를 구현하며, iOS 26의 리퀴드 글래스는 SwiftUI에서 선언하든 UIKit에서 구성하든 관계없이 네이티브 탭 및 내비게이션 바에 적용됩니다.
@@ -469,7 +469,7 @@ Kotlin과 Swift 간의 작업을 두 가지 방식으로 나눌 수 있습니다
 
 `UITabBarController` 내부에서 Compose를 사용하는 방법에 대한 자세한 내용은 [UIKit 프레임워크와의 통합](compose-uikit-integration.md)을 참조하세요.
 
-## SwiftUI 내비게이션 레이어 구축
+## SwiftUI 내비게이션 레이어 구축 {id="build-the-swiftui-navigation-layer"}
 
 이 부분은 마이그레이션의 iOS 측면입니다. 이전 단계의 모든 Kotlin 변경 사항은 여기서 일어날 일을 준비하기 위한 것이었습니다. 즉, Compose 뷰를 대상으로 호스팅하는 각 탭별 `NavigationStack`이 있는 SwiftUI `TabView`를 만드는 것입니다.
 이를 위해 다음 과정을 완료하세요:
@@ -484,7 +484,7 @@ Kotlin과 Swift 간의 작업을 두 가지 방식으로 나눌 수 있습니다
 이 섹션의 어떤 코드도 리퀴드 글래스 효과를 직접 적용하지 않는다는 점에 유의하세요.
 iOS 26은 네이티브 `TabView` 및 `NavigationStack` 뷰에 대해 리퀴드 글래스를 자동으로 렌더링하므로, 이를 사용하는 것만으로 충분합니다.
 
-### Kotlin 경로를 `NavigationStack`에서 사용할 수 있도록 만들기
+### Kotlin 경로를 `NavigationStack`에서 사용할 수 있도록 만들기 {id="make-kotlin-routes-usable-in-navigationstack"}
 
 `NavigationStack`은 경로 요소가 `Hashable` 및 `Identifiable`일 것을 요구합니다.
 Kotlin sealed interface에 대해 이를 충족하려면 `AppRoute`를 Swift `struct`로 감쌉니다.
@@ -508,7 +508,7 @@ struct RouteWrapper: Hashable, Identifiable {
 
 동일한 경로를 두 번 푸시할 때 예상되는 내비게이션 동작에 맞춰 두 개의 별개 스택 항목이 생성되어야 합니다. 이를 위해 경로의 값 대신 UUID를 기반으로 식별(identity)을 수행합니다.
 
-### 탭 및 내비게이션 상태 추적
+### 탭 및 내비게이션 상태 추적 {id="track-tab-and-navigation-state"}
 
 각 탭은 자체 내비게이션 스택을 가지며, 앱은 현재 선택된 탭을 추적합니다. 이를 처리하기 위해 두 개의 `@Observable` 클래스를 추가합니다.
 
@@ -560,7 +560,7 @@ class AppNavigationCoordinator {
 
 `AppNavigationCoordinator`는 이 튜토리얼에서 사용된 두 개의 탭 버전에 맞춰 단순화되었습니다. 전체 버전은 [`ContentView.swift`](https://github.com/JetBrains/kotlinconf-app/blob/b451d80301c50097d4cf5050d865829b49d07c8e/app/iosApp/iosApp/ContentView.swift)를 참조하세요.
 
-### Compose 화면을 SwiftUI 뷰로 임베딩
+### Compose 화면을 SwiftUI 뷰로 임베딩 {id="embed-compose-screens-as-swiftui-views"}
 
 두 개의 `UIViewControllerRepresentable` 타입이 [새로운 iOS 진입점 노출](#expose-new-ios-entry-points) 단계의 Kotlin 진입점을 SwiftUI에 연결합니다. 하나는 탭 루트용이고 하나는 상세 화면용입니다.
 
@@ -626,7 +626,7 @@ struct DetailComposeView: UIViewControllerRepresentable {
 }
 ```
 
-### 각 탭 내부의 내비게이션 설정
+### 각 탭 내부의 내비게이션 설정 {id="set-up-navigation-within-each-tab"}
 
 탭 수준에서 `NavigationStack`은 Compose 탭 콘텐츠를 루트로 사용하고 상세 화면을 대상으로 렌더링합니다.
 
@@ -669,7 +669,7 @@ struct TabContentView: View {
 }
 ```
 
-### 탭 바 빌드
+### 탭 바 빌드 {id="build-the-tab-bar"}
 
 최상위 컨테이너는 각 최상위 경로에 대해 하나의 `Tab`을 가지는 `TabView`입니다.
 `.tabBarMinimizeBehavior(.automatic)` 수정자는 탭 바를 플로팅 상태로 만들고 스크롤 시 최소화합니다. 이 기능이 없으면 탭 바는 하단에 고정된 상태로 유지됩니다.
@@ -714,7 +714,7 @@ Xcode의 에셋 카탈로그 에디터를 통해 정의하거나([Specifying you
 
 반투명도, 깊이감 및 플로팅 탭 바는 모두 iOS 26에 의해 적용되며 추가 스타일링 코드는 필요하지 않습니다.
 
-### 이전 iOS 버전에서의 폴백 처리
+### 이전 iOS 버전에서의 폴백 처리 {id="fall-back-on-older-ios-versions"}
 
 리퀴드 글래스와 새로운 `TabView` API는 iOS 26 전용입니다. 
 구버전에서 앱은 이전의 Compose 기반 설정으로 폴백합니다.
@@ -735,7 +735,7 @@ struct ContentView: View {
 
 전체 파일은 [`ContentView.swift`](https://github.com/JetBrains/kotlinconf-app/blob/3982334f1c3712fb959f0d20b563d6c8b81e9bbd/app/iosApp/iosApp/ContentView.swift)를 참조하세요.
 
-## 대안 접근 방식
+## 대안 접근 방식 {id="alternative-approaches"}
 
 이 튜토리얼의 마이그레이션 방식은 네이티브 SwiftUI 내비게이션을 선호하며, 이를 통해 리퀴드 글래스 및 기타 시스템 동작을 즉시 사용할 수 있습니다. 이 방식이 프로젝트에 맞지 않는다면 다음 대안 중 하나를 고려해 보세요:
 
@@ -744,7 +744,7 @@ struct ContentView: View {
 * **적응형 UI를 위한 서드파티 솔루션을 활용한 Compose 기반 내비게이션**: [Calf](https://klibs.io/project/MohamedRejeb/Calf)와 같은 라이브러리를 사용하여 앱이 실행 중인 플랫폼에 네이티브인 적응형 UI 컴포넌트를 렌더링합니다. 이 방식은 플랫폼 차이를 직접 처리하는 복잡성을 줄여주며 iOS의 리퀴드 글래스와 같은 네이티브 동작을 기본적으로 제공합니다.
 * **리퀴드 글래스 효과를 모방한 Compose 전용 내비게이션**: 모든 것을 Compose에서 렌더링하고 리퀴드 글래스를 시각적으로 근사하게 구현합니다. 예를 들어 [AndroidLiquidGlass](https://klibs.io/project/Kyant0/AndroidLiquidGlass) 또는 [Liquid](https://klibs.io/project/FletchMcKee/liquid)와 같은 라이브러리를 사용할 수 있습니다. 이 방식은 시스템 리퀴드 글래스와 완전히 동일하지는 않지만 시각적으로 유사한 효과를 내면서 모든 UI를 Compose 측에 유지합니다.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * 리퀴드 글래스 효과가 적용된 [공식 KotlinConf 애플리케이션](https://github.com/JetBrains/kotlinconf-app/tree/lg-nav)을 확인해 보세요.
 * Apple의 새로운 머티리얼 및 도입 체크리스트인 [Adopting Liquid Glass](https://developer.apple.com/documentation/TechnologyOverviews/adopting-liquid-glass)를 참조하세요.

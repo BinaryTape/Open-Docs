@@ -7,7 +7,7 @@
 
 <a as="button" href="https://klibs.io" mode="classic" icon="arrow-right" icon-position="right">マルチプラットフォームライブラリを閲覧する</a>
 
-## AI ワークフローにおける klibs.io
+## AI ワークフローにおける klibs.io {id="klibs-io-in-your-ai-workflow"}
 
 提供されている MCP インターフェースと準備済みのエージェント指示文を使用して、klibs.io を AI ワークフローに統合できます。
 
@@ -32,7 +32,7 @@
     * comparable alternatives.
     ```
   
-## 関連項目
+## 関連項目 {id="see-also"}
 
 詳細については、[klibs.io FAQ](https://klibs.io/faq) を参照してください。
 * ライブラリがどのようにインデックス化され、ランク付けされるか

@@ -4,7 +4,7 @@
 
 虽然大多数语言变化已经通过其他渠道（如更新日志或编译器警告）发布，但本文档对这些变化进行了总结，为从 Kotlin 1.8 迁移到 Kotlin 1.9 提供完整参考。
 
-## 基本术语
+## 基本术语 {id="basic-terms"}
 
 在本文档中，我们介绍了以下几种兼容性：
 
@@ -14,10 +14,10 @@
 
 请记住，这些定义仅针对纯 Kotlin。从其他语言（例如 Java）的视角来看 Kotlin 代码的兼容性不在本文档的讨论范围内。
 
-## 语言
+## 语言 {id="language"}
 
 <!--
-### Title
+### Title {id="title"}
 
 > **Issue**: [KT-NNNNN](https://youtrack.jetbrains.com/issue/KT-NNNNN)
 >
@@ -33,7 +33,7 @@
 > - 1.8.0: raise the warning to an error
 -->
 
-### 移除语言版本 1.3
+### 移除语言版本 1.3 {id="remove-language-version-1-3"}
 
 > **问题**：[KT-61111](https://youtrack.jetbrains.com/issue/KT-61111/Remove-language-version-1.3)
 >
@@ -48,7 +48,7 @@
 > - 1.6.0：报告警告
 > - 1.9.0：将警告升级为错误
 
-### 当父接口类型为函数字面量时禁止调用父类构造函数
+### 当父接口类型为函数字面量时禁止调用父类构造函数 {id="prohibit-super-constructor-call-when-the-super-interface-type-is-a-function-literal"}
 
 > **问题**：[KT-46344](https://youtrack.jetbrains.com/issue/KT-46344)
 >
@@ -62,7 +62,7 @@
 > * 1.7.0：报告警告（或在渐进模式下报告错误）
 > * 1.9.0：将警告升级为错误
 
-### 禁止在注解参数类型中出现循环
+### 禁止在注解参数类型中出现循环 {id="prohibit-cycles-in-annotation-parameter-types"}
 
 > **问题**：[KT-47932](https://youtrack.jetbrains.com/issue/KT-47932)
 >
@@ -77,7 +77,7 @@
 > * 1.7.0：对注解参数类型中的循环报告警告（或在渐进模式下报告错误）
 > * 1.9.0：将警告升级为错误，可以使用 `-XXLanguage:-ProhibitCyclesInAnnotations` 暂时恢复到 1.9 之前的行为
 
-### 禁止在没有形参的函数类型上使用 @ExtensionFunctionType 注解
+### 禁止在没有形参的函数类型上使用 @ExtensionFunctionType 注解 {id="prohibit-use-of-extensionfunctiontype-annotation-on-function-types-with-no-parameters"}
 
 > **问题**：[KT-43527](https://youtrack.jetbrains.com/issue/KT-43527)
 >
@@ -91,7 +91,7 @@
 > * 1.7.0：对于非函数类型上的注解报告警告，对于**是**函数类型上的注解报告错误
 > * 1.9.0：将针对函数类型的警告升级为错误
 
-### 禁止在赋值时出现 Java 字段类型不匹配
+### 禁止在赋值时出现 Java 字段类型不匹配 {id="prohibit-java-field-type-mismatch-on-assignment"}
 
 > **问题**：[KT-48994](https://youtrack.jetbrains.com/issue/KT-48994)
 >
@@ -105,7 +105,7 @@
 > * 1.6.0：当投影的 Java 字段类型与所赋的值类型不匹配时，报告警告（或在渐进模式下报告错误）
 > * 1.9.0：将警告升级为错误，可以使用 `-XXLanguage:-RefineTypeCheckingOnAssignmentsToJavaFields` 暂时恢复到 1.9 之前的行为
 
-### 平台类型为 null 性断言异常中不再包含源代码片段
+### 平台类型为 null 性断言异常中不再包含源代码片段 {id="no-source-code-excerpts-in-platform-type-nullability-assertion-exceptions"}
 
 > **问题**：[KT-57570](https://youtrack.jetbrains.com/issue/KT-57570)
 >
@@ -120,7 +120,7 @@
 >  * < 1.9.0：表达式 null 检查生成的异常消息包含源代码片段
 >  * 1.9.0：表达式 null 检查生成的异常消息仅包含方法或字段名称，可以使用 `-XXLanguage:-NoSourceCodeInNotNullAssertionExceptions` 暂时恢复到 1.9 之前的行为
 
-### 禁止将父类调用委托给抽象父类成员
+### 禁止将父类调用委托给抽象父类成员 {id="prohibit-the-delegation-of-super-calls-to-an-abstract-superclass-member"}
 
 > **问题**：[KT-45508](https://youtrack.jetbrains.com/issue/KT-45508), [KT-49017](https://youtrack.jetbrains.com/issue/KT-49017), [KT-38078](https://youtrack.jetbrains.com/issue/KT-38078)
 >
@@ -138,7 +138,7 @@
 > - 1.8.0：在声明具体类时若其带有未重写的父类抽象方法，或者 `Any` 方法的父类调用在父类中被重写为抽象方法时，报告错误
 > - 1.9.0：在所有受影响的情况下报告错误，包括显式调用父类中的抽象方法
 
-### 弃用带主语的 when 中的模糊语法
+### 弃用带主语的 when 中的模糊语法 {id="deprecate-confusing-grammar-in-when-with-subject"}
 
 > **问题**：[KT-48385](https://youtrack.jetbrains.com/issue/KT-48385)
 >
@@ -154,7 +154,7 @@
 > - 1.8.0：将此警告升级为错误，可以使用 `-XXLanguage:-ProhibitConfusingSyntaxInWhenBranches` 暂时恢复到 1.8 之前的行为
 > - &gt;= 2.1：将一些弃用的结构重新用于新的语言功能
 
-### 防止不同数值类型之间的隐式强制转换
+### 防止不同数值类型之间的隐式强制转换 {id="prevent-implicit-coercions-between-different-numeric-types"}
 
 > **问题**：[KT-48645](https://youtrack.jetbrains.com/issue/KT-48645)
 >
@@ -170,7 +170,7 @@
 > - 1.5.30：修复生成的属性委托访问器中的向下转换行为，可以使用 `-Xuse-old-backend` 暂时恢复到 1.5.30 之前的修复行为
 > - &gt;= 2.0：修复其他受影响情况下的向下转换行为
 
-### 禁止在泛型类型别名使用中违反上界约束（当类型参数用于别名类型之类型实参的类型实参时）
+### 禁止在泛型类型别名使用中违反上界约束（当类型参数用于别名类型之类型实参的类型实参时） {id="prohibit-upper-bound-violation-in-a-generic-type-alias-usage-a-type-parameter-used-in-a-generic-type-argument-of-a-type-argument-of-the-aliased-type"}
 
 > **问题**：[KT-54066](https://youtrack.jetbrains.com/issue/KT-54066)
 >
@@ -185,7 +185,7 @@
 > - 1.8.0：当泛型类型别名使用的类型实参违反了别名类型相应类型形参的上界约束时，报告警告
 > - 2.0.0：将警告升级为错误
 
-### 在公共签名中近似局部类型时保持为 null 性
+### 在公共签名中近似局部类型时保持为 null 性 {id="keep-nullability-when-approximating-local-types-in-public-signatures"}
 
 > **问题**：[KT-53982](https://youtrack.jetbrains.com/issue/KT-53982)
 >
@@ -202,7 +202,7 @@
 > - 1.8.0：当声明被推断为本应可为空的非为 null 类型时报告警告，提示用户显式指定类型
 > - 2.0.0：使用可为空超类型近似可为空类型，可以使用 `-XXLanguage:-KeepNullabilityWhenApproximatingLocalType` 暂时恢复到 2.0 之前的行为
 
-### 不再通过重写传播弃用
+### 不再通过重写传播弃用 {id="do-not-propagate-deprecation-through-overrides"}
 
 > **问题**：[KT-47902](https://youtrack.jetbrains.com/issue/KT-47902)
 >
@@ -217,7 +217,7 @@
 > - 1.6.20：报告警告，说明未来的行为变化，并提示禁止此警告或显式在已弃用成员的重写上编写 `@Deprecated` 注解
 > - 1.9.0：停止向重写成员传播弃用状态。此更改在渐进模式下也会立即生效
 
-### 禁止在注解类中除参数声明外的任何位置使用集合字面量
+### 禁止在注解类中除参数声明外的任何位置使用集合字面量 {id="prohibit-using-collection-literals-in-annotation-classes-anywhere-except-their-parameters-declaration"}
 
 > **问题**：[KT-39041](https://youtrack.jetbrains.com/issue/KT-39041)
 >
@@ -233,7 +233,7 @@
 > - 1.7.0：对注解类嵌套对象中的数组字面量报告警告（或在渐进模式下报告错误）
 > - 1.9.0：将警告升级为错误
 
-### 禁止在默认值表达式中前向引用形参
+### 禁止在默认值表达式中前向引用形参 {id="prohibit-forward-referencing-of-parameters-in-default-value-expressions"}
 
 > **问题**：[KT-25694](https://youtrack.jetbrains.com/issue/KT-25694)
 >
@@ -248,7 +248,7 @@
 > - 1.7.0：当在先前的形参默认值中引用带有默认值的形参时，报告警告（或在渐进模式下报告错误）
 > - 1.9.0：将警告升级为错误，可以使用 `-XXLanguage:-ProhibitIllegalValueParameterUsageInDefaultArguments` 暂时恢复到 1.9 之前的行为
 
-### 禁止对内联函数形参进行扩展调用
+### 禁止对内联函数形参进行扩展调用 {id="prohibit-extension-calls-on-inline-functional-parameters"}
 
 > **问题**：[KT-52502](https://youtrack.jetbrains.com/issue/KT-52502)
 >
@@ -264,7 +264,7 @@
 > - 1.7.20：对内联函数形参上的内联扩展调用报告警告（或在渐进模式下报告错误）
 > - 1.9.0：将警告升级为错误
 
-### 禁止使用匿名函数实参调用名为 suspend 的中缀函数
+### 禁止使用匿名函数实参调用名为 suspend 的中缀函数 {id="prohibit-calls-to-infix-functions-named-suspend-with-an-anonymous-function-argument"}
 
 > **问题**：[KT-49264](https://youtrack.jetbrains.com/issue/KT-49264)
 >
@@ -280,7 +280,7 @@
 > - 1.9.0：将警告升级为错误，可以使用 `-XXLanguage:-ModifierNonBuiltinSuspendFunError` 暂时恢复到 1.9 之前的行为
 > - TODO：更改解析器对 `suspend fun` 令牌序列的解释方式
 
-### 禁止在内部类中以违反其差异的方式使用捕获的类型参数
+### 禁止在内部类中以违反其差异的方式使用捕获的类型参数 {id="prohibit-using-captured-type-parameters-in-inner-classes-against-their-variance"}
 
 > **问题**：[KT-50947](https://youtrack.jetbrains.com/issue/KT-50947)
 >
@@ -295,7 +295,7 @@
 > - 1.7.0：当外部类类型参数的使用位置违反该参数的差异规则时，报告警告（或在渐进模式下报告错误）
 > - 1.9.0：将警告升级为错误，可以使用 `-XXLanguage:-ReportTypeVarianceConflictOnQualifierArguments` 暂时恢复到 1.9 之前的行为
 
-### 禁止在复合赋值运算符中递归调用没有显式返回值类型的函数
+### 禁止在复合赋值运算符中递归调用没有显式返回值类型的函数 {id="prohibit-recursive-call-of-a-function-without-explicit-return-type-in-compound-assignment-operators"}
 
 > **问题**：[KT-48546](https://youtrack.jetbrains.com/issue/KT-48546)
 >
@@ -310,7 +310,7 @@
 > - 1.7.0：当没有显式指定返回值类型的函数在该函数体的复合赋值运算符实参中被递归调用时，报告警告（或在渐进模式下报告错误）
 > - 1.9.0：将警告升级为错误
 
-### 禁止在预期为 @NotNull T 但给定带可为空绑定的 Kotlin 泛型参数时进行不安全的调用
+### 禁止在预期为 @NotNull T 但给定带可为空绑定的 Kotlin 泛型参数时进行不安全的调用 {id="prohibit-unsound-calls-with-expected-notnull-t-and-given-kotlin-generic-parameter-with-nullable-bound"}
 
 > **问题**：[KT-36770](https://youtrack.jetbrains.com/issue/KT-36770)
 >
@@ -325,7 +325,7 @@
 > - 1.5.20：当在预期为非为 null 类型的地方传递不受约束的泛型类型形参时报告警告
 > - 1.9.0：报告类型不匹配错误而不是上述警告，可以使用 `-XXLanguage:-ProhibitUsingNullableTypeParameterAgainstNotNullAnnotated` 暂时恢复到 1.8 之前的行为
 
-### 禁止从枚举条目初始值设定项中访问枚举类伴生对象的成员
+### 禁止从枚举条目初始值设定项中访问枚举类伴生对象的成员 {id="prohibit-access-to-members-of-a-companion-of-an-enum-class-from-entry-initializers-of-this-enum"}
 
 > **问题**：[KT-49110](https://youtrack.jetbrains.com/issue/KT-49110)
 >
@@ -340,7 +340,7 @@
 > - 1.6.20：对此类伴生成员访问报告警告（或在渐进模式下报告错误）
 > - 1.9.0：将警告升级为错误，可以使用 `-XXLanguage:-ProhibitAccessToEnumCompanionMembersInEnumConstructorCall` 暂时恢复到 1.8 之前的行为
 
-### 弃用并移除 Enum.declaringClass 合成属性
+### 弃用并移除 Enum.declaringClass 合成属性 {id="deprecate-and-remove-enum-declaringclass-synthetic-property"}
 
 > **问题**：[KT-49653](https://youtrack.jetbrains.com/issue/KT-49653)
 >
@@ -356,7 +356,7 @@
 > - 1.9.0：将警告升级为错误，可以使用 `-XXLanguage:-ProhibitEnumDeclaringClass` 暂时恢复到 1.9 之前的行为
 > - 2.0.0：移除 `declaringClass` 合成属性
 
-### 弃用编译器选项 -Xjvm-default 的 enable 和 compatibility 模式
+### 弃用编译器选项 -Xjvm-default 的 enable 和 compatibility 模式 {id="deprecate-enable-and-compatibility-modes-of-the-compiler-option-xjvm-default"}
 
 > **问题**：[KT-46329](https://youtrack.jetbrains.com/issue/KT-46329), [KT-54746](https://youtrack.jetbrains.com/issue/KT-54746)
 >
@@ -371,7 +371,7 @@
 > - 1.6.20：针对 `-Xjvm-default` 编译器选项的 `enable` 和 `compatibility` 模式引入警告
 > - 1.9.0：将此警告升级为错误
 
-### 禁止在构建器推断上下文中将类型变量隐式推断为上界
+### 禁止在构建器推断上下文中将类型变量隐式推断为上界 {id="prohibit-implicit-inferring-a-type-variable-into-an-upper-bound-in-the-builder-inference-context"}
 
 > **问题**：[KT-47986](https://youtrack.jetbrains.com/issue/KT-47986)
 >
@@ -386,9 +386,9 @@
 > - 1.7.20：在缺乏使用点类型信息的情况下，当类型形参被推断为声明的上界时，报告警告（或在渐进模式下报告错误）
 > - 2.0.0：将警告升级为错误
 
-## 标准库
+## 标准库 {id="standard-library"}
 
-### 当 Range/Progression 开始实现 Collection 时，警告潜在的重载决策变化
+### 当 Range/Progression 开始实现 Collection 时，警告潜在的重载决策变化 {id="warn-about-potential-overload-resolution-change-when-range-progression-starts-implementing-collection"}
 
 > **问题**：[KT-49276](https://youtrack.jetbrains.com/issue/KT-49276)
 >
@@ -405,7 +405,7 @@
 > - 1.8.0：将此警告升级为错误 
 > - 2.1.0：停止报告错误，在数列中实现 `Collection` 接口，从而更改受影响情况下的重载决策结果
 
-### 将 kotlin.dom 和 kotlin.browser 软件包中的声明迁移到 kotlinx.*
+### 将 kotlin.dom 和 kotlin.browser 软件包中的声明迁移到 kotlinx.* {id="migrate-declarations-from-kotlin-dom-and-kotlin-browser-packages-to-kotlinx"}
 
 > **问题**：[KT-39330](https://youtrack.jetbrains.com/issue/KT-39330)
 >
@@ -423,7 +423,7 @@
 > - 1.8.20：针对 JS-IR 目标从标准库中移除已弃用的函数
 > - &gt;= 2.0：将 kotlinx.* 软件包中的 API 移至独立库
 
-### 弃用某些仅限 JS 的 API
+### 弃用某些仅限 JS 的 API {id="deprecate-some-js-only-api"}
 
 > **问题**：[KT-48587](https://youtrack.jetbrains.com/issue/KT-48587)
 >
@@ -439,9 +439,9 @@
 > - 1.9.0：将弃用级别升级为错误
 > - &gt;=2.0：从公共 API 中移除已弃用的函数
 
-## 工具
+## 工具 {id="tools"}
 
-### 从 Gradle 设置中移除 enableEndorsedLibs 标志
+### 从 Gradle 设置中移除 enableEndorsedLibs 标志 {id="remove-enableendorsedlibs-flag-from-gradle-setup"}
 
 > **问题**：[KT-54098](https://youtrack.jetbrains.com/issue/KT-54098)
 >
@@ -456,7 +456,7 @@
 > - < 1.9.0：Gradle 设置中支持 `enableEndorsedLibs` 标志
 > - 1.9.0：Gradle 设置中**不**支持 `enableEndorsedLibs` 标志
 
-### 移除 Gradle 约定 (Conventions)
+### 移除 Gradle 约定 (Conventions) {id="remove-gradle-conventions"}
 
 > **问题**：[KT-52976](https://youtrack.jetbrains.com/issue/KT-52976)
 >
@@ -471,7 +471,7 @@
 > - 1.7.20：Gradle 约定已弃用
 > - 1.9.0：Gradle 约定已移除
 
-### 移除 KotlinCompile 任务的 classpath 属性
+### 移除 KotlinCompile 任务的 classpath 属性 {id="remove-classpath-property-of-kotlincompile-task"}
 
 > **问题**：[KT-53748](https://youtrack.jetbrains.com/issue/KT-53748)
 >
@@ -487,7 +487,7 @@
 > - 1.8.0：将弃用级别升级为错误
 > - 1.9.0：从公共 API 中移除已弃用的函数
 
-### 弃用 kotlin.internal.single.build.metrics.file 属性
+### 弃用 kotlin.internal.single.build.metrics.file 属性 {id="deprecate-kotlin-internal-single-build-metrics-file-property"}
 
 > **问题**：[KT-53357](https://youtrack.jetbrains.com/issue/KT-53357)
 >

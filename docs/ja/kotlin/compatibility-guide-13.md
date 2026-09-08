@@ -4,7 +4,7 @@
 
 言語変更の多くは、アップデートの変更ログやコンパイラの警告など、他のチャネルを通じてすでに発表されていますが、このドキュメントではそれらをすべてまとめ、Kotlin 1.2 から Kotlin 1.3 への移行に関する完全なリファレンスを提供します。
 
-## 基本用語
+## 基本用語 {id="basic-terms"}
 
 このドキュメントでは、いくつかの種類の互換性を紹介します：
 
@@ -14,9 +14,9 @@
 
 これらの定義は純粋な Kotlin に対してのみ適用されることに注意してください。他の言語（Java など）から見た Kotlin コードの互換性は、このドキュメントの範囲外です。
 
-## 互換性のない変更
+## 互換性のない変更 {id="incompatible-changes"}
 
-### &lt;clinit&gt; 呼び出しに関するコンストラクタ引数の評価順序
+### &lt;clinit&gt; 呼び出しに関するコンストラクタ引数の評価順序 {id="evaluation-order-of-constructor-arguments-regarding-lt-clinit-gt-call"}
 
 > **Issue**: [KT-19532](https://youtrack.jetbrains.com/issue/KT-19532)
 >
@@ -32,7 +32,7 @@
 > - >= 1.3: 動作が変更されました。
 > `-Xnormalize-constructor-calls=disable` を使用して、一時的に 1.3 以前の動作に戻すことができます。このフラグのサポートは、次のメジャーリリースで削除される予定です。
 
-### アノテーションのコンストラクタパラメータにおける getter をターゲットとしたアノテーションの欠落
+### アノテーションのコンストラクタパラメータにおける getter をターゲットとしたアノテーションの欠落 {id="missing-getter-targeted-annotations-on-annotation-constructor-parameters"}
 
 > **Issue**: [KT-25287](https://youtrack.jetbrains.com/issue/KT-25287)
 >
@@ -47,7 +47,7 @@
 > - < 1.3: アノテーションのコンストラクタパラメータにおける getter ターゲットのアノテーションが適用されませんでした。
 > - >= 1.3: アノテーションのコンストラクタパラメータにおける getter ターゲットのアノテーションが正しく適用され、生成されたコードに書き込まれます。
 
-### クラスコンストラクタの @get: アノテーションにおけるエラー報告の欠落
+### クラスコンストラクタの @get: アノテーションにおけるエラー報告の欠落 {id="missing-errors-in-class-constructor-s-get-annotations"}
 
 > **Issue**: [KT-19628](https://youtrack.jetbrains.com/issue/KT-19628)
 >
@@ -63,7 +63,7 @@
 > - 1.2.x: ツールによってのみエラーが報告され、コンパイラは依然として警告なしでそのようなコードをコンパイルします。
 > - >= 1.3: コンパイラでもエラーが報告されるようになり、誤ったコードは拒否されます。
 
-### @NotNull が付与された Java 型へのアクセスにおける Nullability アサーション
+### @NotNull が付与された Java 型へのアクセスにおける Nullability アサーション {id="nullability-assertions-on-access-to-java-types-annotated-with-notnull"}
 
 > **Issue**: [KT-20830](https://youtrack.jetbrains.com/issue/KT-20830)
 >
@@ -79,7 +79,7 @@
 > - >= 1.3: コンパイラは欠落していたアサーションを生成します。これにより、誤って `null` を渡していたコードはより早く失敗する可能性があります。
 > `-XXLanguage:-StrictJavaNullabilityAssertions` を使用して、一時的に 1.3 以前の動作に戻すことができます。このフラグのサポートは、次のメジャーリリースで削除されます。
 
-### enum メンバに対する不適切なスマートキャスト
+### enum メンバに対する不適切なスマートキャスト {id="unsound-smartcasts-on-enum-members"}
 
 > **Issue**: [KT-20772](https://youtrack.jetbrains.com/issue/KT-20772)
 >
@@ -95,7 +95,7 @@
 > - >= 1.3: スマートキャストはその enum エントリのメンバに対してのみ正しく適用されます。
 > `-XXLanguage:-SoundSmartcastForEnumEntries` を使用すると一時的に旧来の動作に戻ります。このフラグのサポートは、次のメジャーリリースで削除されます。
 
-### getter 内での val バッキングフィールドの再代入
+### getter 内での val バッキングフィールドの再代入 {id="val-backing-field-reassignment-in-getter"}
 
 > **Issue**: [KT-16681](https://youtrack.jetbrains.com/issue/KT-16681)
 >
@@ -111,7 +111,7 @@
 > - 1.2.X: `val` のバッキングフィールドを再代入するコードに対して非推奨の警告が報告されます。
 > - >= 1.3: 非推奨の警告がエラーに格上げされました。
 
-### イテレートされる for ループの前での配列のキャプチャ
+### イテレートされる for ループの前での配列のキャプチャ {id="array-capturing-before-the-for-loop-where-it-is-iterated"}
 
 > **Issue**: [KT-21354](https://youtrack.jetbrains.com/issue/KT-21354)
 >
@@ -127,7 +127,7 @@
 > - 1.2.X: for ループ内の範囲式が配列型のローカル変数であり、かつループ内で代入が行われている場合に、非推奨の警告が報告されます。
 > - 1.3: このようなケースにおいて、他のコンテナと整合性のある動作に変更されました。
 
-### enum エントリ内のネストされた分類子
+### enum エントリ内のネストされた分類子 {id="nested-classifiers-in-enum-entries"}
 
 > **Issue**: [KT-16310](https://youtrack.jetbrains.com/issue/KT-16310)
 >
@@ -143,7 +143,7 @@
 > - 1.2.X: ネストされた分類子に対して非推奨の警告が報告されます。
 > - >= 1.3: 非推奨の警告がエラーに格上げされました。
 
-### copy をオーバーライドするデータクラス
+### copy をオーバーライドするデータクラス {id="data-class-overriding-copy"}
 
 > **Issue**: [KT-19618](https://youtrack.jetbrains.com/issue/KT-19618)
 >
@@ -159,7 +159,7 @@
 > - 1.2.X: `copy()` をオーバーライドするデータクラスに対して非推奨の警告が報告されます。
 > - >= 1.3: 非推奨の警告がエラーに格上げされました。
 
-### 外部クラスからジェネリックパラメータをキャプチャして Throwable を継承するインナークラス
+### 外部クラスからジェネリックパラメータをキャプチャして Throwable を継承するインナークラス {id="inner-classes-inheriting-throwable-that-capture-generic-parameters-from-the-outer-class"}
 
 > **Issue**: [KT-17981](https://youtrack.jetbrains.com/issue/KT-17981)
 >
@@ -175,7 +175,7 @@
 > - 1.2.X: `Throwable` を継承するインナークラスに対して非推奨の警告が報告されます。
 > - >= 1.3: 非推奨の警告がエラーに格上げされました。
 
-### コンパニオンオブジェクトを伴う複雑なクラス階層に関する可視性ルール
+### コンパニオンオブジェクトを伴う複雑なクラス階層に関する可視性ルール {id="visibility-rules-regarding-complex-class-hierarchies-with-companion-objects"}
 
 > **Issue**: [KT-21515](https://youtrack.jetbrains.com/issue/KT-21515), [KT-25333](https://youtrack.jetbrains.com/issue/KT-25333)
 >
@@ -191,7 +191,7 @@
 > - 1.2.X: アクセスできなくなる短縮名に対して非推奨の警告が報告されます。ツールは、フルネームを追加することによる自動移行を提案します。
 > - >= 1.3: 非推奨の警告がエラーに格上げされました。該当するコードには、フルクオリファイア（完全修飾名）を追加するか、明示的なインポートを行う必要があります。
 
-### 定数ではない vararg アノテーションパラメータ
+### 定数ではない vararg アノテーションパラメータ {id="non-constant-vararg-annotation-parameters"}
 
 > **Issue**: [KT-23153](https://youtrack.jetbrains.com/issue/KT-23153)
 >
@@ -207,7 +207,7 @@
 > - 1.2.X: そのようなコードパターンに対して非推奨の警告が報告されます。
 > - >= 1.3: 非推奨の警告がエラーに格上げされました。
 
-### ローカルアノテーションクラス
+### ローカルアノテーションクラス {id="local-annotation-classes"}
 
 > **Issue**: [KT-23277](https://youtrack.jetbrains.com/issue/KT-23277)
 >
@@ -223,7 +223,7 @@
 > - 1.2.X: ローカルアノテーションクラスに対して非推奨の警告が報告されます。
 > - >= 1.3: 非推奨の警告がエラーに格上げされました。
 
-### ローカル委譲プロパティに対するスマートキャスト
+### ローカル委譲プロパティに対するスマートキャスト {id="smartcasts-on-local-delegated-properties"}
 
 > **Issue**: [KT-22517](https://youtrack.jetbrains.com/issue/KT-22517)
 >
@@ -239,7 +239,7 @@
 > - 1.2.X: ローカル委譲プロパティに対するスマートキャストが非推奨として報告されます（コンパイラが警告を出します）。
 > - >= 1.3: 非推奨の警告がエラーに格上げされました。
 
-### mod 演算子の慣習
+### mod 演算子の慣習 {id="mod-operator-convention"}
 
 > **Issue**: [KT-24197](https://youtrack.jetbrains.com/issue/KT-24197)
 >
@@ -255,7 +255,7 @@
 > - 1.3.X: 警告をエラーに格上げしますが、依然として `operator mod` 宣言への解決は許可します。
 > - 1.4.X: 呼び出しを `operator mod` に解決しなくなります。
 
-### 名前付き引数形式での vararg への単一要素の受け渡し
+### 名前付き引数形式での vararg への単一要素の受け渡し {id="passing-single-element-to-vararg-in-named-form"}
 
 > **Issue**: [KT-20588](https://youtrack.jetbrains.com/issue/KT-20588), [KT-20589](https://youtrack.jetbrains.com/issue/KT-20589)。[KT-20171](https://youtrack.jetbrains.com/issue/KT-20171) も参照。
 >
@@ -272,7 +272,7 @@
 > - 1.3.X: 警告がエラーに格上げされました。
 > - >= 1.4: vararg への単一要素代入のセマンティクスを変更し、配列の代入を配列のスプレッド代入と同等にします。
 
-### ターゲットが EXPRESSION であるアノテーションの保持期間（Retention）
+### ターゲットが EXPRESSION であるアノテーションの保持期間（Retention） {id="retention-of-annotations-with-target-expression"}
 
 > **Issue**: [KT-13762](https://youtrack.jetbrains.com/issue/KT-13762)
 >
@@ -288,7 +288,7 @@
 > - 1.2.X: そのようなアノテーションの宣言に対して非推奨の警告が報告されます。
 > - >= 1.3: 警告がエラーに格上げされました。
 
-### ターゲットが PARAMETER であるアノテーションは、パラメータの型に適用されるべきではない
+### ターゲットが PARAMETER であるアノテーションは、パラメータの型に適用されるべきではない {id="annotations-with-target-parameter-shouldn-t-be-applicable-to-parameter-s-type"}
 
 > **Issue**: [KT-9580](https://youtrack.jetbrains.com/issue/KT-9580)
 >
@@ -304,7 +304,7 @@
 > - 1.2.X: そのような使用法に対して非推奨の警告が報告されます。
 > - >= 1.3: 警告がエラーに格上げされました。
 
-### Array.copyOfRange は、返される配列を拡大するのではなく、インデックスが範囲外の場合に例外をスローする
+### Array.copyOfRange は、返される配列を拡大するのではなく、インデックスが範囲外の場合に例外をスローする {id="array-copyofrange-throws-an-exception-when-indices-are-out-of-bounds-instead-of-enlarging-the-returned-array"}
 
 > **Issue**: [KT-19489](https://youtrack.jetbrains.com/issue/KT-19489)
 >
@@ -319,7 +319,7 @@
 > - < 1.3: `Array.copyOfRange` の呼び出しにおいて `toIndex` が配列サイズより大きい場合、範囲内の不足している要素は `null` で埋められ、Kotlin 型システムの健全性に違反していました。
 > - >= 1.3: `toIndex` が配列の範囲内にあることをチェックし、そうでない場合は例外をスローします。
 
-### Int および Long のプログレッシブ（progressions）で、ステップが Int.MIN_VALUE および Long.MIN_VALUE のものは禁止され、インスタンス化できなくなる
+### Int および Long のプログレッシブ（progressions）で、ステップが Int.MIN_VALUE および Long.MIN_VALUE のものは禁止され、インスタンス化できなくなる {id="progressions-of-ints-and-longs-with-a-step-of-int-minvalue-and-long-minvalue-are-outlawed-and-won-t-be-allowed-to-be-instantiated"}
 
 > **Issue**: [KT-17176](https://youtrack.jetbrains.com/issue/KT-17176)
 >
@@ -334,7 +334,7 @@
 > - < 1.3: `Int.MIN_VALUE` ステップで `IntProgression` を作成することが可能で、これは `[0, -2147483648]` という 2 つの値を生成していましたが、これは非自明な挙動でした。
 > - >= 1.3: ステップがその整数型の最小負値である場合、`IllegalArgumentException` をスローします。
 
-### 非常に長いシーケンスの操作におけるインデックスオーバーフローのチェック
+### 非常に長いシーケンスの操作におけるインデックスオーバーフローのチェック {id="check-for-index-overflow-in-operations-on-very-long-sequences"}
 
 > **Issue**: [KT-16097](https://youtrack.jetbrains.com/issue/KT-16097)
 >
@@ -349,7 +349,7 @@
 > - < 1.3: 非常に長いシーケンスに対してこれらのメソッドを呼び出すと、整数のオーバーフローにより負の結果が生成される可能性がありました。
 > - >= 1.3: これらのメソッドにおけるオーバーフローを検出し、直ちに例外をスローします。
 
-### 空のマッチ正規表現による分割（split）結果のプラットフォーム間での統一
+### 空のマッチ正規表現による分割（split）結果のプラットフォーム間での統一 {id="unify-split-by-an-empty-match-regex-result-across-the-platforms"}
 
 > **Issue**: [KT-21049](https://youtrack.jetbrains.com/issue/KT-21049)
 >
@@ -364,7 +364,7 @@
 > - < 1.3: 前述の呼び出しの動作は、JS、JRE 6、JRE 7 と JRE 8+ を比較した場合に異なっていました。
 > - >= 1.3: プラットフォーム間で動作を統一します。
 
-### コンパイラ配布物における非推奨アーティファクトの廃止
+### コンパイラ配布物における非推奨アーティファクトの廃止 {id="discontinued-deprecated-artifacts-in-the-compiler-distribution"}
 
 > **Issue**: [KT-23799](https://youtrack.jetbrains.com/issue/KT-23799)
 >
@@ -382,7 +382,7 @@
 > - 1.2.X: アーティファクトは非推奨としてマークされ、コンパイラはこれらのアーティファクトの使用に対して警告を報告していました。
 > - >= 1.3: アーティファクトが廃止されました。
 
-### stdlib 内のアノテーション
+### stdlib 内のアノテーション {id="annotations-in-stdlib"}
 
 > **Issue**: [KT-21784](https://youtrack.jetbrains.com/issue/KT-21784)
 >

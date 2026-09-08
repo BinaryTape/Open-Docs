@@ -4,7 +4,7 @@
 
 이 튜토리얼에서는 IntelliJ IDEA에서 [](wasm-overview.md)을 활용한 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) 앱을 실행하고, 웹사이트로 게시할 아티팩트(artifact)를 생성하는 방법을 설명합니다.
 
-## 프로젝트 생성하기
+## 프로젝트 생성하기 {id="create-a-project"}
 
 1. [Kotlin Multiplatform 개발을 위한 환경을 설정](https://kotlinlang.org/docs/multiplatform/quickstart.html#set-up-the-environment)하세요.
 2. IntelliJ IDEA에서 **File | New | Project**를 선택합니다.
@@ -28,7 +28,7 @@
 
    ![Kotlin Multiplatform wizard](wasm-kmp-wizard.png){width=600}
 
-## 애플리케이션 실행하기
+## 애플리케이션 실행하기 {id="run-the-application"}
 
 1. 프로젝트가 로드되면 실행 구성 목록에서 **webApp [wasmJs]**를 선택하고 **Run**을 클릭합니다.
 
@@ -46,7 +46,7 @@
     
     ![브라우저의 Compose 앱](wasm-composeapp-browser.png){width=600}
 
-## 아티팩트 생성하기
+## 아티팩트 생성하기 {id="generate-artifacts"}
 
 웹사이트에 게시할 프로젝트 아티팩트를 생성합니다.
 
@@ -69,7 +69,7 @@
 
 ![아티팩트 디렉터리](wasm-composeapp-directory.png){width=400}
 
-## 애플리케이션 게시하기
+## 애플리케이션 게시하기 {id="publish-the-application"}
 
 생성된 아티팩트를 사용하여 Kotlin/Wasm 애플리케이션을 배포하세요. 선호하는 게시 옵션을 선택하고 안내에 따라 아티팩트를 배포합니다.
 
@@ -83,7 +83,7 @@
 
    축하합니다! 아티팩트 게시를 완료했습니다.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [Compose Multiplatform을 사용하여 iOS와 Android 간에 UI를 공유하는 방법 알아보기](https://kotlinlang.org/docs/multiplatform/compose-multiplatform-create-first-app.html)
 * 더 많은 Kotlin/Wasm 예제 살펴보기:

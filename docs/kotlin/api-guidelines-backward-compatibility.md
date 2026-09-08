@@ -16,7 +16,7 @@
 
 本节的其余部分介绍了你可以采取的操作以及可以用来帮助确保不同类型兼容性的工具。
 
-## 兼容性类型 {initial-collapse-state="collapsed" collapsible="true"}
+## 兼容性类型 {initial-collapse-state="collapsed" collapsible="true" id="compatibility-types"}
 
 **二进制兼容性**意味着库的新版本可以替换库先前编译的版本。
 任何针对库的先前版本编译的软件都应该能够继续正常工作。
@@ -29,7 +29,7 @@
 
 **行为兼容性**意味着库的新版本不会修改现有功能（修复错误除外）。涉及相同的功能，并且它们具有相同的语义。
 
-## 选择兼容的语言和 API 版本
+## 选择兼容的语言和 API 版本 {id="choose-compatible-language-and-api-versions"}
 
 发布库时，请同时考虑其编译时和运行时兼容性：
 
@@ -48,7 +48,7 @@
 
 请选择最适合你库的语言和 API 版本。较新的版本允许你采用最新的 Kotlin 功能，而较旧的版本则有助于更多用户使用你的库。最佳选择取决于库的用例以及依赖该库的用户数量。
 
-## 使用 Binary compatibility validator
+## 使用 Binary compatibility validator {id="use-the-binary-compatibility-validator"}
 
 JetBrains 提供了一个 [Binary compatibility validator](https://github.com/Kotlin/binary-compatibility-validator) 工具，可用于确保 API 不同版本之间的二进制兼容性。
 
@@ -63,13 +63,13 @@ JetBrains 提供了一个 [Binary compatibility validator](https://github.com/Ko
 
 该验证器对多平台库生成的 [KLib 验证提供实验性支持](https://github.com/Kotlin/binary-compatibility-validator?tab=readme-ov-file#experimental-klib-abi-validation-support)。
 
-### Kotlin Gradle 插件中的二进制兼容性验证
+### Kotlin Gradle 插件中的二进制兼容性验证 {id="binary-compatibility-validation-in-the-kotlin-gradle-plugin"}
 
 <primary-label ref="experimental-general"/>
 
 从 2.2.0 版本开始，Kotlin Gradle 插件支持二进制兼容性验证。欲了解更多信息，请参阅 [Kotlin Gradle 插件中的二进制兼容性验证](gradle-binary-compatibility-validation.md)。
 
-## 显式指定返回值类型
+## 显式指定返回值类型 {id="specify-return-types-explicitly"}
 
 正如 [Kotlin 编码规范](coding-conventions.md#coding-conventions-for-libraries)中所讨论的，你应该始终在 API 中显式指定函数返回值类型和属性类型。另请参阅有关[显式 API 模式](api-guidelines-simplicity.md#use-explicit-api-mode)的章节。
 
@@ -102,7 +102,7 @@ fun Int.defaultDeserializer() = JsonOrXmlDeserializer({ ... }, { ... })
 
 现有功能将继续工作，并增加了反序列化 XML 的能力。然而，这破坏了二进制兼容性。
 
-## 避免向现有 API 函数添加实参
+## 避免向现有 API 函数添加实参 {id="avoid-adding-arguments-to-existing-api-functions"}
 
 向公共 API 添加非默认实参会破坏二进制和源代码兼容性，因为用户在调用时需要提供比以前更多的信息。然而，即使是添加[默认实参](functions.md#parameters-with-default-values)也可能会破坏兼容性。
 
@@ -147,7 +147,7 @@ Exception in thread "main" java.lang.NoSuchMethodError: 'int LibKt.fib()'
 
 然而，源代码兼容性得到了保留。如果你重新编译这两个文件，程序将像以前一样运行。
 
-### 使用重载来保留二进制兼容性 {initial-collapse-state="collapsed" collapsible="true"}
+### 使用重载来保留二进制兼容性 {initial-collapse-state="collapsed" collapsible="true" id="use-overloads-to-preserve-binary-compatibility"}
 
 在向已发布的 API 添加可选形参时，可以使用[实验性](components-stability.md#stability-levels-explained)的 [`@IntroducedAt`](java-to-kotlin-interop.md#overloads-generation) 注解来保留二进制兼容性。
 
@@ -173,7 +173,7 @@ fun fib() = …
 fun fib(input: Int) = …
 ```
 
-## 避免扩大或缩小返回值类型
+## 避免扩大或缩小返回值类型 {id="avoid-widening-or-narrowing-return-types"}
 
 在演进 API 时，通常会希望扩大或缩小函数的返回值类型。
 例如，在 API 的未来版本中，你可能希望将返回值类型从 `List` 切换为 `Collection`，或者从 `Collection` 切换为 `List`。
@@ -224,7 +224,7 @@ Exception in thread "main" java.lang.NoSuchMethodError: 'java.lang.Number Librar
 JVM 试图调用一个名为 demo 且返回 `Number` 的静态方法。
 然而，由于该方法不再存在，你破坏了二进制兼容性。
 
-## 避免在 API 中使用数据类
+## 避免在 API 中使用数据类 {id="avoid-using-data-classes-in-your-api"}
 
 在常规开发中，`data class` 的优势在于为你生成的额外函数。
 在 API 设计中，这种优势变成了弱点。
@@ -270,7 +270,7 @@ public final User copy(java.lang.String, java.lang.String, boolean)
 
 `data class` 的另一个问题是，更改构造函数实参的顺序会影响生成的 `componentX` 方法，这些方法用于析构。即使它没有破坏二进制兼容性，更改顺序也肯定会破坏行为兼容性。
 
-## 避免更改注解目标
+## 避免更改注解目标 {id="avoid-changing-annotation-targets"}
 
 当你公开一个注解时，请避免在发布库后更改其允许的目标。更改它们可能会影响用户在重新编译现有代码时如何应用相同的注解。
 
@@ -310,7 +310,7 @@ class User {
 }
 ```
 
-## 使用 PublishedApi 注解的注意事项
+## 使用 PublishedApi 注解的注意事项 {id="considerations-for-using-the-publishedapi-annotation"}
 
 Kotlin 允许内联函数作为库 API 的一部分。对这些函数的调用将被内联到用户编写的客户端代码中。这可能会引入兼容性问题，因此不允许这些函数调用非公共 API 声明。
 
@@ -318,7 +318,7 @@ Kotlin 允许内联函数作为库 API 的一部分。对这些函数的调用�
 这使得内部声明实际上变为公共的，因为对它的引用最终会出现在编译后的客户端代码中。
 因此，在对其进行更改时必须像对待公共声明一样对待它，因为这些更改可能会影响二进制兼容性。
 
-## 务实地演进 API
+## 务实地演进 API {id="evolve-apis-pragmatically"}
 
 在某些情况下，你需要通过移除或更改现有声明来随着时间的推移对库的 API 进行破坏性更改。
 在本节中，我们将讨论如何务实地处理此类情况。
@@ -338,7 +338,7 @@ Kotlin 允许内联函数作为库 API 的一部分。对这些函数的调用�
 
 你可以在 [Kotlin 演进原则文档](kotlin-evolution-principles.md#libraries)或 KotlinConf 2023 上由 Leonid Startsev 主讲的 [Evolving your Kotlin API painlessly for clients](https://www.youtube.com/watch?v=cCgXtpVPO-o&t=1468s) 演讲中了解更多信息。
 
-## 使用 RequiresOptIn 机制
+## 使用 RequiresOptIn 机制 {id="use-the-requiresoptin-mechanism"}
 
 Kotlin 标准库[提供了选择入机制](opt-in-requirements.md)，要求用户在使用 API 的一部分之前进行显式同意。
 这是基于创建标记注解，这些注解本身被 [`@RequiresOptIn`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-requires-opt-in/) 注解。
@@ -350,7 +350,7 @@ Kotlin 标准库[提供了选择入机制](opt-in-requirements.md)，要求用�
 * If your library uses an experimental API, [propagate the annotation](opt-in-requirements.md#propagate-opt-in-requirements) to your own users. This ensures your users are aware that you have dependencies which are still evolving.
 * 避免使用选择入机制来弃用库中已经存在的声明。请改用 `@Deprecated`，如[务实地演进 API](#evolve-apis-pragmatically) 部分所述。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 如果你还没有查看过这些页面，请考虑查看：
 

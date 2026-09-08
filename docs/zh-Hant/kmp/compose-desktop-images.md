@@ -7,7 +7,7 @@ undefined
 
 此頁面中的範例使用 Kotlin 和 Compose Multiplatform 標誌。這兩個標誌都包含在 [Kotlin 品牌資產](https://kotlinlang.org/docs/kotlin-brand-assets.html#kotlin-logo) 套件中。
 
-## 顯示來自資源的圖片
+## 顯示來自資源的圖片 {id="displaying-images-from-resources"}
 
 若要顯示封裝在應用程式中的圖片，請[將其新增至專案的多平台資源](compose-multiplatform-resources-setup.md)，然後組建專案以產生資源存取子。透過將存取子傳遞給 `painterResource()` 來建立 `Painter` 執行個體，並將產生的 `Painter` 傳遞給 `Image()` Composable：
 
@@ -51,7 +51,7 @@ fun main() = application {
 >
 {style="tip"}
 
-## 從檔案系統或網路載入圖片
+## 從檔案系統或網路載入圖片 {id="loading-images-from-the-file-system-or-the-network"}
 
 不屬於應用程式一部分的圖片（由使用者選擇或在執行時下載的檔案）不屬於資源。請使用任何 JVM API 讀取其位元組，並使用資源程式庫的以下函式之一進行解碼：
 
@@ -184,7 +184,7 @@ fun <T> AsyncImage(
 >
 {style="tip"}
 
-## 設定視窗圖示
+## 設定視窗圖示 {id="setting-the-window-icon"}
 
 若要將圖片用作視窗圖示，請將 `Painter` 執行個體作為 `icon` 參數傳遞給 `Window()` Composable：
 
@@ -227,7 +227,7 @@ fun main() = application {
 
 <img src="compose-desktop-images-window-icon.png" alt="封裝後的應用程式及其 Dock 圖示" width="426"/>
 
-### 單視窗應用程式圖示
+### 單視窗應用程式圖示 {id="single-window-application-icon"}
 
 `singleWindowApplication()` 函式在其組合 (composition) 之外評估其 `icon` 參數，此時 `painterResource()` 無法使用。相反地，請使用 `Res.readBytes()` 讀取資源，它接受 `composeResources` 目錄內的檔案路徑，並將其解碼為 `BitmapPainter`：
 
@@ -250,7 +250,7 @@ fun main() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="val icon = BitmapPainter(iconBytes.decodeToImageBitmap())"}
 
-## 設定系統匣圖示
+## 設定系統匣圖示 {id="setting-the-tray-icon"}
 
 若要將圖片用作 [系統匣](compose-desktop-tray.md) 圖示，請將 `Painter` 執行個體作為 `icon` 參數傳遞給 `Tray()` Composable：
 
@@ -302,7 +302,7 @@ fun main() = application {
 
 <img src="compose-desktop-images-tray-icon.png" alt="macOS 選單列中的系統匣圖示" width="430"/>
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * 進一步了解[多平台資源](compose-multiplatform-resources.md)以及[如何在 common 程式碼中存取它們](compose-multiplatform-resources-usage.md)。
 * 了解如何將應用程式圖示新增至[系統匣](compose-desktop-tray.md)。

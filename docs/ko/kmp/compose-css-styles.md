@@ -30,7 +30,7 @@ fun main() {
 
 > 이전에 사용되던 `CanvasBasedWindow`는 이제 사용이 중단(deprecated)되었습니다. 이 함수는 캔버스가 브라우저 창을 채우도록 페이지의 HTML 요소에 CSS 스타일을 직접 자동으로 삽입했습니다. 단독 실행형 앱의 경우에는 더 간단했지만, 기존 웹 레이아웃에 Compose를 삽입하기는 어려웠습니다. `ComposeViewport`는 표준 CSS 기반 레이아웃 관리에 의존하는 더 유연한 접근 방식입니다.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [웹 관련 리소스 처리 방법](compose-web-resources.md)을 알아보세요.
 * [Kotlin/Wasm 및 Compose Multiplatform](https://kotlinlang.org/docs/wasm-get-started.html)에 대해 더 자세히 읽어보세요.

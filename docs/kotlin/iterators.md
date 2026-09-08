@@ -64,7 +64,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## List 迭代器
+## List 迭代器 {id="list-iterators"}
 
 对于列表，有一种特殊的迭代器实现：[`ListIterator`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list-iterator/index.html)。它支持双向遍历列表：向前和向后。
 
@@ -94,7 +94,7 @@ fun main() {
 
 具备双向遍历的能力，意味着 `ListIterator` 在到达最后一个元素后仍可继续使用。
 
-## 可变迭代器
+## 可变迭代器 {id="mutable-iterators"}
 
 对于遍历可变集合，可以使用 [`MutableIterator`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-iterator/index.html)，它通过元素移除函数 [`remove()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-iterator/remove.html) 扩展了 `Iterator`。因此，你可以在遍历集合的同时移除元素。 
 

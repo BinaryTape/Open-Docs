@@ -5,7 +5,7 @@
 
 Compose Multiplatform에서 문자열을 로컬라이징하려면 지원하는 모든 언어에 대해 애플리케이션 사용자 인터페이스 요소의 번역된 텍스트를 제공해야 합니다. Compose Multiplatform은 공통 리소스 관리 라이브러리와 번역에 쉽게 접근할 수 있는 코드 생성 기능을 제공하여 이 과정을 간소화합니다.
 
-## 번역 디렉터리 설정하기
+## 번역 디렉터리 설정하기 {id="set-up-translation-directories"}
 
 모든 문자열 리소스는 공통 소스 세트(common source set) 내의 전용 `composeResources` 디렉터리에 저장합니다. 
 기본 텍스트는 `values` 디렉터리에 배치하고, 각 언어에 해당하는 디렉터리를 생성하세요.
@@ -45,7 +45,7 @@ commonMain/composeResources/
 </resources>
 ```
 
-## 정적 액세스를 위한 클래스 생성
+## 정적 액세스를 위한 클래스 생성 {id="generate-class-for-static-access"}
 
 모든 번역을 추가한 후, 리소스에 접근할 수 있는 특수 클래스를 생성하기 위해 프로젝트를 빌드합니다.
 Compose Multiplatform은 `composeResources`에 있는 `strings.xml` 리소스 파일을 처리하고 각 문자열 리소스에 대한 정적 액세서(accessor) 속성을 생성합니다.
@@ -68,7 +68,7 @@ fun MyApp() {
 위의 예시에서 `welcome_message` 문자열은 동적 값을 위한 플레이스홀더(`%s`)를 포함하고 있습니다. 
 생성된 액세서와 `stringResource()` 함수 모두 이러한 매개변수 전달을 지원합니다.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [지역별 형식을 관리하는 방법 알아보기](compose-regional-format.md)
 * [오른쪽에서 왼쪽으로 읽는(Right-to-left) 언어 처리에 대해 읽어보기](compose-rtl.md)

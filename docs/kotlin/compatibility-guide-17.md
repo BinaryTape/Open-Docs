@@ -4,7 +4,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_与_[舒适的更新](k
 
 虽然大多数语言变更已经通过其他渠道（如更新日志或编译器警告）发布，但本文档对这些变更进行了汇总，为从 Kotlin 1.6 迁移到 Kotlin 1.7 提供完整的参考。
 
-## 基本术语
+## 基本术语 {id="basic-terms"}
 
 在本文档中，我们介绍了以下几种兼容性：
 
@@ -14,10 +14,10 @@ _[保持语言现代性](kotlin-evolution-principles.md)_与_[舒适的更新](k
 
 请记住，这些定义仅针对纯 Kotlin。从其他语言（例如 Java）的角度来看，Kotlin 代码的兼容性不在本文档的讨论范围内。
 
-## 语言
+## 语言 {id="language"}
 
 <!--
-### 标题
+### 标题 {id="title"}
 
 > **问题**：[KT-NNNNN](https://youtrack.jetbrains.com/issue/KT-NNNNN)
 >
@@ -33,7 +33,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_与_[舒适的更新](k
 > - 1.7.0：报告错误
 -->
 
-### 使安全调用结果始终为可空
+### 使安全调用结果始终为可空 {id="make-safe-call-result-always-nullable"}
 
 > **问题**：[KT-46860](https://youtrack.jetbrains.com/issue/KT-46860)
 >
@@ -50,7 +50,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_与_[舒适的更新](k
 > - 1.7.0：将安全调用结果的类型更改为可空，  
 >   可以使用 `-XXLanguage:-SafeCallsAreAlwaysNullable` 临时恢复到 1.7 之前的行为
 
-### 禁止将 super 调用委托给抽象超类成员
+### 禁止将 super 调用委托给抽象超类成员 {id="prohibit-the-delegation-of-super-calls-to-an-abstract-superclass-member"}
 
 > **问题**：[KT-45508](https://youtrack.jetbrains.com/issue/KT-45508), [KT-49017](https://youtrack.jetbrains.com/issue/KT-49017), [KT-38078](https://youtrack.jetbrains.com/issue/KT-38078)
 >
@@ -67,7 +67,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_与_[舒适的更新](k
 > - 1.7.0：如果启用了 `-Xjvm-default=all` 或 `-Xjvm-default=all-compatibility` 兼容模式，则报告错误；在 progressive 模式下报告错误
 > - &gt;=1.8.0：在所有情况下均报告错误
 
-### 禁止通过非公有主构造函数中声明的公有属性暴露非公有类型
+### 禁止通过非公有主构造函数中声明的公有属性暴露非公有类型 {id="prohibit-exposing-non-public-types-through-public-properties-declared-in-a-non-public-primary-constructor"}
 
 > **问题**：[KT-28078](https://youtrack.jetbrains.com/issue/KT-28078)
 >
@@ -83,7 +83,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_与_[舒适的更新](k
 > - 1.6.20：在 progressive 模式下将此警告提升为错误
 > - 1.7.0：将此警告提升为错误
 
-### 禁止访问以枚举名称限定的未初始化枚举成员
+### 禁止访问以枚举名称限定的未初始化枚举成员 {id="prohibit-access-to-uninitialized-enum-entries-qualified-with-the-enum-name"}
 
 > **问题**：[KT-41124](https://youtrack.jetbrains.com/issue/KT-41124)
 >
@@ -97,7 +97,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_与_[舒适的更新](k
 >
 > - 1.7.0：当从枚举静态初始化块访问未初始化的枚举成员时报告错误
 
-### 禁止在 when 条件分支和循环条件中计算复杂布尔表达式的常量值
+### 禁止在 when 条件分支和循环条件中计算复杂布尔表达式的常量值 {id="prohibit-computing-constant-values-of-complex-boolean-expressions-in-when-condition-branches-and-conditions-of-loops"}
 
 > **问题**：[KT-39883](https://youtrack.jetbrains.com/issue/KT-39883)
 >
@@ -112,7 +112,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_与_[舒适的更新](k
 > - 1.5.30：当根据 `when` 分支或循环条件中的复杂常量布尔表达式确定 `when` 的完备性或控制流可达性时，报告警告
 > - 1.7.0：将此警告提升为错误
 
-### 使以枚举、密封类和布尔值为受试对象的 when 语句默认完备
+### 使以枚举、密封类和布尔值为受试对象的 when 语句默认完备 {id="make-when-statements-with-enum-sealed-and-boolean-subjects-exhaustive-by-default"}
 
 > **问题**：[KT-47709](https://youtrack.jetbrains.com/issue/KT-47709)
 >
@@ -127,7 +127,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_与_[舒适的更新](k
 > - 1.6.0：当以枚举、密封类或布尔值为受试对象的 `when` 语句不完备时引入警告（在 progressive 模式下为错误）
 > - 1.7.0：将此警告提升为错误
 
-### 弃用 when-with-subject 中令人困惑的语法
+### 弃用 when-with-subject 中令人困惑的语法 {id="deprecate-confusing-grammar-in-when-with-subject"}
 
 > **问题**：[KT-48385](https://youtrack.jetbrains.com/issue/KT-48385)
 >
@@ -143,7 +143,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_与_[舒适的更新](k
 > - 1.8.0：将此警告提升为错误
 > - &gt;= 1.8：将一些弃用的结构重新用于新的语言功能
 
-### 类型为 null 性增强改进
+### 类型为 null 性增强改进 {id="type-nullability-enhancement-improvements"}
 
 > **问题**：[KT-48623](https://youtrack.jetbrains.com/issue/KT-48623)
 >
@@ -159,7 +159,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_与_[舒适的更新](k
 > - 1.7.0：推断更精确的 Java 类型为 null 性，  
 >   可以使用 `-XXLanguage:-TypeEnhancementImprovementsInStrictMode` 临时恢复到 1.7 之前的行为
 
-### 防止不同数值类型之间的隐式强制转换
+### 防止不同数值类型之间的隐式强制转换 {id="prevent-implicit-coercions-between-different-numeric-types"}
 
 > **问题**：[KT-48645](https://youtrack.jetbrains.com/issue/KT-48645)
 >
@@ -176,7 +176,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_与_[舒适的更新](k
 >   可以使用 `-Xuse-old-backend` 临时恢复到 1.5.30 修复之前的行为
 > - &gt;= 1.7.20：修复其他受影响情况下的向下转换行为
 
-### 弃用编译器选项 -Xjvm-default 的 enable 和 compatibility 模式
+### 弃用编译器选项 -Xjvm-default 的 enable 和 compatibility 模式 {id="deprecate-the-enable-and-the-compatibility-modes-of-the-compiler-option-xjvm-default"}
 
 > **问题**：[KT-46329](https://youtrack.jetbrains.com/issue/KT-46329)
 >
@@ -191,7 +191,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_与_[舒适的更新](k
 > - 1.6.20：对 `-Xjvm-default` 编译器选项的 `enable` 和 `compatibility` 模式引入警告
 > - &gt;= 1.8.0：将此警告提升为错误
 
-### 禁止调用名为 suspend 且带有尾随 lambda 的函数
+### 禁止调用名为 suspend 且带有尾随 lambda 的函数 {id="prohibit-calls-to-functions-named-suspend-with-a-trailing-lambda"}
 
 > **问题**：[KT-22562](https://youtrack.jetbrains.com/issue/KT-22562)
 >
@@ -207,7 +207,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_与_[舒适的更新](k
 > - 1.6.0：将此警告提升为错误
 > - 1.7.0：对语言语法引入更改，使得 `{` 之前的 `suspend` 被解析为关键字
 
-### 如果基类来自另一个模块，禁止在基类属性上进行智能转换
+### 如果基类来自另一个模块，禁止在基类属性上进行智能转换 {id="prohibit-smart-cast-on-a-base-class-property-if-the-base-class-is-from-another-module"}
 
 > **问题**：[KT-52629](https://youtrack.jetbrains.com/issue/KT-52629)
 >
@@ -223,7 +223,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_与_[舒适的更新](k
 > - 1.7.0：将此警告提升为错误，  
 >   可以使用 `-XXLanguage:-ProhibitSmartcastsOnPropertyFromAlienBaseClass` 临时恢复到 1.7 之前的行为
 
-### 在类型推断过程中不要忽略有意义的约束
+### 在类型推断过程中不要忽略有意义的约束 {id="do-not-neglect-meaningful-constraints-during-type-inference"}
 
 > **问题**：[KT-52668](https://youtrack.jetbrains.com/issue/KT-52668)
 >
@@ -239,9 +239,9 @@ _[保持语言现代性](kotlin-evolution-principles.md)_与_[舒适的更新](k
 > - 1.7.0：考虑所有约束，从而将此警告提升为错误，  
 >   可以使用 `-XXLanguage:-ProperTypeInferenceConstraintsProcessing` 临时恢复到 1.7 之前的行为
 
-## 标准库
+## 标准库 {id="standard-library"}
 
-### 逐步将集合 min 和 max 函数的返回值类型更改为非空
+### 逐步将集合 min 和 max 函数的返回值类型更改为非空 {id="gradually-change-the-return-type-of-collection-min-and-max-functions-to-non-nullable"}
 
 > **问题**：[KT-38854](https://youtrack.jetbrains.com/issue/KT-38854)
 >
@@ -258,7 +258,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_与_[舒适的更新](k
 > - 1.6.0：在公有 API 中隐藏已弃用的函数
 > - 1.7.0：重新引入受影响的 API，但返回值类型为非空
 
-### 弃用浮点数组函数：contains, indexOf, lastIndexOf
+### 弃用浮点数组函数：contains, indexOf, lastIndexOf {id="deprecate-floating-point-array-functions-contains-indexof-lastindexof"}
 
 > **问题**：[KT-28753](https://youtrack.jetbrains.com/issue/KT-28753)
 >
@@ -274,7 +274,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_与_[舒适的更新](k
 > - 1.6.0：将弃用级别提升为错误
 > - 1.7.0：在公有 API 中隐藏已弃用的函数
 
-### 将声明从 kotlin.dom 和 kotlin.browser 软件包迁移到 kotlinx.*
+### 将声明从 kotlin.dom 和 kotlin.browser 软件包迁移到 kotlinx.* {id="migrate-declarations-from-kotlin-dom-and-kotlin-browser-packages-to-kotlinx"}
 
 > **问题**：[KT-39330](https://youtrack.jetbrains.com/issue/KT-39330)
 >
@@ -292,7 +292,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_与_[舒适的更新](k
 > - &gt;= 1.8：从 stdlib 中移除已弃用的函数
 > - &gt;= 1.8：将 kotlinx.* 软件包中的 API 移至单独的库
 
-### 弃用部分仅限 JS 的 API
+### 弃用部分仅限 JS 的 API {id="deprecate-some-js-only-api"}
 
 > **问题**：[KT-48587](https://youtrack.jetbrains.com/issue/KT-48587)
 >
@@ -308,9 +308,9 @@ _[保持语言现代性](kotlin-evolution-principles.md)_与_[舒适的更新](k
 > - 1.8.0：将弃用级别提升为错误
 > - 1.9.0：从公有 API 中移除已弃用的函数
 
-## 工具
+## 工具 {id="tools"}
 
-### 移除 KotlinGradleSubplugin 类
+### 移除 KotlinGradleSubplugin 类 {id="remove-kotlingradlesubplugin-class"}
 
 > **问题**：[KT-48831](https://youtrack.jetbrains.com/issue/KT-48831)
 >
@@ -325,7 +325,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_与_[舒适的更新](k
 > - 1.6.0：将弃用级别提升为错误
 > - 1.7.0：移除已弃用的类
 
-### 移除 useIR 编译器选项
+### 移除 useIR 编译器选项 {id="remove-useir-compiler-option"}
 
 > **问题**：[KT-48847](https://youtrack.jetbrains.com/issue/KT-48847)
 >
@@ -341,7 +341,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_与_[舒适的更新](k
 > - 1.6.0：隐藏该选项
 > - 1.7.0：移除已弃用的选项
 
-### 弃用 kapt.use.worker.api Gradle 属性
+### 弃用 kapt.use.worker.api Gradle 属性 {id="deprecate-kapt-use-worker-api-gradle-property"}
 
 > **问题**：[KT-48826](https://youtrack.jetbrains.com/issue/KT-48826)
 >
@@ -356,7 +356,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_与_[舒适的更新](k
 > - 1.6.20：将弃用级别提升为警告
 > - &gt;= 1.8.0：移除此属性
 
-### 移除 kotlin.experimental.coroutines Gradle DSL 选项和 kotlin.coroutines Gradle 属性
+### 移除 kotlin.experimental.coroutines Gradle DSL 选项和 kotlin.coroutines Gradle 属性 {id="remove-kotlin-experimental-coroutines-gradle-dsl-option-and-kotlin-coroutines-gradle-property"}
 
 > **问题**：[KT-50494](https://youtrack.jetbrains.com/issue/KT-50494)
 >
@@ -371,7 +371,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_与_[舒适的更新](k
 > - 1.6.20：将弃用级别提升为警告
 > - 1.7.0：移除 DSL 选项及其包含的 `experimental` 块，并移除该属性
 
-### 弃用 useExperimentalAnnotation 编译器选项
+### 弃用 useExperimentalAnnotation 编译器选项 {id="deprecate-useexperimentalannotation-compiler-option"}
 
 > **问题**：[KT-47763](https://youtrack.jetbrains.com/issue/KT-47763)
 >
@@ -386,7 +386,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_与_[舒适的更新](k
 > - 1.6.0：隐藏弃用选项
 > - 1.7.0：移除已弃用的选项
 
-### 弃用 kotlin.compiler.execution.strategy 系统属性
+### 弃用 kotlin.compiler.execution.strategy 系统属性 {id="deprecate-kotlin-compiler-execution-strategy-system-property"}
 
 > **问题**：[KT-51830](https://youtrack.jetbrains.com/issue/KT-51830)
 >
@@ -401,7 +401,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_与_[舒适的更新](k
 > - 1.7.0：将弃用级别提升为警告
 > - &gt; 1.7.0：移除该属性
 
-### 移除 kotlinOptions.jdkHome 编译器选项
+### 移除 kotlinOptions.jdkHome 编译器选项 {id="remove-kotlinoptions-jdkhome-compiler-option"}
 
 > **问题**：[KT-46541](https://youtrack.jetbrains.com/issue/KT-46541)
 >
@@ -416,7 +416,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_与_[舒适的更新](k
 > - 1.5.30：将弃用级别提升为警告
 > - &gt; 1.7.0：移除该选项
 
-### 移除 noStdlib 编译器选项
+### 移除 noStdlib 编译器选项 {id="remove-nostdlib-compiler-option"}
 
 > **问题**：[KT-49011](https://youtrack.jetbrains.com/issue/KT-49011)
 >
@@ -431,7 +431,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_与_[舒适的更新](k
 > - 1.5.0：将弃用级别提升为警告
 > - 1.7.0：移除该选项
 
-### 移除 kotlin2js 和 kotlin-dce-plugin 插件
+### 移除 kotlin2js 和 kotlin-dce-plugin 插件 {id="remove-kotlin2js-and-kotlin-dce-plugin-plugins"}
 
 > **问题**：[KT-48276](https://youtrack.jetbrains.com/issue/KT-48276)
 >
@@ -446,7 +446,7 @@ _[保持语言现代性](kotlin-evolution-principles.md)_与_[舒适的更新](k
 > - 1.4.0：将弃用级别提升为警告
 > - 1.7.0：移除这些插件
 
-### 编译任务的变更
+### 编译任务的变更 {id="changes-in-compile-tasks"}
 
 > **问题**：[KT-32805](https://youtrack.jetbrains.com/issue/KT-32805)
 >

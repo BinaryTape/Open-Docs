@@ -4,7 +4,7 @@
 
 ここに記載されていない一般的なユースケースをご存知ですか？新しいセクションを追加するPR（プルリクエスト）をぜひ送ってください。
 
-## Palette
+## Palette {id="palette"}
 
 [Palette](https://developer.android.com/training/material/palette-colors?hl=en) を使用すると、画像から主要な色を抽出できます。`Palette` を作成するには、画像の `Bitmap` にアクセスする必要があります。これにはいくつかの方法があります。
 
@@ -25,7 +25,7 @@ imageView.load("https://example.com/image.jpg") {
 }
 ```
 
-## メモリキャッシュキーをプレースホルダーとして使用する
+## メモリキャッシュキーをプレースホルダーとして使用する {id="using-a-memory-cache-key-as-a-placeholder"}
 
 2つの画像が同じもので、異なるサイズで読み込まれる場合、前のリクエストの `MemoryCache.Key` を後続のリクエストのプレースホルダーとして使用すると便利です。例えば、最初のリクエストで画像を 100x100 で読み込み、2番目のリクエストで 500x500 で読み込む場合、最初の画像を2番目のリクエストの同期プレースホルダーとして使用できます。
 
@@ -51,7 +51,7 @@ detailImageView.load("https://example.com/image.jpg") {
 }
 ```
 
-## Compose AnimatedContent
+## Compose AnimatedContent {id="compose-animatedcontent"}
 
 `rememberAsyncImagePainter` と `AnimatedContent` を使用して、プレースホルダーと読み込まれた画像の間のアニメーションを行います。
 
@@ -95,7 +95,7 @@ AnimatedContent(
 
 注意: `AnimatedContent` は Painter のクロスフェードよりもはるかに負荷が高く、アニメーションが終了するまで古い画像をメモリに保持します。Lazy list 内や単純なフェードの場合は、`ImageRequest.Builder.crossfade` を優先してください。
 
-## 共通要素遷移（Shared Element Transitions）
+## 共通要素遷移（Shared Element Transitions） {id="shared-element-transitions"}
 
 [共通要素遷移（Shared element transitions）](https://developer.android.com/training/transitions/start-activity) を使用すると、`Activities` と `Fragments` の間でアニメーションを行うことができます。Coilでこれらを動作させるための推奨事項は以下の通りです。
 
@@ -107,7 +107,7 @@ AnimatedContent(
 
 Composeを使用していますか？ [`AsyncImage` で共通要素遷移を行う方法については、こちらの記事を確認してください。](https://www.tunjid.com/articles/animating-contentscale-during-image-shared-element-transitions-65fba03537c67f8df0161c31)
 
-## Remote Views
+## Remote Views {id="remote-views"}
 
 Coilは標準で [`RemoteViews`](https://developer.android.com/reference/android/widget/RemoteViews) 用の `Target` を提供していませんが、以下のように作成することができます。
 
@@ -142,7 +142,7 @@ val request = ImageRequest.Builder(context)
 imageLoader.enqueue(request)
 ```
 
-## Painterの変換
+## Painterの変換 {id="transforming-painters"}
 
 `AsyncImage` と `AsyncImagePainter` はどちらも `Painter` を受け取る `placeholder`/`error`/`fallback` 引数を持っています。Painterはコンポーザブルを使用するよりも柔軟性は低いですが、Coilがサブコンポジションを使用する必要がないため高速です。とはいえ、目的のUIを実現するために、Painterをインセット（inset）、ストレッチ、ティント（tint）、または変形（transform）させる必要がある場合があります。これを実現するには、[こちらのGistをプロジェクトにコピーし](https://gist.github.com/colinrtwhite/c2966e0b8584b4cdf0a5b05786b20ae1)、以下のようにPainterをラップします。
 
@@ -174,7 +174,7 @@ AsyncImage(
 )
 ```
 
-## リクエストの変換
+## リクエストの変換 {id="transforming-requests"}
 
 画像をフェッチするために使用されるHTTPリクエストを変換する必要がある場合があります。この例では、[Interceptor](https://coil-kt.github.io/coil/api/coil-core/coil3.intercept/-interceptor) を使用して、リクエストURLに `width` と `height` のクエリパラメータを追加します。
 

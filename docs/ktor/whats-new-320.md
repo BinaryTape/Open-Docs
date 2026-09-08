@@ -11,9 +11,9 @@ _[发布日期：2025 年 6 月 12 日](releases.md#release-details)_
 * [一等 HTMX 支持](#htmx-integration)
 * [可挂起模块函数](#suspendable-module-functions)
 
-## Ktor Server
+## Ktor Server {id="ktor-server"}
 
-### 可挂起模块函数
+### 可挂起模块函数 {id="suspendable-module-functions"}
 
 从 Ktor 3.2.0 开始，[应用程序模块](server-modules.md)支持可挂起函数。
 
@@ -39,13 +39,13 @@ suspend fun Application.installEvents() {
 }
 ```
 
-#### 并发模块加载
+#### 并发模块加载 {id="concurrent-module-loading"}
 
 您还可以通过添加 `ktor.application.startup = concurrent` Gradle 属性来选择启用并发模块加载。它会独立启动所有应用程序模块，因此当一个模块挂起时，其他模块不会被阻塞。这允许依赖注入进行非顺序加载，在某些情况下可以加快加载速度。
 
 要了解更多信息，请参阅[并发模块](server-modules.md#concurrent-modules)。
 
-### 配置文件反序列化
+### 配置文件反序列化 {id="configuration-file-deserialization"}
 
 Ktor 3.2.0 引入了类型化配置加载，在 `Application` 类上新增了 `.property()` 扩展。您现在可以将结构化配置部分直接反序列化为 Kotlin 数据类。
 
@@ -69,7 +69,7 @@ database:
 
 此功能同时支持 HOCON 和 YAML 配置格式，并使用 `kotlinx.serialization` 进行反序列化。
 
-### `ApplicationTestBuilder` 拥有可配置的 `client`
+### `ApplicationTestBuilder` 拥有可配置的 `client` {id="applicationtestbuilder-has-a-configurable-client"}
 
 从 Ktor 3.2.0 开始，`ApplicationTestBuilder` 类中的 `client` 属性是可变的。以前它是只读的。此更改允许您配置自己的测试客户端，并在可以使用 `ApplicationTestBuilder` 类的任何地方重用它。例如，您可以从扩展函数内部访问客户端：
 
@@ -102,7 +102,7 @@ private fun ApplicationTestBuilder.auth(token: AuthToken) {
 }
 ```
 
-### 依赖注入
+### 依赖注入 {id="dependency-injection"}
 
 Ktor 3.2.0 引入了依赖注入 (DI) 支持，使直接通过配置文件和应用程序代码管理和组装依赖项变得更加容易。新的 DI 插件简化了依赖解析，支持异步加载，提供自动清理，并与测试顺利集成。
 
@@ -122,7 +122,7 @@ Ktor 3.2.0 引入了依赖注入 (DI) 支持，使直接通过配置文件和应
     </TabItem>
 </Tabs>
 
-#### 基础依赖注册
+#### 基础依赖注册 {id="basic-dependency-registration"}
 
 您可以使用 lambda、函数引用或构造函数引用来注册依赖项：
 
@@ -141,7 +141,7 @@ dependencies {
 }
 ```
 
-#### 基于配置的依赖注册
+#### 基于配置的依赖注册 {id="configuration-based-dependency-registration"}
 
 您可以使用配置文件中的类路径引用声明式地配置依赖项。这支持函数和类引用：
 
@@ -168,9 +168,9 @@ class UserRepository(val db: Database) {
 
 实参会通过 `@Property` 和 `@Named` 等注解自动解析。
 
-#### 依赖解析与注入
+#### 依赖解析与注入 {id="dependency-resolution-and-injection"}
 
-##### 解析依赖项
+##### 解析依赖项 {id="resolving-dependencies"}
 
 要解析依赖项，您可以使用属性委托或直接解析：
 
@@ -182,7 +182,7 @@ val service: GreetingService by dependencies
 val service = dependencies.resolve<GreetingService>()
 ```
 
-##### 异步依赖解析
+##### 异步依赖解析 {id="asynchronous-dependency-resolution"}
 
 为了支持异步加载，您可以使用挂起函数：
 
@@ -200,7 +200,7 @@ suspend fun Application.loadEventsConnection() {
 
 DI 插件将自动挂起 `resolve()` 调用，直到所有依赖项准备就绪。
 
-##### 注入到应用程序模块
+##### 注入到应用程序模块 {id="injecting-into-application-modules"}
 
 您可以通过指定模块形参直接将依赖项注入到应用程序模块中。Ktor 将从 DI 容器中解析它们：
 
@@ -229,7 +229,7 @@ fun Application.userRepository(@Named("mongo") database: Database) {
 }
 ```
 
-##### 属性与配置注入
+##### 属性与配置注入 {id="property-and-configuration-injection"}
 
 使用 `@Property` 直接注入配置值：
 
@@ -248,7 +248,7 @@ val connection: Connection = application.property("connection")
 
 要了解更多信息和高级用法，请参阅[依赖注入](server-dependency-injection.md)。
 
-### 在 `testApplication` 中访问应用程序实例
+### 在 `testApplication` 中访问应用程序实例 {id="access-the-application-instance-in-testapplication"}
 
 现在您可以使用 `ApplicationTestBuilder.application` 属性直接从 `testApplication {}` 块访问运行中的 `Application` 实例。
 
@@ -292,9 +292,9 @@ ktor {
 }
 ```
 
-## Ktor Client
+## Ktor Client {id="ktor-client"}
 
-### `SaveBodyPlugin` 与 `HttpRequestBuilder.skipSavingBody()` 已弃用
+### `SaveBodyPlugin` 与 `HttpRequestBuilder.skipSavingBody()` 已弃用 {id="savebodyplugin-and-httprequestbuilder-skipsavingbody-are-deprecated"}
 
 在 Ktor 3.2.0 之前，`SaveBodyPlugin` 是默认安装的。它将整个响应体缓存到内存中，允许多次访问。为了避免保存响应体，必须显式禁用该插件。
 
@@ -320,7 +320,7 @@ client.prepareGet("/some-file").execute { response ->
 
 此方法直接流式传输响应，防止主体被保存在内存中。
 
-### `.wrapWithContent()` 与 `.wrap()` 扩展函数已弃用
+### `.wrapWithContent()` 与 `.wrap()` 扩展函数已弃用 {id="the-wrapwithcontent-and-wrap-extension-functions-are-deprecated"}
 
 在 Ktor 3.2.0 中，[`.wrapWithContent()`](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins.observer/wrap-with-content.html) 和 [`.wrap()`](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins.observer/wrap.html) 扩展函数已弃用，取而代之的是新的 `.replaceResponse()` 函数。
 
@@ -347,7 +347,7 @@ call.replaceResponse {
 }
 ```
 
-### 访问解析后的 IP 地址
+### 访问解析后的 IP 地址 {id="access-resolved-ip-address"}
 
 您现在可以在 `io.ktor.network.sockets.InetSocketAddress` 实例上使用新的 `.resolveAddress()` 函数。此函数允许您获取关联主机的原始解析后的 IP 地址：
 
@@ -358,7 +358,7 @@ val rawAddress = address.resolveAddress()
 
 它将解析后的 IP 地址作为 `ByteArray` 返回，如果无法解析地址则返回 `null`。返回的 `ByteArray` 的大小取决于 IP 版本：IPv4 地址包含 4 个字节，IPv6 地址包含 16 个字节。在 JS 和 Wasm 平台上，`.resolveAddress()` 将始终返回 `null`。
 
-### 清除 HTTP 缓存
+### 清除 HTTP 缓存 {id="http-cache-clearing"}
 
 您现在可以在 [`CacheStorage`](https://api.ktor.io/ktor-client-core/io.ktor.client.plugins.cache.storage/-cache-storage/index.html) 上使用新方法，根据需要清除缓存的 HTTP 响应。
 
@@ -367,9 +367,9 @@ val rawAddress = address.resolveAddress()
 
 这些方法为您提供了对缓存失效以及如何管理过时或特定缓存响应的更多控制。
 
-## 共享
+## 共享 {id="shared"}
 
-### HTMX 集成
+### HTMX 集成 {id="htmx-integration"}
 
 Ktor 3.2.0 引入了对 [HTMX](https://htmx.org/) 的实验性支持，HTMX 是一个现代 JavaScript 库，通过 `hx-get` 和 `hx-swap` 等 HTML 属性启用动态交互。Ktor 的 HTMX 集成提供：
 
@@ -387,7 +387,7 @@ Ktor 的 HTMX 支持通过三个实验性模块提供：
 
 所有 API 都标有 `@ExperimentalKtorApi`，并需要通过 `@OptIn(ExperimentalKtorApi::class)` 启用。要了解更多信息，请参阅 [HTMX 集成](htmx-integration.md)。
 
-### Unix 域套接字
+### Unix 域套接字 {id="unix-domain-sockets"}
 
 在 3.2.0 中，您可以设置 Ktor 客户端连接到 Unix 域套接字，并设置 Ktor 服务器监听此类套接字。目前，Unix 域套接字仅在 CIO 引擎中受支持。
 
@@ -417,7 +417,7 @@ val response: HttpResponse = client.get("/") {
 
 您还可以在[默认请求](client-default-request.md#unix-domain-sockets)中使用 Unix 域套接字。
 
-### 用于构建标头和参数的新 `.appendAll()` 重载
+### 用于构建标头和参数的新 `.appendAll()` 重载 {id="new-appendall-overloads-for-building-headers-and-parameters"}
 
 [`StringValuesBuilder.appendAll()`](https://api.ktor.io/ktor-utils/io.ktor.util/append-all.html) 函数有了新的重载，可以接受 `Map` 或 `vararg Pair`。这允许您在单次调用中追加多个值，简化了标头、URL 参数和其他基于 `StringValues` 的集合的构造。
 
@@ -435,9 +435,9 @@ val headers = buildHeaders {
 }
 ```
 
-## 基础架构
+## 基础架构 {id="infrastructure"}
 
-### 发布的版本编目
+### 发布的版本编目 {id="published-version-catalog"}
 
 在此版本中，您现在可以使用官方的[发布的版本编目](server-dependencies.topic#using-version-catalog)从单一来源管理所有 Ktor 依赖项。这消除了在依赖项中手动声明 Ktor 版本的需要。
 
@@ -470,9 +470,9 @@ dependencies {
 </TabItem>
 </Tabs>
 
-## Gradle 插件
+## Gradle 插件 {id="gradle-plugin"}
 
-### 启用开发模式
+### 启用开发模式 {id="enabling-development-mode"}
 
 Ktor 3.2.0 简化了启用开发模式的方式。以前，启用开发模式需要在 `application` 块中进行显式配置。现在，您可以使用 `ktor.development` 属性来启用它，无论是动态还是显式地：
 

@@ -8,7 +8,7 @@ Lombok 編譯器外掛程式無法取代 [Lombok](https://projectlombok.org/)，
 因此，使用此外掛程式時，您仍需照常配置 Lombok。
 進一步了解[如何配置 Lombok 編譯器外掛程式](#using-the-lombok-configuration-file)。
 
-## 支援的註解
+## 支援的註解 {id="supported-annotations"}
 
 此外掛程式支援以下註解：
 * `@Getter`, `@Setter`
@@ -26,7 +26,7 @@ Lombok 編譯器外掛程式無法取代 [Lombok](https://projectlombok.org/)，
 >
 {style="note"}
 
-## Gradle
+## Gradle {id="gradle"}
 
 在 `build.gradle(.kts)` 檔案中套用 `kotlin-plugin-lombok` Gradle 外掛程式：
 
@@ -55,7 +55,7 @@ plugins {
 
 請參閱此[包含 Lombok 編譯器外掛程式使用範例的測試專案](https://github.com/kotlin-hands-on/kotlin-lombok-examples/tree/master/kotlin_lombok_gradle/nokapt)。
 
-### 使用 Lombok 配置檔案
+### 使用 Lombok 配置檔案 {id="using-the-lombok-configuration-file"}
 
 如果您使用 [Lombok 配置檔案](https://projectlombok.org/features/configuration) `lombok.config`，則需要設定檔案路徑，以便外掛程式能找到它。
 路徑必須相對於模組目錄。
@@ -84,7 +84,7 @@ kotlinLombok {
 
 請參閱此[包含 Lombok 編譯器外掛程式與 `lombok.config` 使用範例的測試專案](https://github.com/kotlin-hands-on/kotlin-lombok-examples/tree/master/kotlin_lombok_gradle/withconfig)。
 
-## Maven
+## Maven {id="maven"}
 
 若要使用 Lombok 編譯器外掛程式，請將 `lombok` 外掛程式新增至 `compilerPlugins` 區段，並將 `kotlin-maven-lombok` 相依性新增至 `dependencies` 區段。
 如果您使用 [Lombok 配置檔案](https://projectlombok.org/features/configuration) `lombok.config`，請在 `pluginOptions` 中為外掛程式提供其路徑。將以下行新增至 `pom.xml` 檔案：
@@ -120,7 +120,7 @@ kotlinLombok {
 
 請參閱此[包含 Lombok 編譯器外掛程式與 `lombok.config` 使用範例的測試專案範例](https://github.com/kotlin-hands-on/kotlin-lombok-examples/tree/master/kotlin_lombok_maven/nokapt)。
 
-## 與 kapt 搭配使用
+## 與 kapt 搭配使用 {id="using-with-kapt"}
 
 預設情況下，[kapt](kapt.md) 編譯器外掛程式會執行所有註解處理器，並停用 javac 的註解處理功能。
 若要讓 [Lombok](https://projectlombok.org/) 與 kapt 一起執行，請設定 kapt 以保持 javac 的註解處理器正常運作。
@@ -160,7 +160,7 @@ kapt {
 * 使用 [Gradle](https://github.com/JetBrains/kotlin/tree/master/libraries/tools/kotlin-gradle-plugin-integration-tests/src/test/resources/testProject/lombokProject/yeskapt)。
 * 使用 [Maven](https://github.com/kotlin-hands-on/kotlin-lombok-examples/tree/master/kotlin_lombok_maven/yeskapt)
 
-## 命令列編譯器
+## 命令列編譯器 {id="command-line-compiler"}
 
 Lombok 編譯器外掛程式的 JAR 檔可在 Kotlin 編譯器的二進位發行版本中取得。您可以透過 `kotlinc` 的 `Xplugin` 選項提供其 JAR 檔案路徑來附加此外掛程式：
 

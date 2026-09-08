@@ -5,17 +5,17 @@
 
 若要進一步了解圖形節點是什麼、其用法以及現有的預設節點，請參閱[圖形節點](nodes-and-components.md)。
 
-## 節點架構總覽
+## 節點架構總覽 {id="node-architecture-overview"}
 
 在深入研究實作細節之前，了解 Koog 架構中的節點架構非常重要。節點是 agent 工作流程的基本建構區塊，每個節點代表工作流程中的特定作業或轉換。您可以使用「邊」（edge）來連接節點，這定義了節點之間的執行流程。
 
 每個節點都有一個 `execute` 方法，該方法接收輸入並產生輸出，然後傳遞給工作流程中的下一個節點。
 
-## 實作自訂節點
+## 實作自訂節點 {id="implementing-a-custom-node"}
 
 自訂節點的實作範圍很廣，從對輸入資料執行基本邏輯並回傳輸出的簡單實作，到接受參數並在執行之間維持狀態的複雜節點實作。
 
-### 基本節點實作
+### 基本節點實作 {id="basic-node-implementation"}
 
 在圖形中實作自訂節點並定義自訂邏輯最簡單的方法是使用以下模式：
 
@@ -164,7 +164,7 @@
 
 這會建立一個執行某些自訂邏輯但將輸入作為輸出原樣回傳（不經修改）的傳通節點。
 
-### 帶有額外引數的節點
+### 帶有額外引數的節點 {id="nodes-with-additional-arguments"}
 
 您可以建立接受引數以自訂其行為的節點：
 
@@ -222,7 +222,7 @@
     ```
     <!--- KNIT exampleCustomNodesJava04.java -->
 
-### 參數化節點
+### 參數化節點 {id="parameterized-nodes"}
 
 您可以定義具有泛型輸入和輸出型別參數的節點。在 Kotlin 中，您可以使用帶有 `reified` 型別參數的 `inline` 函式；在 Java 中，則在建置節點時明確指定型別。
 
@@ -274,7 +274,7 @@
     ```
     <!--- KNIT exampleCustomNodesJava05.java -->
 
-### 具狀態節點
+### 具狀態節點 {id="stateful-nodes"}
 
 如果您的節點需要在執行之間維持狀態，您可以使用閉包變數。在 Kotlin 中，您在封閉函式中宣告變數；在 Java 中，由於 lambda 擷取必須是有效最終（effectively final）的，因此請使用 `AtomicInteger` 之類的執行緒安全包裝函式。
 
@@ -330,7 +330,7 @@
     ```
     <!--- KNIT exampleCustomNodesJava06.java -->
 
-## 節點輸入與輸出型別
+## 節點輸入與輸出型別 {id="node-input-and-output-types"}
 
 節點可以具有不同的輸入和輸出型別。在 Kotlin 和 Java 中，這些型別都被指定為泛型型別參數：
 
@@ -378,7 +378,7 @@
 !!! note
     輸入和輸出型別決定了節點如何與工作流程中的其他節點連接。僅當來源節點的輸出型別與目標節點的輸入型別相容時，才能連接節點。
 
-## 最佳實務
+## 最佳實務 {id="best-practices"}
 
 實作自訂節點時，請遵循以下最佳實務：
 
@@ -390,11 +390,11 @@
 6. **使用型別參數**：在適當的時候使用泛型型別參數，使節點更加靈活。
 7. **提供預設值**：盡可能為參數提供合理的預設值。
 
-## 常見模式
+## 常見模式 {id="common-patterns"}
 
 以下章節提供了一些實作自訂節點的常見模式。
 
-### 傳通節點
+### 傳通節點 {id="pass-through-nodes"}
 
 執行作業但將輸入作為輸出回傳的節點。
 
@@ -439,7 +439,7 @@
     ```
     <!--- KNIT exampleCustomNodesJava08.java -->
 
-### 轉換節點
+### 轉換節點 {id="transformation-nodes"}
 
 將輸入資料進行轉換並產生修改後輸出的節點。
 
@@ -484,7 +484,7 @@
     ```
     <!--- KNIT exampleCustomNodesJava09.java -->
 
-### LLM 互動節點
+### LLM 互動節點 {id="llm-interaction-nodes"}
 
 與 LLM 進行互動的節點。在 Kotlin 中，您可以對 LLM 工作階段進行細粒度控制；在 Java 中，通常使用預先建置的工廠方法（如 `AIAgentNode.llmRequest()`），這些方法會自動處理提示詞建構。
 
@@ -550,7 +550,7 @@
 !!! note
     上面的 Kotlin 範例顯示了對 LLM 工作階段的細粒度控制（自訂提示詞建構、顯式 `requestLLMWithoutTools` 呼叫）。Java API 提供較高階的工廠方法，例如 `AIAgentNode.llmRequest()`，可自動處理提示詞建構 — 輸入字串會成為使用者訊息。對於進階提示詞自訂，請組合多個節點或使用自訂子圖。
 
-### 工具執行節點
+### 工具執行節點 {id="tool-run-node"}
 
 執行工具的自訂節點。在 Kotlin 中，您可以手動建構工具呼叫並執行它們；在 Java 中，通常使用將工具編排委派給 LLM 的子圖。
 

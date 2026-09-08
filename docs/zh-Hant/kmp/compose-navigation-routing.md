@@ -3,7 +3,7 @@
 導航是 UI 應用程式的關鍵部分，允許使用者在不同的應用程式螢幕之間移動。
 Compose Multiplatform 採用了 [Jetpack Compose 的導航方式](https://developer.android.com/guide/navigation/design#frameworks)。
 
-## 設定
+## 設定 {id="setup"}
 
 若要使用導航程式庫，請將以下相依性新增至您的 `commonMain` 原始碼集：
 
@@ -22,7 +22,7 @@ kotlin {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="org.jetbrains.androidx.navigation:navigation-compose:%org.jetbrains.androidx.navigation%"}
 
-## 範例專案
+## 範例專案 {id="sample-project"}
 
 若要查看 Compose Multiplatform 導航程式庫的實際運作情況，請查看 [nav_cupcake 專案](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/nav_cupcake)，該專案是從 [使用 Compose 在螢幕之間導航](https://developer.android.com/codelabs/basic-android-kotlin-compose-navigation#0) Android codelab 轉換而來。如需更複雜的範例，請參閱官方的 [KotlinConf](https://github.com/JetBrains/kotlinconf-app) 應用程式。
 
@@ -38,7 +38,7 @@ kotlin {
 `RESUMED` 也被描述為「已定位（settled）」：當新螢幕準備就緒且處於活動狀態時，導航被視為已完成。
 有關 Compose Multiplatform 中目前實作的詳細資訊，請參閱 [生命週期](compose-lifecycle.md) 頁面。
 
-## 在 Web 應用程式中支援瀏覽器導航
+## 在 Web 應用程式中支援瀏覽器導航 {id="support-for-browser-navigation-in-web-apps"}
 <primary-label ref="Experimental"/>
 
 Compose Multiplatform for web 完全支援通用的導航程式庫 API，並允許您的應用程式從瀏覽器接收導航輸入。
@@ -98,7 +98,7 @@ fun main() {
 `<app package>.<serializable type>/<argument1>/<argument2>`。
 例如：`example.org#org.example.app.StartScreen/123/Alice%2520Smith`。
 
-### 自訂路由與 URL 之間的轉換
+### 自訂路由與 URL 之間的轉換 {id="customize-translating-routes-into-urls-and-back"}
 
 由於 Compose Multiplatform 應用程式是單頁應用程式 (SPA)，該框架會操作網址列以模擬常見的 Web 導航。
 如果您希望使您的 URL 更具可讀性並將實作與 URL 模式隔離，您可以直接為螢幕分配名稱，或為目的地路由開發完全自訂的處理方式：
@@ -112,7 +112,7 @@ fun main() {
     ```
 * 若要完全建構每個 URL，您可以使用選用的 `getBackStackEntryRoute` Lambda。
 
-#### 完全自訂 URL
+#### 完全自訂 URL {id="full-url-customization"}
 
 若要實作完全自訂的路由至 URL 轉換： 
 

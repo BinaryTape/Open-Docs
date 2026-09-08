@@ -5,7 +5,7 @@ Koog 提供了一種結構化的方式來建立提示 (prompt)，並可控制訊
 * 對於 **Kotlin** 使用者，透過型別安全的 Kotlin DSL。
 * 對於 **Java** 使用者，透過流暢的 builder API。
 
-## 基本結構
+## 基本結構 {id="basic-structure"}
 
 Kotlin 中的 `prompt()` 函式或 Java 中的 `Prompt.builder()` 會建立一個具有唯一 ID 與訊息清單的 Prompt 物件：
 
@@ -37,7 +37,7 @@ Kotlin 中的 `prompt()` 函式或 Java 中的 `Prompt.builder()` 會建立一�
     ```
     <!--- KNIT example-creating-prompts-java-01.java -->
 
-## 訊息類型
+## 訊息類型 {id="message-types"}
 
 Kotlin DSL 與 Java builder API 支援以下類型的訊息，每一種都對應到對話中的特定角色：
 
@@ -84,7 +84,7 @@ Kotlin DSL 與 Java builder API 支援以下類型的訊息，每一種都對應
     ```
     <!--- KNIT example-creating-prompts-java-02.java -->
 
-### 系統訊息
+### 系統訊息 {id="system-message"}
 
 系統訊息定義了 LLM 的行為並為整個對話設定上下文。
 它可以指定模型的角色、語氣，提供回應的準則與約束，以及提供回應範例。
@@ -119,7 +119,7 @@ Kotlin DSL 與 Java builder API 支援以下類型的訊息，每一種都對應
     ```
     <!--- KNIT example-creating-prompts-java-03.java -->
 
-### 使用者訊息
+### 使用者訊息 {id="user-messages"}
 
 使用者訊息代表來自使用者的輸入。
 要建立使用者訊息，請將字串作為引數提供給 Kotlin 的 `user()` 函式或 Java 的方法：
@@ -157,7 +157,7 @@ Kotlin DSL 與 Java builder API 支援以下類型的訊息，每一種都對應
 大多數使用者訊息包含純文字，但也可以包含多模態內容，例如圖片、音訊、影片和文件。
 有關詳細資訊與範例，請參閱 [多模態內容](multimodal-content.md)。
 
-### 助理訊息
+### 助理訊息 {id="assistant-messages"}
 
 助理訊息代表 LLM 的回應，可用於未來類似互動的少樣本學習、接續對話，或示範預期的輸出結構。
 
@@ -221,7 +221,7 @@ Kotlin DSL 與 Java builder API 支援以下類型的訊息，每一種都對應
     ```
     <!--- KNIT example-creating-prompts-java-05.java -->
 
-### 工具訊息
+### 工具訊息 {id="tool-messages"}
 
 工具訊息代表工具呼叫及其結果，可用於預先填入工具呼叫的歷程記錄。
 
@@ -284,7 +284,7 @@ Kotlin DSL 與 Java builder API 支援以下類型的訊息，每一種都對應
     ```
     <!--- KNIT example-creating-prompts-java-06.java -->
 
-## 文字訊息建置器
+## 文字訊息建置器 {id="text-message-builders"}
 
 !!! warning
     文字訊息建置器僅提供 Kotlin 版本。
@@ -358,7 +358,7 @@ Kotlin DSL 與 Java builder API 支援以下類型的訊息，每一種都對應
 !!! tip
     您可以將文字建置函式與 XML 和 Markdown 建置器混合使用。
 
-## 提示參數
+## 提示參數 {id="prompt-parameters"}
 
 提示可以透過配置控制 LLM 行為的參數進行自訂。
 
@@ -427,7 +427,7 @@ Kotlin DSL 與 Java builder API 支援以下類型的訊息，每一種都對應
 
 若要了解更多，請參閱 [LLM 參數](../../llm-parameters.md)。
 
-## 擴充現有提示
+## 擴充現有提示 {id="extending-existing-prompts"}
 
 您可以透過呼叫 Kotlin 中的 `prompt()` 函式或 Java 中的 `Prompt.builder()` 並將現有提示作為引數傳入來擴充現有提示：
 
@@ -473,7 +473,7 @@ Kotlin DSL 與 Java builder API 支援以下類型的訊息，每一種都對應
 
 這會建立一個包含 `basePrompt` 中所有訊息以及新使用者訊息的新提示。
 
-## 後續步驟
+## 後續步驟 {id="next-steps"}
 
 - 了解如何處理 [多模態內容](multimodal-content.md)。
 - 如果您使用單一 LLM 提供者，請使用 [LLM 用戶端](../llm-clients.md) 執行提示。

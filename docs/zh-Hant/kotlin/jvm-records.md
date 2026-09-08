@@ -16,7 +16,7 @@ public record Person (String name, int age) {}
 
 Record 與 Kotlin [資料類別](data-classes.md) 非常相似。
 
-## 在 Kotlin 程式碼中使用 Java Record
+## 在 Kotlin 程式碼中使用 Java Record {id="using-java-records-from-kotlin-code"}
 
 您可以像在 Kotlin 中使用具有屬性的類別一樣，使用在 Java 中宣告具有元件的 Record 類別。
 要存取 Record 元件，只需使用其名稱，就像處理 [Kotlin 屬性](properties.md) 一樣：
@@ -26,7 +26,7 @@ val newPerson = Person("Kotlin", 10)
 val firstName = newPerson.name
 ```
 
-## 在 Kotlin 中宣告 Record
+## 在 Kotlin 中宣告 Record {id="declare-records-in-kotlin"}
 
 Kotlin 僅支援對資料類別進行 Record 宣告，且該資料類別必須符合[需求](#requirements)。
 
@@ -48,7 +48,7 @@ data class Person(val name: String, val age: Int)
 
 資料類別提供 `equals()`、`hashCode()` 和 `toString()` 的方法實作。
 
-### 需求
+### 需求 {id="requirements"}
 
 要使用 `@JvmRecord` 註解宣告資料類別，必須符合以下需求：
 
@@ -59,13 +59,13 @@ data class Person(val name: String, val age: Int)
 * 類別不能是區域的 (local)。
 * 類別的主建構函數必須與類別本身具有相同的可見性。
 
-### 啟用 JVM Record
+### 啟用 JVM Record {id="enable-jvm-records"}
 
 JVM Record 需要產生的 JVM 位元組碼目標版本為 `16` 或更高。
 
 若要明確指定，請在 [Gradle](gradle-compiler-options.md#attributes-specific-to-jvm) 或 [Maven](maven-kotlin-compiler.md#attributes-specific-to-jvm) 中使用 `jvmTarget` 編譯器選項。
 
-## 在 Kotlin 中為 Record 元件加上註解
+## 在 Kotlin 中為 Record 元件加上註解 {id="annotate-record-components-in-kotlin"}
 
 <primary-label ref="experimental-general"/>
 
@@ -84,7 +84,7 @@ data class Person(val name: String, @all:Positive val age: Int)
 * 將註解傳遞到屬性、支援欄位、建構函式參數、getter 和 setter。
 * 如果註解支援 Java 的 `RECORD_COMPONENT`，則也會將註解套用到 Record 元件。
 
-## 讓註解與 Record 元件搭配運作
+## 讓註解與 Record 元件搭配運作 {id="make-annotations-work-with-record-components"}
 
 要使[註解](annotations.md)同時適用於 Kotlin 屬性 **以及** Java Record 元件，請在您的註解宣告中加入以下元註解 (meta-annotations)：
 
@@ -101,6 +101,6 @@ annotation class ExampleClass
 
 您現在可以將 `@ExampleClass` 套用到 Kotlin 類別和屬性，以及 Java 類別和 Record 元件。
 
-## 進一步討論
+## 進一步討論 {id="further-discussion"}
 
 請參閱此 [JVM Record 語言提案](https://github.com/Kotlin/KEEP/blob/master/proposals/jvm-records.md) 以了解更多技術細節與討論。

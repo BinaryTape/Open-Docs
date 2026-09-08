@@ -13,7 +13,7 @@
 * [將 Kotlin Notebook 新增至現有專案](#add-a-new-kotlin-notebook-to-your-project)
 * [建立暫存 Kotlin Notebook](#create-a-scratch-kotlin-notebook)
 
-## 建立新專案 
+## 建立新專案 {id="create-a-new-project"}
 
 若要建立一個包含 Kotlin Notebook 的新專案：
 
@@ -54,7 +54,7 @@
 
 專案建立完成後，請新增一個新的 Kotlin Notebook（請參閱下一節）。
 
-## 將新的 Kotlin Notebook 新增至您的專案
+## 將新的 Kotlin Notebook 新增至您的專案 {id="add-a-new-kotlin-notebook-to-your-project"}
 
 若要將新的 Kotlin Notebook 新增至現有專案： 
 
@@ -65,7 +65,7 @@
 2. 設定新筆記本的名稱，例如 **first-notebook**。
 3. 按下 **Enter 鍵**。隨即會開啟一個帶有 Kotlin Notebook **first-notebook.ipynb** 的新索引標籤。
 
-## 建立暫存 Kotlin Notebook
+## 建立暫存 Kotlin Notebook {id="create-a-scratch-kotlin-notebook"}
 
 您也可以將 Kotlin Notebook 建立為暫存檔。[暫存檔](https://www.jetbrains.com/help/idea/scratches.html#create-scratch-file) 讓您可以在不建立新專案或修改現有專案的情況下，測試小段程式碼。
 
@@ -76,7 +76,7 @@
 
    ![暫存筆記本](kotlin-notebook-scratch-file.png){width=400}
 
-## 執行基本操作
+## 執行基本操作 {id="perform-basic-operations"}
 
 1. 在新的 Kotlin Notebook 中，在程式碼資料格中輸入以下程式碼：
 
@@ -101,7 +101,7 @@
 
 恭喜！您剛剛建立並試用了您的第一個 Kotlin Notebook。
 
-## 下一步
+## 下一步 {id="next-step"}
 
 在教學的下一部分中，您將學習如何將相依性新增至 Kotlin Notebook。
 

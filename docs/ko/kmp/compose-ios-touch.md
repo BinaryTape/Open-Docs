@@ -7,7 +7,7 @@ iOS에서 Compose Multiplatform은 네이티브 UIKit 및 SwiftUI 프레임워�
 현재 Compose Multiplatform은 네이티브 뷰의 터치 이벤트를 처리하기 위한 단 한 가지 전략만 제공합니다.
 모든 터치는 네이티브 UI에 의해 전적으로 처리되며, Compose는 터치가 발생했다는 사실조차 인식하지 못합니다.
 
-## 상호 운용 스크롤에서의 터치
+## 상호 운용 스크롤에서의 터치 {id="touches-in-interop-scrolling"}
 
 상호 운용 영역의 각 터치가 즉시 기본 네이티브 UI 요소로 전송되면,
 컨테이너 컴포저블(container composable)은 동일한 터치에 반응할 수 없습니다.
@@ -36,7 +36,7 @@ iOS에서 Compose Multiplatform은 네이티브 UIKit 및 SwiftUI 프레임워�
 >
 {style="note"}
 
-## 터치 처리 전략 선택
+## 터치 처리 전략 선택 {id="choosing-the-strategy-for-touch-processing"}
 <primary-label ref="Experimental"/>
 
 Compose Multiplatform %org.jetbrains.compose%에서는 상호 운용 UI를 더 세밀하게 제어할 수 있는 실험적(experimental) API를 사용해 볼 수도 있습니다.
@@ -56,6 +56,6 @@ Compose Multiplatform %org.jetbrains.compose%에서는 상호 운용 UI를 더 �
     이 모드가 유용할 수 있습니다.
 *   네이티브 UI와의 모든 상호 작용을 비활성화하려면 생성자에 `interactionMode = null`을 전달하십시오.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 Compose Multiplatform의 [UIKit](compose-uikit-integration.md) 및 [SwiftUI](compose-swiftui-integration.md) 통합에 대해 자세히 알아보세요.

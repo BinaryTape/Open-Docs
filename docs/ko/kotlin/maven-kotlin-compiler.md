@@ -3,7 +3,7 @@
 `kotlin-maven-plugin`을 사용하면 Maven 프로젝트의 Kotlin 컴파일러를 구성할 수 있습니다.
 컴파일러 옵션을 지정하고, 실행 전략을 선택하며, 증분 컴파일(incremental compilation)을 활성화할 수 있습니다.
 
-## 컴파일러 옵션 지정
+## 컴파일러 옵션 지정 {id="specify-compiler-options"}
 
 Kotlin Maven 플러그인 노드의 `<configuration>` 섹션 내 요소로 컴파일러에 대한 추가 옵션과 인수를 지정할 수 있습니다.
 
@@ -36,7 +36,7 @@ Kotlin Maven 플러그인 노드의 `<configuration>` 섹션 내 요소로 컴�
 
 다음 속성들이 지원됩니다:
 
-### JVM 관련 속성
+### JVM 관련 속성 {id="attributes-specific-to-jvm"}
 
 | 이름              | 속성 이름                         | 설명                                                                                                                                                                                                  | 가능한 값                                         | 기본값                         |
 |-------------------|-----------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------|--------------------------------|
@@ -52,7 +52,7 @@ Kotlin Maven 플러그인 노드의 `<configuration>` 섹션 내 요소로 컴�
 | `jdkHome`         | `kotlin.compiler.jdkHome`         | 기본 `JAVA_HOME` 대신 지정된 위치의 커스텀 JDK를 클래스패스에 포함                                                                                                                                   |                                                   |                                |
 | `jdkToolchain`    | `kotlin.compiler.jdkToolchain`    | 툴체인(toolchain)에서 사용할 JDK 버전을 설정합니다. Kotlin 컴파일에만 영향을 미칩니다.                                                                                                                |                                                   |                                |
 
-## 실행 전략 선택
+## 실행 전략 선택 {id="choose-execution-strategy"}
 
 <snippet id="maven-configure-execution-strategy">
 
@@ -68,7 +68,7 @@ Kotlin Maven 플러그인 노드의 `<configuration>` 섹션 내 요소로 컴�
 
 다양한 전략에 대한 자세한 내용은 [컴파일러 실행 전략](compiler-execution-strategy.md)을 참조하세요.
 
-## 증분 컴파일 활성화
+## 증분 컴파일 활성화 {id="enable-incremental-compilation"}
 
 빌드 속도를 높이려면 `kotlin.compiler.incremental` 속성을 추가하여 증분 컴파일(incremental compilation)을 활성화할 수 있습니다.
 
@@ -80,6 +80,6 @@ Kotlin Maven 플러그인 노드의 `<configuration>` 섹션 내 요소로 컴�
 
 또는 `-Dkotlin.compiler.incremental=true` 옵션을 사용하여 빌드를 실행하세요.
 
-## 다음 단계는?
+## 다음 단계는? {id="what-s-next"}
 
 [프로젝트 패키징](maven-compile-package.md)

@@ -6,7 +6,7 @@
 
 此處呈現的模型與 Kotlin 實際使用的模型相比有所簡化。然而，這個基礎模型對於大多數情況應該已經足夠。
 
-## 通用程式碼 (Common code)
+## 通用程式碼 (Common code) {id="common-code"}
 
 「通用程式碼」是在不同平台之間共享的 Kotlin 程式碼。
 
@@ -36,7 +36,7 @@ Kotlin 編譯器將原始碼作為輸入，並產生一組平台特定的二進�
 
 若要探索可用的 Kotlin Multiplatform 程式庫，請參閱 [klibs.io](https://klibs.io)。
 
-## 目標 (Targets)
+## 目標 (Targets) {id="targets"}
 
 目標定義了 Kotlin 編譯通用程式碼所指向的平台。這些平台可以是 JVM、JS、Android、iOS 或 Linux 等。之前的範例將通用程式碼編譯到了 JVM 和原生目標。
 
@@ -79,7 +79,7 @@ kotlin {
 這就是 Kotlin 編譯器如何處理編譯到所有已宣告目標的通用程式碼。
 請參閱 [原始碼集](#source-sets) 以了解如何編寫平台特定程式碼。
 
-## 原始碼集 (Source sets)
+## 原始碼集 (Source sets) {id="source-sets"}
 
 「Kotlin 原始碼集」是一組具有自己目標、相依性與編譯器選項的原始碼檔案。這是多平台專案中共享程式碼的主要方式。
 
@@ -115,7 +115,7 @@ kotlin {
 
 除了 `commonMain` 之外，其他原始碼集可以是平台特定或中間的。
 
-### 平台特定原始碼集
+### 平台特定原始碼集 {id="platform-specific-source-sets"}
 
 雖然只編寫通用程式碼很方便，但並不總是可行。`commonMain` 中的程式碼會編譯到所有宣告的目標，且 Kotlin 不允許在該處使用任何 platform-specific APIs。
 
@@ -139,7 +139,7 @@ fun jvmGreeting() {
 }
 ```
 
-### 編譯到特定目標
+### 編譯到特定目標 {id="compilation-to-a-specific-target"}
 
 編譯到特定目標需要配合多個原始碼集。當 Kotlin 將多平台專案編譯到特定目標時，它會收集所有標有該目標的原始碼集，並從中產生二進位檔。
 
@@ -163,7 +163,7 @@ fun jvmGreeting() {
 * 在平台特定原始碼集中編寫的程式碼可以存取通用原始碼集中的宣告。例如， `jvmMain` 中的程式碼可以使用 `commonMain` 中的程式碼。然而，反之則不然： `commonMain` 不能使用來自 `jvmMain` 的程式碼。
 * 在平台特定原始碼集中編寫的程式碼可以使用對應的平台相依性。例如， `jvmMain` 中的程式碼可以使用僅限 Java 的程式庫，如 [Guava](https://github.com/google/guava) 或 [Spring](https://spring.io/)。
 
-### 中間原始碼集
+### 中間原始碼集 {id="intermediate-source-sets"}
 
 簡單的多平台專案通常只有通用程式碼和平台特定程式碼。
 `commonMain` 原始碼集代表在所有宣告的目標之間共享的通用程式碼。平台特定原始碼集（如 `jvmMain`）代表僅編譯到相應目標的平台特定程式碼。
@@ -220,7 +220,7 @@ Kotlin 預設會建立一些中間原始碼集。在這種特殊情況下，產�
 >
 {style="tip"}
 
-#### Apple 裝置與模擬器目標 {initial-collapse-state="collapsed" collapsible="true"}
+#### Apple 裝置與模擬器目標 {initial-collapse-state="collapsed" collapsible="true" id="apple-device-and-simulator-targets"}
 
 當您使用 Kotlin Multiplatform 開發 iOS 行動應用程式時，通常會使用 `iosMain` 原始碼集。
 雖然您可能認為它是針對 `ios` 目標的平台特定原始碼集，但實際上並沒有單一的 `ios` 目標。大多數行動專案至少需要兩個目標：
@@ -234,7 +234,7 @@ Kotlin 預設會建立一些中間原始碼集。在這種特殊情況下，產�
 
 這也適用於其他非 Mac 的 Apple 目標。例如，如果您有用於 Apple TV 的 `tvosArm64` 裝置目標，以及用於 Apple 晶片裝置上 Apple TV 模擬器的 `tvosSimulatorArm64` 模擬器目標，您可以對所有這些目標使用 `tvosMain` 中間原始碼集。
 
-## 測試整合
+## 測試整合 {id="integration-with-tests"}
 
 現實生活中的專案除了主要的生產程式碼外，還需要測試。這就是為什麼預設建立的所有原始碼集都具有 `Main` 和 `Test` 後綴。`Main` 包含生產程式碼，而 `Test` 包含該程式碼的測試。
 它們之間的連結是自動建立的，測試可以使用 `Main` 程式碼提供的 API，而無需額外配置。
@@ -247,7 +247,7 @@ Kotlin 預設會建立一些中間原始碼集。在這種特殊情況下，產�
 
 了解如何在 [測試您的多平台應用程式教學](multiplatform-run-tests.md) 中建立並執行多平台測試。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * [進一步了解如何在 Gradle 指令碼中宣告與使用預定義的原始碼集](multiplatform-hierarchy.md)
 * [探索多平台專案結構的進階概念](multiplatform-advanced-project-structure.md)

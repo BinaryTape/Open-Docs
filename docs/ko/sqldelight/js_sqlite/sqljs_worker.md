@@ -44,7 +44,7 @@ config.plugins.push(
 );
 ```
 
-## 테스트를 위한 Karma 설정
+## 테스트를 위한 Karma 설정 {id="configuring-karma-for-tests"}
 
 테스트의 경우, 런타임에 WebAssembly 바이너리를 찾을 수 있도록 몇 가지 추가 Karma 설정이 필요합니다. 다음 내용을 프로젝트의 `karma.config.d` 디렉터리에 복사하세요.
 
@@ -78,7 +78,7 @@ config.files.push({
 });
 ```
 
-## 워커 사용하기
+## 워커 사용하기 {id="using-the-worker"}
 
 워커 스크립트의 이름은 `sqljs.worker.js`이며, 코드에서 다음과 같이 참조할 수 있습니다.
 

@@ -10,7 +10,7 @@
 
 Kotlin Gradle 外掛程式包含對二進位相容性驗證的支援。該外掛程式會從目前程式碼產生應用程式二進位介面 (ABI) 傾印 (dumps)，並將其與之前的傾印進行比較以醒目提示差異。您可以檢閱這些變更，找出任何潛在的二進位不相容修改，並採取行動予以解決。
 
-## 如何啟用
+## 如何啟用 {id="how-to-enable"}
 
 若要啟用二進位相容性驗證，請在您的 `build.gradle.kts` 檔案中加入 `abiValidation {}` 區塊。如果您沒有自訂設定，則可以改用 `abiValidation()` 函式：
 
@@ -38,7 +38,7 @@ kotlin {
 
 KGP 會建立必要的 Gradle 任務。如果您的專案有多個需要檢查二進位相容性的模組，請分別設定每個模組。
 
-## 檢查二進位相容性問題
+## 檢查二進位相容性問題 {id="check-for-binary-compatibility-issues"}
 
 在對程式碼進行變更後，若要檢查潛在的二進位不相容問題，請在 IntelliJ IDEA 中執行 `checkKotlinAbi` Gradle 任務，或在專案目錄中使用以下指令：
 
@@ -50,7 +50,7 @@ KGP 會建立必要的 Gradle 任務。如果您的專案有多個需要檢查�
 
 預設情況下，[當您的專案啟用了二進位相容性驗證](#how-to-enable)且執行 `check` 任務時，Gradle 也會執行 `checkKotlinAbi` 任務。 
 
-## 更新參考 ABI 傾印
+## 更新參考 ABI 傾印 {id="update-reference-abi-dump"}
 
 若要更新 Gradle 用來檢查最新變更的參考 ABI 傾印，請在 IntelliJ IDEA 中執行 `updateKotlinAbi` 任務，或在專案目錄中使用以下指令：
 
@@ -60,7 +60,7 @@ KGP 會建立必要的 Gradle 任務。如果您的專案有多個需要檢查�
 
 僅當您確定變更與前一版本保持二進位相容性時，才更新參考傾印。
 
-## 設定篩選器
+## 設定篩選器 {id="configure-filters"}
 
 您可以定義篩選器來控制 ABI 傾印中包含哪些類別、屬性和函式。使用 `filters {}` 區塊，分別透過 `excluded {}` 和 `included {}` 區塊來加入排除和包含規則。
 
@@ -137,7 +137,7 @@ kotlin {
 
 若要進一步了解篩選，請參閱 [Kotlin Gradle 外掛程式 API 參考](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.dsl.abi/-abi-filters-spec/)。
 
-## 防止不受支援目標的推論變更
+## 防止不受支援目標的推論變更 {id="prevent-inferred-changes-for-unsupported-targets"}
 
 在多平台專案中，如果您的主機系統無法編譯所有目標，Kotlin Gradle 外掛程式會嘗試從可用目標推論 ABI 變更。這有助於避免日後切換到支援更多目標的主機時出現誤報失敗。
 
@@ -171,7 +171,7 @@ kotlin {
 
 如果目標不受支援且推論已停用，則 `checkKotlinAbi` 任務會失敗，因為它無法產生完整的 ABI 傾印。如果您希望任務失敗，而不是冒著遺漏二進位不相容變更的風險，那麼此行為可能會很有用。
 
-## 包含來自 `maven-publish` 外掛程式的發佈
+## 包含來自 `maven-publish` 外掛程式的發佈 {id="include-publications-from-the-maven-publish-plugin"}
 
 預設情況下，二進位相容性驗證使用 Kotlin 編譯輸出來產生 ABI 傾印。因此，產生的 ABI 傾印可能無法反映最終發佈的產物 (artifacts)。例如，當您使用 [`maven-publish` 外掛程式](https://docs.gradle.org/current/userguide/publishing_maven.html)時，重新定位 (relocation) 等後置處理步驟可能會在編譯後修改產物。
 

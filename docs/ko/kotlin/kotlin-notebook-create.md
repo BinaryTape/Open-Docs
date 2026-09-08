@@ -13,7 +13,7 @@
 * [기존 프로젝트에 Kotlin Notebook 추가하기](#add-a-new-kotlin-notebook-to-your-project)
 * [스크래치 Kotlin Notebook 생성하기](#create-a-scratch-kotlin-notebook)
 
-## 새 프로젝트 생성하기
+## 새 프로젝트 생성하기 {id="create-a-new-project"}
 
 Kotlin Notebook을 포함하는 새 프로젝트를 생성하려면:
 
@@ -54,7 +54,7 @@ Kotlin Notebook을 포함하는 새 프로젝트를 생성하려면:
 
 프로젝트가 생성되면 새로운 Kotlin Notebook을 추가합니다(다음 섹션 참조).
 
-## 프로젝트에 새로운 Kotlin Notebook 추가하기
+## 프로젝트에 새로운 Kotlin Notebook 추가하기 {id="add-a-new-kotlin-notebook-to-your-project"}
 
 기존 프로젝트에 새로운 Kotlin Notebook을 추가하려면: 
 
@@ -65,7 +65,7 @@ Kotlin Notebook을 포함하는 새 프로젝트를 생성하려면:
 2. 새 노트북의 이름을 설정합니다(예: **first-notebook**).
 3. **Enter**를 누릅니다. **first-notebook.ipynb**라는 Kotlin Notebook 파일이 새 탭에서 열립니다.
 
-## 스크래치 Kotlin Notebook 생성하기
+## 스크래치 Kotlin Notebook 생성하기 {id="create-a-scratch-kotlin-notebook"}
 
 스크래치 파일로 Kotlin Notebook을 생성할 수도 있습니다. [스크래치 파일](https://www.jetbrains.com/help/idea/scratches.html#create-scratch-file)을 사용하면 새 프로젝트를 생성하거나 기존 프로젝트를 수정하지 않고도 짧은 코드를 테스트할 수 있습니다.
 
@@ -76,7 +76,7 @@ Kotlin Notebook을 포함하는 새 프로젝트를 생성하려면:
 
    ![스크래치 노트북](kotlin-notebook-scratch-file.png){width=400}
 
-## 기본 작업 수행하기
+## 기본 작업 수행하기 {id="perform-basic-operations"}
 
 1. 새로운 Kotlin Notebook의 코드 셀에 다음 코드를 입력합니다.
 
@@ -101,7 +101,7 @@ Kotlin Notebook을 포함하는 새 프로젝트를 생성하려면:
 
 축하합니다! 방금 첫 번째 Kotlin Notebook을 만들고 사용해 보았습니다.
 
-## 다음 단계
+## 다음 단계 {id="next-step"}
 
 튜토리얼의 다음 파트에서는 Kotlin Notebook에 의존성을 추가하는 방법을 배웁니다.
 

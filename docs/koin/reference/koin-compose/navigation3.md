@@ -6,7 +6,7 @@ title: Navigation 3
 
 Koin 提供了与 [AndroidX Navigation 3](https://developer.android.com/guide/navigation/navigation-3) 的集成，用于通过依赖注入实现类型安全的多平台导航。
 
-## 什么是 Navigation 3？
+## 什么是 Navigation 3？ {id="what-is-navigation-3"}
 
 Navigation 3 是 Jetpack 专为 Compose 设计的新导航库：
 
@@ -15,9 +15,9 @@ Navigation 3 是 Jetpack 专为 Compose 设计的新导航库：
 - **自适应布局** - 同时显示多个目的地（列表-详情）
 - **自动动画** - 内置过渡支持
 
-## 设置
+## 设置 {id="setup"}
 
-### 多平台项目
+### 多平台项目 {id="multiplatform-projects"}
 
 ```kotlin
 // shared/build.gradle.kts
@@ -27,7 +27,7 @@ commonMain.dependencies {
 }
 ```
 
-### 仅限 Android 项目
+### 仅限 Android 项目 {id="android-only-projects"}
 
 ```kotlin
 dependencies {
@@ -44,7 +44,7 @@ plugins {
 }
 ```
 
-### 平台支持
+### 平台支持 {id="platform-support"}
 
 | 平台 | 状态 |
 |----------|--------|
@@ -53,9 +53,9 @@ plugins {
 | Desktop | 完全支持 |
 | Web | 完全支持 |
 
-## 核心概念
+## 核心概念 {id="core-concepts"}
 
-### 作为 Kotlin 类的路由
+### 作为 Kotlin 类的路由 {id="routes-as-kotlin-classes"}
 
 使用 `@Serializable` 定义类型安全路由：
 
@@ -73,7 +73,7 @@ data class DetailRoute(val itemId: String)
 data class SettingsRoute(val section: String? = null)
 ```
 
-### 回退栈
+### 回退栈 {id="back-stack"}
 
 Navigation 3 使用简单的基于列表的回退栈：
 
@@ -91,7 +91,7 @@ backStack.add(DetailRoute("123"))
 backStack.removeLastOrNull()
 ```
 
-### NavDisplay
+### NavDisplay {id="navdisplay"}
 
 `NavDisplay` 渲染带动画的回退栈：
 
@@ -103,9 +103,9 @@ NavDisplay(
 )
 ```
 
-## Koin 集成
+## Koin 集成 {id="koin-integration"}
 
-### 声明导航条目
+### 声明导航条目 {id="declaring-navigation-entries"}
 
 在您的模块中使用 `navigation<T>` DSL：
 
@@ -134,7 +134,7 @@ val appModule = module {
 }
 ```
 
-### 使用 koinEntryProvider
+### 使用 koinEntryProvider {id="using-koinentryprovider"}
 
 从 Koin 获取所有导航条目：
 
@@ -177,7 +177,7 @@ NavDisplay(
 （等效地，`val entryProvider: EntryProvider<Route> = koinEntryProvider()` — 类型实参将从预期类型中推断出来。）
 :::
 
-### 完整示例
+### 完整示例 {id="complete-example"}
 
 ```kotlin
 // 路由
@@ -259,7 +259,7 @@ class MainActivity : ComponentActivity(), AndroidScopeComponent {
 }
 ```
 
-## 作用域导航
+## 作用域导航 {id="scoped-navigation"}
 
 在 Koin 作用域内声明导航条目：
 
@@ -291,9 +291,9 @@ val appModule = module {
 }
 ```
 
-## ViewModel 集成
+## ViewModel 集成 {id="viewmodel-integration"}
 
-### 配合导航实参
+### 配合导航实参 {id="with-navigation-arguments"}
 
 将路由数据传递给 ViewModel：
 
@@ -319,7 +319,7 @@ val appModule = module {
 }
 ```
 
-### 配合条目装饰器
+### 配合条目装饰器 {id="with-entry-decorators"}
 
 使用装饰器进行 ViewModel 状态保留：
 
@@ -342,9 +342,9 @@ NavDisplay(
 )
 ```
 
-## 动画
+## 动画 {id="animations"}
 
-### 默认过渡
+### 默认过渡 {id="default-transitions"}
 
 ```kotlin
 NavDisplay(
@@ -364,7 +364,7 @@ NavDisplay(
 )
 ```
 
-### 单个路由动画
+### 单个路由动画 {id="per-route-animations"}
 
 ```kotlin
 navigation<ModalRoute>(
@@ -380,9 +380,9 @@ navigation<ModalRoute>(
 }
 ```
 
-## 自适应布局
+## 自适应布局 {id="adaptive-layouts"}
 
-### 列表-详情模式
+### 列表-详情模式 {id="list-detail-pattern"}
 
 为自适应布局使用场景策略：
 
@@ -413,7 +413,7 @@ fun App() {
 }
 ```
 
-### 使用 Koin 模块
+### 使用 Koin 模块 {id="with-koin-modules"}
 
 ```kotlin
 val appModule = module {
@@ -433,9 +433,9 @@ val appModule = module {
 }
 ```
 
-## Android 扩展
+## Android 扩展 {id="android-extensions"}
 
-### 延迟加载条目提供程序
+### 延迟加载条目提供程序 {id="lazy-entry-provider"}
 
 ```kotlin
 class MainActivity : ComponentActivity() {
@@ -457,7 +457,7 @@ class MainActivity : ComponentActivity() {
 }
 ```
 
-### 急速加载条目提供程序
+### 急速加载条目提供程序 {id="eager-entry-provider"}
 
 ```kotlin
 class MainActivity : ComponentActivity() {
@@ -477,16 +477,16 @@ class MainActivity : ComponentActivity() {
 }
 ```
 
-## API 参考
+## API 参考 {id="api-reference"}
 
-### DSL 函数
+### DSL 函数 {id="dsl-functions"}
 
 | 函数 | 描述 |
 |----------|-------------|
 | `Module.navigation<T> { }` | 在模块级别声明导航条目 |
 | `ScopeDSL.navigation<T> { }` | 在作用域内声明导航条目 |
 
-### Composable 函数
+### Composable 函数 {id="composable-functions"}
 
 | 函数 | 描述 |
 |----------|-------------|
@@ -499,9 +499,9 @@ class MainActivity : ComponentActivity() {
 | `entryProvider<T>()` | 延迟加载条目提供程序委托 |
 | `getEntryProvider<T>()` | 急速加载条目提供程序 |
 
-## 从 Navigation 2.x 迁移
+## 从 Navigation 2.x 迁移 {id="migration-from-navigation-2-x"}
 
-### 之前 (Navigation 2.x)
+### 之前 (Navigation 2.x) {id="before-navigation-2-x"}
 
 ```kotlin
 NavHost(navController, startDestination = "home") {
@@ -515,7 +515,7 @@ NavHost(navController, startDestination = "home") {
 }
 ```
 
-### 之后 (Navigation 3)
+### 之后 (Navigation 3) {id="after-navigation-3"}
 
 ```kotlin
 // 类型安全路由
@@ -539,7 +539,7 @@ NavDisplay(
 )
 ```
 
-## 资源
+## 资源 {id="resources"}
 
 - [Navigation 3 官方指南](https://developer.android.com/guide/navigation/navigation-3)
 - [Nav3 Recipes 仓库](https://github.com/android/nav3-recipes)

@@ -16,7 +16,7 @@
 >
 {style="note"}
 
-## 开始之前
+## 开始之前 {id="before-you-start"}
 
 1. 下载并安装最新版本的 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)。
 2. 克隆[项目模板](https://github.com/kotlin-hands-on/web-app-react-kotlin-js-gradle)并在 IntelliJ IDEA 中将其打开。该模板包含一个基本的 Kotlin Multiplatform Gradle 项目，其中包含所有必需的配置和依赖项。
@@ -74,7 +74,7 @@
    }
    ```
 
-### 运行开发服务器
+### 运行开发服务器 {id="run-the-development-server"}
 
 默认情况下，Kotlin Multiplatform Gradle 插件支持嵌入式 `webpack-dev-server`，允许你从 IDE 运行应用程序，而无需手动设置任何服务器。
 
@@ -88,7 +88,7 @@
 
 ![空白红色页面](red-page.png){width=700}
 
-### 启用热重载 / 持续模式
+### 启用热重载 / 持续模式 {id="enable-hot-reload-continuous-mode"}
 
 配置 *[持续编译](dev-server-continuous-compilation.md)* 模式，这样你就不必在每次更改时都手动编译和执行项目。在继续之前，请确保停止所有正在运行的开发服务器实例。
 
@@ -116,9 +116,9 @@
 >
 {style="note"}
 
-## 创建 Web 应用草案
+## 创建 Web 应用草案 {id="create-a-web-app-draft"}
 
-### 使用 React 添加第一个静态页面
+### 使用 React 添加第一个静态页面 {id="add-the-first-static-page-with-react"}
 
 要让你的应用显示一条简单消息，请将 `Main.kt` 文件中的代码替换为以下内容：
 
@@ -155,7 +155,7 @@ fun main() {
 
 ![HTML 页面示例](hello-react-js.png){width=700}
 
-### 将 HTML 转换为 Kotlin 的类型安全 HTML DSL
+### 将 HTML 转换为 Kotlin 的类型安全 HTML DSL {id="convert-html-to-kotlin-s-typesafe-html-dsl"}
 
 React 的 Kotlin [包装器](https://github.com/JetBrains/kotlin-wrappers/blob/master/kotlin-react/README.md)带有一种[领域专用语言 (DSL)](type-safe-builders.md)，使得用纯 Kotlin 代码编写 HTML 成为可能。在这一点上，它类似于 JavaScript 的 [JSX](https://reactjs.org/docs/introducing-jsx.html)。然而，由于这种标记是 Kotlin 编写的，你可以获得静态类型语言的所有好处，例如自动补全或类型检查。
 
@@ -226,7 +226,7 @@ div {
 
 ![Web 应用草案](website-draft.png){width=700}
 
-### 在标记中使用 Kotlin 构造添加视频
+### 在标记中使用 Kotlin 构造添加视频 {id="add-videos-using-kotlin-constructs-in-markup"}
 
 使用这种 DSL 在 Kotlin 中编写 HTML 有一些优势。你可以使用常规的 Kotlin 构造（如循环、条件、集合和字符串插值）来操作你的应用。
 
@@ -279,7 +279,7 @@ div {
 
 等待浏览器重新加载。布局应保持与之前相同。你可以向列表中添加更多视频，以确保循环正常工作。
 
-### 使用类型安全 CSS 添加样式
+### 使用类型安全 CSS 添加样式 {id="add-styles-with-typesafe-css"}
 
 针对 [Emotion](https://emotion.sh/docs/introduction) 库的 [kotlin-emotion](https://github.com/JetBrains/kotlin-wrappers/blob/master/kotlin-emotion/) 包装器使得直接在 HTML 旁边使用 JavaScript 指定 CSS 属性（甚至是动态属性）成为可能。从概念上讲，这使得它类似于 [CSS-in-JS](https://reactjs.org/docs/faq-styling.html#what-is-css-in-js) —— 但它是为 Kotlin 设计的。使用 DSL 的好处是你可以使用 Kotlin 代码构造来表达格式设置规则。
 
@@ -316,7 +316,7 @@ div {
 
 随意尝试一些其他样式。例如，你可以更改 `fontFamily` 或为 UI 添加一些 `color`。
 
-## 设计应用组件
+## 设计应用组件 {id="design-app-components"}
 
 React 中的基本构建块被称为 *[组件](https://reactjs.org/docs/components-and-props.html)*。组件本身也可以由其他更小的组件组成。通过组合组件，你可以构建应用程序。如果你将组件构建为通用的且可重用的，你将能够在应用程序的多个部分使用它们，而无需重复代码或逻辑。
 
@@ -330,7 +330,7 @@ React 中的基本构建块被称为 *[组件](https://reactjs.org/docs/componen
 
 组件封装了特定的功能。使用组件可以缩短源代码，使其更易于阅读和理解。
 
-### 添加主组件
+### 添加主组件 {id="add-the-main-component"}
 
 要开始创建应用程序的结构，首先明确指定 `App`，即用于渲染到 `root` 元素的主组件：
 
@@ -374,7 +374,7 @@ React 中的基本构建块被称为 *[组件](https://reactjs.org/docs/componen
 
 有关 React 概念的更多信息，请参阅[文档和指南](https://reactjs.org/docs/hello-world.html#how-to-read-this-guide)。
 
-### 提取列表组件
+### 提取列表组件 {id="extract-a-list-component"}
 
 由于 `watchedVideos` 和 `unwatchedVideos` 列表各包含一个视频列表，因此创建一个单一的可重用组件，并仅调整列表中显示的内容是有意义的。
 
@@ -419,7 +419,7 @@ React 中的基本构建块被称为 *[组件](https://reactjs.org/docs/componen
 
    目前，`App` 组件无法控制 `VideoList` 组件显示的内容。它是硬编码的，所以你会看到相同的列表出现了两次。
 
-### 添加属性以在组件之间传递数据
+### 添加属性以在组件之间传递数据 {id="add-props-to-pass-data-between-components"}
 
 由于你将重用 `VideoList` 组件，你需要能够用不同的内容填充它。你可以添加将项列表作为特性传递给组件的能力。在 React 中，这些特性被称为 *props*（属性（React））。当组件的属性在 React 中发生更改时，框架会自动重新渲染该组件。
 
@@ -468,7 +468,7 @@ React 中的基本构建块被称为 *[组件](https://reactjs.org/docs/componen
 
 重新加载后，浏览器将显示列表现在已正确渲染。
 
-### 让列表具备交互性
+### 让列表具备交互性 {id="make-the-list-interactive"}
 
 首先，添加一个在用户点击列表条目时弹出的警告消息。在 `VideoList.kt` 中，添加一个 `onClick` 处理程序函数，该函数触发一个包含当前视频的警告：
 
@@ -494,7 +494,7 @@ p {
 >
 {style="tip"}
 
-### 添加状态以保留值
+### 添加状态以保留值 {id="add-state-to-keep-values"}
 
 除了仅向用户发出警告外，你还可以添加一些功能，用 ▶ 三角形高亮显示选定的视频。为此，请引入该组件特有的 *state*（状态）。
 
@@ -543,7 +543,7 @@ p {
 
 查看浏览器并点击列表中的一项，以确保一切正常工作。
 
-## 组合组件
+## 组合组件 {id="compose-components"}
 
 目前，这两个视频列表各自独立运行，这意味着每个列表都跟踪一个选定的视频。用户可以选择两个视频，一个在未看列表中，一个在已看列表中，尽管只有一个播放器：
 
@@ -551,7 +551,7 @@ p {
 
 列表无法同时在自身内部和兄弟列表内部跟踪选定的视频。原因是选定的视频不属于 *列表* 状态的一部分，而属于 *应用程序* 状态的一部分。这意味着你需要将状态从各个组件中 *提升* 出来。
 
-### 提升状态
+### 提升状态 {id="lift-state"}
 
 React 确保属性只能从父组件传递给其子组件。这可以防止组件被硬连接在一起。
 
@@ -589,7 +589,7 @@ React 确保属性只能从父组件传递给其子组件。这可以防止组�
    }
    ```
 
-### 传递处理程序
+### 传递处理程序 {id="pass-handlers"}
 
 目前，无法为属性分配值，因此 `onClick` 函数无法按当前设置的方式工作。要更改父组件的状态，你需要再次提升状态。
 
@@ -630,9 +630,9 @@ React 确保属性只能从父组件传递给其子组件。这可以防止组�
 
 切换回浏览器并确保在选择视频时，选中的标记会在两个列表之间跳转且不重复。
 
-## 添加更多组件
+## 添加更多组件 {id="add-more-components"}
 
-### 提取视频播放器组件
+### 提取视频播放器组件 {id="extract-the-video-player-component"}
 
 你现在可以创建另一个独立的组件——视频播放器，目前它是一个占位符图像。你的视频播放器需要知道演讲标题、演讲作者以及视频链接。这些信息已经包含在每个 `Video` 对象中，因此你可以将其作为属性传递并访问其特性。
 
@@ -684,7 +684,7 @@ React 确保属性只能从父组件传递给其子组件。这可以防止组�
 
 现在点击列表中的条目将调出视频播放器，并使用所点击条目的信息填充它。
 
-### 添加并连接按钮
+### 添加并连接按钮 {id="add-a-button-and-wire-it"}
 
 为了让用户能够将视频标记为已看或未看，并在两个列表之间移动，请向 `VideoPlayer` 组件添加一个按钮。
 
@@ -721,7 +721,7 @@ React 确保属性只能从父组件传递给其子组件。这可以防止组�
 
    借助能够动态更改样式的 Kotlin CSS DSL，你可以使用基本的 Kotlin `if` 表达式来更改按钮的颜色。
 
-### 将视频列表移至应用程序状态
+### 将视频列表移至应用程序状态 {id="move-video-lists-to-the-application-state"}
 
 现在是时候调整 `App` 组件中 `VideoPlayer` 的调用位置了。点击按钮时，视频应从未看列表移动到已看列表，反之亦然。由于这些列表现在实际上可以发生变化，请将它们移入应用程序状态：
 
@@ -764,13 +764,13 @@ React 确保属性只能从父组件传递给其子组件。这可以防止组�
 
 回到浏览器，选择一个视频，并多次按下按钮。视频将在两个列表之间跳转。
 
-## 使用来自 npm 的软件包
+## 使用来自 npm 的软件包 {id="use-packages-from-npm"}
 
 为了使应用可用，你仍然需要一个真正能播放视频的视频播放器，以及一些帮助人们分享内容的按钮。
 
 React 拥有丰富的生态系统，其中包含大量预制的组件，你可以使用它们而无需自己构建这些功能。
 
-### 添加视频播放器组件
+### 添加视频播放器组件 {id="add-the-video-player-component"}
 
 要用真正的 YouTube 播放器替换占位符视频组件，请使用来自 npm 的 `react-player` 软件包。它可以播放视频并允许你控制播放器的外观。
 
@@ -837,7 +837,7 @@ React 拥有丰富的生态系统，其中包含大量预制的组件，你可�
    }
    ```
 
-### 添加社交分享按钮
+### 添加社交分享按钮 {id="add-social-share-buttons"}
 
 分享应用程序内容的一个简单方法是为即时通讯工具和电子邮件提供社交分享按钮。你也可以为此使用现成的 React 组件，例如 [react-share](https://github.com/nygardk/react-share/blob/master/README.md)：
 
@@ -921,13 +921,13 @@ React 拥有丰富的生态系统，其中包含大量预制的组件，你可�
 
 随意使用 [react-share](https://github.com/nygardk/react-share/blob/master/README.md#features) 中提供的其他社交网络的分享按钮重复此步骤。
 
-## 使用外部 REST API
+## 使用外部 REST API {id="use-an-external-rest-api"}
 
 你现在可以用应用中来自 REST API 的真实数据替换硬编码的演示数据。
 
 对于本教程，有一个[小型 API](https://my-json-server.typicode.com/kotlin-hands-on/kotlinconf-json/videos/1)。它仅提供一个端点 `videos`，并接受一个数值形参来访问列表中的元素。如果你用浏览器访问该 API，你将看到从 API 返回的对象具有与 `Video` 对象相同的结构。
 
-### 在 Kotlin 中使用 JS 功能
+### 在 Kotlin 中使用 JS 功能 {id="use-js-functionality-from-kotlin"}
 
 浏览器已经带有各种各样的 [Web API](https://developer.mozilla.org/en-US/docs/Web/API)。你也可以从 Kotlin/JS 中使用它们，因为它开箱即用地包含了这些 API 的包装器。一个例子是用于发出 HTTP 请求的 [fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)。
 
@@ -948,7 +948,7 @@ dependencies {
 }
 ```
 
-### 添加序列化
+### 添加序列化 {id="add-serialization"}
 
 当你调用外部 API 时，你将得到 JSON 格式的文本，它仍然需要转换成可以使用的 Kotlin 对象。
 
@@ -982,7 +982,7 @@ dependencies {
    )
    ```
 
-### 获取视频
+### 获取视频 {id="fetch-videos"}
 
 要从 API 获取视频，请在 `App.kt`（或新文件）中添加以下函数：
 
@@ -1053,17 +1053,17 @@ suspend fun fetchVideo(id: Int): Video {
 
 如果你想深入了解协程的工作原理，请查看此[协程教程](coroutines-and-channels.md)。
 
-## 部署到生产环境和云端
+## 部署到生产环境和云端 {id="deploy-to-production-and-the-cloud"}
 
 是时候将应用程序发布到云端并让其他人可以访问了。
 
-### 打包生产构建
+### 打包生产构建 {id="package-a-production-build"}
 
 要在生产模式下打包所有资源，请通过 IntelliJ IDEA 中的工具窗口运行 Gradle 中的 `build` 任务，或通过运行 `./gradlew build`。这将生成一个优化的项目构建，应用各种改进，例如 DCE（无效代码消除）。
 
 构建完成后，你可以在 `/build/dist` 中找到部署所需的所有文件。它们包括运行应用程序所需的 JavaScript 文件、HTML 文件和其他资源。你可以将它们放在静态 HTTP 服务器上，使用 GitHub Pages 提供服务，或托管在你选择的云提供商上。
 
-### 部署到 Heroku
+### 部署到 Heroku {id="deploy-to-heroku"}
 
 Heroku 使启动可在其自身域下访问的应用程序变得非常简单。他们的免费层级应该足以用于开发目的。
 
@@ -1124,9 +1124,9 @@ Heroku 使启动可在其自身域下访问的应用程序变得非常简单。�
 >
 {style="note"}
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
-### 添加更多功能 {initial-collapse-state="collapsed" collapsible="true"}
+### 添加更多功能 {initial-collapse-state="collapsed" collapsible="true" id="add-more-features"}
 
 你可以将生成的应用作为跳板，探索 React、Kotlin/JS 等领域的更高级主题。
 
@@ -1134,18 +1134,18 @@ Heroku 使启动可在其自身域下访问的应用程序变得非常简单。�
 * **持久化**。目前，每当页面重新加载时，应用程序就会丢失对观看者观看列表的追踪。考虑构建你自己的后端，使用可用于 Kotlin 的 Web 框架之一（例如 [Ktor](https://ktor.io/)）。或者，研究在 [客户端存储信息](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) 的方法。
 * **复杂的 API**。有大量的数据集和 API 可用。你可以将各种数据拉入你的应用程序名。例如，你可以为 [猫咪照片](https://thecatapi.com/) 构建一个可视化器或一个 [无版税库存照片 API](https://unsplash.com/developers)。
 
-### 改进样式：响应式和网格 {initial-collapse-state="collapsed" collapsible="true"}
+### 改进样式：响应式和网格 {initial-collapse-state="collapsed" collapsible="true" id="improve-the-style-responsiveness-and-grids"}
 
 应用程序设计仍然非常简单，在移动设备或窄窗口中看起来不会太好。探索更多的 CSS DSL 以使应用更易于访问。
 
-### 加入社区并获取帮助 {initial-collapse-state="collapsed" collapsible="true"}
+### 加入社区并获取帮助 {initial-collapse-state="collapsed" collapsible="true" id="join-the-community-and-get-help"}
 
 报告问题和获取帮助的最佳方式是 [kotlin-wrappers 问题跟踪器](https://github.com/JetBrains/kotlin-wrappers/issues)。如果你找不到针对你问题的工单，请随时提交一个新工单。你也可以加入官方 [Kotlin Slack](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)。那里有 `#javascript` 和 `#react` 频道。
 
-### 了解有关协程的更多信息 {initial-collapse-state="collapsed" collapsible="true"}
+### 了解有关协程的更多信息 {initial-collapse-state="collapsed" collapsible="true" id="learn-more-about-coroutines"}
 
 如果你有兴趣了解更多关于如何编写并发代码的信息，请查看关于 [协程](coroutines-and-channels.md) 的教程。
 
-### 了解有关 React 的更多信息 {initial-collapse-state="collapsed" collapsible="true"}
+### 了解有关 React 的更多信息 {initial-collapse-state="collapsed" collapsible="true" id="learn-more-about-react"}
 
 既然你已经了解了基本的 React 概念以及它们如何转换为 Kotlin，你可以将 [React 文档](https://react.dev/learn) 中列出的其他一些概念转换为 Kotlin。

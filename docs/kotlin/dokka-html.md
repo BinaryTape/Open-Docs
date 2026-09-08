@@ -17,7 +17,7 @@ HTML 是 Dokka 默认且推荐的输出格式。
 * [OkHttp](https://square.github.io/okhttp/5.x/okhttp/okhttp3/)
 * [Gradle](https://docs.gradle.org/current/kotlin-dsl/index.html)
 
-## 生成 HTML 文档
+## 生成 HTML 文档 {id="generate-html-documentation"}
 
 所有运行器都支持将 HTML 作为输出格式。要生成 HTML 文档，请根据您的构建工具或运行器执行以下步骤：
 
@@ -40,7 +40,7 @@ HTML 是 Dokka 默认且推荐的输出格式。
 >
 {style="note"}
 
-## 配置
+## 配置 {id="configuration"}
 
 HTML 格式是 Dokka 的基础格式。您可以使用以下选项对其进行配置：
 
@@ -141,7 +141,7 @@ java -jar dokka-cli-%dokkaVersion%.jar \
 </tab>
 </tabs>
 
-### 配置选项
+### 配置选项 {id="configuration-options"}
 
 下表包含了所有可能的配置选项及其用途：
 
@@ -156,11 +156,11 @@ java -jar dokka-cli-%dokkaVersion%.jar \
 
 有关配置 Dokka 插件的更多信息，请参阅[配置 Dokka 插件](dokka-plugins.md#configure-dokka-plugins)。
 
-## 自定义
+## 自定义 {id="customization"}
 
 为了帮助您为文档添加自己的视觉风格，HTML 格式支持许多自定义选项。
 
-### 自定义样式
+### 自定义样式 {id="customize-styles"}
 
 您可以通过使用 `customStyleSheets` [配置选项](#configuration)来使用自己的样式表。这些样式表将应用于每个页面。
 
@@ -174,7 +174,7 @@ java -jar dokka-cli-%dokkaVersion%.jar \
 
 Dokka 所有样式表的源代码都可以在 [GitHub 上找到](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/dokka-subprojects/plugin-base/src/main/resources/dokka/styles)。
 
-### 自定义资源
+### 自定义资源 {id="customize-assets"}
 
 您可以通过使用 `customAssets` [配置选项](#configuration)来提供随文档一起打包的自定义图像。
 
@@ -190,7 +190,7 @@ customAssets.from("example.png", "example2.png")
 
 您可以在 [GitHub](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/dokka-subprojects/plugin-base/src/main/resources/dokka/images) 上找到 Dokka 使用的所有图像。
 
-### 更改徽标
+### 更改徽标 {id="change-the-logo"}
 
 要自定义徽标，您可以首先为 `logo-icon.svg` [提供您自己的资源](#customize-assets)。
 
@@ -200,11 +200,11 @@ customAssets.from("example.png", "example2.png")
 
 支持的最大徽标尺寸为宽度 120 像素，高度 36 像素。如果您使用更大的图像，它将被自动调整大小。
 
-### 修改页脚
+### 修改页脚 {id="modify-the-footer"}
 
 您可以通过使用 `footerMessage` [配置选项](#configuration)来修改页脚中的文本。
 
-### 模板
+### 模板 {id="templates"}
 
 Dokka 提供了修改用于生成文档页面的 [FreeMarker](https://freemarker.apache.org/) 模板的能力。
 
@@ -225,7 +225,7 @@ Dokka 使用以下模板：
 
 您可以使用 `templatesDir` [配置选项](#configuration)覆盖任何模板。Dokka 会在给定目录中搜索确切的模板名称。如果找不到用户定义的模板，它将使用默认模板。
 
-#### 变量
+#### 变量 {id="variables"}
 
 以下变量在所有模板中均可用：
 
@@ -245,7 +245,7 @@ Dokka 使用以下模板：
 </@template_cmd>
 ```
 
-#### 指令
+#### 指令 {id="directives"}
 
 您还可以使用以下 Dokka 定义的[指令](https://freemarker.apache.org/docs/ref_directive_userDefined.html)：
 

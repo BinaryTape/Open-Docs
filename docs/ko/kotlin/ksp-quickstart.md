@@ -7,7 +7,7 @@
 * KSP API를 사용하여 직접 어노테이션 프로세서를 만드는 방법
 * 프로세서에 의해 생성된 코드를 찾는 위치
 
-## 프로젝트에 KSP 기반 프로세서 추가하기
+## 프로젝트에 KSP 기반 프로세서 추가하기 {id="add-a-ksp-based-processor-to-your-project"}
 
 프로젝트에서 외부 프로세서를 사용하려면, `build.gradle(.kts)` 파일의 [`plugins {}` 블록](https://docs.gradle.org/current/userguide/plugins.html#sec:plugins_block)에 KSP를 추가하세요. 특정 모듈에서만 프로세서가 필요한 경우, 해당 모듈의 `build.gradle(.kts)` 파일에 대신 추가하면 됩니다:
 
@@ -77,11 +77,11 @@ dependencies {
 > 
 {style="note"}
 
-## 직접 프로세서 만들기
+## 직접 프로세서 만들기 {id="create-your-own-processor"}
 
 다음 단계에 따라 `helloWorld()` 함수를 생성하는 간단한 어노테이션 프로세서를 만들어 보겠습니다. 실무에서 아주 유용한 예제는 아니지만, 직접 프로세서와 어노테이션을 만드는 기본 원리를 보여줍니다.
 
-### 프로젝트에 KSP 추가하기
+### 프로젝트에 KSP 추가하기 {id="add-ksp-to-the-project"}
 
 새 Kotlin 프로젝트를 생성하고 KSP 플러그인을 추가합니다:
 
@@ -120,7 +120,7 @@ dependencies {
     </tab>
     </tabs>
 
-### 어노테이션 생성하기
+### 어노테이션 생성하기 {id="create-an-annotation"}
 
 프로젝트 루트에 새 모듈을 생성하고 어노테이션을 선언합니다:
 
@@ -143,7 +143,7 @@ dependencies {
     annotation class HelloWorldAnnotation
     ```
 
-### 프로세서 생성 및 등록하기
+### 프로세서 생성 및 등록하기 {id="create-and-register-a-processor"}
 
 1. 프로젝트 루트에 **processor**라는 이름의 모듈을 하나 더 생성합니다.
 2. 해당 모듈의 `build.gradle(.kts)` 파일에 KSP API와 선언한 어노테이션을 의존성으로 추가합니다:
@@ -292,7 +292,7 @@ dependencies {
     HelloWorldProcessorProvider
     ```
 
-### 직접 만든 프로세서 사용하기
+### 직접 만든 프로세서 사용하기 {id="use-your-processor"}
 
 이제 프로세서를 테스트할 준비가 되었습니다. 다음 단계에 따라 클라이언트 모듈을 생성하고, 어노테이션이 달린 요소를 기반으로 프로세서가 코드를 생성하도록 설정해 보겠습니다:
 
@@ -396,7 +396,7 @@ dependencies {
     app/build/generated/ksp/main/kotlin/GeneratedHelloWorld.kt
     ```
 
-### 프로젝트 구조 살펴보기
+### 프로젝트 구조 살펴보기 {id="explore-the-project-structure"}
 
 프로젝트의 최종 파일 구조는 다음과 같습니다:
 
@@ -436,7 +436,7 @@ dependencies {
 > 
 {style="tip"}
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [KSP 저장소](https://github.com/google/ksp/tree/main/examples/hello-world)에서 이 예제의 전체 코드를 확인해 보세요.
 * [KSP 저장소](https://github.com/google/ksp/tree/main/examples)에서 더 복잡하고 실용적인 예제들을 찾아보세요.

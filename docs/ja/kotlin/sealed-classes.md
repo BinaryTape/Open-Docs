@@ -23,7 +23,7 @@
 >
 {style="tip"}
 
-## シールドクラスまたはインターフェースの宣言
+## シールドクラスまたはインターフェースの宣言 {id="declare-a-sealed-class-or-interface"}
 
 シールドクラスまたはインターフェースを宣言するには、`sealed` 修飾子を使用します：
 
@@ -51,7 +51,7 @@ object RuntimeError : Error
 
 ![Hierarchy illustration of sealed classes and interfaces](sealed-classes-interfaces.svg){width=700}
 
-### コンストラクタ
+### コンストラクタ {id="constructors"}
 
 シールドクラス自体は常に [抽象クラス (abstract class)](classes.md#abstract-classes) であり、その結果、直接インスタンス化することはできません。
 しかし、コンストラクタを含んだり継承したりすることは可能です。これらのコンストラクタは、シールドクラス自体のインスタンスを作成するためではなく、そのサブクラスのために存在します。以下の `Error` というシールドクラスとそのいくつかのサブクラスをインスタンス化する例を考えてみましょう。
@@ -106,7 +106,7 @@ sealed class IOError {
 }
 ```
 
-## 継承
+## 継承 {id="inheritance"}
 
 シールドクラスおよびインターフェースの直接のサブクラスは、同じパッケージ内で宣言する必要があります。それらはトップレベルで宣言することも、他の任意の数の名前付きクラス、名前付きインターフェース、または名前付きオブジェクトの中にネストさせることもできます。サブクラスは、[プロパティのオーバーライド](inheritance.md#overriding-properties) を含め、Kotlin の通常の継承ルールと互換性がある限り、どのような [可視性](visibility-modifiers.md) も持つことができます。
 
@@ -139,7 +139,7 @@ sealed class IOError(): Error
 open class CustomError(): Error
 ```
 
-### マルチプラットフォームプロジェクトにおける継承
+### マルチプラットフォームプロジェクトにおける継承 {id="inheritance-in-multiplatform-projects"}
 
 [マルチプラットフォームプロジェクト](https://kotlinlang.org/docs/multiplatform/get-started.html) には、もう一つ継承の制限があります。シールドクラスの直接のサブクラスは、同じ [ソースセット](https://kotlinlang.org/docs/multiplatform/multiplatform-discover-project.html#source-sets) 内に存在しなければなりません。これは、[`expect` および `actual` 修飾子](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html) のないシールドクラスに適用されます。
 
@@ -147,7 +147,7 @@ open class CustomError(): Error
 
 [マルチプラットフォームプロジェクトの階層構造についての詳細](https://kotlinlang.org/docs/multiplatform/multiplatform-hierarchy.html) を参照してください。
 
-## when 式でシールドクラスを使用する
+## when 式でシールドクラスを使用する {id="use-sealed-classes-with-when-expression"}
 
 シールドクラスを使用する主な利点は、[`when`](control-flow.md#when-expressions-and-statements) 式で使用したときに発揮されます。
 シールドクラスと共に `when` 式を使用すると、Kotlin コンパイラは、考えられるすべてのケースが網羅されているかどうかを厳密にチェックできます。このような場合、`else` 句を追加する必要はありません：
@@ -197,11 +197,11 @@ fun main() {
 >
 {style="note"}
 
-## ユースケースのシナリオ
+## ユースケースのシナリオ {id="use-case-scenarios"}
 
 シールドクラスとインターフェースが特に有用な、いくつかの実用的なシナリオを見てみましょう。
 
-### UI アプリケーションにおける状態管理
+### UI アプリケーションにおける状態管理 {id="state-management-in-ui-applications"}
 
 シールドクラスを使用して、アプリケーションのさまざまな UI 状態を表現できます。
 このアプローチにより、構造化された安全な方法で UI の変更を処理できます。
@@ -223,7 +223,7 @@ fun updateUI(state: UIState) {
 }
 ```
 
-### 支払い方法の処理
+### 支払い方法の処理 {id="payment-method-handling"}
 
 実際のビジネスアプリケーションにおいて、さまざまな支払い方法を効率的に処理することは一般的な要件です。
 シールドクラスと `when` 式を使用して、このようなビジネスロジックを実装できます。
@@ -250,7 +250,7 @@ fun processPayment(payment: Payment) {
 `processPayment()` 関数は、異なる支払い方法をどのように処理するかを示しています。
 このアプローチにより、考えられるすべての支払いタイプが考慮され、将来新しい支払い方法が追加された際にもシステムは柔軟性を保つことができます。
 
-### API のリクエスト・レスポンス処理
+### API のリクエスト・レスポンス処理 {id="api-request-response-handling"}
 
 シールドクラスとシールドインターフェースを使用して、API リクエストとレスポンスを処理するユーザー認証システムを実装できます。
 このユーザー認証システムにはログインとログアウトの機能があります。
@@ -335,6 +335,6 @@ fun main() {
 }
 ```
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 [Kotlin の継承](inheritance.md) について詳細を学ぶ。

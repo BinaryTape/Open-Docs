@@ -45,7 +45,7 @@ val client = HttpClient(CIO) {
 }
 ```
 
-## トレーシングの設定
+## トレーシングの設定 {id="configure-tracing"}
 
 Ktor クライアントが送信 HTTP コールの OpenTelemetry スパンを記録およびエクスポートする方法をカスタマイズできます。以下のオプションを使用して、どのリクエストをトレースするか、スパンの名前、含まれる属性、キャプチャされるヘッダー、およびスパンの種類（kind）の決定方法を調整できます。
 
@@ -54,7 +54,7 @@ Ktor クライアントが送信 HTTP コールの OpenTelemetry スパンを記
 undefined
 undefined
 
-### レスポンスヘッダーのキャプチャ
+### レスポンスヘッダーのキャプチャ {id="capture-response-headers"}
 
 特定の HTTP レスポンスヘッダーをスパン属性としてキャプチャするには、`capturedResponseHeaders` プロパティを使用します。
 
@@ -67,6 +67,6 @@ install(%plugin_name%) {
 
 undefined
 
-## 次のステップ
+## 次のステップ {id="next-steps"}
 
 `%plugin_name%` をインストールして設定すると、テレメトリが有効になっているサービス（[`KtorServerTelemetry`](server-opentelemetry.md) を使用しているサービスなど）にリクエストを送信することで、スパンが作成され伝播されていることを確認できます。[Jaeger](https://www.jaegertracing.io/)、[Zipkin](https://zipkin.io/)、[Grafana Tempo](https://grafana.com/oss/tempo/) などのオブザーバビリティバックエンドでトレースの両側を確認することで、分散トレーシングがエンドツーエンドで動作していることを確認できます。

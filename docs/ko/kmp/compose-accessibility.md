@@ -4,7 +4,7 @@ Compose Multiplatform은 시맨틱 속성, 접근성 API, 그리고 스크린 �
 
 이 프레임워크를 사용하면 [European Accessibility Act](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32019L0882) (EAA) 및 [Web Content Accessibility Guidelines](https://www.w3.org/TR/WCAG21/) (WCAG)의 요구 사항을 준수하는 애플리케이션을 설계할 수 있습니다.
 
-## 시맨틱 속성 (Semantic properties)
+## 시맨틱 속성 (Semantic properties) {id="semantic-properties"}
 
 접근성, 자동 완성 및 테스트와 같은 서비스에 컨텍스트를 제공하기 위해, 시맨틱 속성(semantic properties)을 사용하여 컴포넌트의 의미와 역할을 정의할 수 있습니다.
 
@@ -38,7 +38,7 @@ Compose Multiplatform은 시맨틱 속성, 접근성 API, 그리고 스크린 �
 
 시맨틱 속성의 전체 목록은 [`SemanticsProperties`](https://developer.android.com/reference/kotlin/androidx/compose/ui/semantics/SemanticsProperties)에 대한 Jetpack Compose API 레퍼런스를 참조하세요.
 
-## 순회 순서 (Traversal order)
+## 순회 순서 (Traversal order) {id="traversal-order"}
 
 기본적으로 스크린 리더는 레이아웃을 왼쪽에서 오른쪽으로, 위에서 아래로 따라가며 고정된 순서로 UI 요소를 탐색합니다. 그러나 복잡한 레이아웃의 경우 스크린 리더가 올바른 읽기 순서를 자동으로 결정하지 못할 수 있습니다. 이는 포함된 뷰의 스크롤 및 확대를 지원하는 테이블이나 중첩된 뷰와 같은 컨테이너 뷰가 있는 레이아웃에서 매우 중요합니다.
 
@@ -69,7 +69,7 @@ fun FloatingBox() {
 }
 ```
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 iOS용 접근성 기능에 대해 자세히 알아보세요.
 

@@ -4,7 +4,7 @@
 
 本教程演示如何使用 IntelliJ IDEA 和浏览器调试使用 Kotlin/Wasm 构建的 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) 应用程序。
 
-## 开始之前
+## 开始之前 {id="before-you-start"}
 
 1. [设置 Kotlin Multiplatform 开发环境](https://kotlinlang.org/docs/multiplatform/quickstart.html#set-up-the-environment)。
 2. 按照说明[创建一个以 Kotlin/Wasm 为目标的 Kotlin Multiplatform 项目](wasm-get-started.md#create-a-project)。
@@ -14,7 +14,7 @@
 >
 {style="note"}
 
-## 在 IntelliJ IDEA 中调试
+## 在 IntelliJ IDEA 中调试 {id="debug-in-intellij-idea"}
 
 你创建的 Kotlin Multiplatform 项目包含一个由 Kotlin/Wasm 驱动的 Compose Multiplatform 应用程序。你可以开箱即用地在 IntelliJ IDEA 中调试此应用程序，无需额外配置。
 
@@ -39,7 +39,7 @@
 
    ![Compose 应用调试器](wasm-debug-pane.png){width=600}
 
-### 检查你的应用程序
+### 检查你的应用程序 {id="inspect-your-application"}
 
 > 如果你正在[在浏览器中调试](#debug-in-your-browser)，可以按照相同的步骤检查你的应用程序。
 >
@@ -59,7 +59,7 @@
 4. 对代码进行更改并再次运行应用程序，以验证其运行情况。
 5. 完成调试后，点击带有断点的行号以移除断点。
 
-## 在浏览器中调试
+## 在浏览器中调试 {id="debug-in-your-browser"}
 
 你也可以在浏览器中调试此 Compose Multiplatform 应用程序，无需额外配置。 
 
@@ -87,7 +87,7 @@
 
    ![检查调用堆栈](wasm-debug-scope.png){width=450}
 
-### 使用自定义格式化程序
+### 使用自定义格式化程序 {id="use-custom-formatters"}
 
 在浏览器中调试 Kotlin/Wasm 代码时，自定义格式化程序有助于以更加用户友好且易于理解的方式显示和定位变量值。
 
@@ -118,14 +118,14 @@ kotlin {
 }
 ```
 
-## 留下反馈
+## 留下反馈 {id="leave-feedback"}
 
 我们非常感谢你对调试体验的任何反馈！
 
 * ![Slack](slack.svg){width=25}{type="joined"} Slack：[获取 Slack 邀请](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)，并在我们的 [#webassembly](https://kotlinlang.slack.com/archives/CDFP59223) 频道中直接向开发者提供你的反馈。
 * 在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-56492) 中提供你的反馈。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * 在此 [YouTube 视频](https://www.youtube.com/watch?v=t3FUWfJWrjU&t=2703s)中查看 Kotlin/Wasm 调试的实际操作。
 * 尝试更多 Kotlin/Wasm 示例：

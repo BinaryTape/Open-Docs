@@ -118,6 +118,6 @@ Koogは2つのシンプルなプランナーを提供しています：
     ```
      <!--- KNIT exampleLLMBasedPlannerJava01.java -->
 
-## 次のステップ
+## 次のステップ {id="next-steps"}
 
 - [GOAPエージェント](goap-agents.md)について学ぶ

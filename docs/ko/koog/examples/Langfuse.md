@@ -9,13 +9,13 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Lang
 
 이 노트북은 OpenTelemetry를 사용하여 Koog 에이전트 트레이스(trace)를 Langfuse 인스턴스로 내보내는 방법을 보여줍니다. 환경 변수를 설정하고, 간단한 에이전트를 실행한 다음, Langfuse에서 스팬(span)과 트레이스를 확인해 보겠습니다.
 
-## 학습 내용
+## 학습 내용 {id="what-you-ll-learn"}
 
 - Koog가 트레이스를 생성하기 위해 OpenTelemetry와 통합되는 방식
 - 환경 변수를 통해 Langfuse 익스포터(exporter)를 구성하는 방법
 - 에이전트를 실행하고 Langfuse에서 트레이스를 확인하는 방법
 
-## 사전 준비 사항
+## 사전 준비 사항 {id="prerequisites"}
 
 - Langfuse 프로젝트 (호스트 URL, 퍼블릭 키, 시크릿 키)
 - LLM 실행기를 위한 OpenAI API 키
@@ -63,7 +63,7 @@ val agent = AIAgent(
 }
 ```
 
-## 에이전트 및 Langfuse 익스포터 구성
+## 에이전트 및 Langfuse 익스포터 구성 {id="configure-the-agent-and-langfuse-exporter"}
 
 다음 셀에서는 다음 작업을 수행합니다:
 
@@ -86,11 +86,11 @@ See traces on the Langfuse instance"
 
 ```
 
-## 에이전트 실행 및 트레이스 확인
+## 에이전트 실행 및 트레이스 확인 {id="run-the-agent-and-view-traces"}
 
 다음 셀을 실행하여 간단한 프롬프트를 트리거합니다. 그러면 Langfuse 프로젝트로 내보낼 스팬이 생성됩니다.
 
-### Langfuse에서 확인해야 할 사항
+### Langfuse에서 확인해야 할 사항 {id="where-to-look-in-langfuse"}
 
 1. Langfuse 대시보드를 열고 프로젝트를 선택합니다.
 2. Traces/Spans 뷰로 이동합니다.
@@ -100,7 +100,7 @@ See traces on the Langfuse instance"
    - LLM 요청/응답 메타데이터
    - 오류 (발생한 경우)
 
-### 문제 해결
+### 문제 해결 {id="troubleshooting"}
 
 - 트레이스가 표시되지 않나요?
   - LANGFUSE_HOST, LANGFUSE_PUBLIC_KEY, LANGFUSE_SECRET_KEY를 다시 확인하세요.

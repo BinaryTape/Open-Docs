@@ -35,13 +35,13 @@ web worker driver を使用すると、SQLDelight は [Web Worker] 内で実行�
 !!! info
     web worker driver はブラウザターゲットとのみ互換性があります。
 
-## Web Worker の構成
+## Web Worker の構成 {id="configuring-a-web-worker"}
 
 SQLDelight の web worker driver は、特定のワーカー実装に固定されているわけではありません。その代わりに、ドライバーは標準化されたメッセージセットを使用してワーカーと通信します。SQLDelight は [SQL.js] を使用するワーカーの実装を提供しています。
 
 プロジェクトでのセットアップの詳細については [SQL.js Worker] ページを、独自のワーカーを実装する方法の詳細については [Custom Workers] ページを参照してください。
 
-## Web Worker の使用
+## Web Worker の使用 {id="using-a-web-worker"}
 
 web worker driver のインスタンスを作成する際、すべての SQL 操作を処理するために使用される Web Worker への参照を渡す必要があります。`Worker` コンストラクタは、ワーカースクリプトを参照する `URL` オブジェクトを受け取ります。
 
@@ -60,7 +60,7 @@ val driver = WebWorkerDriver(
 
 ここからは、他の SQLDelight ドライバーと同じようにドライバーを使用できます。
 
-## クエリの使用
+## クエリの使用 {id="using-queries"}
 
 {% include 'common/index_queries.md' %}
 

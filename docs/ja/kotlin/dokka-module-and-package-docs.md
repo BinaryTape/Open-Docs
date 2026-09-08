@@ -2,7 +2,7 @@
 
 サブプロジェクト全体、およびそのサブプロジェクト内のパッケージのドキュメントは、個別のMarkdownファイルとして提供できます。
 
-## ファイル形式
+## ファイル形式 {id="file-format"}
 
 Markdownファイル内では、サブプロジェクト全体および個々のパッケージのドキュメントは、対応する第1レベルの見出しによって導入されます。見出しのテキストは、サブプロジェクトの場合は **Module `<module name>`**、パッケージの場合は **Package `<package qualified name>`** である**必要があります**。
 
@@ -44,7 +44,7 @@ Content after this heading is also part of documentation for `org.jetbrains.kotl
 
 Gradleを使用したプロジェクト例については、[Dokka gradle example](https://github.com/Kotlin/dokka/tree/%dokkaVersion%/examples/gradle/dokka-gradle-example) を参照してください。
 
-## Dokkaへのファイルの渡し方
+## Dokkaへのファイルの渡し方 {id="pass-files-to-dokka"}
 
 これらのファイルをDokkaに渡すには、Gradle、Maven、またはCLIの関連する **includes** オプションを使用する必要があります：
 

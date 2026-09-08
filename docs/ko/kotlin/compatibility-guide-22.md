@@ -4,7 +4,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_ 및 _
 
 대부분의 언어 변경 사항은 업데이트 변경 로그나 컴파일러 경고와 같은 다른 채널을 통해 이미 발표되었지만, 이 문서는 이를 모두 요약하여 Kotlin 2.1에서 Kotlin 2.2로 마이그레이션하기 위한 전체 참조를 제공합니다.
 
-## 기본 용어
+## 기본 용어 {id="basic-terms"}
 
 이 문서에서는 여러 종류의 호환성을 소개합니다.
 
@@ -14,9 +14,9 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_ 및 _
 
 이러한 정의는 순수 Kotlin에 대해서만 제공된다는 점에 유의하세요. 다른 언어 관점(예: Java)에서의 Kotlin 코드 호환성은 이 문서의 범위를 벗어납니다.
 
-## 언어(Language)
+## 언어(Language) {id="language"}
 
-### `-language-version`에서 1.6 및 1.7 지원 중단
+### `-language-version`에서 1.6 및 1.7 지원 중단 {id="drop-support-in-language-version-for-1-6-and-1-7"}
 
 > **이슈**: [KT-71793](https://youtrack.jetbrains.com/issue/KT-71793)
 >
@@ -31,7 +31,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_ 및 _
 > - 2.1.0: 버전 1.6 및 1.7에서 `-language-version`을 사용할 때 경고 보고
 > - 2.2.0: 버전 1.8 및 1.9에서 `-language-version`을 사용할 때 경고 보고, 버전 1.6 및 1.7에 대한 경고를 오류로 격상
 
-### 어노테이션이 있는 람다에 대해 기본적으로 invokedynamic 활성화
+### 어노테이션이 있는 람다에 대해 기본적으로 invokedynamic 활성화 {id="enable-invokedynamic-for-annotated-lambdas-by-default"}
 
 > **이슈**: [KTLC-278](https://youtrack.jetbrains.com/issue/KTLC-278)
 >
@@ -45,7 +45,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_ 및 _
 >
 > - 2.2.0: 어노테이션이 있는 람다에 대해 기본적으로 `invokedynamic` 활성화
 
-### K2에서 가변성(variance)이 있는 확장 타입의 타입 별칭에 대한 생성자 호출 및 상속 금지
+### K2에서 가변성(variance)이 있는 확장 타입의 타입 별칭에 대한 생성자 호출 및 상속 금지 {id="prohibit-constructor-call-and-inheritance-on-type-aliases-with-variance-in-expanded-types-in-k2"}
 
 > **이슈**: [KTLC-4](https://youtrack.jetbrains.com/issue/KTLC-4)
 >
@@ -60,7 +60,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_ 및 _
 > - 2.0.0: 가변성 수정자가 있는 타입으로 확장되는 타입 별칭에 대한 생성자 호출 또는 상위 타입 사용 시 경고 보고
 > - 2.2.0: 경고를 오류로 격상
 
-### Kotlin 게터로부터의 합성 프로퍼티(synthetic properties) 금지
+### Kotlin 게터로부터의 합성 프로퍼티(synthetic properties) 금지 {id="prohibit-synthetic-properties-from-kotlin-getters"}
 
 > **이슈**: [KTLC-272](https://youtrack.jetbrains.com/issue/KTLC-272)
 >
@@ -75,7 +75,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_ 및 _
 > - 2.0.0: Kotlin 게터에서 생성된 합성 프로퍼티에 액세스할 때 경고 보고
 > - 2.2.0: 경고를 오류로 격상
 
-### JVM에서 인터페이스 함수에 대한 기본 메서드(default method) 생성 변경
+### JVM에서 인터페이스 함수에 대한 기본 메서드(default method) 생성 변경 {id="change-default-method-generation-for-interface-functions-on-jvm"}
 
 > **이슈**: [KTLC-269](https://youtrack.jetbrains.com/issue/KTLC-269)
 >
@@ -89,7 +89,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_ 및 _
 >
 > - 2.2.0: `-jvm-default` 컴파일러 옵션이 기본적으로 `enable`로 설정됨
 
-### 어노테이션 프로퍼티에 대한 필드 대상(field-targeted) 어노테이션 금지
+### 어노테이션 프로퍼티에 대한 필드 대상(field-targeted) 어노테이션 금지 {id="forbid-field-targeted-annotations-on-annotation-properties"}
 
 > **이슈**: [KTLC-7](https://youtrack.jetbrains.com/issue/KTLC-7)
 >
@@ -105,7 +105,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_ 및 _
 > - 2.1.20: 어노테이션 프로퍼티의 모든 필드 대상 어노테이션에 대해 경고 보고
 > - 2.2.0: 경고를 오류로 격상
 
-### 타입 별칭에서 실체화된(reified) 타입 파라미터 금지
+### 타입 별칭에서 실체화된(reified) 타입 파라미터 금지 {id="forbid-reified-type-parameters-in-type-aliases"}
 
 > **이슈**: [KTLC-5](https://youtrack.jetbrains.com/issue/KTLC-5)
 >
@@ -120,7 +120,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_ 및 _
 > - 2.1.0: 타입 별칭에서 실체화된 타입 파라미터에 대해 경고 보고
 > - 2.2.0: 경고를 오류로 격상
 
-### `Number` 및 `Comparable`에 대한 인라인 값 클래스의 타입 검사 수정
+### `Number` 및 `Comparable`에 대한 인라인 값 클래스의 타입 검사 수정 {id="correct-type-checks-on-inline-value-classes-for-number-and-comparable"}
 
 > **이슈**: [KTLC-21](https://youtrack.jetbrains.com/issue/KTLC-21)
 >
@@ -134,7 +134,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_ 및 _
 >
 > - 2.2.0: 새로운 동작 활성화
 
-### 간접 의존성으로부터의 접근 불가능한 제네릭 타입 금지
+### 간접 의존성으로부터의 접근 불가능한 제네릭 타입 금지 {id="prohibit-inaccessible-generic-types-from-indirect-dependencies"}
 
 > **이슈**: [KTLC-3](https://youtrack.jetbrains.com/issue/KTLC-3)
 >
@@ -150,7 +150,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_ 및 _
 > - 2.1.0: 람다의 접근 불가능한 비제네릭 타입에 대한 경고를 오류로 격상
 > - 2.2.0: 표현식 타입의 접근 불가능한 타입 인자에 대한 경고를 오류로 격상
 
-### 타입 파라미터 제약(bounds)에 대한 가시성 검사 적용
+### 타입 파라미터 제약(bounds)에 대한 가시성 검사 적용 {id="enforce-visibility-checks-on-type-parameter-bounds"}
 
 > **이슈**: [KTLC-274](https://youtrack.jetbrains.com/issue/KTLC-274)
 >
@@ -165,7 +165,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_ 및 _
 > - 2.1.0: 타입 파라미터가 선언의 가시성 범위에서 보이지 않는 제약을 가질 때 경고 보고
 > - 2.2.0: 경고를 오류로 격상
 
-### 비공개(non-private) 인라인 함수에서 비공개 타입 노출 시 오류 보고
+### 비공개(non-private) 인라인 함수에서 비공개 타입 노출 시 오류 보고 {id="report-errors-when-exposing-private-types-in-non-private-inline-functions"}
 
 > **이슈**: [KT-70916](https://youtrack.jetbrains.com/issue/KT-70916)
 >
@@ -179,7 +179,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_ 및 _
 >
 > - 2.2.0: 비공개 인라인 함수에서 비공개 타입 또는 멤버에 액세스할 때 오류 보고
 
-### 파라미터의 기본값으로 사용된 람다 내에서 비로컬 반환(non-local return) 금지
+### 파라미터의 기본값으로 사용된 람다 내에서 비로컬 반환(non-local return) 금지 {id="forbid-non-local-returns-in-lambdas-used-as-parameter-s-default-value"}
 
 > **이슈**: [KTLC-286](https://youtrack.jetbrains.com/issue/KTLC-286)
 >
@@ -193,9 +193,9 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_ 및 _
 >
 > - 2.2.0: 파라미터의 기본값으로 사용된 람다에서 비로컬 반환에 대해 오류 보고
 
-## 표준 라이브러리(Standard library)
+## 표준 라이브러리(Standard library) {id="standard-library"}
 
-### `kotlin.native.Throws` 지원 중단
+### `kotlin.native.Throws` 지원 중단 {id="deprecate-kotlin-native-throws"}
 
 > **이슈**: [KT-72137](https://youtrack.jetbrains.com/issue/KT-72137)
 >
@@ -210,7 +210,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_ 및 _
 > - 1.9.0: `kotlin.native.Throws` 사용 시 경고 보고
 > - 2.2.0: 경고를 오류로 격상
 
-### `AbstractDoubleTimeSource` 지원 중단
+### `AbstractDoubleTimeSource` 지원 중단 {id="deprecate-abstractdoubletimesource"}
 
 > **이슈**: [KT-72137](https://youtrack.jetbrains.com/issue/KT-72137)
 >
@@ -225,9 +225,9 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_ 및 _
 > - 1.8.20: `AbstractDoubleTimeSource` 사용 시 경고 보고
 > - 2.2.0: 경고를 오류로 격상
 
-## 도구(Tools)
+## 도구(Tools) {id="tools"}
 
-### 소스를 대체하도록 `KotlinCompileTool`의 `setSource()` 함수 수정
+### 소스를 대체하도록 `KotlinCompileTool`의 `setSource()` 함수 수정 {id="correct-setsource-function-in-kotlincompiletool-to-replace-sources"}
 
 > **이슈**: [KT-59632](https://youtrack.jetbrains.com/issue/KT-59632)
 >
@@ -241,7 +241,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_ 및 _
 >
 > - 2.2.0: 새로운 동작 활성화
 
-### `KotlinCompilationOutput#resourcesDirProvider` 프로퍼티 지원 중단
+### `KotlinCompilationOutput#resourcesDirProvider` 프로퍼티 지원 중단 {id="deprecate-kotlincompilationoutput-resourcesdirprovider-property"}
 
 > **이슈**: [KT-70620](https://youtrack.jetbrains.com/issue/KT-70620)
 >
@@ -256,7 +256,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_ 및 _
 > - 2.1.0: `KotlinCompilationOutput#resourcesDirProvider`가 경고와 함께 중단됨
 > - 2.2.0: 경고를 오류로 격상
 
-### `BaseKapt.annotationProcessorOptionProviders` 프로퍼티 지원 중단
+### `BaseKapt.annotationProcessorOptionProviders` 프로퍼티 지원 중단 {id="deprecate-basekapt-annotationprocessoroptionproviders-property"}
 
 > **이슈**: [KT-58009](https://youtrack.jetbrains.com/issue/KT-58009)
 >
@@ -270,7 +270,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_ 및 _
 >
 > - 2.2.0: API에서 새로운 타입 적용
 
-### `kotlin-android-extensions` 플러그인 지원 중단
+### `kotlin-android-extensions` 플러그인 지원 중단 {id="deprecate-kotlin-android-extensions-plugin"}
 
 > **이슈**: [KT-72341](https://youtrack.jetbrains.com/issue/KT-72341/)
 >
@@ -287,7 +287,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_ 및 _
 > - 2.2.0: 플러그인 코드 제거
 > - 2.4.0: 플러그인 ID 제거
 
-### `kotlinOptions` DSL 지원 중단
+### `kotlinOptions` DSL 지원 중단 {id="deprecate-kotlinoptions-dsl"}
 
 > **이슈**: [KT-54110](https://youtrack.jetbrains.com/issue/KT-54110)
 >
@@ -302,7 +302,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_ 및 _
 > - 2.0.0: `kotlinOptions` DSL에 대해 경고 보고
 > - 2.2.0: 경고를 오류로 격상하고 `kotlinOptions`의 모든 프로퍼티 지원 중단
 
-### `kotlin.incremental.useClasspathSnapshot` 프로퍼티 제거
+### `kotlin.incremental.useClasspathSnapshot` 프로퍼티 제거 {id="remove-kotlin-incremental-useclasspathsnapshot-property"}
 
 > **이슈**: [KT-62963](https://youtrack.jetbrains.com/issue/KT-62963)
 >
@@ -317,7 +317,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_ 및 _
 > - 2.0.20: `kotlin.incremental.useClasspathSnapshot` 프로퍼티를 경고와 함께 중단
 > - 2.2.0: 프로퍼티 제거
 
-### Kotlin 스크립팅 관련 지원 중단 사항
+### Kotlin 스크립팅 관련 지원 중단 사항 {id="deprecations-to-kotlin-scripting"}
 
 > **이슈**: [KT-71685](https://youtrack.jetbrains.com/issue/KT-71685), [KT-75632](https://youtrack.jetbrains.com/issue/KT-75632/), [KT-76196](https://youtrack.jetbrains.com/issue/KT-76196/).
 >
@@ -338,7 +338,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_ 및 _
 > - 2.2.0: `kotlinc`를 통해 REPL을 사용하려면 `-Xrepl` 컴파일러 옵션으로 옵트인; JSR-223 지원 중단(언어 버전 1.9로 전환하여 지원 복구 가능); `KotlinScriptMojo` Maven 플러그인 지원 중단
 > - 2.4.0: `KotlinScriptMojo` Maven 플러그인을 통한 Kotlin 스크립트 실행 제거
 
-### 명확화 분류기(disambiguation classifier) 프로퍼티 지원 중단
+### 명확화 분류기(disambiguation classifier) 프로퍼티 지원 중단 {id="deprecate-disambiguation-classifier-properties"}
 
 > **이슈**: [KT-58231](https://youtrack.jetbrains.com/issue/KT-58231)
 >
@@ -357,7 +357,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_ 및 _
 > - 2.1.0: 이 경고를 오류로 격상
 > - 2.2.0: Gradle 프로퍼티 제거
 
-### 공통화(commonization) 파라미터 지원 중단
+### 공통화(commonization) 파라미터 지원 중단 {id="deprecate-commonization-parameters"}
 
 > **이슈**: [KT-75161](https://youtrack.jetbrains.com/issue/KT-75161)
 >
@@ -385,7 +385,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_ 및 _
 > - 2.2.0: 공통화 파라미터를 오류와 함께 중단
 > - 2.2.20: 공통화 파라미터 제거
 
-### 레거시 메타데이터 컴파일 지원 중단
+### 레거시 메타데이터 컴파일 지원 중단 {id="deprecate-support-for-legacy-metadata-compilation"}
 
 > **이슈**: [KT-61817](https://youtrack.jetbrains.com/issue/KT-61817)
 >
@@ -403,7 +403,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_ 및 _
 >
 > - 2.2.0: Kotlin Gradle 플러그인에서 컴파일러 옵 제거
 
-### `KotlinCompilation.source` API 지원 중단
+### `KotlinCompilation.source` API 지원 중단 {id="deprecate-kotlincompilation-source-api"}
 
 > **이슈**: [KT-64991](https://youtrack.jetbrains.com/issue/KT-64991)
 >
@@ -419,7 +419,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_ 및 _
 > - 1.9.20: 이 경고를 오류로 격상
 > - 2.2.0: Kotlin Gradle 플러그인에서 `KotlinCompilation.source` 제거. 빌드 스크립트 컴파일 중에 이를 사용하려고 시도하면 "unresolved reference" 오류가 발생함
 
-### 타겟 프리셋(preset) API 지원 중단
+### 타겟 프리셋(preset) API 지원 중단 {id="deprecate-target-presets-apis"}
 
 > **이슈**: [KT-71698](https://youtrack.jetbrains.com/issue/KT-71698)
 >
@@ -439,7 +439,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_ 및 _
 > - 2.0.0: 이 경고를 오류로 격상
 > - 2.2.0: Kotlin Gradle 플러그인의 공개 API에서 프리셋 관련 API 제거. 여전히 이를 사용하는 소스는 "unresolved reference" 오류로 실패하며, 바이너리(예: Gradle 플러그인)는 최신 버전의 Kotlin Gradle 플러그인에 대해 다시 컴파일되지 않는 한 링크 오류로 실패할 수 있음
 
-### Apple 타겟 단축 기능(shortcuts) 지원 중단
+### Apple 타겟 단축 기능(shortcuts) 지원 중단 {id="deprecate-apple-target-shortcuts"}
 
 > **이슈**: [KT-70615](https://youtrack.jetbrains.com/issue/KT-70615)
 >
@@ -455,7 +455,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_ 및 _
 > - 2.1.0: 타겟 단축 기능 사용 시 오류 보고
 > - 2.2.0: Kotlin Multiplatform Gradle 플러그인에서 타겟 단축 기능 DSL 제거
 
-### `publishAllLibraryVariants()` 함수 지원 중단
+### `publishAllLibraryVariants()` 함수 지원 중단 {id="deprecate-publishalllibraryvariants-function"}
 
 > **이슈**: [KT-60623](https://youtrack.jetbrains.com/issue/KT-60623)
 >
@@ -469,7 +469,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_ 및 _
 >
 > - 2.2.0: `publishAllLibraryVariants()` 지원 중단
 
-### `android` 타겟 지원 중단
+### `android` 타겟 지원 중단 {id="deprecate-android-target"}
 
 > **이슈**: [KT-71608](https://youtrack.jetbrains.com/issue/KT-71608)
 >
@@ -485,7 +485,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_ 및 _
 > - 2.1.0: 이 경고를 오류로 격상
 > - 2.2.0: Kotlin Multiplatform Gradle 플러그인에서 `android` 타겟 DSL 제거
 
-### `CInteropProcess`의 `konanVersion` 지원 중단
+### `CInteropProcess`의 `konanVersion` 지원 중단 {id="deprecate-konanversion-in-cinteropprocess"}
 
 > **이슈**: [KT-71069](https://youtrack.jetbrains.com/issue/KT-71069)
 >
@@ -501,7 +501,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_ 및 _
 > - 2.2.0: 이 경고를 오류로 격상
 > - 2.3.0: Kotlin Gradle 플러그인에서 `konanVersion` 프로퍼티 제거
 
-### `CInteropProcess`의 `destinationDir` 지원 중단
+### `CInteropProcess`의 `destinationDir` 지원 중단 {id="deprecate-destinationdir-in-cinteropprocess"}
 
 > **이슈**: [KT-71068](https://youtrack.jetbrains.com/issue/KT-71068)
 >
@@ -517,7 +517,7 @@ _[언어를 현대적으로 유지하기](kotlin-evolution-principles.md)_ 및 _
 > - 2.2.0: 이 경고를 오류로 격상
 > - 2.3.0: Kotlin Gradle 플러그인에서 `destinationDir` 프로퍼티 제거
 
-### `kotlinArtifacts` API 지원 중단
+### `kotlinArtifacts` API 지원 중단 {id="deprecate-kotlinartifacts-api"}
 
 > **이슈**: [KT-74953](https://youtrack.jetbrains.com/issue/KT-74953)
 >

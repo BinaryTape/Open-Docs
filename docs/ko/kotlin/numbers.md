@@ -11,7 +11,7 @@
 
 숫자 타입은 산술 연산, 카운터, 측정 및 기타 계산과 같이 숫자 데이터를 저장하고 처리하는 데 사용됩니다.
 
-## 숫자 타입 선택하기
+## 숫자 타입 선택하기 {id="choose-a-number-type"}
 
 대부분의 경우, 다음 규칙을 참고하여 작업에 적합한 숫자 타입을 결정할 수 있습니다:
 
@@ -25,7 +25,7 @@
 >
 {style="tip"}
 
-## 정수 타입
+## 정수 타입 {id="integer-types"}
 
 코틀린은 크기와 값의 범위가 다른 네 가지 정수 타입을 제공합니다:
 
@@ -36,7 +36,7 @@
 | `Int` | 32 | -2,147,483,648 (-2<sup>31</sup>) | 2,147,483,647 (2<sup>31</sup> - 1) |
 | `Long` | 64 | -9,223,372,036,854,775,808 (-2<sup>63</sup>) | 9,223,372,036,854,775,807 (2<sup>63</sup> - 1) |
 
-### 정수 값 선언
+### 정수 값 선언 {id="declare-integer-values"}
 
 코틀린은 정수 값에 대해 다음과 같은 리터럴 형태를 지원합니다:
 
@@ -91,7 +91,7 @@ val threeBillion = 3_000_000_000 // Long
 val maybeAbsent: Int? = null
 ```
 
-## 부동 소수점 타입
+## 부동 소수점 타입 {id="floating-point-types"}
 
 소수 부분이 있는 숫자의 경우, 코틀린은 `Float`와 `Double`을 제공합니다.
 
@@ -105,7 +105,7 @@ val maybeAbsent: Int? = null
 | `Float` | 32 | 24 | 8 | 6-7 |
 | `Double` | 64 | 53 | 11 | 15-16 |    
 
-### 부동 소수점 값 선언
+### 부동 소수점 값 선언 {id="declare-floating-point-values"}
 
 부동 소수점 리터럴을 선언하려면 소수점(`.`)을 포함하거나 지수 표기법을 사용하세요:
 
@@ -132,7 +132,7 @@ val eFloat = 2.7182817f // Float
 val maybeAbsent: Double? = null
 ```
 
-## 산술 연산
+## 산술 연산 {id="arithmetic-operations"}
 
 코틀린은 숫자에 대해 표준 산술 연산인 `+`, `-`, `*`, `/`, `%`를 지원합니다.
 
@@ -157,7 +157,7 @@ fun main() {
 >
 {style="tip"}
 
-### 정수 나눗셈
+### 정수 나눗셈 {id="integer-division"}
 
 정수 값 간의 나눗셈은 항상 정수 결과를 반환합니다. 컴파일러는 소수 부분을 버립니다:
 
@@ -189,7 +189,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 타입 변환
+## 타입 변환 {id="type-conversion"}
 
 숫자 타입은 서로의 하위 타입이 아닙니다. 코틀린은 암시적인 데이터 손실과 예기치 않은 동작을 피하기 위해 명시적 변환을 요구합니다.
 
@@ -253,7 +253,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 혼합 숫자 표현식
+### 혼합 숫자 표현식 {id="mixed-numeric-expressions"}
 
 코틀린은 할당이나 함수 인수에 대해 암시적 변환을 지원하지 않습니다. 
 하지만 산술 표현식에서는 서로 다른 숫자 타입을 결합할 수 있습니다. 이러한 경우, 
@@ -275,7 +275,7 @@ val result: Int = intNumber + longNumber
 // 오류: 초기화 타입 불일치
 ```
 
-### 정수 리터럴 타입
+### 정수 리터럴 타입 {id="integer-literal-types"}
 
 타입 추론 중에 코틀린은 접미사가 없는 정수 리터럴을 주변 문맥이 특정 타입을 결정할 때까지 특별한 [정수 리터럴 타입(Integer Literal Type, ILT)](https://kotlinlang.org/spec/type-system.html#integer-literal-types)으로 취급합니다:
 
@@ -341,7 +341,7 @@ fun main() {
 > 
 {style="tip"}
 
-## 데이터 오버플로
+## 데이터 오버플로 {id="data-overflow"}
 
 숫자 타입은 정의된 범위 내의 값만 표현할 수 있습니다.
 
@@ -350,7 +350,7 @@ fun main() {
 
 이러한 동작은 컴파일러가 허용하더라도 코드 결과에 영향을 줄 수 있습니다.
 
-### 연산에서의 오버플로
+### 연산에서의 오버플로 {id="overflow-in-operations"}
 
 각 정수 타입은 정의된 범위 내의 값만 저장할 수 있습니다. 산술 연산 결과가 그 범위를 초과하면 *데이터 오버플로(data overflow)*가 발생합니다:
 
@@ -371,7 +371,7 @@ fun main(){
 >
 {style="note"}
 
-### 부정 연산에서의 오버플로
+### 부정 연산에서의 오버플로 {id="overflow-in-negation"}
 
 부정(negation) 연산 중에도 오버플로가 발생할 수 있습니다. 
 예를 들어, `Int.MIN_VALUE`의 양수 대응값은 `Int`로 표현할 수 없습니다.
@@ -386,7 +386,7 @@ fun main(){
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 축소 변환
+### 축소 변환 {id="narrowing-conversions"}
 
 값을 더 작은 정수 타입으로 변환할 때, 
 결과가 원래의 숫자 값을 유지하지 못할 수 있습니다:
@@ -414,7 +414,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 비트 연산
+## 비트 연산 {id="bitwise-operations"}
 
 코틀린은 `Int`와 `Long`에 대해 *비트 연산(bitwise operations)*을 제공합니다. 이러한 연산은 일련의 [중위 함수(infix functions)](functions.md#infix-notation)와 `inv()`로 표현됩니다.
 
@@ -440,7 +440,7 @@ fun main() {
 * `xor()` – 비트 단위 XOR
 * `inv()` – 비트 단위 반전 (bitwise inversion)
 
-## 부동 소수점 숫자 비교
+## 부동 소수점 숫자 비교 {id="floating-point-number-comparison"}
 
 코틀린에서 부동 소수점 비교는 피연산자의 정적 타입에 따라 달라집니다.
 
@@ -475,7 +475,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-numbers-floating-comp"}
 
-## JVM에서의 숫자 박싱 및 캐싱
+## JVM에서의 숫자 박싱 및 캐싱 {id="boxing-and-caching-numbers-on-the-jvm"}
 
 JVM에서 null이 될 수 없는 숫자 값은 보통 `int`, `long`, `double`과 같은 기본 타입(primitive types)을 사용하여 저장됩니다.
 하지만 [제네릭 타입](generics.md)이나 `Int?`와 같은 nullable 숫자 타입을 사용할 때, 값은 박싱되어 객체로 표현됩니다.

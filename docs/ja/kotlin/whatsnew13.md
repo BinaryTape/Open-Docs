@@ -8,17 +8,17 @@
 >
 {style="tip"}
 
-## コルーチンの正式リリース
+## コルーチンの正式リリース {id="coroutines-release"}
 
 長期にわたる広範な実戦テストを経て、コルーチン（coroutines）が正式にリリースされました！これにより、Kotlin 1.3 から言語サポートと API は[完全に安定（fully stable）](components-stability.md)しました。新しい [コルーチンの概要](coroutines-overview.md) ページをぜひチェックしてください。
 
 Kotlin 1.3 では、`suspend` 関数に対する呼び出し可能参照（callable references）と、リフレクション API におけるコルーチンのサポートが導入されました。
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 Kotlin 1.3 では、Native ターゲットの改善と磨き上げが継続されています。詳細は [Kotlin/Native の概要](native-overview.md) を参照してください。
 
-## マルチプラットフォームプロジェクト
+## マルチプラットフォームプロジェクト {id="multiplatform-projects"}
 
 1.3 では、表現力と柔軟性を向上させ、共通コードの共有をより容易にするために、マルチプラットフォームプロジェクトのモデルを完全に刷新しました。また、Kotlin/Native もターゲットの一つとしてサポートされるようになりました。
 
@@ -32,7 +32,7 @@ Kotlin 1.3 では、Native ターゲットの改善と磨き上げが継続さ�
 
 詳細については、[マルチプラットフォームプログラミングのドキュメント](https://kotlinlang.org/docs/multiplatform/get-started.html) を参照してください。
 
-## コントラクト (Contracts)
+## コントラクト (Contracts) {id="contracts"}
 
 Kotlin コンパイラは、警告を表示しボイラープレートを削減するために、広範な静的解析を行います。最も注目すべき機能の一つはスマートキャストです。これは実行された型チェックに基づいて、自動的にキャストを行う機能です。
 
@@ -93,7 +93,7 @@ fun foo() {
 }
 ```
 
-### 標準ライブラリにおけるコントラクト
+### 標準ライブラリにおけるコントラクト {id="contracts-in-stdlib"}
 
 `stdlib` はすでにコントラクトを利用しており、上述のような解析の改善に役立っています。コントラクトのこの部分は **安定（stable）** しており、追加のオプトインなしで今すぐ改善された解析の恩恵を受けることができます。
 
@@ -112,7 +112,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### カスタムコントラクト
+### カスタムコントラクト {id="custom-contracts"}
 
 独自の関数に対してコントラクトを宣言することも可能ですが、この機能は **実験的（experimental）** です。現在の構文は初期のプロトタイプ段階にあり、将来変更される可能性が非常に高いためです。また、現在の Kotlin コンパイラはコントラクトの妥当性を検証しないため、正しく健全なコントラクトを作成することはプログラマの責任であることに注意してください。
 
@@ -129,7 +129,7 @@ fun String?.isNullOrEmpty(): Boolean {
 
 構文の詳細や互換性に関する通知については、[KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/kotlin-contracts.md) を参照してください。
 
-## when の対象を変数にキャプチャする
+## when の対象を変数にキャプチャする {id="capturing-when-subject-in-a-variable"}
 
 Kotlin 1.3 では、`when` の対象を変数にキャプチャできるようになりました。
 
@@ -143,7 +143,7 @@ fun Request.getBody() =
 
 以前から `when` の直前でこの変数を抽出することは可能でしたが、`when` 内の `val` はそのスコープが適切に `when` のボディ内に制限されるため、名前空間の汚染を防ぐことができます。[when に関する完全なドキュメントはこちら](control-flow.md#when-expressions-and-statements) を参照してください。
 
-## インターフェースのコンパニオンにおける @JvmStatic および @JvmField
+## インターフェースのコンパニオンにおける @JvmStatic および @JvmField {id="jvmstatic-and-jvmfield-in-companions-of-interfaces"}
 
 Kotlin 1.3 では、インターフェースの `companion` オブジェクトのメンバに `@JvmStatic` および `@JvmField` アノテーションを付けることが可能になりました。クラスファイル内では、これらのメンバは対応するインターフェースに引き上げられ、`static` としてマークされます。
 
@@ -174,7 +174,7 @@ interface Foo {
 }
 ```
 
-## アノテーションクラス内の入れ子宣言
+## アノテーションクラス内の入れ子宣言 {id="nested-declarations-in-annotation-classes"}
 
 Kotlin 1.3 では、アノテーションの中に入れ子クラス、インターフェース、オブジェクト、およびコンパニオンを持つことができるようになりました。
 
@@ -191,7 +191,7 @@ annotation class Foo {
 }
 ```
 
-## 引数なしの main
+## 引数なしの main {id="parameterless-main"}
 
 慣例として、Kotlin プログラムのエントリポイントは `main(args: Array<String>)` のようなシグネチャを持つ関数です。ここで `args` はプログラムに渡されるコマンドライン引数を表します。しかし、すべてのアプリケーションがコマンドライン引数をサポートしているわけではないため、このパラメータは使われないまま終わることがよくあります。
 
@@ -204,7 +204,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 多数の引数を持つ関数
+## 多数の引数を持つ関数 {id="functions-with-big-arity"}
 
 Kotlin では、関数型は異なる数のパラメータを取るジェネリッククラスとして表現されます：`Function0<R>`, `Function1<P0, R>`, `Function2<P0, P1, R>`... このアプローチの問題は、このリストが有限であり、現在は `Function22` で終わっていることです。
 
@@ -216,7 +216,7 @@ fun trueEnterpriseComesToKotlin(block: (Any, Any, ... /* あと42個 */, Any) ->
 }
 ```
 
-## プログレッシブモード
+## プログレッシブモード {id="progressive-mode"}
 
 Kotlin はコードの安定性と後方互換性を非常に重視しています。Kotlin の互換性ポリシーによれば、破壊的変更（例：以前は正常にコンパイルできていたコードがコンパイルできなくなるような変更）は、メジャーリリース（**1.2**, **1.3** など）でしか導入できません。
 
@@ -229,7 +229,7 @@ Kotlin はコードの安定性と後方互換性を非常に重視していま�
 
 プログレッシブモードを有効にすると、コードの一部を書き直す必要があるかもしれませんが、それほど多くはないはずです。プログレッシブモードで有効になるすべての修正は、慎重に厳選され、レビューされ、ツールによる移行支援が提供されます。最新の言語バージョンに迅速にアップデートされる、アクティブにメンテナンスされているコードベースにとって、プログレッシブモードは良い選択肢になると期待しています。
 
-## インラインクラス (Inline classes)
+## インラインクラス (Inline classes) {id="inline-classes"}
 
 > インラインクラスは [アルファ（Alpha）](components-stability.md) 段階です。将来、互換性のない変更が行われ、手動での移行が必要になる可能性があります。
 > フィードバックを [YouTrack](https://youtrack.jetbrains.com/issues/KT) でお待ちしています。
@@ -260,7 +260,7 @@ fun main() {
 
 詳細はインラインクラスの [リファレンス](inline-classes.md) を参照してください。
 
-## 符号なし整数 (Unsigned integers)
+## 符号なし整数 (Unsigned integers) {id="unsigned-integers"}
 
 > 符号なし整数は [ベータ（Beta）](components-stability.md) 段階です。
 > 実装はほぼ安定していますが、将来的に移行ステップが必要になる可能性があります。
@@ -304,7 +304,7 @@ println("x: $x, y: $y, z: $z, range: $range")
 
 詳細は [リファレンス](unsigned-integer-types.md) を参照してください。
 
-## @JvmDefault
+## @JvmDefault {id="jvmdefault"}
 
 > `@JvmDefault` は [実験的（Experimental）](components-stability.md) です。いつでも削除または変更される可能性があります。
 > 評価目的でのみ使用してください。フィードバックを [YouTrack](https://youtrack.jetbrains.com/issues/KT) でお待ちしています。
@@ -328,9 +328,9 @@ interface Foo {
 >
 {style="warning"}
 
-## 標準ライブラリ (Standard library)
+## 標準ライブラリ (Standard library) {id="standard-library"}
 
-### マルチプラットフォーム対応の Random
+### マルチプラットフォーム対応の Random {id="multiplatform-random"}
 
 Kotlin 1.3 以前は、すべてのプラットフォームで乱数を生成する統一された方法がなく、JVM 上の `java.util.Random` のようなプラットフォーム固有のソリューションに頼る必要がありました。このリリースでは、すべてのプラットフォームで利用可能な `kotlin.random.Random` クラスを導入することで、この問題を解決しました。
 
@@ -346,11 +346,11 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### isNullOrEmpty および orEmpty 拡張機能
+### isNullOrEmpty および orEmpty 拡張機能 {id="isnullorempty-and-orempty-extensions"}
 
 一部の型に対する `isNullOrEmpty` および `orEmpty` 拡張機能は、すでに stdlib に存在していました。前者はレシーバが `null` または空の場合に `true` を返し、後者はレシーバが `null` の場合に空のインスタンスにフォールバックします。Kotlin 1.3 では、コレクション、マップ、およびオブジェクトの配列に対しても同様の拡張機能が提供されました。
 
-### 既存の 2 つの配列間での要素のコピー
+### 既存の 2 つの配列間での要素のコピー {id="copy-elements-between-two-existing-arrays"}
 
 既存の配列型（符号なし配列を含む）向けの `array.copyInto(targetArray, targetOffset, startIndex, endIndex)` 関数により、純粋な Kotlin での配列ベースのコンテナの実装が容易になりました。
 
@@ -368,7 +368,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### associateWith
+### associateWith {id="associatewith"}
 
 キーのリストがあり、それぞれのキーをある値に関連付けてマップを作成したいという状況はよくあります。以前は `associate { it to getValue(it) }` 関数で可能でしたが、より効率的で見つけやすい代替案として `keys.associateWith { getValue(it) }` を導入しました。
 
@@ -382,7 +382,7 @@ fun main() {
 }
 ```
 
-### ifEmpty および ifBlank 関数
+### ifEmpty および ifBlank 関数 {id="ifempty-and-ifblank-functions"}
 
 コレクション、マップ、オブジェクト配列、文字シーケンス、およびシーケンスに `ifEmpty` 関数が追加されました。これを使用すると、レシーバが空の場合に使用されるフォールバック値を指定できます。
 
@@ -417,24 +417,24 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### リフレクションにおける Sealed クラス
+### リフレクションにおける Sealed クラス {id="sealed-classes-in-reflection"}
 
 `kotlin-reflect` に、`sealed` クラスのすべての直接のサブタイプを列挙するために使用できる新しい API、`KClass.sealedSubclasses` を追加しました。
 
-### その他の小さな変更
+### その他の小さな変更 {id="smaller-changes"}
 
 * `Boolean` 型にコンパニオンが追加されました。
 * `null` に対して 0 を返す `Any?.hashCode()` 拡張機能。
 * `Char` に `MIN_VALUE` および `MAX_VALUE` 定数が提供されました。
 * プリミティブ型のコンパニオンに `SIZE_BYTES` および `SIZE_BITS` 定数が追加されました。
 
-## ツール (Tooling)
+## ツール (Tooling) {id="tooling"}
 
-### IDE でのコードスタイルサポート
+### IDE でのコードスタイルサポート {id="code-style-support-in-ide"}
 
 Kotlin 1.3 では、IntelliJ IDEA における [推奨コードスタイル](coding-conventions.md) のサポートが導入されました。移行ガイドラインについては、[このページ](code-style-migration-guide.md) を確認してください。
 
-### kotlinx.serialization
+### kotlinx.serialization {id="kotlinx-serialization"}
 
 [kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization) は、Kotlin におけるオブジェクトの（デ）シリアル化のためのマルチプラットフォームサポートを提供するライブラリです。以前は別のプロジェクトでしたが、Kotlin 1.3 からは他のコンパイラプラグインと同様に Kotlin コンパイラの配布物に含まれるようになりました。主な違いは、使用している Kotlin IDE プラグインのバージョンと Serialization IDE プラグインの互換性を手動で気にする必要がなくなったことです。現在、Kotlin IDE プラグインにはすでに serialization が含まれています。
 
@@ -444,7 +444,7 @@ Kotlin 1.3 では、IntelliJ IDEA における [推奨コードスタイル](cod
 >
 {style="warning"}
 
-### スクリプティングのアップデート
+### スクリプティングのアップデート {id="scripting-update"}
 
 > スクリプティングは [実験的（Experimental）](components-stability.md) です。いつでも削除または変更される可能性があります。
 > 評価目的でのみ使用してください。フィードバックを [YouTrack](https://youtrack.jetbrains.com/issues/KT) でお待ちしています。
@@ -455,7 +455,7 @@ Kotlin 1.3 ではスクリプティング API の進化と改善が続けられ�
 
 追加の詳細については、[KEEP-75](https://github.com/Kotlin/KEEP/blob/master/proposals/scripting-support.md) を参照してください。
 
-### スクラッチ（Scratches）のサポート
+### スクラッチ（Scratches）のサポート {id="scratches-support"}
 
 Kotlin 1.3 では、実行可能な Kotlin *スクラッチファイル（scratch files）* のサポートが導入されました。*スクラッチファイル* は .kts 拡張子を持つ Kotlin スクリプトファイルで、エディタ内で直接実行して評価結果を得ることができます。
 

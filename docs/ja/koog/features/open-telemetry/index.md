@@ -2,7 +2,7 @@
 
 このページでは、AI エージェントのトレースとモニタリングのための Koog エージェンティック・フレームワーク（agentic framework）における OpenTelemetry サポートの詳細について説明します。
 
-## 概要
+## 概要 {id="overview"}
 
 OpenTelemetry は、アプリケーションからテレメトリデータ（トレース）を生成、収集、エクスポートするためのツールを提供するオブザーバビリティ（可観測性）フレームワークです。Koog の OpenTelemetry 機能を使用すると、AI エージェントをインスツルメント（instrument）してテレメトリデータを収集できます。これにより、以下のことが可能になります。
 
@@ -12,7 +12,7 @@ OpenTelemetry は、アプリケーションからテレメトリデータ（ト
 - LLM の呼び出しとツール使用の追跡
 - エージェントの動作パターンの分析
 
-## OpenTelemetry の主要な概念
+## OpenTelemetry の主要な概念 {id="key-opentelemetry-concepts"}
 
 - **スパン (Spans)**: スパンは、分散トレース内での個々の作業単位または操作を表します。エージェントの実行、関数呼び出し、LLM の呼び出し、ツールの呼び出しなど、アプリケーション内の特定の活動の開始と終了を示します。
 - **属性 (Attributes)**: 属性は、スパンなどのテレメトリ関連アイテムに関するメタデータを提供します。属性はキー・バリューペアとして表されます。
@@ -29,7 +29,7 @@ Koog の OpenTelemetry 機能は、以下を含むさまざまなエージェン
 - LLM の呼び出し
 - ツールの呼び出し
 
-## インストール
+## インストール {id="installation"}
 
 Koog で OpenTelemetry を使用するには、OpenTelemetry 機能をエージェントに追加します。
 
@@ -85,9 +85,9 @@ Koog で OpenTelemetry を使用するには、OpenTelemetry 機能をエージ�
     ```
     <!--- KNIT exampleOpentelemetrySupportJava01.java -->
 
-## 設定
+## 設定 {id="configuration"}
 
-### 基本設定
+### 基本設定 {id="basic-configuration"}
 
 エージェントで OpenTelemetry 機能を設定する際に指定可能なプロパティの一覧は以下の通りです。
 
@@ -170,7 +170,7 @@ Koog で OpenTelemetry を使用するには、OpenTelemetry 機能をエージ�
 
 利用可能なメソッドのリファレンスについては、以下のセクションを参照してください。
 
-#### setServiceInfo
+#### setServiceInfo {id="setserviceinfo"}
 
 名前とバージョンを含むサービス情報を設定します。以下の引数を取ります。
 
@@ -179,7 +179,7 @@ Koog で OpenTelemetry を使用するには、OpenTelemetry 機能をエージ�
 | `serviceName`      | String    | はい |               | インスツルメントされるサービスの名前。 |
 | `serviceVersion`   | String    | はい |               | インスツルメントされるサービスのバージョン。 |
 
-#### addSpanExporter
+#### addSpanExporter {id="addspanexporter"}
 
 テレメトリデータを外部システムに送信するためのスパンエクスポーターを追加します。以下の引数を取ります。
 
@@ -191,7 +191,7 @@ Kotlin SDK (`io.opentelemetry.kotlin.tracing.export.SpanExporter`) と Java SDK 
 
 エクスポーターは `batchSpanProcessor` の背後に登録されます。これは本番環境における OpenTelemetry 推奨のデフォルト設定です。スパンはバッファリングされ、ワーカースレッドでフラッシュされるため、スパンの終了時にエージェントがネットワーク I/O でブロックされることはありません。プロセッサーを完全に制御する必要がある場合（カスタムバッチ処理パラメータ、テスト用のシンプルなプロセッサー、または複合プロセッサーなど）は、代わりに [`addSpanProcessor`](#addspanprocessor) を使用してください。
 
-#### addSpanProcessor
+#### addSpanProcessor {id="addspanprocessor"}
 
 [`addSpanExporter`](#addspanexporter) による `batchSpanProcessor` のラッピングをバイパスして、`SpanProcessor` を直接登録します。ファクトリは SDK の `TraceExportConfigDsl` スコープ内で実行され、`batchSpanProcessor`、`simpleSpanProcessor`、および `compositeSpanProcessor` を公開します。以下の引数を取ります。
 
@@ -207,7 +207,7 @@ Kotlin SDK (`io.opentelemetry.kotlin.tracing.export.SpanExporter`) と Java SDK 
 
 Java SDK エクスポーターの場合は、まず compat パッケージの `toOtelKotlinSpanExporter()` でラップしてください。
 
-#### addResourceAttributes
+#### addResourceAttributes {id="addresourceattributes"}
 
 サービスに関する追加のコンテキストを提供するためのリソース属性を追加します。以下の引数を取ります。
 
@@ -215,7 +215,7 @@ Java SDK エクスポーターの場合は、まず compat パッケージの `t
 |--------------|--------------------|----------|---------------|------------------------------------------------------------------------|
 | `attributes` | `Map<String, Any>` | はい |               | サービスに関する詳細情報を提供するキー・バリューペア。サポートされている値の型: `String`, `Long`, `Double`, `Boolean` |
 
-#### setVerbose
+#### setVerbose {id="setverbose"}
 
 詳細なロギングを有効または無効にします。以下の引数を取ります。
 
@@ -227,7 +227,7 @@ Java SDK エクスポーターの場合は、まず compat パッケージの `t
 
     セキュリティ上の理由から、OpenTelemetry スパンの一部のコンテンツはデフォルトでマスクされます。例えば、LLM のメッセージは実際のメッセージ内容ではなく `HIDDEN:non-empty` としてマスクされます。内容を取得するには、`verbose` 引数の値を `true` に設定してください。
 
-#### addMetricExporter
+#### addMetricExporter {id="addmetricexporter"}
 
 メトリクスデータを外部システムに送信するためのメトリクスエクスポーターを追加します。以下の引数を取ります。
 
@@ -238,7 +238,7 @@ Java SDK エクスポーターの場合は、まず compat パッケージの `t
 
 メトリクスエクスポーターが登録されていない場合、メトリクスは無効になります。メトリクスは Java OpenTelemetry SDK に支えられた JVM 限定の機能です。Kotlin Multiplatform SDK 0.2.0 では、まだメトリクス API は公開されていません。
 
-#### addMetricFilter
+#### addMetricFilter {id="addmetricfilter"}
 
 特定のメトリクスインストゥルメントに対して報告される属性キーを制限します。これにより、リストにない属性を削除する OpenTelemetry の `View` がインストールされます。以下の引数を取ります。
 
@@ -249,7 +249,7 @@ Java SDK エクスポーターの場合は、まず compat パッケージの `t
 
 これを使用して、高カーディナリティ（high-cardinality）な属性（リクエスト識別子など）がメトリクスバックエンドを圧迫するのを防ぎつつ、メトリクス自体はエクスポートし続けることができます。
 
-### 高度な設定
+### 高度な設定 {id="advanced-configuration"}
 
 より高度な設定を行うために、リソース属性をカスタマイズして、テレメトリデータを生成しているプロセスに関する情報をさらに追加することもできます。
 
@@ -328,7 +328,7 @@ Java SDK エクスポーターの場合は、まず compat パッケージの `t
     ```
     <!--- KNIT exampleOpentelemetrySupportJava03.java -->
 
-#### リソース属性
+#### リソース属性 {id="resource-attributes"}
 
 リソース属性は、テレメトリデータを生成するプロセスに関する追加情報を表します。Koog には、デフォルトで設定される一連のリソース属性が含まれています。
 
@@ -402,7 +402,7 @@ Java SDK エクスポーターの場合は、まず compat パッケージの `t
     ```
     <!--- KNIT exampleOpentelemetrySupportJava04.java -->
 
-## トレースの対象
+## トレースの対象 {id="what-gets-traced"}
 
 OpenTelemetry 機能は以下のエージェント活動をキャプチャします。
 
@@ -415,7 +415,7 @@ OpenTelemetry 機能は以下のエージェント活動をキャプチャしま
 
 個々のスパンの種類と属性の詳細な内訳については、[スパンの種類と属性](#span-types-and-attributes) を参照してください。
 
-## スパンの種類と属性
+## スパンの種類と属性 {id="span-types-and-attributes"}
 
 OpenTelemetry 機能は、エージェント内のさまざまな操作を追跡するために、異なる種類のスパンを自動的に作成します。
 
@@ -444,7 +444,7 @@ CreateAgentSpan
 ```
 <!--- KNIT example-opentelemetry-support-01.txt -->
 
-### スパン属性
+### スパン属性 {id="span-attributes"}
 
 スパン属性は、スパンに関連するメタデータを提供します。各スパンには独自の属性セットがありますが、一部のスパンでは属性が重複する場合もあります。
 
@@ -461,7 +461,7 @@ Koog は、OpenTelemetry の [生成 AI スパン用セマンティック・コ�
 - `koog.subgraph.output`: 完了時にサブグラフによって生成された出力。サブグラフが正常に完了したときの `SubgraphExecuteSpan` に存在します。
 - `koog.moderation.result`: LLM 呼び出しに対する JSON エンコードされたモデレーション結果（利用可能な場合）。モデレーションが実行された場合のみ `InferenceSpan` に存在します。OpenTelemetry 生成 AI セマンティック・コンベンションにはモデレーション属性が定義されていないため、Koog はこれを `koog.` 名前空間の下で公開します。
 
-### メッセージ内容
+### メッセージ内容 {id="message-content"}
 
 OpenTelemetry 生成 AI セマンティック・コンベンションに従い、メッセージ内容はメッセージごとのイベントではなく、2 つのスパン属性を介して `InferenceSpan` に保持されます。
 
@@ -470,7 +470,7 @@ OpenTelemetry 生成 AI セマンティック・コンベンションに従い�
 
 Koog の以前のバージョンでは、メッセージ内容をキャプチャするためにメッセージごとの OpenTelemetry イベント (`gen_ai.system.message`, `gen_ai.user.message`, `gen_ai.assistant.message`, `gen_ai.tool.message`, `gen_ai.choice`) を出力していました。これらのイベントは OpenTelemetry 生成 AI 仕様から削除されたため、Koog からも出力されなくなりました。インデックス化された `gen_ai.prompt.{i}.*` / `gen_ai.completion.{i}.*` 形式を依然として期待するバックエンド（Langfuse、Weave）は、対応するスパンアダプターを介して引き続きそれらを受信します。
 
-## メトリクス
+## メトリクス {id="metrics"}
 
 スパンに加えて、OpenTelemetry 機能は OpenTelemetry の [生成 AI メトリクス用セマンティック・コンベンション](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-metrics/) に従ったメトリクスを出力します。メトリクスは [addMetricExporter](#addmetricexporter) を介して設定されたメータープロバイダーを通じてエクスポートされます。エクスポーターが登録されていない場合、デフォルトでコンソールの `LoggingMetricExporter` が使用されます。
 
@@ -487,14 +487,14 @@ Koog の以前のバージョンでは、メッセージ内容をキャプチャ
 - `gen_ai.client.token.usage`: `[1, 4, 16, 64, 256, 1024, 4096, 16384, 65536, 262144, 1048576, 4194304, 16777216, 67108864]`
 - `gen_ai.client.operation.duration`: `[0.01, 0.02, 0.04, 0.08, 0.16, 0.32, 0.64, 1.28, 2.56, 5.12, 10.24, 20.48, 40.96, 81.92]`
 
-### gen_ai.provider.name
+### gen_ai.provider.name {id="genai-provider-name"}
 
 すべてのデータポイントには `gen_ai.provider.name` 属性が付与されます。
 
 - `text_completion` 操作の場合、値は LLM プロバイダー ID（例: `openai`, `anthropic`）です。
 - `execute_tool` 操作の場合、ツールの実行はサードパーティプロバイダーではなくプロセス内で発生するため、値は `koog` になります。MCP ツール実行はこの値を維持しつつ、対応するスパン上の個別の `mcp.*` 属性を通じて MCP 固有の詳細を表示します。これにより、ツールメトリクスのカーディナリティを低く保つことができます。
 
-### error.type
+### error.type {id="error-type"}
 
 `error.type` は、生成 AI セマンティック・コンベンションの要件に従い、失敗した `gen_ai.client.operation.duration` データポイントにのみ設定されます。値は失敗の原因となったエラーの正規の Java クラス名であるため、例外階層によって制限され、メトリクスディメンションとして安全に使用できます。
 
@@ -504,13 +504,13 @@ Koog の以前のバージョンでは、メッセージ内容をキャプチャ
 
 この属性は、成功した操作には設定されません。
 
-### restrictToolNameCardinality
+### restrictToolNameCardinality {id="restricttoolnamecardinality"}
 
 ツールメトリクスには `gen_ai.tool.name` がラベル付けされます。名前が動的またはユーザー生成であるツールを公開する場合、ツール名のカーディナリティが無制限に増加する可能性があります。`restrictToolNameCardinality` を使用して、許可リスト外の名前を単一のフォールバック値にマップしてください。
 
 任意のインストゥルメントおよび属性キーに適用されるメトリクス固有 of 属性フィルタリングについては、[addMetricFilter](#addmetricfilter) を使用してください。
 
-## エクスポーター
+## エクスポーター {id="exporters"}
 
 エクスポーターは、収集されたテレメトリデータを OpenTelemetry コレクター、または他の種類の宛先やバックエンド実装に送信します。エクスポーターを追加するには、OpenTelemetry 機能をインストールするときに `addSpanExporter()` メソッドを使用します。このメソッドは以下の引数を取ります。
 
@@ -523,7 +523,7 @@ Koog の以前のバージョンでは、メッセージ内容をキャプチャ
 !!! note
     カスタムエクスポーターを設定しない場合、Koog はデフォルトでコンソールの標準出力（stdout）エクスポーターを使用します。これはローカルでの開発やデバッグに役立ちます。
 
-### Logging エクスポーター
+### Logging エクスポーター {id="logging-exporter"}
 
 トレース情報をコンソールに出力するロギングエクスポーターです。`LoggingSpanExporter` (`io.opentelemetry.exporter.logging.LoggingSpanExporter`) は、`opentelemetry-java` SDK の一部です。
 
@@ -589,7 +589,7 @@ Koog の以前のバージョンでは、メッセージ内容をキャプチャ
     ```
     <!--- KNIT exampleOpentelemetrySupportJava05.java -->
 
-### OpenTelemetry HTTP エクスポーター
+### OpenTelemetry HTTP エクスポーター {id="opentelemetry-http-exporter"}
 
 OpenTelemetry HTTP エクスポーター (`OtlpHttpSpanExporter`) は、`opentelemetry-java` SDK (`io.opentelemetry.exporter.otlp.http.trace.OtlpHttpSpanExporter`) の一部であり、HTTP を介してバックエンドにスパンデータを送信します。
 
@@ -673,7 +673,7 @@ OpenTelemetry HTTP エクスポーター (`OtlpHttpSpanExporter`) は、`opentel
     ```
     <!--- KNIT exampleOpentelemetrySupportJava06.java -->
 
-### OpenTelemetry gRPC エクスポーター
+### OpenTelemetry gRPC エクスポーター {id="opentelemetry-grpc-exporter"}
 
 OpenTelemetry gRPC エクスポーター (`OtlpGrpcSpanExporter`) は、`opentelemetry-java` SDK (`io.opentelemetry.exporter.otlp.trace.OtlpGrpcSpanExporter`) の一部です。これは gRPC を介してバックエンドにテレメトリデータをエクスポートし、データを受信するバックエンド、コレクター、またはエンドポイントのホストとポートを定義できます。デフォルトのポートは `4317` です。
 
@@ -745,7 +745,7 @@ OpenTelemetry gRPC エクスポーター (`OtlpGrpcSpanExporter`) は、`opentel
     ```
     <!--- KNIT exampleOpentelemetrySupportJava07.java -->
 
-## Langfuse との統合
+## Langfuse との統合 {id="integration-with-langfuse"}
 
 Langfuse は、LLM/エージェントのワークロードに対するトレースの可視化と分析を提供します。
 
@@ -818,7 +818,7 @@ Koog を設定して、ヘルパー関数を使用して OpenTelemetry トレー
 
 Langfuse との統合に関する詳細は、[完全なドキュメント](opentelemetry-langfuse-exporter.md) をお読みください。
 
-## W&B Weave との統合
+## W&B Weave との統合 {id="integration-with-w-b-weave"}
 
 W&B Weave は、LLM/エージェントのワークロードに対するトレースの可視化と分析を提供します。W&B Weave との統合は、定義済みのエクスポーターを介して設定できます。
 
@@ -891,7 +891,7 @@ W&B Weave は、LLM/エージェントのワークロードに対するトレー
 
 W&B Weave との統合に関する詳細は、[完全なドキュメント](opentelemetry-weave-exporter.md) をお読みください。
 
-## Datadog との統合
+## Datadog との統合 {id="integration-with-datadog"}
 
 Datadog は、クラウドスケールのアプリケーション向けのモニタリング、オブザーバビリティ、および分析を提供します。Datadog との統合は、定義済みのエクスポーターを介して設定できます。
 
@@ -960,11 +960,11 @@ Datadog は、クラウドスケールのアプリケーション向けのモニ
 
 Datadog との統合に関する詳細は、[完全なドキュメント](opentelemetry-datadog-exporter.md) をお読みください。
 
-## Jaeger との統合
+## Jaeger との統合 {id="integration-with-jaeger"}
 
 Jaeger は、OpenTelemetry で動作する人気のある分散トレースシステムです。Koog リポジトリの `examples` 内にある `opentelemetry` ディレクトリには、Jaeger と Koog エージェントで OpenTelemetry を使用する例が含まれています。
 
-### 前提条件
+### 前提条件 {id="prerequisites"}
 
 Koog と Jaeger で OpenTelemetry をテストするには、提供されている `docker-compose.yaml` ファイルを使用して、Jaeger OpenTelemetry オールインワン・プロセスを開始します。以下のコマンドを実行してください。
 
@@ -991,7 +991,7 @@ services:
 
 Jaeger UI にアクセスしてトレースを表示するには、`http://localhost:16686` を開いてください。
 
-### 例
+### 例 {id="example"}
 
 Jaeger で使用するためにテレメトリデータをエクスポートする際、この例では `opentelemetry-java` SDK の `LoggingSpanExporter` (`io.opentelemetry.exporter.logging.LoggingSpanExporter`) と `OtlpGrpcSpanExporter` (`io.opentelemetry.exporter.otlp.trace.OtlpGrpcSpanExporter`) を使用します。
 
@@ -1094,9 +1094,9 @@ Check Jaeger UI at http://localhost:16686 to view traces"
     ```
     <!--- KNIT exampleOpentelemetrySupportJava11.java -->
 
-## トラブルシューティング
+## トラブルシューティング {id="troubleshooting"}
 
-### よくある問題
+### よくある問題 {id="common-issues"}
 
 1. **バックエンドにトレースが表示されない**
     - 必要なすべての環境変数がシェルで設定およびエクスポートされているか確認してください。
@@ -1121,7 +1121,7 @@ Check Jaeger UI at http://localhost:16686 to view traces"
 5. **スパンアダプターが互いに上書きされる**
     - 現在、OpenTelemetry エージェント機能は複数のスパンアダプターの適用をサポートしていません [KG-265](https://youtrack.jetbrains.com/issue/KG-265/Adding-Weave-exporter-breaks-Langfuse-exporter)。
 
-## MCP (Model Context Protocol) テレメトリのサポート
+## MCP (Model Context Protocol) テレメトリのサポート {id="mcp-model-context-protocol-telemetry-support"}
 
 Koog は、[公式の OpenTelemetry MCP 用セマンティック・コンベンション](https://github.com/open-telemetry/semantic-conventions/pull/2083) に従って、MCP 操作に対する包括的な OpenTelemetry インスツルメンテーションを提供します。
 
@@ -1133,7 +1133,7 @@ MCP テレメトリサポートには以下が含まれます。
 - MCP クライアント操作 (tools/call) の **クライアントサイド・インスツルメンテーション**
 - 必須、条件付き必須、および推奨されるすべての属性を備えた **完全なセマンティック・コンベンションへの準拠**
 
-### MCP 属性
+### MCP 属性 {id="mcp-attributes"}
 
 MCP テレメトリは OpenTelemetry セマンティック・コンベンションに従い、以下の属性グループが含まれます。
 
@@ -1152,20 +1152,20 @@ MCP テレメトリは OpenTelemetry セマンティック・コンベンショ�
 - `network.transport`: トランスポートタイプ (標準入出力の場合は "pipe"、HTTP の場合は "tcp")
 - `server.address` および `server.port`: クライアント操作用
 
-### スパンの命名規則
+### スパンの命名規則 {id="span-naming-convention"}
 
 MCP スパンは次の命名規則に従います: `{mcp.method.name} {target}`
 
 ここで `{target}` は、該当する場合のツール名またはプロンプト名です。例：
 - `"tools/call search"` - "search" という名前のツールを呼び出す場合
 
-### ベストプラクティス
+### ベストプラクティス {id="best-practices"}
 
 - 永続的な MCP セッションを操作する場合は、セッションの追跡を可能にするために **常にセッション ID を設定** してください。
 - 完全なリクエストトレースのために、JSON-RPC リクエストから **リクエスト ID を伝播** させてください。
 - MCP 操作のパフォーマンスのボトルネックを特定するために **メトリクスを監視** してください。
 
-### 例: テレメトリを備えた完全な MCP クライアント
+### 例: テレメトリを備えた完全な MCP クライアント {id="example-full-mcp-client-with-telemetry"}
 
 === "Kotlin"
 

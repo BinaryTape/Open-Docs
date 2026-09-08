@@ -11,11 +11,11 @@
 
 本教程基于我们的 [多平台库模板](https://github.com/Kotlin/multiplatform-library-template)，这是一个包含生成斐波那契数列函数的简单库。
 
-## 设置环境 
+## 设置环境 {id="set-up-the-environment"}
 
 [安装所有必要的工具并将其更新到最新版本](quickstart.md)。
 
-## 创建项目
+## 创建项目 {id="create-a-project"}
 
 1. 在 IntelliJ IDEA 中，选择 **File** | **New** | **Project from Version Control**。
 2. 输入 [多平台库模板项目](https://github.com/Kotlin/multiplatform-library-template) 的 URL：
@@ -26,7 +26,7 @@
    
 3. 点击 **Clone**。
 
-## 检查项目结构
+## 检查项目结构 {id="examine-the-project-structure"}
 
 Kotlin Multiplatform 库模板项目为开发 Kotlin Multiplatform 库提供了基础结构。此模板有助于创建可以跨各种平台运行的库。
 
@@ -83,13 +83,13 @@ actual val secondElement: Int = 2
 
 其他平台遵循相同的模式，只是 `firstElement` 和 `secondElement` 属性的值有所变化。
 
-## 添加新平台
+## 添加新平台 {id="add-a-new-platform"}
 
 现在您已经熟悉了共享代码和平台特定代码在模板中是如何工作的，让我们通过添加对额外平台的支持来扩展项目。
 
 通过使用 [expect / actual 机制](multiplatform-connect-to-apis.md#expected-and-actual-functions-and-properties) 配置对 [Kotlin/Wasm](https://kotlinlang.org/docs/wasm-overview.html) 平台的支持，然后为 `firstElement` 和 `secondElement` 属性实现平台特定的功能。
 
-### 将 Kotlin/Wasm 目标添加到您的项目
+### 将 Kotlin/Wasm 目标添加到您的项目 {id="add-the-kotlin-wasm-target-to-your-project"}
 
 1. 在 `library/build.gradle.kts` 文件中，添加 Kotlin/Wasm 目标 (`wasmJs`) 和源集：
 
@@ -113,7 +113,7 @@ actual val secondElement: Int = 2
 
 2. 点击构建文件中显示的 **Sync Gradle Changes** 图标 (![Gradle sync icon](gradle-sync-icon.png){width=30}{type="joined"}) 同步 Gradle 文件。或者，点击 Gradle 工具窗口中的刷新按钮。
 
-### 为 Wasm 创建平台特定代码
+### 为 Wasm 创建平台特定代码 {id="create-platform-specific-code-for-wasm"}
 
 添加 Wasm 目标后，您需要一个 Wasm 目录来存放 `firstElement` 和 `secondElement` 的平台特定实现：
 
@@ -135,7 +135,7 @@ actual val secondElement: Int = 2
 
     此代码设置了 Wasm 特有的实现，将 `firstElement` 的 `actual` 值定义为 `3`，将 `secondElement` 定义为 `5`。
 
-### 构建项目
+### 构建项目 {id="build-the-project"}
 
 确保您的项目在新平台上能够正确编译：
 
@@ -152,7 +152,7 @@ actual val secondElement: Int = 2
 
 您可以在 **Build** 工具窗口中看到成功的输出。 
 
-## 将库发布到本地 Maven 仓库
+## 将库发布到本地 Maven 仓库 {id="publish-your-library-to-the-local-maven-repository"}
 
 您的多平台库已准备好进行本地发布，以便您可以在同一台机器上的其他项目中使用它。
 
@@ -194,7 +194,7 @@ actual val secondElement: Int = 2
 
 要找到已发布的构件，请使用文件浏览器或终端并导航到 `~\.m2\repository\io\github\kotlin\library\1.0.0\` 目录。
 
-## 将库作为依赖项添加到另一个项目中
+## 将库作为依赖项添加到另一个项目中 {id="add-your-library-as-a-dependency-in-another-project"}
 
 将多平台库发布到本地 Maven 仓库后，您就可以在同一台机器上的其他 Kotlin 项目中使用它。
 
@@ -238,7 +238,7 @@ val seq = generateFibi()
 println(seq.elementAt(3))
 ```
 
-## 后续步骤
+## 后续步骤 {id="what-s-next"}
 
 我们鼓励您进一步探索多平台开发：
 

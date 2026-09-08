@@ -10,7 +10,7 @@ Kotlin을 최대한 활용하려면 기존 라이브러리와 API를 사용하�
 
 Kotlin으로 무엇이 가능한지 살펴보겠습니다.
 
-## 표준 라이브러리
+## 표준 라이브러리 {id="the-standard-library"}
 
 Kotlin에는 코드를 간결하고 표현력 있게 만들어주는 필수 타입, 함수, 컬렉션 및 유틸리티를 제공하는 표준 라이브러리가 있습니다. 표준 라이브러리의 많은 부분([`kotlin` 패키지](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/)에 있는 모든 것)은 명시적으로 임포트할 필요 없이 모든 Kotlin 파일에서 즉시 사용할 수 있습니다.
 
@@ -62,7 +62,7 @@ fun main() {
 * `hours` 프로퍼티를 사용하여 `0.5`를 30분이라는 `Duration`으로 변환합니다.
 * 두 기간이 동일한지 확인하고 결과를 출력합니다.
 
-### 직접 만들기 전에 검색하세요
+### 직접 만들기 전에 검색하세요 {id="search-before-you-build"}
 
 직접 코드를 작성하기로 결정하기 전에, 찾고 있는 기능이 표준 라이브러리에 이미 존재하는지 확인하세요. 다음은 표준 라이브러리가 이미 다양한 클래스, 함수 및 프로퍼티를 제공하고 있는 영역 목록입니다:
 
@@ -73,7 +73,7 @@ fun main() {
 
 표준 라이브러리에 무엇이 더 있는지 알아보려면 [API 레퍼런스](https://kotlinlang.org/api/core/kotlin-stdlib/)를 살펴보세요.
 
-## Kotlin 라이브러리
+## Kotlin 라이브러리 {id="kotlin-libraries"}
 
 표준 라이브러리는 많은 일반적인 사용 사례를 다루지만, 그렇지 않은 경우도 있습니다. 다행히 Kotlin 팀과 커뮤니티는 표준 라이브러리를 보완하기 위해 광범위한 라이브러리를 개발했습니다. 예를 들어, [`kotlinx-datetime`](https://kotlinlang.org/api/kotlinx-datetime/)은 다양한 플랫폼에서 시간을 관리하는 데 도움을 줍니다.
 
@@ -109,7 +109,7 @@ fun main() {
 >
 {style="tip"}
 
-## API 옵트인
+## API 옵트인 {id="opt-in-to-apis"}
 
 라이브러리 작성자는 코드에서 사용하기 전에 옵트인(opt-in)이 필요한 것으로 특정 API를 표시할 수 있습니다. 일반적으로 API가 아직 개발 중이며 향후 변경될 수 있는 경우에 이렇게 합니다. 옵트인하지 않으면 다음과 같은 경고나 오류가 표시됩니다:
 
@@ -150,7 +150,7 @@ fun main() {
 
 이것이 옵트인하는 가장 쉬운 방법이지만 다른 방법도 있습니다. 자세히 알아보려면 [옵트인 요구 사항](opt-in-requirements.md)을 참조하세요.
 
-## 연습 문제 {completion-point="true"}
+## 연습 문제 {completion-point="true" id="practice"}
 
 ### 연습 문제 1 {initial-collapse-state="collapsed" collapsible="true" id="libraries-exercise-1"}
 
@@ -268,7 +268,7 @@ fun main() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="예시 솔루션" id="kotlin-tour-libraries-solution-3"}
 
-## 다음 단계는 무엇인가요?
+## 다음 단계는 무엇인가요? {id="what-s-next"}
 
 축하합니다! 중급 투어를 마쳤습니다! 여러분의 경험에 대한 [피드백을 공유](https://surveys.hotjar.com/bf4ce865-99ce-4fc1-b107-e9b16bc31592)해 주시겠어요? 
 

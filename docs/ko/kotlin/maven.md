@@ -21,7 +21,7 @@ Kotlin Maven 프로젝트를 작업할 때의 일반적인 워크플로는 다�
 >
 {style="tip"}
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [`power-assert` 플러그인](power-assert.md#maven)으로 **디버깅 환경을 개선**해 보세요.
 * [`kover-maven-plugin`](https://kotlin.github.io/kotlinx-kover/maven-plugin/)으로 **테스트 커버리지를 측정하고 리포트를 생성**해 보세요.

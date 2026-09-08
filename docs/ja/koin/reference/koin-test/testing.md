@@ -2,7 +2,7 @@
 title: テストでのインジェクション
 ---
 
-## KoinTest でテストを KoinComponent にする
+## KoinTest でテストを KoinComponent にする {id="making-your-test-a-koincomponent-with-kointest"}
 
 *警告*: これは Android のインストゥルメンテッドテスト（Instrumented tests）には適用されません。Android でのインストゥルメンテッドテストについては、[Android Instrumented Testing](/docs/reference/koin-android/instrumented-testing) を参照してください。
 
@@ -43,9 +43,9 @@ class MyTest : KoinTest {
  アプリを部分的に構築するために、Koin モジュールの設定をオーバーロードすることをためらわないでください。
 :::
 
-## JUnit ルール
+## JUnit ルール {id="junit-rules"}
 
-### テスト用の Koin コンテキストを作成する
+### テスト用の Koin コンテキストを作成する {id="create-a-koin-context-for-your-test"}
 
 以下のルールを使用することで、各テストに対して Koin コンテキストを簡単に作成・保持できます：
 
@@ -57,7 +57,7 @@ val koinTestRule = KoinTestRule.create {
 }
 ```
 
-### モックプロバイダーの指定
+### モックプロバイダーの指定 {id="specify-your-mock-provider"}
 
 `declareMock` API を使用するには、Koin にモックインスタンスの構築方法を伝えるルールを指定する必要があります。これにより、ニーズに合った適切なモッキングフレームワークを選択できます。
 
@@ -83,7 +83,7 @@ val mockProvider = MockProviderRule.create { clazz ->
 
 !> koin-test プロジェクトは、現在 Mockito に依存していません。
 
-## 標準機能でのモッキング
+## 標準機能でのモッキング {id="mocking-out-of-the-box"}
 
 モックが必要になるたびに新しいモジュールを作成する代わりに、`declareMock` を使用してその場でモックを宣言できます：
 
@@ -126,7 +126,7 @@ class MyTest : KoinTest {
  `declareMock` では、`single` か `factory` か、またモジュールパスに配置するかどうかを指定できます。
 :::
 
-## コンポーネントの動的な宣言
+## コンポーネントの動的な宣言 {id="declaring-a-component-on-the-fly"}
 
 モックでは不十分で、かつそのためのモジュールをわざわざ作成したくない場合は、`declare` を使用できます：
 
@@ -143,7 +143,7 @@ class MyTest : KoinTest {
     }
 ```
 
-## Koin モジュールのチェック
+## Koin モジュールのチェック {id="checking-your-koin-modules"}
 
 Koin は、Koin モジュールが正しいかどうかをテストする方法を提供しています：`verify()` - 定義ツリーを走査し、各定義がバインドされているかチェックします。
 
@@ -158,17 +158,17 @@ fun checkKoinModules() {
 `checkModules()` API は非推奨（Deprecated）になりました。Koin Compiler Plugin がコンパイル時の依存関係検証を提供するようになったため、`verify()` と `checkModules()` の両方が不要になります。詳細は [Compile-Time Safety](/docs/reference/koin-compiler/compile-safety) を参照してください。
 :::
 
-## テストでの Koin の開始と停止
+## テストでの Koin の開始と停止 {id="starting-stopping-koin-for-your-tests"}
 
 テストごとに Koin インスタンスを停止する（テスト内で `startKoin` を使用する場合）ように注意してください。そうでない場合は、ローカルの Koin インスタンスには `koinApplication` を使用するか、現在のグローバルインスタンスを停止するために `stopKoin()` を使用してください。
 
-## JUnit 5 でのテスト
+## JUnit 5 でのテスト {id="testing-with-junit5"}
 JUnit 5 のサポートでは、Koin コンテキストの開始と停止を処理する [Extensions](https://junit.org/junit5/docs/current/user-guide/#extensions) が提供されています。つまり、この extension を使用している場合は `AutoCloseKoinTest` を使用する必要はありません。
 
-### 依存関係
+### 依存関係 {id="dependency"}
 JUnit 5 でテストするには、`koin-test-junit5` の依存関係を使用する必要があります。
 
-### テストの記述
+### テストの記述 {id="writing-tests"}
 `KoinTestExtension` を登録し、モジュール設定を提供する必要があります。これが完了したら、テストでコンポーネントを取得（get）またはインジェクト（inject）できます。`@RegisterExtension` と併せて `@JvmField` を使用することを忘れないでください。
 
 ```kotlin
@@ -195,7 +195,7 @@ class ExtensionTests: KoinTest {
 
 ```
 
-### Mocking with JUnit5
+### Mocking with JUnit5 {id="mocking-with-junit5"}
 これは、`@RegisterExtension` を使用する必要がある点を除けば、JUnit 4 と同じように動作します。
 
 ```kotlin
@@ -230,7 +230,7 @@ class MockExtensionTests: KoinTest {
 }
 ```
 
-### 作成された Koin インスタンスの取得
+### 作成された Koin インスタンスの取得 {id="getting-the-created-koin-instances"}
 作成された Koin コンテキストを関数のパラメータとして取得することもできます。これは、テスト関数に関数パラメータを追加することで実現できます。
 
 ```kotlin

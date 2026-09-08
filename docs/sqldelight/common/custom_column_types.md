@@ -1,4 +1,4 @@
-## 自定义列类型
+## 自定义列类型 {id="custom-column-types"}
 
 如果您希望以自定义类型检索列，可以指定一个 Kotlin 类型：
 
@@ -32,7 +32,7 @@ val queryWrapper: Database = Database(
 )
 ```
 
-## 枚举
+## 枚举 {id="enums"}
 
 为了方便起见，SQLDelight 运行时包含了一个 `ColumnAdapter`，用于将枚举作为字符串数据存储。
 
@@ -53,7 +53,7 @@ val queryWrapper: Database = Database(
 )
 ```
 
-## 值类型
+## 值类型 {id="value-types"}
 
 如果需要，SQLDelight 可以为列生成一个值类型，用于包装底层数据库类型：
 

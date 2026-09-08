@@ -25,7 +25,7 @@ Gradleプラグインバリアントを使用することで、Kotlinチーム�
 
 ビルドでどのバリアントが使用されているかを確認するには、[`--info` ログレベル](https://docs.gradle.org/current/userguide/logging.html#sec:choosing_a_log_level)を有効にし、出力の中から `Using Kotlin Gradle plugin` で始まる文字列（例：`Using Kotlin Gradle plugin main variant`）を探してください。
 
-## トラブルシューティング
+## トラブルシューティング {id="troubleshooting"}
 
 > 以下は、Gradleにおけるバリアント選択に関する既知の問題の回避策です：
 > * [pluginManagement内のResolutionStrategyがマルチバリアントを持つプラグインで機能しない](https://github.com/gradle/gradle/issues/20545)
@@ -33,7 +33,7 @@ Gradleプラグインバリアントを使用することで、Kotlinチーム�
 >
 {style="note"}
 
-### GradleがカスタムコンフィギュレーションでKGPバリアントを選択できない
+### GradleがカスタムコンフィギュレーションでKGPバリアントを選択できない {id="gradle-can-t-select-a-kgp-variant-in-a-custom-configuration"}
 
 Gradleがカスタムコンフィギュレーション（Custom Configuration）においてKGPバリアントを選択できないのは、想定されている挙動です。
 カスタムGradleコンフィギュレーションを使用している場合：
@@ -152,6 +152,6 @@ configurations {
                  - Unmatched attributes:
 ```
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 [Gradleの基本と詳細](https://docs.gradle.org/current/userguide/userguide.html)について詳しく学びましょう。

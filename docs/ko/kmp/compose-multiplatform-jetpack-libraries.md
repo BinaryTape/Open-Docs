@@ -27,7 +27,7 @@ Compose Multiplatform Gradle 플러그인은 플랫폼별 아티팩트를 각 �
 이 접근 방식을 통해, 해당 의존성을 가진 Kotlin Multiplatform(KMP) 프로젝트에서 생성된 Android 앱은 원본 Android Navigation 라이브러리를 사용합니다.
 반면, iOS 앱은 JetBrains에서 빌드한 해당 iOS 라이브러리를 사용합니다.
 
-## 멀티플랫폼 프로젝트에서 사용 가능한 Compose 패키지
+## 멀티플랫폼 프로젝트에서 사용 가능한 Compose 패키지 {id="compose-packages-available-for-multiplatform-projects"}
 
 기본 Compose 라이브러리 중 핵심인 `androidx.compose.runtime`은 완전한 멀티플랫폼을 지원합니다.
   ([이전에 사용되었던](whats-new-compose-190.md#multiplatform-targets-in-androidx-compose-runtime-runtime)
@@ -39,7 +39,7 @@ Compose Multiplatform Gradle 플러그인은 플랫폼별 아티팩트를 각 �
      따라서 `material3` 에일리어스 대신 직접적인 의존성을 제공할 수 있습니다. 예를 들어, EAP 버전을 사용할 수 있습니다.
    * 독립형 아티팩트 형태의 Material 3 adaptive 라이브러리 (`org.jetbrains.compose.material3.adaptive:adaptive*`)
 
-## 추가 멀티플랫폼 라이브러리
+## 추가 멀티플랫폼 라이브러리 {id="additional-multiplatform-libraries"}
 
 Compose 앱 빌드에 필요한 일부 기능은 AndroidX의 범위를 벗어나므로, JetBrains는 이를 다음과 같이 Compose Multiplatform에 포함된 멀티플랫폼 라이브러리로 구현합니다:
 

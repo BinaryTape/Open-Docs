@@ -11,11 +11,11 @@
 
 このチュートリアルは、フィボナッチ数列を生成する関数を含むシンプルなライブラリである [multiplatform library template](https://github.com/Kotlin/multiplatform-library-template) に基づいています。
 
-## 環境のセットアップ 
+## 環境のセットアップ {id="set-up-the-environment"}
 
 [必要なツールをすべてインストールし、最新バージョンにアップデートしてください](quickstart.md)。
 
-## プロジェクトの作成
+## プロジェクトの作成 {id="create-a-project"}
 
 1. IntelliJ IDEAで、**File** | **New** | **Project from Version Control** を選択します。
 2. [multiplatform library template project](https://github.com/Kotlin/multiplatform-library-template) のURLを入力します：
@@ -26,7 +26,7 @@
    
 3. **Clone** をクリックします。
 
-## プロジェクト構造の確認
+## プロジェクト構造の確認 {id="examine-the-project-structure"}
 
 Kotlin Multiplatform library templateプロジェクトは、Kotlinマルチプラットフォームライブラリを開発するための基礎となる構造を提供します。このテンプレートは、さまざまなプラットフォームで動作可能なライブラリの作成を支援します。
 
@@ -83,13 +83,13 @@ actual val secondElement: Int = 2
 
 他のプラットフォームも同じパターンに従い、`firstElement`と`secondElement`プロパティの値がそれぞれ異なります。
 
-## 新しいプラットフォームの追加
+## 新しいプラットフォームの追加 {id="add-a-new-platform"}
 
 テンプレートでの共有コードとプラットフォーム固有コードの仕組みを理解したところで、追加のプラットフォームのサポートを追加してプロジェクトを拡張してみましょう。
 
 [`expect`/`actual`メカニズム](multiplatform-connect-to-apis.md#expected-and-actual-functions-and-properties)を使用して、[Kotlin/Wasm](https://kotlinlang.org/docs/wasm-overview.html)プラットフォームのサポートを構成し、`firstElement`と`secondElement`プロパティに対してプラットフォーム固有の機能を実装します。
 
-### プロジェクトにKotlin/Wasmターゲットを追加する
+### プロジェクトにKotlin/Wasmターゲットを追加する {id="add-the-kotlin-wasm-target-to-your-project"}
 
 1. `library/build.gradle.kts`ファイルに、Kotlin/Wasmターゲット（`wasmJs`）とソースセットを追加します。
 
@@ -113,7 +113,7 @@ actual val secondElement: Int = 2
 
 2. ビルドファイルに表示される**Sync Gradle Changes**アイコン（![Gradle sync icon](gradle-sync-icon.png){width=30}{type="joined"}）をクリックして、Gradleファイルを同期します。あるいは、Gradleツールウィンドウのリフレッシュボタンをクリックします。
 
-### Wasm用のプラットフォーム固有コードを作成する
+### Wasm用のプラットフォーム固有コードを作成する {id="create-platform-specific-code-for-wasm"}
 
 Wasmターゲットを追加した後は、`firstElement`と`secondElement`のプラットフォーム固有の実装を保持するためのWasmディレクトリが必要です。
 
@@ -135,7 +135,7 @@ Wasmターゲットを追加した後は、`firstElement`と`secondElement`の�
 
     このコードは、Wasm固有の実装を設定し、`firstElement`を`3`、`secondElement`を`5`として`actual`値を定義します。
 
-### プロジェクトのビルド
+### プロジェクトのビルド {id="build-the-project"}
 
 新しいプラットフォームでプロジェクトが正しくコンパイルされることを確認します。
 
@@ -152,7 +152,7 @@ Wasmターゲットを追加した後は、`firstElement`と`secondElement`の�
 
 **Build**ツールウィンドウで成功の出力を確認できます。
 
-## ローカルMavenリポジトリへのライブラリの公開
+## ローカルMavenリポジトリへのライブラリの公開 {id="publish-your-library-to-the-local-maven-repository"}
 
 マルチプラットフォームライブラリをローカルに公開する準備が整いました。これにより、同じマシン上の他のプロジェクトでそのライブラリを使用できるようになります。
 
@@ -194,7 +194,7 @@ Wasmターゲットを追加した後は、`firstElement`と`secondElement`の�
 
 公開されたアーティファクトを確認するには、ファイルエクスプローラーまたはターミナルを使用して、`~\.m2\repository\io\github\kotlin\library\1.0.0\` ディレクトリに移動します。
 
-## 別のプロジェクトに依存関係としてライブラリを追加する
+## 別のプロジェクトに依存関係としてライブラリを追加する {id="add-your-library-as-a-dependency-in-another-project"}
 
 マルチプラットフォームライブラリをローカルのMavenリポジトリに公開した後、同じマシン上の他のKotlinプロジェクトで使用できます。
 
@@ -238,7 +238,7 @@ val seq = generateFibi()
 println(seq.elementAt(3))
 ```
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 マルチプラットフォーム開発をさらに深く探究することをお勧めします：
 

@@ -4,7 +4,7 @@
 
 如同其他程式語言，Kotlin 能夠根據一段程式碼的求值結果是否為 true 來做出決策。這類程式碼被稱為**條件運算式**（conditional expression）。Kotlin 也能夠建立並疊代迴圈。
 
-## 條件運算式
+## 條件運算式 {id="conditional-expressions"}
 
 Kotlin 提供 `if` 與 `when` 來檢查條件運算式。 
 
@@ -16,7 +16,7 @@ Kotlin 提供 `if` 與 `when` 來檢查條件運算式。
 > 
 {style="note"}
 
-### If
+### If {id="if"}
 
 若要使用 `if`，請將條件運算式放在圓括號 `()` 中，並將結果為 true 時要執行的操作放在花括號 `{}` 中：
 
@@ -53,7 +53,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-if-expression"}
 
-### When
+### When {id="when"}
 
 當您有一個具有多個分支的條件運算式時，請使用 `when`。
 
@@ -156,7 +156,7 @@ fun main() {
 
 使用帶有主體的 `when` 可以讓您的程式碼更易於閱讀和維護。當您在 `when` 運算式中使用主體時，它還能協助 Kotlin 檢查是否涵蓋了所有可能的情況。否則，如果您在 `when` 運算式中不使用主體，則需要提供一個 `else` 分支。
 
-## 條件運算式練習
+## 條件運算式練習 {id="conditional-expressions-practice"}
 
 ### 練習 1 {initial-collapse-state="collapsed" collapsible="true" id="conditional-expressions-exercise-1"}
 
@@ -241,7 +241,7 @@ fun main() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="範例解答" id="kotlin-tour-control-flow-conditional-solution-2"}
 
-## 範圍
+## 範圍 {id="ranges"}
 
 在討論迴圈之前，了解如何建構供迴圈疊代的範圍（range）很有幫助。
 
@@ -258,11 +258,11 @@ fun main() {
 * `'a'..'d'` 相當於 `'a', 'b', 'c', 'd'`
 * `'z' downTo 's' step 2` 相當於 `'z', 'x', 'v', 't'`
 
-## 迴圈
+## 迴圈 {id="loops"}
 
 程式設計中最常見的兩種迴圈結構是 `for` 與 `while`。使用 `for` 來疊代範圍內的值並執行操作。使用 `while` 則持續執行操作，直到滿足特定條件為止。
 
-### For
+### For {id="for"}
 
 利用您對範圍的新知識，您可以建立一個 `for` 迴圈來疊代數字 1 到 5，並每次印出該數字。
 
@@ -299,7 +299,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-for-collection-loop"}
 
-### While
+### While {id="while"}
 
 `while` 可以透過兩種方式使用：
 
@@ -364,7 +364,7 @@ fun main() {
 
 現在您已經了解 Kotlin 控制流程的基礎知識，是時候學習如何編寫您自己的 [函式](kotlin-tour-functions.md) 了。
 
-## 迴圈練習 {completion-point="true"}
+## 迴圈練習 {completion-point="true" id="loops-practice"}
 
 ### 練習 1 {initial-collapse-state="collapsed" collapsible="true" id="loops-exercise-1"}
 

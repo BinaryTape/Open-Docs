@@ -14,7 +14,7 @@ Kotlin에서는 `null` 값을 가질 수 있습니다. Kotlin은 무언가 누�
 * `null` 값을 포함할 수 있는 프로퍼티(property)나 함수에 안전한 호출(safe call)을 사용합니다.
 * `null` 값이 감지되었을 때 수행할 작업을 선언합니다.
 
-## null이 가능한 타입 (Nullable types)
+## null이 가능한 타입 (Nullable types) {id="nullable-types"}
 
 Kotlin은 선언된 타입이 `null` 값을 가질 수 있도록 허용하는 **null이 가능한 타입(Nullable types)**을 지원합니다. 기본적으로 타입은 `null` 값을 허용하지 **않습니다**. null이 가능한 타입은 타입 선언 뒤에 `?`를 명시적으로 추가하여 선언합니다.
 
@@ -55,7 +55,7 @@ fun main() {
 >
 {style="tip"}
 
-## null 값 확인
+## null 값 확인 {id="check-for-null-values"}
 
 조건식 내에서 `null` 값의 존재 여부를 확인할 수 있습니다. 다음 예제에서 `describeString()` 함수는 `if` 문을 사용하여 `maybeString`이 `null`이 **아니고** `length`가 0보다 큰지 확인합니다.
 
@@ -76,7 +76,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-check-nulls"}
 
-## 안전한 호출 사용 (Safe calls)
+## 안전한 호출 사용 (Safe calls) {id="use-safe-calls"}
 
 `null` 값을 포함할 수 있는 객체의 프로퍼티에 안전하게 접근하려면 **안전한 호출 연산자(safe call operator)** `?.`를 사용하세요. 안전한 호출 연산자는 객체 또는 접근하려는 프로퍼티 중 하나라도 `null`인 경우 `null`을 반환합니다. 이는 코드에서 `null` 값이 에러를 유발하는 것을 방지하고 싶을 때 유용합니다.
 
@@ -114,7 +114,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-safe-call-function"}
 
-## 엘비스 연산자 사용 (Elvis operator)
+## 엘비스 연산자 사용 (Elvis operator) {id="use-elvis-operator"}
 
 **엘비스 연산자(Elvis operator)** `?:`를 사용하여 `null` 값이 감지되었을 때 반환할 기본값을 제공할 수 있습니다.
 
@@ -134,9 +134,9 @@ fun main() {
 
 Kotlin의 널 안전성에 대한 더 자세한 정보는 [널 안전성](null-safety.md)을 참조하세요.
 
-## 연습 문제 {completion-point="true"}
+## 연습 문제 {completion-point="true" id="practice"}
 
-### 실습 {initial-collapse-state="collapsed" collapsible="true"}
+### 실습 {initial-collapse-state="collapsed" collapsible="true" id="exercise"}
 
 회사의 직원 데이터베이스에 접근할 수 있게 해주는 `employeeById` 함수가 있습니다. 불행히도 이 함수는 `Employee?` 타입을 반환하므로 결과가 `null`일 수 있습니다. 여러분의 목표는 직원의 `id`가 주어졌을 때 해당 직원의 급여(salary)를 반환하거나, 직원이 데이터베이스에 없는 경우 `0`을 반환하는 함수를 작성하는 것입니다.
 
@@ -180,7 +180,7 @@ fun main() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="해답 예시" id="kotlin-tour-null-safety-solution"}
 
-## 다음 단계는?
+## 다음 단계는? {id="what-s-next"}
 
 축하합니다! 이제 초급 투어를 완료하셨습니다. 중급 투어를 통해 Kotlin에 대한 이해도를 한 단계 더 높여보세요:
 

@@ -5,7 +5,7 @@ Kotlin には、次の 2 種類の等価性があります：
 * 構造上の等価性（`==`） - `equals()` 関数のチェック
 * 参照上の等価性（`===`） - 2 つの参照が同じオブジェクトを指しているかのチェック
 
-## 構造上の等価性
+## 構造上の等価性 {id="structural-equality"}
 
 構造上の等価性は、2 つのオブジェクトが同じ内容または構造を持っているかどうかを検証します。構造上の等価性は、`==` 演算子とその否定である `!=` によってチェックされます。
 慣習として、`a == b` のような式は次のように変換されます：
@@ -65,7 +65,7 @@ class Point(val x: Int, val y: Int) {
 
 構造上の等価性は `Comparable<...>` インターフェースで定義された比較とは関係がないため、カスタムの `equals(Any?)` 実装のみが演算子の動作に影響を与える可能性があります。
 
-## 参照上の等価性
+## 参照上の等価性 {id="referential-equality"}
 
 参照上の等価性は、2 つのオブジェクトのメモリパスを検証して、それらが同じインスタンスであるかどうかを判断します。
 
@@ -95,7 +95,7 @@ fun main() {
 >
 {style="tip"}
 
-## 浮動小数点数の等価性
+## 浮動小数点数の等価性 {id="floating-point-numbers-equality"}
 
 等価性チェックのオペランドが（NULL 許容かどうかにかかわらず）静的に `Float` または `Double` であることがわかっている場合、チェックは [IEEE 754 浮動小数点算術標準](https://en.wikipedia.org/wiki/IEEE_754)に従います。
 
@@ -107,7 +107,7 @@ fun main() {
 
 詳細については、[浮動小数点数の比較](numbers.md#floating-point-number-comparison)を参照してください。
 
-## 配列の等価性
+## 配列の等価性 {id="array-equality"}
 
 2 つの配列が同じ要素を同じ順序で持っているかどうかを比較するには、[`contentEquals()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/content-equals.html) を使用します。
 

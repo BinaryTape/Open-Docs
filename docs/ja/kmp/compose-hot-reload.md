@@ -10,14 +10,14 @@ Compose Hot Reload の全機能を使用するには、[Kotlin Multiplatform IDE
 
 <img src="KotlinConf-hot-reload.animated.gif" alt="Compose Hot Reload" width="600" preview-src="KotlinConf-hot-reload.png"/>
 
-## プロジェクトへの Compose Hot Reload の追加
+## プロジェクトへの Compose Hot Reload の追加 {id="add-compose-hot-reload-to-your-project"}
 
 Compose Hot Reload は、次の 2 つの方法で追加できます。
 
 * [IntelliJ IDEA または Android Studio でプロジェクトを新規作成する](#from-scratch)
 * [既存のプロジェクトに Gradle プラグインを追加する](#to-an-existing-project)
 
-### 新規作成する場合
+### 新規作成する場合 {id="from-scratch"}
 
 このセクションでは、IntelliJ IDEA および Android Studio でデスクトップターゲットを含むマルチプラットフォームプロジェクトを作成する手順を説明します。プロジェクトが作成されると、Compose Hot Reload が自動的に追加されます。
 
@@ -28,7 +28,7 @@ Compose Hot Reload は、次の 2 つの方法で追加できます。
 5. **Desktop** ターゲットを選択し、**Create** をクリックします。
    ![Create multiplatform project with desktop target](create-desktop-project.png){width=600 style="block"}
 
-### 既存のプロジェクトに追加する場合
+### 既存のプロジェクトに追加する場合 {id="to-an-existing-project"}
 
 Compose Multiplatform 1.10.0 以降、Compose Hot Reload プラグインは[同梱](whats-new-compose-110.md#compose-hot-reload-integration)されており、**デスクトップターゲット**を含むすべてのプロジェクトでデフォルトで有効になっています。
 
@@ -36,7 +36,7 @@ Compose Multiplatform 1.10.0 以降、Compose Hot Reload プラグインは[同�
 
 デフォルトで有効になっていますが、特定の古いバージョンを使用するために Compose Hot Reload プラグインを明示的に宣言することも可能です。
 
-#### 以前のバージョンの Compose Multiplatform {initial-collapse-state="collapsed" collapsible="true"}
+#### 以前のバージョンの Compose Multiplatform {initial-collapse-state="collapsed" collapsible="true" id="earlier-versions-of-compose-multiplatform"}
 
 1.10.0 より前のバージョンの Compose Multiplatform を使用しているマルチプラットフォームプロジェクトでは、デスクトップターゲットが設定されている必要があり、その上で Compose Hot Reload プラグインを明示的に追加する必要があります。以下の手順は、[「共有ロジックと UI を備えたアプリの作成」](compose-multiplatform-create-first-app.md)チュートリアルのプロジェクトを参考にしています。
 
@@ -86,7 +86,7 @@ Compose Multiplatform 1.10.0 以降、Compose Hot Reload プラグインは[同�
 
 6. **Sync Gradle Changes** ボタンをクリックして、Gradle ファイルを同期します： ![Synchronize Gradle files](gradle-sync.png){width=50}
 
-## Compose Hot Reload の使用
+## Compose Hot Reload の使用 {id="use-compose-hot-reload"}
 
 1. `desktopApp` ソースセットで `main.kt` ファイルを開き、`main()` 関数を更新します。
    ```kotlin
@@ -135,7 +135,7 @@ Compose Multiplatform 1.10.0 以降、Compose Hot Reload プラグインは[同�
 
 おめでとうございます！Compose Hot Reload の動作を確認できました。これで、変更のたびにデスクトップの実行構成を再起動することなく、テキスト、画像、フォーマット、UI 構造などの変更を試すことができます。
 
-## AI エージェント用 MCP サーバー
+## AI エージェント用 MCP サーバー {id="mcp-server-for-ai-agents"}
 <primary-label ref="Experimental"/>
 
 Compose Multiplatform 1.12.0 以降、Compose Hot Reload には組み込みの [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) サーバーが含まれています。
@@ -145,7 +145,7 @@ MCP サーバーを使用すると、AI コーディングエージェントが�
 これにより、Compose コードの編集時における AI エージェントのフィードバックループが完結します。
 編集のたびに手動で結果を確認する必要はなく、エージェントが自律的にコードを反復処理し、各変更を検証できます。
 
-### AI エージェントの接続
+### AI エージェントの接続 {id="connect-an-ai-agent"}
 
 AI エージェントを接続するには、エージェントの MCP クライアント設定で `hotMcpServer` Gradle タスクを指定します。たとえば、`.mcp.json` では以下のようになります。
 
@@ -165,7 +165,7 @@ AI エージェントを接続するには、エージェントの MCP クライ
 }
 ```
 
-### 利用可能な MCP ツール
+### 利用可能な MCP ツール {id="available-mcp-tools"}
 
 MCP サーバーは、エージェントが呼び出すことができる一連のツールを公開しています。これには以下が含まれます。
 
@@ -177,6 +177,6 @@ MCP サーバーは、エージェントが呼び出すことができる一連�
 
 MCP ツールとそのパラメータの完全なリストについては、[Compose Hot Reload の README](https://github.com/JetBrains/compose-hot-reload#mcp-server-for-ai-agents) を参照してください。
 
-## ヘルプを得る
+## ヘルプを得る {id="get-help"}
 
 Compose Hot Reload の使用中に問題が発生した場合は、[GitHub イシューを作成](https://github.com/JetBrains/compose-hot-reload/issues)してお知らせください。

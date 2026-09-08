@@ -4,7 +4,7 @@ title: 启动 Koin 参考
 
 启动 Koin 的快速参考。有关详细指南，请参阅 **[核心 - 启动 Koin](/docs/reference/koin-core/starting-koin)**。
 
-## 启动方法
+## 启动方法 {id="starting-methods"}
 
 | 方法 | 用例 |
 |--------|----------|
@@ -13,7 +13,7 @@ title: 启动 Koin 参考
 | `koinConfiguration { }` | Compose、Ktor 的配置 |
 | `startKoin<T>()` | 使用编译器插件进行类型化启动 |
 
-## 基础启动
+## 基础启动 {id="basic-startup"}
 
 ```kotlin
 startKoin {
@@ -21,7 +21,7 @@ startKoin {
 }
 ```
 
-## 完整配置
+## 完整配置 {id="complete-configuration"}
 
 ```kotlin
 startKoin {
@@ -36,7 +36,7 @@ startKoin {
 }
 ```
 
-## 配置选项
+## 配置选项 {id="configuration-options"}
 
 | 选项 | 描述 |
 |--------|-------------|
@@ -49,7 +49,7 @@ startKoin {
 | `createEagerInstances()` | 创建所有 `createdAtStart` 单例 |
 | `allowOverride()` | 启用/禁用定义重写 |
 
-## 类型化启动 (编译器插件)
+## 类型化启动 (编译器插件) {id="typed-startup-compiler-plugin"}
 
 需要 [Koin 编译器插件](/docs/setup/compiler-plugin) 和 `@KoinApplication`：
 
@@ -66,7 +66,7 @@ startKoin<MyApp> {
 }
 ```
 
-## 动态模块管理
+## 动态模块管理 {id="dynamic-module-management"}
 
 ```kotlin
 // 启动后加载
@@ -76,7 +76,7 @@ loadKoinModules(featureModule)
 unloadKoinModules(featureModule)
 ```
 
-## 停止 Koin
+## 停止 Koin {id="stopping-koin"}
 
 ```kotlin
 stopKoin()  // 全局实例
@@ -85,7 +85,7 @@ stopKoin()  // 全局实例
 koinApp.close()
 ```
 
-## 日志
+## 日志 {id="logging"}
 
 | 日志记录器 | 平台 | 描述 |
 |--------|----------|-------------|
@@ -100,7 +100,7 @@ startKoin {
 }
 ```
 
-## 属性
+## 属性 {id="properties"}
 
 ```kotlin
 startKoin {
@@ -115,9 +115,9 @@ single {
 }
 ```
 
-## 平台示例
+## 平台示例 {id="platform-examples"}
 
-### Android
+### Android {id="android"}
 
 ```kotlin
 class MainApplication : Application() {
@@ -132,7 +132,7 @@ class MainApplication : Application() {
 }
 ```
 
-### Compose
+### Compose {id="compose"}
 
 ```kotlin
 @Composable
@@ -145,7 +145,7 @@ fun App() {
 }
 ```
 
-### Ktor
+### Ktor {id="ktor"}
 
 ```kotlin
 fun Application.module() {
@@ -156,7 +156,7 @@ fun Application.module() {
 }
 ```
 
-## 另请参阅
+## 另请参阅 {id="see-also"}
 
 - **[核心 - 启动 Koin](/docs/reference/koin-core/starting-koin)** - 完整指南
 - **[延时模块](/docs/reference/koin-core/lazy-modules)** - 后台加载

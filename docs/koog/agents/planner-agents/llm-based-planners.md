@@ -118,6 +118,6 @@ Koog 提供了两种简单的规划器：
     ```
      <!--- KNIT exampleLLMBasedPlannerJava01.java -->
 
-## 后续步骤
+## 后续步骤 {id="next-steps"}
 
 - 了解 [GOAP 智能体](goap-agents.md)

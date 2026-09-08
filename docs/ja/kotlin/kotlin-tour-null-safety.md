@@ -14,7 +14,7 @@ Null 安全性は、以下のことを可能にする機能の組み合わせで
 * `null` 値が含まれている可能性のあるプロパティや関数に対して、安全呼び出し (Safe call) を使用する。
 * `null` 値が検出された場合に実行するアクションを宣言する。
 
-## Null 許容型 (Nullable types)
+## Null 許容型 (Nullable types) {id="nullable-types"}
 
 Kotlin は、宣言された型が `null` 値を持つ可能性を許容する「Null 許容型」をサポートしています。デフォルトでは、型は `null` 値を受け入れることが**できません**。Null 許容型は、型宣言の後に明示的に `?` を追加することで宣言します。
 
@@ -55,7 +55,7 @@ fun main() {
 >
 {style="tip"}
 
-## Null 値のチェック
+## Null 値のチェック {id="check-for-null-values"}
 
 条件式の中で `null` 値の存在をチェックできます。次の例では、`describeString()` 関数に、`maybeString` が `null` **ではなく**、かつその `length` が 0 より大きいかどうかをチェックする `if` 文があります。
 
@@ -76,7 +76,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-check-nulls"}
 
-## 安全呼び出しの使用
+## 安全呼び出しの使用 {id="use-safe-calls"}
 
 `null` 値を含んでいる可能性のあるオブジェクトのプロパティに安全にアクセスするには、安全呼び出し演算子 `?.` を使用します。安全呼び出し演算子は、オブジェクトまたはアクセスされたプロパティのいずれかが `null` の場合に `null` を返します。これは、`null` 値の存在によってコード内でエラーが発生するのを避けたい場合に便利です。
 
@@ -114,7 +114,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-safe-call-function"}
 
-## エルビス演算子の使用
+## エルビス演算子の使用 {id="use-elvis-operator"}
 
 `null` 値が検出されたときに返すデフォルト値を指定するには、**エルビス演算子** (Elvis operator) `?:` を使用します。
 
@@ -134,9 +134,9 @@ fun main() {
 
 Kotlin の Null 安全性に関する詳細については、[Null 安全性](null-safety.md)を参照してください。
 
-## 練習問題 {completion-point="true"}
+## 練習問題 {completion-point="true" id="practice"}
 
-### 演習 {initial-collapse-state="collapsed" collapsible="true"}
+### 演習 {initial-collapse-state="collapsed" collapsible="true" id="exercise"}
 
 会社の従業員データベースにアクセスできる `employeeById` 関数があります。あいにく、この関数は `Employee?` 型の値を返すため、結果が `null` になる可能性があります。あなたの目標は、従業員の `id` が提供されたときにはその給与を返し、従業員がデータベースに存在しない場合には `0` を返す関数を記述することです。
 
@@ -180,7 +180,7 @@ fun main() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="解答例" id="kotlin-tour-null-safety-solution"}
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 おめでとうございます！初級ツアーを完了しました。次は中級ツアーで Kotlin の理解をさらに深めましょう：
 

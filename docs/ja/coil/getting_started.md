@@ -1,6 +1,6 @@
 # はじめに
 
-## Compose UI
+## Compose UI {id="compose-ui"}
 
 一般的なCompose UIプロジェクトでは、以下をインポートします：
 
@@ -21,7 +21,7 @@ AsyncImage(
 !!! Note
     Compose Multiplatformを使用している場合は、OkHttpの代わりにKtorを使用する必要があります。その方法については、[こちら](network.md#ktor-network-engines)を参照してください。
 
-## Android View
+## Android View {id="android-views"}
 
 Compose UIの代わりにAndroid Viewを使用する場合は、以下をインポートします：
 
@@ -36,7 +36,7 @@ implementation("io.coil-kt.coil3:coil-network-okhttp:3.6.2")
 imageView.load("https://example.com/image.jpg")
 ```
 
-## シングルトン ImageLoader の設定
+## シングルトン ImageLoader の設定 {id="configuring-the-singleton-imageloader"}
 
 デフォルトでは、Coilにはシングルトンの`ImageLoader`が含まれています。`ImageLoader`は、フェッチ、デコード、キャッシュ、および結果の返却を行うことで、入力された`ImageRequest`を実行します。`ImageLoader`を設定する必要はありません。設定しない場合、Coilはデフォルト設定でシングルトンの`ImageLoader`を作成します。
 
@@ -77,7 +77,7 @@ SingletonImageLoader.setSafe { context ->
 !!! Note
     Coilに依存するライブラリを作成している場合は、シングルトンの`ImageLoader`を取得または設定すべきではありません。代わりに、`io.coil-kt.coil3:coil-core`に依存させ、独自の`ImageLoader`を作成して手動で受け渡しを行う必要があります。ライブラリ内でシングルトンの`ImageLoader`を設定すると、そのライブラリを使用するアプリ側でもCoilを使用している場合、アプリ側で設定された`ImageLoader`を上書きしてしまう可能性があります。
 
-## 画像
+## 画像 {id="images"}
 
 マルチプラットフォームのレンダリングをサポートするため、Coil 3.xではカスタムの`coil3.Image`クラスを使用します。これはAndroidの`Drawable`を置き換えるものですが、完全に相互運用可能です：
 
@@ -102,7 +102,7 @@ val painter = image.asPainter()
 !!! Note
     `Painter`は`Image`に変換することはできません。これは、`Painter`はコンポジション（composition）内でのみレンダリング可能であるのに対し、`Image`は任意の`Canvas`でレンダリング可能である必要があるためです。
 
-## アーティファクト
+## アーティファクト {id="artifacts"}
 
 Coilが`mavenCentral()`に公開している主なアーティファクトの一覧です：
 

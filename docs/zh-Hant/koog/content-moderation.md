@@ -26,7 +26,7 @@
     - 確保 AI 回應與組織的價值觀和標準一致
     - 透過持續提供安全且適當的內容來建立使用者信任
 
-## 受審查內容的類型
+## 受審查內容的類型 {id="types-of-moderated-content"}
 
 Koog 的內容審查系統可以分析各種類型的內容：
 
@@ -42,11 +42,11 @@ Koog 的內容審查系統可以分析各種類型的內容：
     - 由與 AI 系統整合的工具產生或傳遞給工具的內容
     - 確保工具的輸入和輸出符合內容安全標準
 
-## 支援的提供者與模型
+## 支援的提供者與模型 {id="supported-providers-and-models"}
 
 Koog 透過多個提供者和模型支援內容審查：
 
-### OpenAI
+### OpenAI {id="openai"}
 
 OpenAI 提供兩種內容審查模型：
 
@@ -62,7 +62,7 @@ OpenAI 提供兩種內容審查模型：
     - 可識別文字和圖像中的有害內容
     - 比 Text 模型更全面
 
-### Ollama
+### Ollama {id="ollama"}
 
 Ollama 透過以下模型支援內容審查：
 
@@ -72,11 +72,11 @@ Ollama 透過以下模型支援內容審查：
     - 專門用於內容審查任務
     - 透過 Ollama 在本機執行
 
-## 在 LLM 用戶端使用內容審查
+## 在 LLM 用戶端使用內容審查 {id="using-moderation-with-llm-clients"}
 
 Koog 提供兩種主要的內容審查方法：直接在 `LLMClient` 執行個體上進行審查，或使用 `PromptExecutor` 上的 `moderate` 方法。
 
-### 使用 LLMClient 進行直接審查
+### 使用 LLMClient 進行直接審查 {id="direct-moderation-with-llmclient"}
 
 您可以直接在 LLMClient 執行個體上使用 `moderate` 方法：
 
@@ -231,7 +231,7 @@ Koog 提供兩種主要的內容審查方法：直接在 `LLMClient` 執行個�
     ```
     <!--- KNIT example-content-moderation-java-02.java -->
 
-### 使用 PromptExecutor 進行審查
+### 使用 PromptExecutor 進行審查 {id="moderation-with-promptexecutor"}
 
 您也可以在 PromptExecutor 上使用 `moderate` 方法，它會根據模型的提供者使用對應的 LLMClient：
 
@@ -333,7 +333,7 @@ Koog 提供兩種主要的內容審查方法：直接在 `LLMClient` 執行個�
 
 該方法回傳一個 [ModerationResult](#moderationresult-structure)。
 
-## ModerationResult 結構
+## ModerationResult 結構 {id="moderationresult-structure"}
 
 內容審查過程會回傳一個具有以下結構的 `ModerationResult` 物件：
 
@@ -413,9 +413,9 @@ Koog 提供兩種主要的內容審查方法：直接在 `LLMClient` 執行個�
 | `categories` | Map&lt;ModerationCategory, ModerationCategoryResult&gt; | 是 | | 審查類別與詳細結果的對應 Map，指示哪些類別被標記。 |
 | `violatedCategories` | List&lt;ModerationCategory&gt; | 否 | | 在審查結果中標記為偵測到的內容審查類別清單。 |
 
-## 內容審查類別
+## 內容審查類別 {id="moderation-categories"}
 
-### Koog 內容審查類別
+### Koog 內容審查類別 {id="koog-moderation-categories"}
 
 Koog 架構提供的可能內容審查類別（無論底層 LLM 和 LLM 提供者為何）如下：
 
@@ -441,7 +441,7 @@ Koog 架構提供的可能內容審查類別（無論底層 LLM 和 LLM 提供�
 !!! note
     這些類別可能會隨著新審查類別的增加而改變，現有類別也可能隨著時間演進。
 
-#### OpenAI 內容審查類別
+#### OpenAI 內容審查類別 {id="openai-moderation-categories"}
 
 OpenAI 的內容審查 API 提供以下類別：
 
@@ -459,7 +459,7 @@ OpenAI 的內容審查 API 提供以下類別：
 - **Violence**：描繪死亡、暴力或身體受傷的內容。
 - **Violence/graphic**：以寫實細節描繪死亡、暴力或身體受傷的內容。
 
-#### Ollama 危害類別
+#### Ollama 危害類別 {id="ollama-hazard-categories"}
 
 Ollama 的 Llama Guard 模型使用以下危害類別：
 
@@ -509,7 +509,7 @@ Ollama 的 Llama Guard 模型使用以下危害類別：
 
 - **S13 - Elections**：包含有關選舉制度和過程的事實錯誤資訊的回應，包括公民投票的時間、地點或方式。
 
-#### 提供者之間的類別對應
+#### 提供者之間的類別對應 {id="category-mapping-between-providers"}
 
 下表顯示了 Ollama 和 OpenAI 內容審查類別之間的對應關係：
 
@@ -529,9 +529,9 @@ Ollama 的 Llama Guard 模型使用以下危害類別：
 | **S12 – Sexual content** (情色) | `sexual` | 一般成人情色（未成年人將轉向 `sexual/minors`）。 |
 | **S13 – Elections misinformation** | **唯一** | 選舉過程錯誤資訊在 OpenAI 的類別中沒有被單獨列出。 |
 
-## 內容審查結果範例
+## 內容審查結果範例 {id="examples-of-moderation-results"}
 
-### OpenAI 內容審查範例（有害內容）
+### OpenAI 內容審查範例（有害內容） {id="openai-moderation-example-harmful-content"}
 
 OpenAI 提供特定的 `/moderations` API，其回應格式如下 JSON：
 
@@ -646,7 +646,7 @@ OpenAI 提供特定的 `/moderations` API，其回應格式如下 JSON：
     ```
     <!--- KNIT example-content-moderation-java-05.java -->
 
-### OpenAI 內容審查範例（安全內容）
+### OpenAI 內容審查範例（安全內容） {id="openai-moderation-example-safe-content"}
 
 ```json
 {
@@ -754,7 +754,7 @@ OpenAI 提供特定的 `/moderations` API，其回應格式如下 JSON：
     ```
     <!--- KNIT example-content-moderation-java-06.java -->
 
-### Ollama 內容審查範例（有害內容）
+### Ollama 內容審查範例（有害內容） {id="ollama-moderation-example-harmful-content"}
 
 Ollama 的內容審查格式與 OpenAI 的方法顯著不同。
 Ollama 中沒有特定的內容審查相關 API 端點。
@@ -838,7 +838,7 @@ S1,S10
     ```
     <!--- KNIT example-content-moderation-java-07.java -->
 
-### Ollama 內容審查範例（安全內容）
+### Ollama 內容審查範例（安全內容） {id="ollama-moderation-example-safe-content"}
 
 以下是將內容標記為安全的 Ollama 回應範例：
 

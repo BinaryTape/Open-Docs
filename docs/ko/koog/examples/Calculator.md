@@ -16,7 +16,7 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Calc
 
 API를 깔끔하고 관용적인(idiomatic) Kotlin으로 유지하면서, 예측 가능한 결과를 반환하고 0으로 나누기와 같은 예외 케이스를 매끄럽게 처리할 것입니다.
 
-## 설정 (Setup)
+## 설정 (Setup) {id="setup"}
 
 Koog를 사용할 수 있는 Kotlin Notebook 환경을 가정합니다.
 LLM 실행기(executor)를 제공합니다.
@@ -31,7 +31,7 @@ val OPENAI_API_KEY = System.getenv("OPENAI_API_KEY")
 val executor = simpleOpenAIExecutor(OPENAI_API_KEY)
 ```
 
-## 계산기 도구 (Calculator Tools)
+## 계산기 도구 (Calculator Tools) {id="calculator-tools"}
 
 도구는 명확한 계약(contract)을 가진 작고 순수한 함수입니다.
 더 나은 정밀도를 위해 `Double`을 사용하고 출력 형식을 일관되게 포맷팅합니다.
@@ -80,7 +80,7 @@ class CalculatorTools : ToolSet {
 }
 ```
 
-## 도구 레지스트리 (Tool Registry)
+## 도구 레지스트리 (Tool Registry) {id="tool-registry"}
 
 사용할 도구들을 등록합니다 (상호작용 및 로깅을 위한 두 가지 내장 도구 포함).
 
@@ -92,7 +92,7 @@ val toolRegistry = ToolRegistry {
 }
 ```
 
-## 전략: 다중 도구 호출 (선택적 압축 포함)
+## 전략: 다중 도구 호출 (선택적 압축 포함) {id="strategy-multiple-tool-calls-with-optional-compression"}
 
 이 전략을 사용하면 LLM이 **한 번에 여러 도구 호출**을 제안(예: `plus`, `minus`, `multiply`, `divide`)하고 그 결과를 다시 보낼 수 있습니다.
 토큰 사용량이 너무 많아지면 다음 단계로 진행하기 전에 도구 결과의 이력을 **압축(compress)**합니다.
@@ -139,7 +139,7 @@ object CalculatorStrategy {
 }
 ```
 
-## 에이전트 설정 (Agent Configuration)
+## 에이전트 설정 (Agent Configuration) {id="agent-configuration"}
 
 도구 중심의 최소한의 프롬프트가 효과적입니다. 결정론적인 수학 연산을 위해 온도를 낮게 유지합니다.
 
@@ -176,7 +176,7 @@ val agent = AIAgent(
 }
 ```
 
-## 시도해 보기
+## 시도해 보기 {id="try-it"}
 
 에이전트는 표현식을 병렬 도구 호출로 분해하고 깔끔하게 포맷팅된 결과를 반환해야 합니다.
 
@@ -199,7 +199,7 @@ runBlocking {
 
     표현식 \((10 + 20) * (5 + 5) / (2 - 11)\)의 결과는 약 \(-33.33\)입니다.
 
-## 병렬 호출 강제하기
+## 병렬 호출 강제하기 {id="try-forcing-parallel-calls"}
 
 모델에게 필요한 모든 도구를 한 번에 호출하도록 요청해 봅니다.
 여전히 올바른 계획과 안정적인 실행을 확인할 수 있을 것입니다.
@@ -219,7 +219,7 @@ runBlocking {
 
     \((10 + 20) * (5 + 5) / (2 - 11)\)의 결과는 약 \(-3.33\)입니다.
 
-## Ollama로 실행하기
+## Ollama로 실행하기 {id="running-with-ollama"}
 
 로컬 추론을 선호한다면 실행기와 모델을 변경할 수 있습니다.
 

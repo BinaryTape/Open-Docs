@@ -4,11 +4,11 @@ SQLDelight Web 背景工作執行緒是一個指令碼，可以接收來自 Web 
 
 Web 背景工作執行緒最容易使用純 JavaScript 實作，因為它們是相對短且簡單的指令碼。
 
-## 傳入訊息
+## 傳入訊息 {id="incoming-messages"}
 
 Web 背景工作執行緒驅動程式訊息格式允許 SQLDelight 以通用方式與背景工作執行緒實作進行通訊，而不會與特定的 SQL 方言或實作繫結。每個訊息都包含一個 `action` 屬性，用於指定四種操作之一。
 
-### `exec`
+### `exec` {id="exec"}
 
 此操作表示背景工作執行緒應執行訊息附加的某些 SQL 陳述式，並回應 SQL 查詢的結果。訊息將包含一個包含要執行的 SQL 陳述式的 `sql` 屬性，以及一個包含要繫結到該陳述式的參數的 `params` 陣列。
 
@@ -22,7 +22,7 @@ Web 背景工作執行緒驅動程式訊息格式允許 SQLDelight 以通用方�
 }
 ```
 
-### `begin_transaction`
+### `begin_transaction` {id="begintransaction"}
 
 告知背景工作執行緒應開始一個交易。
 
@@ -34,7 +34,7 @@ Web 背景工作執行緒驅動程式訊息格式允許 SQLDelight 以通用方�
 }
 ```
 
-### `end_transaction`
+### `end_transaction` {id="endtransaction"}
 
 告知背景工作執行緒應結束當前交易。
 
@@ -46,7 +46,7 @@ Web 背景工作執行緒驅動程式訊息格式允許 SQLDelight 以通用方�
 }
 ```
 
-### `rollback_transaction`
+### `rollback_transaction` {id="rollbacktransaction"}
 
 告知背景工作執行緒回復當前交易。
 
@@ -58,11 +58,11 @@ Web 背景工作執行緒驅動程式訊息格式允許 SQLDelight 以通用方�
 }
 ```
 
-## 回應訊息
+## 回應訊息 {id="responding-to-messages"}
 
 每個傳入訊息都包含一個 `id` 屬性，該屬性是該訊息的唯一整數。在回應訊息時，背景工作執行緒實作必須在回應訊息中包含此 `id` 值。Web 背景工作執行緒驅動程式使用它來正確處理回應。
 
-### `results` 屬性
+### `results` 屬性 {id="the-results-property"}
 
 回應訊息還應包含一個 `results` 屬性。這用於傳達某些 SQL 執行的結果，特別是查詢的結果集。`results` 屬性應為一個代表結果列（rows）的陣列，其中每個項目都是一個代表結果集中欄（columns）的陣列。
 
@@ -87,6 +87,6 @@ Web 背景工作執行緒驅動程式訊息格式允許 SQLDelight 以通用方�
 }
 ```
 
-## 範例
+## 範例 {id="examples"}
 
 * [SQLDelight 的 SQL.js 背景工作執行緒](https://github.com/cashapp/sqldelight/blob/master/drivers/web-worker-driver/sqljs/sqljs.worker.js)

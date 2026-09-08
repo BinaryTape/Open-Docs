@@ -47,7 +47,7 @@ if (httpResponse.status.value in 200..299) {
 * `setCookie()`: `Set-Cookie` 헤더 값.
   > Ktor는 호출 간에 쿠키를 유지할 수 있는 [`HttpCookies`](client-cookies.md) 플러그인도 제공합니다.
 
-#### 헤더 값 분리하기
+#### 헤더 값 분리하기 {id="split-header-values"}
 
 헤더에 쉼표(,) 또는 세미콜론(;)으로 구분된 여러 값이 포함될 수 있는 경우, `.getSplitValues()` 함수를 사용하여 헤더에서 분리된 모든 값을 가져올 수 있습니다:
 
@@ -149,7 +149,7 @@ multipart.forEachPart { part ->
 }
 ```
 
-#### 폼 필드
+#### 폼 필드 {id="form-fields"}
 
 `PartData.FormItem`은 폼 필드를 나타내며, `value` 속성을 통해 값에 액세스할 수 있습니다:
 
@@ -163,7 +163,7 @@ when (part) {
 }
 ```
 
-#### 파일 업로드
+#### 파일 업로드 {id="file-uploads"}
 
 `PartData.FileItem`은 파일 항목을 나타냅니다. 파일 업로드를 바이트 스트림으로 처리할 수 있습니다:
 
@@ -178,7 +178,7 @@ when (part) {
 }
 ```
 
-#### 리소스 정리
+#### 리소스 정리 {id="resource-cleanup"}
 
 폼 처리가 완료되면 자원을 해제하기 위해 `.dispose()` 함수를 사용하여 각 파트를 폐기합니다.
 
@@ -192,7 +192,7 @@ part.dispose()
 
 Ktor는 [`ByteReadChannel`](https://api.ktor.io/ktor-io/io.ktor.utils.io/-byte-read-channel/index.html) 및 I/O 유틸리티를 사용하여 이를 수행하는 몇 가지 방법을 제공합니다.
 
-#### 순차적 청크 처리
+#### 순차적 청크 처리 {id="sequential-chunk-processing"}
 
 응답을 순차적으로 청크 단위로 처리하려면 스코프가 지정된 [`execute`](https://api.ktor.io/ktor-client-core/io.ktor.client.statement/-http-statement/execute.html) 블록과 함께 `HttpStatement`를 사용하십시오.
 
@@ -234,7 +234,7 @@ Ktor는 [`ByteReadChannel`](https://api.ktor.io/ktor-io/io.ktor.utils.io/-byte-r
 
 > 전체 스트리밍 예제는 [client-download-streaming](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-download-streaming)을 참조하십시오.
 
-#### 응답을 파일에 직접 쓰기
+#### 응답을 파일에 직접 쓰기 {id="writing-the-response-directly-to-a-file"}
 
 청크 단위 처리가 필요하지 않은 단순 다운로드의 경우 다음 접근 방식 중 하나를 선택할 수 있습니다:
 

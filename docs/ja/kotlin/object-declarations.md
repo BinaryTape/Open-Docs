@@ -15,7 +15,7 @@ Kotlinでは、オブジェクトを使用することで、クラスの定義�
 * **既存のクラスの振る舞いを一時的に変更する場合：** 新しいサブクラスを作成することなく、既存のクラスの振る舞いを変更したい場合。例えば、特定の操作のためにオブジェクトに一時的な機能を追加する場合などです。
 * **型安全な設計が必要な場合：** オブジェクト式を使用して、インターフェースや[抽象クラス](classes.md#abstract-classes)の一回限りの実装が必要な場合。これは、ボタンのクリックハンドラーなどのシナリオで役立ちます。
 
-## オブジェクト宣言
+## オブジェクト宣言 {id="object-declarations"}
 {id="object-declarations-overview"}
 
 Kotlinでは、オブジェクト宣言を使用してオブジェクトの単一のインスタンスを作成できます。オブジェクト宣言には常に `object` キーワードの後に名前が続きます。これにより、クラスの定義とインスタンスの作成を単一のステップで行うことができ、シングルトンの実装に役立ちます：
@@ -93,7 +93,7 @@ val myObject = object MySingleton {
 ```
 オブジェクト宣言はローカル（つまり、関数の中に直接ネストすること）にすることはできません。ただし、他のオブジェクト宣言や非インナークラスの中にネストすることは可能です。
 
-### データオブジェクト
+### データオブジェクト {id="data-objects"}
 
 Kotlinで通常のオブジェクト宣言をプリントすると、その文字列表現にはオブジェクトの名前とハッシュの両方が含まれます：
 
@@ -173,14 +173,14 @@ fun createInstanceViaReflection(): MySingleton {
 
 生成された `hashCode()` 関数は `equals()` 関数と一貫した振る舞いをするため、`data object` のすべての実行時インスタンスは同じハッシュコードを持ちます。
 
-#### データオブジェクトとデータクラスの違い
+#### データオブジェクトとデータクラスの違い {id="differences-between-data-objects-and-data-classes"}
 
 `data object` と `data class` の宣言はしばしば一緒に使用され、いくつかの類似点がありますが、`data object` では生成されない関数があります：
 
 * `copy()` 関数はありません。`data object` 宣言はシングルトンとして使用されることを意図しているため、`copy()` 関数は生成されません。シングルトンはクラスのインスタンス化を単一のインスタンスに制限するものですが、コピーの作成を許可するとその原則に違反するためです。
 * `componentN()` 関数はありません。`data class` とは異なり、`data object` にはデータプロパティがありません。データプロパティのないオブジェクトをデストラクト（構造分解）しようとしても意味がないため、`componentN()` 関数は生成されません。
 
-#### sealed階層でのデータオブジェクトの使用
+#### sealed階層でのデータオブジェクトの使用 {id="use-data-objects-with-sealed-hierarchies"}
 
 データオブジェクト宣言は、[sealedクラスやsealedインターフェース](sealed-classes.md)のようなsealed階層において特に有用です。
 これらを使用すると、オブジェクトと一緒に定義したデータクラスとの対称性を維持できます。
@@ -202,7 +202,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="data-objects-sealed-hierarchies"}
 
-### コンパニオンオブジェクト
+### コンパニオンオブジェクト {id="companion-objects"}
 
 *コンパニオンオブジェクト（Companion objects）*を使用すると、クラスレベルの関数やプロパティを定義できます。
 これにより、ファクトリメソッドの作成、定数の保持、共有ユーティリティへのアクセスが容易になります。
@@ -329,12 +329,12 @@ fun main() {
 
 ただし、JVM上では、`@JvmStatic` アノテーションを使用すると、コンパニオンオブジェクトのメンバーを実際の静的メソッドやフィールドとして生成させることができます。詳細は [Javaとの相互運用性](java-to-kotlin-interop.md#static-fields) のセクションを参照してください。
 
-## オブジェクト式
+## オブジェクト式 {id="object-expressions"}
 
 オブジェクト式はクラスを宣言し、そのクラスのインスタンスを作成しますが、どちらにも名前を付けません。
 これらのクラスは一回限りの使用に便利です。これらはゼロから作成することも、既存のクラスを継承したり、インターフェースを実装したりすることもできます。これらのクラスのインスタンスは、名前ではなく式によって定義されるため、「匿名オブジェクト（anonymous objects）」とも呼ばれます。
 
-### ゼロから匿名オブジェクトを作成する
+### ゼロから匿名オブジェクトを作成する {id="create-anonymous-objects-from-scratch"}
 
 オブジェクト式は `object` キーワードで始まります。
 
@@ -358,7 +358,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="object-expression-object"}
 
-### スーパータイプから匿名オブジェクトを継承する
+### スーパータイプから匿名オブジェクトを継承する {id="inherit-anonymous-objects-from-supertypes"}
 
 何らかの型（または複数の型）を継承する匿名オブジェクトを作成するには、`object` とコロン `:` の後にその型を指定します。
 次に、そのクラスを[継承](inheritance.md)する場合と同じように、そのクラスのメンバーを実装またはオーバーライドします：
@@ -413,7 +413,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="object-expression-anonymous-object"}
 
-### 戻り値および値の型として匿名オブジェクトを使用する
+### 戻り値および値の型として匿名オブジェクトを使用する {id="use-anonymous-objects-as-return-and-value-types"}
 
 ローカル関数、または [`private`](visibility-modifiers.md#packages) な関数やプロパティから匿名オブジェクトを返す場合、その匿名オブジェクトのすべてのメンバーはその関数やプロパティを通じてアクセス可能です：
 
@@ -507,7 +507,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="object-expression-object-override"}
 
-### 匿名オブジェクトから変数にアクセスする
+### 匿名オブジェクトから変数にアクセスする {id="access-variables-from-anonymous-objects"}
 
 オブジェクト式の本体内のコードは、囲んでいるスコープの変数にアクセスできます：
 
@@ -534,7 +534,7 @@ fun countClicks(window: JComponent) {
 }
 ```
 
-## オブジェクト宣言とオブジェクト式の動作の違い
+## オブジェクト宣言とオブジェクト式の動作の違い {id="behavior-difference-between-object-declarations-and-expressions"}
 
 オブジェクト宣言とオブジェクト式の初期化動作には違いがあります：
 

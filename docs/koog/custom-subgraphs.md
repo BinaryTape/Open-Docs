@@ -1,8 +1,8 @@
-## 创建与配置子图
+## 创建与配置子图 {id="creating-and-configuring-subgraphs"}
 
 以下章节提供了在创建智能体工作流子图时的代码模板和常见模式。
 
-### 基本子图创建
+### 基本子图创建 {id="basic-subgraph-creation"}
 
 自定义子图通常使用以下模式创建：
 
@@ -242,7 +242,7 @@
     ```
     <!--- KNIT exampleCustomSubgraphsJava03.java -->
 
-### 在子图中配置工具
+### 在子图中配置工具 {id="configuring-tools-in-a-subgraph"}
 
 可以通过多种方式为子图配置工具：
 
@@ -398,9 +398,9 @@
     ```
     <!--- KNIT exampleCustomSubgraphsJava06.java -->
 
-## 高级子图技巧
+## 高级子图技巧 {id="advanced-subgraph-techniques"}
 
-### 多部分策略
+### 多部分策略 {id="multi-part-strategies"}
 
 复杂的工作流可以分解为多个子图，每个子图处理过程中的特定部分：
 
@@ -515,7 +515,7 @@
     ```
     <!--- KNIT exampleCustomSubgraphsJava07.java -->
 
-## 最佳做法
+## 最佳做法 {id="best-practices"}
 
 使用子图时，请遵循以下最佳做法：
 
@@ -529,15 +529,15 @@
 
 5. **考虑 Token 使用情况**：注意 Token 使用情况，尤其是在子图之间传递大量历史记录时。
 
-## 故障排除
+## 故障排除 {id="troubleshooting"}
 
-### 工具不可用
+### 工具不可用 {id="tools-not-available"}
 
 如果子图中工具不可用：
 
 - 检查工具是否已在工具库中正确注册。
 
-### 子图未按定义和预期的顺序运行
+### 子图未按定义和预期的顺序运行 {id="subgraphs-not-running-in-the-defined-and-expected-order"}
 
 如果子图未按定义的顺序执行：
 
@@ -545,7 +545,7 @@
 - 验证每个子图是否正确地将其输出传递给下一个子图。
 - 确保您的子图与子图的其余部分相连，并且可以从开始（和结束）节点到达。注意条件边，确保它们涵盖了所有可能的继续执行条件，以免在子图或节点中阻塞。
 
-## 示例
+## 示例 {id="examples"}
 
 以下示例展示了如何在实际场景中使用子图创建智能体策略。
 该代码示例包含三个定义的子图：`researchSubgraph`、`planSubgraph` 和 `executeSubgraph`，其中每个子图在助手流程中都有明确且不同的目的。

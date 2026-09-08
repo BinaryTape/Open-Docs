@@ -18,7 +18,7 @@ val imageLoader = ImageLoader.Builder(context)
     .build()
 ```
 
-## 인터셉터 (Interceptors)
+## 인터셉터 (Interceptors) {id="interceptors"}
 
 인터셉터(Interceptors)를 사용하면 `ImageLoader` 이미지 엔진에 대한 요청을 관찰, 변환, 중단(short circuit) 또는 재시도할 수 있습니다. 예를 들어, 다음과 같이 커스텀 캐시 레이어를 추가할 수 있습니다.
 
@@ -46,7 +46,7 @@ class CustomCacheInterceptor(
 
 자세한 내용은 [Interceptor](/coil/api/coil-core/coil3.intercept/-interceptor)를 참고하세요.
 
-## 매퍼 (Mappers)
+## 매퍼 (Mappers) {id="mappers"}
 
 매퍼(Mappers)를 사용하면 커스텀 데이터 타입에 대한 지원을 추가할 수 있습니다. 예를 들어, 서버로부터 다음과 같은 모델을 받는다고 가정해 보겠습니다.
 
@@ -79,13 +79,13 @@ imageLoader.enqueue(request)
 
 자세한 내용은 [Mapper](/coil/api/coil-core/coil3.map/-mapper)를 참고하세요.
 
-## 키어 (Keyers)
+## 키어 (Keyers) {id="keyers"}
 
 키어(Keyers)는 데이터를 캐시 키의 일부로 변환합니다. 이 값은 해당 요청의 결과가 `MemoryCache`에 기록될 때 `MemoryCache.Key.key`로 사용됩니다.
 
 자세한 내용은 [Keyers](/coil/api/coil-core/coil3.key/-keyer)를 참고하세요.
 
-## 페처 (Fetchers)
+## 페처 (Fetchers) {id="fetchers"}
 
 페처(Fetchers)는 데이터(예: URL, URI, File 등)를 `ImageSource` 또는 `Image`로 변환합니다. 일반적으로 입력 데이터를 `Decoder`가 사용할 수 있는 형식으로 변환합니다. 이 인터페이스를 사용하여 커스텀 페칭 메커니즘(예: Cronet, 커스텀 URI 스킴 등)에 대한 지원을 추가할 수 있습니다.
 
@@ -94,13 +94,13 @@ imageLoader.enqueue(request)
 !!! Note
     커스텀 데이터 타입을 사용하는 `Fetcher`를 추가하는 경우, 해당 데이터를 사용하는 요청 결과가 메모리에 캐싱될 수 있도록 커스텀 `Keyer`도 함께 제공해야 합니다. 예를 들어, `Fetcher.Factory<MyDataType>`을 추가한다면 `Keyer<MyDataType>`도 추가해야 합니다.
 
-## 디코더 (Decoders)
+## 디코더 (Decoders) {id="decoders"}
 
 디코더(Decoders)는 `ImageSource`를 읽고 `Image`를 반환합니다. 이 인터페이스를 사용하여 커스텀 파일 형식(예: GIF, SVG, TIFF 등)에 대한 지원을 추가할 수 있습니다.
 
 자세한 내용은 [Decoder](/coil/api/coil-core/coil3.decode/-decoder)를 참고하세요.
 
-## 커스텀 ImageLoader 및 ImageRequest 속성
+## 커스텀 ImageLoader 및 ImageRequest 속성 {id="custom-imageloader-and-imagerequest-properties"}
 
 Coil은 `Extras`를 통해 `ImageRequest`와 `ImageLoader`에 커스텀 데이터를 첨부하는 것을 지원합니다. `Extras`는 `Extras.Key`를 통해 참조되는 추가 속성들의 맵(map)입니다.
 
@@ -161,7 +161,7 @@ AsyncImage(
 
 [Coil 자체도 이 패턴을 사용](https://github.com/coil-kt/coil/blob/main/coil-gif/src/main/java/coil3/gif/imageRequests.kt)하여 `coil-gif` 및 기타 확장 라이브러리에서 GIF용 커스텀 요청 속성 등을 지원합니다.
 
-## 컴포넌트 체이닝 (Chaining components)
+## 컴포넌트 체이닝 (Chaining components) {id="chaining-components"}
 
 Coil의 이미지 로더 컴포넌트의 유용한 특징 중 하나는 내부적으로 체이닝(chaining)이 가능하다는 점입니다. 예를 들어, 로드할 이미지 URL을 가져오기 위해 네트워크 요청을 수행해야 하는 경우를 생각해 보겠습니다.
 

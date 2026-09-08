@@ -7,7 +7,7 @@ Koog는 관측 가능성(observability) 데이터의 개방형 표준인 [OpenTe
 
 ---
 
-## 설정 방법
+## 설정 방법 {id="setup-instructions"}
 
 1. [설정 가이드](https://langfuse.com/docs/get-started#create-new-project-in-langfuse)를 따라 Langfuse 프로젝트를 생성합니다.
 2. [Organization Settings > API Keys](https://langfuse.com/faq/all/where-are-langfuse-api-keys)에서 `public key`와 `secret key`를 가져옵니다.
@@ -20,11 +20,11 @@ Koog는 관측 가능성(observability) 데이터의 개방형 표준인 [OpenTe
 ```
 <!--- KNIT example-langfuse-exporter-01.txt -->
 
-## 구성
+## 구성 {id="configuration"}
 
 Langfuse 내보내기를 활성화하려면 **OpenTelemetry 피처(feature)**를 설치하고 [`addLangfuseExporter()`](api:agents-features-opentelemetry::ai.koog.agents.features.opentelemetry.integration.langfuse.addLangfuseExporter)를 호출합니다.
 
-### 기본 예시
+### 기본 예시 {id="basic-example"}
 
 === "Kotlin"
 
@@ -94,7 +94,7 @@ See traces on the Langfuse instance");
     ```
     <!--- KNIT exampleLangfuseExporterJava01.java -->
 
-## 트레이스 속성 (Trace attributes)
+## 트레이스 속성 (Trace attributes) {id="trace-attributes"}
 
 Koog가 에이전트 활동을 Langfuse로 전송할 때, 이는 LLM 호출이나 도구 실행과 같은 개별 작업 기록인 *스팬(spans)* 시리즈로 수행됩니다. 관련된 스팬들은 하나의 *트레이스(trace)*로 그룹화되며, 이는 시작부터 끝까지의 전체 에이전트 실행을 나타냅니다.
 
@@ -108,7 +108,7 @@ Koog가 에이전트 활동을 Langfuse로 전송할 때, 이는 LLM 호출이�
 - **환경** (`langfuse.environment`): 운영(production) 트레이스를 개발 및 스테이징 환경과 분리합니다.
 - **태그** (`langfuse.trace.tags`): 피처 이름, 실험 ID 또는 고객 세그먼트로 트레이스에 레이블을 지정합니다 (문자열 배열).
 
-### 세션과 태그를 사용한 예시
+### 세션과 태그를 사용한 예시 {id="example-with-session-and-tags"}
 
 === "Kotlin"
 
@@ -156,7 +156,7 @@ Koog가 에이전트 활동을 Langfuse로 전송할 때, 이는 LLM 호출이�
     !!! note
         Java에서 `traceAttributes`를 설정하는 것은 현재 지원되지 않습니다. 이는 내부 Kotlin 함수가 [`kotlin.time.Duration`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-duration/) 파라미터(value class)를 포함하고 있어, 해당 파라미터 이후의 모든 오버로드에 JVM 이름 맹글링(JVM-name mangling)을 발생시키기 때문입니다. `traceAttributes`가 필요한 경우에는 위의 Kotlin 예제를 사용하십시오.
 
-## 트레이스 대상
+## 트레이스 대상 {id="what-gets-traced"}
 
 Langfuse 익스포터는 Koog의 일반 OpenTelemetry 연동과 동일한 활동을 캡처합니다.
 또한 Langfuse에서 [에이전트 그래프(Agent Graphs)](https://langfuse.com/docs/observability/features/agent-graphs)를 표시하는 데 필요한 스팬 속성도 캡처합니다.
@@ -172,7 +172,7 @@ Langfuse OpenTelemetry 트레이싱에 대한 자세한 내용은 다음을 참�
 
 ---
 
-## 문제 해결
+## 문제 해결 {id="troubleshooting"}
 
 - **트레이스가 나타나지 않음**: `LANGFUSE_HOST`, `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`가 설정되어 있는지, 그리고 키 쌍이 올바른 프로젝트에 속해 있는지 확인하세요.
 - **연결 문제**: 자체 호스팅(self-hosted) Langfuse를 사용하는 경우, 사용자의 환경에서 `LANGFUSE_HOST`에 접속 가능한지 확인하세요.

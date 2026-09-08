@@ -59,7 +59,7 @@ graph TB
 ```
 <!--- KNIT example-graph-agents-01.txt -->
 
-## 构建策略图
+## 构建策略图 {id="build-a-strategy-graph"}
 
 在 Koog 中，您使用 [`AIAgentGraphStrategyBuilder`](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.dsl.builder/-a-i-agent-graph-strategy-builder/index.html) 实现策略。就像每个节点都有输入和输出类型一样，策略作为一个整体也定义了某些输入和输出类型。本示例假设输入和输出类型都是字符串，这意味着实现此策略的智能体将接收一个字符串并返回一个字符串。
 
@@ -181,7 +181,7 @@ graph TB
     ```
     <!--- KNIT example-graph-agents-03.kt -->
 
-## 创建并运行智能体
+## 创建并运行智能体 {id="create-and-run-the-agent"}
 
 让我们使用此策略创建一个智能体实例并运行它：
 
@@ -335,7 +335,7 @@ graph LR
 
 尽管在这种情况下结果是正确的，但答案将取决于底层 LLM 的算术能力。为了确保计算正确，我们应该为智能体提供数学工具。然后，LLM 将能够决定调用工具来确定性地执行计算。
 
-## 添加工具
+## 添加工具 {id="add-tools"}
 
 定义用于执行数学运算的 [工具](../tools/index.md) 并将其添加到 [ToolRegistry](https://api.koog.ai/agents/agents-tools/ai.koog.agents.core.tools/-tool-registry/index.html) 中：
 
@@ -588,7 +588,7 @@ Finally, 123 was added to the result:
 
 根据此输出，智能体正确地执行了计算，但它只调用了一次 `multiply` 工具，而不是为每个操作调用相应的工具。我们可以通过在系统提示词中描述其角色并提供使用适当工具的指令来帮助智能体。
 
-## 提供系统提示词
+## 提供系统提示词 {id="provide-a-system-prompt"}
 
 [系统提示词](../prompts/prompt-creation/index.md#system-message) 定义了智能体的角色以及执行任务的指令。在我们的示例中，描述智能体应如何处理复杂的多步计算非常重要：
 
@@ -770,7 +770,7 @@ The final result is: 193
 
 如您所见，智能体现在为每个操作正确地调用了适当的工具，确保它确定性地执行计算，而不是冒着产生幻觉结果的风险。
 
-## 下一步
+## 下一步 {id="next-steps"}
 
 - 与 [函数式智能体](functional-agents.md) 和 [规划器智能体](planner-agents/index.md) 进行比较
 - 通过 [安装功能](../features/index.md) 来增强您的智能体

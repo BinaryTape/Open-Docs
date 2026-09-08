@@ -16,7 +16,7 @@ Kotlin 노트북을 공유할 수 있는 플랫폼으로 다음을 권장합니�
 * **GitHub**: GitHub은 Kotlin 노트북을 네이티브하게 렌더링하여 간편한 공유와 협업을 지원합니다. 예제는 [Kotlin DataFrame GitHub 리포지토리 예제](https://github.com/Kotlin/dataframe/blob/master/examples/notebooks/titanic/Titanic.ipynb)를 참고하세요.
   ![GitHub Notebook example](github-notebook.png){width=700}
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [Kandy 라이브러리](data-analysis-visualization.md)를 사용한 데이터 시각화 살펴보기
 * [데이터 소스 작업](data-analysis-work-with-data-sources.md)에서 파일, 웹 소스 또는 데이터베이스로부터 데이터를 가져오는 방법 알아보기

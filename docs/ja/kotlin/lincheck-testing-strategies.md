@@ -5,7 +5,7 @@ Lincheckは、並行データ構造をテストするための2つの戦略、�
 
 この記事では、これらの戦略の違いと、テスト戦略を選択する際に考慮すべき点について説明します。
 
-## モデルチェック (Model checking)
+## モデルチェック (Model checking) {id="model-checking"}
 
 モデルチェックでは、Lincheckは起こりうるスレッドのインターリーブ（実行順序の組み合わせ）をシミュレートし、不正な動作の原因となるものを報告します。
 
@@ -32,7 +32,7 @@ fun modelCheckingTest() = ModelCheckingOptions()
 {style=”tip”}
 -->
 
-## ストレス検証 (Stress testing)
+## ストレス検証 (Stress testing) {id="stress-testing"}
 
 ストレス検証では、Lincheckはエラーが見つかる可能性を高めるために、各シナリオを複数回実行します。
 
@@ -47,7 +47,7 @@ fun stressTest() = StressOptions()
 モデルチェックとは異なり、Lincheckはスレッドの切り替えを制御したり追跡したりしません。これにより、ストレス検証はより高速になり、メモリモデルについての仮定を必要としません。
 ただし、ストレス検証ではテストの再現性がなく、Lincheckは実行トレースを提供できません。
 
-## 戦略の選択
+## 戦略の選択 {id="choose-a-strategy"}
 
 戦略を選択する際は、以下の点を考慮してください。
 
@@ -93,11 +93,11 @@ fun stressTest() = StressOptions()
     </tr>
 </table>
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 シナリオ生成のカスタマイズ、実行停止（ストール）検出の有効化、ライブラリのトレッドセーフ保証の提供など、[テスト戦略を構成する](lincheck-testing-strategies-options.md)方法について学びましょう。
 
-## 関連項目
+## 関連項目 {id="see-also"}
 
 * [操作引数の生成](lincheck-argument-generation-constraints.md)
 * [操作実行オプションの構成](lincheck-operation-execution-options.md)

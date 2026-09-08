@@ -15,7 +15,7 @@
 取消是透過 [`Job`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/) handle 運作的，它代表了協同程式的生命週期及其父子關係。
 `Job` 允許您檢查協同程式是否處於啟動狀態，並允許您按照 [結構化並行](coroutines-basics.md#coroutine-scope-and-structured-concurrency) 的定義，將其及其子協同程式一併取消。
 
-## 取消協同程式
+## 取消協同程式 {id="cancel-coroutines"}
 
 當對協同程式的 `Job` handle 呼叫 [`cancel()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/cancel.html) 函式時，該協同程式就會被取消。
 [協同程式建置器函式](coroutines-basics.md#coroutine-builder-functions)（如
@@ -98,7 +98,7 @@ deferred.cancel()
 >
 {style="warning"}
 
-### 取消傳遞
+### 取消傳遞 {id="cancellation-propagation"}
 
 [結構化並行](coroutines-basics.md#coroutine-scope-and-structured-concurrency) 確保取消一個協同程式同時也會取消其所有子協同程式。
 這可以防止子協同程式在父協同程式被取消後繼續執行任務。
@@ -159,7 +159,7 @@ parentJob.cancel()
 
 在本節中，您可以了解如何加入 [掛起點](#suspension-points-and-cancellation)（例如呼叫 [yield()](#the-yield-suspending-function) 函式），讓協同程式能對取消做出反應。
 
-### 掛起點與取消
+### 掛起點與取消 {id="suspension-points-and-cancellation"}
 
 當協同程式被取消時，它會繼續執行，直到到達程式碼中可能掛起的位置，也稱為 *掛起點（suspension point）*。
 如果協同程式在該處掛起，掛起函式會檢查它是否已被取消。
@@ -223,7 +223,7 @@ println("All child jobs completed!")
 >
 {style="tip"}
 
-### `yield()` 掛起函式
+### `yield()` 掛起函式 {id="the-yield-suspending-function"}
 
 如果協同程式不掛起，則在它完成之前，其他協同程式無法在同一個執行緒上執行。
 因此，不掛起的協同程式會在該執行緒上循序執行。
@@ -266,7 +266,7 @@ runBlocking {
 
 在此範例中，每個協同程式都使用 `yield()` 讓其他協同程式在疊代之間執行。
 
-### 明確檢查取消狀態
+### 明確檢查取消狀態 {id="check-for-cancellation-explicitly"}
 
 您可以明確地檢查取消狀態，這讓長時間執行的程式碼能在不掛起的情況下對取消做出反應。
 長時間執行且不掛起的協同程式可能會阻止同執行緒上的其他協同程式執行，直到它完成。
@@ -277,7 +277,7 @@ runBlocking {
 * 當協同程式被取消時，[`isActive`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/is-active.html) 屬性會傳回 `false`。
 * 當協同程式被取消時，[`ensureActive()`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/ensure-active.html) 函式會拋出 `CancellationException`。
 
-### 當協同程式取消時中斷阻塞程式碼
+### 當協同程式取消時中斷阻塞程式碼 {id="interrupt-blocking-code-when-coroutines-are-canceled"}
 
 在 JVM 上，某些阻塞函式（例如 `Thread.sleep()` 或 `BlockingQueue.take()`）會阻塞目前執行緒。
 這些阻塞函式是可以被中斷的，這會使它們提早停止。
@@ -320,7 +320,7 @@ withContext(Dispatchers.Default) {
 ```
 {kotlin-runnable="true" id="interrupt-cancellation-example"}
 
-## 在取消協同程式時安全地處理數值
+## 在取消協同程式時安全地處理數值 {id="handle-values-safely-when-canceling-coroutines"}
 
 當掛起的協同程式被取消時，它會以 `CancellationException` 恢復執行，而不是傳回任何值，即使這些值已經可用。
 這種行為稱為 *立即取消（prompt cancellation）*。
@@ -430,7 +430,7 @@ class ScreenWithFileContents(private val scope: CoroutineScope) {
 
 在此範例中，將 `BufferedReader` 儲存在變數中並在 `finally` 區塊中關閉，可確保即使協同程式被取消也能釋放資源。
 
-### 執行不可取消的區塊
+### 執行不可取消的區塊 {id="run-non-cancelable-blocks"}
 
 您可以防止取消影響協同程式的某些部分。
 為此，請將 [`NonCancellable`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-non-cancellable/) 作為引數傳遞給 `withContext()` 協同程式建置器函式。
@@ -484,7 +484,7 @@ suspend fun main() {
 ```
 {kotlin-runnable="true" id="noncancellable-blocks-example"}
 
-## 逾時
+## 逾時 {id="timeout"}
 
 逾時（Timeout）允許您在指定的時間長度後自動取消協同程式。
 您可以用它來停止執行時間過長的操作。

@@ -11,7 +11,7 @@ AI の助けを借りずにアプリを作成したい場合は、[Kotlin と Sp
 > 
 {style="note"}
 
-## 環境のセットアップ
+## 環境のセットアップ {id="set-up-the-environment"}
 
 > このチュートリアルでは JetBrains AI Assistant を通じて Claude を使用しますが、ターミナルで Claude Code を使用してチュートリアルの手順を進めることもできます。
 >
@@ -24,7 +24,7 @@ AI の助けを借りずにアプリを作成したい場合は、[Kotlin と Sp
    * [API キーを使用する](https://www.jetbrains.com/help/ai-assistant/activate-agents.html#activate-claude-agent-with-api-key)
    * [Anthropic Console を使用する](https://www.jetbrains.com/help/ai-assistant/activate-agents.html#activate-agent-with-provider-specific-method)
 
-## プロジェクトの作成
+## プロジェクトの作成 {id="create-a-project"}
 
 > [Spring の Web ベースプロジェクトジェネレーター](https://start.spring.io/#!language=kotlin&type=gradle-project-kotlin)を使用して Spring Boot プロジェクトを作成することもできます。
 >
@@ -64,7 +64,7 @@ IntelliJ IDEA で新しい Spring Boot プロジェクトを作成します：
 
    IDE が新しいプロジェクトを生成して開きます。プロジェクトの依存関係のダウンロードとインポートには、しばらく時間がかかる場合があります。
 
-## 開発計画の作成
+## 開発計画の作成 {id="create-a-development-plan"}
 
 プロジェクト内で以下の操作を行います：
 
@@ -107,7 +107,7 @@ IntelliJ IDEA で新しい Spring Boot プロジェクトを作成します：
 
 6. Claude が **Plan Mode** を終了し、作業を開始します。作業が完了するまで待ちます。
 
-## コミットの確認
+## コミットの確認 {id="review-the-commits"}
 
 アプリを実行する前に、生成された変更を慎重に確認してください：
 
@@ -116,7 +116,7 @@ IntelliJ IDEA で新しい Spring Boot プロジェクトを作成します：
 
 ![サイドバイサイドビューアー](side-by-side-viewer.png){width=800}
 
-## アプリの実行
+## アプリの実行 {id="run-the-app"}
 
 変更に納得したら、アプリを実行します：
 
@@ -140,11 +140,11 @@ IntelliJ IDEA で新しい Spring Boot プロジェクトを作成します：
    >
    {style="tip"}
 
-## アプリのテスト
+## アプリのテスト {id="test-the-app"}
 
 次に、アプリをテストしてみましょう。
 
-### UI を手動でテストする
+### UI を手動でテストする {id="test-the-ui-manually"}
 
 まず UI の機能をテストします。いくつかの簡単なアクションを試してみてください：
 
@@ -156,7 +156,7 @@ IntelliJ IDEA で新しい Spring Boot プロジェクトを作成します：
 
 これらのアクションのいずれかが機能しない場合は、Claude に問題を調査して修正するよう新しいプロンプトを送信してください。
 
-### ユニットテストの実行
+### ユニットテストの実行 {id="run-unit-tests"}
 
 Claude はいくつかのテストも自動的に作成します。次のコマンドを実行して、すべてのテストに合格することを確認してください：
 
@@ -168,7 +168,7 @@ Claude はいくつかのテストも自動的に作成します。次のコマ�
 
 いずれかのテストが機能しない場合は、Claude に問題を調査して修正するよう新しいプロンプトを送信してください。
 
-## 洗練させる
+## 洗練させる {id="make-refinements"}
 
 初期のタスクが完了したので、さらに洗練させることができます。例えば、ユーザーがリスト内で直接タスクを編集できるように UI を改善してみましょう。
 
@@ -187,7 +187,7 @@ This change should make the app feel faster and more intuitive to use.
 
 おめでとうございます！Claude を使用して、IntelliJ IDEA で直接 Kotlin Spring Boot アプリケーションの計画、構築、テスト、洗練を行いました。
 
-## 次は？
+## 次は？ {id="what-s-next"}
 
 * [](kotlin-ai-skills.md) について学ぶ
 * [Junie と Kotlin AI スキル](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-spm-migration-ai.html)の使用に関するチュートリアルをチェックする

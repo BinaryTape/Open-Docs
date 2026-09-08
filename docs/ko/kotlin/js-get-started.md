@@ -11,16 +11,16 @@
 > 
 {style="tip"}
 
-## IntelliJ IDEA에서 애플리케이션 생성 
+## IntelliJ IDEA에서 애플리케이션 생성 {id="create-your-application-in-intellij-idea"}
 
 Kotlin/JS 웹 애플리케이션을 만들려면 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)를 사용할 수 있습니다.
 
-### 환경 설정
+### 환경 설정 {id="set-up-the-environment"}
 
 1. 최신 버전의 [IntelliJ IDEA](https://www.jetbrains.com/idea/)를 다운로드하고 설치합니다.
 2. [Kotlin 멀티플랫폼 IDE 플러그인](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform)을 설치합니다(Kotlin 멀티플랫폼 Gradle 플러그인과 혼동하지 마세요).
 
-### 프로젝트 생성
+### 프로젝트 생성 {id="create-your-project"}
 
 1. IntelliJ IDEA에서 **File** | **New** | **Project from Version Control**을 선택합니다.
 2. [Kotlin/JS 템플릿 프로젝트](https://github.com/Kotlin/kmp-js-wizard)의 URL을 입력합니다:
@@ -31,7 +31,7 @@ Kotlin/JS 웹 애플리케이션을 만들려면 [IntelliJ IDEA](https://www.jet
    
 3. **Clone**을 클릭합니다.
 
-### 프로젝트 구성
+### 프로젝트 구성 {id="configure-your-project"}
 
 1. `kmp-js-wizard/gradle/libs.versions.toml` 파일을 엽니다. 이 파일에는 프로젝트 의존성에 대한 버전 카탈로그가 포함되어 있습니다. 
 2. Kotlin 버전이 Kotlin/JS를 타겟으로 하는 웹 애플리케이션을 만드는 데 필요한 Kotlin 멀티플랫폼 Gradle 플러그인의 버전과 일치하는지 확인합니다:
@@ -52,7 +52,7 @@ Kotlin/JS 웹 애플리케이션을 만들려면 [IntelliJ IDEA](https://www.jet
 
 멀티플랫폼 프로젝트를 위한 Gradle 구성에 대한 자세한 내용은 [멀티플랫폼 Gradle DSL 레퍼런스](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html)를 참고하세요.
 
-### 애플리케이션 빌드 및 실행
+### 애플리케이션 빌드 및 실행 {id="build-and-run-the-application"}
 
 1. `src/jsMain/kotlin/Main.kt` 파일을 엽니다.
 
@@ -84,7 +84,7 @@ Kotlin/JS 웹 애플리케이션을 만들려면 [IntelliJ IDEA](https://www.jet
 > 
 > {style="tip"}
 
-### 연속 빌드(Continuous build) 활성화
+### 연속 빌드(Continuous build) 활성화 {id="enable-continuous-build"}
 
 Gradle은 변경 사항이 생길 때마다 프로젝트를 자동으로 다시 빌드할 수 있습니다:
 
@@ -100,11 +100,11 @@ Gradle은 변경 사항이 생길 때마다 프로젝트를 자동으로 다시 
 
 이제 애플리케이션을 실행하고 변경 사항을 만들면, Gradle은 프로젝트에 대해 증분 빌드(incremental builds)를 자동으로 수행하며 파일을 저장(<shortcut>Ctrl + S</shortcut>/<shortcut>Cmd + S</shortcut>)하거나 클래스 파일을 변경할 때마다 브라우저를 핫 리로드(hot-reload)합니다. 
 
-### 애플리케이션 수정
+### 애플리케이션 수정 {id="modify-the-application"}
 
 단어의 글자 수를 세는 기능을 추가하도록 애플리케이션을 수정해 보겠습니다.
 
-#### input 요소 추가
+#### input 요소 추가 {id="add-an-input-element"}
 
 1. `src/jsMain/kotlin/Main.kt` 파일에서, 사용자 입력을 읽기 위해 [확장 함수(extension function)](extensions.md#extension-functions)를 통해 [HTML input 요소](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input)를 추가합니다:
 
@@ -131,7 +131,7 @@ Gradle은 변경 사항이 생길 때마다 프로젝트를 자동으로 다시 
 
    ![input 요소가 추가된 애플리케이션](js-added-input-element.png){width=600}
 
-#### 입력 이벤트 핸들링 추가
+#### 입력 이벤트 핸들링 추가 {id="add-an-input-event-handling"}
 
 1. `appendInput()` 함수 내부에 리스너를 추가하여 입력 값을 읽고 변경 사항에 반응하도록 합니다:
 
@@ -183,7 +183,7 @@ Gradle은 변경 사항이 생길 때마다 프로젝트를 자동으로 다시 
     }
    ```
    
-#### 입력을 처리하여 글자 수 세기
+#### 입력을 처리하여 글자 수 세기 {id="process-the-input-to-count-the-letters"}
 
 공백을 제거하고 글자 수와 함께 출력을 표시하도록 입력을 처리합니다.
 
@@ -210,7 +210,7 @@ fun main() {
 * [`let{}` 범위 함수(scope function)](scope-functions.md#let)는 객체 컨텍스트 내에서 함수를 실행합니다.
 * [문자열 템플릿(string template)](strings.md#string-templates) (`${it.length}`)은 달러 기호($)를 접두사로 붙이고 중괄호(`{}`)로 감싸서 문자열 내에 단어의 길이를 삽입합니다. 여기서 `it`은 [람다 파라미터(lambda parameter)](coding-conventions.md#lambda-parameters)의 기본 이름입니다.
 
-#### 애플리케이션 실행
+#### 애플리케이션 실행 {id="run-the-application"}
 
 1. [애플리케이션을 실행합니다](#build-and-run-the-application).
 2. 이름을 입력합니다.
@@ -220,7 +220,7 @@ fun main() {
 
 ![애플리케이션 출력](js-output-gutter-2.png){width=600}
 
-#### 입력을 처리하여 중복되지 않는 글자 수 세기
+#### 입력을 처리하여 중복되지 않는 글자 수 세기 {id="process-the-input-to-count-unique-letters"}
 
 추가 연습으로, 입력을 처리하여 단어에서 중복되지 않는(unique) 글자의 수를 계산하고 표시해 보겠습니다:
 
@@ -261,14 +261,14 @@ fun main() {
 
 ![애플리케이션 출력](js-output-gutter-3.png){width=600}
 
-## Gradle을 사용하여 애플리케이션 생성
+## Gradle을 사용하여 애플리케이션 생성 {id="create-your-application-using-gradle"}
 
 이 섹션에서는 [Gradle](https://gradle.org)을 사용하여 Kotlin/JS 애플리케이션을 수동으로 만드는 방법을 배울 수 있습니다.
 
 Gradle은 Kotlin/JS 및 Kotlin 멀티플랫폼 프로젝트의 기본 빌드 시스템입니다.
 또한 Java, Android 및 기타 생태계에서도 흔히 사용됩니다.
 
-### 프로젝트 파일 생성
+### 프로젝트 파일 생성 {id="create-project-files"}
 
 1. Kotlin Gradle 플러그인(KGP)과 호환되는 Gradle 버전을 사용하고 있는지 확인하세요. 자세한 내용은 [호환성 테이블](gradle-configure-project.md#apply-the-plugin)을 참고하세요.
 2. 파일 탐색기, 커맨드 라인 또는 선호하는 도구를 사용하여 프로젝트를 위한 빈 디렉터리를 만듭니다. 
@@ -366,7 +366,7 @@ Gradle은 Kotlin/JS 및 Kotlin 멀티플랫폼 프로젝트의 기본 빌드 시
 
 3. `<$NAME_OF_YOUR_PROJECT_DIRECTORY>` 플레이스홀더를 프로젝트 디렉터리의 이름으로 바꿉니다.
 
-### 프로젝트 빌드 및 실행
+### 프로젝트 빌드 및 실행 {id="build-and-run-the-project"}
 
 프로젝트를 빌드하려면 루트 프로젝트 디렉터리에서 다음 명령을 실행합니다:
 
@@ -389,7 +389,7 @@ gradle jsNodeDevelopmentRun
 
 ![애플리케이션 출력](js-output-gutter-5.png){width=500}
 
-### IDE에서 프로젝트 열기
+### IDE에서 프로젝트 열기 {id="open-the-project-in-an-ide"}
 
 Gradle을 지원하는 모든 IDE에서 프로젝트를 열 수 있습니다. 
 
@@ -402,7 +402,7 @@ IntelliJ IDEA를 사용하는 경우:
 IntelliJ IDEA는 해당 프로젝트가 Kotlin/JS 프로젝트인지 자동으로 감지합니다.
 프로젝트에 문제가 발생하면 IntelliJ IDEA는 **Build** 창에 오류 메시지를 표시합니다.
 
-## 다음 단계는?
+## 다음 단계는? {id="what-s-next"}
 
 * [Kotlin/JS 프로젝트 설정](js-project-setup.md)
 * [Kotlin/JS 애플리케이션 디버깅](js-debugging.md) 방법 알아보기

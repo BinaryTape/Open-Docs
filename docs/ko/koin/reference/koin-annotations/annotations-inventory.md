@@ -2,7 +2,7 @@
 
 이 문서는 모든 Koin 어노테이션, 매개변수, 동작 및 사용 예제에 대한 포괄적인 목록을 제공합니다.
 
-## 목차
+## 목차 {id="table-of-contents"}
 
 - [정의 어노테이션 (Definition Annotations)](#definition-annotations)
   - [@Single](#single)
@@ -42,9 +42,9 @@
 
 ---
 
-## 정의 어노테이션 (Definition Annotations)
+## 정의 어노테이션 (Definition Annotations) {id="definition-annotations"}
 
-### @Single / @Singleton
+### @Single / @Singleton {id="single-singleton"}
 
 **패키지:** `org.koin.core.annotation`
 
@@ -84,7 +84,7 @@ class MyClass(val d : MyDependency)
 
 ---
 
-### @Factory
+### @Factory {id="factory"}
 
 **패키지:** `org.koin.core.annotation`
 
@@ -111,7 +111,7 @@ factory { MyClass(get()) }
 
 ---
 
-### @Scoped
+### @Scoped {id="scoped"}
 
 **패키지:** `org.koin.core.annotation`
 
@@ -136,9 +136,9 @@ class MyClass(val d : MyDependency)
 
 ---
 
-## 스코프 어노테이션 (Scope Annotations)
+## 스코프 어노테이션 (Scope Annotations) {id="scope-annotations"}
 
-### @Scope
+### @Scope {id="scope"}
 
 **패키지:** `org.koin.core.annotation`
 
@@ -174,7 +174,7 @@ class MyClass(val d : MyDependency)
 
 ---
 
-### @ViewModelScope
+### @ViewModelScope {id="viewmodelscope"}
 
 **패키지:** `org.koin.core.annotation`
 
@@ -205,7 +205,7 @@ viewModelScope {
 
 ---
 
-### @ActivityScope
+### @ActivityScope {id="activityscope"}
 
 **패키지:** `org.koin.android.annotation`
 
@@ -236,7 +236,7 @@ activityScope {
 
 ---
 
-### @ActivityRetainedScope
+### @ActivityRetainedScope {id="activityretainedscope"}
 
 **패키지:** `org.koin.android.annotation`
 
@@ -267,7 +267,7 @@ activityRetainedScope {
 
 ---
 
-### @FragmentScope
+### @FragmentScope {id="fragmentscope"}
 
 **패키지:** `org.koin.android.annotation`
 
@@ -298,7 +298,7 @@ fragmentScope {
 
 ---
 
-### @ScopeId
+### @ScopeId {id="scopeid"}
 
 **패키지:** `org.koin.core.annotation`
 
@@ -332,9 +332,9 @@ class MyClass(@ScopeId(MyScope::class) val d : MyDependency)
 
 ---
 
-## ViewModel 및 Android 전용 어노테이션
+## ViewModel 및 Android 전용 어노테이션 {id="viewmodel-android-specific-annotations"}
 
-### @KoinViewModel
+### @KoinViewModel {id="koinviewmodel"}
 
 **패키지:** `org.koin.android.annotation`
 
@@ -375,7 +375,7 @@ viewModel { MyViewModel(get()) }
 
 ---
 
-### @KoinWorker
+### @KoinWorker {id="koinworker"}
 
 **패키지:** `org.koin.android.annotation`
 
@@ -397,9 +397,9 @@ class MyWorker() : Worker()
 
 ---
 
-## 한정자 어노테이션 (Qualifier Annotations)
+## 한정자 어노테이션 (Qualifier Annotations) {id="qualifier-annotations"}
 
-### @Named
+### @Named {id="named"}
 
 **패키지:** `org.koin.core.annotation`
 
@@ -436,7 +436,7 @@ class MyClass(val d : MyDependency)
 
 ---
 
-### @Qualifier
+### @Qualifier {id="qualifier"}
 
 **패키지:** `org.koin.core.annotation`
 
@@ -460,9 +460,9 @@ class MyClass(val d : MyDependency)
 
 ---
 
-## 매개변수 어노테이션 (Parameter Annotations)
+## 매개변수 어노테이션 (Parameter Annotations) {id="parameter-annotations"}
 
-### @InjectedParam
+### @InjectedParam {id="injectedparam"}
 
 **패키지:** `org.koin.core.annotation`
 
@@ -493,7 +493,7 @@ val instance = koin.get<MyClass> { parametersOf(42) }
 
 ---
 
-### @Property
+### @Property {id="property"}
 
 **패키지:** `org.koin.core.annotation`
 
@@ -534,7 +534,7 @@ factory { MyClass(getProperty("name", defaultName)) }
 
 ---
 
-### @PropertyValue
+### @PropertyValue {id="propertyvalue"}
 
 **패키지:** `org.koin.core.annotation`
 
@@ -564,9 +564,9 @@ factory { MyClass(getProperty("name", defaultName)) }
 
 ---
 
-## 안정성 어노테이션 (Safety Annotations)
+## 안정성 어노테이션 (Safety Annotations) {id="safety-annotations"}
 
-### @Provided
+### @Provided {id="provided"}
 
 **패키지:** `org.koin.core.annotation`
 
@@ -604,9 +604,9 @@ class PaymentProcessor(@Provided val gateway: PaymentGateway)
 
 ---
 
-## 모듈 및 애플리케이션 어노테이션
+## 모듈 및 애플리케이션 어노테이션 {id="module-application-annotations"}
 
-### @Module
+### @Module {id="module"}
 
 **패키지:** `org.koin.core.annotation`
 
@@ -648,7 +648,7 @@ class MyModule {
 
 ---
 
-### @ComponentScan
+### @ComponentScan {id="componentscan"}
 
 **패키지:** `org.koin.core.annotation`
 
@@ -700,7 +700,7 @@ class MyApp
 
 ---
 
-### @Configuration
+### @Configuration {id="configuration"}
 
 **패키지:** `org.koin.core.annotation`
 
@@ -742,7 +742,7 @@ default 및 test 구성에서 사용 가능합니다.
 
 ---
 
-### @KoinApplication
+### @KoinApplication {id="koinapplication"}
 
 **패키지:** `org.koin.core.annotation`
 
@@ -794,9 +794,9 @@ MyApp.startKoin {
 
 ---
 
-## 모니터링 어노테이션
+## 모니터링 어노테이션 {id="monitoring-annotations"}
 
-### @Monitor
+### @Monitor {id="monitor"}
 
 **패키지:** `org.koin.core.annotation`
 
@@ -833,11 +833,11 @@ class UserService(private val userRepository: UserRepository) {
 
 ---
 
-## 메타 어노테이션 (Internal)
+## 메타 어노테이션 (Internal) {id="meta-annotations-internal"}
 
 이 어노테이션들은 Koin 컴파일러 및 코드 생성에 의한 내부 용도로만 사용됩니다.
 
-### @ExternalDefinition
+### @ExternalDefinition {id="externaldefinition"}
 
 **패키지:** `org.koin.meta.annotations`
 
@@ -850,7 +850,7 @@ class UserService(private val userRepository: UserRepository) {
 
 ---
 
-### @MetaDefinition
+### @MetaDefinition {id="metadefinition"}
 
 **패키지:** `org.koin.meta.annotations`
 
@@ -868,7 +868,7 @@ class UserService(private val userRepository: UserRepository) {
 
 ---
 
-### @MetaModule
+### @MetaModule {id="metamodule"}
 
 **패키지:** `org.koin.meta.annotations`
 
@@ -885,7 +885,7 @@ class UserService(private val userRepository: UserRepository) {
 
 ---
 
-### @MetaApplication
+### @MetaApplication {id="metaapplication"}
 
 **패키지:** `org.koin.meta.annotations`
 
@@ -900,7 +900,7 @@ class UserService(private val userRepository: UserRepository) {
 
 ---
 
-## 요약 표
+## 요약 표 {id="summary-table"}
 
 | 어노테이션 | 패키지 | 목적 | 일반적인 유스케이스 |
 |------------|---------|---------|-----------------|

@@ -13,7 +13,7 @@
 > 
 {style="note"}
 
-## 将 KSP 插件添加到项目中
+## 将 KSP 插件添加到项目中 {id="add-the-ksp-plugin-to-your-project"}
 
 在项目级的 `build.gradle(.kts)` 文件的 `plugins {}` 块中添加 KSP：
 
@@ -42,7 +42,7 @@ plugins {
 > 
 {style="tip"}
 
-## 更新处理器
+## 更新处理器 {id="update-your-processor"}
 
 找到使用要迁移的处理器的模块。在该模块的 `build.gradle(.kts)` 文件中：
 
@@ -105,7 +105,7 @@ plugins {
 > 
 {style="note"}
 
-## 移除 kapt 插件
+## 移除 kapt 插件 {id="remove-the-kapt-plugin"}
 
 在将所有处理器迁移到 KSP 后，你可以安全地从所有构建文件中移除 kapt 插件：
 
@@ -134,7 +134,7 @@ plugins {
 
 删除所有遗留的 kapt 配置（如果有的话）。
 
-## 后续步骤
+## 后续步骤 {id="what-s-next"}
 
 * 在[快速入门 KSP](ksp-quickstart.md#create-your-own-processor)中了解如何制作自己的基于 KSP 的注解处理器。
 * 在 [KSP 仓库](https://github.com/google/ksp/tree/main/examples)中探索使用 KSP 的示例项目。

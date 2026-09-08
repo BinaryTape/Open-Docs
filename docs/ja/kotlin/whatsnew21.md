@@ -21,7 +21,7 @@ Kotlin 2.1.0 がリリースされました！主なハイライトは以下の�
 >
 {style="tip"}
 
-## IDE サポート
+## IDE サポート {id="ide-support"}
 
 2.1.0 をサポートする Kotlin プラグインは、最新の IntelliJ IDEA および Android Studio に同梱されています。
 IDE の Kotlin プラグインを更新する必要はありません。
@@ -29,7 +29,7 @@ IDE の Kotlin プラグインを更新する必要はありません。
 
 詳細は [新しい Kotlin バージョンへのアップデート](releases.md#update-to-a-new-kotlin-version) をご覧ください。
 
-## 言語
+## 言語 {id="language"}
 
 K2 コンパイラを搭載した Kotlin 2.0.0 のリリースの後、JetBrains チームは新しい機能による言語の改善に注力しています。
 今回のリリースでは、いくつかの新しい言語デザインの改善を発表できることを嬉しく思います。
@@ -54,7 +54,7 @@ K2 コンパイラを搭載した Kotlin 2.0.0 のリリースの後、JetBrains
 * [ジェネリック型を持つ関数のオーバーロード解像度の改善](#improved-overload-resolution-for-functions-with-generic-types)
 * [sealed クラスを使用した when 式の網羅性チェックの改善](#improved-exhaustiveness-checks-for-when-expressions-with-sealed-classes)
 
-### 対象（subject）を持つ when におけるガード条件
+### 対象（subject）を持つ when におけるガード条件 {id="guard-conditions-in-when-with-a-subject"}
 
 > この機能は [プレビュー版](kotlin-evolution-principles.md#pre-stable-features) であり、
 > オプトインが必要です（詳細は後述）。
@@ -114,7 +114,7 @@ kotlin {
 }
 ```
 
-### 非ローカルな break と continue
+### 非ローカルな break と continue {id="non-local-break-and-continue"}
 
 > この機能は [プレビュー版](kotlin-evolution-principles.md#pre-stable-features) であり、
 > オプトインが必要です（詳細は後述）。
@@ -163,7 +163,7 @@ kotlin {
 将来の Kotlin リリースでこの機能を Stable にする予定です。
 非ローカルな `break` および `continue` の使用中に問題が発生した場合は、当社の [イシュートラッカー](https://youtrack.jetbrains.com/issue/KT-1436) に報告してください。
 
-### マルチダラー文字列補間
+### マルチダラー文字列補間 {id="multi-dollar-string-interpolation"}
 
 > この機能は [プレビュー版](kotlin-evolution-principles.md#pre-stable-features) であり、
 > オプトインが必要です（詳細は後述）。
@@ -219,7 +219,7 @@ kotlin {
 既存のコードで 1 つのドル記号による標準的な文字列補間を使用している場合、変更は不要です。
 文字列内でリテラルのドル記号が必要な場合は、いつでも `$` を使用できます。
 
-### API 拡張時のオプトイン要求のサポート
+### API 拡張時のオプトイン要求のサポート {id="support-for-requiring-opt-in-to-extend-apis"}
 
 Kotlin 2.1.0 では [`@SubclassOptInRequired`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-subclass-opt-in-required/) アノテーションが導入されました。
 これにより、ライブラリの作者は、ユーザーが実験的なインターフェースを実装したり、実験的なクラスを継承したりする前に、明示的なオプトインを要求できるようになります。
@@ -253,7 +253,7 @@ interface MyImplementation: CoreLibraryApi
 
 API で `@SubclassOptInRequired` アノテーションを使用する実例については、`kotlinx.coroutines` ライブラリの [`SharedFlow`](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-shared-flow/) インターフェースを確認してください。
 
-### ジェネリック型を持つ関数のオーバーロード解像度の改善
+### ジェネリック型を持つ関数のオーバーロード解像度の改善 {id="improved-overload-resolution-for-functions-with-generic-types"}
 
 以前は、ある関数のオーバーロードにおいて、一部がジェネリック型の値パラメータを持ち、他が同じ位置に関数型を持っていた場合、解像度の挙動が矛盾することがありました。
 
@@ -287,7 +287,7 @@ fun test(kvs: KeyValueStore<String, Int>) {
 この問題を修正するために、新しいヒューリスティックを導入しました。これにより、別の引数からの情報に基づいてジェネリック型の関数パラメータがラムダ関数を受け入れられない場合、コンパイラは候補となるオーバーロードを破棄できるようになります。
 この変更によりメンバ関数と拡張関数の挙動が一貫するようになり、Kotlin 2.1.0 ではデフォルトで有効になっています。
 
-### sealed クラスを使用した when 式の網羅性チェックの改善
+### sealed クラスを使用した when 式の網羅性チェックの改善 {id="improved-exhaustiveness-checks-for-when-expressions-with-sealed-classes"}
 
 以前のバージョンの Kotlin では、sealed の上限境界（upper bounds）を持つ型パラメータにおいて、`sealed class` 階層のすべてのケースがカバーされている場合でも、コンパイラは `when` 式に `else` ブランチを要求していました。
 この挙動は Kotlin 2.1.0 で対処・改善され、網羅性チェックがより強力になりました。これにより、冗長な `else` ブランチを削除し、`when` 式をよりクリーンで直感的に保つことができます。
@@ -306,11 +306,11 @@ fun <T : Result> render(result: T) = when (result) {
 }
 ```
 
-## Kotlin K2 コンパイラ
+## Kotlin K2 コンパイラ {id="kotlin-k2-compiler"}
 
 Kotlin 2.1.0 では、K2 コンパイラが [コンパイラチェックの柔軟な利用](#extra-compiler-checks) や [警告の抑制](#global-warning-suppression) を提供するようになり、[kapt プラグインのサポートも改善](#improved-k2-kapt-implementation) されました。
 
-### 追加のコンパイラチェック
+### 追加のコンパイラチェック {id="extra-compiler-checks"}
 
 Kotlin 2.1.0 では、K2 コンパイラで追加のチェックを有効にできるようになりました。
 これらは通常、コンパイルに不可欠ではない宣言、式、型の追加チェックですが、以下のケースを検証したい場合に有用です：
@@ -349,7 +349,7 @@ kotlin {
 
 コンパイラオプションの定義と使用方法についての詳細は、[Kotlin Gradle プラグインにおけるコンパイラオプション](gradle-compiler-options.md) を参照してください。
 
-### グローバルな警告の抑制
+### グローバルな警告の抑制 {id="global-warning-suppression"}
 
 2.1.0 では、Kotlin コンパイラに要望の多かった機能である、警告をグローバルに抑制する機能が追加されました。
 
@@ -405,7 +405,7 @@ kotlin {
    </tab>
    </tabs>
 
-### Improved K2 kapt 実装
+### Improved K2 kapt 実装 {id="improved-k2-kapt-implementation"}
 
 > K2 コンパイラ用の kapt プラグイン (K2 kapt) は [Alpha](components-stability.md#stability-levels-explained) 段階にあります。
 > 内容は随時変更される可能性があります。
@@ -433,11 +433,11 @@ kapt.use.k2=true
 
 新しい実装が安定する前に、皆さまからの [フィードバック](https://youtrack.jetbrains.com/issue/KT-71439/K2-kapt-feedback) をいただけますと幸いです。
 
-### 符号なし型と非プリミティブ型間のオーバーロード衝突の解決
+### 符号なし型と非プリミティブ型間のオーバーロード衝突の解決 {id="resolution-for-overload-conflicts-between-unsigned-and-non-primitive-types"}
 
 このリリースでは、符号なし型と非プリミティブ型に対して関数がオーバーロードされた場合に、以前のバージョンで発生していたオーバーロード衝突の解決の問題に対処しました。以下のような例が該当します：
 
-#### オーバーロードされた拡張関数
+#### オーバーロードされた拡張関数 {id="overloaded-extension-functions"}
 
 ```kotlin
 fun Any.doStuff() = "Any"
@@ -451,7 +451,7 @@ fun main() {
 
 以前のバージョンでは、`Any` と `UByte` の両方の拡張が適用可能であったため、`uByte.doStuff()` の呼び出しで曖昧さが発生していました。
 
-#### オーバーロードされたトップレベル関数
+#### オーバーロードされたトップレベル関数 {id="overloaded-top-level-functions"}
 
 ```kotlin
 fun doStuff(value: Any) = "Any"
@@ -466,11 +466,11 @@ fun main() {
 同様に、コンパイラが `Any` バージョンと `UByte` バージョンのどちらを使用すべきか判断できなかったため、`doStuff(uByte)` の呼び出しは曖昧でした。
 2.1.0 では、コンパイラはこれらのケースを正しく処理し、より具体的な型（この場合は `UByte`）を優先することで曖昧さを解決するようになりました。
 
-## Kotlin/JVM
+## Kotlin/JVM {id="kotlin-jvm"}
 
 バージョン 2.1.0 から、コンパイラは Java 23 バイトコードを含むクラスを生成できるようになりました。
 
-### JSpecify Nullability ミスマッチ診断の厳格モードへの変更
+### JSpecify Nullability ミスマッチ診断の厳格モードへの変更 {id="change-of-jspecify-nullability-mismatch-diagnostics-severity-to-strict"}
 
 Kotlin 2.1.0 では、`org.jspecify.annotations` からの Nullability アノテーションの処理が厳格化され、Java 相互運用における型安全性が向上しました。
 
@@ -522,12 +522,12 @@ fun test(sjc: SomeJavaClass) {
 
 詳細は [Nullability アノテーション](java-interop.md#nullability-annotations) を参照してください。
 
-## Kotlin Multiplatform
+## Kotlin Multiplatform {id="kotlin-multiplatform"}
 
 Kotlin 2.1.0 では、[Swift エクスポートの基本サポート](#basic-support-for-swift-export) が導入され、[Kotlin Multiplatform ライブラリの公開がより簡単に](#ability-to-publish-kotlin-libraries-from-any-host) なりました。
 また、Gradle 周辺の改善にも注力しており、[コンパイラオプションを設定するための新しい DSL](#new-gradle-dsl-for-compiler-options-in-multiplatform-projects-promoted-to-stable) を Stable にし、[Isolated Projects 機能のプレビュー](#preview-gradle-s-isolated-projects-in-kotlin-multiplatform) を導入しました。
 
-### マルチプラットフォームプロジェクトにおけるコンパイラオプション用の新しい Gradle DSL が Stable に昇格
+### マルチプラットフォームプロジェクトにおけるコンパイラオプション用の新しい Gradle DSL が Stable に昇格 {id="new-gradle-dsl-for-compiler-options-in-multiplatform-projects-promoted-to-stable"}
 
 Kotlin 2.0.0 では、マルチプラットフォームプロジェクト全体でコンパイラオプションの構成を簡素化するために、[新しい実験的な Gradle DSL を導入しました](whatsnew20.md#new-gradle-dsl-for-compiler-options-in-multiplatform-projects)。
 Kotlin 2.1.0 では、この DSL が Stable に昇格しました。
@@ -538,7 +538,7 @@ Kotlin 2.1.0 では、この DSL が Stable に昇格しました。
 
 異なるレベルの詳細や、レベル間でコンパイラオプションを構成する方法については、[コンパイラオプション](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html#compiler-options) を参照してください。
 
-### Kotlin Multiplatform における Gradle の Isolated Projects のプレビュー
+### Kotlin Multiplatform における Gradle の Isolated Projects のプレビュー {id="preview-gradle-s-isolated-projects-in-kotlin-multiplatform"}
 
 > この機能は [Experimental](components-stability.md#stability-levels-explained) であり、現在 Gradle ではプレ Alpha 段階にあります。
 > Gradle バージョン 8.10 でのみ使用し、評価目的のみに留めてください。この機能は、随時廃止または変更される可能性があります。
@@ -568,7 +568,7 @@ Kotlin Gradle プラグインの新しいモデルを有効にするには、2 �
   Gradle で Isolated Projects 機能を有効にすると、Kotlin Gradle プラグインは自動的に新しいモデルを使用するように構成されます。
   Isolated Projects 機能を有効にするには、[システムプロパティを設定](https://docs.gradle.org/current/userguide/isolated_projects.html#how_do_i_use_it) してください。この場合、プロジェクトに Kotlin Gradle プラグイン用の Gradle プロパティを追加する必要はありません。
 
-### Swift エクスポートの基本サポート
+### Swift エクスポートの基本サポート {id="basic-support-for-swift-export"}
 
 > この機能は現在開発の初期段階にあります。随時廃止または変更される可能性があります。
 > オプトインが必要であり（詳細は後述）、評価目的のみに使用してください。
@@ -619,7 +619,7 @@ Swift エクスポートがすでに設定されている [公開サンプル](h
 
 コンパイラは、必要なすべてのファイル（`swiftmodule` ファイル、静的 `a` ライブラリ、ヘッダーおよび `modulemap` ファイルを含む）を自動的に生成し、アプリのビルドディレクトリにコピーします。これには Xcode からアクセス可能です。
 
-#### Swift エクスポートを有効にする方法
+#### Swift エクスポートを有効にする方法 {id="how-to-enable-swift-export"}
 
 この機能は現在開発の初期段階にあることに留意してください。
 
@@ -645,12 +645,12 @@ Swift エクスポートは現在、iOS フレームワークを Xcode プロジ
 
    ![Swift エクスポートスクリプトの追加](xcode-swift-export-run-script-phase.png){width=700}
 
-#### Swift エクスポートに関するフィードバック
+#### Swift エクスポートに関するフィードバック {id="leave-feedback-on-swift-export"}
 
 将来の Kotlin リリースで、Swift エクスポートのサポートを拡張し、安定させる予定です。
 [こちらの YouTrack イシュー](https://youtrack.jetbrains.com/issue/KT-64572) にフィードバックをお寄せください。
 
-### あらゆるホストからの Kotlin ライブラリの公開機能
+### あらゆるホストからの Kotlin ライブラリの公開機能 {id="ability-to-publish-kotlin-libraries-from-any-host"}
 
 > この機能は現在 [Experimental](components-stability.md#stability-levels-explained) です。
 > オプトインが必要であり（詳細は後述）、評価目的のみに使用してください。
@@ -665,7 +665,7 @@ Kotlin コンパイラは、Kotlin ライブラリを公開するために `.kli
 Kotlin 2.1.0 ではこの制限を撤廃し、クロスコンパイルのサポートを追加しました。
 現在、[サポートされている任意のホスト](native-target-support.md#hosts) を使用して `.klib` アーティファクトを生成できるようになり、Kotlin および Kotlin Multiplatform ライブラリの公開プロセスが大幅に簡素化されます。
 
-#### あらゆるホストからのライブラリ公開を有効にする方法
+#### あらゆるホストからのライブラリ公開を有効にする方法 {id="how-to-enable-publishing-libraries-from-any-host"}
 
 プロジェクトでクロスコンパイルを試すには、`gradle.properties` ファイルに以下のバイナリオプションを追加します：
 
@@ -680,14 +680,14 @@ kotlin.native.enableKlibsCrossCompilation=true
 * プロジェクトに [CocoaPods 統合](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html) が設定されている場合。
 * Apple ターゲット向けの [最終バイナリ](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html) をビルドまたはテストする必要がある場合。
 
-#### ライブラリ公開に関するフィードバック
+#### ライブラリ公開に関するフィードバック {id="leave-feedback-on-publishing-libraries-from-any-host"}
 
 将来の Kotlin リリースで、この機能を安定させ、ライブラリ公開をさらに改善する予定です。
 当社のイシュートラッカー [YouTrack](https://youtrack.jetbrains.com/issue/KT-71290) にフィードバックをお寄せください。
 
 詳細は [マルチプラットフォームライブラリの公開](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-lib-setup.html) を参照してください。
 
-### 非パック型（non-packed）klib のサポート
+### 非パック型（non-packed）klib のサポート {id="support-for-non-packed-klibs"}
 
 Kotlin 2.1.0 では、非パック型の `.klib` ファイルアーティファクトを生成できるようになりました。
 これにより、klib を最初に解凍することなく、直接依存関係を構成するオプションが得られます。
@@ -696,7 +696,7 @@ Kotlin 2.1.0 では、非パック型の `.klib` ファイルアーティファ�
 
 例えば、当社のベンチマークでは、1 つのリンクタスクと 10 個のコンパイルタスクを持つプロジェクト（9 つの簡略化されたプロジェクトに依存する単一のネイティブ実行バイナリをビルド）において、総ビルド時間が約 3% 改善されました。ただし、ビルド時間への実際の影響は、サブプロジェクトの数とそのサイズの両方に依存します。
 
-#### プロジェクトの設定方法
+#### プロジェクトの設定方法 {id="how-to-set-up-your-project"}
 
 デフォルトでは、Kotlin のコンパイルおよびリンクタスクは新しい非パック型アーティファクトを使用するように構成されています。
 
@@ -728,7 +728,7 @@ val resolvableConfiguration = configurations.resolvable("resolvable") {
 
 この機能に関するフィードバックを [YouTrack](https://kotl.in/issue) でお待ちしております。
 
-### 旧 `android` ターゲットのさらなる非推奨化
+### 旧 `android` ターゲットのさらなる非推奨化 {id="further-deprecation-of-old-android-target"}
 
 Kotlin 2.1.0 では、旧 `android` ターゲット名に対する非推奨警告がエラーに引き上げられました。
 
@@ -740,7 +740,7 @@ Google からの新しい DSL が、Kotlin Multiplatform における Android �
 
 詳細は、[Kotlin Multiplatform 互換性ガイド](https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html#rename-of-android-target-to-androidtarget) を参照してください。
 
-### 同一タイプの複数ターゲット宣言のサポート廃止
+### 同一タイプの複数ターゲット宣言のサポート廃止 {id="dropped-support-for-declaring-multiple-targets-of-the-same-type"}
 
 Kotlin 2.1.0 より前は、マルチプラットフォームプロジェクトにおいて同一タイプのターゲットを複数宣言することが可能でした。
 しかし、これによりターゲットの区別が難しくなり、共有ソースセットを効果的にサポートすることも困難になっていました。
@@ -751,11 +751,11 @@ Kotlin 1.9.20 では、同一タイプのターゲットを複数宣言した場
 Kotlin 2.1.0 では、この非推奨警告が Kotlin/JS 以外のすべてのターゲットでエラーとなりました。
 Kotlin/JS ターゲットが除外されている理由については、[YouTrack のこちらのイシュー](https://youtrack.jetbrains.com/issue/KT-47038/KJS-MPP-Split-JS-target-into-JsBrowser-and-JsNode) を参照してください。
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 Kotlin 2.1.0 では、[`iosArm64` ターゲットサポートのアップグレード](#iosarm64-promoted-to-tier-1)、[cinterop キャッシュプロセスの改善](#changes-to-caching-in-cinterop)、およびその他の更新が含まれています。
 
-### iosArm64 がティア 1 に昇格
+### iosArm64 がティア 1 に昇格 {id="iosarm64-promoted-to-tier-1"}
 
 [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform/get-started.html) 開発において極めて重要な `iosArm64` ターゲットが、ティア 1 に昇格しました。これは Kotlin/Native コンパイラにおける最高レベルのサポートです。
 
@@ -763,7 +763,7 @@ Kotlin 2.1.0 では、[`iosArm64` ターゲットサポートのアップグレ�
 
 ターゲットティアの詳細は、[Kotlin/Native ターゲットサポート](native-target-support.md) を参照してください。
 
-### LLVM を 11.1.0 から 16.0.0 へアップデート
+### LLVM を 11.1.0 から 16.0.0 へアップデート {id="llvm-update-from-11-1-0-to-16-0-0"}
 
 Kotlin 2.1.0 では、LLVM をバージョン 11.1.0 から 16.0.0 にアップデートしました。
 新しいバージョンにはバグ修正とセキュリティアップデートが含まれています。
@@ -773,7 +773,7 @@ Kotlin 2.1.0 では、LLVM をバージョン 11.1.0 から 16.0.0 にアップ�
 
 このアップデートがコードに影響を与えることはないはずですが、問題が発生した場合は [イシュートラッカー](http://kotl.in/issue) に報告してください。
 
-### cinterop におけるキャッシュの変更
+### cinterop におけるキャッシュの変更 {id="changes-to-caching-in-cinterop"}
 
 Kotlin 2.1.0 では、cinterop のキャッシュプロセスに変更を加えています。
 [`CacheableTask`](https://docs.gradle.org/current/javadoc/org/gradle/api/tasks/CacheableTask.html) アノテーションタイプは使用されなくなりました。
@@ -781,7 +781,7 @@ Kotlin 2.1.0 では、cinterop のキャッシュプロセスに変更を加え�
 
 これにより、[定義ファイル](native-definition-file.md) で指定されたヘッダーファイルへの変更を `UP-TO-DATE` チェックが検出できず、ビルドシステムがコードを再コンパイルしないという問題が解決されるはずです。
 
-### mimalloc メモリアロケータの非推奨化
+### mimalloc メモリアロケータの非推奨化 {id="deprecation-of-the-mimalloc-memory-allocator"}
 
 Kotlin 1.9.0 で新しいメモリアロケータを導入し、Kotlin 1.9.20 でそれをデフォルトとして有効にしました。
 新しいアロケータは、ガベージコレクションをより効率的にし、Kotlin/Native メモリマネージャのランタイムパフォーマンスを向上させるように設計されています。
@@ -794,11 +794,11 @@ Kotlin 1.9.0 で新しいメモリアロケータを導入し、Kotlin 1.9.20 �
 
 Kotlin におけるメモリアロケータとガベージコレクションの詳細は、[Kotlin/Native メモリ管理](native-memory-manager.md) を参照してください。
 
-## Kotlin/Wasm
+## Kotlin/Wasm {id="kotlin-wasm"}
 
 Kotlin/Wasm では、[インクリメンタルコンパイルのサポート](#support-for-incremental-compilation) を含む複数のアップデートが行われました。
 
-### インクリメンタルコンパイルのサポート
+### インクリメンタルコンパイルのサポート {id="support-for-incremental-compilation"}
 
 以前は、Kotlin コードに変更を加えた際、Kotlin/Wasm ツールチェーンはコードベース全体を再コンパイルする必要がありました。
 
@@ -818,7 +818,7 @@ kotlin.incremental.wasm=true
 Kotlin/Wasm のインクリメンタルコンパイルを試し、[フィードバックを共有してください](https://youtrack.jetbrains.com/issue/KT-72158/Kotlin-Wasm-incremental-compilation-feedback)。
 皆さまの知見は、この機能を Stable にし、より早くデフォルトで有効にするための助けとなります。
 
-### Browser API が kotlinx-browser スタンドアロンライブラリに移動
+### Browser API が kotlinx-browser スタンドアロンライブラリに移動 {id="browser-apis-moved-to-the-kotlinx-browser-stand-alone-library"}
 
 以前は、Web API および関連ターゲットのユーティリティの宣言は Kotlin/Wasm 標準ライブラリの一部でした。
 
@@ -839,7 +839,7 @@ val wasmJsMain by getting {
 }
 ```
 
-### Kotlin/Wasm のデバッグ体験の向上
+### Kotlin/Wasm のデバッグ体験の向上 {id="improved-debugging-experience-for-kotlin-wasm"}
 
 以前、Web ブラウザで Kotlin/Wasm コードをデバッグする際、デバッグインターフェースで変数プロパティが低レベルな表現で表示されることがありました。
 これにより、アプリケーションの現在の状態を追跡するのが困難な場合がよくありました。
@@ -880,12 +880,12 @@ val wasmJsMain by getting {
 
      ![Enable custom formatters in Firefox](wasm-custom-formatters-firefox.png){width=700}
 
-### Kotlin/Wasm バイナリサイズの削減
+### Kotlin/Wasm バイナリサイズの削減 {id="reduced-size-of-kotlin-wasm-binaries"}
 
 本番ビルドで生成される Wasm バイナリのサイズが最大 30% 削減され、パフォーマンスの向上も見られる場合があります。
 これは、`--closed-world`、`--type-ssa`、`--type-merging` の Binaryen オプションがすべての Kotlin/Wasm プロジェクトで安全に使用できると判断され、デフォルトで有効になったためです。
 
-### Kotlin/Wasm における JavaScript 配列の相互運用性の向上
+### Kotlin/Wasm における JavaScript 配列の相互運用性の向上 {id="improved-javascript-array-interoperability-in-kotlin-wasm"}
 
 Kotlin/Wasm の標準ライブラリは JavaScript 配列用に `JsArray<T>` 型を提供していますが、`JsArray<T>` を Kotlin ネイティブの `Array` や `List` 型に変換する直接的なメソッドがありませんでした。
 
@@ -925,7 +925,7 @@ import org.khronos.webgl.*
     val kotlinIntArray: IntArray = jsInt32Array.toIntArray()
 ```
 
-### Kotlin/Wasm における JavaScript 例外詳細へのアクセスのサポート
+### Kotlin/Wasm における JavaScript 例外詳細へのアクセスのサポート {id="support-for-accessing-javascript-exception-details-in-kotlin-wasm"}
 
 以前、Kotlin/Wasm で JavaScript の例外が発生した際、`JsException` 型は元の JavaScript エラーからの詳細情報を含まない汎用的なメッセージのみを提供していました。
 
@@ -978,7 +978,7 @@ fun main() {
 
 `-Xwasm-attach-js-exception` オプションが有効な場合、`JsException` は JavaScript エラーからの具体的な詳細を提供します。オプションがない場合、`JsException` は JavaScript コードの実行中に例外がスローされたことを示す汎用的なメッセージのみを含みます。
 
-### デフォルトエクスポートの廃止
+### デフォルトエクスポートの廃止 {id="deprecation-of-default-exports"}
 
 名前付きエクスポートへの移行の一環として、以前は JavaScript で Kotlin/Wasm エクスポートに対してデフォルトインポートが使用された際、コンソールにエラーが出力されていました。
 
@@ -994,7 +994,7 @@ Kotlin/Wasm ターゲット向けに JavaScript でコーディングする場�
 
 **バージョン 2.1.0:** デフォルトインポートの使用が完全に削除されました。
 
-### サブプロジェクト固有の Node.js 設定
+### サブプロジェクト固有の Node.js 設定 {id="subproject-specific-node-js-settings"}
 
 `rootProject` の `NodeJsRootPlugin` クラスのプロパティを定義することで、プロジェクトの Node.js 設定を構成できます。
 2.1.0 では、新しいクラス `NodeJsPlugin` を使用して、各サブプロジェクトごとにこれらの設定を構成できるようになりました。
@@ -1020,9 +1020,9 @@ allprojects {
 
 Gradle のコンベンションプラグインを使用して、特定のサブプロジェクトのセットに設定を適用することもできます。
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
-### プロパティにおける非識別子文字のサポート
+### プロパティにおける非識別子文字のサポート {id="support-for-non-identifier-characters-in-properties"}
 
 以前の Kotlin/JS では、バッククォートで囲まれたスペースを含む[テストメソッド名](coding-conventions.md#names-for-test-methods)の使用が許可されていませんでした。
 
@@ -1074,7 +1074,7 @@ fun main() {
 }
 ```
 
-### ES2015 アロー関数の生成サポート
+### ES2015 アロー関数の生成サポート {id="support-for-generating-es2015-arrow-functions"}
 
 Kotlin 2.1.0 の Kotlin/JS では、匿名関数の代わりに `(a, b) => expression` のような ES2015 アロー関数の生成がサポートされました。
 
@@ -1085,7 +1085,7 @@ Kotlin 2.1.0 の Kotlin/JS では、匿名関数の代わりに `(a, b) => expre
 
 [公式ドキュメントで ES2015 (ECMAScript 2015, ES6)](https://262.ecma-international.org/6.0/) について詳しく学ぶ。
 
-## Gradle の改善
+## Gradle の改善 {id="gradle-improvements"}
 
 Kotlin 2.1.0 は、Gradle 7.6.3 から 8.6 と完全に互換性があります。
 Gradle バージョン 8.7 から 8.10 もサポートされていますが、1 つだけ例外があります。
@@ -1096,15 +1096,15 @@ Kotlin Multiplatform Gradle プラグインを使用している場合、JVM タ
 
 最新の Gradle リリースまでのバージョンも使用可能ですが、その場合は非推奨警告が発生したり、一部の新しい Gradle 機能が動作しなかったりする可能性があることに留意してください。
 
-### サポートされる最小の AGP バージョンが 7.3.1 に引き上げ
+### サポートされる最小の AGP バージョンが 7.3.1 に引き上げ {id="minimum-supported-agp-version-bumped-to-7-3-1"}
 
 Kotlin 2.1.0 から、サポートされる Android Gradle プラグインの最小バージョンは 7.3.1 になりました。
 
-### サポートされる最小の Gradle バージョンが 7.6.3 に引き上げ
+### サポートされる最小の Gradle バージョンが 7.6.3 に引き上げ {id="minimum-supported-gradle-version-bumped-to-7-6-3"}
 
 Kotlin 2.1.0 から、サポートされる Gradle の最小バージョンは 7.6.3 になりました。
 
-### Kotlin Gradle プラグインエクステンション用の新しい API
+### Kotlin Gradle プラグインエクステンション用の新しい API {id="new-api-for-kotlin-gradle-plugin-extensions"}
 
 Kotlin 2.1.0 では、Kotlin Gradle プラグインを構成するための独自のプラグインをより簡単に作成できる新しい API が導入されました。
 この変更により、`KotlinTopLevelExtension` および `KotlinTopLevelExtensionConfig` インターフェースが非推奨となり、プラグイン作者向けに以下のインターフェースが導入されました：
@@ -1152,7 +1152,7 @@ configure<KotlinJvmExtension> {
 
 `KotlinAndroidExtension` も全く同じ方法で使用できます。
 
-### Kotlin Gradle プラグイン API からコンパイラシンボルを隠蔽
+### Kotlin Gradle プラグイン API からコンパイラシンボルを隠蔽 {id="compiler-symbols-hidden-from-the-kotlin-gradle-plugin-api"}
 
 以前の KGP はランタイム依存関係に `org.jetbrains.kotlin:kotlin-compiler-embeddable` を含んでいたため、ビルドスクリプトのクラスパスで内部的なコンパイラシンボルが利用可能でした。
 これらのシンボルは内部使用のみを目的としていました。
@@ -1167,7 +1167,7 @@ Kotlin 2.1.0 から、KGP は `org.jetbrains.kotlin:kotlin-compiler-embeddable` 
 長期的な解決策として、`org.jetbrains.kotlin:kotlin-compiler-embeddable` のクラスを使用しているプラグインの作者の方は、それらを隔離されたクラスローダーで実行することをお勧めします。
 例えば、クラスローダーまたはプロセスアイソレーションを備えた [Gradle Workers API](https://docs.gradle.org/current/userguide/worker_api.html) を使用することで実現できます。
 
-#### Gradle Workers API の使用
+#### Gradle Workers API の使用 {id="using-the-gradle-workers-api"}
 
 この例は、Gradle プラグインを生成するプロジェクトで Kotlin コンパイラを安全に使用する方法を示しています。
 まず、ビルドスクリプトに compile-only 依存関係を追加します。これにより、コンパイル時のみシンボルが利用可能になります：
@@ -1242,9 +1242,9 @@ abstract class MyPlugin: Plugin<Project> {
 }
 ```
 
-## Compose コンパイラのアップデート
+## Compose コンパイラのアップデート {id="compose-compiler-updates"}
 
-### 複数の安定性構成ファイルのサポート
+### 複数の安定性構成ファイルのサポート {id="support-for-multiple-stability-configuration-files"}
 
 Compose コンパイラは複数の安定性構成（stability configuration）ファイルを解釈できますが、Compose Compiler Gradle プラグインの `stabilityConfigurationFile` オプションでは以前は単一のファイルしか指定できませんでした。
 Kotlin 2.1.0 ではこの機能が作り直され、単一のモジュールに対して複数の安定性構成ファイルを使用できるようになりました：
@@ -1264,7 +1264,7 @@ composeCompiler {
 }
 ```
 
-### 中断可能なコンポジション（Pausable composition）
+### 中断可能なコンポジション（Pausable composition） {id="pausable-composition"}
 
 中断可能なコンポジションは、コンパイラがスキップ可能な関数を生成する方法を変更する新しい実験的な機能です。
 この機能を有効にすると、実行中にスキップポイントでコンポジションをサスペンド（中断）できるようになり、長時間実行されるコンポジションプロセスを複数のフレームに分割できるようになります。
@@ -1286,7 +1286,7 @@ composeCompiler {
 >
 {style="note"}
 
-### open およびオーバーライドされた @Composable 関数に関する変更
+### open およびオーバーライドされた @Composable 関数に関する変更 {id="changes-to-open-and-overridden-composable-functions"}
 
 仮想的な（open、abstract、およびオーバーライドされた）`@Composable` 関数は、再実行可能（restartable）にできなくなりました。
 再実行可能なグループのコード生成が継承と[正しく動作しない](https://issuetracker.google.com/329477544)呼び出しを生成しており、実行時のクラッシュを引き起こしていました。
@@ -1294,16 +1294,16 @@ composeCompiler {
 これは、仮想関数が再実行されたりスキップされたりしなくなることを意味します。それらの状態が無効化されるたびに、ランタイムは代わりに親のコンポーザブルを再構成します。
 コードが再構成（recomposition）に敏感な場合、実行時の挙動の変化に気づくかもしれません。
 
-### パフォーマンスの改善
+### パフォーマンスの改善 {id="performance-improvements"}
 
 Compose コンパイラは、`@Composable` 型を変換するためにモジュールの IR の完全なコピーを作成していました。
 Compose に関係のない要素をコピーすることによるメモリ消費の増加に加え、この挙動は[特定の境界例](https://issuetracker.google.com/365066530)で後続のコンパイラプラグインを破損させていました。
 
 このコピー操作が削除され、コンパイル時間が短縮される可能性があります。
 
-## 標準ライブラリ
+## 標準ライブラリ {id="standard-library"}
 
-### 標準ライブラリ API の非推奨重要度の変更
+### 標準ライブラリ API の非推奨重要度の変更 {id="changes-to-the-deprecation-severity-of-standard-library-apis"}
 
 Kotlin 2.1.0 では、いくつかの標準ライブラリ API の非推奨重要度を警告（warning）からエラー（error）に引き上げています。
 コードがこれらの API に依存している場合は、互換性を確保するためにコードを更新する必要があります。
@@ -1332,7 +1332,7 @@ Kotlin 2.1.0 では、いくつかの標準ライブラリ API の非推奨重�
 
 本リリースで影響を受ける API の完全なリストについては、[KT-71628](https://youtrack.jetbrains.com/issue/KT-71628) YouTrack イシューを参照してください。
 
-### java.nio.file.Path 用の Stable なファイルツリー探索拡張
+### java.nio.file.Path 用の Stable なファイルツリー探索拡張 {id="stable-file-tree-traversal-extensions-for-java-nio-file-path"}
 
 Kotlin 1.7.20 で導入された、ファイルツリーを走査できる `java.nio.file.Path` クラス用の実験的な [拡張関数](extensions.md#extension-functions) がありました。
 Kotlin 2.1.0 では、以下のファイルツリー探索拡張が [Stable](components-stability.md#stability-levels-explained) になりました：
@@ -1438,26 +1438,26 @@ fun traverseFileTree() {
 }
 ```
 
-## ドキュメントの更新
+## ドキュメントの更新 {id="documentation-updates"}
 
 Kotlin ドキュメントにいくつかの注目すべき変更が加えられました：
 
-### 言語コンセプト
+### 言語コンセプト {id="language-concepts"}
 
 * [Null 安全性](null-safety.md) ページの改善 – コード内で `null` 値を安全に処理する方法を学びます。
 * [オブジェクト宣言と式](object-declarations.md) ページの改善 – クラスの定義とインスタンスの作成を単一のステップで行う方法を学びます。
 * [when 式と文](control-flow.md#when-expressions-and-statements) セクションの改善 – `when` 条件式とその使用方法について学びます。
 * [Kotlin ロードマップ](roadmap.md)、[Kotlin の進化の原則](kotlin-evolution-principles.md)、および [Kotlin 言語の機能と提案](kotlin-language-features-and-proposals.md) ページの更新 – Kotlin の計画、進行中の開発、および指針となる原則について学びます。
 
-### Compose コンパイラ
+### Compose コンパイラ {id="compose-compiler"}
 
 * [Compose コンパイラドキュメント](compose-compiler-migration-guide.md) が「コンパイラとプラグイン」セクションに移動しました – Compose コンパイラ、コンパイラオプション、および移行手順について学びます。
 
-### API リファレンス
+### API リファレンス {id="api-references"}
 
 * 新しい [Kotlin Gradle プラグイン API リファレンス](https://kotlinlang.org/api/kotlin-gradle-plugin) – Kotlin Gradle プラグインおよび Compose コンパイラ Gradle プラグインの API リファレンスを探索してください。
 
-### マルチプラットフォーム開発
+### マルチプラットフォーム開発 {id="multiplatform-development"}
 
 * 新しい [マルチプラットフォーム向け Kotlin ライブラリの構築](https://kotlinlang.org/docs/api-guidelines-build-for-multiplatform.html) ページ – Kotlin Multiplatform 向けのライブラリ設計方法について学びます。
 * 新しい [Kotlin Multiplatform 入門](https://kotlinlang.org/docs/multiplatform/get-started.html) ページ – Kotlin Multiplatform の主要な概念、依存関係、ライブラリなどについて学びます。
@@ -1465,16 +1465,16 @@ Kotlin ドキュメントにいくつかの注目すべき変更が加えられ�
 * 新しい [Kotlin/Native 定義ファイル](native-definition-file.md) ページ – C および Objective-C ライブラリを利用するための定義ファイルの作成方法を学びます。
 * [WASI を使ってみる](wasm-wasi.md) – 様々な WebAssembly 仮想マシンで WASI を使用してシンプルな Kotlin/Wasm アプリケーションを実行する方法を学びます。
 
-### ツール
+### ツール {id="tooling"}
 
 * [新しい Dokka 移行ガイド](dokka-migration.md) – Dokka Gradle プラグイン v2 への移行方法を学びます。
 
-## Kotlin 2.1.0 互換性ガイド
+## Kotlin 2.1.0 互換性ガイド {id="compatibility-guide-for-kotlin-2-1-0"}
 
 Kotlin 2.1.0 はフィーチャーリリース（機能リリース）であるため、以前のバージョンの言語で書かれたコードと互換性のない変更が含まれる可能性があります。
 これらの変更の詳細は、[Kotlin 2.1.0 互換性ガイド](compatibility-guide-21.md) を参照してください。
 
-## Kotlin 2.1.0 のインストール
+## Kotlin 2.1.0 のインストール {id="install-kotlin-2-1-0"}
 
 IntelliJ IDEA 2023.3 および Android Studio Iguana (2023.2.1) Canary 15 以降、Kotlin プラグインは IDE に含まれる同梱プラグインとして配布されるようになりました。つまり、JetBrains Marketplace からプラグインをインストールすることはできなくなりました。
 

@@ -4,7 +4,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 
 雖然大多數語言變更已經透過其他管道（例如更新變更日誌或編譯器警告）宣布，但本文文件對其進行了總結，為從 Kotlin 1.2 遷移到 Kotlin 1.3 提供完整的參考。
 
-## 基本術語
+## 基本術語 {id="basic-terms"}
 
 在本文文件中，我們介紹了幾種相容性：
 
@@ -14,9 +14,9 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 
 請記住，這些定義僅針對純 Kotlin 提供。從其他語言角度（例如 Java）看 Kotlin 程式碼的相容性不在本文文件的討論範圍內。
 
-## 不相容變更
+## 不相容變更 {id="incompatible-changes"}
 
-### 關於 &lt;clinit&gt; 呼叫的建構函式引數求值順序
+### 關於 &lt;clinit&gt; 呼叫的建構函式引數求值順序 {id="evaluation-order-of-constructor-arguments-regarding-lt-clinit-gt-call"}
 
 > **問題**：[KT-19532](https://youtrack.jetbrains.com/issue/KT-19532)
 >
@@ -32,7 +32,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - &gt;= 1.3：行為已更改，
 > 可使用 `-Xnormalize-constructor-calls=disable` 暫時恢復到 1.3 之前的行為。對此標記的支援將在下一個主要版本中移除。
 
-### 註解建構函式參數中缺失的 Getter 目標註解
+### 註解建構函式參數中缺失的 Getter 目標註解 {id="missing-getter-targeted-annotations-on-annotation-constructor-parameters"}
 
 > **問題**：[KT-25287](https://youtrack.jetbrains.com/issue/KT-25287)
 >
@@ -47,7 +47,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - <1.3：未套用註解建構函式參數上的 Getter 目標註解
 > - &gt;=1.3：正確套用註解建構函式參數上的 Getter 目標註解，並將其寫入產生的程式碼中
 
-### 類別建構函式的 @get: 註解中缺失的錯誤
+### 類別建構函式的 @get: 註解中缺失的錯誤 {id="missing-errors-in-class-constructor-s-get-annotations"}
 
 > **問題**：[KT-19628](https://youtrack.jetbrains.com/issue/KT-19628)
 >
@@ -63,7 +63,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - 1.2.x：錯誤僅由工具回報，編譯器仍可在沒有任何警告的情況下編譯此類程式碼
 > - &gt;=1.3：編譯器也會回報錯誤，導致錯誤的程式碼被拒絕
 
-### 存取標有 @NotNull 的 Java 型別時的 Nullability 斷言
+### 存取標有 @NotNull 的 Java 型別時的 Nullability 斷言 {id="nullability-assertions-on-access-to-java-types-annotated-with-notnull"}
 
 > **問題**：[KT-20830](https://youtrack.jetbrains.com/issue/KT-20830)
 >
@@ -79,7 +79,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - &gt;=1.3：編譯器會產生遺漏的斷言。這可能會導致（錯誤地）在此處傳遞 `null` 的程式碼更早失敗。
 > 可使用 `-XXLanguage:-StrictJavaNullabilityAssertions` 暫時返回到 1.3 之前的行為。對此標記的支援將在下一個主要版本中移除。
 
-### 列舉成員上不健全的智慧轉型
+### 列舉成員上不健全的智慧轉型 {id="unsound-smartcasts-on-enum-members"}
 
 > **問題**：[KT-20772](https://youtrack.jetbrains.com/issue/KT-20772)
 >
@@ -95,7 +95,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - &gt;=1.3：智慧轉型將僅正確地套用於該列舉項目的成員。
 > `-XXLanguage:-SoundSmartcastForEnumEntries` 將暫時返回舊行為。對此標記的支援將在下一個主要版本中移除。
 
-### Getter 中 val 支援欄位的重新指派
+### Getter 中 val 支援欄位的重新指派 {id="val-backing-field-reassignment-in-getter"}
 
 > **問題**：[KT-16681](https://youtrack.jetbrains.com/issue/KT-16681)
 >
@@ -111,7 +111,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - 1.2.X：對於重新指派 `val` 支援欄位的程式碼回報棄用警告
 > - &gt;=1.3：棄用警告提升為錯誤
 
-### 在進行迭代的 for 迴圈之前擷取陣列
+### 在進行迭代的 for 迴圈之前擷取陣列 {id="array-capturing-before-the-for-loop-where-it-is-iterated"}
 
 > **問題**：[KT-21354](https://youtrack.jetbrains.com/issue/KT-21354)
 >
@@ -127,7 +127,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - 1.2.X：如果 for 迴圈中的範圍運算式是在迴圈體中指派的陣列型別區域變數，則回報棄用警告
 > - 1.3：在這種情況下更改行為，以與其他容器保持一致
 
-### 列舉項目中的巢狀分類器
+### 列舉項目中的巢狀分類器 {id="nested-classifiers-in-enum-entries"}
 
 > **問題**：[KT-16310](https://youtrack.jetbrains.com/issue/KT-16310)
 >
@@ -143,7 +143,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - 1.2.X：對巢狀分類器回報棄用警告
 > - &gt;=1.3：棄用警告提升為錯誤
 
-### 資料類別覆寫 copy
+### 資料類別覆寫 copy {id="data-class-overriding-copy"}
 
 > **問題**：[KT-19618](https://youtrack.jetbrains.com/issue/KT-19618)
 >
@@ -159,7 +159,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - 1.2.X：對覆寫 `copy()` 的資料類別回報棄用警告
 > - &gt;=1.3：棄用警告提升為錯誤
 
-### 繼承 Throwable 且從外層類別擷取泛型參數的內部類別
+### 繼承 Throwable 且從外層類別擷取泛型參數的內部類別 {id="inner-classes-inheriting-throwable-that-capture-generic-parameters-from-the-outer-class"}
 
 > **問題**：[KT-17981](https://youtrack.jetbrains.com/issue/KT-17981)
 >
@@ -175,7 +175,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - 1.2.X：對繼承 `Throwable` 的內部類別回報棄用警告
 > - &gt;=1.3：棄用警告提升為錯誤
 
-### 關於包含伴生物件的複雜類別階層之可見性規則
+### 關於包含伴生物件的複雜類別階層之可見性規則 {id="visibility-rules-regarding-complex-class-hierarchies-with-companion-objects"}
 
 > **問題**：[KT-21515](https://youtrack.jetbrains.com/issue/KT-21515), [KT-25333](https://youtrack.jetbrains.com/issue/KT-25333)
 >
@@ -191,7 +191,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - 1.2.X：對將不再能存取的短名稱回報棄用警告。工具建議透過增加全名進行自動遷移。
 > - &gt;=1.3：棄用警告提升為錯誤。違規程式碼應增加完整的限定詞或明確匯入
 
-### 非常數的 vararg 註解參數
+### 非常數的 vararg 註解參數 {id="non-constant-vararg-annotation-parameters"}
 
 > **問題**：[KT-23153](https://youtrack.jetbrains.com/issue/KT-23153)
 >
@@ -207,7 +207,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - 1.2.X：對此類程式碼模式回報棄用警告
 > - &gt;=1.3：棄用警告提升為錯誤
 
-### 區域註解類別
+### 區域註解類別 {id="local-annotation-classes"}
 
 > **問題**：[KT-23277](https://youtrack.jetbrains.com/issue/KT-23277)
 >
@@ -223,7 +223,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - 1.2.X：對區域註解類別回報棄用警告
 > - &gt;=1.3：棄用警告提升為錯誤
 
-### 區域委派屬性上的智慧轉型
+### 區域委派屬性上的智慧轉型 {id="smartcasts-on-local-delegated-properties"}
 
 > **問題**：[KT-22517](https://youtrack.jetbrains.com/issue/KT-22517)
 >
@@ -239,7 +239,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - 1.2.X：區域委派屬性上的智慧轉型被報告為棄用（編譯器發出警告）
 > - &gt;=1.3：棄用警告提升為錯誤
 
-### mod 運算子慣例
+### mod 運算子慣例 {id="mod-operator-convention"}
 
 > **問題**：[KT-24197](https://youtrack.jetbrains.com/issue/KT-24197)
 >
@@ -255,7 +255,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - 1.3.X：將警告提升為錯誤，但仍允許解析為 `operator mod` 宣告
 > - 1.4.X：不再將呼叫解析為 `operator mod`
 
-### 以具名形式將單一元素傳遞給 vararg
+### 以具名形式將單一元素傳遞給 vararg {id="passing-single-element-to-vararg-in-named-form"}
 
 > **問題**：[KT-20588](https://youtrack.jetbrains.com/issue/KT-20588), [KT-20589](https://youtrack.jetbrains.com/issue/KT-20589)。另請參閱 [KT-20171](https://youtrack.jetbrains.com/issue/KT-20171)
 >
@@ -272,7 +272,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - 1.3.X：警告提升為錯誤
 > - &gt;= 1.4：更改將單一元素指派給 vararg 的語意，使指派陣列等同於指派陣列的展開
 
-### 目標為 EXPRESSION 的註解保留原則
+### 目標為 EXPRESSION 的註解保留原則 {id="retention-of-annotations-with-target-expression"}
 
 > **問題**：[KT-13762](https://youtrack.jetbrains.com/issue/KT-13762)
 >
@@ -288,7 +288,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - 1.2.X：對此類註解的宣告回報棄用警告
 > - &gt;=1.3：警告提升為錯誤
 
-### 目標為 PARAMETER 的註解不應套用於參數型別
+### 目標為 PARAMETER 的註解不應套用於參數型別 {id="annotations-with-target-parameter-shouldn-t-be-applicable-to-parameter-s-type"}
 
 > **問題**：[KT-9580](https://youtrack.jetbrains.com/issue/KT-9580)
 >
@@ -304,7 +304,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - 1.2.X：對此類用法回報棄用警告
 > - &gt;=1.3：警告提升為錯誤
 
-### Array.copyOfRange 在索引超出範圍時拋出例外，而非擴大回傳的陣列
+### Array.copyOfRange 在索引超出範圍時拋出例外，而非擴大回傳的陣列 {id="array-copyofrange-throws-an-exception-when-indices-are-out-of-bounds-instead-of-enlarging-the-returned-array"}
 
 > **問題**：[KT-19489](https://youtrack.jetbrains.com/issue/KT-19489)
 >
@@ -319,7 +319,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - <1.3：如果 `Array.copyOfRange` 調用中的 `toIndex` 大於陣列大小，範圍中缺失的元素將填入 `null`，這違反了 Kotlin 型別系統的健全性。
 > - &gt;=1.3：檢查 `toIndex` 是否在陣列範圍內，若不在則拋出例外
 
-### 步長為 Int.MIN_VALUE 和 Long.MIN_VALUE 的 Int 與 Long 級數被禁止，且不允許具現化
+### 步長為 Int.MIN_VALUE 和 Long.MIN_VALUE 的 Int 與 Long 級數被禁止，且不允許具現化 {id="progressions-of-ints-and-longs-with-a-step-of-int-minvalue-and-long-minvalue-are-outlawed-and-won-t-be-allowed-to-be-instantiated"}
 
 > **問題**：[KT-17176](https://youtrack.jetbrains.com/issue/KT-17176)
 >
@@ -334,7 +334,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - <1.3：可以建立步長為 `Int.MIN_VALUE` 的 `IntProgression`，這會產生兩個值 `[0, -2147483648]`，這是個不明顯的行為
 > - &gt;=1.3：如果步長是其整數型別的最小負值，則拋出 `IllegalArgumentException`
 
-### 對極長序列進行操作時的索引溢位檢查
+### 對極長序列進行操作時的索引溢位檢查 {id="check-for-index-overflow-in-operations-on-very-long-sequences"}
 
 > **問題**：[KT-16097](https://youtrack.jetbrains.com/issue/KT-16097)
 >
@@ -349,7 +349,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - <1.3：由於整數溢位，在極長序列上呼叫此類方法可能會產生負值結果
 > - &gt;=1.3：在此類方法中偵測溢位並立即拋出例外
 
-### 統一各平台間以空匹配正規表示式進行分割的結果
+### 統一各平台間以空匹配正規表示式進行分割的結果 {id="unify-split-by-an-empty-match-regex-result-across-the-platforms"}
 
 > **問題**：[KT-21049](https://youtrack.jetbrains.com/issue/KT-21049)
 >
@@ -364,7 +364,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - <1.3：比較 JS、JRE 6、JRE 7 與 JRE 8+ 時，上述呼叫的行為有所不同
 > - &gt;=1.3：統一各平台的行為
 
-### 編譯器分發版中停止提供已棄用的構件
+### 編譯器分發版中停止提供已棄用的構件 {id="discontinued-deprecated-artifacts-in-the-compiler-distribution"}
 
 > **問題**：[KT-23799](https://youtrack.jetbrains.com/issue/KT-23799)
 >
@@ -382,7 +382,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與_[舒適的更新](k
 > - 1.2.X：構件被標記為已棄用，編譯器對使用這些構件回報警告
 > - &gt;=1.3：停止提供這些構件
 
-### stdlib 中的註解
+### stdlib 中的註解 {id="annotations-in-stdlib"}
 
 > **問題**：[KT-21784](https://youtrack.jetbrains.com/issue/KT-21784)
 >

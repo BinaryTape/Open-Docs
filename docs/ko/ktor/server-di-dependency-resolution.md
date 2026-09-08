@@ -35,7 +35,7 @@ val service: GreetingService by dependencies
 val service = dependencies.resolve<GreetingService>()
 ```
 
-### 파라미터 해결
+### 파라미터 해결 {id="parameter-resolution"}
 
 생성자나 함수를 해결할 때, Ktor는 DI 컨테이너를 사용하여 파라미터를 해결합니다. 파라미터는 기본적으로 타입에 따라 해결됩니다.
 
@@ -51,7 +51,7 @@ fun Application.userRepository(@Named("mongo") database: Database) {
 }
 ```
 
-#### 설정 속성 사용
+#### 설정 속성 사용 {id="use-configuration-properties"}
 
 애플리케이션 설정의 값을 주입하려면 `@Property` 어노테이션을 사용하십시오.
 
@@ -166,7 +166,7 @@ fun Application.logging(printStreamProvider: () -> PrintStream) {
 </TabItem>
 </Tabs>
 
-## 고급 의존성 해결
+## 고급 의존성 해결 {id="advanced-dependency-resolution"}
 
 ### 선택 사항 및 Null 허용 의존성 {id="optional-dependencies"}
 
@@ -206,7 +206,7 @@ dependencies {
 val outputStream: OutputStream by dependencies
 ```
 
-#### 제한 사항
+#### 제한 사항 {id="limitations"}
 
 DI 시스템은 제네릭 타입에 대한 공변성을 지원하지만, 현재 타입 인자의 하위 타입에 걸친 파라미터화된 타입(parameterized types)의 해결은 지원하지 않습니다. 즉, 등록된 것보다 더 구체적이거나 더 일반적인 타입을 사용하여 의존성을 가져올 수 없음을 의미합니다.
 

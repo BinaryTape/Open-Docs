@@ -10,14 +10,14 @@ _Kotlin 컴파일러 실행 전략(Kotlin compiler execution strategy)_은 Kotli
 | [Kotlin 데몬(Kotlin daemon)](kotlin-daemon.md) | 자체 데몬 프로세스 내부 | Gradle 및 Maven의 _기본이자 가장 빠른 전략_입니다. 데몬 프로세스는 서로 다른 빌드 시스템 프로세스와 여러 병렬 컴파일 간에 공유될 수 있습니다. |
 | 프로세스 내(In process) | 빌드 도구의 프로세스 내부 | 메모리 관리 측면에서 가장 단순한 전략이지만, JVM 시스템 속성과 같은 상태를 공유하므로 동일한 프로세스에서 실행되는 다른 로직으로부터 덜 격리됩니다. |
 
-## Gradle에서 구성하기
+## Gradle에서 구성하기 {id="configure-in-gradle"}
 
 다음 속성 중 하나를 사용하여 Kotlin 컴파일러 실행 전략을 정의할 수 있습니다.
 
 * `kotlin.compiler.execution.strategy` Gradle 속성.
 * `compilerExecutionStrategy` 컴파일 태스크 속성.
 
-### Gradle 속성 사용
+### Gradle 속성 사용 {id="use-the-gradle-property"}
 
 `kotlin.compiler.execution.strategy` 속성에 사용 가능한 값은 다음과 같습니다.
 
@@ -30,7 +30,7 @@ _Kotlin 컴파일러 실행 전략(Kotlin compiler execution strategy)_은 Kotli
 kotlin.compiler.execution.strategy=in-process
 ```
 
-### 컴파일 태스크 속성 사용
+### 컴파일 태스크 속성 사용 {id="use-the-compile-task-property"}
 
 `compilerExecutionStrategy` 태스크 속성은 `kotlin.compiler.execution.strategy` Gradle 속성보다 우선순위가 높습니다.
 
@@ -73,7 +73,7 @@ tasks.withType(CompileUsingKotlinDaemon)
 </tab>
 </tabs>
 
-### 폴백(Fallback) 전략
+### 폴백(Fallback) 전략 {id="fallback-strategy"}
 
 Kotlin 데몬과의 통신에 실패하면 컴파일러는 "프로세스 내(In process)" 전략으로 폴백합니다.
 
@@ -124,6 +124,6 @@ tasks.named("compileKotlin").configure {
 
 컴파일을 실행하기 위한 메모리가 부족한 경우 로그에 관련 메시지가 표시됩니다.
 
-## Maven에서 구성하기
+## Maven에서 구성하기 {id="configure-in-maven"}
 
 <include from ="maven-kotlin-compiler.md" element-id="maven-configure-execution-strategy"/>

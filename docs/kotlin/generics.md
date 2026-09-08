@@ -20,12 +20,12 @@ val box: Box<Int> = Box<Int>(1)
 val box = Box(1) // 1 的类型为 Int，因此编译器可以推断出它是 Box<Int>
 ```
 
-## 差异
+## 差异 {id="variance"}
 
 Java 类型系统中最为棘手的方面之一是通配符类型（请参阅 [Java 泛型常见问题解答](http://www.angelikalanger.com/GenericsFAQ/JavaGenericsFAQ.html)）。
 Kotlin 中没有这些。相反，Kotlin 拥有声明点差异和类型投影。
 
-### Java 中的差异与通配符
+### Java 中的差异与通配符 {id="variance-and-wildcards-in-java"}
 
 让我们思考一下为什么 Java 需要这些神秘的通配符。首先，Java 中的泛型类型是*不变的*，
 这意味着 `List<String>` *不是* `List<Object>` 的子类型。如果 `List` 不是*不变的*，它
@@ -109,7 +109,7 @@ Joshua Bloch 在他的《[Effective Java, 3rd Edition](http://www.oracle.com/tec
 >
 {style="note"}
 
-### 声明点差异
+### 声明点差异 {id="declaration-site-variance"}
 
 假设有一个泛型接口 `Source<T>`，它没有任何以 `T` 作为形参的方法，只有返回 `T` 的方法：
 
@@ -181,9 +181,9 @@ fun demo(x: Comparable<Number>) {
 
 **[存在主义](https://en.wikipedia.org/wiki/Existentialism) 转型：消费者 in，生产者 out！** :-)
 
-## 类型投影
+## 类型投影 {id="type-projections"}
 
-### 使用点差异：类型投影
+### 使用点差异：类型投影 {id="use-site-variance-type-projections"}
 
 将类型形参 `T` 声明为 `out` 并在使用点避免子类型化带来的麻烦非常容易，
 但有些类实际上*不能*被限制为仅返回 `T`！
@@ -238,7 +238,7 @@ fun fill(dest: Array<in String>, value: String) { ... }
 `Array<in String>` 对应于 Java 的 `Array<? super String>`。这意味着你可以向 `fill()` 函数传递
 `String` 数组、`CharSequence` 数组或 `Object` 数组。
 
-### 星号投影
+### 星号投影 {id="star-projections"}
 
 有时你想要表示你对类型实参一无所知，但仍希望以安全的方式使用它。
 这里的安全方式是为泛型类型定义这样一种投影，即该泛型类型的每个具体实例化都将是该投影的子类型。
@@ -263,7 +263,7 @@ Kotlin 为此提供了所谓的*星号投影*语法：
 >
 {style="note"}
 
-### 捕获类型
+### 捕获类型 {id="captured-types"}
 
 当你使用类型投影（如 `out T` 或 `in T`）时，编译器在内部会将未知的具体类型表示为[捕获类型](https://kotlinlang.org/spec/type-system.html#type-capturing)。捕获类型是具有已知上界和下界的未知类型。
 
@@ -296,7 +296,7 @@ array.set(0, "New value")
 * 对于 `get()` 操作，编译器将捕获类型近似为其上界 `CharSequence`，并推断 `item` 的类型为 `CharSequence`。
 * 对于 `set()` 操作，捕获类型的下界为 `Nothing`。由于 `Nothing` 没有实例，因此向投影类型写入值不是类型安全的，会导致错误。
 
-## 泛型函数
+## 泛型函数 {id="generic-functions"}
 
 不仅类可以拥有类型形参，函数也可以。类型形参放在函数名称*之前*：
 
@@ -322,11 +322,11 @@ val l = singletonList<Int>(1)
 val l = singletonList(1)
 ```
 
-## 泛型约束
+## 泛型约束 {id="generic-constraints"}
 
 可以替换给定类型形参的所有可能类型的集合可以受到*泛型约束*的限制。
 
-### 上界
+### 上界 {id="upper-bounds"}
 
 最常见的约束类型是*上界*，它对应于 Java 的 `extends` 关键字：
 
@@ -355,7 +355,7 @@ fun <T> copyWhenGreater(list: List<T>, threshold: T): List<String>
 传递的类型必须同时满足 `where` 子句的所有条件。在上述示例中，`T` 类型
 必须*同时*实现 `CharSequence` 和 `Comparable`。
 
-## 绝对不可为空类型
+## 绝对不可为空类型 {id="definitely-non-nullable-types"}
 
 为了更容易地与泛型 Java 类和接口进行互操作，Kotlin 支持将泛型类型形参声明为**绝对不可为空**。 
 
@@ -389,14 +389,14 @@ interface ArcadeGame<T1> : Game<T1> {
 当仅使用 Kotlin 开发时，你不太可能需要显式声明绝对不可为空类型，因为
 Kotlin 的类型推断会为你处理好这一切。
 
-## 类型擦除
+## 类型擦除 {id="type-erasure"}
 
 Kotlin 为泛型声明使用执行的类型安全检查是在编译时完成的。
 在运行时，泛型类型的实例不保存有关其真实类型实参的任何信息。
 类型信息被称为被*擦除*了。例如，`Foo<Bar>` 和 `Foo<Baz?>` 的实例都被擦除为
 仅 `Foo<*>`。
 
-### 泛型类型检查与转换
+### 泛型类型检查与转换 {id="generics-type-checks-and-casts"}
 
 由于类型擦除，在运行时没有通用的方法来检查泛型类型的实例是否是使用某些类型实参创建的，
 并且编译器禁止此类 `is`-检查，例如
@@ -456,7 +456,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 未检查的转换
+### 未检查的转换 {id="unchecked-casts"}
 
 在运行时无法检查带有具体类型实参的泛型类型转换，例如 `foo as List<String>`。
 当类型安全由高级程序逻辑暗示但无法由编译器直接推断时，
@@ -502,7 +502,7 @@ inline fun <reified T> List<*>.asListOfType(): List<T>? =
 >
 {style="note"}
 
-## 用于类型实参的下划线运算符
+## 用于类型实参的下划线运算符 {id="underscore-operator-for-type-arguments"}
 
 下划线运算符 `_` 可用于类型实参。当显式指定其他类型时，使用它来自动推断该实参的类型：
 

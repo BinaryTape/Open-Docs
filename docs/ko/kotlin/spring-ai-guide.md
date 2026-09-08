@@ -13,7 +13,7 @@
 * 로컬에서 Qdrant를 실행하기 위해 [Docker](https://www.docker.com/)를 사용합니다.
 * LLM 제공자로 [OpenAI](https://platform.openai.com)를 사용합니다.
 
-## 시작하기 전에
+## 시작하기 전에 {id="before-you-start"}
 
 1. 최신 버전의 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)를 다운로드하고 설치한 뒤 Ultimate 구독을 사용하세요.
 
@@ -29,7 +29,7 @@
     docker run -p 6333:6333 -p 6334:6334 qdrant/qdrant
     ```
 
-## 프로젝트 생성하기
+## 프로젝트 생성하기 {id="create-the-project"}
 
 > 프로젝트를 생성하는 대안으로 [Spring Boot 웹 기반 프로젝트 생성기](https://start.spring.io/)를 사용할 수도 있습니다.
 >
@@ -91,7 +91,7 @@ IntelliJ IDEA Ultimate Edition에서 새 Spring Boot 프로젝트를 생성합�
 * `main/kotlin` 폴더 아래에 애플리케이션에 속하는 패키지와 클래스들이 있습니다.
 * 애플리케이션의 진입점은 `SpringAiDemoApplication.kt` 파일의 `main()` 메서드입니다.
 
-## 프로젝트 구성 업데이트
+## 프로젝트 구성 업데이트 {id="update-the-project-configuration"}
 
 1. `build.gradle.kts` Gradle 빌드 파일을 다음과 같이 업데이트합니다:
 
@@ -133,7 +133,7 @@ IntelliJ IDEA Ultimate Edition에서 새 Spring Boot 프로젝트를 생성합�
 
    ![Qdrant 컬렉션](qdrant-collections.png){width=700}
 
-## 문서 로드 및 검색을 위한 컨트롤러 생성
+## 문서 로드 및 검색을 위한 컨트롤러 생성 {id="create-a-controller-to-load-and-search-documents"}
 
 문서를 검색하고 Qdrant 컬렉션에 저장하기 위한 Spring `@RestController`를 생성합니다:
 
@@ -251,7 +251,7 @@ IntelliJ IDEA Ultimate Edition에서 새 Spring Boot 프로젝트를 생성합�
 >
 {style="tip"}
 
-## AI 채팅 엔드포인트 구현하기
+## AI 채팅 엔드포인트 구현하기 {id="implement-an-ai-chat-endpoint"}
 
 문서가 로드되었으므로, 마지막 단계는 Spring AI의 검색 증강 생성(RAG, Retrieval-Augmented Generation) 지원을 통해 Qdrant에 있는 문서를 사용하여 질문에 답하는 엔드포인트를 추가하는 것입니다:
 
@@ -346,7 +346,7 @@ IntelliJ IDEA Ultimate Edition에서 새 Spring Boot 프로젝트를 생성합�
 
 완성된 프로젝트는 [Spring AI 데모 GitHub 리포지토리](https://github.com/Kotlin/Kotlin-AI-Examples/tree/master/projects/spring-ai/springAI-demo)에서 확인할 수 있습니다.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [Kotlin AI 예제](https://github.com/Kotlin/Kotlin-AI-Examples/tree/master)에서 다른 Spring AI 예제들을 살펴보세요.
 * [Spring Boot와 Claude를 사용하여 할 일 관리 애플리케이션 만들기](spring-boot-claude.md)

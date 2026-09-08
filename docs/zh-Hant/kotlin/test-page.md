@@ -13,7 +13,7 @@
     </p>
 </tldr>
 
-## 同步索引標籤
+## 同步索引標籤 {id="synchronized-tabs"}
 
 <tabs group="build-script">
 <tab title="Kotlin" group-key="kotlin">
@@ -57,9 +57,9 @@ plugins {
 </tab>
 </tabs>
 
-## 區段
+## 區段 {id="sections"}
 
-### 摺疊區段 {initial-collapse-state="collapsed" collapsible="true"}
+### 摺疊區段 {initial-collapse-state="collapsed" collapsible="true" id="collapsed-section"}
 
 這裡有一些文字和一個程式碼區塊：
 
@@ -69,7 +69,7 @@ plugins {
 }
 ```
 
-## 程式碼區塊
+## 程式碼區塊 {id="codeblocks"}
 
 這只是一個程式碼區塊：
 
@@ -91,7 +91,7 @@ class MessageService(val db: MessageRepository) {
 }
 ```
 
-### 可展開的程式碼區塊
+### 可展開的程式碼區塊 {id="expandable-codeblock"}
 
 ```kotlin
 package com.example.demo
@@ -117,7 +117,7 @@ class MessageController {
 ```
 {initial-collapse-state="collapsed" collapsible="true"}
 
-### 可執行的程式碼區塊
+### 可執行的程式碼區塊 {id="runnable-codeblock"}
 
 ```kotlin
 data class User(val name: String, val id: Int)
@@ -134,9 +134,9 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 表格
+## 表格 {id="tables"}
 
-### Markdown 表格
+### Markdown 表格 {id="markdown-table"}
 
 | 原始型別陣列                                                                           | Java 中的對應項 |
 |---------------------------------------------------------------------------------------|--------------------|
@@ -149,7 +149,7 @@ fun main() {
 | [`LongArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long-array/)       | `long[]`           |
 | [`ShortArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-short-array/)     | `short[]`          |
 
-### XML 表格
+### XML 表格 {id="xml-table"}
 
 <table>
     <tr>
@@ -162,7 +162,7 @@ fun main() {
     </tr>
 </table>
 
-### 內含程式碼區塊的 XML 表格
+### 內含程式碼區塊的 XML 表格 {id="xml-table-with-codeblocks-inside"}
 
 簡單表格：
 
@@ -287,9 +287,9 @@ jvmTest<Scope>
     </tr>
 </table>
 
-## 清單
+## 清單 {id="lists"}
 
-### 有序清單
+### 有序清單 {id="ordered-list"}
 
 1. 第一點
 2. 第二點
@@ -304,7 +304,7 @@ jvmTest<Scope>
    jvmTest<Scope>
    ```
 
-### 無序清單
+### 無序清單 {id="non-ordered-list"}
 
 * 第一個項目
 * 第二個項目
@@ -318,7 +318,7 @@ jvmTest<Scope>
    jvmTest<Scope>
    ```
 
-### 定義列表
+### 定義列表 {id="definition-list"}
 
 <deflist collapsible="true">
    <def title="可摺疊項目 #1">
@@ -332,7 +332,7 @@ jvmTest<Scope>
    </def>
 </deflist>
 
-## 文字元素
+## 文字元素 {id="text-elements"}
 
 * **粗體文字**
 * _斜體文字_
@@ -342,16 +342,16 @@ jvmTest<Scope>
 * [外部連結](https://jetbrains.com)
 * 表情符號 ❌✅🆕
 
-## 變數
+## 變數 {id="variables"}
 * 變數使用：最新 Kotlin 版本為 %kotlinVersion%
 
-## 嵌入元素
+## 嵌入元素 {id="embedded-elements"}
 
-### 來自 YouTube 的影片
+### 來自 YouTube 的影片 {id="video-from-youtube"}
 
 <video src="https://www.youtube.com/v/Ol_96CHKqg8" title="Kotlin 1.9.20 的新功能"/>
 
-### 圖片
+### 圖片 {id="pictures"}
 
 一般 (Markdown):
 
@@ -375,7 +375,7 @@ jvmTest<Scope>
    <img src="multiplatform-create-project-button.png" alt="建立專案" style="block"/>
 </a>
 
-## 備註
+## 備註 {id="notes"}
 
 警告：
 

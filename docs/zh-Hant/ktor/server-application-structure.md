@@ -13,7 +13,7 @@ Ktor 應用程式可以根據專案大小、網域複雜度和部署環境，以
 > 本頁面重點在於應用程式層級的結構。如需更多關於組織路由的資訊，請參閱 [路由組織](server-routing-organization.md)。
 >
 
-## 預設專案結構
+## 預設專案結構 {id="default-project-structure"}
 
 當您使用 [Ktor 專案產生器](https://start.ktor.io/) 產生 Ktor 專案時，產出的專案會使用單一模組結構。此配置非常精簡，旨在讓您快速啟動並執行一個運作中的 Ktor 應用程式。
 
@@ -180,7 +180,7 @@ server/                               // Ktor 伺服器應用程式 (相依於�
 ├─ Customers.kt                       // 客戶 HTTP 路由
 └─ Orders.kt                          // 訂單 HTTP 路由
 ```
-### 網域層
+### 網域層 {id="domain-layer"}
 
 網域層保持獨立於 Ktor。它透過以下元素定義業務規則：
 
@@ -238,7 +238,7 @@ data class CustomerContactAdded(
 ```
 這些元素共同支援豐富的網域模型，同時保持基礎結構細節分離。
 
-### 應用程式與路由層
+### 應用程式與路由層 {id="application-and-routing-layer"}
 
 您透過各自的路由檔案或模組函式公開每個網域，並注入管理邏輯與狀態的服務：
 
@@ -306,7 +306,7 @@ service-order/
 
 在此結構中，每個服務都擁有隔離的網域切片，且內部保持模組化，並整合了服務發現、指標和外部配置。
 
-### 進入點
+### 進入點 {id="entry-points"}
 
 Ktor 提供現成的引擎進入點，例如：
 
@@ -318,7 +318,7 @@ io.ktor.server.cio.EngineMain
 
 應用程式模組可以在任何原始碼檔案中定義，並由引擎根據 [配置](server-configuration-file.topic) 載入。
 
-### 模組化單體 (Modulith) 部署
+### 模組化單體 (Modulith) 部署 {id="modulith-deployment"}
 
 與其使用完全獨立的微服務，代表服務的多個 Gradle 模組可以獨立封裝，但一起部署在單一 Ktor 應用程式中。這種方法通常被稱為模組化單體 (Modulith)。
 

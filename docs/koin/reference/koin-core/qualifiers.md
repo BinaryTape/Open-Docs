@@ -6,7 +6,7 @@ title: 限定符
 
 限定符允许您在 Koin 模块中区分相同类型的多个定义。
 
-## 何时需要限定符
+## 何时需要限定符 {id="when-you-need-qualifiers"}
 
 在以下情况下，您需要使用限定符：
 - 同一个接口有多个实现
@@ -21,11 +21,11 @@ val networkModule = module {
 }
 ```
 
-## 命名限定符
+## 命名限定符 {id="named-qualifiers"}
 
 使用 `named()` 来区分定义：
 
-### 定义
+### 定义 {id="defining"}
 
 ```kotlin
 import org.koin.core.qualifier.named
@@ -45,7 +45,7 @@ val networkModule = module {
 }
 ```
 
-### 注入
+### 注入 {id="injecting"}
 
 ```kotlin
 // 在模块定义中
@@ -64,7 +64,7 @@ class MyService : KoinComponent {
 }
 ```
 
-### 使用注解
+### 使用注解 {id="with-annotations"}
 
 ```kotlin
 import org.koin.core.annotation.Named
@@ -89,9 +89,9 @@ class ApiService(
 对于编译器插件 DSL 和经典 DSL 自动装配（`singleOf`、`factoryOf`），限定符无法自动解析。当定义需要限定符时，请使用带有 lambda 的经典 DSL 或注解。
 :::
 
-## 类型安全限定符
+## 类型安全限定符 {id="type-safe-qualifiers"}
 
-### 使用类型
+### 使用类型 {id="using-types"}
 
 可以使用任何类型作为限定符配合 `named<T>()` 使用：
 
@@ -118,7 +118,7 @@ val networkModule = module {
 val client: OkHttpClient = get(named<EncryptedClient>())
 ```
 
-### 使用枚举
+### 使用枚举 {id="using-enums"}
 
 为了获得更好的 IDE 支持，请使用枚举：
 
@@ -152,7 +152,7 @@ val client: OkHttpClient = get(named(NetworkClient.ENCRYPTED))
 - 没有字符串拼写错误
 - IDE 自动补全和重构支持
 
-## JSR-330 @Qualifier
+## JSR-330 @Qualifier {id="jsr-330-qualifier"}
 
 Koin 支持标准的 JSR-330 `@Qualifier` 注解：
 
@@ -179,9 +179,9 @@ class MyRepository(
 )
 ```
 
-## 常见用例
+## 常见用例 {id="common-use-cases"}
 
-### 多个 API 版本
+### 多个 API 版本 {id="multiple-api-versions"}
 
 ```kotlin
 val networkModule = module {
@@ -199,7 +199,7 @@ val networkModule = module {
 }
 ```
 
-### 不同的超时配置
+### 不同的超时配置 {id="different-timeout-configurations"}
 
 ```kotlin
 val networkModule = module {
@@ -217,7 +217,7 @@ val networkModule = module {
 }
 ```
 
-### 环境配置
+### 环境配置 {id="environment-configurations"}
 
 ```kotlin
 val configModule = module {
@@ -236,9 +236,9 @@ val configModule = module {
 }
 ```
 
-## 最佳做法
+## 最佳做法 {id="best-practices"}
 
-### 1. 克制地使用限定符
+### 1. 克制地使用限定符 {id="1-use-qualifiers-sparingly"}
 
 ```kotlin
 // 推荐 - 仅在必要时使用限定符
@@ -255,7 +255,7 @@ val appModule = module {
 }
 ```
 
-### 2. 优先考虑类型区分
+### 2. 优先考虑类型区分 {id="2-prefer-type-differentiation"}
 
 ```kotlin
 // 更好 - 使用不同的类型
@@ -271,7 +271,7 @@ val networkModule = module {
 }
 ```
 
-### 3. 避免限定符链
+### 3. 避免限定符链 {id="3-avoid-qualifier-chains"}
 
 ```kotlin
 // 糟糕 - 复杂的限定符依赖
@@ -289,7 +289,7 @@ val goodModule = module {
 }
 ```
 
-### 4. 为限定符编写文档
+### 4. 为限定符编写文档 {id="4-document-qualifiers"}
 
 ```kotlin
 val networkModule = module {
@@ -301,9 +301,9 @@ val networkModule = module {
 }
 ```
 
-## 命名约定
+## 命名约定 {id="naming-conventions"}
 
-### 基于字符串
+### 基于字符串 {id="string-based"}
 
 ```kotlin
 // 推荐 - 描述性强，小写并使用下划线
@@ -315,7 +315,7 @@ single(named("api_v2")) { ... }
 single(named("client1")) { ... }  // "1" 代表什么意思？
 ```
 
-### 基于枚举
+### 基于枚举 {id="enum-based"}
 
 ```kotlin
 // 推荐 - 清晰的枚举名称
@@ -330,9 +330,9 @@ enum class ApiVersion {
 }
 ```
 
-## 常见陷阱
+## 常见陷阱 {id="common-pitfalls"}
 
-### 注入时忘记限定符
+### 注入时忘记限定符 {id="forgetting-qualifiers-on-injection"}
 
 ```kotlin
 val module = module {
@@ -347,7 +347,7 @@ val repoModule = module {
 }
 ```
 
-### 限定符名称不匹配
+### 限定符名称不匹配 {id="mismatched-qualifier-names"}
 
 ```kotlin
 val module = module {
@@ -365,7 +365,7 @@ val repoModule = module {
 
 请使用枚举限定符来避免拼写错误！
 
-## 后续步骤
+## 后续步骤 {id="next-steps"}
 
 - **[定义](/docs/reference/koin-core/definitions)** - 定义类型与绑定
 - **[模块](/docs/reference/koin-core/modules)** - 模块组织

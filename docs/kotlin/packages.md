@@ -5,7 +5,7 @@
 * **软件包 (package)** 是一个或多个 Kotlin 文件的容器。文件通过 `package` 标头链接到软件包。
 * **导入 (import)** 是一条指令，它使来自其他软件包的实体在当前文件中可用。
 
-## 软件包标头
+## 软件包标头 {id="package-headers"}
 
 源文件可以以软件包标头开头：
 
@@ -25,12 +25,12 @@ class Message(val text: String) { /*...*/ }
 
 如果文件没有软件包标头，则其内容属于根软件包。
 
-## 导入
+## 导入 {id="imports"}
 
 要使用来自其他软件包文件中定义的实体，请使用 `import` 指令。
 除了默认导入之外，每个文件还可以声明自己的导入。
 
-### 导入单个实体
+### 导入单个实体 {id="import-a-single-entity"}
 
 导入特定的实体，以便您无需限定符即可使用它：
 
@@ -44,7 +44,7 @@ fun main() {
 }
 ```
 
-### 导入作用域的内容
+### 导入作用域的内容 {id="import-the-contents-of-a-scope"}
 
 星号导入（以星号 `*` 结尾）会导入相应作用域内的所有命名实体：
 
@@ -60,7 +60,7 @@ fun main() {
 
 如果您同时通过星号导入和显式导入了同一个实体，在重载解析期间显式导入具有更高优先级。
 
-### 使用别名解决名称冲突
+### 使用别名解决名称冲突 {id="resolve-name-clashes-with-aliases"}
 
 如果两个导入的实体具有相同的名称，请使用 `as` 关键字对其中一个进行本地重命名：
 
@@ -77,7 +77,7 @@ fun main() {
 }
 ```
 
-### 可以导入的内容
+### 可以导入的内容 {id="what-you-can-import"}
 
 `import` 关键字不仅限于类。您可以导入以下任何实体，无论它们来自软件包、类、对象还是枚举：
 
@@ -105,7 +105,7 @@ fun main() {
     import org.example.Outer.Nested
     ```
 
-## 默认导入
+## 默认导入 {id="default-imports"}
 
 默认情况下，Kotlin 包含以下导入：
 
@@ -128,7 +128,7 @@ fun main() {
 * JS:
   * [kotlin.js.*](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.js/index.html)
 
-## 可见性与导入
+## 可见性与导入 {id="visibility-and-imports"}
 
 能否导入某个实体取决于其[可见性修饰符](visibility-modifiers.md)：
 

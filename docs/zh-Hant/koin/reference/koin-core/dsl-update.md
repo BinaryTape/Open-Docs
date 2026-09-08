@@ -8,7 +8,7 @@ Koin 提供了一種自動佈線 (Autowire) DSL，讓您可以直接針對類別
 如果您正在使用 **Koin 編譯器外掛程式**，請考慮使用 [編譯器外掛程式 DSL](/docs/setup/compiler-plugin)，它提供了類似的自動佈線功能，並增加了編譯期安全性。
 :::
 
-## 經典自動佈線 DSL
+## 經典自動佈線 DSL {id="classic-autowire-dsl"}
 
 對於給定的類別 `ClassA` 及其相依性如下：
 
@@ -40,7 +40,7 @@ module {
 您的建構函式會自動填入所有必要的相依性。請避免使用預設值，因為 Koin 會嘗試解析所有參數。
 :::
 
-## 與編譯器外掛程式 DSL 的比較
+## 與編譯器外掛程式 DSL 的比較 {id="comparison-with-compiler-plugin-dsl"}
 
 | 經典自動佈線 | 編譯器外掛程式 |
 |------------------|-----------------|
@@ -51,7 +51,7 @@ module {
 
 編譯器外掛程式 DSL 提供相同的自動佈線功能，並增加了編譯期驗證。
 
-## 可用關鍵字
+## 可用關鍵字 {id="available-keywords"}
 
 以下是可用於從建構函式建立定義的自動佈線關鍵字：
 
@@ -63,7 +63,7 @@ module {
 請務必不要在您的建構函式中使用任何預設值，因為 Koin 會嘗試用它來填入每個參數。
 :::
 
-## DSL 選項
+## DSL 選項 {id="dsl-options"}
 
 任何自動佈線 DSL 定義也可以在 Lambda 運算式中開啟一些選項：
 
@@ -94,7 +94,7 @@ module {
 }
 ```
 
-## 注入參數
+## 注入參數 {id="injected-parameters"}
 
 使用自動佈線 DSL 宣告，您仍然可以使用注入參數。Koin 會在注入參數和目前的相依性中尋找，嘗試注入您的建構函式。
 
@@ -119,7 +119,7 @@ val id = "a_factory_id"
 val factory = koin.get<MyFactory> { parametersOf(id)}
 ```
 
-## 基於反射的 DSL (自 3.2 起棄用)
+## 基於反射的 DSL (自 3.2 起棄用) {id="reflection-based-dsl-deprecated-since-3-2"}
 
 :::caution
 Koin 反射 DSL 現已棄用。請使用上方的 Koin 自動佈線 DSL。

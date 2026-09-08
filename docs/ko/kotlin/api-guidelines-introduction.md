@@ -25,7 +25,7 @@
 
 다음 섹션에서는 이러한 특성들을 더 깊이 있게 살펴보고, 라이브러리 사용자에게 가능한 최상의 경험을 제공할 수 있는 실질적인 조언을 제공합니다.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [정신적 복잡성 최소화](api-guidelines-minimizing-mental-complexity.md)에서 정신적 복잡성을 줄이기 위한 전략을 살펴보세요.
 * [하위 호환성](api-guidelines-backward-compatibility.md)에서 하위 호환성 유지에 대해 알아보세요.

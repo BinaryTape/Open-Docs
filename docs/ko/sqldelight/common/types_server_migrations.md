@@ -1,4 +1,4 @@
-## 낙관적 잠금 (Optimistic Locking)
+## 낙관적 잠금 (Optimistic Locking) {id="optimistic-locking"}
 
 컬럼을 `LOCK`으로 지정하면, 해당 컬럼에 대해 값 타입이 생성되며, `UPDATE` 문이 업데이트를 수행할 때 해당 잠금을 올바르게 사용해야 합니다.
 
@@ -22,7 +22,7 @@ SET name = ?
 WHERE version_number = :version_number;
 ```
 
-## 마이그레이션에서의 커스텀 타입 (Custom Types in Migrations)
+## 마이그레이션에서의 커스텀 타입 (Custom Types in Migrations) {id="custom-types-in-migrations"}
 
 마이그레이션이 스키마의 소스(source of truth)인 경우, 테이블을 변경(alter)할 때 노출될 Kotlin 타입을 지정할 수도 있습니다:
 

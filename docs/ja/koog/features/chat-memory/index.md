@@ -10,7 +10,7 @@
 - 履歴サイズを制限し、メッセージをフィルタリングするための組み込みプリプロセッサ
 - 任意のメッセージ変換のためのカスタムプリプロセッサのサポート
 
-## 依存関係の追加
+## 依存関係の追加 {id="add-dependencies"}
 
 チャットメモリはオプションの[機能](../index.md)であり、Koogではデフォルトでは利用できません。
 Koogエージェントにチャットメモリを実装するには、[`ai.koog:agents-features-memory`](https://mvnrepository.com/artifact/ai.koog/agents-features-memory)の依存関係を追加してください。
@@ -44,7 +44,7 @@ Koogエージェントにチャットメモリを実装するには、[`ai.koog:
 !!! note
     `ChatMemory`機能は、Koogバージョン **0.7.0** 以降で利用可能です。
 
-## チャットメモリの有効化
+## チャットメモリの有効化 {id="enable-chat-memory"}
 
 エージェントの作成時に`install()`メソッドを使用して`ChatMemory`をインストールします。
 
@@ -100,7 +100,7 @@ Koogエージェントにチャットメモリを実装するには、[`ai.koog:
         .build();
     ```
 
-## セッションID
+## セッションID {id="session-ids"}
 
 `agent.run()`の第2引数としてセッションIDを指定します。
 `ChatMemory`はこのIDを使用して会話の保存と読み込みを行います。
@@ -115,7 +115,7 @@ agent.run("And what about Germany?", "session-1")
 
 異なるセッションIDを使用すると、完全に分離された履歴が生成されます。
 
-## 履歴プロバイダー
+## 履歴プロバイダー {id="history-providers"}
 
 デフォルトの`InMemoryChatHistoryProvider`はスレッドセーフですが、永続的ではありません（再起動時に履歴が失われます）。
 本番環境では、メッセージを永続的に保存する独自の`ChatHistoryProvider`を実装してください。
@@ -132,19 +132,19 @@ class MyDatabaseChatHistoryProvider(private val db: Database) : ChatHistoryProvi
 }
 ```
 
-## プリプロセッサ
+## プリプロセッサ {id="preprocessors"}
 
 プリプロセッサは、読み込み時（エージェントがメッセージを参照する前）と保存時（保存する前）の両方でメッセージリストを変換します。
 これらは、`ChatMemory`機能の設定に追加した順序で逐次実行されます。
 
-### 組み込みプリプロセッサ
+### 組み込みプリプロセッサ {id="built-in-preprocessors"}
 
 | 設定メソッド | プリプロセッサクラス | 動作 |
 |--------------------------|------------------------------|---------------------------------------|
 | `windowSize(n)` | `WindowSizePreProcessor` | 最後の`n`個のメッセージのみを保持する |
 | `filterMessages { ... }` | `FilterMessagesPreProcessor` | 述語（predicate）に一致するメッセージのみを保持する |
 
-### プリプロセッサの順序
+### プリプロセッサの順序 {id="order-of-preprocessors"}
 
 プリプロセッサは逐次実行され、各出力が次の入力になります。
 つまり、順序が重要になります。
@@ -159,7 +159,7 @@ filterMessages { it.content.length <= 100 }
 windowSize(10)
 ```
 
-### カスタムプリプロセッサ
+### カスタムプリプロセッサ {id="custom-preprocessors"}
 
 カスタムプリプロセッサを作成するには、`ChatMemoryPreProcessor`インターフェースを実装します。
 
@@ -183,7 +183,7 @@ install(ChatMemory) {
 }
 ```
 
-## チャットメモリ vs エージェントの永続化
+## チャットメモリ vs エージェントの永続化 {id="chat-memory-vs-agent-persistence"}
 
 `ChatMemory`は、各`agent.run()`呼び出しをアトミックで自己完結したループとして扱います。
 エージェントは実行前にチャット履歴を読み込み、実行が正常に終了した後に保存します。
@@ -219,14 +219,14 @@ val agent = AIAgent(
 }
 ```
 
-## ベストプラクティス
+## ベストプラクティス {id="best-practices"}
 
 - 会話が無制限に肥大化するのを防ぐため、**常にウィンドウサイズを設定してください**。
 - フィルタリングしてからウィンドウイングを行うか、ウィンドウイングしてからフィルタリングするかで結果が異なるため、**プリプロセッサの順序には注意してください**。
 - 履歴を分離するために、ユーザーID、チャットスレッドID、UUIDなど、**意味のあるセッションIDを使用してください**。
 - デフォルトの`InMemoryChatHistoryProvider`は再起動時に履歴を失うため、**本番環境では永続的なプロバイダーを実装してください**。
 
-## 次のステップ
+## 次のステップ {id="next-steps"}
 
 - [メモリを備えたシンプルなCLIチャットループを構築する方法](chat-agent-with-memory.md)を学ぶ
 - [メモリを備えたチャットエンドポイントの例](chat-backend-with-memory.md)を見る

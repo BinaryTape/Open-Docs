@@ -48,7 +48,7 @@ Lincheckで生成される引数値の範囲を制限するには：
 | ---------------------------------- |
 ```
 
-## ジェネレータの型
+## ジェネレータの型 {id="generator-types"}
 
 Lincheckは、以下の引数ジェネレータ型を提供しています：
 
@@ -145,11 +145,11 @@ Lincheckは、以下の引数ジェネレータ型を提供しています：
     </tr>
 </table>
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 Lincheckで[特定のオペレーションを単一スレッドに制限する](lincheck-operation-execution-options.md)方法を学びます。
 
-## 関連項目
+## 関連項目 {id="see-also"}
 
 * [ノンブロッキングな進捗保証のチェック](lincheck-progress-guarantees.md)
 * [アルゴリズムの逐次仕様の定義](lincheck-results-validation.md)

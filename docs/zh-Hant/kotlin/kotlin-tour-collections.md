@@ -14,7 +14,7 @@ Kotlin 具有以下用於將項目分組的集合型別：
 
 每種集合型別都可以是可變（mutable）或唯讀（read-only）的。
 
-## List
+## List {id="list"}
 
 List 按項目新增的順序儲存項目，並允許重複的項目。
 
@@ -129,7 +129,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-list-add-remove"}
 
-## Set
+## Set {id="set"}
 
 List 是有序且允許重複項目的，而 Set 則是**無序**且僅儲存**唯一**項目。
 
@@ -211,7 +211,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-set-add-remove"}
 
-## Map
+## Map {id="map"}
 
 Map 以鍵值對的形式儲存項目。您可以透過引用鍵（key）來存取值（value）。您可以將 Map 想像成菜單。您可以透過找到想吃的食物（鍵）來找到對應的價格（值）。如果您想在不使用數字索引（如 List）的情況下查找值，Map 就非常有用。
 
@@ -386,9 +386,9 @@ fun main() {
 
 現在您已經了解基本型別以及如何管理集合，接下來是時候探索可以在程式中使用的 [控制流](kotlin-tour-control-flow.md) 了。
 
-## 練習 {completion-point="true"}
+## 練習 {completion-point="true" id="practice"}
 
-### 練習 1 {initial-collapse-state="collapsed" collapsible="true"}
+### 練習 1 {initial-collapse-state="collapsed" collapsible="true" id="exercise-1"}
 
 您有一個「綠色」數字列表和一個「紅色」數字列表。完成程式碼以列印總共有多少個數字。
 
@@ -413,7 +413,7 @@ fun main() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="範例解答" id="kotlin-tour-collections-solution-1"}
 
-### 練習 2 {initial-collapse-state="collapsed" collapsible="true"}
+### 練習 2 {initial-collapse-state="collapsed" collapsible="true" id="exercise-2"}
 
 您有一組伺服器支援的通訊協定。使用者請求使用特定通訊協定。完成程式以檢查所請求的通訊協定是否受支援（`isSupported` 必須為布林值）。
 
@@ -445,7 +445,7 @@ fun main() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="範例解答" id="kotlin-tour-collections-solution-2"}
 
-### 練習 3 {initial-collapse-state="collapsed" collapsible="true"}
+### 練習 3 {initial-collapse-state="collapsed" collapsible="true" id="exercise-3"}
 
 定義一個 Map，將 1 到 3 的整數對應到其對應的拼字。使用此 Map 來拼出指定的數字。
 

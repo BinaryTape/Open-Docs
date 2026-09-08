@@ -16,13 +16,13 @@ Kotlin은 Java와 완전히 상호 운용 가능하므로, 모든 것을 새로 
 >
 {style="tip"}
 
-## 프로젝트 구성
+## 프로젝트 구성 {id="project-configuration"}
 
 Java 프로젝트에 Kotlin을 추가하려면 사용하는 빌드 도구에 따라 Kotlin과 Java를 모두 사용하도록 프로젝트를 구성해야 합니다.
 
 프로젝트 구성을 통해 Kotlin과 Java 코드가 모두 올바르게 컴파일되고 서로 원활하게 참조할 수 있도록 합니다.
 
-### Maven
+### Maven {id="maven"}
 
 > **IntelliJ IDEA 2025.3**부터는 Maven 기반 Java 프로젝트에 첫 번째 Kotlin 파일을 추가할 때, IDE가 `pom.xml` 파일을 자동으로 업데이트하여 Kotlin Maven 플러그인과 표준 종속성을 포함합니다. 버전이나 빌드 단계를 사용자 정의하려는 경우 여전히 수동으로 구성할 수 있습니다.
 >
@@ -64,7 +64,7 @@ Maven 프로젝트에서 Kotlin과 Java를 함께 사용하려면, `pom.xml` 파
     ./mvnw clean test
     ```
 
-### Gradle
+### Gradle {id="gradle"}
 
 Gradle 프로젝트에서 Kotlin과 Java를 함께 사용하려면, `build.gradle.kts` 파일에 Kotlin JVM 플러그인을 적용하고 Kotlin 종속성을 추가하세요:
 
@@ -105,7 +105,7 @@ Gradle 프로젝트에서 Kotlin과 Java를 함께 사용하려면, `build.gradl
     ./gradlew clean test
     ```
 
-## 프로젝트 구조
+## 프로젝트 구조 {id="project-structure"}
 
 이 구성을 사용하면 동일한 소스 디렉터리에 Java와 Kotlin 파일을 혼합하여 사용할 수 있습니다:
 
@@ -123,7 +123,7 @@ src/
 
 Kotlin 플러그인은 `src/main/java` 및 `src/test/java` 디렉터리를 모두 자동으로 인식하므로, 동일한 디렉터리에 `.kt` 및 `.java` 파일을 보관할 수 있습니다.
 
-## Java 파일을 Kotlin으로 변환하기
+## Java 파일을 Kotlin으로 변환하기 {id="convert-java-files-to-kotlin"}
 
 Kotlin 플러그인에는 Java 파일을 Kotlin으로 자동으로 변환해 주는 Java to Kotlin 변환기(_J2K_)가 포함되어 있습니다. 파일에서 J2K를 사용하려면, 해당 파일의 컨텍스트 메뉴 또는 IntelliJ IDEA의 **Code** 메뉴에서 **Convert Java File to Kotlin File**을 클릭하세요.
 
@@ -131,7 +131,7 @@ Kotlin 플러그인에는 Java 파일을 Kotlin으로 자동으로 변환해 주
 
 이 변환기가 완벽하지는 않지만, Java의 대부분의 보일러플레이트(boilerplate) 코드를 Kotlin으로 변환하는 데 꽤 훌륭한 역할을 합니다. 하지만 때때로 약간의 수동 수정이 필요할 수 있습니다.
 
-## 컴파일러 플러그인 살펴보기 {initial-collapse-state="collapsed" collapsible="true"}
+## 컴파일러 플러그인 살펴보기 {initial-collapse-state="collapsed" collapsible="true" id="explore-compiler-plugins"}
 
 [Spring](https://spring.io/)이나 JPA(Java Persistence API)를 사용하는 더 복잡한 프로젝트가 있는 경우, Kotlin 언어 기능을 프레임워크 요구 사항에 맞게 자동으로 조정하여 보일러플레이트 코드를 줄여주는 Kotlin 컴파일러 플러그인을 사용할 수 있습니다:
 
@@ -143,13 +143,13 @@ Kotlin 플러그인에는 Java 파일을 Kotlin으로 자동으로 변환해 주
   또한 `no-arg`를 기반으로 하는 [`kotlin-jpa`](no-arg-plugin.md#jpa-support) 플러그인을 사용할 수도 있습니다. 이 플러그인은 no-arg 어노테이션을 자동으로 지정합니다.
 * **[`power-assert`](power-assert.md)** 플러그인은 어설션(assertion)에 대한 문맥 정보를 포함한 상세한 실패 메시지를 제공하여 디버깅 경험을 개선합니다. 중간 값을 보여주어 테스트가 실패한 이유를 이해하는 데 도움을 줍니다.
 
-## 다음 단계
+## 다음 단계 {id="next-step"}
 
 Java 프로젝트에서 Kotlin을 사용하는 가장 쉬운 방법은 Kotlin 테스트를 먼저 추가하는 것입니다:
 
 [Java 프로젝트에 첫 번째 Kotlin 테스트 추가하기](jvm-test-using-junit.md)
 
-### 참고 항목
+### 참고 항목 {id="see-also"}
 
 * [Kotlin 및 Java 상호 운용성 상세 정보](java-to-kotlin-interop.md)
 * [Maven 빌드 구성 참조](maven.md)

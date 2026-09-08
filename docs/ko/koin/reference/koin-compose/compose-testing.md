@@ -6,7 +6,7 @@ title: Composable 테스트하기
 
 이 가이드는 안드로이드 스튜디오 프리뷰부터 포괄적인 단위 테스트에 이르기까지, Koin을 사용하는 Compose 애플리케이션의 테스트 전략을 다룹니다.
 
-## KoinApplicationPreview
+## KoinApplicationPreview {id="koinapplicationpreview"}
 
 Koin 의존성이 포함된 안드로이드 스튜디오 프리뷰에는 `KoinApplicationPreview`를 사용하세요:
 
@@ -24,7 +24,7 @@ fun UserScreenPreview() {
 }
 ```
 
-### 다중 프리뷰 (Multiple Previews)
+### 다중 프리뷰 (Multiple Previews) {id="multiple-previews"}
 
 ```kotlin
 @Preview(name = "Light Mode")
@@ -45,7 +45,7 @@ val previewModule = module {
 }
 ```
 
-### 다양한 상태의 프리뷰
+### 다양한 상태의 프리뷰 {id="preview-with-different-states"}
 
 ```kotlin
 @Preview(name = "Loading")
@@ -85,9 +85,9 @@ fun SuccessPreview() {
 }
 ```
 
-## ComposeTestRule을 사용한 단위 테스트
+## ComposeTestRule을 사용한 단위 테스트 {id="unit-testing-with-composetestrule"}
 
-### 기본 설정
+### 기본 설정 {id="basic-setup"}
 
 ```kotlin
 class UserScreenTest : KoinTest {
@@ -115,7 +115,7 @@ class UserScreenTest : KoinTest {
 }
 ```
 
-### 사용자 상호작용 테스트
+### 사용자 상호작용 테스트 {id="testing-user-interactions"}
 
 ```kotlin
 @Test
@@ -146,7 +146,7 @@ fun searchFiltersUsers() {
 }
 ```
 
-### ViewModel 상태 테스트
+### ViewModel 상태 테스트 {id="testing-with-viewmodel-states"}
 
 ```kotlin
 @Test
@@ -204,9 +204,9 @@ fun showsErrorMessage() {
 }
 ```
 
-## 의존성 모킹 (Mocking Dependencies)
+## 의존성 모킹 (Mocking Dependencies) {id="mocking-dependencies"}
 
-### MockK 사용하기
+### MockK 사용하기 {id="using-mockk"}
 
 ```kotlin
 class UserScreenMockTest : KoinTest {
@@ -260,7 +260,7 @@ class UserScreenMockTest : KoinTest {
 }
 ```
 
-### 가짜 구현체(Fake Implementation) 사용하기
+### 가짜 구현체(Fake Implementation) 사용하기 {id="using-fake-implementations"}
 
 ```kotlin
 class FakeUserRepository : UserRepository {
@@ -333,7 +333,7 @@ class UserScreenFakeTest : KoinTest {
 }
 ```
 
-## 내비게이션 테스트
+## 내비게이션 테스트 {id="testing-navigation"}
 
 ```kotlin
 class NavigationTest : KoinTest {
@@ -383,7 +383,7 @@ class NavigationTest : KoinTest {
 }
 ```
 
-## 코루틴 테스트
+## 코루틴 테스트 {id="testing-with-coroutines"}
 
 ```kotlin
 class CoroutineTest : KoinTest {
@@ -419,7 +419,7 @@ class CoroutineTest : KoinTest {
 }
 ```
 
-## 멀티플랫폼 테스트
+## 멀티플랫폼 테스트 {id="multiplatform-testing"}
 
 Compose Multiplatform의 경우, `expect`/`actual` 테스트 헬퍼를 생성하세요:
 
@@ -453,7 +453,7 @@ class CommonUserScreenTest : KoinTest {
 }
 ```
 
-## 권장 사항 (Best Practices)
+## 권장 사항 (Best Practices) {id="best-practices"}
 
 1. **KoinTestRule 사용** - 설정(setup) 및 해제(teardown)를 자동으로 처리합니다.
    ```kotlin
@@ -477,7 +477,7 @@ class CommonUserScreenTest : KoinTest {
 
 6. **Koin 정리** - Rule을 사용하지 않는 경우, `@After`에서 `stopKoin()`을 호출하세요.
 
-## 다음 단계
+## 다음 단계 {id="next-steps"}
 
 - **[Compose 개요](/docs/reference/koin-compose/compose)** - 설정 및 기본 주입
 - **[테스트 레퍼런스](/docs/reference/koin-test/testing)** - 일반적인 Koin 테스트

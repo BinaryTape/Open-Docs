@@ -1,4 +1,4 @@
-## 定义类型安全查询
+## 定义类型安全查询 {id="defining-typesafe-queries"}
 
 SQLDelight 会为 `.sq` 文件中任何带有标签的 SQL 语句生成一个类型安全函数。
 

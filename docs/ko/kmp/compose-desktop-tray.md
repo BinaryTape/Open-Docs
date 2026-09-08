@@ -3,7 +3,7 @@
 
 데스크톱용 Compose Multiplatform에서는 시스템 트레이(system tray)에 애플리케이션 아이콘을 추가하고 이를 통해 시스템 알림(system notifications)을 보낼 수 있습니다.
 
-## 시스템 트레이
+## 시스템 트레이 {id="system-tray"}
 
 `Tray()` 컴포저블을 사용하여 시스템 트레이에 애플리케이션 아이콘을 추가합니다. `Tray()`는 `application()` 함수의 스코프 내에서 사용할 수 있으므로, 애플리케이션 창 옆에 호출하거나 단독으로 호출할 수 있습니다.
 
@@ -115,7 +115,7 @@ object TrayIcon : Painter() {
 
 모든 데스크톱 환경에 시스템 트레이가 있는 것은 아닙니다. 플랫폼에서 트레이를 지원하지 않는 경우, `Tray()`는 예외를 발생시키는 대신 표준 오류 스트림에 오류를 출력합니다. 애플리케이션에서 트레이 관련 옵션을 표시하기 전에 `isTraySupported` 속성을 확인하세요.
 
-### 창이 없는 트레이
+### 창이 없는 트레이 {id="tray-without-a-window"}
 
 애플리케이션에 트레이 아이콘을 만들기 위해 반드시 창(window)이 필요하지는 않습니다. `Tray()` 함수만 호출하면 애플리케이션이 시스템 트레이에서만 실행됩니다.
 
@@ -151,7 +151,7 @@ object TrayIcon : Painter() {
 
 닫을 창이 없으므로, 메뉴 항목에서 `exitApplication()`을 호출해야 합니다.
 
-## 알림
+## 알림 {id="notifications"}
 
 시스템 알림을 보내려면 [시스템 트레이 예제](#시스템-트레이)와 같이 `rememberNotification()`으로 알림을 생성하고 `TrayState.sendNotification()`에 전달합니다. 알림은 `Tray()` 컴포저블에 전달된 `TrayState`를 통해 전달됩니다. 상태(state)가 트레이에 연결되어 있지 않으면 알림이 유실됩니다.
 
@@ -163,7 +163,7 @@ object TrayIcon : Painter() {
 >
 {style="note"}
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * 창에 [메뉴 바](compose-desktop-menu-bar.md)를 추가하는 방법을 알아보세요.
 * [다른 데스크톱 컴포넌트](compose-desktop-components.md)에 대한 튜토리얼을 살펴보세요.

@@ -7,7 +7,7 @@ modifier 允许你装饰或增强可组合项。使用 modifier，你可以：
 *   处理用户输入。
 *   添加高级交互，例如使元素可点击、可滚动、可拖动或可缩放。
 
-## 链式调用 modifier 
+## 链式调用 modifier {id="chaining-modifiers"}
 
 modifier 可以链式调用以应用多种效果：
 
@@ -30,11 +30,11 @@ private fun Greeting(name: String) {
 
 **链式调用中 modifier 函数的顺序非常重要**。每个函数都会对前一个函数返回的 `Modifier` 进行更改，因此调用序列会直接影响可组合项的最终行为和外观。
 
-## 内置 modifier
+## 内置 modifier {id="built-in-modifiers"}
 
 Compose Multiplatform 提供了内置 modifier，例如 `size`、`padding` 和 `offset`，用于处理常见的布局和定位任务。
 
-### 尺寸 modifier
+### 尺寸 modifier {id="size-modifiers"}
 
 要设置固定尺寸，请使用 `size` modifier。当需要覆盖约束时，请使用 `requiredSize` modifier：
 
@@ -55,7 +55,7 @@ fun Card() {
 }
 ```
 
-### Padding modifier
+### Padding modifier {id="padding-modifiers"}
 
 使用 `padding` modifier 在元素周围添加内边距。你还可以使用 `paddingFromBaseline` 相对于基线动态应用内边距：
 
@@ -76,7 +76,7 @@ fun Card() {
 }
 ```
 
-### Offset modifier
+### Offset modifier {id="offset-modifiers"}
 
 要调整布局相对于其原始位置的位置，请使用 `offset` modifier。在 X 轴和 Y 轴上指定偏移量：
 
@@ -99,7 +99,7 @@ fun Card() {
 }
 ```
 
-## 作用域 modifier
+## 作用域 modifier {id="scoped-modifiers"}
 
 作用域 modifier（也称为父数据 modifier）用于通知父布局有关子项的特定要求。
 例如，要匹配父 `Box` 的尺寸，请使用 `matchParentSize` modifier：
@@ -145,7 +145,7 @@ fun Card() {
 }
 ```
 
-## 提取和复用 modifier 
+## 提取和复用 modifier {id="extracting-and-reusing-modifiers"}
 
 当你链式调用 modifier 时，可以将该链提取到变量或函数中以便复用。这可以提高代码可读性，并可能通过复用 modifier 实例来提升性能。
 
@@ -170,7 +170,7 @@ fun Example() {
 }
 ```
 
-## 自定义 modifier
+## 自定义 modifier {id="custom-modifiers"}
 
 虽然 Compose Multiplatform 开箱即用地提供了许多用于常见用例的内置 modifier，但你也可以创建自己的自定义 modifier。
 
@@ -180,6 +180,6 @@ fun Example() {
 *   [使用可组合 modifier 工厂](https://developer.android.com/develop/ui/compose/custom-modifiers#create_a_custom_modifier_using_a_composable_modifier_factory)
 *   [底层的 `Modifier.Node` API](https://developer.android.com/develop/ui/compose/custom-modifiers#implement-custom)
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 在 [Jetpack Compose 文档](https://developer.android.com/develop/ui/compose/modifiers)中详细了解 modifier。

@@ -36,7 +36,7 @@ for ((a, b) in collection) { ... }
 
 변수 `a`와 `b`에는 컬렉션의 요소에 대해 호출된 `component1()`과 `component2()`가 반환한 값이 할당됩니다. 
 
-## 예제: 함수에서 두 개의 값 반환하기
+## 예제: 함수에서 두 개의 값 반환하기 {id="example-returning-two-values-from-a-function"}
  
 함수에서 두 가지 결과(예: 결과 객체와 일종의 상태 값)를 반환해야 한다고 가정해 보겠습니다.
 Kotlin에서 이를 수행하는 간결한 방법은 [데이터 클래스(data class)](data-classes.md)를 정의하고 그 인스턴스를 반환하는 것입니다:
@@ -59,7 +59,7 @@ val (result, status) = function(...)
 >
 {style="note"}
 
-## 예제: 구조 분해 선언과 맵(Map)
+## 예제: 구조 분해 선언과 맵(Map) {id="example-destructuring-declarations-and-maps"}
 
 맵을 순회하는 가장 좋은 방법은 아마도 다음과 같을 것입니다:
 
@@ -84,7 +84,7 @@ operator fun <K, V> Map.Entry<K, V>.component2() = getValue()
 
 따라서 맵(데이터 클래스 인스턴스의 컬렉션 등과 마찬가지로)을 사용할 때 `for` 루프에서 구조 분해 선언을 자유롭게 사용할 수 있습니다.
 
-## 사용하지 않는 변수에 대한 언더스코어
+## 사용하지 않는 변수에 대한 언더스코어 {id="underscore-for-unused-variables"}
 
 구조 분해 선언에서 변수가 필요하지 않은 경우, 이름 대신 언더스코어(_)를 넣을 수 있습니다:
 
@@ -94,7 +94,7 @@ val (_, status) = getResult()
 
 이렇게 건너뛴 컴포넌트에 대해서는 `componentN()` 연산자 함수가 호출되지 않습니다.
 
-## 람다에서의 구조 분해
+## 람다에서의 구조 분해 {id="destructuring-in-lambdas"}
 
 람다 파라미터에 구조 분해 선언 구문을 사용할 수 있습니다.
 람다가 `Pair` 타입(또는 `Map.Entry`나 적절한 `componentN` 함수가 있는 기타 타입)의 파라미터를 가지는 경우, 파라미터를 괄호 안에 넣어 하나 대신 여러 개의 새로운 파라미터로 대체할 수 있습니다:   
@@ -127,7 +127,7 @@ map.mapValues { (_, value): Map.Entry<Int, String> -> "$value!" }
 map.mapValues { (_, value: String) -> "$value!" }
 ```
 
-## 이름 기반 구조 분해
+## 이름 기반 구조 분해 {id="name-based-destructuring"}
 <primary-label ref="experimental-opt-in"/>
 
 Kotlin은 *이름 기반 구조 분해 선언(name-based destructuring declarations)*을 지원합니다. 이 방식에서는 *위치 기반(position-based)* 구조 분해에서 `componentN()` 함수에 의해 정의된 위치 대신, 이름에 따라 변수가 프로퍼티와 매칭됩니다.

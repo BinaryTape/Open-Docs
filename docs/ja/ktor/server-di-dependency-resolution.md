@@ -35,7 +35,7 @@ val service: GreetingService by dependencies
 val service = dependencies.resolve<GreetingService>()
 ```
 
-### パラメータの解決
+### パラメータの解決 {id="parameter-resolution"}
 
 コンストラクタまたは関数を解決する際、KtorはDIコンテナを使用してパラメータを解決します。デフォルトでは、パラメータは型によって解決されます。
 
@@ -51,7 +51,7 @@ fun Application.userRepository(@Named("mongo") database: Database) {
 }
 ```
 
-#### 設定プロパティを使用する
+#### 設定プロパティを使用する {id="use-configuration-properties"}
 
 `@Property` アノテーションを使用して、アプリケーション設定から値を注入します。
 
@@ -166,7 +166,7 @@ fun Application.logging(printStreamProvider: () -> PrintStream) {
 </TabItem>
 </Tabs>
 
-## 高度な依存関係解決
+## 高度な依存関係解決 {id="advanced-dependency-resolution"}
 
 ### オプションおよび Null 許容の依存関係 {id="optional-dependencies"}
 
@@ -206,7 +206,7 @@ dependencies {
 val outputStream: OutputStream by dependencies
 ```
 
-#### 制限事項
+#### 制限事項 {id="limitations"}
 
 DIシステムはジェネリック型の共変性をサポートしていますが、現在は型引数のサブタイプを跨いだパラメータ化された型の解決はサポートしていません。つまり、登録されたものよりも特定の型、あるいはより一般的な型を使用して依存関係を取得することはできません。
 

@@ -1,4 +1,4 @@
-## MySQLの型
+## MySQLの型 {id="mysql-types"}
 
 SQLDelightの列定義は通常のH2の列定義と同一ですが、生成されるインターフェースにおける列のKotlin型を指定する[追加の列制約](#custom-column-types)をサポートしています。
 

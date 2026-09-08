@@ -49,7 +49,7 @@ fun main() {
 
 スコープ関数には多くの類似点があるため、ユースケースに適したものを選択するのは難しい場合があります。選択は主に、目的とプロジェクト内での使用の整合性に依存します。以下では、スコープ関数間の違いとその慣習について詳しく説明します。
 
-## 関数の選択
+## 関数の選択 {id="function-selection"}
 
 目的に適したスコープ関数を選択しやすくするために、主な違いをまとめた表を以下に示します。
 
@@ -78,14 +78,14 @@ fun main() {
 
 スコープ関数はコードをより簡潔にできますが、多用は避けてください。コードが読みづらくなり、エラーにつながる可能性があります。また、スコープ関数のネストは避け、チェイン（連結）させる場合は注意することを推奨します。現在のコンテキストオブジェクトや `this` または `it` の値について混乱しやすいためです。
 
-## 相違点
+## 相違点 {id="distinctions"}
 
 スコープ関数はその性質が似ているため、それらの違いを理解することが重要です。
 各スコープ関数には、主に2つの違いがあります：
 * コンテキストオブジェクトを参照する方法。
 * 戻り値。
 
-### コンテキストオブジェクト：this または it
+### コンテキストオブジェクト：this または it {id="context-object-this-or-it"}
 
 スコープ関数に渡されるラムダ内では、コンテキストオブジェクトは実際の実名の代わりに短い参照で利用可能です。各スコープ関数は、コンテキストオブジェクトを参照するために、ラムダの [レシーバー](lambdas.md#function-literals-with-receiver) (`this`) またはラムダの引数 (`it`) のいずれかの方法を使用します。どちらも同じ機能を提供するため、異なるユースケースにおけるそれぞれのメリットとデメリットを説明し、使用上の推奨事項を提示します。
 
@@ -106,7 +106,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-#### this
+#### this {id="this"}
 
 `run`、`with`、`apply` は、コンテキストオブジェクトをラムダの [レシーバー](lambdas.md#function-literals-with-receiver) として、キーワード `this` で参照します。したがって、それらのラムダ内では、通常のクラス関数内と同じようにオブジェクトを利用できます。
 
@@ -127,7 +127,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-#### it
+#### it {id="it"}
 
 一方、`let` と `also` は、コンテキストオブジェクトをラムダの [引数](lambdas.md#lambda-expression-syntax) として参照します。引数名が指定されていない場合、オブジェクトには暗黙のデフォルト名 `it` でアクセスします。`it` は `this` よりも短く、`it` を使った式は通常読みやすくなります。
 
@@ -179,7 +179,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 戻り値
+### 戻り値 {id="return-value"}
 
 スコープ関数は、返される結果によって異なります：
 * `apply` と `also` はコンテキストオブジェクトを返します。
@@ -187,7 +187,7 @@ fun main() {
 
 コードの次のステップで何をしたいかに基づいて、どの戻り値が必要かを慎重に検討する必要があります。これにより、使用するのに最適なスコープ関数を選択しやすくなります。
 
-#### コンテキストオブジェクト
+#### コンテキストオブジェクト {id="context-object"}
 
 `apply` と `also` の戻り値は、コンテキストオブジェクト自体です。そのため、これらは *サイドステップ* としてコールチェーンに含めることができます。同じオブジェクトに対して、次々と関数呼び出しを連鎖させることができます。
 
@@ -232,7 +232,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-#### ラムダの結果
+#### ラムダの結果 {id="lambda-result"}
 
 `let`、`run`、`with` はラムダの結果を返します。そのため、結果を変数に代入したり、結果に対して操作を連鎖させたりする場合に使用できます。
 
@@ -267,11 +267,11 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 関数詳細
+## 関数詳細 {id="functions"}
 
 ユースケースに適したスコープ関数を選択しやすくするために、各関数を詳しく説明し、使用上の推奨事項を提示します。技術的には、スコープ関数は多くの場合において相互に置き換え可能であるため、以下の例ではそれらを使用する際の慣習を示しています。
 
-### let
+### let {id="let"}
 
 - **コンテキストオブジェクト**は引数 (`it`) として利用可能です。
 - **戻り値**はラムダの結果です。
@@ -352,7 +352,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### with
+### with {id="with"}
 
 - **コンテキストオブジェクト**はレシーバー (`this`) として利用可能です。
 - **戻り値**はラムダの結果です。
@@ -390,7 +390,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### run
+### run {id="run"}
 
 - **コンテキストオブジェクト**はレシーバー (`this`) として利用可能です。
 - **戻り値**はラムダの結果です。
@@ -447,7 +447,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### apply
+### apply {id="apply"}
 
 - **コンテキストオブジェクト**はレシーバー (`this`) として利用可能です。
 - **戻り値**はオブジェクト自体です。
@@ -471,7 +471,7 @@ fun main() {
 
 `apply` のもう1つのユースケースは、より複雑な処理のために複数のコールチェーンに `apply` を含めることです。
 
-### also
+### also {id="also"}
 
 - **コンテキストオブジェクト**は引数 (`it`) として利用可能です。
 - **戻り値**はオブジェクト自体です。
@@ -492,7 +492,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## takeIf と takeUnless
+## takeIf と takeUnless {id="takeif-and-takeunless"}
 
 スコープ関数に加えて、標準ライブラリには [`takeIf`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/take-if.html) と [`takeUnless`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/take-unless.html) という関数が含まれています。これらの関数を使用すると、オブジェクトの状態のチェックをコールチェーンに組み込むことができます。
 

@@ -51,7 +51,7 @@ fun main() {
 > 
 {style="note"}
 
-## 이름 붙은 인자 (Named arguments)
+## 이름 붙은 인자 (Named arguments) {id="named-arguments"}
 
 코드를 간결하게 만들기 위해 함수를 호출할 때 파라미터 이름을 생략할 수 있습니다. 하지만 파라미터 이름을 포함하면 코드를 더 읽기 쉽게 만들 수 있습니다. 이를 **이름 붙은 인자(named arguments)**라고 합니다. 파라미터 이름을 포함하는 경우, 파라미터의 순서를 자유롭게 작성할 수 있습니다.
 
@@ -72,7 +72,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-named-arguments-function"}
 
-## 기본 파라미터 값 (Default parameter values)
+## 기본 파라미터 값 (Default parameter values) {id="default-parameter-values"}
 
 함수 파라미터에 기본값을 정의할 수 있습니다. 기본값이 있는 파라미터는 함수 호출 시 생략할 수 있습니다. 기본값을 선언하려면 타입 뒤에 대입 연산자 `=`를 사용합니다.
 
@@ -100,7 +100,7 @@ fun main() {
 >
 {style="note"}
 
-## 반환값이 없는 함수
+## 반환값이 없는 함수 {id="functions-without-return"}
 
 함수가 유용한 값을 반환하지 않는 경우 반환 타입은 `Unit`입니다. `Unit`은 `Unit`이라는 단 하나의 값만 가지는 타입입니다. 함수 본문에서 `Unit`이 반환된다고 명시적으로 선언할 필요는 없습니다. 즉, `return` 키워드를 사용하거나 반환 타입을 선언할 필요가 없습니다.
 
@@ -117,7 +117,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-unit-function"}
 
-## 단일 표현식 함수 (Single-expression functions)
+## 단일 표현식 함수 (Single-expression functions) {id="single-expression-functions"}
 
 코드를 더 간결하게 만들기 위해 단일 표현식 함수를 사용할 수 있습니다. 예를 들어, `sum()` 함수를 줄일 수 있습니다.
 
@@ -151,7 +151,7 @@ fun main() {
 > 
 {style="note"}
 
-## 함수의 조기 반환 (Early returns)
+## 함수의 조기 반환 (Early returns) {id="early-returns-in-functions"}
 
 함수의 코드가 특정 시점 이후로 더 이상 실행되지 않도록 하려면 `return` 키워드를 사용합니다. 다음 예제는 `if`를 사용하여 조건식이 참인 경우 함수에서 조기에 반환합니다.
 
@@ -189,7 +189,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-function-early-return"}
 
-## 함수 연습 문제
+## 함수 연습 문제 {id="functions-practice"}
 
 ### 연습 문제 1 {initial-collapse-state="collapsed" collapsible="true" id="functions-exercise-1"}
 
@@ -293,7 +293,7 @@ fun main() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="모범 답안" id="kotlin-tour-functions-solution-3"}
 
-## 람다 표현식 (Lambda expressions)
+## 람다 표현식 (Lambda expressions) {id="lambda-expressions"}
 
 Kotlin에서는 람다 표현식을 사용하여 함수 코드를 더욱 간결하게 작성할 수 있습니다.
 
@@ -350,7 +350,7 @@ fun main() {
 * [함수에서 람다 표현식 반환](#return-from-a-function)
 * [람다 표현식을 단독으로 실행](#invoke-separately)
 
-### 다른 함수로 전달
+### 다른 함수로 전달 {id="pass-to-another-function"}
 
 람다 표현식을 함수에 전달할 때 매우 유용한 예시는 컬렉션에서 [`.filter()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/filter.html) 함수를 사용하는 것입니다.
 
@@ -418,7 +418,7 @@ fun main() {
 * `{ x -> x * 2 }`는 리스트의 각 요소를 가져와서 그 요소에 2를 곱한 값을 반환합니다.
 * `{ x -> x * 3 }`은 리스트의 각 요소를 가져와서 그 요소에 3을 곱한 값을 반환합니다.
 
-### 함수 타입 (Function types)
+### 함수 타입 (Function types) {id="function-types"}
 
 함수에서 람다 표현식을 반환하기 전에, 먼저 **함수 타입**을 이해해야 합니다.
 
@@ -453,7 +453,7 @@ fun main() {
 >
 {style="note"}
 
-### 함수에서 반환
+### 함수에서 반환 {id="return-from-a-function"}
 
 람다 표현식은 함수에서 반환될 수 있습니다. 컴파일러가 반환된 람다 표현식의 타입을 이해할 수 있도록 함수 타입을 선언해야 합니다.
 
@@ -479,7 +479,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-lambda-return-from-function"}
 
-### 단독 실행 (Invoke separately)
+### 단독 실행 (Invoke separately) {id="invoke-separately"}
 
 람다 표현식은 중괄호 `{}` 뒤에 소괄호 `()`를 추가하고 소괄호 안에 파라미터를 포함하여 단독으로 실행할 수 있습니다.
 
@@ -493,7 +493,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-lambda-standalone"}
 
-### 후행 람다 (Trailing lambdas)
+### 후행 람다 (Trailing lambdas) {id="trailing-lambdas"}
 
 이미 살펴보았듯이, 람다 표현식이 함수의 유일한 파라미터인 경우 함수의 소괄호 `()`를 생략할 수 있습니다. 람다 표현식이 함수의 마지막 파라미터로 전달되는 경우, 표현식을 함수의 소괄호 `()` 밖에 작성할 수 있습니다. 두 경우 모두 이러한 구문을 **후행 람다(trailing lambda)**라고 부릅니다.
 
@@ -517,7 +517,7 @@ fun main() {
 
 투어의 다음 단계는 Kotlin의 [클래스(classes)](kotlin-tour-classes.md)에 대해 배우는 것입니다.
 
-## 람다 표현식 연습 문제 {completion-point="true"}
+## 람다 표현식 연습 문제 {completion-point="true" id="lambda-expressions-practice"}
 
 ### 연습 문제 1 {initial-collapse-state="collapsed" collapsible="true" id="lambdas-exercise-1"}
 

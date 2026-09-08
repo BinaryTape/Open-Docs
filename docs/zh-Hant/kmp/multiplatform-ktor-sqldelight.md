@@ -30,7 +30,7 @@
 >
 {style="note"}
 
-## 建立專案
+## 建立專案 {id="create-a-project"}
 
 1. 在[快速入門指南](quickstart.md)中，完成[設定 Kotlin Multiplatform 開發環境](quickstart.md#set-up-the-environment)的說明。
 2. 在 IntelliJ IDEA 中，選取 **File** | **New** | **Project**。
@@ -46,7 +46,7 @@
 
    ![Create Ktor and SQLDelight Multiplatform project](create-ktor-sqldelight-multiplatform-project.png){width=800}
 
-## 新增 Gradle 相依性
+## 新增 Gradle 相依性 {id="add-gradle-dependencies"}
 
 若要將多平台程式庫新增至共用模組，您需要將相依性指令 (`implementation`) 新增至模組 `build.gradle.kts` 檔案中相關原始碼集的 `dependencies {}` 區塊。
 
@@ -150,7 +150,7 @@ Gradle 同步完成後，您就完成了專案組態設定，可以開始編寫�
 >
 {style="tip"}
 
-## 建立應用程式資料模型
+## 建立應用程式資料模型 {id="create-an-application-data-model"}
 
 本教學應用程式將包含公開的 `SpaceSDK` 類別，作為網路與快取服務的外觀 (facade)。
 應用程式資料模型將具有三個實體類別，包含：
@@ -178,11 +178,11 @@ Gradle 同步完成後，您就完成了專案組態設定，可以開始編寫�
 
 `@SerialName` 註解允許您重新定義欄位名稱，這有助於在資料類別中使用更具可讀性的識別符來存取屬性。
 
-## 設定 SQLDelight 並實作快取邏輯
+## 設定 SQLDelight 並實作快取邏輯 {id="configure-sqldelight-and-implement-cache-logic"}
 
 SQLDelight 程式庫允許您從 SQL 查詢產生型別安全的 Kotlin 資料庫 API。在編譯期間，產生器會驗證 SQL 查詢並將其轉換為可在共用模組中使用的 Kotlin 程式碼。
 
-### 設定 SQLDelight
+### 設定 SQLDelight {id="configure-sqldelight"}
 
 SQLDelight 相依性已包含在專案中。
 若要設定該程式庫，請開啟 `sharedLogic/build.gradle.kts` 檔案並在末尾新增 `sqldelight {}` 區塊。
@@ -206,7 +206,7 @@ sqldelight {
 >
 {style="tip"}
 
-### 產生資料庫 API
+### 產生資料庫 API {id="generate-the-database-api"}
 
 首先，建立包含所有必要 SQL 查詢的 `.sq` 檔案。預設情況下，SQLDelight 外掛程式會在原始碼集的 `sqldelight` 資料夾中尋找 `.sq` 檔案：
 
@@ -252,7 +252,7 @@ sqldelight {
 
    產生的 Kotlin 程式碼儲存在 `sharedLogic/build/generated/sqldelight` 目錄中。
 
-### 為平台專屬的資料庫驅動程式建立工廠（類）
+### 為平台專屬的資料庫驅動程式建立工廠（類） {id="create-factories-for-platform-specific-database-drivers"}
 
 若要初始化 `AppDatabase` 介面，您將向其傳遞一個 `SqlDriver` 執行個體。
 SQLDelight 提供了多種平台專屬的 SQLite 驅動程式實作，因此您需要分別為每個平台建立這些執行個體。
@@ -307,7 +307,7 @@ SQLDelight 提供了多種平台專屬的 SQLite 驅動程式實作，因此您�
 
 您稍後將在專案的平台專屬部分中使用這些工廠（類）。
 
-### 實作快取
+### 實作快取 {id="implement-cache"}
 
 到目前為止，您已經新增了平台資料庫驅動程式的工廠（類）以及用於執行資料庫操作的 `AppDatabase` 介面。現在，建立一個 `Database` 類別，它將封裝 `AppDatabase` 介面並包含快取邏輯。
 
@@ -398,7 +398,7 @@ SQLDelight 提供了多種平台專屬的 SQLite 驅動程式實作，因此您�
     }
     ```
 
-## 實作 API 服務
+## 實作 API 服務 {id="implement-the-api-service"}
 
 若要經由網際網路擷取資料，您將使用 [Launch Library 公開 API](https://lldev.thespacedevs.com/docs) 以及單一方法從 `/2.3.0/launches` 端點擷取所有發射的列表。
 
@@ -454,7 +454,7 @@ SQLDelight 提供了多種平台專屬的 SQLite 驅動程式實作，因此您�
 
 發送 GET 請求的 URL 作為引數傳遞給 `get()` 函式。
 
-## 組建一個 SDK
+## 組建一個 SDK {id="build-an-sdk"}
 
 您的 iOS 與 Android 應用程式將透過共用模組與太空 API 進行通訊，該模組將提供一個公開類別 `SpaceSDK`。
 
@@ -505,13 +505,13 @@ SQLDelight 提供了多種平台專屬的 SQLite 驅動程式實作，因此您�
 
 所有的 Kotlin 例外都是非受檢的，而 Swift 只有受檢錯誤 (詳情請參閱[與 Swift/Objective-C 的互通性](https://kotlinlang.org/docs/native-objc-interop.html#errors-and-exceptions))。因此，為了讓您的 Swift 程式碼察覺到預期例外，從 Swift 呼叫的 Kotlin 函式應標記 `@Throws` 註解，並指定潛在例外類別的清單。
 
-## 建立 Android 應用程式
+## 建立 Android 應用程式 {id="create-the-android-application"}
 
 IntelliJ IDEA 會為您處理初始的 Gradle 組態，因此 `sharedUI` 與 `sharedLogic` 模組已經連接到您的 Android 應用程式 (`androidApp`)。
 
 出現提示時同步 Gradle 專案檔案，或按兩下 <shortcut>Shift</shortcut> 並搜尋 **Sync All Gradle, Swift Package Manager projects**。
 
-### 為 `androidApp` 新增網際網路存取權限
+### 為 `androidApp` 新增網際網路存取權限 {id="add-internet-access-permission-for-androidapp"}
 
 若要存取網際網路，Android 應用程式需要適當的權限。
 在 `androidApp/src/main/AndroidManifest.xml` 檔案中，新增 `<uses-permission>` 標籤：
@@ -524,7 +524,7 @@ IntelliJ IDEA 會為您處理初始的 Gradle 組態，因此 `sharedUI` 與 `sh
 </manifest>
 ```
 
-### 新增相依注入程式碼
+### 新增相依注入程式碼 {id="add-dependency-injection-code"}
 
 Koin 相依注入讓您能夠宣告可在不同情境中使用的模組 (組件集)。
 在此專案中，您將建立兩個模組：一個用於 Android 應用程式，另一個用於 iOS 應用程式。
@@ -623,7 +623,7 @@ Koin 相依注入讓您能夠宣告可在不同情境中使用的模組 (組件�
 
 現在，您已準備好實作將使用平台專屬資料庫驅動程式所提供資訊的 UI。
 
-### 準備包含發射清單的視圖模型
+### 準備包含發射清單的視圖模型 {id="prepare-the-view-model-with-the-list-of-launches"}
 
 您將使用 Jetpack Compose 與 Material 3 實作 Android UI。首先，您將建立使用 SDK 獲取發射清單的視圖模型。然後，您將設定 Material 主題，最後，您將編寫將一切結合在一起的可組合函式。
 
@@ -697,7 +697,7 @@ Koin 相依注入讓您能夠宣告可在不同情境中使用的模組 (組件�
     }
     ```
 
-### 組建 Material 主題
+### 組建 Material 主題 {id="build-the-material-theme"}
 
 您將圍繞 Material 主題提供的 `AppTheme` 函式來組建您的主 `App()` 可組合項：
 
@@ -720,7 +720,7 @@ Koin 相依注入讓您能夠宣告可在不同情境中使用的模組 (組件�
     val app_theme_unsuccessful = Color(0xffFC100D)
     ```
 
-### 實作呈現邏輯
+### 實作呈現邏輯 {id="implement-the-presentation-logic"}
 
 為您的應用程式建立主 `App()` 可組合項，並從 `ComponentActivity` 類別中呼叫它：
 
@@ -884,13 +884,13 @@ Koin 相依注入讓您能夠宣告可在不同情境中使用的模組 (組件�
 
 您剛剛建立了一個 Android 應用程式，其商業邏輯在 Kotlin Multiplatform 模組中實作，而 UI 則執行於原生 Jetpack Compose。
 
-## 建立 iOS 應用程式
+## 建立 iOS 應用程式 {id="create-the-ios-application"}
 
 對於專案的 iOS 部分，您將利用 [SwiftUI](https://developer.apple.com/xcode/swiftui/) 來建置使用者介面以及 [Model View View-Model](https://en.wikipedia.org/wiki/Model–view–viewmodel) 模式。
 
 IntelliJ IDEA 會產生一個已連接到共用模組的 iOS 專案。Kotlin 模組以 `sharedLogic/build.gradle.kts` 檔案中指定的名稱匯出 (`baseName = "SharedLogic"`)，並使用常規的 `import` 陳述式匯入：`import SharedLogic`。
 
-### 為 SQLDelight 新增動態連結旗標
+### 為 SQLDelight 新增動態連結旗標 {id="add-the-dynamic-linking-flag-for-sqldelight"}
 
 預設情況下，IntelliJ IDEA 產生的專案設定為 iOS 框架的靜態連結。
 
@@ -905,7 +905,7 @@ IntelliJ IDEA 會產生一個已連接到共用模組的 iOS 專案。Kotlin 模
    ![The result of correctly adding the linker flag to the Xcode project](xcode-other-linker-flags.png){width="434"}
 6. 返回 IntelliJ IDEA。
 
-### 為 iOS 相依注入準備一個 Koin 類別
+### 為 iOS 相依注入準備一個 Koin 類別 {id="prepare-a-koin-class-for-ios-dependency-injection"}
 
 若要在 Swift 程式碼中使用 Koin 類別與函式，請建立一個特殊的 `KoinComponent` 類別並宣告 iOS 的 Koin 模組。
 
@@ -952,7 +952,7 @@ IntelliJ IDEA 會產生一個已連接到共用模組的 iOS 專案。Kotlin 模
 
 現在，您可以在 iOS 應用程式中啟動 Koin 模組，以便將原生資料庫驅動程式與通用的 `SpaceSDK` 類別結合使用。
 
-### 實作 UI
+### 實作 UI {id="implement-the-ui"}
 
 首先，您將建立一個 `RocketLaunchRow` SwiftUI 視圖用於顯示清單中的項目。它將基於 `HStack` 與 `VStack` 視圖。`RocketLaunchRow` 結構將具有一些擴充套件，其中包含用於顯示資料的實用幫助程式。
 
@@ -1062,7 +1062,7 @@ IntelliJ IDEA 會產生一個已連接到共用模組的 iOS 專案。Kotlin 模
     extension RocketLaunch: Identifiable { }
     ```
 
-### 載入資料
+### 載入資料 {id="load-the-data"}
 
 若要在視圖模型中擷取關於火箭發射的資料，您將需要來自多平台程式庫的 `KoinHelper` 類別執行個體。
 它將允許您使用正確的資料庫驅動程式呼叫 SDK 函式。
@@ -1135,7 +1135,7 @@ IntelliJ IDEA 會產生一個已連接到共用模組的 iOS 專案。Kotlin 模
 >
 {style="note"}
 
-## 下一步？
+## 下一步？ {id="what-s-next"}
 
 本教學涉及了一些潛在的高資源消耗操作，例如剖析 JSON 以及在主執行緒中向資料庫發出請求。若要了解如何編寫並發程式碼並最佳化您的應用程式，請參閱 [協同程式指南](https://kotlinlang.org/docs/coroutines-guide.html)。
 

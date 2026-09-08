@@ -4,7 +4,7 @@ Kotlin は当初、Java プラットフォームとの容易な相互運用を�
 
 しかし、JavaScript は動的型付け言語であり、コンパイル時に型チェックを行いません。Kotlin からは [dynamic](dynamic-type.md) 型を介して、JavaScript と自由に対話できます。Kotlin の型システムの能力を最大限に活用したい場合は、JavaScript ライブラリに対して外部宣言（external declaration）を作成することで、Kotlin コンパイラや周辺ツールに認識させることができます。
 
-## インライン JavaScript
+## インライン JavaScript {id="inline-javascript"}
 
 [`js()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.js/js.html) 関数を使用すると、Kotlin コード内に JavaScript コードをインラインで記述できます。
 
@@ -47,7 +47,7 @@ fun runSumExample() {
 >
 {style="note"}
 
-## `external` 修飾子
+## `external` 修飾子 {id="external-modifier"}
 
 ある宣言が純粋な JavaScript で記述されていることを Kotlin に伝えるには、`external` 修飾子を付与します。コンパイラがこのような宣言を見つけると、対応するクラス、関数、またはプロパティの実装が外部（開発者によって、または [npm 依存関係](js-project-setup.md#npm-dependencies)を介して）から提供されるものと見なし、その宣言から JavaScript コードを生成しようとしません。そのため、`external` 宣言は本文（body）を持つことができません。例えば：
 
@@ -71,7 +71,7 @@ external val window: Window
 
 `external` 修飾子はパッケージレベルの宣言にのみ許可されます。非 `external` クラスのメンバーを `external` として宣言することはできません。
 
-### クラスの（静的）メンバーを宣言する
+### クラスの（静的）メンバーを宣言する {id="declare-static-members-of-a-class"}
 
 JavaScript では、メンバーをプロトタイプまたはクラス自体のどちらかに定義できます：
 
@@ -93,7 +93,7 @@ external class MyClass {
 }
 ```
 
-### デフォルト値を持つパラメータを宣言する
+### デフォルト値を持つパラメータを宣言する {id="declare-parameters-with-default-values"}
 
 デフォルト値を持つパラメータがある JavaScript 関数の外部宣言を記述する場合は、`definedExternally` を使用します。これにより、デフォルト値の生成を JavaScript 関数自体に委任します：
 
@@ -107,7 +107,7 @@ external fun myFunWithOptionalArgs(
 
 この外部宣言により、1 つの必須引数と 2 つのオプション引数で `myFunWithOptionalArgs` を呼び出すことができ、デフォルト値は `myFunWithOptionalArgs` の JavaScript 実装によって計算されます。
 
-### JavaScript クラスを継承する
+### JavaScript クラスを継承する {id="extend-javascript-classes"}
 
 JavaScript クラスは、Kotlin クラスであるかのように簡単に継承できます。`external open` クラスを定義し、それを非 `external` クラスで継承するだけです。例えば：
 
@@ -134,7 +134,7 @@ class Bar : Foo() {
 - デフォルト値を持つパラメータを含む関数をオーバーライドすることはできません。
 - 非外部クラスを外部クラスで継承することはできません。
 
-### external インターフェース
+### external インターフェース {id="external-interfaces"}
 
 JavaScript にはインターフェースの概念がありません。ある関数がパラメータに対して `foo` と `bar` という 2 つのメソッドをサポートすることを期待する場合、実際にはそれらのメソッドを持つオブジェクトを渡すだけです。
 
@@ -190,7 +190,7 @@ fun sendQuery() {
 
     IntelliJ IDEA は `@Suppress` アノテーションを自動生成することもできます。電球アイコンまたは Alt-Enter でインテンションメニューを開き、「Unchecked cast to external interface」インスペクションの横にある小さな矢印をクリックします。ここで抑制範囲を選択すると、IDE がそれに応じてファイルにアノテーションを追加します。
 
-### キャスト
+### キャスト {id="casts"}
 
 キャストが不可能な場合に `ClassCastException` を投げる ["unsafe" キャスト演算子](typecasts.md#unsafe-cast-operator) `as` に加えて、Kotlin/JS は [`unsafeCast<T>()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.js/unsafe-cast.html) も提供しています。`unsafeCast` を使用すると、実行中に型チェックが**一切行われません**。例えば、次の 2 つのメソッドを考えてみましょう：
 
@@ -212,7 +212,7 @@ function usingAsOperator(s) {
 }
 ```
 
-## 等価性
+## 等価性 {id="equality"}
 
 Kotlin/JS は、他のプラットフォームと比較して等価性チェックに関する特定のセマンティクスを持っています。
 

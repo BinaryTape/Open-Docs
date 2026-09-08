@@ -22,9 +22,9 @@
 >
 {style="tip"}
 
-## 測試簡單的多平台專案
+## 測試簡單的多平台專案 {id="test-a-simple-multiplatform-project"}
 
-### 建立專案
+### 建立專案 {id="create-a-project"}
 
 1. 在[快速入門](quickstart.md)中，完成[設定 Kotlin Multiplatform 開發環境](quickstart.md#set-up-the-environment)的說明。
 2. 在 IntelliJ IDEA 中，選擇 **File** | **New** | **Project**。
@@ -40,7 +40,7 @@
 
    ![建立簡單的多平台專案](create-test-multiplatform-project.png){width=800}
 
-### 編寫程式碼
+### 編寫程式碼 {id="write-code"}
 
 在 `sharedLogic/src/commonMain/kotlin` 目錄中，建立一個新的 `common.example.search` 封裝。
 在此封裝中，建立一個 Kotlin 檔案 `Grep.kt`，並包含以下函式：
@@ -55,7 +55,7 @@ fun grep(lines: List<String>, pattern: String, action: (String) -> Unit) {
 
 此函式的設計旨在模仿 [UNIX `grep` 指令](https://en.wikipedia.org/wiki/Grep)。在這裡，該函式接收多行文字、一個用作正規表示式的模式，以及一個在每當某行與模式比對成功時就會被呼叫的函式。
 
-### 新增測試
+### 新增測試 {id="add-tests"}
 
 現在，讓我們測試共通程式碼。一個關鍵部分是共通測試的原始碼集，它將 [`kotlin.test`](https://kotlinlang.org/api/latest/kotlin.test/) API 程式庫作為相依性。
 
@@ -218,7 +218,7 @@ expect fun determineCurrentRuntime(): CurrentRuntime
 
 該函式應為每個支援的平台提供個別的實作。否則，組建將失敗。除了在每個平台上實作此函式外，你還應該提供測試。讓我們為 Android 和 iOS 建立它們。
 
-#### 對於 Android
+#### 對於 Android {id="for-android"}
 
 1. 在 `androidMain/kotlin` 目錄中，建立一個新的 `org.kmp.testing` 封裝。
 2. 在此封裝中，建立 `AndroidRuntime.kt` 檔案，並使用預期函式 `determineCurrentRuntime()` 的實際實作進行更新：
@@ -262,7 +262,7 @@ Android 特定的測試在本地 JVM 上執行可能看起來很奇怪。這是�
 
 你可以向專案新增其他型別的測試。要了解檢測測試，請參閱這份 [Touchlab 指南](https://touchlab.co/understanding-and-configuring-your-kmm-test-suite/)。
 
-#### 對於 iOS
+#### 對於 iOS {id="for-ios"}
 
 1. 在 `iosMain/kotlin` 目錄中，建立一個新的 `org.kmp.testing` 目錄。
 2. 在此目錄中，建立 `IOSRuntime.kt` 檔案，並使用預期函式 `determineCurrentRuntime()` 的實際實作進行更新：
@@ -300,7 +300,7 @@ Android 特定的測試在本地 JVM 上執行可能看起來很奇怪。這是�
     }
     ```
 
-### 執行多個測試並分析報告
+### 執行多個測試並分析報告 {id="run-multiple-tests-and-analyze-reports"}
 
 在此階段，你已經擁有了共通、Android 和 iOS 實作的程式碼及其測試。專案中的目錄結構應如下所示：
 
@@ -321,7 +321,7 @@ Android 特定的測試在本地 JVM 上執行可能看起來很奇怪。這是�
 
 ![多平台測試的 HTML 報告](multiplatform-test-report.png){width=700}
 
-## 在多平台專案中使用測試的規則
+## 在多平台專案中使用測試的規則 {id="rules-for-using-tests-in-multiplatform-projects"}
 
 你現在已經在 Kotlin Multiplatform 應用程式中建立、配置和執行了測試。在未來的專案中處理測試時，請記住：
 
@@ -334,7 +334,7 @@ Android 特定的測試在本地 JVM 上執行可能看起來很奇怪。這是�
 * 你可以從 IDE 執行測試，也可以使用 Gradle 任務。
 * 執行測試時，會自動產生 HTML 測試報告。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * 在[了解多平台專案結構](multiplatform-discover-project.md)中探索多平台專案的配置。
 * 查看 [Kotest](https://kotest.io/)，這是 Kotlin 生態系統提供的另一個多平台測試架構。Kotest 允許以多種風格編寫測試，並支援常規測試之外的補充方法。其中包括[資料驅動測試](https://kotest.io/docs/framework/datatesting/data-driven-testing.html)和[基於屬性的測試](https://kotest.io/docs/proptest/property-based-testing.html)。

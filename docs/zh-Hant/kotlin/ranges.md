@@ -72,7 +72,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-ranges-step"}
 
-## 數列
+## 數列 {id="progressions"}
 
 `Int`、`Long` 和 `Char` 等整數型別的區間可以被視為 [等差數列](https://en.wikipedia.org/wiki/Arithmetic_progression)。在 Kotlin 中，這些數列是由特殊型別定義的：[`IntProgression`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.ranges/-int-progression/index.html)、[`LongProgression`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.ranges/-long-progression/index.html) 和 [`CharProgression`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.ranges/-char-progression/index.html)。
 

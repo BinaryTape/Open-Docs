@@ -67,7 +67,7 @@ fun logWelcome() {
 }
 ```
 
-## Context 參數解析
+## Context 參數解析 {id="context-parameters-resolution"}
 
 Kotlin 在呼叫點透過在目前作用域中搜尋匹配的 context 值來解析 Context 參數。Kotlin 根據其型別進行匹配。
 如果同一作用域層級中存在多個相容的值，編譯器會報告歧義（ambiguity）：
@@ -103,7 +103,7 @@ fun main() {
 }
 ```
 
-### 明確傳遞 Context 引數
+### 明確傳遞 Context 引數 {id="pass-context-arguments-explicitly"}
 <primary-label ref="experimental-opt-in"/>
 
 當多載（overload）僅因 Context 參數而異時，如果存在多個相匹配的 context 值，呼叫可能會變得具有歧義。
@@ -174,7 +174,7 @@ kotlin {
 </tab>
 </tabs>
 
-## 限制
+## 限制 {id="restrictions"}
 
 Context 參數仍在持續改進中，目前的限制包括：
 

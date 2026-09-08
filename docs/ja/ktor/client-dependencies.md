@@ -174,7 +174,7 @@ sourceSets {
 
 特定のエンジンに必要な依存関係の全リストについては、[エンジンの依存関係を追加する](client-engines.md#dependencies)を参照してください。
 
-### ロギング依存関係
+### ロギング依存関係 {id="logging-dependency"}
 
   <p>
     <a href="#jvm">JVM</a> 上では、Ktor はロギングの抽象化レイヤーとして Simple Logging Facade for Java (<a href="http://www.slf4j.org/">SLF4J</a>) を使用します。SLF4J はロギング API を基盤となるロギング実装から分離し、アプリケーションの要件に最適なロギングフレームワークを統合できるようにします。
@@ -208,7 +208,7 @@ Ktor では、認可やシリアライゼーションなど、デフォルトで
 
 > マルチプラットフォームプロジェクトの場合、プラグインの依存関係は `commonMain` ソースセットに追加する必要があります。一部のプラグインには特定のプラットフォームに対する[制限](client-engines.md#limitations)がある場合があることに注意してください。
 
-## Ktor バージョンの一貫性の確保
+## Ktor バージョンの一貫性の確保 {id="ensure-ktor-version-consistency"}
 
 <chapter title="Ktor BOM 依存関係の使用">
 

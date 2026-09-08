@@ -13,7 +13,7 @@
 
 您還可以使用 Kotlin Metadata JVM 程式庫來檢查各種宣告屬性，例如可見性或修飾語 (modality)，或產生 metadata 並將其嵌入到 `.class` 檔案中。
 
-## 將程式庫加入您的專案
+## 將程式庫加入您的專案 {id="add-the-library-to-your-project"}
 
 若要在專案中包含 Kotlin Metadata JVM 程式庫，請根據您的建置工具加入對應的相依性組態。
 
@@ -22,7 +22,7 @@
 > 
 {style="note"}
 
-### Gradle
+### Gradle {id="gradle"}
 
 將以下相依性加入您的 `build.gradle(.kts)` 檔案：
 
@@ -56,7 +56,7 @@ dependencies {
 </tab>
 </tabs>
 
-### Maven
+### Maven {id="maven"}
 
 將以下相依性加入您的 `pom.xml` 檔案。
 
@@ -73,7 +73,7 @@ dependencies {
 </project>
 ```
 
-## 讀取與剖析 metadata
+## 讀取與剖析 metadata {id="read-and-parse-metadata"}
 
 `kotlin-metadata-jvm` 程式庫從編譯後的 Kotlin `.class` 檔案中擷取結構化資訊，例如類別名稱、可見性和簽章。
 您可以在需要分析編譯後 Kotlin 宣告的專案中使用它。
@@ -173,7 +173,7 @@ fun main() {
 }
 ```
 
-### 在 metadata 中寫入與讀取註解
+### 在 metadata 中寫入與讀取註解 {id="write-and-read-annotations-in-metadata"}
 
 Kotlin 將註解同時儲存在位元組碼與 Kotlin metadata 中。如果您使用 `kotlin-metadata-jvm` 程式庫來讀取或寫入註解，您將處理它們在 metadata 中的表示形式。
 
@@ -216,7 +216,7 @@ fun main() {
 }
 ```
 
-### 從位元組碼中擷取 metadata
+### 從位元組碼中擷取 metadata {id="extract-metadata-from-bytecode"}
 
 雖然您可以使用反射檢索 metadata，但另一種方法是使用 [ASM](https://asm.ow2.io/) 等位元組碼操作框架從位元組碼中擷取它。
 
@@ -308,7 +308,7 @@ fun main() {
 }
 ```
 
-## 修改 metadata
+## 修改 metadata {id="modify-metadata"}
 
 當使用 [ProGuard](https://github.com/Guardsquare/proguard) 等工具來縮減和優化位元組碼時，某些宣告可能會從 `.class` 檔案中移除。
 ProGuard 會自動更新 metadata，使其與修改後的位元組碼保持一致。
@@ -377,7 +377,7 @@ fun main() {
 > 
 {style="tip"}
 
-## 從頭開始建立 metadata
+## 從頭開始建立 metadata {id="create-metadata-from-scratch"}
 
 若要使用 Kotlin Metadata JVM 程式庫從頭開始為 Kotlin 類別檔案建立 metadata：
 
@@ -454,7 +454,7 @@ fun main() {
 > 
 {style="tip"}
 
-## 接續步驟
+## 接續步驟 {id="what-s-next"}
 
 * [參閱 Kotlin Metadata JVM 程式庫的 API 參考資料](https://kotlinlang.org/api/kotlinx-metadata-jvm/)。
 * [查看 Kotlin Metadata JVM GitHub 儲存庫](https://github.com/JetBrains/kotlin/tree/master/libraries/kotlinx-metadata/jvm)。

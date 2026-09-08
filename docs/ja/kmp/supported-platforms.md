@@ -4,7 +4,7 @@ Kotlin Multiplatformを使用すると、さまざまなプラットフォーム
 
 このページでは、プロジェクトのニーズに適したプラットフォームを特定するのに役立つ情報と、それぞれの安定性レベルの詳細を提供します。
 
-## Kotlinの一般的な安定性レベル
+## Kotlinの一般的な安定性レベル {id="general-kotlin-stability-levels"}
 
 Kotlinにおける安定性レベルとその意味についてのクイックガイドです。
 
@@ -28,7 +28,7 @@ Kotlinにおける安定性レベルとその意味についてのクイック�
 
 * 完成しています。私たちは、厳格な[後方互換性ルール](https://kotlinfoundation.org/language-committee-guidelines/)に従って進化させていきます。
 
-### コアとなるKotlin Multiplatformテクノロジーの現在のプラットフォーム安定性レベル
+### コアとなるKotlin Multiplatformテクノロジーの現在のプラットフォーム安定性レベル {id="current-platform-stability-levels-for-the-core-kotlin-multiplatform-technology"}
 
 コアとなるKotlin Multiplatformテクノロジーの現在のプラットフォーム安定性レベルは以下の通りです。
 
@@ -46,7 +46,7 @@ Kotlinにおける安定性レベルとその意味についてのクイック�
 * Kotlin Multiplatformは、ここに記載されている以上のネイティブプラットフォームをサポートしています。それぞれのサポートレベルを理解するには、[Kotlin/Nativeのターゲットサポート](https://kotlinlang.org/docs/native-target-support.html)を参照してください。
 * Kotlin MultiplatformなどのKotlinコンポーネントの安定性レベルに関する詳細は、[Kotlinコンポーネントの現在の安定性](https://kotlinlang.org/docs/components-stability.html#current-stability-of-kotlin-components)を参照してください。
 
-## Compose Multiplatform UIフレームワークの安定性レベル
+## Compose Multiplatform UIフレームワークの安定性レベル {id="compose-multiplatform-ui-framework-stability-levels"}
 
 Compose Multiplatform UIフレームワークのプラットフォーム安定性レベルとその意味についてのクイックガイドです。
 
@@ -71,7 +71,7 @@ Compose Multiplatform UIフレームワークのプラットフォーム安定�
 * フレームワークは包括的なAPIサーフェスを提供しており、フレームワーク自体にパフォーマンスやその他の問題が発生することなく、美しく製品レベルで利用可能なアプリケーションを作成できます。
 * APIの破壊的変更は、公式な非推奨の発表から2バージョン経過した後にのみ行うことができます。
 
-### Compose Multiplatform UIフレームワークの現在のプラットフォーム安定性レベル
+### Compose Multiplatform UIフレームワークの現在のプラットフォーム安定性レベル {id="current-platform-stability-levels-for-compose-multiplatform-ui-framework"}
 
 | プラットフォーム | 安定性レベル |
 |--------------------------|-----------------|
@@ -80,6 +80,6 @@ Compose Multiplatform UIフレームワークのプラットフォーム安定�
 | デスクトップ (JVM)       | 安定 (Stable)   |
 | Kotlin/WasmベースのWeb   | ベータ (Beta)   |
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 プラットフォームのさまざまな組み合わせにおいて、どのIDEがコード共有シナリオに適しているかについては、[推奨IDE](recommended-ides.md)を参照してください。

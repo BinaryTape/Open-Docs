@@ -35,7 +35,7 @@ val service: GreetingService by dependencies
 val service = dependencies.resolve<GreetingService>()
 ```
 
-### 參數解析
+### 參數解析 {id="parameter-resolution"}
 
 當解析建構函式或函式時，Ktor 會使用 DI 容器解析參數。預設情況下，參數是依型別解析的。
 
@@ -51,7 +51,7 @@ fun Application.userRepository(@Named("mongo") database: Database) {
 }
 ```
 
-#### 使用配置屬性
+#### 使用配置屬性 {id="use-configuration-properties"}
 
 使用 `@Property` 註解從應用程式配置中注入一個值：
 
@@ -166,7 +166,7 @@ fun Application.logging(printStreamProvider: () -> PrintStream) {
 </TabItem>
 </Tabs>
 
-## 進階相依性解析
+## 進階相依性解析 {id="advanced-dependency-resolution"}
 
 ### 選填與可為 null 的相依性 {id="optional-dependencies"}
 
@@ -206,7 +206,7 @@ dependencies {
 val outputStream: OutputStream by dependencies
 ```
 
-#### 限制
+#### 限制 {id="limitations"}
 
 雖然 DI 系統支援泛型型別的協變，但目前不支援跨型別引數子型別解析參數化型別。這意味著您無法使用比註冊時更具體或更通用的型別來擷取相依性。
 

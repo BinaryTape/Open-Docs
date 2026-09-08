@@ -20,12 +20,12 @@ val box: Box<Int> = Box<Int>(1)
 val box = Box(1) // 1はInt型なので、コンパイラはこれがBox<Int>であると判断します
 ```
 
-## 変位 (Variance)
+## 変位 (Variance) {id="variance"}
 
 Javaの型システムにおいて最も厄介な側面の1つが、ワイルドカード型です（[Java Generics FAQ](http://www.angelikalanger.com/GenericsFAQ/JavaGenericsFAQ.html)を参照）。
 Kotlinにはこれらがありません。代わりに、Kotlinには宣言区での変位（declaration-site variance）と型投影（type projections）があります。
 
-### Javaにおける変位とワイルドカード
+### Javaにおける変位とワイルドカード {id="variance-and-wildcards-in-java"}
 
 なぜJavaにこれらの謎めいたワイルドカードが必要なのか考えてみましょう。まず、Javaのジェネリック型は*不変（invariant）*です。
 つまり、`List<String>` は `List<Object>` のサブタイプでは*ありません*。もし `List` が*不変*でなかったら、Javaの配列と大差ないものになっていたでしょう。というのも、以下のコードはコンパイルは通りますが、実行時に例外が発生してしまうからです。
@@ -96,7 +96,7 @@ Joshua Blochは、著書『[Effective Java 第3版](http://www.oracle.com/techne
 >
 {style="note"}
 
-### 宣言区での変位 (Declaration-site variance)
+### 宣言区での変位 (Declaration-site variance) {id="declaration-site-variance"}
 
 `T` をパラメータとして受け取るメソッドを持たず、`T` を返すメソッドのみを持つジェネリックインターフェース `Source<T>` があると仮定しましょう。
 
@@ -158,9 +158,9 @@ fun demo(x: Comparable<Number>) {
 
 **[実存的](https://ja.wikipedia.org/wiki/%E5%AE%9F%E5%AD%98%E4%B8%BB%E7%BE%A9)な転換: Consumerはin、Producerはout!** :-)
 
-## 型投影 (Type projections)
+## 型投影 (Type projections) {id="type-projections"}
 
-### 使用区での変位: 型投影
+### 使用区での変位: 型投影 {id="use-site-variance-type-projections"}
 
 型パラメータ `T` を `out` と宣言し、使用区でのサブタイピングに関するトラブルを避けるのは非常に簡単ですが、一部のクラスは実際には `T` を返すことだけに制限することが*できません*！
 その良い例が `Array` です。
@@ -209,7 +209,7 @@ fun fill(dest: Array<in String>, value: String) { ... }
 
 `Array<in String>` は Java の `Array<? super String>` に対応します。これは、`fill()` 関数に `String` の配列、`CharSequence` の配列、または `Object` の配列を渡せることを意味します。
 
-### スター投影 (Star-projections)
+### スター投影 (Star-projections) {id="star-projections"}
 
 型引数について何も知らないが、それでも安全な方法でそれを使用したい場合があります。
 ここでの安全な方法とは、そのジェネリック型のすべての具体的なインスタンス化が、その投影のサブタイプになるような、ジェネリック型の投影を定義することです。
@@ -231,7 +231,7 @@ Kotlinは、このためにいわゆる*スター投影*構文を提供してい
 >
 {style="note"}
 
-### キャプチャされた型 (Captured types)
+### キャプチャされた型 (Captured types) {id="captured-types"}
 
 `out T` や `in T` のような型投影を使用する場合、コンパイラは内部的に未知の具体的な型を「[キャプチャされた型（captured type）](https://kotlinlang.org/spec/type-system.html#type-capturing)」として表現します。キャプチャされた型は、既知の上界と下界を持つ未知の型です。
 
@@ -265,7 +265,7 @@ array.set(0, "New value")
 * `get()` 操作において、コンパイラはキャプチャされた型をその上界である `CharSequence` に近似し、`item` の型を `CharSequence` と推論します。
 * `set()` 操作において、キャプチャされた型は下界として `Nothing` を持ちます。`Nothing` にはインスタンスが存在しないため、投影された型への値の書き込みは型安全ではなく、エラーになります。
 
-## ジェネリック関数
+## ジェネリック関数 {id="generic-functions"}
 
 クラスだけでなく、関数も型パラメータを持つことができます。型パラメータは関数の名前の*前*に置かれます。
 
@@ -291,11 +291,11 @@ val l = singletonList<Int>(1)
 val l = singletonList(1)
 ```
 
-## ジェネリック制約 (Generic constraints)
+## ジェネリック制約 (Generic constraints) {id="generic-constraints"}
 
 特定の型パラメータに代入できるすべての可能な型のセットは、*ジェネリック制約*によって制限される場合があります。
 
-### 上界 (Upper bounds)
+### 上界 (Upper bounds) {id="upper-bounds"}
 
 最も一般的な制約の種類は*上界*であり、これは Java の `extends` キーワードに対応します。
 
@@ -323,7 +323,7 @@ fun <T> copyWhenGreater(list: List<T>, threshold: T): List<String>
 
 渡される型は、`where` 句のすべての条件を同時に満たす必要があります。上記の例では、`T` 型は `CharSequence` と `Comparable` の*両方*を実装している必要があります。
 
-## 明示的な非 null 型 (Definitely non-nullable types)
+## 明示的な非 null 型 (Definitely non-nullable types) {id="definitely-non-nullable-types"}
 
 ジェネリックなJavaクラスやインターフェースとの相互運用を容易にするために、Kotlinはジェネリック型パラメータを**明示的な非 null 型**として宣言することをサポートしています。
 
@@ -355,13 +355,13 @@ interface ArcadeGame<T1> : Game<T1> {
 
 Kotlinのみで作業している場合、Kotlinの型推論がこれを行ってくれるため、明示的な非 null 型を明示的に宣言する必要があることはほとんどありません。
 
-## 型消去 (Type erasure)
+## 型消去 (Type erasure) {id="type-erasure"}
 
 Kotlinがジェネリック宣言の使用に対して行う型安全性チェックは、コンパイル時に行われます。
 実行時には、ジェネリック型のインスタンスは実際の型引数に関する情報を保持していません。
 型情報は*消去（erased）*されると言われます。例えば、`Foo<Bar>` と `Foo<Baz?>` のインスタンスは、どちらも単に `Foo<*>` として消去されます。
 
-### ジェネリクスの型チェックとキャスト
+### ジェネリクスの型チェックとキャスト {id="generics-type-checks-and-casts"}
 
 型消去のため、実行時にジェネリック型のインスタンスが特定の型引数で作成されたかどうかを確認する一般的な方法はありません。そのため、コンパイラは `ints is List<Int>` や `list is T`（型パラメータ）のような `is` チェックを禁止しています。ただし、スター投影された型に対してインスタンスをチェックすることはできます。
 
@@ -415,7 +415,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### チェックされないキャスト (Unchecked casts)
+### チェックされないキャスト (Unchecked casts) {id="unchecked-casts"}
 
 `foo as List<String>` のような具体的な型引数を持つジェネリック型への型キャストは、実行時にチェックできません。
 これらのチェックされないキャストは、高レベルのプログラムロジックによって型安全性が暗示されているものの、コンパイラによって直接推論できない場合に使用できます。以下の例を参照してください。
@@ -451,7 +451,7 @@ inline fun <reified T> List<*>.asListOfType(): List<T>? =
 >
 {style="note"}
 
-## 型引数のアンダースコア演算子
+## 型引数のアンダースコア演算子 {id="underscore-operator-for-type-arguments"}
 
 型引数にアンダースコア演算子 `_` を使用できます。他の型が明示的に指定されている場合に、引数の型を自動的に推論させるために使用します。
 

@@ -22,7 +22,7 @@
 >
 {style="note"}
 
-## 단일 타겟 Xcode 프로젝트
+## 단일 타겟 Xcode 프로젝트 {id="xcode-project-with-one-target"}
 
 Kotlin 프로젝트를 단일 타겟 Xcode 프로젝트의 Pod 의존성으로 사용하려면 다음을 수행하세요:
 
@@ -73,7 +73,7 @@ Kotlin 프로젝트를 단일 타겟 Xcode 프로젝트의 Pod 의존성으로 �
 8. 기존 `.xcodeproj`를 닫고 대신 새로운 `.xcworkspace` 파일을 엽니다. 이렇게 하면 프로젝트 의존성 관련 문제를 방지할 수 있습니다.
 9. IntelliJ IDEA에서 **Build** | **Reload All Gradle Projects**를 실행하거나(Android Studio의 경우 **File** | **Sync Project with Gradle Files**) 프로젝트를 다시 임포트합니다.
 
-## 여러 타겟이 있는 Xcode 프로젝트
+## 여러 타겟이 있는 Xcode 프로젝트 {id="xcode-project-with-several-targets"}
 
 여러 타겟이 있는 Xcode 프로젝트에서 Kotlin 프로젝트를 Pod 의존성으로 사용하려면 다음을 수행하세요:
 
@@ -132,7 +132,7 @@ Kotlin 프로젝트를 단일 타겟 Xcode 프로젝트의 Pod 의존성으로 �
 8. 기존 `.xcodeproj`를 닫고 대신 새로운 `.xcworkspace` 파일을 엽니다. 이렇게 하면 프로젝트 의존성 관련 문제를 방지할 수 있습니다.
 9. IntelliJ IDEA에서 **Build** | **Reload All Gradle Projects**를 실행하거나(Android Studio의 경우 **File** | **Sync Project with Gradle Files**) 프로젝트를 다시 임포트합니다.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [Kotlin 프로젝트에서 Pod 라이브러리 의존성 추가하기](multiplatform-cocoapods-libraries.md)
 * [iOS 프로젝트에 프레임워크를 연결하는 방법 확인하기](multiplatform-direct-integration.md)

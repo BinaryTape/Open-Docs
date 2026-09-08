@@ -4,7 +4,7 @@
 
 除了 Koog 開箱即用的[功能](index.md)外，您還可以透過擴充適當的功能介面來實作您自己的功能。本頁面介紹了使用目前 Koog API 建立自訂功能的基礎建構區塊。
 
-## 功能介面
+## 功能介面 {id="feature-interfaces"}
 
 Koog 提供了以下介面，您可以透過擴充這些介面來實作自訂功能：
 
@@ -15,7 +15,7 @@ Koog 提供了以下介面，您可以透過擴充這些介面來實作自訂功
 !!! note
     要建立可安裝在基於圖的、功能性與規劃器代理中的自訂功能，您需要實作所有介面。
 
-## 實作自訂功能
+## 實作自訂功能 {id="implementing-custom-features"}
 
 要實作自訂功能，您需要按照以下步驟建立功能結構：
 
@@ -107,7 +107,7 @@ val agent = AIAgent(
 ```
 <!--- KNIT example-custom-features-02.kt -->
 
-### 管線攔截器
+### 管線攔截器 {id="pipeline-interceptors"}
 
 攔截器代表代理生命週期中的各個點，您可以在這些點掛接到代理執行管線以實作自訂邏輯。Koog 包含一系列預先定義的攔截器，您可以用來觀察各種事件。
 
@@ -146,7 +146,7 @@ LLM 串流生命週期：
 - `interceptToolCallFailed`：在工具執行失敗時叫用。
 - `interceptToolCallCompleted`：在工具完成後叫用（包含結果）。
 
-#### 專屬於基於圖的代理之攔截器
+#### 專屬於基於圖的代理之攔截器 {id="interceptors-specific-to-graph-based-agents"}
 
 以下攔截器僅在 `AIAgentGraphPipeline` 上可用，可讓您觀察節點與子圖的生命週期事件。
 
@@ -164,7 +164,7 @@ LLM 串流生命週期：
 
 功能若要處理特定類型的事件，需要註冊相應的管線攔截器。
 
-### 篩選代理事件
+### 篩選代理事件 {id="filtering-agent-events"}
 
 在代理中安裝功能時，您可能不想處理該功能中註冊的所有事件。要篩選掉某些事件，您可以透過 [FeatureConfig.setEventFilter](https://api.koog.ai/agents/agents-core/ai.koog.agents.core.feature.config/-feature-config/set-event-filter.html) 函式套用篩選器。
 
@@ -202,7 +202,7 @@ install(MyFeature) {
 ```
 <!--- KNIT example-custom-features-03.kt -->
 
-#### 停用功能事件篩選
+#### 停用功能事件篩選 {id="disabling-event-filtering-for-a-feature"}
 
 如果您的功能邏輯依賴完整的代理事件結構，事件篩選可能會導致非預期的行為。為了防止這種情況，您需要在實作功能時透過覆寫功能配置中的 `setEventFilter` 來停用事件篩選，從而忽略安裝功能時設置的任何自訂篩選器。
 
@@ -224,7 +224,7 @@ class MyFeatureConfig : FeatureConfig() {
 ```
 <!--- KNIT example-custom-features-04.kt -->
 
-## 範例：基礎記錄功能
+## 範例：基礎記錄功能 {id="example-a-basic-logging-feature"}
 
 以下範例展示了如何實作一個用於記錄代理生命週期事件的基礎記錄（logging）功能。由於該功能應可用於基於圖的、功能性與規劃器代理，因此所有代理類型共有的攔截器都在 `installCommon` 方法中實作，以避免程式碼重複。特定於各別代理類型的攔截器則在 `installGraphPipeline`、`installFunctionalPipeline` 與 `installPlannerPipeline` 方法中實作。
 

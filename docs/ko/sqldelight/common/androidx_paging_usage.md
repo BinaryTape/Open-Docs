@@ -1,6 +1,6 @@
 SQLDelight은 데이터 페이징을 위해 오프셋 기반 페이징(offset based paging)과 키셋 페이징(keyset paging) 두 가지 방법을 제공합니다.
 
-## 오프셋 기반 페이징 (Offset Based Paging)
+## 오프셋 기반 페이징 (Offset Based Paging) {id="offset-based-paging"}
 
 오프셋 페이징은 `OFFSET` 및 `LIMIT` 절을 사용하여 페이징된 결과를 얻습니다. 오프셋 기반 페이징을 수행하는 `PagingSource`를 생성하려면 페이징 쿼리뿐만 아니라 카운트 쿼리(count query)도 필요합니다.
 
@@ -27,7 +27,7 @@ val pagingSource: PagingSource = QueryPagingSource(
 
 컨텍스트가 지정되지 않은 경우, 기본적으로 쿼리는 `Dispatchers.IO`에서 수행됩니다. RxJava의 `Scheduler`를 사용하여 쿼리를 수행하려는 사용자는 [`Scheduler.asCoroutineDispatcher`](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-rx2/kotlinx.coroutines.rx2/io.reactivex.-scheduler/as-coroutine-dispatcher.html) 확장 함수를 사용해야 합니다.
 
-## 키셋 페이징 (Keyset Paging)
+## 키셋 페이징 (Keyset Paging) {id="keyset-paging"}
 
 오프셋 페이징은 간단하고 유지보수가 쉽습니다. 하지만 안타깝게도 대규모 데이터셋(dataset)에서는 성능이 떨어집니다. SQL 문의 `OFFSET` 절은 실제로는 SQL 쿼리에서 이미 실행된 행을 그냥 버리는 방식으로 작동하기 때문입니다. 따라서 `OFFSET` 숫자가 커질수록 쿼리 실행 시간도 늘어납니다. 이를 극복하기 위해 SQLDelight은 `PagingSource`의 "키셋 페이징" 구현체를 제공합니다. 키셋 페이징은 전체 데이터셋을 쿼리한 후 처음 `OFFSET`만큼의 요소를 비효율적으로 버리는 대신, 고유한 컬럼을 사용하여 쿼리의 범위를 제한하는 방식으로 작동합니다. 이는 개발자의 유지보수 비용이 더 드는 대신 더 나은 성능을 제공합니다.
 

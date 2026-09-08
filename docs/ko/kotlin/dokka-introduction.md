@@ -18,6 +18,6 @@ Dokka는 [Gradle](dokka-gradle.md), [Maven](dokka-maven.md) 또는 [커맨드 �
 
 Dokka를 처음 사용해 보려면 [Dokka 시작하기](dokka-get-started.md)를 참조하세요.
 
-## 커뮤니티
+## 커뮤니티 {id="community"}
 
 Dokka는 [Kotlin 커뮤니티 Slack](https://kotl.in/slack)에 전용 `#dokka` 채널을 운영하고 있습니다. 이곳에서 Dokka와 그 플러그인들, 그리고 플러그인 개발 방법에 대해 이야기를 나누거나 유지관리자들과 소통할 수 있습니다.

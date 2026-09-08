@@ -4,7 +4,7 @@
 
 比較すると、Dokka の Gradle プラグインと同等、あるいはそれ以上の機能を備えています。ただし、特にマルチプラットフォームやマルチモジュールの環境では自動設定が行われないため、セットアップはかなり難しくなります。
 
-## はじめに
+## はじめに {id="get-started"}
 
 CLI ランナーは、個別の実行可能アーティファクトとして Maven Central に公開されています。
 
@@ -22,9 +22,9 @@ java -jar dokka-cli-%dokkaVersion%.jar -help
 java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
 ```
 
-## ドキュメントの生成
+## ドキュメントの生成 {id="generate-documentation"}
 
-### 前提条件
+### 前提条件 {id="prerequisites"}
 
 依存関係を管理するビルドツールがないため、依存関係の `.jar` ファイルを自分で用意する必要があります。
 
@@ -42,7 +42,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
 | `org.jetbrains.kotlinx` | `kotlinx-html-jvm` | 0.8.0       | [download](https://repo1.maven.org/maven2/org/jetbrains/kotlinx/kotlinx-html-jvm/0.8.0/kotlinx-html-jvm-0.8.0.jar) |
 | `org.freemarker`        | `freemarker`       | 2.3.31      | [download](https://repo1.maven.org/maven2/org/freemarker/freemarker/2.3.31/freemarker-2.3.31.jar)                  |
 
-### コマンドラインオプションによる実行
+### コマンドラインオプションによる実行 {id="run-with-command-line-options"}
 
 コマンドラインオプションを渡して CLI ランナーを設定できます。
 
@@ -63,7 +63,7 @@ java -jar dokka-cli-%dokkaVersion%.jar \
 
 設定の詳細については、[コマンドラインオプション](#コマンドラインオプション)を参照してください。
 
-### JSON 設定による実行
+### JSON 設定による実行 {id="run-with-json-configuration"}
 
 JSON を使用して CLI ランナーを設定することも可能です。この場合、最初で唯一の引数として JSON 設定ファイルへの絶対パスまたは相対パスを指定する必要があります。他のすべての設定オプションは、そのファイルから解析されます。
 
@@ -98,7 +98,7 @@ java -jar dokka-cli-%dokkaVersion%.jar dokka-configuration.json
 
 詳細は [JSON 設定オプション](#json-設定)を参照してください。
 
-### その他の出力形式
+### その他の出力形式 {id="other-output-formats"}
 
 デフォルトでは、`dokka-base` アーティファクトには [HTML](dokka-html.md) 出力形式のみが含まれています。
 
@@ -132,7 +132,7 @@ JSON 設定経由：
 
 詳細については、[GFM](https://github.com/Kotlin/dokka/blob/8e5c63d035ef44a269b8c43430f43f5c8eebfb63/dokka-subprojects/plugin-gfm/README.md) および [Javadoc](dokka-javadoc.md#generate-javadoc-documentation) のページを参照してください。
 
-## コマンドラインオプション
+## コマンドラインオプション {id="command-line-options"}
 
 可能なすべてのコマンドラインオプションのリストと詳細な説明を表示するには、以下を実行してください。
 
@@ -163,7 +163,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -help
 | `loggingLevel` | ロギングレベル。指定可能な値： `DEBUG, PROGRESS, INFO, WARN, ERROR`。 |
 | `help, h` | 使用方法の情報を表示します。 |
 
-#### ソースセットのオプション
+#### ソースセットのオプション {id="source-set-options"}
 
 ネストされた `-sourceSet` 設定のコマンドラインオプション一覧を表示するには、以下を実行してください。
 
@@ -198,11 +198,11 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
 | `externalDocumentationLinks` | `{url}^{packageListUrl}` 形式の外部ドキュメントリンク。`^^` で区切られた複数の値を受け入れます。 |
 | `srcLink` | ソースディレクトリとコード閲覧用 Web サービス間のマッピング。セミコロンで区切られた複数のパスを受け入れます。 |
 
-## JSON 設定
+## JSON 設定 {id="json-configuration"}
 
 以下に、各設定セクションの例と詳細な説明を示します。ページの最後には、[すべての設定オプション](#完全な設定)を適用した例もあります。
 
-### 一般設定
+### 一般設定 {id="general-configuration"}
 
 ```json
 {
@@ -328,7 +328,7 @@ java -jar dokka-cli-%dokkaVersion%.jar -sourceSet -help
     </def>
 </deflist>
 
-### ソースセットの設定
+### ソースセットの設定 {id="source-set-configuration"}
 
 Kotlin [ソースセット](https://kotlinlang.org/docs/multiplatform-discover-project.html#source-sets)の設定方法：
 
@@ -528,7 +528,7 @@ Kotlin [ソースセット](https://kotlinlang.org/docs/multiplatform-discover-p
     </def>
 </deflist>
 
-### ソースリンクの設定
+### ソースリンクの設定 {id="source-link-configuration"}
 
 `sourceLinks` 設定ブロックを使用すると、各シグネチャに特定の行番号付きの `remoteUrl` へ導く `source` リンクを追加できます（行番号は `remoteLineSuffix` を設定することで構成可能です）。
 
@@ -578,7 +578,7 @@ Kotlin [ソースセット](https://kotlinlang.org/docs/multiplatform-discover-p
     </def>
 </deflist>
 
-### パッケージごとの設定
+### パッケージごとの設定 {id="per-package-configuration"}
 
 `perPackageOptions` 設定ブロックを使用すると、`matchingRegex` に一致する特定のパッケージに対してオプションを設定できます。
 
@@ -630,7 +630,7 @@ Kotlin [ソースセット](https://kotlinlang.org/docs/multiplatform-discover-p
     </def>
 </deflist>
 
-### 外部ドキュメントリンクの設定
+### 外部ドキュメントリンクの設定 {id="external-documentation-links-configuration"}
 
 `externalDocumentationLinks` ブロックを使用すると、依存関係にある外部でホストされているドキュメントへのリンクを作成できます。
 
@@ -670,7 +670,7 @@ Kotlin [ソースセット](https://kotlinlang.org/docs/multiplatform-discover-p
     </def>
 </deflist>
 
-### 完全な設定
+### 完全な設定 {id="complete-configuration"}
 
 以下は、可能なすべての設定オプションを一度に適用した例です。
 

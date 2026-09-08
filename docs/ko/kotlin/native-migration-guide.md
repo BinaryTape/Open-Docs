@@ -23,11 +23,11 @@
 
 기존 메모리 관리자에서 프로젝트를 마이그레이션하려면 다음 지침을 따르세요:
 
-## Kotlin 업데이트
+## Kotlin 업데이트 {id="update-kotlin"}
 
 새로운 Kotlin/Native 메모리 관리자는 Kotlin 1.7.20부터 기본적으로 활성화되었습니다. Kotlin 버전을 확인하고 필요한 경우 [최신 버전으로 업데이트](releases.md#update-to-a-new-kotlin-version)하세요.
 
-## 종속성 업데이트
+## 종속성 업데이트 {id="update-dependencies"}
 
 <deflist type="medium">
     <def title="kotlinx.coroutines">
@@ -50,7 +50,7 @@
     </def>
 </deflist>
 
-## 코드 업데이트
+## 코드 업데이트 {id="update-your-code"}
 
 새로운 메모리 관리자를 지원하려면 영향을 받는 API의 사용을 제거하세요:
 
@@ -69,7 +69,7 @@
 | [`WorkerBoundReference<out T : Any>` 클래스](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.native.concurrent/-worker-bound-reference/) | `T`를 직접 사용하세요.                                                                                                                                                 |
 | [`DetachedObjectGraph<T>` 클래스](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.native.concurrent/-detached-object-graph/)             | `T`를 직접 사용하세요. C 상호 운용성을 통해 값을 전달하려면 [StableRef 클래스](https://kotlinlang.org/api/latest/jvm/stdlib/kotlinx.cinterop/-stable-ref/)를 사용하세요. |
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [새로운 메모리 관리자에 대해 자세히 알아보기](native-memory-manager.md)
 * [Swift/Objective-C ARC와의 통합 세부 사항 확인](native-arc-integration.md)

@@ -88,7 +88,7 @@ fun main(args: Array<String>) {
 * `io.ktor.server.tomcat.jakarta.EngineMain`
 * `io.ktor.server.cio.EngineMain`
 
-#### 서버 생성 및 시작
+#### 서버 생성 및 시작 {id="creating-and-starting-the-server"}
 
 `EngineMain.main()` 함수는 선택한 엔진으로 서버를 시작하고 외부 [설정 파일](server-configuration-file.topic)에 지정된 [애플리케이션 모듈](server-modules.md)을 로드하는 데 사용됩니다. 아래 예시에서 애플리케이션의 `main` 함수는 서버를 시작합니다:
 

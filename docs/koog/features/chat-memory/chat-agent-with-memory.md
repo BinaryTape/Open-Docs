@@ -35,7 +35,7 @@ graph TB
     agent --"智能体响应"--> print --> read
 ```
 
-## 代码
+## 代码 {id="code"}
 
 ??? note "先决条件"
 
@@ -153,7 +153,7 @@ graph TB
     }
     ```
 
-## 实现细节
+## 实现细节 {id="implementation-details"}
 
 `agent.run()` 的第二个参数是用于识别和区分正在进行的对话的 [会话 ID](index.md#session-ids)。在本示例中，它是常量，因为一次只有一个对话。在实际应用中，您可以为例如与同一用户相关的对话分配一个单独的唯一 ID。
 
@@ -161,7 +161,7 @@ graph TB
 
 `windowSize(20)` [预处理程序](index.md#preprocessors) 确保了上下文大小受限：智能体仅存储最多 20 条最近的消息。如果没有这一设置，提示词的大小可能会超出上下文限制。
 
-## 示例会话
+## 示例会话 {id="example-session"}
 
 ```
 You: My name is Alice.

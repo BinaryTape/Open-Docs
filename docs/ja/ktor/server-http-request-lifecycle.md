@@ -84,6 +84,6 @@ fun Application.module() {
 
 > 完全な例については、[%example_name%](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/%example_name%)を参照してください。
 
-## 制限事項
+## 制限事項 {id="limitations"}
 
 このプラグインは、`CIO`および`Netty`エンジンでのみ完全にサポートされています。サーブレットベースのエンジン（またはその他のサポートされていないエンジン）では、クライアントの切断を確実に検出できません。キャンセルは、サーバーがレスポンスを書き込もうとしたときにのみ検出されます。

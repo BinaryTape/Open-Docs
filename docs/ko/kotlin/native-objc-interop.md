@@ -16,7 +16,7 @@ Kotlin/Native는 Objective-C를 통해 Swift와의 간접적인 상호 운용성
 * [Kotlin-Swift interopedia](https://github.com/kotlin-hands-on/kotlin-swift-interopedia): Swift 코드에서 Kotlin 선언을 사용하는 방법에 대한 예제 모음입니다.
 * [Swift/Objective-C ARC와의 통합](native-arc-integration.md) 섹션: Kotlin의 추적 GC(tracing GC)와 Objective-C의 ARC 간 통합에 대한 세부 사항을 다룹니다.
 
-## Swift/Objective-C 라이브러리를 Kotlin으로 가져오기
+## Swift/Objective-C 라이브러리를 Kotlin으로 가져오기 {id="importing-swift-objective-c-libraries-to-kotlin"}
 
 Objective-C 프레임워크와 라이브러리는 빌드에 적절히 가져오면 Kotlin 코드에서 사용할 수 있습니다(시스템 프레임워크는 기본적으로 가져오기 됩니다). 자세한 내용은 다음을 참조하세요:
 
@@ -25,14 +25,14 @@ Objective-C 프레임워크와 라이브러리는 빌드에 적절히 가져오�
 
 Swift 라이브러리는 해당 API가 `@objc`를 통해 Objective-C로 노출(export)된 경우 Kotlin 코드에서 사용할 수 있습니다. 순수 Swift 모듈은 아직 지원되지 않습니다.
 
-## Swift/Objective-C에서 Kotlin 사용하기
+## Swift/Objective-C에서 Kotlin 사용하기 {id="using-kotlin-in-swift-objective-c"}
 
 Kotlin 모듈을 프레임워크로 컴파일하면 Swift/Objective-C 코드에서 사용할 수 있습니다:
 
 * 바이너리 선언 방법은 [최종 네이티브 바이너리 빌드](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html#declare-binaries)를 참조하세요.
 * 예제는 [Kotlin Multiplatform 샘플 프로젝트](https://github.com/Kotlin/kmm-basic-sample)를 확인하세요.
 
-### Objective-C 및 Swift로부터 Kotlin 선언 숨기기
+### Objective-C 및 Swift로부터 Kotlin 선언 숨기기 {id="hide-kotlin-declarations-from-objective-c-and-swift"}
 
 <primary-label ref="experimental-opt-in"/>
 
@@ -42,7 +42,7 @@ Kotlin 코드를 Swift/Objective-C에서 더 사용하기 쉽게 만들려면, `
 
 [Kotlin-Swift interopedia의 예제 보기](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/overview/HiddenFromObjC.md).
 
-### Swift에서 리파이닝(Refining) 사용하기
+### Swift에서 리파이닝(Refining) 사용하기 {id="use-refining-in-swift"}
 
 <primary-label ref="experimental-opt-in"/>
 
@@ -53,7 +53,7 @@ Swift 친화적인 API를 만들기 위해 Swift 코드 내에서 이러한 선�
 * Swift에서 Objective-C 선언을 리파이닝하는 방법에 대한 자세한 내용은 [공식 Apple 문서](https://developer.apple.com/documentation/swift/improving-objective-c-api-declarations-for-swift)를 참조하세요.
 * `@ShouldRefineInSwift` 어노테이션 사용 예제는 [Kotlin-Swift interopedia](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/overview/ShouldRefineInSwift.md)를 참조하세요.
 
-### 선언 이름 변경하기
+### 선언 이름 변경하기 {id="change-declaration-names"}
 
 <primary-label ref="experimental-opt-in"/>
 
@@ -73,7 +73,7 @@ let index = array.index(of: "element")
 
 [Kotlin-Swift interopedia의 다른 예제 보기](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/overview/ObjCName.md).
 
-### KDoc 주석으로 문서 제공하기
+### KDoc 주석으로 문서 제공하기 {id="provide-documentation-with-kdoc-comments"}
 
 문서는 모든 API를 이해하는 데 필수적입니다. 공유된 Kotlin API에 대한 문서를 제공하면 사용법, 주의 사항 등에 대해 사용자와 소통할 수 있습니다.
 
@@ -123,7 +123,7 @@ kotlin {
 }
 ```
 
-## 매핑(Mappings)
+## 매핑(Mappings) {id="mappings"}
 
 아래 표는 Kotlin 개념이 Swift/Objective-C로 어떻게 매핑되는지, 그 반대의 경우는 어떤지 보여줍니다.
 
@@ -156,9 +156,9 @@ kotlin {
 | Function type          | Function type                    | Block pointer type               | [참고](#function-types)                                                           |
 | Inline classes         | Unsupported                      | Unsupported                      | [참고](#unsupported)                                                              |
 
-### 클래스(Classes)
+### 클래스(Classes) {id="classes"}
 
-#### 이름 번역(Name translation)
+#### 이름 번역(Name translation) {id="name-translation"}
 
 Objective-C 클래스는 원래 이름 그대로 Kotlin으로 가져오기 됩니다.
 프로토콜은 이름 뒤에 `Protocol` 접미사가 붙은 인터페이스로 가져오기 됩니다. 예: `@protocol Foo` -> `interface FooProtocol`.
@@ -168,7 +168,7 @@ Kotlin 클래스 및 인터페이스의 이름은 Objective-C로 가져올 때 �
 
 Objective-C는 프레임워크 내의 패키지를 지원하지 않습니다. Kotlin 컴파일러가 동일한 프레임워크 내에서 이름은 같지만 패키지가 다른 Kotlin 클래스를 발견하면 이름을 바꿉니다. 이 알고리즘은 아직 안정적이지 않으며 Kotlin 릴리스 간에 변경될 수 있습니다. 이를 방지하려면 프레임워크 내에서 충돌하는 Kotlin 클래스의 이름을 바꾸면 됩니다.
 
-#### 강한 연결(Strong linking)
+#### 강한 연결(Strong linking) {id="strong-linking"}
 
 Kotlin 소스에서 Objective-C 클래스를 사용할 때마다 해당 클래스는 강하게 연결된 심볼(strongly linked symbol)로 표시됩니다. 결과물인 빌드 아티팩트는 관련 심볼을 강한 외부 참조(strong external references)로 언급합니다.
 
@@ -176,7 +176,7 @@ Kotlin 소스에서 Objective-C 클래스를 사용할 때마다 해당 클래�
 
 이 문제를 해결하고 "Symbol not found" 오류를 방지하려면, 클래스가 실제로 사용 가능한지 확인하는 Swift 또는 Objective-C 래퍼를 사용하세요. [Compose Multiplatform 프레임워크에서 이 해결 방법이 어떻게 구현되었는지 확인해 보세요](https://github.com/JetBrains/compose-multiplatform-core/pull/1278/files).
 
-### 초기화 구문(Initializers)
+### 초기화 구문(Initializers) {id="initializers"}
 
 Swift/Objective-C 초기화 구문은 Kotlin에서 생성자 또는 `create`라는 이름의 팩토리 메서드로 가져오기 됩니다. 후자의 경우는 Objective-C 카테고리 또는 Swift 확장(extension)에 선언된 초기화 구문에서 발생하는데, 이는 Kotlin에 확장 생성자라는 개념이 없기 때문입니다.
 
@@ -186,11 +186,11 @@ Swift/Objective-C 초기화 구문은 Kotlin에서 생성자 또는 `create`라�
 
 Kotlin 생성자는 Swift/Objective-C의 초기화 구문으로 가져오기 됩니다.
 
-### 세터(Setters)
+### 세터(Setters) {id="setters"}
 
 상위 클래스의 읽기 전용 프로퍼티를 재정의하는 쓰기 가능한 Objective-C 프로퍼티는 프로퍼티 `foo`에 대해 `setFoo()` 메서드로 표현됩니다. 프로토콜의 읽기 전용 프로퍼티가 가변(mutable)으로 구현된 경우에도 마찬가지입니다.
 
-### 최상위 함수 및 프로퍼티(Top-level functions and properties)
+### 최상위 함수 및 프로퍼티(Top-level functions and properties) {id="top-level-functions-and-properties"}
 
 최상위 Kotlin 함수 및 프로퍼티는 특수 클래스의 멤버로 액세스할 수 있습니다. 각 Kotlin 파일은 그러한 클래스로 번역됩니다. 예를 들어:
 
@@ -213,7 +213,7 @@ Kotlin-Swift interopedia에서 최상위 Kotlin 선언에 액세스하는 예제
 * [최상위 읽기 전용 프로퍼티(Top-level read-only properties)](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/functionsandproperties/Top-level%20val%20properties.md)
 * [최상위 가변 프로퍼티(Top-level mutable properties)](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/functionsandproperties/Top-level%20mutable%20var%20properties.md)
 
-### 메서드 이름 번역(Method names translation)
+### 메서드 이름 번역(Method names translation) {id="method-names-translation"}
 
 일반적으로 Swift의 인수 레이블(argument labels)과 Objective-C의 셀렉터 조각(selector pieces)은 Kotlin 매개변수 이름에 매핑됩니다. 이 두 개념은 의미론적으로 다르기 때문에 가끔 Swift/Objective-C 메서드가 Kotlin 시그니처와 충돌하며 가져오기 될 수 있습니다. 이 경우 명명된 인수(named arguments)를 사용하여 Kotlin에서 충돌하는 메서드를 호출할 수 있습니다. 예를 들어:
 
@@ -241,7 +241,7 @@ player.moveTo(UP, byInches = 42)
 
 [`@ObjCName` 어노테이션](#change-declaration-names)을 사용하여 Kotlin 선언의 이름을 바꾸는 대신 Swift 또는 Objective-C에서 더 관용적인 이름을 지정할 수 있습니다.
 
-### 오류 및 예외(Errors and exceptions)
+### 오류 및 예외(Errors and exceptions) {id="errors-and-exceptions"}
 
 모든 Kotlin 예외는 언체크 예외(unchecked exceptions)이므로 런타임에 오류가 포착됩니다. 그러나 Swift에는 컴파일 타임에 처리되는 체크 예외(checked errors)만 있습니다. 따라서 Swift 또는 Objective-C 코드가 예외를 발생시키는 Kotlin 메서드를 호출하는 경우, Kotlin 메서드에 `@Throws` 어노테이션을 표시하고 "예상되는" 예외 클래스 목록을 지정해야 합니다.
 
@@ -255,7 +255,7 @@ Swift/Objective-C 코드에서 호출된 Kotlin 함수가 `@Throws`로 지정된
 
 [Kotlin-Swift interopedia의 예제 보기](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/overview/Exceptions.md).
 
-### 열거형(Enums)
+### 열거형(Enums) {id="enums"}
 
 Kotlin 열거형은 Objective-C로 `@interface`로, Swift로는 `class`로 가져오기 됩니다. 이러한 데이터 구조에는 각 열거형 값에 해당하는 프로퍼티가 있습니다. 다음 Kotlin 코드를 살펴보세요:
 
@@ -288,7 +288,7 @@ switch color {
 
 [Kotlin-Swift interopedia의 다른 예제 보기](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/classesandinterfaces/Enum%20classes.md).
 
-### 중단 함수(Suspending functions)
+### 중단 함수(Suspending functions) {id="suspending-functions"}
 
 <primary-label ref="experimental-opt-in"/>
 
@@ -299,7 +299,7 @@ Swift 5.5부터 Kotlin의 `suspend` 함수는 완료 핸들러를 사용하지 �
 * [Swift 문서의 `async`/`await` 메커니즘](https://docs.swift.org/swift-book/LanguageGuide/Concurrency.html)에 대해 자세히 알아보세요.
 * 동일한 기능을 구현하는 서드파티 라이브러리에 대한 예제와 권장 사항은 [Kotlin-Swift interopedia](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/coroutines/Suspend%20functions.md)를 참조하세요.
 
-### 확장 및 카테고리 멤버(Extensions and category members)
+### 확장 및 카테고리 멤버(Extensions and category members) {id="extensions-and-category-members"}
 
 Objective-C 카테고리와 Swift 확장의 멤버는 일반적으로 Kotlin으로 확장(extensions)으로 가져오기 됩니다. 따라서 이러한 선언은 Kotlin에서 재정의할 수 없으며, 확장 초기화 구문은 Kotlin 생성자로 사용할 수 없습니다.
 
@@ -320,7 +320,7 @@ Objective-C 카테고리와 Swift 확장의 멤버는 일반적으로 Kotlin으�
 
 [Kotlin-Swift interopedia의 예제 모음 보기](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/tree/main/docs/extensions).
 
-### Kotlin 싱글톤(Kotlin singletons)
+### Kotlin 싱글톤(Kotlin singletons) {id="kotlin-singletons"}
 
 Kotlin 싱글톤(`companion object`를 포함하여 `object` 선언으로 생성됨)은 단일 인스턴스를 가진 클래스로 Swift/Objective-C에 가져오기 됩니다.
 
@@ -358,31 +358,31 @@ Kotlin-Swift interopedia에서 더 많은 예제를 참조하세요:
 * [`shared`를 사용하여 Kotlin 객체에 액세스하는 방법](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/classesandinterfaces/Objects.md)
 * [Swift에서 Kotlin 컴패니언 객체의 멤버에 액세스하는 방법](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/classesandinterfaces/Companion%20objects.md)
 
-### 원시 타입(Primitive types)
+### 원시 타입(Primitive types) {id="primitive-types"}
 
 Kotlin 원시 타입 박싱(boxing)은 특수 Swift/Objective-C 클래스에 매핑됩니다. 예를 들어, `kotlin.Int` 박스는 Swift에서 `KotlinInt` 클래스 인스턴스(또는 Objective-C에서 `${prefix}Int` 인스턴스, 여기서 `prefix`는 프레임워크 이름 접두사)로 표현됩니다. 이러한 클래스는 `NSNumber`에서 파생되므로, 인스턴스는 모든 해당 작업을 지원하는 적절한 `NSNumber`입니다.
 
 `NSNumber` 타입은 Swift/Objective-C 매개변수 타입 또는 반환 값으로 사용될 때 Kotlin 원시 타입으로 자동 번역되지 않습니다. 그 이유는 `NSNumber` 타입이 래핑된 원시 값 타입에 대해 충분한 정보를 제공하지 않기 때문입니다. 예를 들어, `NSNumber`가 `Byte`, `Boolean` 또는 `Double`인지 정적으로 알 수 없습니다. 따라서 Kotlin 원시 값은 [`NSNumber`로/에서 수동으로 캐스팅](#casting-between-mapped-types)해야 합니다.
 
-### 문자열(Strings)
+### 문자열(Strings) {id="strings"}
 
 Kotlin `String`이 Swift로 전달될 때, 먼저 Objective-C 객체로 노출된 다음, Swift 컴파일러가 Swift 변환을 위해 이를 한 번 더 복사합니다. 이로 인해 추가적인 런타임 오버헤드가 발생합니다.
 
 이를 피하려면 Swift에서 Kotlin 문자열에 직접 Objective-C `NSString`으로 액세스하세요. [변환 예제](#see-the-conversion-example)를 참조하세요.
 
-#### NSMutableString
+#### NSMutableString {id="nsmutablestring"}
 
 `NSMutableString` Objective-C 클래스는 Kotlin에서 사용할 수 없습니다. 모든 `NSMutableString` 인스턴스는 Kotlin으로 전달될 때 복사됩니다.
 
-### 컬렉션(Collections)
+### 컬렉션(Collections) {id="collections"}
 
-#### Kotlin -> Objective-C -> Swift
+#### Kotlin -> Objective-C -> Swift {id="kotlin-objective-c-swift"}
 
 Kotlin 컬렉션이 Swift로 전달될 때, 먼저 Objective-C 동등물로 변환된 다음, Swift 컴파일러가 전체 컬렉션을 복사하여 [매핑 표](#mappings)에 설명된 대로 Swift 전용 컬렉션으로 변환합니다.
 
 이 마지막 변환은 성능 비용을 초래합니다. 이를 방지하기 위해 Swift에서 Kotlin 컬렉션을 사용할 때는 `NSDictionary`, `NSArray` 또는 `NSSet`과 같은 Objective-C 대응물로 명시적으로 캐스팅하세요.
 
-##### 변환 예제 보기 {initial-collapse-state="collapsed" collapsible="true"}
+##### 변환 예제 보기 {initial-collapse-state="collapsed" collapsible="true" id="see-the-conversion-example"}
 
 예를 들어, 다음과 같은 Kotlin 선언이 있다고 가정해 보겠습니다.
 
@@ -407,7 +407,7 @@ let nsMap: NSDictionary = map as NSDictionary
 
 이렇게 하면 Swift 컴파일러가 추가 변환 단계를 수행하지 않도록 보장합니다.
 
-#### Swift -> Objective-C -> Kotlin
+#### Swift -> Objective-C -> Kotlin {id="swift-objective-c-kotlin"}
 
 Swift/Objective-C 컬렉션은 `NSMutableSet` 및 `NSMutableDictionary`를 제외하고 [매핑 표](#mappings)에 설명된 대로 Kotlin으로 매핑됩니다.
 
@@ -415,7 +415,7 @@ Swift/Objective-C 컬렉션은 `NSMutableSet` 및 `NSMutableDictionary`를 제�
 
 [Kotlin-Swift interopedia의 예제 보기](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/overview/Collections.md).
 
-### 함수 타입(Function types)
+### 함수 타입(Function types) {id="function-types"}
 
 Kotlin 함수 타입 객체(예: 람다)는 Swift의 클로저(closures) 및 Objective-C의 블록(blocks)으로 변환됩니다.
 [Kotlin-Swift interopedia에서 람다가 있는 Kotlin 함수 예제 보기](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/functionsandproperties/Functions%20returning%20function%20type.md).
@@ -443,7 +443,7 @@ foo {
 }
 ```
 
-#### Objective-C 블록 타입의 명시적 매개변수 이름
+#### Objective-C 블록 타입의 명시적 매개변수 이름 {id="explicit-parameter-names-in-objective-c-block-types"}
 <primary-label ref="experimental-opt-in"/>
 
 내보낸 Objective-C 헤더의 Kotlin 함수 타입에 명시적인 매개변수 이름을 추가할 수 있습니다. 그러면 Xcode의 자동 완성 기능이 Objective-C 블록에서 Objective-C 함수를 호출할 때 이러한 이름을 제안합니다. 이는 생성된 블록에서 Clang 경고를 피하는 데 도움이 됩니다.
@@ -474,7 +474,7 @@ greetUserBlock:^(NSString *name) {
 >
 {style="note"}
 
-### 제네릭(Generics)
+### 제네릭(Generics) {id="generics"}
 
 Objective-C는 클래스에 정의된 "경량 제네릭(lightweight generics)"을 지원하며 기능 세트는 비교적 제한적입니다. Swift는 클래스에 정의된 제네릭을 가져와 컴파일러에 추가 타입 정보를 제공할 수 있습니다.
 
@@ -482,13 +482,13 @@ Objective-C 및 Swift의 제네릭 기능 지원은 Kotlin과 다르므로 번�
 
 Swift에서 Kotlin 제네릭을 사용하는 방법에 대한 구체적인 예제는 [Kotlin-Swift interopedia](https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/overview/ShouldRefineInSwift.md)를 참조하세요.
 
-#### 제한 사항
+#### 제한 사항 {id="limitations"}
 
 Objective-C 제네릭은 Kotlin이나 Swift의 모든 기능을 지원하지 않으므로 번역 과정에서 일부 정보가 누락됩니다.
 
 제네릭은 클래스에만 정의할 수 있으며, 인터페이스(Objective-C 및 Swift의 프로토콜)나 함수에는 정의할 수 없습니다.
 
-#### 널 가능성(Nullability)
+#### 널 가능성(Nullability) {id="nullability"}
 
 Kotlin과 Swift는 모두 타입 사양의 일부로 널 가능성(nullability)을 정의하는 반면, Objective-C는 타입의 메서드 및 프로퍼티에 널 가능성을 정의합니다. 따라서 다음과 같은 Kotlin 코드는:
 
@@ -518,7 +518,7 @@ class Sample<T : Any>() {
 
 이렇게 하면 Objective-C 헤더에서 `myVal`을 non-nullable로 표시하도록 강제합니다.
 
-#### 변성(Variance)
+#### 변성(Variance) {id="variance"}
 
 Objective-C는 제네릭을 공변(covariant) 또는 반공변(contravariant)으로 선언할 수 있게 해줍니다. Swift는 변성(variance)을 지원하지 않습니다. Objective-C에서 오는 제네릭 클래스는 필요에 따라 강제 캐스팅될 수 있습니다.
 
@@ -532,11 +532,11 @@ let variOut = GenVarOut<SomeData>(arg: sd)
 let variOutAny : GenVarOut<BaseData> = variOut as! GenVarOut<BaseData>
 ```
 
-#### 제약 조건(Constraints)
+#### 제약 조건(Constraints) {id="constraints"}
 
 Kotlin에서는 제네릭 타입에 대한 상한(upper bounds)을 제공할 수 있습니다. Objective-C도 이를 지원하지만, 복잡한 사례에서는 해당 지원을 사용할 수 없으며 현재 Kotlin - Objective-C interop에서는 지원되지 않습니다. 여기서 예외는 non-nullable 상한이 Objective-C 메서드/프로퍼티를 non-nullable로 만든다는 점입니다.
 
-#### 비활성화 방법
+#### 비활성화 방법 {id="to-disable"}
 
 프레임워크 헤더가 제네릭 없이 작성되도록 하려면 빌드 파일에 다음 컴파일러 옵션을 추가하세요.
 
@@ -546,7 +546,7 @@ binaries.framework {
 }
 ```
 
-### 전방 선언(Forward declarations)
+### 전방 선언(Forward declarations) {id="forward-declarations"}
 
 전방 선언(forward declarations)을 가져오려면 `objcnames.classes` 및 `objcnames.protocols` 패키지를 사용하세요. 예를 들어, `library.package`가 있는 Objective-C 라이브러리에 선언된 `objcprotocolName` 전방 선언을 가져오려면 특수한 전방 선언 패키지를 사용하세요: `import objcnames.protocols.objcprotocolName`.
 
@@ -591,7 +591,7 @@ fun test() {
 >
 {style="note"}
 
-## 매핑된 타입 간 캐스팅(Casting between mapped types)
+## 매핑된 타입 간 캐스팅(Casting between mapped types) {id="casting-between-mapped-types"}
 
 Kotlin 코드를 작성할 때 객체를 Kotlin 타입에서 해당하는 Swift/Objective-C 타입으로 또는 그 반대로 변환해야 할 수도 있습니다. 이 경우 [`as` 캐스트](typecasts.md#unsafe-cast-operator)를 사용할 수 있습니다. 예를 들어:
 
@@ -607,13 +607,13 @@ val string = nsString as String
 
 IDE에서 "This cast can never succeed" 경고를 잘못 표시할 수 있습니다. 그런 경우에는 `@Suppress("CAST_NEVER_SUCCEEDS")` 어노테이션을 사용하세요.
 
-## 서브클래싱(Subclassing)
+## 서브클래싱(Subclassing) {id="subclassing"}
 
-### Swift/Objective-C에서 Kotlin 클래스 및 인터페이스 서브클래싱하기
+### Swift/Objective-C에서 Kotlin 클래스 및 인터페이스 서브클래싱하기 {id="subclassing-kotlin-classes-and-interfaces-from-swift-objective-c"}
 
 Kotlin 클래스 및 인터페이스는 Swift/Objective-C 클래스 및 프로토콜에 의해 서브클래싱될 수 있습니다.
 
-### Kotlin에서 Swift/Objective-C 클래스 및 프로토콜 서브클래싱하기
+### Kotlin에서 Swift/Objective-C 클래스 및 프로토콜 서브클래싱하기 {id="subclassing-swift-objective-c-classes-and-protocols-from-kotlin"}
 
 Swift/Objective-C 클래스 및 프로토콜은 Kotlin `final` 클래스로 서브클래싱될 수 있습니다. Swift/Objective-C 타입을 상속하는 비 `final` Kotlin 클래스는 아직 지원되지 않으므로, Swift/Objective-C 타입을 상속하는 복잡한 클래스 계층 구조를 선언하는 것은 불가능합니다.
 
@@ -635,11 +635,11 @@ class ViewController : UIViewController {
 
 기본적으로 Kotlin/Native 컴파일러는 지정되지 않은(non-designated) Objective-C 초기화 구문을 `super()` 생성자로 호출하는 것을 허용하지 않습니다. Objective-C 라이브러리에 지정 초기화 구문(designated initializers)이 제대로 표시되지 않은 경우 이 동작이 불편할 수 있습니다. 이러한 컴파일러 검사를 비활성화하려면 라이브러리의 [`.def` 파일](native-definition-file.md)에 `disableDesignatedInitializerChecks = true`를 추가하세요.
 
-## C 기능
+## C 기능 {id="c-features"}
 
 라이브러리가 안전하지 않은 포인터(unsafe pointers), 구조체 등과 같은 일반 C 기능을 사용하는 예시는 [C와의 상호 운용성](native-c-interop.md)을 참조하세요.
 
-## 지원되지 않음(Unsupported)
+## 지원되지 않음(Unsupported) {id="unsupported"}
 
 Kotlin 프로그래밍 언어의 일부 기능은 아직 Objective-C 또는 Swift의 해당 기능으로 매핑되지 않았습니다. 현재 다음 기능은 생성된 프레임워크 헤더에 제대로 노출되지 않습니다.
 

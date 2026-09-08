@@ -81,7 +81,7 @@ JUnit ベースのテストを実際に見てみるために、[Kotlin Multiplat
    ./gradlew desktopTest
    ```
    
-## 次は？
+## 次は？ {id="what-s-next"}
 
 * [マルチプラットフォームテストの作成と実行](multiplatform-run-tests.md) 方法を確認する。
 * Kotlin プロジェクトにおける JUnit ベースのテストの一般的な概要については、[JVM で JUnit を使用してコードをテストする](https://kotlinlang.org/docs/jvm-test-using-junit.html) チュートリアルを参照してください。

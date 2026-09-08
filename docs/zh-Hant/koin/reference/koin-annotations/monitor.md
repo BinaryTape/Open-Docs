@@ -4,7 +4,7 @@ title: 使用 @Monitor 進行 Koin 內建效能監控
 
 `@Monitor` 註解（自 Koin Annotations 2.2.0 起提供）透過 Koin 的官方工具平台 [Kotzilla Platform](https://kotzilla.io)，為您的 Koin 組件啟用自動效能監控與追蹤 (tracing)。
 
-## Setup
+## Setup {id="setup"}
 
 新增 Kotzilla SDK 相依性：
 
@@ -42,7 +42,7 @@ fun initKoin() {
 }
 ```
 
-## Basic Usage
+## Basic Usage {id="basic-usage"}
 
 只需在您的 Koin 組件加上 `@Monitor` 註解：
 
@@ -58,7 +58,7 @@ class UserService(private val userRepository: UserRepository) {
 }
 ```
 
-## Generated Code
+## Generated Code {id="generated-code"}
 
 編譯器會自動產生一個包裝您組件的代理類別：
 
@@ -87,7 +87,7 @@ Koin 會自動使用該代理而非原始類別，透明地擷取：
 - 錯誤率與型別
 - 效能瓶頸
 
-## ViewModels Monitoring
+## ViewModels Monitoring {id="viewmodels-monitoring"}
 
 監控您的 ViewModel 以追蹤 UI 效能：
 
@@ -99,7 +99,7 @@ class DetailViewModel(private val repository: Repository) : ViewModel() {
 }
 ```
 
-## Kotzilla Platform Integration
+## Kotzilla Platform Integration {id="kotzilla-platform-integration"}
 
 監控資料會自動傳送到您的 [Kotzilla Platform](https://kotzilla.io) 工作區，提供：
 
@@ -124,7 +124,7 @@ class DetailViewModel(private val repository: Repository) : ViewModel() {
 }
 ```
 
-## Requirements
+## Requirements {id="requirements"}
 
 - 加上 `@Monitor` 註解的類別必須為 `open`（由 `allOpen` 外掛程式自動處理）
 - Kotzilla SDK 相依性在執行階段必須可用

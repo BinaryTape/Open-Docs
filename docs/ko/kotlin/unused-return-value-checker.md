@@ -38,7 +38,7 @@ fun formatGreeting(name: String): String {
 }
 ```
 
-## 사용되지 않는 반환 값 검사기 설정
+## 사용되지 않는 반환 값 검사기 설정 {id="configure-the-unused-return-value-checker"}
 
 `-Xreturn-value-checker` 컴파일러 옵션을 사용하여 컴파일러가 무시된 결과를 보고하는 방식을 제어할 수 있습니다.
 
@@ -85,7 +85,7 @@ kotlin {
 </tab>
 </tabs>
 
-## 무시된 결과를 검사할 함수 표시
+## 무시된 결과를 검사할 함수 표시 {id="mark-functions-to-check-ignored-results"}
 
 [`-Xreturn-value-checker` 컴파일러 옵션](#configure-the-unused-return-value-checker)을 `check`으로 설정하면, 검사기는 Kotlin 표준 라이브러리의 대부분의 함수처럼 표시된 표현식에서 발생하는 무시된 결과만 보고합니다.
 
@@ -118,7 +118,7 @@ fun someFunction(): Int = ...
 >
 {style="note"}
 
-## 무시된 결과에 대한 보고 억제
+## 무시된 결과에 대한 보고 억제 {id="suppress-reports-for-ignored-results"}
 
 특정 함수에 [`@IgnorableReturnValue`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-ignorable-return-value/) 어노테이션을 달아 보고를 억제할 수 있습니다. `MutableList.add`와 같이 결과를 무시하는 것이 일반적이고 예상되는 함수에 어노테이션을 추가하세요:
 
@@ -145,7 +145,7 @@ fun main() {
 }
 ```
 
-### 함수 오버라이드에서의 무시된 결과
+### 함수 오버라이드에서의 무시된 결과 {id="ignored-results-in-function-overrides"}
 
 함수를 오버라이드(override)할 때, 오버라이드된 함수는 기본 선언에 정의된 어노테이션의 보고 규칙을 상속받습니다. 이는 기본 선언이 Kotlin 표준 라이브러리나 다른 라이브러리 종속성의 일부인 경우에도 적용되므로, `Any.hashCode()`와 같은 함수를 오버라이드한 경우에도 검사기가 무시된 결과를 보고합니다.
 
@@ -171,7 +171,7 @@ fun check(g: Greeter) {
 }
 ```
 
-## 고차 함수에서의 사용되지 않는 결과 검사
+## 고차 함수에서의 사용되지 않는 결과 검사 {id="check-for-unused-results-in-higher-order-functions"}
 
 스코프 함수인 `let`과 같은 일부 고차 함수(higher-order functions)는 람다의 결과를 반환합니다. 고차 함수의 사용되지 않는 람다 결과를 검사하려면, 함수의 계약(contract)에 [Experimental](components-stability.md#stability-levels-explained) `returnsResultOf()` 계약을 추가하세요.
 
@@ -246,7 +246,7 @@ kotlin {
 </tab> 
 </tabs>
 
-## Java 어노테이션과의 상호운용성
+## Java 어노테이션과의 상호운용성 {id="interoperability-with-java-annotations"}
 
 일부 Java 라이브러리들은 다른 어노테이션을 사용하여 유사한 메커니즘을 사용합니다. 사용되지 않는 반환 값 검사기는 다음 어노테이션들을 `@MustUseReturnValues`와 동일하게 취급합니다:
 

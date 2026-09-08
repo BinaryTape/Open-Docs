@@ -2,7 +2,7 @@
 
 Kotlinプロジェクトで[OSGi](https://www.osgi.org/)サポートを有効にするには、通常のKotlinライブラリの代わりに `kotlin-osgi-bundle` を含めます。`kotlin-osgi-bundle` にはこれらすべてがすでに含まれているため、`kotlin-runtime`、`kotlin-stdlib`、`kotlin-reflect` の依存関係を削除することをお勧めします。また、外部のKotlinライブラリが含まれている場合にも注意が必要です。ほとんどの通常のKotlin依存関係はOSGiに対応していないため、それらを使用すべきではなく、プロジェクトから削除する必要があります。
 
-## Maven
+## Maven {id="maven"}
 
 Kotlin OSGiバンドルをMavenプロジェクトに含めるには：
 
@@ -33,7 +33,7 @@ Kotlin OSGiバンドルをMavenプロジェクトに含めるには：
 </dependency>
 ```
 
-## Gradle
+## Gradle {id="gradle"}
 
 `kotlin-osgi-bundle` をGradleプロジェクトに含めるには：
 
@@ -85,8 +85,8 @@ dependencies {
 </tab>
 </tabs>
 
-## FAQ
+## FAQ {id="faq"}
 
-### なぜすべてのKotlinライブラリに必要なマニフェストオプションを追加しないのですか？
+### なぜすべてのKotlinライブラリに必要なマニフェストオプションを追加しないのですか？ {id="why-not-just-add-required-manifest-options-to-all-kotlin-libraries"}
 
 それがOSGiサポートを提供する最も好ましい方法ですが、残念ながら、簡単に解消できないいわゆる[「パッケージ分割（package split）」問題](https://docs.osgi.org/specification/osgi.core/7.0.0/framework.module.html#d0e5999)のため、現時点では不可能です。また、そのような大きな変更は今のところ計画されていません。`Require-Bundle` 機能がありますが、これも最良の選択肢ではなく、使用は推奨されません。そのため、OSGi用に別のアーティファクトを作成することが決定されました。

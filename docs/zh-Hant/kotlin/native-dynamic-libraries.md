@@ -23,7 +23,7 @@
 >
 {style="note"}
 
-## 建立 Kotlin 程式庫
+## 建立 Kotlin 程式庫 {id="create-a-kotlin-library"}
 
 Kotlin/Native 編譯器可以從 Kotlin 程式碼產生動態程式庫。動態程式庫通常附帶一個 `.h` 標頭檔，您可以使用它從 C 呼叫編譯後的程式碼。
 
@@ -156,7 +156,7 @@ Kotlin/Native 編譯器可以從 Kotlin 程式碼產生動態程式庫。動態�
 
 Kotlin/Native 編譯器使用相同的規則為所有平台產生 `.h` 檔案。讓我們來看看 Kotlin 程式庫的 C API。
 
-## 產生的標頭檔
+## 產生的標頭檔 {id="generated-header-file"}
 
 讓我們檢查 Kotlin/Native 宣告是如何對應到 C 函式的。
 
@@ -247,7 +247,7 @@ typedef struct {
 
 由於 C 不支援命名空間，Kotlin/Native 編譯器會產生長名稱，以避免與現有原生專案中的其他符號發生任何可能的衝突。
 
-### 服務執行時函式
+### 服務執行時函式 {id="service-runtime-functions"}
 
 `libnative_ExportedSymbols` 結構定義了 Kotlin/Native 和您的程式庫提供的所有函式。它大量使用了巢狀匿名結構來模仿套件。`libnative_` 前綴來自程式庫名稱。
 
@@ -300,7 +300,7 @@ libnative_KULong (*getNonNullValueOfULong)(libnative_kref_kotlin_ULong);
 >
 {style="tip"}
 
-### 您的程式庫函式
+### 您的程式庫函式 {id="your-library-functions"}
 
 讓我們來看看您的程式庫中使用的獨立結構宣告。`libnative_kref_example` 欄位模仿了 Kotlin 程式碼的套件結構，並帶有 `libnative_kref.` 前綴：
 
@@ -344,7 +344,7 @@ Kotlin 的 `object Object` 可以作為 `libnative_kref_example_Object` 存取�
 
 全域函式 `forFloats`、`forIntegers` 和 `strings` 在 `libnative_kref_example` 匿名結構中被轉換為函式指標。
 
-### 進入點
+### 進入點 {id="entry-point"}
 
 現在您知道 API 是如何建立的了，`libnative_ExportedSymbols` 結構的初始化就是起點。接著讓我們看看 `libnative_api.h` 的最後一部分：
 
@@ -358,7 +358,7 @@ extern libnative_ExportedSymbols* libnative_symbols(void);
 >
 {style="note"}
 
-## 從 C 使用產生的標頭檔
+## 從 C 使用產生的標頭檔 {id="use-generated-headers-from-c"}
 
 從 C 使用產生的標頭檔非常簡單。在程式庫目錄中，建立包含以下程式碼的 `main.c` 檔案：
 
@@ -393,9 +393,9 @@ out:%s
 }
 ```
 
-## 編譯並執行專案
+## 編譯並執行專案 {id="compile-and-run-the-project"}
 
-### 在 macOS 上
+### 在 macOS 上 {id="on-macos"}
 
 要編譯 C 程式碼並將其與動態程式庫連結，請前往程式庫目錄並執行以下指令：
 
@@ -405,7 +405,7 @@ clang main.c libnative.dylib
 
 編譯器會產生一個名為 `a.out` 的可執行檔。執行它以從 C 程式庫執行 Kotlin 程式碼。
 
-### 在 Linux 上
+### 在 Linux 上 {id="on-linux"}
 
 要編譯 C 程式碼並將其與動態程式庫連結，請前往程式庫目錄並執行以下指令：
 
@@ -415,7 +415,7 @@ gcc main.c libnative.so
 
 編譯器會產生一個名為 `a.out` 的可執行檔。執行它以從 C 程式庫執行 Kotlin 程式碼。在 Linux 上，您需要將 `.` 加入 `LD_LIBRARY_PATH`，以便讓應用程式知道從目前資料夾載入 `libnative.so` 程式庫。
 
-### 在 Windows 上
+### 在 Windows 上 {id="on-windows"}
 
 首先，您需要安裝支援 x64_64 目標的 Microsoft Visual C++ 編譯器。
 
@@ -439,7 +439,7 @@ gcc main.c libnative.so
 
    該指令會產生 `main.exe` 檔案，您可以直接執行它。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * [進一步了解與 Swift/Objective-C 的互通性](native-objc-interop.md)
 * [查看 Kotlin/Native 作為 Apple 框架教學](apple-framework.md)

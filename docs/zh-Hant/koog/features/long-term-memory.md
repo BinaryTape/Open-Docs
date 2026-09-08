@@ -10,7 +10,7 @@ status: beta
 - **Retrieval**（檢索） — 使用來自記憶存儲的相關上下文（檢索增強生成，即 RAG）來增強 LLM 提示詞。
 - **Ingestion**（攝取） — 將對話訊息持久化到記憶存儲中，以供未來檢索。
 
-## 快速入門
+## 快速入門 {id="quick-start"}
 
 === "Kotlin"
 
@@ -58,7 +58,7 @@ status: beta
     Object result = agent.run("What did we discuss yesterday?");
     ```
 
-## 僅檢索 (RAG)
+## 僅檢索 (RAG) {id="retrieval-only-rag"}
 
 當您已有預先填充的知識庫時，請使用不含攝取的檢索：
 
@@ -87,7 +87,7 @@ status: beta
         .build();
     ```
 
-### 提示詞增強器 (Prompt Augmenters)
+### 提示詞增強器 (Prompt Augmenters) {id="prompt-augmenters"}
 
 | 增強器 | 行為 |
 |---|---|
@@ -95,7 +95,7 @@ status: beta
 | `UserPromptAugmenter()` | 將檢索到的上下文作為額外的文字部分附加到最後一則使用者訊息的末尾（若無使用者訊息則不執行任何操作） |
 | `PromptAugmenter { prompt, context -> ... }` | 透過 lambda 進行自訂增強 |
 
-### 搜尋查詢提供者 (Search Query Providers)
+### 搜尋查詢提供者 (Search Query Providers) {id="search-query-providers"}
 
 預設情況下，檢索流程使用最後一則使用者訊息作為搜尋查詢。您可以透過提供 `SearchQueryProvider` 來自訂此行為：
 
@@ -137,14 +137,14 @@ status: beta
         .build();
     ```
 
-### 搜尋策略 (Search Strategies)
+### 搜尋策略 (Search Strategies) {id="search-strategies"}
 
 | 策略                                                  | 行為                 |
 |-----------------------------------------------------------|--------------------------|
 | `SimilaritySearchStrategy()`                              | 向量相似度語義搜尋 — **預設** |
 | `query -> new SimilaritySearchRequest(query, 20, 0, 0.0, null)` | 透過 lambda 進行自訂搜尋 |
 
-## 僅攝取
+## 僅攝取 {id="ingestion-only"}
 
 使用不含檢索的攝取來隨著時間建立記憶存儲：
 
@@ -178,7 +178,7 @@ status: beta
 
 攝取會在代理執行完成時執行一次：最終累積的工作階段提示詞/歷程記錄會以單一批次的形式傳遞給配置的 `documentExtractor`。
 
-## 停用自動行為
+## 停用自動行為 {id="disabling-automatic-behavior"}
 
 預設情況下，檢索和攝取會自動執行（檢索在每次 LLM 呼叫之前執行；攝取在代理完成時執行一次）。您可以停用自動行為，同時仍可從策略節點內存取已配置的存儲和策略：
 
@@ -220,7 +220,7 @@ status: beta
 2. **僅手動**：設定 `enableAutomaticRetrieval = false` / `enableAutomaticIngestion = false`，並在您的圖表策略節點中使用存儲和策略。
 3. **混合**：將自動攝取與手動檢索結合（反之亦然）。
 
-## 從策略節點存取長期記憶
+## 從策略節點存取長期記憶 {id="accessing-long-term-memory-from-strategy-nodes"}
 
 在策略節點內使用 `withLongTermMemory { }` 來直接搜尋或新增記錄：
 
@@ -247,7 +247,7 @@ val myNode by node<String, Unit> {
 }
 ```
 
-## 自訂文件擷取器
+## 自訂文件擷取器 {id="custom-document-extractor"}
 
 實作 `DocumentExtractor` 以控制訊息在存儲前的轉換方式：
 
@@ -266,7 +266,7 @@ install(LongTermMemory) {
 }
 ```
 
-## 實作自訂存儲
+## 實作自訂存儲 {id="implementing-custom-storage"}
 
 實作 `SearchStorage` 和/或 `WriteStorage` 以連接到您的向量資料庫：
 

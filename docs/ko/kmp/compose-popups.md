@@ -12,7 +12,7 @@ Compose 멀티플랫폼의 다이얼로그(Dialog)는 포커스를 가져오고,
 사용자의 작업을 중단하고 계속하기 전에 결정이 필요한 경우(예: 확인, 알림 또는 짧은 양식에 대한 반응)에는 [`Dialog()`](https://developer.android.com/reference/kotlin/androidx/compose/ui/window/Dialog.composable)를 사용하세요. 데스크톱에서 별도의 OS 수준 다이얼로그를 사용하려면 [`DialogWindow()`](compose-desktop-top-level-windows-management.md#show-dialogs)를 참조하세요.
 드롭다운, 툴팁, 메뉴와 같이 현재 창 내부의 컴포넌트에 고정되어 있는 가볍고 차단되지 않는 오버레이에는 `Popup()`을 사용하세요.
 
-## 팝업 위치 지정하기
+## 팝업 위치 지정하기 {id="position-a-popup"}
 
 팝업의 위치를 지정하려면 `alignment`와 `offset`을 사용하거나, 고정된 배치를 위해 커스텀 `PopupPositionProvider`를 사용하세요.
 
@@ -88,7 +88,7 @@ Column(Modifier.padding(24.dp)) {
 }
 ```
 
-## 동작 커스텀하기
+## 동작 커스텀하기 {id="customize-behavior"}
 
 `PopupProperties`를 사용하여 팝업이 포커스와 닫기(dismissal)를 처리하는 방식을 제어할 수 있습니다.
 
@@ -99,7 +99,7 @@ Column(Modifier.padding(24.dp)) {
 `Popup()`과 `PopupProperties`는 공통(common) API의 일부입니다.
 하지만 일부 속성은 공통 소스 세트에서 사용할 수 없습니다. 예를 들어, `usePlatformInsets`는 iOS에서만 사용할 수 있으며, 팝업의 콘텐츠를 플랫폼 인셋(세이프 에어리어) 내로 제한합니다.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 전체 API 세부 정보는 Jetpack Compose 문서의 레퍼런스를 참조하세요.
 * [`Popup()`](https://developer.android.com/reference/kotlin/androidx/compose/ui/window/Popup.composable)

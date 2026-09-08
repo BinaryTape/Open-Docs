@@ -1,14 +1,14 @@
-## 概要
+## 概要 {id="overview"}
 
 Koogは、`AIAgentStorage`を使用してデータを保存および受け渡す方法を提供します。これは、異なるノード間やサブグラフ間でもデータを渡すための型安全な方法として設計されたキーバリューストレージ（key-value storage）システムです。
 
 ストレージは、エージェントノードで使用可能な`storage`プロパティ（`storage: AIAgentStorage`）を介してアクセスでき、AIエージェントシステムの異なるコンポーネント間でシームレスなデータ共有を可能にします。
 
-## キーと値の構造
+## キーと値の構造 {id="key-and-value-structure"}
 
 キーバリューデータのストレージ構造は、`AIAgentStorageKey`データクラスに依存しています。`AIAgentStorageKey`の詳細については、以下のセクションを参照してください。
 
-### AIAgentStorageKey
+### AIAgentStorageKey {id="aiagentstoragekey"}
 
 ストレージは、データの保存と取得時に型安全性を確保するために、型指定されたキーシステムを使用します。
 
@@ -20,11 +20,11 @@ Koogは、`AIAgentStorage`を使用してデータを保存および受け渡す
 
 - 各キーインスタンスは一意です。`name`は一意性を判断するためには使用されないため、同じ名前のキーを複数持つことができます。これにより、ストレージ内のデータを誤って上書きするリスクなく、既存のストラテジー（Strategy）コンポーネントを再利用できます。
 
-## 使用例
+## 使用例 {id="usage-examples"}
 
 以下のセクションでは、ストレージキーを作成し、それを使用してデータを保存および取得する実際の例を示します。
 
-### データを表すクラスの定義
+### データを表すクラスの定義 {id="defining-a-class-that-represents-your-data"}
 
 データを保存して受け渡すための最初のステップは、そのデータを表すクラスを作成することです。以下は、基本的なユーザーデータを持つ単純なクラスの例です。
 
@@ -50,7 +50,7 @@ Koogは、`AIAgentStorage`を使用してデータを保存および受け渡す
 
 定義が完了したら、以下で説明するように、このクラスを使用してストレージキーを作成します。
 
-### ストレージキーの作成
+### ストレージキーの作成 {id="creating-a-storage-key"}
 
 定義したデータ構造に対して、型指定されたストレージキーを作成します。
 
@@ -92,7 +92,7 @@ Koogは、`AIAgentStorage`を使用してデータを保存および受け渡す
 
 `createStorageKey`関数は、識別やデバッグの目的で使用される文字列パラメータと、値の型を表す`TypeToken`を受け取ります（Javaの場合。Kotlinでは自動的に具現化された型パラメータ（reified generics）が使用されます）。
 
-### データの保存
+### データの保存 {id="storing-data"}
 
 作成したストレージキーを使用してデータを保存するには、ノード内で`storage.set(key: AIAgentStorageKey<T>, value: T)`メソッドを使用します。
 
@@ -146,7 +146,7 @@ Koogは、`AIAgentStorage`を使用してデータを保存および受け渡す
     ```
     <!--- KNIT exampleDataTransferBetweenNodesJava03.java -->
 
-### データの取得
+### データの取得 {id="retrieving-data"}
 
 データを取得するには、ノード内で`storage.get`メソッドを使用します。
 
@@ -209,7 +209,7 @@ Koogは、`AIAgentStorage`を使用してデータを保存および受け渡す
     ```
     <!--- KNIT exampleDataTransferBetweenNodesJava04.java -->
 
-## APIドキュメント
+## APIドキュメント {id="api-documentation"}
 
 `AIAgentStorage`クラスに関する完全なリファレンスについては、[AIAgentStorage](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentStorage)を参照してください。
 
@@ -223,7 +223,7 @@ Koogは、`AIAgentStorage`を使用してデータを保存および受け渡す
 - [set](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentStorage.set)
 - [toMap](api:agents-core::ai.koog.agents.core.agent.entity.AIAgentStorage.toMap)
 
-## 追加情報
+## 追加情報 {id="additional-information"}
 
 - `AIAgentStorage`はスレッドセーフであり、同時アクセスが適切に処理されるようにMutex（ミューテックス）を使用しています。
 - 値を取得する際、型キャストは自動的に処理され、アプリケーション全体で型安全性が確保されます。

@@ -4,7 +4,7 @@
 
 本教學示範如何使用 IntelliJ IDEA 和瀏覽器來偵錯使用 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) 建置的 Kotlin/Wasm 應用程式。
 
-## 開始之前
+## 開始之前 {id="before-you-start"}
 
 1. [設定您的 Kotlin Multiplatform 開發環境](https://kotlinlang.org/docs/multiplatform/quickstart.html#set-up-the-environment)。
 2. 按照說明[建立一個目標為 Kotlin/Wasm 的 Kotlin Multiplatform 專案](wasm-get-started.md#create-a-project)。
@@ -14,7 +14,7 @@
 >
 {style="note"}
 
-## 在 IntelliJ IDEA 中偵錯
+## 在 IntelliJ IDEA 中偵錯 {id="debug-in-intellij-idea"}
 
 您建立的 Kotlin Multiplatform 專案包含一個由 Kotlin/Wasm 驅動的 Compose Multiplatform 應用程式。您可以直接在 IntelliJ IDEA 中偵錯此應用程式，無需額外配置。
 
@@ -39,7 +39,7 @@
 
    ![Compose 應用程式偵錯工具](wasm-debug-pane.png){width=600}
 
-### 檢查您的應用程式
+### 檢查您的應用程式 {id="inspect-your-application"}
 
 > 如果您正在[瀏覽器中偵錯](#debug-in-your-browser)，可以按照相同的步驟來檢查您的應用程式。
 >
@@ -59,7 +59,7 @@
 4. 修改程式碼並再次執行應用程式以驗證其運作情況。
 5. 完成偵錯後，點擊帶有中斷點的行號以移除中斷點。
 
-## 在瀏覽器中偵錯
+## 在瀏覽器中偵錯 {id="debug-in-your-browser"}
 
 您也可以在瀏覽器中偵錯此 Compose Multiplatform 應用程式，無需額外配置。
 
@@ -87,7 +87,7 @@
 
    ![檢查呼叫堆疊](wasm-debug-scope.png){width=450}
 
-### 使用自訂格式化程序
+### 使用自訂格式化程序 {id="use-custom-formatters"}
 
 在瀏覽器中偵錯 Kotlin/Wasm 程式碼時，自訂格式化程序有助於以更使用者友善且易於理解的方式顯示和定位變數值。
 
@@ -118,14 +118,14 @@ kotlin {
 }
 ```
 
-## 留下回饋
+## 留下回饋 {id="leave-feedback"}
 
 我們非常感謝您對偵錯體驗的任何回饋！
 
 * ![Slack](slack.svg){width=25}{type="joined"} Slack：[獲取 Slack 邀請](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)並在我們的 [#webassembly](https://kotlinlang.slack.com/archives/CDFP59223) 頻道中直接向開發者提供回饋。
 * 在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-56492) 中提供您的回饋。
 
-## 下一步？
+## 下一步？ {id="what-s-next"}
 
 * 在這段 [YouTube 影片](https://www.youtube.com/watch?v=t3FUWfJWrjU&t=2703s)中觀看 Kotlin/Wasm 偵錯的實際操作。
 * 嘗試更多 Kotlin/Wasm 範例：

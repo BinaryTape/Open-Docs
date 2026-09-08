@@ -14,7 +14,7 @@ App Store Connect에서 앱에 올바른 개인정보 처리 매니페스트(pri
 >
 {style="tip"}
 
-## 무엇이 문제인가요
+## 무엇이 문제인가요 {id="what-s-the-issue"}
 
 Apple의 App Store 제출 요구 사항이 [2024년 봄에 변경되었습니다](https://developer.apple.com/news/?id=r1henawx).
 [App Store Connect](https://appstoreconnect.apple.com)는 이제 개인정보 처리 매니페스트에 필수 사유 API를 사용하는 이유를 명시하지 않은 앱을 허용하지 않습니다.
@@ -23,7 +23,7 @@ Apple의 App Store 제출 요구 사항이 [2024년 봄에 변경되었습니다
 
 이상적으로는 앱에서 사용하는 모든 SDK가 자체 개인정보 처리 매니페스트를 제공해야 하며, 이 경우 사용자가 걱정할 필요가 없습니다. 하지만 일부 종속성(dependencies)이 이를 제공하지 않는 경우, App Store 제출 시 플래그가 지정될 수 있습니다.
 
-## 해결 방법
+## 해결 방법 {id="how-to-resolve"}
 
 앱 제출을 시도한 후 App Store로부터 상세 이슈 목록을 받았다면, Apple 문서를 따라 매니페스트를 작성할 수 있습니다:
 
@@ -37,7 +37,7 @@ Apple의 App Store 제출 요구 사항이 [2024년 봄에 변경되었습니다
 
 새로운 개인정보 처리 매니페스트가 App Store 요구 사항을 충족하는 데 도움이 되지 않거나 단계를 진행하는 방법을 파악할 수 없는 경우, [이 YouTrack 이슈](https://youtrack.jetbrains.com/issue/KT-67603)에 사례를 공유하고 저희에게 연락해 주세요.
 
-## 필수 사유 API 사용처 찾기
+## 필수 사유 API 사용처 찾기 {id="find-usages-of-required-reason-apis"}
 
 앱의 Kotlin 코드나 종속성 중 하나가 `platform.posix`와 같은 라이브러리의 필수 사유 API(예: `fstat`)에 액세스할 수 있습니다:
 
@@ -59,7 +59,7 @@ fun useRequiredReasonAPI() {
 
 [이 스크립트를 별도로 다운로드](https://github.com/JetBrains/kotlin/blob/rrf_v0.0.1/libraries/tools/required-reason-finder/required_reason_finder.py)하여 검토한 후 `python3`를 사용하여 실행할 수도 있습니다.
 
-## Kotlin 아티팩트에 .xcprivacy 파일 배치하기
+## Kotlin 아티팩트에 .xcprivacy 파일 배치하기 {id="place-the-xcprivacy-file-in-your-kotlin-artifacts"}
 
 Kotlin 아티팩트에 `PrivacyInfo.xcprivacy` 파일을 포함해야 하는 경우, `apple-privacy-manifests` 플러그인을 사용하세요:
 
@@ -80,9 +80,9 @@ kotlin {
 
 이 플러그인은 개인정보 처리 매니페스트 파일을 [해당 출력 위치](https://developer.apple.com/documentation/bundleresources/adding-a-privacy-manifest-to-your-app-or-third-party-sdk?language=objc)로 복사합니다.
 
-## 알려진 사용 사례
+## 알려진 사용 사례 {id="known-usages"}
 
-### Compose Multiplatform
+### Compose Multiplatform {id="compose-multiplatform"}
 
 Compose Multiplatform을 사용하면 바이너리에 `fstat`, `stat` 및 `mach_absolute_time` 사용이 포함될 수 있습니다. 이러한 함수가 추적이나 핑거프린팅(fingerprinting)에 사용되지 않고 기기 외부로 전송되지 않더라도, Apple은 이를 필수 사유가 누락된 API로 플래그를 지정할 수 있습니다.
 
@@ -90,7 +90,7 @@ Compose Multiplatform을 사용하면 바이너리에 `fstat`, `stat` 및 `mach_
 
 Compose Multiplatform에서 사용되는 필수 사유 API에 대한 추가 업데이트는 [이 이슈](https://github.com/JetBrains/compose-multiplatform/issues/4738)를 확인하세요.
 
-### 1.9.10 이하 버전의 Kotlin/Native 런타임
+### 1.9.10 이하 버전의 Kotlin/Native 런타임 {id="kotlin-native-runtime-in-versions-1-9-10-or-earlier"}
 
 `mach_absolute_time` API는 Kotlin/Native 런타임의 `mimalloc` 할당자(allocator)에서 사용됩니다. 이는 Kotlin 1.9.10 및 이전 버전의 기본 할당자였습니다.
 

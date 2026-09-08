@@ -6,7 +6,7 @@
 JVMアプリケーションでは、JDBCを使用してデータベースとやり取りします。
 便宜上、Spring FrameworkはJDBCの使用を簡素化し、一般的なエラーの回避に役立つ `JdbcTemplate` クラスを提供しています。
 
-## データベース・サポートの追加
+## データベース・サポートの追加 {id="add-database-support"}
 
 Spring Frameworkベースのアプリケーションにおける一般的な慣行は、いわゆる _サービス (service)_ レイヤー内にデータベース・アクセス・ロジックを実装することです。ここはビジネス・ロジックが存在する場所です。
 Springでは、クラスがアプリケーションのサービス・レイヤーに属することを示すために、クラスに `@Service` アノテーションを付加する必要があります。
@@ -72,7 +72,7 @@ class MessageService(private val db: JdbcTemplate) {
    </def>
 </deflist>
 
-## MessageControllerクラスの更新
+## MessageControllerクラスの更新 {id="update-the-messagecontroller-class"}
 
 新しい `MessageService` クラスを使用するように `MessageController.kt` を更新します：
 
@@ -112,7 +112,7 @@ class MessageController(private val service: MessageService) {
    </def>
 </deflist>
 
-## MessageServiceクラスの更新
+## MessageServiceクラスの更新 {id="update-the-messageservice-class"}
 
 `Message` クラスの `id` は、NULL許容 (nullable) の String として宣言されていました：
 
@@ -157,7 +157,7 @@ class MessageService(private val db: JdbcTemplate) {
 
 アプリケーションコードのデータベース対応が完了しました。次はデータソースを構成する必要があります。
 
-## データベースの構成
+## データベースの構成 {id="configure-the-database"}
 
 アプリケーションでデータベースを構成します：
 
@@ -192,7 +192,7 @@ class MessageService(private val db: JdbcTemplate) {
    これらの設定により、Spring Bootアプリケーションのデータベースが有効になります。  
    一般的なアプリケーション・プロパティの完全なリストについては、[Springのドキュメント](https://docs.spring.io/spring-boot/appendix/application-properties/index.html)を参照してください。
 
-## HTTPリクエスト経由でデータベースにメッセージを追加する
+## HTTPリクエスト経由でデータベースにメッセージを追加する {id="add-messages-to-database-via-http-request"}
 
 作成済みのエンドポイントを操作するには、HTTPクライアントを使用する必要があります。IntelliJ IDEAでは、組み込みのHTTPクライアントを使用します：
 
@@ -240,7 +240,7 @@ class MessageService(private val db: JdbcTemplate) {
 
    ![GETリクエストの実行](execute-get-requests.png){width=700}
 
-### リクエストを実行する別の方法 {initial-collapse-state="collapsed" collapsible="true"}
+### リクエストを実行する別の方法 {initial-collapse-state="collapsed" collapsible="true" id="alternative-way-to-execute-requests"}
 
 他のHTTPクライアントやcURLコマンドライン・ツールを使用することもできます。たとえば、ターミナルで次のコマンドを実行すると同じ結果が得られます：
 
@@ -254,7 +254,7 @@ curl -X POST --location "http://localhost:8080" -H "Content-Type: application/js
 curl -X GET --location "http://localhost:8080"
 ```
 
-## IDによるメッセージの取得
+## IDによるメッセージの取得 {id="retrieve-messages-by-id"}
 
 個々のメッセージをIDで取得できるように、アプリケーションの機能を拡張します。
 
@@ -454,7 +454,7 @@ class MessageController(private val service: MessageService) {
 ```
 {initial-collapse-state="collapsed" collapsible="true"}
 
-## アプリケーションの実行
+## アプリケーションの実行 {id="run-the-application"}
 
 Springアプリケーションの実行準備が整いました：
 
@@ -484,7 +484,7 @@ Springアプリケーションの実行準備が整いました：
 
     ![IDによるメッセージの取得](retrieve-message-by-its-id.png){width=700}
 
-## 次の手順
+## 次の手順 {id="next-step"}
 
 最後の手順では、Spring Dataを使用して、より一般的なデータベース接続方法を使用する方法について説明します。 
 

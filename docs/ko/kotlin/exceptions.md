@@ -19,7 +19,7 @@ Kotlin은 기본적으로 모든 예외를 _언체크(unchecked)_ 예외로 취�
 예외는 [`Throwable`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/) 클래스의 하위 클래스인 
 [`Exception`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-exception/) 클래스의 하위 클래스로 표현됩니다. 계층 구조에 대한 자세한 내용은 [예외 계층 구조](#exception-hierarchy) 섹션을 참조하세요. `Exception`은 [`open 클래스`](inheritance.md)이므로, 애플리케이션의 특정 요구 사항에 맞게 [커스텀 예외](#create-custom-exceptions)를 생성할 수 있습니다.
 
-## 예외 발생시키기
+## 예외 발생시키기 {id="throw-exceptions"}
 
 `throw` 키워드를 사용하여 수동으로 예외를 발생시킬 수 있습니다.
 예외를 던지는 것은 코드에서 예상치 못한 런타임 오류가 발생했음을 나타냅니다.
@@ -46,7 +46,7 @@ if (userInput < 0) {
 이 예제에서는 사용자가 음수 값을 입력할 때 `IllegalArgumentException`이 발생합니다.
 커스텀 에러 메시지를 작성하고 예외의 원래 원인(`cause`)을 유지할 수 있으며, 이는 [스택 트레이스](#stack-trace)에 포함됩니다.
 
-### 전제 조건 함수를 사용한 예외 발생시키기
+### 전제 조건 함수를 사용한 예외 발생시키기 {id="throw-exceptions-with-precondition-functions"}
 
 Kotlin은 전제 조건(precondition) 함수를 사용하여 자동으로 예외를 던지는 추가적인 방법을 제공합니다.
 전제 조건 함수는 다음과 같습니다:
@@ -60,7 +60,7 @@ Kotlin은 전제 조건(precondition) 함수를 사용하여 자동으로 예외
 이러한 함수는 특정 조건이 충족되지 않으면 프로그램의 흐름을 계속할 수 없는 상황에 적합합니다.
 이는 코드를 간소화하고 이러한 검사를 효율적으로 처리할 수 있게 해줍니다.
 
-#### require() 함수
+#### require() 함수 {id="require-function"}
 
 함수의 작동에 입력 인수가 중요하고, 이 인수가 유효하지 않으면 함수가 진행될 수 없을 때 [`require()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/require.html) 함수를 사용하여 입력 인수의 유효성을 검사합니다.
 
@@ -99,7 +99,7 @@ fun main() {
 >
 {style="note"}
 
-#### check() 함수
+#### check() 함수 {id="check-function"}
 
 객체나 변수의 상태를 검증하려면 [`check()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/check.html) 함수를 사용하세요.
 검사에 실패하면 해결해야 할 로직 오류가 있음을 나타냅니다.
@@ -147,7 +147,7 @@ fun main() {
 >
 {style="note"}
 
-#### error() 함수
+#### error() 함수 {id="error-function"}
 
 [`error()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/error.html) 함수는 논리적으로 발생해서는 안 되는 코드 내의 잘못된 상태나 조건을 알리는 데 사용됩니다.
 예상치 못한 상태를 만났을 때와 같이 코드에서 의도적으로 예외를 던지고 싶을 때 적합합니다.
@@ -181,7 +181,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-## try-catch 블록을 사용한 예외 처리
+## try-catch 블록을 사용한 예외 처리 {id="handle-exceptions-using-try-catch-blocks"}
 
 예외가 발생하면 프로그램의 정상적인 실행이 중단됩니다.
 `try` 및 `catch` 키워드를 사용하여 예외를 우아하게 처리함으로써 프로그램을 안정적으로 유지할 수 있습니다.
@@ -295,7 +295,7 @@ fun main() {
 
 `WithdrawalException`을 처리하는 일반적인 catch 블록은 더 구체적인 catch 블록에서 먼저 포착되지 않는 한, `InsufficientFundsException`과 같은 특정 예외를 포함하여 해당 타입의 모든 예외를 포착합니다.
 
-### finally 블록
+### finally 블록 {id="the-finally-block"}
 
 `finally` 블록은 `try` 블록의 성공 여부나 예외 발생 여부와 관계없이 항상 실행되는 코드를 포함합니다.
 `finally` 블록을 사용하면 `try` 및 `catch` 블록 실행 후 코드를 정리할 수 있습니다.
@@ -407,7 +407,7 @@ fun main() {
 
 Kotlin에서는 특정 요구 사항에 따라 `catch` 블록만, `finally` 블록만, 또는 둘 다 유연하게 사용할 수 있지만, `try` 블록은 항상 최소한 하나 이상의 `catch` 블록 또는 `finally` 블록과 함께 사용해야 합니다.
 
-## 커스텀 예외 생성
+## 커스텀 예외 생성 {id="create-custom-exceptions"}
 
 Kotlin에서는 내장된 `Exception` 클래스를 확장하는 클래스를 생성하여 커스텀 예외를 정의할 수 있습니다. 
 이를 통해 애플리케이션의 요구 사항에 맞는 더욱 구체적인 에러 타입을 만들 수 있습니다.
@@ -511,7 +511,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-## Nothing 타입
+## Nothing 타입 {id="the-nothing-type"}
 
 Kotlin에서 모든 식은 타입을 가집니다.
 `throw IllegalArgumentException()` 식의 타입은 [`Nothing`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-nothing.html)입니다. 이는 모든 다른 타입의 하위 타입인 내장 타입으로, [바텀 타입(bottom type)](https://en.wikipedia.org/wiki/Bottom_type)으로도 알려져 있습니다. 
@@ -562,7 +562,7 @@ fun main() {
 
 보시다시피 `TODO()` 함수는 항상 [`NotImplementedError`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-not-implemented-error/) 예외를 던집니다.
 
-## 예외 클래스
+## 예외 클래스 {id="exception-classes"}
 
 Kotlin에서 흔히 볼 수 있는 몇 가지 일반적인 예외 유형을 살펴보겠습니다. 이들은 모두 [`RuntimeException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-runtime-exception/) 클래스의 하위 클래스입니다:
 
@@ -636,7 +636,7 @@ Kotlin의 널 안전성(null safety) 기능은 NullPointerException의 위험을
 
 Kotlin에서는 모든 예외가 언체크 예외이므로 명시적으로 포착할 필요는 없지만, 원한다면 유연하게 포착할 수 있습니다.
 
-### 예외 계층 구조
+### 예외 계층 구조 {id="exception-hierarchy"}
 
 Kotlin 예외 계층 구조의 뿌리는 [`Throwable`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/) 클래스입니다.
 여기에는 [`Error`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-error/)와 [`Exception`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-exception/)이라는 두 가지 직접적인 하위 클래스가 있습니다:
@@ -654,7 +654,7 @@ Kotlin은 `NullPointerException`과 같은 일반적인 `RuntimeException`을 �
 
 ![RuntimeException 계층 구조](runtime-exception.svg){width=700}
 
-## 스택 트레이스
+## 스택 트레이스 {id="stack-trace"}
 
 _스택 트레이스(stack trace)_는 디버깅을 위해 런타임 환경에서 생성된 보고서입니다.
 이는 에러나 예외가 발생한 지점까지 이어지는 함수 호출 시퀀스를 보여줍니다.
@@ -689,7 +689,7 @@ Exception in thread "main" java.lang.ArithmeticException: This is an arithmetic 
 * `at MainKt.main (Main.kt:3)`: 메서드 이름(`MainKt.main`)과 메서드가 호출된 소스 파일 및 줄 번호(`Main.kt:3`)를 보여줍니다.
 * `at MainKt.main (Main.kt)`: 예외가 `Main.kt` 파일의 `main()` 함수에서 발생했음을 보여줍니다.
 
-## Java, Swift 및 Objective-C와의 예외 상호 운용성
+## Java, Swift 및 Objective-C와의 예외 상호 운용성 {id="exception-interoperability-with-java-swift-and-objective-c"}
 
 Kotlin은 모든 예외를 언체크 예외로 취급하기 때문에, 체크 예외와 언체크 예외를 구분하는 언어에서 이러한 예외를 호출할 때 복잡한 상황이 발생할 수 있습니다.
 Kotlin과 Java, Swift, Objective-C와 같은 언어 간의 이러한 예외 처리 차이를 해결하기 위해 [`@Throws`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throws/) 어노테이션을 사용할 수 있습니다.

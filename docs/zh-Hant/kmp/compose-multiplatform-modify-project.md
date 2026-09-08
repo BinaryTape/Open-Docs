@@ -16,7 +16,7 @@
 
 讓我們修改由 Kotlin Multiplatform 精靈產生的程式碼，並在 `App` composable 中顯示目前日期。為此，您將向專案新增一個新的相依性、強化 UI，並在各個平台上重新執行應用程式。
 
-## 新增相依性
+## 新增相依性 {id="add-a-new-dependency"}
 
 您可以使用平台特定（platform-specific）的程式庫以及 [expected 與 actual 宣告](multiplatform-expect-actual.md)來取得日期。但我們建議僅在沒有可用的 Kotlin Multiplatform 程式庫時才使用此方法。在這種情況下，您可以依賴 [kotlinx-datetime](https://github.com/Kotlin/kotlinx-datetime) 程式庫。
 
@@ -104,7 +104,7 @@
 > 
 {style="note"}
 
-## 強化使用者介面
+## 強化使用者介面 {id="enhance-the-user-interface"}
 
 1. 開啟 `shared/src/commonMain/kotlin/App.kt` 檔案，並在 `App()` composable 之後新增以下函式，該函式會傳回包含目前日期的字串：
 
@@ -159,7 +159,7 @@
 
    ![未解決的參照](compose-unresolved-references.png)
 
-## 重新執行應用程式
+## 重新執行應用程式 {id="rerun-the-application"}
 
 您現在可以針對 Android、iOS、桌面版和 Web 使用相同的 运行配置 [重新執行應用程式](compose-multiplatform-create-first-app.md#run-your-application)：
 
@@ -175,13 +175,13 @@
     </TabItem>
 </Tabs>
 
-## 下一步
+## 下一步 {id="next-step"}
 
 在教學的下一部分中，您將學習新的 Compose Multiplatform 概念，並從頭開始建立您自己的應用程式。
 
 **[前往下一部分](compose-multiplatform-new-project.md)**
 
-## 取得協助
+## 取得協助 {id="get-help"}
 
 * **Kotlin Slack**。取得 [邀請](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) 並加入 [#multiplatform](https://kotlinlang.slack.com/archives/C3PQML5NU) 頻道。
 * **Kotlin 問題追蹤器**。[回報新問題](https://youtrack.jetbrains.com/newIssue?project=KT)。

@@ -4,7 +4,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 
 대부분의 언어 변경 사항은 업데이트 변경 로그나 컴파일러 경고와 같은 다른 채널을 통해 이미 발표되었지만, 이 문서는 이를 모두 요약하여 Kotlin 1.5에서 Kotlin 1.6으로 마이그레이션하기 위한 전체 참조를 제공합니다.
 
-## 기본 용어
+## 기본 용어 {id="basic-terms"}
 
 이 문서에서는 몇 가지 종류의 호환성을 소개합니다.
 
@@ -14,9 +14,9 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 
 이러한 정의는 순수 Kotlin에 대해서만 제공된다는 점을 기억하십시오. 다른 언어 관점(예: Java)에서의 Kotlin 코드 호환성은 이 문서의 범위를 벗어납니다.
 
-## 언어 (Language)
+## 언어 (Language) {id="language"}
 
-### enum, sealed, Boolean 대상을 가진 when 문을 기본적으로 망라적으로 만들기
+### enum, sealed, Boolean 대상을 가진 when 문을 기본적으로 망라적으로 만들기 {id="make-when-statements-with-enum-sealed-and-boolean-subjects-exhaustive-by-default"}
 
 > **이슈**: [KT-47709](https://youtrack.jetbrains.com/issue/KT-47709)
 >
@@ -31,7 +31,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.6.0: enum, sealed 또는 Boolean 대상을 가진 `when` 문이 망라적이지 않은 경우 경고 도입 (progressive 모드에서는 오류)
 > - 1.7.0: 이 경고를 오류로 격상
 
-### when-with-subject에서 혼동을 주는 문법 지원 중단
+### when-with-subject에서 혼동을 주는 문법 지원 중단 {id="deprecate-confusing-grammar-in-when-with-subject"}
 
 > **이슈**: [KT-48385](https://youtrack.jetbrains.com/issue/KT-48385)
 >
@@ -47,7 +47,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.8.0: 이 경고를 오류로 격상
 > - &gt;= 1.8: 지원 중단된 일부 구조를 새로운 언어 기능을 위해 재사용
 
-### 컴패니언 및 중첩 객체의 상위 생성자 호출에서 클래스 멤버 접근 금지
+### 컴패니언 및 중첩 객체의 상위 생성자 호출에서 클래스 멤버 접근 금지 {id="prohibit-access-to-class-members-in-the-super-constructor-call-of-its-companion-and-nested-objects"}
 
 > **이슈**: [KT-25289](https://youtrack.jetbrains.com/issue/KT-25289)
 >
@@ -63,7 +63,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.6.0: 이 경고를 오류로 격상,
 >  `-XXLanguage:-ProhibitSelfCallsInNestedObjects`를 사용하여 일시적으로 1.6 이전의 동작으로 되돌릴 수 있음
 
-### 타입 널 가능성 개선 사항
+### 타입 널 가능성 개선 사항 {id="type-nullability-enhancement-improvements"}
 
 > **이슈**: [KT-48623](https://youtrack.jetbrains.com/issue/KT-48623)
 >
@@ -79,7 +79,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.7.0: Java 타입의 널 가능성을 더 정밀하게 추론,
 >   `-XXLanguage:-TypeEnhancementImprovementsInStrictMode`를 사용하여 일시적으로 1.7 이전의 동작으로 되돌릴 수 있음
 
-### 서로 다른 숫자 타입 간의 암시적 강제 변환 방지
+### 서로 다른 숫자 타입 간의 암시적 강제 변환 방지 {id="prevent-implicit-coercions-between-different-numeric-types"}
 
 > **이슈**: [KT-48645](https://youtrack.jetbrains.com/issue/KT-48645)
 >
@@ -96,7 +96,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 >   `-Xuse-old-backend`를 사용하여 일시적으로 1.5.30 수정 이전의 동작으로 되돌릴 수 있음
 > - &gt;= 1.6.20: 영향을 받는 다른 사례에서의 다운캐스트 동작 수정
 
-### JLS를 위반하는 컨테이너 어노테이션을 가진 반복 가능한 어노테이션 클래스 선언 금지
+### JLS를 위반하는 컨테이너 어노테이션을 가진 반복 가능한 어노테이션 클래스 선언 금지 {id="prohibit-declarations-of-repeatable-annotation-classes-whose-container-annotation-violates-jls"}
 
 > **이슈**: [KT-47928](https://youtrack.jetbrains.com/issue/KT-47928)
 >
@@ -112,7 +112,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.6.0: 이 경고를 오류로 격상,
 >   `-XXLanguage:-RepeatableAnnotationContainerConstraints`를 사용하여 일시적으로 오류 보고를 비활성화할 수 있음
 
-### 반복 가능한 어노테이션 클래스 내부에 Container라는 이름의 중첩 클래스 선언 금지
+### 반복 가능한 어노테이션 클래스 내부에 Container라는 이름의 중첩 클래스 선언 금지 {id="prohibit-declaring-a-nested-class-named-container-in-a-repeatable-annotation-class"}
 
 > **이슈**: [KT-47971](https://youtrack.jetbrains.com/issue/KT-47971)
 >
@@ -128,7 +128,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.6.0: 이 경고를 오류로 격상,
 >   `-XXLanguage:-RepeatableAnnotationContainerConstraints`를 사용하여 일시적으로 오류 보고를 비활성화할 수 있음
 
-### 인터페이스 프로퍼티를 오버라이드하는 주 생성자의 프로퍼티에 @JvmField 사용 금지
+### 인터페이스 프로퍼티를 오버라이드하는 주 생성자의 프로퍼티에 @JvmField 사용 금지 {id="prohibit-jvmfield-on-a-property-in-the-primary-constructor-that-overrides-an-interface-property"}
 
 > **이슈**: [KT-32753](https://youtrack.jetbrains.com/issue/KT-32753)
 >
@@ -144,7 +144,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.6.0: 이 경고를 오류로 격상,
 >   `-XXLanguage:-ProhibitJvmFieldOnOverrideFromInterfaceInPrimaryConstructor`를 사용하여 일시적으로 오류 보고를 비활성화할 수 있음
 
-### 컴파일러 옵션 -Xjvm-default의 enable 및 compatibility 모드 지원 중단
+### 컴파일러 옵션 -Xjvm-default의 enable 및 compatibility 모드 지원 중단 {id="deprecate-the-enable-and-the-compatibility-modes-of-the-compiler-option-xjvm-default"}
 
 > **이슈**: [KT-46329](https://youtrack.jetbrains.com/issue/KT-46329)
 >
@@ -159,7 +159,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.6.20: `-Xjvm-default` 컴파일러 옵션의 `enable` 및 `compatibility` 모드에 대해 경고 도입
 > - &gt;= 1.8.0: 이 경고를 오류로 격상
 
-### public-abi 인라인 함수에서 super 호출 금지
+### public-abi 인라인 함수에서 super 호출 금지 {id="prohibit-super-calls-from-public-abi-inline-functions"}
 
 > **이슈**: [KT-45379](https://youtrack.jetbrains.com/issue/KT-45379)
 >
@@ -175,7 +175,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.6.0: 이 경고를 오류로 격상,
 >   `-XXLanguage:-ProhibitSuperCallsFromPublicInline`를 사용하여 일시적으로 오류 보고를 비활성화할 수 있음
 
-### public 인라인 함수에서 protected 생성자 호출 금지
+### public 인라인 함수에서 protected 생성자 호출 금지 {id="prohibit-protected-constructor-calls-from-public-inline-functions"}
 
 > **이슈**: [KT-48860](https://youtrack.jetbrains.com/issue/KT-48860)
 >
@@ -191,7 +191,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.6.0: 이 경고를 오류로 격상,
 >   `-XXLanguage:-ProhibitProtectedConstructorCallFromPublicInline`를 사용하여 일시적으로 오류 보고를 비활성화할 수 있음
 
-### private-in-file 타입에서 private 중첩 타입 노출 금지
+### private-in-file 타입에서 private 중첩 타입 노출 금지 {id="prohibit-exposing-private-nested-types-from-private-in-file-types"}
 
 > **이슈**: [KT-20094](https://youtrack.jetbrains.com/issue/KT-20094)
 >
@@ -207,7 +207,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.6.0: 이 경고를 오류로 격상,
 >   `-XXLanguage:-PrivateInFileEffectiveVisibility`를 사용하여 일시적으로 오류 보고를 비활성화할 수 있음
 
-### 타입에 대한 어노테이션에서 어노테이션 타겟이 분석되지 않는 여러 경우
+### 타입에 대한 어노테이션에서 어노테이션 타겟이 분석되지 않는 여러 경우 {id="annotation-target-is-not-analyzed-in-several-cases-for-annotations-on-a-type"}
 
 > **이슈**: [KT-28449](https://youtrack.jetbrains.com/issue/KT-28449)
 >
@@ -223,7 +223,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.6.0: 오류 도입,
 >   `-XXLanguage:-ProperCheckAnnotationsTargetInTypeUsePositions`를 사용하여 일시적으로 오류 보고를 비활성화할 수 있음
 
-### 후행 람다와 함께 suspend라는 이름의 함수 호출 금지
+### 후행 람다와 함께 suspend라는 이름의 함수 호출 금지 {id="prohibit-calls-to-functions-named-suspend-with-a-trailing-lambda"}
 
 > **이슈**: [KT-22562](https://youtrack.jetbrains.com/issue/KT-22562)
 >
@@ -239,9 +239,9 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.6.0: 이 경고를 오류로 격상
 > - &gt;= 1.7.0: `{` 앞의 `suspend`가 키워드로 파싱되도록 언어 문법 변경 도입
 
-## 표준 라이브러리 (Standard library)
+## 표준 라이브러리 (Standard library) {id="standard-library"}
 
-### minus/removeAll/retainAll에서 취약한 contains 최적화 제거
+### minus/removeAll/retainAll에서 취약한 contains 최적화 제거 {id="remove-brittle-contains-optimization-in-minus-removeall-retainall"}
 
 > **이슈**: [KT-45438](https://youtrack.jetbrains.com/issue/KT-45438)
 >
@@ -258,7 +258,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 >   JVM에서 시스템 속성 `kotlin.collections.convert_arg_to_set_in_removeAll=true`를 설정하여 이전 동작으로 일시적으로 되돌릴 수 있습니다.
 > - &gt;= 1.7: 위의 시스템 속성은 더 이상 효과가 없습니다.
 
-### Random.nextLong의 값 생성 알고리즘 변경
+### Random.nextLong의 값 생성 알고리즘 변경 {id="change-value-generation-algorithm-in-random-nextlong"}
 
 > **이슈**: [KT-47304](https://youtrack.jetbrains.com/issue/KT-47304)
 >
@@ -272,7 +272,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 >
 > - 1.6.0: 동작이 즉시 수정됨
 
-### 컬렉션 min 및 max 함수의 반환 타입을 점진적으로 non-nullable로 변경
+### 컬렉션 min 및 max 함수의 반환 타입을 점진적으로 non-nullable로 변경 {id="gradually-change-the-return-type-of-collection-min-and-max-functions-to-non-nullable"}
 
 > **이슈**: [KT-38854](https://youtrack.jetbrains.com/issue/KT-38854)
 >
@@ -289,7 +289,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.6.0: 공용 API에서 지원 중단된 함수를 숨김
 > - &gt;= 1.7: 반환 타입을 non-nullable로 하여 영향을 받는 API를 재도입
 
-### 부동 소수점 배열 함수 지원 중단: contains, indexOf, lastIndexOf
+### 부동 소수점 배열 함수 지원 중단: contains, indexOf, lastIndexOf {id="deprecate-floating-point-array-functions-contains-indexof-lastindexof"}
 
 > **이슈**: [KT-28753](https://youtrack.jetbrains.com/issue/KT-28753)
 >
@@ -305,7 +305,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.6.0: 지원 중단 수준을 오류로 격상
 > - &gt;= 1.7: 공용 API에서 지원 중단된 함수를 숨김
 
-### kotlin.dom 및 kotlin.browser 패키지의 선언을 kotlinx.*로 마이그레이션
+### kotlin.dom 및 kotlin.browser 패키지의 선언을 kotlinx.*로 마이그레이션 {id="migrate-declarations-from-kotlin-dom-and-kotlin-browser-packages-to-kotlinx"}
 
 > **이슈**: [KT-39330](https://youtrack.jetbrains.com/issue/KT-39330)
 >
@@ -323,7 +323,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - &gt;= 1.7: stdlib에서 지원 중단된 함수 제거
 > - &gt;= 1.7: kotlinx.* 패키지의 API를 별도의 라이브러리로 이동
 
-### Kotlin/JS에서 Regex.replace 함수를 인라인이 아니게 변경
+### Kotlin/JS에서 Regex.replace 함수를 인라인이 아니게 변경 {id="make-regex-replace-function-not-inline-in-kotlin-js"}
 
 > **이슈**: [KT-27738](https://youtrack.jetbrains.com/issue/KT-27738)
 >
@@ -337,7 +337,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 >
 > - 1.6.0: 해당 함수에서 `inline` 한정자 제거
 
-### 대체 문자열에 그룹 참조가 포함된 경우 JVM과 JS에서 Regex.replace 함수의 동작 차이
+### 대체 문자열에 그룹 참조가 포함된 경우 JVM과 JS에서 Regex.replace 함수의 동작 차이 {id="different-behavior-of-the-regex-replace-function-in-jvm-and-js-when-replacement-string-contains-group-reference"}
 
 > **이슈**: [KT-28378](https://youtrack.jetbrains.com/issue/KT-28378)
 >
@@ -351,7 +351,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 >
 > - 1.6.0: Kotlin/JS stdlib의 `Regex.replace`에서 대체 패턴 처리 방식 변경
 
-### JS Regex에서 유니코드 케이스 폴딩 사용
+### JS Regex에서 유니코드 케이스 폴딩 사용 {id="use-the-unicode-case-folding-in-js-regex"}
 
 > **이슈**: [KT-45928](https://youtrack.jetbrains.com/issue/KT-45928)
 >
@@ -367,7 +367,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.5.0: JS `Regex` 클래스의 대부분의 함수에서 유니코드 케이스 폴딩 활성화
 > - 1.6.0: `Regex.replaceFirst` 함수에서 유니코드 케이스 폴딩 활성화
 
-### 일부 JS 전용 API 지원 중단
+### 일부 JS 전용 API 지원 중단 {id="deprecate-some-js-only-api"}
 
 > **이슈**: [KT-48587](https://youtrack.jetbrains.com/issue/KT-48587)
 >
@@ -383,7 +383,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.7.0: 지원 중단 수준을 오류로 격상
 > - 1.8.0: 공용 API에서 지원 중단된 함수 제거
 
-### Kotlin/JS 클래스의 공용 API에서 구현 및 상호 운용성 관련 함수 숨기기
+### Kotlin/JS 클래스의 공용 API에서 구현 및 상호 운용성 관련 함수 숨기기 {id="hide-implementation-and-interop-specific-functions-from-the-public-api-of-classes-in-kotlin-js"}
 
 > **이슈**: [KT-48587](https://youtrack.jetbrains.com/issue/KT-48587)
 >
@@ -397,9 +397,9 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 >
 > - 1.6.0: 함수를 internal로 변경하여 공용 API에서 제거
 
-## 도구 (Tools)
+## 도구 (Tools) {id="tools"}
 
-### KotlinGradleSubplugin 클래스 지원 중단
+### KotlinGradleSubplugin 클래스 지원 중단 {id="deprecate-kotlingradlesubplugin-class"}
 
 > **이슈**: [KT-48830](https://youtrack.jetbrains.com/issue/KT-48830)
 >
@@ -414,7 +414,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.6.0: 지원 중단 수준을 오류로 격상
 > - &gt;= 1.7.0: 지원 중단된 클래스 제거
 
-### kotlin.useFallbackCompilerSearch 빌드 옵션 제거
+### kotlin.useFallbackCompilerSearch 빌드 옵션 제거 {id="remove-kotlin-usefallbackcompilersearch-build-option"}
 
 > **이슈**: [KT-46719](https://youtrack.jetbrains.com/issue/KT-46719)
 >
@@ -429,7 +429,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.5.0: 지원 중단 수준을 경고로 격상
 > - 1.6.0: 지원 중단된 옵션 제거
 
-### 여러 컴파일러 옵션 제거
+### 여러 컴파일러 옵션 제거 {id="remove-several-compiler-options"}
 
 > **이슈**: [KT-48847](https://youtrack.jetbrains.com/issue/KT-48847)
 >
@@ -444,7 +444,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.5.0: 지원 중단 수준을 오류로 격상
 > - 1.6.0: 지원 중단된 옵션 제거
 
-### useIR 컴파일러 옵션 지원 중단
+### useIR 컴파일러 옵션 지원 중단 {id="deprecate-useir-compiler-option"}
 
 > **이슈**: [KT-48847](https://youtrack.jetbrains.com/issue/KT-48847)
 >
@@ -460,7 +460,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.6.0: 옵션을 숨김
 > - &gt;= 1.7.0: 지원 중단된 옵션 제거
 
-### kapt.use.worker.api Gradle 속성 지원 중단
+### kapt.use.worker.api Gradle 속성 지원 중단 {id="deprecate-kapt-use-worker-api-gradle-property"}
 
 > **이슈**: [KT-48826](https://youtrack.jetbrains.com/issue/KT-48826)
 >
@@ -475,7 +475,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.6.20: 지원 중단 수준을 경고로 격상
 > - &gt;= 1.8.0: 이 속성 제거
 
-### kotlin.parallel.tasks.in.project Gradle 속성 제거
+### kotlin.parallel.tasks.in.project Gradle 속성 제거 {id="remove-kotlin-parallel-tasks-in-project-gradle-property"}
 
 > **이슈**: [KT-46406](https://youtrack.jetbrains.com/issue/KT-46406)
 >
@@ -490,7 +490,7 @@ _[언어의 현대성 유지(Keeping the Language Modern)](kotlin-evolution-prin
 > - 1.5.20: 지원 중단 수준을 경고로 격상
 > - 1.6.20: 이 속성 제거
 
-### kotlin.experimental.coroutines Gradle DSL 옵션 및 kotlin.coroutines Gradle 속성 지원 중단
+### kotlin.experimental.coroutines Gradle DSL 옵션 및 kotlin.coroutines Gradle 속성 지원 중단 {id="deprecate-kotlin-experimental-coroutines-gradle-dsl-option-and-kotlin-coroutines-gradle-property"}
 
 > **이슈**: [KT-50369](https://youtrack.jetbrains.com/issue/KT-50369)
 >

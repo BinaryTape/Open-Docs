@@ -6,7 +6,7 @@ title: 定義
 
 定義は、Koinがどのように依存関係を作成し管理するかを宣言するものです。このガイドでは、DSLとアノテーションの両方を使用したすべての定義型について説明します。
 
-## 定義の型
+## 定義の型 {id="definition-types"}
 
 | 型 | DSL | アノテーション | ライフサイクル | ユースケース |
 |------|-----|------------|-----------|----------|
@@ -15,9 +15,9 @@ title: 定義
 | スコープ | `scoped()` | `@Scoped` | スコープごとに1つのインスタンス | Activityやセッションに紐づくオブジェクト |
 | ViewModel | `viewModel()` | `@KoinViewModel` | Android ViewModelのライフサイクル | ViewModel |
 
-## 定義の宣言
+## 定義の宣言 {id="declaring-definitions"}
 
-### コンパイラプラグインDSL（推奨）
+### コンパイラプラグインDSL（推奨） {id="compiler-plugin-dsl-recommended"}
 
 ```kotlin
 import org.koin.plugin.module.dsl.*
@@ -35,7 +35,7 @@ val appModule = module {
 }
 ```
 
-### アノテーション
+### アノテーション {id="annotations"}
 
 ```kotlin
 @Singleton  // または @Single
@@ -51,7 +51,7 @@ class UserPresenter(private val repository: UserRepository)
 class UserViewModel(private val repository: UserRepository) : ViewModel()
 ```
 
-### クラシックDSL
+### クラシックDSL {id="classic-dsl"}
 
 ```kotlin
 val appModule = module {
@@ -69,7 +69,7 @@ val appModule = module {
 }
 ```
 
-## 定義の比較
+## 定義の比較 {id="definition-comparison"}
 
 | コンセプト | コンパイラプラグインDSL | クラシックDSL | アノテーション |
 |---------|---------------------|-------------|------------|
@@ -83,7 +83,7 @@ val appModule = module {
 コンパイラプラグインはクラスや関数のパラメータを解析し、適切な `get()` 関数の呼び出しを自動生成します。そのため、手動で `get()` を記述する必要はありません。
 :::
 
-## Single（シングルトン）
+## Single（シングルトン） {id="single-singleton"}
 
 アプリ全体で再利用される単一のインスタンスを作成します。
 
@@ -98,7 +98,7 @@ class DatabaseHelper
 
 どちらも同じ結果、つまりすべてのコンシューマ（利用側）で共有される単一のインスタンスを作成します。
 
-## Factory（ファクトリ）
+## Factory（ファクトリ） {id="factory"}
 
 リクエストのたびに新しいインスタンスを作成します。
 
@@ -111,7 +111,7 @@ factory<UserPresenter>()
 class UserPresenter(private val repository: UserRepository)
 ```
 
-## Scoped（スコープ）
+## Scoped（スコープ） {id="scoped"}
 
 スコープごとに1つのインスタンスを作成します。
 
@@ -126,7 +126,7 @@ scope<MyActivity> {
 class ActivityPresenter
 ```
 
-## ViewModel
+## ViewModel {id="viewmodel"}
 
 適切なライフサイクルを持つAndroid ViewModelです。
 
@@ -139,9 +139,9 @@ viewModel<UserViewModel>()
 class UserViewModel(private val repository: UserRepository) : ViewModel()
 ```
 
-## インターフェースのバインド
+## インターフェースのバインド {id="interface-binding"}
 
-### コンパイラプラグインDSL
+### コンパイラプラグインDSL {id="compiler-plugin-dsl"}
 
 ```kotlin
 single<UserRepositoryImpl>() bind UserRepository::class
@@ -178,7 +178,7 @@ class UserRepositoryImpl(
 class UserRepositoryImpl : UserRepository
 ```
 
-## クオリファイア（名前の指定された定義）
+## クオリファイア（名前の指定された定義） {id="qualifiers-named-definitions"}
 
 同じ型の定義が複数ある場合に使用します。取得方法については、[クオリファイアを使用した注入](/docs/reference/koin-core/injection#injection-with-qualifiers)も参照してください。
 
@@ -235,7 +235,7 @@ class UserRepository(
 )
 ```
 
-## 注入パラメータ
+## 注入パラメータ {id="injected-parameters"}
 
 注入時にパラメータを渡します。
 
@@ -281,7 +281,7 @@ class UserPresenter(
 val presenter: UserPresenter = get { parametersOf("user123") }
 ```
 
-## オプショナルな依存関係
+## オプショナルな依存関係 {id="optional-dependencies"}
 
 ### コンパイラプラグインDSL
 
@@ -317,7 +317,7 @@ class MyService(
 )
 ```
 
-## 遅延注入
+## 遅延注入 {id="lazy-injection"}
 
 インスタンスの作成を遅延させます。
 
@@ -350,7 +350,7 @@ class MyService(
 )
 ```
 
-## プロパティ
+## プロパティ {id="properties"}
 
 設定値を注入します。
 
@@ -386,9 +386,9 @@ class ApiClient(
 )
 ```
 
-## コールバック
+## コールバック {id="callbacks"}
 
-### onClose コールバック
+### onClose コールバック {id="onclose-callback"}
 
 インスタンスが解放されるときにコードを実行します。
 
@@ -400,7 +400,7 @@ single {
 }
 ```
 
-### createdAtStart
+### createdAtStart {id="createdatstart"}
 
 起動時にインスタンスを先行作成（eager creation）します。
 
@@ -416,9 +416,9 @@ single(createdAtStart = true) {
 }
 ```
 
-## 定義のオーバーライド
+## 定義のオーバーライド {id="definition-override"}
 
-### デフォルト：後勝ち（Last Wins）
+### デフォルト：後勝ち（Last Wins） {id="default-last-wins"}
 
 ```kotlin
 val prodModule = module {
@@ -434,7 +434,7 @@ startKoin {
 }
 ```
 
-### 明示的なオーバーライド
+### 明示的なオーバーライド {id="explicit-override"}
 
 厳密モード（strict mode）では、オーバーライドを明示的にマークします。
 
@@ -449,11 +449,11 @@ startKoin {
 }
 ```
 
-## 安全なDSLパターン
+## 安全なDSLパターン {id="safe-dsl-patterns"}
 
 Koinコンパイラプラグインはコンパイル時にDSL定義を変換し、コンストラクタパラメータの自動接続（auto-wiring）と検証を行います。主なパターンは以下の通りです。
 
-### create() を使用した関数ビルダー
+### create() を使用した関数ビルダー {id="function-builders-with-create"}
 
 自身が所有していない外部ライブラリをラップするには、`create(::function)` を使用します。関数のパラメータはDIコンテナから自動的に解決されます。
 
@@ -477,7 +477,7 @@ val databaseModule = module {
 
 これは、Roomデータベース、Retrofitサービス、OkHttpクライアント、およびその他の外部ライブラリにおける推奨パターンです。
 
-### includes() によるモジュールの構成
+### includes() によるモジュールの構成 {id="module-composition-with-includes"}
 
 モジュールをレイヤーごとに整理し、それらを構成します。
 
@@ -496,7 +496,7 @@ val networkModule = module {
 private fun json(): Json = Json { ignoreUnknownKeys = true }
 ```
 
-### Appモジュール — すべてを構成する
+### Appモジュール — すべてを構成する {id="app-module-composing-everything"}
 
 Appモジュールにはすべての機能モジュールが含まれ、ViewModelやユースケースを宣言します。
 
@@ -531,7 +531,7 @@ val appModule = module {
 }
 ```
 
-### DSLにおけるカスタムクオリファイア
+### DSLにおけるカスタムクオリファイア {id="custom-qualifiers-in-dsl"}
 
 クオリファイアアノテーションは `create(::function)` でも動作します。
 
@@ -556,7 +556,7 @@ fun coroutineScope(
 ) = CoroutineScope(SupervisorJob() + default)
 ```
 
-### DSLでのWorker
+### DSLでのWorker {id="worker-with-dsl"}
 
 ```kotlin
 import org.koin.dsl.module
@@ -569,7 +569,7 @@ val syncModule = module {
 }
 ```
 
-### 完全なパターン：インターフェースのバインドを伴うリポジトリ
+### 完全なパターン：インターフェースのバインドを伴うリポジトリ {id="complete-pattern-repository-with-interface-binding"}
 
 ```kotlin
 import org.koin.dsl.module
@@ -587,7 +587,7 @@ val dataModule = module {
 
 これらの定義はすべて、Koinコンパイラプラグインによってコンパイル時に検証されます。依存関係の不足、クオリファイアの不一致、壊れた呼び出し箇所などは、ビルド時に検出されます。[コンパイル時の安全性](/docs/reference/koin-compiler/compile-safety)を参照してください。
 
-## ベストプラクティス
+## ベストプラクティス {id="best-practices"}
 
 1. **コンストラクタ注入を優先する** - Koinなしでコードをテスト可能にします。
 2. **状態を持たないサービスには `single` を使用する** - リポジトリ、クライアント、ヘルパーなど。
@@ -597,7 +597,7 @@ val dataModule = module {
 6. **インターフェースにバインドする** - 実装ではなく抽象に依存させます。
 7. **外部ライブラリには `create(::builder)` を使用する** - より安全な依存関係の解決が可能です。
 
-## 次のステップ
+## 次のステップ {id="next-steps"}
 
 - **[注入](/docs/reference/koin-core/injection)** - 依存関係の取得
 - **[クオリファイア](/docs/reference/koin-core/qualifiers)** - 名前付きおよび型付きのクオリファイア

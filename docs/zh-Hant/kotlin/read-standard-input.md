@@ -67,7 +67,7 @@ println(doubles)
 >
 {style="note"}
 
-## 安全地處理標準輸入
+## 安全地處理標準輸入 {id="handle-standard-input-safely"}
 
 您可以使用 `.toIntOrNull()` 函式安全地將使用者輸入從字串轉換為整數。如果轉換成功，此函式會回傳整數。但是，如果輸入不是整數的有效表示形式，它會回傳 `null`：
 

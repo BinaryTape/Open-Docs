@@ -8,7 +8,7 @@
 2. 각 리소스 종류에 필요한 디렉터리를 생성합니다.
 3. 한정자(qualified) 리소스를 위한 추가 디렉터리를 생성합니다(예: 다크 UI 테마를 위한 다른 이미지나 지역화된 문자열).
 
-## 빌드 스크립트 및 디렉터리 설정
+## 빌드 스크립트 및 디렉터리 설정 {id="build-script-and-directory-setup"}
 
 멀티플랫폼 프로젝트에서 리소스에 액세스하려면 라이브러리 의존성을 추가하고 프로젝트 디렉터리 내에 파일을 구성해야 합니다.
 
@@ -39,7 +39,7 @@
    * 문자열은 `values` 디렉터리에 있어야 합니다.
    * 기타 파일은 `files` 디렉터리에 있어야 하며, 적절하다고 판단되는 폴더 계층 구조를 사용할 수 있습니다.
 
-### 커스텀 리소스 디렉터리
+### 커스텀 리소스 디렉터리 {id="custom-resource-directories"}
 
 `build.gradle.kts` 파일의 `compose.resources {}` 블록에서 각 소스 세트에 대한 커스텀 리소스 디렉터리를 지정할 수 있습니다. 이러한 각 커스텀 디렉터리도 기본 `composeResources`와 동일한 방식으로 파일을 포함해야 합니다. 즉, 이미지를 위한 `drawable` 하위 디렉터리, 글꼴을 위한 `font` 하위 디렉터리 등이 필요합니다.
 
@@ -77,7 +77,7 @@ compose.resources {
 
 리소스 액세스 커스터마이징에 대한 자세한 내용은 [액세스 및 사용법](compose-multiplatform-resources-usage.md#customizing-accessor-class-generation)에서 확인하세요.
 
-### 커스텀 웹 리소스 경로
+### 커스텀 웹 리소스 경로 {id="custom-web-resource-paths"}
 
 `configureWebResources()` 함수를 사용하여 웹 리소스의 경로와 URL을 지정할 수 있습니다:
 
@@ -96,7 +96,7 @@ configureWebResources {
 }
 ```
 
-### `androidLibrary` 타겟의 리소스
+### `androidLibrary` 타겟의 리소스 {id="resources-in-the-androidlibrary-target"}
 <primary-label ref="Experimental"/>
 
 Android Gradle 플러그인 8.8.0 버전부터 `androidLibrary` 타겟에서 생성된 `Res` 클래스와 리소스 접근자(accessor)를 사용할 수 있습니다.
@@ -110,7 +110,7 @@ kotlin {
 }
 ```
 
-## 한정자 (Qualifiers)
+## 한정자 (Qualifiers) {id="qualifiers"}
 
 때로는 로캘(locale), 화면 밀도 또는 인터페이스 테마와 같은 환경에 따라 동일한 리소스를 다른 방식으로 표시해야 할 수도 있습니다. 예를 들어, 다른 언어에 맞게 텍스트를 지역화하거나 다크 테마에 맞게 이미지를 조정해야 할 수 있습니다. 이를 위해 라이브러리는 특별한 한정자(qualifier)를 제공합니다.
 
@@ -127,7 +127,7 @@ kotlin {
 * 여러 종류의 한정자를 함께 적용할 수 있습니다. 예를 들어, "drawable-en-rUS-mdpi-dark"는 미국 지역의 영어(English) 리소스로, 다크 테마의 160 DPI 화면에 적합한 이미지입니다.
 * 요청된 한정자가 있는 리소스를 사용할 수 없는 경우, 기본 리소스(한정자가 없는 리소스)가 대신 사용됩니다.
 
-### 언어 및 지역 한정자
+### 언어 및 지역 한정자 {id="language-and-regional-qualifiers"}
 
 언어와 지역 한정자를 조합할 수 있습니다:
 
@@ -140,7 +140,7 @@ kotlin {
 
 지역별 형식 작업에 대한 자세한 내용은 [지역화(Localization)](compose-regional-format.md)에서 확인하세요.
 
-#### 여러 스크립트가 있는 언어에 대한 폴백(Fallback)
+#### 여러 스크립트가 있는 언어에 대한 폴백(Fallback) {id="fallback-for-languages-with-multiple-scripts"}
 
 안드로이드 및 데스크톱에서 시스템은 빈 스크립트가 포함된 로캘을 요청할 수 있습니다. 예를 들어 특정 `zh-Hans` 또는 `zh-Hant` 대신 스크립트가 없는 `zh`를 요청하는 경우입니다.
 스크립트 전용 리소스만 제공하는 경우, 이러한 스크립트가 없는 요청에 모든 리소스가 일치하게 되어 리소스를 확인할 수 없으므로 앱에서 예외가 발생합니다.
@@ -156,11 +156,11 @@ commonMain/composeResources/
 
 동일한 규칙이 세르비아어(`sr-Cyrl`, `sr-Latn`) 또는 우즈베크어(`uz-Cyrl`, `uz-Latn`)와 같이 둘 이상의 스크립트를 가진 모든 언어에 적용됩니다.
 
-### 테마 한정자
+### 테마 한정자 {id="theme-qualifier"}
 
 "light" 또는 "dark" 한정자를 추가할 수 있습니다. 그러면 Compose Multiplatform은 현재 시스템 테마에 따라 필요한 리소스를 선택합니다.
 
-### 밀도 한정자
+### 밀도 한정자 {id="density-qualifier"}
 
 다음과 같은 밀도 한정자를 사용할 수 있습니다:
 
@@ -173,13 +173,13 @@ commonMain/composeResources/
 
 시스템에 정의된 화면 밀도에 따라 리소스가 선택됩니다.
 
-## 배포 (Publication)
+## 배포 (Publication) {id="publication"}
 
 Compose Multiplatform 1.6.10부터 모든 필수 리소스가 배포용 Maven 아티팩트에 포함됩니다.
 
 이 기능을 활성화하려면 프로젝트에서 Kotlin 2.0.0 이상 및 Gradle 7.6 이상을 사용해야 합니다.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [앱에서 멀티플랫폼 리소스 사용하기](compose-multiplatform-resources-usage.md) 페이지에서 설정한 리소스에 액세스하는 방법과 기본적으로 생성되는 접근자를 커스터마이징하는 방법을 알아보세요.
 * iOS, Android 및 데스크톱을 타겟으로 하는 Compose Multiplatform 프로젝트에서 리소스를 처리하는 방법을 보여주는 공식 [데모 프로젝트](https://github.com/JetBrains/compose-multiplatform/tree/master/components/resources/demo)를 확인해 보세요.

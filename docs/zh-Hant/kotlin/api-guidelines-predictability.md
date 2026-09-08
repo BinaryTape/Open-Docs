@@ -3,7 +3,7 @@
 要設計一個穩健且易於使用的 Kotlin 程式庫，關鍵在於預見常見的使用案例、允許擴充性並強制執行正確的使用方式。
 遵循預設設定、錯誤處理和狀態管理的最佳實務，能確保使用者獲得無縫的體驗，同時維護程式庫的完整性與品質。
 
-## 預設執行正確的操作
+## 預設執行正確的操作 {id="do-the-right-thing-by-default"}
 
 您的程式庫應預見每個使用案例的「正常路徑 (happy path)」，並據此提供預設設定。
 使用者不應需要提供預設值才能讓程式庫正常運作。
@@ -20,7 +20,7 @@ val response: HttpResponse = client.get("https://ktor.io/")
 
 如果某個使用案例沒有明顯的「正常路徑」，或者某個參數應該有預設值但卻沒有無爭議的選項，這通常表示需求分析存在缺陷。
 
-## 提供擴充的機會
+## 提供擴充的機會 {id="allow-opportunities-for-extension"}
 
 當無法預見正確的選擇時，應允許使用者指定他們偏好的做法。
 您的程式庫也應讓使用者提供自己的做法或使用第三方擴充。
@@ -43,7 +43,7 @@ val client = HttpClient(CIO) {
 此外，使用者可以為程式庫中的型別定義擴充函式和屬性。
 作為程式庫作者，您可以透過[考慮擴充的設計](api-guidelines-readability.md#use-extension-functions-and-properties)並確保程式庫的型別具有清晰的核心概念，使這一點變得更容易。
 
-## 防止不需要且無效的擴充
+## 防止不需要且無效的擴充 {id="prevent-unwanted-and-invalid-extensions"}
 
 使用者不應能夠以違反原始設計或在問題領域規則中不可能實現的方式來擴充您的程式庫。
 
@@ -66,7 +66,7 @@ object JsonNull : JsonElement
 
 密封型別還能讓編譯器確保您的 `when` 運算式是窮舉的 (exhaustive)，而不需要 `else` 陳述式，從而提高可讀性與一致性。
 
-## 避免公開可變狀態
+## 避免公開可變狀態 {id="avoid-exposing-mutable-state"}
 
 在管理多個值時，您的 API 應盡可能接受及／或傳回唯讀集合。
 可變集合並非執行緒安全，且會為您的程式庫引入複雜性與不可預測性。
@@ -99,7 +99,7 @@ fun main() {
 }
 ```
 
-## 驗證輸入與狀態
+## 驗證輸入與狀態 {id="validate-inputs-and-state"}
 
 在執行實作之前，透過驗證輸入與現有狀態來確保程式庫被正確使用。
 使用 [`require`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/require.html) 函式來驗證輸入，並使用 [`check`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/check.html) 函式來驗證現有狀態。
@@ -145,7 +145,7 @@ class ShoppingCart {
 }
 ```
 
-## 下一步
+## 下一步 {id="next-step"}
 
 在指南的下一部分中，您將學習關於可偵錯性的內容。
 

@@ -1,6 +1,6 @@
 [//]: # (title: キーワードと演算子)
 
-## ハードキーワード
+## ハードキーワード {id="hard-keywords"}
 
 以下のトークンは常にキーワードとして解釈され、識別子として使用することはできません：
 
@@ -52,7 +52,7 @@
  * `when` は [when 式](control-flow.md#when-expressions-and-statements)を開始します（指定された分岐のいずれかを実行します）。
  * `while` は [while ループ](control-flow.md#while-loops)（前置条件付きループ）を開始します。
 
-## ソフトキーワード
+## ソフトキーワード {id="soft-keywords"}
 
 以下のトークンは、適用可能なコンテキストではキーワードとして機能しますが、それ以外のコンテキストでは識別子として使用できます：
 
@@ -83,7 +83,7 @@
 * `value` は `class` キーワードと共に [インラインクラス](inline-classes.md)を宣言します。
 * `where` は[ジェネリック型パラメータの制約](generics.md#upper-bounds)を指定します。
 
-## 修飾子キーワード
+## 修飾子キーワード {id="modifier-keywords"}
 
 以下のトークンは、宣言の修飾子リスト内ではキーワードとして機能しますが、それ以外のコンテキストでは識別子として使用できます：
 
@@ -117,14 +117,14 @@
  * `tailrec` は関数を[末尾再帰（tail-recursive）](functions.md#tail-recursive-functions)としてマークします（コンパイラが再帰を反復に置き換えることを許可します）。
  * `vararg` は[パラメータに対して可変個の引数を渡すこと](functions.md#variable-number-of-arguments-varargs)を許可します。
 
-## 特殊な識別子
+## 特殊な識別子 {id="special-identifiers"}
 
 以下の識別子は特定のコンテキストでコンパイラによって定義され、それ以外のコンテキストでは通常の識別子として使用できます：
 
  * `field` はプロパティアクセサ内で、その[プロパティのバッキングフィールド](properties.md#backing-fields)を参照するために使用されます。
  * `it` はラムダ内で、[そのパラメータを暗黙的に参照](lambdas.md#it-implicit-name-of-a-single-parameter)するために使用されます。
 
-## 演算子と特殊記号
+## 演算子と特殊記号 {id="operators-and-special-symbols"}
 
 Kotlin は以下の演算子と特殊記号をサポートしています：
 

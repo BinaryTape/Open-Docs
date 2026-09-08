@@ -6,7 +6,7 @@ Kotlin/JS は、Kotlin の[リフレクション API](reflection.md)を限定的
 * [`KType` と `typeof()`](#ktype-and-typeof)
 * [`KClass` と `createInstance()`](#kclass-and-createinstance)
 
-## クラス参照
+## クラス参照 {id="class-references"}
 
 `::class` 構文は、インスタンスのクラス、または指定された型に対応するクラスへの参照を返します。
 Kotlin/JS では、`::class` 式の値は、以下のみをサポートする簡略化された [KClass](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/) 実装となります：
@@ -17,16 +17,16 @@ Kotlin/JS では、`::class` 式の値は、以下のみをサポートする簡
 `JsClass` インスタンス自体は、コンストラクタ関数への参照です。
 これは、コンストラクタへの参照を期待する JS 関数と相互運用するために使用できます。
 
-## KType と typeOf()
+## KType と typeOf() {id="ktype-and-typeof"}
 
 [`typeof()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/type-of.html) 関数は、指定された型の [`KType`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-type/) インスタンスを構築します。
 KType API は、Java 固有の部分を除き、Kotlin/JS で完全にサポートされています。
 
-## KClass と createInstance()
+## KClass と createInstance() {id="kclass-and-createinstance"}
 
 [KClass](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/) インターフェースの [`createInstance()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect.full/create-instance.html) 関数は、指定されたクラスの新しいインスタンスを作成します。これは、Kotlin クラスへの実行時参照を取得するのに便利です。
 
-## 例
+## 例 {id="example"}
 
 以下は、Kotlin/JS におけるリフレクションの使用例です。
 

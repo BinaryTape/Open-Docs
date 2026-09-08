@@ -11,19 +11,19 @@ Coil 3 は、多くの主要な改善が含まれた Coil の次期メジャー�
 
 Compose Multiplatform プロジェクトで Coil 3 を使用していますか？例については [`samples`](https://github.com/coil-kt/coil/tree/3.x/samples/compose) リポジトリを確認してください。
 
-## Maven 座標とパッケージ名
+## Maven 座標とパッケージ名 {id="maven-coordinates-and-package-name"}
 
 Coil の Maven 座標は `io.coil-kt` から `io.coil-kt.coil3` に更新され、パッケージ名も `coil` から `coil3` に更新されました。これにより、Coil 3 はバイナリ互換性の問題を発生させることなく、Coil 2 と並行して動作させることができます。例えば、`io.coil-kt:coil:2.7.0` は `io.coil-kt.coil3:coil:3.0.0` になりました。
 
 また、`coil-base` と `coil-compose-base` アーティファクトは、Coroutines、Ktor、および AndroidX で使用されている命名規則に合わせるため、それぞれ `coil-core` と `coil-compose-core` に名称変更されました。
 
-## ネットワーク画像
+## ネットワーク画像 {id="network-images"}
 
 **`coil-core` は、デフォルトでネットワークからの画像読み込みをサポートしなくなりました。** [Coil のネットワークアーティファクトのいずれかへの依存関係を追加する必要があります。詳細についてはこちらを参照してください。](network.md)。この変更は、利用者が異なるネットワークライブラリを使用したり、アプリで必要ない場合にネットワーク依存関係を避けたりできるようにするために行われました。
 
 さらに、キャッシュ制御ヘッダー（cache control headers）は、デフォルトで考慮されなくなりました。詳細については [こちら](network.md) を参照してください。
 
-## マルチプラットフォーム
+## マルチプラットフォーム {id="multiplatform"}
 
 Coil 3 は、Android、JVM、iOS、macOS、Javascript、および WASM をサポートする Kotlin Multiplatform ライブラリになりました。
 
@@ -39,7 +39,7 @@ Android SDK からのデカップリング（切り離し）の一環として�
 
 `coil-svg` アーティファクトはマルチプラットフォームでサポートされていますが、`coil-gif` と `coil-video` アーティファクトは、特定の Android デコーダーやライブラリに依存しているため、（現時点では）Android 専用のままとなっています。
 
-## Compose
+## Compose {id="compose"}
 
 `coil-compose` アーティファクトの API は、ほとんど変更されていません。Coil 2 と同様に `AsyncImage`、`SubcomposeAsyncImage`、`rememberAsyncImagePainter` を引き続き使用できます。さらに、これらのメソッドは [restartable（再開可能）かつ skippable（スキップ可能）](https://developer.android.com/jetpack/compose/performance/stability) に更新されており、パフォーマンスが向上しています。
 
@@ -47,7 +47,7 @@ Android SDK からのデカップリング（切り離し）の一環として�
 - `AsyncImagePainter` のデフォルトの `SizeResolver` は、キャンバスのサイズを取得するために最初の `onDraw` 呼び出しを待機しなくなりました。代わりに、`AsyncImagePainter` はデフォルトで `Size.ORIGINAL` に設定されます。
 - Compose の `modelEqualityDelegate` デリゲートは、`AsyncImage`/`SubcomposeAsyncImage`/`rememberAsyncImagePainter` のパラメータとしてではなく、CompositionLocal である `LocalAsyncImageModelEqualityDelegate` を介して設定されるようになりました。
 
-## 一般的な変更
+## 一般的な変更 {id="general"}
 
 その他の重要な動作変更は以下の通りです。
 

@@ -6,7 +6,7 @@ Compose Multiplatform 建置於 [Jetpack Compose](https://developer.android.com/
 >
 {style="note"}
 
-## Android 專用 API
+## Android 專用 API {id="android-only-api"}
 
 Android 專用 API 是針對 Android 特有的，且在其他平台上不可用。這是因為其他平台不需要 Android 所使用的某些概念。該 API 通常使用來自 `android.*` 套件的類別，或設定 Android 專用的行為。以下是 Android 專用 API 的一些範例：
 
@@ -23,7 +23,7 @@ Android 專用 API 是針對 Android 特有的，且在其他平台上不可用�
 
 通常，沒有強大的理由將這類 API 的部分通用化，因此最好僅保留在 `androidMain` 中。
 
-## 簽章中包含 Android 類別的 API
+## 簽章中包含 Android 類別的 API {id="api-with-android-classes-in-their-signatures"}
 
 Compose Multiplatform 中的某些 API 在其簽章中使用 `android.*`、`androidx.*`（不包括 `androidx.compose.*`），但其行為也適用於其他平台：
 
@@ -42,7 +42,7 @@ Compose Multiplatform 中的某些 API 在其簽章中使用 `android.*`、`andr
 開發應用程式時常用的 API，例如權限、裝置（藍牙、GPS、相機）和 IO（網路、檔案、資料庫），超出了 Compose Multiplatform 的範疇。
 <!-- To find alternative solutions, see [Search for Multiplatform libraries](search-libs.md). -->
 
-## 簽章中不含 Android 類別的 API
+## 簽章中不含 Android 類別的 API {id="api-without-android-classes-in-their-signatures"}
 
 即使 API 的簽章中不包含 `android.*` 或 `androidx.*` 類別，且該 API 適用於其他平台，某些 API 的部分內容仍可能僅適用於 Android 目標。這背後的原因通常是實作使用了許多平台特性，且為其他平台撰寫其他實作需要時間。
 
@@ -58,6 +58,6 @@ Compose Multiplatform 中的某些 API 在其簽章中使用 `android.*`、`andr
 * [material3-adaptive](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive) 程式庫
 * [material3-window-size-class](https://developer.android.com/reference/kotlin/androidx/compose/material3/windowsizeclass/package-summary) 程式庫
 
-## 請求移植 Android API
+## 請求移植 Android API {id="request-to-port-android-api"}
 
 對於每個可以從 Android 移植的 API，在 Compose Multiplatform 的 YouTrack 中都有[一個開放的問題 (issue)](https://youtrack.jetbrains.com/issues/CMP)。如果您看到某個 API 可以從 Android 移植並通用化，且目前尚未存在相關問題，請[建立一個](https://youtrack.jetbrains.com/newIssue?project=CMP)。

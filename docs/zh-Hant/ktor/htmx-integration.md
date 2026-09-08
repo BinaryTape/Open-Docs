@@ -21,7 +21,7 @@
 
 Ktor 透過一組共享模組為 HTMX 提供實驗性的一等支援，簡化了伺服器與用戶端環境中的整合。這些模組提供了處理 HTMX 標頭、使用 Kotlin DSL 定義 HTML 屬性，以及在伺服器上處理 HTMX 特定路由邏輯的工具。
 
-## 模組總覽
+## 模組總覽 {id="modules-overview"}
 
 Ktor 的 HTMX 支援可在三個實驗性模組中使用：
 
@@ -33,11 +33,11 @@ Ktor 的 HTMX 支援可在三個實驗性模組中使用：
 
 所有 API 均標記有 `@ExperimentalKtorApi`，且需要透過 `@OptIn(ExperimentalKtorApi::class)` 啟用。
 
-## HTMX 標頭
+## HTMX 標頭 {id="htmx-headers"}
 
 您可以使用核心 `ktor-htmx` 模組中預定義的常數，以型別安全的方式存取或設定 HTMX 標頭。這些常數可協助您在偵測觸發器、歷程記錄還原或內容交換等 HTMX 行為時，避免使用魔術字串。
 
-### 請求標頭
+### 請求標頭 {id="request-headers"}
 
 使用 `HxRequestHeaders` 物件在您的應用程式中讀取或比對 HTMX 請求標頭：
 
@@ -52,7 +52,7 @@ Ktor 的 HTMX 支援可在三個實驗性模組中使用：
 <def title="HxRequestHeaders.Prompt">使用者對 hx-prompt 的回應</def>
 </deflist>
 
-### 回應標頭
+### 回應標頭 {id="response-headers"}
 
 您可以使用 `HxResponseHeaders` 物件來存取 HTMX 回應標頭的常數：
 
@@ -70,7 +70,7 @@ Ktor 的 HTMX 支援可在三個實驗性模組中使用：
 <def title="HxResponseHeaders.TriggerAfterSwap">在交換（swap）後觸發事件</def>
 </deflist>
 
-## 交換模式
+## 交換模式 {id="swap-modes"}
 
 您可以使用核心 `ktor-htmx` 模組中的 `HxSwap` 物件來存取不同 HTMX 交換模式的常數。
 
@@ -86,7 +86,7 @@ Ktor 的 HTMX 支援可在三個實驗性模組中使用：
 <def title="HxSwap.none">不附加內容</def>
 </deflist>
 
-## HTML DSL 擴充
+## HTML DSL 擴充 {id="html-dsl-extensions"}
 
 `ktor-htmx-html` 模組為 Kotlin 的 HTML DSL 增加了擴充函式，讓您可以直接將 HTMX 屬性新增至 HTML 元素：
 
@@ -113,7 +113,7 @@ html {
 <button hx-get="/api/data" hx-target="#result-div" hx-swap="outerHTML" hx-trigger="click">Load Data</button>
 ```
 
-## 伺服器端路由
+## 伺服器端路由 {id="server-side-routing"}
 
 `ktor-server-htmx` 模組透過 `hx` DSL 區塊提供感知 HTMX 的路由：
 

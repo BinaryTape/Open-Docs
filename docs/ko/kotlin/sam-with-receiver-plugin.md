@@ -25,7 +25,7 @@ fun test(context: TaskContext) {
 }
 ```
 
-## Gradle
+## Gradle {id="gradle"}
 
 사용법은 [all-open](all-open-plugin.md) 및 [no-arg](no-arg-plugin.md)와 동일하지만, sam-with-receiver에는 기본 제공되는 프리셋(preset)이 없으므로 특별하게 처리할 어노테이션 목록을 직접 지정해야 한다는 점이 다릅니다.
 
@@ -58,7 +58,7 @@ samWithReceiver {
 }
 ```
 
-## Maven
+## Maven {id="maven"}
 
 ```xml
 <plugin>
@@ -88,7 +88,7 @@ samWithReceiver {
 </plugin>
 ```
 
-## 커맨드 라인 컴파일러
+## 커맨드 라인 컴파일러 {id="command-line-compiler"}
 
 컴파일러 플러그인 클래스패스에 플러그인 JAR 파일을 추가하고 sam-with-receiver 어노테이션 목록을 지정합니다:
 

@@ -15,7 +15,7 @@ Compose 컴파일러가 Kotlin과 동시에 출시되고 항상 동일한 버전
 
 프로젝트에서 새로운 Compose 컴파일러 플러그인을 사용하려면, Compose를 사용하는 각 모듈에 플러그인을 적용하세요. 자세한 내용은 [Compose Multiplatform 프로젝트 마이그레이션](#migrating-a-compose-multiplatform-project) 방법을 참고하세요. Jetpack Compose 프로젝트의 경우 [마이그레이션 가이드](https://kotlinlang.org/docs/compose-compiler-migration-guide.html#migrating-a-jetpack-compose-project)를 참조하시기 바랍니다.
 
-## Compose Multiplatform 프로젝트 마이그레이션
+## Compose Multiplatform 프로젝트 마이그레이션 {id="migrating-a-compose-multiplatform-project"}
 
 Compose Multiplatform 1.6.10부터는 `org.jetbrains.compose` 플러그인을 사용하는 각 모듈에 `org.jetbrains.kotlin.plugin.compose` Gradle 플러그인을 적용해야 합니다.
 
@@ -56,7 +56,7 @@ Compose Multiplatform 1.6.10부터는 `org.jetbrains.compose` 플러그인을 �
 
 4. Jetpack Compose 컴파일러용 컴파일러 옵션을 사용 중인 경우, `composeCompiler {}` 블록에서 설정하세요. 자세한 내용은 [Compose 컴파일러 옵션 DSL](https://kotlinlang.org/docs/compose-compiler-options.html)을 참조하세요.
 
-#### 발생 가능한 문제: "Missing resource with path"
+#### 발생 가능한 문제: "Missing resource with path" {id="possible-issue-missing-resource-with-path"}
 
 Kotlin 1.9.0에서 2.0.0으로, 또는 2.0.0에서 1.9.0으로 전환할 때 다음과 같은 오류가 발생할 수 있습니다.
 
@@ -66,7 +66,7 @@ org.jetbrains.compose.resources.MissingResourceException: Missing resource with 
 
 이 문제를 해결하려면 프로젝트 루트와 각 모듈에 있는 모든 `build` 디렉터리를 삭제하세요.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * Compose 컴파일러가 Kotlin 리포지토리로 이동한다는 [Google의 발표](https://android-developers.googleblog.com/2024/04/jetpack-compose-compiler-moving-to-kotlin-repository.html)를 확인해 보세요.
 * [Compose 컴파일러 옵션 DSL](https://kotlinlang.org/docs/compose-compiler-options.html)을 참조하세요.

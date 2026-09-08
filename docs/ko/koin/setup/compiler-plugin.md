@@ -6,7 +6,7 @@ title: 컴파일러 플러그인 설정
 
 **Koin 컴파일러 플러그인(Koin Compiler Plugin)**은 모든 새로운 Kotlin 2.x 프로젝트에 권장되는 방식입니다. 이 플러그인은 자동 주입(auto-wiring), 컴파일 타임 안정성, 그리고 더 깔끔한 DSL 구문을 제공합니다.
 
-## 컴파일러 플러그인이란 무엇인가요?
+## 컴파일러 플러그인이란 무엇인가요? {id="what-is-the-compiler-plugin"}
 
 Koin 컴파일러 플러그인은 다음과 같은 기능을 제공하는 **네이티브 코틀린 컴파일러 플러그인(K2)**입니다.
 
@@ -21,14 +21,14 @@ Koin 컴파일러 플러그인은 다음과 같은 기능을 제공하는 **네�
 Android Studio 및 IntelliJ IDEA용 **[Koin IDE 플러그인](https://plugins.jetbrains.com/plugin/26131-koin-dependency-injection-official-)**을 설치하세요. 정의와 주입 지점 간의 코드 탐색, 실시간 안정성 검사, 의존성 그래프 시각화 기능을 제공합니다.
 :::
 
-## 요구 사항
+## 요구 사항 {id="requirements"}
 
 - **Kotlin 2.3.20+** (K2 컴파일러)
 - **Gradle 8.x+**
 
-## 설정
+## 설정 {id="setup"}
 
-### 1단계: 버전 카탈로그에 Koin 추가
+### 1단계: 버전 카탈로그에 Koin 추가 {id="step-1-add-koin-to-version-catalog"}
 
 먼저 최신 버전을 확인하세요:
 - Koin: [![Maven Central](https://img.shields.io/maven-central/v/io.insert-koin/koin-core?label=latest)](https://mvnrepository.com/artifact/io.insert-koin/koin-core)
@@ -49,7 +49,7 @@ koin-annotations = { module = "io.insert-koin:koin-annotations", version.ref = "
 koin-compiler = { id = "io.insert-koin.compiler.plugin", version.ref = "koin-plugin" }
 ```
 
-### 2단계: 설정 구성
+### 2단계: 설정 구성 {id="step-2-configure-settings"}
 
 `settings.gradle.kts` 파일에 다음을 추가합니다:
 
@@ -62,7 +62,7 @@ pluginManagement {
 }
 ```
 
-### 3단계: 플러그인 적용
+### 3단계: 플러그인 적용 {id="step-3-apply-the-plugin"}
 
 모듈의 `build.gradle.kts` 파일에 다음을 추가합니다:
 
@@ -86,9 +86,9 @@ dependencies {
 런타임 라이브러리 없이 어노테이션을 추가하면 컴파일러가 누락된 아티팩트를 명시하는 명확한 에러를 발생시킵니다. 이제 시작 시점에 소리 없이 발생하는 `NoDefinitionFoundException`은 더 이상 없습니다.
 :::
 
-## 전체 예시
+## 전체 예시 {id="complete-example"}
 
-### gradle/libs.versions.toml
+### gradle/libs.versions.toml {id="gradle-libs-versions-toml"}
 
 ```toml
 [versions]
@@ -103,7 +103,7 @@ koin-annotations = { module = "io.insert-koin:koin-annotations", version.ref = "
 koin-compiler = { id = "io.insert-koin.compiler.plugin", version.ref = "koin-plugin" }
 ```
 
-### settings.gradle.kts
+### settings.gradle.kts {id="settings-gradle-kts"}
 
 ```kotlin
 pluginManagement {
@@ -114,7 +114,7 @@ pluginManagement {
 }
 ```
 
-### build.gradle.kts
+### build.gradle.kts {id="build-gradle-kts"}
 
 ```kotlin
 plugins {
@@ -127,9 +127,9 @@ dependencies {
 }
 ```
 
-## 컴파일러 플러그인 사용하기
+## 컴파일러 플러그인 사용하기 {id="using-the-compiler-plugin"}
 
-### DSL 스타일
+### DSL 스타일 {id="dsl-style"}
 
 컴파일러 플러그인 패키지에서 임포트합니다:
 
@@ -149,7 +149,7 @@ val appModule = module {
 컴파일러 플러그인 DSL은 **`org.koin.plugin.module.dsl`** 패키지에 있습니다. 클래식 DSL은 `org.koin.dsl`에 그대로 유지됩니다.
 :::
 
-### 어노테이션 스타일
+### 어노테이션 스타일 {id="annotation-style"}
 
 클래스에 어노테이션을 사용합니다:
 
@@ -174,7 +174,7 @@ class UserViewModel(private val repository: UserRepository) : ViewModel()
 class AppModule
 ```
 
-### 어노테이션으로 Koin 시작하기
+### 어노테이션으로 Koin 시작하기 {id="starting-koin-with-annotations"}
 
 컴파일러 플러그인을 사용하면 타입 기반 API를 사용하여 Koin을 시작할 수 있습니다. **생성된 코드는 필요하지 않습니다**:
 
@@ -230,7 +230,7 @@ val koinTestRule = KoinTestRule.create {
 }
 ```
 
-## 구성 옵션
+## 구성 옵션 {id="configuration-options"}
 
 `build.gradle.kts`에서 컴파일러 플러그인을 구성할 수 있습니다:
 
@@ -242,7 +242,7 @@ koinCompiler {
 }
 ```
 
-### 사용 가능한 옵션
+### 사용 가능한 옵션 {id="available-options"}
 
 | 옵션 | 설명 | 기본값 |
 |--------|-------------|---------|
@@ -257,7 +257,7 @@ koinCompiler {
 개발 중에는 `userLogs = true`로 설정하여 플러그인에 의해 어떤 컴포넌트가 감지되고 처리되는지 확인하세요.
 :::
 
-## 컴파일 타임 안정성
+## 컴파일 타임 안정성 {id="compile-time-safety"}
 
 Koin 컴파일러 플러그인은 **컴파일 타임 의존성 검증**을 제공합니다. 이는 런타임에 실패하는 대신 빌드 타임에 모든 의존성이 해결될 수 있는지 검증하는 기능입니다. 이 기능은 기본적으로 활성화되어 있습니다.
 
@@ -270,11 +270,11 @@ koinCompiler {
 
 플러그인은 세 가지 수준에서 그래프를 검증합니다: 모듈별(A2), `startKoin<T>()`에서의 전체 그래프(A3), 그리고 모든 호출 지점(A4). 자세한 내용은 [컴파일 타임 안정성(Compile-Time Safety)](/docs/reference/koin-compiler/compile-safety)을 참조하세요.
 
-## 멀티 모듈 프로젝트
+## 멀티 모듈 프로젝트 {id="multi-module-projects"}
 
 여러 Gradle 모듈이 있는 프로젝트의 경우:
 
-### 라이브러리 모듈
+### 라이브러리 모듈 {id="library-module"}
 
 ```kotlin
 // feature/build.gradle.kts
@@ -295,7 +295,7 @@ dependencies {
 class FeatureModule
 ```
 
-### 앱 모듈
+### 앱 모듈 {id="app-module"}
 
 ```kotlin
 // app/build.gradle.kts
@@ -330,7 +330,7 @@ class MainApplication : Application() {
 
 타입 기반 시작 API와 함께 메인 애플리케이션 클래스에 `@KoinApplication`을 사용하세요.
 
-## Kotlin 멀티플랫폼 (KMP)
+## Kotlin 멀티플랫폼 (KMP) {id="kotlin-multiplatform"}
 
 컴파일러 플러그인은 KMP 프로젝트에서도 작동합니다:
 
@@ -351,9 +351,9 @@ kotlin {
 }
 ```
 
-## 문제 해결
+## 문제 해결 {id="troubleshooting"}
 
-### 플러그인을 찾을 수 없음
+### 플러그인을 찾을 수 없음 {id="plugin-not-found"}
 
 플러그인이 플러그인 저장소에 포함되어 있는지 확인하세요:
 
@@ -367,7 +367,7 @@ pluginManagement {
 }
 ```
 
-### Kotlin 버전 불일치
+### Kotlin 버전 불일치 {id="kotlin-version-mismatch"}
 
 컴파일러 플러그인은 Kotlin 2.3.20+ 버전을 요구합니다. Kotlin 버전을 확인하세요:
 
@@ -378,7 +378,7 @@ plugins {
 }
 ```
 
-### 임포트 오류
+### 임포트 오류 {id="import-errors"}
 
 올바른 패키지에서 임포트하고 있는지 확인하세요:
 
@@ -390,7 +390,7 @@ import org.koin.plugin.module.dsl.*
 import org.koin.dsl.*
 ```
 
-### 증분 컴파일 및 캐시 문제
+### 증분 컴파일 및 캐시 문제 {id="incremental-compilation-cache-issues"}
 
 다른 Kotlin 컴파일러 플러그인(예: Compose 컴파일러, Metro)과 마찬가지로, Koin 컴파일러 플러그인은 IR 수준에서 작동합니다. Kotlin의 증분 컴파일(incremental compilation)은 때때로 특정 변경 사항 이후에 **오래되었거나 일관성 없는 결과**를 생성할 수 있습니다.
 
@@ -419,7 +419,7 @@ import org.koin.dsl.*
 그래프 수준의 변경(`module { }` 람다 내부의 DSL 정의, `@ComponentScan` 패키지에 추가된 클래스 등)의 경우, 플러그인의 `strictSafety` 옵션이 애그리게이터 모듈에서 자동으로 활성화되어 매 빌드마다 전체 그래프 안정성 패스가 다시 실행되도록 강제합니다. 자세한 내용은 [`strictSafety`](/docs/reference/koin-annotations/options#strictsafety)를 참조하세요.
 :::
 
-### 멀티 모듈 프로젝트에서의 컴파일 안정성 오탐
+### 멀티 모듈 프로젝트에서의 컴파일 안정성 오탐 {id="compile-safety-false-positives-in-multi-module-projects"}
 
 라이브러리 모듈에 존재하는 의존성을 플러그인이 누락된 것으로 보고하는 경우 다음을 확인하세요:
 
@@ -427,9 +427,9 @@ import org.koin.dsl.*
 2. **라이브러리가 사용하는 모듈보다 먼저 빌드되는지 확인** — 일반적으로 Gradle이 `implementation(project(":lib"))`을 통해 이를 처리하지만, 태스크 의존성을 다시 확인해 보세요.
 3. 라이브러리 모듈에 플러그인을 처음 추가한 후 **클린 빌드를 실행**하세요.
 
-## 마이그레이션
+## 마이그레이션 {id="migration"}
 
-### 클래식 DSL에서 마이그레이션
+### 클래식 DSL에서 마이그레이션 {id="from-classic-dsl"}
 
 1. 컴파일러 플러그인을 추가합니다.
 2. 임포트를 `org.koin.plugin.module.dsl.*`로 업데이트합니다.
@@ -437,7 +437,7 @@ import org.koin.dsl.*
 
 컴파일 타임에 안전한 구문은 위의 [DSL 스타일](#dsl-스타일) 레퍼런스를 참조하세요.
 
-### KSP 프로세서(koin-ksp-compiler)에서 마이그레이션
+### KSP 프로세서(koin-ksp-compiler)에서 마이그레이션 {id="from-the-ksp-processor-koin-ksp-compiler"}
 
 1. KSP 플러그인 및 `koin-ksp-compiler` 의존성을 제거합니다.
 2. Koin 컴파일러 플러그인을 추가합니다.
@@ -446,7 +446,7 @@ import org.koin.dsl.*
 
 전체 가이드는 **[KSP에서 컴파일러 플러그인으로 마이그레이션하기](/docs/migration/from-ksp-to-compiler-plugin)**를 참조하세요.
 
-## 다음 단계
+## 다음 단계 {id="next-steps"}
 
 - **[DSL 레퍼런스](/docs/reference/dsl-reference)** - 전체 DSL 문서
 - **[어노테이션 레퍼런스](/docs/reference/annotations-reference)** - 전체 어노테이션 문서

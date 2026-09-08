@@ -73,7 +73,7 @@ routing {
 
 プラグインはまずアプリケーションのリソースから仕様を探します。見つからない場合は、`java.io.File` を使用してファイルシステムからのロードを試みます。
 
-## ランタイム OpenAPI メタデータの生成
+## ランタイム OpenAPI メタデータの生成 {id="generate-runtime-openapi-metadata"}
 
 静的ファイルに依存する代わりに、OpenAPI コンパイラプラグインとルートアノテーションによって生成されたメタデータを使用して、実行時に OpenAPI 仕様を生成できます。
 
@@ -92,7 +92,7 @@ swaggerUI("/swaggerUI") {
 >
 {style="tip"}
 
-## Swagger UI の設定
+## Swagger UI の設定 {id="configure-swagger-ui"}
 
 `swaggerUI {}` ブロック内で Swagger UI をカスタマイズできます。例えば、デフォルトの Swagger UI バージョンをオーバーライドできます。
 

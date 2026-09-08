@@ -36,7 +36,7 @@ val driver: SqlDriver = NativeSqliteDriver(Database.Schema, "test.db")
 
 {% include 'common/index_queries.md' %}
 
-## Reader 커넥션 풀(Reader Connection Pools)
+## Reader 커넥션 풀(Reader Connection Pools) {id="reader-connection-pools"}
 
 디스크 데이터베이스는 (선택적으로) 여러 개의 reader 커넥션을 가질 수 있습니다. reader 풀을 구성하려면 `NativeSqliteDriver`의 다양한 생성자에 `maxReaderConnections` 파라미터를 전달하세요:
 

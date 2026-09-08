@@ -18,7 +18,7 @@ Kotlinでは、デフォルトですべての例外を「非チェック例外�
 
 例外は [`Exception`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-exception/) クラスのサブクラスによって表されます。`Exception` 自体は [`Throwable`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/) クラスのサブクラスです。階層の詳細については、[例外の階層](#例外の階層)セクションを参照してください。`Exception` は [`openクラス`](inheritance.md) であるため、アプリケーションの特定のニーズに合わせて [カスタム例外](#カスタム例外の作成) を作成できます。
 
-## 例外のスロー
+## 例外のスロー {id="throw-exceptions"}
 
 `throw` キーワードを使用して、手動で例外をスローできます。
 例外のスローは、コード内で予期しないランタイムエラーが発生したことを示します。
@@ -45,7 +45,7 @@ if (userInput < 0) {
 この例では、ユーザーが負の値を入力したときに `IllegalArgumentException` がスローされます。
 カスタムエラーメッセージを作成し、例外の元の原因（`cause`）を保持できます。これらは [スタックトレース](#スタックトレース) に含まれます。
 
-### 事前条件関数による例外のスロー
+### 事前条件関数による例外のスロー {id="throw-exceptions-with-precondition-functions"}
 
 Kotlinでは、事前条件関数（precondition functions）を使用して自動的に例外をスローする追加の方法を提供しています。
 事前条件関数には以下が含まれます：
@@ -59,7 +59,7 @@ Kotlinでは、事前条件関数（precondition functions）を使用して自�
 これらの関数は、特定の条件が満たされない場合にプログラムのフローを継続できない状況に適しています。
 これによりコードが簡素化され、これらのチェックを効率的に処理できるようになります。
 
-#### require() 関数
+#### require() 関数 {id="require-function"}
 
 [`require()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/require.html) 関数は、関数の動作にとって入力引数が不可欠であり、それらが無効な場合に関数を続行できない場合に、引数の検証に使用します。
 
@@ -98,7 +98,7 @@ fun main() {
 >
 {style="note"}
 
-#### check() 関数
+#### check() 関数 {id="check-function"}
 
 [`check()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/check.html) 関数は、オブジェクトまたは変数の状態を検証するために使用します。
 チェックに失敗した場合、それは対処が必要なロジックエラーがあることを示します。
@@ -146,7 +146,7 @@ fun main() {
 >
 {style="note"}
 
-#### error() 関数
+#### error() 関数 {id="error-function"}
 
 [`error()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/error.html) 関数は、論理的に発生してはならない不正な状態や条件を知らせるために使用されます。
 予期しない状態に遭遇したときなど、意図的に例外をスローしたいシナリオに適しています。
@@ -180,7 +180,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-## try-catch ブロックを使用した例外の処理
+## try-catch ブロックを使用した例外の処理 {id="handle-exceptions-using-try-catch-blocks"}
 
 例外がスローされると、プログラムの通常の実行が中断されます。
 `try` と `catch` キーワードを使用することで、例外を適切に処理し、プログラムの安定性を維持できます。
@@ -294,7 +294,7 @@ fun main() {
 
 `WithdrawalException` を処理する一般的な `catch` ブロックは、より具体的な `catch` ブロックで先にキャッチされない限り、`InsufficientFundsException` などの具体的なものを含め、その型のすべての例外をキャッチします。
 
-### finally ブロック
+### finally ブロック {id="the-finally-block"}
 
 `finally` ブロックには、`try` ブロックが正常に完了したか、例外をスローしたかにかかわらず、常に実行されるコードが含まれます。
 `finally` ブロックを使用すると、`try` および `catch` ブロックの実行後に後処理コードを実行できます。
@@ -406,7 +406,7 @@ fun main() {
 
 Kotlinでは、特定のニーズに応じて `catch` ブロックのみ、`finally` ブロックのみ、またはその両方を使用できる柔軟性がありますが、`try` ブロックには常に少なくとも1つの `catch` ブロックまたは `finally` ブロックが伴わなければなりません。
 
-## カスタム例外の作成
+## カスタム例外の作成 {id="create-custom-exceptions"}
 
 Kotlinでは、組み込みの `Exception` クラスを継承するクラスを作成することで、カスタム例外を定義できます。
 これにより、アプリケーションのニーズに合わせた、より具体的なエラータイプを作成できます。
@@ -511,7 +511,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-## Nothing 型
+## Nothing 型 {id="the-nothing-type"}
 
 Kotlinでは、すべての式に型があります。
 式 `throw IllegalArgumentException()` の型は [`Nothing`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-nothing.html) です。これは、他のすべての型のサブタイプである組み込み型であり、[ボトム型（bottom type）](https://en.wikipedia.org/wiki/Bottom_type) としても知られています。
@@ -562,7 +562,7 @@ fun main() {
 
 見ての通り、`TODO()` 関数は常に [`NotImplementedError`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-not-implemented-error/) 例外をスローします。
 
-## 例外クラス
+## 例外クラス {id="exception-classes"}
 
 Kotlinで見られる一般的な例外タイプをいくつか見てみましょう。これらはすべて [`RuntimeException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-runtime-exception/) クラスのサブクラスです：
 
@@ -636,7 +636,7 @@ KotlinのNull安全機能は NullPointerException のリスクを大幅に軽減
 
 Kotlinではすべての例外が非チェック例外であり、明示的にキャッチする必要はありませんが、必要に応じてキャッチできる柔軟性があります。
 
-### 例外の階層
+### 例外の階層 {id="exception-hierarchy"}
 
 Kotlinの例外階層のルートは [`Throwable`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/) クラスです。
 これには2つの直接のサブクラス、[`Error`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-error/) と [`Exception`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-exception/) があります：
@@ -654,7 +654,7 @@ Kotlinは、`NullPointerException` のような一般的な `RuntimeExceptions` 
 
 ![RuntimeExceptionの階層](runtime-exception.svg){width=700}
 
-## スタックトレース
+## スタックトレース {id="stack-trace"}
 
 *スタックトレース（stack trace）*は、デバッグに使用される、実行環境によって生成されるレポートです。
 これは、プログラムの特定のポイント、特にエラーや例外が発生した場所に繋がる一連の関数呼び出しを示します。
@@ -689,7 +689,7 @@ Exception in thread "main" java.lang.ArithmeticException: This is an arithmetic 
 * `at MainKt.main (Main.kt:3)`: これはメソッド名 (`MainKt.main`) と、そのメソッドが呼び出されたソースファイルと行番号 (`Main.kt:3`) を示します。
 * `at MainKt.main (Main.kt)`: これは、例外が `Main.kt` ファイルの `main()` 関数で発生したことを示します。
 
-## Java、Swift、Objective-Cとの例外の相互運用性
+## Java、Swift、Objective-Cとの例外の相互運用性 {id="exception-interoperability-with-java-swift-and-objective-c"}
 
 Kotlinではすべての例外を非チェック例外として扱うため、チェック例外と非チェック例外を区分する言語からそのような例外が呼び出されると、複雑な事態を招く可能性があります。
 KotlinとJava、Swift、Objective-Cのような言語間での例外処理のこの差異に対処するために、[`@Throws`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throws/) アノテーションを使用できます。

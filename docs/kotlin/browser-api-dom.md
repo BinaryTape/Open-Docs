@@ -55,7 +55,7 @@ kotlin {
 </tab>
 </tabs>
 
-## 与 DOM 交互
+## 与 DOM 交互 {id="interaction-with-the-dom"}
 
 要与 DOM（文档对象模型）（DOM）进行交互，您可以使用 `document` 变量。例如，您可以通过此对象设置网站的背景颜色：
 
@@ -84,6 +84,6 @@ email.value = "hadi@jetbrains.com"
 
 就像您引用此 `input` 元素一样，您可以访问页面上的其他元素，并将它们转换为相应的类型。
 
-## 后续步骤
+## 后续步骤 {id="what-s-next"}
 
 要了解如何以简洁的方式在 DOM（文档对象模型）中创建和组织元素，请查看 [类型安全 HTML DSL](typesafe-html-dsl.md)。

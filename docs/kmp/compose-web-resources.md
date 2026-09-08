@@ -2,7 +2,7 @@
 
 在这里，您可以找到有关使用浏览器功能和 `preload` API 预加载资源、缓存 Web 资源以及自动字体回退的信息。
   
-## Web 目标的资源预加载
+## Web 目标的资源预加载 {id="preloading-of-resources-for-web-targets"}
 
 字体和图片等 Web 资源是使用 [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) 异步加载的。在初始加载期间或网络连接较慢的情况下，资源提取可能会导致视觉瑕疵，例如 [FOUT](https://fonts.google.com/knowledge/glossary/fout) 或显示占位符而非图片。
 
@@ -10,7 +10,7 @@
 
 为了防止视觉瑕疵，您可以使用内置的浏览器功能来预加载资源、使用 Compose Multiplatform 的预加载 API，或者将两者结合使用。
 
-### 使用浏览器功能预加载资源
+### 使用浏览器功能预加载资源 {id="preload-resources-using-browser-features"}
 
 在现代浏览器中，您可以使用带有 [`rel="preload"` 属性](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel/preload) 的 `<link>` 标签来预加载资源。此属性指示浏览器在应用程序启动之前优先下载并缓存字体和图片等资源，从而确保这些资源能够尽早可用。
 
@@ -30,7 +30,7 @@
 <link rel="preload" href="./composeResources/username.shared.generated.resources/font/FiraMono-Regular.ttf" as="fetch" type="font/ttf" crossorigin/>
 ```
 
-### 使用 Compose Multiplatform 预加载 API 预加载资源
+### 使用 Compose Multiplatform 预加载 API 预加载资源 {id="preload-resources-using-the-compose-multiplatform-preload-api"}
 <primary-label ref="Experimental"/>
 
 即使您在浏览器中预加载了资源，它们也会被缓存为原始字节，仍需要转换为适合渲染的格式，例如 `FontResource` 和 `DrawableResource`。当应用程序第一次请求该资源时，转换是异步完成的，这可能再次导致闪烁。为了进一步优化体验，Compose Multiplatform 资源拥有自己的内部缓存，用于存储资源的高层表示，这些表示也可以被预加载。
@@ -66,7 +66,7 @@ fun MainScreen() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="val icon by preloadImageVector(Res.drawable.heavy_vector_icon)"}
 
-## 自动字体回退
+## 自动字体回退 {id="automatic-font-fallback"}
 <primary-label ref="Experimental"/>
 
 默认情况下，应用程序已加载字体未涵盖的字符将显示为替代字形（□，被称为“[tofu](https://fonts.google.com/knowledge/glossary/tofu)”）。
@@ -77,7 +77,7 @@ fun MainScreen() {
 
 对于 CJK（中文、日文和韩文）字符，将根据浏览器的语言设置自动选择正确的字体变体。
 
-## 缓存 Web 资源
+## 缓存 Web 资源 {id="caching-web-resources"}
 <primary-label ref="Experimental"/>
 
 Compose Multiplatform 使用 [Web Cache API](https://developer.mozilla.org/en-US/docs/Web/API/Cache) 来缓存成功的响应，并避免浏览器默认缓存机制通常执行的冗余 HTTP 重新验证。
@@ -86,7 +86,7 @@ Compose Multiplatform 使用 [Web Cache API](https://developer.mozilla.org/en-US
 
 为了防止针对同一资源的冗余并发提取，该实现使用了资源特定的锁。每个请求都由每个资源的互斥锁 (mutex) 保护，允许对不同资源进行并行请求，同时对指向同一路径的重复请求进行序列化。这种设计最大限度地减少了不必要的网络流量，并消除了缓存填充过程中的竞态条件。
 
-## 下一步？
+## 下一步？ {id="what-s-next"}
 
 * 详细了解[设置资源](compose-multiplatform-resources-setup.md)以及[在应用中使用它们](compose-multiplatform-resources-usage.md)。
 * 了解如何管理应用程序的[资源环境](compose-resource-environment.md)，例如应用内主题和语言。

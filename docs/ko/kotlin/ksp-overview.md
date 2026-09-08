@@ -11,7 +11,7 @@ KSP 기반 플러그인의 전형적인 사례는 다음과 같습니다:
 
 첫 번째 KSP 기반 프로세서를 만드는 방법은 [KSP 빠른 시작](ksp-quickstart.md)을 참고하세요.
 
-## 개요
+## 개요 {id="overview"}
 
 KSP API는 코틀린 프로그램을 관용적(idiomatically)으로 처리합니다. KSP는 확장 함수(extension functions), 선언 지점 변성(declaration-site variance), 로컬 함수와 같은 코틀린 특유의 기능을 이해합니다. 또한 타입을 명시적으로 모델링하며, 동등성(equivalence) 및 할당 호환성(assign-compatibility)과 같은 기본적인 타입 검사 기능을 제공합니다.
 
@@ -31,7 +31,7 @@ KSP를 바라보는 또 다른 관점은 코틀린 프로그램의 전처리기(
 
 <video src="https://www.youtube.com/v/bv-VyGM3HCY" title="Kotlin Symbol Processing (KSP)"/>
 
-## KSP가 소스 파일을 바라보는 방식
+## KSP가 소스 파일을 바라보는 방식 {id="how-ksp-looks-at-source-files"}
 
 대부분의 프로세서는 입력 소스 코드의 다양한 프로그램 구조를 탐색합니다. API 사용법을 살펴보기 전에, KSP의 관점에서 파일이 어떻게 보이는지 확인해 보겠습니다:
 
@@ -80,7 +80,7 @@ KSFile
 
 이 구조는 파일에 선언된 클래스, 함수, 프로퍼티 등 일반적인 요소들을 나열합니다.
 
-## SymbolProcessorProvider: 진입점
+## SymbolProcessorProvider: 진입점 {id="symbolprocessorprovider-the-entry-point"}
 
 KSP는 `SymbolProcessor`를 인스턴스화하기 위해 `SymbolProcessorProvider` 인터페이스의 구현체를 필요로 합니다:
 
@@ -133,7 +133,7 @@ class HelloFunctionFinderProcessor : SymbolProcessor() {
 }
 ```
 
-## 리소스
+## 리소스 {id="resources"}
 
 * [빠른 시작](ksp-quickstart.md)
 * [예제](ksp-examples.md)
@@ -145,7 +145,7 @@ class HelloFunctionFinderProcessor : SymbolProcessor() {
 * [커맨드 라인에서 KSP 실행하기](ksp-command-line.md)
 * [자주 묻는 질문(FAQ)](ksp-faq.md)
 
-## 지원되는 라이브러리
+## 지원되는 라이브러리 {id="supported-libraries"}
 
 다음 표는 안드로이드에서 널리 사용되는 라이브러리들과 각 라이브러리의 KSP 지원 현황입니다:
 

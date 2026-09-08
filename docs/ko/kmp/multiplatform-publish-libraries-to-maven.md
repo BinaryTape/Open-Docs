@@ -23,17 +23,17 @@
 > 
 {style="note"}
 
-## 샘플 라이브러리
+## 샘플 라이브러리 {id="sample-library"}
 
 이 튜토리얼에서는 [fibonacci](https://github.com/Kotlin/multiplatform-library-template/) 라이브러리를 예제로 사용합니다. 해당 저장소의 코드를 참고하여 배포 설정이 어떻게 작동하는지 확인할 수 있습니다.
 
 코드를 재사용하려는 경우, **모든 예제 값을 본인의 프로젝트에 맞는 값으로 반드시 교체**해야 합니다.
 
-## 계정 및 자격 증명 준비
+## 계정 및 자격 증명 준비 {id="prepare-accounts-and-credentials"}
 
 Maven Central 배포를 시작하려면 [Maven Central](https://central.sonatype.com/) 포털에 로그인(또는 새 계정 생성)하세요.
 
-### 네임스페이스 선택 및 확인
+### 네임스페이스 선택 및 확인 {id="choose-and-verify-a-namespace"}
 
 Maven Central에서 라이브러리의 아티팩트를 고유하게 식별하려면 확인된 네임스페이스(namespace)가 필요합니다.
 
@@ -72,7 +72,7 @@ Maven Central에 로그인한 후 [Namespaces](https://central.sonatype.com/publ
 </TabItem>
 </Tabs>
 
-#### 키 쌍 생성
+#### 키 쌍 생성 {id="generate-a-key-pair"}
 
 Maven Central에 배포하기 전에 [PGP 서명](https://central.sonatype.org/publish/requirements/gpg/)으로 아티팩트에 서명해야 합니다. 이는 사용자가 아티팩트의 출처를 검증할 수 있게 해줍니다.
 
@@ -190,7 +190,7 @@ brew install gpg
 </TabItem>
 </Tabs>
 
-#### 공개 키 업로드
+#### 공개 키 업로드 {id="upload-the-public-key"}
 
 Maven Central에서 공개 키를 허용하려면 [공개 키를 키 서버에 업로드](https://central.sonatype.org/publish/requirements/gpg/#distributing-your-public-key)해야 합니다. 여러 키 서버가 있지만 여기서는 `keyserver.ubuntu.com`을 기본 선택지로 사용합니다.
 
@@ -236,9 +236,9 @@ gpg --armor --export-secret-keys F175482952A225BFC4A07A715EE6B5F76620B385CE > ke
 </TabItem>
 </Tabs>
 
-## 프로젝트 구성
+## 프로젝트 구성 {id="configure-the-project"}
 
-### 라이브러리 프로젝트 준비
+### 라이브러리 프로젝트 준비 {id="prepare-your-library-project"}
 
 템플릿 프로젝트에서 라이브러리 개발을 시작했다면, 지금이 프로젝트의 기본 이름을 본인의 라이브러리 이름에 맞게 변경하기 좋은 시점입니다. 여기에는 라이브러리 모듈의 이름과 최상위 `build.gradle.kts` 파일에 있는 루트 프로젝트의 이름이 포함됩니다.
 
@@ -253,7 +253,7 @@ android {
 }
 ```
 
-### 배포 플러그인 설정
+### 배포 플러그인 설정 {id="set-up-the-publishing-plugin"}
 
 이 튜토리얼에서는 Maven Central 배포를 돕기 위해 [vanniktech/gradle-maven-publish-plugin](https://github.com/vanniktech/gradle-maven-publish-plugin)을 사용합니다.
 플러그인의 장점에 대한 자세한 내용은 [여기](https://vanniktech.github.io/gradle-maven-publish-plugin/#advantages-over-maven-publish)에서 읽어볼 수 있습니다.
@@ -324,11 +324,11 @@ mavenPublishing {
 * [개발자 정보(developer information)](https://central.sonatype.org/publish/requirements/#developer-information): 라이브러리 작성자 목록입니다.
 * [SCM(Source Code Management) 정보](https://central.sonatype.org/publish/requirements/#scm-information): 라이브러리 소스 코드가 호스팅되는 위치를 지정합니다.
 
-### 로컬 확인 실행
+### 로컬 확인 실행 {id="run-local-checks"}
 
 Maven Central에 배포하기 전에 프로젝트가 올바르게 구성되었는지 로컬에서 확인하는 것이 좋습니다.
 
-#### 로컬 서명 확인
+#### 로컬 서명 확인 {id="check-signing-locally"}
 
 다음 명령어를 실행하여 서명을 위한 키가 올바르게 구성되었는지 확인합니다:
 
@@ -340,7 +340,7 @@ Maven Central에 배포하기 전에 프로젝트가 올바르게 구성되었�
 
 태스크에서 오류가 보고되면 출력을 검토하여 수정 방법을 확인하세요.
 
-#### 로컬 `pom.xml` 파일 확인
+#### 로컬 `pom.xml` 파일 확인 {id="check-the-pom-xml-file-locally"}
 
 라이브러리를 Maven Central에 배포하려면 `pom.xml` 파일이 Maven Central의 [요구 사항](https://central.sonatype.org/publish/requirements/#required-pom-metadata)을 충족해야 합니다.
 
@@ -358,9 +358,9 @@ Maven Central에 배포하기 전에 프로젝트가 올바르게 구성되었�
 
 태스크에서 오류가 보고되면 출력을 검토하여 수정 방법을 확인하세요.
 
-## 지속적 통합을 사용하여 Maven Central에 배포하기
+## 지속적 통합을 사용하여 Maven Central에 배포하기 {id="publish-to-maven-central-using-continuous-integration"}
 
-### 사용자 토큰 생성
+### 사용자 토큰 생성 {id="generate-the-user-token"}
 
 배포 요청을 승인하려면 Maven Central용 Maven 액세스 토큰이 필요합니다.
 [Setup Token-Based Authentication](https://central.sonatype.com/usertoken) 페이지를 열고 **Generate User Token** 버튼을 클릭합니다.
@@ -376,7 +376,7 @@ Maven Central은 이러한 자격 증명을 저장하지 않으므로, 분실할
 </server>
 ```
 
-### GitHub에 시크릿 추가
+### GitHub에 시크릿 추가 {id="add-secrets-to-github"}
 
 배포에 필요한 키와 자격 증명을 GitHub Action 워크플로우에서 사용하면서 비공개로 유지하려면 이러한 값을 시크릿(secrets)으로 저장해야 합니다.
 
@@ -392,7 +392,7 @@ Maven Central은 이러한 자격 증명을 저장하지 않으므로, 분실할
 
 다음 단계의 CI 구성에서 이 시크릿 이름들을 사용하게 됩니다.
 
-### 프로젝트에 GitHub Actions 워크플로우 추가
+### 프로젝트에 GitHub Actions 워크플로우 추가 {id="add-a-github-actions-workflow-to-your-project"}
 
 라이브러리를 자동으로 빌드하고 배포하도록 지속적 통합을 설정할 수 있습니다. 여기서는 [GitHub Actions](https://docs.github.com/en/actions)를 예로 들어 설명합니다.
 
@@ -441,7 +441,7 @@ jobs:
 
 워크플로우 구성은 이러한 시크릿을 자동으로 환경 변수로 전환하여 Gradle 빌드 프로세스에서 사용할 수 있도록 합니다.
 
-### GitHub에서 릴리스 생성
+### GitHub에서 릴리스 생성 {id="create-a-release-on-github"}
 
 워크플로우와 시크릿이 설정되었으므로 이제 라이브러리 배포를 트리거할 [릴리스를 생성](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository#creating-a-release)할 준비가 되었습니다.
 
@@ -477,7 +477,7 @@ jobs:
 
 배포가 검증된 후 아티팩트를 자동으로 릴리스하려면 워크플로우의 `publishToMavenCentral` 태스크를 `publishAndReleaseToMavenCentral`로 바꾸세요.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [멀티플랫폼 라이브러리 배포 설정 및 요구 사항에 대해 자세히 알아보기](multiplatform-publish-lib-setup.md)
 * [README에 shields.io 배지 추가하기](https://shields.io/badges/maven-central-version)

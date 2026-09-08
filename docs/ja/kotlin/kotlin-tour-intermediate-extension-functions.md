@@ -4,7 +4,7 @@
 
 この章では、コードをより簡潔で読みやすくするKotlinの特殊な関数について学習します。プロジェクトを次のレベルに引き上げるために、効率的なデザインパターンを使用するのにこれらがどのように役立つかを学びましょう。
 
-## 拡張関数
+## 拡張関数 {id="extension-functions"}
 
 ソフトウェア開発では、元のソースコードを変更せずにプログラムの動作を変更したいことがよくあります。例えば、サードパーティ製ライブラリのクラスに機能を追加したい場合などです。
 
@@ -41,7 +41,7 @@ fun main() {
 * 文字列テンプレート (`$this`) が `this` の値にアクセスするために使用されます。
 * `.bold()` 拡張関数は文字列を受け取り、それを太字用の `<b>` HTML要素で囲んで返します。
 
-## 拡張指向のデザイン
+## 拡張指向のデザイン {id="extension-oriented-design"}
 
 拡張関数はどこにでも定義できるため、拡張指向のデザイン（extension-oriented designs）を作成できます。これらのデザインは、コア機能と、便利ではあるが必須ではない機能を分離し、コードの読みやすさとメンテナンス性を向上させます。
 
@@ -93,7 +93,7 @@ fun main() {
 
 拡張関数の詳細については、[Extensions](extensions.md) を参照してください。
 
-## 練習問題 {completion-point="true"}
+## 練習問題 {completion-point="true" id="practice"}
 
 ### 練習問題 1 {initial-collapse-state="collapsed" collapsible="true" id="extension-functions-exercise-1"}
 

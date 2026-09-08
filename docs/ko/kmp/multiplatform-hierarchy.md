@@ -11,7 +11,7 @@
 
 소스 세트 계층을 설정하는 권장 방법은 [기본 계층 템플릿(default hierarchy template)](#default-hierarchy-template)을 사용하는 것입니다. 이 템플릿은 가장 대중적인 사례들을 다룹니다. 더 고급 프로젝트를 진행 중이라면 [수동으로 구성](#manual-configuration)할 수도 있습니다. 수동 구성은 더 저수준의 접근 방식으로, 더 유연하지만 더 많은 노력과 지식이 필요합니다.
 
-## 기본 계층 템플릿
+## 기본 계층 템플릿 {id="default-hierarchy-template"}
 
 코틀린 그레이들(Gradle) 플러그인에는 내장된 기본 [계층 템플릿](#see-the-full-hierarchy-template)이 있습니다.
 여기에는 대중적인 사용 사례를 위해 미리 정의된 중간 소스 세트들이 포함되어 있습니다.
@@ -105,7 +105,7 @@ kotlin {
 >
 {style="note"}
 
-### 추가 구성
+### 추가 구성 {id="additional-configuration"}
 
 기본 계층 템플릿을 조정해야 할 수도 있습니다. 이전에 `dependsOn` 호출을 통해 중간 소스를 [수동으로](#manual-configuration) 도입한 경우, 기본 계층 템플릿 사용이 취소되고 다음과 같은 경고가 발생합니다:
 
@@ -127,13 +127,13 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
 * [기본 계층 템플릿에 추가 소스 세트 생성](#creating-additional-source-sets)
 * [기본 계층 템플릿에 의해 생성된 소스 세트 수정](#modifying-source-sets)
 
-#### 수동 구성을 교체하기
+#### 수동 구성을 교체하기 {id="replacing-a-manual-configuration"}
 
 **상황**. 모든 중간 소스 세트가 현재 기본 계층 템플릿에서 다루고 있는 범위 내에 있는 경우.
 
 **해결책**. 공유 모듈의 `build.gradle(.kts)` 파일에서 모든 수동 `dependsOn()` 호출과 `by creating` 구문을 사용한 소스 세트를 제거합니다. 모든 기본 소스 세트 목록을 확인하려면 [전체 계층 템플릿](#see-the-full-hierarchy-template)을 참조하세요.
 
-#### 추가 소스 세트 생성하기
+#### 추가 소스 세트 생성하기 {id="creating-additional-source-sets"}
 
 **상황**. 기본 계층 템플릿이 아직 제공하지 않는 소스 세트를 추가하고 싶은 경우 (예: macOS 타겟과 JVM 타겟 사이의 소스 세트).
 
@@ -198,7 +198,7 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
     </TabItem>
     </Tabs>
 
-#### 소스 세트 수정하기
+#### 소스 세트 수정하기 {id="modifying-source-sets"}
 
 **상황**. 템플릿에 의해 생성된 것과 정확히 동일한 이름을 가진 소스 세트가 이미 있지만, 프로젝트의 다른 타겟 세트들 사이에서 공유되고 있는 경우. 예를 들어, `nativeMain` 소스 세트가 데스크톱 전용 타겟인 `linuxX64`, `mingwX64`, `macosArm64` 사이에서만 공유되는 경우입니다.
 
@@ -216,7 +216,7 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
 >
 {style="tip"}
 
-#### 전체 계층 템플릿 보기 {initial-collapse-state="collapsed" collapsible="true"}
+#### 전체 계층 템플릿 보기 {initial-collapse-state="collapsed" collapsible="true" id="see-the-full-hierarchy-template"}
 
 프로젝트가 컴파일되는 타겟을 선언하면, 플러그인은 템플릿에서 지정된 타겟을 기반으로 공유 소스 세트를 선택하여 프로젝트에 생성합니다.
 
@@ -226,7 +226,7 @@ Learn more about hierarchy templates: https://kotl.in/hierarchy-template
 >
 {style="tip"}
 
-## 수동 구성
+## 수동 구성 {id="manual-configuration"}
 
 소스 세트 구조에 중간 소스를 수동으로 도입할 수 있습니다. 이는 여러 타겟을 위한 공유 코드를 보관하게 됩니다.
 

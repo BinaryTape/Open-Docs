@@ -10,7 +10,7 @@
 > 
 {style="tip"}
 
-## 語法
+## 語法 {id="syntax"}
 
 若要宣告一個字元，請將該值括在單引號 (`' '`) 中。您可以明確指定 `Char` 型別，或讓 Kotlin 從值中進行推論：
 
@@ -32,7 +32,7 @@ val invalidEmpty = '' // 錯誤
 ```
 {validate="false"}
 
-### 可為 Null 的值
+### 可為 Null 的值 {id="nullable-values"}
 
 若要儲存一個可為 null 的值，請使用 `Char?`：
 
@@ -45,11 +45,11 @@ val maybeAbsent: Char? = null
 >
 {style="note"}
 
-## Unicode 支援
+## Unicode 支援 {id="unicode-support"}
 
 Kotlin 將 `Char` 值表示為 UTF-16 程式碼單元。這意味著單個 `Char` 儲存的是一個 UTF-16 程式碼單元，而不一定是一個完整的 Unicode 字元。
 
-### 基本多語言平面
+### 基本多語言平面 {id="basic-multilingual-plane"}
 
 單個 `Char` 可以儲存從 `\u0000` 到 `\uFFFF` 範圍內的值。
 此範圍涵蓋了基本多語言平面 (Basic Multilingual Plane, BMP)，其中包括幾乎所有現代語言的字元以及大量的符號。
@@ -60,7 +60,7 @@ Kotlin 將 `Char` 值表示為 UTF-16 程式碼單元。這意味著單個 `Char
 val unicodeNumber = '\u0031' // 等於 '1'
 ```
 
-### 增補字元
+### 增補字元 {id="supplementary-characters"}
 
 BMP 之外的 Unicode 字元（例如表情符號和某些古老文字）無法由單個 `Char` 表示。在 UTF-16 中，它們被編碼為一個 *代理對 (surrogate pair)*，其中兩個 `Char` 值在 `String` 中共同代表一個 Unicode 字元：
 
@@ -80,7 +80,7 @@ fun main() {
 >
 {style="tip"}
 
-## 轉義序列
+## 轉義序列 {id="escape-sequences"}
 
 對於難以直接在原始碼中撰寫或具有特殊含義的特殊字元，請使用轉義序列。
 
@@ -107,11 +107,11 @@ val dollar = '\$'
 val backslash = '\\'
 ```
 
-## 操作
+## 操作 {id="operations"}
 
 `Char` 支援比較、檢查、大小寫轉換以及明確的數值轉換。
 
-### 字元比較
+### 字元比較 {id="character-comparison"}
 
 若要比較 `Char` 值，請使用標準的[比較運算子](keyword-reference.md#operators-and-special-symbols)，例如 `==`、`!=`、`<`、`>`、`<=` 和 `>=`。
 
@@ -124,7 +124,7 @@ val different = 'A' == 'a' // false
 val equal = 'A' == 'A' // true
 ```
 
-### 字元處理
+### 字元處理 {id="character-processing"}
 
 Kotlin 提供用於檢查字元值以及進行大小寫轉換的函式。例如：
 
@@ -147,7 +147,7 @@ fun main() {
 >
 {style="note"}
 
-### 字元算術
+### 字元算術 {id="character-arithmetic"}
 
 您可以透過加上或減去一個整數來建立另一個字元值：
 
@@ -190,7 +190,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 字元轉換
+### 字元轉換 {id="character-conversion"}
 
 若要將 `Char` 轉換為數值型別，請使用明確轉換：
 

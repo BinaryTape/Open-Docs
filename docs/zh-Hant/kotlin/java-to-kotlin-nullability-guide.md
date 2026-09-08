@@ -15,7 +15,7 @@ Kotlin 如何處理 [來自 Java 程式碼的型別](#platform-types)。第二�
 
 [進一步了解 Kotlin 中的 null 安全性](null-safety.md)。
 
-## 對可 null 型別的支援
+## 對可 null 型別的支援 {id="support-for-nullable-types"}
 
 Kotlin 與 Java 型別系統最重要的區別在於 Kotlin 對 [可 null 型別](null-safety.md) 的明確支援。
 這是一種標示哪些變數可能持有 `null` 值的方法。
@@ -97,7 +97,7 @@ fun stringLength(a: String?): Int = a?.length ?: 0
 ```
 {id="get-length-of-null-shorter-kotlin"}
 
-## 平台型別
+## 平台型別 {id="platform-types"}
 
 在 Java 中，您可以使用註解來顯示變數是否可以為 `null`。
 此類註解不是標準程式庫的一部分，但您可以單獨新增它們。
@@ -115,7 +115,7 @@ fun stringLength(a: String?): Int = a?.length ?: 0
 
 進一步了解 [關於 null 安全性和平台型別的 Java 呼叫 Kotlin 說明](java-interop.md#null-safety-and-platform-types)。
 
-## 對絕對不可 null 型別的支援
+## 對絕對不可 null 型別的支援 {id="support-for-definitely-non-nullable-types"}
 
 在 Kotlin 中，如果您想覆寫一個包含 `@NotNull` 作為引數的 Java 方法，您需要 Kotlin 的絕對不可 null 型別。
 
@@ -143,7 +143,7 @@ interface ArcadeGame<T1> : Game<T1> {
 
 進一步了解 [絕對不可 null](generics.md#definitely-non-nullable-types) 的泛型型別。
 
-## 檢查函式呼叫的結果
+## 檢查函式呼叫的結果 {id="checking-the-result-of-a-function-call"}
 
 最常需要檢查 `null` 的情況之一是當您從函式呼叫中取得結果時。
 
@@ -211,7 +211,7 @@ findOrder()?.customer?.let(::processCustomer)
 ```
 {id="process-customer-with-let-short-kotlin"}
 
-## 使用預設值代替 null
+## 使用預設值代替 null {id="default-values-instead-of-null"}
 
 檢查 `null` 經常與 [設定預設值](functions.md#parameters-with-default-values) 結合使用，以防 null 檢查成功。
 
@@ -234,7 +234,7 @@ val order = findOrder() ?: Order(Customer("Antonio"))
 ```
 {id="default-value-instead-of-null-kotlin"}
 
-## 傳回值或 null 的函式
+## 傳回值或 null 的函式 {id="functions-returning-a-value-or-null"}
 
 在 Java 中，處理清單元素時需要小心。在嘗試使用元素之前，您應該始終檢查該索引處是否存在元素：
 
@@ -270,7 +270,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="functions-returning-null-kotlin"}
 
-## 聚合操作
+## 聚合操作 {id="aggregate-operations"}
 
 當您需要取得最大的元素，或者在沒有元素時取得 `null`，在 Java 中您會使用
 [Stream API](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/package-summary.html)：
@@ -294,7 +294,7 @@ println("Max: ${numbers.maxOrNull()}")
 
 進一步了解 [Java 與 Kotlin 中的集合](java-to-kotlin-collections-guide.md)。
 
-## 安全地轉換型別
+## 安全地轉換型別 {id="casting-types-safely"}
 
 當您需要安全地轉換型別時，在 Java 中您會使用 `instanceof` 運算子，然後檢查其運作情況：
 
@@ -376,7 +376,7 @@ fun getUsername(profile: UserProfile?): String? =
 
 此版本將 `if` 運算式替換為 [安全呼叫運算子](null-safety.md#safe-call-operator) `?.`，它在嘗試轉換之前安全地存取 data 屬性。
 
-## 下一步？
+## 下一步？ {id="what-s-next"}
 
 * 瀏覽其他 [Kotlin 慣用法](idioms.md)。
 * 了解如何使用 [Java 到 Kotlin (J2K) 轉換器](mixing-java-kotlin-intellij.md#convert-java-files-to-kotlin) 將現有 Java 程式碼轉換為 Kotlin。

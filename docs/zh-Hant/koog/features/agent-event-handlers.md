@@ -2,7 +2,7 @@
 
 您可以使用事件處理常式來監控並回應代理工作流程中的特定事件，進而實現記錄、測試、偵錯及擴充代理行為。
 
-## 功能概覽
+## 功能概覽 {id="feature-overview"}
 
 `EventHandler` 功能讓您能夠掛鉤（hook）到各種代理事件。它作為一種事件委派機制，具備以下作用：
 
@@ -11,7 +11,7 @@
 - 啟用錯誤處理與恢復。
 - 促進工具調用追蹤與結果處理。
 
-### 安裝與配置
+### 安裝與配置 {id="installation-and-configuration"}
 
 `EventHandler` 功能透過 `EventHandler` 類別與代理工作流程整合，該類別提供了一種為不同代理事件註冊回呼（callback）的方法，並可作為功能安裝在代理配置中。有關詳細資訊，請參閱 [API 參考資料](api:agents-features-event-handler::ai.koog.agents.features.eventHandler.feature.EventHandler)。
 

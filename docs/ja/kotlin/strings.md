@@ -5,7 +5,7 @@
 
 `String` 型は不変（immutable）です。`String` オブジェクトを作成した後、その内容はライフサイクルの終わりまで変わりません。文字列を修正しているように見える操作は、実際には新しい文字列を作成しています。
 
-## 文字列の宣言
+## 文字列の宣言 {id="declare-strings"}
 
 `String` リテラルを宣言するには、値をダブルクォート（`""`）で囲みます。`String` 型を明示的に指定することも、Kotlinに値から型を推論させることもできます。
 
@@ -23,7 +23,7 @@ world!"
 val quote = "Kotlin says, \"Hi\"."
 ```
 
-### マルチライン文字列
+### マルチライン文字列 {id="multiline-strings"}
 
 複数行にわたるテキストを保存したり、エスケープしたくない引用符を含めたりする場合は、トリプルクォート（`""" """`）で囲まれたマルチライン文字列を使用します。
 
@@ -91,7 +91,7 @@ fun main() {
 >
 {style="note"}
 
-## 文字列テンプレート
+## 文字列テンプレート {id="string-templates"}
 
 文字列テンプレートを使用すると、変数や式を `String` リテラルの中に直接埋め込むことができます。このプロセスは *補間（interpolation）* と呼ばれます。文字列テンプレートは、通常の文字列とマルチライン文字列の両方で使用できます。
 
@@ -141,7 +141,7 @@ Result: ${"OK".lowercase()}
 """
 ```
 
-### 文字列テンプレートでの Null 許容値
+### 文字列テンプレートでの Null 許容値 {id="nullable-values-in-string-templates"}
 
 補間された式や変数が `null` と評価された場合、Kotlinコンパイラは結果の文字列に `null` というテキストを挿入します。`null` を別の値に置き換えるには、[エルビス演算子（Elvis operator）](null-safety.md#elvis-operator)（`?:`）を使用します。
 
@@ -160,7 +160,7 @@ fun main(){
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### マルチドル文字列補間
+### マルチドル文字列補間 {id="multi-dollar-string-interpolation"}
 
 通常の文字列テンプレートでは、単一のドル記号（`$`）が補間を開始します。文字列にリテラルのドル記号を含める必要がある場合は、**マルチドル文字列補間（multi-dollar string interpolation）** を使用してください。
 
@@ -185,7 +185,7 @@ val KClass<*>.jsonSchema : String
 >
 {style="tip"}
 
-## 基本的な文字列操作
+## 基本的な文字列操作 {id="basic-string-operations"}
 
 Kotlinは文字列を扱うためのさまざまな操作を提供しています。このセクションでは、最も一般的に使用される操作のいくつかを紹介します。
 
@@ -193,7 +193,7 @@ Kotlinは文字列を扱うためのさまざまな操作を提供していま�
 >
 {style="tip"}
 
-### 文字列の長さを取得する
+### 文字列の長さを取得する {id="get-string-length"}
 
 文字列内の文字数を取得するには、[`length`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/length.html) プロパティを使用します。
 
@@ -208,7 +208,7 @@ fun main (){
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 文字へのアクセス
+### 文字へのアクセス {id="access-characters"}
 
 インデックス演算子（`[]`）を使用して、文字列内の個々の文字にアクセスできます。
 
@@ -244,7 +244,7 @@ fun main(){
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 文字列の一部の抽出
+### 文字列の一部の抽出 {id="extract-parts-of-a-string"}
 
 文字列の一部を抽出するには、以下のいずれかの関数を使用します。
 
@@ -270,7 +270,7 @@ fun main() {
 
 `String` 型は不変であるため、これらの関数は元の文字列を変更しません。
 
-### 文字列の比較
+### 文字列の比較 {id="compare-strings"}
 
 2つの文字列が同じ内容であるかどうかは、`==` 演算子で確認できます。
 
@@ -310,7 +310,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 文字列内容の操作
+### 文字列内容の操作 {id="work-with-string-content"}
 
 文字列の内容を変更したい場合は、[`.trim()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/trim.html)、[`.replace()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/replace.html)、[`.uppercase()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/uppercase.html)、[`.lowercase()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/lowercase.html) などの関数を使用して、変更されたコピーを作成します。
 
@@ -358,7 +358,7 @@ fun main() {
  ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 文字列の分割
+### 文字列の分割 {id="split-strings"}
 
 [`split()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/split.html) 関数を使用して、デリミタ（区切り文字）の前後で文字列を分割できます。
 
@@ -388,7 +388,7 @@ three"
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 文字列の構築と書式設定
+### 文字列の構築と書式設定 {id="build-and-format-strings"}
 
 > Kotlinでのほとんどの書式設定タスクには、[文字列テンプレート](#文字列テンプレート)を使用してください。
 >
@@ -459,7 +459,7 @@ val text = String.format("Hello, %s", "Kotlin")
 >
 {style="note"}
 
-## 文字列の変換
+## 文字列の変換 {id="string-conversion"}
 
 数値、`Boolean` 値、または入力からの識別子など、他の型の値を表すために文字列を使用することがよくあります。Kotlinは、値を文字列に変換する関数と、文字列を他の型に解析（パース）する関数を提供しています。
 

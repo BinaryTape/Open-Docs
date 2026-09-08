@@ -28,7 +28,7 @@ Kotlin 2.4.0 正式发布！以下是主要亮点：
 >
 {style="tip"}
 
-## 更新至 Kotlin 2.4.0
+## 更新至 Kotlin 2.4.0 {id="update-to-kotlin-2-4-0"}
 
 最新版本的 Kotlin 已包含在最新版本的 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Android Studio](https://developer.android.com/studio) 中。
 
@@ -64,11 +64,11 @@ Kotlin 2.4.0 正式发布！以下是主要亮点：
 * [Swift 导出进入 Alpha 阶段，并改进了并发支持](#swift-export-goes-alpha-with-improved-concurrency-support)
 * [支持 WebAssembly 组件模型](#support-for-the-webassembly-component-model)
 
-## 语言
+## 语言 {id="language"}
 
 Kotlin 2.4.0 将上下文参数、显式支持字段和注解使用处目标功能提升为 [Stable](components-stability.md#stability-levels-explained)。此版本还引入了 [针对上下文参数的显式上下文实参](#explicit-context-arguments-for-context-parameters)。
 
-### 稳定功能
+### 稳定功能 {id="stable-features"}
 <secondary-label ref="language"/>
 
 Kotlin 2.2.0 和 2.3.0 引入了一些作为 [Experimental](components-stability.md#stability-levels-explained) 的语言功能。我们很高兴地宣布，以下语言功能在此版本中已达到 [Stable](components-stability.md#stability-levels-explained)：
@@ -80,7 +80,7 @@ Kotlin 2.2.0 和 2.3.0 引入了一些作为 [Experimental](components-stability
 
 [查看 Kotlin 语言设计功能和提案的完整列表](kotlin-language-features-and-proposals.md)。
 
-### 导入语句的最后一段不再出现弃用警告
+### 导入语句的最后一段不再出现弃用警告 {id="no-more-deprecation-warnings-on-the-last-segments-of-imports"}
 <secondary-label ref="language"/>
 
 在以前的 Kotlin 版本中，当导入一个已弃用的类时，弃用错误会同时在调用处和导入指令本身报错。由于无法在导入时抑制弃用错误，您可能不得不通过抑制整个文件的弃用报告或使用星号导入来解决此问题。
@@ -89,7 +89,7 @@ Kotlin 2.2.0 和 2.3.0 引入了一些作为 [Experimental](components-stability
 
 欲了解更多信息，请参阅 [KT-30155](https://youtrack.jetbrains.com/issue/KT-30155)。
 
-### 上下文参数的显式上下文实参
+### 上下文参数的显式上下文实参 {id="explicit-context-arguments-for-context-parameters"}
 <primary-label ref="experimental-opt-in"/>
 
 <secondary-label ref="language"/>
@@ -166,7 +166,7 @@ kotlin {
 
 欲了解更多信息，请参阅该功能的 [KEEP](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0448-explicit-context-arguments.md)。
 
-### 支持集合字面量
+### 支持集合字面量 {id="support-for-collection-literals"}
 <primary-label ref="experimental-opt-in"/>
 
 <secondary-label ref="language"/>
@@ -272,7 +272,7 @@ kotlin {
 
 欲了解更多信息，请参阅该功能的 [KEEP](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0416-collection-literals.md)。
 
-### 改进的编译时常量
+### 改进的编译时常量 {id="improved-compile-time-constants"}
 <primary-label ref="experimental-opt-in"/>
 
 <secondary-label ref="language"/>
@@ -322,7 +322,7 @@ kotlin {
 
 欲了解更多信息，请参阅该功能的 [KEEP](https://github.com/Kotlin/KEEP/blob/main/proposals/KEEP-0444-improve-compile-time-constants.md)。
 
-### 改进的高阶函数未使用结果检查
+### 改进的高阶函数未使用结果检查 {id="improved-unused-result-checks-for-higher-order-functions"}
 <primary-label ref="experimental-opt-in"/>
 
 <secondary-label ref="language"/>
@@ -403,7 +403,7 @@ kotlin {
 </tab> 
 </tabs>
 
-### 新的 `@IntroducedAt` 注解，用于为可选形参生成基于版本的重载
+### 新的 `@IntroducedAt` 注解，用于为可选形参生成基于版本的重载 {id="new-introducedat-annotation-to-generate-version-based-overloads-for-optional-parameters"}
 <primary-label ref="experimental-opt-in"/>
 
 <secondary-label ref="language"/>
@@ -436,11 +436,11 @@ fun Button(
 
 由于 `@IntroducedAt` 和 `@JvmOverloads` 都会生成重载，同时使用它们可能会导致重载冲突。如果您同时使用这两个注解，编译器会报告警告。如果您抑制该警告，编译器会优先考虑从 `@IntroducedAt` 注解生成的重载。
 
-## 标准库
+## 标准库 {id="standard-library"}
 
 Kotlin 2.4.0 稳定了公共 Kotlin 标准库中对 UUID 的支持。它还添加了用于在 JVM 上将无符号整数转换为 `BigInteger` 的新扩展函数，以及对检查排序顺序的支持。
 
-### 公共 Kotlin 标准库中稳定的 UUID API
+### 公共 Kotlin 标准库中稳定的 UUID API {id="stable-uuid-api-in-the-common-kotlin-standard-library"}
 <secondary-label ref="standard-library"/>
 
 Kotlin 2.0.20 引入了一个 [用于生成 UUID 的类](whatsnew2020.md#support-for-uuids-in-the-common-kotlin-standard-library)（通用唯一标识符），并添加了对 Kotlin 和 Java UUID 之间转换的支持。随后的版本通过添加对以下内容的支持，逐渐改进了这一实验性功能：
@@ -453,7 +453,7 @@ Kotlin 2.0.20 引入了一个 [用于生成 UUID 的类](whatsnew2020.md#support
 
 有关如何使用 UUID 的更多信息，请参阅 [UUID](uuids.md)。
 
-### 支持检查排序顺序
+### 支持检查排序顺序 {id="support-for-checking-sorted-order"}
 <secondary-label ref="standard-library"/>
 
 Kotlin 2.4.0 为可迭代对象、数组和序列添加了新的扩展函数，用于检查排序顺序。
@@ -489,7 +489,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.4.0-Beta2" id="kotlin-2-4-0-check-sorted-order"}
 
-### 在 JVM 上将无符号整数转换为 `BigInteger` 的新 API
+### 在 JVM 上将无符号整数转换为 `BigInteger` 的新 API {id="new-api-for-converting-unsigned-integers-to-biginteger-on-the-jvm"}
 <secondary-label ref="standard-library"/>
 
 Kotlin 2.4.0 在 JVM 上引入了 `UInt.toBigInteger()` 和 `ULong.toBigInteger()` 扩展函数。
@@ -514,7 +514,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.4.0-Beta2" id="kotlin-2-4-0-convert-unsigned-int"}
 
-### 新的 Map 回退函数，用于区分 `null` 值和缺失的键
+### 新的 Map 回退函数，用于区分 `null` 值和缺失的键 {id="new-map-fallback-functions-to-distinguish-null-values-and-missing-keys"}
 <primary-label ref="experimental-opt-in"/>
 
 <secondary-label ref="standard-library"/>
@@ -594,27 +594,27 @@ fun main() {
 
 我们欢迎您在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-67337) 中提供反馈。
 
-## Kotlin/JVM
+## Kotlin/JVM {id="kotlin-jvm"}
 
 Kotlin 2.4.0 支持新的 Java 版本，并默认在元数据中启用注解。
 
-### 支持 Java 26
+### 支持 Java 26 {id="support-for-java-26"}
 <secondary-label ref="jvm"/>
 
 从 Kotlin 2.4.0 开始，编译器可以生成包含 Java 26 字节码的类。
 
-### 元数据中的注解默认启用
+### 元数据中的注解默认启用 {id="annotations-in-metadata-enabled-by-default"}
 <secondary-label ref="jvm"/>
 
 Kotlin 2.2.0 中的 Kotlin Metadata JVM 库 [引入了对读取存储在 Kotlin 元数据中的注解的支持](whatsnew22.md#support-for-reading-and-writing-annotations-in-kotlin-metadata)。通过此支持，Kotlin 编译器将注解与 JVM 字节码一起写入元数据，使其可供 Kotlin Metadata JVM 库访问。因此，注解处理器和其他工具可以在元数据级别理解和操作这些注解，而无需使用反射或修改源代码。
 
 在 Kotlin 2.4.0 中，此支持默认启用。
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 从 Kotlin 2.4.0 开始，[Swift 导出晋升为 Alpha 阶段](#swift-export-goes-alpha-with-improved-concurrency-support)。此版本还带来了对 [Swift 软件包导入](#swift-package-import) 的支持、Xcode 26.4 支持，以及对内存消耗和垃圾回收的改进。
 
-### 垃圾回收器默认启用并发标记
+### 垃圾回收器默认启用并发标记 {id="default-concurrent-marking-in-garbage-collector"}
 <secondary-label ref="native"/>
 
 在 Kotlin 2.0.20 中，Kotlin team [引入了实验性支持](whatsnew2020.md#concurrent-marking-in-garbage-collector) 用于并发标记清除垃圾回收器 (CMS GC)。在处理了用户反馈并修复了回归问题后，我们现在准备从 Kotlin 2.4.0 开始默认启用 CMS。
@@ -631,7 +631,7 @@ kotlin.native.binary.gc=pmcs
 
 有关 Kotlin/Native 垃圾回收器的更多信息，请参阅我们的 [文档](native-memory-manager.md#garbage-collector)。
 
-### 减少去虚拟化分析期间的内存消耗
+### 减少去虚拟化分析期间的内存消耗 {id="reduced-memory-consumption-during-devirtualization-analysis"}
 <secondary-label ref="native"/>
 
 以前，去虚拟化分析是 Kotlin/Native 编译器中内存消耗最高的阶段之一。具体来说，链接发布任务消耗了过多的内存，尤其是在大型项目中。
@@ -640,21 +640,21 @@ Kotlin 2.4.0 引入了多项改进，有助于减少链接发布任务期间的�
 
 根据我们的一位 EAP 用户的基准测试，改进后的去虚拟化分析将链接发布任务的内存消耗降低了一半，节省了至少 13 GB 内存。
 
-### 支持 Xcode 26.4
+### 支持 Xcode 26.4 {id="support-for-xcode-26-4"}
 <secondary-label ref="native"/>
 
 从 Kotlin 2.4.0 开始，Kotlin/Native 编译器支持 Xcode 26.4 —— Xcode 的最新稳定版本之一。
 
 您现在可以更新您的 Xcode 并访问最新的 API，以继续在针对 Apple 操作系统的 Kotlin 项目上工作。
 
-### LLVM 更新至版本 21
+### LLVM 更新至版本 21 {id="llvm-update-to-version-21"}
 <secondary-label ref="native"/>
 
 在 Kotlin 2.4.0 中，我们将 LLVM 从版本 19 更新到 21。新版本包括性能改进，并有助于使 Kotlin/Native 编译器保持最新状态。
 
 此更新不应影响您的代码，但如果您遇到任何问题，请报告至我们的 [问题跟踪器](http://kotl.in/issue)。
 
-### Apple 目标支持的更改
+### Apple 目标支持的更改 {id="changes-to-apple-target-support"}
 <secondary-label ref="native"/>
 
 Kotlin 2.4.0 提高了 Apple 目标的默认最低支持版本：
@@ -678,14 +678,14 @@ kotlin {
 }
 ```
 
-### Swift 导出进入 Alpha 阶段，并改进了并发支持
+### Swift 导出进入 Alpha 阶段，并改进了并发支持 {id="swift-export-goes-alpha-with-improved-concurrency-support"}
 <primary-label ref="alpha"/>
 
 <secondary-label ref="native"/>
 
 从 Kotlin 2.4.0 开始，Kotlin 通过 Swift 导出与 Swift 的互操作性正式进入 Alpha 阶段！此版本对并发支持进行了重大改进，为 Swift 导出添加了原生且直接的结构化并发，并能够将 `kotlinx.coroutines` flow 导出到 Swift。
 
-#### 支持结构化并发
+#### 支持结构化并发 {id="support-for-structured-concurrency"}
 您现在可以从 Swift 无缝调用 Kotlin 挂起代码。Kotlin [`suspend` 函数](composing-suspending-functions.md) 和挂起函数类型被导出为 Swift 惯用的 `async` 对应版本：
 
 ```kotlin
@@ -700,7 +700,7 @@ suspend fun hello(): String {
 // Swift
 let msg = try await hello()
 ```
-#### 将 flow 类型导出到 Swift
+#### 将 flow 类型导出到 Swift {id="export-of-flow-types-to-swift"}
 
 此更新还增加了对将 `kotlinx.coroutines` flow 导出到 Swift 的支持。`kotlinx.coroutines` 中的 flow 代表可以并发发送和消费的异步数据流。它们通常用于响应式编程模式，例如侦听数据库更新、网络请求或 UI 事件。
 
@@ -726,7 +726,7 @@ for try await element in flowOfStrings().asAsyncSequence() {
 
 有关 Swift 导出的更多信息，请参阅我们的 [文档](native-swift-export.md)。
 
-### Swift 软件包导入
+### Swift 软件包导入 {id="swift-package-import"}
 <primary-label ref="experimental-general"/>
 
 <secondary-label ref="native"/>
@@ -752,11 +752,11 @@ kotlin {
 
 如果您的项目依赖 CocoaPods 依赖项，您可以将当前设置迁移为使用 Swift 软件包。KMP 工具考虑到了这一用例，并帮助您自动重新配置项目。有关详细信息，请参阅我们的 [CocoaPods 迁移指南](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-spm-migration.html)。
 
-## Kotlin/Wasm
+## Kotlin/Wasm {id="kotlin-wasm"}
 
 Kotlin 2.4.0 默认启用 Kotlin/Wasm 的增量编译，并引入了对 WebAssembly 组件模型的支持。
 
-### 默认启用增量编译
+### 默认启用增量编译 {id="incremental-compilation-enabled-by-default"}
 <secondary-label ref="wasm"/>
 
 Kotlin/Wasm 在 Kotlin 2.1.0 中引入了增量编译。从 Kotlin 2.4.0 开始，它已达到 [Stable](components-stability.md#stability-levels-explained)（稳定版）状态并默认启用。通过此功能，编译器仅重新构建受最近更改影响的文件，从而显著缩短构建时间。
@@ -770,14 +770,14 @@ kotlin.incremental.wasm=false
 
 如果您遇到任何问题，请在 [YouTrack](https://kotl.in/issue) 中报告。
 
-### 改进 Chrome DevTools 中内部变量的显示
+### 改进 Chrome DevTools 中内部变量的显示 {id="improved-display-of-internal-variables-in-chrome-devtools"}
 <secondary-label ref="wasm"/>
 
 Kotlin 2.4.0 通过使临时变量、合成变量和内部变量更容易与用户定义的变量区分开来，改进了 Chrome DevTools 中 Kotlin/Wasm 的调试体验。
 
 Kotlin 编译器和编译器插件（如 Compose）可以生成这些变量。它们现在默认使用 `~` 前缀，因此它们会被组合在一起并移至变量列表的末尾（Chrome DevTools 按名称对列表进行排序）。
 
-### 支持 WebAssembly 组件模型
+### 支持 WebAssembly 组件模型 {id="support-for-the-webassembly-component-model"}
 <primary-label ref="experimental-general"/>
 
 <secondary-label ref="wasm"/>
@@ -790,11 +790,11 @@ Kotlin/Wasm 在 Kotlin 2.4.0 中更进一步，引入了对 [WebAssembly 组件�
 
 在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-64569/Kotlin-Wasm-Support-Component-Model) 中分享您的反馈。
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
 Kotlin 2.4.0 进一步改进了向 JavaScript/TypeScript 的导出，包括支持导出值类、接口和类型差异 (variance)，以及内联 JS 代码时的 ES2015 功能。
 
-### 支持将值类导出到 JavaScript/TypeScript
+### 支持将值类导出到 JavaScript/TypeScript {id="support-for-value-class-export-to-javascript-typescript"}
 <secondary-label ref="js"/>
 
 以前，只有常规 Kotlin 类可以导出到 JavaScript/TypeScript。Kotlin 2.4.0 取送了这一限制。您现在可以将 Kotlin 的 [内联值类](inline-classes.md) 导出为常规 TypeScript 类。
@@ -830,7 +830,7 @@ console.log(await auth.login(new Email("not-an-email")));
 
 有关更多信息，请参阅 [`@JsExport` 注解](js-to-kotlin-interop.md#jsexport-annotation)。
 
-### 内联 JS 代码时支持 ES2015 功能
+### 内联 JS 代码时支持 ES2015 功能 {id="support-for-es2015-features-when-inlining-js-code"}
 <secondary-label ref="js"/>
 
 从 Kotlin 2.4.0 开始，JavaScript 代码内联全面支持 [ES2015 功能](js-project-setup.md#support-for-es2015-features)。
@@ -864,7 +864,7 @@ fun spreadExample(): dynamic = js("""
 
 有关内联 JavaScript 代码的更多信息，请参阅 [我们的文档](js-interop.md#inline-javascript)。
 
-### 导出到 TypeScript 时保留类型差异
+### 导出到 TypeScript 时保留类型差异 {id="preserve-type-variance-when-exporting-to-typescript"}
 <secondary-label ref="js"/>
 
 以前，在向 TypeScript 导出类型时，泛型位置的 Kotlin [差异](generics.md#variance) 信息会丢失。
@@ -899,7 +899,7 @@ export interface Consumer<in T> {
 }
 ```
 
-### 改进了向 JavaScript/TypeScript 的接口导出
+### 改进了向 JavaScript/TypeScript 的接口导出 {id="improved-interface-export-to-javascript-typescript"}
 <secondary-label ref="js"/>
 
 Kotlin 2.4.0 使得向 JavaScript/TypeScript 导出 Kotlin 接口更加方便。
@@ -947,7 +947,7 @@ export interface DataProcessor {
 >
 {type="note"}
 
-### 解除导出接口的限制
+### 解除导出接口的限制 {id="lifting-restrictions-on-exporting-interfaces"}
 <primary-label ref="experimental-general"/>
 
 <secondary-label ref="js"/>
@@ -969,16 +969,16 @@ interface Identity {
 
 有关更多信息，请参阅 [`@JsExport` 注解](js-to-kotlin-interop.md#jsexport-annotation)。
 
-## Gradle
+## Gradle {id="gradle"}
 
 Kotlin 2.4.0 完全兼容 Gradle 7.6.3 到 9.5.0。您也可以使用截至最新 Gradle 发布版的 Gradle 版本。但请注意，这样做可能会导致弃用警告，并且某些新的 Gradle 功能可能无法工作。Kotlin 2.4.0 还带来了多项改进，如跨平台一致的默认模块名称，以及向 Kotlin/JVM 的 Problems API 写入的编译器消息。
 
-### 最低支持的 AGP 版本提升至 8.5.2
+### 最低支持的 AGP 版本提升至 8.5.2 {id="minimum-supported-agp-version-bumped-to-8-5-2"}
 <secondary-label ref="gradle"/>
 
 从 Kotlin 2.4.0 开始，最低支持的 Android Gradle 插件版本为 8.5.2。
 
-### 跨平台一致的模块名称
+### 跨平台一致的模块名称 {id="consistent-module-names-across-platforms"}
 <secondary-label ref="gradle"/>
 
 在 Kotlin 2.4.0 之前，默认模块名称在不同平台上各不相同。这种不一致可能会导致命名冲突和解析问题。Kotlin 2.4.0 在所有平台上将默认名称标准化为 `{group}:{project_name}`。
@@ -1001,18 +1001,18 @@ kotlin {
 }
 ```
 
-### 向 Kotlin/JVM 的 Problems API 写入编译器消息
+### 向 Kotlin/JVM 的 Problems API 写入编译器消息 {id="compiler-messages-written-to-problems-api-for-kotlin-jvm"}
 <secondary-label ref="gradle"/>
 
 在 Kotlin 2.2.0 中，Kotlin Gradle 插件 (KGP) 开始向 [Gradle 的 Problems API](https://docs.gradle.org/current/userguide/reporting_problems.html) 报告诊断信息，以在 Gradle 的 CLI 和 IntelliJ IDEA 中提供一致的体验。
 
 在 Kotlin 2.4.0 中，该插件还将编译器消息写入 Kotlin/JVM 的 Problems API，使该 API 更接近于成为所有日志和消息的单一来源。
 
-## Maven
+## Maven {id="maven"}
 
 Kotlin 2.4.0 通过支持 Maven Toolchains 以及 Java 和 JVM 目标版本之间的自动对齐，使项目配置变得更加容易。
 
-### Java 和 JVM 目标版本之间的自动对齐
+### Java 和 JVM 目标版本之间的自动对齐 {id="automatic-alignment-between-java-and-jvm-target-versions"}
 <secondary-label ref="maven"/>
 
 为了简化项目配置并防止兼容性问题，Kotlin Maven 插件现在会自动将 JVM 目标版本与项目中配置的 Java 编译器版本对齐。
@@ -1061,7 +1061,7 @@ Kotlin 2.4.0 通过支持 Maven Toolchains 以及 Java 和 JVM 目标版本之�
 
 有关自动项目配置的更多信息，请参阅 [我们的文档](maven-configure-project.md#jvm-target-version)。
 
-### 支持 Maven Toolchains
+### 支持 Maven Toolchains {id="support-for-maven-toolchains"}
 <secondary-label ref="maven"/>
 
 Kotlin 2.4.0 为 Kotlin Maven 插件引入了对 [Maven Toolchains](https://maven.apache.org/guides/mini/guide-using-toolchains.html) 的支持。
@@ -1103,7 +1103,7 @@ Kotlin 2.4.0 为 Kotlin Maven 插件引入了对 [Maven Toolchains](https://mave
 
 有关配置 Kotlin Maven 项目的更多信息，请参阅我们的 [文档](maven-configure-project.md)。
 
-## 构建工具 API
+## 构建工具 API {id="build-tools-api"}
 <secondary-label ref="bta"/>
 
 Kotlin 2.4.0 对构建工具 API (BTA) 进行了多项改进。BTA：
@@ -1129,11 +1129,11 @@ Kotlin 2.4.0 对构建工具 API (BTA) 进行了多项改进。BTA：
   }
   ```
 
-## Kotlin 编译器
+## Kotlin 编译器 {id="kotlin-compiler"}
 
 Kotlin 2.4.0 在 `.klib` 编译期间对同一模块中声明的内联函数包含了更加一致的行为。
 
-### 在 klib 编译期间一致的模块内函数内联
+### 在 klib 编译期间一致的模块内函数内联 {id="consistent-intra-module-function-inlining-during-klib-compilation"}
 <secondary-label ref="compiler"/>
 
 以前，[函数内联](inline-functions.md) 在不同的 Kotlin 平台上的行为不一致。JetBrains team 正在努力在所有支持的平台上统一它，以确保相同的兼容性保证。
@@ -1194,7 +1194,7 @@ fun main() {
 
 请在 [YouTrack](https://kotl.in/issue) 中分享您的反馈并报告任何问题。
 
-### 跨 Kotlin 编译器一致的部分库链接
+### 跨 Kotlin 编译器一致的部分库链接 {id="consistent-partial-library-linkage-across-kotlin-compilers"}
 <secondary-label ref="compiler"/>
 
 在 Kotlin 1.9.0 中，Kotlin/Native 和 Kotlin/JS 编译器默认启用了部分库链接，随后 Kotlin/Wasm 在 Kotlin 2.0.0 中也紧随其后。此功能有效地使编译器处理 Kotlin 库中的链接问题与 Kotlin/JVM 保持一致。
@@ -1229,11 +1229,11 @@ kotlin {
 
 如果您遇到此功能的问题，请在 [我们的问题跟踪器](https://kotl.in/issue) 中报告。
 
-## Kotlin 编译器插件
+## Kotlin 编译器插件 {id="kotlin-compiler-plugins"}
 
 在 Kotlin 2.4.0 中，Kotlin 的编译器插件也收到了显著更新。kapt 插件现在可以从编译类路径中排除不必要的注解处理器，而 Power-assert 插件通过新的运行时库提供了简化的配置。
 
-### kapt：从编译类路径中排除注解处理器
+### kapt：从编译类路径中排除注解处理器 {id="kapt-exclude-annotation-processors-from-compile-classpath"}
 
 Kotlin 2.4.0 增加了对注解处理器发现的 `includeCompileClasspath` 配置选项的支持，类似于 Kotlin Gradle 插件。新选项允许您从编译类路径中排除不必要的注解处理器。
 
@@ -1270,7 +1270,7 @@ Kotlin 2.4.0 增加了对注解处理器发现的 `includeCompileClasspath` 配�
 
 有关 kapt 配置的更多信息，请参阅我们的 [文档](kapt.md)。
 
-### Power-assert：新的运行时库
+### Power-assert：新的运行时库 {id="power-assert-new-runtime-library"}
 
 Kotlin 2.4.0 通过新的运行时库使 Power-assert 支持的函数更易于发现且更易于配置。
 
@@ -1287,11 +1287,11 @@ Kotlin 2.4.0 通过新的运行时库使 Power-assert 支持的函数更易于�
 
 有关更多信息，请参阅我们的 [文档](power-assert.md#use-the-power-assert-plugin)。
 
-## Compose 编译器
+## Compose 编译器 {id="compose-compiler"}
 
 在 Kotlin 2.4.0 中，Compose 编译器提供了更一致的增量编译，并推进了几个功能标记的弃用周期。
 
-### 针对内部声明的一致增量编译
+### 针对内部声明的一致增量编译 {id="consistent-incremental-compilation-for-internal-declarations"}
 <secondary-label ref="compose-compiler"/>
 
 从 Kotlin 2.4.0 开始，Compose 编译器提供了更一致的增量编译。不同文件之间内部类型的稳定性现在在运行时推断。这允许 Compose 更新推断的稳定性值，即使类用法未被重新编译。
@@ -1300,7 +1300,7 @@ Kotlin 2.4.0 通过新的运行时库使 Power-assert 支持的函数更易于�
 
 此更新不会改变最终的稳定性值，因此 `@Composable` 函数的行为保持不变。
 
-### 功能标记弃用
+### 功能标记弃用 {id="feature-flag-deprecations"}
 <secondary-label ref="compose-compiler"/>
 
 Kotlin 2.4.0 推进了已达到稳定并现已默认启用的实验性功能标记的弃用周期：
@@ -1308,7 +1308,7 @@ Kotlin 2.4.0 推进了已达到稳定并现已默认启用的实验性功能标�
 * `StrongSkipping`、`IntrinsicRemember` 及相关的 DSL 属性已推进至 `DeprecationLevel.ERROR`。它们将在 Kotlin 2.5.0 中被移除。
 * `OptimizeNonSkippingGroups` 和 `PausableComposition` 现已弃用。它们计划在 Kotlin 2.6.0 中被移除。
 
-## 破坏性变更和弃用
+## 破坏性变更和弃用 {id="breaking-changes-and-deprecations"}
 
 本节重点介绍重要的破坏性变更和弃用。有关完整概述，请参阅我们的 [兼容性指南](compatibility-guide-24.md)。
 
@@ -1316,7 +1316,7 @@ Kotlin 2.4.0 推进了已达到稳定并现已默认启用的实验性功能标�
 * Kotlin 2.4.0 精简了 Kotlin Gradle 插件中用于二进制兼容性验证的 DSL，并弃用了一些部分。有关最新的 DSL，请参阅 [Kotlin Gradle 插件中的二进制兼容性验证](gradle-binary-compatibility-validation.md)。
 * [通过 `KotlinScriptMojo` Maven 插件执行 Kotlin 脚本的支持已被移除](compatibility-guide-22.md#deprecations-to-kotlin-scripting)。
 
-## 文档更新
+## 文档更新 {id="documentation-updates"}
 我们在 Kotlin 生态系统中进行了以下文档更改：
 
 * [Compose Multiplatform 应用中的 Liquid Glass](https://kotlinlang.org/docs/multiplatform/ios-liquid-glass.html) —— 将 iOS 应用从完全由 Compose 驱动的导航迁移到具有 iOS 26 Liquid Glass 样式的原生 SwiftUI 导航。

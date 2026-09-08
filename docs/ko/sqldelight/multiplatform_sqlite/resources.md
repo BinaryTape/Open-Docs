@@ -1,11 +1,11 @@
 # 기타 리소스
 
-## 가이드
+## 가이드 {id="guides"}
 
 - [Introduction to Multiplatform Persistence with SQLDelight](https://johnoreilly.dev/posts/sqldelight-multiplatform/)
 - [Multiplatform Persistence with SQLDelight](https://gh.jdoneill.com/2020/06/29/sqldelight/)
 
-## 샘플
+## 샘플 {id="samples"}
 
 - [https://github.com/joreilly/PeopleInSpace](https://github.com/joreilly/PeopleInSpace) (Android/iOS/watchOS/macOS/Web)
 - [https://github.com/JakeWharton/SdkSearch](https://github.com/JakeWharton/SdkSearch) (Android/Web)

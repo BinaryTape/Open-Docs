@@ -17,7 +17,7 @@
 
 您可以在應用程式配置文件中設定 [相依注入 (DI) 外掛程式](server-dependency-injection.md)。這些設定會全域影響相依性解析的行為，並套用於所有註冊的相依性。
 
-### 相依性金鑰對應 (Dependency key mapping)
+### 相依性金鑰對應 (Dependency key mapping) {id="dependency-key-mapping"}
 
 `ktor.di.keyMapping` 屬性定義了在解析期間如何將相依性金鑰泛化並進行比對。這決定了在解析請求的型別時，哪些註冊的相依性被視為相容。
 
@@ -29,7 +29,7 @@ ktor:
 
 上述範例符合 DI 外掛程式使用的預設金鑰對應。
 
-#### 可用的金鑰對應選項
+#### 可用的金鑰對應選項 {id="available-key-mapping-options"}
 
 <deflist>
 <def>
@@ -59,7 +59,7 @@ ktor:
 </def>
 </deflist>
 
-#### 組合金鑰對應選項
+#### 組合金鑰對應選項 {id="combine-key-mapping-options"}
 
 您可以使用集合運算子 `*`（交集）、`+`（聯集）和 `()`（圓括號分組）來組合金鑰對應選項。
 
@@ -73,7 +73,7 @@ ktor:
 
 它將無法解析為 `Collection?`，因為該組合未包含在運算式中。
 
-### 衝突解決策略 (Conflict resolution policy)
+### 衝突解決策略 (Conflict resolution policy) {id="conflict-resolution-policy"}
 
 `ktor.di.conflictPolicy` 屬性控制當針對同一個相依性金鑰註冊了多個提供者時，DI 容器的行為：
 
@@ -83,7 +83,7 @@ ktor:
     conflictPolicy: Default
 ```
 
-#### 可用的策略
+#### 可用的策略 {id="available-policies"}
 
 <deflist>
 <def>

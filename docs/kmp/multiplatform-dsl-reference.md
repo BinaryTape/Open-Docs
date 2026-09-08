@@ -3,7 +3,7 @@
 Kotlin 多平台 Gradle 插件是一个用于创建 Kotlin 多平台项目的工具。
 在此我们提供了其内容的参考；在为 Kotlin 多平台项目编写 Gradle 构建脚本时，可以将其作为备忘录使用。了解 [Kotlin 多平台项目的概念，以及如何创建和配置它们](multiplatform-discover-project.md)。
 
-## ID 与版本
+## ID 与版本 {id="id-and-version"}
 
 Kotlin 多平台 Gradle 插件的完全限定名称是 `org.jetbrains.kotlin.multiplatform`。 
 如果你使用 Kotlin Gradle DSL，可以使用 `kotlin("multiplatform")` 来应用该插件。
@@ -30,7 +30,7 @@ plugins {
 </TabItem>
 </Tabs>
 
-## 顶级块
+## 顶级块 {id="top-level-blocks"}
 
 `kotlin {}` 是 Gradle 构建脚本中用于多平台项目配置的顶级块。
 在 `kotlin {}` 内部，你可以编写以下块：
@@ -43,7 +43,7 @@ plugins {
 | `compilerOptions`    | 指定通用的扩展级 [编译器选项](#compiler-options)，这些选项将作为所有目标和共享源集的默认值。               |
 | `dependencies`       | 配置 [通用依赖项](#configure-dependencies-at-the-top-level)。（实验性）                                     |
 
-## 目标
+## 目标 {id="targets"}
 
 “目标 (target)”是构建过程的一部分，负责编译、测试和打包针对受支持平台之一的软件片段。Kotlin 为每个平台提供目标，因此你可以指示 Kotlin 为该特定目标编译代码。详细了解 [设置目标](multiplatform-discover-project.md#targets)。
 
@@ -135,7 +135,7 @@ kotlin {
 
 每个目标可以有一个或多个 [编译](#compilations)。
 
-### 通用目标配置
+### 通用目标配置 {id="common-target-configuration"}
 
 在任何目标块中，你都可以使用以下声明：
 
@@ -146,7 +146,7 @@ kotlin {
 | `components`         | 用于设置 Gradle 发布内容的组件。                                                                                                          |
 | `compilerOptions`    | 用于该目标的 [编译器选项](#compiler-options)。此声明会覆盖在 [顶级](multiplatform-dsl-reference.md#top-level-blocks) 配置的任何 `compilerOptions {}`。 |
 
-### Web 目标
+### Web 目标 {id="web-targets"}
 
 `js {}` 块描述了 Kotlin/JS 目标的配置，而 `wasmJs {}` 块描述了可与 JavaScript 互操作的 Kotlin/Wasm 目标的配置。根据目标执行环境，它们可以包含以下两个块之一：
 
@@ -170,7 +170,7 @@ kotlin {
 
 所有 Web 目标（`js`、`wasmJs` 和 `wasmWasi`）也都支持 `binaries.executable()` 调用。它明确指示 Kotlin 编译器生成可执行文件。更多信息请参阅 Kotlin/JS 文档中的 [执行环境](https://kotlinlang.org/docs/js-project-setup.html#execution-environments)。
 
-#### 浏览器
+#### 浏览器 {id="browser"}
 
 `browser {}` 可以包含以下配置块：
 
@@ -193,7 +193,7 @@ kotlin {
 }
 ```
 
-#### Node.js
+#### Node.js {id="node-js"}
 
 `nodejs {}` 可以包含测试和运行任务的配置：
 
@@ -211,7 +211,7 @@ kotlin {
 }
 ```
 
-### 原生目标
+### 原生目标 {id="native-targets"}
 
 对于原生目标，可以使用以下特定块：
 
@@ -220,7 +220,7 @@ kotlin {
 | `binaries`  | 要生成的 [二进制文件](#binaries) 的配置。         |
 | `cinterops` | 与 [C 库互操作](#cinterops) 的配置。              |
 
-#### 二进制文件
+#### 二进制文件 {id="binaries"}
 
 二进制文件有以下几种类型：
 
@@ -349,7 +349,7 @@ binaries {
 
 详细了解 [构建原生二进制文件](multiplatform-build-native-binaries.md)。
 
-#### Cinterops
+#### Cinterops {id="cinterops"}
 
 `cinterops` 是与原生库互操作的描述集合。
 要提供与库的互操作，请在 `cinterops` 中添加一个条目并定义其参数：
@@ -440,7 +440,7 @@ kotlin {
 
 更多 cinterop 属性，请参阅 [定义文件](https://kotlinlang.org/docs/native-definition-file.html#properties)。
 
-### Android 目标
+### Android 目标 {id="android-targets"}
 
 Kotlin 多平台 Gradle 插件有一个特定函数，可帮助你为 Android 目标配置 [构建变体](https://developer.android.com/studio/build/build-variants)：
 
@@ -463,13 +463,13 @@ kotlin {
 >
 {style="note"}
 
-## 源集
+## 源集 {id="source-sets"}
 
 `sourceSets {}` 块描述项目的源集。源集包含共同参与编译的 Kotlin 源文件，以及它们的资源和依赖项。
 
 多平台项目为其目标包含 [预定义](#predefined-source-sets) 源集；开发者也可以根据需要创建 [自定义](#custom-source-sets) 源集。
 
-### 预定义源集
+### 预定义源集 {id="predefined-source-sets"}
 
 在创建多平台项目时，会自动设置预定义源集。
 可用的预定义源集如下：
@@ -509,7 +509,7 @@ kotlin {
 
 详细了解 [源集](multiplatform-discover-project.md#source-sets)。
 
-### 自定义源集
+### 自定义源集 {id="custom-source-sets"}
 
 自定义源集由项目开发者手动创建。
 要创建自定义源集，请在 `sourceSets` 部分内部添加一个以其名称命名的部分。
@@ -544,7 +544,7 @@ kotlin {
 
 请注意，新创建的源集并未与其他源集连接。要在项目的编译中使用它，请 [将其与其他源集连接](multiplatform-hierarchy.md#manual-configuration)。
 
-### 源集参数
+### 源集参数 {id="source-set-parameters"}
 
 源集的配置存储在 `sourceSets {}` 对应的块中。源集具有以下参数：
 
@@ -597,7 +597,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-## 编译
+## 编译 {id="compilations"}
 
 一个目标可以有一个或多个编译，例如，用于生产或测试。在创建目标时会自动添加 [预定义编译](#predefined-compilations)。你还可以额外创建 [自定义编译](#custom-compilations)。
 
@@ -606,7 +606,7 @@ kotlin {
 
 详细了解 [配置编译](multiplatform-configure-compilations.md)。
 
-### 预定义编译
+### 预定义编译 {id="predefined-compilations"}
 
 除了 Android 目标外，系统会为项目的每个目标自动创建预定义编译。
 可用的预定义编译如下：
@@ -646,7 +646,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-### 自定义编译
+### 自定义编译 {id="custom-compilations"}
 
 除了预定义编译外，你还可以创建自己的自定义编译。
 为此，请在新的编译与 `main` 编译之间建立 [`associateWith`](https://kotlinlang.org/docs/gradle-configure-project.html#associate-compiler-tasks) 关系。如果你使用的是 Kotlin Gradle DSL，请使用 `by creating` 标记自定义编译：
@@ -714,7 +714,7 @@ kotlin {
 
 详细了解创建 [自定义编译](multiplatform-configure-compilations.md#create-a-custom-compilation)。
 
-### 编译参数
+### 编译参数 {id="compilation-parameters"}
 
 编译具有以下参数：
 
@@ -789,7 +789,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-## 编译器选项
+## 编译器选项 {id="compiler-options"}
 
 你可以在项目中的三个不同级别配置编译器选项：
 
@@ -811,7 +811,7 @@ kotlin {
 
 有关可能的编译器选项列表，请参阅 [所有编译器选项](https://kotlinlang.org/docs/gradle-compiler-options.html#all-compiler-options)。
 
-### 扩展级
+### 扩展级 {id="extension-level"}
 
 要为项目中的所有目标配置编译器选项，请在顶级使用 `compilerOptions {}` 块：
 
@@ -842,7 +842,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-### 目标级
+### 目标级 {id="target-level"}
 
 要为项目中的特定目标配置编译器选项，请在目标块内使用 `compilerOptions {}` 块：
 
@@ -877,7 +877,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-### 编译单元级
+### 编译单元级 {id="compilation-unit-level"}
 
 要为特定任务配置编译器选项，请在该任务内使用 `compilerOptions {}` 块：
 
@@ -947,11 +947,11 @@ kotlin {
 </TabItem>
 </Tabs>
 
-### 从 `kotlinOptions {}` 迁移到 `compilerOptions {}` {collapsible="true"}
+### 从 `kotlinOptions {}` 迁移到 `compilerOptions {}` {collapsible="true" id="migrate-from-kotlinoptions-to-compileroptions"}
 
 在 Kotlin 2.2.0 之前，你可以使用 `kotlinOptions {}` 块配置编译器选项。由于 `kotlinOptions {}` 块在 Kotlin 2.2.0 中已被弃用，你需要在构建脚本中改用 `compilerOptions {}` 块。更多信息请参阅 [从 `kotlinOptions{}` 迁移到 `compilerOptions{}`](https://kotlinlang.org/docs/gradle-compiler-options.html#migrate-from-kotlinoptions-to-compileroptions)。
 
-## 依赖项
+## 依赖项 {id="dependencies"}
 
 源集声明中的 `dependencies {}` 块包含了该源集的依赖项。
 
@@ -1013,7 +1013,7 @@ kotlin {
 
 此外，源集可以互相依赖并形成层次结构。在这种情况下，使用 [`dependsOn()`](#source-set-parameters) 关系。
 
-### 在顶级配置依赖项
+### 在顶级配置依赖项 {id="configure-dependencies-at-the-top-level"}
 <primary-label ref="Experimental"/>
 
 你可以使用顶级的 `dependencies {}` 块来配置通用依赖项。在此声明的依赖项的行为就像被添加到 `commonMain` 或 `commonTest` 源集中一样。
@@ -1050,7 +1050,7 @@ kotlin {
 
 你可以在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-76446) 中分享你对此功能的反馈。
 
-## 语言设置
+## 语言设置 {id="language-settings"}
 
 源集中的 `languageSettings {}` 块定义了项目分析和编译的某些方面。仅当配置专门应用于共享源集的设置时，才使用 `languageSettings {}` 块。对于所有其他情况，请使用 `compilerOptions {}` 块在扩展或目标级别 [配置编译器选项](#compiler-options)。
 

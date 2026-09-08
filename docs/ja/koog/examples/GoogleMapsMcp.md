@@ -17,7 +17,7 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Goog
 
 ```
 
-## 前提条件
+## 前提条件 {id="prerequisites"}
 以下のセルを実行する前に、以下が準備されていることを確認してください：
 
 - Docker がインストールされ、実行されていること
@@ -38,7 +38,7 @@ val openAIApiToken = System.getenv("OPENAI_API_KEY") ?: error("OPENAI_API_KEY en
 
 ```
 
-## Google Maps MCP サーバーの起動 (Docker)
+## Google Maps MCP サーバーの起動 (Docker) {id="start-the-google-maps-mcp-server-docker"}
 公式の `mcp/google-maps` イメージを使用します。このコンテナは MCP を介して `maps_geocode` や `maps_elevation` などのツールを公開します。環境変数を介して API キーを渡し、ノートブックが標準入出力（stdio）を介して通信できるように、アタッチされた状態で起動します。
 
 ```kotlin
@@ -54,7 +54,7 @@ val process = ProcessBuilder(
 
 ```
 
-## McpToolRegistry によるツールの検出
+## McpToolRegistry によるツールの検出 {id="discover-tools-via-mcptoolregistry"}
 Koog は標準入出力を介して MCP サーバーに接続できます。ここでは、実行中のプロセスからツールレジストリを作成し、検出されたツールとそのデスクリプタを表示します。
 
 ```kotlin
@@ -68,7 +68,7 @@ toolRegistry.tools.forEach {
 
 ```
 
-## OpenAI を使用した AI エージェントの構築
+## OpenAI を使用した AI エージェントの構築 {id="build-an-ai-agent-with-openai"}
 次に、OpenAI のエグゼキューターとモデルをベースにしたシンプルなエージェントを組み立てます。このエージェントは、先ほど作成したレジストリを通じて、MCP サーバーによって公開されたツールを呼び出すことができます。
 
 ```kotlin
@@ -80,7 +80,7 @@ val agent = AIAgent(
 
 ```
 
-## 標高の問い合わせ：最初にジオコーディング、次に標高
+## 標高の問い合わせ：最初にジオコーディング、次に標高 {id="ask-for-elevation-geocode-first-then-elevation"}
 ミュンヘンにある JetBrains オフィスの標高を調べるようエージェントに促します。指示の中で、利用可能なツールのみを使用すること、およびこのタスクにどのツールを優先すべきかを明示的に伝えます。
 
 ```kotlin
@@ -96,7 +96,7 @@ runBlocking {
 
 ```
 
-## クリーンアップ
+## クリーンアップ {id="clean-up"}
 完了したら、バックグラウンドで実行されたままにならないよう、Docker プロセスを停止します。
 
 ```kotlin
@@ -104,7 +104,7 @@ process.destroy()
 
 ```
 
-## トラブルシューティングと次のステップ
+## トラブルシューティングと次のステップ {id="troubleshooting-and-next-steps"}
 - コンテナの起動に失敗した場合は、Docker が実行されているか、および `GOOGLE_MAPS_API_KEY` が有効かを確認してください。
 - エージェントがツールを呼び出せない場合は、ツール検出のセルを再実行して、ツールレジストリにデータが入っていることを確認してください。
 - 利用可能な Google Maps ツールを使用して、ルート計画や場所の検索など、他のプロンプトを試してみてください。

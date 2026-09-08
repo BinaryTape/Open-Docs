@@ -7,7 +7,7 @@ Kotlin 透過 Kotlin Multiplatform 為 Web 開發提供了兩種方法：
 
 這兩種方法都能讓您在 Web 應用程式中共享程式碼，但它們支援不同的使用案例。它們在技術層面（例如目標瀏覽器支援）也有所不同。
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
 [Kotlin/JS](js-overview.md) 透過將您的程式碼、標準庫和所有支援的相依性編譯（transpiling）為 JS，讓 Kotlin 應用程式能在 JavaScript (JS) 環境中執行。
 
@@ -17,21 +17,21 @@ Kotlin 透過 Kotlin Multiplatform 為 Web 開發提供了兩種方法：
 >
 {style="tip"}
 
-### Kotlin/JS 使用案例
+### Kotlin/JS 使用案例 {id="kotlin-js-use-cases"}
 
 Kotlin/JS 適用於以下目標：
 
 * [與 JavaScript/TypeScript 程式碼庫共享業務邏輯](#share-business-logic-with-a-javascript-typescript-codebase)。
 * [使用 Kotlin 建置不共享的 Web 應用程式](#build-web-apps-with-kotlin-without-sharing-the-code)。
 
-#### 與 JavaScript/TypeScript 程式碼庫共享業務邏輯
+#### 與 JavaScript/TypeScript 程式碼庫共享業務邏輯 {id="share-business-logic-with-a-javascript-typescript-codebase"}
 
 如果您需要與原生 JavaScript/TypeScript 應用程式共享 Kotlin 程式碼（例如領域或資料邏輯），Kotlin/JS 目標提供：
 
 * 與 JavaScript/TypeScript 的直接互通性。
 * 互通性開銷極小（例如避免不必要的資料複製）。這讓共享程式碼能順暢地整合到基於 JS 的工作流中。
 
-#### 使用 Kotlin 建置 Web 應用程式而不共享程式碼
+#### 使用 Kotlin 建置 Web 應用程式而不共享程式碼 {id="build-web-apps-with-kotlin-without-sharing-the-code"}
 
 對於 Web 應用程式完全以 Kotlin 實作、且不與其他平台（iOS、Android 或桌面端）共享的專案，基於 HTML 的解決方案可提供更好的控制能力。
 
@@ -42,7 +42,7 @@ Kotlin/JS 適用於以下目標：
 * 使用基於 HTML 的 Compose 架構（例如 [Kobweb](https://kobweb.varabyte.com/) 或 [Kilua](https://kilua.dev/)）來建置具有 Compose 風格架構的 UI。
 * 使用帶有 Kotlin 包裝函式的 React 解決方案，以 [在 Kotlin 中實作 React 組建](https://kotlinlang.org/docs/js-react.html)。
 
-## Kotlin/Wasm
+## Kotlin/Wasm {id="kotlin-wasm"}
 <primary-label ref="beta"/> 
 
 [Kotlin/Wasm](wasm-overview.md) 將 Kotlin 程式碼編譯為 WebAssembly (Wasm)，使應用程式能在支援 Wasm 的環境和裝置上執行，同時滿足 Kotlin 的需求。
@@ -58,11 +58,11 @@ Kotlin/JS 適用於以下目標：
 >
 {style="tip"}
 
-### Kotlin/Wasm 使用案例
+### Kotlin/Wasm 使用案例 {id="kotlin-wasm-use-cases"}
 
 如果您想在多個平台之間共享邏輯和 UI，請使用 Kotlin/Wasm。
 
-#### 使用 Compose Multiplatform 建置跨平台應用程式
+#### 使用 Compose Multiplatform 建置跨平台應用程式 {id="build-cross-platform-apps-with-compose-multiplatform"}
 
 如果您想在包括 Web 在內的多個平台之間共享邏輯和 UI，Kotlin/Wasm 搭配 [Compose Multiplatform](https://kotlinlang.org/compose-multiplatform/) 可提供一個共享的 UI 層：
 
@@ -70,7 +70,7 @@ Kotlin/JS 適用於以下目標：
 * 使用 Wasm 改善渲染效果並提供更流暢的 UI 更新（例如響應式動畫）。
 * 支援最新版本的 [WebAssembly 垃圾收集 (WasmGC)](https://developer.chrome.com/blog/wasmgc) 提案，這讓 Kotlin/Wasm 可以在所有主要現代瀏覽器上執行。
 
-## 選擇您的 Web 開發方法
+## 選擇您的 Web 開發方法 {id="choose-your-web-approach"}
 
 下表根據您的使用案例總結了建議的目標：
 
@@ -84,7 +84,7 @@ Kotlin/JS 適用於以下目標：
 >
 {style="note"}
 
-## Web 目標的相容模式
+## Web 目標的相容模式 {id="compatibility-mode-for-web-targets"}
 
 您可以為 Web 應用程式啟用相容模式，以確保其開箱即用且支援所有瀏覽器。在此模式下，您可以針對現代瀏覽器使用 Wasm 建置 UI，而舊版瀏覽器則回退至 JS。
 

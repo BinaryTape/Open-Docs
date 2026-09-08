@@ -4,7 +4,7 @@
 
 在初级教程中，你已经学习了如何使用属性来声明类实例的特征以及如何访问它们。本章节将深入探讨 Kotlin 中属性的工作原理，并探索在代码中使用属性的其他方式。
 
-## 支持字段 (Backing fields)
+## 支持字段 (Backing fields) {id="backing-fields"}
 
 在 Kotlin 中，属性拥有默认的 `get()` 和 `set()` 函数，它们被称为属性访问器，负责处理值的检索和修改。虽然这些默认函数在代码中不是显式可见的，但编译器会自动生成它们，以便在后台管理属性访问。这些访问器使用一个**支持字段**来存储实际的属性值。
 
@@ -94,7 +94,7 @@ fun main() {
 
 欲了解更多信息，请参阅[支持字段](properties.md#backing-fields)。
 
-## 扩展属性
+## 扩展属性 {id="extension-properties"}
 
 正如扩展函数一样，也有扩展属性。扩展属性允许你在不修改源代码的情况下向现有类添加新属性。但是，Kotlin 中的扩展属性**没有**支持字段。这意味着你需要自己编写 `get()` 和 `set()` 函数。此外，由于缺乏支持字段，它们无法持有任何状态。
 
@@ -138,7 +138,7 @@ fun main() {
 
 就像扩展函数一样，Kotlin 标准库也广泛使用了扩展属性。例如，请参阅 `CharSequence` 的 [`lastIndex` 属性](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/last-index.html)。
 
-## 委托属性
+## 委托属性 {id="delegated-properties"}
 
 你已经在[类与接口](kotlin-tour-intermediate-classes-interfaces.md#delegation)章节中学习了委托。你也可以在属性上使用委托，将其属性访问器委托给另一个对象。当你对存储属性有更复杂的需求，而简单的支持字段无法处理时（例如将值存储在数据库表、浏览器会话或映射中），这非常有用。使用委托属性还能减少模板代码，因为获取和设置属性的逻辑仅包含在你委托的对象中。
 
@@ -247,11 +247,11 @@ fun main() {
 
 注意，在 `getValue()` 函数中，`thisRef` 参数的类型从 `Any?` 类型缩小到了对象类型：`User`。这是为了让编译器能够访问 `User` 类的 `firstName` 和 `lastName` 属性。
 
-### 标准委托
+### 标准委托 {id="standard-delegates"}
 
 Kotlin 标准库提供了一些有用的委托，这样你就不必总是从头开始创建自己的委托。如果你使用这些委托之一，则不需要定义 `getValue()` 和 `setValue()` 函数，因为标准库会自动提供它们。
 
-#### 延迟加载属性 (Lazy properties)
+#### 延迟加载属性 (Lazy properties) {id="lazy-properties"}
 
 要仅在首次访问时才初始化属性，请使用延迟加载属性。标准库提供了 `Lazy` 接口用于委托。 
 
@@ -313,7 +313,7 @@ fun main() {
 
 欲了解更多信息，请参阅[延迟加载属性](delegated-properties.md#lazy-properties)。
 
-#### 可观察属性 (Observable properties)
+#### 可观察属性 (Observable properties) {id="observable-properties"}
 
 要监控属性值是否发生变化，请使用可观察属性。当你想要检测属性值的更改并利用该信息触发反应时，可观察属性非常有用。标准库提供了 `Delegates` 对象用于委托。
 
@@ -364,7 +364,7 @@ fun main() {
 
 欲了解更多信息，请参阅[可观察属性](delegated-properties.md#observable-properties)。
 
-## 练习 {completion-point="true"}
+## 练习 {completion-point="true" id="practice"}
 
 ### 练习 1 {initial-collapse-state="collapsed" collapsible="true" id="properties-exercise-1"}
 

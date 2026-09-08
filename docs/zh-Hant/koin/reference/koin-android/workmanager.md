@@ -4,16 +4,16 @@ title: WorkManager
 
 Koin 與 [Android WorkManager](https://developer.android.com/topic/libraries/architecture/workmanager) 整合，以在 Worker 中實現建構函式注入。
 
-## 設定
+## 設定 {id="setup"}
 
-### 新增相依性
+### 新增相依性 {id="add-dependencies"}
 
 ```groovy
 implementation "io.insert-koin:koin-android:$koin_version"
 implementation "io.insert-koin:koin-androidx-workmanager:$koin_version"
 ```
 
-### 設定 WorkManager
+### 設定 WorkManager {id="configure-workmanager"}
 
 在您的 Application 中設定 Koin WorkManager 工廠：
 
@@ -32,7 +32,7 @@ class MainApplication : Application() {
 }
 ```
 
-### 停用預設初始設定式
+### 停用預設初始設定式 {id="disable-default-initializer"}
 
 將以下內容新增至您的 `AndroidManifest.xml` 以停用預設的 WorkManager 初始設定式：
 
@@ -49,9 +49,9 @@ class MainApplication : Application() {
 </provider>
 ```
 
-## 宣告 Worker
+## 宣告 Worker {id="declaring-workers"}
 
-### 編譯器外掛程式 DSL
+### 編譯器外掛程式 DSL {id="compiler-plugin-dsl"}
 
 ```kotlin
 class MyWorker(
@@ -72,7 +72,7 @@ val appModule = module {
 }
 ```
 
-### 註解
+### 註解 {id="annotations"}
 
 ```kotlin
 @KoinWorker
@@ -92,7 +92,7 @@ class MyWorker(
 class MyService
 ```
 
-### 傳統 DSL
+### 傳統 DSL {id="classic-dsl"}
 
 ```kotlin
 val appModule = module {
@@ -107,7 +107,7 @@ val appModule = module {
 }
 ```
 
-## 將工作加入佇列
+## 將工作加入佇列 {id="enqueuing-work"}
 
 使用一般的 WorkManager 將您的 Worker 加入佇列：
 
@@ -116,7 +116,7 @@ val workRequest = OneTimeWorkRequestBuilder<MyWorker>().build()
 WorkManager.getInstance(context).enqueue(workRequest)
 ```
 
-## 帶有參數的 Worker
+## 帶有參數的 Worker {id="worker-with-parameters"}
 
 透過 WorkManager 的輸入資料傳遞參數：
 
@@ -146,7 +146,7 @@ val workRequest = OneTimeWorkRequestBuilder<SyncWorker>()
 WorkManager.getInstance(context).enqueue(workRequest)
 ```
 
-## 快速參考
+## 快速參考 {id="quick-reference"}
 
 | 方法 | 宣告 |
 |----------|-------------|
@@ -159,7 +159,7 @@ WorkManager.getInstance(context).enqueue(workRequest)
 | 啟用工廠 | startKoin 中的 `workManagerFactory()` |
 | 停用預設 | 在 manifest 中移除 `WorkManagerInitializer` |
 
-## 後續步驟
+## 後續步驟 {id="next-steps"}
 
 - **[Android WorkManager](https://developer.android.com/topic/libraries/architecture/workmanager)** - 官方 WorkManager 文件
 - **[作用域](/docs/reference/koin-android/scope)** - Android 作用域

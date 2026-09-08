@@ -72,7 +72,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-ranges-step"}
 
-## 수열
+## 수열 {id="progressions"}
 
 `Int`, `Long`, `Char`와 같은 정수 타입의 범위는 [등차수열(arithmetic progressions)](https://en.wikipedia.org/wiki/Arithmetic_progression)로 취급될 수 있습니다. 코틀린에서 이러한 수열은 [`IntProgression`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.ranges/-int-progression/index.html), [`LongProgression`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.ranges/-long-progression/index.html), [`CharProgression`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.ranges/-char-progression/index.html)과 같은 특별한 타입으로 정의됩니다.
 

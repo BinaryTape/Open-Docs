@@ -12,7 +12,7 @@
 
 你可以直接使用命令行或通过脚本文件（如 `.sh` 或 `.bat` 文件）来生成 Kotlin 库。然而，对于拥有数百个文件和库的大型项目，这种方法扩展性不佳。使用构建系统可以简化流程，它可以下载并缓存 Kotlin/Native 编译器二进制文件和带有传递依赖项的库，同时运行编译器和测试。Kotlin/Native 可以通过 [Kotlin Multiplatform 插件](gradle-configure-project.md#targeting-multiple-platforms)使用 [Gradle](https://gradle.org) 构建系统。
 
-## 开始之前
+## 开始之前 {id="before-you-start"}
 
 1. 下载并安装最新版本的 [IntelliJ IDEA](https://www.jetbrains.com/idea/)。
 2. 在 IntelliJ IDEA 中选择 **File** | **New** | **Project from Version Control**，并使用以下 URL 克隆 [项目模板](https://github.com/Kotlin/kmp-native-wizard)：
@@ -52,7 +52,7 @@
    * `binaries {}` 块定义了如何生成二进制文件以及应用程序的入口点。这些可以保留默认值。
    * C 互操作性在构建中被配置为一个额外步骤。默认情况下，来自 C 的所有符号都会导入到 `interop` 软件包中。你可能希望在 `.kt` 文件中导入整个软件包。详细了解 [如何配置](gradle-configure-project.md#targeting-multiple-platforms)。
 
-## 创建定义文件
+## 创建定义文件 {id="create-a-definition-file"}
 
 编写原生应用程序时，你通常需要访问某些不包含在 [Kotlin 标准库](https://kotlinlang.org/api/latest/jvm/stdlib/) 中的功能，例如发送 HTTP 请求、在磁盘上进行读写等。
 
@@ -91,7 +91,7 @@ Kotlin/Native 有助于取用标准 C 库，从而打开了几乎可以满足任
 >
 {style="note"}
 
-## 在构建过程中添加互操作性
+## 在构建过程中添加互操作性 {id="add-interoperability-to-the-build-process"}
 
 要使用头文件，请确保它们是作为构建过程的一部分生成的。为此，请在 `build.gradle.kts` 文件中添加以下 `compilations {}` 块：
 
@@ -123,7 +123,7 @@ cinterops {
 }
 ```
 
-## 编写应用程序代码
+## 编写应用程序代码 {id="write-the-application-code"}
 
 现在你已经拥有了库和相应的 Kotlin 存根，可以从你的应用程序中使用它们。在本教程中，将 [simple.c](https://curl.se/libcurl/c/simple.html) 示例转换为 Kotlin。
 
@@ -154,7 +154,7 @@ fun main(args: Array<String>) {
 >
 {style="tip"}
 
-## 编译并运行应用程序
+## 编译并运行应用程序 {id="compile-and-run-the-application"}
 
 1. 要编译应用程序，请从任务列表中运行 `runDebugExecutable<你的目标名称>` Gradle 任务，或在终端中使用控制台命令，例如：
  
@@ -176,6 +176,6 @@ fun main(args: Array<String>) {
 >
 {style="note"}
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 详细了解 [Kotlin 与 C 的互操作性](native-c-interop.md)。

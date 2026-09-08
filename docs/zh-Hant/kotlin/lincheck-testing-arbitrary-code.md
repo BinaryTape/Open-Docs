@@ -52,7 +52,7 @@ Lincheck 提供 `runConcurrentTest()` 函式來測試任意並行程式碼。
   | ------------------------------------------------------------------------------- |
   ```
 
-## 範例：測試 `ConcurrentHashMap` 函式
+## 範例：測試 `ConcurrentHashMap` 函式 {id="example-test-concurrenthashmap-functions"}
 
 考慮以下針對 `ConcurrentHashMap` 函式的測試：
 
@@ -100,12 +100,12 @@ class ConcurrentHashMapDeadlock {
 
 ![失敗測試的 Lincheck 報告螢幕截圖。](concurrenthashmapdeadlock.png){thumbnail="true" width=700}
 
-## 接續步驟
+## 接續步驟 {id="what-s-next"}
 
 了解如何[使用 Lincheck 測試資料結構](lincheck-how-to-test-data-structures.md)。
 
 <!-- TODO: uncomment after the articles are published
-## 延伸閱讀
+## 延伸閱讀 {id="see-also"}
 
 * [Lincheck 中的模型檢查](lincheck-model-checking.md)
 * [Kotlin Multiplatform 專案中的 Lincheck](lincheck-kmp.md)

@@ -26,7 +26,7 @@
     - AI 응답이 조직의 가치 및 표준과 일치하도록 보장
     - 일관되게 안전하고 적절한 콘텐츠를 제공하여 사용자 신뢰 구축
 
-## 검토 대상 콘텐츠 유형
+## 검토 대상 콘텐츠 유형 {id="types-of-moderated-content"}
 
 Koog의 검토 시스템은 다양한 유형의 콘텐츠를 분석할 수 있습니다:
 
@@ -42,11 +42,11 @@ Koog의 검토 시스템은 다양한 유형의 콘텐츠를 분석할 수 있�
     - AI 시스템과 통합된 도구에 의해 생성되거나 전달되는 콘텐츠
     - 도구의 입력 및 출력이 콘텐츠 안전 표준을 유지하도록 보장
 
-## 지원되는 제공업체 및 모델
+## 지원되는 제공업체 및 모델 {id="supported-providers-and-models"}
 
 Koog은 여러 제공업체와 모델을 통해 콘텐츠 검토를 지원합니다:
 
-### OpenAI
+### OpenAI {id="openai"}
 
 OpenAI는 두 가지 검토 모델을 제공합니다:
 
@@ -62,7 +62,7 @@ OpenAI는 두 가지 검토 모델을 제공합니다:
     - 텍스트와 이미지 모두에서 유해 콘텐츠 식별 가능
     - Text 모델보다 더 포괄적임
 
-### Ollama
+### Ollama {id="ollama"}
 
 Ollama는 다음 모델을 통해 검토를 지원합니다:
 
@@ -72,11 +72,11 @@ Ollama는 다음 모델을 통해 검토를 지원합니다:
     - 콘텐츠 검토 작업에 특화됨
     - Ollama를 통해 로컬에서 실행됨
 
-## LLM 클라이언트에서 검토 사용하기
+## LLM 클라이언트에서 검토 사용하기 {id="using-moderation-with-llm-clients"}
 
 Koog은 콘텐츠 검토를 위한 두 가지 주요 접근 방식, 즉 `LLMClient` 인스턴스에서 직접 검토하거나 `PromptExecutor`의 `moderate` 메서드를 사용하는 방식을 제공합니다.
 
-### LLMClient를 사용한 직접 검토
+### LLMClient를 사용한 직접 검토 {id="direct-moderation-with-llmclient"}
 
 `LLMClient` 인스턴스에서 `moderate` 메서드를 직접 사용할 수 있습니다:
 
@@ -231,7 +231,7 @@ Koog은 콘텐츠 검토를 위한 두 가지 주요 접근 방식, 즉 `LLMClie
     ```
     <!--- KNIT example-content-moderation-java-02.java -->
 
-### PromptExecutor를 사용한 검토
+### PromptExecutor를 사용한 검토 {id="moderation-with-promptexecutor"}
 
 모델의 제공업체에 따라 적절한 `LLMClient`를 사용하는 `PromptExecutor`의 `moderate` 메서드를 사용할 수도 있습니다:
 
@@ -333,7 +333,7 @@ Koog은 콘텐츠 검토를 위한 두 가지 주요 접근 방식, 즉 `LLMClie
 
 이 메서드는 [ModerationResult](#moderationresult-structure)를 반환합니다.
 
-## ModerationResult 구조
+## ModerationResult 구조 {id="moderationresult-structure"}
 
 검토 프로세스는 다음과 같은 구조의 `ModerationResult` 객체를 반환합니다:
 
@@ -416,9 +416,9 @@ Koog은 콘텐츠 검토를 위한 두 가지 주요 접근 방식, 즉 `LLMClie
 | `categories`     | Map&lt;ModerationCategory, ModerationCategoryResult&gt; | 예      |            | 어떤 카테고리가 플래그 지정되었는지 나타내는 세부 결과에 대한 검토 카테고리 맵입니다. |
 | `violatedCategories` | List&lt;ModerationCategory&gt;                       | 아니요       |            | 검토 결과에서 감지된 것으로 플래그 지정된 검토 카테고리 목록입니다. |
 
-## 검토 카테고리 (Moderation categories)
+## 검토 카테고리 (Moderation categories) {id="moderation-categories"}
 
-### Koog 검토 카테고리
+### Koog 검토 카테고리 {id="koog-moderation-categories"}
 
 Koog 프레임워크에서 제공하는 가능한 검토 카테고리(기반이 되는 LLM 및 LLM 제공업체에 관계없이)는 다음과 같습니다:
 
@@ -444,7 +444,7 @@ Koog 프레임워크에서 제공하는 가능한 검토 카테고리(기반이 
 !!! note
     이러한 카테고리는 새로운 검토 카테고리가 추가되거나 기존 카테고리가 시간이 지남에 따라 진화함에 따라 변경될 수 있습니다.
 
-#### OpenAI 검토 카테고리
+#### OpenAI 검토 카테고리 {id="openai-moderation-categories"}
 
 OpenAI의 검토 API는 다음 카테고리를 제공합니다:
 
@@ -462,7 +462,7 @@ OpenAI의 검토 API는 다음 카테고리를 제공합니다:
 - **Violence**: 죽음, 폭력 또는 신체적 상해를 묘사하는 콘텐츠입니다.
 - **Violence/graphic**: 죽음, 폭력 또는 신체적 상해를 매우 생생하게 묘사하는 콘텐츠입니다.
 
-#### Ollama 위험(hazard) 카테고리
+#### Ollama 위험(hazard) 카테고리 {id="ollama-hazard-categories"}
 
 Ollama의 Llama Guard 모델은 다음과 같은 위험 카테고리를 사용합니다:
 
@@ -512,7 +512,7 @@ Ollama의 Llama Guard 모델은 다음과 같은 위험 카테고리를 사용�
 
 - **S13 - Elections (선거)**: 공직 선거에서의 투표 시간, 장소 또는 방식을 포함하여 선거 시스템 및 프로세스에 대해 사실과 다른 정보가 포함된 응답입니다.
 
-#### 제공업체 간 카테고리 매핑
+#### 제공업체 간 카테고리 매핑 {id="category-mapping-between-providers"}
 
 다음 표는 Ollama와 OpenAI 검토 카테고리 간의 매핑을 보여줍니다:
 
@@ -532,9 +532,9 @@ Ollama의 Llama Guard 모델은 다음과 같은 위험 카테고리를 사용�
 | **S12 – Sexual content** (에로티카)                                                        | `sexual`                                                                              | 일반적인 성인 에로티카입니다 (미성년자의 경우 `sexual/minors`로 전환됨).                            |
 | **S13 – Elections misinformation**                                                        | **고유함 (UNIQUE)**                                                                            | 선거 프로세스 오보는 OpenAI 카테고리에서 별도로 구분되지 않습니다.                 |
 
-## 검토 결과 예시
+## 검토 결과 예시 {id="examples-of-moderation-results"}
 
-### OpenAI 검토 예시 (유해 콘텐츠)
+### OpenAI 검토 예시 (유해 콘텐츠) {id="openai-moderation-example-harmful-content"}
 
 OpenAI는 다음과 같은 JSON 형식의 응답을 제공하는 특정 `/moderations` API를 제공합니다:
 
@@ -650,7 +650,7 @@ Koog에서 위의 응답 구조는 다음과 같은 응답으로 매핑됩니다
     ```
     <!--- KNIT example-content-moderation-java-05.java -->
 
-### OpenAI 검토 예시 (안전한 콘텐츠)
+### OpenAI 검토 예시 (안전한 콘텐츠) {id="openai-moderation-example-safe-content"}
 
 ```json
 {
@@ -759,7 +759,7 @@ Koog에서 위의 OpenAI 응답은 다음과 같이 표시됩니다:
     ```
     <!--- KNIT example-content-moderation-java-06.java -->
 
-### Ollama 검토 예시 (유해 콘텐츠)
+### Ollama 검토 예시 (유해 콘텐츠) {id="ollama-moderation-example-harmful-content"}
 
 Ollama의 검토 형식 접근 방식은 OpenAI의 접근 방식과 크게 다릅니다.
 Ollama에는 특정 검토 관련 API 엔드포인트가 없습니다. 
@@ -844,7 +844,7 @@ S1,S10
     ```
     <!--- KNIT example-content-moderation-java-07.java -->
 
-### Ollama 검토 예시 (안전한 콘텐츠)
+### Ollama 검토 예시 (안전한 콘텐츠) {id="ollama-moderation-example-safe-content"}
 
 다음은 콘텐츠를 안전한 것으로 표시하는 Ollama 응답의 예시입니다:
 

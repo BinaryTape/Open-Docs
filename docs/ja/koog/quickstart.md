@@ -2,11 +2,11 @@
 
 このガイドでは、プロジェクトで Koog の使用を開始する方法を説明します。
 
-## 前提条件
+## 前提条件 {id="prerequisites"}
 
 --8<-- "quickstart-snippets.md:prerequisites"
 
-## Koog のインストール
+## Koog のインストール {id="install-koog"}
 
 --8<-- "quickstart-snippets.md:dependencies"
 
@@ -28,7 +28,7 @@
     
     利用可能なナイトリービルドは[こちら](https://packages.jetbrains.team/maven/p/grazi/grazie-platform-public/ai/koog/koog-agents/)で確認できます。
 
-## API キーの設定
+## API キーの設定 {id="set-up-an-api-key"}
 
 Koog を使用するには、[サポートされている LLM プロバイダー](llm-providers.md)の API キー、またはローカルで実行されている LLM のいずれかが必要です。
 
@@ -153,7 +153,7 @@ Koog を使用するには、[サポートされている LLM プロバイダー
 
     [Ollama のドキュメント](https://docs.ollama.com/quickstart)に従って、Ollama でローカル LLM を実行します。
 
-## 初めての Koog エージェントの作成
+## 初めての Koog エージェントの作成 {id="create-your-first-koog-agent"}
 
 === "OpenAI"
 
@@ -779,6 +779,6 @@ Koog を使用するには、[サポートされている LLM プロバイダー
     ```
     <!--- KNIT example-getting-started-09.txt -->
 
-## 次のステップ
+## 次のステップ {id="next-steps"}
 
 - [エージェントの種類](agents/index.md)について詳しく学ぶ

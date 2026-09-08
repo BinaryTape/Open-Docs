@@ -10,11 +10,11 @@ title: Koin Annotations 入门
 
 Koin Annotations 允许您在类上使用注解来声明定义。Koin 编译器插件会在编译时处理这些注解，并为您生成所有底层的 Koin DSL。
 
-## 开始使用
+## 开始使用 {id="getting-started"}
 
 还不熟悉 Koin？首先，请查看 [Koin 快速入门](https://insert-koin.io/docs/quickstart/kotlin/)
 
-### 设置
+### 设置 {id="setup"}
 
 将 Koin 编译器插件添加到您的项目中。有关完整说明，请参阅[编译器插件设置](/docs/setup/compiler-plugin)。
 
@@ -30,7 +30,7 @@ dependencies {
 }
 ```
 
-### 标记组件
+### 标记组件 {id="annotating-components"}
 
 使用定义注解标记您的组件：
 
@@ -45,7 +45,7 @@ class MyService(val repository: MyRepository)
 class MyUseCase(val service: MyService)
 ```
 
-### 声明模块
+### 声明模块 {id="declaring-modules"}
 
 创建一个模块来组织您的定义：
 
@@ -55,7 +55,7 @@ class MyUseCase(val service: MyService)
 class AppModule
 ```
 
-### 启动 Koin
+### 启动 Koin {id="starting-koin"}
 
 将 `@KoinApplication` 与类型化启动 API 配合使用：
 
@@ -73,7 +73,7 @@ fun main() {
 }
 ```
 
-## 配置标签
+## 配置标签 {id="configuration-labels"}
 
 使用 `@Configuration` 创建根据标签加载的模块：
 
@@ -105,7 +105,7 @@ fun main() {
 }
 ```
 
-## 类型化启动 API
+## 类型化启动 API {id="typed-startup-apis"}
 
 编译器插件提供了用于启动 Koin 的类型化 API：
 
@@ -120,7 +120,7 @@ fun main() {
 
 其中 `T` 是一个标记有 `@KoinApplication`（用于启动 API）或 `@Module`（用于模块加载 API）的类。
 
-### 加载单个模块
+### 加载单个模块 {id="loading-individual-modules"}
 
 您可以直接加载 `@Module` 类而无需使用 `@KoinApplication`：
 
@@ -140,11 +140,11 @@ val koinTestRule = KoinTestRule.create {
 }
 ```
 
-## 编译时安全性
+## 编译时安全性 {id="compile-time-safety"}
 
 编译器插件会在编译时验证您的 Koin 配置，检查所有依赖项是否已声明且可访问。
 
-### 使用 @Provided 绕过
+### 使用 @Provided 绕过 {id="bypass-with-provided"}
 
 使用 `@Provided` 表示依赖项是由外部提供的：
 
@@ -155,11 +155,11 @@ class ExternalComponent  // 在别处声明
 class MyPresenter(@Provided val external: ExternalComponent)
 ```
 
-## 编译器插件选项
+## 编译器插件选项 {id="compiler-plugin-options"}
 
 有关所有配置选项，请参阅 **[编译器插件选项](/docs/reference/koin-annotations/options)**。
 
-## ProGuard 规则
+## ProGuard 规则 {id="proguard-rules"}
 
 对于使用 ProGuard/R8 的 SDK 开发：
 
@@ -171,7 +171,7 @@ class MyPresenter(@Provided val external: ExternalComponent)
 -keep @org.koin.core.annotation.* class * { *; }
 ```
 
-## 另请参阅
+## 另请参阅 {id="see-also"}
 
 - **[编译器插件设置](/docs/setup/compiler-plugin)** – 完整设置指南
 - **[定义](/docs/reference/koin-annotations/definitions)** – 所有定义注解

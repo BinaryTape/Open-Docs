@@ -8,7 +8,7 @@ status: beta
 
 A2A 伺服器使你能夠透過標準化的 A2A (Agent-to-Agent) 協定公開 AI 代理。它提供了 [A2A 協定規範](https://a2a-protocol.org/latest/specification/) 的完整實作，處理用戶端請求、執行代理邏輯、管理複雜的任務生命週期，並支援即時串流回應。
 
-## 相依性
+## 相依性 {id="dependencies"}
 
 要在你的專案中使用 A2A 伺服器，請將以下相依性新增到你的 `build.gradle.kts`：
 
@@ -25,14 +25,14 @@ dependencies {
 }
 ```
 
-## 總覽
+## 總覽 {id="overview"}
 
 A2A 伺服器充當 A2A 協定傳輸層與你的自訂代理邏輯之間的橋樑。
 它編排整個請求生命週期，同時保持協定合規性並提供健全的工作階段管理。
 
-## 核心組件
+## 核心組件 {id="core-components"}
 
-### A2AServer
+### A2AServer {id="a2aserver"}
 
 實作完整 A2A 協定的主要伺服器類別。它作為中央協調器，負責：
 
@@ -48,7 +48,7 @@ A2A 伺服器充當 A2A 協定傳輸層與你的自訂代理邏輯之間的橋�
 
 以及一些可用於自訂其存儲和傳輸行為的可選參數。
 
-### AgentExecutor
+### AgentExecutor {id="agentexecutor"}
 
 `AgentExecutor` 介面是你實作代理核心商務邏輯的地方。
 它充當 A2A 協定與你特定 AI 代理能力之間的橋樑。
@@ -108,7 +108,7 @@ eventProcessor.sendTaskEvent(
 )
 ```
 
-### AgentCard
+### AgentCard {id="agentcard"}
 
 `AgentCard` 作為代理的自我描述清單。它告訴用戶端你的代理可以做什麼、如何與其通訊以及有哪些安全性需求。
 
@@ -193,12 +193,12 @@ val agentCard = AgentCard(
 )
 ```
 
-### 傳輸層
+### 傳輸層 {id="transport-layer"}
 
 A2A 本身支援多種用於與用戶端通訊的傳輸協定。
 目前，Koog 提供了透過 HTTP 進行 JSON-RPC 伺服器傳輸的實作。
 
-#### HTTP JSON-RPC 傳輸
+#### HTTP JSON-RPC 傳輸 {id="http-json-rpc-transport"}
 
 ```kotlin
 val transport = HttpJSONRPCServerTransport(server)
@@ -210,7 +210,7 @@ transport.start(
 )
 ```
 
-### 存儲
+### 存儲 {id="storage"}
 
 A2A 伺服器使用可插拔的存儲架構，將不同類型的資料分開。
 所有存儲實作都是可選的，開發時預設為記憶體內變體。
@@ -219,9 +219,9 @@ A2A 伺服器使用可插拔的存儲架構，將不同類型的資料分開。
 - **MessageStorage**：對話歷史記錄 - 管理對話內容中的訊息歷史記錄
 - **PushNotificationConfigStorage**：Webhook 管理 - 管理用於非同步通知的 Webhook 配置
 
-## 快速入門
+## 快速入門 {id="quickstart"}
 
-### 1. 建立 AgentCard
+### 1. 建立 AgentCard {id="1-create-agentcard"}
 定義代理的能力和元資料。
 ```kotlin
 val agentCard = AgentCard(
@@ -258,7 +258,7 @@ val agentCard = AgentCard(
 )
 ```
 
-### 2. 建立一個 AgentExecutor
+### 2. 建立一個 AgentExecutor {id="2-create-an-agentexecutor"}
 執行器負責實作代理邏輯，處理傳入的請求並發送回應。
 
 ```kotlin
@@ -286,7 +286,7 @@ class EchoAgentExecutor : AgentExecutor {
 }
 ```
 
-### 2. 建立伺服器
+### 2. 建立伺服器 {id="2-create-the-server"}
 將代理執行器和代理卡片傳遞給伺服器。
 
 ```kotlin
@@ -296,7 +296,7 @@ val server = A2AServer(
 )
 ```
 
-### 3. 加入傳輸層
+### 3. 加入傳輸層 {id="3-add-transport-layer"}
 建立傳輸層並啟動伺服器。
 ```kotlin
 // HTTP JSON-RPC 傳輸
@@ -309,9 +309,9 @@ transport.start(
 )
 ```
 
-## 代理實作模式
+## 代理實作模式 {id="agent-implementation-patterns"}
 
-### 簡單回應代理
+### 簡單回應代理 {id="simple-response-agent"}
 如果你的代理只需要回應單條訊息，你可以將其實作為簡單代理。
 這也適用於代理執行邏輯不複雜且不耗時的情況。
 
@@ -334,7 +334,7 @@ class SimpleAgentExecutor : AgentExecutor {
 }
 ```
 
-### 基於任務的代理
+### 基於任務的代理 {id="task-based-agent"}
 如果你的代理執行邏輯複雜且需要多個步驟，你可以將其實作為基於任務的代理。
 這也適用於代理執行邏輯耗時且需要掛起的情況。
 ```kotlin

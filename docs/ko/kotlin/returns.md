@@ -14,7 +14,7 @@ val s = person.name ?: return
 
 이러한 표현식의 타입은 [Nothing 타입](exceptions.md#the-nothing-type)입니다.
 
-## Break와 continue 레이블
+## Break와 continue 레이블 {id="break-and-continue-labels"}
 
 Kotlin의 모든 표현식은 *레이블(label)*을 표시할 수 있습니다.
 레이블은 `abc@` 또는 `fooBar@`와 같이 식별자 뒤에 `@` 기호가 붙는 형태입니다.
@@ -44,7 +44,7 @@ loop@ for (i in 1..100) {
 >
 {style="note"}
 
-## 레이블로 반환하기
+## 레이블로 반환하기 {id="return-to-labels"}
 
 Kotlin에서는 함수 리터럴, 로컬 함수, 객체 표현식을 사용하여 함수를 중첩할 수 있습니다.
 한정된(qualified) `return`을 사용하면 외부 함수에서 반환할 수 있습니다.

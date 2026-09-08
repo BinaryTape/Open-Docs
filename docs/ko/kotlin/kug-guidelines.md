@@ -14,7 +14,7 @@ KUG 미트업 형식에는 제한이 없습니다. 발표, 핸즈온 실습, 강
 >
 {style="note"}
 
-## KUG 운영 방법
+## KUG 운영 방법 {id="how-to-run-a-kug"}
 
 * 그룹의 결속력을 높이고 혼선을 방지하기 위해 도시당 하나의 KUG로 제한할 것을 권장합니다. [KUG 목록](https://kotlinlang.org/community/user-groups/)을 확인하여 현재 지역에 이미 KUG가 있는지 확인해 보세요.
 * 공식 KUG 로고와 브랜딩을 사용하세요. [브랜딩 가이드라인](kotlin-brand-assets.md#kotlin-user-group-brand-assets)을 확인해 보세요.
@@ -27,7 +27,7 @@ KUG 미트업 형식에는 제한이 없습니다. 발표, 핸즈온 실습, 강
 
 궁금한 점이 있으신가요? [저희에게 연락주세요](mailto:kug@jetbrains.com)
 
-## JetBrains의 KUG 지원
+## JetBrains의 KUG 지원 {id="support-for-kugs-from-jetbrains"}
 
 3개월마다 최소 1회의 미트업을 개최하는 활발한 KUG는 다음이 포함된 [커뮤니티 지원 프로그램](https://www.jetbrains.com/community/user-groups/)에 신청할 수 있습니다:
 * 공식 KUG 브랜딩.
@@ -36,7 +36,7 @@ KUG 미트업 형식에는 제한이 없습니다. 발표, 핸즈온 실습, 강
 * Kotlin 행사 및 캠페인 우선 지원.
 * 행사용 Kotlin 발표자 섭외 지원.
 
-## 다른 기술 커뮤니티를 위한 JetBrains의 지원
+## 다른 기술 커뮤니티를 위한 JetBrains의 지원 {id="support-from-jetbrains-for-other-tech-communities"}
 
 다른 기술 커뮤니티를 운영하고 있다면 역시 지원을 신청할 수 있습니다. 이를 통해 다음과 같은 지원을 받을 수 있습니다:
 * 미트업 경품 추첨용 JetBrains 제품 무료 라이선스.

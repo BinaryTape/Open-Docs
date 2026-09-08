@@ -12,7 +12,7 @@ Ktor 应用程序可以根据项目规模、领域复杂性和部署环境以多
 
 > 本页面侧重于应用程序级别的结构。有关组织路由的更多信息，请参阅[路由组织](server-routing-organization.md)。
 
-## 默认项目结构
+## 默认项目结构 {id="default-project-structure"}
 
 当您使用 [Ktor 项目生成器](https://start.ktor.io/)生成 Ktor 项目时，生成的项目使用单模块结构。此布局非常精简，旨在让您通过一个正常的 Ktor 应用程序快速上手并运行。
 
@@ -180,7 +180,7 @@ server/                               // Ktor 服务器应用程序（依赖于�
 └─ Orders.kt                          // 订单 HTTP 路由
 ```
 
-### 领域层
+### 领域层 {id="domain-layer"}
 
 领域层保持独立于 Ktor。它通过以下元素定义业务规则：
 
@@ -238,7 +238,7 @@ data class CustomerContactAdded(
 ```
 这些元素共同支持丰富的领域模型，同时保持基础架构细节的分离。
 
-### 应用程序和路由层
+### 应用程序和路由层 {id="application-and-routing-layer"}
 
 您通过各自的路由文件或模块函数公开每个领域，并注入管理逻辑和状态的服务：
 
@@ -306,7 +306,7 @@ service-order/
 
 在这种结构中，每个服务都拥有一个隔离的领域切片，并在内部保持模块化，与服务发现、指标和外部配置集成。
 
-### 入口点
+### 入口点 {id="entry-points"}
 
 Ktor 提供了现成的引擎入口点，例如：
 
@@ -318,7 +318,7 @@ io.ktor.server.cio.EngineMain
 
 应用程序模块可以在任何源文件中定义，并由引擎根据[配置](server-configuration-file.topic)加载。
 
-### 模块化单体 (Modulith) 部署
+### 模块化单体 (Modulith) 部署 {id="modulith-deployment"}
 
 代表服务的多个 Gradle 模块可以独立打包，但在单个 Ktor 应用程序中共同部署，而不是完全独立的微服务。这种方法通常被称为模块化单体 (modulith)。
 

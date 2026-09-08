@@ -2,7 +2,7 @@
 
 Glide/Picasso 호출을 Coil 호출로 마이그레이션하는 몇 가지 예시입니다.
 
-### 기본 사용법
+### 기본 사용법 {id="basic-usage"}
 
 ```kotlin
 // Glide
@@ -19,7 +19,7 @@ Picasso.get()
 imageView.load(url)
 ```
 
-### 커스텀 요청
+### 커스텀 요청 {id="custom-requests"}
 
 ```kotlin
 imageView.scaleType = ImageView.ScaleType.FIT_CENTER
@@ -44,7 +44,7 @@ imageView.load(url) {
 }
 ```
 
-### View가 아닌 타겟
+### View가 아닌 타겟 {id="non-view-targets"}
 
 ```kotlin
 // Glide (시작 및 오류에 대한 선택적 콜백이 있습니다)
@@ -95,7 +95,7 @@ val request = ImageRequest.Builder(context)
 context.imageLoader.enqueue(request)
 ```
 
-### 백그라운드 스레드
+### 백그라운드 스레드 {id="background-thread"}
 
 ```kotlin
 // Glide (현재 스레드를 블록하며, 메인 스레드에서 호출해서는 안 됩니다)

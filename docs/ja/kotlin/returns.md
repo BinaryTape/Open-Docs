@@ -14,7 +14,7 @@ val s = person.name ?: return
 
 これらの式の型は[Nothing型](exceptions.md#the-nothing-type)です。
 
-## Breakとcontinueのラベル
+## Breakとcontinueのラベル {id="break-and-continue-labels"}
 
 Kotlinの任意の式には*ラベル*（label）を付けることができます。
 ラベルは、`abc@` や `fooBar@` のように、識別子の後に `@` 記号が付いた形式です。
@@ -43,7 +43,7 @@ loop@ for (i in 1..100) {
 >
 {style="note"}
 
-## ラベルへのリターン
+## ラベルへのリターン {id="return-to-labels"}
 
 Kotlinでは、関数リテラル、ローカル関数、オブジェクト式を使用して関数をネストできます。
 ラベル指定された `return` を使用すると、外側の関数から戻ることができます。

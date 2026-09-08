@@ -15,14 +15,14 @@ Kotlin 멀티플랫폼 Gradle 플러그인은 `com.android.application` 및 `com
 > 
 {style="note"}
 
-## Android-KMP 라이브러리 플러그인으로 마이그레이션
+## Android-KMP 라이브러리 플러그인으로 마이그레이션 {id="migration-to-the-android-kmp-library-plugin"}
 
 이전에는 멀티플랫폼 모듈에서 Android 타겟을 구성하기 위해 KMP 플러그인(`org.jetbrains.kotlin.multiplatform`)을
 Android 애플리케이션 플러그인(`com.android.application`) 또는 Android 라이브러리 플러그인(`com.android.library`)과 함께 사용해야 했습니다.
 
 AGP 9.0부터 이러한 플러그인들은 KMP와 더 이상 호환되지 않으므로, KMP를 위해 특별히 제작된 새로운 Android-KMP 라이브러리 플러그인으로 마이그레이션해야 합니다.
 
-### 마이그레이션 방법
+### 마이그레이션 방법 {id="how-to-migrate"}
 
 라이브러리 마이그레이션 단계는 [Android 문서의 가이드](https://developer.android.com/kotlin/multiplatform/plugin#migrate)를 참조하세요.
 
@@ -36,7 +36,7 @@ Android 앱 프로젝트를 마이그레이션하려면 Android 진입점과 공
 >
 {style="note"}
 
-### AGP 10 전까지 레거시 API 활성화
+### AGP 10 전까지 레거시 API 활성화 {id="enabling-the-legacy-apis-until-agp-10"}
 
 단기적으로 AGP 9.0에서 프로젝트를 작동시키려면 지원 중단된(deprecated) API를 수동으로 활성화할 수 있습니다.
 이를 위해 프로젝트의 `gradle.properties` 파일에 다음 프로퍼티를 추가하세요:
@@ -45,7 +45,7 @@ Android 앱 프로젝트를 마이그레이션하려면 Android 진입점과 공
 레거시 API는 2026년 하반기에 출시될 예정인 [AGP 10에서 완전히 제거](https://developer.android.com/build/releases/gradle-plugin-roadmap#agp-10)될 예정입니다.
 그전에 마이그레이션을 완료하시기 바랍니다.
 
-## 샘플 앱 마이그레이션
+## 샘플 앱 마이그레이션 {id="migration-of-a-sample-app"}
 
 마이그레이션을 위해 준비할 예제 프로젝트는 [나만의 애플리케이션 만들기](compose-multiplatform-new-project.md) 튜토리얼의 결과물인 Compose Multiplatform 앱입니다.
 * 업데이트가 필요한 앱의 예제가 포함된 샘플은 샘플 저장소의 [main](https://github.com/kotlin-hands-on/get-started-with-cm/tree/main) 브랜치에 있습니다.
@@ -63,7 +63,7 @@ AGP 9.0 마이그레이션을 준비하려면 다음을 수행합니다:
 
 ### Android 앱 진입점을 위한 모듈 {id="android-app"}
 
-#### Android 앱 모듈 생성 및 구성
+#### Android 앱 모듈 생성 및 구성 {id="create-and-configure-the-android-app-module"}
 
 Android 앱 모듈(`androidApp`)을 생성하려면 다음을 수행하세요:
 
@@ -76,7 +76,7 @@ Android 앱 모듈(`androidApp`)을 생성하려면 다음을 수행하세요:
     ```
 4. 메인 메뉴에서 **Build | Sync Project with Gradle Files**를 선택하거나 에디터에서 Gradle 새로고침 버튼을 클릭합니다.
 
-#### Android 앱의 빌드 스크립트 구성
+#### Android 앱의 빌드 스크립트 구성 {id="configure-the-build-script-for-the-android-app"}
 
 새 모듈의 Gradle 빌드 스크립트를 구성합니다:
 
@@ -158,7 +158,7 @@ Android 앱 모듈(`androidApp`)을 생성하려면 다음을 수행하세요:
    
 8. 메인 메뉴에서 **Build | Sync Project with Gradle Files**를 선택하거나 에디터에서 Gradle 새로고침 버튼을 클릭합니다.
 
-#### 코드 이동 및 Android 앱 실행
+#### 코드 이동 및 Android 앱 실행 {id="move-the-code-and-run-the-android-app"}
 
 1. `composeApp/src/androidMain` 디렉토리를 `androidApp/src/` 디렉토리로 이동시키되, 멀티플랫폼으로 유지되어야 하는 코드를 유의하세요:
    
@@ -178,7 +178,7 @@ Android 앱 모듈(`androidApp`)을 생성하려면 다음을 수행하세요:
 
 이제 Android 진입점을 별도의 모듈로 추출했습니다. 이제 공용 코드 모듈이 새로운 Android-KMP 라이브러리 플러그인을 사용하도록 업데이트하세요.
 
-### 공용 모듈이 Android-KMP 라이브러리 플러그인을 사용하도록 구성
+### 공용 모듈이 Android-KMP 라이브러리 플러그인을 사용하도록 구성 {id="configure-the-shared-module-to-use-the-android-kmp-library-plugin"}
 
 단순히 Android 진입점을 추출하기 위해 공용 `composeApp` 모듈에 `com.android.library` 플러그인을 적용했습니다. 이제 새로운 멀티플랫폼 라이브러리 플러그인으로 마이그레이션합니다:
 
@@ -221,7 +221,7 @@ Android 앱 모듈(`androidApp`)을 생성하려면 다음을 수행하세요:
 7. 메인 메뉴에서 **Build | Sync Project with Gradle Files**를 선택하거나 에디터에서 Gradle 새로고침 버튼을 클릭합니다.
 8. Android 앱이 예상대로 실행되는지 확인합니다.
 
-### Android Gradle 플러그인 버전 업데이트
+### Android Gradle 플러그인 버전 업데이트 {id="update-the-android-gradle-plugin-version"}
 
 모든 코드가 새 구성에서 작동할 때:
 
@@ -260,6 +260,6 @@ Android 앱 모듈(`androidApp`)을 생성하려면 다음을 수행하세요:
 
 축하합니다! 프로젝트를 AGP 9.0과 호환되도록 업그레이드했습니다.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 앱 타겟의 진입점을 분리하는 로직을 따르는 [권장 프로젝트 구조](multiplatform-project-recommended-structure.md)를 확인해 보세요.

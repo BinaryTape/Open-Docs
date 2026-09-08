@@ -15,7 +15,7 @@
 
 * **从 Web API 获取并分析实时和动态数据集：** EDA 工具的灵活性允许通过 OpenAPI 等协议与外部 API 集成。此功能可帮助你从 Web API 获取数据，然后根据需要对数据进行清理和转换。
 
-## Kotlin DataFrame
+## Kotlin DataFrame {id="kotlin-dataframe"}
 
 [Kotlin DataFrame](https://kotlin.github.io/dataframe/overview.html) 库允许你在 Kotlin 项目中操作结构化数据。从数据创建和清理到深度分析和特征工程，该库都能满足你的需求。
 
@@ -23,13 +23,13 @@
 
 ![Kotlin DataFrame](data-analysis-dataframe-example.png){width=700}
 
-## Kandy
+## Kandy {id="kandy"}
 
 [Kandy](https://kotlin.github.io/kandy/welcome.html) 是一个开源 Kotlin 库，它提供了一个强大且灵活的 DSL，用于绘制各种类型的图表。该库是一个简单、惯用、可读且类型安全的工具，用于使数据可视化。你还可以轻松地结合使用 Kandy 和 Kotlin DataFrame 库来完成不同的数据相关任务。
 
 ![Kandy](data-analysis-kandy-example.png){width=700}
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * [使用 Kotlin DataFrame 库检索和转换数据](data-analysis-work-with-data-sources.md)
 * [使用 Kandy 库使数据可视化](data-analysis-visualization.md)

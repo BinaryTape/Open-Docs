@@ -10,7 +10,7 @@ JVM、JavaScript 以及针对[支持的平台](native-overview.md#target-platfor
 
 您也可以按照 [使用命令行编译器](command-line.md) 教程中的说明，从命令行手动运行 Kotlin 编译器。
 
-## 如何定义选项
+## 如何定义选项 {id="how-to-define-options"}
 
 Kotlin 编译器具有许多用于调整编译过程的选项。
 
@@ -41,7 +41,7 @@ Gradle DSL 允许对编译器选项进行全面配置。它适用于 [Kotlin 多
 >
 {style="tip"}
 
-### 扩展层级
+### 扩展层级 {id="extension-level"}
 
 您可以在顶层的 `compilerOptions {}` 块中为所有目标和共享源集配置通用编译器选项：
 
@@ -53,7 +53,7 @@ kotlin {
 }
 ```
 
-### 目标层级
+### 目标层级 {id="target-level"}
 
 您可以在 `target {}` 块内的 `compilerOptions {}` 块中配置 JVM/Android 目标的编译器选项：
 
@@ -69,7 +69,7 @@ kotlin {
 
 在 Kotlin 多平台项目额中，您可以在特定的目标内部配置编译器选项。例如：`jvm { compilerOptions {}}`。有关更多信息，请参阅 [多平台 Gradle DSL 参考](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html)。
 
-### 编译单元层级
+### 编译单元层级 {id="compilation-unit-level"}
 
 您可以在任务配置内的 `compilerOptions {}` 块中为特定的编译单元或任务配置编译器选项：
 
@@ -124,7 +124,7 @@ tasks.named('compileKotlin', org.jetbrains.kotlin.gradle.tasks.KotlinCompilation
 </tab>
 </tabs>
 
-### 从 `kotlinOptions {}` 迁移到 `compilerOptions {}` {initial-collapse-state="collapsed" collapsible="true"}
+### 从 `kotlinOptions {}` 迁移到 `compilerOptions {}` {initial-collapse-state="collapsed" collapsible="true" id="migrate-from-kotlinoptions-to-compileroptions"}
 
 在 Kotlin 2.2.0 之前，您可以使用 `kotlinOptions {}` 块配置编译器选项。由于 `kotlinOptions {}` 块从 Kotlin 2.0.0 开始已弃用，本节为您提供指导和建议，帮助您将构建脚本迁移到使用 `compilerOptions {}` 块：
 
@@ -132,7 +132,7 @@ tasks.named('compileKotlin', org.jetbrains.kotlin.gradle.tasks.KotlinCompilation
 * [从 `android.kotlinOptions` 迁离](#从-androidkotlinoptions-迁离)
 * [迁移 `freeCompilerArgs`](#迁移-freecompilerargs)
 
-#### 集中编译器选项并使用类型
+#### 集中编译器选项并使用类型 {id="centralize-compiler-options-and-use-types"}
 
 尽可能在 [扩展层级](#扩展层级) 配置编译器选项，并在 [编译单元层级](#编译单元层级) 为特定任务覆盖它们。
 
@@ -236,7 +236,7 @@ tasks.named("compileKotlin", KotlinJvmCompile).configure {
 </tab>
 </tabs>
 
-#### 从 `android.kotlinOptions` 迁离
+#### 从 `android.kotlinOptions` 迁离 {id="migrate-away-from-android-kotlinoptions"}
 
 如果您的构建脚本之前使用的是 `android.kotlinOptions`，请迁移到 `kotlin.compilerOptions`。可以在扩展层级或目标层级进行迁移。
 
@@ -397,7 +397,7 @@ kotlin {
 </tab>
 </tabs>
 
-#### 迁移 `freeCompilerArgs`
+#### 迁移 `freeCompilerArgs` {id="migrate-freecompilerargs"}
 
 * 将所有 `+=` 操作替换为 `add()` 或 `addAll()` 函数。
 * 如果您使用 `-opt-in` 编译器选项，请检查 [KGP API 参考](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/) 中是否已有专用的 DSL，并改用它。
@@ -468,7 +468,7 @@ kotlin {
 </tab>
 </tabs>
 
-## 针对 JVM
+## 针对 JVM {id="target-the-jvm"}
 
 [如前所述](#如何定义选项)，您可以为 JVM/Android 项目在扩展、目标和编译单元层级（任务）定义编译器选项。
 
@@ -481,7 +481,7 @@ kotlin {
 * `kotlin.compilerOptions` 配置项目中的每个 Kotlin 编译任务。
 * 您可以使用 `tasks.named<KotlinJvmCompile>("compileKotlin") { }`（或 `tasks.withType<KotlinJvmCompile>().configureEach { }`）方法覆盖由 `kotlin.compilerOptions` DSL 应用的配置。
 
-## 针对 JavaScript
+## 针对 JavaScript {id="target-javascript"}
 
 JavaScript 编译任务对于生产代码称为 `compileKotlinJs`，对于测试代码称为 `compileTestKotlinJs`，对于自定义源集称为 `compile<Name>KotlinJs`。
 
@@ -522,7 +522,7 @@ tasks.named('compileKotlin', KotlinCompilationTask) {
 
 您可以通过在终端运行 `gradlew tasks --all` 命令并搜索 `Other tasks` 组中的 `compile*KotlinJS` 任务名称，查看 JavaScript 编译任务列表。
 
-## 所有 Kotlin 编译任务
+## 所有 Kotlin 编译任务 {id="all-kotlin-compilation-tasks"}
 
 也可以配置项目中的所有 Kotlin 编译任务：
 
@@ -553,11 +553,11 @@ tasks.named('compileKotlin', KotlinCompilationTask) {
 </tab>
 </tabs>
 
-## 所有编译器选项
+## 所有编译器选项 {id="all-compiler-options"}
 
 以下是 Gradle 编译器的完整选项列表：
 
-### 通用属性
+### 通用属性 {id="common-attributes"}
 
 | 名称 | 描述 | 可能的值 | 默认值 |
 |-------------------|------------------------------------------------------------------------------------------------------------------------------------------|---------------------------|---------------|
@@ -565,7 +565,7 @@ tasks.named('compileKotlin', KotlinCompilationTask) {
 | `progressiveMode` | 启用 [编译器渐进模式](whatsnew13.md#progressive-mode) | `true`, `false` | `false` |
 | `extraWarnings` | 启用 [额外的声明、表达式和类型编译器检查](whatsnew21.md#extra-compiler-checks)，如果为 true 则会发出警告 | `true`, `false` | `false` |
 
-### JVM 特有属性
+### JVM 特有属性 {id="attributes-specific-to-jvm"}
 
 | 名称 | 描述 | 可能的值 | 默认值 |
 |---------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------|-----------------------------|
@@ -575,7 +575,7 @@ tasks.named('compileKotlin', KotlinCompilationTask) {
 | `jvmTargetValidationMode` | <list><li>验证 Kotlin 和 Java 之间的 [JVM 目标兼容性](gradle-configure-project.md#check-for-jvm-target-compatibility-of-related-compile-tasks)</li><li>`KotlinCompile` 类型任务的一个属性。</li></list> | `WARNING`, `ERROR`, `IGNORE` | `ERROR` |
 | `jvmDefault` | 控制如何将在接口中声明的函数编译为 JVM 上的默认方法 | `ENABLE`, `NO_COMPATIBILITY`, `DISABLE` | `ENABLE` |
 
-### JVM 和 JavaScript 通用属性
+### JVM 和 JavaScript 通用属性 {id="attributes-common-to-jvm-and-javascript"}
 
 | 名称 | 描述 | 可能的值 | 默认值 |
 |-----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------|---------------|
@@ -590,7 +590,7 @@ tasks.named('compileKotlin', KotlinCompilationTask) {
 >
 {style="warning"}
 
-#### 通过 freeCompilerArgs 使用附加参数的示例 {initial-collapse-state="collapsed" collapsible="true"}
+#### 通过 freeCompilerArgs 使用附加参数的示例 {initial-collapse-state="collapsed" collapsible="true" id="example-of-additional-arguments-usage-via-freecompilerargs"}
 
 使用 `freeCompilerArgs` 属性提供附加（包括实验性）编译器参数。您可以向此属性添加单个参数或参数列表：
 
@@ -656,7 +656,7 @@ tasks.named('compileKotlin', KotlinCompilationTask) {
 >
 {style="tip"} 
 
-#### 设置 languageVersion 的示例 {initial-collapse-state="collapsed" collapsible="true"}
+#### 设置 languageVersion 的示例 {initial-collapse-state="collapsed" collapsible="true" id="example-of-setting-languageversion"}
 
 要设置语言版本，请使用以下语法：
 
@@ -688,7 +688,7 @@ tasks
 
 另请参阅 [编译器选项的类型](#编译器选项的类型)。
 
-### JavaScript 特有属性
+### JavaScript 特有属性 {id="attributes-specific-to-javascript"}
 
 | 名称 | 描述 | 可能的值 | 默认值 |
 |---|---|---|---|
@@ -702,7 +702,7 @@ tasks
 | `target` | 为特定的 ECMA 版本生成 JS 文件 | `"es5"`, `"es2015"` | `"es5"` |
 | `useEsClasses` | 让生成的 JavaScript 代码使用 ES2015 类。在使用 ES2015 目标的情况下默认启用 | | `null` |
 
-### 编译器选项的类型
+### 编译器选项的类型 {id="types-for-compiler-options"}
 
 某些 `compilerOptions` 使用新类型而不是 `String` 类型：
 
@@ -715,7 +715,7 @@ tasks
 | `sourceMapEmbedSources` | [`JsSourceMapEmbedMode`](https://github.com/JetBrains/kotlin/blob/master/libraries/tools/kotlin-gradle-compiler-types/src/generated/kotlin/org/jetbrains/kotlin/gradle/dsl/JsSourceMapEmbedMode.kt) | `compilerOptions.sourceMapEmbedSources.set(JsSourceMapEmbedMode.SOURCE_MAP_SOURCE_CONTENT_INLINING)` |
 | `sourceMapNamesPolicy` | [`JsSourceMapNamesPolicy`](https://github.com/JetBrains/kotlin/blob/master/libraries/tools/kotlin-gradle-compiler-types/src/generated/kotlin/org/jetbrains/kotlin/gradle/dsl/JsSourceMapNamesPolicy.kt) | `compilerOptions.sourceMapNamesPolicy.set(JsSourceMapNamesPolicy.SOURCE_MAP_NAMES_POLICY_FQ_NAMES)` |
 
-## 接下来的步骤
+## 接下来的步骤 {id="what-s-next"}
 
 详细了解：
 * [Kotlin 多平台 DSL 参考](https://kotlinlang.org/docs/multiplatform/multiplatform-dsl-reference.html)。

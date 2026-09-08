@@ -51,7 +51,7 @@ Ktor 集成了 [OpenTelemetry](https://opentelemetry.io/) —— 一个用于收
 
 在 Ktor 应用程序中安装 `%plugin_name%` 插件之前，您需要配置并初始化一个 `OpenTelemetry` 实例。此实例负责管理遥测数据，包括跟踪和指标。
 
-### 自动配置
+### 自动配置 {id="automatic-configuration"}
 
 配置 OpenTelemetry 的一种常见方式是使用 [`AutoConfiguredOpenTelemetrySdk`](https://javadoc.io/doc/io.opentelemetry/opentelemetry-sdk-extension-autoconfigure/latest/io/opentelemetry/sdk/autoconfigure/AutoConfiguredOpenTelemetrySdk.html)。这通过根据系统属性和环境变量自动配置导出器和资源，简化了设置过程。
 
@@ -75,7 +75,7 @@ fun getOpenTelemetry(serviceName: String): OpenTelemetry {
 }
 ```
 
-### 编程式配置
+### 编程式配置 {id="programmatic-configuration"}
 
 要在代码中定义导出器、处理程序和传播器，而不是依赖基于环境的配置，您可以使用 [`OpenTelemetrySdk`](https://javadoc.io/doc/io.opentelemetry/opentelemetry-sdk/latest/io/opentelemetry/sdk/OpenTelemetrySdk.html)。
 
@@ -228,11 +228,11 @@ install(%plugin_name%) {
 
 要对整个应用程序的跟踪行为进行微调，您还可以配置其他的 OpenTelemetry 属性，如传播器、特性限制以及启用/禁用插桩。有关更多详细信息，请参阅 [OpenTelemetry Java 配置指南](https://opentelemetry.io/docs/languages/java/configuration/)。
 
-## 使用 Grafana LGTM 验证遥测数据
+## 使用 Grafana LGTM 验证遥测数据 {id="verify-telemetry-data-with-grafana-lgtm"}
 
 要可视化并验证您的遥测数据，您可以将跟踪、指标和日志导出到分布式跟踪后端，例如 Grafana。`grafana/otel-lgtm` 一体化镜像捆绑了 [Grafana](https://grafana.com/)、[Tempo](https://grafana.com/oss/tempo/)（跟踪）、[Loki](https://grafana.com/oss/loki/)（日志）和 [Mimir](https://grafana.com/oss/mimir/)（指标）。
 
-### 使用 Docker Compose
+### 使用 Docker Compose {id="using-docker-compose"}
 
 创建一个具有以下内容的 **docker-compose.yml** 文件：
 
@@ -256,7 +256,7 @@ services:
 docker compose up -d
 ```
 
-### 使用 Docker CLI
+### 使用 Docker CLI {id="using-docker-cli"}
 
 或者，您可以直接使用 Docker 命令行运行 Grafana：
 
@@ -270,7 +270,7 @@ docker run -d --name grafana_lgtm \
     grafana/otel-lgtm:latest
 ```
 
-### 应用程序导出配置
+### 应用程序导出配置 {id="application-export-configuration"}
 
 要将遥测数据从您的 Ktor 应用程序发送到 OTLP 端点，请将 OpenTelemetry SDK 配置为使用 gRPC 协议。您可以在构建 SDK 之前通过环境变量设置这些值：
 
@@ -286,7 +286,7 @@ export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4317
 -Dotel.traces.exporter=otlp -Dotel.exporter.otlp.protocol=grpc -Dotel.exporter.otlp.endpoint=http://localhost:4317
 ```
 
-### 访问 Grafana UI
+### 访问 Grafana UI {id="accessing-grafana-ui"}
 
 运行后，Grafana UI 将在 [http://localhost:3000/](http://localhost:3000/) 可用。
 

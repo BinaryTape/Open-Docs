@@ -5,7 +5,7 @@
 
 undefined
 
-## 系统托盘
+## 系统托盘 {id="system-tray"}
 
 使用 `Tray()` 可组合项向系统托盘添加应用程序图标。`Tray()` 在 `application()` 函数的作用域内可用，因此可以与应用程序窗口一起调用，也可以单独调用。
 
@@ -117,7 +117,7 @@ object TrayIcon : Painter() {
 
 并非每个桌面环境都具有系统托盘。如果平台不支持系统托盘，`Tray()` 会向标准错误流输出错误，而不是抛出异常。在应用程序中显示与托盘相关的选项之前，请先检查 `isTraySupported` 属性。
 
-### 无窗口托盘
+### 无窗口托盘 {id="tray-without-a-window"}
 
 应用程序不需要窗口也可以拥有托盘图标。如果仅调用 `Tray()` 函数，应用程序将完全在系统托盘中运行：
 
@@ -153,7 +153,7 @@ object TrayIcon : Painter() {
 
 由于没有可关闭的窗口，应从菜单项中调用 `exitApplication()`。
 
-## 通知
+## 通知 {id="notifications"}
 
 要发送系统通知，请使用 `rememberNotification()` 创建通知并将其传递给 `TrayState.sendNotification()`，如[系统托盘示例](#系统托盘)中所示。通知通过传递给 `Tray()` 可组合项的 `TrayState` 进行传送。如果该状态未附加到托盘，通知将会丢失。
 
@@ -165,7 +165,7 @@ object TrayIcon : Painter() {
 >
 {style="note"}
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * 了解如何向窗口添加[菜单栏](compose-desktop-menu-bar.md)。
 * 探索有关[其他桌面组件](compose-desktop-components.md)的教程。

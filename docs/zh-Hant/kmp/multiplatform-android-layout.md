@@ -6,11 +6,11 @@
 >
 {style="tip"}
 
-## 檢查相容性
+## 檢查相容性 {id="check-the-compatibility"}
 
 新的配置需要 Android Gradle 外掛程式 7.0 或更高版本，且受 Android Studio 2022.3 及更高版本支援。請檢查您的 Android Gradle 外掛程式版本，並在必要時進行升級。
 
-## 重新命名 Kotlin 原始碼集
+## 重新命名 Kotlin 原始碼集 {id="rename-kotlin-source-sets"}
 
 如果適用，請按照以下模式重新命名專案中的原始碼集：
 
@@ -26,7 +26,7 @@
 | test        | androidTest                | android<b>Unit</b>Test         |
 | androidTest | android<b>Android</b>Test  | android<b>Instrumented</b>Test |
 
-## 移動原始碼檔案
+## 移動原始碼檔案 {id="move-source-files"}
 
 如果適用，請按照以下模式將您的原始碼檔案移動到新目錄：
 
@@ -42,7 +42,7 @@
 | test        | src/androidTest/kotlin<br/>src/test/kotlin<br/>src/test/java  | src/android<b>Unit</b>Test/kotlin<br/>src/test/kotlin<br/>src/test/java                           |
 | androidTest | src/android<b>Android</b>Test/kotlin<br/>src/androidTest/java | src/android<b>Instrumented</b>Test/kotlin<br/>src/androidTest/java, <b>src/androidTest/kotlin</b> |
 
-## 移動 AndroidManifest.xml 檔案
+## 移動 AndroidManifest.xml 檔案 {id="move-the-androidmanifest-xml-file"}
 
 如果您的專案中有 `AndroidManifest.xml` 檔案，請按照以下模式將其移動到新目錄：
 
@@ -57,7 +57,7 @@
 | main  | src/main/AndroidManifest.xml  | src/<b>android</b>Main/AndroidManifest.xml  |
 | debug | src/debug/AndroidManifest.xml | src/<b>android</b>Debug/AndroidManifest.xml |
 
-## 檢查 Android 與通用測試之間的關係
+## 檢查 Android 與通用測試之間的關係 {id="check-the-relationship-between-android-and-common-tests"}
 
 新的 Android 原始碼集配置改變了 Android 檢測式測試（在新配置中重新命名為 `androidInstrumentedTest`）與通用測試之間的關係。
 
@@ -81,7 +81,7 @@ kotlin {
 }
 ```
 
-## 調整 Android flavors 的實作
+## 調整 Android flavors 的實作 {id="adjust-the-implementation-of-android-flavors"}
 
 以前，Kotlin Gradle 外掛程式會提前建立與包含 `debug` 和 `release` 組建類型或自訂 flavors（如 `demo` 和 `full`）的 Android 原始碼集相對應的原始碼集。這使得可以使用如 `val androidDebug by getting { ... }` 之類的運算式來存取原始碼集。
 

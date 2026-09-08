@@ -4,7 +4,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 
 雖然大多數語言變更已透過其他管道宣布（如更新日誌或編譯器警告），本文件將對其進行總結，為從 Kotlin 1.3 遷移到 Kotlin 1.4 提供完整的參考。
 
-## 基本術語
+## 基本術語 {id="basic-terms"}
 
 在本文件中，我們介紹了幾種相容性：
 
@@ -14,9 +14,9 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 
 請記住，這些定義僅針對純 Kotlin。從其他語言（例如 Java）的角度來看 Kotlin 程式碼的相容性不在本文件的範圍內。
 
-## 語言與 stdlib 
+## 語言與 stdlib {id="language-and-stdlib"}
 
-### infix 運算子與 ConcurrentHashMap 的意外行為
+### infix 運算子與 ConcurrentHashMap 的意外行為 {id="unexpected-behavior-with-in-infix-operator-and-concurrenthashmap"}
 
 > **問題**：[KT-18053](https://youtrack.jetbrains.com/issue/KT-18053)
 > 
@@ -32,7 +32,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - &gt;= 1.4：將此警告提升為錯誤，
 >  可以使用 `-XXLanguage:-ProhibitConcurrentHashMapContains` 暫時恢復到 1.4 之前的行為。
 
-### 禁止在 public inline 成員內部存取 protected 成員
+### 禁止在 public inline 成員內部存取 protected 成員 {id="prohibit-access-to-protected-members-inside-public-inline-members"}
 
 > **問題**：[KT-21178](https://youtrack.jetbrains.com/issue/KT-21178)
 > 
@@ -48,7 +48,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - 1.4：將此警告提升為錯誤，
 >  可以使用 `-XXLanguage:-ProhibitProtectedCallFromInline` 暫時恢復到 1.4 之前的行為。
 
-### 隱含接收者呼叫上的契約
+### 隱含接收者呼叫上的契約 {id="contracts-on-calls-with-implicit-receivers"}
 
 > **問題**：[KT-28672](https://youtrack.jetbrains.com/issue/KT-28672)
 > 
@@ -64,7 +64,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - &gt;= 1.4：行為已變更，
 >  可以使用 `-XXLanguage:-ContractsOnCallsWithImplicitReceiver` 暫時恢復到 1.4 之前的行為。
 
-### 浮點數比較行為不一致
+### 浮點數比較行為不一致 {id="inconsistent-behavior-of-floating-point-number-comparisons"}
 
 > **問題**：[KT-22723](https://youtrack.jetbrains.com/issue/KT-22723)
 > 
@@ -80,7 +80,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - &gt;= 1.4：行為已變更，
 >  可以使用 `-XXLanguage:-ProperIeee754Comparisons` 暫時恢復到 1.4 之前的行為。
 
-### 泛型 Lambda 中的最後一個運算式沒有智慧轉型
+### 泛型 Lambda 中的最後一個運算式沒有智慧轉型 {id="no-smart-cast-on-the-last-expression-in-a-generic-lambda"}
 
 > **問題**：[KT-15020](https://youtrack.jetbrains.com/issue/KT-15020)
 > 
@@ -96,7 +96,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - &gt;= 1.4：行為已變更，
 > 可以使用 `-XXLanguage:-NewInference` 暫時恢復到 1.4 之前的行為。請注意，此旗標也會停用多項新的語言特性。
 
-### 不再依賴 Lambda 引數的順序來將結果強制轉換為 Unit
+### 不再依賴 Lambda 引數的順序來將結果強制轉換為 Unit {id="do-not-depend-on-the-order-of-lambda-arguments-to-coerce-result-to-unit"}
 
 > **問題**：[KT-36045](https://youtrack.jetbrains.com/issue/KT-36045)
 > 
@@ -112,7 +112,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - &gt;= 1.4：行為已變更，
 > 可以使用 `-XXLanguage:-NewInference` 暫時恢復到 1.4 之前的行為。請注意，此旗標也會停用多項新的語言特性。
 
-### Raw 型別與整數常值型別之間錯誤的共同父型別導致不健全的程式碼
+### Raw 型別與整數常值型別之間錯誤的共同父型別導致不健全的程式碼 {id="wrong-common-supertype-between-raw-and-integer-literal-type-leads-to-unsound-code"}
 
 > **問題**：[KT-35681](https://youtrack.jetbrains.com/issue/KT-35681)
 > 
@@ -128,7 +128,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - &gt;= 1.4：行為已變更，
 > 可以使用 `-XXLanguage:-NewInference` 暫時恢復到 1.4 之前的行為。請注意，此旗標也會停用多項新的語言特性。
 
-### 由於多個相等的型別變數被具現化為不同型別而導致的型別安全問題
+### 由於多個相等的型別變數被具現化為不同型別而導致的型別安全問題 {id="type-safety-problem-because-several-equal-type-variables-are-instantiated-with-a-different-types"}
 
 > **問題**：[KT-35679](https://youtrack.jetbrains.com/issue/KT-35679)
 > 
@@ -144,7 +144,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - &gt;= 1.4：行為已變更，
 > 可以使用 `-XXLanguage:-NewInference` 暫時恢復到 1.4 之前的行為。請注意，此旗標也會停用多項新的語言特性。
 
-### 由於交集型別的子型別化不正確而導致的型別安全問題
+### 由於交集型別的子型別化不正確而導致的型別安全問題 {id="type-safety-problem-because-of-incorrect-subtyping-for-intersection-types"}
 
 > **問題**：[KT-22474](https://youtrack.jetbrains.com/issue/KT-22474)
 > 
@@ -160,7 +160,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - &gt;= 1.4：行為已變更，
 > 可以使用 `-XXLanguage:-NewInference` 暫時恢復到 1.4 之前的行為。請注意，此旗標也會停用多項新的語言特性。
 
-### Lambda 內部的空 when 表達式沒有型別不相符錯誤
+### Lambda 內部的空 when 表達式沒有型別不相符錯誤 {id="no-type-mismatch-with-an-empty-when-expression-inside-lambda"}
 
 > **問題**：[KT-17995](https://youtrack.jetbrains.com/issue/KT-17995)
 > 
@@ -176,7 +176,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - &gt;= 1.4：行為已變更，
 > 可以使用 `-XXLanguage:-NewInference` 暫時恢復到 1.4 之前的行為。請注意，此旗標也會停用多項新的語言特性。
 
-### 對於具有提前返回且其中一個可能傳回值為整數常值的 Lambda，推論出的傳回型別為 Any
+### 對於具有提前返回且其中一個可能傳回值為整數常值的 Lambda，推論出的傳回型別為 Any {id="return-type-any-inferred-for-lambda-with-early-return-with-integer-literal-in-one-of-possible-return-values"}
 
 > **問題**：[KT-20226](https://youtrack.jetbrains.com/issue/KT-20226)
 > 
@@ -192,7 +192,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - &gt;= 1.4：行為已變更，
 > 可以使用 `-XXLanguage:-NewInference` 暫時恢復到 1.4 之前的行為。請注意，此旗標也會停用多項新的語言特性。
 
-### 正確擷取具有遞迴型別的星號投影
+### 正確擷取具有遞迴型別的星號投影 {id="proper-capturing-of-star-projections-with-recursive-types"}
 
 > **問題**：[KT-33012](https://youtrack.jetbrains.com/issue/KT-33012)
 > 
@@ -208,7 +208,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - &gt;= 1.4：行為已變更，
 > 可以使用 `-XXLanguage:-NewInference` 暫時恢復到 1.4 之前的行為。請注意，此旗標也會停用多項新的語言特性。
 
-### 使用不當型別與彈性型別進行共同父型別計算導致錯誤結果
+### 使用不當型別與彈性型別進行共同父型別計算導致錯誤結果 {id="common-supertype-calculation-with-non-proper-type-and-flexible-one-leads-to-incorrect-results"}
 
 > **問題**：[KT-37054](https://youtrack.jetbrains.com/issue/KT-37054)
 > 
@@ -224,7 +224,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - &gt;= 1.4：行為已變更，
 > 可以使用 `-XXLanguage:-NewInference` 暫時恢復到 1.4 之前的行為。請注意，此旗標也會停用多項新的語言特性。
 
-### 由於缺乏針對可 null 型別引數的擷取轉換而導致的型別安全問題
+### 由於缺乏針對可 null 型別引數的擷取轉換而導致的型別安全問題 {id="type-safety-problem-because-of-lack-of-captured-conversion-against-nullable-type-argument"}
 
 > **問題**：[KT-35487](https://youtrack.jetbrains.com/issue/KT-35487)
 > 
@@ -240,7 +240,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - &gt;= 1.4：行為已變更，
 > 可以使用 `-XXLanguage:-NewInference` 暫時恢復到 1.4 之前的行為。請注意，此旗標也會停用多項新的語言特性。
 
-### 在未經檢查的轉換後保留共變型別的交集型別
+### 在未經檢查的轉換後保留共變型別的交集型別 {id="preserve-intersection-type-for-covariant-types-after-unchecked-cast"}
  
 > **問題**：[KT-37280](https://youtrack.jetbrains.com/issue/KT-37280)
 > 
@@ -256,7 +256,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - &gt;= 1.4：行為已變更，
 > 可以使用 `-XXLanguage:-NewInference` 暫時恢復到 1.4 之前的行為。請注意，此旗標也會停用多項新的語言特性。
 
-### 由於使用 this 表達式導致型別變數從建置器推論中洩漏
+### 由於使用 this 表達式導致型別變數從建置器推論中洩漏 {id="type-variable-leaks-from-builder-inference-because-of-using-this-expression"}
  
 > **問題**：[KT-32126](https://youtrack.jetbrains.com/issue/KT-32126)
 > 
@@ -272,7 +272,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - &gt;= 1.4：行為已變更，
 > 可以使用 `-XXLanguage:-NewInference` 暫時恢復到 1.4 之前的行為。請注意，此旗標也會停用多項新的語言特性。
 
-### 具有可 null 型別引數的逆變型別的錯誤多載解析
+### 具有可 null 型別引數的逆變型別的錯誤多載解析 {id="wrong-overload-resolution-for-contravariant-types-with-nullable-type-arguments"}
  
 > **問題**：[KT-31670](https://youtrack.jetbrains.com/issue/KT-31670)
 > 
@@ -288,7 +288,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - &gt;= 1.4：行為已變更，
 > 可以使用 `-XXLanguage:-NewInference` 暫時恢復到 1.4 之前的行為。請注意，此旗標也會停用多項新的語言特性。
 
-### 具有非巢狀遞迴約束的建置器推論
+### 具有非巢狀遞迴約束的建置器推論 {id="builder-inference-with-non-nested-recursive-constraints"}
  
 > **問題**：[KT-34975](https://youtrack.jetbrains.com/issue/KT-34975)
 > 
@@ -304,7 +304,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - &gt;= 1.4：行為已變更，
 > 可以使用 `-XXLanguage:-NewInference` 暫時恢復到 1.4 之前的行為。請注意，此旗標也會停用多項新的語言特性。
 
-### 急切的型別變數固定導致矛盾的約束系統
+### 急切的型別變數固定導致矛盾的約束系統 {id="eager-type-variable-fixation-leads-to-a-contradictory-constraint-system"}
  
 > **問題**：[KT-25175](https://youtrack.jetbrains.com/issue/KT-25175)
 > 
@@ -320,7 +320,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - &gt;= 1.4：行為已變更，
 > 可以使用 `-XXLanguage:-NewInference` 暫時恢復到 1.4 之前的行為。請注意，此旗標也會停用多項新的語言特性。
 
-### 禁止在 open 函式上使用 tailrec 修飾符
+### 禁止在 open 函式上使用 tailrec 修飾符 {id="prohibit-tailrec-modifier-on-open-functions"}
 
 > **問題**：[KT-18541](https://youtrack.jetbrains.com/issue/KT-18541)
 > 
@@ -335,7 +335,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - < 1.4：對同時具有 `open` 與 `tailrec` 修飾符的函式發佈警告（在漸進模式下為錯誤）。
 > - &gt;= 1.4：將此警告提升為錯誤。
 
-### 伴生物件的 INSTANCE 欄位比伴生物件類別本身更具可見性
+### 伴生物件的 INSTANCE 欄位比伴生物件類別本身更具可見性 {id="the-instance-field-of-a-companion-object-more-visible-than-the-companion-object-class-itself"}
 
 > **問題**：[KT-11567](https://youtrack.jetbrains.com/issue/KT-11567)
 > 
@@ -350,7 +350,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - < 1.4：編譯器產生帶有棄用標記的物件 `INSTANCE`。
 > - &gt;= 1.4：伴生物件的 `INSTANCE` 欄位具有正確的可見性。
 
-### 在 return 之前插入的外層 finally 區塊未從沒有 finally 的內層 try 區塊的 catch 區間中排除
+### 在 return 之前插入的外層 finally 區塊未從沒有 finally 的內層 try 區塊的 catch 區間中排除 {id="outer-finally-block-inserted-before-return-is-not-excluded-from-the-catch-interval-of-the-inner-try-block-without-finally"}
 
 > **問題**：[KT-31923](https://youtrack.jetbrains.com/issue/KT-31923)
 > 
@@ -366,7 +366,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - &gt;= 1.4：行為已變更，
 >  可以使用 `-XXLanguage:-ProperFinally` 暫時恢復到 1.4 之前的行為。
 
-### 在共變與泛型特化覆寫的傳回型別位置使用裝箱版本的內嵌類別
+### 在共變與泛型特化覆寫的傳回型別位置使用裝箱版本的內嵌類別 {id="use-the-boxed-version-of-an-inline-class-in-return-type-position-for-covariant-and-generic-specialized-overrides"}
 
 > **問題**：[KT-30419](https://youtrack.jetbrains.com/issue/KT-30419)
 > 
@@ -381,7 +381,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - < 1.4：舊行為（詳見問題描述）。
 > - &gt;= 1.4：行為已變更 
 
-### 使用 Kotlin 介面委派時，不要在 JVM 位元組碼中宣告受檢例外
+### 使用 Kotlin 介面委派時，不要在 JVM 位元組碼中宣告受檢例外 {id="do-not-declare-checked-exceptions-in-jvm-bytecode-when-using-delegation-to-kotlin-interfaces"}
 
 > **問題**：[KT-35834](https://youtrack.jetbrains.com/issue/KT-35834)
 > 
@@ -397,7 +397,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - &gt;= 1.4：行為已變更，
 >  可以使用 `-XXLanguage:-DoNotGenerateThrowsForDelegatedKotlinMembers` 暫時恢復到 1.4 之前的行為。
 
-### 變更了對具有單個 vararg 參數的方法進行簽章多型呼叫的行為，以避免將引數封裝到另一個陣列中
+### 變更了對具有單個 vararg 參數的方法進行簽章多型呼叫的行為，以避免將引數封裝到另一個陣列中 {id="changed-behavior-of-signature-polymorphic-calls-to-methods-with-a-single-vararg-parameter-to-avoid-wrapping-the-argument-into-another-array"}
 
 > **問題**：[KT-35469](https://youtrack.jetbrains.com/issue/KT-35469)
 > 
@@ -412,7 +412,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - < 1.4：舊行為（詳見問題描述）。
 > - &gt;= 1.4：行為已變更
 
-### 當 KClass 用作泛型參數時，註解中的泛型簽章不正確
+### 當 KClass 用作泛型參數時，註解中的泛型簽章不正確 {id="incorrect-generic-signature-in-annotations-when-kclass-is-used-as-a-generic-parameter"}
 
 > **問題**：[KT-35207](https://youtrack.jetbrains.com/issue/KT-35207)
 > 
@@ -427,7 +427,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - < 1.4：舊行為（詳見問題描述）。
 > - &gt;= 1.4：行為已變更
 
-### 禁止在簽章多型呼叫中使用展開運算子
+### 禁止在簽章多型呼叫中使用展開運算子 {id="forbid-spread-operator-in-signature-polymorphic-calls"}
 
 > **問題**：[KT-35226](https://youtrack.jetbrains.com/issue/KT-35226)
 > 
@@ -443,7 +443,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - &gt;= 1.5：將此警告提升為錯誤，
 > 可以使用 `-XXLanguage:-ProhibitSpreadOnSignaturePolymorphicCall` 暫時恢復到 1.4 之前的行為。
 
-### 變更尾遞迴最佳化函式的預設值初始化順序
+### 變更尾遞迴最佳化函式的預設值初始化順序 {id="change-initialization-order-of-default-values-for-tail-recursive-optimized-functions"}
 
 > **問題**：[KT-31540](https://youtrack.jetbrains.com/issue/KT-31540)
 > 
@@ -459,7 +459,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - &gt;= 1.4：行為已變更，
 >  可以使用 `-XXLanguage:-ProperComputationOrderOfTailrecDefaultParameters` 暫時恢復到 1.4 之前的行為。
 
-### 不要為非 const val 產生 ConstantValue 屬性
+### 不要為非 const val 產生 ConstantValue 屬性 {id="do-not-generate-constantvalue-attribute-for-non-const-vals"}
 
 > **問題**：[KT-16615](https://youtrack.jetbrains.com/issue/KT-16615)
 > 
@@ -475,7 +475,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - &gt;= 1.4：行為已變更，
 >  可以使用 `-XXLanguage:-NoConstantValueAttributeForNonConstVals` 暫時恢復到 1.4 之前的行為。
 
-### 為 open 方法上的 @JvmOverloads 產生的多載應為 final
+### 為 open 方法上的 @JvmOverloads 產生的多載應為 final {id="generated-overloads-for-jvmoverloads-on-open-methods-should-be-final"}
 
 > **問題**：[KT-33240](https://youtrack.jetbrains.com/issue/KT-33240)
 > 
@@ -491,7 +491,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - &gt;= 1.4：行為已變更，
 >  可以使用 `-XXLanguage:-GenerateJvmOverloadsAsFinal` 暫時恢復到 1.4 之前的行為。
 
-### 傳回 kotlin.Result 的 Lambda 現在傳回裝箱值而非拆箱值
+### 傳回 kotlin.Result 的 Lambda 現在傳回裝箱值而非拆箱值 {id="lambdas-returning-kotlin-result-now-return-boxed-value-instead-of-unboxed"}
 
 > **問題**：[KT-39198](https://youtrack.jetbrains.com/issue/KT-39198)
 > 
@@ -506,7 +506,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - < 1.4：舊行為（詳見問題描述）。
 > - &gt;= 1.4：行為已變更
 
-### 統一來自 null 檢查的例外
+### 統一來自 null 檢查的例外 {id="unify-exceptions-from-null-checks"}
 
 > **問題**：[KT-22275](https://youtrack.jetbrains.com/issue/KT-22275)
 > 
@@ -522,7 +522,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - &gt;= 1.4：所有執行時期 null 檢查都拋出 `java.lang.NullPointerException`。
 >   可以使用 `-Xno-unified-null-checks` 暫時恢復到 1.4 之前的行為。
 
-### 在陣列/清單操作 contains、indexOf、lastIndexOf 中比較浮點值：IEEE 754 或全序
+### 在陣列/清單操作 contains、indexOf、lastIndexOf 中比較浮點值：IEEE 754 或全序 {id="comparing-floating-point-values-in-array-list-operations-contains-indexof-lastindexof-ieee-754-or-total-order"}
 
 > **問題**：[KT-28753](https://youtrack.jetbrains.com/issue/KT-28753)
 > 
@@ -537,7 +537,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - < 1.4：舊行為（詳見問題描述）。
 > - &gt;= 1.4：行為已變更
 
-### 逐步將集合 min 與 max 函式的傳回型別變更為不可 null
+### 逐步將集合 min 與 max 函式的傳回型別變更為不可 null {id="gradually-change-the-return-type-of-collection-min-and-max-functions-to-non-nullable"}
 
 > **問題**：[KT-38854](https://youtrack.jetbrains.com/issue/KT-38854)
 > 
@@ -553,7 +553,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - 1.5.x：將受影響 API 的棄用級別提升為錯誤。
 > - &gt;=1.6：重新引入受影響的 API，但改為不可 null 的傳回型別。
 
-### 棄用 appendln 並改用 appendLine
+### 棄用 appendln 並改用 appendLine {id="deprecate-appendln-in-favor-of-appendline"}
 
 > **問題**：[KT-38754](https://youtrack.jetbrains.com/issue/KT-38754)
 > 
@@ -568,7 +568,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - 1.4：引入 `appendLine` 函式作為 `appendln` 的替代，並棄用 `appendln`。
 > - &gt;=1.5：將棄用級別提升為錯誤。
 
-### 棄用將浮點型別轉換為 Short 與 Byte
+### 棄用將浮點型別轉換為 Short 與 Byte {id="deprecate-conversions-of-floating-point-types-to-short-and-byte"}
 
 > **問題**：[KT-30360](https://youtrack.jetbrains.com/issue/KT-30360)
 > 
@@ -583,7 +583,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - 1.4：棄用 `Double.toShort()/toByte()` 與 `Float.toShort()/toByte()` 並提出替代方案。
 > - &gt;=1.5：將棄用級別提升為錯誤。
 
-### 在無效的 startIndex 下讓 Regex.findAll 快速失敗
+### 在無效的 startIndex 下讓 Regex.findAll 快速失敗 {id="fail-fast-in-regex-findall-on-an-invalid-startindex"}
 
 > **問題**：[KT-28356](https://youtrack.jetbrains.com/issue/KT-28356)
 > 
@@ -598,7 +598,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - < 1.4：舊行為（詳見問題描述）。
 > - &gt;= 1.4：行為已變更
 
-### 移除已棄用的 kotlin.coroutines.experimental
+### 移除已棄用的 kotlin.coroutines.experimental {id="remove-deprecated-kotlin-coroutines-experimental"}
 
 > **問題**：[KT-36083](https://youtrack.jetbrains.com/issue/KT-36083)
 > 
@@ -613,7 +613,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - < 1.4：`kotlin.coroutines.experimental` 被棄用，等級為 `ERROR`。
 > - &gt;= 1.4：`kotlin.coroutines.experimental` 從 stdlib 中移除。在 JVM 上，提供了一個單獨的相容性構件（詳見問題描述）。
 
-### 移除已棄用的 mod 運算子
+### 移除已棄用的 mod 運算子 {id="remove-deprecated-mod-operator"}
 
 > **問題**：[KT-26654](https://youtrack.jetbrains.com/issue/KT-26654)
 > 
@@ -628,7 +628,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - < 1.4：`mod` 被棄用，等級為 `ERROR`。
 > - &gt;= 1.4：`mod` 從 stdlib 中移除。
 
-### 隱藏 Throwable.addSuppressed 成員並優先使用擴充方法
+### 隱藏 Throwable.addSuppressed 成員並優先使用擴充方法 {id="hide-throwable-addsuppressed-member-and-prefer-extension-instead"}
 
 > **問題**：[KT-38777](https://youtrack.jetbrains.com/issue/KT-38777)
 > 
@@ -643,7 +643,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - < 1.4：舊行為（詳見問題描述）。
 > - &gt;= 1.4：行為已變更
 
-### capitalize 應將雙合字母轉換為標題大小寫
+### capitalize 應將雙合字母轉換為標題大小寫 {id="capitalize-should-convert-digraphs-to-title-case"}
 
 > **問題**：[KT-38817](https://youtrack.jetbrains.com/issue/KT-38817)
 > 
@@ -658,9 +658,9 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - < 1.4：雙合字母被轉換為大寫 (`Ǆ`)。
 > - &gt;= 1.4：雙合字母被轉換為標題大小寫 (`ǅ`)。
 
-## 工具
+## 工具 {id="tools"}
 
-### 帶有分隔符號字元的編譯器引數在 Windows 上必須放在雙引號中
+### 帶有分隔符號字元的編譯器引數在 Windows 上必須放在雙引號中 {id="compiler-arguments-with-delimiter-characters-must-be-passed-in-double-quotes-on-windows"}
 
 > **問題**：[KT-41309](https://youtrack.jetbrains.com/issue/KT-41309)
 > 
@@ -675,7 +675,7 @@ _[保持語言現代化](kotlin-evolution-principles.md)_與 _[舒適的更新](
 > - < 1.4：所有編譯器引數都在不帶引號的情況下傳遞。
 > - &gt;= 1.4：包含分隔符號字元（空白、`=`、`;`、`,`）的編譯器引數需要雙引號 (`"`)。
 
-### KAPT：屬性的合成 $annotations() 方法名稱已變更
+### KAPT：屬性的合成 $annotations() 方法名稱已變更 {id="kapt-names-of-synthetic-annotations-methods-for-properties-have-changed"}
 
 > **問題**：[KT-36926](https://youtrack.jetbrains.com/issue/KT-36926)
 > 

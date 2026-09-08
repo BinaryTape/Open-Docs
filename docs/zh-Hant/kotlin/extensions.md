@@ -6,7 +6,7 @@ Kotlin 的 _擴充套件_ 讓你不需要使用繼承或像 _Decorator_ 之類�
 
 重要的是，擴充套件不會修改它們所擴充的類別或介面。當你定義擴充套件時，並不會加入新的成員，而是讓新的函式可被呼叫，或讓新的屬性可使用相同的語法存取。
 
-## 接收者
+## 接收者 {id="receivers"}
 
 擴充套件一律在接收者（receiver）上呼叫。接收者必須具有與被擴充的類別或介面相同的型別。要使用擴充套件，請在擴充套件名稱前加上接收者，後跟 `.` 以及函式或屬性名稱。
 
@@ -30,7 +30,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-extension-function-stringbuilder"}
 
-## 擴充函式
+## 擴充函式 {id="extension-functions"}
 
 在建立自己的擴充函式之前，請先查看你需要的的功能是否已在 Kotlin [標準程式庫](https://kotlinlang.org/api/core/kotlin-stdlib/) 中提供。標準程式庫為以下用途提供了許多實用的擴充函式：
 
@@ -104,7 +104,7 @@ fun main() {
 
 `.mostVoted()` 函式會遍歷其所呼叫之 Map 的鍵值配對，並使用 [`maxByOrNull()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/max-by-or-null.html) 函式來傳回包含最高值的配對之鍵。如果 Map 為空，`maxByOrNull()` 函式會傳回 `null`。`mostVoted()` 函式使用安全呼叫 `?.`，僅在 `maxByOrNull()` 函式傳回非 null 值時才存取 `key` 屬性。
 
-### 泛型擴充函式
+### 泛型擴充函式 {id="generic-extension-functions"}
 
 若要建立泛型擴充函式，請在函式名稱之前宣告泛型型別參數，使其在接收者型別運算式中可用。在此範例中，`.endpoints()` 函式擴充了 `List<T>`，其中 `T` 可以是任何型別：
 
@@ -132,7 +132,7 @@ fun main() {
 
 有關泛型的更多資訊，請參閱 [泛型函式](generics.md)。
 
-### 可 null 接收者
+### 可 null 接收者 {id="nullable-receivers"}
 
 你可以定義具有可 null 接收者型別的擴充函式，這允許你在變數值為 null 的情況下仍能呼叫它們。當接收者為 `null` 時，`this` 也是 `null`。請確保在函式內部正確處理可 null 性。例如，在函式主體內使用 `this == null` 檢查、[安全呼叫 `?.`](null-safety.md#safe-call-operator) 或 [Elvis 運算子 `?:`](null-safety.md#elvis-operator)。
 
@@ -161,7 +161,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-extension-function-nullable-receiver"}
 
-### 擴充函式還是成員函式？
+### 擴充函式還是成員函式？ {id="extension-or-member-functions"}
 
 由於擴充函式和成員函式的呼叫表示法相同，編譯器如何知道該使用哪一個？擴充函式是 _靜態地_ 分派的，這意味著編譯器在編譯期間根據接收者型別決定呼叫哪個函式。例如：
 
@@ -228,7 +228,7 @@ fun main() {
 
 在此範例中，由於傳入了一個 `Int` 給 `.printFunctionType()` 函式，編譯器會選擇擴充函式，因為它符合簽章。編譯器會忽略不帶引數的成員函式。
 
-### 匿名擴充函式
+### 匿名擴充函式 {id="anonymous-extension-functions"}
 
 你可以定義不具名的擴充函式。這在你不想弄亂全域命名空間，或需要將某些擴充行為作為參數傳遞時非常有用。
 
@@ -268,7 +268,7 @@ Lambda 主體 `{ min, max -> this in min..max }` 會檢查呼叫該函式的 `In
 
 欲了解更多資訊，請參閱 [Lambda 運算式與匿名函式](lambdas.md)。
 
-## 擴充屬性
+## 擴充屬性 {id="extension-properties"}
 
 Kotlin 支援擴充屬性，這對於執行資料轉換或建立 UI 顯示輔助工具非常有用，且不會弄亂你正在處理的類別。
 
@@ -329,7 +329,7 @@ fun main() {
 
 在此範例中，getter 使用 [Elvis 運算子](null-safety.md#elvis-operator)，如果 `houseNumbers` 地圖中存在門牌號碼則傳回該號碼，否則傳回 `1`。欲了解更多有關如何編寫 getter 和 setter 的資訊，請參閱 [自訂 getter 與 setter](properties.md#custom-getters-and-setters)。
 
-## 伴隨物件擴充套件
+## 伴隨物件擴充套件 {id="companion-object-extensions"}
 
 如果類別定義了 [伴隨物件](object-declarations.md#companion-objects)，你也可以為伴隨物件定義擴充函式和屬性。就像伴隨物件的一般成員一樣，你可以僅使用類別名稱作為限定符來呼叫它們。編譯器預設將伴隨物件命名為 `Companion`：
 
@@ -349,7 +349,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-extension-function-companion-object"}
 
-## 將擴充套件宣告為成員
+## 將擴充套件宣告為成員 {id="declaring-extensions-as-members"}
 
 你可以在一個類別內部為另一個類別宣告擴充套件。像這樣的擴充套件具有多個 _隱含接收者_。隱含接收者是一個物件，你可以在不使用 [`this`](this-expressions.md#qualified-this) 限定的情況下存取其成員：
 
@@ -409,7 +409,7 @@ class Connection {
 }
 ```
 
-### 覆寫成員擴充套件
+### 覆寫成員擴充套件 {id="overriding-member-extensions"}
 
 你可以將成員擴充套件宣告為 `open`，並在子類別中覆寫它們，這在你想要為每個子類別自訂擴充行為時非常有用。編譯器對每種接收者型別的處理方式不同：
 
@@ -474,7 +474,7 @@ fun main() {
 
 分派接收者是在執行時使用虛擬分派（virtual dispatch）解析的，這使得 `main()` 函式中的行為更容易理解。可能會讓你感到驚訝的是，當你在 `Admin` 執行個體上呼叫 `notify()` 函式時，編譯器會根據宣告的型別 `user: User` 來選擇擴充套件，因為它會靜態解析擴充接收者。
 
-## 擴充套件與可見性修飾符
+## 擴充套件與可見性修飾符 {id="extensions-and-visibility-modifiers"}
 
 擴充套件使用與在相同作用域內宣告的一般函式相同的 [可見性修飾符](visibility-modifiers.md)，這包括宣告為其他類別成員的擴充套件。
 
@@ -539,7 +539,7 @@ internal fun String.parseJson(): Map<String, Any> {
 }
 ```
 
-## 擴充套件的作用域
+## 擴充套件的作用域 {id="scope-of-extensions"}
 
 在大多數情況下，你會在頂層直接於套件下定義擴充套件：
 

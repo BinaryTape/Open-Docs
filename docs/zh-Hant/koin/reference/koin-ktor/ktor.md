@@ -4,7 +4,7 @@ title: Koin for Ktor
 
 `koin-ktor` 模組為 Ktor 應用程式提供相依注入整合，可與 Ktor 內建的 DI 系統協同工作。
 
-## 為什麼在 Ktor 中使用 Koin？
+## 為什麼在 Ktor 中使用 Koin？ {id="why-koin-for-ktor"}
 
 Ktor 3.4+ 包含內建的 DI 系統。以下是兩者的比較：
 
@@ -20,7 +20,7 @@ Ktor 3.4+ 包含內建的 DI 系統。以下是兩者的比較：
 | 基於註解的元件 | 否 | 是 |
 | 編譯器外掛程式驗證 | 否 | 是 |
 
-### Ktor DI 的限制
+### Ktor DI 的限制 {id="ktor-di-limitations"}
 
 - **無作用域功能**：沒有請求或自訂作用域，僅具有帶有清理順序的類單例行為。
 - **無基於註解的元件**：不像 Koin Annotations 具備 `@Singleton`、`@Factory` 元件掃描功能。
@@ -38,7 +38,7 @@ Ktor 3.4+ 包含內建的 DI 系統。以下是兩者的比較：
 - 無作用域需求
 - 基本的限定詞需求
 
-## 設定
+## 設定 {id="setup"}
 
 新增 Koin Ktor 相依性：
 
@@ -49,11 +49,11 @@ dependencies {
 }
 ```
 
-## 宣告相依性
+## 宣告相依性 {id="declaring-dependencies"}
 
 Koin 支援多種 DSL 方式。
 
-### 編譯器外掛程式 DSL
+### 編譯器外掛程式 DSL {id="compiler-plugin-dsl"}
 
 最簡單的語法：
 
@@ -64,7 +64,7 @@ val appModule = module {
 }
 ```
 
-### 註解
+### 註解 {id="annotations"}
 
 類似 Spring 且具備編譯期驗證：
 
@@ -80,7 +80,7 @@ class UserRepositoryImpl : UserRepository
 class UserService(private val repository: UserRepository)
 ```
 
-### 傳統 DSL
+### 傳統 DSL {id="classic-dsl"}
 
 建構函式參照：
 
@@ -91,7 +91,7 @@ val appModule = module {
 }
 ```
 
-## 安裝 Koin 外掛程式
+## 安裝 Koin 外掛程式 {id="installing-the-koin-plugin"}
 
 在您的 `Application` 模組中安裝 Koin：
 
@@ -104,7 +104,7 @@ fun Application.main() {
 }
 ```
 
-### 完整配置
+### 完整配置 {id="complete-configuration"}
 
 ```kotlin
 fun Application.main() {
@@ -121,11 +121,11 @@ fun Application.main() {
 }
 ```
 
-## 相依注入
+## 相依注入 {id="dependency-injection"}
 
 Koin 為 Ktor 的核心型別提供擴充函式。
 
-### 注入點
+### 注入點 {id="injection-points"}
 
 `inject()` 與 `get()` 可在以下位置使用：
 - `Application`
@@ -133,7 +133,7 @@ Koin 為 Ktor 的核心型別提供擴充函式。
 - `Routing`
 - `ApplicationCall`（在路由處理常式內）
 
-### 應用程式層級
+### 應用程式層級 {id="application-level"}
 
 ```kotlin
 fun Application.main() {
@@ -148,7 +148,7 @@ fun Application.main() {
 }
 ```
 
-### 路由層級
+### 路由層級 {id="route-level"}
 
 ```kotlin
 fun Route.customerRoutes() {
@@ -166,7 +166,7 @@ fun Route.customerRoutes() {
 }
 ```
 
-### 請求處理常式
+### 請求處理常式 {id="request-handler"}
 
 ```kotlin
 routing {
@@ -178,7 +178,7 @@ routing {
 }
 ```
 
-## Ktor 事件
+## Ktor 事件 {id="ktor-events"}
 
 監聽 Koin 生命週期事件：
 
@@ -206,7 +206,7 @@ fun Application.main() {
 }
 ```
 
-## 快速參考
+## 快速參考 {id="quick-reference"}
 
 | 函式 | 描述 |
 |----------|-------------|
@@ -216,7 +216,7 @@ fun Application.main() {
 | `koinModule { }` | 宣告內嵌模組 |
 | `koinModules(...)` | 載入現有模組 |
 
-## 文件
+## 文件 {id="documentation"}
 
 | 主題 | 描述 |
 |-------|-------------|
@@ -225,7 +225,7 @@ fun Application.main() {
 | **[測試](/docs/reference/koin-ktor/ktor-testing)** | 使用 Koin 測試 Ktor |
 | **[隔離內容](/docs/reference/koin-ktor/ktor-isolated)** | 隔離的 Koin 執行個體 |
 
-## 相關內容
+## 相關內容 {id="related"}
 
 - **[教學：Ktor](/docs/quickstart/ktor)** – 逐步教學
 - **[教學：使用註解的 Ktor](/docs/quickstart/ktor-annotations)** – 註解教學

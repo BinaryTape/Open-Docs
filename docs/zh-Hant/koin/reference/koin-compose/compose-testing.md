@@ -6,7 +6,7 @@ title: 測試 Composable
 
 本指南涵蓋了使用 Koin 測試 Compose 應用程式的策略，從 Android Studio 預覽到全面的單元測試。
 
-## KoinApplicationPreview
+## KoinApplicationPreview {id="koinapplicationpreview"}
 
 在具有 Koin 相依性的 Android Studio 預覽中使用 `KoinApplicationPreview`：
 
@@ -24,7 +24,7 @@ fun UserScreenPreview() {
 }
 ```
 
-### 多重預覽
+### 多重預覽 {id="multiple-previews"}
 
 ```kotlin
 @Preview(name = "Light Mode")
@@ -45,7 +45,7 @@ val previewModule = module {
 }
 ```
 
-### 不同狀態的預覽
+### 不同狀態的預覽 {id="preview-with-different-states"}
 
 ```kotlin
 @Preview(name = "Loading")
@@ -85,9 +85,9 @@ fun SuccessPreview() {
 }
 ```
 
-## 使用 ComposeTestRule 進行單元測試
+## 使用 ComposeTestRule 進行單元測試 {id="unit-testing-with-composetestrule"}
 
-### 基本設定
+### 基本設定 {id="basic-setup"}
 
 ```kotlin
 class UserScreenTest : KoinTest {
@@ -115,7 +115,7 @@ class UserScreenTest : KoinTest {
 }
 ```
 
-### 測試使用者互動
+### 測試使用者互動 {id="testing-user-interactions"}
 
 ```kotlin
 @Test
@@ -146,7 +146,7 @@ fun searchFiltersUsers() {
 }
 ```
 
-### 使用 ViewModel 狀態進行測試
+### 使用 ViewModel 狀態進行測試 {id="testing-with-viewmodel-states"}
 
 ```kotlin
 @Test
@@ -204,9 +204,9 @@ fun showsErrorMessage() {
 }
 ```
 
-## 模擬相依性
+## 模擬相依性 {id="mocking-dependencies"}
 
-### 使用 MockK
+### 使用 MockK {id="using-mockk"}
 
 ```kotlin
 class UserScreenMockTest : KoinTest {
@@ -260,7 +260,7 @@ class UserScreenMockTest : KoinTest {
 }
 ```
 
-### 使用虛設 (Fake) 實作
+### 使用虛設 (Fake) 實作 {id="using-fake-implementations"}
 
 ```kotlin
 class FakeUserRepository : UserRepository {
@@ -333,7 +333,7 @@ class UserScreenFakeTest : KoinTest {
 }
 ```
 
-## 測試導航
+## 測試導航 {id="testing-navigation"}
 
 ```kotlin
 class NavigationTest : KoinTest {
@@ -383,7 +383,7 @@ class NavigationTest : KoinTest {
 }
 ```
 
-## 使用協同程式進行測試
+## 使用協同程式進行測試 {id="testing-with-coroutines"}
 
 ```kotlin
 class CoroutineTest : KoinTest {
@@ -419,7 +419,7 @@ class CoroutineTest : KoinTest {
 }
 ```
 
-## 多平台測試
+## 多平台測試 {id="multiplatform-testing"}
 
 對於 Compose Multiplatform，建立 expect/actual 測試幫助程式：
 
@@ -453,7 +453,7 @@ class CommonUserScreenTest : KoinTest {
 }
 ```
 
-## 最佳實務
+## 最佳實務 {id="best-practices"}
 
 1. **使用 KoinTestRule** - 自動處理設定與清理作業
    ```kotlin
@@ -477,7 +477,7 @@ class CommonUserScreenTest : KoinTest {
 
 6. **清理 Koin** - 如果不使用 Rule，請在 `@After` 中呼叫 `stopKoin()`。
 
-## 下一步
+## 下一步 {id="next-steps"}
 
 - **[Compose 概覽](/docs/reference/koin-compose/compose)** - 設定與基礎注入
 - **[測試參考](/docs/reference/koin-test/testing)** - 一般 Koin 測試

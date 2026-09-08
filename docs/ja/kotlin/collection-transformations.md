@@ -4,7 +4,7 @@ Kotlin標準ライブラリには、コレクションの「変換（transformat
 これらの関数は、指定された変換ルールに基づいて、既存のコレクションから新しいコレクションを構築します。
 このページでは、利用可能なコレクション変換関数の概要を説明します。
 
-## Map（マッピング）
+## Map（マッピング） {id="map"}
 
 「マッピング（mapping）」変換は、別のコレクションの要素に対して関数を適用した結果から、新しいコレクションを作成します。
 基本的なマッピング関数は [`map()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/map.html) です。
@@ -54,7 +54,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## Zip（ジッピング）
+## Zip（ジッピング） {id="zip"}
 
 「ジッピング（Zipping）」変換は、2つのコレクションの同じ位置にある要素からペアを構築します。
 Kotlin標準ライブラリでは、これは [`zip()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/zip.html) 拡張関数によって行われます。
@@ -113,7 +113,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## Associate（アソシエーション）
+## Associate（アソシエーション） {id="associate"}
 
 「アソシエーション（Association）」変換を使用すると、コレクションの要素と、それに関連付けられた特定の値からマップを構築できます。
 アソシエーションのタイプによって、要素はマップ内のキーにも値にもなり得ます。
@@ -179,7 +179,7 @@ fun parseFullName(fullName: String): FullName {
 
 ここでは、まず要素に対して変換関数を呼び出し、その関数の結果のプロパティからペアを構築しています。
 
-## Flatten（フラット化）
+## Flatten（フラット化） {id="flatten"}
 
 ネストされたコレクションを操作する場合、ネストされたコレクションの要素へのフラットなアクセスを提供する標準ライブラリ関数が便利です。
 
@@ -221,7 +221,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 文字列表現
+## 文字列表現 {id="string-representation"}
 
 コレクションの内容を読みやすい形式で取得する必要がある場合は、コレクションを文字列に変換する関数 [`joinToString()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/join-to-string.html) および [`joinTo()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/join-to.html) を使用します。
 

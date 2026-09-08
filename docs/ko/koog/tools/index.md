@@ -2,7 +2,7 @@
 
 에이전트는 특정 작업을 수행하거나 외부 시스템에 액세스하기 위해 도구(tool)를 사용합니다.
 
-## 도구 워크플로
+## 도구 워크플로 {id="tool-workflow"}
 
 Koog 프레임워크는 Kotlin 및 Java에서 도구를 사용하기 위한 다음과 같은 워크플로를 제공합니다:
 
@@ -11,7 +11,7 @@ Koog 프레임워크는 Kotlin 및 Java에서 도구를 사용하기 위한 다�
 3. 도구 레지스트리를 에이전트에 전달합니다.
 4. 에이전트와 함께 도구를 사용합니다.
 
-### 사용 가능한 도구 유형
+### 사용 가능한 도구 유형 {id="available-tool-types"}
 
 Koog 프레임워크에는 세 가지 유형의 도구가 있습니다:
 
@@ -19,7 +19,7 @@ Koog 프레임워크에는 세 가지 유형의 도구가 있습니다:
 - 어노테이션 기반 커스텀 도구. LLM에 함수를 도구로 노출할 수 있게 해줍니다. 자세한 내용은 [Annotation-based tools](annotation-based-tools.md)를 참고하세요.
 - 커스텀 도구. 도구 파라미터, 메타데이터, 실행 로직 및 등록/호출 방식을 직접 제어할 수 있습니다. 자세한 내용은 [Class-based tools](class-based-tools.md)를 참고하세요.
 
-### 도구 레지스트리
+### 도구 레지스트리 {id="tool-registry"}
 
 에이전트에서 도구를 사용하려면 먼저 도구 레지스트리에 도구를 추가해야 합니다.
 도구 레지스트리는 에이전트가 사용할 수 있는 모든 도구를 관리합니다.
@@ -139,7 +139,7 @@ Koog 프레임워크에는 세 가지 유형의 도구가 있습니다:
     ```
     <!--- KNIT example-tools-overview-java-02.java -->
 
-### 에이전트에 도구 전달하기
+### 에이전트에 도구 전달하기 {id="passing-tools-to-an-agent"}
 
 에이전트가 도구를 사용할 수 있게 하려면 에이전트를 생성할 때 해당 도구가 포함된 도구 레지스트리를 인자로 제공해야 합니다:
 
@@ -184,7 +184,7 @@ Koog 프레임워크에는 세 가지 유형의 도구가 있습니다:
     ```
     <!--- KNIT example-tools-overview-java-03.java -->
 
-### 도구 호출하기
+### 도구 호출하기 {id="calling-tools"}
 
 에이전트 코드 내에서 도구를 호출하는 방법은 여러 가지가 있습니다. 도구를 직접 호출하기보다는 에이전트 컨텍스트에서 제공하는 메서드를 사용하는 것이 권장됩니다. 이는 에이전트 환경 내에서 도구 작업이 적절하게 처리되도록 보장하기 때문입니다.
 
@@ -202,7 +202,7 @@ Koog 프레임워크에는 세 가지 유형의 도구가 있습니다:
 
 자세한 내용은 [AIAgentLLMWriteSession](api:agents-core::ai.koog.agents.core.agent.session.AIAgentLLMWriteSession) API 레퍼런스를 참고하세요.
 
-#### 병렬 도구 호출
+#### 병렬 도구 호출 {id="parallel-tool-calls"}
 
 `toParallelToolCallsRaw` 확장 기능을 사용하여 도구를 병렬로 호출할 수도 있습니다. 예시:
 
@@ -269,7 +269,7 @@ Koog 프레임워크에는 세 가지 유형의 도구가 있습니다:
     ```
     <!--- KNIT example-tools-overview-java-04.java -->
 
-#### 노드에서 도구 호출하기
+#### 노드에서 도구 호출하기 {id="calling-tools-from-nodes"}
 
 노드를 사용하여 에이전트 워크플로를 구축할 때, 도구를 호출하기 위해 특수 노드를 사용할 수 있습니다:
 
@@ -283,12 +283,12 @@ Koog 프레임워크에는 세 가지 유형의 도구가 있습니다:
 
 * **nodeLLMSendMultipleToolResults**: 여러 도구 결과를 LLM에 보냅니다. 자세한 내용은 [API 레퍼런스](api:agents-core::ai.koog.agents.core.dsl.extension.nodeLLMSendMultipleToolResults)를 참고하세요.
 
-## 에이전트를 도구로 사용하기
+## 에이전트를 도구로 사용하기 {id="using-agents-as-tools"}
 
 이 프레임워크는 모든 AI 에이전트를 다른 에이전트가 사용할 수 있는 도구로 변환하는 기능을 제공합니다. 
 이 강력한 기능을 통해 전문화된 에이전트가 상위 수준의 오케스트레이션 에이전트에 의해 도구처럼 호출되는 계층적 에이전트 아키텍처를 구축할 수 있습니다.
 
-### 에이전트를 도구로 변환하기
+### 에이전트를 도구로 변환하기 {id="converting-agents-to-tools"}
 
 에이전트를 도구로 변환하려면 `AIAgentService`와 `createAgentTool()` 확장 함수를 사용합니다:
 
@@ -338,7 +338,7 @@ Koog 프레임워크에는 세 가지 유형의 도구가 있습니다:
     ```
     <!--- KNIT example-tools-overview-java-05.java -->
 
-### 다른 에이전트에서 에이전트 도구 사용하기
+### 다른 에이전트에서 에이전트 도구 사용하기 {id="using-agent-tools-in-other-agents"}
 
 에이전트를 도구로 변환한 후에는 다른 에이전트의 도구 레지스트리에 해당 에이전트 도구를 추가할 수 있습니다:
 
@@ -378,7 +378,7 @@ Koog 프레임워크에는 세 가지 유형의 도구가 있습니다:
     ```
     <!--- KNIT example-tools-overview-java-06.java -->
 
-### 에이전트 도구 실행
+### 에이전트 도구 실행 {id="agent-tool-execution"}
 
 에이전트 도구가 호출되면:
 
@@ -386,7 +386,7 @@ Koog 프레임워크에는 세 가지 유형의 도구가 있습니다:
 2. 래핑된 에이전트가 역직렬화된 입력과 함께 실행됩니다.
 3. 에이전트의 출력이 직렬화되어 도구 결과로 반환됩니다.
 
-### 에이전트를 도구로 사용할 때의 이점
+### 에이전트를 도구로 사용할 때의 이점 {id="benefits-of-agents-as-tools"}
 
 - **모듈성(Modularity)**: 복잡한 워크플로를 전문화된 에이전트로 분해합니다.
 - **재사용성(Reusability)**: 동일한 전문 에이전트를 여러 코디네이터 에이전트에서 사용합니다.

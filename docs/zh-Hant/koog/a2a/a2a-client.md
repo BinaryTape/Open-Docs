@@ -9,7 +9,7 @@ status: beta
 A2A 用戶端讓您能夠透過網路與符合 A2A 規範的代理進行通訊。
 它提供了 [A2A 通訊協定規格](https://a2a-protocol.org/latest/specification/) 的完整實作，處理代理探索、訊息交換、任務管理以及即時串流回應。
 
-## 相依性
+## 相依性 {id="dependencies"}
 
 若要在您的專案中使用 A2A 用戶端，請將以下相依性新增至您的 `build.gradle.kts`：
 
@@ -26,14 +26,14 @@ dependencies {
 }
 ```
 
-## 總覽
+## 總覽 {id="overview"}
 
 A2A 用戶端充當您的應用程式與符合 A2A 規範代理之間的橋樑。
 它負責協調整個通訊生命週期，同時保持通訊協定合規性並提供穩健的工作階段管理。
 
-## 核心元件
+## 核心元件 {id="core-components"}
 
-### A2AClient
+### A2AClient {id="a2aclient"}
 
 這是實作完整 A2A 通訊協定的主要用戶端類別。它作為中央協調器，負責：
 
@@ -56,12 +56,12 @@ A2A 用戶端充當您的應用程式與符合 A2A 規範代理之間的橋樑�
 * `cancelTask` 方法 - 如果代理支援取消，則可用於取消執行中的任務
 * `cachedAgentCard` 方法 - 用於獲取快取的代理卡而無需發起網路請求；如果尚未呼叫 `connect`，則回傳 null
 
-### ClientTransport
+### ClientTransport {id="clienttransport"}
 
 `ClientTransport` 介面負責處理底層網路通訊，而 A2A 用戶端則管理通訊協定邏輯。
 它抽象化了傳輸特定的細節，讓您能夠無縫使用不同的通訊協定。
 
-#### HTTP JSON-RPC 傳輸
+#### HTTP JSON-RPC 傳輸 {id="http-json-rpc-transport"}
 
 這是 A2A 代理最常用的傳輸方式：
 
@@ -79,12 +79,12 @@ val transport = HttpJSONRPCClientTransport(
 )
 ```
 
-### AgentCardResolver
+### AgentCardResolver {id="agentcardresolver"}
 
 `AgentCardResolver` 介面用於擷取代理元資料與能力。
 它支援從各種來源探索代理，並支援快取策略以達成最佳效能。
 
-#### URL 代理卡解析器
+#### URL 代理卡解析器 {id="url-agent-card-resolver"}
 
 遵循 A2A 慣例，從 HTTP 端點擷取代理卡：
 
@@ -96,9 +96,9 @@ val agentCardResolver = UrlAgentCardResolver(
 )
 ```
 
-## 快速入門
+## 快速入門 {id="quickstart"}
 
-### 1. 建立用戶端
+### 1. 建立用戶端 {id="1-create-the-client"}
 
 定義傳輸與代理卡解析器，然後建立用戶端。
 
@@ -118,7 +118,7 @@ val agentCardResolver = UrlAgentCardResolver(
 val client = A2AClient(transport, agentCardResolver)
 ```
 
-### 2. 連線與探索
+### 2. 連線與探索 {id="2-connect-and-discover"}
 
 連線至代理並擷取其代理卡。
 擁有代理卡後，您就可以查詢其能力並執行其他操作，例如檢查它是否支援串流。
@@ -132,7 +132,7 @@ println("已連線至：${agentCard.name}")
 println("支援串流：${agentCard.capabilities.streaming}")
 ```
 
-### 3. 傳送訊息
+### 3. 傳送訊息 {id="3-send-messages"}
 
 向代理傳送訊息並接收單一回應。
 如果代理直接回應，則回應可以是訊息；如果代理正在執行任務，則回應可以是任務事件。
@@ -165,7 +165,7 @@ when (val event = response.data) {
 }
 ```
 
-### 4. 傳送串流訊息
+### 4. 傳送串流訊息 {id="4-send-messages-streaming"}
 
 A2A 用戶端支援用於即時通訊的串流回應。
 它不會只接收單一回應，而是回傳一個包含訊息與任務更新等事件的 `Flow`。
@@ -196,7 +196,7 @@ if (client.cachedAgentCard()?.capabilities?.streaming == true) {
 }
 ```
 
-### 5. 管理任務
+### 5. 管理任務 {id="5-manage-tasks"}
 
 A2A 用戶端提供透過詢問狀態與取消來控制伺服器任務的方法。
 

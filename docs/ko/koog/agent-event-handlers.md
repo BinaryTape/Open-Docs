@@ -2,7 +2,7 @@
 
 에이전트 워크플로우 도중 발생하는 특정 이벤트를 로깅, 테스트, 디버깅하거나 에이전트의 동작을 확장하기 위해 이벤트 핸들러를 사용하여 모니터링하고 대응할 수 있습니다.
 
-## 기능 개요
+## 기능 개요 {id="feature-overview"}
 
 `EventHandler` 기능은 다양한 에이전트 이벤트에 후킹(hook)할 수 있게 해줍니다. 이는 다음과 같은 이벤트 위임 메커니즘 역할을 합니다:
 
@@ -21,7 +21,7 @@ EventHandler 엔티티는 다섯 가지 주요 핸들러 유형으로 구성됩�
 - 도구가 호출되기 직전에 알림을 주는 도구 호출 리스너
 - 도구가 호출된 후 결과를 처리하는 도구 결과 리스너-->
 
-### 설치 및 설정
+### 설치 및 설정 {id="installation-and-configuration"}
 
 `EventHandler` 기능은 `EventHandler` 클래스를 통해 에이전트 워크플로우와 통합됩니다. 이 클래스는 다양한 에이전트 이벤트에 대한 콜백을 등록하는 방법을 제공하며, 에이전트 설정에서 기능(feature)으로 설치할 수 있습니다. 자세한 내용은 [API 레퍼런스](api:agents-features-event-handler::ai.koog.agents.features.eventHandler.feature.EventHandler)를 참고하세요.
 

@@ -10,14 +10,14 @@ JavaScript(JS) plain objects 컴파일러 플러그인(`js-plain-objects`)을 �
 >
 {style="warning"}
 
-## 일반 JS 객체 (Plain JS objects)
+## 일반 JS 객체 (Plain JS objects) {id="plain-js-objects"}
 
 일반 객체(plain object)는 데이터 프로퍼티를 포함하며 객체 리터럴(`{}`)을 통해 생성된 단순한 JS 객체입니다.
 많은 JS API가 설정이나 데이터 교환을 위해 일반 JS 객체를 전달받거나 반환합니다.
 
 `js-plain-objects` 플러그인을 사용하면 Kotlin external 인터페이스를 선언하여 객체의 형태(shape)를 기술하고 여기에 `@JsPlainObject` 어노테이션을 추가할 수 있습니다. 그러면 컴파일러가 Kotlin의 타입 안전성을 유지하면서 이러한 객체를 생성하고 복사할 수 있는 편리한 함수들을 생성합니다.
 
-## 플러그인 활성화
+## 플러그인 활성화 {id="enable-the-plugin"}
 
 다음 Kotlin DSL 예시와 같이 프로젝트의 Gradle 설정 파일에 `js-plain-objects` 플러그인을 추가하세요.
 
@@ -58,7 +58,7 @@ kotlin {
 </tab>
 </tabs>
 
-## 일반 객체 타입 선언
+## 일반 객체 타입 선언 {id="declare-a-plain-object-type"}
 
 `js-plain-objects` 플러그인을 활성화했다면, 일반 객체 타입을 선언할 수 있습니다.
 external 인터페이스에 `@JsPlainObject` 어노테이션을 추가하세요. 예를 들면 다음과 같습니다.
@@ -102,7 +102,7 @@ external interface User {
 * `copy` 함수는 `source`를 얕은 복사(shallow-copying)하고 지정된 프로퍼티를 덮어씌워 새 객체를 생성합니다.
 * 컴패니언 객체는 이러한 헬퍼들이 JS export로 노출되는 것을 방지하기 위해 `@JsExport.Ignore`가 지정됩니다.
 
-## 일반 객체 사용
+## 일반 객체 사용 {id="use-plain-objects"}
 
 생성된 헬퍼를 사용하여 객체를 생성하고 복사합니다.
 
@@ -134,6 +134,6 @@ function main () {
 
 이러한 방식으로 생성된 모든 JavaScript 객체는 안전합니다. 잘못된 프로퍼티 이름이나 값 타입을 사용하면 컴파일 타임 에러가 발생합니다. 또한 생성된 코드가 단순한 객체 리터럴과 `Object.assign` 호출로 인라인화되므로 제로 비용(zero-cost) 방식입니다.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 [Kotlin에서 JavaScript 코드 사용](js-interop.md) 및 [dynamic 타입](dynamic-type.md) 문서를 통해 JavaScript와의 상호 운용성에 대해 자세히 알아보세요.

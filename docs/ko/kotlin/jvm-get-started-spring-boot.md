@@ -12,11 +12,11 @@
    <img src="icon-4.svg" width="20" alt="Fourth step"/> <a href="jvm-spring-boot-using-crudrepository.md">데이터베이스 액세스를 위해 Spring Data CrudRepository 사용하기</a><br/>
 </p>
 
-## 다음 단계
+## 다음 단계 {id="next-step"}
 
 <a href="jvm-create-project-with-spring-boot.md" as="button" mode="classic" icon="arrow-right" icon-position="right">시작하기</a>
 
-### 함께 보기
+### 함께 보기 {id="see-also"}
 
 AI 에이전트와 함께 작업하는 것을 선호하신다면, [Spring Boot와 Claude로 작업 관리자 애플리케이션 만들기](spring-boot-claude.md) 튜토리얼을 시도해 보세요.
 

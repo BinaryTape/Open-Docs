@@ -9,7 +9,7 @@ SwiftUIアプリケーション内にCompose Multiplatformを埋め込むこと�
 >
 {style="tip"}
 
-## SwiftUIアプリケーション内でCompose Multiplatformを使用する
+## SwiftUIアプリケーション内でCompose Multiplatformを使用する {id="use-compose-multiplatform-inside-a-swiftui-application"}
 
 SwiftUIアプリケーション内でCompose Multiplatformを使用するには、UIKitの[`UIViewController`](https://developer.apple.com/documentation/uikit/uiviewcontroller/)を返し、Compose Multiplatformのコードを含むKotlin関数 `MainViewController()` を作成します。
 
@@ -54,7 +54,7 @@ struct ComposeViewController: UIViewControllerRepresentable {
 既存のアプリケーションにCompose Multiplatformを組み込みたい場合は、SwiftUIが使用されている場所ならどこでも `ComposeView` 構造体を使用してください。
 例については、[サンプルプロジェクト](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/interop/ios-compose-in-swiftui)を参照してください。
 
-## Compose Multiplatform内でSwiftUIを使用する
+## Compose Multiplatform内でSwiftUIを使用する {id="use-swiftui-inside-compose-multiplatform"}
 
 Compose Multiplatform内でSwiftUIを使用するには、中間の [`UIViewController`](https://developer.apple.com/documentation/uikit/uiviewcontroller/) にSwiftコードを追加します。
 現在のところ、Kotlinで直接SwiftUIの構造体を記述することはできません。代わりに、Swiftで記述してKotlinの関数に渡す必要があります。
@@ -100,7 +100,7 @@ Main_iosKt.ComposeEntryPointWithUIViewController(createUIViewController: { () ->
 
 この例のコードは [サンプルプロジェクト](https://github.com/JetBrains/compose-multiplatform/tree/master/examples/interop/ios-swiftui-in-compose) で確認できます。
 
-### マップビュー（Map view）
+### マップビュー（Map view） {id="map-view"}
 
 SwiftUIの [`Map`](https://developer.apple.com/documentation/mapkit/map) コンポーネントを使用して、Compose Multiplatformにマップビューを実装できます。これにより、アプリケーションで完全にインタラクティブなSwiftUIマップを表示できます。
 
@@ -171,7 +171,7 @@ Main_iosKt.ComposeEntryPointWithUIViewController(createUIViewController: {
 * `annotationItems` を使用して、宣言的にカスタムマーカーをマップ上に配置します。
 * SwiftUIコンポーネントを `UIHostingController` 内にラップし、それを `UIViewController` としてCompose Multiplatformに渡します。
 
-### カメラビュー（Camera view）
+### カメラビュー（Camera view） {id="camera-view"}
 
 SwiftUIとUIKitの [`UIImagePickerController`](https://developer.apple.com/documentation/uikit/uiimagepickercontroller) を使用し、SwiftUI互換コンポーネントでラップすることで、Compose Multiplatformにカメラビューを実装できます。これにより、アプリケーションからシステムカメラを起動して写真を撮影できます。
 
@@ -285,7 +285,7 @@ struct CameraPreview: View {
 >
 {style="note"}
 
-### ウェブビュー（Web view）
+### ウェブビュー（Web view） {id="web-view"}
 
 UIKitの [`WKWebView`](https://developer.apple.com/documentation/webkit/wkwebview) コンポーネントを `UIViewRepresentable` でラップすることで、Compose Multiplatformにウェブビューを実装できます。これにより、完全なネイティブレンダリングで埋め込みウェブコンテンツを表示できます。
 
@@ -387,7 +387,7 @@ struct WebViewContainer: View {
 * `Text` コンポーネントを使用して、ビューの上部に現在のURLを表示します。
 * `UIHostingController` を使用して、このコンポーネントをCompose UIに統合します。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * Composeが画面コンテンツをレンダリングする一方で、システムでレンダリングされるリキッドグラス（Liquid Glass）エフェクトのために[ネイティブのSwiftUIナビゲーション](ios-liquid-glass.md)を使用する方法を確認します。
 * Compose Multiplatformを [UIKitフレームワークと統合](compose-uikit-integration.md) する方法についても確認できます。

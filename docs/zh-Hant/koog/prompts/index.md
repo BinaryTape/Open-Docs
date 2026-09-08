@@ -4,7 +4,7 @@
 它們定義了您與 LLMs 互動的內容與結構。
 本節說明如何使用 Koog 建立與執行提示詞。
 
-## 建立提示詞
+## 建立提示詞 {id="creating-prompts"}
 
 在 Koog 中，提示詞是 [**Prompt**](api:prompt-model::ai.koog.prompt.dsl.Prompt) 資料類別的執行個體 (instances)，具有以下屬性：
 
@@ -51,7 +51,7 @@
     它們會自動將文字提示轉換為 Prompt 物件，並將其發送到 LLM 執行。
     這對於僅需執行單次請求且不需要複雜對話邏輯的 [基礎代理](../agents/basic-agents.md) 非常有用。
 
-## 執行提示詞
+## 執行提示詞 {id="running-prompts"}
 
 Koog 為針對 LLMs 執行提示詞提供了兩層抽象：LLM 用戶端 (LLM clients) 與提示詞執行器 (prompt executors)。
 兩者皆接受 Prompt 物件，且可用於直接執行提示詞，而無需透過 AI 代理。
@@ -89,7 +89,7 @@ flowchart TB
 
 </div>
 
-## 最佳化效能與處理失敗
+## 最佳化效能與處理失敗 {id="optimizing-performance-and-handling-failures"}
 
 Koog 允許您在執行提示詞時最佳化效能並處理失敗。
 
@@ -109,7 +109,7 @@ Koog 允許您在執行提示詞時最佳化效能並處理失敗。
 
 </div>
 
-## AI 代理中的提示詞
+## AI 代理中的提示詞 {id="prompts-in-ai-agents"}
 
 在 Koog 中，AI 代理會在生命週期中維護並管理提示詞。
 雖然 LLM 用戶端或執行器用於執行提示詞，但代理負責處理提示詞更新的流程，確保對話歷程記錄保持相關性與一致性。
@@ -121,7 +121,7 @@ Koog 允許您在執行提示詞時最佳化效能並處理失敗。
 3. 上下文視窗管理。
 4. 手動提示詞管理。
 
-### 初始提示詞設定
+### 初始提示詞設定 {id="initial-prompt-setup"}
 
 當您 [初始化代理](../quickstart.md#create-your-first-koog-agent) 時，您可以定義一個 [系統訊息 (system message)](prompt-creation/index.md#system-message) 來設定代理的行為。
 接著，當您呼叫代理的 `run()` 方法時，通常會提供一個初始 [使用者訊息 (user message)](prompt-creation/index.md#user-messages) 作為輸入。
@@ -196,7 +196,7 @@ flowchart TB
 
 對於更進階的配置，您也可以使用 [AIAgentConfig](api:agents-core::ai.koog.agents.core.agent.config.AIAgentConfig) 來定義代理的初始提示詞。
 
-### 自動提示詞更新
+### 自動提示詞更新 {id="automatic-prompt-updates"}
 
 當代理執行其策略時，[預定義節點](../nodes-and-components.md) 會自動更新提示詞。
 例如：
@@ -205,11 +205,11 @@ flowchart TB
 - [`nodeLLMSendToolResult`](../nodes-and-components.md#nodellmsendtoolresult)：將工具執行結果附加到對話中。
 - [`nodeAppendPrompt`](../nodes-and-components.md#nodeappendprompt)：在工作流程中的任何位置將特定訊息插入提示詞中。
 
-### 上下文視窗管理
+### 上下文視窗管理 {id="context-window-management"}
 
 為了避免在長時間互動中超過 LLM 上下文視窗限制，代理可以使用 [歷程記錄壓縮 (history compression)](../history-compression.md) 功能。
 
-### 手動提示詞管理
+### 手動提示詞管理 {id="manual-prompt-management"}
 
 對於複雜的工作流程，您可以使用 [LLM 工作階段 (LLM sessions)](../sessions.md) 手動管理提示詞。
 在代理策略或自訂節點中，您可以使用 `llm.writeSession` 來存取與更改 `Prompt` 物件。

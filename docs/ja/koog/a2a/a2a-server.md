@@ -8,7 +8,7 @@ status: beta
 
 A2A サーバーを使用すると、標準化された A2A (Agent-to-Agent) プロトコルを介して AI エージェントを公開できます。これは [A2A プロトコル仕様](https://a2a-protocol.org/latest/specification/) の完全な実装を提供し、クライアントリクエストの処理、エージェントロジックの実行、複雑なタスクライフサイクルの管理、およびリアルタイムのストリーミングレスポンスをサポートします。
 
-## 依存関係
+## 依存関係 {id="dependencies"}
 
 プロジェクトで A2A サーバーを使用するには、以下の依存関係を `build.gradle.kts` に追加します。
 
@@ -25,14 +25,14 @@ dependencies {
 }
 ```
 
-## 概要
+## 概要 {id="overview"}
 
 A2A サーバーは、A2A プロトコルのトランスポート層とカスタムエージェントロジックの間の架け橋として機能します。
 プロトコルへの準拠を維持し、堅牢なセッション管理を提供しながら、リクエストライフサイクル全体をオーケストレーションします。
 
-## 主要コンポーネント
+## 主要コンポーネント {id="core-components"}
 
-### A2AServer
+### A2AServer {id="a2aserver"}
 
 完全な A2A プロトコルを実装するメインのサーバークラスです。以下の役割を果たす中心的なコーディネーターとして機能します。
 
@@ -48,7 +48,7 @@ A2A サーバーは、A2A プロトコルのトランスポート層とカスタ
 
 また、ストレージやトランスポートの動作をカスタマイズするために使用できる、いくつかのオプションパラメータもあります。
 
-### AgentExecutor
+### AgentExecutor {id="agentexecutor"}
 
 `AgentExecutor` インターフェースは、エージェントのコアビジネスロジックを実装する場所です。
 これは、A2A プロトコルと特定のエージェント機能の間の架け橋として機能します。
@@ -107,7 +107,7 @@ eventProcessor.sendTaskEvent(
 )
 ```
 
-### AgentCard
+### AgentCard {id="agentcard"}
 
 `AgentCard` は、エージェントの自己記述的なマニフェストとして機能します。エージェントができること、通信方法、およびセキュリティ要件をクライアントに伝えます。
 
@@ -192,12 +192,12 @@ val agentCard = AgentCard(
 )
 ```
 
-### トランスポート層
+### トランスポート層 {id="transport-layer"}
 
 A2A 自体は、クライアントとの通信のために複数のトランスポートプロトコルをサポートしています。
 現在、Koog は HTTP 経由の JSON-RPC サーバー・トランスポートの実装を提供しています。
 
-#### HTTP JSON-RPC トランスポート
+#### HTTP JSON-RPC トランスポート {id="http-json-rpc-transport"}
 
 ```kotlin
 val transport = HttpJSONRPCServerTransport(server)
@@ -209,7 +209,7 @@ transport.start(
 )
 ```
 
-### ストレージ
+### ストレージ {id="storage"}
 
 A2A サーバーは、異なるタイプのデータを分離するプラグイン可能なストレージアーキテクチャを使用しています。
 すべてのストレージ実装はオプションであり、開発用にはデフォルトでインメモリ版が使用されます。
@@ -218,9 +218,9 @@ A2A サーバーは、異なるタイプのデータを分離するプラグイ�
 - **MessageStorage**: 会話履歴 - 会話コンテキスト内のメッセージ履歴を管理します。
 - **PushNotificationConfigStorage**: Webhook 管理 - 非同期通知用の Webhook 設定を管理します。
 
-## クイックスタート
+## クイックスタート {id="quickstart"}
 
-### 1. AgentCard の作成
+### 1. AgentCard の作成 {id="1-create-agentcard"}
 エージェントの機能とメタデータを定義します。
 ```kotlin
 val agentCard = AgentCard(
@@ -257,7 +257,7 @@ val agentCard = AgentCard(
 )
 ```
 
-### 2. AgentExecutor の作成
+### 2. AgentExecutor の作成 {id="2-create-an-agentexecutor"}
 Executor でエージェントのロジックを実装し、受信リクエストの処理とレスポンスの送信を行います。
 
 ```kotlin
@@ -285,7 +285,7 @@ class EchoAgentExecutor : AgentExecutor {
 }
 ```
 
-### 3. サーバーの作成
+### 3. サーバーの作成 {id="2-create-the-server"}
 エージェント Executor とエージェント Card をサーバーに渡します。
 
 ```kotlin
@@ -295,7 +295,7 @@ val server = A2AServer(
 )
 ```
 
-### 4. トランスポート層の追加
+### 4. トランスポート層の追加 {id="3-add-transport-layer"}
 トランスポート層を作成し、サーバーを開始します。
 ```kotlin
 // HTTP JSON-RPC トランスポート
@@ -308,9 +308,9 @@ transport.start(
 )
 ```
 
-## エージェントの実装パターン
+## エージェントの実装パターン {id="agent-implementation-patterns"}
 
-### 単純なレスポンスエージェント
+### 単純なレスポンスエージェント {id="simple-response-agent"}
 エージェントが単一のメッセージに応答するだけでよい場合は、単純なエージェントとして実装できます。
 これは、エージェントの実行ロジックが複雑でなく、時間がかからない場合にも使用できます。
 
@@ -333,7 +333,7 @@ class SimpleAgentExecutor : AgentExecutor {
 }
 ```
 
-### タスクベースのエージェント
+### タスクベースのエージェント {id="task-based-agent"}
 エージェントの実行ロジックが複雑で、複数のステップを必要とする場合は、タスクベースのエージェントとして実装できます。
 また、エージェントの実行ロジックに時間がかかり、中断（サスペンド）が必要な場合にも使用できます。
 ```kotlin

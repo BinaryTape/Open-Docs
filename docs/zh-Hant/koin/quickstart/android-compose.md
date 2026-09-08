@@ -9,13 +9,13 @@ title: Android - Jetpack Compose
 更新 - 2024-11-28
 :::
 
-## 取得程式碼
+## 取得程式碼 {id="get-the-code"}
 
 :::info
 [原始碼可在 GitHub 上取得](https://github.com/InsertKoinIO/koin-getting-started/tree/main/android-compose)
 :::
 
-## Gradle 設定
+## Gradle 設定 {id="gradle-setup"}
 
 如下所示新增 Koin Android 與 Koin Compose 相依性：
 
@@ -29,13 +29,13 @@ dependencies {
 }
 ```
 
-## 應用程式概覽
+## 應用程式概覽 {id="application-overview"}
 
 此應用程式的想法是管理使用者清單，並透過 ViewModel 與 Jetpack Compose UI 在我們的 `MainActivity` 類別中顯示它：
 
 > Users -> UserRepository -> UserService -> UserViewModel -> MainActivity (Compose UI)
 
-## 「User」資料
+## 「User」資料 {id="the-user-data"}
 
 我們將管理一個 User 集合。這是資料類別：
 
@@ -65,7 +65,7 @@ class UserRepositoryImpl : UserRepository {
 }
 ```
 
-## UserService 組建
+## UserService 組建 {id="the-userservice-component"}
 
 讓我們編寫一個服務組建來管理使用者作業：
 
@@ -96,7 +96,7 @@ class UserServiceImpl(
 }
 ```
 
-## Koin 模組
+## Koin 模組 {id="the-koin-module"}
 
 使用 `module` 函式來宣告 Koin 模組。Koin 模組是我們定義所有要注入的組建的地方。
 
@@ -119,7 +119,7 @@ val appModule = module {
 本教學使用 **Koin 編譯器外掛程式 DSL** (`single<T>()`, `viewModel<T>()`)，它在編譯時提供自動連接 (auto-wiring)。請參閱 [編譯器外掛程式設定](/docs/setup/compiler-plugin) 以了解配置。
 :::
 
-## 使用 ViewModel 顯示使用者
+## 使用 ViewModel 顯示使用者 {id="displaying-user-with-viewmodel"}
 
 讓我們編寫一個 ViewModel 組建來顯示使用者：
 
@@ -146,7 +146,7 @@ val appModule = module {
 }
 ```
 
-## 在 Jetpack Compose 中注入 ViewModel
+## 在 Jetpack Compose 中注入 ViewModel {id="injecting-viewmodel-in-jetpack-compose"}
 
 使用 Jetpack Compose 時，我們使用 `ComponentActivity` 而非 `AppCompatActivity`，並且使用可組合函式 (composable functions) 而非 XML 版面配置來建構我們的 UI。
 
@@ -224,7 +224,7 @@ fun MainScreen(
 `koinViewModel()` 函式從 Koin 擷取一個 ViewModel 執行個體，並自動將其繫結到 Compose 生命週期。這是 Compose 特有的注入 ViewModel 的方式，取代了傳統 Android View 中使用的 `by viewModel()` 委派。
 :::
 
-### 核心 Compose 概念
+### 核心 Compose 概念 {id="key-compose-concepts"}
 
 - **ComponentActivity**：Compose 應用程式的基底類別（而非 AppCompatActivity）
 - **setContent**：將可組合內容設定為 Activity 的 UI
@@ -232,7 +232,7 @@ fun MainScreen(
 - **remember & mutableStateOf**：用於反應式 UI 更新的 Compose 狀態管理
 - **koinViewModel()**：Koin 的 Compose 整合，用於 ViewModel 注入
 
-## 啟動 Koin
+## 啟動 Koin {id="start-koin"}
 
 我們需要在 Android 應用程式中啟動 Koin。只需在應用程式的主要入口點（即我們的 `MainApplication` 類別）中呼叫 `startKoin()` 函式：
 
@@ -254,7 +254,7 @@ class MainApplication : Application(){
 `startKoin` 中的 `modules()` 函式會載入指定的模組清單。
 :::
 
-## Koin 模組：DSL 比較
+## Koin 模組：DSL 比較 {id="koin-module-dsl-comparison"}
 
 以下是使用 **傳統 DSL**（手動連接）的 Koin 模組宣告：
 
@@ -280,7 +280,7 @@ val appModule = module {
 編譯器外掛程式 DSL 需要 [Koin 編譯器外掛程式](/docs/setup/compiler-plugin)。它提供編譯時的相依性解析與更簡潔的語法。
 :::
 
-## Compose 與 XML View
+## Compose 與 XML View {id="compose-vs-xml-views"}
 
 本教學示範了與 [Android ViewModel 教學](./android-viewmodel.md) 相同的功能，但使用 Jetpack Compose 而非 XML 版面配置：
 

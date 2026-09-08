@@ -1,6 +1,6 @@
 # 開始使用
 
-## Compose UI
+## Compose UI {id="compose-ui"}
 
 一個典型的 Compose UI 專案會需要匯入：
 
@@ -21,7 +21,7 @@ AsyncImage(
 !!! Note
     如果您使用 Compose 多平台，則需要使用 Ktor 而非 OkHttp。請參閱[此處](network.md#ktor-network-engines)了解具體做法。
 
-## Android Views
+## Android Views {id="android-views"}
 
 如果您使用 Android Views 而非 Compose UI，請匯入：
 
@@ -36,7 +36,7 @@ implementation("io.coil-kt.coil3:coil-network-okhttp:3.6.2")
 imageView.load("https://example.com/image.jpg")
 ```
 
-## 配置單例 ImageLoader
+## 配置單例 ImageLoader {id="configuring-the-singleton-imageloader"}
 
 預設情況下，Coil 包含一個單例 `ImageLoader`。`ImageLoader` 透過擷取、解碼、快取並傳回結果來執行傳入的 `ImageRequest`。您不需要配置 `ImageLoader`；如果您沒有配置，Coil 會使用預設配置建立單例 `ImageLoader`。
 
@@ -77,7 +77,7 @@ SingletonImageLoader.setSafe { context ->
 !!! Note
     如果您正在編寫依賴於 Coil 的程式庫，則**不應**取得或設定單例 `ImageLoader`。相反地，您應該依賴 `io.coil-kt.coil3:coil-core`，建立您自己的 `ImageLoader` 並手動傳遞。如果您在程式庫中設定了單例 `ImageLoader`，若使用您程式庫的應用程式也使用了 Coil，您可能會覆寫該應用程式設定的 `ImageLoader`。
 
-## 圖片
+## 圖片 {id="images"}
 
 為了支援多平台渲染，Coil 3.x 使用自訂的 `coil3.Image` 類別。它取代了 Android 的 `Drawable`，但與其完全互通：
 
@@ -102,7 +102,7 @@ val painter = image.asPainter()
 !!! Note
     `Painter` 無法轉換為 `Image`，因為 Painter 只能在組合 (composition) 內進行渲染，而 `Image` 必須能夠在任何 `Canvas` 上渲染。
 
-## 構件
+## 構件 {id="artifacts"}
 
 以下是 Coil 發佈到 `mavenCentral()` 的主要構件列表：
 

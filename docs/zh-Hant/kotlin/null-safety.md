@@ -24,7 +24,7 @@ Kotlin 的 Null 安全透過在編譯期而非執行期捕捉潛在的 null 相�
 >
 {style="tip"}
 
-## 可 null 型別與不可 null 型別
+## 可 null 型別與不可 null 型別 {id="nullable-types-and-non-nullable-types"}
 
 在 Kotlin 中，型別系統區分了可以持有 `null` 的型別（可 null 型別）和不可以持有的型別（不可 null 型別）。例如，一個型別為 `String` 的常規變數不能持有 `null`：
 
@@ -105,7 +105,7 @@ fun main() {
 
 請閱讀接下來的章節以了解 `null` 處理工具與技術的詳細資訊和範例。
 
-## 使用 if 條件句檢查 null
+## 使用 if 條件句檢查 null {id="check-for-null-with-the-if-conditional"}
 
 在處理可 null 型別時，你需要安全地處理可 null 性以避免 NPE。處理此問題的一種方式是使用 `if` 條件運算式明確檢查可 null 性。
 
@@ -150,7 +150,7 @@ fun main() {
 
 請注意，上述範例僅在編譯器能保證 `b` 在檢查與使用之間不會改變時才有效，這與 [智慧轉換的先決條件](typecasts.md#smart-cast-prerequisites) 相同。
 
-## 安全呼叫運算子
+## 安全呼叫運算子 {id="safe-call-operator"}
 
 安全呼叫運算子 `?.` 讓你能以更簡短的形式安全地處理可 null 性。如果物件為 `null`，`?.` 運算子不會拋出 NPE，而是簡單地傳回 `null`：
 
@@ -201,7 +201,7 @@ if (person != null && person.department != null) {
 }
 ```
 
-## Elvis 運算子
+## Elvis 運算子 {id="elvis-operator"}
 
 在處理可 null 型別時，你可以檢查 `null` 並提供替代值。例如，如果 `b` 不是 `null`，則存取 `b.length`；否則傳回一個替代值：
 
@@ -249,7 +249,7 @@ fun foo(node: Node): String? {
 }
 ```
 
-## 非 null 斷言運算子
+## 非 null 斷言運算子 {id="not-null-assertion-operator"}
 
 非 null 斷言運算子 `!!` 將任何值轉換為不可 null 型別。
 
@@ -289,7 +289,7 @@ fun main() {
 
 當你確信某個值不是 `null` 且不可能獲得 NPE，但編譯器由於某些規則無法保證這一點時，`!!` 運算子特別有用。在這種情況下，你可以使用 `!!` 運算子明確告訴編譯器該值不是 `null`。
 
-## 可 null 接收者
+## 可 null 接收者 {id="nullable-receiver"}
 
 你可以對 [可 null 接收者型別](extensions.md#nullable-receivers) 使用擴充函式，這允許在可能為 `null` 的變數上呼叫這些函式。
 
@@ -340,7 +340,7 @@ data class Person(val name: String)
 
 `?.` 運算子讓你能安全地處理潛在的 `null` 值，同時仍能存取可能為 `null` 的物件屬性或函式。
 
-## Let 函式
+## Let 函式 {id="let-function"}
 
 為了處理 `null` 值並僅在非 null 型別上執行操作，你可以將安全呼叫運算子 `?.` 與 [`let` 函式](scope-functions.md#let) 配合使用。
 
@@ -363,7 +363,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-## 安全轉換
+## 安全轉換 {id="safe-casts"}
 
 Kotlin 中用於 [型別轉換](typecasts.md#unsafe-cast-operator) 的常規運算子是 `as` 運算子。然而，如果物件不屬於目標型別，常規轉換可能會導致例外。
 
@@ -391,7 +391,7 @@ fun main() {
 
 上面的程式碼列印 `null` 是因為 `a` 不是 `Int`，因此轉換安全地失敗。它也列印 `"Hello, Kotlin!"` 是因為它符合 `String?` 型別，因此安全轉換成功。
 
-## 可 null 型別的集合
+## 可 null 型別的集合 {id="collections-of-a-nullable-type"}
 
 如果你有一個包含可 null 元素的集合，並且只想保留其中的非 null 元素，請使用 `filterNotNull()` 函式：
 
@@ -411,7 +411,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 * 了解如何 [在 Java 和 Kotlin 中處理可 null 性](java-to-kotlin-nullability-guide.md)。
 * 了解有關 [絕對不可為 null 型別](generics.md#definitely-non-nullable-types) 的泛型型別。

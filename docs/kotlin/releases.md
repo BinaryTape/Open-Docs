@@ -25,18 +25,18 @@
 > 
 {style="note"}
 
-## 即将到来的 Kotlin 发布
+## 即将到来的 Kotlin 发布 {id="upcoming-kotlin-releases"}
 
 以下是即将发布的稳定版 Kotlin 的大致时间表：
 
 * **2.4.20**：计划于 2026 年 9 月
 * **2.5.0**：计划于 2026 年 12 月
 
-## 更新至新的 Kotlin 版本
+## 更新至新的 Kotlin 版本 {id="update-to-a-new-kotlin-version"}
 
 要将您的项目升级至新版本，请更新构建系统中的 Kotlin 版本。
 
-### Gradle
+### Gradle {id="gradle"}
 
 要更新至 Kotlin %kotlinVersion%，请更改 `build.gradle(.kts)` 文件中 Kotlin Gradle 插件的版本：
 
@@ -79,7 +79,7 @@ plugins {
 > 
 {style="tip"}
 
-### Maven
+### Maven {id="maven"}
 
 要更新至 Kotlin %kotlinVersion%，请更改 `pom.xml` 文件中的版本：
 
@@ -107,11 +107,11 @@ plugins {
 >
 {style="tip"}
 
-## IDE 支持
+## IDE 支持 {id="ide-support"}
 
 Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Android Studio](https://developer.android.com/kotlin/get-started) 中拥有完善的开箱即用支持。
 
-## 标准库安全支持
+## 标准库安全支持 {id="standard-library-security-support"}
 
 从 Kotlin 2.4.0 开始，针对 JVM 的 Kotlin 标准库每个发布系列都有 18 个月的支持窗口。语言发布 (2._x_._0_) 和随后的工具发布 (2._x_._20_) 属于同一个发布系列 (2._x_)。
 
@@ -150,7 +150,7 @@ Kotlin 在 [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) 和 [Androi
 > 
 {style="tip"}
 
-## 发布历史
+## 发布历史 {id="release-history"}
 
 下表列出了之前 Kotlin 发布版本的详细信息：
 

@@ -49,7 +49,7 @@ fun main() {
 
 由于作用域函数之间存在许多相似之处，为你的用例选择正确的函数可能会比较棘手。选择主要取决于你的意图以及项目中用法的一致性。下面，我们将详细说明作用域函数之间的差异及其约定。
 
-## 函数选择
+## 函数选择 {id="function-selection"}
 
 为了帮助你根据目的选择正确的作用域函数，我们提供了下表，总结了它们之间的关键差异。
 
@@ -78,13 +78,13 @@ fun main() {
 
 虽然作用域函数可以让你的代码更加简洁，但请避免过度使用：这可能会使代码难以阅读并导致错误。我们还建议你避免嵌套作用域函数，并在链式调用时保持谨慎，因为很容易混淆当前的上下文对象以及 `this` 或 `it` 的值。
 
-## 区别
+## 区别 {id="distinctions"}
 
 由于作用域函数在性质上非常相似，理解它们之间的区别至关重要。每个作用域函数之间主要有两个区别：
 * 引用上下文对象的方式。
 * 它们的返回值。
 
-### 上下文对象：this 或 it
+### 上下文对象：this 或 it {id="context-object-this-or-it"}
 
 在传递给作用域函数的 lambda 内，可以通过简短的引用而不是其实际名称来访问上下文对象。每个作用域函数都使用两种方式之一来引用上下文对象：作为 lambda [接收者](lambdas.md#function-literals-with-receiver) (`this`) 或作为 lambda 实参 (`it`)。两者都提供相同的功能，因此我们描述了每种方式在不同用例下的优缺点，并提供了使用建议。
 
@@ -105,7 +105,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-#### this
+#### this {id="this"}
 
 `run`、`with` 和 `apply` 将上下文对象引用为 lambda [接收者](lambdas.md#function-literals-with-receiver) —— 通过关键字 `this`。因此，在它们的 lambda 中，该对象可以像在普通类函数中一样使用。
 
@@ -126,7 +126,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-#### it
+#### it {id="it"}
 
 反过来，`let` 和 `also` 将上下文对象引用为 lambda [实参](lambdas.md#lambda-expression-syntax)。如果未指定实参名称，则通过隐式默认名称 `it` 访问该对象。`it` 比 `this` 更短，带有 `it` 的表达式通常更容易阅读。
 
@@ -178,7 +178,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### 返回值
+### 返回值 {id="return-value"}
 
 作用域函数的不同之处还在于它们返回的结果：
 * `apply` 和 `also` 返回上下文对象。
@@ -186,7 +186,7 @@ fun main() {
 
 你应该根据代码中接下来的操作仔细考虑需要哪种返回值。这有助于你选择最合适的作用域函数。
 
-#### 上下文对象 
+#### 上下文对象 {id="context-object"}
 
 `apply` 和 `also` 的返回值是上下文对象本身。因此，它们可以作为*辅助步骤*包含在调用链中：你可以继续链式调用同一个对象的函数，一个接一个。
 
@@ -231,7 +231,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-#### Lambda 结果
+#### Lambda 结果 {id="lambda-result"}
 
 `let`、`run` 和 `with` 返回 lambda 结果。因此，你可以在将结果赋值给变量、对结果链式执行操作等场景中使用它们。
 
@@ -266,11 +266,11 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## 函数
+## 函数 {id="functions"}
 
 为了帮助你为用例选择正确的作用域函数，我们对它们进行了详细说明，并提供了使用建议。从技术上讲，作用域函数在许多情况下是可以互换的，因此这些示例展示了使用它们的约定。
 
-### let
+### let {id="let"}
 
 - **上下文对象**作为实参 (`it`) 可用。
 - **返回值**是 lambda 结果。
@@ -350,7 +350,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### with
+### with {id="with"}
 
 - **上下文对象**作为接收者 (`this`) 可用。
 - **返回值**是 lambda 结果。
@@ -388,7 +388,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### run
+### run {id="run"}
 
 - **上下文对象**作为接收者 (`this`) 可用。 
 - **返回值**是 lambda 结果。
@@ -445,7 +445,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### apply
+### apply {id="apply"}
 
 - **上下文对象**作为接收者 (`this`) 可用。 
 - **返回值**是对象本身。
@@ -469,7 +469,7 @@ fun main() {
 
 `apply` 的另一个用例是将 `apply` 包含在多个调用链中，以进行更复杂的处理。
 
-### also
+### also {id="also"}
 
 - **上下文对象**作为实参 (`it`) 可用。 
 - **返回值**是对象本身。
@@ -490,7 +490,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-## takeIf 和 takeUnless
+## takeIf 和 takeUnless {id="takeif-and-takeunless"}
 
 除了作用域函数外，标准库还包含 [`takeIf`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/take-if.html) 和 [`takeUnless`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/take-unless.html) 函数。这些函数允许你在调用链中嵌入对对象状态的检查。
 

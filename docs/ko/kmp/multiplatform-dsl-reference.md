@@ -3,7 +3,7 @@
 Kotlin 멀티플랫폼 Gradle 플러그인은 Kotlin 멀티플랫폼 프로젝트를 생성하기 위한 도구입니다.
 이 문서는 플러그인 구성 요소에 대한 레퍼런스를 제공하며, Kotlin 멀티플랫폼 프로젝트용 Gradle 빌드 스크립트를 작성할 때 참고 자료로 활용할 수 있습니다. [Kotlin 멀티플랫폼 프로젝트의 개념과 생성 및 설정 방법](multiplatform-discover-project.md)에 대해 자세히 알아보세요.
 
-## ID 및 버전
+## ID 및 버전 {id="id-and-version"}
 
 Kotlin 멀티플랫폼 Gradle 플러그인의 정규화된 이름(Fully qualified name)은 `org.jetbrains.kotlin.multiplatform`입니다.
 Kotlin Gradle DSL을 사용하는 경우 `kotlin("multiplatform")`으로 플러그인을 적용할 수 있습니다.
@@ -30,7 +30,7 @@ plugins {
 </TabItem>
 </Tabs>
 
-## 최상위 블록
+## 최상위 블록 {id="top-level-blocks"}
 
 `kotlin {}`은 Gradle 빌드 스크립트에서 멀티플랫폼 프로젝트 설정을 위한 최상위 블록입니다.
 `kotlin {}` 내부에서는 다음과 같은 블록을 작성할 수 있습니다.
@@ -43,7 +43,7 @@ plugins {
 | `compilerOptions`    | 모든 타겟과 공유 소스 세트의 기본값으로 사용되는 공통 확장 수준의 [컴파일러 옵션](#compiler-options)을 지정합니다. |
 | `dependencies`       | [공통 의존성](#configure-dependencies-at-the-top-level)을 설정합니다. (실험적 기능)                                              |
 
-## 타겟
+## 타겟 {id="targets"}
 
 _타겟(Target)_은 지원되는 플랫폼 중 하나를 대상으로 소프트웨어를 컴파일, 테스트 및 패키징하는 빌드의 일부입니다. Kotlin은 각 플랫폼에 대한 타겟을 제공하므로, 특정 타겟을 위해 코드를 컴파일하도록 Kotlin에 지시할 수 있습니다. [타겟 설정](multiplatform-discover-project.md#targets)에 대해 더 자세히 알아보세요.
 
@@ -134,7 +134,7 @@ kotlin {
 
 각 타겟은 하나 이상의 [컴파일](#compilations) 단위를 가질 수 있습니다.
 
-### 공통 타겟 설정
+### 공통 타겟 설정 {id="common-target-configuration"}
 
 모든 타겟 블록에서 다음 선언을 사용할 수 있습니다.
 
@@ -145,7 +145,7 @@ kotlin {
 | `components`        | Gradle 배포(Publication)를 설정하는 데 사용되는 컴포넌트입니다.                                                                                                                                             |
 | `compilerOptions`   | 타겟에 사용되는 [컴파일러 옵션](#compiler-options)입니다. 이 선언은 [최상위 레벨](multiplatform-dsl-reference.md#top-level-blocks)에서 구성된 모든 `compilerOptions {}`보다 우선합니다. |
 
-### 웹 타겟
+### 웹 타겟 {id="web-targets"}
 
 `js {}` 블록은 Kotlin/JS 타겟의 구성을 설명하고, `wasmJs {}` 블록은 JavaScript와 상호 운용 가능한 Kotlin/Wasm 타겟의 구성을 설명합니다. 타겟 실행 환경에 따라 다음 두 블록 중 하나를 포함할 수 있습니다.
 
@@ -169,7 +169,7 @@ kotlin {
 
 모든 웹 타겟(`js`, `wasmJs`, `wasmWasi`)은 `binaries.executable()` 호출을 지원합니다. 이는 Kotlin 컴파일러가 실행 파일을 생성하도록 명시적으로 지시합니다. 자세한 내용은 Kotlin/JS 문서의 [실행 환경](https://kotlinlang.org/docs/js-project-setup.html#execution-environments)을 참조하세요.
 
-#### Browser
+#### Browser {id="browser"}
 
 `browser {}`는 다음과 같은 구성 블록을 포함할 수 있습니다.
 
@@ -192,7 +192,7 @@ kotlin {
 }
 ```
 
-#### Node.js
+#### Node.js {id="node-js"}
 
 `nodejs {}`는 테스트 및 실행 태스크 설정을 포함할 수 있습니다.
 
@@ -210,7 +210,7 @@ kotlin {
 }
 ```
 
-### 네이티브 타겟
+### 네이티브 타겟 {id="native-targets"}
 
 네이티브 타겟의 경우 다음과 같은 특정 블록을 사용할 수 있습니다.
 
@@ -219,7 +219,7 @@ kotlin {
 | `binaries`  | 생성할 [바이너리](#binaries) 설정입니다.       |
 | `cinterops` | [C 라이브러리와의 상호 운용성(interop)](#cinterops) 설정입니다. |
 
-#### 바이너리 (Binaries)
+#### 바이너리 (Binaries) {id="binaries"}
 
 다음과 같은 종류의 바이너리가 있습니다.
 
@@ -348,7 +348,7 @@ binaries {
 
 [네이티브 바이너리 빌드](multiplatform-build-native-binaries.md)에 대해 더 자세히 알아보세요.
 
-#### Cinterops
+#### Cinterops {id="cinterops"}
 
 `cinterops`는 네이티브 라이브러리와의 상호 운용을 위한 설정 모음입니다.
 라이브러리와의 상호 운용성을 제공하려면 `cinterops`에 항목을 추가하고 해당 파라미터를 정의하세요.
@@ -439,7 +439,7 @@ kotlin {
 
 더 많은 cinterop 속성은 [정의 파일(Definition file)](https://kotlinlang.org/docs/native-definition-file.html#properties)을 참조하세요.
 
-### Android 타겟
+### Android 타겟 {id="android-targets"}
 
 Kotlin 멀티플랫폼 Gradle 플러그인에는 Android 타겟의 [빌드 변환(Build variants)](https://developer.android.com/studio/build/build-variants) 구성을 도와주는 특정 함수가 있습니다.
 
@@ -462,13 +462,13 @@ kotlin {
 >
 {style="note"}
 
-## 소스 세트
+## 소스 세트 {id="source-sets"}
 
 `sourceSets {}` 블록은 프로젝트의 소스 세트를 설명합니다. 소스 세트에는 함께 컴파일되는 Kotlin 소스 파일과 해당 리소스 및 의존성이 포함됩니다.
 
 멀티플랫폼 프로젝트에는 타겟에 대한 [사전 정의된 소스 세트](#predefined-source-sets)가 포함되어 있으며, 개발자는 필요에 따라 [커스텀 소스 세트](#custom-source-sets)를 생성할 수도 있습니다.
 
-### 사전 정의된 소스 세트
+### 사전 정의된 소스 세트 {id="predefined-source-sets"}
 
 사전 정의된 소스 세트는 멀티플랫폼 프로젝트 생성 시 자동으로 설정됩니다.
 사용 가능한 사전 정의된 소스 세트는 다음과 같습니다.
@@ -508,7 +508,7 @@ kotlin {
 
 [소스 세트](multiplatform-discover-project.md#source-sets)에 대해 더 자세히 알아보세요.
 
-### 커스텀 소스 세트
+### 커스텀 소스 세트 {id="custom-source-sets"}
 
 커스텀 소스 세트는 프로젝트 개발자가 수동으로 생성합니다.
 커스텀 소스 세트를 생성하려면 `sourceSets` 섹션 내부에 해당 이름으로 섹션을 추가하세요.
@@ -543,7 +543,7 @@ kotlin {
 
 새로 생성된 소스 세트는 다른 소스 세트와 연결되어 있지 않습니다. 프로젝트의 컴파일에서 이를 사용하려면 [다른 소스 세트와 연결](multiplatform-hierarchy.md#manual-configuration)해야 합니다.
 
-### 소스 세트 파라미터
+### 소스 세트 파라미터 {id="source-set-parameters"}
 
 소스 세트 구성은 `sourceSets {}`의 해당 블록 내에 저장됩니다. 소스 세트에는 다음과 같은 파라미터가 있습니다.
 
@@ -596,7 +596,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-## 컴파일 (Compilations)
+## 컴파일 (Compilations) {id="compilations"}
 
 타겟은 프로덕션용 또는 테스트용과 같이 하나 이상의 컴파일 단위를 가질 수 있습니다. 타겟 생성 시 자동으로 추가되는 [사전 정의된 컴파일](#predefined-compilations)이 있습니다. 추가로 [커스텀 컴파일](#custom-compilations)을 생성할 수 있습니다.
 
@@ -604,7 +604,7 @@ kotlin {
 
 [컴파일 구성](multiplatform-configure-compilations.md)에 대해 더 자세히 알아보세요.
 
-### 사전 정의된 컴파일
+### 사전 정의된 컴파일 {id="predefined-compilations"}
 
 사전 정의된 컴파일은 Android 타겟을 제외한 프로젝트의 각 타겟에 대해 자동으로 생성됩니다.
 사용 가능한 사전 정의된 컴파일은 다음과 같습니다.
@@ -644,7 +644,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-### 커스텀 컴파일
+### 커스텀 컴파일 {id="custom-compilations"}
 
 사전 정의된 컴파일 외에도 자신만의 커스텀 컴파일을 생성할 수 있습니다.
 이를 위해 새 컴파일과 `main` 컴파일 사이에 [`associateWith`](https://kotlinlang.org/docs/gradle-configure-project.html#associate-compiler-tasks) 관계를 설정하세요. Kotlin Gradle DSL을 사용하는 경우 커스텀 컴파일을 `by creating`으로 표시하세요.
@@ -712,7 +712,7 @@ kotlin {
 
 [커스텀 컴파일 생성](multiplatform-configure-compilations.md#create-a-custom-compilation)에 대해 더 자세히 알아보세요.
 
-### 컴파일 파라미터
+### 컴파일 파라미터 {id="compilation-parameters"}
 
 컴파일에는 다음과 같은 파라미터가 있습니다.
 
@@ -787,7 +787,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-## 컴파일러 옵션
+## 컴파일러 옵션 {id="compiler-options"}
 
 프로젝트의 컴파일러 옵션을 세 가지 다른 수준에서 구성할 수 있습니다.
 
@@ -809,7 +809,7 @@ kotlin {
 
 가능한 컴파일러 옵션 목록은 [모든 컴파일러 옵션](https://kotlinlang.org/docs/gradle-compiler-options.html#all-compiler-options)을 참조하세요.
 
-### 확장 수준
+### 확장 수준 {id="extension-level"}
 
 프로젝트의 모든 타겟에 대해 컴파일러 옵션을 구성하려면 최상위 레벨에서 `compilerOptions {}` 블록을 사용하세요.
 
@@ -840,7 +840,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-### 타겟 수준
+### 타겟 수준 {id="target-level"}
 
 프로젝트의 특정 타겟에 대해 컴파일러 옵션을 구성하려면 타겟 블록 내부에서 `compilerOptions {}` 블록을 사용하세요.
 
@@ -875,7 +875,7 @@ kotlin {
 </TabItem>
 </Tabs>
 
-### 컴파일 단위 수준
+### 컴파일 단위 수준 {id="compilation-unit-level"}
 
 특정 태스크에 대해 컴파일러 옵션을 구성하려면 태스크 내부에서 `compilerOptions {}` 블록을 사용하세요.
 
@@ -945,11 +945,11 @@ kotlin {
 </TabItem>
 </Tabs>
 
-### `kotlinOptions {}`에서 `compilerOptions {}`로 마이그레이션 {collapsible="true"}
+### `kotlinOptions {}`에서 `compilerOptions {}`로 마이그레이션 {collapsible="true" id="migrate-from-kotlinoptions-to-compileroptions"}
 
 Kotlin 2.2.0 이전에는 `kotlinOptions {}` 블록을 사용하여 컴파일러 옵션을 구성할 수 있었습니다. Kotlin 2.2.0부터 `kotlinOptions {}` 블록은 지원 중단(deprecated)되었으므로 빌드 스크립트에서 대신 `compilerOptions {}` 블록을 사용해야 합니다. 자세한 정보는 [`kotlinOptions{}`에서 `compilerOptions{}`로 마이그레이션](https://kotlinlang.org/docs/gradle-compiler-options.html#migrate-from-kotlinoptions-to-compileroptions)을 참조하세요.
 
-## 의존성
+## 의존성 {id="dependencies"}
 
 소스 세트 선언의 `dependencies {}` 블록은 해당 소스 세트의 의존성을 포함합니다.
 
@@ -1011,7 +1011,7 @@ kotlin {
 
 추가로, 소스 세트는 서로 의존하여 계층 구조를 형성할 수 있습니다. 이 경우 [`dependsOn()`](#source-set-parameters) 관계가 사용됩니다.
 
-### 최상위 레벨에서 의존성 구성
+### 최상위 레벨에서 의존성 구성 {id="configure-dependencies-at-the-top-level"}
 <primary-label ref="Experimental"/>
 
 최상위 `dependencies {}` 블록을 사용하여 공통 의존성을 구성할 수 있습니다. 여기서 선언된 의존성은 `commonMain` 또는 `commonTest` 소스 세트에 추가된 것처럼 작동합니다.
@@ -1048,7 +1048,7 @@ kotlin {
 
 이 기능에 대한 피드백은 [YouTrack](https://youtrack.jetbrains.com/issue/KT-76446)에서 공유할 수 있습니다.
 
-## 언어 설정
+## 언어 설정 {id="language-settings"}
 
 소스 세트의 `languageSettings {}` 블록은 프로젝트 분석 및 컴파일의 특정 측면을 정의합니다. `languageSettings {}` 블록은 공유 소스 세트에 특별히 적용되는 설정을 구성할 때만 사용하세요. 그 외의 모든 경우에는 `compilerOptions {}` 블록을 사용하여 확장 또는 타겟 수준에서 [컴파일러 옵션을 구성](#compiler-options)하세요.
 

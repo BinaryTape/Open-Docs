@@ -11,7 +11,7 @@
 以下您將發現一些根據我們範例應用程式中既有資料物件處理集合的實用技巧。
 在所有範例中，我們假設先透過呼叫 `service.findMessages()` 函式獲取儲存在資料庫中的所有訊息，接著執行各種操作來篩選、排序、分組或轉換訊息清單。
 
-## 檢索元素
+## 檢索元素 {id="retrieving-elements"}
 
 Kotlin 集合提供了一組用於從集合中檢索單一元素的函式。可以依據位置或相符條件從集合中檢索單一元素。
 
@@ -52,7 +52,7 @@ fun firstMessageOrNull(): Message {
 
 ```
 
-## 篩選元素
+## 篩選元素 {id="filtering-elements"}
 
 *篩選* 是集合處理中最常見的任務之一。標準程式庫包含一組擴充函式，可讓您在單次呼叫中篩選集合。這些函式不會改變原始集合，而是產生包含篩選後元素的新集合：
 
@@ -66,7 +66,7 @@ fun filterMessagesLongerThan10(): List<Message> {
 
 這段程式碼看起來與使用 `first()` 函式尋找文字長度大於 10 的單一元素的範例非常相似。區別在於 `filter()` 會傳回符合條件的元素清單。
 
-## 排序元素
+## 排序元素 {id="sorting-elements"}
 
 元素的順序是某些集合類型的重要面向。Kotlin 標準程式庫提供了許多以各種方式進行排序的函式：自然順序、自訂順序、反向順序和隨機順序。
 
@@ -80,7 +80,7 @@ fun sortByLastLetter(): List<Message> {
 }
 ```
 
-## 分組元素
+## 分組元素 {id="grouping-elements"}
 
 分組可能需要實作一些關於元素應如何分組的複雜邏輯。[`groupBy()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/group-by.html) 函式接收一個 Lambda 並傳回一個 `Map`。在此 Map 中，每個鍵（key）是 Lambda 的結果，而對應的值（value）則是傳回該結果的元素 `List`。
 
@@ -102,7 +102,7 @@ fun groups(): Map<String, List<Message>> {
 }
 ```
 
-## 轉換操作
+## 轉換操作 {id="transformation-operations"}
 
 處理集合的一個常見任務是將集合元素從一種類型轉換為另一種類型。當然，Kotlin 標準程式庫為此類任務提供了許多 [轉換函式](collection-transformations.md)。
 
@@ -116,7 +116,7 @@ fun transformMessagesToListOfStrings(): List<String> {
 }
 ```
 
-## 聚合操作
+## 聚合操作 {id="aggregate-operations"}
 
 聚合操作會從一組集合值中運算出單一值。聚合操作的一個範例是計算所有訊息長度的平均值：
 
@@ -146,6 +146,6 @@ fun reduce(): Message {
 }
 ```
 
-## 下一步
+## 下一步 {id="next-step"}
 
 前往 [下一章節](jvm-spring-boot-using-crudrepository.md)。

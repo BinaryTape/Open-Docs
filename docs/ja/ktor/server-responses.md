@@ -29,7 +29,7 @@ Ktorは、HTMLレスポンスを生成するための主に2つのメカニズ�
 * Kotlin HTML DSLを使用したHTMLの構築。
 * [FreeMarker](https://freemarker.apache.org/) や [Velocity](https://velocity.apache.org/engine/) などのJVMテンプレートエンジンを使用したテンプレートのレンダリング。
 
-#### 完全なHTMLドキュメント
+#### 完全なHTMLドキュメント {id="full-html-documents"}
 
 Kotlin DSLで構築された完全なHTMLドキュメントを送信するには、[`call.respondHtml()`](https://api.ktor.io/ktor-server-html-builder/io.ktor.server.html/respond-html.html) 関数を使用します。
 
@@ -51,7 +51,7 @@ get("/") {
 }
 ```
 
-#### HTMLフラグメント
+#### HTMLフラグメント {id="partial-html-fragments"}
 
 `<html>`、`<head>`、`<body>` で囲わずに、HTMLの断片のみを返す必要がある場合は、`call.respondHtmlFragment()` を使用できます。
 
@@ -66,7 +66,7 @@ get("/") {
 }
 ```
 
-#### テンプレート
+#### テンプレート {id="templates"}
 
 レスポンスでテンプレートを送信するには、特定のコンテンツを指定して [`call.respond()`](https://api.ktor.io/ktor-server-core/io.ktor.server.response/respond.html) 関数を使用します。
 ```kotlin
@@ -152,7 +152,7 @@ fun Application.main() {
 
 完全なコードサンプルについては、[download-file](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/download-file) を参照してください。
 
-### リソース
+### リソース {id="resource"}
 
 [`call.respondResource()`](https://api.ktor.io/ktor-server-core/io.ktor.server.response/respond-resource.html) メソッドを使用して、<tooltip term="classpath">クラスパス</tooltip>から単一のリソースを提供できます。
 このメソッドはリソースへのパスを受け取り、次のように構築されたレスポンスを送信します。

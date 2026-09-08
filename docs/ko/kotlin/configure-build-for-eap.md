@@ -17,14 +17,14 @@ Kotlin EAP 버전은 이전에 릴리스된 버전의 라이브러리와 호환�
 * [Gradle에서 구성하기](#configure-in-gradle)
 * [Maven에서 구성하기](#configure-in-maven)
 
-## Gradle에서 구성하기 
+## Gradle에서 구성하기 {id="configure-in-gradle"}
 
 이 섹션에서는 다음 내용을 설명합니다:
 
 * [Kotlin 버전 조정하기](#adjust-the-kotlin-version)
 * [의존성 버전 조정하기](#adjust-versions-in-dependencies)
 
-### Kotlin 버전 조정하기
+### Kotlin 버전 조정하기 {id="adjust-the-kotlin-version"}
 
 `build.gradle(.kts)`의 `plugins` 블록에서 `KOTLIN-EAP-VERSION`을 `%kotlinEapVersion%`과 같은 실제 EAP 버전으로 변경하세요. [사용 가능한 EAP 버전 목록은 여기에서 확인하세요](eap.md#build-details).
 
@@ -63,7 +63,7 @@ repositories {
 </tab>
 </tabs>
 
-### 의존성 버전 조정하기
+### 의존성 버전 조정하기 {id="adjust-versions-in-dependencies"}
 
 프로젝트에서 kotlinx 라이브러리를 사용하는 경우, 해당 라이브러리 버전이 Kotlin EAP 버전과 호환되지 않을 수 있습니다.
 
@@ -100,7 +100,7 @@ dependencies {
 </tab>
 </tabs>
 
-## Maven에서 구성하기
+## Maven에서 구성하기 {id="configure-in-maven"}
 
 샘플 Maven 프로젝트 정의에서 `KOTLIN-EAP-VERSION`을 `%kotlinEapVersion%`과 같은 실제 버전으로 바꾸세요. [사용 가능한 EAP 버전 목록은 여기에서 확인하세요](eap.md#build-details).
 
@@ -145,7 +145,7 @@ dependencies {
 </project>
 ```
 
-## 문제가 발생하는 경우
+## 문제가 발생하는 경우 {id="if-you-run-into-any-problems"}
 
 * [이슈 트래커인 YouTrack](https://kotl.in/issue)에 이슈를 제보해 주세요.
 * [Kotlin Slack의 #eap 채널](https://app.slack.com/client/T09229ZC6/C0KLZSCHF)에서 도움을 받으세요 ([초대받기](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up)).

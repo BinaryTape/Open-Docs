@@ -10,7 +10,7 @@
 
 让我们来探索 Kotlin 的各种可能性。
 
-## 标准库
+## 标准库 {id="the-standard-library"}
 
 Kotlin 拥有一个标准库，提供基本的类型、函数、集合和实用程序，使您的代码简洁且富有表现力。标准库的大部分内容（[`kotlin` 软件包](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/)中的所有内容）在任何 Kotlin 文件中都是现成可用的，无需显式导入：
 
@@ -62,7 +62,7 @@ fun main() {
 * 使用 `hours` 属性将 `0.5` 转换为 30 分钟的 `Duration`。
 * 检查两个时长是否相等并打印结果。
 
-### 先搜索再构建
+### 先搜索再构建 {id="search-before-you-build"}
 
 在决定编写自己的代码之前，请检查标准库，看看您要找的内容是否已经存在。以下是标准库已经为您提供的一系列类、函数和属性的领域：
 
@@ -73,7 +73,7 @@ fun main() {
 
 要了解有关标准库中其他内容的更多信息，请查看其 [API 参考](https://kotlinlang.org/api/core/kotlin-stdlib/)。
 
-## Kotlin 库
+## Kotlin 库 {id="kotlin-libraries"}
 
 标准库涵盖了许多常见用例，但仍有一些它未涉及的领域。幸运的是，Kotlin 团队和社区的其他成员已经开发了广泛的库来补充标准库。例如，[`kotlinx-datetime`](https://kotlinlang.org/api/kotlinx-datetime/) 可以帮助您管理跨平台的时间。
 
@@ -109,7 +109,7 @@ fun main() {
 >
 {style="tip"}
 
-## 选择启用 API
+## 选择启用 API {id="opt-in-to-apis"}
 
 库作者可能会将某些 API 标记为需要选择启用，然后您才能在代码中使用它们。当 API 仍处于开发阶段且未来可能会发生变化时，他们通常会这样做。如果您不选择启用，则会看到如下警告或错误：
 
@@ -150,7 +150,7 @@ fun main() {
 
 这是选择启用的最简单方法，但还有其他方法。要了解更多信息，请参阅[选择启用要求](opt-in-requirements.md)。
 
-## 练习 {completion-point="true"}
+## 练习 {completion-point="true" id="practice"}
 
 ### 练习 1 {initial-collapse-state="collapsed" collapsible="true" id="libraries-exercise-1"}
 
@@ -268,7 +268,7 @@ fun main() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="参考答案" id="kotlin-tour-libraries-solution-3"}
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 恭喜！您已完成中级向导！您愿意[分享关于您体验的反馈](https://surveys.hotjar.com/bf4ce865-99ce-4fc1-b107-e9b16bc31592)吗？ 
 

@@ -34,7 +34,7 @@
 最終的應用程式可在 Android、iOS 與桌面端執行。
 桌面端應用程式同時也作為 [Compose Hot Reload](compose-hot-reload.md) 的範例：這是一種快速迭代 UI 行為的方法。
 
-## 潛在 Kotlin Multiplatform 遷移的檢查清單
+## 潛在 Kotlin Multiplatform 遷移的檢查清單 {id="checklist-for-a-potential-kotlin-multiplatform-migration"}
 
 潛在 KMP 遷移的主要障礙是 Java 與 Android View。
 如果您的專案已經使用 Kotlin 編寫並使用 Jetpack Compose 作為 UI，這會大幅降低遷移的複雜度。
@@ -46,7 +46,7 @@
 3. [補齊模組化技術債](#catch-up-with-modularization-technical-debt)
 4. [遷移至 Compose](#migrate-from-views-to-jetpack-compose)
 
-### 轉換或隔離 Java 程式碼
+### 轉換或隔離 Java 程式碼 {id="convert-or-isolate-java-code"}
 
 在原始的 Android Jetcaster 範例中，存在僅限 Java 的呼叫，例如 `Objects.hash()` 與 `Uri.encode()`，以及對 `java.time` 套件的大量使用。
 
@@ -59,7 +59,7 @@
 
 目前有[將 Java 遷移至 Kotlin 的指南](https://kotlinlang.org/docs/java-to-kotlin-idioms-strings.html)，以及 IntelliJ IDEA 中的[輔助工具](https://www.jetbrains.com/help/idea/get-started-with-kotlin.html#convert-java-to-kotlin)，可以自動轉換 Java 程式碼並簡化流程。
 
-### 檢查您僅限 Android/JVM 的相依性
+### 檢查您僅限 Android/JVM 的相依性 {id="check-your-android-jvm-only-dependencies"}
 
 雖然許多專案（尤其是較新的專案）可能不包含太多 Java 程式碼，但它們通常具有僅限 Android 的相依性。對於 Jetcaster 而言，尋找替代方案並遷移至這些方案佔據了大部分工作。
 
@@ -82,7 +82,7 @@
 
 很難提前識別所有此類情況，因此請準備好在遷移過程中尋找替代品或重寫程式碼。這就是為什麼我們展示如何以盡可能小的步驟從一個工作狀態移動到另一個狀態。這樣，單一問題就不會耽誤您的進度。
 
-### 補齊模組化技術債
+### 補齊模組化技術債 {id="catch-up-with-modularization-technical-debt"}
 
 KMP 允許您有選擇性地、逐一模組、逐一畫面地遷移至多平台狀態。
 但為了讓這項工作順利進行，您的模組結構需要清晰且易於操作。
@@ -96,7 +96,7 @@ KMP 允許您有選擇性地、逐一模組、逐一畫面地遷移至多平台�
 
 有了清晰的結構，即使您的專案有很多模組，您也應該能夠將它們單獨遷移至 KMP。這種方法比嘗試完全重寫更平滑。
 
-### 從 View 遷移至 Jetpack Compose
+### 從 View 遷移至 Jetpack Compose {id="migrate-from-views-to-jetpack-compose"}
 
 Kotlin Multiplatform 提供 Compose Multiplatform 作為建立跨平台 UI 程式碼的方式。
 為了順利過渡到 Compose Multiplatform，您的 UI 程式碼應已經使用 Compose 編寫。如果您目前正在使用 View，您需要在新典範中並使用新架構重寫該程式碼。
@@ -105,7 +105,7 @@ Kotlin Multiplatform 提供 Compose Multiplatform 作為建立跨平台 UI 程�
 Google 長期以來一直致力於推進與豐富 Compose。請查看 [Jetpack Compose 遷移指南](https://developer.android.com/develop/ui/compose/migrate)以獲取常見場景的協助，或嘗試[使用 AI 遷移的代理技能](https://github.com/android/skills/blob/main/jetpack-compose/migration/migrate-xml-views-to-jetpack-compose/SKILL.md)。
 您也可以使用 View 與 Compose 的互通性，但就像 Java 程式碼一樣，這些程式碼必須隔離在您的 `androidMain` 原始碼集中。
 
-## 讓應用程式多平台化的步驟
+## 讓應用程式多平台化的步驟 {id="steps-to-make-an-app-multiplatform"}
 
 在完成初步準備與評估後，一般流程如下：
 
@@ -128,7 +128,7 @@ Google 長期以來一直致力於推進與豐富 Compose。請查看 [Jetpack C
 > 
 {style="tip"}
 
-### 準備環境 {collapsible="true"}
+### 準備環境 {collapsible="true" id="prepare-the-environment"}
 
 如果您想遵循遷移步驟或在您的電腦上執行提供的範例，請確保您已準備好環境：
 
@@ -145,7 +145,7 @@ Google 長期以來一直致力於推進與豐富 Compose。請查看 [Jetpack C
    git@github.com:kotlin-hands-on/jetcaster-kmp-migration.git
    ```
 
-## 遷移至多平台程式庫
+## 遷移至多平台程式庫 {id="migrate-to-multiplatform-libraries"}
 
 應用程式的大部分功能都依賴於幾個程式庫。
 在為多平台支援配置模組之前，我們可以先將它們的使用過渡到與 KMP 相容：
@@ -169,7 +169,7 @@ Google 長期以來一直致力於推進與豐富 Compose。請查看 [Jetpack C
 
   > 參見[產出的提交](https://github.com/kotlin-hands-on/jetcaster-kmp-migration/commit/82109598dbfeda9dceecc10b40487f80639c5db4)。
 
-### 將 Java 相關程式碼重寫為 Kotlin
+### 將 Java 相關程式碼重寫為 Kotlin {id="rewrite-java-dependent-code-into-kotlin"}
 
 現在主要的程式庫都已經是多平台了，我們需要消除僅限 Java 的相依性。
 
@@ -181,7 +181,7 @@ Google 長期以來一直致力於推進與豐富 Compose。請查看 [Jetpack C
 
 所有與時間相關的重寫都收集在[這個提交](https://github.com/kotlin-hands-on/jetcaster-kmp-migration/commit/0cb5b31964991fdfaed7615523bb734b22f9c755)中。
 
-## 遷移商業邏輯
+## 遷移商業邏輯 {id="migrating-the-business-logic"}
 
 一旦主要相依性變為多平台，我們就可以選擇一個模組開始遷移。
 為專案中的模組建立相依圖會很有幫助。
@@ -231,9 +231,9 @@ flowchart TB
 4. `:core:domain-testing`
 5. `:core:designsystem` —— 雖然它沒有模組相依性，但這是一個 UI 輔助模組，因此我們只在準備將 UI 程式碼移入共享模組時才處理它。 
 
-### 遷移 :core:data
+### 遷移 :core:data {id="migrate-core-data"}
 
-#### 配置 :core:data 並遷移資料庫程式碼
+#### 配置 :core:data 並遷移資料庫程式碼 {id="configure-core-data-and-migrate-database-code"}
 
 Jetcaster 使用 [Room](https://developer.android.com/training/data-storage/room) 作為資料庫程式庫。
 由於 Room 從 2.7.0 版開始支援多平台，我們只需要更新程式碼即可跨平台運作。
@@ -252,7 +252,7 @@ Jetcaster 使用 [Room](https://developer.android.com/training/data-storage/room
 參見[產出的提交](https://github.com/kotlin-hands-on/jetcaster-kmp-migration/commit/098a72a25f07958b90ae8778081ab1c7f2988543)。
 它只需要更新 Gradle 配置並移動至原始碼集資料夾結構。
 
-#### 配置與遷移 :core:domain
+#### 配置與遷移 :core:domain {id="configure-and-migrate-core-domain"}
 
 如果所有的相依性都已考慮到並遷移至多平台，我們唯一要做的就是移動程式碼並重新配置模組。
 
@@ -262,14 +262,14 @@ Jetcaster 使用 [Room](https://developer.android.com/training/data-storage/room
 
 > 參見[產出的提交](https://github.com/kotlin-hands-on/jetcaster-kmp-migration/commit/a46f0a98b8d95656e664dca0d95da196034f2ec3)。
 
-#### 配置與遷移 :core:designsystem
+#### 配置與遷移 :core:designsystem {id="configure-and-migrate-core-designsystem"}
 
 在只剩下 UI 程式碼需要遷移的情況下，我們開始轉換包含字體資源與排版的 `:core:designsystem` 模組。
 除了配置 KMP 模組與建立 `commonMain` 原始碼集外，我們還將 `JetcasterTypography` 引數改為一個 composable，封裝了對多平台字體的呼叫。
 
 > 參見[產出的提交](https://github.com/kotlin-hands-on/jetcaster-kmp-migration/commit/4aa92e3f38d06aa64444163d865753e47e9b2a97)。
 
-## 遷移至多平台 UI
+## 遷移至多平台 UI {id="migrating-to-multiplatform-ui"}
 
 當所有 `:core` 邏輯都變為多平台後，您也可以開始將 UI 移至通用程式碼中。
 再次強調，由於我們的目標是完全遷移，我們目前尚未新增 iOS 目標，只是確保 Android 應用程式能與放置在通用程式碼中的 Compose 部分協作。
@@ -348,7 +348,7 @@ flowchart TB
 
 現在所有的 UI 程式碼都已經通用化，我們可以用它快速為其他平台建立應用程式。
 
-## 選用：新增 JVM 入口點
+## 選用：新增 JVM 入口點 {id="optional-add-a-jvm-entry-point"}
 
 這個選用步驟有助於：
 * 展示將完全多平台化的 Android 應用程式建立為桌面應用程式所需的工作量是多麼地少。
@@ -358,7 +358,7 @@ flowchart TB
 
 > 參見[產出的提交](https://github.com/kotlin-hands-on/jetcaster-kmp-migration/commit/af033dbf39188ef3991466727d155b988c30f1d3)。
 
-## 新增 iOS 入口點
+## 新增 iOS 入口點 {id="add-an-ios-entry-point"}
 
 iOS 入口點需要一個與 KMP 程式碼連結的 iOS 專案。
 
@@ -374,13 +374,13 @@ iOS 入口點需要一個與 KMP 程式碼連結的 iOS 專案。
 
 > 參見[產出的提交](https://github.com/kotlin-hands-on/jetcaster-kmp-migration/commit/2b2c412596e199b140089efc73de03e46f5c1d77)中新增的 iOS 專案與對應的程式碼更新。
 
-## 執行應用程式
+## 執行應用程式 {id="run-the-app"}
 
 在遷移後的應用程式最終狀態中，初始 Android 模組 (`mobile`) 與新的 iOS 應用程式都有執行配置。
 您可以從對應的 `main.kt` 檔案執行桌面應用程式。
 同時執行它們，看看共享 UI 在所有平台上的運作方式！
 
-## 最終總結
+## 最終總結 {id="final-summary"}
 
 在此遷移過程中，我們遵循了將純 Android 應用程式轉變為 Kotlin Multiplatform 應用程式的一般步驟：
 

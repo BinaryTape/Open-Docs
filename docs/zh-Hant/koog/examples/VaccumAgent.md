@@ -64,7 +64,7 @@ class VacuumEnv {
 - 代理可以感知其當前位置以及是否髒污
 - 代理可以採取操作：移動到特定位置或清理當前位置
 
-## 為吸塵器代理建立工具
+## 為吸塵器代理建立工具 {id="creating-tools-for-vacuum-agent"}
 現在，讓我們定義我們的 AI 代理將用於與環境互動的工具：
 
 ```kotlin
@@ -107,7 +107,7 @@ class VacuumTools(private val env: VacuumEnv) : ToolSet {
 - 這些工具允許代理感知其環境並採取行動
 - 每個方法都會傳回一個描述操作結果的字串
 
-## 設定代理
+## 設定代理 {id="setting-up-the-agent"}
 接下來，我們將設定並建立我們的 AI 代理：
 
 ```kotlin
@@ -165,7 +165,7 @@ val agent = AIAgent(
 4. 我們定義一個系統提示 (system prompt)，賦予代理其目標和行為規則
 5. 我們使用帶有對話策略 (chat strategy) 的 `AIAgent` 建構函式來建立代理
 
-## 執行代理
+## 執行代理 {id="running-the-agent"}
 
 最後，讓我們執行我們的代理：
 

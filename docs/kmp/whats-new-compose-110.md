@@ -9,9 +9,9 @@
 您可以在 [GitHub](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.10.0) 上找到此版本的完整变更列表。
 有关特定组件版本的详细信息，请参阅 [依赖项](#dependencies) 部分。
 
-## 破坏性变更与弃用
+## 破坏性变更与弃用 {id="breaking-changes-and-deprecations"}
 
-### 已弃用的依赖项别名
+### 已弃用的依赖项别名 {id="deprecated-dependency-aliases"}
 
 Compose Multiplatform Gradle 插件（`compose.ui` 等）支持的依赖项别名在 1.10.0-beta01 版本中已弃用。
 我们鼓励您在版本目录（version catalogs）中添加直接的库引用。
@@ -20,7 +20,7 @@ Compose Multiplatform Gradle 插件（`compose.ui` 等）支持的依赖项别�
 这一变化应该会让 Compose Multiplatform 库的依赖管理变得更加透明。
 未来，我们希望为 Compose Multiplatform 提供一个 BOM，以简化兼容版本的设置。
 
-### 已弃用的 `PredictiveBackHandler()`
+### 已弃用的 `PredictiveBackHandler()` {id="deprecated-predictivebackhandler"}
 
 Compose Multiplatform 中引入了 `PredictiveBackHandler()` 函数，旨在将原生 Android 的预测性返回导航手势引入其他平台。
 随着 Navigation 3 的发布，旧的实现已被弃用，取而代之的是新的 [Navigation Event](https://developer.android.com/jetpack/androidx/releases/navigationevent) 库及其 API。
@@ -42,20 +42,20 @@ Compose Multiplatform 中引入了 `PredictiveBackHandler()` 函数，旨在将�
 
 有关实现的详细信息，请参阅 [Navigation Event API 参考中的 NavigationEventHandler 页面](https://developer.android.com/reference/kotlin/androidx/navigationevent/NavigationEventHandler)。
 
-### 提高了最低 Kotlin 版本要求
+### 提高了最低 Kotlin 版本要求 {id="minimum-kotlin-version-increased"}
 
 如果您的项目包含原生或 Web 目标，最新的功能需要升级到 Kotlin 2.2.20。
 
-## 跨平台
+## 跨平台 {id="across-platforms"}
 
-### 统一的 `@Preview` 注解
+### 统一的 `@Preview` 注解 {id="unified-preview-annotation"}
 
 我们统一了各平台的预览方法。
 您现在可以在 `commonMain` 源集中使用 `androidx.compose.ui.tooling.preview.Preview` 注解。
 
 所有其他注解，例如 `org.jetbrains.compose.ui.tooling.preview.Preview` 以及特定于桌面端的 `androidx.compose.desktop.ui.tooling.preview.Preview`，均已弃用。
 
-### 自动调整互操作视图的大小
+### 自动调整互操作视图的大小 {id="autosizing-interop-views"}
 
 Compose Multiplatform 现在支持在桌面端和 iOS 端自动调整原生互操作元素的大小。
 这些元素现在可以根据其内容调整布局，从而无需手动计算精确大小并提前指定固定维度。
@@ -64,7 +64,7 @@ Compose Multiplatform 现在支持在桌面端和 iOS 端自动调整原生互�
 * 在 iOS 端，UIKit 互操作视图现在支持根据视图的拟合大小（固有内容大小）进行调整。
   这实现了对 SwiftUI 视图（通过 `UIHostingController`）以及不依赖于 `NSLayoutConstraints` 的基本 `UIView` 子类的正确包装。
 
-### 稳定的 `Popup` 和 `Dialog` 属性
+### 稳定的 `Popup` 和 `Dialog` 属性 {id="stable-popup-and-dialog-properties"}
 
 `DialogProperties` 中的以下属性已提升为稳定版本，不再是实验性的：
 `usePlatformInsets`、`useSoftwareKeyboardInset` 和 `scrimColor`。
@@ -73,14 +73,14 @@ Compose Multiplatform 现在支持在桌面端和 iOS 端自动调整原生互�
 
 不带 `PopupProperties` 参数的 `Popup` 重载的弃用级别已更改为 `ERROR`，以强制使用更新后的 API。
 
-### Skia 已更新至 Milestone 138
+### Skia 已更新至 Milestone 138 {id="skia-updated-to-milestone-138"}
 
 通过 Skiko，Compose Multiplatform 使用的 Skia 版本已更新至 Milestone 138。
 
 之前使用的 Skia 版本是 Milestone 132。
 您可以在 [发行说明](https://skia.googlesource.com/skia/+/refs/heads/chrome/m138/RELEASE_NOTES.md) 中查看这些版本之间的变更。
 
-### 支持 Navigation 3
+### 支持 Navigation 3 {id="support-for-navigation-3"}
 <primary-label ref="Experimental"/>
 
 Navigation 3 是一个专为配合 Compose 工作而设计的新导航库。
@@ -105,9 +105,9 @@ Compose Multiplatform 1.10.0-beta01 为在非 Android 目标上使用新的导�
 * 对 [浏览器历史记录导航](compose-navigation-routing.md#support-for-browser-navigation-in-web-apps) 以及在地址栏中使用目的地的支持将不会随 Compose Multiplatform 1.10 扩展到 Navigation 3。
   这已被推迟到跨平台库的后续版本中。
 
-## iOS
+## iOS {id="ios"}
 
-### 窗口内边距 (Window insets)
+### 窗口内边距 (Window insets) {id="window-insets"}
 
 Compose Multiplatform 现在支持 `WindowInsetsRulers`，它提供了根据窗口内边距（如状态栏、导航栏或屏幕键盘）定位 UI 元素并调整其大小的功能。
 
@@ -119,7 +119,7 @@ Compose Multiplatform 现在支持 `WindowInsetsRulers`，它提供了根据窗�
 > 
 {style="note"}
 
-### 改进的 IME 配置
+### 改进的 IME 配置 {id="improved-ime-configuration"}
 
 继 [1.9.0 中引入](whats-new-compose-190.md#ime-options) 的特定于 iOS 的 IME 自定义之后，此版本添加了用于配置带有 `PlatformImeOptions` 的文本输入视图的新 API。
 
@@ -128,7 +128,7 @@ Compose Multiplatform 现在支持 `WindowInsetsRulers`，它提供了根据窗�
  * `UIResponder.inputView` 指定一个自定义输入视图来替换默认的系统键盘。
  * `UIResponder.inputAccessoryView` 定义一个自定义辅助视图，该视图在 IME 激活时附加到系统键盘或自定义 `inputView` 后挂载。
 
-### 互操作视图的叠加层放置
+### 互操作视图的叠加层放置 {id="overlay-placement-for-interop-views"}
 <primary-label ref="Experimental"/>
 
 您现在可以使用实验性的 `placedAsOverlay` 标志将 `UIKitView` 和 `UIKitViewController` 视图放置在 Compose UI 之上。
@@ -147,9 +147,9 @@ UIKitViewController(
 
 请记住，此配置会将视图渲染在 Compose UI 层之上；因此，它在视觉上会覆盖位于同一区域的任何其他可组合项。
 
-## Web
+## Web {id="web"}
 
-### 资源缓存
+### 资源缓存 {id="resource-caching"}
 <primary-label ref="Experimental"/>
 
 Compose Multiplatform 现在使用 [Web Cache API](https://developer.mozilla.org/en-US/docs/Web/API/Cache) 来缓存静态资产和字符串资源的成功响应。
@@ -158,9 +158,9 @@ Compose Multiplatform 现在使用 [Web Cache API](https://developer.mozilla.org
 
 有关更多详细信息，请参阅 [拉取请求](https://github.com/JetBrains/compose-multiplatform/pull/5379) 和 [缓存 Web 资源](compose-web-resources.md#caching-web-resources) 文档。
 
-## 桌面端
+## 桌面端 {id="desktop"}
 
-### Compose Hot Reload 集成
+### Compose Hot Reload 集成 {id="compose-hot-reload-integration"}
 
 Compose Hot Reload 插件现在与 Compose Multiplatform Gradle 插件捆绑在一起。
 您不再需要单独配置 Hot Reload 插件，因为它在针对桌面端的 Compose Multiplatform 项目中默认启用。
@@ -173,16 +173,16 @@ Compose Hot Reload 插件现在与 Compose Multiplatform Gradle 插件捆绑在�
 捆绑的 Compose Hot Reload Gradle 插件的最低 Kotlin 版本为 2.1.20。
 如果检测到较旧版本的 Kotlin，热重载功能将被禁用。
 
-## Gradle
+## Gradle {id="gradle"}
 
-### 支持 AGP 9.0.0
+### 支持 AGP 9.0.0 {id="support-for-agp-9-0-0"}
 
 Compose Multiplatform 引入了对 Android Gradle 插件 (AGP) 9.0.0 版本的支持。
 为了与新的 AGP 版本兼容，请确保升级到 Compose Multiplatform 1.9.3 或 1.10.0。
 
 为了让更新过程在长期内更加顺畅，我们建议将您的项目结构更改为使用专用的 Android 应用程序模块。
 
-## 依赖项
+## 依赖项 {id="dependencies"}
 
 | 库 | Maven 坐标 | 基于 Jetpack 版本 |
 |--------------------|------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|

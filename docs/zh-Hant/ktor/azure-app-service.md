@@ -122,7 +122,7 @@ azurewebapp {
 
 ## 部署應用程式 {id="deploy-app"}
 
-### 部署至新的 Web 應用程式
+### 部署至新的 Web 應用程式 {id="to-a-new-web-app"}
 
 Azure Web App Deploy 外掛程式使用的身分驗證方法是透過 Azure CLI。如果您尚未登入，請使用 `az login` 登入一次並按照說明操作。
 
@@ -157,7 +157,7 @@ Application url: https://your-webapp-name.azurewebsites.net
 
 部署完成後，您應該能夠在上方顯示的 URL 看到新建立的 Web 應用程式正在執行。
 
-### 部署至現有的 Web 應用程式
+### 部署至現有的 Web 應用程式 {id="to-an-existing-web-app"}
 
 如果您在 Azure App Service 中已經有一個現有的 Java Web 應用程式，請先執行由 [Ktor 外掛程式](#plugins) 提供的 `buildFatJar` 任務來建置 fat JAR：
 

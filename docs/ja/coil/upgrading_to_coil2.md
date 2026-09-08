@@ -2,15 +2,15 @@
 
 このガイドは、Coil 1.x から 2.x へアップグレードする際の主な変更点と、それらへの対応方法をまとめた短編ガイドです。このアップグレードガイドでは、バイナリやソースレベルでの非互換な変更をすべて網羅しているわけではありませんが、最も重要な変更について説明します。
 
-## 最小 API レベル 21
+## 最小 API レベル 21 {id="minimum-api-21"}
 
 Coil 2.x は、API レベル 21 以上を必要とします。これは Compose および OkHttp 4.x で必要とされる最小 API と同じです。
 
-## ImageRequest のデフォルトスケール
+## ImageRequest のデフォルトスケール {id="imagerequest-default-scale"}
 
 Coil 2.x では、`ImageRequest` のデフォルトのスケール（scale）が `Scale.FILL` から `Scale.FIT` に変更されました。これは、`ImageView` のデフォルトの `ScaleType` や、`Image` のデフォルトの `ContentScale` と一貫性を持たせるためです。`ImageRequest.target` に `ImageView` を設定している場合、スケールは引き続き自動検出されます。
 
-## Size のリファクタリング
+## Size のリファクタリング {id="size-refactor"}
 
 `Size` の `width` と `height` は、`Int` 型のピクセル値ではなく、2 つの `Dimension` 型になりました。`Dimension` はピクセル値、または未定義/制約なしの状態を表す `Dimension.Undefined` のいずれかです。例えば、サイズが `Size(400, Dimension.Undefined)` の場合、高さに関係なく幅が 400 ピクセルになるように画像をスケールする必要があることを意味します。ピクセル値を取得するには `pxOrElse` 拡張関数を使用し、（ピクセル値が存在する場合）その値を取得するか、そうでなければフォールバック値を使用します。
 
@@ -23,7 +23,7 @@ if (width > 0) {
 
 この変更は、ターゲットが片方の次元において制約を持たない場合（例：`View` の `ViewGroup.LayoutParams.WRAP_CONTENT` や、Compose の `Constraints.Infinity`）のサポートを改善するために行われました。
 
-## Compose
+## Compose {id="compose"}
 
 Coil 2.x では、機能追加、安定性の向上、およびパフォーマンス改善のために Compose 統合が大幅に刷新されました。
 
@@ -64,7 +64,7 @@ Image(
 
 さらに、Coil には `AsyncImage` および `SubcomposeAsyncImage` コンポーザブル関数が追加されました。これらは新機能を追加し、`rememberAsyncImagePainter` の設計上の制限の一部を回避します。Compose の完全なドキュメントは[こちら](compose.md)で確認してください。
 
-## ディスクキャッシュ
+## ディスクキャッシュ {id="disk-cache"}
 
 Coil 2.x は、`imageLoader.diskCache` を通じてアクセスできる独自の公開ディスクキャッシュクラスを持つようになりました。Coil 1.x は OkHttp のディスクキャッシュに依存していましたが、それは不要になりました。
 
@@ -102,7 +102,7 @@ Coil 2.x では、`Cache-Control` やその他のキャッシュヘッダーは�
 
 Coil 1.x から 2.x にアップグレードすると、内部フォーマットが変更されているため、既存のディスクキャッシュはすべてクリアされます。
 
-## 画像パイプラインのリファクタリング
+## 画像パイプラインのリファクタリング {id="image-pipeline-refactor"}
 
 Coil 2.x は、より柔軟性を高めるために画像パイプラインクラスを刷新しました。主な変更点は以下の通りです。
 
@@ -111,6 +111,6 @@ Coil 2.x は、より柔軟性を高めるために画像パイプラインク�
 - `Mapper.map` のシグネチャに `Options` を追加しました。
 - `Fetcher.Factory` と `Decoder.Factory` を導入しました。特定の `Fetcher`/`Decoder` が適用可能かどうかを判断するためにファクトリを使用します。その `Fetcher`/`Decoder` が適用できない場合は `null` を返します。
 
-## ビットマッププールの削除
+## ビットマッププールの削除 {id="remove-bitmap-pooling"}
 
 Coil 2.x は、ビットマッププール（bitmap pooling）と、それに関連するクラス（`BitmapPool`、`PoolableViewTarget`）を削除しました。削除された理由については[こちら](https://github.com/coil-kt/coil/discussions/1186#discussioncomment-2305528)を参照してください。

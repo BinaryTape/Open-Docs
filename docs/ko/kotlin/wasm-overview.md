@@ -15,7 +15,7 @@ Kotlin/Wasm은 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-mult
 
 [//]: # (TODO KT-85415: For Kotlin/Wasm-compatible standalone runtimes, see Standalone runtimes).
 
-## Kotlin/Wasm 및 Compose Multiplatform
+## Kotlin/Wasm 및 Compose Multiplatform {id="kotlin-wasm-and-compose-multiplatform"}
 
 Kotlin을 사용하면 Compose Multiplatform 및 Kotlin/Wasm을 통해 웹 프로젝트에서 모바일 및 데스크톱 사용자 인터페이스(UI)를 빌드하고 재사용할 수 있습니다.
 
@@ -29,7 +29,7 @@ Kotlin을 사용하면 Compose Multiplatform 및 Kotlin/Wasm을 통해 웹 프�
 
 <a href="wasm-get-started.md" as="button" mode="rock" icon="arrow-right" icon-position="right">Kotlin/Wasm 시작하기</a>
 
-## Kotlin/Wasm 및 WASI
+## Kotlin/Wasm 및 WASI {id="kotlin-wasm-and-wasi"}
 
 Kotlin/Wasm은 백엔드 애플리케이션을 위해 [WebAssembly System Interface (WASI)](https://wasi.dev/)를 사용합니다. Kotlin/Wasm 및 WASI로 빌드된 애플리케이션은 Wasm-WASI 대상을 사용하므로, WASI API를 호출하고 브라우저 환경 밖에서 애플리케이션을 실행할 수 있습니다.
 
@@ -41,7 +41,7 @@ WASI는 WebAssembly로 컴파일된 Kotlin 애플리케이션을 다양한 환�
 >
 {style="tip"}
 
-### WebAssembly 컴포넌트 모델
+### WebAssembly 컴포넌트 모델 {id="webassembly-component-model"}
 <primary-label ref="experimental-general"/>
 
 WASI 0.2는 표준화된 인터페이스와 타입을 사용하여 Wasm 모듈로부터 컴포넌트를 빌드하는 방법을 정의하는 [WebAssembly 컴포넌트 모델(WebAssembly Component Model)](https://github.com/WebAssembly/component-model)을 기반으로 구축되었습니다. 이 모델을 사용하면 애플리케이션이나 라이브러리에서 언어 독립적인(language-agnostic) 컴포넌트를 정의할 수 있습니다. 또한 Wasm 모듈과 기존 컴포넌트를 결합하여 새로운 컴포넌트를 구성할 수 있습니다.
@@ -50,7 +50,7 @@ WebAssembly 컴포넌트 모델과 Kotlin/Wasm으로 무엇이 가능한지 알�
 
 <img src="kotlin-wasm-wasi-http.gif" alt="Kotlin/Wasm with WebAssembly Component Model" width="600"/>
 
-## Kotlin/Wasm 성능
+## Kotlin/Wasm 성능 {id="kotlin-wasm-performance"}
 
 Kotlin/Wasm은 아직 베타(Beta) 단계이지만, Kotlin/Wasm에서 실행되는 Compose Multiplatform은 이미 고무적인 성능 특성을 보여주고 있습니다. 실행 속도가 JavaScript를 능가하며 JVM의 속도에 근접하고 있음을 확인할 수 있습니다.
 
@@ -58,25 +58,25 @@ Kotlin/Wasm은 아직 베타(Beta) 단계이지만, Kotlin/Wasm에서 실행되�
 
 Google Chrome의 최신 버전 테스트 환경에서 정기적으로 Kotlin/Wasm 벤치마크를 실행하고 있으며, 위 결과는 해당 테스트를 통해 도출되었습니다.
 
-## 브라우저 API 지원
+## 브라우저 API 지원 {id="browser-api-support"}
 
 Kotlin/Wasm 표준 라이브러리는 DOM API를 포함한 브라우저 API에 대한 선언을 제공합니다. 이러한 선언을 통해 Kotlin API를 직접 사용하여 다양한 브라우저 기능을 접근하고 활용할 수 있습니다. 예를 들어, Kotlin/Wasm 애플리케이션에서 이러한 선언을 처음부터 정의하지 않고도 DOM 요소를 조작하거나 fetch API를 사용할 수 있습니다. 자세한 내용은 [Kotlin/Wasm 브라우저 예제](https://github.com/Kotlin/kotlin-wasm-browser-template)를 참고하세요.
 
 브라우저 API 지원을 위한 선언은 JavaScript [상호 운용성(interoperability) 기능](wasm-js-interop.md)을 사용하여 정의됩니다. 동일한 기능을 사용하여 사용자 정의 선언을 정의할 수도 있습니다. 또한, Kotlin/Wasm–JavaScript 상호 운용성을 통해 JavaScript에서 Kotlin 코드를 사용할 수 있습니다. 자세한 내용은 [JavaScript에서 Kotlin 코드 사용하기](wasm-js-interop.md#use-kotlin-code-in-javascript)를 참고하세요.
 
-## 피드백 남기기
+## 피드백 남기기 {id="leave-feedback"}
 
-### Kotlin/Wasm 피드백
+### Kotlin/Wasm 피드백 {id="kotlin-wasm-feedback"}
 
 * ![Slack](slack.svg){width=25}{type="joined"} Slack: [Slack 초대 받기](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) 후 [#webassembly](https://kotlinlang.slack.com/archives/CDFP59223) 채널에서 개발자들에게 직접 피드백을 남겨주세요.
 * [YouTrack](https://youtrack.jetbrains.com/issue/KT-56492)에서 문제를 보고해 주세요.
 
-### Compose Multiplatform 피드백
+### Compose Multiplatform 피드백 {id="compose-multiplatform-feedback"}
 
 * ![Slack](slack.svg){width=25}{type="joined"} Slack: [#compose-web](https://slack-chats.kotlinlang.org/c/compose-web) 공개 채널에서 피드백을 남겨주세요.
 * [GitHub에서 문제를 보고해 주세요](https://github.com/JetBrains/compose-multiplatform/issues).
 
-## 더 알아보기
+## 더 알아보기 {id="learn-more"}
 
 * [YouTube 재생목록](https://kotl.in/wasm-pl)에서 Kotlin/Wasm에 대해 더 자세히 알아보세요.
 * GitHub 저장소에서 [Kotlin/Wasm 예제](https://github.com/Kotlin/kotlin-wasm-examples)를 살펴보세요.

@@ -2,12 +2,12 @@
 
 本頁面說明如何使用內建的重試與逾時機制來處理 LLM 用戶端和提示執行器的失敗情況。
 
-## 重試功能
+## 重試功能 {id="retry-functionality"}
 
 使用 LLM 供應商時，可能會發生速率限制或暫時性服務不可用等暫時性錯誤。
 `RetryingLLMClient` 裝飾器可為 Kotlin 和 Java 中的任何 LLM 用戶端添加自動重試邏輯。
 
-### 基本用法
+### 基本用法 {id="basic-usage"}
 
 使用重試功能包裝任何現有的用戶端：
 
@@ -57,7 +57,7 @@
     ```
     <!--- KNIT example-handling-failures-java-01.java -->
 
-### 設定重試行為
+### 設定重試行為 {id="configuring-retry-behavior"}
 
 預設情況下，`RetryingLLMClient` 配置 LLM 用戶端時，最大重試次數為 3 次，初始延遲為 1 秒，
 以及最大延遲為 30 秒。
@@ -135,7 +135,7 @@ val customClient = RetryingLLMClient(
 ```
 <!--- KNIT example-handling-failures-03.kt -->
 
-### 重試錯誤模式
+### 重試錯誤模式 {id="retry-error-patterns"}
 
 預設情況下，`RetryingLLMClient` 會識別常見的暫時性錯誤。
 此行為由 [`RetryConfig.retryablePatterns`](api:prompt-executor-clients::ai.koog.prompt.executor.clients.retry.RetryConfig.retryablePatterns) 模式控制。
@@ -146,7 +146,7 @@ val customClient = RetryingLLMClient(
 Koog 提供的預定義重試配置和模式適用於所有支援的 LLM 供應商。
 您可以保留預設值或根據特定需求進行自訂。
 
-#### 模式類型
+#### 模式類型 {id="pattern-types"}
 
 您可以使用以下模式類型並組合任意數量的模式：
 
@@ -157,7 +157,7 @@ Koog 提供的預定義重試配置和模式適用於所有支援的 LLM 供應�
 
 如果任何模式回傳 `true`，該錯誤將被視為可重試，LLM 用戶端將重試該請求。
 
-#### 預設模式
+#### 預設模式 {id="default-patterns"}
 
 除非您自訂重試配置，否則預設使用以下模式：
 
@@ -183,7 +183,7 @@ Koog 提供的預定義重試配置和模式適用於所有支援的 LLM 供應�
 
 這些預設模式在 Koog 中定義為 [`RetryConfig.DEFAULT_PATTERNS`](api:prompt-executor-clients::ai.koog.prompt.executor.clients.retry.RetryConfig.Companion.DEFAULT_PATTERNS)。
 
-#### 自訂模式
+#### 自訂模式 {id="custom-patterns"}
 
 您可以針對特定需求定義自訂模式：
 
@@ -220,7 +220,7 @@ val config = RetryConfig(
 ```
 <!--- KNIT example-handling-failures-05.kt -->
 
-### 串流重試
+### 串流重試 {id="streaming-with-retry"}
 
 串流作業可以選擇性地進行重試。此功能預設為停用。
 
@@ -257,7 +257,7 @@ val stream = client.executeStreaming(prompt, OpenAIModels.Chat.GPT4o)
     一旦串流開始，重試邏輯就會停用。
     如果串流過程中發生錯誤，該作業將會終止。
 
-### 搭配提示執行器使用重試
+### 搭配提示執行器使用重試 {id="retry-with-prompt-executors"}
 
 使用提示執行器時，您可以在 Kotlin 和 Java 中建立執行器之前，先使用重試機制包裝底層的 LLM 用戶端。
 若要了解更多關於提示執行器的資訊，請參閱 [提示執行器](prompt-executors.md)。
@@ -341,7 +341,7 @@ val stream = client.executeStreaming(prompt, OpenAIModels.Chat.GPT4o)
     ```
     <!--- KNIT example-handling-failures-java-03.java -->
 
-## 逾時配置
+## 逾時配置 {id="timeout-configuration"}
 
 Kotlin 和 Java 中的所有 LLM 用戶端都支援逾時配置，以防止請求掛起。
 建立用戶端時，您可以使用 [`ConnectionTimeoutConfig`](api:prompt-executor-clients::ai.koog.prompt.executor.clients.ConnectionTimeoutConfig) 類別指定網路連線的逾時值。
@@ -409,7 +409,7 @@ Kotlin 和 Java 中的所有 LLM 用戶端都支援逾時配置，以防止請�
 !!! tip
     對於長時間執行或串流呼叫，請為 `requestTimeoutMillis` 和 `socketTimeoutMillis` 設定較高的值。
 
-## 錯誤處理
+## 錯誤處理 {id="error-handling"}
 
 在生產環境中使用 LLM 時，您需要實作錯誤處理，包括：
 

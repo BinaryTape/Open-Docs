@@ -8,11 +8,11 @@
 * 最初の並行テストを記述し、Lincheck で実行する。
 * 並行データ構造を作成し、2 つのテスト戦略を使用して Lincheck でテストする。
 
-## プロジェクトの作成
+## プロジェクトの作成 {id="create-a-project"}
 
 IntelliJ IDEA で既存の Kotlin プロジェクトを開くか、[新しく作成](https://kotlinlang.org/docs/jvm-get-started.html)してください。
 
-## 依存関係の追加
+## 依存関係の追加 {id="add-dependencies"}
 
 プロジェクトで Lincheck を使用するには、ビルド設定に対応する依存関係を追加します。
 
@@ -72,7 +72,7 @@ dependencies {
 </tab>
 </tabs>
 
-## 最初のテストの記述
+## 最初のテストの記述 {id="write-your-first-test"}
 
 基本的な並行テストでは、各スレッドで実行すべき操作と期待されるアサーションを記述するテスト関数を作成します。Lincheck は[モデル検査 (model checking)](lincheck-testing-strategies.md#model-checking) を使用してプログラムの考えられるスレッド・インターリービングを探索し、不正な動作が発生した場合にはエラーレポートを提供します。
 
@@ -147,7 +147,7 @@ dependencies {
             </def>
     </deflist>
 
-## データ構造のテストの記述
+## データ構造のテストの記述 {id="write-a-test-for-a-data-structure"}
 
 基本的な並行テストに加えて、Lincheck は並行データ構造をテストするための[宣言的アプローチ (declarative approach)](lincheck-how-to-test-data-structures.md) をサポートしています。
 
@@ -227,6 +227,6 @@ Lincheck でデータ構造をテストするには、構造の並行メソッ�
     | ------------------------ |
     ```
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 Lincheck での[並行データ構造をテストするための宣言的アプローチ (declarative approach)](lincheck-how-to-test-data-structures.md) について詳細を学習してください。

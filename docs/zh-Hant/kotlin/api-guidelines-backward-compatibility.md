@@ -16,7 +16,7 @@
 
 本節的其餘部分介紹了你可以採取的行動，以及可以用來協助確保不同類型相容性的工具。
 
-## 相容性類型 {initial-collapse-state="collapsed" collapsible="true"}
+## 相容性類型 {initial-collapse-state="collapsed" collapsible="true" id="compatibility-types"}
 
 **二進制相容性**意味著程式庫的新版本可以替換先前編譯的程式庫版本。
 任何針對程式庫的先前版本編譯的軟體都應繼續正確執行。
@@ -29,7 +29,7 @@
 
 **行為相容性**意味著程式庫的新版本不會修改現有功能（修復錯誤除外）。涉及相同的特性，且它們具有相同的語意。
 
-## 選擇相容的語言與 API 版本
+## 選擇相容的語言與 API 版本 {id="choose-compatible-language-and-api-versions"}
 
 發布程式庫時，請考慮其編譯期與執行期相容性：
 
@@ -48,7 +48,7 @@
 
 選擇最適合你的程式庫的語言與 API 版本。較新版本可以讓你採用最新的 Kotlin 特性，而較舊版本則有助於更多使用者使用你的程式庫。最佳選擇取決於你的程式庫使用案例以及依賴它的使用者數量。
 
-## 使用二進制相容性驗證器
+## 使用二進制相容性驗證器 {id="use-the-binary-compatibility-validator"}
 
 JetBrains 提供了一個 [二進制相容性驗證器](https://github.com/Kotlin/binary-compatibility-validator) 工具，可用於確保 API 不同版本之間的二進制相容性。
 
@@ -63,13 +63,13 @@ JetBrains 提供了一個 [二進制相容性驗證器](https://github.com/Kotli
 
 該驗證器對多平台程式庫產生的 [KLib 驗證具有實驗性支援](https://github.com/Kotlin/binary-compatibility-validator?tab=readme-ov-file#experimental-klib-abi-validation-support)。
 
-### Kotlin Gradle 外掛程式中的二進制相容性驗證
+### Kotlin Gradle 外掛程式中的二進制相容性驗證 {id="binary-compatibility-validation-in-the-kotlin-gradle-plugin"}
 
 <primary-label ref="experimental-general"/>
 
 從 2.2.0 版本開始，Kotlin Gradle 外掛程式支援二進制相容性驗證。欲了解更多資訊，請參閱 [Kotlin Gradle 外掛程式中的二進制相容性驗證](gradle-binary-compatibility-validation.md)。
 
-## 明確指定傳回型別
+## 明確指定傳回型別 {id="specify-return-types-explicitly"}
 
 正如 [Kotlin 編碼準則](coding-conventions.md#coding-conventions-for-libraries) 中所討論的，你應始終在 API 中明確指定函式傳回型別和屬性型別。另請參閱有關 [顯式 API 模式](api-guidelines-simplicity.md#use-explicit-api-mode) 的章節。
 
@@ -102,7 +102,7 @@ fun Int.defaultDeserializer() = JsonOrXmlDeserializer({ ... }, { ... })
 
 現有功能將繼續運作，並增加了反序列化 XML 的能力。然而，這破壞了二進制相容性。
 
-## 避免向現有 API 函式新增引數
+## 避免向現有 API 函式新增引數 {id="avoid-adding-arguments-to-existing-api-functions"}
 
 向公用 API 新增非預設引數會破壞二進制和原始碼相容性，因為使用者在叫用時需要比以前提供更多的資訊。然而，即使是新增 [預設引數](functions.md#parameters-with-default-values) 也會破壞相容性。
 
@@ -146,7 +146,7 @@ Exception in thread "main" java.lang.NoSuchMethodError: 'int LibKt.fib()'
 
 然而，原始碼相容性得到了保留。如果你重新編譯這兩個檔案，程式將像以前一樣執行。
 
-### 使用多載以保留二進制相容性 {initial-collapse-state="collapsed" collapsible="true"}
+### 使用多載以保留二進制相容性 {initial-collapse-state="collapsed" collapsible="true" id="use-overloads-to-preserve-binary-compatibility"}
 
 向已發布的 API 新增選填參數時，你可以使用 [實驗性](components-stability.md#stability-levels-explained) 的 [`@IntroducedAt`](java-to-kotlin-interop.md#overloads-generation) 註解來保留二進制相容性。
 
@@ -174,7 +174,7 @@ fun fib() = …
 fun fib(input: Int) = …
 ```
 
-## 避免加寬或縮窄傳回型別
+## 避免加寬或縮窄傳回型別 {id="avoid-widening-or-narrowing-return-types"}
 
 在演進 API 時，通常會想要加寬或縮窄函式的傳回型別。例如，在 API 的未來版本中，你可能希望將傳回型別從 `List` 切換為 `Collection` 或從 `Collection` 切換為 `List`。
 
@@ -221,7 +221,7 @@ Exception in thread "main" java.lang.NoSuchMethodError: 'java.lang.Number Librar
 
 JVM 正在嘗試叫用一個名為 demo 且傳回 `Number` 的 static 方法。然而，由於此方法已不再存在，你破壞了二進制相容性。
 
-## 避免在 API 中使用資料類別
+## 避免在 API 中使用資料類別 {id="avoid-using-data-classes-in-your-api"}
 
 在一般開發中，資料類別的優勢在於為你產生的額外函式。在 API 設計中，這種優勢變成了弱點。
 
@@ -264,7 +264,7 @@ public final User copy(java.lang.String, java.lang.String, boolean)
 
 資料類別的另一個問題是，更改建構函式引數的順序會影響產生的 `componentX` 方法，這些方法用於解構。即使它不破壞二進制相容性，更改順序也絕對會破壞行為相容性。
 
-## 避免更改註解目標
+## 避免更改註解目標 {id="avoid-changing-annotation-targets"}
 
 當你公開一個註解時，避免在發布程式庫後更改其允許的目標。更改目標可能會影響使用者重新編譯現有程式碼時套用相同註解的方式。
 
@@ -303,13 +303,13 @@ class User {
 }
 ```
 
-## 使用 PublishedApi 註解的考量因素
+## 使用 PublishedApi 註解的考量因素 {id="considerations-for-using-the-publishedapi-annotation"}
 
 Kotlin 允許內嵌函式成為程式庫 API 的一部分。對這些函式的呼叫將內嵌到使用者編寫的用戶端程式碼中。這可能會引入相容性問題，因此不允許這些函式呼叫非公用 API 宣告。
 
 如果你需要從內嵌的公用函式呼叫程式庫的內部 API，可以透過使用 [`@PublishedApi`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-published-api/) 對其進行標記來實現。這使得內部宣告實際上變成公用的，因為對它的引用將最終出現在編譯後的用戶端程式碼中。因此，在對其進行更改時，必須將其視為與公用宣告相同，因為這些更改可能會影響二進制相容性。
 
-## 務實地演進 API
+## 務實地演進 API {id="evolve-apis-pragmatically"}
 
 有時你需要隨時間推移透過移除或更改現有宣告來對程式庫的 API 進行重大變更。在本節中，我們將討論如何務實地處理此類情況。
 
@@ -325,7 +325,7 @@ Kotlin 允許內嵌函式成為程式庫 API 的一部分。對這些函式的�
 
 你可以在 [Kotlin 演進原則文件](kotlin-evolution-principles.md#libraries) 或 KotlinConf 2023 中由 Leonid Startsev 主講的 [Evolving your Kotlin API painlessly for clients 演講](https://www.youtube.com/watch?v=cCgXtpVPO-o&t=1468s) 中了解更多資訊。
 
-## 使用 RequiresOptIn 機制 
+## 使用 RequiresOptIn 機制 {id="use-the-requiresoptin-mechanism"}
 
 Kotlin 標準庫 [提供了選擇加入機制](opt-in-requirements.md)，要求使用者在呼叫 API 的一部分之前提供明確同意。這是基於建立標記註解，這些註解本身標記有 [`@RequiresOptIn`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-requires-opt-in/)。你應該使用此機制來管理有關原始碼和行為相容性的預期，尤其是在向程式庫引入新 API 時。
 
@@ -335,7 +335,7 @@ Kotlin 標準庫 [提供了選擇加入機制](opt-in-requirements.md)，要求�
 * 如果你的程式庫使用實驗性 API，[將註解傳播](opt-in-requirements.md#propagate-opt-in-requirements) 給你自己的使用者。這可確保你的使用者意識到你擁有仍在演進中的相依性。
 * 避免使用選擇加入機制來棄用程式庫中已存在的宣告。請改用 `@Deprecated`，如 [務實地演進 API](#evolve-apis-pragmatically) 一節所述。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 如果你還沒有看過，請考慮查看這些頁面：
 

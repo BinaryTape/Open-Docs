@@ -11,7 +11,7 @@
 
 このリリースの変更点の完全なリストは [GitHub](https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.8.0) で確認できます。
 
-## 依存関係
+## 依存関係 {id="dependencies"}
 
 * Gradle プラグイン `org.jetbrains.compose` バージョン 1.8.2。以下の Jetpack Compose ライブラリに基づいています：
     * [Runtime 1.8.2](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.8.2)
@@ -25,9 +25,9 @@
 * Savedstate ライブラリ `org.jetbrains.androidx.savedstate:savedstate:1.3.1`。[Jetpack Savedstate 1.3.0](https://developer.android.com/jetpack/androidx/releases/savedstate#1.3.0) に基づいています。
 * WindowManager Core ライブラリ `org.jetbrains.androidx.window:window-core:1.4.0-alpha07`。[Jetpack WindowManager 1.4.0-alpha04](https://developer.android.com/jetpack/androidx/releases/window#1.4.0-alpha04) に基づいています。
 
-## 破壊的変更
+## 破壊的変更 {id="breaking-changes"}
 
-### Compose Multiplatform の K2 コンパイラへの完全な移行
+### Compose Multiplatform の K2 コンパイラへの完全な移行 {id="full-migration-of-compose-multiplatform-to-the-k2-compiler"}
 
 このリリースにより、Compose Multiplatform のコードベースは完全に K2 コンパイラへと移行されました。
 1.8.0 以降、Compose Multiplatform に依存するプロジェクトによって生成された native および web の klib は、Kotlin 2.1.0 以降を使用している場合にのみ利用可能です。
@@ -41,7 +41,7 @@
 
 Compose Multiplatform 1.8.0 へのアップグレード時に互換性の問題が発生した場合は、[YouTrack](https://youtrack.jetbrains.com/newIssue?project=CMP) で問題を報告してお知らせください。
 
-### `material-icons-core` への暗黙的な依存関係の削除
+### `material-icons-core` への暗黙的な依存関係の削除 {id="implicit-dependency-on-material-icons-core-removed"}
 
 Compose Multiplatform 1.8.2 では、[Material で行われた変更](https://android.googlesource.com/platform/frameworks/support/+/1d1abef790da93325a83fe19b50ccdec06be6956)を取り込んでいます：
 `material-icons-core` への推移的な依存関係はなくなりました。
@@ -55,7 +55,7 @@ implementation("org.jetbrains.compose.material:material-icons-core:1.7.3")
 
 また、Material Symbols ライブラリの [ベクター Android XML アイコンを使用する](compose-multiplatform-resources-usage.md#icons) こともできます。
 
-### Navigation における Bundle から SavedState への移行
+### Navigation における Bundle から SavedState への移行 {id="migration-from-bundle-to-savedstate-in-navigation"}
 
 Compose Multiplatform 1.8.2 の Navigation は、Android の Navigation コンポーネントと同様に、UI 状態の保存に `SavedState` クラスを使用するように移行しています。
 これにより、ナビゲーショングラフでデスティネーションを宣言する際に状態データにアクセスするパターンが変更されます。
@@ -89,22 +89,22 @@ composable(Destinations.Followers.route) { navBackStackEntry ->
 }
 ```
 
-### iOS における `ComposeUIViewControllerDelegate` の非推奨化
+### iOS における `ComposeUIViewControllerDelegate` の非推奨化 {id="deprecated-composeuiviewcontrollerdelegate-on-ios"}
 
 `ComposeUIViewControllerDelegate` API は、親ビューコントローラーを優先するため非推奨となりました。
 Compose Multiplatform 1.8.2 で非推奨の API を使用すると、親ビューコントローラーを介して `UIViewController` クラスのメソッドをオーバーライドすべきであることを示す非推奨エラーが発生します。
 
 子と親のビューコントローラーの関係の詳細については、Apple の開発者 [ドキュメント](https://developer.apple.com/documentation/uikit/uiviewcontroller) を参照してください。
 
-### iOS における不要になった `platformLayers` オプションの削除
+### iOS における不要になった `platformLayers` オプションの削除 {id="removed-obsolete-platformlayers-option-on-ios"}
 
 `platformLayers` 実験的オプションは、代替のレイヤリングモードを有効にし、親コンテナの境界外にポップアップやダイアログを描画できるようにするために [1.6.0 で導入されました](whats-new-compose-160.md#separate-platform-views-for-popups-dialogs-and-dropdowns-ios-desktop)。
 
 このモードは現在 iOS でのデフォルトの動作となっており、有効にするためのオプションは不要になったため削除されました。
 
-### テストにおける破壊的変更
+### テストにおける破壊的変更 {id="breaking-changes-in-tests"}
 
-#### テストにおけるコルーチンの遅延処理の変更
+#### テストにおけるコルーチンの遅延処理の変更 {id="new-handling-of-coroutine-delays-in-tests"}
 
 以前の Compose Multiplatform のテストでは、`delay()` を呼び出すサイドエフェクトをアイドル状態とは見なしていませんでした。
 そのため、例えば以下のテストは無期限にハングしていました：
@@ -150,7 +150,7 @@ assertEquals("1", text)
 
 テストクロックを進めるためにすでに `mainClock.advanceTimeBy()` 呼び出しを使用しているテストは、再コンポジション、レイアウト、描画、およびエフェクトに関して異なる挙動を示す可能性があります。
 
-#### `runOnIdle()` の実装を Android と統一
+#### `runOnIdle()` の実装を Android と統一 {id="implementation-of-runonidle-aligned-with-android"}
 
 Compose Multiplatform の `runOnIdle()` テスト関数の実装を Android の挙動に合わせるため、以下の変更を導入しました：
 
@@ -159,28 +159,28 @@ Compose Multiplatform の `runOnIdle()` テスト関数の実装を Android の�
 
 テストが `runOnIdle()` アクションの後の追加の `waitForIdle()` 呼び出しに依存している場合は、Compose Multiplatform 1.8.2 用にアップデートする際に、必要に応じてその呼び出しを追加してください。
 
-#### テストでの時間の進行とレンダリングの分離
+#### テストでの時間の進行とレンダリングの分離 {id="advancing-time-in-tests-is-decoupled-from-rendering"}
 
 Compose Multiplatform 1.8.2 では、`mainClock.advanceTimeBy()` 関数は、次のフレームをレンダリングする時点を越えて時間が進まない限り、再コンポジション、レイアウト、または描画を引き起こさなくなりました（仮想テストフレームは 16ms ごとにレンダリングされます）。
 
 これにより、すべての `mainClock.advanceTimeBy()` 呼び出しによってレンダリングがトリガーされることに依存しているテストが壊れる可能性があります。詳細は [PR の説明](https://github.com/JetBrains/compose-multiplatform-core/pull/1618) を参照してください。
 
-## プラットフォーム共通
+## プラットフォーム共通 {id="across-platforms"}
 
-### バリアブルフォント
+### バリアブルフォント {id="variable-fonts"}
 
 Compose Multiplatform 1.8.2 は、すべてのプラットフォームでバリアブルフォント（variable fonts）をサポートします。
 バリアブルフォントを使用すると、太さ、幅、傾斜、イタリック、カスタム軸、タイポグラフィカラーを伴う視覚的な太さ、特定のテキストサイズへの適応など、すべてのスタイル設定を含む 1 つのフォントファイルを保持できます。
 
 詳細については、[Jetpack Compose ドキュメント](https://developer.android.com/develop/ui/compose/text/fonts#variable-fonts) を参照してください。
 
-### Skia を Milestone 132 にアップデート
+### Skia を Milestone 132 にアップデート {id="skia-updated-to-milestone-132"}
 
 Skiko を通じて Compose Multiplatform で使用されている Skia のバージョンが、Milestone 132 にアップデートされました。
 
 以前使用されていた Skia のバージョンは Milestone 126 でした。これらのバージョン間の変更点は [リリースノート](https://skia.googlesource.com/skia/+/main/RELEASE_NOTES.md#milestone-132) で確認できます。
 
-### 新しい Clipboard インターフェース
+### 新しい Clipboard インターフェース {id="new-clipboard-interface"}
 
 Compose Multiplatform は Jetpack Compose の新しい `Clipboard` インターフェースを採用しました。
 
@@ -188,7 +188,7 @@ Compose Multiplatform は Jetpack Compose の新しい `Clipboard` インター�
 
 共通コードからのクリップボード操作は、現在 API の設計により制限されています。詳細については [CMP-7624](https://youtrack.jetbrains.com/issue/CMP-7624) を参照してください。
 
-### 行高さ（Line-height）のアラインメント
+### 行高さ（Line-height）のアラインメント {id="line-height-alignment"}
 
 以前は Android 上の Compose Multiplatform でのみサポートされていた行高さ（line-height）アラインメントの共通 API が、すべてのプラットフォームでサポートされるようになりました。
 `LineHeightStyle.Alignment` を使用して、行高さによって提供されるスペース内でテキスト行をどのように配置するかを設定できます。
@@ -198,30 +198,30 @@ Compose Multiplatform は Jetpack Compose の新しい `Clipboard` インター�
 
 Material3 では、行高さアラインメントのデフォルト値は `Center` であることに注意してください。つまり、特に指定がない限り、すべてのプラットフォームの Material3 コンポーネントにおいて `lineHeight` を持つテキストには中央揃えが適用されます。
 
-## iOS
+## iOS {id="ios"}
 
-### ディープリンク
+### ディープリンク {id="deep-linking"}
 
 Compose Multiplatform 1.8.2 と [org.jetbrains.androidx.navigation.navigation-compose](compose-navigation-routing.md) を併用することで、iOS でも通常の Compose の手法でディープリンクを実装できます。つまり、デスティネーションにディープリンクを割り当て、`NavController` を使用してそれらに遷移できます。
 
 共通コードにディープリンクを導入するためのガイドについては、[ディープリンク](compose-navigation-deep-links.md) を参照してください。
 
-### XCFrameworks 内の Compose リソース
+### XCFrameworks 内の Compose リソース {id="compose-resources-in-xcframeworks"}
 
 Compose Multiplatform は、生成された XCFrameworks 内に直接リソースを埋め込むようになりました。
 リソースを含む Compose ライブラリを標準の XCFrameworks としてビルドし、使用できます。
 
 この機能には、Kotlin Gradle プラグインのバージョン 2.2 以上が必要です。
 
-### アクセシビリティサポートの向上
+### アクセシビリティサポートの向上 {id="accessibility-support-improvements"}
 
-#### 右から左に書く言語（RTL）のサポート
+#### 右から左に書く言語（RTL）のサポート {id="support-for-right-to-left-languages"}
 
 Compose Multiplatform 1.8.2 では、ジェスチャーに対する適切なテキスト方向の処理を含む、右から左に書く言語（RTL）のアクセシビリティサポートが導入されました。
 
 RTL サポートの詳細については、[右から左に書く言語](compose-rtl.md) を参照してください。
 
-#### スクロール可能なリストのアクセシビリティ
+#### スクロール可能なリストのアクセシビリティ {id="accessibility-for-scrollable-lists"}
 
 このバージョンでは、スクロール境界と要素位置の計算のパフォーマンスと精度が向上しました。
 ノッチや画面の端などのセーフエリアを考慮することで、ギャップやマージン付近のスクロールに対する正確なアクセシビリティプロパティを確保しています。
@@ -236,7 +236,7 @@ VoiceOver が有効な場合、3 本指のスクロールジェスチャーを�
 
 これらの読み上げのローカライズ版も提供されており、VoiceOver が選択した言語で読み上げることができます。
 
-#### コンテナビューのアクセシビリティ
+#### コンテナビューのアクセシビリティ {id="accessibility-for-container-views"}
 
 Compose Multiplatform 1.8.2 以降、複雑なビューをスクロールしたりスワイプしたりする際に正しい読み上げ順序を確保するために、コンテナのトラバーサル（巡回）セマンティックプロパティを定義できるようになりました。
 
@@ -244,21 +244,21 @@ Compose Multiplatform 1.8.2 以降、複雑なビューをスクロールした�
 
 トラバーサルセマンティックプロパティの詳細については、[アクセシビリティ](compose-accessibility.md#traversal-order) セクションを参照してください。
 
-#### アクセシブルなテキスト入力
+#### アクセシブルなテキスト入力 {id="accessible-text-input"}
 
 Compose Multiplatform 1.8.2 では、テキストフィールドのアクセシビリティ特性（traits）のサポートを導入しました。
 テキスト入力フィールドにフォーカスが当たると、編集可能としてマークされるようになり、適切なアクセシビリティ状態の表現が保証されます。
 
 また、UI テストでアクセシブルなテキスト入力を使用することも可能になりました。
 
-#### トラックパッドとキーボードによる操作のサポート
+#### トラックパッドとキーボードによる操作のサポート {id="support-for-control-via-trackpad-and-keyboard"}
 
 iOS 用 Compose Multiplatform で、デバイスを操作するための 2 つの追加の入力メソッドがサポートされました。タッチスクリーンに頼る代わりに、マウスやトラックパッドを使用するための AssistiveTouch、またはキーボードを使用するための「フルキーボードアクセス」のいずれかを有効にできます：
 
 * **AssistiveTouch**（**設定** | **アクセシビリティ** | **タッチ** | **AssistiveTouch**）を使用すると、接続されたマウスやトラックパッドのポインタで iPhone や iPad を操作できます。ポインタを使用して画面上のアイコンをクリックしたり、AssistiveTouch メニューを操作したり、画面上のキーボードを使用して入力したりできます。
 * **フルキーボードアクセス**（**設定** | **アクセシビリティ** | **キーボード** | **フルキーボードアクセス**）を使用すると、接続されたキーボードでデバイスを操作できます。**Tab** キーなどのキーで移動し、**スペース** キーで項目をアクティブにできます。
 
-#### オンデマンドでのアクセシビリティツリーの読み込み
+#### オンデマンドでのアクセシビリティツリーの読み込み {id="loading-accessibility-tree-on-demand"}
 
 Compose セマンティックツリーを iOS アクセシビリティツリーと同期する特定のモードを設定する代わりに、Compose Multiplatform がこのプロセスを遅延（lazy）処理するようになりました。
 ツリーは iOS アクセシビリティエンジンからの最初の要求の後に完全に読み込まれ、スクリーンリーダーがそれとのやり取りを停止すると破棄されます。
@@ -267,18 +267,18 @@ Compose セマンティックツリーを iOS アクセシビリティツリー�
 
 [アクセシビリティツリーの同期を設定するために使用されていた](compose-ios-accessibility.md#choose-the-tree-synchronization-option) `AccessibilitySyncOptions` クラスは、不要になったため削除されました。
 
-#### アクセシビリティプロパティ計算の精度向上
+#### アクセシビリティプロパティ計算の精度向上 {id="improved-accuracy-of-accessibility-property-calculations"}
 
 Compose Multiplatform コンポーネントのアクセシビリティプロパティを、UIKit コンポーネントの期待される動作に一致するように更新しました。
 UI 要素は広範なアクセシビリティデータを提供するようになり、アルファ値が 0 の透明なコンポーネントはアクセシビリティセマンティクスを提供しなくなりました。
 
 セマンティクスの調整により、`DropDown` 要素のヒットボックスの欠落、表示テキストとアクセシビリティラベルの不一致、ラジオボタンの状態の誤りなど、アクセシビリティプロパティの誤った計算に関連するいくつかの問題も修正されました。
 
-### iOS ロギングの安定版 API
+### iOS ロギングの安定版 API {id="stable-api-for-ios-logging"}
 
 iOS でオペレーティングシステムのロギングを有効にする API が安定版になりました。`enableTraceOSLog()` 関数は実験的機能へのオプトイン（experimental opt-in）を必要としなくなり、Android スタイルのロギングと足並みを揃えました。このロギングは、Xcode Instruments を使用してデバッグやパフォーマンス分析のために分析できるトレース情報を提供します。
 
-### ドラッグ＆ドロップ
+### ドラッグ＆ドロップ {id="drag-and-drop"}
 <primary-label ref="Experimental"/>
 
 iOS 用 Compose Multiplatform にドラッグ＆ドロップ機能のサポートが導入され、Compose アプリケーション内外にコンテンツをドラッグできるようになりました（デモビデオについてはプルリクエスト [1690](https://github.com/JetBrains/compose-multiplatform-core/pull/1690) を参照してください）。
@@ -291,7 +291,7 @@ iOS では、ドラッグ＆ドロップセッションのデータは [`UIDragI
 
 一般的なユースケースについては、Jetpack Compose ドキュメントの [専用の記事](https://developer.android.com/develop/ui/compose/touch-input/user-interactions/drag-and-drop) を参照してください。
 
-### スクロール相互運用ビューのタッチ処理の向上
+### スクロール相互運用ビューのタッチ処理の向上 {id="improved-touch-handling-for-scrolling-interop-views"}
 
 このリリースでは：
 
@@ -299,7 +299,7 @@ iOS では、ドラッグ＆ドロップセッションのデータは [`UIDragI
 * ネストされたスクロール可能なビューが、一般的な [相互運用タッチフレームワーク](compose-ios-touch.md) 内で正しく動作するようになりました：
   スクロール可能な Compose ビュー内でネイティブコンテンツをスクロールする場合、またはスクロール可能なネイティブビュー内で Compose コンテンツをスクロールする場合、UI は iOS のロジックに密接に従って曖昧なタッチシーケンスを解決します。
 
-### コンカレントレンダリングのオプトイン
+### コンカレントレンダリングのオプトイン {id="opt-in-concurrent-rendering"}
 <primary-label ref="Experimental"/>
 
 iOS 用 Compose Multiplatform で、レンダリングタスクを専用のレンダリングスレッドにオフロードできるようになりました。
@@ -318,9 +318,9 @@ fun main(vararg args: String) {
 }
 ```
 
-## Web
+## Web {id="web"}
 
-### Navigation ライブラリでのブラウザコントロールのサポート
+### Navigation ライブラリでのブラウザコントロールのサポート {id="browser-controls-supported-in-the-navigation-library"}
 
 Compose Multiplatform で構築された Kotlin/Wasm および Kotlin/JS アプリケーションにおいて、ナビゲーションが基本的なブラウザコントロールで正しく動作するようになりました。
 これを有効にするには、`window.bindToNavigation()` メソッドを使用してブラウザウィンドウをメインのナビゲーショングラフにリンクします。
@@ -329,7 +329,7 @@ Compose Multiplatform で構築された Kotlin/Wasm および Kotlin/JS アプ�
 Web アプリはブラウザのアドレスバーも操作して現在のデスティネーションルートを反映させ、ユーザーが正しいルートがエンコードされた URL を貼り付けたときにそのデスティネーションに直接移動するようになります（デモビデオについてはプルリクエスト [1640](https://github.com/JetBrains/compose-multiplatform-core/pull/1640) を参照してください）。
 `window.bindToNavigation()` メソッドにはオプションの `getBackStackEntryPath` パラメータがあり、ルート文字列から URL フラグメントへの変換をカスタマイズできます。
 
-### ブラウザカーソルの設定
+### ブラウザカーソルの設定 {id="setting-the-browser-cursor"}
 <primary-label ref="Experimental"/>
 
 ブラウザページ上のマウスポインタとして使用できるアイコンを管理するための、実験的な `PointerIcon.Companion.fromKeyword()` 関数を導入しました。
@@ -338,7 +338,7 @@ Web アプリはブラウザのアドレスバーも操作して現在のデス�
 
 利用可能な [キーワード](https://developer.mozilla.org/en-US/docs/Web/CSS/cursor) の完全なリストを確認してください。
 
-### リソースのプリロード
+### リソースのプリロード {id="preloading-of-resources"}
 <primary-label ref="Experimental"/>
 
 Compose Multiplatform 1.8.2 では、Web ターゲット向けのフォントや画像をプリロードするための新しい実験的 API が導入されました。
@@ -352,9 +352,9 @@ Compose Multiplatform 1.8.2 では、Web ターゲット向けのフォントや
 
 詳細は [ドキュメント](compose-web-resources.md#preload-resources-using-the-compose-multiplatform-preload-api) を参照してください。
 
-## デスクトップ
+## デスクトップ {id="desktop"}
 
-### Windows でのソフトウェアレンダリングの向上
+### Windows でのソフトウェアレンダリングの向上 {id="software-rendering-improvement-on-windows"}
 
 Windows 上の Skia に推奨される clang コンパイラに切り替えたことで、CPU に依存するレンダリングが高速化されました。
 レンダリングは一般的に GPU に依存し、一部の計算のみが CPU で行われるため、これは主に純粋なソフトウェアレンダリングに影響します。
@@ -363,13 +363,13 @@ Compose Multiplatform によって生成された Windows アプリは、それ�
 
 この改善は、Windows for ARM64 のサポートに加えて、macOS 上の仮想 Windows システムでの Compose Multiplatform UI のパフォーマンスを大幅に向上させます。
 
-### Windows for ARM64 のサポート
+### Windows for ARM64 のサポート {id="support-for-windows-for-arm64"}
 
 Compose Multiplatform 1.8.2 では JVM 上の Windows for ARM64 のサポートが導入され、ARM ベースの Windows デバイスでのアプリケーションの構築と実行の全体的なエクスペリエンスが向上しました。
 
-## Gradle プラグイン
+## Gradle プラグイン {id="gradle-plugin"}
 
-### 生成される Res クラス名を変更するオプション
+### 生成される Res クラス名を変更するオプション {id="option-to-change-the-generated-res-class-name"}
 
 アプリ内のリソースへのアクセスを提供する、生成されたリソースクラスの名前をカスタマイズできるようになりました。
 カスタム命名は、マルチモジュールプロジェクトでのリソースの区別に特に役立ち、プロジェクトの命名規則との一貫性を保つのに役立ちます。
@@ -384,7 +384,7 @@ compose.resources {
 
 詳細については、[プルリクエスト](https://github.com/JetBrains/compose-multiplatform/pull/5296) を参照してください。
 
-### `androidLibrary` ターゲットにおけるマルチプラットフォームリソースのサポート
+### `androidLibrary` ターゲットにおけるマルチプラットフォームリソースのサポート {id="support-for-multiplatform-resources-in-the-androidlibrary-target"}
 <primary-label ref="Experimental"/>
 
 Android Gradle プラグイン バージョン 8.8.0 以降、新しい `androidLibrary` ターゲットで生成されたアセットを使用できるようになりました。

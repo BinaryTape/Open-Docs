@@ -4,7 +4,7 @@ title: Androidでの注入
 
 モジュールを宣言し、Koinを開始したら、AndroidのActivity、Fragment、またはServiceでどのようにインスタンスを取得すればよいでしょうか？
 
-## Androidクラスでの準備
+## Androidクラスでの準備 {id="ready-for-android-classes"}
 
 `Activity`、`Fragment`、`Service` はKoinの拡張機能によって拡張されています。すべての `ComponentCallbacks` クラスで以下にアクセスできるようになります：
 
@@ -13,9 +13,9 @@ title: Androidでの注入
 * `by viewModel()` - ViewModelの遅延インスタンス取得
 * `getViewModel()` - ViewModelの即時インスタンス取得
 
-## 依存関係の定義
+## 依存関係の定義 {id="defining-dependencies"}
 
-### コンパイラプラグインDSL
+### コンパイラプラグインDSL {id="compiler-plugin-dsl"}
 
 ```kotlin
 val appModule = module {
@@ -24,7 +24,7 @@ val appModule = module {
 }
 ```
 
-### アノテーション
+### アノテーション {id="annotations"}
 
 ```kotlin
 @Factory
@@ -34,7 +34,7 @@ class Presenter(private val repository: UserRepository)
 class UserViewModel(private val repository: UserRepository) : ViewModel()
 ```
 
-### クラシックDSL
+### クラシックDSL {id="classic-dsl"}
 
 ```kotlin
 val appModule = module {
@@ -43,7 +43,7 @@ val appModule = module {
 }
 ```
 
-## Activityでの注入
+## Activityでの注入 {id="injecting-in-activity"}
 
 ```kotlin
 class DetailActivity : AppCompatActivity() {
@@ -61,7 +61,7 @@ class DetailActivity : AppCompatActivity() {
 }
 ```
 
-## Fragmentでの注入
+## Fragmentでの注入 {id="injecting-in-fragment"}
 
 ```kotlin
 class UserFragment : Fragment() {
@@ -77,7 +77,7 @@ class UserFragment : Fragment() {
 }
 ```
 
-## Serviceでの注入
+## Serviceでの注入 {id="injecting-in-service"}
 
 ```kotlin
 class MyService : Service() {
@@ -91,7 +91,7 @@ class MyService : Service() {
 }
 ```
 
-## 即時（Eager）注入 vs 遅延（Lazy）注入
+## 即時（Eager）注入 vs 遅延（Lazy）注入 {id="eager-vs-lazy-injection"}
 
 ```kotlin
 class DetailActivity : AppCompatActivity() {
@@ -120,7 +120,7 @@ class DetailActivity : AppCompatActivity() {
 クラスにKoinの拡張機能がない場合は、`KoinComponent` インターフェースを実装することで `inject()` や `get()` にアクセスできるようになります。
 :::
 
-## パラメータを指定した注入
+## パラメータを指定した注入 {id="injection-with-parameters"}
 
 注入時にパラメータを渡します：
 
@@ -139,7 +139,7 @@ class UserActivity : AppCompatActivity() {
 }
 ```
 
-## クォリファイア（Qualifier）を使用した注入
+## クォリファイア（Qualifier）を使用した注入 {id="injection-with-qualifiers"}
 
 同じ型の定義が複数ある場合：
 
@@ -158,7 +158,7 @@ class MyActivity : AppCompatActivity() {
 }
 ```
 
-## 定義内でのAndroid Contextの使用
+## 定義内でのAndroid Contextの使用 {id="using-android-context-in-definitions"}
 
 `Application` クラスで `androidContext` を使用してKoinを設定すると、定義内でそれを解決できるようになります。
 
@@ -174,7 +174,7 @@ class MyPresenter(private val context: Context)
 class MyRepository(private val application: Application)
 ```
 
-### DSL
+### DSL {id="dsl"}
 
 モジュール内で `androidContext()` または `androidApplication()` 関数を使用します：
 
@@ -189,7 +189,7 @@ val appModule = module {
 }
 ```
 
-## AndroidのスコープとContextの解決
+## AndroidのスコープとContextの解決 {id="android-scope-context-resolution"}
 
 `Context` 型をバインドしているスコープがある場合、異なるレベルから `Context` を解決する必要があるかもしれません。
 

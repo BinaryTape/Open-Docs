@@ -6,7 +6,7 @@ title: 定义
 
 定义 (Definitions) 声明了 Koin 如何创建和管理您的依赖项。本指南涵盖了使用 DSL 和注解 (Annotations) 的所有定义类型。
 
-## 定义类型
+## 定义类型 {id="definition-types"}
 
 | 类型 | DSL | 注解 | 生命周期 | 用例 |
 |------|-----|------------|-----------|----------|
@@ -15,9 +15,9 @@ title: 定义
 | 作用域 (Scoped) | `scoped()` | `@Scoped` | 每个作用域内仅一个实例 | 绑定到 Activity 或会话的对象 |
 | ViewModel | `viewModel()` | `@KoinViewModel` | Android ViewModel 生命周期 | ViewModel |
 
-## 声明定义
+## 声明定义 {id="declaring-definitions"}
 
-### 编译器插件 DSL (推荐)
+### 编译器插件 DSL (推荐) {id="compiler-plugin-dsl-recommended"}
 
 ```kotlin
 import org.koin.plugin.module.dsl.*
@@ -35,7 +35,7 @@ val appModule = module {
 }
 ```
 
-### 注解
+### 注解 {id="annotations"}
 
 ```kotlin
 @Singleton  // 或 @Single
@@ -51,7 +51,7 @@ class UserPresenter(private val repository: UserRepository)
 class UserViewModel(private val repository: UserRepository) : ViewModel()
 ```
 
-### 经典 DSL
+### 经典 DSL {id="classic-dsl"}
 
 ```kotlin
 val appModule = module {
@@ -69,7 +69,7 @@ val appModule = module {
 }
 ```
 
-## 定义对比
+## 定义对比 {id="definition-comparison"}
 
 | 概念 | 编译器插件 DSL | 经典 DSL | 注解 |
 |---------|---------------------|-------------|------------|
@@ -83,7 +83,7 @@ val appModule = module {
 编译器插件正在分析您的类和函数参数，以生成对 Koin `get()` 函数的正确调用，您无需再手动编写。
 :::
 
-## Single (单例)
+## Single (单例) {id="single-singleton"}
 
 创建一个在整个应用中重用的唯一实例：
 
@@ -98,7 +98,7 @@ class DatabaseHelper
 
 两者产生的结果相同——一个由所有使用者共享的单例实例。
 
-## Factory (工厂)
+## Factory (工厂) {id="factory"}
 
 每次都创建一个新实例：
 
@@ -111,7 +111,7 @@ factory<UserPresenter>()
 class UserPresenter(private val repository: UserRepository)
 ```
 
-## Scoped (作用域)
+## Scoped (作用域) {id="scoped"}
 
 每个作用域内创建一个唯一实例：
 
@@ -126,7 +126,7 @@ scope<MyActivity> {
 class ActivityPresenter
 ```
 
-## ViewModel
+## ViewModel {id="viewmodel"}
 
 具有正确生命周期的 Android ViewModel：
 
@@ -139,9 +139,9 @@ viewModel<UserViewModel>()
 class UserViewModel(private val repository: UserRepository) : ViewModel()
 ```
 
-## 接口绑定
+## 接口绑定 {id="interface-binding"}
 
-### 编译器插件 DSL
+### 编译器插件 DSL {id="compiler-plugin-dsl"}
 
 ```kotlin
 single<UserRepositoryImpl>() bind UserRepository::class
@@ -178,7 +178,7 @@ class UserRepositoryImpl(
 class UserRepositoryImpl : UserRepository
 ```
 
-## 限定符 (命名定义)
+## 限定符 (命名定义) {id="qualifiers-named-definitions"}
 
 当您拥有同一类型的多个定义时。另请参阅 [使用限定符注入](/docs/reference/koin-core/injection#injection-with-qualifiers) 以了解如何检索。
 
@@ -235,7 +235,7 @@ class UserRepository(
 )
 ```
 
-## 注入参数
+## 注入参数 {id="injected-parameters"}
 
 在注入时传递参数：
 
@@ -281,7 +281,7 @@ class UserPresenter(
 val presenter: UserPresenter = get { parametersOf("user123") }
 ```
 
-## 可选依赖项
+## 可选依赖项 {id="optional-dependencies"}
 
 ### 编译器插件 DSL
 
@@ -317,7 +317,7 @@ class MyService(
 )
 ```
 
-## 延迟注入
+## 延迟注入 {id="lazy-injection"}
 
 延迟实例创建：
 
@@ -350,7 +350,7 @@ class MyService(
 )
 ```
 
-## 属性 (Properties)
+## 属性 (Properties) {id="properties"}
 
 注入配置值：
 
@@ -386,9 +386,9 @@ class ApiClient(
 )
 ```
 
-## 回调
+## 回调 {id="callbacks"}
 
-### onClose 回调
+### onClose 回调 {id="onclose-callback"}
 
 实例释放时执行代码：
 
@@ -400,7 +400,7 @@ single {
 }
 ```
 
-### createdAtStart
+### createdAtStart {id="createdatstart"}
 
 在启动时预先创建实例：
 
@@ -416,9 +416,9 @@ single(createdAtStart = true) {
 }
 ```
 
-## 定义重写 (Definition Override)
+## 定义重写 (Definition Override) {id="definition-override"}
 
-### 默认：最后定义的胜出
+### 默认：最后定义的胜出 {id="default-last-wins"}
 
 ```kotlin
 val prodModule = module {
@@ -434,7 +434,7 @@ startKoin {
 }
 ```
 
-### 显式重写
+### 显式重写 {id="explicit-override"}
 
 在严格模式下，显式标记重写：
 
@@ -449,11 +449,11 @@ startKoin {
 }
 ```
 
-## 安全 DSL 模式
+## 安全 DSL 模式 {id="safe-dsl-patterns"}
 
 Koin 编译器插件在编译时转换 DSL 定义——自动装配构造函数参数并对其进行验证。以下是关键模式：
 
-### 使用 create() 的函数构建器
+### 使用 create() 的函数构建器 {id="function-builders-with-create"}
 
 使用 `create(::function)` 来包装您不拥有的外部库。函数参数将从 DI 容器中自动解析：
 
@@ -477,7 +477,7 @@ val databaseModule = module {
 
 这是 Room 数据库、Retrofit 服务、OkHttp 客户端以及其他外部库的推荐模式。
 
-### 使用 includes() 进行模块组合
+### 使用 includes() 进行模块组合 {id="module-composition-with-includes"}
 
 按层组织模块并对其进行组合：
 
@@ -496,7 +496,7 @@ val networkModule = module {
 private fun json(): Json = Json { ignoreUnknownKeys = true }
 ```
 
-### 应用模块 — 组合一切
+### 应用模块 — 组合一切 {id="app-module-composing-everything"}
 
 应用模块包含所有功能模块，并声明 ViewModel 和用例：
 
@@ -531,7 +531,7 @@ val appModule = module {
 }
 ```
 
-### DSL 中的自定义限定符
+### DSL 中的自定义限定符 {id="custom-qualifiers-in-dsl"}
 
 限定符注解也适用于 `create(::function)`：
 
@@ -556,7 +556,7 @@ fun coroutineScope(
 ) = CoroutineScope(SupervisorJob() + default)
 ```
 
-### DSL 配合 Worker
+### DSL 配合 Worker {id="worker-with-dsl"}
 
 ```kotlin
 import org.koin.dsl.module
@@ -569,7 +569,7 @@ val syncModule = module {
 }
 ```
 
-### 完整模式：带接口绑定的仓库
+### 完整模式：带接口绑定的仓库 {id="complete-pattern-repository-with-interface-binding"}
 
 ```kotlin
 import org.koin.dsl.module
@@ -587,7 +587,7 @@ val dataModule = module {
 
 所有这些定义都在编译时由 Koin 编译器插件进行验证——缺失的依赖项、限定符不匹配以及损坏的调用站点都会在构建时被捕获。请参阅 [编译时安全](/docs/reference/koin-compiler/compile-safety)。
 
-## 最佳做法
+## 最佳做法 {id="best-practices"}
 
 1. **优先使用构造函数注入** - 使代码在不使用 Koin 的情况下也具备可测试性。
 2. **对无状态服务使用 `single`** - 如仓库、客户端、帮助程序。
@@ -597,7 +597,7 @@ val dataModule = module {
 6. **绑定到接口** - 依赖于抽象而非实现。
 7. **对外部库使用 `create(::builder)`** - 更安全的依赖解析方式。
 
-## 下一步
+## 下一步 {id="next-steps"}
 
 - **[注入](/docs/reference/koin-core/injection)** - 检索依赖项
 - **[限定符](/docs/reference/koin-core/qualifiers)** - 命名和类型化限定符

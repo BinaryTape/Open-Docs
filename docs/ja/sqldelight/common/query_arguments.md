@@ -1,4 +1,4 @@
-## 型推論
+## 型推論 {id="type-inference"}
 
 SQLDelightは、カスタムカラム型を含む実行時パラメータの正しい型とNull許容性（nullability）を推論します。
 
@@ -15,7 +15,7 @@ println(selectNumber10.executeAsOne())
 // "Corey Perry" を出力
 ```
 
-## 名前付き引数
+## 名前付き引数 {id="named-arguments"}
 
 名前付きパラメータ、またはインデックス付きパラメータを使用できます。
 
@@ -31,7 +31,7 @@ OR full_name LIKE (:name || ' %');
 playerQueries.firstOrLastName(name = "Ryan")
 ```
 
-## 可変長引数
+## 可変長引数 {id="variable-arguments"}
 
 値のセットを引数として渡すこともできます。
 
@@ -46,7 +46,7 @@ WHERE full_name IN ?;
 playerQueries.selectByNames(listOf("Alec", "Jake", "Matt"))
 ```
 
-## インサート
+## インサート {id="inserts"}
 
 `INSERT VALUES` の引数は、テーブルのデータクラスにバインドすることができます。
 
@@ -64,7 +64,7 @@ val rickardRakell = HockeyPlayer(
 playerQueries.insertPlayer(rickardRakell)
 ```
 
-## 入力のサニタイズ
+## 入力のサニタイズ {id="input-sanitization"}
 
 SQLDelightは、クエリに引数を渡すためにクエリプレースホルダーを使用します。
 引数入力の実際のサニタイズは、各プラットフォームやダイアレクト（方言）における、基盤となるドライバーの実装によって行われます。

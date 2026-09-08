@@ -11,7 +11,7 @@ Compose Multiplatform 中的对话框作为一个模态容器，它会获取焦�
 
 当您需要中断用户并在其继续操作前要求做出决定时（例如：响应确认、警报或简短表单），请使用 [`Dialog()`](https://developer.android.com/reference/kotlin/androidx/compose/ui/window/Dialog.composable)。对于桌面端独立的操作系统级对话框，请参阅 [`DialogWindow()`](compose-desktop-top-level-windows-management.md#show-dialogs)。对于保持锚定在当前窗口内组件上的轻量级、非阻塞覆盖层（如下拉菜单、工具提示和菜单），请使用 `Popup()`。
 
-## 定位弹出窗口
+## 定位弹出窗口 {id="position-a-popup"}
 
 要定位弹出窗口，可以使用 `alignment`（对齐）和 `offset`（偏移量），或者使用自定义的 `PopupPositionProvider` 进行锚定放置。
 
@@ -88,7 +88,7 @@ Column(Modifier.padding(24.dp)) {
 }
 ```
 
-## 自定义行为
+## 自定义行为 {id="customize-behavior"}
 
 通过 `PopupProperties`，您可以控制弹出窗口如何处理焦点和关闭操作：
 
@@ -100,7 +100,7 @@ Column(Modifier.padding(24.dp)) {
 然而，某些属性在公共源集中不可用。
 例如，`usePlatformInsets` 在 iOS 上可用，它会将弹出窗口的内容限制在平台插入栏（安全区域）内。
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 有关完整的 API 详情，请参阅 Jetpack Compose 文档中的参考资料：
 * [`Popup()`](https://developer.android.com/reference/kotlin/androidx/compose/ui/window/Popup.composable)

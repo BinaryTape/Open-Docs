@@ -1,6 +1,6 @@
 [//]: # (title: Java와의 비교)
 
-## Kotlin에서 해결된 Java의 문제점들
+## Kotlin에서 해결된 Java의 문제점들 {id="some-java-issues-addressed-in-kotlin"}
 
 Kotlin은 Java가 겪고 있는 일련의 문제들을 해결합니다:
 
@@ -12,7 +12,7 @@ Kotlin은 Java가 겪고 있는 일련의 문제들을 해결합니다:
 * Kotlin에는 체크드 [예외(exceptions)](exceptions.md)가 없습니다.
 * [읽기 전용 컬렉션과 가변 컬렉션을 위한 인터페이스가 분리되어 있습니다](collections-overview.md).
 
-## Java에는 있지만 Kotlin에는 없는 것
+## Java에는 있지만 Kotlin에는 없는 것 {id="what-java-has-that-kotlin-does-not"}
 
 * [체크드 예외(Checked exceptions)](exceptions.md)
 * 클래스가 아닌 [기본 타입(Primitive types)](types-overview.md). 바이트코드에서는 가능한 경우 기본 타입을 사용하지만, 명시적으로 사용할 수는 없습니다.
@@ -28,7 +28,7 @@ Kotlin은 Java가 겪고 있는 일련의 문제들을 해결합니다:
 >
 {style="note"}
 
-## Kotlin에는 있지만 Java에는 없는 것
+## Kotlin에는 있지만 Java에는 없는 것 {id="what-kotlin-has-that-java-does-not"}
 
 * [람다 식(Lambda expressions)](lambdas.md) + [인라인 함수(Inline functions)](inline-functions.md) = 성능이 뛰어난 사용자 정의 제어 구조
 * [확장 함수(Extension functions)](extensions.md)
@@ -58,7 +58,7 @@ Kotlin은 Java가 겪고 있는 일련의 문제들을 해결합니다:
 >
 {style="note"}
 
-## 다음 단계는?
+## 다음 단계는? {id="what-s-next"}
 
 다음 방법들을 알아보세요:
 * [Java와 Kotlin의 문자열을 활용한 일반적인 작업](java-to-kotlin-idioms-strings.md) 수행 방법.

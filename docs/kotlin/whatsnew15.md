@@ -12,7 +12,7 @@ Kotlin 1.5.0 引入了新的语言功能、稳定的基于 IR 的 JVM 编译器�
 >
 {style="tip"}
 
-## 语言功能
+## 语言功能 {id="language-features"}
 
 Kotlin 1.5.0 带来了 [1.4.30 预览版](whatsnew1430.md#language-features) 中推出的新语言功能的稳定版本：
 * [JVM 记录支持](#jvm-records-support)
@@ -21,7 +21,7 @@ Kotlin 1.5.0 带来了 [1.4.30 预览版](whatsnew1430.md#language-features) 中
 
 有关这些功能的详细描述，请参阅 [这篇博客文章](https://blog.jetbrains.com/kotlin/2021/02/new-language-features-preview-in-kotlin-1-4-30/) 以及 Kotlin 文档的相关页面。
 
-### JVM 记录支持
+### JVM 记录支持 {id="jvm-records-support"}
 
 Java 正在快速演进，为了确保 Kotlin 保持与其互操作，我们引入了对 Java 最新功能之一——[记录类 (record classes)](https://openjdk.java.net/jeps/395) 的支持。
 
@@ -38,7 +38,7 @@ data class User(val name: String, val age: Int)
 
 <video src="https://www.youtube.com/v/iyEWXyuuseU" title="Kotlin 1.5.0 对 JVM 记录的支持"/>
 
-### 密封接口
+### 密封接口 {id="sealed-interfaces"}
 
 Kotlin 接口现在可以使用 `sealed` 修饰符，其对接口的作用方式与对类相同：密封接口的所有实现在编译时都是已知的。
 
@@ -67,7 +67,7 @@ class FilledRectangle: Polygon, Fillable
 
 <video src="https://www.youtube.com/v/d_Mor21W_60" title="密封接口与密封类改进"/>
 
-### 整个包范围内的密封类层次结构
+### 整个包范围内的密封类层次结构 {id="package-wide-sealed-class-hierarchies"}
 
 密封类现在可以在同一编译单元和同一包的所有文件中拥有子类。此前，所有子类都必须出现在同一个文件中。
 
@@ -77,7 +77,7 @@ class FilledRectangle: Polygon, Fillable
 
 [详细了解密封类层次结构](sealed-classes.md#inheritance)。
 
-### 内联类
+### 内联类 {id="inline-classes"}
 
 内联类是[基于值的 (value-based)](https://github.com/Kotlin/KEEP/blob/master/notes/value-classes.md) 类的一个子集，仅持有值。您可以将它们用作某种类型值的包装器，而不会产生内存分配带来的额外开销。
 
@@ -100,7 +100,7 @@ value class Password(val s: String)
 
 <video src="https://www.youtube.com/v/LpqvtgibbsQ" title="从内联类到值类"/>
 
-## Kotlin/JVM
+## Kotlin/JVM {id="kotlin-jvm"}
 
 Kotlin/JVM 获得了一系列改进，包括内部改进和面向用户的改进。以下是其中最显著的变化：
 
@@ -111,7 +111,7 @@ Kotlin/JVM 获得了一系列改进，包括内部改进和面向用户的改进
 * [弃用 @JvmDefault 和旧的 Xjvm-default 模式](#deprecation-of-jvmdefault-and-old-xjvm-default-modes)
 * [处理为 null 性注解的改进](#improvements-to-handling-nullability-annotations)
 
-### 稳定的 JVM IR 后端
+### 稳定的 JVM IR 后端 {id="stable-jvm-ir-backend"}
 
 Kotlin/JVM 编译器的 [基于 IR 的后端](whatsnew14.md#new-jvm-ir-backend) 现在已达到 [稳定 (Stable)](components-stability.md) 状态并默认启用。
 
@@ -154,7 +154,7 @@ Kotlin/JVM 编译器的 [基于 IR 的后端](whatsnew14.md#new-jvm-ir-backend) 
  </configuration>
  ```
 
-### 新的默认 JVM 目标：1.8
+### 新的默认 JVM 目标：1.8 {id="new-default-jvm-target-1-8"}
 
 Kotlin/JVM 编译的默认目标版本现在为 `1.8`。`1.6` 目标已被弃用。
 
@@ -164,7 +164,7 @@ Kotlin/JVM 编译的默认目标版本现在为 `1.8`。`1.6` 目标已被弃用
 * [在 Maven 中](maven-kotlin-compiler.md#attributes-specific-to-jvm)
 * [在命令行编译器中](compiler-reference.md#jvm-target-version)
 
-### 通过 invokedynamic 实现 SAM 适配器
+### 通过 invokedynamic 实现 SAM 适配器 {id="sam-adapters-via-invokedynamic"}
 
 Kotlin 1.5.0 现在使用动态调用 (`invokedynamic`) 来编译 SAM（单个抽象方法）转换：
 * 如果 SAM 类型是 [Java 接口](java-interop.md#sam-conversions)，则对任何表达式生效
@@ -176,7 +176,7 @@ Kotlin 1.5.0 现在使用动态调用 (`invokedynamic`) 来编译 SAM（单个�
 
 了解如何在 [Gradle](gradle-compiler-options.md)、[Maven](maven-kotlin-compiler.md#specify-compiler-options) 和 [命令行编译器](compiler-reference.md#compiler-options) 中添加编译器选项。
 
-### 通过 invokedynamic 实现 Lambda 表达式
+### 通过 invokedynamic 实现 Lambda 表达式 {id="lambdas-via-invokedynamic"}
 
 > 将普通的 Kotlin lambda 编译为 invokedynamic 是 [实验性的 (Experimental)](components-stability.md)。它可能随时被删除或更改。
 > 需要手动启用（详情见下文），且仅应将其用于评估目的。我们希望在 [YouTrack](https://youtrack.jetbrains.com/issue/KT-45375) 上收到您对此功能的反馈。
@@ -193,7 +193,7 @@ Kotlin 1.5.0 引入了对将普通 Kotlin lambda（未转换为函数式接口�
 
 了解如何在 [Gradle](gradle-compiler-options.md)、[Maven](maven-kotlin-compiler.md#specify-compiler-options) 和 [命令行编译器](compiler-reference.md#compiler-options) 中添加编译器选项。
 
-### 弃用 @JvmDefault 和旧的 Xjvm-default 模式
+### 弃用 @JvmDefault 和旧的 Xjvm-default 模式 {id="deprecation-of-jvmdefault-and-old-xjvm-default-modes"}
 
 在 Kotlin 1.4.0 之前，存在 `@JvmDefault` 注解以及 `-Xjvm-default=enable` 和 `-Xjvm-default=compatibility` 模式。它们用于为 Kotlin 接口中的任何特定非抽象成员创建 JVM 默认方法。
 
@@ -203,7 +203,7 @@ Kotlin 1.5.0 引入了对将普通 Kotlin lambda（未转换为函数式接口�
 
 [详细了解 Java 互操作中的默认方法](java-to-kotlin-interop.md#default-methods-in-interfaces)。
 
-### 处理为 null 性注解的改进
+### 处理为 null 性注解的改进 {id="improvements-to-handling-nullability-annotations"}
 
 Kotlin 支持通过 [为 null 性注解 (nullability annotations)](java-interop.md#nullability-annotations) 处理来自 Java 的类型为 null 性信息。Kotlin 1.5.0 为该功能引入了多项改进：
 
@@ -221,13 +221,13 @@ Kotlin 支持通过 [为 null 性注解 (nullability annotations)](java-interop.
 
 [详细了解空安全和平台类型](java-interop.md#null-safety-and-platform-types)。
 
-## Kotlin/Native
+## Kotlin/Native {id="kotlin-native"}
 
 Kotlin/Native 现在具有更好的性能和稳定性。显著变化包括：
 * [性能改进](#performance-improvements)
 * [停用内存泄漏检查器](#deactivation-of-the-memory-leak-checker)
 
-### 性能改进
+### 性能改进 {id="performance-improvements"}
 
 在 1.5.0 中， Kotlin/Native 获得了一系列性能改进，提升了编译和执行速度。
 
@@ -243,7 +243,7 @@ Kotlin/Native 现在具有更好的性能和稳定性。显著变化包括：
 * 琐碎的属性访问器会被内联。
 * 字符串字面量上的 `trimIndent()` 会在编译期间求值。
 
-### 停用内存泄漏检查器
+### 停用内存泄漏检查器 {id="deactivation-of-the-memory-leak-checker"}
 
 内置的 Kotlin/Native 内存泄漏检查器已默认禁用。
 
@@ -257,20 +257,20 @@ Platform.isMemoryLeakCheckerActive = true
 
 请注意，不建议为应用程序运行时启用该检查器。
 
-## Kotlin/JS
+## Kotlin/JS {id="kotlin-js"}
 
 Kotlin/JS 在 1.5.0 中获得了演进性变化。我们正在继续努力将 [JS IR 编译器后端](js-ir-compiler.md) 推进至稳定状态，并发布了其他更新：
 
 * [Webpack 升级至版本 5](#upgrade-to-webpack-5)
 * [支持 IR 编译器的框架和库](#frameworks-and-libraries-for-the-ir-compiler)
 
-### 升级至 Webpack 5
+### 升级至 Webpack 5 {id="upgrade-to-webpack-5"}
 
 Kotlin/JS Gradle 插件现在对浏览器目标使用 Webpack 5 而非 Webpack 4。这是一次重大的 Webpack 升级，带来了不兼容的更改。如果您使用的是自定义 Webpack 配置，请务必查看 [Webpack 5 发布说明](https://webpack.js.org/blog/2020-10-10-webpack-5-release/)。
 
 [详细了解使用 Webpack 打包 Kotlin/JS 项目](js-project-setup.md#webpack-bundling)。
 
-### 支持 IR 编译器的框架和库
+### 支持 IR 编译器的框架和库 {id="frameworks-and-libraries-for-the-ir-compiler"}
 
 > Kotlin/JS IR 编译器处于 [Alpha](components-stability.md) 阶段。未来可能会发生不兼容的变化，并需要手动迁移。
 > 我们希望在 [YouTrack](https://youtrack.jetbrains.com/issues/KT) 上收到您对此功能的反馈。
@@ -283,13 +283,13 @@ Kotlin/JS Gradle 插件现在对浏览器目标使用 Webpack 5 而非 Webpack 4
 
 如果您正在编写自己的库，请以 'both' 模式编译，以便您的客户也可以在新的编译器中使用它。
 
-## Kotlin Multiplatform
+## Kotlin Multiplatform {id="kotlin-multiplatform"}
 
 在 Kotlin 1.5.0 中，[为每个平台选择测试依赖项的过程已简化](#simplified-test-dependencies-usage-in-multiplatform-projects)，现在由 Gradle 插件自动完成。
 
 新的 [获取字符类别的 API 现在可在多平台项目中使用](#new-api-for-getting-a-char-category-now-available-in-multiplatform-code)。
 
-## 标准库
+## 标准库 {id="standard-library"}
 
 标准库获得了一系列变化和改进，从稳定实验性部分到添加新功能：
 
@@ -307,13 +307,13 @@ Kotlin/JS Gradle 插件现在对浏览器目标使用 Webpack 5 而非 Webpack 4
 
 <video src="https://www.youtube.com/v/MyTkiT2I6-8" title="标准库新功能"/>
 
-### 稳定的无符号整数类型
+### 稳定的无符号整数类型 {id="stable-unsigned-integer-types"}
 
 `UInt`、`ULong`、`UByte`、`UShort` 无符号整数类型现在已达到 [稳定 (Stable)](components-stability.md) 状态。这些类型上的运算、区间和数列也是如此。无符号数组及其运算仍处于 Beta 阶段。
 
 [详细了解无符号整数类型](unsigned-integer-types.md)。
 
-### 稳定的与区域性无关的文本大小写转换 API
+### 稳定的与区域性无关的文本大小写转换 API {id="stable-locale-agnostic-api-for-upper-lowercasing-text"}
 
 此版本引入了新的与区域性无关的文本大小写转换 API。它提供了 `toLowerCase()`、`toUpperCase()`、`capitalize()` 和 `decapitalize()` 等 API 函数的替代方案，这些函数是区域性敏感的。新 API 可帮助您避免因不同的区域设置而产生的错误。
 
@@ -344,7 +344,7 @@ Kotlin 1.5.0 提供了以下完全 [稳定 (Stable)](components-stability.md) �
 
 请参阅 [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/stdlib/locale-agnostic-case-conversions.md) 中文本处理函数的完整变化列表。
 
-### 稳定的字符到整数转换 API
+### 稳定的字符到整数转换 API {id="stable-char-to-integer-conversion-api"}
 
 从 Kotlin 1.5.0 开始，新的字符到代码和字符到数字转换函数已达到 [稳定 (Stable)](components-stability.md) 状态。这些函数取代了现有的 API 函数，后者经常与类似的字符串到整数转换混淆。
 
@@ -377,7 +377,7 @@ Kotlin 1.5.0 提供了以下完全 [稳定 (Stable)](components-stability.md) �
 
 [在 KEEP 中详细了解字符到整数转换 API](https://github.com/Kotlin/KEEP/blob/master/proposals/stdlib/char-int-conversions.md)。
 
-### 稳定的 Path API
+### 稳定的 Path API {id="stable-path-api"}
 
 带有针对 `java.nio.file.Path` 的扩展的 [实验性 Path API](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io.path/java.nio.file.-path/) 现在已达到 [稳定 (Stable)](components-stability.md) 状态。
 
@@ -392,7 +392,7 @@ val kotlinFiles: List<Path> = Path("/home/user").listDirectoryEntries("*.kt")
 
 [详细了解 Path API](whatsnew1420.md#extensions-for-java-nio-file-path)。
 
-### 向下取整除法和 mod 运算符
+### 向下取整除法和 mod 运算符 {id="floored-division-and-the-mod-operator"}
 
 标准库中新增了用于模运算的操作：
 * `floorDiv()` 返回 [向下取整除法](https://en.wikipedia.org/wiki/Floor_and_ceiling_functions) 的结果。适用于整数类型。
@@ -415,7 +415,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.5"}
 
-### Duration API 变化
+### Duration API 变化 {id="duration-api-changes"}
 
 > Duration API 处于 [实验性 (Experimental)](components-stability.md) 阶段。它可能随时被删除或更改。
 > 仅将其用于评估目的。我们希望在 [YouTrack](https://youtrack.jetbrains.com/issues/KT) 上收到您对此功能的反馈。
@@ -442,7 +442,7 @@ fun main() {
 ```
 {validate="false"}
 
-### 新的获取字符类别的 API 现在可在多平台代码中使用
+### 新的获取字符类别的 API 现在可在多平台代码中使用 {id="new-api-for-getting-a-char-category-now-available-in-multiplatform-code"}
 
 Kotlin 1.5.0 引入了新的 API，用于在多平台项目中根据 Unicode 获取字符的类别。现在所有平台和公共代码中都可以使用几个函数。
 
@@ -488,7 +488,7 @@ fun main() {
 
 [详细了解字符](characters.md)。
 
-### 新的集合函数 firstNotNullOf()
+### 新的集合函数 firstNotNullOf() {id="new-collections-function-firstnotnullof"}
 
 新的 [`firstNotNullOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/first-not-null-of.html) 和 [`firstNotNullOfOrNull()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/first-not-null-of-or-null.html) 函数结合了 [`mapNotNull()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/map-not-null.html) 与 [`first()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/first.html) 或 [`firstOrNull()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/first-or-null.html)。它们使用自定义选择器函数映射原始集合，并返回第一个非 null 值。如果没有这样的值，`firstNotNullOf()` 会抛出异常，而 `firstNotNullOfOrNull()` 返回 null。
 
@@ -503,7 +503,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.5"}
 
-### String?.toBoolean() 的严格版本
+### String?.toBoolean() 的严格版本 {id="strict-version-of-string-toboolean"}
 
 两个新函数引入了现有 [String?.toBoolean()](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/to-boolean.html) 的大小写敏感严格版本：
 * [`String.toBooleanStrict()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/to-boolean-strict.html) 对除了字面量 `true` 和 `false` 之外的所有输入抛出异常。
@@ -520,13 +520,13 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.5"}
 
-## kotlin-test 库
+## kotlin-test 库 {id="kotlin-test-library"}
 [kotlin-test](https://kotlinlang.org/api/latest/kotlin.test/) 库引入了一些新功能：
 * [简化了多平台项目中的测试依赖项使用](#simplified-test-dependencies-usage-in-multiplatform-projects)
 * [自动为 Kotlin/JVM 源集选择测试框架](#automatic-selection-of-a-testing-framework-for-kotlin-jvm-source-sets)
 * [断言函数更新](#assertion-function-updates)
 
-### 简化了多平台项目中的测试依赖项使用
+### 简化了多平台项目中的测试依赖项使用 {id="simplified-test-dependencies-usage-in-multiplatform-projects"}
 
 现在您可以使用 `kotlin-test` 依赖项在 `commonTest` 源集中添加测试依赖项，Gradle 插件将为每个测试源集推断对应的平台依赖项：
 * JVM 源集使用 `kotlin-test-junit`，请参阅 [自动为 Kotlin/JVM 源集选择测试框架](#automatic-selection-of-a-testing-framework-for-kotlin-jvm-source-sets)
@@ -540,7 +540,7 @@ fun main() {
 
 详细了解 [在测试库上设置依赖项](gradle-configure-project.md#set-dependencies-on-test-libraries)。
 
-### 自动为 Kotlin/JVM 源集选择测试框架
+### 自动为 Kotlin/JVM 源集选择测试框架 {id="automatic-selection-of-a-testing-framework-for-kotlin-jvm-source-sets"}
 
 Gradle 插件现在会自动选择并添加对测试框架的依赖。您只需要在公共源集中添加 `kotlin-test` 依赖项即可。
 
@@ -599,7 +599,7 @@ tasks {
 
 详细了解 [在测试库上设置依赖项](gradle-configure-project.md#set-dependencies-on-test-libraries)。
 
-### 断言函数更新
+### 断言函数更新 {id="assertion-function-updates"}
 
 此版本带来了新的断言函数并改进了现有函数。
 
@@ -678,14 +678,14 @@ tasks {
   }
   ```
 
-## kotlinx 库
+## kotlinx 库 {id="kotlinx-libraries"}
 
 随 Kotlin 1.5.0 一起，我们发布了新版本的 kotlinx 库：
 * `kotlinx.coroutines` [1.5.0-RC](#coroutines-1-5-0-rc)
 * `kotlinx.serialization` [1.2.1](#serialization-1-2-1)
 * `kotlinx-datetime` [0.2.0](#datetime-0-2-0)
 
-### Coroutines 1.5.0-RC
+### Coroutines 1.5.0-RC {id="coroutines-1-5-0-rc"}
 
 `kotlinx.coroutines` [1.5.0-RC](https://github.com/Kotlin/kotlinx.coroutines/releases/tag/1.5.0-RC) 已经发布，包含：
 * [新的通道 API](channels.md)
@@ -698,7 +698,7 @@ tasks {
 
 <video src="https://www.youtube.com/v/EVLnWOcR0is" title="kotlinx.coroutines 1.5.0"/>
 
-### Serialization 1.2.1
+### Serialization 1.2.1 {id="serialization-1-2-1"}
 
 `kotlinx.serialization` [1.2.1](https://github.com/Kotlin/kotlinx.serialization/releases/tag/v1.2.1) 已经发布，包含：
 * JSON 序列化性能改进
@@ -710,7 +710,7 @@ tasks {
 
 <video src="https://www.youtube.com/v/698I_AH8h6s" title="kotlinx.serialization 1.2.1"/>
 
-### dateTime 0.2.0
+### dateTime 0.2.0 {id="datetime-0-2-0"}
 
 `kotlinx-datetime` [0.2.0](https://github.com/Kotlin/kotlinx-datetime/releases/tag/v0.2.0) 已经发布，包含：
 * `@Serializable` 的 Datetime 对象
@@ -719,7 +719,7 @@ tasks {
 
 在 [更新日志](https://github.com/Kotlin/kotlinx-datetime/releases/tag/v0.2.0) 和 [`kotlinx-datetime` 0.2.0 发布博客文章](https://blog.jetbrains.com/kotlin/2021/05/kotlinx-datetime-0-2-0-is-out/) 中了解更多。
 
-## 迁移到 Kotlin 1.5.0
+## 迁移到 Kotlin 1.5.0 {id="migrating-to-kotlin-1-5-0"}
 
 IntelliJ IDEA 和 Android Studio 会在 Kotlin 插件 1.5.0 可用时提示更新。
 

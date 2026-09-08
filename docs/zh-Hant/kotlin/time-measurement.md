@@ -10,7 +10,7 @@ Kotlin 標準函式庫提供了以不同單位計算和測量時間的工具。
 預設情況下，時間是使用單調時間源 (monotonic time source) 測量的，但也可以配置其他時間源。
 如需更多資訊，請參閱[建立時間源](#建立時間源)。
 
-## 計算 duration
+## 計算 duration {id="calculate-duration"}
 
 為了表示一段時間，標準函式庫提供了 [`Duration`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-duration/) 類別。`Duration` 可以使用 [`DurationUnit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-duration-unit/) 列舉類別中的以下單位表示：
   * `NANOSECONDS`
@@ -23,7 +23,7 @@ Kotlin 標準函式庫提供了以不同單位計算和測量時間的工具。
 
 `Duration` 可以是正數、負數、零、正無窮大或負無窮大。
 
-### 建立 duration
+### 建立 duration {id="create-duration"}
 
 若要建立 `Duration`，請使用適用於 `Int`、`Long` 和 `Double` 型別的[擴充屬性](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-duration/#companion-object-properties)：`nanoseconds`、`microseconds`、`milliseconds`、`seconds`、`minutes`、`hours` 和 `days`。
 
@@ -91,7 +91,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-time-create-duration-arithmetic"}
 
-### 取得字串表示形式
+### 取得字串表示形式 {id="get-string-representation"}
 
 取得 `Duration` 的字串表示形式很有用，以便進行列印、序列化、傳輸或儲存。
 
@@ -127,7 +127,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-time-iso-string-representation"}
 
-### 轉換 duration
+### 轉換 duration {id="convert-duration"}
 
 若要將 `Duration` 轉換為不同的 `DurationUnit`，請使用以下屬性：
 * `inWholeNanoseconds`
@@ -173,7 +173,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-time-convert-duration-extension"}
 
-### 比較 duration
+### 比較 duration {id="compare-duration"}
 
 若要檢查 `Duration` 物件是否相等，請使用相等運算子 (`==`)：
 
@@ -208,7 +208,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-time-compare-duration"}
 
-### 將 duration 分解為組件
+### 將 duration 分解為組件 {id="break-duration-into-components"}
 
 若要將 `Duration` 分解為其時間組件並執行進一步的操作，請使用 [`toComponents()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-duration/to-components.html) 函式的多載版本。將所需的操作作為函式或 Lambda 運算式作為函式參數加入。
 
@@ -230,7 +230,7 @@ fun main() {
 
 在此範例中，Lambda 運算式將 `hours` 和 `minutes` 作為函式參數，並對未使用的 `seconds` 和 `nanoseconds` 參數使用底線 (`_`)。該運算式使用[字串範本](strings.md#string-templates)回傳一個串接字串，以取得所需的 `hours` 和 `minutes` 輸出格式。
 
-## 測量時間
+## 測量時間 {id="measure-time"}
 
 為了追蹤時間的流逝，標準函式庫提供的工具讓你可以輕鬆地：
 * 以所需的單位測量執行某些程式碼所需的時間。
@@ -239,7 +239,7 @@ fun main() {
 * 檢查自特定時間點以來已過去的時間。
 * 檢查目前時間是否已超過特定時間點。
 
-### 測量程式碼執行時間
+### 測量程式碼執行時間 {id="measure-code-execution-time"}
 
 若要測量執行程式碼區塊所需的時間，請使用 [`measureTime`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/measure-time.html) 內嵌函式：
 
@@ -279,7 +279,7 @@ fun main() {
 
 預設情況下，這兩個函式都使用單調時間源。
 
-### 標記時間點
+### 標記時間點 {id="mark-moments-in-time"}
 
 若要標記特定時間點，請使用 [`TimeSource`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-time-source/) 介面和 [`markNow()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-time-source/mark-now.html) 函式來建立 [`TimeMark`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-time-mark/)：
 
@@ -292,7 +292,7 @@ fun main() {
 }
 ```
 
-### 測量時間差異
+### 測量時間差異 {id="measure-differences-in-time"}
 
 若要測量來自同一時間源的 `TimeMark` 物件之間的差異，請使用減法運算子 (`-`)。
 
@@ -352,11 +352,11 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-time-deadline=passed"}
 
-## 時間源 (Time sources)
+## 時間源 (Time sources) {id="time-sources"}
 
 預設情況下，時間是使用單調時間源測量的。單調時間源僅會向前推進，且不受時區變動等因素影響。單調時間的另一種選擇是經過的真實時間，也稱為掛鐘時間 (wall-clock time)。經過的真實時間是相對於另一個時間點測量的。
 
-### 各平台的預設時間源
+### 各平台的預設時間源 {id="default-time-sources-per-platform"}
 
 此表格說明了每個平台的預設單調時間源：
 
@@ -367,7 +367,7 @@ fun main() {
 | Kotlin/JS (browser) | `window.performance.now()` 或 `Date.now()`|
 | Kotlin/Native       | `std::chrono::high_resolution_clock` 或 `std::chrono::steady_clock`|
 
-### 建立時間源
+### 建立時間源 {id="create-time-source"}
 
 在某些情況下，你可能想要使用不同的時間源。例如在 Android 中，`System.nanoTime()` 僅在裝置處於活動狀態時計算時間。當裝置進入深度睡眠時，它會失去對時間的追蹤。若要在裝置處於深度睡眠時追蹤時間，你可以建立一個使用 [`SystemClock.elapsedRealtimeNanos()`](https://developer.android.com/reference/android/os/SystemClock#elapsedRealtimeNanos()) 的時間源：
 

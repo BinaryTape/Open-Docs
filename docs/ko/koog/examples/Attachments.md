@@ -7,7 +7,7 @@ https://github.com/JetBrains/koog/blob/develop/examples/notebooks/Attachments.ip
 https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Attachments.ipynb
 ){ .md-button }
 
-## 환경 설정
+## 환경 설정 {id="setting-up-the-environment"}
 
 코드를 살펴보기 전에, Kotlin Notebook이 준비되었는지 확인합니다.
 여기서는 최신 디스크립터를 로드하고 **Koog** 라이브러리를 활성화합니다.
@@ -20,7 +20,7 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Atta
 %use koog
 ```
 
-## API 키 구성하기
+## API 키 구성하기 {id="configuring-api-keys"}
 
 환경 변수에서 API 키를 읽어옵니다. 이렇게 하면 비밀 정보를 노트북 파일에 노출하지 않고도 
 제공자를 전환할 수 있습니다. `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, 또는 `GEMINI_API_KEY`를 설정할 수 있습니다.
@@ -29,7 +29,7 @@ https://raw.githubusercontent.com/JetBrains/koog/develop/examples/notebooks/Atta
 val apiKey = System.getenv("OPENAI_API_KEY") // 또는 ANTHROPIC_API_KEY, 또는 GEMINI_API_KEY
 ```
 
-## 단순 OpenAI 실행기 생성하기
+## 단순 OpenAI 실행기 생성하기 {id="creating-a-simple-openai-executor"}
 
 실행기(executor)는 인증, 베이스 URL 및 올바른 기본값들을 캡슐화합니다. 여기서는 단순한 OpenAI 실행기를 사용하지만, 
 코드의 나머지 부분을 변경하지 않고도 Anthropic이나 Gemini로 교체할 수 있습니다.
@@ -78,7 +78,7 @@ val prompt = prompt("images-prompt") {
 }
 ```
 
-## 실행 및 결과 확인
+## 실행 및 결과 확인 {id="execute-and-inspect-the-response"}
 
 `gpt-4.1`에 대해 프롬프트를 실행하고, 첫 번째 메시지를 수집하여 그 내용을 출력합니다.
 스트리밍이 필요한 경우 Koog의 스트리밍 API로 전환하세요. 도구(tool)를 사용하려면 `emptyList()` 대신 도구 목록을 전달하세요.

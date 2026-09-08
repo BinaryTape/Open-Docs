@@ -7,7 +7,7 @@
 > 本文專門探討 KMP 專案。
 > 如需了解模組化決策的通盤理解，請參閱 [Android 模組化簡介](https://developer.android.com/topic/modularization)。
 
-## 最佳模組結構
+## 最佳模組結構 {id="optimal-module-structure"}
 
 最佳模組結構可能會根據您的目標和必要的目標 (target) 而有所不同。
 您可以分析 KMP IDE 外掛程式精靈在不同配置與目標設定下的輸出來了解我們預設如何組織專案。
@@ -30,7 +30,7 @@
 > 
 {style="note"}
 
-## 為應用程式入口點建立獨立模組
+## 為應用程式入口點建立獨立模組 {id="creating-separate-modules-for-app-entry-points"}
 
 我們用來說明轉換至建議結構的範例專案是一個較舊的 Compose Multiplatform 範例，可以在範例存儲庫的 [old-project-structure](https://github.com/kotlin-hands-on/get-started-with-cm/tree/old-project-structure) 分支中找到。
 
@@ -40,9 +40,9 @@
 
 未定義
 
-### 桌面 JVM 應用程式
+### 桌面 JVM 應用程式 {id="desktop-jvm-app"}
 
-#### 建立並配置桌面應用程式模組
+#### 建立並配置桌面應用程式模組 {id="create-and-configure-the-desktop-app-module"}
 
 要建立桌面應用程式模組 (`desktopApp`)：
 
@@ -54,7 +54,7 @@
     include(":desktopApp")
     ```
 
-#### 為桌面應用程式配置建置指令碼
+#### 為桌面應用程式配置建置指令碼 {id="configure-the-build-script-for-the-desktop-app"}
 
 要使桌面應用程式建置指令碼正常運作：
 
@@ -116,7 +116,7 @@
     ```
 6. 在主功能表中選擇 **Build | Sync Project with Gradle Files**，或點擊編輯器中的 Gradle 重新整理按鈕。
 
-#### 移動程式碼並執行桌面應用程式
+#### 移動程式碼並執行桌面應用程式 {id="move-the-code-and-run-the-desktop-app"}
 
 配置完成後，將桌面應用程式的程式碼移動到新目錄：
 
@@ -136,9 +136,9 @@
        * Kotlin `sourceSets {}` 區塊內的 `jvmMain.dependencies {}` 區塊，
        * `kotlin {}` 區塊內的 `jvm()` 目標宣告。
 
-### Web 應用程式
+### Web 應用程式 {id="web-app"}
 
-#### 建立並配置 Web 應用程式模組
+#### 建立並配置 Web 應用程式模組 {id="create-and-configure-the-web-app-module"}
 
 要建立 Web 應用程式模組 (`webApp`)：
 
@@ -150,7 +150,7 @@
     include(":webApp")
     ```
 
-#### 為 Web 應用程式配置建置指令碼
+#### 為 Web 應用程式配置建置指令碼 {id="configure-the-build-script-for-the-web-app"}
 
 要使 Web 應用程式建置指令碼正常運作：
 
@@ -208,7 +208,7 @@
 
 5. 在主功能表中選擇 **Build | Sync Project with Gradle Files**，或點擊編輯器中的 Gradle 重新整理按鈕。
 
-#### 移動程式碼並執行 Web 應用程式
+#### 移動程式碼並執行 Web 應用程式 {id="move-the-code-and-run-the-web-app"}
 
 配置完成後，將 Web 應用程式的程式碼移動到新目錄：
 
@@ -227,7 +227,7 @@
         * Kotlin `sourceSets {}` 區塊內的 `webMain.dependencies {}` 區塊，
         * `kotlin {}` 區塊內的 `js {}` 和 `wasmJs {}` 目標宣告。
 
-### 配置共用模組
+### 配置共用模組 {id="configure-the-shared-module"}
 
 在範例應用程式中，UI 和商務邏輯程式碼都在共用，因此它只需要一個共用模組來存放所有通用程式碼：您可以簡單地將 `composeApp` 重新調整為通用程式碼模組。
 
@@ -281,13 +281,13 @@
    刪除 `kotlin.sourceSets.androidMain.dependencies {}` 區塊。
 7. 檢查 Android 應用程式是否按預期執行。
 
-### （選用）分離共用邏輯與共用 UI {collapsible="true"}
+### （選用）分離共用邏輯與共用 UI {collapsible="true" id="optional-separate-shared-logic-and-shared-ui"}
 
 如果專案中的某些目標實作了原生 UI，則將通用程式碼分離為 `sharedLogic` 和 `sharedUI` 模組可能是個好主意，這樣具有原生 UI 的應用程式模組就不需要依賴 Compose Multiplatform 即可使用共用程式碼。
 
 以下是您可以參考的範例，同樣基於同一個範例應用程式。
 
-#### 建立共用邏輯模組
+#### 建立共用邏輯模組 {id="create-a-shared-logic-module"}
 
 在實際建立模組之前，您需要決定什麼是商務邏輯，哪些程式碼同時具備 UI 無關性和平台無關性。
 在此範例中，唯一的候選對象是 `currentTimeAt()` 函式，它會根據位置和時區組合傳回確切時間。
@@ -405,7 +405,7 @@
 
 您已成功將共用邏輯隔離到獨立模組中並跨平台使用。下一步：建立共用 UI 模組。
 
-#### 建立共用 UI 模組
+#### 建立共用 UI 模組 {id="create-a-shared-ui-module"}
 
 在 `sharedUI` 模組中提取實作通用 UI 元素的共用程式碼：
 
@@ -550,7 +550,7 @@
 
 您已成功將跨平台 UI 程式碼移動到專屬模組中。
 
-### 更新 iOS 整合
+### 更新 iOS 整合 {id="update-the-ios-integration"}
 
 由於 iOS 應用程式入口點並非建置為獨立的 Gradle 模組，您可以將原始碼嵌入到任何模組中。在本範例中，您可以將其留在 `shared` 內：
 

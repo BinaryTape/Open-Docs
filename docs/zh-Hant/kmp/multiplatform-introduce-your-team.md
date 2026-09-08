@@ -11,7 +11,7 @@
 * [準備好回答團隊關於多平台開發的問題](#prepare-for-questions-about-multiplatform-development-from-your-team)
 * [在適應期為您的團隊提供支援](#support-your-team-during-the-adaptation-period)
 
-## 從同理心出發
+## 從同理心出發 {id="start-with-empathy"}
 
 軟體開發是一項團隊運動，每一項關鍵決策都需要所有團隊成員的認可。整合任何跨平台技術都會顯著影響您行動應用程式的開發過程。因此，在您開始將 Kotlin Multiplatform 整合到專案之前，您需要向團隊介紹這項技術，並引導他們逐漸了解其採用的價值。
 
@@ -19,7 +19,7 @@
 
 考慮到這一切，在提倡轉向 Kotlin Multiplatform 時，請準備好面對許多偏見並回答大量問題。在此過程中，切勿忽視團隊的需求。以下一些建議可能對您準備提案有所幫助。
 
-## 解釋 Kotlin Multiplatform 的運作方式
+## 解釋 Kotlin Multiplatform 的運作方式 {id="explain-how-kotlin-multiplatform-works"}
 
 在這個階段，您需要展示使用 Kotlin Multiplatform 能為您的專案帶來價值，並消除團隊對跨平台行動應用程式可能持有的任何偏見或疑慮。
 
@@ -31,7 +31,7 @@ KMP 自 Alpha 版本發佈以來已廣泛用於生產環境。因此，JetBrains
 
 能夠解釋技術「如何」運作至關重要，因為沒有人喜歡聽起來像是依靠魔法的討論。如果內容不明確，人們可能會往壞處想，所以要小心，不要誤以為某些事情太顯而易見而不需要解釋。相反地，在進入下一階段之前，請嘗試解釋所有基本概念。這份關於 [多平台程式設計](get-started.topic) 的文件可以協助您系統化您的知識，為此經驗做好準備。
 
-## 使用案例研究來展示多平台開發的價值
+## 使用案例研究來展示多平台開發的價值 {id="use-case-studies-to-demonstrate-the-value-of-multiplatform-development"}
 
 了解多平台技術如何運作是必要的，但這還不夠。您的團隊需要看到使用它的收益，而且您呈現這些收益的方式應該與您的產品相關。
 
@@ -46,7 +46,7 @@ KMP 自 Alpha 版本發佈以來已廣泛用於生產環境。因此，JetBrains
 
 [![從 Kotlin Multiplatform 成功案例中學習](kmp-success-stories.svg){width="700"}](https://www.jetbrains.com/help/kotlin-multiplatform-dev/case-studies.html)
 
-## 透過建立範例專案提供證明
+## 透過建立範例專案提供證明 {id="offer-proof-by-creating-a-sample-project"}
 
 理論固然好，但付諸實踐最終才是最重要的。為了讓您的案例更具說服力並展示多平台行動應用程式開發的潛力，其中一個選項是投入一些時間使用 Kotlin Multiplatform 建立一些東西，然後將結果交給您的團隊討論。您的原型可以是某種測試專案，您可以從頭開始編寫，並展示應用程式中需要的功能。
 [使用 Ktor 和 SQLDelight 建立多平台應用程式 – 教學](multiplatform-ktor-sqldelight.md) 將引導您完成此過程。
@@ -57,11 +57,11 @@ KMP 自 Alpha 版本發佈以來已廣泛用於生產環境。因此，JetBrains
 從待處理清單底部挑選一個非優先功能，並在共用模組中實作它。
 [讓您的 Android 應用程式在 iOS 上執行 – 教學](multiplatform-integrate-in-existing-app.md) 提供了基於範例專案的逐步指南。
 
-## 準備好回答團隊關於多平台開發的問題
+## 準備好回答團隊關於多平台開發的問題 {id="prepare-for-questions-about-multiplatform-development-from-your-team"}
 
 無論您的提案有多詳細，您的團隊都會有很多問題。請仔細聆聽並耐心地回答所有問題。您可以預期大多數問題會來自團隊的 iOS 成員，因為他們是不習慣在日常開發工作流程中看到 Kotlin 的開發人員。以下是一些最常見問題的清單，可以對您有所幫助：
 
-### 問：我聽說基於跨平台技術的應用程式可能會被 App Store 拒絕。承擔這個風險值得嗎？
+### 問：我聽說基於跨平台技術的應用程式可能會被 App Store 拒絕。承擔這個風險值得嗎？ {id="q-i-heard-applications-based-on-cross-platform-technologies-can-be-rejected-from-the-app-store-is-taking-this-risk-worth-it"}
 
 答：Apple Store 對於發佈應用程式有嚴格的指南。其中一項限制是應用程式不得下載、安裝或執行會引入或更改應用程式任何功能或功能性的程式碼（[App Store 審核指南 2.5.2](https://developer.apple.com/app-store/review/guidelines/#software-requirements)）。這與某些跨平台技術相關，但與 Kotlin Multiplatform 無關。共用的 Kotlin 程式碼會透過 Kotlin/Native 編譯為原生二進制，將一般的 iOS 架構封裝到您的應用程式中，並且不提供動態程式碼執行的能力。
 
@@ -73,7 +73,7 @@ KMP 自 Alpha 版本發佈以來已廣泛用於生產環境。因此，JetBrains
 
 2023 年底，JetBrains 推出了 [Amper](https://blog.jetbrains.com/blog/2023/11/09/amper-improving-the-build-tooling-user-experience/)，這是一款新的實驗性專案配置工具，專注於易用性、引導和 IDE 支援。要深入了解 Amper 的功能，請查看其 [教學](kotlin-toolchain.md)。
 
-### 問：Kotlin Multiplatform 已經生產就緒了嗎？
+### 問：Kotlin Multiplatform 已經生產就緒了嗎？ {id="q-is-kotlin-multiplatform-production-ready"}
 
 答：在 2023 年 11 月，我們宣布 Kotlin Multiplatform 現在已進入 [穩定](https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable/) 版本，這意味著它現在已經完全準備好供您在生產環境中使用。
 
@@ -87,7 +87,7 @@ KMP 自 Alpha 版本發佈以來已廣泛用於生產環境。因此，JetBrains
 
 您的團隊越深入研究多平台行動開發，他們的問題就會越有趣且越複雜。如果您沒有答案，請不要擔心 – Kotlin Multiplatform 在 Kotlin Slack 中有一個龐大且提供支援的社群，並設有專門的 [#multiplatform](https://slack-chats.kotlinlang.org/c/multiplatform) 頻道，許多已經在使用它的開發者可以協助您。如果您能與我們 [分享](mailto:kotlin.multiplatform.feedback@kotlinlang.org) 您的團隊提出的最熱門問題，我們將不勝感激。這些資訊將協助我們了解哪些主題需要在文件中涵蓋。
 
-## 在適應期為您的團隊提供支援
+## 在適應期為您的團隊提供支援 {id="support-your-team-during-the-adaptation-period"}
 
 在您決定使用 Kotlin Multiplatform 之後，隨著您的團隊嘗試該技術，會有一段適應期。而您的使命尚未結束！透過為您的隊友提供持續的支援，您將縮短團隊深入了解該技術並取得首批成果所需的時間。
 

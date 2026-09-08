@@ -6,7 +6,7 @@
 > 
 {style="note"}
 
-## Kotlin 코딩 컨벤션 및 IntelliJ IDEA 포맷터
+## Kotlin 코딩 컨벤션 및 IntelliJ IDEA 포맷터 {id="kotlin-coding-conventions-and-intellij-idea-formatter"}
 
 [Kotlin 코딩 컨벤션(coding conventions)](coding-conventions.md)은 관용적인(idiomatic) Kotlin을 작성하는 여러 측면에 영향을 미치며, Kotlin 코드의 가독성을 높이기 위한 포맷팅 권장 사항도 그중 하나입니다.
 
@@ -19,7 +19,7 @@ IntelliJ IDEA에 내장된 코드 포맷터는 이전까지 현재 권장되는 
 * 기존 프로젝트의 작성자는 프로젝트에서 이전 코드 스타일을 사용하도록 명시적으로 선언할 수 있습니다(이렇게 하면 나중에 기본 설정이 전환되더라도 프로젝트가 영향을 받지 않습니다).
 * Kotlin 1.4.0부터는 Kotlin 코딩 컨벤션과의 일관성을 위해 모든 프로젝트에서 기본 포맷팅이 활성화됩니다.
 
-## "Kotlin 코딩 컨벤션"과 "IntelliJ IDEA 기본 코드 스타일"의 차이점
+## "Kotlin 코딩 컨벤션"과 "IntelliJ IDEA 기본 코드 스타일"의 차이점 {id="differences-between-kotlin-coding-conventions-and-intellij-idea-default-code-style"}
 
 가장 눈에 띄는 변화는 연속 들여쓰기(continuation indentation) 정책입니다. 여러 줄로 이어진 표현식이 이전 줄에서 끝나지 않았음을 보여주기 위해 이중 들여쓰기를 사용하는 것은 좋은 아이디어입니다. 이는 단순하고 일반적인 규칙이지만, 몇몇 Kotlin 구문은 이 방식으로 포맷팅할 때 다소 어색해 보일 수 있습니다. Kotlin 코딩 컨벤션에서는 이전에 긴 연속 들여쓰기가 강제되었던 경우에 단일 들여쓰기를 사용할 것을 권장합니다.
 
@@ -27,7 +27,7 @@ IntelliJ IDEA에 내장된 코드 포맷터는 이전까지 현재 권장되는 
 
 실제로는 꽤 많은 코드에 영향을 미치므로, 이는 주요한 코드 스타일 업데이트로 간주될 수 있습니다.
 
-## 새로운 코드 스타일 도입에 관한 논의
+## 새로운 코드 스타일 도입에 관한 논의 {id="migration-to-a-new-code-style-discussion"}
 
 새로운 프로젝트를 시작할 때 이전 방식으로 포맷팅된 코드가 없다면 새로운 코드 스타일을 도입하는 것은 매우 자연스러운 과정일 것입니다. 그렇기에 Kotlin IntelliJ 플러그인 1.3.0 버전부터는 기본적으로 활성화되는 [코딩 컨벤션(Coding conventions)](coding-conventions.md) 문서의 포맷팅을 적용하여 새 프로젝트를 생성합니다.
 
@@ -41,7 +41,7 @@ IntelliJ IDEA에 내장된 코드 포맷터는 이전까지 현재 권장되는 
 
 중대형 프로젝트의 경우 결정이 쉽지 않을 수 있습니다. 당장 많은 파일을 업데이트할 준비가 되지 않았다면, 모듈별로 마이그레이션하거나 수정된 파일에 대해서만 점진적으로 마이그레이션을 진행할 수도 있습니다.
 
-## 새로운 코드 스타일로 마이그레이션
+## 새로운 코드 스타일로 마이그레이션 {id="migration-to-a-new-code-style"}
 
 **Settings/Preferences** | **Editor** | **Code Style** | **Kotlin** 대화 상자에서 Kotlin 코딩 컨벤션 코드 스타일로 전환할 수 있습니다. 스킴(scheme)을 **Project**로 전환하고 **Set from...** | **Kotlin style guide**를 활성화하세요.
 
@@ -49,11 +49,11 @@ IntelliJ IDEA에 내장된 코드 포맷터는 이전까지 현재 권장되는 
 
 프로젝트 구성을 위해 외부 빌드 시스템을 사용하고 있고 `.idea/codeStyle` 폴더를 공유하지 않기로 결정했다면, 추가 속성을 통해 Kotlin 코딩 컨벤션을 강제할 수 있습니다:
 
-### Gradle의 경우
+### Gradle의 경우 {id="in-gradle"}
 
 프로젝트 루트의 `gradle.properties` 파일에 `kotlin.code.style=official` 속성을 추가하고 해당 파일을 VCS에 커밋하세요.
 
-### Maven의 경우
+### Maven의 경우 {id="in-maven"}
 
 프로젝트 루트의 `pom.xml` 파일에 `kotlin.code.style official` 속성을 추가하세요.
 
@@ -73,7 +73,7 @@ IntelliJ IDEA에 내장된 코드 포맷터는 이전까지 현재 권장되는 
 
 점진적인 마이그레이션을 위해 **File is not formatted according to project settings** 인스펙션(inspection)을 활성화할 수도 있습니다. 이 기능은 재포맷팅이 필요한 부분을 강조 표시해 줍니다. **Apply only to modified files** 옵션을 활성화하면 수정된 파일의 포맷팅 문제만 표시됩니다. 어차피 이러한 파일들은 조만간 커밋될 가능성이 높습니다.
 
-## 프로젝트에 이전 코드 스타일 유지하기
+## 프로젝트에 이전 코드 스타일 유지하기 {id="store-old-code-style-in-project"}
 
 언제든지 IntelliJ IDEA의 이전 코드 스타일을 프로젝트의 올바른 코드 스타일로 명시적으로 설정할 수 있습니다:
 

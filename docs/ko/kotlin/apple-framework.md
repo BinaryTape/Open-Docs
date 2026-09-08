@@ -24,7 +24,7 @@ Kotlin/Native는 미리 임포트된 일련의 시스템 프레임워크와 함�
 >
 {style="note"}
 
-## Kotlin 라이브러리 생성
+## Kotlin 라이브러리 생성 {id="create-a-kotlin-library"}
 
 > 새 Kotlin/Native 프로젝트를 생성하고 IntelliJ IDEA에서 여는 방법에 대한 자세한 단계와 지침은 [Kotlin/Native 시작하기](native-get-started.md#using-gradle) 튜토리얼을 참조하세요.
 >
@@ -159,11 +159,11 @@ Kotlin/Native 컴파일러는 Kotlin 코드로부터 macOS 및 iOS용 프레임�
 >
 {style="tip"}
 
-## 생성된 프레임워크 헤더
+## 생성된 프레임워크 헤더 {id="generated-framework-headers"}
 
 각 프레임워크 변리언트에는 헤더 파일이 포함되어 있습니다. 헤더는 타겟 플랫폼에 의존하지 않습니다. 헤더 파일에는 작성한 Kotlin 코드에 대한 정의와 몇 가지 Kotlin 전역 선언이 포함되어 있습니다. 내부를 살펴보겠습니다.
 
-### Kotlin/Native 런타임 선언
+### Kotlin/Native 런타임 선언 {id="kotlin-native-runtime-declarations"}
 
 `build/bin/<yourTargetName>/debugFramework/Demo.framework/Headers` 디렉토리에서 `Demo.h` 헤더 파일을 엽니다.
 Kotlin 런타임 선언을 살펴보세요:
@@ -216,7 +216,7 @@ Kotlin 클래스는 Swift/Objective-C에서 `NSObject`를 상속받는 `KotlinBa
 | Map         | Dictionary          | NSDictionary        |
 | MutableMap  | NSMutableDictionary | NSMutableDictionary |
 
-### Kotlin 숫자와 NSNumber
+### Kotlin 숫자와 NSNumber {id="kotlin-numbers-and-nsnumber"}
 
 `Demo.h` 파일의 다음 부분에는 Kotlin/Native 숫자 타입과 `NSNumber` 간의 타입 매핑이 포함되어 있습니다. 베이스 클래스는 Objective-C에서는 `DemoNumber`, Swift에서는 `KotlinNumber`라고 불리며 `NSNumber`를 상속받습니다.
 
@@ -252,7 +252,7 @@ __attribute__((swift_name("Kotlin__TYPE__")))
 이러한 타입들은 박싱된(boxed) Kotlin 숫자 타입을 Swift/Objective-C에 매핑하는 데 사용됩니다.
 Swift에서는 생성자를 호출하여 인스턴스를 생성할 수 있습니다 (예: `KotlinLong(value: 42)`).
 
-### Kotlin의 클래스와 객체
+### Kotlin의 클래스와 객체 {id="classes-and-objects-from-kotlin"}
 
 `class`와 `object`가 Swift/Objective-C에 어떻게 매핑되는지 살펴보겠습니다. 생성된 `Demo.h` 파일에는 `Class`, `Interface`, `Object`에 대한 정확한 정의가 포함되어 있습니다:
 
@@ -286,7 +286,7 @@ __attribute__((swift_name("Object")))
 
 `Interface`는 `@protocol`로 변환되었으며, `class`와 `object`는 모두 `@interface`로 표현됩니다. `Demo` 접두사는 프레임워크 이름에서 유래되었습니다. 널 허용(nullable) 반환 타입인 `ULong?`은 Objective-C에서 `DemoULong`으로 변환되었습니다.
 
-### Kotlin의 전역 선언
+### Kotlin의 전역 선언 {id="global-declarations-from-kotlin"}
 
 Kotlin의 모든 전역 함수는 Objective-C에서는 `DemoLibKt`로, Swift에서는 `LibKt`로 변환됩니다. 여기서 `Demo`는 `kotlinc-native`의 `-output` 파라미터로 설정된 프레임워크 이름입니다:
 
@@ -306,13 +306,13 @@ Kotlin `String`과 Objective-C `NSString*`은 투명하게 매핑됩니다. 마�
 
 타입 매핑에 대한 더 자세한 정보는 [Swift/Objective-C 상호 운용성](native-objc-interop.md#mappings)에서 확인할 수 있습니다.
 
-## 가비지 컬렉션과 참조 횟수 계산
+## 가비지 컬렉션과 참조 횟수 계산 {id="garbage-collection-and-reference-counting"}
 
 Swift와 Objective-C는 자동 참조 횟수 계산(ARC, Automatic Reference Counting)을 사용합니다. Kotlin/Native는 자체 [가비지 컬렉터](native-memory-manager.md#garbage-collector)를 가지고 있으며, 이는 [Swift/Objective-C ARC와도 통합](native-arc-integration.md)되어 있습니다.
 
 사용되지 않는 Kotlin 객체는 자동으로 제거됩니다. Swift나 Objective-C에서 Kotlin/Native 인스턴스의 수명을 제어하기 위해 추가적인 조치를 취할 필요가 없습니다.
 
-## Objective-C에서 코드 사용하기
+## Objective-C에서 코드 사용하기 {id="use-code-from-objective-c"}
 
 Objective-C에서 프레임워크를 호출해 보겠습니다. 프레임워크 디렉토리에 다음 코드가 포함된 `main.m` 파일을 생성합니다:
 
@@ -351,7 +351,7 @@ Kotlin 소스의 전역 선언은 Objective-C의 `DemoLibKt` 클래스 하위에
 
 `strings` 함수는 Objective-C에서 `DemoLibKt.stringsStr` 함수로 변환되므로 `NSString`을 직접 전달할 수 있습니다. 반환 값 역시 `NSString`으로 보입니다.
 
-## Swift에서 코드 사용하기
+## Swift에서 코드 사용하기 {id="use-code-from-swift"}
 
 생성된 프레임워크에는 Swift에서 더 쉽게 사용할 수 있도록 도와주는 헬퍼 속성들이 있습니다. [이전의 Objective-C 예제](#objective-c에서-코드-사용하기)를 Swift로 변환해 보겠습니다.
 
@@ -383,13 +383,13 @@ Kotlin의 함수 및 프로퍼티 이름은 그대로 번역됩니다. Kotlin의
 
 타입 매핑에 대한 더 자세한 정보는 [Swift/Objective-C 상호 운용성](native-objc-interop.md#mappings)에서 확인할 수 있습니다.
 
-## 프레임워크를 iOS 프로젝트에 연결하기
+## 프레임워크를 iOS 프로젝트에 연결하기 {id="connect-the-framework-to-your-ios-project"}
 
 이제 생성된 프레임워크를 iOS 프로젝트에 의존성으로 연결할 수 있습니다. 이를 설정하고 프로세스를 자동화하는 방법은 여러 가지가 있습니다. 자신에게 가장 적합한 방법을 선택하세요:
 
 <a href="https://kotlinlang.org/docs/multiplatform/multiplatform-ios-integration-overview.html" as="button" mode="rock" icon="arrow-right" icon-position="right">iOS 통합 방법 선택하기</a>
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [Objective-C 상호 운용성에 대해 더 알아보기](native-objc-interop.md)
 * [Kotlin에서 C 상호 운용성이 어떻게 구현되는지 확인하기](native-c-interop.md)

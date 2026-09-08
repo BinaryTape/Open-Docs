@@ -102,7 +102,7 @@ object AboutIcon : Painter() {
 
 在 Windows 和 Linux 上，菜单栏是窗口的一部分。在 macOS 上，当窗口处于活动状态时，它会显示在屏幕顶部的系统菜单栏中。
 
-## 后续步骤
+## 后续步骤 {id="what-s-next"}
 
 * 了解如何将应用程序图标和菜单添加到[系统托盘](compose-desktop-tray.md)。
 * 探索有关[其他桌面组件](compose-desktop-components.md)的教程。

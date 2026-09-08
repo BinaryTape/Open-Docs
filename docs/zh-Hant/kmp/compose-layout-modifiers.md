@@ -7,7 +7,7 @@
 * 處理使用者輸入。
 * 新增高階互動，例如使元素可點擊、可滾動、可拖動或可縮放。
 
-## 鏈結修飾符
+## 鏈結修飾符 {id="chaining-modifiers"}
 
 修飾符可以鏈結在一起以套用多種效果：
 
@@ -30,11 +30,11 @@ private fun Greeting(name: String) {
 
 **鏈結中修飾符函式的順序非常重要**。每個函式都會對上一個函式傳回的 `Modifier` 進行更改，因此呼叫順序會直接影響可組合項最終的行為與外觀。
 
-## 內建修飾符
+## 內建修飾符 {id="built-in-modifiers"}
 
 Compose Multiplatform 提供了內建修飾符，例如 `size`、`padding` 與 `offset`，用於處理常見的佈局與定位任務。
 
-### 大小修飾符
+### 大小修飾符 {id="size-modifiers"}
 
 若要設定固定大小，請使用 `size` 修飾符。當需要覆寫約束時，請使用 `requiredSize` 修飾符：
 
@@ -55,7 +55,7 @@ fun Card() {
 }
 ```
 
-### 間距修飾符
+### 間距修飾符 {id="padding-modifiers"}
 
 使用 `padding` 修飾符在元素周圍新增間距。您也可以使用 `paddingFromBaseline` 根據基線 (baseline) 動態套用間距：
 
@@ -76,7 +76,7 @@ fun Card() {
 }
 ```
 
-### 偏移修飾符
+### 偏移修飾符 {id="offset-modifiers"}
 
 若要從佈局的原始位置調整其位置，請使用 `offset` 修飾符。在 X 軸與 Y 軸上指定偏移量：
 
@@ -99,7 +99,7 @@ fun Card() {
 }
 ```
 
-## 作用域修飾符
+## 作用域修飾符 {id="scoped-modifiers"}
 
 作用域修飾符（Scoped modifiers，也稱為父項資料修飾符）會通知父佈局有關子項的特定需求。例如，若要配合父項 `Box` 的大小，請使用 `matchParentSize` 修飾符：
 
@@ -144,7 +144,7 @@ fun Card() {
 }
 ```
 
-## 提取與重用修飾符
+## 提取與重用修飾符 {id="extracting-and-reusing-modifiers"}
 
 當您將多個修飾符鏈結在一起時，可以將該鏈結提取到變數或函式中以便重用。這能提高程式碼的可讀性，並可能透過重用修飾符執行個體 (instance) 來提升效能。
 
@@ -169,7 +169,7 @@ fun Example() {
 }
 ```
 
-## 自訂修飾符
+## 自訂修飾符 {id="custom-modifiers"}
 
 雖然 Compose Multiplatform 開箱即用提供了許多適用於常見使用案例的內建修飾符，但您也可以建立自己的自訂修飾符。
 
@@ -179,6 +179,6 @@ fun Example() {
 * [使用可組合項修飾符工廠](https://developer.android.com/develop/ui/compose/custom-modifiers#create_a_custom_modifier_using_a_composable_modifier_factory)
 * [更低階的 `Modifier.Node` API](https://developer.android.com/develop/ui/compose/custom-modifiers#implement-custom)
 
-## 下一步
+## 下一步 {id="what-s-next"}
 
 在 [Jetpack Compose 文件](https://developer.android.com/develop/ui/compose/modifiers)中進一步了解修飾符。

@@ -4,7 +4,7 @@
 
 探索 [GitHub 上的 DataFrame 範例](https://github.com/Kotlin/dataframe/tree/master/examples/projects)。
 
-## 開始之前
+## 開始之前 {id="before-you-start"}
 
 > 從 IntelliJ IDEA 2026.2 開始，Kotlin Notebook 將不再與 IDE 封裝，也不再由 JetBrains 官方提供支援。
 > 原始碼仍可在 [GitHub](https://github.com/Kotlin/kotlin-notebook) 上獲取。
@@ -24,7 +24,7 @@
    ```
 若要依照本教學進行，您也可以將 DataFrame 作為 [Gradle](https://kotlin.github.io/dataframe/setupgradle.html) 或 [Maven](https://kotlin.github.io/dataframe/setupmaven.html) 相依性使用。
 
-## 從 API 獲取資料
+## 從 API 獲取資料 {id="fetch-data-from-an-api"}
 
 使用 Kotlin DataFrame 程式庫從 API 獲取資料是透過 [`.read()`](https://kotlin.github.io/dataframe/read.html) 函式完成的，這與[從檔案獲取資料](data-analysis-work-with-data-sources.md#retrieve-data)（如 CSV 或 JSON）類似。然而，在處理基於 Web 的來源時，您可能需要額外的格式化來將原始 API 資料轉換為結構化格式。
 
@@ -84,7 +84,7 @@
    items
    ```
 
-## 清理與精煉資料
+## 清理與精煉資料 {id="clean-and-refine-data"}
 
 清理與精煉資料是準備資料集以進行分析的關鍵步驟。[Kotlin DataFrame 程式庫](https://kotlin.github.io/dataframe/home.html) 為這些任務提供了強大的功能。[`move`](https://kotlin.github.io/dataframe/move.html)、[`concat`](https://kotlin.github.io/dataframe/concatdf.html)、[`select`](https://kotlin.github.io/dataframe/select.html)、[`parse`](https://kotlin.github.io/dataframe/parse.html) 和 [`join`](https://kotlin.github.io/dataframe/join.html) 等方法有助於組織和轉換您的資料。
 
@@ -125,7 +125,7 @@
 
 本範例展示了如何使用 Kotlin DataFrame 的各種函式來清理、重新組織和增強您的資料集。每個步驟都旨在精煉資料，使其更適合進行深入分析。
 
-## 在 Kotlin Notebook 中分析資料
+## 在 Kotlin Notebook 中分析資料 {id="analyze-data-in-kotlin-notebook"}
 
 在使用 [Kotlin DataFrame 程式庫](https://kotlin.github.io/dataframe/home.html) 的函式成功[獲取](#fetch-data-from-an-api)並[清理與精煉資料](#clean-and-refine-data)後，下一步是分析此準備好的資料集以擷取有意義的洞察。
 
@@ -174,7 +174,7 @@
 
 如需更多進階技術，請參閱 [Kotlin DataFrame 文件](https://kotlin.github.io/dataframe/home.html)。
 
-## 接續步驟
+## 接續步驟 {id="what-s-next"}
 
 * 探索使用 [Kandy 程式庫](https://kotlin.github.io/kandy/examples.html) 進行資料視覺化
 * 在[使用 Kandy 進行資料視覺化](data-analysis-visualization.md)中尋找有關資料視覺化的額外資訊

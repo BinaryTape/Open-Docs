@@ -11,7 +11,7 @@ Dokka Gradle プラグイン (DGP) には、プロジェクト用の基本的な
 
 Dokka を試したり、さまざまなプロジェクトでの構成方法を確認したりするには、[Gradle サンプルプロジェクト](https://github.com/Kotlin/dokka/tree/2.0.0/examples/gradle-v2)を探索してください。
 
-## サポートされているバージョン
+## サポートされているバージョン {id="supported-versions"}
 
 プロジェクトが以下の最小バージョン要件を満たしていることを確認してください。
 
@@ -21,7 +21,7 @@ Dokka を試したり、さまざまなプロジェクトでの構成方法を�
 | [Android Gradle プラグイン](https://developer.android.com/build/agp-upgrade-assistant) | 7.0 以上 |
 | [Kotlin Gradle プラグイン](https://kotlinlang.org/docs/gradle-configure-project.html) | 1.9 以上 |
 
-## Dokka の適用
+## Dokka の適用 {id="apply-dokka"}
 
 Dokka Gradle プラグインを適用する推奨される方法は、[plugins ブロック](https://docs.gradle.org/current/userguide/plugins.html#sec:plugins_block)を使用することです。
 プロジェクトの `build.gradle.kts` ファイルの `plugins {}` ブロックに以下を追加します。
@@ -57,14 +57,14 @@ plugins {
 >
 {style="tip"}
 
-## ビルドキャッシュと構成キャッシュの有効化
+## ビルドキャッシュと構成キャッシュの有効化 {id="enable-build-cache-and-configuration-cache"}
 
 DGP は Gradle のビルドキャッシュ (build cache) と構成キャッシュ (configuration cache) をサポートしており、ビルドのパフォーマンスが向上します。
 
 * ビルドキャッシュを有効にするには、[Gradle ビルドキャッシュのドキュメント](https://docs.gradle.org/current/userguide/build_cache.html#sec:build_cache_enable) の指示に従ってください。
 * 構成キャッシュを有効にするには、[Gradle 構成キャッシュのドキュメント](https://docs.gradle.org/current/userguide/configuration_cache.html#config_cache:usage:enable ) の指示に従ってください。
 
-## ドキュメントの生成
+## ドキュメントの生成 {id="generate-documentation"}
 
 Dokka Gradle プラグインには、[HTML](dokka-html.md) および [Javadoc](dokka-javadoc.md) の出力形式が組み込まれています。
 
@@ -80,7 +80,7 @@ Dokka Gradle プラグインには、[HTML](dokka-html.md) および [Javadoc](d
 * デフォルトでは、ドキュメントの出力形式は HTML です。[適切なプラグインを追加](#ドキュメントの出力形式の構成) することで、Javadoc を生成したり、HTML と Javadoc の両方の形式を生成したりすることもできます。
 * 生成されたドキュメントは、シングルプロジェクトおよびマルチプロジェクトビルドの両方で、自動的に `build/dokka/html` ディレクトリに配置されます。[場所 (`outputDirectory`) を変更](dokka-gradle-configuration-options.md#general-configuration) することも可能です。
 
-### ドキュメントの出力形式の構成
+### ドキュメントの出力形式の構成 {id="configure-documentation-output-format"}
 
 > Javadoc 出力形式は [アルファ版 (Alpha)](https://kotlinlang.org/docs/components-stability.html#stability-levels-explained) です。
 > 使用中にバグが発生したり、移行の問題が発生したりする可能性があります。
@@ -122,7 +122,7 @@ API ドキュメントを HTML、Javadoc、またはその両方の形式で同�
 IntelliJ IDEA を使用している場合、`dokkaGenerateHtml` という Gradle タスクが表示されることがあります。
 このタスクは単に `dokkaGeneratePublicationHtml` のエイリアスです。両方のタスクはまったく同じ操作を実行します。
 
-### マルチプロジェクトビルドでのドキュメント出力の集約
+### マルチプロジェクトビルドでのドキュメント出力の集約 {id="aggregate-documentation-output-in-multi-project-builds"}
 
 Dokka は、複数のサブプロジェクトからのドキュメントを単一の出力またはパブリケーションに集約 (aggregate) できます。
 
@@ -156,7 +156,7 @@ dependencies {
 
 詳細については、[マルチプロジェクトのサンプル](https://github.com/Kotlin/dokka/tree/2.0.0/examples/gradle-v2/multimodule-example) を参照してください。
 
-#### 集約されたドキュメントのディレクトリ
+#### 集約されたドキュメントのディレクトリ {id="directory-of-aggregated-documentation"}
 
 DGP がサブプロジェクトを集約すると、各サブプロジェクトは集約されたドキュメント内に独自のサブディレクトリを持ちます。
 DGP は、完全なプロジェクト構造を維持することで、各サブプロジェクトがユニークなディレクトリを持つようにします。
@@ -185,7 +185,7 @@ dokka {
 
 この構成により、`:turbo-lib:maths` モジュールの生成されたドキュメントは `turbo-lib/build/dokka/html/maths/` に生成されるようになります。
 
-## javadoc.jar のビルド
+## javadoc.jar のビルド {id="build-javadoc-jar"}
 
 ライブラリをリポジトリに公開する場合、ライブラリの API リファレンスドキュメントを含む `javadoc.jar` ファイルを提供する必要がある場合があります。
 
@@ -238,7 +238,7 @@ tasks.register('dokkaJavadocJar', Jar) {
 >
 {style="tip"}
 
-## 構成例
+## 構成例 {id="configuration-examples"}
 
 お使いのプロジェクトの種類によって、Dokka の適用方法と構成方法が若干異なります。ただし、[構成オプション](dokka-gradle-configuration-options.md) 自体はプロジェクトの種類に関係なく同じです。
 
@@ -246,7 +246,7 @@ tasks.register('dokkaJavadocJar', Jar) {
 
 サブプロジェクトや複数のネストされた `build.gradle.kts` または `build.gradle` ファイルを持つ、より複雑なビルドについては、[マルチプロジェクト構成](#マルチプロジェクト構成) を参照してください。
 
-### シングルプロジェクト構成
+### シングルプロジェクト構成 {id="single-project-configuration"}
 
 シングルプロジェクトビルドには、通常、プロジェクトのルートに `build.gradle.kts` または `build.gradle` ファイルが 1 つだけあります。
 これらはシングルプラットフォームまたはマルチプラットフォームのいずれかであり、通常は次のような構造をしています。
@@ -381,7 +381,7 @@ dokka {
 同じ `dokka {}` ブロック内でカスタムアセット、可視性フィルタ、またはプラグイン構成を追加することで、さらに拡張できます。
 詳細については、[構成オプション](dokka-gradle-configuration-options.md) を参照してください。
 
-### マルチプロジェクト構成
+### マルチプロジェクト構成 {id="multi-project-configuration"}
 
 [マルチプロジェクトビルド](https://docs.gradle.org/current/userguide/multi_project_builds.html) には、通常、複数のネストされた `build.gradle.kts` ファイルが含まれ、次のような構造になります。
 
@@ -444,11 +444,11 @@ dokka {
 >
 {style="tip"}
 
-#### コンベンションプラグインを介した共有構成
+#### コンベンションプラグインを介した共有構成 {id="shared-configuration-via-a-convention-plugin"}
 
 以下の手順に従って、コンベンションプラグインをセットアップし、サブプロジェクトに適用します。
 
-##### buildSrc ディレクトリをセットアップする
+##### buildSrc ディレクトリをセットアップする {id="set-up-the-buildsrc-directory"}
 
 1. プロジェクトルートに、次の 2 つのファイルを含む `buildSrc` ディレクトリを作成します。
 
@@ -478,7 +478,7 @@ dokka {
     }   
     ```
 
-##### Dokka コンベンションプラグインをセットアップする
+##### Dokka コンベンションプラグインをセットアップする {id="set-up-the-dokka-convention-plugin"}
 
 `buildSrc` ディレクトリをセットアップした後、Dokka コンベンションプラグインをセットアップします。
 
@@ -498,7 +498,7 @@ dokka {
    `dokka {}` ブロック内に、すべてのサブプロジェクトに共通する共有の Dokka [構成](dokka-gradle-configuration-options.md) を追加する必要があります。
    また、Dokka のバージョンを指定する必要はありません。バージョンはすでに `buildSrc/build.gradle.kts` ファイルで設定されています。
 
-##### コンベンションプラグインをサブプロジェクトに適用する
+##### コンベンションプラグインをサブプロジェクトに適用する {id="apply-the-convention-plugin-to-your-subprojects"}
 
 各サブプロジェクトの `build.gradle.kts` ファイルに追加することで、サブプロジェクト全体に Dokka コンベンションプラグインを適用します。
 
@@ -508,7 +508,7 @@ plugins {
 }
 ```
 
-#### 手動構成
+#### 手動構成 {id="manual-configuration"}
 
 プロジェクトでコンベンションプラグインを使用していない場合は、同じ `dokka {}` ブロックを各サブプロジェクトに手動でコピーすることで、同じ Dokka 構成パターンを再利用できます。
 
@@ -522,7 +522,7 @@ plugins {
 
 2. 各サブプロジェクトの `dokka {}` ブロックで共有構成を宣言します。構成を集中管理するコンベンションプラグインがないため、サブプロジェクト間で必要な構成を複製します。詳細については、[構成オプション](dokka-gradle-configuration-options.md) を参照してください。
 
-#### 親プロジェクトの構成
+#### 親プロジェクトの構成 {id="parent-project-configuration"}
 
 マルチプロジェクトビルドでは、ルートプロジェクトでドキュメント全体に適用される設定を構成できます。
 これには、出力形式の定義、出力ディレクトリ、ドキュメントのサブプロジェクト名、すべてのサブプロジェクトからのドキュメントの集約、およびその他の [構成オプション](dokka-gradle-configuration-options.md) が含まれます。

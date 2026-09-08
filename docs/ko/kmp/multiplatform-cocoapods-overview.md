@@ -19,7 +19,7 @@ IntelliJ IDEA 또는 Android Studio에서 직접 Pod 의존성을 관리하고 �
 
 Swift/Objective-C 코드를 수정하거나 Apple 시뮬레이터 또는 기기에서 애플리케이션을 실행하려는 경우에만 Xcode가 필요합니다. Xcode에서 작업하려면 먼저 [Podfile을 업데이트](#update-podfile-for-xcode)하세요.
 
-## CocoaPods 작업을 위한 환경 설정
+## CocoaPods 작업을 위한 환경 설정 {id="set-up-an-environment-to-work-with-cocoapods"}
 
 원하는 설치 도구를 사용하여 [CocoaPods 의존성 관리자](https://cocoapods.org/)를 설치하세요:
 
@@ -96,7 +96,7 @@ sudo gem install cocoapods
 
 설치 중 문제가 발생하면 [발생 가능한 문제 및 해결 방법](#possible-issues-and-solutions) 섹션을 확인하세요.
 
-## 프로젝트 생성
+## 프로젝트 생성 {id="create-a-project"}
 
 CocoaPods 환경이 설정되면 Kotlin 멀티플랫폼 프로젝트가 Pod과 연동되도록 구성할 수 있습니다. 다음 단계는 새로 생성된 프로젝트에서의 구성 방법을 보여줍니다:
 
@@ -123,7 +123,7 @@ CocoaPods 환경이 설정되면 Kotlin 멀티플랫폼 프로젝트가 Pod과 �
 
 이제 [Kotlin 멀티플랫폼 프로젝트에서 CocoaPods를 구성](#configure-the-project)할 준비가 되었습니다.
 
-## 프로젝트 구성
+## 프로젝트 구성 {id="configure-the-project"}
 
 멀티플랫폼 프로젝트에서 Kotlin CocoaPods Gradle 플러그인을 구성하려면:
 
@@ -196,7 +196,7 @@ CocoaPods 환경이 설정되면 Kotlin 멀티플랫폼 프로젝트가 Pod과 �
 
 `Podspec` 파일에는 출력 프레임워크에 대한 경로와 Xcode 프로젝트의 빌드 프로세스 중에 이 프레임워크를 자동으로 빌드하는 스크립트 단계가 포함됩니다.
 
-## Xcode를 위한 Podfile 업데이트
+## Xcode를 위한 Podfile 업데이트 {id="update-podfile-for-xcode"}
 
 Kotlin 프로젝트를 Xcode 프로젝트로 가져오려는 경우:
 
@@ -234,21 +234,21 @@ Kotlin 프로젝트를 Xcode 프로젝트로 가져오려는 경우:
 
 Podfile에서 이러한 변경을 수행하지 않으면 `podInstall` 태스크가 실패하고 CocoaPods 플러그인이 로그에 오류 메시지를 표시합니다.
 
-## 발생 가능한 문제 및 해결 방법
+## 발생 가능한 문제 및 해결 방법 {id="possible-issues-and-solutions"}
 
-### CocoaPods 설치 {initial-collapse-state="collapsed" collapsible="true"}
+### CocoaPods 설치 {initial-collapse-state="collapsed" collapsible="true" id="cocoapods-installation"}
 
-#### Ruby 설치
+#### Ruby 설치 {id="ruby-installation"}
 
 CocoaPods는 Ruby로 구축되었으며, macOS에서 기본적으로 제공되는 Ruby로 설치할 수 있습니다. Ruby 1.9 이상에는 [CocoaPods 의존성 관리자](https://guides.cocoapods.org/using/getting-started.html#installation) 설치를 도와주는 RubyGems 패키지 관리 프레임워크가 내장되어 있습니다.
 
 CocoaPods를 설치하고 실행하는 데 문제가 있는 경우, [이 가이드](https://www.ruby-lang.org/en/documentation/installation/)를 따라 Ruby를 설치하거나 [RubyGems 웹사이트](https://rubygems.org/pages/download/)를 참조하여 프레임워크를 설치하세요.
 
-#### 버전 호환성
+#### 버전 호환성 {id="version-compatibility"}
 
 최신 버전의 Kotlin을 사용하는 것이 좋습니다. 이 CocoaPods 설정을 위한 최소 요구 버전은 1.7.0입니다.
 
-### Xcode 사용 시 빌드 오류 {initial-collapse-state="collapsed" collapsible="true"}
+### Xcode 사용 시 빌드 오류 {initial-collapse-state="collapsed" collapsible="true" id="build-errors-when-using-xcode"}
 
 CocoaPods 설치 방식에 따라 Xcode에서 빌드 오류가 발생할 수 있습니다. 일반적으로 Kotlin Gradle 플러그인은 `PATH`에서 `pod` 실행 파일을 찾아내지만, 이는 환경에 따라 일관되지 않을 수 있습니다.
 
@@ -266,11 +266,11 @@ CocoaPods 설치 경로를 명시적으로 설정하려면 프로젝트의 `loca
     echo -e "kotlin.apple.cocoapods.bin=$(which pod)" >> local.properties
     ```
 
-### 모듈 또는 프레임워크를 찾을 수 없음 {initial-collapse-state="collapsed" collapsible="true"}
+### 모듈 또는 프레임워크를 찾을 수 없음 {initial-collapse-state="collapsed" collapsible="true" id="module-or-framework-not-found"}
 
 Pod 설치 시 [C interop](https://kotlinlang.org/docs/native-c-interop.html) 이슈와 관련된 `module 'SomeSDK' not found` 또는 `framework 'SomeFramework' not found` 오류가 발생할 수 있습니다. 이러한 오류를 해결하려면 다음 방법들을 시도해 보세요:
 
-#### 패키지 업데이트
+#### 패키지 업데이트 {id="update-packages"}
 
 설치 도구와 설치된 패키지(gems)를 업데이트하세요:
 
@@ -335,7 +335,7 @@ Pod 설치 시 [C interop](https://kotlinlang.org/docs/native-c-interop.html) �
 </TabItem>
 </Tabs>
 
-#### 프레임워크 이름 지정 
+#### 프레임워크 이름 지정 {id="specify-the-framework-name"}
 
 1. 다운로드된 Pod 디렉터리 `[shared_module_name]/build/cocoapods/synthetic/IOS/Pods/...`에서 `module.modulemap` 파일을 찾습니다.
 2. 모듈 내부의 프레임워크 이름(예: `SDWebImageMapKit {}`)을 확인합니다. 프레임워크 이름이 Pod 이름과 일치하지 않으면 명시적으로 지정하세요:
@@ -346,7 +346,7 @@ Pod 설치 시 [C interop](https://kotlinlang.org/docs/native-c-interop.html) �
     }
     ```
 
-#### 헤더 지정
+#### 헤더 지정 {id="specify-headers"}
 
 `pod("NearbyMessages")`와 같이 Pod에 `.modulemap` 파일이 포함되어 있지 않은 경우, 메인 헤더를 명시적으로 지정하세요:
 
@@ -359,7 +359,7 @@ pod("NearbyMessages") {
 
 더 자세한 정보는 [CocoaPods 문서](https://guides.cocoapods.org/)를 확인하세요. 모든 방법을 시도해도 오류가 계속 발생하면 [YouTrack](https://youtrack.jetbrains.com/newissue?project=kt)에 이슈를 제보해 주세요.
 
-### 앱 번들의 리소스 누락 {initial-collapse-state="collapsed" collapsible="true"}
+### 앱 번들의 리소스 누락 {initial-collapse-state="collapsed" collapsible="true" id="missing-resources-in-the-app-bundle"}
 
 iOS 앱이 성공적으로 빌드되지만 실행 시 크래시가 발생하거나, 커스텀 폰트 및 이미지와 같은 리소스가 최종 `.ipa` 패키지에서 누락된 경우 Pod이 프로젝트와 통합되는 방식에 문제가 있을 수 있습니다.
 
@@ -372,7 +372,7 @@ open iosApp/iosApp.xcworkspace
 
 **문제 발생 원인**: 클린 프로젝트(예: 저장소를 새로 클론한 후 또는 CI/CD 파이프라인에서 작업할 때)에서 네이티브 `pod install` 명령을 실행하면 리소스 디렉터리가 아직 생성되지 않은 상태일 수 있습니다. Compose Multiplatform Gradle 플러그인은 생성된 `.podspec` 파일에 리소스 위치를 다음과 같이 지정합니다: `spec.resources = ['build/compose/cocoapods/compose-resources']`. 하지만 이 경로는 빌드 후에만 존재합니다. 결과적으로 CocoaPods는 누락된 디렉터리를 무시하고 이러한 리소스 없이 Xcode 프로젝트를 구성합니다. 프로젝트가 빌드되고 리소스가 생성되어도 Xcode는 이를 최종 번들에 복사하지 않습니다.
 
-### Rsync 오류 {initial-collapse-state="collapsed" collapsible="true"}
+### Rsync 오류 {initial-collapse-state="collapsed" collapsible="true" id="rsync-error"}
 
 `rsync error: some files could not be transferred` 오류가 발생할 수 있습니다. 이는 Xcode의 애플리케이션 타겟에서 사용자 스크립트의 샌드박싱(sandboxing)이 활성화되어 있을 때 발생하는 [알려진 이슈](https://github.com/CocoaPods/CocoaPods/issues/11946)입니다.
 
@@ -388,7 +388,7 @@ open iosApp/iosApp.xcworkspace
     ./gradlew --stop
     ```
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 * [Kotlin 프로젝트에서 Pod 라이브러리에 대한 의존성 추가하기](multiplatform-cocoapods-libraries.md)
 * [Kotlin 프로젝트와 Xcode 프로젝트 간의 의존성 설정하기](multiplatform-cocoapods-xcode.md)

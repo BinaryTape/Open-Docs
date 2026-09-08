@@ -13,7 +13,7 @@
 
 これらの質問に答えることで、プロジェクトに最適な構成を選択できます。
 
-## Kotlin Multiplatform モジュールを iOS アプリに接続する
+## Kotlin Multiplatform モジュールを iOS アプリに接続する {id="connect-a-kotlin-multiplatform-module-to-an-ios-app"}
 
 iOS アプリから Kotlin Multiplatform 共有モジュールを使用するには、まずこの共有モジュールから [iOS フレームワーク](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPFrameworks/Concepts/WhatAreFrameworks.html) を生成する必要があります。次に、それを iOS プロジェクトの依存関係として追加します。
 
@@ -24,11 +24,11 @@ iOS アプリから Kotlin Multiplatform 共有モジュールを使用するに
 
 iOS 統合に関するすべての利用可能なオプションを確認するには、[iOS 統合方法の概要](multiplatform-ios-integration-overview.md) を参照してください。
 
-## モジュール構成
+## モジュール構成 {id="module-configurations"}
 
 Kotlin Multiplatform プロジェクトで使用できるモジュール構成オプションには、単一モジュールまたは複数の共有モジュールの 2 つがあります。
 
-### 単一の共有モジュール
+### 単一の共有モジュール {id="single-shared-module"}
 
 最もシンプルなモジュール構成は、プロジェクト内に Kotlin Multiplatform 共有モジュールが 1 つだけ含まれるものです。
 
@@ -61,7 +61,7 @@ Android アプリは、通常の Kotlin モジュールとして Kotlin Multipla
 
 </table>
 
-### 複数の共有モジュール
+### 複数の共有モジュール {id="several-shared-modules"}
 
 共有モジュールが成長してきたら、機能（フィーチャー）モジュールに分割することをお勧めします。
 これにより、1 つのモジュールしかないことによるスケーラビリティの問題を回避できます。
@@ -113,7 +113,7 @@ Android アプリは、一貫性のためにアンブレラモジュールに依
 >
 {style="tip"}
 
-#### なぜアンブレラフレームワークが必要なのですか？ {initial-collapse-state="collapsed" collapsible="true"}
+#### なぜアンブレラフレームワークが必要なのですか？ {initial-collapse-state="collapsed" collapsible="true" id="why-do-you-need-an-umbrella-framework"}
 
 異なる Kotlin Multiplatform 共有モジュールから生成された複数のフレームワークを iOS アプリに含めることは可能ですが、このアプローチは推奨されません。Kotlin Multiplatform モジュールがフレームワークにコンパイルされると、生成されたフレームワークにはそのすべての依存関係が含まれます。2 つ以上のモジュールが同じ依存関係を使用し、個別のフレームワークとして iOS に公開されるたびに、Kotlin/Native コンパイラは依存関係を重複させます。
 
@@ -123,11 +123,11 @@ Kotlin は共通のフレームワーク依存関係を生成しません。生�
 
 この問題の解決策は、アンブレラフレームワークを使用することです。これにより、重複した依存関係による iOS アプリの肥大化を防ぎ、生成されるアーティファクトを最適化し、依存関係間の非互換性による混乱を排除できます。
 
-## リポジトリ構成
+## リポジトリ構成 {id="repository-configurations"}
 
 新規および既存の Kotlin Multiplatform プロジェクトで使用できるリポジトリ構成オプションがいくつかあります。1 つのリポジトリを使用する方法、または複数のリポジトリを組み合わせる方法があります。
 
-### モノレポ: すべてを 1 つのリポジトリに
+### モノレポ: すべてを 1 つのリポジトリに {id="monorepo-everything-in-one-repository"}
 
 一般的なリポジトリ構成は、モノレポ（monorepo）構成と呼ばれます。このアプローチは、Kotlin Multiplatform のサンプルやチュートリアルで使用されています。この場合、リポジトリには Android アプリと iOS アプリの両方に加え、共有モジュール、またはアンブレラモジュールを含む複数のモジュールが含まれます。
 
@@ -166,7 +166,7 @@ Kotlin は共通のフレームワーク依存関係を生成しません。生�
 
 既存の Android アプリと iOS アプリがすでに異なるリポジトリに保存されている場合は、それらをマージする代わりに、Kotlin Multiplatform 部分を Android リポジトリに追加するか、別のリポジトリに追加することができます。
 
-### 2 つのリポジトリ: Android + 共有 | iOS
+### 2 つのリポジトリ: Android + 共有 | iOS {id="two-repositories-android-shared-ios"}
 
 もう 1 つのプロジェクト構成は、2 つのリポジトリを持つ方法です。この場合、Kotlin Multiplatform リポジトリには Android アプリと、アンブレラモジュールを含む共有モジュールの両方が含まれ、Xcode プロジェクトには iOS アプリが含まれます。
 
@@ -174,7 +174,7 @@ Kotlin は共通のフレームワーク依存関係を生成しません。生�
 
 Android アプリと iOS アプリは個別にバージョン管理でき、共有モジュールは Android アプリとともにバージョン管理されます。
 
-### 3 つのリポジトリ: Android | iOS | 共有
+### 3 つのリポジトリ: Android | iOS | 共有 {id="three-repositories-android-ios-shared"}
 
 さらに別のオプションは、Kotlin Multiplatform モジュール専用のリポジトリを持つ方法です。この場合、Android アプリと iOS アプリは個別のリポジトリに保存され、プロジェクトの共有コードには複数の機能モジュールと iOS 用のアンブレラモジュールを含めることができます。
 
@@ -186,7 +186,7 @@ Android アーティファクトを個別に公開することは、Kotlin Multi
 
 Android チームと iOS チームの両方が同じバージョン管理されたアーティファクトを使用する場合、両者はバージョンのパリティ（一致）で運用されます。チームの観点からは、共有されている Kotlin Multiplatform コードが Android 開発者によって「所有」されているという印象を避けることができます。機能開発のためにバージョン管理された内部の Kotlin および Swift パッケージをすでに公開している大規模なプロジェクトの場合、共有 Kotlin アーティファクトの公開は既存のワークフローの一部となります。
 
-### 多数のリポジトリ: Android | iOS | 複数のライブラリ
+### 多数のリポジトリ: Android | iOS | 複数のライブラリ {id="many-repositories-android-ios-multiple-libraries"}
 
 複数のプラットフォーム上の複数のアプリ間で機能を共有する必要がある場合は、Kotlin Multiplatform コードを含む多数のリポジトリを持つことが好ましい場合があります。たとえば、製品全体で共通のロギングライブラリを、独自のバージョン管理を持つ個別のリポジトリに保存できます。
 
@@ -196,11 +196,11 @@ Android チームと iOS チームの両方が同じバージョン管理され�
 
 ここでは、各ライブラリも Android または JVM プラットフォーム用にバージョン管理および公開される必要があります。アプリと各ライブラリは個別にバージョン管理できます。
 
-## コード共有のワークフロー
+## コード共有のワークフロー {id="code-sharing-workflow"}
 
 iOS アプリは、Kotlin Multiplatform 共有モジュールから生成されたフレームワークを、**ローカル**または**リモート**の依存関係として使用できます。iOS ビルドでフレームワークへのローカルパスを指定することで、ローカルの依存関係を使用できます。この場合、フレームワークを公開する必要はありません。あるいは、フレームワークを含むアーティファクトをどこかに公開し、他のサードパーティの依存関係と同様に、iOS アプリにリモートの依存関係として使用させることもできます。
 
-### ローカル: ソース配布
+### ローカル: ソース配布 {id="local-source-distribution"}
 
 ローカル配布は、iOS アプリが公開を必要とせずに Kotlin Multiplatform モジュールフレームワークを使用する方法です。iOS アプリは、フレームワークを直接統合するか、CocoaPods を使用して統合できます。
 
@@ -241,7 +241,7 @@ iOS アプリは、Kotlin Multiplatform 共有モジュールから生成され�
 
 </table>
 
-### リモート: アーティファクト配布
+### リモート: アーティファクト配布 {id="remote-artifact-distribution"}
 
 リモート配布とは、フレームワークアーティファクトが Swift Package Manager または CocoaPod として公開され、iOS アプリによって使用されることを意味します。Android アプリは、バイナリ依存関係をローカルまたはリモートで使用できます。
 
@@ -273,7 +273,7 @@ iOS アプリは、Kotlin Multiplatform 共有モジュールから生成され�
 
 </table>
 
-#### ローカル開発用のローカル依存関係のセットアップ
+#### ローカル開発用のローカル依存関係のセットアップ {id="setting-up-a-local-dependency-for-local-development"}
 
 多くのチームは、Kotlin Multiplatform テクノロジーを採用する際、iOS 開発者の開発プロセスを維持するためにリモート配布ワークフローを選択します。しかし、このワークフローでは、彼らが Kotlin Multiplatform コードを変更するのは困難です。Kotlin Multiplatform モジュールから生成されたフレームワークへのローカル依存関係を使用する、追加の「ローカル開発」ワークフローをセットアップすることをお勧めします。
 

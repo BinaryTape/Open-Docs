@@ -20,7 +20,7 @@
 >
 {style="tip"}
 
-## 始める前に
+## 始める前に {id="before-you-start"}
 
 1. [IntelliJ IDEA](https://www.jetbrains.com/idea/download/index.html) の最新バージョンをダウンロードしてインストールします。
 2. ウェルカム画面で **Get from VCS** を選択するか、**File | New | Project from Version Control** を選択して、[プロジェクトテンプレート](http://github.com/kotlin-hands-on/intro-coroutines)をクローンします。
@@ -31,7 +31,7 @@
    git clone https://github.com/kotlin-hands-on/intro-coroutines
    ```
 
-### GitHub 開発者トークンを生成する
+### GitHub 開発者トークンを生成する {id="generate-a-github-developer-token"}
 
 プロジェクトでは GitHub API を使用します。アクセスするには、GitHub のアカウント名と、パスワードまたはトークンのいずれかを提供する必要があります。2要素認証を有効にしている場合は、トークンだけで十分です。
 
@@ -44,7 +44,7 @@
 2. スコープは選択しないでください。ページ下部の **Generate token** をクリックします。
 3. 生成されたトークンをコピーします。
 
-### コードを実行する
+### コードを実行する {id="run-the-code"}
 
 プログラムは、指定された組織（デフォルト名は「kotlin」）の下にあるすべてのリポジトリのコントリビューター（貢献者）を読み込みます。後で、貢献数によってユーザーをソートするロジックを追加します。
 
@@ -61,7 +61,7 @@
 
 このロジックを実装するには、[ブロッキングリクエスト](#blocking-requests)や[コールバック](#callbacks)を使用するなど、さまざまな方法があります。これらの解決策を[コルーチン](#coroutines)を使用したものと比較し、[チャネル](#channels)を使用して異なるコルーチン間で情報を共有する方法を確認します。
 
-## ブロッキングリクエスト
+## ブロッキングリクエスト {id="blocking-requests"}
 
 GitHub への HTTP リクエストを実行するために、[Retrofit](https://square.github.io/retrofit/) ライブラリを使用します。これにより、特定の組織下のリポジトリリストと、各リポジトリのコントリビューターリストをリクエストできます。
 
@@ -152,7 +152,7 @@ interface GitHubService {
     * `updateResults()` は UI を更新するため、常に UI スレッドから呼び出す必要があります。
     * `loadContributorsBlocking()` も UI スレッドから呼び出されるため、UI スレッドがブロックされ、UI がフリーズします。
 
-### タスク 1
+### タスク 1 {id="task-1"}
 
 最初のタスクは、タスクドメインに慣れるためのものです。現在、各コントリビューターの名前は、参加したプロジェクトごとに1回ずつ、複数回繰り返されています。各コントリビューターが1回だけ追加されるようにユーザーを結合する `aggregate()` 関数を実装してください。`User.contributions` プロパティには、そのユーザーの*すべての*プロジェクトにおける貢献の合計数を含める必要があります。結果のリストは、貢献数に応じて降順でソートされる必要があります。
 
@@ -168,7 +168,7 @@ interface GitHubService {
 
 ![ "kotlin" 組織のリスト](aggregate.png){width=500}
 
-#### タスク 1 の解決策 {initial-collapse-state="collapsed" collapsible="true"}
+#### タスク 1 の解決策 {initial-collapse-state="collapsed" collapsible="true" id="solution-for-task-1"}
 
 1. ログイン名でユーザーをグループ化するには、[`groupBy()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/group-by.html) を使用します。これにより、ログイン名から、異なるリポジトリにおけるそのログイン名を持つユーザーのすべての出現箇所へのマップが返されます。
 2. 各マップエントリについて、各ユーザーの貢献の合計数をカウントし、指定された名前と貢献の合計を使用して `User` クラスの新しいインスタンスを作成します。
@@ -183,7 +183,7 @@ interface GitHubService {
 
 別の解決策として、`groupBy()` の代わりに [`groupingBy()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/grouping-by.html) 関数を使用することもできます。
 
-## コールバック
+## コールバック {id="callbacks"}
 
 前の解決策は機能しますが、スレッドをブロックするため UI がフリーズします。これを回避する伝統的なアプローチは、*コールバック*を使用することです。
 
@@ -191,7 +191,7 @@ interface GitHubService {
 
 UI のレスポンスを維持するために、計算全体を別のスレッドに移動するか、ブロッキングコールの代わりにコールバックを使用する Retrofit API に切り替えることができます。
 
-### バックグラウンドスレッドを使用する
+### バックグラウンドスレッドを使用する {id="use-a-background-thread"}
 
 1. `src/tasks/Request2Background.kt` を開き、その実装を確認してください。まず、計算全体が別のスレッドに移動されます。`thread()` 関数は新しいスレッドを開始します：
 
@@ -228,11 +228,11 @@ UI のレスポンスを維持するために、計算全体を別のスレッ�
 
 ただし、`BACKGROUND` オプションを介してコントリビューターを読み込もうとすると、リストは更新されますが何も変化しないことがわかります。
 
-### タスク 2
+### タスク 2 {id="task-2"}
 
 `src/tasks/Request2Background.kt` の `loadContributorsBackground()` 関数を修正し、結果のリストが UI に表示されるようにしてください。
 
-#### タスク 2 の解決策 {initial-collapse-state="collapsed" collapsible="true"}
+#### タスク 2 の解決策 {initial-collapse-state="collapsed" collapsible="true" id="solution-for-task-2"}
 
 コントリビューターを読み込もうとすると、ログにはコントリビューターが読み込まれたことが示されますが、結果が表示されないことがわかります。これを修正するには、結果のユーザーリストに対して `updateResults()` を呼び出します：
 
@@ -244,7 +244,7 @@ thread {
 
 コールバックに渡されたロジックを明示的に呼び出すようにしてください。そうしないと、何も起こりません。
 
-### Retrofit コールバック API を使用する
+### Retrofit コールバック API を使用する {id="use-the-retrofit-callback-api"}
 
 前の解決策では、読み込みロジック全体がバックグラウンドスレッドに移動されましたが、それでもリソースの最適な使用とは言えません。すべての読み込みリクエストは順次実行され、読み込み結果を待つ間スレッドはブロックされますが、その間スレッドは他のタスクに使用できたはずです。具体的には、スレッドは別のリクエストの読み込みを開始して、結果全体をより早く受け取ることができた可能性があります。
 
@@ -289,11 +289,11 @@ fun loadContributorsCallbacks(
 
 提供されたコードが期待通りに動作しない理由を考え、修正を試みるか、以下の解決策を確認してください。
 
-### タスク 3 (オプション)
+### タスク 3 (オプション) {id="task-3-optional"}
 
 `src/tasks/Request3Callbacks.kt` ファイルのコードを書き換えて、読み込まれたコントリビューターのリストが表示されるようにしてください。
 
-#### タスク 3 の最初の試行解決策 {initial-collapse-state="collapsed" collapsible="true"}
+#### タスク 3 の最初の試行解決策 {initial-collapse-state="collapsed" collapsible="true" id="the-first-attempted-solution-for-task-3"}
 
 現在の解決策では、多くのリクエストが並行して開始されるため、総読み込み時間が短縮されます。しかし、結果は読み込まれません。これは、`updateResults()` コールバックが、`allUsers` リストにデータが入る前、つまりすべての読み込みリクエストが開始された直後に呼び出されるためです。
 
@@ -320,7 +320,7 @@ for ((index, repo) in repos.withIndex()) {   // #1
 
 しかし、このコードも目的を達成できません。自分で答えを探してみるか、以下の解決策を確認してください。
 
-#### タスク 3 の2番目の試行解決策 {initial-collapse-state="collapsed" collapsible="true"}
+#### タスク 3 の2番目の試行解決策 {initial-collapse-state="collapsed" collapsible="true" id="the-second-attempted-solution-for-task-3"}
 
 読み込みリクエストは並行して開始されるため、最後のリクエストの結果が最後に返ってくる保証はありません。結果はどのような順序でも返ってくる可能性があります。
 
@@ -348,7 +348,7 @@ for (repo in repos) {
 
 一般に、`getRepoContributors()` リクエストを処理する異なるコールバックが常に同じスレッドから呼び出されるという保証はないため、このコードでは同期されたバージョンのリストと `AtomicInteger()` を使用しています。
 
-#### タスク 3 の3番目の試行解決策 {initial-collapse-state="collapsed" collapsible="true"}
+#### タスク 3 の3番目の試行解決策 {initial-collapse-state="collapsed" collapsible="true" id="the-third-attempted-solution-for-task-3"}
 
 さらに良い解決策は、`CountDownLatch` クラスを使用することです。これは、リポジトリの数で初期化されたカウンターを格納します。このカウンターは、各リポジトリを処理した後にデクリメントされます。その後、ラッチがゼロにカウントダウンされるまで待機してから結果を更新します：
 
@@ -373,7 +373,7 @@ updateResults(allUsers.aggregate())
 >
 {style="tip"}
 
-## 中断関数 (Suspending functions)
+## 中断関数 (Suspending functions) {id="suspending-functions"}
 
 中断関数を使用して同じロジックを実装できます。`Call<List<Repo>>` を返す代わりに、次のように API 呼び出しを[中断関数](composing-suspending-functions.md)として定義します：
 
@@ -410,7 +410,7 @@ interface GitHubService {
 }
 ```
 
-### タスク 4
+### タスク 4 {id="task-4"}
 
 あなたのタスクは、2つの新しい中断関数 `getOrgRepos()` と `getRepoContributors()` を利用するように、コントリビューターを読み込む関数のコードを変更することです。新しい `loadContributorsSuspend()` 関数は、新しい API を使用するために `suspend` とマークされています。
 
@@ -422,7 +422,7 @@ interface GitHubService {
 2. `Call` を返す関数の代わりに、新しい中断関数が使用されるようにコードを修正します。
 3. _SUSPEND_ オプションを選択してプログラムを実行し、GitHub リクエストが実行されている間も UI が引き続きレスポンス可能であることを確認します。
 
-#### タスク 4 の解決策 {initial-collapse-state="collapsed" collapsible="true"}
+#### タスク 4 の解決策 {initial-collapse-state="collapsed" collapsible="true" id="solution-for-task-4"}
 
 `.getOrgReposCall(req.org).execute()` を `.getOrgRepos(req.org)` に置き換え、2番目の "contributors" リクエストについても同じ置き換えを繰り返します：
 
@@ -444,7 +444,7 @@ suspend fun loadContributorsSuspend(service: GitHubService, req: RequestData): L
 * `loadContributorsSuspend()` は `suspend` 関数として定義する必要があります。
 * API 関数が直接 `Response` を返すようになったため、以前は `Response` を返していた `execute` を呼び出す必要はもうありません。この詳細は Retrofit ライブラリ特有のものであることに注意してください。他のライブラリでは API は異なりますが、概念は同じです。
 
-## コルーチン
+## コルーチン {id="coroutines"}
 
 中断関数を使用したコードは、「ブロッキング」バージョンに似ています。ブロッキングバージョンとの大きな違いは、スレッドをブロックする代わりに、コルーチンが中断 (suspend) されることです：
 
@@ -457,7 +457,7 @@ suspend fun loadContributorsSuspend(service: GitHubService, req: RequestData): L
 >
 {style="note"}
 
-### 新しいコルーチンを開始する
+### 新しいコルーチンを開始する {id="starting-a-new-coroutine"}
 
 `src/contributors/Contributors.kt` で `loadContributorsSuspend()` がどのように使用されているかを見ると、それが `launch` の中で呼び出されていることがわかります。`launch` はラムダを引数として受け取るライブラリ関数です：
 
@@ -506,7 +506,7 @@ launch {
 
 中断関数はスレッドを公平に扱い、「待機」のためにスレッドをブロックしません。ただし、これだけではまだ並行性 (concurrency) は導入されていません。
 
-## 並行性 (Concurrency)
+## 並行性 (Concurrency) {id="concurrency"}
 
 Kotlin のコルーチンはスレッドよりもはるかにリソース消費が少ないです。新しい計算を非同期的に開始したいときはいつでも、スレッドの代わりに新しいコルーチンを作成できます。
 
@@ -569,11 +569,11 @@ fun main() = runBlocking {
 
 総読み込み時間は _CALLBACKS_ バージョンとほぼ同じですが、コールバックは不要です。さらに、`async` を使うことで、コード内のどの部分が並行して実行されるかを明確に強調できます。
 
-### タスク 5
+### タスク 5 {id="task-5"}
 
 `Request5Concurrent.kt` ファイルで、以前の `loadContributorsSuspend()` 関数を使用して `loadContributorsConcurrent()` 関数を実装してください。
 
-#### タスク 5 のヒント {initial-collapse-state="collapsed" collapsible="true"}
+#### タスク 5 のヒント {initial-collapse-state="collapsed" collapsible="true" id="tip-for-task-5"}
 
 新しいコルーチンはコルーチンスコープ内でのみ開始できます。`loadContributorsSuspend()` の内容を `coroutineScope` 呼び出しにコピーして、そこで `async` 関数を呼び出せるようにしてください：
 
@@ -597,7 +597,7 @@ val deferreds: List<Deferred<List<User>>> = repos.map { repo ->
 deferreds.awaitAll() // List<List<User>>
 ```
 
-#### タスク 5 の解決策 {initial-collapse-state="collapsed" collapsible="true"}
+#### タスク 5 の解決策 {initial-collapse-state="collapsed" collapsible="true" id="solution-for-task-5"}
 
 各 "contributors" リクエストを `async` でラップして、リポジトリと同じ数だけコルーチンを作成します。`async` は `Deferred<List<User>>` を返します。新しいコルーチンの作成はそれほどリソースを消費しないため、必要なだけ作成しても問題ありません。
 
@@ -689,7 +689,7 @@ deferreds.awaitAll() // List<List<User>>
 
 3. コードを実行し、コルーチンがスレッドプールのスレッドで実行されていることを確認します。
 
-## 構造化された並行性 (Structured concurrency)
+## 構造化された並行性 (Structured concurrency) {id="structured-concurrency"}
 
 * *コルーチンスコープ*は、異なるコルーチン間の構造と親子関係を担当します。新しいコルーチンは通常、スコープ内で開始する必要があります。
 * *コルーチンコンテキスト*は、特定のコルーチンを実行するために使用される追加の技術情報（コルーチンのカスタム名や、コルーチンをスケジュールするスレッドを指定するディスパッチャなど）を保存します。
@@ -733,7 +733,7 @@ fun main() = runBlocking { /* this: CoroutineScope */
 
 `GlobalScope.async` を使用する場合、複数のコルーチンをより小さなスコープにバインドする構造はありません。グローバルスコープから開始されたコルーチンはすべて独立しており、その寿命はアプリケーション全体の寿命によってのみ制限されます。グローバルスコープから開始されたコルーチンへの参照を保存して、その完了を待ったり、明示的にキャンセルしたりすることは可能ですが、構造化された並行性のように自動的には行われません。
 
-### コントリビューターの読み込みをキャンセルする
+### コントリビューターの読み込みをキャンセルする {id="canceling-the-loading-of-contributors"}
 
 コントリビューターのリストを読み込む関数の2つのバージョンを作成します。親コルーチンをキャンセルしようとしたときに、両方のバージョンがどのように動作するかを比較します。最初のバージョンは `coroutineScope` を使用してすべての子コルーチンを開始し、2番目のバージョンは `GlobalScope` を使用します。
 
@@ -852,7 +852,7 @@ job.setUpCancellation()
 
 構造化された並行性を使用すると、親コルーチンをキャンセルするだけで、これが自動的にすべての子コルーチンにキャンセルを伝播させます。
 
-### 外側のスコープのコンテキストを使用する
+### 外側のスコープのコンテキストを使用する {id="using-the-outer-scope-s-context"}
 
 特定のスコープ内で新しいコルーチンを開始すると、それらすべてが同じコンテキストで実行されるようにするのがはるかに簡単になります。また、必要に応じてコンテキストを置き換えるのもはるかに簡単です。
 
@@ -886,7 +886,7 @@ suspend fun loadContributorsConcurrent(
 >
 {style="tip"}
 
-## 進捗の表示
+## 進捗の表示 {id="showing-progress"}
 
 一部のリポジトリの情報がかなり早く読み込まれるにもかかわらず、ユーザーはすべてのデータが読み込まれた後にのみ結果リストを見ることになります。それまでは、ローダーアイコンが進捗を表示して回転していますが、現在の状態やどのコントリビューターがすでに読み込まれているかについての情報はありません。
 
@@ -922,7 +922,7 @@ launch(Dispatchers.Default) {
 * `loadContributorsProgress()` では、`updateResults()` パラメータが `suspend` として宣言されています。対応するラムダ引数内で `suspend` 関数である `withContext` を呼び出す必要があるためです。
 * `updateResults()` コールバックは、読み込みが完了し結果が最終的なものであるかどうかを指定する追加の Boolean パラメータを引数として受け取ります。
 
-### タスク 6
+### タスク 6 {id="task-6"}
 
 `Request6Progress.kt` ファイルで、中間の進捗を表示する `loadContributorsProgress()` 関数を実装してください。`Request4Suspend.kt` の `loadContributorsSuspend()` 関数をベースにしてください。
 
@@ -930,7 +930,7 @@ launch(Dispatchers.Default) {
 * 中間のコントリビューターリストは、各リポジトリについて読み込まれたユーザーリストだけでなく、「集計された (aggregated)」状態で表示される必要があります。
 * 新しいリポジトリのデータが読み込まれるたびに、各ユーザーの貢献の合計数が増加するようにしてください。
 
-#### タスク 6 の解決策 {initial-collapse-state="collapsed" collapsible="true"}
+#### タスク 6 の解決策 {initial-collapse-state="collapsed" collapsible="true" id="solution-for-task-6"}
 
 「集計された」状態の中間リストを保存するには、ユーザーリストを保持する `allUsers` 変数を定義し、各リポジトリのコントリビューターが読み込まれた後にそれを更新します：
 
@@ -957,7 +957,7 @@ suspend fun loadContributorsProgress(
 }
 ```
 
-#### 逐次実行 vs 並行実行
+#### 逐次実行 vs 並行実行 {id="consecutive-vs-concurrent"}
 
 各リクエストが完了するたびに `updateResults()` コールバックが呼び出されます：
 
@@ -971,7 +971,7 @@ suspend fun loadContributorsProgress(
 
 並行性を追加するには、*チャネル (channels)* を使用します。
 
-## チャネル (Channels)
+## チャネル (Channels) {id="channels"}
 
 共有された可変状態 (mutable state) を持つコードを書くことは、非常に困難でエラーが発生しやすいです（コールバックを使用した解決策のように）。
 よりシンプルな方法は、共通の可変状態を使用するのではなく、通信によって情報を共有することです。
@@ -1076,13 +1076,13 @@ fun log(message: Any?) {
 >
 {style="tip"}
 
-### タスク 7
+### タスク 7 {id="task-7"}
 
 `src/tasks/Request7Channels.kt` で、すべての GitHub コントリビューターを並行してリクエストし、同時に中間進捗を表示する `loadContributorsChannels()` 関数を実装してください。
 
 以前の関数、`Request5Concurrent.kt` の `loadContributorsConcurrent()` と `Request6Progress.kt` の `loadContributorsProgress()` を活用してください。
 
-#### タスク 7 のヒント {initial-collapse-state="collapsed" collapsible="true"}
+#### タスク 7 のヒント {initial-collapse-state="collapsed" collapsible="true" id="tip-for-task-7"}
 
 異なるリポジトリのコントリビューターリストを並行して受信する異なるコルーチンが、受信したすべての結果を同じチャネルに送信できます：
 
@@ -1108,7 +1108,7 @@ repeat(repos.size) {
 
 `receive()` 呼び出しは逐次的なので、追加の同期は不要です。
 
-#### タスク 7 の解決策 {initial-collapse-state="collapsed" collapsible="true"}
+#### タスク 7 の解決策 {initial-collapse-state="collapsed" collapsible="true" id="solution-for-task-7"}
 
 `loadContributorsProgress()` 関数と同様に、「全コントリビューター」リストの中間状態を保存する `allUsers` 変数を作成できます。
 チャネルから受信した各新しいリストは、すべてのユーザーのリストに追加されます。結果を集計し、`updateResults` コールバックを使用して状態を更新します：
@@ -1150,7 +1150,7 @@ suspend fun loadContributorsChannels(
 
 コルーチンもチャネルも並行性に起因する複雑さを完全に取り除くわけではありませんが、何が起きているのかを理解する必要がある場合に、作業を容易にしてくれます。
 
-## コルーチンのテスト
+## コルーチンのテスト {id="testing-coroutines"}
 
 それでは、並行コルーチンを使用した解決策が `suspend` 関数を使用した解決策よりも速いこと、およびチャネルを使用した解決策が単純な「進捗」解決策よりも速いことを確認するために、すべての解決策をテストしてみましょう。
 
@@ -1253,7 +1253,7 @@ compileTestKotlin {
 
 このチュートリアルに対応するプロジェクトでは、コンパイラ引数はすでに Gradle スクリプトに追加されています。
 
-### タスク 8
+### タスク 8 {id="task-8"}
 
 `tests/tasks/` 内の以下のテストを、リアルタイムではなく仮想時間を使用するようにリファクタリングしてください：
 
@@ -1264,7 +1264,7 @@ compileTestKotlin {
 
 リファクタリングを適用する前と後の総実行時間を比較してください。
 
-#### タスク 8 のヒント {initial-collapse-state="collapsed" collapsible="true"}
+#### タスク 8 のヒント {initial-collapse-state="collapsed" collapsible="true" id="tip-for-task-8"}
 
 1. `runBlocking` の呼び出しを `runTest` に置き換え、`System.currentTimeMillis()` を `currentTime` に置き換えます：
 
@@ -1281,7 +1281,7 @@ compileTestKotlin {
 2. 正確な仮想時間を確認するアサーションのコメントを解除します。
 3. `@UseExperimental(ExperimentalCoroutinesApi::class)` を忘れずに追加してください。
 
-#### タスク 8 の解決策 {initial-collapse-state="collapsed" collapsible="true"}
+#### タスク 8 の解決策 {initial-collapse-state="collapsed" collapsible="true" id="solution-for-task-8"}
 
 並行ケースとチャネルケースの解決策は次のとおりです：
 
@@ -1324,7 +1324,7 @@ fun testChannels() = runTest {
 >
 {style="tip"}
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * KotlinConf の [Asynchronous Programming with Kotlin](https://kotlinconf.com/workshops/) ワークショップをチェックしてください。
 * [仮想時間と試験的なテストパッケージの使用](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-test/)について詳しく学びましょう。

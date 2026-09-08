@@ -21,7 +21,7 @@
 >
 {style="note"}
 
-## 更新您的建置指令碼
+## 更新您的建置指令碼 {id="update-your-build-script"}
 
 要更新您的建置，請按照 SwiftPM 匯入頁面上的說明操作：
 
@@ -71,7 +71,7 @@
    <code-block lang="kotlin" code="   kotlin {&#10;       listOf(&#10;           iosArm64(),&#10;           iosSimulatorArm64(),&#10;       ).forEach { iosTarget -&gt;&#10;           iosTarget.binaries.framework {&#10;               baseName = &quot;Shared&quot;&#10;               isStatic = true&#10;           }&#10;       }&#10;   }"/>
    </compare>
 
-## 重新配置您的 Xcode 專案
+## 重新配置您的 Xcode 專案 {id="reconfigure-your-xcode-project"}
 
 如果您正在使用 CocoaPods Gradle 外掛程式 (`kotlin("native.cocoapods")`)，在切換到 SwiftPM 之前，您需要重新配置您的 Xcode 專案以使用[直接整合](multiplatform-direct-integration.md)。SwiftPM 匯入工具可以產生 Shell 指令，對您的 `.xcodeproj` 檔案進行必要的更改。
 
@@ -100,7 +100,7 @@
 
 現在 iOS 應用程式已使用 SwiftPM 相依性。您可以停用 CocoaPods 外掛程式並解除整合 pod。
 
-## 移除 CocoaPods KMP 整合
+## 移除 CocoaPods KMP 整合 {id="remove-the-cocoapods-kmp-integration"}
 
 如果您已將所有 CocoaPods 相依性替換為 Swift 套件，現在可以透過在 `/path/to/project/iosApp` 目錄中執行以下指令來解除整合 pod：
 

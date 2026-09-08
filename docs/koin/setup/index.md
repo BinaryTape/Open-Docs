@@ -6,7 +6,7 @@ title: 设置与版本
 
 本指南涵盖了将 Koin 添加到项目所需的一切内容。
 
-## 快速设置
+## 快速设置 {id="quick-setup"}
 
 选择您的平台以开始使用：
 
@@ -19,7 +19,7 @@ title: 设置与版本
 | **Kotlin Multiplatform** | `koin-core` | [Gradle 设置](/docs/setup/gradle#kotlin-multiplatform) |
 | **Ktor** | `koin-ktor` | [Gradle 设置](/docs/setup/gradle#ktor) |
 
-## 推荐设置：BOM + 编译器插件
+## 推荐设置：BOM + 编译器插件 {id="recommended-setup-bom-compiler-plugin"}
 
 为了获得最佳体验，我们建议：
 
@@ -28,9 +28,9 @@ title: 设置与版本
 
 有关详细说明，请参阅 **[编译器插件设置指南](/docs/setup/compiler-plugin)**。
 
-## 设置指南
+## 设置指南 {id="setup-guides"}
 
-### [Gradle 设置](/docs/setup/gradle)
+### [Gradle 设置](/docs/setup/gradle) {id="gradle-setup"}
 
 适用于所有平台的完整依赖项配置：
 - Koin BOM（推荐）
@@ -38,7 +38,7 @@ title: 设置与版本
 - 平台特定软件包
 - 测试依赖项
 
-### [编译器插件设置](/docs/setup/compiler-plugin)
+### [编译器插件设置](/docs/setup/compiler-plugin) {id="compiler-plugin-setup"}
 
 Koin 编译器插件详细指南：
 - Gradle 插件配置
@@ -46,14 +46,14 @@ Koin 编译器插件详细指南：
 - Kotlin 版本要求
 - 故障排除
 
-### [KSP 处理器设置](/docs/setup/annotations-ksp)（已弃用）
+### [KSP 处理器设置](/docs/setup/annotations-ksp)（已弃用） {id="ksp-processor-setup-deprecated"}
 
 `koin-ksp-compiler`（基于 KSP 的 Koin 注解处理器）的旧版设置：
 - ⚠️ `koin-ksp-compiler` 已弃用 — 请迁移到 Koin 编译器插件
 - Koin 注解本身**并未**弃用；`koin-annotations` 现在是 Koin 主项目的一部分
 - 包含迁移指南
 
-## 版本兼容性
+## 版本兼容性 {id="version-compatibility"}
 
 | Koin 版本 | Kotlin 版本 | Koin 编译器插件 |
 |--------------|----------------|----------------------|
@@ -62,14 +62,14 @@ Koin 编译器插件详细指南：
 | 4.0.x | 1.9/2.0+ | ⚠️ 仅限 KSP 处理器 |
 | 3.5.x | 1.8+ | ❌ 不可用 |
 
-## 当前版本
+## 当前版本 {id="current-version"}
 
 - **Koin**: [![Maven Central](https://img.shields.io/maven-central/v/io.insert-koin/koin-core?label=latest)](https://mvnrepository.com/artifact/io.insert-koin/koin-core)
 - **Koin 编译器插件**: [![Maven Central](https://img.shields.io/maven-central/v/io.insert-koin/koin-compiler-plugin?label=latest)](https://mvnrepository.com/artifact/io.insert-koin/koin-compiler-plugin)
 
 在 [Maven Central](https://central.sonatype.com/search?q=io.insert-koin+koin-core&sort=name) 上查找所有 Koin 软件包。
 
-## 后续步骤
+## 后续步骤 {id="next-steps"}
 
 设置完成后：
 - **[核心概念](/docs/reference/koin-core/starting-koin)** —— 了解如何使用 Koin

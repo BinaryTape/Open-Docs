@@ -2,7 +2,7 @@
 
 以下是几个如何将 Glide/Picasso 调用迁移为 Coil 调用的示例：
 
-### 基本用法
+### 基本用法 {id="basic-usage"}
 
 ```kotlin
 // Glide
@@ -19,7 +19,7 @@ Picasso.get()
 imageView.load(url)
 ```
 
-### 自定义请求
+### 自定义请求 {id="custom-requests"}
 
 ```kotlin
 imageView.scaleType = ImageView.ScaleType.FIT_CENTER
@@ -44,7 +44,7 @@ imageView.load(url) {
 }
 ```
 
-### 非 View 目标
+### 非 View 目标 {id="non-view-targets"}
 
 ```kotlin
 // Glide（具有启动和错误的可选回调）
@@ -95,7 +95,7 @@ val request = ImageRequest.Builder(context)
 context.imageLoader.enqueue(request)
 ```
 
-### 后台线程
+### 后台线程 {id="background-thread"}
 
 ```kotlin
 // Glide（阻塞当前线程；严禁在主线程中调用）

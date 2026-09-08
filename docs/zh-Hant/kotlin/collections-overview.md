@@ -20,7 +20,7 @@ Kotlin 讓您可以獨立於儲存物件的具體型別來操作集合。換句�
 >
 {style="note"}
 
-## 集合型別 (Collection types)
+## 集合型別 (Collection types) {id="collection-types"}
 
 Kotlin 標準函式庫提供了基本集合型別的實作：Set、List 與 Map。每一種集合型別都由一對介面代表：
 
@@ -54,7 +54,7 @@ fun main() {
 
 <video src="https://www.youtube.com/v/F8jj7e-_jFA" title="Kotlin Collections Overview"/>
 
-### Collection
+### Collection {id="collection"}
 
 [`Collection<T>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-collection/index.html) 是集合階層結構的根。此介面代表了唯讀集合的共同行為：檢索大小、檢查項目成員是否存在等等。`Collection` 繼承自 `Iterable<T>` 介面，該介面定義了反覆運算元素的運作。您可以將 `Collection` 作為適用於不同集合型別的函式參數。對於更具體的情況，請使用 `Collection` 的繼承者：[`List`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html) 和 [`Set`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-set/index.html)。
 
@@ -93,7 +93,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3"}
 
-### List
+### List {id="list"}
 
 [`List<T>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html) 以指定順序儲存元素，並提供對它們的索引存取。索引從零開始 (第一個元素的索引)，直到 `lastIndex`，即 `(list.size - 1)`。
 
@@ -148,7 +148,7 @@ fun main() {
 
 在 Kotlin 中，`MutableList` 的預設實作是 [`ArrayList`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-list/index.html)，您可以將其視為可調整大小的陣列。
 
-### Set
+### Set {id="set"}
 
 [`Set<T>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-set/index.html) 儲存唯一元素；其順序通常是未定義的。`null` 元素也是唯一的：一個 `Set` 只能包含一個 `null`。如果兩個 Set 具有相同的大小，且對於一個 Set 的每個元素，在另一個 Set 中都有一個相等的元素，則這兩個 Set 是相等的。
 
@@ -185,7 +185,7 @@ fun main() {
 
 另一種實作 — [`HashSet`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-hash-set/index.html) — 不保證元素順序，因此對其呼叫此類函式會傳回不可預測的結果。然而，`HashSet` 在儲存相同數量的元素時需要較少的記憶體。
 
-### Map
+### Map {id="map"}
 
 [`Map<K, V>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html) 不是 `Collection` 介面的繼承者；然而，它也是一種 Kotlin 集合型別。`Map` 儲存 _鍵值對_ (或稱為 _entries_)；鍵是唯一的，但不同的鍵可以配對到相等的值。`Map` 介面提供了特定的功能，例如透過鍵存取值、搜尋鍵和值等。
 
@@ -235,7 +235,7 @@ fun main() {
 
 `MutableMap` 的預設實作 — [`LinkedHashMap`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-linked-hash-map/index.html) — 在反覆運算 Map 時會保留元素插入的順序。相應地，另一種實作 — [`HashMap`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-hash-map/index.html) — 則不保證元素順序。
 
-### ArrayDeque
+### ArrayDeque {id="arraydeque"}
 
 [`ArrayDeque<T>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-deque/) 是雙端隊列的實作，它允許您在隊列的開頭或結尾新增或移除元素。因此，`ArrayDeque` 在 Kotlin 中同時充當了堆疊 (Stack) 和隊列 (Queue) 資料結構的角色。在幕後，`ArrayDeque` 是使用可調整大小的陣列實現的，該陣列會在需要時自動調整大小：
 

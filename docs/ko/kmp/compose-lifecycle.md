@@ -26,13 +26,13 @@ kotlin {
 >
 {style="tip"}
 
-## 상태 및 이벤트
+## 상태 및 이벤트 {id="states-and-events"}
 
 수명 주기 상태 및 이벤트의 흐름은 다음과 같습니다([젯팩 수명 주기](https://developer.android.com/topic/libraries/architecture/lifecycle)와 동일):
 
 ![수명 주기 다이어그램](lifecycle-states.svg){width="700"}
 
-## 수명 주기 구현
+## 수명 주기 구현 {id="lifecycle-implementation"}
 
 컴포저블(Composable)은 대개 고유한 수명 주기가 필요하지 않습니다. 공통 `LifecycleOwner`가 서로 연결된 모든 엔티티에 수명 주기를 제공합니다. 기본적으로 컴포즈 멀티플랫폼에서 생성된 모든 컴포저블은 동일한 수명 주기를 공유하며, 해당 이벤트에 구독하거나 수명 주기 상태를 참조하는 등의 작업을 수행할 수 있습니다.
 
@@ -47,9 +47,9 @@ kotlin {
 * 내비게이션 구성 요소에서 수명 주기가 어떻게 작동하는지는 [내비게이션 및 라우팅](compose-navigation-routing.md)에서 알아보세요.
 * 멀티플랫폼 ViewModel 구현에 대한 자세한 내용은 [공통 ViewModel](compose-viewmodel.md) 페이지를 참조하세요.
 
-## 안드로이드 수명 주기를 다른 플랫폼에 매핑하기
+## 안드로이드 수명 주기를 다른 플랫폼에 매핑하기 {id="mapping-android-lifecycle-to-other-platforms"}
 
-### iOS
+### iOS {id="ios"}
 
 | 네이티브 이벤트 및 알림 | 수명 주기 이벤트 | 수명 주기 상태 변경 |
 |-----------------------------------------|-----------------|-------------------------|
@@ -61,7 +61,7 @@ kotlin {
 | `willEnterForeground`                   | `ON_START`      | `CREATED` → `STARTED`   |
 | `viewControllerDidLeaveWindowHierarchy` | `ON_DESTROY`    | `CREATED` → `DESTROYED` |
 
-### 웹(Web)
+### 웹(Web) {id="web"}
 
 Wasm 타겟의 제한 사항으로 인해 수명 주기는 다음과 같이 동작합니다:
 
@@ -75,7 +75,7 @@ Wasm 타겟의 제한 사항으로 인해 수명 주기는 다음과 같이 동�
 | `blur`                                   | `ON_PAUSE`      | `RESUMED` → `STARTED`  |
 | `visibilitychange` (보이지 않게 됨) | `ON_STOP`       | `STARTED` → `CREATED`  |
 
-### 데스크톱(Desktop)
+### 데스크톱(Desktop) {id="desktop"}
 
 | Swing 리스너 콜백 | 수명 주기 이벤트 | 수명 주기 상태 변경 |
 |--------------------------|-----------------|-------------------------|

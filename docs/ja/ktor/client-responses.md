@@ -47,7 +47,7 @@ if (httpResponse.status.value in 200..299) {
 * `setCookie()`: `Set-Cookie`ヘッダーの値。
   > Ktorは、コール間でクッキーを保持できる[`HttpCookies`](client-cookies.md)プラグインも提供しています。
 
-#### ヘッダー値の分割
+#### ヘッダー値の分割 {id="split-header-values"}
 
 ヘッダーにカンマまたはセミコロンで区切られた複数の値が含まれている可能性がある場合は、`.getSplitValues()`関数を使用して、ヘッダーからすべての分割された値を取得できます。
 
@@ -149,7 +149,7 @@ multipart.forEachPart { part ->
 }
 ```
 
-#### フォームフィールド
+#### フォームフィールド {id="form-fields"}
 
 `PartData.FormItem`はフォームフィールドを表し、その値は`value`プロパティを通じてアクセスできます。
 
@@ -163,7 +163,7 @@ when (part) {
 }
 ```
 
-#### ファイルアップロード
+#### ファイルアップロード {id="file-uploads"}
 
 `PartData.FileItem`はファイル項目を表します。ファイルアップロードをバイトストリームとして処理できます。
 
@@ -178,7 +178,7 @@ when (part) {
 }
 ```
 
-#### リソースのクリーンアップ
+#### リソースのクリーンアップ {id="resource-cleanup"}
 
 フォームの処理が完了したら、リソースを解放するために`.dispose()`関数を使用して各パーツを破棄します。
 
@@ -192,7 +192,7 @@ part.dispose()
 
 Ktorは、[`ByteReadChannel`](https://api.ktor.io/ktor-io/io.ktor.utils.io/-byte-read-channel/index.html)とI/Oユーティリティを使用してこれを実現するいくつかの方法を提供しています。
 
-#### 逐次的なチャンク処理
+#### 逐次的なチャンク処理 {id="sequential-chunk-processing"}
 
 レスポンスをチャンク単位で逐次処理するには、スコープ付きの[`execute`](https://api.ktor.io/ktor-client-core/io.ktor.client.statement/-http-statement/execute.html)ブロックで`HttpStatement`を使用します。
 
@@ -233,7 +233,7 @@ Ktorは、[`ByteReadChannel`](https://api.ktor.io/ktor-io/io.ktor.utils.io/-byte
 
 > ストリーミングの完全な例については、[client-download-streaming](https://github.com/ktorio/ktor-documentation/tree/main/codeSnippets/snippets/client-download-streaming)を参照してください。
 
-#### レスポンスをファイルに直接書き込む
+#### レスポンスをファイルに直接書き込む {id="writing-the-response-directly-to-a-file"}
 
 チャンクごとの処理が不要な単純なダウンロードの場合は、以下のいずれかのアプローチを選択できます。
 

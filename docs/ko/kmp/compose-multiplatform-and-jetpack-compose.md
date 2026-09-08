@@ -20,7 +20,7 @@ Compose Multiplatform은 [공통 Kotlin 코드](multiplatform-discover-project.m
 | **플랫폼**    | Android, iOS, 데스크톱, 웹 | Android             |
 | **지원 주체** | JetBrains                  | Google              |
 
-## Jetpack Compose와 컴포저블
+## Jetpack Compose와 컴포저블 {id="jetpack-compose-and-composables"}
 
 Jetpack Compose는 네이티브 Android 인터페이스를 구축하기 위한 선언형 UI 툴킷입니다. 
 그 기초는 `@Composable` 어노테이션이 지정된 _컴포저블(composable)_ 함수입니다. 
@@ -32,7 +32,7 @@ Compose Multiplatform도 동일한 원칙을 기반으로 구축되었습니다.
 Jetpack Compose와 Compose 컴파일러 및 런타임을 공유하며, `@Composable` 함수, `remember`와 같은 상태 관리 도구, 레이아웃 컴포넌트, 수정자, 애니메이션 지원 등 동일한 API를 사용합니다. 
 즉, Jetpack Compose에 대한 지식을 Compose Multiplatform에 그대로 활용하여 Android, iOS, 데스크톱 및 웹을 위한 크로스 플랫폼 UI를 구축할 수 있습니다.
 
-## Compose Multiplatform 및 Jetpack Compose 기능
+## Compose Multiplatform 및 Jetpack Compose 기능 {id="compose-multiplatform-and-jetpack-compose-features"}
 
 > [Google의 공식 문서](https://developer.android.com/jetpack/compose/documentation)를 포함하여 거의 모든 Jetpack Compose 자료를 통해 두 UI 프레임워크의 기초를 배울 수 있습니다.
 > 
@@ -61,7 +61,7 @@ Jetpack Compose와 Compose 컴파일러 및 런타임을 공유하며, `@Composa
 | [Maps Compose](https://developers.google.com/maps/documentation/android-sdk/maps-compose)                           | 아니요                                                                                                        | 예                                                                                                    |
 | UI 컴포넌트, 내비게이션, 아키텍처 등을 위한 [서드파티 라이브러리](#libraries-for-compose-multiplatform) | [Compose Multiplatform 라이브러리](https://github.com/terrakok/kmp-awesome?tab=readme-ov-file#-compose-ui) | Jetpack Compose 및 Compose Multiplatform 라이브러리                                                    |
 
-## 기술적 세부 사항
+## 기술적 세부 사항 {id="technical-details"}
 
 Compose Multiplatform은 Google에서 게시한 코드와 릴리스를 기반으로 구축됩니다. 
 Google의 주된 관심사는 Android용 Jetpack Compose이지만, Compose Multiplatform을 가능하게 하기 위해 Google과 JetBrains 간의 긴밀한 협력이 이루어지고 있습니다.
@@ -77,7 +77,7 @@ Android용 Compose Multiplatform 애플리케이션을 빌드할 때는 Google�
 예를 들어, 종속성에 `compose.material3`를 추가하면 프로젝트는 Android 대상 플랫폼에서는 `androidx.compose.material3:material3`를 사용하고, 다른 대상 플랫폼에서는 `org.jetbrains.compose.material3:material3`를 사용하게 됩니다. 
 이는 멀티플랫폼 아티팩트의 Gradle 모듈 메타데이터(Gradle Module Metadata)를 기반으로 자동으로 수행됩니다.
 
-## Compose Multiplatform용 라이브러리
+## Compose Multiplatform용 라이브러리 {id="libraries-for-compose-multiplatform"}
 
 Compose Multiplatform을 사용하면 Compose API를 사용하는 라이브러리를 [Kotlin Multiplatform 라이브러리](multiplatform-publish-lib-setup.md)로 배포할 수 있습니다. 
 이렇게 하면 여러 플랫폼을 대상으로 하는 공통 Kotlin 코드에서 해당 라이브러리를 사용할 수 있게 됩니다.
@@ -88,7 +88,7 @@ Compose Multiplatform을 사용하면 Compose API를 사용하는 라이브러�
 
 라이브러리가 Compose Multiplatform으로 배포되면, Jetpack Compose만 사용하는 앱에서도 문제없이 이를 사용할 수 있습니다. 해당 앱들은 단순히 라이브러리의 Android 아티팩트를 사용하게 됩니다.
 
-## 다음 단계
+## 다음 단계 {id="what-s-next"}
 
 다음 컴포넌트들에 대한 Compose Multiplatform 구현에 대해 더 자세히 읽어보세요:
   * [수명 주기(Lifecycle)](compose-lifecycle.md)

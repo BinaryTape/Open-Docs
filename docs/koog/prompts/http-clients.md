@@ -6,7 +6,7 @@ Koog 中的每个 LLM 客户端都需要一个 [`KoogHttpClient`](api:http-clien
 
 开箱即提供四种后端工厂 —— Ktor、JDK `HttpClient`、OkHttp 和 Spring 的 `WebClient` —— 您也可以实现自己的工厂。
 
-## 工作原理
+## 工作原理 {id="how-it-works"}
 
 一个工厂适用于任何提供商：只需选择一次后端，即可在各个客户端中使用。
 
@@ -69,7 +69,7 @@ Koog 中的每个 LLM 客户端都需要一个 [`KoogHttpClient`](api:http-clien
     ```
     <!--- KNIT example-http-clients-java-01.java -->
 
-## 支持的 HTTP 客户端变体
+## 支持的 HTTP 客户端变体 {id="supported-http-client-flavors"}
 
 | 模块 | 说明 |
 |-------------------------------------------------------------------------|----------------------------------------------------|
@@ -78,7 +78,7 @@ Koog 中的每个 LLM 客户端都需要一个 [`KoogHttpClient`](api:http-clien
 | [`http-client-okhttp`](api:http-client-okhttp::)                        | 由 OkHttp 提供支持。对 Android 友好。 |
 | [`http-client-spring-webclient`](api:http-client-spring-webclient::)    | 由 Spring `WebClient` 提供支持。 |
 
-## 便捷 API 与工厂自动发现
+## 便捷 API 与工厂自动发现 {id="convenience-apis-and-factory-auto-discovery"}
 
 在 JVM 和 Android 上，您可以直接构造每个 LLM 客户端，而无需显式传递工厂。
 
@@ -126,12 +126,12 @@ Koog 中的每个 LLM 客户端都需要一个 [`KoogHttpClient`](api:http-clien
 
 目前 KMP 尚不支持自动发现，因此这些便捷方法在 JVM 之外也无法使用。在 `commonMain` 中，请显式传递一个 `Factory`。
 
-### 自动发现的陷阱
+### 自动发现的陷阱 {id="auto-discovery-gotchas"}
 
 - **运行时类路径中没有后端** → 首次解析时抛出 `IllegalStateException`。请将后端模块添加到运行时类路径，或显式传递一个 `Factory`。
 - **有两个或更多后端** → 抛出相同的异常；消息会列出它找到的提供商。请使用 Gradle 排除除一个以外的所有后端（在引起冲突的依赖项上使用 `exclude(module = "http-client-ktor")`），或在调用处显式传递一个 `Factory`。
 
-## 自定义后端
+## 自定义后端 {id="custom-backends"}
 
 任何实现 `KoogHttpClient.Factory` 的类都可以使用。要使其在 JVM 上支持自动发现，请将其注册为 `ServiceLoader` 提供商：
 

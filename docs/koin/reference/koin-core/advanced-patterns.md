@@ -6,7 +6,7 @@ title: 高级模式
 
 本指南涵盖了复杂场景下的高级依赖注入模式。
 
-## 外部库绑定
+## 外部库绑定 {id="external-library-binding"}
 
 对于无法添加注解的第三方库，请使用带有 `create()` 的构建器函数：
 
@@ -52,9 +52,9 @@ class NetworkModule {
 }
 ```
 
-## 依赖项集合
+## 依赖项集合 {id="collections-of-dependencies"}
 
-### 多重实现
+### 多重实现 {id="multiple-implementations"}
 
 使用限定符聚合接口的多重实现：
 
@@ -69,7 +69,7 @@ class PayPalProcessor : PaymentProcessor { ... }
 class CryptoProcessor : PaymentProcessor { ... }
 ```
 
-#### 编译器插件 DSL
+#### 编译器插件 DSL {id="compiler-plugin-dsl"}
 
 在类上使用 `@Named` 限定符注解：
 
@@ -101,7 +101,7 @@ val paymentModule = module {
 }
 ```
 
-#### 注解
+#### 注解 {id="annotations"}
 
 ```kotlin
 @Module
@@ -127,7 +127,7 @@ class PaymentModule {
 }
 ```
 
-#### 经典 DSL
+#### 经典 DSL {id="classic-dsl"}
 
 ```kotlin
 val paymentModule = module {
@@ -147,7 +147,7 @@ val paymentModule = module {
 }
 ```
 
-## 泛型类型
+## 泛型类型 {id="generic-types"}
 
 Koin 保留了泛型类型信息：
 
@@ -176,7 +176,7 @@ val userRepo: Repository<User> = get()
 val productRepo: Repository<Product> = get()
 ```
 
-## 提供者模式
+## 提供者模式 {id="provider-pattern"}
 
 当您需要使用运行时参数创建对象时，请为运行时实例创建工厂：
 
@@ -204,7 +204,7 @@ class MyScreen(private val dialogFactory: DialogFactory) {
 }
 ```
 
-## 装饰器模式
+## 装饰器模式 {id="decorator-pattern"}
 
 使用委托堆叠行为：
 
@@ -261,7 +261,7 @@ val notificationModule = module {
 }
 ```
 
-## 下一步
+## 下一步 {id="next-steps"}
 
 - **[定义](/docs/reference/koin-core/definitions)** - 基本定义类型
 - **[限定符](/docs/reference/koin-core/qualifiers)** - 命名和类型化限定符

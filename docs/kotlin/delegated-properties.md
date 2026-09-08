@@ -61,11 +61,11 @@ NEW has been assigned to 'p' in Example@33a17727.
 
 你可以在函数或代码块内声明委托属性；它不一定是类的成员。你可以在下文找到[示例](#local-delegated-properties)。
 
-## 标准委托
+## 标准委托 {id="standard-delegates"}
 
 Kotlin 标准库为几种有用的委托提供了工厂方法。
 
-### Lazy 属性
+### Lazy 属性 {id="lazy-properties"}
 
 [`lazy()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/lazy.html) 是一个接收 lambda表达式 并返回 `Lazy<T>` 实例的函数，该实例可以作为实现 Lazy 属性的委托。第一次调用 `get()` 会执行传递给 `lazy()` 的 lambda表达式 并记录结果。后续对 `get()` 的调用只会返回记录的结果。
 
@@ -86,7 +86,7 @@ fun main() {
 
 如果你确信初始化将始终在与使用属性的线程相同的线程中发生，则可以使用 `LazyThreadSafetyMode.NONE`。它不会产生任何线程安全性保证和相关的开销。
 
-### Observable 属性
+### Observable 属性 {id="observable-properties"}
 
 [`Delegates.observable()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.properties/-delegates/observable.html) 接收两个实参：初始值和修改处理程序。
 
@@ -112,7 +112,7 @@ fun main() {
 
 如果你想拦截赋值并**否决**它们，请使用 [`vetoable()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.properties/-delegates/vetoable.html) 代替 `observable()`。传递给 `vetoable` 的处理程序将在新属性值赋值**之前**被调用。
 
-## 委托给另一个属性
+## 委托给另一个属性 {id="delegating-to-another-property"}
 
 一个属性可以将其 getter 和 setter 委托给另一个属性。这种委托可用于顶层属性和类属性（成员属性和扩展属性）。委托属性可以是：
 * 一个顶层属性
@@ -152,7 +152,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.4"}
 
-## 将属性存储在 map 中
+## 将属性存储在 map 中 {id="storing-properties-in-a-map"}
 
 一个常见的用例是在 map 中存储属性的值。这在解析 JSON 或执行其他动态任务的应用中经常出现。在这种情况下，你可以使用 map 实例本身作为委托属性的委托。
 
@@ -202,7 +202,7 @@ class MutableUser(val map: MutableMap<String, Any?>) {
 }
 ```
 
-## 局部委托属性
+## 局部委托属性 {id="local-delegated-properties"}
 
 你可以将局部变量声明为委托属性。例如，你可以使局部变量成为 Lazy 的：
 
@@ -218,7 +218,7 @@ fun example(computeFoo: () -> Foo) {
 
 `memoizedFoo` 变量将仅在首次访问时计算。如果 `someCondition` 失败，则根本不会计算该变量。
 
-## 属性委托要求
+## 属性委托要求 {id="property-delegate-requirements"}
 
 对于**只读**属性 (`val`)，委托应提供一个具有以下形参的运算符函数 `getValue()`：
 
@@ -283,7 +283,7 @@ val readOnlyResource: Resource by resourceDelegate()  // 作为 val 使用 ReadW
 var readWriteResource: Resource by resourceDelegate()
 ```
 
-## 委托属性的转换规则
+## 委托属性的转换规则 {id="translation-rules-for-delegated-properties"}
 
 在底层，Kotlin 编译器会为某些类型的委托属性生成辅助属性，然后委托给它们。
 
@@ -310,7 +310,7 @@ class C {
 
 Kotlin 编译器在实参中提供了有关 `prop` 的所有必要信息：第一个实参 `this` 引用外部类 `C` 的实例，而 `this::prop` 是描述 `prop` 本身的 `KProperty` 类型的反射对象。
 
-### 委托属性的优化情况
+### 委托属性的优化情况 {id="optimized-cases-for-delegated-properties"}
 
 如果委托是以下情况，则将省略 `$delegate` 字段：
 * 引用属性：
@@ -352,7 +352,7 @@ Kotlin 编译器在实参中提供了有关 `prop` 的所有必要信息：第�
   }
   ```
 
-### 委托给另一个属性时的转换规则
+### 委托给另一个属性时的转换规则 {id="translation-rules-when-delegating-to-another-property"}
 
 当委托给另一个属性时，Kotlin 编译器会生成对引用属性的直接访问。这意味着编译器不会生成 `prop$delegate` 字段。这种优化有助于节省内存。
 
@@ -383,7 +383,7 @@ class C<Type> {
 }
 ```
 
-## 提供委托
+## 提供委托 {id="providing-a-delegate"}
 
 通过定义 `provideDelegate` 运算符，你可以扩展创建属性实现所委托到的对象的逻辑。如果在 `by` 右侧使用的对象将 `provideDelegate` 定义为成员函数或扩展函数，则将调用该函数来创建属性委托实例。
 

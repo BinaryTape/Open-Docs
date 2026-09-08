@@ -4,7 +4,7 @@
 
 この章では、別の種類の関数であるレシーバ付きラムダ式の使い方と、それがドメイン固有言語（DSL）の作成にどのように役立つかを学びます。
 
-## レシーバ付きラムダ式
+## レシーバ付きラムダ式 {id="lambda-expressions-with-receiver"}
 
 入門ツアーでは、[ラムダ式](kotlin-tour-functions.md#lambda-expressions)の使い方を学びました。ラムダ式にはレシーバを持たせることもできます。
 この場合、ラムダ式の中では、毎回明示的にレシーバを指定することなく、レシーバの任意のメンバ関数やプロパティにアクセスできます。これらの追加の参照が不要になることで、コードの可読性と保守性が向上します。
@@ -145,7 +145,7 @@ Kotlin のエコシステムには、標準ライブラリの [`buildList()`](ht
 >
 {style="tip"}
 
-## 練習問題 {completion-point="true"}
+## 練習問題 {completion-point="true" id="practice"}
 
 ### 練習問題 1 {initial-collapse-state="collapsed" collapsible="true" id="lambda-receivers-exercise-1"}
 

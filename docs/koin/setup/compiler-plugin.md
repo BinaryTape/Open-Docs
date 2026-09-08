@@ -6,7 +6,7 @@ title: 编译器插件设置
 
 **Koin 编译器插件**是所有新 Kotlin 2.x 项目的推荐方式。它提供了自动装配、编译时安全和更简洁的 DSL 语法。
 
-## 什么是编译器插件？
+## 什么是编译器插件？ {id="what-is-the-compiler-plugin"}
 
 Koin 编译器插件是一个**原生 Kotlin 编译器插件 (K2)**，它可以：
 
@@ -21,14 +21,14 @@ Koin 编译器插件是一个**原生 Kotlin 编译器插件 (K2)**，它可以�
 为 Android Studio 和 IntelliJ IDEA 安装 **[Koin IDE 插件](https://plugins.jetbrains.com/plugin/26131-koin-dependency-injection-official-)** —— 它支持定义与注入点之间的代码导航、实时安全检查以及依赖图可视化。
 :::
 
-## 要求
+## 要求 {id="requirements"}
 
 - **Kotlin 2.3.20+**（K2 编译器）
 - **Gradle 8.x+**
 
-## 设置
+## 设置 {id="setup"}
 
-### 步骤 1：将 Koin 添加到版本目录 (Version Catalog)
+### 步骤 1：将 Koin 添加到版本目录 (Version Catalog) {id="step-1-add-koin-to-version-catalog"}
 
 首先，检查最新版本：
 - Koin：[![Maven Central](https://img.shields.io/maven-central/v/io.insert-koin/koin-core?label=latest)](https://mvnrepository.com/artifact/io.insert-koin/koin-core)
@@ -49,7 +49,7 @@ koin-annotations = { module = "io.insert-koin:koin-annotations", version.ref = "
 koin-compiler = { id = "io.insert-koin.compiler.plugin", version.ref = "koin-plugin" }
 ```
 
-### 步骤 2：配置设置
+### 步骤 2：配置设置 {id="step-2-configure-settings"}
 
 在您的 `settings.gradle.kts` 中：
 
@@ -62,7 +62,7 @@ pluginManagement {
 }
 ```
 
-### 步骤 3：应用插件
+### 步骤 3：应用插件 {id="step-3-apply-the-plugin"}
 
 在您的模块级 `build.gradle.kts` 中：
 
@@ -86,9 +86,9 @@ dependencies {
 如果您添加了注解但没有对应的运行时，编译器将失败并显示指明缺少构件的明确错误 —— 启动时不再会出现静默的 `NoDefinitionFoundException`。
 :::
 
-## 完整示例
+## 完整示例 {id="complete-example"}
 
-### gradle/libs.versions.toml
+### gradle/libs.versions.toml {id="gradle-libs-versions-toml"}
 
 ```toml
 [versions]
@@ -103,7 +103,7 @@ koin-annotations = { module = "io.insert-koin:koin-annotations", version.ref = "
 koin-compiler = { id = "io.insert-koin.compiler.plugin", version.ref = "koin-plugin" }
 ```
 
-### settings.gradle.kts
+### settings.gradle.kts {id="settings-gradle-kts"}
 
 ```kotlin
 pluginManagement {
@@ -114,7 +114,7 @@ pluginManagement {
 }
 ```
 
-### build.gradle.kts
+### build.gradle.kts {id="build-gradle-kts"}
 
 ```kotlin
 plugins {
@@ -127,9 +127,9 @@ dependencies {
 }
 ```
 
-## 使用编译器插件
+## 使用编译器插件 {id="using-the-compiler-plugin"}
 
-### DSL 风格
+### DSL 风格 {id="dsl-style"}
 
 从编译器插件软件包导入：
 
@@ -149,7 +149,7 @@ val appModule = module {
 编译器插件 DSL 位于软件包 **`org.koin.plugin.module.dsl`** 中。传统的 DSL 仍保留在 `org.koin.dsl` 中。
 :::
 
-### 注解风格
+### 注解风格 {id="annotation-style"}
 
 在您的类上使用注解：
 
@@ -174,7 +174,7 @@ class UserViewModel(private val repository: UserRepository) : ViewModel()
 class AppModule
 ```
 
-### 使用注解启动 Koin
+### 使用注解启动 Koin {id="starting-koin-with-annotations"}
 
 使用编译器插件时，请使用类型化 API 来启动 Koin —— **无需生成代码**：
 
@@ -230,7 +230,7 @@ val koinTestRule = KoinTestRule.create {
 }
 ```
 
-## 配置选项
+## 配置选项 {id="configuration-options"}
 
 在您的 `build.gradle.kts` 中配置编译器插件：
 
@@ -242,7 +242,7 @@ koinCompiler {
 }
 ```
 
-### 可用选项
+### 可用选项 {id="available-options"}
 
 | 选项 | 说明 | 默认值 |
 |--------|-------------|---------|
@@ -257,7 +257,7 @@ koinCompiler {
 在开发期间将 `userLogs = true` 设置为 true，以查看插件检测并处理了哪些组件。
 :::
 
-## 编译时安全
+## 编译时安全 {id="compile-time-safety"}
 
 Koin 编译器插件提供**编译时依赖项验证** —— 验证您的所有依赖项是否可以在构建时解析，而不是在运行时失败。此功能默认启用。
 
@@ -270,11 +270,11 @@ koinCompiler {
 
 该插件在三个级别验证您的图：每个模块 (A2)、`startKoin<T>()` 时的完整图 (A3) 以及每个调用站点 (A4)。有关完整详细信息，请参阅[编译时安全](/docs/reference/koin-compiler/compile-safety)。
 
-## 多模块项目
+## 多模块项目 {id="multi-module-projects"}
 
 对于具有多个 Gradle 模块的项目：
 
-### 库模块
+### 库模块 {id="library-module"}
 
 ```kotlin
 // feature/build.gradle.kts
@@ -295,7 +295,7 @@ dependencies {
 class FeatureModule
 ```
 
-### 应用模块
+### 应用模块 {id="app-module"}
 
 ```kotlin
 // app/build.gradle.kts
@@ -330,7 +330,7 @@ class MainApplication : Application() {
 
 对主应用程序类使用 `@KoinApplication`，并配合类型化启动 API 使用。
 
-## Kotlin 多平台
+## Kotlin 多平台 {id="kotlin-multiplatform"}
 
 编译器插件适用于 KMP 项目：
 
@@ -351,9 +351,9 @@ kotlin {
 }
 ```
 
-## 故障排除
+## 故障排除 {id="troubleshooting"}
 
-### 未找到插件
+### 未找到插件 {id="plugin-not-found"}
 
 确保该插件已包含在您的插件库中：
 
@@ -367,7 +367,7 @@ pluginManagement {
 }
 ```
 
-### Kotlin 版本不匹配
+### Kotlin 版本不匹配 {id="kotlin-version-mismatch"}
 
 编译器插件需要 Kotlin 2.3.20+。检查您的 Kotlin 版本：
 
@@ -378,7 +378,7 @@ plugins {
 }
 ```
 
-### 导入错误
+### 导入错误 {id="import-errors"}
 
 确保您从正确的软件包导入：
 
@@ -390,7 +390,7 @@ import org.koin.plugin.module.dsl.*
 import org.koin.dsl.*
 ```
 
-### 增量编译与缓存问题
+### 增量编译与缓存问题 {id="incremental-compilation-cache-issues"}
 
 与其他 Kotlin 编译器插件（如 Compose 编译器、Metro）一样，Koin 编译器插件在 IR 级别运行。Kotlin 的增量编译有时可能会在某些更改后产生**陈旧或不一致的结果**：
 
@@ -419,7 +419,7 @@ import org.koin.dsl.*
 对于图级别的更改（`module { }` lambda 内部的 DSL 定义，添加到 `@ComponentScan` 软件包中的类），插件的 `strictSafety` 选项会在聚合器模块上自动启用，以强制完整图安全检查在每次构建时重新运行。有关详细信息，请参阅 [`strictSafety`](/docs/reference/koin-annotations/options#strictsafety)。
 :::
 
-### 多模块项目中的编译安全误报
+### 多模块项目中的编译安全误报 {id="compile-safety-false-positives-in-multi-module-projects"}
 
 如果插件报告库模块中存在的依赖项缺失，请确保：
 
@@ -427,9 +427,9 @@ import org.koin.dsl.*
 2. **库模块在消费模块之前构建** —— Gradle 通常通过 `implementation(project(":lib"))` 处理此问题，但请检查您的任务依赖项
 3. 首次将插件添加到库模块后，**运行清理构建**
 
-## 迁移
+## 迁移 {id="migration"}
 
-### 从传统 DSL 迁移
+### 从传统 DSL 迁移 {id="from-classic-dsl"}
 
 1. 添加编译器插件
 2. 将导入更新为 `org.koin.plugin.module.dsl.*`
@@ -437,7 +437,7 @@ import org.koin.dsl.*
 
 请参阅上方的[DSL 风格](#dsl-style)参考以获取编译时安全的语法。
 
-### 从 KSP 处理器 (koin-ksp-compiler) 迁移
+### 从 KSP 处理器 (koin-ksp-compiler) 迁移 {id="from-the-ksp-processor-koin-ksp-compiler"}
 
 1. 移除 KSP 插件和 `koin-ksp-compiler` 依赖项
 2. 添加 Koin 编译器插件
@@ -446,7 +446,7 @@ import org.koin.dsl.*
 
 请参阅 **[从 KSP 迁移到编译器插件](/docs/migration/from-ksp-to-compiler-plugin)** 完整指南。
 
-## 后续步骤
+## 后续步骤 {id="next-steps"}
 
 - **[DSL 参考](/docs/reference/dsl-reference)** —— 完整的 DSL 文档
 - **[注解参考](/docs/reference/annotations-reference)** —— 完整的注解文档

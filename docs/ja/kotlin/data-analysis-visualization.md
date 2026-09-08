@@ -5,7 +5,7 @@ Kotlin は、強力で柔軟なデータ視覚化のためのオールインワ�
 
 このチュートリアルでは、[Kandy](https://kotlin.github.io/kandy/welcome.html) および [Kotlin DataFrame](https://kotlin.github.io/dataframe/home.html) ライブラリを使用して、IntelliJ IDEA でさまざまなチャートタイプを作成する方法を説明します。
 
-## 始める前に
+## 始める前に {id="before-you-start"}
 
 > IntelliJ IDEA 2026.2 以降、Kotlin Notebook は IDE にバンドルされなくなり、JetBrains による公式サポートも終了します。
 > ソースコードは引き続き [GitHub](https://github.com/Kotlin/kotlin-notebook) で入手可能です。
@@ -28,7 +28,7 @@ Kotlin は、強力で柔軟なデータ視覚化のためのオールインワ�
 
 このチュートリアルを進めるには、DataFrame を [Gradle](https://kotlin.github.io/dataframe/setupgradle.html) または [Maven](https://kotlin.github.io/dataframe/setupmaven.html) の依存関係として使用することもできます。
 
-## DataFrame の作成
+## DataFrame の作成 {id="create-a-dataframe"}
 
 まず、視覚化するデータを含む DataFrame を作成しましょう。この DataFrame には、ベルリン、マドリード、カラカスの 3 都市における月間平均気温のシミュレーション数値が格納されます：
 
@@ -74,7 +74,7 @@ df.head(4) // 最初の 4 行を返します
 >
 {style="tip"}
 
-## 折れ線グラフの作成
+## 折れ線グラフの作成 {id="create-a-line-chart"}
 
 前のセクションの `df` DataFrame を使用して、折れ線グラフ（line chart）を作成しましょう：
 
@@ -108,7 +108,7 @@ df.plot {
 
 ![Line chart](visualization-line-chart.svg){width=600}
 
-## ポイントチャートの作成
+## ポイントチャートの作成 {id="create-a-points-chart"}
 
 次に、`df` DataFrame をポイント（散布図）チャートで視覚化してみましょう：
 
@@ -147,7 +147,7 @@ df.plot {
 
 ![Points chart](visualization-points-chart.svg){width=600}
 
-## 棒グラフの作成
+## 棒グラフの作成 {id="create-a-bar-chart"}
 
 最後に、各都市の棒グラフを作成しましょう：
 
@@ -180,7 +180,7 @@ df.groupBy { City }.plot {
 
 ![Bar chart](visualization-bar-chart.svg){width=600}
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [Kandy ライブラリのドキュメント](https://kotlin.github.io/kandy/examples.html)で、より多くのチャート例を探索する
 * [Lets-Plot ライブラリのドキュメント](lets-plot.md)で、より高度なプロットオプションを探索する

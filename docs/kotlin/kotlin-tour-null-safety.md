@@ -14,7 +14,7 @@
 * 对可能包含 `null` 值的属性或函数使用安全调用。
 * 声明检测到 `null` 值时要执行的操作。
 
-## 可空类型
+## 可空类型 {id="nullable-types"}
 
 Kotlin 支持可空类型，这使得声明的类型有可能具有 `null` 值。默认情况下，类型**不**允许接受 `null` 值。通过在类型声明后显式添加 `?` 来声明可空类型。
 
@@ -55,7 +55,7 @@ fun main() {
 >
 {style="tip"}
 
-## 检查 null 值
+## 检查 null 值 {id="check-for-null-values"}
 
 你可以在条件表达式中检查是否存在 `null` 值。在以下示例中，`describeString()` 函数包含一个 `if` 语句，用于检查 `maybeString` 是否**不**为 `null` 且其 `length` 是否大于零：
 
@@ -76,7 +76,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-check-nulls"}
 
-## 使用安全调用
+## 使用安全调用 {id="use-safe-calls"}
 
 要安全地访问可能包含 `null` 值的对象的属性，请使用安全调用运算符 `?.`。如果对象或其访问的属性之一为 `null`，则安全调用运算符返回 `null`。如果你想避免 `null` 值的存在触发代码错误，这会非常有用。
 
@@ -114,7 +114,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.3" id="kotlin-tour-safe-call-function"}
 
-## 使用 Elvis 运算符
+## 使用 Elvis 运算符 {id="use-elvis-operator"}
 
 你可以通过使用 **Elvis 运算符** `?:` 来提供一个在检测到 `null` 值时返回的默认值。
 
@@ -133,9 +133,9 @@ fun main() {
 
 有关 Kotlin 中空安全的更多信息，请参阅[空安全](null-safety.md)。
 
-## 练习 {completion-point="true"}
+## 练习 {completion-point="true" id="practice"}
 
-### 习题 {initial-collapse-state="collapsed" collapsible="true"}
+### 习题 {initial-collapse-state="collapsed" collapsible="true" id="exercise"}
 
 你有一个 `employeeById` 函数，可以通过它访问公司的员工数据库。不幸的是，该函数返回 `Employee?` 类型的值，因此结果可能为 `null`。你的目标是编写一个函数，在提供员工 `id` 时返回该员工的薪水，如果数据库中没有该员工，则返回 `0`。
 
@@ -179,7 +179,7 @@ fun main() {
 ```
 {initial-collapse-state="collapsed" collapsible="true" collapsed-title="示例解决方案" id="kotlin-tour-null-safety-solution"}
 
-## 下一步是什么？
+## 下一步是什么？ {id="what-s-next"}
 
 恭喜！既然你已经完成了初级教程，现在可以通过我们的中级教程将你对 Kotlin 的理解提升到新的水平：
 

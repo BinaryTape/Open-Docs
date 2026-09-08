@@ -767,7 +767,7 @@ Ktor 客户端现在支持内容协商，并与 Ktor 服务器共享序列化库
 | Gson                  | `import io.ktor.client.features.json.*` |                `import io.ktor.serialization.gson.*` |
 | Jackson               | `import io.ktor.client.features.json.*` |             `import io.ktor.serialization.jackson.*` |
 
-### Bearer 身份验证
+### Bearer 身份验证 {id="bearer-authentication"}
 
 `refreshTokens` [函数](client-bearer-auth.md)现在使用 `RefreshTokenParams` 实例作为 [Lambda 接收器](https://kotlinlang.org/docs/scope-functions.html#context-object-this-or-it) (`this`)，而不是原来的 `HttpResponse` Lambda 参数 (`it`)：
 

@@ -44,7 +44,7 @@ KtorのWebRTCクライアントを使用すると、マルチプラットフォ�
     </TabItem>
 </Tabs>
 
-## クライアントの作成
+## クライアントの作成 {id="create-a-client"}
 
 `WebRtcClient`を作成する際は、ターゲットプラットフォームに基づいてエンジンを選択します：
 
@@ -90,7 +90,7 @@ val iosClient = WebRtcClient(IosWebRtc) {
 </TabItem>
 </Tabs>
 
-## 接続の作成とSDPのネゴシエーション
+## 接続の作成とSDPのネゴシエーション {id="create-a-connection-and-negotiate-sdp"}
 
 `WebRtcClient`を作成した後の次のステップは、ピア接続（peer connection）を作成することです。
 ピア接続は、2つのクライアント間のリアルタイム通信を管理するコアオブジェクトです。
@@ -150,11 +150,11 @@ callee.awaitIceGatheringComplete()
 > 
 {style="note"}
 
-## データチャネルの使用
+## データチャネルの使用 {id="use-a-data-channel"}
 
 WebRTCはデータチャネルをサポートしており、ピア間で任意のメッセージを交換できます。これは、チャット、マルチプレイヤーゲーム、共同作業ツール、またはクライアント間の低遅延メッセージングに役立ちます。
 
-### チャネルの作成
+### チャネルの作成 {id="creating-a-channel"}
 
 一方でチャネルを作成するには、`.createDataChannel()` メソッドを使用します：
 
@@ -176,7 +176,7 @@ scope.launch {
 }
 ```
 
-### メッセージの送信と受信
+### メッセージの送信と受信 {id="sending-and-receiving-messages"}
 
 チャネルは、Kotlin開発者におなじみの `Channel` 風のAPIを使用します：
 
@@ -188,11 +188,11 @@ scope.launch { channel.send("hello") }
 scope.launch { println("received: " + channel.receiveText()) }
 ```
 
-## メディアトラックの追加と監視
+## メディアトラックの追加と監視 {id="add-and-observe-media-tracks"}
 
 データチャネルに加えて、WebRTCは音声およびビデオ用のメディアトラックをサポートしています。これにより、ビデオ通話や画面共有などのアプリケーションを構築できます。
 
-### ローカルトラックの作成
+### ローカルトラックの作成 {id="creating-local-tracks"}
 
 ローカルデバイス（マイク、カメラ）から音声またはビデオトラックをリクエストできます：
 
@@ -215,7 +215,7 @@ Webでは、これは `navigator.mediaDevices.getUserMedia` を使用します�
 > `WebRtcClient`、`WebRtcPeerConnection`、`WebRtcMedia.Track` およびその他のインターフェースは `AutoCloseable` です。不要になった際にリソースを解放するために、必ず `close()` メソッドを呼び出してください。
 {style="note"}
 
-### リモートトラックの受信
+### リモートトラックの受信 {id="receiving-remote-tracks"}
 
 リモートのメディアトラックをリッスンすることもできます：
 
@@ -230,7 +230,7 @@ scope.launch {
 }
 ```
 
-## プラットフォーム固有のロジック
+## プラットフォーム固有のロジック {id="platform-specific-logic"}
 
 このAPIは高レベルの抽象化を提供しますが、プラットフォーム固有のAPIにアクセスする必要があるユースケースもあります。`.getNative()` 拡張関数を使用して、基盤となる実装を取得できます。プラットフォーム固有のライブラリは、iOSの `WebRTC-SDK` CocoaPodを除き、推移的（transitive）ライブラリとして公開されています。
 
@@ -327,7 +327,7 @@ audio.enable(false)
 > これらのスニペットは Compose Multiplatform で使用できますが、そのライフサイクルは考慮されていません。完全な統合については、[Ktor Chat](https://github.com/ktorio/ktor-chat) の例を参照してください。
 {style="note"}
 
-## 制限事項
+## 制限事項 {id="limitations"}
 
 WebRTCクライアントは実験的であり、以下の制限事項があります：
 

@@ -6,11 +6,11 @@ Compose 編譯器由 Gradle 外掛程式提供補充，該外掛程式簡化了�
 
 若要在您的專案中使用新的 Compose 編譯器外掛程式，請將其套用於每個使用 Compose 的模組。請閱讀下文以取得如何[遷移 Jetpack Compose 專案](#migrating-a-jetpack-compose-project)的詳細資訊。對於 Compose 多平台專案，請參閱[多平台遷移指南](https://kotlinlang.org/docs/multiplatform/compose-compiler.html#migrating-a-compose-multiplatform-project)。
 
-## 遷移 Jetpack Compose 專案
+## 遷移 Jetpack Compose 專案 {id="migrating-a-jetpack-compose-project"}
 
 從 1.9 遷移至 Kotlin 2.0.0 或更新版本時，您應根據處理 Compose 編譯器的方式調整專案配置。我們建議使用 Kotlin Gradle 外掛程式與 Compose 編譯器 Gradle 外掛程式來自動化配置管理。
 
-### 使用 Gradle 外掛程式管理 Compose 編譯器
+### 使用 Gradle 外掛程式管理 Compose 編譯器 {id="managing-the-compose-compiler-with-gradle-plugins"}
 
 對於 Android 模組：
 
@@ -53,14 +53,14 @@ Compose 編譯器由 Gradle 外掛程式提供補充，該外掛程式簡化了�
 
 5. 如果您直接參照 Compose 編譯器構件 (artifacts)，可以移除這些參照，並讓 Gradle 外掛程式來處理相關事宜。
 
-### 不使用 Gradle 外掛程式使用 Compose 編譯器
+### 不使用 Gradle 外掛程式使用 Compose 編譯器 {id="using-compose-compiler-without-gradle-plugins"}
 
 如果您不使用 Gradle 外掛程式來管理 Compose 編譯器，請更新專案中指向舊 Maven 構件的任何直接參照：
 
 * 將 `androidx.compose.compiler:compiler` 更改為 `org.jetbrains.kotlin:kotlin-compose-compiler-plugin-embeddable`
 * 將 `androidx.compose.compiler:compiler-hosted` 更改為 `org.jetbrains.kotlin:kotlin-compose-compiler-plugin`
 
-## 後續步驟
+## 後續步驟 {id="what-s-next"}
 
 * 參閱 [Google 的公告](https://android-developers.googleblog.com/2024/04/jetpack-compose-compiler-moving-to-kotlin-repository.html)，瞭解關於 Compose 編譯器移至 Kotlin 存儲庫的資訊。
 * 如果您正在使用 Jetpack Compose 建置 Android 應用程式，請查看[我們的指南，瞭解如何將其轉為多平台](https://kotlinlang.org/docs/multiplatform/multiplatform-integrate-in-existing-app.html)。

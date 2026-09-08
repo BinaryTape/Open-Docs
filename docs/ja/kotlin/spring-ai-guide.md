@@ -13,7 +13,7 @@
 * Qdrantをローカルで実行するために [Docker](https://www.docker.com/) を使用。
 * LLMプロバイダーとして [OpenAI](https://platform.openai.com) を使用。
 
-## 始める前に
+## 始める前に {id="before-you-start"}
 
 1. [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)の最新バージョンをダウンロードしてインストールし、Ultimateサブスクリプションを使用してください。
 
@@ -29,7 +29,7 @@
     docker run -p 6333:6333 -p 6334:6334 qdrant/qdrant
     ```
 
-## プロジェクトの作成
+## プロジェクトの作成 {id="create-the-project"}
 
 > プロジェクトを生成する別の方法として、[Spring Boot Webベースプロジェクトジェネレーター](https://start.spring.io/)を使用することもできます。
 >
@@ -91,7 +91,7 @@ IntelliJ IDEA Ultimate Editionで新しいSpring Bootプロジェクトを作成
 * `main/kotlin` フォルダの下に、アプリケーションに属するパッケージとクラスがあります。
 * アプリケーションの開始点は、`SpringAiDemoApplication.kt` ファイルの `main()` メソッドです。
 
-## プロジェクト構成の更新
+## プロジェクト構成の更新 {id="update-the-project-configuration"}
 
 1. `build.gradle.kts` Gradleビルドファイルを以下のように更新します。
 
@@ -133,7 +133,7 @@ IntelliJ IDEA Ultimate Editionで新しいSpring Bootプロジェクトを作成
 
    ![Qdrant collections](qdrant-collections.png){width=700}
 
-## ドキュメントをロードおよび検索するためのコントローラーの作成
+## ドキュメントをロードおよび検索するためのコントローラーの作成 {id="create-a-controller-to-load-and-search-documents"}
 
 ドキュメントを検索し、Qdrantコレクションに保存するためのSpring `@RestController` を作成します。
 
@@ -251,7 +251,7 @@ IntelliJ IDEA Ultimate Editionで新しいSpring Bootプロジェクトを作成
 >
 {style="tip"}
 
-## AIチャットエンドポイントの実装
+## AIチャットエンドポイントの実装 {id="implement-an-ai-chat-endpoint"}
 
 ドキュメントがロードされたら、最後のステップは、Spring AIの検索拡張生成 (Retrieval-Augmented Generation: RAG) サポートを通じてQdrant内のドキュメントを使用して質問に答えるエンドポイントを追加することです。
 
@@ -346,7 +346,7 @@ IntelliJ IDEA Ultimate Editionで新しいSpring Bootプロジェクトを作成
 
 完成したプロジェクトは、[Spring AI demo GitHubリポジトリ](https://github.com/Kotlin/Kotlin-AI-Examples/tree/master/projects/spring-ai/springAI-demo)で確認できます。
 
-## 次のステップ
+## 次のステップ {id="what-s-next"}
 
 * [Kotlin AI Examples](https://github.com/Kotlin/Kotlin-AI-Examples/tree/master) で他のSpring AIの例を探索する
 * [Spring BootとClaudeを使用したタスク管理アプリケーションの作成](spring-boot-claude.md)

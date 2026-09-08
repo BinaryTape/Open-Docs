@@ -15,7 +15,7 @@
 >
 {style="note"}
 
-## 无符号数组和区间
+## 无符号数组和区间 {id="unsigned-arrays-and-ranges"}
 
 > 无符号数组及其相关操作处于 [Beta](components-stability.md) 阶段。它们可能随时发生不兼容的变更。需要启用（详见下文）。
 >
@@ -35,7 +35,7 @@
 
 `UInt` 和 `ULong` 通过类 `UIntRange`、`UIntProgression`、`ULongRange` 和 `ULongProgression` 支持[区间和数列](ranges.md)。这些类与无符号整型一起都是稳定的。
 
-## 无符号整型文字
+## 无符号整型文字 {id="unsigned-integers-literals"}
 
 为了使无符号整数更易于使用，您可以在整型文字后添加后缀，以指示特定的无符号类型（类似于 `Float` 的 `F` 或 `Long` 的 `L`）：
 
@@ -56,7 +56,7 @@
     val a = 1UL // ULong，即使未提供预期类型且常量适合 UInt
     ```
 
-## 用例
+## 用例 {id="use-cases"}
 
 无符号数的主要用例是利用整数的完整位范围来表示正值。例如，表示不适合有符号类型的十六进制常量，如 32 位 `AARRGGBB` 格式的颜色：
 
@@ -74,7 +74,7 @@ val byteOrderMarkUtf8 = ubyteArrayOf(0xEFu, 0xBBu, 0xBFu)
 
 另一个用例是与原生 API 的互操作性。Kotlin 允许表示签名中包含无符号类型的原生声明。映射不会将无符号整数替换为有符号整数，从而保持语义不变。
 
-### 非目标
+### 非目标 {id="non-goals"}
 
 虽然无符号整数只能表示正数和零，但其目标并非是在应用领域需要非负整数时使用它们。例如，作为集合大小或集合索引值的类型。
 

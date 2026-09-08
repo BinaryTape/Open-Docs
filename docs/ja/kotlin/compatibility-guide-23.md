@@ -4,7 +4,7 @@
 
 ほとんどの言語変更については、アップデートの変更ログやコンパイラの警告などの他のチャネルを通じてすでに発表されていますが、このドキュメントではそれらをすべてまとめ、Kotlin 2.2 から Kotlin 2.3 への移行のための完全なリファレンスを提供します。このドキュメントには、ツール関連の変更に関する情報も含まれています。
 
-## 基本用語
+## 基本用語 {id="basic-terms"}
 
 このドキュメントでは、いくつかの種類の互換性を紹介します：
 
@@ -14,9 +14,9 @@
 
 これらの定義は純粋な Kotlin に対してのみ与えられていることに注意してください。他の言語（Java など）の観点から見た Kotlin コードの互換性は、このドキュメントの範囲外です。
 
-## 言語 (Language)
+## 言語 (Language) {id="language"}
 
-### `-language-version` における 1.8 および 1.9 のサポートを終了
+### `-language-version` における 1.8 および 1.9 のサポートを終了 {id="drop-support-in-language-version-for-1-8-and-1-9"}
 
 > **Issue**: [KT-76343](https://youtrack.jetbrains.com/issue/KT-76343), [KT-76344](https://youtrack.jetbrains.com/issue/KT-76344).
 >
@@ -31,7 +31,7 @@
 > - 2.2.0: `-language-version` でバージョン 1.8 および 1.9 を使用した場合に警告を報告
 > - 2.3.0: すべてのプラットフォームのバージョン 1.8、および JVM 以外のプラットフォームのバージョン 1.9 において、`-language-version` の警告をエラーに格上げ
 
-### typealias を使用した推論型に対する上限境界制約違反エラーを報告
+### typealias を使用した推論型に対する上限境界制約違反エラーを報告 {id="report-upper-bound-constraint-violation-errors-for-inferred-types-with-typealiases"}
 
 > **Issue**: [KTLC-287](https://youtrack.jetbrains.com/issue/KTLC-287)
 >
@@ -46,7 +46,7 @@
 > - 2.2.20: 暗黙の型引数による境界違反に対して非推奨警告を報告
 > - 2.3.0: 暗黙の型引数に対する `UPPER_BOUND_VIOLATED` の警告をエラーに格上げ
 
-### `inline` および `crossinline` ラムダへの `@JvmSerializableLambda` アノテーションを禁止
+### `inline` および `crossinline` ラムダへの `@JvmSerializableLambda` アノテーションを禁止 {id="prohibit-jvmserializablelambda-annotation-on-inline-and-crossinline-lambdas"}
 
 > **Issue**: [KTLC-9](https://youtrack.jetbrains.com/issue/KTLC-9)
 >
@@ -61,7 +61,7 @@
 > - 2.1.20: `@JvmSerializableLambda` が `inline` または `crossinline` ラムダに適用された場合に警告を報告
 > - 2.3.0: 警告をエラーに格上げ。この変更は progressive モードで有効化可能
 
-### ジェネリックシグネチャが一致しない場合の Java クラスへの Kotlin インターフェース委譲を禁止
+### ジェネリックシグネチャが一致しない場合の Java クラスへの Kotlin インターフェース委譲を禁止 {id="prohibit-delegating-a-kotlin-interface-to-a-java-class-when-the-generic-signatures-don-t-match"}
 
 > **Issue**: [KTLC-267](https://youtrack.jetbrains.com/issue/KTLC-267)
 >
@@ -76,7 +76,7 @@
 > - 2.1.20: 警告を報告
 > - 2.3.0: 警告をエラーに格上げ
 
-### 明示的な戻り値の型がない式形式の関数（expression-bodied functions）での `return` の使用を非推奨化
+### 明示的な戻り値の型がない式形式の関数（expression-bodied functions）での `return` の使用を非推奨化 {id="deprecate-use-of-return-in-expression-bodied-functions-without-explicit-return-type"}
 
 > **Issue**: [KTLC-288](https://youtrack.jetbrains.com/issue/KTLC-288)
 >
@@ -91,7 +91,7 @@
 > - 2.3.0: 警告を報告
 > - 2.4.0: 警告をエラーに格上げ
 
-### typealias を介して導入された nullable なスーパータイプからの継承を禁止
+### typealias を介して導入された nullable なスーパータイプからの継承を禁止 {id="prohibit-inheritance-from-nullable-supertypes-introduced-via-typealias"}
 
 > **Issue**: [KTLC-279](https://youtrack.jetbrains.com/issue/KTLC-279)
 >
@@ -106,7 +106,7 @@
 > - 2.2.0: 警告を報告
 > - 2.3.0: 警告をエラーに格上げ
 
-### トップレベルラムダとコール引数のジェネリックシグネチャ生成を統一
+### トップレベルラムダとコール引数のジェネリックシグネチャ生成を統一 {id="unify-generic-signature-generation-for-top-level-lambdas-and-call-arguments"}
 
 > **Issue**: [KTLC-277](https://youtrack.jetbrains.com/issue/KTLC-277)
 >
@@ -120,7 +120,7 @@
 >
 > - 2.3.0: 新しい振る舞いを導入。progressive モードでは適用不可
 
-### reified 型パラメータが共通部分型（intersection types）として推論されることを禁止
+### reified 型パラメータが共通部分型（intersection types）として推論されることを禁止 {id="prohibit-reified-type-parameters-from-being-inferred-as-intersection-types"}
 
 > **Issue**: [KTLC-13](https://youtrack.jetbrains.com/issue/KTLC-13)
 >
@@ -135,7 +135,7 @@
 > - 2.1.0: reified 型パラメータが共通部分型として推論された場合に警告を報告
 > - 2.3.0: 警告をエラーに格上げ
 
-### 型パラメータの境界を通じた公開性の低い型の公開を禁止
+### 型パラメータの境界を通じた公開性の低い型の公開を禁止 {id="prohibit-exposing-less-visible-types-through-type-parameter-bounds"}
 
 > **Issue**: [KTLC-275](https://youtrack.jetbrains.com/issue/KTLC-275)
 >
@@ -150,9 +150,9 @@
 > - 2.1.0: 問題のある型パラメータ境界に対して警告を報告
 > - 2.3.0: 警告をエラーに格上げ
 
-## 標準ライブラリ (Standard library)
+## 標準ライブラリ (Standard library) {id="standard-library"}
 
-### Char から数値への変換を非推奨化し、明示的な digit および code API を導入
+### Char から数値への変換を非推奨化し、明示的な digit および code API を導入 {id="deprecate-char-to-number-conversions-and-introduce-explicit-digit-and-code-apis"}
 
 > **Issue**: [KTLC-321](https://youtrack.jetbrains.com/issue/KTLC-321)
 >
@@ -168,7 +168,7 @@
 > - 1.5.0: 新しい関数を Stable（安定版）に昇格。古い関数に対して警告を報告し、代替案を提案
 > - 2.3.0: 警告をエラーに格上げ
 
-### `Number.toChar()` 関数を非推奨化
+### `Number.toChar()` 関数を非推奨化 {id="deprecate-number-tochar-function"}
 
 > **Issue**: [KT-56822](https://youtrack.jetbrains.com/issue/KT-56822)
 >
@@ -183,7 +183,7 @@
 > - 1.9.0: `Number.toChar()` 関数を使用した際に警告を報告
 > - 2.3.0: 警告をエラーに格上げ
 
-### `String.subSequence(start, end)` 関数を非推奨化
+### `String.subSequence(start, end)` 関数を非推奨化 {id="deprecate-string-subsequence-start-end-function"}
 
 > **Issue**: [KTLC-282](https://youtrack.jetbrains.com/issue/KTLC-282)
 >
@@ -198,7 +198,7 @@
 > - 1.0: `String.subSequence(start, end)` を使用した際に警告を報告
 > - 2.3.0: 警告をエラーに格上げ
 
-### `kotlin.io.createTempDirectory()` および `kotlin.io.createTempFile()` 関数を非推奨化
+### `kotlin.io.createTempDirectory()` および `kotlin.io.createTempFile()` 関数を非推奨化 {id="deprecate-kotlin-io-createtempdirectory-and-kotlin-io-createtempfile-functions"}
 
 > **Issue**: [KTLC-281](https://youtrack.jetbrains.com/issue/KTLC-281)
 >
@@ -214,7 +214,7 @@
 > - 1.4.20: `kotlin.io.createTempDirectory()` および `kotlin.io.createTempFile()` 関数を使用した際に警告を報告
 > - 2.3.0: 警告をエラーに格上げ
 
-### `InputStream.readBytes(Int)` 関数を非表示化
+### `InputStream.readBytes(Int)` 関数を非表示化 {id="hide-inputstream-readbytes-int-function"}
 
 > **Issue**: [KTLC-280](https://youtrack.jetbrains.com/issue/KTLC-280)
 >
@@ -230,7 +230,7 @@
 > - 1.5.0: 警告をエラーに格上げ
 > - 2.3.0: 関数を非表示化
 
-### Kotlin/Native のスタックトレース出力を他のプラットフォームと統一
+### Kotlin/Native のスタックトレース出力を他のプラットフォームと統一 {id="unify-kotlin-native-stack-trace-printing-with-other-platforms"}
 
 > **Issue**: [KT-81431](https://youtrack.jetbrains.com/issue/KT-81431)
 >
@@ -244,7 +244,7 @@
 >
 > - 2.3.20: Kotlin/Native の例外スタックトレースのフォーマットを他の Kotlin プラットフォームと統一
 
-### `Iterable<T>.intersect()` および `Iterable<T>.subtract()` の動作を修正
+### `Iterable<T>.intersect()` および `Iterable<T>.subtract()` の動作を修正 {id="correct-iterable-t-intersect-and-iterable-t-subtract-behavior"}
 
 > **Issue**: [KTLC-268](https://youtrack.jetbrains.com/issue/KTLC-268)
 >
@@ -258,9 +258,9 @@
 >
 > - 2.3.0: 新しい振る舞いを有効化
 
-## ツール (Tools)
+## ツール (Tools) {id="tools"}
 
-### `kotlin-dsl` と `kotlin("jvm")` プラグインを併用した際の未サポート KGP バージョン警告
+### `kotlin-dsl` と `kotlin("jvm")` プラグインを併用した際の未サポート KGP バージョン警告 {id="unsupported-kgp-version-warning-when-using-kotlin-dsl-and-kotlin-jvm-plugins"}
 
 > **Issue**: [KT-79851](https://youtrack.jetbrains.com/issue/KT-79851)
 >
@@ -291,7 +291,7 @@
 >
 > - 2.3.0: `kotlin-dsl` プラグインがコンパイラの互換性のない言語または API バージョンで使用されていることを検出する診断（diagnostic）を導入
 
-### AGP バージョン 9.0.0 以降における `kotlin-android` プラグインの非推奨化
+### AGP バージョン 9.0.0 以降における `kotlin-android` プラグインの非推奨化 {id="deprecate-kotlin-android-plugin-for-agp-versions-9-0-0-and-later"}
 
 > **Issue**: [KT-81199](https://youtrack.jetbrains.com/issue/KT-81199)
 >
@@ -306,7 +306,7 @@
 >
 > - 2.3.0: AGP バージョン 9.0.0 以降を使用し、`android.builtInKotlin` と `android.newDsl=false` の両方の Gradle プロパティが `false` に設定されている場合に、`kotlin-android` プラグインの使用に対して警告を報告
 
-### `testApi` コンフィギュレーションを非推奨化
+### `testApi` コンフィギュレーションを非推奨化 {id="deprecate-testapi-configuration"}
 
 > **Issue**: [KT-63285](https://youtrack.jetbrains.com/issue/KT-63285)
 >
@@ -327,7 +327,7 @@
 >
 > - 2.3.0: 警告を報告
 
-### `createTestExecutionSpec()` 関数を非推奨化
+### `createTestExecutionSpec()` 関数を非推奨化 {id="deprecate-createtestexecutionspec-function"}
 
 > **Issue**: [KT-75449](https://youtrack.jetbrains.com/issue/KT-75449)
 >
@@ -343,7 +343,7 @@
 > - 2.3.0: 警告をエラーに格上げ
 > - 2.4.0: 関数を削除
 
-### `closureTo()`、`createResultSet()`、`KotlinToolingVersionOrNull()` 関数を削除
+### `closureTo()`、`createResultSet()`、`KotlinToolingVersionOrNull()` 関数を削除 {id="remove-closureto-createresultset-and-kotlintoolingversionornull-functions"}
 
 > **Issue**: [KT-64273](https://youtrack.jetbrains.com/issue/KT-64273)
 >
@@ -358,7 +358,7 @@
 > - 1.7.20: エラーを報告
 > - 2.3.0: 関数を削除
 
-### `ExtrasProperty` API を非推奨化
+### `ExtrasProperty` API を非推奨化 {id="deprecate-the-extrasproperty-api"}
 
 > **Issue**: [KT-74915](https://youtrack.jetbrains.com/issue/KT-74915)
 >
@@ -374,7 +374,7 @@
 > - 2.1.0: 警告をエラーに格上げ
 > - 2.3.0: API を内部化
 
-### `KotlinCompilation` における `HasKotlinDependencies` を非推奨化
+### `KotlinCompilation` における `HasKotlinDependencies` を非推奨化 {id="deprecate-haskotlindependencies-in-kotlincompilation"}
 
 > **Issue**: [KT-67290](https://youtrack.jetbrains.com/issue/KT-67290)
 >
@@ -388,7 +388,7 @@
 >
 > - 2.3.0: 警告を報告
 
-### npm および Yarn パッケージマネージャの内部関数とプロパティを非推奨化
+### npm および Yarn パッケージマネージャの内部関数とプロパティを非推奨化 {id="deprecate-npm-and-yarn-package-manager-internal-functions-and-properties"}
 
 > **Issue**: [KT-81009](https://youtrack.jetbrains.com/issue/KT-81009)
 >
@@ -414,7 +414,7 @@
 > - 2.3.0: 警告をエラーに格上げ
 > - 2.4.0: 関数とプロパティを削除
 
-### PhantomJS のサポートを非推奨化
+### PhantomJS のサポートを非推奨化 {id="deprecate-support-for-phantomjs"}
 
 > **Issue**: [KT-76019](https://youtrack.jetbrains.com/issue/KT-76019)
 >
@@ -428,7 +428,7 @@
 >
 > - 2.3.0: 警告を報告
 
-### テスト実行または JavaScript ランタイムをセットアップするクラスのサブクラス化を禁止
+### テスト実行または JavaScript ランタイムをセットアップするクラスのサブクラス化を禁止 {id="prohibit-subclassing-of-classes-that-set-up-test-runs-or-javascript-runtime"}
 
 > **Issue**: [KT-75869](https://youtrack.jetbrains.com/issue/KT-75869), [KT-81007](https://youtrack.jetbrains.com/issue/KT-81007)
 >
@@ -458,7 +458,7 @@
 > - 2.3.0: 警告をエラーに格上げ
 > - 2.4.0: API を削除
 
-### `ExperimentalWasmDsl` アノテーションクラスを非推奨化
+### `ExperimentalWasmDsl` アノテーションクラスを非推奨化 {id="deprecate-experimentalwasmdsl-annotation-class"}
 
 > **Issue**: [KT-81005](https://youtrack.jetbrains.com/issue/KT-81005)
 >
@@ -474,7 +474,7 @@
 > - 2.3.0: 警告をエラーに格上げ
 > - 2.4.0: アノテーションクラスを削除
 
-### `ExperimentalDceDsl` アノテーションクラスを非推奨化
+### `ExperimentalDceDsl` アノテーションクラスを非推奨化 {id="deprecate-experimentaldcedsl-annotation-class"}
 
 > **Issue**: [KT-81008](https://youtrack.jetbrains.com/issue/KT-81008)
 >
@@ -490,7 +490,7 @@
 > - 2.3.0: 警告をエラーに格上げ
 > - 2.4.0: アノテーションクラスを削除
 
-### JavaScript ユーティリティを非推奨化
+### JavaScript ユーティリティを非推奨化 {id="deprecate-javascript-utilities"}
 
 > **Issue**: [KT-81010](https://youtrack.jetbrains.com/issue/KT-81010)
 >
@@ -515,7 +515,7 @@
 > - 2.3.0: 警告をエラーに格上げ
 > - 2.4.0: API を削除
 
-### 移行された D8 および Binaryen プロパティを非推奨化
+### 移行された D8 および Binaryen プロパティを非推奨化 {id="deprecate-migrated-d8-and-binaryen-properties"}
 
 > **Issue**: [KT-81006](https://youtrack.jetbrains.com/issue/KT-81006)
 >
@@ -540,7 +540,7 @@
 > - 2.3.0: 警告をエラーに格上げ
 > - 2.4.0: プロパティを削除
 
-### `NodeJsExec` DSL の `create()` 関数を非推奨化
+### `NodeJsExec` DSL の `create()` 関数を非推奨化 {id="deprecate-create-function-in-nodejsexec-dsl"}
 
 > **Issue**: [KT-81004](https://youtrack.jetbrains.com/issue/KT-81004)
 >
@@ -556,7 +556,7 @@
 > - 2.3.0: 警告をエラーに格上げ
 > - 2.4.0: 関数を削除
 
-### `kotlinOptions` DSL のプロパティを非推奨化
+### `kotlinOptions` DSL のプロパティを非推奨化 {id="deprecate-properties-in-kotlinoptions-dsl"}
 
 > **Issue**: [KT-76720](https://youtrack.jetbrains.com/issue/KT-76720)
 >
@@ -573,7 +573,7 @@
 > - 2.2.0: 警告をエラーに格上げし、`kotlinOptions` のすべてのプロパティを非推奨化
 > - 2.3.0: `kotlinOptions` のすべてのプロパティに対する警告をエラーに格上げ
 
-### `kotlinArtifacts` API を非推奨化
+### `kotlinArtifacts` API を非推奨化 {id="deprecate-kotlinartifacts-api"}
 
 > **Issue**: [KT-77066](https://youtrack.jetbrains.com/issue/KT-77066)
 >
@@ -590,7 +590,7 @@
 > - 2.3.0: この警告をエラーに格上げ
 > - 2.4.0: API を削除
 
-### `kotlin.mpp.resourcesResolutionStrategy` Gradle プロパティを削除
+### `kotlin.mpp.resourcesResolutionStrategy` Gradle プロパティを削除 {id="remove-kotlin-mpp-resourcesresolutionstrategy-gradle-property"}
 
 > **Issue**: [KT-74955](https://youtrack.jetbrains.com/issue/KT-74955)
 >
@@ -605,7 +605,7 @@
 > - 2.2.0: 構成時の診断（diagnostic）を報告
 > - 2.3.0: Gradle プロパティを削除
 
-### マルチプラットフォーム IDE インポートの古いモードを非推奨化
+### マルチプラットフォーム IDE インポートの古いモードを非推奨化 {id="deprecated-old-mode-of-multiplatform-ide-import"}
 
 > **Issue**: [KT-61127](https://youtrack.jetbrains.com/issue/KT-61127)
 >
@@ -619,7 +619,7 @@
 >
 > - 2.3.0: `kotlin.mpp.import.enableKgpDependencyResolution=false` Gradle プロパティが使用された場合に警告を報告
 
-### 精密なコンパイルバックアップを無効にするプロパティを削除
+### 精密なコンパイルバックアップを無効にするプロパティを削除 {id="remove-properties-to-disable-precise-compilation-backup"}
 
 > **Issue**: [KT-81038](https://youtrack.jetbrains.com/issue/KT-81038)
 >
@@ -634,7 +634,7 @@
 > - 2.1.20: 警告を報告
 > - 2.3.0: プロパティを削除
 
-### `CInteropProcess` における `destinationDir` を非推奨化
+### `CInteropProcess` における `destinationDir` を非推奨化 {id="deprecate-destinationdir-in-cinteropprocess"}
 
 > **Issue**: [KT-74910](https://youtrack.jetbrains.com/issue/KT-74910)
 >
@@ -651,7 +651,7 @@
 > - 2.2.0: この警告をエラーに格上げ
 > - 2.3.0: `destinationDir` プロパティを非表示化
 
-### `CInteropProcess` における `konanVersion` を非推奨化
+### `CInteropProcess` における `konanVersion` を非推奨化 {id="deprecate-konanversion-in-cinteropprocess"}
 
 > **Issue**: [KT-74911](https://youtrack.jetbrains.com/issue/KT-74911)
 >
@@ -668,7 +668,7 @@
 > - 2.2.0: この警告をエラーに格上げ
 > - 2.3.0: `konanVersion` プロパティを非表示化
 
-### `KotlinCompile.classpathSnapshotProperties` プロパティを削除
+### `KotlinCompile.classpathSnapshotProperties` プロパティを削除 {id="remove-kotlincompile-classpathsnapshotproperties-properties"}
 
 > **Issue**: [KT-76177](https://youtrack.jetbrains.com/issue/KT-76177)
 >
@@ -687,7 +687,7 @@
 > - 2.2.0: `kotlin.incremental.useClasspathSnapshot` プロパティを削除
 > - 2.3.0: `KotlinCompile.classpathSnapshotProperties.useClasspathSnapshot` および `KotlinCompile.classpathSnapshotProperties.classpath` プロパティを削除
 
-### `getPluginArtifactForNative()` 関数を非推奨化
+### `getPluginArtifactForNative()` 関数を非推奨化 {id="deprecate-getpluginartifactfornative-function"}
 
 > **Issue**: [KT-78870](https://youtrack.jetbrains.com/issue/KT-78870)
 >
@@ -704,7 +704,7 @@
 > - 2.3.0: 警告をエラーに格上げ
 > - 2.4.0: 関数を削除
 
-### すべての生成されたソースを登録するアプローチの変更
+### すべての生成されたソースを登録するアプローチの変更 {id="change-the-approach-to-registering-all-generated-sources"}
 
 > **Issue**: [KT-45161](https://youtrack.jetbrains.com/issue/KT-45161)
 >
@@ -718,7 +718,7 @@
 > * 生成されたソースを登録するには、[`generatedKotlin`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-source-set/generated-kotlin.html) プロパティを使用します。
 > * 生成されていないソースを含むすべてのソースにアクセスするには、[`allKotlinSources`](https://kotlinlang.org/api/kotlin-gradle-plugin/kotlin-gradle-plugin-api/org.jetbrains.kotlin.gradle.plugin/-kotlin-source-set/all-kotlin-sources.html) プロパティを使用します。
 
-### `kotlin.publishJvmEnvironmentAttribute` プロパティを非推奨化
+### `kotlin.publishJvmEnvironmentAttribute` プロパティを非推奨化 {id="deprecate-kotlin-publishjvmenvironmentattribute-property"}
 
 > **Issue**: [KT-83678](https://youtrack.jetbrains.com/issue/KT-83678)
 >
@@ -735,7 +735,7 @@
 > - 2.3.20: 警告を報告
 > - 2.4.0: プロパティを削除
 
-### `CleanableStore` インターフェースおよび `CleanDataTask` クラスを非推奨化
+### `CleanableStore` インターフェースおよび `CleanDataTask` クラスを非推奨化 {id="deprecate-cleanablestore-interface-and-cleandatatask-class"}
 
 > **Issue**: [KT-78104](https://youtrack.jetbrains.com/issue/KT-78104)
 >
@@ -749,7 +749,7 @@
 >
 > - 2.3.20: 警告を報告
 
-### `kotlin.kmp.isolated-projects.support` Gradle プロパティを非推奨化
+### `kotlin.kmp.isolated-projects.support` Gradle プロパティを非推奨化 {id="deprecate-kotlin-kmp-isolated-projects-support-gradle-property"}
 
 > **Issue**: [KT-79257](https://youtrack.jetbrains.com/issue/KT-79257)
 >
@@ -763,7 +763,7 @@
 >
 > - 2.3.20: 警告を報告
 
-### `kotlin.mpp.enableKotlinToolingMetadataArtifact` Gradle プロパティを非推奨化
+### `kotlin.mpp.enableKotlinToolingMetadataArtifact` Gradle プロパティを非推奨化 {id="deprecate-kotlin-mpp-enablekotlintoolingmetadataartifact-gradle-property"}
 
 > **Issue**: [KT-79924](https://youtrack.jetbrains.com/issue/KT-79924)
 >
@@ -778,7 +778,7 @@
 > - 2.3.20: 警告を報告
 > - 2.4.0: サポートを削除
 
-### `LanguageSettings.enableLanguageFeature` DSL を非推奨化
+### `LanguageSettings.enableLanguageFeature` DSL を非推奨化 {id="deprecate-languagesettings-enablelanguagefeature-dsl"}
 
 > **Issue**: [KT-82323](https://youtrack.jetbrains.com/issue/KT-82323), [KT-82847](https://youtrack.jetbrains.com/issue/KT-82847)
 >
@@ -793,7 +793,7 @@
 > - 2.3.20: `LanguageSettings.enableLanguageFeature` を使用している場合に警告を報告
 > - 2.4.0: 警告をエラーに格上げ
 
-### 「プロセス外 (out of process)」コンパイラ実行戦略を非推奨化
+### 「プロセス外 (out of process)」コンパイラ実行戦略を非推奨化 {id="deprecate-out-of-process-compiler-execution-strategy"}
 
 > **Issue**: [KT-83125](https://youtrack.jetbrains.com/issue/KT-83125)
 >
@@ -808,9 +808,9 @@
 > - 2.3.20: 警告を報告
 > - 2.4.0: 「プロセス外 (out of process)」コンパイラ実行戦略を削除
 
-## ビルドツールの削除 (Build tool removal)
+## ビルドツールの削除 (Build tool removal) {id="build-tool-removal"}
 
-### Ant のサポートを削除
+### Ant のサポートを削除 {id="remove-support-for-ant"}
 
 > **Issue**: [KT-75875](https://youtrack.jetbrains.com/issue/KT-75875)
 >
