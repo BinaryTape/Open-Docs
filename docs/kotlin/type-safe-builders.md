@@ -57,8 +57,7 @@ interface Element {
 
 class TextElement(val text: String) : Element {
     override fun render(builder: StringBuilder, indent: String) {
-        builder.append("$indent$text
-")
+        builder.append("$indent$text\n")
     }
 }
 
@@ -77,13 +76,11 @@ abstract class Tag(val name: String) : Element {
     }
 
     override fun render(builder: StringBuilder, indent: String) {
-        builder.append("$indent<$name${renderAttributes()}>
-")
+        builder.append("$indent<$name${renderAttributes()}>\n")
         for (c in children) {
             c.render(builder, indent + "  ")
         }
-        builder.append("$indent</$name>
-")
+        builder.append("$indent</$name>\n")
     }
 
     private fun renderAttributes(): String {
@@ -482,8 +479,7 @@ interface Element {
 
 class TextElement(val text: String) : Element {
     override fun render(builder: StringBuilder, indent: String) {
-        builder.append("$indent$text
-")
+        builder.append("$indent$text\n")
     }
 }
 
@@ -503,13 +499,11 @@ abstract class Tag(val name: String) : Element {
     }
 
     override fun render(builder: StringBuilder, indent: String) {
-        builder.append("$indent<$name${renderAttributes()}>
-")
+        builder.append("$indent<$name${renderAttributes()}>\n")
         for (c in children) {
             c.render(builder, indent + "  ")
         }
-        builder.append("$indent</$name>
-")
+        builder.append("$indent</$name>\n")
     }
 
     private fun renderAttributes(): String {

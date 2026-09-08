@@ -141,12 +141,8 @@ fun main() {
     val runningFoldSum = numbers.runningFold(10) { sum, item -> sum + item }
 //sampleEnd
     val transform = { index: Int, element: Int -> "N = ${index + 1}: $element" }
-    println(runningReduceSum.mapIndexed(transform).joinToString("
-", "Sum of first N elements with runningReduce:
-"))
-    println(runningFoldSum.mapIndexed(transform).joinToString("
-", "Sum of first N elements with runningFold:
-"))
+    println(runningReduceSum.mapIndexed(transform).joinToString("\n", "Sum of first N elements with runningReduce:\n"))
+    println(runningFoldSum.mapIndexed(transform).joinToString("\n", "Sum of first N elements with runningFold:\n"))
 }
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="1.4"}

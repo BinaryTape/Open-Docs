@@ -148,16 +148,14 @@ Objective-C 物件的存活時間可能會超過其應有的長度，這有時�
 // Kotlin
 fun growingMemoryUsage() {
     repeat(Int.MAX_VALUE) {
-        NSLog("$it
-")
+        NSLog("$it\n")
     }
 }
 
 fun steadyMemoryUsage() {
     repeat(Int.MAX_VALUE) {
         autoreleasepool {
-            NSLog("$it
-")
+            NSLog("$it\n")
         }
     }
 }

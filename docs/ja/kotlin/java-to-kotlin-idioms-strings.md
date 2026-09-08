@@ -43,8 +43,7 @@ Java では、[StringBuilder](https://docs.oracle.com/en/java/javase/11/docs/api
 StringBuilder countDown = new StringBuilder();
 for (int i = 5; i > 0; i--) {
     countDown.append(i);
-    countDown.append("
-");
+    countDown.append("\n");
 }
 System.out.println(countDown);
 ```

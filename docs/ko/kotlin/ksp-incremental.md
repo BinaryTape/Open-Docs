@@ -149,8 +149,7 @@ class Example1Processor : SymbolProcessor {
        val outputName = "outputFor${declA.simpleName.asString()}"
        // outputForA는 A.kt와 B.kt에 의존합니다.
        val output = codeGenerator.createNewFile(dependencies, "com.example", outputName, "kt")
-       output.write("// $declA : $declB
-".toByteArray())
+       output.write("// $declA : $declB\n".toByteArray())
        output.close()
    }
    // ...

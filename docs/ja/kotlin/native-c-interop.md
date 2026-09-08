@@ -400,8 +400,7 @@ Kotlinオブジェクトを「ピン留め」することができます。つ�
 struct ForwardDeclaredStruct;
 
 void consumeStruct(struct ForwardDeclaredStruct* s) {
-    printf("Struct consumed
-");
+    printf("Struct consumed\n");
 }
 ```
 

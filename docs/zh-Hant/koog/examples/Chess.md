@@ -120,11 +120,9 @@ class ChessBoard {
     )
 
     override fun toString(): String = board
-        .withIndex().joinToString("
-") { (index, row) ->
+        .withIndex().joinToString("\n") { (index, row) ->
             "${8 - index} ${row.map { it.toChar() }.joinToString(" ")}"
-        } + "
-  a b c d e f g h"
+        } + "\n  a b c d e f g h"
 
     fun getPiece(position: Position): Piece = board[8 - position.row][position.col - 'a']
     fun setPiece(position: Position, piece: Piece) {
@@ -249,8 +247,7 @@ class Move(val game: ChessGame) : SimpleTool<Move.Args>(
     argsSerializer = Args.serializer(),
     descriptor = ToolDescriptor(
         name = "move",
-        description = "根據表示法移動棋子：
-${game.moveNotation}",
+        description = "根據表示法移動棋子：\n${game.moveNotation}",
         requiredParameters = listOf(
             ToolParameterDescriptor(
                 name = "notation",
@@ -267,9 +264,7 @@ ${game.moveNotation}",
         game.move(args.notation)
         println(game.getBoard())
         println("-----------------")
-        return "目前遊戲狀態：
-${game.getBoard()}
-輪到 ${game.currentPlayer()} 移動！請出招！"
+        return "目前遊戲狀態：\n${game.getBoard()}\n輪到 ${game.currentPlayer()} 移動！請出招！"
     }
 }
 ```

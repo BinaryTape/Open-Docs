@@ -14,12 +14,10 @@ val name: String = "Kotlin"
 val message = "Hello, world!" // Kotlin이 String으로 추론함
 ```
 
-큰따옴표 문자열 리터럴은 `
-`이나 `\t`와 같은 [이스케이프 시퀀스(escape sequences)](characters.md#escape-sequences)를 지원합니다.
+큰따옴표 문자열 리터럴은 `\n`이나 `\t`와 같은 [이스케이프 시퀀스(escape sequences)](characters.md#escape-sequences)를 지원합니다.
 
 ```kotlin
-val message = "Hello,
-world!"
+val message = "Hello,\nworld!"
 val quote = "Kotlin says, \"Hi\"."
 ```
 
@@ -86,8 +84,7 @@ fun main() {
 
 기본적으로 `trimMargin()` 함수는 파이프 기호(`|`)를 마진 접두사로 사용하지만, 다른 문자를 파라미터로 전달할 수 있습니다. 예를 들어 `trimMargin(">")`과 같이 사용할 수 있습니다.
 
-> `trimIndent()`나 `trimMargin()`과 같은 함수로 문자열을 처리할 때, 결과 문자열은 플랫폼에 관계없이 줄바꿈 구분자로 줄바꿈 문자(`
-`)만 사용합니다.
+> `trimIndent()`나 `trimMargin()`과 같은 함수로 문자열을 처리할 때, 결과 문자열은 플랫폼에 관계없이 줄바꿈 구분자로 줄바꿈 문자(`\n`)만 사용합니다.
 >
 {style="note"}
 
@@ -378,9 +375,7 @@ fun main() {
 ```kotlin
 fun main() { 
 //sampleStart
-    val numbers = "one
-two
-three"
+    val numbers = "one\ntwo\nthree"
     println(numbers.lines())
     // [one, two, three]
 //sampleEnd

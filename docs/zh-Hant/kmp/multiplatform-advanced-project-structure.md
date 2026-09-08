@@ -1,7 +1,3 @@
----
-title: 多平台專案結構的進階概念
----
-
 [//]: # (title: 多平台專案結構的進階概念)
 
 這篇文章說明了 Kotlin Multiplatform 專案結構的進階概念，以及它們如何對應到 Gradle 的實作。如果您需要處理 Gradle 組建的底層抽象（配置、任務、發佈等），或者正在為 Kotlin Multiplatform 組建建立 Gradle 外掛程式，這些資訊將會非常有用。

@@ -383,9 +383,7 @@ int main(int argc, char** argv) {
   // C と Kotlin/Native の文字列を使用する
   const char* str = "Hello from Native!";
   const char* response = lib->kotlin.root.example.strings(str);
-  printf("in: %s
-out:%s
-", str, response);
+  printf("in: %s\nout:%s\n", str, response);
   lib->DisposeString(response);
 
   // Kotlin オブジェクトのインスタンスを作成する
@@ -393,8 +391,7 @@ out:%s
   long x = lib->kotlin.root.example.Clazz.memberFunction(newInstance, 42);
   lib->DisposeStablePointer(newInstance.pinned);
 
-  printf("DemoClazz returned %ld
-", x);
+  printf("DemoClazz returned %ld\n", x);
 
   return 0;
 }

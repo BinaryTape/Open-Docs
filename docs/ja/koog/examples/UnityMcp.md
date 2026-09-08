@@ -94,10 +94,8 @@ runBlocking {
             nodeStart forwardTo nodePlanIngredients transformed {
                 "Create detailed plan for " + agentInput + "" +
                     "using the following tools: ${toolRegistry.tools.joinToString("
-") {
-                        it.name + "
-description:" + it.descriptor
-                    }}"
+") {\n                        it.name + "
+description:" + it.descriptor\n                    }}"
             }
         )
         edge(nodePlanIngredients forwardTo interactionWithUnity onAssistantMessage { true })

@@ -93,8 +93,7 @@ runBlocking {
 
         val result = agent.run("Tell me a joke about programming")
 
-        "Agent run completed with result: '$result'.
-Check Jaeger UI at http://localhost:16686 to view traces"
+        "Agent run completed with result: '$result'.\nCheck Jaeger UI at http://localhost:16686 to view traces"
     }
 }
 ```

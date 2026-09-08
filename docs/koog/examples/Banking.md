@@ -149,8 +149,7 @@ class MoneyTransferTools : ToolSet {
         }
         return matches.mapIndexed { idx, c ->
             "${idx + 1}. ${c.id}: ${c.name} ${c.surname ?: ""} (${c.phoneNumber})"
-        }.joinToString("
-")
+        }.joinToString("\n")
     }
 
     @Tool
@@ -381,8 +380,7 @@ class TransactionAnalysisTools : ToolSet {
             return "未找到匹配指定条件的交易。"
         }
 
-        return filteredTransactions.joinToString("
-") { transaction ->
+        return filteredTransactions.joinToString("\n") { transaction ->
             "${transaction.date}: ${transaction.merchant} - " +
                 "${transaction.amount} (${transaction.category.title})"
         }
@@ -418,8 +416,7 @@ class TransactionAnalysisTools : ToolSet {
 val analysisAgentService = AIAgentService(
     executor = openAIExecutor,
     llmModel = OpenAIModels.Chat.GPT4oMini,
-    systemPrompt = "$bankingAssistantSystemPrompt
-$transactionAnalysisPrompt",
+    systemPrompt = "$bankingAssistantSystemPrompt\n$transactionAnalysisPrompt",
     temperature = 0.0,
     toolRegistry = ToolRegistry {
         tools(TransactionAnalysisTools().asTools())
@@ -594,8 +591,7 @@ import ai.koog.prompt.dsl.prompt
 
 val agentConfig = AIAgentConfig(
     prompt = prompt(id = "银行助手") {
-        system("$bankingAssistantSystemPrompt
-$transactionAnalysisPrompt")
+        system("$bankingAssistantSystemPrompt\n$transactionAnalysisPrompt")
     },
     model = OpenAIModels.Chat.GPT4o,
     maxAgentIterations = 50  // 允许复杂的多步骤操作
@@ -682,8 +678,7 @@ val classifierAgent = AIAgent(
             )
         )
     },
-    systemPrompt = "$bankingAssistantSystemPrompt
-$transactionAnalysisPrompt"
+    systemPrompt = "$bankingAssistantSystemPrompt\n$transactionAnalysisPrompt"
 )
 ```
 

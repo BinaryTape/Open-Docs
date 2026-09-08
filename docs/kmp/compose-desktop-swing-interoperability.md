@@ -582,8 +582,7 @@ fun SwingComponent() : JPanel {
                 margin = Insets(10, 10, 10, 10)
                 text = "The five boxing wizards jump quickly. " +
                 "Crazy Fredrick bought many very exquisite opal jewels. " +
-                "Pack my box with five dozen liquor jugs.
-" +
+                "Pack my box with five dozen liquor jugs.\n" +
                 "Cozy sphinx waves quart jug of bad milk. " +
                 "The jay, pig, fox, zebra and my wolves quack!"
             },

@@ -1324,11 +1324,8 @@ Kotlin 2.1.0 では、いくつかの標準ライブラリ API の非推奨重�
 * **`appendln()` が `appendLine()` のために非推奨に:**
   `StringBuilder.appendln()` および `Appendable.appendln()` 関数が非推奨となり、使用するとエラーになります。
   これらを置き換えるには、代わりに `StringBuilder.appendLine()` または `Appendable.appendLine()` 関数を使用してください。
-  `appendln()` が非推奨となった理由は、Kotlin/JVM において、OS ごとにデフォルト値が異なる `line.separator` システムプロパティを使用しているためです。Kotlin/JVM では、このプロパティは Windows では `\r
-` (CR LF)、その他のシステムでは `
-` (LF) にデフォルト設定されます。
-  一方で、`appendLine()` 関数は改行セパレータとして一貫して `
-` (LF) を使用し、プラットフォーム間での一貫した挙動を保証します。
+  `appendln()` が非推奨となった理由は、Kotlin/JVM において、OS ごとにデフォルト値が異なる `line.separator` システムプロパティを使用しているためです。Kotlin/JVM では、このプロパティは Windows では `\r\n` (CR LF)、その他のシステムでは `\n` (LF) にデフォルト設定されます。
+  一方で、`appendLine()` 関数は改行セパレータとして一貫して `\n` (LF) を使用し、プラットフォーム間での一貫した挙動を保証します。
 
 本リリースで影響を受ける API の完全なリストについては、[KT-71628](https://youtrack.jetbrains.com/issue/KT-71628) YouTrack イシューを参照してください。
 

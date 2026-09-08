@@ -87,8 +87,7 @@ println("Running agent with Weave tracing")
 
 runBlocking {
     val result = agent.run("Tell me a joke about programming")
-    "Result: $result
-See traces on https://wandb.ai/$entity/$projectName/weave/traces"
+    "Result: $result\nSee traces on https://wandb.ai/$entity/$projectName/weave/traces"
 }
 
 ```

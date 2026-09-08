@@ -148,16 +148,14 @@ Objective-C 对象的存活时间可能比预期的更长，这有时可能会�
 // Kotlin
 fun growingMemoryUsage() {
     repeat(Int.MAX_VALUE) {
-        NSLog("$it
-")
+        NSLog("$it\n")
     }
 }
 
 fun steadyMemoryUsage() {
     repeat(Int.MAX_VALUE) {
         autoreleasepool {
-            NSLog("$it
-")
+            NSLog("$it\n")
         }
     }
 }

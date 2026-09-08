@@ -249,8 +249,7 @@ import androidx.compose.ui.window.singleWindowApplication
 @OptIn(ExperimentalFoundationApi::class)
 fun main() = singleWindowApplication(title = "Mouse clicks") {
     Column {
-        var topBoxText by remember { mutableStateOf("Click me
-using LMB or LMB + Shift") }
+        var topBoxText by remember { mutableStateOf("Click me\nusing LMB or LMB + Shift") }
         var topBoxCount by remember { mutableIntStateOf(0) }
         // 交互时没有指示 (indication)
         Box(modifier = Modifier
@@ -278,9 +277,7 @@ using LMB or LMB + Shift") }
             }
         }
 
-        var bottomBoxText by remember { mutableStateOf("Click me
-using LMB or
-RMB + Alt") }
+        var bottomBoxText by remember { mutableStateOf("Click me\nusing LMB or\nRMB + Alt") }
         var bottomBoxCount by remember { mutableStateOf(0) }
         val interactionSource = remember { MutableInteractionSource() }
         // 交互时带有指示 (indication)
@@ -404,8 +401,7 @@ fun main() = singleWindowApplication(title = "Drag") {
             }
         ) {
             Text(
-                text = "Drag with RMB,
-try with CTRL",
+                text = "Drag with RMB,\ntry with CTRL",
                 modifier = Modifier.align(Alignment.Center)
             )
         }

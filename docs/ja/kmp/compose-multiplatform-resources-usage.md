@@ -243,8 +243,7 @@ coroutineScope.launch {
 
 文字列リソースでは特殊記号を使用できます。
 
-* `
-` – 改行
+* `\n` – 改行
 * `\t` – タブ記号
 * `\uXXXX` – 特定の Unicode 文字
 

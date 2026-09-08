@@ -1,7 +1,5 @@
----
-title: 字符串
-description: 了解如何在 Kotlin 中处理字符串，包括字符串字面量、字符串模板、多行字符串以及常用的文本操作。
----
+[//]: # (title: 字符串)
+[//]: # (description: 了解如何在 Kotlin 中处理字符串，包括字符串字面量、字符串模板、多行字符串以及常用的文本操作。)
 
 [`String`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/) 类型表示[字符](characters.md)序列。你可以将其用于文本值，例如单词、句子、消息或结构化文本。
 
@@ -16,12 +14,10 @@ val name: String = "Kotlin"
 val message = "Hello, world!" // Kotlin 推断为 String
 ```
 
-双引号字符串字面量支持[转义序列](characters.md#escape-sequences)，例如 `
-` 或 `\t`：
+双引号字符串字面量支持[转义序列](characters.md#escape-sequences)，例如 `\n` 或 `\t`：
 
 ```kotlin
-val message = "Hello,
-world!"
+val message = "Hello,\nworld!"
 val quote = "Kotlin says, \"Hi\"."
 ```
 
@@ -88,8 +84,7 @@ fun main() {
 
 默认情况下，`trimMargin()` 函数使用管道符号 (`|`) 作为边界前缀，但你可以传递另一个字符作为参数。例如：`trimMargin(">")`。
 
-> 当你使用 `trimIndent()` 或 `trimMargin()` 等函数处理字符串时，无论在什么平台上，结果字符串都仅使用换行符 (`
-`) 作为分隔符。
+> 当你使用 `trimIndent()` 或 `trimMargin()` 等函数处理字符串时，无论在什么平台上，结果字符串都仅使用换行符 (`\n`) 作为分隔符。
 >
 {style="note"}
 
@@ -379,9 +374,7 @@ fun main() {
 ```kotlin
 fun main() { 
 //sampleStart
-    val numbers = "one
-two
-three"
+    val numbers = "one\ntwo\nthree"
     println(numbers.lines())
     // [one, two, three]
 //sampleEnd

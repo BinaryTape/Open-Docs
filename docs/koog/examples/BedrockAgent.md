@@ -181,13 +181,11 @@ println("💡 示例：'请打开开关' 或 '当前状态是什么？'")
 println("📝 输入您的请求：")
 
 val input = readln()
-println("
-🤖 正在处理您的请求...")
+println("\n🤖 正在处理您的请求...")
 
 runBlocking {
     val response = agent.run(input)
-    println("
-✨ 代理响应：")
+    println("\n✨ 代理响应：")
     println(response)
 }
 ```

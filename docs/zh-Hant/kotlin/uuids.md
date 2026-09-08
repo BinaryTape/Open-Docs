@@ -1,7 +1,4 @@
----
-title: UUID
-description: 了解如何在 Kotlin 中使用 UUID，包括在多平台和 JVM 程式碼中建立、剖析、格式化、序列化以及處理 UUID 值。
----
+[//]: # (description: 了解如何在 Kotlin 中使用 UUID，包括在多平台和 JVM 程式碼中建立、剖析、格式化、序列化以及處理 UUID 值。)
 
 [//]: # (title: UUID)
 

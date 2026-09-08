@@ -377,9 +377,7 @@ int main(int argc, char** argv) {
   // 使用 C 和 Kotlin/Native 字符串
   const char* str = "Hello from Native!";
   const char* response = lib->kotlin.root.example.strings(str);
-  printf("in: %s
-out:%s
-", str, response);
+  printf("in: %s\nout:%s\n", str, response);
   lib->DisposeString(response);
 
   // 创建 Kotlin 对象实例
@@ -387,8 +385,7 @@ out:%s
   long x = lib->kotlin.root.example.Clazz.memberFunction(newInstance, 42);
   lib->DisposeStablePointer(newInstance.pinned);
 
-  printf("DemoClazz returned %ld
-", x);
+  printf("DemoClazz returned %ld\n", x);
 
   return 0;
 }

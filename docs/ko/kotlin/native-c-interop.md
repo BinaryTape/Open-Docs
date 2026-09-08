@@ -400,8 +400,7 @@ Kotlin 객체는 피닝(pinning)될 수 있습니다. 즉, 언피닝(unpinning)�
 struct ForwardDeclaredStruct;
 
 void consumeStruct(struct ForwardDeclaredStruct* s) {
-    printf("Struct consumed
-");
+    printf("Struct consumed\n");
 }
 ```
 

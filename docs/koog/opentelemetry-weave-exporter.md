@@ -60,8 +60,7 @@ fun main() = runBlocking {
 
     val result = agent.run("Tell me a joke about programming")
 
-    println("Result: $result
-See traces on https://wandb.ai/$entity/$projectName/weave/traces")
+    println("Result: $result\nSee traces on https://wandb.ai/$entity/$projectName/weave/traces")
 }
 ```
 <!--- KNIT example-weave-exporter-01.kt -->

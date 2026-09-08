@@ -1374,11 +1374,8 @@ Compose 编译器过去会创建模块 IR 的完整副本以转换 `@Composable`
   `StringBuilder.appendln()` 和 `Appendable.appendln()` 函数现已弃用，使用它们会导致错误。
   要替换它们，请改用 `StringBuilder.appendLine()` 或 `Appendable.appendLine()` 函数。
   `appendln()` 函数被弃用是因为在 Kotlin/JVM 上，它使用 `line.separator` 系统属性，
-  该属性在每个操作系统上的默认值不同。在 Kotlin/JVM 上，此属性在 Windows 上默认为 `\r
-` (CR LF)，在其他系统上默认为 `
-` (LF)。
-  另一方面，`appendLine()` 函数始终使用 `
-` (LF) 作为行分隔符，确保了跨平台的一致行为。
+  该属性在每个操作系统上的默认值不同。在 Kotlin/JVM 上，此属性在 Windows 上默认为 `\r\n` (CR LF)，在其他系统上默认为 `\n` (LF)。
+  另一方面，`appendLine()` 函数始终使用 `\n` (LF) 作为行分隔符，确保了跨平台的一致行为。
 
 有关此版本中受影响 API 的完整列表，请参阅 [KT-71628](https://youtrack.jetbrains.com/issue/KT-71628) YouTrack 问题。
 

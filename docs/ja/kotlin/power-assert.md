@@ -594,8 +594,7 @@ fun <R> assertSoftly(block: AssertScope.() -> R): R {
     val scope = AssertScopeImpl()
     val result = scope.block()
     if (scope.errors.isNotEmpty()) {
-        throw AssertionError(scope.errors.joinToString("
-"))
+        throw AssertionError(scope.errors.joinToString("\n"))
     }
     return result
 }

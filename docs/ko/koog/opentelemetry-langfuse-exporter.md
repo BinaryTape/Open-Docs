@@ -53,8 +53,7 @@ fun main() = runBlocking {
 
     val result = agent.run("Tell me a joke about programming")
 
-    println("Result: $result
-See traces on the Langfuse instance")
+    println("Result: $result\nSee traces on the Langfuse instance")
 }
 ```
 <!--- KNIT example-langfuse-exporter-01.kt -->

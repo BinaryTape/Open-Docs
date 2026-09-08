@@ -86,8 +86,7 @@ try {
     
     val result = agent.run("請搜尋 Koog.ai 並告訴我它是什麼以及誰發明了它")
     
-    println("
-代理回應：")
+    println("\n代理回應：")
     println(result)
     
 } catch (e: Exception) {
@@ -184,8 +183,7 @@ fun main() = runBlocking {
         
         val result = agent.run("請搜尋 Koog.ai 並告訴我它是什麼以及誰發明了它")
         
-        println("
-代理回應：")
+        println("\n代理回應：")
         println(result)
         
     } catch (e: Exception) {

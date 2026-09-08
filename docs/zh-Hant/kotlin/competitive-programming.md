@@ -208,12 +208,10 @@ val (n, k) = readInts()
 
 使用 JVM 的 `java.util.Scanner` 類別來解析結構化程度較低的輸入格式可能很誘人。Kotlin 的設計目標是與 JVM 程式庫良好地互通，因此在 Kotlin 中使用它們感覺非常自然。但是請注意，`java.util.Scanner` 極其緩慢。事實上，它慢到用它解析 10<sup>5</sup> 或更多整數可能無法在典型的 2 秒時間限制內完成，而簡單的 Kotlin `split(" ").map { it.toInt() }` 卻可以處理。
 
-在 Kotlin 中編寫輸出通常很直觀，只需呼叫 [println(...)](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io/println.html) 並使用 Kotlin 的 [字串範本](strings.md#string-templates)。然而，當輸出包含大約 10<sup>5</sup> 行或更多時必須小心。發出這麼多 `println` 呼叫太慢了，因為 Kotlin 中的輸出在每一行之後都會自動刷新。從陣列或列表編寫多行的更快方法是使用 [joinToString()](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/join-to-string.html) 函式，並以 `"
-"` 作為分隔符號，如下所示：
+在 Kotlin 中編寫輸出通常很直觀，只需呼叫 [println(...)](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io/println.html) 並使用 Kotlin 的 [字串範本](strings.md#string-templates)。然而，當輸出包含大約 10<sup>5</sup> 行或更多時必須小心。發出這麼多 `println` 呼叫太慢了，因為 Kotlin 中的輸出在每一行之後都會自動刷新。從陣列或列表編寫多行的更快方法是使用 [joinToString()](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/join-to-string.html) 函式，並以 `"\n"` 作為分隔符號，如下所示：
 
 ```kotlin
-println(a.joinToString("
-")) // 將陣列/列表的每個元素列印在單獨的一行
+println(a.joinToString("\n")) // 將陣列/列表的每個元素列印在單獨的一行
 ```
 
 ## 學習 Kotlin {id="learning-kotlin"}

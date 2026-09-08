@@ -35,8 +35,7 @@ CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
     Column(modifier = Modifier.fillMaxWidth()) {
         // このブロック内のコンポーネントは左から右（LTR）にレイアウトされます
         Text("LTR Latin")
-        TextField("Hello world
-Hello world")
+        TextField("Hello world\nHello world")
     }
 }
 ```

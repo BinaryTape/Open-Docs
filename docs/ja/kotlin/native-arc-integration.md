@@ -148,16 +148,14 @@ Objective-Cオブジェクトが本来よりも長く生存し、パフォーマ
 // Kotlin
 fun growingMemoryUsage() {
     repeat(Int.MAX_VALUE) {
-        NSLog("$it
-")
+        NSLog("$it\n")
     }
 }
 
 fun steadyMemoryUsage() {
     repeat(Int.MAX_VALUE) {
         autoreleasepool {
-            NSLog("$it
-")
+            NSLog("$it\n")
         }
     }
 }

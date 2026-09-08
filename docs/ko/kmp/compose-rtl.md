@@ -35,8 +35,7 @@ CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
     Column(modifier = Modifier.fillMaxWidth()) {
         // 이 블록 안의 컴포넌트들은 왼쪽에서 오른쪽(LTR)으로 배치됩니다.
         Text("LTR Latin")
-        TextField("Hello world
-Hello world")
+        TextField("Hello world\nHello world")
     }
 }
 ```

@@ -19,8 +19,7 @@ println(readln())
 
 ```kotlin
 val input = generateSequence(::readlnOrNull)
-  .joinToString("
-")
+  .joinToString("\n")
 ```
 
 > 使用 [`readlnOrNull()`](#handle-standard-input-safely) 代替 `readln()` 讀取輸入直到檔案結尾，且不會拋出例外。

@@ -400,8 +400,7 @@ Kotlin 对象可以被固定 (pinning)，即保证它们在内存中的位置在
 struct ForwardDeclaredStruct;
 
 void consumeStruct(struct ForwardDeclaredStruct* s) {
-    printf("Struct consumed
-");
+    printf("Struct consumed\n");
 }
 ```
 

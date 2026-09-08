@@ -210,12 +210,10 @@ val (n, k) = readInts()
 
 構造化されていない入力形式を解析するために JVM の `java.util.Scanner` クラスを使いたくなるかもしれません。Kotlin は JVM ライブラリとうまく相互運用できるように設計されているため、それらを Kotlin で非常に自然に使用できます。ただし、`java.util.Scanner` は非常に遅いことに注意してください。実際、非常に遅いため、10<sup>5</sup> 個以上の整数を解析すると、通常の 2 秒という制限時間に収まらない可能性がありますが、Kotlin の単純な `split(" ").map { it.toInt() }` であれば対処できます。
 
-Kotlin での出力の記述は、通常 [println(...)](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io/println.html) の呼び出しと Kotlin の [文字列テンプレート (string templates)](strings.md#string-templates) を使用することで簡単に行えます。ただし、出力が 10<sup>5</sup> 行以上に及ぶ場合は注意が必要です。Kotlin での出力は各行の後に自動的にフラッシュされるため、これほど多くの `println` を呼び出すのは非常に低速です。配列やリストから多くの行を書き出すより速い方法は、`"
-"` をセパレーターとして [joinToString()](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/join-to-string.html) 関数を使用することです。
+Kotlin での出力の記述は、通常 [println(...)](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io/println.html) の呼び出しと Kotlin の [文字列テンプレート (string templates)](strings.md#string-templates) を使用することで簡単に行えます。ただし、出力が 10<sup>5</sup> 行以上に及ぶ場合は注意が必要です。Kotlin での出力は各行の後に自動的にフラッシュされるため、これほど多くの `println` を呼び出すのは非常に低速です。配列やリストから多くの行を書き出すより速い方法は、`"\n"` をセパレーターとして [joinToString()](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/join-to-string.html) 関数を使用することです。
 
 ```kotlin
-println(a.joinToString("
-")) // 配列/リストの各要素を個別の行に出力
+println(a.joinToString("\n")) // 配列/リストの各要素を個別の行に出力
 ```
 
 ## Kotlin を学ぶ {id="learning-kotlin"}

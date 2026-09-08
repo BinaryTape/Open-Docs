@@ -146,8 +146,7 @@ when (val event = response.data) {
     }
     is TaskEvent -> {
         if (event.final) {
-            println("
-任务已完成")
+            println("\n任务已完成")
         }
     }
 }
@@ -170,8 +169,7 @@ if (client.cachedAgentCard()?.capabilities?.streaming == true) {
             }
             is TaskStatusUpdateEvent -> {
                 if (event.final) {
-                    println("
-任务已完成")
+                    println("\n任务已完成")
                 }
             }
         }

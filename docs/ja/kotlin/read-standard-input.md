@@ -19,8 +19,7 @@ println(readln())
 
 ```kotlin
 val input = generateSequence(::readlnOrNull)
-  .joinToString("
-")
+  .joinToString("\n")
 ```
 
 > 例外をスローせずに、入力の終わり（EOF）に達するまで入力を読み取るには、`readln()` の代わりに [`readlnOrNull()`](#handle-standard-input-safely) を使用してください。

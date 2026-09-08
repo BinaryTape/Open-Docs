@@ -51,12 +51,10 @@ fun main() {
     val heightBob = 175
 
     val taller = if (heightAlice > heightBob) {
-        print("Choose Alice
-")
+        print("Choose Alice\n")
         heightAlice
     } else {
-        print("Choose Bob
-")
+        print("Choose Bob\n")
         heightBob
     }
 
@@ -465,16 +463,14 @@ fun main() {
     // Closed-ended range:
     // 123456
   
-    println("
-Open-ended range:")
+    println("\nOpen-ended range:")
     for (i in 1..<6) {
         print(i)
     }
     // Open-ended range:
     // 12345
   
-    println("
-Reverse order in steps of 2:")
+    println("\nReverse order in steps of 2:")
     for (i in 6 downTo 0 step 2) {
         print(i)
     }

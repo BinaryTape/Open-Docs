@@ -1,7 +1,4 @@
----
-title: 進度保證
-description: 了解如何在 Lincheck 中檢查演算法的無阻礙 (obstruction-freedom) 特性。
----
+[//]: # (description: 了解如何在 Lincheck 中檢查演算法的無阻礙 (obstruction-freedom) 特性。)
 
 [//]: # (title: 進度保證)
 

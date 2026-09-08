@@ -402,8 +402,7 @@ fun main() {
 ```kotlin
 fun main() {
 //sampleStart
-    val s = "    
-"
+    val s = "    \n"
     println(s.ifBlank { "<blank>" })
     println(s.ifBlank { null })
 //sampleEnd

@@ -115,8 +115,7 @@ post("/llm-chat") {
     )
 
     // 將所有助手訊息連接成單一字串
-    val text = messages.joinToString(separator = "
-") { it.content }
+    val text = messages.joinToString(separator = "\n") { it.content }
     call.respond(HttpStatusCode.OK, text)
 }
 ```

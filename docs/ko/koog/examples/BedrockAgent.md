@@ -181,13 +181,11 @@ println("💡 예시: '스위치를 켜줘' 또는 '현재 상태가 뭐야?'")
 println("📝 요청 사항을 입력하세요:")
 
 val input = readln()
-println("
-🤖 요청을 처리 중입니다...")
+println("\n🤖 요청을 처리 중입니다...")
 
 runBlocking {
     val response = agent.run(input)
-    println("
-✨ 에이전트 응답:")
+    println("\n✨ 에이전트 응답:")
     println(response)
 }
 ```

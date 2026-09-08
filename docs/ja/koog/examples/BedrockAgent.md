@@ -181,13 +181,11 @@ println("💡 例: 「スイッチをオンにしてください」または「�
 println("📝 リクエストを入力してください:")
 
 val input = readln()
-println("
-🤖 リクエストを処理中...")
+println("\n🤖 リクエストを処理中...")
 
 runBlocking {
     val response = agent.run(input)
-    println("
-✨ エージェントのレスポンス:")
+    println("\n✨ エージェントのレスポンス:")
     println(response)
 }
 ```

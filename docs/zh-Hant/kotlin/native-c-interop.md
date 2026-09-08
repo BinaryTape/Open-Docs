@@ -400,8 +400,7 @@ Kotlin 物件可以被固定（pinned），即保證它們在記憶體中的位�
 struct ForwardDeclaredStruct;
 
 void consumeStruct(struct ForwardDeclaredStruct* s) {
-    printf("Struct consumed
-");
+    printf("Struct consumed\n");
 }
 ```
 

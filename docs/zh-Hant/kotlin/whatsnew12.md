@@ -261,8 +261,7 @@ fun main(args: Array<String>) {
     val pairwiseDifferences = items.zipWithNext { a, b -> b - a }
 //sampleEnd
 
-    println("items: $items
-")
+    println("items: $items\n")
 
     println("chunked into lists: $chunkedIntoLists")
     println("3D points: $points3d")

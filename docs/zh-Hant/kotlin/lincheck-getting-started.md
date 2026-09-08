@@ -1,8 +1,3 @@
----
-title: Lincheck 快速入門
-description: 本快速入門指南將引導您完成 Lincheck 的設定、撰寫您的第一個 Lincheck 測試，並解讀測試報告。
----
-
 [//]: # (title: Lincheck 快速入門)
 [//]: # (description: 本快速入門指南將引導您完成 Lincheck 的設定、撰寫您的第一個 Lincheck 測試，並解讀測試報告。)
 

@@ -224,9 +224,7 @@ val strategy = strategy<String, String>("strategy_name") {
 val nodeAllJokes by parallel<String, String>(
    nodeOpenAI, nodeAnthropicSonnet, nodeAnthropicOpus,
 ) {
-   fold("Jokes:
-") { result, joke -> "$result
-$joke" }
+   fold("Jokes:\n") { result, joke -> "$result\n$joke" }
 }
 ```
 <!--- KNIT example-parallel-node-execution-06.kt -->
@@ -264,8 +262,7 @@ val strategy = strategy("best-joke") {
             user("Tell me a joke about $topic.")
          }
          val response = requestLLMWithoutTools()
-         response.parts.filterIsInstance<MessagePart.Text>().joinToString("
-") { it.text }
+         response.parts.filterIsInstance<MessagePart.Text>().joinToString("\n") { it.text }
       }
    }
 
@@ -277,8 +274,7 @@ val strategy = strategy("best-joke") {
             user("Tell me a joke about $topic.")
          }
          val response = requestLLMWithoutTools()
-         response.parts.filterIsInstance<MessagePart.Text>().joinToString("
-") { it.text }
+         response.parts.filterIsInstance<MessagePart.Text>().joinToString("\n") { it.text }
       }
    }
 
@@ -290,8 +286,7 @@ val strategy = strategy("best-joke") {
             user("Tell me a joke about $topic.")
          }
          val response = requestLLMWithoutTools()
-         response.parts.filterIsInstance<MessagePart.Text>().joinToString("
-") { it.text }
+         response.parts.filterIsInstance<MessagePart.Text>().joinToString("\n") { it.text }
       }
    }
 

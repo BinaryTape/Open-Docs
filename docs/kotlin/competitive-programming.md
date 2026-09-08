@@ -208,12 +208,10 @@ val (n, k) = readInts()
 
 人们可能会倾向于使用 JVM 的 `java.util.Scanner` 类来解析结构较少的输入格式。Kotlin 旨在与 JVM 库良好互操作，因此在 Kotlin 中使用它们感觉非常自然。但是，请注意 `java.util.Scanner` 非常慢。事实上，慢到用它解析 10<sup>5</sup> 个或更多整数可能无法在典型的 2 秒时限内完成，而简单的 Kotlin `split(" ").map { it.toInt() }` 却能轻松处理。
 
-在 Kotlin 中，通过 [`println(...)`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io/println.html) 调用并使用 Kotlin 的[字符串模板](strings.md#string-templates)来编写输出通常非常简单。但是，当输出包含约 10<sup>5</sup> 行或更多时，必须格外小心。发出这么多 `println` 调用太慢了，因为 Kotlin 中的输出在每行之后都会自动刷新。从数组或列表中写入多行的更快方法是使用 [`joinToString()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/join-to-string.html) 函数，并以 `"
-"` 作为分隔符，如下所示：
+在 Kotlin 中，通过 [`println(...)`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io/println.html) 调用并使用 Kotlin 的[字符串模板](strings.md#string-templates)来编写输出通常非常简单。但是，当输出包含约 10<sup>5</sup> 行或更多时，必须格外小心。发出这么多 `println` 调用太慢了，因为 Kotlin 中的输出在每行之后都会自动刷新。从数组或列表中写入多行的更快方法是使用 [`joinToString()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/join-to-string.html) 函数，并以 `"\n"` 作为分隔符，如下所示：
 
 ```kotlin
-println(a.joinToString("
-")) // 将数组/列表的每个元素打印在单独的一行
+println(a.joinToString("\n")) // 将数组/列表的每个元素打印在单独的一行
 ```
 
 ## 学习 Kotlin {id="learning-kotlin"}

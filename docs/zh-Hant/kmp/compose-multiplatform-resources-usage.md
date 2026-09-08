@@ -242,8 +242,7 @@ coroutineScope.launch {
 
 您可以在字串資源中使用特殊符號：
 
-* `
-` – 用於換行
+* `\n` – 用於換行
 * `\t` – 用於定位符號 (tab)
 * `\uXXXX` – 用於特定的 Unicode 字元
 

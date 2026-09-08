@@ -14,12 +14,10 @@ val name: String = "Kotlin"
 val message = "Hello, world!" // KotlinはStringと推論します
 ```
 
-ダブルクォートで囲まれた文字列リテラルは、`
-` や `\t` などの[エスケープシーケンス](characters.md#escape-sequences)をサポートしています。
+ダブルクォートで囲まれた文字列リテラルは、`\n` や `\t` などの[エスケープシーケンス](characters.md#escape-sequences)をサポートしています。
 
 ```kotlin
-val message = "Hello,
-world!"
+val message = "Hello,\nworld!"
 val quote = "Kotlin says, \"Hi\"."
 ```
 
@@ -86,8 +84,7 @@ fun main() {
 
 デフォルトでは、`trimMargin()` 関数はパイプ記号（`|`）をマージン接頭辞として使用しますが、別の文字をパラメータとして渡すこともできます。例：`trimMargin(">")`。
 
-> `trimIndent()` や `trimMargin()` のような関数で文字列を処理すると、プラットフォームに関係なく、結果の文字列は改行（`
-`）セパレータのみを使用します。
+> `trimIndent()` や `trimMargin()` のような関数で文字列を処理すると、プラットフォームに関係なく、結果の文字列は改行（`\n`）セパレータのみを使用します。
 >
 {style="note"}
 
@@ -378,9 +375,7 @@ fun main() {
 ```kotlin
 fun main() { 
 //sampleStart
-    val numbers = "one
-two
-three"
+    val numbers = "one\ntwo\nthree"
     println(numbers.lines())
     // [one, two, three]
 //sampleEnd

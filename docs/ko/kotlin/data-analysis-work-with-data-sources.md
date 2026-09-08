@@ -1,7 +1,4 @@
----
-title: "파일에서 데이터 가져오기"
-description: "Kotlin DataFrame을 사용하여 CSV, JSON, SQL, Excel, Apache Arrow 파일을 포함한 파일에서 데이터를 로드하는 방법을 알아보세요."
----
+[//]: # (description: Kotlin DataFrame을 사용하여 CSV, JSON, SQL, Excel, Apache Arrow 파일을 포함한 파일에서 데이터를 로드하는 방법을 알아보세요.)
 
 [//]: # (title: 파일에서 데이터 가져오기)
 

@@ -208,12 +208,10 @@ val (n, k) = readInts()
 
 구조화가 덜 된 입력 형식을 파싱하기 위해 JVM의 `java.util.Scanner` 클래스를 사용하고 싶을 수도 있습니다. 코틀린은 JVM 라이브러리와 잘 상호운용되도록 설계되어 있어 코틀린에서 이를 사용하는 것이 꽤 자연스럽게 느껴집니다. 하지만 `java.util.Scanner`는 매우 느리다는 점에 주의해야 합니다. 사실 너무 느려서 10<sup>5</sup>개 이상의 정수를 파싱할 때 전형적인 2초의 시간 제한을 맞추지 못할 수도 있습니다. 반면 코틀린의 단순한 `split(" ").map { it.toInt() }`는 이를 충분히 처리할 수 있습니다. 
 
-코틀린에서 출력을 작성하는 것은 보통 [`println(...)`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io/println.html) 호출과 코틀린의 [문자열 템플릿(string templates)](strings.md#string-templates)을 사용하여 직관적으로 할 수 있습니다. 그러나 출력이 10<sup>5</sup>행 이상일 때는 주의해야 합니다. 코틀린의 출력은 각 줄 뒤에 자동으로 플러시(flush)되기 때문에 그렇게 많은 `println`을 호출하는 것은 너무 느립니다. 배열이나 리스트에서 많은 줄을 더 빠르게 작성하는 방법은 다음과 같이 `"
-"`을 구분자로 사용하는 [`joinToString()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/join-to-string.html) 함수를 사용하는 것입니다.
+코틀린에서 출력을 작성하는 것은 보통 [`println(...)`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io/println.html) 호출과 코틀린의 [문자열 템플릿(string templates)](strings.md#string-templates)을 사용하여 직관적으로 할 수 있습니다. 그러나 출력이 10<sup>5</sup>행 이상일 때는 주의해야 합니다. 코틀린의 출력은 각 줄 뒤에 자동으로 플러시(flush)되기 때문에 그렇게 많은 `println`을 호출하는 것은 너무 느립니다. 배열이나 리스트에서 많은 줄을 더 빠르게 작성하는 방법은 다음과 같이 `"\n"`을 구분자로 사용하는 [`joinToString()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/join-to-string.html) 함수를 사용하는 것입니다.
 
 ```kotlin
-println(a.joinToString("
-")) // 배열/리스트의 각 요소를 개별 줄에 출력
+println(a.joinToString("\n")) // 배열/리스트의 각 요소를 개별 줄에 출력
 ```
 
 ## 코틀린 학습하기 {id="learning-kotlin"}

@@ -148,16 +148,14 @@ Objective-C 객체가 예상보다 오래 유지되어 때때로 성능 문제�
 // Kotlin
 fun growingMemoryUsage() {
     repeat(Int.MAX_VALUE) {
-        NSLog("$it
-")
+        NSLog("$it\n")
     }
 }
 
 fun steadyMemoryUsage() {
     repeat(Int.MAX_VALUE) {
         autoreleasepool {
-            NSLog("$it
-")
+            NSLog("$it\n")
         }
     }
 }

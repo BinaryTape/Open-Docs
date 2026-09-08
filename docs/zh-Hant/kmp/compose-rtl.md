@@ -35,8 +35,7 @@ CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
     Column(modifier = Modifier.fillMaxWidth()) {
         // 此區塊中的組建將由左至右配置
         Text("LTR Latin")
-        TextField("Hello world
-Hello world")
+        TextField("Hello world\nHello world")
     }
 }
 ```

@@ -14,12 +14,10 @@ val name: String = "Kotlin"
 val message = "Hello, world!" // Kotlin 推論為 String
 ```
 
-雙引號字串常值支援[轉義序列](characters.md#escape-sequences)，例如 `
-` 或 `\t`：
+雙引號字串常值支援[轉義序列](characters.md#escape-sequences)，例如 `\n` 或 `\t`：
 
 ```kotlin
-val message = "Hello,
-world!"
+val message = "Hello,\nworld!"
 val quote = "Kotlin says, \"Hi\"."
 ```
 
@@ -86,8 +84,7 @@ fun main() {
 
 預設情況下，`trimMargin()` 函式使用管道符號 (`|`) 作為邊距前綴，但您可以傳遞另一個字元作為參數。例如：`trimMargin(">")`。
 
-> 當您使用 `trimIndent()` 或 `trimMargin()` 等函式處理字串時，無論在哪個平台，產生的字串都只會使用換行 (`
-`) 分隔符號。
+> 當您使用 `trimIndent()` 或 `trimMargin()` 等函式處理字串時，無論在哪個平台，產生的字串都只會使用換行 (`\n`) 分隔符號。
 >
 {style="note"}
 
@@ -378,9 +375,7 @@ fun main() {
 ```kotlin
 fun main() { 
 //sampleStart
-    val numbers = "one
-two
-three"
+    val numbers = "one\ntwo\nthree"
     println(numbers.lines())
     // [one, two, three]
 //sampleEnd

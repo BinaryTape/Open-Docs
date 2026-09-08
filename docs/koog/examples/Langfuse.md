@@ -80,8 +80,7 @@ println("Running agent with Langfuse tracing")
 
 runBlocking {
     val result = agent.run("Tell me a joke about programming")
-    "Result: $result
-See traces on the Langfuse instance"
+    "Result: $result\nSee traces on the Langfuse instance"
 }
 
 ```

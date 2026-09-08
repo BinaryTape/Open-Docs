@@ -19,8 +19,7 @@ println(readln())
 
 ```kotlin
 val input = generateSequence(::readlnOrNull)
-  .joinToString("
-")
+  .joinToString("\n")
 ```
 
 > 예외를 발생시키지 않고 파일 끝(EOF)까지 입력을 읽으려면 `readln()` 대신 [`readlnOrNull()`](#handle-standard-input-safely)을 사용하세요.

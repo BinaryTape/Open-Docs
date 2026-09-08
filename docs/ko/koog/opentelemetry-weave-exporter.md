@@ -58,8 +58,7 @@ fun main() = runBlocking {
 
     val result = agent.run("Tell me a joke about programming")
 
-    println("결과: $result
-다음에서 트레이스를 확인하세요: https://wandb.ai/$entity/$projectName/weave/traces")
+    println("결과: $result\n다음에서 트레이스를 확인하세요: https://wandb.ai/$entity/$projectName/weave/traces")
 }
 ```
 <!--- KNIT example-weave-exporter-01.kt -->

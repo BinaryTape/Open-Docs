@@ -5,6 +5,7 @@ import { fileURLToPath } from "url";
 import pLimit from "p-limit";
 import { toContentRelPath } from "../../shared/content-paths.ts";
 import { applySourceAnchors } from "./utils/heading-anchors.mjs";
+import { restoreTitleComment } from "./utils/title-comment.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -528,6 +529,10 @@ async function translateFile(filePath) {
           // Clean up extra content in translation result
           translatedContent = cleanupTranslation(translatedContent);
 
+          // A Writerside title comment rewritten as YAML frontmatter leaves the
+          // page with no H1 at all.
+          translatedContent = restoreTitleComment(translatedContent, content).content;
+
           // Translating a heading changes the anchor generated from it, which
           // would break every upstream `page.md#anchor` link pointing at it.
           const anchored = applySourceAnchors(translatedContent, content);
@@ -576,9 +581,14 @@ export function cleanupTranslation(text) {
     text = text.replace(/```$/, "");
   }
 
-  // Remove extra 'n' characters (usually found in translation API error outputs)
-  text = text.replace(/([^\\])\\n/g, "$1\n"); // Replace non-escaped \n with actual newline
-  text = text.replace(/^\\n/g, "\n"); // Handle leading \n
+  // A model occasionally returns the whole document on one line with a literal
+  // `\n` wherever a line break belongs. Unescaping is only safe when there is
+  // no real line break to prove the document already arrived intact: Markdown
+  // carries `\n` inside code samples and escape-sequence tables, and rewriting
+  // those splits string literals and table rows apart.
+  if (!text.includes("\n")) {
+    text = text.replace(/\\n/g, "\n");
+  }
 
   // Remove extra blank lines
   text = text.replace(/\n{3,}/g, "\n\n");

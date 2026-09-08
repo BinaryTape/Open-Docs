@@ -240,8 +240,7 @@ coroutineScope.launch {
 
 你可以在字符串资源中使用特殊符号：
 
-* `
-` – 用于换行
+* `\n` – 用于换行
 * `\t` – 用于制表符
 * `\uXXXX` – 用于特定的 Unicode 字符
 
